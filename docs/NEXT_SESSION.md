@@ -11,6 +11,9 @@ notes de vaste beta-alinea, RELEASE_CHECKLIST §2).
 Ochtendronde 27 okt: wachters alle 4 gedraaid (hotfix 26 okt, raakt ons niet), CF/GitHub 0 open, HandyNotes 167
 onveranderd, vragenlijst #26 bijgeteld (06882f5). Site-chat 27-10 stuurde 3 MH-punten (SMC-afkorting in 5 talen, AH-pin
 zonder bron, RAIDSHOP_GEAR_TIP op elke enchant-rij): nog niet opgepakt, eerst Robs keuze.
+🔜 **WENS Rob 27 okt (splits):** *"ik ga het eerst testen, maar er moet wel iets van een overzicht ergens komen :)"* —
+nu is er alleen chat (`/mh labsplits`, lijst bij verlaten) + de korte melding per kamer. Na zijn test: een overzicht
+(venster/tabblad met beste tijden per Tier en de laatste run) ontwerpen en eerst voorleggen. Niets gebouwd.
 
 ## 🔜 OPEN na 26 okt (overdracht naar de bouwchat van 27 okt)
 
