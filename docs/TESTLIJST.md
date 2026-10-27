@@ -50,8 +50,10 @@ er is niets weggegooid.
 ## 🆕 26 okt — Labyrinth-splits (race tegen je beste tijd per kamer)
 
 Eerst `/reload`, dan BUITEN de Labyrinth de run beginnen (anders telt de eerste kamer niet: MH zag de start niet).
-- [ ] Na elke kamer: onder het midden een regel "Chamber of Rites: 5:00. Your first time on Tier 11 …" (eerste run) of
-      "… 0:38 faster than your best (5:00). New record!" / "… slower …". Ook in de chat.
+- [x] ✅ GEMETEN Rob 27 okt (video 07-39-48 + SavedVariables): na kamer 1 onder het midden "Chamber of Rites: 14:14. Your
+      first time on Tier 11: this is now the time to beat." en dezelfde regel in de chat; ns.db.labSplits.best[11]["Chamber
+      of Rites"] = 854. /reload daarna: geen fouten. (Kamer = de plek; de taak was Taken Antiquities.)
+- [ ] Een tweede keer dezelfde kamer: "… 0:38 faster than your best … New record!" of "… slower …".
 - [ ] Bij Kindo'jan (platform) na de kill ook zo'n regel?
 - [ ] Na het verlaten van de Labyrinth: in de chat "Labyrinth, Tier 11: 5 rooms in 23:40, 1 new record(s)" met per kamer
       de tijd en groen −/rood +.
