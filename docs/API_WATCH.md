@@ -7533,3 +7533,137 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
     **shallow** (`git rev-parse --is-shallow-repository` → **`true`**), dus de les van gisteren blijft
     staan: vergelijk HEAD met `origin/main` en nooit met de lokale `main`. Geen enkel ander bestand
     geraakt.
+- [2026-10-28] 🆕 **Nul [MOET GEFIKST] — maar twee dingen zijn nieuw sinds mijn vorige run, en één ervan
+  raakt een bron die ik gisteren nog anders gelezen heb: (1) er is een HOTFIX-BATCH van **27 okt**, nu de
+  bovenste gedateerde kop in draad `2382684` (gisteren was dat 26 okt), opnieuw **zonder
+  `User Interface`-sectie**; (2) de vastgepinde draad **`UI Add-On Development Policy`** (`24534`) —
+  Blizzards eigen addon-beleidsdraad — is **2026-10-27T18:20:20Z** gebumpt. Het zijn twee
+  spelersposts en **geen blue post**, en de beleidstekst zelf is onveranderd, dus [RAAKT ONS NIET];
+  maar dat ik hem gevonden heb was geluk, en daar staat hieronder een aparte waarschuwing over.
+  Verder stil: geen nieuwe client-build (zesde dag), geen wiki-revisie (twaalfde dag), geen
+  SimC-release (zesde dag), geen nieuwe API-post op het forum.**
+  - 🆕 **[RAAKT ONS NIET] — HOTFIXES 27 OKT 2026, nieuw sinds mijn vorige regel.** GEMETEN langs twee
+    routes op dezelfde bron, beide mét `?nocache=20261028`: de **topic-JSON** `t/2382684.json` en de
+    **raw-post** `raw/2382684/1`. Post #1 (Linxy, aangemaakt 2026-10-15T00:53:57.786Z) heeft nu als
+    bovenste gedateerde kop letterlijk *"October 27, 2026"*, bóven *"October 26, 2026"*. Secties,
+    volledig gelezen tot de 26-okt-kop: `Classes`, `Items`, `Labyrinth`, `Player versus Player`.
+    **Geen `User Interface`-sectie** — niets op mijn terrein. 📌 Het is vrijwel helemaal class tuning
+    (Feral +5%, Fire +5%, Subtlety −8%, een lange PvP-lijst) en dat is `docs/CONTENT_WATCH.md`, niet
+    van mij.
+    - 🔇 **[RAAKT ONS NIET] — *"Labyrinth: Fixed an issue where some scenarios were not granting Great
+      Vault credit."*** Dit is de enige regel in de batch die aan twee MH-modules tegelijk raakt
+      (Labyrinth-splits en de Great Vault), dus ik heb hem wél getoetst in plaats van hem meteen
+      doorgeschoven. Het is een **serverfix**: hij verandert geen API, geen event en geen signature,
+      en MH leest de vault via `C_WeeklyRewards` (**12** bestanden), dus wat de server toekent zien we
+      automatisch. 🧪 GEMETEN dat MH ook nergens zélf beweert dat Labyrinth-scenario's vault-credit
+      geven: `labyrinth.{0,60}(vault|credit)` → **0** bestanden, mét positieve controle op dezelfde
+      regexvorm en reikwijdte in dezelfde run (`delve.{0,60}(vault|credit)` → **19**,
+      `labyrinth.{0,60}(split|room)` → **17**, `vault.{0,60}(mythic|raid)` → **24**). Er is dus geen
+      claim die door deze fix waar of onwaar wordt — en dus ook niets voor de contentwachter.
+    - 🔇 **[RAAKT ONS NIET] — de tuning-regels die spells noemen die MH wél in zijn data heeft.**
+      GEMETEN in bestanden (`.git`/`docs`/`tools`/`dist` uitgesloten): `Regrowth` → **11**,
+      `Celestial Conduit` → **5**, `Swiftmend` → **4**, `Rain of Fire` → **4**, `Prayer of Healing` →
+      **3**, `Healing Stream Totem` → **3**, `Unstable Affliction` → **2**, `Kill Shot` → **2**. Overal
+      waar ik keek staan ze als **spell-ID plus toetspositie**, niet als getal — bv. `Swiftmend`
+      `id = 18562` op `Modules/KeybindRoles_Druid.lua:212` en `Modules/HealerCooldowns.lua:192`. Een
+      percentage-aanpassing verandert ID noch prioriteit noch plek in de layout; er is niets te
+      migreren. 🧪 Nul treffers, in dezelfde run en reikwijdte: `Verdancy` → **0**, `Mistline` → **0**,
+      `Collapsing Star` → **0**, `Divine Favor` → **0**, `Rexxar` → **0** (die laatste is de
+      tabard/armorset-fix onder `Items`).
+    - ⚠️ **Eén regel waar ik de MH-tekst apart tegen gelegd heb, omdat de hotfix hem bijna raakte:**
+      *"Trick Shots now increases the ricochet damage of Aimed Shot and Rapid Fire by 85%
+      (was 75%)."* MH beschrijft Trick Shots wél, maar alléén de **drempel**, niet de schade:
+      `Locales/enUS.lua:1943` en `:1952` (plus `nlNL.lua:1868`/`:1877` en `ruRU.lua:3639`/`:3655`)
+      zeggen *"if it hits 3 or more enemies"*. De hotfix verandert het percentage en niet die drie
+      doelen, dus de MH-tekst blijft waar. Niets te doen — en als de drempel ooit wél verandert, is
+      dit de plek.
+  - 🆕 **[RAAKT ONS NIET] — `UI Add-On Development Policy` (`24534`) BEWEEGT WEER, maar niet van
+    Blizzards kant.** ⚠️ **CORRECTIE OP MIJN EIGEN EERSTE LEZING VAN VANDAAG:** ik wilde dit melden als
+    *"deze draad beweegt voor het eerst"*, en dat is onwaar. Mijn regel van gisteren noemt
+    forumtreffer **`30613248`** (*"de betaalde `Journey`-addon"*) en GEMETEN vandaag is dat
+    **post #16 van juist deze draad `24534`** — ik had hem toen alleen als losse post geteld en niet
+    als draad herkend. Nieuw vandaag zijn dus **posts 17 en 18**, niet de draad. GEMETEN via `search.json` (zie de waarschuwing
+    hieronder) en daarna per post met `raw/24534/<n>?nocache=20261028`: de draad staat op
+    `last_posted_at` **2026-10-27T18:20:20.814Z**, `highest_post_number` **18**, `posts_count`
+    **16**. Posts **17** en **18** zijn nieuw sinds mijn run van gisteren en ik heb ze letterlijk
+    gelezen: #17 *"I did same thing already and they don't respond .."*, #18 een spelersklacht over
+    een betaalde addon (*"He said its NOT paid. Then 5 minutes later iterates you have to pay for
+    it."*). Dat is de voortzetting van de `Journey`-discussie die ik op 25/27 okt al als
+    forumtreffer `30613248` noteerde. **Geen blue post, geen beleidswijziging:** post #1 (Kaivax)
+    heeft `updated_at` **2018-11-19T21:09:46.908Z** en `version` **1** — de beleidstekst zelf is
+    sinds 2018 niet aangeraakt en bevat nog exact de acht regels van 2009.
+    - 📌 **Waarom ik dit tóch meld terwijl het [RAAKT ONS NIET] is:** dit is de draad waarin een
+      wijziging van Blizzards addon-beleid zou landen, en twee van die acht regels gaan MH direct
+      aan (*"1) Add-ons must be free of charge"* en *"2) Add-on code must be completely visible"* —
+      MH is gratis op CurseForge en onversleuteld Lua, dus in orde). Beweegt deze draad met een
+      **blue post** erin, dan is dat wél mijn terrein. Vandaag is het alleen spelersgemor.
+  - ⚠️ **METHODE-WAARSCHUWING, en dit is de echte vondst van vandaag: `search.json` HEEFT DIE TWEE
+    POSTS NIET TERUGGEGEVEN.** GEMETEN: `search.json?q=#ui-macro after:2026-10-25&nocache=20261028`
+    gaf **4** posts, waarvan de nieuwste `30628288` van **2026-10-27T00:36:05.734Z** was — terwijl
+    het `topics`-blok van diezelfde respons voor draad `24534` `last_posted_at`
+    **2026-10-27T18:20:20.814Z** meldde, ruim 17 uur later. De posts zelf stonden er dus niet in,
+    de bump wél. Ik vond ze alleen doordat ik `highest_post_number` (**18**) tegen het nieuwste
+    gevonden postnummer (**16**) legde. 🔴 **Dus: de postenlijst van `search.json` is géén volledige
+    meting van "wat is er nieuw in `#ui-macro`".** Vanaf nu hoort de controle te zijn: vergelijk per
+    draad `last_posted_at`/`highest_post_number` met wat de postenlijst laat zien, en haal het gat op
+    met `raw/<topic>/<postnummer>`. Of de index gewoon achterloopt of dat posts in een vastgepinde
+    draad anders geïndexeerd worden, is **niet vastgesteld** — ik weet alleen dat de ene weg ze miste
+    en de andere ze vond. 📌 Dit is dezelfde familie als de Exa-cache van 3 sep en als
+    [[silence-is-not-absence]]: een bron die netjes antwoordt en tóch minder laat zien dan er is.
+  - 🔇 **[RAAKT ONS NIET] — GEEN NIEUWE CLIENT-BUILD, zesde dag op rij, op beide branches.** GEMETEN
+    met `git ls-remote https://github.com/Gethe/wow-ui-source refs/heads/live refs/heads/ptr`:
+    `live` = **`15881d522c44cd106d3d8660106ec9f9d2f44167`**, `ptr` =
+    **`03cd1ac95b8c96fcb91377a3bfc8e52d4edca9b8`** — bit voor bit dezelfde twee SHA's als op 24, 25,
+    26 én 27 okt. Live dus nog **12.1.5.70575**, PTR **12.1.7 (70493)**; nul nieuwe commits, niets te
+    diffen. 📌 `ls-remote` vraagt de server elke keer opnieuw, dus hier is cache-twijfel niet van
+    toepassing.
+  - 🔇 **[RAAKT ONS NIET] — wiki: beide API-pagina's nog op hun 16 okt-revisie, TWAALFDE dag.** GEMETEN
+    via `rest.php/v1/page/<pagina>%2FAPI_changes/history?nocache=20261028`: `Patch 12.1.7/API changes`
+    op **`6919765`** (**2026-10-16T22:38:53Z**, Ketho, nog steeds **vier** revisies in totaal);
+    `Patch 12.1.5/API changes` op **`6919763`** (**2026-10-16T22:38:41Z**, Ketho). Identiek aan de
+    vorige vier runs.
+    - **`Patch 12.1.5 (undocumented changes)`** staat nog op **`6932397`** (**2026-10-23T05:46:38Z**,
+      Karadine, *"+ Valdrakken Resupply Coin"*, 1179 bytes) — vijfde dag stil, en nog steeds content
+      zonder `User Interface`-sectie, dus van de andere drie wachters.
+    - **De paginalijst is onveranderd: 33 titels.** GEMETEN met
+      `api.php?action=query&list=allpages&apprefix=Patch%2012.&aplimit=200&format=json&maxage=0` —
+      **33** namen met precies **zeven** `/API changes`-subpagina's (`12.0.0`, `12.0.1`, `12.0.5`,
+      `12.0.7`, `12.1.0`, `12.1.5`, `12.1.7`), **geen 12.1.9 en geen 12.2.x**; `Patch 12.2`, `12.2.0`,
+      `12.2.5` en `12.2.7` bestaan als pagina maar zonder `/API changes`. Derde dag dat dit 33 is.
+      ⚠️ `maxage=0` is hier de werkende cache-buster: de API antwoordde *"Unrecognized parameter:
+      nocache"* — een waarschuwing, geen fout, en de respons was actueel.
+  - 🔇 **SimC-addon: geen nieuwe release sinds `12.1.5-03`, zesde dag.** GEMETEN langs twee routes:
+    `git ls-remote --tags https://github.com/simulationcraft/simc-addon` geeft als nieuwste 12.x-tag
+    **`12.1.5-03`** = **`cb3e3af298e3124162c6bf44d1bebac53435eaec`** (uit 290 tags), en `HEAD` én
+    `refs/heads/master` staan op diezelfde SHA — dus ook **geen ongereleasete commits** op master. De
+    releases-pagina (mét `?nocache=20261028`) bevestigt het: bovenaan `12.1.5-03`, **22 okt 21:56**,
+    body *"forever: Export hunter pet info"*, al op 23 okt getoetst en toen [RAAKT ONS NIET] bevonden.
+    `Modules/SimcExport.lua` volgt in zijn kopcommentaar nog **`12.1.0-04`** plus de race-takken uit
+    `12.1.0-alpha-06` (GEMETEN, `Modules/SimcExport.lua:12-14`); er was vandaag niets nieuws om
+    daartegen te leggen.
+  - 🔌 **MEETGAT, derde dag identiek: de WoW-bronnen blijven geweigerd op Bash-`curl`.** GEMETEN met
+    `curl -o /dev/null -w "%{http_code}" --max-time 12`: `warcraft.wiki.gg`,
+    `us.forums.blizzard.com`, `www.wowhead.com` en `news.blizzard.com` geven alle vier **`000`**.
+    🔴 Niet omzeild (het proxy-README verbiedt dat expliciet): élke wiki- en forummeting hierboven
+    loopt via Exa `web_fetch_exa` mét `?nocache=20261028`, en dat werkte voor elke URL. Wat wél
+    schoon werkt op Bash: **`git ls-remote` over https naar github.com**.
+  - 🧪 **Positieve controle van de grep-reikwijdte, in dezelfde run en in dezelfde vorm als de nullen
+    hierboven** (`grep -rIl`, `.git`/`docs`/`tools`/`dist` uitgesloten, geteld in bestanden):
+    `issecretvalue` → **66**, `C_Spell` → **56**, `Labyrinth` → **42** (gisteren 41),
+    `C_UnitAuras` → **13**, `C_WeeklyRewards` → **12**, tegenover `CooldownManager` → **0** en
+    `C_CooldownViewer` → **0**. Het patroon vindt wat er is, dus de nullen hierboven zijn afwezigheid
+    en geen meetfout.
+  - ⏳ **Nog open uit eerdere runs, NIET nieuw en vandaag niet opnieuw gemeten:** de UTF-8 BOM vooraan
+    `MidnightHelper.toc`; de `%d+`-aanname op veld 3 van de npcID-match (`Modules/ResetRoutine.lua:648`)
+    tegenover de GUID-obfuscatie; de dode `PickupItem`-takken in `Modules/KeyBlock.lua:1135`/`:1227`/
+    `:1380` en `Modules/ApplyLayout.lua:1311`/`:1345`/`:1605`; de vijf decoratieve
+    `GetItemInfo`-terugvaltakken; `Blizzard_DeprecatedWorldElapsedTimerTypes` als tiende
+    deprecated-addon tegenover negen wiki-secties; de verouderde namespace-lijst in
+    `docs/WATCHER_API_PROMPT.md` (18 aug); de client-test voor `/mh raidbots`; en de 193 ongelezen
+    PTR-bestanden van build `70493`. 🔴 Niets van dit alles aangeraakt.
+  - 🔧 **Repo-staat: alleen `docs/API_WATCH.md` aangeraakt.** GEMETEN vóór het schrijven:
+    `git rev-parse --abbrev-ref HEAD` → **`main`** (tweede dag geen detached HEAD),
+    `git status --short` **leeg**, geen van de vier wachter-bestanden gewijzigd-maar-ongecommit, en ná
+    `git fetch origin main` tellen `HEAD..origin/main` en `origin/main..HEAD` béide **0**. 📌 De kloon
+    is nog steeds **shallow** (`git rev-parse --is-shallow-repository` → **`true`**), dus vergelijk
+    HEAD met `origin/main` en nooit met de lokale `main`. Geen enkel ander bestand geraakt.
