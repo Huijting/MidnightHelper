@@ -3573,3 +3573,54 @@ kop, per bevinding MEASURED/INFERRED en [RAAKT ONS]/[RAAKT ONS NIET], met bestan
   `Modules/KeybindRoles_Warlock.lua:35,141`, `Modules/TradingPost.lua:216`,
   `Modules/ResetRoutine.lua:196`, `Locales/enUS.lua:3617-3628` — allemaal vandaag gelezen. Geen
   actiepunt dat ík oppak — ik rapporteer, een mens beslist.
+
+- [2026-10-28] 💬 **CurseForge: geen open reacties (3 draadjes, 8 berichten — ongewijzigd t.o.v.
+  [2026-10-27]).** `curseforge.com/api/v1/mods/1528577/comments?pageIndex=0&pageSize=20&nocache=20261028g`
+  (en `&nocache=20261028h` als tweede, onafhankelijke fetch) via Exa, beide volledig gelezen (JSON,
+  `pagination.totalCount: 8`). Dezelfde drie draadjes als gisteren (esES/esMX-locale-fix
+  `user_uvqy5939hswhgduu`, reply `8510682`; MrsBoojiePanda's debug-printregel, reply `8483898`;
+  gadrinonturalyon's coffer-key-shards/3D-boss-model-verzoek, reply-keten tot `8095337`/`8092133`)
+  hebben als nieuwste bericht nog steeds een reactie van `twelveinchy` — ids en timestamps
+  byte-identiek aan [2026-10-27]. MEASURED. **[RAAKT ONS NIET]** — geen actiepunt, geen
+  concept-antwoord nodig.
+
+- [2026-10-28] 🔇 **Nieuwe hotfix-sectie "October 27, 2026" gelezen, twee content-items getoetst —
+  geen van beide raakt ons; de rest is class-/PvP-tuning (buiten mijn terrein) of al gisteren
+  getoetst.** MEASURED: `news.blizzard.com/en-us/article/24307310/hotfixes-october-23-2026?nocache=20261028g`
+  via Exa, volledig gelezen tot en met de "October 21, 2026"-sectie; de paginatitel staat nu op
+  "Hotfixes: October 27, 2026". De blue post/data-wachter van vanochtend zag dezelfde sectie
+  onafhankelijk en wees het enige trackbare feit erin — de Labyrinth/Vault-regel hieronder — al aan
+  deze wachter toe (`docs/PTR_12.0.7_DATA.md:833`); zelf getoetst, niet overgenomen.
+
+  1. **Labyrinth — "Fixed an issue where some scenarios were not granting Great Vault credit."**
+     Getoetst of MH een eigen bewering doet over wélke Labyrinth-scenario's tegen de Vault tellen:
+     `Modules/VaultAdvisor.lua:204-207,1029-1040` leest de Vault-voortgang uitsluitend via
+     `C_WeeklyRewards.GetActivities` (live API-call, geen eigen telling), en `grep -i vault` op
+     `Modules/LabyrinthSplits.lua` en `Modules/DelveWeeklyTrackers.lua` geeft **0** treffers.
+     **Positieve controle in dezelfde scope:** dezelfde grep-opzet (`Locales/`+`Modules/`) vindt wél
+     `coffer` in 5 bestanden, dus het patroon vindt dingen die er zijn — de 0 voor "vault" in die twee
+     bestanden is afwezigheid, geen meetfout. MH heeft dus geen eigen scenario-telling die deze bug
+     zou hebben overgenomen. MEASURED. **[RAAKT ONS NIET]**.
+  2. **Items — "Fixed an issue where tabards would hide the Rexxar armor set."** Gegrept op
+     `tabard`/`Rexxar` in heel `Locales/` en `Modules/`: "tabard" komt alleen voor als
+     equipment-slotnaam/-index (`Modules/GearExport.lua:83,92`, `Modules/DurabilityWarn.lua:22`,
+     `Modules/SimcExport.lua:101,106,111`, `Modules/AltOverview.lua:403`, `Modules/TrackCeiling.lua:46`
+     — allemaal "dit slot bestaat/doet niet mee", geen transmog-bewering) en "Rexxar" geeft **0**
+     treffers waar dan ook. MEASURED. **[RAAKT ONS NIET]** — een cosmetische tabard-bugfix zonder
+     nieuw item-ID, wij zeggen er niets over.
+
+  De "October 26, 2026"- en "October 23, 2026"-secties (Shaman/Warlock-classfixes, Hallow's End/
+  Neighborhoods, de drie andere Labyrinth-regels, Paladin Holy PvP, Den of Nalorakk, Murder Row,
+  Ascendant Venomstones) staan al volledig getoetst in [2026-10-27] — niets nieuws om opnieuw te
+  bekijken. Geen Professions- of Quests-sectie in de hele gelezen pagina vandaag (alleen Classes,
+  Items, Labyrinth, Dungeons, Hallow's End en PvP kwamen voor) — dus niets in die twee categorieën
+  om te toetsen.
+
+  Vandaag is geen maandag: de wekelijkse PlayCard- en Consumables-checks zijn bewust overgeslagen.
+
+  Bron: `news.blizzard.com/en-us/article/24307310/hotfixes-october-23-2026?nocache=20261028g` (Exa,
+  volledig gelezen) · `curseforge.com/api/v1/mods/1528577/comments?...` (`nocache=20261028g`/`h`,
+  via Exa) · codebase: `Modules/VaultAdvisor.lua:204-207,1029-1040`, `Modules/LabyrinthSplits.lua`,
+  `Modules/DelveWeeklyTrackers.lua`, `Modules/GearExport.lua:83,92`, `Modules/DurabilityWarn.lua:22`,
+  `Modules/SimcExport.lua:101,106,111`, `Modules/AltOverview.lua:403`, `Modules/TrackCeiling.lua:46`
+  — allemaal vandaag gelezen. Geen actiepunt dat ík oppak — ik rapporteer, een mens beslist.
