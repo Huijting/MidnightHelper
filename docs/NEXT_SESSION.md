@@ -6,14 +6,20 @@ Alles gepusht (laatste code: 6a2b0f3). In beta1 zitten de Tier-fix, "record(s)" 
 - **Testen (TESTLIJST, 26-okt-splitsblok + 26/25-okt-blokken):** de 2 reparaties van 27 okt laat ("0 new record(s)" weg,
   "vs avg -36m 13s"); de AH-punten (aantal in koopscherm, wachtmelding, "Fill in the amount when buying"); delve-verhalen
   op Engels; daarna de 25-okt-punten.
-- **Schermmelding bij Kindo'jan niet gezien** (chatregel wel). Oorzaak onbekend; als Rob een video heeft, frames bekijken.
+- **Schermmelding bij Kindo'jan niet gezien** (chatregel wel). Uitgezocht 28 okt (alleen gelezen, niets veranderd):
+  GEMETEN in de code dat chatregel en melding uit dezelfde `Say(msg, true)` komen (LabyrinthSplits.lua:95-100), dus de
+  melding is wél aangevraagd; `ShowBriefNotice` heeft geen rem (BriefNotice.lua:132). Alleen de kistroute (DelveChestData)
+  kan hem in MH vervangen, en alleen als die route aanstond. Geen video van de avondrun (Captures: alleen 07-39-48).
+  Robs melding staat versleept op x 1230 / y 308 (SavedVariables), dezelfde plek als 's ochtends, toen hij hem wél zag.
+  AFGELEID: druk moment (buit, banners, DBM) of niet opgevallen — Rob: "het kan ook zijn dat ie mij niet opgevallen is".
+  Volgende stap: bij een volgende run de kill filmen, of een kleine diagnose bouwen (op Robs ja).
 - **Ontwerp A–D** (artifact hierboven) goedgekeurd als ontwerp; BOUWEN pas op Robs go. Mijn advies-volgorde: eerst
   splitsvenster A/B, dan Delve Log C/D (records per Tier).
 - **Daarna: beta2 of gewone 4.14.0** — Robs keus. Bij de gewone 4.14.0 de site-chat seinen (beta-blok → "nieuw", knop +
   strookregel eruit, Solo-tab op /play/; site-chat 27-10 vroeg erom).
 - **3 site-chat-punten** (SMC-afkorting, AH-pin zonder bron, RAIDSHOP_GEAR_TIP) — nog Robs keus.
-- **Rob vragen:** stoppen de Battle.net-nep-updates? start CurseForge vanzelf na een herstart? Talebound-demo 30 okt–1 nov:
-  Rob kijkt; fouten → screenshot.
+- ✅ **Rob, 28 okt:** de Battle.net-nep-updates zijn weg (git-data buiten de WoW-map werkt), en CurseForge start vanzelf
+  op na een herstart. Talebound-demo 30 okt–1 nov: Rob kijkt; fouten → screenshot.
 
 ## 🧪 27 okt (ochtend) — BETA 4.14.0-beta1 (Rob: "we kunnen wel een beta nu doen toch ?" → "ja en go")
 
