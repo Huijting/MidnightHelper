@@ -12,7 +12,7 @@ Alles gepusht (laatste code: 6a2b0f3). In beta1 zitten de Tier-fix, "record(s)" 
   kan hem in MH vervangen, en alleen als die route aanstond. Geen video van de avondrun (Captures: alleen 07-39-48).
   Robs melding staat versleept op x 1230 / y 308 (SavedVariables), dezelfde plek als 's ochtends, toen hij hem wél zag.
   AFGELEID: druk moment (buit, banners, DBM) of niet opgevallen — Rob: "het kan ook zijn dat ie mij niet opgevallen is".
-  Volgende stap: bij een volgende run de kill filmen, of een kleine diagnose bouwen (op Robs ja).
+  Rob koos 28 okt: *"ik film hem de volgende keer"* — geen diagnose bouwen; frames bekijken als de video er is.
 - **Ontwerp A–D** (artifact hierboven) goedgekeurd als ontwerp; BOUWEN pas op Robs go. Mijn advies-volgorde: eerst
   splitsvenster A/B, dan Delve Log C/D (records per Tier).
 - **Daarna: beta2 of gewone 4.14.0** — Robs keus. Bij de gewone 4.14.0 de site-chat seinen (beta-blok → "nieuw", knop +

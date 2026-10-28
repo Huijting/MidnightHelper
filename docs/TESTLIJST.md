@@ -59,6 +59,8 @@ Eerst `/reload`, dan BUITEN de Labyrinth de run beginnen (anders telt de eerste 
 - [x] ✅ Kindo'jan (platform) GEMETEN 27 okt: map 2648, kamer 'De Empire's Rest', chatregel "De Empire's Rest: 18:36 …"
       (split = vanaf de vorige kamer; de kill zelf 2:42 volgens DBM). ⚠️ De melding op het scherm zag Rob daar NIET —
       oorzaak onbekend (buit/DBM/Blizzard-banner tegelijk?); video zou het laten zien.
+- [ ] Volgende Labyrinth-run: **film de kill van Kindo'jan** (Rob, 28 okt: "ik film hem de volgende keer"). Kijk of de
+      melding rechtsonder verschijnt (daar heb je hem neergezet), tegelijk met de chatregel "De Empire's Rest: …".
 - [x] ✅ Na het verlaten GEMETEN 27 okt: "Labyrinth, Tier 11: 8 rooms in 86:38, 0 new record(s)" + 8 kamers; som klopt.
 - [ ] Na de reparatie van 27 okt laat: bij 0 records staat er géén "0 new record(s)" meer ("… 8 rooms in 86:38. Per
       room:"), bij 1 "1 new record", bij meer "3 new records".
