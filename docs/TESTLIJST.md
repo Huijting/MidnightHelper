@@ -21,6 +21,20 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 29 okt — splitsvenster (ontwerp A + B)
+
+Eerst `/reload` (nieuw bestand: bij een fout eerst een volledige herstart van WoW).
+- [ ] `/mh labsplits`: opent venster **"Labyrinth best times"** met knoppen per Tier (bv. "Tier 11"), per kamer je beste
+      tijd en "Set on". Je oude tijden hebben daar nog "-" (de datum wordt pas vanaf nu bewaard). Onderin "All your bests
+      added up" en "No finished run yet"; de knop "Show last run" is grijs. In de chat staat nog wel de grijze statusregel.
+- [ ] Shift+scroll maakt het venster groter/kleiner; slepen werkt; Escape sluit hem.
+- [ ] Na een hele Labyrinth-run, bij het verlaten: venster **"Labyrinth run"** opent vanzelf. Bovenin Tier, Total, New bests;
+      per kamer de tijd en "first time" / "-0:41 faster" (groen, met een gele ster) / "+1:05 slower" (rood). Onderin "If
+      every room went like your best: …". Het lijstje in de chat staat er ook nog.
+- [ ] "My best times" → venster B, nu met datum bij nieuwe records en "Last run (…)"; "Show last run" → terug naar A.
+- [ ] Vinkje "Show this window after every run" uit → na de volgende run alleen het chatlijstje.
+- [ ] "Wipe Tier 11..." → vraag "Wipe your best Labyrinth times on Tier 11?" → Nee laat alles staan. (Ja wist echt!)
+
 ## 🆕 25 okt — tabblad Solo voor healers
 
 `/reload`, op een healer: `/mh play` → tabblad **Solo** (naast Klikken).

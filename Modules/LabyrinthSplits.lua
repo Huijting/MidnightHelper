@@ -37,7 +37,13 @@ local function DB()
 	ns.db.labSplits = ns.db.labSplits or {}
 	local d = ns.db.labSplits
 	d.best = d.best or {}
+	d.bestAt = d.bestAt or {} -- [tier][room] = time() the best was set (window B's "Set on"; none before 29 Oct 2026)
 	return d
+end
+
+--- For the window (LabyrinthSplitsWindow.lua): the same table, the same clock.
+ns.LabSplitsDB = function()
+	return DB()
 end
 
 function ns.IsLabSplitsEnabled()
@@ -91,6 +97,7 @@ local function Clock(sec)
 	sec = math.max(0, math.floor((sec or 0) + 0.5))
 	return ("%d:%02d"):format(math.floor(sec / 60), sec % 60)
 end
+ns.LabSplitsClock = Clock
 
 local function Say(msg, onScreen)
 	if onScreen and ns.ShowBriefNotice then
@@ -145,16 +152,21 @@ local function RoomDone()
 	local room = RoomHere()
 	local tier = Tier()
 	local label = room or (L("LAB_SPLITS_ROOM_N_FMT")):format(#a.rooms + 1)
-	local best
+	local best, first, record
 	local msg
 	if room then
 		d.best[tier] = d.best[tier] or {}
+		d.bestAt[tier] = d.bestAt[tier] or {}
 		best = d.best[tier][room]
 		if not best then
 			d.best[tier][room] = secs
+			d.bestAt[tier][room] = now
+			first = true
 			msg = (L("LAB_SPLITS_FIRST_FMT")):format(label, Clock(secs), tier)
 		elseif secs < best then
 			d.best[tier][room] = secs
+			d.bestAt[tier][room] = now
+			record = true
 			a.records = (a.records or 0) + 1
 			msg = (L("LAB_SPLITS_FASTER_FMT")):format(label, Clock(secs), Clock(best - secs), Clock(best))
 		elseif secs == best then
@@ -165,7 +177,8 @@ local function RoomDone()
 	else
 		msg = (L("LAB_SPLITS_NO_NAME_FMT")):format(label, Clock(secs))
 	end
-	a.rooms[#a.rooms + 1] = { room = label, secs = secs, best = best, tier = tier }
+	a.rooms[#a.rooms + 1] = { room = label, secs = secs, best = best, tier = tier, first = first, record = record,
+		noName = (not room) or nil }
 	lastWhy = ("room '%s' done in %s (best before: %s)"):format(label, Clock(secs), best and Clock(best) or "none")
 	Say(msg, true)
 end
@@ -197,7 +210,15 @@ local function RunOver()
 		end
 		print(("   %s: %s%s"):format(r.room, Clock(r.secs), delta))
 	end
-	lastWhy = "run over: summary printed"
+	-- The chat lines stay as a record; the window is the answer in place (Rob, 27 Oct 2026: "de lijst in de chat moet
+	-- ook een venster worden"). Kept so window B can show it again later.
+	d.lastRun = { tier = a.rooms[1].tier or 0, at = time(), total = total, records = rec, rooms = a.rooms }
+	if d.noWindow ~= true and ns.ShowLabSplitsRun then
+		ns.ShowLabSplitsRun()
+		lastWhy = "run over: summary printed, window shown"
+	else
+		lastWhy = d.noWindow and "run over: summary printed (window switched off)" or "run over: summary printed"
+	end
 end
 
 local function OnZone(event, isReload)
@@ -215,7 +236,7 @@ local function OnZone(event, isReload)
 end
 
 --- `/mh labsplits [on|off|reset|move <from> <to>]`: switch, wipe the bests, move them to another tier, or say what it is
---- doing and why.
+--- doing and why (and open the best-times window).
 function ns.LabSplitsCommand(arg)
 	local p = "|cffffcc00Midnight Helper|r labsplits:"
 	arg = (arg or ""):lower()
@@ -225,7 +246,7 @@ function ns.LabSplitsCommand(arg)
 		return
 	elseif arg == "reset" then
 		local d = DB()
-		d.best, d.active = {}, nil
+		d.best, d.bestAt, d.active, d.lastRun = {}, {}, nil, nil
 		print(p .. " " .. L("LAB_SPLITS_RESET_DONE"))
 		return
 	end
@@ -237,14 +258,20 @@ function ns.LabSplitsCommand(arg)
 		local src, moved = d.best[from], 0
 		if src then
 			d.best[to] = d.best[to] or {}
+			d.bestAt[to] = d.bestAt[to] or {}
+			local srcAt = d.bestAt[from] or {}
 			for room, secs in pairs(src) do
 				local old = d.best[to][room]
 				if not old or secs < old then
 					d.best[to][room] = secs
+					d.bestAt[to][room] = srcAt[room]
 				end
 				moved = moved + 1
 			end
-			d.best[from] = nil
+			d.best[from], d.bestAt[from] = nil, nil
+		end
+		if d.lastRun and d.lastRun.tier == from then
+			d.lastRun.tier = to
 		end
 		for _, r in ipairs(d.active and d.active.rooms or {}) do
 			if r.tier == from then
@@ -261,6 +288,11 @@ function ns.LabSplitsCommand(arg)
 		tostring(PlayerMap()), tostring(InLabyrinth()), tostring(RoomHere()), Tier(),
 		a and (("%d rooms, %s since the last mark"):format(#a.rooms, Clock(time() - (a.last or time())))) or "none",
 		lastWhy))
+	-- Window B (best times per Tier); the status line above stays in chat as the diagnosis.
+	if ns.ShowLabSplitsBest then
+		ns.ShowLabSplitsBest()
+		return
+	end
 	local tiers = {}
 	for t in pairs(d.best) do
 		tiers[#tiers + 1] = t

@@ -17,8 +17,14 @@ van 28 okt zijn in die chat NIET gemeld: nog open. De site-chat heet nu «Site c
   Robs melding staat versleept op x 1230 / y 308 (SavedVariables), dezelfde plek als 's ochtends, toen hij hem wél zag.
   AFGELEID: druk moment (buit, banners, DBM) of niet opgevallen — Rob: "het kan ook zijn dat ie mij niet opgevallen is".
   Rob koos 28 okt: *"ik film hem de volgende keer"* — geen diagnose bouwen; frames bekijken als de video er is.
-- **Ontwerp A–D** (artifact hierboven) goedgekeurd als ontwerp; BOUWEN pas op Robs go. Mijn advies-volgorde: eerst
-  splitsvenster A/B, dan Delve Log C/D (records per Tier).
+- 🔨 **29 okt: splitsvenster A/B GEBOUWD** (Rob: "Ja, begin maar met A en B"), nog NIET in het spel getest. Nieuw bestand
+  `Modules/LabyrinthSplitsWindow.lua` (één venster, twee gezichten). A opent vanzelf bij het verlaten (vinkje `noWindow`
+  om het uit te zetten), B = `/mh labsplits` (chat houdt alleen de grijze statusregel). LabyrinthSplits.lua bewaart nu
+  `bestAt[tier][room]` (datum van een record), `lastRun`, en per kamer `first`/`record`/`noName`; `move` en `reset`
+  nemen die mee. 26 nieuwe `LAB_WIN_*`-keys in alle 8 packs (eigen vertaling, niet moedertaal-nagekeken);
+  SET_LABSPLITS_DESC + CHANGELOG_4140_1 bijgewerkt (drift gemarkeerd). Lint 0 HARD, syntax OK (307). Testpunten: TESTLIJST
+  "29 okt — splitsvenster". Oude bests hebben geen datum ("-"), en de run van 27 okt is niet als lastRun bewaard.
+- **Ontwerp C/D** (Delve Log met records per Tier + melding na een delve): nog niet gebouwd, pas op Robs go.
 - **Daarna: beta2 of gewone 4.14.0** — Robs keus. Bij de gewone 4.14.0 de site-chat seinen (beta-blok → "nieuw", knop +
   strookregel eruit, Solo-tab op /play/; site-chat 27-10 vroeg erom).
 - **3 site-chat-punten** (SMC-afkorting, AH-pin zonder bron, RAIDSHOP_GEAR_TIP) — nog Robs keus.

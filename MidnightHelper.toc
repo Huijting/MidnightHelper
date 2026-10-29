@@ -182,6 +182,7 @@ Modules\CurioAdvicePanel.lua
 Modules\CodexAdvicePanel.lua
 Modules\LabyrinthHexmask.lua
 Modules\LabyrinthSplits.lua
+Modules\LabyrinthSplitsWindow.lua
 Modules\GearLadder.lua
 Modules\TwoStepRoute.lua
 Modules\MechanicNameProbe.lua
