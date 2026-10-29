@@ -1,8 +1,12 @@
 # Midnight Helper — waar we staan
 
-## 🔜 OPEN na 27 okt (overdracht naar de bouwchat van 28 okt)
+## 🔜 OPEN na 28 okt (overdracht naar de bouwchat van 29 okt)
 
-Alles gepusht (laatste code: 6a2b0f3). In beta1 zitten de Tier-fix, "record(s)" en de scorekaart-tijd NIET.
+Alles gepusht (laatste code: 6a2b0f3; 28 okt alleen docs). In beta1 zitten de Tier-fix, "record(s)" en de scorekaart-tijd NIET.
+Bouwchat 28 okt: ochtendronde GEMETEN — 4 wachters gedraaid (hotfix 27 okt: Labyrinth-Vault-credit = serverfix, raakt
+ons niet), CF/GitHub 0 open, addon_updates alleen MDT 6.3.26 + RaiderIO-data, HandyNotes 167 onveranderd, site-mail
+alleen vragenlijst #26 (al bijgeteld; datum AFGELEID, Gmail gaf quota-fout). Geen code gewijzigd. Robs tests van de avond
+van 28 okt zijn in die chat NIET gemeld: nog open. De site-chat heet nu «Site chat 28-10».
 - **Testen (TESTLIJST, 26-okt-splitsblok + 26/25-okt-blokken):** de 2 reparaties van 27 okt laat ("0 new record(s)" weg,
   "vs avg -36m 13s"); de AH-punten (aantal in koopscherm, wachtmelding, "Fill in the amount when buying"); delve-verhalen
   op Engels; daarna de 25-okt-punten.
