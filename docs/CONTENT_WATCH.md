@@ -3624,3 +3624,34 @@ kop, per bevinding MEASURED/INFERRED en [RAAKT ONS]/[RAAKT ONS NIET], met bestan
   `Modules/DelveWeeklyTrackers.lua`, `Modules/GearExport.lua:83,92`, `Modules/DurabilityWarn.lua:22`,
   `Modules/SimcExport.lua:101,106,111`, `Modules/AltOverview.lua:403`, `Modules/TrackCeiling.lua:46`
   — allemaal vandaag gelezen. Geen actiepunt dat ík oppak — ik rapporteer, een mens beslist.
+
+- [2026-10-29] 💬 **CurseForge: geen open reacties (3 draadjes, 8 berichten — ongewijzigd t.o.v.
+  [2026-10-28]).** `curseforge.com/api/v1/mods/1528577/comments?pageIndex=0&pageSize=20&nocache=20261029a`
+  (en `&nocache=20261029b` als tweede, onafhankelijke fetch) via Exa, beide volledig gelezen (JSON,
+  `pagination.totalCount: 8`). Dezelfde drie draadjes als gisteren (esES/esMX-locale-fix
+  `user_uvqy5939hswhgduu`, reply `8510682`; MrsBoojiePanda's debug-printregel, reply `8483898`;
+  gadrinonturalyon's coffer-key-shards/3D-boss-model-verzoek, reply-keten tot `8095337`/`8092133`)
+  hebben als nieuwste bericht nog steeds een reactie van `twelveinchy` — ids en timestamps
+  byte-identiek aan [2026-10-28]. MEASURED. **[RAAKT ONS NIET]** — geen actiepunt, geen
+  concept-antwoord nodig.
+
+- [2026-10-29] 🔁 **Geen nieuwe hotfix-sectie — nieuwste blijft "October 27, 2026", al volledig
+  getoetst op [2026-10-28].** MEASURED: `news.blizzard.com/en-us/article/24307310/hotfixes-october-23-2026?nocache=20261029z`
+  via Exa, zelf volledig gelezen (Classes, Items, Labyrinth, Player versus Player, The Burning
+  Crusade Classic — geen Professions- of Quests-sectie, zelfde categorieën als gisteren). Inhoud van
+  de "October 27, 2026"-sectie is woord-voor-woord gelijk aan wat op [2026-10-28] al getoetst is (de
+  Labyrinth-Great-Vault-creditfix en de tabards/Rexxar-fix, beide **[RAAKT ONS NIET]** — zie die
+  entry); geen van de class-/PvP-tuningregels of de BCCA-reputatie-eis (Burning Crusade Classic,
+  buiten mijn terrein) is contentmateriaal voor deze addon. **Positieve controle tegen het eigen
+  cache-risico:** de blue-post/data-wachter van vanochtend las dezelfde pagina onafhankelijk en
+  bevestigde "October 27, 2026" via vijf andere routes (thewowdb.com, fullsendwow.com,
+  warcraft.wiki.gg, een bluetracker-spiegel, arctium.io) plus een eigen oplopende "(1 day ago)"-check
+  op bluetracker.gg (`docs/PTR_12.0.7_DATA.md:834`) — dus geen stale cache, de pagina is simpelweg
+  nog niet bijgewerkt sinds gisteren. Niets om tegen onze bestanden te toetsen vandaag.
+
+  Vandaag is geen maandag: de wekelijkse PlayCard- en Consumables-checks zijn bewust overgeslagen.
+
+  Bron: `news.blizzard.com/en-us/article/24307310/hotfixes-october-23-2026?nocache=20261029z` (Exa,
+  volledig gelezen) · `curseforge.com/api/v1/mods/1528577/comments?...` (`nocache=20261029a`/`b`,
+  via Exa) · `docs/PTR_12.0.7_DATA.md:834` (zustervangst, ter bevestiging, niet als enige bron).
+  Geen actiepunt dat ík oppak — ik rapporteer, een mens beslist.
