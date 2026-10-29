@@ -34,7 +34,8 @@ van 28 okt zijn in die chat NIET gemeld: nog open. De site-chat heet nu «Site c
   vertaling, niet moedertaal-nagekeken. CHANGELOG_4140_13. Lint 0 HARD, syntax OK (307). Afwijking van het ontwerp: in
   melding D is de tijd niet groter dan de rest (één tekstregel-lettertype). Testpunten: TESTLIJST "29 okt — nieuw Delve Log".
 - ✅ **Eerste blik GEMETEN Rob 29 okt (3 screenshots):** venster B, het nieuwe Delve Log en `/mh scorecard test` zien
-  eruit zoals bedoeld. Open: venster A na een echte run, een delve openklappen, melding na een echte delve, BugSack.
+  eruit zoals bedoeld; BugSack leeg na de herstart (Rob: "Geen fouten"). Open: venster A na een echte run, een delve
+  openklappen, melding na een echte delve.
 - ✅ **Codex Labyrinth, 29 okt (Rob: "Ja, zet erbij"):** de "Not known yet"-regel van CODEX_LABYRINTH_BODY noemt nu de
   hotfix van 27 okt ("Fixed an issue where some scenarios were not granting Great Vault credit", kopje Labyrinth; gelezen
   door de site-chat 28 okt en de content-wachter, CONTENT_WATCH.md:3595; ik las de Blizzard-pagina niet zelf). Alle 9
