@@ -1,5 +1,18 @@
 # Midnight Helper — waar we staan
 
+## 🌙 29 okt (laat) — overdracht naar de bouwchat van 30 okt
+
+- Beta2 staat op CurseForge (GEMETEN: file 9361125, type Beta, 29 okt 11:14 UTC). De notes op de CF-pagina zelf zijn
+  niet bekeken.
+- Rob speelde 's avonds een Labyrinth met Carola, met een `/reload` vooraf (AFGELEID: geadviseerd, niet bevestigd).
+  **Niet opgenomen** (Rob: "vergeten op te nemen, ben te moe"), dus de Kindo'jan-video blijft open. Hij heeft
+  **niets gemeld** over de tests: kamerkaartje blijft open, vensterplek, splitsvenster A, Labyrinth-tijden in een
+  groep van twee. Vraag het hem. Carola heeft de reparaties van vanavond (14cdc37) niet; zij speelt de CF-versie.
+- Remote Control: de oorzaak van het wegvallen is GEMETEN door de site-chat. Een app-herstart of auto-update stopt
+  alle chats, en RC komt per chat pas terug bij het volgende bericht. De regel "RC checken bij elke beurt" staat in
+  `C:\Users\RobHu\.claude\CLAUDE.md` (globaal, elke chat).
+- Alles gepusht; working tree schoon (GEMETEN 29 okt laat).
+
 ## 🔨 29 okt (avond) — twee punten uit een Italiaanse vragenlijst (cijfer 4, it/PT, via de game-link)
 
 Rob: *"Als jij het ook zo vindt, dan moeten ze beide gerepareerd worden."* Beide terecht (GEMETEN in de code):
