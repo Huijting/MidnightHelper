@@ -12,7 +12,9 @@ Rob: *"Als jij het ook zo vindt, dan moeten ze beide gerepareerd worden."* Beide
    één keer, dus het was weg tot de volgende kamer of een /reload. Nu blijft het open, onder de coach
    (FULLSCREEN_DIALOG).
 3. Hun wens "visuele route om delves sneller te doen" bestaat niet: alleen de kistroute, en die sorteert kamers alleen
-   op een Engelse client (DelveChestData.lua:366). NIET gebouwd; Robs keuze.
+   op een Engelse client (DelveChestData.lua:366). NIET gebouwd. Rob, 29 okt: *"laat maar liggen, dat is voor mij
+   alleen niet te doen, of er moet veel info op internet zijn"* (elke variant moet gelopen en opgenomen worden).
+   Niet opnieuw voorstellen, tenzij er een bron opduikt met routes per delve-variant als punten.
 
 In-game CHANGELOG_4140_15. Syntax OK, lint 0 HARD. Nog niet in het spel getest → TESTLIJST 29-okt-avondblok.
 Nog niet in een beta; komt mee in de gewone 4.14.0 (of beta3, Robs keuze).
