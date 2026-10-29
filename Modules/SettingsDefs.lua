@@ -301,6 +301,12 @@ local function Build()
 		ns.db = ns.db or {}
 		ns.db.scorecardDetail = v and true or false
 	end)
+	-- Rob, 29 Oct 2026 (design D): the notice on screen after a delve, record per Tier (RunScorecard.lua). On by default.
+	Toggle("mh_delveRecordNotice", "SET_DELVENOTICE_TITLE", "SET_DELVENOTICE_DESC", function()
+		return ns.IsDelveRecordNoticeEnabled and ns.IsDelveRecordNoticeEnabled()
+	end, function(v)
+		if ns.SetDelveRecordNoticeEnabled then ns.SetDelveRecordNoticeEnabled(v) end
+	end, true)
 
 	----------------------------------------------------------------
 	-- Dungeon-hulp

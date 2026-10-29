@@ -21,6 +21,22 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 29 okt — nieuw Delve Log + melding na een delve (ontwerp C + D)
+
+Eerst `/reload`.
+- [ ] `/mh scorecard test`: midden-onder op je scherm (of waar je de korte melding hebt neergezet) 8 seconden
+      "Test Delve · Tier 5", "4:12" en groen "(ster) New record: 0:18 faster than 4:30". In de chat de gewone scoreregel.
+- [ ] Tabblad **Delve Log**: bovenin vier vakjes (Runs, Time in delves, Records groen, Deaths). Daaronder kolomkoppen
+      "Delve · Runs · Top Tier · Record there" en per delve één regel. Klopt "Record there" met je snelste run op je
+      hoogste Tier (niet met een snellere run op een lage Tier)?
+- [ ] Een delve aanklikken: het rijtje "T8 7:55  T9 9:31 …", dan de kop "Tier · Time · Boss · notes · vs record" en je
+      laatste runs. Achter een run: rood "+0:25", of een ster als het je record is. Nieuwe runs krijgen "(ster) -0:52"
+      of "first T11".
+- [ ] De regel "The Labyrinth of Kindo'jan" zegt rechts "splits ->"; daarop klikken opent het splitsvenster (B).
+- [ ] Onderaan de uitlegregel over records per Tier; rituals staan er nog onder.
+- [ ] Na een echte gewone delve: de melding met de naam, Tier, je tijd en groen/rood/"First time on Tier …".
+- [ ] Instellingen: "Notice after a delve" uit → na `/mh scorecard test` geen melding meer (chatregel wel).
+
 ## 🆕 29 okt — splitsvenster (ontwerp A + B)
 
 Eerst `/reload` (nieuw bestand: bij een fout eerst een volledige herstart van WoW).

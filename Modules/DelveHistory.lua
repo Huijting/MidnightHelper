@@ -95,6 +95,33 @@ local function MergeRoomRuns(store)
 	end
 end
 
+--- 🏁 RECORDS PER TIER (design C/D, Rob 29 Oct 2026: "By deze zeg ik go"). `lifetime.fastestTime` counts every tier
+--- together, so a Tier 1 run could be your "record" next to Tier 11 runs (MEASURED 27 Oct, LogRun below). Records now live
+--- in `lifetime.bestByTier[tier] = seconds`. A run with tier 0 (unknown) or a Labyrinth run (rooms; it has its own
+--- splits) never becomes a record.
+--- Is this run one that can hold a record?
+local function CountsForRecord(name, tier, duration)
+	return (tier or 0) > 0 and (duration or 0) > 0 and not ROOM_RUN_DELVES[name]
+end
+
+--- One-time: fill bestByTier from the runs we still have (the last MAX_RECENT per delve; older runs are gone).
+local function BackfillTierBests(store)
+	for name, entry in pairs(store.delves or {}) do
+		local life = type(entry) == "table" and entry.lifetime
+		if type(life) == "table" then
+			life.bestByTier = life.bestByTier or {}
+			for _, r in ipairs(entry.recent or {}) do
+				if CountsForRecord(name, r.tier, r.duration) then
+					local old = life.bestByTier[r.tier]
+					if not old or r.duration < old then
+						life.bestByTier[r.tier] = r.duration
+					end
+				end
+			end
+		end
+	end
+end
+
 -- Shared status palette (UI.lua). The fallbacks keep this module standalone.
 local C = ns.UI_COLORS or {}
 local COLOR_HEADER = C.header or { 0.91, 0.76, 0.42 }
@@ -213,6 +240,10 @@ local function GetStore()
 	if not store.roomRunsMerged then
 		store.roomRunsMerged = true
 		MergeRoomRuns(store)
+	end
+	if not store.tierBestsBuilt then
+		store.tierBestsBuilt = true
+		BackfillTierBests(store)
 	end
 	return store
 end
@@ -551,7 +582,25 @@ local function LogRun(name, tier, duration, deaths, keyUsed, boss, wasBountiful,
 		end
 	end
 
+	-- Record per tier (see CountsForRecord). prevBest = the record this run had to beat (nil = first time on this tier).
+	life.bestByTier = life.bestByTier or {}
+	local counts = CountsForRecord(name, tier, duration)
+	local prevBest = counts and life.bestByTier[tier] or nil
+	local isRecord, isFirst = false, false
+	if counts then
+		if not prevBest then
+			isFirst = true
+			life.bestByTier[tier] = duration
+		elseif duration < prevBest then
+			isRecord = true
+			life.bestByTier[tier] = duration
+		end
+	end
+
 	table.insert(entry.recent, 1, {
+		record = isRecord or nil,
+		firstTier = isFirst or nil,
+		beat = isRecord and (prevBest - duration) or nil,
 		tier = tier or 0,
 		duration = duration or 0,
 		deaths = deaths or 0,
@@ -578,6 +627,12 @@ local function LogRun(name, tier, duration, deaths, keyUsed, boss, wasBountiful,
 			runs = life.totalRuns or 1,
 			fastestTime = life.fastestTime or 0,
 			totalDuration = life.totalDuration or 0,
+			rooms = (rooms and rooms > 0) and rooms or nil,
+			-- Per-tier record (RunScorecard: the chat note and the on-screen notice, design D).
+			tierCounts = counts,
+			tierPrevBest = prevBest,
+			tierRecord = isRecord,
+			tierFirst = isFirst,
 		})
 	end
 
@@ -866,6 +921,10 @@ local SIDE_PAD = 14
 local TOP_PAD = 12
 local HEADER_ROW_H = 22
 local RUN_ROW_H = 16
+-- Column widths (design C), multiplied by the content text scale.
+local COL_RUNS_W, COL_TIER_W, COL_REC_W = 50, 64, 96
+local COL_RUN_TIER_W, COL_RUN_TIME_W, COL_RUN_VS_W = 36, 52, 100
+local STAR = "|TInterface\\TargetingFrame\\UI-RaidTargetingIcon_1:12|t"
 
 local ui
 local expandedByKey = {}
@@ -897,38 +956,85 @@ local function CreateHeaderRow()
 	arrow:SetJustifyH("LEFT")
 	row.arrow = arrow
 
+	-- Design C (29 Oct 2026): columns Delve | Runs | Top Tier | Record there, right-aligned from the right edge.
+	local function Col(width, rightOffset)
+		local fs = row:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+		fs:SetFontObject(ns.MHScalableFont("GameFontHighlight"))
+		fs:SetWidth(width * s)
+		fs:SetJustifyH("RIGHT")
+		fs:SetWordWrap(false)
+		fs:SetPoint("RIGHT", row, "RIGHT", -rightOffset * s, 0)
+		return fs
+	end
+	row.recFS = Col(COL_REC_W, 8)
+	row.tierFS = Col(COL_TIER_W, 8 + COL_REC_W + 8)
+	row.runsFS = Col(COL_RUNS_W, 8 + COL_REC_W + 8 + COL_TIER_W + 8)
+
 	local nameFS = row:CreateFontString(nil, "OVERLAY", "GameFontNormal")
 	nameFS:SetFontObject(ns.MHScalableFont("GameFontNormal"))
 	nameFS:SetPoint("LEFT", arrow, "RIGHT", 4, 0)
-	nameFS:SetWidth(170)
+	nameFS:SetPoint("RIGHT", row.runsFS, "LEFT", -8, 0)
 	nameFS:SetJustifyH("LEFT")
 	nameFS:SetWordWrap(false)
 	row.nameFS = nameFS
 
-	local statsFS = row:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-	statsFS:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
-	statsFS:SetPoint("LEFT", nameFS, "RIGHT", 6, 0)
-	statsFS:SetPoint("RIGHT", row, "RIGHT", -4, 0)
-	statsFS:SetJustifyH("LEFT")
-	statsFS:SetWordWrap(false)
-	row.statsFS = statsFS
+	row.bg = row:CreateTexture(nil, "BACKGROUND")
+	row.bg:SetAllPoints()
+
+	-- The Labyrinth's "splits ->": opens the splits window instead of folding the row open.
+	local splits = CreateFrame("Button", nil, row)
+	splits:SetAllPoints(row.recFS)
+	splits:SetScript("OnClick", function()
+		if ns.ShowLabSplitsBest then
+			ns.ShowLabSplitsBest()
+		end
+	end)
+	splits:Hide()
+	row.splitsBtn = splits
 
 	row:SetScript("OnClick", HeaderRow_OnClick)
 	return row
 end
 
+--- A run row, or a tier-chips line / sub-header (then only `notes` is used, across the whole width when `wide`).
 local function CreateRunRow()
 	local s = (ns.GetContentFontScale and ns.GetContentFontScale()) or 1
 	local row = CreateFrame("Frame", nil, ui.child)
 	row:SetHeight(RUN_ROW_H * s)
-	local fs = row:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-	fs:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
-	fs:SetPoint("LEFT", row, "LEFT", 0, 0)
-	fs:SetPoint("RIGHT", row, "RIGHT", -4, 0)
-	fs:SetJustifyH("LEFT")
-	fs:SetWordWrap(false)
-	row.fs = fs
+	local function FS(justify)
+		local fs = row:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+		fs:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
+		fs:SetJustifyH(justify)
+		fs:SetWordWrap(false)
+		return fs
+	end
+	row.tierFS = FS("LEFT")
+	row.tierFS:SetPoint("LEFT", row, "LEFT", 0, 0)
+	row.tierFS:SetWidth(COL_RUN_TIER_W * s)
+	row.timeFS = FS("RIGHT")
+	row.timeFS:SetPoint("LEFT", row.tierFS, "RIGHT", 4 * s, 0)
+	row.timeFS:SetWidth(COL_RUN_TIME_W * s)
+	row.vsFS = FS("RIGHT")
+	row.vsFS:SetPoint("RIGHT", row, "RIGHT", -8 * s, 0)
+	row.vsFS:SetWidth(COL_RUN_VS_W * s)
+	row.fs = FS("LEFT")
+	row.s = s
 	return row
+end
+
+--- Lay a run row out as four columns, or as one wide line.
+local function SetRunRowWide(row, wide)
+	row.fs:ClearAllPoints()
+	if wide then
+		row.tierFS:SetText("")
+		row.timeFS:SetText("")
+		row.vsFS:SetText("")
+		row.fs:SetPoint("LEFT", row, "LEFT", 0, 0)
+		row.fs:SetPoint("RIGHT", row, "RIGHT", -8 * row.s, 0)
+	else
+		row.fs:SetPoint("LEFT", row.timeFS, "RIGHT", 10 * row.s, 0)
+		row.fs:SetPoint("RIGHT", row.vsFS, "LEFT", -8 * row.s, 0)
+	end
 end
 
 local function AcquireHeaderRow(i)
@@ -951,55 +1057,88 @@ local function AcquireRunRow(i)
 	return row
 end
 
-local function BuildStatsText(life)
-	local avg = (life.totalRuns and life.totalRuns > 0) and math.floor(life.totalDuration / life.totalRuns) or 0
-	return string.format(
-		"%s%s %s%d%s   %s%s %s%s%d%s   %s%s %s%s%s   %s%s %s%s%s   %s%s %s%d%s",
-		CC_DIM,
-		ns:L("DELVELOG_LBL_RUNS"),
-		CC_BODY,
-		life.totalRuns or 0,
-		CC_CLOSE,
-		CC_DIM,
-		ns:L("DELVELOG_LBL_BEST"),
-		CC_BODY,
-		"T",
-		life.highestTier or 0,
-		CC_CLOSE,
-		CC_DIM,
-		ns:L("DELVELOG_LBL_AVG"),
-		CC_BODY,
-		FormatDuration(avg),
-		CC_CLOSE,
-		CC_DIM,
-		ns:L("DELVELOG_LBL_FASTEST"),
-		CC_BODY,
-		FormatDuration(life.fastestTime),
-		CC_CLOSE,
-		CC_DIM,
-		ns:L("DELVELOG_LBL_DEATHS"),
-		CC_BODY,
-		life.totalDeaths or 0,
-		CC_CLOSE
-	)
+local CC_BAD = "|cffff8a7a"
+
+--- 13:48 (design C), or 1:26:38 for a long Labyrinth run.
+local function Clock(sec)
+	sec = math.floor((sec or 0) + 0.5)
+	if sec <= 0 then
+		return "--"
+	end
+	if sec >= 3600 then
+		return ("%d:%02d:%02d"):format(math.floor(sec / 3600), math.floor((sec % 3600) / 60), sec % 60)
+	end
+	return ("%d:%02d"):format(math.floor(sec / 60), sec % 60)
 end
 
-local function BuildRunText(run)
-	local parts = {}
-	parts[#parts + 1] = CC_GOLD .. "T" .. (run.tier or 0) .. CC_CLOSE
-	parts[#parts + 1] = CC_BODY .. FormatDuration(run.duration) .. CC_CLOSE
-	if run.rooms then
-		parts[#parts + 1] = CC_DIM .. ns:L("DELVELOG_LBL_ROOMS") .. " " .. CC_BODY .. run.rooms .. CC_CLOSE
+local function TierCount(life)
+	local n = 0
+	for _ in pairs(life and life.bestByTier or {}) do
+		n = n + 1
 	end
-	parts[#parts + 1] = CC_DIM .. ns:L("DELVELOG_LBL_DEATHS") .. " " .. CC_BODY .. (run.deaths or 0) .. CC_CLOSE
-	if run.keyUsed then
-		parts[#parts + 1] = CC_GOOD .. ns:L("DELVELOG_LBL_KEY") .. CC_CLOSE
+	return n
+end
+
+--- One delve line: name, runs, top tier, the record on that top tier ("splits ->" for the Labyrinth).
+local function FillHeaderRow(row, name, life, expanded, kind)
+	row.arrow:SetText(expanded and (CC_GOLD .. "v" .. CC_CLOSE) or (CC_GOLD .. ">" .. CC_CLOSE))
+	row.nameFS:SetText(CC_BODY .. name .. CC_CLOSE)
+	row.runsFS:SetText(CC_BODY .. (life.totalRuns or 0) .. CC_CLOSE)
+	local top = life.highestTier or 0
+	row.tierFS:SetText(top > 0 and (CC_BODY .. "T" .. top .. CC_CLOSE) or (CC_DIM .. "--" .. CC_CLOSE))
+	row.splitsBtn:Hide()
+	if kind == "lab" then
+		row.recFS:SetText(CC_GOLD .. ns:L("DELVELOG_SPLITS") .. CC_CLOSE)
+		row.splitsBtn:Show()
+	elseif kind == "ritual" then
+		row.recFS:SetText(CC_BODY .. Clock(life.fastestTime) .. CC_CLOSE)
+	else
+		local rec = life.bestByTier and life.bestByTier[top]
+		row.recFS:SetText(rec and (CC_BODY .. Clock(rec) .. CC_CLOSE) or (CC_DIM .. "--" .. CC_CLOSE))
 	end
+	if expanded then
+		row.bg:SetColorTexture(0.16, 0.13, 0.09, 0.9)
+	else
+		row.bg:SetColorTexture(0.12, 0.10, 0.07, 0.75)
+	end
+end
+
+--- One run under an open delve: Tier | Time | boss · notes | vs record.
+local function FillRunRow(row, run, life, withRecord)
+	SetRunRowWide(row, false)
+	local tier = run.tier or 0
+	row.tierFS:SetText(CC_GOLD .. "T" .. tier .. CC_CLOSE)
+	row.timeFS:SetText(CC_BODY .. Clock(run.duration) .. CC_CLOSE)
+	local notes = {}
 	if run.boss and run.boss ~= "" then
-		parts[#parts + 1] = CC_BODY .. run.boss .. CC_CLOSE
+		notes[#notes + 1] = run.boss
 	end
-	parts[#parts + 1] = CC_DIM .. FormatDateTime(run.timestamp) .. CC_CLOSE
-	return table.concat(parts, "   ")
+	if run.rooms then
+		notes[#notes + 1] = ns:L("DELVELOG_LBL_ROOMS") .. " " .. run.rooms
+	end
+	if (run.deaths or 0) > 0 then
+		notes[#notes + 1] = ns:L("DELVELOG_LBL_DEATHS") .. " " .. run.deaths
+	end
+	if run.keyUsed then
+		notes[#notes + 1] = CC_GOOD .. ns:L("DELVELOG_LBL_KEY") .. CC_CLOSE .. CC_DIM
+	end
+	notes[#notes + 1] = FormatDateTime(run.timestamp)
+	row.fs:SetText(CC_DIM .. table.concat(notes, " · ") .. CC_CLOSE)
+	local vs = ""
+	local best = withRecord and tier > 0 and life.bestByTier and life.bestByTier[tier]
+	if withRecord and run.record and run.beat then
+		vs = CC_GOOD .. STAR .. " -" .. Clock(run.beat) .. CC_CLOSE
+	elseif withRecord and run.firstTier then
+		vs = CC_DIM .. (ns:L("DELVELOG_FIRST_TIER_FMT")):format(tier) .. CC_CLOSE
+	elseif best and (run.duration or 0) > 0 then
+		local diff = run.duration - best
+		if diff > 0 then
+			vs = CC_BAD .. "+" .. Clock(diff) .. CC_CLOSE
+		elseif diff == 0 then
+			vs = CC_GOOD .. STAR .. CC_CLOSE
+		end
+	end
+	row.vsFS:SetText(vs)
 end
 
 function Refresh()
@@ -1043,32 +1182,24 @@ function Refresh()
 		end
 	end
 
-	ui.summary:SetText(
-		string.format(
-			"%s%s %s%d%s    %s%s %s%d%s    %s%s %s%s%s",
-			CC_DIM,
-			ns:L("DELVELOG_LBL_RUNS"),
-			CC_GOLD,
-			totalRuns,
-			CC_CLOSE,
-			CC_DIM,
-			ns:L("DELVELOG_LBL_DEATHS"),
-			CC_GOLD,
-			totalDeaths,
-			CC_CLOSE,
-			CC_DIM,
-			ns:L("DELVELOG_TOTAL_TIME"),
-			CC_GOLD,
-			FormatDuration(totalDur),
-			CC_CLOSE
-		)
-	)
+	-- Design C: four boxes. Records = how many (delve, Tier) records you hold.
+	local records = 0
+	for _, key in ipairs(keys) do
+		records = records + TierCount(delves[key].lifetime)
+	end
+	ui.stats[1].value:SetText(tostring(totalRuns))
+	ui.stats[2].value:SetText(FormatDuration(totalDur))
+	ui.stats[3].value:SetText(tostring(records))
+	ui.stats[4].value:SetText(tostring(totalDeaths))
 
 	for _, r in ipairs(headerRowPool) do
 		r:Hide()
 	end
 	for _, r in ipairs(runRowPool) do
 		r:Hide()
+	end
+	if ui.colHead then
+		ui.colHead:Hide()
 	end
 
 	local width = ui.child:GetWidth()
@@ -1088,36 +1219,89 @@ function Refresh()
 	end
 	ui.empty:Hide()
 
+	-- Column header (design C): Delve | Runs | Top Tier | Record there.
+	if not ui.colHead then
+		ui.colHead = CreateHeaderRow()
+		ui.colHead:EnableMouse(false)
+		ui.colHead.bg:SetColorTexture(0, 0, 0, 0)
+	end
+	local ch = ui.colHead
+	ch:ClearAllPoints()
+	ch:SetHeight(runStep)
+	ch.arrow:SetText("")
+	ch.splitsBtn:Hide()
+	for fs, key in pairs({ [ch.nameFS] = "DELVELOG_COL_DELVE", [ch.runsFS] = "DELVELOG_COL_RUNS",
+		[ch.tierFS] = "DELVELOG_COL_TOPTIER", [ch.recFS] = "DELVELOG_COL_RECORD" }) do
+		fs:SetText(CC_DIM .. ns:L(key) .. CC_CLOSE)
+	end
+	ch:SetPoint("TOPLEFT", ui.child, "TOPLEFT", 0, -y)
+	ch:SetPoint("RIGHT", ui.child, "RIGHT", -4, 0)
+	ch:Show()
+	y = y + runStep + 2 * s
+
 	local hUsed, rUsed = 0, 0
 	for _, key in ipairs(keys) do
 		local entry = delves[key]
 		local life = entry.lifetime
 		local expanded = expandedByKey[key] and true or false
+		local isLab = ROOM_RUN_DELVES[key] and true or false
 
 		hUsed = hUsed + 1
 		local row = AcquireHeaderRow(hUsed)
 		row:SetHeight(headerStep)
 		row._mhKey = key -- nodig voor uitklappen (werd nooit gezet — bestaande bug)
-		row.arrow:SetText(expanded and (CC_GOLD .. "v" .. CC_CLOSE) or (CC_GOLD .. ">" .. CC_CLOSE))
-		row.nameFS:SetText(CC_BODY .. key .. CC_CLOSE)
-		row.statsFS:SetText(BuildStatsText(life))
+		FillHeaderRow(row, key, life, expanded, isLab and "lab" or nil)
 		row:SetPoint("TOPLEFT", ui.child, "TOPLEFT", 0, -y)
 		row:SetPoint("RIGHT", ui.child, "RIGHT", -4, 0)
 		row:Show()
-		y = y + headerStep
+		y = y + headerStep + 2 * s
 
 		if expanded and entry.recent then
+			-- The record per Tier, lowest first: "T8 7:55   T9 9:31 …".
+			local tiers = {}
+			for t in pairs(life.bestByTier or {}) do
+				tiers[#tiers + 1] = t
+			end
+			table.sort(tiers)
+			if #tiers > 0 then
+				local chips = {}
+				for _, t in ipairs(tiers) do
+					chips[#chips + 1] = CC_DIM .. "T" .. t .. CC_CLOSE .. " " .. CC_BODY .. Clock(life.bestByTier[t]) .. CC_CLOSE
+				end
+				rUsed = rUsed + 1
+				local crow = AcquireRunRow(rUsed)
+				crow:SetHeight(runStep)
+				SetRunRowWide(crow, true)
+				crow.fs:SetText(table.concat(chips, "     "))
+				crow:SetPoint("TOPLEFT", ui.child, "TOPLEFT", indent, -y)
+				crow:SetPoint("RIGHT", ui.child, "RIGHT", -4, 0)
+				crow:Show()
+				y = y + runStep + 4 * s
+			end
+			-- Sub-header: Tier | Time | Boss · notes | vs record.
+			rUsed = rUsed + 1
+			local hrow = AcquireRunRow(rUsed)
+			hrow:SetHeight(runStep)
+			SetRunRowWide(hrow, false)
+			hrow.tierFS:SetText(CC_DIM .. ns:L("DELVELOG_COL_TIER") .. CC_CLOSE)
+			hrow.timeFS:SetText(CC_DIM .. ns:L("DELVELOG_COL_TIME") .. CC_CLOSE)
+			hrow.fs:SetText(CC_DIM .. ns:L("DELVELOG_COL_NOTES") .. CC_CLOSE)
+			hrow.vsFS:SetText(isLab and "" or (CC_DIM .. ns:L("DELVELOG_COL_VS") .. CC_CLOSE))
+			hrow:SetPoint("TOPLEFT", ui.child, "TOPLEFT", indent, -y)
+			hrow:SetPoint("RIGHT", ui.child, "RIGHT", -4, 0)
+			hrow:Show()
+			y = y + runStep + 1 * s
 			for _, run in ipairs(entry.recent) do
 				rUsed = rUsed + 1
 				local rrow = AcquireRunRow(rUsed)
 				rrow:SetHeight(runStep)
-				rrow.fs:SetText(BuildRunText(run))
+				FillRunRow(rrow, run, life, not isLab)
 				rrow:SetPoint("TOPLEFT", ui.child, "TOPLEFT", indent, -y)
 				rrow:SetPoint("RIGHT", ui.child, "RIGHT", -4, 0)
 				rrow:Show()
 				y = y + runStep + 1 * s
 			end
-			y = y + 4 * s
+			y = y + 6 * s
 		end
 	end
 
@@ -1126,6 +1310,7 @@ function Refresh()
 		rUsed = rUsed + 1
 		local secRow = AcquireRunRow(rUsed)
 		secRow:SetHeight(runStep)
+		SetRunRowWide(secRow, true)
 		secRow.fs:SetText(CC_GOLD .. ns:L("DELVELOG_SEC_RITUALS") .. CC_CLOSE)
 		secRow:SetPoint("TOPLEFT", ui.child, "TOPLEFT", 0, -(y + 6 * s))
 		secRow:SetPoint("RIGHT", ui.child, "RIGHT", -4, 0)
@@ -1140,9 +1325,7 @@ function Refresh()
 			local row = AcquireHeaderRow(hUsed)
 			row:SetHeight(headerStep)
 			row._mhKey = rkey
-			row.arrow:SetText(expanded and (CC_GOLD .. "v" .. CC_CLOSE) or (CC_GOLD .. ">" .. CC_CLOSE))
-			row.nameFS:SetText(CC_BODY .. rit.name .. CC_CLOSE)
-			row.statsFS:SetText(BuildStatsText(life))
+			FillHeaderRow(row, rit.name, life, expanded, "ritual")
 			row:SetPoint("TOPLEFT", ui.child, "TOPLEFT", 0, -y)
 			row:SetPoint("RIGHT", ui.child, "RIGHT", -4, 0)
 			row:Show()
@@ -1152,7 +1335,7 @@ function Refresh()
 					rUsed = rUsed + 1
 					local rrow = AcquireRunRow(rUsed)
 					rrow:SetHeight(runStep)
-					rrow.fs:SetText(BuildRunText(run))
+					FillRunRow(rrow, run, life, false)
 					rrow:SetPoint("TOPLEFT", ui.child, "TOPLEFT", indent, -y)
 					rrow:SetPoint("RIGHT", ui.child, "RIGHT", -4, 0)
 					rrow:Show()
@@ -1240,16 +1423,63 @@ function ns.BuildDelveLogPanel(panel)
 	subtitle:SetTextColor(COLOR_DIM[1], COLOR_DIM[2], COLOR_DIM[3])
 	subtitle:SetText(ns:L("DELVELOG_SUBTITLE"))
 
-	local summary = panel:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-	summary:SetFontObject(ns.MHScalableFont("GameFontNormal"))
-	summary:SetPoint("TOPLEFT", subtitle, "BOTTOMLEFT", 0, -8)
-	summary:SetPoint("RIGHT", panel, "RIGHT", -SIDE_PAD, 0)
-	summary:SetJustifyH("LEFT")
-	summary:SetWordWrap(false)
+	-- Design C: four boxes (Runs / Time in delves / Records / Deaths) instead of one line of text.
+	local s = (ns.GetContentFontScale and ns.GetContentFontScale()) or 1
+	local statsRow = CreateFrame("Frame", nil, panel)
+	statsRow:SetPoint("TOPLEFT", subtitle, "BOTTOMLEFT", 0, -8)
+	statsRow:SetPoint("RIGHT", panel, "RIGHT", -SIDE_PAD, 0)
+	statsRow:SetHeight(44 * s)
+	local stats = {}
+	local STAT_KEYS = { "DELVELOG_STAT_RUNS", "DELVELOG_STAT_TIME", "DELVELOG_STAT_RECORDS", "DELVELOG_STAT_DEATHS" }
+	for i, key in ipairs(STAT_KEYS) do
+		local b = CreateFrame("Frame", nil, statsRow, "BackdropTemplate")
+		if b.SetBackdrop then
+			b:SetBackdrop({ bgFile = "Interface\\Buttons\\WHITE8X8" })
+			b:SetBackdropColor(0.13, 0.11, 0.08, 0.9)
+		end
+		b.label = b:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+		b.label:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
+		b.label:SetTextColor(COLOR_DIM[1], COLOR_DIM[2], COLOR_DIM[3])
+		b.label:SetPoint("TOPLEFT", 8, -5)
+		b.label:SetText(ns:L(key))
+		b.label._mhKey = key
+		b.value = b:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
+		b.value:SetFontObject(ns.MHScalableFont("GameFontHighlightLarge"))
+		b.value:SetPoint("BOTTOMLEFT", 8, 5)
+		if i == 3 then
+			b.value:SetTextColor(0.45, 0.85, 0.45)
+		end
+		stats[i] = b
+	end
+	local function LayoutStats()
+		local w = statsRow:GetWidth() or 0
+		if w <= 0 then
+			return
+		end
+		local bw = (w - 3 * 8) / 4
+		for i, b in ipairs(stats) do
+			b:ClearAllPoints()
+			b:SetPoint("TOPLEFT", statsRow, "TOPLEFT", (i - 1) * (bw + 8), 0)
+			b:SetSize(bw, 44 * s)
+		end
+	end
+	statsRow:SetScript("OnSizeChanged", LayoutStats)
+	LayoutStats()
+
+	-- Under the list: why a Tier 8 run never beats your Tier 11 time.
+	local foot = panel:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	foot:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
+	foot:SetPoint("BOTTOMLEFT", panel, "BOTTOMLEFT", SIDE_PAD, 12)
+	foot:SetPoint("RIGHT", panel, "RIGHT", -SIDE_PAD, 0)
+	foot:SetJustifyH("LEFT")
+	foot:SetWordWrap(true)
+	foot:SetTextColor(COLOR_DIM[1], COLOR_DIM[2], COLOR_DIM[3])
+	foot:SetText(ns:L("DELVELOG_FOOT"))
 
 	local scroll = CreateFrame("ScrollFrame", "MidnightHelperDelveLogScroll", panel, "UIPanelScrollFrameTemplate")
-	scroll:SetPoint("TOPLEFT", summary, "BOTTOMLEFT", 0, -10)
-	scroll:SetPoint("BOTTOMRIGHT", panel, "BOTTOMRIGHT", -30, 14)
+	scroll:SetPoint("TOPLEFT", statsRow, "BOTTOMLEFT", 0, -10)
+	scroll:SetPoint("RIGHT", panel, "RIGHT", -30, 0)
+	scroll:SetPoint("BOTTOM", foot, "TOP", 0, 8)
 
 	local child = CreateFrame("Frame", nil, scroll)
 	child:SetSize(1, 1)
@@ -1267,7 +1497,8 @@ function ns.BuildDelveLogPanel(panel)
 		panel = panel,
 		title = title,
 		subtitle = subtitle,
-		summary = summary,
+		stats = stats,
+		foot = foot,
 		scroll = scroll,
 		child = child,
 		empty = empty,
@@ -1300,6 +1531,10 @@ do
 			ui.title:SetText(ns:L("TAB_DELVE_LOG"))
 			ui.subtitle:SetText(ns:L("DELVELOG_SUBTITLE"))
 			ui.empty:SetText(ns:L("DELVELOG_EMPTY"))
+			ui.foot:SetText(ns:L("DELVELOG_FOOT"))
+			for _, b in ipairs(ui.stats) do
+				b.label:SetText(ns:L(b.label._mhKey))
+			end
 			if ui.clearBtn and ui.clearBtn.text then
 				ui.clearBtn.text:SetText(ns:L("DELVELOG_CLEAR"))
 				ui.clearBtn:SetSize(math.max(ui.clearBtn.text:GetStringWidth() + 4, 10), 16)

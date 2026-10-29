@@ -24,7 +24,17 @@ van 28 okt zijn in die chat NIET gemeld: nog open. De site-chat heet nu «Site c
   nemen die mee. 26 nieuwe `LAB_WIN_*`-keys in alle 8 packs (eigen vertaling, niet moedertaal-nagekeken);
   SET_LABSPLITS_DESC + CHANGELOG_4140_1 bijgewerkt (drift gemarkeerd). Lint 0 HARD, syntax OK (307). Testpunten: TESTLIJST
   "29 okt — splitsvenster". Oude bests hebben geen datum ("-"), en de run van 27 okt is niet als lastRun bewaard.
-- **Ontwerp C/D** (Delve Log met records per Tier + melding na een delve): nog niet gebouwd, pas op Robs go.
+- 🔨 **29 okt: ontwerp C/D GEBOUWD** (Rob: "By deze zeg ik go"), nog NIET in het spel getest. DelveHistory.lua:
+  `lifetime.bestByTier[tier]` (eenmalig gevuld uit de laatste 20 runs per delve, vlag `store.tierBestsBuilt`; tier 0 en
+  de Labyrinth tellen niet), runs krijgen `record`/`firstTier`/`beat`; tabblad opnieuw opgebouwd (4 vakjes, kolommen,
+  uitklap met records per Tier + runs met "vs record", Labyrinth-rij "splits ->" opent venster B, voetregel).
+  RunScorecard.lua: "fastest yet!" en de detailregel tellen nu per Tier (rituals houden de oude regel), en melding D via
+  `ns.ShowBriefNotice` (8 s; niet voor rituals/Labyrinth; schakelaar `mh_delveRecordNotice`, `/mh scorecard test` laat
+  hem zien). 20 nieuwe DELVELOG_*/DELVE_NOTICE_*-keys + SET_DELVENOTICE_* in alle packs, esMX met "abismo"; eigen
+  vertaling, niet moedertaal-nagekeken. CHANGELOG_4140_13. Lint 0 HARD, syntax OK (307). Afwijking van het ontwerp: in
+  melding D is de tijd niet groter dan de rest (één tekstregel-lettertype). Testpunten: TESTLIJST "29 okt — nieuw Delve Log".
+- **Site-chat 29 okt (Codex):** stelt voor de hotfix van 27 okt ("Fixed an issue where some scenarios were not granting
+  Great Vault credit", kopje Labyrinth) bij de Codex-regel over Labyrinth-Vault-credit te zetten. Nog Robs keus.
 - **Daarna: beta2 of gewone 4.14.0** — Robs keus. Bij de gewone 4.14.0 de site-chat seinen (beta-blok → "nieuw", knop +
   strookregel eruit, Solo-tab op /play/; site-chat 27-10 vroeg erom).
 - **3 site-chat-punten** (SMC-afkorting, AH-pin zonder bron, RAIDSHOP_GEAR_TIP) — nog Robs keus.
