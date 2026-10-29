@@ -1,4 +1,4 @@
-# Midnight Helper 4.14.0 (beta): Labyrinth splits, a Solo tab for healers, and the right amount at the auction house
+# Midnight Helper 4.14.0 (beta 2): your records per Tier, a Labyrinth splits window, a Solo tab for healers
 
 ## This is a beta
 
@@ -10,14 +10,28 @@ also when everything works:
 - a comment here on CurseForge,
 - or the feedback form on midnighthelper.com.
 
+## New in beta 2
+
+- **Delve Log: records per Tier.** Until now a quick Tier 1 run could count as your fastest next to your Tier 11 runs.
+  Records now count per Tier. The tab has a new look: your totals in four boxes, one line per delve with its top Tier
+  and your record there. Click a delve for your record on every Tier and your last runs, each with how it did
+  against the record.
+- **A notice after every delve**, for 8 seconds in the middle of the screen: your time, and whether it is a new record
+  for that delve on that Tier. Try it with `/mh scorecard test`; Settings → *Notice after a delve* switches it off.
+- **Labyrinth splits window.** When you leave the Labyrinth, a window shows the whole run: every room, its time, and
+  how it did against your best. `/mh labsplits` opens your best times per Tier, with the day you set them.
+- **Fixed:** after the first room the splits could say the wrong Tier (Tier 6 in a Tier 11 run). The list no longer
+  says "0 new record(s)", and the scorecard detail line shows "-36m 13s" instead of "-2173s".
+- **Codex, Labyrinth:** the Great Vault part now mentions Blizzard's hotfix of 27 October.
+
 ## New: Labyrinth splits
 
 Race your own best time, room by room, in the Labyrinth of Kindo'jan.
 
 - **After every room** a line on screen (and in chat) with your time for that room, and how it compares to your best
   for that room on that Tier: faster, slower, or a new record.
-- **When you leave**, a list in chat with every room's time, green for faster and red for slower.
-- `/mh labsplits` shows your best times per Tier. Settings → *Labyrinth splits* switches it off.
+- **When you leave**, a window with every room's time and how it did against your best (the list stays in chat too).
+- `/mh labsplits` opens your best times per Tier. Settings → *Labyrinth splits* switches it off.
 - Start your run outside the Labyrinth. If Midnight Helper first sees you when you are already inside (for example the
   first time with this version), that room does not count. A `/reload` later on keeps your run.
 
@@ -43,6 +57,8 @@ Also for healers: `/mh curios` now says which role Valeera can take when you hea
 
 ## Also
 
+- **Labyrinth splits:** if your splits from beta 1 sit under the wrong Tier, `/mh labsplits move 6 11` moves them (the
+  faster time per room wins).
 - **Labyrinth:** once all three Hexmasks follow you, the Hexmask room hint stays quiet for the rest of the run, and
   `/mh hexmask` now also knows Kindo'jan's platform.
 - **Short notices on screen** (the Hexmask hint, the delve chest route) no longer sit under the game's big room name.

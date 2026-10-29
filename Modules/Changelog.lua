@@ -10,6 +10,7 @@ local CHANGELOG_ENTRIES = {
 			-- beta1 (27 Oct 2026, Rob: "ja en go")
 			"CHANGELOG_4140_1",
 			"CHANGELOG_4140_13",
+			"CHANGELOG_4140_14",
 			"CHANGELOG_4140_2",
 			"CHANGELOG_4140_3",
 			"CHANGELOG_4140_4",

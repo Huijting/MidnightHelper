@@ -1,5 +1,13 @@
 # Midnight Helper — waar we staan
 
+## 🧪 29 okt — BETA 4.14.0-beta2 (Rob: "Wat houdt ons tegen om een release te doen?" → "Nu beta2")
+
+Alles sinds beta1 als beta: splitsvenster A/B, Delve Log met records per Tier + melding na een delve, de reparaties van
+27 okt (Tier, "record(s)", scorekaart-tijd), Codex-hotfixregel. TOC blijft 4.14.0; in-game CHANGELOG_4140_13 + _14.
+`RELEASE_NOTES.md` = `docs/CURSEFORGE_4.14.0.md` (sha1 b70490d9, GEMETEN). Tag `v4.14.0-beta2`. Daarna: Robs tests
+(venster na een echte Labyrinth-run, melding na een echte delve, AH-aantal) → gewone 4.14.0 met de vaste beta-alinea
+(RELEASE_CHECKLIST) en de site-chat seinen.
+
 ## 🔜 OPEN na 28 okt (overdracht naar de bouwchat van 29 okt)
 
 Alles gepusht (laatste code: 6a2b0f3; 28 okt alleen docs). In beta1 zitten de Tier-fix, "record(s)" en de scorekaart-tijd NIET.

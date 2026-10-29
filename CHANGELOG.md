@@ -2,6 +2,22 @@
 
 All notable changes to this project are documented in this file.
 
+## 4.14.0 (beta2)
+
+📌 **2026-10-29, BETA 2 (Rob: "Nu beta2").** Tag `v4.14.0-beta2`, TOC blijft 4.14.0. In-game: CHANGELOG_4140_13 (Delve
+Log + melding) en _14 (reparaties sinds beta1), _1 bijgewerkt (splitsvenster). `RELEASE_NOTES.md` = `docs/CURSEFORGE_4.14.0.md`
+(byte-identiek, GEMETEN sha1 b70490d9; 75 regels), met bovenaan "New in beta 2".
+GEMETEN door Rob in het spel (29 okt, screenshots): venster "Labyrinth best times", het nieuwe Delve Log (vakjes,
+kolommen, openklappen), `/mh scorecard test`-melding; BugSack leeg na een herstart. NIET gezien: venster na een echte
+Labyrinth-run, melding na een echte delve, de kortere notities, de reparaties van 27 okt laat, alle nieuwe vertalingen.
+
+- **Splitsvenster** (`Modules/LabyrinthSplitsWindow.lua`): A na de run, B = `/mh labsplits`; datum per record, lastRun.
+- **Delve Log** (`Modules/DelveHistory.lua`): records per Tier (`lifetime.bestByTier`), nieuw tabblad; melding na een
+  delve en per-Tier "fastest yet!" (`Modules/RunScorecard.lua`, schakelaar mh_delveRecordNotice).
+- **Reparaties:** Tier uit het bordje (niet de gok bij binnenkomst) + `/mh labsplits move`; geen "0 new record(s)";
+  scorekaart-delta als tijd.
+- **Codex:** Labyrinth-kaart noemt de Great Vault-hotfix van 27 okt (9 taalversies).
+
 ## 4.14.0 (beta1)
 
 📌 **2026-10-27, BETA (Rob: "we kunnen wel een beta nu doen toch ?" → "ja en go").** Tag `v4.14.0-beta1`. In-game:
