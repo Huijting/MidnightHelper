@@ -31,9 +31,10 @@ Eerst `/reload`.
       Records 5 = de 5 delves zonder de Labyrinth; Runs 10 = 9 delve-runs + 1 ritual (nagerekend).
 - [ ] Klopt "Record there" met je snelste run op T11? (Alle runs op het scherm zijn T11, dus een lage-Tier-run kan het
       hier niet verstoren; dat deel is bij jou niet te zien.)
-- [ ] Een delve aanklikken: het rijtje "T8 7:55  T9 9:31 …", dan de kop "Tier · Time · Boss · notes · vs record" en je
-      laatste runs. Achter een run: rood "+0:25", of een ster als het je record is. Nieuwe runs krijgen "(ster) -0:52"
-      of "first T11".
+- [x] ✅ GEMETEN Rob 29 okt (screenshot): openklappen werkt; "T11 21:40", de kop, ster bij het record, rood "+10:03"
+      (31:43 - 21:40, nagerekend). ⚠️ De notities liepen eraf ("Deaths: 1 · Oct 06…") → gerepareerd, zie hieronder.
+- [ ] Na `/reload` dezelfde delves openklappen: nu "1 death" en een korte datum ("Oct 06"), en past de hele regel ook bij
+      "Replicating Venomborne"? Nieuwe runs krijgen "(ster) -0:52" of "first T11".
 - [ ] De regel "The Labyrinth of Kindo'jan" zegt rechts "splits ->"; daarop klikken opent het splitsvenster (B).
 - [ ] Onderaan de uitlegregel over records per Tier; rituals staan er nog onder.
 - [ ] Na een echte gewone delve: de melding met de naam, Tier, je tijd en groen/rood/"First time on Tier …".

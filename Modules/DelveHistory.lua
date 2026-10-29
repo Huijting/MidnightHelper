@@ -906,12 +906,6 @@ local function FormatDuration(sec)
 	return string.format("%dh %dm", math.floor(sec / 3600), math.floor((sec % 3600) / 60))
 end
 
-local function FormatDateTime(ts)
-	if not ts or ts == 0 then
-		return ""
-	end
-	return date("%b %d, %H:%M", ts)
-end
 
 --------------------------------------------------------------------------------
 -- UI panel
@@ -923,7 +917,7 @@ local HEADER_ROW_H = 22
 local RUN_ROW_H = 16
 -- Column widths (design C), multiplied by the content text scale.
 local COL_RUNS_W, COL_TIER_W, COL_REC_W = 50, 64, 96
-local COL_RUN_TIER_W, COL_RUN_TIME_W, COL_RUN_VS_W = 36, 52, 100
+local COL_RUN_TIER_W, COL_RUN_TIME_W, COL_RUN_VS_W = 36, 52, 80
 local STAR = "|TInterface\\TargetingFrame\\UI-RaidTargetingIcon_1:12|t"
 
 local ui
@@ -1116,13 +1110,18 @@ local function FillRunRow(row, run, life, withRecord)
 	if run.rooms then
 		notes[#notes + 1] = ns:L("DELVELOG_LBL_ROOMS") .. " " .. run.rooms
 	end
-	if (run.deaths or 0) > 0 then
-		notes[#notes + 1] = ns:L("DELVELOG_LBL_DEATHS") .. " " .. run.deaths
+	-- Short on purpose (Rob's screenshot, 29 Oct 2026: "Deaths: 1 · Oct 06, 20:50" ran off the row): "1 death", "Oct 06".
+	if (run.deaths or 0) == 1 then
+		notes[#notes + 1] = ns:L("SCORE_DEATHS_ONE")
+	elseif (run.deaths or 0) > 1 then
+		notes[#notes + 1] = (ns:L("SCORE_DEATHS_FMT")):format(run.deaths)
 	end
 	if run.keyUsed then
 		notes[#notes + 1] = CC_GOOD .. ns:L("DELVELOG_LBL_KEY") .. CC_CLOSE .. CC_DIM
 	end
-	notes[#notes + 1] = FormatDateTime(run.timestamp)
+	if run.timestamp and run.timestamp > 0 then
+		notes[#notes + 1] = date("%b %d", run.timestamp)
+	end
 	row.fs:SetText(CC_DIM .. table.concat(notes, " · ") .. CC_CLOSE)
 	local vs = ""
 	local best = withRecord and tier > 0 and life.bestByTier and life.bestByTier[tier]
