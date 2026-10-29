@@ -7667,3 +7667,150 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
     `git fetch origin main` tellen `HEAD..origin/main` en `origin/main..HEAD` béide **0**. 📌 De kloon
     is nog steeds **shallow** (`git rev-parse --is-shallow-repository` → **`true`**), dus vergelijk
     HEAD met `origin/main` en nooit met de lokale `main`. Geen enkel ander bestand geraakt.
+- [2026-10-29] 🆕 **Nul [MOET GEFIKST] — maar de PTR-ref is na zes dagen stilstand WÉL bewogen, en dat
+  moet ik meteen nuanceren, want het is géén nieuwe client-build: het **buildnummer is onveranderd
+  `70493`**. De hele commit is **één verwijderd bestand**,
+  `Interface/AddOns/Blizzard_Channels/Mainline/VoiceActivityManager.xml` (11 regels), waarmee het
+  globale frame `VoiceActivityManager` én de mixin op de PTR verdwijnen. Getoetst: [RAAKT ONS NIET],
+  **0** bestanden in MH noemen `VoiceActivityManager` of `VoiceActivity`. 🔴 Of dit een échte
+  Blizzard-wijziging is of een extractie-artefact in Gethes repo heb ik **NIET kunnen vaststellen** —
+  zie de drie tegenargumenten hieronder; ik gok er niet naar. Tweede nieuwe ding: één forumpost over
+  **nameplate-accessibility** met een wens om *"maybe some API calls"*, twee spelersposts en geen blue
+  post. Verder stil: geen nieuwe hotfix-batch (bovenste kop nog 27 okt), geen wiki-revisie (dertiende
+  dag), geen SimC-release (zevende dag).**
+  - 🆕 **[RAAKT ONS NIET] — PTR-REF BEWOGEN, BUILDNUMMER NIET. Dit is een CORRECTIE op de vorm waarin
+    ik dit zes runs lang gemeld heb.** Van 24 t/m 28 okt schreef ik *"geen nieuwe client-build"* op
+    grond van een onveranderde SHA. Vandaag is de SHA wél veranderd en is er tóch geen nieuwe build —
+    de SHA en het buildnummer zijn dus twee verschillende dingen, en alleen het nummer zegt iets over
+    de client. GEMETEN met `git ls-remote https://github.com/Gethe/wow-ui-source refs/heads/live
+    refs/heads/ptr`: `live` = **`15881d522c44cd106d3d8660106ec9f9d2f44167`** (bit voor bit dezelfde
+    SHA als op 24 t/m 28 okt, nog steeds **12.1.5 (70575)**, commitdatum 2026-10-23T19:31:08Z), `ptr`
+    = **`ea18cdd1b653e0f36906b45c28366198b85af643`** — nieuw, gisteren was dat
+    `03cd1ac95b8c96fcb91377a3bfc8e52d4edca9b8`. GEMETEN met een `--depth 4`-fetch van die branch:
+    commitdatum **2026-10-28T23:01:21Z**, en het commitbericht is letterlijk **`12.1.7 (70493)`** —
+    precies hetzelfde nummer als de drie commits eronder (`03cd1ac` 23 okt 20:16, `c1c2b93` 23 okt
+    19:31, `2cdbc7f` 22 okt 22:16, alle drie óók `12.1.7 (70493)`). 📌 `ls-remote` vraagt de server
+    elke keer opnieuw, dus hier is cache-twijfel niet van toepassing.
+    - 🔇 **De hele diff, volledig gelezen.** GEMETEN `git diff --stat 03cd1ac ea18cdd`: **1 file
+      changed, 11 deletions(-)**, en dat ene bestand is
+      `Interface/AddOns/Blizzard_Channels/Mainline/VoiceActivityManager.xml`, **verwijderd**. De
+      inhoud die weg is, is het `<Script file="VoiceActivityManager.lua"/>`-regeltje plus het frame
+      `<Frame name="VoiceActivityManager" parent="UIParent" mixin="VoiceActivityManagerMixin">` met
+      `OnLoad`/`OnEvent`. Er is niets toegevoegd en niets anders gewijzigd.
+    - 🔇 **Wat dat technisch betekent, en wat ik daarover NIET weet.** De `.lua` bestaat nog
+      (`Mainline/VoiceActivityManager.lua`, hij definieert `VoiceActivityManagerMixin` en registreert
+      zeven `VOICE_CHAT_*`-events), maar hij werd *dóór* die xml geladen, dus zonder de xml bestaan op
+      de PTR noch het globale frame `VoiceActivityManager` noch de mixin. 🔴 **En hier zijn de drie
+      dingen die tegen "echte Blizzard-wijziging" pleiten, dus ik laat het open:** (1) het
+      buildnummer is onveranderd `70493`, dus dit is een hér-extractie van dezelfde client, niet een
+      nieuwe; (2) `Blizzard_Channels.toc` noemt **nog steeds** `[Family]/VoiceActivityManager.xml`
+      (GEMETEN, laatste regel van de toc op `ea18cdd`) — op een Retail-client lost `[Family]` op naar
+      `Mainline/`, dus de toc verwijst nu naar een bestand dat er niet is, en dat is geen vorm die
+      Blizzard zelf zou shippen; (3) de `Classic/`-kopie van diezelfde xml staat er nog, en de
+      `live`-branch (platte indeling, zonder `Mainline/`) heeft `VoiceActivityManager.xml` ook nog
+      (GEMETEN in de tree van `gethe/live`). Welke van de twee het is, kan ik van buitenaf niet
+      meten; ik verzin er geen migratie bij.
+    - 🧪 **De toets in onze code.** GEMETEN (`grep -rIl`, `.git`/`docs`/`tools`/`dist` uitgesloten,
+      geteld in bestanden): `VoiceActivityManager` → **0**, `VoiceActivity` → **0**, `VOICE_CHAT` →
+      **0**, `Blizzard_Channels` → **0**. Wat MH wél heeft is iets ánders dat alleen zo klinkt:
+      `C_VoiceChat` → **3** bestanden, en dat is **text-to-speech**, niet de
+      voice-chat-activiteits-UI. Alle negen aanroepen zitten achter een guard, gelezen en niet
+      gehoopt: `Modules/InterruptScore.lua:70` (`if not (C_VoiceChat and C_VoiceChat.SpeakText)`) vóór
+      `:80` (en die is óók nog `pcall`), `Modules/ActionPrompt.lua:322` (`and C_VoiceChat and
+      C_VoiceChat.SpeakText then`) vóór `:342` (`pcall`), `Modules/CombatSafety.lua:697` vóór `:704`,
+      en `Modules/CombatSafety.lua:844` (`if not (C_VoiceChat and C_VoiceChat.SpeakText and C_Spell
+      and C_Spell.GetSpellName) then return end`) vóór de kale `:857`. Niets te migreren, wat de
+      verklaring van die verwijdering ook is.
+  - 🆕 **[RAAKT ONS NIET] — forum `#ui-macro`: één nieuw topic sinds mijn vorige run, over
+    nameplate-accessibility, en het is een WENS en geen API.** GEMETEN mét cache-buster
+    (`search.json?q=#ui-macro after:2026-10-26&nocache=20261029`), daarna het topic zelf gelezen via
+    `t/2394958.json?nocache=20261029`: **post `30657935`** (Raegx / Raegx-malganis,
+    **2026-10-28T16:35:17.344Z**), post 1 van het nieuwe topic **`2394958`** *"Accessibility of
+    mouseover and moving nameplates"*. Hij vraagt of het spel de moused-over nameplate op z'n plek
+    kan zetten voor een speler met arm-/handbeperkingen, en letterlijk: *"Maybe some API calls or
+    something for addon developers, where necessary, to help with addons."* Het antwoord (**post
+    `30658393`**, Elvenbane, **2026-10-28T17:13:03.879Z**) somt bestáánde CVars op
+    (`nameplateMotionSpeed`, `nameplateTopInset`, `nameplateBottomInset`, `nameplateOverlapH/V`,
+    `nameplateSelectedScale`). 🔴 **Beide posts zijn spelers; er is GEEN blue post**, dus er is geen
+    toegezegde API, geen signature en geen event — alleen een verzoek. 📌 Ik noem het toch, omdat MH
+    wél aan nameplates hangt en dit dus mijn terrein zou wórden als Blizzard ooit antwoordt: GEMETEN
+    `nameplate` (case-insensitive) → **15** bestanden, met de skull-texture op
+    `NAME_PLATE_UNIT_ADDED` in `Modules/Rares.lua:883` (`ShowSkullOnNameplate`) en `:904`
+    (`RefreshNameplateSkull`). En GEMETEN dat wij géén van de genoemde CVars aanraken:
+    `nameplateMotionSpeed` → **0** bestanden, en onze enige CVar-schrijvers staan elders en zijn
+    allebei `pcall`'d (`Modules/KeyBlock.lua:1052`/`:1241-1242` voor de autopush-CVar,
+    `Modules/DevShots.lua:393-394`/`:432-433` voor `screenshotFormat`).
+    - **Positieve controle in dezelfde run en dezelfde zoekvorm:** `after:2026-10-26` geeft vier
+      posts, waarvan er drie naar draden wijzen die al in dit logboek staan (`24534` via post
+      `30619160`, `2391886` via `30619515`, `2392684` via `30628288` — die laatste staat in mijn regel
+      van 27 okt). De zoekvorm vindt dus wat er is; `30657935` is echt de enige nieuwe.
+  - 🔇 **[RAAKT ONS NIET] — GEEN NIEUWE HOTFIX-BATCH: de bovenste gedateerde kop is nog steeds
+    *"October 27, 2026"*.** GEMETEN langs twee routes op dezelfde bron, beide mét een eigen
+    cache-buster: de **raw-post** `raw/2382684/1?nocache=20261029` en de **topic-JSON**
+    `t/2382684.json?nocache=20261029b`. Post #1 (Linxy, aangemaakt 2026-10-15T00:53:57.786Z) opent in
+    beide met `**Hotfixes**` en dan `**October 27, 2026**`, met daaronder `October 26, 2026` en
+    `October 23, 2026`. ✅ **Cache-controle geslaagd:** 27 okt is precies wat mijn eigen regel van
+    gisteren al noemde en **niet ouder** — dus dit is stilte en geen cache. Er is vandaag niets
+    bijgekomen om te toetsen.
+  - 🔇 **[RAAKT ONS NIET] — wiki: beide API-pagina's nog op hun 16 okt-revisie, DERTIENDE dag.**
+    GEMETEN via `rest.php/v1/page/<pagina>%2FAPI_changes/history?nocache=20261029`:
+    `Patch 12.1.7/API changes` op **`6919765`** (**2026-10-16T22:38:53Z**, Ketho, `/* Blue posts */`,
+    1541 bytes, nog steeds **vier** revisies in totaal); `Patch 12.1.5/API changes` op **`6919763`**
+    (**2026-10-16T22:38:41Z**, Ketho, 17904 bytes). Identiek aan de vorige vier runs; geen revisie
+    tussengeschoven of weggevallen.
+    - **De paginalijst is onveranderd: 33 titels, vierde dag.** GEMETEN met
+      `api.php?action=query&list=allpages&apprefix=Patch%2012.&aplimit=200&format=json&maxage=0` —
+      **33** namen met precies **zeven** `/API changes`-subpagina's (`12.0.0`, `12.0.1`, `12.0.5`,
+      `12.0.7`, `12.1.0`, `12.1.5`, `12.1.7`), **geen 12.1.9 en geen 12.2.x**; `Patch 12.2`, `12.2.0`,
+      `12.2.5` en `12.2.7` bestaan als pagina maar zonder `/API changes`. ⚠️ `maxage=0` blijft hier de
+      werkende cache-buster (`nocache` geeft *"Unrecognized parameter"* — een waarschuwing, geen fout).
+      📌 Eén detail dat ik niet eerder opschreef: `12.1.7` heeft, anders dan de zes oudere, **geen
+      `/API changes/notes`-subpagina**. Dat is niet nieuw vandaag, alleen niet eerder genoemd.
+  - 🧰 **[RAAKT ONS NIET] — SimC-addon: geen nieuwe release sinds `12.1.5-03`, zevende dag.** GEMETEN
+    met `git ls-remote --tags https://github.com/simulationcraft/simc-addon`: **290** tags (zelfde
+    aantal als gisteren), nieuwste 12.x-tag blijft **`12.1.5-03`** =
+    **`cb3e3af298e3124162c6bf44d1bebac53435eaec`**, en `HEAD` én `refs/heads/master` staan op diezelfde
+    SHA — dus ook **geen ongereleasete commits** op master. ⚠️ `12.1.5-alpha-01`
+    (`3fe70f34b03784d48bf2c0fb40e518b7f45fc758`) staat alfabetisch ónder `12.1.5-03` in de
+    ls-remote-uitvoer, maar is **niet nieuw**: hij wordt al genoemd in het kopcommentaar van
+    `Modules/SimcExport.lua:14`. ⚠️ **Eén meetroute faalde vandaag:** de releases-pagina (mét
+    `?nocache=20261029`) gaf op Exa `CRAWL_LIVECRAWL_TIMEOUT`, dus deze regel staat op één bron in
+    plaats van twee. `Modules/SimcExport.lua` volgt in zijn kopcommentaar nog **`12.1.0-04`** plus de
+    race-takken uit `12.1.0-alpha-06` (GEMETEN, `Modules/SimcExport.lua:12-14`); er was vandaag niets
+    nieuws om daartegen te leggen.
+  - 🔇 **[RAAKT ONS NIET] — en geen 12.1.7-API-nieuws langs de zoekroute.** Eén `WebSearch` op
+    12.1.7-PTR-API/taint/secure-frames gaf uitsluitend materiaal over **12.0.0 en 12.0.7** (secret
+    values, `GameTooltip_AddMoneyLine`, de `ENCOUNTER_END`-payload) plus CurseForge-bestandspagina's.
+    Alles ruim ouder dan 7 dagen en alles staat al in dit logboek; volgens regel 1 telt het niet mee.
+  - 🔌 **MEETGAT, vierde dag identiek: de WoW-bronnen blijven geweigerd op Bash-`curl`.** GEMETEN met
+    `curl -s -o /dev/null -w "%{http_code}" --max-time 12`: `warcraft.wiki.gg`,
+    `us.forums.blizzard.com`, `www.wowhead.com` en `news.blizzard.com` geven alle vier **`000`**.
+    🔴 Niet omzeild (het proxy-README verbiedt dat expliciet): élke wiki- en forummeting hierboven
+    loopt via Exa `web_fetch_exa` mét een cache-buster, en dat werkte voor elke URL behalve de
+    SimC-releases-pagina. Wat wél schoon werkt op Bash: **`git ls-remote` en `git fetch --depth` over
+    https naar github.com** — daarmee zijn de build-SHA's, de volledige PTR-diff en de SimC-tags
+    gemeten.
+  - 🧪 **Positieve controle van de grep-reikwijdte, in dezelfde run en in dezelfde vorm als de nullen
+    hierboven** (`grep -rIl`, `.git`/`docs`/`tools`/`dist` uitgesloten, geteld in bestanden):
+    `issecretvalue` → **66**, `CreateFrame` → **159**, `C_Spell` → **56**, `Labyrinth` → **42**,
+    `C_UnitAuras` → **13**, `C_WeeklyRewards` → **12**, `C_VoiceChat` → **3**, tegenover
+    `VoiceActivityManager` → **0**, `VOICE_CHAT` → **0**, `Blizzard_Channels` → **0** en
+    `nameplateMotionSpeed` → **0**. Het patroon vindt wat er is, dus de nullen hierboven zijn
+    afwezigheid en geen meetfout.
+  - ⏳ **Nog open uit eerdere runs, NIET nieuw en vandaag niet opnieuw gemeten:** de UTF-8 BOM vooraan
+    `MidnightHelper.toc`; de `%d+`-aanname op veld 3 van de npcID-match (`Modules/ResetRoutine.lua:648`)
+    tegenover de GUID-obfuscatie; de dode `PickupItem`-takken in `Modules/KeyBlock.lua:1135`/`:1227`/
+    `:1380` en `Modules/ApplyLayout.lua:1311`/`:1345`/`:1605`; de vijf decoratieve
+    `GetItemInfo`-terugvaltakken; `Blizzard_DeprecatedWorldElapsedTimerTypes` als tiende
+    deprecated-addon tegenover negen wiki-secties; de verouderde namespace-lijst in
+    `docs/WATCHER_API_PROMPT.md` (18 aug); de client-test voor `/mh raidbots`; en de 193 ongelezen
+    PTR-bestanden van build `70493`. 🔴 Niets van dit alles aangeraakt.
+  - 🔧 **Repo-staat: alleen `docs/API_WATCH.md` aangeraakt, en de scheve ref WAS vandaag terug.**
+    GEMETEN vóór het schrijven: `git rev-parse --abbrev-ref HEAD` → **`HEAD`** (detached, zoals op 17,
+    19, 22, 25 en 26 okt; op 27 en 28 okt was het `main`), met `HEAD` =
+    **`5e3348ef451803b5968a6c5800d55c0889b4495e`** = **exact** `origin/main` na `git fetch origin main`,
+    terwijl de lokale `main` 6 commits achterliep op **`6a2b0f3`**. 📌 Dat is precies de val waar dit
+    logboek eerder voor gewaarschuwd heeft: de kloon is **shallow**, dus vergelijk HEAD met
+    `origin/main` en nooit met de lokale `main`. Rechtgezet met `git checkout -B main origin/main`
+    (alleen een ref-verplaatsing, geen bestandswijziging). `git status --short` was **leeg**, en geen
+    van de vier wachter-bestanden stond gewijzigd-maar-ongecommit. Geen enkel ander bestand geraakt.
