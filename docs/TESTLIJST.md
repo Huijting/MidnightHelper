@@ -24,11 +24,13 @@ er is niets weggegooid.
 ## 🆕 29 okt — nieuw Delve Log + melding na een delve (ontwerp C + D)
 
 Eerst `/reload`.
-- [ ] `/mh scorecard test`: midden-onder op je scherm (of waar je de korte melding hebt neergezet) 8 seconden
-      "Test Delve · Tier 5", "4:12" en groen "(ster) New record: 0:18 faster than 4:30". In de chat de gewone scoreregel.
-- [ ] Tabblad **Delve Log**: bovenin vier vakjes (Runs, Time in delves, Records groen, Deaths). Daaronder kolomkoppen
-      "Delve · Runs · Top Tier · Record there" en per delve één regel. Klopt "Record there" met je snelste run op je
-      hoogste Tier (niet met een snellere run op een lage Tier)?
+- [x] ✅ GEMETEN Rob 29 okt (screenshot): `/mh scorecard test` → "Test Delve · Tier 5", "4:12", gele ster + groen "New
+      record: 0:18 faster than 4:30".
+- [x] ✅ GEMETEN Rob 29 okt (screenshot): tabblad Delve Log met vier vakjes (Runs 10, Time in delves 7h 27m, Records 5
+      groen, Deaths 19), kolomkoppen, 6 delves met T11 + record, Labyrinth "splits ->", Rituals eronder, voetregel.
+      Records 5 = de 5 delves zonder de Labyrinth; Runs 10 = 9 delve-runs + 1 ritual (nagerekend).
+- [ ] Klopt "Record there" met je snelste run op T11? (Alle runs op het scherm zijn T11, dus een lage-Tier-run kan het
+      hier niet verstoren; dat deel is bij jou niet te zien.)
 - [ ] Een delve aanklikken: het rijtje "T8 7:55  T9 9:31 …", dan de kop "Tier · Time · Boss · notes · vs record" en je
       laatste runs. Achter een run: rood "+0:25", of een ster als het je record is. Nieuwe runs krijgen "(ster) -0:52"
       of "first T11".
@@ -40,9 +42,9 @@ Eerst `/reload`.
 ## 🆕 29 okt — splitsvenster (ontwerp A + B)
 
 Eerst `/reload` (nieuw bestand: bij een fout eerst een volledige herstart van WoW).
-- [ ] `/mh labsplits`: opent venster **"Labyrinth best times"** met knoppen per Tier (bv. "Tier 11"), per kamer je beste
-      tijd en "Set on". Je oude tijden hebben daar nog "-" (de datum wordt pas vanaf nu bewaard). Onderin "All your bests
-      added up" en "No finished run yet"; de knop "Show last run" is grijs. In de chat staat nog wel de grijze statusregel.
+- [x] ✅ GEMETEN Rob 29 okt (screenshot): `/mh labsplits` → "Labyrinth best times", knop "Tier 11", 8 kamers met beste
+      tijd en "Set on" "-", "All your bests added up 86:38" (= zijn run van 27 okt), "No finished run yet", "Show last
+      run" grijs, vinkje aan, "Wipe Tier 11...".
 - [ ] Shift+scroll maakt het venster groter/kleiner; slepen werkt; Escape sluit hem.
 - [ ] Na een hele Labyrinth-run, bij het verlaten: venster **"Labyrinth run"** opent vanzelf. Bovenin Tier, Total, New bests;
       per kamer de tijd en "first time" / "-0:41 faster" (groen, met een gele ster) / "+1:05 slower" (rood). Onderin "If
