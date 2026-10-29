@@ -1,5 +1,22 @@
 # Midnight Helper — waar we staan
 
+## 🔨 29 okt (avond) — twee punten uit een Italiaanse vragenlijst (cijfer 4, it/PT, via de game-link)
+
+Rob: *"Als jij het ook zo vindt, dan moeten ze beide gerepareerd worden."* Beide terecht (GEMETEN in de code):
+1. Vensters onthielden wel hun grootte (Shift+scroll), niet hun plek. Nu: `DialogPopup.lua`
+   `ns.RememberMidnightWindowPosition`, vanuit `AttachScaling`. Dat dekt elk venster dat via RegisterMidnightDialogPopup
+   of SCALABLE_WINDOWS gaat. Opslag in `ns.db.ui.dialogPos[naam]`, alleen na slepen (bij het loslaten + bij uitloggen
+   als `IsUserPlaced`). Niet over een docked venster heen en niet in combat voor een beveiligd venster.
+   `/mh windows reset` wist plek én grootte.
+2. Het kamer-/baaskaartje (`DelveBossCard.lua`) sloot bij "Open the Delve Coach". Een kamer toont zijn kaartje maar
+   één keer, dus het was weg tot de volgende kamer of een /reload. Nu blijft het open, onder de coach
+   (FULLSCREEN_DIALOG).
+3. Hun wens "visuele route om delves sneller te doen" bestaat niet: alleen de kistroute, en die sorteert kamers alleen
+   op een Engelse client (DelveChestData.lua:366). NIET gebouwd; Robs keuze.
+
+In-game CHANGELOG_4140_15. Syntax OK, lint 0 HARD. Nog niet in het spel getest → TESTLIJST 29-okt-avondblok.
+Nog niet in een beta; komt mee in de gewone 4.14.0 (of beta3, Robs keuze).
+
 ## 🧪 29 okt — BETA 4.14.0-beta2 (Rob: "Wat houdt ons tegen om een release te doen?" → "Nu beta2")
 
 Alles sinds beta1 als beta: splitsvenster A/B, Delve Log met records per Tier + melding na een delve, de reparaties van

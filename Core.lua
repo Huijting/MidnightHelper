@@ -3197,6 +3197,13 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		end
 		return
 	end
+	if msg == "windows reset" then
+		if ns.ResetMidnightWindowMemory then
+			ns.ResetMidnightWindowMemory()
+		end
+		print("|cff8fd3ffMidnight Helper|r every window forgets its place and size. /reload to see the defaults.")
+		return
+	end
 	if msg == "roomcard" or msg:find("^roomcard%s") then
 		if ns.MH_DelveRoomCardCommand then
 			ns.MH_DelveRoomCardCommand(msg:match("^roomcard%s+(.-)%s*$"))

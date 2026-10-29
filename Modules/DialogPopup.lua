@@ -124,6 +124,94 @@ local function AttachScaling(frame, name)
 	frame:HookScript("OnShow", function(self)
 		WrapChildren(self, 1)
 	end)
+
+	ns.RememberMidnightWindowPosition(frame, name)
+end
+
+--------------------------------------------------------------------------------
+-- Position memory
+--------------------------------------------------------------------------------
+
+--- An Italian player's survey answer, 29 Oct 2026: the popups (the Great Vault one, for instance) should stay where
+--- they were put after a logout. GEMETEN that day: every window could be dragged and kept its Shift+scroll size, but
+--- not its place; the code set the default point again on every login. Now a window the player has DRAGGED comes back
+--- where it was left. One that was never dragged keeps opening at its module's default.
+--- ⚠️ Saved on drag-stop (frame or title bar) and once more at logout for windows dragged some other way; IsUserPlaced
+--- is the client's own "the player moved this" flag, set by StartMoving. A docked window follows the main window and
+--- is never restored over that. Not in combat for a protected frame (the travel popup parents a secure button).
+--- /mh windows reset forgets every place and size.
+local posTracked = {} -- frame -> name
+
+local function PosStore()
+	if not ns.db then
+		return nil
+	end
+	ns.db.ui = ns.db.ui or {}
+	ns.db.ui.dialogPos = ns.db.ui.dialogPos or {}
+	return ns.db.ui.dialogPos
+end
+
+local function CanMove(frame)
+	if InCombatLockdown and InCombatLockdown() and frame.IsProtected and frame:IsProtected() then
+		return false
+	end
+	return not (ns.IsMidnightDialogDocked and ns.IsMidnightDialogDocked(frame))
+end
+
+local function SavePosition(frame)
+	local name = posTracked[frame]
+	local store = PosStore()
+	if not (name and store and CanMove(frame)) then
+		return
+	end
+	local p, _, rp, x, y = frame:GetPoint(1)
+	if p then
+		store[name] = { p, rp or p, x or 0, y or 0 }
+	end
+end
+
+local function RestorePosition(frame)
+	local name = posTracked[frame]
+	local store = PosStore()
+	local pos = name and store and store[name]
+	if type(pos) ~= "table" or not pos[1] or not CanMove(frame) then
+		return
+	end
+	frame:ClearAllPoints()
+	frame:SetPoint(pos[1], UIParent, pos[2] or pos[1], tonumber(pos[3]) or 0, tonumber(pos[4]) or 0)
+end
+
+function ns.RememberMidnightWindowPosition(frame, name)
+	if not (frame and name) or posTracked[frame] then
+		return
+	end
+	posTracked[frame] = name
+	if frame:GetScript("OnDragStop") then
+		frame:HookScript("OnDragStop", SavePosition)
+	end
+	-- After the module's own SetPoint, which runs before Show.
+	frame:HookScript("OnShow", RestorePosition)
+	if frame:IsShown() then
+		RestorePosition(frame)
+	end
+end
+
+local posEv = CreateFrame("Frame")
+posEv:RegisterEvent("PLAYER_LOGOUT")
+posEv:SetScript("OnEvent", function()
+	for frame in pairs(posTracked) do
+		if frame:IsShown() and frame.IsUserPlaced and frame:IsUserPlaced() then
+			SavePosition(frame)
+		end
+	end
+end)
+
+--- /mh windows reset: every window back to its default place and size (after a /reload).
+function ns.ResetMidnightWindowMemory()
+	if ns.db and ns.db.ui then
+		ns.db.ui.dialogPos = nil
+		ns.db.ui.dialogScale = nil
+	end
 end
 
 --- Shift+scroll for a window that does not go through RegisterMidnightDialogPopup (no dock button, no Escape).
@@ -395,6 +483,7 @@ function ns.EnsureMidnightDialogTitleBar(frame)
 	end)
 	titleBar:SetScript("OnDragStop", function()
 		frame:StopMovingOrSizing()
+		SavePosition(frame)
 	end)
 	frame._mhTitleBar = titleBar
 	return titleBar, content

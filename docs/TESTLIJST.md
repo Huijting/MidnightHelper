@@ -21,6 +21,16 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 29 okt (avond) — vensters onthouden hun plek + kamerkaartje blijft open (Italiaanse vragenlijst, cijfer 4)
+
+Eerst `/reload`.
+- [ ] Sleep een MH-venster ergens anders heen (bv. het Great Vault-venster, of `/mh bosscard` en dan een baas), log uit
+      en weer in: het venster komt terug op die plek. Een venster dat je nooit sleepte opent nog op zijn oude plek.
+- [ ] Aan de rechterkant vastgezette vensters ("dock") volgen nog steeds het hoofdvenster.
+- [ ] `/mh windows reset` + `/reload`: alle vensters weer op hun eigen plek en grootte.
+- [ ] Labyrinth: druk op het kamer- of baaskaartje op "Open the Delve Coach". Het kaartje blijft staan (onder de coach);
+      sluit je de coach, dan zie je het kaartje weer.
+
 ## 🆕 29 okt — nieuw Delve Log + melding na een delve (ontwerp C + D)
 
 Eerst `/reload`.

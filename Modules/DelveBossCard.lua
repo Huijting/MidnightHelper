@@ -144,11 +144,13 @@ local function Build()
 	open:SetSize(200, 22)
 	open:SetPoint("BOTTOMLEFT", 14, 14)
 	open:SetText(ns:L("DELVEBOSSCARD_OPEN_COACH"))
+	-- The card stays open (an Italian player's survey answer, 29 Oct 2026): it closed here, and since a room shows its
+	-- card only once (lastRoomShown) a mis-click lost it until the next room or a /reload. The coach sits above it
+	-- (FULLSCREEN_DIALOG); closing the coach shows the card again.
 	open:SetScript("OnClick", function()
 		if ns.ShowDelveCoach and f._entryId then
 			ns:ShowDelveCoach(f._entryId, { preview = false })
 		end
-		f:Hide()
 	end)
 	f.openBtn = open
 
