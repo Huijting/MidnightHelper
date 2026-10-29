@@ -33,8 +33,10 @@ van 28 okt zijn in die chat NIET gemeld: nog open. De site-chat heet nu «Site c
   hem zien). 20 nieuwe DELVELOG_*/DELVE_NOTICE_*-keys + SET_DELVENOTICE_* in alle packs, esMX met "abismo"; eigen
   vertaling, niet moedertaal-nagekeken. CHANGELOG_4140_13. Lint 0 HARD, syntax OK (307). Afwijking van het ontwerp: in
   melding D is de tijd niet groter dan de rest (één tekstregel-lettertype). Testpunten: TESTLIJST "29 okt — nieuw Delve Log".
-- **Site-chat 29 okt (Codex):** stelt voor de hotfix van 27 okt ("Fixed an issue where some scenarios were not granting
-  Great Vault credit", kopje Labyrinth) bij de Codex-regel over Labyrinth-Vault-credit te zetten. Nog Robs keus.
+- ✅ **Codex Labyrinth, 29 okt (Rob: "Ja, zet erbij"):** de "Not known yet"-regel van CODEX_LABYRINTH_BODY noemt nu de
+  hotfix van 27 okt ("Fixed an issue where some scenarios were not granting Great Vault credit", kopje Labyrinth; gelezen
+  door de site-chat 28 okt en de content-wachter, CONTENT_WATCH.md:3595; ik las de Blizzard-pagina niet zelf). Alle 9
+  versies (en, nl, de, fr, es, esMX, pt, it, ru), drift gemarkeerd. De site neemt het over via build_codex bij de release.
 - **Daarna: beta2 of gewone 4.14.0** — Robs keus. Bij de gewone 4.14.0 de site-chat seinen (beta-blok → "nieuw", knop +
   strookregel eruit, Solo-tab op /play/; site-chat 27-10 vroeg erom).
 - **3 site-chat-punten** (SMC-afkorting, AH-pin zonder bron, RAIDSHOP_GEAR_TIP) — nog Robs keus.
