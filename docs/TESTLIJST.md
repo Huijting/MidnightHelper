@@ -29,7 +29,8 @@ Eerst `/reload`.
 - [ ] Aan de rechterkant vastgezette vensters ("dock") volgen nog steeds het hoofdvenster.
 - [ ] `/mh windows reset` + `/reload`: alle vensters weer op hun eigen plek en grootte.
 - [ ] Labyrinth: druk op het kamer- of baaskaartje op "Open the Delve Coach". Het kaartje blijft staan (onder de coach);
-      sluit je de coach, dan zie je het kaartje weer.
+      sluit je de coach, dan zie je het kaartje weer. ⚠️ Het gaat om de knop **op het kaartje zelf, linksonder**, niet
+      om het boekje in je balk (Rob dacht 30 okt dat het het boekje was; dus nog niet getest).
 
 ## 🆕 29 okt — nieuw Delve Log + melding na een delve (ontwerp C + D)
 
@@ -57,7 +58,11 @@ Eerst `/reload` (nieuw bestand: bij een fout eerst een volledige herstart van Wo
       tijd en "Set on" "-", "All your bests added up 86:38" (= zijn run van 27 okt), "No finished run yet", "Show last
       run" grijs, vinkje aan, "Wipe Tier 11...".
 - [ ] Shift+scroll maakt het venster groter/kleiner; slepen werkt; Escape sluit hem.
-- [ ] Na een hele Labyrinth-run, bij het verlaten: venster **"Labyrinth run"** opent vanzelf. Bovenin Tier, Total, New bests;
+- [x] ✅ Rob 30 okt: bij het verlaten van de Labyrinth (29 okt avond, met Carola) ging venster A vanzelf open.
+      Nagemeten in de SavedVariables (`labSplits.lastRun`): 5 kamers T11, samen 52:03 (som klopt), 1 record (The
+      Catacombs 7:53, was 10:05; alleen daar `bestAt` gezet), de andere 4 bests onaangetast. Rob 30 okt over de klok
+      (start ~21:14, kamer 5 klaar 22:06, weg 22:28): *"qua tijden klopt het wel"*.
+- [ ] Inhoud van venster A (niet apart gemeld): Bovenin Tier, Total, New bests;
       per kamer de tijd en "first time" / "-0:41 faster" (groen, met een gele ster) / "+1:05 slower" (rood). Onderin "If
       every room went like your best: …". Het lijstje in de chat staat er ook nog.
 - [ ] "My best times" → venster B, nu met datum bij nieuwe records en "Last run (…)"; "Show last run" → terug naar A.

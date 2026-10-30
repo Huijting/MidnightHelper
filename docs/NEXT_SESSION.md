@@ -7,8 +7,13 @@
   gelezen, niet getest). HandyNotes 167 onveranderd. Site-mail: de Italiaanse vragenlijst van 29 okt → als #27
   bijgeteld in `SURVEY_RESULTS.md` (Rob: "Ja, tel hem bij"); gemiddeld cijfer blijft 4,0.
 - Rob over de Labyrinth met Carola (29 okt avond): *"liep niet goed af, we stopten eerder en gingen naar de baas en daar
-  liepen we stuk"*. De testvragen (kamerkaartje, vensterplek, splitsvenster A, MH bij de baas) zijn gesteld, nog geen
-  antwoord.
+  liepen we stuk"*. Zijn antwoorden: de wipe was hun eigen fout (te weinig powers/maskers), niet MH. Splitsvenster A
+  ging vanzelf open ✅. Vensterplek: niet getest. Kamerkaartje: niet getest (hij dacht dat "Open the Delve Coach" het
+  boekje in de balk was; het is de knop linksonder op het kaartje, `DelveBossCard.lua:143`).
+- Splits nagemeten in de SavedVariables (`labSplits.lastRun`, GEMETEN): 5 kamers T11, 52:03 (som klopt), 1 record
+  (The Catacombs 7:53, was 10:05), de andere bests onaangetast, baaskamer ontbreekt (wipe). Rob over de klok: *"qua
+  tijden klopt het wel"*. TESTLIJST bijgewerkt (Rob: "Ja, zet erin").
+- Nog open voor de release: vensterplek, kamerkaartje-knop, inhoud venster A, Delve Log na een echte delve, AH-punten.
 
 ## 🌙 29 okt (laat) — overdracht naar de bouwchat van 30 okt
 
