@@ -2,6 +2,19 @@
 
 All notable changes to this project are documented in this file.
 
+## 4.14.0
+
+📌 **2026-10-30, RELEASE (Rob: "we gaan voor een release" → "Ja, breng uit").** Tag `v4.14.0`, inhoud = beta1 + beta2 +
+onderstaande. In-game: CHANGELOG_4140_0 (uitnodiging beta's) en _14 herschreven, _15 en _16 nieuw.
+`RELEASE_NOTES.md` = `docs/CURSEFORGE_4.14.0.md`, met bovenaan de beta-alinea en "You asked, we built it" (Robs boodschap
+over delve-routes). GEMETEN door Rob: vensterplek, kamerkaartje blijft open, splitsvenster A gaat vanzelf open, tijden.
+NIET gezien in het spel: vinkje per character, coach-knop op de goede baas, inhoud venster A, Delve Log na een echte
+delve, AH-punten.
+
+- **Vensters:** plek onthouden (`ns.RememberMidnightWindowPosition`); schakelaar per character (`mh_windowsPerChar`,
+  standaard uit; `/mh windows perchar`). Hoofdvenster, bazenvenster en delve coach bewaren hun plek apart en blijven gedeeld.
+- **Kamer-/baaskaartje:** blijft open bij "Open the Delve Coach"; de coach opent op de baas van het kaartje (`bossIndex`).
+
 ## 4.14.0 (beta2)
 
 📌 **2026-10-29, BETA 2 (Rob: "Nu beta2").** Tag `v4.14.0-beta2`, TOC blijft 4.14.0. In-game: CHANGELOG_4140_13 (Delve

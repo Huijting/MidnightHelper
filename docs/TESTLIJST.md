@@ -41,9 +41,8 @@ Eerst `/reload`.
       (de plek geldt voor het hele account, `MidnightHelperDB`).
 - [ ] Aan de rechterkant vastgezette vensters ("dock") volgen nog steeds het hoofdvenster.
 - [ ] `/mh windows reset` + `/reload`: alle vensters weer op hun eigen plek en grootte.
-- [ ] Labyrinth: druk op het kamer- of baaskaartje op "Open the Delve Coach". Het kaartje blijft staan (onder de coach);
-      sluit je de coach, dan zie je het kaartje weer. ⚠️ Het gaat om de knop **op het kaartje zelf, linksonder**, niet
-      om het boekje in je balk (Rob dacht 30 okt dat het het boekje was; dus nog niet getest).
+- [x] ✅ Rob 30 okt ("vink maar af", screenshot): op het kamerkaartje op "Open the Delve Coach" gedrukt. Het kaartje bleef
+      staan naast de coach. Niet apart gemeld: of je het kaartje weer ziet na het sluiten van de coach.
 
 ## 🆕 29 okt — nieuw Delve Log + melding na een delve (ontwerp C + D)
 

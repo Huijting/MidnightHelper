@@ -1,5 +1,13 @@
 # Midnight Helper — waar we staan
 
+## 🚀 30 okt — RELEASE 4.14.0 (Rob: "we gaan voor een release" → "Ja, breng uit")
+
+- Kamerkaartje afgevinkt (Rob: "vink maar af"). Notes: beta-alinea bovenaan, dan "You asked, we built it" met Robs
+  vriendelijke uitleg dat de ideale delve-route voor iedereen anders is en één persoon dat lastig maakt.
+- Robs bewuste keuze, wetend wat open staat. Nog niet in het spel gezien (TESTLIJST): vinkje per character, coach-knop op
+  de goede baas, inhoud venster A, Delve Log na een echte delve, AH-punten. Komt er een fout uit: 4.14.1.
+- Open, Robs keuze: de 3 punten van de site-chat (SMC-afkorting, AH-pin zonder bron, RAIDSHOP_GEAR_TIP).
+
 ## ☀️ 30 okt (ochtend) — bouwchat «Bouwchat 30-10»
 
 - Ochtendronde GEMETEN: alle 4 wachters gedraaid (nieuwe PTR-build 12.1.7.70668, API-wachter: 6 API-wijzigingen,
