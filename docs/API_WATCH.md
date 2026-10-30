@@ -7814,3 +7814,210 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
     `origin/main` en nooit met de lokale `main`. Rechtgezet met `git checkout -B main origin/main`
     (alleen een ref-verplaatsing, geen bestandswijziging). `git status --short` was **leeg**, en geen
     van de vier wachter-bestanden stond gewijzigd-maar-ongecommit. Geen enkel ander bestand geraakt.
+- [2026-10-30] 🔴 **Nul [MOET GEFIKST], maar de drukste API-dag sinds 23 okt: er IS een NIEUWE
+  PTR-CLIENT-BUILD — `70493` → **`70668`** — en daarin zitten zes échte API-wijzigingen, waarvan twee
+  verscherpte secret-regels en één verwijderde functienaam. Alle zes getoetst aan de code: geen enkele
+  raakt MH. 🔁 **En het is een CORRECTIE op mijn eigen regel van gisteren:** het bestand
+  `VoiceActivityManager.xml`, dat ik gisteren als *verwijderd* meldde met de vraag of het een echte
+  Blizzard-wijziging of een extractie-artefact was, **staat er vandaag weer, byte-voor-byte identiek**.
+  Het was dus het artefact; de vraag is daarmee dicht. Verder: wiki nog op 16 okt (veertiende dag), geen
+  nieuwe hotfix-batch (bovenste kop nog 27 okt), geen SimC-release (achtste dag), twee nieuwe forumposts
+  en geen van beide over API.**
+  - 🆕 **NIEUWE PTR-BUILD `70668`, GEMETEN en niet uit een samenvatting.** `git ls-remote
+    https://github.com/Gethe/wow-ui-source refs/heads/live refs/heads/ptr`: `live` =
+    **`15881d522c44cd106d3d8660106ec9f9d2f44167`** (onveranderd sinds 23 okt, nog steeds 12.1.5
+    (70575)), `ptr` = **`9fc0ba94381153262856ed0120a2675f1a11c30a`** — gisteren was dat `ea18cdd1…`.
+    Commitdatum **2026-10-29T21:46:04Z**, commitbericht **`12.1.7 (70668)`**, en `version.txt` gaat in
+    diezelfde commit van `12.1.7.70493` naar **`12.1.7.70668`**. GEMETEN `git diff --shortstat
+    ea18cdd 9fc0ba9`: **179 files changed, 3032 insertions(+), 919 deletions(-)** (9 toegevoegd, 2
+    verwijderd, 168 gewijzigd). 📌 Dit is de eerste écht nieuwe 12.1.7-build sinds `70493` van 22 okt;
+    de vier commits daartussen droegen alle hetzelfde nummer. Aanleiding is waarschijnlijk de
+    Talebound-demo van dit weekend (PTR Development Notes, 29 okt) — maar dát is het terrein van de
+    PTR-wachter, niet het mijne.
+  - 🔁 **[RAAKT ONS NIET] — CORRECTIE OP 29 OKT: `VoiceActivityManager.xml` IS TERUG.** GEMETEN:
+    in `git diff --name-status ea18cdd 9fc0ba9` staat
+    `A	Interface/AddOns/Blizzard_Channels/Mainline/VoiceActivityManager.xml`, en een `diff` van
+    `git show 03cd1ac:<pad>` tegen `git show 9fc0ba9:<pad>` geeft **geen enkel verschil** — het
+    teruggezette bestand is byte-voor-byte de versie van vóór de verwijdering. 🔴 **Gisteren liet ik
+    bewust open** of de verwijdering een Blizzard-wijziging of een extractie-artefact was, met drie
+    tegenargumenten (onveranderd buildnummer, een `Blizzard_Channels.toc` die nog naar het bestand
+    verwees, een nog bestaande `Classic/`-kopie). Die drie wezen de goede kant op: **het was het
+    artefact.** Er verdwijnt dus niets uit de voice-UI, en de toets blijft hoe dan ook dezelfde:
+    `VoiceActivityManager` → **0** bestanden in MH.
+  - 🔐 **[RAAKT ONS NIET] — `C_LossOfControl` wordt STRENGER: twee functies zijn nu altijd secret.**
+    GEMETEN in `Blizzard_APIDocumentationGenerated/LossOfControlDocumentation.lua`:
+    `GetActiveLossOfControlData` krijgt **nieuw** `SecretWhenLossOfControlRestricted = true` (stond er
+    eerst helemaal niet bij), en `GetActiveLossOfControlDataByUnit` gaat van
+    `SecretWhenLossOfControlInfoRestricted` naar datzelfde nieuwe predicaat. In
+    `SecretPredicatesDocumentation.lua` staat het nieuwe predicaat erbij met als tekst *"Guarded APIs
+    always produce secret values, unless the active player is an active spectator or commentator of a
+    PvP match."* ⚠️ **En het oude predicaat is stilletjes HERSCHREVEN:**
+    `SecretWhenLossOfControlInfoRestricted` zei *"produce secret values if the subject unit is not the
+    active player, unless they are an active spectator…"* en zegt nu *"**always** produce secret
+    values, unless…"*. Dat is geen redactie maar een gedragswijziging: je eigen loss-of-control-data
+    was leesbaar en is dat niet meer. Toets: `C_LossOfControl` → **0** bestanden,
+    `GetActiveLossOfControlData` → **0**.
+  - 🔐 **[RAAKT ONS NIET] — `C_Spell.IsSpellCrowdControl`: `SecretArguments` van `AllowedWhenTainted`
+    naar `AllowedWhenUntainted`.** GEMETEN in `SpellDocumentation.lua`. Een addon die hier een secret
+    value in gooit vanuit getainte code krijgt dat vanaf 12.1.7 niet meer voor elkaar. Toets:
+    `IsSpellCrowdControl` → **0** bestanden, tegenover `C_Spell` → **56** (positieve controle: we
+    gebruiken die namespace volop, deze functie alleen niet).
+  - 📐 **[RAAKT ONS NIET, en dat is GEMETEN en niet gehoopt] — `GetInstanceInfo` krijgt een TWAALFDE
+    return, `instanceServerID`, en hij staat ACHTERAAN.** GEMETEN: in `InstanceDocumentation.lua` komt
+    `{ Name = "instanceServerID", Type = "number", Nilable = true }` er bij twee structuren bij, en de
+    volledige returns-lijst van `GetInstanceInfo` in build `70668` is in deze orde: `name`,
+    `instanceType`, `difficultyID`, `difficultyName`, `maxPlayers`, `dynamicDifficulty`, `isDynamic`,
+    `instanceID`, `instanceGroupSize`, `lfgDungeonID`, **`hasWorldTier` (11)**, `instanceServerID` (12).
+    📌 Waarom dit het natrekken waard was: MH leest `GetInstanceInfo` in **35** bestanden en gebruikt
+    hoge posities met `select`. De hoogste is `Modules/Showdowns.lua:226`
+    (`local hasWT = select(11, GetInstanceInfo())`) en die blijft dus exact `hasWorldTier`; de rest zit
+    op 1, 3 en 8 (`Modules/Auras.lua:662`, `Modules/GroupRezLust.lua:332`,
+    `Modules/Retrospective.lua:226`, `Modules/PetTauntProbe.lua:422`, `Modules/DurabilityWarn.lua:185`,
+    `Modules/ValeeraProgress.lua:504`, `Modules/FastMark.lua:790`, `Modules/InstanceMap.lua:607`,
+    `Modules/GroupFloorProbe.lua:50`). Was het veld er vóór `hasWorldTier` ingeschoven, dan had
+    `Showdowns.lua:226` stil het verkeerde getal gelezen. Niets te doen — maar dit is precies het soort
+    wijziging dat je niet aan het woord "toegevoegd" kunt afmeten. ⚠️ **Wat `instanceServerID` ís,
+    weet ik niet**, en ik gok er niet naar: er is geen `Documentation`-regel bij, en of het samenhangt
+    met de GUID-obfuscatie van 12.1.7 (waar juist het server-ID-deel onleesbaar wordt) is van buitenaf
+    niet te meten.
+  - 🧩 **[RAAKT ONS NIET] — drie NIEUWE functies, en twee ervan zijn de migratieweg voor de
+    TOC-wijziging die al in dit logboek staat.** GEMETEN: `C_ActionBar.IsHighestSpellRank(spellID)` →
+    `bool` (`ActionBarFrameDocumentation.lua`), en in `BuildDocumentation.lua` **`C_Build.GetGameFamily()`**
+    en **`C_Build.GetGameType()`**, met als eigen documentatietekst *"Returns the game family as used by
+    the AllowLoadGameType/ExcludeLoadGameType TOC directives, e.g. mainline or classic"*. 📌 Dat sluit
+    aan op de 12.1.7-regel die ik op 27 okt al getoetst heb (*"TOC directives no longer expand variables
+    such as [Game] or [Family]"*): wat je uit een `.toc`-regel niet meer kunt halen, kun je nu in Lua
+    opvragen. MH heeft geen enkele `[Game]`/`[Family]`/`[AllowLoadGameType …]`-regel in zijn toc (gemeten
+    27 okt) en gebruikt deze functies niet: `C_Build` → **0**, `GetGameFamily` → **0**, `GetGameType` →
+    **0**, `IsHighestSpellRank` → **0**.
+  - 🗑️ **[RAAKT ONS NIET] — één VERWIJDERDE functienaam en één HERNOEMDE enum-waarde, beide in
+    `C_GameRules`.** GEMETEN in `GameRulesDocumentation.lua`: `SetForeverExperiencePreset` is **weg** en
+    vervangen door twee functies, `SetForeverExperiencePresetPostLogin` en
+    `SetForeverExperiencePresetPreLogin` (zelfde argument `ForeverExperiencePreset`). In diezelfde enum
+    heet waarde `1` niet langer **`Modern`** maar **`Enhanced`** (`Classic` = 0 blijft). Nieuw event
+    **`SETTINGS_HEADER_TEXT_UPDATE`**. Toets: `C_GameRules` → **0** bestanden,
+    `ForeverExperiencePreset` → **0**, `SETTINGS_HEADER_TEXT_UPDATE` → **0**.
+    - ✅ **En de vraag die dit opriep, apart gemeten, want MH hangt er wél aan:** als Blizzard
+      `Modern` in `Enhanced` hernoemt, wordt `EditModeManagerFrame:ReconcileWithModern` dan ook
+      hernoemd? **Nee.** GEMETEN `git grep -n "ReconcileWithModern" 9fc0ba9`:
+      `Blizzard_EditMode/Shared/EditModeManager.lua:878` (`function
+      EditModeManagerFrameMixin:ReconcileWithModern(layoutInfo)`) plus de aanroep op `:903`, en de naam
+      komt **niet in de diff voor**. MH's twee gebruiken zijn hoe dan ook afgedekt — `if
+      EditModeManagerFrame and EditModeManagerFrame.ReconcileWithModern then` + `pcall` op
+      `Modules/EditModeBackup.lua:505-506` en `:576-577`. [AL AFGEDEKT]
+  - 🔇 **[RAAKT ONS NIET] — vier enum-uitbreidingen en één secret-flip, allemaal buiten onze code.**
+    GEMETEN: `Enum.NamePartType` van 2 naar **3** waarden (nieuw `Combined` = 2,
+    `LocalizationSharedDocumentation.lua`); `Enum.PlayerInteractionType` van 82 naar **83**
+    (`ReservedFuture` = 82); `Enum.FrameTutorialAccount` van 51 naar **53** (`Reserved2`, `Reserved3`);
+    `Enum.VasTransactionPurchaseResult` van 145 naar **146** (`ProxyNoMixedAlliance` = 56, waardoor
+    `EndProxyErrors` van 56 naar 57 schuift). En in `DamageMeterDocumentation.lua` gaat `specIconID` in
+    twee structuren van `NeverSecret = true` naar **`SecretValue = true`**. Toets: `NamePartType` → **0**,
+    `PlayerInteractionType` → **0**, `specIconID` → **0**, `C_DamageMeter` → **0**. 📌 Ook nieuw maar
+    zonder gevolg voor ons: `APIDocumentation_LoadUI()` keert nu vroeg terug op het inlogscherm
+    (`if C_Glue.IsOnGlueScreen() then return false; end`).
+  - 🧪 **[AL AFGEDEKT] — `ContainerFrame` is zwaar verbouwd (+179 regels) en onze bag-hook staat nog.**
+    GEMETEN in build `70668`: `ContainerFrameMixin:Update` bestaat nog
+    (`Blizzard_UIPanels_Game/Mainline/ContainerFrame.lua:1181`), dus de `hooksecurefunc` op
+    `Modules/BagUpgrade.lua:85-87` grijpt nog. ⚠️ `ContainerFrame_Update` als exacte global bestaat in
+    Mainline **niet** (alleen `ContainerFrame_UpdateAll`, `_UpdateLocked`, `_UpdateLockedItem`,
+    `_UpdatePortraitPosition`) — maar dat is geen nieuwe breuk: `Modules/BagUpgrade.lua:88` staat achter
+    `if type(ContainerFrame_Update) == "function" then`, dus die tak is altijd al dood én veilig.
+    `ContainerFrameItemButtonMixin:Initialize` krijgt in deze build een **extra eerste argument**
+    (`(bag, slot)` → `(containerFrame, bag, slot)`) en er komen zeven nieuwe mixin-methodes bij; MH
+    noemt `ContainerFrameItemButtonMixin` **0** keer en loopt de knoppen via
+    `frame:EnumerateValidItems()`, dat nog bestaat en achter `type(frame.EnumerateValidItems) ~=
+    "function"` staat (`Modules/BagUpgrade.lua:64`) met elke knop in een `pcall` (`:68`).
+  - 🧪 **[AL AFGEDEKT] — `Menu.lua` krijgt taint-hardening, en wij raken alleen de voordeur aan.**
+    GEMETEN: `MenuMixin:DiscardChildFrames` roept de resetters nu via
+    `securecallfunction(SecureCallResetters, frame)` in plaats van ze inline uit te voeren, en er is een
+    nieuwe `Menu.IsMenuProxy(frame)` plus een `self.isMenuProxy = true` in `MenuProxyMixin:OnLoad`. MH
+    gebruikt uitsluitend `MenuUtil.CreateContextMenu`, en op beide plekken achter een guard:
+    `Modules/SettingsPage.lua:467` en `Modules/RoomLauncher.lua:349` (`if MenuUtil and
+    MenuUtil.CreateContextMenu then`).
+  - 🔇 **[RAAKT ONS NIET] — nameplate-aura's en de Delves-picker zijn gewijzigd, maar niet op onze
+    oppervlakken.** GEMETEN: `NamePlateAuraItemMixin:SetAura` zet `self.isBuff` **niet meer**, en
+    `NameplateAuraItemTemplate` gaat van `enableMouse="true"` naar `enableMouseMotion="true"` met
+    `SetMouseClickEnabled(false)` in `OnLoad` (*"Registering OnEnter re-enables clicks, so this has to be
+    set in lua."*). MH's enige vermelding van `NamePlateAuras` is een **comment**
+    (`Modules/PlayCardWindow.lua:645`) en `isBuff` komt nergens in onze code voor; ons eigen
+    nameplate-werk is de skull-texture op `NAME_PLATE_UNIT_ADDED` (`Modules/Rares.lua:883`/`:904`) en die
+    is niet geraakt. `Blizzard_DelvesDifficultyPicker` is ook gewijzigd, maar MH noemt
+    `DelvesDifficultyPicker` **0** keer (wij gaan via `C_DelvesUI`, **14** bestanden) en er staat **geen**
+    `DelvesDocumentation.lua` in de diff — geen enkele `C_DelvesUI`-signature is dus aangeraakt.
+  - 🔇 **[RAAKT ONS NIET] — wiki: beide API-pagina's nog op hun 16 okt-revisie, VEERTIENDE dag, dus de
+    wiki beschrijft build `70668` nog niet.** GEMETEN via
+    `rest.php/v1/page/<pagina>%2FAPI_changes/history?nocache=20261030`: `Patch 12.1.7/API changes` op
+    **`6919765`** (**2026-10-16T22:38:53Z**, Ketho, `/* Blue posts */`, 1541 bytes, nog steeds **vier**
+    revisies); `Patch 12.1.5/API changes` op **`6919763`** (**2026-10-16T22:38:41Z**, Ketho, 17904 bytes).
+    📌 De `Summary` van de 12.1.7-pagina heeft nog precies dezelfde **twee** punten als op 27 okt
+    (GUID-obfuscatie en de TOC-directives), beide al getoetst en beide [RAAKT ONS NIET]. Alles wat ik
+    hierboven over `70668` schrijf komt dus uit de **client-bestanden zelf**, niet uit de wiki — en dat is
+    hier het snellere spoor.
+  - 🔇 **[RAAKT ONS NIET] — GEEN NIEUWE HOTFIX-BATCH: de bovenste gedateerde kop is nog steeds
+    *"October 27, 2026"*.** GEMETEN via de raw-post `raw/2382684/1?nocache=20261030`: post #1 opent met
+    `**Hotfixes**` en dan `**October 27, 2026**`. Die batch heeft **Classes**, **Items**, **Labyrinth** en
+    **Player versus Player** en **geen** `User Interface`- of AddOn-sectie — niets te toetsen. ✅
+    **Cache-controle geslaagd:** 27 okt is precies wat mijn eigen regel van gisteren al noemde en niet
+    ouder, dus dit is stilte en geen cache.
+  - 🔇 **[RAAKT ONS NIET] — forum `#ui-macro`: twee nieuwe posts, geen van beide over API.** GEMETEN mét
+    cache-buster (`search.json?q=#ui-macro after:2026-10-28&nocache=20261030a`, daarna de raw-posts):
+    (1) nieuw topic **`2396144`** *"On use trinket macro help"*, post **`30678454`** (HarryFarina /
+    Rockyhorror-trollbane, **2026-10-30T00:09:00.997Z**) — een macro-vraag over *"item not ready"* bij een
+    on-use-trinket plus Call Dreadstalkers, geen API; (2) topic **`2394958`** (*"Accessibility of
+    mouseover and moving nameplates"*, mijn regel van gisteren) staat nu op **3** posts, met post 3 van
+    **2026-10-29T14:50:40Z**: *"Thanks, I'll take a look"* plus een wens voor een FFXIV-achtige enemy
+    list. 🔴 **Nog steeds geen blue post in dat topic**, dus nog steeds geen toegezegde API. En
+    `2367394` (*Unregister Global Mouse*) post **#15** (Elvenbane, **2026-10-25T11:08**) is inhoudsloos
+    (*"this is the only one that's actually mine"*). ⚠️ Eén meetdetail: post 3 van `2394958` kwam **niet**
+    in de `after:2026-10-28`-zoekuitslag voor terwijl de topic-JSON hem wél heeft — de zoekindex loopt dus
+    achter op de topics, en alleen op zoeken vertrouwen zou hem gemist hebben.
+  - 🧰 **[RAAKT ONS NIET] — SimC-addon: geen nieuwe release sinds `12.1.5-03`, achtste dag.** GEMETEN met
+    `git ls-remote --tags https://github.com/simulationcraft/simc-addon`: **290** regels (zelfde aantal
+    als gisteren), nieuwste 12.x-tag blijft **`12.1.5-03`** =
+    **`cb3e3af298e3124162c6bf44d1bebac53435eaec`**, en `HEAD` én `refs/heads/master` staan op diezelfde
+    SHA — dus ook geen ongereleasete commits op master. 📌 Datums van de drie 12.1.5-releases, vandaag
+    voor het eerst gemeten met een `--depth=1`-fetch per tag: `12.1.5-01` **2026-10-12**, `12.1.5-02`
+    **2026-10-19** (*"forever: Add legacy talents, ranged, ammo, and bags"*), `12.1.5-03` **2026-10-22**
+    (*"forever: Export hunter pet info"*) — alle drie ruim buiten de 7-dagengrens.
+    ⚠️ **Beide reservewegen faalden vandaag**, dus deze regel staat op de git-route alleen: Exa gaf
+    gisteren `CRAWL_LIVECRAWL_TIMEOUT` op de releases-pagina, en `curl` op
+    `releases.atom?nocache=20261030` geeft door de proxy **403**. 📌 Dat is minder erg dan het klinkt:
+    `ls-remote` vraagt de server elke keer opnieuw, dus hier is cache-twijfel niet van toepassing.
+    `Modules/SimcExport.lua` volgt in zijn kopcommentaar nog **`12.1.0-04`** plus de race-takken uit
+    `12.1.0-alpha-06` (GEMETEN, `Modules/SimcExport.lua:12-14`) — nog steeds een documentatie-achterstand
+    van twee releases, geen code-achterstand (zie 27 okt).
+  - 🔌 **MEETGAT, vijfde dag identiek: de WoW-bronnen blijven geweigerd op Bash-`curl`.** GEMETEN met
+    `curl -s -o /dev/null -w "%{http_code}" --max-time 12`: `warcraft.wiki.gg`,
+    `us.forums.blizzard.com`, `www.wowhead.com` en `news.blizzard.com` geven alle vier **`000`**; nieuw
+    vandaag is dat ook `github.com/.../releases.atom` **403** geeft. 🔴 Niet omzeild (het proxy-README
+    verbiedt dat expliciet): élke wiki- en forummeting hierboven loopt via Exa `web_fetch_exa` mét een
+    cache-buster. Wat wél schoon werkt op Bash: **`git ls-remote` en `git fetch --depth` over https naar
+    github.com** — daarmee zijn de build-SHA's, de volledige 179-bestandsdiff, de returns-lijst van
+    `GetInstanceInfo`, het voortbestaan van `ReconcileWithModern` en de SimC-tags gemeten. 📌 Vandaag is
+    dat de belangrijkste les van de run: de wiki liep veertien dagen achter, de client-bestanden niet.
+  - 🧪 **Positieve controle van de grep-reikwijdte, in dezelfde run en in dezelfde vorm als de nullen
+    hierboven** (`grep -rIl`, `.git`/`docs`/`tools`/`dist` uitgesloten, geteld in bestanden):
+    `issecretvalue` → **66**, `CreateFrame` → **160**, `C_Spell` → **56**, `InCombatLockdown` → **51**,
+    `GetInstanceInfo` → **35**, `C_DelvesUI` → **14**, `C_WeeklyRewards` → **12**, `C_Secrets` → **5**,
+    `MenuUtil` → **3**, `ContainerFrame` → **2**, tegenover `C_LossOfControl` → **0**,
+    `IsSpellCrowdControl` → **0**, `C_GameRules` → **0**, `C_Build` → **0**, `NamePartType` → **0**,
+    `specIconID` → **0**, `VoiceActivityManager` → **0** en `ContainerFrameItemButtonMixin` → **0**. Het
+    patroon vindt wat er is, dus de nullen hierboven zijn afwezigheid en geen meetfout.
+  - ⏳ **Nog open uit eerdere runs, NIET nieuw en vandaag niet opnieuw gemeten:** de UTF-8 BOM vooraan
+    `MidnightHelper.toc`; de `%d+`-aanname op veld 3 van de npcID-match (`Modules/ResetRoutine.lua:648`)
+    tegenover de GUID-obfuscatie; de dode `PickupItem`-takken in `Modules/KeyBlock.lua:1135`/`:1227`/
+    `:1380` en `Modules/ApplyLayout.lua:1311`/`:1345`/`:1605`; de vijf decoratieve
+    `GetItemInfo`-terugvaltakken; `Blizzard_DeprecatedWorldElapsedTimerTypes` als tiende
+    deprecated-addon tegenover negen wiki-secties; de verouderde namespace-lijst in
+    `docs/WATCHER_API_PROMPT.md` (18 aug); de client-test voor `/mh raidbots`; en de ongelezen
+    PTR-bestanden — dat zijn er nu **179 nieuw gewijzigde** in build `70668`, waarvan ik hierboven de
+    API-documentatie volledig en de FrameXML-delen gericht gelezen heb. 🔴 Niets van dit alles
+    aangeraakt.
+  - 🔧 **Repo-staat: alleen `docs/API_WATCH.md` aangeraakt, en de scheve ref was er weer.** GEMETEN vóór
+    het schrijven: `git rev-parse --abbrev-ref HEAD` → **`HEAD`** (detached, zoals op 17, 19, 22, 25, 26
+    en 29 okt; op 27 en 28 okt was het `main`), met `HEAD` =
+    **`95bc493f526d3b99cf1067afe63711f1a392a9c0`** = **exact** `origin/main` na `git fetch origin main`,
+    terwijl de lokale `main` achterliep op **`6a2b0f3`**. 📌 De kloon is **shallow**: vergelijk HEAD met
+    `origin/main` en nooit met de lokale `main`. Rechtgezet met `git checkout -B main origin/main`
+    (alleen een ref-verplaatsing, geen bestandswijziging). `git status --short` was **leeg**, en geen van
+    de vier wachter-bestanden stond gewijzigd-maar-ongecommit. Geen enkel ander bestand geraakt.
