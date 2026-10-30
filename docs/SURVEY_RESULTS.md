@@ -37,6 +37,7 @@ speelkaarten — die heten "Zo speel je" = `play`).
 | 24 | 21 okt 19:08 | IT / it | dps | weken | 4 | play, route | maps, boss, prof, gear | irriteert: *"no"* · mist: *"non so valutarlo"* (kan het nog niet zeggen) · 💬 *"grazie mille"*: op 90 wist ze niet wat te doen voor gear en wat belangrijk was om vrij te spelen |
 | 25 | 22 okt 13:59 | BG / en | dps | weken | 5 | play, boss, route, collect, gear | prof, keys | 💬 *"This addon is realy helpful for a new player like myself"*; M+-feedback en beroepencursus nog niet aan toe |
 | 26 | 26 okt 14:49 | US / en | dps | weken | **3** | maps, boss, delves, weekly, prof, keys, route, gear | — | — (cijfer 3 zonder uitleg; alle vrije vakken leeg) |
+| 27 | 29 okt 16:48 | PT / it | mixed | weken | 4 | boss, delves, mplus | prof, site | irriteert: **vensters onthouden hun plek niet na uitloggen** (bv. de Great Vault) · **kamerkaartje verdwijnt bij "Open the Delve Coach"**, terug pas na /reload · mist: *visuele route om delves sneller te doen* · 💬 de korte kamer-uitleg in de Labyrinth hielp veel, vooral bij de ijskamer |
 
 📌 #17 en #19 komen allebei uit GB, dps, "een paar weken", via het spel, 4½ uur na elkaar. Mogelijk dezelfde speler
 die het twee keer invulde (#19 kent veel meer onderdelen). AFGELEID, niet vast te stellen: beide tellen mee.
@@ -52,6 +53,16 @@ cijfer. #6 gaf geen cijfer en geen rol.
 ⚠️ **#9 heeft `from: "gamehttpsmidnighthelpercomsurveyf"`** — "game" met de survey-URL eraan geplakt, zonder
 leestekens. Vermoedelijk heeft de speler de link uit het spel geplakt achter een al geopende link, of bouwt iets de
 `from`-waarde verkeerd. NIET onderzocht; telt gewoon mee als "via game".
+
+## Bijgeteld 30 okt (ochtendronde): #27, it/PT, mixed, via het spel
+
+- Een paar weken, cijfer **4**. Ontvangen 29 okt 16:48 UTC. Gebruikt bazentips, Delve-coach en M+-feedback vaak;
+  beroepencursus en de site "nooit / onbekend".
+- **Al opgepakt op 29 okt avond** (Robs ja, commit 14cdc37): vensters onthouden nu hun plek, en het kamerkaartje blijft
+  open bij "Open the Delve Coach". Nog niet in het spel getest, nog niet in een beta. De wens "visuele route" is NIET
+  gebouwd (Rob: *"laat maar liggen"*; zie NEXT_SESSION 29 okt avond).
+- **Cijfer nu:** gemiddeld **4,0** (25 cijfers: 8× 5, 12× 4, 4× 3, 1× 1; 101/25 = 4,04).
+- **Keybind-coach:** onveranderd (#27 noemt `keys` in geen van beide lijsten).
 
 ## Bijgeteld 27 okt (ochtendronde): #26, en/US, dps, via het spel
 

@@ -1,5 +1,15 @@
 # Midnight Helper — waar we staan
 
+## ☀️ 30 okt (ochtend) — bouwchat «Bouwchat 30-10»
+
+- Ochtendronde GEMETEN: alle 4 wachters gedraaid (nieuwe PTR-build 12.1.7.70668, API-wachter: 6 API-wijzigingen,
+  geen raakt MH; geen nieuwe hotfix sinds 27 okt). CF/GitHub 0 open. addon_updates: MDT 6.3.27 + Platynator 527 (alleen
+  gelezen, niet getest). HandyNotes 167 onveranderd. Site-mail: de Italiaanse vragenlijst van 29 okt → als #27
+  bijgeteld in `SURVEY_RESULTS.md` (Rob: "Ja, tel hem bij"); gemiddeld cijfer blijft 4,0.
+- Rob over de Labyrinth met Carola (29 okt avond): *"liep niet goed af, we stopten eerder en gingen naar de baas en daar
+  liepen we stuk"*. De testvragen (kamerkaartje, vensterplek, splitsvenster A, MH bij de baas) zijn gesteld, nog geen
+  antwoord.
+
 ## 🌙 29 okt (laat) — overdracht naar de bouwchat van 30 okt
 
 - Beta2 staat op CurseForge (GEMETEN: file 9361125, type Beta, 29 okt 11:14 UTC). De notes op de CF-pagina zelf zijn
