@@ -147,9 +147,11 @@ local function Build()
 	-- The card stays open (an Italian player's survey answer, 29 Oct 2026): it closed here, and since a room shows its
 	-- card only once (lastRoomShown) a mis-click lost it until the next room or a /reload. The coach sits above it
 	-- (FULLSCREEN_DIALOG); closing the coach shows the card again.
+	-- The card's boss goes along (Rob, 30 Oct 2026: "we krijgen altijd boss1 … en een hele lange tekst"): the coach
+	-- then opens on him, his section first and the long room lists cut to him, as a search hit already did.
 	open:SetScript("OnClick", function()
 		if ns.ShowDelveCoach and f._entryId then
-			ns:ShowDelveCoach(f._entryId, { preview = false })
+			ns:ShowDelveCoach(f._entryId, { preview = false, bossIndex = f._bossIdx })
 		end
 	end)
 	f.openBtn = open
@@ -183,13 +185,15 @@ function ns.ShowDelveBossCard(entryId, idx)
 		return false
 	end
 	return ns.ShowDelveCardWith(entryId,
-		ns:L(boss.final and "DELVEBOSSCARD_END_FMT" or "DELVEBOSSCARD_ROOM_FMT"):format(boss.label), lines)
+		ns:L(boss.final and "DELVEBOSSCARD_END_FMT" or "DELVEBOSSCARD_ROOM_FMT"):format(boss.label), lines, idx)
 end
 
 --- The one way text gets onto the card: a title and a list of tip lines (bosses and rooms both).
-function ns.ShowDelveCardWith(entryId, titleText, lines)
+--- `bossIdx`: the boss this card is about (nil for a room without one), handed to the coach by "Open the delve coach".
+function ns.ShowDelveCardWith(entryId, titleText, lines, bossIdx)
 	local f = Build()
 	f._entryId = entryId
+	f._bossIdx = bossIdx
 	f.title:SetText(titleText)
 	local text = #lines > 0 and table.concat(lines, "\n\n") or ns:L("DELVEBOSSCARD_NONE")
 	-- {WAY:map:x:y:Name} is a clickable link in the coach; here only its name is shown.
@@ -246,13 +250,16 @@ local function RoomTasks(entryId)
 	return tasks
 end
 
---- The card's lines for one task: the task line, then each named boss's own tip.
+--- The card's lines for one task: the task line, then each named boss's own tip. Second result: the first boss the
+--- task names (for the coach button), nil when it names none.
 local function RoomLines(entryId, task)
 	local lines = { task.line }
+	local firstBoss
 	local bosses = ns.DELVE_BOSS_SHOWCASE and ns.DELVE_BOSS_SHOWCASE[entryId] or {}
 	local lowerTask = task.line:lower()
 	for i, b in ipairs(bosses) do
 		if not b.final and type(b.label) == "string" and lowerTask:find(b.label:lower(), 1, true) then
+			firstBoss = firstBoss or i
 			local own = BossLines(entryId, i)
 			-- BossLines puts the boss's own line first; the room-task lines after it are this task again or others.
 			if own[1] and own[1] ~= task.line then
@@ -260,7 +267,7 @@ local function RoomLines(entryId, task)
 			end
 		end
 	end
-	return lines
+	return lines, firstBoss
 end
 
 --- Every text the scenario tracker gives us right now (readable ones only).
@@ -343,7 +350,8 @@ local function ShowTaskCard(task)
 		local idx = EndBossIndex(ENTRY_LABYRINTH)
 		return idx and ns.ShowDelveBossCard(ENTRY_LABYRINTH, idx) or false
 	end
-	return ns.ShowDelveCardWith(ENTRY_LABYRINTH, ns:L("DELVEROOMCARD_FMT"):format(task.name), RoomLines(ENTRY_LABYRINTH, task))
+	local lines, bossIdx = RoomLines(ENTRY_LABYRINTH, task)
+	return ns.ShowDelveCardWith(ENTRY_LABYRINTH, ns:L("DELVEROOMCARD_FMT"):format(task.name), lines, bossIdx)
 end
 
 local function MaybeShowRoomCard()

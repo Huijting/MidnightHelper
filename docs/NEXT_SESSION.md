@@ -13,7 +13,22 @@
 - Splits nagemeten in de SavedVariables (`labSplits.lastRun`, GEMETEN): 5 kamers T11, 52:03 (som klopt), 1 record
   (The Catacombs 7:53, was 10:05), de andere bests onaangetast, baaskamer ontbreekt (wipe). Rob over de klok: *"qua
   tijden klopt het wel"*. TESTLIJST bijgewerkt (Rob: "Ja, zet erin").
-- Nog open voor de release: vensterplek, kamerkaartje-knop, inhoud venster A, Delve Log na een echte delve, AH-punten.
+- ✅ Vensterplek GEMETEN Rob 30 okt: werkt, ook over characters heen (één account-DB).
+- 🔨 **30 okt GEBOUWD, nog niet in het spel getest** (Rob: "Plek én grootte", "Ja, allebei"):
+  1. Schakelaar "Window place and size per character" (`mh_windowsPerChar`, standaard uit = gedeeld). DialogPopup.lua:
+     `WriteStore`/`ReadStore`, per character in `ui.dialogPosChar[naam-realm]` / `ui.dialogScaleChar`; zonder eigen
+     waarde valt een character terug op de gedeelde. Grootte wordt nu ook bij elke OnShow hersteld (anders had wisselen
+     een /reload nodig). `/mh windows perchar` zet om; `/mh windows reset` wist ook de per-character-sets. Geldt alleen
+     voor vensters via AttachScaling/RegisterMidnightDialogPopup; hoofdvenster, bazenvenster en delve coach hebben hun
+     eigen opslag en blijven gedeeld.
+  2. "Open the delve coach" op het kamer-/baaskaartje geeft de baas mee (`bossIndex`): de coach opent op die baas en
+     filtert de lange lijsten (Rob: *"altijd boss1 … hele lange tekst"*). Kamer zonder baas: zoals vroeger.
+  Teksten: SET_WINPERCHAR_* + WINDOWS_PERCHAR_* in en/nl/de/fr/es/pt/it (SettingsPage.lua) + ru; eigen vertaling,
+  niet moedertaal-nagekeken. CHANGELOG_4140_16. Syntax OK (307), lint 0 HARD. Testpunten: TESTLIJST "30 okt".
+- Rob's screenshot van 30 okt toont het kamerkaartje nog open naast de coach. Gevraagd of hij via de knop op het kaartje
+  opende (dan is de 29-okt-reparatie ✅); nog geen antwoord.
+- Nog open voor de release: kamerkaartje-knop, inhoud venster A, Delve Log na een echte delve, AH-punten, en de twee
+  bouwsels van 30 okt.
 
 ## 🌙 29 okt (laat) — overdracht naar de bouwchat van 30 okt
 

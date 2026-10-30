@@ -3204,6 +3204,15 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		print("|cff8fd3ffMidnight Helper|r every window forgets its place and size. /reload to see the defaults.")
 		return
 	end
+	-- Rob, 30 Oct 2026: window place and size per character, off by default (DialogPopup.lua). Also in Settings.
+	if msg == "windows perchar" then
+		if ns.SetWindowsPerCharacter and ns.AreWindowsPerCharacter then
+			local on = not ns.AreWindowsPerCharacter()
+			ns.SetWindowsPerCharacter(on)
+			print(("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), ns:L(on and "WINDOWS_PERCHAR_ON" or "WINDOWS_PERCHAR_OFF")))
+		end
+		return
+	end
 	if msg == "roomcard" or msg:find("^roomcard%s") then
 		if ns.MH_DelveRoomCardCommand then
 			ns.MH_DelveRoomCardCommand(msg:match("^roomcard%s+(.-)%s*$"))

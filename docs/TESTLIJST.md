@@ -21,11 +21,24 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 30 okt — vensters per character + coach-knop op het kaartje
+
+Eerst `/reload`.
+- [ ] Instellingen → Venster & weergave: nieuw vinkje "Window place and size per character", standaard **uit**. Uit = alles
+      zoals nu (alle characters delen plek en grootte).
+- [ ] Vinkje aan (of `/mh windows perchar`, chat zegt "every character now keeps its own …"). Sleep op character A een
+      venster en maak hem met Shift+scroll groter. Log in op character B: daar staat het venster nog op de gedeelde plek
+      en grootte. Verplaats hem op B; terug op A staat hij weer waar A hem liet.
+- [ ] Vinkje weer uit: alle characters gebruiken weer de gedeelde plek en grootte (zonder /reload, bij het volgende openen).
+- [ ] Labyrinth: op een kamerkaartje met een baas (bv. "Returning the Bounty" → Pit Boss) of een baaskaartje op "Open the
+      delve coach" drukken. De coach opent op **die baas** (niet 1/19), zijn stuk bovenaan, en de lange lijst met kamers is
+      ingekort tot hem. Een kamer zonder baas: coach opent zoals vroeger.
+
 ## 🆕 29 okt (avond) — vensters onthouden hun plek + kamerkaartje blijft open (Italiaanse vragenlijst, cijfer 4)
 
 Eerst `/reload`.
-- [ ] Sleep een MH-venster ergens anders heen (bv. het Great Vault-venster, of `/mh bosscard` en dan een baas), log uit
-      en weer in: het venster komt terug op die plek. Een venster dat je nooit sleepte opent nog op zijn oude plek.
+- [x] ✅ GEMETEN Rob 30 okt: een versleept venster kwam na uit- en inloggen terug op zijn plek, ook op een ander character
+      (de plek geldt voor het hele account, `MidnightHelperDB`).
 - [ ] Aan de rechterkant vastgezette vensters ("dock") volgen nog steeds het hoofdvenster.
 - [ ] `/mh windows reset` + `/reload`: alle vensters weer op hun eigen plek en grootte.
 - [ ] Labyrinth: druk op het kamer- of baaskaartje op "Open the Delve Coach". Het kaartje blijft staan (onder de coach);

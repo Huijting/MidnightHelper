@@ -571,6 +571,12 @@ local function Build()
 	end, function(v)
 		if ns.SetHomeSoloMode then ns.SetHomeSoloMode(v) end
 	end, false)
+	-- 30 Oct 2026 (Rob): window place and size per character; off = shared by every character (DialogPopup.lua).
+	Toggle("mh_windowsPerChar", "SET_WINPERCHAR_TITLE", "SET_WINPERCHAR_DESC", function()
+		return ns.AreWindowsPerCharacter and ns.AreWindowsPerCharacter()
+	end, function(v)
+		if ns.SetWindowsPerCharacter then ns.SetWindowsPerCharacter(v) end
+	end, false)
 	Toggle("mh_compact", "SETTINGS_COMPACT_MODE", nil, function()
 		return ns.IsCompactModeEnabled and ns:IsCompactModeEnabled()
 	end, function(v)

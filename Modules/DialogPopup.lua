@@ -39,6 +39,66 @@ local MIN_SCALE, MAX_SCALE, SCALE_STEP = 0.5, 1.6, 0.1
 --- our own script would silently kill theirs, which is the class of bug this project
 --- keeps finding rather than causing.
 ---
+--------------------------------------------------------------------------------
+-- Where a window's place and size are kept: one set for the whole account (the default), or one per character
+-- (Rob, 30 Oct 2026: "laten we het idd ook character afhankelijk maar met een switch en standaard op alle
+-- characters" — place and size both). Per character, a window this character never moved or resized uses the shared
+-- one; switching back to shared keeps the per-character sets for later.
+--------------------------------------------------------------------------------
+
+local function CharKey()
+	local name = UnitName and UnitName("player")
+	local realm = GetNormalizedRealmName and GetNormalizedRealmName()
+	if type(name) ~= "string" or name == "" or type(realm) ~= "string" or realm == "" then
+		return nil
+	end
+	return name .. "-" .. realm
+end
+
+function ns.AreWindowsPerCharacter()
+	return ns.db and ns.db.ui and ns.db.ui.windowsPerChar == true or false
+end
+
+function ns.SetWindowsPerCharacter(on)
+	if not ns.db then
+		return
+	end
+	ns.db.ui = ns.db.ui or {}
+	ns.db.ui.windowsPerChar = on and true or nil
+end
+
+--- `kind` = "dialogPos" or "dialogScale". The table this character writes to now.
+local function WriteStore(kind)
+	if not ns.db then
+		return nil
+	end
+	ns.db.ui = ns.db.ui or {}
+	local ui = ns.db.ui
+	local ck = ns.AreWindowsPerCharacter() and CharKey()
+	if ck then
+		local all = ui[kind .. "Char"] or {}
+		ui[kind .. "Char"] = all
+		all[ck] = all[ck] or {}
+		return all[ck]
+	end
+	ui[kind] = ui[kind] or {}
+	return ui[kind]
+end
+
+--- This character's own value first (when per character is on), else the shared one.
+local function ReadStore(kind, name)
+	local ui = ns.db and ns.db.ui
+	if not ui then
+		return nil
+	end
+	local ck = ns.AreWindowsPerCharacter() and CharKey()
+	local own = ck and ui[kind .. "Char"] and ui[kind .. "Char"][ck]
+	if own and own[name] ~= nil then
+		return own[name]
+	end
+	return ui[kind] and ui[kind][name]
+end
+
 --- Scale is remembered per frame name, so the panel someone made bigger stays bigger.
 local function AttachScaling(frame, name)
 	if frame._mhScalable then
@@ -46,20 +106,15 @@ local function AttachScaling(frame, name)
 	end
 	frame._mhScalable = true
 
-	local function Saved()
-		if not ns.db then
-			return nil
+	local function RestoreScale(self)
+		local remembered = tonumber(ReadStore("dialogScale", name))
+		if remembered and not (InCombatLockdown and InCombatLockdown() and self.IsProtected and self:IsProtected()) then
+			pcall(self.SetScale, self, remembered)
 		end
-		ns.db.ui = ns.db.ui or {}
-		ns.db.ui.dialogScale = ns.db.ui.dialogScale or {}
-		return ns.db.ui.dialogScale
 	end
-
-	local store = Saved()
-	local remembered = store and tonumber(store[name])
-	if remembered then
-		pcall(frame.SetScale, frame, remembered)
-	end
+	RestoreScale(frame)
+	-- Again on every show, so switching between shared and per character needs no /reload.
+	frame:HookScript("OnShow", RestoreScale)
 
 	local function OnWheel(self, delta)
 		if not (IsShiftKeyDown and IsShiftKeyDown()) then
@@ -81,7 +136,7 @@ local function AttachScaling(frame, name)
 			return
 		end
 		pcall(self.SetScale, self, next_)
-		local s = Saved()
+		local s = WriteStore("dialogScale")
 		if s then
 			s[name] = next_
 		end
@@ -139,17 +194,8 @@ end
 --- ⚠️ Saved on drag-stop (frame or title bar) and once more at logout for windows dragged some other way; IsUserPlaced
 --- is the client's own "the player moved this" flag, set by StartMoving. A docked window follows the main window and
 --- is never restored over that. Not in combat for a protected frame (the travel popup parents a secure button).
---- /mh windows reset forgets every place and size.
+--- /mh windows reset forgets every place and size. Shared or per character: WriteStore/ReadStore above.
 local posTracked = {} -- frame -> name
-
-local function PosStore()
-	if not ns.db then
-		return nil
-	end
-	ns.db.ui = ns.db.ui or {}
-	ns.db.ui.dialogPos = ns.db.ui.dialogPos or {}
-	return ns.db.ui.dialogPos
-end
 
 local function CanMove(frame)
 	if InCombatLockdown and InCombatLockdown() and frame.IsProtected and frame:IsProtected() then
@@ -160,7 +206,7 @@ end
 
 local function SavePosition(frame)
 	local name = posTracked[frame]
-	local store = PosStore()
+	local store = WriteStore("dialogPos")
 	if not (name and store and CanMove(frame)) then
 		return
 	end
@@ -172,8 +218,7 @@ end
 
 local function RestorePosition(frame)
 	local name = posTracked[frame]
-	local store = PosStore()
-	local pos = name and store and store[name]
+	local pos = name and ReadStore("dialogPos", name)
 	if type(pos) ~= "table" or not pos[1] or not CanMove(frame) then
 		return
 	end
@@ -211,6 +256,8 @@ function ns.ResetMidnightWindowMemory()
 	if ns.db and ns.db.ui then
 		ns.db.ui.dialogPos = nil
 		ns.db.ui.dialogScale = nil
+		ns.db.ui.dialogPosChar = nil
+		ns.db.ui.dialogScaleChar = nil
 	end
 end
 
