@@ -4,7 +4,8 @@
 
 - ✅ Tag `v4.14.0` op 2e7c270 → run 41090286829 groen. GEMETEN in het log: CurseForge "Success!" (release,
   12.1.7/12.1.5/12.1.0/12.0.7), Wago "Success!", GitHub zip + release.json "Success!". Site-chat geseind. De notes op de
-  CF-pagina zelf nog niet bekeken. CURSEFORGE_DESCRIPTION.md niet aangepast.
+  CF-pagina zelf nog niet bekeken. CURSEFORGE_DESCRIPTION.md bijgewerkt (Rob: "Ja, zet erin"): Solo-tab, Labyrinth
+  splits, Delve Log, en "tested in the live game by the maker". Rob plakt die zelf op de CF-pagina.
 - Kamerkaartje afgevinkt (Rob: "vink maar af"). Notes: beta-alinea bovenaan, dan "You asked, we built it" met Robs
   vriendelijke uitleg dat de ideale delve-route voor iedereen anders is en één persoon dat lastig maakt.
 - Robs bewuste keuze, wetend wat open staat. Nog niet in het spel gezien (TESTLIJST): vinkje per character, coach-knop op

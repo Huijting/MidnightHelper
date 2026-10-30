@@ -12,13 +12,15 @@ For players who just hit 90 or are coming back after a break. Up to date for pat
   delves first.
 - **How you play**: all 40 specs on one short card each, with the key every spell is on for you, a quiz, and every
   line checked against the game data and current guides. Healers get a **Clicks** tab: a ready-made click-healing
-  layout, explained, that one button puts in DandersFrames or in Blizzard's own Click Casting.
+  layout, explained, that one button puts in DandersFrames or in Blizzard's own Click Casting, and a **Solo** tab for
+  healing alone in a delve or the Labyrinth, with Valeera at your side.
 - **Your gear and Great Vault**: what your upgrade tracks mean, which vault choice is best for you, and *My gear: what
   now?*: what you can upgrade right now with the crests you hold, and the next step up, in small steps. Next to your
   character window, every enchant in colour: ours, another one, or missing, with a shopping list for what you lack and
   a step-by-step guide to buying it (silver or gold) and putting it on.
 - **Delves, dungeons and raids**: routes, boss tips and coaches that open by themselves, for all 15 delves. In the
-  Labyrinth of Kindo'jan a small window opens for every room and every boss.
+  Labyrinth of Kindo'jan a small window opens for every room and every boss. Race your own best time there, room by
+  room, with Labyrinth splits. The **Delve Log** keeps your records per Tier and tells you after every delve how you did.
 - **Corrosive Codex**: which gifts to pick for bosses, packs or staying alive, lit up right in Blizzard's window.
 - **Your keys**: your key block (the same job on the same key on every character, with one Undo), which spells you
   really press, and your whole keyboard, in one window.
@@ -59,7 +61,7 @@ your own client.
 
 ### Help and feedback
 
-A one-person project, checked in the live game before every release. Found a bug? Type `/mh report` in game, then
+A one-person project, tested in the live game by the maker. Found a bug? Type `/mh report` in game, then
 come to [Discord](https://discord.gg/kBHaHcsASQ) or use the [feedback form](https://midnighthelper.com/feedback/).
 Want new things sooner? Set Midnight Helper to **Beta** in the CurseForge app.
 
