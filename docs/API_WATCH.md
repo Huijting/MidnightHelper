@@ -8021,3 +8021,119 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
     `origin/main` en nooit met de lokale `main`. Rechtgezet met `git checkout -B main origin/main`
     (alleen een ref-verplaatsing, geen bestandswijziging). `git status --short` was **leeg**, en geen van
     de vier wachter-bestanden stond gewijzigd-maar-ongecommit. Geen enkel ander bestand geraakt.
+- [2026-10-31] 🆕 **Nul [MOET GEFIKST] — maar er is een NIEUWE LIVE-BUILD, de eerste sinds 23 okt:
+  `12.1.5 (70575)` → **`12.1.5 (70688)`**, vannacht om 01:01 UTC. 📌 En het belangrijkste eraan is wat
+  er NIET in zit: de hele diff is **drie bestanden**, allemaal in-game-winkel, en er zit **geen enkel
+  `Blizzard_APIDocumentationGenerated`-bestand** in. De zes API-wijzigingen die ik gisteren in
+  PTR-build `70668` gemeten heb — de altijd-secret `C_LossOfControl`, de `SecretArguments`-flip op
+  `IsSpellCrowdControl`, de twaalfde return van `GetInstanceInfo`, de twee `C_Build`-functies, de
+  `C_GameRules`-hernoeming en de `specIconID`-flip — staan dus **nog niet op live**. Verder: PTR
+  onbewogen (tweede dag op `70668`), een NIEUWE hotfix-batch van 30 okt zonder UI-sectie, wiki nog op
+  16 okt (vijftiende dag), twee nieuwe forumposts en geen van beide over API, en geen SimC-release
+  (negende dag).**
+  - 🆕 **[RAAKT ONS NIET] — NIEUWE LIVE-BUILD `70688`, GEMETEN in de client-bestanden zelf.**
+    `git ls-remote https://github.com/Gethe/wow-ui-source refs/heads/live refs/heads/ptr`: `live` =
+    **`d07eb00237d8891f153215db98a5df880a26cfe5`** — gisteren was dat `15881d52…`. Commitdatum
+    **2026-10-31T01:01:00Z**, commitbericht **`12.1.5 (70688)`**, en `version.txt` gaat in diezelfde
+    commit van `12.1.5.70575` naar **`12.1.5.70688`**. GEMETEN `git diff --shortstat 15881d52 d07eb002`:
+    **3 files changed, 7 insertions(+), 6 deletions(-)**, en `--name-status` geeft alleen `M version.txt`,
+    `M Blizzard_CatalogShop/Blizzard_CatalogShop_Products.lua` en
+    `M Blizzard_CatalogShopSharedUtil/Blizzard_CatalogShop_SharedUtil.lua`. Niets toegevoegd, niets
+    verwijderd. 📌 De inhoud is twee winkel-opruimingen: er komt een helper
+    `ProductTypeUsesCarousel(productType)` bij die de aparte `ProductType.Room`- en
+    `ProductType.HousingExteriorType`-takken van `OnProductSelected` samenvoegt (waardoor de Room-tak er
+    nu óók de `showWatermarkLogo`-regel bij krijgt), en in `CatalogShopUtil.GetCardTemplate` wordt
+    `ProductType.ExteriorRoom` vervangen door **`ProductType.HousingExteriorType`** — zo te zien een
+    constante die nooit bestond en dus een tak die nooit matchte. Toets: `CatalogShop` → **0** bestanden,
+    `ProductType` → **0**, `PMTImageContainerFrame` → **0**, `ExteriorRoom` → **0**, `HousingExterior` →
+    **0**, `GetCardTemplate` → **0**, `IsElementDataItemInfo` → **0**.
+  - 📌 **WAT DIT VOOR ROB BETEKENT, en het is de enige conclusie van vandaag die verder reikt dan één
+    dag: live loopt nu op `70688` en 12.1.7 is nog volledig PTR-only.** GEMETEN, niet afgeleid: in de
+    live-diff zit geen enkel `Blizzard_APIDocumentationGenerated`-bestand, dus er is **geen enkele
+    API-signature** meeverhuisd. ⚠️ Het omgekeerde is daarmee níét gemeten: dat live géén van de
+    12.1.7-wijzigingen heeft, weet ik voor de stap `70575 → 70688`; of een eerdere live-build er al iets
+    van had, heb ik vandaag niet nagetrokken. De drie 12.1.7-punten die MH raken kunnen (de
+    GUID-obfuscatie tegenover `Modules/ResetRoutine.lua:648`, de `GetInstanceInfo`-return-orde tegenover
+    `Modules/Showdowns.lua:226`, en de TOC-directives) blijven dus staan waar ze stonden: **nog niet
+    urgent**, en geen van drieën vandaag opnieuw gemeten.
+  - 🔇 **[RAAKT ONS NIET] — PTR onbewogen, tweede dag op `70668`.** GEMETEN in dezelfde `ls-remote`:
+    `ptr` = **`9fc0ba94381153262856ed0120a2675f1a11c30a`**, byte-voor-byte de SHA van gisteren. Er is dus
+    vandaag niets nieuws aan de 12.1.7-kant, en de zes wijzigingen van gisteren zijn alles wat er in
+    `70668` zit.
+  - 🔇 **[RAAKT ONS NIET] — NIEUWE HOTFIX-BATCH van *"October 30, 2026"*, maar zonder UI- of
+    AddOn-sectie.** GEMETEN via de raw-post `raw/2382684/1?nocache=20261031`: de bovenste gedateerde kop
+    is nu **30 okt** (gisteren was dat nog 27 okt). Secties: **Housing** (de Nagrand-plantdecor van
+    Botanist Gril'ka), **Items** (twee Azshara-capes, een zichtbare scheidingslijn) en **Labyrinth**
+    (*"Voices of Stone"* bleef in de UI hangen in *"Bear's Burden"*; flikkerende Tether-icons in
+    *"The Wandering"*). **Geen `User Interface`-sectie en geen AddOn-regel** — niets te toetsen. ⚠️ Die
+    twee Labyrinth-punten zijn fixes in Blizzards eigen UI, niet in de API; of ze raken wat MH over die
+    scenario's beweert is het terrein van de content-wachter. ✅ **Cache-controle geslaagd:** 30 okt is
+    nieuwer dan de 27 okt die mijn eigen regel van gisteren noemde.
+  - 🔇 **[RAAKT ONS NIET] — wiki: beide API-pagina's nog op hun 16 okt-revisie, VIJFTIENDE dag.**
+    GEMETEN via `rest.php/v1/page/<pagina>%2FAPI_changes/history?nocache=20261031`: `Patch 12.1.7/API
+    changes` op **`6919765`** (**2026-10-16T22:38:53Z**, Ketho, `/* Blue posts */`, 1541 bytes, nog steeds
+    **vier** revisies); `Patch 12.1.5/API changes` op **`6919763`** (**2026-10-16T22:38:41Z**, 17904 bytes).
+    De wiki beschrijft `70668` dus nog niet, laat staan `70688`. 🔎 **Kruiscontrole via WebSearch,
+    gelabeld MEASURED (via search, niet zelf gelezen):** een zoekvraag naar 12.1.7-taint/secret-changes
+    levert als enige concrete 12.1.7-punt dezelfde TOC-directives-regel op die al in de `Summary` van die
+    pagina staat, en **niets** over taint of secret values in 12.1.7 — consistent met wat ik hierboven
+    uit de pagina-historie meet. 📌 Zesde dag op rij dat de client-bestanden het snellere spoor zijn.
+  - 🔇 **[RAAKT ONS NIET] — forum `#ui-macro`: twee nieuwe topics en één nieuwe reactie, geen van alle
+    over API.** GEMETEN mét cache-buster (`search.json?q=#ui-macro after:2026-10-29&nocache=20261031a`,
+    de categorie-JSON, daarna de topic-JSON's): (1) nieuw topic **`2396521`** *"Paladin UI: Aura Mastery
+    and Avenging Crusader buff tracking"*, post **`30685042`** (ban / Repentånce-sargeras,
+    **2026-10-30T15:08:00Z**) — een spelerswens dat die twee in de **Cooldown Manager** te volgen zijn,
+    plus de melding dat Avenging Crusader zich wél laat kiezen maar niet als buff volgt. Eén post, **geen
+    blue post**, dus geen toegezegde API. (2) nieuw topic **`2396710`**, post **`30688410`** (DragonCoder,
+    **2026-10-30T19:22:56Z**) — inhoud is **`(topic deleted by author)`**, niets te lezen en niets te
+    toetsen. (3) topic `2396144` (*"On use trinket macro help"*) staat nu op **3** posts; post 2 is van
+    Elvenbane, **2026-10-30T13:25:31Z**, een macro-antwoord op het *"item not ready"*-gedrag, geen API.
+    `2394958` staat nog op **3** posts en nog steeds **zonder** blue post.
+  - 🧪 **[AL AFGEDEKT] — en de Cooldown-Manager-post was wél het natrekken waard, want MH raakt die
+    frames.** GEMETEN: `CooldownViewer` → **1** bestand, `C_CooldownViewer` → **0**. Dat ene bestand is
+    `Modules/EditModeBackup.lua`, waar we `EssentialCooldownViewer`/`UtilityCooldownViewer` alleen als
+    **anker-naam** gebruiken bij het terugzetten van een Edit-Mode-layout, en beide keren achter een
+    bestaansguard: `if s.system == 20 and s.systemIndex == 1 and _G.EssentialCooldownViewer then`
+    (`:1193`) en `elseif s.system == 20 and s.systemIndex == 2 and _G.UtilityCooldownViewer and
+    _G.EssentialCooldownViewer then` (`:1196`, met de anker-aanroep op `:1197`). We lezen dus niets van
+    wat de Cooldown Manager trackt en zijn van deze wens hoe dan ook onafhankelijk; verdwijnt een frame,
+    dan slaan we de regel over in plaats van te breken.
+  - 🧰 **[RAAKT ONS NIET] — SimC-addon: geen nieuwe release sinds `12.1.5-03`, negende dag.** GEMETEN met
+    `git ls-remote --tags https://github.com/simulationcraft/simc-addon`: **290** regels (zelfde aantal
+    als gisteren en voorgisteren), nieuwste 12.x-tag blijft **`12.1.5-03`** =
+    **`cb3e3af298e3124162c6bf44d1bebac53435eaec`**, en `HEAD` én `refs/heads/master` staan op diezelfde
+    SHA — dus ook geen ongereleasete commits op master. `Modules/SimcExport.lua` volgt in zijn
+    kopcommentaar nog `12.1.0-04` plus de race-takken uit `12.1.0-alpha-06`: nog steeds een
+    documentatie-achterstand van twee releases, geen code-achterstand (zie 27 okt). 📌 `ls-remote` vraagt
+    de server elke keer opnieuw, dus cache-twijfel is op deze regel niet van toepassing.
+  - 🔌 **MEETGAT, zesde dag identiek: de WoW-bronnen blijven geweigerd op Bash-`curl`.** GEMETEN met
+    `curl -s -o /dev/null -w "%{http_code}" --max-time 12`: `warcraft.wiki.gg`,
+    `us.forums.blizzard.com`, `news.blizzard.com` en `www.wowhead.com` geven alle vier **`000`**. 🔴 Niet
+    omzeild: élke wiki- en forummeting hierboven loopt via Exa `web_fetch_exa` mét cache-buster. Wat wél
+    schoon werkt op Bash is **`git ls-remote` en `git fetch --depth` naar github.com** — daarmee zijn
+    vandaag de twee build-SHA's, de volledige drie-bestandsdiff van `70688`, de inhoud van die diff en de
+    SimC-tags gemeten.
+  - 🧪 **Positieve controle van de grep-reikwijdte, in dezelfde run en in dezelfde vorm als de nullen
+    hierboven** (`grep -rIl`, `.git`/`docs`/`tools`/`dist` uitgesloten, geteld in bestanden):
+    `CreateFrame` → **160**, `issecretvalue` → **66**, `C_Spell` → **56**, `InCombatLockdown` → **51**,
+    `GetInstanceInfo` → **35**, `C_DelvesUI` → **14**, `C_WeeklyRewards` → **12**, `hooksecurefunc` →
+    **8**, `C_Secrets` → **5**, `MenuUtil` → **3**, `CooldownViewer` → **1**, tegenover
+    `C_CooldownViewer` → **0**, `CatalogShop` → **0**, `ProductType` → **0**, `PMTImageContainerFrame` →
+    **0**, `ExteriorRoom` → **0**, `HousingExterior` → **0**, `GetCardTemplate` → **0** en
+    `IsElementDataItemInfo` → **0**. Het patroon vindt wat er is, dus de nullen hierboven zijn afwezigheid
+    en geen meetfout.
+  - ⏳ **Nog open uit eerdere runs, NIET nieuw en vandaag niet opnieuw gemeten:** de UTF-8 BOM vooraan
+    `MidnightHelper.toc`; de `%d+`-aanname op veld 3 van de npcID-match (`Modules/ResetRoutine.lua:648`)
+    tegenover de GUID-obfuscatie; de dode `PickupItem`-takken in `Modules/KeyBlock.lua:1135`/`:1227`/
+    `:1380` en `Modules/ApplyLayout.lua:1311`/`:1345`/`:1605`; de vijf decoratieve
+    `GetItemInfo`-terugvaltakken; `Blizzard_DeprecatedWorldElapsedTimerTypes` als tiende
+    deprecated-addon tegenover negen wiki-secties; de verouderde namespace-lijst in
+    `docs/WATCHER_API_PROMPT.md` (18 aug); de client-test voor `/mh raidbots`; en de ongelezen
+    PTR-bestanden van build `70668` (179 gewijzigd, waarvan ik gisteren de API-documentatie volledig en de
+    FrameXML-delen gericht gelezen heb). 🔴 Niets van dit alles aangeraakt.
+  - 🔧 **Repo-staat: alleen `docs/API_WATCH.md` aangeraakt, en de scheve ref was er vandaag NIET.**
+    GEMETEN vóór het schrijven: `git rev-parse --abbrev-ref HEAD` → **`main`** (zoals op 27 en 28 okt;
+    detached op 17, 19, 22, 25, 26, 29 en 30 okt), met `HEAD` =
+    **`59343056dd2b89c2075b86557c310be7a4e62d43`** = **exact** `origin/main` na `git fetch origin main`.
+    Geen `git checkout -B` nodig. `git status --short` was **leeg**, en geen van de vier
+    wachter-bestanden stond gewijzigd-maar-ongecommit. Geen enkel ander bestand geraakt.
