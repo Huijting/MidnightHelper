@@ -3687,3 +3687,59 @@ kop, per bevinding MEASURED/INFERRED en [RAAKT ONS]/[RAAKT ONS NIET], met bestan
   volledig gelezen) · `curseforge.com/api/v1/mods/1528577/comments?...` (`nocache=20261030a`/`b`,
   via Exa) · `docs/PTR_12.0.7_DATA.md:835` (zustervangst, ter bevestiging, niet als enige bron).
   Geen actiepunt dat ík oppak — ik rapporteer, een mens beslist.
+
+- [2026-10-31] 💬 **CurseForge: geen open reacties (3 draadjes, zelfde reeks berichten t.o.v.
+  [2026-10-30]).** `curseforge.com/api/v1/mods/1528577/comments?pageIndex=0&pageSize=20&nocache=20261031a`
+  (en `&nocache=20261031b` als tweede, onafhankelijke fetch) via Exa, beide gelezen. Dezelfde drie
+  draadjes als gisteren (esES/esMX-locale-fix `user_uvqy5939hswhgduu`, reply `8510682`, timestamp
+  `1791351710373` — byte-identiek aan [2026-10-30]; MrsBoojiePanda's debug-printregel, reply
+  `8483898`, timestamp `1790842459727` — byte-identiek; gadrinonturalyon's coffer-key-shards/3D-
+  boss-model-verzoek, zelfde reply-keten als eerder) hebben als nieuwste bericht nog steeds een
+  reactie van `twelveinchy`. MEASURED. **[RAAKT ONS NIET]** — geen actiepunt, geen concept-antwoord
+  nodig.
+
+- [2026-10-31] ✅ **Nieuwe hotfix-sectie "October 30, 2026" zelf gelezen — drie content-items
+  getoetst, geen van alle raakt een eigen bewering van MH.** MEASURED:
+  `news.blizzard.com/en-us/article/24307310/hotfixes-october-30-2026?nocache=20261031content` via
+  Exa, zelf volledig gelezen (inclusief de al-getoetste "October 27, 2026"-sectie eronder, die
+  verder alleen class-/PvP-tuning bevat — buiten mijn terrein, niets nieuws t.o.v. [2026-10-28]).
+  De blue post/data-wachter van vanochtend las dezelfde drie regels onafhankelijk (ook via
+  patchbot.io en wowmmr.com) en kwam tot hetzelfde "geen trackbare fact"-oordeel (`docs/PTR_12.0.7_DATA.md:836`);
+  zelf getoetst tegen onze bestanden, niet overgenomen.
+
+  1. **Housing — "Tracking the source for the Nagrand plant decor sold by Botanist Gril'ka in
+     Nagrand now properly leads to her location."** Gegrept op `Nagrand` en op `Gril.ka`/`Botanist`
+     in heel `Locales/` en `Modules/`: `Nagrand` geeft **0** treffers; `Botanist` geeft treffers,
+     maar uitsluitend voor de Herbalism-trainer "Botanist Nathera" in Silvermoon City (Professions-
+     gidsen, alle 7 talen) — een andere NPC, geen housing-decorbron. MH heeft geen enkele housing-
+     decorbron-tracker. MEASURED. **[RAAKT ONS NIET]**.
+  2. **Items — "Azshara's Darkscale Cloak and Azshara's Deepscale Cloak were adjusted to resolve a
+     dividing line that was visible under specific lighting."** Gegrept op `Darkscale`/`Deepscale`/
+     `Azshara` in `Locales/` en `Modules/`: **0** treffers (de ene `Azshara`-regel die bestaat,
+     `Modules/FlightPointsData.lua:655`, is de vluchtpuntnaam "Eye of Azshara", geen cloak). Puur
+     cosmetisch, geen item-ID of bewering van ons om tegen te toetsen. MEASURED. **[RAAKT ONS NIET]**.
+  3. **Labyrinth — "Voices of Stone" bonus objective in "Bear's Burden" bleef vast op de UI (fix);
+     "The Wandering" liet Tether-iconen flikkeren (fix).** Beide scenario-namen staan wél in onze
+     eigen tekst (`DELVE_TIP_LABYRINTH_ROOMS`, `Locales/enUS.lua:3678` en de 6 vertaalde packs) —
+     dus eerst breed gezocht i.p.v. alleen in het eigen tip-bestand, zoals deze watch eerder is
+     misgegaan. Maar `Voices of Stone` en `Tether` geven elk **0** treffers in heel `Locales/` en
+     `Modules/`: onze Bear's Burden-tekst beschrijft het dragen van de steen tussen 5 gloeiende
+     plekken, zonder een apart "bonus objective" te noemen, en onze The Wandering-tekst beschrijft
+     het volgen van de geest, zonder tether-iconen te noemen. **Positieve controle, zelfde
+     bestanden/scope:** dezelfde zoekopzet (Locales/+Modules/) vindt wél `Bear's Burden` en
+     `The Wandering` zelf (1 treffer, de regel hierboven) en elders in dezelfde run ook `coffer` in
+     5 bestanden — het patroon vindt dus dingen die er zijn; de nullen voor "Voices of Stone" en
+     "Tether" zijn gemeten afwezigheid, geen blinde vlek. Twee UI-bugfixes zonder mechaniekwijziging,
+     niets dat onze tekst tegenspreekt. MEASURED. **[RAAKT ONS NIET]**.
+
+  Geen Professions- of Quests-sectie in de gelezen pagina vandaag (alleen Housing, Items, Labyrinth,
+  Classes en Player versus Player kwamen voor in de twee gelezen secties) — dus niets in die twee
+  categorieën om te toetsen.
+
+  Vandaag is geen maandag: de wekelijkse PlayCard- en Consumables-checks zijn bewust overgeslagen.
+
+  Bron: `news.blizzard.com/en-us/article/24307310/hotfixes-october-30-2026?nocache=20261031content`
+  (Exa, volledig gelezen) · `curseforge.com/api/v1/mods/1528577/comments?...` (`nocache=20261031a`/`b`,
+  via Exa) · `docs/PTR_12.0.7_DATA.md:836` (zustervangst, ter bevestiging, niet als enige bron) ·
+  codebase: `Locales/enUS.lua:3678`, `Modules/FlightPointsData.lua:655` — allemaal vandaag gelezen.
+  Geen actiepunt dat ík oppak — ik rapporteer, een mens beslist.
