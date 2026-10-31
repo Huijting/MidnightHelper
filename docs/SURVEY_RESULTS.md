@@ -38,6 +38,7 @@ speelkaarten — die heten "Zo speel je" = `play`).
 | 25 | 22 okt 13:59 | BG / en | dps | weken | 5 | play, boss, route, collect, gear | prof, keys | 💬 *"This addon is realy helpful for a new player like myself"*; M+-feedback en beroepencursus nog niet aan toe |
 | 26 | 26 okt 14:49 | US / en | dps | weken | **3** | maps, boss, delves, weekly, prof, keys, route, gear | — | — (cijfer 3 zonder uitleg; alle vrije vakken leeg) |
 | 27 | 29 okt 16:48 | PT / it | mixed | weken | 4 | boss, delves, mplus | prof, site | irriteert: **vensters onthouden hun plek niet na uitloggen** (bv. de Great Vault) · **kamerkaartje verdwijnt bij "Open the Delve Coach"**, terug pas na /reload · mist: *visuele route om delves sneller te doen* · 💬 de korte kamer-uitleg in de Labyrinth hielp veel, vooral bij de ijskamer |
+| 28 | 30 okt 17:37 | DE / de | mixed | maanden | 4 | maps, delves, weekly, prof, route, collect, gear | mplus, keys, brez | — · 💬 *"vielen Dank für die tolle Arbeit"* |
 
 📌 #17 en #19 komen allebei uit GB, dps, "een paar weken", via het spel, 4½ uur na elkaar. Mogelijk dezelfde speler
 die het twee keer invulde (#19 kent veel meer onderdelen). AFGELEID, niet vast te stellen: beide tellen mee.
@@ -53,6 +54,13 @@ cijfer. #6 gaf geen cijfer en geen rol.
 ⚠️ **#9 heeft `from: "gamehttpsmidnighthelpercomsurveyf"`** — "game" met de survey-URL eraan geplakt, zonder
 leestekens. Vermoedelijk heeft de speler de link uit het spel geplakt achter een al geopende link, of bouwt iets de
 `from`-waarde verkeerd. NIET onderzocht; telt gewoon mee als "via game".
+
+## Bijgeteld 31 okt (ronde 's avonds): #28, de/DE, mixed, via het spel
+
+- Maanden / sinds Midnight, cijfer **4**. Ontvangen 30 okt 17:37 UTC. Gebruikt 7 onderdelen vaak; M+-feedback,
+  Keybind-coach en Battle res "nooit / onbekend". Irriteert en mist leeg; bedankt voor het werk.
+- **Cijfer nu:** gemiddeld **4,0** (26 cijfers: 8× 5, 13× 4, 4× 3, 1× 1; 105/26 = 4,04).
+- **Keybind-coach:** nu **14× "nooit / onbekend"**, 1× "vaak".
 
 ## Bijgeteld 30 okt (ochtendronde): #27, it/PT, mixed, via het spel
 

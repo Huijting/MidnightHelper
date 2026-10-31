@@ -1,5 +1,11 @@
 # Midnight Helper — waar we staan
 
+## 🌆 31 okt — ronde 's avonds
+
+- GEMETEN: alle 4 wachters gedraaid, niets raakt MH (nieuwe live-build 12.1.5.70688: alleen winkelbestanden, geen API).
+  CF/GitHub 0 open. HandyNotes 167 onveranderd. Addons: alleen changelogs gelezen, niet getest; DandersFrames 5.5.0 →
+  5.6.0 zonder changelog (let op: tab Clicks). Vragenlijst #28 (de/DE, cijfer 4) bijgeteld; gemiddelde blijft 4,0.
+
 ## 🚀 30 okt — RELEASE 4.14.0 (Rob: "we gaan voor een release" → "Ja, breng uit")
 
 - ✅ Tag `v4.14.0` op 2e7c270 → run 41090286829 groen. GEMETEN in het log: CurseForge "Success!" (release,
