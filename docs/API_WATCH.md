@@ -8137,3 +8137,126 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
     **`59343056dd2b89c2075b86557c310be7a4e62d43`** = **exact** `origin/main` na `git fetch origin main`.
     Geen `git checkout -B` nodig. `git status --short` was **leeg**, en geen van de vier
     wachter-bestanden stond gewijzigd-maar-ongecommit. Geen enkel ander bestand geraakt.
+- [2026-11-01] ✅ **Nul [MOET GEFIKST], en een stille dag op élke bewegende bron: live onbewogen
+  (tweede dag op `70688`), PTR onbewogen (derde dag op `70668`), wiki zestiende dag op 16 okt, geen
+  nieuwe hotfix-batch (nog steeds 30 okt, onafhankelijk bevestigd) en geen SimC-release (tiende dag).
+  📌 Wél iets nieuws, en het is een MEETGAT dat ik vandaag voor het eerst gedicht heb in plaats van
+  een vondst: ik heb altijd alleen `refs/heads/live` en `refs/heads/ptr` opgevraagd, en wist dus niet
+  wélke takken er nog meer zijn. Er staan **13** heads in de mirror, waaronder een nooit-gemeten
+  **`ptr2`**. GEMETEN: die is 20 dagen oud en Retail-irrelevant. Er was dus niets gemist — maar dat
+  wist ik tot vandaag niet, en "niet gemeten" had ik zestig runs lang als "niet aanwezig" gelezen.**
+  - 🔇 **[RAAKT ONS NIET] — live onbewogen, tweede dag op `70688`.** GEMETEN
+    `git ls-remote https://github.com/Gethe/wow-ui-source refs/heads/live`: `live` =
+    **`d07eb00237d8891f153215db98a5df880a26cfe5`**, byte-voor-byte de SHA uit mijn regel van gisteren.
+    Geen nieuwe live-build, dus ook vandaag is er **geen enkele** 12.1.7-API-signature naar live
+    verhuisd.
+  - 🔇 **[RAAKT ONS NIET] — PTR onbewogen, DERDE dag op `70668`.** Zelfde `ls-remote`: `ptr` =
+    **`9fc0ba94381153262856ed0120a2675f1a11c30a`**, identiek aan 30 én 31 okt. De zes API-wijzigingen
+    die ik op 30 okt in `70668` gemeten heb (de altijd-secret `C_LossOfControl`, de
+    `SecretArguments`-flip op `IsSpellCrowdControl`, de twaalfde return van `GetInstanceInfo`, de twee
+    `C_Build`-functies, de `C_GameRules`-hernoeming en de `specIconID`-flip) zijn nog steeds alles wat
+    er in die build zit.
+  - 🆕 **MEETGAT GEDICHT — de volledige takkenlijst van de mirror, voor het eerst opgevraagd.** GEMETEN
+    `git ls-remote --heads`: **13** heads. Naast `live` en `ptr` staat er een **`ptr2`** =
+    **`12380f8cdc541b7f0963f74cbe0874c21a857fbb`**, en die had ik nooit gezien — `grep ptr2
+    docs/API_WATCH.md` gaf **0** treffers over het hele logboek. GEMETEN met een shallow fetch van die
+    SHA: commitdatum **2026-10-12T18:01:01Z**, commitbericht **`12.1.5 (70340)`**, `version.txt` =
+    **`12.1.5.70340`** — een restant van de 12.1.5-PTR-cyclus van vóór de live-gang op 13 okt, dus
+    **20 dagen oud en per harde regel 1 te negeren**. Ook gemeten, om dezelfde reden: `beta` =
+    **`12.0.1 (66220)`**, **2026-03-03** (acht maanden stil, de Midnight-prelaunchbeta) en `forever` =
+    **`1.60.1 (70532)`**, **2026-10-22** — dat is **WoW Classic Forever**, geen Retail, en dus niet mijn
+    terrein. ✅ **Conclusie, en dit is het enige dat verder reikt dan vandaag: de énige twee
+    Retail-Midnight-lijnen in de mirror zijn `live` en `ptr`, en die vraag ik al op.** Er is geen
+    bron gemist. 🔴 Maar het verschil tussen *"ik vraag de juiste twee op"* en *"ik wist niet dat er
+    meer waren"* is precies [[silence-is-not-absence]], en ik stond zestig runs aan de verkeerde kant
+    ervan. Sinds vandaag hoort `--heads` bij de meting.
+  - 🔇 **[RAAKT ONS NIET] — wiki: beide API-pagina's nog op hun 16 okt-revisie, ZESTIENDE dag.** GEMETEN
+    via `rest.php/v1/page/<pagina>%2FAPI_changes/history?nocache=20261101`: `Patch 12.1.7/API changes`
+    op **`6919765`** (**2026-10-16T22:38:53Z**, Ketho, `/* Blue posts */`, 1541 bytes, nog steeds
+    **vier** revisies); `Patch 12.1.5/API changes` op **`6919763`** (**2026-10-16T22:38:41Z**, 17904
+    bytes). Allebei exact de revisie-ID's van gisteren. ✅ En GEMETEN dat er geen nieuwere pagina klaar
+    staat: `Patch 12.2.0/API changes` en `Patch 12.1.9/API changes` geven beide **`CRAWL_NOT_FOUND`** —
+    ze bestaan niet.
+  - 🔇 **[RAAKT ONS NIET] — geen nieuwe hotfix-batch; bovenste gedateerde kop nog steeds *"October 30,
+    2026"*.** GEMETEN via de raw-post `raw/2382684/1?nocache=20261101`: dezelfde vier regels als
+    gisteren (Housing: de Nagrand-plantdecor van Botanist Gril'ka; Items: de twee Azshara-capes;
+    Labyrinth: *"Voices of Stone"* en de flikkerende Tether-icons), **geen `User Interface`-sectie en
+    geen AddOn-regel**. ✅ **Cache-controle, en deze keer met een tweede bron in plaats van alleen een
+    datumvergelijking:** 30 okt is níét ouder dan wat mijn eigen regel van gisteren noemde (het is
+    hetzelfde), en **TheWoWDB's hotfix-index bevestigt onafhankelijk** dat 30 okt de nieuwste batch is
+    — *"October 30, 2026: 4 notes; sections: Housing, Items and Labyrinth"*, met 27 okt als de batch
+    eronder. Gelijk-blijven is hier dus gemeten afwezigheid en geen cache.
+  - 🧩 **[RAAKT ONS NIET] — forum `#ui-macro`: één nieuw topic en één nieuwe reactie, en de reactie
+    staat wél onder een API-kop.** GEMETEN mét cache-buster (de categorie-JSON
+    `c/guides/ui-macro/35/l/latest.json`, daarna de raw-post):
+    (1) nieuw topic **`2397634`** *"Hunggy's Gamepad Settings Won't Go Away After Unisntall!"*
+    (**2026-10-31T21:16:58Z**) — excerpt **`(topic deleted by author)`**, `closed: true`, 1 post, 9
+    views. Door de auteur zelf weggehaald vóór ik hem las; niets te toetsen.
+    (2) nieuwe reactie op **`2342284`** *"Addon API: Rendering Cached Offline Player Models"* (topic
+    van 28 aug), post **#2** (Zensunim, **2026-10-31T16:02:08Z**). Letterlijk, uit de raw-post:
+    *"`SetModelByUnit()` requires an accessible unit, `SetModelByCreatureDisplayID()` doesn't let us
+    apply saved customization choices, and `SetPlayerModelFromGlues()` doesn't seem to work either"*
+    en *"Looks like they added `SetPlayerModelFromGlues` in TWW for the Campsites. They just need to
+    open it up for us to use it too!"* ⚠️ Dit is een **spelerswens plus een eigen bevinding, GEEN
+    aangekondigde API-wijziging**: er staat geen blue post onder het draadje en Blizzard heeft niets
+    toegezegd. Niets wat vandaag beweegt.
+  - 🧪 **Toets van die reactie aan onze code — [RAAKT ONS NIET], maar niet omdat we geen modellen
+    tekenen.** GEMETEN (`grep -rIl`, `.git`/`docs`/`tools`/`dist` uitgesloten, geteld in bestanden):
+    `C_BarberShop` → **0**, `SetModelByUnit` → **0**, `SetModelByCreatureDisplayID` → **0**,
+    `SetPlayerModelFromGlues` → **0**, `GetAvailableCustomizations` → **0**. ⚠️ Maar `PlayerModel` geeft
+    **10** bestanden, dus "wij doen niets met modellen" zou onwaar zijn: MH maakt wél
+    `PlayerModel`-frames (`Modules/MidnightToast.lua`, `Modules/DelveBossShowcase.lua`,
+    `Modules/DungeonBossWindow.lua`, `Modules/DevShots.lua`, `Modules/MountsPanel.lua`,
+    `Modules/RaidGuide.lua`, `Modules/Rares.lua`, `Modules/DelveCoach.lua`,
+    `Modules/SettingsPage.lua`). Wat het ermee doet is gemeten op aanroep-niveau: **`SetCreature(` → 5
+    aanroepen**, **`SetDisplayInfo(` → 2**, **`ClearModel(` → 5**, tegenover **`SetUnit(` → 0**,
+    `SetCreatureDisplayID(` → **0** en `SetItemAppearance(` → **0**. 📌 Wij zetten dus creature- en
+    display-ID's op onze modellen en raken de spelerskant — units, bewaarde barbershop-keuzes, de
+    glues-modellen — nergens aan. Precies de vier functies uit het draadje zijn de vier die wij niet
+    gebruiken.
+  - 🔇 **[RAAKT ONS NIET] — en twee forumdraden die er nieuw UITZIEN maar al gemeld zijn.**
+    `2367394` (*Unregister Global Mouse*) post **#15** van **25 okt** staat nog bovenaan het draadje en
+    is dus geen nieuwe reactie — GEMETEN dat ik hem op 30 okt al als inhoudsloos afgedaan heb
+    (`grep 'Unregister Global Mouse' docs/API_WATCH.md` → treffers op regel 4882, 5394 en 7970).
+    `2396521` (*Paladin UI / Cooldown Manager*) en `2396144` (*On use trinket macro help*) heb ik
+    gisteren al geteld. Toets blijft staan: `CooldownViewer` → **1** bestand, `C_CooldownViewer` →
+    **0**, `GLOBAL_MOUSE_DOWN` → **0**, `RegisterForGlobalMouse` → **0**.
+  - 🧰 **[RAAKT ONS NIET] — SimC-addon: geen nieuwe release sinds `12.1.5-03`, TIENDE dag.** GEMETEN met
+    `git ls-remote --tags https://github.com/simulationcraft/simc-addon`: **290** regels (zelfde aantal
+    als de drie dagen ervoor), nieuwste 12.x-tag blijft **`12.1.5-03`** =
+    **`cb3e3af298e3124162c6bf44d1bebac53435eaec`**, en `HEAD` én `refs/heads/master` staan op diezelfde
+    SHA — dus ook geen ongereleasete commits op master. `Modules/SimcExport.lua` volgt in zijn
+    kopcommentaar nog `12.1.0-04` plus de race-takken uit `12.1.0-alpha-06`: nog steeds een
+    documentatie-achterstand van twee releases, geen code-achterstand (zie 27 okt). 📌 `ls-remote` vraagt
+    de server elke keer opnieuw, dus cache-twijfel is op deze regel niet van toepassing.
+  - 🔌 **MEETGAT, zevende dag identiek: de WoW-bronnen blijven geweigerd op Bash-`curl`.** GEMETEN met
+    `curl -s -o /dev/null -w "%{http_code}" --max-time 12`: `warcraft.wiki.gg`,
+    `us.forums.blizzard.com`, `news.blizzard.com` en `www.wowhead.com` geven alle vier **`000`**. 🔴 Niet
+    omzeild: élke wiki- en forummeting hierboven loopt via Exa `web_fetch_exa` mét cache-buster. Wat wél
+    schoon werkt op Bash is **`git ls-remote` en `git fetch --depth`** naar github.com — daarmee zijn
+    vandaag de twee build-SHA's, de volledige takkenlijst en de drie extra taklabels, en de SimC-tags
+    gemeten.
+  - 🧪 **Positieve controle van de grep-reikwijdte, in dezelfde run en in dezelfde vorm als de nullen
+    hierboven** (`grep -rIl`, `.git`/`docs`/`tools`/`dist` uitgesloten, geteld in bestanden):
+    `CreateFrame` → **160**, `issecretvalue` → **66**, `C_Spell` → **56**, `InCombatLockdown` → **51**,
+    `GetInstanceInfo` → **35**, `C_DelvesUI` → **14**, `C_WeeklyRewards` → **12**, `hooksecurefunc` →
+    **8**, `C_Secrets` → **5**, `MenuUtil` → **3**, `CooldownViewer` → **1**, `PlayerModel` → **10**,
+    tegenover `C_BarberShop` → **0**, `SetModelByUnit` → **0**, `SetPlayerModelFromGlues` → **0**,
+    `GetAvailableCustomizations` → **0**, `GLOBAL_MOUSE_DOWN` → **0** en `ProductTypeUsesCarousel` →
+    **0**. Het patroon vindt wat er is, dus de nullen hierboven zijn afwezigheid en geen meetfout.
+  - ⏳ **Nog open uit eerdere runs, NIET nieuw en vandaag niet opnieuw gemeten:** de UTF-8 BOM vooraan
+    `MidnightHelper.toc`; de `%d+`-aanname op veld 3 van de npcID-match (`Modules/ResetRoutine.lua:648`)
+    tegenover de GUID-obfuscatie; de `GetInstanceInfo`-return-orde tegenover `Modules/Showdowns.lua:226`;
+    de TOC-directives van 12.1.7; de dode `PickupItem`-takken in `Modules/KeyBlock.lua:1135`/`:1227`/
+    `:1380` en `Modules/ApplyLayout.lua:1311`/`:1345`/`:1605`; de vijf decoratieve
+    `GetItemInfo`-terugvaltakken; `Blizzard_DeprecatedWorldElapsedTimerTypes` als tiende
+    deprecated-addon tegenover negen wiki-secties; de verouderde namespace-lijst in
+    `docs/WATCHER_API_PROMPT.md` (18 aug); en de client-test voor `/mh raidbots`. 🔴 Niets van dit alles
+    aangeraakt.
+  - 🔧 **Repo-staat: alleen `docs/API_WATCH.md` aangeraakt, en de scheve ref was er vandaag WÉL.**
+    GEMETEN vóór het schrijven: `git rev-parse --abbrev-ref HEAD` → **`HEAD`**, dus detached (zoals op
+    17, 19, 22, 25, 26, 29 en 30 okt; aangehecht op 27, 28 en 31 okt), met `HEAD` =
+    **`49bc045d1381b07653e9e4f295fa3744dda1b6d9`** = **exact** `origin/main` na `git fetch origin main`.
+    Rechtgezet met `git checkout -B main 49bc045`, wat niets aan de inhoud verandert.
+    `git status --short` was **leeg**, en geen van de vier wachter-bestanden stond gewijzigd-maar-
+    ongecommit. Geen enkel ander bestand geraakt.
