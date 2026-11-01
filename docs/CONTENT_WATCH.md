@@ -3743,3 +3743,43 @@ kop, per bevinding MEASURED/INFERRED en [RAAKT ONS]/[RAAKT ONS NIET], met bestan
   via Exa) · `docs/PTR_12.0.7_DATA.md:836` (zustervangst, ter bevestiging, niet als enige bron) ·
   codebase: `Locales/enUS.lua:3678`, `Modules/FlightPointsData.lua:655` — allemaal vandaag gelezen.
   Geen actiepunt dat ík oppak — ik rapporteer, een mens beslist.
+
+- [2026-11-01] 💬 **CurseForge: geen open reacties (3 draadjes, zelfde reeks berichten t.o.v.
+  [2026-10-31]).** `curseforge.com/api/v1/mods/1528577/comments?pageIndex=0&pageSize=20&nocache=20261101a`
+  (en `&nocache=20261101b`/`c` als tweede en derde, onafhankelijke fetch) via Exa, alle drie volledig
+  gelezen (JSON, `pagination.totalCount: 8`). Dezelfde drie draadjes als gisteren (esES/esMX-locale-fix
+  `user_uvqy5939hswhgduu`, reply `8510682`, timestamp `1791351710373`; MrsBoojiePanda's
+  debug-printregel, reply `8483898`, timestamp `1790842459727`; gadrinonturalyon's
+  coffer-key-shards/3D-boss-model-verzoek, reply-keten tot `8095337`/`8092133`) — alle timestamps en
+  ids byte-identiek aan [2026-10-31]. MEASURED. **[RAAKT ONS NIET]** — geen actiepunt, geen
+  concept-antwoord nodig.
+
+- [2026-11-01] 🔁 **Geen nieuwe hotfix-sectie — nieuwste blijft "October 30, 2026", al volledig
+  getoetst op [2026-10-31].** MEASURED: `news.blizzard.com/en-us/article/24307310/hotfixes-october-30-2026?nocache=20261101content`
+  via Exa, zelf volledig gelezen (Housing, Items, Labyrinth onder "October 30", plus de al-bekende
+  "October 27, 2026"-sectie met alleen Classes/Items/Labyrinth/Player versus Player-tuning eronder —
+  woord-voor-woord gelijk aan wat al getoetst is op [2026-10-28]/[2026-10-31]). **Positieve controle
+  tegen het eigen cache-risico:** een onafhankelijke WebSearch op "World of Warcraft hotfixes
+  November 2026" gaf dezelfde pagina terug als nieuwste, plus bevestiging via
+  `warcraft.wiki.gg/wiki/Hotfixes` ("Hotfixes: October 13-30 | 2026-10-30" als laatste regel) en
+  `worldofwarcraft.blizzard.com/en-us/content-update-notes` ("18 hours ago") — dus geen stale cache,
+  de pagina is simpelweg nog niet bijgewerkt sinds gisteren.
+
+  Diezelfde zoekactie bracht ook de volle **12.1.5 Content Update Notes**
+  (`news.blizzard.com/en-us/article/24304162/12-1-5-content-update-notes`) weer boven, dat patch is
+  al sinds 13 okt live. Gecontroleerd of die al eerder volledig is getoetst: `grep` op "Kindo'jan",
+  "Kith'ix", "Aqir Invasion" en "Promise of Tomorrow" in dit bestand geeft treffers op meerdere
+  eerdere datums ([2026-10-13] t/m [2026-10-23], o.a. regels 2591, 2653, 2794-2816, 2956, 3039,
+  3079, 3153-3173) — Labyrinth of Kindo'jan, de Kith'ix-raid, Aqir Invasions en de
+  Ascendant-Venomstones-questlijn zijn dus al stuk voor stuk tegen onze eigen tips/data getoetst.
+  Niets nieuws om vandaag opnieuw te doen. MEASURED.
+
+  Vandaag is zondag: de wekelijkse PlayCard- en Consumables-checks zijn bewust overgeslagen (geen
+  maandag).
+
+  Bron: `news.blizzard.com/en-us/article/24307310/hotfixes-october-30-2026?nocache=20261101content`
+  (Exa, volledig gelezen) · `curseforge.com/api/v1/mods/1528577/comments?...`
+  (`nocache=20261101a`/`b`/`c`, via Exa) · WebSearch "World of Warcraft hotfixes November 2026
+  news.blizzard.com" (positieve controle, zelf gelezen) · `docs/CONTENT_WATCH.md` eigen archief
+  (regels zoals boven genoemd, zelf vandaag opnieuw gegrept, niet alleen geciteerd). Geen actiepunt
+  dat ík oppak — ik rapporteer, een mens beslist.
