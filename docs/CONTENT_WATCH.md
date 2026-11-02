@@ -3783,3 +3783,103 @@ kop, per bevinding MEASURED/INFERRED en [RAAKT ONS]/[RAAKT ONS NIET], met bestan
   news.blizzard.com" (positieve controle, zelf gelezen) · `docs/CONTENT_WATCH.md` eigen archief
   (regels zoals boven genoemd, zelf vandaag opnieuw gegrept, niet alleen geciteerd). Geen actiepunt
   dat ík oppak — ik rapporteer, een mens beslist.
+
+- [2026-11-02] 💬 **CurseForge: geen open reacties (3 draadjes, zelfde reeks berichten als
+  [2026-11-01]).** `curseforge.com/api/v1/mods/1528577/comments?pageIndex=0&pageSize=20&nocache=20261102a`
+  (en `&nocache=20261102b` als tweede, onafhankelijke fetch) via Exa, beide volledig gelezen (JSON,
+  `pagination.totalCount: 8`). Dezelfde drie draadjes als gisteren (esES/esMX-locale-fix
+  `user_uvqy5939hswhgduu`, reply `8510682`, timestamp `1791351710373`; MrsBoojiePanda's
+  debug-printregel, reply `8483898`, timestamp `1790842459727`; gadrinonturalyon's
+  coffer-key-shards/3D-boss-model-verzoek, reply-keten tot `8095337`/`8092133`) — alle timestamps en
+  ids byte-identiek aan [2026-11-01]. MEASURED. **[RAAKT ONS NIET]** — geen actiepunt, geen
+  concept-antwoord nodig.
+
+- [2026-11-02] 🔁 **Geen nieuwe hotfix-sectie — nieuwste blijft "October 30, 2026", al volledig
+  getoetst op [2026-10-31]/[2026-11-01].** MEASURED, zelf opnieuw gelezen:
+  `news.blizzard.com/en-us/article/24307310/hotfixes-october-30-2026?nocache=20261102content2` via
+  Exa, volledig gelezen — dezelfde drie regels onder "October 30, 2026" (Housing/Nagrand-decor,
+  Azshara's Darkscale/Deepscale Cloak, de twee Labyrinth-UI-fixes voor "Voices of Stone"/"Bear's
+  Burden" en "The Wandering") en de al-bekende "October 27, 2026"-sectie eronder (Classes-tuning —
+  Druid Feral/Restoration, Hunter Marksmanship, Mage Fire, Monk Mistweaver, Rogue Subtlety, Warlock
+  Affliction/Destruction, plus losse Items/Labyrinth-fixes en een los PvP-blok), woord-voor-woord
+  gelijk aan wat al op [2026-10-27]/[2026-10-31] getoetst is — geen nieuwe regel. **Niet alleen
+  overgenomen:** de API-, PTR- en data-wachter van vanochtend (allemaal gedateerd [2026-11-02]: zie
+  `docs/API_WATCH.md:8263`, `docs/PTR_12.1_WATCH.md:603-605`, `docs/PTR_12.0.7_DATA.md:841`) komen
+  onafhankelijk tot dezelfde "October 30"-stand; dat is bevestiging, niet de enige bron voor deze
+  regel. Geen Delves-, Professions- of Quests-sectie in de hele pagina vandaag (alleen
+  Housing/Items/Labyrinth onder Oct 30 en Classes/Items/Labyrinth/Player versus Player onder Oct 27)
+  — dus niets nieuws in die drie categorieën om tegen onze tips/data te toetsen. De Oct 27-Classes-
+  tuning is zuiver damage-% (geen knopvolgorde/drempel/aan-of-uitzetten van een ability), dus ook
+  geen reden voor een PlayCard-wijziging (zie de kaarten-check hieronder). MEASURED.
+
+  🃏 **Kaarten:** Wekelijkse frisheidscheck, week van [2026-10-26] t/m vandaag. Van de 40 kaarten in
+  `Modules/PlayCards.lua` missen er nog steeds dezelfde 12 een `rechecked`-aantekening sinds hun
+  bron-datum (Frost Mage 64, Fury Warrior 72, Feral Druid 103, Guardian Druid 104, Survival Hunter
+  255, Assassination Rogue 259, Outlaw Rogue 260, Subtlety Rogue 261, Restoration Shaman 264,
+  Demonology Warlock 266, Devastation Evoker 1467, Augmentation Evoker 1473) — die 12 zijn dit keer
+  allemaal opnieuw gecontroleerd (vorige week waren het er ook 12, maar met een steekproef van 2
+  volledig gelezen; dit keer alle 12 op datum, de 2 met een afwijkende datum ook volledig gelezen).
+  **Icy Veins, alle 12 rotation-pagina's zelf gelezen** (`?nocache=20261102pc`, telkens het eigen
+  "Last Updated"-stempel): stuk voor stuk nog steeds **"Oct 12, 2026 - 4:30 PM"**, nu **"(20d ago)"**
+  — vorige week (26 okt) stond hetzelfde stempel op "(13d ago)"; 13+7=20, dus consistent oplopend en
+  geen cache-val. Geen van de 12 Icy Veins-pagina's is sinds 12 okt bijgewerkt. MEASURED voor alle 12.
+  **Method.gg voor Feral Druid (103) is wél opnieuw gedateerd: "28th Oct, 2026"** (was "16th Oct,
+  2026" op [2026-10-26]) — zelf volledig gelezen, niet alleen het stempel. De huidige Single-Target-
+  prioriteit (Hoogste: Tiger's Fury/Berserk/Feral Frenzy/Convoke op cooldown; Tweede: Ferocious Bite
+  op Apex-Predator's-Craving-proc, Rip bij 5 Combo Points in/na pandemic; Laatste: Shred op Sudden-
+  Ambush-procs, Rake onderhouden) komt overeen met onze eigen stappen
+  (`Locales/enUS.lua:1875-1879`, `PLAYCARD_103_S1`-`S5`: cooldowns samen → Tiger's Fury op cooldown +
+  Feral Frenzy erbinnen → Rake/Rip onderhouden met Rip op 5 CP → Ferocious Bite op 5 CP + 50 Energy →
+  Shred als builder) — **geen wijziging nodig**, de kaart staat al goed; de nieuwe datum is een
+  her-review zonder prioriteitswijziging. Method.gg voor Survival Hunter (255) staat nog op dezelfde
+  **"14th Oct, 2026"** als vorige week (geen nieuwe editie); zelf opnieuw gelezen en de prioriteit
+  (Kill Command voedt Tip of the Spear, Wildfire Bomb/Boomstick als spenders op stack, Raptor
+  Swipe/Strike als builders) komt nog steeds overeen met `PLAYCARD_255_S1`-`S4` — ongewijzigd, zelfde
+  conclusie als [2026-10-26] (inclusief de al bekende, niet-onze fout: Method noemt nog "Flamefang
+  Pitch", een spell die sinds patch 12.1.0/Season 2 is verwijderd — Method's eigen tekst is daar
+  verouderd, wij noemen die spell nergens). Geen class-hotfix van de afgelopen week die knopvolgorde
+  of een drempel raakt (de Oct 27-Classes-sectie is zuiver damage-%, zie hierboven) en geen nieuwe
+  12.x-patch (`wowt` blijft op 70668, zie `docs/PTR_12.1_WATCH.md:603`). **Budget-grens: de overige 28
+  kaarten (de al "rechecked 3 okt"-groep) zijn deze week niet opnieuw bekeken** — niet als "nog vers"
+  gerapporteerd, gewoon niet opengeslagen.
+
+  🧪 **Consumables:** `python tools/check_consumables.py` liep (report-only): **alle 39 specs**
+  faalden met `Tunnel connection failed: 403 Forbidden` (egress-proxy blokkeert Python urllib naar
+  icy-veins.com — zelfde bekende beperking als elke eerdere maandag). MEASURED. Uitgeweken naar Exa
+  `web_fetch_exa` (`?nocache=20261102cons`/`cons2`), een steekproef van **6 van de 39**
+  gems-enchants-consumables-pagina's — bewust ANDERE 6 dan de steekproef van [2026-10-26] (die waren
+  Blood DK, Resto Druid, Frost Mage, Brewmaster Monk, Protection Paladin, Outlaw Rogue): deze week
+  **Vengeance Demon Hunter, Balance Druid, Beast Mastery Hunter, Holy Priest, Elemental Shaman, Arms
+  Warrior** — weer gespreid over tank/healer/dps en melee/caster, zodat de steekproef over de weken
+  heen de hele lijst dekt. Alle 6 staan nog op **"Last Updated: Oct 12, 2026 - 4:30 PM (20d ago)"** —
+  dezelfde datum als `Modules/ConsumablesWowheadData.lua:14`'s `patchedSince` al noemt, en dezelfde
+  +7-dagen-oploop als bij de kaarten hierboven: geen cache-val, geen van de 6 is sindsdien bijgewerkt.
+  Flask + combat-potion vergeleken (de twee betrouwbare, zie regel hierboven in dit bestand) tegen
+  `data/consumables_wowhead.json`: Vengeance DH — pagina "Vengeance prefers Flask of the Blood
+  Knights", wij Flask of the Blood Knights ✅; "Potion of Recklessness", wij Potion of Recklessness
+  ✅. Balance Druid — pagina "default flask... Flask of the Magisters", wij Flask of the Magisters ✅;
+  "Potion of Recklessness. Depending on your gear, Light's Potential may be better", wij Potion of
+  Recklessness ✅. Beast Mastery Hunter — pagina "best flask is generally... Flask of the Magisters",
+  wij Flask of the Magisters ✅; "Potion of Recklessness is the default option", wij Potion of
+  Recklessness ✅. Holy Priest — pagina "Flask of the Shattered Sun - Critical Strike" als eerste van
+  twee, wij Flask of the Shattered Sun ✅; "Light's Potential is your default potion", wij Light's
+  Potential ✅. Elemental Shaman — pagina "Flask of the Magisters if you lack Mastery", wij Flask of
+  the Magisters ✅; "we recommend using Light's Potential or potentially Potion of Recklessness", wij
+  Light's Potential ✅. Arms Warrior — pagina "Best Flask: Flask of the Blood Knights or Flask of the
+  Shattered Sun", wij Flask of the Blood Knights ✅; "Best Combat Potion: Potion of Recklessness",
+  wij Potion of Recklessness ✅. **Alle 6 kloppen, geen enkele afwijking.** MEASURED voor deze 6. De
+  overige **33 specs zijn deze week niet gecontroleerd** — niet als "actueel" gerapporteerd, gewoon
+  niet bekeken. Geen hotfix/patch van de afgelopen week die een consumable toevoegt of wijzigt
+  (zelfde drie hotfix-secties als in het hoofdbericht, geen Items-regel over een consumable erin).
+
+  Bron: `news.blizzard.com/en-us/article/24307310/hotfixes-october-30-2026?nocache=20261102content2`
+  (Exa, volledig gelezen) ·
+  `curseforge.com/api/v1/mods/1528577/comments?pageIndex=0&pageSize=20&nocache=20261102a`/`b` (via
+  Exa) · `docs/API_WATCH.md:8263`, `docs/PTR_12.1_WATCH.md:603-605`, `docs/PTR_12.0.7_DATA.md:841`
+  (zustervangsten van vandaag, ter bevestiging, niet als enige bron) · 12 Icy Veins
+  rotation-pagina's + Method.gg (Feral Druid, Survival Hunter) via Exa (`?nocache=20261102pc`) voor
+  de kaarten-check · `python tools/check_consumables.py` (403 Forbidden) + 6 Icy Veins
+  gems-enchants-consumables-pagina's (`?nocache=20261102cons`/`cons2`) voor de consumables-check ·
+  codebase: `Modules/PlayCards.lua:62-358`, `Locales/enUS.lua:1874-2017`, `data/vault_stat_catalog.json`,
+  `data/consumables_wowhead.json`, `Modules/ConsumablesWowheadData.lua:14` — allemaal vandaag gelezen.
+  Geen actiepunt dat ík oppak — ik rapporteer, een mens beslist.
