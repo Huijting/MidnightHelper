@@ -1,5 +1,25 @@
 # Midnight Helper — waar we staan
 
+## 🔨 2 nov (laat) — rare-route Coiled Isle, 3 reparaties (Rob: "klopt"), nog NIET in het spel getest
+
+Robs melding: rares op de Coiled Isle, pijl naar "the way through" zonder te zeggen waarheen, daarna Lockjaw "686 m" en
+alle kanten op. Video `Captures\World of Warcraft 2026-11-02 21-27-15.mp4` + `travelRouteLog` (GEMETEN, 21:23-21:32):
+Szarith (2613, 4 stappen) → bij de Vaults-deur 2× terug naar stap 1 (ZONE_CHANGED_INDOORS, kaart bleef 2512) → om
+21:28:08 met "player on map nil" naar Lockjaw (lijst-volgorde: geen positie = FAR_CROSSMAP_SORT + idx, Lockjaw is rij 1)
+→ Siltmouth → Coin-Eye → Garsecg binnen 75 s, niets gedood (Rob: "ik geloof het niet").
+1. `Rares.lua` HuntNextLead: de hunt houdt zijn rare tot die klaar is deze week, met de hand geskipt, een nieuwe hunt
+   (`ctx.start`), of de plek 8 s leeg buiten gevecht. Vroeger alleen vast tijdens een gevecht.
+2. `Travel/TravelRoute.lua`: een stap die de hand-off-watcher "reached" noemt, krijgt `passed`; CurrentStep gaat daar
+   nooit meer naar terug (zelfde mechaniek als de flight master van 17 okt).
+3. `TravelPlan.lua`: de deurstap heet nu "the way into <kaartnaam van de client>" (`PLAN_STEP_DOOR_INTO_FMT`, 8 packs,
+   eigen vertaling; de/ru met dubbele punt i.v.m. naamval). Zonder kaartnaam de oude tekst.
+- NIET gedaan (eerst voorgesteld): "geen stap tonen waar je al staat". De stap "Flight master: Amani Foothold" na het
+  hervatten betekent "neem hier de vlucht"; overslaan zou die instructie wegnemen. Of je vanaf Amani Foothold echt naar
+  het eiland kunt vliegen: niet gemeten. MH kent alleen de weg NAAR BINNEN (Vaults/Underbelly), niet naar buiten.
+- Niet gerepareerd: de eerste keuze van een hunt zonder leesbare positie valt nog terug op de lijstvolgorde (zelden).
+- Geen in-game changelog-regel toegevoegd (4.14.0 is uit; de regel komt bij de volgende versie, Robs go).
+- Syntax OK (307), lint 0 HARD, locale_probe 8/8 OK. Testpunten: TESTLIJST "2 nov".
+
 ## 🌆 2 nov — ronde 's avonds (bouwchat «Bouwchat 02-11»; Rob heeft griep)
 
 - GEMETEN over 31 okt t/m 2 nov: git schoon, pull leeg (alleen de wachter-commits van 1 + 2 nov). Alle 4 wachters:

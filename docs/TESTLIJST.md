@@ -21,6 +21,17 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 2 nov — rare-route op The Coiled Isle
+
+Eerst `/reload`. Rares-tab → The Coiled Isle → Generate Route.
+- [ ] De pijl **blijft bij één rare** tot je hem gedood hebt, of tot je er ~8 s buiten gevecht staat en hij er niet is
+      (dan gaat hij naar de volgende). Rondrijden of een rare op de minimap zien laat hem **niet** meer wisselen.
+- [ ] Gaat de route naar **Szarith the Fanged** (onder de Vaults): bij de eerste stap staat er nu *"the way into Vaults of
+      Atal'Utek"*, niet meer *"the way through"*.
+- [ ] Bij die ingang springt de route **niet meer terug** naar stap 1 als je even heen en weer loopt (chat zegt niet twee
+      keer "step 1 of 4"). Loop je echt weer naar buiten, dan mag hij wel opnieuw plannen.
+- [ ] Let op: Szarith is nooit gedood, ook niet door jou. Staat er niets op zijn plek, maak dan `/mh here` + een screenshot.
+
 ## 🆕 30 okt — vensters per character + coach-knop op het kaartje
 
 Eerst `/reload`.

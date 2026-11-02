@@ -635,6 +635,10 @@ local function StartWatch(s)
 			local ok, why = Reached(s, "step", s.x, s.y, s.map)
 			if ok then
 				Log("step %d reached (%s)", r.idx, tostring(why))
+				-- Reached stays reached (Rob, 2 Nov 2026, at the Vaults door): the map there still reads the island for a
+				-- while, and two ZONE_CHANGED_INDOORS sent him back to step 1 twice. CurrentStep never goes back to a
+				-- `passed` step; walking out for real is a new map and plans again.
+				s.passed = true
 				StopWatch()
 				ShowStep(r.idx + 1)
 			end
@@ -738,7 +742,8 @@ local function CurrentStep(r)
 end
 
 -- A flight master the player flew past (`passed`, see FlightMasterPassed) is never taken up again: still being on its
--- map would otherwise read as "back at step k" on the next zone event (17 Oct 2026).
+-- map would otherwise read as "back at step k" on the next zone event (17 Oct 2026). Since 2 Nov 2026 also a door or
+-- Windcaller step reached by the hand-off watcher.
 do
 	local raw = CurrentStep
 	CurrentStep = function(r)

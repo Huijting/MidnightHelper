@@ -706,14 +706,17 @@ function ns.BuildTravelPlan(targetMap, x, y, targetName)
 				end
 			end
 			if best then
+				-- Say where the door leads (Rob, 2 Nov 2026: "the way through" and no idea he was going underground). The
+				-- client's own map name, so it is right in every language; the old wording when the client has none.
+				local into = MapName(intoMap)
 				steps[#steps + 1] = {
 					kind = "walk",
 					mapID = chain[i],
 					x = tonumber(("%.2f"):format(bx)),
 					y = tonumber(("%.2f"):format(by)),
 					to = intoMap,
-					label = "PLAN_STEP_DOOR",
-					localized = true,
+					label = into and (ns:L("PLAN_STEP_DOOR_INTO_FMT")):format(into) or "PLAN_STEP_DOOR",
+					localized = into == nil,
 					source = "C_Map.GetMapLinksForMap",
 				}
 			end

@@ -1463,6 +1463,7 @@ ns._mhLocales.enUS = {
 
 	PLAN_HEADER = "How to reach %s, step by step:",
 	PLAN_STEP_DOOR = "the way through (nearest of the ones your client knows)",
+	PLAN_STEP_DOOR_INTO_FMT = "the way into %s (nearest of the ones your client knows)",
 	PLAN_NO_TARGET = "No destination given.",
 	PLAN_NO_POSITION = "Cannot tell where you are right now - try again in a moment.",
 	PLAN_ALREADY_THERE = "Nothing to plan — it is on the map you are standing on. Follow the arrow; it may still be a walk.",

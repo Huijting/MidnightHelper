@@ -1899,12 +1899,22 @@ local function HuntNextLead(ctx)
 	end
 	-- A skip by hand (/mh skip, the keybind) is the player's own choice and always moves on.
 	local log = ns.Travel and ns.Travel.Log
-	if huntLead and not (ctx and ctx.skip) and not IsRareDoneThisWeek(huntLead) and HoldLead() then
-		if log and ctx and ctx.arrived and (ctx.parked or 0) < 1.5 then
-			log("rare: hold %s (fight %s, live rare targeted %s)", GetRareDisplayName(huntLead), tostring(InFight()),
-				tostring(TargetIsLiveRare()))
+	--- 🔴 A HUNT KEEPS ITS RARE UNTIL THAT RARE IS SETTLED — Rob, 2 Nov 2026, Coiled Isle (video + travelRouteLog).
+	--- This used to keep the lead only while HoldLead() (a fight, a live rare targeted) and otherwise pick the nearest
+	--- again on every ask — and the runner asks on every zone change and every QUEST_LOG_UPDATE / VIGNETTES_UPDATED.
+	--- GEMETEN that night: Szarith (Underbelly, 4 steps) was dropped at the Vaults door at the one moment the player's
+	--- map read nil ("player on map nil"), so every distance fell back to list order and Lockjaw, row 1, won; then
+	--- Lockjaw → Siltmouth → Coin-Eye → Garsecg inside 75 s, nothing killed. Now the lead only moves when it is done
+	--- this week, skipped by hand, a new hunt starts, or its spot stayed empty out of combat (the block below).
+	if huntLead and not (ctx and (ctx.skip or ctx.start)) and not IsRareDoneThisWeek(huntLead) then
+		local emptySpot = ctx and ctx.arrived and (ctx.parked or 0) >= EMPTY_HOLD_SECONDS and not HoldLead()
+		if not emptySpot then
+			if log and ctx and ctx.arrived and (ctx.parked or 0) < 1.5 then
+				log("rare: hold %s (fight %s, live rare targeted %s)", GetRareDisplayName(huntLead), tostring(InFight()),
+					tostring(TargetIsLiveRare()))
+			end
+			return RareLead(huntLead)
 		end
-		return RareLead(huntLead)
 	end
 	if ctx and ctx.arrived and (ctx.parked or 0) >= EMPTY_HOLD_SECONDS and ns.MHRareTryAutoAdvance then
 		if ns.MHRareTryAutoAdvance(true) and log and huntLead then

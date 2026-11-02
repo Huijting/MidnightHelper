@@ -1407,6 +1407,7 @@ ns._mhLocales.nlNL = {
 
 	PLAN_HEADER = "Zo kom je bij %s, stap voor stap:",
 	PLAN_STEP_DOOR = "de doorgang (de dichtstbijzijnde die je client kent)",
+	PLAN_STEP_DOOR_INTO_FMT = "de ingang naar %s (de dichtstbijzijnde die je client kent)",
 	PLAN_NO_TARGET = "Geen bestemming opgegeven.",
 	PLAN_NO_POSITION = "Kan nu niet bepalen waar je staat - probeer het zo nog eens.",
 	PLAN_ALREADY_THERE = "Niets te plannen — het ligt op de kaart waar je nu staat. Volg de pijl; het kan nog steeds een eind lopen zijn.",
