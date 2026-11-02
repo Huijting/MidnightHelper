@@ -1,5 +1,15 @@
 # Midnight Helper — waar we staan
 
+## 🌆 2 nov — ronde 's avonds (bouwchat «Bouwchat 02-11»; Rob heeft griep)
+
+- GEMETEN over 31 okt t/m 2 nov: git schoon, pull leeg (alleen de wachter-commits van 1 + 2 nov). Alle 4 wachters:
+  nul "moet gefikst", geen nieuwe hotfix (laatste 30 okt), live 70688 / PTR 70668 onbewogen. CF/GitHub 0 open.
+  addon_updates: 23 bijgewerkt (alleen changelogs gelezen, niet getest), niets raakt MH; DandersFrames 5.6.1 weer zonder
+  changelog (tab Clicks blijft een let-op). HandyNotes 167 onveranderd.
+- Vragenlijsten #29 (en/GR, 4) en #30 (de/DE, 5) bijgeteld (Rob: "Ja, tel ze bij"); gemiddelde 4,07.
+- De site-chat heet nu «Site chat 03-11»; seintjes over releases gaan daarheen.
+- Geen code gewijzigd. Open punten onveranderd (zie 31 okt laat en de TESTLIJST "30 okt").
+
 ## 🌙 31 okt (laat) — overdracht naar de volgende bouwchat
 
 - ✅ Labyrinth T11, volle run van 9 kamers (Robs screenshot 31 okt): venster A klopt. GEMETEN uit de screenshot: totaal

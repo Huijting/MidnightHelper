@@ -39,6 +39,8 @@ speelkaarten — die heten "Zo speel je" = `play`).
 | 26 | 26 okt 14:49 | US / en | dps | weken | **3** | maps, boss, delves, weekly, prof, keys, route, gear | — | — (cijfer 3 zonder uitleg; alle vrije vakken leeg) |
 | 27 | 29 okt 16:48 | PT / it | mixed | weken | 4 | boss, delves, mplus | prof, site | irriteert: **vensters onthouden hun plek niet na uitloggen** (bv. de Great Vault) · **kamerkaartje verdwijnt bij "Open the Delve Coach"**, terug pas na /reload · mist: *visuele route om delves sneller te doen* · 💬 de korte kamer-uitleg in de Labyrinth hielp veel, vooral bij de ijskamer |
 | 28 | 30 okt 17:37 | DE / de | mixed | maanden | 4 | maps, delves, weekly, prof, route, collect, gear | mplus, keys, brez | — · 💬 *"vielen Dank für die tolle Arbeit"* |
+| 29 | 1 nov 06:14 | GR / en | dps | weken | 4 | maps, boss, delves, mplus, weekly, prof, brez, route, collect, gear, site | play, keys | irriteert (lof, geen klacht): *"this addon is prolly the best. everything in one addon."* |
+| 30 | 1 nov 19:15 | DE / de | dps | maanden | 5 | play, boss, delves, weekly, route, collect, gear | mplus, site | — · 💬 *"Danke, ihr seid super!"* |
 
 📌 #17 en #19 komen allebei uit GB, dps, "een paar weken", via het spel, 4½ uur na elkaar. Mogelijk dezelfde speler
 die het twee keer invulde (#19 kent veel meer onderdelen). AFGELEID, niet vast te stellen: beide tellen mee.
@@ -54,6 +56,16 @@ cijfer. #6 gaf geen cijfer en geen rol.
 ⚠️ **#9 heeft `from: "gamehttpsmidnighthelpercomsurveyf"`** — "game" met de survey-URL eraan geplakt, zonder
 leestekens. Vermoedelijk heeft de speler de link uit het spel geplakt achter een al geopende link, of bouwt iets de
 `from`-waarde verkeerd. NIET onderzocht; telt gewoon mee als "via game".
+
+## Bijgeteld 2 nov (ronde 's avonds): #29 en/GR en #30 de/DE, allebei dps, via het spel
+
+- **#29:** een paar weken, cijfer **4**, ontvangen 1 nov 06:14 UTC. Gebruikt 11 onderdelen vaak; "Zo speel je" en
+  Keybind-coach "nooit / onbekend". Het vak "irriteert" bevat lof, geen klacht. Mist leeg.
+- **#30:** maanden / sinds Midnight, cijfer **5**, ontvangen 1 nov 19:15 UTC. Gebruikt 7 onderdelen vaak; M+-feedback
+  en de site "nooit / onbekend". Irriteert en mist leeg; bedankt.
+- **Cijfer nu:** gemiddeld **4,1** (28 cijfers: 9× 5, 14× 4, 4× 3, 1× 1; 114/28 = 4,07).
+- **Keybind-coach:** nu **15× "nooit / onbekend"** (#29), 1× "vaak".
+- Rob, 2 nov: *"Ja, tel ze bij"*.
 
 ## Bijgeteld 31 okt (ronde 's avonds): #28, de/DE, mixed, via het spel
 
