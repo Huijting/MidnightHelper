@@ -74,9 +74,10 @@ Eerst `/reload` (nieuw bestand: bij een fout eerst een volledige herstart van Wo
       Nagemeten in de SavedVariables (`labSplits.lastRun`): 5 kamers T11, samen 52:03 (som klopt), 1 record (The
       Catacombs 7:53, was 10:05; alleen daar `bestAt` gezet), de andere 4 bests onaangetast. Rob 30 okt over de klok
       (start ~21:14, kamer 5 klaar 22:06, weg 22:28): *"qua tijden klopt het wel"*.
-- [ ] Inhoud van venster A (niet apart gemeld): Bovenin Tier, Total, New bests;
-      per kamer de tijd en "first time" / "-0:41 faster" (groen, met een gele ster) / "+1:05 slower" (rood). Onderin "If
-      every room went like your best: …". Het lijstje in de chat staat er ook nog.
+- [x] ✅ Inhoud van venster A — Robs screenshot 31 okt (T11, volle run van 9 kamers): Tier 11, Total 99:23, New bests 2;
+      per kamer tijd + "first time" / groen "-3:45 faster" met ster / "+5:49 slower"; onderin "If every room went like
+      your best: 75:20"; chatlijstje staat er ook. GEMETEN uit de screenshot: som van de 9 kamers = 99:23, som van de
+      teruggerekende bests = 75:20, chat = venster. Rob: "alleen laten zien" (geen fout).
 - [ ] "My best times" → venster B, nu met datum bij nieuwe records en "Last run (…)"; "Show last run" → terug naar A.
 - [ ] Vinkje "Show this window after every run" uit → na de volgende run alleen het chatlijstje.
 - [ ] "Wipe Tier 11..." → vraag "Wipe your best Labyrinth times on Tier 11?" → Nee laat alles staan. (Ja wist echt!)

@@ -1,5 +1,18 @@
 # Midnight Helper — waar we staan
 
+## 🌙 31 okt (laat) — overdracht naar de volgende bouwchat
+
+- ✅ Labyrinth T11, volle run van 9 kamers (Robs screenshot 31 okt): venster A klopt. GEMETEN uit de screenshot: totaal
+  99:23 = som van de kamers, "If every room went like your best: 75:20" = som van de teruggerekende bests, 2 records,
+  chat = venster. TESTLIJST "Inhoud van venster A" afgevinkt. Kindo'jan-video: nog niet (niet gefilmd/gemeld).
+- Great Vault-popup toont andere characters alleen in de eerste 24 uur na de reset (`VaultReminder.lua`, logica
+  onveranderd sinds 2026-06-06, GEMETEN). Voorstel "de hele week tonen" → Rob: *"Laat maar zo"*. Niet opnieuw voorstellen.
+  AFGELEID uit de SavedVariables: Iceicebaby heeft waarschijnlijk nog een vault-beloning klaarliggen (Rob gezegd).
+- Geen MH: Zygor-fout (`Ver.lua:3`, lege `$Revision$` na hun client-update van 29 okt) opgelost door Robs *Repair* in de
+  Zygor-client. Systeempiepje bij de C-toets in WoW: alleen hypotheses gegeven (Windows-standaardgeluid, Razer/Discord/
+  NVIDIA/Willow), Rob heeft nog niets teruggemeld.
+- Geen code gewijzigd sinds 4.14.0; alles gepusht.
+
 ## 🌆 31 okt — ronde 's avonds
 
 - GEMETEN: alle 4 wachters gedraaid, niets raakt MH (nieuwe live-build 12.1.5.70688: alleen winkelbestanden, geen API).
