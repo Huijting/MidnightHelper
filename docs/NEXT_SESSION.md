@@ -1,5 +1,15 @@
 # Midnight Helper — waar we staan
 
+## 🔨 2 nov (nacht) — Szarith als laatste (Rob: "Goed idee, beide … je krijgt toestemming voor alles"), NIET getest
+
+- `Rares.lua`: Szarith-rij krijgt `last = true`; NearestOpenRareRespectingSkips kiest een `last`-rare pas als er geen
+  gewone open rare meer is, maar vóór de geskipte (die draaien eindeloos rond, anders kwam hij nooit).
+- Gevolg van de reparatie hieronder (hunt houdt zijn rare): skip, auto-advance, de aankomst-hint en
+  `ns.GetNearestIncompleteRareLead` vroegen "de dichtstbijzijnde" en namen aan dat dat de pijl-rare was. Nu via
+  `CurrentHuntRare(zone)` (= `huntLead` als die nog open is en in deze zone, anders de dichtstbijzijnde). `huntLead`
+  staat nu boven die functie gedeclareerd; StopRareRoute zet hem op nil. Syntax OK, lint 0 HARD.
+- Hoe zwaar Szarith is: uitgezocht door mh-research, zie de regel hieronder zodra die er staat.
+
 ## 🔨 2 nov (laat) — rare-route Coiled Isle, 3 reparaties (Rob: "klopt"), nog NIET in het spel getest
 
 Robs melding: rares op de Coiled Isle, pijl naar "the way through" zonder te zeggen waarheen, daarna Lockjaw "686 m" en

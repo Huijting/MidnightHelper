@@ -409,7 +409,9 @@ local COILED_ISLE = {
 		-- Hij telt voor twee achievements; 63358 is degene die deze tab bijhoudt.
 		-- Zijn Soft Underbelly-criterium (62601 / 113661) hoort bij die andere hunt.
 		-- 16 Oct 2026: HandyNotes_Midnight 159 moved him from 38.40/17.69 to 39.50/27.40.
-		{ 96030, 2613, 39.50, 27.40, "Szarith the Fanged", 263456, ach = 63358, crit = 115282, acct = 98349 },
+		-- `last`: a hunt takes him after every other open rare on the isle (Rob, 2 Nov 2026: "goed idee"), because the
+		-- way down is long (the Vaults door, a Windcaller, the Underbelly door). See NearestOpenRareRespectingSkips.
+		{ 96030, 2613, 39.50, 27.40, "Szarith the Fanged", 263456, ach = 63358, crit = 115282, acct = 98349, last = true },
 	},
 }
 --- 2509 = Vaults of Atal'Utek, 2613 = the Underbelly beneath it. Both are children of
@@ -1357,11 +1359,17 @@ local function NearestOpenRareRespectingSkips(zone)
 		return nil
 	end
 	local pwx, pwy = GetPlayerWorldPos()
-	local best, bestDist, skippedBest, skippedDist
+	local best, bestDist, skippedBest, skippedDist, lastBest, lastDist
 	for idx, rare in ipairs(zone.rares) do
 		if not IsRareDoneThisWeek(rare) then
 			local dist = RareDistanceFromRef(rare, idx, pwx, pwy)
-			if skippedRares[RareKey(rare)] then
+			-- A `last` rare (Szarith, far below the Vaults) waits until every other open one is done. Before the skipped
+			-- ones come round again, though: those are cycled forever, so behind them a `last` rare would never come.
+			if rare.last and not skippedRares[RareKey(rare)] then
+				if not lastDist or dist < lastDist then
+					lastDist, lastBest = dist, rare
+				end
+			elseif skippedRares[RareKey(rare)] then
 				if not skippedDist or dist < skippedDist then
 					skippedDist, skippedBest = dist, rare
 				end
@@ -1373,11 +1381,30 @@ local function NearestOpenRareRespectingSkips(zone)
 	if best then
 		return best
 	end
+	if lastBest then
+		return lastBest
+	end
 	if skippedBest then
 		wipe(skippedRares) -- only skipped rares remain: cycle back over them
 		return skippedBest
 	end
 	return nil
+end
+
+local huntLead -- the rare the hunt points at now (HuntNextLead keeps it until it is settled)
+
+--- The rare a running hunt points at. Since 2 Nov 2026 that is no longer always the nearest open one (HuntNextLead
+--- holds its lead), so skip, auto-advance and the arrival hint ask this instead of NearestOpenRareRespectingSkips:
+--- otherwise "skip" would skip whichever rare happens to be nearest, not the one the arrow is on.
+local function CurrentHuntRare(zone)
+	if huntLead and zone and zone.rares and not IsRareDoneThisWeek(huntLead) then
+		for _, rare in ipairs(zone.rares) do
+			if rare == huntLead then
+				return huntLead
+			end
+		end
+	end
+	return zone and NearestOpenRareRespectingSkips(zone) or nil
 end
 
 --- The zone a running Generate Route hunt was made for, or nil (assigned below, next to the hunt store).
@@ -1501,7 +1528,7 @@ local function CheckArrivalHint()
 	-- next open rare by itself, and a watcher holding the rare it started on would go on
 	-- describing a mob nobody is walking to.
 	local zone = CurrentHuntZone()
-	local rare = zone and NearestOpenRareRespectingSkips(zone)
+	local rare = zone and CurrentHuntRare(zone)
 	if not rare then
 		return
 	end
@@ -1595,7 +1622,7 @@ end
 
 function ns.GetNearestIncompleteRareLead()
 	local zone = CurrentHuntZone()
-	local rare = zone and NearestOpenRareRespectingSkips(zone)
+	local rare = zone and CurrentHuntRare(zone)
 	if not rare then
 		return nil
 	end
@@ -1609,6 +1636,7 @@ end
 --- and lets a paused route go on.
 function ns.StopRareRoute()
 	wipe(skippedRares)
+	huntLead = nil
 	ns.MH_TomTomClearAll()
 	ns._mhLastRoutedRareQuest = nil
 	if ns.Travel and ns.Travel.Has and ns.Travel.Has("rare") then
@@ -1634,7 +1662,7 @@ function ns.SkipCurrentRare()
 		return true
 	end
 	local zone = CurrentHuntZone()
-	local cur = zone and NearestOpenRareRespectingSkips(zone)
+	local cur = zone and CurrentHuntRare(zone)
 	if not cur then
 		return false
 	end
@@ -1886,7 +1914,7 @@ local function HoldLead()
 	return (now - lastFightAt) < EMPTY_HOLD_SECONDS or TargetIsLiveRare()
 end
 
-local huntLead -- the rare the hunt points at now, kept while HoldLead says so
+-- huntLead is declared above CurrentHuntRare (it moved up on 2 Nov 2026 so skip and auto-advance can read it).
 
 --- A full hunt (Generate Route): the nearest open rare, skipped ones last. Standing on an empty spawn (EMPTY_HOLD_SECONDS,
 --- out of combat) pushes it to the back ("fly over an empty spawn, move on" — TomTom's cleardistance did that for
@@ -2214,7 +2242,7 @@ function ns.MHRareTryAutoAdvance(reached)
 	if not reached then
 		return false
 	end
-	local lead = NearestOpenRareRespectingSkips(zone)
+	local lead = CurrentHuntRare(zone)
 	if not lead then
 		return false
 	end

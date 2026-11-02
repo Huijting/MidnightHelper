@@ -31,6 +31,9 @@ Eerst `/reload`. Rares-tab → The Coiled Isle → Generate Route.
 - [ ] Bij die ingang springt de route **niet meer terug** naar stap 1 als je even heen en weer loopt (chat zegt niet twee
       keer "step 1 of 4"). Loop je echt weer naar buiten, dan mag hij wel opnieuw plannen.
 - [ ] Let op: Szarith is nooit gedood, ook niet door jou. Staat er niets op zijn plek, maak dan `/mh here` + een screenshot.
+- [ ] **Szarith komt als laatste:** de route doet eerst alle open rares bovenop het eiland (en Nar'zira), en gaat pas
+      daarna naar beneden naar Szarith.
+- [ ] **Skip** (`/mh skip` of de toets) slaat de rare over **waar de pijl op staat**, niet een andere.
 
 ## 🆕 30 okt — vensters per character + coach-knop op het kaartje
 
