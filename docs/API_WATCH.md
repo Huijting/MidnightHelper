@@ -8260,3 +8260,122 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
     Rechtgezet met `git checkout -B main 49bc045`, wat niets aan de inhoud verandert.
     `git status --short` was **leeg**, en geen van de vier wachter-bestanden stond gewijzigd-maar-
     ongecommit. Geen enkel ander bestand geraakt.
+- [2026-11-02] ✅ **Nul [MOET GEFIKST], en de stilste dag van de week: élke bewegende bron staat
+  byte-voor-byte waar hij gisteren stond — live onbewogen (DERDE dag op `70688`), PTR onbewogen (VIERDE
+  dag op `70668`), de takkenlijst onveranderd op 13 heads, de wiki ZEVENTIENDE dag op zijn 16
+  okt-revisie, geen nieuwe hotfix-batch (nog steeds 30 okt, onafhankelijk bevestigd) en geen
+  SimC-release (ELFDE dag). Op het forum staan wél drie nieuwe dingen, waarvan één van vannacht, maar
+  geen van de drie is een API-wijziging: het zijn twee spelersvragen en een stuk zelfhulp-advies. Niets
+  wat MH raakt, en niets wat Rob vandaag hoeft te lezen.**
+  - 🔇 **[RAAKT ONS NIET] — live onbewogen, DERDE dag op `70688`.** GEMETEN
+    `git ls-remote --heads https://github.com/Gethe/wow-ui-source`: `live` =
+    **`d07eb00237d8891f153215db98a5df880a26cfe5`**, byte-voor-byte de SHA uit mijn regels van 31 okt en
+    1 nov. Geen nieuwe live-build, dus ook vandaag is er **geen enkele** 12.1.7-API-signature naar live
+    verhuisd.
+  - 🔇 **[RAAKT ONS NIET] — PTR onbewogen, VIERDE dag op `70668`.** Zelfde `ls-remote`: `ptr` =
+    **`9fc0ba94381153262856ed0120a2675f1a11c30a`**, identiek aan 30 en 31 okt en 1 nov. De zes
+    API-wijzigingen die ik op 30 okt in `70668` gemeten heb (de altijd-secret `C_LossOfControl`, de
+    `SecretArguments`-flip op `IsSpellCrowdControl`, de twaalfde return van `GetInstanceInfo`, de twee
+    `C_Build`-functies, de `C_GameRules`-hernoeming en de `specIconID`-flip) zijn nog steeds alles wat
+    er in die build zit.
+  - 🔇 **[RAAKT ONS NIET] — de takkenlijst van de mirror is onveranderd, tweede meting sinds het
+    meetgat van gisteren dicht is.** GEMETEN `--heads`: **13** heads, exact dezelfde namen als gisteren,
+    en `ptr2` staat nog op **`12380f8cdc541b7f0963f74cbe0874c21a857fbb`** (de 20 dagen oude
+    12.1.5-restant van 12 okt, per harde regel 1 te negeren). Er is dus geen nieuwe lijn bijgekomen
+    waar een Midnight-build op zou kunnen staan. 📌 Sinds gisteren hoort `--heads` vast bij de meting,
+    en dit is de eerste run waarin dat iets bewijst in plaats van iets te ontdekken.
+  - 🔇 **[RAAKT ONS NIET] — wiki: beide API-pagina's nog op hun 16 okt-revisie, ZEVENTIENDE dag.**
+    GEMETEN via `rest.php/v1/page/<pagina>%2FAPI_changes/history?nocache=20261102`:
+    `Patch 12.1.7/API changes` op **`6919765`** (**2026-10-16T22:38:53Z**, Ketho, `/* Blue posts */`,
+    1541 bytes, nog steeds **vier** revisies); `Patch 12.1.5/API changes` op **`6919763`**
+    (**2026-10-16T22:38:41Z**, 17904 bytes). Allebei exact de revisie-ID's van gisteren. ✅ En GEMETEN
+    dat er geen nieuwere pagina klaar staat: `Patch 12.2.0/API changes` en `Patch 12.1.9/API changes`
+    geven beide **`CRAWL_NOT_FOUND`** — ze bestaan niet.
+  - 🔇 **[RAAKT ONS NIET] — geen nieuwe hotfix-batch; bovenste gedateerde kop nog steeds *"October 30,
+    2026"*.** GEMETEN via de raw-post `raw/2382684/1?nocache=20261102`: dezelfde vier regels als
+    gisteren (Housing: de Nagrand-plantdecor van Botanist Gril'ka; Items: de twee Azshara-capes;
+    Labyrinth: *"Voices of Stone"* en de flikkerende Tether-icons), **geen `User Interface`-sectie en
+    geen AddOn-regel**, en de batch eronder is nog steeds 27 okt. ✅ **Cache-controle met een tweede
+    bron, niet alleen met een datumvergelijking:** TheWoWDB's hotfix-index zegt letterlijk
+    *"Latest: October 30, 2026."* Gelijk-blijven is hier dus gemeten afwezigheid en geen cache.
+    ⚠️ Een losse WebSearch op november-hotfixes gaf **nul** treffers uit november 2026 — dat is zwak
+    bewijs (zoekindexen lopen achter) en het staat hier alleen als derde, ondergeschikte aanwijzing.
+  - 🧩 **[RAAKT ONS NIET] — forum `#ui-macro`: DRIE nieuwe items, en geen van de drie is een
+    API-wijziging.** GEMETEN mét cache-buster (de categorie-JSON `c/guides/ui-macro/35/l/latest.json`,
+    daarna elke raw-post apart):
+    (1) nieuw topic **`2398566`** *"Continuously show the status of a given cvar on screen?"*
+    (**2026-11-02T03:00:03Z**, van vannacht, 1 post). Letterlijk: *"If I know/suspect that in advance I
+    can change cvar `Sound_ListenerAtCharacter` from `1` to `0` … what would be a good way to
+    continuously show the status of a given cvar on screen?"* — een spelersvraag om hulp, geen
+    aankondiging en geen blue post.
+    (2) nieuw topic **`2398297`** *"Housing Decor: Auto Use"* (**2026-11-01T19:48:20Z**, 1 post):
+    *"Anyone know an addon that will auto use Warbound Housing Decor instead of having to manually
+    click on each?"* — een addon-verzoek. ⚠️ En per 12.x kan het antwoord alleen *nee* zijn: bulk-`UseItem`
+    op commando is precies wat de secure-frame-regels verbieden. Niets te toetsen.
+    (3) nieuwe reactie op **`2338760`** *"Can't get extra action button to appear"* (topic van 19 aug),
+    post **#6** (Mokacino, **2026-11-01T19:17:10Z**): een conflictadvies over Bartender/Plater plus de
+    regel *"/run ExtraActionButton1:ClearAllPoints(); ExtraActionButton1:SetPoint(…); …:Show();
+    …:SetScale(1.2);"*. ⚠️ Dat is spelersadvies, **geen API-nieuws**, en het is zelfs twijfelachtig
+    advies: `ExtraActionButton1` hangt onder de secure bar, dus zo'n `/run` werkt niet in combat.
+  - 🧪 **Toets van die drie aan onze code — [RAAKT ONS NIET], en de cvar-kant is bovendien
+    [AL AFGEDEKT].** GEMETEN (`grep -rIl`, `.git`/`docs`/`tools`/`dist` uitgesloten, geteld in
+    bestanden): `ExtraActionButton` → **0**, `HousingDecor` → **0**, `C_Housing` → **0**,
+    `Sound_ListenerAtCharacter` → **0**, `RegisterCVar` → **0**, `GetCVarBool` → **0**.
+    `ExtraActionBarFrame` geeft **1** treffer, en die is onschuldig: `Modules/BarInventory.lua:425`
+    noemt de naam alleen in een lijst van bar-frames (`"PossessActionBar", "ExtraActionBarFrame",
+    "EncounterBar"`) — wij herpositioneren die knop nergens. ✅ En de cvar-aanroepen die we wél hebben
+    zijn alle zes gegard, GEMETEN door ze te lezen: `Modules/KeyBlock.lua:1048`/`:1241`/`:2410`
+    (`if C_CVar and C_CVar.GetCVar then` + `pcall`), `Modules/AggroSettings.lua:19`
+    (`local get = C_CVar and C_CVar.GetCVar or GetCVar`), `Modules/FpsPanel.lua:97`/`:106`
+    (`(C_CVar and C_CVar.GetCVar) or _G.GetCVar`, idem `GetCVarDefault`, mét een comment dat de
+    migratie beschrijft) en `Modules/DevShots.lua:393`/`:431`/`:433` (`if savedFormat and SetCVar then`
+    + `pcall`). Zou de cvar-API ooit bewegen, dan valt MH stil terug in plaats van te breken.
+  - 🔇 **[RAAKT ONS NIET] — en de vier draden die er nieuw UITZIEN maar al gemeld zijn.** `2342284`
+    (*Addon API: Rendering Cached Offline Player Models*) staat nog op post **#2** van 31 okt, die ik
+    gisteren woord-voor-woord verslagen heb; `2396144` (*On use trinket macro help*) nog op 31 okt
+    15:51; `2396521` (*Paladin UI / Cooldown Manager*) en `2367394` (*Unregister Global Mouse*, post
+    #15 van 25 okt) ongewijzigd. 📌 Het topic `2397634` (*"Hunggy's Gamepad Settings"*) dat ik gisteren
+    als door-de-auteur-verwijderd meldde, is nu **helemaal uit de lijst** — bevestiging, geen nieuwe
+    vondst. Toets blijft staan: `CooldownViewer` → **1** bestand, `C_CooldownViewer` → **0**,
+    `GLOBAL_MOUSE_DOWN` → **0**, `RegisterForGlobalMouse` → **0**, `C_BarberShop` → **0**,
+    `SetModelByUnit` → **0**, `SetPlayerModelFromGlues` → **0**, `GetAvailableCustomizations` → **0**.
+  - 🧰 **[RAAKT ONS NIET] — SimC-addon: geen nieuwe release sinds `12.1.5-03`, ELFDE dag.** GEMETEN met
+    `git ls-remote --tags https://github.com/simulationcraft/simc-addon`: **290** regels (zelfde aantal
+    als de vier dagen ervoor), nieuwste 12.x-tag blijft **`12.1.5-03`** =
+    **`cb3e3af298e3124162c6bf44d1bebac53435eaec`**, en `HEAD` én `refs/heads/master` staan op diezelfde
+    SHA — dus ook geen ongereleasete commits op master. `Modules/SimcExport.lua` volgt in zijn
+    kopcommentaar nog `12.1.0-04` plus de race-takken uit `12.1.0-alpha-06`: nog steeds een
+    documentatie-achterstand van twee releases, geen code-achterstand (zie 27 okt). 📌 `ls-remote` vraagt
+    de server elke keer opnieuw, dus cache-twijfel is op deze regel niet van toepassing.
+  - 🔌 **MEETGAT, achtste dag identiek: de WoW-bronnen blijven geweigerd op Bash-`curl`.** GEMETEN met
+    `curl -s -o /dev/null -w "%{http_code}" --max-time 12`: `warcraft.wiki.gg`,
+    `us.forums.blizzard.com`, `news.blizzard.com` en `www.wowhead.com` geven alle vier **`000`**, en de
+    proxy noemt het nu expliciet `connect_rejected` ("the host is not allowed for this session") — dus
+    het is een egress-regel en geen netwerkstoring. 🔴 Niet omzeild: élke wiki-, forum- en
+    hotfixmeting hierboven loopt via Exa `web_fetch_exa` mét cache-buster. Wat wél schoon werkt op Bash
+    is **`git ls-remote`** naar github.com — daarmee zijn vandaag de twee build-SHA's, de volledige
+    takkenlijst en de SimC-tags gemeten.
+  - 🧪 **Positieve controle van de grep-reikwijdte, in dezelfde run en in dezelfde vorm als de nullen
+    hierboven** (`grep -rIl`, `.git`/`docs`/`tools`/`dist` uitgesloten, geteld in bestanden):
+    `CreateFrame` → **160**, `issecretvalue` → **66**, `C_Spell` → **56**, `InCombatLockdown` → **51**,
+    `GetInstanceInfo` → **35**, `C_DelvesUI` → **14**, `C_WeeklyRewards` → **12**, `hooksecurefunc` →
+    **8**, `C_Secrets` → **5**, `GetCVar` → **4**, `C_CVar` → **3**, `MenuUtil` → **3**, `SetCVar` →
+    **2**, `CooldownViewer` → **1**, `ExtraActionBarFrame` → **1**, tegenover de acht nullen uit de
+    regel hierboven. 📌 Alle twaalf de getallen die ik gisteren ook gemeten heb, zijn vandaag exact
+    gelijk — het patroon vindt wat er is, dus de nullen hierboven zijn afwezigheid en geen meetfout.
+  - ⏳ **Nog open uit eerdere runs, NIET nieuw en vandaag niet opnieuw gemeten:** de UTF-8 BOM vooraan
+    `MidnightHelper.toc`; de `%d+`-aanname op veld 3 van de npcID-match (`Modules/ResetRoutine.lua:648`)
+    tegenover de GUID-obfuscatie; de `GetInstanceInfo`-return-orde tegenover `Modules/Showdowns.lua:226`;
+    de TOC-directives van 12.1.7; de dode `PickupItem`-takken in `Modules/KeyBlock.lua:1135`/`:1227`/
+    `:1380` en `Modules/ApplyLayout.lua:1311`/`:1345`/`:1605`; de vijf decoratieve
+    `GetItemInfo`-terugvaltakken; `Blizzard_DeprecatedWorldElapsedTimerTypes` als tiende
+    deprecated-addon tegenover negen wiki-secties; de verouderde namespace-lijst in
+    `docs/WATCHER_API_PROMPT.md` (18 aug); en de client-test voor `/mh raidbots`. 🔴 Niets van dit alles
+    aangeraakt.
+  - 🔧 **Repo-staat: alleen `docs/API_WATCH.md` aangeraakt, en de scheve ref was er vandaag WÉL.**
+    GEMETEN vóór het schrijven: `git rev-parse --abbrev-ref HEAD` → **`HEAD`**, dus detached (zoals op
+    17, 19, 22, 25, 26, 29, 30 okt en 1 nov; aangehecht op 27, 28 en 31 okt), met `HEAD` =
+    **`7c55081cfb18a152b652f41611c68ee4d75759aa`** = **exact** `origin/main` na `git fetch origin main`.
+    Rechtgezet met `git checkout -B main 7c55081`, wat niets aan de inhoud verandert.
+    `git status --short` was **leeg**, en geen van de vier wachter-bestanden stond gewijzigd-maar-
+    ongecommit. Geen enkel ander bestand geraakt.
