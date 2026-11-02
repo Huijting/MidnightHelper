@@ -3622,6 +3622,7 @@ ns._mhLocales.nlNL = {
 	ARROW_TARGET_ROAMS = "|cffffd100(zwerft — kijk rond)|r",
 	RARE_SPAWN_FROM_CHEST = "|cffffd100(open de kist om hem op te roepen)|r",
 	RARE_ELITE_HINT = "|cffe0a060(elite — neem een groep mee)|r",
+	RARE_SZARITH_HINT = "|cffe0a060(zelf geen elite, maar er staan elite-wachters om hem heen — een groep helpt; geen rare-ster op de minimap)|r",
 	RARE_SPAWN_BLACKCORE ="|cffffd100(dood de vijanden rond 28.9, 70.3 tot je 3 van het voorwerp hebt dat ze laten vallen, en gebruik dan de Singularity Lens om hem op te roepen)|r",
 	ROUTE_CLEARED = "Route gewist.",
 	ROUTE_CLEAR_NONE = "Geen actieve route om te wissen.",

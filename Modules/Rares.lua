@@ -397,9 +397,17 @@ local COILED_ISLE = {
 		{ 97122, 2512, 24.89, 73.54, "Kari'zah the Forgotten", 268090, ach = 63358, crit = 115784, acct = 98346 },
 		--- The Underbelly (map 2613), the level below the Vaults of Atal'Utek. One rare
 		--- there, from HandyNotes_Midnight 150 — coordinates taken, quest id not.
-		--- HandyNotes gives him two ids, 96030 and 98349. He now carries **98349**, the band
-		--- A one, because Garsecg's kill that same day showed band A is the flag that fires
-		--- (with a lag) and band A is what the other eleven use.
+		--- HandyNotes gives him two ids, 96030 and 98349. ⚠️ CORRECTED 2 Nov 2026: this said he "now carries 98349";
+		--- the row has 96030 in field [1] (band B, the later decision above RARE_QUEST_PAIRS) and 98349 only as `acct`.
+		--- mh-research, wago 12.1.7.70668: criterion 115282 of 63358 checks quest 96030; no criterion uses 98349.
+		---
+		--- 📌 mh-research, 2 Nov 2026 (Wowhead npc 263456 + comments, Method, Icy Veins; none of it seen in game):
+		--- he is a plain rare, NOT elite ("Level 90 Humanoid (Rare)"), but Underbelly Coilguards and Szarith
+		--- Revelators (both Elite) stand on his spot; several players say "bring a group", several soloed him. He
+		--- shows NO rare star on the minimap, so the vignette-based auto-skip and scanners do not see him. Spawn
+		--- reports range from 10-15 min to hours; outside the Underbelly strike players "ghost-walk" in past a gate
+		--- (one source; not settled). Hence `noteKey` = RARE_SZARITH_HINT (chat/tooltip/alarm via RareHintText only;
+		--- too long for the arrow's label, which reads RareArrivalHintKey).
 		---
 		--- ⚠️ He is the WEAKEST entry in this table and the only isle rare nobody has ever
 		--- killed, so nothing about him has been watched — not the id, not even that the
@@ -411,7 +419,8 @@ local COILED_ISLE = {
 		-- 16 Oct 2026: HandyNotes_Midnight 159 moved him from 38.40/17.69 to 39.50/27.40.
 		-- `last`: a hunt takes him after every other open rare on the isle (Rob, 2 Nov 2026: "goed idee"), because the
 		-- way down is long (the Vaults door, a Windcaller, the Underbelly door). See NearestOpenRareRespectingSkips.
-		{ 96030, 2613, 39.50, 27.40, "Szarith the Fanged", 263456, ach = 63358, crit = 115282, acct = 98349, last = true },
+		{ 96030, 2613, 39.50, 27.40, "Szarith the Fanged", 263456, ach = 63358, crit = 115282, acct = 98349, last = true,
+			noteKey = "RARE_SZARITH_HINT" },
 	},
 }
 --- 2509 = Vaults of Atal'Utek, 2613 = the Underbelly beneath it. Both are children of
@@ -1474,6 +1483,10 @@ function ns.RareHintText(rare)
 	end
 	if rare.elite then
 		add("RARE_ELITE_HINT")
+	end
+	-- A longer note for one rare (Szarith, 2 Nov 2026): said where there is room, never on the arrow's label.
+	if rare.noteKey then
+		add(rare.noteKey)
 	end
 	if #parts == 0 then
 		return nil

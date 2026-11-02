@@ -3760,6 +3760,7 @@ ns._mhLocales.enUS = {
 	ARROW_TARGET_ROAMS = "|cffffd100(roams — look around)|r",
 	RARE_SPAWN_FROM_CHEST = "|cffffd100(open the chest to summon him)|r",
 	RARE_ELITE_HINT = "|cffe0a060(elite — bring a group)|r",
+	RARE_SZARITH_HINT = "|cffe0a060(not elite himself, but elite guards stand around him — a group helps; no rare star on the minimap)|r",
 	RARE_SPAWN_BLACKCORE ="|cffffd100(kill the mobs around 28.9, 70.3 until you carry 3 of the item they drop, then use the Singularity Lens to summon it)|r",
 	ROUTE_CLEARED = "Route cleared.",
 	ROUTE_CLEAR_NONE = "No active route to clear.",

@@ -34,6 +34,8 @@ Eerst `/reload`. Rares-tab → The Coiled Isle → Generate Route.
 - [ ] **Szarith komt als laatste:** de route doet eerst alle open rares bovenop het eiland (en Nar'zira), en gaat pas
       daarna naar beneden naar Szarith.
 - [ ] **Skip** (`/mh skip` of de toets) slaat de rare over **waar de pijl op staat**, niet een andere.
+- [ ] Bij Szarith zegt de chat (en de tooltip in de Rares-tab): *"not elite himself, but elite guards stand around him —
+      a group helps; no rare star on the minimap"*.
 
 ## 🆕 30 okt — vensters per character + coach-knop op het kaartje
 

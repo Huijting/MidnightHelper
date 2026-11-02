@@ -8,7 +8,16 @@
   `ns.GetNearestIncompleteRareLead` vroegen "de dichtstbijzijnde" en namen aan dat dat de pijl-rare was. Nu via
   `CurrentHuntRare(zone)` (= `huntLead` als die nog open is en in deze zone, anders de dichtstbijzijnde). `huntLead`
   staat nu boven die functie gedeclareerd; StopRareRoute zet hem op nil. Syntax OK, lint 0 HARD.
-- Hoe zwaar Szarith is: uitgezocht door mh-research, zie de regel hieronder zodra die er staat.
+- Hoe zwaar Szarith is (mh-research, 2 nov nacht; Wowhead npc 263456 + reacties, Method, Icy Veins, wago 12.1.7.70668;
+  niets in het spel gezien): **zelf GEEN elite** ("Level 90 Humanoid (Rare)"), maar Underbelly Coilguards en Szarith
+  Revelators (Elite) staan op zijn plek; spelers zeggen deels "groep", deels solo gedaan. **Geen rare-ster op de
+  minimap** (RareScanner/SilverDragon missen hem; onze vignette-auto-skip ziet hem dus ook niet). Spawn: 10-15 min
+  volgens Method, maar in aug uren campen; buiten de Underbelly-strike lopen spelers als geest langs een poort (1 bron).
+  Coördinaten 39.50/27.40 passen bij de Wowhead-pins. crit 115282 checkt quest 96030 (= ons veld [1]); 98349 wordt
+  door geen criterium gebruikt. → Rij krijgt `noteKey = "RARE_SZARITH_HINT"` (nieuw veld, alleen in RareHintText:
+  chat/tooltip/alarm, niet op het pijl-label): "zelf geen elite, maar elite-wachters om hem heen — een groep helpt;
+  geen rare-ster op de minimap", 8 packs, eigen vertaling. Verouderde opmerking "he now carries 98349" rechtgezet.
+- Niet gedaan, open: of de Eye of Szarith (2613 68.60/15.66, Excising Knife) hem oproept — 3 spelers, onbewezen.
 
 ## 🔨 2 nov (laat) — rare-route Coiled Isle, 3 reparaties (Rob: "klopt"), nog NIET in het spel getest
 
