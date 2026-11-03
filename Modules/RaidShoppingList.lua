@@ -780,7 +780,11 @@ local function Row(i)
 		elseif self.gearName then
 			GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
 			GameTooltip:SetText(self.gearName)
-			GameTooltip:AddLine(L("RAIDSHOP_GEAR_TIP"), 1, 1, 1, true)
+			-- "For this slot there is a choice" only where there is one (site chat 27 Oct 2026; Rob: "Alle drie").
+			-- The row's own label already asked g.choice; this tooltip said it on every gear row.
+			if self.gearChoice then
+				GameTooltip:AddLine(L("RAIDSHOP_GEAR_TIP"), 1, 1, 1, true)
+			end
 			GameTooltip:Show()
 		end
 	end)
@@ -830,7 +834,7 @@ Refresh = function()
 		r:SetPoint("TOPLEFT", win, "TOPLEFT", 16, y)
 		r.itemID = d.itemID
 		r.info = d.info
-		r.gearName = nil
+		r.gearName, r.gearChoice = nil, nil
 		r.toBuy, r.buyIds = toBuy, d.ids
 		r.icon:SetTexture(ItemIcon(d.itemID))
 		r.label:SetText(L(d.labelKey))
@@ -903,7 +907,7 @@ Refresh = function()
 			local r = Row(used)
 			r:ClearAllPoints()
 			r:SetPoint("TOPLEFT", win, "TOPLEFT", 16, y)
-			r.itemID, r.info, r.gearName = g.iid, nil, g.name
+			r.itemID, r.info, r.gearName, r.gearChoice = g.iid, nil, g.name, g.choice
 			r.toBuy, r.buyIds = toBuy, ids
 			local icon = g.iid and ItemIcon(g.iid)
 			if not icon and g.sid and C_Spell and C_Spell.GetSpellTexture then

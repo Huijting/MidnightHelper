@@ -1,5 +1,18 @@
 # Midnight Helper — waar we staan
 
+## 🔨 3 nov — de 3 site-chat-punten opgelost (Rob: "Alle drie"), NIET in het spel getest
+
+- **RAIDSHOP_GEAR_TIP** (`RaidShoppingList.lua`): de zin "for this slot there is a choice" alleen nog als `g.choice`
+  (nieuw rij-veld `gearChoice`); het label deed dat al, de tooltip niet.
+- **AH-pin** (`UI.lua` SMC-gids): 51.50/74.68 zonder bron → 51.35/75.81 = Auctioneer Jenath uit Zygor NPCData.lua:6908
+  (HandyNotes_Midnight heeft geen AH; bronregel Rob > HandyNotes > Zygor). Oude punt lag ~1,3 noordelijker (ingang?).
+  Horde-AH (67.64/70.74, Zygor 67.3-67.9/72.5) niet aangeraakt.
+- **"SMC" in de/fr/es/pt/it** (mh-writer, door mij nagekeken): overal de clientnaam uit `TAB_SMC` (Silbermond,
+  Lune-d’Argent, Lunargenta/Ciudad de Lunargenta, Luaprata, Lunargenta), ook de zoekwoord-voorbeelden (silbermond, lune,
+  lunargenta, luaprata). 8 locale-bestanden, locale_probe OK. Open: `CURRENCY_QM_COURT` = "SMC Court" in alle talen
+  (clientnaam onbekend, meten); ruRU `PROFGUIDE_BTN_SMC` = "Учитель (SMC)"; de "Silbermond-Stifte" (Stifte = potloden)
+  is een oud slecht woord.
+
 ## ✅ 3 nov — piepje bij de C-toets: Discord, niet MH
 
 Rob, 3 nov: *"dat hoor ik nu niet, alleen als discord open staat blijkbaar"*. Punt dicht voor MH; advies gegeven: in

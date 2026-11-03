@@ -1218,7 +1218,11 @@ local SMC_CATEGORIES = {
 			{ id = "bank", label = "Bank & Vault", atlas = "services-icon-bank", x = 50.36, y = 65.19 },
 			{ id = "item_upgrades", label = "Cuzolth — Item Upgrades", descKey = "SMC_PIN_ITEM_UPGRADES", atlas = "ItemUpgrade-FX-UpgradeArrow", x = 48.23, y = 61.75 },
 			{ id = "crest_exchange", label = "Vaskarn — Crest Exchange", descKey = "SMC_PIN_CREST_EXCHANGE", atlas = "WarWithin-Icon-Crest", x = 48.28, y = 61.75 },
-			{ id = "ah", label = "Auction House", atlas = "services-icon-auctioneer", x = 51.50, y = 74.68 },
+			--- AH: was 51.50 / 74.68 with no source (site chat 27 Oct 2026). Coordinate rule (Rob > HandyNotes > Zygor >
+			--- guide): HandyNotes_Midnight has no auction house; Zygor NPCData.lua:6906-6908 puts the three auctioneers on
+			--- map 2393 inside the building at 50.89-51.35 / 75.81-76.51 (sB = both factions). Now Auctioneer Jenath, the
+			--- one nearest the old point (which was ~1.3 north of them, probably the door). Rob: "Alle drie", 3 Nov 2026.
+			{ id = "ah", label = "Auction House", atlas = "services-icon-auctioneer", x = 51.35, y = 75.81 },
 			{ id = "mailbox", label = "Mailbox", atlas = "services-icon-mailroom", x = 49.41, y = 65.92 },
 			{ id = "inn_cooking", label = "Inn & Cooking", atlas = "services-icon-innkeeper", x = 56.28, y = 70.33 },
 			{ id = "trading_post", label = "Trading Post", atlas = "ui-delves", x = 48.88, y = 78.15 },

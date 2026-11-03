@@ -21,6 +21,15 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 3 nov (5) — de drie site-chat-punten
+
+Eerst `/reload`.
+- [ ] **Raid-boodschappenlijst** (`/mh ready`, of de knop onder het Auction House-venster): muis op een gear-regel (enchant). Alleen bij een regel met
+      *"(a choice)"* achter de naam zegt de tooltip *"For this slot there is a choice …"*. Bij de andere regels alleen de naam.
+- [ ] **Silvermoon City-gids:** klik de pin **Auction House** → de pijl wijst nu naar binnen, bij de veilingmeesters
+      (51.35 / 75.81), niet meer naar ~1,3 ervoor. Klopt de plek? Anders `/mh here` bij de veilingmeester.
+- [ ] (Alleen te zien op een de/fr/es/pt/it-client, dus niet bij jou: daar staat nu de stadsnaam in plaats van "SMC".)
+
 ## 🆕 3 nov (4) — doorklikken, voetregel en "Back to recommended"
 
 Eerst `/reload`. Open MH → All settings.
