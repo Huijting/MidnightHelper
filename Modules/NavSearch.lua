@@ -198,6 +198,16 @@ local function BuildNavIndex()
 		function()
 			OpenTab("profacademy")
 		end, nil, L("NAV_WHERE_PROFACADEMY"), "tab")
+	-- The hub's other two inner tabs by their own names (search inventory 3 Nov 2026; only Course was findable).
+	-- "professions" lands on Treasures, "profoverview" on Overview (UI.lua SelectTab aliases).
+	add(L("PROFHUB_TAB_OVERVIEW"), "profession professions overview knowledge points kp spend spec specialization",
+		function()
+			OpenTab("profoverview")
+		end, nil, L("TAB_PROFESSIONS"), "tab")
+	add(L("PROFHUB_TAB_TREASURES"), "profession professions treasures treasure books knowledge weekly",
+		function()
+			OpenTab("professions")
+		end, nil, L("TAB_PROFESSIONS"), "tab")
 
 	--- 🔴 THE GUIDED ADVISOR WAS REACHABLE FROM EXACTLY ONE BUTTON, AND FINDABLE FROM NOWHERE.
 	--- Rob, 8 sep 2026, minutes after we wrote where Azeroot grows: *"waar? en als ik op azeroot
@@ -427,6 +437,23 @@ local function BuildNavIndex()
 			ns:ToggleDelveCuriosPopup()
 		end
 	end, nil, nil, "tool")
+	-- Each curio by the name the client gives it (search inventory 3 Nov 2026). A name the item cache does not have
+	-- yet is skipped this keystroke and asked for, so it is there the next time.
+	if ns.DELVE_CURIO_ITEM_IDS and C_Item and C_Item.GetItemNameByID then
+		local curiosLabel = L("NAV_TOOL_CURIOS")
+		for itemID in pairs(ns.DELVE_CURIO_ITEM_IDS) do
+			local ok, name = pcall(C_Item.GetItemNameByID, itemID)
+			if ok and name and name ~= "" then
+				add(name, "curio curios delve companion valeera combat utility", function()
+					if ns.ToggleDelveCuriosPopup then
+						ns:ToggleDelveCuriosPopup()
+					end
+				end, TIER_CONTENT, curiosLabel, "tool")
+			elseif C_Item.RequestLoadItemDataByID then
+				pcall(C_Item.RequestLoadItemDataByID, itemID)
+			end
+		end
+	end
 	add(L("NAV_TOOL_RITUALBOSS"), "ritual boss coach window", function()
 		if ns.ToggleRitualBossWindow then
 			ns.ToggleRitualBossWindow()
@@ -711,6 +738,14 @@ local function BuildNavIndex()
 		end, TIER_CONTENT, mountsLabel, "mount")
 	end
 
+	-- The Mount run window under its own title (search inventory 3 Nov 2026): it was only findable through its
+	-- command line's sentence, and the mounts in it below.
+	if ns.MH_ShowMountRun then
+		add(L("MOUNTRUN_TITLE"), "mount run mountrun old raids solo farm transmog legacy weekly lockout", function()
+			ns.MH_ShowMountRun()
+		end, nil, L("TAB_MOUNTS"), "tool")
+	end
+
 	-- Old-raid mounts from the Mount run (Rob, 19 Oct 2026: he typed "Black Drake" and got nothing). A hit opens the
 	-- Mount run on that raid's tab AND starts the route to the entrance — what its "Arrow to the entrance" button does.
 	local seenRunMount = {}
@@ -793,6 +828,12 @@ local function BuildNavIndex()
 						if n.note and ns.ShowTreasureToast then
 							ns.ShowTreasureToast(n)
 						end
+					end, TIER_CONTENT, title, "treasure")
+				elseif label and label ~= "" and not (node.quest and rareQuests[node.quest]) then
+					-- No place to send an arrow to (search inventory 3 Nov 2026: these were not findable at all).
+					-- The hit opens the Achievements tab, where the row and its own text are.
+					add(label, "treasure", function()
+						OpenTab("achievements")
 					end, TIER_CONTENT, title, "treasure")
 				end
 			end

@@ -34,6 +34,11 @@ Eerst `/reload`. Typ in de zoekbalk van MH:
       - **trading post** → de tab Trading Post.
       - **world boss** → de vier world bosses (bv. *Lu'ashal*, grijs de zone). Klik → de pijl gaat erheen.
       - **showdown** of **naigtal** → *Showdowns* (World-tab), de portaal-route en de start bij Riftblade Maella.
+- [ ] **De rest van de lijst (Rob: "Ja, dat klopt"):**
+      - **overview** of **knowledge points** → *Overview* van de beroepen-hub; **treasures** → *Treasures & Books*.
+      - **curio** → het curios-venster én elke curio bij naam (bv. *Porcelain Blade Tip*). Klik → het curios-venster.
+      - **mount run** of **old raids** → het venster *Mount run: old raids*.
+      - Een schat of glyph **zonder** plek op de kaart is nu ook te vinden; klik → de Achievements-tab (geen pijl).
 
 ## 🆕 3 nov (6) — key block: waarom zette hij niets neer?
 

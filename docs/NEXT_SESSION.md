@@ -20,7 +20,13 @@
   ✅ Rob "Ja, top 4" → 1-4 gebouwd in NavSearch: tab TAB_TRADINGPOST; per spec een speelkaart-rij ("Frost Mage", naam uit
   GetSpecializationInfoByID, eenmalig gecachet in `specText`) → ShowPlayCardWindow; 4 world bosses → RouteToWorldBoss;
   Showdowns-kop (World-tab) + portaal/Maella-routes + de 2 bazen. Offline navtest goed (frost → beide Frosts, luashal,
-  naigtal, trading post). Niet in het spel getest. Open: 5-9.
+  naigtal, trading post). Niet in het spel getest.
+  ✅ Rob "Ja, dat klopt" → 5-9 ook: hub-tabs Overview (`profoverview`) + Treasures (`professions`); de curios bij naam
+  (C_Item.GetItemNameByID, ontbrekend = RequestLoadItemDataByID en volgende toets); "Mount run: old raids" als eigen rij;
+  achievement-nodes zonder plek → rij die de Achievements-tab opent. Punt 8 GEMETEN in Core.lua: portals, travel, crest,
+  crestfind en encounters printen alleen in chat (dev/diagnose); keyblock zit al onder My keys, profguide was al
+  vindbaar; worldboss/showdown/play zijn nu via hun inhoud te vinden → niets toegevoegd. Offline navtest goed. Niet in
+  het spel getest.
 
 ## 🔨 3 nov — de 3 site-chat-punten opgelost (Rob: "Alle drie"), NIET in het spel getest
 
