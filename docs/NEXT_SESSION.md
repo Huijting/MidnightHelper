@@ -7,7 +7,8 @@
   Nog na te kijken door Rob: CF → Files → 4.15.0 → Changelog-opmaak.
 - CF-beschrijving GEMETEN (browser, 3 nov): tekst = `CURSEFORGE_DESCRIPTION.md`, banner staat er. Rob "Ja, bijwerken" →
   de zoekbalk-alinea heet nu "Find anything, then it takes you there" (instellingen, ah/bank/mail, tikfouten, Show me).
-  Rob plakt hem zelf. Open: CF's korte samenvatting (apart veld) is oud; "Last Update" stond nog op 30 okt.
+  ✅ Rob 3 nov: beschrijving én nieuwe korte samenvatting ("Explains WoW Midnight in plain language and takes you
+  there: …", 228 tekens) op CF geplakt; 4.15.0 is approved; site-chat door Rob ingelicht.
 - TOC 4.15.0; in-game CHANGELOG_4150_0..7 (enUS only); CHANGELOG.md; `RELEASE_NOTES.md` = `docs/CURSEFORGE_4.15.0.md`
   (GEMETEN sha1 1a6f53c1, 58 regels, 3137 tekens). Direct release, geen beta (Rob testte alles).
 - Site-chat (Site chat 03-11) GEMETEN in hun repo: site loopt niet achter op 4.14.0; 4.15.0-werk komt na de tag via
