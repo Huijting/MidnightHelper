@@ -101,6 +101,9 @@ Eerst `/reload`. Open MH en klik in de zoekbalk bovenaan.
 
 ## 🆕 2 nov — rare-route op The Coiled Isle
 
+✅ **Rob 3 nov (gesproken, via Willow):** *"vandaag al een rare-route gedaan, [Coiled Isle]. Die ging helemaal goed."* Een
+algemeen oordeel; welke punten hieronder hij precies zag, is niet gezegd. Daarom blijven ze open staan.
+
 Eerst `/reload`. Rares-tab → The Coiled Isle → Generate Route.
 - [ ] De pijl **blijft bij één rare** tot je hem gedood hebt, of tot je er ~8 s buiten gevecht staat en hij er niet is
       (dan gaat hij naar de volgende). Rondrijden of een rare op de minimap zien laat hem **niet** meer wisselen.

@@ -101,7 +101,10 @@ Plan: `docs/PLAN_ZOEKEN_2026-11-03.md` (na MF Nameplates 1.2.5; 🔴 geen open l
   geen rare-ster op de minimap", 8 packs, eigen vertaling. Verouderde opmerking "he now carries 98349" rechtgezet.
 - Niet gedaan, open: of de Eye of Szarith (2613 68.60/15.66, Excising Knife) hem oproept — 3 spelers, onbewezen.
 
-## 🔨 2 nov (laat) — rare-route Coiled Isle, 3 reparaties (Rob: "klopt"), nog NIET in het spel getest
+## 🔨 2 nov (laat) — rare-route Coiled Isle, 3 reparaties (Rob: "klopt")
+
+✅ Rob, 3 nov (gesproken): *"vandaag al een rare-route gedaan, [Coiled Isle]. Die ging helemaal goed."* Algemeen
+oordeel; de losse punten van TESTLIJST "2 nov" niet apart bevestigd.
 
 Robs melding: rares op de Coiled Isle, pijl naar "the way through" zonder te zeggen waarheen, daarna Lockjaw "686 m" en
 alle kanten op. Video `Captures\World of Warcraft 2026-11-02 21-27-15.mp4` + `travelRouteLog` (GEMETEN, 21:23-21:32):
