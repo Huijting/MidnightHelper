@@ -1,6 +1,10 @@
 # Midnight Helper — waar we staan
 
-## 🔨 3 nov — live voorbeeld bij de instellingen, stap 1+2 gebouwd (Rob: "Stap 1 en 2"), NIET in het spel getest
+## 🔨 3 nov — live voorbeeld bij de instellingen, stap 1+2 gebouwd (Rob: "Stap 1 en 2")
+
+✅ **Rob testte 5 punten in het spel, alle goed:** vergrootglazen staan goed, pijl 3 s, cast-icoon aan/uit, melding na een
+delve, Accessible danger alert vanzelf bij aanzetten. Nog open in testlijst "3 nov (3)": rare, rez/lust, de andere 4
+vanzelf-schakelaars, en of de chatregels storen.
 
 Plan `docs/PLAN_VOORBEELD_2026-11-03.md` (na Robs screenshot van MF Nameplates 1.2.5): geen nagebouwd canvas, het echte
 ding op zijn echte plek.

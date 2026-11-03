@@ -24,16 +24,17 @@ er is niets weggegooid.
 ## 🆕 3 nov (3) — "Show me": het echte ding laten zien vanuit de instellingen
 
 Eerst `/reload`. Open MH → All settings.
-- [ ] Op 17 regels staat rechts een klein **goud vergrootglas** (bij een vinkje helemaal rechts, bij een schuif of keuze
+- [x] ✅ Rob 3 nov ("staat er allemaal goed op") — Op 17 regels staat rechts een klein **goud vergrootglas** (bij een vinkje helemaal rechts, bij een schuif of keuze
       net links ervan). Muis erop: tooltip *"Show me"*. Op andere regels staat niets.
-- [ ] **Route arrow size (no-TomTom mode)** → vergrootglas: de route-pijl verschijnt 3 seconden.
-- [ ] **Show dangerous cast warning** → vergrootglas: het waarschuwingsicoon verschijnt (sleepbaar). Nog een keer klikken
-      → weg.
+- [x] ✅ Rob 3 nov — **Route arrow size (no-TomTom mode)** → vergrootglas: de route-pijl verschijnt 3 seconden.
+- [x] ✅ Rob 3 nov — **Show dangerous cast warning** → vergrootglas: het waarschuwingsicoon verschijnt (sleepbaar). Nog een
+      keer klikken → weg.
 - [ ] **Rare nearby alerts (sound + popup)** → vergrootglas: de rare-melding met geluid.
-- [ ] **Notice after a delve** → vergrootglas: de melding midden in beeld ("Test Delve · Tier 5", record).
+- [x] ✅ Rob 3 nov — **Notice after a delve** → vergrootglas: de melding midden in beeld ("Test Delve · Tier 5", record).
 - [ ] **Battle res & Hero panel** → vergrootglas: het paneel verschijnt even.
-- [ ] **Vanzelf (stap 2):** zet **Accessible danger alert** uit en weer **aan** → de grote melding verschijnt meteen. Uitzetten
-      laat niets zien. Zelfde bij *Notice after a delve*, *Show the shard cap popup*, *Rare nearby alerts* en het
+- [x] ✅ Rob 3 nov (Accessible danger alert) — **Vanzelf (stap 2):** zet **Accessible danger alert** uit en weer **aan** → de
+      grote melding verschijnt meteen. Uitzetten laat niets zien.
+- [ ] Nog open: hetzelfde vanzelf-tonen bij *Notice after a delve*, *Show the shard cap popup*, *Rare nearby alerts* en het
       *Battle res & Hero panel*.
 - [ ] Niets van dit alles wordt bewaard: geen nieuw record in je Delve Log, geen route gezet.
 - [ ] Een paar tests zetten een regel in de chat (bv. *"raretest fired for …"*). Stoort dat? Zeg het, dan haal ik het weg.
