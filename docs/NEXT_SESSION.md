@@ -17,7 +17,7 @@ testlijst "3 nov (2)": alert/hotkey, aztarec/coiled/brann, Great Vault grijs, in
   lu'ashal, thorm'belan; dode harandar/voidstorm uit de SMC-lijst. ✅ Daarna (Rob: "los die kleine dingen ook maar even
   op"): "sporefall"/"rotmire" + Enter → Rotmire's baas-venster (vóór de "spore"-regel); "mentor" uit de Academy-lijst
   (Warband Mentor); ruRU `SET_REZLUST_*` (3 teksten) nu "Боевое воскрешение и Героизм", gelijk aan het paneel zelf.
-  Niet in het spel getest.
+  ✅ Sporefall/Rotmire + Enter door Rob getest (3 nov). Mentor en ruRU niet in het spel getest.
 - **Stap 6** (`SettingsDefs.lua` `PARENT` + `SettingsPage.lua`): 16 instellingen onder 9 hoofdschakelaars, elk paar
   GEMETEN in de module (regels in de opmerking). All settings: ingesprongen, grijs (alpha 0,45) als de ouder uit staat,
   tooltip `SET_DEP_OFF_FMT`. Ctrl+klik (rij, waarde, −/+) = terug naar `rec`; tooltip `SET_CTRL_RESET_FMT` alleen als er

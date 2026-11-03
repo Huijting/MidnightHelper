@@ -30,7 +30,7 @@ Eerst `/reload`.
 - [x] ✅ Rob 3 nov — Typ **rare**: de **Rares-tab** staat nog steeds bovenaan (niet *Rare sound*).
 - [x] ✅ Rob 3 nov (*valeera*) — Enter-zoeken zonder lijst-treffer: typ **valeera** + Enter → Delves-tab.
 - [ ] Nog open: **aztarec** + Enter → Delves-tab; **coiled** + Enter → Rares-tab; *brann* en *zekvir* doen niets meer.
-- [ ] **sporefall** (of **rotmire**) + Enter → het **baas-venster van Rotmire** gaat open, niet meer de Delves-tab.
+- [x] ✅ Rob 3 nov (beide) — **sporefall** (of **rotmire**) + Enter → het **baas-venster van Rotmire** gaat open, niet meer de Delves-tab.
 - [x] ✅ Rob 3 nov — All settings, blok *Combat warnings*: zet **Show dangerous cast warning** **uit**. Drie regels in dat
       blok (spreken, balken, alleen belangrijke casts) staan een stukje **ingesprongen** en worden **grijs**. Muis erop:
       oranje regel *"Does nothing right now: …"*.
