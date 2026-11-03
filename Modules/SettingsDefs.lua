@@ -498,6 +498,19 @@ local function Build()
 		ns.db.dailyTip.enabled = v and true or false
 		if ns.RefreshHomePanel then pcall(ns.RefreshHomePanel) end
 	end, true)
+	-- Rob, 3 Nov 2026, levelling an Evoker: Return stayed off his key block because this stood on "never ask", and the
+	-- switch lived only top right in the key block window, so search could not find it. Same db field as that button.
+	-- Not in the Recommended preset: how a player wants new spells handled is theirs to choose.
+	Dropdown("mh_keyBlockNewMode", "SET_KEYBLOCK_NEW_TITLE", "SET_KEYBLOCK_NEW_DESC", "ask", {
+		{ value = "ask", labelKey = "KEYBLOCK_MODE_ASK" },
+		{ value = "auto", labelKey = "KEYBLOCK_MODE_AUTO" },
+		{ value = "never", labelKey = "KEYBLOCK_MODE_NEVER" },
+	}, function()
+		return ns.KeyBlockNewMode and ns.KeyBlockNewMode() or "ask"
+	end, function(v)
+		ns.db = ns.db or {}
+		ns.db.keyBlockNewMode = (v == "auto" or v == "never") and v or nil
+	end)
 
 	----------------------------------------------------------------
 	-- Route-pijl

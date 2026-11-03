@@ -10,8 +10,10 @@
   "New spells: ask me / place automatically / never ask". GEMETEN in SV: `keyBlockNewMode = "never"` → daarom niets.
   Rob klikt hem naar "place automatically". 2e keer (level 12, Return): weer `never`; probe toonde F = 361227 in het plan,
   live leeg. Rob: "Ja, dat is wel slim" → `/mh block why` print nu onderaan "new spells: <stand> — waiting: X -> key"
-  (ook in `keyBlockProbe.newMode/.waiting`). Niet getest. Open vraag aan Rob: de knop ook als instelling (dropdown) in
-  All settings, zodat het zoeken hem vindt? GEMETEN: SettingsDefs heeft 0× keyBlock (positieve controle rareAlert 3×).
+  (ook in `keyBlockProbe.newMode/.waiting`). Niet getest. Rob "Ja, doe maar": de knop staat nu ook als dropdown
+  `mh_keyBlockNewMode` in SettingsDefs (sectie On-screen buttons, zelfde `ns.db.keyBlockNewMode`, geen rec), met
+  SET_KEYBLOCK_NEW_TITLE/_DESC in 8 talen (door mij geschreven, niet door een moedertaalspreker nagekeken; locale_probe OK).
+  Daarvoor GEMETEN: SettingsDefs had 0× keyBlock (positieve controle rareAlert 3×). Niet getest in het spel.
 - **AH-pin** (`UI.lua` SMC-gids): 51.50/74.68 zonder bron → 51.35/75.81 = Auctioneer Jenath uit Zygor NPCData.lua:6908
   (HandyNotes_Midnight heeft geen AH; bronregel Rob > HandyNotes > Zygor). Oude punt lag ~1,3 noordelijker (ingang?).
   Horde-AH (67.64/70.74, Zygor 67.3-67.9/72.5) niet aangeraakt.
