@@ -1,6 +1,10 @@
 # Midnight Helper — waar we staan
 
-## 🔨 3 nov — zoekbalk stap 1-3 gebouwd (Rob: "Begin inderdaad maar met stap 1 tot en met 3"), NIET in het spel getest
+## 🔨 3 nov — zoekbalk stap 1-3 gebouwd (Rob: "Begin inderdaad maar met stap 1 tot en met 3")
+
+✅ **Rob testte 5 punten in het spel, alle goed** (arrow size + knipperen, *arow*, *zzzq*, pijltjes + Enter, Escape →
+lopen). Zijn enige wens: knipperen 2× zo lang → `PulseRow` nu 6 slagen + 1,2 s uitfaden (~6 s, was ~3 s); dát is nog
+niet getest. Rest van de testlijst "3 nov" (andersom, rares, Deutsch, snelheid, oude zoekwoorden) nog open.
 
 Plan: `docs/PLAN_ZOEKEN_2026-11-03.md` (na MF Nameplates 1.2.5; 🔴 geen open licentie → alleen ideeën, eigen code).
 - **Stap 1:** `NavSearch.lua` leest `ns.GetSettingsDefs()` → elke instelling een regel (`cat = "setting"`, context

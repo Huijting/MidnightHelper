@@ -760,8 +760,9 @@ local function PulseRow(row)
 		glow:SetColorTexture(a[1], a[2], a[3], 0.35)
 		glow:SetAlpha(0)
 		local anim = glow:CreateAnimationGroup()
-		-- Three slow beats, then fade out: long enough to find, short enough not to nag.
-		for i = 0, 2 do
+		-- Six slow beats, then fade out: about 6 s. Rob, 3 Nov 2026, after testing three beats (3 s): "mag iets
+		-- langer duren, 2 keer zo lang bijvoorbeeld".
+		for i = 0, 5 do
 			local up = anim:CreateAnimation("Alpha")
 			up:SetFromAlpha(0.15)
 			up:SetToAlpha(1)
@@ -776,8 +777,8 @@ local function PulseRow(row)
 		local out = anim:CreateAnimation("Alpha")
 		out:SetFromAlpha(0.15)
 		out:SetToAlpha(0)
-		out:SetDuration(0.6)
-		out:SetOrder(7)
+		out:SetDuration(1.2)
+		out:SetOrder(13)
 		anim:SetScript("OnFinished", function()
 			glow:SetAlpha(0)
 		end)
