@@ -24,7 +24,7 @@ er is niets weggegooid.
 ## 🆕 3 nov (6) — key block: waarom zette hij niets neer?
 
 Eerst `/reload`. Op een character mét key block (je Evoker):
-- [ ] `/mh block why` → onderaan een regel **"new spells: …"** met de stand van de knop (ask me / place automatically /
+- [x] `/mh block why` → onderaan een regel **"new spells: …"** met de stand van de knop (ask me / place automatically /
       never ask) en wat er klaarstaat, bv. *"Return -> F"*. Staat de knop op never ask, dan zegt de regel waar de knop zit.
 - [x] ✅ Rob 3 nov (screenshot): *"new spells: place automatically — waiting: none"* (Return staat er dus op). De regel
       met de stand + wachtlijst werkt.
@@ -36,7 +36,7 @@ Eerst `/reload`. Op een character mét key block (je Evoker):
 ## 🆕 3 nov (5) — de drie site-chat-punten
 
 Eerst `/reload`.
-- [ ] **Raid-boodschappenlijst** (`/mh ready`, of de knop onder het Auction House-venster): muis op een gear-regel (enchant). Alleen bij een regel met
+- [x] **Raid-boodschappenlijst** (`/mh ready`, of de knop onder het Auction House-venster): muis op een gear-regel (enchant). Alleen bij een regel met
       *"(a choice)"* achter de naam zegt de tooltip *"For this slot there is a choice …"*. Bij de andere regels alleen de naam.
       ✅ Rob 3 nov (screenshot): **Head (a choice)** toont de zin. ❌ **Legs (a choice)** (Spellthread, een echt item) toonde
       alleen de spel-tooltip → gerepareerd: de zin staat nu onderaan die tooltip. ✅ Rob 3 nov (screenshot): Legs mét zin, Chest zonder.
