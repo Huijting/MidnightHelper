@@ -1,5 +1,12 @@
 # Midnight Helper — waar we staan
 
+## 📋 3 nov — plan voor een live voorbeeld bij de instellingen, nog NIETS gebouwd
+
+Na Robs screenshot van MF Nameplates 1.2.5 (*"Yeah, maak maar een plan"*): `docs/PLAN_VOORBEELD_2026-11-03.md`. Kern:
+geen nagebouwd canvas zoals MF, maar het echte ding op zijn echte plek tonen via de ~12 testfuncties die MH al heeft
+(stap 1 knopje op de regel, stap 2 vanzelf bij veranderen, stap 3 toestanden nadoen; los: voetregel + "blok terug naar
+aanbevolen"). Wacht op Robs keuze.
+
 ## 🔨 3 nov (2) — zoekbalk stap 4-6 gebouwd (Rob: "Ja, doe alle drie")
 
 ✅ **Rob testte 5 punten in het spel, alle goed:** *audio* → Rare sound, *rare* → Rares-tab bovenaan, *valeera* + Enter →
