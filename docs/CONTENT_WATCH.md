@@ -3883,3 +3883,45 @@ kop, per bevinding MEASURED/INFERRED en [RAAKT ONS]/[RAAKT ONS NIET], met bestan
   codebase: `Modules/PlayCards.lua:62-358`, `Locales/enUS.lua:1874-2017`, `data/vault_stat_catalog.json`,
   `data/consumables_wowhead.json`, `Modules/ConsumablesWowheadData.lua:14` — allemaal vandaag gelezen.
   Geen actiepunt dat ík oppak — ik rapporteer, een mens beslist.
+
+- [2026-11-03] 💬 **CurseForge: geen open reacties (3 draadjes, zelfde reeks berichten als
+  [2026-11-02]).** `curseforge.com/api/v1/mods/1528577/comments?pageIndex=0&pageSize=20&nocache=20261103a`
+  (en `&nocache=20261103b` als tweede, onafhankelijke fetch) via Exa, beide volledig gelezen (JSON,
+  `pagination.totalCount: 8`). Dezelfde drie draadjes als gisteren (esES/esMX-locale-fix
+  `user_uvqy5939hswhgduu`, reply `8510682`, timestamp `1791351710373`; MrsBoojiePanda's
+  debug-printregel, reply `8483898`, timestamp `1790842459727`; gadrinonturalyon's
+  coffer-key-shards/3D-boss-model-verzoek, reply-keten tot `8095337`/`8092133`) — alle timestamps en
+  ids byte-identiek aan [2026-11-02]. MEASURED. **[RAAKT ONS NIET]** — geen actiepunt, geen
+  concept-antwoord nodig.
+
+- [2026-11-03] 🔁 **Geen nieuwe hotfix-sectie — nieuwste blijft "October 30, 2026", al volledig
+  getoetst op [2026-10-31]/[2026-11-01]/[2026-11-02].** MEASURED, zelf opnieuw gelezen:
+  `news.blizzard.com/en-us/article/24307310/hotfixes-october-30-2026?nocache=20261103content` via
+  Exa, volledig gelezen (pagina terug tot "October 14, 2026" — ruim verder dan nodig) — dezelfde drie
+  regels onder "October 30, 2026" (Housing/Nagrand-decor, Azshara's Darkscale/Deepscale Cloak, de
+  twee Labyrinth-UI-fixes voor "Voices of Stone"/"Bear's Burden" en "The Wandering") en de
+  al-bekende secties eronder (27/26/23/21/20/16/15/14 okt — Classes-tuning, Delves, Labyrinth, PvP),
+  woord-voor-woord gelijk aan wat al eerder getoetst is — geen nieuwe regel, geen nieuwe Delves-,
+  Professions- of Quests-content om tegen onze tips/data te toetsen. Niet alleen overgenomen: de
+  API-, PTR- en data-wachter van vanochtend komen onafhankelijk tot dezelfde "October 30"-stand
+  (`docs/API_WATCH.md`, `docs/PTR_12.1_WATCH.md:603-605`, `docs/PTR_12.0.7_DATA.md`, laatste entries
+  van vandaag) en bevestigen zelf ook dat live build 70688 en PTR build 70668 ongewijzigd zijn — dat
+  is bevestiging, niet de enige bron voor deze regel. MEASURED.
+
+  Eén ding bewust NIET als vondst geteld: de data-wachter van vanochtend noemt een ongeverifieerd
+  forumdraadje (sinds 27 okt, 3 posts, geen blue reply) dat de dropkans van Afflicted Soul/Tormented
+  Soul (Preyhunter's Journey, Tier-11-Bountiful-delves) zou zijn gezakt — géén Blizzard-bevestiging,
+  géén hotfix-regel, dus geen fact om tegen onze tips te toetsen. GEMETEN in `Modules/Delves.lua`
+  (grep op "Preyhunter", "Afflicted Soul", "Tormented Soul", "drop.?rate"/"dropkans"/"droprate"):
+  wij noemen nergens een dropkans voor die items, alleen de renown-track zelf
+  (`Modules/Delves.lua:260-269`, al afgehandeld op 19 aug). Zonder een eigen bewering is er niets om
+  te weerspreken — de candidate blijft bij de data-wachter, geen content-actiepunt hier.
+  **[RAAKT ONS NIET]**
+
+  Bron: `news.blizzard.com/en-us/article/24307310/hotfixes-october-30-2026?nocache=20261103content`
+  (Exa, volledig gelezen) ·
+  `curseforge.com/api/v1/mods/1528577/comments?pageIndex=0&pageSize=20&nocache=20261103a`/`b` (via
+  Exa) · `docs/API_WATCH.md`, `docs/PTR_12.1_WATCH.md:603-605`, `docs/PTR_12.0.7_DATA.md`
+  (zustervangsten van vandaag, ter bevestiging, niet als enige bron) · codebase:
+  `Modules/Delves.lua:260-269` (vandaag gelezen). Geen actiepunt dat ík oppak — ik rapporteer, een
+  mens beslist.
