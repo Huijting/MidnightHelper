@@ -776,6 +776,12 @@ local function Row(i)
 		if self.itemID then
 			GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
 			pcall(GameTooltip.SetItemByID, GameTooltip, self.itemID)
+			-- A gear row with a real item (Legs: the spellthread) showed only the game's tooltip, so the
+			-- "there is a choice" hint never appeared there (Rob, 3 Nov 2026, screenshot of Legs (a choice)).
+			if self.gearChoice then
+				GameTooltip:AddLine(" ")
+				GameTooltip:AddLine(L("RAIDSHOP_GEAR_TIP"), 1, 1, 1, true)
+			end
 			GameTooltip:Show()
 		elseif self.gearName then
 			GameTooltip:SetOwner(self, "ANCHOR_RIGHT")

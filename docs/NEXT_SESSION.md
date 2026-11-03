@@ -4,6 +4,11 @@
 
 - **RAIDSHOP_GEAR_TIP** (`RaidShoppingList.lua`): de zin "for this slot there is a choice" alleen nog als `g.choice`
   (nieuw rij-veld `gearChoice`); het label deed dat al, de tooltip niet.
+  ✅ Rob 3 nov: Head (a choice) toont de zin. Legs (a choice) = echt item (Spellthread) → alleen spel-tooltip, zin ontbrak
+  (al vóór vandaag) → nu `AddLine` onder `SetItemByID` als `gearChoice`. Niet getest: Legs mét zin, Chest zonder.
+- **Key block, nieuwe spell (Rob levelt een Evoker, Disintegrate):** bestaat al — knop rechtsboven in het key-block-venster,
+  "New spells: ask me / place automatically / never ask". GEMETEN in SV: `keyBlockNewMode = "never"` → daarom niets.
+  Geen code gewijzigd; Rob klikt hem naar "place automatically".
 - **AH-pin** (`UI.lua` SMC-gids): 51.50/74.68 zonder bron → 51.35/75.81 = Auctioneer Jenath uit Zygor NPCData.lua:6908
   (HandyNotes_Midnight heeft geen AH; bronregel Rob > HandyNotes > Zygor). Oude punt lag ~1,3 noordelijker (ingang?).
   Horde-AH (67.64/70.74, Zygor 67.3-67.9/72.5) niet aangeraakt.
