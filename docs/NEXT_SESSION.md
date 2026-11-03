@@ -5,7 +5,7 @@
 - **RAIDSHOP_GEAR_TIP** (`RaidShoppingList.lua`): de zin "for this slot there is a choice" alleen nog als `g.choice`
   (nieuw rij-veld `gearChoice`); het label deed dat al, de tooltip niet.
   ✅ Rob 3 nov: Head (a choice) toont de zin. Legs (a choice) = echt item (Spellthread) → alleen spel-tooltip, zin ontbrak
-  (al vóór vandaag) → nu `AddLine` onder `SetItemByID` als `gearChoice`. Niet getest: Legs mét zin, Chest zonder.
+  (al vóór vandaag) → nu `AddLine` onder `SetItemByID` als `gearChoice`. ✅ Rob 3 nov: Legs mét zin, Chest zonder.
 - **Key block, nieuwe spell (Rob levelt een Evoker, Disintegrate):** bestaat al — knop rechtsboven in het key-block-venster,
   "New spells: ask me / place automatically / never ask". GEMETEN in SV: `keyBlockNewMode = "never"` → daarom niets.
   Geen code gewijzigd; Rob klikt hem naar "place automatically".

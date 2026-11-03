@@ -27,7 +27,7 @@ Eerst `/reload`.
 - [ ] **Raid-boodschappenlijst** (`/mh ready`, of de knop onder het Auction House-venster): muis op een gear-regel (enchant). Alleen bij een regel met
       *"(a choice)"* achter de naam zegt de tooltip *"For this slot there is a choice …"*. Bij de andere regels alleen de naam.
       ✅ Rob 3 nov (screenshot): **Head (a choice)** toont de zin. ❌ **Legs (a choice)** (Spellthread, een echt item) toonde
-      alleen de spel-tooltip → gerepareerd: de zin staat nu onderaan die tooltip. Nog te zien: Legs mét zin, en Chest (geen keuze) zonder.
+      alleen de spel-tooltip → gerepareerd: de zin staat nu onderaan die tooltip. ✅ Rob 3 nov (screenshot): Legs mét zin, Chest zonder.
 - [ ] **Silvermoon City-gids:** klik de pin **Auction House** → de pijl wijst nu naar binnen, bij de veilingmeesters
       (51.35 / 75.81), niet meer naar ~1,3 ervoor. Klopt de plek? Anders `/mh here` bij de veilingmeester.
 - [ ] (Alleen te zien op een de/fr/es/pt/it-client, dus niet bij jou: daar staat nu de stadsnaam in plaats van "SMC".)
