@@ -1,5 +1,12 @@
 # Midnight Helper — waar we staan
 
+## 📋 3 nov — plan voor een betere zoekbalk (na MF Nameplates), nog NIETS gebouwd
+
+Rob was onder de indruk van het zoeken in MF Nameplates 1.2.5 → *"Ja, maak een plan"*. Plan in
+`docs/PLAN_ZOEKEN_2026-11-03.md`: 6 stappen (1 elke instelling vindbaar + erop landen, 2 vergevingsgezind zoeken,
+3 toetsenbord, 4 synoniemen per taal, 5 TWW-woorden uit Guide.lua, 6 ctrl+klik/grijs als keuze). 🔴 MF heeft geen open
+licentie: alleen ideeën, geen code. Wacht op Robs keuze welke stap(pen).
+
 ## 🔨 2 nov (nacht) — Szarith als laatste (Rob: "Goed idee, beide … je krijgt toestemming voor alles"), NIET getest
 
 - `Rares.lua`: Szarith-rij krijgt `last = true`; NearestOpenRareRespectingSkips kiest een `last`-rare pas als er geen
