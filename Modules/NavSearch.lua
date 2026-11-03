@@ -83,6 +83,8 @@ end
 -- A place's name and its continent, from the client. Asked once per map: the index is rebuilt on every keystroke and
 -- the names cannot change during a session. A map the client does not know (yet) is asked again next time.
 local placeText = {}
+-- Spec + class name per play card ("Retribution Paladin"), asked once like the place names; false = the client said no.
+local specText = {}
 local function PlaceText(m)
 	local t = placeText[m]
 	if not t then
@@ -147,6 +149,8 @@ local function BuildNavIndex()
 	tab("TAB_SMC", "smcguide", "smc suffused mote city")
 	tab("TAB_CURRENCY", "currency", "currencies caps gold")
 	tab("TAB_GUIDE", "guide", "leveling layout keybinds")
+	-- 3 Nov 2026 (Rob: "alles kunnen vinden"): a top-level tab (UI.lua tab list) that was never in this list.
+	tab("TAB_TRADINGPOST", "tradingpost", "trading post tender traders monthly rewards cosmetics")
 	--- ⚠️ "command", "commands" and "slash" were NOT in these keywords, and the full
 	--- command list lives at the bottom of this tab. Rob, 18 aug, after an hour spent
 	--- making commands discoverable: "maar waar vind ik die, vroeg ik met blozende
@@ -636,6 +640,63 @@ local function BuildNavIndex()
 				add(p.label, "silvermoon city " .. words .. " " .. (row.navKeys or ""), function()
 					ns.RouteSMCPin(p)
 				end, TIER_ACTION, hint, "place")
+			end
+		end
+	end
+
+	-- The search inventory of 3 Nov 2026 (Rob: "Ja, top 4"): things MH shows that search could not find.
+	-- "How you play" cards, one row per spec. Spec and class name from the client (its language), asked once.
+	if ns.GetPlayCardSpecs and ns.ShowPlayCardWindow then
+		local cardsLabel = L("PLAYCARD_BTN")
+		for _, specID in ipairs(ns.GetPlayCardSpecs()) do
+			local t = specText[specID]
+			if t == nil and GetSpecializationInfoByID then
+				local ok, _, name, _, _, _, classFile, className = pcall(GetSpecializationInfoByID, specID)
+				t = (ok and name and name ~= "") and { name .. (className and (" " .. className) or ""), classFile or "" } or false
+				specText[specID] = t
+			end
+			if t then
+				local id = specID
+				add(t[1], "how to play rotation spec card cards quiz why priority buttons playcard " .. t[2]:lower(),
+					function()
+						ns.ShowPlayCardWindow(id)
+					end, TIER_NAV, cardsLabel, "tool")
+			end
+		end
+	end
+
+	-- The four world bosses. A hit routes there, like the world boss row on the Delves tab.
+	if ns.WORLD_BOSSES and ns.RouteToWorldBoss then
+		for _, b in ipairs(ns.WORLD_BOSSES) do
+			local boss = b
+			add(L(boss.labelKey), "world boss worldboss weekly " .. tostring(boss.id), function()
+				ns.RouteToWorldBoss(boss)
+			end, TIER_CONTENT, L(boss.zoneKey), "boss")
+		end
+	end
+
+	-- Showdowns (World tab): the block, the two routes it offers, and its two zones with their bosses.
+	if ns.SHOWDOWNS then
+		local sdWords = "showdown showdowns void world naigtal val heroic world tier riftstalker"
+		add(L("SHOWDOWNS_HEADER"), sdWords, function()
+			OpenTab("world")
+		end, TIER_NAV, L("TAB_WORLD"), "tab")
+		if ns.RouteShowdownPortal then
+			add(L("SHOWDOWNS_BTN_PORTAL"), sdWords .. " portal", function()
+				ns.RouteShowdownPortal()
+			end, TIER_ACTION, L("NAV_ACTION_TAKE_ME"), "place")
+		end
+		if ns.RouteShowdownIntro then
+			add(L("SHOWDOWNS_BTN_MAELLA"), sdWords .. " intro start maella", function()
+				ns.RouteShowdownIntro()
+			end, TIER_ACTION, L("NAV_ACTION_TAKE_ME"), "place")
+		end
+		for _, z in ipairs(ns.SHOWDOWNS.zones or {}) do
+			local zoneName = (z.uiMapID and PlaceText(z.uiMapID)) or z.name
+			if z.bossName then
+				add(z.bossName, sdWords .. " world boss " .. tostring(z.name), function()
+					OpenTab("world")
+				end, TIER_CONTENT, zoneName, "boss")
 			end
 		end
 	end

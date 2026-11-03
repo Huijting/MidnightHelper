@@ -16,7 +16,11 @@
   NavSearch). Nog NIET vindbaar: (1) Zo-speel-je-kaarten, 40 specs (`/mh play`, unlisted); (2) tab Trading Post;
   (3) 4 world bosses (WorldBoss.lua:13-50, WB_BOSS_*); (4) Showdowns (ShowdownsData.lua:18); (5) Profession hub-tabs
   overview/treasures; (6) losse delve curios; (7) achievement-schatten zonder coördinaat; (8) unlisted commando's met een
-  venster (worldboss, showdown, play; rest onbekend); (9) Mount run-venster zelf. Wacht op Rob's keuze.
+  venster (worldboss, showdown, play; rest onbekend); (9) Mount run-venster zelf.
+  ✅ Rob "Ja, top 4" → 1-4 gebouwd in NavSearch: tab TAB_TRADINGPOST; per spec een speelkaart-rij ("Frost Mage", naam uit
+  GetSpecializationInfoByID, eenmalig gecachet in `specText`) → ShowPlayCardWindow; 4 world bosses → RouteToWorldBoss;
+  Showdowns-kop (World-tab) + portaal/Maella-routes + de 2 bazen. Offline navtest goed (frost → beide Frosts, luashal,
+  naigtal, trading post). Niet in het spel getest. Open: 5-9.
 
 ## 🔨 3 nov — de 3 site-chat-punten opgelost (Rob: "Alle drie"), NIET in het spel getest
 

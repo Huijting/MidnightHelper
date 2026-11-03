@@ -28,6 +28,12 @@ Eerst `/reload`. Typ in de zoekbalk van MH:
       naar de veilingmeesters, net als een klik op de pin.
 - [ ] **bank**, **mail**, **inn**, **catalyst**, **transmog**, **alchemy** → de pin van die plek.
 - [ ] **arrow** → bovenaan nog steeds de pijl-instellingen, niet een lange lijst stadspins.
+- [ ] **Top 4 (Rob: "Ja, top 4"):**
+      - **frost** → *Frost Mage* en *Frost Death Knight* (grijs: *How you play*). Klik → de speelkaart van die spec.
+        Ook **retribution**, **how to play** of **rotation** werken.
+      - **trading post** → de tab Trading Post.
+      - **world boss** → de vier world bosses (bv. *Lu'ashal*, grijs de zone). Klik → de pijl gaat erheen.
+      - **showdown** of **naigtal** → *Showdowns* (World-tab), de portaal-route en de start bij Riftblade Maella.
 
 ## 🆕 3 nov (6) — key block: waarom zette hij niets neer?
 
