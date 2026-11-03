@@ -419,6 +419,11 @@ local function AllWrite(d, v)
 	if LayoutAllSettingsPage then
 		LayoutAllSettingsPage()
 	end
+	-- Preview plan step 2 (3 Nov 2026): a switch you just turned ON shows what it does, once. Only for the ones
+	-- SettingsDefs marks `autoPreview`, and never on turning off.
+	if d.autoPreview and d.preview and v == true then
+		pcall(d.preview)
+	end
 end
 
 -- 3 Nov 2026 (search plan step 6): the switch a row depends on (SettingsDefs `parent`), and whether it is off now.
@@ -613,6 +618,34 @@ local function MakeAllRow(parent)
 		AllOpenChoices(row)
 	end)
 
+	-- Preview plan step 1 (3 Nov 2026): "show me" on rows whose effect MH can show (SettingsDefs `preview`). The
+	-- game's own magnifier, tinted gold: an icon, not a glyph (no font of ours is proven to carry a play triangle),
+	-- and this texture is proven on Rob's client (MF Nameplates draws it in its search box, his screenshot 3 Nov).
+	local show = CreateFrame("Button", nil, row)
+	show:SetSize(16, 16)
+	local showIcon = show:CreateTexture(nil, "ARTWORK")
+	showIcon:SetAllPoints()
+	showIcon:SetTexture("Interface\\Common\\UI-Searchbox-Icon")
+	showIcon:SetVertexColor(1, 0.82, 0.2)
+	local showHl = show:CreateTexture(nil, "HIGHLIGHT")
+	showHl:SetAllPoints()
+	showHl:SetColorTexture(1, 1, 1, 0.25)
+	show:SetScript("OnClick", function()
+		local d = row._def
+		if d and d.preview then
+			pcall(d.preview)
+		end
+	end)
+	show:SetScript("OnEnter", function(self)
+		local d = row._def
+		GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+		GameTooltip:SetText(ns:L("SET_PREVIEW_TITLE"), 1, 0.9, 0.6)
+		GameTooltip:AddLine(ns:L(d and d.autoPreview and "SET_PREVIEW_TT_AUTO" or "SET_PREVIEW_TT"), 0.9, 0.9, 0.9, true)
+		GameTooltip:Show()
+	end)
+	show:SetScript("OnLeave", AllHideTip)
+	row._show = show
+
 	row._box, row._fill, row._label = box, fill, label
 	row._minus, row._plus, row._value, row._valueText, row._valueBg = minus, plus, value, valueText, valueBg
 	minus:SetScript("OnClick", function()
@@ -657,6 +690,12 @@ local function PaintAllRow(row, c)
 	row:SetAlpha(ParentOff(d) and 0.45 or 1)
 	row._box:ClearAllPoints()
 	row._box:SetPoint("LEFT", row, "LEFT", 2 + indent, 0)
+	-- The "show me" button sits just left of the control (at the far right for a switch); the label makes room.
+	local hasShow = d.preview ~= nil
+	local showW = hasShow and 24 or 0
+	row._show:SetShown(hasShow)
+	row._show:ClearAllPoints()
+	row._show:SetPoint("RIGHT", row, "RIGHT", isToggle and -4 or -(ALL_CTRL_W + 12), 0)
 	row._box:SetShown(isToggle)
 	row._minus:SetShown(d.kind == "slider")
 	row._plus:SetShown(d.kind == "slider")
@@ -666,11 +705,11 @@ local function PaintAllRow(row, c)
 		row._fill:SetColorTexture(c.accent[1], c.accent[2], c.accent[3], 1)
 		row._fill:SetShown(v)
 		row._label:SetPoint("LEFT", row._box, "RIGHT", 10, 0)
-		row._label:SetPoint("RIGHT", row, "RIGHT", -4, 0)
+		row._label:SetPoint("RIGHT", row, "RIGHT", -(4 + showW), 0)
 		return
 	end
 	row._label:SetPoint("LEFT", row, "LEFT", 2 + indent, 0)
-	row._label:SetPoint("RIGHT", row, "RIGHT", -(ALL_CTRL_W + 12), 0)
+	row._label:SetPoint("RIGHT", row, "RIGHT", -(ALL_CTRL_W + 12 + showW), 0)
 	row._value:ClearAllPoints()
 	row._valueText:SetTextColor(c.header[1], c.header[2], c.header[3])
 	if d.kind == "slider" then

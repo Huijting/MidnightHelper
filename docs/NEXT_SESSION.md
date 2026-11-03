@@ -1,11 +1,18 @@
 # Midnight Helper — waar we staan
 
-## 📋 3 nov — plan voor een live voorbeeld bij de instellingen, nog NIETS gebouwd
+## 🔨 3 nov — live voorbeeld bij de instellingen, stap 1+2 gebouwd (Rob: "Stap 1 en 2"), NIET in het spel getest
 
-Na Robs screenshot van MF Nameplates 1.2.5 (*"Yeah, maak maar een plan"*): `docs/PLAN_VOORBEELD_2026-11-03.md`. Kern:
-geen nagebouwd canvas zoals MF, maar het echte ding op zijn echte plek tonen via de ~12 testfuncties die MH al heeft
-(stap 1 knopje op de regel, stap 2 vanzelf bij veranderen, stap 3 toestanden nadoen; los: voetregel + "blok terug naar
-aanbevolen"). Wacht op Robs keuze.
+Plan `docs/PLAN_VOORBEELD_2026-11-03.md` (na Robs screenshot van MF Nameplates 1.2.5): geen nagebouwd canvas, het echte
+ding op zijn echte plek.
+- `SettingsDefs.lua` `PREVIEW`: 17 instellingen → 9 bestaande tests (pijl, cast-waarschuwing, actie-geluid, grote melding,
+  rare-melding, shard-popup, scorecard/delve-melding, durability-test, rez/lust-paneel). Elke test gelezen vóór het
+  koppelen (bestand:regel in de opmerking). Weggelaten: ConsumableReadyTest (stuurt echt een whisper), RunDispelTest en
+  TestZoneLevelToast (ontwikkelaars-uitvoer).
+- `SettingsPage.lua`: goud vergrootglas (`Interface\Common\UI-Searchbox-Icon`, bestaat: MF tekent hem in Robs screenshot)
+  op die regels; klik = `d.preview`. Stap 2: `autoPreview` (5 schakelaars) toont het bij AANzetten, in `AllWrite`.
+- 3 nieuwe keys `SET_PREVIEW_*`, 8 packs, locale_probe OK. Syntax OK, lint 0 HARD. Testlijst "3 nov (3)".
+- Open: stap 3 (toestanden nadoen) en de twee losse dingen (voetregel, "blok terug naar aanbevolen"); sommige tests
+  zetten een debugregel in de chat (rare, shard) — Rob vragen of dat stoort.
 
 ## 🔨 3 nov (2) — zoekbalk stap 4-6 gebouwd (Rob: "Ja, doe alle drie")
 

@@ -2,7 +2,10 @@
 
 Rob, 3 nov 2026, na een screenshot van MF Nameplates 1.2.5 (Designer: links onderwerpen, midden een live naamplaatje,
 rechts de instellingen van het aangeklikte stuk, onderaan knoppen als *Target / Casting / Kick ready* die een toestand
-nadoen): *"Yeah, maak maar een plan"*. Nog niets gebouwd. 🔴 MF heeft geen open licentie: alleen ideeën, eigen code.
+nadoen): *"Yeah, maak maar een plan"*. 🔴 MF heeft geen open licentie: alleen ideeën, eigen code.
+
+**Stand:** stap 1 en 2 gebouwd op 3 nov (Rob: *"Stap 1 en 2"*), niet in het spel getest (testlijst "3 nov (3)").
+De koppeling is nagelopen in de code: 17 instellingen, 9 tests. Stap 3 en de losse dingen wachten.
 
 ## Waarom niet gewoon MF's opbouw
 

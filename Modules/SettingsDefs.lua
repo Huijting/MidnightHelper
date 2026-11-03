@@ -22,6 +22,7 @@
 	  name/tip  locale keys (tip may be nil)
 	  rec       the Recommended value; nil = not part of the Recommended preset (also what Ctrl+click goes back to)
   parent    var of the switch this one depends on (set at the end of Build); nil = stands on its own
+  preview   function that shows the real effect now (set at the end of Build); autoPreview = also when switched on
 	  get/set   the existing ns getters and setters
 	  slider:   min, max, step, fmt(value) -> text
 	  dropdown: default, options = { { value = ..., labelKey = ... }, ... }
@@ -722,9 +723,40 @@ local function Build()
 		mh_vaultChat = "mh_vaultEnabled", mh_vaultMinimap = "mh_vaultEnabled",
 		mh_vaultPing = "mh_vaultEnabled", mh_vaultPopup = "mh_vaultEnabled",
 	}
+	-- 3 Nov 2026 (preview plan steps 1-2, Rob: "Stap 1 en 2"): settings whose effect MH can show on demand. Each
+	-- calls a test that already exists and goes through the real path, so what you see is what the game shows (and
+	-- nothing is saved or awarded). Read in the code before wiring: NativeArrow.lua:875, CombatSafety.lua:709 (a
+	-- toggle, also speaks the sample when speech is on), ActionPrompt.lua:364, AccessibleAlerts.lua:117,
+	-- Rares.lua:3279, ShardCapAlert.lua:114, RunScorecard.lua:186, DurabilityWarn.lua:221, GroupRezLust.lua:880.
+	-- Left out: ConsumableReadyTest (really sends an addon whisper), RunDispelTest and TestZoneLevelToast (developer
+	-- output in chat). `auto` = shown by itself the moment the switch is turned ON (step 2); never on turning off.
+	local function arrow() if ns.PreviewNativeArrow then ns.PreviewNativeArrow(3) end end
+	local function cast() if ns.TestCombatSafety then ns.TestCombatSafety() end end
+	local function promptSound() if ns.PreviewActionPromptSound then ns.PreviewActionPromptSound() end end
+	local function bigAlert() if ns.ShowAccessibleAlertTest then ns.ShowAccessibleAlertTest() end end
+	local function rare() if ns.TestRareAlert then ns.TestRareAlert() end end
+	local function shard() if ns.TestShardCapAlert then ns.TestShardCapAlert() end end
+	local function scorecard() if ns.TestRunScorecard then ns.TestRunScorecard() end end
+	local function durability() if ns.DurabilityCommand then ns.DurabilityCommand("test") end end
+	local function rezLust() if ns.RezLustCommand then ns.RezLustCommand("test") end end
+	local PREVIEW = {
+		mh_arrowSize = { arrow }, mh_arrowMeters = { arrow },
+		mh_combatSafety = { cast }, mh_csBars = { cast }, mh_csSpeak = { cast },
+		mh_actionPromptSound = { promptSound },
+		mh_accessAlert = { bigAlert, auto = true },
+		mh_rareAlert = { rare, auto = true }, mh_rareSound = { rare },
+		mh_shardCap = { shard, auto = true },
+		mh_runScorecard = { scorecard }, mh_scorecardDetail = { scorecard }, mh_delveRecordNotice = { scorecard, auto = true },
+		mh_durabilityWarn = { durability }, mh_durabilityLimit = { durability },
+		mh_rezLust = { rezLust, auto = true }, mh_rezLustKeyRaid = { rezLust },
+	}
 	for _, sec in ipairs(list) do
 		for _, d in ipairs(sec.items) do
 			d.parent = PARENT[d.var]
+			local p = PREVIEW[d.var]
+			if p then
+				d.preview, d.autoPreview = p[1], p.auto or nil
+			end
 		end
 	end
 
