@@ -26,12 +26,19 @@ For players who just hit 90 or are coming back after a break. Up to date for pat
   really press, and your whole keyboard, in one window.
 - **Professions, raid shopping lists and the Role Academy** for learning to tank or heal.
 
-### It takes you there, from anywhere
+### Find anything, then it takes you there
 
-Type where you want to go in the search bar (a city, a delve, a dungeon or a raid) and pick **take me there**. Every
-route starts where you stand and takes the fastest way: your Hearthstone (or a toy when it is on cooldown), a mage
-teleport, the right portal, then step by step through every portal, boat, door and orb, into the old world too. Use
-TomTom? It keeps the arrow.
+The search bar at the top finds everything Midnight Helper has: every single setting, every rare, treasure, mount
+and play card, the bosses, and places in Silvermoon (type **ah**, **bank** or **mail**). A typo is fine, and words that mean
+the same work too, in every language.
+
+Type where you want to go (a city, a delve, a dungeon or a raid) and pick **take me there**. Every route starts where
+you stand and takes the fastest way: your Hearthstone (or a toy when it is on cooldown), a mage teleport, the right
+portal, then step by step through every portal, boat, door and orb, into the old world too. Use TomTom? It keeps the
+arrow.
+
+Not sure what a setting does? On the *All settings* page, the **Show me** magnifier next to many settings shows it to
+you, right now.
 
 ### The Mount run
 

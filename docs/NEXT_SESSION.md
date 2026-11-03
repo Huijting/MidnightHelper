@@ -5,6 +5,9 @@
 - ✅ **UIT.** Tag `v4.15.0` op 7b61c6b. GEMETEN in de run-log (41673088677, exit 0): CurseForge "Success!", Wago
   "Success!", GitHub-release + zip + release.json "Success!". Site-chat geseind (tag-commit, keys, Szarith-zin alleen intern).
   Nog na te kijken door Rob: CF → Files → 4.15.0 → Changelog-opmaak.
+- CF-beschrijving GEMETEN (browser, 3 nov): tekst = `CURSEFORGE_DESCRIPTION.md`, banner staat er. Rob "Ja, bijwerken" →
+  de zoekbalk-alinea heet nu "Find anything, then it takes you there" (instellingen, ah/bank/mail, tikfouten, Show me).
+  Rob plakt hem zelf. Open: CF's korte samenvatting (apart veld) is oud; "Last Update" stond nog op 30 okt.
 - TOC 4.15.0; in-game CHANGELOG_4150_0..7 (enUS only); CHANGELOG.md; `RELEASE_NOTES.md` = `docs/CURSEFORGE_4.15.0.md`
   (GEMETEN sha1 1a6f53c1, 58 regels, 3137 tekens). Direct release, geen beta (Rob testte alles).
 - Site-chat (Site chat 03-11) GEMETEN in hun repo: site loopt niet achter op 4.14.0; 4.15.0-werk komt na de tag via
