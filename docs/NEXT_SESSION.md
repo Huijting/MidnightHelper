@@ -1,5 +1,14 @@
 # Midnight Helper — waar we staan
 
+## 🚀 3 nov — release 4.15.0 (Rob: "Ja, go 4.15.0" + "je mag helemaal plaatsen")
+
+- TOC 4.15.0; in-game CHANGELOG_4150_0..7 (enUS only); CHANGELOG.md; `RELEASE_NOTES.md` = `docs/CURSEFORGE_4.15.0.md`
+  (GEMETEN sha1 1a6f53c1, 58 regels, 3137 tekens). Direct release, geen beta (Rob testte alles).
+- Site-chat (Site chat 03-11) GEMETEN in hun repo: site loopt niet achter op 4.14.0; 4.15.0-werk komt na de tag via
+  hun release-stappen. Ze vroegen locale-keys, commando's en of de Szarith-zin publiek moet (nee, alleen voor ons).
+- Open na de release: zoekbalk-placeholder `SEARCH_PLACEHOLDER` noemt nog geen instellingen; pin-labels Engels
+  ("Auktionshaus" vindt niets); `CURRENCY_QM_COURT` "SMC Court"; ruRU "Учитель (SMC)"; Duits "Stifte".
+
 ## 🔨 3 nov — zoekbalk vindt de Silvermoon-pins (Rob: "als ik AH zoek … krijg ik niet de Auction House"), NIET getest
 
 - GEMETEN vooraf: NavSearch had 0× "auction" (positieve controle `mykeys` gevonden). De pins zaten alleen in de oude

@@ -2,6 +2,23 @@
 
 All notable changes to this project are documented in this file.
 
+## 4.15.0
+
+📌 **2026-11-03, RELEASE (Rob: "Ja, go 4.15.0", en "je mag helemaal plaatsen").** Tag `v4.15.0`, direct als release (geen
+beta; Rob testte alles zelf). In-game: CHANGELOG_4150_0 (beta-uitnodiging) t/m _7. `RELEASE_NOTES.md` =
+`docs/CURSEFORGE_4.15.0.md`. GEMETEN door Rob in het spel: zoekstappen 1-6, de zoekrondes van 3 nov (stadspins, top 4,
+rest), "Show me" + situaties, Ctrl+klik, sectie-knop, key block-regel + instelling, keuze-zin in de boodschappenlijst,
+AH-pin, rare-route ("ging helemaal goed"). NIET gezien: Szarith zelf (nooit gedood), de stadsnamen in de/fr/es/pt/it.
+
+- **Zoekbalk** (`Modules/NavSearch.lua`): elke instelling, tikfouten, synoniemen per taal, pijltjes/Tab; stadspins
+  (`ns.RouteSMCPin`), speelkaarten, world bosses, Showdowns, Trading Post, curios, Mount run, schatten zonder plek.
+- **All settings** (`Modules/SettingsPage.lua`, `SettingsDefs.lua`): vergrootglas (PREVIEW), autoPreview, situaties,
+  Ctrl+klik, "Back to recommended" per sectie, PARENT-dimmen, voetregel; `mh_keyBlockNewMode`.
+- **Key block:** `/mh block why` toont de schakelaar en de wachtende spells.
+- **Rares:** route houdt de rare vast, geen terugspringen bij een deur, Szarith als laatste met waarschuwing.
+- **Klein:** RAIDSHOP_GEAR_TIP alleen bij een keuze (ook onder item-tooltips), AH-pin 51.35/75.81 (Zygor), "SMC" →
+  clientnaam in 5 talen, Sporefall/Rotmire → bazenvenster.
+
 ## 4.14.0
 
 📌 **2026-10-30, RELEASE (Rob: "we gaan voor een release" → "Ja, breng uit").** Tag `v4.14.0`, inhoud = beta1 + beta2 +
