@@ -1,5 +1,10 @@
 # Midnight Helper — waar we staan
 
+## ✅ 3 nov — piepje bij de C-toets: Discord, niet MH
+
+Rob, 3 nov: *"dat hoor ik nu niet, alleen als discord open staat blijkbaar"*. Punt dicht voor MH; advies gegeven: in
+Discord bij Keybinds / Voice (push-to-talk, mute) kijken of C daar gebonden is.
+
 ## ✅ 3 nov (later) — voorbeeld stap 3 + de twee losse dingen (Rob: "Gaan we verder met stap 3 en de twee losse dingen")
 
 ✅ **Rob testte alle 4 punten van testlijst "3 nov (4)" in het spel: "Dit werkt allemaal."** Daarmee zijn het zoekplan (6
