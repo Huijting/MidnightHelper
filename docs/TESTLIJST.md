@@ -26,8 +26,10 @@ er is niets weggegooid.
 Eerst `/reload`. Op een character mét key block (je Evoker):
 - [ ] `/mh block why` → onderaan een regel **"new spells: …"** met de stand van de knop (ask me / place automatically /
       never ask) en wat er klaarstaat, bv. *"Return -> F"*. Staat de knop op never ask, dan zegt de regel waar de knop zit.
-- [ ] Zet de knop op **place automatically**, druk Update, en `/mh block why` opnieuw → *"waiting: none"*.
-- [ ] **Nieuw in All settings:** MH → All settings, zoek **"key block"** of **"new spells"** → *"Key block: new spells"* (onder
+- [x] ✅ Rob 3 nov (screenshot): *"new spells: place automatically — waiting: none"* (Return staat er dus op). De regel
+      met de stand + wachtlijst werkt.
+- [x] Zet de knop op **place automatically**, druk Update, en `/mh block why` opnieuw → *"waiting: none"*.
+- [x] ✅ Rob 3 nov ("het staat allemaal goed") — **Nieuw in All settings:** MH → All settings, zoek **"key block"** of **"new spells"** → *"Key block: new spells"* (onder
       On-screen buttons), een keuzelijst met ask me / place automatically / never ask. Kies er een, open het key block-venster:
       de knop rechtsboven zegt hetzelfde. En andersom.
 
