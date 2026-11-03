@@ -1440,7 +1440,12 @@ local function BuildSMCSearchRows()
 					tostring(point.id or "")
 				)
 			)
-			rows[#rows + 1] = { blob = blob, point = point }
+			-- For the search bar (NavSearch): the same words without the generic "set a waypoint to <label>" line, which
+			-- every plain pin carries and which made "arrow" (synonym: waypoint) list all of them. Measured offline 3 Nov.
+			local own = (point.descKey or point.description) and PinDescription(point) or ""
+			local navKeys = string.lower(("%s %s %s %s"):format(tostring(CategoryTitle(cat)), tostring(point.label or ""),
+				tostring(own), tostring(point.id or "")))
+			rows[#rows + 1] = { blob = blob, navKeys = navKeys, point = point }
 		end
 	end
 	ns._mhSMCGuideSearchRows = rows
@@ -1793,6 +1798,12 @@ function ns.SetSMCCityWaypoint(pinId)
 	if pt then
 		SetSMCWaypoint(pt)
 	end
+end
+
+--- What a click on the pin does, for a pin the search bar found (NavSearch; Rob, 3 Nov 2026: "als ik AH zoek in MH
+--- krijg ik niet de Auction House"). Takes the point itself, so pins added later (flight masters) work too.
+function ns.RouteSMCPin(point)
+	SetSMCWaypoint(point)
 end
 
 function ns.OpenSMCCityGuidePin(pinId)

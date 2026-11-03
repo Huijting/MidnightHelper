@@ -21,6 +21,14 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 3 nov (7) — zoeken vindt nu de pins van de Silvermoon-stadsgids
+
+Eerst `/reload`. Typ in de zoekbalk van MH:
+- [ ] **ah** → *Auction House* (en *Horde Auction House*), met grijs *"Silvermoon City — …"* erachter. Klik → de pijl gaat
+      naar de veilingmeesters, net als een klik op de pin.
+- [ ] **bank**, **mail**, **inn**, **catalyst**, **transmog**, **alchemy** → de pin van die plek.
+- [ ] **arrow** → bovenaan nog steeds de pijl-instellingen, niet een lange lijst stadspins.
+
 ## 🆕 3 nov (6) — key block: waarom zette hij niets neer?
 
 Eerst `/reload`. Op een character mét key block (je Evoker):

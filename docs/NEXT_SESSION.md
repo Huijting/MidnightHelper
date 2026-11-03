@@ -1,5 +1,23 @@
 # Midnight Helper — waar we staan
 
+## 🔨 3 nov — zoekbalk vindt de Silvermoon-pins (Rob: "als ik AH zoek … krijg ik niet de Auction House"), NIET getest
+
+- GEMETEN vooraf: NavSearch had 0× "auction" (positieve controle `mykeys` gevonden). De pins zaten alleen in de oude
+  chat-vraag-zoeker (`ns._mhSMCGuideSearchRows`, Guide.lua:450).
+- UI.lua `BuildSMCSearchRows` geeft elke rij nu ook `navKeys` (categorie + label + eigen beschrijving + id, ZONDER de
+  algemene "set a waypoint to …"-zin: die maakte "arrow" via synoniem waypoint tot ~60 pins, offline gemeten).
+  `ns.RouteSMCPin(point)` = wat een klik op de pin doet. NavSearch: blok na de Hexmask-spots, TIER_ACTION, cat "place",
+  korte woorden per id (ah, bank, mail, inn, catalyst …); instance- en world-boss-rijen overgeslagen.
+- Offline (navtest): ah/AH → Auction House + Horde AH; auction → + BMAH; bank/mail/inn/alchemy trainer goed; "ah" vindt
+  geen Harandar; arrow → geen pins.
+- ⚠️ Pin-labels zijn Engels (al zo in de gids); "Auktionshaus" op een Duitse client vindt hem dus niet. Open.
+- **Rob: "in principe moeten we alles kunnen vinden wat wij in MH hebben staan."** mh-sweep-inventaris (Haiku, 3 nov;
+  ik heb 2 punten zelf nagemeten: Trading Post-tab UI.lua:2767 en 0× TRADINGPOST/PlayCard/WORLD_BOSSES/SHOWDOWNS in
+  NavSearch). Nog NIET vindbaar: (1) Zo-speel-je-kaarten, 40 specs (`/mh play`, unlisted); (2) tab Trading Post;
+  (3) 4 world bosses (WorldBoss.lua:13-50, WB_BOSS_*); (4) Showdowns (ShowdownsData.lua:18); (5) Profession hub-tabs
+  overview/treasures; (6) losse delve curios; (7) achievement-schatten zonder coördinaat; (8) unlisted commando's met een
+  venster (worldboss, showdown, play; rest onbekend); (9) Mount run-venster zelf. Wacht op Rob's keuze.
+
 ## 🔨 3 nov — de 3 site-chat-punten opgelost (Rob: "Alle drie"), NIET in het spel getest
 
 - **RAIDSHOP_GEAR_TIP** (`RaidShoppingList.lua`): de zin "for this slot there is a choice" alleen nog als `g.choice`

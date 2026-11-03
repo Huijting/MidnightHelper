@@ -607,6 +607,39 @@ local function BuildNavIndex()
 		end
 	end
 
+	-- The Silvermoon city guide's pins (Rob, 3 Nov 2026: "als ik AH zoek in MH krijg ik niet de Auction House ?!" ->
+	-- "in principe moeten we alles kunnen vinden wat wij in onze Midnight Helper hebben staan"). The rows are the
+	-- ones UI.lua builds for the old chat-question search (navKeys: category, label, own description, id); a hit does what a
+	-- click on the pin does. Dungeon and raid entrances are left out: the doors above already have them. The short
+	-- words below are what players type; "ah" only matches as a whole word.
+	if ns._mhSMCGuideSearchRows and ns.RouteSMCPin then
+		local SMC_WORDS = {
+			ah = "ah auction auctioneer", horde_ah = "ah auction auctioneer",
+			bmah = "black market auction house", bank = "bank vault warband", horde_bank = "bank vault warband",
+			mailbox = "mail post letter", inn_cooking = "inn innkeeper hearth hearthstone rest cooking",
+			horde_inn = "inn innkeeper hearth hearthstone rest", transmog = "transmog transmogrify appearance",
+			triam_dawnsetter = "transmog cosmetics", creation_catalyst = "catalyst tier set",
+			horde_creation_catalyst = "catalyst tier set", item_upgrades = "upgrade item level ilvl",
+			crest_exchange = "crest crests", crafting_orders = "crafting orders craft", prof_reset = "profession respec reset",
+			portals = "portal portals mage teleport", mplus_teleports = "mplus mythic teleport teleports",
+			training_dummies = "dummy dummies target practice", pvp_hub = "pvp honor conquest",
+			delves_hq = "delve delves", valeera_delves = "delve delves companion",
+		}
+		local hint = L("TAB_SMC") .. " — " .. L("NAV_ACTION_TAKE_ME")
+		local seenPin = {}
+		for _, row in ipairs(ns._mhSMCGuideSearchRows) do
+			local p = row.point
+			if type(p) == "table" and p.label and not p.instance and not p._mhWorldBossRoute and not p._mhDelvesWorldBoss
+				and not seenPin[p] then
+				seenPin[p] = true
+				local words = (SMC_WORDS[p.id] or "") .. (p.trainer and " trainer profession" or "")
+				add(p.label, "silvermoon city " .. words .. " " .. (row.navKeys or ""), function()
+					ns.RouteSMCPin(p)
+				end, TIER_ACTION, hint, "place")
+			end
+		end
+	end
+
 	-- Collectible mounts. The mounts tab is one long checklist, so the hit lands on the
 	-- tab rather than on the row: scrolling a search result into view is a promise this
 	-- panel cannot keep yet.
