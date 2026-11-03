@@ -29,18 +29,22 @@ Eerst `/reload`. Open MH en klik in de zoekbalk bovenaan.
 - [x] Klik erop: de pagina **All settings** gaat open, **scrolt naar die regel**, en de regel **knippert**. ✅ Rob 3 nov
       (3 keer, "mag 2 keer zo lang").
 - [ ] Het knipperen duurt nu **twee keer zo lang**: zes keer, ongeveer 6 seconden. Goed zo, of te lang?
-- [ ] Typ de woorden **andersom** (*size arrow*): zelfde resultaat.
+- [x] ✅ Rob 3 nov — Typ de woorden **andersom** (*size arrow*): zelfde resultaat.
 - [x] Typ met een **tikfout** (*arow*, *setings*): je vindt het toch. ✅ Rob 3 nov (*arow*)
-- [ ] Typ **rares**: de **Rares-tab** staat nog steeds bovenaan, niet een losse rare.
-- [ ] Typ **Deutsch**: de taalinstelling komt naar boven.
+- [x] ✅ Rob 3 nov — Typ **rares**: de **Rares-tab** staat nog steeds bovenaan, niet een losse rare.
+- [x] ✅ Rob 3 nov — Typ **Deutsch**: de taalinstelling komt naar boven.
 - [x] ✅ Rob 3 nov — Typ onzin (*zzzq*): er staat één grijze regel *"Nothing in this list. Press Enter to search the Codex and guides
       too."* (de lijst verdwijnt niet meer zomaar). Enter zoekt dan verder, zoals vroeger.
 - [x] ✅ Rob 3 nov (pijltjes + Enter) — **Pijl omlaag / omhoog** en **Tab** lopen door de lijst (de regel licht op);
       **Enter** opent de gekozen regel.
 - [x] ✅ Rob 3 nov — **Escape** sluit de lijst én laat het toetsenbord los: daarna kun je meteen weer **lopen met WASD**.
-- [ ] Voelt het typen **traag of hapert het spel** bij elke letter? Meld het: buiten het spel gemeten was het 15-50 ms per
-      letter met een lijst van 1500 regels, maar in het spel is het niet gemeten.
-- [ ] `/mh settings` en de oude zoekwoorden (*delves*, *consumables*, `/` voor commando's, `@mount`) werken nog als vroeger.
+- [x] ✅ Rob 3 nov (gevoel, geen meting) — Voelt het typen **traag of hapert het spel** bij elke letter? Buiten het spel
+      gemeten was het 15-50 ms per letter met een lijst van 1500 regels.
+- [ ] **In het Nederlands:** zet MH op Nederlands (Instellingen → taal → Nederlands; dat werkt ook op een Engelse client)
+      en typ **pijl**: *"Route-pijl grootte (zonder TomTom)"* komt in de lijst. Typ ook **pjil** (tikfout). Daarna de taal
+      terugzetten. (Duits, Frans enz. kun je niet testen: die talen laden alleen op een client in die taal — GEMETEN in
+      `Locales/deDE.lua:19`, `itIT.lua:26`.)
+- [x] ✅ Rob 3 nov — `/mh settings` en de oude zoekwoorden (*delves*, *consumables*, `/` voor commando's, `@mount`) werken nog als vroeger.
 
 ## 🆕 2 nov — rare-route op The Coiled Isle
 
