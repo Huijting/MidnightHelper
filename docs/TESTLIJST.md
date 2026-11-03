@@ -24,17 +24,18 @@ er is niets weggegooid.
 ## 🆕 3 nov (2) — zoekbalk stap 4-6: andere woorden, oude woorden weg, Ctrl+klik en grijs
 
 Eerst `/reload`.
-- [ ] Zoekbalk: typ **audio** of **noise** → de geluid-instellingen (bv. *Rare sound*) komen in de lijst, ook al staat dat
-      woord er niet in. Typ **alert** → waarschuwings-instellingen. Typ **hotkey** → de keybind-dingen.
-- [ ] Typ **rare**: de **Rares-tab** staat nog steeds bovenaan (niet *Rare sound*).
-- [ ] Enter-zoeken zonder lijst-treffer: typ **valeera** of **aztarec** + Enter → Delves-tab. **coiled** + Enter →
-      Rares-tab. (Oude woorden zoals *brann* en *zekvir* doen niets meer.)
-- [ ] All settings, blok *Combat warnings*: zet **Show dangerous cast warning** **uit**. Drie regels in dat blok (spreken,
-      balken, alleen belangrijke casts) staan een stukje **ingesprongen** en worden **grijs**. Muis erop: oranje regel
-      *"Does nothing right now: this only works while "Show dangerous cast warning" is on."* Weer aan → niet meer grijs.
-      Zelfde bij Great Vault: **Enable vault reminders** uit → de 4 regels eronder grijs.
-- [ ] Muis op een instelling met een aanbevolen stand: onderaan de tooltip een blauwe regel *"Ctrl+click: back to the
-      recommended setting (on/off/getal)."* Verander iets, dan **Ctrl+klik** → terug naar die stand.
+- [x] ✅ Rob 3 nov (*audio*) — Zoekbalk: typ **audio** of **noise** → de geluid-instellingen (bv. *Rare sound*) komen in
+      de lijst, ook al staat dat woord er niet in.
+- [ ] Nog open: **alert** → waarschuwings-instellingen; **hotkey** → de keybind-dingen.
+- [x] ✅ Rob 3 nov — Typ **rare**: de **Rares-tab** staat nog steeds bovenaan (niet *Rare sound*).
+- [x] ✅ Rob 3 nov (*valeera*) — Enter-zoeken zonder lijst-treffer: typ **valeera** + Enter → Delves-tab.
+- [ ] Nog open: **aztarec** + Enter → Delves-tab; **coiled** + Enter → Rares-tab; *brann* en *zekvir* doen niets meer.
+- [x] ✅ Rob 3 nov — All settings, blok *Combat warnings*: zet **Show dangerous cast warning** **uit**. Drie regels in dat
+      blok (spreken, balken, alleen belangrijke casts) staan een stukje **ingesprongen** en worden **grijs**. Muis erop:
+      oranje regel *"Does nothing right now: …"*.
+- [ ] Nog open: Great Vault: **Enable vault reminders** uit → de 4 regels eronder grijs.
+- [x] ✅ Rob 3 nov — Muis op een instelling met een aanbevolen stand: onderaan de tooltip een blauwe regel *"Ctrl+click:
+      back to the recommended setting (…)."* Verander iets, dan **Ctrl+klik** → terug naar die stand.
 - [ ] Een instelling **zonder** aanbevolen stand (bv. *Death card: how long it stays*): geen Ctrl+klik-regel, en Ctrl+klik doet gewoon
       wat een klik doet.
 - [ ] In het Nederlands (MH op Nederlands): typ **alarm** → *geluid*-instellingen. Weet: *taal* vindt ook *Totaal…*

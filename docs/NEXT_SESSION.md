@@ -1,6 +1,10 @@
 # Midnight Helper — waar we staan
 
-## 🔨 3 nov (2) — zoekbalk stap 4-6 gebouwd (Rob: "Ja, doe alle drie"), NIET in het spel getest
+## 🔨 3 nov (2) — zoekbalk stap 4-6 gebouwd (Rob: "Ja, doe alle drie")
+
+✅ **Rob testte 5 punten in het spel, alle goed:** *audio* → Rare sound, *rare* → Rares-tab bovenaan, *valeera* + Enter →
+Delves, Combat warnings uit → 3 regels grijs + ingesprongen + oranje tooltip, Ctrl+klik → aanbevolen stand. Nog open in
+testlijst "3 nov (2)": alert/hotkey, aztarec/coiled/brann, Great Vault grijs, instelling zonder `rec`, Nederlands *alarm*.
 
 - **Stap 4** (`NavSearch.lua` `SYNONYMS`): groepen per MH-taal (en altijd ook Engels), opgesteld door mh-writer uit de
   woorden die de packs echt gebruiken. Een getypt woord uit een groep zoekt de andere ×0,9, maar streng (`SynFit`:
