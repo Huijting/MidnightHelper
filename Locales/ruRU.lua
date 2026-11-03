@@ -3357,6 +3357,7 @@ ns._mhLocales.ruRU = {
 	NAV_ACTION_VOID_FMT = "Натиск Бездны: %s",
 	NAV_CAT_COMMAND = "команда",
 	NAV_MORE_FMT = "показано %d-%d из %d – прокрутите, чтобы увидеть больше",
+	NAV_NO_MATCH = "В этом списке ничего нет. Нажмите Enter, чтобы искать также в Кодексе и руководствах.",
 	NAV_PANEL_CHARACTER = "Панель проверки снаряжения",
 	NAV_PANEL_JOURNAL = "Панель советов по боссам",
 	NAV_PANEL_KEYSTONE = "Панель Великого хранилища",

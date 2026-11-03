@@ -705,6 +705,36 @@ local function BuildNavIndex()
 		end
 	end
 
+	--- Every single setting, from the one list that also draws Blizzard's panel and our All settings page
+	--- (Modules/SettingsDefs.lua). 3 Nov 2026 (search plan step 1, Rob: "begin met stap 1 tot en met 3"): until
+	--- then only the PAGE was findable, so "arrow size" landed you on top of eighty rows. Read from the list, not
+	--- copied into this file: a setting added there is searchable without anyone remembering to add it here.
+	--- The label and the tooltip are both in the player's language; the choices of a dropdown count too, so
+	--- "Deutsch" finds the language switch.
+	if ns.GetSettingsDefs then
+		local where = L("SET_ALL_TITLE")
+		for _, section in ipairs(ns.GetSettingsDefs()) do
+			-- Plain ">" on purpose: a "›" would be the only one in the addon, and no font of ours is proven to have it.
+			local context = where .. " > " .. L(section.header)
+			for _, d in ipairs(section.items or {}) do
+				local tip = d.tip and L(d.tip) or ""
+				if tip == d.tip then
+					tip = "" -- a key with no text anywhere: do not search the key's own name
+				end
+				local words = { "setting option", tip }
+				for _, o in ipairs(d.options or {}) do
+					words[#words + 1] = L(o.labelKey)
+				end
+				local var = d.var
+				add(L(d.name), table.concat(words, " "), function()
+					if not (ns.FocusSetting and ns.FocusSetting(var)) then
+						OpenTab("allsettings")
+					end
+				end, TIER_NAV, context, "setting")
+			end
+		end
+	end
+
 	--- The /mh commands, as things you can DO rather than syntax to memorise.
 	---
 	--- ⚠️ Two changes here, and the second is the one that mattered to Rob.
@@ -787,6 +817,192 @@ local function BuildNavIndex()
 	return idx
 end
 
+--------------------------------------------------------------------------------
+-- Matching (3 Nov 2026, search plan step 2). Until then the whole query had to appear as one piece of text, so
+-- "size arrow" missed "Route arrow size" and a single typo ("arow") found nothing. Now every typed word is looked
+-- for on its own, in any order, with room for a small typo, and a hit in the name counts more than one in the
+-- keywords or the context. Idea from reading MF Nameplates' search; the code is ours (their code has no open
+-- licence, docs/PLAN_ZOEKEN_2026-11-03.md).
+--------------------------------------------------------------------------------
+
+-- Lowercase accented letters to their plain letter, so "systeme" finds "Système" and "uberblick" finds
+-- "Übersicht" (ULower has already turned the capitals into these).
+local FOLD = {
+	["à"] = "a", ["á"] = "a", ["â"] = "a", ["ã"] = "a", ["ä"] = "a", ["å"] = "a",
+	["è"] = "e", ["é"] = "e", ["ê"] = "e", ["ë"] = "e",
+	["ì"] = "i", ["í"] = "i", ["î"] = "i", ["ï"] = "i",
+	["ò"] = "o", ["ó"] = "o", ["ô"] = "o", ["õ"] = "o", ["ö"] = "o",
+	["ù"] = "u", ["ú"] = "u", ["û"] = "u", ["ü"] = "u",
+	["ç"] = "c", ["ñ"] = "n", ["ß"] = "ss", ["ё"] = "е",
+}
+
+--- Search form of a text: no colour codes or textures, lower case, no accents, "m+" as one word, and every
+--- ASCII sign a space. Bytes from 128 up stay, so Cyrillic and other UTF-8 letters survive.
+local function Normalize(s)
+	s = tostring(s or "")
+	s = s:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", ""):gsub("|T.-|t", ""):gsub("|n", " ")
+	s = ULower(s)
+	s = s:gsub("[\195\208\209][\128-\191]", FOLD)
+	s = s:gsub("m%+", " mplus ")
+	s = s:gsub("[%c%p%s]+", " ")
+	return (s:gsub("^ +", ""):gsub(" +$", ""))
+end
+
+-- Labels and keywords repeat on every keystroke (the index is rebuilt per query), so their word lists are kept.
+-- A language switch only adds new strings; the cap keeps a long session from growing it without end.
+local wordCache, wordCacheSize = {}, 0
+local function Words(s)
+	local w = wordCache[s]
+	if w then
+		return w
+	end
+	w = {}
+	for word in Normalize(s):gmatch("%S+") do
+		w[#w + 1] = word
+	end
+	if wordCacheSize > 4000 then
+		wordCache, wordCacheSize = {}, 0
+	end
+	wordCache[s] = w
+	wordCacheSize = wordCacheSize + 1
+	return w
+end
+
+--- How many single-letter edits (add, drop, change, or swap two neighbours) turn a into b; stops counting
+--- once it is past `limit`, because only "close enough or not" matters here.
+-- Three rows of the table, reused: this runs thousands of times per keystroke and a fresh table each row
+-- was most of its cost.
+local rowA, rowB, rowC = {}, {}, {}
+local function Edits(a, b, limit)
+	local la, lb = #a, #b
+	if math.abs(la - lb) > limit then
+		return limit + 1
+	end
+	local before, prev, cur = nil, rowA, rowB
+	local spare = rowC
+	for j = 0, lb do
+		prev[j] = j
+	end
+	for i = 1, la do
+		cur[0] = i
+		local rowBest = i
+		local ca = a:byte(i)
+		for j = 1, lb do
+			local cb = b:byte(j)
+			local v = math.min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + ((ca == cb) and 0 or 1))
+			if before and i > 1 and j > 1 and ca == b:byte(j - 1) and a:byte(i - 1) == cb then
+				v = math.min(v, before[j - 2] + 1)
+			end
+			cur[j] = v
+			if v < rowBest then
+				rowBest = v
+			end
+		end
+		if rowBest > limit then
+			return limit + 1
+		end
+		-- Rotate: the row two back becomes the next row to fill.
+		local oldest = before or spare
+		before, prev, cur = prev, cur, oldest
+	end
+	return prev[lb]
+end
+
+--- How well one typed word fits one word of an entry, 0 (not at all) to 1 (the same word). The typo check is
+--- the expensive part, so it only runs when asked (see FilterIndex).
+local function WordFit(q, w, typo)
+	if q == w then
+		return 1
+	end
+	local n = #q
+	if n >= 2 and w:sub(1, n) == q then
+		return 0.85 -- the start of the word: "arr" for "arrow"
+	end
+	if n >= 3 and w:find(q, 1, true) then
+		return 0.6 -- inside the word: "board" in "readyboard"
+	end
+	if typo and n >= 4 then
+		-- A typo. The first letter has to be right (or swapped with the second): people rarely miss the first
+		-- letter, "rare" would otherwise also find "care" and "dare", and it skips most words before the
+		-- expensive count.
+		local q1, w1 = q:byte(1), w:byte(1)
+		if q1 ~= w1 and not (q1 == w:byte(2) and q:byte(2) == w1) then
+			return 0
+		end
+		local limit = (n >= 7) and 2 or 1
+		local d = Edits(q, w, limit)
+		if d <= limit then
+			return 0.7 - 0.1 * d
+		end
+		if #w > n and Edits(q, w:sub(1, n), limit) <= limit then
+			return 0.5 -- a typo in the start of a longer word: "arow" for "arrows"
+		end
+	end
+	return 0
+end
+
+local function BestFit(q, words, weight, typo)
+	local best = 0
+	for i = 1, #words do
+		local f = WordFit(q, words[i], typo)
+		if f > best then
+			best = f
+			if f == 1 then
+				break
+			end
+		end
+	end
+	return best * weight
+end
+
+-- What a hit is worth by where it lands. The name is what the player sees and means; keywords and context
+-- ("Eversong Woods", the tooltip of a setting) are there to be found by, not to win from a name.
+local WEIGHT_LABEL, WEIGHT_REST = 1, 0.6
+-- Below this an entry is left out: a couple of loose keyword echoes is not an answer.
+local MIN_SCORE = 0.45
+
+--- Score of one entry for the typed words, or nil when it is no match. `typo` allows a typo against the NAME
+--- only: the keywords and tooltips are many times longer, and a typo hit in a tooltip is rarely what you meant.
+local function ScoreEntry(e, terms, flatQuery, typo)
+	local labelWords, restWords = Words(e.label), Words(e.keys)
+	local total, missed = 0, 0
+	for i = 1, #terms do
+		local t = terms[i]
+		local s = BestFit(t, labelWords, WEIGHT_LABEL, typo)
+		if s < 1 then
+			s = math.max(s, BestFit(t, restWords, WEIGHT_REST, false))
+		end
+		if s <= 0 then
+			missed = missed + 1
+		end
+		total = total + s
+	end
+	if total <= 0 or missed == #terms then
+		return nil
+	end
+	local score = (total / #terms) * (0.5 ^ missed)
+	-- The whole query against the whole name, spaces ignored: the strongest signal there is.
+	local flat = e._flat
+	if not flat then
+		flat = table.concat(labelWords)
+		e._flat = flat
+	end
+	if #flatQuery >= 2 then
+		if flat == flatQuery then
+			score = score + 2
+		elseif flat:sub(1, #flatQuery) == flatQuery then
+			score = score + 1.2
+		elseif #flatQuery >= 3 and flat:find(flatQuery, 1, true) then
+			score = score + 0.3
+		end
+	end
+	if score < MIN_SCORE then
+		return nil
+	end
+	-- At an equal fit a destination still beats content: "rares" reaches the Rares tab, not fifteen rares.
+	return score - (e.tier or TIER_NAV) * 0.05
+end
+
 local function FilterIndex(query)
 	query = ULower(query or ""):gsub("^%s+", ""):gsub("%s+$", "")
 	-- "@cat rest" scopes to a category (prefix-matched: "@co" = codex/command); a leading
@@ -804,30 +1020,45 @@ local function FilterIndex(query)
 	if query == "" and not catFilter then
 		return {}
 	end
-	local scored = {}
+	local terms = Words(query)
+	if #terms == 0 and not catFilter then
+		return {} -- only signs ("@", "?"): nothing to look for, so no list of everything either
+	end
+	local flatQuery = table.concat(terms)
+	local pool = {}
 	for _, e in ipairs(BuildNavIndex()) do
-		if not catFilter or (e.cat and e.cat:sub(1, #catFilter) == catFilter) then
-			local rank
-			if query == "" then
-				rank = 2 -- "@cat" with no text: show the whole category
-			elseif e.lower:sub(1, #query) == query then
-				rank = 1 -- label starts with the query
-			elseif e.lower:find(query, 1, true) then
-				rank = 2 -- label contains the query
-			elseif e.keys ~= "" and e.keys:find(query, 1, true) then
-				rank = 3 -- keyword hit only
-			end
-			if rank then
-				scored[#scored + 1] = { e = e, rank = rank }
-			end
+		-- "@co" finds codex and command; "@settings" and "@mounts" (the plural people type) find setting and mount.
+		if not catFilter or (e.cat and (e.cat:sub(1, #catFilter) == catFilter or catFilter:sub(1, #e.cat) == e.cat)) then
+			pool[#pool + 1] = e
 		end
 	end
-	table.sort(scored, function(a, b)
-		if a.rank ~= b.rank then
-			return a.rank < b.rank
+	local function run(typo)
+		local out = {}
+		for _, e in ipairs(pool) do
+			local score
+			if #terms == 0 then
+				score = 1 - (e.tier or TIER_NAV) * 0.05 -- "@cat" with no text: show the whole category
+			else
+				score = ScoreEntry(e, terms, flatQuery, typo)
+			end
+			if score then
+				out[#out + 1] = { e = e, score = score }
+			end
 		end
-		-- Destinations before content at equal rank: "rares" must reach the Rares tab,
-		-- not fifteen rares that happen to share the word.
+		return out
+	end
+	-- Two passes. Typo matching costs about ten times more (measured offline, 3 Nov 2026: 1500 entries, up to
+	-- 0.4 s a keystroke when every word was tried as a typo), and while you type a correct word the first pass
+	-- already finds it. Only when that pass finds nothing does the second one forgive typos.
+	local scored = run(false)
+	if #scored == 0 and #terms > 0 then
+		scored = run(true)
+	end
+	table.sort(scored, function(a, b)
+		if math.abs(a.score - b.score) > 1e-6 then
+			return a.score > b.score
+		end
+		-- Destinations before content at an equal fit (also folded into the score; this settles exact ties).
 		if a.e.tier ~= b.e.tier then
 			return a.e.tier < b.e.tier
 		end
@@ -920,6 +1151,12 @@ local function EnsureNavDrop()
 		local hl = r:CreateTexture(nil, "HIGHLIGHT")
 		hl:SetAllPoints()
 		hl:SetColorTexture(1, 0.82, 0.2, 0.18)
+		-- The row the arrow keys are on (step 3): the same colour as the mouse highlight, a little stronger.
+		local sel = r:CreateTexture(nil, "BACKGROUND")
+		sel:SetAllPoints()
+		sel:SetColorTexture(1, 0.82, 0.2, 0.28)
+		sel:Hide()
+		r.sel = sel
 		local fs = r:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
 		if ns.MHScalableFont then
 			fs:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
@@ -989,17 +1226,47 @@ local function ShowNavResults(query)
 		return
 	end
 	local res = FilterIndex(query)
-	if #res == 0 then
-		drop:Hide()
-		return
-	end
-	-- A new query always starts at the top. Keeping the old offset would silently
+	-- A new query always starts at the top, with no row picked. Keeping the old offset would silently
 	-- hide the best match for the thing you just typed.
 	if drop._mhQuery ~= query then
 		drop._mhQuery = query
 		drop._mhOffset = 0
+		drop._mhSel = nil
 	end
+	drop._mhRes = res
 	drop._mhTotal = #res
+	if #res == 0 then
+		-- 3 Nov 2026 (step 2): the list used to vanish without a word, which looks the same as broken. One grey
+		-- line says so, and that Enter still searches deeper (Codex, guides), which it always did.
+		if Normalize((query or ""):gsub("^@%S*", ""):gsub("^/", "")) == "" then
+			drop:Hide()
+			return
+		end
+		local s = (ns.GetContentFontScale and ns.GetContentFontScale()) or 1
+		for i, r in ipairs(drop.rows) do
+			if i == 1 then
+				r:SetHeight(ROW_H * s)
+				r._mhFull = "|cff9a9a9a" .. L("NAV_NO_MATCH") .. "|r"
+				r.fs:SetText(r._mhFull)
+				r.sel:Hide()
+				r._mhQuery = query
+				r._mhGo = function(q)
+					if not (ns.TryCodexSearch and ns.TryCodexSearch(q)) and ns.MH_RunSearchQuery then
+						ns.MH_RunSearchQuery(q)
+					end
+				end
+				r:Show()
+			else
+				r:Hide()
+				r._mhGo, r._mhQuery = nil, nil
+			end
+		end
+		drop.more:Hide()
+		drop:SetHeight(ROW_H * s + 6)
+		drop._mhRender = nil
+		drop:Show()
+		return
+	end
 
 	local function render()
 		local s = (ns.GetContentFontScale and ns.GetContentFontScale()) or 1
@@ -1018,6 +1285,7 @@ local function ShowNavResults(query)
 				r._mhGo = e.go
 				-- Carried per row so the click handler can hand the word to the target.
 				r._mhQuery = query
+				r.sel:SetShown(drop._mhSel == off + i)
 				r:Show()
 			else
 				r:Hide()
@@ -1054,6 +1322,12 @@ function ns.DevShowNavResults(query)
 	ShowNavResults(query)
 end
 
+--- What the list would hold for a query, as data: for a quick /dump in the game and for an offline test of the
+--- matcher (3 Nov 2026). Each entry has .label, .context and .cat.
+function ns.DevNavFilter(query)
+	return FilterIndex(query)
+end
+
 --- And the way back (5 Oct 2026, site chat): scene 08's list stayed open through 10 and 14 of the
 --- 16 Sep set, because nothing ever closed it.
 function ns.DevHideNavResults()
@@ -1064,7 +1338,49 @@ function ns.DevHideNavResults()
 	HideNavDrop()
 end
 
+--- 3 Nov 2026 (step 3): arrow keys and Tab walk the open list. Down from nothing picks the first row, up from
+--- nothing the last; the list scrolls along so the picked row stays in view.
+local function MoveSel(dir)
+	local drop = navDrop
+	local n = drop and drop:IsShown() and drop._mhRender and drop._mhTotal or 0
+	if n == 0 then
+		return
+	end
+	local sel = drop._mhSel
+	if not sel then
+		sel = (dir > 0) and 1 or n
+	else
+		sel = ((sel - 1 + dir) % n) + 1
+	end
+	drop._mhSel = sel
+	local off = drop._mhOffset or 0
+	if sel <= off then
+		off = sel - 1
+	elseif sel > off + MAX_RESULTS then
+		off = sel - MAX_RESULTS
+	end
+	drop._mhOffset = off
+	drop._mhRender()
+end
+
+--- The row picked with the keys, if any: Enter then goes THERE, whatever the strong-match rule below says.
+local function PickedEntry()
+	local drop = navDrop
+	if drop and drop:IsShown() and drop._mhSel and drop._mhRes then
+		return drop._mhRes[drop._mhSel]
+	end
+end
+
 function ns.MHNavSearchTryJump(query)
+	local picked = PickedEntry()
+	if picked then
+		HideNavDrop()
+		if ns.mhSearchEdit then
+			ns.mhSearchEdit:SetText("")
+		end
+		picked.go(query)
+		return true
+	end
 	query = ULower(query or ""):gsub("^%s+", ""):gsub("%s+$", "")
 	if #query < 2 then
 		return false
@@ -1100,8 +1416,19 @@ hookFrame:SetScript("OnEvent", function()
 		end
 		ShowNavResults(self:GetText())
 	end)
+	-- Escape keeps doing what UI.lua makes it do: let go of the keyboard (or you cannot walk), and close the list.
 	edit:HookScript("OnEscapePressed", function()
 		HideNavDrop()
+	end)
+	edit:HookScript("OnArrowPressed", function(_, key)
+		if key == "DOWN" then
+			MoveSel(1)
+		elseif key == "UP" then
+			MoveSel(-1)
+		end
+	end)
+	edit:HookScript("OnTabPressed", function()
+		MoveSel(IsShiftKeyDown and IsShiftKeyDown() and -1 or 1)
 	end)
 	edit:HookScript("OnEditFocusLost", function()
 		-- Small delay so a click on a result row registers before we hide.

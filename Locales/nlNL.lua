@@ -3891,6 +3891,7 @@ ns._mhLocales.nlNL = {
 	NAV_CAT_COMMAND = "commando",
 	NAV_PANEL_CHARACTER = "Gear-check-paneel",
 	NAV_MORE_FMT = "%d-%d van %d - scroll voor meer",
+	NAV_NO_MATCH = "Niets in deze lijst. Druk op Enter om ook in de Codex en de gidsen te zoeken.",
 	SET_DAILYTIP_TITLE = "Codex-tip van de dag",
 	SET_DAILYTIP_DESC = "Toon elke dag een Codex-artikel op This Week. Uit verbergt hem helemaal; vandaag-even-niet slaat maar een dag over.",
 	MILE_TRACK_TITLE = "Nieuwe beste upgrade-track!",

@@ -1,11 +1,22 @@
 # Midnight Helper — waar we staan
 
-## 📋 3 nov — plan voor een betere zoekbalk (na MF Nameplates), nog NIETS gebouwd
+## 🔨 3 nov — zoekbalk stap 1-3 gebouwd (Rob: "Begin inderdaad maar met stap 1 tot en met 3"), NIET in het spel getest
 
-Rob was onder de indruk van het zoeken in MF Nameplates 1.2.5 → *"Ja, maak een plan"*. Plan in
-`docs/PLAN_ZOEKEN_2026-11-03.md`: 6 stappen (1 elke instelling vindbaar + erop landen, 2 vergevingsgezind zoeken,
-3 toetsenbord, 4 synoniemen per taal, 5 TWW-woorden uit Guide.lua, 6 ctrl+klik/grijs als keuze). 🔴 MF heeft geen open
-licentie: alleen ideeën, geen code. Wacht op Robs keuze welke stap(pen).
+Plan: `docs/PLAN_ZOEKEN_2026-11-03.md` (na MF Nameplates 1.2.5; 🔴 geen open licentie → alleen ideeën, eigen code).
+- **Stap 1:** `NavSearch.lua` leest `ns.GetSettingsDefs()` → elke instelling een regel (`cat = "setting"`, context
+  "All settings > <sectie>", tooltip + dropdown-keuzes als zoekwoorden). Klik → nieuw `ns.FocusSetting(var)` in
+  `SettingsPage.lua`: opent All settings, scrolt (rij `_mhY`, één frame later), laat de rij 3× pulseren.
+- **Stap 2:** `FilterIndex` scoort per woord (Normalize: kleurcodes/accenten/`m+`; naam weegt 1, keywords/context 0,6;
+  gemist woord ×0,5; hele-query-bonus; tier −0,05). Tikfouten (1 vanaf 4 letters, 2 vanaf 7; eerste letter goed of
+  verwisseld) alleen tegen de NAAM en alleen als pass 1 niets vond. `@settings`/`@mounts` (meervoud) werkt nu ook.
+  0 resultaten → grijze regel `NAV_NO_MATCH` (8 packs, locale_probe 8/8), klik = de oude diepe zoektocht.
+- **Stap 3:** pijl op/neer + (Shift-)Tab door de lijst, Enter opent de gekozen rij (anders de oude sterke-match-regel).
+  Escape blijft focus loslaten (bewust anders dan MF).
+- GEMETEN offline (eigen Lua, NavSearch.lua geladen met stubs, 1500 nep-instellingen): 15-50 ms per query; vóór de
+  twee passes tot 0,4 s. In het spel niet gemeten; de echte index-grootte ook niet. Syntax OK, lint 0 HARD.
+- `ns.DevNavFilter(query)` geeft de lijst als data (voor `/dump` en de offline test).
+- Open: stap 4 (synoniemen per taal), 5 (TWW-woorden in `Addons/Guide.lua`), 6 (ctrl+klik/grijs, Robs keuze);
+  site-hoofdpagina + changelog-regel bij de volgende versie.
 
 ## 🔨 2 nov (nacht) — Szarith als laatste (Rob: "Goed idee, beide … je krijgt toestemming voor alles"), NIET getest
 

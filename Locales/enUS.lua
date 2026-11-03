@@ -4599,6 +4599,7 @@ ns._mhLocales.enUS = {
 	NAV_CAT_COMMAND = "command",
 	NAV_PANEL_CHARACTER = "Gear check panel",
 	NAV_MORE_FMT = "showing %d-%d of %d - scroll for more",
+	NAV_NO_MATCH = "Nothing in this list. Press Enter to search the Codex and guides too.",
 	SET_DAILYTIP_TITLE = "Codex tip of the day",
 	SET_DAILYTIP_DESC = "Show one Codex entry a day on This Week. Off hides it entirely; the not-today link only skips a single day.",
 	MILE_TRACK_TITLE = "New best upgrade track!",

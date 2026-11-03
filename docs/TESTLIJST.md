@@ -21,6 +21,25 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 3 nov — zoekbalk: instellingen vinden, tikfouten, pijltjes
+
+Eerst `/reload`. Open MH en klik in de zoekbalk bovenaan.
+- [ ] Typ **arrow size** (of in je eigen taal een woord uit een instelling): de lijst toont die instelling, met erachter
+      grijs *"All settings > …"* (de sectie waar hij staat).
+- [ ] Klik erop: de pagina **All settings** gaat open, **scrolt naar die regel**, en de regel **knippert** drie keer
+      oranje-geel. Ook als die regel helemaal onderaan staat.
+- [ ] Typ de woorden **andersom** (*size arrow*): zelfde resultaat.
+- [ ] Typ met een **tikfout** (*arow*, *setings*): je vindt het toch.
+- [ ] Typ **rares**: de **Rares-tab** staat nog steeds bovenaan, niet een losse rare.
+- [ ] Typ **Deutsch**: de taalinstelling komt naar boven.
+- [ ] Typ onzin (*zzzq*): er staat één grijze regel *"Nothing in this list. Press Enter to search the Codex and guides
+      too."* (de lijst verdwijnt niet meer zomaar). Enter zoekt dan verder, zoals vroeger.
+- [ ] **Pijl omlaag / omhoog** en **Tab** lopen door de lijst (de regel licht op); **Enter** opent de gekozen regel.
+- [ ] **Escape** sluit de lijst én laat het toetsenbord los: daarna kun je meteen weer **lopen met WASD**.
+- [ ] Voelt het typen **traag of hapert het spel** bij elke letter? Meld het: buiten het spel gemeten was het 15-50 ms per
+      letter met een lijst van 1500 regels, maar in het spel is het niet gemeten.
+- [ ] `/mh settings` en de oude zoekwoorden (*delves*, *consumables*, `/` voor commando's, `@mount`) werken nog als vroeger.
+
 ## 🆕 2 nov — rare-route op The Coiled Isle
 
 Eerst `/reload`. Rares-tab → The Coiled Isle → Generate Route.

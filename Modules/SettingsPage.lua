@@ -653,6 +653,7 @@ LayoutAllSettingsPage = function()
 			row:ClearAllPoints()
 			row:SetWidth(width)
 			row:SetPoint("TOPLEFT", page._body, "TOPLEFT", 0, -y)
+			row._mhY = y -- for ns.FocusSetting: where to scroll to
 			PaintAllRow(row, c)
 			row:Show()
 			y = y + ALL_ROW_H
@@ -747,6 +748,88 @@ function ns.RefreshAllSettingsPanel()
 	if LayoutAllSettingsPage then
 		LayoutAllSettingsPage()
 	end
+end
+
+--- A soft pulse over one row, so the eye finds it after a jump. Built once per row, on first use.
+local function PulseRow(row)
+	local glow = row._mhPulse
+	if not glow then
+		glow = row:CreateTexture(nil, "BACKGROUND")
+		glow:SetAllPoints()
+		local a = ScreenColors().accent
+		glow:SetColorTexture(a[1], a[2], a[3], 0.35)
+		glow:SetAlpha(0)
+		local anim = glow:CreateAnimationGroup()
+		-- Three slow beats, then fade out: long enough to find, short enough not to nag.
+		for i = 0, 2 do
+			local up = anim:CreateAnimation("Alpha")
+			up:SetFromAlpha(0.15)
+			up:SetToAlpha(1)
+			up:SetDuration(0.4)
+			up:SetOrder(i * 2 + 1)
+			local down = anim:CreateAnimation("Alpha")
+			down:SetFromAlpha(1)
+			down:SetToAlpha(0.15)
+			down:SetDuration(0.4)
+			down:SetOrder(i * 2 + 2)
+		end
+		local out = anim:CreateAnimation("Alpha")
+		out:SetFromAlpha(0.15)
+		out:SetToAlpha(0)
+		out:SetDuration(0.6)
+		out:SetOrder(7)
+		anim:SetScript("OnFinished", function()
+			glow:SetAlpha(0)
+		end)
+		glow._anim = anim
+		row._mhPulse = glow
+	end
+	glow._anim:Stop()
+	glow:SetAlpha(0.15)
+	glow._anim:Play()
+end
+
+--- 3 Nov 2026 (search plan, step 1): the search bar finds single settings, and a click lands ON the setting
+--- instead of on the top of a long page. Opens All settings, scrolls the row into the upper part of the view
+--- and pulses it. Returns false when the page or the setting is not there (the caller then still has the page).
+function ns.FocusSetting(var)
+	if ns.ShowMainUI and ns.SelectTab then
+		ns:ShowMainUI()
+		ns.SelectTab("allsettings")
+	end
+	local function find()
+		for _, section in ipairs((allPage and allPage._sections) or {}) do
+			for _, row in ipairs(section.rows) do
+				if row._def and row._def.var == var then
+					return row
+				end
+			end
+		end
+	end
+	if not find() then
+		return false
+	end
+	-- One frame later: the page has just been shown, and its scroll width (and so the layout) settles then.
+	C_Timer.After(0, function()
+		if not (allPage and allPage:IsShown()) then
+			return
+		end
+		LayoutAllSettingsPage()
+		local row = find()
+		if not (row and row._mhY) then
+			return
+		end
+		local scroll = allPage._scroll
+		local want = math.max(0, row._mhY - (scroll:GetHeight() or 0) * 0.25)
+		-- The range can still read 0 in the frame the body was resized; then trust our own number.
+		local range = (scroll.GetVerticalScrollRange and scroll:GetVerticalScrollRange()) or 0
+		if range > 0 then
+			want = math.min(range, want)
+		end
+		scroll:SetVerticalScroll(want)
+		PulseRow(row)
+	end)
+	return true
 end
 
 do
