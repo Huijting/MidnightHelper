@@ -2422,6 +2422,20 @@ function ns.PrintKeyBlockTrace()
 	if ns.KeyBlockBar1Status then
 		print("  " .. ns.KeyBlockBar1Status())
 	end
+	-- The new-spells switch and what waits for it (Rob, 3 Nov 2026, levelling an Evoker: Return stayed off the block
+	-- for two levels and he thought it was broken; SV said keyBlockNewMode = "never"). "Never" and broken look the same.
+	local waiting = {}
+	if GetSnap() then
+		for _, m in ipairs(MissingRows()) do
+			waiting[#waiting + 1] = m.target and ("%s -> %s"):format(MissingName(m), KeyLabel(m.target.key))
+				or ("%s (no free place)"):format(MissingName(m))
+		end
+	end
+	local mode = ns.KeyBlockNewMode()
+	print(("  new spells: |cffffcc00%s|r — waiting: %s"):format(mode == "auto" and "place automatically"
+		or mode == "never" and "never ask (nothing happens on its own; the switch is top right in the key block window)"
+		or "ask me", GetSnap() and (#waiting > 0 and table.concat(waiting, ", ") or "none") or "block not placed on this character"))
+	dump.newMode, dump.waiting = mode, waiting
 end
 
 --------------------------------------------------------------------------------

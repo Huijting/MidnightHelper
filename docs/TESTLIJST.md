@@ -21,6 +21,13 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 3 nov (6) — key block: waarom zette hij niets neer?
+
+Eerst `/reload`. Op een character mét key block (je Evoker):
+- [ ] `/mh block why` → onderaan een regel **"new spells: …"** met de stand van de knop (ask me / place automatically /
+      never ask) en wat er klaarstaat, bv. *"Return -> F"*. Staat de knop op never ask, dan zegt de regel waar de knop zit.
+- [ ] Zet de knop op **place automatically**, druk Update, en `/mh block why` opnieuw → *"waiting: none"*.
+
 ## 🆕 3 nov (5) — de drie site-chat-punten
 
 Eerst `/reload`.
