@@ -23,18 +23,20 @@ er is niets weggegooid.
 
 ## 🆕 3 nov (7) — zoeken vindt nu de pins van de Silvermoon-stadsgids
 
+✅ **Rob 3 nov: "Ik heb alles getest, de lijst en alles werkt zoals het moet doen."** — alles hieronder.
+
 Eerst `/reload`. Typ in de zoekbalk van MH:
-- [ ] **ah** → *Auction House* (en *Horde Auction House*), met grijs *"Silvermoon City — …"* erachter. Klik → de pijl gaat
+- [x] **ah** → *Auction House* (en *Horde Auction House*), met grijs *"Silvermoon City — …"* erachter. Klik → de pijl gaat
       naar de veilingmeesters, net als een klik op de pin.
-- [ ] **bank**, **mail**, **inn**, **catalyst**, **transmog**, **alchemy** → de pin van die plek.
-- [ ] **arrow** → bovenaan nog steeds de pijl-instellingen, niet een lange lijst stadspins.
-- [ ] **Top 4 (Rob: "Ja, top 4"):**
+- [x] **bank**, **mail**, **inn**, **catalyst**, **transmog**, **alchemy** → de pin van die plek.
+- [x] **arrow** → bovenaan nog steeds de pijl-instellingen, niet een lange lijst stadspins.
+- [x] **Top 4 (Rob: "Ja, top 4"):**
       - **frost** → *Frost Mage* en *Frost Death Knight* (grijs: *How you play*). Klik → de speelkaart van die spec.
         Ook **retribution**, **how to play** of **rotation** werken.
       - **trading post** → de tab Trading Post.
       - **world boss** → de vier world bosses (bv. *Lu'ashal*, grijs de zone). Klik → de pijl gaat erheen.
       - **showdown** of **naigtal** → *Showdowns* (World-tab), de portaal-route en de start bij Riftblade Maella.
-- [ ] **De rest van de lijst (Rob: "Ja, dat klopt"):**
+- [x] **De rest van de lijst (Rob: "Ja, dat klopt"):**
       - **overview** of **knowledge points** → *Overview* van de beroepen-hub; **treasures** → *Treasures & Books*.
       - **curio** → het curios-venster én elke curio bij naam (bv. *Porcelain Blade Tip*). Klik → het curios-venster.
       - **mount run** of **old raids** → het venster *Mount run: old raids*.
