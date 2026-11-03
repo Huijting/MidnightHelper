@@ -24,14 +24,14 @@ er is niets weggegooid.
 ## 🆕 3 nov (4) — doorklikken, voetregel en "Back to recommended"
 
 Eerst `/reload`. Open MH → All settings.
-- [ ] **Notice after a delve** → vergrootglas, **vier keer** klikken: de melding laat telkens iets anders zien — nieuw record
+- [x] ✅ Rob 3 nov — **Notice after a delve** → vergrootglas, **vier keer** klikken: de melding laat telkens iets anders zien — nieuw record
       (groen), langzamer (rood), eerste keer op deze Tier, even snel. Tooltip van het vergrootglas: blauwe regel *"Click
       again to see another situation."*
-- [ ] **Rare nearby alerts** → vergrootglas, **twee keer**: eerst de gewone rare-melding, daarna die van Szarith met de
+- [x] ✅ Rob 3 nov — **Rare nearby alerts** → vergrootglas, **twee keer**: eerst de gewone rare-melding, daarna die van Szarith met de
       regel over de elite-wachters.
-- [ ] Onderaan de pagina, onder de lijst, een grijze regel: *"Magnifier: show what it does · Ctrl+click: back to
+- [x] ✅ Rob 3 nov — Onderaan de pagina, onder de lijst, een grijze regel: *"Magnifier: show what it does · Ctrl+click: back to
       recommended · Changes work at once."* Valt niet over de lijst heen.
-- [ ] Naast de kopjes (bv. *Combat warnings*) een klikbare tekst **"Back to recommended"**. Niet bij *Language* (daar is
+- [x] ✅ Rob 3 nov — Naast de kopjes (bv. *Combat warnings*) een klikbare tekst **"Back to recommended"**. Niet bij *Language* (daar is
       geen aanbevolen stand). Klik → een vraag met het aantal instellingen. **Yes** → het blok staat op aanbevolen; **No**
       → er verandert niets. Er springen daarbij géén vijf meldingen tegelijk op.
 

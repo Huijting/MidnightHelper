@@ -1,6 +1,10 @@
 # Midnight Helper — waar we staan
 
-## 🔨 3 nov (later) — voorbeeld stap 3 + de twee losse dingen (Rob: "Gaan we verder met stap 3 en de twee losse dingen"), NIET getest
+## ✅ 3 nov (later) — voorbeeld stap 3 + de twee losse dingen (Rob: "Gaan we verder met stap 3 en de twee losse dingen")
+
+✅ **Rob testte alle 4 punten van testlijst "3 nov (4)" in het spel: "Dit werkt allemaal."** Daarmee zijn het zoekplan (6
+stappen) en het voorbeeldplan (3 stappen + 2 losse dingen) gebouwd en grotendeels getest. Bij de volgende versie:
+changelog-regel(s) + site-hoofdpagina (regel "site volgt elke functie"); release blijft Robs go.
 
 - **Stap 3, smal gehouden:** alleen toestanden die van MH zelf zijn, geen nagebootste client-toestand (CLAUDE.md-regel).
   `ns.TestRunScorecard(kind)` = record/slower/first/equal; de preview van de delve-melding klikt die vier rond. Rare-preview
