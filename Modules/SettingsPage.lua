@@ -421,6 +421,38 @@ local function AllWrite(d, v)
 	end
 end
 
+-- 3 Nov 2026 (search plan step 6): the switch a row depends on (SettingsDefs `parent`), and whether it is off now.
+local defByVar
+local function DefByVar(var)
+	if not defByVar then
+		defByVar = {}
+		for _, section in ipairs(ns.GetSettingsDefs and ns.GetSettingsDefs() or {}) do
+			for _, d in ipairs(section.items) do
+				defByVar[d.var] = d
+			end
+		end
+	end
+	return defByVar[var]
+end
+
+local function ParentOff(d)
+	local p = d and d.parent and DefByVar(d.parent)
+	return p and not AllValue(p) and p or nil
+end
+
+-- The Recommended value as the row shows it ("on", "64", "Auto"); nil when the setting has none.
+local function RecText(d)
+	if d.rec == nil then
+		return nil
+	end
+	if d.kind == "toggle" then
+		return ns:L(d.rec and "SET_REC_ON" or "SET_REC_OFF")
+	elseif d.kind == "slider" then
+		return d.fmt and d.fmt(d.rec) or tostring(d.rec)
+	end
+	return AllOptionLabel(d, d.rec)
+end
+
 local function AllShowTip(row)
 	local d = row and row._def
 	if not d then
@@ -432,7 +464,29 @@ local function AllShowTip(row)
 	if tip then
 		GameTooltip:AddLine(tip, 0.9, 0.9, 0.9, true)
 	end
+	local p = ParentOff(d)
+	if p then
+		GameTooltip:AddLine(ns:L("SET_DEP_OFF_FMT"):format(ns:L(p.name)), 1, 0.6, 0.3, true)
+	end
+	local rec = RecText(d)
+	if rec then
+		GameTooltip:AddLine(ns:L("SET_CTRL_RESET_FMT"):format(rec), 0.55, 0.78, 1, true)
+	end
 	GameTooltip:Show()
+end
+
+--- Ctrl+click on any part of a row: back to the Recommended value. True when it did (the click then does nothing
+--- else). A setting without a Recommended value ignores it, and its tooltip does not offer it.
+local function CtrlReset(row)
+	local d = row and row._def
+	if not (d and d.rec ~= nil and IsControlKeyDown and IsControlKeyDown()) then
+		return false
+	end
+	AllWrite(d, d.rec)
+	if GameTooltip:IsOwned(row) then
+		AllShowTip(row)
+	end
+	return true
 end
 
 local function AllHideTip()
@@ -553,18 +607,30 @@ local function MakeAllRow(parent)
 	end)
 	value:SetScript("OnLeave", AllHideTip)
 	value:SetScript("OnClick", function()
+		if CtrlReset(row) then
+			return
+		end
 		AllOpenChoices(row)
 	end)
 
 	row._box, row._fill, row._label = box, fill, label
 	row._minus, row._plus, row._value, row._valueText, row._valueBg = minus, plus, value, valueText, valueBg
 	minus:SetScript("OnClick", function()
+		if CtrlReset(row) then
+			return
+		end
 		AllStep(row, -1)
 	end)
 	plus:SetScript("OnClick", function()
+		if CtrlReset(row) then
+			return
+		end
 		AllStep(row, 1)
 	end)
 	row:SetScript("OnClick", function(self)
+		if CtrlReset(self) then
+			return
+		end
 		local d = self._def
 		if d and d.kind == "toggle" then
 			AllWrite(d, not AllValue(d))
@@ -584,6 +650,13 @@ local function PaintAllRow(row, c)
 	row._label:SetText(ns:L(d.name))
 	row._label:SetTextColor(c.body[1], c.body[2], c.body[3])
 	row._label:ClearAllPoints()
+	-- A setting that depends on another sits a step in under it, and is dimmed (not hidden) while that one is off;
+	-- the tooltip says which switch it waits for. It stays clickable: you may set it up before switching the
+	-- parent on.
+	local indent = d.parent and 16 or 0
+	row:SetAlpha(ParentOff(d) and 0.45 or 1)
+	row._box:ClearAllPoints()
+	row._box:SetPoint("LEFT", row, "LEFT", 2 + indent, 0)
 	row._box:SetShown(isToggle)
 	row._minus:SetShown(d.kind == "slider")
 	row._plus:SetShown(d.kind == "slider")
@@ -596,7 +669,7 @@ local function PaintAllRow(row, c)
 		row._label:SetPoint("RIGHT", row, "RIGHT", -4, 0)
 		return
 	end
-	row._label:SetPoint("LEFT", row, "LEFT", 2, 0)
+	row._label:SetPoint("LEFT", row, "LEFT", 2 + indent, 0)
 	row._label:SetPoint("RIGHT", row, "RIGHT", -(ALL_CTRL_W + 12), 0)
 	row._value:ClearAllPoints()
 	row._valueText:SetTextColor(c.header[1], c.header[2], c.header[3])

@@ -1,5 +1,23 @@
 # Midnight Helper — waar we staan
 
+## 🔨 3 nov (2) — zoekbalk stap 4-6 gebouwd (Rob: "Ja, doe alle drie"), NIET in het spel getest
+
+- **Stap 4** (`NavSearch.lua` `SYNONYMS`): groepen per MH-taal (en altijd ook Engels), opgesteld door mh-writer uit de
+  woorden die de packs echt gebruiken. Een getypt woord uit een groep zoekt de andere ×0,9, maar streng (`SynFit`:
+  heel woord, of woordbegin vanaf 4 letters; nooit binnen een woord). Weggelaten: health-groep, popup=window. ⚠️
+  Bloodlust/Heroism- en flask-woorden buiten het Engels uit het hoofd, niet tegen wago gemeten (alleen zoekwoorden, nooit
+  op het scherm). Tier-gewicht 0,05 → 0,2 en instellingen nu `TIER_CONTENT`: anders kwam "Rare sound" boven de Rares-tab
+  bij "rare" (offline GEMETEN). Bekend: "taal" vindt ook "Totaal" via de binnen-woord-regel van stap 2.
+- **Stap 5** (`Addons/Guide.lua`, mh-research tegen wago 12.1.7.70668 + Warcraft Wiki): weg brann/zekvir/dornogal/
+  undertyr/dreadshore/stormstout/m+ teleport; erbij valeera, azta'rec/aztarec, venomfall, nullaeus, coffer, coiled (isle),
+  lu'ashal, thorm'belan; dode harandar/voidstorm uit de SMC-lijst. Open (mh-research): "spore" vangt ook raid Sporefall;
+  "mentor" botst met Warband Mentor; ruRU `SET_REZLUST_*` zegt nog "battle res и Hero" terwijl `REZLUST_TITLE` vertaald is.
+- **Stap 6** (`SettingsDefs.lua` `PARENT` + `SettingsPage.lua`): 16 instellingen onder 9 hoofdschakelaars, elk paar
+  GEMETEN in de module (regels in de opmerking). All settings: ingesprongen, grijs (alpha 0,45) als de ouder uit staat,
+  tooltip `SET_DEP_OFF_FMT`. Ctrl+klik (rij, waarde, −/+) = terug naar `rec`; tooltip `SET_CTRL_RESET_FMT` alleen als er
+  een `rec` is. Muisknop-aantal bewust niet gekoppeld (KeybindSchema.lua:656). 4 nieuwe keys, locale_probe 8/8.
+- Syntax OK, lint 0 HARD, offline test (navtest) groen. Testlijst "3 nov (2)".
+
 ## 🔨 3 nov — zoekbalk stap 1-3 gebouwd (Rob: "Begin inderdaad maar met stap 1 tot en met 3")
 
 ✅ **Rob testte 5 punten in het spel, alle goed** (arrow size + knipperen, *arow*, *zzzq*, pijltjes + Enter, Escape →

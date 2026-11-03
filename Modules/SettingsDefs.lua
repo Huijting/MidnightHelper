@@ -20,7 +20,8 @@
 	  kind      "toggle" | "slider" | "dropdown"
 	  var       the Blizzard setting variable, unchanged from 3.x
 	  name/tip  locale keys (tip may be nil)
-	  rec       the Recommended value; nil = not part of the Recommended preset
+	  rec       the Recommended value; nil = not part of the Recommended preset (also what Ctrl+click goes back to)
+  parent    var of the switch this one depends on (set at the end of Build); nil = stands on its own
 	  get/set   the existing ns getters and setters
 	  slider:   min, max, step, fmt(value) -> text
 	  dropdown: default, options = { { value = ..., labelKey = ... }, ... }
@@ -701,6 +702,31 @@ local function Build()
 	end, function(v)
 		if ns.db and ns.db.ui then ns.db.ui.debug = v and true or nil end
 	end, false)
+
+	-- 3 Nov 2026 (search plan step 6, Rob: "doe alle drie"): which setting only does something while another is on.
+	-- MH's own page dims such a row and says why in its tooltip, instead of hiding it. Each pair is MEASURED in the
+	-- module, not guessed from the names: the child is read only after the parent's own check returned.
+	--   CombatSafety.lua:653 + :817 · ActionPrompt.lua:465 (UpdateDispel runs only from Update) · Rares.lua:3164
+	--   · DelveItemsPopup.lua:465 · RunScorecard.lua:132 · TankPullSummary.lua:208 · DurabilityWarn.lua:160
+	--   · GroupRezLust.lua:721 · VaultReminder.lua:208/240/262/343.
+	-- Left out on purpose: the mouse-button count (KeybindSchema.lua:656 reads it without the overflow switch).
+	local PARENT = {
+		mh_csSpeak = "mh_combatSafety", mh_csBars = "mh_combatSafety", mh_csImportant = "mh_combatSafety",
+		mh_actionPromptSound = "mh_actionPrompt",
+		mh_rareSound = "mh_rareAlert", mh_rareOnlyRoute = "mh_rareAlert",
+		mh_toastBounty = "mh_toasts",
+		mh_scorecardDetail = "mh_runScorecard",
+		mh_pullSummaryBoss = "mh_pullSummary", mh_pullSummaryPopup = "mh_pullSummary",
+		mh_durabilityLimit = "mh_durabilityWarn",
+		mh_rezLustKeyRaid = "mh_rezLust",
+		mh_vaultChat = "mh_vaultEnabled", mh_vaultMinimap = "mh_vaultEnabled",
+		mh_vaultPing = "mh_vaultEnabled", mh_vaultPopup = "mh_vaultEnabled",
+	}
+	for _, sec in ipairs(list) do
+		for _, d in ipairs(sec.items) do
+			d.parent = PARENT[d.var]
+		end
+	end
 
 	return list
 end

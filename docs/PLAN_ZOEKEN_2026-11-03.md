@@ -2,8 +2,9 @@
 
 Rob, 3 nov 2026: onder de indruk van de instellingen en het zoeken in **MF Nameplates 1.2.5**
 (`AddOns/MFNameplates/Config/Search.lua`, `Designer.lua`, `Widgets.lua`); *"pluis hem uit"* → *"Ja, maak een plan"*.
-**Stand:** stap 1-3 gebouwd op 3 nov (Rob: *"Begin inderdaad maar met stap 1 tot en met 3"*), niet in het spel getest
-(testlijst "3 nov"). Stap 4-6 wachten op Robs go.
+**Stand:** stap 1-3 gebouwd en door Rob in het spel getest (3 nov, alles goed; knipperen 2× zo lang gemaakt). Stap 4-6
+gebouwd dezelfde dag (Rob: *"Ja, doe alle drie"*), nog niet in het spel getest (testlijst "3 nov (2)"). Details in
+`NEXT_SESSION.md`.
 
 ## 🔴 Licentie
 

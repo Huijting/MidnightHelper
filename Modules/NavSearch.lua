@@ -730,7 +730,7 @@ local function BuildNavIndex()
 					if not (ns.FocusSetting and ns.FocusSetting(var)) then
 						OpenTab("allsettings")
 					end
-				end, TIER_NAV, context, "setting")
+				end, TIER_CONTENT, context, "setting") -- a tab named like a setting goes first
 			end
 		end
 	end
@@ -955,6 +955,187 @@ local function BestFit(q, words, weight, typo)
 	return best * weight
 end
 
+-- Search plan step 4 (3 Nov 2026): words that mean the same thing to a player. A typed word from a group also
+-- looks for the other words of that group, a little weaker than the word itself. Per MH language, because a group
+-- only helps when its words are the ones that pack really uses; the English groups apply in every language too,
+-- since many keywords in this file are English. Spelled the normal way: Normalize folds case and accents.
+-- Drafted by mh-writer on 3 Nov 2026 from the words our packs really use (setting names, tooltips, dropdown
+-- choices, commands, tabs: counted after folding accents). Left out on purpose: a "health" group (almost nothing to
+-- find) and "popup = window" (typing "popup" then listed every window, 42 in English). ⚠️ The Bloodlust/Heroism and
+-- flask words outside English are typed-in words from memory, not checked against the client's own names: a
+-- wrong one finds nothing, it never shows on screen.
+local SYNONYMS = {
+	enUS = {
+		{ "interrupt", "interrupts", "kick", "kicks" }, { "arrow", "waypoint", "route" },
+		{ "size", "scale", "resize", "bigger", "smaller", "larger", "zoom" }, { "sound", "audio", "alarm", "chime", "noise" },
+		{ "alert", "alerts", "warning", "warnings", "warn", "notification", "notice", "reminder", "reminders" },
+		{ "font", "text" }, { "language", "locale", "translation" },
+		{ "consumables", "consumable", "flask", "food", "potion", "phial" }, { "mythic", "mplus", "keystone" },
+		{ "dispel", "purge", "cleanse", "spellsteal" }, { "boss", "bosses", "encounter" }, { "durability", "repair", "worn" },
+		{ "bloodlust", "lust", "heroism", "hero", "battle", "battleres", "brez", "rez", "resurrection" },
+		{ "keybind", "keybinds", "binding", "bindings", "hotkey", "hotkeys", "keyboard" }, { "tooltip", "tooltips", "tips" },
+		{ "settings", "setting", "options", "config", "preferences" }, { "death", "deaths", "died", "killed", "recap" },
+		{ "toast", "toasts", "banner" },
+	},
+	nlNL = {
+		{ "interrupt", "interrupts", "kick", "kicks", "onderbreken" }, { "pijl", "waypoint", "route" },
+		{ "grootte", "schaal", "groter", "kleiner", "zoom", "formaat" }, { "geluid", "geluiden", "alarm", "audio" },
+		{ "waarschuwing", "waarschuwingen", "waarschuw", "melding", "meldingen", "herinnering", "herinneringen", "alert" },
+		{ "lettertype", "tekst", "font" }, { "taal", "talen", "vertaling" },
+		{ "consumables", "flask", "food", "potion", "phial", "eten", "drankje" }, { "mythic", "mplus", "keystone" },
+		{ "dispel", "purge", "dispellen" }, { "boss", "bosses", "baas", "bazen", "encounter" },
+		{ "durability", "repair", "repareren", "versleten" }, { "bloodlust", "lust", "heroism", "hero", "battle", "brez", "rez" },
+		{ "keybind", "keybinds", "toetsen", "toets", "sneltoets", "sneltoetsen" }, { "tooltip", "tooltips", "tips" },
+		{ "instellingen", "instelling", "opties", "settings" }, { "dood", "death", "sterft", "sterven", "gestorven", "recap" },
+		{ "toast", "toasts", "banner", "inschuiven" },
+	},
+	deDE = {
+		{ "unterbrechen", "unterbrechung", "unterbrecher", "kick", "interrupt" }, { "pfeil", "wegpunkt", "route" },
+		{ "größe", "skalierung", "skala", "größer", "kleiner", "zoom" }, { "ton", "töne", "sound", "klang", "geräusch", "audio" },
+		{ "warnung", "warnungen", "warnen", "hinweis", "meldung", "meldungen", "erinnerung", "erinnerungen", "benachrichtigung" },
+		{ "schrift", "schriftart", "text" }, { "sprache", "übersetzung" },
+		{ "verbrauchsgüter", "verbrauchsmaterial", "fläschchen", "phiole", "essen", "trank" },
+		{ "mythisch", "mythic", "schlüsselstein" }, { "dispel", "entzaubern", "bannen", "reinigen" },
+		{ "boss", "bosse", "begegnung" }, { "haltbarkeit", "reparieren", "reparatur", "abgenutzt" },
+		{ "kampfrausch", "heldentum", "bloodlust", "lust", "hero", "battle", "brez", "wiederbelebung" },
+		{ "tastenbelegung", "belegung", "tasten", "taste", "keybind", "hotkey" }, { "tooltip", "tooltips", "tipps", "tipp" },
+		{ "einstellungen", "einstellung", "optionen", "settings" }, { "tod", "tode", "gestorben", "death" },
+		{ "toast", "toasts", "einblendung", "einblendungen", "banner" },
+	},
+	frFR = {
+		{ "interruption", "interruptions", "interrompre", "kick" }, { "flèche", "itinéraire", "waypoint", "balise" },
+		{ "taille", "échelle", "zoom", "agrandir" }, { "son", "sons", "alarme", "audio", "sonore" },
+		{ "alerte", "alertes", "avertissement", "avertir", "rappel", "rappels", "notification" },
+		{ "police", "texte", "caractères" }, { "langue", "traduction" },
+		{ "consommables", "consommable", "flacon", "fiole", "nourriture", "potion" }, { "mythique", "mythic" },
+		{ "dissiper", "dissipation", "purge", "dispel" }, { "boss", "rencontre" },
+		{ "durabilité", "réparer", "réparation", "durability" },
+		{ "furie", "héroïsme", "bloodlust", "lust", "hero", "battle", "brez", "résurrection" },
+		{ "raccourci", "raccourcis", "touche", "touches", "keybind" }, { "infobulle", "infobulles", "tooltip", "conseils", "astuces" },
+		{ "paramètres", "réglages", "réglage", "options", "configuration" }, { "mort", "morts", "décès", "mourir", "death" },
+		{ "toast", "toasts", "bannière" },
+	},
+	esES = {
+		{ "interrupción", "interrupciones", "interrumpir", "kick", "corte" }, { "flecha", "ruta", "waypoint" },
+		{ "tamaño", "escala", "zoom", "agrandar" }, { "sonido", "sonidos", "alarma", "audio" },
+		{ "alerta", "alertas", "aviso", "avisos", "avisar", "advertencia", "recordatorio", "recordatorios", "notificación" },
+		{ "fuente", "texto", "letra" }, { "idioma", "lengua", "traducción" },
+		{ "consumibles", "consumible", "frasco", "comida", "poción" }, { "mítica", "mítico", "mythic" },
+		{ "disipar", "disipación", "purga", "purgar", "dispel" }, { "jefe", "jefes", "encuentro", "boss" },
+		{ "durabilidad", "reparar", "desgastado" },
+		{ "ansia", "heroísmo", "bloodlust", "lust", "hero", "battle", "brez", "resurrección" },
+		{ "atajo", "atajos", "tecla", "teclas", "keybind" }, { "tooltip", "consejos", "consejo" },
+		{ "ajustes", "ajuste", "opciones", "configuración" }, { "muerte", "muertes", "muerto", "morir" },
+		{ "toast", "toasts", "emergente", "emergentes" },
+	},
+	ptBR = {
+		{ "interrupção", "interrupções", "interromper", "kick", "corte" }, { "seta", "rota", "waypoint" },
+		{ "tamanho", "escala", "zoom", "aumentar" }, { "som", "sons", "alarme", "áudio" },
+		{ "alerta", "alertas", "aviso", "avisos", "avisar", "lembrete", "lembretes", "notificação" },
+		{ "fonte", "texto", "letra" }, { "idioma", "língua", "tradução" },
+		{ "consumíveis", "frasco", "comida", "poção" }, { "mítica", "mítico", "mythic" },
+		{ "dissipar", "dissipação", "purga", "purgar", "dispel" }, { "chefe", "chefes", "encontro", "boss" },
+		{ "durabilidade", "reparar", "desgastado", "durability" },
+		{ "sede", "heroísmo", "bloodlust", "lust", "hero", "battle", "brez", "ressurreição" },
+		{ "atalho", "atalhos", "tecla", "teclas", "keybind" }, { "tooltip", "dicas" },
+		{ "configurações", "configuração", "opções", "ajustes" }, { "morte", "mortes", "morreu", "morrer" },
+		{ "toast", "toasts", "banner" },
+	},
+	itIT = {
+		{ "interrupt", "interrompere", "interruzione", "kick" }, { "freccia", "percorso", "waypoint" },
+		{ "dimensione", "dimensioni", "scala", "zoom", "ingrandire" }, { "suono", "suoni", "allarme", "audio" },
+		{ "avviso", "avvisi", "avvisa", "allerta", "notifica", "notifiche", "promemoria" },
+		{ "carattere", "testo", "font" }, { "lingua", "traduzione" },
+		{ "consumabili", "tonico", "fiala", "cibo", "pozione", "pozioni" }, { "mitica", "mitico", "mythic" },
+		{ "dissolvere", "dispel", "purge" }, { "boss", "scontro", "incontro" },
+		{ "durabilità", "riparare", "danneggiato", "durability" },
+		{ "brama", "eroismo", "bloodlust", "lust", "hero", "battle", "brez", "resurrezione" },
+		{ "tasti", "tasto", "keybind", "scorciatoia" }, { "tooltip", "suggerimenti", "consigli" },
+		{ "impostazioni", "impostazione", "opzioni", "configurazione" }, { "morte", "morti", "morto", "morire" },
+		{ "toast", "banner", "comparsa" },
+	},
+	ruRU = {
+		{ "прерывание", "прерывания", "прервать", "кик", "kick" }, { "стрелка", "стрелки", "маршрут", "waypoint" },
+		{ "размер", "масштаб", "больше", "меньше", "зум" }, { "звук", "звуки", "сигнал" },
+		{ "оповещение", "оповещения", "предупреждение", "предупреждения", "предупреждать", "уведомление", "напоминание", "напоминания" },
+		{ "шрифт", "текст" }, { "язык", "перевод" },
+		{ "расходуемые", "расходуемых", "расходники", "настой", "флакон", "еда", "зелье" }, { "эпохальный", "mythic" },
+		{ "развеять", "развеивание", "снятие", "dispel" }, { "босс", "боссы", "boss" },
+		{ "прочность", "ремонт", "починка", "износ" },
+		{ "жажда", "героизм", "bloodlust", "lust", "hero", "battle", "воскрешение", "воскрешения" },
+		{ "клавиша", "клавиши", "клавиш", "бинды", "горячие" }, { "подсказка", "подсказки", "советы", "совет" },
+		{ "настройки", "настройка", "параметры", "опции" }, { "смерть", "смерти", "погиб", "умер" },
+		{ "toast", "тост", "всплывающие", "баннер" },
+	},
+}
+
+local synMaps = {} -- [lang] = { [word] = { other words } }, built on first use per language
+local function SynMap(lang)
+	local m = synMaps[lang]
+	if m then
+		return m
+	end
+	m = {}
+	for _, group in ipairs(SYNONYMS[lang] or {}) do
+		local words = {}
+		for _, w in ipairs(group) do
+			local n = Normalize(w)
+			if n ~= "" and not n:find(" ", 1, true) then
+				words[#words + 1] = n
+			end
+		end
+		for _, w in ipairs(words) do
+			local others = m[w] or {}
+			for _, o in ipairs(words) do
+				if o ~= w then
+					others[#others + 1] = o
+				end
+			end
+			m[w] = others
+		end
+	end
+	synMaps[lang] = m
+	return m
+end
+
+--- The other words for one typed word: the English groups plus those of the player's MH language.
+local function SynonymsOf(term)
+	local en = SynMap("enUS")[term]
+	local lang = ns.GetEffectiveLocaleCode and ns:GetEffectiveLocaleCode() or "enUS"
+	local own = lang ~= "enUS" and SynMap(lang)[term] or nil
+	if en and own then
+		local all = {}
+		for _, w in ipairs(en) do
+			all[#all + 1] = w
+		end
+		for _, w in ipairs(own) do
+			all[#all + 1] = w
+		end
+		return all
+	end
+	return en or own
+end
+
+-- A hit through a synonym is worth a little less than the word itself, so the word you typed still wins a tie.
+local WEIGHT_SYNONYM = 0.9
+
+--- Stricter than WordFit, because the player did not type this word: the same word, or (from 4 letters) the start
+--- of one. Never inside a word and never a typo — measured by mh-writer: "taal" sits inside "totaal", "ключ" inside
+--- "переключатель", "rota" inside "derrota". Three letters or fewer ("son", "ton", "tod") only as a whole word.
+local function SynFit(alt, words)
+	local n = #alt
+	for i = 1, #words do
+		local w = words[i]
+		if w == alt then
+			return 1
+		end
+		if n >= 4 and w:sub(1, n) == alt then
+			return 0.85
+		end
+	end
+	return 0
+end
+
 -- What a hit is worth by where it lands. The name is what the player sees and means; keywords and context
 -- ("Eversong Woods", the tooltip of a setting) are there to be found by, not to win from a name.
 local WEIGHT_LABEL, WEIGHT_REST = 1, 0.6
@@ -971,6 +1152,12 @@ local function ScoreEntry(e, terms, flatQuery, typo)
 		local s = BestFit(t, labelWords, WEIGHT_LABEL, typo)
 		if s < 1 then
 			s = math.max(s, BestFit(t, restWords, WEIGHT_REST, false))
+		end
+		if s < WEIGHT_SYNONYM then
+			for _, alt in ipairs(SynonymsOf(t) or {}) do
+				local a = math.max(SynFit(alt, labelWords) * WEIGHT_LABEL, SynFit(alt, restWords) * WEIGHT_REST)
+				s = math.max(s, a * WEIGHT_SYNONYM)
+			end
 		end
 		if s <= 0 then
 			missed = missed + 1
@@ -999,8 +1186,10 @@ local function ScoreEntry(e, terms, flatQuery, typo)
 	if score < MIN_SCORE then
 		return nil
 	end
-	-- At an equal fit a destination still beats content: "rares" reaches the Rares tab, not fifteen rares.
-	return score - (e.tier or TIER_NAV) * 0.05
+	-- At an equal fit a destination still beats content: "rares" reaches the Rares tab, not fifteen rares. 0.2 a
+	-- tier, measured offline: at 0.05 "rare" put the setting "Rare sound" (exact word) above the Rares tab (start of
+	-- the word); the gap between those two is 0.15.
+	return score - (e.tier or TIER_NAV) * 0.2
 end
 
 local function FilterIndex(query)
@@ -1037,7 +1226,7 @@ local function FilterIndex(query)
 		for _, e in ipairs(pool) do
 			local score
 			if #terms == 0 then
-				score = 1 - (e.tier or TIER_NAV) * 0.05 -- "@cat" with no text: show the whole category
+				score = 1 - (e.tier or TIER_NAV) * 0.2 -- "@cat" with no text: show the whole category
 			else
 				score = ScoreEntry(e, terms, flatQuery, typo)
 			end

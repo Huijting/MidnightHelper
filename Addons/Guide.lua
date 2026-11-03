@@ -352,29 +352,28 @@ local function ApplyGuideSearchQuery(raw)
 		return
 	end
 
+	-- 3 Nov 2026 (search plan step 5, mh-research against wago 12.1.7.70668 + Warcraft Wiki): The War Within words
+	-- out. Brann -> Valeera (the 12.1 companion), Zekvir -> the Season 2 nemesis Azta'rec (Venomfall) and Nullaeus
+	-- (S1), Dornogal (TWW delve hub; Silvermoon already goes to the city guide). "undertyr" and "dreadshore" are no
+	-- game name at all; "stormstout" is a Pandaria dungeon. "m+ teleport" went to the wrong tab: without it here the
+	-- city-guide pin search below finds the "M+ Teleports" pin. Undercoin and curios are still 12.1 and stay.
 	if qHits({
 		"delve",
 		"delves",
 		"vault",
 		"great vault",
-		"undertyr",
 		"bountiful",
 		"companion",
-		"brann",
-		"zekvir",
+		"valeera",
+		"azta'rec",
+		"aztarec",
+		"venomfall",
+		"nullaeus",
 		"undercoin",
-		"undercoins",
+		"coffer",
 		"delves key",
-		"curios",
 		"curio",
 		"spore",
-		"dreadshore",
-		"stormstout",
-		"dornogal",
-		"delves &",
-		"delves and",
-		"m+ teleport",
-		"m+ teleports",
 	}) then
 		if ns.ShowMainUI and ns.SelectTab then
 			ns:ShowMainUI()
@@ -393,7 +392,7 @@ local function ApplyGuideSearchQuery(raw)
 		return
 	end
 
-	if qHits({ "rare", "rares", "zulaman", "zul'aman", "eversong", "harandar", "voidstorm" }) then
+	if qHits({ "rare", "zulaman", "zul'aman", "eversong", "harandar", "voidstorm", "coiled isle", "coiled" }) then
 		if ns.ShowMainUI and ns.SelectTab then
 			ns:ShowMainUI()
 			ns.SelectTab("rares")
@@ -402,7 +401,8 @@ local function ApplyGuideSearchQuery(raw)
 		return
 	end
 
-	if qHits({ "world boss", "luashal", "cragpine", "thormbelan", "predaxas" }) then
+	-- The game writes Lu'ashal and Thorm'belan; both spellings, since this is a plain text find.
+	if qHits({ "world boss", "luashal", "lu'ashal", "cragpine", "thormbelan", "thorm'belan", "predaxas" }) then
 		if ns.ShowMainUI and ns.SelectTab then
 			ns:ShowMainUI()
 			ns.SelectTab("delves")
@@ -420,12 +420,11 @@ local function ApplyGuideSearchQuery(raw)
 		return
 	end
 
+	-- "harandar" and "voidstorm" stood here too, but the rares list above always caught them first.
 	if qHits({
 		"smc",
 		"silvermoon",
 		"city guide",
-		"harandar",
-		"voidstorm",
 		"bazaar",
 	}) then
 		if ns.ShowMainUI and ns.SelectTab then
