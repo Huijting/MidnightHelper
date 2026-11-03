@@ -8379,3 +8379,137 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
     Rechtgezet met `git checkout -B main 7c55081`, wat niets aan de inhoud verandert.
     `git status --short` was **leeg**, en geen van de vier wachter-bestanden stond gewijzigd-maar-
     ongecommit. Geen enkel ander bestand geraakt.
+- [2026-11-03] ✅ **Nul [MOET GEFIKST]. Vierde stille dag op rij en de bronnen staan nóg steeds stil:
+  live onbewogen (VIERDE dag op `70688`), PTR onbewogen (VIJFDE dag op `70668`), takkenlijst op 13
+  heads, de wiki ACHTTIENDE dag op zijn 16 okt-revisie, geen nieuwe hotfix-batch (nog steeds 30 okt)
+  en geen SimC-release (TWAALFDE dag). Nieuw op het forum zijn twee topics, waarvan één van vannacht,
+  en beide zijn spelersverzoeken over nameplates — geen API-wijziging. Het enige addon-facing
+  nieuwsitem van de hele week komt uit de **WoW: Forever**-ontwikkelnotities van 2 nov, en dat is een
+  andere client dan die MH ondersteunt. Niets wat Rob vandaag hoeft te lezen.**
+  - 🔇 **[RAAKT ONS NIET] — live onbewogen, VIERDE dag op `70688`.** GEMETEN
+    `git ls-remote --heads https://github.com/Gethe/wow-ui-source`: `live` =
+    **`d07eb00237d8891f153215db98a5df880a26cfe5`**, byte-voor-byte de SHA uit mijn regels van 31 okt,
+    1 en 2 nov. Geen nieuwe live-build, dus ook vandaag is er **geen enkele** 12.1.7-API-signature naar
+    live verhuisd. 🔎 Onafhankelijk bevestigd via de commitlijst zelf
+    (`github.com/Gethe/wow-ui-source/commits/live?nocache=20261103`, Exa): bovenste commit **31 okt
+    2026**, bericht **`12.1.5 (70688)`**, daaronder 23 okt `70575`. Twee bronnen, zelfde uitkomst.
+  - 🔇 **[RAAKT ONS NIET] — PTR onbewogen, VIJFDE dag op `70668`.** Zelfde `ls-remote`: `ptr` =
+    **`9fc0ba94381153262856ed0120a2675f1a11c30a`**, ongewijzigd sinds 29 okt. De commitlijst
+    (`/commits/ptr?nocache=20261103`) geeft dezelfde top: **29 okt 2026**, `12.1.7 (70668)`, daarvoor
+    28 okt `70493`. Er is dus geen nieuwe PTR-build bijgekomen en de API-wijzigingen die ik op 30 okt
+    in `70668` gemeten heb (de altijd-secret `C_LossOfControl`, de `SecretArguments`-flip op
+    `C_GameRules`) blijven de laatste stand. Takkenlijst nog steeds **13** heads, `beta` nog op
+    `078d0cf7…` en `classic_era` op `4192ac60…`.
+  - 📄 **[RAAKT ONS NIET] — de wiki-pagina van 12.1.7 staat ACHTTIENDE dag op dezelfde twee punten.**
+    GEMETEN via Exa mét cache-buster (`warcraft.wiki.gg/wiki/Patch_12.1.7/API_changes?nocache=20261103`):
+    de Summary bevat nog exact (1) de GUID-obfuscatie van cast/creature/vehicle/pet/gameobject-GUID's
+    (*"will be available for testing in a future build of 12.1.7"*) en (2) *"TOC directives no longer
+    expand variables such as [Game] or [Family]"*. Beide staan al als open punt in dit logboek; geen
+    derde punt bijgekomen, `TOC: 120107` onveranderd. ⚠️ De subpagina met de blue posts
+    (`/API_changes/notes`) gaf bij Exa **`CRAWL_NOT_FOUND`** — niet gemeten, dus niet geteld.
+  - 🗓️ **[RAAKT ONS NIET] — en de 12.1.5-pagina laat zien hoe lang Blizzard al niets addon-facing
+    gezegd heeft.** GEMETEN op `Patch_12.1.5/API_changes?nocache=20261103`: de blue-post-secties zijn
+    gedateerd **2026-09-03, 09-16, 09-22 en 09-29** en er is er géén van oktober of november bij. De
+    nieuwste addon-facing patch note van Blizzard is dus **vijf weken oud**, en dat verklaart waarom
+    de live-build `70688` van 31 okt geen bijbehorende API-notes heeft.
+  - 🎮 **[RAAKT ONS NIET] — het enige addon-facing nieuwsitem van de week: "WoW: Forever Development
+    Notes - November 2".** GEMETEN op `mmo-champion.com/content/?nocache=20261103`, gepubliceerd
+    **2026-11-03 03:24**, met als relevante regel (zoals eerder vandaag via WebSearch gevonden en in
+    de notities zelf teruggelezen) verbeterde **Gamepad UI**-compatibiliteit met door spelers gemaakte
+    addons, om conflicten te verminderen. 🔴 Dit gaat over **WoW: Forever** — live op 4 nov — en niet
+    over Retail/Midnight, waar MH's `.toc` op staat (`120007/120100/120105/120107`). GEMETEN grep over
+    de addon: `GamePad` → **0** bestanden, `C_GamePad` → **0**, `SetGamePadCursorControl` → **0**. MH
+    raakt gamepad-API nergens aan, in geen enkele client.
+  - 🧵 **[RAAKT ONS NIET] — twee nieuwe forumtopics in UI and Macro, beide over nameplates, beide
+    spelersverzoeken.** GEMETEN op de forumlijst mét cache-buster, afgezet tegen mijn regels van
+    gisteren (de cvar-vraag, Housing Decor en de extra-action-button-reactie staan daar al):
+    (1) nieuw topic **`2399233`** *"[UI Request] Nameplate Anchors for Non-Attackable Opposite-Faction
+    Players"* (**2026-11-03T00:45:10Z**, 1 post, auteur Debugga-2059464) — een verzoek *aan Blizzard*
+    om ook voor niet-aanvalbare spelers van de andere factie nameplate-anchors te genereren, *"even an
+    optional CVar would be great"*. Geen melding van een wijziging, geen blue reactie. MH's
+    nameplate-gebruik gaat over rare NPC's, niet over spelers, en zit achter een guard:
+    `Modules/Rares.lua:919` en `:929` (`not (C_NamePlate and C_NamePlate.GetNamePlateForUnit)` →
+    `return`) en `:940` (idem voor `GetNamePlates`). Zou Blizzard dit ooit inbouwen, dan verandert er
+    voor MH niets.
+    (2) nieuw topic *"PLATYNATOR - How do you increase the nameplate spacing?"* (forumlijst: **2 nov
+    2026**, 0 reacties). ⚠️ Topic-ID en exacte tijdstempel **niet gemeten** — de zoekopdracht gaf de
+    pagina niet terug, en ik vul geen ID in dat ik niet gezien heb. Uit de titel is het een
+    configuratievraag over een andere addon; geen API.
+    📌 Geen enkele blue post in de hele lijst, en de sticky *"UI Add-On Development Policy"* staat nog
+    op zijn activiteit van 27 okt (15 reacties), die ik toen al nagelopen heb.
+  - 🧩 **[AL AFGEDEKT] — het bijgewerkte topic over de Extra Action Button raakt code die wij
+    volledig defensief aanroepen.** `"Can't get extra action button to appear"` (topic `2338760` van
+    19 aug, laatste reactie 1 nov) is GEMETEN een gebruikersprobleem met Bartender/EllesmereUI en het
+    advies *"reset all your CVars to default"* — geen API-wijziging. MH noemt `ExtraActionBarFrame`
+    precies één keer, in een diagnose-dump: `Modules/BarInventory.lua:425` leest het via `_G[name]`,
+    slaat het over als het frame niet bestaat (`else out.ui[name] = "absent"`) en zet `IsShown`/
+    `IsVisible` in een `pcall`. Verdwijnt of hernoemt dat frame, dan schrijft de dump "absent" en
+    breekt er niets.
+  - 🖼️ **[RAAKT ONS NIET] — het model-API-topic is een vraag over een bestaande limiet, geen
+    wijziging.** `"Addon API: Rendering Cached Offline Player Models"` (topic `2342284` van 28 aug,
+    reactie van 31 okt, gisteren al genoemd) vraagt of er een ondersteunde weg is om een **uitgelogde**
+    speler volledig getextureerd te renderen. MH gebruikt modelframes alleen voor NPC's, bazen, mounts
+    en items: `Modules/ModelPreview.lua:124` (`CreateFrame("DressUpModel", …)`) en tien bestanden met
+    `PlayerModel`, waaronder `Modules/DelveCoach.lua:1278` — en díé zit zelfs in een
+    `pcall(CreateFrame, "PlayerModel", …)`. Niets daarvan reconstrueert een offline speler.
+  - 📰 **[RAAKT ONS NIET] — geen nieuwe hotfix-batch; de laatste is nog die van 30 okt.** GEMETEN op
+    de MMO-Champion-voorpagina mét cache-buster: het nieuwste WoW-item is de Forever-notitie van
+    hierboven, en de hotfixpagina van **30 okt** (gepubliceerd 2026-10-31 02:23) bevat drie secties —
+    Housing, Items en Labyrinth — met als enige UI-regels *"a bonus objective … stuck on the UI"* en
+    *"Tether icons to flicker erratically"*. Dat is scenario-UI, geen addon-API, en het valt
+    bovendien onder de contentwachter. Al gemeld op 31 okt; staat hier alleen om te laten zien dat er
+    niets ná is gekomen.
+  - 🧰 **[RAAKT ONS NIET] — SimC-addon: geen nieuwe release sinds `12.1.5-03`, TWAALFDE dag.** GEMETEN
+    met `git ls-remote --tags https://github.com/simulationcraft/simc-addon`: **290** regels (zelfde
+    aantal als de vijf dagen ervoor), nieuwste 12.x-tag blijft **`12.1.5-03`** =
+    **`cb3e3af298e3124162c6bf44d1bebac53435eaec`**, en `HEAD` én `refs/heads/master` staan op diezelfde
+    SHA — dus ook geen ongereleasete commits op master. `Modules/SimcExport.lua` volgt in zijn
+    kopcommentaar nog `12.1.0-04` plus de race-takken uit `12.1.0-alpha-06`: nog steeds een
+    documentatie-achterstand van twee releases, geen code-achterstand (zie 27 okt). 📌 `ls-remote` vraagt
+    de server elke keer opnieuw, dus cache-twijfel is op deze regel niet van toepassing.
+  - 📉 **[RAAKT ONS NIET] — de externe API-diff-site is nog niet op 12.1.7.** GEMETEN op
+    `danderbot.github.io/wow-api-changes/?nocache=20261103`: de pagina-index bevat alleen **"12.1.0
+    (PTR) — vs 12.0.7"** en geen 12.1.5- of 12.1.7-pagina. Als hulpbron dus nog niet bruikbaar voor
+    deze patch; mijn eigen metingen in de `wow-ui-source`-diffs blijven de bron. 📌 De site zegt zelf
+    wat ze niet kan zien: *"Engine/runtime behaviour changes (taint rules, secret-value handling,
+    `error → nil`) are not visible to a source diff"* — precies het soort wijziging dat MH het hardst
+    raakt.
+  - 🔌 **MEETGAT, tiende dag identiek: de WoW-bronnen blijven geweigerd op Bash-`curl`.** GEMETEN met
+    `curl -s -o /dev/null -w "%{http_code}" --max-time 12`: `warcraft.wiki.gg`,
+    `us.forums.blizzard.com`, `news.blizzard.com` en `www.wowhead.com` geven alle vier **`000`**. 🔴 Niet
+    omzeild: élke wiki-, forum- en hotfixmeting hierboven loopt via Exa `web_fetch_exa` mét
+    cache-buster of via WebSearch. Twee Exa-ophalingen faalden vandaag hard en zijn dus **niet** als
+    "niets gevonden" geteld: `news.blizzard.com/en-us/wow` → `CRAWL_HTTP_500` en de wiki-subpagina
+    `/API_changes/notes` → `CRAWL_NOT_FOUND`. `www.wowhead.com/blue-tracker` gaf HTTP 200 maar een
+    **lege** body — ook dat is een meetgat en geen stilte. Wat wél schoon werkt op Bash is
+    **`git ls-remote`** naar github.com; daarmee zijn vandaag de build-SHA's, de takkenlijst en de
+    SimC-tags gemeten.
+  - 🧪 **Positieve controle van de grep-reikwijdte, in dezelfde run en in dezelfde vorm als de nullen
+    hierboven** (`grep -rIl`, `.git`/`docs`/`tools`/`dist` uitgesloten, geteld in bestanden):
+    `CreateFrame` → **160**, `issecretvalue` → **66**, `C_Spell` → **56**, `InCombatLockdown` → **51**,
+    `UnitGUID` → **37**, `GetInstanceInfo` → **35**, `C_DelvesUI` → **14**, `C_WeeklyRewards` → **12**,
+    `PlayerModel` → **10**, `hooksecurefunc` → **8**, `C_Secrets` → **5**, `GetCVar` → **4**,
+    `SetUnit` → **4**, `C_CVar` → **3**, `MenuUtil` → **3**, `SetCVar` → **2**, `CooldownViewer` → **1**,
+    `ExtraActionBarFrame` → **1**, `DressUpModel` → **1**, `C_NamePlate` → **1**, tegenover de nullen
+    van vandaag: `GamePad`, `C_GamePad`, `SetGamePadCursorControl`, `ClearAttributes`,
+    `ResetInputMode`, `AbortDrag`, `GetArenaOpponentSpec`, `[Game]` en `[Family]` — alle negen **0**.
+    📌 De twaalf getallen die ik gisteren ook gemeten heb, zijn vandaag exact gelijk; het patroon vindt
+    wat er is, dus de negen nullen zijn afwezigheid en geen meetfout. (De laatste vier nullen zijn de
+    widget-methodes en de secret-value-API die in de 12.1.5/12.1.7-wijzigingen genoemd worden:
+    `Frame_ClearAttributes`, `EditBox_ResetInputMode`, `Frame_AbortDrag` en `GetArenaOpponentSpec`.)
+  - ⏳ **Nog open uit eerdere runs, NIET nieuw en vandaag niet opnieuw gemeten:** de UTF-8 BOM vooraan
+    `MidnightHelper.toc`; de `%d+`-aanname op veld 3 van de npcID-match (`Modules/ResetRoutine.lua:648`)
+    tegenover de GUID-obfuscatie; de `GetInstanceInfo`-return-orde tegenover `Modules/Showdowns.lua:226`;
+    de TOC-directives van 12.1.7; de dode `PickupItem`-takken in `Modules/KeyBlock.lua:1135`/`:1227`/
+    `:1380` en `Modules/ApplyLayout.lua:1311`/`:1345`/`:1605`; de vijf decoratieve
+    `GetItemInfo`-terugvaltakken; `Blizzard_DeprecatedWorldElapsedTimerTypes` als tiende
+    deprecated-addon tegenover negen wiki-secties; de verouderde namespace-lijst in
+    `docs/WATCHER_API_PROMPT.md` (18 aug); en de client-test voor `/mh raidbots`. 🔴 Niets van dit alles
+    aangeraakt.
+  - 🔧 **Repo-staat: alleen `docs/API_WATCH.md` aangeraakt, en de scheve ref was er vandaag WÉL.**
+    GEMETEN vóór het schrijven: `git rev-parse --abbrev-ref HEAD` → **`HEAD`**, dus detached (zoals op
+    17, 19, 22, 25, 26, 29, 30 okt en 1, 2 nov; aangehecht op 27, 28 en 31 okt), met `HEAD` =
+    **`35fbfd8d98b5208449c705714db9843b7da5def9`** = **exact** `origin/main` na `git fetch origin main`.
+    Rechtgezet met `git checkout -B main 35fbfd8`, wat niets aan de inhoud verandert.
+    `git status --short` was **leeg**, en geen van de vier wachter-bestanden stond gewijzigd-maar-
+    ongecommit. Geen enkel ander bestand geraakt.
