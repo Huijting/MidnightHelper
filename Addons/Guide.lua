@@ -342,7 +342,8 @@ local function ApplyGuideSearchQuery(raw)
 		"group role",
 		"dungeon anxiety",
 		"raid anxiety",
-		"mentor",
+		-- "mentor" stood here until 3 Nov 2026: a player typing it means the game's Warband Mentor XP bonus
+		-- (enUS LEVELING texts), not the Role Academy (mh-research, search plan step 5).
 	}) then
 		if ns.ShowMainUI and ns.SelectTab then
 			ns:ShowMainUI()
@@ -350,6 +351,17 @@ local function ApplyGuideSearchQuery(raw)
 		end
 		GuideChatMsg("SEARCH_CHAT_TAB_ACADEMY")
 		return
+	end
+
+	-- 3 Nov 2026 (Rob: "los die kleine dingen ook maar even op"): "spore" below sends a query to Delves (Valeera's
+	-- Phantasmal Spore Toxin, the boss Gyrospore), which also caught the raid Sporefall. Its own boss window
+	-- (SporefallCoach.lua, entry raid_sporefall) is where the live list already sends "Rotmire"; Enter goes there too.
+	if qHits({ "sporefall", "rotmire" }) then
+		local entry = ns.CUSTOM_BOSS_ENTRIES and ns.CUSTOM_BOSS_ENTRIES.raid_sporefall
+		if entry and ns.ShowBossWindowForEntry then
+			ns.ShowBossWindowForEntry(entry, "rotmire")
+			return
+		end
 	end
 
 	-- 3 Nov 2026 (search plan step 5, mh-research against wago 12.1.7.70668 + Warcraft Wiki): The War Within words

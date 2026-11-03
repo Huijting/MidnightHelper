@@ -14,8 +14,10 @@ testlijst "3 nov (2)": alert/hotkey, aztarec/coiled/brann, Great Vault grijs, in
   bij "rare" (offline GEMETEN). Bekend: "taal" vindt ook "Totaal" via de binnen-woord-regel van stap 2.
 - **Stap 5** (`Addons/Guide.lua`, mh-research tegen wago 12.1.7.70668 + Warcraft Wiki): weg brann/zekvir/dornogal/
   undertyr/dreadshore/stormstout/m+ teleport; erbij valeera, azta'rec/aztarec, venomfall, nullaeus, coffer, coiled (isle),
-  lu'ashal, thorm'belan; dode harandar/voidstorm uit de SMC-lijst. Open (mh-research): "spore" vangt ook raid Sporefall;
-  "mentor" botst met Warband Mentor; ruRU `SET_REZLUST_*` zegt nog "battle res и Hero" terwijl `REZLUST_TITLE` vertaald is.
+  lu'ashal, thorm'belan; dode harandar/voidstorm uit de SMC-lijst. ✅ Daarna (Rob: "los die kleine dingen ook maar even
+  op"): "sporefall"/"rotmire" + Enter → Rotmire's baas-venster (vóór de "spore"-regel); "mentor" uit de Academy-lijst
+  (Warband Mentor); ruRU `SET_REZLUST_*` (3 teksten) nu "Боевое воскрешение и Героизм", gelijk aan het paneel zelf.
+  Niet in het spel getest.
 - **Stap 6** (`SettingsDefs.lua` `PARENT` + `SettingsPage.lua`): 16 instellingen onder 9 hoofdschakelaars, elk paar
   GEMETEN in de module (regels in de opmerking). All settings: ingesprongen, grijs (alpha 0,45) als de ouder uit staat,
   tooltip `SET_DEP_OFF_FMT`. Ctrl+klik (rij, waarde, −/+) = terug naar `rec`; tooltip `SET_CTRL_RESET_FMT` alleen als er
