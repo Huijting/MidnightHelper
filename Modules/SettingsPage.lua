@@ -641,6 +641,9 @@ local function MakeAllRow(parent)
 		GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
 		GameTooltip:SetText(ns:L("SET_PREVIEW_TITLE"), 1, 0.9, 0.6)
 		GameTooltip:AddLine(ns:L(d and d.autoPreview and "SET_PREVIEW_TT_AUTO" or "SET_PREVIEW_TT"), 0.9, 0.9, 0.9, true)
+		if d and d.previewCycle then
+			GameTooltip:AddLine(ns:L("SET_PREVIEW_TT_CYCLE"), 0.55, 0.78, 1, true)
+		end
 		GameTooltip:Show()
 	end)
 	show:SetScript("OnLeave", AllHideTip)
@@ -745,6 +748,8 @@ LayoutAllSettingsPage = function()
 	page._title:SetTextColor(c.header[1], c.header[2], c.header[3])
 	page._intro:SetText(ns:L("SET_ALL_INTRO"))
 	page._intro:SetTextColor(c.muted[1], c.muted[2], c.muted[3])
+	page._footer:SetText(ns:L("SET_ALL_FOOTER"))
+	page._footer:SetTextColor(c.muted[1], c.muted[2], c.muted[3])
 	page._blizz._text:SetText(ns:L("SET_ALL_BLIZZARD"))
 	page._blizz._text:SetTextColor(c.accent[1], c.accent[2], c.accent[3])
 	page._blizz:SetWidth((page._blizz._text:GetStringWidth() or 80) + 8)
@@ -760,6 +765,15 @@ LayoutAllSettingsPage = function()
 		header:SetPoint("TOPLEFT", page._body, "TOPLEFT", 0, -y)
 		header:SetText(ns:L(section.header))
 		header:SetTextColor(c.header[1], c.header[2], c.header[3])
+		local recBtn = page._recBtns and page._recBtns[si]
+		if recBtn then
+			recBtn._text:SetText(ns:L("SET_SEC_REC_BTN"))
+			recBtn._text:SetTextColor(c.accent[1], c.accent[2], c.accent[3])
+			recBtn:SetWidth((recBtn._text:GetStringWidth() or 80) + 4)
+			recBtn:ClearAllPoints()
+			recBtn:SetPoint("LEFT", header, "RIGHT", 14, 0)
+			recBtn:Show()
+		end
 		y = y + 22
 		for _, row in ipairs(section.rows) do
 			row:ClearAllPoints()
@@ -824,16 +838,23 @@ local function BuildAllSettingsPage(settingsPanel)
 	intro:SetPoint("RIGHT", page, "RIGHT", -20, 0)
 	page._intro = intro
 
+	-- 3 Nov 2026 (preview plan, loose item): one line under the list with the page's tricks, like the help line under
+	-- MF Nameplates' preview. Ctrl+click used to be only in each tooltip.
+	local footer = MakeFS(page, "GameFontDisableSmall")
+	footer:SetPoint("BOTTOMLEFT", page, "BOTTOMLEFT", 14, 10)
+	footer:SetPoint("RIGHT", page, "RIGHT", -20, 0)
+	page._footer = footer
+
 	local scroll = CreateFrame("ScrollFrame", nil, page, "UIPanelScrollFrameTemplate")
 	scroll:SetPoint("TOPLEFT", intro, "BOTTOMLEFT", 0, -14)
-	scroll:SetPoint("BOTTOMRIGHT", page, "BOTTOMRIGHT", -30, 10)
+	scroll:SetPoint("BOTTOMRIGHT", page, "BOTTOMRIGHT", -30, 30)
 	scroll.scrollBarHideable = true
 	local body = CreateFrame("Frame", nil, scroll)
 	body:SetSize(1, 1)
 	scroll:SetScrollChild(body)
 	page._scroll, page._body = scroll, body
 
-	page._sections, page._headers = {}, {}
+	page._sections, page._headers, page._recBtns = {}, {}, {}
 	for si, section in ipairs(ns.GetSettingsDefs()) do
 		page._headers[si] = body:CreateFontString(nil, "OVERLAY", "GameFontNormal")
 		local rows = {}
@@ -843,6 +864,33 @@ local function BuildAllSettingsPage(settingsPanel)
 			rows[#rows + 1] = row
 		end
 		page._sections[si] = { header = section.header, rows = rows }
+		-- 3 Nov 2026 (loose item, MF's "Reset part"): the whole block back to Recommended, after a yes. Only drawn
+		-- where at least one setting in the block has a Recommended value.
+		local count = 0
+		for _, d in ipairs(section.items) do
+			if d.rec ~= nil then
+				count = count + 1
+			end
+		end
+		if count > 0 then
+			local btn = CreateFrame("Button", nil, body)
+			btn:SetHeight(16)
+			local t = btn:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+			t:SetPoint("LEFT", btn, "LEFT", 0, 0)
+			btn._text = t
+			btn:SetScript("OnClick", function()
+				ns.AskSectionToRecommended(si)
+			end)
+			btn:SetScript("OnEnter", function(self)
+				local h = ScreenColors().header
+				self._text:SetTextColor(h[1], h[2], h[3])
+			end)
+			btn:SetScript("OnLeave", function(self)
+				local a = ScreenColors().accent
+				self._text:SetTextColor(a[1], a[2], a[3])
+			end)
+			page._recBtns[si] = btn
+		end
 	end
 
 	allPage = page
@@ -860,6 +908,52 @@ function ns.RefreshAllSettingsPanel()
 	if LayoutAllSettingsPage then
 		LayoutAllSettingsPage()
 	end
+end
+
+--- One block of All settings back to its Recommended values, after a yes (it can change several switches at once).
+--- Writes each setting through its own setter like a click would, but without the "show it when switched on"
+--- previews: five of them at once would only be noise.
+local function SectionToRecommended(si)
+	local section = allPage and allPage._sections and allPage._sections[si]
+	if not section then
+		return
+	end
+	for _, row in ipairs(section.rows) do
+		local d = row._def
+		if d and d.rec ~= nil then
+			pcall(d.set, d.rec)
+			if ns.SyncNativeSetting then
+				ns.SyncNativeSetting(d.var, d.rec)
+			end
+		end
+	end
+	LayoutAllSettingsPage()
+end
+
+function ns.AskSectionToRecommended(si)
+	local section = allPage and allPage._sections and allPage._sections[si]
+	if not (section and StaticPopupDialogs and StaticPopup_Show) then
+		return
+	end
+	local count = 0
+	for _, row in ipairs(section.rows) do
+		if row._def and row._def.rec ~= nil then
+			count = count + 1
+		end
+	end
+	StaticPopupDialogs["MH_SET_SECTION_REC"] = {
+		text = ns:L("SET_SEC_REC_CONFIRM_FMT"):format(ns:L(section.header), count),
+		button1 = YES,
+		button2 = NO,
+		OnAccept = function()
+			SectionToRecommended(si)
+		end,
+		timeout = 0,
+		whileDead = true,
+		hideOnEscape = true,
+		preferredIndex = 3,
+	}
+	StaticPopup_Show("MH_SET_SECTION_REC")
 end
 
 --- A soft pulse over one row, so the eye finds it after a jump. Built once per row, on first use.

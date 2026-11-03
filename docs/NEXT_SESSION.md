@@ -1,5 +1,18 @@
 # Midnight Helper — waar we staan
 
+## 🔨 3 nov (later) — voorbeeld stap 3 + de twee losse dingen (Rob: "Gaan we verder met stap 3 en de twee losse dingen"), NIET getest
+
+- **Stap 3, smal gehouden:** alleen toestanden die van MH zelf zijn, geen nagebootste client-toestand (CLAUDE.md-regel).
+  `ns.TestRunScorecard(kind)` = record/slower/first/equal; de preview van de delve-melding klikt die vier rond. Rare-preview
+  wisselt tussen "in de buurt" (zone-standaard) en "aangekomen" (Szarith, met `RARE_SZARITH_HINT`). Tooltip-regel
+  `SET_PREVIEW_TT_CYCLE`. De cast-waarschuwing kreeg niets extra: zijn preview toont al balken als die aan staan.
+- **Voetregel** onder All settings (`SET_ALL_FOOTER`); scroll-onderkant 10 → 30.
+- **"Back to recommended"** per blok met minstens één `rec` (`SET_SEC_REC_BTN`), vraagt eerst (`StaticPopup
+  MH_SET_SECTION_REC`, `SET_SEC_REC_CONFIRM_FMT`), zet via de setters terug zonder de vanzelf-previews.
+- 4 nieuwe keys, 8 packs, locale_probe OK. Syntax OK, lint 0 HARD. Testlijst "3 nov (4)".
+- Rob (Labyrinth-kamer *Malicious Masks*): geen vijanden tot hij de maskers activeerde; onze tekst ("kill what attacks
+  around each") klopt ongeveer. Rob: *"we hoeven er verder niks mee"*.
+
 ## 🔨 3 nov — live voorbeeld bij de instellingen, stap 1+2 gebouwd (Rob: "Stap 1 en 2")
 
 ✅ **Rob testte 5 punten in het spel, alle goed:** vergrootglazen staan goed, pijl 3 s, cast-icoon aan/uit, melding na een

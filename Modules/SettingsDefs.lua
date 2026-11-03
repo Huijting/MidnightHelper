@@ -734,9 +734,21 @@ local function Build()
 	local function cast() if ns.TestCombatSafety then ns.TestCombatSafety() end end
 	local function promptSound() if ns.PreviewActionPromptSound then ns.PreviewActionPromptSound() end end
 	local function bigAlert() if ns.ShowAccessibleAlertTest then ns.ShowAccessibleAlertTest() end end
-	local function rare() if ns.TestRareAlert then ns.TestRareAlert() end end
+	-- Step 3 (3 Nov 2026, Rob: "verder met stap 3"): two previews step through their own situations, one per click.
+	-- Only where the situations are MH's own (a delve result, our rare card), never a faked client state (CLAUDE.md:
+	-- "verzin geen toestand die de client zelf maakt"). Rare: nearby (zone default) / arrived, with a hint (Szarith,
+	-- whose card carries RARE_SZARITH_HINT). Delve notice: record / slower / first time / equal (RunScorecard.lua).
+	local rareStep, cardStep = 0, 0
+	local function rare()
+		rareStep = rareStep % 2 + 1
+		if ns.TestRareAlert then ns.TestRareAlert(rareStep == 2 and "szarith" or nil) end
+	end
 	local function shard() if ns.TestShardCapAlert then ns.TestShardCapAlert() end end
-	local function scorecard() if ns.TestRunScorecard then ns.TestRunScorecard() end end
+	local CARD_KINDS = { "record", "slower", "first", "equal" }
+	local function scorecard()
+		cardStep = cardStep % #CARD_KINDS + 1
+		if ns.TestRunScorecard then ns.TestRunScorecard(CARD_KINDS[cardStep]) end
+	end
 	local function durability() if ns.DurabilityCommand then ns.DurabilityCommand("test") end end
 	local function rezLust() if ns.RezLustCommand then ns.RezLustCommand("test") end end
 	local PREVIEW = {
@@ -756,6 +768,7 @@ local function Build()
 			local p = PREVIEW[d.var]
 			if p then
 				d.preview, d.autoPreview = p[1], p.auto or nil
+				d.previewCycle = (p[1] == rare or p[1] == scorecard) or nil
 			end
 		end
 	end

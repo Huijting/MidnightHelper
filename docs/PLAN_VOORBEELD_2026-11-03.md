@@ -5,7 +5,8 @@ rechts de instellingen van het aangeklikte stuk, onderaan knoppen als *Target / 
 nadoen): *"Yeah, maak maar een plan"*. 🔴 MF heeft geen open licentie: alleen ideeën, eigen code.
 
 **Stand:** stap 1 en 2 gebouwd op 3 nov (Rob: *"Stap 1 en 2"*), niet in het spel getest (testlijst "3 nov (3)").
-De koppeling is nagelopen in de code: 17 instellingen, 9 tests. Stap 3 en de losse dingen wachten.
+De koppeling is nagelopen in de code: 17 instellingen, 9 tests. Rob testte stap 1-2 in het spel (goed). Stap 3 (smal:
+delve-melding + rare-melding klikken door hun eigen situaties) en de twee losse dingen gebouwd later op 3 nov, niet getest.
 
 ## Waarom niet gewoon MF's opbouw
 

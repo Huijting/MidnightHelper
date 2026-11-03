@@ -182,9 +182,12 @@ end
 
 -- /mh scorecard test — fire a sample scorecard so you can see the format (and the
 -- detail line) without finishing a real delve. Sample: run 3, this one faster than
--- the prior average but not a record.
-function ns.TestRunScorecard()
-	handleRun({
+-- the prior average.
+-- `kind` (3 Nov 2026, preview plan step 3): which line the on-screen notice shows — "record" (default, 4:12 against
+-- 4:30), "slower" (against 3:54), "first" (first run on this Tier) or "equal". These are MH's own outcomes, so a sample
+-- of each is honest; it goes through handleRun like a real run and saves nothing.
+function ns.TestRunScorecard(kind)
+	local sample = {
 		name = "Test Delve",
 		tier = 5,
 		duration = 252, -- 4m 12s
@@ -192,9 +195,18 @@ function ns.TestRunScorecard()
 		runs = 3,
 		fastestTime = 234, -- 3m 54s
 		totalDuration = 800, -- prior avg = (800-252)/2 = 274s -> "faster than average"
-		-- Per tier: a new record against 4:30, so the on-screen notice (design D) shows too, through the same door.
 		tierCounts = true,
-		tierPrevBest = 270,
-		tierRecord = true,
-	})
+	}
+	if kind == "slower" then
+		sample.tierPrevBest = 234
+	elseif kind == "first" then
+		sample.tierFirst = true
+	elseif kind == "equal" then
+		sample.tierPrevBest = 252
+	else
+		-- A new record against 4:30, so the on-screen notice (design D) shows too, through the same door.
+		sample.tierPrevBest = 270
+		sample.tierRecord = true
+	end
+	handleRun(sample)
 end
