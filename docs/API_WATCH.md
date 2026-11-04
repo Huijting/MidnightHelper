@@ -8513,3 +8513,177 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
     Rechtgezet met `git checkout -B main 35fbfd8`, wat niets aan de inhoud verandert.
     `git status --short` was **leeg**, en geen van de vier wachter-bestanden stond gewijzigd-maar-
     ongecommit. Geen enkel ander bestand geraakt.
+- [2026-11-04] 🆕 **Nul [MOET GEFIKST] — maar de eerste echte API-BEWEGING sinds 30 okt: er is een
+  NIEUWE LIVE-BUILD, `12.1.5.70783`, en die bevat VIER wijzigingen aan de gegenereerde API-documentatie,
+  waarvan één een secret value is. GEMETEN in de source-diff zelf, want Blizzard heeft er nergens iets
+  over geschreven: de wiki-pagina van 12.1.5 staat nog op zijn blue post van 29 sep en die van 12.1.7
+  staat NEGENTIENDE dag stil. Alle vier blijken afgedekt of niet-gebruikt; `UNIT_COMBAT` komt in MH
+  nergens voor, en de secret-guard die dezelfde richting al opvangt staat er al sinds de bouw van
+  `Modules/Retrospective.lua`. Niets wat Rob vandaag hoeft te repareren — wel het eerste item sinds
+  twee weken dat het lezen waard is.**
+  - 🆕 **NIEUWE LIVE-BUILD `12.1.5.70783`, na vier dagen stilstand op `70688`.** GEMETEN met twee
+    onafhankelijke bronnen: (1) `git ls-remote --heads https://github.com/Gethe/wow-ui-source` →
+    `live` = **`297d7aaaa736f346b3e036f38ee088eaf7f8c07f`**, waar hij op 31 okt, 1, 2 en 3 nov nog
+    `d07eb00237d8891f153215db98a5df880a26cfe5` was; (2) de commitlijst
+    (`github.com/Gethe/wow-ui-source/commits/live?nocache=20261104`, Exa) → bovenste commit **4 nov
+    2026**, bericht **`12.1.5 (70783)`**, daaronder 31 okt `70688` en 23 okt `70575`. Daarna een
+    **`--depth 2` partial clone** van de live-tak gedaan, zodat de diff zelf gemeten is en niet
+    nagelezen in een samenvatting: `version.txt` gaat van `12.1.5.70688` naar `12.1.5.70783` en de
+    build raakt **9 bestanden** — 4 × `Blizzard_APIDocumentationGenerated`, 4 × Blizzard-UI-Lua en
+    `version.txt`. 🔴 **Er is GEEN bijbehorende blue post en GEEN wikiregel.** De vier wijzigingen
+    hieronder komen dus uit de gegenereerde documentatie in de client-source, niet uit een
+    patch-note; wie op de wiki wacht, ziet ze voorlopig niet.
+  - 🔐 **[AL AFGEDEKT] — `UNIT_COMBAT`'s `amount` is nu een SECRET VALUE, en live loopt hierin VÓÓR op
+    PTR.** GEMETEN in `UnitDocumentation.lua`, payload-veld 4 van `UnitCombat` /
+    `LiteralName = "UNIT_COMBAT"`: `{ Name = "amount", Type = "number", Nilable = false }` wordt
+    `{ Name = "amount", Type = "number", Nilable = false, SecretValue = true }`. De overige vier
+    payload-velden (`unitTarget`, `event`, `flagText`, `schoolMask`) zijn ongewijzigd.
+    📌 **CORRECTIE OP DE RICHTING DIE IK ZELF VERWACHTTE:** dit staat **wél** in live `70783` en
+    **nog niet** in PTR `70668` — GEMETEN met `git show refs/remotes/o/ptr:…/UnitDocumentation.lua`,
+    waar het veld nog kaal `Nilable = false` is. Een wijziging die eerst op live landt en pas later
+    (of nooit) op de PTR-tak, is het omgekeerde van hoe ik deze tak tot nu toe gelezen heb.
+    **MH: `UNIT_COMBAT` → 0 bestanden** (`grep -rIl`, `.git`/`docs`/`tools`/`dist` uit) — MH
+    registreert dit event nergens, dus de wijziging zelf raakt ons niet.
+    ⚠️ **Maar de richting raakt ons wél, en daar staat de guard al.** MH leest schade-getallen op
+    één plek: `Modules/Retrospective.lua:242` (`local t = { CombatLogGetCurrentEventInfo() }`), en op
+    `:276` staat `if isSecret(amount) then amount = nil end`, met daaronder dezelfde `isSecret`-test
+    op `srcName`, `spell` en `env` (`:278`–`:281`) en een comment die het principe benoemt
+    (*"secret fields are dropped (unreadable ≠ absent) so we never index/format a secret"*). Zou
+    Blizzard dezelfde vlag ooit op de combat-log-amount zetten, dan valt de death recap terug op
+    `amount = nil` → `tonumber(amount) or 0` en breekt er niets. 🔴 GEMETEN dat
+    `COMBAT_LOG_EVENT_UNFILTERED` in deze build **niet** gewijzigd is; dat Blizzard dezelfde kant op
+    gaat is **AFGELEID** uit dit ene veld, niet gemeten.
+  - 🎭 **[AL AFGEDEKT] — `C_Roleset.ApplyRolesetFilters` krijgt `HasRestrictions = true` en mag niet
+    meer uit tainted code tijdens combat lockdown.** GEMETEN in `RolesetSystemDocumentation.lua`:
+    `HasRestrictions = true` erbij, en de Documentation-regel krijgt een zin achteraan — *"Blocked for
+    tainted callers while in combat lockdown."* Ook dit staat **niet** in PTR `70668` (daar heeft de
+    functie geen `HasRestrictions` en de oude doc-tekst). De argumenten
+    (`blockedRolesets`, `allowedRolesets`) en de twee andere functies zijn ongewijzigd.
+    - ✅ **En de naam in onze probe is JUIST, gemeten in plaats van aangenomen.** De docs zeggen
+      `Name = "RolesetSystem"` maar `Namespace = "C_Roleset"` — dus de global heet `C_Roleset`, precies
+      wat `Modules/ApiProbe.lua` gebruikt (`:41` `if type(C_Roleset) == "table"`, `:77`, `:177`).
+      GEMETEN: `C_RolesetSystem` → **0** treffers in MH, en dat is hier de goede uitkomst, geen gat.
+    - MH roept `ApplyRolesetFilters` **nergens** aan: de enige treffer is de comment op
+      `Modules/ApiProbe.lua:10` die de wiki van 19 jul citeert. De twee functies die de probe wél
+      aanroept — `GetActiveAllowedRolesets` en `GetActiveBlockedRolesets` op `ApiProbe.lua:178` — zijn
+      in deze build **niet** gewijzigd, en staan daar achter `type(C_Roleset) == "table"` +
+      `type(C_Roleset[fn]) == "function"` + `pcall`.
+    - 📌 Dit is goed nieuws voor precies het risico waarvoor `ApiProbe.lua` gebouwd is (een systeem dat
+      een frame verborgen houdt ondanks `:Show()`, zonder foutmelding): een tainted addon kan onze
+      frames tijdens combat niet meer blanco wegfilteren. ⚠️ **AFGELEID uit de doc-regel, niet in de
+      client gemeten** — `/mh roleset` op Robs machine blijft de enige echte test.
+  - 🖼️ **[AL AFGEDEKT] — drie titelicoon-functies van `C_Texture` krijgen een optionele trailing
+    `subIcon`.** GEMETEN in `TextureUtilsDocumentation.lua`: `GetTitleIconTexture`,
+    `IsTitleIconTextureReady` en `SetTitleIconTexture` krijgen elk
+    `{ Name = "subIcon", Type = "string", Nilable = true }` **achteraan** de argumentenlijst. Additief
+    en nilable, dus bestaande aanroepen blijven geldig. ⚠️ **CORRECTIE op een leesfout die hier
+    makkelijk in te trappen is:** het doc-bestand heet TextureUtils, maar de global is **`C_Texture`** —
+    GEMETEN aan de call sites in dezelfde build (`FriendsFrame.lua:1995`:
+    `C_Texture.SetTitleIconTexture(button.gameIcon, …, Enum.TitleIconVersion.Medium, …subIcon)`).
+    **MH: alle drie de functies → 0 bestanden**, net als `TitleIconVersion` en `subIcon` (ook 0). Van
+    `C_Texture` gebruikt MH alleen `GetAtlasInfo`, op twee plekken en beide geguard: `UI.lua:1483`
+    (`(C_Texture and C_Texture.GetAtlasInfo and C_Texture.GetAtlasInfo("Raid")) and "Raid" or "Dungeon"`)
+    en `UI.lua:1918`–`:1921` (`if not (C_Texture and C_Texture.GetAtlasInfo) then`).
+  - 👥 **[AL AFGEDEKT] — `BNetGameAccountInfo` krijgt een veld `subIcon` (string, nilable), en MH leest
+    die struct echt.** GEMETEN in `BattleNetDocumentation.lua`: het veld komt achter
+    `timerunningSeasonID` in de structuur `BNetGameAccountInfo` (die ook via `BNetAccountInfo`'s veld
+    `gameAccountInfo` binnenkomt). MH leest hem in `Modules/FriendMarks.lua`: `:148`
+    (`pcall(C_BattleNet.GetFriendAccountInfo, i)`) en `:159`
+    (`pcall(C_BattleNet.GetFriendGameAccountInfo, i, j)`), met terugval op `acc.gameAccountInfo`
+    (`:162`). Afgedekt omdat het **alleen bij naam genoemde velden** leest — `battleTag` (`:149`),
+    `characterName`/`realmName`/`clientProgram` (`:163`–`:164`) — achter een bestaansguard (`:143`
+    `if not (BNGetNumFriends and C_BattleNet and C_BattleNet.GetFriendAccountInfo) then`), elke
+    aanroep in een `pcall`, en met `issecretvalue` op de battleTag (`:150`). Niets itereert over de
+    struct en niets rekent op een veldaantal, dus een extra nilable veld verandert hier niets.
+  - 🧩 **[RAAKT ONS NIET] — de vier gewijzigde Blizzard-UI-bestanden zijn louter `subIcon`-plumbing, en
+    MH hookt er niets van.** GEMETEN in de diff: `BNet.lua:227` (`BNToastMixin:ShowToast`),
+    `ChatFrameOverrides.lua:515` (`ChatFrameMixin:MessageEventHandler`), `FriendsFrame.lua:1995`/`:2333`/
+    `:2501` en `FriendsListTemplates.lua:539`/`:975`/`:1506` geven alleen `gameAccountInfo.subIcon` door
+    aan de drie `C_Texture`-functies hierboven; de enige niet-subIcon-regel is een indentatiefix op
+    `FriendsListTemplates.lua:15`. GEMETEN grep over MH: `BNToast` → **0**, `MessageEventHandler` → **0**,
+    `FriendsListButtonMixin` → **0**. `FriendsFrame` geeft **1** treffer en die is géén frame maar een
+    texturepad: `Modules/FastMark.lua:403`
+    (`b:SetNormalTexture("Interface\\FriendsFrame\\UI-Toast-FriendOnlineIcon")`).
+  - 🔇 **[RAAKT ONS NIET] — PTR onbewogen, ZESDE dag op `70668`.** Zelfde `ls-remote`: `ptr` =
+    **`9fc0ba94381153262856ed0120a2675f1a11c30a`**, ongewijzigd sinds 29 okt, en `version.txt` op die
+    tak leest **`12.1.7.70668`** (GEMETEN via `git show`). Takkenlijst nog steeds **13** heads, `beta`
+    nog op `078d0cf7…`, `classic_era` op `4192ac60…`, `forever` op `17ed2c3e…`. De twee
+    12.1.7-wijzigingen die ik op 30 okt in `70668` gemeten heb (de altijd-secret `C_LossOfControl`, de
+    `SecretArguments`-flip op `C_GameRules`) blijven daar de laatste stand.
+  - 📄 **[RAAKT ONS NIET] — de wiki staat op beide pagina's stil, en dat is nu het verhaal.** GEMETEN
+    via Exa mét cache-buster: `Patch_12.1.7/API_changes?nocache=20261104` bevat nog exact dezelfde twee
+    Summary-punten (GUID-obfuscatie *"will be available for testing in a future build of 12.1.7"*, en
+    *"TOC directives no longer expand variables such as [Game] or [Family]"*), `TOC: 120107`
+    onveranderd — **negentiende** dag. En `Patch_12.1.5/API_changes?nocache=20261104` heeft nog steeds
+    precies vier blue-post-secties, gedateerd **2026-09-03, 09-16, 09-22 en 09-29**. 🔴 Blizzards
+    nieuwste addon-facing patch note is daarmee **vijf-en-een-halve week** oud, terwijl er vandaag vier
+    API-wijzigingen op live landden. Dat gat is het argument voor het meten van de source-diff.
+  - 🧵 **[RAAKT ONS NIET] — één nieuw forumtopic sinds gisteren, en het is een addon-aankondiging.**
+    GEMETEN op de UI-and-Macro-lijst mét cache-buster, afgezet tegen mijn regel van gisteren: nieuw is
+    **"[Addon] DandyMap - Terrain World Map & Diablo-Style Map Overlay for WoW Forever (CurseForge)"**
+    (**3 nov 2026**, 1 reactie, 106 views) — iemand kondigt zijn eigen kaart-addon aan voor de
+    **Forever**-client, geen API-melding. De rest van de lijst is regel-voor-regel identiek aan
+    gisteren (de twee nameplate-topics, de cvar-vraag, Housing Decor, de extra-action-button-draad, het
+    model-API-topic). **Geen enkele blue post**, en de sticky *"UI Add-On Development Policy"* staat nog
+    op 27 okt met 15 reacties.
+  - 📰 **[RAAKT ONS NIET] — geen nieuwe hotfix-batch; de laatste is nog die van 30 okt.** GEMETEN op de
+    MMO-Champion-voorpagina mét cache-buster: de twee nieuwste WoW-items zijn van **3 nov 2026 20:03 en
+    20:13** en geen van beide is een hotfixpagina — (1) *"Explore WoW: Forever with a Gamepad"*, een
+    Blizzard-artikel over gamepad-besturing in **Forever** (andere client dan MH's `.toc`
+    `120007/120100/120105/120107`; `GamePad`/`C_GamePad`/`SetGamePadCursorControl` → alle drie **0** in
+    MH, gemeten op 3 nov), en (2) de D&D-pre-order-rewards, die onder de contentwachter vallen.
+    ⚠️ Aanvullend met WebSearch gezocht op hotfixes van november: **niets** gevonden na 26 okt. Dat is
+    een zwakke bron (de zoekmachine gaf vooral 2025-pagina's terug) en staat hier alleen als
+    tweede aanwijzing, niet als bewijs.
+  - 🧰 **[RAAKT ONS NIET] — SimC-addon: geen nieuwe release sinds `12.1.5-03`, DERTIENDE dag.** GEMETEN
+    met `git ls-remote --tags https://github.com/simulationcraft/simc-addon`: **290** regels (zelfde
+    aantal als de zes dagen ervoor), nieuwste 12.x-tag blijft **`12.1.5-03`** =
+    **`cb3e3af298e3124162c6bf44d1bebac53435eaec`**, en `HEAD` én `refs/heads/master` staan op diezelfde
+    SHA — geen ongereleasete commits op master. `Modules/SimcExport.lua` noemt in zijn kopcommentaar
+    (`:12`–`:15`) nog `12.1.0-04` plus de race-takken uit `12.1.0-alpha-06`: nog steeds een
+    documentatie-achterstand van twee releases, geen code-achterstand (zie 27 okt). 📌 `ls-remote`
+    vraagt de server elke keer opnieuw, dus cache-twijfel geldt op deze regel niet.
+  - 🔌 **MEETGAT, elfde dag identiek: de WoW-bronnen blijven geweigerd op Bash-`curl`.** GEMETEN met
+    `curl -s -o /dev/null -w "%{http_code}" --max-time 12`: `warcraft.wiki.gg`,
+    `us.forums.blizzard.com`, `news.blizzard.com` en `www.wowhead.com` geven alle vier **`000`**. Elke
+    wiki-, forum- en nieuwsmeting hierboven loopt dus via Exa `web_fetch_exa` mét cache-buster of via
+    WebSearch. ✅ **Wat vandaag wél schoon werkte op Bash en de dag gemaakt heeft:**
+    `git ls-remote` naar github.com, plus een **`git clone --depth 2 --single-branch --branch live
+    --filter=blob:none`** van `wow-ui-source` (exit 0) en een `git fetch --depth 1 origin ptr`. Dat is
+    de eerste keer dat de API-diff hier **in de bron zelf** gemeten is in plaats van in een
+    samenvatting — en precies daarom zijn de vier wijzigingen hierboven gevonden terwijl de wiki
+    stilstaat. 📌 Terugkerende werkwijze waard.
+  - 🧪 **Positieve controle van de grep-reikwijdte, in dezelfde run en in dezelfde vorm als de nullen
+    hierboven** (`grep -rIl`, `.git`/`docs`/`tools`/`dist` uitgesloten, geteld in bestanden):
+    `CreateFrame` → **160**, `issecretvalue` → **66**, `C_Spell` → **56**, `InCombatLockdown` → **51**,
+    `UnitGUID` → **37**, `GetInstanceInfo` → **35**, `C_DelvesUI` → **14**, `C_WeeklyRewards` → **12**,
+    `hooksecurefunc` → **8**, `C_Secrets` → **5**, `COMBAT_LOG_EVENT_UNFILTERED` → **4**,
+    `C_Texture` → **1**, `GetAtlasInfo` → **1**, `C_BattleNet` → **1**, `BNGetNumFriends` → **1**,
+    `C_Roleset` → **1**, `GetActiveAllowedRolesets` → **1**, `IsRolesetFiltered` → **1**,
+    `CombatLogGetCurrentEventInfo` → **1**, `ApplyRolesetFilters` → **1**, `FriendsFrame` → **1**,
+    tegenover de nullen van vandaag: `UNIT_COMBAT`, `subIcon`, `GetTitleIconTexture`,
+    `IsTitleIconTextureReady`, `SetTitleIconTexture`, `TitleIconVersion`, `C_RolesetSystem`,
+    `BNGetGameAccountInfo`, `GetGameAccountInfo`, `BNToast`, `MessageEventHandler` en
+    `FriendsListButtonMixin` — alle twaalf **0**. 📌 De negen zwaarste getallen zijn exact gelijk aan
+    gisteren en aan 2 nov; het patroon vindt wat er is, en vier van de enen hierboven zijn juist
+    gevonden doordat ik vandaag op nieuwe namen zocht. De nullen zijn dus afwezigheid, geen meetfout.
+  - ⏳ **Nog open uit eerdere runs, NIET nieuw en vandaag niet opnieuw gemeten:** de UTF-8 BOM vooraan
+    `MidnightHelper.toc`; de `%d+`-aanname op veld 3 van de npcID-match (`Modules/ResetRoutine.lua:648`)
+    tegenover de GUID-obfuscatie; de `GetInstanceInfo`-return-orde tegenover `Modules/Showdowns.lua:226`;
+    de TOC-directives van 12.1.7; de dode `PickupItem`-takken in `Modules/KeyBlock.lua:1135`/`:1227`/
+    `:1380` en `Modules/ApplyLayout.lua:1311`/`:1345`/`:1605`; de vijf decoratieve
+    `GetItemInfo`-terugvaltakken; `Blizzard_DeprecatedWorldElapsedTimerTypes` als tiende
+    deprecated-addon tegenover negen wiki-secties; de verouderde namespace-lijst in
+    `docs/WATCHER_API_PROMPT.md` (18 aug); en de client-test voor `/mh raidbots`. 🔴 Niets van dit alles
+    aangeraakt.
+  - 🔧 **Repo-staat: alleen `docs/API_WATCH.md` aangeraakt, en de "forced update" op `origin/main` was
+    GEEN herschreven historie.** GEMETEN vóór het schrijven: `git status --short` **leeg**, geen van de
+    vier wachter-bestanden gewijzigd-maar-ongecommit, en `git rev-parse --abbrev-ref HEAD` → **`HEAD`**,
+    dus detached (zoals op 17, 19, 22, 25, 26, 29, 30 okt en 1, 2, 3 nov). ⚠️ `git fetch origin main`
+    meldde **`+ 5934305...3df4ba9 main -> origin/main (forced update)`**, wat eruitziet als een force-push.
+    **Niet aangenomen maar gemeten:** `git merge-base --is-ancestor 35fbfd8 HEAD` → **ja**, dus de SHA
+    uit mijn regel van gisteren zit nog gewoon in de historie van vandaag; de "forced update" is een
+    artefact van de verse checkout-ref, geen herschrijving. `HEAD` = `origin/main` =
+    **`3df4ba96a72e5ba1b6213d926a60e6bb62fb0956`** ("Handoff: CurseForge description and summary pasted,
+    4.15.0 approved"), `## Version: 4.15.0`. Rechtgezet met `git checkout -B main 3df4ba9`, wat niets
+    aan de inhoud verandert. Geen enkel ander bestand geraakt.
