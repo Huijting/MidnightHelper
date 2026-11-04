@@ -1,5 +1,14 @@
 # Midnight Helper — waar we staan
 
+## 📝 4 nov — plan TomTom 4.4.0 (Rob: "Ja, plan 1 en 2"), NOG NIET GEBOUWD
+
+- Ochtendronde 4 nov: niets voor Rob. Live-build 12.1.5.70783 (4 API-wijzigingen, alle afgedekt), TomTom 4.4.0 binnen:
+  alle 10 TomTom-functies die MH aanroept bestaan nog (GEMETEN op naam), gedrag niet getest.
+- Plan: `docs/PLAN_TOMTOM_2026-11-04.md`. Stap 1 = `ArrowTargetChanged`-callback (vangt "één pin weg" dat de
+  ClearAllWaypoints-hook mist; aankomst ≠ stoppen). Stap 2 = `SuppressFeature("arrow.setclosest")` zolang een MH-route
+  loopt. TomTom is All Rights Reserved: alleen de openbare API, geen code overnemen. De dode-uid-fout zit nog in 4.4.0,
+  onze `RemoveWaypoint`-reparatie blijft. Wacht op Rob's go.
+
 ## 🚀 3 nov — release 4.15.0 (Rob: "Ja, go 4.15.0" + "je mag helemaal plaatsen")
 
 - ✅ **UIT.** Tag `v4.15.0` op 7b61c6b. GEMETEN in de run-log (41673088677, exit 0): CurseForge "Success!", Wago
