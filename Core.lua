@@ -1040,7 +1040,215 @@ mhTomTomHookFrame:RegisterEvent("PLAYER_LOGIN")
 mhTomTomHookFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
 mhTomTomHookFrame:SetScript("OnEvent", function()
 	MH_InstallTomTomClearHook()
+	if ns.MH_InstallTomTomCallbacks then
+		ns.MH_InstallTomTomCallbacks()
+	end
 end)
+
+--- Remove ONE TomTom pin of ours. Same flag as MH_TomTomClearAll, so the ArrowTargetChanged listener below knows this
+--- removal was us (a route step moving on, a looted treasure) and not the player.
+function ns.MH_TomTomRemove(uid)
+	local tt = _G.TomTom
+	if not (uid and tt and tt.RemoveWaypoint) then
+		return
+	end
+	local was = ns._mhSelfWaypointOp
+	ns._mhSelfWaypointOp = true
+	pcall(tt.RemoveWaypoint, tt, uid)
+	ns._mhSelfWaypointOp = was
+end
+
+--- 📡 TOMTOM 4.4.0'S PUBLIC CALLBACKS — 4 Nov 2026 (Rob: "kunnen we iets leren van de nieuwe tomtom versie?" → "Ja,
+--- plan 1 en 2"; plan in docs/PLAN_TOMTOM_2026-11-04.md). TomTom is All Rights Reserved: only its README's "Supported
+--- Addon API" is used here, nothing copied.
+---
+--- Step 1, listening instead of guessing. The ClearAllWaypoints hook above only sees "clear all". A player who removes
+--- the ONE pin (right-click the arrow → Remove waypoint) left the route "on", and the zone handlers put it back.
+--- GEMETEN in TomTom 4.4.0's code: ArrowTargetChanged(nil) fires whenever the arrow's target goes — clear all, Remove,
+--- and also ARRIVAL (TomTom drops the pin itself at cleardistance). So a nil is only "the player stopped" when:
+---   1. not during our own removal (ns._mhSelfWaypointOp, set by MH_TomTomClearAll and MH_TomTomRemove);
+---   2. the player is NOT near the pin that went, nor near the route's lead (NEAR.tomtomArrived, the same 60 yd the
+---      arrow already uses for "TomTom done"); unmeasurable = not stopped, we never guess against the player;
+---   3. and 1.5 s later the arrow is still empty and nothing new was pointed at (a route that re-pins right after its
+---      own removal, or a step that hands over, is not a stop).
+--- Step 2: while an MH route owns the arrow, TomTom's "set closest" is suppressed, so on arrival its arrow does not jump
+--- to some other pin (an old one of the player, a HandyNotes pin). Released as soon as no route owns it. One ticker,
+--- because _mhRouteOwner is assigned in seven files.
+do
+	local OWNER = "MidnightHelper"
+	local installed = false
+	local lastUid -- the arrow's target as TomTom last reported it
+	local lastEventAt, lastEventKind, lastEventWhy
+	local suppressing = false
+	local suppressErr
+
+	local function Now()
+		return (GetTime and GetTime()) or 0
+	end
+
+	local function Note(kind, why)
+		lastEventAt, lastEventKind, lastEventWhy = Now(), kind, why
+		if ns.Travel and ns.Travel.Log then
+			pcall(ns.Travel.Log, ("TomTom ArrowTargetChanged %s: %s"):format(kind, why))
+		end
+	end
+
+	-- Yards from the player to (mapID, x 0-1, y 0-1), via the HereBeDragons that TomTom itself loads. nil = cannot tell.
+	local function YardsTo(mapID, x, y)
+		local hbd = LibStub and LibStub("HereBeDragons-2.0", true)
+		if not (hbd and mapID and x and y) then
+			return nil
+		end
+		local okP, px, py, pInst = pcall(hbd.GetPlayerWorldPosition, hbd)
+		local okW, wx, wy, wInst = pcall(hbd.GetWorldCoordinatesFromZone, hbd, x, y, mapID)
+		if not (okP and okW and px and wx and pInst == wInst) then
+			return nil
+		end
+		return math.sqrt((px - wx) ^ 2 + (py - wy) ^ 2)
+	end
+
+	local function NearYards()
+		return (ns.Travel and ns.Travel.NEAR and ns.Travel.NEAR.tomtomArrived and ns.Travel.NEAR.tomtomArrived.yards) or 60
+	end
+
+	-- Is the player at the pin that just went, or at the route's lead? true / false / nil (unmeasurable).
+	local function Arrived(removed)
+		local near = NearYards()
+		local any = false
+		if type(removed) == "table" then
+			local d = YardsTo(tonumber(removed[1]), tonumber(removed[2]), tonumber(removed[3]))
+			if d then
+				any = true
+				if d <= near then
+					return true
+				end
+			end
+		end
+		local lead = ns.GetActiveArrowLead and ns.GetActiveArrowLead()
+		if lead and lead.mapID then
+			local d = YardsTo(lead.mapID, (lead.x or 0) / 100, (lead.y or 0) / 100)
+			if d then
+				any = true
+				if d <= near then
+					return true
+				end
+			end
+		end
+		if not any then
+			return nil
+		end
+		return false
+	end
+
+	local function OnArrowTargetChanged(_, uid)
+		if uid ~= nil then
+			if ns._mhRouteOwner and uid ~= ns._mhCrazyArrowUid and not ns._mhSelfWaypointOp then
+				Note("other", ("a different pin (\"%s\") while route %s runs: only logged"):format(
+					tostring(type(uid) == "table" and uid.title or "?"), tostring(ns._mhRouteOwner)))
+			else
+				lastEventAt, lastEventKind, lastEventWhy = Now(), "set", tostring(type(uid) == "table" and uid.title or "?")
+			end
+			lastUid = uid
+			return
+		end
+		local removed = lastUid
+		lastUid = nil
+		if not ns._mhRouteOwner then
+			Note("nil", "no MH route: nothing to do")
+			return
+		end
+		if ns._mhSelfWaypointOp then
+			Note("nil", "our own removal")
+			return
+		end
+		local arrived = Arrived(removed)
+		if arrived then
+			Note("nil", "arrival (near the pin or the lead): the route goes on by itself")
+			return
+		elseif arrived == nil then
+			Note("nil", "cannot measure the distance: left alone")
+			return
+		end
+		local stamp = Now()
+		local owner = ns._mhRouteOwner
+		lastEventAt, lastEventKind, lastEventWhy = stamp, "nil", "player far from the pin: checking again in 1.5 s"
+		C_Timer.After(1.5, function()
+			local tt = _G.TomTom
+			if lastEventAt ~= stamp or lastUid ~= nil or ns._mhRouteOwner ~= owner then
+				return -- something new was pointed at, or the route already ended
+			end
+			if tt and tt.IsCrazyArrowEmpty then
+				local okE, empty = pcall(tt.IsCrazyArrowEmpty, tt)
+				if okE and not empty then
+					Note("nil", "the arrow has a point again: not a stop")
+					return
+				end
+			end
+			Note("nil", "the player removed the pin: route stopped")
+			if ns.ClearActiveRoute then
+				ns.ClearActiveRoute()
+			end
+			print(("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), ns:L("TOMTOM_ROUTE_STOPPED")))
+		end)
+	end
+
+	local function SyncSuppress()
+		local tt = _G.TomTom
+		if not (installed and tt and type(tt.SuppressFeature) == "function" and type(tt.ReleaseFeature) == "function") then
+			return
+		end
+		local want = ns._mhRouteOwner ~= nil
+		if want == suppressing then
+			return
+		end
+		local ok, err
+		if want then
+			ok, err = pcall(tt.SuppressFeature, tt, OWNER, "arrow.setclosest")
+		else
+			ok, err = pcall(tt.ReleaseFeature, tt, OWNER, "arrow.setclosest")
+		end
+		if ok then
+			suppressing = want
+			suppressErr = nil
+		else
+			suppressErr = tostring(err)
+		end
+	end
+
+	function ns.MH_InstallTomTomCallbacks()
+		if installed then
+			return
+		end
+		local tt = _G.TomTom
+		if type(tt) ~= "table" or type(tt.RegisterCallback) ~= "function" then
+			return -- an older TomTom: the hook above plus the polling, as before
+		end
+		local ok = pcall(tt.RegisterCallback, OWNER, "ArrowTargetChanged", OnArrowTargetChanged)
+		if not ok then
+			return
+		end
+		installed = true
+		if C_Timer and C_Timer.NewTicker then
+			C_Timer.NewTicker(1, SyncSuppress)
+		end
+	end
+
+	--- For /mh arrow: is MH listening, what came last and why, and is "set closest" held back now.
+	function ns.TomTomCallbackStatus()
+		local tt = _G.TomTom
+		return {
+			hasTomTom = type(tt) == "table",
+			canListen = type(tt) == "table" and type(tt.RegisterCallback) == "function",
+			listening = installed,
+			canSuppress = type(tt) == "table" and type(tt.SuppressFeature) == "function",
+			suppressing = suppressing,
+			suppressErr = suppressErr,
+			lastAgo = lastEventAt and (Now() - lastEventAt) or nil,
+			lastKind = lastEventKind,
+			lastWhy = lastEventWhy,
+		}
+	end
+end
 
 -- Esc → Key Bindings → Midnight Helper → Clear active route.
 function MidnightHelper_KeybindClearRoute()

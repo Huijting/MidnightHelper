@@ -971,7 +971,7 @@ local firstIssue -- the first lead of a route gets the start line, later ones th
 local function ClearBulkPins()
 	if _G.TomTom and _G.TomTom.RemoveWaypoint then
 		for _, uid in ipairs(bulkPins) do
-			pcall(_G.TomTom.RemoveWaypoint, _G.TomTom, uid)
+			ns.MH_TomTomRemove(uid)
 		end
 	end
 	wipe(bulkPins)

@@ -1,6 +1,11 @@
 # Plan: TomTom 4.4.0 beter gebruiken (4 nov 2026)
 
-Rob: *"kunnen we misschien iets leren van de nieuwe tomtom versie?"* → *"Ja, plan 1 en 2"*.
+Rob: *"kunnen we misschien iets leren van de nieuwe tomtom versie?"* → *"Ja, plan 1 en 2"* → *"Ja, bouwen"*.
+
+🔧 **Gebouwd op 4 nov, nog niet getest.** Code in `Core.lua` (na de ClearAllWaypoints-hook). Bij het bouwen gekozen:
+één tikker voor stap 2 (niet `ns.SetRouteOwner`), en een extra controle 1,5 s na de melding (de pijl moet dan nog leeg
+zijn) zodat een route die zelf even een pin weghaalt en een nieuwe zet niet stopt. Losse `RemoveWaypoint`-aanroepen
+lopen nu via `ns.MH_TomTomRemove`, met dezelfde "dit zijn wij"-vlag.
 
 TomTom 4.4.0 kwam op 4 nov binnen via CurseForge (Rob heeft auto-update aan). Hij heeft een nieuw stuk "voor addon-makers"
 in zijn README. Dit plan gebruikt alleen die openbare knoppen.

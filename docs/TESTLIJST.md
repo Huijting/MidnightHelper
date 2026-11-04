@@ -21,6 +21,18 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 4 nov — TomTom 4.4.0: één pijl weghalen stopt de route
+
+Met TomTom aan. Na `/reload`.
+- [ ] Typ **ah** in de zoekbalk en klik op Auction House. Rechtsklik op de TomTom-pijl → **Remove waypoint**. Je hoort
+      in de chat te zien: *"Route stopped: you removed the TomTom arrow."* Na een zonewissel komt de pijl niet terug.
+- [ ] Doe een route met meerdere stappen (een rare-route, of een reis naar een andere zone). Bij aankomst op een tussenstap
+      gaat de route gewoon door. Je ziet dan **geen** "Route stopped".
+- [ ] Tijdens een MH-route: `/tomtom` → Waypoint Arrow. Bij "set closest" staat *Controlled by MidnightHelper*. Na de
+      route niet meer.
+- [ ] `/mh arrow` laat zien: "TomTom-meldingen: ja", een regel "laatste: …" en "'set closest' tegengehouden".
+- [ ] "Clear all" via de TomTom-pijl werkt nog zoals vroeger (route stopt, maar je ziet géén tweede chatregel).
+
 ## 🆕 3 nov (7) — zoeken vindt nu de pins van de Silvermoon-stadsgids
 
 ✅ **Rob 3 nov: "Ik heb alles getest, de lijst en alles werkt zoals het moet doen."** — alles hieronder.

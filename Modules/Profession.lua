@@ -1282,7 +1282,7 @@ local function SetupProfessionModule()
 		if ns.IsTomTomReady and ns.IsTomTomReady() and _G.TomTom and _G.TomTom.RemoveWaypoint then
 			for _, p in ipairs(treasurePins) do
 				if p.uid then
-					pcall(_G.TomTom.RemoveWaypoint, _G.TomTom, p.uid)
+					ns.MH_TomTomRemove(p.uid)
 				end
 			end
 		end
@@ -1317,7 +1317,7 @@ local function SetupProfessionModule()
 			local p = treasurePins[i]
 			if p.questID and C_QuestLog.IsQuestFlaggedCompleted(p.questID) then
 				if useTomTom and p.uid and _G.TomTom.RemoveWaypoint then
-					pcall(_G.TomTom.RemoveWaypoint, _G.TomTom, p.uid)
+					ns.MH_TomTomRemove(p.uid)
 				end
 				table.remove(treasurePins, i)
 			else

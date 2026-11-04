@@ -457,7 +457,7 @@ local function Point(s, x, y, text)
 	elseif r.uid and r.uid ~= r.firstUid and _G.TomTom and _G.TomTom.RemoveWaypoint then
 		-- The previous step's pin, so steps do not pile up on the map. The route's own first pin (the target, set by
 		-- the caller) stays.
-		pcall(_G.TomTom.RemoveWaypoint, _G.TomTom, r.uid)
+		ns.MH_TomTomRemove(r.uid)
 	end
 	local owner = ns._mhRouteOwner
 	-- A point on the way (a door, the orb, a step that is not the target) gets cleardistance 0: TomTom must not drop it
@@ -786,7 +786,7 @@ end
 
 local function RemovePin(uid)
 	if uid and _G.TomTom and _G.TomTom.RemoveWaypoint then
-		pcall(_G.TomTom.RemoveWaypoint, _G.TomTom, uid)
+		ns.MH_TomTomRemove(uid)
 	end
 end
 
@@ -1412,7 +1412,7 @@ do
 			-- AddWaypoint hands back an existing pin with the same map/x/y/title without setting it up again (GEMETEN,
 			-- TomTom.lua AddWaypoint) — and a broken pin may be exactly that one. Remove the old uid, and a same-key pin
 			-- that still cannot measure, first.
-			pcall(tt.RemoveWaypoint, tt, uid)
+			ns.MH_TomTomRemove(uid)
 			local function Add()
 				return pcall(tt.AddWaypoint, tt, lt.mapID, lt.x / 100, lt.y / 100, {
 					title = lt.name, persistent = false, minimap = true, world = true,
@@ -1423,7 +1423,7 @@ do
 			if okN and type(newUid) == "table" then
 				local okM, m = pcall(tt.GetDistanceToWaypoint, tt, newUid)
 				if not (okM and type(m) == "number") then
-					pcall(tt.RemoveWaypoint, tt, newUid)
+					ns.MH_TomTomRemove(newUid)
 					okN, newUid = Add()
 				end
 			end

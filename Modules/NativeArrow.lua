@@ -1138,6 +1138,25 @@ function ns.PrintArrowStatus()
 
 	print(("%s Route-pijl status:"):format(p))
 	print(("  route owner: %s"):format(tostring(ns._mhRouteOwner or "none")))
+	--- 📡 TomTom 4.4.0's callbacks (4 Nov 2026, Core.lua): listening, the last thing TomTom said and what MH made of it,
+	--- and whether "set closest" is held back. Silence here means "no TomTom event yet", not "nothing works".
+	if ns.TomTomCallbackStatus then
+		local ok, st = pcall(ns.TomTomCallbackStatus)
+		if ok and type(st) == "table" and st.hasTomTom then
+			print(("  TomTom-meldingen: %s%s"):format(yn(st.listening),
+				st.canListen and "" or " (deze TomTom heeft ze niet: oude manier, hook + pollen)"))
+			if st.lastKind then
+				print(("     laatste: %s, %.0f s geleden — %s"):format(tostring(st.lastKind),
+					tonumber(st.lastAgo) or 0, tostring(st.lastWhy or "?")))
+			else
+				print("     laatste: nog geen melding van TomTom sinds de reload")
+			end
+			if st.canSuppress then
+				print(("  TomTom 'set closest' tegengehouden: %s%s"):format(yn(st.suppressing),
+					st.suppressErr and (" |cffff8080fout: " .. st.suppressErr .. "|r") or ""))
+			end
+		end
+	end
 	if activeLead and activeLead.mapID then
 		print(("  doel: %s  (map %s  %.1f, %.1f)"):format(
 			tostring(activeLead.name or "?"), tostring(activeLead.mapID),

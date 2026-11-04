@@ -1,13 +1,26 @@
 # Midnight Helper — waar we staan
 
-## 📝 4 nov — plan TomTom 4.4.0 (Rob: "Ja, plan 1 en 2"), NOG NIET GEBOUWD
+## 🔧 4 nov — TomTom 4.4.0 stap 1 + 2 GEBOUWD (Rob: "Ja, bouwen"), NOG NIET GETEST
+
+- Code: `Core.lua` na de ClearAllWaypoints-hook. `ns.MH_InstallTomTomCallbacks` registreert `ArrowTargetChanged`
+  (alleen als `TomTom.RegisterCallback` bestaat). Een `nil` telt als "speler stopt" alleen als: niet tijdens onze eigen
+  wis-actie, speler >60 yd (`NEAR.tomtomArrived`) van de verdwenen pin én van de lead, en 1,5 s later de pijl nog leeg is
+  zonder nieuw doel. Onmeetbaar = niets doen. Dan `ClearActiveRoute()` + chatregel `TOMTOM_ROUTE_STOPPED` (8 talen).
+- Nieuw `ns.MH_TomTomRemove(uid)` zet dezelfde `_mhSelfWaypointOp`-vlag; de 7 losse `RemoveWaypoint`-aanroepen
+  (Achievements, Profession ×2, TravelRoute ×4) gaan er nu door.
+- Stap 2: één tikker (1 s) houdt `arrow.setclosest` tegen zolang `_mhRouteOwner` gezet is, en geeft hem daarna vrij.
+- `/mh arrow`: regels "TomTom-meldingen", "laatste: …" en "'set closest' tegengehouden". Log in `travelRouteLog`.
+- Checks: syntax OK (307), lint 0 HARD, locale_probe 8/8 OK. AFGELEID, niet gemeten: het gedrag in het spel.
+- Hook + pollen blijven als terugval. "poi" en HijackCrazyArrow bewust niet.
+
+## 📝 4 nov — plan TomTom 4.4.0 (Rob: "Ja, plan 1 en 2")
 
 - Ochtendronde 4 nov: niets voor Rob. Live-build 12.1.5.70783 (4 API-wijzigingen, alle afgedekt), TomTom 4.4.0 binnen:
   alle 10 TomTom-functies die MH aanroept bestaan nog (GEMETEN op naam), gedrag niet getest.
 - Plan: `docs/PLAN_TOMTOM_2026-11-04.md`. Stap 1 = `ArrowTargetChanged`-callback (vangt "één pin weg" dat de
   ClearAllWaypoints-hook mist; aankomst ≠ stoppen). Stap 2 = `SuppressFeature("arrow.setclosest")` zolang een MH-route
   loopt. TomTom is All Rights Reserved: alleen de openbare API, geen code overnemen. De dode-uid-fout zit nog in 4.4.0,
-  onze `RemoveWaypoint`-reparatie blijft. Wacht op Rob's go.
+  onze `RemoveWaypoint`-reparatie blijft. ✅ Go gekregen en gebouwd, zie hierboven.
 
 ## 🚀 3 nov — release 4.15.0 (Rob: "Ja, go 4.15.0" + "je mag helemaal plaatsen")
 
