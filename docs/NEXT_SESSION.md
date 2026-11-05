@@ -28,7 +28,10 @@
   `ns.ForeverKeyBlockBuild`; nieuwe want-soort `macro` (op naam) in PlacePlan/keep, Place, Update, MissingRows,
   WantedSpells (spells in de macro = doubles van balk 1). Offline Lua-test met stubs (scratch `test_druid.lua`):
   level 7 → 7 macro's + Elune's Light naar D; level 40 → beer/kat-delen kloppen.
-  🔜 In het spel testen (TESTLIJST "5 nov (nacht)"): EllesmereUI + toetsen, bonusbar-vorm op 10/20, macro-limiet.
+  ✅ **WERKT in Forever** (Rob: "whoohoo het werkt", screenshot 5 nov): blok geplaatst, alle 8 macro's + Elune's Light
+  op de goede plek, vorm via MH-stap 2 (Edit Mode) — mét **EllesmereUI Action Bars uitgezet** (EUI leest Edit Mode
+  alleen bij eerste installatie, `EUI_ActionBars_Bars.lua:463`). 🔜 Nog: toetsen indrukken, bonusbar-vorm op 10 (beer)
+  en 20 (kat), macro-limiet, en de rode regel "Not in MH's list yet" in het blokvenster klopt niet op Forever.
 - (oud) Rob: in Forever met zijn Night Elf Druid `/mh spellbook` + `/reload`. Daarna lees ik
   `E:\World of Warcraft\_forever_\WTF\Account\<acc>\SavedVariables\MidnightHelper.lua` en maak de Druid-lijst.
 

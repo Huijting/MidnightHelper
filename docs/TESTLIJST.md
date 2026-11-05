@@ -27,6 +27,9 @@ Eerst `/reload` in Forever, met je Night Elf Druid. Niet in een gevecht.
 - [ ] `/mh block` (of `/mh mykeys` → *Set up my keys*): de afbeelding toont op **1** Wrath, **2** Moonfire, **C** Healing
       Touch, **F4** Rejuvenation, **Shift-Z** Thorns, **Shift-X** Mark of the Wild, **Shift-E** Shadowmeld.
 - [ ] Eerst de proefrun (`/mh block place` zonder go, of de knop *Preview*): de chat zegt per toets "place MH 1" enz.
+- [x] **GEMETEN 5 nov (Robs screenshot, "whoohoo het werkt"):** geplaatst met EllesmereUI Action Bars UIT + stap 1 en 2.
+      Balk 5: MH 1 Wrath, MH 2 Moonfire, MH C Healing Touch, MH V Entangling Roots; balk 6: MH F4 Rejuvenation;
+      balk 7: Shadowmeld, Thorns, Mark of the Wild; balk 4 (D): Elune's Light. Vorm D-A-B-C naast elkaar, 1-4 boven.
 - [ ] Dan echt plaatsen (*Place it* / `/mh block go`). Daarna staan er macro's **"MH 1", "MH 2", …** in je macrolijst
       (Esc → Macros → tab van je character), en op balk 5/6/7 knoppen met het icoon van de spell.
 - [ ] Werken de toetsen? 1 = Wrath (Rank 2), 2 = Moonfire, C = Healing Touch. ⚠️ Met EllesmereUI: zie je de knoppen op
