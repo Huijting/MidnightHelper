@@ -8,6 +8,10 @@
   `UI.lua`: `FOREVER_TAB_BUILDER` + `ns.ForeverScreenLoaded(id)`; `SidebarTabAvailable` zegt op Forever nee als de
   bouwfunctie niet geladen is (alle 22 namen GEMETEN in de code); een kamer zonder scherm (Codex) wordt niet getekend.
   `RoomLauncher.lua`: Tools-kaarten met `screen` vragen hetzelfde. Retail: ongewijzigd (alles achter `ns.IS_FOREVER`).
+- GEMETEN (Robs 2e test): links Me/Tools/Settings, geen BugSack-fouten. Maar Tools toonde This Week: de poort zei nee
+  tegen `room_tools` (onbekende id). Gerepareerd: alleen bekende tabs worden beoordeeld (`FOREVER_NO_BUILDER` + kaart).
+  Home toont nog Midnight-blokken (Vault, World Boss, Ritual Sites, Void, "Getting started → TAB_START_HERE"), en
+  Settings Midnight-knoppen (rare alert, boss window, shard cap): volgende ronde, Rob kiest.
 - Verwacht (AFGELEID): Me → This Week, Tools → Your keys + tools-lijst, Settings. 🔜 De tools-lijst
   (ToolsLaunchpad) noemt mogelijk nog Midnight-tools: na Robs volgende screenshot bekijken.
 

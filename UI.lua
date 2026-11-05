@@ -552,13 +552,24 @@ local FOREVER_TAB_BUILDER = {
 	professionsHub = "BuildProfessionsHubPanel",
 }
 
+--- Tabs with no single builder function: never on Forever (their files are not in the Forever TOC).
+local FOREVER_NO_BUILDER = { delves = true, account = true, smcguide = true, toolbox = true, addons = true, guide = true }
+
 --- On Forever: is the builder of this screen loaded? Everywhere else always true.
+--- ⚠️ Only known tabs are judged. The first version said "no" to every id it did not know, and that included the room
+--- card screens ("room_tools" …): on Rob's first test the Tools room fell back to This Week (5 Nov 2026).
 function ns.ForeverScreenLoaded(id)
 	if not ns.IS_FOREVER then
 		return true
 	end
+	if FOREVER_NO_BUILDER[id] then
+		return false
+	end
 	local fn = FOREVER_TAB_BUILDER[id]
-	return fn ~= nil and type(ns[fn]) == "function"
+	if fn == nil then
+		return true -- not a tab this list knows (room screens, settings sub-pages): leave it to the normal rules
+	end
+	return type(ns[fn]) == "function"
 end
 
 local function SidebarTabAvailable(tabId)
