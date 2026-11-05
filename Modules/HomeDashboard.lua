@@ -238,6 +238,20 @@ local function BuildLayout()
 		end
 	end
 
+	-- 🧩 WoW Forever (5 Nov 2026, Rob: "Ja, opruimen"): every block below is about Midnight (Great Vault, world boss,
+	-- ritual sites, Void Assaults, delves, the solo switch …). His first Forever screenshot showed them all, empty or
+	-- wrong. On Forever the page says honestly what this early version is, with a door to what works.
+	if ns.IS_FOREVER then
+		addFull(function(rows)
+			header(rows, ns:L("HOME_FOREVER_HEADER"))
+			line(rows, ns:L("HOME_FOREVER_BODY"), COLOR_SOFT)
+			if ns.ShowKeysHub then
+				rows[#rows + 1] = { button = true, text = ns:L("KEYSHUB_TITLE"), onClick = ns.ShowKeysHub }
+			end
+		end)
+		return blocks
+	end
+
 	local data = ns.ComputeAccountWeeklyChecklist and ns.ComputeAccountWeeklyChecklist() or nil
 
 	-- 🔴 3 Oct 2026, Rob: "nog steeds een hele lange lijst, onoverzichtelijk" → option C of the

@@ -33,6 +33,11 @@ Eerst moet MH in je Forever-map staan (koppeling of kopie, zie de chat).
       (geen Codex). Onder Me alleen *This Week*; geen `TAB_START_HERE`, geen Delves & Vault/Rares/Void-tegels, en
       bovenin geen Delves & Vault-snelknop. Onder Tools: *Your keys* en de tools-lijst. Wat staat er op This Week?
 - [ ] **Retail-controle:** in gewoon WoW zijn alle kamers en tegels er nog, zoals altijd.
+- [ ] Forever, na `/reload`: **This Week** toont alleen het blok *"Midnight Helper Forever (early test)"* met een korte
+      uitleg en de knop **Your keys** (opent het toetsenvenster). Geen Great Vault, World Boss, Ritual Sites enz.
+- [ ] Forever, **Settings**: onder *Quick actions* alleen *Report a problem* en *What's new*; onder *Advanced* alleen
+      *Reset popup position* en *Side panels back in place*. Geen gaten tussen de knoppen.
+- [ ] Gewoon WoW: This Week en Settings zien er uit zoals altijd (alle knoppen er nog).
 - [ ] `/mh mykeys` opent het toetsenvenster. **Nog niet** op "zet neer" drukken: de lijsten zijn nog van Midnight.
 - [ ] Log uit en weer in: zijn MH-instellingen (bv. de venstergrootte) bewaard? (In de beta ging dat mis.)
 

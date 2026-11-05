@@ -1291,6 +1291,17 @@ function ns.BuildSettingsPanel(panel)
 		print(("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), ns:L("SIDEPANEL_RESET_DONE")))
 	end)
 	panelResetBtn:SetPoint("LEFT", toastResetBtn, "RIGHT", 8, 0)
+	-- 🧩 WoW Forever (5 Nov 2026, Rob: "Ja, opruimen"): rares, the boss window, shard caps and the consumable board are
+	-- Midnight parts that the Forever TOC does not load. Their buttons go, and the rows below close up.
+	if ns.IS_FOREVER then
+		for _, b in ipairs({ testRareBtn, bossBtn, testShardBtn, boardBtn, forgetBtn, resetBossBtn }) do
+			b:Hide()
+		end
+		reportBtn:ClearAllPoints()
+		reportBtn:SetPoint("TOPLEFT", actH, "BOTTOMLEFT", 0, -6)
+		toastResetBtn:ClearAllPoints()
+		toastResetBtn:SetPoint("TOPLEFT", advH, "BOTTOMLEFT", 0, -6)
+	end
 	ui.last = toastResetBtn -- the lowest widget, for the scroll height (nudges move it down)
 
 	-- Notifications & tips (Spec 15): permanent, findable home for nudges.

@@ -762,6 +762,10 @@ local LOOK_SCREENS = {
 	room_codex = { stem = "codex", tagline = "TAB_TAGLINE_ROOM_CODEX" },
 	room_tools = { stem = "toolslaunch", tagline = "TAB_TAGLINE_ROOM_TOOLS" },
 }
+-- WoW Forever: Home has no Great Vault, world boss or rares there (HomeDashboard.lua, 5 Nov 2026).
+if ns.IS_FOREVER then
+	LOOK_SCREENS.home.tagline = "TAB_TAGLINE_HOME_FOREVER"
+end
 local LOOK_ICON_PATH = "Interface\\AddOns\\MidnightHelper\\Media\\Icons\\%s_64.png"
 local LOOK_HEADER_H = 64
 local LOOK_HEADER_H_COMPACT = 54

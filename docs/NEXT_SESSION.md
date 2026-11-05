@@ -10,8 +10,9 @@
   `RoomLauncher.lua`: Tools-kaarten met `screen` vragen hetzelfde. Retail: ongewijzigd (alles achter `ns.IS_FOREVER`).
 - GEMETEN (Robs 2e test): links Me/Tools/Settings, geen BugSack-fouten. Maar Tools toonde This Week: de poort zei nee
   tegen `room_tools` (onbekende id). Gerepareerd: alleen bekende tabs worden beoordeeld (`FOREVER_NO_BUILDER` + kaart).
-  Home toont nog Midnight-blokken (Vault, World Boss, Ritual Sites, Void, "Getting started → TAB_START_HERE"), en
-  Settings Midnight-knoppen (rare alert, boss window, shard cap): volgende ronde, Rob kiest.
+  ✅ Opgeruimd (Rob: "Ja, opruimen"): op Forever toont `BuildLayout` (HomeDashboard.lua) alleen een blok "Midnight Helper
+  Forever (early test)" + knop Your keys; tagline `TAB_TAGLINE_HOME_FOREVER`; Settings verbergt rare/boss/shard/board/
+  forget/resetboss en schuift Report + Reset popup op. 3 nieuwe sleutels in 8 talen (locale_probe OK).
 - Verwacht (AFGELEID): Me → This Week, Tools → Your keys + tools-lijst, Settings. 🔜 De tools-lijst
   (ToolsLaunchpad) noemt mogelijk nog Midnight-tools: na Robs volgende screenshot bekijken.
 
