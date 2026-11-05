@@ -8687,3 +8687,229 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
     **`3df4ba96a72e5ba1b6213d926a60e6bb62fb0956`** ("Handoff: CurseForge description and summary pasted,
     4.15.0 approved"), `## Version: 4.15.0`. Rechtgezet met `git checkout -B main 3df4ba9`, wat niets
     aan de inhoud verandert. Geen enkel ander bestand geraakt.
+
+- [2026-11-05] 🆕 **Nul [MOET GEFIKST] — maar er is een NIEUWE PTR-BUILD, `12.1.7.70740`, de eerste
+  beweging op die tak in zeven dagen, en hij is groot: 61 bestanden, waarvan 8 gegenereerde
+  API-documentatie. Daarin zit één ECHT NIEUW veiligheidsmechanisme (een nieuwe forbidden aspect
+  `QueryTimerDuration`, die Blizzard op zijn eigen aura-duurbalken zet) en een TOC-directive die ik
+  nog nooit genoemd heb gezien (`ExcludeLoadGameType`, plus een nieuw gametype `camelot`). ✅ **En de
+  richting van gisteren is nu BEVESTIGD, niet meer afgeleid:** de vier wijzigingen die op 4 nov op
+  live stonden en nog niet op PTR, staan er vandaag alle vier wél. Live-eerst-dan-PTR is daarmee in
+  één dag twee keer gemeten. Alles opnieuw afgedekt of niet-gebruikt; Rob hoeft vandaag niets te
+  repareren.**
+  - 🆕 **NIEUWE PTR-BUILD `12.1.7.70740`, na zes dagen stilstand op `70668`.** GEMETEN, niet
+    nagelezen: `git ls-remote --heads https://github.com/Gethe/wow-ui-source` → `ptr` =
+    **`e927c305f67ed6b3b460bc00d0c39055747b9119`**, waar hij op 30, 31 okt en 1–4 nov nog
+    **`9fc0ba94381153262856ed0120a2675f1a11c30a`** was. Daarna een **`--depth 6` partial clone** van
+    de ptr-tak, zodat de diff zelf gemeten is: bovenste commit heet **`12.1.7 (70740)`**, de ouder
+    is `9fc0ba9` = `12.1.7 (70668)`, en `version.txt` gaat van `12.1.7.70668` naar `12.1.7.70740`.
+    De build raakt **61 bestanden, 1323 toevoegingen en 639 verwijderingen** — veruit de grootste
+    PTR-build die deze wachter gemeten heeft. 🔴 **Er is GEEN bijbehorende blue post.** GEMETEN: de
+    wiki van 12.1.7 staat op zijn twee bekende Summary-punten (zie onder), en de nieuwste
+    12.1.7-ontwikkelnotitie die via Exa te vinden is, is **28 okt** en bestaat uit één regel
+    (*"various bug fixes and behind-the-scenes updates"*) — ouder dan 7 dagen, dus niet meegeteld.
+    Alles hieronder komt uit de client-source.
+  - ⏱️ **[RAAKT ONS NIET] — NIEUWE FORBIDDEN ASPECT `QueryTimerDuration` (32768), en Blizzard zet hem
+    op zijn EIGEN aura-duurbalken. Dit is het eerste nieuwe lid van die familie sinds de twee die de
+    12.1.5-blue post van 3 sep aankondigde.** GEMETEN op drie plekken in dezelfde build:
+    1. `ForbiddenAspectConstantsDocumentation.lua`: de enum gaat van `NumValues = 15` /
+       `MaxValue = 16384` naar `NumValues = 16` / `MaxValue = 32768`, met als nieuw veld
+       `{ Name = "QueryTimerDuration", Type = "ForbiddenAspect", EnumValue = 32768, Documentation =
+       { "Restricts APIs that query the timer duration object of a status bar." } }`.
+    2. `SimpleStatusBarAPIDocumentation.lua`: `GetTimerDuration` krijgt
+       `ChecksForbiddenAspects = { { Argument = "self", Aspect = Enum.ForbiddenAspect.QueryTimerDuration } }`.
+    3. `Blizzard_AuraContainer/Blizzard_CustomAuraButton.lua:229`, in
+       `CustomAuraButtonSharedMixin:SetDurationBar`, één regel erbij, direct vóór de bestaande
+       `AddSecretAspect`-regel: `statusBar:AddForbiddenAspects(Enum.ForbiddenAspect.QueryTimerDuration);`
+    📌 Dit is **letterlijk gelezen in de drie bestanden**, niet uit een samenvatting. Het betekent:
+    een addon kan op Blizzards aura-duurbalk niet meer `GetTimerDuration()` aanroepen. Dat is
+    nieuw van soort — tot nu toe werd de *waarde* afgeschermd (secret value, `AddSecretAspect` op
+    `BarValue`), nu wordt ook de *widget-vraag* afgeschermd.
+    **MH: `GetTimerDuration` → 0 bestanden, `QueryTimerDuration` → 0, `ChecksForbiddenAspects` → 0,
+    `AddForbiddenAspects` → 0, `AddSecretAspect` → 0, `SimpleStatusBar` → 0, `CustomAuraButton` →
+    0** (`grep -rIl`, `.git`/`docs`/`tools`/`dist` uit). MH leest aura-duur niet via een balk maar
+    via de data: `C_UnitAuras` → **13** bestanden, `GetAuraDataByIndex` → **5**, `expirationTime` →
+    **4**. Daar verandert niets.
+    ⚠️ **De twee treffers op `ForbiddenAspect` zijn geen gebruik.** GEMETEN:
+    `Modules/ApiProbe.lua:360`/`:372`/`:373` vraagt een frame of het `HasAnyForbiddenAspect` /
+    `HasAnyForbiddenAspects` kent (en `:376` doet hetzelfde voor een `StatusBar`), en
+    `Modules/PotionButton.lua:27` is een comment over DandersFrames. MH zet of leest zelf nooit een
+    aspect-masker, dus de nieuwe bit raakt geen bestaande aanroep.
+    📌 **Wel een kanshebber voor de probe, GEEN actiepunt:** `ApiProbe.lua:377` vraagt de StatusBar
+    nu alleen `SetShownFromBoolean` en `SetAlphaFromBoolean`. `GetTimerDuration` erbij zetten zou de
+    probe laten zien óf die call op Robs client bestaat — maar het is mijn suggestie, niet een
+    gemeten gebrek, en ik heb niets aangeraakt.
+  - ✅ **BEVESTIGD, en het is de correctie van gisteren die zichzelf binnen één dag afmaakt: de vier
+    live-wijzigingen van 4 nov staan nu ALLE VIER op PTR.** Gisteren schreef ik dat ze in live
+    `70783` zaten en **niet** in PTR `70668`, en noemde dat *"het omgekeerde van hoe ik deze tak tot
+    nu toe gelezen heb"*. GEMETEN in de diff `9fc0ba9 → e927c30`, alle vier letterlijk:
+    - `UnitDocumentation.lua`, payload-veld 4 van `UNIT_COMBAT`:
+      `{ Name = "amount", Type = "number", Nilable = false }` → `… , SecretValue = true }`.
+    - `RolesetSystemDocumentation.lua`, `ApplyRolesetFilters`: `HasRestrictions = true` erbij en
+      dezelfde zin achter de Documentation — *"Blocked for tainted callers while in combat lockdown."*
+    - `TextureUtilsDocumentation.lua`: `GetTitleIconTexture` en `IsTitleIconTextureReady` krijgen
+      beide een trailing `{ Name = "subIcon", Type = "string", Nilable = true }`.
+    - `BattleNetDocumentation.lua`: hetzelfde `subIcon`-veld achteraan de game-account-structuur.
+    🔴 **Dus de tak-orde is live-eerst, PTR-later — nu in twee onafhankelijke metingen op twee
+    dagen, niet meer afgeleid uit één veld.** De afdekking is onveranderd: `UNIT_COMBAT` → **0**
+    bestanden in MH, met de guard die dezelfde richting al opvangt op
+    `Modules/Retrospective.lua:276` (`if isSecret(amount) then amount = nil end`, naast dezelfde
+    test op `srcName`, `spell` en `env` op `:278`–`:281`); `C_Roleset` → **1** bestand, en de twee
+    functies die MH daar aanroept (`GetActiveAllowedRolesets`, `GetActiveBlockedRolesets`,
+    `Modules/ApiProbe.lua:178`) zijn opnieuw **niet** gewijzigd en staan achter
+    `type(C_Roleset) == "table"` + `type(C_Roleset[fn]) == "function"` + `pcall`; de drie
+    titelicoon-namen blijven **0**.
+  - 📜 **[RAAKT ONS NIET] — NIEUWE TOC-DIRECTIVE `ExcludeLoadGameType`, en een nieuw gametype
+    `camelot`. Dit is het eerste concrete nieuws over de TOC-regel die als open punt in dit logboek
+    staat.** GEMETEN in de `.toc`-diff van deze build, letterlijk:
+    `## AllowLoad: both [AllowLoadGameType mainline]` → `## AllowLoad: both [AllowLoadGameType
+    mainline] [ExcludeLoadGameType camelot]`; `## AllowLoad: game [AllowLoadGameType classic]` →
+    `## AllowLoad: game [AllowLoadGameType classic, camelot]` (dus ook een **kommalijst** achter de
+    directive); en per-bestandsregels als `WoWLabs\PlunderstormLobby.lua [AllowLoadGameType
+    mainline]` → `… [ExcludeLoadGameType classic, camelot]`. Geraakt: de `.toc`'s van
+    `Blizzard_ChatFrameBase`, `Blizzard_FriendsFrame`, `Blizzard_RecentAllies`,
+    `Blizzard_SocialUI`, `Blizzard_GlueXML` en `Blizzard_SubscriptionInterstitialUI`.
+    📌 De wikiregel zei tot nu toe alleen dat *"Directives containing conditional expressions such
+    as [AllowLoadGameType ...] continue to function normally"*; dat `ExcludeLoadGameType` bestaat en
+    dat `camelot` een gametype is, stond daar niet. 🔴 **De betekenis van `camelot` is AFGELEID, niet
+    gemeten:** in dezelfde build krijgt `Blizzard_FrameXMLBase` een map `Camelot/` naast `Mainline/`,
+    dus het is een eigen client-lijn — maar welke, zegt de source niet, en ik gok er niet naar.
+    **MH: `AllowLoadGameType` → 0, `ExcludeLoadGameType` → 0, `AllowLoad` → 0, `camelot` → 0,
+    `LoadGameType` → 0.** GEMETEN in `MidnightHelper.toc` zelf: er staan **18** `## `-directives
+    (regel 2–18) plus `## Interface:` op regel 1, en geen enkele `AllowLoad`-regel. Positieve
+    controle op dezelfde reikwijdte: `## Interface` → **3** bestanden, `## Version` → **3**.
+  - ✈️ **[AL AFGEDEKT] — `TaxiFrame.lua` is verbouwd naar mixins en daarbij verdwijnen VIJF globale
+    functies. Addons die daarop `hooksecurefunc`'en, breken.** GEMETEN met een gerichte scan van de
+    diff op `^-function <Globaal>(`: weg zijn **`TaxiFrame_OnLoad`**, **`TaxiFrame_OnShow`**,
+    **`TaxiFrame_OnEvent`**, **`TaxiNodeOnButtonEnter`** en **`TaxiNodeOnButtonLeave`**, vervangen
+    door `TaxiFrameMixin:OnLoad/OnShow/OnHide/OnEvent` en `TaxiButtonMixin:OnEnter/OnLeave/OnClick`
+    (+170 regels, inclusief nieuwe gamepad-methodes). `TakeTaxiNode(self:GetID())` zit nu in
+    `TaxiButtonMixin:OnClick`.
+    **MH: `TaxiFrame` → 0 bestanden, `TaxiNodeOnButtonEnter` → 0.** Positieve controle: `C_TaxiMap`
+    → **2**, `TakeTaxiNode` → **1**, `hooksecurefunc` → **8** — het patroon vindt dus wél wat er is.
+    ⚠️ **En de plek waar MH taxi-data leest is afgedekt én gaat over een ánder frame.**
+    `Modules/FlightMapHint.lua:79` staat achter `if not (C_TaxiMap and C_TaxiMap.GetAllTaxiNodes)
+    then return nil, nil end` en `:82` roept aan via `pcall`; de enige `TakeTaxiNode`-treffer is de
+    comment op `:15` die juist zegt dat MH hem **niet** aanroept (*"a flight is the player's
+    decision and TakeTaxiNode is not ours to call"*). `C_TaxiMap` is in deze build niet gewijzigd,
+    en MH hangt aan `FlightMapFrame`, dat niet in de diff staat.
+  - 🐻 **[AL AFGEDEKT] — `DRUID_BEAR_FORM` is uit de gedeelde `Constants.lua` gehaald.** GEMETEN:
+    `Blizzard_FrameXMLBase/Constants.lua:332` gaat van `DRUID_BEAR_FORM = 5;` naar
+    `--for DRUID_BEAR_FORM see override files`, en de waarde verhuist naar
+    `Mainline/Constants.lua` (**= 5**, dus voor Retail ongewijzigd) en `Camelot/Constants.lua`
+    (**= 8**). Dezelfde twee bestanden krijgen elk hun eigen `CLASS_SORT_ORDER`/`MAX_CLASSES`.
+    **MH: `DRUID_BEAR_FORM` → 0, `DRUID_TRAVEL_FORM` → 0, `DRUID_FLIGHT_FORM` → 0,
+    `DRUID_CAT_FORM` → 0, `SHAMAN_GHOST_WOLF_FORM` → 0, `PRIEST_SHADOWFORM` → 0, `MAX_CLASSES` →
+    0, `CLASS_SORT_ORDER` → 0.** MH vraagt de vorm bij de client op in plaats van tegen een
+    constante te vergelijken, en dat staat achter een guard: `Modules/MissingBuff.lua:89`
+    (`if not GetShapeshiftForm then return false end`) + `:92` (`pcall(GetShapeshiftForm)`), met
+    alleen een `> 0`-test op de index. Positieve controle: `GetShapeshiftForm` → **1** bestand.
+  - 🎮 **[RAAKT ONS NIET] — de gamepad-navigatie is grondig verbouwd, inclusief één verdwenen
+    globale functie en een gewijzigde signature.** GEMETEN: nieuw bestand
+    `Blizzard_GamepadSmartNavigation/SecureHelper.lua` (**+224** regels, ook toegevoegd aan
+    `Interface/ui-code-list.txt` en aan de `.toc`), `SmartNavigation.lua` +396/−…,
+    `Utility.lua` +278/−…. Van de vier globals die uit de diff verdwijnen komen er drie onder
+    dezelfde naam terug; echt weg is **`SmartNavigation_SetReturnFrameFocusButton`** (GEMETEN: na
+    `git checkout e927c30 -- Blizzard_GamepadSmartNavigation/` geeft `grep -rn` in die map **nul**
+    treffers, en dat is de map waar de verwijderde regel stond). **`SmartNavigation_MarkFrameIgnored`
+    krijgt een tweede argument `dontPropagate`**, en er komen zes nieuwe
+    `SmartNavigation_*`-globals bij (o.a. `ClearDirectionBufferThresholds`,
+    `GetCustomCursorAnchorPointForFrame`, `ClearOutgoingNavigationCallbacks`).
+    Bijbehorend: `MapCanvasScrollControllerMixin` verliest zijn drie eigen cursorlijn-methodes
+    (`CreateGamepadCursorLines`, `UpdateGamepadCursorLines`, `SetGamepadCursorLinesShown`, −88
+    regels) ten gunste van `SoftCursor:SetLinesEnabled(true, self)`, en
+    `SettingsPanelMixin:RegisterTransitions` verdwijnt terwijl `InitializeGamepad` → `InitGamepad`
+    heet.
+    **MH: `SmartNavigation` → 0, `MapCanvasScrollControllerMixin` → 0, `SoftCursor` → 0,
+    `SettingsPanelMixin` → 0, `RegisterTransitions` → 0, `InitializeGamepad` → 0, `SetupGamepad` →
+    0, `InputUtil` → 0, `GamepadBaseDialogMixin` → 0.** MH's eigen instellingenpagina hangt aan
+    `Settings.RegisterAddOnCategory` (**1** bestand, positieve controle), niet aan het paneelmixin.
+  - 🧾 **[RAAKT ONS NIET] — twee enum-uitbreidingen en één nieuwe global, allemaal buiten ons
+    terrein.** GEMETEN: `ExpansionDocumentation.lua` → `SubscriptionInterstitialType` van
+    `NumValues = 3`/`MaxValue = 2` naar `4`/`3` met
+    `{ Name = "SubscriptionPeriod", … EnumValue = 3 }`, plus een nieuwe global
+    `SubscriptionInterstitial_ShowSubscriptionPeriod()`; en `WowCSConstantsDocumentation.lua` →
+    `FragmentID` van `NumValues = 78` naar `79` met `{ Name = "RemoteMirrorState", … EnumValue = 45 }`.
+    **MH: `SubscriptionInterstitial` → 0, `SubscriptionPeriod` → 0, `FragmentID` → 0,
+    `RemoteMirrorState` → 0.**
+  - 🔇 **[RAAKT ONS NIET] — live onbewogen, TWEEDE dag op `12.1.5.70783`.** GEMETEN: `ls-remote` geeft
+    `live` = **`297d7aaaa736f346b3e036f38ee088eaf7f8c07f`**, gelijk aan gisteren, en een
+    `--depth 1`-fetch van die tak leest `version.txt` = **`12.1.5.70783`**. De takkenlijst blijft
+    **13** heads, `beta` op `078d0cf7…` en `ptr2` op `12380f8cdc541b7f0963f74cbe0874c21a857fbb`
+    (de inmiddels 21 dagen oude, Retail-irrelevante tak). ⚠️ `forever` staat vandaag op
+    **`eac30af597e5aaa43a60f6675ef5fdcea100375f`**, waar mijn regel van gisteren `17ed2c3e…` noemde
+    — die tak is dus bewogen, maar hij is geen Retail-Midnight-lijn en ik heb hem niet gediefd.
+  - 📄 **[RAAKT ONS NIET] — de wiki staat op beide pagina's stil, en dat is nu vijf weken het
+    verhaal.** GEMETEN via Exa mét cache-buster:
+    `Patch_12.1.7/API_changes?nocache=20261105` bevat nog exact dezelfde twee Summary-punten
+    (GUID-obfuscatie *"will be available for testing in a future build of 12.1.7"*, en *"TOC
+    directives no longer expand variables such as [Game] or [Family]"*), `TOC: 120107` onveranderd
+    — **TWINTIGSTE** dag. En `Patch_12.1.5/API_changes?nocache=20261105` heeft nog steeds precies
+    vier blue-post-secties, gedateerd **2026-09-03, 09-16, 09-22 en 09-29**. 🔴 Blizzards nieuwste
+    addon-facing patch note is daarmee **37 dagen** oud, terwijl er gisteren vier wijzigingen op
+    live landden en vandaag een PTR-build van 61 bestanden. Dat gat blijft het hele argument voor
+    het meten van de source-diff.
+  - 🧵 **[RAAKT ONS NIET] — één nieuw forumtopic bovenaan, en het is een addon-verzoek.** GEMETEN op
+    de UI-and-Macro-lijst mét cache-buster, afgezet tegen mijn regel van gisteren (die DandyMap als
+    nieuwste noemde): bovenaan staat nu **"Housing Decor: Auto Use"** (2 reacties, 35 views,
+    activiteit **4 nov 2026**). De draad zelf is **1 nov 2026** geopend door *Scy* en vraagt
+    letterlijk: *"Anyone know an addon that will auto use Warbound Housing Decor instead of having
+    to manually click on each?"* — een verzoek om een addon, geen API-melding. De rest van de lijst
+    is regel-voor-regel gelijk aan gisteren.
+    ⚠️ **En een eerlijke aantekening over hóe ik dat gelezen heb:** ik heb eerst een URL **verzonnen**
+    uit de titel (`/t/housing-decor-auto-use/2088431`) en Exa gaf daarop een pagina terug — een
+    volstrekt andere draad, *"The Last Titan Allied Race"* uit het Story-forum van april 2025.
+    GEMETEN, niet vermoed. De echte draad is `/t/housing-decor-auto-use/**2398297**`, gevonden met
+    een Exa-zoekopdracht op de exacte titel. 📌 **Een verzonnen URL die 200 teruggeeft is dezelfde
+    val als de cache van 3 sep: de uitkomst oogt gezond en is een ander document.** Een
+    forum-ID hoort gezocht, niet geconstrueerd.
+  - 🧰 **[RAAKT ONS NIET] — SimC-addon: geen nieuwe release sinds `12.1.5-03`, VEERTIENDE dag.**
+    GEMETEN met `git ls-remote --tags --refs` op `simulationcraft/simc-addon`: **257** tags (zelfde
+    aantal als de zeven dagen ervoor), nieuwste 12.x-tag blijft **`12.1.5-03`** =
+    `cb3e3af298e3124162c6bf44d1bebac53435eaec`, naast `12.1.5-02` = `b0cce8ec…` en `12.1.5-01` =
+    `8741352777…`. Tweede bron, de releasepagina mét cache-buster
+    (`/releases?nocache=20261105`): bovenste release **`12.1.5-03`, 22 okt 2026 21:56**, met als
+    enige regel *"forever: Export hunter pet info"*. Niets binnen 7 dagen, dus niets te toetsen aan
+    `ItemString`/`ns.BuildSimcProfile` in `Modules/SimcExport.lua`.
+  - 🧪 **Positieve controle van de grep-reikwijdte, in dezelfde run en in dezelfde vorm als de nullen
+    hierboven** (`grep -rIl`, `.git`/`docs`/`tools`/`dist` uitgesloten, geteld in bestanden):
+    `CreateFrame` → **160**, `issecretvalue` → **66**, `C_Spell` → **56**, `InCombatLockdown` →
+    **51**, `UnitGUID` → **37**, `GetInstanceInfo` → **35**, `C_DelvesUI` → **14**, `C_UnitAuras` →
+    **13**, `C_WeeklyRewards` → **12**, `C_Container` → **9**, `hooksecurefunc` → **8**,
+    `C_Secrets` → **5**, `GetAuraDataByIndex` → **5**, `StatusBar` → **4**, `expirationTime` →
+    **4**, `## Interface` → **3**, `C_TaxiMap` → **2**, `ForbiddenAspect` → **2**,
+    `GetShapeshiftForm` → **1**, `C_Roleset` → **1**, `TakeTaxiNode` → **1**,
+    `SetStatusBarTexture` → **1**, `CombatLogGetCurrentEventInfo` → **1**, tegenover de
+    **vijfentwintig** nullen van vandaag: `QueryTimerDuration`, `GetTimerDuration`,
+    `ChecksForbiddenAspects`, `AddForbiddenAspects`, `AddSecretAspect`, `SimpleStatusBar`,
+    `SubscriptionInterstitial`, `SubscriptionPeriod`, `FragmentID`, `RemoteMirrorState`,
+    `TaxiFrame`, `TaxiNodeOnButtonEnter`, `SmartNavigation`, `MapCanvasScrollControllerMixin`,
+    `SoftCursor`, `DRUID_BEAR_FORM`, `DRUID_TRAVEL_FORM`, `SHAMAN_GHOST_WOLF_FORM`, `MAX_CLASSES`,
+    `CLASS_SORT_ORDER`, `AllowLoadGameType`, `ExcludeLoadGameType`, `camelot`, `CustomAuraButton`,
+    `UNIT_COMBAT`. 📌 De negen zwaarste getallen zijn exact gelijk aan gisteren, aan 3 nov en aan
+    2 nov; het patroon vindt wat er is. En vijf van de kleine getallen hierboven
+    (`C_TaxiMap`, `ForbiddenAspect`, `GetShapeshiftForm`, `TakeTaxiNode`, `SetStatusBarTexture`)
+    zijn juist vandaag gevonden doordat ik op nieuwe namen zocht — de nullen zijn dus afwezigheid,
+    geen meetfout.
+  - ⏳ **Nog open uit eerdere runs, NIET nieuw en vandaag niet opnieuw gemeten:** de UTF-8 BOM vooraan
+    `MidnightHelper.toc` (wel vandaag opnieuw GEMETEN met `od -c`: `357 273 277` staat er nog, vóór
+    `## Interface: 120007, 120100, …`); de `%d+`-aanname op veld 3 van de npcID-match
+    (`Modules/ResetRoutine.lua:648`) tegenover de GUID-obfuscatie; de `GetInstanceInfo`-return-orde
+    tegenover `Modules/Showdowns.lua:226`; de dode `PickupItem`-takken in
+    `Modules/KeyBlock.lua:1135`/`:1227`/`:1380` en `Modules/ApplyLayout.lua:1311`/`:1345`/`:1605`;
+    de vijf decoratieve `GetItemInfo`-terugvaltakken; `Blizzard_DeprecatedWorldElapsedTimerTypes`
+    als tiende deprecated-addon tegenover negen wiki-secties; de verouderde namespace-lijst in
+    `docs/WATCHER_API_PROMPT.md` (18 aug); en de client-test voor `/mh raidbots`.
+    ✅ **Eén open punt is vandaag wél vooruitgegaan:** "de TOC-directives van 12.1.7" heeft nu een
+    concrete meting onder zich (`ExcludeLoadGameType` + `camelot`, zie hierboven), en MH blijkt er
+    niet door geraakt omdat zijn `.toc` geen enkele `AllowLoad`-regel heeft. 🔴 Niets aangeraakt.
+  - 🔧 **Repo-staat: alleen `docs/API_WATCH.md` aangeraakt.** GEMETEN vóór het schrijven:
+    `git status --short` **leeg**, geen van de vier wachter-bestanden gewijzigd-maar-ongecommit, en
+    `git rev-parse --abbrev-ref HEAD` → **`HEAD`**, dus detached (zoals op 17, 19, 22, 25, 26, 29,
+    30 okt en 1–4 nov). ⚠️ `git fetch origin main` meldde opnieuw een
+    **`+ 5934305...aed9257 main -> origin/main (forced update)`** — zelfde artefact van de verse
+    checkout-ref als gisteren, geen herschreven historie: GEMETEN dat `HEAD` en `origin/main`
+    allebei **`aed92574f101f01aa4c330d22c9ed95ff042ddd7`** zijn ("Listen to TomTom 4.4.0's
+    ArrowTargetChanged and hold back set-closest"), `## Version: 4.15.0`. Rechtgezet met
+    `git checkout -B main aed9257`, wat niets aan de inhoud verandert. Geen enkel ander bestand
+    geraakt.
