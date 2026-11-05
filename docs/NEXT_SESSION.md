@@ -1,5 +1,16 @@
 # Midnight Helper — waar we staan
 
+## 🔎 5 nov (avond) — "Midnight Helper Forever": alleen onderzoek
+
+Rob speelt WoW Forever met EllesmereUI en vroeg of MH daar het toetsenblok kan zetten → nu niet: MH staat niet in
+`_forever_` en de TOC mist 16001 (GEMETEN). Daarna: *"afgeslankte versie … we hebben al een hele engine"* → *"Ja,
+uitzoeken"*. Uitkomst in `docs/PLAN_FOREVER_2026-11-05.md`: één code, tweede TOC `MidnightHelper_Camelot.toc`
+(`AllowLoadGameType: camelot`, voorbeeld EllesmereUI); motor 50 / algemeen 145 / Midnight 69 / data 51 bestanden
+(mh-sweep); de motor roept Midnight-onderdelen met `if ns.X` aan (steekproef zelf nagekeken). Forever: 1 spec per class
+(1482-1491, uit EllesmereUI), spell-ranks, C_SpecializationInfo/C_Spell/PlaceAction/waypoints bestaan (mh-research,
+wiki-dump beta). Toetsenblok heeft eigen lijsten per Forever-class nodig. 🔜 Rob kiest: stap 1 ja/nee, kopieerscript of
+junction, welke class, CurseForge.
+
 ## 🔨 5 nov (laat) — Rob: "ik volg jouw advies" → stap 1 + idee B gebouwd, NIET in het spel getest
 
 - **Stap 1 (bewaren per run):** `DelveHistory.lua` `ReadRunFlavour()` leest bij SCENARIO_COMPLETED het verhaal
