@@ -147,7 +147,13 @@ ns._mhLocales.enUS = {
 	-- Main shell
 	MAIN_TITLE = "Midnight Helper",
 	SEARCH_LABEL = "Search:",
-	SEARCH_PLACEHOLDER = "Find a tab, tool, boss, mount, rare or treasure…",
+	SEARCH_PLACEHOLDER = "Find a tab, setting, tool, boss, mount, rare or treasure…",
+	-- Search words for Silvermoon pins without a short Blizzard GlobalString (NavSearch ClientWords; never shown).
+	SMC_SEARCH_CREATION_CATALYST = "The Catalyst Catalyst Steward",
+	SMC_SEARCH_HORDE_CREATION_CATALYST = "The Catalyst",
+	SMC_SEARCH_CREST_EXCHANGE = "Crest Exchange",
+	SMC_SEARCH_TRAINING_DUMMIES = "Training Dummy Dungeoneer's Raider's PvP",
+	SMC_SEARCH_PORTALS = "Portal Room",
 	SEARCH_MY_CHARACTER = "My character",
 	SEARCH_GO = "Search",
 	FAV_CHIP_HINT = "Left-click to open · right-click to unpin",
@@ -3008,7 +3014,7 @@ ns._mhLocales.enUS = {
 	INFO_DRAWER_BODY_ENCHANTS = "Scans your enchantable slots (weapon, chest, helm, shoulders, rings, boots, legs) and flags any without an enchant. Rings lead with Eyes of the Eagle, then the ring that matches your spec's top secondary stat (from the Great Vault Advisor weights). The weapon gets a primary-stat and a secondary-stat option; tanks and healers see the primary one first. Chest, legs and tertiary slots are generic. For pure best-in-slot, check a class guide. Cloak, wrist and belt aren't enchantable this patch. It also checks empty gem sockets: socket one Indecipherable Eversong Diamond (+32 primary stat — you can wear only one Eversong Diamond) plus a stat-matched dual gem in your other sockets.",
 	TAB_CURRENCY = "Currencies",
 	CURRENCY_QM_LABEL = "Renown Quartermaster waypoint:",
-	CURRENCY_QM_COURT = "SMC Court",
+	CURRENCY_QM_COURT = "Silvermoon Court",
 	CURRENCY_QM_AMANI = "Amani",
 	CURRENCY_QM_HARATI = "Hara'ti",
 	CURRENCY_QM_SINGULARITY = "Singularity",

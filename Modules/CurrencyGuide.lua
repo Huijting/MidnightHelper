@@ -18,14 +18,29 @@ local ui
 
 -- Renown Quartermasters (Voidlight Marl). UiMapID + coords uit Wowhead (15 jun) —
 -- in-game te bevestigen.
+-- 5 Nov 2026 (Rob: "Alles"): `faction` = the Renown faction (Faction DB2, ParentFactionID 2698), measured
+-- on wago 12.1.5.70783 in all 8 locales. The button shows the name the client gives for it, so it is the
+-- player's own language and Blizzard's own words; labelKey is only the fallback when the client gives none.
 local QMS = {
-	{ key = "court", labelKey = "CURRENCY_QM_COURT", map = 2395, x = 43.46, y = 47.42, who = "Caeris Fairdawn" },
-	{ key = "amani", labelKey = "CURRENCY_QM_AMANI", map = 2437, x = 45.95, y = 65.92, who = "Magovu" },
-	{ key = "harati", labelKey = "CURRENCY_QM_HARATI", map = 2413, x = 50.99, y = 50.75, who = "Naynar" },
-	{ key = "singularity", labelKey = "CURRENCY_QM_SINGULARITY", map = 2405, x = 52.57, y = 72.89, who = "Void Researcher Anomander" },
+	{ key = "court", faction = 2710, labelKey = "CURRENCY_QM_COURT", map = 2395, x = 43.46, y = 47.42, who = "Caeris Fairdawn" },
+	{ key = "amani", faction = 2696, labelKey = "CURRENCY_QM_AMANI", map = 2437, x = 45.95, y = 65.92, who = "Magovu" },
+	{ key = "harati", faction = 2704, labelKey = "CURRENCY_QM_HARATI", map = 2413, x = 50.99, y = 50.75, who = "Naynar" },
+	{ key = "singularity", faction = 2699, labelKey = "CURRENCY_QM_SINGULARITY", map = 2405, x = 52.57, y = 72.89, who = "Void Researcher Anomander" },
 	-- 3 Oct 2026: fifth QM (12.1, Coiled Isle). Warcraft Wiki QM table; map 2512 = COILED_ISLE_MAP. In-game te bevestigen.
-	{ key = "zuljarra", labelKey = "CURRENCY_QM_ZULJARRA", map = 2512, x = 58.8, y = 46.0, who = "Jan'sari the Watchful" },
+	{ key = "zuljarra", faction = 2772, labelKey = "CURRENCY_QM_ZULJARRA", map = 2512, x = 58.8, y = 46.0, who = "Jan'sari the Watchful" },
 }
+
+-- The client's name for a QM's faction, or our own label.
+local function QMName(qm)
+	if qm.faction and C_Reputation and C_Reputation.GetFactionDataByID then
+		local ok, d = pcall(C_Reputation.GetFactionDataByID, qm.faction)
+		local n = ok and type(d) == "table" and d.name or nil
+		if type(n) == "string" and n ~= "" and not (issecretvalue and issecretvalue(n)) then
+			return n
+		end
+	end
+	return ns:L(qm.labelKey)
+end
 
 -- Saldo van een currency, of nil.
 local function CurrencyQty(id)
@@ -210,24 +225,21 @@ function ns.BuildCurrencyGuidePanel(panel)
 	qmLabel:SetTextColor(0.62, 0.60, 0.55)
 
 	local qmButtons = {}
-	local prev
 	for _, qm in ipairs(QMS) do
 		local b = CreateFrame("Button", nil, panel, "UIPanelButtonTemplate")
 		b:SetHeight(20)
-		b:SetText(ns:L(qm.labelKey))
-		local w = (b:GetFontString() and b:GetFontString():GetStringWidth() or 60) + 18
-		b:SetWidth(math.max(54, w))
-		if prev then
-			b:SetPoint("LEFT", prev, "RIGHT", 6, 0)
-		else
-			b:SetPoint("LEFT", qmLabel, "RIGHT", 10, 0)
-		end
 		b:SetScript("OnClick", function()
 			SetQMWaypoint(qm)
 		end)
+		b:SetScript("OnEnter", function(self)
+			GameTooltip:SetOwner(self, "ANCHOR_TOP")
+			GameTooltip:SetText(QMName(qm))
+			GameTooltip:AddLine(qm.who or "", 1, 1, 1)
+			GameTooltip:Show()
+		end)
+		b:SetScript("OnLeave", GameTooltip_Hide)
 		b._mhQM = qm
 		qmButtons[#qmButtons + 1] = b
-		prev = b
 	end
 
 	-- Spec 39 (11 Sep 2026): what your characters hold and what to do with it, above the map of
@@ -264,9 +276,55 @@ function ns.BuildCurrencyGuidePanel(panel)
 		end
 	end)
 
-	ui = { panel = panel, title = title, subtitle = subtitle, body = body, qmLabel = qmLabel, qmButtons = qmButtons }
+	ui = { panel = panel, title = title, subtitle = subtitle, body = body, qmLabel = qmLabel, qmButtons = qmButtons, scroll = scroll }
+
+	-- 5 Nov 2026: the buttons carry the client's full faction names now ("Zul'jarras Streitkräfte"),
+	-- so one row no longer fits every language. Lay them out after the label and wrap onto extra rows
+	-- that grow upward; the reading window above gives up exactly that height.
+	local ROW_H = 24
+	function ui.LayoutQM()
+		local avail = (panel:GetWidth() or 0) - 14
+		local startX = 14 + (qmLabel:GetStringWidth() or 0) + 10
+		if avail < startX + 60 then
+			avail = startX + 600 -- panel not sized yet: one long row, redone on the next show/resize
+		end
+		local rows, row, x = {}, {}, startX
+		for _, b in ipairs(qmButtons) do
+			b:SetText(QMName(b._mhQM))
+			local w = math.max(54, ((b:GetFontString() and b:GetFontString():GetStringWidth()) or 60) + 18)
+			b:SetWidth(w)
+			if #row > 0 and x + w > avail then
+				rows[#rows + 1] = row
+				row, x = {}, startX
+			end
+			row[#row + 1] = b
+			x = x + w + 6
+		end
+		if #row > 0 then
+			rows[#rows + 1] = row
+		end
+		for r, list in ipairs(rows) do
+			local y = 16 + (#rows - r) * ROW_H
+			for i, b in ipairs(list) do
+				b:ClearAllPoints()
+				if i == 1 then
+					b:SetPoint("BOTTOMLEFT", panel, "BOTTOMLEFT", startX, y - 4)
+				else
+					b:SetPoint("LEFT", list[i - 1], "RIGHT", 6, 0)
+				end
+			end
+		end
+		qmLabel:ClearAllPoints()
+		qmLabel:SetPoint("BOTTOMLEFT", panel, "BOTTOMLEFT", 14, 16 + (#rows - 1) * ROW_H)
+		scroll:SetPoint("BOTTOMRIGHT", panel, "BOTTOMRIGHT", -30, 44 + (#rows - 1) * ROW_H)
+	end
+	panel:HookScript("OnSizeChanged", function()
+		ui.LayoutQM()
+	end)
+	ui.LayoutQM()
 
 	panel:SetScript("OnShow", function()
+		ui.LayoutQM()
 		ns.RefreshCurrencyGuidePanel()
 	end)
 
@@ -295,12 +353,8 @@ do
 			if ui.qmLabel then
 				ui.qmLabel:SetText(ns:L("CURRENCY_QM_LABEL"))
 			end
-			if ui.qmButtons then
-				for _, b in ipairs(ui.qmButtons) do
-					if b._mhQM then
-						b:SetText(ns:L(b._mhQM.labelKey))
-					end
-				end
+			if ui.LayoutQM then
+				ui.LayoutQM()
 			end
 			if ui.panel and ui.panel:IsShown() then
 				ns.RefreshCurrencyGuidePanel()

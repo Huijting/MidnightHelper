@@ -142,7 +142,7 @@ ns._mhLocales.nlNL = {
 
 	MAIN_TITLE = "Midnight Helper",
 	SEARCH_LABEL = "Zoek:",
-	SEARCH_PLACEHOLDER = "Vind een tabblad, tool, boss, mount, rare of schat…",
+	SEARCH_PLACEHOLDER = "Vind een tabblad, instelling, tool, boss, mount, rare of schat…",
 	SEARCH_MY_CHARACTER = "Mijn character",
 	SEARCH_GO = "Zoeken",
 	FAV_CHIP_HINT = "Links-klik om te openen · rechts-klik om te ontpinnen",
@@ -2888,7 +2888,7 @@ ns._mhLocales.nlNL = {
 	INFO_DRAWER_BODY_ENCHANTS = "Scant je enchantbare slots (wapen, chest, helm, shoulders, ringen, boots, legs) en vlagt slots zonder enchant. Ringen beginnen met Eyes of the Eagle, daarna de ring die past bij de top-secundaire-stat van je spec (uit de Great Vault Advisor-weights). Het wapen krijgt een primary-stat- en een secondary-stat-optie; tanks en healers zien de primary eerst. Chest, legs en tertiaire slots zijn generiek. Voor pure best-in-slot: zie een class-guide. Cloak, wrist en belt zijn deze patch niet enchantbaar. Het checkt ook lege gem-sockets: zet één Indecipherable Eversong Diamond (+32 primary — je mag maar één Eversong Diamond dragen) plus een stat-gematchte dual-gem in je overige sockets.",
 	TAB_CURRENCY = "Valuta",
 	CURRENCY_QM_LABEL = "Waypoint naar Renown Quartermaster:",
-	CURRENCY_QM_COURT = "SMC Court",
+	CURRENCY_QM_COURT = "Silvermoon Court",
 	CURRENCY_QM_AMANI = "Amani",
 	CURRENCY_QM_HARATI = "Hara'ti",
 	CURRENCY_QM_SINGULARITY = "Singularity",

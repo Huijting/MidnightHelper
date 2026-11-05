@@ -21,6 +21,18 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 5 nov — zoekbalk-tekst en de kwartiermeester-knoppen
+
+Eerst `/reload`.
+- [ ] De lege zoekbalk van MH zegt nu *"Find a tab, setting, tool, boss, mount, rare or treasure…"*. Staat de hele zin
+      erin, of valt het eind weg (…)? Probeer ook een smal MH-venster.
+- [ ] Tab **Currency**, onderaan *Renown Quartermaster waypoint:*. De knoppen heten nu **Silvermoon Court**, **Amani
+      Tribe**, **Hara'ti**, **The Singularity** en **Zul'jarra's Forces**. Passen ze netjes (eventueel op twee regels),
+      zonder over de tekst erboven te vallen? Muis op een knop → de naam en de NPC. Klik → de pijl gaat erheen.
+- [ ] Zoekbalk: **catalyst**, **crest exchange**, **training dummy** en **portal room** → de pin in Silvermoon.
+      **alchemy trainer** werkt nog zoals vroeger.
+- [ ] (Niet bij jou te zien: op een Duitse client vindt *Auktionshaus* nu het Auction House.)
+
 ## 🆕 4 nov — TomTom 4.4.0: één pijl weghalen stopt de route
 
 Met TomTom aan. Na `/reload`.

@@ -1,5 +1,28 @@
 # Midnight Helper — waar we staan
 
+## 🔨 5 nov — zoekbalk-tekst, kwartiermeesters, stadspins in elke taal (Rob: "Alles"), NIET in het spel getest
+
+Clientnamen GEMETEN door mh-research (wago 12.1.5.70783 per locale; dummies/NPC-titels via Wowhead live-tooltips). Tabel:
+`side-session-notes/local_b7b64975-…/2026-11-05_clientnamen_factions_en_pins.md`.
+- `SEARCH_PLACEHOLDER` 8 talen: "setting" als tweede woord (de Einstellung, fr réglage, es ajuste, pt configuração, it
+  impostazione, ru настройка — het woord van elk pack bij All settings). Of hij past in een smal venster: niet gemeten.
+- `CurrencyGuide.lua`: QMS-rijen kregen `faction` (2710/2696/2704/2699/2772); de knop toont
+  `C_Reputation.GetFactionDataByID(id).name` (clientnaam), anders de locale-key. Knoppen lopen door op een extra rij
+  (`ui.LayoutQM`, groeit omhoog, leesvenster wordt even veel lager). Tooltip: factienaam + NPC. AFGELEID: dat de API een
+  naam geeft voor een factie die je nog niet kent.
+- `CURRENCY_QM_COURT` = gemeten naam in alle packs (enUS/nlNL "Silvermoon Court", ru "Двор Луносвета"); de 5 dode
+  fill-regels in Translations2026 weg (lint HARD). De 4 andere QM-keys zijn alleen nog terugval (kort Engels).
+- `NavSearch.lua` `ClientWords`: per SMC-pin Blizzards eigen GlobalStrings als extra zoekwoord (BUTTON_LAG_AUCTIONHOUSE,
+  MINIMAP_TRACKING_*, BANK, ACCOUNT_BANK_PANEL_TITLE, DELVES_GREAT_VAULT_LABEL, TRANSMOG_SOURCE_7, …), beroepsnaam via
+  `C_TradeSkillUI.GetTradeSkillDisplayName(skillLine)` (kandidaat, niet getest), en `SMC_SEARCH_<ID>` (5 nieuwe keys,
+  7 talen) voor Catalyst ("The Catalyst" = de huidige spelnaam), Crest Exchange, Training Dummy en Portal Room (eigen
+  woord). Label op het scherm blijft Engels.
+- ruRU `PROFGUIDE_BTN_SMC` "Учитель в Луносвете"; deDE `SEARCH_TOOLTIP_BODY` "Orte in Silbermond (Bank, Auktionshaus, …)".
+- Checks: syntax OK (307), lint 0 HARD, locale_probe alle 9 keys OK (nlNL Engels zoals bedoeld), check_drift --mark voor
+  de 2 gewijzigde enUS-keys. Offline (echte NavSearch.lua, Duitse globals als stub): auktionshaus, briefkasten,
+  gastwirt, schatzkammer, alchemie, wappentausch, trainingsattrappe, katalysator, portalraum → de goede pin; zzzq → 0.
+- Testlijst "5 nov". Een de/fr/…-client kan Rob niet testen.
+
 ## ☀️ 5 nov — ochtendronde: niets voor Rob; `_probe.py` vond zijn eigen job niet meer
 
 - GEMETEN: alle 4 wachters gedraaid (API: nieuwe PTR-build 12.1.7.70740, 0 MOET GEFIKST, `QueryTimerDuration` en
@@ -48,6 +71,7 @@
   hun release-stappen. Ze vroegen locale-keys, commando's en of de Szarith-zin publiek moet (nee, alleen voor ons).
 - Open na de release: zoekbalk-placeholder `SEARCH_PLACEHOLDER` noemt nog geen instellingen; pin-labels Engels
   ("Auktionshaus" vindt niets); `CURRENCY_QM_COURT` "SMC Court"; ruRU "Учитель (SMC)"; Duits "Stifte".
+  ✅ 5 nov: alle vijf gebouwd (zie bovenaan), nog niet in het spel getest.
 
 ## 🔨 3 nov — zoekbalk vindt de Silvermoon-pins (Rob: "als ik AH zoek … krijg ik niet de Auction House"), NIET getest
 

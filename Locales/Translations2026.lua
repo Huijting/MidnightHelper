@@ -2186,7 +2186,7 @@ if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	MOUNTS_PANEL_EMPTY = "Du hast jedes verfolgte Midnight-Reittier. Stark!",
 	MOUNTS_PANEL_SUBTITLE = "Deine Midnight-Reittier-Checkliste. Grüner Haken = gesammelt, rotes Kreuz = noch zu verdienen (mit Fortschritt und Anleitung). Fahre über einen Namen für eine 3D-Vorschau.",
 	RAIDS_PANEL_SUBTITLE = "Boss-Schritte für die Schlachtzüge dieser Saison — klicke einen Schlachtzug an. Zaubernamen sind anklickbare Links. Der Coach öffnet sich auch von selbst, sobald ein Boss gepullt wird.",
-	SEARCH_PLACEHOLDER = "Finde Tab, Werkzeug, Boss, Reittier, seltenen Gegner oder Schatz…",
+	SEARCH_PLACEHOLDER = "Finde Tab, Einstellung, Werkzeug, Boss, Reittier, seltenen Gegner oder Schatz…",
 	NAV_ACTION_RITUAL_FMT = "Ritualstätte: %s",
 	NAV_ACTION_VOID_FMT = "Leeren-Angriff: %s",
 	NAV_ACTION_TAKE_ME = "bring mich hin",
@@ -2262,7 +2262,7 @@ if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	MOUNTS_PANEL_EMPTY = "Tu possèdes toutes les montures Midnight suivies. Bravo !",
 	MOUNTS_PANEL_SUBTITLE = "Ta liste de montures Midnight. Coche verte = obtenue, croix rouge = encore à gagner (avec progression et méthode). Survole un nom pour un aperçu 3D.",
 	RAIDS_PANEL_SUBTITLE = "Les étapes par boss des raids de la saison — clique sur un raid pour l'ouvrir. Les noms de sorts sont des liens cliquables. Le coach s'ouvre aussi tout seul au pull d'un boss.",
-	SEARCH_PLACEHOLDER = "Trouve un onglet, un outil, un boss, une monture, un rare ou un trésor…",
+	SEARCH_PLACEHOLDER = "Trouve un onglet, un réglage, un outil, un boss, une monture, un rare ou un trésor…",
 	NAV_ACTION_RITUAL_FMT = "Rituel : %s",
 	NAV_ACTION_VOID_FMT = "Assaut du Vide : %s",
 	NAV_ACTION_TAKE_ME = "emmène-moi là-bas",
@@ -2338,7 +2338,7 @@ if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	MOUNTS_PANEL_EMPTY = "Tienes todas las monturas de Midnight que seguimos. ¡Bien hecho!",
 	MOUNTS_PANEL_SUBTITLE = "Tu lista de monturas de Midnight. Marca verde = conseguida, cruz roja = pendiente (con progreso y cómo lograrla). Pasa el ratón por un nombre para verla en 3D.",
 	RAIDS_PANEL_SUBTITLE = "Pasos por jefe de las bandas de esta temporada: haz clic en una banda para abrirla. Los nombres de hechizos son enlaces. El coach también se abre solo cuando empieza un jefe.",
-	SEARCH_PLACEHOLDER = "Encuentra una pestaña, herramienta, jefe, montura, raro o tesoro…",
+	SEARCH_PLACEHOLDER = "Encuentra una pestaña, ajuste, herramienta, jefe, montura, raro o tesoro…",
 	NAV_ACTION_RITUAL_FMT = "Ritual: %s",
 	NAV_ACTION_VOID_FMT = "Asalto del Vacío: %s",
 	NAV_ACTION_TAKE_ME = "llévame allí",
@@ -2414,7 +2414,7 @@ if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	MOUNTS_PANEL_EMPTY = "Você tem todas as montarias de Midnight que acompanhamos. Boa!",
 	MOUNTS_PANEL_SUBTITLE = "Sua lista de montarias de Midnight. Marca verde = obtida, cruz vermelha = ainda por conquistar (com progresso e como conseguir). Passe o mouse num nome para ver em 3D.",
 	RAIDS_PANEL_SUBTITLE = "Passos por chefe das raides desta temporada — clique numa raide para abrir. Nomes de magias são links clicáveis. O coach também abre sozinho quando um chefe é puxado.",
-	SEARCH_PLACEHOLDER = "Encontre uma aba, ferramenta, chefe, montaria, raro ou tesouro…",
+	SEARCH_PLACEHOLDER = "Encontre uma aba, configuração, ferramenta, chefe, montaria, raro ou tesouro…",
 	NAV_ACTION_RITUAL_FMT = "Ritual: %s",
 	NAV_ACTION_VOID_FMT = "Assalto do Vazio: %s",
 	NAV_ACTION_TAKE_ME = "leve-me até lá",
@@ -2490,7 +2490,7 @@ if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	MOUNTS_PANEL_EMPTY = "Hai tutte le cavalcature di Midnight che seguiamo. Ottimo!",
 	MOUNTS_PANEL_SUBTITLE = "La tua lista di cavalcature di Midnight. Spunta verde = ottenuta, croce rossa = ancora da conquistare (con progresso e come ottenerla). Passa sul nome per un'anteprima 3D.",
 	RAIDS_PANEL_SUBTITLE = "Passi per boss delle incursioni di questa stagione — clicca un'incursione per aprirla. I nomi delle magie sono link cliccabili. Il coach si apre da solo quando inizia un boss.",
-	SEARCH_PLACEHOLDER = "Trova una scheda, uno strumento, un boss, una cavalcatura, un raro o un tesoro…",
+	SEARCH_PLACEHOLDER = "Trova una scheda, un'impostazione, uno strumento, un boss, una cavalcatura, un raro o un tesoro…",
 	NAV_ACTION_RITUAL_FMT = "Rituale: %s",
 	NAV_ACTION_VOID_FMT = "Assalto del Vuoto: %s",
 	NAV_ACTION_TAKE_ME = "portami lì",
@@ -6689,7 +6689,6 @@ if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	CURIO_NO_TEXT = "(Text nicht lesbar - fahre im Spiel einmal darüber und führe das erneut aus)",
 	CURIO_NO_TREE = "Kein Begleiter-Baum gefunden. Öffne einmal das Fenster deines Begleiters und versuch es dann erneut - dieses Fenster sagt dem Addon, welchen Begleiter du hast.",
 	CURIO_TITLE = "Die Wahlmöglichkeiten deines Begleiters",
-	CURRENCY_QM_COURT = "Hof in Silbermond",
 	DAILYTIP_DISMISS = "Heute nicht, danke",
 	DAILYTIP_PREFIX = "Tipp des Tages:",
 	DEATH_AUTOOPEN_ASK = "Midnight Helper hat Blizzards Death Recap für dich geöffnet, weil das Spiel in diesem Inhalt die Todesursache verbirgt.\n\nSoll es das weiter tun?",
@@ -9192,7 +9191,6 @@ if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	CODEX_CUR_MANA_TITLE = "Cristaux de mana non corrompus",
 	CODEX_CUR_SHARDS_TITLE = "Fragments de clé de coffre",
 	CODEX_TT_TITLE = "Voies temporelles turbulentes (12.0.7)",
-	CURRENCY_QM_COURT = "Cour de Lune-d’Argent",
 	CURRENCY_QM_SINGULARITY = "Singularité",
 	CURRENCY_QM_ZULJARRA = "Zul'jarra",
 	AGGRO_CHECK_HEADER = "Les alertes d'aggro du jeu lui-même (Midnight Helper n'en modifie aucune) :",
@@ -9238,7 +9236,6 @@ if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	CODEX_CUR_MANA_TITLE = "Cristales de maná incólumes",
 	CODEX_CUR_SHARDS_TITLE = "Fragmentos de llave de arca",
 	CODEX_TT_TITLE = "Líneas temporales turbulentas (12.0.7)",
-	CURRENCY_QM_COURT = "Corte de Lunargenta",
 	CURRENCY_QM_SINGULARITY = "La Singularidad",
 	CURRENCY_QM_ZULJARRA = "Zul'jarra",
 	AGGRO_CHECK_HEADER = "Los avisos de aggro del propio juego (Midnight Helper no cambia ninguno):",
@@ -9274,7 +9271,6 @@ if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	CODEX_CUR_MANA_TITLE = "Cristais de Mana Imaculados",
 	CODEX_CUR_SHARDS_TITLE = "Estilhaços de Chave de Cofre",
 	CODEX_TT_TITLE = "Percursos Temporais Turbulentos (12.0.7)",
-	CURRENCY_QM_COURT = "Corte de Luaprata",
 	CURRENCY_QM_SINGULARITY = "Singularidade",
 	CURRENCY_QM_ZULJARRA = "Zul'jarra",
 	AGGRO_CHECK_HEADER = "Os avisos de aggro do próprio jogo (o Midnight Helper não muda nenhum deles):",
@@ -9311,7 +9307,6 @@ if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	CODEX_CUR_MANA_TITLE = "Cristalli di Mana Incontaminati",
 	CODEX_CUR_SHARDS_TITLE = "Schegge di Chiave dello Scrigno",
 	CODEX_TT_TITLE = "Flussi Temporali Turbolenti (12.0.7)",
-	CURRENCY_QM_COURT = "Corte di Lunargenta",
 	CURRENCY_QM_SINGULARITY = "Singolarità",
 	CURRENCY_QM_ZULJARRA = "Zul'jarra",
 	AGGRO_CHECK_HEADER = "Gli avvisi di aggro del gioco stesso (Midnight Helper non ne cambia nessuno):",
@@ -20141,4 +20136,44 @@ if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	DELVE_STORY_VENOMOUS_VAPORS = "Spazza via le Nubi Tossiche da Atal'Aman.",
 	DELVE_STORY_VENOM_S_HEART = "Azta'rec, un potente Sacerdote Venefico, inonda l'arcipelago di veleno della sua tana.",
 	DELVE_STORY_WHY_D_IT_HAVE_TO_BE_SNAKES = "Aiuta Harrison Jones a trovare le reliquie perdute in queste cripte infestate da serpenti.",
+}) end
+
+-- 5 Nov 2026 (Rob: "Alles"): search words for the Silvermoon pins Blizzard has no short GlobalString for
+-- (Modules/NavSearch.lua ClientWords). Search only, never shown. Catalyst = UiItemInteraction row 10 and
+-- GameObject 532226; Crest Exchange = GameObject 626558/640414 and Vaskarn's title; dummies = the Silvermoon
+-- training-dummy creatures (243166-243214, Wowhead live tooltips) — all measured 5 Nov. Portal room = our own word.
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
+	SMC_SEARCH_CREATION_CATALYST = "Der Katalysator Katalysatorverwalterin",
+	SMC_SEARCH_HORDE_CREATION_CATALYST = "Der Katalysator",
+	SMC_SEARCH_CREST_EXCHANGE = "Wappentausch",
+	SMC_SEARCH_TRAINING_DUMMIES = "Trainingsattrappe Tankattrappe",
+	SMC_SEARCH_PORTALS = "Portalraum Portal",
+}) end
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
+	SMC_SEARCH_CREATION_CATALYST = "Le catalyseur Régisseuse du catalyseur",
+	SMC_SEARCH_HORDE_CREATION_CATALYST = "Le catalyseur",
+	SMC_SEARCH_CREST_EXCHANGE = "Échange d’écus Echange d'écus",
+	SMC_SEARCH_TRAINING_DUMMIES = "Mannequin d'entraînement",
+	SMC_SEARCH_PORTALS = "Salle des portails portail",
+}) end
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
+	SMC_SEARCH_CREATION_CATALYST = "El catalizador",
+	SMC_SEARCH_HORDE_CREATION_CATALYST = "El catalizador",
+	SMC_SEARCH_CREST_EXCHANGE = "Intercambio de blasones emblemas",
+	SMC_SEARCH_TRAINING_DUMMIES = "Muñeco de entrenamiento",
+	SMC_SEARCH_PORTALS = "Sala de portales portal",
+}) end
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
+	SMC_SEARCH_CREATION_CATALYST = "O Catalisador Comissária do Catalisador",
+	SMC_SEARCH_HORDE_CREATION_CATALYST = "O Catalisador",
+	SMC_SEARCH_CREST_EXCHANGE = "Troca de Brasões",
+	SMC_SEARCH_TRAINING_DUMMIES = "Boneco de Treinamento",
+	SMC_SEARCH_PORTALS = "Sala dos portais portal",
+}) end
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
+	SMC_SEARCH_CREATION_CATALYST = "Catalizzatore",
+	SMC_SEARCH_HORDE_CREATION_CATALYST = "Catalizzatore",
+	SMC_SEARCH_CREST_EXCHANGE = "Scambio di Emblemi",
+	SMC_SEARCH_TRAINING_DUMMIES = "Manichino d'Allenamento",
+	SMC_SEARCH_PORTALS = "Sala dei portali portale",
 }) end

@@ -656,6 +656,61 @@ local function BuildNavIndex()
 			training_dummies = "dummy dummies target practice", pvp_hub = "pvp honor conquest",
 			delves_hq = "delve delves", valeera_delves = "delve delves companion",
 		}
+		-- 5 Nov 2026 (Rob: "Alles"): the labels are English, so "Auktionshaus" on a German client found nothing.
+		-- These are Blizzard's own GlobalStrings for the same thing, which the client already has in the
+		-- player's language (keys and Flags=1 measured on wago 12.1.5.70783, all 8 locales). Search words
+		-- only; the label on screen does not change. A missing global adds nothing.
+		local CLIENT_GLOBALS = {
+			ah = { "BUTTON_LAG_AUCTIONHOUSE", "MINIMAP_TRACKING_AUCTIONEER" },
+			horde_ah = { "BUTTON_LAG_AUCTIONHOUSE", "MINIMAP_TRACKING_AUCTIONEER" },
+			bmah = { "BLACK_MARKET_AUCTION_HOUSE" },
+			bank = { "BANK", "MINIMAP_TRACKING_BANKER", "ACCOUNT_BANK_PANEL_TITLE", "DELVES_GREAT_VAULT_LABEL" },
+			horde_bank = { "BANK", "MINIMAP_TRACKING_BANKER", "ACCOUNT_BANK_PANEL_TITLE", "DELVES_GREAT_VAULT_LABEL" },
+			mailbox = { "MINIMAP_TRACKING_MAILBOX" },
+			inn_cooking = { "MINIMAP_TRACKING_INNKEEPER", "PROFESSIONS_COOKING" },
+			horde_inn = { "MINIMAP_TRACKING_INNKEEPER" },
+			trading_post = { "TRANSMOG_SOURCE_7" },
+			transmog = { "MINIMAP_TRACKING_TRANSMOGRIFIER", "PERKS_VENDOR_CATEGORY_TRANSMOG" },
+			triam_dawnsetter = { "MINIMAP_TRACKING_TRANSMOGRIFIER", "PERKS_VENDOR_CATEGORY_TRANSMOG" },
+			crafting_orders = { "PROFESSIONS_CRAFTING_ORDERS_TAB_NAME" },
+			item_upgrades = { "ITEM_UPGRADE", "MINIMAP_TRACKING_ITEM_UPGRADE_MASTER" },
+			fishing = { "PROFESSIONS_FISHING" },
+		}
+		-- Profession pins: the client's own profession name. SkillLine IDs measured on wago 12.1.5.70783;
+		-- GetTradeSkillDisplayName is a candidate (HandyNotes uses it), not tested for unlearned professions.
+		local PIN_SKILLLINE = {
+			alchemy = 171, blacksmithing = 164, enchanting = 333, engineering = 202, inscription = 773,
+			jewelcrafting = 755, leatherworking = 165, tailoring = 197, herbalism_trainer = 182,
+			mining_trainer = 186, skinning_trainer = 393, fishing = 356,
+		}
+		local function ClientWords(p)
+			local out = {}
+			for _, key in ipairs(CLIENT_GLOBALS[p.id] or {}) do
+				local s = _G[key]
+				if type(s) == "string" and s ~= "" then
+					out[#out + 1] = s
+				end
+			end
+			local sl = PIN_SKILLLINE[p.id]
+			if sl and C_TradeSkillUI and C_TradeSkillUI.GetTradeSkillDisplayName then
+				local ok, n = pcall(C_TradeSkillUI.GetTradeSkillDisplayName, sl)
+				if ok and type(n) == "string" and n ~= "" then
+					out[#out + 1] = n
+				end
+			end
+			if p.trainer or sl then
+				local t = _G.MINIMAP_TRACKING_TRAINER_PROFESSION
+				if type(t) == "string" then
+					out[#out + 1] = t
+				end
+			end
+			-- Our own words in the player's language for pins Blizzard has no short string for.
+			local own = L("SMC_SEARCH_" .. string.upper(p.id))
+			if type(own) == "string" and own ~= "SMC_SEARCH_" .. string.upper(p.id) then
+				out[#out + 1] = own
+			end
+			return string.lower(table.concat(out, " "))
+		end
 		local hint = L("TAB_SMC") .. " — " .. L("NAV_ACTION_TAKE_ME")
 		local seenPin = {}
 		for _, row in ipairs(ns._mhSMCGuideSearchRows) do
@@ -663,7 +718,7 @@ local function BuildNavIndex()
 			if type(p) == "table" and p.label and not p.instance and not p._mhWorldBossRoute and not p._mhDelvesWorldBoss
 				and not seenPin[p] then
 				seenPin[p] = true
-				local words = (SMC_WORDS[p.id] or "") .. (p.trainer and " trainer profession" or "")
+				local words = (SMC_WORDS[p.id] or "") .. (p.trainer and " trainer profession" or "") .. " " .. ClientWords(p)
 				add(p.label, "silvermoon city " .. words .. " " .. (row.navKeys or ""), function()
 					ns.RouteSMCPin(p)
 				end, TIER_ACTION, hint, "place")

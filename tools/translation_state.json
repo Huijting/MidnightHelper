@@ -7146,11 +7146,12 @@
    "ruRU": "b3cfbcc1949f2ae2"
   },
   "CURRENCY_QM_COURT": {
-   "deDE": "5f7ba28ecd224acf",
-   "esES": "5f7ba28ecd224acf",
-   "frFR": "5f7ba28ecd224acf",
-   "itIT": "5f7ba28ecd224acf",
-   "ptBR": "5f7ba28ecd224acf"
+   "deDE": "1bdcf9b4141127e7",
+   "esES": "1bdcf9b4141127e7",
+   "frFR": "1bdcf9b4141127e7",
+   "itIT": "1bdcf9b4141127e7",
+   "ptBR": "1bdcf9b4141127e7",
+   "ruRU": "1bdcf9b4141127e7"
   },
   "CURRENCY_QM_LABEL": {
    "deDE": "70ad75d972ba0fd8",
@@ -34508,13 +34509,13 @@
    "ruRU": "b1f0f41984e2277c"
   },
   "SEARCH_PLACEHOLDER": {
-   "deDE": "31033488f07b67f5",
-   "esES": "31033488f07b67f5",
-   "frFR": "31033488f07b67f5",
-   "itIT": "31033488f07b67f5",
-   "nlNL": "31033488f07b67f5",
-   "ptBR": "31033488f07b67f5",
-   "ruRU": "31033488f07b67f5"
+   "deDE": "249d007c9a0b2fdd",
+   "esES": "249d007c9a0b2fdd",
+   "frFR": "249d007c9a0b2fdd",
+   "itIT": "249d007c9a0b2fdd",
+   "nlNL": "249d007c9a0b2fdd",
+   "ptBR": "249d007c9a0b2fdd",
+   "ruRU": "249d007c9a0b2fdd"
   },
   "SEARCH_TOOLTIP_BODY": {
    "deDE": "0aa8c97b6462e3fd",
