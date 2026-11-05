@@ -53,9 +53,18 @@ _SCRATCH_ROOT = os.path.join(os.path.expanduser("~"), "AppData", "Local", "Temp"
 
 
 def _own_scratchpad():
+    # 5 Nov 2026: the app moved the scratchpad to Temp\claude\<hash>\<sid>\scratchpad (measured:
+    # e1c44003d48d72c2). The old path no longer existed, so the fallback below ran ANOTHER
+    # session's stale job. Look in every Temp\claude\*\<sid>\scratchpad, still by session id only.
     sid = os.environ.get("CLAUDE_CODE_SESSION_ID") or ""
-    own = os.path.join(_SCRATCH_ROOT, sid, "scratchpad") if sid else ""
-    return own if own and os.path.isdir(own) else None
+    if not sid:
+        return None
+    own = os.path.join(_SCRATCH_ROOT, sid, "scratchpad")
+    if os.path.isdir(own):
+        return own
+    import glob as _gs
+    hits = _gs.glob(os.path.join(os.path.dirname(_SCRATCH_ROOT), "*", sid, "scratchpad"))
+    return hits[0] if hits else None
 
 
 if len(sys.argv) == 1:

@@ -1,5 +1,16 @@
 # Midnight Helper — waar we staan
 
+## ☀️ 5 nov — ochtendronde: niets voor Rob; `_probe.py` vond zijn eigen job niet meer
+
+- GEMETEN: alle 4 wachters gedraaid (API: nieuwe PTR-build 12.1.7.70740, 0 MOET GEFIKST, `QueryTimerDuration` en
+  `ExcludeLoadGameType` 0× in MH). gh_inbox 0 open, 0 PR's/issues. addon_updates 10 bijgewerkt, geen TomTom, niets dat MH
+  raakt (gelezen, niet getest). HandyNotes 167 = 167. Site-mail 3 dagen leeg (positieve controle: 26 zonder datum).
+- 🔴 De app zet de scratchpad nu in `Temp\claude\<hash>\<sid>\scratchpad` (hier `e1c44003d48d72c2`). `_probe.py` kende
+  alleen `Temp\claude\E--World-of-…\<sid>` → viel terug op "nieuwste job van elke sessie" en draaide één keer een oude
+  job van een andere sessie (beroepen-overzicht, alleen lezen). Gerepareerd: `_own_scratchpad()` zoekt nu ook
+  `Temp\claude\*\<sid>\scratchpad`, nog steeds alleen op sessie-id. GEMETEN: daarna 3 jobs goed. `git_stage.py` had dezelfde fout
+  (zou de stage-lijst van een andere sessie pakken) → zelfde reparatie; deze commit is ermee gestaged.
+
 ## 🔧 4 nov — TomTom 4.4.0 stap 1 + 2 GEBOUWD (Rob: "Ja, bouwen"), NOG NIET GETEST
 
 - Code: `Core.lua` na de ClearAllWaypoints-hook. `ns.MH_InstallTomTomCallbacks` registreert `ArrowTargetChanged`

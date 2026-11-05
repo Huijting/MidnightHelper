@@ -67,6 +67,10 @@ def resolve_list():
     # its stage.txt counts: none there means stop, never stage someone else's files.
     sid = os.environ.get("CLAUDE_CODE_SESSION_ID") or ""
     own = os.path.join(SCRATCH_ROOT, sid, "scratchpad") if sid else ""
+    if own and not os.path.isdir(own):
+        # 5 Nov 2026: the app moved the scratchpad to Temp\claude\<hash>\<sid>\scratchpad.
+        hits = glob.glob(os.path.join(os.path.dirname(SCRATCH_ROOT), "*", sid, "scratchpad"))
+        own = hits[0] if hits else own
     if own and os.path.isdir(own):
         return os.path.join(own, "stage.txt"), "this session (%s)" % sid[:8]
     env = os.environ.get("CLAUDE_SCRATCHPAD")
