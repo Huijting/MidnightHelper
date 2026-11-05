@@ -8,6 +8,11 @@
   toets-uitkomsten = 0 verschillen; tegenproef met één foute toets = 154 verschillen (scratch `test_engine_equal.lua`).
   Macronamen ongewijzigd ("MH <toets>"), dus Robs geplaatste blok blijft werken. Alleen goedgekeurde tabellen worden
   geregistreerd; de andere classes blijven voorstel in `docs/`.
+- 🔴→✅ **Release-val gedicht:** de packager neemt `_Camelot.toc` mee als het bestand in de repo staat, ook als `.pkgmeta`
+  het negeert (GEMETEN `release.sh` v2:1424-1430). Het stond sinds 88e9dae op GitHub → de volgende gewone release was
+  ook als Forever gemarkeerd. Nu: uit git (`rm --cached`), in `.gitignore`, op schijf gebleven (Forever laadt het nog),
+  kopie in `docs/forever/MidnightHelper_Camelot.toc.txt`. ⚠️ Wijzig je de Camelot-TOC: kopie bijwerken.
+  Release-onderzoek: `docs/PLAN_FOREVER_RELEASE_2026-11-06.md`.
 
 ## 🔨 5 nov (avond, laat) — Forever stap 2 begonnen: meten (Rob: "Ja, toetsenblok")
 
