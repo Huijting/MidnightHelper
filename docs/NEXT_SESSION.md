@@ -1,5 +1,32 @@
 # Midnight Helper — waar we staan
 
+## 🧩 5 nov (middag) — Rob op zijn werk: "1 tot en met 3" (plan 3 ideeën, kleine taalpunten, Szarith)
+
+- **Plan** `docs/PLAN_IDEEEN_2026-11-05.md`: "Jouw Seizoen 2", knop "Ik heb 20 minuten", Valeera's dagboek. Alleen plan,
+  niets gebouwd. Inventaris door mh-sweep, hoofdpunten zelf nagelezen (SeasonStats.lua, DelveHistory.lua:580-615,
+  ResetRoutine.lua, RitualLog.lua). Advies: eerst een gedeelde stap 1 (story/rol/tellers per run bewaren), dan B, C, A.
+  Rob kiest.
+- **Verhaalnaam in de baas-tips** (`DELVE_TIP_TWILIGHT_CRYPTS_BOSS`): de/fr/es/pt/it/ru noemden "Why'd it have to be
+  snakes?" in het Engels → nu de naam die dat pack al in de OVERVIEW-regel gebruikt (= `DELVE_STORY_NAMES_LOCAL`,
+  GossipUIDisplayInfoCondition, gemeten 26 okt). esMX kreeg een eigen BOSS-regel met de Mexicaanse naam.
+  ⚠️ mh-research GEMETEN (wago 12.1.5.70783): het spel heeft voor dit verhaal nog 2 ándere namen: het succes
+  (CriteriaTree 230852, achievement 61730) en de kaarttooltip (UiWidgetStringSource 21464). Die verschillen in de/pt/ru
+  van de gossip-naam. Bewust NIET overgestapt: de detectie (DelveStoryData) leunt op de gossip-naam, en de rest van de
+  tip ook. Welke naam de speler waar ziet: AFGELEID uit de tabellen, niet in de client gezien.
+- **Zul'Aman per client** (GEMETEN, UiMap 2437 + AreaTable 15947): frFR "Zul’Aman" (U+2019), itIT "Zul'aman" (kleine a),
+  de/es/esMX/pt/ru rechte apostrof. Script verving het in alle fr/it-blokken (Codex, DelveTips, RitualTips,
+  Translations2026, frFR.lua, itIT.lua; samen met de verhaalnaam 53 regels; commentaar overgeslagen). `WB_ZONE_ZULAMAN`: dode it-fill weg, fr-fill
+  erbij. Syntax OK (307), lint 0 HARD, locale_probe OK.
+- **Szarith (alleen onderzoek, mh-research):** het "Eye of Szarith" (object 649651 → item 278534 → quest 97668 "The
+  Watchful Gaze of Szarith") maakt één keer per account de Broodmaster-knoop vrij. Er is geen spell die Szarith oproept
+  (wago, met positieve controle). De 3 spelers die "het Eye roept hem op" zeiden, twijfelen zelf of het toeval was.
+  Conclusie AFGELEID: waarschijnlijk geen oproep. Szarith spawnt vanzelf (meldingen van 5 min tot uren, laatste 14 sep).
+  Excising Knife = item 280003, uit een Temple Incursion.
+  🔜 **Nieuw open punt:** het Eye is in 12.1.5 waarschijnlijk verplaatst. Drie spelers (14-16 okt) + de Wowhead-kaart
+  zeggen ±67.3/30.1 (kamer met de wenteltrap naar de Kithix-raid). Wij hebben 68.60/15.66
+  (`CorrosiveCodexHunts.lua:82-83`, 142). Niet aangepast: Rob meet het eerst (coördinaat-regel). Bijvangst: Zygor 9.6 zet
+  Szarith op Farthiks coördinaat (kopieerfout, AFGELEID).
+
 ## 🔨 5 nov — zoekbalk-tekst, kwartiermeesters, stadspins in elke taal (Rob: "Alles"), NIET in het spel getest
 
 Clientnamen GEMETEN door mh-research (wago 12.1.5.70783 per locale; dummies/NPC-titels via Wowhead live-tooltips). Tabel:
