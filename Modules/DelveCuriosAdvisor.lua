@@ -183,6 +183,8 @@ local function GetCompanionActiveRoleKey()
 	end
 	return SubTreeInfoToRoleKey(subInfo)
 end
+-- Public since 5 Nov 2026: DelveHistory stores her role with every run (plan step 1, docs/PLAN_IDEEEN_2026-11-05.md).
+ns.GetCompanionActiveRoleKey = GetCompanionActiveRoleKey
 
 --- Valeera's trait config. The role read above resolves this inline; the Blood-Stained
 --- Blades check below needs the same answer, and two copies of a five-call chain is exactly

@@ -21,6 +21,24 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 5 nov (middag) — "Wat past in 20 minuten?" en het bewaren per run
+
+Eerst `/reload`.
+- [ ] Tab **Home**, blok *Your week*: onder de TomTom-knop staat een nieuwe knop **"I have a few minutes: what fits?"**.
+      Klik erop. Er opent een venster *"What fits in 20 minutes?"* met drie knoppen **10 min / 20 min / 40 min**.
+      De knop van je keuze licht op. Werkt Shift+scroll (groter/kleiner) en slepen?
+- [ ] In dat venster, kopje *Delves and rituals, with your own times*: staan daar delves die je op dit character
+      gedaan hebt, met "about N min (your average of N runs)"? Klopt de tijd ongeveer met wat jij gewend bent?
+      De Labyrinth hoort er NIET bij. Klik **10 min**: de lijst wordt korter, of hij noemt je snelste.
+- [ ] Kopje *Quick stops this week*: dezelfde open stappen als in *Your week* (vault, wekelijkse quests). Klik er één:
+      zet hij een route, net als op de Home-tab?
+- [ ] Op een alt zonder delves: staat er *"No times yet on this character…"*?
+- [ ] `/mh time 40` opent hem meteen op 40. Typ "20 min" in de zoekbalk van MH: vindt hij het?
+- [ ] Doe één gewone delve (niet de Labyrinth) en daarna `/mh season stats`. Onderaan staan drie nieuwe regels:
+      *Delves finished*, *Labyrinth runs*, *Rituals finished*, elk met *"(since 05/11/2026)"* erachter. Delves finished = 1?
+- [ ] Na die delve, in de SavedVariables (stuur mij het bestand): heeft de nieuwste run een `story` (het verhaal) en een
+      `role` (dps/heal/tank van Valeera)? Dat kan ik zelf nakijken, jij hoeft alleen het bestand te sturen.
+
 ## 🆕 5 nov — zoekbalk-tekst en de kwartiermeester-knoppen
 
 Eerst `/reload`.

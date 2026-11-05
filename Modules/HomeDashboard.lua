@@ -615,6 +615,17 @@ local function BuildLayout()
 						end,
 					}
 				end
+				-- 5 Nov 2026 (idea B): "I have 20 minutes: what fits?" (TimePlan.lua). Always offered: with no runs yet the
+				-- window says so itself, in the same place as the answer would be.
+				if ns.ShowTimePlan then
+					rows[#rows + 1] = {
+						button = true,
+						text = ns:L("TIMEPLAN_HOME_BTN"),
+						onClick = function()
+							ns.ShowTimePlan()
+						end,
+					}
+				end
 
 				--- 🔴 "Your week — do these in order" READS AS ALL OF IT, AND IT IS ABOUT HALF.
 				--- MEASURED 9 Sep 2026 across ResetRoutine.lua and AccountWeeklyChecklist.lua:

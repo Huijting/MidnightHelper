@@ -124,6 +124,8 @@ ns.MH_COMMANDS = {
 		-- 21 Oct 2026: one door to all keybind help (KeysHub.lua). NavSearch indexes this table, so "keys",
 		-- "keybinds" and the window's own name find it from the search bar.
 		{ cmd = "/mh mykeys", descKey = "CMDLIST_MYKEYS" },
+		-- 5 Nov 2026: "I have 20 minutes: what fits?" (TimePlan.lua).
+		{ cmd = "/mh time", descKey = "CMDLIST_TIME" },
 		{ cmd = "/mh apply", descKey = "CMDLIST_APPLY" },
 		-- 4 Oct 2026: the fixed key block, as a picture (KeyBlock.lua).
 		{ cmd = "/mh block", descKey = "CMDLIST_BLOCK" },

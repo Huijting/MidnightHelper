@@ -513,6 +513,8 @@ local function BeginDelveRun(name)
 	runState.wasBountiful = false
 	runState.rooms = 0
 	runState.roomDuration = 0
+	runState.story = nil
+	runState.role = nil
 	local store = GetStore()
 	if store then
 		store.activeRun = {
@@ -541,16 +543,43 @@ local function EndDelveRun()
 	runState.wasBountiful = false
 	runState.rooms = 0
 	runState.roomDuration = 0
+	runState.story = nil
+	runState.role = nil
 	local store = GetStore()
 	if store then
 		store.activeRun = nil
 	end
 end
 
-local function LogRun(name, tier, duration, deaths, keyUsed, boss, wasBountiful, rooms)
+--- 🧩 STORY AND VALEERA'S ROLE PER RUN (5 Nov 2026, plan step 1 in docs/PLAN_IDEEEN_2026-11-05.md; Rob: "ik volg jouw
+--- advies"). Read at the moment the scenario completes, while the player is still inside. Both are only kept when the
+--- client gave a readable answer: nil means "not read", never "none". The story is the client's own text, so it is in
+--- the player's language. The role is "dps" / "heal" / "tank" (DelveCuriosAdvisor.lua).
+local function ReadRunFlavour()
+	local story, role
+	if ns.GetActiveDelveStoryName then
+		local ok, s = pcall(ns.GetActiveDelveStoryName)
+		if ok and type(s) == "string" and not (issecretvalue and issecretvalue(s)) and s ~= "" and #s < 120 then
+			story = s
+		end
+	end
+	if ns.GetCompanionActiveRoleKey then
+		local ok, r = pcall(ns.GetCompanionActiveRoleKey)
+		if ok and (r == "dps" or r == "heal" or r == "tank") then
+			role = r
+		end
+	end
+	return story, role
+end
+
+local function LogRun(name, tier, duration, deaths, keyUsed, boss, wasBountiful, rooms, story, role)
 	local store = GetStore()
 	if not (name and store) then
 		return
+	end
+	-- Season counters (SeasonStats.lua). The Labyrinth is counted on its own: one run there is a string of rooms.
+	if ns.BumpSeasonStat then
+		ns.BumpSeasonStat(ROOM_RUN_DELVES[name] and "labyrinth" or "delves")
 	end
 	local entry = store.delves[name]
 	if not entry then
@@ -608,6 +637,8 @@ local function LogRun(name, tier, duration, deaths, keyUsed, boss, wasBountiful,
 		boss = (boss and boss ~= "") and boss or nil,
 		wasBountiful = wasBountiful and true or false,
 		rooms = (rooms and rooms > 0) and rooms or nil,
+		story = story,
+		role = role,
 		timestamp = time(),
 	})
 	while #entry.recent > MAX_RECENT do
@@ -663,22 +694,24 @@ local enteredViaReload = false
 local function FlushRoomRun()
 	local store = GetStore()
 	local saved = store and store.activeRun
-	local name, rooms, duration, deaths, tier, boss, startKeys, bountiful
+	local name, rooms, duration, deaths, tier, boss, startKeys, bountiful, story, role
 	if runState.inDelve and (runState.rooms or 0) > 0 then
 		name, rooms, duration = runState.delveName, runState.rooms, runState.roomDuration
 		deaths, tier, boss = runState.deaths, runState.tier, runState.boss
 		startKeys, bountiful = runState.startKeyCount, runState.wasBountiful
+		story, role = runState.story, runState.role
 	elseif type(saved) == "table" and (saved.rooms or 0) > 0 then
 		name, rooms, duration = saved.name, saved.rooms, saved.roomDuration
 		deaths, tier, boss = saved.deaths, saved.tier, saved.boss
 		startKeys, bountiful = saved.startKeyCount, saved.wasBountiful
+		story, role = saved.story, saved.role
 	end
 	if not (name and rooms) then
 		return
 	end
 	local keyNow = GetCurrencyQty(COFFER_KEY_CURRENCY)
 	local keyUsed = (startKeys or 0) > 0 and keyNow < startKeys or false
-	LogRun(name, tier or 0, duration or 0, deaths or 0, keyUsed, boss, bountiful, rooms)
+	LogRun(name, tier or 0, duration or 0, deaths or 0, keyUsed, boss, bountiful, rooms, story, role)
 	if store then
 		store.activeRun = nil
 	end
@@ -738,6 +771,8 @@ local function TryBeginFromCurrentZone(source)
 				runState.wasBountiful = saved.wasBountiful and true or false
 				runState.rooms = saved.rooms or 0
 				runState.roomDuration = saved.roomDuration or 0
+				runState.story = saved.story
+				runState.role = saved.role
 				TryCaptureTier()
 				RefreshBountifulSnapshot()
 			else
@@ -842,17 +877,24 @@ tracker:SetScript("OnEvent", function(_, event, ...)
 			if tier and tier > 0 then
 				runState.tier = tier
 			end
+			-- Story/role: keep the last readable answer of the run (a room that could not be read keeps the old one).
+			local story, role = ReadRunFlavour()
+			runState.story = story or runState.story
+			runState.role = role or runState.role
 			local store = GetStore()
 			if store and store.activeRun then
 				store.activeRun.rooms = runState.rooms
 				store.activeRun.roomDuration = duration
 				store.activeRun.tier = runState.tier
 				store.activeRun.boss = runState.boss
+				store.activeRun.story = runState.story
+				store.activeRun.role = runState.role
 			end
 			return
 		elseif matched then
 			RefreshBountifulSnapshot()
-			LogRun(matched, tier, duration, runState.deaths, keyUsed, runState.boss, runState.wasBountiful)
+			local story, role = ReadRunFlavour()
+			LogRun(matched, tier, duration, runState.deaths, keyUsed, runState.boss, runState.wasBountiful, nil, story, role)
 		else
 			-- ⚠️ ADDED 14 Aug 2026. The delve roster is a hardcoded eleven, so a delve
 			-- 12.1 added does not match and its run was silently dropped -- while the

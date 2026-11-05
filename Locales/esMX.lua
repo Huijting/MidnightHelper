@@ -991,6 +991,10 @@ for k, v in pairs({
 	DELVE_STORY_VENOMOUS_VAPORS = "Elimina nubes tóxicas de Atal'Aman.",
 	DELVE_STORY_VENOM_S_HEART = "Azta'rec, un poderoso sacerdote ponzoña, inunda el archipiélago con el veneno que nace de su guarida.",
 	DELVE_STORY_WHY_D_IT_HAVE_TO_BE_SNAKES = "Ayuda a Harrison Jones a encontrar reliquias perdidas en las criptas infestadas de serpientes.",
+	SEASONSTATS_DELVES = "Abismos completados",
+	TIMEPLAN_RUNS_HEAD = "Abismos y rituales, con tus propios tiempos",
+	TIMEPLAN_NO_RUNS = "Aún no hay tiempos en este personaje. Haz primero unos cuantos abismos y así sabré cuánto tardas.",
+	CMDLIST_TIME = "Qué cabe en 10, 20 o 40 minutos, según tus propios tiempos en abismos y rituales",
 }) do
 	es[k] = v
 end

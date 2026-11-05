@@ -137,6 +137,10 @@ local function LogRun(name, tier, duration, deaths)
 	if not (name and store) then
 		return
 	end
+	-- Season counter (SeasonStats.lua, 5 Nov 2026 plan step 1).
+	if ns.BumpSeasonStat then
+		ns.BumpSeasonStat("rituals")
+	end
 	local entry = store.sites[name]
 	if not entry then
 		entry = {

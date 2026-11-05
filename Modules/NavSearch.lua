@@ -985,6 +985,8 @@ local function BuildNavIndex()
 		-- 21 Oct 2026: the one door to keybind help (KeysHub.lua). English words reach every client; the label is the
 		-- translated CMDLIST_MYKEYS line, which starts with the window's own name, so it is found in the client's words too.
 		mykeys = "keys keybind keybinds keybinding bindings bind hotkey hotkeys keyboard layout coach key block swap presses",
+		-- 5 Nov 2026 (TimePlan.lua). "20 min" is how the plan said a player would look for it.
+		time = "time minutes min 10 20 40 quick short what fits plan session little have",
 	}
 	for _, group in ipairs(ns.MH_COMMANDS or {}) do
 		for _, item in ipairs(group.items or {}) do

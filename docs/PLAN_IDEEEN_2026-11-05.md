@@ -1,5 +1,9 @@
 # Plan — drie ideeën van de plank (5 nov 2026)
 
+> ✅ **Later die dag, Rob: *"ik volg jouw advies"*.** Gebouwd: de gedeelde stap 1 en idee B, met mijn adviezen als keuze
+> (knop op Home + zoekbalk, 3 knoppen 10/20/40, "quick"-stappen zonder minuten erbij). Zie `docs/NEXT_SESSION.md`.
+> C en A staan nog open.
+
 Rob, 5 nov: *"1 tot en met 3"* → optie 1 = de drie ideeën van 26 okt uitwerken, **alleen een plan, nog niet bouwen**.
 Inventaris: mh-sweep (Haiku) las de code; de hoofdpunten heb ik zelf nagelezen (SeasonStats.lua heel,
 DelveHistory.lua:580-615, ResetRoutine.lua:1-80, RitualLog.lua:135-175). Niets in het spel gezien.

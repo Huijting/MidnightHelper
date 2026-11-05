@@ -1,5 +1,25 @@
 # Midnight Helper — waar we staan
 
+## 🔨 5 nov (laat) — Rob: "ik volg jouw advies" → stap 1 + idee B gebouwd, NIET in het spel getest
+
+- **Stap 1 (bewaren per run):** `DelveHistory.lua` `ReadRunFlavour()` leest bij SCENARIO_COMPLETED het verhaal
+  (`ns.GetActiveDelveStoryName`, clienttekst) en Valeera's rol (`ns.GetCompanionActiveRoleKey`, nu publiek in
+  DelveCuriosAdvisor.lua) → velden `story` / `role` in elke `recent`-run; nil = niet gelezen, niet "geen". Labyrinth:
+  per kamer bijgewerkt in `activeRun`, gelogd bij vertrek. Seizoenstellers erbij: `delves`, `labyrinth` (DelveHistory),
+  `rituals` (RitualLog). `SeasonStats.lua` kreeg `countSince[key]`: die drie tellen pas sinds de eerste login met deze
+  code, en `/mh season stats` zegt "(since …)" erachter (geen valse 3-delves-in-3-maanden).
+  AFGELEID, niet gemeten: dat GetActiveDelveStoryName op het moment van SCENARIO_COMPLETED nog een naam geeft.
+- **Idee B:** nieuw `Modules/TimePlan.lua` (in .toc na KeysHub). Venster 10/20/40 min (onthouden in
+  `ns.db.ui.timePlanMinutes`). Lijst 1 = per delve/ritual de Tier met de meeste runs + je gemiddelde daar (alleen dit
+  character, Labyrinth eruit, runs >3 u genegeerd), alleen wat in de tijd past, max 5; past niets → je snelste. Lijst 2 =
+  open, heroEligible stappen uit `GetResetRoutineSteps` zonder minuten ("quick stops"), klikbaar (route). Reistijd telt
+  niet mee (staat in de voettekst). Ingangen: knop op Home onder de TomTom-knop, `/mh time [10|20|40]`, zoekbalk
+  (CommandList `CMDLIST_TIME` + NavSearch-woorden). Delvenamen staan zoals in de Delve Log: de opgeslagen naam.
+- Teksten in 8 talen + esMX (abismos). Zelf vertaald, niet door een moedertaalspreker nagekeken. Syntax OK (308),
+  lint 0 HARD, locale_probe OK voor 6 sleutels in alle talen.
+- Testen: TESTLIJST "5 nov (middag)". 🔜 Volgende uit het plan: C (dagboek) gebruikt `story`/`role`; A (Wrapped) vlak voor
+  het seizoenseinde.
+
 ## 🧩 5 nov (middag) — Rob op zijn werk: "1 tot en met 3" (plan 3 ideeën, kleine taalpunten, Szarith)
 
 - **Plan** `docs/PLAN_IDEEEN_2026-11-05.md`: "Jouw Seizoen 2", knop "Ik heb 20 minuten", Valeera's dagboek. Alleen plan,

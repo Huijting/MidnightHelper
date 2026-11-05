@@ -1320,6 +1320,13 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		end
 		return
 	end
+	-- /mh time [10|20|40] — what fits in that many minutes, from your own delve/ritual times (TimePlan.lua, 5 Nov 2026).
+	if msg == "time" or msg:match("^time%s+%d+$") then
+		if ns.ShowTimePlan then
+			ns.ShowTimePlan(msg:match("^time%s+(%d+)$"))
+		end
+		return
+	end
 	-- /mh block — the fixed key block as a picture (KeyBlock.lua, 4 Oct 2026; changes nothing).
 	if msg == "block" or msg == "keyblock" then
 		if ns.ShowKeyBlock then

@@ -33,6 +33,11 @@ local _, ns = ...
 	    absent counter is honest; a zero would not be.
 ]]
 
+--- Counters added after the block opened (5 Nov 2026, plan step 1: delves, rituals, Labyrinth runs). They did not
+--- count before that day, so each one carries its own start in `countSince[key]` and the display says "since …" for
+--- it. Without that, "Delves: 3" under "Counting since 18/08" would claim three delves in three months.
+local LATE_COUNTERS = { "delves", "rituals", "labyrinth" }
+
 local function Stats()
 	if not ns.db then
 		return nil
@@ -40,8 +45,15 @@ local function Stats()
 	ns.db.seasonStats = ns.db.seasonStats or {}
 	local s = ns.db.seasonStats
 	s.counts = s.counts or {}
+	local now = (time and time()) or 0
 	if not s.startedAt then
-		s.startedAt = (time and time()) or 0
+		s.startedAt = now
+	end
+	s.countSince = s.countSince or {}
+	for _, k in ipairs(LATE_COUNTERS) do
+		if not s.countSince[k] then
+			s.countSince[k] = now
+		end
 	end
 	return s
 end
@@ -156,6 +168,7 @@ local function RollSeasonIfNeeded()
 		ns.db.seasonStatsArchive = ns.db.seasonStatsArchive or {}
 		ns.db.seasonStatsArchive[tostring(s.seasonId)] = {
 			counts = s.counts,
+			countSince = s.countSince,
 			startedAt = s.startedAt,
 			endedAt = (time and time()) or 0,
 		}
@@ -179,13 +192,14 @@ function ns.BumpSeasonStat(key, by)
 	s.counts[key] = (s.counts[key] or 0) + (tonumber(by) or 1)
 end
 
---- @return table counts, number startedAt  — for the eventual retrospective screen.
+--- @return table counts, number startedAt, table countSince  — for the eventual retrospective screen.
+--- countSince[key], when present, is when THAT counter began (later than startedAt for counters added later).
 function ns.GetSeasonStats()
 	local s = Stats()
 	if not s then
-		return {}, 0
+		return {}, 0, {}
 	end
-	return s.counts, s.startedAt or 0
+	return s.counts, s.startedAt or 0, s.countSince or {}
 end
 
 --------------------------------------------------------------------------------
@@ -239,7 +253,7 @@ end)
 
 --- /mh season stats — what has been counted so far, and since when.
 function ns.PrintSeasonStats()
-	local counts, since = ns.GetSeasonStats()
+	local counts, since, countSince = ns.GetSeasonStats()
 	local prefix = "|cffe8c36aMidnight Helper|r"
 	local when = (date and type(since) == "number" and since > 0) and date("%d/%m/%Y", since) or "?"
 	print(("%s — %s"):format(prefix, (ns:L("SEASONSTATS_SINCE_FMT")):format(when)))
@@ -262,11 +276,20 @@ function ns.PrintSeasonStats()
 		{ key = "bossKills", label = "SEASONSTATS_BOSSKILLS" },
 		{ key = "deaths", label = "SEASONSTATS_DEATHS" },
 		{ key = "mounts", label = "SEASONSTATS_MOUNTS" },
+		{ key = "delves", label = "SEASONSTATS_DELVES" },
+		{ key = "labyrinth", label = "SEASONSTATS_LABYRINTH" },
+		{ key = "rituals", label = "SEASONSTATS_RITUALS" },
 	}
 	local shown = {}
 	for _, row in ipairs(KNOWN) do
 		shown[row.key] = true
-		print(("   %s: %d"):format(ns:L(row.label), counts[row.key] or 0))
+		local line = ("   %s: %d"):format(ns:L(row.label), counts[row.key] or 0)
+		-- A counter that started later than the block says so (see LATE_COUNTERS). A day of slack: same-day is "the same".
+		local cs = countSince and tonumber(countSince[row.key])
+		if cs and date and cs > (tonumber(since) or 0) + 86400 then
+			line = line .. " " .. (ns:L("SEASONSTATS_SINCE_SHORT_FMT")):format(date("%d/%m/%Y", cs))
+		end
+		print(line)
 	end
 	-- A counter added later still appears, by its raw key, rather than vanishing until
 	-- someone remembers to add it above.
