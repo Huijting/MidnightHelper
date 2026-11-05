@@ -5,7 +5,16 @@
 - Nieuw `Modules/SpellbookDump.lua` (in beide TOC's), `/mh spellbook` (unlisted-on-purpose): schrijft naar
   `ns.db.spellbookDump` het spellboek per tab (naam, id, rank, passief, lowRank), de action slots 1-180, class/level/spec
   en wat `MH_AutoMapBuild` nu herkent (id, naam, rol). Alles met pcall + issecretvalue.
-- 🔜 Rob: in Forever met zijn Night Elf Druid `/mh spellbook` + `/reload`. Daarna lees ik
+- ✅ GEMETEN 5 nov (Forever SV, `WTF\Account\JOEYWHATEVER`): Druid level 7, spec 1484 "Druid" (index 1, één spec).
+  Spellboek: General (Attack, Elune's Light, Shadowmeld + passieven), Restoration (Healing Touch R1 5185, Mark of the Wild
+  R1 1126, Rejuvenation R1 774), Balance (Moonfire R1 8921, Thorns R1 467, Wrath R1 5176 **lowRank**, Wrath R2 5177).
+  Ranks bevestigd. MH's lijsten herkennen er 2 (Mark of the Wild, Shadowmeld): Wrath/Moonfire/Rejuvenation staan wél in
+  KeybindRoles_Druid.lua, maar met `specs = {102..105}` → spec 1484 valt erbuiten. Healing Touch/Thorns staan er niet in.
+  Balk 1 = slots 1-12; Attack op 73/85/97/109 (vorm-pagina's). Bijvangst: KeyPresses telt in Forever (Wrath 94×),
+  instellingen blijven na /reload bewaard.
+- 🔜 Rob kiest: speelstijl kiezen (Forever-druid gebruikt de Balance/Resto/Feral/Guardian-lijst die hij kiest + kleine
+  Forever-aanvulling) of een eigen Forever-lijst uit Blizzard-data tot 60.
+- (oud) Rob: in Forever met zijn Night Elf Druid `/mh spellbook` + `/reload`. Daarna lees ik
   `E:\World of Warcraft\_forever_\WTF\Account\<acc>\SavedVariables\MidnightHelper.lua` en maak de Druid-lijst.
 
 ## 🔨 5 nov (avond, later) — Forever: laadt! Alleen tabs met een geladen bouwer (Rob: "Ja, doe maar")
