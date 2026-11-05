@@ -11,8 +11,9 @@
   zonder controle aan (KeyBlock.lua, nu `if not ns.ShowShareCopyDialog then return end`). AFGELEID: runtime-fouten
   buiten `ns.X` (globale Midnight-API's in de motor) kunnen nog; dat ziet alleen Robs BugSack.
 - **Niet in releases**: uitgesloten in `.pkgmeta` en `tools/package.ps1` tot Rob beslist.
-- 🔜 MH moet nog in `_forever_\Interface\AddOns` komen: advies = junction naar deze map (altijd actueel, eigen WTF);
-  Rob kiest. Daarna TESTLIJST "5 nov (avond)". Rob speelt een **Night Elf Druid** → stap 2 (toetsenblok) begint met de Druid.
+- ✅ Rob koos "Koppeling maken": junction `E:\World of Warcraft\_forever_\Interface\AddOns\MidnightHelper` → deze map
+  (gemaakt 5 nov via scratch `make_junction.py`; GEMETEN dat de Camelot-TOC erdoor zichtbaar is). Forever heeft een eigen
+  WTF, dus eigen SavedVariables. Daarna TESTLIJST "5 nov (avond)". Rob speelt een **Night Elf Druid** → stap 2 (toetsenblok) begint met de Druid.
 
 ## 🔎 5 nov (avond) — "Midnight Helper Forever": alleen onderzoek
 
