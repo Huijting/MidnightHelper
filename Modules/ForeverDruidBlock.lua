@@ -262,7 +262,62 @@ function ns.ForeverKeyBlockBuild()
 		local okS, id = pcall(ns.GetSpecializationInfo, ns.GetSpecialization())
 		specID = okS and id or nil
 	end
-	return { occ = occ, unplaced = unplaced, trace = trace, specID = specID, class = "DRUID", unknown = 0 }
+	return { occ = occ, unplaced = unplaced, trace = trace, specID = specID, class = "DRUID", unknown = 0, forever = true }
+end
+
+--- Active spells in this character's spellbook that the Forever table does not name (not in KEYS, not for block D).
+--- The key block window's red "not in MH's list yet" line uses this on a Forever Druid instead of KeybindUnclassified,
+--- which only knows the Midnight lists: on 5 Nov 2026 it named Healing Touch, Moonfire, Rejuvenation and Thorns while
+--- all four sat in their macros (Rob's screenshot). A Forever spell we really missed still shows up here.
+function ns.ForeverDruidUnlisted()
+	if not IsDruid() then
+		return nil
+	end
+	local listed = { ["Attack"] = true }
+	local function add(v)
+		if type(v) == "table" then
+			for _, n in ipairs(v) do
+				listed[n] = true
+			end
+		elseif type(v) == "string" then
+			listed[v] = true
+		end
+	end
+	for _, def in pairs(KEYS) do
+		add(def.caster)
+		add(def.bear)
+		add(def.cat)
+		add(def.all)
+		add(def.swim)
+		if def.rez then
+			add({ "Rebirth", "Revive" })
+		end
+	end
+	add(TO_BLOCK_D)
+	local out, seen = {}, {}
+	local SB = C_SpellBook
+	if not (SB and SB.GetNumSpellBookSkillLines and SB.GetSpellBookSkillLineInfo and SB.GetSpellBookItemInfo) then
+		return out
+	end
+	local bank = Enum and Enum.SpellBookSpellBank and Enum.SpellBookSpellBank.Player
+	local okN, n = pcall(SB.GetNumSpellBookSkillLines)
+	for i = 1, (okN and tonumber(n) or 0) do
+		local okL, line = pcall(SB.GetSpellBookSkillLineInfo, i)
+		if okL and type(line) == "table" and not line.shouldHide then
+			local first = (tonumber(line.itemIndexOffset) or 0) + 1
+			for slot = first, first + (tonumber(line.numSpellBookItems) or 0) - 1 do
+				local okI, it = pcall(SB.GetSpellBookItemInfo, slot, bank)
+				local name = okI and type(it) == "table" and it.name
+				if name and not (issecretvalue and issecretvalue(name)) and not it.isPassive
+					and not listed[name] and not seen[name] then
+					seen[name] = true
+					out[#out + 1] = name
+				end
+			end
+		end
+	end
+	table.sort(out)
+	return out
 end
 
 -- New spell or rank → rewrite the macros, out of combat, once things settle.

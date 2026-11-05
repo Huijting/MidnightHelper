@@ -31,7 +31,9 @@
   ✅ **WERKT in Forever** (Rob: "whoohoo het werkt", screenshot 5 nov): blok geplaatst, alle 8 macro's + Elune's Light
   op de goede plek, vorm via MH-stap 2 (Edit Mode) — mét **EllesmereUI Action Bars uitgezet** (EUI leest Edit Mode
   alleen bij eerste installatie, `EUI_ActionBars_Bars.lua:463`). 🔜 Nog: toetsen indrukken, bonusbar-vorm op 10 (beer)
-  en 20 (kat), macro-limiet, en de rode regel "Not in MH's list yet" in het blokvenster klopt niet op Forever.
+  en 20 (kat), macro-limiet. ✅ Rode regel "Not in MH's list yet" gerepareerd (Rob: "Ja, repareren"): op een Forever-Druid
+  vraagt het blokvenster `ns.ForeverDruidUnlisted()` (spellboek min de Forever-tabel) i.p.v. `KeybindUnclassified`;
+  offline test: Robs level-8-boek → niets, verzonnen spell → wel gemeld. Niet in het spel gezien.
 - (oud) Rob: in Forever met zijn Night Elf Druid `/mh spellbook` + `/reload`. Daarna lees ik
   `E:\World of Warcraft\_forever_\WTF\Account\<acc>\SavedVariables\MidnightHelper.lua` en maak de Druid-lijst.
 

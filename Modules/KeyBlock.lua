@@ -2113,8 +2113,10 @@ Refresh = function(f)
 	-- Elune (in the Single-Button Assistant) had no place, and the window said "every spell MH knows has a
 	-- place" -- true and useless, because MH did not know it. Same list as /mh binds (Spec 32 §1e).
 	local unknownTxt = ""
-	if res and ns.KeybindUnclassified then
-		local okU, unknown = pcall(ns.KeybindUnclassified)
+	-- A Forever Druid block asks its own table (ForeverDruidBlock.lua); the Midnight lists do not know its spells.
+	local unclassified = (res and res.forever and ns.ForeverDruidUnlisted) or ns.KeybindUnclassified
+	if res and unclassified then
+		local okU, unknown = pcall(unclassified)
 		if okU and type(unknown) == "table" and #unknown > 0 then
 			unknownTxt = "  " .. ns:L("KEYBLOCK_UNKNOWN_FMT"):format(#unknown, table.concat(unknown, ", "))
 		end
