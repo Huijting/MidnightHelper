@@ -12,8 +12,13 @@
   KeybindRoles_Druid.lua, maar met `specs = {102..105}` → spec 1484 valt erbuiten. Healing Touch/Thorns staan er niet in.
   Balk 1 = slots 1-12; Attack op 73/85/97/109 (vorm-pagina's). Bijvangst: KeyPresses telt in Forever (Wrath 94×),
   instellingen blijven na /reload bewaard.
-- 🔜 Rob kiest: speelstijl kiezen (Forever-druid gebruikt de Balance/Resto/Feral/Guardian-lijst die hij kiest + kleine
-  Forever-aanvulling) of een eigen Forever-lijst uit Blizzard-data tot 60.
+- ✅ Rob koos "Eigen Forever-lijst". mh-research: alle actieve Druid-spells 1-60 met elke rank + level + tab + vorm,
+  uit wago DB2 product `wowf` build 1.60.1.70790 (= Robs client, GEMETEN in `.build.info`) + Wowhead Forever →
+  `docs/FOREVER_DRUID_SPELLS_2026-11-05.md`. Positieve controle zelf nagekeken: alle 9 gemeten spells kloppen.
+  ⚠️ Zygor Forever-data is van build 70707 (oud) voor Ferocious Bite/Lacerate/Primal Bite. Tiger's Fury: waarschijnlijk
+  niet meer leerbaar (Wowhead zegt nog wel; trainer-check open).
+- 🔜 Rob kiest de principes van de indeling (zelfde toets = zelfde taak in elke vorm, hoogste rank, lege plekken blijven
+  staan, talent-spells een vaste plek); daarna de lijst `KeybindRoles_ForeverDruid` bouwen.
 - (oud) Rob: in Forever met zijn Night Elf Druid `/mh spellbook` + `/reload`. Daarna lees ik
   `E:\World of Warcraft\_forever_\WTF\Account\<acc>\SavedVariables\MidnightHelper.lua` en maak de Druid-lijst.
 
