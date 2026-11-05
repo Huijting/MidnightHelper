@@ -3968,3 +3968,36 @@ kop, per bevinding MEASURED/INFERRED en [RAAKT ONS]/[RAAKT ONS NIET], met bestan
   (zustervangsten van vandaag, ter bevestiging, niet als enige bron). Vandaag is geen maandag, dus
   geen kaarten- of consumables-check (die secties zijn opzettelijk weggelaten, niet vergeten). Geen
   actiepunt dat ík oppak — ik rapporteer, een mens beslist.
+
+- [2026-11-05] 💬 **CurseForge: geen open reacties (3 draadjes, zelfde reeks berichten als
+  [2026-11-04]).** `curseforge.com/api/v1/mods/1528577/comments?pageIndex=0&pageSize=20&nocache=20261105ca`
+  (en `&nocache=20261105cb` als tweede, onafhankelijke fetch) via Exa, beide volledig gelezen (JSON,
+  `pagination.totalCount: 8`). Dezelfde drie draadjes als gisteren, allemaal beantwoord (nieuwste
+  bericht in elke keten is van `twelveinchy`): esES/esMX-locale-fix `user_uvqy5939hswhgduu`
+  (reply `8510682`, timestamp `1791351710373`); MrsBoojiePanda's debug-printregel (reply `8483898`,
+  timestamp `1790842459727`); gadrinonturalyon's coffer-key-shards/3D-boss-model-verzoek
+  (reply-keten tot `8095337`/`8092133`) — alle ids en timestamps byte-identiek aan [2026-11-04].
+  MEASURED. **[RAAKT ONS NIET]** — geen actiepunt, geen concept-antwoord nodig.
+
+- [2026-11-05] 🔁 **Geen nieuwe hotfix-sectie — nieuwste blijft "October 30, 2026", al volledig
+  getoetst op [2026-10-31] t/m [2026-11-04].** MEASURED, zelf opnieuw gelezen:
+  `news.blizzard.com/en-us/article/24307310/hotfixes-october-30-2026?nocache=20261105ct` via Exa,
+  volledig gelezen — dezelfde drie regels onder "October 30, 2026" (Housing/Nagrand-decor,
+  Azshara's Darkscale/Deepscale Cloak, de twee Labyrinth-UI-fixes voor "Voices of Stone"/"Bear's
+  Burden" en "The Wandering") en de al-bekende Oct-27-sectie eronder (Classes-tuning
+  Druid/Hunter/Mage/Monk/Rogue/Warlock, Items, Labyrinth, PvP), woord-voor-woord gelijk aan wat al
+  eerder getoetst is — zesde dag op rij zonder nieuwe sectie, en geen enkele Delves-, Professions-,
+  Quests- of Dungeons-regel om tegen onze tips/data te toetsen. **Positieve controle, zelfde run:**
+  de drie zusterwachters van vanochtend (`docs/API_WATCH.md:8691`, `docs/PTR_12.1_WATCH.md:615-616`,
+  `docs/PTR_12.0.7_DATA.md:847`) loggen zelf wél verse activiteit elders vandaag (nieuwe PTR-build
+  `12.1.7.70740` op `wowt`, vervolg op de WoW: Forever-launch) — het systeem mist dus geen
+  publicaties vandaag, dit is geen cache-val op mijn bron. Niet alleen overgenomen: zelf opnieuw en
+  onafhankelijk gelezen. **[RAAKT ONS NIET]** MEASURED.
+
+  Bron: `news.blizzard.com/en-us/article/24307310/hotfixes-october-30-2026?nocache=20261105ct`
+  (Exa, volledig gelezen) ·
+  `curseforge.com/api/v1/mods/1528577/comments?pageIndex=0&pageSize=20&nocache=20261105ca`/`cb` (via
+  Exa) · `docs/API_WATCH.md:8691`, `docs/PTR_12.1_WATCH.md:615-616`, `docs/PTR_12.0.7_DATA.md:847`
+  (zustervangsten van vandaag, ter bevestiging, niet als enige bron). Vandaag is geen maandag, dus
+  geen kaarten- of consumables-check (die secties zijn opzettelijk weggelaten, niet vergeten). Geen
+  actiepunt dat ík oppak — ik rapporteer, een mens beslist.
