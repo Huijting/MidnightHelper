@@ -366,6 +366,13 @@ end
 ns.KeyBlockKeyLabel = KeyLabel
 
 local function Build()
+	-- WoW Forever Druid: one macro per key from the approved table (ForeverDruidBlock.lua, 5 Nov 2026). nil anywhere else.
+	if ns.ForeverKeyBlockBuild then
+		local okF, fr = pcall(ns.ForeverKeyBlockBuild)
+		if okF and fr then
+			return fr
+		end
+	end
 	if not ns.MH_AutoMapBuild then
 		return nil
 	end
@@ -584,6 +591,12 @@ local function WantedSpells(rows)
 		wanted[id] = true
 	end
 	for _, r in ipairs(rows) do
+		-- A Forever macro place counts the spells inside it: their loose copies leave bar 1 like any double.
+		if r.want and r.want.kind == "macro" and (r.action == "place" or r.action == "keep") then
+			for _, sid in ipairs(r.want.spellIds or {}) do
+				wanted[sid] = true
+			end
+		end
 		if r.want and r.want.kind == "spell" and (r.action == "place" or r.action == "keep") then
 			wanted[r.want.id] = true
 			if C_SpellBook and C_SpellBook.FindSpellOverrideByID then
@@ -619,7 +632,10 @@ local function PlacePlan()
 			}
 			local hit = res.occ[slotDef.key]
 			local want, why
-			if hit then
+			if hit and hit.spell.macroName then
+				-- Forever Druid: the place holds a macro, known by NAME (its index shifts when macros are added).
+				want = { kind = "macro", id = hit.spell.macroName, key = hit.spell.macroKey, spellIds = hit.spell.spellIds }
+			elseif hit then
 				want = { kind = "spell", id = hit.spell.id }
 			elseif slotDef.fixed then
 				want, why = FixedWant(slotDef.fixed)
@@ -647,7 +663,9 @@ local function PlacePlan()
 				end
 			else
 				local kind, id = Occupant(row.slot)
-				if kind == want.kind and id == want.id then
+				if want.kind == "macro" and kind == "macro" and GetActionText(row.slot) == want.id then
+					row.action = "keep"
+				elseif kind == want.kind and id == want.id then
 					row.action = "keep"
 				elseif kind == "spell" and want.kind == "spell" and C_SpellBook and C_SpellBook.FindSpellOverrideByID
 					and id == select(2, pcall(C_SpellBook.FindSpellOverrideByID, want.id)) then
@@ -1087,6 +1105,12 @@ function ns.KeyBlockPlace()
 	snap.bar1Doubles = doubles
 
 	local placed, bound, failed, moved = 0, 0, {}, 0
+	-- A Forever macro that is already on its place still gets today's text (new spells, new ranks).
+	for _, r in ipairs(rows) do
+		if r.action == "keep" and r.want and r.want.kind == "macro" and ns.ForeverEnsureMacro then
+			pcall(ns.ForeverEnsureMacro, r.want.key)
+		end
+	end
 	for _, r in ipairs(rows) do
 		-- An empty place: move what is there aside (or, with no free button left, just lift it off;
 		-- the undo then puts it back by kind).
@@ -1120,7 +1144,13 @@ function ns.KeyBlockPlace()
 			end
 			local ok = pcall(function()
 				ClearCursor()
-				if r.want.kind == "spell" then
+				if r.want.kind == "macro" then
+					-- Forever Druid: make or rewrite the macro first, then pick it up by its current index.
+					local idx = ns.ForeverEnsureMacro and ns.ForeverEnsureMacro(r.want.key)
+					if idx then
+						PickupMacro(idx)
+					end
+				elseif r.want.kind == "spell" then
 					if C_Spell and C_Spell.PickupSpell then
 						C_Spell.PickupSpell(r.want.id)
 					else
@@ -1273,6 +1303,10 @@ local function MissingRows()
 		local kind, id = Occupant(r.slot)
 		if kind and id then
 			present[kind .. ":" .. tostring(id)] = true
+			-- A macro is known by name (the Forever Druid block's wants), its index shifts.
+			if kind == "macro" then
+				present["macro:" .. tostring(GetActionText(r.slot))] = true
+			end
 			-- What this button turns into counts as present too. Rob, 6 Oct 2026 (Hunter): every pet swap asked
 			-- "New for your key block: Primal Rage -> F1". The button holds Command Pet 272651; with a Ferocity pet
 			-- the game overrides it to Primal Rage 272678 (MEASURED in his client by the site chat), and the scan
@@ -1366,7 +1400,12 @@ function ns.KeyBlockUpdate()
 			local want = m.row.want
 			pcall(function()
 				ClearCursor()
-				if want.kind == "spell" then
+				if want.kind == "macro" then
+					local idx = ns.ForeverEnsureMacro and ns.ForeverEnsureMacro(want.key)
+					if idx then
+						PickupMacro(idx)
+					end
+				elseif want.kind == "spell" then
 					if C_Spell and C_Spell.PickupSpell then
 						C_Spell.PickupSpell(want.id)
 					else

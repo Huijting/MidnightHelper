@@ -21,6 +21,22 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 5 nov (nacht) — Forever: het Druid-blok met macro's
+
+Eerst `/reload` in Forever, met je Night Elf Druid. Niet in een gevecht.
+- [ ] `/mh block` (of `/mh mykeys` → *Set up my keys*): de afbeelding toont op **1** Wrath, **2** Moonfire, **C** Healing
+      Touch, **F4** Rejuvenation, **Shift-Z** Thorns, **Shift-X** Mark of the Wild, **Shift-E** Shadowmeld.
+- [ ] Eerst de proefrun (`/mh block place` zonder go, of de knop *Preview*): de chat zegt per toets "place MH 1" enz.
+- [ ] Dan echt plaatsen (*Place it* / `/mh block go`). Daarna staan er macro's **"MH 1", "MH 2", …** in je macrolijst
+      (Esc → Macros → tab van je character), en op balk 5/6/7 knoppen met het icoon van de spell.
+- [ ] Werken de toetsen? 1 = Wrath (Rank 2), 2 = Moonfire, C = Healing Touch. ⚠️ Met EllesmereUI: zie je de knoppen op
+      jouw balken 5-7, en reageren ze op de toetsen? (Niet zeker of EllesmereUI MH's toetskoppeling overneemt.)
+- [ ] Wrath en Moonfire zijn van **balk 1** gehaald (anders had je ze dubbel).
+- [ ] Level 8: je leert Healing Touch Rank 2 en Entangling Roots. Na het leren (buiten gevecht) toont de tooltip van C
+      Rank 2, en MH vraagt of Entangling Roots op **V** mag.
+- [ ] Level 10 (beer): in Bear Form doet **1** Maul. Dat is de echte test of de macro je vorm herkent.
+- [ ] `/mh block undo` zet alles terug (de macro's blijven in je lijst staan; die mag je zelf weggooien).
+
 ## 🆕 5 nov (avond) — Midnight Helper Forever, stap 1 (laadt de motor?)
 
 Eerst moet MH in je Forever-map staan (koppeling of kopie, zie de chat).

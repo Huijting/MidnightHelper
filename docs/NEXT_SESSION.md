@@ -20,8 +20,15 @@
 - ✅ Rob: 4 regels "Ja, bouwen". Gevonden vóór het bouwen (GEMETEN, KeyBlock.lua:62-66): het blok staat op balk 5-7, en
   die wisselen niet mee met vormen → Rob koos **"Macro per toets"** (beer/kat/anders in één macro, op naam = hoogste
   rank, AFGELEID). Voorstel per toets: `docs/PLAN_FOREVER_DRUID_BLOK_2026-11-05.md` (levels nagelegd tegen de lijst).
-- 🔜 Rob keurt het voorstel goed + test `/run print(C_Spell.GetSpellInfo("Wrath").spellID)` (verwacht 5177). Daarna de
-  macro-bouw in KeyBlock (alleen op Forever, spec 1484). Vorm-conditie `[bonusbar:3]`/`[bonusbar:1]` testen op 10/20.
+- ✅ Rob: "ja goedzo" + GEMETEN `C_Spell.GetSpellInfo("Wrath").spellID` = 5177 (naam → hoogste rank).
+- ✅ GEBOUWD (niet in het spel getest): `Modules/ForeverDruidBlock.lua` (beide TOC's, vroege return buiten Forever).
+  Tabel `KEYS` = het goedgekeurde voorstel 1:1 (+ War Stomp-terugval op Shift-E voor Tauren, + `open` op R zodat beer
+  Travel Form houdt). Macro "MH <toets>", per character (vol → gedeelde lijst). Spells op naam; onbekend = weggelaten;
+  herschrijven bij LEARNED_SPELL_IN_SKILL_LINE/PEW buiten gevecht. `KeyBlock.lua`: Build() vraagt eerst
+  `ns.ForeverKeyBlockBuild`; nieuwe want-soort `macro` (op naam) in PlacePlan/keep, Place, Update, MissingRows,
+  WantedSpells (spells in de macro = doubles van balk 1). Offline Lua-test met stubs (scratch `test_druid.lua`):
+  level 7 → 7 macro's + Elune's Light naar D; level 40 → beer/kat-delen kloppen.
+  🔜 In het spel testen (TESTLIJST "5 nov (nacht)"): EllesmereUI + toetsen, bonusbar-vorm op 10/20, macro-limiet.
 - (oud) Rob: in Forever met zijn Night Elf Druid `/mh spellbook` + `/reload`. Daarna lees ik
   `E:\World of Warcraft\_forever_\WTF\Account\<acc>\SavedVariables\MidnightHelper.lua` en maak de Druid-lijst.
 
