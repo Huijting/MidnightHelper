@@ -30,8 +30,8 @@ Eerst `/reload` in Forever, met je Night Elf Druid. Niet in een gevecht.
 - [x] **GEMETEN 5 nov (Robs screenshot, "whoohoo het werkt"):** geplaatst met EllesmereUI Action Bars UIT + stap 1 en 2.
       Balk 5: MH 1 Wrath, MH 2 Moonfire, MH C Healing Touch, MH V Entangling Roots; balk 6: MH F4 Rejuvenation;
       balk 7: Shadowmeld, Thorns, Mark of the Wild; balk 4 (D): Elune's Light. Vorm D-A-B-C naast elkaar, 1-4 boven.
-- [ ] Na `/reload`: in het blokvenster staat de rode regel *"Not in Midnight Helper's list yet: Healing Touch, Moonfire …"*
-      **niet** meer (die vier zitten in hun macro's).
+- [x] Na `/reload`: de rode regel *"Not in Midnight Helper's list yet …"* is weg (GEMETEN, Robs screenshot 5 nov). Het
+      venster zegt nu alleen "No place on blocks A, B and C (1): Elune's Light" en "Nothing new to add".
 - [ ] Dan echt plaatsen (*Place it* / `/mh block go`). Daarna staan er macro's **"MH 1", "MH 2", …** in je macrolijst
       (Esc → Macros → tab van je character), en op balk 5/6/7 knoppen met het icoon van de spell.
 - [ ] Werken de toetsen? 1 = Wrath (Rank 2), 2 = Moonfire, C = Healing Touch. ⚠️ Met EllesmereUI: zie je de knoppen op
