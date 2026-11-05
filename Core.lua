@@ -1322,6 +1322,13 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		end
 		return
 	end
+	-- /mh spellbook — write spellbook + action bars to ns.db.spellbookDump (SpellbookDump.lua, 5 Nov 2026, Forever).
+	if msg == "spellbook" then
+		if ns.DumpSpellbook then
+			ns.DumpSpellbook()
+		end
+		return
+	end
 	-- /mh mykeys — one window with the three ways MH helps with keys (KeysHub.lua, 21 Oct 2026).
 	if msg == "mykeys" then
 		if ns.ShowKeysHub then

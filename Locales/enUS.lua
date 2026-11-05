@@ -4665,7 +4665,8 @@ ns._mhLocales.enUS = {
 	TIMEPLAN_FOOTER = "The times are yours: the average of your recent runs on that Tier, on this character. Travel time is not included. Click a stop to set a route.",
 	CMDLIST_TIME = "What fits in 10, 20 or 40 minutes, from your own delve and ritual times",
 	-- 5 Nov 2026: WoW Forever (MidnightHelper_Camelot.toc). Home there is this short note, not the Midnight week.
-	TAB_TAGLINE_HOME_FOREVER = "Midnight Helper for WoW Forever: an early test version.",
+	SPELLBOOK_DUMP_DONE_FMT = "Saved: %d spells in %d spellbook tabs, %d action slots in use, %d spells the key block recognises. Type /reload to write it to disk.",
+	TAB_TAGLINE_HOME_FOREVER ="Midnight Helper for WoW Forever: an early test version.",
 	HOME_FOREVER_HEADER = "Midnight Helper Forever (early test)",
 	HOME_FOREVER_BODY = "This is a first test of Midnight Helper in WoW Forever. Everything made for Midnight is switched off here. What works now: your keys (key bar tools) and the settings. More comes once we have measured the game.",
 	DAILYTIP_PREFIX = "Today's tip:",

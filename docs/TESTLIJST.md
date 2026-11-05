@@ -38,6 +38,8 @@ Eerst moet MH in je Forever-map staan (koppeling of kopie, zie de chat).
 - [ ] Forever, **Settings**: onder *Quick actions* alleen *Report a problem* en *What's new*; onder *Advanced* alleen
       *Reset popup position* en *Side panels back in place*. Geen gaten tussen de knoppen.
 - [ ] Gewoon WoW: This Week en Settings zien er uit zoals altijd (alle knoppen er nog).
+- [ ] **Meting voor het Druid-blok:** in Forever, met je Night Elf Druid: `/mh spellbook`, dan `/reload`. In de chat
+      staat *"Saved: … spells …"*. Zeg het mij; ik lees het bestand zelf.
 - [ ] `/mh mykeys` opent het toetsenvenster. **Nog niet** op "zet neer" drukken: de lijsten zijn nog van Midnight.
 - [ ] Log uit en weer in: zijn MH-instellingen (bv. de venstergrootte) bewaard? (In de beta ging dat mis.)
 

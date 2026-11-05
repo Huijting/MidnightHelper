@@ -1,5 +1,13 @@
 # Midnight Helper — waar we staan
 
+## 🔨 5 nov (avond, laat) — Forever stap 2 begonnen: meten (Rob: "Ja, toetsenblok")
+
+- Nieuw `Modules/SpellbookDump.lua` (in beide TOC's), `/mh spellbook` (unlisted-on-purpose): schrijft naar
+  `ns.db.spellbookDump` het spellboek per tab (naam, id, rank, passief, lowRank), de action slots 1-180, class/level/spec
+  en wat `MH_AutoMapBuild` nu herkent (id, naam, rol). Alles met pcall + issecretvalue.
+- 🔜 Rob: in Forever met zijn Night Elf Druid `/mh spellbook` + `/reload`. Daarna lees ik
+  `E:\World of Warcraft\_forever_\WTF\Account\<acc>\SavedVariables\MidnightHelper.lua` en maak de Druid-lijst.
+
 ## 🔨 5 nov (avond, later) — Forever: laadt! Alleen tabs met een geladen bouwer (Rob: "Ja, doe maar")
 
 - GEMETEN (Robs screenshot): MH opent in Forever, maar toonde alle Midnight-tegels + `TAB_START_HERE` (StartHere-locale

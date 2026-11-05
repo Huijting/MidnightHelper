@@ -92,6 +92,8 @@ ns.MH_UNLISTED_ON_PURPOSE = {
 	"presses why", "presses on", "presses off", "presses reset",
 	"mark friends", "mark friend", "tp why", "klikken", "klikken blizz",
 	"toast", "twins", "unlearned", "vignettes", "wb", "whatis", "wiki", "worldboss",
+	-- 5 Nov 2026: measuring the WoW Forever spellbook for the key block (SpellbookDump.lua).
+	"spellbook",
 }
 
 --- Grouped so it can be scanned, not alphabetical so it can be searched. Someone
