@@ -2354,6 +2354,11 @@ function ns.ShowKeyBlockExportAll()
 		out[#out + 1] = e.text
 		out[#out + 1] = ""
 	end
+	-- Guarded like ShowKeyBlockExport above: the copy window lives in DelvePartyShare.lua (5 Nov 2026, found while
+	-- building the WoW Forever TOC, where a left-out file would have made this an error).
+	if not ns.ShowShareCopyDialog then
+		return
+	end
 	ns.ShowShareCopyDialog({
 		id = "keyblockexportall:" .. tostring(time and time() or 0),
 		text = (table.concat(out, "\n"):gsub("|", "||")),

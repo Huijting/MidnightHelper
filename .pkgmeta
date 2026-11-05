@@ -66,3 +66,6 @@ ignore:
   - "*.yml"
   - "*.exe"
   - "*.vbs"
+  # The WoW Forever TOC (5 Nov 2026): an early test on Rob's PC only, kept out of releases until he decides to ship
+  # it (docs/PLAN_FOREVER_2026-11-05.md). Same line in tools/package.ps1.
+  - MidnightHelper_Camelot.toc

@@ -1,5 +1,19 @@
 # Midnight Helper — waar we staan
 
+## 🔨 5 nov (avond) — Forever stap 1 gebouwd (Rob: "Ja, stap 1"), NIET in het spel getest
+
+- `MidnightHelper_Camelot.toc` (Interface 16001, `AllowLoadGameType: camelot`, titel "Midnight Helper Forever"):
+  74 bestanden uit dezelfde map: motor, talen (zonder Midnight-tekstpacks), toetsen/balken (KeybindRoles zonder DK/
+  Monk/DH/Evoker), pijl, FastMark, FPS, instellingen, Home, zoekbalk, KeysHub. Plus `DelvePartyShare.lua`: alleen
+  functies, maar het kopieervenster (`ns.ShowShareCopyDialog`) zit daar.
+- Scratch-check (`forever_deps.py`): 18 namen die alleen weggelaten bestanden definiëren; alle 18 zelf nagekeken, overal
+  een `if ns.X` of data-controle ervoor. Eén echte fout gerepareerd: `ns.ShowKeyBlockExportAll` riep het kopieervenster
+  zonder controle aan (KeyBlock.lua, nu `if not ns.ShowShareCopyDialog then return end`). AFGELEID: runtime-fouten
+  buiten `ns.X` (globale Midnight-API's in de motor) kunnen nog; dat ziet alleen Robs BugSack.
+- **Niet in releases**: uitgesloten in `.pkgmeta` en `tools/package.ps1` tot Rob beslist.
+- 🔜 MH moet nog in `_forever_\Interface\AddOns` komen: advies = junction naar deze map (altijd actueel, eigen WTF);
+  Rob kiest. Daarna TESTLIJST "5 nov (avond)". Rob speelt een **Night Elf Druid** → stap 2 (toetsenblok) begint met de Druid.
+
 ## 🔎 5 nov (avond) — "Midnight Helper Forever": alleen onderzoek
 
 Rob speelt WoW Forever met EllesmereUI en vroeg of MH daar het toetsenblok kan zetten → nu niet: MH staat niet in

@@ -21,6 +21,17 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 5 nov (avond) — Midnight Helper Forever, stap 1 (laadt de motor?)
+
+Eerst moet MH in je Forever-map staan (koppeling of kopie, zie de chat).
+- [ ] **Retail eerst:** `/reload` in gewoon WoW. MH laadt zoals altijd, geen nieuwe fout in BugSack. (Het nieuwe
+      Forever-bestand mag retail niet raken.)
+- [ ] **Forever:** in de addon-lijst bij het karakterscherm staat **Midnight Helper Forever**. Zet hem aan, log in.
+- [ ] BugSack leeg na inloggen en na `/reload`? Zo niet: stuur de eerste fout, met regelnummer.
+- [ ] `/mh` opent het venster. Welke tabs zie je? Home: wat staat erop (mag leeg of raar zijn, zeg wat je ziet)?
+- [ ] `/mh mykeys` opent het toetsenvenster. **Nog niet** op "zet neer" drukken: de lijsten zijn nog van Midnight.
+- [ ] Log uit en weer in: zijn MH-instellingen (bv. de venstergrootte) bewaard? (In de beta ging dat mis.)
+
 ## 🆕 5 nov (middag) — "Wat past in 20 minuten?" en het bewaren per run
 
 Eerst `/reload`.
