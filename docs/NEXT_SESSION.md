@@ -13,6 +13,14 @@
   ook als Forever gemarkeerd. Nu: uit git (`rm --cached`), in `.gitignore`, op schijf gebleven (Forever laadt het nog),
   kopie in `docs/forever/MidnightHelper_Camelot.toc.txt`. ⚠️ Wijzig je de Camelot-TOC: kopie bijwerken.
   Release-onderzoek: `docs/PLAN_FOREVER_RELEASE_2026-11-06.md`.
+- ✅ **8 class-voorstellen** (mh-research, één per class, uit lokale wago-CSV's build 70790 in scratchpad `wago_wowf/`):
+  `docs/forever/FOREVER_<CLASS>_2026-11-06.md`. Elk concept door de echte motor gehaald (scratch `check_drafts.py`):
+  namen in SpellName, toetsen = blok-plekken, geen dubbele spells. Beginspells per class zelf nagemeten (AcquireMethod 2).
+  **NIET goedgekeurd, NIET in de addon.** Rob-overzicht: `docs/forever/OVERZICHT_NACHT_2026-11-06.md`.
+- Motor: nieuwe optie `bang` (`/cast !Naam`, voor Hunter Auto Shot); Druid-equality opnieuw 0 verschillen.
+  Druid-uitlegregel verbeterd: Moonkin wisselt de balk NIET (GEMETEN SpellShapeshiftForm.BonusActionBar = 0).
+- 🔜 Rob: voorstellen goedkeuren per class → tabel als `Modules/ForeverBlock_<Class>.lua` (concept staat onderaan elk
+  voorstel; Hunter key 1 krijgt `bang = true`). Open voor de Druid: Skyborne-racial op Shift-E.
 
 ## 🔨 5 nov (avond, laat) — Forever stap 2 begonnen: meten (Rob: "Ja, toetsenblok")
 

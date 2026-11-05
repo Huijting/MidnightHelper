@@ -7,9 +7,10 @@ local _, ns = ...
 	Night Elf Druid the same evening ("whoohoo het werkt"). Spells and levels: docs/FOREVER_DRUID_SPELLS_2026-11-05.md.
 
 	Forms by bar paging, not by form index (which depends on the order forms were learned):
-	  bonusbar 1/2 = Cat (and Prowl), 3 = Bear, 4 = Moonkin. AFGELEID from Rob's /mh spellbook dump (Attack on slots
-	  73/85/97/109 = pages 7-10) and EllesmereUI's paging; Moonkin keeps the caster spells, so the base guard excludes
-	  1-3 only. To be tested at level 10 (Bear) and 20 (Cat).
+	  bonusbar 1 = Cat, 2 = Cat while prowling, 3 = Bear and Dire Bear. MEASURED 6 Nov 2026 in Blizzard's data
+	  (SpellShapeshiftForm.BonusActionBar, wago wowf 1.60.1.70790: Cat 1, Bear 3, Dire Bear 3, Moonkin 0). Moonkin Form
+	  does NOT page the bar, so in Moonkin the caster spells fire (the base guard excludes 1-3 only). Prowl on 2 is
+	  AFGELEID from Rob's /mh spellbook dump (Attack on slots 73/85/97/109 = pages 7-10). To be tested at 10 and 20.
 	Two additions to the approved table: War Stomp on Shift-E for a Tauren (no Shadowmeld), and `open` on R so Bear keeps
 	Travel/Aquatic Form ("idem" in the table; the offline test caught the first version guarding it).
 ]]

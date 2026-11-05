@@ -16,6 +16,7 @@ local _, ns = ...
 	             A spell may be a list: the first one this character knows wins (Dire Bear Form over Bear Form).
 	             all  = one spell in every state (no conditions).
 	             open = never guard the base spell on this key (Druid R: Travel Form also from Bear).
+	             bang = put "!" before the names, so pressing again never switches the spell off (Hunter Auto Shot).
 	             pair = { cond = "[combat]", first = "Rebirth", second = "Revive" }: first when cond, else second.
 	  toBlockD = spells that go on the player's own block D instead.
 	  listed   = extra names that count as handled for the "not in MH's list" line (e.g. "Attack").
@@ -90,10 +91,13 @@ local function Body(cls, key)
 		return nil
 	end
 	local ids, show = {}, nil
+	-- bang = true: "/cast !Auto Shot" — a second press does not switch the spell off again (Hunter research,
+	-- 6 Nov 2026: plain /cast toggles Auto Shot off). Standard macro syntax; AFGELEID that Forever keeps it.
+	local bang = def.bang and "!" or ""
 	local function use(name, id)
 		ids[#ids + 1] = id
 		show = show or id
-		return name
+		return bang .. name
 	end
 	if def.pair then
 		local a, aId = First(def.pair.first)
@@ -255,7 +259,7 @@ function ns.ForeverBlockUnlisted()
 			if field == "pair" then
 				add(v.first)
 				add(v.second)
-			elseif field ~= "open" then
+			elseif field ~= "open" and field ~= "bang" then
 				add(v)
 			end
 		end
