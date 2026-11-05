@@ -31,6 +31,15 @@
 
 local addonName, ns = ... ---@type string, MidnightHelperNS
 
+--- 🧩 WoW Forever (5 Nov 2026, MidnightHelper_Camelot.toc). True on the Forever client: interface 16000-19999, the
+--- same test EllesmereUI uses (EllesmereUI_ClientGate.lua, read that day). Forever loads only part of MH, and the
+--- Midnight API names still exist there without the content (docs/PLAN_FOREVER_2026-11-05.md), so a screen asks
+--- "is my builder loaded", and this flag says when that question matters.
+do
+	local toc = select(4, GetBuildInfo())
+	ns.IS_FOREVER = type(toc) == "number" and toc >= 16000 and toc < 20000
+end
+
 --------------------------------------------------------------------------------
 -- Specialization API: one door, so the old globals can disappear without us noticing
 --------------------------------------------------------------------------------

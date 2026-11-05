@@ -536,7 +536,35 @@ local SIDEBAR_HEADER_HEIGHT = 16
 --- Can this screen exist here: on this client, with the beta switches, under the Guide's own
 --- level rule? Not the player's show/hide choice (see SidebarTabVisible), so anything deciding
 --- whether a tab may be OPEN asks this one.
+--- 🧩 WoW Forever (5 Nov 2026, Rob: "Ja, doe maar"): the Forever TOC loads only part of MH, and his first screenshot
+--- showed every Midnight card (Delves & Vault, Rares, TAB_START_HERE …) over screens with nothing behind them. On
+--- Forever a tab exists only when the function that fills it was loaded. A tab missing from this list (delves,
+--- account, smcguide, toolbox, addons, guide) is never shown there. Retail is untouched.
+local FOREVER_TAB_BUILDER = {
+	home = "BuildHomePanel", codex = "BuildCodexPanel", rares = "BuildRaresPanel",
+	achievements = "BuildAchievementsPanel", mounts = "BuildMountsPanel", tradingpost = "BuildTradingPostPanel",
+	raids = "BuildRaidsPanel", world = "BuildWorldPanel", events = "BuildEventsPanel",
+	delvelog = "BuildDelveLogPanel", enchants = "BuildGearEnchantPanel", tier = "BuildTierSetPanel",
+	omnium = "BuildOmniumFolioPanel", currency = "BuildCurrencyGuidePanel", starthere = "BuildStartHerePanel",
+	dungeons = "BuildDungeonGuidePanel", toolslaunch = "BuildToolsLaunchpad", settings = "BuildSettingsPanel",
+	-- Toolbox sub-screens (RoomLauncher's Tools cards ask through ns.ForeverScreenLoaded).
+	consumables = "BuildConsumablesPanel", macros = "BuildInterruptMacrosPanel", academy = "BuildRoleAcademyPanel",
+	professionsHub = "BuildProfessionsHubPanel",
+}
+
+--- On Forever: is the builder of this screen loaded? Everywhere else always true.
+function ns.ForeverScreenLoaded(id)
+	if not ns.IS_FOREVER then
+		return true
+	end
+	local fn = FOREVER_TAB_BUILDER[id]
+	return fn ~= nil and type(ns[fn]) == "function"
+end
+
 local function SidebarTabAvailable(tabId)
+	if ns.IS_FOREVER and not ns.ForeverScreenLoaded(tabId) then
+		return false
+	end
 	if tabId == "omnium" and not (ns.IsOmniumFolioAvailable and ns.IsOmniumFolioAvailable()) then
 		return false -- 12.0.7-content: alleen op clients >= 120007
 	end
@@ -4514,9 +4542,14 @@ function ns:EnsureMainUI()
 					rb._mhLookBar:SetColorTexture(MHUnpack4(LOOK_PALETTE.accent))
 					rb._mhLookBar:SetShown(lookOn and isActive)
 					rb:ClearAllPoints()
-					rb:SetPoint("TOPLEFT", sidebar, "TOPLEFT", 8, yy)
-					rb:Show()
-					yy = yy - (lookOn and (railH + 6) or lm.sidebarTabStep)
+					-- Forever: a room with no screen at all (the Codex) is not drawn.
+					if ns.IS_FOREVER and not MHFirstVisibleTabInRoom(roomDef.id) then
+						rb:Hide()
+					else
+						rb:SetPoint("TOPLEFT", sidebar, "TOPLEFT", 8, yy)
+						rb:Show()
+						yy = yy - (lookOn and (railH + 6) or lm.sidebarTabStep)
+					end
 				end
 			end
 			yy = yy - SIDEBAR_SECTION_GAP

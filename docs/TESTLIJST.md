@@ -28,7 +28,11 @@ Eerst moet MH in je Forever-map staan (koppeling of kopie, zie de chat).
       Forever-bestand mag retail niet raken.)
 - [ ] **Forever:** in de addon-lijst bij het karakterscherm staat **Midnight Helper Forever**. Zet hem aan, log in.
 - [ ] BugSack leeg na inloggen en na `/reload`? Zo niet: stuur de eerste fout, met regelnummer.
-- [ ] `/mh` opent het venster. Welke tabs zie je? Home: wat staat erop (mag leeg of raar zijn, zeg wat je ziet)?
+- [x] `/mh` opent het venster (Rob, screenshot 5 nov: ja — maar met alle Midnight-tegels en `TAB_START_HERE`).
+- [ ] Na de fix van 5 nov (WoW helemaal opnieuw starten of `/reload`): links alleen **Me**, **Tools** en **Settings**
+      (geen Codex). Onder Me alleen *This Week*; geen `TAB_START_HERE`, geen Delves & Vault/Rares/Void-tegels, en
+      bovenin geen Delves & Vault-snelknop. Onder Tools: *Your keys* en de tools-lijst. Wat staat er op This Week?
+- [ ] **Retail-controle:** in gewoon WoW zijn alle kamers en tegels er nog, zoals altijd.
 - [ ] `/mh mykeys` opent het toetsenvenster. **Nog niet** op "zet neer" drukken: de lijsten zijn nog van Midnight.
 - [ ] Log uit en weer in: zijn MH-instellingen (bv. de venstergrootte) bewaard? (In de beta ging dat mis.)
 

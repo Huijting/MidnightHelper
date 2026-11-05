@@ -1,5 +1,16 @@
 # Midnight Helper — waar we staan
 
+## 🔨 5 nov (avond, later) — Forever: laadt! Alleen tabs met een geladen bouwer (Rob: "Ja, doe maar")
+
+- GEMETEN (Robs screenshot): MH opent in Forever, maar toonde alle Midnight-tegels + `TAB_START_HERE` (StartHere-locale
+  weggelaten). BugSack: nog niet gemeld.
+- `Core.lua`: `ns.IS_FOREVER` (interface 16000-19999, zelfde test als EllesmereUI_ClientGate.lua).
+  `UI.lua`: `FOREVER_TAB_BUILDER` + `ns.ForeverScreenLoaded(id)`; `SidebarTabAvailable` zegt op Forever nee als de
+  bouwfunctie niet geladen is (alle 22 namen GEMETEN in de code); een kamer zonder scherm (Codex) wordt niet getekend.
+  `RoomLauncher.lua`: Tools-kaarten met `screen` vragen hetzelfde. Retail: ongewijzigd (alles achter `ns.IS_FOREVER`).
+- Verwacht (AFGELEID): Me → This Week, Tools → Your keys + tools-lijst, Settings. 🔜 De tools-lijst
+  (ToolsLaunchpad) noemt mogelijk nog Midnight-tools: na Robs volgende screenshot bekijken.
+
 ## 🔨 5 nov (avond) — Forever stap 1 gebouwd (Rob: "Ja, stap 1"), NIET in het spel getest
 
 - `MidnightHelper_Camelot.toc` (Interface 16001, `AllowLoadGameType: camelot`, titel "Midnight Helper Forever"):

@@ -107,6 +107,8 @@ local function CardsForRoom(roomId)
 			local ok = true
 			if c.action then
 				ok = (c.id ~= "mountrun" or ns.MH_ShowMountRun ~= nil) and (c.id ~= "keyshub" or ns.ShowKeysHub ~= nil)
+			elseif c.screen and ns.ForeverScreenLoaded and not ns.ForeverScreenLoaded(c.screen) then
+				ok = false -- WoW Forever: the screen's file is not in MidnightHelper_Camelot.toc (UI.lua FOREVER_TAB_BUILDER)
 			elseif c.beta then
 				ok = not ns.IsBetaTabEnabled or ns.IsBetaTabEnabled(c.beta)
 			elseif not c.screen then
