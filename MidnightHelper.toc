@@ -214,7 +214,8 @@ Modules\SlotOwnership.lua
 Modules\ApplyLayout.lua
 Modules\KeyBlock.lua
 Modules\SpellbookDump.lua
-Modules\ForeverDruidBlock.lua
+Modules\ForeverBlock_Druid.lua
+Modules\ForeverBlock.lua
 Modules\LayoutGrowth.lua
 Modules\BarPlanCard.lua
 Modules\LayoutWizard.lua

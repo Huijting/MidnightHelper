@@ -1,5 +1,14 @@
 # Midnight Helper — waar we staan
 
+## 🌙 Nacht 5→6 nov — Rob slaapt, plan goedgekeurd ("ga helemaal los"; geen release, geen tag)
+
+- Rob over EllesmereUI-gebruikers: zet alleen **"EllesmereUI Action Bars"** uit; een `/reload` is genoeg (zijn ervaring).
+- ✅ Motor algemeen: `Modules/ForeverBlock.lua` (engine) + `Modules/ForeverBlock_Druid.lua` (goedgekeurde tabel, nu met
+  `base`/states/`pair`). `ForeverDruidBlock.lua` weg. Bewijs: offline vergelijking oud ↔ nieuw over 202 spell-sets / 4519
+  toets-uitkomsten = 0 verschillen; tegenproef met één foute toets = 154 verschillen (scratch `test_engine_equal.lua`).
+  Macronamen ongewijzigd ("MH <toets>"), dus Robs geplaatste blok blijft werken. Alleen goedgekeurde tabellen worden
+  geregistreerd; de andere classes blijven voorstel in `docs/`.
+
 ## 🔨 5 nov (avond, laat) — Forever stap 2 begonnen: meten (Rob: "Ja, toetsenblok")
 
 - Nieuw `Modules/SpellbookDump.lua` (in beide TOC's), `/mh spellbook` (unlisted-on-purpose): schrijft naar

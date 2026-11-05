@@ -366,7 +366,7 @@ end
 ns.KeyBlockKeyLabel = KeyLabel
 
 local function Build()
-	-- WoW Forever Druid: one macro per key from the approved table (ForeverDruidBlock.lua, 5 Nov 2026). nil anywhere else.
+	-- WoW Forever: one macro per key from the class's approved table (ForeverBlock.lua, 5 Nov 2026). nil anywhere else.
 	if ns.ForeverKeyBlockBuild then
 		local okF, fr = pcall(ns.ForeverKeyBlockBuild)
 		if okF and fr then
@@ -2113,8 +2113,8 @@ Refresh = function(f)
 	-- Elune (in the Single-Button Assistant) had no place, and the window said "every spell MH knows has a
 	-- place" -- true and useless, because MH did not know it. Same list as /mh binds (Spec 32 §1e).
 	local unknownTxt = ""
-	-- A Forever Druid block asks its own table (ForeverDruidBlock.lua); the Midnight lists do not know its spells.
-	local unclassified = (res and res.forever and ns.ForeverDruidUnlisted) or ns.KeybindUnclassified
+	-- A Forever block asks its own class table (ForeverBlock.lua); the Midnight lists do not know its spells.
+	local unclassified = (res and res.forever and ns.ForeverBlockUnlisted) or ns.KeybindUnclassified
 	if res and unclassified then
 		local okU, unknown = pcall(unclassified)
 		if okU and type(unknown) == "table" and #unknown > 0 then
