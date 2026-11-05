@@ -17,8 +17,11 @@
   `docs/FOREVER_DRUID_SPELLS_2026-11-05.md`. Positieve controle zelf nagekeken: alle 9 gemeten spells kloppen.
   ⚠️ Zygor Forever-data is van build 70707 (oud) voor Ferocious Bite/Lacerate/Primal Bite. Tiger's Fury: waarschijnlijk
   niet meer leerbaar (Wowhead zegt nog wel; trainer-check open).
-- 🔜 Rob kiest de principes van de indeling (zelfde toets = zelfde taak in elke vorm, hoogste rank, lege plekken blijven
-  staan, talent-spells een vaste plek); daarna de lijst `KeybindRoles_ForeverDruid` bouwen.
+- ✅ Rob: 4 regels "Ja, bouwen". Gevonden vóór het bouwen (GEMETEN, KeyBlock.lua:62-66): het blok staat op balk 5-7, en
+  die wisselen niet mee met vormen → Rob koos **"Macro per toets"** (beer/kat/anders in één macro, op naam = hoogste
+  rank, AFGELEID). Voorstel per toets: `docs/PLAN_FOREVER_DRUID_BLOK_2026-11-05.md` (levels nagelegd tegen de lijst).
+- 🔜 Rob keurt het voorstel goed + test `/run print(C_Spell.GetSpellInfo("Wrath").spellID)` (verwacht 5177). Daarna de
+  macro-bouw in KeyBlock (alleen op Forever, spec 1484). Vorm-conditie `[bonusbar:3]`/`[bonusbar:1]` testen op 10/20.
 - (oud) Rob: in Forever met zijn Night Elf Druid `/mh spellbook` + `/reload`. Daarna lees ik
   `E:\World of Warcraft\_forever_\WTF\Account\<acc>\SavedVariables\MidnightHelper.lua` en maak de Druid-lijst.
 
