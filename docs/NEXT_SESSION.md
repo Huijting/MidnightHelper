@@ -1,5 +1,12 @@
 # Midnight Helper — waar we staan
 
+## 🌙 6 nov, einde dag — Rob: "Morgen misschien een release"
+
+- Alles van vandaag staat op main (laatste commit: Hunter + Mage blok D). Werkboom schoon.
+- Release alleen op Robs go. Voor Forever: stappen in `docs/PLAN_FOREVER_RELEASE_2026-11-06.md` (de Camelot-TOC zit
+  nog niet in git of de zip). Nog niet in het spel gezien: How you play van de 5 nieuwe classes, Hunter/Warlock
+  pet-toetsen, de familieknop in Forever, Quick bar ✅ wel. Testlijst: de secties van 6 nov.
+
 ## 📖 6 nov (nacht, later) — Forever: How you play voor alle 9 classes (Rob: "Ja, schrijf ze")
 
 - Warrior/Rogue/Priest/Shaman/Warlock in `ForeverHowToPlay.lua`: mh-writer schreef uit `FOREVER_<CLASS>_2026-11-06.md`
