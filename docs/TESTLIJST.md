@@ -24,8 +24,8 @@ er is niets weggegooid.
 ## 🆕 6 nov (late avond) — Forever: How you play in de addon
 
 Rob: *"doe b en dan a"*. Alleen offline getest. `/reload` in Forever.
-- [ ] `/mh block`: in het stappenvenster staat stap 4 *"Learn your keys: open How you play"* met **Open**. Klik: er gaat
-      een venster **How you play Paladin** open, met bovenin 4 knoppen (Druid, Paladin, Mage, Hunter).
+- [x] ✅ GEMETEN Rob 6 nov (screenshot): venster **How you play Paladin** open, 4 knoppen bovenin (Paladin grijs = actief),
+      toetsen en termen in goud, kopjes, scrollbalk rechts, *Dock to window* aanwezig.
 - [ ] De tekst scrollt, de toetsen staan in goud, en het venster is te verslepen en sluit met Esc of het kruisje.
 - [ ] `/mh play` opent en sluit hetzelfde venster.
 - [ ] Klopt wat er bij jouw Paladin staat met wat je ziet? (3 = seal, C = Holy Light, Ctrl-1 = Devotion Aura.)
