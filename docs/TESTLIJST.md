@@ -58,8 +58,12 @@ wilt proberen; op level 1 staan er maar een paar toetsen, dat is normaal. De beg
 
 Eerst `/reload` in Forever. Niet in een gevecht. Dan `/mh block` (of *Set up my keys*), eerst *Preview*, dan *Place it*.
 Op level 1 is het blok bijna leeg; dat is normaal. Elke nieuwe spell komt er vanzelf bij.
-- [ ] **Paladin, level 1:** **3** Seal of Righteousness, **C** Holy Light (Human/Dwarf; een Undead krijgt hem pas bij de
-      quest op level 2). Leer je bij de trainer Devotion Aura, dan vraagt MH of hij op **Ctrl-1** mag.
+- [x] ✅ **GEMETEN Rob 6 nov (2 screenshots, Human Paladin level 1):** stap 1 + stap 2 (eigen layout) → blok D-A-B-C
+      naast elkaar, **3** MH 3 Seal of Righteousness, **C** MH C Holy Light, **Shift-E** Will to Survive, Perception op
+      Alt-1; *"ze werken allemaal"*. Geen rode regel. Holy Light blijft op C (grote heal), F2 = Flash of Light later:
+      Rob *"we houden het op a"*. Nog open: Devotion Aura op **Ctrl-1** na de trainer.
+      ⚠️ Volgorde voor de volgende class: `/mh block` → stap 1 *Do it* → stap 2 *Do it* (eigen layout, andere
+      characters blijven zoals ze zijn) → reload → toetsen proberen.
 - [ ] **Mage, level 1:** **1** Fireball, **Shift-Z** Frost Armor.
 - [ ] **Hunter, level 1:** **1** Auto Shot, **5** Raptor Strike, **Shift-E** je racial.
 - [ ] 🔑 **Hunter-test:** druk twee keer op **1** bij een doel. Hij blijft schieten (de macro is `/cast !Auto Shot`). Stopt

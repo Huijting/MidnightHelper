@@ -1,5 +1,11 @@
 # Midnight Helper — waar we staan
 
+## ✅ 6 nov (avond) — Rob test de Forever-Paladin: werkt
+
+- GEMETEN Rob (2 screenshots, Human Paladin level 1): blok via stap 1 + stap 2 (eigen layout), 3/C/Shift-E werken,
+  Perception op Alt-1. Keuze: Holy Light blijft op C, F2 wacht op Flash of Light (Rob: *"we houden het op a"*; geldt
+  ook voor Druid/Priest/Shaman, die hetzelfde patroon hebben). Details in TESTLIJST "6 nov".
+
 ## 🛠️ 6 nov (eind middag) — Robs 2 keuzes uit de How to play: "Doe maar"
 
 - **Mage (1B):** Ctrl-3 = `{ "Frostfire Bolt", "Shoot" }` met `bang`, dus de wand vanaf level 1 tot Frostfire Bolt komt.
