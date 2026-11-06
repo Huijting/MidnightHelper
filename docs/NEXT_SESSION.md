@@ -1,5 +1,15 @@
 # Midnight Helper — waar we staan
 
+## 🛠️ 6 nov (avond) — Quick bar in Forever (Rob: "ja doe maar")
+
+- `Modules/QuickBar.lua` staat nu in de Camelot-TOC (+ kopie `docs/forever/MidnightHelper_Camelot.toc.txt`), na
+  Broker.lua zoals in de retail-TOC. Op `ns.IS_FOREVER` blijven 4 knoppen: MH, reload, leave (zonder shift-delve) en
+  setup → `ns.ShowKeyBlock` (de LayoutWizard is niet geladen op Forever; titel `KEYBLOCK_TITLE`, geen nieuwe strings).
+  GEMETEN offline (scratch `qb_check.py`, echte QuickBar.lua met stubs): retail 8 knoppen + wizard (ongewijzigd),
+  Forever 4 knoppen + key block. Syntax OK, lint 0 HARD. AFGELEID: dat `C_PartyInfo.LeaveParty` in Forever bestaat
+  (de knop meldt het als hij ontbreekt). Test: TESTLIJST "6 nov (avond)".
+- Devotion Aura: trainer level 1, 10 koper (GEMETEN in `FOREVER_PALADIN_2026-11-06.md`); Ctrl-1 nog te testen.
+
 ## ✅ 6 nov (avond) — Rob test de Forever-Paladin: werkt
 
 - GEMETEN Rob (2 screenshots, Human Paladin level 1): blok via stap 1 + stap 2 (eigen layout), 3/C/Shift-E werken,

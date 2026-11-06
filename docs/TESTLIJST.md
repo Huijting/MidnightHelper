@@ -21,6 +21,16 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 6 nov (avond) — Forever: de Quick bar (`/mh bar`)
+
+Rob: *"ja doe maar"*. Alleen offline getest. `/reload` in Forever, dan `/mh bar`.
+- [ ] Er verschijnt een klein balkje met **4 knoppen**: MH, Reload, Leave group en Your key block.
+- [ ] Klik op MH: het venster gaat open. Rechtsklik: de instellingen.
+- [ ] Klik op Your key block: het blokvenster gaat open.
+- [ ] Reload herlaadt (niet in een gevecht).
+- [ ] Het balkje is te verslepen en staat na `/reload` nog op dezelfde plek. `/mh bar` nog eens = weg.
+- [ ] Midnight: `/mh bar` heeft nog alle knoppen zoals altijd.
+
 ## 🆕 6 nov (eind middag) — Forever: wand voor de Mage, pet-toetsen voor Hunter en Warlock
 
 Rob: *"Doe maar"* op de twee keuzes uit de How to play. Alleen offline getest. Werkwijze: `/reload`, `/mh block` →

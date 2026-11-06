@@ -71,6 +71,8 @@ Modules\FastMark.lua
 Modules\SavedVarCleanup.lua
 Modules\MidnightToast.lua
 Modules\Broker.lua
+# The quick bar (/mh bar), Forever buttons only: MH, reload, leave group, key block (Rob, 6 Nov 2026: "ja doe maar").
+Modules\QuickBar.lua
 Modules\BriefNotice.lua
 Modules\NativeArrow.lua
 Modules\BarInventory.lua

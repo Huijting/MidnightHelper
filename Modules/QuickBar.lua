@@ -351,6 +351,33 @@ local ACTIONS = {
 	},
 }
 
+--- WoW Forever (Rob, 6 Nov 2026: "ja doe maar"): only the four buttons that work there. No delves, so the leave
+--- button loses its shift-click; the layout wizard is not loaded on Forever, so the setup button opens the key block.
+--- Board, boss window, route and flight point are Midnight features and leave the bar. Retail is unchanged.
+if ns.IS_FOREVER then
+	local keep = { mh = true, reload = true, leave = true, setup = true }
+	for i = #ACTIONS, 1, -1 do
+		local act = ACTIONS[i]
+		if not keep[act.id] then
+			table.remove(ACTIONS, i)
+		elseif act.id == "leave" then
+			act.linesKey = { "QUICKBAR_LEAVE_L", "QUICKBAR_LEAVE_R" }
+			act.OnClick = function(_, button)
+				local home, instance = PartyCategories()
+				LeaveGroup(button == "RightButton" and instance or home)
+			end
+		elseif act.id == "setup" then
+			act.titleKey = "KEYBLOCK_TITLE"
+			act.linesKey = {}
+			act.OnClick = function()
+				if ns.ShowKeyBlock then
+					ns.ShowKeyBlock()
+				end
+			end
+		end
+	end
+end
+
 --- Does this button belong on the bar right now? No `when` means always.
 local function Visible(act)
 	if not act.when then
