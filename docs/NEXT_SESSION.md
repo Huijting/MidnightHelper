@@ -1,5 +1,23 @@
 # Midnight Helper — waar we staan
 
+## ☀️ 6 nov (ochtend) — Paladin, Mage en Hunter in de addon (Rob: "Ja, alle drie")
+
+- Rob liet de class-keuzes aan ons over (*"vertrouw ik op jouw expertise mbt de classes"*). Daarom staan de voorstellen
+  nu als `Modules/ForeverBlock_Paladin.lua`, `_Mage.lua` en `_Hunter.lua` in de addon, in beide TOC's (+ de kopie
+  `docs/forever/MidnightHelper_Camelot.toc.txt`). Ze staan er zoals in het voorstel, met twee wijzigingen: bij de
+  Hunter heeft toets 1 `bang = true` (`/cast !Auto Shot`), en bij de Paladin is Sense Undead verhuisd van blok D naar
+  `listed`. Dat laatste lost het "13 voor 12"-probleem op.
+- GEMETEN offline (scratch `check_real.py`): alle 4 de class-bestanden gaan door de echte motor. Er waren 0 onbekende
+  namen, 0 verkeerde toetsen en 0 dubbele spells. De Druid-uitvoer is gelijk aan gisteren. De tegenproef (een foute
+  naam en een foute toets) werd allebei gevangen. Lint 0 HARD, syntax OK (314). In het spel is nog niets getest: zie
+  `docs/TESTLIJST.md` 6 nov.
+- Nog alleen voorstel: Warrior, Rogue, Priest, Shaman, Warlock.
+- 🔜 Robs idee: een **Forever "How to play"** voor nieuwe spelers (zoals de Zo-speel-je-kaarten). Dat maken we pas als de
+  tabellen vastliggen, zodat de uitleg en de toetsen hetzelfde zeggen.
+- 🔜 Content-wachter 6 nov 🔴: in The Venomous Abyss heten Scrollsage Iku → **Epu** en First Mate Nama → **Nema**
+  (hotfix 5 nov). Onze tips gebruiken nog de oude namen, in 8 packs. Dat repareren we pas als Rob ja zegt.
+- Robs Midnight-test 6 nov: de enige fout was van **WIM** (`IsUserOAuthed` in Blizzards Guild Control UI), niet van MH.
+
 ## 🌙 Nacht 5→6 nov — Rob slaapt, plan goedgekeurd ("ga helemaal los"; geen release, geen tag)
 
 - Rob over EllesmereUI-gebruikers: zet alleen **"EllesmereUI Action Bars"** uit; een `/reload` is genoeg (zijn ervaring).

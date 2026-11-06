@@ -21,6 +21,19 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 6 nov — Forever: Paladin, Mage en Hunter (nieuw character, level 1)
+
+Eerst `/reload` in Forever. Niet in een gevecht. Dan `/mh block` (of *Set up my keys*), eerst *Preview*, dan *Place it*.
+Op level 1 is het blok bijna leeg; dat is normaal. Elke nieuwe spell komt er vanzelf bij.
+- [ ] **Paladin, level 1:** **3** Seal of Righteousness, **C** Holy Light (Human/Dwarf; een Undead krijgt hem pas bij de
+      quest op level 2). Leer je bij de trainer Devotion Aura, dan vraagt MH of hij op **Ctrl-1** mag.
+- [ ] **Mage, level 1:** **1** Fireball, **Shift-Z** Frost Armor.
+- [ ] **Hunter, level 1:** **1** Auto Shot, **5** Raptor Strike, **Shift-E** je racial.
+- [ ] 🔑 **Hunter-test:** druk twee keer op **1** bij een doel. Hij blijft schieten (de macro is `/cast !Auto Shot`). Stopt
+      hij bij de tweede keer, dan meld je het.
+- [ ] Geen rode regel *"Not in Midnight Helper's list yet"* bij een nieuwe spell. Staat hij er wel, noem dan de spell.
+- [ ] Je Druid werkt nog precies als gisteren.
+
 ## 🆕 5 nov (nacht) — Forever: het Druid-blok met macro's
 
 Eerst `/reload` in Forever, met je Night Elf Druid. Niet in een gevecht.
