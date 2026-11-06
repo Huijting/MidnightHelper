@@ -1,5 +1,18 @@
 # Midnight Helper — waar we staan
 
+## 📖 6 nov (nacht, later) — Forever: How you play voor alle 9 classes (Rob: "Ja, schrijf ze")
+
+- Warrior/Rogue/Priest/Shaman/Warlock in `ForeverHowToPlay.lua`: mh-writer schreef uit `FOREVER_<CLASS>_2026-11-06.md`
+  + de tabellen; mh-research controleerde los (18 checks: 14 GEMETEN waar, 2 AFGELEID waar, 2 alleen in het spel; 21
+  zinnen verbeterd of aangevuld, o.a. Imp-questnaam per ras, Soul Shard-kosten, Rogue-poeders, Shaman-totemvoorwerpen,
+  Charge alleen buiten gevecht); mh-writer verwerkte alles. Rapport: `docs/forever/HOW_TO_PLAY_FACTCHECK_5_CLASSES_2026-11-06.md`.
+- GEMETEN (scratch `htp_check.py`): 91/91 toetsregels over 9 classes kloppen met de tabellen, tegenproef gevangen; 0
+  `[check` en 0 losse `**` over; syntax OK, lint 0 HARD. ⚠️ Alleen regels van de vorm `**KEY** = Spell` worden
+  gecontroleerd; zinnen als "Overpower on 2" niet.
+- Mage-tekst: wand "once you have one" (Rob had nog geen wand). Mage level 1 ✅ Rob *"lijkt ook alles te werken"*.
+- 🔜 Open: Warlock blok D. Door de pet-macro's op Ctrl-1/2/3 staan er 20 namen in `toBlockD`; een level-60 Destruction
+  Warlock kent er ~15, blok D heeft 12 plekken (AFGELEID uit mh-writer's telling, niet zelf nageteld). Rob kiezen laten.
+
 ## 🛠️ 6 nov (nacht) — Forever: How you play per class, familieknop (Rob: "ja")
 
 - `ForeverHowToPlay.lua`: de class-knoppen zijn weg; het venster toont alleen de class van het character (Rob: *"ik wil

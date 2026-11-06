@@ -21,6 +21,14 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 6 nov (nacht, later) — Forever: How you play voor alle 9 classes
+
+Rob: *"Ja, schrijf ze"*. Alleen offline getest. Op een Warrior, Rogue, Priest, Shaman of Warlock: `/mh play`.
+- [ ] Je ziet de uitleg van jouw class (niet meer *"Not written yet"*).
+- [ ] Klopt wat er bij level 1-10 staat met de toetsen op je blok?
+- [ ] Tekst die je niet snapt of die niet klopt met wat je ziet: noem de zin.
+- [ ] Mage: bij de wand staat nu *"once you have one"*.
+
 ## 🆕 6 nov (nacht) — Forever: How you play alleen je eigen class; de familieknop
 
 Rob: *"ja"*. Alleen offline getest. Herstart WoW (er laadt een extra bestand).
@@ -96,7 +104,7 @@ Op level 1 is het blok bijna leeg; dat is normaal. Elke nieuwe spell komt er van
       werkt en werd goed geplaatst"* (de "nieuw voor je blok"-vraag werkt dus ook in Forever).
       ⚠️ Volgorde voor de volgende class: `/mh block` → stap 1 *Do it* → stap 2 *Do it* (eigen layout, andere
       characters blijven zoals ze zijn) → reload → toetsen proberen.
-- [ ] **Mage, level 1:** **1** Fireball, **Shift-Z** Frost Armor.
+- [x] ✅ **Mage, level 1:** **1** Fireball, **Shift-Z** Frost Armor. Rob 6 nov: *"op de mage lijkt ook alles te werken"*.
 - [ ] **Hunter, level 1:** **1** Auto Shot, **5** Raptor Strike, **Shift-E** je racial.
 - [ ] 🔑 **Hunter-test:** druk twee keer op **1** bij een doel. Hij blijft schieten (de macro is `/cast !Auto Shot`). Stopt
       hij bij de tweede keer, dan meld je het.
