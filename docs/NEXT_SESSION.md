@@ -13,8 +13,12 @@
 - ✅ Warlock blok D (Rob: *"ja"* op advies B): nageteld uit `FOREVER_WARLOCK_2026-11-06.md` — vóór de pet-macro's precies
   12 op level 60, daarna tot 14-15 voor Destruction (Conflagrate + Havoc + Incinerate; talentregels, AFGELEID). Create
   Soulstone, Curse of Tongues en Ritual of Summoning naar `listed`; max nu 12. How you play-tekst aangepast; check_real 9/9,
-  htp_check 91/91. 🔜 Mogelijk hetzelfde bij Mage (31 namen in `toBlockD`, veel teleports/portals) en Hunter (22): niet
-  nageteld.
+  htp_check 91/91.
+- ✅ Hunter + Mage blok D (Rob: *"ja"*): Hunter was 12 (onderzoeksbestand), door de pet-toetsen 14-15 → Feed Pet, Dismiss
+  Pet, Scare Beast naar `listed` → 12. Mage ~19 (onderzoeksbestand, AFGELEID) → alle teleports/portals + Comprehend
+  Scroll/Study naar `listed` → ~10-11. How you play-teksten aangepast. check_real 9/9, htp_check 91/91. Andere classes
+  bekeken in de check_real-uitvoer: Paladin 11 + racial = 12, Priest/Rogue/Warrior/Shaman/Druid ruim binnen 12
+  (racials per ras, AFGELEID).
 
 ## 🛠️ 6 nov (nacht) — Forever: How you play per class, familieknop (Rob: "ja")
 

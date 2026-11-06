@@ -55,15 +55,20 @@ ns.FOREVER_BLOCK_CLASSES.MAGE = {
 		["SHIFT-E"] = { base = { "Blood Fury", "Berserking", "Eureka!", "Will of the Forsaken", "Will to Survive",
 			"Read Leyline" } },
 	},
+	-- Block D has 12 places; an Alliance Mage at 60 had about 19 (research file, AFGELEID). Rob chose ("ja", 6 Nov 2026)
+	-- to move the travel spells (all teleports and portals) and Comprehend Scroll / Study to `listed`: about 10 remain.
 	toBlockD = {
 		"Mage Armor", "Amplify Magic", "Dampen Magic",
 		"Conjure Water", "Conjure Food", "Conjure Mana Agate", "Conjure Mana Jade", "Conjure Mana Citrine",
 		"Conjure Mana Ruby",
+		"Polymorph: Cow",
+		"Perception", "Shatter Curse", "Cannibalize", "Escape Artist", "Rapid Regeneration", "Walk on Air",
+	},
+	listed = {
 		"Teleport: Stormwind", "Teleport: Ironforge", "Teleport: Darnassus", "Teleport: Dalaran",
 		"Teleport: Orgrimmar", "Teleport: Undercity", "Teleport: Thunder Bluff",
 		"Portal: Stormwind", "Portal: Ironforge", "Portal: Darnassus",
 		"Portal: Orgrimmar", "Portal: Undercity", "Portal: Thunder Bluff",
-		"Polymorph: Cow", "Comprehend Scroll", "Study",
-		"Perception", "Shatter Curse", "Cannibalize", "Escape Artist", "Rapid Regeneration", "Walk on Air",
+		"Comprehend Scroll", "Study",
 	},
 }

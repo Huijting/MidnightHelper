@@ -56,14 +56,17 @@ ns.FOREVER_BLOCK_CLASSES.HUNTER = {
 		["CTRL-3"] = { cmd = { text = "/petstay", needs = "Call Pet", label = "Pet: Stay", icon = "Spell_Nature_TimeStop" } },
 		["SHIFT-E"] = { all = { "Shadowmeld", "War Stomp", "Stoneform", "Blood Fury", "Berserking", "Perception", "Walk on Air" } },
 	},
+	-- Block D has 12 places. The pet keys sent Monkey, Beast and Strider Kick here (14-15 at 60), so Rob chose ("ja",
+	-- 6 Nov 2026) to move the out-of-combat Feed Pet, Dismiss Pet and Scare Beast to `listed` (place them yourself).
 	toBlockD = {
 		"Aspect of the Monkey", "Aspect of the Beast", "Strider Kick",
-		"Volley", "Frost Trap", "Viper Sting", "Scorpid Sting", "Scare Beast", "Aspect of the Pack", "Aspect of the Wild",
-		"Tranquilizing Shot", "Flare", "Feed Pet", "Dismiss Pet",
+		"Volley", "Frost Trap", "Viper Sting", "Scorpid Sting", "Aspect of the Pack", "Aspect of the Wild",
+		"Tranquilizing Shot", "Flare",
 		"Will to Survive", "Shatter Curse", "Find Treasure", "Elune's Light", "Cultivation", "Rapid Regeneration",
 		"Read Leyline", "Skysight",
 	},
 	listed = {
+		"Feed Pet", "Dismiss Pet", "Scare Beast",
 		"Tame Beast", "Beast Training", "Beast Lore", "Eyes of the Beast", "Eagle Eye", "Immolation Trap",
 		"Track Beasts", "Track Humanoids", "Track Undead", "Track Hidden", "Track Elementals", "Track Demons",
 		"Track Giants", "Track Dragonkin",

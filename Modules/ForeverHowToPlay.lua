@@ -117,7 +117,7 @@ The Mage stands back and casts fire, frost and arcane magic. It keeps enemies aw
 Frostbolt (2) or Fireball (1) as the enemy comes in. Fire Blast (5) when it is ready. Enemy close to you? Frost Nova (V), step away, keep casting.]] },
 		{ "What comes later", [[
 - 12: Slow Fall on Shift-R. 14: Arcane Explosion on Shift-2 (hits several enemies). 16: Flamestrike on Shift-4.
-- 18: Remove Lesser Curse on Shift-V. 20: Blink on R (your movement spell), Blizzard on Shift-1, Evocation on F1 (gets mana back), Mana Shield on Z, Fire Ward on F4, and the teleports (block D).
+- 18: Remove Lesser Curse on Shift-V. 20: Blink on R (your movement spell), Blizzard on Shift-1, Evocation on F1 (gets mana back), Mana Shield on Z, Fire Ward on F4. Also the teleports (and later portals): travel spells, not on the block. Put them on your own bar, or use them from your spellbook.
 - 22: Scorch on Ctrl-1, Frost Ward on F2. 24: Counterspell on E: your **interrupt** (it stops an enemy's spell).
 - 26: Cone of Cold on Shift-F. 30: Ice Armor: Shift-Z casts it from then on instead of Frost Armor (it also protects you against frost).
 - Talents from level 20: Pyroblast on 4, Ice Lance on F, Arcane Blast on Ctrl-2, Ice Block on C (25 at the earliest).]] },
@@ -143,6 +143,7 @@ The Hunter shoots from a distance with a ranged weapon, and from level 10 has a 
 		{ "Simple order", [[
 Aspect of the Hawk on (Shift-R). Pet in first (Ctrl-1). Hunter's Mark (Shift-Z), Serpent Sting (2), Auto Shot (1), then Arcane Shot (3) when it is ready. Enemy next to you? Raptor Strike (5).]] },
 		{ "What comes later", [[
+- 10: Feed Pet and Dismiss Pet are not on the block (you use them outside a fight); put them on your own bar. The same for Scare Beast (14).
 - 12: Distracting Shot on F (makes the enemy attack you), Mend Pet on F2 (heals your pet), Wing Clip on Shift-F.
 - 16: Immolation Trap on Shift-2, Mongoose Bite on Shift-C (only after you dodge). 18: Multi-Shot on Shift-1.
 - 20: Aimed Shot on 4 (your big shot), Aspect of the Cheetah on R (run fast), Disengage on Z, Freezing Trap on V.
