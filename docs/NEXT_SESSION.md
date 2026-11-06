@@ -1,5 +1,15 @@
 # Midnight Helper — waar we staan
 
+## 🗺️ 6 nov (avond) — HandyNotes voor Forever geïnstalleerd (buiten de repo)
+
+- Rob: *"uitzoeken en installeren wat nuttig is"*, daarna *"doe b maar"* (zelf downloaden, niet via de CF-app, want WoW
+  stond ervoor). In `E:\World of Warcraft\_forever_\Interface\AddOns`: HandyNotes v1.6.32 (Xinhuan), HandyNotes_WoWForever
+  v3 (Kemayo; zijn git-hulpscript `updateHandler.sh` weggelaten), HandyNotes_DungeonRaidLocations-Forever v1.00 (Pirson),
+  HandyNotes_ClassTrainers 1.0.0 (Frostaphim). Alle vier Forever-flavor op CurseForge, toc's Interface 16001 (GEMETEN).
+  ⚠️ Niet in de CF-app, dus geen automatische updates. Bewust niet: dubbele rare-plugins, het Anahkas-drietal (sinds
+  5 nov, weinig downloads), herbergen/boten/boeken.
+- Quick bar in Forever: ✅ Rob *"die werkt"*.
+
 ## 🛠️ 6 nov (avond) — Quick bar in Forever (Rob: "ja doe maar")
 
 - `Modules/QuickBar.lua` staat nu in de Camelot-TOC (+ kopie `docs/forever/MidnightHelper_Camelot.toc.txt`), na

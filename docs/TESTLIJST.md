@@ -23,7 +23,8 @@ er is niets weggegooid.
 
 ## 🆕 6 nov (avond) — Forever: de Quick bar (`/mh bar`)
 
-Rob: *"ja doe maar"*. Alleen offline getest. `/reload` in Forever, dan `/mh bar`.
+Rob: *"ja doe maar"*. `/reload` in Forever, dan `/mh bar`.
+- [x] ✅ Rob 6 nov: *"De MHBar die werkt, die heb ik al gekeken."* (Losse punten hieronder niet apart gemeld.)
 - [ ] Er verschijnt een klein balkje met **4 knoppen**: MH, Reload, Leave group en Your key block.
 - [ ] Klik op MH: het venster gaat open. Rechtsklik: de instellingen.
 - [ ] Klik op Your key block: het blokvenster gaat open.
