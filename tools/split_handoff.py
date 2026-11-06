@@ -17,8 +17,21 @@ WHY
     with a pointer into the archive. Nothing disappears; the open ones stay visible.
 
 USAGE
-    python "<repo>/tools/_probe.py" run split_handoff          # dry run, prints the plan
-    python "<repo>/tools/_probe.py" run split_handoff --write  # actually split
+    python "<repo>/tools/_probe.py" run split_handoff --resplit "<heading>"          # dry run
+    python "<repo>/tools/_probe.py" run split_handoff --resplit "<heading>" --write  # split again
+    python "<repo>/tools/_probe.py" run split_handoff --reindex [--write]            # index only
+
+    <heading> is the start of the first "## " line that should move, e.g. "## 🌆 31 okt — ronde".
+    Everything from there down to the index moves to the TOP of the archive (newest first, like
+    the live file), and the index is rebuilt from the whole archive.
+
+🔴 THE PLAIN `--write` (no --resplit) IS THE ONE-TIME 2 SEP SPLIT AND MUST NOT BE RUN AGAIN.
+    It writes the archive from scratch, so a second run would wipe the July-August history.
+    Found 6 Nov 2026, the first time the file needed splitting again (13354 lines). main() now
+    refuses it once the archive exists; --resplit is the repeatable form.
+
+WHEN
+    CLAUDE.md: once docs/NEXT_SESSION.md passes ~1500 lines, split before adding more.
 """
 
 import io
@@ -120,8 +133,13 @@ INDEX_HEADING = "## \U0001f4cc Ouder, maar nog niet af"
 
 def build_index(still_open):
     out = ["\n\n%s — staat in `docs/NEXT_SESSION_ARCHIVE.md`\n" % INDEX_HEADING, "\n",
-           "De historie is op 2 sep afgesplitst. Deze secties lezen daar nog als OPEN, dus ze staan\n",
-           "hier bij naam — een openstaand punt mag niet verdwijnen door oud te zijn.\n",
+           "De historie is afgesplitst (2 sep en 6 nov). Deze secties lezen daar nog als OPEN, dus ze\n",
+           "staan hier bij naam — een openstaand punt mag niet verdwijnen door oud te zijn.\n",
+           "\n",
+           "⚠️ Bewust te ruim: de lijst kijkt alleen naar de kop. Is een punt af, zet een stukje van de\n",
+           "kop met de reden in `KNOWN_DONE` in `tools/split_handoff.py` en draai\n",
+           "`python \"<repo>/tools/_probe.py\" run split_handoff --reindex --write`. Niet met de hand\n",
+           "bewerken: dan loopt de lijst binnen een week uit de pas met het archief.\n",
            "\n"]
     for h in still_open:
         out.append("- %s\n" % h)
@@ -168,10 +186,104 @@ def reindex():
     return 0
 
 
+ARCHIVE_SEPARATOR = "---\n"
+
+
+def resplit(heading):
+    """Move the next block of history to the top of the EXISTING archive, then rebuild the index.
+
+    🔴 Two positive controls, because a split that loses a line must fail loudly:
+      1. live + archive line count after == live + archive before, plus the one header line;
+      2. every "## " heading that left the live file is in the new archive, as often as before.
+    """
+    write = "--write" in sys.argv
+    live = io.open(LIVE, "r", encoding="utf-8", newline="").read().splitlines(True)
+    arch = io.open(ARCHIVE, "r", encoding="utf-8", newline="").read().splitlines(True)
+
+    cut = next((i for i, l in enumerate(live) if l.startswith(heading)), None)
+    idx = next((i for i, l in enumerate(live) if l.startswith(INDEX_HEADING)), None)
+    if cut is None:
+        sys.exit("cut heading not found in the live file:\n  %s" % heading)
+    if idx is None:
+        sys.exit("index heading not found in the live file")
+    if not cut < idx:
+        sys.exit("cut heading sits below the index -- nothing to move")
+    try:
+        sep = arch.index(ARCHIVE_SEPARATOR)
+    except ValueError:
+        sys.exit("archive has no '---' line under its header -- has it changed shape?")
+
+    head = live[:cut]
+    while head and head[-1].strip() == "":
+        head.pop()
+    moved = live[cut:idx]
+    while moved and moved[-1].strip() == "":
+        moved.pop()
+    # The old index is rebuilt below, but its prose (who triaged what, and when) is history,
+    # so it goes along under a ✅ heading -- resolved, so it never lands in the new index.
+    old_index = live[idx:]
+    old_index[0] = "## ✅ Het vorige lijstje 'Ouder, maar nog niet af' (vervangen bij deze splitsing)\n"
+    while old_index and old_index[-1].strip() == "":
+        old_index.pop()
+    moved = moved + ["\n"] + old_index + ["\n"]
+
+    # Archive: header (with one line added for this split), separator, blank, the moved block,
+    # then everything that was there before.
+    note = ("Split again on %s: %d lines moved here from the live file (it had %d).\n\n"
+            % (os.environ.get("SPLIT_DATE", "this run"), len(moved), len(live)))
+    start = sep + 1
+    while start < len(arch) and arch[start].strip() == "":
+        start += 1
+    new_arch = arch[:sep] + [note, ARCHIVE_SEPARATOR, "\n"] + moved + arch[start:]
+
+    def headings(ls):
+        out = {}
+        for l in ls:
+            if l.startswith("## "):
+                out[l] = out.get(l, 0) + 1
+        return out
+    before = headings(arch)
+    for h, n in headings(live[cut:idx] + old_index).items():
+        before[h] = before.get(h, 0) + n
+    assert headings(new_arch) == before, "a heading went missing or got doubled"
+    body_lines = lambda ls: sum(1 for l in ls if l.strip())
+    assert body_lines(new_arch) == body_lines(arch) + body_lines(live[cut:]) + 1, \
+        "non-blank line count does not add up"
+
+    still_open = [l.rstrip("\r\n")[3:].strip() for l in new_arch
+                  if l.startswith("## ") and classify(l) == "open"]
+    print("live now      : %d lines" % len(live))
+    print("keeping       : %d lines + index" % len(head))
+    print("moving        : %d lines, %d sections" % (len(moved), sum(1 for l in moved if l.startswith("## "))))
+    print("archive after : %d lines" % len(new_arch))
+    print("index entries : %d" % len(still_open))
+    for h in still_open:
+        print("   OPEN  %s" % h[:96])
+    if not write:
+        print("\n(dry run -- pass --write to actually split)")
+        return 0
+
+    io.open(ARCHIVE + ".tmp", "w", encoding="utf-8", newline="").write("".join(new_arch))
+    os.replace(ARCHIVE + ".tmp", ARCHIVE)
+    io.open(LIVE + ".tmp", "w", encoding="utf-8", newline="").write(
+        "".join(head) + "".join(build_index(still_open)))
+    os.replace(LIVE + ".tmp", LIVE)
+    print("\nwrote both files")
+    return 0
+
+
 def main():
     if "--reindex" in sys.argv:
         return reindex()
+    if "--resplit" in sys.argv:
+        i = sys.argv.index("--resplit")
+        if i + 1 >= len(sys.argv):
+            sys.exit("--resplit needs the heading to cut at")
+        return resplit(sys.argv[i + 1])
     write = "--write" in sys.argv
+    if write and os.path.exists(ARCHIVE):
+        sys.exit("the archive already exists -- a plain --write would overwrite it.\n"
+                 "Use --resplit \"<heading>\" instead (see the docstring).")
 
     raw = io.open(LIVE, "r", encoding="utf-8", newline="").read()
     lines = raw.splitlines(True)  # keep the line endings exactly as they are

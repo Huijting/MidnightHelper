@@ -357,14 +357,23 @@ toestand niet te reproduceren is.
   - `Modules/Travel/` is the one subfolder (the travel module, 16 Oct 2026). Tools that scan `Modules/` must include subfolders: `tools/lint_addon.py` does so through `module_files()` — use that, not a new `Modules/*.lua` glob (six checks were blind to `Modules/Travel/` until that day).
 - `Locales/` — one pack per language + the resolver + a fill-file (see Localization).
 - `docs/` — dev notes, per-release CurseForge notes (`CURSEFORGE_<version>.md`), plans, handoffs. `docs/NEXT_SESSION.md` is the running state/handoff log — read it for current context.
-  - ⚠️ **Gesplitst op 2 sep 2026**, toen het 4445 regels was en alleen de bovenste 226 leefden.
-    De historie staat in `docs/NEXT_SESSION_ARCHIVE.md` en groeit niet meer; nieuwe regels horen
+  - ⚠️ **Gesplitst op 2 sep 2026** (4445 regels, alleen de bovenste 226 leefden) **en opnieuw op
+    6 nov 2026** (13354 regels — drie keer zo lang als de eerste keer, in twee maanden). De
+    historie staat in `docs/NEXT_SESSION_ARCHIVE.md`, nieuwste bovenaan; nieuwe regels horen
     bovenaan `NEXT_SESSION.md`. 📌 De reden is niet netheid maar betrouwbaarheid: hoe langer dat
     bestand werd, hoe vaker er iets van tweeduizend regels diep als actueel werd geciteerd — wat
     op 31 aug en 2 sep allebei gebeurd is.
+  - 🔴 **GRENS: ~1500 regels.** Is `NEXT_SESSION.md` langer, splits dan eerst, vóór je er iets
+    aan toevoegt. Knip bij een kop van ongeveer een week oud, en nooit vóór een kop waar een
+    nieuwere sectie naar verwijst ("zie 31 okt laat"). Altijd eerst de proefrun:
+    `python "<repo>/tools/_probe.py" run split_handoff --resplit "## <kop>"`, dan met `--write`.
+    🔴 **Nooit `split_handoff --write` zonder `--resplit`**: dat schrijft het archief opnieuw en
+    wist juli–oktober. Het script weigert het nu, maar weet waarom. Rob, 6 nov: *"Ja"* op het
+    voorstel om het briefje kort te houden in plaats van een tweede statusbestand te maken.
   - 📌 Onderaan het levende bestand staat een index van oudere secties die **nog als open lezen**.
     Die lijst is bewust te ruim (een verlopen regel kost tien seconden, een begraven openstaand
-    punt kost meer) en is één keer nalopen waard.
+    punt kost meer) en is één keer nalopen waard. Na de splitsing van 6 nov: 18 punten, nog niet
+    nagelopen.
 
 ## Key systems & conventions
 
