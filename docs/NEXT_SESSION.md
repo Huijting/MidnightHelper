@@ -1,5 +1,7 @@
 # Midnight Helper — waar we staan
 
+## ✅ 6 nov (late avond) — Paladin: Devotion Aura na de trainer op Ctrl-1 (Rob: "werkt en werd goed geplaatst")
+
 ## 📖 6 nov (late avond) — Forever: How you play in de addon (Rob: "doe b en dan a")
 
 - **B:** `KeyBlock.lua` UpdateGuide laat een stap met `which = "card"` weg als `ns.ShowPlayCardWindow` niet bestaat

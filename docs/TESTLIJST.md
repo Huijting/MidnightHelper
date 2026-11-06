@@ -82,7 +82,8 @@ Op level 1 is het blok bijna leeg; dat is normaal. Elke nieuwe spell komt er van
 - [x] ✅ **GEMETEN Rob 6 nov (2 screenshots, Human Paladin level 1):** stap 1 + stap 2 (eigen layout) → blok D-A-B-C
       naast elkaar, **3** MH 3 Seal of Righteousness, **C** MH C Holy Light, **Shift-E** Will to Survive, Perception op
       Alt-1; *"ze werken allemaal"*. Geen rode regel. Holy Light blijft op C (grote heal), F2 = Flash of Light later:
-      Rob *"we houden het op a"*. Nog open: Devotion Aura op **Ctrl-1** na de trainer.
+      Rob *"we houden het op a"*. ✅ Devotion Aura na de trainer op **Ctrl-1**: Rob 6 nov *"ctrl 1, die devotion aura
+      werkt en werd goed geplaatst"* (de "nieuw voor je blok"-vraag werkt dus ook in Forever).
       ⚠️ Volgorde voor de volgende class: `/mh block` → stap 1 *Do it* → stap 2 *Do it* (eigen layout, andere
       characters blijven zoals ze zijn) → reload → toetsen proberen.
 - [ ] **Mage, level 1:** **1** Fireball, **Shift-Z** Frost Armor.
