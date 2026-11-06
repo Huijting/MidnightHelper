@@ -26,7 +26,7 @@ er is niets weggegooid.
 Rob: *"doe b en dan a"*. Alleen offline getest. `/reload` in Forever.
 - [x] ✅ GEMETEN Rob 6 nov (screenshot): venster **How you play Paladin** open, 4 knoppen bovenin (Paladin grijs = actief),
       toetsen en termen in goud, kopjes, scrollbalk rechts, *Dock to window* aanwezig.
-- [ ] De tekst scrollt, de toetsen staan in goud, en het venster is te verslepen en sluit met Esc of het kruisje.
+- [x] ✅ Rob 6 nov: scrollen met het muiswiel en sluiten met Esc werken (*"ja beide werken"*).
 - [ ] `/mh play` opent en sluit hetzelfde venster.
 - [ ] Klopt wat er bij jouw Paladin staat met wat je ziet? (3 = seal, C = Holy Light, Ctrl-1 = Devotion Aura.)
 - [ ] Midnight: stap 4 en `/mh play` openen nog de gewone How you play-kaart.
