@@ -1,5 +1,26 @@
 # Midnight Helper — waar we staan
 
+## 🛠️ 6 nov (middag) — Rob op zijn werk: "Ja, 1 tot en met 5"
+
+- **Forever, alle 9 classes in de addon.** Nieuw: `Modules/ForeverBlock_Warrior/_Rogue/_Priest/_Shaman/_Warlock.lua`,
+  in beide TOC's + de kopie `docs/forever/MidnightHelper_Camelot.toc.txt`. Elk = het concept uit
+  `docs/forever/FOREVER_<CLASS>_2026-11-06.md`; bij de open vragen daar telt de eigen keuze van het voorstel (staat in de
+  kop van elk bestand). GEMETEN offline (scratch `check_real.py`, echte motor): 9/9 classes 0 foute toetsen, 0 onbekende
+  namen, 0 dubbele spells; tegenproef gevangen. Syntax OK (319), lint 0 HARD. In het spel: TESTLIJST "6 nov (middag)".
+- **Forever, Tools-lijst** (`ToolsLaunchpad.lua`): op Forever alleen kaarten waarvan de Open-functie geladen is
+  (`FOREVER_NEEDS`). GEMETEN (scratch `forever_tools.py` tegen de Camelot-TOC): 3 van 17 blijven (Your keys, Key block,
+  FPS). Retail ongewijzigd. 🔜 Open: de commandolijst onder de kaarten noemt op Forever nog alle Midnight-commando's.
+- **Midnight, Venomous Abyss**: Iku → Epu, Nama → Nema in `RaidTips.lua` (7 packs) + `ruRU.lua` + een opmerking in
+  `RaidCoachData.lua`: 74 vervangen, 0 oude namen over, "Ikuzz" (andere baas) heel. `check_drift --mark` voor de 5
+  enUS-keys. Bron: 3 secundaire bronnen (CONTENT_WATCH 6 nov); in het spel nog niet gezien.
+- **Open punten:** 18 → 15. Drie bewezen af in `KNOWN_DONE` (`tools/split_handoff.py`); de hele controle staat in
+  `docs/OPEN_PUNTEN_NAGELOPEN_2026-11-06.md`. ⚠️ Daarin: tegenstrijdige notities over quest 96466.
+- **Forever "How to play", eerste versie** (alleen een document, niet in de addon):
+  `docs/forever/HOW_TO_PLAY_CONCEPT_2026-11-06.md`, Druid/Paladin/Mage/Hunter. Geschreven door mh-writer uit onze eigen
+  onderzoeksbestanden, daarna los gecontroleerd door mh-research (regel: uitleg = 2 onafhankelijke agenten).
+- Robs vraag *"kunnen andere users dit ook gebruiken?"*: nu nog niet. De Camelot-TOC zit niet in git en niet in de zip
+  (`docs/PLAN_FOREVER_RELEASE_2026-11-06.md`). Dat verandert pas met een release, en dat is Robs go.
+
 ## 🧹 6 nov (ochtend, later) — dit bestand opnieuw gesplitst (Rob: "Ja")
 
 - Aanleiding: Rob vroeg of claude-mem iets was voor MH. Advies: nee (het geeft oude samenvattingen mee als feit, dat
@@ -473,13 +494,10 @@ bewerken: dan loopt de lijst binnen een week uit de pas met het archief.
 - 🔜 OPEN na 28 okt (overdracht naar de bouwchat van 29 okt)
 - 🔜 OPEN na 26 okt (overdracht naar de bouwchat van 27 okt)
 - 🔜 OPEN na 23 okt (overdracht naar de bouwchat van 24 okt)
-- 📣 EIS VOOR DE VOLGENDE UPDATE (Rob, 23 okt: "bij de update die we gaan doen, duidelijk gemaakt wordt dat we op de website dus meer info hebben voor DPS, voor tanken, voor healers")
 - 🌅 VOLGENDE CHAT EERST (stand eind 16 okt; bouwchat gearchiveerd door Rob)
 - 🌅 16 okt — MORGEN EERST (Rob, 15 okt nacht: "onthoud dit dan kunnen we morgen verder")
 - (verslag) 🔴 VOOR MORGEN — Venom Lancer Ori'kassi is geen rare maar een SCENARIO
 - 🔴 9 sep — de weekly-vinkjes rusten op bewijs dat niets waard is (OPEN)
-- 🔴 7 sep — OPEN: binnen in de kamer wijst de pijl terug naar de deur
-- 📅 MORGEN — vier dingen, in deze volgorde
 - 🆕 30 aug — waar komen onaangeleerde recepten vandaan? (OPEN)
 - 🔵 OPEN 29 aug — de SMC-pin zet TWEE waypoints, plus één die niemand vroeg
 - 💡 ROB-VERZOEK 19 AUG — "dit soort info moeten wij ook gaan bieden!!!"

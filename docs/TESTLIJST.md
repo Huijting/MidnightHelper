@@ -21,6 +21,26 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 6 nov (middag) — Forever: de andere 5 classes, de Tools-lijst; Midnight: Epu en Nema
+
+Zelfde werkwijze als hieronder: `/reload`, niet in gevecht, `/mh block` → *Preview* → *Place it*. Alleen de classes die je
+wilt proberen; op level 1 staan er maar een paar toetsen, dat is normaal. De beginspells komen uit Blizzards data
+(GEMETEN); dat MH ze op die toetsen zet is alleen offline getest.
+- [ ] **Warrior, level 1:** **1** Heroic Strike, **Ctrl-1** Battle Stance, **Shift-E** je racial. Na de trainer: **Shift-X**
+      Battle Shout. Extra (als je wilt): `/run print(GetBonusBarOffset(), GetShapeshiftForm())` in Battle Stance geeft `1 1`.
+- [ ] **Rogue, level 1:** **1** Sinister Strike, **4** Eviscerate. Later in Stealth (level 1 al, **Shift-R**): **1** wordt
+      Garrote pas vanaf level 14; daarvoor blijft 1 Sinister Strike.
+- [ ] **Priest, level 1:** **1** Smite, **C** Lesser Heal, **5** Shoot (staf/wand).
+- [ ] **Shaman, level 1:** **1** Lightning Bolt, **C** Healing Wave.
+- [ ] **Warlock, level 1:** **1** Shadow Bolt, **Shift-Z** Demon Skin; na de trainer **3** Immolate. Summon Imp komt op
+      blok D (je eigen balk), niet op het blok.
+- [ ] Geen rode regel *"Not in Midnight Helper's list yet"*. Staat hij er wel, noem dan de spell.
+- [ ] **Forever, Tools:** `/mh` → Tools. Je ziet nu alleen knoppen die in Forever werken: *Your keys*, *Key block*, *FPS*.
+      Geen Delve Coach, Valeera, Mount run en zo meer. (De lijst met commando's daaronder noemt nog wel alles: bekend.)
+- [ ] **Midnight, The Venomous Abyss** (raid-tips, baas *Lost Explorers*): de tekst noemt **Epu** en **Nema**, niet meer
+      Iku en Nama. Klopt de naam in het spel? Blizzard noemde ze in de hotfix niet letterlijk.
+- [ ] **Midnight, Tools:** alle knoppen staan er nog (niets weg in Midnight).
+
 ## 🆕 6 nov — Forever: Paladin, Mage en Hunter (nieuw character, level 1)
 
 Eerst `/reload` in Forever. Niet in een gevecht. Dan `/mh block` (of *Set up my keys*), eerst *Preview*, dan *Place it*.

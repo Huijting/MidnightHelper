@@ -85,6 +85,11 @@ Modules\ForeverBlock_Druid.lua
 Modules\ForeverBlock_Paladin.lua
 Modules\ForeverBlock_Mage.lua
 Modules\ForeverBlock_Hunter.lua
+Modules\ForeverBlock_Warrior.lua
+Modules\ForeverBlock_Rogue.lua
+Modules\ForeverBlock_Priest.lua
+Modules\ForeverBlock_Shaman.lua
+Modules\ForeverBlock_Warlock.lua
 Modules\ForeverBlock.lua
 Modules\LayoutGrowth.lua
 Modules\BarPlanCard.lua

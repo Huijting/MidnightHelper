@@ -123,6 +123,30 @@ local TOOLS = {
 	},
 }
 
+-- 🧩 WoW Forever (6 Nov 2026, Rob: "Ja, 1 tot en met 5"): the Forever TOC loads only part of MH, so most of these
+-- windows do not exist there and their Open button did nothing. On Forever a card is drawn only when the function its
+-- Open button calls was loaded (same idea as UI.lua ns.ForeverScreenLoaded for tabs). Retail draws every card, as before.
+local FOREVER_NEEDS = {
+	KEYSHUB_TITLE = "ShowKeysHub", DELVE_COACH_TITLE = "ToggleDelveCoach", NAV_TOOL_BOARD = "ShowConsumableBoard",
+	NAV_TOOL_BOSSWIN = "ToggleDungeonBossWindow", NAV_TOOL_CURIOS = "ToggleDelveCuriosPopup",
+	NAV_TOOL_RITUALBOSS = "ToggleRitualBossWindow", TOOLLP_COURSE_NAME = "ToggleProfessionCourseWindow",
+	TOOLLP_VALEERA_NAME = "ToggleValeeraPopup", RAIDSHOP_TITLE = "ShowRaidShoppingList",
+	CRAFTSHOP_TITLE = "ShowCraftShoppingList", MOUNTRUN_TITLE = "MH_ShowMountRun", KEYBLOCK_TITLE = "ShowKeyBlock",
+	STATS_TITLE = "ShowStatCoach", PAWN_TITLE = "ShowPawnExport", KEYBIND_EXPORT_TITLE = "ShowKeybindExport",
+	CURIO_TITLE = "ShowCurioExplain", FPS_TITLE = "MH_ShowFpsPanel",
+}
+
+local function ToolShown(tool)
+	if not ns.IS_FOREVER then
+		return true
+	end
+	if tool.nameKey == "TAB_MACROS" then
+		return ns.ForeverScreenLoaded ~= nil and ns.ForeverScreenLoaded("macros")
+	end
+	local fn = FOREVER_NEEDS[tool.nameKey]
+	return fn ~= nil and type(ns[fn]) == "function" -- an unknown card stays hidden on Forever rather than dead
+end
+
 -- Re-apply localized text to a built launchpad (called on locale change, and
 -- once more after build so a panel built before the locale resolver still ends
 -- up in the right language).
@@ -192,7 +216,13 @@ function ns.BuildToolsLaunchpad(panel)
 
 	local CARD_H, CARD_GAP = 50, 10
 	local prev
+	local shownTools = {}
 	for _, tool in ipairs(TOOLS) do
+		if ToolShown(tool) then
+			shownTools[#shownTools + 1] = tool
+		end
+	end
+	for _, tool in ipairs(shownTools) do
 		local card = CreateFrame("Button", nil, page)
 		card:SetHeight(CARD_H)
 		if prev then
@@ -246,7 +276,7 @@ function ns.BuildToolsLaunchpad(panel)
 	-- Every command, under the five cards. The cards are the tools you open; the
 	-- list is everything else the addon answers to, which until now lived only in
 	-- the source and half of it not even on the store page.
-	local cardsH = 6 + #TOOLS * (CARD_H + CARD_GAP)
+	local cardsH = 6 + #shownTools * (CARD_H + CARD_GAP)
 	page:SetHeight(cardsH + 10)
 	if ns.BuildCommandList then
 		ns.BuildCommandList(page, prev, {

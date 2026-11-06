@@ -245,7 +245,7 @@ end
 ns.RAID_BOSS_DISPLAYS = {
 	nekzali       = 142077,
 	entombedsent  = 143437, -- Breath of Ula'tek (Blood = 143436)
-	lostexplorers = 143824, -- Mor'zahi (Iku 143082, Nama 142158, Gebbo 143083)
+	lostexplorers = 143824, -- Mor'zahi (Epu 143082, Nema 142158, Gebbo 143083)
 	vashnik       = 141675,
 	sszorak       = 142788,
 	twinfangs     = 140993, -- Vexhul (Ithraz 141309)

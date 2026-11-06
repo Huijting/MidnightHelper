@@ -97,6 +97,17 @@ KNOWN_DONE = {
     "EERST MORGEN (15 aug)",
     # The keybind classifier rebuild the section describes; it marks itself done at the top.
     "MORGEN / VOLGENDE SESSIE",
+
+    # --- Triaged on 6 Nov 2026 (Rob: "Ja, 1 tot en met 5"; mh-sweep, each pointer re-read by hand).
+    # Rob's 23 Oct demand shipped in 4.11.2: docs/CURSEFORGE_4.11.2.md:7-19 ("New on midnighthelper.com: Your
+    # talents", with DPS, Tanks and Healers each named).
+    "EIS VOOR DE VOLGENDE UPDATE",
+    # Archive line 2049: "GEMETEN door Rob (16 okt avond): boog → orb → portaal werkt, ook vanuit binnen"
+    # (Travel.ViaInside, Modules/Travel/TravelRoute.lua).
+    "binnen in de kamer wijst de pijl terug naar de deur",
+    # All four points closed: 1 = archive "9 sep, RESETDAG — band B reset wekelijks"; 2 = "7 sep — de sniffer heeft
+    # gevangen"; 3 = marked AF 7 sep in the section itself; 4 (3.8.1) was overtaken by 3.9.0 on 7 Sep.
+    "MORGEN — vier dingen, in deze volgorde",
 }
 
 
