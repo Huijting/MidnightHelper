@@ -8913,3 +8913,200 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
     ArrowTargetChanged and hold back set-closest"), `## Version: 4.15.0`. Rechtgezet met
     `git checkout -B main aed9257`, wat niets aan de inhoud verandert. Geen enkel ander bestand
     geraakt.
+- [2026-11-06] 🆕 **Nul [MOET GEFIKST] — maar de eerste SimC-addon-release in vijftien dagen
+  (`12.1.5-04`, 5 nov), en hij raakt precies de tak die Rob vannacht uitbrengt: WoW Forever. Hij
+  plakt daar een surname achter de spelersnaam, en MH's `/mh raidbots` leest maar één returnwaarde
+  van `UnitName("player")` — alleen laadt die module niet op Forever, GEMETEN in de Camelot-TOC.
+  Blizzards eigen API-bronnen stonden daarentegen volledig stil: geen nieuwe live-build, geen nieuwe
+  PTR-build, geen nieuwe wiki-regel, geen addon-regel in de twee hotfix-artikelen van 5 nov, en geen
+  nieuw forumdraadje dat over API gaat. Omdat Forever op 4 nov live ging en Robs Camelot-TOC van
+  vannacht is, heb ik dit keer wél de Forever-kant van de code nagelopen: één cosmetisch punt om naar
+  te kijken, en één open vraag die ik niet kan meten.**
+  - 🧰 **[RAAKT ONS NIET] — NIEUWE SimC-ADDON-RELEASE `12.1.5-04`, de eerste sinds `12.1.5-03` van
+    22 okt.** Mijn regels van 3, 4 en 5 nov zeiden *"geen nieuwe release, elfde/…/veertiende dag"*;
+    die reeks is hiermee afgelopen. GEMETEN, niet nagelezen: `git ls-remote --tags --refs` op
+    `simulationcraft/simc-addon` geeft **258** tags, waar ik gisteren **257** telde, en de nieuwe is
+    **`refs/tags/12.1.5-04`** op commit **`83fdb00762fa0fb9ba3e3251a8fa7f3e4a92edba`**. Daarna een
+    `--depth 4`-clone van `master`, zodat de diff zelf gemeten is: bovenste commit heet **"Handle
+    Forever surname"**, **2026-11-05 14:37:45 -0800**, en raakt **2 bestanden, 8 toevoegingen,
+    2 verwijderingen** (`Simulationcraft.toc`: `## Version: 12.1.5-03` → `12.1.5-04`; `core.lua`).
+    De wijziging staat in **`GetSimcProfile`**, letterlijk:
+    ```lua
+    -- Forever: UnitName returns the surname as its second value (where retail returns the realm)
+    local playerName, playerSurname = UnitName('player')
+    if IS_FOREVER and type(playerSurname) == 'string' and playerSurname ~= '' then
+      local separator = Constants and Constants.CharacterNameSeparatorConsts
+        and Constants.CharacterNameSeparatorConsts.CHARACTERNAME_SURNAME_SEPARATOR or ' '
+      playerName = playerName .. separator .. playerSurname
+    end
+    ```
+    📌 **Op Retail verandert hier niets**: de hele tak zit achter `IS_FOREVER`, en zonder dat is
+    `playerName = UnitName('player')` precies wat er eerst stond. De vorige twee Forever-commits van
+    dit project (`forever: Add legacy talents, ranged, ammo, and bags`, 19 okt; `forever: Export
+    hunter pet info`, 22 okt) staan al in mijn regels van die dagen; alleen deze is nieuw.
+    **MH: `CharacterNameSeparatorConsts` → 0 bestanden, `CHARACTERNAME_SURNAME_SEPARATOR` → 0,
+    `playerSurname` → 0, `GetRealmInfoByUnit` → 0, `LibRealmInfo` → 0** (`grep -rIl`, met
+    `.git`/`docs`/`tools`/`dist` eruit). Positieve controle op dezelfde reikwijdte, zodat die nullen
+    afwezigheid zijn en geen meetfout: `UnitName("player")` → **26** bestanden, `GetRealmName` →
+    **11**, `Constants.` → **3**, `GetBuildInfo` → **26**.
+    ⚠️ **Waar het in MH zou landen als het ooit meedoet, GEMETEN:** `Modules/SimcExport.lua:436`
+    doet `local name = UnitName("player") or "?"` — één returnwaarde, dus een surname zou wegvallen.
+    ✅ **Maar `/mh raidbots` loopt niet op Forever, en dat is gemeten, niet aangenomen.** De
+    Camelot-TOC (`docs/forever/MidnightHelper_Camelot.toc.txt`, 100 regels, **77** `.lua`-regels)
+    bevat **`SimcExport` → 0 treffers**; positieve controle in hetzelfde bestand: `Broker.lua` → 1,
+    `CommandList` → 1, en `GearExport`/`PartyTargets`/`VaultReminder`/`DelveItemBrokers` → elk 0.
+    Het commando zelf is afgedekt: `Core.lua:1298` doet `if msg == "raidbots" or msg == "simc"` en
+    daarbinnen `if ns.ShowSimcExport then` (`:1299`), dus zonder die module is het een stille
+    no-op en geen nil-aanroep. **Dus niets te repareren** — ook niet vooruit: zet Rob
+    `Modules\SimcExport.lua` ooit in de Camelot-TOC, dan is regel 436 het enige punt, en dán is de
+    bovenstaande upstream-tak het voorbeeld. Ik heb niets aangeraakt.
+    📌 **Eén ding dat ik hierbij tegenkwam en dat géén API-kwestie is, dus puur ter info:**
+    `Modules/CommandList.lua:176` zet `/mh raidbots` in de lijst, en dat bestand staat wél in de
+    Camelot-TOC (regel 95). GEMETEN: `grep 'IS_FOREVER' Modules/CommandList.lua` → **0** treffers,
+    dus de lijst filtert niet op client. Op Forever noemt de commandolijst dan een commando dat stil
+    niets doet — precies het patroon waar `CLAUDE.md` over waarschuwt ("zet de uitleg in dezelfde
+    kamer als de knop"). Het is Robs beslissing, niet mijn werk, en ik heb het niet aangeraakt.
+  - 🧩 **[AL AFGEDEKT] — `## AllowLoadGameType: camelot` in Robs Camelot-TOC is nog steeds de juiste
+    spelling, en `forever` is alleen een alias. Dit is de enige regel van vandaag die ik zélf als een
+    risico aanmerkte vóór ik hem natrok.** GEMETEN in `docs/forever/MidnightHelper_Camelot.toc.txt`
+    regel 1–2: `## Interface: 16001` en `## AllowLoadGameType: camelot`. De blue post van 15 sep op
+    `Patch 1.60.1/API changes` zegt over die naam letterlijk *"Camelot (to be renamed before
+    launch)"*, en Forever is op 4 nov gelanceerd — dus de vraag is of `camelot` die rename overleefd
+    heeft. **Hij heeft hem overleefd, en het bewijs is mijn eigen meting van gisteren:** in PTR-build
+    `12.1.7.70740` schrijft Blizzard in zijn **eigen** `.toc`'s nog `[ExcludeLoadGameType camelot]`
+    en `[AllowLoadGameType classic, camelot]` (zie mijn regel van 5 nov). De wiki zegt daarnaast bij
+    `1.60.1 (70291)`, 7 okt: *"Added the `forever` TOC game type which is equivalent to `camelot`"*,
+    en de blue post van 8 okt: *"Forever is now accepted as an alias for Camelot in TOC file suffixes
+    (e.g. `MyAddon_Forever.toc`), in the `[Game]` variable, and in game-type folder lookup."* Alias
+    toegevoegd, oude naam niet weggehaald. ⚠️ **Die twee wiki-items zijn van 7 en 8 okt en dus ouder
+    dan 7 dagen; ze tellen niet als vondst.** Ik noem ze omdat ze de vraag beantwoorden die Robs
+    bestand van vannacht oproept. **MH: `AllowLoadGameType` → 0 bestanden, `ExcludeLoadGameType` →
+    0, `WOW_PROJECT_CAMELOT` → 0, `C_GameRules` → 0, `IsGameRuleActive` → 0** (buiten de TOC's zelf).
+    📌 De wiki raadt één TOC met `## AllowLoadGameType: forever` + `## ExcludeLoadGameType: standard,
+    classic` aan; MH neemt de andere, even goed gedocumenteerde weg (een apart bestand met het
+    `_Camelot`-achtervoegsel), dus dat advies is hier niet van toepassing.
+  - 🖼️ **[RAAKT ONS NIET — geen fout, geen nil-aanroep — maar één blik van Rob waard op de dag dat
+    Forever uitkomt.] De drie `WOW_PROJECT_MAINLINE`-takken in `LibDBIcon` slaan op Forever om, en ze
+    zitten in het aanmaakpad van élke minimapknop van MH.** Gevonden doordat ik vandaag op
+    `WOW_PROJECT_ID` greppte: **1** bestand, en dat is geleende code —
+    `Libs/LibDBIcon-1.0.lua:533`, `:572` en `:607`, alle drie `if WOW_PROJECT_ID ==
+    WOW_PROJECT_MAINLINE then`. GEMETEN wat er in die takken staat: de mainline-kant zet border
+    **50×50**, background **24×24** op `CENTER`, icon **18×18** op `CENTER`; de else-kant zet border
+    **53×53**, background **20×20** op `TOPLEFT 7,-5`, icon **17×17** op `TOPLEFT 7,-6`. GEMETEN dat
+    ze echt lopen: `ResetButtonBorder`/`ResetButtonBackground`/`ResetButtonIcon` worden aangeroepen
+    in het aanmaakpad van de knop (`:268`, `:272`, `:281`), niet alleen op verzoek — MH zelf roept ze
+    nooit aan (**0** treffers buiten `Libs/`). En GEMETEN dat de lib op Forever laadt:
+    `Libs\LibDBIcon-1.0.lua` staat op regel 24 van de Camelot-TOC. MH registreert daar knoppen via
+    `Modules/Broker.lua:455` (`iconLib:Register(addonName, obj, db)`), `Modules/DelveItemBrokers.lua:114`/`:143`/`:189` en
+    `Modules/VaultReminder.lua:213` (de laatste twee bestanden staan níét in de Camelot-TOC, dus op
+    Forever blijft `Broker.lua` over). LibDBIcon-1.0, minor **56**.
+    🔴 **Wat ik NIET gemeten heb, en niet ga gokken:** of de else-kant er op Forever fout uitziet.
+    Forever deelt volgens Blizzard de UI-architectuur van Mainline (blue post 15 sep), wat de
+    mainline-maten waarschijnlijker maakt, maar `WOW_PROJECT_ID` is daar **18**
+    (`WOW_PROJECT_CAMELOT`) en niet `WOW_PROJECT_MAINLINE`, dus de vergelijking is onwaar en de
+    classic-maten worden gebruikt. Of `WOW_PROJECT_MAINLINE` op die client überhaupt bestaat, kan ik
+    hier niet nakijken — bestaat hij niet, dan zijn beide kanten `nil` en is de vergelijking juist
+    wél waar. Beide uitkomsten zijn cosmetisch: een rand van 3 pixels te groot of een icoon 1 pixel
+    verschoven, geen foutmelding. **Eén schermafdruk van de minimapknop op Forever beantwoordt dit,
+    en dat is Robs `/reload`, niet mijn grep.** Ik heb niets aangeraakt — het is geleende code en de
+    regel in `CLAUDE.md` over geleende libraries geldt.
+  - 🔒 **OUDER DAN 7 DAGEN, DUS GEEN VONDST — maar het heeft nog nooit in dit logboek gestaan en het
+    geldt vanaf vandaag voor het eerst voor MH: de `FrameStrata` secret aspect.** GEMETEN:
+    `grep -c FrameStrata docs/API_WATCH.md` → **0**, dus in 80+ runs is dit nooit genoemd. De bron is
+    de blue post *Forever 1.60.1 Beta Changes 4 (Build 70291)* van **8 okt 2026**, letterlijk:
+    *"Added a new `FrameStrata` secret aspect. GetFrameStrata now returns a secret value for frames
+    that have this aspect."* Dat is Forever-API, en tot 4 nov liep MH daar niet.
+    **MH: `GetFrameStrata` → 4 bestanden, 13 aanroepen.** Afgedekt of niet, per plek gelezen:
+    - `Modules/KeyboardLayoutPrototype.lua:1504`/`:1533`, `Addons/Guide.lua:854`/`:869`/`:886`/
+      `:899`/`:926`, `UI.lua:2288` — alle acht lezen de strata van een **eigen** frame (`panel`,
+      `root`, `scrollHost`, `scroll`) en geven die door aan `SetFrameStrata`. Blizzard zet het aspect
+      op zijn eigen frames; op onze eigen frames staat het niet. **[AL AFGEDEKT] door herkomst.**
+    - `Modules/PartyTargets.lua:493`/`:497`/`:517` — de diagnose van `/mh partytargets`, die
+      `tostring(x:GetFrameStrata())` print. `panel` en `clicks` zijn van ons; `glows[i]` op `:509`
+      komt uit een Blizzard-template, en het comment op `:507` zegt dat zelf (*"het is Blizzards
+      template dat kiest"*). Dezelfde functie beschermt `IsMouseEnabled` al mét `pcall` +
+      `issecretvalue` (`:511`–`:514`), maar `GetFrameStrata` op `:517` staat kaal in de format.
+      🔴 **Twee dingen weet ik hier niet, en ik verzin ze niet:** of een glow-container uit die
+      template het `FrameStrata`-aspect draagt, en of `tostring()` op een secret value foutloos
+      werkt (vergelijken en rekenen geven een Lua-fout; over `tostring` zegt Blizzards eigen uitleg
+      niets). Zelfs in het slechtste geval is dit een foutmelding in een diagnose-commando, niet in
+      het spel. **GEEN [MOET GEFIKST]** — eerst meten, en de meting kan alleen op de client.
+  - ✅ **OPEN PUNT GESLOTEN: wat `camelot` is, is nu GEMETEN en niet meer afgeleid.** Mijn regel van
+    gisteren zei bij de nieuwe TOC-directive: *"De betekenis van `camelot` is AFGELEID, niet
+    gemeten"*, met als enige grond een map `Camelot/` naast `Mainline/` in
+    `Blizzard_FrameXMLBase`. De wiki zegt het nu expliciet op `Patch 1.60.1/API changes`: `camelot`
+    is het gametype van **WoW Forever**, met `forever` als alias sinds build `70291`, en
+    `WOW_PROJECT_CAMELOT` = **18** sinds `70170`. ⚠️ Die wiki-items zijn van 1 en 7 okt — ouder dan
+    7 dagen, dus dit is géén vondst van vandaag maar het afsluiten van mijn eigen open vraag.
+  - 🔇 **WAT STIL STOND, zodat stilte te onderscheiden is van niet-kijken. Alles hieronder is GEMETEN
+    vandaag, niet overgenomen van gisteren.**
+    - **Client-source: geen enkele beweging op geen enkele tak.** `git ls-remote --heads
+      https://github.com/Gethe/wow-ui-source` geeft **13** heads, en alle dertien zijn byte-voor-byte
+      gelijk aan gisteren: `live` = **`297d7aaaa736f346b3e036f38ee088eaf7f8c07f`** (DERDE dag op
+      `12.1.5.70783`), `ptr` = **`e927c305f67ed6b3b460bc00d0c39055747b9119`** (TWEEDE dag op
+      `12.1.7.70740`), `beta` = `078d0cf751…`, `ptr2` = `12380f8cdc…`, `classic_era` = `4192ac6006…`,
+      `forever` = **`eac30af597…`** (gelijk aan gisteren, toen hij net van `17ed2c3e…` was gegaan).
+      📌 **Cache-controle: het nieuwste dat ik vandaag zie is NIEUWER dan wat mijn logboek gisteren
+      noemde** (de hotfix-artikelen van 6 nov 02:31 UTC tegenover mijn laatste hotfix-regel over
+      30 okt), dus ik kijk niet naar een cache. Alle Exa-URL's hadden `?nocache=20261106`.
+    - **Wiki, 12.1.7: onveranderd.** `Patch_12.1.7/API_changes` staat nog op precies dezelfde **twee**
+      Summary-punten (de GUID-obfuscatie met *"This change will be available for testing in a future
+      build of 12.1.7"*, en *"TOC directives no longer expand variables such as [Game] or [Family]"*),
+      TOC `120107`, en nog steeds **geen** Consolidated-changes-sectie. De nieuwe
+      `ExcludeLoadGameType` en `camelot` die ik gisteren in de source vond, staan er nog niet in.
+    - **Wiki, 12.1.5 en 1.60.1: onveranderd.** `Patch_12.1.5/API_changes` heeft nog dezelfde vier
+      blue-post-datums (3, 16, 22 en 29 sep), `Patch_1.60.1/API_changes` nog dezelfde drie (15 sep,
+      8 en 16 okt). Alles ouder dan 7 dagen.
+    - **Er is GEEN nieuwe wiki-pagina.** GEMETEN op `API_change_summaries`: onder Retail staan
+      **12.1.0, 12.1.5, 12.1.7** en géén 12.2.0 (hoewel de 12.1.7-pagina *"Next patch: Patch
+      12.2.0"* zegt), en onder Forever staat alleen **1.60.1** en géén 1.60.2 — `Patch_1.60.2/
+      API_changes` geeft `CRAWL_NOT_FOUND`.
+    - **`UI and Macro`-forum: twee nieuwe draadjes, geen van beide over API.** Gelezen in
+      `/c/guides/ui-macro/35/l/latest`: **`2402787`** *"Forever ground distance CVAR"*
+      (**2026-11-05T21:53:18Z**, 0 reacties, Nirran) is één regel — *"One Exist?seems realy close
+      before they show to me"* — een spelersvraag of er een CVAR voor grondafstand bestaat, zonder
+      antwoord; en **`2402052`** *"Trying NOT to dispel Vampiric Touch debuff"*
+      (**2026-11-05T11:08:42Z**, 1 reactie, Serendipitus) is een genezer die vraagt hoe hij in ElvUI
+      aura-filters instelt om dispel-protection te zien. **Geen blue reply in beide.** De rest van de
+      eerste pagina staat al in mijn regels van 1–5 nov (de cvar-vraag, Housing Decor — nu 3
+      reacties, was 2 —, de twee nameplate-topics, `Offline Player Models` op post #2 van 31 okt,
+      `Unregister Global Mouse`, de extra-action-button-draad).
+    - **Hotfixes: twee artikelen van 5 nov, en in geen van beide een addon-, UI- of API-regel.**
+      *"WoW: Forever Hotfixes - November 5, 2026"* (news.blizzard.com/en-us/article/24315281,
+      gepubliceerd **2026-11-06T02:31Z**) heeft de secties Enemies and NPCs, Items, Player versus
+      Player en Quests — respawns, `Mild Spices` van 2 naar 1 koper, Plainsrunning in een
+      battleground. *"Hotfixes: November 5, 2026"* (Retail) heeft Creatures and NPCs, Delves
+      (Shadowguard Point) en Dungeons and Raids (The Venomous Abyss-tuning). ⚠️ **MEASURED (via
+      mirror, niet zelf op news.blizzard.com gelezen):** de Retail-lijst las ik in MMO-Champions
+      woordelijke overname (gepubliceerd 2026-11-06 02:20) omdat `news.blizzard.com` op WebFetch
+      `EGRESS_BLOCKED` is en de directe Exa-fetch van dat artikel `CRAWL_NOT_FOUND` gaf. Er is in
+      beide **geen** sectie `User Interface and Accessibility`.
+    - **Ook gelezen en niets voor mij:** `Known Issues - WoW Forever - Updated Nov. 5` (Kaivax,
+      5 nov 07:42 PT) is een bugverzameling (PvP-handelaars tijdelijk weg, een quest uitgezet, een
+      vastloper in Razorfen Kraul, gamepad- en interfacefouten) — spelbugs, geen API-wijziging. De
+      `WoW Forever Beta Development Notes` zijn voor het laatst op **3 nov** bijgewerkt en gaan over
+      klasseschade, trainingskosten en gamepad-ondersteuning.
+  - ⏳ **Nog open uit eerdere runs, NIET nieuw en vandaag niet opnieuw gemeten:** de UTF-8 BOM vooraan
+    `MidnightHelper.toc` (wel opnieuw zichtbaar vandaag: `grep '^## Interface' MidnightHelper.toc`
+    geeft **nul** treffers terwijl de regel er staat, precies doordat de BOM ervoor zit); de
+    `%d+`-aanname op veld 3 van de npcID-match (`Modules/ResetRoutine.lua:648`) tegenover de
+    GUID-obfuscatie; de `GetInstanceInfo`-return-orde tegenover `Modules/Showdowns.lua:226`; de dode
+    `PickupItem`-takken in `Modules/KeyBlock.lua:1135`/`:1227`/`:1380` en
+    `Modules/ApplyLayout.lua:1311`/`:1345`/`:1605`; de vijf decoratieve
+    `GetItemInfo`-terugvaltakken; `Blizzard_DeprecatedWorldElapsedTimerTypes` als tiende
+    deprecated-addon tegenover negen wiki-secties; de verouderde namespace-lijst in
+    `docs/WATCHER_API_PROMPT.md` (18 aug); en de client-test voor `/mh raidbots`.
+    ✅ **Twee punten zijn vandaag vooruitgegaan:** `camelot` is van AFGELEID naar GEMETEN (zie
+    hierboven), en `GetTimerDuration` toevoegen aan `Modules/ApiProbe.lua:377` — mijn suggestie van
+    gisteren — blijft een suggestie en is nog steeds niet aangeraakt. 🔴 Niets aangeraakt.
+  - 🔧 **Repo-staat: alleen `docs/API_WATCH.md` aangeraakt.** GEMETEN vóór het schrijven:
+    `git status --short` **leeg**, geen van de vier wachter-bestanden gewijzigd-maar-ongecommit, en
+    `git rev-parse --abbrev-ref HEAD` → **`HEAD`**, dus detached (zoals op 17, 19, 22, 25, 26, 29,
+    30 okt en 1–5 nov). ⚠️ `git fetch origin main` meldde opnieuw een
+    **`+ 5934305...cf00d2e main -> origin/main (forced update)`** — zelfde artefact van de verse
+    checkout-ref als de vorige dagen, geen herschreven historie: GEMETEN dat `HEAD` en `origin/main`
+    allebei **`cf00d2e1d5e81f990ed835b08f9ebc3c0958e5be`** zijn ("Forever: key-block proposals for
+    the other 8 classes (not approved, not in the addon)"), `## Version: 4.15.0`. Rechtgezet met
+    `git checkout -B main cf00d2e`, wat niets aan de inhoud verandert. 📌 De repo is sinds mijn
+    vorige run **vijf commits** opgeschoven (van `aed9257` naar `cf00d2e`), allemaal Forever-werk van
+    de nacht van 5 op 6 nov. Geen enkel ander bestand geraakt.
