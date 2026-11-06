@@ -68,6 +68,8 @@ Modules\Changelog.lua
 Modules\LayoutExtras.lua
 Modules\CombatSafety.lua
 Modules\FastMark.lua
+# Who gets which marker for the bar's friend button (/mh mark me, /mh mark friend). Rob, 6 Nov 2026: "ja".
+Modules\FriendMarks.lua
 Modules\SavedVarCleanup.lua
 Modules\MidnightToast.lua
 Modules\Broker.lua

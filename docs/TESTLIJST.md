@@ -21,6 +21,16 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 6 nov (nacht) — Forever: How you play alleen je eigen class; de familieknop
+
+Rob: *"ja"*. Alleen offline getest. Herstart WoW (er laadt een extra bestand).
+- [ ] `/mh play`: alleen **How you play Paladin**, zonder knoppen bovenin.
+- [ ] Je familie overzetten (Midnight en Forever hebben elk hun eigen opslag), één keer typen:
+      `/mh mark me star`, `/mh mark friend carola#2875 circle`, `/mh mark friend sizzle#21918 diamond`.
+      Elke regel geeft een groene bevestiging in de chat. `/mh mark friends` laat zien wat MH ziet.
+- [ ] In een groep met Carola en/of Cisca: `/mh mark` (balk aan), dan de **vriendenknop** (het groene poppetje). Krijgt
+      iedereen zijn eigen icoon? Werkt dat niet, meld dan wat `/mh mark friends` zegt.
+
 ## 🆕 6 nov (late avond) — Forever: How you play in de addon
 
 Rob: *"doe b en dan a"*. Alleen offline getest. `/reload` in Forever.

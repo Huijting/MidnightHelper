@@ -1,5 +1,18 @@
 # Midnight Helper — waar we staan
 
+## 🛠️ 6 nov (nacht) — Forever: How you play per class, familieknop (Rob: "ja")
+
+- `ForeverHowToPlay.lua`: de class-knoppen zijn weg; het venster toont alleen de class van het character (Rob: *"ik wil
+  ze per character zien, dus alleen voor de geldige class"*). Forever heeft geen specs zoals Midnight; de tabellen zijn per
+  class.
+- `FriendMarks.lua` staat nu in de Camelot-TOC (+ docs-kopie), na FastMark.lua. FastMark zat er al in, maar de
+  vriendenknop was leeg en `/mh mark me` deed niets. Alle `ns.`-afhankelijkheden laden op Forever (GEMETEN: Comms.lua,
+  FastMark.lua, Core-routing). AFGELEID: dat Forever de `/tm`-macro's en `C_BattleNet` net zo toelaat.
+- Robs familie staat alleen in de retail-SV (GEMETEN: myMarkIcon 1, carola#2875 = 2, sizzle#21918 = 3); Forever-SV
+  heeft niets. Overzetten = drie `/mh mark`-regels (TESTLIJST "6 nov (nacht)"). Bewust geen namen in de repo-code.
+- Lopend: mh-writer schrijft How to play voor Warrior/Rogue/Priest/Shaman/Warlock (scratchpad `HTP_5_CLASSES.md`),
+  daarna mh-research-controle en `htp_check.py`.
+
 ## ✅ 6 nov (late avond) — Paladin: Devotion Aura na de trainer op Ctrl-1 (Rob: "werkt en werd goed geplaatst")
 
 ## 📖 6 nov (late avond) — Forever: How you play in de addon (Rob: "doe b en dan a")

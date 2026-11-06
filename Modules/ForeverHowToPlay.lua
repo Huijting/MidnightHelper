@@ -153,7 +153,6 @@ Aspect of the Hawk on (Shift-R). Pet in first (Ctrl-1). Hunter's Mark (Shift-Z),
 }
 ns.FOREVER_HOWTOPLAY = CLASSES -- the offline check reads it
 
-local ORDER = { "DRUID", "PALADIN", "MAGE", "HUNTER" }
 local GOLD, HEAD = "|cffffd100", "|cffffcc66"
 
 --- "**word**" → gold. Everything else is plain text.
@@ -193,9 +192,6 @@ local function Show(token)
 	win.body:SetText(TextFor(token))
 	win.child:SetHeight(win.body:GetStringHeight() + 20)
 	win.scroll:SetVerticalScroll(0)
-	for _, b in ipairs(win.tabs) do
-		b:SetEnabled(b.token ~= token)
-	end
 end
 
 local function Build()
@@ -224,22 +220,11 @@ local function Build()
 	local close = CreateFrame("Button", nil, f, "UIPanelCloseButton")
 	close:SetPoint("TOPRIGHT", -6, -6)
 
-	-- One small button per written class, so you can read another class before you make one.
-	f.tabs = {}
-	for i, token in ipairs(ORDER) do
-		local b = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
-		b:SetSize(100, 22)
-		b:SetPoint("TOPLEFT", 22 + (i - 1) * 106, -50)
-		b:SetText(ClassName(token))
-		b.token = token
-		b:SetScript("OnClick", function(self)
-			Show(self.token)
-		end)
-		f.tabs[i] = b
-	end
+	-- Only this character's class (Rob, 6 Nov 2026: "ik wil ze per character zien, dus alleen voor de geldige class").
+	-- The first version had a button per written class; they are gone.
 
 	local scroll = CreateFrame("ScrollFrame", nil, f, "UIPanelScrollFrameTemplate")
-	scroll:SetPoint("TOPLEFT", 22, -82)
+	scroll:SetPoint("TOPLEFT", 22, -54)
 	scroll:SetPoint("BOTTOMRIGHT", -38, 20)
 	local child = CreateFrame("Frame", nil, scroll)
 	child:SetSize(550, 10)
@@ -265,7 +250,7 @@ end
 function ns.ShowPlayCardWindow()
 	local f = Build()
 	local _, token = UnitClass("player")
-	Show(token or shown or "DRUID")
+	Show(token or shown or "WARRIOR")
 	f:Show()
 end
 
