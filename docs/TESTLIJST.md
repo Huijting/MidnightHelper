@@ -21,6 +21,16 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 6 nov (late avond) — Forever: How you play in de addon
+
+Rob: *"doe b en dan a"*. Alleen offline getest. `/reload` in Forever.
+- [ ] `/mh block`: in het stappenvenster staat stap 4 *"Learn your keys: open How you play"* met **Open**. Klik: er gaat
+      een venster **How you play Paladin** open, met bovenin 4 knoppen (Druid, Paladin, Mage, Hunter).
+- [ ] De tekst scrollt, de toetsen staan in goud, en het venster is te verslepen en sluit met Esc of het kruisje.
+- [ ] `/mh play` opent en sluit hetzelfde venster.
+- [ ] Klopt wat er bij jouw Paladin staat met wat je ziet? (3 = seal, C = Holy Light, Ctrl-1 = Devotion Aura.)
+- [ ] Midnight: stap 4 en `/mh play` openen nog de gewone How you play-kaart.
+
 ## 🆕 6 nov (avond) — Forever: de Quick bar (`/mh bar`)
 
 Rob: *"ja doe maar"*. `/reload` in Forever, dan `/mh bar`.

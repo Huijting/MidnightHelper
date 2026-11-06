@@ -1,5 +1,17 @@
 # Midnight Helper — waar we staan
 
+## 📖 6 nov (late avond) — Forever: How you play in de addon (Rob: "doe b en dan a")
+
+- **B:** `KeyBlock.lua` UpdateGuide laat een stap met `which = "card"` weg als `ns.ShowPlayCardWindow` niet bestaat
+  (verborgen rijen, hoogte past zich aan). Op Forever klikte stap 4 *Open* eerst op niets.
+- **A:** nieuw `Modules/ForeverHowToPlay.lua` (beide TOC's + docs-kopie, alleen op `ns.IS_FOREVER`). Tekst =
+  `docs/forever/HOW_TO_PLAY_CONCEPT_2026-11-06.md` zonder de notities voor Rob; Druid/Paladin/Mage/Hunter + "Before you
+  start"; de andere 5 classes: eerlijk "Not written yet". Neemt de retail-namen `ns.ShowPlayCardWindow` /
+  `ns.TogglePlayCardWindow`, dus stap 4 en `/mh play` openen het. Venster via `RegisterMidnightDialogPopup` (Shift-scroll).
+  ⚠️ Alleen Engels (concept). ⚠️ Toetsen in de tekst zijn vaste tekst: verandert een `ForeverBlock_<Class>.lua`-tabel, dan
+  scratch `htp_check.py` draaien. GEMETEN: 38/38 toetsregels kloppen met de tabellen, tegenproef gevangen; retail definieert
+  niets; syntax OK (320), lint 0 HARD. Test: TESTLIJST "6 nov (late avond)".
+
 ## 🗺️ 6 nov (avond) — HandyNotes voor Forever geïnstalleerd (buiten de repo)
 
 - Rob: *"uitzoeken en installeren wat nuttig is"*, daarna *"doe b maar"* (zelf downloaden, niet via de CF-app, want WoW

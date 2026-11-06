@@ -1993,10 +1993,22 @@ local function UpdateGuide(f)
 		{ text = "KEYBLOCK_GUIDE_5", which = "sheet", btn = "KEYBLOCK_GUIDE_OPEN", optional = true },
 		{ text = "KEYBLOCK_GUIDE_6" },
 	}
+	-- A step whose window is not loaded is left out, so no button sits there doing nothing on click (WoW Forever
+	-- had no "How you play" window; Rob, 6 Nov 2026: "doe b"). The steps after it move up one number.
+	for i = #steps, 1, -1 do
+		if steps[i].which == "card" and not ns.ShowPlayCardWindow then
+			table.remove(steps, i)
+		end
+	end
+	for i = #steps + 1, #g.rows do
+		g.rows[i]:Hide()
+	end
+	g:SetHeight(54 + #steps * 44 + 16)
 	g.title:SetText(ns:L("KEYBLOCK_GUIDE_TITLE"))
 	local current
 	for i, s in ipairs(steps) do
 		local r = g.rows[i]
+		r:Show()
 		local isNext = not current and not s.done and not s.optional and s.which ~= nil
 		if isNext then
 			current = i
