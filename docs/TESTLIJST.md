@@ -21,6 +21,19 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 6 nov (eind middag) — Forever: wand voor de Mage, pet-toetsen voor Hunter en Warlock
+
+Rob: *"Doe maar"* op de twee keuzes uit de How to play. Alleen offline getest. Werkwijze: `/reload`, `/mh block` →
+*Preview* → *Place it*.
+- [ ] **Mage, level 1:** **Ctrl-3** = Shoot (je wand). Twee keer drukken: de wand blijft schieten.
+- [ ] **Hunter, vanaf level 10 (Call Pet):** **Ctrl-1** = pet valt aan, **Ctrl-2** = pet volgt, **Ctrl-3** = pet blijft
+      staan. **Shift-R** = Aspect of the Hawk. Monkey, Beast en Strider Kick staan bij *"zet op je eigen balk"* (blok D).
+- [ ] **Warlock, level 1 (met je Imp):** Ctrl-1/2/3 doen hetzelfde voor je demon.
+- [ ] Wat zie je op die drie macro-knoppen: een eigen plaatje of een vraagteken? (Vraagteken = het plaatje bestaat
+      niet in Forever; de knop werkt dan nog wel.)
+- [ ] Extra, als je wilt: Esc → Key Bindings → *Pet Action Bar*. Welke toetsen staan daar? (Dan weten we wat Blizzard
+      in Forever zelf doet.)
+
 ## 🆕 6 nov (middag) — Forever: de andere 5 classes, de Tools-lijst; Midnight: Epu en Nema
 
 Zelfde werkwijze als hieronder: `/reload`, niet in gevecht, `/mh block` → *Preview* → *Place it*. Alleen de classes die je

@@ -18,6 +18,7 @@ local _, ns = ...
 	             open = never guard the base spell on this key (Druid R: Travel Form also from Bear).
 	             bang = put "!" before the names, so pressing again never switches the spell off (Hunter Auto Shot).
 	             pair = { cond = "[combat]", first = "Rebirth", second = "Revive" }: first when cond, else second.
+	             cmd  = { text = "/petattack", needs = spell(s), label, icon }: a plain macro line (pet commands).
 	  toBlockD = spells that go on the player's own block D instead.
 	  listed   = extra names that count as handled for the "not in MH's list" line (e.g. "Attack").
 
@@ -91,6 +92,17 @@ local function Body(cls, key)
 		return nil
 	end
 	local ids, show = {}, nil
+	-- cmd = { text = "/petattack", needs = spell(s), label = "Pet: Attack", icon = "..." }: a plain macro line instead of
+	-- a /cast, only when the character knows a `needs` spell (Rob, 6 Nov 2026: "Doe maar" on keeping Ctrl-1/2/3 for the
+	-- pet). Standard slash commands; AFGELEID that Forever keeps them.
+	if def.cmd then
+		local need, needId = First(def.cmd.needs)
+		if not need then
+			return nil
+		end
+		ids[1] = needId
+		return def.cmd.text, ids, needId
+	end
 	-- bang = true: "/cast !Auto Shot" — a second press does not switch the spell off again (Hunter research,
 	-- 6 Nov 2026: plain /cast toggles Auto Shot off). Standard macro syntax; AFGELEID that Forever keeps it.
 	local bang = def.bang and "!" or ""
@@ -180,7 +192,13 @@ function ns.ForeverEnsureMacro(key)
 		end
 		perCharacter = false
 	end
-	local ok, newIdx = pcall(CreateMacro, name, MACRO_ICON, body, perCharacter)
+	local cls = ClassTable()
+	local def = cls and cls.keys and cls.keys[key]
+	local icon = (def and def.cmd and def.cmd.icon) or MACRO_ICON
+	local ok, newIdx = pcall(CreateMacro, name, icon, body, perCharacter)
+	if (not ok or not newIdx) and icon ~= MACRO_ICON then
+		ok, newIdx = pcall(CreateMacro, name, MACRO_ICON, body, perCharacter)
+	end
 	if ok and newIdx then
 		return newIdx
 	end
@@ -214,6 +232,10 @@ function ns.ForeverKeyBlockBuild()
 		local body, ids, show = Body(cls, key)
 		if body then
 			local okN, nm = pcall(C_Spell.GetSpellName, show)
+			local def = cls.keys[key]
+			if def.cmd and def.cmd.label then
+				okN, nm = true, def.cmd.label
+			end
 			occ[key] = {
 				spell = { id = show, name = okN and nm or nil, macroName = MacroName(key), macroKey = key, spellIds = ids },
 				why = "Forever macro",
@@ -259,6 +281,8 @@ function ns.ForeverBlockUnlisted()
 			if field == "pair" then
 				add(v.first)
 				add(v.second)
+			elseif field == "cmd" then
+				add(v.needs)
 			elseif field ~= "open" and field ~= "bang" then
 				add(v)
 			end

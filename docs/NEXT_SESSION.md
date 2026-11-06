@@ -1,5 +1,19 @@
 # Midnight Helper — waar we staan
 
+## 🛠️ 6 nov (eind middag) — Robs 2 keuzes uit de How to play: "Doe maar"
+
+- **Mage (1B):** Ctrl-3 = `{ "Frostfire Bolt", "Shoot" }` met `bang`, dus de wand vanaf level 1 tot Frostfire Bolt komt.
+  "Shoot" uit `listed` gehaald (staat nu in de toets).
+- **Hunter (2B) en Warlock:** Ctrl-1/2/3 = pet-macro's `/petattack`, `/petfollow`, `/petstay` (nieuw veld `cmd` in
+  `ForeverBlock.lua`: een gewone macroregel, alleen als je een `needs`-spell kent; `label` voor het plaatje, `icon` voor
+  de macro, met terugval op het vraagteken). Reden: GEMETEN in `KeyBlock.lua` (PlacePlan + regel ~1181) bindt het blok
+  élke toets, ook een lege, dus Ctrl leeg laten zou de petbalk-toetsen toch afpakken. Met macro's werkt het ook als
+  Forever de petbalk anders bindt. AFGELEID: Blizzards petbalk = aanvallen/volgen/blijven, en de drie icon-namen.
+  Hunter: Aspect of the Hawk → Shift-R; Strider Kick, Monkey en Beast → blok D. Warlock: Conflagrate, Wrack, Incinerate
+  en Bane of Havoc → blok D. De voorstellen in `docs/forever/FOREVER_<CLASS>_2026-11-06.md` zijn hierin achterhaald.
+- GEMETEN offline: `check_real.py` 9/9 schoon, tegenproef gevangen; syntax OK (319), lint 0 HARD. How to play-document
+  bijgewerkt (nog 3 [check], alle in het spel). In het spel: TESTLIJST "6 nov (eind middag)".
+
 ## 🛠️ 6 nov (middag) — Rob op zijn werk: "Ja, 1 tot en met 5"
 
 - **Forever, alle 9 classes in de addon.** Nieuw: `Modules/ForeverBlock_Warrior/_Rogue/_Priest/_Shaman/_Warlock.lua`,

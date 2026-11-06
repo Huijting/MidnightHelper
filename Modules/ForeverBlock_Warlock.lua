@@ -7,6 +7,7 @@ local _, ns = ...
 	from docs/forever/FOREVER_WARLOCK_2026-11-06.md as written. The open questions there were settled with the
 	proposal's own pick: E stays empty (the only interrupt is the Felhunter's pet spell, untested in a macro),
 	Ctrl-1/2/3 = Conflagrate / Wrack-or-Incinerate / Bane of Havoc with the demon summons on block D, Drain Soul on 4.
+	Changed the same day: Ctrl-1/2/3 are now the pet commands, those three spells are on block D (see below).
 	No forms, stances or stealth (DB2 70790): no bar paging, so no states and no base guard.
 ]]
 
@@ -15,6 +16,9 @@ if not ns.IS_FOREVER then
 end
 
 ns.FOREVER_BLOCK_CLASSES = ns.FOREVER_BLOCK_CLASSES or {}
+
+-- Any demon summon means the Ctrl pet keys get their macros.
+local PET = { "Summon Imp", "Summon Voidwalker", "Summon Succubus", "Summon Incubus", "Summon Felhunter" }
 
 ns.FOREVER_BLOCK_CLASSES.WARLOCK = {
 	states = {},
@@ -49,12 +53,13 @@ ns.FOREVER_BLOCK_CLASSES.WARLOCK = {
 		["SHIFT-X"] = { base = "Soul Link" },
 		["SHIFT-C"] = { base = "Demonic Sacrifice" },
 		["SHIFT-E"] = { base = { "Will to Survive", "Blood Fury", "Will of the Forsaken", "Escape Artist", "Berserking" } },
-		["CTRL-1"] = { base = "Conflagrate" },
-		-- Wrack (31 Affliction points) and Incinerate (31 Destruction points) can never both be known (51 points).
-		["CTRL-2"] = { base = { "Wrack", "Incinerate" } },
-		["CTRL-3"] = { base = "Bane of Havoc" },
+		-- Rob, 6 Nov 2026 ("Doe maar", same as the Hunter): Ctrl-1/2/3 stay the demon's keys (attack, follow, stay, the
+		-- order of Blizzard's pet bar). Conflagrate, Wrack/Incinerate and Bane of Havoc moved to block D.
+		["CTRL-1"] = { cmd = { text = "/petattack", needs = PET, label = "Pet: Attack", icon = "Ability_GhoulFrenzy" } },
+		["CTRL-2"] = { cmd = { text = "/petfollow", needs = PET, label = "Pet: Follow", icon = "Ability_Tracking" } },
+		["CTRL-3"] = { cmd = { text = "/petstay", needs = PET, label = "Pet: Stay", icon = "Spell_Nature_TimeStop" } },
 	},
-	toBlockD = { "Summon Imp", "Summon Voidwalker", "Summon Succubus", "Summon Incubus", "Summon Felhunter",
+	toBlockD = { "Conflagrate", "Wrack", "Incinerate", "Bane of Havoc", "Summon Imp", "Summon Voidwalker", "Summon Succubus", "Summon Incubus", "Summon Felhunter",
 		"Create Healthstone", "Create Soulstone", "Searing Pain", "Curse of Recklessness", "Curse of Tongues",
 		"Ritual of Summoning", "Perception", "Shatter Curse", "Cannibalize", "Eureka!", "Rapid Regeneration" },
 	listed = { "Shoot", "Create Spellstone", "Create Firestone", "Drain Mana", "Subjugate Demon", "Eye of Kilrogg",

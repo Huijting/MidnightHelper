@@ -28,7 +28,9 @@ ns.FOREVER_BLOCK_CLASSES.MAGE = {
 		["SHIFT-2"] = { base = "Arcane Explosion" },
 		["CTRL-1"] = { base = "Scorch" },
 		["CTRL-2"] = { base = "Arcane Blast" },
-		["CTRL-3"] = { base = "Frostfire Bolt" },
+		-- Rob, 6 Nov 2026 ("Doe maar" on 1B): the wand on Ctrl-3 until Frostfire Bolt is learned, then the bolt takes
+		-- the place and Shoot goes to the player's own Alt keys. bang: a second press does not stop the wand.
+		["CTRL-3"] = { base = { "Frostfire Bolt", "Shoot" }, bang = true },
 		["Q"] = { base = { "Arcane Power", "Combustion" } },
 		["F1"] = { base = "Evocation" },
 		["SHIFT-3"] = { base = "Presence of Mind" },
@@ -64,5 +66,4 @@ ns.FOREVER_BLOCK_CLASSES.MAGE = {
 		"Polymorph: Cow", "Comprehend Scroll", "Study",
 		"Perception", "Shatter Curse", "Cannibalize", "Escape Artist", "Rapid Regeneration", "Walk on Air",
 	},
-	listed = { "Shoot" },
 }

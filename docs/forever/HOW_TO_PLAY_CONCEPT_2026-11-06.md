@@ -1,7 +1,7 @@
 > **Voor Rob (kort):** Dit is een eerste concept van "Zo speel je" voor WoW Forever: Druid, Paladin, Mage en Hunter.
 > Per class: wat hij doet, welke toetsen je op level 1-10 indrukt, wat er later bijkomt, en een paar beginnersfouten.
 > Alles komt uit onze eigen onderzoeksbestanden en de toetsentabellen in de addon. Daarna is elke uitleg los nagezocht in
-> Blizzards eigen data (build 70790) en Blizzards Forever-artikelen. Wat nog niet zeker is, staat als [check] (nog 4: 2 zie je in het spel, 2 zijn keuzes voor Rob).
+> Blizzards eigen data (build 70790) en Blizzards Forever-artikelen. Wat nog niet zeker is, staat als [check] (nog 3, alle 3 zie je in het spel; Robs 2 keuzes zijn gemaakt op 6 nov: wand op Ctrl-3, pet op Ctrl-1/2/3).
 
 # How to play in WoW Forever — first draft (6 Nov 2026)
 
@@ -150,7 +150,9 @@ The Mage has no shapes and no stances, so every key always does the same thing.
 - **V** = Frost Nova (10): freezes every enemy within 10 yards around you, for up to 8 seconds. Damage can break it.
   Cooldown 25 seconds.
 - Conjure Water (4) and Conjure Food (6) are not on the block. They go on your own Alt keys (block D).
-- Shoot (your wand) has no key. [check: whether it should get one — open question for Rob]
+- **Ctrl-3** = Shoot: your **wand** (a small magic stick that shoots by itself). Handy when your mana is low. When you
+  learn Frostfire Bolt, that takes Ctrl-3; put Shoot on one of your own Alt keys (block D) yourself if you still want
+  it. (Rob, 6 Nov: "Doe maar".)
 
 **Simple order:** Frostbolt (2) or Fireball (1) as the enemy comes in. Fire Blast (5) when it is ready. Enemy close to
 you? Frost Nova (V), step away, keep casting.
@@ -183,23 +185,25 @@ The Hunter has no shapes and no stances, so every key always does the same thing
   [check: this is how WoW macros work, but not yet seen on the Forever client]
 - **5** = Raptor Strike (1): your hit when the enemy is next to you.
 - **2** = Serpent Sting (4): damage over a few seconds.
-- **Ctrl-2** = Aspect of the Monkey (4). An **aspect** is a stance-like buff on yourself. Only one aspect can be on at
-  a time.
+- Aspect of the Monkey (4) goes on your own Alt keys (block D). An **aspect** is a stance-like buff on yourself. Only
+  one aspect can be on at a time.
 - **3** = Arcane Shot (6): instant shot. Cooldown 6 seconds.
 - **Shift-Z** = Hunter's Mark (6): put it on the enemy once.
 - **Shift-Q** = Concussive Shot (8): slows the enemy.
-- **Ctrl-1** = Aspect of the Hawk (10): your main aspect.
+- **Shift-R** = Aspect of the Hawk (10): your main aspect.
 - **Level 10, pet quests:** you learn Tame Beast, Call Pet and Revive Pet. **F4** = Call Pet (brings your pet),
   **F3** = Revive Pet (brings a dead pet back). Tame Beast has no key; you use it outside a fight.
+- From then on your pet has three keys: **Ctrl-1** = attack your target, **Ctrl-2** = follow you, **Ctrl-3** = stay
+  where it is.
 
-**Simple order:** Aspect of the Hawk on (Ctrl-1). Hunter's Mark (Shift-Z), Serpent Sting (2), Auto Shot (1), then Arcane
+**Simple order:** Aspect of the Hawk on (Shift-R). Pet in first (Ctrl-1). Hunter's Mark (Shift-Z), Serpent Sting (2), Auto Shot (1), then Arcane
 Shot (3) when it is ready. Enemy next to you? Raptor Strike (5).
 
 **What comes later**
 - 12: Distracting Shot on F (makes the enemy attack you), Mend Pet on F2 (heals your pet), Wing Clip on Shift-F.
 - 16: Immolation Trap on Shift-2, Mongoose Bite on Shift-C (only after you dodge). 18: Multi-Shot on Shift-1.
 - 20: Aimed Shot on 4 (your big shot), Aspect of the Cheetah on R (run fast), Disengage on Z, Freezing Trap on V.
-- 26: Rapid Fire on Q. 30: Feign Death on X, Aspect of the Beast on Ctrl-3. 34: Explosive Trap takes over Shift-2.
+- 26: Rapid Fire on Q. 30: Feign Death on X, Aspect of the Beast (block D). 34: Explosive Trap takes over Shift-2.
 - All four traps share one 30-second cooldown.
 
 **Beginner mistakes**
@@ -208,5 +212,5 @@ Shot (3) when it is ready. Enemy next to you? Raptor Strike (5).
 - Expecting one key to shoot far away and hit up close. A macro cannot see distance, so melee has its own keys
   (5, Shift-F, Shift-C).
 - Pressing Mend Pet (F2) to heal yourself. It heals your pet only. The Hunter has no self heal.
-- [check: in Blizzard's default keys, Ctrl-1 to Ctrl-0 may drive the pet bar. The block uses Ctrl-1/2/3 for aspects.
-  Where pet commands (attack, follow, stay) should go is still an open question.]
+- Rob, 6 Nov ("Doe maar"): Ctrl-1/2/3 are the pet's keys, as on Blizzard's pet bar. MH puts three small macros there
+  (/petattack, /petfollow, /petstay), so it works however Forever sets up the pet bar. [check in game]

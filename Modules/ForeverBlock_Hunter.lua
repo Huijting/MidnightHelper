@@ -34,7 +34,9 @@ ns.FOREVER_BLOCK_CLASSES.HUNTER = {
 		["F3"] = { base = "Revive Pet" },
 		["E"] = { base = "Scatter Shot" },
 		["R"] = { base = "Aspect of the Cheetah" },
-		["SHIFT-R"] = { base = "Strider Kick" },
+		-- Rob, 6 Nov 2026 ("Doe maar" on 2B): Ctrl-1/2/3 stay the pet's keys, so the main aspect moved here and
+		-- Strider Kick, Aspect of the Monkey and Aspect of the Beast went to block D.
+		["SHIFT-R"] = { base = "Aspect of the Hawk" },
 		["F"] = { base = "Distracting Shot" },
 		["Z"] = { base = "Disengage" },
 		["X"] = { base = "Feign Death" },
@@ -48,12 +50,14 @@ ns.FOREVER_BLOCK_CLASSES.HUNTER = {
 		["SHIFT-C"] = { base = "Mongoose Bite" },
 		["F2"] = { base = "Mend Pet" },
 		["F4"] = { base = "Call Pet" },
-		["CTRL-1"] = { base = "Aspect of the Hawk" },
-		["CTRL-2"] = { base = "Aspect of the Monkey" },
-		["CTRL-3"] = { base = "Aspect of the Beast" },
+		-- The pet's three commands, in the order of Blizzard's pet bar (attack, follow, stay). From level 10 (Call Pet).
+		["CTRL-1"] = { cmd = { text = "/petattack", needs = "Call Pet", label = "Pet: Attack", icon = "Ability_GhoulFrenzy" } },
+		["CTRL-2"] = { cmd = { text = "/petfollow", needs = "Call Pet", label = "Pet: Follow", icon = "Ability_Tracking" } },
+		["CTRL-3"] = { cmd = { text = "/petstay", needs = "Call Pet", label = "Pet: Stay", icon = "Spell_Nature_TimeStop" } },
 		["SHIFT-E"] = { all = { "Shadowmeld", "War Stomp", "Stoneform", "Blood Fury", "Berserking", "Perception", "Walk on Air" } },
 	},
 	toBlockD = {
+		"Aspect of the Monkey", "Aspect of the Beast", "Strider Kick",
 		"Volley", "Frost Trap", "Viper Sting", "Scorpid Sting", "Scare Beast", "Aspect of the Pack", "Aspect of the Wild",
 		"Tranquilizing Shot", "Flare", "Feed Pet", "Dismiss Pet",
 		"Will to Survive", "Shatter Curse", "Find Treasure", "Elune's Light", "Cultivation", "Rapid Regeneration",
