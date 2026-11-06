@@ -344,7 +344,8 @@ Your **pet** is a demon you call up. It fights next to you. You learn the demons
 Demon out (block D; all but the Imp need a Soul Shard), then send it in (Ctrl-1). Corruption (2), Bane of Agony (5), Immolate (3), then Shadow Bolt (1). Low on mana? Life Tap (F). Low on health? Drain Life (C, from 14).]] },
 		{ "What comes later", [[
 - 12: Health Funnel on F2 (heals your demon). 14: Drain Life on C (your own big heal).
-- 16: Unending Breath on Shift-R. 18: Create Soulstone (costs a Soul Shard) and Searing Pain (block D).
+- 16: Unending Breath on Shift-R. 18: Searing Pain (block D), and Create Soulstone (costs a Soul Shard; not on the block, put it on your own bar yourself).
+- Curse of Tongues and Ritual of Summoning (bring a group member to you) are rarely used: they are not on the block either. Put them on your own bar if you want them.
 - 20: Rain of Fire on Shift-1 (hits several enemies), Demon Armor on Shift-Z, Curse of the Elements on Shift-V.
 - 28: Banish on Shift-Q. 30: Hellfire on Shift-2. 32: Shadow Ward on Z (soaks up shadow damage; cooldown 30 seconds).
 - 40: Howl of Terror on Shift-F (fears several enemies). 42: Death Coil on X (a horror, like fear, and a heal; cooldown 2 minutes).

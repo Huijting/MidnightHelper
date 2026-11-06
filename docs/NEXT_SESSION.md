@@ -10,8 +10,11 @@
   `[check` en 0 losse `**` over; syntax OK, lint 0 HARD. ⚠️ Alleen regels van de vorm `**KEY** = Spell` worden
   gecontroleerd; zinnen als "Overpower on 2" niet.
 - Mage-tekst: wand "once you have one" (Rob had nog geen wand). Mage level 1 ✅ Rob *"lijkt ook alles te werken"*.
-- 🔜 Open: Warlock blok D. Door de pet-macro's op Ctrl-1/2/3 staan er 20 namen in `toBlockD`; een level-60 Destruction
-  Warlock kent er ~15, blok D heeft 12 plekken (AFGELEID uit mh-writer's telling, niet zelf nageteld). Rob kiezen laten.
+- ✅ Warlock blok D (Rob: *"ja"* op advies B): nageteld uit `FOREVER_WARLOCK_2026-11-06.md` — vóór de pet-macro's precies
+  12 op level 60, daarna tot 14-15 voor Destruction (Conflagrate + Havoc + Incinerate; talentregels, AFGELEID). Create
+  Soulstone, Curse of Tongues en Ritual of Summoning naar `listed`; max nu 12. How you play-tekst aangepast; check_real 9/9,
+  htp_check 91/91. 🔜 Mogelijk hetzelfde bij Mage (31 namen in `toBlockD`, veel teleports/portals) en Hunter (22): niet
+  nageteld.
 
 ## 🛠️ 6 nov (nacht) — Forever: How you play per class, familieknop (Rob: "ja")
 

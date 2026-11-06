@@ -59,9 +59,12 @@ ns.FOREVER_BLOCK_CLASSES.WARLOCK = {
 		["CTRL-2"] = { cmd = { text = "/petfollow", needs = PET, label = "Pet: Follow", icon = "Ability_Tracking" } },
 		["CTRL-3"] = { cmd = { text = "/petstay", needs = PET, label = "Pet: Stay", icon = "Spell_Nature_TimeStop" } },
 	},
-	toBlockD = { "Conflagrate", "Wrack", "Incinerate", "Bane of Havoc", "Summon Imp", "Summon Voidwalker", "Summon Succubus", "Summon Incubus", "Summon Felhunter",
-		"Create Healthstone", "Create Soulstone", "Searing Pain", "Curse of Recklessness", "Curse of Tongues",
-		"Ritual of Summoning", "Perception", "Shatter Curse", "Cannibalize", "Eureka!", "Rapid Regeneration" },
-	listed = { "Shoot", "Create Spellstone", "Create Firestone", "Drain Mana", "Subjugate Demon", "Eye of Kilrogg",
-		"Sense Demons", "Detect Invisibility", "Ritual of Doom", "Portal of Summoning" },
+	-- Block D has 12 places. With the three talent spells above it, a Destruction Warlock reached 14-15 (6 Nov 2026), so
+	-- Rob chose ("ja") to move the rarely used Create Soulstone, Curse of Tongues and Ritual of Summoning to `listed`.
+	toBlockD = { "Conflagrate", "Wrack", "Incinerate", "Bane of Havoc", "Summon Imp", "Summon Voidwalker", "Summon Succubus",
+		"Summon Incubus", "Summon Felhunter", "Create Healthstone", "Searing Pain", "Curse of Recklessness",
+		"Perception", "Shatter Curse", "Cannibalize", "Eureka!", "Rapid Regeneration" },
+	listed = { "Shoot", "Create Soulstone", "Curse of Tongues", "Ritual of Summoning", "Create Spellstone",
+		"Create Firestone", "Drain Mana", "Subjugate Demon", "Eye of Kilrogg", "Sense Demons", "Detect Invisibility",
+		"Ritual of Doom", "Portal of Summoning" },
 }
