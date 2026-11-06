@@ -24,6 +24,9 @@
   naam en een foute toets) werd allebei gevangen. Lint 0 HARD, syntax OK (314). In het spel is nog niets getest: zie
   `docs/TESTLIJST.md` 6 nov.
 - Nog alleen voorstel: Warrior, Rogue, Priest, Shaman, Warlock.
+- **OneForAll - Forever** (Smoergi, 378K downloads, GPL-3) bekeken op Robs verzoek: `docs/forever/ONEFORALL_LESSEN_2026-11-06.md`.
+  Het doet gear, dungeons, beroepen en talenten, maar geen toetsen en geen uitleg. Onze plek is dus het blok + de How to play.
+  🔴 Geen code overnemen (MH is MIT). 🔜 Vóór een Forever-release één keer testen met OneForAll erbij aan.
 - 🔜 Robs idee: een **Forever "How to play"** voor nieuwe spelers (zoals de Zo-speel-je-kaarten). Dat maken we pas als de
   tabellen vastliggen, zodat de uitleg en de toetsen hetzelfde zeggen.
 - 🔜 Content-wachter 6 nov 🔴: in The Venomous Abyss heten Scrollsage Iku → **Epu** en First Mate Nama → **Nema**
