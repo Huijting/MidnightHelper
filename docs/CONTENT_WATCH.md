@@ -4001,3 +4001,83 @@ kop, per bevinding MEASURED/INFERRED en [RAAKT ONS]/[RAAKT ONS NIET], met bestan
   (zustervangsten van vandaag, ter bevestiging, niet als enige bron). Vandaag is geen maandag, dus
   geen kaarten- of consumables-check (die secties zijn opzettelijk weggelaten, niet vergeten). Geen
   actiepunt dat ík oppak — ik rapporteer, een mens beslist.
+
+- [2026-11-06] 💬 **CurseForge: geen open reacties (3 draadjes, zelfde reeks berichten als
+  [2026-11-05]).** `curseforge.com/api/v1/mods/1528577/comments?pageIndex=0&pageSize=20&nocache=20261106a`
+  (en `&nocache=20261106b` als tweede, onafhankelijke fetch) via Exa, beide volledig gelezen (JSON,
+  `pagination.totalCount: 8`). Dezelfde drie draadjes als gisteren, allemaal beantwoord (nieuwste
+  bericht in elke keten is van `twelveinchy`): esES/esMX-locale-fix `user_uvqy5939hswhgduu` (reply
+  `8510682`, timestamp `1791351710373`); MrsBoojiePanda's debug-printregel (reply `8483898`,
+  timestamp `1790842459727`); gadrinonturalyon's coffer-key-shards/3D-boss-model-verzoek
+  (reply-keten tot `8095337`/`8092133`) — alle ids en timestamps byte-identiek aan [2026-11-05].
+  MEASURED. **[RAAKT ONS NIET]** — geen actiepunt, geen concept-antwoord nodig.
+
+- [2026-11-06] 🔴 **Blizzards "November 5, 2026"-hotfix hernoemt twee van de drie Lost-Explorers-bazen
+  in The Venomous Abyss (Scrollsage Iku → Epu, First Mate Nama → Nema) — onze eigen strategietekst
+  noemt ze nog overal bij de oude naam, in 8 taalpakketten.**
+  De data-wachter zag deze hotfix als eerste (`docs/PTR_12.0.7_DATA.md:849`, vandaag) en legde hem
+  hier neer als puur content-watch-werk; dit is mijn eigen, onafhankelijke verificatie ervan.
+  **Eigen cache-check op `news.blizzard.com/en-us` zelf:** `?nocache=20261106zzz` gaf mij zelf
+  `CRAWL_REDIRECT` — geen geldige directe lezing, net als de data-wachter die dag al op dezelfde bron
+  vastliep (bij hem: stale "October 30"-tekst, bij mij een redirect-fout — ander symptoom, zelfde
+  praktische gevolg: en-us/Exa geeft vandaag niet de verse pagina). De en-gb-spiegel wél:
+  `news.blizzard.com/en-gb/article/24307310/hotfixes-october-21-2026?nocache=20261106zzz2`, zelf
+  gelezen, geeft **"Hotfixes: November 5, 2026"** met precies drie secties — **Creatures and NPCs**
+  ("Updated the names of several Tortollan NPCs."), **Delves** (Shadowguard Point) en **Dungeons and
+  Raids** (The Venomous Abyss-tuning) — geen Professions-, Quests- of Items-sectie. MEASURED, zelf
+  gelezen, byte-voor-byte gelijk aan wat de data-wachter al citeerde.
+  **Welke baas welke nieuwe naam krijgt staat niet letterlijk in Blizzards eigen zin** ("Updated the
+  names of several Tortollan NPCs" noemt geen namen) — daarvoor drie onafhankelijke, zelf gelezen
+  secundaire bronnen, alle drie dezelfde mapping:
+  - `wowhead.com/news/renamed-tortollan-npcs-and-venomous-abyss-tuning-patch-12-1-5-hotfixes-383777`
+    (Squishei, 2026-11-06T02:16Z): *"The Lost Explorers encounter in The Venomous Abyss now includes
+    Epu (was Iku), Nema (was Nama), and Gebbo."*
+  - `mmo-champion.com/threads/2670882-Patch-12-1-7-PTR-Build-70668` — een datamine-stringdiff,
+    gepubliceerd **29 okt 2026** (drie weken vóór deze hotfix, dus onafhankelijk van zowel de hotfix
+    als het forumdraadje): toont op elke ability-tooltipregel (Blink Nova, Frostfire Volley,
+    Shredding Shards, Icebound Flames, Mighty Thud, United Defense) de tekst letterlijk veranderen
+    van "Scrollsage Iku"/"First Mate Nama" naar "Scrollsage Epu"/"First Mate Nema".
+  - `us.forums.blizzard.com/en/wow/t/why-were-nama-iku-renamed/2403049` (Lore-3257305, 06 nov 02:41
+    UTC): *"They are now Epu and Nema instead of Iku and Nama"* (reden volgens latere reacties in dat
+    draadje: de oude namen hadden een twijfelachtige betekenis in het Japans).
+  Trader Gebbo, de derde baas, is in alle drie bronnen ONVERANDERD. **MEASURED via drie onderling
+  onafhankelijke secundaire bronnen, niet via Blizzards eigen letterlijke tekst** — in-game verifiëren
+  blijft nodig, met name de exacte schrijfwijze van "Epu"/"Nema".
+  **Wat dit raakt (full-tree grep op `Locales/` + `Modules/` + `docs/`; positieve controle, zelfde
+  run: dezelfde grep vindt moeiteloos "Ikuzz the Light Hunter", een andere, ongerelateerde
+  dungeonboss in `Modules/DungeonRosterData.lua:135`, dus hij mist geen treffers die er wél staan):**
+  - `Locales/RaidTips.lua`: de volledige `RAID_BOSS_LOSTEXPLORERS_STEPS/QUICK/QUICK_DPS/
+    QUICK_HEALER/QUICK_TANK/DPS/HEALER/TANK`-set noemt "Iku" en "Nama" letterlijk en herhaaldelijk als
+    bazen-namen in de strategietekst, in alle **7** taalblokken die dit bestand draagt: enUS:53-60,
+    itIT:221-228, nlNL:388-395, deDE:555-562, frFR:722-729, esES:889-896, ptBR:1056-1063.
+  - `Locales/ruRU.lua:4724-4731`: zelfde keyset, los bestand, zelfde bazen-namen, zelfde probleem —
+    **8e taal**.
+  - `Modules/RaidCoachData.lua:248`: code-commentaar `"Mor'zahi (Iku 143082, Nama 142158, Gebbo
+    143083)"` — geen schade, creature-ID's veranderen niet, alleen de weergavenaam; puur voor wie de
+    code leest.
+  - `docs/PTR_S2_ENCOUNTERS.md:74`: interne dev-aantekening (`encounterID=2894 ... 6195=Scrollsage
+    Iku, 6193=First Mate Nama`), ook stale, ook geen speler-tekst.
+  **Bewust niet opnieuw als eigen vondst geteld, al bij de data-wachter vandaag gelogd
+  (`docs/PTR_12.0.7_DATA.md:849`):** Delves/Shadowguard Point (bugfix, geen naam/getal in onze tekst)
+  en de Dungeons and Raids/Venomous-Abyss-tuningpercentages (pure Mythic/Heroic-tuning, geen van
+  onze tips noemt een percentage). Geen Professions- of Quests-content in deze hotfix om tegen onze
+  data te toetsen.
+  → Zuiver een herschrijfklus: de mechanieken, spell-ID's en volgorde in onze tip kloppen nog precies,
+  alleen de twee namen zijn stale. **Ik verander niets — een mens beslist of en wanneer de 8
+  taalpakketten plus het code-commentaar worden bijgewerkt.** Dit zijn geen eigennamen die per taal
+  het clientwoord volgen (geen vertaalvraag, dezelfde twee Engelse namen in elk pakket), dus één
+  vervangklus voor alle 8 tegelijk. **In-game verifiëren vóór het schrijven:** geen van de drie
+  bronnen hierboven is Blizzards eigen hotfixtekst zelf.
+  **[RAAKT ONS]**
+
+  — bron: https://www.wowhead.com/news/renamed-tortollan-npcs-and-venomous-abyss-tuning-patch-12-1-5-hotfixes-383777
+  (zelf gelezen, 06 nov) ·
+  https://www.mmo-champion.com/threads/2670882-Patch-12-1-7-PTR-Build-70668 (zelf gelezen, gepubliceerd
+  29 okt) · https://us.forums.blizzard.com/en/wow/t/why-were-nama-iku-renamed/2403049 (zelf gelezen, 06
+  nov) · https://news.blizzard.com/en-gb/article/24307310/hotfixes-october-21-2026?nocache=20261106zzz2
+  (zelf gelezen) · `docs/PTR_12.0.7_DATA.md:849` (zustervangst van vandaag, ter bevestiging, niet als
+  enige bron) · codebase: `Locales/RaidTips.lua` (grep + regels 53-1063), `Locales/ruRU.lua:4724-4731`,
+  `Modules/RaidCoachData.lua:248`, `Modules/DungeonRosterData.lua:135` (positieve controle),
+  `docs/PTR_S2_ENCOUNTERS.md:74` (alle vandaag gelezen). Vandaag is geen maandag, dus geen kaarten- of
+  consumables-check (die secties zijn opzettelijk weggelaten, niet vergeten). Geen actiepunt dat ík
+  oppak — ik rapporteer, een mens beslist.
