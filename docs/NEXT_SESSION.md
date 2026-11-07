@@ -1,5 +1,19 @@
 # Midnight Helper — waar we staan
 
+## 🆕 7 nov (avond) — Forever: trainervenster zegt welk totem-voorwerp een Shaman mist (Rob: "ja")
+
+- Aanleiding: Robs Tauren leerde Earthbind Totem op 6, tooltip "Tools: Earth Totem" rood; ons venster zei niets.
+- `ForeverTrainer.lua`: `TotemFor(id)` leest de "Tools:"-regel uit de tooltip van de game (verborgen GameTooltip,
+  prefix uit `SPELL_TOTEMS` als die bestaat) en vergelijkt met de clientnamen van items 5175/5176/5177/5178 (GEMETEN
+  wago ItemSparse 70862, TotemCategory 2/4/5/3). Geen eigen spell-lijst. Zit het item niet in je tassen: oranje regel
+  onder de spell ("needs the Earth Totem, from a class quest at level 4"), en bovenaan een kopje voor totems die je al
+  kent maar niet kunt neerzetten. Alleen SHAMAN.
+- Startplek alleen op een Engelse client (Engelse NPC-namen), alleen wat twee mh-research-rapporten samen hadden:
+  Earth Tauren Seer Ravenfeather / Orc+Troll Canaga Earthcaller / Dwarf Teo Hammerstorm; Fire Tauren Narm Skychaser;
+  Water/Air Horde Searn Firewarder. Levels 4/10/20/30.
+- Teksten `FTRAIN_TOTEM_*`: enUS, nlNL, ruRU, de/fr/es/pt. ⚠️ AFGELEID, niet getest: of `SetSpellByID` op een verborgen
+  tooltip in Forever de Tools-regel geeft.
+
 ## 🆕 7 nov (avond) — Forever: knop "Train all" onder het trainer-venster (Rob: "ja")
 
 - Aanleiding: Rob zag bij zijn zusje (undead warlock) de knop niet. GEMETEN: die komt van **Talents Forever**

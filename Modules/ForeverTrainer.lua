@@ -234,6 +234,148 @@ local function Line(token, e)
 	return ("- %s%s  %s  ->  %s"):format(name, rank and (" |cff9d9d9d(" .. rank .. ")|r") or "", Money(e.c), where)
 end
 
+--------------------------------------------------------------------------------
+-- Shaman totems need their element's Totem item in your bags. Rob, 7 Nov 2026: a Tauren learned Earthbind Totem at 6,
+-- the tooltip said "Tools: Earth Totem" in red and nothing of ours had told him ("ja" to this note).
+-- Items MEASURED (wago ItemSparse 1.60.1.70862, TotemCategory): 5175 Earth, 5176 Fire, 5177 Water, 5178 Air. Which spell
+-- needs which is NOT a list of ours: the game's own tooltip says it ("Tools: <item>"), so we read that line.
+-- Quest levels and starting NPCs: two mh-research reports of 7 Nov 2026 that agreed (Icy Veins Forever class quests,
+-- Wowhead Forever, the Zygor Forever guide). Only what both had; elsewhere the line gives the level alone.
+--------------------------------------------------------------------------------
+local TOTEM_ITEMS = { 5175, 5176, 5177, 5178 }
+local TOTEM_LEVEL = { [5175] = 4, [5176] = 10, [5177] = 20, [5178] = 30 }
+-- English NPC and place names, so only shown on an English client (on others the client says other names).
+local TOTEM_FROM = {
+	[5175] = {
+		Tauren = "Seer Ravenfeather, Camp Narache",
+		Orc = "Canaga Earthcaller, Durotar",
+		Troll = "Canaga Earthcaller, Durotar",
+		Dwarf = "Teo Hammerstorm, Anvilmar",
+	},
+	[5176] = { Tauren = "Narm Skychaser, Bloodhoof Village" },
+	[5177] = { Tauren = "Searn Firewarder, Orgrimmar", Orc = "Searn Firewarder, Orgrimmar", Troll = "Searn Firewarder, Orgrimmar" },
+	[5178] = { Tauren = "Searn Firewarder, Orgrimmar", Orc = "Searn Firewarder, Orgrimmar", Troll = "Searn Firewarder, Orgrimmar" },
+}
+if C_Item and C_Item.RequestLoadItemDataByID then
+	for _, it in ipairs(TOTEM_ITEMS) do
+		pcall(C_Item.RequestLoadItemDataByID, it)
+	end
+end
+
+local function TotemItemName(it)
+	if C_Item and C_Item.GetItemNameByID then
+		local ok, n = pcall(C_Item.GetItemNameByID, it)
+		if ok and type(n) == "string" and n ~= "" then
+			return n
+		end
+	end
+	if GetItemInfo then
+		local ok, n = pcall(GetItemInfo, it)
+		if ok and type(n) == "string" and n ~= "" then
+			return n
+		end
+	end
+end
+
+local totemOf = {} -- [spell id] = item id, or false (needs none)
+local totemScan
+--- The Totem item this spell needs, from the "Tools:" line of the game's tooltip; nil when that cannot be read (yet).
+local function TotemFor(id)
+	if totemOf[id] ~= nil then
+		return totemOf[id] or nil
+	end
+	local names = {}
+	for _, it in ipairs(TOTEM_ITEMS) do
+		names[it] = TotemItemName(it)
+		if not names[it] then
+			return nil -- item data not loaded yet: ask again next time, do not remember "none"
+		end
+	end
+	totemScan = totemScan or CreateFrame("GameTooltip", "MidnightHelperTotemScan", nil, "GameTooltipTemplate")
+	totemScan:SetOwner(WorldFrame, "ANCHOR_NONE")
+	totemScan:ClearLines()
+	if not pcall(totemScan.SetSpellByID, totemScan, id) then
+		return nil
+	end
+	-- "Tools: %s" in the client's own words when the global exists; else a short line that ENDS with the item name
+	-- (a description such as "Summons a Strength of Earth Totem." ends with a full stop and is long).
+	local prefix = type(SPELL_TOTEMS) == "string" and SPELL_TOTEMS:match("^(.-)%%s") or nil
+	local found = false
+	for i = 2, totemScan:NumLines() do
+		local fs = _G["MidnightHelperTotemScanTextLeft" .. i]
+		local t = fs and fs:GetText()
+		if type(t) == "string" and not (issecretvalue and issecretvalue(t)) then
+			for it, n in pairs(names) do
+				local hit
+				if prefix and prefix ~= "" then
+					hit = t:sub(1, #prefix) == prefix and t:find(n, 1, true)
+				else
+					hit = #t <= #n + 12 and t:sub(-#n) == n
+				end
+				if hit then
+					found = it
+				end
+			end
+		end
+	end
+	totemScan:Hide()
+	totemOf[id] = found
+	return found or nil
+end
+
+local function HasItem(it)
+	local fn = (C_Item and C_Item.GetItemCount) or GetItemCount
+	if not fn then
+		return true -- cannot tell: say nothing rather than claim it is missing
+	end
+	local ok, n = pcall(fn, it)
+	return not ok or (tonumber(n) or 0) > 0
+end
+
+--- "needs the Earth Totem from a Shaman quest at level 4 (starts at …)", or nil when nothing is missing.
+local function TotemNote(token, id)
+	if token ~= "SHAMAN" then
+		return nil
+	end
+	local it = TotemFor(id)
+	if not it or HasItem(it) then
+		return nil
+	end
+	local s = ns:L("FTRAIN_TOTEM_FMT"):format(TotemItemName(it) or "?", TOTEM_LEVEL[it])
+	local race = select(2, UnitRace("player"))
+	local from = GetLocale() == "enUS" and TOTEM_FROM[it] and TOTEM_FROM[it][race]
+	if from then
+		s = s .. " " .. ns:L("FTRAIN_TOTEM_FROM_FMT"):format(from)
+	end
+	return s, it
+end
+
+--- Totem spells you already know but cannot place, grouped by the missing item: { {it=, names={...}, note=}, ... }.
+local function KnownTotemsMissing(r)
+	local out, byItem = {}, {}
+	if r.token ~= "SHAMAN" then
+		return out
+	end
+	for _, e in ipairs((DATA and DATA[r.token]) or {}) do
+		if e.l <= (r.level or 0) and KnownId(e.id) then
+			local note, it = TotemNote(r.token, e.id)
+			if note then
+				local g = byItem[it]
+				if not g then
+					g = { it = it, names = {}, seen = {}, note = note }
+					byItem[it] = g
+					out[#out + 1] = g
+				end
+				if not g.seen[e.n] then
+					g.seen[e.n] = true
+					g.names[#g.names + 1] = SpellName(e)
+				end
+			end
+		end
+	end
+	return out
+end
+
 --- The window's lines, plus `ids[i]` = the spell id of line i (for its tooltip) or nil.
 local function Text(r)
 	local p, ids = {}, {}
@@ -247,11 +389,24 @@ local function Text(r)
 			(short and ("  |cffff5555" .. ns:L("FTRAIN_SHORT_FMT"):format(Money(r.total - have)) .. "|r") or "")
 		p[#p + 1] = ""
 	end
+	local TOTEM = "|cffff8040"
+	local stuck = KnownTotemsMissing(r)
+	if #stuck > 0 then
+		p[#p + 1] = HEAD .. ns:L("FTRAIN_TOTEM_HEAD") .. "|r"
+		for _, g in ipairs(stuck) do
+			p[#p + 1] = "- " .. table.concat(g.names, ", ") .. ": " .. TOTEM .. g.note .. "|r"
+		end
+		p[#p + 1] = ""
+	end
 	if #r.now > 0 then
 		p[#p + 1] = HEAD .. ns:L("FTRAIN_NOW_FMT"):format(#r.now) .. "|r  " .. Money(r.total)
 		for _, e in ipairs(r.now) do
 			p[#p + 1] = Line(r.token, e)
 			ids[#p] = e.id
+			local note = TotemNote(r.token, e.id)
+			if note then
+				p[#p + 1] = "    " .. TOTEM .. note .. "|r"
+			end
 		end
 		p[#p + 1] = "|cff9d9d9d" .. ns:L("FTRAIN_KEY_HINT") .. "|r"
 	else
@@ -271,6 +426,10 @@ local function Text(r)
 		for _, e in ipairs(r.next) do
 			p[#p + 1] = Line(r.token, e)
 			ids[#p] = e.id
+			local note = TotemNote(r.token, e.id)
+			if note then
+				p[#p + 1] = "    " .. TOTEM .. note .. "|r"
+			end
 		end
 	end
 	p[#p + 1] = ""

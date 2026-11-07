@@ -20552,6 +20552,8 @@ if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 -- WoW Forever, 7 Nov 2026: the Train all button under the game's trainer window (ForeverTrainAll.lua). Our own
 -- translation, not native-checked. No itIT: Forever has no Italian client.
 if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
+	FTRAIN_TOTEM_HEAD = "Totems, die du kennst, aber noch nicht aufstellen kannst",
+	FTRAIN_TOTEM_FMT = "benötigt %s (Klassenquest ab Stufe %d)",
 	FTRAIN_ALL = "Alles lernen",
 	FTRAIN_ALL_FMT = "Alles lernen (%d, %s)",
 	FTRAIN_ALL_BUSY = "Lerne...",
@@ -20564,6 +20566,8 @@ if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 }) end
 
 if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
+	FTRAIN_TOTEM_HEAD = "Totems que tu connais mais ne peux pas encore poser",
+	FTRAIN_TOTEM_FMT = "nécessite %s (quête de classe au niveau %d)",
 	FTRAIN_ALL = "Tout apprendre",
 	FTRAIN_ALL_FMT = "Tout apprendre (%d, %s)",
 	FTRAIN_ALL_BUSY = "Apprentissage...",
@@ -20576,6 +20580,8 @@ if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 }) end
 
 if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
+	FTRAIN_TOTEM_HEAD = "Tótems que conoces pero aún no puedes colocar",
+	FTRAIN_TOTEM_FMT = "necesita %s (misión de clase de nivel %d)",
 	FTRAIN_ALL = "Aprender todo",
 	FTRAIN_ALL_FMT = "Aprender todo (%d, %s)",
 	FTRAIN_ALL_BUSY = "Aprendiendo...",
@@ -20588,6 +20594,8 @@ if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 }) end
 
 if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
+	FTRAIN_TOTEM_HEAD = "Totens que você conhece mas ainda não pode colocar",
+	FTRAIN_TOTEM_FMT = "precisa de %s (missão de classe no nível %d)",
 	FTRAIN_ALL = "Aprender tudo",
 	FTRAIN_ALL_FMT = "Aprender tudo (%d, %s)",
 	FTRAIN_ALL_BUSY = "Aprendendo...",

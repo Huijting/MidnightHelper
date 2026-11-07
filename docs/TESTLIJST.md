@@ -21,6 +21,14 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 7 nov (avond) — Forever: Shaman-totems zonder totem-voorwerp
+
+Op de Tauren Shaman, VÓÓR je de quest "Call of Earth" afmaakt.
+- [ ] `/reload`, `/mh trainer`: bovenaan staat "Totems you know but cannot place yet" met Earthbind Totem en een
+      oranje regel "needs the Earth Totem, from a class quest at level 4 (starts at Seer Ravenfeather, Camp Narache)".
+- [ ] Na de quest (Earth Totem in je tassen): `/mh trainer` → dat kopje is weg.
+- [ ] Een andere class (bijv. de Warlock): nooit zo'n regel.
+
 ## 🆕 7 nov (avond) — Forever: knop "Train all" onder het trainer-venster van de game
 
 Test op een character ZONDER Talents Forever (of typ eerst `/mh trainer button on`), met geld en iets te leren.

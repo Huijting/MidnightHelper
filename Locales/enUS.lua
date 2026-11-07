@@ -4743,6 +4743,11 @@ ns._mhLocales.enUS = {
 	FTRAIN_WHY_POS = "your position cannot be read here",
 	FTRAIN_WHY_NONE = "no trainer places known yet",
 	FTRAIN_WHY_CONT = "no trainer known on this continent",
+	-- 7 Nov 2026: Shaman totems that need their element's Totem item (ForeverTrainer.lua). The item name comes from the
+	-- client; FROM is only shown on an English client (English NPC names).
+	FTRAIN_TOTEM_HEAD = "Totems you know but cannot place yet",
+	FTRAIN_TOTEM_FMT = "needs the %s, from a class quest at level %d",
+	FTRAIN_TOTEM_FROM_FMT = "(starts at %s)",
 	-- 7 Nov 2026: the Train all button under the game's trainer window (ForeverTrainAll.lua).
 	FTRAIN_ALL = "Train all",
 	FTRAIN_ALL_FMT = "Train all (%d, %s)",
