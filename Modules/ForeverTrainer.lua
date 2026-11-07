@@ -116,6 +116,9 @@ local function KeyFor(token, name)
 	if has(cls.toBlockD) then
 		return "block D"
 	end
+	if has(cls.listed) then
+		return false -- left off the block ON PURPOSE (the class table's `listed`), not forgotten
+	end
 	return nil
 end
 
@@ -221,8 +224,11 @@ local function Line(token, e)
 		local okP, p = pcall(C_Spell.IsSpellPassive, e.id)
 		passive = okP and p == true
 	end
+	-- Rob, 7 Nov 2026 ("Ja, pas aan"): Track Beasts said "put it on your own bar" although the Hunter table leaves all
+	-- tracking off the block on purpose. `false` from KeyFor = on purpose; nil = really not in our list.
 	local where = key and ("|cffffd100" .. key .. "|r")
 		or passive and "|cff9d9d9dpassive: works by itself, no key|r"
+		or key == false and "|cff9d9d9dnot on the block (on purpose)|r"
 		or "|cff9d9d9dnot on the block (put it on your own bar)|r"
 	return ("- %s%s  %s  ->  %s"):format(name, rank and (" |cff9d9d9d(" .. rank .. ")|r") or "", Money(e.c), where)
 end

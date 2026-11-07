@@ -19,8 +19,9 @@
   Robs HandyNotes (alleen ter vergelijking, niets overgenomen): 211 binnen 1 eenheid, 6 op 1-1,5 (lopende NPC's, AFGELEID),
   1 niet in HandyNotes. Offline: zonder HandyNotes kiest de eigen lijst dezelfde trainer (Paladin/Warlock/Shaman).
 - ✅ GEMETEN Rob (screenshot, Dwarf Hunter level 2): venster opent vanzelf bij level-up, knop + HandyNotes-trainer
-  (Thorgas Grimson, 237 yards), *"en de pijl komt :)"*. Open: tekst bij `listed`-spells (Track Beasts) zegt "put it on
-  your own bar" terwijl ze bewust niet op het blok staan.
+  (Thorgas Grimson, 237 yards), *"en de pijl komt :)"*. ✅ Daarna (Rob: *"Ja, pas aan"*): spells uit de `listed`-lijst
+  van de class-tabel (Track Beasts) zeggen nu *"not on the block (on purpose)"*; "put it on your own bar" alleen nog bij
+  spells die in geen enkele lijst staan. Offline nagebootst met Robs geval (Dwarf Hunter level 2).
 
 ## 🔎 7 nov — Leatrix Maps, OpenMap, GearQuest bekeken (mh-research, alleen lezen)
 
