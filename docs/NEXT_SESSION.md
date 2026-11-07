@@ -1,5 +1,17 @@
 # Midnight Helper — waar we staan
 
+## 🐛 7 nov (middag) — stap 2 in Forever: menu/tassen over het blok, griffioenen zichtbaar (Robs screenshot)
+
+- ✅ GEMETEN Rob (nieuwe Priest "Ima Priestman"): de layoutnaam met achternaam klopt ("Ima Priestman Priest", in de SV),
+  alle balken aan. ❌ Menu + tassen midden onder over blok C; de twee griffioenen zichtbaar.
+- GEMETEN: Hunter-layout vs Modern-kopie in de SV (scratch `layoutdiff.py`) + Blizzards Forever-bron (Gethe/wow-ui-source
+  branch forever, `EditModeManagerConstantsDocumentation.lua`): `EditModeSystem` MicroMenu 13, Bags 14,
+  MainActionBarEndCap 26 (index 1 links, 2 rechts; setting 0 = Hidden). Hunter: menu/tassen rechtsonder, endcaps 0=1.
+- Reparatie `MH_EditModeApplyKeyBlock`, alleen `ns.IS_FOREVER`: Bags BOTTOMRIGHT UIParent (-4,4), MicroMenu links ernaast
+  (BOTTOMRIGHT → BagsBar BOTTOMLEFT -7), endcaps setting 0 = 1. Frame-namen MicroMenuContainer/BagsBar GEMETEN als
+  relativeTo. Retail ongemoeid. Syntax OK, lint 0 HARD. Niet offline te testen (live frames); posities AFGELEID.
+- ⚠️ Een character dat stap 2 al deed (Ima Priestman): eerst "zet terug", dan stap 2 opnieuw (anders "already a block").
+
 ## 🛠️ 7 nov (middag) — layoutnaam met Forever-achternaam (Rob: "doe jouw voorstel maar")
 
 - Rob vroeg of RP-characters met voor- en achternaam goed gaan. GEMETEN (SimC-commit 5 nov, API_WATCH 6 nov): op Forever

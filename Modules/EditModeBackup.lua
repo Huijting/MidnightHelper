@@ -1185,6 +1185,33 @@ function ns.MH_EditModeApplyKeyBlock(fromPreset)
 	if extraFrame and extraFrame.GetName and extraFrame:GetName() then
 		movingNames[extraFrame:GetName()] = true
 	end
+	-- 🔴 WoW FOREVER: menu, bags and the gryphons — Rob, 7 Nov 2026 (screenshot of a fresh character after step 2):
+	-- "hij heeft niet alles meegenomen … de bags … en hij heeft ook die 2 [griffioenen] niet verborgen". GEMETEN by
+	-- comparing his Hunter's layout with a Modern copy in SavedVariables, and in Blizzard's Forever source
+	-- (Gethe/wow-ui-source, branch forever, EditModeManagerConstantsDocumentation.lua): Enum.EditModeSystem MicroMenu = 13,
+	-- Bags = 14, MainActionBarEndCap = 26 (index 1 left, 2 right; its setting 0 is "Hidden"). On Forever's Modern the menu
+	-- and bags sit bottom-centre, under the block; the gryphons hang on MainActionBar and BagsBar. His Hunter: menu and bags
+	-- bottom-right, gryphons Hidden = 1. Forever only: retail's Modern already keeps them bottom-right (AFGELEID) and has
+	-- no system 26.
+	local MICRO_SYSTEM, BAGS_SYSTEM, ENDCAP_SYSTEM = 13, 14, 26
+	local foreverMicro, foreverBags, endCaps = nil, nil, {}
+	if ns.IS_FOREVER then
+		for _, s in ipairs(target.systems or {}) do
+			if s.system == MICRO_SYSTEM then
+				foreverMicro = s
+			elseif s.system == BAGS_SYSTEM then
+				foreverBags = s
+			elseif s.system == ENDCAP_SYSTEM then
+				endCaps[#endCaps + 1] = s
+			end
+		end
+		if foreverMicro then
+			movingNames["MicroMenuContainer"] = true -- frame names GEMETEN as relativeTo in the Modern copy
+		end
+		if foreverBags then
+			movingNames["BagsBar"] = true
+		end
+	end
 
 	-- Back-up first. This is the undo (`/mh editmode restore`).
 	if not ns.MH_EditModeCapture("before-bars-import") then
@@ -1334,6 +1361,22 @@ function ns.MH_EditModeApplyKeyBlock(fromPreset)
 	if sysBy[13] then Anchor(sysBy[13], "BOTTOMLEFT", BAR_FRAME_NAMES[5], "TOPLEFT", 0, BLOCK_GAP) end
 	if sysBy[12] then Anchor(sysBy[12], "BOTTOMRIGHT", BAR_FRAME_NAMES[7], "TOPRIGHT", 0, BLOCK_GAP) end
 	if sysBy.extra then Anchor(sysBy.extra, "BOTTOM", BAR_FRAME_NAMES[6], "TOP", 0, BLOCK_GAP) end
+
+	-- 4. WoW Forever (see above): bags in the bottom-right corner, the menu right next to them on the left — off the
+	-- block row, as on Rob's Hunter — and the two gryphons Hidden.
+	if foreverBags then
+		Anchor(foreverBags, "BOTTOMRIGHT", "UIParent", "BOTTOMRIGHT", -4, 4)
+	end
+	if foreverMicro then
+		if foreverBags then
+			Anchor(foreverMicro, "BOTTOMRIGHT", "BagsBar", "BOTTOMLEFT", -7, 0)
+		else
+			Anchor(foreverMicro, "BOTTOMRIGHT", "UIParent", "BOTTOMRIGHT", -4, 4)
+		end
+	end
+	for _, s in ipairs(endCaps) do
+		SetSetting(s, 0, 1) -- EditModeMainActionBarEndCapSetting.Hidden = 0 → setting 0, value 1 = hidden
+	end
 
 	if EditModeManagerFrame and EditModeManagerFrame.ReconcileWithModern then
 		pcall(EditModeManagerFrame.ReconcileWithModern, EditModeManagerFrame, target)
