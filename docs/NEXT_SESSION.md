@@ -1,5 +1,13 @@
 # Midnight Helper — waar we staan
 
+## 📦 7 nov (avond) — 5.0.1 klaargezet (Rob: "Ja, 5.0.1"; NOG GEEN TAG)
+
+- Beide TOCs 5.0.1; Changelog.lua blok 5.0.1 (CHANGELOG_501_1-3, enUS); CHANGELOG.md; RELEASE_NOTES.md =
+  docs/CURSEFORGE_5.0.1.md (GEMETEN byte-gelijk, 27 regels, met beta-alinea bovenaan); CURSEFORGE_DESCRIPTION.md: één zin
+  over tooltips + 3D-trainer (Rob moet de beschrijving opnieuw plakken als hij die zin wil). Syntax OK, lint 0 HARD.
+- Na de tag nameten (eerste gesplitste upload): CF files-API twee bestanden met juiste `gameVersions`, GitHub-release twee
+  zips, Wago in de log. Zie RELEASE_CHECKLIST stap 1.
+
 ## 🧍 7 nov (avond) — trainervenster: draaiend 3D-model van de dichtstbijzijnde trainer (Rob: "Ja, bouw maar")
 
 - `ForeverTrainer.lua`: `Candidates` geeft nu `npc` mee (MH-lijst, HandyNotes `node.npc`, eigen `/mh trainer here`);

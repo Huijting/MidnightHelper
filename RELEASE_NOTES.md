@@ -1,96 +1,27 @@
-# Midnight Helper 5.0.0: now in WoW Forever too
+# Midnight Helper 5.0.1: a closer look at your trainer (WoW Forever)
 
-Midnight Helper now works in **two games**: World of Warcraft Midnight, and **WoW Forever**. It is the same addon. You
-install it once for each game: in the CurseForge app, switch World of Warcraft from **Retail** to **Forever** and add
-Midnight Helper there as well.
-Everything you use in Midnight stays exactly as it was.
+Want new things sooner and help test them? We put out betas regularly: set the release type of Midnight Helper in the
+CurseForge app to **Beta**. Found something odd, or does everything just work? Tell us: `/mh report` in game, a comment
+here on CurseForge, or the feedback form on midnighthelper.com.
 
-## What you get in WoW Forever
+A small update for **WoW Forever**. Nothing changes for Midnight.
 
-Forever is levelling the way it used to be: you visit your class trainer, you buy your spells rank by rank, and nobody
-tells you what your class should press. That is what Midnight Helper does for you there, in plain language.
+## New at your trainer
 
-### Your own start page
+- **Tooltips:** hover over a spell in the list and you see the game's own tooltip for it, so you know what it does before
+  you pay. That works for what you can learn now and for what comes at your next level.
+- **Your trainer, in 3D:** your nearest class trainer now stands on the right of the window, slowly turning, with the
+  name below. So you know who to look for when you walk in.
 
-Type `/mh` and the start page is made for Forever:
+## Key block
 
-- your level and class;
-- what you can learn at your trainer **right now**, and what it costs, or at which level the next spells come;
-- **your money**, so you do not have to open your bags to see if you can pay;
-- **Take me to my trainer**: an arrow to your nearest class trainer. MH has its own list of 218 class trainers, so this
-  works for everyone. Have *HandyNotes: Class Trainers*? MH uses it too, and you can record your own spot with
-  `/mh trainer here`;
-- buttons for **How you play**, your **key block** and **your keys**.
+When you learn a new spell, MH asks *New for your key block*. That question used to say `macro -> 2`, which told you
+nothing. It now names the spell, for example `Sinister Strike -> 2`, and says why it is a macro: a macro casts the spell
+by name, so the key always uses **your highest rank**. Learn rank 2, and the key does rank 2 straight away.
 
-### New at your trainer
+## A separate file for Forever
 
-When you level up and there is something new to learn, a window opens by itself: every spell with its rank, its price,
-and **the key it lands on** in your key block. Your money is on top, in red with what is missing when it is not enough.
-Passive spells say they work by themselves. `/mh trainer` opens it any time; `/mh trainer auto off` keeps it from
-opening by itself.
+From this version on, the Forever version is its own file on CurseForge (`...-forever.zip`). The CurseForge app picks
+the right one for each game by itself, so you do not have to do anything.
 
-### How you play, for all nine classes
-
-Druid, Hunter, Mage, Paladin, Priest, Rogue, Shaman, Warlock and Warrior. For each class:
-
-- what your class does, explained for someone who has never played it;
-- your buttons for levels 1 to 10, with the key each one is on;
-- a simple order to press them;
-- what comes later, level by level;
-- the mistakes beginners make (and how to avoid them).
-
-Open it from the start page, the Tools tab, or with `/mh play`.
-
-### A key block for every class
-
-The same task on the same key, on every character you make. Your spells go on fixed keys, a new rank lands on the same
-key by itself, and one button puts everything back. It works in every language WoW Forever has: the keys use your own
-game's spell names.
-
-On a **new character**, MH asks once: *Set up the Midnight Helper bar layout?* Say **Yes** and your bars become blocks
-and are switched on, the menu and bags move to the bottom right, the gryphons go away, and the experience bar sits above
-your first block. **Not now** skips this character; **Never ask again** stops the question (you can turn it back on in
-the AddOn options).
-
-### Which quest reward to take
-
-When a quest lets you pick a reward, MH puts a frame around the best one for you: more of your class's main stats
-first, then Stamina, then armor. Nothing better than what you wear? It marks the one that sells for the most. Turn it
-off with `/mh questhint off`.
-
-## New for Midnight
-
-### What fits in 20 minutes?
-
-Got a little time? `/mh time` (or the button on the start page) shows the delves and rituals whose **average time on
-your Tier** fits in 10, 20 or 40 minutes, measured from your own runs, plus the open stops of your weekly routine. Each
-run now also remembers its story and Valeera's role.
-
-### Route arrow and TomTom
-
-- With **TomTom 4.4.0**, removing the TomTom pin now really stops the Midnight Helper route, and TomTom no longer jumps
-  to a closer pin while MH is leading you.
-- When a route ends, MH only clears the map pin if it is still its own, so a pin you set yourself stays.
-
-### Key block
-
-Step 2 (the layout) now also **switches your action bars on**. The button that puts your layout back (*Put "…" back*)
-switches them back too. A new character no longer starts with half of its bars hidden.
-
-## Also
-
-- On the start page, a card tells you about Midnight Helper in WoW Forever. One click hides it.
-- The search bar now says it finds settings too.
-- Quartermaster buttons and the Silvermoon city guide use your game's own words.
-- Ula'tek: *Serpent's Bite* now says **two** players, after Blizzard's change.
-- The Lost Explorers are called **Epu** and **Nema** now, as in the game.
-- The *Dock to window* button no longer hides under the close button, and follows your language.
-
-Everything new for Forever is in English, German, French, Spanish (Spain and Mexico), Portuguese, Russian and Dutch,
-with every spell name as your own game client writes it. WoW Forever has no Italian client, so Italian players see it
-in English there. The new texts are our own translation. Native speakers: corrections are very welcome.
-
-Found something odd, or does everything just work? Tell us: `/mh report` in game, a comment here on CurseForge, or the
-feedback form on midnighthelper.com.
-
-Have fun, in both games!
+Have fun!

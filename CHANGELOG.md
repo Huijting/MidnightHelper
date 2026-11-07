@@ -2,6 +2,19 @@
 
 All notable changes to this project are documented in this file.
 
+## 5.0.1
+
+📌 **2026-11-07, voorbereid (Rob: "Ja, 5.0.1"); tag wacht op Robs go.** Kleine Forever-ronde na 5.0.0; voor Midnight
+verandert niets. Eerste tag met **twee bestanden** (`release.yml`: `-g retail` en `-g forever` → `…-forever.zip`), zodat
+CurseForge de Forever-downloads apart telt. In-game: CHANGELOG_501_1 t/m _3. `RELEASE_NOTES.md` =
+`docs/CURSEFORGE_5.0.1.md`.
+
+- **Forever, trainervenster:** spell-tooltip op elke spellregel (één font string per regel + hover-knop,
+  `GameTooltip:SetSpellByID`); de dichtstbijzijnde trainer als draaiend 3D-model rechts (`PlayerModel:SetCreature`,
+  npc-id uit MH-lijst / HandyNotes / `/mh trainer here`). Beide door Rob in het spel bevestigd ("mooi, beide werken").
+- **Forever, toetsenblok:** "New for your key block" noemt de spell i.p.v. "macro" + grijze regel waarom het een macro is
+  (`KEYBLOCK_NEW_MACRO_NOTE`, 6 talen, rank-woord = clientwoord). Niet in het spel getest.
+
 ## 5.0.0
 
 📌 **2026-11-07, RELEASE (Rob: 5.0.0, meteen Release, "groots adverteren"; go: "Als alles klaar is, ook voor de site

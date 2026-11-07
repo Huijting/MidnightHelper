@@ -4,6 +4,15 @@ local changelogFrame
 
 local CHANGELOG_ENTRIES = {
 	{
+		version = "5.0.1",
+		lines = {
+			-- 7 Nov 2026 (Rob: "Ja, 5.0.1"): small Forever polish after 5.0.0; nothing changes for Midnight.
+			"CHANGELOG_501_1",
+			"CHANGELOG_501_2",
+			"CHANGELOG_501_3",
+		},
+	},
+	{
 		version = "5.0.0",
 		lines = {
 			-- 7 Nov 2026 (Rob: 5.0.0, "groots adverteren"): Forever first, then what changed for Midnight.

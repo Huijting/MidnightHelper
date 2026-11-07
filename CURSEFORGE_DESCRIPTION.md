@@ -14,7 +14,7 @@ and you get help made for levelling the way it used to be:
 - **Your own start page**: your level, what you can learn at your trainer right now and what it costs, your money, and
   **Take me to my trainer**: an arrow to your nearest class trainer (218 trainers known, no other addon needed).
 - **New at your trainer**: when you level up, a window shows every new spell with its rank, its price and the key it
-  lands on.
+  lands on. Hover a spell for its tooltip; your nearest trainer stands beside the list as a turning 3D figure.
 - **How you play, for all nine classes**: what your class does, your buttons for levels 1 to 10, a simple order to
   press them, what comes later, and the mistakes beginners make.
 - **A key block for every class**: the same task on the same key on every character. A new character gets your bar
