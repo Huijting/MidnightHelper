@@ -1,5 +1,16 @@
 # Midnight Helper — waar we staan
 
+## 🛠️ 7 nov (middag) — layoutnaam met Forever-achternaam (Rob: "doe jouw voorstel maar")
+
+- Rob vroeg of RP-characters met voor- en achternaam goed gaan. GEMETEN (SimC-commit 5 nov, API_WATCH 6 nov): op Forever
+  geeft `UnitName("player")` de achternaam als 2e waarde; MH las alleen de 1e → "Ima Shaman".
+- `EditModeBackup.lua` `OwnLayoutName()`: Forever met achternaam → "<voor><scheiding><achter> <spec>" (Blizzards
+  `CHARACTERNAME_SURNAME_SEPARATOR`, anders spatie) als het in 30 past, anders "<voor> <spec>", anders op hele letters
+  ingekort (`CutUtf8`; de oude `sub(1,30)` kon midden in een letter knippen). Retail ongewijzigd (2e waarde = realm).
+  Een layout van vóór vandaag onder de oude naam wordt teruggevonden (geen dubbele); ook de "made"-herkenning kent beide.
+- GEMETEN offline (scratch `layoutname_test.py`, echte EditModeBackup.lua): 6/6 ("Ima Shamandwarf Shaman", te lang →
+  zonder achternaam, accenten → geldige UTF-8, retail negeert realm). Syntax OK, lint 0 HARD. Niet in het spel gezien.
+
 ## 🐛 7 nov (middag) — /mh mylayout: herladen geblokkeerd, vraag kwam niet vanzelf (Rob, BugSack)
 
 - GEMETEN Rob: `ADDON_ACTION_BLOCKED … protected function 'Reload()'` uit `ForeverLayoutCarry.lua:194` (ReloadUI in

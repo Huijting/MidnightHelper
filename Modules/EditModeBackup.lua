@@ -772,6 +772,52 @@ local function SpecName()
 	return "MH"
 end
 
+--- The first `max` bytes of s, never cutting a letter in half (a name with accents: a cut inside "É" makes a name the
+--- game refuses). The game's own limit is applied in bytes here, as before (sub(1, 30)); AFGELEID that it counts bytes.
+local function CutUtf8(s, max)
+	if #s <= max then
+		return s
+	end
+	local out = ""
+	for ch in s:gmatch("[%z\1-\127\194-\244][\128-\191]*") do
+		if #out + #ch > max then
+			break
+		end
+		out = out .. ch
+	end
+	return (out:gsub("%s+$", ""))
+end
+
+--- The name MH gives a layout it makes for this character and spec, plus the older form to recognise.
+--- 🔴 FOREVER SURNAMES — Rob, 7 Nov 2026 ("roleplaying … een karakter aanmaken met twee namen. Voornaam en achternaam.
+--- Houden we daar rekening mee?"): on Forever UnitName("player") returns the SURNAME as its second value (where retail
+--- returns the realm), GEMETEN in the SimC addon's "Handle Forever surname" commit of 5 Nov 2026
+--- (docs/API_WATCH.md 6 Nov). MH read only the first value, so "Ima Shamandwarf" got "Ima Shaman". Now:
+--- "<first><separator><surname> <spec>" when it fits in 30, else "<first> <spec>", else cut on whole letters.
+--- The separator is Blizzard's own constant (as SimC uses it), a space when it is missing.
+--- @return string name, string oldName (the pre-7-Nov form, so a layout made before is found again, not made twice)
+local function OwnLayoutName()
+	local first, second = "MH", nil
+	if UnitName then
+		first, second = UnitName("player")
+		first = first or "MH"
+	end
+	local spec = SpecName()
+	local old = (first .. " " .. spec):sub(1, 30)
+	local full
+	if ns.IS_FOREVER and type(second) == "string" and second ~= ""
+		and not (issecretvalue and issecretvalue(second)) then
+		local sep = Constants and Constants.CharacterNameSeparatorConsts
+			and Constants.CharacterNameSeparatorConsts.CHARACTERNAME_SURNAME_SEPARATOR or " "
+		full = first .. sep .. second .. " " .. spec
+	end
+	if full and #full <= 30 then
+		return full, old
+	end
+	return CutUtf8(first .. " " .. spec, 30), old
+end
+ns.MH_EditModeOwnLayoutName = OwnLayoutName -- the offline check calls it
+
 --- Copy the preset this spec is on into "<Name> <Spec>", make it active, then arrange the block in it.
 --- @return boolean ok, string message (a /reload is needed either way when ok)
 function ns.MH_EditModeMakeOwnLayout()
@@ -808,7 +854,7 @@ function ns.MH_EditModeMakeOwnLayout()
 		return false, ns:L("KEYBLOCK_OWN_NOT_PRESET")
 	end
 	local charType = Enum and Enum.EditModeLayoutType and Enum.EditModeLayoutType.Character or 2
-	local name = ((UnitName and UnitName("player") or "MH") .. " " .. SpecName()):sub(1, 30)
+	local name, oldName = OwnLayoutName()
 
 	-- Already made before (this spec switched back to the preset since): just use it again.
 	local idx
@@ -817,8 +863,11 @@ function ns.MH_EditModeMakeOwnLayout()
 		if l.layoutType == charType then
 			mine = mine + 1
 		end
-		if l.layoutName == name then
+		-- The new name, or the one MH used before 7 Nov 2026 (first name only) on THIS character's own layouts:
+		-- a layout made then is used again, not made a second time under the longer name.
+		if l.layoutName == name or (l.layoutType == charType and l.layoutName == oldName) then
 			idx = #presetList + i
+			name = l.layoutName
 		end
 	end
 	if not idx then
@@ -1239,9 +1288,11 @@ function ns.MH_EditModeApplyKeyBlock(fromPreset)
 			end
 		end
 	end
-	if not made and not copiedFromAccount and UnitName
-		and layoutName == ((UnitName("player") or "") .. " " .. SpecName()):sub(1, 30) then
-		made = true
+	if not made and not copiedFromAccount and UnitName then
+		local own, ownOld = OwnLayoutName()
+		if layoutName == own or layoutName == ownOld then
+			made = true
+		end
 	end
 	if fromPreset or made then
 		for _, s in ipairs(target.systems or {}) do
