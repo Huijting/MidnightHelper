@@ -21,6 +21,13 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 7 nov (middag) — Dock-knop, Serpent's Bite
+
+- [ ] Open een MH-venster met **Dock to window** rechtsboven (bv. `/mh play` in Forever): staat de knop nu los van het
+      kruisje? Klik hem: wordt hij *Undock*, en past die tekst ook?
+- [ ] Midnight, raidtips Ula'tek fase 3: Serpent's Bite zegt nu *"two players"* (nl: *"twee spelers"*). Klopt dat met
+      het aantal cirkels dat je in de raid ziet?
+
 ## 🆕 7 nov — Forever: pijl naar je trainer (`/mh trainer go`)
 
 Rob: *"alle drie"*. Alleen offline getest, met jouw echte HandyNotes_ClassTrainers-lijst.

@@ -402,6 +402,15 @@ function ns.IsMidnightDialogDocked(frame)
     return docked[frame] and true or false
 end
 
+--- The dock button as wide as its text (+ a little air), so a long or translated label never reaches the close button.
+local function FitDockButton(b)
+    local fs = b and b.GetFontString and b:GetFontString()
+    local w = fs and fs.GetStringWidth and fs:GetStringWidth()
+    if w and w > 0 then
+        b:SetWidth(math.ceil(w) + 6)
+    end
+end
+
 --- Attach or release. Returns the new state.
 function ns.SetMidnightDialogDocked(frame, want, name)
     if not frame then
@@ -438,6 +447,7 @@ function ns.SetMidnightDialogDocked(frame, want, name)
     end
     if frame._mhDockBtn then
         frame._mhDockBtn:SetText(ns:L(want and "DIALOG_UNDOCK" or "DIALOG_DOCK"))
+        FitDockButton(frame._mhDockBtn)
     end
     return want and true or false
 end
@@ -449,10 +459,14 @@ local function AttachDockButton(frame, name)
     end
     local b = CreateFrame("Button", nil, frame)
     b:SetSize(88, 16)
-    b:SetPoint("TOPRIGHT", frame, "TOPRIGHT", -30, -10)
+    -- Rob, 7 Nov 2026 (screenshot, How you play): "schoonheidsfoutje, de dock to window knop". The fixed 88 px box was
+    -- narrower than "Dock to window", so the centred text ran right, under the close button. The button now takes the
+    -- width of its text (FitDockButton) and its right edge stays clear of a 32 px close button at -6.
+    b:SetPoint("TOPRIGHT", frame, "TOPRIGHT", -38, -10)
     b:SetNormalFontObject("GameFontNormalSmall")
     b:SetHighlightFontObject("GameFontHighlightSmall")
     b:SetText(ns:L("DIALOG_DOCK"))
+    FitDockButton(b)
     b:SetScript("OnClick", function()
         ns.SetMidnightDialogDocked(frame, not ns.IsMidnightDialogDocked(frame), name)
     end)

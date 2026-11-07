@@ -1,5 +1,13 @@
 # Midnight Helper — waar we staan
 
+## 🛠️ 7 nov (middag) — dock-knop + Serpent's Bite (Rob: "schoonheidsfoutje" / "Zet de serpent's bite tip maar naar 2")
+
+- `DialogPopup.lua`: de "Dock to window"-knop was vast 88 px, smaller dan zijn tekst, en liep onder het kruisje (Robs
+  screenshot, Forever How you play). Nu zo breed als de tekst (`FitDockButton`, ook na Undock) en rechts op -38. Geldt voor
+  alle vensters via `RegisterMidnightDialogPopup` (retail + Forever). Niet in het spel gezien.
+- Ula'tek `RAID_BOSS_ULATEK_STEPS`: Serpent's Bite markeert nu **twee** spelers in alle 8 packs (RaidTips 7× + ruRU),
+  GEMETEN met grep (8/8). `check_drift --mark` gedaan. Bron: Wowhead-datamining (hotfix 6 nov), Blizzard noemt geen getal.
+
 ## 🧭 7 nov — Forever: pijl naar je trainer, stap 2 (Rob: "alle drie, en eigenlijk vind ik dat we gewoon die van handy notes moeten kunnen gebruiken !!")
 
 - In `ForeverTrainer.lua`: knop **Take me to my trainer** in het venster, `/mh trainer go`, `/mh trainer here` (je eigen
