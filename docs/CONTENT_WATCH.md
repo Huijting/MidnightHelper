@@ -4081,3 +4081,99 @@ kop, per bevinding MEASURED/INFERRED en [RAAKT ONS]/[RAAKT ONS NIET], met bestan
   `docs/PTR_S2_ENCOUNTERS.md:74` (alle vandaag gelezen). Vandaag is geen maandag, dus geen kaarten- of
   consumables-check (die secties zijn opzettelijk weggelaten, niet vergeten). Geen actiepunt dat ík
   oppak — ik rapporteer, een mens beslist.
+
+- [2026-11-07] 💬 **CurseForge: geen open reacties (3 draadjes, zelfde reeks als [2026-11-06]).**
+  `curseforge.com/api/v1/mods/1528577/comments?pageIndex=0&pageSize=20&nocache=20261107a` (en
+  `&nocache=20261107b` als tweede, onafhankelijke fetch) via Exa, beide volledig gelezen (JSON,
+  `pagination.totalCount: 8`). Dezelfde drie draadjes als gisteren, allemaal beantwoord (nieuwste
+  bericht in elke keten van `twelveinchy`): esES/esMX-locale-fix `user_uvqy5939hswhgduu` (reply
+  `8510682`), MrsBoojiePanda's debug-printregel (reply `8483898`), gadrinonturalyon's
+  coffer-key-shards/3D-boss-model-verzoek (reply-keten tot `8095337`/`8092133`) — alle ids en
+  timestamps byte-identiek aan [2026-11-06]. MEASURED. **[RAAKT ONS NIET]** — geen actiepunt, geen
+  concept-antwoord nodig.
+
+- [2026-11-07] 🔴 **CANDIDATE, niet Blizzards eigen cijfer: Serpent's Bite op Ula'tek lijkt van 3 naar
+  2 spelers te gaan — onze tip in 8 taalpakketten zegt nog "drie".** Eigen, onafhankelijke
+  verificatie van de candidate die de data-wachter vandaag neerlegde (`docs/PTR_12.0.7_DATA.md:869`).
+  **Blizzards eigen hotfixtekst (zelf gelezen, en-gb-spiegel
+  `news.blizzard.com/en-gb/article/24307310/hotfixes-november-6-2026?nocache=20261107content`, sectie
+  "November 6, 2026" / Dungeons and Raids / The Venomous Abyss / Ula'tek):** *"Reduced the number of
+  targets selected by Serpent's Bite on all difficulties."* — **geen cijfer**, alleen Blizzards eigen
+  zin, die vooral de 15% Caustic-Waves-impactschade vermeldt die ik zelf anders las dan de data-wachter
+  (32% in mijn lezing van de en-gb-pagina vandaag versus 17% in de data-wachter's lezing van gisteren —
+  zelfde regel, verschillende getallen; mogelijk is de pagina tussendoor bijgewerkt, of is één van ons
+  verkeerd gelezen. Niet verder uitgezocht, hoort niet bij MH's content maar bij de API/data-wachters'
+  terrein; genoemd zodat het niet als stilzwijgend bevestigd geldt).
+  **Het concrete cijfer (3→2) komt uitsluitend van Wowheads eigen datamining**, niet van Blizzard:
+  Wowhead News (Squishei, 6 nov, `wowhead.com/news/ulatek-nerfed-on-all-difficulties-hotfixes-now-live-383783`,
+  zelf gelezen via Exa met cache-buster): *"we've confirmed the following from datamining: Serpent's
+  Bite (Red Soaks) reduced to 2 players (was 3) on all difficulties. Grasping Fangs (Tethers) reduced
+  to 2 players (was 3) on Normal and Heroic."* MEASURED, maar expliciet gelabeld als datamining door de
+  bron zelf, niet als Blizzards eigen woorden.
+  **Spell-ID-koppeling, zelf vastgesteld (de data-wachter liet dit nog open):** `Locales/RaidTips.lua:93`
+  (enUS, Phase 3) zegt *"{SPELL:1295905} marks three players: split up and stand in their circles until
+  it fades, then spread for {SPELL:1312967}"*. Wowheads eigen Phase-3-gidstekst (iMX3, gepubliceerd
+  18 jul, dus van vóór deze hotfix) zegt *"three players will be marked by Serpent's Bite"* — zelfde
+  getal als onze huidige tekst, bevestigt dat onze "drie" tot nu toe klopte. Een derde, onafhankelijke
+  bron buiten Wowhead om koppelt dezelfde numerieke ID aan diezelfde naam: een MRT-raidnotitie
+  (`mrt-notes.vercel.app/note/2063`, geraadpleegd via zoeken, niet zelf de live pagina gelezen) schrijft
+  in haar Phase-3-regel letterlijk `{spell:1295905} Serpent's Bite: players SOAK MARKED CIRCLES until
+  debuff clears` — exact dezelfde ID als in ons bestand, onafhankelijk van Wowhead. MEASURED (via
+  search, niet zelf de pagina geopend — dus zwakker dan een eigen fetch, maar een tweede, van Wowhead
+  onafhankelijke bron voor dezelfde ID-naam-koppeling).
+  ⚠️ **Wat ik NIET kon vaststellen: of {SPELL:1312967} ("spread for …") Volatile Purge is.** Dezelfde
+  MRT-notitie geeft Volatile Purge een ándere ID (`{spell:1306086}`) dan ons `{SPELL:1312967}` — kan een
+  cast-ID vs. aura-ID-verschil zijn (normaal bij Blizzard) of een echte fout in één van de twee bronnen.
+  Niet opgelost; raakt deze hotfix sowieso niet (geen van beide bronnen noemt een cijferwijziging op
+  Volatile Purge), dus hier alleen genoemd zodat het niet als stilzwijgend gecontroleerd geldt.
+  **Volledige scope, grep over heel Locales/ (positieve controle: dezelfde grep op `1295905` vindt
+  precies de 8 bekende blokken, geen nul-resultaat):** `Locales/RaidTips.lua` enUS:93, itIT:261,
+  nlNL:428, deDE:595, frFR:762, esES:929, ptBR:1096, en `Locales/ruRU.lua:4790` — alle acht zeggen
+  letterlijk "drie"/"three"/"tre"/"trois"/"drei"/"tres"/"três"/"трех" bij deze SPELL-ID.
+  **Niet in-game vastgesteld, dus geen MEASURED eindoordeel:** Blizzards eigen tekst geeft geen cijfer,
+  het 3→2-cijfer is datamining (sterke bron, geen patch-notetekst), en de spell-ID-naamkoppeling steunt
+  op twee secundaire bronnen (Wowhead + een MRT-notitie), niet op Blizzards eigen of DBM's broncode zelf
+  — ik heb het DBM-GitHub-bestand voor Ula'tek niet kunnen vinden/lezen om dat laatste te bevestigen.
+  → Als de koppeling en het cijfer kloppen, zegt onze tekst in 8 talen "drie" waar "twee" moet staan.
+  Ik verander niets. **In-game verifiëren vóór een eventuele edit** (hoeveel cirkels Phase 3 daadwerkelijk
+  zet, en of spell-ID 1295905 in de cliënt zelf naar Serpent's Bite wijst) — dit is precies het type
+  claim waar Spec 31 om vroeg niet te citeren zonder eigen controle.
+  **[RAAKT ONS]** (candidate, geen vastgestelde fout).
+
+  — bron: https://news.blizzard.com/en-gb/article/24307310/hotfixes-november-6-2026?nocache=20261107content
+  (zelf gelezen) · https://www.wowhead.com/news/ulatek-nerfed-on-all-difficulties-hotfixes-now-live-383783
+  (zelf gelezen, datamining-claim expliciet zo gelabeld door de bron) ·
+  https://www.wowhead.com/guide/midnight/raids/venomous-abyss-ulatek-boss-strategy-abilities (zelf
+  gelezen, pre-hotfix gidstekst "three players") · https://mrt-notes.vercel.app/note/2063 (via search,
+  niet zelf de pagina geopend — tweede, Wowhead-onafhankelijke ID-naamkoppeling) ·
+  `docs/PTR_12.0.7_DATA.md:869` (zustervangst van vandaag, ter aanleiding, niet als enige bron) ·
+  codebase: `Locales/RaidTips.lua:93,261,428,595,762,929,1096`, `Locales/ruRU.lua:4790` (positieve
+  controle: alle acht gevonden, geen nul-resultaat).
+
+- [2026-11-07] 🔁 **De "November 5, 2026"-sectie op Blizzards hotfixpagina is tussen [2026-11-06] en
+  vandaag uitgebreid met content die het vorige run's en-gb-lezing niet liet zien — zelf nagelopen,
+  niets actionable.** [2026-11-06] las onder "Hotfixes: November 5, 2026" precies drie subsecties
+  (Creatures and NPCs, Delves/Shadowguard Point, Dungeons and Raids/Venomous-Abyss-tuning). Mijn eigen
+  lezing vandaag van dezelfde en-gb-pagina (`?nocache=20261107content`, zelf gelezen) toont onder
+  dezelfde datumkop **óók** Entombed Sentinels (Blood Venom-poelen kleiner/korter op Heroic+Mythic),
+  Twin Fangs (Visceral Burst-schade -40% Mythic) en The Coiled Altar (Axegrinder-snelheid -20%,
+  Gloombomb/Venom Rupture/Malevolent Resonance-schade omlaag, Gravebound Soul Fragments +2s Mythic,
+  Spiteful Soulcoilers 2→1 op Mythic) — die stonden er bij [2026-11-06] kennelijk nog niet (Blizzards
+  eigen paginatekst: *"This list will be updated as additional hotfixes are applied"*), of zijn toen
+  gemist. Niet opnieuw als cache-val geteld: de datum op de sectie zelf is ongewijzigd ouder-dan-gisteren
+  is hier niet van toepassing, dit is een later aangevulde sectie, geen stale cache.
+  **Tegen onze eigen tips getoetst (`Locales/RaidTips.lua`, ENTOMBEDSENT/TWINFANGS/COILEDALTAR, enUS
+  regels 45/77/85):** geen van de drie tips noemt een poelduur, een schadepercentage of een
+  add-aantal dat deze tuning tegenspreekt — "Blood debuffs leave a pool when they run out" (Entombed
+  Sentinels) noemt geen duur, de Twin Fangs-tip noemt "Visceral Burst" niet, en de huidige
+  Coiled-Altar-tip (Zul'jan/Malacrass, orbs/ghosts/shield) noemt geen "Soulcoiler" en geen schadegetal
+  bij Gloombomb/Gravebound. **Eén aansluitend, al bekend open testpunt: `docs/TESTLIJST.md:3566`
+  vraagt al of niet-gemarkeerde spelers bij Gloombomb ook Gravebound-zielkopieën laten vallen — puur
+  gedrag, geen getal, dus deze tuning raakt die vraag niet.** Zuivere Mythic/Heroic-schade-/duur-tuning
+  op mechanieken die onze tekst wel noemt maar niet kwantificeert. MEASURED. **[RAAKT ONS NIET]**
+
+  — bron: https://news.blizzard.com/en-gb/article/24307310/hotfixes-november-6-2026?nocache=20261107content
+  (zelf gelezen, volledige "November 5, 2026"-sectie) · codebase: `Locales/RaidTips.lua:45,77,85`,
+  `docs/TESTLIJST.md:3566` (alle vandaag gelezen). Vandaag is geen maandag, dus geen kaarten- of
+  consumables-check (die secties zijn opzettelijk weggelaten, niet vergeten). Geen actiepunt dat ík
+  oppak — ik rapporteer, een mens beslist.
