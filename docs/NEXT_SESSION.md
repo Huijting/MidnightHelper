@@ -1,5 +1,20 @@
 # Midnight Helper — waar we staan
 
+## 🛠️ 7 nov (avond) — Forever: bij een nieuw character de MH-balkenindeling aanbieden (Rob: "Bouw het maar")
+
+- Rob: standaard vragen bij een nieuw character, IN PLAATS VAN de automatische "Use your layout Inchy Hunter?"-vraag, met
+  een knop om de vraag niet meer te krijgen en een instelling om hem weer aan te zetten; *"Doe voorlopig alleen maar
+  forever"*. Die oude automatische vraag vervalt (Robs keuze); `/mh mylayout` blijft als commando.
+- `ForeverLayoutCarry.lua`: na het inloggen (wacht op Edit Mode, filmpje, combat) op een character op Modern/Classic de
+  vraag *"Set up the Midnight Helper bar layout?"* — **Yes** = `MH_EditModeMakeOwnLayout` (= toetsenblok stap 2) + popup
+  "Reload now" → `KeyBlockReloadAndReopen` (toetsenblok gaat open voor stap 1); **Not now** = per character
+  (`foreverBarLayoutAsked`); **Never ask again** = `foreverAskBarLayout = false`. Niet bij EllesmereUI-bars of een eigen
+  layout. `/mh mylayout check` zegt ook waarom de vraag wel/niet komt.
+- Instelling `mh_foreverAskBarLayout` in SettingsDefs (alleen `ns.IS_FOREVER`, standaard aan), teksten
+  `SET_FOREVER_BARLAYOUT_TITLE/_DESC` in 8 talen (locale_probe 8/8 OK; bewust zonder preset-namen).
+- GEMETEN offline (scratch `mylayout_test.py`): beslissing klopt voor Modern / uit / EllesmereUI / eigen layout / "Not
+  now". Syntax OK, lint 0 HARD. Niet in het spel gezien.
+
 ## 🐛 7 nov (middag) — stap 2 in Forever: menu/tassen over het blok, griffioenen zichtbaar (Robs screenshot)
 
 - ✅ GEMETEN Rob (nieuwe Priest "Ima Priestman"): de layoutnaam met achternaam klopt ("Ima Priestman Priest", in de SV),

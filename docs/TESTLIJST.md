@@ -21,6 +21,18 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 7 nov (avond) — Forever: nieuwe characters krijgen de vraag "Set up the Midnight Helper bar layout?"
+
+Rob: *"Bouw het maar"*. Alleen offline getest.
+- [ ] Maak een nieuw character. Na het intro-filmpje: komt de vraag met **Yes / Not now / Never ask again**? (Niet meer
+      de vraag over "Inchy Hunter".)
+- [ ] **Yes** → venstertje **Reload now** → na de reload: blokken, balken aan, menu en tassen rechtsonder, griffioenen
+      weg, XP-balk boven blok A, én het toetsenblok-venster staat open voor stap 1.
+- [ ] Ander nieuw character → **Not now**: daar geen vraag meer; op een volgend nieuw character wel.
+- [ ] **Never ask again** → nergens meer een vraag. Daarna in Opties → AddOns → Midnight Helper: de schakelaar *"Offer the
+      MH bar layout on new characters"* staat uit; zet hem aan → het volgende nieuwe character krijgt de vraag weer.
+- [ ] Vraag kwam niet: `/mh mylayout check` en stuur de regel *"bar layout question at login: …"*.
+
 ## 🆕 7 nov (middag) — Toetsenblok stap 2 zet ook de balken aan (retail + Forever)
 
 Rob: *"ja begin met a"*. Niet offline te testen; alleen in het spel.

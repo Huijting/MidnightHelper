@@ -335,15 +335,167 @@ function ns.ForeverMyLayoutSlash(arg)
 	elseif arg == "check" then
 		local mine = Store() and Store().foreverMyLayout
 		local yes, why = Decision()
-		print(PREFIX .. ("my layout: remembered %s; on this character: %s - %s"):format(
-			mine and ("\"" .. mine.name .. "\" from " .. tostring(mine.from)) or "nothing", yes and "would ask" or "no question",
-			why))
+		print(PREFIX .. ("my layout: remembered %s; offered here by hand: %s - %s"):format(
+			mine and ("\"" .. mine.name .. "\" from " .. tostring(mine.from)) or "nothing", yes and "yes" or "no", why))
+		local yesB, whyB = ns.ForeverBarLayoutDecision() -- defined further down; called at run time
+		print(PREFIX .. ("bar layout question at login: %s - %s"):format(yesB and "would ask" or "no question", whyB))
 	elseif Store() and Store().foreverMyLayout then
 		Ask(true)
 	else
 		print(PREFIX .. "my layout: nothing remembered yet. On the character whose bars are right: /mh mylayout remember")
 	end
 end
+
+--------------------------------------------------------------------------------
+-- 🔴 THE QUESTION ON A NEW CHARACTER IS THE MH BAR LAYOUT — Rob, 7 Nov 2026: "Is het een idee om dit gewoon eigenlijk
+-- standaard te vragen op het moment dat mensen een nieuw karakter maken? En dat we dat hebben in plaats van … die
+-- hunter-layout … En daar ook gelijk een knopje bij als deze vraag niet meer willen hebben? En later … settings aan- en
+-- uitzetten" → "Doe voorlopig alleen maar forever … Bouw het maar."
+-- So on a Forever character that still sits on Modern/Classic, MH offers the key block's step 2 (its own layout: the
+-- blocks, bars switched on, menu and bags bottom-right, gryphons hidden, XP bar above block A — all measured today on
+-- Rob's characters). Yes → MH_EditModeMakeOwnLayout, then a Blizzard popup "Reload now" (a second click: one click with
+-- the reload was blocked) that reopens the key block for step 1 (spells on keys). "Not now" = not on this character.
+-- "Never ask again" = the setting off (Settings → Midnight Helper → key block; on by default).
+-- The automatic "Use your layout X?" question is gone with this (Rob's choice); /mh mylayout still offers it by hand.
+--------------------------------------------------------------------------------
+
+function ns.IsForeverBarLayoutAskOn()
+	return not (ns.db and ns.db.foreverAskBarLayout == false)
+end
+
+function ns.SetForeverBarLayoutAsk(on)
+	if ns.db then
+		ns.db.foreverAskBarLayout = on and true or false
+	end
+end
+
+--- Why MH does or does not offer the MH bar layout on this character (also printed by /mh mylayout check).
+local function BarDecision()
+	if not ns.IsForeverBarLayoutAskOn() then
+		return false, "switched off (Settings, or \"Never ask again\")"
+	end
+	if not ns.MH_EditModeMakeOwnLayout then
+		return false, "the key block's layout step is not loaded"
+	end
+	local loaded = C_AddOns and C_AddOns.IsAddOnLoaded
+	if loaded and loaded("EllesmereUIActionBars") then
+		return false, "EllesmereUI draws the bars (the block step cannot arrange them)"
+	end
+	local ok, why = Ready()
+	if not ok then
+		return false, why
+	end
+	local idx, layout = Active()
+	if not idx then
+		return false, "Edit Mode returned no layouts"
+	end
+	if layout then
+		return false, ("this character already uses its own layout \"%s\""):format(tostring(layout.layoutName))
+	end
+	local asked = Store() and Store().foreverBarLayoutAsked
+	if asked and asked[CharKey()] then
+		return false, "you said \"Not now\" on this character"
+	end
+	return true, "on Modern/Classic: offer the MH bar layout"
+end
+ns.ForeverBarLayoutDecision = BarDecision -- the offline check calls it
+
+local barDialog
+
+local function AskReloadAndReopen()
+	if not (StaticPopupDialogs and StaticPopup_Show) then
+		print(PREFIX .. "bar layout: type /reload to finish, then /mh block for step 1.")
+		return
+	end
+	StaticPopupDialogs["MH_FOREVER_BARLAYOUT_RELOAD"] = StaticPopupDialogs["MH_FOREVER_BARLAYOUT_RELOAD"] or {
+		text = "Your MH bar layout is set. Reload now? The key block opens afterwards for step 1: your spells on the keys.",
+		button1 = "Reload now",
+		button2 = "Later",
+		OnAccept = function()
+			if ns.KeyBlockReloadAndReopen then
+				ns.KeyBlockReloadAndReopen()
+			elseif C_UI and C_UI.Reload then
+				C_UI.Reload()
+			end
+		end,
+		OnCancel = function()
+			print(PREFIX .. "bar layout: type /reload when you are ready, then /mh block for step 1.")
+		end,
+		timeout = 0,
+		whileDead = true,
+		hideOnEscape = true,
+		preferredIndex = 3,
+	}
+	local pop = StaticPopup_Show("MH_FOREVER_BARLAYOUT_RELOAD")
+	if pop and pop.SetFrameStrata then
+		pop:SetFrameStrata("FULLSCREEN_DIALOG")
+	end
+end
+
+local function AskBarLayout()
+	if not barDialog then
+		local f = CreateFrame("Frame", "MidnightHelperForeverBarLayout", UIParent, "BackdropTemplate")
+		f:SetSize(440, 150)
+		f:SetPoint("TOP", 0, -180)
+		f:SetFrameStrata("DIALOG")
+		f:SetBackdrop({
+			bgFile = "Interface\\DialogFrame\\UI-DialogBox-Background",
+			edgeFile = "Interface\\DialogFrame\\UI-DialogBox-Gold-Border",
+			tile = true, tileSize = 32, edgeSize = 32,
+			insets = { left = 11, right = 12, top = 12, bottom = 11 },
+		})
+		f:SetBackdropColor(0.05, 0.05, 0.08, 0.97)
+		f.text = f:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+		f.text:SetPoint("TOP", 0, -22)
+		f.text:SetWidth(400)
+		f.text:SetText("Set up the |cffffd100Midnight Helper bar layout|r on this character?\n" ..
+			"|cff9d9d9dThe key block: your bars as blocks and switched on, menu and bags bottom-right. You can put it " ..
+			"back later in the key block window.|r")
+		local function Btn(label, x, onClick)
+			local b = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
+			b:SetSize(130, 24)
+			b:SetPoint("BOTTOMLEFT", x, 18)
+			b:SetText(label)
+			b:SetScript("OnClick", onClick)
+			return b
+		end
+		Btn("Yes", 20, function()
+			f:Hide()
+			local ok, msg = ns.MH_EditModeMakeOwnLayout()
+			if not ok then
+				print(PREFIX .. "bar layout: " .. tostring(msg))
+				return
+			end
+			AskReloadAndReopen()
+		end)
+		Btn("Not now", 155, function()
+			local s = Store()
+			if s then
+				s.foreverBarLayoutAsked = s.foreverBarLayoutAsked or {}
+				s.foreverBarLayoutAsked[CharKey()] = true
+			end
+			print(PREFIX .. "bar layout: not on this character. The key block (/mh block, step 2) does it any time.")
+			f:Hide()
+		end)
+		Btn("Never ask again", 290, function()
+			ns.SetForeverBarLayoutAsk(false)
+			if ns.SyncNativeSetting then
+				ns.SyncNativeSetting("mh_foreverAskBarLayout", false)
+			end
+			print(PREFIX .. "bar layout: MH will not ask again. Turn it back on in Settings -> Midnight Helper " ..
+				"(\"Offer the MH bar layout on new characters\").")
+			f:Hide()
+		end)
+		if ns.RegisterMidnightDialogPopup then
+			ns.RegisterMidnightDialogPopup(f)
+		else
+			tinsert(UISpecialFrames, f:GetName())
+		end
+		barDialog = f
+	end
+	barDialog:Show()
+end
+ns.ForeverBarLayoutAsk = AskBarLayout
 
 -- After login: Edit Mode needs a moment to load its account settings, never in combat, and not during the intro
 -- movie. Rob, 7 Nov 2026: the question never came on a brand-new character (stuck on the intro movie, he thought);
@@ -374,10 +526,10 @@ local function Try()
 		waiting = true -- CINEMATIC_STOP / STOP_MOVIE tries again
 		return
 	end
-	local yes, why = Decision()
+	local yes, why = BarDecision() -- the MH bar layout (Rob, 7 Nov 2026), no longer "Use your layout X?"
 	if yes then
 		done = true
-		Ask()
+		AskBarLayout()
 	elseif NOT_YET[why] and tries < 30 and C_Timer and C_Timer.After then
 		C_Timer.After(2, Try)
 	else

@@ -511,6 +511,15 @@ local function Build()
 		ns.db = ns.db or {}
 		ns.db.keyBlockNewMode = (v == "auto" or v == "never") and v or nil
 	end)
+	-- WoW Forever only (Rob, 7 Nov 2026: "Doe voorlopig alleen maar forever"): offer the MH bar layout on a new character
+	-- (ForeverLayoutCarry.lua). On by default; its "Never ask again" button turns this off, and here it comes back.
+	if ns.IS_FOREVER then
+		Toggle("mh_foreverAskBarLayout", "SET_FOREVER_BARLAYOUT_TITLE", "SET_FOREVER_BARLAYOUT_DESC", function()
+			return ns.IsForeverBarLayoutAskOn and ns.IsForeverBarLayoutAskOn()
+		end, function(v)
+			if ns.SetForeverBarLayoutAsk then ns.SetForeverBarLayoutAsk(v) end
+		end, true)
+	end
 
 	----------------------------------------------------------------
 	-- Route-pijl
