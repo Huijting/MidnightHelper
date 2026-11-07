@@ -930,6 +930,7 @@ ns._mhLocales.enUS = {
 	KEYBLOCK_UPDATE_DONE_FMT = "Added: %s. What already stood on the block kept its place.",
 	KEYBLOCK_UPDATE_NOTHING = "Nothing new to add: every spell MH knows for this spec is on the block.",
 	KEYBLOCK_NEW_POPUP_FMT = "New for your key block:\n%s",
+	KEYBLOCK_NEW_MACRO_NOTE = "Placed as a small macro, so the key always uses your highest rank.",
 	KEYBLOCK_NEW_PLACE = "Place it",
 	KEYBLOCK_NEW_LATER = "Later",
 	KEYBLOCK_MODE_FMT = "New spells: %s",

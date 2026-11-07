@@ -912,6 +912,7 @@ ns._mhLocales.nlNL = {
 	KEYBLOCK_UPDATE_DONE_FMT = "Erbij gezet: %s. Wat al op het blok stond, bleef op zijn plek.",
 	KEYBLOCK_UPDATE_NOTHING = "Niets nieuws: elke spell die MH voor deze spec kent, staat op het blok.",
 	KEYBLOCK_NEW_POPUP_FMT = "Nieuw voor je toetsenblok:\n%s",
+	KEYBLOCK_NEW_MACRO_NOTE = "Als kleine macro geplaatst, zodat de toets altijd je hoogste rank gebruikt.",
 	KEYBLOCK_NEW_PLACE = "Zet neer",
 	KEYBLOCK_NEW_LATER = "Later",
 	KEYBLOCK_MODE_FMT = "Nieuwe spells: %s",

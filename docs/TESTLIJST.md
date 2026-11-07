@@ -21,6 +21,12 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 7 nov (avond) — Forever: melding "New for your key block" noemt de spell
+
+- [ ] Forever, een character met het toetsenblok geplaatst: leer een nieuwe spell (trainer of level-up) → de melding toont
+      de **spellnaam** (bijv. `Sinister Strike -> 2`), niet `macro -> 2`, met daaronder in grijs *"Placed as a small
+      macro, so the key always uses your highest rank."* Op Nederlands: *"Als kleine macro geplaatst…"*.
+
 ## 🆕 7 nov (avond) — volgende release: twee bestanden (Retail + Forever)
 
 Geen speltest, wel een blik na de volgende tag. Ik meet het ook zelf (CF-API).

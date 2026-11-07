@@ -1,5 +1,15 @@
 # Midnight Helper — waar we staan
 
+## 🔑 7 nov (avond) — toetsenblok-melding noemt de spell, niet "macro" (Rob: "Ja, doe maar")
+
+- Bug (Rob, screenshot): Forever-popup "New for your key block: macro -> 2 / macro -> F". Oorzaak GEMETEN: de want is
+  `{kind="macro", id=<macronaam>}` en `OccupantName` zoekt `GetMacroInfo(naam)` — die macro bestaat pas na "Place it",
+  dus terugval "macro". Fix `KeyBlock.lua`: want krijgt `label = hit.spell.name` (clientnaam uit ForeverBlock),
+  `MissingName` gebruikt die. Ook de chatregel na Bijwerken en `/mh block` profiteren.
+- Nieuwe grijze regel onder de lijst als er een macro tussen zit: `KEYBLOCK_NEW_MACRO_NOTE` ("…always uses your highest
+  rank"). Rank-woord = clientwoord (CLIENT_NAMES_FOREVER: Rang/Rang/Rango/Grau/Уровень). itIT bewust niet (geen
+  Forever-client). locale_probe GEMETEN OK in 6 talen; lint 0 HARD; syntax OK. Niet in de client getest.
+
 ## 📦 7 nov (avond) — vanaf de volgende release: apart Forever-bestand (Rob: "Ja, bij volgende")
 
 - Waarom: CF telt per bestand. 5.0.0 = één zip voor Retail + Forever → GEMETEN (CF files-API) 90 downloads, niet te

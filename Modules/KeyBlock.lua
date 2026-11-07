@@ -634,7 +634,10 @@ local function PlacePlan()
 			local want, why
 			if hit and hit.spell.macroName then
 				-- Forever Druid: the place holds a macro, known by NAME (its index shifts when macros are added).
-				want = { kind = "macro", id = hit.spell.macroName, key = hit.spell.macroKey, spellIds = hit.spell.spellIds }
+				-- label = the spell's client name. The macro does not exist yet when "New for your key block" asks, so
+				-- GetMacroInfo found nothing and the popup said "macro -> 2" (Rob, 7 Nov 2026: "geen idee wat er geplaatst wordt").
+				want = { kind = "macro", id = hit.spell.macroName, key = hit.spell.macroKey, spellIds = hit.spell.spellIds,
+					label = hit.spell.name }
 			elseif hit then
 				want = { kind = "spell", id = hit.spell.id }
 			elseif slotDef.fixed then
@@ -1366,7 +1369,11 @@ end
 ns.KeyBlockMissing = MissingRows
 
 local function MissingName(m)
-	return OccupantName(m.row.want.kind, m.row.want.id)
+	local want = m.row.want
+	if want.kind == "macro" and type(want.label) == "string" and want.label ~= "" then
+		return want.label
+	end
+	return OccupantName(want.kind, want.id)
 end
 
 --- `Bijwerken`: add what is new, nothing else. Recorded in the same snapshot, so Undo takes it off too.
@@ -1560,10 +1567,17 @@ local function CheckNew()
 		return
 	end
 	ns.db.keyBlockAsked[MyKey()] = key
-	local parts = {}
+	local parts, anyMacro = {}, false
 	for _, m in ipairs(list) do
 		-- "->", not an arrow glyph: the popup font has no "→" (Rob's screenshot showed a box).
 		parts[#parts + 1] = ("%s -> %s"):format(MissingName(m), KeyLabel(m.target.key))
+		if m.row.want.kind == "macro" then
+			anyMacro = true
+		end
+	end
+	-- Why a macro at all (Forever): it casts by name, so the key always uses the highest rank you know.
+	if anyMacro then
+		parts[#parts + 1] = "|cffaaaaaa" .. ns:L("KEYBLOCK_NEW_MACRO_NOTE") .. "|r"
 	end
 	-- Labels set on the dialog itself before showing: renaming the buttons in OnShow did not take on
 	-- 12.1 (Rob saw Okay/Cancel).
