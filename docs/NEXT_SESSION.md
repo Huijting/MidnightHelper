@@ -7,8 +7,11 @@
   met wat je in dat slot draagt (bij ring/trinket/1H het zwakste slot), Stamina als tiebreak. Groen kader op de knop +
   één zin onder het questvenster; geen winst → wat het meest oplevert (geel kader). Klikt nooit iets. `/mh questhint
   on|off|check`. Ideeën uit GearQuest/Zygor, geen code.
-- 🔜 `ForeverMainStats.lua` is nog LEEG: mh-research zoekt de main stats per class (bronnen). Tot dan zegt de hint
-  "No stat list for your class yet" en wijst alleen het duurste aan.
+- ✅ `ForeverMainStats.lua` gevuld uit `docs/forever/FOREVER_MAIN_STATS_2026-11-07.md` (mh-research): standaard
+  solo-leveling per class; Ret Paladin / Enh Shaman / Hunter wisselen van volgorde zodra hun talent bekend is (`later`,
+  via ForeverKnownSpell op naam; AFGELEID dat talents zo te vinden zijn). Weging 1 / 0,5 voor de 1e/2e stat is MH's eigen
+  keuze (AFGELEID). GEMETEN: de client heeft geen primary stat (ChrSpecialization 70862). Offline 7/7 goed met de echte
+  tabel (Hunter: +3 Agi wint van +4 Spirit; Warlock: Stamina één keer).
 - GEMETEN offline (scratch `questhint_test.py`, echte Decide(), test-only statslijst): 5 gevallen goed (upgrade +3 Agility,
   niets beter → duurste, lege ringplek, data niet geladen → opnieuw proberen, geen lijst → duurste). Syntax OK, lint 0 HARD.
   AFGELEID: GetNumQuestChoices/GetQuestItemLink/GetQuestItemInfo/C_Item.GetItemStats en de knopnaam

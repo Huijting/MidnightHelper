@@ -95,19 +95,34 @@ local function Stats(link)
 	return out
 end
 
---- Main-stat points and stamina of a stats table for this class.
-local function Score(stats, main)
-	local s = 0
-	for _, k in ipairs(main or {}) do
-		if k ~= "STAMINA" then
-			s = s + ((stats and stats[k]) or 0)
+local WEIGHT = { 1, 0.5 } -- first main stat counts fully, the second half (ForeverMainStats.lua header; AFGELEID)
+
+--- This character's main stats: the `later` order once its talent is known (Mental Dexterity, Careful Aim, ...).
+local function MainFor(def)
+	if not def then
+		return nil
+	end
+	if def.later and ns.ForeverKnownSpell and ns.ForeverKnownSpell(def.later.talent) then
+		return def.later.main
+	end
+	return def.main
+end
+
+--- Weighted main-stat score and the Stamina tie-breaker of a stats table.
+local function Score(stats, main, stamTie)
+	local s, staInMain = 0, false
+	for i, k in ipairs(main or {}) do
+		s = s + ((stats and stats[k]) or 0) * (WEIGHT[i] or 0)
+		if k == "STAMINA" then
+			staInMain = true
 		end
 	end
-	return s, (stats and stats.STAMINA) or 0
+	local tie = (stamTie and not staInMain) and ((stats and stats.STAMINA) or 0) or 0
+	return s, tie
 end
 
 --- What the player wears in the weaker of the slots this equipLoc fits: main score, stamina, stats, link.
-local function Worn(equipLoc, main)
+local function Worn(equipLoc, main, stamTie)
 	local slots = SLOTS[equipLoc]
 	if not slots then
 		return nil
@@ -116,7 +131,7 @@ local function Worn(equipLoc, main)
 	for _, slot in ipairs(slots) do
 		local link = GetInventoryItemLink and GetInventoryItemLink("player", slot)
 		local stats = link and Stats(link) or {}
-		local s, sta = Score(stats, main)
+		local s, sta = Score(stats, main, stamTie)
 		if not best or s < best.s or (s == best.s and sta < best.sta) then
 			best = { s = s, sta = sta, stats = stats, link = link, slot = slot }
 		end
@@ -134,7 +149,8 @@ local function Decide()
 	end
 	local token = Token()
 	local def = ns.FOREVER_MAIN_STATS and ns.FOREVER_MAIN_STATS[token]
-	local main = def and def.main
+	local main = MainFor(def)
+	local stamTie = def and def.stamTie
 	local rows, best, bestMoney = {}, nil, nil
 	for i = 1, n do
 		local link = GetQuestItemLink and GetQuestItemLink("choice", i)
@@ -154,8 +170,8 @@ local function Decide()
 			sell = (sell or 0) * count }
 		if row.usable and SLOTS[equipLoc] and main then
 			local stats = Stats(link) or {}
-			local s, sta = Score(stats, main)
-			local worn = Worn(equipLoc, main)
+			local s, sta = Score(stats, main, stamTie)
+			local worn = Worn(equipLoc, main, stamTie)
 			row.s, row.sta, row.stats = s, sta, stats
 			row.ds, row.dsta = s - (worn and worn.s or 0), sta - (worn and worn.sta or 0)
 			if row.ds > 0 or (row.ds == 0 and row.dsta > 0 and s > 0) then
@@ -172,11 +188,23 @@ local function Decide()
 	end
 	last.rows = rows
 	if best then
-		local parts = {}
+		-- Name the main stats, then Stamina when it breaks ties; each stat once (Warlock has Stamina as a main stat).
+		local parts, done = {}, {}
+		local shown = {}
 		for _, k in ipairs(main) do
-			local gain = ((best.stats and best.stats[k]) or 0) - ((best.worn and best.worn.stats and best.worn.stats[k]) or 0)
-			if gain ~= 0 then
-				parts[#parts + 1] = ("%+d %s"):format(gain, StatName(k))
+			shown[#shown + 1] = k
+		end
+		if stamTie then
+			shown[#shown + 1] = "STAMINA"
+		end
+		for _, k in ipairs(shown) do
+			if not done[k] then
+				done[k] = true
+				local gain = ((best.stats and best.stats[k]) or 0)
+					- ((best.worn and best.worn.stats and best.worn.stats[k]) or 0)
+				if gain ~= 0 then
+					parts[#parts + 1] = ("%+d %s"):format(gain, StatName(k))
+				end
 			end
 		end
 		if not best.worn or not best.worn.link then
@@ -300,9 +328,9 @@ function ns.ForeverQuestHintSlash(arg)
 		end
 		return
 	end
-	local def = ns.FOREVER_MAIN_STATS and ns.FOREVER_MAIN_STATS[Token()]
+	local main = MainFor(ns.FOREVER_MAIN_STATS and ns.FOREVER_MAIN_STATS[Token()])
 	print(PREFIX .. ("quest hint: %s; main stats for %s: %s; last decision: %s"):format(Enabled() and "on" or "off",
-		ClassName(Token()), def and table.concat(def.main, ", ") or "none", last.verdict))
+		ClassName(Token()), main and table.concat(main, ", ") or "none", last.verdict))
 	for _, r in ipairs(last.rows or {}) do
 		print(("  %d %s usable=%s slot=%s main=%s stam=%s gain=%s/%s sells=%s"):format(r.i, r.link or r.name,
 			tostring(r.usable), tostring(r.equipLoc), tostring(r.s), tostring(r.sta), tostring(r.ds), tostring(r.dsta),

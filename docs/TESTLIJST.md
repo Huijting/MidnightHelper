@@ -23,7 +23,8 @@ er is niets weggegooid.
 
 ## 🆕 7 nov (middag) — Forever: welke quest-beloning neem je? (`/mh questhint`)
 
-Alleen offline getest. Werkt pas helemaal als de stats-lijst per class erin staat (komt later vandaag).
+Alleen offline getest. De stats-lijst per class staat erin (7 nov middag).
+- [ ] Klopt de stat die MH voor jouw class noemt? `/mh questhint check` toont de lijst (bv. Hunter: AGILITY, SPIRIT).
 - [ ] Lever een quest in met 2 of meer beloningen om uit te kiezen. Krijgt één beloning een **groen kader**, en staat
       er onder het questvenster een zin als *"Take …: +3 Agility … over what you wear"*?
 - [ ] Is geen enkele beter: een **geel kader** op wat het meest oplevert, met die uitleg.
