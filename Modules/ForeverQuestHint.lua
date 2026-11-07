@@ -57,6 +57,21 @@ local function ClassName(token)
 	return (names and names[token]) or (token and (token:sub(1, 1) .. token:sub(2):lower())) or "?"
 end
 
+--- Coins with their icons. Rob's screenshot showed "(9)": the global GetCoinTextureString is not there on Forever
+--- (AFGELEID from that "(9)"); C_CurrencyInfo's is what the trainer window already uses and Rob saw it work there.
+local function Money(c)
+	if C_CurrencyInfo and C_CurrencyInfo.GetCoinTextureString then
+		local ok, s = pcall(C_CurrencyInfo.GetCoinTextureString, c)
+		if ok and s then
+			return s
+		end
+	end
+	if GetCoinTextureString then
+		return GetCoinTextureString(c)
+	end
+	return tostring(c) .. "c"
+end
+
 local function StatName(k)
 	local g = _G[STAT_KEY[k]]
 	return (type(g) == "string" and g ~= "") and g or STAT_NAME[k]
@@ -75,16 +90,50 @@ local function ItemInfo(link)
 	return name, quality, equipLoc, sellPrice or 0
 end
 
---- { STRENGTH = n, ... } for a link (only the five primary stats), or nil when the client gives nothing.
+--- 🔴 ARMOR — Rob, 7 Nov 2026 (screenshot, "denk dat het niet goed gaat ?!?"): Snow Boots (7 armor) against worn boots
+--- (2 armor), no stats on either reward, and MH said "none is better". At low level armor is often the ONLY
+--- difference. Read it from the stats table (RESISTANCE0_NAME, the classic key; AFGELEID for Forever) or else from the
+--- item's tooltip line ("%s Armor", Blizzard's ARMOR_TEMPLATE; the approach Zygor uses, and C_TooltipInfo.GetHyperlink
+--- is what Baganator/Syndicator/Auctionator use on Forever — candidates, not proof).
+local function Armor(link, t)
+	local v = t and t.RESISTANCE0_NAME
+	if type(v) == "number" and not (issecretvalue and issecretvalue(v)) then
+		return v
+	end
+	if not (C_TooltipInfo and C_TooltipInfo.GetHyperlink and link) then
+		return 0
+	end
+	local ok, data = pcall(C_TooltipInfo.GetHyperlink, link)
+	if not ok or type(data) ~= "table" or type(data.lines) ~= "table" then
+		return 0
+	end
+	local tpl = type(ARMOR_TEMPLATE) == "string" and ARMOR_TEMPLATE or "%s Armor"
+	local pat = "^" .. tpl:gsub("([%(%)%.%+%-%*%?%[%]%^%$])", "%%%1"):gsub("%%s", "([%%d,%%.]+)") .. "$"
+	for _, line in ipairs(data.lines) do
+		local txt = line.leftText
+		if type(txt) == "string" and not (issecretvalue and issecretvalue(txt)) then
+			local n = txt:match(pat)
+			if n then
+				return tonumber((n:gsub("[,%.]", ""))) or 0
+			end
+		end
+	end
+	return 0
+end
+
+--- { STRENGTH = n, ..., ARMOR = n } for a link (the five primary stats + armor). An item without stats (plain cloth
+--- boots) still gets its armor: the stats call may return nil for it.
 local function Stats(link)
+	if not link then
+		return nil
+	end
 	local fn = (C_Item and C_Item.GetItemStats) or GetItemStats
-	if not (fn and link) then
-		return nil
+	local t
+	if fn then
+		local ok, res = pcall(fn, link)
+		t = (ok and type(res) == "table") and res or nil
 	end
-	local ok, t = pcall(fn, link)
-	if not ok or type(t) ~= "table" then
-		return nil
-	end
+	t = t or {}
 	local out = {}
 	for k, key in pairs(STAT_KEY) do
 		local v = t[key]
@@ -92,6 +141,7 @@ local function Stats(link)
 			out[k] = v
 		end
 	end
+	out.ARMOR = Armor(link, t)
 	return out
 end
 
@@ -132,8 +182,9 @@ local function Worn(equipLoc, main, stamTie)
 		local link = GetInventoryItemLink and GetInventoryItemLink("player", slot)
 		local stats = link and Stats(link) or {}
 		local s, sta = Score(stats, main, stamTie)
-		if not best or s < best.s or (s == best.s and sta < best.sta) then
-			best = { s = s, sta = sta, stats = stats, link = link, slot = slot }
+		local arm = stats.ARMOR or 0
+		if not best or s < best.s or (s == best.s and (sta < best.sta or (sta == best.sta and arm < best.arm))) then
+			best = { s = s, sta = sta, arm = arm, stats = stats, link = link, slot = slot }
 		end
 	end
 	return best
@@ -174,8 +225,12 @@ local function Decide()
 			local worn = Worn(equipLoc, main, stamTie)
 			row.s, row.sta, row.stats = s, sta, stats
 			row.ds, row.dsta = s - (worn and worn.s or 0), sta - (worn and worn.sta or 0)
-			if row.ds > 0 or (row.ds == 0 and row.dsta > 0 and s > 0) then
-				if not best or row.ds > best.ds or (row.ds == best.ds and row.dsta > best.dsta) then
+			row.darm = (stats.ARMOR or 0) - (worn and worn.arm or 0)
+			-- Better = more main stats; equal → more Stamina (where it counts); still equal → more armor.
+			local better = row.ds > 0 or (row.ds == 0 and (row.dsta > 0 or (row.dsta == 0 and row.darm > 0)))
+			if better then
+				if not best or row.ds > best.ds or (row.ds == best.ds and (row.dsta > best.dsta
+					or (row.dsta == best.dsta and row.darm > best.darm))) then
 					best = row
 				end
 			end
@@ -207,12 +262,17 @@ local function Decide()
 				end
 			end
 		end
-		if not best.worn or not best.worn.link then
-			return { index = best.i, kind = "upgrade", text = ("Take %s: %s, your main stats as a %s. That slot is empty now.")
-				:format(best.link, table.concat(parts, ", "), ClassName(token)) }
+		if best.darm and best.darm ~= 0 then
+			parts[#parts + 1] = ("%+d %s"):format(best.darm, (type(ARMOR) == "string" and ARMOR) or "Armor")
 		end
-		return { index = best.i, kind = "upgrade", text = ("Take %s: %s over what you wear (main stats for a %s).")
-			:format(best.link, table.concat(parts, ", "), ClassName(token)) }
+		local why = (best.ds == 0 and best.dsta == 0) and "more armor, no stat difference"
+			or ("main stats for a %s"):format(ClassName(token))
+		if not best.worn or not best.worn.link then
+			return { index = best.i, kind = "upgrade", text = ("Take %s: %s (%s). That slot is empty now.")
+				:format(best.link, table.concat(parts, ", "), why) }
+		end
+		return { index = best.i, kind = "upgrade", text = ("Take %s: %s over what you wear (%s).")
+			:format(best.link, table.concat(parts, ", "), why) }
 	end
 	if not main then
 		return { index = bestMoney.i, kind = "money", text = ("No stat list for your class yet. %s sells for the most.")
@@ -220,8 +280,7 @@ local function Decide()
 	end
 	if bestMoney and bestMoney.sell > 0 then
 		return { index = bestMoney.i, kind = "money", text = ("None of these is better for you than what you wear. " ..
-			"%s sells for the most (%s)."):format(bestMoney.link, GetCoinTextureString and GetCoinTextureString(bestMoney.sell)
-			or tostring(bestMoney.sell)) }
+			"%s sells for the most (%s)."):format(bestMoney.link, Money(bestMoney.sell)) }
 	end
 	return nil, "nothing better and nothing that sells"
 end
@@ -332,9 +391,9 @@ function ns.ForeverQuestHintSlash(arg)
 	print(PREFIX .. ("quest hint: %s; main stats for %s: %s; last decision: %s"):format(Enabled() and "on" or "off",
 		ClassName(Token()), main and table.concat(main, ", ") or "none", last.verdict))
 	for _, r in ipairs(last.rows or {}) do
-		print(("  %d %s usable=%s slot=%s main=%s stam=%s gain=%s/%s sells=%s"):format(r.i, r.link or r.name,
-			tostring(r.usable), tostring(r.equipLoc), tostring(r.s), tostring(r.sta), tostring(r.ds), tostring(r.dsta),
-			tostring(r.sell)))
+		print(("  %d %s usable=%s slot=%s main=%s stam=%s armor=%s gain=%s/%s/%s sells=%s"):format(r.i, r.link or r.name,
+			tostring(r.usable), tostring(r.equipLoc), tostring(r.s), tostring(r.sta),
+			tostring(r.stats and r.stats.ARMOR), tostring(r.ds), tostring(r.dsta), tostring(r.darm), tostring(r.sell)))
 	end
 end
 

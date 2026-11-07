@@ -1,5 +1,17 @@
 # Midnight Helper — waar we staan
 
+## 🐛 7 nov (middag) — quest-hint telde armor niet (Rob: "denk dat het niet goed gaat ?!?")
+
+- GEMETEN Rob (screenshot, Dwarf Hunter): Snow Boots (7 armor, geen stats) vs gedragen laarzen (2 armor); GearQuest zag
+  de upgrade, MH zei "None of these is better … Bear Shawl sells for the most (9)". Twee fouten: armor telde niet mee, en
+  de globale `GetCoinTextureString` gaf geen munt op Forever (AFGELEID uit die "(9)").
+- Reparatie `ForeverQuestHint.lua`: volgorde main stats → Stamina (waar het telt) → armor. Armor uit de stats
+  (`RESISTANCE0_NAME`) of anders de tooltipregel via `C_TooltipInfo.GetHyperlink` + `ARMOR_TEMPLATE` (aanpak van Zygor;
+  Baganator/Syndicator/Auctionator gebruiken die API op Forever — kandidaat). `Stats()` geeft nu ook armor voor items
+  zonder stats. Prijs via `C_CurrencyInfo.GetCoinTextureString`. `/mh questhint check` toont armor per beloning.
+- Offline 9/9 (scratch `questhint_test.py`), o.a. Robs geval → "Take Snow Boots: +5 Armor over what you wear". Syntax OK,
+  lint 0 HARD. Niet in het spel gezien.
+
 ## 🛠️ 7 nov (middag) — trainer-venster alleen bij iets nieuws (Rob: "Ja, alleen nieuw")
 
 - `ForeverTrainer.lua` OnLevel: het venster gaat vanzelf open alleen als er een spell van PRECIES dit level te leren is.
