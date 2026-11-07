@@ -21,6 +21,19 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 7 nov — Forever: nieuw bij de trainer (`/mh trainer`)
+
+Rob: *"Ja, A + pijl"*. Dit is stap A; de pijl naar de trainer komt later. Alleen offline getest (7 classes nagebootst).
+- [ ] In Forever: `/mh trainer`. Er opent een venster *"New at your trainer - level X"*. Staan daar de spells die je bij
+      de trainer kunt leren, met hun prijs en de toets erachter (bijvoorbeeld *Lay on Hands -> Q*)?
+- [ ] Klopt het met wat de trainer zelf laat zien? Mist er iets, of staat er iets dat de trainer niet heeft: noem het.
+- [ ] Ga een level omhoog (een even level, bv. 10 of 12): komt er een regel in de chat, en gaat het venster vanzelf open?
+      In combat hoort het pas open te gaan als het gevecht voorbij is.
+- [ ] Een oneven level: alleen een chatregel *"nothing new … Next: level X"*.
+- [ ] `/mh trainer auto off`: het venster gaat niet meer vanzelf open (de chatregel blijft). `/mh trainer auto on` zet het terug.
+- [ ] `/mh trainer check`: een paar regels met tellingen. Stuur die mee als iets niet klopt.
+- [ ] Spells die al in je spellboek staan, horen er NIET in te staan. Zie je er toch een: noem hem.
+
 ## 🆕 6 nov (nacht, later) — Forever: How you play voor alle 9 classes
 
 Rob: *"Ja, schrijf ze"*. Alleen offline getest. Op een Warrior, Rogue, Priest, Shaman of Warlock: `/mh play`.

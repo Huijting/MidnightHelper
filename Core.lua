@@ -2488,6 +2488,18 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh trainer [check | auto on | auto off] — WoW Forever: what is new at your class trainer, with its key
+	-- (ForeverTrainer.lua; Rob, 7 Nov 2026: "Ja, A + pijl").
+	local trainerArg = msg:lower() == "trainer" and "" or msg:lower():match("^trainer%s+(.+)$")
+	if trainerArg then
+		if ns.ForeverTrainerSlash then
+			ns.ForeverTrainerSlash(trainerArg)
+		else
+			print("|cffffcc00Midnight Helper:|r /mh trainer is for WoW: Forever.")
+		end
+		return
+	end
+
 	-- /mh bar — show or hide the little quick bar.
 	if msg == "bar" then
 		if ns.MH_ToggleQuickBar then

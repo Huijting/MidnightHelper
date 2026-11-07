@@ -1,5 +1,20 @@
 # Midnight Helper — waar we staan
 
+## 🛠️ 7 nov — Forever: nieuw bij de trainer, stap A (Rob: "Ja, A + pijl")
+
+- Nieuw: `Modules/ForeverTrainer.lua` + `Modules/ForeverTrainerData.lua` (beide TOC's + docs-kopie, alleen `ns.IS_FOREVER`).
+  `/mh trainer` (venster), `/mh trainer check`, `/mh trainer auto on|off`; bij elke level-up een chatregel en, als er iets
+  te leren is, het venster (pas na combat). Per spell: prijs + toets uit de `ForeverBlock_<Class>`-tabel, "block D",
+  "passive" of "not on the block". Alleen Engels.
+- Data GEGENEREERD (scratch `gen_trainer_data.py`) uit What's Training? (MIT, commit 0654674ef735, licentietekst in de
+  kop): 1356 trainer-spells, Hunter-petskills eruit (45). Rang komt uit de client (rang 1 is vaak een start-spell).
+- GEMETEN offline (scratch `trainer_test.py`, echte data + echte class-tabellen + ForeverBlock.lua, client nagebootst):
+  7 gevallen kloppen (oneven level niets, Horde-mage geen Alliance-teleports, Druid "eerst Bear Form", alles bekend =
+  leeg). Gevonden en gerepareerd: een vervangen rang (Seal of Righteousness 20154→21084) gaf vals "needs first".
+  Syntax OK (322), lint 0 HARD. AFGELEID: `IsPlayerSpell`, `C_Spell.IsSpellPassive`, `GetSpellSubtext` op Forever.
+- 🔜 Stap 2, de pijl: wacht op de trainer-plekken (mh-research, alleen Wowhead Forever; HandyNotes_ClassTrainers is
+  All Rights Reserved, Questie GPLv3 → niet overnemen). Test: TESTLIJST "7 nov".
+
 ## 🔎 7 nov — What's Training? bekeken voor Forever (Rob: "bekijk het goed")
 
 - Alleen onderzoek, niets geïnstalleerd of gebouwd: `docs/forever/WHATS_TRAINING_2026-11-07.md`. MIT (GEMETEN).
