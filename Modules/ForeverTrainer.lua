@@ -283,13 +283,15 @@ ns.ForeverTrainerText = function(level) -- the offline check prints it
 end
 
 local win
+local MODEL_W = 170 -- the trainer model's panel; the window grows by this plus a gap when it shows
+local BASE_W = 560
 
 local function Build()
 	if win then
 		return win
 	end
 	local f = CreateFrame("Frame", "MidnightHelperForeverTrainer", UIParent, "BackdropTemplate")
-	f:SetSize(560, 460)
+	f:SetSize(BASE_W, 460)
 	f:SetPoint("CENTER", 0, 60)
 	f:SetFrameStrata("DIALOG")
 	f:SetBackdrop({
@@ -324,8 +326,10 @@ local function Build()
 	f.goHint:SetPoint("RIGHT", f, "RIGHT", -20, 0)
 	f.goHint:SetJustifyH("LEFT")
 	local scroll = CreateFrame("ScrollFrame", nil, f, "UIPanelScrollFrameTemplate")
+	-- Fixed width (not anchored to the right edge): the window grows to the right when the trainer model shows.
 	scroll:SetPoint("TOPLEFT", 22, -48)
-	scroll:SetPoint("BOTTOMRIGHT", -38, 48)
+	scroll:SetPoint("BOTTOMLEFT", 22, 48)
+	scroll:SetWidth(BASE_W - 60)
 	local child = CreateFrame("Frame", nil, scroll)
 	child:SetSize(490, 10)
 	scroll:SetScrollChild(child)
@@ -333,6 +337,25 @@ local function Build()
 	-- de spells"). Not |Hspell links in one text: links fail inside a ScrollFrame (PlayCardWindow.lua's note).
 	f.rows, f.hot = {}, {}
 	f.scroll, f.child = scroll, child
+	-- Rob, 7 Nov 2026 ("Ja, bouw maar"): the nearest trainer as a turning 3D model on the right, like the boss and
+	-- mount windows on retail. Creature id from MH's trainer list, HandyNotes or /mh trainer here. No id or no model:
+	-- the panel stays away and the window keeps its old width (SetModelShown).
+	local model = CreateFrame("PlayerModel", nil, f)
+	model:SetPoint("TOPRIGHT", f, "TOPRIGHT", -22, -48)
+	model:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -22, 70)
+	model:SetWidth(MODEL_W)
+	model:Hide()
+	model:SetScript("OnUpdate", function(self, elapsed)
+		self._facing = ((self._facing or 0.45) + elapsed * 0.6) % (2 * math.pi)
+		if self.SetFacing then
+			pcall(self.SetFacing, self, self._facing)
+		end
+	end)
+	f.model = model
+	f.modelName = f:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+	f.modelName:SetPoint("TOP", model, "BOTTOM", 0, -4)
+	f.modelName:SetWidth(MODEL_W)
+	f.modelName:SetJustifyH("CENTER")
 	if ns.RegisterMidnightDialogPopup then
 		ns.RegisterMidnightDialogPopup(f)
 	else
@@ -343,8 +366,66 @@ local function Build()
 	return f
 end
 
-local function Fill(level)
+local function SetModelShown(f, shown, name)
+	f.model:SetShown(shown)
+	f.modelName:SetText(shown and name or "")
+	f.modelName:SetShown(shown)
+	f:SetWidth(shown and (BASE_W + MODEL_W + 10) or BASE_W)
+end
+
+--- Put the nearest trainer in the model panel. `force` on opening the window: a model frame that was hidden can come
+--- back empty, so it is set again (DungeonBossWindow.lua: "plaatje kwam pas na heen-en-weer bladeren").
+local function ShowModel(f, force)
+	local npc, name = nil, nil
+	if ns.ForeverTrainerNearestNpc then
+		npc, name = ns.ForeverTrainerNearestNpc()
+	end
+	if not force and npc == f.model._npc then
+		return
+	end
+	f.model._npc = npc
+	if not (npc and f.model.SetCreature) then
+		SetModelShown(f, false)
+		return
+	end
+	local function apply()
+		f.model:ClearModel()
+		f.model:SetCreature(npc)
+		if f.model.SetPortraitZoom then
+			f.model:SetPortraitZoom(0) -- the whole figure, not a face
+		end
+		if f.model.SetCamDistanceScale then
+			f.model:SetCamDistanceScale(1.0)
+		end
+		if f.model.SetPosition then
+			f.model:SetPosition(0, 0, 0)
+		end
+	end
+	local ok = pcall(apply)
+	SetModelShown(f, ok, name)
+	if not (ok and C_Timer and C_Timer.After) then
+		return
+	end
+	-- Models load async: set it once more, then hide the panel if still nothing loaded (no empty black box).
+	C_Timer.After(0.2, function()
+		if f.model._npc == npc and f:IsShown() then
+			pcall(apply)
+		end
+	end)
+	C_Timer.After(1.5, function()
+		if f.model._npc ~= npc or not f.model.GetModelFileID then
+			return
+		end
+		local okF, fid = pcall(f.model.GetModelFileID, f.model)
+		if okF and (fid == nil or fid == 0) then
+			SetModelShown(f, false)
+		end
+	end)
+end
+
+local function Fill(level, force)
 	local f = Build()
+	ShowModel(f, force)
 	local r = Compute(level or UnitLevel("player"))
 	f.title:SetText(ns:L("FTRAIN_TITLE_FMT"):format(r.level))
 	f.go:SetText(ns:L("HOME_FOREVER_BTN_GO")) -- the language can change while the window exists
@@ -409,7 +490,7 @@ local function Fill(level)
 end
 
 function ns.ShowForeverTrainer(level)
-	local f = Fill(level)
+	local f = Fill(level, true)
 	f:Show()
 	-- The money line follows your purse while the window is open (buy at the trainer, loot, sell).
 	if not f.moneyWatch then
@@ -506,7 +587,7 @@ end
 local function Candidates(token)
 	local out, side = {}, PlayerSide()
 	for _, s in ipairs(Spots()[token] or {}) do
-		out[#out + 1] = { map = s.map, x = s.x, y = s.y, name = s.name, src = "yours" }
+		out[#out + 1] = { map = s.map, x = s.x, y = s.y, name = s.name, npc = s.npc, src = "yours" }
 	end
 	local hn = HandyNotesTrainers()
 	if hn then
@@ -516,7 +597,7 @@ local function Candidates(token)
 					if type(node) == "table" and node.class == token and not node.kind and type(coord) == "number"
 						and (node.side == "N" or node.side == side) then
 						out[#out + 1] = { map = map, x = math.floor(coord / 10000) / 100, y = (coord % 10000) / 100,
-							name = node.name, src = "HandyNotes" }
+							name = node.name, npc = tonumber(node.npc), src = "HandyNotes" }
 					end
 				end
 			end
@@ -524,7 +605,7 @@ local function Candidates(token)
 	end
 	for _, s in ipairs((ns.FOREVER_TRAINER_SPOTS or {})[token] or {}) do
 		if not s.side or s.side == "N" or s.side == side then
-			out[#out + 1] = { map = s.map, x = s.x, y = s.y, name = s.name, src = "MH list" }
+			out[#out + 1] = { map = s.map, x = s.x, y = s.y, name = s.name, npc = s.npc, src = "MH list" }
 		end
 	end
 	return out
@@ -574,6 +655,15 @@ local WHY_KEY = {
 	["no trainer places known yet"] = "FTRAIN_WHY_NONE",
 	["none on this continent"] = "FTRAIN_WHY_CONT",
 }
+
+--- The nearest trainer's creature id and name, for the window's 3D model; nil when unknown.
+function ns.ForeverTrainerNearestNpc()
+	local best = Nearest(Token())
+	if best and type(best.npc) == "number" and best.npc > 0 then
+		return best.npc, best.name
+	end
+	return nil
+end
 
 --- One line under the window's button: where it would take you, or what is missing.
 function ns.ForeverTrainerNearestText()

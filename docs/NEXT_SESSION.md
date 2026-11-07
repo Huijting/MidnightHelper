@@ -1,5 +1,13 @@
 # Midnight Helper — waar we staan
 
+## 🧍 7 nov (avond) — trainervenster: draaiend 3D-model van de dichtstbijzijnde trainer (Rob: "Ja, bouw maar")
+
+- `ForeverTrainer.lua`: `Candidates` geeft nu `npc` mee (MH-lijst, HandyNotes `node.npc`, eigen `/mh trainer here`);
+  `ns.ForeverTrainerNearestNpc()`. Venster: `PlayerModel` rechts (170 breed), `SetCreature(npc)`, `SetPortraitZoom(0)`,
+  draait via OnUpdate; naam eronder. Venster wordt 740 breed met model, 560 zonder; scroll heeft nu een vaste breedte.
+  Nalaad-tik 0,2 s; na 1,5 s `GetModelFileID` leeg → paneel weg (geen zwart vak). Drusilla La Salle = npc 459 in
+  MH-lijst én HandyNotes (GEMETEN). ⚠️ AFGELEID, niet getest: `PlayerModel`/`SetCreature` in de Forever-client.
+
 ## 💬 7 nov (avond) — trainervenster: tooltip op elke spell (Rob: "ik wil tooltips bij de spells")
 
 - `ForeverTrainer.lua`: het venster is nu één font string per regel (pool `f.rows`) i.p.v. één tekstblok; spellregels

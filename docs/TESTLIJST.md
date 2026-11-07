@@ -21,6 +21,14 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 7 nov (avond) — Forever: de trainer als draaiend 3D-model
+
+- [ ] `/reload`, open "New at your trainer" op de Warlock: rechts staat Drusilla La Salle in 3D, ze draait langzaam rond,
+      haar naam eronder. Het venster is breder dan eerst; de spelllijst links is niet smaller geworden.
+- [ ] Venster dicht en weer open: het model staat er weer (niet leeg).
+- [ ] Zie je een zwart vak of helemaal niets rechts? Zeg het: dan laadt het model niet in Forever (het vak hoort dan
+      na 1,5 s weg te gaan en het venster weer smal te worden).
+
 ## 🆕 7 nov (avond) — Forever: tooltips in het trainervenster
 
 - [ ] `/reload`, open "New at your trainer" (startscherm of `/mh trainer`): muis op een spellregel (bijv. Immolate) →
