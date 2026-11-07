@@ -1,5 +1,19 @@
 # Midnight Helper — waar we staan
 
+## 🔎 7 nov — Leatrix Maps, OpenMap, GearQuest bekeken (mh-research, alleen lezen)
+
+- Verslagen: `docs/forever/REVIEW_LEATRIX_MAPS_2026-11-07.md`, `REVIEW_OPENMAP_2026-11-07.md`, `REVIEW_GEARQUEST_2026-11-07.md`.
+- Licenties (GEMETEN): Leatrix Maps All Rights Reserved (+ MapUtils GPLv3), GearQuest Forever All Rights Reserved,
+  OpenMap MIT (code + eigen data; Blizzard-art uitgesloten). Questie's eigen LICENSE: "bij twijfel all rights reserved".
+- 🔴 Echte MH-fout, GEMETEN in de code door de bouwchat: `NativeArrow.lua:916-920` en `:1085-1087` wissen de user waypoint
+  bij het einde van een route zonder te kijken of hij nog van MH is → een eigen speld (Blizzard-kaart, OpenMap) verdwijnt.
+  Effect AFGELEID. Ook retail. Rob beslist over de reparatie.
+- Ideeën (niets gebouwd): quest-beloning-hint (GearQuest), `/mh trainer here` om trainer-plekken zelf te meten, pijl naar
+  dungeon-ingangen/flight masters uit DB2 (OpenMap), `## LoadSavedVariablesFirst` voor `/mh lang` (Leatrix), `/mh map`
+  zegt op Forever niets. Testen met één /run: `C_Map.GetMapLevels` op Forever.
+- GEMETEN: OpenMap en GearQuestForever (+9 class-mappen) staan sinds 7 nov ~07:00 in `_forever_\Interface\AddOns`
+  (niet door ons). Leatrix Maps niet.
+
 ## 🛠️ 7 nov — Forever: nieuw bij de trainer, stap A (Rob: "Ja, A + pijl")
 
 - Nieuw: `Modules/ForeverTrainer.lua` + `Modules/ForeverTrainerData.lua` (beide TOC's + docs-kopie, alleen `ns.IS_FOREVER`).
