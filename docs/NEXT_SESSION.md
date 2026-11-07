@@ -1,5 +1,19 @@
 # Midnight Helper — waar we staan
 
+## 🆕 7 nov (avond) — Forever: waarschuwing voor je laatste gereedschap (Rob: "ja doe maar")
+
+- Aanleiding: Rob verkocht per ongeluk zijn Skinning Knife. Nieuw `Modules/ForeverToolGuard.lua` (beide TOCs,
+  `IS_FOREVER`), `/mh toolguard [on|off]` (Core.lua; kaal = diagnose). Alleen bij je LAATSTE van een soort:
+  1. bij een verkoper een rode tooltip-regel (`TooltipDataProcessor.AddTooltipPostCall`, Item);
+  2. bij vernietigen een eigen MH-notitie onder de game-dialoog (`DELETE_ITEM_CONFIRM` → GUID → itemID;
+     `StaticPopup_FindVisible`; niets in de Blizzard-dialoog geschreven);
+  3. toch verkocht: venster met knop Terugkopen (`GetBuybackItemLink`/`BuybackItem`), via MERCHANT_UPDATE/BAG_UPDATE_DELAYED.
+- Data GEMETEN door mh-research (wago 1.60.1.70862 ItemSparse.TotemCategoryID: 22 items; + 5060 Thieves' Tools en 4471
+  Flint and Tinder per item-id; totems 5175-5178 niet te verkopen/vernietigen → weggelaten; hengels geen categorie).
+  Interface-feiten uit Gethe wow-ui-source branch `forever` (commit 9dc84f0d3b): Forever-UI = Mainline + Camelot-overrides.
+- ⚠️ AFGELEID, niet getest: of `BuybackItem` vanaf onze knop mag, of de tooltip-post-call in Forever vuurt, of vervangers
+  (hogere staaf, Gnomish Army Knife) tellen — we tellen alleen dezelfde soort (hooguit één waarschuwing te veel).
+
 ## 🆕 7 nov (avond) — Forever: trainervenster zegt welk totem-voorwerp een Shaman mist (Rob: "ja")
 
 - Aanleiding: Robs Tauren leerde Earthbind Totem op 6, tooltip "Tools: Earth Totem" rood; ons venster zei niets.

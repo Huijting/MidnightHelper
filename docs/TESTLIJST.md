@@ -21,6 +21,19 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 7 nov (avond) — Forever: waarschuwing voor je laatste gereedschap
+
+Met één Skinning Knife (of Mining Pick) in je tassen. Een nieuwe kost bij een verkoper weinig.
+- [ ] `/reload`, `/mh toolguard`: hij noemt je knife met "warned about", en "vendor tooltip line: hooked".
+- [ ] Bij een verkoper, muis op de knife: rode regel "Right-click sells this, and it is your last one…".
+      Zonder verkoper: géén rode regel.
+- [ ] Sleep de knife uit je tas (vernietigen): onder het venster "Delete?" van de game staat een rood MH-vak
+      "Careful: this is your last Skinning Knife… A vendor sells a new one." Klik **Nee** in het venster van de game.
+- [ ] Verkoop de knife (rechtsklik bij de verkoper): venster "You just sold your last Skinning Knife" met knop
+      **Buy back**. Klik erop: de knife zit weer in je tassen. Zegt BugSack iets ("blocked")? Stuur het me.
+- [ ] Na dit alles: een drankje of quest-voorwerp uit je tas gebruiken werkt nog gewoon; BugSack blijft leeg.
+- [ ] Twee knives in je tassen: geen rode regels en geen venster.
+
 ## 🆕 7 nov (avond) — Forever: Shaman-totems zonder totem-voorwerp
 
 Op de Tauren Shaman, VÓÓR je de quest "Call of Earth" afmaakt.

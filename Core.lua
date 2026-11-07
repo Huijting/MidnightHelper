@@ -2512,6 +2512,18 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh toolguard [on | off] — WoW Forever: warn before you sell or destroy your last tool (ForeverToolGuard.lua;
+	-- Rob, 7 Nov 2026: "ja doe maar", after selling his Skinning Knife by accident).
+	local toolArg = msg:lower() == "toolguard" and "" or msg:lower():match("^toolguard%s+(.+)$")
+	if toolArg then
+		if ns.ForeverToolGuardSlash then
+			ns.ForeverToolGuardSlash(toolArg)
+		else
+			print("|cffffcc00Midnight Helper:|r /mh toolguard is for WoW: Forever.")
+		end
+		return
+	end
+
 	-- /mh mylayout [remember | forget | check] — WoW Forever: carry your Edit Mode layout to every new character
 	-- (ForeverLayoutCarry.lua; Rob, 7 Nov 2026: "ik moet bij elke character alles weer recht zetten" → "2").
 	local layoutArg = msg:lower() == "mylayout" and "" or msg:lower():match("^mylayout%s+(.+)$")

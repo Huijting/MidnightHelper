@@ -20552,6 +20552,14 @@ if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 -- WoW Forever, 7 Nov 2026: the Train all button under the game's trainer window (ForeverTrainAll.lua). Our own
 -- translation, not native-checked. No itIT: Forever has no Italian client.
 if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
+	TOOLG_TIP_SELL = "Rechtsklick verkauft das, und es ist dein letztes. Du brauchst es als Werkzeug.",
+	TOOLG_DELETE_FMT = "Vorsicht: Das ist dein letztes Exemplar von %s. Du brauchst es als Werkzeug für einen Beruf oder eine Klassenfertigkeit.",
+	TOOLG_HOW_BUY = "Ein Händler verkauft ein neues.",
+	TOOLG_HOW_CRAFT = "Ein neues muss mit einem Beruf hergestellt werden.",
+	TOOLG_HOW_QUEST = "Es stammt aus einer Quest.",
+	TOOLG_SOLD_FMT = "Du hast gerade dein letztes Exemplar von %s verkauft. Du brauchst es als Werkzeug. Kauf es hier bei diesem Händler zurück.",
+	TOOLG_BUYBACK = "Zurückkaufen",
+	TOOLG_BUYBACK_FAIL = "Zurückkaufen ging von hier aus nicht. Öffne den Rückkauf-Reiter des Händlers.",
 	FTRAIN_TOTEM_HEAD = "Totems, die du kennst, aber noch nicht aufstellen kannst",
 	FTRAIN_TOTEM_FMT = "benötigt %s (Klassenquest ab Stufe %d)",
 	FTRAIN_ALL = "Alles lernen",
@@ -20566,6 +20574,14 @@ if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 }) end
 
 if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
+	TOOLG_TIP_SELL = "Un clic droit vend cet objet, et c'est ton dernier. Tu en as besoin comme outil.",
+	TOOLG_DELETE_FMT = "Attention : c'est ton dernier exemplaire de %s. Tu en as besoin comme outil pour un métier ou une compétence de classe.",
+	TOOLG_HOW_BUY = "Un marchand en vend un neuf.",
+	TOOLG_HOW_CRAFT = "Il faut en fabriquer un nouveau avec un métier.",
+	TOOLG_HOW_QUEST = "Il venait d'une quête.",
+	TOOLG_SOLD_FMT = "Tu viens de vendre ton dernier exemplaire de %s. Tu en as besoin comme outil. Rachète-le ici, chez ce marchand.",
+	TOOLG_BUYBACK = "Racheter",
+	TOOLG_BUYBACK_FAIL = "impossible de le racheter d'ici. Ouvre l'onglet de rachat du marchand.",
 	FTRAIN_TOTEM_HEAD = "Totems que tu connais mais ne peux pas encore poser",
 	FTRAIN_TOTEM_FMT = "nécessite %s (quête de classe au niveau %d)",
 	FTRAIN_ALL = "Tout apprendre",
@@ -20580,6 +20596,14 @@ if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 }) end
 
 if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
+	TOOLG_TIP_SELL = "Un clic derecho lo vende, y es el último que tienes. Lo necesitas como herramienta.",
+	TOOLG_DELETE_FMT = "Cuidado: es tu último ejemplar de %s. Lo necesitas como herramienta para una profesión o una habilidad de clase.",
+	TOOLG_HOW_BUY = "Un vendedor vende uno nuevo.",
+	TOOLG_HOW_CRAFT = "Hay que fabricar uno nuevo con una profesión.",
+	TOOLG_HOW_QUEST = "Lo conseguiste en una misión.",
+	TOOLG_SOLD_FMT = "Acabas de vender tu último ejemplar de %s. Lo necesitas como herramienta. Recómpralo aquí, en este vendedor.",
+	TOOLG_BUYBACK = "Recomprar",
+	TOOLG_BUYBACK_FAIL = "no se pudo recomprar desde aquí. Abre la pestaña de recompra del vendedor.",
 	FTRAIN_TOTEM_HEAD = "Tótems que conoces pero aún no puedes colocar",
 	FTRAIN_TOTEM_FMT = "necesita %s (misión de clase de nivel %d)",
 	FTRAIN_ALL = "Aprender todo",
@@ -20594,6 +20618,14 @@ if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 }) end
 
 if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
+	TOOLG_TIP_SELL = "Um clique direito vende isto, e é o seu último. Você precisa dele como ferramenta.",
+	TOOLG_DELETE_FMT = "Cuidado: este é o seu último exemplar de %s. Você precisa dele como ferramenta para uma profissão ou habilidade de classe.",
+	TOOLG_HOW_BUY = "Um vendedor vende um novo.",
+	TOOLG_HOW_CRAFT = "Um novo precisa ser feito com uma profissão.",
+	TOOLG_HOW_QUEST = "Ele veio de uma missão.",
+	TOOLG_SOLD_FMT = "Você acabou de vender o seu último exemplar de %s. Você precisa dele como ferramenta. Recompre-o aqui, neste vendedor.",
+	TOOLG_BUYBACK = "Recomprar",
+	TOOLG_BUYBACK_FAIL = "não deu para recomprar daqui. Abra a aba de recompra do vendedor.",
 	FTRAIN_TOTEM_HEAD = "Totens que você conhece mas ainda não pode colocar",
 	FTRAIN_TOTEM_FMT = "precisa de %s (missão de classe no nível %d)",
 	FTRAIN_ALL = "Aprender tudo",

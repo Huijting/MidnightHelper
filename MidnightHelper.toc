@@ -238,6 +238,7 @@ Modules\ForeverTrainerData.lua
 Modules\ForeverTrainerSpots.lua
 Modules\ForeverTrainer.lua
 Modules\ForeverTrainAll.lua
+Modules\ForeverToolGuard.lua
 Modules\ForeverMainStats.lua
 Modules\ForeverQuestHint.lua
 Modules\ForeverLayoutCarry.lua

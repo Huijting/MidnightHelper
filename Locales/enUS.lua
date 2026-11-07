@@ -4748,6 +4748,15 @@ ns._mhLocales.enUS = {
 	FTRAIN_TOTEM_HEAD = "Totems you know but cannot place yet",
 	FTRAIN_TOTEM_FMT = "needs the %s, from a class quest at level %d",
 	FTRAIN_TOTEM_FROM_FMT = "(starts at %s)",
+	-- 7 Nov 2026: warn before you sell or destroy your last tool (ForeverToolGuard.lua).
+	TOOLG_TIP_SELL = "Right-click sells this, and it is your last one. You need it as a tool.",
+	TOOLG_DELETE_FMT = "Careful: this is your last %s. You need it as a tool for a profession or class skill.",
+	TOOLG_HOW_BUY = "A vendor sells a new one.",
+	TOOLG_HOW_CRAFT = "A new one has to be made with a profession.",
+	TOOLG_HOW_QUEST = "It came from a quest.",
+	TOOLG_SOLD_FMT = "You just sold your last %s. You need it as a tool. Buy it back here, at this vendor.",
+	TOOLG_BUYBACK = "Buy back",
+	TOOLG_BUYBACK_FAIL = "could not buy it back from here. Open the vendor's Buyback tab.",
 	-- 7 Nov 2026: the Train all button under the game's trainer window (ForeverTrainAll.lua).
 	FTRAIN_ALL = "Train all",
 	FTRAIN_ALL_FMT = "Train all (%d, %s)",
