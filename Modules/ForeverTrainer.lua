@@ -11,7 +11,8 @@ local _, ns = ...
 	Data: ForeverTrainerData.lua (generated from What's Training?'s MIT data, levels cross-checked with our research).
 	  - At every level-up: one chat line, and the window opens by itself when there is something to learn (out of combat).
 	    /mh trainer auto off stops the window opening by itself (the chat line stays) — players choose, not us.
-	  - /mh trainer        opens or closes the window
+	  - /mh trainer        opens or closes the window (with the "Take me to my trainer" button, step 2)
+	  - /mh trainer go     the arrow to your nearest class trainer; /mh trainer here records one; /mh trainer forget
 	  - /mh trainer check  prints what was decided and why (a module whose normal result is "nothing" needs a way to see
 	                       that it decided nothing on purpose — CLAUDE.md).
 	English only, like Forever's How you play (translation when Rob asks).
@@ -290,9 +291,24 @@ local function Build()
 	f.title:SetPoint("TOPLEFT", 22, -18)
 	local close = CreateFrame("Button", nil, f, "UIPanelCloseButton")
 	close:SetPoint("TOPRIGHT", -6, -6)
+	-- The arrow button sits in the same window as the list (CLAUDE.md: the explanation in the same room as the button).
+	local go = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
+	go:SetSize(210, 24)
+	go:SetPoint("BOTTOMLEFT", 20, 16)
+	go:SetText("Take me to my trainer")
+	go:SetScript("OnClick", function()
+		if ns.ForeverTrainerGo then
+			ns.ForeverTrainerGo()
+		end
+	end)
+	f.go = go
+	f.goHint = f:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+	f.goHint:SetPoint("LEFT", go, "RIGHT", 8, 0)
+	f.goHint:SetPoint("RIGHT", f, "RIGHT", -20, 0)
+	f.goHint:SetJustifyH("LEFT")
 	local scroll = CreateFrame("ScrollFrame", nil, f, "UIPanelScrollFrameTemplate")
 	scroll:SetPoint("TOPLEFT", 22, -48)
-	scroll:SetPoint("BOTTOMRIGHT", -38, 20)
+	scroll:SetPoint("BOTTOMRIGHT", -38, 48)
 	local child = CreateFrame("Frame", nil, scroll)
 	child:SetSize(490, 10)
 	scroll:SetScrollChild(child)
@@ -319,6 +335,7 @@ local function Fill(level)
 	f.body:SetText(Text(r))
 	f.child:SetHeight(f.body:GetStringHeight() + 20)
 	f.scroll:SetVerticalScroll(0)
+	f.goHint:SetText(ns.ForeverTrainerNearestText and ns.ForeverTrainerNearestText() or "")
 	return f, r
 end
 
@@ -337,6 +354,190 @@ end
 
 local PREFIX = "|cffffcc00Midnight Helper:|r "
 
+--------------------------------------------------------------------------------
+-- Step 2: the arrow to your class trainer (Rob, 7 Nov 2026: "alle drie, en eigenlijk vind ik dat we gewoon die van
+-- handy notes moeten kunnen gebruiken !!"). Three sources, nearest wins:
+--   1. places YOU recorded with /mh trainer here (MidnightHelperDB, per class, every character of that class);
+--   2. HandyNotes: Class Trainers, when it is installed: read from that addon WHILE YOU PLAY. Its data is All Rights
+--      Reserved, so MH never copies it into its own files; it only asks the addon the player already has.
+--   3. ns.FOREVER_TRAINER_SPOTS (our own list from Wowhead's Forever data, when it exists).
+--------------------------------------------------------------------------------
+
+local function PlayerSide()
+	local f = UnitFactionGroup and UnitFactionGroup("player")
+	return (f == "Alliance" and "A") or (f == "Horde" and "H") or nil
+end
+
+--- map + x/y (0-100) → continent id and world x/y, or nil.
+local function World(map, x, y)
+	if not (C_Map and C_Map.GetWorldPosFromMapPos and CreateVector2D) then
+		return nil
+	end
+	local ok, cont, pos = pcall(C_Map.GetWorldPosFromMapPos, map, CreateVector2D(x / 100, y / 100))
+	if not ok or not cont or not pos then
+		return nil
+	end
+	local okXY, wx, wy = pcall(pos.GetXY, pos)
+	if not okXY or not wx or (issecretvalue and (issecretvalue(wx) or issecretvalue(wy) or issecretvalue(cont))) then
+		return nil
+	end
+	return cont, wx, wy
+end
+
+--- Where the player stands: map, x, y (0-100), or nil.
+local function PlayerPlace()
+	local map = C_Map and C_Map.GetBestMapForUnit and C_Map.GetBestMapForUnit("player")
+	if not map or not C_Map.GetPlayerMapPosition then
+		return nil
+	end
+	local ok, pos = pcall(C_Map.GetPlayerMapPosition, map, "player")
+	if not ok or not pos then
+		return nil
+	end
+	local okXY, x, y = pcall(pos.GetXY, pos)
+	if not okXY or not x or (issecretvalue and (issecretvalue(x) or issecretvalue(y))) then
+		return nil
+	end
+	return map, x * 100, y * 100
+end
+
+local function Spots()
+	local db = ns.db
+	if not db then
+		return {}
+	end
+	db.foreverTrainerSpots = db.foreverTrainerSpots or {}
+	return db.foreverTrainerSpots
+end
+
+--- The HandyNotes: Class Trainers addon object, or nil. Its points table is
+--- points[uiMapID][XXXXYYYY] = { npc, class, side = "A"/"H"/"N", name, kind, title } (read from its Data.lua header).
+local function HandyNotesTrainers()
+	local AceAddon = LibStub and LibStub("AceAddon-3.0", true)
+	local addon = AceAddon and AceAddon:GetAddon("HandyNotes_ClassTrainers", true)
+	if type(addon) == "table" and type(addon.points) == "table" then
+		return addon
+	end
+	return nil
+end
+
+--- Every known class-trainer place for this character: { map, x, y, name, src }.
+local function Candidates(token)
+	local out, side = {}, PlayerSide()
+	for _, s in ipairs(Spots()[token] or {}) do
+		out[#out + 1] = { map = s.map, x = s.x, y = s.y, name = s.name, src = "yours" }
+	end
+	local hn = HandyNotesTrainers()
+	if hn then
+		for map, nodes in pairs(hn.points) do
+			if type(nodes) == "table" then
+				for coord, node in pairs(nodes) do
+					if type(node) == "table" and node.class == token and not node.kind and type(coord) == "number"
+						and (node.side == "N" or node.side == side) then
+						out[#out + 1] = { map = map, x = math.floor(coord / 10000) / 100, y = (coord % 10000) / 100,
+							name = node.name, src = "HandyNotes" }
+					end
+				end
+			end
+		end
+	end
+	for _, s in ipairs((ns.FOREVER_TRAINER_SPOTS or {})[token] or {}) do
+		if not s.side or s.side == "N" or s.side == side then
+			out[#out + 1] = { map = s.map, x = s.x, y = s.y, name = s.name, src = "MH list" }
+		end
+	end
+	return out
+end
+ns.ForeverTrainerCandidates = Candidates -- the offline check calls it
+
+--- The nearest trainer on the player's continent: the candidate, its distance (yards), and how many were looked at.
+local function Nearest(token)
+	local all = Candidates(token)
+	local map, px, py = PlayerPlace()
+	local cont, wx, wy
+	if map then
+		cont, wx, wy = World(map, px, py)
+	end
+	if not cont then
+		return nil, nil, #all, "your position cannot be read here"
+	end
+	local best, bestD
+	for _, c in ipairs(all) do
+		local cc, cx, cy = World(c.map, c.x, c.y)
+		if cc == cont then
+			local d = math.sqrt((cx - wx) ^ 2 + (cy - wy) ^ 2)
+			if not bestD or d < bestD then
+				best, bestD = c, d
+			end
+		end
+	end
+	if not best then
+		return nil, nil, #all, (#all == 0) and "no trainer places known yet" or "none on this continent"
+	end
+	return best, math.floor(bestD + 0.5), #all -- whole yards: %d needs an integer
+end
+
+--- One line under the window's button: where it would take you, or what is missing.
+function ns.ForeverTrainerNearestText()
+	local best, dist, _, why = Nearest(Token())
+	if best then
+		return ("%s, about %d yards (%s)"):format(best.name or "your trainer", dist, best.src)
+	end
+	return why .. ": stand next to your trainer and type /mh trainer here"
+end
+
+function ns.ForeverTrainerGo()
+	local token = Token()
+	local best, dist, n, why = Nearest(token)
+	if not best then
+		print(PREFIX .. "trainer arrow: " .. why .. ". Stand next to your trainer and type /mh trainer here " ..
+			"(or install HandyNotes: Class Trainers).")
+		return false
+	end
+	if not (ns.SetBlizzardUserWaypoint and ns.SetBlizzardUserWaypoint(best.map, best.x, best.y)) then
+		print(PREFIX .. "trainer arrow: the game does not allow a waypoint on that map.")
+		return false
+	end
+	local label = (best.name or "Class trainer") .. " (trainer)"
+	ns.lastTarget = { mapID = best.map, x = best.x, y = best.y, name = label, via = "/mh trainer go" }
+	ns._mhRouteOwner = "waypoint"
+	print(PREFIX .. ("arrow set to %s, about %d yards (%s, %d places known)."):format(label, dist, best.src, n))
+	return true
+end
+
+--- /mh trainer here: remember where this class's trainer stands (your target, or just this spot).
+local function RecordHere()
+	local token = Token()
+	local map, x, y = PlayerPlace()
+	if not (map and token) then
+		print(PREFIX .. "trainer here: your position cannot be read here.")
+		return
+	end
+	local name = UnitExists and UnitExists("target") and UnitName("target") or nil
+	local npc
+	local guid = name and UnitGUID and UnitGUID("target")
+	if type(guid) == "string" and not (issecretvalue and issecretvalue(guid)) then
+		npc = tonumber(guid:match("^Creature%-%d+%-%d+%-%d+%-%d+%-(%d+)"))
+	end
+	local list = Spots()
+	list[token] = list[token] or {}
+	table.insert(list[token], { map = map, x = math.floor(x * 100 + 0.5) / 100, y = math.floor(y * 100 + 0.5) / 100,
+		name = name, npc = npc, at = time and time() or nil })
+	print(PREFIX .. ("trainer here: saved %s at %.2f, %.2f on map %d for every %s. /mh trainer forget removes the last one.")
+		:format(name or "this spot", x, y, map, token:lower()))
+end
+
+local function ForgetLast()
+	local token = Token()
+	local list = Spots()[token]
+	if list and #list > 0 then
+		local s = table.remove(list)
+		print(PREFIX .. ("trainer: forgot %s (%.2f, %.2f)."):format(s.name or "that spot", s.x, s.y))
+	else
+		print(PREFIX .. "trainer: you have not saved a trainer place for this class.")
+	end
+end
+
 local function Check()
 	local level = UnitLevel("player")
 	local r = Compute(level)
@@ -347,12 +548,32 @@ local function Check()
 	if r.data == 0 then
 		print("  no trainer data for this class: the window stays empty on purpose")
 	end
+	local yours, hn, list = 0, 0, 0
+	for _, c in ipairs(Candidates(r.token)) do
+		if c.src == "yours" then
+			yours = yours + 1
+		elseif c.src == "HandyNotes" then
+			hn = hn + 1
+		else
+			list = list + 1
+		end
+	end
+	print(("  trainer places: yours %d, HandyNotes %s, MH list %d"):format(yours,
+		HandyNotesTrainers() and tostring(hn) or "not installed", list))
+	local best, dist, _, why = Nearest(r.token)
+	print("  nearest: " .. (best and ("%s, %d yards (%s)"):format(best.name or "?", dist, best.src) or why))
 end
 
 function ns.ForeverTrainerSlash(arg)
 	arg = (arg or ""):lower()
 	if arg == "check" then
 		Check()
+	elseif arg == "go" then
+		ns.ForeverTrainerGo()
+	elseif arg == "here" then
+		RecordHere()
+	elseif arg == "forget" then
+		ForgetLast()
 	elseif arg == "auto off" or arg == "auto on" then
 		Settings().auto = (arg == "auto on")
 		print(PREFIX .. "the trainer window " .. (Settings().auto and "opens by itself at level-up again." or

@@ -21,6 +21,18 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 7 nov — Forever: pijl naar je trainer (`/mh trainer go`)
+
+Rob: *"alle drie"*. Alleen offline getest, met jouw echte HandyNotes_ClassTrainers-lijst.
+- [ ] `/mh trainer`: onderaan het venster de knop **Take me to my trainer**, met ernaast welke trainer en hoe ver.
+      Klik: komt de pijl, en wijst hij naar je class-trainer?
+- [ ] Zet in HandyNotes (`/classtrainers`) **Only my class** UIT: MH moet tóch alleen jouw class kiezen.
+- [ ] Sta naast een trainer, klik hem aan (target) en typ `/mh trainer here`. Groene regel met zijn naam?
+      Daarna `/mh trainer go` elders in die stad: kiest hij jouw plek als die dichterbij is? `/mh trainer forget` haalt
+      hem weer weg.
+- [ ] `/mh trainer check`: de regel *"trainer places: yours …, HandyNotes …"* en *"nearest: …"*. Stuur hem mee bij twijfel.
+- [ ] Ander continent dan je trainers (bv. een Night Elf in Stormwind): netjes *"none on this continent"*, geen fout.
+
 ## 🆕 7 nov — De route-pijl laat jouw eigen kaartspeld staan (retail én Forever)
 
 Rob: *"Ja, repareer"*. Alleen offline getest. Vroeger haalde MH aan het einde van een route ook een speld weg die jij

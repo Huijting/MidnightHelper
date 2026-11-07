@@ -1,5 +1,19 @@
 # Midnight Helper — waar we staan
 
+## 🧭 7 nov — Forever: pijl naar je trainer, stap 2 (Rob: "alle drie, en eigenlijk vind ik dat we gewoon die van handy notes moeten kunnen gebruiken !!")
+
+- In `ForeverTrainer.lua`: knop **Take me to my trainer** in het venster, `/mh trainer go`, `/mh trainer here` (je eigen
+  plek, per class, accountbreed in `ns.db.foreverTrainerSpots`), `/mh trainer forget`. Dichtstbijzijnde op je continent wint.
+- Drie bronnen: (1) jouw plekken; (2) **HandyNotes_ClassTrainers tijdens het spelen**: MH leest
+  `AceAddon:GetAddon("HandyNotes_ClassTrainers").points` en filtert zelf op class/kant (los van hun "Only my class").
+  Niets gekopieerd: hun data is All Rights Reserved, MH vraagt alleen wat de speler al heeft; (3) `ns.FOREVER_TRAINER_SPOTS`
+  (eigen Wowhead-lijst, mh-research loopt nog; bestand nog niet gemaakt).
+- GEMETEN offline (scratch `trainer_arrow_test.py`, echte ForeverTrainer.lua + Robs echte HandyNotes Data.lua): Paladin
+  Stormwind → Arthur the Faithful, Warlock Orgrimmar → Mirket, Shaman Ironforge → Eldrun Stormbreaker; eigen plek wint;
+  zonder bron een uitleg. Gevonden en gerepareerd: `%d` met een kommagetal (afstand). Syntax OK, lint 0 HARD.
+  AFGELEID: `GetWorldPosFromMapPos` + `GetPlayerMapPosition` op Forever, en dat de pijl daar tekent.
+- 💡 Netste route naar "gewoon gebruiken": de maker (Frostaphim, CF) om toestemming vragen. Alleen Rob kan dat sturen.
+
 ## 🔎 7 nov — Leatrix Maps, OpenMap, GearQuest bekeken (mh-research, alleen lezen)
 
 - Verslagen: `docs/forever/REVIEW_LEATRIX_MAPS_2026-11-07.md`, `REVIEW_OPENMAP_2026-11-07.md`, `REVIEW_GEARQUEST_2026-11-07.md`.
