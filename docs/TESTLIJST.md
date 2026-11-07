@@ -31,8 +31,11 @@ Rob: *"ja begin met a"*. Niet offline te testen; alleen in het spel.
 - [x] Forever, een character MET achternaam op Modern: stap 2 maakt een layout met de hele naam, bv. *"Ima Shamandwarf
       Shaman"* (Edit Mode → het lijstje bovenaan).
       ✅ Rob 7 nov: *"De naam opslaan is goed gegaan"* — "Ima Priestman Priest" (GEMETEN in de SV).
-- [ ] 🐛 Forever na stap 2: staan het **menu en de tassen rechtsonder** (niet meer over blok C) en zijn de **twee
+- [x] 🐛 Forever na stap 2: staan het **menu en de tassen rechtsonder** (niet meer over blok C) en zijn de **twee
       griffioenen weg**? Op "Ima Priestman": eerst *"zet mijn layout terug"*, dan stap 2 opnieuw.
+      ✅ Rob 7 nov: *"Ja, dit werkte beter"*.
+- [ ] XP-balk na stap 2 (Forever): recht boven blok A, zoals op je Hunter? Een class met een stance-balk (Warrior, Druid):
+      staat die er boven, niet eroverheen?
 - [ ] Geen BugSack-fout bij stap 2.
 
 ## 🆕 7 nov (middag) — Forever: je layout naar elk nieuw character (`/mh mylayout`)

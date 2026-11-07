@@ -1193,8 +1193,11 @@ function ns.MH_EditModeApplyKeyBlock(fromPreset)
 	-- and bags sit bottom-centre, under the block; the gryphons hang on MainActionBar and BagsBar. His Hunter: menu and bags
 	-- bottom-right, gryphons Hidden = 1. Forever only: retail's Modern already keeps them bottom-right (AFGELEID) and has
 	-- no system 26.
-	local MICRO_SYSTEM, BAGS_SYSTEM, ENDCAP_SYSTEM = 13, 14, 26
-	local foreverMicro, foreverBags, endCaps = nil, nil, {}
+	-- And the experience bar (Rob, same evening: "de experience bar … staat nu ietsjes uit het lood"): StatusTrackingBar
+	-- = system 15 (Blizzard's Forever enum), index 1. His Hunter, GEMETEN in the SavedVariables: BOTTOM to MultiBarLeft's
+	-- TOP, x 48, y 4 — relative to block A, so it follows the block on any screen. Copied as he set it.
+	local MICRO_SYSTEM, BAGS_SYSTEM, ENDCAP_SYSTEM, STATUS_SYSTEM = 13, 14, 26, 15
+	local foreverMicro, foreverBags, endCaps, foreverXP = nil, nil, {}, nil
 	if ns.IS_FOREVER then
 		for _, s in ipairs(target.systems or {}) do
 			if s.system == MICRO_SYSTEM then
@@ -1203,7 +1206,12 @@ function ns.MH_EditModeApplyKeyBlock(fromPreset)
 				foreverBags = s
 			elseif s.system == ENDCAP_SYSTEM then
 				endCaps[#endCaps + 1] = s
+			elseif s.system == STATUS_SYSTEM and s.systemIndex == 1 then
+				foreverXP = s
 			end
+		end
+		if foreverXP then
+			movingNames["MainStatusTrackingBarContainer"] = true -- GEMETEN as relativeTo in Rob's Hunter layout
 		end
 		if foreverMicro then
 			movingNames["MicroMenuContainer"] = true -- frame names GEMETEN as relativeTo in the Modern copy
@@ -1357,8 +1365,11 @@ function ns.MH_EditModeApplyKeyBlock(fromPreset)
 	end
 
 	-- 3. The game's extra bars, just above the block.
-	if sysBy[11] then Anchor(sysBy[11], "BOTTOMLEFT", BAR_FRAME_NAMES[5], "TOPLEFT", 0, BLOCK_GAP) end
-	if sysBy[13] then Anchor(sysBy[13], "BOTTOMLEFT", BAR_FRAME_NAMES[5], "TOPLEFT", 0, BLOCK_GAP) end
+	-- On Forever the experience bar goes right above block A (step 4); the stance/possess bars then sit one bar-height
+	-- higher so they do not cover it (16 = AFGELEID height of the bar plus air; not measured).
+	local xpLift = foreverXP and 16 or 0
+	if sysBy[11] then Anchor(sysBy[11], "BOTTOMLEFT", BAR_FRAME_NAMES[5], "TOPLEFT", 0, BLOCK_GAP + xpLift) end
+	if sysBy[13] then Anchor(sysBy[13], "BOTTOMLEFT", BAR_FRAME_NAMES[5], "TOPLEFT", 0, BLOCK_GAP + xpLift) end
 	if sysBy[12] then Anchor(sysBy[12], "BOTTOMRIGHT", BAR_FRAME_NAMES[7], "TOPRIGHT", 0, BLOCK_GAP) end
 	if sysBy.extra then Anchor(sysBy.extra, "BOTTOM", BAR_FRAME_NAMES[6], "TOP", 0, BLOCK_GAP) end
 
@@ -1376,6 +1387,9 @@ function ns.MH_EditModeApplyKeyBlock(fromPreset)
 	end
 	for _, s in ipairs(endCaps) do
 		SetSetting(s, 0, 1) -- EditModeMainActionBarEndCapSetting.Hidden = 0 → setting 0, value 1 = hidden
+	end
+	if foreverXP then
+		Anchor(foreverXP, "BOTTOM", BAR_FRAME_NAMES[5], "TOP", 48, 4) -- as on Rob's Hunter (MultiBarLeft = block A)
 	end
 
 	if EditModeManagerFrame and EditModeManagerFrame.ReconcileWithModern then

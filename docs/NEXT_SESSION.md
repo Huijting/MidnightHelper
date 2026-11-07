@@ -11,6 +11,9 @@
   (BOTTOMRIGHT → BagsBar BOTTOMLEFT -7), endcaps setting 0 = 1. Frame-namen MicroMenuContainer/BagsBar GEMETEN als
   relativeTo. Retail ongemoeid. Syntax OK, lint 0 HARD. Niet offline te testen (live frames); posities AFGELEID.
 - ⚠️ Een character dat stap 2 al deed (Ima Priestman): eerst "zet terug", dan stap 2 opnieuw (anders "already a block").
+- ✅ Rob: *"Ja, dit werkte beter"*. Daarna: XP-balk *"ietsjes uit het lood"*. StatusTrackingBar = systeem 15 index 1;
+  Hunter GEMETEN: BOTTOM → MultiBarLeft TOP (48, 4). Stap 2 (Forever) zet hem nu precies zo; stance/possess (11/13)
+  16 hoger zodat ze er niet over vallen (16 = AFGELEID). Niet in het spel gezien.
 
 ## 🛠️ 7 nov (middag) — layoutnaam met Forever-achternaam (Rob: "doe jouw voorstel maar")
 
