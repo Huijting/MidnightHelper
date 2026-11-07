@@ -1,5 +1,12 @@
 # Midnight Helper — waar we staan
 
+## 🔎 7 nov — What's Training? bekeken voor Forever (Rob: "bekijk het goed")
+
+- Alleen onderzoek, niets geïnstalleerd of gebouwd: `docs/forever/WHATS_TRAINING_2026-11-07.md`. MIT (GEMETEN).
+- GEMETEN: 1358/1359 spell-levels gelijk aan onze `FOREVER_<CLASS>`-onderzoeksbestanden (1 verschil = ras, geen fout).
+- Ideeën voor Rob: A "nieuw bij de trainer" per level mét toets, B samenwerken via `WT_API`, D gewoon installeren.
+  TOC: ons `_Camelot.toc`-plan houden. Rob kiest.
+
 ## ☀️ 7 nov — ochtendronde
 
 - Alle vier de wachters gedraaid. Raakt ons: 🔴 Ula'tek Serpent's Bite 3 → 2 spelers (hotfix 6 nov; het getal komt
