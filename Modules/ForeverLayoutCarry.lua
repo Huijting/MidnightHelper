@@ -70,6 +70,27 @@ local function CharKey()
 	return (UnitGUID and UnitGUID("player")) or (UnitName and UnitName("player")) or "?"
 end
 
+--- 🔴 WHICH BARS ARE ON IS NOT IN THE LAYOUT — GEMETEN 7 Nov 2026 with /mh bars (BarInventory) on Rob's two characters,
+--- same layout "Inchy Hunter", AlwaysShowButtons on for bars 1-8 in both: GetActionBarToggles gave 7 values, all "false"
+--- on the new Shaman and all "true" on the Hunter. So the on/off switches of bars 2-8 belong to the CHARACTER, and the
+--- layout alone left the Shaman's bars off. We read them on "remember" and set them on "Yes".
+--- That SetActionBarToggles takes the same 7 values in the same order as Get returns them is AFGELEID (symmetry);
+--- Rob's case is all-true, where the order cannot matter.
+local function ReadBarToggles()
+	if type(GetActionBarToggles) ~= "function" then
+		return nil
+	end
+	local packed = { pcall(GetActionBarToggles) }
+	if not packed[1] then
+		return nil
+	end
+	local out = {}
+	for i = 2, #packed do
+		out[#out + 1] = packed[i] and true or false
+	end
+	return #out > 0 and out or nil
+end
+
 --- /mh mylayout remember
 local function Remember()
 	local ok, why = Ready()
@@ -93,10 +114,17 @@ local function Remember()
 		return
 	end
 	db.foreverMyLayout = { name = tostring(layout.layoutName), str = str, from = UnitName and UnitName("player"),
-		at = time and time() or nil }
+		at = time and time() or nil, bars = ReadBarToggles() }
 	db.foreverMyLayoutAsked = {} -- a new copy: every character may be asked again
-	print(PREFIX .. ("my layout: remembered \"%s\". Every character on Modern or Classic will be offered it once.")
-		:format(db.foreverMyLayout.name))
+	local bars = db.foreverMyLayout.bars
+	local on = 0
+	for _, v in ipairs(bars or {}) do
+		if v then
+			on = on + 1
+		end
+	end
+	print(PREFIX .. ("my layout: remembered \"%s\" (bars on: %s). Every character on Modern or Classic will be offered " ..
+		"it once."):format(db.foreverMyLayout.name, bars and (on .. " of " .. #bars) or "could not read"))
 end
 
 --- Add (or find) the remembered layout on this character and make it active. @return ok, message
@@ -156,7 +184,23 @@ local function UseHere()
 	if not (now and now.layoutName == mine.name) then
 		return false, ("\"%s\" was added but did not become active. Pick it in Edit Mode yourself."):format(mine.name)
 	end
-	return true, ("\"%s\" is now this character's layout."):format(mine.name)
+	-- The bars' on/off switches (per character, see ReadBarToggles), as on the character that remembered the layout.
+	local barsNote = ""
+	if mine.bars and type(SetActionBarToggles) == "function" then
+		local okT = pcall(SetActionBarToggles, (unpack or table.unpack)(mine.bars))
+		local on = 0
+		for _, v in ipairs(mine.bars) do
+			if v then
+				on = on + 1
+			end
+		end
+		barsNote = okT and (" Bars switched on: %d of %d."):format(on, #mine.bars)
+			or " Could not switch the bars on: do it in Options -> Action Bars."
+	elseif not mine.bars then
+		barsNote = " (Which bars are on was not remembered: /mh mylayout remember again on " ..
+			tostring(mine.from or "that character") .. ".)"
+	end
+	return true, ("\"%s\" is now this character's layout.%s"):format(mine.name, barsNote)
 end
 ns.ForeverMyLayoutUse = UseHere
 

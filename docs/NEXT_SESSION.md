@@ -9,7 +9,12 @@
   (zelfde patroon als KeyBlock NeedReload, werkt sinds 5 okt). Inloggen: alle "nog niet klaar"-redenen ~1 min opnieuw
   proberen (eerst stopte "no layouts" het voorgoed), en wachten op `InCinematic`/CINEMATIC_STOP. Oorzaak van de gemiste
   vraag AFGELEID. Offline: test 4b (popup, pas na klik herladen) + 5 oude gevallen goed. Syntax OK.
-- Open: Rob nog vragen of de layout zelf goed overkwam (na zijn eigen /reload).
+- ✅ Uitgezocht met `/mh bars` (BarInventory) op beide characters, GEMETEN in de Forever-SV: Shaman actieve layout
+  "Inchy Hunter" (de layout kwam dus over), AlwaysShowButtons=1 voor balk 1-8, maar `GetActionBarToggles` 7× false;
+  Hunter dezelfde layout en 7× true. De aan/uit-knopjes van balk 2-8 zijn dus PER CHARACTER, niet in de layout.
+  Reparatie: `remember` leest ze (`ReadBarToggles`), Yes zet ze met `SetActionBarToggles` (zelfde volgorde als Get:
+  AFGELEID; bij Robs 7× true maakt de volgorde niet uit). Offline: SetActionBarToggles krijgt 7× true. Rob moet op de
+  Hunter opnieuw `remember` doen (oude kopie heeft geen knopjes).
 
 ## 🛠️ 7 nov (middag) — Forever: je layout naar elk nieuw character (Rob: "kan dat beter ?" → "2")
 

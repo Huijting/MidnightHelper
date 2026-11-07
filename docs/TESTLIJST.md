@@ -31,6 +31,9 @@ Alleen offline getest.
       **Reload now**: na de reload staan je balken zoals op de Hunter, en de balken die je aanzette staan ook aan?
       🐛 7 nov eerste poging: "Yes, and reload" gaf een BugSack-fout (Reload geblokkeerd) en de vraag kwam niet vanzelf;
       gerepareerd, opnieuw testen. Geen BugSack-fout meer bij "Reload now"?
+- [ ] 🔧 Balken aan (7 nov, na `/mh bars`): eerst op de **Hunter** opnieuw `/mh mylayout remember` (de regel zegt nu
+      *"bars on: 7 of 7"*). Dan op de **Shaman** `/mh mylayout` → **Yes** (chat: *"Bars switched on: 7 of 7"*) →
+      **Reload now**. Staan balk 2 t/m 8 er nu, en geen BugSack-fout?
 - [ ] Een character dat al een eigen layout heeft, krijgt de vraag NIET.
 - [ ] **Not on this character**: daarna geen vraag meer op dat character. `/mh mylayout` vraagt het toch opnieuw.
 - [ ] Geen vraag terwijl het zou moeten: `/mh mylayout check` en stuur de regel.
