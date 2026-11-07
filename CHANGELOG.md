@@ -4,9 +4,12 @@ All notable changes to this project are documented in this file.
 
 ## 5.0.0
 
-📌 **2026-11-07, IN VOORBEREIDING (Rob: 5.0.0, meteen Release, "groots adverteren"; nog geen tag — dat is Robs go).**
-Eerste release die ook WoW Forever (1.60.1) ondersteunt: `MidnightHelper_Camelot.toc` zit sinds vandaag in git en in de
-zip. In-game: CHANGELOG_500_0 t/m _9. `RELEASE_NOTES.md` = `docs/CURSEFORGE_5.0.0.md`.
+📌 **2026-11-07, RELEASE (Rob: 5.0.0, meteen Release, "groots adverteren"; go: "Als alles klaar is, ook voor de site
+chat, dan krijg je bij deze een go." + "Nee, tag maar").** Tag `v5.0.0` (annotated) op `817daf0`. GEMETEN in de
+release-log (run 42373267211): "multi-version", game versions 12.1.7, 12.1.5, 12.1.0, 12.0.7, **1.60.1**; CurseForge,
+Wago en GitHub "Success!". Eerste release die ook WoW Forever ondersteunt: `MidnightHelper_Camelot.toc` zit in git en in
+de zip. In-game: CHANGELOG_500_0 t/m _9. `RELEASE_NOTES.md` = `docs/CURSEFORGE_5.0.0.md`. Niet door Rob in het spel
+getest vóór de tag (zijn keuze); niet getest op een niet-Engelse Forever-client.
 
 - **Forever:** eigen startscherm (trainer, geld, pijl, knoppen), "New at your trainer" (`ForeverTrainer.lua`, 1356 spells,
   218 trainers, HandyNotes tijdens het spelen), How you play voor 9 classes (`ForeverHowToPlay.lua` + per taal
