@@ -1,5 +1,21 @@
 # Midnight Helper — waar we staan
 
+## 🆕 7 nov (avond) — Forever: knop "Train all" onder het trainer-venster (Rob: "ja")
+
+- Aanleiding: Rob zag bij zijn zusje (undead warlock) de knop niet. GEMETEN: die komt van **Talents Forever**
+  (`TalentsForeverBook/UI.lua`, knop `TalentsForeverBookTrainAll`), niet van MH; zij heeft die addon vermoedelijk niet.
+  Talents Forever heeft geen licentiebestand (GEMETEN) → niets gekopieerd, eigen code.
+- Nieuw `Modules/ForeverTrainAll.lua` (beide TOCs, na ForeverTrainer.lua; `IS_FOREVER`-guard): knop onder
+  `ClassTrainerTrainButton`, tekst "Train all (n, prijs)", tooltip per spell + "X more than your money covers". Klik koopt
+  één rij, wacht op TRAINER_UPDATE, leest de lijst opnieuw; geen update na 1,5 s en de rij is nog te koop → stop + melding
+  (geweigerd kopen geeft geen Lua-fout). Geen knop bij profession trainer (`IsTradeskillTrainer`), Beast Training
+  (`npc`=pet of trainingspunten), of als Talents Forever geladen is in stand `auto`.
+  `/mh trainer button [on|off|auto]`; kaal = diagnose. Teksten `FTRAIN_ALL*`: enUS, nlNL, ruRU, de/fr/es/pt
+  (Translations2026, eigen vertaling, geen itIT).
+- ⚠️ AFGELEID, niet getest: de volgorde van `GetTrainerServiceInfo` in 1.60.1, of `IsTradeskillTrainer` bestaat, of het
+  kopen door addons mag. We veranderen het filter van het venster niet: staat "Available" uit, dan ziet de knop niets.
+  Testpunten in TESTLIJST.
+
 ## ✅ 7 nov (avond) — v5.0.1-forever: Forever-helft alsnog geüpload (Rob: "Ja, push maar")
 
 - Tag `v5.0.1-forever` op `0daad62`, run 42395063118 GEMETEN: alleen Forever-stap; "Game version: 1.60.1",

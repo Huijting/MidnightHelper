@@ -763,6 +763,10 @@ function ns.ForeverTrainerSlash(arg)
 		RecordHere()
 	elseif arg == "forget" then
 		ForgetLast()
+	elseif arg == "button" or arg:match("^button ") then
+		if ns.ForeverTrainAllSlash then -- ForeverTrainAll.lua: the Train all button under the game's trainer window
+			ns.ForeverTrainAllSlash(arg:match("^button%s+(%S+)"))
+		end
 	elseif arg == "auto off" or arg == "auto on" then
 		Settings().auto = (arg == "auto on")
 		print(PREFIX .. "the trainer window " .. (Settings().auto and "opens by itself at level-up again." or

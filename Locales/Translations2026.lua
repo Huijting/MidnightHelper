@@ -20548,3 +20548,53 @@ if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	HOME_FOREVER_AD_HIDE = "Capito, nascondi",
 	FOREVER_AD_CHAT = "novità della 5.0: MH ora funziona anche in WoW Forever. Addestratore, Come si gioca, blocco tasti e suggerimento sulla ricompensa della quest. Installalo anche per il tuo gioco Forever; le tue funzioni per Midnight non cambiano.",
 }) end
+
+-- WoW Forever, 7 Nov 2026: the Train all button under the game's trainer window (ForeverTrainAll.lua). Our own
+-- translation, not native-checked. No itIT: Forever has no Italian client.
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
+	FTRAIN_ALL = "Alles lernen",
+	FTRAIN_ALL_FMT = "Alles lernen (%d, %s)",
+	FTRAIN_ALL_BUSY = "Lerne...",
+	FTRAIN_ALL_NONE = "Hier gibt es gerade nichts, das du lernen und bezahlen kannst.",
+	FTRAIN_ALL_SHORT_FMT = "Für %d weitere reicht dein Geld nicht.",
+	FTRAIN_ALL_DONE_FMT = "%d bei deinem Lehrer gelernt, für %s.",
+	FTRAIN_ALL_LATER_FMT = "%d weitere, sobald du das Geld hast.",
+	FTRAIN_ALL_BLOCKED = "das Spiel hat das Addon hier nicht kaufen lassen. Der eigene Knopf des Fensters funktioniert weiterhin.",
+	FTRAIN_ALL_BLOCKED_AFTER_FMT = "%d gelernt, dann hat das Spiel das Addon gestoppt. Der eigene Knopf des Fensters erledigt den Rest.",
+}) end
+
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
+	FTRAIN_ALL = "Tout apprendre",
+	FTRAIN_ALL_FMT = "Tout apprendre (%d, %s)",
+	FTRAIN_ALL_BUSY = "Apprentissage...",
+	FTRAIN_ALL_NONE = "Rien ici pour l'instant que tu puisses apprendre et payer.",
+	FTRAIN_ALL_SHORT_FMT = "%d de plus que ce que ton argent permet.",
+	FTRAIN_ALL_DONE_FMT = "%d appris chez ton maître de classe, pour %s.",
+	FTRAIN_ALL_LATER_FMT = "%d de plus quand tu auras l'argent.",
+	FTRAIN_ALL_BLOCKED = "le jeu n'a pas laissé l'addon acheter ici. Le bouton de la fenêtre fonctionne toujours.",
+	FTRAIN_ALL_BLOCKED_AFTER_FMT = "%d appris, puis le jeu a arrêté l'addon. Le bouton de la fenêtre fait le reste.",
+}) end
+
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
+	FTRAIN_ALL = "Aprender todo",
+	FTRAIN_ALL_FMT = "Aprender todo (%d, %s)",
+	FTRAIN_ALL_BUSY = "Aprendiendo...",
+	FTRAIN_ALL_NONE = "Ahora no hay nada aquí que puedas aprender y pagar.",
+	FTRAIN_ALL_SHORT_FMT = "%d más de lo que cubre tu dinero.",
+	FTRAIN_ALL_DONE_FMT = "%d aprendidos con tu instructor, por %s.",
+	FTRAIN_ALL_LATER_FMT = "%d más cuando tengas el dinero.",
+	FTRAIN_ALL_BLOCKED = "el juego no dejó comprar al addon aquí. El botón de la propia ventana sigue funcionando.",
+	FTRAIN_ALL_BLOCKED_AFTER_FMT = "%d aprendidos, luego el juego detuvo el addon. El botón de la propia ventana hace el resto.",
+}) end
+
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
+	FTRAIN_ALL = "Aprender tudo",
+	FTRAIN_ALL_FMT = "Aprender tudo (%d, %s)",
+	FTRAIN_ALL_BUSY = "Aprendendo...",
+	FTRAIN_ALL_NONE = "Nada aqui agora que você possa aprender e pagar.",
+	FTRAIN_ALL_SHORT_FMT = "%d a mais do que o seu dinheiro cobre.",
+	FTRAIN_ALL_DONE_FMT = "%d aprendidos no seu treinador, por %s.",
+	FTRAIN_ALL_LATER_FMT = "Mais %d quando você tiver o dinheiro.",
+	FTRAIN_ALL_BLOCKED = "o jogo não deixou o addon comprar aqui. O botão da própria janela ainda funciona.",
+	FTRAIN_ALL_BLOCKED_AFTER_FMT = "%d aprendidos, depois o jogo parou o addon. O botão da própria janela faz o resto.",
+}) end

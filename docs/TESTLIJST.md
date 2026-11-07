@@ -21,6 +21,21 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 7 nov (avond) — Forever: knop "Train all" onder het trainer-venster van de game
+
+Test op een character ZONDER Talents Forever (of typ eerst `/mh trainer button on`), met geld en iets te leren.
+- [ ] `/reload`, praat met je class trainer: onder het venster, onder de eigen Train-knop, staat
+      "Train all (3, 1g 20s)" (aantal en prijs van wat je nu kunt betalen).
+- [ ] Muis op de knop: per spell de prijs, onderaan het totaal; heb je te weinig geld, dan een rode regel "X more than
+      your money covers".
+- [ ] Klik: de knop zegt "Training...", de spells worden één voor één geleerd, in de chat staat
+      "learned X at the trainer for …". Daarna zegt de knop "Train all" en is hij grijs.
+- [ ] Zegt de chat "the game did not let the addon buy here"? Zeg het mij: dan blokkeert Forever het kopen door addons.
+- [ ] Met Talents Forever aan: alleen hún knop, de onze niet (`/mh trainer button` zegt waarom).
+      `/mh trainer button on`: beide knoppen, de onze onder die van hen, niet erover heen.
+- [ ] Profession trainer (bijv. Mining) en Hunter Beast Training: geen MH-knop.
+- [ ] Niets te zien bij een class trainer? Typ `/mh trainer button` met het venster open en stuur me de regels.
+
 ## 🆕 7 nov (avond) — Forever: de trainer als draaiend 3D-model
 
 - [x] ✅ Rob 7 nov (screenshot, "mooi, beide werken"). `/reload`, open "New at your trainer" op de Warlock: rechts staat Drusilla La Salle in 3D, ze draait langzaam rond,
