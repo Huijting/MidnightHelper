@@ -226,6 +226,7 @@ Modules\ForeverBlock_Warlock.lua
 Modules\ForeverBlock.lua
 Modules\ForeverHowToPlay.lua
 Modules\ForeverTrainerData.lua
+Modules\ForeverTrainerSpots.lua
 Modules\ForeverTrainer.lua
 Modules\LayoutGrowth.lua
 Modules\BarPlanCard.lua

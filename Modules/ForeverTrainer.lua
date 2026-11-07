@@ -360,7 +360,8 @@ local PREFIX = "|cffffcc00Midnight Helper:|r "
 --   1. places YOU recorded with /mh trainer here (MidnightHelperDB, per class, every character of that class);
 --   2. HandyNotes: Class Trainers, when it is installed: read from that addon WHILE YOU PLAY. Its data is All Rights
 --      Reserved, so MH never copies it into its own files; it only asks the addon the player already has.
---   3. ns.FOREVER_TRAINER_SPOTS (our own list from Wowhead's Forever data, when it exists).
+--   3. ns.FOREVER_TRAINER_SPOTS (ForeverTrainerSpots.lua: 218 class trainers, our own list from Wowhead's Forever NPC
+--      pages, checked against Zygor; works for everyone, also without HandyNotes).
 --------------------------------------------------------------------------------
 
 local function PlayerSide()

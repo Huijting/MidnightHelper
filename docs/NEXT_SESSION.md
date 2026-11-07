@@ -13,6 +13,11 @@
   zonder bron een uitleg. Gevonden en gerepareerd: `%d` met een kommagetal (afstand). Syntax OK, lint 0 HARD.
   AFGELEID: `GetWorldPosFromMapPos` + `GetPlayerMapPosition` op Forever, en dat de pijl daar tekent.
 - 💡 Netste route naar "gewoon gebruiken": de maker (Frostaphim, CF) om toestemming vragen. Alleen Rob kan dat sturen.
+- ✅ Bron 3 erbij: `Modules/ForeverTrainerSpots.lua` (beide TOC's + docs-kopie), GEGENEREERD (scratch
+  `gen_trainer_spots.py`) uit `docs/forever/FOREVER_TRAINERS_2026-11-07.md` (mh-research: Wowhead Forever NPC-pagina's,
+  Zygor-check, wago UiMap 70790): 218 class-trainers, pet/demon/portal eruit, Zephras Isle `both` → `N`. Controle tegen
+  Robs HandyNotes (alleen ter vergelijking, niets overgenomen): 211 binnen 1 eenheid, 6 op 1-1,5 (lopende NPC's, AFGELEID),
+  1 niet in HandyNotes. Offline: zonder HandyNotes kiest de eigen lijst dezelfde trainer (Paladin/Warlock/Shaman).
 - ✅ GEMETEN Rob (screenshot, Dwarf Hunter level 2): venster opent vanzelf bij level-up, knop + HandyNotes-trainer
   (Thorgas Grimson, 237 yards), *"en de pijl komt :)"*. Open: tekst bij `listed`-spells (Track Beasts) zegt "put it on
   your own bar" terwijl ze bewust niet op het blok staan.
