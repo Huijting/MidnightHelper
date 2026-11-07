@@ -28,8 +28,9 @@ Met één Skinning Knife (of Mining Pick) in je tassen. Een nieuwe kost bij een 
 - [x] ✅ Rob 7 nov (screenshot, Mining Pick bij een verkoper, met Baganator): rode regel "Right-click sells this, and it
       is your last one. You need it as a tool." staat in de tooltip.
 - [x] ✅ Rob 7 nov (screenshot, "het werkte"): na verkopen venster "You just sold your last Mining Pick…" met Buy back /
-      Close. ⚠️ Het label "Dock to window" (van RegisterMidnightDialogPopup) valt over de tekst heen → tekst lager zetten.
-- [ ] Buy back zelf: zit de pick daarna weer in je tas, en is BugSack leeg?
+      Close. Het label "Dock to window" viel over de tekst → tekst 16 px lager, venster 112 hoog (7 nov).
+- [ ] Opnieuw verkopen: de tekst staat nu ónder "Dock to window", niets overlapt.
+- [x] ✅ Rob 7 nov ("en ja de buyback werkte"): Buy back vanaf onze knop zet de pick terug — BuybackItem mag dus.
 - [ ] Zonder verkoper: géén rode regel.
 - [ ] Sleep de knife uit je tas (vernietigen): onder het venster "Delete?" van de game staat een rood MH-vak
       "Careful: this is your last Skinning Knife… A vendor sells a new one." Klik **Nee** in het venster van de game.

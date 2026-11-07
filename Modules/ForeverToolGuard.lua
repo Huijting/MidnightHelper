@@ -228,16 +228,18 @@ local function SoldWindow()
 	end
 	local f = CreateFrame("Frame", "MidnightHelperToolGuardSold", UIParent, "BackdropTemplate")
 	f:SetFrameStrata("DIALOG")
-	f:SetSize(360, 96)
+	f:SetSize(360, 112)
 	f:SetPoint("TOP", UIParent, "TOP", 0, -160)
 	if f.SetBackdrop then
 		f:SetBackdrop({ bgFile = "Interface\\DialogFrame\\UI-DialogBox-Background",
 			edgeFile = "Interface\\DialogFrame\\UI-DialogBox-Border", edgeSize = 24,
 			insets = { left = 6, right = 6, top = 6, bottom = 6 } })
 	end
+	-- the text starts below RegisterMidnightDialogPopup's "Dock to window" label (top-right, y -10 to -26); Rob, 7 Nov
+	-- 2026 (screenshot): at -16 it ran over "You need it"
 	f.text = f:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
-	f.text:SetPoint("TOPLEFT", 16, -16)
-	f.text:SetPoint("TOPRIGHT", -16, -16)
+	f.text:SetPoint("TOPLEFT", 16, -32)
+	f.text:SetPoint("TOPRIGHT", -16, -32)
 	f.text:SetJustifyH("LEFT")
 	f.buy = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
 	f.buy:SetSize(130, 22)
