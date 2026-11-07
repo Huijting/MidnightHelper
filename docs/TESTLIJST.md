@@ -25,8 +25,12 @@ er is niets weggegooid.
 
 Met één Skinning Knife (of Mining Pick) in je tassen. Een nieuwe kost bij een verkoper weinig.
 - [ ] `/reload`, `/mh toolguard`: hij noemt je knife met "warned about", en "vendor tooltip line: hooked".
-- [ ] Bij een verkoper, muis op de knife: rode regel "Right-click sells this, and it is your last one…".
-      Zonder verkoper: géén rode regel.
+- [x] ✅ Rob 7 nov (screenshot, Mining Pick bij een verkoper, met Baganator): rode regel "Right-click sells this, and it
+      is your last one. You need it as a tool." staat in de tooltip.
+- [x] ✅ Rob 7 nov (screenshot, "het werkte"): na verkopen venster "You just sold your last Mining Pick…" met Buy back /
+      Close. ⚠️ Het label "Dock to window" (van RegisterMidnightDialogPopup) valt over de tekst heen → tekst lager zetten.
+- [ ] Buy back zelf: zit de pick daarna weer in je tas, en is BugSack leeg?
+- [ ] Zonder verkoper: géén rode regel.
 - [ ] Sleep de knife uit je tas (vernietigen): onder het venster "Delete?" van de game staat een rood MH-vak
       "Careful: this is your last Skinning Knife… A vendor sells a new one." Klik **Nee** in het venster van de game.
 - [ ] Verkoop de knife (rechtsklik bij de verkoper): venster "You just sold your last Skinning Knife" met knop
