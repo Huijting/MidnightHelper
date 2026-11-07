@@ -234,8 +234,9 @@ local function Line(token, e)
 	return ("- %s%s  %s  ->  %s"):format(name, rank and (" |cff9d9d9d(" .. rank .. ")|r") or "", Money(e.c), where)
 end
 
+--- The window's lines, plus `ids[i]` = the spell id of line i (for its tooltip) or nil.
 local function Text(r)
-	local p = {}
+	local p, ids = {}, {}
 	local HEAD = "|cffffcc66"
 	-- Rob, 7 Nov 2026: "dat we ook kunnen zien hoeveel geld we hebben … nu moet ik ook eerst op B drukken". Your money
 	-- on top; red with what is missing when it is not enough for everything you can learn now.
@@ -250,6 +251,7 @@ local function Text(r)
 		p[#p + 1] = HEAD .. ns:L("FTRAIN_NOW_FMT"):format(#r.now) .. "|r  " .. Money(r.total)
 		for _, e in ipairs(r.now) do
 			p[#p + 1] = Line(r.token, e)
+			ids[#p] = e.id
 		end
 		p[#p + 1] = "|cff9d9d9d" .. ns:L("FTRAIN_KEY_HINT") .. "|r"
 	else
@@ -260,6 +262,7 @@ local function Text(r)
 		p[#p + 1] = HEAD .. ns:L("FTRAIN_NEEDS_HEAD") .. "|r"
 		for _, n in ipairs(r.needs) do
 			p[#p + 1] = ns:L("FTRAIN_NEEDS_FMT"):format(SpellName(n.e), n.first)
+			ids[#p] = n.e.id
 		end
 	end
 	if r.nextLevel then
@@ -267,15 +270,16 @@ local function Text(r)
 		p[#p + 1] = HEAD .. ns:L("FTRAIN_NEXT_FMT"):format(r.nextLevel) .. "|r"
 		for _, e in ipairs(r.next) do
 			p[#p + 1] = Line(r.token, e)
+			ids[#p] = e.id
 		end
 	end
 	p[#p + 1] = ""
 	p[#p + 1] = "|cff9d9d9d" .. ns:L("FTRAIN_FOOTER") .. "|r"
-	return table.concat(p, "\n")
+	return table.concat(p, "\n"), p, ids
 end
 
 ns.ForeverTrainerText = function(level) -- the offline check prints it
-	return Text(Compute(level))
+	return (Text(Compute(level)))
 end
 
 local win
@@ -325,12 +329,10 @@ local function Build()
 	local child = CreateFrame("Frame", nil, scroll)
 	child:SetSize(490, 10)
 	scroll:SetScrollChild(child)
-	local body = child:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
-	body:SetPoint("TOPLEFT", 4, -4)
-	body:SetWidth(480)
-	body:SetJustifyH("LEFT")
-	body:SetSpacing(3)
-	f.scroll, f.child, f.body = scroll, child, body
+	-- One font string per line, so a spell line can carry its own hover area (Rob, 7 Nov 2026: "ik wil tooltips bij
+	-- de spells"). Not |Hspell links in one text: links fail inside a ScrollFrame (PlayCardWindow.lua's note).
+	f.rows, f.hot = {}, {}
+	f.scroll, f.child = scroll, child
 	if ns.RegisterMidnightDialogPopup then
 		ns.RegisterMidnightDialogPopup(f)
 	else
@@ -346,8 +348,61 @@ local function Fill(level)
 	local r = Compute(level or UnitLevel("player"))
 	f.title:SetText(ns:L("FTRAIN_TITLE_FMT"):format(r.level))
 	f.go:SetText(ns:L("HOME_FOREVER_BTN_GO")) -- the language can change while the window exists
-	f.body:SetText(Text(r))
-	f.child:SetHeight(f.body:GetStringHeight() + 20)
+	local _, lines, ids = Text(r)
+	local y = -4
+	for i, s in ipairs(lines) do
+		local fs = f.rows[i]
+		if not fs then
+			fs = f.child:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+			fs:SetWidth(480)
+			fs:SetJustifyH("LEFT")
+			f.rows[i] = fs
+		end
+		fs:ClearAllPoints()
+		fs:SetPoint("TOPLEFT", f.child, "TOPLEFT", 4, y)
+		fs:SetText(s ~= "" and s or " ")
+		fs:Show()
+		local h = s ~= "" and fs:GetStringHeight() or 6
+		local hot = f.hot[i]
+		if ids[i] then
+			if not hot then
+				hot = CreateFrame("Button", nil, f.child)
+				hot:SetScript("OnEnter", function(self)
+					if not GameTooltip then
+						return
+					end
+					GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+					local ok = pcall(GameTooltip.SetSpellByID, GameTooltip, self.spellId)
+					if ok then
+						GameTooltip:Show()
+					else
+						GameTooltip:Hide()
+					end
+				end)
+				hot:SetScript("OnLeave", function()
+					if GameTooltip then
+						GameTooltip:Hide()
+					end
+				end)
+				f.hot[i] = hot
+			end
+			hot.spellId = ids[i]
+			hot:ClearAllPoints()
+			hot:SetPoint("TOPLEFT", fs, "TOPLEFT")
+			hot:SetSize(math.min(480, math.max(20, fs:GetStringWidth())), math.max(10, h))
+			hot:Show()
+		elseif hot then
+			hot:Hide()
+		end
+		y = y - h - 3
+	end
+	for i = #lines + 1, #f.rows do
+		f.rows[i]:Hide()
+		if f.hot[i] then
+			f.hot[i]:Hide()
+		end
+	end
+	f.child:SetHeight(-y + 16)
 	f.scroll:SetVerticalScroll(0)
 	f.goHint:SetText(ns.ForeverTrainerNearestText and ns.ForeverTrainerNearestText() or "")
 	return f, r

@@ -1,5 +1,13 @@
 # Midnight Helper — waar we staan
 
+## 💬 7 nov (avond) — trainervenster: tooltip op elke spell (Rob: "ik wil tooltips bij de spells")
+
+- `ForeverTrainer.lua`: het venster is nu één font string per regel (pool `f.rows`) i.p.v. één tekstblok; spellregels
+  (nu leren, eerst nodig, volgend level) krijgen een onzichtbare knop (`f.hot`) met `GameTooltip:SetSpellByID` (pcall).
+  Bewust geen `|Hspell`-links: die werken niet in een ScrollFrame (notitie PlayCardWindow.lua). `Text()` geeft nu ook
+  `lines, ids` terug; `ns.ForeverTrainerText` blijft één string. Syntax OK, lint 0 HARD. Niet in de client getest;
+  ⚠️ AFGELEID: `SetSpellByID` bestaat in de Forever-client (pcall vangt het als dat niet zo is → geen tooltip).
+
 ## 🔑 7 nov (avond) — toetsenblok-melding noemt de spell, niet "macro" (Rob: "Ja, doe maar")
 
 - Bug (Rob, screenshot): Forever-popup "New for your key block: macro -> 2 / macro -> F". Oorzaak GEMETEN: de want is

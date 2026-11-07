@@ -21,6 +21,13 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 7 nov (avond) — Forever: tooltips in het trainervenster
+
+- [ ] `/reload`, open "New at your trainer" (startscherm of `/mh trainer`): muis op een spellregel (bijv. Immolate) →
+      de gewone spell-tooltip van het spel verschijnt; muis eraf → weg. Ook bij "Next, at level X".
+- [ ] Het venster ziet er verder hetzelfde uit (regelafstand, lege regels) en scrollen werkt nog, ook met de muis op een spell.
+- [ ] Geld erbij krijgen of uitgeven met het venster open: de geldregel past zich aan, tooltips blijven werken.
+
 ## 🆕 7 nov (avond) — Forever: melding "New for your key block" noemt de spell
 
 - [ ] Forever, een character met het toetsenblok geplaatst: leer een nieuwe spell (trainer of level-up) → de melding toont
