@@ -27,8 +27,10 @@ Alleen offline getest.
 - [ ] Op je Hunter (layout "Inchy Hunter" actief, `/reload` eerst): `/mh mylayout remember`. Groene regel *"remembered
       "Inchy Hunter""*?
 - [ ] Log in met een ander character dat nog op Modern staat. Komt na een paar seconden de vraag *"Use your layout Inchy
-      Hunter here?"*? Klik **Yes, and reload**: na de reload staan je balken zoals op de Hunter, en de balken die je
-      aanzette staan ook aan?
+      Hunter here?"*? (Bij een nieuw character: pas na het intro-filmpje.) Klik **Yes**, daarna in het tweede venstertje
+      **Reload now**: na de reload staan je balken zoals op de Hunter, en de balken die je aanzette staan ook aan?
+      🐛 7 nov eerste poging: "Yes, and reload" gaf een BugSack-fout (Reload geblokkeerd) en de vraag kwam niet vanzelf;
+      gerepareerd, opnieuw testen. Geen BugSack-fout meer bij "Reload now"?
 - [ ] Een character dat al een eigen layout heeft, krijgt de vraag NIET.
 - [ ] **Not on this character**: daarna geen vraag meer op dat character. `/mh mylayout` vraagt het toch opnieuw.
 - [ ] Geen vraag terwijl het zou moeten: `/mh mylayout check` en stuur de regel.

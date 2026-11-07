@@ -1,5 +1,16 @@
 # Midnight Helper — waar we staan
 
+## 🐛 7 nov (middag) — /mh mylayout: herladen geblokkeerd, vraag kwam niet vanzelf (Rob, BugSack)
+
+- GEMETEN Rob: `ADDON_ACTION_BLOCKED … protected function 'Reload()'` uit `ForeverLayoutCarry.lua:194` (ReloadUI in
+  dezelfde klik als SaveLayouts/SetActiveLayout). En op een gloednieuw character kwam de vraag niet vanzelf (Rob dacht:
+  intro-filmpje); `/mh mylayout` toonde hem wel.
+- Reparatie: Yes wisselt alleen de layout; daarna een Blizzard-StaticPopup "Reload now" = tweede klik → `C_UI.Reload`
+  (zelfde patroon als KeyBlock NeedReload, werkt sinds 5 okt). Inloggen: alle "nog niet klaar"-redenen ~1 min opnieuw
+  proberen (eerst stopte "no layouts" het voorgoed), en wachten op `InCinematic`/CINEMATIC_STOP. Oorzaak van de gemiste
+  vraag AFGELEID. Offline: test 4b (popup, pas na klik herladen) + 5 oude gevallen goed. Syntax OK.
+- Open: Rob nog vragen of de layout zelf goed overkwam (na zijn eigen /reload).
+
 ## 🛠️ 7 nov (middag) — Forever: je layout naar elk nieuw character (Rob: "kan dat beter ?" → "2")
 
 - Aanleiding (Robs screenshot): zijn layout "Inchy Hunter" is een CHARACTER-layout, dus elk nieuw character begint op

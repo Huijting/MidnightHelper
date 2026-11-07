@@ -11,8 +11,9 @@ local _, ns = ...
 	  /mh mylayout remember  — on the character whose layout is right: MH keeps a copy of the ACTIVE layout (Blizzard's own
 	                           export string, account-wide in MidnightHelperDB).
 	  On a character that sits on a preset (Modern/Classic), MH asks ONCE: "Use your layout '<name>' here?"
-	    Yes  → the layout is added to this character (or, when an account layout of that name exists, simply chosen),
-	           made active, and the UI reloads. No → MH does not ask this character again.
+	    Yes  → the layout is added to this character (or, when an account layout of that name exists, simply chosen) and
+	           made active; then a SECOND click, "Reload now", reloads (one click was blocked, see AskReload below).
+	    No   → MH does not ask this character again.
 	  /mh mylayout           — ask now (also on a character that said No);  /mh mylayout check — what MH sees and why;
 	  /mh mylayout forget    — drop the copy.
 
@@ -159,6 +160,41 @@ local function UseHere()
 end
 ns.ForeverMyLayoutUse = UseHere
 
+--- 🔴 THE RELOAD IS ITS OWN CLICK — Rob, 7 Nov 2026 (BugSack): "AddOn 'MidnightHelper' tried to call the protected
+--- function 'Reload()'", from ReloadUI() in the SAME click that had just run SaveLayouts/SetActiveLayout. The key
+--- block never hit this: it changes the layout in one click and offers the reload in a Blizzard StaticPopup, a second
+--- click (KeyBlock.lua NeedReload → KeyBlockReloadAndReopen, working for Rob since 5 Oct 2026). Same pattern here.
+--- That the block came from doing both in one execution is AFGELEID; the two-click path is the measured one.
+function ns.ForeverMyLayoutAskReload()
+	if not (StaticPopupDialogs and StaticPopup_Show) then
+		print(PREFIX .. "my layout: type /reload to finish.")
+		return
+	end
+	StaticPopupDialogs["MH_FOREVER_MYLAYOUT_RELOAD"] = StaticPopupDialogs["MH_FOREVER_MYLAYOUT_RELOAD"] or {
+		text = "Your layout is set. Reload now to finish?",
+		button1 = "Reload now",
+		button2 = "Later",
+		OnAccept = function()
+			if C_UI and C_UI.Reload then
+				C_UI.Reload()
+			elseif ReloadUI then
+				ReloadUI()
+			end
+		end,
+		OnCancel = function()
+			print(PREFIX .. "my layout: type /reload when you are ready; until then some bars may look half-moved.")
+		end,
+		timeout = 0,
+		whileDead = true,
+		hideOnEscape = true,
+		preferredIndex = 3,
+	}
+	local pop = StaticPopup_Show("MH_FOREVER_MYLAYOUT_RELOAD")
+	if pop and pop.SetFrameStrata then
+		pop:SetFrameStrata("FULLSCREEN_DIALOG")
+	end
+end
+
 local dialog
 
 local function Ask(force)
@@ -185,13 +221,13 @@ local function Ask(force)
 		local yes = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
 		yes:SetSize(150, 24)
 		yes:SetPoint("BOTTOMLEFT", 24, 18)
-		yes:SetText("Yes, and reload")
+		yes:SetText("Yes")
 		yes:SetScript("OnClick", function()
 			local ok, msg = UseHere()
 			print(PREFIX .. "my layout: " .. msg)
 			f:Hide()
-			if ok and ReloadUI then
-				ReloadUI() -- a click is the hardware event a reload needs; EditModeBackup's notes: reload or taint
+			if ok then
+				ns.ForeverMyLayoutAskReload()
 			end
 		end)
 		local no = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
@@ -265,11 +301,22 @@ function ns.ForeverMyLayoutSlash(arg)
 	end
 end
 
--- After login: Edit Mode needs a moment to load its account settings, and never in combat.
+-- After login: Edit Mode needs a moment to load its account settings, never in combat, and not during the intro
+-- movie. Rob, 7 Nov 2026: the question never came on a brand-new character (stuck on the intro movie, he thought);
+-- /mh mylayout did show it. Two holes, both closed here (cause AFGELEID, not measured): only "not finished loading"
+-- was retried — "Edit Mode returned no layouts" (presets not there yet) ended it for good — and a movie was not waited
+-- for. Now every not-ready reason is retried for about a minute, and a movie is waited out (CINEMATIC_STOP).
 local ev = CreateFrame("Frame")
 ev:RegisterEvent("PLAYER_ENTERING_WORLD")
 ev:RegisterEvent("PLAYER_REGEN_ENABLED")
+pcall(ev.RegisterEvent, ev, "CINEMATIC_STOP")
+pcall(ev.RegisterEvent, ev, "STOP_MOVIE")
 local done, waiting, tries = false, false, 0
+local NOT_YET = {
+	["Edit Mode has not finished loading yet"] = true,
+	["Edit Mode returned no layouts"] = true,
+	["this client has no C_EditMode.GetLayouts"] = false, -- a client without Edit Mode: nothing to wait for
+}
 local function Try()
 	if done then
 		return
@@ -279,18 +326,22 @@ local function Try()
 		waiting = true
 		return
 	end
+	if InCinematic and InCinematic() then
+		waiting = true -- CINEMATIC_STOP / STOP_MOVIE tries again
+		return
+	end
 	local yes, why = Decision()
 	if yes then
 		done = true
 		Ask()
-	elseif why == "Edit Mode has not finished loading yet" and tries < 15 and C_Timer and C_Timer.After then
+	elseif NOT_YET[why] and tries < 30 and C_Timer and C_Timer.After then
 		C_Timer.After(2, Try)
 	else
 		done = true
 	end
 end
 ev:SetScript("OnEvent", function(_, event)
-	if event == "PLAYER_REGEN_ENABLED" and not waiting then
+	if (event == "PLAYER_REGEN_ENABLED" or event == "CINEMATIC_STOP" or event == "STOP_MOVIE") and not waiting then
 		return
 	end
 	waiting = false
