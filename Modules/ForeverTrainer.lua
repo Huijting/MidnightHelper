@@ -609,16 +609,29 @@ local function OnLevel(level)
 		return
 	end
 	local r = Compute(level)
-	if #r.now > 0 then
-		print(PREFIX .. ("level %d: %d new at your trainer (%s). /mh trainer shows them with their keys.")
-			:format(level, #r.now, Money(r.total)))
+	-- Rob, 7 Nov 2026 ("Ja, alleen nieuw"): the window opens by itself only when THIS level brings
+	-- something new. Spells left over from an earlier level (not trained yet) get a chat line, not the window again.
+	local new = 0
+	for _, e in ipairs(r.now) do
+		if e.l == level then
+			new = new + 1
+		end
+	end
+	if new > 0 then
+		print(PREFIX .. ("level %d: %d new at your trainer, %d to learn in all (%s). /mh trainer shows them with their keys.")
+			:format(level, new, #r.now, Money(r.total)))
 		if Settings().auto then
 			ns.ShowForeverTrainer(level)
 		end
+	elseif #r.now > 0 then
+		print(PREFIX .. ("level %d: nothing new, still %d to learn at your trainer (%s). /mh trainer shows them.")
+			:format(level, #r.now, Money(r.total)))
 	elseif r.nextLevel then
 		print(PREFIX .. ("level %d: nothing new at your trainer. Next: level %d (%d)."):format(level, r.nextLevel, #r.next))
 	end
 end
+
+ns.ForeverTrainerOnLevel = OnLevel -- the offline check calls it
 
 local ev = CreateFrame("Frame")
 ev:RegisterEvent("PLAYER_LEVEL_UP")

@@ -82,6 +82,8 @@ Rob: *"Ja, A + pijl"*. Dit is stap A; de pijl naar de trainer komt later. Alleen
       ✅ Rob 7 nov: venster opende vanzelf bij level 2 (Track Beasts 10c, "you have 0" in rood; volgende: level 4,
       Aspect of the Monkey → block D, Serpent Sting → 2). De combat-regel is niet apart gezien.
 - [ ] Een oneven level: alleen een chatregel *"nothing new … Next: level X"*.
+- [ ] Nieuw (Rob: *"Ja, alleen nieuw"*): heb je iets nog niet geleerd, dan gaat het venster op het volgende level NIET
+      opnieuw open; je krijgt *"nothing new, still N to learn"* in de chat. Op een level met iets nieuws gaat het wel open.
 - [ ] `/mh trainer auto off`: het venster gaat niet meer vanzelf open (de chatregel blijft). `/mh trainer auto on` zet het terug.
 - [ ] `/mh trainer check`: een paar regels met tellingen. Stuur die mee als iets niet klopt.
 - [ ] Spells die al in je spellboek staan, horen er NIET in te staan. Zie je er toch een: noem hem.

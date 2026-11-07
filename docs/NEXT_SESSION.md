@@ -1,5 +1,12 @@
 # Midnight Helper — waar we staan
 
+## 🛠️ 7 nov (middag) — trainer-venster alleen bij iets nieuws (Rob: "Ja, alleen nieuw")
+
+- `ForeverTrainer.lua` OnLevel: het venster gaat vanzelf open alleen als er een spell van PRECIES dit level te leren is.
+  Oude, nog niet geleerde spells: één chatregel *"nothing new, still N to learn (…)"*. Aanleiding: Robs screenshot, venster
+  opnieuw op level 3 voor Track Beasts (level 1). Offline (scratch `trainer_level_test.py`, Dwarf Hunter): 2 en 3 alleen
+  chat, 4 opent (2 nieuw, 3 in totaal).
+
 ## 🛠️ 7 nov (middag) — Forever: quest-beloning-hint (Rob: "doe de quest beloning tip maar ook")
 
 - Nieuw: `Modules/ForeverQuestHint.lua` + `Modules/ForeverMainStats.lua` (beide TOC's + docs-kopie, alleen Forever).
