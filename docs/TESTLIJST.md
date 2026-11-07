@@ -35,8 +35,9 @@ Alleen offline getest. De stats-lijst per class staat erin (7 nov middag).
 
 ## 🆕 7 nov (middag) — Dock-knop, Serpent's Bite
 
-- [ ] Open een MH-venster met **Dock to window** rechtsboven (bv. `/mh play` in Forever): staat de knop nu los van het
+- [x] Open een MH-venster met **Dock to window** rechtsboven (bv. `/mh play` in Forever): staat de knop nu los van het
       kruisje? Klik hem: wordt hij *Undock*, en past die tekst ook?
+      ✅ Rob 7 nov (screenshot trainer-venster): knop los van het kruisje. *Undock* nog niet gezien.
 - [ ] Midnight, raidtips Ula'tek fase 3: Serpent's Bite zegt nu *"two players"* (nl: *"twee spelers"*). Klopt dat met
       het aantal cirkels dat je in de raid ziet?
 
@@ -56,8 +57,10 @@ Rob: *"alle drie"*. Alleen offline getest, met jouw echte HandyNotes_ClassTraine
 - [x] Nieuw (7 nov, later): MH's eigen lijst (218 trainers). Zet HandyNotes_ClassTrainers één keer UIT in de addonlijst,
       `/reload`, en klik **Take me to my trainer**: komt er nog steeds een pijl? Achter de naam staat dan *"MH list"*.
       ✅ Rob 7 nov (screenshot): met HandyNotes uit wijst de pijl naar *"Thorgas Grimson (trainer) 141 yd"*.
-- [ ] Meters: zet in de MH-instellingen **Route-afstand in meters** aan (Esc → Opties → AddOns → Midnight Helper, bij de
+- [x] Meters: zet in de MH-instellingen **Route-afstand in meters** aan (Esc → Opties → AddOns → Midnight Helper, bij de
       route-pijl). Zegt de pijl nu *"m"*, en de regel naast de trainer-knop *"… meters"*?
+      ✅ Rob 7 nov (screenshot): *"Thorgas Grimson, about 236 meters (HandyNotes)"*; Track Beasts zegt *"not on the block
+      (on purpose)"*. Het venster ging ook open op level 3 (Track Beasts nog niet geleerd).
 
 ## 🆕 7 nov — De route-pijl laat jouw eigen kaartspeld staan (retail én Forever)
 
