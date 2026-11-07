@@ -21,6 +21,17 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 7 nov (middag) — Forever: welke quest-beloning neem je? (`/mh questhint`)
+
+Alleen offline getest. Werkt pas helemaal als de stats-lijst per class erin staat (komt later vandaag).
+- [ ] Lever een quest in met 2 of meer beloningen om uit te kiezen. Krijgt één beloning een **groen kader**, en staat
+      er onder het questvenster een zin als *"Take …: +3 Agility … over what you wear"*?
+- [ ] Is geen enkele beter: een **geel kader** op wat het meest oplevert, met die uitleg.
+- [ ] MH klikt nooit zelf een beloning aan: kies je zelf iets anders, dan gebeurt er niets geks.
+- [ ] Na inleveren verdwijnen kader en zin.
+- [ ] `/mh questhint check` direct na zo'n quest: één regel per beloning. Stuur die mee als de keuze vreemd is.
+- [ ] `/mh questhint off` zet het uit, `/mh questhint on` weer aan.
+
 ## 🆕 7 nov (middag) — Dock-knop, Serpent's Bite
 
 - [ ] Open een MH-venster met **Dock to window** rechtsboven (bv. `/mh play` in Forever): staat de knop nu los van het

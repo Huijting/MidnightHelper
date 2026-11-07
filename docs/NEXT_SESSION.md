@@ -1,5 +1,19 @@
 # Midnight Helper — waar we staan
 
+## 🛠️ 7 nov (middag) — Forever: quest-beloning-hint (Rob: "doe de quest beloning tip maar ook")
+
+- Nieuw: `Modules/ForeverQuestHint.lua` + `Modules/ForeverMainStats.lua` (beide TOC's + docs-kopie, alleen Forever).
+  Bij QUEST_COMPLETE met ≥2 keuzes: per bruikbare (GetQuestItemInfo isUsable) draagbare beloning de main-stats vergeleken
+  met wat je in dat slot draagt (bij ring/trinket/1H het zwakste slot), Stamina als tiebreak. Groen kader op de knop +
+  één zin onder het questvenster; geen winst → wat het meest oplevert (geel kader). Klikt nooit iets. `/mh questhint
+  on|off|check`. Ideeën uit GearQuest/Zygor, geen code.
+- 🔜 `ForeverMainStats.lua` is nog LEEG: mh-research zoekt de main stats per class (bronnen). Tot dan zegt de hint
+  "No stat list for your class yet" en wijst alleen het duurste aan.
+- GEMETEN offline (scratch `questhint_test.py`, echte Decide(), test-only statslijst): 5 gevallen goed (upgrade +3 Agility,
+  niets beter → duurste, lege ringplek, data niet geladen → opnieuw proberen, geen lijst → duurste). Syntax OK, lint 0 HARD.
+  AFGELEID: GetNumQuestChoices/GetQuestItemLink/GetQuestItemInfo/C_Item.GetItemStats en de knopnaam
+  `QuestInfoRewardsFrameQuestInfoItem<n>` op Forever (Zygor gebruikt ze, dat is een kandidaat, geen bewijs).
+
 ## 🛠️ 7 nov (middag) — dock-knop + Serpent's Bite (Rob: "schoonheidsfoutje" / "Zet de serpent's bite tip maar naar 2")
 
 - `DialogPopup.lua`: de "Dock to window"-knop was vast 88 px, smaller dan zijn tekst, en liep onder het kruisje (Robs

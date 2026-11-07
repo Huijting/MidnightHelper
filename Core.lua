@@ -2500,6 +2500,18 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh questhint [on | off | check] — WoW Forever: which quest reward to take, and why (ForeverQuestHint.lua;
+	-- Rob, 7 Nov 2026: "doe de quest beloning tip maar ook").
+	local questArg = msg:lower() == "questhint" and "" or msg:lower():match("^questhint%s+(.+)$")
+	if questArg then
+		if ns.ForeverQuestHintSlash then
+			ns.ForeverQuestHintSlash(questArg)
+		else
+			print("|cffffcc00Midnight Helper:|r /mh questhint is for WoW: Forever.")
+		end
+		return
+	end
+
 	-- /mh bar — show or hide the little quick bar.
 	if msg == "bar" then
 		if ns.MH_ToggleQuickBar then

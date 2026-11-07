@@ -100,6 +100,9 @@ Modules\ForeverHowToPlay.lua
 Modules\ForeverTrainerData.lua
 Modules\ForeverTrainerSpots.lua
 Modules\ForeverTrainer.lua
+# Which quest reward to take, and why (Rob, 7 Nov 2026: "doe de quest beloning tip maar ook").
+Modules\ForeverMainStats.lua
+Modules\ForeverQuestHint.lua
 Modules\LayoutGrowth.lua
 Modules\BarPlanCard.lua
 Modules\AccessibleAlerts.lua
