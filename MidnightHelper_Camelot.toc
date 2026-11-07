@@ -42,6 +42,12 @@ Locales\TranslationsS2.lua
 Locales\ruRU.lua
 Locales\esMX.lua
 Locales\ForeverHowToPlay_nlNL.lua
+Locales\ForeverHowToPlay_deDE.lua
+Locales\ForeverHowToPlay_frFR.lua
+Locales\ForeverHowToPlay_esES.lua
+Locales\ForeverHowToPlay_esMX.lua
+Locales\ForeverHowToPlay_ptBR.lua
+Locales\ForeverHowToPlay_ruRU.lua
 Locales\Locale.lua
 # Delve file, but it only defines functions (no frames or events at load). It owns the shared copy window
 # (ns.ShowShareCopyDialog) that the key block export and the support report use.
@@ -97,6 +103,7 @@ Modules\ForeverBlock_Rogue.lua
 Modules\ForeverBlock_Priest.lua
 Modules\ForeverBlock_Shaman.lua
 Modules\ForeverBlock_Warlock.lua
+Modules\ForeverSpellIds.lua
 Modules\ForeverBlock.lua
 Modules\ForeverHowToPlay.lua
 # New at your trainer, with the key each spell lands on (Rob, 7 Nov 2026: "Ja, A + pijl"). Data: What's Training? (MIT).

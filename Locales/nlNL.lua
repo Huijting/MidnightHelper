@@ -3974,6 +3974,7 @@ ns._mhLocales.nlNL = {
 	FQH_NO_LIST_FMT = "Nog geen statlijst voor je class. %s levert het meeste op bij de verkoper.",
 	FQH_SELL_FMT = "Geen hiervan is beter dan wat je draagt. %s levert het meeste op bij de verkoper (%s).",
 	FTRAIN_TITLE_FMT = "Nieuw bij je trainer - level %d",
+	FTRAIN_BLOCK_D = "blok D",
 	FTRAIN_MONEY = "Je geld:",
 	FTRAIN_SHORT_FMT = "(%s te weinig)",
 	FTRAIN_NOW_FMT = "Je kunt er nu %d leren",

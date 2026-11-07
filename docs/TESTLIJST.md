@@ -21,6 +21,15 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 7 nov (nacht, laat) — 5.0.0: toetsenblok op spellnummers, Forever in 6 talen
+
+Rob: *"Nee, tag maar"* — dit test hij na de release, niet ervoor. Alleen offline getest.
+- [ ] **Eigen Engelse client (regressie):** `/mh block` → Bijwerken → alle toetsen hebben nog hun spell; een nieuwe rank
+      leren → de macro blijft goed.
+- [ ] Iemand met een **Duitse/Franse/Spaanse/Portugese/Russische Forever-client** (Cisca? een CF-speler?): toetsenblok
+      gevuld, macro's met namen in die taal, How you play in die taal.
+- [ ] Retail op een Italiaanse client (als iemand dat heeft): de Forever-kaart in het Italiaans.
+
 ## 🆕 7 nov (nacht) — 5.0.0: retail-melding, vertaalbare Forever-teksten, Nederlandse How you play
 
 Alleen offline gecontroleerd (syntax + lint). Eerst `/reload` (het "Wat is er nieuw"-venster voor 5.0.0 hoort te openen).

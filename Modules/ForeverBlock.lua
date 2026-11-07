@@ -42,36 +42,117 @@ local function ClassTable()
 	return token and ns.FOREVER_BLOCK_CLASSES[token], token
 end
 
---- The spell id this character has under this name (highest rank), or nil when it does not have it.
-local function Known(name)
-	if not (C_Spell and C_Spell.GetSpellInfo) then
-		return nil
-	end
-	local ok, info = pcall(C_Spell.GetSpellInfo, name)
-	if not ok or type(info) ~= "table" or not info.spellID then
-		return nil
-	end
-	local id = info.spellID
-	if issecretvalue and issecretvalue(id) then
-		return nil
-	end
+local function InSpellBook(id)
 	-- Name lookups should only find spells you have; the spellbook check makes sure (AFGELEID that it is needed).
 	if C_SpellBook and C_SpellBook.FindSpellBookSlotForSpell then
 		local okS, slot = pcall(C_SpellBook.FindSpellBookSlotForSpell, id)
 		if okS and not slot then
-			return nil
+			return false
 		end
 	end
-	return id
+	return true
+end
+
+--- 🌍 7 Nov 2026 (Rob: "ja op spell nummers"). The class tables name spells in ENGLISH. On a deDE/frFR/esES/esMX/ptBR/
+--- ruRU Forever client a lookup by that name finds nothing (and "/cast Smite" does nothing there), so the block stayed
+--- empty for every non-English player. Every English name now also has its spell ids: ForeverSpellIds.lua (measured on
+--- wago wowf 1.60.1.70862) plus every rank in ForeverTrainerData.lua. The macro then uses the CLIENT's name for the id
+--- the character has (some spells change name per rank in one client: deDE Smite rank 1 "Heilige Pein", later ranks
+--- "Göttliche Pein", docs/forever/CLIENT_NAMES_FOREVER_2026-11-07.md section 5).
+--- 🔴 The lists are in RANK order, low to high — NOT id order: Slam rank 1 is 1240193 while ranks 2+ are 1464…, and
+--- Create Healthstone rank 1 is 6201 while 5699 is rank 3 (mh-research, Spell.NameSubtext "Rank N", 70862). Never
+--- sort them; the last id the character knows is its highest rank. Trainer ids are only appended for a name the
+--- measured file does not have (in rank order too: the trainer list goes by level).
+local idCache
+local function IdsFor(name)
+	if not idCache then
+		idCache = {}
+		for n, ids in pairs(ns.FOREVER_SPELL_IDS or {}) do
+			local copy = {}
+			for i, id in ipairs(ids) do
+				copy[i] = id
+			end
+			idCache[n] = copy
+		end
+		local extra = {}
+		for _, list in pairs(ns.FOREVER_TRAINER_SPELLS or {}) do
+			for _, e in ipairs(list) do
+				if type(e.n) == "string" and type(e.id) == "number" and not (ns.FOREVER_SPELL_IDS or {})[e.n] then
+					extra[e.n] = extra[e.n] or {}
+					table.insert(extra[e.n], e)
+				end
+			end
+		end
+		for n, es in pairs(extra) do
+			table.sort(es, function(a, b)
+				return (a.l or 0) < (b.l or 0)
+			end)
+			idCache[n] = {}
+			for _, e in ipairs(es) do
+				table.insert(idCache[n], e.id)
+			end
+		end
+	end
+	return idCache[name]
+end
+ns.ForeverSpellIdsFor = IdsFor -- the offline check calls it
+
+local function KnownId(id)
+	for _, fn in ipairs({ IsPlayerSpell, IsSpellKnown }) do
+		if fn then
+			local ok, v = pcall(fn, id)
+			if ok and v == true then
+				return true
+			end
+		end
+	end
+	return false
+end
+
+--- The spell id this character has under this English name (highest rank), or nil when it does not have it.
+local function Known(name)
+	if not (C_Spell and C_Spell.GetSpellInfo) then
+		return nil
+	end
+	-- 1. By name: works on an English client, as before.
+	local ok, info = pcall(C_Spell.GetSpellInfo, name)
+	if ok and type(info) == "table" and info.spellID and not (issecretvalue and issecretvalue(info.spellID)) then
+		if InSpellBook(info.spellID) then
+			return info.spellID
+		end
+	end
+	-- 2. By id: every other client. Highest rank the character knows.
+	local ids = IdsFor(name)
+	if ids then
+		for i = #ids, 1, -1 do
+			local id = ids[i]
+			if KnownId(id) and InSpellBook(id) then
+				return id
+			end
+		end
+	end
+	return nil
 end
 ns.ForeverKnownSpell = Known
 
+--- The name THIS client uses for a spell id (falls back to the English table name).
+local function ClientName(id, english)
+	if C_Spell and C_Spell.GetSpellName then
+		local ok, nm = pcall(C_Spell.GetSpellName, id)
+		if ok and type(nm) == "string" and nm ~= "" and not (issecretvalue and issecretvalue(nm)) then
+			return nm
+		end
+	end
+	return english
+end
+
+--- The first spell of a name (or list of names) this character has: the CLIENT's name for it (what /cast needs), its id.
 local function First(v)
 	if type(v) == "table" then
 		for _, name in ipairs(v) do
 			local id = Known(name)
 			if id then
-				return name, id
+				return ClientName(id, name), id
 			end
 		end
 		return nil
@@ -79,7 +160,7 @@ local function First(v)
 	if v then
 		local id = Known(v)
 		if id then
-			return v, id
+			return ClientName(id, v), id
 		end
 	end
 	return nil
@@ -247,7 +328,7 @@ function ns.ForeverKeyBlockBuild()
 	for _, name in ipairs(cls.toBlockD or {}) do
 		local id = Known(name)
 		if id then
-			unplaced[#unplaced + 1] = { id = id, name = name }
+			unplaced[#unplaced + 1] = { id = id, name = ClientName(id, name) }
 		end
 	end
 	local specID
@@ -290,6 +371,14 @@ function ns.ForeverBlockUnlisted()
 	end
 	add(cls.toBlockD)
 	add(cls.listed)
+	-- 7 Nov 2026: the spellbook gives names in the CLIENT's language; the table's are English. Compare by id too, or a
+	-- German player would see every spell as "not in MH's list".
+	local listedIds = {}
+	for n in pairs(listed) do
+		for _, id in ipairs(IdsFor(n) or {}) do
+			listedIds[id] = true
+		end
+	end
 	local out, seen = {}, {}
 	local SB = C_SpellBook
 	if not (SB and SB.GetNumSpellBookSkillLines and SB.GetSpellBookSkillLineInfo and SB.GetSpellBookItemInfo) then
@@ -304,8 +393,10 @@ function ns.ForeverBlockUnlisted()
 			for slot = first, first + (tonumber(line.numSpellBookItems) or 0) - 1 do
 				local okI, it = pcall(SB.GetSpellBookItemInfo, slot, bank)
 				local name = okI and type(it) == "table" and it.name
+				local sid = it and it.spellID
+				local byId = type(sid) == "number" and not (issecretvalue and issecretvalue(sid)) and listedIds[sid]
 				if name and not (issecretvalue and issecretvalue(name)) and not it.isPassive
-					and not listed[name] and not seen[name] then
+					and not listed[name] and not byId and not seen[name] then
 					seen[name] = true
 					out[#out + 1] = name
 				end

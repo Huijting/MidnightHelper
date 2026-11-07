@@ -1,5 +1,29 @@
 # Midnight Helper — waar we staan
 
+## 🌍 7 nov (nacht, laat) — 5.0.0: vertaalronde af + toetsenblok op spellnummers (Rob: "ja op spell nummers")
+
+- **Robs go voor de tag** (letterlijk): *"Als alles klaar is, ook voor de site chat, dan krijg je bij deze een go."* en
+  *"Nee, tag maar"* (geen eigen test vooraf). Voorwaarden: vertaalronde af + checks schoon + site-chat meldt "klaar".
+- **Gemeten (mh-research, wago wowf 1.60.1.70862 = Robs build):** `docs/forever/CLIENT_NAMES_FOREVER_2026-11-07.md`,
+  448 namen in de/fr/es/esMX/pt/ru. **Forever heeft GEEN itIT-client** (launcher-config: enUS deDE esES esMX frFR ruRU
+  koKR ptBR zhTW zhCN). Spells kunnen per rank anders heten (deDE Smite r1 "Heilige Pein", r2+ "Göttliche Pein").
+  ⚠️ Correctie op die tabel (mh-research zelf): Druid-rij "Growl" noemt 1853 (Hunter-pet); de Druid-Growl is 6795; de
+  "Claw"-telling T13 telde pet-ranks mee. De namen in die rijen kloppen wel.
+- 🐛→✅ **Toetsenblok was leeg op elke niet-Engelse Forever-client** (zocht en castte op ENGELSE naam). Nu: `Known()` zoekt
+  ook op id (`Modules/ForeverSpellIds.lua`, 487 namen / 1704 ids, mh-research, in RANK-volgorde — niet sorteren! Slam
+  r1 = 1240193) + trainer-ids; de macro krijgt `C_Spell.GetSpellName(id)` (clientnaam van de hoogste bekende rank);
+  "niet in MH's lijst" vergelijkt ook op id. Offline GEMETEN (scratch `forever_locale_block_test.lua`): 9/9 classes
+  evenveel macro's als Engels, 0 Engelse namen in `/cast`, 0 namen zonder id; controle (oude code) = 0 macro's.
+  ⚠️ Niet in een echte niet-Engelse client getest. ⚠️ AFGELEID risico: frFR Smite en Chastise (Dwarf) heten beide
+  "Châtiment" → `/cast Châtiment` kan bij een Franse Dwarf Priest de verkeerde pakken.
+- **Vertalingen (mh-writer, eigen werk, niet native-gecheckt):** How you play per taal in
+  `Locales/ForeverHowToPlay_<deDE|frFR|esES|esMX|ptBR|ruRU|nlNL>.lua` (alle 52 secties; esMX ~120 namen anders), 60 korte
+  sleutels per taal (Translations2026 + ruRU; 3 oude HOME_FOREVER_* in place vervangen want `fill()` overschrijft geen
+  vertaling), itIT alleen de 4 retail-reclamesleutels. "block D" = woord van elk pakket (`FTRAIN_BLOCK_D`).
+  locale_probe GEMETEN: OK in alle 7 (itIT Forever-sleutels → Engels, bewust). check_drift: alleen `GEARLADDER_FOOT`
+  (niet van vandaag).
+- Open, niet gemeten: welk woord het Forever-menu voor "AddOns" toont per taal (vertalers lieten "AddOns" staan).
+
 ## 🚀 7 nov (nacht) — 5.0.0 in voorbereiding: Forever in de release (Rob: "Ja, begin"; NOG GEEN TAG)
 
 - Robs keuzes: **5.0.0**, **meteen Release** (geen beta), retail-melding **alle drie** (changelog + Home-kaart + eenmalige

@@ -381,11 +381,15 @@ end
 local function Translated()
 	local all = ns.FOREVER_HOWTOPLAY_L
 	local code = ns.GetEffectiveLocaleCode and ns:GetEffectiveLocaleCode()
-	local t = all and code and all[code]
-	if not t and code == "esMX" and all then
-		t = all.esES -- the esMX client reads the esES pack (Locale.lua)
+	if not (all and code) then
+		return nil
 	end
-	return t
+	-- The esMX client reads the esES pack (Locale.lua maps esMX → esES), but a few Forever names differ there (the Rogue's
+	-- powders swap, CLIENT_NAMES_FOREVER section 5): an esMX table, when there is one, wins on that client.
+	if code == "esES" and GetLocale and GetLocale() == "esMX" and all.esMX then
+		return all.esMX
+	end
+	return all[code]
 end
 
 --- The whole text for one class, sections first, then the part every class shares.

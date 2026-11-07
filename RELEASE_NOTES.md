@@ -44,7 +44,8 @@ Open it from the start page, the Tools tab, or with `/mh play`.
 ### A key block for every class
 
 The same task on the same key, on every character you make. Your spells go on fixed keys, a new rank lands on the same
-key by itself, and one button puts everything back.
+key by itself, and one button puts everything back. It works in every language WoW Forever has: the keys use your own
+game's spell names.
 
 On a **new character**, MH asks once: *Set up the Midnight Helper bar layout?* Say **Yes** and your bars become blocks
 and are switched on, the menu and bags move to the bottom right, the gryphons go away, and the experience bar sits above
@@ -85,8 +86,9 @@ starts with half of its bars hidden.
 - The Lost Explorers are called **Epu** and **Nema** now, as in the game.
 - The *Dock to window* button no longer hides under the close button, and follows your language.
 
-The new texts in German, French, Spanish, Portuguese, Italian and Russian are our own translation. Native speakers:
-corrections are very welcome.
+Everything new for Forever is in English, German, French, Spanish (Spain and Mexico), Portuguese, Russian and Dutch,
+with every spell name as your own game client writes it. WoW Forever has no Italian client, so Italian players see it
+in English there. The new texts are our own translation. Native speakers: corrections are very welcome.
 
 Found something odd, or does everything just work? Tell us: `/mh report` in game, a comment here on CurseForge, or the
 feedback form on midnighthelper.com.

@@ -50,6 +50,12 @@ Locales\TranslationsS2.lua
 Locales\ruRU.lua
 Locales\esMX.lua
 Locales\ForeverHowToPlay_nlNL.lua
+Locales\ForeverHowToPlay_deDE.lua
+Locales\ForeverHowToPlay_frFR.lua
+Locales\ForeverHowToPlay_esES.lua
+Locales\ForeverHowToPlay_esMX.lua
+Locales\ForeverHowToPlay_ptBR.lua
+Locales\ForeverHowToPlay_ruRU.lua
 Locales\Locale.lua
 Modules\DelveTipsData.lua
 Modules\DelveStoryData.lua
@@ -224,6 +230,7 @@ Modules\ForeverBlock_Rogue.lua
 Modules\ForeverBlock_Priest.lua
 Modules\ForeverBlock_Shaman.lua
 Modules\ForeverBlock_Warlock.lua
+Modules\ForeverSpellIds.lua
 Modules\ForeverBlock.lua
 Modules\ForeverHowToPlay.lua
 Modules\ForeverTrainerData.lua

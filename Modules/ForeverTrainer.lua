@@ -115,7 +115,7 @@ local function KeyFor(token, name)
 		end
 	end
 	if has(cls.toBlockD) then
-		return "block D"
+		return ns:L("FTRAIN_BLOCK_D") -- the pack's own word, as in KEYBLOCK_UNPLACED_FMT ("bloc D", "Block D" …)
 	end
 	if has(cls.listed) then
 		return false -- left off the block ON PURPOSE (the class table's `listed`), not forgotten

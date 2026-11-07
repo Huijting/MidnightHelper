@@ -4716,6 +4716,7 @@ ns._mhLocales.enUS = {
 	FQH_SELL_FMT = "None of these is better for you than what you wear. %s sells for the most (%s).",
 	-- 7 Nov 2026: the trainer window (ForeverTrainer.lua), translatable from today.
 	FTRAIN_TITLE_FMT = "New at your trainer - level %d",
+	FTRAIN_BLOCK_D = "block D",
 	FTRAIN_MONEY = "Your money:",
 	FTRAIN_SHORT_FMT = "(%s short)",
 	FTRAIN_NOW_FMT = "You can learn %d now",
