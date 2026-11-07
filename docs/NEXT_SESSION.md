@@ -5,9 +5,11 @@
 - Tag `v5.0.0` (annotated) op `817daf0`, gepusht na "SITE KLAAR" van de site-chat. Release-run 42373267211 GEMETEN:
   multi-version 12.1.7 / 12.1.5 / 12.1.0 / 12.0.7 / **1.60.1**, `MidnightHelper_Camelot.toc` + alle Forever-bestanden in
   de zip, CurseForge "Success!", Wago "Success!", GitHub-release bestaat.
-- Open: (1) CurseForge-bestand zichtbaar als Release mét 1.60.1 → dan site-chat melden (die werkt de strip bij, vraagt
-  Robs ja en zet de site live). (2) Rob plakt `CURSEFORGE_DESCRIPTION.md` op de CF-pagina. (3) Rob test na de release
-  (TESTLIJST 7 nov nacht + nacht laat). (4) Iemand met een niet-Engelse Forever-client zoeken voor het toetsenblok.
+- ✅ GEMETEN (CF-API, 7 nov): file 9492132 "v5.0.0", releaseType 1, gameVersions 12.0.7/12.1.0/12.1.5/12.1.7 + **1.60.1
+  (type 88568 = Forever)**, goedgekeurd 12:48:55 UTC. Rob: *"CF is live en gecheked 🙂 description geplakt"*. Site-chat
+  gemeld (strip bijwerken, live na Robs ja).
+- Open: (1) Rob test na de release (TESTLIJST 7 nov nacht + nacht laat). (2) Iemand met een niet-Engelse Forever-client
+  zoeken voor het toetsenblok. (3) Site live (site-chat, na Robs ja).
 - Rob installeert MH op zijn eigen pc NIET via de CurseForge-app in `_forever_`: daar staat de koppeling naar de repo.
 
 ## 🌍 7 nov (nacht, laat) — 5.0.0: vertaalronde af + toetsenblok op spellnummers (Rob: "ja op spell nummers")
