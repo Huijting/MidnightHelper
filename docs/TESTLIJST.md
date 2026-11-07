@@ -21,6 +21,15 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 7 nov — De route-pijl laat jouw eigen kaartspeld staan (retail én Forever)
+
+Rob: *"Ja, repareer"*. Alleen offline getest. Vroeger haalde MH aan het einde van een route ook een speld weg die jij
+intussen zelf had gezet.
+- [ ] Start een MH-route (bv. een rare of `/mh goto`). Zet daarna zelf een speld op de kaart, ergens anders (Ctrl-klik
+      op de wereldkaart). Laat de route eindigen (aankomen of stoppen). Staat jouw eigen speld er nog?
+- [ ] Een gewone MH-route zonder eigen speld: verdwijnt de speld van MH aan het einde nog steeds, zoals altijd?
+- [ ] `/mh arrow` heeft een nieuwe regel *"einde vorige route, de speld: …"*. Noem wat er staat als iets niet klopt.
+
 ## 🆕 7 nov — Forever: nieuw bij de trainer (`/mh trainer`)
 
 Rob: *"Ja, A + pijl"*. Dit is stap A; de pijl naar de trainer komt later. Alleen offline getest (7 classes nagebootst).

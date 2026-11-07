@@ -184,6 +184,68 @@ local function HasNativeWaypoint()
 	return (C_Map and C_Map.HasUserWaypoint and C_Map.HasUserWaypoint()) and true or false
 end
 
+--- The game's user waypoint as map, x, y (0-1), or nil when there is none or it cannot be read (secret, old API).
+local function ReadUserWaypoint()
+	if not (C_Map and C_Map.GetUserWaypoint) then
+		return nil
+	end
+	local ok, pt = pcall(C_Map.GetUserWaypoint)
+	if not ok or type(pt) ~= "table" then
+		return nil
+	end
+	local map, x, y = pt.uiMapID, nil, nil
+	local pos = pt.position
+	if type(pos) == "table" or type(pos) == "userdata" then
+		if pos.GetXY then
+			local okXY, a, b = pcall(pos.GetXY, pos)
+			if okXY then
+				x, y = a, b
+			end
+		else
+			x, y = pos.x, pos.y -- some Forever APIs hand back a plain {x, y} table (OpenMap review, 7 Nov 2026)
+		end
+	end
+	if map == nil or x == nil or y == nil then
+		return nil
+	end
+	if issecretvalue and (issecretvalue(map) or issecretvalue(x) or issecretvalue(y)) then
+		return nil
+	end
+	return map, x, y
+end
+
+--- 🔴 ONLY CLEAR A PIN THAT IS STILL OURS — 7 Nov 2026 (OpenMap review; Rob: "Ja, repareer").
+--- A route's end used to call ClearUserWaypoint whenever we had once set a pin, without looking at what was there
+--- now. A pin the player had put down meanwhile (Blizzard's map, OpenMap, any map addon) was wiped with it. We now
+--- remember where the client put OUR pin (read back right after setting it) and clear only when the pin is still
+--- there. Can't read it (no point stored, or the current one is unreadable): the old behaviour, clear — a stale MH pin
+--- outliving its route was the 7 Sep 2026 complaint below, and that must not come back.
+local mhOwnedPoint
+ns._mhArrowLastClear = nil -- for /mh arrow: what the last route end did with the pin
+
+local function RememberOurWaypoint()
+	local map, x, y = ReadUserWaypoint()
+	mhOwnedPoint = map and { map = map, x = x, y = y } or nil
+end
+
+local function ClearOurWaypoint()
+	local mine = mhOwnedPoint
+	mhOwnedPoint = nil
+	if not (HasNativeWaypoint() and C_Map and C_Map.ClearUserWaypoint) then
+		return
+	end
+	local map, x, y
+	if mine then
+		map, x, y = ReadUserWaypoint()
+		if map and not (map == mine.map and math.abs(x - mine.x) < 0.0005 and math.abs(y - mine.y) < 0.0005) then
+			ns._mhArrowLastClear = "kept a pin that is not ours"
+			return
+		end
+	end
+	pcall(C_Map.ClearUserWaypoint)
+	ns._mhArrowLastClear = (mine and map) and "cleared our pin" or "cleared (could not compare)"
+end
+
 -- Track when TomTom's crazy arrow was last visible, so a brief clear (it blanks for
 -- a moment on each waypoint arrival) doesn't instantly flash our arrow.
 local ttArrowLastSeen = 0
@@ -914,9 +976,7 @@ local function Tick()
 			HideArrow()
 		end
 		if mhOwnedKey then
-			if HasNativeWaypoint() and C_Map and C_Map.ClearUserWaypoint then
-				pcall(C_Map.ClearUserWaypoint)
-			end
+			ClearOurWaypoint()
 			mhOwnedKey = nil
 		end
 		--- 🔴 PINS SET BEHIND THIS MODULE'S BACK OUTLIVED THEIR ROUTE — 7 Sep 2026. Rob on the
@@ -1082,8 +1142,8 @@ local function Tick()
 		ns._mhRouteOwner = nil
 		activeLead = nil
 		HideArrow()
-		if mhOwnedKey and HasNativeWaypoint() and C_Map and C_Map.ClearUserWaypoint then
-			pcall(C_Map.ClearUserWaypoint)
+		if mhOwnedKey then
+			ClearOurWaypoint()
 			mhOwnedKey = nil
 		end
 		return
@@ -1097,6 +1157,7 @@ local function Tick()
 	if targetChanged or (waypointGone and not atLead) then
 		if ns.SetBlizzardUserWaypoint and ns.SetBlizzardUserWaypoint(activeLead.mapID, activeLead.x, activeLead.y) then
 			mhOwnedKey = key
+			RememberOurWaypoint()
 		end
 	end
 end
@@ -1307,6 +1368,7 @@ function ns.PrintArrowStatus()
 		yn(drive), yn(drive and not (IsWaypointUIPresent() and YieldToWaypointUI()))))
 	print(("  wijken voor WaypointUI: %s |cff9d9d9d(/mh arrow yield)|r"):format(yn(YieldToWaypointUI())))
 	print(("  Blizzard-waypoint gezet: %s"):format(yn(HasNativeWaypoint())))
+	print(("  einde vorige route, de speld: %s"):format(ns._mhArrowLastClear or "-"))
 	print(("  arrow frame exists: %s   shown: %s"):format(
 		yn(arrowFrame ~= nil), yn(arrowFrame ~= nil and arrowFrame:IsShown() or false)))
 

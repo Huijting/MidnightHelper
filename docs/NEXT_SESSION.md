@@ -5,9 +5,13 @@
 - Verslagen: `docs/forever/REVIEW_LEATRIX_MAPS_2026-11-07.md`, `REVIEW_OPENMAP_2026-11-07.md`, `REVIEW_GEARQUEST_2026-11-07.md`.
 - Licenties (GEMETEN): Leatrix Maps All Rights Reserved (+ MapUtils GPLv3), GearQuest Forever All Rights Reserved,
   OpenMap MIT (code + eigen data; Blizzard-art uitgesloten). Questie's eigen LICENSE: "bij twijfel all rights reserved".
-- 🔴 Echte MH-fout, GEMETEN in de code door de bouwchat: `NativeArrow.lua:916-920` en `:1085-1087` wissen de user waypoint
-  bij het einde van een route zonder te kijken of hij nog van MH is → een eigen speld (Blizzard-kaart, OpenMap) verdwijnt.
-  Effect AFGELEID. Ook retail. Rob beslist over de reparatie.
+- ✅ Echte MH-fout, GEREPAREERD (Rob: *"Ja, repareer"*): `NativeArrow.lua` wiste aan het einde van een route de user
+  waypoint zonder te kijken of hij nog van MH was. Nu: `RememberOurWaypoint` leest de speld terug direct na het zetten,
+  `ClearOurWaypoint` wist alleen als hij er nog ligt (0,0005 marge); onleesbaar = oud gedrag (wissen), zodat de stale-pin
+  van 7 sep niet terugkomt. `/mh arrow` toont de laatste beslissing. GEMETEN offline (scratch `arrow_pin_test.py`, echte
+  NativeArrow.lua): A eigen route → gewist, B speler-speld → blijft; tegenproef op HEAD (`arrow_pin_old.py`): B gewist.
+  Syntax OK, lint 0 HARD. Niet aangeraakt: de Silvermoon-pins (`_mhSmcPinsSet`, UI.lua) wissen nog onvoorwaardelijk.
+  Test: TESTLIJST "7 nov — De route-pijl".
 - Ideeën (niets gebouwd): quest-beloning-hint (GearQuest), `/mh trainer here` om trainer-plekken zelf te meten, pijl naar
   dungeon-ingangen/flight masters uit DB2 (OpenMap), `## LoadSavedVariablesFirst` voor `/mh lang` (Leatrix), `/mh map`
   zegt op Forever niets. Testen met één /run: `C_Map.GetMapLevels` op Forever.
