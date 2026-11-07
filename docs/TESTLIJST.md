@@ -24,8 +24,10 @@ er is niets weggegooid.
 ## 🆕 7 nov (avond) — Forever: knop "Train all" onder het trainer-venster van de game
 
 Test op een character ZONDER Talents Forever (of typ eerst `/mh trainer button on`), met geld en iets te leren.
-- [ ] `/reload`, praat met je class trainer: onder het venster, onder de eigen Train-knop, staat
-      "Train all (3, 1g 20s)" (aantal en prijs van wat je nu kunt betalen).
+- [x] ✅ Rob 7 nov (screenshot, Shaman bij Meela Dawnstrider, `/mh trainer button on`): de knop staat onder de eigen
+      Train-knop; niets meer te leren → "Train all", grijs. Met Talents Forever óók aan ligt onze knop over die van hen
+      heen (niet eronder); Rob: "maakt niet uit", in stand auto zie je er maar één.
+- [ ] Met iets te leren: de knop zegt "Train all (3, 1g 20s)" (aantal en prijs van wat je nu kunt betalen).
 - [ ] Muis op de knop: per spell de prijs, onderaan het totaal; heb je te weinig geld, dan een rode regel "X more than
       your money covers".
 - [ ] Klik: de knop zegt "Training...", de spells worden één voor één geleerd, in de chat staat
