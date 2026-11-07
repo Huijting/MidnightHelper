@@ -1,5 +1,15 @@
 # Midnight Helper — waar we staan
 
+## ☀️ 7 nov — ochtendronde
+
+- Alle vier de wachters gedraaid. Raakt ons: 🔴 Ula'tek Serpent's Bite 3 → 2 spelers (hotfix 6 nov; het getal komt
+  alleen uit Wowheads datamining, Blizzard noemt geen getal). Onze tip `{SPELL:1295905}` zegt in 8 packs nog "drie"
+  (`Locales/RaidTips.lua:93` e.v. + `ruRU.lua:4790`, GEMETEN door de content-wachter). Niets veranderd; Rob kiest
+  (in het spel tellen of overnemen van Wowhead).
+- CF/GitHub: 0 wachtend. HandyNotes 168: 3 Midnight-rares Rare → RareElite, zelfde coördinaten. Addons: 47 bijgewerkt,
+  niets dat MH raakt (gelezen, niet getest). Vragenlijst #31 bijgeteld (Rob: *"Ja, tel bij"*), gemiddelde 4,1.
+- Forever: class-tuning aangekondigd voor 10 nov → dan de `ForeverBlock_<Class>.lua`-tabellen nalopen.
+
 ## 🌙 6 nov, einde dag — Rob: "Morgen misschien een release"
 
 - Alles van vandaag staat op main (laatste commit: Hunter + Mage blok D). Werkboom schoon.

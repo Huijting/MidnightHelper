@@ -41,6 +41,7 @@ speelkaarten — die heten "Zo speel je" = `play`).
 | 28 | 30 okt 17:37 | DE / de | mixed | maanden | 4 | maps, delves, weekly, prof, route, collect, gear | mplus, keys, brez | — · 💬 *"vielen Dank für die tolle Arbeit"* |
 | 29 | 1 nov 06:14 | GR / en | dps | weken | 4 | maps, boss, delves, mplus, weekly, prof, brez, route, collect, gear, site | play, keys | irriteert (lof, geen klacht): *"this addon is prolly the best. everything in one addon."* |
 | 30 | 1 nov 19:15 | DE / de | dps | maanden | 5 | play, boss, delves, weekly, route, collect, gear | mplus, site | — · 💬 *"Danke, ihr seid super!"* |
+| 31 | 6 nov 16:15 | DE / de | tank | weken | 4 | delves, weekly, gear | play | — |
 
 📌 #17 en #19 komen allebei uit GB, dps, "een paar weken", via het spel, 4½ uur na elkaar. Mogelijk dezelfde speler
 die het twee keer invulde (#19 kent veel meer onderdelen). AFGELEID, niet vast te stellen: beide tellen mee.
@@ -56,6 +57,14 @@ cijfer. #6 gaf geen cijfer en geen rol.
 ⚠️ **#9 heeft `from: "gamehttpsmidnighthelpercomsurveyf"`** — "game" met de survey-URL eraan geplakt, zonder
 leestekens. Vermoedelijk heeft de speler de link uit het spel geplakt achter een al geopende link, of bouwt iets de
 `from`-waarde verkeerd. NIET onderzocht; telt gewoon mee als "via game".
+
+## Bijgeteld 7 nov (ochtendronde): #31, de/DE, tank, via het spel
+
+- **#31:** een paar weken, cijfer **4**, ontvangen 6 nov 16:15 UTC. Gebruikt Delve-coach, Weekplan/Great Vault en Gear
+  check vaak; "Zo speel je" "nooit / onbekend". Irriteert, mist en verder nog leeg.
+- **Cijfer nu:** gemiddeld **4,1** (29 cijfers: 9× 5, 15× 4, 4× 3, 1× 1; 118/29 = 4,07).
+- **Keybind-coach:** onveranderd 15× "nooit / onbekend", 1× "vaak" (#31 noemde `keys` niet).
+- Rob, 7 nov: *"Ja, tel bij"*.
 
 ## Bijgeteld 2 nov (ronde 's avonds): #29 en/GR en #30 de/DE, allebei dps, via het spel
 
