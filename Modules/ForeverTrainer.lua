@@ -484,11 +484,20 @@ local function Nearest(token)
 	return best, math.floor(bestD + 0.5), #all -- whole yards: %d needs an integer
 end
 
+--- "141 yards" or "129 meters", the same unit as the route arrow (setting "Show route distance in meters";
+--- Rob, 7 Nov 2026: "wil je hem op meters zetten trouwens").
+local function Distance(yards)
+	if ns.GetNativeArrowMeters and ns.GetNativeArrowMeters() then
+		return ("%d meters"):format(math.floor(yards * 0.9144 + 0.5))
+	end
+	return ("%d yards"):format(yards)
+end
+
 --- One line under the window's button: where it would take you, or what is missing.
 function ns.ForeverTrainerNearestText()
 	local best, dist, _, why = Nearest(Token())
 	if best then
-		return ("%s, about %d yards (%s)"):format(best.name or "your trainer", dist, best.src)
+		return ("%s, about %s (%s)"):format(best.name or "your trainer", Distance(dist), best.src)
 	end
 	return why .. ": stand next to your trainer and type /mh trainer here"
 end
@@ -508,7 +517,7 @@ function ns.ForeverTrainerGo()
 	local label = (best.name or "Class trainer") .. " (trainer)"
 	ns.lastTarget = { mapID = best.map, x = best.x, y = best.y, name = label, via = "/mh trainer go" }
 	ns._mhRouteOwner = "waypoint"
-	print(PREFIX .. ("arrow set to %s, about %d yards (%s, %d places known)."):format(label, dist, best.src, n))
+	print(PREFIX .. ("arrow set to %s, about %s (%s, %d places known)."):format(label, Distance(dist), best.src, n))
 	return true
 end
 
@@ -568,7 +577,7 @@ local function Check()
 	print(("  trainer places: yours %d, HandyNotes %s, MH list %d"):format(yours,
 		HandyNotesTrainers() and tostring(hn) or "not installed", list))
 	local best, dist, _, why = Nearest(r.token)
-	print("  nearest: " .. (best and ("%s, %d yards (%s)"):format(best.name or "?", dist, best.src) or why))
+	print("  nearest: " .. (best and ("%s, %s (%s)"):format(best.name or "?", Distance(dist), best.src) or why))
 end
 
 function ns.ForeverTrainerSlash(arg)

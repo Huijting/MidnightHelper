@@ -34,8 +34,11 @@ Rob: *"alle drie"*. Alleen offline getest, met jouw echte HandyNotes_ClassTraine
       hem weer weg.
 - [ ] `/mh trainer check`: de regel *"trainer places: yours …, HandyNotes …"* en *"nearest: …"*. Stuur hem mee bij twijfel.
 - [ ] Ander continent dan je trainers (bv. een Night Elf in Stormwind): netjes *"none on this continent"*, geen fout.
-- [ ] Nieuw (7 nov, later): MH's eigen lijst (218 trainers). Zet HandyNotes_ClassTrainers één keer UIT in de addonlijst,
+- [x] Nieuw (7 nov, later): MH's eigen lijst (218 trainers). Zet HandyNotes_ClassTrainers één keer UIT in de addonlijst,
       `/reload`, en klik **Take me to my trainer**: komt er nog steeds een pijl? Achter de naam staat dan *"MH list"*.
+      ✅ Rob 7 nov (screenshot): met HandyNotes uit wijst de pijl naar *"Thorgas Grimson (trainer) 141 yd"*.
+- [ ] Meters: zet in de MH-instellingen **Route-afstand in meters** aan (Esc → Opties → AddOns → Midnight Helper, bij de
+      route-pijl). Zegt de pijl nu *"m"*, en de regel naast de trainer-knop *"… meters"*?
 
 ## 🆕 7 nov — De route-pijl laat jouw eigen kaartspeld staan (retail én Forever)
 

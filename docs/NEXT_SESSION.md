@@ -22,6 +22,9 @@
   (Thorgas Grimson, 237 yards), *"en de pijl komt :)"*. ✅ Daarna (Rob: *"Ja, pas aan"*): spells uit de `listed`-lijst
   van de class-tabel (Track Beasts) zeggen nu *"not on the block (on purpose)"*; "put it on your own bar" alleen nog bij
   spells die in geen enkele lijst staan. Offline nagebootst met Robs geval (Dwarf Hunter level 2).
+- ✅ GEMETEN Rob: met HandyNotes UIT komt de pijl ook (MH list, "Thorgas Grimson (trainer) 141 yd"). Rob: *"wil je hem op
+  meters zetten"* → de instelling bestond al (`mh_arrowMeters`, "Route-afstand in meters", standaard uit); de teksten van
+  ForeverTrainer.lua volgen hem nu ook (`Distance()`, ×0,9144 zoals NativeArrow). Offline: 367 yd → 336 meters.
 
 ## 🔎 7 nov — Leatrix Maps, OpenMap, GearQuest bekeken (mh-research, alleen lezen)
 
