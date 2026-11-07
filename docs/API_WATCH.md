@@ -9110,3 +9110,116 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
     `git checkout -B main cf00d2e`, wat niets aan de inhoud verandert. 📌 De repo is sinds mijn
     vorige run **vijf commits** opgeschoven (van `aed9257` naar `cf00d2e`), allemaal Forever-werk van
     de nacht van 5 op 6 nov. Geen enkel ander bestand geraakt.
+
+- [2026-11-07] ✅ **Nul [MOET GEFIKST]. Er IS één nieuwe client-build — Forever `1.60.1.70840`, van
+  gisteravond 23:31 UTC — maar zijn hele diff is vijf bestanden glue- en alert-UI, en GEEN ENKELE naam
+  daaruit komt in MH voor. Al het andere stond stil: geen nieuwe live-build (vierde dag op
+  `12.1.5.70783`), geen nieuwe PTR-build (derde dag op `12.1.7.70740`), geen nieuwe wiki-regel op
+  geen van de vier API-pagina's, geen addon-, UI- of API-sectie in de twee hotfix-artikelen van
+  6 nov, geen blue post over API, en geen nieuwe SimC-addon-release.**
+  - 🆕 **[RAAKT ONS NIET] — NIEUWE FOREVER-BUILD `1.60.1.70840`, de eerste sinds `70790` van 4 nov.**
+    GEMETEN, niet nagelezen: `git ls-remote --heads https://github.com/Gethe/wow-ui-source` geeft
+    **13** heads, en alleen `forever` is bewogen — van **`eac30af597…`** naar
+    **`5987a8e2304c1331346dc861d5ccacf4c510cf0f`**, commit `1.60.1 (70840)`, **2026-11-06 23:31:24
+    UTC**. Daarna een `--depth 6`-clone zodat de diff zelf gemeten is: **5 bestanden, 48
+    toevoegingen, 10 verwijderingen**, `version.txt` `1.60.1.70790` → `1.60.1.70840`. Wat er in de
+    andere vier staat, per bestand gelezen:
+    - `Blizzard_SocialToast/SocialToast.lua` — `ShardTransferImminentMixin:OnLoad` en
+      `ShardTransferImminentMinimizeMixin:OnLoad` beginnen nu met `if C_Glue.IsOnGlueScreen() then
+      return; end`, en starten de weergave meteen als `GetEvictionTimeRemaining() > 0`. ⚠️ **Eén
+      signatuurwijziging:** `:Start(time)` → `:Start()` in beide mixins (parameter weg; de functie
+      haalde de tijd al zelf uit `GetEvictionTimeRemaining()`).
+    - `Blizzard_SubscriptionInterstitialUI` (.lua + .xml) — gamepad-cursoranker via
+      `SmartNavigation_SetCustomCursorAnchorPointForFrame`, `GlueParent_AddModalFrame`/
+      `GlueParent_RemoveModalFrame` op het glue-scherm, `SetParent(CharacterSelect)` →
+      `SetParent(GlueParent)`, en in de XML erft het frame nu ook
+      `GamepadBaseDialogTemplate, FocusFramesInterfaceTemplate` met `<OnLoad method="OnLoad"
+      inherit="prepend"/>`.
+    - `Blizzard_GlueXML/Mainline/CharacterSelect.lua` — de `InputUtil.IsGamepadUIEnabled()`-guard
+      rond `SubscriptionInterstitial_ShowSubscriptionPeriod()` is weg.
+    **MH, per naam (`grep -rIl`, met `.git`/`docs`/`tools`/`dist` eruit): `GetEvictionTimeRemaining`
+    → 0 bestanden, `C_Glue` → 0, `IsOnGlueScreen` → 0, `SHARD_TRANSFER` → 0,
+    `AlertFrame_ShowNewAlert` → 0, `SetExternallyManagedOutroAnimation` → 0, `IsGamepadUIEnabled` →
+    0, `InputUtil` → 0, `SubscriptionInterstitial` → 0, `ShardTransferImminent` → 0,
+    `SmartNavigation` → 0, `GlueParent_AddModalFrame` → 0, `GamepadBaseDialogTemplate` → 0,
+    `FocusFramesInterfaceTemplate` → 0, `CharacterSelect` → 0, `DefaultPanelTemplate` → 0.**
+    Positieve controle op dezelfde reikwijdte, zodat die nullen afwezigheid zijn en geen meetfout:
+    `CreateFrame` → **163** bestanden, `RegisterEvent` → **129**, `C_Timer` → **107**, `UIParent` →
+    **83**, `SetFrameStrata` → **71**, `InCombatLockdown` → **52**, `GetBuildInfo` → **26**.
+    📌 Logisch ook: dit is allemaal glue-scherm (voor het inloggen) en Blizzards eigen
+    alert-toast-systeem; MH bouwt zijn eigen frames en raakt geen van beide. **Niets te doen, niets
+    aangeraakt.**
+  - 🧰 **SimC-addon: geen nieuwe release sinds `12.1.5-04`** (de Forever-surname-release van 5 nov,
+    zie mijn regel van gisteren). GEMETEN: `git ls-remote --tags --refs` op
+    `simulationcraft/simc-addon` geeft vandaag **258** tags, exact het aantal van gisteren, en de
+    nieuwste 12.1-tag is nog steeds `12.1.5-04` op `83fdb00762fa…`.
+  - 🔇 **WAT STIL STOND, zodat stilte te onderscheiden is van niet-kijken. Alles hieronder is vandaag
+    GEMETEN, niet overgenomen van gisteren.**
+    - **Client-source, de andere twaalf heads: byte-voor-byte gelijk aan gisteren.** `live` =
+      **`297d7aaaa736f346b3e036f38ee088eaf7f8c07f`** (VIERDE dag op `12.1.5.70783`), `ptr` =
+      **`e927c305f67ed6b3b460bc00d0c39055747b9119`** (DERDE dag op `12.1.7.70740`), `beta` =
+      `078d0cf751…`, `ptr2` = `12380f8cdc…`, `classic_era` = `4192ac6006…`.
+    - **Wiki: alle vier de pagina's onveranderd.** `Patch_12.1.7/API_changes` staat nog op dezelfde
+      **twee** Summary-punten (GUID-obfuscatie met *"This change will be available for testing in a
+      future build of 12.1.7"*, en *"TOC directives no longer expand variables such as [Game] or
+      [Family]"*), TOC `120107`, nog steeds **geen** Consolidated-changes-sectie.
+      `Patch_12.1.5/API_changes` heeft nog dezelfde vier blue-post-datums (3, 16, 22 en 29 sep),
+      `Patch_1.60.1/API_changes` nog dezelfde drie (15 sep, 8 en 16 okt) en dezelfde drie Notable
+      changes (builds `70291`, `70170`, `70009`), en `Patch_12.1.0/API_changes` dezelfde acht
+      Summary-punten. Op `API_change_summaries` staan onder Retail nog **12.1.0, 12.1.5, 12.1.7** en
+      onder Forever alleen **1.60.1** — géén 1.60.2-pagina, ook niet nu er een build na de launch is.
+    - **`UI and Macro`-forum: één nieuw draadje, en het gaat niet over API.** Gelezen in
+      `/c/guides/ui-macro/35/l/latest.json?order=created`: **`2404135`** *"WoW: Forever - Remove
+      Quest Objectives from Tooltip?"* (**2026-11-06T21:50:20Z**, 0 reacties, Satka) vraagt om een
+      instelling of addon om quest-objectives uit de tooltip te halen. Drie oudere draadjes kregen
+      reacties — `2402787` *"Forever ground distance CVAR"* (0 → 4), `2402052` *"Trying NOT to dispel
+      Vampiric Touch debuff"* (1 → 2) en `2398566` *"Continuously show the status of a given cvar on
+      screen?"* (nu 5) — en GEMETEN in de `posters`-lijsten: **geen Blizzard-poster in één van de
+      drie**, alleen Elvenbane, Fizzlemizz, No1UKnow en Ludius. De rest van de eerste pagina staat al
+      in mijn regels van 1–6 nov.
+    - **Hotfixes: twee artikelen van 6 nov, en in geen van beide een addon-, UI- of API-regel.**
+      *"Hotfixes: November 6, 2026"* (Retail, gepubliceerd **2026-11-07T01:08:53Z**) heeft **één**
+      sectie: Dungeons and Raids — Vashnik-tuning en een lange Ula'tek-nerf. *"WoW: Forever Hotfixes
+      - November 6, 2026"* (news.blizzard.com/en-us/article/24315281, **2026-11-07T01:06:34Z**) heeft
+      Classes, Dungeons, Enemies and NPCs, Items, Professions, Quests, Races en World. In **beide**
+      ontbreekt de sectie `User Interface and Accessibility`. ⚠️ **MEASURED (via search/mirror, niet
+      zelf op news.blizzard.com gelezen):** `news.blizzard.com` is op WebFetch `EGRESS_BLOCKED`; ik
+      las de volledige tekst van beide in de zoekresultaten van Exa en de Forever-lijst ook woordelijk
+      op bluetracker.gg (Kaivax, 6 nov 02:35).
+      📌 **Eén Forever-hotfixregel raakt een frame dat MH aanhaalt, maar verandert er niets aan:**
+      *"The Cooldown Manager will now correctly display the duration of crowd control spells at all
+      times…"*. GEMETEN: `CooldownViewer` komt **4×** voor in MH, allemaal in
+      `Modules/EditModeBackup.lua:1168`/`:1193`/`:1196`/`:1197`, en dat zijn **frame-namen** voor
+      Edit-Mode-ankers, geen API-aanroepen — plus ze staan achter `_G.EssentialCooldownViewer`- en
+      `_G.UtilityCooldownViewer`-guards (`:1193`, `:1196`). `C_CooldownViewer` en `CooldownManager` →
+      **0** treffers. **[AL AFGEDEKT]**, en de hotfix gaat over tooltip-duur, niet over ankers.
+    - **Blue Tracker: niets addon- of API-gerelateerds in de hele eerste pagina.** Het nieuwste is
+      *"Class Tuning Incoming - 10 November"* (Kaivax, Forever, vanochtend) — klasse-tuning, dus werk
+      voor de contentwachter, niet voor mij. De `WoW Forever Beta Development Notes` staan nog op
+      **3 nov** en de `Midnight: Echoes of the Worldcore PTR Development Notes` nog op **29 okt**
+      (*"updated and will be available for testing when the Talebound demo becomes available"*).
+    - 📌 **Cache-controle: het nieuwste dat ik vandaag zie is NIEUWER dan wat mijn logboek gisteren
+      noemde** — de hotfix-artikelen van **2026-11-07T01:08Z** en de Forever-build van **6 nov
+      23:31Z**, tegenover mijn laatste regel die op 6 nov 02:31Z eindigde. Ik kijk dus niet naar een
+      cache. Alle Exa-URL's hadden `?nocache=20261107`.
+  - ⏳ **Nog open uit eerdere runs, NIET nieuw en vandaag niet opnieuw gemeten:** de UTF-8 BOM vooraan
+    `MidnightHelper.toc`; de `%d+`-aanname op veld 3 van de npcID-match
+    (`Modules/ResetRoutine.lua:648`) tegenover de GUID-obfuscatie; de `GetInstanceInfo`-return-orde
+    tegenover `Modules/Showdowns.lua:226`; de dode `PickupItem`-takken in
+    `Modules/KeyBlock.lua:1135`/`:1227`/`:1380` en `Modules/ApplyLayout.lua:1311`/`:1345`/`:1605`; de
+    vijf decoratieve `GetItemInfo`-terugvaltakken; `Blizzard_DeprecatedWorldElapsedTimerTypes` als
+    tiende deprecated-addon; de verouderde namespace-lijst in `docs/WATCHER_API_PROMPT.md` (18 aug);
+    de client-test voor `/mh raidbots`; `GetTimerDuration` toevoegen aan `Modules/ApiProbe.lua:377`
+    (mijn suggestie van 5 nov, nog steeds niet aangeraakt); de `FrameStrata`-secret-vraag op
+    `Modules/PartyTargets.lua:517`; en de drie `WOW_PROJECT_MAINLINE`-takken in
+    `Libs/LibDBIcon-1.0.lua:533`/`:572`/`:607` die op Forever omslaan — nog steeds één schermafdruk
+    waard. 🔴 Niets aangeraakt.
+  - 🔧 **Repo-staat: alleen `docs/API_WATCH.md` aangeraakt.** GEMETEN vóór het schrijven:
+    `git status --short` **leeg**, geen van de vier wachter-bestanden gewijzigd-maar-ongecommit, en
+    `git rev-parse --abbrev-ref HEAD` → **`main`** — dus vandaag voor het eerst sinds 17 okt **niet**
+    detached, en de `forced update`-melding van `git fetch` bleef vandaag ook weg. `HEAD` en
+    `origin/main` zijn allebei **`b2a98ae4534e05405ceebb8e65abb42b799410b6`** ("Handoff: end of
+    6 Nov, maybe a release tomorrow (Rob's go)"), `## Version: 4.15.0`. 📌 De repo is sinds mijn
+    vorige run **22 commits** opgeschoven (van `cf00d2e`), vrijwel allemaal Forever-werk van 6 nov:
+    key-blocks voor negen klassen, `/mh bar`, "How you play" in de addon, en de hersplitsing van
+    `NEXT_SESSION.md` (13354 → 490 regels).
