@@ -21,6 +21,18 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 7 nov (middag) — Forever: je layout naar elk nieuw character (`/mh mylayout`)
+
+Alleen offline getest.
+- [ ] Op je Hunter (layout "Inchy Hunter" actief, `/reload` eerst): `/mh mylayout remember`. Groene regel *"remembered
+      "Inchy Hunter""*?
+- [ ] Log in met een ander character dat nog op Modern staat. Komt na een paar seconden de vraag *"Use your layout Inchy
+      Hunter here?"*? Klik **Yes, and reload**: na de reload staan je balken zoals op de Hunter, en de balken die je
+      aanzette staan ook aan?
+- [ ] Een character dat al een eigen layout heeft, krijgt de vraag NIET.
+- [ ] **Not on this character**: daarna geen vraag meer op dat character. `/mh mylayout` vraagt het toch opnieuw.
+- [ ] Geen vraag terwijl het zou moeten: `/mh mylayout check` en stuur de regel.
+
 ## 🆕 7 nov (middag) — Forever: welke quest-beloning neem je? (`/mh questhint`)
 
 Alleen offline getest. De stats-lijst per class staat erin (7 nov middag).

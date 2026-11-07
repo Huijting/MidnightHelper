@@ -103,6 +103,8 @@ Modules\ForeverTrainer.lua
 # Which quest reward to take, and why (Rob, 7 Nov 2026: "doe de quest beloning tip maar ook").
 Modules\ForeverMainStats.lua
 Modules\ForeverQuestHint.lua
+# Your Edit Mode layout to every new character, one click (Rob, 7 Nov 2026: "2").
+Modules\ForeverLayoutCarry.lua
 Modules\LayoutGrowth.lua
 Modules\BarPlanCard.lua
 Modules\AccessibleAlerts.lua

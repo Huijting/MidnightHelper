@@ -230,6 +230,7 @@ Modules\ForeverTrainerSpots.lua
 Modules\ForeverTrainer.lua
 Modules\ForeverMainStats.lua
 Modules\ForeverQuestHint.lua
+Modules\ForeverLayoutCarry.lua
 Modules\LayoutGrowth.lua
 Modules\BarPlanCard.lua
 Modules\LayoutWizard.lua

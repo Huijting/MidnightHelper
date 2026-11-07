@@ -1,5 +1,19 @@
 # Midnight Helper — waar we staan
 
+## 🛠️ 7 nov (middag) — Forever: je layout naar elk nieuw character (Rob: "kan dat beter ?" → "2")
+
+- Aanleiding (Robs screenshot): zijn layout "Inchy Hunter" is een CHARACTER-layout, dus elk nieuw character begint op
+  Modern en hij zet alles opnieuw. Eerst geadviseerd: zelf een account-layout maken (spel zelf). Rob koos optie 2.
+- Nieuw `Modules/ForeverLayoutCarry.lua` (beide TOC's + docs-kopie, alleen Forever): `/mh mylayout remember` bewaart de
+  ACTIEVE layout als Blizzards exportstring accountbreed (`ns.db.foreverMyLayout`). Een character op Modern/Classic krijgt
+  na het inloggen één vraag (*"Use your layout … here?"*); Ja = toevoegen als character-layout (of een account-layout
+  met die naam kiezen) + actief maken + controleren + ReloadUI (na de klik); Nee = per character niet meer.
+  `/mh mylayout` vraagt opnieuw, `check` zegt waarom wel/niet, `forget` wist. Zelfde stappen als
+  `MH_EditModeMakeOwnLayout` (presets eerst tellen, SaveLayouts, OnLayoutAdded, SetActiveLayout). Nooit vanzelf.
+- GEMETEN offline (scratch `mylayout_test.py`, nep-Edit Mode): onthouden, nieuw char → vraag + Ja → actief, account-layout
+  met die naam → gekozen, 5 eigen layouts → nette weigering, "Nee" → geen vraag meer. Syntax OK, lint 0 HARD.
+  AFGELEID: dat C_EditMode-export/import en de bar-zichtbaarheid zo op Forever werken (retail 12.0.7 wel GEMETEN).
+
 ## 🐛 7 nov (middag) — quest-hint telde armor niet (Rob: "denk dat het niet goed gaat ?!?")
 
 - GEMETEN Rob (screenshot, Dwarf Hunter): Snow Boots (7 armor, geen stats) vs gedragen laarzen (2 armor); GearQuest zag

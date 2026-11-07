@@ -2512,6 +2512,18 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh mylayout [remember | forget | check] — WoW Forever: carry your Edit Mode layout to every new character
+	-- (ForeverLayoutCarry.lua; Rob, 7 Nov 2026: "ik moet bij elke character alles weer recht zetten" → "2").
+	local layoutArg = msg:lower() == "mylayout" and "" or msg:lower():match("^mylayout%s+(.+)$")
+	if layoutArg then
+		if ns.ForeverMyLayoutSlash then
+			ns.ForeverMyLayoutSlash(layoutArg)
+		else
+			print("|cffffcc00Midnight Helper:|r /mh mylayout is for WoW: Forever.")
+		end
+		return
+	end
+
 	-- /mh bar — show or hide the little quick bar.
 	if msg == "bar" then
 		if ns.MH_ToggleQuickBar then
