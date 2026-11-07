@@ -269,6 +269,10 @@ local function BuildLayout()
 			elseif r then
 				line(rows, ns:L("HOME_FOREVER_TRAINER_NONE"), COLOR_SOFT)
 			end
+			-- Rob, 7 Nov 2026: see your money here too, without opening your bags.
+			if GetMoney then
+				line(rows, ns:L("FTRAIN_MONEY") .. " " .. money(GetMoney()), COLOR_SOFT)
+			end
 			button(rows, ns:L("HOME_FOREVER_BTN_TRAINER"), ns.ShowForeverTrainer and function() ns.ShowForeverTrainer() end)
 			if ns.ForeverTrainerNearestText then
 				line(rows, ns.ForeverTrainerNearestText(), COLOR_DIM)
@@ -1415,6 +1419,9 @@ function ns.BuildHomePanel(panel)
 	title:SetFontObject(ns.MHScalableFont("GameFontHighlightLarge"))
 	title:SetPoint("TOPLEFT", panel, "TOPLEFT", SIDE_PAD, -TOP_PAD)
 	title:SetText(ns:L(ns.IS_FOREVER and "HOME_FOREVER_TITLE" or "HOME_TITLE"))
+	if ns.IS_FOREVER then
+		title:SetTextColor(1, 0.82, 0) -- Forever's gold accent (Blizzard's gold, as the window title)
+	end
 
 	local subtitle = panel:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
 	subtitle:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))

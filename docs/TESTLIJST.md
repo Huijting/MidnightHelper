@@ -21,6 +21,17 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 7 nov (avond, laat) — Forever: je geld in het trainervenster + schoonheidsfoutjes
+
+Rob: *"Ja, dat klopt"*. Alleen offline gecontroleerd (syntax + lint). Taal op Nederlands:
+- [ ] Trainervenster (`/mh trainer`): bovenaan **Je geld:** met de muntjes. Te weinig voor wat je nu kunt leren → rood
+      *"(… te weinig)"*. Koop iets of raap geld op terwijl het venster open is → het bedrag verandert mee.
+- [ ] Het hele trainervenster in het Nederlands: titel *"Nieuw bij je trainer - level N"*, *"Volgende, op level N"*, de
+      regel onderaan, de knop *"Breng me naar mijn trainer"*, en ernaast *"…, ongeveer 22 meter (HandyNotes)"*.
+- [ ] Startscherm: *"Volgende op level 4: 2 spells."* (niet meer "(2)"), een regel **Je geld:**, en de titel
+      **Midnight Helper Forever** in goud.
+- [ ] Bovenin het venster: *"Ik > Forever"* (niet meer "Deze week").
+
 ## 🆕 7 nov (avond) — Forever: eigen startscherm + kaarten in Tools
 
 Rob: *"Ja, graag gedaan"*. Alleen offline gecontroleerd (syntax + lint). Taal op Nederlands (`/mh lang nl`):

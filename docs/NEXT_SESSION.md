@@ -1,5 +1,18 @@
 # Midnight Helper — waar we staan
 
+## 🛠️ 7 nov (avond, laatst) — trainervenster: je geld + vertaalbaar (Rob: "Ja, dat klopt")
+
+- ✅ GEMETEN Rob (screenshots): het Forever-startscherm, het trainervenster en de knoppen werken. Tools-tab niet gezien.
+- Rob: *"dat we ook kunnen zien hoeveel geld we hebben … nu moet ik ook eerst op B drukken"*. `ForeverTrainer.lua`
+  `Text()`: bovenaan *Your money* (`GetMoney`), rood met het tekort als het niet genoeg is voor wat je nu kunt leren;
+  het venster vult zich opnieuw bij `PLAYER_MONEY`. Startscherm: ook een geld-regel (ververst pas bij opnieuw openen).
+- Trainervenster vertaalbaar: `FTRAIN_*`-sleutels (enUS + nlNL); ook de trainer-regel, afstand en bron. De chatregels
+  van `/mh trainer check` blijven Engels (diagnose). ⚠️ De offline scratch-test van de trainer kent `ns:L` niet; draai
+  hem niet zonder stub.
+- Kruimelpad op Forever: "Ik > Forever" (UI.lua, tab `home`). "(2)" → "2 spells". Titel goud (1, 0.82, 0).
+- Rob over retail: niet nodig — daar leer je spells vanzelf, zonder trainer of geld (AFGELEID, niet nagemeten).
+- Syntax OK, lint 0 HARD. Niet in het spel gezien.
+
 ## 🛠️ 7 nov (avond, laat) — Forever-startscherm + Tools-kaarten (Rob: "Ja, graag gedaan")
 
 - Rob: het startscherm moet duidelijk "speciaal voor Forever" zijn, en `/mh play` was nergens in MH te vinden.

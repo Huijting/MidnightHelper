@@ -4967,6 +4967,9 @@ SelectTab = function(tabId)
 		local roomLabel = (roomDef and ns:L(roomDef.labelKey)) or ""
 		local tabKey = TAB_LABEL_BY_ID[tabId]
 		local tabLabel = (tabKey and ns:L(tabKey)) or ""
+		if ns.IS_FOREVER and tabId == "home" then
+			tabLabel = "Forever" -- 7 Nov 2026 (Rob's screenshot): "Ik > Deze week" there; Forever has no week
+		end
 		local text = roomLabel
 		if tabLabel ~= "" and tabLabel ~= roomLabel then
 			text = (roomLabel ~= "" and (roomLabel .. "  >  ") or "") .. tabLabel

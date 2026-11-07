@@ -15,7 +15,8 @@ local _, ns = ...
 	  - /mh trainer go     the arrow to your nearest class trainer; /mh trainer here records one; /mh trainer forget
 	  - /mh trainer check  prints what was decided and why (a module whose normal result is "nothing" needs a way to see
 	                       that it decided nothing on purpose — CLAUDE.md).
-	English only, like Forever's How you play (translation when Rob asks).
+	Window texts are FTRAIN_* locale keys since 7 Nov 2026 (enUS + nlNL; the other packs in the translation round). The
+chat lines of /mh trainer check stay English (a diagnosis).
 ]]
 
 if not ns.IS_FOREVER then
@@ -227,43 +228,49 @@ local function Line(token, e)
 	-- Rob, 7 Nov 2026 ("Ja, pas aan"): Track Beasts said "put it on your own bar" although the Hunter table leaves all
 	-- tracking off the block on purpose. `false` from KeyFor = on purpose; nil = really not in our list.
 	local where = key and ("|cffffd100" .. key .. "|r")
-		or passive and "|cff9d9d9dpassive: works by itself, no key|r"
-		or key == false and "|cff9d9d9dnot on the block (on purpose)|r"
-		or "|cff9d9d9dnot on the block (put it on your own bar)|r"
+		or passive and ("|cff9d9d9d" .. ns:L("FTRAIN_PASSIVE") .. "|r")
+		or key == false and ("|cff9d9d9d" .. ns:L("FTRAIN_ON_PURPOSE") .. "|r")
+		or ("|cff9d9d9d" .. ns:L("FTRAIN_OWN_BAR") .. "|r")
 	return ("- %s%s  %s  ->  %s"):format(name, rank and (" |cff9d9d9d(" .. rank .. ")|r") or "", Money(e.c), where)
 end
 
 local function Text(r)
 	local p = {}
 	local HEAD = "|cffffcc66"
+	-- Rob, 7 Nov 2026: "dat we ook kunnen zien hoeveel geld we hebben … nu moet ik ook eerst op B drukken". Your money
+	-- on top; red with what is missing when it is not enough for everything you can learn now.
+	local have = GetMoney and GetMoney()
+	if have then
+		local short = #r.now > 0 and have < r.total
+		p[#p + 1] = HEAD .. ns:L("FTRAIN_MONEY") .. "|r  " .. Money(have) ..
+			(short and ("  |cffff5555" .. ns:L("FTRAIN_SHORT_FMT"):format(Money(r.total - have)) .. "|r") or "")
+		p[#p + 1] = ""
+	end
 	if #r.now > 0 then
-		p[#p + 1] = HEAD .. ("You can learn %d now"):format(#r.now) .. "|r  " .. Money(r.total) ..
-			((GetMoney and GetMoney() < r.total) and ("  |cffff5555(you have " .. Money(GetMoney()) .. ")|r") or "")
+		p[#p + 1] = HEAD .. ns:L("FTRAIN_NOW_FMT"):format(#r.now) .. "|r  " .. Money(r.total)
 		for _, e in ipairs(r.now) do
 			p[#p + 1] = Line(r.token, e)
 		end
-		p[#p + 1] = "|cff9d9d9dA key gets its spell as soon as you learn it. A key that was empty: press Update in the key " ..
-			"block (/mh block).|r"
+		p[#p + 1] = "|cff9d9d9d" .. ns:L("FTRAIN_KEY_HINT") .. "|r"
 	else
-		p[#p + 1] = HEAD .. "Nothing new to learn right now.|r"
+		p[#p + 1] = HEAD .. ns:L("FTRAIN_NOTHING") .. "|r"
 	end
 	if #r.needs > 0 then
 		p[#p + 1] = ""
-		p[#p + 1] = HEAD .. "Needs something else first|r"
+		p[#p + 1] = HEAD .. ns:L("FTRAIN_NEEDS_HEAD") .. "|r"
 		for _, n in ipairs(r.needs) do
-			p[#p + 1] = ("- %s: first %s"):format(SpellName(n.e), n.first)
+			p[#p + 1] = ns:L("FTRAIN_NEEDS_FMT"):format(SpellName(n.e), n.first)
 		end
 	end
 	if r.nextLevel then
 		p[#p + 1] = ""
-		p[#p + 1] = HEAD .. ("Next, at level %d"):format(r.nextLevel) .. "|r"
+		p[#p + 1] = HEAD .. ns:L("FTRAIN_NEXT_FMT"):format(r.nextLevel) .. "|r"
 		for _, e in ipairs(r.next) do
 			p[#p + 1] = Line(r.token, e)
 		end
 	end
 	p[#p + 1] = ""
-	p[#p + 1] = "|cff9d9d9dYour class trainer is in your capital city and in your start town. Talents, books and quest " ..
-		"spells are not in this list.|r"
+	p[#p + 1] = "|cff9d9d9d" .. ns:L("FTRAIN_FOOTER") .. "|r"
 	return table.concat(p, "\n")
 end
 
@@ -301,7 +308,7 @@ local function Build()
 	local go = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
 	go:SetSize(210, 24)
 	go:SetPoint("BOTTOMLEFT", 20, 16)
-	go:SetText("Take me to my trainer")
+	go:SetText(ns:L("HOME_FOREVER_BTN_GO"))
 	go:SetScript("OnClick", function()
 		if ns.ForeverTrainerGo then
 			ns.ForeverTrainerGo()
@@ -337,7 +344,8 @@ end
 local function Fill(level)
 	local f = Build()
 	local r = Compute(level or UnitLevel("player"))
-	f.title:SetText(("New at your trainer - level %d"):format(r.level))
+	f.title:SetText(ns:L("FTRAIN_TITLE_FMT"):format(r.level))
+	f.go:SetText(ns:L("HOME_FOREVER_BTN_GO")) -- the language can change while the window exists
 	f.body:SetText(Text(r))
 	f.child:SetHeight(f.body:GetStringHeight() + 20)
 	f.scroll:SetVerticalScroll(0)
@@ -348,6 +356,17 @@ end
 function ns.ShowForeverTrainer(level)
 	local f = Fill(level)
 	f:Show()
+	-- The money line follows your purse while the window is open (buy at the trainer, loot, sell).
+	if not f.moneyWatch then
+		f.moneyWatch = true
+		f:RegisterEvent("PLAYER_MONEY")
+		f:SetScript("OnEvent", function(self)
+			if self:IsShown() then
+				Fill(self.level)
+			end
+		end)
+	end
+	f.level = level
 	-- Rank texts load on demand; fill once more when the client has them (AFGELEID: the first call can miss some).
 	if C_Timer and C_Timer.After then
 		C_Timer.After(0.5, function()
@@ -488,18 +507,27 @@ end
 --- Rob, 7 Nov 2026: "wil je hem op meters zetten trouwens").
 local function Distance(yards)
 	if ns.GetNativeArrowMeters and ns.GetNativeArrowMeters() then
-		return ("%d meters"):format(math.floor(yards * 0.9144 + 0.5))
+		return ns:L("FTRAIN_METERS_FMT"):format(math.floor(yards * 0.9144 + 0.5))
 	end
-	return ("%d yards"):format(yards)
+	return ns:L("FTRAIN_YARDS_FMT"):format(yards)
 end
+
+-- The source names as the player reads them ("HandyNotes" is an addon's name and stays).
+local SRC_KEY = { yours = "FTRAIN_SRC_YOURS", ["MH list"] = "FTRAIN_SRC_MH" }
+local WHY_KEY = {
+	["your position cannot be read here"] = "FTRAIN_WHY_POS",
+	["no trainer places known yet"] = "FTRAIN_WHY_NONE",
+	["none on this continent"] = "FTRAIN_WHY_CONT",
+}
 
 --- One line under the window's button: where it would take you, or what is missing.
 function ns.ForeverTrainerNearestText()
 	local best, dist, _, why = Nearest(Token())
 	if best then
-		return ("%s, about %s (%s)"):format(best.name or "your trainer", Distance(dist), best.src)
+		local src = SRC_KEY[best.src] and ns:L(SRC_KEY[best.src]) or best.src
+		return ns:L("FTRAIN_NEAREST_FMT"):format(best.name or ns:L("FTRAIN_YOUR_TRAINER"), Distance(dist), src)
 	end
-	return why .. ": stand next to your trainer and type /mh trainer here"
+	return ns:L("FTRAIN_WHY_FMT"):format(WHY_KEY[why] and ns:L(WHY_KEY[why]) or why)
 end
 
 function ns.ForeverTrainerGo()
