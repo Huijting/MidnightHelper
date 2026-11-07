@@ -30,7 +30,9 @@ Test op een character ZONDER Talents Forever (of typ eerst `/mh trainer button o
 - [ ] Met iets te leren: de knop zegt "Train all (3, 1g 20s)" (aantal en prijs van wat je nu kunt betalen).
 - [ ] Muis op de knop: per spell de prijs, onderaan het totaal; heb je te weinig geld, dan een rode regel "X more than
       your money covers".
-- [ ] Klik: de knop zegt "Training...", de spells worden één voor één geleerd, in de chat staat
+- [x] ✅ Rob 7 nov ("de knop bij de trainer werkt, ik had de andere addon uit gezet"): met Talents Forever uit leerde
+      ONZE knop de spells; Forever laat een addon dus kopen bij de class trainer.
+- [ ] Details nog niet gezien: de knop zegt "Training...", de spells worden één voor één geleerd, in de chat staat
       "learned X at the trainer for …". Daarna zegt de knop "Train all" en is hij grijs.
 - [ ] Zegt de chat "the game did not let the addon buy here"? Zeg het mij: dan blokkeert Forever het kopen door addons.
 - [ ] Met Talents Forever aan: alleen hún knop, de onze niet (`/mh trainer button` zegt waarom).

@@ -12,8 +12,8 @@
   (`npc`=pet of trainingspunten), of als Talents Forever geladen is in stand `auto`.
   `/mh trainer button [on|off|auto]`; kaal = diagnose. Teksten `FTRAIN_ALL*`: enUS, nlNL, ruRU, de/fr/es/pt
   (Translations2026, eigen vertaling, geen itIT).
-- ⚠️ AFGELEID, niet getest: de volgorde van `GetTrainerServiceInfo` in 1.60.1, of `IsTradeskillTrainer` bestaat, of het
-  kopen door addons mag. We veranderen het filter van het venster niet: staat "Available" uit, dan ziet de knop niets.
+- ✅ Rob 7 nov: werkt in de game (Talents Forever uit, onze knop leerde de spells) → rijen lezen en kopen door een addon
+  mag bij de class trainer. Nog AFGELEID: of `IsTradeskillTrainer` bestaat (profession trainer zonder knop). We veranderen het filter van het venster niet: staat "Available" uit, dan ziet de knop niets.
   Testpunten in TESTLIJST.
 
 ## ✅ 7 nov (avond) — v5.0.1-forever: Forever-helft alsnog geüpload (Rob: "Ja, push maar")
