@@ -25,6 +25,17 @@ local TOOLS = {
 		icon = "Interface\\Icons\\INV_Misc_Gear_01", slash = "/mh mykeys",
 		open = function() if ns.ShowKeysHub then ns.ShowKeysHub() end end,
 	},
+	-- 7 Nov 2026 (Rob: /mh play "vind ik nergens terug in onze Midnight Helper overzicht"): Forever-only cards.
+	{
+		nameKey = "HOME_FOREVER_BTN_HOWTO", descKey = "TOOLLP_HOWTO_DESC", foreverOnly = true,
+		icon = "Interface\\Icons\\INV_Misc_Book_09", slash = "/mh play",
+		open = function() if ns.ShowPlayCardWindow then ns.ShowPlayCardWindow() end end,
+	},
+	{
+		nameKey = "HOME_FOREVER_TRAINER_HEADER", descKey = "TOOLLP_TRAINER_DESC", foreverOnly = true,
+		icon = "Interface\\Icons\\INV_Misc_Book_11", slash = "/mh trainer",
+		open = function() if ns.ShowForeverTrainer then ns.ShowForeverTrainer() end end,
+	},
 	{
 		nameKey = "DELVE_COACH_TITLE", descKey = "TOOLLP_COACH_DESC",
 		icon = "Interface\\Icons\\INV_Misc_Map_01", slash = "/mh coach",
@@ -138,6 +149,9 @@ local FOREVER_NEEDS = {
 
 local function ToolShown(tool)
 	if not ns.IS_FOREVER then
+		return not tool.foreverOnly
+	end
+	if tool.foreverOnly then
 		return true
 	end
 	if tool.nameKey == "TAB_MACROS" then

@@ -75,7 +75,8 @@ local OVERRIDES = {
 	SEARCH_CHAT_CONS_PREVIEW_FMT = "Vorschau der Verbrauchsmaterialien: |cffffffff%s|r (%s %d)",
 	SEARCH_CHAT_GUIDE_PREVIEW_FMT = "Guide-Vorschau: |cffffffff%s|r (%s %d)",
 	SEARCH_CHAT_GUIDE_PREVIEW_CLEARED = "Guide zeigt wieder deine eigene Klasse/Spec.",
-	ABOUT_BUTTON = "Info",
+	-- was Info, the same word as INFO_DRAWER_TOGGLE_SHOW beside it (7 Nov 2026)
+	ABOUT_BUTTON = "Über MH",
 	SIDEBAR_SECTION_WEEK = "AKTIVITÄTEN",
 	SIDEBAR_ROOM_ME = "Ich",
 	SIDEBAR_ROOM_CODEX = "Codex",

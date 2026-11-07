@@ -1,5 +1,20 @@
 # Midnight Helper — waar we staan
 
+## 🛠️ 7 nov (avond, laat) — Forever-startscherm + Tools-kaarten (Rob: "Ja, graag gedaan")
+
+- Rob: het startscherm moet duidelijk "speciaal voor Forever" zijn, en `/mh play` was nergens in MH te vinden.
+- `HomeDashboard.lua`, alleen `ns.IS_FOREVER`: titel `HOME_FOREVER_TITLE`, ondertitel "Level N <class>" i.p.v. de
+  weekreset; blokken *Je trainer* (`ForeverTrainerCompute`: nu te leren + prijs, of volgende level; knoppen
+  `ShowForeverTrainer` / `ForeverTrainerGo` + `ForeverTrainerNearestText`), *Je class spelen* (How you play, toetsenblok,
+  toetsen), daarna de vroege-test-tekst (bijgewerkt: wat nu werkt). Retail ongewijzigd.
+- `ToolsLaunchpad.lua`: twee kaarten met `foreverOnly = true` (How you play `/mh play`, trainer `/mh trainer`); op retail
+  verborgen.
+- Dubbele "Info"-knop: `ABOUT_BUTTON` nl "Over MH", de "Über MH", it "Su MH" (linter wil commentaar op een eigen regel).
+- Teksten alleen enUS + nlNL. 🔴 **OPEN — stap 2 van Robs plan: de vertaalronde** — ALLE nieuwe Forever-teksten (trainer,
+  questhint, mylayout, startscherm, Tools-kaarten, `HOME_FOREVER_BODY` is gewijzigd → drift) naar de/fr/es/pt/it/ru, met
+  per taal GEMETEN clientnamen voor spells. Vóór de release.
+- Syntax OK, lint 0 HARD. Niet in het spel gezien (TESTLIJST 7 nov avond).
+
 ## 🛠️ 7 nov (avond) — Forever: bij een nieuw character de MH-balkenindeling aanbieden (Rob: "Bouw het maar")
 
 - Rob: standaard vragen bij een nieuw character, IN PLAATS VAN de automatische "Use your layout Inchy Hunter?"-vraag, met

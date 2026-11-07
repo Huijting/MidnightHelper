@@ -21,6 +21,20 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 7 nov (avond) — Forever: eigen startscherm + kaarten in Tools
+
+Rob: *"Ja, graag gedaan"*. Alleen offline gecontroleerd (syntax + lint). Taal op Nederlands (`/mh lang nl`):
+- [ ] `/mh` → Home: titel **Midnight Helper Forever**, eronder *"Level N <class>"* (niet meer de weekreset).
+- [ ] Blok **Je trainer**: *"N nieuw om nu te leren (prijs)"* of *"Nog niets nieuws. Volgende op level X"*. Knop
+      **Wat kan ik leren?** opent het trainervenster; regel met de dichtstbijzijnde trainer; knop **Breng me naar mijn
+      trainer** zet de pijl.
+- [ ] Blok **Je class spelen**: knoppen **Zo speel je**, **Je toetsenblok**, **Je toetsen** openen elk hun venster.
+- [ ] Daaronder nog het blok "vroege test" met de nieuwe tekst.
+- [ ] Tab **Tools**: bovenaan kaarten **Zo speel je** (`/mh play`) en **Je trainer** (`/mh trainer`); Open werkt.
+- [ ] Bovenin het venster: niet meer twee knoppen "Info" (nu **Over MH** + Info).
+- [ ] Retail (Midnight): Home en Tools zien er hetzelfde uit als vóór vandaag (geen trainer-kaarten).
+- ⚠️ In de/fr/es/pt/it/ru staan deze nieuwe teksten nog in het Engels — dat komt in de vertaalronde.
+
 ## 🆕 7 nov (avond) — Forever: nieuwe characters krijgen de vraag "Set up the Midnight Helper bar layout?"
 
 Rob: *"Bouw het maar"*. Alleen offline getest.

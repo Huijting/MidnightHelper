@@ -241,13 +241,49 @@ local function BuildLayout()
 	-- 🧩 WoW Forever (5 Nov 2026, Rob: "Ja, opruimen"): every block below is about Midnight (Great Vault, world boss,
 	-- ritual sites, Void Assaults, delves, the solo switch …). His first Forever screenshot showed them all, empty or
 	-- wrong. On Forever the page says honestly what this early version is, with a door to what works.
+	-- 7 Nov 2026 (Rob: "dit scherm … visueel … dat mensen duidelijk kunnen zien, hey, deze is speciaal voor Forever", and
+	-- /mh play "vind ik nergens terug") → a Forever start page: your trainer (what to learn now or next, with the trainer
+	-- window and the arrow), the play tools (How you play, key block, your keys), then the early-test note.
 	if ns.IS_FOREVER then
+		local function button(rows, text, fn)
+			if fn then
+				rows[#rows + 1] = { button = true, text = text, onClick = fn }
+			end
+		end
+		addFull(function(rows)
+			header(rows, ns:L("HOME_FOREVER_TRAINER_HEADER"))
+			local r = ns.ForeverTrainerCompute and ns.ForeverTrainerCompute(UnitLevel and UnitLevel("player") or 1)
+			local function money(c)
+				if C_CurrencyInfo and C_CurrencyInfo.GetCoinTextureString then
+					local ok, s = pcall(C_CurrencyInfo.GetCoinTextureString, c)
+					if ok and s then
+						return s
+					end
+				end
+				return tostring(c)
+			end
+			if r and #r.now > 0 then
+				line(rows, ns:L("HOME_FOREVER_TRAINER_NOW_FMT"):format(#r.now, money(r.total)), COLOR_SOFT)
+			elseif r and r.nextLevel then
+				line(rows, ns:L("HOME_FOREVER_TRAINER_NEXT_FMT"):format(r.nextLevel, #r.next), COLOR_SOFT)
+			elseif r then
+				line(rows, ns:L("HOME_FOREVER_TRAINER_NONE"), COLOR_SOFT)
+			end
+			button(rows, ns:L("HOME_FOREVER_BTN_TRAINER"), ns.ShowForeverTrainer and function() ns.ShowForeverTrainer() end)
+			if ns.ForeverTrainerNearestText then
+				line(rows, ns.ForeverTrainerNearestText(), COLOR_DIM)
+			end
+			button(rows, ns:L("HOME_FOREVER_BTN_GO"), ns.ForeverTrainerGo)
+		end)
+		addFull(function(rows)
+			header(rows, ns:L("HOME_FOREVER_PLAY_HEADER"))
+			button(rows, ns:L("HOME_FOREVER_BTN_HOWTO"), ns.ShowPlayCardWindow and function() ns.ShowPlayCardWindow() end)
+			button(rows, ns:L("KEYBLOCK_TITLE"), ns.ShowKeyBlock and function() ns.ShowKeyBlock() end)
+			button(rows, ns:L("KEYSHUB_TITLE"), ns.ShowKeysHub)
+		end)
 		addFull(function(rows)
 			header(rows, ns:L("HOME_FOREVER_HEADER"))
 			line(rows, ns:L("HOME_FOREVER_BODY"), COLOR_SOFT)
-			if ns.ShowKeysHub then
-				rows[#rows + 1] = { button = true, text = ns:L("KEYSHUB_TITLE"), onClick = ns.ShowKeysHub }
-			end
 		end)
 		return blocks
 	end
@@ -1294,7 +1330,13 @@ function ns.RefreshHomePanel()
 
 	local resetText = GetWeeklyResetText()
 	if ui.subtitle then
-		ui.subtitle:SetText(resetText or ns:L("HOME_RESET_UNKNOWN"))
+		if ns.IS_FOREVER then
+			-- Forever: the weekly reset means nothing here; the character does (7 Nov 2026).
+			local cls = UnitClass and UnitClass("player") or ""
+			ui.subtitle:SetText(ns:L("HOME_FOREVER_CHAR_FMT"):format(UnitLevel and UnitLevel("player") or 1, cls or ""))
+		else
+			ui.subtitle:SetText(resetText or ns:L("HOME_RESET_UNKNOWN"))
+		end
 	end
 
 	local childW = ui.child:GetWidth() or 400
@@ -1372,7 +1414,7 @@ function ns.BuildHomePanel(panel)
 	local title = panel:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
 	title:SetFontObject(ns.MHScalableFont("GameFontHighlightLarge"))
 	title:SetPoint("TOPLEFT", panel, "TOPLEFT", SIDE_PAD, -TOP_PAD)
-	title:SetText(ns:L("HOME_TITLE"))
+	title:SetText(ns:L(ns.IS_FOREVER and "HOME_FOREVER_TITLE" or "HOME_TITLE"))
 
 	local subtitle = panel:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
 	subtitle:SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
@@ -1426,7 +1468,7 @@ do
 			orig(self)
 		end
 		if ui and ui.title then
-			ui.title:SetText(ns:L("HOME_TITLE"))
+			ui.title:SetText(ns:L(ns.IS_FOREVER and "HOME_FOREVER_TITLE" or "HOME_TITLE"))
 		end
 		if ui and ui.panel and ui.panel:IsShown() then
 			ns.RefreshHomePanel()

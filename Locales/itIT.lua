@@ -128,7 +128,8 @@ ns._mhLocales.itIT = {
 	SEARCH_CHAT_GUIDE_PREVIEW_FMT = "Anteprima guida: |cffffffff%s|r (%s %d)",
 	SEARCH_CHAT_GUIDE_PREVIEW_CLEARED = "La guida mostra di nuovo la tua classe/spec.",
 
-	ABOUT_BUTTON = "Info",
+	-- was Info, the same word as INFO_DRAWER_TOGGLE_SHOW beside it (7 Nov 2026)
+	ABOUT_BUTTON = "Su MH",
 	SIDEBAR_SECTION_WEEK = "ATTIVITÀ",
 	SIDEBAR_ROOM_ME = "Io",
 	SIDEBAR_ROOM_CODEX = "Codex",
