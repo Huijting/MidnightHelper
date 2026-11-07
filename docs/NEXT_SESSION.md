@@ -1,5 +1,14 @@
 # Midnight Helper — waar we staan
 
+## ✅ 7 nov (avond) — v5.0.1-forever: Forever-helft alsnog geüpload (Rob: "Ja, push maar")
+
+- Tag `v5.0.1-forever` op `0daad62`, run 42395063118 GEMETEN: alleen Forever-stap; "Game version: 1.60.1",
+  `MidnightHelper-v5.0.1-forever.zip` → CurseForge, Wago, GitHub "Success!"; verify: release bestaat, zip aanwezig.
+  De reparatie (`## Interface-Camelot: 16001`) werkt dus.
+- Om 17:13 UTC stonden 5.0.1 en 5.0.1-forever nog NIET in de publieke CF files-API (wachten op goedkeuring, 5.0.0 duurde
+  ~11 min). Nog nameten: twee bestanden, retail-bestand zonder 1.60.1, forever-bestand alleen 1.60.1.
+- Les: de packager toetst bij `-g` ELKE toc; een volgende normale tag doet beide stappen in één run.
+
 ## 🚀⚠️ 7 nov (avond) — v5.0.1 getagd (Rob: "Ja, tag maar"): Retail UIT, Forever-helft MISLUKT
 
 - Run 42394547282 GEMETEN: stap Retail OK — `MidnightHelper-v5.0.1.zip`, game versions 12.1.7/12.1.5/12.1.0/12.0.7 (geen

@@ -4,8 +4,9 @@ All notable changes to this project are documented in this file.
 
 ## 5.0.1
 
-📌 **2026-11-07, voorbereid (Rob: "Ja, 5.0.1"); tag wacht op Robs go.** Kleine Forever-ronde na 5.0.0; voor Midnight
-verandert niets. Eerste tag met **twee bestanden** (`release.yml`: `-g retail` en `-g forever` → `…-forever.zip`), zodat
+📌 **2026-11-07, RELEASE (Rob: "Ja, tag maar" + "Ja, push maar").** Tag `v5.0.1` (Retail-helft OK, Forever-stap faalde
+op de toc-controle) + herstel-tag `v5.0.1-forever` op `0daad62` (Forever-bestand OK). Kleine Forever-ronde na 5.0.0;
+voor Midnight verandert niets. Eerste tag met **twee bestanden** (`release.yml`: `-g retail` en `-g forever` → `…-forever.zip`), zodat
 CurseForge de Forever-downloads apart telt. In-game: CHANGELOG_501_1 t/m _3. `RELEASE_NOTES.md` =
 `docs/CURSEFORGE_5.0.1.md`.
 
