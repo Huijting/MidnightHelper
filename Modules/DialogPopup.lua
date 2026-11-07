@@ -471,6 +471,16 @@ local function AttachDockButton(frame, name)
         ns.SetMidnightDialogDocked(frame, not ns.IsMidnightDialogDocked(frame), name)
     end)
     frame._mhDockBtn = b
+    -- Rob, 7 Nov 2026 (two screenshots, Dutch then Automatic): the label was set once, so after a language switch it
+    -- kept the old language. Ask again every time the window opens.
+    if frame.HookScript then
+        frame:HookScript("OnShow", function(self)
+            if self._mhDockBtn then
+                self._mhDockBtn:SetText(ns:L(docked[self] and "DIALOG_UNDOCK" or "DIALOG_DOCK"))
+                FitDockButton(self._mhDockBtn)
+            end
+        end)
+    end
 
     -- 🔴 DRAGGING A DOCKED WINDOW LETS GO OF IT. Without this the frame moves under the
     -- cursor while still counting as docked, and snaps back the next time the main
