@@ -13,8 +13,10 @@
   "Inchy Hunter" (de layout kwam dus over), AlwaysShowButtons=1 voor balk 1-8, maar `GetActionBarToggles` 7× false;
   Hunter dezelfde layout en 7× true. De aan/uit-knopjes van balk 2-8 zijn dus PER CHARACTER, niet in de layout.
   Reparatie: `remember` leest ze (`ReadBarToggles`), Yes zet ze met `SetActionBarToggles` (zelfde volgorde als Get:
-  AFGELEID; bij Robs 7× true maakt de volgorde niet uit). Offline: SetActionBarToggles krijgt 7× true. Rob moet op de
-  Hunter opnieuw `remember` doen (oude kopie heeft geen knopjes).
+  AFGELEID; bij Robs 7× true maakt de volgorde niet uit). Offline: SetActionBarToggles krijgt 7× true. ✅ GEMETEN Rob
+  (screenshot Shaman): balk 2-8 staan er nu. Spells op hun plek = toetsenblok per character (`/mh block`).
+- 💡 Rob daarna: *"Deze layout wil ik eigenlijk aan iedereen aanbieden … als mensen kiezen om die layout te gebruiken"*.
+  Voorstel staat uit (MH-layout meeleveren, opt-in); wacht op zijn keuze.
 
 ## 🛠️ 7 nov (middag) — Forever: je layout naar elk nieuw character (Rob: "kan dat beter ?" → "2")
 
