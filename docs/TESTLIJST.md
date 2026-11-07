@@ -21,6 +21,15 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 7 nov (middag) — Toetsenblok stap 2 zet ook de balken aan (retail + Forever)
+
+Rob: *"ja begin met a"*. Niet offline te testen; alleen in het spel.
+- [ ] Een character dat nog op Modern staat (of een nieuw): `/mh block` → stap 2 (de layout-knop). Komt er in de chat
+      een regel *"7 action bars were switched off on this character; MH switched them on."*, en staan na de reload
+      balk 4-8 als blok (en 2-3 alleen zichtbaar met je spellboek open)?
+- [ ] "Zet mijn layout terug" in het toetsenblok-venster: staan de balk-knopjes daarna weer zoals ervoor?
+- [ ] Geen BugSack-fout bij stap 2.
+
 ## 🆕 7 nov (middag) — Forever: je layout naar elk nieuw character (`/mh mylayout`)
 
 Alleen offline getest.

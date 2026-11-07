@@ -903,6 +903,7 @@ ns._mhLocales.nlNL = {
 	KEYBLOCK_BTN_OLDBARS_HIDE = "Verberg mijn oude balken 2 en 3",
 	KEYBLOCK_OLDBARS_SHOWN = "Balk 2 en 3 zijn weer te zien na \"Nu herladen\".",
 	KEYBLOCK_OLDBARS_HIDDEN = "Balk 2 en 3 zijn weer verborgen na \"Nu herladen\". Open je spellboek om ze te zien.",
+	KEYBLOCK_BARS_ON_FMT = "%d actiebalken stonden op dit character uit; MH heeft ze aangezet.",
 	KEYBLOCK_LAYOUT_HIDDEN_HELP = "Je oude balken 2 en 3 zijn verborgen. Mis je iets? Open je spellboek: zolang dat open is zie je ze, en sleep wat je wilt naar blok D (Alt-toetsen). Of druk \"Toon mijn oude balken 2 en 3\".",
 	KEYBLOCK_BTN_UPDATE ="Bijwerken (nieuwe spells erbij)",
 	KEYBLOCK_UPDATE_DONE_FMT = "Erbij gezet: %s. Wat al op het blok stond, bleef op zijn plek.",

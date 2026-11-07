@@ -16,7 +16,14 @@
   AFGELEID; bij Robs 7× true maakt de volgorde niet uit). Offline: SetActionBarToggles krijgt 7× true. ✅ GEMETEN Rob
   (screenshot Shaman): balk 2-8 staan er nu. Spells op hun plek = toetsenblok per character (`/mh block`).
 - 💡 Rob daarna: *"Deze layout wil ik eigenlijk aan iedereen aanbieden … als mensen kiezen om die layout te gebruiken"*.
-  Voorstel staat uit (MH-layout meeleveren, opt-in); wacht op zijn keuze.
+  GEMETEN: "Inchy Hunter" staat in `keyBlockMadeLayouts` = MH's eigen toetsenblok stap 2 maakte hem al; alleen de
+  balk-knopjes ontbraken (SetActionBarToggles kwam alleen in BarInventory/ForeverLayoutCarry voor).
+  ✅ A gebouwd (Rob: *"ja begin met a"*): `EditModeBackup.lua` — stap 2 (`MH_EditModeApplyKeyBlock`) zet na
+  SaveLayouts alle 7 knopjes aan (`BarTogglesOn`, zoals op Robs werkende Hunter) en bewaart de oude stand per character;
+  "zet terug" (`MH_EditModeRestoreKeyBlock`, beide paden) zet ze terug (`BarTogglesBack`). Geldt retail + Forever.
+  Chatregel `KEYBLOCK_BARS_ON_FMT` in 8 talen (enUS/nlNL/ruRU + de/fr/es/pt/it in Translations2026), GEMETEN met
+  locale_probe: 8/8 OK. Syntax OK, lint 0 HARD. NIET offline getest (de stap hangt aan live frames); AFGELEID dat het
+  werkt — SetActionBarToggles zelf werkte op Forever via /mh mylayout. 🔜 B (Robs volledige layout meeleveren) op verzoek.
 
 ## 🛠️ 7 nov (middag) — Forever: je layout naar elk nieuw character (Rob: "kan dat beter ?" → "2")
 

@@ -922,6 +922,7 @@ ns._mhLocales.enUS = {
 	KEYBLOCK_BTN_OLDBARS_HIDE = "Hide my old bars 2 and 3",
 	KEYBLOCK_OLDBARS_SHOWN = "Bars 2 and 3 will be visible again after \"Reload now\".",
 	KEYBLOCK_OLDBARS_HIDDEN = "Bars 2 and 3 will be hidden again after \"Reload now\". Open your spellbook to see them.",
+	KEYBLOCK_BARS_ON_FMT = "%d action bars were switched off on this character; MH switched them on.",
 	KEYBLOCK_LAYOUT_HIDDEN_HELP = "Your old bars 2 and 3 are hidden. Missing something? Open your spellbook: they show while it is open, and you can drag what you want to block D (Alt keys). Or press \"Show my old bars 2 and 3\".",
 	KEYBLOCK_BTN_UPDATE ="Update (add new spells)",
 	KEYBLOCK_UPDATE_DONE_FMT = "Added: %s. What already stood on the block kept its place.",

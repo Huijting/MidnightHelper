@@ -873,6 +873,59 @@ function ns.MH_EditModeMakeOwnLayout()
 	return true, head .. (okA and ("|n" .. msg) or ("|n" .. tostring(msg)))
 end
 
+--- 🔴 THE BARS' ON/OFF SWITCHES ARE PER CHARACTER, NOT IN THE LAYOUT — GEMETEN 7 Nov 2026 (WoW Forever, /mh bars on
+--- Rob's Hunter and his new Shaman, same layout "Inchy Hunter"): GetActionBarToggles 7x true on the Hunter, 7x false on
+--- the Shaman, whose bars 2-8 therefore stayed invisible. Rob: "ja begin met a" — the block step switches them on.
+--- All seven, as on the Hunter where the block works (bars 2 and 3 are Hidden in the layout but still show with the
+--- spellbook open, so spells can be dragged off them). What they were is kept per character for the way back.
+--- That SetActionBarToggles takes Get's order is AFGELEID; all-true cannot depend on it. GEMETEN that it works on
+--- Forever: /mh mylayout's Yes set them for Rob's Shaman the same day.
+local function CharKey()
+	return (UnitGUID and UnitGUID("player")) or (UnitName and UnitName("player")) or "?"
+end
+
+--- @return number how many were off and are now on (0 = nothing to do or not possible)
+local function BarTogglesOn()
+	if type(GetActionBarToggles) ~= "function" or type(SetActionBarToggles) ~= "function" then
+		return 0
+	end
+	local packed = { pcall(GetActionBarToggles) }
+	if not packed[1] then
+		return 0
+	end
+	local before, all, off = {}, {}, 0
+	for i = 2, #packed do
+		before[#before + 1] = packed[i] and true or false
+		all[#all + 1] = true
+		if not packed[i] then
+			off = off + 1
+		end
+	end
+	if off == 0 then
+		return 0
+	end
+	if not pcall(SetActionBarToggles, (unpack or table.unpack)(all)) then
+		return 0
+	end
+	if ns.db then
+		ns.db.keyBlockBarTogglesBefore = ns.db.keyBlockBarTogglesBefore or {}
+		ns.db.keyBlockBarTogglesBefore[CharKey()] = before
+	end
+	return off
+end
+
+--- The way back: the switches as they were before the block step, on this character.
+local function BarTogglesBack()
+	local t = ns.db and ns.db.keyBlockBarTogglesBefore
+	local before = t and t[CharKey()]
+	if not before or type(SetActionBarToggles) ~= "function" then
+		return
+	end
+	if pcall(SetActionBarToggles, (unpack or table.unpack)(before)) then
+		t[CharKey()] = nil
+	end
+end
+
 --- Back to the preset this spec came from, if MH moved it off one. @return true when it did.
 local function BackToPreset(activeName)
 	local back = ns.db and ns.db.keyBlockPresetBack and ns.db.keyBlockPresetBack[SpecKey()]
@@ -909,6 +962,7 @@ function ns.MH_EditModeRestoreKeyBlock()
 	end
 	local wentBack, back = BackToPreset(name)
 	if wentBack then
+		BarTogglesBack()
 		MarkBack()
 		if ns.db.keyBlockLayoutSaved then
 			ns.db.keyBlockLayoutSaved[name] = nil
@@ -933,6 +987,7 @@ function ns.MH_EditModeRestoreKeyBlock()
 		return false, "Edit Mode refused the restore."
 	end
 	ns.db.keyBlockLayoutSaved[name] = nil
+	BarTogglesBack()
 	MarkBack()
 	if ns.db.keyBlockOldBarsHiddenBy then
 		ns.db.keyBlockOldBarsHiddenBy[name] = nil
@@ -1234,6 +1289,10 @@ function ns.MH_EditModeApplyKeyBlock(fromPreset)
 	end
 	if not pcall(C_EditMode.SaveLayouts, info) then
 		return false, "Edit Mode refused the change. Your layout is untouched."
+	end
+	local switched = BarTogglesOn()
+	if switched > 0 then
+		notes[#notes + 1] = ns:L("KEYBLOCK_BARS_ON_FMT"):format(switched)
 	end
 
 	if ns.db then
