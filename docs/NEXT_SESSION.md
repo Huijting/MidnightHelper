@@ -1,5 +1,16 @@
 # Midnight Helper — waar we staan
 
+## 📦 7 nov (avond) — vanaf de volgende release: apart Forever-bestand (Rob: "Ja, bij volgende")
+
+- Waarom: CF telt per bestand. 5.0.0 = één zip voor Retail + Forever → GEMETEN (CF files-API) 90 downloads, niet te
+  splitsen. Nu draait `release.yml` de packager twee keer: `-g retail` en `-g forever` (→ `…-forever.zip`, label
+  `v…-forever`, alleen 1.60.1). GEMETEN in packager@v2 `release.sh`: forever/camelot bekend, CF-type 88568,
+  `set_build_version` houdt alleen de gekozen versies, GitHub-release wordt bijgewerkt (niet dubbel). Verify-stap eist nu
+  beide zips op de GitHub-release.
+- ⚠️ AFGELEID, niet getest: dat de Retail-run de 1.60.1 echt weglaat, en dat Wago beide bestanden goed labelt. Na de
+  eerste gesplitste tag nameten (CF files-API: `gameVersions` per bestand). Tellen: CF-teller van het `-forever`-bestand.
+- Wago: bij een ontbrekende Wago-versie pakt de packager de dichtstbijzijnde (log-WARNING lezen).
+
 ## 🚀 7 nov (middag) — 5.0.0 IS UIT (tag v5.0.0, Robs go)
 
 - Tag `v5.0.0` (annotated) op `817daf0`, gepusht na "SITE KLAAR" van de site-chat. Release-run 42373267211 GEMETEN:

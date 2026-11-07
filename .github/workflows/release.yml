@@ -81,8 +81,21 @@ jobs:
         with:
           fetch-depth: 0 # full history so the packager can build the changelog
 
-      - name: Package and release
+      # --- TWO FILES PER RELEASE since the release after 5.0.0 (Rob, 7 Nov 2026) ----------
+      # Why: CurseForge counts downloads per FILE, not per game version. 5.0.0 was one zip
+      # tagged for Retail and Forever, so its counter could not tell them apart (MEASURED
+      # via the CF files API: one file, 90 downloads). Now each flavor gets its own zip:
+      #   -g retail  -> MidnightHelper-vX.Y.Z.zip          tagged 12.x only
+      #   -g forever -> MidnightHelper-vX.Y.Z-forever.zip  tagged 1.60.1 only (label "-forever")
+      # VERIFIED in packager@v2's release.sh (7 Nov 2026): `-g forever`/`camelot` is a known
+      # game type, CF type id 88568, the "-forever" suffix is added to file name AND label,
+      # and set_build_version keeps only the chosen type's interface values. The CF app picks
+      # the matching file per install. Both zips hold the same files (both TOCs) — harmless.
+      # The second run UPDATES the GitHub release of this tag (it merges release.json).
+      - name: Package and release (Retail)
         uses: BigWigsMods/packager@v2
+        with:
+          args: -g retail
         env:
           CF_API_KEY: ${{ secrets.CF_API_KEY }}
           # Live since 2 Sep: the .toc now carries X-Wago-ID: rNky4wKa.
@@ -90,6 +103,18 @@ jobs:
           # Built-in token, no setup. Publishes the same zip as a GitHub Release.
           # Both names on purpose (see the note above): GITHUB_OAUTH is the one the packager
           # reads first, and the one it was missing while only GITHUB_API_TOKEN was set.
+          GITHUB_OAUTH: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # Same tokens, same tag, Forever only. Runs only if the Retail upload succeeded, so a
+      # broken build never reaches Forever alone.
+      - name: Package and release (Forever)
+        uses: BigWigsMods/packager@v2
+        with:
+          args: -g forever
+        env:
+          CF_API_KEY: ${{ secrets.CF_API_KEY }}
+          WAGO_API_TOKEN: ${{ secrets.WAGO_API_TOKEN }}
           GITHUB_OAUTH: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -105,5 +130,18 @@ jobs:
             echo "GitHub Release $tag exists."
           else
             echo "::error title=No GitHub Release::CurseForge and Wago got $tag, GitHub did not. Check the '[token set]' markers in the packager output above."
+            exit 1
+          fi
+          # Both flavors must be there. A missing Forever zip means Forever players got no
+          # update this time, and that must not look like success.
+          assets=$(gh release view "$tag" --repo "$GITHUB_REPOSITORY" --json assets --jq '.assets[].name')
+          echo "Assets on $tag:"
+          echo "$assets"
+          if ! echo "$assets" | grep -q -- "-forever\.zip$"; then
+            echo "::error title=No Forever zip::The Forever upload for $tag is missing. See the 'Package and release (Forever)' step."
+            exit 1
+          fi
+          if ! echo "$assets" | grep -v -- "-forever\.zip$" | grep -q "\.zip$"; then
+            echo "::error title=No Retail zip::The Retail zip for $tag is missing from the GitHub release."
             exit 1
           fi

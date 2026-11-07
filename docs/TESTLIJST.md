@@ -21,6 +21,12 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 7 nov (avond) — volgende release: twee bestanden (Retail + Forever)
+
+Geen speltest, wel een blik na de volgende tag. Ik meet het ook zelf (CF-API).
+- [ ] **CurseForge → Files:** twee nieuwe bestanden: `vX.Y.Z` (Retail) en `vX.Y.Z-forever` (alleen Forever 1.60.1).
+- [ ] **CurseForge-app, Forever-tab:** MH biedt de `-forever`-versie aan als update; de Retail-tab de gewone.
+
 ## 🆕 7 nov (nacht, laat) — 5.0.0: toetsenblok op spellnummers, Forever in 6 talen
 
 Rob: *"Nee, tag maar"* — dit test hij na de release, niet ervoor. Alleen offline getest.

@@ -10,8 +10,11 @@ de tag.
 ## 1. De vijf artefacten (allemaal bijwerken)
 
 1. **`MidnightHelper.toc`** → `## Version:` bumpen. 🔴 **Sinds 5.0.0 óók `MidnightHelper_Camelot.toc`** (WoW Forever),
-   zelfde nummer. De packager tagt elke release voor retail én Forever (1.60.1) uit deze ene checkout. Na de eerste
-   Forever-tag nakijken: Actions-log noemt 1.60.1, het CurseForge-bestand heeft het label, Wago toont Forever.
+   zelfde nummer. 🔴 **Sinds na 5.0.0 maakt elke tag TWEE bestanden** (`release.yml`, Rob 7 nov: aparte teller voor
+   Forever): `MidnightHelper-vX.Y.Z.zip` (alleen 12.x) en `MidnightHelper-vX.Y.Z-forever.zip` (alleen 1.60.1). Na de
+   eerste gesplitste tag nakijken: twee bestanden op CurseForge (CF files-API: `gameVersions` per bestand), Wago heeft
+   beide, de GitHub-release heeft twee zips (de verify-stap faalt anders). Gaat de Forever-stap mis, dan kreeg Forever
+   die keer geen update: opnieuw draaien via Actions → *Re-run failed jobs*.
 2. **`Modules/Changelog.lua`** → de in-game "what's new"-popup. Nieuw blok BOVENAAN
    `CHANGELOG_ENTRIES` met `version = "<nieuw>"` + `lines = { "CHANGELOG_<ver>_1", ... }`.
 3. **`Locales/enUS.lua`** → de `CHANGELOG_<ver>_*`-keys. **Alleen enUS.** De in-game
