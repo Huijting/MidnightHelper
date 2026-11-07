@@ -25,11 +25,14 @@ er is niets weggegooid.
 
 Alleen offline getest. De stats-lijst per class staat erin (7 nov middag).
 - [ ] Klopt de stat die MH voor jouw class noemt? `/mh questhint check` toont de lijst (bv. Hunter: AGILITY, SPIRIT).
-- [ ] 🐛 Gerepareerd 7 nov (Robs Snow Boots): een beloning met alleen méér armor hoort nu een **groen kader** te krijgen
+- [x] 🐛 Gerepareerd 7 nov (Robs Snow Boots): een beloning met alleen méér armor hoort nu een **groen kader** te krijgen
       met *"+5 Armor over what you wear (more armor, no stat difference)"*. En bij "sells for the most" staat een munt.
       Gaat het mis: `/mh questhint check` direct daarna, er staat nu ook *armor=* per beloning.
-- [ ] Lever een quest in met 2 of meer beloningen om uit te kiezen. Krijgt één beloning een **groen kader**, en staat
+      ✅ Rob 7 nov (screenshot, "A New Threat", 3 beloningen): groen kader om Snow Boots, zin precies zo; GearQuest wijst
+      dezelfde aan. GEMETEN dus: armor wordt op Forever gelezen, en de knopnaam klopt. Munt bij "sells" nog niet gezien.
+- [x] Lever een quest in met 2 of meer beloningen om uit te kiezen. Krijgt één beloning een **groen kader**, en staat
       er onder het questvenster een zin als *"Take …: +3 Agility … over what you wear"*?
+      ✅ Rob 7 nov: groen kader + zin onder het venster (armor-geval, zie hieronder). Een stats-geval nog niet gezien.
 - [ ] Is geen enkele beter: een **geel kader** op wat het meest oplevert, met die uitleg.
 - [ ] MH klikt nooit zelf een beloning aan: kies je zelf iets anders, dan gebeurt er niets geks.
 - [ ] Na inleveren verdwijnen kader en zin.

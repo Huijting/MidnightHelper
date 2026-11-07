@@ -10,7 +10,8 @@
   Baganator/Syndicator/Auctionator gebruiken die API op Forever — kandidaat). `Stats()` geeft nu ook armor voor items
   zonder stats. Prijs via `C_CurrencyInfo.GetCoinTextureString`. `/mh questhint check` toont armor per beloning.
 - Offline 9/9 (scratch `questhint_test.py`), o.a. Robs geval → "Take Snow Boots: +5 Armor over what you wear". Syntax OK,
-  lint 0 HARD. Niet in het spel gezien.
+  lint 0 HARD. ✅ GEMETEN Rob in het spel (screenshot): groen kader om Snow Boots + precies die zin; GearQuest wijst
+  dezelfde aan. Dus op Forever werken GetNumQuestChoices/GetQuestItemLink/de knopnaam en het armor-lezen.
 
 ## 🛠️ 7 nov (middag) — trainer-venster alleen bij iets nieuws (Rob: "Ja, alleen nieuw")
 
