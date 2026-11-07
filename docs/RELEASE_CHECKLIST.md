@@ -14,7 +14,8 @@ de tag.
    Forever): `MidnightHelper-vX.Y.Z.zip` (alleen 12.x) en `MidnightHelper-vX.Y.Z-forever.zip` (alleen 1.60.1). Na de
    eerste gesplitste tag nakijken: twee bestanden op CurseForge (CF files-API: `gameVersions` per bestand), Wago heeft
    beide, de GitHub-release heeft twee zips (de verify-stap faalt anders). Gaat de Forever-stap mis, dan kreeg Forever
-   die keer geen update: opnieuw draaien via Actions → *Re-run failed jobs*.
+   die keer geen update. ⚠️ *Re-run* gebruikt de getagde commit, dus een reparatie komt daar niet in. Herstel: repareren,
+   committen, dan een tag `v<ver>-forever` pushen — die draait alleen de Forever-stap (7 nov, v5.0.1).
 2. **`Modules/Changelog.lua`** → de in-game "what's new"-popup. Nieuw blok BOVENAAN
    `CHANGELOG_ENTRIES` met `version = "<nieuw>"` + `lines = { "CHANGELOG_<ver>_1", ... }`.
 3. **`Locales/enUS.lua`** → de `CHANGELOG_<ver>_*`-keys. **Alleen enUS.** De in-game

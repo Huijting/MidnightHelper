@@ -1,6 +1,17 @@
 # Midnight Helper — waar we staan
 
-## 📦 7 nov (avond) — 5.0.1 klaargezet (Rob: "Ja, 5.0.1"; NOG GEEN TAG)
+## 🚀⚠️ 7 nov (avond) — v5.0.1 getagd (Rob: "Ja, tag maar"): Retail UIT, Forever-helft MISLUKT
+
+- Run 42394547282 GEMETEN: stap Retail OK — `MidnightHelper-v5.0.1.zip`, game versions 12.1.7/12.1.5/12.1.0/12.0.7 (geen
+  1.60.1), CurseForge/Wago/GitHub "Success!". Stap Forever faalde meteen: *"MidnightHelper.toc does not have an interface
+  version that is compatible with the game version forever"* — de packager toetst élke toc aan `-g`. Verify-stap
+  overgeslagen. Forever-spelers zitten dus nog op 5.0.0 (dat bestand heeft 1.60.1).
+- Reparatie (gecommit, NIET getagd): `## Interface-Camelot: 16001` in MidnightHelper.toc (packager-regel; AFGELEID: de
+  client negeert hem) + `release.yml`: tag die op `-forever` eindigt draait alleen de Forever-stap (herstel-tag
+  `v5.0.1-forever`), verify verwacht dan geen Retail-zip. AFGELEID uit release.sh (fallback-tak leest
+  `## Interface-<type>`); niet lokaal gedraaid. Wacht op Robs go voor de herstel-tag.
+
+## 📦 7 nov (avond) — 5.0.1 klaargezet (Rob: "Ja, 5.0.1")
 
 - Beide TOCs 5.0.1; Changelog.lua blok 5.0.1 (CHANGELOG_501_1-3, enUS); CHANGELOG.md; RELEASE_NOTES.md =
   docs/CURSEFORGE_5.0.1.md (GEMETEN byte-gelijk, 27 regels, met beta-alinea bovenaan); CURSEFORGE_DESCRIPTION.md: één zin

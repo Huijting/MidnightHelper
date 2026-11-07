@@ -92,7 +92,14 @@ jobs:
       # and set_build_version keeps only the chosen type's interface values. The CF app picks
       # the matching file per install. Both zips hold the same files (both TOCs) — harmless.
       # The second run UPDATES the GitHub release of this tag (it merges release.json).
+      # 🔴 MEASURED 7 Nov 2026 (v5.0.1, run 42394547282): the first split run failed in the Forever step with
+      # "MidnightHelper.toc does not have an interface version that is compatible with the game version forever".
+      # The packager checks EVERY toc against -g, including the main one. Fix: `## Interface-Camelot: 16001` in
+      # MidnightHelper.toc (a packager line; the game ignores it, AFGELEID).
+      # Recovery tag: a tag ending in "-forever" (e.g. v5.0.1-forever) runs ONLY the Forever step, for when the Retail
+      # half of a release already went out. The packager then keeps the name as is (no double "-forever").
       - name: Package and release (Retail)
+        if: ${{ !endsWith(github.ref_name, '-forever') }}
         uses: BigWigsMods/packager@v2
         with:
           args: -g retail
@@ -141,6 +148,9 @@ jobs:
             echo "::error title=No Forever zip::The Forever upload for $tag is missing. See the 'Package and release (Forever)' step."
             exit 1
           fi
+          case "$tag" in
+            *-forever) echo "Forever-only recovery tag: no Retail zip expected."; exit 0 ;;
+          esac
           if ! echo "$assets" | grep -v -- "-forever\.zip$" | grep -q "\.zip$"; then
             echo "::error title=No Retail zip::The Retail zip for $tag is missing from the GitHub release."
             exit 1
