@@ -74,8 +74,8 @@ run now also remembers its story and Valeera's role.
 
 ### Key block
 
-Step 2 (the layout) now also **switches your action bars on**, and Undo switches them back. A new character no longer
-starts with half of its bars hidden.
+Step 2 (the layout) now also **switches your action bars on**. The button that puts your layout back (*Put "…" back*)
+switches them back too. A new character no longer starts with half of its bars hidden.
 
 ## Also
 
