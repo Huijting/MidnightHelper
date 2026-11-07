@@ -11,8 +11,19 @@
 - Data GEMETEN door mh-research (wago 1.60.1.70862 ItemSparse.TotemCategoryID: 22 items; + 5060 Thieves' Tools en 4471
   Flint and Tinder per item-id; totems 5175-5178 niet te verkopen/vernietigen → weggelaten; hengels geen categorie).
   Interface-feiten uit Gethe wow-ui-source branch `forever` (commit 9dc84f0d3b): Forever-UI = Mainline + Camelot-overrides.
-- ⚠️ AFGELEID, niet getest: of `BuybackItem` vanaf onze knop mag, of de tooltip-post-call in Forever vuurt, of vervangers
-  (hogere staaf, Gnomish Army Knife) tellen — we tellen alleen dezelfde soort (hooguit één waarschuwing te veel).
+- ✅ Rob 7 nov laat (screenshots, Mining Pick): tooltip-regel bij de verkoper, venster na verkopen, en Buy back
+  ("de buyback werkte") — alle drie GEMETEN in de game. "Dock to window" viel over de tekst → tekst naar -32 (`1dae53e`,
+  nog niet opnieuw gezien). Nog open: de vernietig-notitie, "geen regel zonder verkoper", "twee = geen waarschuwing".
+- AFGELEID: of vervangers (hogere staaf, Gnomish Army Knife) tellen — we tellen alleen dezelfde soort.
+
+## 📋 Open voor de volgende bouwchat (7 nov laat)
+
+- Site-chat seinen over de drie nieuwe Forever-dingen van vanavond (Train all, totem-regel, gereedschap-waarschuwing);
+  regel "site volgt elke functie". Live zetten alleen na Robs ja.
+- TESTLIJST bovenaan: totem-regel (bank-truc of rond level 10), Train all-details, vernietig-notitie, key block-popup.
+- CF: nameten dat 5.0.1 en 5.0.1-forever live staan met de juiste game-versies (files-API).
+- Optioneel Rob: `CURSEFORGE_DESCRIPTION.md` opnieuw plakken (zin over tooltips + 3D-trainer).
+- Volgende release (5.0.2?) bundelt Train all + totem-regel + gereedschap-waarschuwing; alleen op Robs go.
 
 ## 🆕 7 nov (avond) — Forever: trainervenster zegt welk totem-voorwerp een Shaman mist (Rob: "ja")
 
