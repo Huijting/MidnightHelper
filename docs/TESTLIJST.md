@@ -79,7 +79,10 @@ intussen zelf had gezet.
 Rob: *"Ja, A + pijl"*. Dit is stap A; de pijl naar de trainer komt later. Alleen offline getest (7 classes nagebootst).
 - [ ] In Forever: `/mh trainer`. Er opent een venster *"New at your trainer - level X"*. Staan daar de spells die je bij
       de trainer kunt leren, met hun prijs en de toets erachter (bijvoorbeeld *Lay on Hands -> Q*)?
-- [ ] Klopt het met wat de trainer zelf laat zien? Mist er iets, of staat er iets dat de trainer niet heeft: noem het.
+- [x] Klopt het met wat de trainer zelf laat zien? Mist er iets, of staat er iets dat de trainer niet heeft: noem het.
+      ✅ Rob 7 nov (screenshot trainer Thorgas Grimson, Dwarf Hunter level 3): Track Beasts 10c nu; Aspect of the Monkey
+      en Serpent Sting R1 1s op 4; Arcane Shot en Hunter's Mark R1 1s op 6 — gelijk aan MH's venster (level, prijs).
+      De knop "Train all" daar is van TalentsForeverBook, niet van MH (GEMETEN met grep).
 - [x] Ga een level omhoog (een even level, bv. 10 of 12): komt er een regel in de chat, en gaat het venster vanzelf open?
       In combat hoort het pas open te gaan als het gevecht voorbij is.
       ✅ Rob 7 nov: venster opende vanzelf bij level 2 (Track Beasts 10c, "you have 0" in rood; volgende: level 4,
