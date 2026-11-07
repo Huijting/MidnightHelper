@@ -18,7 +18,8 @@
      de/fr/es/pt/it/ru (Translations2026 + ruRU), `HOME_FOREVER_BODY` is gewijzigd (drift).
   3. Site-chat inlichten (Forever op de site; live pas na de release).
   4. Rob test (TESTLIJST), dan zijn go → tag.
-- ⚠️ AFGELEID, niet gemeten: dat je in de CurseForge-app "WoW Forever" als spel kiest (tekst in kaart, notes, description).
+- ✅ GEMETEN (Robs screenshot): de CurseForge-app heeft een keuzelijst Retail / Forever / Retail PTR; alle teksten zeggen
+  nu "switch from Retail to Forever".
 - `docs/forever/MidnightHelper_Camelot.toc.txt` is nu overbodig (het echte bestand zit in git); bijgewerkt, niet gewist.
 
 ## 🛠️ 7 nov (avond, laatst) — trainervenster: je geld + vertaalbaar (Rob: "Ja, dat klopt")

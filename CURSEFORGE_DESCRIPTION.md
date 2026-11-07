@@ -8,7 +8,7 @@ For players who just hit 90 or are coming back after a break. Up to date for pat
 
 ### ✨ New in 5.0: Midnight Helper now works in WoW Forever too
 
-The same addon, two games. Install it for your **WoW Forever** game as well (in the CurseForge app, pick WoW Forever)
+The same addon, two games. Install it for your **WoW Forever** game as well (in the CurseForge app, switch from Retail to Forever)
 and you get help made for levelling the way it used to be:
 
 - **Your own start page**: your level, what you can learn at your trainer right now and what it costs, your money, and

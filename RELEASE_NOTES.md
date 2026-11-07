@@ -1,7 +1,8 @@
 # Midnight Helper 5.0.0: now in WoW Forever too
 
 Midnight Helper now works in **two games**: World of Warcraft Midnight, and **WoW Forever**. It is the same addon. You
-install it once for each game: in the CurseForge app, pick your WoW Forever game and add Midnight Helper there as well.
+install it once for each game: in the CurseForge app, switch World of Warcraft from **Retail** to **Forever** and add
+Midnight Helper there as well.
 Everything you use in Midnight stays exactly as it was.
 
 ## What you get in WoW Forever
