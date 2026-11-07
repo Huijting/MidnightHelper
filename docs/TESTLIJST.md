@@ -24,8 +24,10 @@ er is niets weggegooid.
 ## 🆕 7 nov — Forever: pijl naar je trainer (`/mh trainer go`)
 
 Rob: *"alle drie"*. Alleen offline getest, met jouw echte HandyNotes_ClassTrainers-lijst.
-- [ ] `/mh trainer`: onderaan het venster de knop **Take me to my trainer**, met ernaast welke trainer en hoe ver.
+- [x] `/mh trainer`: onderaan het venster de knop **Take me to my trainer**, met ernaast welke trainer en hoe ver.
       Klik: komt de pijl, en wijst hij naar je class-trainer?
+      ✅ Rob 7 nov (Dwarf Hunter, level 2, screenshot): *"en de pijl komt :)"*; knop toont "Thorgas Grimson, about 237 yards
+      (HandyNotes)".
 - [ ] Zet in HandyNotes (`/classtrainers`) **Only my class** UIT: MH moet tóch alleen jouw class kiezen.
 - [ ] Sta naast een trainer, klik hem aan (target) en typ `/mh trainer here`. Groene regel met zijn naam?
       Daarna `/mh trainer go` elders in die stad: kiest hij jouw plek als die dichterbij is? `/mh trainer forget` haalt
@@ -48,8 +50,10 @@ Rob: *"Ja, A + pijl"*. Dit is stap A; de pijl naar de trainer komt later. Alleen
 - [ ] In Forever: `/mh trainer`. Er opent een venster *"New at your trainer - level X"*. Staan daar de spells die je bij
       de trainer kunt leren, met hun prijs en de toets erachter (bijvoorbeeld *Lay on Hands -> Q*)?
 - [ ] Klopt het met wat de trainer zelf laat zien? Mist er iets, of staat er iets dat de trainer niet heeft: noem het.
-- [ ] Ga een level omhoog (een even level, bv. 10 of 12): komt er een regel in de chat, en gaat het venster vanzelf open?
+- [x] Ga een level omhoog (een even level, bv. 10 of 12): komt er een regel in de chat, en gaat het venster vanzelf open?
       In combat hoort het pas open te gaan als het gevecht voorbij is.
+      ✅ Rob 7 nov: venster opende vanzelf bij level 2 (Track Beasts 10c, "you have 0" in rood; volgende: level 4,
+      Aspect of the Monkey → block D, Serpent Sting → 2). De combat-regel is niet apart gezien.
 - [ ] Een oneven level: alleen een chatregel *"nothing new … Next: level X"*.
 - [ ] `/mh trainer auto off`: het venster gaat niet meer vanzelf open (de chatregel blijft). `/mh trainer auto on` zet het terug.
 - [ ] `/mh trainer check`: een paar regels met tellingen. Stuur die mee als iets niet klopt.
