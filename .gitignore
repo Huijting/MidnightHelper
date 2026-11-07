@@ -45,11 +45,6 @@ tools/testlist_page_build.html
 # om ze door de echte loader te halen. Wegwerp, en volledig af te leiden uit git.
 tools/.baseline-*/
 
-# 🧩 The WoW Forever TOC stays OFF GitHub until Rob decides to ship it (night of 5-6 Nov 2026). MEASURED in BigWigsMods
-# packager release.sh (v2, lines 1424-1430): it picks up <package>_Camelot.toc when the FILE EXISTS in the checkout and
-# tags the release for Forever (1.60.1) — the .pkgmeta ignore list only applies later, when the zip is filled. So a
-# tracked-but-ignored Camelot TOC would mark a retail release as Forever while the zip cannot load there.
-# The file lives on disk (Rob's Forever folder loads it through the junction); a tracked copy for history is
-# docs/forever/MidnightHelper_Camelot.toc.txt — copy it back over when changing either. To ship: remove this line, take the
-# file out of .pkgmeta / tools/package.ps1 too (docs/PLAN_FOREVER_RELEASE_2026-11-06.md).
-MidnightHelper_Camelot.toc
+# 🧩 MidnightHelper_Camelot.toc (WoW Forever) was kept off GitHub from 5-6 Nov 2026 until Rob decided to ship it. He did
+# on 7 Nov 2026 (5.0.0, "Ja, begin"): it is tracked now, and the packager tags each release for retail AND Forever
+# (1.60.1) from this one checkout (docs/PLAN_FOREVER_RELEASE_2026-11-06.md).

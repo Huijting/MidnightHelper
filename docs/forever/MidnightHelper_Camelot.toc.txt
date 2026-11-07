@@ -1,15 +1,17 @@
 ## Interface: 16001
 ## AllowLoadGameType: camelot
 ## Title: Midnight Helper Forever
-## Version: 4.15.0
+## Version: 5.0.0
 ## Author: TwelveInchy
 ## Category: User Interface
-## Notes: Midnight Helper for WoW Forever (early test): the main window, settings, search, key bar tools and the route arrow. The Midnight content is left out.
+## Notes: Midnight Helper for WoW Forever: what to learn at your trainer (with an arrow), how your class plays, a key block for all nine classes, a quest reward hint, and the route arrow.
 ## IconTexture: Interface\AddOns\MidnightHelper\Media\Addon_Icon
 ## SavedVariables: MidnightHelperDB
 ## AddonCompartmentFunc: MidnightHelper_OnAddonCompartmentClick
 ## X-Website: https://github.com/Huijting/MidnightHelper
 ## X-License: MIT
+## X-Curse-Project-ID: 1528577
+## X-Wago-ID: rNky4wKa
 
 # 🧩 WoW Forever TOC (5 Nov 2026, docs/PLAN_FOREVER_2026-11-05.md step 1; Rob: "Ja, stap 1").
 # Same folder, same files as MidnightHelper.toc: only the engine, the key/bar tools and the arrow. Forever reads this

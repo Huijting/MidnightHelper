@@ -26,10 +26,8 @@ $excludeDirs = @(".git", ".cursor", "tools", "docs", ".github", "dist", "data", 
 $xf = @(
 	".git", ".cursorrules", ".gitattributes", ".gitignore", ".luarc.json",
 	"CLAUDE.md", "README.md", "CHANGELOG.md", "RELEASE_CHECKLIST.md", "CURSEFORGE_DESCRIPTION.md",
-	"*.bat", "*.cmd", "*.ps1", "*.py", "*.exe",
-	# The WoW Forever TOC (5 Nov 2026) is an early test on Rob's PC only. Out of every release until Rob decides to ship
-	# it (docs/PLAN_FOREVER_2026-11-05.md). Same line in .pkgmeta.
-	"MidnightHelper_Camelot.toc"
+	"*.bat", "*.cmd", "*.ps1", "*.py", "*.exe"
+	# MidnightHelper_Camelot.toc (WoW Forever) ships since 5.0.0 (Rob, 7 Nov 2026); it was excluded here until then.
 )
 $args = @($src, $folder, "/E", "/NFL", "/NDL", "/NJH", "/NJS", "/nc", "/ns", "/np")
 foreach ($d in $excludeDirs) {

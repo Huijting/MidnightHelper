@@ -325,6 +325,24 @@ local function BuildLayout()
 		end
 	end
 
+	------------------------------------------------------------------ MH 5.0: we are in WoW Forever too (7 Nov 2026)
+	-- Rob: "zowel in de changelogs als op de website en de midnight versie duidelijk maken dat we dit hebben, kortom
+	-- groots adverteren" → a banner card, until the player clicks it away (once per account).
+	if not (ns.db and ns.db.foreverAnnounceSeen) then
+		addFull(function(rows)
+			rows[#rows + 1] = { header = true, banner = true, text = ns:L("HOME_FOREVER_AD_HEADER"), color = { 1, 0.82, 0 } }
+			rows[#rows + 1] = { banner = true, text = ns:L("HOME_FOREVER_AD_BODY"), color = { 1, 1, 1 } }
+			rows[#rows + 1] = { button = true, text = ns:L("HOME_FOREVER_AD_HIDE"), onClick = function()
+				if ns.db then
+					ns.db.foreverAnnounceSeen = true
+				end
+				if ns.RefreshHomePanel then
+					ns.RefreshHomePanel()
+				end
+			end }
+		end)
+	end
+
 	------------------------------------------------------------------ Solo switch (21 Oct 2026)
 	-- The switch used to live only in Settings → Window, where nobody found it. Now it sits at the top of the page it
 	-- changes, one click either way (players choose, never us).
@@ -1481,6 +1499,25 @@ do
 			ns.RefreshHomePanel()
 		end
 	end
+end
+
+-- MH 5.0 (7 Nov 2026, Rob: "groots adverteren"): once per account, a chat line on retail that MH now works in WoW
+-- Forever too. A few seconds after the first loading screen, so it is not buried under the login spam.
+if not ns.IS_FOREVER then
+	local announce = CreateFrame("Frame")
+	announce:RegisterEvent("PLAYER_ENTERING_WORLD")
+	announce:SetScript("OnEvent", function(self)
+		self:UnregisterEvent("PLAYER_ENTERING_WORLD")
+		if not (C_Timer and C_Timer.After) then
+			return
+		end
+		C_Timer.After(8, function()
+			if ns.db and not ns.db.foreverChatSeen then
+				ns.db.foreverChatSeen = true
+				print("|cffffcc00Midnight Helper:|r " .. ns:L("FOREVER_AD_CHAT"))
+			end
+		end)
+	end)
 end
 
 local ev = CreateFrame("Frame")

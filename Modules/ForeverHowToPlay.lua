@@ -11,7 +11,7 @@ local _, ns = ...
 	and the key tables, then fact-checked by mh-research (DB2 1.60.1.70790, Blizzard's deep dives). A class without a
 	text (none today) gets an honest "not written yet" line. The window shows only this character's class.
 
-	English only for now: Forever is in early test and this is a draft. The keys named here are the ones the
+	English here; other languages in Locales/ForeverHowToPlay_<code>.lua (7 Nov 2026). The keys named here are the ones the
 	ForeverBlock_<Class>.lua tables use on 6 Nov 2026 — change a table, change its line here too.
 
 	It takes the retail names ns.ShowPlayCardWindow / ns.TogglePlayCardWindow, because PlayCardWindow.lua is not loaded on
@@ -375,19 +375,32 @@ local function ClassName(token)
 	return (names and names[token]) or (token:sub(1, 1) .. token:sub(2):lower())
 end
 
+--- 7 Nov 2026 (Rob: "Alles in 5.0.0"): the translations live in Locales/ForeverHowToPlay_<code>.lua, one file per
+--- language, each `ns.FOREVER_HOWTOPLAY_L[code] = { COMMON = {...}, DRUID = {...}, ... }` in the SAME shape as the
+--- English tables here (same sections, same order). A class or COMMON missing in a language falls back to English.
+local function Translated()
+	local all = ns.FOREVER_HOWTOPLAY_L
+	local code = ns.GetEffectiveLocaleCode and ns:GetEffectiveLocaleCode()
+	local t = all and code and all[code]
+	if not t and code == "esMX" and all then
+		t = all.esES -- the esMX client reads the esES pack (Locale.lua)
+	end
+	return t
+end
+
 --- The whole text for one class, sections first, then the part every class shares.
 local function TextFor(token)
 	local parts = {}
-	local cls = CLASSES[token]
+	local tr = Translated()
+	local cls = (tr and tr[token]) or CLASSES[token]
 	if cls then
 		for _, sec in ipairs(cls) do
 			parts[#parts + 1] = HEAD .. sec[1] .. "|r\n" .. Format(sec[2])
 		end
 	else
-		parts[#parts + 1] = ("Not written yet for the %s. Your keys are already on the block: open it with /mh block, " ..
-			"and point at a key to see its spell."):format(ClassName(token))
+		parts[#parts + 1] = ns:L("FHOWTO_NOT_WRITTEN_FMT"):format(ClassName(token))
 	end
-	for _, sec in ipairs(COMMON) do
+	for _, sec in ipairs((tr and tr.COMMON) or COMMON) do
 		parts[#parts + 1] = HEAD .. sec[1] .. "|r\n" .. Format(sec[2])
 	end
 	return table.concat(parts, "\n\n")

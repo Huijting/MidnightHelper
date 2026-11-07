@@ -1,0 +1,125 @@
+## Interface: 16001
+## AllowLoadGameType: camelot
+## Title: Midnight Helper Forever
+## Version: 5.0.0
+## Author: TwelveInchy
+## Category: User Interface
+## Notes: Midnight Helper for WoW Forever: what to learn at your trainer (with an arrow), how your class plays, a key block for all nine classes, a quest reward hint, and the route arrow.
+## IconTexture: Interface\AddOns\MidnightHelper\Media\Addon_Icon
+## SavedVariables: MidnightHelperDB
+## AddonCompartmentFunc: MidnightHelper_OnAddonCompartmentClick
+## X-Website: https://github.com/Huijting/MidnightHelper
+## X-License: MIT
+## X-Curse-Project-ID: 1528577
+## X-Wago-ID: rNky4wKa
+
+# 🧩 WoW Forever TOC (5 Nov 2026, docs/PLAN_FOREVER_2026-11-05.md step 1; Rob: "Ja, stap 1").
+# Same folder, same files as MidnightHelper.toc: only the engine, the key/bar tools and the arrow. Forever reads this
+# file because of AllowLoadGameType camelot (measured: EllesmereUIForeverEssentials_Camelot.toc); retail ignores it.
+# ⚠️ Keep the order of MidnightHelper.toc. A file added there does NOT appear here by itself: decide per file.
+# Left out on purpose: everything Midnight (delves, Valeera, Labyrinth, rituals, vault, M+, raids, rares, Codex, season),
+# Midnight data and locale packs, the travel planner (Midnight places), the probes, onboarding tour and nudges.
+
+Libs\LibStub.lua
+Libs\CallbackHandler-1.0.lua
+Libs\LibDataBroker-1.1.lua
+Libs\LibDBIcon-1.0.lua
+
+Core.lua
+Modules\Comms.lua
+Modules\Auras.lua
+Locales\enUS.lua
+Locales\KeepEnglish.lua
+Locales\deDE.lua
+Locales\frFR.lua
+Locales\esES.lua
+Locales\ptBR.lua
+Locales\itIT.lua
+Locales\nlNL.lua
+Locales\SettingsPage.lua
+Locales\Translations2026.lua
+Locales\TranslationsS2.lua
+Locales\ruRU.lua
+Locales\esMX.lua
+Locales\ForeverHowToPlay_nlNL.lua
+Locales\Locale.lua
+# Delve file, but it only defines functions (no frames or events at load). It owns the shared copy window
+# (ns.ShowShareCopyDialog) that the key block export and the support report use.
+Modules\DelvePartyShare.lua
+Config.lua
+Modules\KeybindSchema.lua
+Modules\KeybindingData.lua
+Modules\KeybindLayoutSlug.lua
+Modules\KeybindRoles_Warrior.lua
+Modules\KeybindRoles_Racials.lua
+Modules\KeybindRoles_Paladin.lua
+Modules\KeybindRoles_Hunter.lua
+Modules\KeybindRoles_Rogue.lua
+Modules\KeybindRoles_Priest.lua
+Modules\KeybindRoles_Shaman.lua
+Modules\KeybindRoles_Mage.lua
+Modules\KeybindRoles_Warlock.lua
+Modules\KeybindRoles_Druid.lua
+Modules\KeybindAnchors.lua
+Modules\KeybindAutoMap.lua
+Modules\KeyboardLayoutPrototype.lua
+Modules\LiveKeys.lua
+Modules\KeyPresses.lua
+UI.lua
+Modules\DialogPopup.lua
+Modules\Changelog.lua
+Modules\LayoutExtras.lua
+Modules\CombatSafety.lua
+Modules\FastMark.lua
+# Who gets which marker for the bar's friend button (/mh mark me, /mh mark friend). Rob, 6 Nov 2026: "ja".
+Modules\FriendMarks.lua
+Modules\SavedVarCleanup.lua
+Modules\MidnightToast.lua
+Modules\Broker.lua
+# The quick bar (/mh bar), Forever buttons only: MH, reload, leave group, key block (Rob, 6 Nov 2026: "ja doe maar").
+Modules\QuickBar.lua
+Modules\BriefNotice.lua
+Modules\NativeArrow.lua
+Modules\BarInventory.lua
+Modules\BarEightKeys.lua
+Modules\EditModeBackup.lua
+Modules\BarPreset.lua
+Modules\SlotOwnership.lua
+Modules\ApplyLayout.lua
+Modules\KeyBlock.lua
+Modules\SpellbookDump.lua
+Modules\ForeverBlock_Druid.lua
+Modules\ForeverBlock_Paladin.lua
+Modules\ForeverBlock_Mage.lua
+Modules\ForeverBlock_Hunter.lua
+Modules\ForeverBlock_Warrior.lua
+Modules\ForeverBlock_Rogue.lua
+Modules\ForeverBlock_Priest.lua
+Modules\ForeverBlock_Shaman.lua
+Modules\ForeverBlock_Warlock.lua
+Modules\ForeverBlock.lua
+Modules\ForeverHowToPlay.lua
+# New at your trainer, with the key each spell lands on (Rob, 7 Nov 2026: "Ja, A + pijl"). Data: What's Training? (MIT).
+Modules\ForeverTrainerData.lua
+Modules\ForeverTrainerSpots.lua
+Modules\ForeverTrainer.lua
+# Which quest reward to take, and why (Rob, 7 Nov 2026: "doe de quest beloning tip maar ook").
+Modules\ForeverMainStats.lua
+Modules\ForeverQuestHint.lua
+# Your Edit Mode layout to every new character, one click (Rob, 7 Nov 2026: "2").
+Modules\ForeverLayoutCarry.lua
+Modules\LayoutGrowth.lua
+Modules\BarPlanCard.lua
+Modules\AccessibleAlerts.lua
+Modules\SettingsDefs.lua
+Modules\NativeSettings.lua
+Modules\FpsPanel.lua
+Modules\SettingsPage.lua
+Modules\HomeDashboard.lua
+Modules\NavSearch.lua
+Modules\CommandList.lua
+Modules\SupportReport.lua
+Modules\KeysHub.lua
+Modules\ToolsLaunchpad.lua
+Modules\RoomLauncher.lua
+Modules\SidePanel.lua

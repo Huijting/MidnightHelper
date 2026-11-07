@@ -21,6 +21,20 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 7 nov (nacht) — 5.0.0: retail-melding, vertaalbare Forever-teksten, Nederlandse How you play
+
+Alleen offline gecontroleerd (syntax + lint). Eerst `/reload` (het "Wat is er nieuw"-venster voor 5.0.0 hoort te openen).
+- [ ] **Retail:** "Wat is er nieuw" toont 5.0.0 met 10 regels, Forever eerst.
+- [ ] **Retail:** bovenaan Home een goudkleurige kaart *"New in 5.0: Midnight Helper now works in WoW Forever too"* met
+      knop *"Got it, hide this"* → weg, en komt niet terug (ook niet na `/reload`).
+- [ ] **Retail:** ~8 seconden na het inloggen één chatregel over Forever. Na de volgende `/reload` niet meer.
+- [ ] **Forever, taal Nederlands:** `/mh play` → How you play in het Nederlands, spellnamen Engels, toetsen kloppen.
+- [ ] **Forever, Automatisch:** `/mh play` → weer Engels.
+- [ ] **Forever:** questbeloning-tip in het Nederlands (*"Neem …"*) bij een quest met keuze.
+- [ ] **Forever, nieuw character:** de balken-vraag met **Ja / Nu niet / Nooit meer vragen**; na Ja het venster *"Nu
+      herladen?"*.
+- [ ] Vastplakken-knop: wissel van taal, open een venster opnieuw → knop in de nieuwe taal.
+
 ## 🆕 7 nov (avond, laat) — Forever: je geld in het trainervenster + schoonheidsfoutjes
 
 Rob: *"Ja, dat klopt"*. Alleen offline gecontroleerd (syntax + lint). Taal op Nederlands:

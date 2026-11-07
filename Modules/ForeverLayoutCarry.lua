@@ -404,13 +404,16 @@ local barDialog
 
 local function AskReloadAndReopen()
 	if not (StaticPopupDialogs and StaticPopup_Show) then
-		print(PREFIX .. "bar layout: type /reload to finish, then /mh block for step 1.")
+		print(PREFIX .. ns:L("FBAR_RELOAD_CHAT"))
 		return
 	end
-	StaticPopupDialogs["MH_FOREVER_BARLAYOUT_RELOAD"] = StaticPopupDialogs["MH_FOREVER_BARLAYOUT_RELOAD"] or {
-		text = "Your MH bar layout is set. Reload now? The key block opens afterwards for step 1: your spells on the keys.",
-		button1 = "Reload now",
-		button2 = "Later",
+	-- Texts set on every show, so a language switch in between is followed (the dialog table is kept).
+	StaticPopupDialogs["MH_FOREVER_BARLAYOUT_RELOAD"] = StaticPopupDialogs["MH_FOREVER_BARLAYOUT_RELOAD"] or {}
+	local dlg = StaticPopupDialogs["MH_FOREVER_BARLAYOUT_RELOAD"]
+	dlg.text = ns:L("FBAR_RELOAD_TEXT")
+	dlg.button1 = ns:L("KEYBLOCK_BTN_RELOAD")
+	dlg.button2 = ns:L("KEYBLOCK_NEW_LATER")
+	for k, v in pairs({
 		OnAccept = function()
 			if ns.KeyBlockReloadAndReopen then
 				ns.KeyBlockReloadAndReopen()
@@ -419,13 +422,15 @@ local function AskReloadAndReopen()
 			end
 		end,
 		OnCancel = function()
-			print(PREFIX .. "bar layout: type /reload when you are ready, then /mh block for step 1.")
+			print(PREFIX .. ns:L("FBAR_RELOAD_LATER_CHAT"))
 		end,
 		timeout = 0,
 		whileDead = true,
 		hideOnEscape = true,
 		preferredIndex = 3,
-	}
+	}) do
+		dlg[k] = v
+	end
 	local pop = StaticPopup_Show("MH_FOREVER_BARLAYOUT_RELOAD")
 	if pop and pop.SetFrameStrata then
 		pop:SetFrameStrata("FULLSCREEN_DIALOG")
@@ -448,9 +453,6 @@ local function AskBarLayout()
 		f.text = f:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
 		f.text:SetPoint("TOP", 0, -22)
 		f.text:SetWidth(400)
-		f.text:SetText("Set up the |cffffd100Midnight Helper bar layout|r on this character?\n" ..
-			"|cff9d9d9dThe key block: your bars as blocks and switched on, menu and bags bottom-right. You can put it " ..
-			"back later in the key block window.|r")
 		local function Btn(label, x, onClick)
 			local b = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
 			b:SetSize(130, 24)
@@ -459,31 +461,30 @@ local function AskBarLayout()
 			b:SetScript("OnClick", onClick)
 			return b
 		end
-		Btn("Yes", 20, function()
+		f.yes = Btn("", 20, function()
 			f:Hide()
 			local ok, msg = ns.MH_EditModeMakeOwnLayout()
 			if not ok then
-				print(PREFIX .. "bar layout: " .. tostring(msg))
+				print(PREFIX .. ns:L("FBAR_FAILED_FMT"):format(tostring(msg)))
 				return
 			end
 			AskReloadAndReopen()
 		end)
-		Btn("Not now", 155, function()
+		f.notNow = Btn("", 155, function()
 			local s = Store()
 			if s then
 				s.foreverBarLayoutAsked = s.foreverBarLayoutAsked or {}
 				s.foreverBarLayoutAsked[CharKey()] = true
 			end
-			print(PREFIX .. "bar layout: not on this character. The key block (/mh block, step 2) does it any time.")
+			print(PREFIX .. ns:L("FBAR_NOT_NOW_CHAT"))
 			f:Hide()
 		end)
-		Btn("Never ask again", 290, function()
+		f.never = Btn("", 290, function()
 			ns.SetForeverBarLayoutAsk(false)
 			if ns.SyncNativeSetting then
 				ns.SyncNativeSetting("mh_foreverAskBarLayout", false)
 			end
-			print(PREFIX .. "bar layout: MH will not ask again. Turn it back on in Settings -> Midnight Helper " ..
-				"(\"Offer the MH bar layout on new characters\").")
+			print(PREFIX .. ns:L("FBAR_NEVER_CHAT_FMT"):format(ns:L("SET_FOREVER_BARLAYOUT_TITLE")))
 			f:Hide()
 		end)
 		if ns.RegisterMidnightDialogPopup then
@@ -493,6 +494,11 @@ local function AskBarLayout()
 		end
 		barDialog = f
 	end
+	-- 7 Nov 2026: translatable; set on every show so the language of the moment is used.
+	barDialog.text:SetText(ns:L("FBAR_ASK_TEXT"))
+	barDialog.yes:SetText(ns:L("FBAR_YES")) -- not Blizzard's YES: MH's own language can differ from the client's
+	barDialog.notNow:SetText(ns:L("FBAR_NOT_NOW"))
+	barDialog.never:SetText(ns:L("FBAR_NEVER"))
 	barDialog:Show()
 end
 ns.ForeverBarLayoutAsk = AskBarLayout

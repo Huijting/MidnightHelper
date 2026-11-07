@@ -265,22 +265,21 @@ local function Decide()
 		if best.darm and best.darm ~= 0 then
 			parts[#parts + 1] = ("%+d %s"):format(best.darm, (type(ARMOR) == "string" and ARMOR) or "Armor")
 		end
-		local why = (best.ds == 0 and best.dsta == 0) and "more armor, no stat difference"
-			or ("main stats for a %s"):format(ClassName(token))
+		local why = (best.ds == 0 and best.dsta == 0) and ns:L("FQH_WHY_ARMOR")
+			or ns:L("FQH_WHY_MAIN_FMT"):format(ClassName(token))
 		if not best.worn or not best.worn.link then
-			return { index = best.i, kind = "upgrade", text = ("Take %s: %s (%s). That slot is empty now.")
+			return { index = best.i, kind = "upgrade", text = ns:L("FQH_TAKE_EMPTY_FMT")
 				:format(best.link, table.concat(parts, ", "), why) }
 		end
-		return { index = best.i, kind = "upgrade", text = ("Take %s: %s over what you wear (%s).")
+		return { index = best.i, kind = "upgrade", text = ns:L("FQH_TAKE_FMT")
 			:format(best.link, table.concat(parts, ", "), why) }
 	end
 	if not main then
-		return { index = bestMoney.i, kind = "money", text = ("No stat list for your class yet. %s sells for the most.")
-			:format(bestMoney.link) }
+		return { index = bestMoney.i, kind = "money", text = ns:L("FQH_NO_LIST_FMT"):format(bestMoney.link) }
 	end
 	if bestMoney and bestMoney.sell > 0 then
-		return { index = bestMoney.i, kind = "money", text = ("None of these is better for you than what you wear. " ..
-			"%s sells for the most (%s)."):format(bestMoney.link, Money(bestMoney.sell)) }
+		return { index = bestMoney.i, kind = "money", text = ns:L("FQH_SELL_FMT")
+			:format(bestMoney.link, Money(bestMoney.sell)) }
 	end
 	return nil, "nothing better and nothing that sells"
 end

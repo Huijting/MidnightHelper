@@ -1,5 +1,26 @@
 # Midnight Helper — waar we staan
 
+## 🚀 7 nov (nacht) — 5.0.0 in voorbereiding: Forever in de release (Rob: "Ja, begin"; NOG GEEN TAG)
+
+- Robs keuzes: **5.0.0**, **meteen Release** (geen beta), retail-melding **alle drie** (changelog + Home-kaart + eenmalige
+  chatregel), How you play **"Alles in 5.0.0"** (alle talen vóór de release). Tag `v5.0.0` pas op Robs go.
+- ✅ Gedaan: `MidnightHelper_Camelot.toc` in git (uit `.gitignore`, `.pkgmeta`, `package.ps1`), `## Version 5.0.0` in
+  beide TOC's (+ `X-Curse-Project-ID`/`X-Wago-ID` in Camelot), RELEASE_CHECKLIST zegt "beide TOC's".
+  Vertaalbaar gemaakt: questhint (`FQH_*`), balken-vraag (`FBAR_*`; `/mh mylayout`-chat blijft Engels = handcommando),
+  How you play (per taal `Locales/ForeverHowToPlay_<code>.lua`, zelfde vorm; esMX valt terug op esES; nlNL ✅ klaar,
+  door mh-writer, in beide TOC's, alleen op Forever). Retail: Home-kaart `HOME_FOREVER_AD_*` (wegklikbaar,
+  `db.foreverAnnounceSeen`) + chatregel `FOREVER_AD_CHAT` (`db.foreverChatSeen`, 8 s na eerste laadscherm).
+  Changelog `CHANGELOG_500_0..9`, `RELEASE_NOTES.md` = `docs/CURSEFORGE_5.0.0.md` (byte-gelijk GEMETEN),
+  `CHANGELOG.md`, `CURSEFORGE_DESCRIPTION.md` (Forever-blok bovenaan; Rob plakt).
+- 🔴 OPEN vóór de tag:
+  1. mh-research meet de Forever-spellnamen per taal → `docs/forever/CLIENT_NAMES_FOREVER_2026-11-07.md` (loopt).
+  2. Daarna How you play + alle `FTRAIN_/FQH_/FBAR_/HOME_FOREVER_/TOOLLP_HOWTO/TRAINER/FHOWTO_/FOREVER_AD_`-sleutels naar
+     de/fr/es/pt/it/ru (Translations2026 + ruRU), `HOME_FOREVER_BODY` is gewijzigd (drift).
+  3. Site-chat inlichten (Forever op de site; live pas na de release).
+  4. Rob test (TESTLIJST), dan zijn go → tag.
+- ⚠️ AFGELEID, niet gemeten: dat je in de CurseForge-app "WoW Forever" als spel kiest (tekst in kaart, notes, description).
+- `docs/forever/MidnightHelper_Camelot.toc.txt` is nu overbodig (het echte bestand zit in git); bijgewerkt, niet gewist.
+
 ## 🛠️ 7 nov (avond, laatst) — trainervenster: je geld + vertaalbaar (Rob: "Ja, dat klopt")
 
 - ✅ GEMETEN Rob (screenshots): het Forever-startscherm, het trainervenster en de knoppen werken. Tools-tab niet gezien.

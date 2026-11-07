@@ -6,7 +6,22 @@ Your gear says "Champion 4/6", your Great Vault has three empty slots, and the g
 For players who just hit 90 or are coming back after a break. Up to date for patch 12.1.5 and Season 2, and ready for
 12.1.7. Free, no ads, [open source](https://github.com/Huijting/MidnightHelper), eight languages, no other addons needed.
 
-### What it does
+### ✨ New in 5.0: Midnight Helper now works in WoW Forever too
+
+The same addon, two games. Install it for your **WoW Forever** game as well (in the CurseForge app, pick WoW Forever)
+and you get help made for levelling the way it used to be:
+
+- **Your own start page**: your level, what you can learn at your trainer right now and what it costs, your money, and
+  **Take me to my trainer**: an arrow to your nearest class trainer (218 trainers known, no other addon needed).
+- **New at your trainer**: when you level up, a window shows every new spell with its rank, its price and the key it
+  lands on.
+- **How you play, for all nine classes**: what your class does, your buttons for levels 1 to 10, a simple order to
+  press them, what comes later, and the mistakes beginners make.
+- **A key block for every class**: the same task on the same key on every character. A new character gets your bar
+  layout with one click.
+- **Which quest reward to take**: MH marks the reward that is best for your class, or the one that sells for the most.
+
+### What it does in Midnight
 
 - **This Week**: the one page you need: what to do now, with a *Take me there* button. Mostly solo? One switch puts
   delves first.
@@ -25,6 +40,7 @@ For players who just hit 90 or are coming back after a break. Up to date for pat
 - **Your keys**: your key block (the same job on the same key on every character, with one Undo), which spells you
   really press, and your whole keyboard, in one window.
 - **Professions, raid shopping lists and the Role Academy** for learning to tank or heal.
+- **What fits in 20 minutes?** (`/mh time`): the delves and rituals that fit the time you have, from your own runs.
 
 ### Find anything, then it takes you there
 

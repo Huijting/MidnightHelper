@@ -2,6 +2,21 @@
 
 All notable changes to this project are documented in this file.
 
+## 5.0.0
+
+📌 **2026-11-07, IN VOORBEREIDING (Rob: 5.0.0, meteen Release, "groots adverteren"; nog geen tag — dat is Robs go).**
+Eerste release die ook WoW Forever (1.60.1) ondersteunt: `MidnightHelper_Camelot.toc` zit sinds vandaag in git en in de
+zip. In-game: CHANGELOG_500_0 t/m _9. `RELEASE_NOTES.md` = `docs/CURSEFORGE_5.0.0.md`.
+
+- **Forever:** eigen startscherm (trainer, geld, pijl, knoppen), "New at your trainer" (`ForeverTrainer.lua`, 1356 spells,
+  218 trainers, HandyNotes tijdens het spelen), How you play voor 9 classes (`ForeverHowToPlay.lua` + per taal
+  `Locales/ForeverHowToPlay_<code>.lua`), toetsenblok voor 9 classes, balken-vraag op nieuwe characters
+  (`ForeverLayoutCarry.lua`), questbeloning-tip (`ForeverQuestHint.lua`), Tools-kaarten.
+- **Midnight:** "What fits in 20 minutes?" (`TimePlan.lua`), TomTom 4.4.0 ArrowTargetChanged, pin alleen wissen als hij
+  van ons is, toetsenblok stap 2 zet balken aan, Forever-kaart + eenmalige chatregel op retail.
+- **Klein:** zoekveld noemt instellingen, QM-knoppen en stadspins in clientwoorden, Serpent's Bite 2, Epu/Nema,
+  Vastplakken-knop.
+
 ## 4.15.0
 
 📌 **2026-11-03, RELEASE (Rob: "Ja, go 4.15.0", en "je mag helemaal plaatsen").** Tag `v4.15.0`, direct als release (geen

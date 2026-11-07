@@ -4,6 +4,22 @@ local changelogFrame
 
 local CHANGELOG_ENTRIES = {
 	{
+		version = "5.0.0",
+		lines = {
+			-- 7 Nov 2026 (Rob: 5.0.0, "groots adverteren"): Forever first, then what changed for Midnight.
+			"CHANGELOG_500_0",
+			"CHANGELOG_500_1",
+			"CHANGELOG_500_2",
+			"CHANGELOG_500_3",
+			"CHANGELOG_500_4",
+			"CHANGELOG_500_5",
+			"CHANGELOG_500_6",
+			"CHANGELOG_500_7",
+			"CHANGELOG_500_8",
+			"CHANGELOG_500_9",
+		},
+	},
+	{
 		version = "4.15.0",
 		lines = {
 			"CHANGELOG_4150_0",

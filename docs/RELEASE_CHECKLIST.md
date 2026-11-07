@@ -9,7 +9,9 @@ de tag.
 
 ## 1. De vijf artefacten (allemaal bijwerken)
 
-1. **`MidnightHelper.toc`** → `## Version:` bumpen.
+1. **`MidnightHelper.toc`** → `## Version:` bumpen. 🔴 **Sinds 5.0.0 óók `MidnightHelper_Camelot.toc`** (WoW Forever),
+   zelfde nummer. De packager tagt elke release voor retail én Forever (1.60.1) uit deze ene checkout. Na de eerste
+   Forever-tag nakijken: Actions-log noemt 1.60.1, het CurseForge-bestand heeft het label, Wago toont Forever.
 2. **`Modules/Changelog.lua`** → de in-game "what's new"-popup. Nieuw blok BOVENAAN
    `CHANGELOG_ENTRIES` met `version = "<nieuw>"` + `lines = { "CHANGELOG_<ver>_1", ... }`.
 3. **`Locales/enUS.lua`** → de `CHANGELOG_<ver>_*`-keys. **Alleen enUS.** De in-game
