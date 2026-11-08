@@ -20,6 +20,8 @@ local _, ns = ...
 ]]
 
 local PREFIX = "|cffffcc00Midnight Helper:|r "
+-- GEMETEN 8 Nov 2026: MF's TOC says X-Curse-Project-ID 1763027; curseforge.com/projects/1763027 opened this page.
+local MF_URL = "https://www.curseforge.com/wow/addons/mf-nameplates"
 
 local function MF()
 	local mf = _G.MFNameplates
@@ -268,8 +270,50 @@ local function Fill(f)
 		y = top - h - 5
 		return l, top
 	end
+	if f.url then
+		f.url:Hide()
+		f.urlHint:Hide()
+	end
 	if not mf then
+		-- The tip for players without MF (Rob, 8 Nov 2026: "ik gebruik MF nameplates en vind dat erg handig. Of dat
+		-- mensen dat moeten kiezen, moeten ze natuurlijk zelf weten. En misschien kunnen we daar een link voor ze erbij
+		-- zetten" → "Kleine tip-kaart"). A link cannot be clicked in WoW, so it sits in a box to copy.
 		put(ns:L("NPCOL_NO_MF"), "GameFontHighlight", 0)
+		put(ns:L("NPCOL_TIP_BODY"), "GameFontHighlight", 0, 6)
+		if not f.url then
+			local eb = CreateFrame("EditBox", nil, f, "InputBoxTemplate")
+			eb:SetSize(TEXT_W, 22)
+			eb:SetAutoFocus(false)
+			eb:SetScript("OnTextChanged", function(self, user)
+				if user then -- read-only: put the link back
+					self:SetText(MF_URL)
+					self:HighlightText()
+				end
+			end)
+			eb:SetScript("OnEditFocusGained", function(self)
+				self:HighlightText()
+			end)
+			eb:SetScript("OnEscapePressed", function(self)
+				self:ClearFocus()
+			end)
+			f.url = eb
+			f.urlHint = f:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+		end
+		f.url:SetText(MF_URL)
+		f.url:ClearAllPoints()
+		f.url:SetPoint("TOPLEFT", f, "TOPLEFT", 30, y - 6)
+		f.url:Show()
+		f.urlHint:SetText(ns:L("NPCOL_TIP_COPY"))
+		f.urlHint:ClearAllPoints()
+		f.urlHint:SetPoint("TOPLEFT", f.url, "BOTTOMLEFT", -6, -4)
+		f.urlHint:Show()
+		y = y - 6 - 22 - 4 - 14 - 6
+		C_Timer.After(0, function()
+			if f.url:IsShown() then
+				f.url:SetFocus()
+				f.url:HighlightText()
+			end
+		end)
 	else
 		put(ns:L("NPCOL_SUB_FMT"):format(ProfileName(mf)), "GameFontDisableSmall", 0)
 		for _, r in ipairs(Rows(mf.db.profile)) do

@@ -123,6 +123,13 @@ local TOOLS = {
 		icon = "Interface\\Icons\\INV_Misc_Gem_Variety_01", slash = "/mh colors",
 		open = function() if ns.ShowNameplateColors then ns.ShowNameplateColors() end end,
 	},
+	-- ...and the small tip card for players WITHOUT MF (Rob, 8 Nov 2026: "Kleine tip-kaart"): what MH could explain,
+	-- that the maker uses MF himself, that it is their choice, and the link to copy (the same window, in tip mode).
+	{
+		nameKey = "NPCOL_TIP_NAME", descKey = "NPCOL_TIP_DESC", needsNoMF = true,
+		icon = "Interface\\Icons\\INV_Misc_Gem_Variety_01", slash = "/mh colors",
+		open = function() if ns.ShowNameplateColors then ns.ShowNameplateColors() end end,
+	},
 	{
 		nameKey = "FPS_TITLE", descKey = "CMDLIST_FPS",
 		icon = "Interface\\Icons\\INV_Misc_PocketWatch_01", slash = "/mh fps",
@@ -156,6 +163,9 @@ local FOREVER_NEEDS = {
 local function ToolShown(tool)
 	if tool.needsMF then
 		return ns.NameplateColorsAvailable ~= nil and ns.NameplateColorsAvailable()
+	end
+	if tool.needsNoMF then
+		return ns.NameplateColorsAvailable ~= nil and not ns.NameplateColorsAvailable()
 	end
 	if not ns.IS_FOREVER then
 		return not tool.foreverOnly

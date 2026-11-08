@@ -47,6 +47,9 @@ er is niets weggegooid.
 - [ ] Kloppen de kleuren met wat je in het spel ziet?
 - [x] (Rob 8 nov, Forever) Profiel "Default", geen "An important cast", DPS/healer-blok op de priest.
 - [ ] Midnight: daar staat "An important cast" er wél bij.
+- [ ] Zet MF Nameplates uit op een character, `/reload`: in de gereedschapskamer staat nu de tip-kaart "Nameplate
+      colours (MF Nameplates)". Open → uitleg + "TwelveInchy ... gebruikt het zelf" + een vak met de CurseForge-link
+      (Ctrl+C kopieert). `/mh colors` staat niet meer in de commandolijst of de zoekbalk.
 - [ ] Aggro: op een tank-character zie je het tank-blok, anders het DPS/healer-blok.
 - [ ] De knop: Midnight → gereedschapskamer (kaart "Nameplate colours"); Forever → startpagina, onder "spelen".
 - [ ] Shift + scrollen maakt het venster groter/kleiner; Escape sluit het.

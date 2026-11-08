@@ -41,8 +41,11 @@
 - Later (Rob: "verberg het die optie daar ook maar voor mensen zonder die MF nameplates"): `/mh colors` heeft
   `needsMF = true` in `ns.MH_COMMANDS`; `ns.CommandItemShown(item)` (CommandList.lua) laat hem in de commandolijst én
   in de zoekbalk (NavSearch) alleen zien als MF geladen is. Het commando zelf werkt nog voor iedereen.
-  OPEN: Rob wil ook "ik gebruik MF Nameplates en vind het handig, jij kiest" + een link. Waar en voor wie: zie chat.
-  GEMETEN in MF's TOC: X-Curse-Project-ID 1763027, X-Website https://marcelianflame.com, X-Wago-ID nKWwqYKE.
+  Daarna (Rob: "Kleine tip-kaart"): spelers ZONDER MF krijgen in de Tools-kamer een kaart "Nameplate colours (MF
+  Nameplates)" (`needsNoMF`); die opent hetzelfde venster in tip-modus: wat MH zou uitleggen, "TwelveInchy, de maker
+  van MH, gebruikt het zelf en vindt het erg handig; jij kiest", en een kopieer-vak met de link. Link GEMETEN:
+  curseforge.com/projects/1763027 (uit MF's TOC) → https://www.curseforge.com/wow/addons/mf-nameplates. Teksten 8 talen
+  (ru/de/fr/es/pt/it zelf geschreven, niet native nagekeken). Niet in de client getest.
 
 - Nieuw `Modules/NameplateColors.lua` (beide TOCs, na VersionNotice). Leest LIVE `_G.MFNameplates.db.profile`
   (AceDB, MF-defaults erachter); MF heeft geen licentie → niets gekopieerd. Betekenis per kleur GEMETEN in MF
