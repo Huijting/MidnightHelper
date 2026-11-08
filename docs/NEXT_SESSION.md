@@ -1,5 +1,25 @@
 # Midnight Helper — waar we staan
 
+## 🆕 8 nov — Forever: tassen, mana/leven, buff-knop (Rob: "Ja, bouw alle drie")
+
+- `Modules/ForeverWarnings.lua` (alleen Camelot-TOC): (1) vrije plekken in gewone tassen (bag family 0) ≤ grens
+  (standaard 2) → `ns.FireAccessibleAlert` + chatregel met grijze spullen + waarde (`select(11, C_Item.GetItemInfo)`;
+  0 als niet gecachet). Eén keer per keer onder de grens, nog één keer bij 0; in een gevecht wacht hij op
+  PLAYER_REGEN_ENABLED. (2) PLAYER_TARGET_CHANGED op een aanvalbare vijand buiten gevecht: mana < 40% (alleen als
+  UnitPowerMax(mana) > 0) of leven < 50%. Eén keer per GUID, max 1×/30 s. `/mh bags [on|off|n]`, `/mh rest
+  [on|off|mana n|health n]`; kaal = diagnose met laatste besluit. `ns.db.foreverWarn`.
+- `Modules/ForeverBuffs.lua` + `MissingBuff.lua` nu ook in de Camelot-TOC. `ns.GetMissingBuffs` vraagt op Forever
+  `ns.GetForeverMissingBuffs`: buffs per class op naam uit `ns.FOREVER_SPELL_IDS` (alle ranks), aanwezig = elke rank
+  of een "covers" (Prayer of Fortitude, Arcane Brilliance, Gift of the Wild), cast = hoogste bekende rank; keuzes
+  (blessing, aura, armor, shield, imbue, aspect, demon) = laatst zelf gecaste (`ns.db.foreverBuffLast`). Pets:
+  hunter Call/Revive Pet, warlock laatst opgeroepen demon. Bewust niet: Battle Shout (rage), rogue poisons (items).
+  `/mh buffs [on|off]`. MissingBuff.lua: 4 events nu via pcall (Forever kent ze misschien niet; niet gemeten).
+  **Niets hiervan in de client getest.** Onzeker (AFGELEID): `C_UnitAuras.GetPlayerAuraBySpellID` en
+  `C_Secrets` in Forever; paladin-auras als buff leesbaar; hunter zonder getemd pet krijgt toch "SUMMON PET".
+- Bijvangst gezien, niet aangeraakt: in `MissingBuff.lua` staat `ns.PrintMissingBuffDebug` BINNEN
+  `EuiReminderLoaded()` (de functie mist zijn `end` vóór de debug-functie; die wordt pas gedefinieerd als
+  EuiReminderLoaded een keer draait). Werkt toevallig; netjes maken = aparte klus.
+
 ## 🆕 8 nov — kleurenkaart MF Nameplates + pijl tot bij de trainer (Rob: "Ja, bouw allebei")
 
 - Nieuw `Modules/NameplateColors.lua` (beide TOCs, na VersionNotice). Leest LIVE `_G.MFNameplates.db.profile`

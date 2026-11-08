@@ -2514,6 +2514,23 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 
 	-- /mh version [on | off] — tell me when a guild or group member runs a newer MH (VersionNotice.lua; both games;
 	-- Rob, 8 Nov 2026: "Ja bouw maar").
+	-- Forever: bags almost full, and low mana/health before a fight (ForeverWarnings.lua; Rob, 8 Nov 2026).
+	local buffsArg = msg:lower() == "buffs" and "" or msg:lower():match("^buffs%s+(.+)$")
+	if buffsArg and ns.ForeverBuffsSlash then -- Forever only (ForeverBuffs.lua); on retail /mh mbuff is the diagnosis
+		ns.ForeverBuffsSlash(buffsArg)
+		return
+	end
+	local bagsArg = msg:lower() == "bags" and "" or msg:lower():match("^bags%s+(.+)$")
+	local restArg = msg:lower() == "rest" and "" or msg:lower():match("^rest%s+(.+)$")
+	if bagsArg or restArg then
+		local fn = bagsArg and ns.ForeverBagsSlash or ns.ForeverRestSlash
+		if fn then
+			fn(bagsArg or restArg)
+		else
+			print("|cffffcc00Midnight Helper:|r /mh bags and /mh rest are for WoW: Forever.")
+		end
+		return
+	end
 	-- What the colours on your MF Nameplates mean (NameplateColors.lua; Rob, 8 Nov 2026: "Ik wil de kleurkaart").
 	if msg == "colors" or msg == "colours" or msg:lower():match("^colou?rs%s") then
 		if ns.NameplateColorsSlash then

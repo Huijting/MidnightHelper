@@ -21,6 +21,19 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 8 nov — Forever: tassen bijna vol, weinig mana/leven, buff-knop
+
+- [ ] Tassen: zorg dat je nog 3 plekken vrij hebt, raap 1 ding op → grote melding "Only 2 free bag slots left" midden
+      in beeld + chatregel met je grijze spullen en hun waarde. Raap nog iets op: geen nieuwe melding. Bij 0: "Your
+      bags are full". `/mh bags` zegt wat MH ziet en besloot.
+- [ ] Mana/leven: zak onder 40% mana (of 50% leven), klik buiten een gevecht een vijand aan → "Only 28% mana. Drink
+      first". Dezelfde vijand nog eens aanklikken: niets. `/mh rest` zegt waarom.
+- [ ] Warrior of rogue: alleen de leven-melding, nooit mana.
+- [ ] Buff-knop: priest zonder Fortitude → het icoontje (zelfde als in Midnight). Klik → cast je HOOGSTE rank. Krijg
+      je Fortitude van een andere priest: icoontje weg. `/mh buffs` per buff: geleerd, op je, wat de knop zou casten.
+- [ ] Paladin/mage/shaman: cast zelf een andere blessing/armor/shield; laat hem aflopen → de knop kiest díe.
+- [ ] BugSack na `/reload`: geen "unknown event"-fout van MissingBuff.lua.
+
 ## 🆕 8 nov — kleurenkaart MF Nameplates (Midnight én Forever) + pijl tot bij de trainer (Forever)
 
 - [x] (Rob 8 nov, screenshot Forever) `/mh colors`: een venster "What the colours on your nameplates mean". Elke

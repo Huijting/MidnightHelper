@@ -239,6 +239,11 @@ end
 
 -- @return geordende lijst { {spell, name, icon, textKey, showCombat}, ... }
 function ns.GetMissingBuffs()
+	-- WoW Forever: its own list, ranks and choices (ForeverBuffs.lua; Rob, 8 Nov 2026). The icon and click-to-cast
+	-- below are the same for both games.
+	if ns.IS_FOREVER and ns.GetForeverMissingBuffs then
+		return ns.GetForeverMissingBuffs()
+	end
 	local out = {}
 	local classToken = select(2, UnitClass("player"))
 	if not classToken then
@@ -849,17 +854,19 @@ ev:RegisterEvent("PLAYER_ENTERING_WORLD")
 ev:RegisterEvent("PLAYER_LOGIN")
 ev:RegisterEvent("UNIT_AURA")
 ev:RegisterEvent("SPELLS_CHANGED")
-ev:RegisterEvent("PLAYER_SPECIALIZATION_CHANGED")
-ev:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED")
+-- pcall: this file also loads in WoW Forever (8 Nov 2026), and an event that client does not know throws
+-- "Attempt to register unknown event" (the 8 Aug 2026 LEARNED_SPELL_IN_TAB lesson). Not measured which ones it lacks.
+pcall(ev.RegisterEvent, ev, "PLAYER_SPECIALIZATION_CHANGED")
+pcall(ev.RegisterEvent, ev, "ACTIVE_TALENT_GROUP_CHANGED")
 ev:RegisterEvent("UPDATE_SHAPESHIFT_FORM")
 ev:RegisterEvent("UNIT_PET")
 ev:RegisterEvent("PLAYER_EQUIPMENT_CHANGED")
 ev:RegisterEvent("UNIT_INVENTORY_CHANGED")
 ev:RegisterEvent("PLAYER_REGEN_ENABLED")
 ev:RegisterEvent("PLAYER_REGEN_DISABLED")
-ev:RegisterEvent("PLAYER_MOUNT_DISPLAY_CHANGED")
+pcall(ev.RegisterEvent, ev, "PLAYER_MOUNT_DISPLAY_CHANGED")
 ev:RegisterEvent("GROUP_ROSTER_UPDATE") -- ally-buffs: groep verandert
-ev:RegisterEvent("PLAYER_ROLES_ASSIGNED") -- healer-in-groep-detectie
+pcall(ev.RegisterEvent, ev, "PLAYER_ROLES_ASSIGNED") -- healer-in-groep-detectie
 --- 🔴 WHERE YOU ARE IS PART OF THE ANSWER, SO ARRIVING HAS TO RECOUNT. Fourteen events
 --- were registered and not one of them was a zone change. Ally-buffs depend on whether
 --- anybody is standing next to you, and that changes the moment you walk into an instance

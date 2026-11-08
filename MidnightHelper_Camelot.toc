@@ -78,6 +78,8 @@ Modules\Changelog.lua
 Modules\VersionNotice.lua
 # What the colours on your MF Nameplates mean (Rob, 8 Nov 2026: "Ik wil de kleurkaart").
 Modules\NameplateColors.lua
+# Bags almost full, low mana/health before a fight (Rob, 8 Nov 2026: "Ja, bouw alle drie").
+Modules\ForeverWarnings.lua
 Modules\LayoutExtras.lua
 Modules\CombatSafety.lua
 Modules\FastMark.lua
@@ -118,6 +120,9 @@ Modules\ForeverTrainer.lua
 Modules\ForeverTrainAll.lua
 # Warn before you sell or destroy your last tool (Rob, 7 Nov 2026: "ja doe maar").
 Modules\ForeverToolGuard.lua
+# The missing-buff button from Midnight with Forever's own buffs and ranks (Rob, 8 Nov 2026: "Ja, bouw alle drie").
+Modules\ForeverBuffs.lua
+Modules\MissingBuff.lua
 # Which quest reward to take, and why (Rob, 7 Nov 2026: "doe de quest beloning tip maar ook").
 Modules\ForeverMainStats.lua
 Modules\ForeverQuestHint.lua

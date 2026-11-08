@@ -4753,6 +4753,26 @@ ns._mhLocales.enUS = {
 	FTRAIN_MARK_NEED_PLATES = "the game's nameplates for friendly NPCs are off, so the cross above your trainer cannot show. /mh trainer mark plates turns them on.",
 	FTRAIN_MARK_PLATES_DONE = "nameplates for friendly NPCs are on. The cross shows when you are near your trainer.",
 	FTRAIN_MARK_PLATES_FAIL = "the game did not let MH turn them on. Turn on the nameplates for friendly NPCs in the game's options.",
+	-- 8 Nov 2026, WoW Forever: bags almost full, low mana/health before a fight (ForeverWarnings.lua), and the
+	-- missing-buff button's switch (ForeverBuffs.lua). The big messages must stay short (one line, huge font).
+	FWARN_BAGS_LOW_FMT = "Only %d free bag slots left",
+	FWARN_BAGS_FULL = "Your bags are full",
+	FWARN_BAGS_GREYS_FMT = "You have %d grey items (worth %s): sell them at a vendor.",
+	FWARN_BAGS_GREYS_NOPRICE_FMT = "You have %d grey items: sell them at a vendor.",
+	FWARN_BAGS_OFF_HINT = "(/mh bags off turns this off)",
+	FWARN_BAGS_ON = "you get a message when your bags are almost full.",
+	FWARN_BAGS_OFF = "no more message when your bags are almost full. /mh bags on brings it back.",
+	FWARN_BAGS_AT_FMT = "you now get a message at %d free bag slots.",
+	FWARN_REST_MANA_FMT = "Only %d%% mana. Drink first",
+	FWARN_REST_HEALTH_FMT = "Only %d%% health. Eat first",
+	FWARN_REST_BOTH_FMT = "Only %d%% mana and %d%% health. Rest first",
+	FWARN_REST_OFF_HINT = "(/mh rest off turns this off)",
+	FWARN_REST_ON = "you get a message when you target an enemy with low mana or health.",
+	FWARN_REST_OFF = "no more message about low mana or health. /mh rest on brings it back.",
+	FWARN_REST_MANA_AT_FMT = "you now get a message under %d%% mana.",
+	FWARN_REST_HEALTH_AT_FMT = "you now get a message under %d%% health.",
+	FBUFF_ON = "the missing-buff button is on.",
+	FBUFF_OFF = "the missing-buff button is off. /mh buffs on brings it back.",
 	-- 8 Nov 2026: what the colours on your MF Nameplates mean (NameplateColors.lua, both games). Meanings read from MF's
 	-- own code (Core/Colors.lua); the colours themselves come from the player's MF profile at runtime.
 	NPCOL_TITLE = "What the colours on your nameplates mean",
