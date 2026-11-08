@@ -1142,6 +1142,11 @@ function ns.ForeverProfTrainerList(prof)
 end
 
 function ns.ForeverTrainerGo(prof)
+	-- Rob, 8 Nov 2026 (BugSack): the start page's arrow button calls this as its OnClick, so `prof` was the Button.
+	-- Only a profession key counts; anything else means the class trainer.
+	if type(prof) ~= "string" then
+		prof = nil
+	end
 	local token = Token()
 	local best, dist, n, why = Nearest(token, prof)
 	if not best then

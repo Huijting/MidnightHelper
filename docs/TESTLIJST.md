@@ -21,6 +21,17 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 8 nov (laat) — Forever: kaarten in de kamer "Me" + pijlknop op de startpagina
+
+- [ ] BugSack-fout van 8 nov ("attempt to concatenate local 'prof' (a table value)"): klik op de startpagina op de knop
+      voor de pijl naar je klassetrainer. Geen fout meer, en de pijl gaat naar je klassetrainer.
+- [ ] Open MH en klik op **Me**. Je ziet nu kaarten, net als in Tools: de startpagina, What can I learn?, Profession
+      trainers, How you play, Your key block, Keys (en Nameplate colours als MF Nameplates aan staat). Let op: MH opent nu
+      eerst op die kaarten in plaats van meteen op de startpagina.
+- [ ] Elke kaart heeft een plaatje en opent het goede venster. Muis erop → korte uitleg.
+- [ ] De kaart What can I learn? zegt eronder "N to learn now" of "next at level N".
+- [ ] Rechtsklik op een kaart → verbergen; onderaan komt dan "Hidden: 1", daar haal je hem terug. Slepen verplaatst.
+
 ## 🆕 8 nov (avond) — Forever: venster "Profession trainers"
 
 - [ ] Open het venster op drie manieren: `/mh trainers`, de knop "Profession trainers" op de Forever-startpagina (onder je

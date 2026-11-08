@@ -70,6 +70,33 @@ local TOOLS_CARDS = {
 		action = function() if ns.MH_ShowMountRun then ns.MH_ShowMountRun() end end },
 }
 
+-- 🧩 WoW Forever, the Me room (Rob, 8 Nov 2026: "net zo een mooi layout voor tab me ... als we nu voor tools hebben"
+-- → "Ja, zo bouwen"). On Forever that room held only the start page, so it skipped the card grid and opened Home. These
+-- cards open the Forever windows about YOUR character. `icon` = a game icon (the stems in Media/Icons are Midnight's);
+-- `need` = the function the card opens, so a card never leads to a window that is not loaded.
+local ME_FOREVER_CARDS = {
+	{ id = "me_ftrainer", labelKey = "HOME_FOREVER_BTN_TRAINER", tagline = "TOOLLP_TRAINER_DESC",
+		icon = "Interface\\Icons\\INV_Misc_Book_11", need = "ShowForeverTrainer",
+		action = function() ns.ShowForeverTrainer() end },
+	{ id = "me_fprof", labelKey = "FPROF_TITLE", tagline = "TOOLLP_FPROF_DESC",
+		icon = "Interface\\Icons\\Trade_Alchemy", need = "ShowForeverProfTrainers",
+		action = function() ns.ShowForeverProfTrainers() end },
+	{ id = "me_howto", labelKey = "HOME_FOREVER_BTN_HOWTO", tagline = "TOOLLP_HOWTO_DESC",
+		icon = "Interface\\Icons\\INV_Misc_Book_09", need = "ShowPlayCardWindow",
+		action = function() ns.ShowPlayCardWindow() end },
+	{ id = "me_keyblock", labelKey = "KEYBLOCK_TITLE", tagline = "ROOMCARD_ME_KEYBLOCK_TIP",
+		icon = "Interface\\Icons\\INV_Misc_Key_03", need = "ShowKeyBlock",
+		action = function() ns.ShowKeyBlock() end },
+	{ id = "me_keyshub", labelKey = "KEYSHUB_TITLE", tagline = "CMDLIST_MYKEYS",
+		icon = "Interface\\Icons\\INV_Misc_Gear_01", need = "ShowKeysHub",
+		action = function() ns.ShowKeysHub() end },
+	-- Only with MF Nameplates loaded (NameplateColors.lua decides).
+	{ id = "me_npcol", labelKey = "NPCOL_BTN", tagline = "NPCOL_DESC",
+		icon = "Interface\\Icons\\INV_Misc_Spyglass_02", need = "ShowNameplateColors",
+		ok = function() return ns.NameplateColorsAvailable and ns.NameplateColorsAvailable() end,
+		action = function() ns.ShowNameplateColors() end },
+}
+
 -- Can the screen exist here (client, beta switch)? The player's own show/hide is asked
 -- separately, so a hidden screen can still be offered back.
 local function TabAvailable(id)
@@ -165,6 +192,13 @@ local function CardsForRoom(roomId)
 				if TabAvailable(id) and ns.panels and ns.panels[id] then
 					add({ id = id })
 				end
+			end
+		end
+	end
+	if roomId == "me" and ns.IS_FOREVER then
+		for _, c in ipairs(ME_FOREVER_CARDS) do
+			if type(ns[c.need]) == "function" and (not c.ok or c.ok()) then
+				add(c)
 			end
 		end
 	end
@@ -586,7 +620,9 @@ local function Layout(panel)
 		local screenId = ScreenOf(c)
 		local screen = screens[screenId]
 		local stem = c.stem or (screen and screen.stem)
-		if stem and ns._mhLookIconPath then
+		if c.icon then
+			b._mhIcon:SetTexture(c.icon)
+		elseif stem and ns._mhLookIconPath then
 			b._mhIcon:SetTexture(ns._mhLookIconPath:format(stem))
 		else
 			b._mhIcon:SetTexture(nil)
@@ -759,6 +795,23 @@ S.home = function()
 	local _, done, total = ns.GetNextWeeklyAction()
 	if type(total) == "number" and total > 0 then
 		return ns:L("ROOMCARD_WEEK_FMT"):format(done or 0, total)
+	end
+	return nil
+end
+
+-- Forever, Me room: what your class trainer has for you now (the same count as the start page and the trainer window).
+S.me_ftrainer = function()
+	if not (ns.IS_FOREVER and ns.ForeverTrainerCompute and UnitLevel) then
+		return nil
+	end
+	local r = ns.ForeverTrainerCompute(UnitLevel("player") or 1)
+	if not r then
+		return nil
+	end
+	if #r.now > 0 then
+		return ns:L("ROOMCARD_ME_TRAIN_NOW_FMT"):format(#r.now)
+	elseif r.nextLevel then
+		return ns:L("ROOMCARD_ME_TRAIN_NEXT_FMT"):format(r.nextLevel)
 	end
 	return nil
 end

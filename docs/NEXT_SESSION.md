@@ -1,5 +1,16 @@
 # Midnight Helper — waar we staan
 
+## 🆕 8 nov (laat) — Forever: Me-kamer kaarten (Rob: "net zo een mooi layout voor tab me ... als ... tools" → "Ja, zo bouwen") + BugSack-fix
+
+- 🐛 GEMETEN (Robs BugSack): `ForeverTrainer.lua:939 attempt to concatenate local 'prof' (a table value)`. De
+  startpagina-knop gaf `ns.ForeverTrainerGo` direct als OnClick, dus `prof` = de Button (sinds de beroeps-parameter).
+  Fix: Go negeert alles wat geen string is; HomeDashboard wikkelt de call in. Niet Moonglade (Rob vroeg het).
+- `Modules/RoomLauncher.lua`: `ME_FOREVER_CARDS` (alleen IS_FOREVER, alleen als de open-functie geladen is): trainer,
+  beroepstrainers, How you play, toetsenblok, Keys, Nameplate colours (met MF). Kaarten kunnen nu een game-`icon` hebben.
+  Status `S.me_ftrainer`. Gevolg: Me heeft ≥2 kaarten, dus Forever opent nu op het kaartenrooster (net als retail) i.p.v.
+  direct op Home. Iconen Trade_Alchemy/INV_Misc_Key_03/INV_Misc_Spyglass_02 komen voor in Forever-addons (kandidaat,
+  niet in de client gezien). 3 nieuwe keys in en/nl/ru/de/fr/es/pt. Niet in de client getest.
+
 ## 🆕 8 nov (avond) — Forever: venster "Profession trainers" (Rob: "maak een pagina in de MH om ze te vinden" → "Ja, zo bouwen")
 
 - Rob GEMETEN in het spel: `/mh trainer alchemy` vond een alchemietrainer. `/mh trainer check` heeft hij NIET gedraaid,
