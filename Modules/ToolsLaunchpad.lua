@@ -36,6 +36,12 @@ local TOOLS = {
 		icon = "Interface\\Icons\\INV_Misc_Book_11", slash = "/mh trainer",
 		open = function() if ns.ShowForeverTrainer then ns.ShowForeverTrainer() end end,
 	},
+	-- 8 Nov 2026 (Rob: "maak een pagina in de MH om ze te vinden ipv alleen bij wat kan ik leren").
+	{
+		nameKey = "FPROF_TITLE", descKey = "TOOLLP_FPROF_DESC", foreverOnly = true,
+		icon = "Interface\\Icons\\INV_Misc_Book_11", slash = "/mh trainers",
+		open = function() if ns.ShowForeverProfTrainers then ns.ShowForeverProfTrainers() end end,
+	},
 	{
 		nameKey = "DELVE_COACH_TITLE", descKey = "TOOLLP_COACH_DESC",
 		icon = "Interface\\Icons\\INV_Misc_Map_01", slash = "/mh coach",

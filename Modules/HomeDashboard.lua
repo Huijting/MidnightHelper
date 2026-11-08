@@ -278,6 +278,8 @@ local function BuildLayout()
 				line(rows, ns.ForeverTrainerNearestText(), COLOR_DIM)
 			end
 			button(rows, ns:L("HOME_FOREVER_BTN_GO"), ns.ForeverTrainerGo)
+			-- Rob, 8 Nov 2026: "maak een pagina in de MH om ze te vinden" (ForeverProfTrainers.lua).
+			button(rows, ns:L("FPROF_TITLE"), ns.ShowForeverProfTrainers and function() ns.ShowForeverProfTrainers() end)
 		end)
 		addFull(function(rows)
 			header(rows, ns:L("HOME_FOREVER_PLAY_HEADER"))

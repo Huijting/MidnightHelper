@@ -117,6 +117,8 @@ Modules\ForeverTrainerData.lua
 Modules\ForeverTrainerSpots.lua
 Modules\ForeverProfTrainerSpots.lua
 Modules\ForeverTrainer.lua
+# Every profession trainer for your side in one window (Rob, 8 Nov 2026: "maak een pagina in de MH om ze te vinden").
+Modules\ForeverProfTrainers.lua
 # Train all under the game's trainer window (Rob, 7 Nov 2026: "Kunnen wij dat ook bouwen?" → "ja").
 Modules\ForeverTrainAll.lua
 # Warn before you sell or destroy your last tool (Rob, 7 Nov 2026: "ja doe maar").

@@ -1,5 +1,19 @@
 # Midnight Helper — waar we staan
 
+## 🆕 8 nov (avond) — Forever: venster "Profession trainers" (Rob: "maak een pagina in de MH om ze te vinden" → "Ja, zo bouwen")
+
+- Rob GEMETEN in het spel: `/mh trainer alchemy` vond een alchemietrainer. `/mh trainer check` heeft hij NIET gedraaid,
+  dus de skill-line-nummers zijn nog AFGELEID.
+- `Modules/ForeverProfTrainers.lua` (beide TOC's, na ForeverTrainer.lua): links 12 beroepen (eigen eerst, goud, skill),
+  rechts alle trainers van jouw kant met afstand, zone (`C_Map.GetMapInfo`), "up to skill", Arrow-knop per trainer.
+  Te lage trainers blijven grijs staan. Open via `/mh trainers [beroep]` (Core.lua), knop op de Forever-startpagina,
+  Tools-kaart. Shift+scroll/Escape via RegisterMidnightDialogPopup.
+- ForeverTrainer.lua: `Candidates(token, prof, all)`, nieuw `ns.ForeverProfTrainerList(prof)` en
+  `ns.ForeverTrainerGoTo(c, dist, n, prof)` (Go roept die nu aan). 13 FPROF_*-keys + TOOLLP_FPROF_DESC in
+  en/nl/ru/de/fr/es/pt (it niet: Forever-regel).
+- GEMETEN offline: de datafile laadt in Lua, 314 rijen, 290 bruikbaar voor de pijl. Het venster zelf is niet in de
+  client getest.
+
 ## 🆕 8 nov — Forever: pijl naar een beroepstrainer (Rob: "Ja, zo bouwen")
 
 - `/mh trainer <beroep>` (key, Engelse naam of clientnaam), `here <beroep>`, `forget <beroep>`; 12 knoppen onderaan het

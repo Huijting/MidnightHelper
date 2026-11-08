@@ -21,6 +21,22 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 8 nov (avond) — Forever: venster "Profession trainers"
+
+- [ ] Open het venster op drie manieren: `/mh trainers`, de knop "Profession trainers" op de Forever-startpagina (onder je
+      klassetrainer), en de kaart in de Tools-kamer. Alle drie openen hetzelfde venster.
+- [ ] Links staan 12 beroepen. Jouw eigen beroepen staan bovenaan, in goud, met je skill erbij (bv. "Herbalism 75/150").
+      Het gekozen beroep licht op.
+- [ ] Klik op Alchemy. Rechts staat "Alchemy: N trainers for your side". Daaronder de trainers, de dichtstbijzijnde
+      bovenaan: naam, "up to skill …", gebied en afstand. Trainers op een ander continent staan onderaan
+      ("other continent").
+- [ ] Klik bij een trainer op **Arrow**: de pijl en het kruis gaan naar precies die trainer, ook als hij niet de
+      dichtstbijzijnde is.
+- [ ] `/mh trainers herbalism` opent het venster meteen op Herbalism.
+- [ ] Bijna aan je grens (bv. Herbalism 70/75)? Bovenaan staat dan welke skill je trainer moet leren. Trainers die dat
+      niet kunnen, zijn grijs en zeggen "cannot teach your next rank".
+- [ ] Shift+scroll maakt het venster groter en kleiner; Escape sluit het.
+
 ## 🆕 8 nov — Forever: pijl naar een beroepstrainer
 
 - [ ] Forever, eerst: `/mh trainer check`. In de chat moet staan: je eigen beroepen met nummer en rang (bv. Herbalism

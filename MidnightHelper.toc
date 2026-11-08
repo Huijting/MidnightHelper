@@ -240,6 +240,7 @@ Modules\ForeverTrainerData.lua
 Modules\ForeverTrainerSpots.lua
 Modules\ForeverProfTrainerSpots.lua
 Modules\ForeverTrainer.lua
+Modules\ForeverProfTrainers.lua
 Modules\ForeverTrainAll.lua
 Modules\ForeverToolGuard.lua
 Modules\ForeverBuffs.lua

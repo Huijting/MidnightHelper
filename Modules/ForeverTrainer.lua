@@ -930,10 +930,12 @@ ns.ForeverProfFromWord = ProfFromWord
 
 --- Every known trainer place for this character: { map, x, y, name, src }. `prof` = a profession key, or nil for the
 --- class trainer. For a profession, trainers that cannot teach the rank you need are left out (counted in `dropped`).
-local function Candidates(token, prof)
+local function Candidates(token, prof, all)
 	local out, side = {}, PlayerSide()
 	if prof then
 		local need, dropped = NeedRank(prof), 0
+		-- `all` (the Profession trainers window): keep the low-rank trainers too, marked `low`, so the list shows every
+		-- trainer near you and says which one cannot teach your next rank.
 		for _, s in ipairs(Spots()["PROF_" .. prof] or {}) do
 			out[#out + 1] = { map = s.map, x = s.x, y = s.y, name = s.name, npc = s.npc, src = "yours" }
 		end
@@ -941,11 +943,12 @@ local function Candidates(token, prof)
 			-- Only rows with a place and a readable rank: max = nil is a recipe seller or a page without a Teaches tab
 			-- (research doc, open rows 5 and 6), and Annora (inside Uldaman) has no coordinates.
 			if s.max and s.map and s.x and s.y and (not s.side or s.side == "both" or s.side == side) then
-				if need and s.max and s.max < need then
+				local low = need and s.max and s.max < need
+				if low and not all then
 					dropped = dropped + 1
 				else
 					out[#out + 1] = { map = s.map, x = s.x, y = s.y, name = s.name, npc = s.npc, src = "MH list",
-						measured = s.measured, max = s.max }
+						measured = s.measured, max = s.max, low = low or nil }
 				end
 			end
 		end
@@ -1095,6 +1098,49 @@ function ns.ForeverProfTrainerNearest(prof)
 	return Nearest(Token(), prof)
 end
 
+--- Every trainer of a profession on your side, for the Profession trainers window (ForeverProfTrainers.lua).
+--- Returns a list of { c = candidate, dist = yards or nil (other continent / unreadable), zone = map name }, nearest
+--- first and the other continents after it (by zone), plus the rank you need (nil = any) and whether your own position
+--- could be read. `c.low` = this trainer cannot teach your next rank.
+function ns.ForeverProfTrainerList(prof)
+	local all = OnePerTrainer((Candidates(Token(), prof, true)))
+	local map, px, py = PlayerPlace()
+	local cont, wx, wy
+	if map then
+		cont, wx, wy = World(map, px, py)
+	end
+	local out = {}
+	for _, c in ipairs(all) do
+		local d
+		if cont and c.map and c.x and c.y then
+			local cc, cx, cy = World(c.map, c.x, c.y)
+			if cc == cont then
+				d = math.floor(math.sqrt((cx - wx) ^ 2 + (cy - wy) ^ 2) + 0.5)
+			end
+		end
+		local zone
+		if c.map and C_Map and C_Map.GetMapInfo then
+			local ok, info = pcall(C_Map.GetMapInfo, c.map)
+			if ok and type(info) == "table" and Readable(info.name) then
+				zone = info.name
+			end
+		end
+		out[#out + 1] = { c = c, dist = d, zone = zone or ("map " .. tostring(c.map)) }
+	end
+	table.sort(out, function(a, b)
+		if a.dist and b.dist then
+			return a.dist < b.dist
+		elseif a.dist or b.dist then
+			return a.dist ~= nil
+		end
+		if a.zone ~= b.zone then
+			return a.zone < b.zone
+		end
+		return (a.c.name or "") < (b.c.name or "")
+	end)
+	return out, NeedRank(prof), cont ~= nil
+end
+
 function ns.ForeverTrainerGo(prof)
 	local token = Token()
 	local best, dist, n, why = Nearest(token, prof)
@@ -1108,6 +1154,15 @@ function ns.ForeverTrainerGo(prof)
 		end
 		return false
 	end
+	return ns.ForeverTrainerGoTo(best, dist, n, prof)
+end
+
+--- Set the arrow and the cross to one trainer place (the nearest from ForeverTrainerGo, or the one the player picked in
+--- the Profession trainers window). `dist` may be nil (another continent).
+function ns.ForeverTrainerGoTo(best, dist, n, prof)
+	if not (best and best.map and best.x and best.y) then
+		return false
+	end
 	if not (ns.SetBlizzardUserWaypoint and ns.SetBlizzardUserWaypoint(best.map, best.x, best.y)) then
 		print(PREFIX .. "trainer arrow: the game does not allow a waypoint on that map.")
 		return false
@@ -1118,7 +1173,12 @@ function ns.ForeverTrainerGo(prof)
 	-- al weg ... dan moet ik alsnog zoeken"). Talking to the trainer ends the route too (TRAINER_SHOW below).
 	ns.lastTarget = { mapID = best.map, x = best.x, y = best.y, name = label, via = "/mh trainer go", arriveYards = 5 }
 	ns._mhRouteOwner = "waypoint"
-	print(PREFIX .. ("arrow set to %s, about %s (%s, %d places known)."):format(label, Distance(dist), best.src, n))
+	if dist then
+		print(PREFIX .. ("arrow set to %s, about %s (%s, %d places known)."):format(label, Distance(dist), best.src,
+			n or 0))
+	else
+		print(PREFIX .. ("arrow set to %s (%s)."):format(label, best.src))
+	end
 	if ns.ForeverTrainerMark then
 		ns.ForeverTrainerMark(best)
 	end

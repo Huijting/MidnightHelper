@@ -2488,6 +2488,18 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh trainers [profession] — WoW Forever: every profession trainer for your side (ForeverProfTrainers.lua;
+	-- Rob, 8 Nov 2026: "maak een pagina in de MH om ze te vinden").
+	local trainersArg = msg:lower() == "trainers" and "" or msg:lower():match("^trainers%s+(.+)$")
+	if trainersArg then
+		if ns.ShowForeverProfTrainers then
+			ns.ShowForeverProfTrainers(ns.ForeverProfFromWord and ns.ForeverProfFromWord(trainersArg) or nil)
+		else
+			print("|cffffcc00Midnight Helper:|r /mh trainers is for WoW: Forever.")
+		end
+		return
+	end
+
 	-- /mh trainer [check | auto on | auto off] — WoW Forever: what is new at your class trainer, with its key
 	-- (ForeverTrainer.lua; Rob, 7 Nov 2026: "Ja, A + pijl").
 	local trainerArg = msg:lower() == "trainer" and "" or msg:lower():match("^trainer%s+(.+)$")
