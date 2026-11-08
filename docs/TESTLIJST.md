@@ -21,6 +21,18 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 8 nov — kleurenkaart MF Nameplates (Midnight én Forever) + pijl tot bij de trainer (Forever)
+
+- [ ] `/mh colors`: een venster "What the colours on your nameplates mean". Elke regel heeft een vakje in de kleur
+      die je op je naamplaatjes ziet. Kloppen de kleuren met wat je in het spel ziet?
+- [ ] Bovenaan staat je MF-profiel ("Default"). In Forever staat "An important cast" er NIET bij (bij jou uit), in
+      Midnight wel.
+- [ ] Aggro: op een tank-character zie je het tank-blok, anders het DPS/healer-blok.
+- [ ] De knop: Midnight → gereedschapskamer (kaart "Nameplate colours"); Forever → startpagina, onder "spelen".
+- [ ] Shift + scrollen maakt het venster groter/kleiner; Escape sluit het.
+- [ ] Forever: `/mh trainer go`, loop naar de trainer. De pijl blijft nu tot ~4,5 m (was ~18 m). Praat je met de
+      trainer, dan zijn pijl én kruis weg.
+
 ## 🆕 8 nov — kruis boven je trainer (Forever)
 
 - [x] (Rob 8 nov: *"ja het werkt"*) `/mh trainer go` (of de knop in het trainer-venster), loop erheen. Zodra je dichtbij bent, staat er een **kruis**

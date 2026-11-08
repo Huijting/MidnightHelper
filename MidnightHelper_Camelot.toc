@@ -76,6 +76,8 @@ Modules\DialogPopup.lua
 Modules\Changelog.lua
 # Tells you when a guild or group member runs a newer MH (Rob, 8 Nov 2026: "Ja bouw maar").
 Modules\VersionNotice.lua
+# What the colours on your MF Nameplates mean (Rob, 8 Nov 2026: "Ik wil de kleurkaart").
+Modules\NameplateColors.lua
 Modules\LayoutExtras.lua
 Modules\CombatSafety.lua
 Modules\FastMark.lua

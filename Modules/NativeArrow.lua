@@ -1017,7 +1017,8 @@ local function Tick()
 	-- skip). If ns.lastTarget was transiently nil'd, we keep the previous lead.
 	local lt = ns.lastTarget
 	if lt and lt.mapID then
-		activeLead = { mapID = lt.mapID, x = lt.x, y = lt.y, name = lt.name, noTravelAdvice = lt.noTravelAdvice }
+		activeLead = { mapID = lt.mapID, x = lt.x, y = lt.y, name = lt.name, noTravelAdvice = lt.noTravelAdvice,
+			arriveYards = lt.arriveYards }
 	end
 
 	-- 🚌 Travel phase 4 (16 Oct 2026): rare and treasure routes no longer nil `ns.lastTarget` — the route runner points
@@ -1120,13 +1121,18 @@ local function Tick()
 
 	-- Parked ON the lead (within ~20 yd — e.g. an un-spawned rare you walked up to):
 	-- don't re-assert every tick, or Blizzard's arrive-clear vs our re-set would churn.
-	local atLead = false
+	local atLead, arrived = false, false
 	local pwx, pwy = PlayerWorld()
 	local twx, twy = MapToWorld(activeLead.mapID, (activeLead.x or 0) / 100, (activeLead.y or 0) / 100)
 	if pwx and twx then
 		local dx, dy = pwx - twx, pwy - twy
 		local near = (ns.Travel and ns.Travel.NEAR and ns.Travel.NEAR.arrived.yards) or 20 -- one table (TravelGeo)
 		atLead = (dx * dx + dy * dy) <= (near * near)
+		-- A route may ask to be released closer than `near`: the class trainer (Rob, 8 Nov 2026: at ~15 m "is mijn pijl
+		-- al weg", among other NPCs). `atLead` (20 yd) still governs the re-pin below, so Blizzard's own arrive-clear
+		-- in between does not make us re-set the waypoint every tick; only the release waits for arriveYards.
+		local arriveAt = activeLead.arriveYards or near
+		arrived = (dx * dx + dy * dy) <= (arriveAt * arriveAt)
 	end
 
 	-- Lost detour rare (parked on an empty spot, out of combat, no vignette near → back to the interrupted route): the
@@ -1138,7 +1144,7 @@ local function Tick()
 	-- ...but not at a step ON THE WAY (Travel phase 3): reaching the portal is not arriving, and letting the owner go
 	-- there would end the route runner's route one step early.
 	local onLeg = ns.Travel and ns.Travel.OnLeg and ns.Travel.OnLeg()
-	if (ns._mhRouteOwner == "delve" or ns._mhRouteOwner == "waypoint") and atLead and not onLeg then
+	if (ns._mhRouteOwner == "delve" or ns._mhRouteOwner == "waypoint") and arrived and not onLeg then
 		ns._mhRouteOwner = nil
 		activeLead = nil
 		HideArrow()

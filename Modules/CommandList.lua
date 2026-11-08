@@ -76,7 +76,7 @@ ns.MH_UNLISTED_ON_PURPOSE = {
 	"anchor", "api12", "atal", "auradump", "aurainst", "auras", "bars", "boardall",
 	"bonusroll", "bossshare", "campaign", "capture", "chunklog", "chunks", "clearroute",
 	"dundun", "sniff", "sniff dump", "sniff clear", "sniff quiet", "pet", "pet test", "pet sounds",
-	"codexkeys", "companion", "consready", "coord", "crest", "crestfind", "crestscan",
+	"codexkeys", "colours", "companion", "consready", "coord", "crest", "crestfind", "crestscan",
 	"curio", "hexmasks", "curiodebug", "curscan", "death", "debug", "delve", "durability", "durability test", "delveexit", "delvescan", "dispellog",
 	"dispelprobe", "dispelsound", "dispeltest", "editmode", "ej", "enchants", "encounters", "events",
 	"eventspy", "fastmark", "finditem", "flightpins", "glow", "groupbuffs", "groupmap", "guide",
@@ -131,6 +131,8 @@ ns.MH_COMMANDS = {
 		{ cmd = "/mh apply", descKey = "CMDLIST_APPLY" },
 		-- 4 Oct 2026: the fixed key block, as a picture (KeyBlock.lua).
 		{ cmd = "/mh block", descKey = "CMDLIST_BLOCK" },
+		-- 8 Nov 2026: what the colours on your MF Nameplates mean (NameplateColors.lua).
+		{ cmd = "/mh colors", descKey = "CMDLIST_COLORS" },
 		-- 9 Oct 2026: which spells you press most, on which key (KeyPresses.lua).
 		{ cmd = "/mh presses", descKey = "CMDLIST_PRESSES" },
 		{ cmd = "/mh changelog", descKey = "CMDLIST_CHANGELOG" },

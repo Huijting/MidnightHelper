@@ -2514,6 +2514,13 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 
 	-- /mh version [on | off] — tell me when a guild or group member runs a newer MH (VersionNotice.lua; both games;
 	-- Rob, 8 Nov 2026: "Ja bouw maar").
+	-- What the colours on your MF Nameplates mean (NameplateColors.lua; Rob, 8 Nov 2026: "Ik wil de kleurkaart").
+	if msg == "colors" or msg == "colours" or msg:lower():match("^colou?rs%s") then
+		if ns.NameplateColorsSlash then
+			ns.NameplateColorsSlash(msg:lower():match("^colou?rs%s+(.+)$") or "")
+		end
+		return
+	end
 	local verArg = msg:lower() == "version" and "" or msg:lower():match("^version%s+(.+)$")
 	if verArg then
 		if ns.VersionNoticeSlash then

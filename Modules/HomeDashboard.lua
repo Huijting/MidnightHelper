@@ -284,6 +284,10 @@ local function BuildLayout()
 			button(rows, ns:L("HOME_FOREVER_BTN_HOWTO"), ns.ShowPlayCardWindow and function() ns.ShowPlayCardWindow() end)
 			button(rows, ns:L("KEYBLOCK_TITLE"), ns.ShowKeyBlock and function() ns.ShowKeyBlock() end)
 			button(rows, ns:L("KEYSHUB_TITLE"), ns.ShowKeysHub)
+			-- 8 Nov 2026 (Rob: "Ik wil de kleurkaart"): only when MF Nameplates is loaded (NameplateColors.lua).
+			if ns.NameplateColorsAvailable and ns.NameplateColorsAvailable() then
+				button(rows, ns:L("NPCOL_BTN"), ns.ShowNameplateColors)
+			end
 		end)
 		addFull(function(rows)
 			header(rows, ns:L("HOME_FOREVER_HEADER"))

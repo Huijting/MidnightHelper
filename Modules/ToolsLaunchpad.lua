@@ -117,6 +117,12 @@ local TOOLS = {
 		icon = "Interface\\Icons\\INV_Misc_QuestionMark", slash = "/mh curioinfo",
 		open = function() if ns.ShowCurioExplain then ns.ShowCurioExplain() end end,
 	},
+	-- 8 Nov 2026 (Rob: "Ik wil de kleurkaart"): what the colours on MF Nameplates mean. Only when MF is loaded.
+	{
+		nameKey = "NPCOL_BTN", descKey = "NPCOL_DESC", needsMF = true,
+		icon = "Interface\\Icons\\INV_Misc_Gem_Variety_01", slash = "/mh colors",
+		open = function() if ns.ShowNameplateColors then ns.ShowNameplateColors() end end,
+	},
 	{
 		nameKey = "FPS_TITLE", descKey = "CMDLIST_FPS",
 		icon = "Interface\\Icons\\INV_Misc_PocketWatch_01", slash = "/mh fps",
@@ -148,6 +154,9 @@ local FOREVER_NEEDS = {
 }
 
 local function ToolShown(tool)
+	if tool.needsMF then
+		return ns.NameplateColorsAvailable ~= nil and ns.NameplateColorsAvailable()
+	end
 	if not ns.IS_FOREVER then
 		return not tool.foreverOnly
 	end

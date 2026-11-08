@@ -1,5 +1,26 @@
 # Midnight Helper — waar we staan
 
+## 🆕 8 nov — kleurenkaart MF Nameplates + pijl tot bij de trainer (Rob: "Ja, bouw allebei")
+
+- Nieuw `Modules/NameplateColors.lua` (beide TOCs, na VersionNotice). Leest LIVE `_G.MFNameplates.db.profile`
+  (AceDB, MF-defaults erachter); MF heeft geen licentie → niets gekopieerd. Betekenis per kleur GEMETEN in MF
+  `Core/Colors.lua` (BaseHealthColor: tapped > aggro > quest > caster > world > unitType > reaction; GetThreatColor).
+  Toont alleen regels die aan staan (quest, caster, idle, world.*, unitType, threat per rol, cast incl. important/kick).
+  Rol: groepsrol, anders spec-rol; onbekend = beide aggro-blokken. `/mh colors` (alias `colours`), `/mh colors check`
+  = profiel + elke kleur met zijn instellingspad. Knop: ToolsLaunchpad (`needsMF`) en Forever-startpagina; alleen als
+  MF geladen is. GEMETEN in Robs SV: Forever-profiel "Default" heeft `cast.useImportantColor = false`, Midnight niet.
+  Teksten: en/nl zelf, ru/de/fr/es/pt/it via mh-writer (niet native nagekeken); esMX-regels (calabozos) toegevoegd.
+  locale_probe OK in 8 talen, syntax OK, lint 0 HARD. **Niet in de client getest.**
+  Spelwoorden NIET tegen de client gemeten (mh-writer twijfelde): deDE Rare ("Seltener Gegner" vs pack's "Elite-Rar"),
+  itIT World boss, Battle pet in alle talen (geen pack had het), itIT "barre dei nomi", Rare in fr/es/pt/it/ru. Na te
+  meten in wago GlobalStrings.
+- Pijl: `ns.lastTarget.arriveYards` (nieuw, NativeArrow): de trainer-route laat los op 5 yd i.p.v. 20 yd
+  (`NEAR.arrived`). Het opnieuw-zetten van de Blizzard-pin blijft op 20 yd (geen churn met Blizzards eigen
+  aankomst-wis). `TRAINER_SHOW` beëindigt de trainer-route (`_mhRouteOwner = nil`). Andere routes ongewijzigd.
+- OPEN (Rob, later): **Platynator**. MH heeft `Addons/Platynator.lua` + `PlatynatorData.lua` (MH-profiel voor
+  Platynator); Rob gebruikt het zelf niet meer ("moet eigenlijk wel een beetje weg"). GEMETEN: Platynator staat nog
+  aan op 18 Midnight-characters, naast MF. Eerst met Rob bespreken wat ermee moet.
+
 ## 🆕 8 nov — kruis boven de trainer (Forever; Rob: "een kruis bovenop de trainer" → "Ja, bouw maar")
 
 - `ForeverTrainer.lua` stap 3: `ForeverTrainerGo` (chat, venster-knop, startpagina) roept `ns.ForeverTrainerMark(best)`

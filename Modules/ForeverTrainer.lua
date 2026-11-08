@@ -848,7 +848,9 @@ function ns.ForeverTrainerGo()
 		return false
 	end
 	local label = (best.name or "Class trainer") .. " (trainer)"
-	ns.lastTarget = { mapID = best.map, x = best.x, y = best.y, name = label, via = "/mh trainer go" }
+	-- arriveYards: the arrow stays until 5 yd (NativeArrow's default is 20 yd; Rob, 8 Nov 2026: at ~15 m "is mijn pijl
+	-- al weg ... dan moet ik alsnog zoeken"). Talking to the trainer ends the route too (TRAINER_SHOW below).
+	ns.lastTarget = { mapID = best.map, x = best.x, y = best.y, name = label, via = "/mh trainer go", arriveYards = 5 }
 	ns._mhRouteOwner = "waypoint"
 	print(PREFIX .. ("arrow set to %s, about %s (%s, %d places known)."):format(label, Distance(dist), best.src, n))
 	if ns.ForeverTrainerMark then
@@ -1099,6 +1101,11 @@ do
 		if event == "TRAINER_SHOW" then
 			if mark then
 				ClearMark() -- you found him
+			end
+			-- ...and the arrow is done too: NativeArrow tears down a route whose owner is gone (and clears its pin).
+			local lt = ns.lastTarget
+			if ns._mhRouteOwner == "waypoint" and lt and lt.via == "/mh trainer go" then
+				ns._mhRouteOwner = nil
 			end
 		elseif event == "NAME_PLATE_UNIT_ADDED" then
 			if mark then
