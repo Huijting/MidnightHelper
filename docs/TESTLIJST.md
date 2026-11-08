@@ -26,10 +26,12 @@ er is niets weggegooid.
 - [ ] Tassen: zorg dat je nog 3 plekken vrij hebt, raap 1 ding op → grote melding "Only 2 free bag slots left" midden
       in beeld + chatregel met je grijze spullen en hun waarde. Raap nog iets op: geen nieuwe melding. Bij 0: "Your
       bags are full". `/mh bags` zegt wat MH ziet en besloot.
-- [ ] Mana/leven (nieuwe manier, 8 nov): eerst `/mh rest test show` → "Low mana: drink first" en "Low health: eat
+- [x] (Rob 8 nov, screenshot) Mana/leven (nieuwe manier, 8 nov): eerst `/mh rest test show` → "Low mana: drink first" en "Low health: eat
       first" staan 4 s in beeld. Niet? Dan werkt de omweg niet in Forever: stuur de chatregel.
 - [ ] Daarna: zak onder 40% mana (of 50% leven), klik buiten een gevecht een vijand aan → de regel verschijnt, zonder
-      getal. Met volle mana en leven: niets te zien.
+      getal. Met volle mana en leven: niets te zien. — Rob 8 nov: werkt, maar "de ene keer wel, de andere keer
+      niet". Gerepareerd: geen 30-s-pauze meer op dit pad, en na een gevecht kijkt MH nog eens naar je doelwit.
+      Opnieuw testen: meerdere vijanden achter elkaar met weinig mana.
 - [ ] Warrior of rogue: alleen de leven-melding, nooit mana.
 - [x] (Rob 8 nov: *"Buff knop werkt"*) Buff-knop: priest zonder Fortitude → het icoontje (zelfde als in Midnight). Klik → cast je HOOGSTE rank. Krijg
       je Fortitude van een andere priest: icoontje weg. `/mh buffs` per buff: geleerd, op je, wat de knop zou casten.

@@ -337,17 +337,20 @@ local function CheckRest()
 		restState.lastWhy = "same enemy as last time: told you once"
 		return
 	end
-	if now - restState.lastAt < REST_GAP then
-		restState.lastWhy = ("asked again within %d s: quiet"):format(REST_GAP)
-		return
-	end
 	local mana, health = ManaPct(), HealthPct()
 	if health == nil or (mana == nil and HasManaBar()) then
 		-- Secret (Forever, measured): the game decides whether the lines are visible.
-		restState.lastAt, restState.lastKey = now, key
+		-- NO 30-second pause here (Rob, 8 Nov 2026: "De ene keer komt hij wel, de andere keer komt hij niet"). The pause
+		-- started on every enemy, also when the lines stayed invisible because your mana was fine, so the next enemy
+		-- within 30 s got nothing even with low mana. MH cannot know whether it showed, so it cannot pause on it.
+		restState.lastKey = key
 		local mOk, hOk = ShowSecretHint(s.mana, s.health)
 		restState.lastWhy = ("values are secret: handed to the screen (mana line %s, health line %s); the game decides "
 			.. "if you see them"):format(mOk and "ok" or "could not", hOk and "ok" or "could not")
+		return
+	end
+	if now - restState.lastAt < REST_GAP then -- readable path only: here MH knows it really warned
+		restState.lastWhy = ("asked again within %d s: quiet"):format(REST_GAP)
 		return
 	end
 	local lowMana = mana and mana < s.mana
@@ -467,7 +470,14 @@ ev:RegisterEvent("PLAYER_TARGET_CHANGED")
 ev:SetScript("OnEvent", function(_, event)
 	if event == "PLAYER_TARGET_CHANGED" then
 		CheckRest()
-	elseif event == "BAG_UPDATE_DELAYED" or bagState.pending then
-		CheckBags()
+	else
+		if event == "BAG_UPDATE_DELAYED" or bagState.pending then
+			CheckBags()
+		end
+		-- The game keeps you "in combat" a few seconds after a kill. Picking the next enemy in that time used to end
+		-- in "already fighting"; when the fight state ends, look at the enemy you have selected once more.
+		if event == "PLAYER_REGEN_ENABLED" then
+			C_Timer.After(0.5, CheckRest)
+		end
 	end
 end)

@@ -23,7 +23,10 @@
   grens, 0 erboven → `FontString:SetAlpha(secret)` (patroon uit DandersFrames HealthFade, alleen als kandidaat). Tekst
   zonder getal (`FWARN_REST_LOW_MANA/HEALTH`), geen chat/geluid (MH weet niet of het zichtbaar werd). Leesbare waarden
   → het oude pad. `/mh rest test` (jouw grenzen) en `/mh rest test show` (grens 101 = altijd zichtbaar: positieve
-  controle). **Niet in de client getest.**
+  controle). ✅ Rob GEMETEN 8 nov: `test show` toont beide regels, en "Low mana: drink first" verschijnt boven een
+  vijand. Maar "de ene keer wel, de andere keer niet". Oorzaak AFGELEID uit de code: de 30-s-pauze startte ook als de
+  regel onzichtbaar bleef (genoeg mana), en kort na een gevecht ben je nog "in combat". Gerepareerd: secret-pad zonder
+  30-s-pauze (alleen nog één keer per vijand), en PLAYER_REGEN_ENABLED kijkt nog eens naar je doelwit. Niet hertest.
   Ook: "|h" in chat at "mana|health" op → nu "||". Tassen: nog niet getest. Onzeker (AFGELEID): `C_UnitAuras.GetPlayerAuraBySpellID` en
   `C_Secrets` in Forever; paladin-auras als buff leesbaar; hunter zonder getemd pet krijgt toch "SUMMON PET".
 - Bijvangst gezien, niet aangeraakt: in `MissingBuff.lua` staat `ns.PrintMissingBuffDebug` BINNEN
