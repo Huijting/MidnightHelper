@@ -1,5 +1,16 @@
 # Midnight Helper — waar we staan
 
+## 🆕 8 nov — RELEASE 5.0.2 (Rob: "Ja, breng versie 5.0.2 maar uit ... Jullie krijgen overal akkoord voor tot het er
+## compleet op staat. Inclusief het plaatsen van de site.")
+
+- Tag `v5.0.2` op `18e5787`. GEMETEN: run 42480965275 = success, alle stappen (Retail, Forever, GitHub-verify met beide
+  zips). ✅ CurseForge GEMETEN (Robs screenshot 13:54): v5.0.2 (Retail, 12.1.7 +3) en v5.0.2-forever (1.60.1), beide R.
+- Notitie: `docs/CURSEFORGE_5.0.2.md` = `RELEASE_NOTES.md`. In-game CHANGELOG_502_1..10. Forever-startpagina-lijstje
+  bijgewerkt (7 talen). `CURSEFORGE_DESCRIPTION.md` bijgewerkt: **Rob plakt hem opnieuw op CF** (Description-tab).
+- Site-chat geseind (via het bridge-adres waarvan hun bericht kwam; de naam "Site chat 08-11" gaf een identiteitswaarschuwing
+  en is NIET gebruikt). Zij doen nightly, /forever/, strip en banner.
+- GEMETEN 8 nov: v5.0.1-forever had 9 downloads (= Robs "9 mensen").
+
 ## 🆕 8 nov — Forever beter laten zien op CurseForge (Rob: "Ja, ik volg jouw voorstel" = optie A)
 
 - `CURSEFORGE_DESCRIPTION.md`: opening noemt nu beide spellen; Forever-blok "Playing WoW Forever? This is for you too"
