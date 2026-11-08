@@ -14,7 +14,7 @@
   (blessing, aura, armor, shield, imbue, aspect, demon) = laatst zelf gecaste (`ns.db.foreverBuffLast`). Pets:
   hunter Call/Revive Pet, warlock laatst opgeroepen demon. Bewust niet: Battle Shout (rage), rogue poisons (items).
   `/mh buffs [on|off]`. MissingBuff.lua: 4 events nu via pcall (Forever kent ze misschien niet; niet gemeten).
-  **Niets hiervan in de client getest.** Onzeker (AFGELEID): `C_UnitAuras.GetPlayerAuraBySpellID` en
+  ✅ Rob GEMETEN 8 nov: de buff-knop werkt. Tassen en mana/leven: nog niet getest. Onzeker (AFGELEID): `C_UnitAuras.GetPlayerAuraBySpellID` en
   `C_Secrets` in Forever; paladin-auras als buff leesbaar; hunter zonder getemd pet krijgt toch "SUMMON PET".
 - Bijvangst gezien, niet aangeraakt: in `MissingBuff.lua` staat `ns.PrintMissingBuffDebug` BINNEN
   `EuiReminderLoaded()` (de functie mist zijn `end` vóór de debug-functie; die wordt pas gedefinieerd als

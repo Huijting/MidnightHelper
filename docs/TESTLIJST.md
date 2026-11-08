@@ -29,7 +29,7 @@ er is niets weggegooid.
 - [ ] Mana/leven: zak onder 40% mana (of 50% leven), klik buiten een gevecht een vijand aan → "Only 28% mana. Drink
       first". Dezelfde vijand nog eens aanklikken: niets. `/mh rest` zegt waarom.
 - [ ] Warrior of rogue: alleen de leven-melding, nooit mana.
-- [ ] Buff-knop: priest zonder Fortitude → het icoontje (zelfde als in Midnight). Klik → cast je HOOGSTE rank. Krijg
+- [x] (Rob 8 nov: *"Buff knop werkt"*) Buff-knop: priest zonder Fortitude → het icoontje (zelfde als in Midnight). Klik → cast je HOOGSTE rank. Krijg
       je Fortitude van een andere priest: icoontje weg. `/mh buffs` per buff: geleerd, op je, wat de knop zou casten.
 - [ ] Paladin/mage/shaman: cast zelf een andere blessing/armor/shield; laat hem aflopen → de knop kiest díe.
 - [ ] BugSack na `/reload`: geen "unknown event"-fout van MissingBuff.lua.
