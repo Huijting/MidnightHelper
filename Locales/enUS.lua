@@ -4702,6 +4702,8 @@ ns._mhLocales.enUS = {
 	HOME_FOREVER_AD_HEADER = "New in 5.0: Midnight Helper now works in WoW Forever too",
 	HOME_FOREVER_AD_BODY = "Playing WoW Forever? Turn MH on there as well. You get your own start page, what you can learn at your trainer with an arrow to get there, how your class plays, a key block for all nine classes, and a hint on which quest reward to take. It is the same addon: install it for WoW Forever too (in the CurseForge app, switch World of Warcraft from Retail to Forever).",
 	HOME_FOREVER_AD_HIDE = "Got it, hide this",
+	-- 8 Nov 2026: the line that stays at the bottom of the Midnight home page after the banner is hidden (a click shows it again).
+	HOME_FOREVER_ALSO = "Also playing WoW Forever? Midnight Helper works there too. Click here to see how to install it.",
 	FOREVER_AD_CHAT = "new in 5.0: MH now works in WoW Forever too. Trainer, How you play, key block and quest reward hint. Install it for your Forever game too; your Midnight features are unchanged.",
 	FHOWTO_NOT_WRITTEN_FMT ="Not written yet for the %s. Your keys are already on the block: open it with /mh block, and point at a key to see its spell.",
 	-- 7 Nov 2026: the bar layout question on new Forever characters (ForeverLayoutCarry.lua).

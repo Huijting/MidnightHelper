@@ -10,6 +10,12 @@
   groei → optie B, tweede CF-pagina met dezelfde code): `docs/forever/CF_PAGE_FOREVER_2026-11-08.md`.
 - Site-chat gevraagd (Forever-blok/-pagina + banner met "WoW Forever"); bericht in de wachtrij, die sessie was offline.
 - Bij 5.0.2: Forever-blok aanvullen met wat dan uitkomt (lijst in die notitie).
+- In Midnight zelf (Rob: "zien we in midnight helper ook duidelijk dat we een andere versie ook hebben?" → "Ja, bouw
+  maar"): GEMETEN dat Forever na het wegklikken van de 5.0-banner nergens meer te zien was. Nu onderaan de
+  Midnight-startpagina een vaste grijze regel `HOME_FOREVER_ALSO` (alleen als de banner weg is); klik = banner met
+  installatie-uitleg terug. 8 talen. Niet in de client getest.
+- Gezien, niet aangeraakt: de Forever-startpagina zegt nog "an early test version" (`HOME_FOREVER_BODY`) met een
+  verouderd lijstje. Bijwerken bij 5.0.2.
 
 ## 🆕 8 nov — Forever: tassen, mana/leven, buff-knop (Rob: "Ja, bouw alle drie")
 

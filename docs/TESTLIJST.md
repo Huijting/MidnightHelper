@@ -21,6 +21,11 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 8 nov — Midnight: vaste Forever-regel onderaan de startpagina
+
+- [ ] Midnight, `/mh`: helemaal onderaan de startpagina een grijze regel "Also playing WoW Forever? ...". (Alleen als je
+      de 5.0-banner al had weggeklikt.) Klik erop → de grote banner met de installatie-uitleg staat weer bovenaan.
+
 ## 🆕 8 nov — Forever: tassen bijna vol, weinig mana/leven, buff-knop
 
 - [x] (Rob 8 nov: melding gezien, "heel snel weg" → nu 6 s i.p.v. 2 s; opnieuw kijken) Tassen: zorg dat je nog 3

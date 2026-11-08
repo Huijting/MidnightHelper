@@ -1179,6 +1179,20 @@ local function BuildLayout()
 		end
 	end
 
+	-- 8 Nov 2026 (Rob: "zien we in midnight helper ook duidelijk dat we een andere versie ook hebben?" → "Ja, bouw
+	-- maar"): once the 5.0 banner is clicked away, nothing in Midnight said Forever existed any more. One small grey
+	-- line at the very bottom, always there; a click brings the banner (with the install steps) back.
+	if ns.db and ns.db.foreverAnnounceSeen then
+		addFull(function(rows)
+			line(rows, ns:L("HOME_FOREVER_ALSO"), COLOR_DIM, function()
+				ns.db.foreverAnnounceSeen = nil
+				if ns.RefreshHomePanel then
+					ns.RefreshHomePanel()
+				end
+			end)
+		end)
+	end
+
 	return blocks
 end
 
