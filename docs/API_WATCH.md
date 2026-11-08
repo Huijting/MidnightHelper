@@ -9223,3 +9223,184 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
     vorige run **22 commits** opgeschoven (van `cf00d2e`), vrijwel allemaal Forever-werk van 6 nov:
     key-blocks voor negen klassen, `/mh bar`, "How you play" in de addon, en de hersplitsing van
     `NEXT_SESSION.md` (13354 → 490 regels).
+- [2026-11-08] ✅ **Nul [MOET GEFIKST]. Twee dingen zijn nieuw sinds mijn vorige run en geen van beide
+  raakt MH: een nieuwe Forever-build `1.60.1.70862` (hele diff is gamepad- en barbershop-UI) en één
+  forumdraadje van vanochtend over `[mod:shift]`-macro's in Forever. Al het andere stond stil: geen
+  nieuwe live-build (VIJFDE dag op `12.1.5.70783`), geen nieuwe PTR-build (VIERDE dag op
+  `12.1.7.70740`), geen nieuwe regel op geen van de vier wiki-API-pagina's, GEEN nieuw
+  hotfix-artikel (het nieuwste blijft dat van 6 nov), geen blue post over API, en geen nieuwe
+  SimC-addon-release.** 🔴 **Plus een CORRECTIE op mijn eigen regels van 17 okt t/m 7 nov over de
+  repo-staat — zie de laatste bullet: de `forced update` en de losgeslagen HEAD zijn een
+  SHALLOW-CLONE-artefact en géén herschreven historie, zoals ik meermaals heb gesuggereerd.**
+  - 🆕 **[RAAKT ONS NIET] — NIEUWE FOREVER-BUILD `1.60.1.70862`, de eerste sinds `70840` van 6 nov.**
+    GEMETEN, niet nagelezen: `git ls-remote --heads https://github.com/Gethe/wow-ui-source` geeft
+    **13** heads, en alleen `forever` is bewogen — van **`5987a8e230…`** naar
+    **`9dc84f0d3bbae1768ac3405b3716000bd93eda06`**, commit `1.60.1 (70862)`, **2026-11-07 04:46:13
+    UTC**. Daarna een `--depth 8`-clone zodat de diff zelf gemeten is: **5 bestanden, 32
+    toevoegingen, 7 verwijderingen**, `version.txt` `1.60.1.70840` → `1.60.1.70862`. Wat er in de
+    andere vier staat, per bestand gelezen — het is van begin tot eind **gamepad-navigatie**:
+    - `Blizzard_BarbershopUI/Mainline/Blizzard_BarberShopUI.lua` — `BarberShopMixin:OnLoad` eindigt nu
+      met `SmartNavigation_AddJumpNavigationOverride(self.SDToggleButton,
+      SMART_NAV_INPUT_DIRECTION.DOWN, self.AcceptButton)`.
+    - `…/Blizzard_BarberShopUI.xml` — `BarberShopFrame` krijgt een `<KeyValues>`-blok met
+      `disallowGamepadUnfocus = true`.
+    - `Blizzard_GamepadSharedUtility/FrameControlsManager.lua` — `SetUIFocusState` is herschreven: hij
+      loopt nu de parent-keten op tot `GetAppropriateTopLevelParent()` en **stopt met `return`** als die
+      top-level `disallowGamepadUnfocus` heeft; de bestaande `dismissOnUnfocus`-tak (met
+      `SecureHelper.SecureCallOptionalFunction(… "SmartNavigationCloseHandler" …)` en `HideUIPanel`)
+      zit daar nu één niveau dieper in.
+    - `Blizzard_GamepadSmartNavigation/SmartNavigation.lua` — `InitializeGamepad` registreert nu
+      `EventRegistry:RegisterCallback("UI.AlternateTopLevelParentChanged", …)` en zet zichzelf daarin op
+      `SetAppropriateTopLevelParent(self)` + `SetFrameStrata("TOOLTIP")`; `UninitializeGamepad`
+      doet de bijbehorende `UnregisterCallback`.
+    **MH, per naam (`grep -rIl`, met `.git`/`docs`/`tools`/`dist` eruit) — alle 21 op NUL bestanden:**
+    `SmartNavigation_AddJumpNavigationOverride`, `SMART_NAV_INPUT_DIRECTION`, `disallowGamepadUnfocus`,
+    `dismissOnUnfocus`, `SmartNavigationCloseHandler`, `GetAppropriateTopLevelParent`,
+    `SetAppropriateTopLevelParent`, `AlternateTopLevelParentChanged`,
+    `GamepadFrameControlsManagerMixin`, `FrameControlsManager`, `GamepadMode`,
+    `SecureCallOptionalFunction`, `SecureHelper`, `BarberShopMixin`, `BarberShopFrame`,
+    `CharCustomizeFrame`, `TopLevelParentScaleFrameTemplate`, `SmartNavigation`,
+    `CharCustomizeBodyTypeButtonTemplate`, `IsFrameSuspended`, `UnsuspendFrame`.
+    Positieve controle op **exact dezelfde reikwijdte en vlaggen**, zodat die nullen afwezigheid zijn
+    en geen meetfout: `CreateFrame` → **168** bestanden, `RegisterEvent` → **134**, `C_Timer` →
+    **113**, `UIParent` → **87**, `SetFrameStrata` → **75**, `InCombatLockdown` → **54**,
+    `GetBuildInfo` → **26**, `EventRegistry` → **1**, `HideUIPanel` → **1** (343 `.lua`-bestanden in
+    de reikwijdte).
+    📌 Logisch ook: dit is Blizzards gamepad-focusmodel en het barbershop-scherm. MH bouwt zijn eigen
+    frames, raakt geen gamepad-API aan en zet nooit een top-level parent. **Niets te doen, niets
+    aangeraakt.**
+  - 🆕 **[RAAKT ONS NIET] — NIEUW FORUMDRAADJE VAN VANOCHTEND over macro-conditionals in Forever, en
+    het is géén bevestigde API-wijziging.** GEMETEN in
+    `/c/guides/ui-macro/35/l/latest.json?order=created&nocache=20261108`: **`2405876`** *"Forever…
+    [mod:shift] macros not working?"* (**2026-11-08T04:32:11Z**, Corelas, **1** post, **0** reacties,
+    1 view) beschrijft dat `/cast [mod:shift] Fireball; Frostbolt` in Forever niet zou werken.
+    ⚠️ **Eén speler, geen reactie, en GEMETEN in de `posters`-lijst: geen Blizzard-poster.** Dus een
+    onbevestigde melding, niet een gedocumenteerde wijziging — ik weet niet of dit een bug, een
+    misverstand of een echte Forever-beperking is, en ik verzin er niets bij.
+    **Toch nagelopen, want MH schrijft macrotext: `[mod:` / `[modifier:` → NUL treffers in de hele
+    addon.** De enige `mod:`-treffer is `Modules/PlayCardWindow.lua:338`
+    (`({ s = "Shift", c = "Ctrl", a = "Alt" })[mod:lower()]`) — dat is een Lua-methodeaanroep op een
+    variabele die `mod` heet, géén macro-conditional. GEMETEN wat MH wél schrijft: `/tm N`, `/use
+    item:<id>` en `/cast [@mouseover,help,nodead][@target,…][@focus,…]`
+    (`Modules/MissingBuff.lua:762`) — dat zijn **unit**-conditionals, geen modifier-conditionals.
+    📌 **Wel het noemen waard voor een volgende run:** van de zeven macrotext-bestanden draait er één
+    óók op Forever — `Modules/FastMark.lua` staat op regel 79 van `MidnightHelper_Camelot.toc`, en
+    `:316` en `:390` schrijven `("%s [@%s] %d")` met `SlashTargetMarker()`. `MissingBuff.lua` staat
+    **niet** in de Camelot-TOC. Blijkt deze melding later over macro-conditionals in het ALGEMEEN te
+    gaan in plaats van over modifiers, dan is FastMark de module waar het bij ons zou opvallen. De
+    slash-naam zelf is daar al afgedekt: `FastMark.lua:140` doet `return SLASH_TARGET_MARKER1 or
+    "/tm"`. **Open vraag, geen actiepunt.**
+  - 🔁 **[AL AFGEDEKT] — NIET NIEUW, maar vandaag voor het eerst in de CODE gemeten in plaats van
+    aangenomen: de TOC-variabelenregel van de 12.1.7-pagina tegen MH's twee TOC-bestanden.** Die regel
+    (*"TOC directives no longer expand variables such as [Game] or [Family]. Instead, these lines are
+    entirely skipped"*, met *"Directives containing conditional expressions such as [AllowLoadGameType
+    …] continue to function normally"*) staat al sinds eind okt in mijn regels, maar ik had hem nooit
+    tegen de TOC's gehouden — en sinds 5 nov zijn het er twee. GEMETEN: `[Game]` en `[Family]` →
+    **0** treffers in `MidnightHelper.toc` én `MidnightHelper_Camelot.toc`. De enige
+    directive-treffer is `## AllowLoadGameType: camelot` (`MidnightHelper_Camelot.toc:2`), en dat is
+    een kale directive-regel, geen variabele-expansie. **Niets te doen.**
+  - 🧰 **SimC-addon: geen nieuwe release sinds `12.1.5-04`.** GEMETEN: `git ls-remote --tags --refs`
+    op `simulationcraft/simc-addon` geeft vandaag **258** tags, exact het aantal van gisteren, en de
+    nieuwste 12.1-tag is nog steeds `12.1.5-04` op `83fdb00762fa…`. Er is nog steeds **geen** tag met
+    `camelot`, `forever` of `1.60` in de naam, dus de SimC-addon heeft nog geen Forever-variant —
+    `/mh raidbots` hoeft daar niets mee.
+  - 🔇 **WAT STIL STOND, zodat stilte te onderscheiden is van niet-kijken. Alles hieronder is vandaag
+    GEMETEN, niet overgenomen van gisteren.**
+    - **Client-source, de andere twaalf heads: byte-voor-byte gelijk aan gisteren.** `live` =
+      **`297d7aaaa736f346b3e036f38ee088eaf7f8c07f`** (VIJFDE dag op `12.1.5.70783`), `ptr` =
+      **`e927c305f67ed6b3b460bc00d0c39055747b9119`** (VIERDE dag op `12.1.7.70740`), `beta` =
+      `078d0cf751…`, `ptr2` = `12380f8cdc…`, `classic_era` = `4192ac6006…`.
+    - **Wiki: alle vier de pagina's onveranderd.** `Patch_12.1.7/API_changes` heeft dezelfde twee
+      inhoudelijke Summary-punten (GUID-obfuscatie met *"This change will be available for testing in
+      a future build of 12.1.7"*, en de TOC-variabelenregel), TOC `120107`, nog steeds **geen**
+      Consolidated-changes-sectie. ⚠️ **Eén ding dat als wijziging kan lezen en het niet is:** boven
+      die twee staat *"Includes API changes from Patch 1.60.1"*. Dat is een kruisverwijzing die ik op
+      een eerdere run al woordelijk heb vastgelegd (zie mijn regel op dit bestand rond `Includes API
+      changes`), geen nieuw punt; mijn regels van 5–7 nov telden bewust alleen de twee inhoudelijke.
+      `Patch_12.1.5/API_changes` heeft nog dezelfde vier blue-post-datums (3, 16, 22 en 29 sep),
+      `Patch_1.60.1/API_changes` nog dezelfde drie (15 sep, 8 en 16 okt) en dezelfde drie Notable
+      changes (builds `70291`, `70170`, `70009`), en `Patch_12.1.0/API_changes` dezelfde **acht**
+      Summary-punten. Op `API_change_summaries` staan onder Retail nog **12.1.0, 12.1.5, 12.1.7** en
+      onder Forever alleen **1.60.1** — géén 1.60.2-pagina.
+      ⚠️ **Eerlijk over één ding dat ik NIET kan vaststellen:** de 1.60.1-pagina draagt bovenaan
+      *"Next patch: Patch 1.60.2"*. Of die navigatieregel nieuw is, kan ik uit mijn eigen logboek niet
+      opmaken — mijn twee eerdere vermeldingen van 1.60.2 gaan allebei over het ontbreken van een
+      1.60.2-pagina op de summaries-pagina, niet over deze regel. Het is vermoedelijk een rode link;
+      ik meld hem, ik claim niet dat hij nieuw is.
+    - **Hotfixes: GEEN nieuw artikel. Het nieuwste blijft dat van 6 nov**, dus precies wat mijn regel
+      van gisteren al dekte: *"Hotfixes: November 6, 2026"* (**2026-11-07T01:08:53Z**) en *"WoW:
+      Forever Hotfixes - November 6, 2026"* (**2026-11-07T01:06:34Z**). ⚠️ **MEASURED (via search,
+      niet zelf op news.blizzard.com gelezen):** `news.blizzard.com` is op WebFetch én op kale `curl`
+      `EGRESS_BLOCKED` (de proxy weigert de CONNECT met 403), dus gelezen in de zoekresultaten van Exa.
+      📌 **Cache-controle, en deze keer met een andere uitkomst dan de regel beschrijft:** het nieuwste
+      dat ik zie is vandaag **even oud** als wat mijn logboek gisteren noemde, niet ouder. Dat is dus
+      géén cache-signaal. Onafhankelijk bevestigd doordat twee verse derde-partij-artikelen van
+      **7 nov 16:00Z** (Massively OP) en **7 nov 18:10Z** (Gamelevate) uitsluitend naar diezelfde
+      hotfixes van 5 en 6 nov verwijzen: er bestaat geen hotfix-artikel van 7 nov. Alle Exa-URL's
+      hadden `?nocache=20261108`.
+    - **Blue posts: niets over API.** Het nieuwste op de blue-lijst is *"Class Tuning Incoming -
+      10 November"* (6 nov 21:12) en *"The Venomous Abyss Raid Tuning Incoming"* (6 nov 19:03) —
+      beide stonden gisteren al in mijn regel, en beide zijn tuning, dus werk voor de contentwachter.
+    - **`UI and Macro`-forum, de rest van de eerste pagina:** `2404135` (quest-objectives uit de
+      tooltip, 6 nov) staat nog op 0 reacties, en `2402787` *"Forever ground distance CVAR"* is van 4
+      naar **5** posts gegaan — GEMETEN in de `posters`-lijst: laatste poster Fizzlemizz, **geen**
+      Blizzard-poster. De rest stond al in mijn regels van 1–7 nov.
+  - 📌 **CONTEXT DIE MIJN EIGEN OPDRACHT EN `CLAUDE.md` NOG NIET KENNEN, en die mijn terrein
+    verdubbelt.** GEMETEN vandaag in de werkmap: `## Version: 5.0.1`, en er zijn **twee** TOC's —
+    `MidnightHelper.toc` (`## Interface: 120007, 120100, 120105, 120107` plus een nieuwe regel
+    `## Interface-Camelot: 16001`) en sinds 5 nov `MidnightHelper_Camelot.toc` (`## Interface: 16001`,
+    `## AllowLoadGameType: camelot`, titel *"Midnight Helper Forever"*). Die laatste laadt **104** van
+    de **343** Lua-bestanden. MH draait dus op twee game-types, en een Forever-build is sinds 5 nov
+    niet langer alleen theorie: de `forever`-head is nu een bron die écht code van ons kan raken.
+    ⚠️ `CLAUDE.md` beschrijft bovenaan nog uitsluitend patch 12.1 met `## Interface: 120007, …`; dat
+    is niet mijn bestand om te wijzigen, maar een volgende run moet weten dat de reikwijdte groter is
+    dan daar staat.
+  - ⏳ **Nog open uit eerdere runs, NIET nieuw en vandaag niet opnieuw gemeten:** de UTF-8 BOM vooraan
+    `MidnightHelper.toc`; de `%d+`-aanname op veld 3 van de npcID-match
+    (`Modules/ResetRoutine.lua:648`) tegenover de GUID-obfuscatie; de `GetInstanceInfo`-return-orde
+    tegenover `Modules/Showdowns.lua:226`; de dode `PickupItem`-takken in
+    `Modules/KeyBlock.lua:1135`/`:1227`/`:1380` en `Modules/ApplyLayout.lua:1311`/`:1345`/`:1605`; de
+    vijf decoratieve `GetItemInfo`-terugvaltakken; `Blizzard_DeprecatedWorldElapsedTimerTypes` als
+    tiende deprecated-addon; de verouderde namespace-lijst in `docs/WATCHER_API_PROMPT.md` (18 aug);
+    de client-test voor `/mh raidbots`; `GetTimerDuration` toevoegen aan `Modules/ApiProbe.lua:377`
+    (mijn suggestie van 5 nov, nog steeds niet aangeraakt); de `FrameStrata`-secret-vraag op
+    `Modules/PartyTargets.lua:517`; en de drie `WOW_PROJECT_MAINLINE`-takken in
+    `Libs/LibDBIcon-1.0.lua:533`/`:572`/`:607` die op Forever omslaan — nog steeds één schermafdruk
+    waard. 🔴 Niets aangeraakt.
+  - 🔴 **CORRECTIE OP MIJN EIGEN REGELS VAN 17 OKT T/M 7 NOV — de `forced update` en de losgeslagen
+    HEAD zijn een SHALLOW-CLONE-ARTEFACT, geen herschreven historie.** Ik heb die meldingen wekenlang
+    als repo-gebeurtenis gerapporteerd en gisteren nog als "vandaag bleef hij weg" opgeschreven, en dat
+    was de verkeerde verklaring. GEMETEN vandaag: `git status` → *"HEAD detached from
+    refs/heads/main"*, `git fetch origin main` → **`+ b2a98ae…c477d5c main -> origin/main (forced
+    update)`**, en `git merge-base` tussen die twee is **LEEG** — geen gemeenschappelijke voorouder.
+    Dat ziet uit als een herschreven historie, maar is het niet: `git rev-parse
+    --is-shallow-repository` → **`true`**, en `.git/shallow` bevat **twee** graft-punten
+    (`29caaf76fcac…` en `be6ce4ec2b66…`), precies de wortels van de twee 50-commit-vensters.
+    **Beide "historieën" zijn exact 50 commits** — de standaard kloondiepte van deze sessie. Elke
+    fetch ent een nieuw venster van 50 met een kunstmatige wortel, en twee vensters van verschillende
+    dagen hebben daarom per definitie geen gemeenschappelijke voorouder. Er is níéts herschreven.
+    ✅ **En dit is de sluitende meting, want "de commit van gisteren ontbreekt" zou wél op herschrijven
+    wijzen:** alle **50** commits in het venster van vandaag zijn gedateerd **2026-11-07**, en er zitten
+    **0** commits van 2026-11-06 in. Rob heeft op 7 nov dus meer dan vijftig commits gemaakt, waardoor
+    het venster van 50 niet eens tot gisteren terugreikt. Dát is waarom `b2a98ae` (6 nov) er niet in
+    staat — niet omdat hij weg is.
+    ✅ **GEMETEN dat er niets verloren is:** `origin/main:docs/API_WATCH.md` is **9225** regels met
+    **112** `- [JJJJ-MM-DD]`-regels, t/m die van 7 nov, en alle vier de wachter-bestanden staan er.
+    De 50 commits op de oude lokale `main` (t/m `b2a98ae`, incl. mijn eigen regel van 5 nov) staan
+    gewoon in de échte historie bij GitHub, alleen buiten het venster van vandaag.
+    📌 **Dus voor een volgende run: schrik niet van `forced update`, een lege merge-base of een
+    losgeslagen HEAD in deze sessie.** Controleer `git rev-parse --is-shallow-repository`; is die
+    `true`, dan is het de kloondiepte en niet Rob. De juiste zet is `git checkout -B main <origin/main>`
+    en níét de oude 50 commits terugrebasen — dat zou Robs werk dubbel pushen.
+  - 🔧 **Repo-staat: alleen `docs/API_WATCH.md` aangeraakt.** GEMETEN vóór het schrijven:
+    `git status --short` **leeg**, geen van de vier wachter-bestanden gewijzigd-maar-ongecommit, en
+    `HEAD` losgeslagen op **`c477d5ce667c7b70f860014ecdb047d3c8713e99`** ("Handoff: tool guard
+    confirmed in game, open list for tomorrow"), wat byte-voor-byte **gelijk is aan `origin/main`** —
+    dus ik schrijf op de actuele tip. De lokale `main` stond nog op het venster van gisteren
+    (`b2a98ae…`) en is daarom naar `origin/main` gezet, zonder ook maar één bestand te wijzigen.
+    📌 **Hoevéél de repo sinds mijn vorige run is opgeschoven, kan ik NIET zeggen, en ik gok er geen
+    getal bij:** het venster van 50 commits reikt niet tot de tip van gisteren, dus het is er
+    **minstens 50**. Wat ik wél kan zeggen: alle 50 zijn van 7 nov en vrijwel allemaal Forever-werk —
+    de klassentrainer met pijl en eigen trainerlijst (218 trainers), het `Train all`-knopje onder het
+    trainer-venster van het spel, Totem-items in dat venster, de 5.0.1-release met een eigen
+    Forever-upload, en de waarschuwing voordat je je laatste gereedschap verkoopt of vernietigt.
