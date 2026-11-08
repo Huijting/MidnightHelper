@@ -33,6 +33,7 @@ tools/PROFESSIONS_PLAN.html
 
 # tools/addon_updates.py onthoudt welke addonversies hij vorige keer zag. Beschrijft één pc.
 tools/addon_versions_seen.json
+tools/addon_versions_seen_forever.json
 # tools/handynotes_watch.py: kopie van HandyNotes_Midnight/zones van de vorige keer. Beschrijft één pc.
 tools/handynotes_snapshot/
 

@@ -15,9 +15,13 @@
 - Tekst: enUS, nlNL, ruRU, de/fr/es/pt/it (Translations2026, eigen vertaling). locale_probe GEMETEN OK in 8 talen;
   syntax OK; lint 0 HARD. ⚠️ Niet in de client getest. AFGELEID: CHAT_MSG_ADDON-args zijn geen secret values (guard
   staat er toch). Test kan alleen met een tweede speler met een oudere MH (TESTLIJST 8 nov).
-- 📋 Open (Rob 8 nov, apart): meldingen van wat er veranderde in Robs andere addons, Retail én Forever, sinds
-  CurseForge automatisch bijwerkt; plus in de gaten houden of de uitgezette Forever-addon voor het character-scherm
-  (gaf steeds fouten) gerepareerd is. Plan nog voorleggen.
+- ✅ Addon-meldingen (Rob 8 nov "Ja, bouw maar"): `tools/addon_updates.py` kijkt nu in `_retail_` én `_forever_`
+  (eigen seen-bestand `addon_versions_seen_forever.json`, gitignored; eerste Forever-run 8 nov = basis van 47 addons).
+  Wachtlijst = addons die op ELK character uit staan (AddOns.txt), RaiderIO_DB_* uitgezonderd; krijgt er één een nieuwe
+  versie → 🔔 bovenaan. GEMETEN 8 nov: Forever-wachtlijst = CharacterForever 0.13.10 (CharacterScape, uit op 11/11);
+  Midnight-wachtlijst = ClickCastingTooltip, HexBreak, TankTraining. Bel GEMETEN met een nep-kopie (0.13.9 → 0.13.10:
+  🔔 verschijnt). CharacterScape heeft geen changelog in de map → bij een bel zelf op CurseForge opzoeken. CLAUDE.md 4b
+  bijgewerkt.
 
 ## 🆕 7 nov (avond) — Forever: waarschuwing voor je laatste gereedschap (Rob: "ja doe maar")
 

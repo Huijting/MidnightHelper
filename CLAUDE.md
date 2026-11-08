@@ -89,6 +89,11 @@ Dus bij een groet of de eerste boodschap van de dag, ongevraagd en in deze volgo
    maar"*). Hij vergelijkt `## Version` met de vorige keer en print de top van elke changelog; **jij**
    oordeelt of iets MH raakt (taint, markers, secret values, TomTom, DBM-formaat, JustAC-data). Lezen is
    geen testen: zeg dat erbij, Robs `/reload` + BugSack is de test.
+   📌 **Sinds 8 nov 2026 ook Forever** (`_forever_`, eigen seen-bestand) **en een wachtlijst** (Rob: *"sinds ik het op
+   automatisch updaten heb gezet heb ik geen idee wat er verandert is"* → *"Ja, bouw maar"*). Een addon die op élk
+   character uit staat (`WTF/.../AddOns.txt`) en een nieuwe versie krijgt, staat bovenaan met 🔔: meld die Rob altijd,
+   met wat de maker veranderde — heeft hij geen changelog in de map, zoek het dan op CurseForge op. Rob praat Nederlands
+   en wil per addon één zin over wat er voor HEM veranderde (niet alleen wat MH raakt), voor beide spellen.
 4b'. **Kijk wat er in HandyNotes is veranderd:** `run handynotes_watch` (via `probe_job.txt`). Sinds 15 okt 2026 (Rob:
    *"op alles, en dat moet eigenlijk altijd"* — HandyNotes is volgens hem *"meestal de beste bron van allemaal"*). Hij print
    per zone de toegevoegde/verwijderde regels mét coördinaten en ID's, sinds de vorige keer (kopie in
