@@ -365,6 +365,48 @@ local function KeyLabel(k)
 end
 ns.KeyBlockKeyLabel = KeyLabel
 
+--- Game functions that sit on the block's keys and lose them on "Place it" (C = Character Info by default).
+--- Rob, 8 Nov 2026: "moeten we mensen vertellen dat wij de C toets hebben ingepikt" → "Ja, bouw maar". Until then the
+--- old binding was only remembered for Undo; the player was never told, and found out when C stopped opening his
+--- character window. Read live from the client, so the name is the one his own game shows, in his language.
+local function IsBarCommand(cmd)
+	return cmd:match("^ACTIONBUTTON%d+$") or cmd:match("^MULTIACTIONBAR%dBUTTON%d+$")
+		or cmd:match("^BONUSACTIONBUTTON%d+$") or cmd:match("^SHAPESHIFTBUTTON%d+$")
+		or cmd:match("^CLICK ") -- another bar addon's button: a bar, not a game function
+end
+
+local function GameKeysTaken(rows)
+	local out = {}
+	if not GetBindingAction then
+		return out
+	end
+	for _, r in ipairs(rows or {}) do
+		local okB, cmd = pcall(GetBindingAction, r.key)
+		if okB and type(cmd) == "string" and cmd ~= "" and cmd ~= r.command and not IsBarCommand(cmd) then
+			out[#out + 1] = { key = r.key, cmd = cmd }
+		end
+	end
+	return out
+end
+
+local function GameKeysText(list)
+	local parts = {}
+	for _, g in ipairs(list or {}) do
+		local name = _G["BINDING_NAME_" .. g.cmd]
+		parts[#parts + 1] = ("%s (%s)"):format(KeyLabel(g.key), type(name) == "string" and name or g.cmd)
+	end
+	return table.concat(parts, ", ")
+end
+
+--- The whole line: which keys, plus where to give one a new key. The menu words are the client's own (GlobalStrings
+--- GAMEMENU_OPTIONS / SETTINGS_KEYBINDINGS_LABEL, measured 12.1.0.69933 in docs/ROLE_SWITCH_FACTS_2026-10-07.md), so
+--- the path reads as the player's own menu in every language.
+local function GameKeysLine(localeKey, list)
+	local opt = type(_G.GAMEMENU_OPTIONS) == "string" and _G.GAMEMENU_OPTIONS or "Options"
+	local kb = type(_G.SETTINGS_KEYBINDINGS_LABEL) == "string" and _G.SETTINGS_KEYBINDINGS_LABEL or "Keybindings"
+	return ns:L(localeKey):format(GameKeysText(list), opt, kb)
+end
+
 local function Build()
 	-- WoW Forever: one macro per key from the class's approved table (ForeverBlock.lua, 5 Nov 2026). nil anywhere else.
 	if ns.ForeverKeyBlockBuild then
@@ -926,7 +968,18 @@ function ns.KeyBlockPreview(quiet)
 			end
 		end
 	end
-	return ns:L("KEYBLOCK_PLACE_SUMMARY_FMT"):format(n.place, n.replace, n.keep, n.refuse, n.skip)
+	local summary = ns:L("KEYBLOCK_PLACE_SUMMARY_FMT"):format(n.place, n.replace, n.keep, n.refuse, n.skip)
+	-- Say which game functions lose their key, before the click (a key that silently stops opening a window
+	-- looks broken from outside).
+	local taken = GameKeysTaken(rows)
+	if #taken > 0 then
+		local line = GameKeysLine("KEYBLOCK_GAMEKEYS_FMT", taken)
+		if not quiet then
+			print("  |cffffaa33" .. line .. "|r")
+		end
+		summary = summary .. "|n|cffffaa33" .. line .. "|r"
+	end
+	return summary
 end
 
 --- 🔴 ONE SNAPSHOT PER CHARACTER. MidnightHelperDB is account-wide, and until 5 Oct 2026 so was the
@@ -1061,6 +1114,8 @@ function ns.KeyBlockPlace()
 		-- place's key now does nothing until something lands there — the same key, the same place.
 		snap.binds[#snap.binds + 1] = { key = r.key, was = GetBindingAction and GetBindingAction(r.key) or "" }
 	end
+	-- Which game functions lose their key (shown in the window while placed, and once in chat below).
+	snap.gameKeys = GameKeysTaken(rows)
 	SetSnap(snap)
 
 	-- Rob, 5 Oct 2026 ("ik volg het advies"): with the block placed, Blizzard stops pushing new spells onto
@@ -1192,6 +1247,9 @@ function ns.KeyBlockPlace()
 	print(p .. ("key block placed: %d buttons, %d keys, %d moved aside (block D first), %d doubles off bar 1 and block D. |cffffffff/mh block undo|r puts everything back."):format(placed, bound, moved, doubles))
 	if #failed > 0 then
 		print("   |cffff8080did not land:|r " .. table.concat(failed, ", "))
+	end
+	if snap.gameKeys and #snap.gameKeys > 0 then
+		print("   |cffffaa33" .. GameKeysLine("KEYBLOCK_GAMEKEYS_PLACED_FMT", snap.gameKeys) .. "|r")
 	end
 	-- What went to block D, or why not (probe, 5 Oct 2026). Full detail: ns.db.keyBlockLeftoverProbe.
 	local lp = res and res.leftoverProbe
@@ -1467,6 +1525,12 @@ function ns.KeyBlockUpdate()
 			end
 			if not known then
 				snap.binds[#snap.binds + 1] = { key = r.key, was = GetBindingAction(r.key) or "" }
+				local g = GameKeysTaken({ r })[1]
+				if g then
+					snap.gameKeys = snap.gameKeys or {}
+					snap.gameKeys[#snap.gameKeys + 1] = g
+					print("|cffffaa33Midnight Helper:|r " .. GameKeysLine("KEYBLOCK_GAMEKEYS_PLACED_FMT", { g }))
+				end
 			end
 			SetBinding(r.key, r.command)
 			rebound = true
@@ -2165,6 +2229,10 @@ Refresh = function(f)
 	local foot
 	if placed then
 		foot = ns:L("KEYBLOCK_PLACED_STATE")
+		local s = GetSnap()
+		if s and s.gameKeys and #s.gameKeys > 0 then
+			foot = foot .. "|n|cffffaa33" .. GameKeysLine("KEYBLOCK_GAMEKEYS_PLACED_FMT", s.gameKeys) .. "|r"
+		end
 	else
 		foot = ns.KeyBlockPreview(true) .. "|n" .. ns:L("KEYBLOCK_LEGEND")
 	end

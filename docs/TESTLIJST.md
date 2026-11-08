@@ -21,6 +21,16 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 8 nov — toetsenblok zegt welke spel-toetsen het overneemt (Midnight én Forever)
+
+Op een character waar het blok al staat, zie je eerst niets nieuws: die plaatsing is van vóór vandaag.
+- [ ] Toetsenblok-venster → **Undo**. Onder het plaatje staat nu een oranje regel: *"These game keys get a spell from the
+      block: C (…Character…), … "Undo" gives them back. A new key for one: Esc > Options > Keybindings."* De naam
+      tussen haakjes is die van je eigen spel. Klopt het pad Esc > Options > Keybindings in Forever?
+- [ ] **Place it**: in de chat dezelfde lijst, en in het venster blijft hij staan ("These game keys now press the block").
+- [ ] Je ~ voor het character-venster blijft gewoon werken (dat is geen toets van het blok).
+- [ ] Undo: C opent weer je character-venster.
+
 ## 🆕 8 nov — melding "er is een nieuwere MH" (Midnight én Forever)
 
 Jij hebt altijd de nieuwste, dus jij ziet de melding zelf nooit. Testen met je zusje (oudere MH) in één groep.

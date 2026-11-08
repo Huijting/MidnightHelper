@@ -20656,3 +20656,26 @@ if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	VERNOTE_NEWER_FMT = "è uscita la versione %s (tu hai la %s). Aggiornala nell'app di CurseForge. /mh version off disattiva questo avviso.",
 }) end
+
+-- 8 Nov 2026: game functions that lose their key to the key block (KeyBlock.lua). The button word matches
+-- KEYBLOCK_BTN_UNDO in each pack; the menu words come from the client at runtime. Our own translation.
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
+	KEYBLOCK_GAMEKEYS_FMT = "Diese Spieltasten bekommen einen Zauber aus dem Block: %s. \"Rückgängig\" gibt sie zurück. Eine neue Taste dafür: Esc > %s > %s.",
+	KEYBLOCK_GAMEKEYS_PLACED_FMT = "Diese Spieltasten bedienen jetzt den Block: %s. \"Rückgängig\" gibt sie zurück. Eine neue Taste dafür: Esc > %s > %s.",
+}) end
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
+	KEYBLOCK_GAMEKEYS_FMT = "Ces touches du jeu reçoivent un sort du bloc : %s. « Annuler » les rend. Une nouvelle touche pour l'une d'elles : Échap > %s > %s.",
+	KEYBLOCK_GAMEKEYS_PLACED_FMT = "Ces touches du jeu servent maintenant au bloc : %s. « Annuler » les rend. Une nouvelle touche pour l'une d'elles : Échap > %s > %s.",
+}) end
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
+	KEYBLOCK_GAMEKEYS_FMT = "Estas teclas del juego reciben un hechizo del bloque: %s. \"Deshacer\" las devuelve. Una tecla nueva para una de ellas: Esc > %s > %s.",
+	KEYBLOCK_GAMEKEYS_PLACED_FMT = "Estas teclas del juego ahora usan el bloque: %s. \"Deshacer\" las devuelve. Una tecla nueva para una de ellas: Esc > %s > %s.",
+}) end
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
+	KEYBLOCK_GAMEKEYS_FMT = "Estas teclas do jogo recebem um feitiço do bloco: %s. \"Desfazer\" as devolve. Uma tecla nova para uma delas: Esc > %s > %s.",
+	KEYBLOCK_GAMEKEYS_PLACED_FMT = "Estas teclas do jogo agora usam o bloco: %s. \"Desfazer\" as devolve. Uma tecla nova para uma delas: Esc > %s > %s.",
+}) end
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
+	KEYBLOCK_GAMEKEYS_FMT = "Questi tasti del gioco ricevono un incantesimo dal blocco: %s. \"Annulla\" li restituisce. Un nuovo tasto per uno di essi: Esc > %s > %s.",
+	KEYBLOCK_GAMEKEYS_PLACED_FMT = "Questi tasti del gioco ora usano il blocco: %s. \"Annulla\" li restituisce. Un nuovo tasto per uno di essi: Esc > %s > %s.",
+}) end

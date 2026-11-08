@@ -1,5 +1,24 @@
 # Midnight Helper — waar we staan
 
+## 🆕 8 nov — toetsenblok zegt welke spel-toetsen het overneemt (Rob: "Ja, bouw maar")
+
+- Aanleiding: Rob: *"moeten we mensen vertellen dat wij de C toets hebben ingepikt"*. GEMETEN: "Place it" bindt élke
+  bloktoets (`SetBinding`, ook over een spel-functie als C = Character Info heen); de oude binding stond alleen in de
+  snapshot voor Undo, de speler hoorde niets. Rob had zelf Character aan ~ gekoppeld.
+- `KeyBlock.lua`: `GameKeysTaken(rows)` = bloktoetsen waarvan `GetBindingAction` iets anders is dan een balkknop
+  (ACTIONBUTTON/MULTIACTIONBAR/BONUSACTION/SHAPESHIFT/`CLICK `); naam via `_G["BINDING_NAME_"..cmd]` (clienttaal).
+  Getoond: (1) oranje regel in de voorvertoning vóór Place (`KEYBLOCK_GAMEKEYS_FMT`, ook in de dry-run-chat);
+  (2) na Place één keer in chat + blijvend in het venster (`snap.gameKeys`, `KEYBLOCK_GAMEKEYS_PLACED_FMT`); (3) bij
+  Bijwerken per nieuw overgenomen toets een chatregel. Menupad = clientwoorden `GAMEMENU_OPTIONS` /
+  `SETTINGS_KEYBINDINGS_LABEL` (GEMETEN 12.1.0 in docs/ROLE_SWITCH_FACTS_2026-10-07.md; Forever AFGELEID gelijk).
+- Teksten 8 talen (knopwoord = KEYBLOCK_BTN_UNDO van elk pack); locale_probe OK, syntax OK, lint 0 HARD. Niet in de
+  client getest. Een blok dat vóór vandaag geplaatst is, heeft geen `gameKeys` → eerst Undo om het te zien.
+- Niet gedaan (Rob kiest later): knop "geef ze een vrije toets". Niet aangeraakt: `/mh apply` (ApplyLayout.lua) bindt
+  ook toetsen en zegt het evenmin.
+- Bijvangst: CharacterScape (Forever) geeft de secret-fout omdat het de Character-toets overneemt
+  (`ShortcutRouting.lua:22`, eigen OnClick → taint); Rob GEMETEN: via het poppetje-icoon geen fout. Bugmelding voor de
+  maker nog niet geschreven.
+
 ## 🆕 8 nov — melding "er is een nieuwere MH" (Rob: "Versie-melding" → "Ja bouw maar")
 
 - Idee uit **DungeonJournal 1.7.2** (Forever, Exehn; in `_forever_`). GEMETEN: geen licentiebestand → alle rechten

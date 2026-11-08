@@ -768,6 +768,10 @@ ns._mhLocales.enUS = {
 	KEYBLOCK_PLACED_STATE = "The key block is on your bars. \"Undo\" puts back every button and key exactly as they were.",
 	KEYBLOCK_PLACED_DONE = "Placed. Your keys now follow the block. \"Undo\" puts everything back.",
 	KEYBLOCK_UNDO_DONE = "Undone: every button and key is back as it was.",
+	-- 8 Nov 2026: game functions that lose their key to the block (KeyBlock.lua). %s = "C (Character Info), ..."
+	-- from the client; then the client's own words for Options and Keybindings.
+	KEYBLOCK_GAMEKEYS_FMT = "These game keys get a spell from the block: %s. \"Undo\" gives them back. A new key for one: Esc > %s > %s.",
+	KEYBLOCK_GAMEKEYS_PLACED_FMT = "These game keys now press the block: %s. \"Undo\" gives them back. A new key for one: Esc > %s > %s.",
 	-- Key block step 2b: the bars on screen, through Edit Mode (5 Oct 2026)
 	KEYBLOCK_BTN_LAYOUT = "Arrange my bars as a block",
 	KEYBLOCK_BTN_LAYOUT_UNDO = "Bars back as they were",
