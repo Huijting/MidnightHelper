@@ -1,5 +1,14 @@
 # Midnight Helper — waar we staan
 
+## 🆕 8 nov — Forever beter laten zien op CurseForge (Rob: "Ja, ik volg jouw voorstel" = optie A)
+
+- `CURSEFORGE_DESCRIPTION.md`: opening noemt nu beide spellen; Forever-blok "Playing WoW Forever? This is for you too"
+  staat bovenaan; alleen uitgebrachte functies (5.0.0/5.0.1). Nog niet geplakt op CF: **Rob plakt**.
+- Voorstel CF-naam/summary/categorie + meetplan (rond 22 nov Forever-gebruikers vergelijken met de 9 van 8 nov; geen
+  groei → optie B, tweede CF-pagina met dezelfde code): `docs/forever/CF_PAGE_FOREVER_2026-11-08.md`.
+- Site-chat gevraagd (Forever-blok/-pagina + banner met "WoW Forever"); bericht in de wachtrij, die sessie was offline.
+- Bij 5.0.2: Forever-blok aanvullen met wat dan uitkomt (lijst in die notitie).
+
 ## 🆕 8 nov — Forever: tassen, mana/leven, buff-knop (Rob: "Ja, bouw alle drie")
 
 - `Modules/ForeverWarnings.lua` (alleen Camelot-TOC): (1) vrije plekken in gewone tassen (bag family 0) ≤ grens

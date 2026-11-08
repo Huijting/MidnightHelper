@@ -1,15 +1,15 @@
-[![Midnight Helper: plain-language help for WoW Midnight. Guides, gear advice and feedback at midnighthelper.com](https://midnighthelper.com/cf-banner.png)](https://midnighthelper.com/)
+[![Midnight Helper: plain-language help for WoW Midnight and WoW Forever. Guides, gear advice and feedback at midnighthelper.com](https://midnighthelper.com/cf-banner.png)](https://midnighthelper.com/)
 
-Your gear says "Champion 4/6", your Great Vault has three empty slots, and the game never explains either.
-**Midnight Helper answers those questions in plain language, in your own language, and then takes you there.**
+**One addon for two games: WoW Midnight (Retail) and WoW Forever.** It answers the questions the game never explains,
+in plain language and in your own language, and then takes you there.
 
-For players who just hit 90 or are coming back after a break. Up to date for patch 12.1.5 and Season 2, and ready for
-12.1.7. Free, no ads, [open source](https://github.com/Huijting/MidnightHelper), eight languages, no other addons needed.
+Free, no ads, [open source](https://github.com/Huijting/MidnightHelper), eight languages, no other addons needed.
+Up to date for Midnight patch 12.1.5 and Season 2 (ready for 12.1.7), and for WoW Forever 1.60.
 
-### ✨ New in 5.0: Midnight Helper now works in WoW Forever too
+### 🛡️ Playing WoW Forever? This is for you too
 
-The same addon, two games. Install it for your **WoW Forever** game as well (in the CurseForge app, switch from Retail to Forever)
-and you get help made for levelling the way it used to be:
+Despite the name, Midnight Helper has its own help for **WoW Forever**. In the CurseForge app, switch the game from
+Retail to **Forever** and install it there as well. You get help made for levelling the way it used to be:
 
 - **Your own start page**: your level, what you can learn at your trainer right now and what it costs, your money, and
   **Take me to my trainer**: an arrow to your nearest class trainer (218 trainers known, no other addon needed).
@@ -22,6 +22,9 @@ and you get help made for levelling the way it used to be:
 - **Which quest reward to take**: MH marks the reward that is best for your class, or the one that sells for the most.
 
 ### What it does in Midnight
+
+Your gear says "Champion 4/6", your Great Vault has three empty slots, and the game never explains either. For players
+who just hit 90 or are coming back after a break:
 
 - **This Week**: the one page you need: what to do now, with a *Take me there* button. Mostly solo? One switch puts
   delves first.
