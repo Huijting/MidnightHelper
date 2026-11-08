@@ -21,6 +21,15 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 8 nov — kruis boven je trainer (Forever)
+
+- [ ] `/mh trainer go` (of de knop in het trainer-venster), loop erheen. Zodra je dichtbij bent, staat er een **kruis**
+      boven het hoofd van je trainer — ook met MF Nameplates op "Friendly plates: only target & mouseover".
+- [ ] Geen kruis? Typ `/mh trainer mark` en stuur de regels: daar staat of het NPC-nummer leesbaar is en welke
+      naamplaatjes MH zag.
+- [ ] Praat met de trainer (zijn venster gaat open): het kruis verdwijnt.
+- [ ] `/mh trainer mark off`, dan opnieuw `go`: geen kruis. `/mh trainer mark on` zet het terug.
+
 ## 🆕 8 nov — toetsenblok zegt welke spel-toetsen het overneemt (Midnight én Forever)
 
 Op een character waar het blok al staat, zie je eerst niets nieuws: die plaatsing is van vóór vandaag.

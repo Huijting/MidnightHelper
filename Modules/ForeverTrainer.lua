@@ -13,6 +13,7 @@ local _, ns = ...
 	    /mh trainer auto off stops the window opening by itself (the chat line stays) — players choose, not us.
 	  - /mh trainer        opens or closes the window (with the "Take me to my trainer" button, step 2)
 	  - /mh trainer go     the arrow to your nearest class trainer; /mh trainer here records one; /mh trainer forget
+	  - /mh trainer mark   the cross above your trainer when you arrive (step 3): on | off | plates, bare = diagnosis
 	  - /mh trainer check  prints what was decided and why (a module whose normal result is "nothing" needs a way to see
 	                       that it decided nothing on purpose — CLAUDE.md).
 	Window texts are FTRAIN_* locale keys since 7 Nov 2026 (enUS + nlNL; the other packs in the translation round). The
@@ -850,6 +851,9 @@ function ns.ForeverTrainerGo()
 	ns.lastTarget = { mapID = best.map, x = best.x, y = best.y, name = label, via = "/mh trainer go" }
 	ns._mhRouteOwner = "waypoint"
 	print(PREFIX .. ("arrow set to %s, about %s (%s, %d places known)."):format(label, Distance(dist), best.src, n))
+	if ns.ForeverTrainerMark then
+		ns.ForeverTrainerMark(best)
+	end
 	return true
 end
 
@@ -886,6 +890,229 @@ local function ForgetLast()
 	end
 end
 
+--------------------------------------------------------------------------------
+-- Step 3: a cross above the trainer when you get there (Rob, 8 Nov 2026: "kunnen wij ook ... een kruis bovenop de
+-- trainer zetten, zodat we hem sneller kunnen zien als we aankomen?" → "Ja, bouw maar").
+-- The same way as the rare skull in Rares.lua (Retail only): a texture on the trainer's nameplate frame, found by NPC
+-- id (or by name when the place has no id). Not a real raid mark: those are protected since 12.0 and need the trainer
+-- targeted first, which is the thing we are trying to help with. Nameplate addons (MF Nameplates) hide Blizzard's
+-- UnitFrame, not the nameplate frame itself, so the cross should stay visible with them (AFGELEID from MF's
+-- Driver.lua, not tested). It needs the game's friendly NPC nameplates. Gone when the trainer window opens, when
+-- another route takes over, or after 20 minutes. /mh trainer mark prints what it decided and why (CLAUDE.md: a
+-- module whose normal result is "nothing" needs a way to see that).
+--------------------------------------------------------------------------------
+
+local CROSS_TEX = "Interface\\TargetingFrame\\UI-RaidTargetingIcon_7" -- the game's own cross marker picture
+local MARK_TTL = 20 * 60
+local mark -- { npc, name, at } while a trainer is marked
+local markStats = { looked = 0, found = 0, secret = 0 }
+
+local function MarkOn()
+	return Settings().mark ~= false
+end
+
+local function FriendlyPlatesCVar()
+	if not (C_CVar and C_CVar.GetCVar) then
+		return nil
+	end
+	local ok, v = pcall(C_CVar.GetCVar, "nameplateShowFriendlyNpcs")
+	if not ok or (issecretvalue and issecretvalue(v)) then
+		return nil
+	end
+	return v
+end
+
+--- Is the mark still wanted? nil lastTarget = our route arrived: keep the cross, that is the moment it is for.
+local function MarkActive()
+	if not mark then
+		return false, "no trainer marked"
+	end
+	if time() - mark.at > MARK_TTL then
+		return false, "older than 20 minutes"
+	end
+	local lt = ns.lastTarget
+	if lt and lt.via ~= "/mh trainer go" then
+		return false, "another route took over"
+	end
+	return true
+end
+
+--- The NPC id of a nameplate unit; second value true when the game hides it (secret).
+local function NpcOfUnit(unit)
+	local guid = UnitGUID and UnitGUID(unit)
+	if issecretvalue and issecretvalue(guid) then
+		return nil, true
+	end
+	if type(guid) ~= "string" then
+		return nil, false
+	end
+	return tonumber(guid:match("^Creature%-%d+%-%d+%-%d+%-%d+%-(%d+)")), false
+end
+
+local function NameOfUnit(unit)
+	local ok, n = pcall(UnitName, unit)
+	if not ok or (issecretvalue and issecretvalue(n)) or type(n) ~= "string" then
+		return nil
+	end
+	return n
+end
+
+local function IsMarkedTrainer(unit)
+	local npc, secret = NpcOfUnit(unit)
+	if secret then
+		markStats.secret = markStats.secret + 1
+	end
+	if mark.npc and npc then
+		return npc == mark.npc
+	end
+	return mark.name ~= nil and NameOfUnit(unit) == mark.name
+end
+
+local function ShowCross(np, show)
+	local t = np._mhTrainerCross
+	if show then
+		if not t then
+			t = np:CreateTexture(nil, "OVERLAY")
+			t:SetTexture(CROSS_TEX)
+			t:SetSize(32, 32)
+			t:SetPoint("BOTTOM", np, "TOP", 0, 4)
+			np._mhTrainerCross = t
+		end
+		t:Show()
+	elseif t then
+		t:Hide()
+	end
+end
+
+local function RefreshPlate(unit)
+	if not (unit and C_NamePlate and C_NamePlate.GetNamePlateForUnit) then
+		return
+	end
+	local np = C_NamePlate.GetNamePlateForUnit(unit)
+	if not np or (np.IsForbidden and np:IsForbidden()) then
+		return
+	end
+	local show = false
+	-- In instances friendly plates belong to the game (forbidden frames); trainers are never there anyway.
+	if MarkOn() and MarkActive() and not (IsInInstance and IsInInstance()) then
+		markStats.looked = markStats.looked + 1
+		show = IsMarkedTrainer(unit)
+		if show then
+			markStats.found = markStats.found + 1
+		end
+	end
+	ShowCross(np, show)
+end
+
+local function EachPlateUnit(fn)
+	if not (C_NamePlate and C_NamePlate.GetNamePlates) then
+		return
+	end
+	for _, np in ipairs(C_NamePlate.GetNamePlates() or {}) do
+		local unit = np.namePlateUnitToken or (np.UnitFrame and np.UnitFrame.unit)
+		if unit then
+			fn(unit, np)
+		end
+	end
+end
+
+local function RefreshAll()
+	EachPlateUnit(RefreshPlate)
+end
+
+--- Called by ForeverTrainerGo with the trainer the arrow now points at.
+function ns.ForeverTrainerMark(best)
+	mark = { npc = (type(best.npc) == "number" and best.npc > 0) and best.npc or nil, name = best.name, at = time() }
+	markStats = { looked = 0, found = 0, secret = 0 }
+	if not MarkOn() then
+		return
+	end
+	if not (mark.npc or mark.name) then
+		mark = nil -- a place without id or name (/mh trainer here without a target): nothing to recognise him by
+		return
+	end
+	if FriendlyPlatesCVar() == "0" then
+		print(PREFIX .. ns:L("FTRAIN_MARK_NEED_PLATES"))
+	end
+	RefreshAll()
+end
+
+local function ClearMark()
+	mark = nil
+	RefreshAll()
+end
+
+local function MarkSlash(arg)
+	if arg == "on" or arg == "off" then
+		Settings().mark = (arg == "on")
+		RefreshAll()
+		print(PREFIX .. ns:L(arg == "on" and "FTRAIN_MARK_ON" or "FTRAIN_MARK_OFF"))
+		return
+	end
+	if arg == "plates" then
+		if InCombatLockdown and InCombatLockdown() then
+			print(PREFIX .. "trainer mark: after combat, please.")
+			return
+		end
+		if C_CVar and C_CVar.SetCVar then
+			pcall(C_CVar.SetCVar, "nameplateShowFriendlyNpcs", "1")
+		end
+		print(PREFIX .. ns:L(FriendlyPlatesCVar() == "1" and "FTRAIN_MARK_PLATES_DONE" or "FTRAIN_MARK_PLATES_FAIL"))
+		RefreshAll()
+		return
+	end
+	-- Diagnosis: the decision and the reason (English, like /mh trainer check).
+	local active, why = MarkActive()
+	print(PREFIX .. ("trainer mark: %s (/mh trainer mark on|off)"):format(MarkOn() and "on" or "off"))
+	if mark then
+		print(("  marked: %s, npc %s, %d s ago, %s"):format(tostring(mark.name), tostring(mark.npc), time() - mark.at,
+			active and "still wanted" or ("dropped: " .. why)))
+	else
+		print("  no trainer marked: /mh trainer go (or the window's button) sets one")
+	end
+	local cv = FriendlyPlatesCVar()
+	print("  game's friendly NPC nameplates: " .. tostring(cv) ..
+		(cv == "0" and "  <- off: no plate, so no cross (/mh trainer mark plates)" or ""))
+	print(("  in an instance: %s"):format((IsInInstance and IsInInstance()) and "yes (no cross there)" or "no"))
+	print(("  since the mark: plates looked at %d, trainer found %d, NPC id hidden by the game %d")
+		:format(markStats.looked, markStats.found, markStats.secret))
+	local shown = 0
+	EachPlateUnit(function(unit, np)
+		if shown < 10 then
+			shown = shown + 1
+			local npc, secret = NpcOfUnit(unit)
+			print(("  plate %s: %s, npc %s, cross %s"):format(unit, tostring(NameOfUnit(unit)),
+				secret and "hidden" or tostring(npc), (np._mhTrainerCross and np._mhTrainerCross:IsShown()) and "yes" or "no"))
+		end
+	end)
+	if shown == 0 then
+		print("  no nameplates on screen right now")
+	end
+end
+
+do
+	local plates = CreateFrame("Frame")
+	plates:RegisterEvent("NAME_PLATE_UNIT_ADDED")
+	plates:RegisterEvent("NAME_PLATE_UNIT_REMOVED")
+	plates:RegisterEvent("TRAINER_SHOW")
+	plates:SetScript("OnEvent", function(_, event, unit)
+		if event == "TRAINER_SHOW" then
+			if mark then
+				ClearMark() -- you found him
+			end
+		elseif event == "NAME_PLATE_UNIT_ADDED" then
+			if mark then
+				RefreshPlate(unit)
+			end
+		else
+			local np = C_NamePlate and C_NamePlate.GetNamePlateForUnit and C_NamePlate.GetNamePlateForUnit(unit)
+			if np and np._mhTrainerCross then
+				np._mhTrainerCross:Hide()
+			end
+		end
+	end)
+end
+
 local function Check()
 	local level = UnitLevel("player")
 	local r = Compute(level)
@@ -910,6 +1137,7 @@ local function Check()
 		HandyNotesTrainers() and tostring(hn) or "not installed", list))
 	local best, dist, _, why = Nearest(r.token)
 	print("  nearest: " .. (best and ("%s, %s (%s)"):format(best.name or "?", Distance(dist), best.src) or why))
+	print(("  cross above the trainer: %s (/mh trainer mark shows why)"):format(MarkOn() and "on" or "off"))
 end
 
 function ns.ForeverTrainerSlash(arg)
@@ -922,6 +1150,8 @@ function ns.ForeverTrainerSlash(arg)
 		RecordHere()
 	elseif arg == "forget" then
 		ForgetLast()
+	elseif arg == "mark" or arg:match("^mark ") then
+		MarkSlash(arg:match("^mark%s+(%S+)"))
 	elseif arg == "button" or arg:match("^button ") then
 		if ns.ForeverTrainAllSlash then -- ForeverTrainAll.lua: the Train all button under the game's trainer window
 			ns.ForeverTrainAllSlash(arg:match("^button%s+(%S+)"))

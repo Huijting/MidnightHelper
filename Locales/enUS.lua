@@ -4747,6 +4747,12 @@ ns._mhLocales.enUS = {
 	FTRAIN_WHY_POS = "your position cannot be read here",
 	FTRAIN_WHY_NONE = "no trainer places known yet",
 	FTRAIN_WHY_CONT = "no trainer known on this continent",
+	-- 8 Nov 2026: the cross above your trainer when the arrow takes you there (ForeverTrainer.lua, step 3).
+	FTRAIN_MARK_ON = "a cross now shows above your trainer when the arrow takes you there.",
+	FTRAIN_MARK_OFF = "no more cross above your trainer. /mh trainer mark on brings it back.",
+	FTRAIN_MARK_NEED_PLATES = "the game's nameplates for friendly NPCs are off, so the cross above your trainer cannot show. /mh trainer mark plates turns them on.",
+	FTRAIN_MARK_PLATES_DONE = "nameplates for friendly NPCs are on. The cross shows when you are near your trainer.",
+	FTRAIN_MARK_PLATES_FAIL = "the game did not let MH turn them on. Turn on the nameplates for friendly NPCs in the game's options.",
 	-- 7 Nov 2026: Shaman totems that need their element's Totem item (ForeverTrainer.lua). The item name comes from the
 	-- client; FROM is only shown on an English client (English NPC names).
 	FTRAIN_TOTEM_HEAD = "Totems you know but cannot place yet",

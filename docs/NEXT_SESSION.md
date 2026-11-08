@@ -1,5 +1,24 @@
 # Midnight Helper — waar we staan
 
+## 🆕 8 nov — kruis boven de trainer (Forever; Rob: "een kruis bovenop de trainer" → "Ja, bouw maar")
+
+- `ForeverTrainer.lua` stap 3: `ForeverTrainerGo` (chat, venster-knop, startpagina) roept `ns.ForeverTrainerMark(best)`
+  aan. Op `NAME_PLATE_UNIT_ADDED` krijgt het naamplaatje van die NPC (op NPC-id uit de GUID, anders op naam) een
+  texture `UI-RaidTargetingIcon_7` erboven, zoals de rare-schedel in `Rares.lua`. Geen echt merkteken (protected).
+  Weg bij `TRAINER_SHOW`, als een andere route `ns.lastTarget` overneemt, of na 20 min. Niet in instances.
+- Schakelaar `ns.db.foreverTrainer.mark` (standaard aan): `/mh trainer mark on|off`; `/mh trainer mark plates` zet de
+  CVar `nameplateShowFriendlyNpcs` aan; kaal `/mh trainer mark` = diagnose (CVar, instance, per plaatje naam/npc/kruis).
+  Staat die CVar uit bij "go", dan één chatregel (`FTRAIN_MARK_NEED_PLATES`). Teksten en/nl/ru/de/fr/es/pt (geen itIT:
+  geen Italiaanse Forever-client); locale_probe OK, syntax OK, lint 0 HARD. **Niet in de client getest.**
+- Open, te METEN in Forever: is de GUID van een vriendelijke NPC leesbaar (anders valt het terug op naam), en blijft
+  het kruis zichtbaar met MF Nameplates "Friendly plates: only target & mouseover" (AFGELEID ja: MF verbergt de
+  UnitFrame, niet het plaatje zelf). Een vergeten kruis blijft staan tot dat plaatje opnieuw verschijnt (geen timer).
+- Bijvangst gerepareerd: `FTRAIN_WHY_FMT` zei in de/fr/es/pt/ru "/mh trainer hier/ici/aquí/aqui/здесь" — het commando
+  `here` was meevertaald en werkte dus niet. Nu overal `/mh trainer here`.
+- CharacterScape: bugmelding is door Rob verstuurd (8 nov); lokaal gerepareerd in `_forever_` (TOGGLECHARACTER0 uit
+  `ShortcutRouting.lua`, origineel in de scratchpad). Rob GEMETEN: ~ geeft geen fout meer; `/cf` nog wel. Een
+  CF-update van die addon zet het origineel terug.
+
 ## 🆕 8 nov — toetsenblok zegt welke spel-toetsen het overneemt (Rob: "Ja, bouw maar")
 
 - Aanleiding: Rob: *"moeten we mensen vertellen dat wij de C toets hebben ingepikt"*. GEMETEN: "Place it" bindt élke
@@ -16,8 +35,8 @@
 - Niet gedaan (Rob kiest later): knop "geef ze een vrije toets". Niet aangeraakt: `/mh apply` (ApplyLayout.lua) bindt
   ook toetsen en zegt het evenmin.
 - Bijvangst: CharacterScape (Forever) geeft de secret-fout omdat het de Character-toets overneemt
-  (`ShortcutRouting.lua:22`, eigen OnClick → taint); Rob GEMETEN: via het poppetje-icoon geen fout. Bugmelding voor de
-  maker nog niet geschreven.
+  (`ShortcutRouting.lua:22`, eigen OnClick → taint); Rob GEMETEN: via het poppetje-icoon geen fout. Bugmelding:
+  verstuurd, zie de sectie hierboven.
 
 ## 🆕 8 nov — melding "er is een nieuwere MH" (Rob: "Versie-melding" → "Ja bouw maar")
 

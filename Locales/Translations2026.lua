@@ -20342,7 +20342,7 @@ if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	FTRAIN_YOUR_TRAINER = "dein Lehrer",
 	FTRAIN_SRC_YOURS = "dein eigener Ort",
 	FTRAIN_SRC_MH = "MH-Liste",
-	FTRAIN_WHY_FMT = "%s: Stell dich neben deinen Lehrer und gib hier /mh trainer ein",
+	FTRAIN_WHY_FMT = "%s: Stell dich neben deinen Lehrer und gib /mh trainer here ein",
 	FTRAIN_WHY_POS = "deine Position kann hier nicht gelesen werden",
 	FTRAIN_WHY_NONE = "noch keine Lehrer-Orte bekannt",
 	FTRAIN_WHY_CONT = "kein Lehrer auf diesem Kontinent bekannt",
@@ -20404,7 +20404,7 @@ if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	FTRAIN_YOUR_TRAINER = "ton maître de classe",
 	FTRAIN_SRC_YOURS = "ton propre endroit",
 	FTRAIN_SRC_MH = "liste de MH",
-	FTRAIN_WHY_FMT = "%s : place-toi à côté de ton maître de classe et tape /mh trainer ici",
+	FTRAIN_WHY_FMT = "%s : place-toi à côté de ton maître de classe et tape /mh trainer here",
 	FTRAIN_WHY_POS = "ta position ne peut pas être lue ici",
 	FTRAIN_WHY_NONE = "aucun lieu de maître de classe connu pour l'instant",
 	FTRAIN_WHY_CONT = "aucun maître de classe connu sur ce continent",
@@ -20466,7 +20466,7 @@ if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	FTRAIN_YOUR_TRAINER = "tu instructor",
 	FTRAIN_SRC_YOURS = "tu propio sitio",
 	FTRAIN_SRC_MH = "lista de MH",
-	FTRAIN_WHY_FMT = "%s: ponte junto a tu instructor y escribe /mh trainer aquí",
+	FTRAIN_WHY_FMT = "%s: ponte junto a tu instructor y escribe /mh trainer here",
 	FTRAIN_WHY_POS = "aquí no se puede leer tu posición",
 	FTRAIN_WHY_NONE = "todavía no se conoce ningún sitio de instructor",
 	FTRAIN_WHY_CONT = "no se conoce ningún instructor en este continente",
@@ -20528,7 +20528,7 @@ if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	FTRAIN_YOUR_TRAINER = "seu treinador",
 	FTRAIN_SRC_YOURS = "seu próprio local",
 	FTRAIN_SRC_MH = "lista do MH",
-	FTRAIN_WHY_FMT = "%s: fique ao lado do seu treinador e digite /mh trainer aqui",
+	FTRAIN_WHY_FMT = "%s: fique ao lado do seu treinador e digite /mh trainer here",
 	FTRAIN_WHY_POS = "sua posição não pode ser lida aqui",
 	FTRAIN_WHY_NONE = "ainda não há locais de treinador conhecidos",
 	FTRAIN_WHY_CONT = "nenhum treinador conhecido neste continente",
@@ -20678,4 +20678,35 @@ if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	KEYBLOCK_GAMEKEYS_FMT = "Questi tasti del gioco ricevono un incantesimo dal blocco: %s. \"Annulla\" li restituisce. Un nuovo tasto per uno di essi: Esc > %s > %s.",
 	KEYBLOCK_GAMEKEYS_PLACED_FMT = "Questi tasti del gioco ora usano il blocco: %s. \"Annulla\" li restituisce. Un nuovo tasto per uno di essi: Esc > %s > %s.",
+}) end
+
+-- 8 Nov 2026: the cross above your trainer when the arrow takes you there (ForeverTrainer.lua, step 3). Our own
+-- translation, not native-checked. No itIT: Forever has no Italian client.
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
+	FTRAIN_MARK_ON = "über deinem Lehrer erscheint jetzt ein Kreuz, wenn der Pfeil dich zu ihm bringt.",
+	FTRAIN_MARK_OFF = "kein Kreuz mehr über deinem Lehrer. /mh trainer mark on holt es zurück.",
+	FTRAIN_MARK_NEED_PLATES = "die Namensplaketten für freundliche NPCs sind im Spiel aus, deshalb kann das Kreuz über deinem Lehrer nicht erscheinen. /mh trainer mark plates schaltet sie ein.",
+	FTRAIN_MARK_PLATES_DONE = "die Namensplaketten für freundliche NPCs sind an. Das Kreuz erscheint, wenn du bei deinem Lehrer bist.",
+	FTRAIN_MARK_PLATES_FAIL = "das Spiel hat MH sie nicht einschalten lassen. Schalte die Namensplaketten für freundliche NPCs in den Spieloptionen ein.",
+}) end
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
+	FTRAIN_MARK_ON = "une croix s'affiche maintenant au-dessus de ton maître de classe quand la flèche t'y mène.",
+	FTRAIN_MARK_OFF = "plus de croix au-dessus de ton maître de classe. /mh trainer mark on la remet.",
+	FTRAIN_MARK_NEED_PLATES = "les barres d'info des PNJ amicaux sont désactivées dans le jeu, donc la croix au-dessus de ton maître de classe ne peut pas s'afficher. /mh trainer mark plates les active.",
+	FTRAIN_MARK_PLATES_DONE = "les barres d'info des PNJ amicaux sont activées. La croix s'affiche quand tu es près de ton maître de classe.",
+	FTRAIN_MARK_PLATES_FAIL = "le jeu n'a pas laissé MH les activer. Active les barres d'info des PNJ amicaux dans les options du jeu.",
+}) end
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
+	FTRAIN_MARK_ON = "ahora aparece una cruz sobre tu instructor cuando la flecha te lleva hasta él.",
+	FTRAIN_MARK_OFF = "ya no hay cruz sobre tu instructor. /mh trainer mark on la vuelve a poner.",
+	FTRAIN_MARK_NEED_PLATES = "las placas de nombre de los PNJ amistosos están desactivadas en el juego, así que la cruz sobre tu instructor no puede aparecer. /mh trainer mark plates las activa.",
+	FTRAIN_MARK_PLATES_DONE = "las placas de nombre de los PNJ amistosos están activadas. La cruz aparece cuando estás cerca de tu instructor.",
+	FTRAIN_MARK_PLATES_FAIL = "el juego no dejó que MH las activara. Activa las placas de nombre de los PNJ amistosos en las opciones del juego.",
+}) end
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
+	FTRAIN_MARK_ON = "agora aparece uma cruz sobre o seu treinador quando a seta leva você até ele.",
+	FTRAIN_MARK_OFF = "sem cruz sobre o seu treinador. /mh trainer mark on traz ela de volta.",
+	FTRAIN_MARK_NEED_PLATES = "as placas de identificação dos PNJs amigáveis estão desligadas no jogo, então a cruz sobre o seu treinador não pode aparecer. /mh trainer mark plates liga elas.",
+	FTRAIN_MARK_PLATES_DONE = "as placas de identificação dos PNJs amigáveis estão ligadas. A cruz aparece quando você está perto do seu treinador.",
+	FTRAIN_MARK_PLATES_FAIL = "o jogo não deixou o MH ligá-las. Ligue as placas de identificação dos PNJs amigáveis nas opções do jogo.",
 }) end
