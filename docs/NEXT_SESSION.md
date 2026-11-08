@@ -3,7 +3,8 @@
 ## 🆕 8 nov — Forever beter laten zien op CurseForge (Rob: "Ja, ik volg jouw voorstel" = optie A)
 
 - `CURSEFORGE_DESCRIPTION.md`: opening noemt nu beide spellen; Forever-blok "Playing WoW Forever? This is for you too"
-  staat bovenaan; alleen uitgebrachte functies (5.0.0/5.0.1). Nog niet geplakt op CF: **Rob plakt**.
+  staat bovenaan; alleen uitgebrachte functies (5.0.0/5.0.1). ✅ Rob plakte summary + beschrijving (8 nov); GEMETEN
+  op de live CF-pagina (browser). Galerij (18 plaatjes) heeft nog geen Forever-screenshot: idee voor Rob.
 - CF-naam NIET aanpassen (CF's eigen regel: geen spelnaam in de titel, GEMETEN op Robs screenshot); alleen de
   Summary (Engels, max 256). "Quests & Leveling" stond er al. Voorstel summary + meetplan (rond 22 nov Forever-gebruikers vergelijken met de 9 van 8 nov; geen
   groei → optie B, tweede CF-pagina met dezelfde code): `docs/forever/CF_PAGE_FOREVER_2026-11-08.md`.
