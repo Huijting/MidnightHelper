@@ -4757,6 +4757,8 @@ ns._mhLocales.enUS = {
 	TOOLG_SOLD_FMT = "You just sold your last %s. You need it as a tool. Buy it back here, at this vendor.",
 	TOOLG_BUYBACK = "Buy back",
 	TOOLG_BUYBACK_FAIL = "could not buy it back from here. Open the vendor's Buyback tab.",
+	-- 8 Nov 2026: a guild or group member runs a newer MH (VersionNotice.lua). %s = their version, %s = yours.
+	VERNOTE_NEWER_FMT = "version %s is out (you have %s). Update it in the CurseForge app. /mh version off turns this message off.",
 	-- 7 Nov 2026: the Train all button under the game's trainer window (ForeverTrainAll.lua).
 	FTRAIN_ALL = "Train all",
 	FTRAIN_ALL_FMT = "Train all (%d, %s)",

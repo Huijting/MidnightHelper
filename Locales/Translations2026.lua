@@ -20638,3 +20638,21 @@ if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	FTRAIN_ALL_BLOCKED = "o jogo não deixou o addon comprar aqui. O botão da própria janela ainda funciona.",
 	FTRAIN_ALL_BLOCKED_AFTER_FMT = "%d aprendidos, depois o jogo parou o addon. O botão da própria janela faz o resto.",
 }) end
+
+-- 8 Nov 2026: a guild or group member runs a newer MH (VersionNotice.lua, both games). Our own translation, not
+-- native-checked. itIT included: this one also shows on Retail.
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
+	VERNOTE_NEWER_FMT = "Version %s ist erschienen (du hast %s). Aktualisiere sie in der CurseForge-App. /mh version off schaltet diese Meldung aus.",
+}) end
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
+	VERNOTE_NEWER_FMT = "la version %s est sortie (tu as la %s). Mets-la à jour dans l'application CurseForge. /mh version off désactive ce message.",
+}) end
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
+	VERNOTE_NEWER_FMT = "ya está disponible la versión %s (tú tienes la %s). Actualízala en la aplicación de CurseForge. /mh version off desactiva este aviso.",
+}) end
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
+	VERNOTE_NEWER_FMT = "a versão %s já saiu (você tem a %s). Atualize no aplicativo CurseForge. /mh version off desliga este aviso.",
+}) end
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
+	VERNOTE_NEWER_FMT = "è uscita la versione %s (tu hai la %s). Aggiornala nell'app di CurseForge. /mh version off disattiva questo avviso.",
+}) end

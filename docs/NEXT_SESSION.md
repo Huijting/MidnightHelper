@@ -1,5 +1,24 @@
 # Midnight Helper — waar we staan
 
+## 🆕 8 nov — melding "er is een nieuwere MH" (Rob: "Versie-melding" → "Ja bouw maar")
+
+- Idee uit **DungeonJournal 1.7.2** (Forever, Exehn; in `_forever_`). GEMETEN: geen licentiebestand → alle rechten
+  voorbehouden; niets gekopieerd, eigen code. Rest van die analyse (wat het brengt, lessen, idee "knop naar Dungeon
+  Journal" via `ForeverDungeonJournal_NS`, mogelijk twee pijlen tegelijk) staat alleen in de chat van 8 nov; Rob koos
+  alleen de versie-melding.
+- Nieuw `Modules/VersionNotice.lua` (beide TOCs, na Changelog.lua). Prefix `MHVer`, bericht `1|<versie>`, via
+  `ns.MH_SendAddon` (lockdown-queue). Stuurt: GUILD 15 s na login; groepskanaal als de groep groeit (max 1×/30 s);
+  antwoordt één keer (2-8 s willekeurig, max 1×/60 s per kanaal) als hij een OUDERE versie hoort, tenzij een ander al
+  antwoordde. Hoort hij een HOGERE: één chatregel per sessie (`VERNOTE_NEWER_FMT`), en bij de volgende login nog eens
+  zolang die versie <3 dagen geleden gehoord is. Opslag `ns.db.versionNotice` (`on`, `seen`).
+- `/mh version [on|off]` (Core.lua); kaal = diagnose (eigen versie, guild/groep, verstuurd/gehoord, hoogste gehoord).
+- Tekst: enUS, nlNL, ruRU, de/fr/es/pt/it (Translations2026, eigen vertaling). locale_probe GEMETEN OK in 8 talen;
+  syntax OK; lint 0 HARD. ⚠️ Niet in de client getest. AFGELEID: CHAT_MSG_ADDON-args zijn geen secret values (guard
+  staat er toch). Test kan alleen met een tweede speler met een oudere MH (TESTLIJST 8 nov).
+- 📋 Open (Rob 8 nov, apart): meldingen van wat er veranderde in Robs andere addons, Retail én Forever, sinds
+  CurseForge automatisch bijwerkt; plus in de gaten houden of de uitgezette Forever-addon voor het character-scherm
+  (gaf steeds fouten) gerepareerd is. Plan nog voorleggen.
+
 ## 🆕 7 nov (avond) — Forever: waarschuwing voor je laatste gereedschap (Rob: "ja doe maar")
 
 - Aanleiding: Rob verkocht per ongeluk zijn Skinning Knife. Nieuw `Modules/ForeverToolGuard.lua` (beide TOCs,
@@ -21,7 +40,9 @@
 - Site-chat seinen over de drie nieuwe Forever-dingen van vanavond (Train all, totem-regel, gereedschap-waarschuwing);
   regel "site volgt elke functie". Live zetten alleen na Robs ja.
 - TESTLIJST bovenaan: totem-regel (bank-truc of rond level 10), Train all-details, vernietig-notitie, key block-popup.
-- CF: nameten dat 5.0.1 en 5.0.1-forever live staan met de juiste game-versies (files-API).
+- ✅ CF GEMETEN 8 nov (files-API): 9495701 "v5.0.1" = 12.0.7/12.1.0/12.1.5/12.1.7, 9495775 "v5.0.1-forever" =
+  alleen 1.60.1, beide status 4 (zoals 5.0.0). De splitsing werkt.
+- Site-chat (nu «Site chat 08-11», local_c8d2e9f7) wil het sein over Train all/totem/gereedschap pas als die UIT zijn.
 - Optioneel Rob: `CURSEFORGE_DESCRIPTION.md` opnieuw plakken (zin over tooltips + 3D-trainer).
 - Volgende release (5.0.2?) bundelt Train all + totem-regel + gereedschap-waarschuwing; alleen op Robs go.
 

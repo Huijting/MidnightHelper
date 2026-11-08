@@ -2512,6 +2512,16 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh version [on | off] — tell me when a guild or group member runs a newer MH (VersionNotice.lua; both games;
+	-- Rob, 8 Nov 2026: "Ja bouw maar").
+	local verArg = msg:lower() == "version" and "" or msg:lower():match("^version%s+(.+)$")
+	if verArg then
+		if ns.VersionNoticeSlash then
+			ns.VersionNoticeSlash(verArg)
+		end
+		return
+	end
+
 	-- /mh toolguard [on | off] — WoW Forever: warn before you sell or destroy your last tool (ForeverToolGuard.lua;
 	-- Rob, 7 Nov 2026: "ja doe maar", after selling his Skinning Knife by accident).
 	local toolArg = msg:lower() == "toolguard" and "" or msg:lower():match("^toolguard%s+(.+)$")

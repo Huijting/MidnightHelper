@@ -4006,6 +4006,7 @@ ns._mhLocales.nlNL = {
 	TOOLG_SOLD_FMT = "Je verkocht net je laatste %s. Je hebt het nodig als gereedschap. Koop het hier terug, bij deze verkoper.",
 	TOOLG_BUYBACK = "Terugkopen",
 	TOOLG_BUYBACK_FAIL = "terugkopen lukte niet vanaf hier. Open het tabblad Buyback van de verkoper.",
+	VERNOTE_NEWER_FMT = "versie %s is uit (jij hebt %s). Werk hem bij in de CurseForge-app. /mh version off zet deze melding uit.",
 	FTRAIN_TOTEM_HEAD = "Totems die je kent maar nog niet kunt neerzetten",
 	FTRAIN_TOTEM_FMT = "heeft de %s nodig, uit een class-quest op level %d",
 	FTRAIN_TOTEM_FROM_FMT = "(begint bij %s)",

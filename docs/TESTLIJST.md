@@ -21,6 +21,18 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 8 nov — melding "er is een nieuwere MH" (Midnight én Forever)
+
+Jij hebt altijd de nieuwste, dus jij ziet de melding zelf nooit. Testen met je zusje (oudere MH) in één groep.
+- [ ] `/reload`, wacht 15 seconden, `/mh version`: "version notice: on", "this copy: 5.0.1", en "this session: sent 1"
+      (of 2 als je ook in een groep zit). Geen guild en geen groep → "sent 0" is goed.
+- [ ] Nodig je zusje uit in een groep. Bij háár (oudere MH) verschijnt in de chat: *"Midnight Helper: version 5.0.1 is out
+      (you have …). Update it in the CurseForge app."* Eén keer, niet bij elke nieuwe speler.
+- [ ] Bij jou daarna `/mh version`: "heard 1" of meer, en géén regel "newer than yours".
+- [ ] Logt zij opnieuw in zonder bij te werken: de regel komt nog één keer (binnen 3 dagen).
+- [ ] `/mh version off`: geen meldingen meer en er wordt niets meer verstuurd; `/mh version on` zet het terug.
+- [ ] BugSack blijft leeg, ook bij inloggen en bij een groep vormen.
+
 ## 🆕 7 nov (avond) — Forever: waarschuwing voor je laatste gereedschap
 
 Met één Skinning Knife (of Mining Pick) in je tassen. Een nieuwe kost bij een verkoper weinig.

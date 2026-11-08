@@ -74,6 +74,8 @@ Modules\KeyPresses.lua
 UI.lua
 Modules\DialogPopup.lua
 Modules\Changelog.lua
+# Tells you when a guild or group member runs a newer MH (Rob, 8 Nov 2026: "Ja bouw maar").
+Modules\VersionNotice.lua
 Modules\LayoutExtras.lua
 Modules\CombatSafety.lua
 Modules\FastMark.lua

@@ -125,6 +125,7 @@ Modules\SMCChecklist.lua
 UI.lua
 Modules\DialogPopup.lua
 Modules\Changelog.lua
+Modules\VersionNotice.lua
 Modules\VaultReminder.lua
 Modules\VaultAdvisorData.lua
 Modules\VaultAdvisor.lua
