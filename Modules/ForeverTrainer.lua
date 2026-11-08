@@ -765,7 +765,8 @@ local function Candidates(token)
 	end
 	for _, s in ipairs((ns.FOREVER_TRAINER_SPOTS or {})[token] or {}) do
 		if not s.side or s.side == "N" or s.side == side then
-			out[#out + 1] = { map = s.map, x = s.x, y = s.y, name = s.name, npc = s.npc, src = "MH list" }
+			out[#out + 1] = { map = s.map, x = s.x, y = s.y, name = s.name, npc = s.npc, src = "MH list",
+				measured = s.measured }
 		end
 	end
 	return out
@@ -773,8 +774,33 @@ end
 ns.ForeverTrainerCandidates = Candidates -- the offline check calls it
 
 --- The nearest trainer on the player's continent: the candidate, its distance (yards), and how many were looked at.
+--- One place per trainer (the coordinate rule: a place measured in game > HandyNotes > a guide; one value per place).
+--- Rob, 8 Nov 2026: standing next to Dark Cleric Duesten, the arrow said "12 m" and pointed into the wall. Nearest-wins
+--- had picked the HandyNotes point (31.34, 65.85) over MH's own (31.11, 66.07, measured by Rob) because it was a few
+--- yards closer from where he typed /mh trainer go. Same NPC id = same trainer: keep only the best source.
+local SRC_RANK = { yours = 1, measured = 2, HandyNotes = 3, ["MH list"] = 4 }
+local function OnePerTrainer(all)
+	local best = {}
+	for _, c in ipairs(all) do
+		if c.npc then
+			local rank = SRC_RANK[c.measured and "measured" or c.src] or 9
+			local b = best[c.npc]
+			if not b or rank < b.rank then
+				best[c.npc] = { rank = rank, c = c }
+			end
+		end
+	end
+	local out = {}
+	for _, c in ipairs(all) do
+		if not c.npc or best[c.npc].c == c then
+			out[#out + 1] = c
+		end
+	end
+	return out
+end
+
 local function Nearest(token)
-	local all = Candidates(token)
+	local all = OnePerTrainer(Candidates(token))
 	local map, px, py = PlayerPlace()
 	local cont, wx, wy
 	if map then

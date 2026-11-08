@@ -14,6 +14,10 @@
   Spelwoorden NIET tegen de client gemeten (mh-writer twijfelde): deDE Rare ("Seltener Gegner" vs pack's "Elite-Rar"),
   itIT World boss, Battle pet in alle talen (geen pack had het), itIT "barre dei nomi", Rare in fr/es/pt/it/ru. Na te
   meten in wago GlobalStrings.
+- Trainer-pijl wees verkeerd (Rob GEMETEN, screenshot: naast Dark Cleric Duesten "12 m" de muur in). Oorzaak
+  AFGELEID uit de afstand: nearest-wins koos het HandyNotes-punt 31.34, 65.85 i.p.v. MH's 31.11, 66.07 (Rob gemeten).
+  Nu `OnePerTrainer`: zelfde NPC-id = één plek, op bron-volgorde (zelf opgeslagen > `measured = true` in
+  ForeverTrainerSpots > HandyNotes > MH-lijst), daarna pas dichtstbij. Niet opnieuw in de client getest.
 - Pijl: `ns.lastTarget.arriveYards` (nieuw, NativeArrow): de trainer-route laat los op 5 yd i.p.v. 20 yd
   (`NEAR.arrived`). Het opnieuw-zetten van de Blizzard-pin blijft op 20 yd (geen churn met Blizzards eigen
   aankomst-wis). `TRAINER_SHOW` beëindigt de trainer-route (`_mhRouteOwner = nil`). Andere routes ongewijzigd.

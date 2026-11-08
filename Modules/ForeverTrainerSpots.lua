@@ -115,7 +115,7 @@ ns.FOREVER_TRAINER_SPOTS = {
 	PRIEST = {
 		{ npc = 3706, name = "Tai'jin", side = "H", map = 1411, x = 54.20, y = 42.80 },
 		{ npc = 3707, name = "Ken'jai", side = "H", map = 1411, x = 42.40, y = 68.80 },
-		{ npc = 2123, name = "Dark Cleric Duesten", side = "H", map = 1420, x = 31.11, y = 66.07 }, -- Rob GEMETEN 8 Nov 2026 (was 31.00, 66.00)
+		{ npc = 2123, name = "Dark Cleric Duesten", side = "H", map = 1420, x = 31.11, y = 66.07, measured = true }, -- Rob GEMETEN 8 Nov 2026 (was 31.00, 66.00)
 		{ npc = 2129, name = "Dark Cleric Beryl", side = "H", map = 1420, x = 61.60, y = 52.20 },
 		{ npc = 837, name = "Branstock Khalder", side = "A", map = 1426, x = 28.60, y = 66.40 },
 		{ npc = 1226, name = "Maxan Anvol", side = "A", map = 1426, x = 47.20, y = 52.20 },

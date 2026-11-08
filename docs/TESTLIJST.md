@@ -23,10 +23,11 @@ er is niets weggegooid.
 
 ## 🆕 8 nov — kleurenkaart MF Nameplates (Midnight én Forever) + pijl tot bij de trainer (Forever)
 
-- [ ] `/mh colors`: een venster "What the colours on your nameplates mean". Elke regel heeft een vakje in de kleur
-      die je op je naamplaatjes ziet. Kloppen de kleuren met wat je in het spel ziet?
-- [ ] Bovenaan staat je MF-profiel ("Default"). In Forever staat "An important cast" er NIET bij (bij jou uit), in
-      Midnight wel.
+- [x] (Rob 8 nov, screenshot Forever) `/mh colors`: een venster "What the colours on your nameplates mean". Elke
+      regel heeft een vakje in de kleur. — Titel liep onder de knop "Dock to window": gerepareerd, opnieuw kijken.
+- [ ] Kloppen de kleuren met wat je in het spel ziet?
+- [x] (Rob 8 nov, Forever) Profiel "Default", geen "An important cast", DPS/healer-blok op de priest.
+- [ ] Midnight: daar staat "An important cast" er wél bij.
 - [ ] Aggro: op een tank-character zie je het tank-blok, anders het DPS/healer-blok.
 - [ ] De knop: Midnight → gereedschapskamer (kaart "Nameplate colours"); Forever → startpagina, onder "spelen".
 - [ ] Shift + scrollen maakt het venster groter/kleiner; Escape sluit het.

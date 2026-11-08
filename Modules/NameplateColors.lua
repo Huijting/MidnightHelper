@@ -208,7 +208,10 @@ local function Build()
 	f:SetScript("OnDragStop", f.StopMovingOrSizing)
 	f.title = f:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
 	f.title:SetPoint("TOPLEFT", 22, -18)
-	f.title:SetPoint("RIGHT", f, "RIGHT", -36, 0)
+	-- Clear of the "Dock to window" button that RegisterMidnightDialogPopup puts top right (Rob's screenshot, 8 Nov
+	-- 2026: the title ran under it). A long title wraps; Fill starts below it.
+	f.title:SetPoint("RIGHT", f, "RIGHT", -140, 0)
+	f.title:SetWordWrap(true)
 	f.title:SetJustifyH("LEFT")
 	local close = CreateFrame("Button", nil, f, "UIPanelCloseButton")
 	close:SetPoint("TOPRIGHT", -6, -6)
@@ -249,7 +252,7 @@ local function Fill(f)
 	end
 	f.title:SetText(ns:L("NPCOL_TITLE"))
 	local mf = MF()
-	local y = -50
+	local y = -18 - math.max(f.title:GetStringHeight(), 16) - 12
 	local n = 0
 	local function put(text, font, indent, gap)
 		n = n + 1
