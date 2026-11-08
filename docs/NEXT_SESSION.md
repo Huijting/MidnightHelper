@@ -38,6 +38,12 @@
 
 ## 🆕 8 nov — kleurenkaart MF Nameplates + pijl tot bij de trainer (Rob: "Ja, bouw allebei")
 
+- Later (Rob: "verberg het die optie daar ook maar voor mensen zonder die MF nameplates"): `/mh colors` heeft
+  `needsMF = true` in `ns.MH_COMMANDS`; `ns.CommandItemShown(item)` (CommandList.lua) laat hem in de commandolijst én
+  in de zoekbalk (NavSearch) alleen zien als MF geladen is. Het commando zelf werkt nog voor iedereen.
+  OPEN: Rob wil ook "ik gebruik MF Nameplates en vind het handig, jij kiest" + een link. Waar en voor wie: zie chat.
+  GEMETEN in MF's TOC: X-Curse-Project-ID 1763027, X-Website https://marcelianflame.com, X-Wago-ID nKWwqYKE.
+
 - Nieuw `Modules/NameplateColors.lua` (beide TOCs, na VersionNotice). Leest LIVE `_G.MFNameplates.db.profile`
   (AceDB, MF-defaults erachter); MF heeft geen licentie → niets gekopieerd. Betekenis per kleur GEMETEN in MF
   `Core/Colors.lua` (BaseHealthColor: tapped > aggro > quest > caster > world > unitType > reaction; GetThreatColor).

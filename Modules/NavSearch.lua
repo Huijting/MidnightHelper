@@ -991,7 +991,7 @@ local function BuildNavIndex()
 	for _, group in ipairs(ns.MH_COMMANDS or {}) do
 		for _, item in ipairs(group.items or {}) do
 			local cmd = item.cmd
-			if type(cmd) == "string" and cmd ~= "" then
+			if type(cmd) == "string" and cmd ~= "" and (not ns.CommandItemShown or ns.CommandItemShown(item)) then
 				-- "/mh bosswin" -> "bosswin"; bare "/mh" -> "" (the main window).
 				local sub = cmd:match("^/mh%s+(.+)$") or ""
 				local desc = item.descKey and L(item.descKey) or cmd

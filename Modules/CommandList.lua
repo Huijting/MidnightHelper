@@ -98,6 +98,15 @@ ns.MH_UNLISTED_ON_PURPOSE = {
 
 --- Grouped so it can be scanned, not alphabetical so it can be searched. Someone
 --- looking for "what can this thing do in a dungeon" reads a heading, not a C.
+--- Is this command row meant for this player? `needsMF` rows only when MF Nameplates is loaded (NameplateColors.lua).
+--- Used by the command list below and by NavSearch, so the two always agree.
+function ns.CommandItemShown(item)
+	if item and item.needsMF then
+		return ns.NameplateColorsAvailable ~= nil and ns.NameplateColorsAvailable() == true
+	end
+	return true
+end
+
 ns.MH_COMMANDS = {
 	--- ⚠️ NINE SHIPPED FEATURES WERE MISSING FROM THIS LIST, 18 aug 2026.
 	---
@@ -132,7 +141,9 @@ ns.MH_COMMANDS = {
 		-- 4 Oct 2026: the fixed key block, as a picture (KeyBlock.lua).
 		{ cmd = "/mh block", descKey = "CMDLIST_BLOCK" },
 		-- 8 Nov 2026: what the colours on your MF Nameplates mean (NameplateColors.lua).
-		{ cmd = "/mh colors", descKey = "CMDLIST_COLORS" },
+		-- needsMF: only listed (here and in the search bar) when MF Nameplates is loaded (Rob, 8 Nov 2026: "verberg het
+		-- die optie daar ook maar voor mensen zonder die MF nameplates").
+		{ cmd = "/mh colors", descKey = "CMDLIST_COLORS", needsMF = true },
 		-- 9 Oct 2026: which spells you press most, on which key (KeyPresses.lua).
 		{ cmd = "/mh presses", descKey = "CMDLIST_PRESSES" },
 		{ cmd = "/mh changelog", descKey = "CMDLIST_CHANGELOG" },
@@ -345,6 +356,7 @@ function ns.BuildCommandList(panel, anchorTo, opts)
 		y = y - 20
 
 		for index, item in ipairs(group.items) do
+			if not ns.CommandItemShown or ns.CommandItemShown(item) then
 			local cmd = child:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
 			cmd:SetFontObject(SF("GameFontHighlightSmall"))
 			cmd:SetPoint("TOPLEFT", child, "TOPLEFT", 10, y)
@@ -366,6 +378,7 @@ function ns.BuildCommandList(panel, anchorTo, opts)
 				cmd = cmd, desc = desc, last = (index == #group.items),
 			}
 			y = y - math.max(16, (desc:GetStringHeight() or 14) + 4)
+			end -- CommandItemShown
 		end
 		y = y - 8
 	end
