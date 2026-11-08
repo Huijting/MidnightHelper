@@ -4177,3 +4177,48 @@ kop, per bevinding MEASURED/INFERRED en [RAAKT ONS]/[RAAKT ONS NIET], met bestan
   `docs/TESTLIJST.md:3566` (alle vandaag gelezen). Vandaag is geen maandag, dus geen kaarten- of
   consumables-check (die secties zijn opzettelijk weggelaten, niet vergeten). Geen actiepunt dat ík
   oppak — ik rapporteer, een mens beslist.
+
+- [2026-11-08] 💬 **CurseForge: geen open reacties (3 draadjes, zelfde reeks als [2026-11-07]).**
+  `curseforge.com/api/v1/mods/1528577/comments?pageIndex=0&pageSize=20&nocache=20261108a` (en
+  `&nocache=20261108b` als tweede, onafhankelijke fetch) via Exa, beide volledig gelezen (JSON,
+  `pagination.totalCount: 8`). Dezelfde drie draadjes als gisteren, allemaal beantwoord (nieuwste
+  bericht in elke keten van `twelveinchy`): esES/esMX-locale-fix `user_uvqy5939hswhgduu` (reply
+  `8510682`), MrsBoojiePanda's debug-printregel (reply `8483898`), gadrinonturalyon's
+  coffer-key-shards/3D-boss-model-verzoek (reply-keten tot `8095337`/`8092133`) — alle ids en
+  timestamps byte-identiek aan [2026-11-07]. MEASURED. **[RAAKT ONS NIET]** — geen actiepunt, geen
+  concept-antwoord nodig.
+
+- [2026-11-08] 🔁 **Geen zevende hotfix-dag; nieuwste sectie blijft "November 6, 2026" — zelf
+  nagelezen, plus één nieuwe eigen check (Vashnik the Malignant) die niets oplevert.** MEASURED,
+  zelf gelezen (`news.blizzard.com/en-gb/article/24307310/hotfixes-november-6-2026?nocache=20261108content2`,
+  volledige Dungeons and Raids/Delves/Items/Labyrinth/Classes-secties): nieuwste datumkop blijft
+  "November 6, 2026" (Vashnik the Malignant Mythic-tuning + Ula'tek health-scaling), byte-voor-byte
+  dezelfde inhoud als [2026-11-07]. Onafhankelijk bevestigd door een derde, niet eerder
+  geraadpleegde bron (`thewowdb.com/guides/midnight/patch-12-1/`, "data last verified
+  2026-11-07"): hun eigen "Newest hotfix notes"-lijst noemt als nieuwste exact dezelfde twee
+  Nov-6-regels (Vashnik Malignance -37%/16s, Ula'tek health-scaling) — geen cache-val, drie
+  onafhankelijke bronnen (deze run, PTR-watch vandaag, API-watch vandaag) zien dezelfde stilstand.
+
+  **Eigen, nieuwe check: "Vashnik, the Malignant" (de raid-baas, Mythic-tuning vandaag) is NIET
+  dezelfde entiteit als onze bekende "Disciple of Vashnik" (delve-baas in Shadowguard
+  Point/Atal'Aman).** `Modules/RaidCoachData.lua:108` heeft een rosterregel (`key = "vashnik",
+  name = "Vashnik the Malignant", encounterID = 2882`), maar een grep op
+  `Vashnik|Malignance|Malignant` in `Locales/RaidTips.lua` geeft **nul** treffers — positieve
+  controle in dezelfde run, dezelfde grep op `Ula'tek|Lost Explorers|Entombed Sentinels|Twin
+  Fangs|Coiled Altar` vindt die namen wél in datzelfde bestand, dus geen zoekfout. We hebben voor
+  deze baas dus een naam in de rooster-data maar GEEN strategietekst om tegen deze hotfix te
+  toetsen. Zuivere Mythic-schade-/duurtuning (37%/16s) op een mechaniek die wij nergens noemen.
+  MEASURED. **[RAAKT ONS NIET]**
+
+  Verder: geen Professions- of Quests-hotfixes sinds 6 nov; de Items-/Labyrinth-regels van 27-30
+  okt (Rexxar-pantserset, Azshara's mantels, twee UI-bugs) staan al in eerdere entries verwerkt en
+  zijn puur cosmetisch/bugfix zonder getal of naam die wij noemen. De Aqir-Invasions-vervaldatum
+  (12.1.7) is vandaag al volledig gelogd door de data-wachter (`docs/PTR_12.0.7_DATA.md:873`,
+  raakt `MountProgress.lua`/`MidnightAchList.lua`) — bewust niet dubbel geteld, dat is
+  uitdrukkelijk hun lane, niet de mijne (zie hun eigen regel 875).
+
+  — bron: https://news.blizzard.com/en-gb/article/24307310/hotfixes-november-6-2026?nocache=20261108content2
+  (zelf gelezen) · https://thewowdb.com/guides/midnight/patch-12-1/ (zelf gelezen, kruiscontrole) ·
+  codebase: `Modules/RaidCoachData.lua:106-110`, `Locales/RaidTips.lua` (grep, positieve controle).
+  Vandaag is zondag, geen maandag: de kaarten- en consumables-secties zijn dus opzettelijk
+  weggelaten. Geen actiepunt dat ik oppak — ik rapporteer, een mens beslist.
