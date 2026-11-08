@@ -25,7 +25,7 @@ stap als het aantal Forever-gebruikers in twee weken niet groeit.
 4. **Beschrijving:** plak `CURSEFORGE_DESCRIPTION.md` (bijgewerkt 8 nov): de eerste regels noemen nu beide spellen, en
    het Forever-blok heet "Playing WoW Forever? This is for you too" en staat bovenaan. Alleen uitgebrachte functies.
 
-## Bij de volgende release (5.0.2)
+## Bij de volgende release (5.0.2) — ✅ GEDAAN 8 nov in CURSEFORGE_DESCRIPTION.md (Rob plakt opnieuw)
 
 Zet in het Forever-blok erbij wat dan uitkomt (en pas dan): Train all onder het trainervenster, kruis boven je trainer,
 melding bij volle tassen en weinig mana/leven, de buff-knop, en (beide spellen) de kleurenkaart voor MF Nameplates.

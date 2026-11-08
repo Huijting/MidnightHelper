@@ -4,6 +4,22 @@ local changelogFrame
 
 local CHANGELOG_ENTRIES = {
 	{
+		version = "5.0.2",
+		lines = {
+			-- 8 Nov 2026 (Rob: "Ja, breng versie 5.0.2 maar uit"): Forever first, then what both games get.
+			"CHANGELOG_502_1",
+			"CHANGELOG_502_2",
+			"CHANGELOG_502_3",
+			"CHANGELOG_502_4",
+			"CHANGELOG_502_5",
+			"CHANGELOG_502_6",
+			"CHANGELOG_502_7",
+			"CHANGELOG_502_8",
+			"CHANGELOG_502_9",
+			"CHANGELOG_502_10",
+		},
+	},
+	{
 		version = "5.0.1",
 		lines = {
 			-- 7 Nov 2026 (Rob: "Ja, 5.0.1"): small Forever polish after 5.0.0; nothing changes for Midnight.

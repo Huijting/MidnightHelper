@@ -20,6 +20,11 @@ Retail to **Forever** and install it there as well. You get help made for levell
 - **A key block for every class**: the same task on the same key on every character. A new character gets your bar
   layout with one click.
 - **Which quest reward to take**: MH marks the reward that is best for your class, or the one that sells for the most.
+- **Train all** under the trainer window, and a **cross above your trainer** when the arrow brings you there.
+- **A button for missing buffs**: Fortitude, Arcane Intellect, your armor, aura, shield or pet. One click casts it in
+  your highest rank.
+- **Warnings you would otherwise notice too late**: only 2 free bag slots left (with your grey items to sell), low mana
+  or health before you pull, and before you sell your last Mining Pick or Skinning Knife.
 
 ### What it does in Midnight
 
@@ -44,6 +49,8 @@ who just hit 90 or are coming back after a break:
   really press, and your whole keyboard, in one window.
 - **Professions, raid shopping lists and the Role Academy** for learning to tank or heal.
 - **What fits in 20 minutes?** (`/mh time`): the delves and rituals that fit the time you have, from your own runs.
+- **Using MF Nameplates?** `/mh colors` explains every colour on your nameplates, read from your own MF settings (in
+  WoW Forever too).
 
 ### Find anything, then it takes you there
 

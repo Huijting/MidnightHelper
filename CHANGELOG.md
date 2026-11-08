@@ -2,6 +2,22 @@
 
 All notable changes to this project are documented in this file.
 
+## 5.0.2
+
+📌 **2026-11-08, RELEASE (Rob: "Ja, breng versie 5.0.2 maar uit. Overleg met de chat-site. Jullie krijgen overal akkoord
+voor tot het er compleet op staat").** Tag `v5.0.2`; twee bestanden (Retail + `-forever`). In-game: CHANGELOG_502_1 t/m
+_10. `RELEASE_NOTES.md` = `docs/CURSEFORGE_5.0.2.md`. Door Rob in het spel gezien: Train all, gereedschap-wacht, kruis
+boven de trainer, buff-knop, tasmelding, mana-regel, kleurenkaart (Forever). Niet in het spel gezien: leven-regel,
+versie-melding, toetsenblok-spelertoetsen, tip-kaart zonder MF, Forever-regel op de Midnight-startpagina.
+
+- **Forever:** Train all (`ForeverTrainAll.lua`); totem-regel in het trainervenster; gereedschap-wacht
+  (`ForeverToolGuard.lua`); kruis boven de trainer + pijl tot 5 yd + stopt bij `TRAINER_SHOW` + één plek per trainer
+  (`OnePerTrainer`); buff-knop (`ForeverBuffs.lua` + `MissingBuff.lua` in de Camelot-TOC); tassen- en mana/leven-melding
+  (`ForeverWarnings.lua`, mana/leven via kleurcurve omdat ze secret zijn); startpagina-lijstje bijgewerkt.
+- **Beide spellen:** kleurenkaart MF Nameplates + tip-kaart zonder MF (`NameplateColors.lua`); versie-melding
+  (`VersionNotice.lua`); toetsenblok noemt overgenomen spel-toetsen; `/mh trainer here` niet meer vertaald in 5 talen.
+- **Midnight:** vaste regel over Forever onderaan de startpagina.
+
 ## 5.0.1
 
 📌 **2026-11-07, RELEASE (Rob: "Ja, tag maar" + "Ja, push maar").** Tag `v5.0.1` (Retail-helft OK, Forever-stap faalde
