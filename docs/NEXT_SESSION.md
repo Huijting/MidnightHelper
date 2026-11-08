@@ -17,7 +17,13 @@
   ✅ Rob GEMETEN 8 nov: de buff-knop werkt. 🔴 Mana/leven GEMETEN kapot: `/mh rest` op een priest buiten gevecht gaf
   "mana none/unreadable, health unreadable" → de rest-melding kan nooit vuren. Vermoeden (AFGELEID): player health/
   power zijn secret in Forever, zoals health in Midnights open wereld. `/mh rest` print nu de ruwe client-waarden
-  (UnitHealth/Max, UnitPower/Max, UnitHealthPercent, UnitPowerPercent: getal/secret/nil); wachten op Robs meting.
+  (UnitHealth/Max, UnitPower/Max, UnitHealthPercent, UnitPowerPercent: getal/secret/nil). ✅ Rob GEMETEN: UnitHealth,
+  UnitPower(mana), UnitHealthPercent, UnitPowerPercent = **secret**; maxima leesbaar (162 / 232), power type 0. Rob
+  ("Ja, probeer maar") → secret-pad gebouwd: `UnitPowerPercent/UnitHealthPercent(..., colorCurve)` → alpha 1 onder de
+  grens, 0 erboven → `FontString:SetAlpha(secret)` (patroon uit DandersFrames HealthFade, alleen als kandidaat). Tekst
+  zonder getal (`FWARN_REST_LOW_MANA/HEALTH`), geen chat/geluid (MH weet niet of het zichtbaar werd). Leesbare waarden
+  → het oude pad. `/mh rest test` (jouw grenzen) en `/mh rest test show` (grens 101 = altijd zichtbaar: positieve
+  controle). **Niet in de client getest.**
   Ook: "|h" in chat at "mana|health" op → nu "||". Tassen: nog niet getest. Onzeker (AFGELEID): `C_UnitAuras.GetPlayerAuraBySpellID` en
   `C_Secrets` in Forever; paladin-auras als buff leesbaar; hunter zonder getemd pet krijgt toch "SUMMON PET".
 - Bijvangst gezien, niet aangeraakt: in `MissingBuff.lua` staat `ns.PrintMissingBuffDebug` BINNEN

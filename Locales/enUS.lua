@@ -4766,6 +4766,9 @@ ns._mhLocales.enUS = {
 	FWARN_REST_MANA_FMT = "Only %d%% mana. Drink first",
 	FWARN_REST_HEALTH_FMT = "Only %d%% health. Eat first",
 	FWARN_REST_BOTH_FMT = "Only %d%% mana and %d%% health. Rest first",
+	-- Without a number: Forever hides your mana and health from addons, so the game itself shows or hides these.
+	FWARN_REST_LOW_MANA = "Low mana: drink first",
+	FWARN_REST_LOW_HEALTH = "Low health: eat first",
 	FWARN_REST_OFF_HINT = "(/mh rest off turns this off)",
 	FWARN_REST_ON = "you get a message when you target an enemy with low mana or health.",
 	FWARN_REST_OFF = "no more message about low mana or health. /mh rest on brings it back.",

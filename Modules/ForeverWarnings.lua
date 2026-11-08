@@ -197,6 +197,123 @@ local function TargetKey()
 	return nil
 end
 
+--- Does the player have a mana bar at all? (the maximum is readable in Forever: Rob measured "max 232").
+local function HasManaBar()
+	local ok, max = pcall(UnitPowerMax, "player", MANA)
+	if not ok or max == nil then
+		return false
+	end
+	return Secret(max) or (type(max) == "number" and max > 0)
+end
+
+--------------------------------------------------------------------------------
+-- The secret path. GEMETEN by Rob, 8 Nov 2026 (/mh rest on a priest out of combat): UnitHealth, UnitPower(mana),
+-- UnitHealthPercent and UnitPowerPercent are all SECRET in Forever; only the maximums are readable. MH may not
+-- compare a secret, so it cannot decide "under 40%". What it may do is hand the secret to the screen: a colour curve
+-- turns the percentage into an alpha of 1 (below the limit) or 0 (above), and SetAlpha accepts that secret. So the
+-- game shows the line or keeps it invisible; MH never learns which. Same pattern as DandersFrames' HealthFade and MF
+-- Nameplates (read as a candidate there; whether Forever's client accepts it is what /mh rest test shows).
+-- Consequences, on purpose: no number in the text, no chat line, no sound (MH would not know when to make them).
+--------------------------------------------------------------------------------
+
+local curveCache = {}
+local function AlphaCurve(limit)
+	if curveCache[limit] then
+		return curveCache[limit]
+	end
+	if not (C_CurveUtil and C_CurveUtil.CreateColorCurve and CreateColor) then
+		return nil
+	end
+	local ok, curve = pcall(C_CurveUtil.CreateColorCurve)
+	if not ok or not curve then
+		return nil
+	end
+	if Enum and Enum.LuaCurveType and curve.SetType then
+		pcall(curve.SetType, curve, Enum.LuaCurveType.Linear)
+	end
+	local show, hide = CreateColor(1, 1, 1, 1), CreateColor(1, 1, 1, 0)
+	if limit > 100 then -- /mh rest test show: always visible, the positive control for the whole road
+		curve:AddPoint(0, show)
+		curve:AddPoint(1, show)
+	else
+		local pos = math.max(0.002, math.min(0.998, limit / 100))
+		curve:AddPoint(0, show)
+		curve:AddPoint(pos - 0.001, show)
+		curve:AddPoint(pos + 0.001, hide)
+		curve:AddPoint(1, hide)
+	end
+	curveCache[limit] = curve
+	return curve
+end
+
+local hint
+local function EnsureHint()
+	if hint then
+		return hint
+	end
+	local f = CreateFrame("Frame", "MidnightHelperRestHint", UIParent)
+	f:SetSize(600, 80)
+	f:SetPoint("TOP", UIParent, "TOP", 0, -230)
+	f:SetFrameStrata("FULLSCREEN_DIALOG")
+	-- No background: its visibility would have to be "either line shows", and that is a secret too.
+	local function line(y)
+		local t = f:CreateFontString(nil, "OVERLAY", "GameFontNormalHuge")
+		t:SetPoint("TOP", f, "TOP", 0, y)
+		t:SetTextColor(1, 0.85, 0.1)
+		t:SetShadowOffset(2, -2)
+		t:SetShadowColor(0, 0, 0, 1)
+		return t
+	end
+	f.mana = line(0)
+	f.health = line(-34)
+	f:Hide()
+	hint = f
+	return f
+end
+
+--- Show the two lines for a few seconds; each one's alpha comes from the game. Returns what it could hand over.
+local function ShowSecretHint(manaLimit, healthLimit)
+	local f = EnsureHint()
+	local function apply(fs, fn, limit, key, ...)
+		fs:SetText(ns:L(key))
+		local curve = AlphaCurve(limit)
+		if not (curve and type(fn) == "function") then
+			fs:SetAlpha(0)
+			return false
+		end
+		local args = { ... }
+		args[#args + 1] = curve
+		local ok, color = pcall(fn, "player", unpack(args))
+		if not ok or not color or not color.GetRGBA then
+			fs:SetAlpha(0)
+			return false
+		end
+		local _, _, _, a = color:GetRGBA()
+		local okA = pcall(fs.SetAlpha, fs, a)
+		if not okA then
+			fs:SetAlpha(0)
+		end
+		return okA
+	end
+	local manaOk = false
+	if HasManaBar() then
+		manaOk = apply(f.mana, UnitPowerPercent, manaLimit, "FWARN_REST_LOW_MANA", MANA, false)
+	else
+		f.mana:SetAlpha(0)
+	end
+	local healthOk = apply(f.health, UnitHealthPercent, healthLimit, "FWARN_REST_LOW_HEALTH", false)
+	f:Show()
+	f._token = (f._token or 0) + 1
+	local token = f._token
+	C_Timer.After(4, function()
+		if hint and hint._token == token then
+			hint:Hide()
+		end
+	end)
+	return manaOk, healthOk
+end
+ns._ForeverRestSecretHint = ShowSecretHint -- /mh rest test goes through the same door
+
 local function CheckRest()
 	local s = Settings()
 	if not s.rest then
@@ -225,6 +342,14 @@ local function CheckRest()
 		return
 	end
 	local mana, health = ManaPct(), HealthPct()
+	if health == nil or (mana == nil and HasManaBar()) then
+		-- Secret (Forever, measured): the game decides whether the lines are visible.
+		restState.lastAt, restState.lastKey = now, key
+		local mOk, hOk = ShowSecretHint(s.mana, s.health)
+		restState.lastWhy = ("values are secret: handed to the screen (mana line %s, health line %s); the game decides "
+			.. "if you see them"):format(mOk and "ok" or "could not", hOk and "ok" or "could not")
+		return
+	end
 	local lowMana = mana and mana < s.mana
 	local lowHealth = health and health < s.health
 	if not (lowMana or lowHealth) then
@@ -285,6 +410,17 @@ function ns.ForeverRestSlash(arg)
 		s.rest = (arg == "on")
 		print(PREFIX .. ns:L(s.rest and "FWARN_REST_ON" or "FWARN_REST_OFF"))
 		return
+	elseif arg == "test" or arg == "test show" then
+		-- The same door as a real enemy (ShowSecretHint). "test" uses your limits: visible only when you are below
+		-- them. "test show" uses a limit above 100%: both lines must show; if they do not, the road itself is broken.
+		local show = arg == "test show"
+		local mOk, hOk = ShowSecretHint(show and 101 or s.mana, show and 101 or s.health)
+		print(PREFIX .. ("rest test%s: mana line %s, health line %s. %s"):format(show and " show" or "",
+			HasManaBar() and (mOk and "handed to the screen" or "COULD NOT") or "no mana bar",
+			hOk and "handed to the screen" or "COULD NOT",
+			show and "Both lines should be on your screen now." or
+			("Visible only below %d%% mana / %d%% health."):format(s.mana, s.health)))
+		return
 	elseif (what == "mana" or what == "health") and num then
 		s[what] = math.max(0, math.min(100, tonumber(num)))
 		print(PREFIX .. ns:L(what == "mana" and "FWARN_REST_MANA_AT_FMT" or "FWARN_REST_HEALTH_AT_FMT"):format(s[what]))
@@ -292,7 +428,7 @@ function ns.ForeverRestSlash(arg)
 	end
 	local mana, health = ManaPct(), HealthPct()
 	-- "||" not "|": chat reads "|h" as the start of a link and ate "mana|health" into "manaealth" (Rob's screenshot).
-	print(PREFIX .. ("rest warning: %s, mana under %d%%, health under %d%% (/mh rest on||off, /mh rest mana <n>, /mh rest health <n>)")
+	print(PREFIX .. ("rest warning: %s, mana under %d%%, health under %d%% (/mh rest on||off, /mh rest mana <n>, /mh rest health <n>, /mh rest test [show])")
 		:format(s.rest and "on" or "off", s.mana, s.health))
 	print(("  now: mana %s, health %s, fighting %s"):format(mana and (mana .. "%") or "none/unreadable",
 		health and (health .. "%") or "unreadable", InFight() and "yes" or "no"))
