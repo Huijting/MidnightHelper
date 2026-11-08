@@ -23,7 +23,7 @@ er is niets weggegooid.
 
 ## 🆕 8 nov — kruis boven je trainer (Forever)
 
-- [ ] `/mh trainer go` (of de knop in het trainer-venster), loop erheen. Zodra je dichtbij bent, staat er een **kruis**
+- [x] (Rob 8 nov: *"ja het werkt"*) `/mh trainer go` (of de knop in het trainer-venster), loop erheen. Zodra je dichtbij bent, staat er een **kruis**
       boven het hoofd van je trainer — ook met MF Nameplates op "Friendly plates: only target & mouseover".
 - [ ] Geen kruis? Typ `/mh trainer mark` en stuur de regels: daar staat of het NPC-nummer leesbaar is en welke
       naamplaatjes MH zag.

@@ -9,10 +9,9 @@
 - Schakelaar `ns.db.foreverTrainer.mark` (standaard aan): `/mh trainer mark on|off`; `/mh trainer mark plates` zet de
   CVar `nameplateShowFriendlyNpcs` aan; kaal `/mh trainer mark` = diagnose (CVar, instance, per plaatje naam/npc/kruis).
   Staat die CVar uit bij "go", dan één chatregel (`FTRAIN_MARK_NEED_PLATES`). Teksten en/nl/ru/de/fr/es/pt (geen itIT:
-  geen Italiaanse Forever-client); locale_probe OK, syntax OK, lint 0 HARD. **Niet in de client getest.**
-- Open, te METEN in Forever: is de GUID van een vriendelijke NPC leesbaar (anders valt het terug op naam), en blijft
-  het kruis zichtbaar met MF Nameplates "Friendly plates: only target & mouseover" (AFGELEID ja: MF verbergt de
-  UnitFrame, niet het plaatje zelf). Een vergeten kruis blijft staan tot dat plaatje opnieuw verschijnt (geen timer).
+  geen Italiaanse Forever-client); locale_probe OK, syntax OK, lint 0 HARD. ✅ **Rob GEMETEN 8 nov: het kruis verschijnt** (*"ja het werkt"*), met MF
+  Nameplates aan. Nog niet getest: verdwijnen bij het trainer-venster, de schakelaar uit/aan.
+- Niet vastgesteld: of het via het NPC-id of via de naam herkende (`/mh trainer mark` zou het tonen). Een vergeten kruis blijft staan tot dat plaatje opnieuw verschijnt (geen timer).
 - Bijvangst gerepareerd: `FTRAIN_WHY_FMT` zei in de/fr/es/pt/ru "/mh trainer hier/ici/aquí/aqui/здесь" — het commando
   `here` was meevertaald en werkte dus niet. Nu overal `/mh trainer here`.
 - CharacterScape: bugmelding is door Rob verstuurd (8 nov); lokaal gerepareerd in `_forever_` (TOGGLECHARACTER0 uit
