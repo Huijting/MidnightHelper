@@ -272,7 +272,7 @@ function ns.ForeverBuffsSlash(arg)
 	end
 	local token = select(2, UnitClass("player"))
 	local on = not (ns.IsMissingBuffEnabled and ns.IsMissingBuffEnabled() == false)
-	print(P .. ("buffs: %s, class %s, auras readable %s (/mh buffs on|off)"):format(on and "on" or "off",
+	print(P .. ("buffs: %s, class %s, auras readable %s (/mh buffs on||off)"):format(on and "on" or "off",
 		tostring(token), tostring(ns.Aura and ns.Aura.Trusted and ns.Aura.Trusted())))
 	local defs = DEFS[token] or {}
 	if #defs == 0 then

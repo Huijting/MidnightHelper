@@ -270,7 +270,7 @@ function ns.ForeverBagsSlash(arg)
 	end
 	local free, read = FreeSlots()
 	local n2, copper = Greys()
-	print(PREFIX .. ("bags warning: %s, warns at %d free (/mh bags on|off, /mh bags <0-10>)"):format(
+	print(PREFIX .. ("bags warning: %s, warns at %d free (/mh bags on||off, /mh bags <0-10>)"):format(
 		s.bags and "on" or "off", s.bagsAt))
 	print(("  free in normal bags: %s (%s bags read), grey items %d worth %s"):format(tostring(free),
 		tostring(read), n2, Money(copper)))
@@ -291,10 +291,32 @@ function ns.ForeverRestSlash(arg)
 		return
 	end
 	local mana, health = ManaPct(), HealthPct()
-	print(PREFIX .. ("rest warning: %s, mana under %d%%, health under %d%% (/mh rest on|off, /mh rest mana|health <n>)")
+	-- "||" not "|": chat reads "|h" as the start of a link and ate "mana|health" into "manaealth" (Rob's screenshot).
+	print(PREFIX .. ("rest warning: %s, mana under %d%%, health under %d%% (/mh rest on||off, /mh rest mana <n>, /mh rest health <n>)")
 		:format(s.rest and "on" or "off", s.mana, s.health))
 	print(("  now: mana %s, health %s, fighting %s"):format(mana and (mana .. "%") or "none/unreadable",
 		health and (health .. "%") or "unreadable", InFight() and "yes" or "no"))
+	-- What the client really hands over (Rob, 8 Nov 2026: a priest read "mana none/unreadable, health unreadable").
+	-- secret = the game hides the number from addons; nil = the call gave nothing; error = the call failed.
+	local function raw(fn, ...)
+		if type(fn) ~= "function" then
+			return "no such API"
+		end
+		local ok, v = pcall(fn, ...)
+		if not ok then
+			return "error"
+		end
+		if Secret(v) then
+			return "secret"
+		end
+		return tostring(v)
+	end
+	print(("  client: UnitHealth %s / max %s, UnitPower(mana) %s / max %s, power type %s"):format(
+		raw(UnitHealth, "player"), raw(UnitHealthMax, "player"), raw(UnitPower, "player", MANA),
+		raw(UnitPowerMax, "player", MANA), raw(UnitPowerType, "player")))
+	local curve = CurveConstants and CurveConstants.ScaleTo100
+	print(("  client: UnitHealthPercent %s, UnitPowerPercent(mana) %s"):format(
+		raw(UnitHealthPercent, "player", false, curve), raw(UnitPowerPercent, "player", MANA, false, curve)))
 	print("  last decision: " .. restState.lastWhy)
 end
 

@@ -14,7 +14,11 @@
   (blessing, aura, armor, shield, imbue, aspect, demon) = laatst zelf gecaste (`ns.db.foreverBuffLast`). Pets:
   hunter Call/Revive Pet, warlock laatst opgeroepen demon. Bewust niet: Battle Shout (rage), rogue poisons (items).
   `/mh buffs [on|off]`. MissingBuff.lua: 4 events nu via pcall (Forever kent ze misschien niet; niet gemeten).
-  ✅ Rob GEMETEN 8 nov: de buff-knop werkt. Tassen en mana/leven: nog niet getest. Onzeker (AFGELEID): `C_UnitAuras.GetPlayerAuraBySpellID` en
+  ✅ Rob GEMETEN 8 nov: de buff-knop werkt. 🔴 Mana/leven GEMETEN kapot: `/mh rest` op een priest buiten gevecht gaf
+  "mana none/unreadable, health unreadable" → de rest-melding kan nooit vuren. Vermoeden (AFGELEID): player health/
+  power zijn secret in Forever, zoals health in Midnights open wereld. `/mh rest` print nu de ruwe client-waarden
+  (UnitHealth/Max, UnitPower/Max, UnitHealthPercent, UnitPowerPercent: getal/secret/nil); wachten op Robs meting.
+  Ook: "|h" in chat at "mana|health" op → nu "||". Tassen: nog niet getest. Onzeker (AFGELEID): `C_UnitAuras.GetPlayerAuraBySpellID` en
   `C_Secrets` in Forever; paladin-auras als buff leesbaar; hunter zonder getemd pet krijgt toch "SUMMON PET".
 - Bijvangst gezien, niet aangeraakt: in `MissingBuff.lua` staat `ns.PrintMissingBuffDebug` BINNEN
   `EuiReminderLoaded()` (de functie mist zijn `end` vóór de debug-functie; die wordt pas gedefinieerd als
