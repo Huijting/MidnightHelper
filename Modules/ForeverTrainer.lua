@@ -445,13 +445,15 @@ end
 local win
 local MODEL_W = 170 -- the trainer model's panel; the window grows by this plus a gap when it shows
 local BASE_W = 560
+local PROF_SLOTS = 12 -- the profession buttons: 2 rows of 6 (ns.FOREVER_PROFS below has 12)
+local PROF_BTN_W = 82
 
 local function Build()
 	if win then
 		return win
 	end
 	local f = CreateFrame("Frame", "MidnightHelperForeverTrainer", UIParent, "BackdropTemplate")
-	f:SetSize(BASE_W, 460)
+	f:SetSize(BASE_W, 530)
 	f:SetPoint("CENTER", 0, 60)
 	f:SetFrameStrata("DIALOG")
 	f:SetBackdrop({
@@ -485,10 +487,42 @@ local function Build()
 	f.goHint:SetPoint("LEFT", go, "RIGHT", 8, 0)
 	f.goHint:SetPoint("RIGHT", f, "RIGHT", -20, 0)
 	f.goHint:SetJustifyH("LEFT")
+	-- Profession trainers (Rob, 8 Nov 2026, "Ja, zo bouwen"): two rows of buttons above the arrow button, your own
+	-- professions first. A click sets the same arrow and cross as the class trainer; the tooltip says who and how far.
+	f.profHead = f:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+	f.profHead:SetPoint("BOTTOMLEFT", 22, 98)
+	f.profBtns = {}
+	for i = 1, PROF_SLOTS do
+		local b = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
+		b:SetSize(PROF_BTN_W, 20)
+		local row, col = math.floor((i - 1) / 6), (i - 1) % 6
+		b:SetPoint("BOTTOMLEFT", 20 + col * (PROF_BTN_W + 4), 70 - row * 24)
+		b:SetScript("OnClick", function(self)
+			if self.prof and ns.ForeverTrainerGo then
+				ns.ForeverTrainerGo(self.prof)
+				if ns.ForeverTrainerWindowHint then
+					ns.ForeverTrainerWindowHint(self.prof)
+				end
+			end
+		end)
+		b:SetScript("OnEnter", function(self)
+			if GameTooltip and self.prof and ns.ForeverProfTooltip then
+				GameTooltip:SetOwner(self, "ANCHOR_TOP")
+				ns.ForeverProfTooltip(GameTooltip, self.prof)
+				GameTooltip:Show()
+			end
+		end)
+		b:SetScript("OnLeave", function()
+			if GameTooltip then
+				GameTooltip:Hide()
+			end
+		end)
+		f.profBtns[i] = b
+	end
 	local scroll = CreateFrame("ScrollFrame", nil, f, "UIPanelScrollFrameTemplate")
 	-- Fixed width (not anchored to the right edge): the window grows to the right when the trainer model shows.
 	scroll:SetPoint("TOPLEFT", 22, -48)
-	scroll:SetPoint("BOTTOMLEFT", 22, 48)
+	scroll:SetPoint("BOTTOMLEFT", 22, 118)
 	scroll:SetWidth(BASE_W - 60)
 	local child = CreateFrame("Frame", nil, scroll)
 	child:SetSize(490, 10)
@@ -646,7 +680,59 @@ local function Fill(level, force)
 	f.child:SetHeight(-y + 16)
 	f.scroll:SetVerticalScroll(0)
 	f.goHint:SetText(ns.ForeverTrainerNearestText and ns.ForeverTrainerNearestText() or "")
+	-- Profession buttons: yours first (gold), then the rest in the usual order.
+	f.profHead:SetText(ns:L("FTRAIN_PROF_HEAD"))
+	local mine = ns.ForeverMyProfessions and ns.ForeverMyProfessions() or {}
+	local order = {}
+	for _, p in ipairs(ns.FOREVER_PROFS or {}) do
+		if mine[p[1]] then
+			order[#order + 1] = p[1]
+		end
+	end
+	for _, p in ipairs(ns.FOREVER_PROFS or {}) do
+		if not mine[p[1]] then
+			order[#order + 1] = p[1]
+		end
+	end
+	for i, b in ipairs(f.profBtns) do
+		local key = order[i]
+		b.prof = key
+		if key then
+			local nm = ns.ForeverProfName and ns.ForeverProfName(key, mine) or key
+			b:SetText(mine[key] and ("|cffffd100" .. nm .. "|r") or nm)
+			local fs = b:GetFontString()
+			if fs then
+				fs:SetWidth(PROF_BTN_W - 8)
+				fs:SetWordWrap(false)
+			end
+			b:Show()
+		else
+			b:Hide()
+		end
+	end
 	return f, r
+end
+
+--- The tooltip of a profession button: your rank, the trainer the arrow would pick, and the distance.
+function ns.ForeverProfTooltip(tt, prof)
+	local mine = ns.ForeverMyProfessions and ns.ForeverMyProfessions() or {}
+	tt:AddLine(ns.ForeverProfName(prof, mine))
+	local m = mine[prof]
+	if m and m.rank and m.maxRank then
+		tt:AddLine(ns:L("FTRAIN_PROF_TIP_YOURS"):format(m.rank, m.maxRank), 1, 1, 1)
+	elseif not m then
+		tt:AddLine(ns:L("FTRAIN_PROF_TIP_NEW"), 1, 1, 1)
+	end
+	local best, dist, _, why = ns.ForeverProfTrainerNearest(prof)
+	if best then
+		tt:AddLine(ns:L("FTRAIN_PROF_TIP_NEAREST"):format(best.name or "?", ns.ForeverTrainerDistance(dist)), 0.6, 1, 0.6)
+		if best.max then
+			tt:AddLine(ns:L("FTRAIN_PROF_TIP_MAX"):format(best.max), 0.8, 0.8, 0.8)
+		end
+		tt:AddLine(ns:L("FTRAIN_PROF_TIP_CLICK"), 0.6, 0.6, 0.6)
+	else
+		tt:AddLine(ns.ForeverTrainerWhyText and ns.ForeverTrainerWhyText(why) or why, 1, 0.5, 0.5)
+	end
 end
 
 function ns.ShowForeverTrainer(level)
@@ -743,9 +829,128 @@ local function HandyNotesTrainers()
 	return nil
 end
 
---- Every known class-trainer place for this character: { map, x, y, name, src }.
-local function Candidates(token)
+--------------------------------------------------------------------------------
+-- Profession trainers (Rob, 8 Nov 2026: "ik heb al herbalism, ik wil alchemie leren. Dat ik daar gewoon de alchemie
+-- trainer kan vinden" → "Ja, zo bouwen"). Same arrow and cross as the class trainer; the places come from
+-- ForeverProfTrainerSpots.lua (our own list from Wowhead's Forever NPC pages, checked against Zygor) and from
+-- /mh trainer here <profession>. HandyNotes: Class Trainers has no profession trainers (GEMETEN: 0 hits for them).
+--------------------------------------------------------------------------------
+
+-- key, skill line id, English name. The ids are the ones Zygor's Forever Profession.lua uses with GetProfessionInfo
+-- (AFGELEID until /mh trainer check prints them from the client).
+local PROFS = {
+	{ "ALCHEMY", 171, "Alchemy" }, { "BLACKSMITHING", 164, "Blacksmithing" }, { "ENCHANTING", 333, "Enchanting" },
+	{ "ENGINEERING", 202, "Engineering" }, { "HERBALISM", 182, "Herbalism" }, { "LEATHERWORKING", 165, "Leatherworking" },
+	{ "MINING", 186, "Mining" }, { "SKINNING", 393, "Skinning" }, { "TAILORING", 197, "Tailoring" },
+	{ "COOKING", 185, "Cooking" }, { "FIRSTAID", 129, "First Aid" }, { "FISHING", 356, "Fishing" },
+}
+local PROF_BY_LINE, PROF_ENGLISH = {}, {}
+for _, p in ipairs(PROFS) do
+	PROF_BY_LINE[p[2]] = p[1]
+	PROF_ENGLISH[p[1]] = p[3]
+end
+ns.FOREVER_PROFS = PROFS
+
+local function Readable(v)
+	return v ~= nil and not (issecretvalue and issecretvalue(v))
+end
+
+--- This character's professions: [key] = { name, rank, maxRank }, plus a reason when the client gave nothing.
+local function MyProfessions()
+	local out = {}
+	if not (GetProfessions and GetProfessionInfo) then
+		return out, "the game has no GetProfessions here"
+	end
+	local ok, a, b, c, d, e, f = pcall(GetProfessions)
+	if not ok then
+		return out, "GetProfessions failed"
+	end
+	local idx = { a, b, c, d, e, f }
+	for i = 1, 6 do
+		if idx[i] then
+			local okI, name, _, rank, maxRank, _, _, line = pcall(GetProfessionInfo, idx[i])
+			local key = okI and Readable(line) and PROF_BY_LINE[line]
+			if key then
+				out[key] = { name = Readable(name) and name or nil, rank = Readable(rank) and rank or nil,
+					maxRank = Readable(maxRank) and maxRank or nil, line = line }
+			end
+		end
+	end
+	return out
+end
+ns.ForeverMyProfessions = MyProfessions
+
+--- The name THIS client shows for a profession (CLAUDE.md: client name wins), English when the client does not say.
+local function ProfName(key, mine)
+	mine = mine or MyProfessions()
+	if mine[key] and mine[key].name then
+		return mine[key].name
+	end
+	for _, p in ipairs(PROFS) do
+		if p[1] == key and C_TradeSkillUI and C_TradeSkillUI.GetTradeSkillDisplayName then
+			local ok, nm = pcall(C_TradeSkillUI.GetTradeSkillDisplayName, p[2])
+			if ok and type(nm) == "string" and nm ~= "" and Readable(nm) then
+				return nm
+			end
+		end
+	end
+	return PROF_ENGLISH[key] or key
+end
+ns.ForeverProfName = ProfName
+
+--- Which trainer rank this character needs: nil = any trainer will do. You can train the next rank once you are
+--- 25 below your cap (Classic: Journeyman at 50, Expert at 125, Artisan at 200; AFGELEID for Forever, see the research
+--- doc). Below that, any trainer of that profession has your recipes. A new profession: any trainer.
+local function NeedRank(key, mine)
+	local m = (mine or MyProfessions())[key]
+	if not (m and m.rank and m.maxRank) or m.maxRank >= 300 then
+		return nil
+	end
+	if m.rank >= m.maxRank - 25 then
+		return m.maxRank + 75
+	end
+	return nil
+end
+
+--- Which profession a word means: the key, the English name, or this client's name ("alchemy", "first aid", "alchimie").
+local function ProfFromWord(word)
+	word = (word or ""):lower():gsub("^%s+", ""):gsub("%s+$", "")
+	if word == "" then
+		return nil
+	end
+	local mine = MyProfessions()
+	for _, p in ipairs(PROFS) do
+		if word == p[1]:lower() or word == p[3]:lower() or word == ProfName(p[1], mine):lower() then
+			return p[1]
+		end
+	end
+	return nil
+end
+ns.ForeverProfFromWord = ProfFromWord
+
+--- Every known trainer place for this character: { map, x, y, name, src }. `prof` = a profession key, or nil for the
+--- class trainer. For a profession, trainers that cannot teach the rank you need are left out (counted in `dropped`).
+local function Candidates(token, prof)
 	local out, side = {}, PlayerSide()
+	if prof then
+		local need, dropped = NeedRank(prof), 0
+		for _, s in ipairs(Spots()["PROF_" .. prof] or {}) do
+			out[#out + 1] = { map = s.map, x = s.x, y = s.y, name = s.name, npc = s.npc, src = "yours" }
+		end
+		for _, s in ipairs((ns.FOREVER_PROF_TRAINER_SPOTS or {})[prof] or {}) do
+			-- Only rows with a place and a readable rank: max = nil is a recipe seller or a page without a Teaches tab
+			-- (research doc, open rows 5 and 6), and Annora (inside Uldaman) has no coordinates.
+			if s.max and s.map and s.x and s.y and (not s.side or s.side == "both" or s.side == side) then
+				if need and s.max and s.max < need then
+					dropped = dropped + 1
+				else
+					out[#out + 1] = { map = s.map, x = s.x, y = s.y, name = s.name, npc = s.npc, src = "MH list",
+						measured = s.measured, max = s.max }
+				end
+			end
+		end
+		return out, dropped, need
+	end
 	for _, s in ipairs(Spots()[token] or {}) do
 		out[#out + 1] = { map = s.map, x = s.x, y = s.y, name = s.name, npc = s.npc, src = "yours" }
 	end
@@ -799,8 +1004,13 @@ local function OnePerTrainer(all)
 	return out
 end
 
-local function Nearest(token)
-	local all = OnePerTrainer(Candidates(token))
+local function Nearest(token, prof)
+	local cands, dropped = Candidates(token, prof)
+	local all = OnePerTrainer(cands)
+	if #all == 0 and dropped and dropped > 0 then
+		-- Every trainer in the list stops below your next rank (Cooking, First Aid and Fishing past 150 on Wowhead).
+		return nil, nil, 0, "no trainer teaches your next rank"
+	end
 	local map, px, py = PlayerPlace()
 	local cont, wx, wy
 	if map then
@@ -840,7 +1050,26 @@ local WHY_KEY = {
 	["your position cannot be read here"] = "FTRAIN_WHY_POS",
 	["no trainer places known yet"] = "FTRAIN_WHY_NONE",
 	["none on this continent"] = "FTRAIN_WHY_CONT",
+	["no trainer teaches your next rank"] = "FTRAIN_WHY_RANK",
 }
+
+ns.ForeverTrainerDistance = Distance
+function ns.ForeverTrainerWhyText(why)
+	return WHY_KEY[why] and ns:L(WHY_KEY[why]) or why
+end
+
+--- After a profession button: the line under the arrow button says where it now points.
+function ns.ForeverTrainerWindowHint(prof)
+	if not (win and win:IsShown()) then
+		return
+	end
+	local best, dist, _, why = Nearest(Token(), prof)
+	if best then
+		win.goHint:SetText(ns:L("FTRAIN_PROF_ARROW_FMT"):format(ProfName(prof), best.name or "?", Distance(dist)))
+	else
+		win.goHint:SetText(ns.ForeverTrainerWhyText(why))
+	end
+end
 
 --- The nearest trainer's creature id and name, for the window's 3D model; nil when unknown.
 function ns.ForeverTrainerNearestNpc()
@@ -861,19 +1090,30 @@ function ns.ForeverTrainerNearestText()
 	return ns:L("FTRAIN_WHY_FMT"):format(WHY_KEY[why] and ns:L(WHY_KEY[why]) or why)
 end
 
-function ns.ForeverTrainerGo()
+--- The nearest trainer of a profession: the candidate, distance (yards), places looked at, why-not.
+function ns.ForeverProfTrainerNearest(prof)
+	return Nearest(Token(), prof)
+end
+
+function ns.ForeverTrainerGo(prof)
 	local token = Token()
-	local best, dist, n, why = Nearest(token)
+	local best, dist, n, why = Nearest(token, prof)
 	if not best then
-		print(PREFIX .. "trainer arrow: " .. why .. ". Stand next to your trainer and type /mh trainer here " ..
-			"(or install HandyNotes: Class Trainers).")
+		if prof then
+			print(PREFIX .. ("trainer arrow (%s): %s. Stand next to the trainer and type /mh trainer here %s.")
+				:format(ProfName(prof), why, PROF_ENGLISH[prof]:lower()))
+		else
+			print(PREFIX .. "trainer arrow: " .. why .. ". Stand next to your trainer and type /mh trainer here " ..
+				"(or install HandyNotes: Class Trainers).")
+		end
 		return false
 	end
 	if not (ns.SetBlizzardUserWaypoint and ns.SetBlizzardUserWaypoint(best.map, best.x, best.y)) then
 		print(PREFIX .. "trainer arrow: the game does not allow a waypoint on that map.")
 		return false
 	end
-	local label = (best.name or "Class trainer") .. " (trainer)"
+	local label = (best.name or (prof and ProfName(prof)) or "Class trainer") ..
+		(prof and (" (" .. ProfName(prof) .. ")") or " (trainer)")
 	-- arriveYards: the arrow stays until 5 yd (NativeArrow's default is 20 yd; Rob, 8 Nov 2026: at ~15 m "is mijn pijl
 	-- al weg ... dan moet ik alsnog zoeken"). Talking to the trainer ends the route too (TRAINER_SHOW below).
 	ns.lastTarget = { mapID = best.map, x = best.x, y = best.y, name = label, via = "/mh trainer go", arriveYards = 5 }
@@ -886,8 +1126,8 @@ function ns.ForeverTrainerGo()
 end
 
 --- /mh trainer here: remember where this class's trainer stands (your target, or just this spot).
-local function RecordHere()
-	local token = Token()
+local function RecordHere(prof)
+	local token = prof and ("PROF_" .. prof) or Token()
 	local map, x, y = PlayerPlace()
 	if not (map and token) then
 		print(PREFIX .. "trainer here: your position cannot be read here.")
@@ -903,18 +1143,25 @@ local function RecordHere()
 	list[token] = list[token] or {}
 	table.insert(list[token], { map = map, x = math.floor(x * 100 + 0.5) / 100, y = math.floor(y * 100 + 0.5) / 100,
 		name = name, npc = npc, at = time and time() or nil })
+	if prof then
+		print(PREFIX .. ("trainer here: saved %s at %.2f, %.2f on map %d as a %s trainer, for all your characters. " ..
+			"/mh trainer forget %s removes the last one."):format(name or "this spot", x, y, map, ProfName(prof),
+			PROF_ENGLISH[prof]:lower()))
+		return
+	end
 	print(PREFIX .. ("trainer here: saved %s at %.2f, %.2f on map %d for every %s. /mh trainer forget removes the last one.")
 		:format(name or "this spot", x, y, map, token:lower()))
 end
 
-local function ForgetLast()
-	local token = Token()
+local function ForgetLast(prof)
+	local token = prof and ("PROF_" .. prof) or Token()
 	local list = Spots()[token]
 	if list and #list > 0 then
 		local s = table.remove(list)
 		print(PREFIX .. ("trainer: forgot %s (%.2f, %.2f)."):format(s.name or "that spot", s.x, s.y))
 	else
-		print(PREFIX .. "trainer: you have not saved a trainer place for this class.")
+		print(PREFIX .. (prof and "trainer: you have not saved a place for this profession." or
+			"trainer: you have not saved a trainer place for this class."))
 	end
 end
 
@@ -1171,11 +1418,44 @@ local function Check()
 	local best, dist, _, why = Nearest(r.token)
 	print("  nearest: " .. (best and ("%s, %s (%s)"):format(best.name or "?", Distance(dist), best.src) or why))
 	print(("  cross above the trainer: %s (/mh trainer mark shows why)"):format(MarkOn() and "on" or "off"))
+	-- Professions: what the client says you have, and what the arrow would pick per profession.
+	local mine, whyNone = MyProfessions()
+	local any = false
+	for _, p in ipairs(PROFS) do
+		local m = mine[p[1]]
+		if m then
+			any = true
+			print(("  profession %s (line %s): %s / %s"):format(ProfName(p[1], mine), tostring(m.line), tostring(m.rank),
+				tostring(m.maxRank)))
+		end
+	end
+	if not any then
+		print("  professions: none read" .. (whyNone and (" (" .. whyNone .. ")") or ""))
+	end
+	local rows = 0
+	for _, list in pairs(ns.FOREVER_PROF_TRAINER_SPOTS or {}) do
+		rows = rows + #list
+	end
+	print(("  profession trainer places in MH's list: %d"):format(rows))
+	for _, p in ipairs(PROFS) do
+		local cands, dropped, need = Candidates(r.token, p[1])
+		local b, d, _, w = Nearest(r.token, p[1])
+		print(("  %s: %d places for you%s; nearest %s"):format(p[3], #cands,
+			need and (", needs rank %d (%d left out)"):format(need, dropped) or "",
+			b and ("%s, %s"):format(b.name or "?", Distance(d)) or w))
+	end
 end
 
 function ns.ForeverTrainerSlash(arg)
 	arg = (arg or ""):lower()
-	if arg == "check" then
+	local profWord = ProfFromWord(arg)
+	if profWord then
+		ns.ForeverTrainerGo(profWord) -- /mh trainer alchemy
+	elseif arg:match("^here ") and ProfFromWord(arg:match("^here%s+(.+)$")) then
+		RecordHere(ProfFromWord(arg:match("^here%s+(.+)$")))
+	elseif arg:match("^forget ") and ProfFromWord(arg:match("^forget%s+(.+)$")) then
+		ForgetLast(ProfFromWord(arg:match("^forget%s+(.+)$")))
+	elseif arg == "check" then
 		Check()
 	elseif arg == "go" then
 		ns.ForeverTrainerGo()

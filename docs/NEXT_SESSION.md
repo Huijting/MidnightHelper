@@ -1,5 +1,19 @@
 # Midnight Helper — waar we staan
 
+## 🆕 8 nov — Forever: pijl naar een beroepstrainer (Rob: "Ja, zo bouwen")
+
+- `/mh trainer <beroep>` (key, Engelse naam of clientnaam), `here <beroep>`, `forget <beroep>`; 12 knoppen onderaan het
+  trainervenster (eigen beroepen eerst, goud) met tooltip. Code in `Modules/ForeverTrainer.lua` (PROFS-blok,
+  Candidates-tak `prof`, NeedRank: 25 onder je cap → trainer met max ≥ cap+75; AFGELEID uit Classic).
+- Data: `Modules/ForeverProfTrainerSpots.lua`, 314 rijen van Wowhead Forever (mh-research, 8 nov, 375 fetches).
+  Methode + Zygor-vergelijking + open rijen: `docs/forever/FOREVER_PROF_TRAINERS_2026-11-08.md`. `max` komt uit de
+  Teaches-tab, nooit uit de tag (de tag loopt één rang vóór). De pijl slaat 23 rijen zonder max en Annora (geen plek)
+  over. Steekproef GEMETEN door mij: Rogvar en Kylanna Windwhisper ≈ Zygor.
+- AFGELEID / open: skill-line-nummers (uit Zygor; `/mh trainer check` print ze uit de client), het level-vereiste
+  10/20/35 (alleen gidsen), neutrale NPC's als bruikbaar geteld, Redridge-frame (4 rijen), Cooking/First Aid/Fishing
+  boven 150 (geen trainer op Wowhead). Niets hiervan in de client getest; zie TESTLIJST.
+- `locale_probe` niet gedraaid (geen .py-voordeur); lint [1] 0 ontbrekende keys, syntax OK.
+
 ## 🆕 8 nov — RELEASE 5.0.2 (Rob: "Ja, breng versie 5.0.2 maar uit ... Jullie krijgen overal akkoord voor tot het er
 ## compleet op staat. Inclusief het plaatsen van de site.")
 

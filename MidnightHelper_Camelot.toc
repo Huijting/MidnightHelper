@@ -115,6 +115,7 @@ Modules\ForeverHowToPlay.lua
 # New at your trainer, with the key each spell lands on (Rob, 7 Nov 2026: "Ja, A + pijl"). Data: What's Training? (MIT).
 Modules\ForeverTrainerData.lua
 Modules\ForeverTrainerSpots.lua
+Modules\ForeverProfTrainerSpots.lua
 Modules\ForeverTrainer.lua
 # Train all under the game's trainer window (Rob, 7 Nov 2026: "Kunnen wij dat ook bouwen?" → "ja").
 Modules\ForeverTrainAll.lua

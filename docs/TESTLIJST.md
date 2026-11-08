@@ -21,6 +21,23 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 8 nov — Forever: pijl naar een beroepstrainer
+
+- [ ] Forever, eerst: `/mh trainer check`. In de chat moet staan: je eigen beroepen met nummer en rang (bv. Herbalism
+      182, 75/150). Daarna een regel per beroep met hoeveel plekken er voor jou zijn en de dichtstbijzijnde trainer.
+      Staat er bij jouw beroep een ander nummer dan 182 (Herbalism), meld het: dan klopt de koppeling niet.
+- [ ] `/mh trainer alchemy`: de pijl en het kruis gaan naar de dichtstbijzijnde alchemietrainer van jouw kant. In de chat
+      staat de naam met "(Alchemy)" erachter. Bij de trainer stopt de route vanzelf als je hem aanspreekt.
+- [ ] Trainervenster (`/mh trainer`): onderaan een rijtje "Profession trainers:" met 12 knoppen. Jouw eigen beroepen
+      staan vooraan, in goud. Muis erop → wie het dichtst bij is, hoe ver, en tot welke rang hij leert.
+      Klik → pijl, en de regel boven de knoppen zegt "Arrow (…): naam, about … yards".
+- [ ] Sta naast een beroepstrainer en typ `/mh trainer here alchemy` (of je eigen beroep). Daarna wint die plek.
+      `/mh trainer forget alchemy` haalt hem weer weg.
+- [ ] Bijna aan je rang-grens (bv. Herbalism 70/75)? Dan moet de pijl een trainer kiezen die de volgende rang leert,
+      niet een "Junior"-trainer. Cooking, First Aid of Fishing boven 125/150: "no trainer in MH's list teaches your
+      next rank" (op Wowhead leert niemand die rang; volgens gidsen is het een boek of een quest).
+- [ ] Redridge: staat Crystal Boughman echt op ongeveer 17.6, 43.6 (`/way` of je kaart)? Zygor zegt 5 verder.
+
 ## 🆕 8 nov — Midnight: vaste Forever-regel onderaan de startpagina
 
 - [ ] Midnight, `/mh`: helemaal onderaan de startpagina een grijze regel "Also playing WoW Forever? ...". (Alleen als je

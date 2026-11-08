@@ -238,6 +238,7 @@ Modules\ForeverBlock.lua
 Modules\ForeverHowToPlay.lua
 Modules\ForeverTrainerData.lua
 Modules\ForeverTrainerSpots.lua
+Modules\ForeverProfTrainerSpots.lua
 Modules\ForeverTrainer.lua
 Modules\ForeverTrainAll.lua
 Modules\ForeverToolGuard.lua
