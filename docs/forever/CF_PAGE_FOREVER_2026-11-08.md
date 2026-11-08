@@ -16,11 +16,12 @@ stap als het aantal Forever-gebruikers in twee weken niet groeit.
 
 ## Wat Rob in CurseForge zelf moet aanpassen (Project → Settings)
 
-1. **Naam:** `Midnight Helper – Retail & WoW Forever`
-   (de slug/het adres verandert niet; de naam is wat de zoekfunctie en de app tonen)
-2. **Summary** (de korte regel onder de naam in zoekresultaten):
-   `Plain-language help for WoW Midnight and WoW Forever: your trainer, how to play every class, gear, vault and delves. Free, 8 languages.`
-3. **Categorie** (optioneel): "Quests & Leveling" erbij; daar staan de grote Forever-helpers.
+1. ~~Naam aanpassen~~ **INGETROKKEN** (Robs screenshot van Settings → General, 8 nov, GEMETEN): CurseForge zegt bij
+   *Project name* "Avoid including the project class, category, version, or the game's name in the title". De naam
+   blijft dus "Midnight Helper".
+2. **Summary** (de korte regel onder de naam in zoekresultaten; GEMETEN: Engels verplicht, max 256 tekens, nu 228):
+   `Explains WoW Midnight and WoW Forever in plain language and takes you there: what to do this week, how to play every class, your trainer and gear, the Great Vault and delves. Free, 8 languages.`
+3. ~~Categorie~~: "Quests & Leveling" staat er al bij (GEMETEN op dezelfde screenshot). Niets te doen.
 4. **Beschrijving:** plak `CURSEFORGE_DESCRIPTION.md` (bijgewerkt 8 nov): de eerste regels noemen nu beide spellen, en
    het Forever-blok heet "Playing WoW Forever? This is for you too" en staat bovenaan. Alleen uitgebrachte functies.
 
