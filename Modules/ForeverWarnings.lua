@@ -111,7 +111,7 @@ local function BagMessage(free)
 	local s = Settings()
 	local big = free == 0 and ns:L("FWARN_BAGS_FULL") or ns:L("FWARN_BAGS_LOW_FMT"):format(free)
 	if ns.FireAccessibleAlert then
-		ns.FireAccessibleAlert(big, false)
+		ns.FireAccessibleAlert(big, false, 6) -- 6 s instead of 2 (Rob: "die was heel snel weg")
 	end
 	local line = big
 	local n, copper = Greys()

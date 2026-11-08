@@ -91,6 +91,7 @@ local function EnsureFlash()
 	a1:SetFromAlpha(0); a1:SetToAlpha(1); a1:SetDuration(0.12); a1:SetOrder(1)
 	local a2 = f.anim:CreateAnimation("Alpha")
 	a2:SetFromAlpha(1); a2:SetToAlpha(1); a2:SetDuration(2.0); a2:SetOrder(2)
+	f.holdAnim = a2 -- the "stay" part; a caller may ask for longer (Show's `hold`)
 	local a3 = f.anim:CreateAnimation("Alpha")
 	a3:SetFromAlpha(1); a3:SetToAlpha(0); a3:SetDuration(0.7); a3:SetOrder(3)
 	f.anim:SetScript("OnFinished", function()
@@ -101,11 +102,14 @@ local function EnsureFlash()
 	return f
 end
 
-local function Show(msg, withSound)
+local function Show(msg, withSound, hold)
 	local f = EnsureFlash()
 	f.text:SetText(msg or "")
 	f:Show()
 	f.anim:Stop()
+	-- 2 s stays the default (debuff alerts). Forever's bag message asks for longer (Rob, 8 Nov 2026: "die was heel
+	-- snel weg, dus die mag iets langer blijven staan").
+	f.holdAnim:SetDuration(tonumber(hold) or 2.0)
 	f.anim:Play()
 	if withSound and PlaySound and SOUNDKIT and SOUNDKIT.RAID_WARNING then
 		pcall(PlaySound, SOUNDKIT.RAID_WARNING, "Master")
@@ -128,14 +132,14 @@ end
 ---
 --- @return boolean fired
 --- @return number|nil secondsLeft  when it did not, how long the caller must wait
-function ns.FireAccessibleAlert(msg, withSound)
+function ns.FireAccessibleAlert(msg, withSound, hold)
 	local now = (GetTime and GetTime()) or 0
 	local waited = now - lastAlertAt
 	if waited < MIN_GAP then
 		return false, MIN_GAP - waited
 	end
 	lastAlertAt = now
-	Show(msg, withSound)
+	Show(msg, withSound, hold)
 	return true
 end
 
