@@ -34,7 +34,8 @@ er is niets weggegooid.
 
 ## 🆕 9 nov (avond) — Midnight: kaarten, Talebound, Codex
 
-- [ ] 🔴 Retail `/reload`: MH laadt gewoon (nieuwe TOC-regel `AllowLoadGameType: standard`). Ook in Forever nog gewoon laden.
+- [x] 🔴 Retail `/reload`: MH laadt gewoon (nieuwe TOC-regel `AllowLoadGameType: standard`). ✅ 9 nov Rob: retail
+      ingelogd + getest, geen foutmelding. Forever laadt ook (zijn `/mh week` + `/mh ranks` werkten).
 - [ ] Op een paar specs `/mh play`: geen "{SPELL:" in beeld, nieuwe regels kloppen. Vooral Outlaw (S1/S2), Devastation (S1),
       Demonology (S4), Mistweaver (HERO1/S4), Holy Priest (S2/HERO1). Quiz-tab: vragen werken nog.
 - [x] Balance Druid: "Solar Eclipse" blijft op de kaart (Rob koos A, 9 nov).

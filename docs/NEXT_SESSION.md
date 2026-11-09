@@ -17,7 +17,7 @@
     auditors in wago/Wowhead, niet in de client.
 - **Talebound (12.1.7)**: `MidnightHelper.toc` kreeg `## AllowLoadGameType: standard`, net als DBM-Midnight (GEMETEN in
   zijn TOC). MH laadt dan niet in Talebound (spelsoort "wowhack"); Forever leest `MidnightHelper_Camelot.toc` en merkt
-  er niets van. ⚠️ Rob: na `/reload` op retail moet MH gewoon laden — doet hij dat niet, deze regel eruit.
+  er niets van. ✅ GETEST 9 nov (Rob): retail laadt MH gewoon, geen foutmelding; Forever ook.
 - **Codex 12.1.7** (verborgen tot interface 120107, `MidnightCodexData.lua`): `timeways6` (weekly) en `lorewalking`
   (world), uit Blizzards overzicht/dev notes van 15 okt. Op patchdag hercontroleren; dungeon-pool nog onbekend.
 
