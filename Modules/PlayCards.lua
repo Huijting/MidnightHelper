@@ -355,10 +355,11 @@ local CARDS = {
 	},
 	[1480] = { -- Devourer Demon Hunter
 		steps = 5, aoe = true, hero = 2,
-		source = "Method 18 Sep · Wowhead 2 Sep · Icy Veins 18 Aug 2026", -- rechecked 3 Oct 2026 (mh-research)
-		-- 12.1.5 changes Void-Scarred (Violent Transformation no longer resets The Hunt): HERO1 needs a recheck then.
-		-- Stays on 120100 on purpose: the other 39 cards were set to 120105 on 11 Oct (Rob), this one waits for the recheck.
-		why = { checked = "2026-10-11", interface = 120100 },
+		source = "Wowhead 22 Oct · Method 18 Oct · Icy Veins 12 Oct 2026", -- HERO1 rechecked 9 Nov 2026 (mh-research)
+		-- 9 Nov 2026 (Rob: "los ook de foute demon hunter zo speel je kaarten op"): HERO1 rewritten for 12.1.5, measured in
+		-- DB2 12.1.5.70783 (452409 resets Voidblade + Soul Immolation, 452415: Collapsing Star resets The Hunt) and the
+		-- three guides (The Hunt still right before Meta; Pierce the Veil + Predator's Wake before every Star).
+		why = { checked = "2026-11-09", interface = 120105 },
 		quiz = true,
 		quizAnswer = { [2] = 1226019, [5] = 473662 },
 	},

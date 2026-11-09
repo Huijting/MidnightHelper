@@ -21,6 +21,13 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 9 nov — Midnight: Zo speel je-kaart Devourer Demon Hunter
+
+- [ ] Op een Devourer DH, `/mh play` (How you play): de Void-Scarred-regel
+      noemt Voidblade, dan The Hunt vóór Void Metamorphosis, en als demon Pierce the Veil + Predator's Wake vóór elke
+      Collapsing Star. Alle spell-namen en icoontjes kloppen, geen "{SPELL:" in beeld.
+- [ ] Onder de kaart staan nu ook weer de "waarom"-regels (W1-W5) en de uitleg van souls.
+
 ## 🆕 9 nov — Forever: NPC-nummer uit de GUID
 
 - [ ] Klik in Forever een NPC aan en typ `/dump UnitGUID("target")`. Stuur wat er staat (bv. "Creature-0-...-12345-...").

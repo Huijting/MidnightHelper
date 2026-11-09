@@ -1,5 +1,18 @@
 # Midnight Helper — waar we staan
 
+## 🆕 9 nov — Zo speel je-kaart Devourer DH: HERO1 (Void-Scarred) bijgewerkt voor 12.1.5 (Rob: "los ook de foute demon hunter zo speel je kaarten op")
+
+- GEMETEN door mh-research (wago DB2 12.1.5.70783, positieve controle met 12.1.0.69933): Violent Transformation 452409
+  reset nu Voidblade + Soul Immolation (niet meer The Hunt); Demonic Intensity 452415: Collapsing Star reset The Hunt.
+  Override-aura's: 1245496 maakt Voidblade→Pierce the Veil en The Hunt→Predator's Wake (1259431); 1245523 Pierce→Reaper's Toll.
+- GEMETEN in de gidsen (Icy Veins 12 okt, Method 18 okt, Wowhead 22 okt): The Hunt blijft vlak vóór Meta (nu om
+  "smuggling", niet de reset); Pierce the Veil + Predator's Wake vóór elke Collapsing Star; alle drie kiezen Annihilator.
+- Nieuwe HERO1 in enUS/nlNL (zelf) en de/fr/es/pt/it/ru (mh-writer, niet native nagekeken). "light up" is weg: niet
+  gemeten. Het 12-okt-voorstel (`docs/PATCH_12_1_5_CARDS_2026-10-12.md` 4c) was half fout: liet The Hunt vóór Meta weg.
+- `PlayCards.lua` [1480]: `why.interface` 120100 → 120105 (W-regels en TERMS nu weer zichtbaar op 12.1.5; AFGELEID dat
+  ze kloppen, zie dat document 4d), `checked` 2026-11-09, `source` = nieuwe gidsdatums. Niet in de client getest.
+- Site: de Devourer-pagina op midnighthelper.com draagt nog de oude HERO1 → meenemen bij het volgende seinen van de site-chat.
+
 ## 🆕 9 nov — Forever: GUID-lezen in ForeverTrainer.lua robuust gemaakt (Rob: "Ja, repareer")
 
 - Aanleiding: API-wachter 9 nov ([MOET GEFIKST]). `ForeverTrainer.lua` (`/mh trainer here` en `NpcOfUnit` voor het kruis)
