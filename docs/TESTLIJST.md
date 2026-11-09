@@ -32,6 +32,14 @@ er is niets weggegooid.
       staat het ook in de SavedVariables (`foreverWeekDump`) — die lees ik dan uit voor meer uitleg per event.
 - [ ] Woensdag 11 nov na de reset: telt "Nieuwe week" weer van ~7 dagen af?
 
+## 🆕 9 nov (avond) — Midnight: kaarten, Talebound, Codex
+
+- [ ] 🔴 Retail `/reload`: MH laadt gewoon (nieuwe TOC-regel `AllowLoadGameType: standard`). Ook in Forever nog gewoon laden.
+- [ ] Op een paar specs `/mh play`: geen "{SPELL:" in beeld, nieuwe regels kloppen. Vooral Outlaw (S1/S2), Devastation (S1),
+      Demonology (S4), Mistweaver (HERO1/S4), Holy Priest (S2/HERO1). Quiz-tab: vragen werken nog.
+- [ ] Balance Druid: staat er "Solar Eclipse" op de kaart terwijl je Elune's Chosen speelt? (keuze open)
+- [ ] Na 12.1.7: Codex → Weekly heeft "Turbulent Timeways VI (12.1.7)", World heeft "Lorewalking (12.1.7)".
+
 ## 🆕 9 nov — Forever: oude ranks op je balken
 
 - [ ] Typ `/mh ranks` op een character met een paar spells op de balk: hij noemt het aantal spell-knoppen en welke een

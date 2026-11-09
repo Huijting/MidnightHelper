@@ -87,6 +87,26 @@ ns.CODEX_ARTICLES = {
 			.. "carry over carryover currency deadline expire expires last week "
 			.. "seizoen einde afloopt reset overgang",
 	},
+	-- 12.1.7 (9 Nov 2026, Rob: "we kunnen beter lekker op tijd zijn"): written from the PTR, hidden until the client is
+	-- 12.1.7. Recheck both on launch day (docs/PATCH_12_1_7_PTR_2026-10-16.md §3 and §5).
+	{
+		id = "timeways6",
+		category = "weekly",
+		titleKey = "CODEX_TT6_TITLE",
+		bodyKey = "CODEX_TT6_BODY",
+		sort = 19,
+		minInterface = 120107,
+		searchKeys = "turbulent timeways timewalking markeet infinite mount mastery knowledge aethas badges tijdwandelen",
+	},
+	{
+		id = "lorewalking",
+		category = "world",
+		titleKey = "CODEX_LOREWALK_TITLE",
+		bodyKey = "CODEX_LOREWALK_BODY",
+		sort = 7,
+		minInterface = 120107,
+		searchKeys = "lorewalking lorewalker li li stormstout story jaina thrall titans tyr decor verhaal",
+	},
 	-- Omnium Folio: live since 12.0.7, still active in 12.1 (checked 3 Oct 2026).
 	{
 		id = "omnium_folio",

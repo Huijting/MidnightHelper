@@ -1,5 +1,26 @@
 # Midnight Helper — waar we staan
 
+## 🆕 9 nov (avond) — Midnight: 20 Zo speel je-kaarten bijgewerkt, MH laadt niet in Talebound, 2 Codex-artikelen voor 12.1.7 (Rob: "begin maar met 1 en als die klaar is, dan ga dan maar door")
+
+- **Kaarten-audit** (4× mh-research, 40 specs tegen Icy Veins + Method + Wowhead, gidsen 12-30 okt; rapporten in de
+  scratchpad van sessie 1e43412f: `cards_A..D.md`, en `cards_apply.json`). mh-writer legde elk voorstel naast de audit van
+  21 okt (`side-session-notes/local_8d0c4609…/playcard_audit/`). Bijgewerkt: 26 keys in 20 specs (70, 66, 62, 102 AOE, 103,
+  104, 252, 253, 254, 256, 257, 259, 260, 263, 266, 268, 270, 581, 1467, 1468), alle talen + esMX; `source` + `why.checked`
+  2026-11-09; quizAnswer bijgezet (104, 254, 256, 257, 260, 266) zodat de quizantwoorden gelijk blijven.
+  - Bewust NIET: 261 HERO1 (6 vs 5 punten: 21 okt bewust 5, Darkest Night werkt vanaf 5); 102 HERO1 (Fury of Elune vóór of
+    ín Eclipse: gidsen oneens, 21 okt "niet fout"); OPTIONAL-punten.
+  - 🔶 OPEN, Robs keus/clienttest: Balance 102 gebruikt {SPELL:1233346} = "Solar Eclipse" (wago 12.1.5.70783) in IDEA/S3/
+    W2/W3/TERMS; 1239669 = "Eclipse" maar passief (live-toets op S3 verdwijnt dan waarschijnlijk). Elune's Chosen ziet
+    alleen Lunar Eclipse.
+  - Plain-text namen zonder vastgesteld id (Divine Arbiter, Vanguard, Apex Predator's Craving, Forbidden Knowledge,
+    Necrotic Coil, Cobra Fang, Benediction, Primordial Storm) staan in alle talen Engels. Nieuwe ids: gemeten door de
+    auditors in wago/Wowhead, niet in de client.
+- **Talebound (12.1.7)**: `MidnightHelper.toc` kreeg `## AllowLoadGameType: standard`, net als DBM-Midnight (GEMETEN in
+  zijn TOC). MH laadt dan niet in Talebound (spelsoort "wowhack"); Forever leest `MidnightHelper_Camelot.toc` en merkt
+  er niets van. ⚠️ Rob: na `/reload` op retail moet MH gewoon laden — doet hij dat niet, deze regel eruit.
+- **Codex 12.1.7** (verborgen tot interface 120107, `MidnightCodexData.lua`): `timeways6` (weekly) en `lorewalking`
+  (world), uit Blizzards overzicht/dev notes van 15 okt. Op patchdag hercontroleren; dungeon-pool nog onbekend.
+
 ## 🆕 9 nov (middag) — Forever "Deze week in Forever" + Midnight Turbulent Timeways VI (Rob: "Ja, ik volg jouw adviezen … ga voorlopig door zolang je kan")
 
 - Rob vroeg: wat is er elke week in Forever, en wat missen Forever-spelers? Ook: Midnight niet vergeten. Onderzoek

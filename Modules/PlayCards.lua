@@ -61,9 +61,10 @@ local AUDITED = { date = "21 Oct 2026", specs = {
 local CARDS = {
 	[70] = { -- Retribution Paladin
 		steps = 4, aoe = false, hero = 2,
-		source = "Icy Veins 25 Aug · Method 27 Aug 2026", -- rechecked 3 Oct 2026 (mh-research)
+		source = "Icy Veins 12 Oct · Method 13 Oct · Wowhead 13 Oct 2026",
+		-- 9 Nov 2026 card audit (Rob: begin maar met 1)
 		-- Why lines 11 Oct 2026, docs/WHY_PALADIN_2026-10-11.md.
-		why = { checked = "2026-10-11", interface = 120105 },
+		why = { checked = "2026-11-09", interface = 120105 },
 		quiz = true,
 		quizAnswer = { [2] = 383328, [4] = 184575 },
 	},
@@ -71,16 +72,18 @@ local CARDS = {
 		-- 3 Oct 2026: fifth step = Hand of Reckoning (Rob's choice; Icy Veins' opener pulls with it,
 		-- and it was on none of the four tabs). HERO2 now says Lightsmith is ONE button.
 		steps = 5, aoe = true, hero = 2,
-		source = "Method 3 Sep · Wowhead 12 Aug · Icy Veins 21 Sep 2026", -- rechecked 25 Sep + 3 Oct
-		why = { checked = "2026-10-11", interface = 120105 },
+		source = "Icy Veins 12 Oct · Method 14 Oct · Wowhead 13 Oct 2026",
+		-- 9 Nov 2026 card audit (Rob: begin maar met 1)
+		why = { checked = "2026-11-09", interface = 120105 },
 		quiz = true,
 		quizAnswer = { [1] = 375576, AOE = 31935 },
 	},
 	[62] = { -- Arcane Mage
 		steps = 5, aoe = true, hero = 2,
-		source = "Icy Veins 15 Aug · Method 13 Sep · Wowhead 4 Sep 2026", -- rechecked 3 Oct 2026 (mh-research)
+		source = "Icy Veins 12 Oct · Method 16 Oct · Wowhead 16 Oct 2026",
+		-- 9 Nov 2026 card audit (Rob: begin maar met 1)
 		-- Why lines 11 Oct 2026, docs/WHY_SHAMAN_MAGE_2026-10-11.md.
-		why = { checked = "2026-10-11", interface = 120105 },
+		why = { checked = "2026-11-09", interface = 120105 },
 		quiz = true,
 		quizAnswer = { [1] = 365350, [3] = 1295924, AOE = 153626 },
 	},
@@ -139,25 +142,28 @@ local CARDS = {
 	},
 	[102] = { -- Balance Druid
 		steps = 5, aoe = true, hero = 2,
-		source = "Icy Veins 10 Aug · Method 15 Aug · Wowhead 3 Sep 2026", -- rechecked 3 Oct 2026 (mh-research)
+		source = "Icy Veins 12 Oct · Method 16 Oct · Wowhead 13 Oct 2026",
+		-- 9 Nov 2026 card audit (Rob: begin maar met 1)
 		-- Why lines 11 Oct 2026, docs/WHY_DRUID_2026-10-11.md. S3 now names Eclipse as {SPELL:1239669} (was plain text).
-		why = { checked = "2026-10-11", interface = 120105 },
+		why = { checked = "2026-11-09", interface = 120105 },
 		quiz = true,
 		quizAnswer = { [1] = 194223, AOE = 191034 },
 	},
 	[103] = { -- Feral Druid
 		steps = 5, aoe = true, hero = 2,
-		source = "Method 1 Oct · Icy Veins 10 Aug · Wowhead 12 Aug 2026",
-		why = { checked = "2026-10-11", interface = 120105 },
+		source = "Icy Veins 12 Oct · Method 28 Oct · Wowhead 13 Oct 2026",
+		-- 9 Nov 2026 card audit (Rob: begin maar met 1)
+		why = { checked = "2026-11-09", interface = 120105 },
 		quiz = true,
 		quizAnswer = { [1] = 106951, AOE = 285381 },
 	},
 	[104] = { -- Guardian Druid
 		steps = 4, aoe = true, hero = 2,
-		source = "Method 3 Sep · Icy Veins 10 Aug · Wowhead 12 Aug 2026",
-		why = { checked = "2026-10-11", interface = 120105 },
+		source = "Icy Veins 12 Oct · Method 14 Oct · Wowhead 19 Oct 2026",
+		-- 9 Nov 2026 card audit (Rob: begin maar met 1)
+		why = { checked = "2026-11-09", interface = 120105 },
 		quiz = true,
-		quizAnswer = { [2] = 33917, [4] = 6807 },
+		quizAnswer = { [2] = 33917, [3] = 61336, [4] = 6807 },
 	},
 	[105] = { -- Restoration Druid
 		steps = 4, aoe = true, hero = 2,
@@ -183,26 +189,29 @@ local CARDS = {
 	},
 	[252] = { -- Unholy Death Knight
 		steps = 5, aoe = true, hero = 2,
-		source = "Icy Veins 8 Sep · Method 24 Sep 2026", -- rechecked 3 Oct 2026 (mh-research)
-		why = { checked = "2026-10-11", interface = 120105 },
+		source = "Icy Veins 12 Oct · Method 13 Oct · Wowhead 13 Oct 2026",
+		-- 9 Nov 2026 card audit (Rob: begin maar met 1)
+		why = { checked = "2026-11-09", interface = 120105 },
 		quiz = true,
 		quizAnswer = { [1] = 1233448, [3] = 458128, AOE = 207317 },
 	},
 	[253] = { -- Beast Mastery Hunter
 		steps = 4, aoe = true, hero = 2,
-		source = "Icy Veins 7 Sep · Method 5 Sep 2026", -- rechecked 3 Oct 2026 (mh-research)
+		source = "Icy Veins 12 Oct · Method 13 Oct · Wowhead 13 Oct 2026",
+		-- 9 Nov 2026 card audit (Rob: begin maar met 1)
 		-- Why lines 11 Oct 2026, docs/WHY_HUNTER_2026-10-11.md.
-		why = { checked = "2026-10-11", interface = 120105 },
+		why = { checked = "2026-11-09", interface = 120105 },
 		quiz = true,
 		quizAnswer = { [1] = 19574, [4] = 193455, AOE = 1264359 },
 	},
 	[254] = { -- Marksmanship Hunter
 		steps = 5, aoe = true, hero = 2,
-		source = "Icy Veins 31 Aug · Method 5 Sep 2026", -- rechecked 3 Oct 2026 (mh-research)
+		source = "Icy Veins 14 Oct · Method 13 Oct · Wowhead 14 Oct 2026",
+		-- 9 Nov 2026 card audit (Rob: begin maar met 1)
 		-- 12.1.5 removes Unload; S4/W4/TERMS are worded to hold in both builds.
-		why = { checked = "2026-10-11", interface = 120105 },
+		why = { checked = "2026-11-09", interface = 120105 },
 		quiz = true,
-		quizAnswer = { [1] = 212431, AOE = 257620 },
+		quizAnswer = { [1] = 212431, [4] = 185358, AOE = 257620 },
 	},
 	[255] = { -- Survival Hunter
 		steps = 4, aoe = true, hero = 2,
@@ -213,18 +222,20 @@ local CARDS = {
 	},
 	[256] = { -- Discipline Priest
 		steps = 4, aoe = true, hero = 2,
-		source = "Icy Veins 17 Aug · Method 17 Sep 2026", -- rechecked 3 Oct 2026 (mh-research)
+		source = "Icy Veins 12 Oct · Method 13 Oct · Wowhead 13 Oct 2026",
+		-- 9 Nov 2026 card audit (Rob: begin maar met 1)
 		-- Why lines 11 Oct 2026, docs/WHY_PRIEST_2026-10-11.md. S4's last spell is the fallback, AOE's the add-on.
-		why = { checked = "2026-10-11", interface = 120105 },
+		why = { checked = "2026-11-09", interface = 120105 },
 		quiz = true,
-		quizAnswer = { [4] = 585, AOE = 194509 },
+		quizAnswer = { [3] = 17, [4] = 585, AOE = 194509 },
 	},
 	[257] = { -- Holy Priest
 		steps = 4, aoe = true, hero = 2,
-		source = "Icy Veins 25 Aug · Method 17 Sep 2026", -- rechecked 3 Oct 2026 (mh-research)
-		why = { checked = "2026-10-11", interface = 120105 },
+		source = "Icy Veins 12 Oct · Method 13 Oct · Wowhead 13 Oct 2026",
+		-- 9 Nov 2026 card audit (Rob: begin maar met 1)
+		why = { checked = "2026-11-09", interface = 120105 },
 		quiz = true,
-		quizAnswer = { AOE = 64843 },
+		quizAnswer = { [2] = 2050, AOE = 64843 },
 	},
 	[258] = { -- Shadow Priest
 		steps = 4, aoe = true, hero = 2,
@@ -236,18 +247,20 @@ local CARDS = {
 	},
 	[259] = { -- Assassination Rogue
 		steps = 4, aoe = true, hero = 2,
-		source = "Wowhead 6 Sep · Method 12 Aug · Icy Veins 10 Aug 2026",
+		source = "Icy Veins 12 Oct · Method 18 Oct · Wowhead 13 Oct 2026",
+		-- 9 Nov 2026 card audit (Rob: begin maar met 1)
 		-- Why lines 11 Oct 2026, docs/WHY_ROGUE_2026-10-11.md. S1/S2 named the answer once as plain text: now {SPELL}.
-		why = { checked = "2026-10-11", interface = 120105 },
+		why = { checked = "2026-11-09", interface = 120105 },
 		quiz = true,
 		quizAnswer = { [1] = 360194, AOE = 1247227 },
 	},
 	[260] = { -- Outlaw Rogue
 		steps = 4, aoe = true, hero = 2,
-		source = "Wowhead 27 Aug · Method 12 Aug · Icy Veins 10 Aug 2026",
-		why = { checked = "2026-10-11", interface = 120105 },
+		source = "Icy Veins 12 Oct · Method 18 Oct · Wowhead 19 Oct 2026",
+		-- 9 Nov 2026 card audit (Rob: begin maar met 1)
+		why = { checked = "2026-11-09", interface = 120105 },
 		quiz = true,
-		quizAnswer = { [3] = 315341 },
+		quizAnswer = { [1] = 51690, [2] = 1214909, [3] = 315341 },
 	},
 	[261] = { -- Subtlety Rogue
 		steps = 4, aoe = true, hero = 2,
@@ -258,8 +271,9 @@ local CARDS = {
 	},
 	[263] = { -- Enhancement Shaman
 		steps = 4, aoe = true, hero = 2,
-		source = "Icy Veins 23 Aug · Method 24 Aug · Wowhead 22 Aug 2026", -- rechecked 3 Oct 2026 (mh-research)
-		why = { checked = "2026-10-11", interface = 120105 },
+		source = "Icy Veins 12 Oct · Method 13 Oct · Wowhead 13 Oct 2026",
+		-- 9 Nov 2026 card audit (Rob: begin maar met 1)
+		why = { checked = "2026-11-09", interface = 120105 },
 		quiz = true,
 		quizAnswer = { [1] = 114051, AOE = 188443 },
 	},
@@ -279,10 +293,11 @@ local CARDS = {
 	},
 	[266] = { -- Demonology Warlock
 		steps = 5, aoe = true, hero = 2,
-		source = "Icy Veins 10 Aug · Wowhead 12 Aug · Method 27 Sep 2026",
-		why = { checked = "2026-10-11", interface = 120105 },
+		source = "Icy Veins 12 Oct · Method 13 Oct · Wowhead 13 Oct 2026",
+		-- 9 Nov 2026 card audit (Rob: begin maar met 1)
+		why = { checked = "2026-11-09", interface = 120105 },
 		quiz = true,
-		quizAnswer = { [1] = 265187, [2] = 104316, AOE = 196277 },
+		quizAnswer = { [1] = 265187, [2] = 104316, [4] = 264178, AOE = 196277 },
 	},
 	[267] = { -- Destruction Warlock
 		steps = 5, aoe = true, hero = 2,
@@ -293,9 +308,10 @@ local CARDS = {
 	},
 	[268] = { -- Brewmaster Monk
 		steps = 4, aoe = true, hero = 2,
-		source = "Method 11 Aug · Wowhead 12 Aug · Icy Veins 10 Aug 2026", -- rechecked 3 Oct 2026 (mh-research)
+		source = "Icy Veins 12 Oct · Method 14 Oct · Wowhead 13 Oct 2026",
+		-- 9 Nov 2026 card audit (Rob: begin maar met 1)
 		-- Why lines 11 Oct 2026, docs/WHY_MONK_2026-10-11.md.
-		why = { checked = "2026-10-11", interface = 120105 },
+		why = { checked = "2026-11-09", interface = 120105 },
 		quiz = true,
 		quizAnswer = { [2] = 322507, [3] = 121253, [4] = 132578 },
 	},
@@ -309,8 +325,9 @@ local CARDS = {
 	},
 	[270] = { -- Mistweaver Monk
 		steps = 5, aoe = true, hero = 2,
-		source = "Wowhead 30 Sep · Method 27 Aug · Icy Veins 12 Aug 2026", -- rechecked 3 Oct 2026 (mh-research)
-		why = { checked = "2026-10-11", interface = 120105 },
+		source = "Icy Veins 12 Oct · Method 14 Oct · Wowhead 13 Oct 2026",
+		-- 9 Nov 2026 card audit (Rob: begin maar met 1)
+		why = { checked = "2026-11-09", interface = 120105 },
 		quiz = true,
 		quizAnswer = { [2] = 107428, [3] = 116680, AOE = 115310 },
 	},
@@ -324,24 +341,27 @@ local CARDS = {
 	},
 	[581] = { -- Vengeance Demon Hunter
 		steps = 5, aoe = true, hero = 2,
-		source = "Method 27 Aug · Wowhead 12 Aug · Icy Veins 10 Aug 2026", -- rechecked 3 Oct 2026 (mh-research)
-		why = { checked = "2026-10-11", interface = 120105 },
+		source = "Icy Veins 12 Oct · Method 14 Oct · Wowhead 13 Oct 2026",
+		-- 9 Nov 2026 card audit (Rob: begin maar met 1)
+		why = { checked = "2026-11-09", interface = 120105 },
 		quiz = true,
 		quizAnswer = { [3] = 263642 },
 	},
 	[1467] = { -- Devastation Evoker
 		steps = 4, aoe = true, hero = 2,
-		source = "Wowhead 9 Sep · Method 25 Aug · Icy Veins 10 Aug 2026",
+		source = "Icy Veins 12 Oct · Method 16 Oct · Wowhead 18 Oct 2026",
+		-- 9 Nov 2026 card audit (Rob: begin maar met 1)
 		-- Why lines 11 Oct 2026, docs/WHY_EVOKER_2026-10-11.md. S4 adds Azure Sweep, AOE holds Eternity Surge longer.
-		why = { checked = "2026-10-11", interface = 120105 },
+		why = { checked = "2026-11-09", interface = 120105 },
 		quiz = true,
 		quizAnswer = { [1] = 375087, [2] = 357208, [4] = 361469, AOE = 357211 },
 	},
 	[1468] = { -- Preservation Evoker
 		steps = 5, aoe = true, hero = 2,
-		source = "Icy Veins 13 Aug · Method 20 Aug · Wowhead 21 Sep 2026", -- rechecked 3 Oct 2026 (mh-research)
+		source = "Icy Veins 12 Oct · Method 13 Oct · Wowhead 13 Oct 2026",
+		-- 9 Nov 2026 card audit (Rob: begin maar met 1)
 		-- S4 had no spell (Merithra's Blessing as plain text): now the Reversion button, so the quiz can ask it.
-		why = { checked = "2026-10-11", interface = 120105 },
+		why = { checked = "2026-11-09", interface = 120105 },
 		quiz = true,
 		quizAnswer = { [3] = 364343, [4] = 1256577, [5] = 360995, AOE = 363534 },
 	},

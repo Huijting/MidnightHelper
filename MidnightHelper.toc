@@ -1,5 +1,6 @@
 ﻿## Interface: 120007, 120100, 120105, 120107
 ## Interface-Camelot: 16001
+## AllowLoadGameType: standard
 ## Title: Midnight Helper
 ## Version: 5.0.2
 ## Author: TwelveInchy
