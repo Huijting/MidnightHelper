@@ -163,12 +163,38 @@ local function Mounted()
 	return (IsMounted and IsMounted()) or (UnitOnTaxi and UnitOnTaxi("player")) or false
 end
 
+--- What is in the main hand: "none", "fishing" (a fishing pole: no weapon buff fits on it) or "weapon".
+--- Rob, 9 Nov 2026: with a Fishing Pole in his hands the Shaman kept seeing "WEAPON BUFF", and the game will not put
+--- one on a pole. Item class 2 (weapon), subclass 20 = fishing pole (Enum.ItemWeaponSubclass.Fishingpole; AFGELEID
+--- that Forever keeps the retail numbers, so the Enum is read when the client has it).
+local FISHING_SUBCLASS = (Enum and Enum.ItemWeaponSubclass and Enum.ItemWeaponSubclass.Fishingpole) or 20
+local function MainHand()
+	local id = GetInventoryItemID and GetInventoryItemID("player", 16)
+	if not id then
+		return "none"
+	end
+	local info = (C_Item and C_Item.GetItemInfoInstant) or GetItemInfoInstant
+	if info then
+		local ok, _, _, _, _, _, classID, subclassID = pcall(info, id)
+		if ok and classID == 2 and subclassID == FISHING_SUBCLASS then
+			return "fishing"
+		end
+	end
+	return "weapon"
+end
+
 --- Evaluate one def: name to cast (or nil when nothing is needed), and a short reason for /mh buffs.
 local function Evaluate(d)
 	if d.imbue then
 		local name = PickChoice(d.imbue, d.key)
 		if not name then
 			return nil, "none known"
+		end
+		local hand = MainHand()
+		if hand == "fishing" then
+			return nil, "fishing pole in hand"
+		elseif hand == "none" then
+			return nil, "no weapon in main hand"
 		end
 		local ok, hasMH = pcall(GetWeaponEnchantInfo)
 		if ok and hasMH then

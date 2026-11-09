@@ -7,7 +7,16 @@
   `lt.trainerNpc`, anders naam == `lt.trainerName`, anders binnen 15 yd van het doel; niets te meten → oude gedrag.
   `ForeverTrainerGoTo` zet die twee velden in `ns.lastTarget`. Kruisje (mark) blijft ook staan bij een andere trainer.
   Lint 0 HARD, syntax OK; niet getest in de client.
-- Lopend: macro-onderzoek Forever (3× mh-research, zonder onze oude macro's): scratchpad 1e43412f `macros_A/B/C.md`.
+- Shaman weapon buff (Rob, screenshot "WEAPON BUFF" met de Fishing Pole in de hand): `ForeverBuffs.lua` Evaluate kijkt
+  nu eerst naar slot 16 — hengel (item class 2, subclass 20 = `Enum.ItemWeaponSubclass.Fishingpole`, AFGELEID dat
+  Forever die nummers houdt) of geen wapen → geen melding. MissingBuff ververst al op PLAYER_EQUIPMENT_CHANGED.
+- Macro-onderzoek Forever klaar (3× mh-research, zonder onze oude macro's) → `docs/forever/FOREVER_MACROS_2026-11-09_A/B/C.md`.
+  Rob: "Plan maken voor MH" → plan (1 bewaren, 2 per klasse naast de bloktabellen leggen "zit al / nieuw", Druid eerst,
+  3 lijst "Handige macro's" met knop "Maak deze macro", 4 mouseover-schakelaar in het toetsenblok, standaard uit).
+  Rob: "Ja, je mag met stap 1 en stap 2 beginnen." Stap 3 en 4 wachten op zijn ja na het Druid-lijstje.
+- Lopend: winkeliers vindbaar maken (Rob: "Yeah, je mag zo beginnen"): mh-research schrijft
+  `docs/forever/FOREVER_VENDORS_2026-11-09.md` (gereedschap + General Goods/Trade Supplies, rijformaat als
+  ForeverProfTrainerSpots). Daarna bouwen: pijl per winkelier, tip na het leren van een beroep zonder gereedschap.
 
 ## 🆕 9 nov (avond) — Midnight: 20 Zo speel je-kaarten bijgewerkt, MH laadt niet in Talebound, 2 Codex-artikelen voor 12.1.7 (Rob: "begin maar met 1 en als die klaar is, dan ga dan maar door")
 

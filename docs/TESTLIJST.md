@@ -32,6 +32,11 @@ er is niets weggegooid.
       en dag rond 05:00 servertijd, Darkmoon Faire + Call to Arms: Arathi Basin, 0 raids.
 - [ ] Woensdag 11 nov na de reset: telt "Nieuwe week" weer van ~7 dagen af?
 
+## 🆕 9 nov (laat) — Forever: geen "WEAPON BUFF" met een hengel in je hand
+
+- [ ] Shaman met de Fishing Pole in de hand: de knop "WEAPON BUFF" verdwijnt meteen. Weer een wapen erin: hij komt
+      terug (als er geen weapon buff op zit). `/mh buffs` zegt "fishing pole in hand".
+
 ## 🆕 9 nov (laat) — Forever: trainerpijl blijft staan bij een andere trainer
 
 - [ ] Zet een pijl naar een beroepstrainer (bv. leatherworking). Praat onderweg met een ándere trainer (vissen,
