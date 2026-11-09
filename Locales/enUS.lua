@@ -4812,6 +4812,12 @@ ns._mhLocales.enUS = {
 	FWARN_REST_OFF = "no more message about low mana or health. /mh rest on brings it back.",
 	FWARN_REST_MANA_AT_FMT = "you now get a message under %d%% mana.",
 	FWARN_REST_HEALTH_AT_FMT = "you now get a message under %d%% health.",
+	-- 9 Nov 2026, WoW Forever: fishing pole still in your hands when you pick an enemy or a fight starts (ForeverWarnings.lua).
+	FWARN_POLE_MSG = "Careful: you still have your fishing pole in your hands!",
+	FWARN_POLE_GEAR_FMT = "Put back: %s.",
+	FWARN_POLE_OFF_HINT = "(/mh pole off turns this off)",
+	FWARN_POLE_ON = "you get a message when you pick an enemy with your fishing pole still in your hands.",
+	FWARN_POLE_OFF = "no more message about your fishing pole. /mh pole on brings it back.",
 	-- 9 Nov 2026, WoW Forever: "This week in Forever" on the start page (ForeverWeek.lua). Calendar and raid names come
 	-- from the client itself; %s in FWEEK_PVP_FMT is the client's own word for Honor.
 	TAB_HOME_FOREVER = "Forever",

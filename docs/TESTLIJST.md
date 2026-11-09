@@ -32,6 +32,15 @@ er is niets weggegooid.
       en dag rond 05:00 servertijd, Darkmoon Faire + Call to Arms: Arathi Basin, 0 raids.
 - [ ] Woensdag 11 nov na de reset: telt "Nieuwe week" weer van ~7 dagen af?
 
+## 🆕 9 nov (laat) — Forever: waarschuwing "je hebt je vishengel nog in je handen"
+
+- [ ] Doe eerst je mace + schild aan (MH onthoudt ze), pak dan de hengel en klik een vijand aan: grote melding
+      "Let op: je hebt je vishengel nog in je handen!" en in de chat "Zet terug: [mace] + [schild]".
+- [ ] Zelfde vijand nog eens aanklikken: geen tweede melding. Binnen 30 s een andere vijand: ook stil.
+- [ ] Al vissend aangevallen worden: de melding komt bij het begin van het gevecht.
+- [ ] Met je wapen in de hand: nooit een melding. `/mh pole` toont hand, onthouden spullen en de laatste beslissing;
+      `/mh pole off` zet hem uit, `/mh pole on` weer aan.
+
 ## 🆕 9 nov (laat) — Forever: geen "WEAPON BUFF" met een hengel in je hand
 
 - [ ] Shaman met de Fishing Pole in de hand: de knop "WEAPON BUFF" verdwijnt meteen. Weer een wapen erin: hij komt

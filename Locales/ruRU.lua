@@ -6064,6 +6064,11 @@ ns._mhLocales.ruRU = {
 	FWARN_REST_OFF = "сообщений о нехватке маны или здоровья больше не будет. /mh rest on вернёт их.",
 	FWARN_REST_MANA_AT_FMT = "теперь сообщение появляется ниже %d%% маны.",
 	FWARN_REST_HEALTH_AT_FMT = "теперь сообщение появляется ниже %d%% здоровья.",
+	FWARN_POLE_MSG = "Осторожно: у вас в руках всё ещё удочка!",
+	FWARN_POLE_GEAR_FMT = "Наденьте обратно: %s.",
+	FWARN_POLE_OFF_HINT = "(/mh pole off отключает это)",
+	FWARN_POLE_ON = "вы получите сообщение, когда берёте врага в цель с удочкой в руках.",
+	FWARN_POLE_OFF = "сообщений об удочке больше не будет. /mh pole on вернёт их.",
 	FBUFF_ON = "кнопка недостающих баффов включена.",
 	FBUFF_OFF = "кнопка недостающих баффов выключена. /mh buffs on вернёт её.",
 	-- 9 Nov 2026: "This week in Forever" (ForeverWeek.lua). Our own translation, not native-checked.

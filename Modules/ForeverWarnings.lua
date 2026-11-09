@@ -30,10 +30,11 @@ local REST_GAP = 30
 local function Settings()
 	local d = ns.db
 	if not d then
-		return { bags = true, bagsAt = 2, rest = true, mana = 40, health = 50 }
+		return { bags = true, bagsAt = 2, rest = true, mana = 40, health = 50, pole = true }
 	end
 	d.foreverWarn = d.foreverWarn or {}
 	local s = d.foreverWarn
+	if s.pole == nil then s.pole = true end
 	if s.bags == nil then s.bags = true end
 	if s.bagsAt == nil then s.bagsAt = 2 end
 	if s.rest == nil then s.rest = true end
@@ -378,6 +379,122 @@ local function CheckRest()
 end
 
 --------------------------------------------------------------------------------
+-- 3. Fishing pole still in your hands
+-- Rob, 9 Nov 2026: "als welke karakter dan ook een vishengel heeft in zijn handen en iets target die die eventueel aan
+-- kan vallen, dat die waarschuwt" → plan (also when a fight starts; once per enemy, 30 s apart; /mh pole on|off;
+-- remember the weapons from before) → "Ja, dit klopt zo. ... een mace en een shield, dat hij dat ook onthoudt".
+-- MH never swaps the gear itself: whether that is allowed in a fight is not measured.
+--------------------------------------------------------------------------------
+
+local POLE_GAP = 30
+local FISHING_SUBCLASS = (Enum and Enum.ItemWeaponSubclass and Enum.ItemWeaponSubclass.Fishingpole) or 20
+local poleState = { lastAt = 0, lastKey = nil, lastWhy = "nothing checked yet" }
+
+local function IsPole(itemID)
+	if not itemID then
+		return false
+	end
+	local info = (C_Item and C_Item.GetItemInfoInstant) or GetItemInfoInstant
+	if not info then
+		return false
+	end
+	local ok, _, _, _, _, _, classID, subclassID = pcall(info, itemID)
+	return ok and classID == 2 and subclassID == FISHING_SUBCLASS
+end
+
+local function PoleInHand()
+	return IsPole(GetInventoryItemID and GetInventoryItemID("player", 16))
+end
+
+--- Remember main hand + off-hand (the shield too) while they are NOT a pole, per character, so the warning can say
+--- what to put back. Saved in the character's own entry, so an alt never gets another character's weapons.
+local function CharKey()
+	local n, r = UnitFullName and UnitFullName("player")
+	return n and (n .. "-" .. (r or GetRealmName() or "")) or nil
+end
+
+local function RememberGear()
+	local d, key = ns.db, CharKey()
+	if not (d and key) or PoleInHand() then
+		return
+	end
+	d.foreverPoleGear = d.foreverPoleGear or {}
+	d.foreverPoleGear[key] = {
+		main = GetInventoryItemLink("player", 16),
+		off = GetInventoryItemLink("player", 17),
+	}
+end
+
+local function SavedGear()
+	local d, key = ns.db, CharKey()
+	local g = d and key and d.foreverPoleGear and d.foreverPoleGear[key]
+	if type(g) ~= "table" then
+		return nil
+	end
+	local list = {}
+	if g.main then list[#list + 1] = g.main end
+	if g.off then list[#list + 1] = g.off end
+	return #list > 0 and table.concat(list, " + ") or nil
+end
+
+--- why: "target" (you picked an enemy) or "fight" (a fight started).
+local function CheckPole(why)
+	local s = Settings()
+	if not s.pole then
+		poleState.lastWhy = "switched off (/mh pole on)"
+		return
+	end
+	if not PoleInHand() then
+		poleState.lastWhy = "no fishing pole in your main hand"
+		return
+	end
+	local key
+	if why == "target" then
+		if not (UnitExists("target") and UnitCanAttack("player", "target") == true) then
+			return -- not an enemy: no decision to record
+		end
+		if UnitIsDead("target") == true then
+			poleState.lastWhy = "target is dead"
+			return
+		end
+		key = TargetKey()
+		if key and key == poleState.lastKey then
+			poleState.lastWhy = "same enemy as last time: told you once"
+			return
+		end
+	end
+	local now = GetTime()
+	if now - poleState.lastAt < POLE_GAP then
+		poleState.lastWhy = ("asked again within %d s: quiet"):format(POLE_GAP)
+		return
+	end
+	poleState.lastAt, poleState.lastKey = now, key
+	local msg = ns:L("FWARN_POLE_MSG")
+	if ns.FireAccessibleAlert then
+		ns.FireAccessibleAlert(msg, false, 5)
+	end
+	local gear = SavedGear()
+	print(PREFIX .. msg .. (gear and (" " .. ns:L("FWARN_POLE_GEAR_FMT"):format(gear)) or "") ..
+		" |cff888888" .. ns:L("FWARN_POLE_OFF_HINT") .. "|r")
+	poleState.lastWhy = ("warned (%s)"):format(why == "fight" and "a fight started" or "you targeted an enemy")
+end
+
+function ns.ForeverPoleSlash(arg)
+	local s = Settings()
+	arg = (arg or ""):lower()
+	if arg == "on" or arg == "off" then
+		s.pole = (arg == "on")
+		print(PREFIX .. ns:L(s.pole and "FWARN_POLE_ON" or "FWARN_POLE_OFF"))
+		return
+	end
+	print(PREFIX .. ("fishing pole warning: %s (/mh pole on||off)"):format(s.pole and "on" or "off"))
+	print(("  main hand: %s, pole: %s"):format(tostring(GetInventoryItemLink("player", 16) or "empty"),
+		PoleInHand() and "yes" or "no"))
+	print("  remembered gear: " .. (SavedGear() or "nothing yet (equip your weapon once)"))
+	print("  last decision: " .. poleState.lastWhy)
+end
+
+--------------------------------------------------------------------------------
 -- Commands
 --------------------------------------------------------------------------------
 
@@ -466,10 +583,20 @@ end
 local ev = CreateFrame("Frame")
 ev:RegisterEvent("BAG_UPDATE_DELAYED")
 ev:RegisterEvent("PLAYER_REGEN_ENABLED")
+ev:RegisterEvent("PLAYER_REGEN_DISABLED")
 ev:RegisterEvent("PLAYER_TARGET_CHANGED")
+ev:RegisterEvent("PLAYER_EQUIPMENT_CHANGED")
+ev:RegisterEvent("PLAYER_ENTERING_WORLD")
 ev:SetScript("OnEvent", function(_, event)
 	if event == "PLAYER_TARGET_CHANGED" then
 		CheckRest()
+		CheckPole("target")
+	elseif event == "PLAYER_REGEN_DISABLED" then
+		CheckPole("fight")
+	elseif event == "PLAYER_EQUIPMENT_CHANGED" or event == "PLAYER_ENTERING_WORLD" then
+		-- Half a second later: taking a two-handed pole fires one event per slot, and a moment where the shield is
+		-- already gone but the mace is still in hand would make MH forget the shield (AFGELEID; the delay is cheap).
+		C_Timer.After(0.5, RememberGear)
 	else
 		if event == "BAG_UPDATE_DELAYED" or bagState.pending then
 			CheckBags()

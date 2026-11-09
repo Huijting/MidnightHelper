@@ -10,6 +10,12 @@
 - Shaman weapon buff (Rob, screenshot "WEAPON BUFF" met de Fishing Pole in de hand): `ForeverBuffs.lua` Evaluate kijkt
   nu eerst naar slot 16 — hengel (item class 2, subclass 20 = `Enum.ItemWeaponSubclass.Fishingpole`, AFGELEID dat
   Forever die nummers houdt) of geen wapen → geen melding. MissingBuff ververst al op PLAYER_EQUIPMENT_CHANGED.
+- Hengel-waarschuwing (Rob: "Ja, dit klopt zo" + "een mace en een shield, dat hij dat ook onthoudt"):
+  `ForeverWarnings.lua` deel 3. Hengel in slot 16 + vijand targeten (PLAYER_TARGET_CHANGED) of gevecht begint
+  (PLAYER_REGEN_DISABLED) → FireAccessibleAlert + chatregel "Zet terug: <links>". 1× per vijand, 30 s ertussen.
+  Slot 16 + 17 onthouden per character in `ns.db.foreverPoleGear[naam-realm]`, 0,5 s na PLAYER_EQUIPMENT_CHANGED,
+  nooit terwijl de hengel in de hand is. MH wisselt zelf niets. `/mh pole [on|off]` (Core.lua). 5 FWARN_POLE_*-keys,
+  de/fr/es/pt/ru door mh-writer (hengelwoord GEMETEN: wago ItemSubClass 2/20, wowf 70862; geen it), drift gemarkeerd.
 - Macro-onderzoek Forever klaar (3× mh-research, zonder onze oude macro's) → `docs/forever/FOREVER_MACROS_2026-11-09_A/B/C.md`.
   Rob: "Plan maken voor MH" → plan (1 bewaren, 2 per klasse naast de bloktabellen leggen "zit al / nieuw", Druid eerst,
   3 lijst "Handige macro's" met knop "Maak deze macro", 4 mouseover-schakelaar in het toetsenblok, standaard uit).

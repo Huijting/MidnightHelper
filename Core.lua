@@ -2551,6 +2551,15 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		end
 		return
 	end
+	local poleArg = msg:lower() == "pole" and "" or msg:lower():match("^pole%s+(.+)$")
+	if poleArg then
+		if ns.ForeverPoleSlash then
+			ns.ForeverPoleSlash(poleArg)
+		else
+			print("|cffffcc00Midnight Helper:|r /mh pole is for WoW: Forever.")
+		end
+		return
+	end
 	local bagsArg = msg:lower() == "bags" and "" or msg:lower():match("^bags%s+(.+)$")
 	local restArg = msg:lower() == "rest" and "" or msg:lower():match("^rest%s+(.+)$")
 	if bagsArg or restArg then

@@ -15838,6 +15838,46 @@
    "ptBR": "7d68339cbcd931b4",
    "ruRU": "7d68339cbcd931b4"
   },
+  "FWARN_POLE_GEAR_FMT": {
+   "deDE": "a46cb56b8bda9b92",
+   "esES": "a46cb56b8bda9b92",
+   "frFR": "a46cb56b8bda9b92",
+   "nlNL": "a46cb56b8bda9b92",
+   "ptBR": "a46cb56b8bda9b92",
+   "ruRU": "a46cb56b8bda9b92"
+  },
+  "FWARN_POLE_MSG": {
+   "deDE": "acc8e50fd81770ba",
+   "esES": "acc8e50fd81770ba",
+   "frFR": "acc8e50fd81770ba",
+   "nlNL": "acc8e50fd81770ba",
+   "ptBR": "acc8e50fd81770ba",
+   "ruRU": "acc8e50fd81770ba"
+  },
+  "FWARN_POLE_OFF": {
+   "deDE": "64fa35e93ff2529a",
+   "esES": "64fa35e93ff2529a",
+   "frFR": "64fa35e93ff2529a",
+   "nlNL": "64fa35e93ff2529a",
+   "ptBR": "64fa35e93ff2529a",
+   "ruRU": "64fa35e93ff2529a"
+  },
+  "FWARN_POLE_OFF_HINT": {
+   "deDE": "414b23135df908cc",
+   "esES": "414b23135df908cc",
+   "frFR": "414b23135df908cc",
+   "nlNL": "414b23135df908cc",
+   "ptBR": "414b23135df908cc",
+   "ruRU": "414b23135df908cc"
+  },
+  "FWARN_POLE_ON": {
+   "deDE": "c97837a8ab877bb9",
+   "esES": "c97837a8ab877bb9",
+   "frFR": "c97837a8ab877bb9",
+   "nlNL": "c97837a8ab877bb9",
+   "ptBR": "c97837a8ab877bb9",
+   "ruRU": "c97837a8ab877bb9"
+  },
   "FWEEK_EVENTS_NONE": {
    "deDE": "c0f24b9d5bfc2342",
    "esES": "c0f24b9d5bfc2342",
