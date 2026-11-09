@@ -249,6 +249,8 @@ Modules\ForeverBuffs.lua
 Modules\ForeverWarnings.lua
 Modules\ForeverWeek.lua
 Modules\ForeverMacros.lua
+Modules\ForeverVendorSpots.lua
+Modules\ForeverVendors.lua
 Modules\ForeverMainStats.lua
 Modules\ForeverQuestHint.lua
 Modules\ForeverLayoutCarry.lua

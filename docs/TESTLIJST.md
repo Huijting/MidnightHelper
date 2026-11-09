@@ -32,6 +32,20 @@ er is niets weggegooid.
       en dag rond 05:00 servertijd, Darkmoon Faire + Call to Arms: Arathi Basin, 0 raids.
 - [ ] Woensdag 11 nov na de reset: telt "Nieuwe week" weer van ~7 dagen af?
 
+## 🆕 9 nov (nacht) — Forever: "Waar koop ik dit?" (winkeliers met pijl)
+
+- [ ] `/mh vendor` opent het venster: links Fishing Pole, Strong Fishing Pole, Mining Pick, Skinning Knife, Blacksmith
+      Hammer, Flint and Tinder, Thieves' Tools, General Goods, Trade Supplies (itemnamen in de taal van je client).
+      Rechts de verkopers aan jouw kant, dichtstbijzijnde bovenaan, met zone en afstand.
+- [ ] Klik "Pijl" bij een verkoper: de pijl wijst ernaartoe. Open onderweg een ándere winkel: pijl blijft. Open de winkel
+      van die verkoper (of sta op 5 m): pijl weg.
+- [ ] Leer een beroep zonder gereedschap (bv. Mining zonder Mining Pick, op een alt): er komt een venstertje "Je hebt
+      Mining geleerd, maar je hebt nog geen Mining Pick. De dichtstbijzijnde verkoper: …" met "Wijs de weg" en "Alle
+      verkopers". Beroepen die je al had komen NIET.
+- [ ] `/mh vendor check` toont per soort hoeveel verkopers en de dichtstbijzijnde. `/mh vendor fishing` opent meteen de
+      hengel-lijst.
+- [ ] Redridge: klopt de plek van een verkoper in Lakeshire (bv. Amy Davenport)? Wowhead en Zygor verschillen daar ~5.
+
 ## 🆕 9 nov (nacht) — Forever: Handige macro's + mouseover in het toetsenblok
 
 - [ ] `/mh macros` in Forever opent het venster "Handige macro's": Heal, Verband, Vijand kiezen en aanvallen, Focus,

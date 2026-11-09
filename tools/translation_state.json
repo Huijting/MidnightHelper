@@ -16077,6 +16077,148 @@
    "ptBR": "7d68339cbcd931b4",
    "ruRU": "7d68339cbcd931b4"
   },
+  "FVEND_ARROW": {
+   "deDE": "05800e70aa10c86f",
+   "esES": "05800e70aa10c86f",
+   "frFR": "05800e70aa10c86f",
+   "nlNL": "05800e70aa10c86f",
+   "ptBR": "05800e70aa10c86f",
+   "ruRU": "05800e70aa10c86f"
+  },
+  "FVEND_ARROW_SET_FMT": {
+   "deDE": "e7e41a5215b54b9c",
+   "esES": "e7e41a5215b54b9c",
+   "frFR": "e7e41a5215b54b9c",
+   "nlNL": "e7e41a5215b54b9c",
+   "ptBR": "e7e41a5215b54b9c",
+   "ruRU": "e7e41a5215b54b9c"
+  },
+  "FVEND_CAT_GENERAL": {
+   "deDE": "99e3ceaf95a99abc",
+   "esES": "99e3ceaf95a99abc",
+   "frFR": "99e3ceaf95a99abc",
+   "ptBR": "99e3ceaf95a99abc",
+   "ruRU": "99e3ceaf95a99abc"
+  },
+  "FVEND_CAT_TRADE": {
+   "deDE": "e14a357a9398c761",
+   "esES": "e14a357a9398c761",
+   "frFR": "e14a357a9398c761",
+   "ptBR": "e14a357a9398c761",
+   "ruRU": "e14a357a9398c761"
+  },
+  "FVEND_COUNT_FMT": {
+   "deDE": "b2815daa2798ed50",
+   "esES": "b2815daa2798ed50",
+   "frFR": "b2815daa2798ed50",
+   "nlNL": "b2815daa2798ed50",
+   "ptBR": "b2815daa2798ed50",
+   "ruRU": "b2815daa2798ed50"
+  },
+  "FVEND_EMPTY": {
+   "deDE": "63e09a10c90ff566",
+   "esES": "63e09a10c90ff566",
+   "frFR": "63e09a10c90ff566",
+   "nlNL": "63e09a10c90ff566",
+   "ptBR": "63e09a10c90ff566",
+   "ruRU": "63e09a10c90ff566"
+  },
+  "FVEND_HINT": {
+   "deDE": "887c01cd4513e1a3",
+   "esES": "887c01cd4513e1a3",
+   "frFR": "887c01cd4513e1a3",
+   "nlNL": "887c01cd4513e1a3",
+   "ptBR": "887c01cd4513e1a3",
+   "ruRU": "887c01cd4513e1a3"
+  },
+  "FVEND_ITEM_LOADING": {
+   "deDE": "7b47b13b5b55beff",
+   "esES": "7b47b13b5b55beff",
+   "frFR": "7b47b13b5b55beff",
+   "nlNL": "7b47b13b5b55beff",
+   "ptBR": "7b47b13b5b55beff",
+   "ruRU": "7b47b13b5b55beff"
+  },
+  "FVEND_NOPOS": {
+   "deDE": "86366feb45b94705",
+   "esES": "86366feb45b94705",
+   "frFR": "86366feb45b94705",
+   "nlNL": "86366feb45b94705",
+   "ptBR": "86366feb45b94705",
+   "ruRU": "86366feb45b94705"
+  },
+  "FVEND_NO_WAYPOINT": {
+   "deDE": "ce563ab8356c5f4b",
+   "esES": "ce563ab8356c5f4b",
+   "frFR": "ce563ab8356c5f4b",
+   "nlNL": "ce563ab8356c5f4b",
+   "ptBR": "ce563ab8356c5f4b",
+   "ruRU": "ce563ab8356c5f4b"
+  },
+  "FVEND_OTHER_CONT": {
+   "deDE": "6e08465279d02394",
+   "esES": "6e08465279d02394",
+   "frFR": "6e08465279d02394",
+   "nlNL": "6e08465279d02394",
+   "ptBR": "6e08465279d02394",
+   "ruRU": "6e08465279d02394"
+  },
+  "FVEND_SUB_GOODS": {
+   "deDE": "19b44694fd7072ee",
+   "esES": "19b44694fd7072ee",
+   "frFR": "19b44694fd7072ee",
+   "nlNL": "19b44694fd7072ee",
+   "ptBR": "19b44694fd7072ee",
+   "ruRU": "19b44694fd7072ee"
+  },
+  "FVEND_SUB_TOOL": {
+   "deDE": "53292dcc950054f3",
+   "esES": "53292dcc950054f3",
+   "frFR": "53292dcc950054f3",
+   "nlNL": "53292dcc950054f3",
+   "ptBR": "53292dcc950054f3",
+   "ruRU": "53292dcc950054f3"
+  },
+  "FVEND_TIP_ALL": {
+   "deDE": "8d6a5d91beefa4ed",
+   "esES": "8d6a5d91beefa4ed",
+   "frFR": "8d6a5d91beefa4ed",
+   "nlNL": "8d6a5d91beefa4ed",
+   "ptBR": "8d6a5d91beefa4ed",
+   "ruRU": "8d6a5d91beefa4ed"
+  },
+  "FVEND_TIP_FMT": {
+   "deDE": "f550d847e351389f",
+   "esES": "f550d847e351389f",
+   "frFR": "f550d847e351389f",
+   "nlNL": "f550d847e351389f",
+   "ptBR": "f550d847e351389f",
+   "ruRU": "f550d847e351389f"
+  },
+  "FVEND_TIP_NONE_FMT": {
+   "deDE": "8ce62e961ec83467",
+   "esES": "8ce62e961ec83467",
+   "frFR": "8ce62e961ec83467",
+   "nlNL": "8ce62e961ec83467",
+   "ptBR": "8ce62e961ec83467",
+   "ruRU": "8ce62e961ec83467"
+  },
+  "FVEND_TIP_WAY": {
+   "deDE": "c5eb45d18d46799e",
+   "esES": "c5eb45d18d46799e",
+   "frFR": "c5eb45d18d46799e",
+   "nlNL": "c5eb45d18d46799e",
+   "ptBR": "c5eb45d18d46799e",
+   "ruRU": "c5eb45d18d46799e"
+  },
+  "FVEND_TITLE": {
+   "deDE": "804e9378c7d97702",
+   "esES": "804e9378c7d97702",
+   "frFR": "804e9378c7d97702",
+   "nlNL": "804e9378c7d97702",
+   "ptBR": "804e9378c7d97702",
+   "ruRU": "804e9378c7d97702"
+  },
   "FWARN_POLE_GEAR_FMT": {
    "deDE": "a46cb56b8bda9b92",
    "esES": "a46cb56b8bda9b92",

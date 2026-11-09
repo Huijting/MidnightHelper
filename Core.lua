@@ -2558,6 +2558,15 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		ns.ForeverMacrosSlash(macArg)
 		return
 	end
+	local vendArg = msg:lower() == "vendor" and "" or msg:lower():match("^vendor%s+(.+)$")
+	if vendArg then
+		if ns.ForeverVendorSlash then
+			ns.ForeverVendorSlash(vendArg)
+		else
+			print("|cffffcc00Midnight Helper:|r /mh vendor is for WoW: Forever.")
+		end
+		return
+	end
 	local moArg = msg:lower() == "mouseover" and "" or msg:lower():match("^mouseover%s+(.+)$")
 	if moArg then
 		if ns.ForeverMouseoverSlash then

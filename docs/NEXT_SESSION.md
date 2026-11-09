@@ -37,9 +37,15 @@
   Rob: "Plan maken voor MH" → plan (1 bewaren, 2 per klasse naast de bloktabellen leggen "zit al / nieuw", Druid eerst,
   3 lijst "Handige macro's" met knop "Maak deze macro", 4 mouseover-schakelaar in het toetsenblok, standaard uit).
   Rob: "Ja, je mag met stap 1 en stap 2 beginnen." Stap 3 en 4 wachten op zijn ja na het Druid-lijstje.
-- Lopend: winkeliers vindbaar maken (Rob: "Yeah, je mag zo beginnen"): mh-research schrijft
-  `docs/forever/FOREVER_VENDORS_2026-11-09.md` (gereedschap + General Goods/Trade Supplies, rijformaat als
-  ForeverProfTrainerSpots). Daarna bouwen: pijl per winkelier, tip na het leren van een beroep zonder gereedschap.
+- ✅ Winkeliers vindbaar (Rob: "Yeah, je mag zo beginnen" + "Gaan we door zolang je kan"): onderzoek
+  `docs/forever/FOREVER_VENDORS_2026-11-09.md` (mh-research, Wowhead Forever; 303 gereedschap- + 118 goods-rijen).
+  Data `Modules/ForeverVendorSpots.lua`, venster `Modules/ForeverVendors.lua` (beide TOC's): `/mh vendor [soort|check]`,
+  9 soorten, verkopers aan jouw kant op afstand, knop Pijl (Blizzard-waypoint + NativeArrow, via "/mh vendor"; weg op
+  5 yd of bij MERCHANT_SHOW van DIE npc). Tip-venster na SKILL_LINES_CHANGED als Fishing/Mining/Skinning/Blacksmithing
+  nieuw is en je geen gereedschap draagt (beroepen bij inloggen worden alleen genoteerd, `ns.db.foreverToolTipSeen`).
+  `unsure` (3× EPL) en rijen zonder plek worden overgeslagen. Engelse bijtitels alleen op een Engelse client. FVEND_*
+  in 7 talen (bijtitels GEMETEN op retail-Wowhead per taal; Forever-DB2 heeft ze niet). Offline getest. Open: Redridge-
+  frame (~5 verschil Wowhead/Zygor), EPL-rijen, en een ingang buiten `/mh vendor` (tegel/knop — samen met de macro-tegel).
 
 ## 🆕 9 nov (avond) — Midnight: 20 Zo speel je-kaarten bijgewerkt, MH laadt niet in Talebound, 2 Codex-artikelen voor 12.1.7 (Rob: "begin maar met 1 en als die klaar is, dan ga dan maar door")
 
