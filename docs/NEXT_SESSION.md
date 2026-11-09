@@ -1,5 +1,16 @@
 # Midnight Helper — waar we staan
 
+## 🆕 9 nov — Forever: GUID-lezen in ForeverTrainer.lua robuust gemaakt (Rob: "Ja, repareer")
+
+- Aanleiding: API-wachter 9 nov ([MOET GEFIKST]). `ForeverTrainer.lua` (`/mh trainer here` en `NpcOfUnit` voor het kruis)
+  las de creature-GUID met `%d+` op de velden 2-5. Forever 1.60.1 (build ≥70425) vervangt server-/spawn-id door
+  waarden van onbeschreven vorm. Zijn dat geen cijfers, dan gaf het patroon stil `nil`.
+- Nu `[^%-]+` op de velden 2-5, het laatste `(%d+)` blijft; hetzelfde patroon als `SpotLog.lua:246`. GEMETEN: dit waren
+  de laatste twee `%d+%-%d+%-%d+%-%d+`-lezers in `Modules/`. Syntax OK, lint 0 HARD. Niet in de client getest.
+- AFGELEID, niet gemeten: of Forever de obfuscatie nu al heeft. `/dump UnitGUID("target")` in Forever laat het zien.
+- Ochtendronde 9 nov, ter info: Serpent's Bite-hotfix (Ula'tek-tip "two players" mogelijk achterhaald, in de raid
+  tellen) en PLAYCARD_1480_HERO1 (Devourer DH, sinds 12.1.5 verouderd) staan in `docs/CONTENT_WATCH.md`; niets aangeraakt.
+
 ## 🆕 8 nov (laat) — Forever: Me-kamer kaarten (Rob: "net zo een mooi layout voor tab me ... als ... tools" → "Ja, zo bouwen") + BugSack-fix
 
 - 🐛 GEMETEN (Robs BugSack): `ForeverTrainer.lua:939 attempt to concatenate local 'prof' (a table value)`. De

@@ -21,6 +21,13 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 9 nov — Forever: NPC-nummer uit de GUID
+
+- [ ] Klik in Forever een NPC aan en typ `/dump UnitGUID("target")`. Stuur wat er staat (bv. "Creature-0-...-12345-...").
+      Zo zien we of Blizzard daar al letters of rare tekens gebruikt.
+- [ ] Sta bij een trainer, klik hem aan en typ `/mh trainer here alchemy` (of je eigen beroep). Daarna `/mh trainer mark`
+      na een "go": bij die trainer staat een npc-nummer, niet "npc nil".
+
 ## 🆕 8 nov (laat) — Forever: kaarten in de kamer "Me" + pijlknop op de startpagina
 
 - [ ] BugSack-fout van 8 nov ("attempt to concatenate local 'prof' (a table value)"): klik op de startpagina op de knop

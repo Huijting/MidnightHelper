@@ -1202,7 +1202,8 @@ local function RecordHere(prof)
 	local npc
 	local guid = name and UnitGUID and UnitGUID("target")
 	if type(guid) == "string" and not (issecretvalue and issecretvalue(guid)) then
-		npc = tonumber(guid:match("^Creature%-%d+%-%d+%-%d+%-%d+%-(%d+)"))
+		-- Fields 2-5 loose: Forever 1.60.1 (and 12.1.7 later) obfuscate the server and spawn id, form not documented.
+		npc = tonumber(guid:match("^Creature%-[^%-]+%-[^%-]+%-[^%-]+%-[^%-]+%-(%d+)"))
 	end
 	local list = Spots()
 	list[token] = list[token] or {}
@@ -1286,7 +1287,8 @@ local function NpcOfUnit(unit)
 	if type(guid) ~= "string" then
 		return nil, false
 	end
-	return tonumber(guid:match("^Creature%-%d+%-%d+%-%d+%-%d+%-(%d+)")), false
+	-- Fields 2-5 loose, as in SpotLog.lua: the obfuscated server/spawn id need not be digits.
+	return tonumber(guid:match("^Creature%-[^%-]+%-[^%-]+%-[^%-]+%-[^%-]+%-(%d+)")), false
 end
 
 local function NameOfUnit(unit)
