@@ -28,8 +28,8 @@ er is niets weggegooid.
 - [ ] Op de startpagina een blok **"Deze week in Forever"**: "Nieuwe week over …" en "Nieuwe dag over …" met tijden
       die kloppen (woensdag ochtend?), de Darkmoon Faire (tot 16 nov) met een zin uitleg, "De raids gaan open op
       9 december", en de regels over PvP en writs.
-- [ ] Typ `/mh week`: hij print de resettijden, de kalender van vandaag (titel, type, id) en de raids. Na `/reload`
-      staat het ook in de SavedVariables (`foreverWeekDump`) — die lees ik dan uit voor meer uitleg per event.
+- [x] Typ `/mh week`: hij print de resettijden, de kalender van vandaag (titel, type, id) en de raids. ✅ 9 nov: week
+      en dag rond 05:00 servertijd, Darkmoon Faire + Call to Arms: Arathi Basin, 0 raids.
 - [ ] Woensdag 11 nov na de reset: telt "Nieuwe week" weer van ~7 dagen af?
 
 ## 🆕 9 nov (avond) — Midnight: kaarten, Talebound, Codex
@@ -37,13 +37,13 @@ er is niets weggegooid.
 - [ ] 🔴 Retail `/reload`: MH laadt gewoon (nieuwe TOC-regel `AllowLoadGameType: standard`). Ook in Forever nog gewoon laden.
 - [ ] Op een paar specs `/mh play`: geen "{SPELL:" in beeld, nieuwe regels kloppen. Vooral Outlaw (S1/S2), Devastation (S1),
       Demonology (S4), Mistweaver (HERO1/S4), Holy Priest (S2/HERO1). Quiz-tab: vragen werken nog.
-- [ ] Balance Druid: staat er "Solar Eclipse" op de kaart terwijl je Elune's Chosen speelt? (keuze open)
+- [x] Balance Druid: "Solar Eclipse" blijft op de kaart (Rob koos A, 9 nov).
 - [ ] Na 12.1.7: Codex → Weekly heeft "Turbulent Timeways VI (12.1.7)", World heeft "Lorewalking (12.1.7)".
 
 ## 🆕 9 nov — Forever: oude ranks op je balken
 
-- [ ] Typ `/mh ranks` op een character met een paar spells op de balk: hij noemt het aantal spell-knoppen en welke een
-      lagere rank hebben dan je kent (met "game says highest: …"). Stuur me die regels, ook als het er 0 zijn.
+- [x] Typ `/mh ranks` op een character met een paar spells op de balk: hij noemt het aantal spell-knoppen en welke een
+      lagere rank hebben dan je kent. ✅ 9 nov: 6 knoppen, 2 met bekende ranks, 0 te laag.
 - [ ] Bij de trainer een nieuwe rank leren (Train all of los): onder het trainervenster komt **"Balken bijwerken (N)"**,
       en in de chat één regel. Hover = welke spells. Klik = de knop gebruikt daarna de nieuwe rank (tooltip van de knop).
 - [ ] Startpagina: staan er knoppen met een lagere rank, dan een gele regel + knop "Zet de nieuwste rank erop".

@@ -27,6 +27,10 @@
   mh-research 9 nov (bronnen + datums in de chat van 9 nov): Forever-raids resetten wekelijks vanaf 9 dec (Blizzard 20 okt;
   dag/uur niet gepubliceerd), PvP-rank heeft een weekcap + Call to Arms (Blizzard 7 okt), Darkmoon Faire 1 week/maand,
   vistoernooi zondag (fan), writs 1×/dag per writ. Resettijd Forever: NIET gepubliceerd → in de client meten (`/mh week`).
+  ✅ GEMETEN 9 nov 17:47 servertijd (Rob, `/mh week`): weekreset over 126825 s, dagreset over 40425 s → allebei rond
+  05:00 servertijd; week = woensdag 11 nov. Kalender gaf 2 events: Darkmoon Faire (HOLIDAY id 263, START) en
+  "Call to Arms: Arathi Basin" (HOLIDAY id 1841, ONGOING). Raid lockouts 0. `/mh ranks`: 6 spell-knoppen, 2 met
+  bekende ranks, 0 te laag (auto uit) — werkt, nog niets om te vervangen. Nog open: woensdag tellen na de reset.
 - Nieuw `Modules/ForeverWeek.lua` (beide TOC's, `IS_FOREVER`-guard): blok "This week in Forever" op de Forever-startpagina
   (HomeDashboard, sectie `fweek`): week-/dagreset (C_DateAndTime), feestdagen van vandaag uit de spelkalender (titel +
   eerste zin van Blizzards eigen beschrijving, dus in de taal van de client), raid-lockouts (GetSavedInstanceInfo; vóór
