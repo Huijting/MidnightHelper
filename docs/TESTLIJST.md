@@ -21,6 +21,22 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 9 nov — Forever: "Deze week in Forever"
+
+- [ ] Forever, MH open, startpagina: links in de zijbalk en in de Ik-kamer heet hij nu **"Forever"**, niet "Deze week".
+      De kaart in de Ik-kamer zegt "Reset over …".
+- [ ] Op de startpagina een blok **"Deze week in Forever"**: "Nieuwe week over …" en "Nieuwe dag over …" met tijden
+      die kloppen (woensdag ochtend?), de Darkmoon Faire (tot 16 nov) met een zin uitleg, "De raids gaan open op
+      9 december", en de regels over PvP en writs.
+- [ ] Typ `/mh week`: hij print de resettijden, de kalender van vandaag (titel, type, id) en de raids. Na `/reload`
+      staat het ook in de SavedVariables (`foreverWeekDump`) — die lees ik dan uit voor meer uitleg per event.
+- [ ] Woensdag 11 nov na de reset: telt "Nieuwe week" weer van ~7 dagen af?
+
+## 🆕 9 nov — Midnight: Turbulent Timeways VI (pas na patch 12.1.7)
+
+- [ ] Nu op live: bij Mounts staat **geen** Markeet of the Infinite (hij hoort verborgen te zijn tot 12.1.7).
+- [ ] Na 12.1.7: Markeet of the Infinite staat erbij met "X van 4" of "X van 5" weken (het getal komt uit het spel).
+
 ## 🆕 9 nov — Midnight: Zo speel je-kaart Devourer Demon Hunter
 
 - [ ] Op een Devourer DH, `/mh play` (How you play): de Void-Scarred-regel

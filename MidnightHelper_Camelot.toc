@@ -80,6 +80,8 @@ Modules\VersionNotice.lua
 Modules\NameplateColors.lua
 # Bags almost full, low mana/health before a fight (Rob, 8 Nov 2026: "Ja, bouw alle drie").
 Modules\ForeverWarnings.lua
+# This week in Forever on the start page: resets, today's calendar, raid lockouts (Rob, 9 Nov 2026: "Ja, ik volg jouw adviezen").
+Modules\ForeverWeek.lua
 Modules\LayoutExtras.lua
 Modules\CombatSafety.lua
 Modules\FastMark.lua

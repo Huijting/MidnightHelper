@@ -81,6 +81,21 @@ local TRACKED = {
 		howToKey = "MOUNTPROG_VYRANOTH_HOWTO",
 	},
 	{
+		-- 9 Nov 2026 (Rob: "ga voorlopig door zolang je kan", keep Midnight current): Turbulent Timeways VI, patch 12.1.7.
+		-- GEMETEN on the PTR (wago build 70424, docs/PATCH_12_1_7_PTR_2026-10-16.md §3): achievement 64207 "Master of the
+		-- Turbulent Timeways VI", reward item 287513 (Markeet of the Infinite). Blizzard's text says 4 weeks, the PTR
+		-- criterion asks 5: so `need` is read from the criterion, not written here. Hidden until the client knows 64207.
+		key = "timeways6",
+		mountItemID = 287513,     -- Markeet of the Infinite (teaches the mount)
+		achievementID = 64207,    -- Master of the Turbulent Timeways VI
+		need = 4,                 -- fallback only; needFromCriterion wins
+		needFromCriterion = true,
+		onlyIfAchievementExists = true,
+		noMarl = true, -- Timewalking event reward, not a Voidlight Marl purchase
+		fallbackName = "Markeet of the Infinite",
+		howToKey = "MOUNTPROG_TIMEWAYS6_HOWTO",
+	},
+	{
 		key = "torturedgorger",
 		mountItemID = 275664,        -- Tortured Gorger (teaches the mount)
 		metaAchievementID = 63264,   -- Heroic Showdowns: 6 heroic feats in Naigtal & Val
@@ -301,6 +316,27 @@ local function AchievementQuantity(achID)
 	return 0
 end
 
+--- The amount an achievement's first criterion asks (reqQuantity), nil when the client does not say.
+local function AchievementNeed(achID)
+	if not (achID and GetAchievementCriteriaInfo) then
+		return nil
+	end
+	local ok, _cs, _ct, _completed, _quantity, reqQuantity = pcall(GetAchievementCriteriaInfo, achID, 1)
+	if ok and type(reqQuantity) == "number" and reqQuantity > 0 then
+		return reqQuantity
+	end
+	return nil
+end
+
+--- Does this client know the achievement at all? (A next-patch entry stays away until it does.)
+local function AchievementExists(achID)
+	if not (achID and GetAchievementInfo) then
+		return false
+	end
+	local ok, id = pcall(GetAchievementInfo, achID)
+	return ok and id ~= nil
+end
+
 --- Progress as the number of COMPLETED criteria of a meta-achievement (e.g. a zone
 --- meta that gates a mount purchase). Counts the sub-achievement criteria that are
 --- done, so "have" reads as X of N feats.
@@ -386,6 +422,9 @@ end
 function ns.GetWeeklyMountProgress(includeCollected)
 	local out = {}
 	for _, m in ipairs(TRACKED) do
+		if m.onlyIfAchievementExists and not AchievementExists(m.achievementID) then
+			-- next patch's mount: not on this client yet (9 Nov 2026, Turbulent Timeways VI)
+		else
 		local collected, mountName, mountID = MountStatus(m)
 		local isCollected = (collected == true)
 		if includeCollected or not isCollected then -- data-not-loaded (nil) still shows
@@ -414,6 +453,9 @@ function ns.GetWeeklyMountProgress(includeCollected)
 				if m.achievementIDAlt then
 					-- Faction-paired achievement: take whichever your character has.
 					have = math.max(have, AchievementQuantity(m.achievementIDAlt))
+				end
+				if m.needFromCriterion then
+					need = AchievementNeed(m.achievementID) or need
 				end
 			else
 				have = 0
@@ -449,6 +491,7 @@ function ns.GetWeeklyMountProgress(includeCollected)
 				}
 			end
 		end
+		end -- onlyIfAchievementExists
 	end
 	return out
 end
@@ -461,11 +504,13 @@ end
 function ns.GetMountNameRoster()
 	local out = {}
 	for _, m in ipairs(TRACKED) do
+		if not (m.onlyIfAchievementExists and not AchievementExists(m.achievementID)) then
 		local _collected, mountName = MountStatus(m)
 		out[#out + 1] = {
 			key = m.key,
 			name = (type(mountName) == "string" and mountName ~= "" and mountName) or m.fallbackName,
 		}
+		end
 	end
 	return out
 end

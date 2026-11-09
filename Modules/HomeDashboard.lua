@@ -281,6 +281,20 @@ local function BuildLayout()
 			-- Rob, 8 Nov 2026: "maak een pagina in de MH om ze te vinden" (ForeverProfTrainers.lua).
 			button(rows, ns:L("FPROF_TITLE"), ns.ShowForeverProfTrainers and function() ns.ShowForeverProfTrainers() end)
 		end)
+		-- 9 Nov 2026 (Rob: "ook de Forever versie heeft deze week ... Zoek dat maar uit" → "Ja, ik volg jouw adviezen"):
+		-- resets, today's calendar, raid lockouts (ForeverWeek.lua).
+		if ns.ForeverWeekRows then
+			local okW, wRows = pcall(ns.ForeverWeekRows)
+			if okW and type(wRows) == "table" and #wRows > 0 then
+				local tone = { soft = COLOR_SOFT, dim = COLOR_DIM, warn = COLOR_WARN, good = COLOR_GOOD }
+				addFull(function(rows)
+					header(rows, ns:L("FWEEK_HEADER"), "fweek")
+					for _, r in ipairs(wRows) do
+						line(rows, r.text, tone[r.tone] or COLOR_SOFT)
+					end
+				end)
+			end
+		end
 		addFull(function(rows)
 			header(rows, ns:L("HOME_FOREVER_PLAY_HEADER"))
 			button(rows, ns:L("HOME_FOREVER_BTN_HOWTO"), ns.ShowPlayCardWindow and function() ns.ShowPlayCardWindow() end)

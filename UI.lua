@@ -2831,6 +2831,15 @@ local TAB_DEFS = {
 }
 
 local TAB_LABEL_BY_ID = {}
+-- WoW Forever: the start page is not "This Week" (9 Nov 2026, Rob: "ook de Forever versie heeft deze week"). The
+-- breadcrumb already said "Forever" since 7 Nov; the sidebar and the Me room card still said "Deze week".
+if ns.IS_FOREVER then
+	for _, tab in ipairs(TAB_DEFS) do
+		if tab.id == "home" then
+			tab.labelKey = "TAB_HOME_FOREVER"
+		end
+	end
+end
 for _, tab in ipairs(TAB_DEFS) do
 	TAB_LABEL_BY_ID[tab.id] = tab.labelKey
 end

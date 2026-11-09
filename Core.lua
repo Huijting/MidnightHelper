@@ -2532,6 +2532,15 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		ns.ForeverBuffsSlash(buffsArg)
 		return
 	end
+	-- /mh week — Forever: the raw reset, calendar and raid answers behind "This week in Forever" (ForeverWeek.lua).
+	if msg:lower() == "week" then
+		if ns.ForeverWeekSlash then
+			ns.ForeverWeekSlash()
+		else
+			print("|cffffcc00Midnight Helper:|r /mh week is for WoW: Forever.")
+		end
+		return
+	end
 	local bagsArg = msg:lower() == "bags" and "" or msg:lower():match("^bags%s+(.+)$")
 	local restArg = msg:lower() == "rest" and "" or msg:lower():match("^rest%s+(.+)$")
 	if bagsArg or restArg then

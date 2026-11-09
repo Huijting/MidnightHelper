@@ -789,6 +789,10 @@ local function CountEntries(t)
 end
 
 S.home = function()
+	-- Forever (9 Nov 2026): the card says when the week resets (ForeverWeek.lua).
+	if ns.IS_FOREVER then
+		return ns.ForeverWeekStatus and ns.ForeverWeekStatus() or nil
+	end
 	if not ns.GetNextWeeklyAction then
 		return nil
 	end

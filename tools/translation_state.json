@@ -15700,6 +15700,101 @@
    "ptBR": "7a7d3c80f46b39b6",
    "ruRU": "7a7d3c80f46b39b6"
   },
+  "FWEEK_EVENTS_NONE": {
+   "deDE": "c0f24b9d5bfc2342",
+   "esES": "c0f24b9d5bfc2342",
+   "frFR": "c0f24b9d5bfc2342",
+   "nlNL": "c0f24b9d5bfc2342",
+   "ptBR": "c0f24b9d5bfc2342",
+   "ruRU": "c0f24b9d5bfc2342"
+  },
+  "FWEEK_EVENT_UNTIL_FMT": {
+   "deDE": "ea2bb4cc0020a386",
+   "esES": "ea2bb4cc0020a386",
+   "frFR": "ea2bb4cc0020a386",
+   "nlNL": "ea2bb4cc0020a386",
+   "ptBR": "ea2bb4cc0020a386",
+   "ruRU": "ea2bb4cc0020a386"
+  },
+  "FWEEK_HEADER": {
+   "deDE": "672f527d342d407c",
+   "esES": "672f527d342d407c",
+   "frFR": "672f527d342d407c",
+   "nlNL": "672f527d342d407c",
+   "ptBR": "672f527d342d407c",
+   "ruRU": "672f527d342d407c"
+  },
+  "FWEEK_PVP_FMT": {
+   "deDE": "310f3ee154731aeb",
+   "esES": "310f3ee154731aeb",
+   "frFR": "310f3ee154731aeb",
+   "nlNL": "310f3ee154731aeb",
+   "ptBR": "310f3ee154731aeb",
+   "ruRU": "310f3ee154731aeb"
+  },
+  "FWEEK_RAIDS_NONE": {
+   "deDE": "b586227a3b43d80a",
+   "esES": "b586227a3b43d80a",
+   "frFR": "b586227a3b43d80a",
+   "nlNL": "b586227a3b43d80a",
+   "ptBR": "b586227a3b43d80a",
+   "ruRU": "b586227a3b43d80a"
+  },
+  "FWEEK_RAIDS_SOON": {
+   "deDE": "cc1fd1fbd5bb4541",
+   "esES": "cc1fd1fbd5bb4541",
+   "frFR": "cc1fd1fbd5bb4541",
+   "nlNL": "cc1fd1fbd5bb4541",
+   "ptBR": "cc1fd1fbd5bb4541",
+   "ruRU": "cc1fd1fbd5bb4541"
+  },
+  "FWEEK_RAID_FMT": {
+   "deDE": "71b4f8307f0bcbe1",
+   "esES": "71b4f8307f0bcbe1",
+   "frFR": "71b4f8307f0bcbe1",
+   "nlNL": "71b4f8307f0bcbe1",
+   "ptBR": "71b4f8307f0bcbe1",
+   "ruRU": "71b4f8307f0bcbe1"
+  },
+  "FWEEK_RESET_DAY_FMT": {
+   "deDE": "020cf5c1658ad3ae",
+   "esES": "020cf5c1658ad3ae",
+   "frFR": "020cf5c1658ad3ae",
+   "nlNL": "020cf5c1658ad3ae",
+   "ptBR": "020cf5c1658ad3ae",
+   "ruRU": "020cf5c1658ad3ae"
+  },
+  "FWEEK_RESET_UNKNOWN": {
+   "deDE": "a89ea6fb1722ed57",
+   "esES": "a89ea6fb1722ed57",
+   "frFR": "a89ea6fb1722ed57",
+   "nlNL": "a89ea6fb1722ed57",
+   "ptBR": "a89ea6fb1722ed57",
+   "ruRU": "a89ea6fb1722ed57"
+  },
+  "FWEEK_RESET_WEEK_FMT": {
+   "deDE": "2df4c3c31f08cac0",
+   "esES": "2df4c3c31f08cac0",
+   "frFR": "2df4c3c31f08cac0",
+   "nlNL": "2df4c3c31f08cac0",
+   "ptBR": "2df4c3c31f08cac0",
+   "ruRU": "2df4c3c31f08cac0"
+  },
+  "FWEEK_STATUS_FMT": {
+   "esES": "c20d6d17adcf5889",
+   "frFR": "c20d6d17adcf5889",
+   "nlNL": "c20d6d17adcf5889",
+   "ptBR": "c20d6d17adcf5889",
+   "ruRU": "c20d6d17adcf5889"
+  },
+  "FWEEK_WRITS": {
+   "deDE": "baf50192b9741a3f",
+   "esES": "baf50192b9741a3f",
+   "frFR": "baf50192b9741a3f",
+   "nlNL": "baf50192b9741a3f",
+   "ptBR": "baf50192b9741a3f",
+   "ruRU": "baf50192b9741a3f"
+  },
   "GEAREXPORT_COUNT_FMT": {
    "ruRU": "d6444675180ca9c7"
   },
@@ -21340,6 +21435,15 @@
    "nlNL": "67bd53a4c4f9e3ba",
    "ptBR": "67bd53a4c4f9e3ba",
    "ruRU": "67bd53a4c4f9e3ba"
+  },
+  "MOUNTPROG_TIMEWAYS6_HOWTO": {
+   "deDE": "b014841dc5d156c9",
+   "esES": "b014841dc5d156c9",
+   "frFR": "b014841dc5d156c9",
+   "itIT": "b014841dc5d156c9",
+   "nlNL": "b014841dc5d156c9",
+   "ptBR": "b014841dc5d156c9",
+   "ruRU": "b014841dc5d156c9"
   },
   "MOUNTPROG_UMBRALDH_HOWTO": {
    "deDE": "0a63849a6236e797",

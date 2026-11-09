@@ -1015,6 +1015,8 @@ ns._mhLocales.enUS = {
 	HOME_COLLECTIBLE_FMT = "%s — %d/%d",
 	MOUNTPROG_SPOREGLIDER_HOWTO = "Defeat Rotmire in the Sporefall raid (Harandar) for a Delicious Sporesnack — about 1 per week, 4 needed.",
 	MOUNTPROG_VYRANOTH_HOWTO = "The Turbulent Timeways event that gave this mount ended on 11 August, so it cannot be earned right now. Expected but not confirmed: from patch 12.1.7 a Timewalking vendor sells it for 5,000 Timewarped Badges.",
+	-- 9 Nov 2026: shown only once the client knows achievement 64207 (patch 12.1.7). The week count comes from the game.
+	MOUNTPROG_TIMEWAYS6_HOWTO = "Turbulent Timeways comes back with patch 12.1.7, for eight weeks. In a week of the event, finish 4 Timewalking dungeons. The number above shows how many of those weeks you have, and how many the game asks.",
 	MOUNTPROG_GOTO_BTN_FMT = "Open %s",
 	MOUNTPROG_VENOMFANG_HOWTO ="Find all 22 hidden treasures on the Coiled Isle for 'Treasures of the Coiled Isle'. The Achievements tab routes you to the ones you still miss.",
 	MOUNTPROG_GORGER_HOWTO ="Finish the 'Heroic Showdowns' meta (6 heroic Showdown feats in Naigtal & Val, ~2 weeks), then buy it from Kifaan for 15 Voidlight Marl.",
@@ -4810,6 +4812,21 @@ ns._mhLocales.enUS = {
 	FWARN_REST_OFF = "no more message about low mana or health. /mh rest on brings it back.",
 	FWARN_REST_MANA_AT_FMT = "you now get a message under %d%% mana.",
 	FWARN_REST_HEALTH_AT_FMT = "you now get a message under %d%% health.",
+	-- 9 Nov 2026, WoW Forever: "This week in Forever" on the start page (ForeverWeek.lua). Calendar and raid names come
+	-- from the client itself; %s in FWEEK_PVP_FMT is the client's own word for Honor.
+	TAB_HOME_FOREVER = "Forever",
+	FWEEK_HEADER = "This week in Forever",
+	FWEEK_RESET_WEEK_FMT = "Weekly reset in %s",
+	FWEEK_RESET_DAY_FMT = "Daily reset in %s",
+	FWEEK_RESET_UNKNOWN = "The game does not tell MH when the week resets here.",
+	FWEEK_STATUS_FMT = "Reset in %s",
+	FWEEK_EVENTS_NONE = "Nothing special in the game's calendar today.",
+	FWEEK_EVENT_UNTIL_FMT = "%s (until %s)",
+	FWEEK_RAIDS_SOON = "Raids open on 9 December. From then on they reset every week.",
+	FWEEK_RAIDS_NONE = "No raid lockout on this character this week.",
+	FWEEK_RAID_FMT = "%s: %d of %d bosses, resets in %s",
+	FWEEK_PVP_FMT = "PvP: your rank can only rise a set amount each week, so a little every week beats a lot in one week. The calendar shows the battleground of the week: it gives extra %s.",
+	FWEEK_WRITS = "Crafting writs: you can do each writ once a day.",
 	FBUFF_ON = "the missing-buff button is on.",
 	FBUFF_OFF = "the missing-buff button is off. /mh buffs on brings it back.",
 	-- 8 Nov 2026: what the colours on your MF Nameplates mean (NameplateColors.lua, both games). Meanings read from MF's

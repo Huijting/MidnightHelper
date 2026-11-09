@@ -1,5 +1,25 @@
 # Midnight Helper — waar we staan
 
+## 🆕 9 nov (middag) — Forever "Deze week in Forever" + Midnight Turbulent Timeways VI (Rob: "Ja, ik volg jouw adviezen … ga voorlopig door zolang je kan")
+
+- Rob vroeg: wat is er elke week in Forever, en wat missen Forever-spelers? Ook: Midnight niet vergeten. Onderzoek
+  mh-research 9 nov (bronnen + datums in de chat van 9 nov): Forever-raids resetten wekelijks vanaf 9 dec (Blizzard 20 okt;
+  dag/uur niet gepubliceerd), PvP-rank heeft een weekcap + Call to Arms (Blizzard 7 okt), Darkmoon Faire 1 week/maand,
+  vistoernooi zondag (fan), writs 1×/dag per writ. Resettijd Forever: NIET gepubliceerd → in de client meten (`/mh week`).
+- Nieuw `Modules/ForeverWeek.lua` (beide TOC's, `IS_FOREVER`-guard): blok "This week in Forever" op de Forever-startpagina
+  (HomeDashboard, sectie `fweek`): week-/dagreset (C_DateAndTime), feestdagen van vandaag uit de spelkalender (titel +
+  eerste zin van Blizzards eigen beschrijving, dus in de taal van de client), raid-lockouts (GetSavedInstanceInfo; vóór
+  9 dec één regel "raids open 9 Dec"), twee vaste regels (PvP-rankcap, writs). `/mh week` print de ruwe antwoorden en
+  bewaart ze in `MidnightHelperDB.foreverWeekDump`. AFGELEID: dat deze API's in Forever antwoorden (kandidaat: Zygor
+  Forever gebruikt ze allemaal). Kaart "home" in de Ik-kamer toont nu "Reset over …".
+- Naamfix: in Forever heet de tab/kaart "home" nu `TAB_HOME_FOREVER` = "Forever" (UI.lua; was "Deze week").
+- Midnight: `MountProgress.lua` entry `timeways6` (achievement 64207, item 287513 Markeet of the Infinite, PTR-data 16 okt).
+  Verborgen tot de client 64207 kent; `need` uit het criterium (blog 4 weken, PTR 5). `MOUNTPROG_TIMEWAYS6_HOWTO` in 8 talen.
+- Omnium Folio 6/7 NIET gedaan: rijen/runekeuze onbekend (Rune of Critical Mass 13× in SpellName). Wacht op meting op de PTR/live.
+- Vertalingen de/fr/es/pt/ru (mh-writer, niet native): rangwoorden (Rang/rang/rango/patente/звание) en lockout-woorden
+  niet tegen de client gemeten; fr/ru zetten Honor tussen haakjes ("bonus (%s)").
+- Volgende (Rob koos ook): spells opwaarderen na de trainer (idee 2). Onderzoek liep 9 nov.
+
 ## 🆕 9 nov — Zo speel je-kaart Devourer DH: HERO1 (Void-Scarred) bijgewerkt voor 12.1.5 (Rob: "los ook de foute demon hunter zo speel je kaarten op")
 
 - GEMETEN door mh-research (wago DB2 12.1.5.70783, positieve controle met 12.1.0.69933): Violent Transformation 452409
