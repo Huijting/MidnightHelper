@@ -9404,3 +9404,178 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
     de klassentrainer met pijl en eigen trainerlijst (218 trainers), het `Train all`-knopje onder het
     trainer-venster van het spel, Totem-items in dat venster, de 5.0.1-release met een eigen
     Forever-upload, en de waarschuwing voordat je je laatste gereedschap verkoopt of vernietigt.
+- [2026-11-09] 🔴 **ÉÉN [MOET GEFIKST], de eerste in weken, en hij is vandaag in de CODE gevonden en niet
+  in het nieuws: `Modules/ForeverTrainer.lua:1205` en `:1289` lezen een creature-GUID met `%d+` op de
+  velden 2 t/m 5 — precies de velden die de GUID-obfuscatie door waarden van onbeschreven vorm vervangt.
+  Het zijn de énige twee van de tien GUID-lezers in de addon die dat nog doen, én ForeverTrainer is het
+  énige GUID-lezende bestand dat óók op Forever laadt, de client waar die obfuscatie naar alle
+  waarschijnlijkheid al leeft. Verder een stille dag op élke bewegende bron: geen nieuwe live-build
+  (ZESDE dag op `12.1.5.70783`), geen nieuwe PTR-build (VIJFDE dag op `12.1.7.70740`), geen nieuwe
+  Forever-build (TWEEDE dag op `1.60.1.70862`), geen nieuwe regel op geen van de vier
+  wiki-API-pagina's, GEEN nieuw hotfix-artikel (het nieuwste blijft dat van 6 nov), geen blue post over
+  API, en geen nieuwe SimC-addon-release.** ✅ **Plus twee CORRECTIES op mijn eigen regels: mijn open
+  vraag van gisteren over `[mod:shift]` in Forever is beantwoord (door spelers, en het is géén
+  API-wijziging), en het `%d+`-punt dat sinds oktober op mijn openstaande lijst stond voor
+  `Modules/ResetRoutine.lua` is daar al gerepareerd — ik citeerde mijn eigen verouderde aantekening.**
+  - 🔴 **[MOET GEFIKST] — `Modules/ForeverTrainer.lua:1205` en `:1289`: creature-GUID geparst met
+    `%d+` op de velden 2 t/m 5.** Beide regels staan er letterlijk zo:
+    ```lua
+    tonumber(guid:match("^Creature%-%d+%-%d+%-%d+%-%d+%-(%d+)"))
+    ```
+    De regel waar dit tegen aanloopt, woordelijk van `Patch_12.1.7/API_changes` (vandaag opnieuw
+    gelezen): *"The server ID and spawn ID portions of cast, creature, vehicle, pet, and game object
+    GUIDs have been replaced with obfuscated values"*, met *"Obfuscated values are stable and unique
+    within the current client session, but cannot be compared between clients or persisted beyond
+    restarts"* en *"The GUID string format is otherwise unchanged"*. ⚠️ **Nergens staat dat die
+    obfuscated waarde uit cijfers bestaat.** Is hij dat niet, dan matcht het patroon niet en is het
+    resultaat `nil` — geen foutmelding, geen Lua-error, alleen stil geen NPC-id meer.
+    **GEMETEN dat dit de laatste twee zijn, met positieve controle op dezelfde reikwijdte**
+    (`grep -rnF`, met `.git`/`docs`/`tools`/`dist` eruit, 349 `.lua`-bestanden): de strikte vorm
+    `%d+%-%d+%-%d+%-%d+` → **exact 2** treffers, en dat zijn deze twee. De losse vorm
+    `[^%-]+%-[^%-]+` → **4** bestanden (`Modules/DelveChestData.lua:241`, `Modules/ResetRoutine.lua:663`,
+    `Modules/SpotLog.lua:246`, `Modules/EncounterCapture.lua`), en drie daarvan dragen in het
+    commentaar erboven deze wijziging bij naam — `ResetRoutine.lua:661` zegt *"Fields 2-5 may be
+    anything: 12.1.7 replaces the server id (field 3) with an obfuscated value whose form is not
+    documented"* en `SpotLog.lua:246` *"fields 2-5 loose: 12.1.7 obfuscates the server id"*. De
+    overige GUID-lezers gebruiken `select(6, strsplit("-", guid))` en zijn vormloos, dus immuun:
+    `Modules/VignetteCapture.lua:53`, `Modules/Rares.lua:876`/`:1037`, `Modules/RaidCoachData.lua:388`,
+    `Modules/RitualBossCoach.lua:317`, `Modules/DelveBossShowcase.lua:592`.
+    📌 **Waarom juist dit bestand het ergste moment heeft, GEMETEN in de twee TOC's:**
+    `Modules\ForeverTrainer.lua` staat op `MidnightHelper.toc:242` **én** op
+    `MidnightHelper_Camelot.toc:119`. Van de negen GUID-lezende modules is het de **enige** met
+    `camelot:1` — alle andere acht staan uitsluitend in de retail-TOC. ⚠️ **AFGELEID, niet gemeten,
+    en dat onderscheid is hier belangrijk:** de obfuscatie staat op de 1.60.1-pagina onder de blue post
+    van **16 okt**, *"Coming in WoW Forever 1.60.1 Beta 5"*, **build 70425** — en de Forever-client
+    staat vandaag op **`1.60.1.70862`**, dus ruim daarboven. Daaruit volgt dat hij in de live
+    Forever-client zit, maar ik heb die client niet en heb het dus **niet gemeten**. Op retail is hij
+    er nog zeker níét: dezelfde 12.1.7-pagina zegt *"This change will be available for testing in a
+    future build of 12.1.7"*. **Op retail werken deze twee regels vandaag dus gewoon.**
+    ⚠️ **Wat er precies uitvalt, per regel nagelopen in de code en niet aangenomen:**
+    - `:1289` is `NpcOfUnit(unit)`, gebruikt op `:1301` door `IsMarkedTrainer` en op `:1423` in de
+      diagnose. **`IsMarkedTrainer` heeft een naam-terugval en is daarmee half afgedekt:** `:1305`
+      doet `if mark.npc and npc then return npc == mark.npc end` en `:1308` valt terug op
+      `return mark.name ~= nil and NameOfUnit(unit) == mark.name`. Het kruisje boven de nameplate
+      blijft dus werken zolang de naam leesbaar is — en `mark` zelf komt van `:1365` uit de
+      trainerlijst (`:1080`), niet uit een GUID. 🔴 **Maar de diagnose liegt dan**, en dat is precies
+      het geval waar `CLAUDE.md` voor waarschuwt: `:1289` geeft `nil, false` terug, dus `:1424` print
+      `npc nil` met `secret` op `false`, en `markStats.secret` telt niet op. Van buiten is dat niet te
+      onderscheiden van *"deze GUID heeft geen npc-veld"*, terwijl de oorzaak de obfuscatie is.
+    - `:1205` is het pad van `/mh trainer here`: `npc` wordt `nil` en gaat zo in de bewaarde plek
+      (`:1210`). Geen crash — `:993`–`:1003` slaat de dedupe over bij een nil (`if not c.npc or …`) en
+      `:1080` eist `type(best.npc) == "number"` vóór gebruik. **Het gevolg is dus dubbele plekken:**
+      een zelf-bewaarde trainer kan niet meer op NPC-id tegen de MH-lijst en de HandyNotes-knopen
+      (`:968`) worden weggestreept, alleen nog op naam en coördinaten.
+    ✅ **Wat eraan moet gebeuren, en dit is GEEN verzonnen migratie:** vervang in beide regels elk
+    `%d+` op de velden 2 t/m 5 door `[^%-]+` en laat het laatste `(%d+)` staan — exact het patroon dat
+    `ResetRoutine.lua:663`, `SpotLog.lua:246` en `DelveChestData.lua:241` al gebruiken, inclusief hun commentaar. Dat is een reparatie die op retail niets verandert (daar zijn de velden nog cijfers en
+    `[^%-]+` matcht die ook) en op Forever het verschil maakt. 🔴 **Niets aangeraakt — melden, niet
+    repareren.**
+    📌 **En één meting die ik hier niet kan doen maar Rob in tien seconden wel:** `/dump
+    UnitGUID("target")` op een willekeurig creature in Forever laat zien hóe die velden er nu uitzien.
+    Zijn ze cijfers, dan is er vandaag niets stuk en is dit alleen nog een tijdbom; zijn ze dat niet,
+    dan is `/mh trainer here` daar nu al zijn NPC-id kwijt.
+  - ✅ **[RAAKT ONS NIET] — CORRECTIE/AFSLUITING van mijn open vraag van gisteren: het
+    `[mod:shift]`-draadje is beantwoord, en het is géén Forever-beperking en géén API-wijziging.**
+    GEMETEN in `/t/forever-modshift-macros-not-working/2405876.json?nocache=20261109`: het draadje is
+    van **1** naar **5** posts gegaan (90 views, laatste post **2026-11-08T19:51:46Z**), en in alle vijf
+    de posts staat `"moderator":false,"admin":false,"staff":false` met `primary_group_name: null` —
+    **nog steeds geen Blizzard-poster**. De twee antwoorden wijzen allebei naar de instellingen van de
+    speler zelf, niet naar de client: post 3 (aerokinetic) *"there are many commands assigned to
+    [shift] + F-keys etc by default and may be causing a conflict with your [shift] modifier macros if
+    they're bound to the same key"*, en post 5 (Elvenbane) *"You also need to make sure your Self Cast
+    Key and Focus Cast Key are set to none or they'll cause conflicts"*. Een tweede speler
+    (Haruhisuki, post 2) meldde hetzelfde met `/use [mod:shift]frost trap, [nomod] freezing trap` en
+    *"when i press alt or ctrl, icon changes, but not shift"* — wat bij een keybind-conflict past.
+    📌 **Dus de open vraag die ik gisteren bij `Modules/FastMark.lua` neerlegde kan dicht:** er is geen
+    aanwijzing dat Forever macro-conditionals anders behandelt, dus niets te doen aan de
+    `("%s [@%s] %d")`-macrotext op `:316`/`:390`. MH schrijft trouwens nergens een
+    modifier-conditional — `[mod:` / `[modifier:` → **0** treffers, zoals gisteren al gemeten.
+  - 🆕 **[RAAKT ONS NIET] — één nieuw forumdraadje van vannacht, en het is een macro-vraag.** GEMETEN
+    in `/c/guides/ui-macro/35/l/latest.json?order=created&nocache=20261109`: **`2407000`**
+    *"Shapeshift into Cat Form and turn on tracking of humanoids and animals"*
+    (**2026-11-09T01:15:24Z**, Serendipitus, **1** post, **0** reacties, 7 views) — iemand die zijn
+    oude macro kwijt is en vorm-wisselen met twee tracking-commando's wil combineren. Geen
+    API-melding, geen Blizzard-reactie, en MH schrijft geen tracking- of vorm-macro's.
+  - 🧰 **SimC-addon: geen nieuwe release sinds `12.1.5-04`.** GEMETEN op twee manieren:
+    `git ls-remote --tags --refs` op `simulationcraft/simc-addon` geeft vandaag **258** tags, exact het
+    aantal van gisteren én van voorgisteren, en de nieuwste 12.1-tag is nog steeds `12.1.5-04` op
+    `83fdb00762fa…`; de releases-pagina zelf (met cache-buster) noemt bovenaan **`12.1.5-04`, 05 nov
+    22:38, "Handle Forever surname"** — de release die ik op 6 nov al helemaal heb nagelopen. Er is nog
+    steeds **geen** tag met `camelot`, `forever` of `1.60` in de naam, dus de SimC-addon heeft nog geen
+    eigen Forever-variant.
+  - 🔇 **WAT STIL STOND, zodat stilte te onderscheiden is van niet-kijken. Alles hieronder is vandaag
+    GEMETEN, niet overgenomen van gisteren.**
+    - **Client-source: alle 13 heads byte-voor-byte gelijk aan gisteren.** `git ls-remote --heads
+      https://github.com/Gethe/wow-ui-source` geeft **13** heads en geen enkele is bewogen: `live` =
+      **`297d7aaaa736f346b3e036f38ee088eaf7f8c07f`** (ZESDE dag op `12.1.5.70783`), `ptr` =
+      **`e927c305f67ed6b3b460bc00d0c39055747b9119`** (VIJFDE dag op `12.1.7.70740`), `forever` =
+      **`9dc84f0d3bbae1768ac3405b3716000bd93eda06`** (TWEEDE dag op `1.60.1.70862`, de build die ik
+      gisteren per bestand heb nagelopen), `beta` = `078d0cf751…`, `ptr2` = `12380f8cdc…`,
+      `classic_era` = `4192ac6006…`. Geen nieuwe build betekent geen nieuwe diff om te lezen.
+    - **Wiki: alle vier de pagina's onveranderd.** `Patch_12.1.7/API_changes` heeft dezelfde twee
+      inhoudelijke Summary-punten (GUID-obfuscatie en de TOC-variabelenregel), TOC `120107`, nog steeds
+      **geen** Consolidated-changes-sectie, en boven die twee nog steeds de kruisverwijzing *"Includes
+      API changes from Patch 1.60.1"*. `Patch_12.1.5/API_changes` heeft nog dezelfde vier
+      blue-post-datums (3, 16, 22 en 29 sep), `Patch_1.60.1/API_changes` nog dezelfde drie (16 okt,
+      8 okt, 15 sep) en dezelfde drie Notable changes (builds `70291`, `70170`, `70009`), en
+      `Patch_12.1.0/API_changes` dezelfde **acht** Summary-punten. Op `API_change_summaries` staan onder
+      Retail nog **12.1.0, 12.1.5, 12.1.7** en onder Forever alleen **1.60.1** — nog steeds géén
+      1.60.2-pagina, terwijl de 1.60.1-pagina wel *"Next patch: Patch 1.60.2"* draagt (vermoedelijk een
+      rode link; ik claim nog steeds niet dat die regel nieuw is).
+    - **Hotfixes: GEEN nieuw artikel. Het nieuwste blijft dat van 6 nov**, precies wat mijn regel van
+      gisteren al dekte: *"Hotfixes: November 6, 2026"* (**2026-11-07T01:08:53Z**) en *"WoW: Forever
+      Hotfixes - November 6, 2026"*. ⚠️ **MEASURED (via search, niet zelf op news.blizzard.com
+      gelezen):** dat domein blijft `EGRESS_BLOCKED` op WebFetch én op kale `curl` (de proxy weigert de
+      CONNECT met 403), dus gelezen in de zoekresultaten. Inhoudelijk is het raid-tuning (Venomous
+      Abyss, Ula'tek) en Forever-wereldwerk — **nul addon- of API-regels**, dus werk voor de
+      contentwachter. 📌 **Cache-controle: het nieuwste dat ik zie is even oud als wat mijn logboek
+      gisteren noemde, niet ouder — dus géén cache-signaal.** Onafhankelijk bevestigd door drie verse
+      derde-partij-artikelen die uitsluitend naar diezelfde hotfixes van 5 en 6 nov verwijzen
+      (Azerothbase **7 nov 21:10Z**, patchbot.io **7 nov 16:48Z**, Wowhead **7 nov 01:22Z**) en door
+      thewowdb's index, die *"Latest: November 6, 2026"* zegt. Alle Exa-URL's hadden `?nocache=20261109`.
+    - **Blue posts: niets nieuws over API.** De nieuwste addon-gerichte blue post blijft die van
+      **16 okt** (*Forever 1.60.1 Beta Changes 5*, build 70425) — bijna vier weken oud en al lang in
+      mijn regels. De `WoW Forever Beta Development Notes` staan nog op de bijwerking van **2 nov**
+      (Kaivax, gepost 3 nov 03:20Z) en gaan over klassen en wereld, niet over de API.
+    - **`UI and Macro`-forum, de rest van de eerste pagina:** `2404135` (quest-objectives uit de
+      tooltip, 6 nov) staat nog op **1** post en 0 reacties; `2402787` *"Forever ground distance
+      CVAR"* staat nog op **5** posts met Fizzlemizz als laatste en nog steeds geen Blizzard-poster;
+      `2402052` *"Trying NOT to dispel Vampiric Touch debuff"* is vannacht gebumpt
+      (**2026-11-09T01:21:54Z**, nu 4 posts, de OP heeft zijn eigen eerste post bijgewerkt) maar gaat
+      nog steeds over aura-filters in ElvUI en dispel protection, niet over een API — hij stond al
+      twee keer in mijn regels. De rest van de pagina stond al in mijn regels van 1–8 nov.
+  - ⏳ **Nog open uit eerdere runs, en de lijst is vandaag één punt KORTER geworden omdat ik hem voor
+    het eerst heb gemeten in plaats van overgeschreven.** 🔴 **CORRECTIE: *"de `%d+`-aanname op veld 3
+    van de npcID-match (`Modules/ResetRoutine.lua:648`) tegenover de GUID-obfuscatie"* stond sinds
+    oktober elke dag op deze lijst en is al gerepareerd.** GEMETEN vandaag: die functie zit nu op
+    `:650`–`:665`, het patroon op `:663` gebruikt `[^%-]+` voor de velden 2 t/m 5, en op `:661`–`:662`
+    staat commentaar dat de wiki-regel van 16 okt bij naam noemt. Ik heb dat punt dagen achtereen
+    doorgegeven op gezag van mijn eigen aantekening, zonder de regel te openen — exact de fout waar
+    `CLAUDE.md` punt 1 over gaat, en dezelfde grep die hem vandaag ontkracht heeft, heeft meteen de
+    twee échte gevallen in `ForeverTrainer.lua` opgeleverd. **Een aantekening is een claim mét een
+    datum, geen bewijs.** De rest van de lijst, NIET opnieuw gemeten vandaag: de UTF-8 BOM vooraan
+    `MidnightHelper.toc`; de `GetInstanceInfo`-return-orde tegenover `Modules/Showdowns.lua:226`; de
+    dode `PickupItem`-takken in `Modules/KeyBlock.lua:1135`/`:1227`/`:1380` en
+    `Modules/ApplyLayout.lua:1311`/`:1345`/`:1605`; de vijf decoratieve
+    `GetItemInfo`-terugvaltakken; `Blizzard_DeprecatedWorldElapsedTimerTypes` als tiende
+    deprecated-addon; de verouderde namespace-lijst in `docs/WATCHER_API_PROMPT.md` (18 aug, noemt 57
+    namespaces en kent de twee TOC's niet); de client-test voor `/mh raidbots`; `GetTimerDuration`
+    toevoegen aan `Modules/ApiProbe.lua:377`; de `FrameStrata`-secret-vraag op
+    `Modules/PartyTargets.lua:517`; en de drie `WOW_PROJECT_MAINLINE`-takken in
+    `Libs/LibDBIcon-1.0.lua:533`/`:572`/`:607` die op Forever omslaan. 🔴 Niets aangeraakt.
+  - 🔧 **Repo-staat: alleen `docs/API_WATCH.md` aangeraakt.** GEMETEN vóór het schrijven:
+    `git status --short` **leeg**, geen van de vier wachter-bestanden gewijzigd-maar-ongecommit, en
+    `HEAD` losgeslagen op **`1ced6250aca65511ebc35a6fbc0ea476e8bde533`** ("Forever: card grid for the Me
+    room; fix the start page's trainer arrow button"), wat byte-voor-byte **gelijk is aan `origin/main`**
+    — dus ik schrijf op de actuele tip. ✅ **En de voorspelling uit mijn correctie van gisteren is
+    uitgekomen, wat die verklaring bevestigt:** `git fetch origin main` gaf opnieuw
+    **`+ b2a98ae…1ced625 main -> origin/main (forced update)`**, `git rev-parse
+    --is-shallow-repository` is **`true`**, en het venster is weer **50** commits — ditmaal **29** van
+    8 nov en **21** van 7 nov. Geen herschreven historie, gewoon de kloondiepte van deze sessie; de
+    lokale `main` is daarom met `git checkout -B main origin/main` naar de tip gezet, zonder ook maar
+    één bestand te wijzigen. 📌 De 29 commits van 8 nov zijn vrijwel allemaal Forever-werk: het
+    beroepentrainer-venster met pijl (`/mh trainers`, `/mh trainer <beroep>`), de startpagina-knop en
+    een kaartenraster voor de Me-kamer — wat ook verklaart waaróm de vondst van vandaag in
+    `ForeverTrainer.lua` zit: van de 50 commits in het venster raken er **12** dat bestand, alle van
+    7 en 8 nov. ⚠️ Hoe oud het bestand écht is kan ik door de shallow clone niet zeggen — het venster
+    reikt niet verder terug dan 7 nov.
