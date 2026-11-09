@@ -242,6 +242,7 @@ Modules\ForeverProfTrainerSpots.lua
 Modules\ForeverTrainer.lua
 Modules\ForeverProfTrainers.lua
 Modules\ForeverTrainAll.lua
+Modules\ForeverRanks.lua
 Modules\ForeverToolGuard.lua
 Modules\ForeverBuffs.lua
 Modules\ForeverWarnings.lua

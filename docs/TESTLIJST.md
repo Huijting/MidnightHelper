@@ -32,6 +32,15 @@ er is niets weggegooid.
       staat het ook in de SavedVariables (`foreverWeekDump`) — die lees ik dan uit voor meer uitleg per event.
 - [ ] Woensdag 11 nov na de reset: telt "Nieuwe week" weer van ~7 dagen af?
 
+## 🆕 9 nov — Forever: oude ranks op je balken
+
+- [ ] Typ `/mh ranks` op een character met een paar spells op de balk: hij noemt het aantal spell-knoppen en welke een
+      lagere rank hebben dan je kent (met "game says highest: …"). Stuur me die regels, ook als het er 0 zijn.
+- [ ] Bij de trainer een nieuwe rank leren (Train all of los): onder het trainervenster komt **"Balken bijwerken (N)"**,
+      en in de chat één regel. Hover = welke spells. Klik = de knop gebruikt daarna de nieuwe rank (tooltip van de knop).
+- [ ] Startpagina: staan er knoppen met een lagere rank, dan een gele regel + knop "Zet de nieuwste rank erop".
+- [ ] (Als je wil) `/mh ranks auto on`: na het trainen gebeurt het vanzelf.
+
 ## 🆕 9 nov — Midnight: Turbulent Timeways VI (pas na patch 12.1.7)
 
 - [ ] Nu op live: bij Mounts staat **geen** Markeet of the Infinite (hij hoort verborgen te zijn tot 12.1.7).

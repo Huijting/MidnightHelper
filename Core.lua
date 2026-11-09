@@ -2532,6 +2532,16 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		ns.ForeverBuffsSlash(buffsArg)
 		return
 	end
+	-- /mh ranks [fix | auto on | auto off] — Forever: buttons that still cast an old rank (ForeverRanks.lua, 9 Nov 2026).
+	local ranksArg = msg:lower() == "ranks" and "" or msg:lower():match("^ranks%s+(.+)$")
+	if ranksArg then
+		if ns.ForeverRanksSlash then
+			ns.ForeverRanksSlash(ranksArg)
+		else
+			print("|cffffcc00Midnight Helper:|r /mh ranks is for WoW: Forever.")
+		end
+		return
+	end
 	-- /mh week — Forever: the raw reset, calendar and raid answers behind "This week in Forever" (ForeverWeek.lua).
 	if msg:lower() == "week" then
 		if ns.ForeverWeekSlash then

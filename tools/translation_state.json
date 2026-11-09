@@ -15700,6 +15700,110 @@
    "ptBR": "7a7d3c80f46b39b6",
    "ruRU": "7a7d3c80f46b39b6"
   },
+  "FRANK_AUTO_OFF": {
+   "deDE": "33d53062ec429e1b",
+   "esES": "33d53062ec429e1b",
+   "frFR": "33d53062ec429e1b",
+   "nlNL": "33d53062ec429e1b",
+   "ptBR": "33d53062ec429e1b",
+   "ruRU": "33d53062ec429e1b"
+  },
+  "FRANK_AUTO_ON": {
+   "deDE": "4fd489fa5247a9de",
+   "esES": "4fd489fa5247a9de",
+   "frFR": "4fd489fa5247a9de",
+   "nlNL": "4fd489fa5247a9de",
+   "ptBR": "4fd489fa5247a9de",
+   "ruRU": "4fd489fa5247a9de"
+  },
+  "FRANK_BTN_FMT": {
+   "deDE": "69fba7df09b402aa",
+   "esES": "69fba7df09b402aa",
+   "frFR": "69fba7df09b402aa",
+   "nlNL": "69fba7df09b402aa",
+   "ptBR": "69fba7df09b402aa",
+   "ruRU": "69fba7df09b402aa"
+  },
+  "FRANK_BTN_TIP_BODY": {
+   "deDE": "a251ac171e81473a",
+   "esES": "a251ac171e81473a",
+   "frFR": "a251ac171e81473a",
+   "nlNL": "a251ac171e81473a",
+   "ptBR": "a251ac171e81473a",
+   "ruRU": "a251ac171e81473a"
+  },
+  "FRANK_BTN_TIP_TITLE": {
+   "deDE": "a4e2818895f9006a",
+   "esES": "a4e2818895f9006a",
+   "frFR": "a4e2818895f9006a",
+   "nlNL": "a4e2818895f9006a",
+   "ptBR": "a4e2818895f9006a",
+   "ruRU": "a4e2818895f9006a"
+  },
+  "FRANK_COMBAT": {
+   "deDE": "57016c4549bf55a1",
+   "esES": "57016c4549bf55a1",
+   "frFR": "57016c4549bf55a1",
+   "nlNL": "57016c4549bf55a1",
+   "ptBR": "57016c4549bf55a1",
+   "ruRU": "57016c4549bf55a1"
+  },
+  "FRANK_CURSOR": {
+   "deDE": "98ee9163aeb0ea9c",
+   "esES": "98ee9163aeb0ea9c",
+   "frFR": "98ee9163aeb0ea9c",
+   "nlNL": "98ee9163aeb0ea9c",
+   "ptBR": "98ee9163aeb0ea9c",
+   "ruRU": "98ee9163aeb0ea9c"
+  },
+  "FRANK_DONE_FMT": {
+   "deDE": "5d14ab69b9092761",
+   "esES": "5d14ab69b9092761",
+   "frFR": "5d14ab69b9092761",
+   "nlNL": "5d14ab69b9092761",
+   "ptBR": "5d14ab69b9092761",
+   "ruRU": "5d14ab69b9092761"
+  },
+  "FRANK_FAILED_FMT": {
+   "deDE": "07580cf141d2b4c2",
+   "esES": "07580cf141d2b4c2",
+   "frFR": "07580cf141d2b4c2",
+   "nlNL": "07580cf141d2b4c2",
+   "ptBR": "07580cf141d2b4c2",
+   "ruRU": "07580cf141d2b4c2"
+  },
+  "FRANK_HOME_BTN": {
+   "deDE": "a3a8be45504bff75",
+   "esES": "a3a8be45504bff75",
+   "frFR": "a3a8be45504bff75",
+   "nlNL": "a3a8be45504bff75",
+   "ptBR": "a3a8be45504bff75",
+   "ruRU": "a3a8be45504bff75"
+  },
+  "FRANK_HOME_FMT": {
+   "deDE": "f5682764b10bf87c",
+   "esES": "f5682764b10bf87c",
+   "frFR": "f5682764b10bf87c",
+   "nlNL": "f5682764b10bf87c",
+   "ptBR": "f5682764b10bf87c",
+   "ruRU": "f5682764b10bf87c"
+  },
+  "FRANK_NONE": {
+   "deDE": "77b9f39d7509cef9",
+   "esES": "77b9f39d7509cef9",
+   "frFR": "77b9f39d7509cef9",
+   "nlNL": "77b9f39d7509cef9",
+   "ptBR": "77b9f39d7509cef9",
+   "ruRU": "77b9f39d7509cef9"
+  },
+  "FRANK_OFFER_FMT": {
+   "deDE": "7d68339cbcd931b4",
+   "esES": "7d68339cbcd931b4",
+   "frFR": "7d68339cbcd931b4",
+   "nlNL": "7d68339cbcd931b4",
+   "ptBR": "7d68339cbcd931b4",
+   "ruRU": "7d68339cbcd931b4"
+  },
   "FWEEK_EVENTS_NONE": {
    "deDE": "c0f24b9d5bfc2342",
    "esES": "c0f24b9d5bfc2342",

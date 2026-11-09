@@ -18,7 +18,18 @@
 - Omnium Folio 6/7 NIET gedaan: rijen/runekeuze onbekend (Rune of Critical Mass 13× in SpellName). Wacht op meting op de PTR/live.
 - Vertalingen de/fr/es/pt/ru (mh-writer, niet native): rangwoorden (Rang/rang/rango/patente/звание) en lockout-woorden
   niet tegen de client gemeten; fr/ru zetten Honor tussen haakjes ("bonus (%s)").
-- Volgende (Rob koos ook): spells opwaarderen na de trainer (idee 2). Onderzoek liep 9 nov.
+- ✅ Idee 2 gebouwd (zelfde dag): `Modules/ForeverRanks.lua` (beide TOC's, na ForeverTrainAll). Knoppen met een lagere
+  rank dan je kent, via onze eigen rank-lijst `ns.FOREVER_SPELL_IDS` (niet GetSpellSubtext: die geeft in Forever vaak "",
+  volgens een MagePlan-commentaar). "Net getraind" = de rank op de knop was tot net je hoogste (hoogste rank per spell per
+  character in `ns.db.foreverRanks.top`). Standaard: knop "Update bars (N)" onder het trainervenster + één chatregel;
+  `/mh ranks auto on` doet het zelf; `/mh ranks fix` alles (ook bewust lagere); `/mh ranks` = diagnose (+
+  `C_ActionBar.IsHighestSpellRank`, nieuw in de launch-build volgens een API-dump). Startpagina: regel + knop als er knoppen
+  met een lagere rank zijn, met de uitleg dat downranken expres kan zijn. Vervangen = PickupSpell + PlaceAction, buiten
+  combat, lege cursor, teruggelezen.
+  - Onderzoek mh-research 9 nov: Blizzard-notitie 2 nov (Kaivax, forum 2360696/9) "no longer … automatically added to your
+    action bars"; beta: oude rank bleef staan (Wowhead 22 sep, WoWForeverBuilds 23 sep). ⚠️ OPEN na launch: misschien
+    werkt het spel sommige knoppen zelf bij (rage/energy op de beta wel). Dan vindt de module niets; `/mh ranks` zegt het.
+  - Licenties: Uprank Forever / Auto Spell Ranks / HighestRankCheck = All Rights Reserved; niets gekopieerd.
 
 ## 🆕 9 nov — Zo speel je-kaart Devourer DH: HERO1 (Void-Scarred) bijgewerkt voor 12.1.5 (Rob: "los ook de foute demon hunter zo speel je kaarten op")
 
