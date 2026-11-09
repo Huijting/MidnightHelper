@@ -9,9 +9,9 @@
   2026-11-09; quizAnswer bijgezet (104, 254, 256, 257, 260, 266) zodat de quizantwoorden gelijk blijven.
   - Bewust NIET: 261 HERO1 (6 vs 5 punten: 21 okt bewust 5, Darkest Night werkt vanaf 5); 102 HERO1 (Fury of Elune vóór of
     ín Eclipse: gidsen oneens, 21 okt "niet fout"); OPTIONAL-punten.
-  - 🔶 OPEN, Robs keus/clienttest: Balance 102 gebruikt {SPELL:1233346} = "Solar Eclipse" (wago 12.1.5.70783) in IDEA/S3/
-    W2/W3/TERMS; 1239669 = "Eclipse" maar passief (live-toets op S3 verdwijnt dan waarschijnlijk). Elune's Chosen ziet
-    alleen Lunar Eclipse.
+  - ✅ BESLIST 9 nov (Rob: "A"): Balance 102 houdt {SPELL:1233346} = "Solar Eclipse" (wago 12.1.5.70783) in IDEA/S3/
+    W2/W3/TERMS, zodat de live-toets blijft. Bekend nadeel: Elune's Chosen ziet alleen Lunar Eclipse. Niet terugdraaien
+    naar 1239669 ("Eclipse", passief) zonder Robs ja.
   - Plain-text namen zonder vastgesteld id (Divine Arbiter, Vanguard, Apex Predator's Craving, Forbidden Knowledge,
     Necrotic Coil, Cobra Fang, Benediction, Primordial Storm) staan in alle talen Engels. Nieuwe ids: gemeten door de
     auditors in wago/Wowhead, niet in de client.
