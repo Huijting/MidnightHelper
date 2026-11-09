@@ -4222,3 +4222,114 @@ kop, per bevinding MEASURED/INFERRED en [RAAKT ONS]/[RAAKT ONS NIET], met bestan
   codebase: `Modules/RaidCoachData.lua:106-110`, `Locales/RaidTips.lua` (grep, positieve controle).
   Vandaag is zondag, geen maandag: de kaarten- en consumables-secties zijn dus opzettelijk
   weggelaten. Geen actiepunt dat ik oppak — ik rapporteer, een mens beslist.
+
+- [2026-11-09] 💬 **CurseForge: geen open reacties (3 draadjes gelezen, zelfde reeks en ids als
+  [2026-11-08]).** `curseforge.com/api/v1/mods/1528577/comments?pageIndex=0&pageSize=20&nocache=20261109a`
+  via Exa, één fetch volstond (`pagination.totalCount: 8`, niet ouder dan gisteren, dus geen tweede
+  nocache-fetch nodig). Dezelfde drie draadjes als [2026-11-08], allemaal nog beantwoord (nieuwste
+  bericht in elke keten van `twelveinchy`), ids en timestamps byte-identiek: `8509224`
+  (user_uvqy5939hswhgduu, esES/esMX-fix) → reply `8510682`; `8414729` (MrsBoojiePanda,
+  debug-printregel) → reply `8483898`; `8090710` (gadrinonturalyon, coffer-key-shards/3D-boss-model)
+  → reply-keten tot `8095337`/`8092133`. MEASURED. Geen open reactie, dus geen concept-antwoord nodig.
+
+  — bron: https://www.curseforge.com/api/v1/mods/1528577/comments?pageIndex=0&pageSize=20&nocache=20261109a
+  (zelf gelezen via Exa).
+
+- [2026-11-09] 🔁 **Geen achtste hotfix-dag; nieuwste sectie blijft "November 6, 2026" — bevestigd met
+  een vers "last verified"-stempel dat juist vooruitschuift, dus geen cache-val.** MEASURED, zelf
+  gelezen (`news.blizzard.com/en-gb/article/24307310/hotfixes-november-6-2026?nocache=20261109a`,
+  volledige inhoud): nieuwste datumkop nog steeds "November 6, 2026" (Vashnik the Malignant
+  Mythic-tuning, Ula'tek health-scaling), byte-voor-byte dezelfde tekst als [2026-11-08]. Onafhankelijk
+  bevestigd via `thewowdb.com/guides/midnight/patch-12-1/?nocache=20261109a`: zelfde twee
+  Nov-6-regels staan boven in "Newest hotfix notes", en de pagina's eigen "data last verified"-datum
+  is vandaag doorgeschoven naar 2026-11-08 (gisteren nog 2026-11-07) — de pagina wordt dus wél
+  vernieuwd, en het nieuwste dat hij toont is nog steeds Nov 6, geen cache-symptoom. Geen Professions-
+  of Quests-hotfixes in het hele venster 27 okt–6 nov (herbevestigd).
+
+  Twee bijvangsten, vandaag voor het eerst gemeten: (1) onze spelling "Vicious Echoes"
+  (`Locales/RaidTips.lua:100`) is de juiste naam — Wowhead spell=1310764 en vier boss-gidsen
+  bevestigen "Vicious Echoes"; Blizzards eigen hotfix-tekst van 6 nov schrijft toevallig "Viscous
+  Echoes" (vermoedelijk hún typo). Geen actie. (2) de "Malignance" uit de Nov-6-raidtuning (Vashnik,
+  encounterID 2882) en de "malignance" van onze delve-baas Disciple of Vashnik
+  (`Modules/DelveSpellIds.lua:41`, spell-id in de buurt van 1311540) zijn zeker twee verschillende
+  spells die toevallig dezelfde Engelse naam dragen — bevestigd via spell-id, niet via tekst, dus
+  geen Mother's-Wrath/Toxic-Deluge-herhaling. Sluit de openstaande vraag van [2026-11-08] af.
+  **[RAAKT ONS NIET]**
+
+  — bron: https://news.blizzard.com/en-gb/article/24307310/hotfixes-november-6-2026?nocache=20261109a
+  (zelf gelezen) · https://thewowdb.com/guides/midnight/patch-12-1/?nocache=20261109a (zelf gelezen) ·
+  Wowhead spell=1310764 (Vicious Echoes), spell=1311540 (Malignance, Disciple of Vashnik) ·
+  codebase: `Locales/RaidTips.lua:100`, `Modules/DelveSpellIds.lua:41`, `Modules/RaidCoachData.lua:108,112`.
+
+- [2026-11-09] ⚠️ **Mogelijke tegenspraak: onze Ula'tek-tip zegt "marks two players" bij Serpent's
+  Bite, en de Nov-6-hotfix verlaagt het aantal doelen van diezelfde spell.** INFERRED (Blizzards
+  patch note geeft geen cijfer, dus geen volledig MEASURED weerlegging — in-game checken nodig).
+  Bewijsketen: `Locales/RaidTips.lua:93` (RAID_BOSS_ULATEK_STEPS, alle 7 taalpacks): "{SPELL:1295905}
+  marks two players: split up and stand in their circles until it fades, then spread for
+  {SPELL:1312967}." Spell-id 1295905 is bevestigd Serpent's Bite (Wowhead spell=1295905/serpents-bite
+  — de id zelf klopt, niet alleen de naam). De hotfix van 6 nov zegt letterlijk: "Reduced the number
+  of targets selected by Serpent's Bite on all difficulties." Onze eigen `CHANGELOG_500_9`
+  (`Locales/enUS.lua:3884`) bevestigt dat "two players" zelf al een eerder bijgewerkte waarde is
+  ("Ula'tek's Serpent's Bite now says two players"), dus het kan na deze hotfix weer kloppen of net
+  achterhaald zijn. Positieve controle: de grep op `{SPELL:1295905}` geeft wél een treffer (regel 93,
+  alle 7 packs) — geen stilte-is-afwezigheid-geval. Niet te meten zonder de client: het oude/nieuwe
+  aantal zelf (Blizzard geeft alleen "reduced", geen cijfer). **[RAAKT ONS]** — graag bij de volgende
+  Venomous Abyss-clear (Rob of Cisca) checken hoeveel spelers Serpent's Bite in fase 3 nu markeert;
+  is het niet meer twee, dan moet `RAID_BOSS_ULATEK_STEPS` (regel 93, alle 7 taalpacks) aangepast.
+  Ter controle geen tegenspraak bij de overige Nov-6-Ula'tek-tuning (Grasping Fangs, Call of the
+  Serpent, Caustic Waves, Malice, Virulent Spit, Falling Debris, Unchecked Rage, Noxious Splash,
+  Putrid Membrane, health-scaling): die mechanieken staan wel in onze tip maar zonder kwantificering,
+  dus niets om te weerspreken.
+
+  — bron: https://news.blizzard.com/en-gb/article/24307310/hotfixes-november-6-2026?nocache=20261109a
+  (zelf gelezen) · Wowhead spell=1295905/serpents-bite (via Exa) · codebase:
+  `Locales/RaidTips.lua:93,98,99,100,167`, `Locales/enUS.lua:3884`.
+
+- [2026-11-09] 🃏 **Kaarten: Icy Veins gecheckt voor alle 40 specs (cache-buster), Method.gg en
+  Wowhead NIET gecheckt voor geen van de 40 — reken die twee overal als ongecontroleerd, niet als
+  "nog goed".** Eén echte wijziging nodig: **PLAYCARD_1480_HERO1** (Devourer Demon Hunter,
+  `Modules/PlayCards.lua` rond regel 361) — de kaart zegt zelf al sinds 11 okt "12.1.5 changes
+  Void-Scarred… HERO1 needs a recheck" en houdt bewust `why.interface = 120100`, maar dat rechecken
+  is nooit gebeurd: Blizzards 12.1.5 Content Update Notes (13 okt 2026, bevestigd door Icy Veins'
+  devourer-demon-hunter-pve-dps-guide, "last updated" 12 okt) zeggen dat Demonic Intensity nú
+  Collapsing Star de cooldown van The Hunt laat resetten, en Violent Transformation nú Soul
+  Immolation reset i.p.v. The Hunt (omgedraaid) — bijna een maand overdue. HERO1-tekst in
+  `Locales/enUS.lua` moet herschreven en `why.interface` naar 120105 zodra gecontroleerd. Vals
+  alarm, kaart blijft goed: Fire Mage (63), Affliction Warlock (265), Destruction Warlock (267) —
+  Icy Veins-datum nu later dan onze source, maar de update is zuivere schade-tuning (geen
+  knopvolgorde-wijziging). Niet volledig afgerond: Survival Hunter (255) — alleen overzicht gelezen,
+  prioriteitsregels niet woord-voor-woord vergeleken; behandel als niet-gecontroleerd. Overige 35
+  specs: Icy Veins toont overal "Last Updated: Oct 12, 2026" (de patch-brede 12.1.5-refresh, van
+  vóór onze eigen 11-/21-/22-okt-audit) — alleen een datum-check, geen regel-voor-regel vergelijking,
+  en Method.gg/Wowhead voor geen van de 40 bezocht. Geen class-hotfix de afgelopen week die HOE je
+  speelt verandert (2–9 nov: alleen schadeprocenten en bugfixes zonder knoppenimpact); een
+  rondgaande forumpost over "Class Tuning Incoming — November 10" gaat over WoW: Forever, niet over
+  Retail/Midnight 12.1, dus niet relevant hier. MEASURED waar aangegeven, verder expliciet
+  niet-gecontroleerd. Mens beslist over de HERO1-edit.
+
+  — bron: Icy Veins devourer-demon-hunter-pve-dps-guide, fire-mage-pve-dps-guide,
+  affliction-warlock-pve-dps-guide, destruction-warlock-pve-dps-guide, survival-hunter-pve-dps-guide
+  (alle via Exa, cache-buster) · Blizzard 12.1.5 Content Update Notes (13 okt 2026) · codebase:
+  `Modules/PlayCards.lua` (regel ~361), `Locales/enUS.lua` (PLAYCARD_1480_*).
+
+- [2026-11-09] 🧪 **Consumables: `tools/check_consumables.py` faalde op alle 39 specs (`Tunnel
+  connection failed: 403 Forbidden`, egress-proxy blokkeert urllib naar icy-veins.com) — uitgeweken
+  naar Exa met `?nocache=20261109` op alle 39 gems-enchants-consumables-pagina's.** Elke pagina
+  toont "Last Updated: Oct 12, 2026" (27 dagen oud) — geen van de 39 is sinds de vorige check
+  bijgewerkt. Flask en combat-potion van alle 39 specs vergeleken tegen
+  `data/consumables_wowhead.json`: geen nieuwe afwijkingen. De drie al bekende uitzonderingen (12
+  okt, met 3 bronnen nagekeken) staan nog zo: DK Unholy flask (IV: Flask of the Shattered Sun, wij:
+  Flask of the Magisters), Paladin Protection flask (IV: Flask of the Shattered Sun, wij: Flask of
+  the Blood Knights), Rogue Outlaw combat potion (IV: Potion of Recklessness, wij: Light's
+  Potential, Recklessness staat al als alternate) — **bekende afwijkingen (12 okt met 3 bronnen
+  nagekeken): 3, ongewijzigd**. Een aantal specs (Blood DK, Devastation Evoker, Feral/Restoration
+  Druid, Subtlety Rogue, Enhancement Shaman, Affliction/Destruction Warlock, Arms/Fury/Protection
+  Warrior) geeft op de pagina zelf een stat-afhankelijke conditionele keuze ("X als je weinig Y
+  hebt, anders Z") in plaats van één harde aanbeveling — geen eenduidige afwijking, dus niet
+  gerapporteerd. Geen hotfix/patch deze week die een consumable toevoegt of wijzigt (volgens
+  `docs/API_WATCH.md` van vandaag: nieuwste hotfixes blijven 6 nov, raid-tuning en
+  Forever-wereldwerk, geen item-/consumable-regel). Alle 39 specs zijn deze week gecontroleerd.
+  MEASURED.
+
+  — bron: Icy Veins gems-enchants-consumables-pagina's van alle 39 specs (via Exa, cache-buster
+  `?nocache=20261109`) · `data/consumables_wowhead.json` · `docs/API_WATCH.md` (vandaag).
