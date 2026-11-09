@@ -20,7 +20,13 @@
     (beste, mouseover/self), Attack, Focus, Skull (`/tm … 8`, zonder "!"), Trinkets, + elke actieve racial die je kent
     (spell-id → clientnaam). Items als `item:<id>` (AFGELEID dat Forever dat slikt — eerste test!). Heal/Verband worden
     herschreven op BAG_UPDATE_DELAYED/PLAYER_REGEN_ENABLED. Karaktermacro's "MH+ …" (max 16 tekens). Offline getest.
-  - Nog niet: klasse-extra's per klasse (bv. Druid Innervate/Rebirth op mouseover zit al via stap 4), mount-macro.
+  - Attack per klasse (Rob testte: target ok, `/startattack` sloeg met het wapen, hij verwachtte afstand → "ja doe
+    maar"): Hunter `/cast !<75>` (Auto Shot), Mage/Priest/Warlock met wand in slot 18 (subclass 19) `/cast !<5019>`
+    (Shoot), anders `/startattack`; `auto` (herschreven bij tassen/uitrusting). esMX-regel voor "Disparo automático".
+    Offline getest (scratch `test_attack.lua`, 4 gevallen).
+  - 🔜 MORGEN (Rob: "dan gaan we er morgen mee verder"): 1) een TEGEL voor Handige macro's in de addon (nu alleen
+    `/mh macros`); 2) betere macro's per klasse kiezen uit `docs/forever/FOREVER_MACROS_2026-11-09_B/C.md` (8 per klasse),
+    samen met Rob. Ook nog: mount-macro.
 - Hengel-waarschuwing (Rob: "Ja, dit klopt zo" + "een mace en een shield, dat hij dat ook onthoudt"):
   `ForeverWarnings.lua` deel 3. Hengel in slot 16 + vijand targeten (PLAYER_TARGET_CHANGED) of gevecht begint
   (PLAYER_REGEN_DISABLED) → FireAccessibleAlert + chatregel "Zet terug: <links>". 1× per vijand, 30 s ertussen.

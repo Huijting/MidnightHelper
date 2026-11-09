@@ -91,6 +91,29 @@ local function SpellName(id)
 	return nil
 end
 
+-- Spell ids GEMETEN in ForeverSpellIds.lua (wago wowf 70862): Auto Shot 75, Shoot (wand) 5019.
+local AUTO_SHOT, SHOOT = 75, 5019
+local WAND_SUBCLASS = (Enum and Enum.ItemWeaponSubclass and Enum.ItemWeaponSubclass.Wand) or 19
+
+--- "shot" (Hunter who knows Auto Shot), "wand" (Mage/Priest/Warlock with a wand in the ranged slot), or "melee".
+local function AttackKind()
+	local _, token = UnitClass("player")
+	if token == "HUNTER" and KnownSpell(AUTO_SHOT) then
+		return "shot"
+	end
+	if token == "MAGE" or token == "PRIEST" or token == "WARLOCK" then
+		local id = GetInventoryItemID and GetInventoryItemID("player", 18)
+		local info = (C_Item and C_Item.GetItemInfoInstant) or GetItemInfoInstant
+		if id and info and KnownSpell(SHOOT) then
+			local ok, _, _, _, _, _, classID, subclassID = pcall(info, id)
+			if ok and classID == 2 and subclassID == WAND_SUBCLASS then
+				return "wand"
+			end
+		end
+	end
+	return "melee"
+end
+
 --------------------------------------------------------------------------------
 -- The rows. build() returns the macro text, or nil plus a reason key. `auto` = rewritten when the bags change.
 --------------------------------------------------------------------------------
@@ -118,8 +141,22 @@ local DEFS = {
 		end,
 	},
 	{
-		key = "attack", name = "Attack", title = "FMAC_ATTACK_TITLE", desc = "FMAC_ATTACK_DESC",
+		-- Rob, 9 Nov 2026: tested it, the target worked but "/startattack" only swings the weapon; he expected a ranged
+		-- attack → "ja doe maar" on: Hunter = Auto Shot, Mage/Priest/Warlock with a wand = Shoot, everyone else melee.
+		-- Rebuilt when the bags change (`auto`), so equipping a wand later updates it.
+		key = "attack", name = "Attack", title = "FMAC_ATTACK_TITLE", auto = true,
+		descFn = function()
+			return AttackKind() == "shot" and "FMAC_ATTACK_DESC_SHOT" or AttackKind() == "wand" and "FMAC_ATTACK_DESC_WAND"
+				or "FMAC_ATTACK_DESC"
+		end,
 		build = function()
+			local kind = AttackKind()
+			if kind == "shot" or kind == "wand" then
+				local nm = SpellName(kind == "shot" and AUTO_SHOT or SHOOT)
+				if nm then
+					return "#showtooltip\n/targetenemy [noharm][dead]\n/cast !" .. nm
+				end
+			end
 			return "/targetenemy [noharm][dead]\n/startattack"
 		end,
 	},
@@ -329,7 +366,7 @@ Fill = function()
 		r:SetPoint("TOPLEFT", f.child, "TOPLEFT", 0, y)
 		r.name:SetText(d.plainTitle or ns:L(d.title))
 		local body, why = d.build()
-		local info = ns:L(d.desc)
+		local info = ns:L(d.descFn and d.descFn() or d.desc)
 		if not body then
 			info = info .. "  |cffff7f7f" .. ns:L(why) .. "|r"
 		end
@@ -378,6 +415,7 @@ end
 local ev = CreateFrame("Frame")
 ev:RegisterEvent("BAG_UPDATE_DELAYED")
 ev:RegisterEvent("PLAYER_REGEN_ENABLED")
+ev:RegisterEvent("PLAYER_EQUIPMENT_CHANGED") -- a wand in or out changes the Attack macro
 ev:SetScript("OnEvent", function()
 	RefreshAuto()
 	if win and win:IsShown() then

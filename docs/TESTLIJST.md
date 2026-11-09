@@ -41,7 +41,11 @@ er is niets weggegooid.
       Forever? (AFGELEID) — gebeurt er niets, zeg het: dan bouw ik het om.
 - [ ] Verband: met je muis op een groepslid = verband op hem; zonder = op jezelf, en je houdt je target.
 - [ ] Gebruik je laatste healthstone op: "MH+ Heal" wordt vanzelf alleen de potion (MH werkt hem bij na het gevecht).
-- [ ] Doodshoofd, Focus (Shift = weg), Vijand kiezen + aanvallen, Trinkets: doen ze wat de regel zegt?
+- [x] Vijand kiezen + aanvallen (melee): ✅ 9 nov Rob — target werkt, `/startattack` = slaan met je wapen (hij verwachtte
+      afstand; de uitleg zegt dat nu).
+- [ ] Attack per klasse: Hunter = Auto Shot op afstand; Mage/Priest/Warlock MET wand = schieten met de wand; zonder wand
+      of andere klasse = slaan. Wand aantrekken → "MH+ Attack" wordt vanzelf de wand-versie (druk "Bijwerken" als niet).
+- [ ] Doodshoofd, Focus (Shift = weg), Trinkets: doen ze wat de regel zegt?
 - [ ] Shadowmeld-macro: stopt je aanval en cast, dan Shadowmeld.
 - [ ] Retail: `/mh macros` opent nog steeds het oude Macros-tabblad.
 - [ ] `/mh mouseover on` (Druid met toetsenblok): Healing Touch (C), Regrowth, Rejuvenation, Innervate, Remove Curse en

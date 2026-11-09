@@ -15501,12 +15501,28 @@
    "ruRU": "48e8e92cd43c1fb5"
   },
   "FMAC_ATTACK_DESC": {
-   "deDE": "99b0dd4bd53dec36",
-   "esES": "99b0dd4bd53dec36",
-   "frFR": "99b0dd4bd53dec36",
-   "nlNL": "99b0dd4bd53dec36",
-   "ptBR": "99b0dd4bd53dec36",
-   "ruRU": "99b0dd4bd53dec36"
+   "deDE": "1d14e34f4874f1e1",
+   "esES": "1d14e34f4874f1e1",
+   "frFR": "1d14e34f4874f1e1",
+   "nlNL": "1d14e34f4874f1e1",
+   "ptBR": "1d14e34f4874f1e1",
+   "ruRU": "1d14e34f4874f1e1"
+  },
+  "FMAC_ATTACK_DESC_SHOT": {
+   "deDE": "1e34fb71f876a564",
+   "esES": "1e34fb71f876a564",
+   "frFR": "1e34fb71f876a564",
+   "nlNL": "1e34fb71f876a564",
+   "ptBR": "1e34fb71f876a564",
+   "ruRU": "1e34fb71f876a564"
+  },
+  "FMAC_ATTACK_DESC_WAND": {
+   "deDE": "8fc86859248b7612",
+   "esES": "8fc86859248b7612",
+   "frFR": "8fc86859248b7612",
+   "nlNL": "8fc86859248b7612",
+   "ptBR": "8fc86859248b7612",
+   "ruRU": "8fc86859248b7612"
   },
   "FMAC_ATTACK_TITLE": {
    "deDE": "56d403dc3058d37c",
