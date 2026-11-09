@@ -32,6 +32,12 @@ er is niets weggegooid.
       en dag rond 05:00 servertijd, Darkmoon Faire + Call to Arms: Arathi Basin, 0 raids.
 - [ ] Woensdag 11 nov na de reset: telt "Nieuwe week" weer van ~7 dagen af?
 
+## 🆕 9 nov (laat) — Forever: trainerpijl blijft staan bij een andere trainer
+
+- [ ] Zet een pijl naar een beroepstrainer (bv. leatherworking). Praat onderweg met een ándere trainer (vissen,
+      eerste hulp, je klassetrainer): de pijl moet blijven staan.
+- [ ] Praat daarna met de goede trainer: nu gaat de pijl weg (en het kruisje boven zijn hoofd ook).
+
 ## 🆕 9 nov (avond) — Midnight: kaarten, Talebound, Codex
 
 - [x] 🔴 Retail `/reload`: MH laadt gewoon (nieuwe TOC-regel `AllowLoadGameType: standard`). ✅ 9 nov Rob: retail

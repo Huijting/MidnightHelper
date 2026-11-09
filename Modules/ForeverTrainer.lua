@@ -1176,7 +1176,10 @@ function ns.ForeverTrainerGoTo(best, dist, n, prof)
 		(prof and (" (" .. ProfName(prof) .. ")") or " (trainer)")
 	-- arriveYards: the arrow stays until 5 yd (NativeArrow's default is 20 yd; Rob, 8 Nov 2026: at ~15 m "is mijn pijl
 	-- al weg ... dan moet ik alsnog zoeken"). Talking to the trainer ends the route too (TRAINER_SHOW below).
-	ns.lastTarget = { mapID = best.map, x = best.x, y = best.y, name = label, via = "/mh trainer go", arriveYards = 5 }
+	-- trainerNpc/trainerName: so TRAINER_SHOW only ends the route at THIS trainer (Rob, 9 Nov 2026: a fishing trainer on
+	-- the way to the leatherworker took the arrow away).
+	ns.lastTarget = { mapID = best.map, x = best.x, y = best.y, name = label, via = "/mh trainer go", arriveYards = 5,
+		trainerNpc = (type(best.npc) == "number" and best.npc > 0) and best.npc or nil, trainerName = best.name }
 	ns._mhRouteOwner = "waypoint"
 	if dist then
 		print(PREFIX .. ("arrow set to %s, about %s (%s, %d places known)."):format(label, Distance(dist), best.src,
@@ -1310,6 +1313,30 @@ local function IsMarkedTrainer(unit)
 	return mark.name ~= nil and NameOfUnit(unit) == mark.name
 end
 
+--- Is the trainer whose window just opened ("npc" unit) the one the route points at? By npc id, else by name, else by
+--- standing within 15 yd of the route's spot. Cannot tell at all → true (the old behaviour: talking ends the route).
+local ROUTE_TRAINER_YARDS = 15
+local function IsRouteTrainer(lt)
+	local npc = NpcOfUnit("npc")
+	if lt.trainerNpc and npc then
+		return npc == lt.trainerNpc
+	end
+	local name = NameOfUnit("npc")
+	if lt.trainerName and name then
+		return name == lt.trainerName
+	end
+	local tc, tx, ty = World(lt.mapID, lt.x, lt.y)
+	local pm, px, py = PlayerPlace()
+	local pc, wx, wy
+	if pm then
+		pc, wx, wy = World(pm, px, py)
+	end
+	if tc and pc then
+		return tc == pc and ((tx - wx) ^ 2 + (ty - wy) ^ 2) <= ROUTE_TRAINER_YARDS ^ 2
+	end
+	return true
+end
+
 local function ShowCross(np, show)
 	local t = np._mhTrainerCross
 	if show then
@@ -1439,12 +1466,18 @@ do
 	plates:RegisterEvent("TRAINER_SHOW")
 	plates:SetScript("OnEvent", function(_, event, unit)
 		if event == "TRAINER_SHOW" then
+			-- Only the trainer the arrow points at ends the route (Rob, 9 Nov 2026: the fishing trainer on the way to the
+			-- leatherworker took the arrow away). Any other trainer: arrow and cross stay.
+			local lt = ns.lastTarget
+			local ours = lt and lt.via == "/mh trainer go" and ns._mhRouteOwner == "waypoint"
+			if ours and not IsRouteTrainer(lt) then
+				return
+			end
 			if mark then
 				ClearMark() -- you found him
 			end
 			-- ...and the arrow is done too: NativeArrow tears down a route whose owner is gone (and clears its pin).
-			local lt = ns.lastTarget
-			if ns._mhRouteOwner == "waypoint" and lt and lt.via == "/mh trainer go" then
+			if ours then
 				ns._mhRouteOwner = nil
 			end
 		elseif event == "NAME_PLATE_UNIT_ADDED" then

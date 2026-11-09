@@ -1,5 +1,14 @@
 # Midnight Helper — waar we staan
 
+## 🆕 9 nov (laat) — Forever: trainerpijl stopt alleen nog bij de goede trainer (Rob: "Ja, ga je gang")
+
+- Rob: op weg naar de leatherworking-trainer leerde hij vissen bij een andere trainer → pijl weg. Oorzaak (GEMETEN):
+  `ForeverTrainer.lua` beëindigde de route bij élke `TRAINER_SHOW`. Nu `IsRouteTrainer(lt)`: npc-id van unit "npc" ==
+  `lt.trainerNpc`, anders naam == `lt.trainerName`, anders binnen 15 yd van het doel; niets te meten → oude gedrag.
+  `ForeverTrainerGoTo` zet die twee velden in `ns.lastTarget`. Kruisje (mark) blijft ook staan bij een andere trainer.
+  Lint 0 HARD, syntax OK; niet getest in de client.
+- Lopend: macro-onderzoek Forever (3× mh-research, zonder onze oude macro's): scratchpad 1e43412f `macros_A/B/C.md`.
+
 ## 🆕 9 nov (avond) — Midnight: 20 Zo speel je-kaarten bijgewerkt, MH laadt niet in Talebound, 2 Codex-artikelen voor 12.1.7 (Rob: "begin maar met 1 en als die klaar is, dan ga dan maar door")
 
 - **Kaarten-audit** (4× mh-research, 40 specs tegen Icy Veins + Method + Wowhead, gidsen 12-30 okt; rapporten in de
