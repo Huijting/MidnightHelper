@@ -2551,6 +2551,22 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		end
 		return
 	end
+	-- /mh macros on Forever = the Handy macros window (ForeverMacros.lua). On retail ForeverMacrosSlash does not exist and
+	-- the line falls through to the Macros tab further down, as before.
+	local macArg = msg:lower() == "macros" and "" or msg:lower():match("^macros%s+(.+)$")
+	if macArg and ns.ForeverMacrosSlash then
+		ns.ForeverMacrosSlash(macArg)
+		return
+	end
+	local moArg = msg:lower() == "mouseover" and "" or msg:lower():match("^mouseover%s+(.+)$")
+	if moArg then
+		if ns.ForeverMouseoverSlash then
+			ns.ForeverMouseoverSlash(moArg)
+		else
+			print("|cffffcc00Midnight Helper:|r /mh mouseover is for WoW: Forever.")
+		end
+		return
+	end
 	local poleArg = msg:lower() == "pole" and "" or msg:lower():match("^pole%s+(.+)$")
 	if poleArg then
 		if ns.ForeverPoleSlash then

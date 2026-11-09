@@ -10,6 +10,17 @@
 - Shaman weapon buff (Rob, screenshot "WEAPON BUFF" met de Fishing Pole in de hand): `ForeverBuffs.lua` Evaluate kijkt
   nu eerst naar slot 16 — hengel (item class 2, subclass 20 = `Enum.ItemWeaponSubclass.Fishingpole`, AFGELEID dat
   Forever die nummers houdt) of geen wapen → geen melding. MissingBuff ververst al op PLAYER_EQUIPMENT_CHANGED.
+- Macro-plan stap 3 + 4 (Rob: "Gaan we door zolang je kan en dan beoordelen we samen straks wel"):
+  - Stap 4 `ForeverBlock.lua`: `ns.db.foreverMouseover` (standaard uit), `/mh mouseover [on|off]`. Spells uit
+    `MO_HELP`/`MO_HARM` (Engelse tabelnamen) krijgen `[@mouseover,help|harm,nodead(,guard)][guard]` vóór hun clause.
+    Body() bouwt een key zonder mouseover als hij > 255 tekens wordt. Offline getest (scratch `test_mouseover.lua`).
+    `[]` (lege voorwaarde) = AFGELEID geldig in Forever.
+  - Stap 3 nieuw `Modules/ForeverMacros.lua` (beide TOC's): venster "Handige macro's", `/mh macros [check]` op Forever
+    (retail valt door naar het Macros-tabblad). Rijen: Heal (beste stone/potion die je draagt, Shift = potion), Verband
+    (beste, mouseover/self), Attack, Focus, Skull (`/tm … 8`, zonder "!"), Trinkets, + elke actieve racial die je kent
+    (spell-id → clientnaam). Items als `item:<id>` (AFGELEID dat Forever dat slikt — eerste test!). Heal/Verband worden
+    herschreven op BAG_UPDATE_DELAYED/PLAYER_REGEN_ENABLED. Karaktermacro's "MH+ …" (max 16 tekens). Offline getest.
+  - Nog niet: klasse-extra's per klasse (bv. Druid Innervate/Rebirth op mouseover zit al via stap 4), mount-macro.
 - Hengel-waarschuwing (Rob: "Ja, dit klopt zo" + "een mace en een shield, dat hij dat ook onthoudt"):
   `ForeverWarnings.lua` deel 3. Hengel in slot 16 + vijand targeten (PLAYER_TARGET_CHANGED) of gevecht begint
   (PLAYER_REGEN_DISABLED) → FireAccessibleAlert + chatregel "Zet terug: <links>". 1× per vijand, 30 s ertussen.

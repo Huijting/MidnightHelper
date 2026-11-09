@@ -248,6 +248,7 @@ Modules\ForeverToolGuard.lua
 Modules\ForeverBuffs.lua
 Modules\ForeverWarnings.lua
 Modules\ForeverWeek.lua
+Modules\ForeverMacros.lua
 Modules\ForeverMainStats.lua
 Modules\ForeverQuestHint.lua
 Modules\ForeverLayoutCarry.lua

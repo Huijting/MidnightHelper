@@ -152,7 +152,7 @@ local function First(v)
 		for _, name in ipairs(v) do
 			local id = Known(name)
 			if id then
-				return ClientName(id, name), id
+				return ClientName(id, name), id, name
 			end
 		end
 		return nil
@@ -160,14 +160,82 @@ local function First(v)
 	if v then
 		local id = Known(v)
 		if id then
-			return ClientName(id, v), id
+			return ClientName(id, v), id, v
 		end
 	end
 	return nil
 end
 
+--------------------------------------------------------------------------------
+-- Mouseover (Rob, 9 Nov 2026: the macro plan, step 4 — "Gaan we door zolang je kan"). OFF by default; players choose
+-- (/mh mouseover on|off). On: a spell from these lists gets "[@mouseover,help,nodead]" (friendly spells) or
+-- "[@mouseover,harm,nodead]" (spells on an enemy) in front of its normal clause, so it lands on the unit under the mouse
+-- and otherwise works as before. GEMETEN that Forever has [@mouseover] in macros: forum macros 2-5 Nov 2026
+-- (docs/forever/FOREVER_MACROS_2026-11-09_A.md §1). English names, as in the class tables.
+--------------------------------------------------------------------------------
+local MO_HELP = {}
+for _, n in ipairs({
+	-- Druid
+	"Healing Touch", "Regrowth", "Rejuvenation", "Swiftmend", "Innervate", "Remove Curse", "Abolish Poison",
+	"Cure Poison", "Thorns", "Mark of the Wild", "Gift of the Wild",
+	-- Priest
+	"Lesser Heal", "Heal", "Greater Heal", "Flash Heal", "Renew", "Power Word: Shield", "Cure Disease",
+	"Abolish Disease", "Power Word: Fortitude", "Prayer of Fortitude",
+	-- Paladin
+	"Holy Light", "Flash of Light", "Lay on Hands", "Cleanse", "Purify", "Blessing of Protection",
+	"Blessing of Freedom",
+	-- Shaman
+	"Healing Wave", "Lesser Healing Wave", "Chain Heal",
+	-- Mage
+	"Arcane Intellect", "Remove Lesser Curse",
+}) do
+	MO_HELP[n] = true
+end
+local MO_HARM = {}
+for _, n in ipairs({
+	"Entangling Roots", "Hibernate", "Faerie Fire", "Polymorph", "Counterspell", "Fear", "Banish",
+	"Shackle Undead", "Hunter's Mark", "Earth Shock", "Purge",
+}) do
+	MO_HARM[n] = true
+end
+
+local moSuppressed = false -- set while a key that grew past the 255-character limit is rebuilt without mouseover
+local function MouseoverOn()
+	return not moSuppressed and ns.db and ns.db.foreverMouseover == true
+end
+
+--- Put the mouseover part in front of a clause's condition ("" or "[x] "). english = the table name of the spell.
+local function WithMouseover(cond, english)
+	if not (english and MouseoverOn()) then
+		return cond
+	end
+	local kind = (MO_HELP[english] and "help") or (MO_HARM[english] and "harm") or nil
+	if not kind then
+		return cond
+	end
+	local inner = cond:match("^%[(.-)%]%s*$")
+	if inner and inner ~= "" then
+		return ("[@mouseover,%s,nodead,%s][%s] "):format(kind, inner, inner)
+	end
+	return ("[@mouseover,%s,nodead][] "):format(kind)
+end
+
+local BodyRaw
 --- The macro body for one key, the spell ids it uses, and the spell to show on the picture. nil when nothing is known.
+--- A macro may hold 255 characters (GEMETEN: client string MACROFRAME_CHAR_LIMIT "%d/255", Forever 70862). When the
+--- mouseover parts make a key longer than that, that key is built without them.
+local MACRO_MAX = 255
 local function Body(cls, key)
+	local body, ids, show = BodyRaw(cls, key)
+	if body and #body > MACRO_MAX and MouseoverOn() then
+		moSuppressed = true
+		body, ids, show = BodyRaw(cls, key)
+		moSuppressed = false
+	end
+	return body, ids, show
+end
+
+BodyRaw = function(cls, key)
 	local def = cls and cls.keys and cls.keys[key]
 	if not def then
 		return nil
@@ -207,24 +275,24 @@ local function Body(cls, key)
 		end
 		return "#showtooltip\n/cast " .. table.concat(parts, "; "), ids, show
 	end
-	local allName, allId = First(def.all)
+	local allName, allId, allEn = First(def.all)
 	if allName then
-		return "#showtooltip\n/cast " .. use(allName, allId), ids, show
+		return "#showtooltip\n/cast " .. WithMouseover("", allEn) .. use(allName, allId), ids, show
 	end
 	local clauses, guarded = {}, false
 	for _, st in ipairs(cls.states or {}) do
-		local name, id = First(def[st.name])
+		local name, id, en = First(def[st.name])
 		if name then
-			clauses[#clauses + 1] = st.cond .. " " .. use(name, id)
+			clauses[#clauses + 1] = WithMouseover(st.cond .. " ", en) .. use(name, id)
 			if st.guards then
 				guarded = true
 			end
 		end
 	end
-	local base, baseId = First(def.base)
+	local base, baseId, baseEn = First(def.base)
 	if base then
 		local guard = (guarded and not def.open and cls.baseGuard) and (cls.baseGuard .. " ") or ""
-		clauses[#clauses + 1] = guard .. use(base, baseId)
+		clauses[#clauses + 1] = WithMouseover(guard, baseEn) .. use(base, baseId)
 	end
 	if #clauses == 0 then
 		return nil
@@ -298,6 +366,47 @@ local function RefreshExisting()
 		if idx and idx > 0 then
 			ns.ForeverEnsureMacro(key)
 		end
+	end
+end
+
+--- /mh mouseover [on|off]: switch the mouseover part on or off and rewrite the placed macros at once (out of combat).
+function ns.ForeverMouseoverSlash(arg)
+	arg = (arg or ""):lower()
+	local P = "|cffffcc00Midnight Helper:|r "
+	if arg == "on" or arg == "off" then
+		if ns.db then
+			ns.db.foreverMouseover = (arg == "on")
+		end
+		if InCombatLockdown and InCombatLockdown() then
+			print(P .. ns:L("FBLOCK_MO_COMBAT"))
+			local once = CreateFrame("Frame")
+			once:RegisterEvent("PLAYER_REGEN_ENABLED")
+			once:SetScript("OnEvent", function(self)
+				self:UnregisterAllEvents()
+				RefreshExisting()
+			end)
+		else
+			RefreshExisting()
+		end
+		print(P .. ns:L(MouseoverOn() and "FBLOCK_MO_ON" or "FBLOCK_MO_OFF"))
+		return
+	end
+	print(P .. ("key block mouseover: %s (/mh mouseover on||off)"):format(MouseoverOn() and "on" or "off"))
+	local cls = ClassTable()
+	if not cls then
+		print("  no key-block table for this class")
+		return
+	end
+	local n = 0
+	for key in pairs(cls.keys) do
+		local body = Body(cls, key)
+		if body and body:find("@mouseover", 1, true) then
+			n = n + 1
+			print(("  %s: %s"):format(key, (body:gsub("\n", " | "))))
+		end
+	end
+	if n == 0 then
+		print("  no key uses mouseover now" .. (MouseoverOn() and " (none of your spells is on the list yet)" or ""))
 	end
 end
 

@@ -82,6 +82,8 @@ Modules\NameplateColors.lua
 Modules\ForeverWarnings.lua
 # This week in Forever on the start page: resets, today's calendar, raid lockouts (Rob, 9 Nov 2026: "Ja, ik volg jouw adviezen").
 Modules\ForeverWeek.lua
+# Handy macros: heal, bandage, attack, focus, skull, trinkets, racials (Rob, 9 Nov 2026: macro plan step 3).
+Modules\ForeverMacros.lua
 Modules\LayoutExtras.lua
 Modules\CombatSafety.lua
 Modules\FastMark.lua

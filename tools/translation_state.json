@@ -15386,6 +15386,30 @@
    "ptBR": "fce1e976474d8cb5",
    "ruRU": "fce1e976474d8cb5"
   },
+  "FBLOCK_MO_COMBAT": {
+   "deDE": "345edde26916b50c",
+   "esES": "345edde26916b50c",
+   "frFR": "345edde26916b50c",
+   "nlNL": "345edde26916b50c",
+   "ptBR": "345edde26916b50c",
+   "ruRU": "345edde26916b50c"
+  },
+  "FBLOCK_MO_OFF": {
+   "deDE": "3554bd0cfd0f8b76",
+   "esES": "3554bd0cfd0f8b76",
+   "frFR": "3554bd0cfd0f8b76",
+   "nlNL": "3554bd0cfd0f8b76",
+   "ptBR": "3554bd0cfd0f8b76",
+   "ruRU": "3554bd0cfd0f8b76"
+  },
+  "FBLOCK_MO_ON": {
+   "deDE": "4171e81dfbc9d424",
+   "esES": "4171e81dfbc9d424",
+   "frFR": "4171e81dfbc9d424",
+   "nlNL": "4171e81dfbc9d424",
+   "ptBR": "4171e81dfbc9d424",
+   "ruRU": "4171e81dfbc9d424"
+  },
   "FIRSTRUN_CHAT": {
    "deDE": "04d05d800482548c",
    "esES": "04d05d800482548c",
@@ -15475,6 +15499,205 @@
    "nlNL": "48e8e92cd43c1fb5",
    "ptBR": "48e8e92cd43c1fb5",
    "ruRU": "48e8e92cd43c1fb5"
+  },
+  "FMAC_ATTACK_DESC": {
+   "deDE": "99b0dd4bd53dec36",
+   "esES": "99b0dd4bd53dec36",
+   "frFR": "99b0dd4bd53dec36",
+   "nlNL": "99b0dd4bd53dec36",
+   "ptBR": "99b0dd4bd53dec36",
+   "ruRU": "99b0dd4bd53dec36"
+  },
+  "FMAC_ATTACK_TITLE": {
+   "deDE": "56d403dc3058d37c",
+   "esES": "56d403dc3058d37c",
+   "frFR": "56d403dc3058d37c",
+   "nlNL": "56d403dc3058d37c",
+   "ptBR": "56d403dc3058d37c",
+   "ruRU": "56d403dc3058d37c"
+  },
+  "FMAC_BANDAGE_DESC": {
+   "deDE": "567bf372bc921193",
+   "esES": "567bf372bc921193",
+   "frFR": "567bf372bc921193",
+   "nlNL": "567bf372bc921193",
+   "ptBR": "567bf372bc921193",
+   "ruRU": "567bf372bc921193"
+  },
+  "FMAC_BANDAGE_TITLE": {
+   "deDE": "37fa3a1e818dc430",
+   "esES": "37fa3a1e818dc430",
+   "nlNL": "37fa3a1e818dc430",
+   "ptBR": "37fa3a1e818dc430",
+   "ruRU": "37fa3a1e818dc430"
+  },
+  "FMAC_BTN_MAKE": {
+   "deDE": "ccdd25d4230fb997",
+   "esES": "ccdd25d4230fb997",
+   "frFR": "ccdd25d4230fb997",
+   "nlNL": "ccdd25d4230fb997",
+   "ptBR": "ccdd25d4230fb997",
+   "ruRU": "ccdd25d4230fb997"
+  },
+  "FMAC_BTN_UPDATE": {
+   "deDE": "c1c1009d3f37ec05",
+   "esES": "c1c1009d3f37ec05",
+   "frFR": "c1c1009d3f37ec05",
+   "nlNL": "c1c1009d3f37ec05",
+   "ptBR": "c1c1009d3f37ec05",
+   "ruRU": "c1c1009d3f37ec05"
+  },
+  "FMAC_FOCUS_DESC": {
+   "deDE": "1014604477e3ba1d",
+   "esES": "1014604477e3ba1d",
+   "frFR": "1014604477e3ba1d",
+   "nlNL": "1014604477e3ba1d",
+   "ptBR": "1014604477e3ba1d",
+   "ruRU": "1014604477e3ba1d"
+  },
+  "FMAC_FOCUS_TITLE": {
+   "deDE": "44f1a0c64c53f01a",
+   "esES": "44f1a0c64c53f01a",
+   "frFR": "44f1a0c64c53f01a",
+   "nlNL": "44f1a0c64c53f01a",
+   "ptBR": "44f1a0c64c53f01a",
+   "ruRU": "44f1a0c64c53f01a"
+  },
+  "FMAC_HEAL_DESC": {
+   "deDE": "9a0c4a1571a34852",
+   "esES": "9a0c4a1571a34852",
+   "frFR": "9a0c4a1571a34852",
+   "nlNL": "9a0c4a1571a34852",
+   "ptBR": "9a0c4a1571a34852",
+   "ruRU": "9a0c4a1571a34852"
+  },
+  "FMAC_HEAL_TITLE": {
+   "deDE": "e97f2f985d9242a6",
+   "esES": "e97f2f985d9242a6",
+   "frFR": "e97f2f985d9242a6",
+   "nlNL": "e97f2f985d9242a6",
+   "ptBR": "e97f2f985d9242a6",
+   "ruRU": "e97f2f985d9242a6"
+  },
+  "FMAC_HINT": {
+   "deDE": "0c2fc86b9616ebcb",
+   "esES": "0c2fc86b9616ebcb",
+   "frFR": "0c2fc86b9616ebcb",
+   "nlNL": "0c2fc86b9616ebcb",
+   "ptBR": "0c2fc86b9616ebcb",
+   "ruRU": "0c2fc86b9616ebcb"
+  },
+  "FMAC_MADE_FMT": {
+   "deDE": "0abbb76c364cb5c7",
+   "esES": "0abbb76c364cb5c7",
+   "frFR": "0abbb76c364cb5c7",
+   "nlNL": "0abbb76c364cb5c7",
+   "ptBR": "0abbb76c364cb5c7",
+   "ruRU": "0abbb76c364cb5c7"
+  },
+  "FMAC_RACIAL_DESC": {
+   "deDE": "a6415a6cbd61c8fc",
+   "esES": "a6415a6cbd61c8fc",
+   "frFR": "a6415a6cbd61c8fc",
+   "nlNL": "a6415a6cbd61c8fc",
+   "ptBR": "a6415a6cbd61c8fc",
+   "ruRU": "a6415a6cbd61c8fc"
+  },
+  "FMAC_SKULL_DESC": {
+   "deDE": "c07a664231b1ec37",
+   "esES": "c07a664231b1ec37",
+   "frFR": "c07a664231b1ec37",
+   "nlNL": "c07a664231b1ec37",
+   "ptBR": "c07a664231b1ec37",
+   "ruRU": "c07a664231b1ec37"
+  },
+  "FMAC_SKULL_TITLE": {
+   "deDE": "c10c21dd5c7b4a8d",
+   "esES": "c10c21dd5c7b4a8d",
+   "frFR": "c10c21dd5c7b4a8d",
+   "nlNL": "c10c21dd5c7b4a8d",
+   "ptBR": "c10c21dd5c7b4a8d",
+   "ruRU": "c10c21dd5c7b4a8d"
+  },
+  "FMAC_SUB": {
+   "deDE": "cdddf4406a229482",
+   "esES": "cdddf4406a229482",
+   "frFR": "cdddf4406a229482",
+   "nlNL": "cdddf4406a229482",
+   "ptBR": "cdddf4406a229482",
+   "ruRU": "cdddf4406a229482"
+  },
+  "FMAC_TITLE": {
+   "deDE": "72fde5254b8031c1",
+   "esES": "72fde5254b8031c1",
+   "frFR": "72fde5254b8031c1",
+   "nlNL": "72fde5254b8031c1",
+   "ptBR": "72fde5254b8031c1",
+   "ruRU": "72fde5254b8031c1"
+  },
+  "FMAC_TRINKETS_DESC": {
+   "deDE": "0da271b637019b6b",
+   "esES": "0da271b637019b6b",
+   "frFR": "0da271b637019b6b",
+   "nlNL": "0da271b637019b6b",
+   "ptBR": "0da271b637019b6b",
+   "ruRU": "0da271b637019b6b"
+  },
+  "FMAC_TRINKETS_TITLE": {
+   "deDE": "3a2ae314d7806e5b",
+   "esES": "3a2ae314d7806e5b",
+   "frFR": "3a2ae314d7806e5b",
+   "nlNL": "3a2ae314d7806e5b",
+   "ptBR": "3a2ae314d7806e5b",
+   "ruRU": "3a2ae314d7806e5b"
+  },
+  "FMAC_WHY_COMBAT": {
+   "deDE": "0089838c56554840",
+   "esES": "0089838c56554840",
+   "frFR": "0089838c56554840",
+   "nlNL": "0089838c56554840",
+   "ptBR": "0089838c56554840",
+   "ruRU": "0089838c56554840"
+  },
+  "FMAC_WHY_FAILED": {
+   "deDE": "1dd721ef112635ca",
+   "esES": "1dd721ef112635ca",
+   "frFR": "1dd721ef112635ca",
+   "nlNL": "1dd721ef112635ca",
+   "ptBR": "1dd721ef112635ca",
+   "ruRU": "1dd721ef112635ca"
+  },
+  "FMAC_WHY_FULL": {
+   "deDE": "6d48cc0ba6e55b45",
+   "esES": "6d48cc0ba6e55b45",
+   "frFR": "6d48cc0ba6e55b45",
+   "nlNL": "6d48cc0ba6e55b45",
+   "ptBR": "6d48cc0ba6e55b45",
+   "ruRU": "6d48cc0ba6e55b45"
+  },
+  "FMAC_WHY_LONG": {
+   "deDE": "8e8217015761e837",
+   "esES": "8e8217015761e837",
+   "frFR": "8e8217015761e837",
+   "nlNL": "8e8217015761e837",
+   "ptBR": "8e8217015761e837",
+   "ruRU": "8e8217015761e837"
+  },
+  "FMAC_WHY_NO_BANDAGE": {
+   "deDE": "876d7ad17543a712",
+   "esES": "876d7ad17543a712",
+   "frFR": "876d7ad17543a712",
+   "nlNL": "876d7ad17543a712",
+   "ptBR": "876d7ad17543a712",
+   "ruRU": "876d7ad17543a712"
+  },
+  "FMAC_WHY_NO_HEAL": {
+   "deDE": "569b5b0f9d8b9dd1",
+   "esES": "569b5b0f9d8b9dd1",
+   "frFR": "569b5b0f9d8b9dd1",
+   "nlNL": "569b5b0f9d8b9dd1",
+   "ptBR": "569b5b0f9d8b9dd1",
+   "ruRU": "569b5b0f9d8b9dd1"
   },
   "FOLLOWER_BOSSHINT_BODY": {
    "deDE": "a2a1a6fb0572d355",

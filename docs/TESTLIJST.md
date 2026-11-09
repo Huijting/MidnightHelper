@@ -32,6 +32,23 @@ er is niets weggegooid.
       en dag rond 05:00 servertijd, Darkmoon Faire + Call to Arms: Arathi Basin, 0 raids.
 - [ ] Woensdag 11 nov na de reset: telt "Nieuwe week" weer van ~7 dagen af?
 
+## 🆕 9 nov (nacht) — Forever: Handige macro's + mouseover in het toetsenblok
+
+- [ ] `/mh macros` in Forever opent het venster "Handige macro's": Heal, Verband, Vijand kiezen en aanvallen, Focus,
+      Doodshoofd, Trinkets, en je racials (Night Elf: Shadowmeld + Elune's Light). Shift+scroll maakt het groter.
+- [ ] Klik "Maak" bij Heal: de macro "MH+ Heal" staat in je macrolijst (tab van je karakter), het macrovenster gaat open.
+      Sleep hem op een balk. Druk = healthstone, Shift + druk = healing potion. 🔴 Werkt `/use item:<nummer>` in
+      Forever? (AFGELEID) — gebeurt er niets, zeg het: dan bouw ik het om.
+- [ ] Verband: met je muis op een groepslid = verband op hem; zonder = op jezelf, en je houdt je target.
+- [ ] Gebruik je laatste healthstone op: "MH+ Heal" wordt vanzelf alleen de potion (MH werkt hem bij na het gevecht).
+- [ ] Doodshoofd, Focus (Shift = weg), Vijand kiezen + aanvallen, Trinkets: doen ze wat de regel zegt?
+- [ ] Shadowmeld-macro: stopt je aanval en cast, dan Shadowmeld.
+- [ ] Retail: `/mh macros` opent nog steeds het oude Macros-tabblad.
+- [ ] `/mh mouseover on` (Druid met toetsenblok): Healing Touch (C), Regrowth, Rejuvenation, Innervate, Remove Curse en
+      Mark of the Wild gaan naar wie onder je muis staat; Roots (V, in normale vorm) en Faerie Fire naar de vijand onder je
+      muis. Niets onder je muis: zoals altijd. Beer- en kattoetsen veranderen niet. `/mh mouseover` toont de macro's met
+      mouseover; `/mh mouseover off` zet alles terug.
+
 ## 🆕 9 nov (laat) — Forever: waarschuwing "je hebt je vishengel nog in je handen"
 
 - [ ] Doe eerst je mace + schild aan (MH onthoudt ze), pak dan de hengel en klik een vijand aan: grote melding
