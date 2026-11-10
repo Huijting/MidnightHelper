@@ -1,5 +1,18 @@
 # Midnight Helper — waar we staan
 
+## 💡 10 nov — brainstorm werkwijze (cloud-sessie, tak `claude/midnight-helpen-brainstorm-d18bs9`)
+
+- PLAN (Rob: "werk het hele plan maar uit"), ✅ Rob 10 nov avond: "het klopt allemaal, volgorde is goed", zesde toetsvraag ja: `docs/PLAN_WERKWIJZE_2026-11-10.md`, 7 delen +
+  bouwvolgorde (prikbord → controles → wachters → recepten → selftest → nep-spel). Alleen deel 1 is af. Eerste versie: Doel als toets (5 vragen), vaste vorm van
+  een idee, één ideeënlijst, prikbord voor de site-chat. Volgorde (Rob: "Ja, die volgorde aanhouden"): 1) toets +
+  ideeënvorm, 2) controles "bestaat het" / "klopt de data", 3) ideeën-wachter, 4) nep-spel + `/mh selftest`.
+  Niets gebouwd. ⚠️ Dit bestand zit op 1434+ regels: splitsen vóór de volgende grote toevoeging.
+- ▶ **Opdracht voor de bouwchat: `docs/OPDRACHT_BOUWCHAT_2026-11-10.md`** (Rob: ja). Stap 0 tak naar main, stap 1 prikbord
+  `docs/SITE_SEIN.md`, stap 2 controles C3/C5/C1. Eén stap tegelijk, na elke stap Robs ja.
+- Rob daarna: toets klopt; ideeënlijst ja; prikbord ja. Nieuw: `docs/IDEEEN.md` = de ENE ideeënlijst (20 open + 2 uit de
+  vragenlijst + 6 half; 3 van de 5 vragenlijst-wensen bleken al gebouwd; wat sinds 8 okt gebouwd is staat onder "Af", vandaag GEMETEN in de code, niet in het spel).
+  Nieuwe ideeën alleen nog daar. Rob moet per regel nog ja/nee/later zeggen. Site-kant staat in de privé site-repo.
+
 ## 🆕 10 nov (middag) — Midnight: Macro's-tabblad "Top" + knop Maken (Rob: "maak het maar, net zoals … Forever … minimaal net zo goed")
 
 - Drie mh-research-runs (A: DK/DH/Druid/Evoker, B: Hunter/Mage/Monk/Paladin, C: Priest/Rogue/Shaman/Warlock/Warrior)
