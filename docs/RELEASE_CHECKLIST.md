@@ -84,8 +84,11 @@ git push origin v<ver>
   legacy.curseforge.com/account/api-tokens) — een Core/Eternal-key faalt met
   "Error fetching game version info" en slaat de upload stil over.
 - Run controleren zonder `gh` CLI: `https://api.github.com/repos/Huijting/MidnightHelper/actions/runs?per_page=3`.
-- **Seintje aan de site-chat** (sessie "Midnight Helper site", SendMessage; afspraak Rob 5 okt 2026): versie, tag-commit
-  en wat de site raakt. Zij werken de cijferstrook op de homepage bij (versie, datum, downloads) en draaien de
+- **Seintje aan de site-chat = een regel in `docs/SITE_SEIN.md`** (sinds 10 nov 2026, plan deel 5; Rob: "het klopt
+  allemaal"). Zet bij de tag elke regel van deze release van *alleen op main* op *getagd*, en op *staat op CurseForge*
+  zodra de CurseForge-API (`curseforge.com/api/v1/mods/1528577/files`) het bestand toont; vul Tag + commit in. Het
+  bestand is de afspraak. Een los bericht (sessie "Midnight Helper site", SendMessage; afspraak Rob 5 okt 2026) mag als
+  extra: versie, tag-commit en wat de site raakt. Zij werken de cijferstrook op de homepage bij (versie, datum, downloads) en draaien de
   nachtbouw van /play/ en de gidsen uit die tag. Live zetten blijft Robs ja.
 
 ## 4. Screenshots (als er nieuwe features zijn)

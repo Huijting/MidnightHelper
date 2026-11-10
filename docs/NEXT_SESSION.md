@@ -9,6 +9,12 @@
   Niets gebouwd. ⚠️ Dit bestand zit op 1434+ regels: splitsen vóór de volgende grote toevoeging.
 - ▶ **Opdracht voor de bouwchat: `docs/OPDRACHT_BOUWCHAT_2026-11-10.md`** (Rob: ja). Stap 0 tak naar main, stap 1 prikbord
   `docs/SITE_SEIN.md`, stap 2 controles C3/C5/C1. Eén stap tegelijk, na elke stap Robs ja.
+  - ✅ Stap 0 (Rob: "Ja, stap 0"): 45ea9ce, main = tak byte voor byte.
+  - ✅ Stap 1 (Rob: "Ja, stap 1"): `docs/SITE_SEIN.md` gemaakt: 5.0.2 = *staat op CurseForge* (GEMETEN 10 nov, CF-API: beide
+    zips Release 8 nov), 11 regels *alleen op main* voor alles sinds v5.0.2 (GEMETEN `git log v5.0.2..HEAD`; knoplabels en
+    commando's opgezocht in enUS.lua en Core.lua). `RELEASE_CHECKLIST.md`: seintje = regel in SITE_SEIN. CLAUDE.md
+    ochtendronde 4d: lees `midnighthelper-site\drafts\BOUW_VRAAG.md` (bestaat, GEMETEN: nog geen vragen).
+  - ▶ Volgende: stap 2 (C3 release-tekst, C5 vindbaarheid, C1 events), pas na Robs ja.
 - Rob daarna: toets klopt; ideeënlijst ja; prikbord ja. Nieuw: `docs/IDEEEN.md` = de ENE ideeënlijst (20 open + 2 uit de
   vragenlijst + 6 half; 3 van de 5 vragenlijst-wensen bleken al gebouwd; wat sinds 8 okt gebouwd is staat onder "Af", vandaag GEMETEN in de code, niet in het spel).
   Nieuwe ideeën alleen nog daar. Rob moet per regel nog ja/nee/later zeggen. Site-kant staat in de privé site-repo.

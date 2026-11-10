@@ -107,6 +107,11 @@ Dus bij een groet of de eerste boodschap van de dag, ongevraagd en in deze volgo
    (altijd melden, zoals een CF-reactie); `[MH vragenlijst]` = tel hem bij in `docs/SURVEY_RESULTS.md`. Robs eigen
    tests tellen niet mee (1 okt 21:09 UTC, "winnend staatslot"). Alleen lezen: nooit antwoorden, labelen of
    archiveren.
+4d. **Lees de vragen van de site-chat:** `C:\Users\RobHu\Downloads\midnighthelper-site\drafts\BOUW_VRAAG.md` (Read, alleen
+   lezen; de site-chat schrijft het, wij nooit). Sinds 10 nov 2026, plan deel 5 (Rob: *"het klopt allemaal, volgorde is
+   goed"*). Een open vraag beantwoord je in **`docs/SITE_SEIN.md`** (ons prikbord, nieuwste regel bovenaan, statuswoorden
+   *alleen op main / getagd / staat op CurseForge*). Bestaat het bestand niet of staat de lokale kopie achter, meld dat
+   gewoon. Bij elke nieuwe functie, tag of CurseForge-upload werk je `SITE_SEIN.md` bij in dezelfde commit.
 5. Vertel hem alleen wat hém raakt. De meeste dagen is dat "niets" — zeg dat dan ook, mét wat er
    gelezen is, zodat stilte te onderscheiden is van niet-kijken.
 
