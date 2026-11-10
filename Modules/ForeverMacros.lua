@@ -181,7 +181,189 @@ local DEFS = {
 	},
 }
 
---- The rows for this character: the fixed ones plus one per active racial it knows.
+--------------------------------------------------------------------------------
+-- Class macros. Rob, 10 Nov 2026: "Top 5" per class from docs/forever/FOREVER_MACROS_POPULAR_2026-11-10.md (counted in
+-- 12 Forever sources + player posts) → "Ja. Mooi." on the plan. Each `tpl` names spells only as {id} (or {id:rank} for
+-- Name(Rank N)); FillTpl puts in the client's own spell name, so the macro works in every client language.
+-- `need` must be known (else grey: level not reached / train it first); `talent` rows are hidden until known.
+-- `warn`: "twopress" (stance swap + ability takes two presses in Forever) or "formbar" (the druid form bar bug),
+-- both GEMETEN in player forum posts (POPULAR §0). Data and ids: see the note above CLASS_MACROS.
+--------------------------------------------------------------------------------
+-- Ids GEMETEN in wago DB2, Forever 1.60.1.70862 (SpellName, SkillLineAbility, SpellLevels; talents via
+-- TraitDefinition). Texts from the named sources in the POPULAR doc; the NEW rows are taken word for word from one
+-- source each (AFGELEID choice). Changed on purpose: the Warlock demon button has no [pet:family] (that word is
+-- translated per client); the Priest dispel is shortened; tplShort = the version used when the client's spell
+-- names make the full one longer than 255 bytes (ruRU measured 258 for Taunt and Healing Touch).
+local CLASS_MACROS = {
+	-- WARRIOR
+	{ class = "WARRIOR", key = "taunt", name = "Taunt", need = 355, level = 10, talent = false, warn = "twopress", -- W6
+		tpl = "#showtooltip\n/cast [mod:shift,stance:1,@mouseover,harm,nodead][mod:shift,stance:1] {694}; [mod:shift] {2457}; [stance:2,@mouseover,harm,nodead][stance:2] {355}; {71}",
+		tplShort = "#showtooltip\n/cast [mod:shift,stance:1] {694}; [mod:shift] {2457}; [stance:2,@mouseover,harm,nodead][stance:2] {355}; {71}" },
+	{ class = "WARRIOR", key = "overpower", name = "Overpower", need = 7384, level = 12, talent = false, warn = "twopress", -- W2
+		tpl = "#showtooltip {7384}\n/startattack\n/cast [stance:1] {7384}; {2457}" },
+	{ class = "WARRIOR", key = "shieldbash", name = "Shield Bash", need = 72, level = 12, talent = false, warn = nil, -- W5
+		tpl = "#showtooltip\n/cast [stance:3,@focus,harm,nodead][stance:3] {6552}; [@focus,harm,nodead][] {72}" },
+	{ class = "WARRIOR", key = "execute", name = "Execute", need = 5308, level = 24, talent = false, warn = "twopress", -- W3
+		tpl = "#showtooltip {5308}\n/startattack\n/cast [stance:2] {2457}; {5308}" },
+	{ class = "WARRIOR", key = "charge", name = "Charge", need = 100, level = 4, talent = false, warn = "twopress", -- W1
+		tpl = "#showtooltip\n/startattack\n/cast [nocombat,stance:1] {100}; [combat,stance:3] {20252}; [nocombat] {2457}; {2458}" },
+	-- ROGUE
+	{ class = "ROGUE", key = "opener", name = "Opener", need = 1752, level = 1, talent = false, warn = nil, -- R2
+		tpl = "#showtooltip\n/cast [stealth,mod:shift] {1833}; [stealth,mod:ctrl] {703}; [stealth] {8676}; {1752}\n/startattack [nostealth]" },
+	{ class = "ROGUE", key = "sap", name = "Sap", need = 6770, level = 10, talent = false, warn = nil, -- R4
+		tpl = "#showtooltip {6770}\n/cast [nostealth] !{1784}; [@mouseover,harm,nodead][@focus,harm,nodead][] {6770}" },
+	{ class = "ROGUE", key = "kick", name = "Kick", need = 1766, level = 12, talent = false, warn = nil, -- R5
+		tpl = "#showtooltip {1766}\n/cast [@focus,harm,nodead][@mouseover,harm,nodead][] {1766}" },
+	{ class = "ROGUE", key = "pickpocket", name = "Pick Pocket", need = 921, level = 4, talent = false, warn = nil, -- R3
+		tpl = "#showtooltip\n/cast [stealth] {921}\n/cast [stealth,mod:shift] {703}; [stealth] {1833}; {1752}" },
+	{ class = "ROGUE", key = "blind", name = "Blind", need = 2094, level = 34, talent = false, warn = nil, -- NEW
+		tpl = "#showtooltip {2094}\n/cast [@mouseover,harm,nodead][@focus,harm,nodead][harm,nodead] {2094}" },
+	-- HUNTER
+	{ class = "HUNTER", key = "feign", name = "Feign Death", need = 5384, level = 30, talent = false, warn = nil, -- H8
+		tpl = "#showtooltip {5384}\n/stopattack\n/petfollow\n/cast {5384}" },
+	{ class = "HUNTER", key = "meleeweave", name = "Melee Weave", need = 2973, level = 1, talent = false, warn = nil, -- H4
+		tpl = "#showtooltip {2973}\n/startattack\n/cast {1495}\n/cast {2973}" },
+	{ class = "HUNTER", key = "petcontrol", name = "Pet Control", need = 883, level = 10, talent = false, warn = nil, -- NEW
+		tpl = "/petfollow [mod:shift]\n/petstay [mod:ctrl]\n/petattack [nomod,@mouseover,harm,nodead][nomod]" },
+	{ class = "HUNTER", key = "huntersmark", name = "Mark + Pet", need = 1130, level = 6, talent = false, warn = nil, -- H1
+		tpl = "#showtooltip {1130}\n/petattack\n/cast {1130}" },
+	{ class = "HUNTER", key = "petcare", name = "Pet Care", need = 883, level = 10, talent = false, warn = nil, -- H5
+		tpl = "#showtooltip\n/cast [@pet,dead][mod:shift] {982}; [nopet] {883}; {136}" },
+	-- PALADIN
+	{ class = "PALADIN", key = "holylight", name = "Holy Light", need = 635, level = 1, talent = false, warn = nil, -- P7
+		tpl = "#showtooltip\n/cast [mod:shift,@mouseover,help,nodead][mod:shift,help,nodead][mod:shift,@player] {19750}; [@mouseover,help,nodead][help,nodead][@player] {635}" },
+	{ class = "PALADIN", key = "holystrike", name = "Holy Strike", need = 679, level = 6, talent = false, warn = nil, -- P2
+		tpl = "#showtooltip {679}\n/startattack\n/cast [nomod:shift] {20271}\n/cast {679}" },
+	{ class = "PALADIN", key = "divineshield", name = "DivineShield", need = 498, level = 6, talent = false, warn = nil, -- NEW
+		tpl = "#showtooltip\n/stopcasting\n/cancelaura [mod:shift] {498}\n/cancelaura [mod:shift] {642}\n/cast [nomod] {642}\n/cast [nomod] {498}" },
+	{ class = "PALADIN", key = "holyshock", name = "Holy Shock", need = 1311606, level = 30, talent = true, warn = nil, -- NEW
+		tpl = "#showtooltip\n/cast [@mouseover,help,nodead][@mouseover,harm,nodead][] {1311606}" },
+	{ class = "PALADIN", key = "protectally", name = "Protect Ally", need = 1022, level = 10, talent = false, warn = nil, -- NEW
+		tpl = "#showtooltip {1022}\n/stopcasting\n/cast [mod:alt,@player][@mouseover,help,nodead][help,nodead][@player] {1022}" },
+	-- SHAMAN
+	{ class = "SHAMAN", key = "earthshock", name = "Earth Shock", need = 8042, level = 4, talent = false, warn = nil, -- S4
+		tpl = "#showtooltip {8042}\n/stopcasting\n/cast [@focus,harm,nodead][@mouseover,harm,nodead][] {8042}" },
+	{ class = "SHAMAN", key = "healwave", name = "Healing Wave", need = 331, level = 1, talent = false, warn = nil, -- S6
+		tpl = "#showtooltip\n/cast [mod:shift,@mouseover,help,nodead][mod:shift,help,nodead][mod:shift,@player] {8004}; [@mouseover,help,nodead][help,nodead][@player] {331}" },
+	{ class = "SHAMAN", key = "totems", name = "Totems", need = 66842, level = 20, talent = false, warn = nil, -- S1
+		tpl = "#showtooltip\n/cast [mod:shift] {36936}; [mod:ctrl] {437009}; {66842}" },
+	{ class = "SHAMAN", key = "purge", name = "Purge", need = 370, level = 12, talent = false, warn = nil, -- S5
+		tpl = "#showtooltip {370}\n/cast [@mouseover,harm,nodead][@focus,harm,nodead][] {370}" },
+	{ class = "SHAMAN", key = "firenova", name = "Fire Nova", need = 408341, level = 12, talent = false, warn = nil, -- NEW
+		tpl = "#showtooltip\n/cast [mod:shift] {3599}; {408341}" },
+	-- MAGE
+	{ class = "MAGE", key = "counterspell", name = "Counterspell", need = 2139, level = 24, talent = false, warn = nil, -- M2
+		tpl = "#showtooltip {2139}\n/stopcasting\n/cast [@mouseover,harm,nodead][] {2139}" },
+	{ class = "MAGE", key = "polymorph", name = "Polymorph", need = 118, level = 8, talent = false, warn = nil, -- M1
+		tpl = "#showtooltip {118}\n/cast [@focus,harm,nodead][@mouseover,harm,nodead][] {118}" },
+	{ class = "MAGE", key = "frostnova", name = "Frost Nova", need = 122, level = 10, talent = false, warn = nil, -- M3
+		tpl = "#showtooltip\n/stopcasting\n/cast [mod:ctrl] {1953}; {122}" },
+	{ class = "MAGE", key = "decurse", name = "Decurse", need = 475, level = 18, talent = false, warn = nil, -- M8
+		tpl = "#showtooltip {475}\n/cast [@mouseover,help,nodead][help,nodead][@player] {475}" },
+	{ class = "MAGE", key = "frostbolt", name = "Frostbolt", need = 116, level = 4, talent = false, warn = nil, -- M7
+		tpl = "#showtooltip\n/cast [mod:shift] {116:rank}; {116}" },
+	-- WARLOCK
+	{ class = "WARLOCK", key = "fear", name = "Fear", need = 5782, level = 8, talent = false, warn = nil, -- W2
+		tpl = "#showtooltip\n/petfollow [nomod,@mouseover,noexists]\n/cast [mod:ctrl,@mouseover,harm,nodead][mod:ctrl] {710}; [@mouseover,harm,nodead][] {5782}" },
+	{ class = "WARLOCK", key = "agony", name = "Bane Agony", need = 980, level = 8, talent = false, warn = nil, -- NEW
+		tpl = "#showtooltip\n/cast [@mouseover,harm,nodead][] {980}" },
+	{ class = "WARLOCK", key = "demonbutton", name = "Demon Button", need = 697, level = 10, talent = false, warn = nil, -- W8
+		tpl = "#showtooltip\n/cast {19244}\n/cast {6358}\n/cast {7812}\n/cast {2947}" },
+	{ class = "WARLOCK", key = "curses", name = "Curses", need = 702, level = 4, talent = false, warn = nil, -- NEW
+		tpl = "#showtooltip\n/cast [mod:shift,@mouseover,harm,nodead][mod:shift] {704}; [mod:ctrl,@mouseover,harm,nodead][mod:ctrl] {440892}; [@mouseover,harm,nodead][] {702}" },
+	{ class = "WARLOCK", key = "summon", name = "Summon Demon", need = 697, level = 10, talent = false, warn = nil, -- NEW
+		tpl = "#showtooltip\n/cast [combat] {18708}\n/cast [mod:shift] {697}; [mod:ctrl] {712}; [mod:alt] {691}; {688}" },
+	-- PRIEST
+	{ class = "PRIEST", key = "flashheal", name = "Flash Heal", need = 2061, level = 20, talent = false, warn = nil, -- P3
+		tpl = "#showtooltip {2061}\n/cast [@mouseover,help,nodead][@target,help,nodead][@player] {2061}" },
+	{ class = "PRIEST", key = "dispel", name = "Dispel", need = 527, level = 18, talent = false, warn = nil, -- P4
+		tpl = "#showtooltip\n/cast [mod:ctrl,@mouseover,help,nodead][mod:ctrl,help,nodead][mod:ctrl,@player] {552}; [@mouseover,exists,nodead][exists,nodead][@player] {527}" },
+	{ class = "PRIEST", key = "pwshield", name = "PW Shield", need = 17, level = 6, talent = false, warn = nil, -- P1
+		tpl = "#showtooltip {17}\n/stopcasting\n/cast [@mouseover,help,nodead][@target,help,nodead][@player] {17}" },
+	{ class = "PRIEST", key = "penance", name = "Penance", need = 402174, level = 30, talent = true, warn = nil, -- NEW
+		tpl = "#showtooltip {402174}\n/cast [@mouseover,help,nodead][@mouseover,harm,nodead][] {402174}" },
+	{ class = "PRIEST", key = "swpain", name = "SW Pain", need = 589, level = 4, talent = false, warn = nil, -- NEW
+		tpl = "#showtooltip {589}\n/cast [@mouseover,harm,nodead][] {589}" },
+	-- DRUID
+	{ class = "DRUID", key = "healtouch", name = "Heal Touch", need = 5185, level = 1, talent = false, warn = nil, -- D8
+		tpl = "#showtooltip\n/cast [mod:ctrl,@mouseover,help,nodead][mod:ctrl,help,nodead][mod:ctrl,@player] {5188:rank}; [@mouseover,help,nodead][help,nodead][@player] {5185}",
+		tplShort = "#showtooltip\n/cast [mod:ctrl] {5188:rank}; [@mouseover,help,nodead][help,nodead][@player] {5185}" },
+	{ class = "DRUID", key = "rejuv", name = "Rejuvenation", need = 774, level = 4, talent = false, warn = nil, -- NEW
+		tpl = "#showtooltip {774}\n/cast [@mouseover,help,nodead][help,nodead][@player] {774}" },
+	{ class = "DRUID", key = "wildbuffs", name = "Wild Buffs", need = 1126, level = 1, talent = false, warn = nil, -- NEW
+		tpl = "#showtooltip\n/cast [mod:shift] {21849}; [mod:ctrl,@mouseover,help,nodead][mod:ctrl,help,nodead][mod:ctrl,@player] {467}; [@mouseover,help,nodead][help,nodead][@player] {1126}" },
+	{ class = "DRUID", key = "travel", name = "Travel", need = 783, level = 30, talent = false, warn = "formbar", -- D2
+		tpl = "#showtooltip\n/cast [swimming] {1066}; [outdoors] {783}; {768}" },
+	{ class = "DRUID", key = "innervate", name = "Innervate", need = 29166, level = 40, talent = false, warn = nil, -- D4
+		tpl = "#showtooltip {29166}\n/cancelform\n/cast [@mouseover,help,nodead][help,nodead][@player] {29166}" },
+}
+
+local function SpellSubtext(id)
+	local fn = (C_Spell and C_Spell.GetSpellSubtext) or GetSpellSubtext
+	if not fn then
+		return nil
+	end
+	local ok, s = pcall(fn, id)
+	if ok and type(s) == "string" and s ~= "" and not (issecretvalue and issecretvalue(s)) then
+		return s
+	end
+	return nil
+end
+
+--- Template → macro text in the client's language, or nil when a spell name cannot be read.
+local function FillTpl(tpl)
+	local bad = false
+	local out = tpl:gsub("{(%d+):rank}", function(id)
+		id = tonumber(id)
+		local nm, sub = SpellName(id), SpellSubtext(id)
+		if not nm then
+			bad = true
+			return ""
+		end
+		return sub and (nm .. "(" .. sub .. ")") or nm
+	end)
+	out = out:gsub("{(%d+)}", function(id)
+		local nm = SpellName(tonumber(id))
+		if not nm then
+			bad = true
+			return ""
+		end
+		return nm
+	end)
+	if bad then
+		return nil
+	end
+	return out
+end
+
+local function ClassRow(c)
+	return {
+		key = "c_" .. c.key, name = c.name, cls = c,
+		plainTitleFn = function()
+			return SpellName(c.need) or c.name
+		end,
+		desc = "FMAC_C_" .. c.class .. "_" .. c.key:upper(),
+		build = function()
+			if not KnownSpell(c.need) then
+				local lvl = UnitLevel and UnitLevel("player") or 0
+				if c.level and lvl < c.level then
+					return nil, "FMAC_WHY_LEVEL_FMT", c.level
+				end
+				return nil, "FMAC_WHY_TRAIN"
+			end
+			local body = FillTpl(c.tpl)
+			if body and #body > MAX_LEN and c.tplShort then
+				body = FillTpl(c.tplShort)
+			end
+			if not body then
+				return nil, "FMAC_WHY_FAILED"
+			end
+			return body
+		end,
+	}
+end
+
+--- The rows for this character: the fixed ones, one per active racial it knows, then its class macros.
 local function Rows()
 	local rows = {}
 	for _, d in ipairs(DEFS) do
@@ -198,6 +380,17 @@ local function Rows()
 					end,
 				}
 			end
+		end
+	end
+	local _, token = UnitClass("player")
+	local first = true
+	for _, c in ipairs(CLASS_MACROS) do
+		if c.class == token and (not c.talent or KnownSpell(c.need)) then
+			if first then
+				rows[#rows + 1] = { header = true, key = "c_header" }
+				first = false
+			end
+			rows[#rows + 1] = ClassRow(c)
 		end
 	end
 	return rows
@@ -218,9 +411,9 @@ local function Make(d)
 	if InCombatLockdown and InCombatLockdown() then
 		return nil, "FMAC_WHY_COMBAT"
 	end
-	local body, why = d.build()
+	local body, why, arg = d.build()
 	if not body then
-		return nil, why
+		return nil, why, arg
 	end
 	if #body > MAX_LEN then
 		return nil, "FMAC_WHY_LONG"
@@ -245,6 +438,15 @@ local function Make(d)
 	return true
 end
 
+--- A reason key (plus its one number, for the _FMT ones) as text.
+local function Why(why, arg)
+	local s = ns:L(why or "FMAC_WHY_FAILED")
+	if arg ~= nil then
+		s = s:format(arg)
+	end
+	return s
+end
+
 --- Rewrite the made "auto" macros (bags changed). Never creates one, never erases one when nothing is carried.
 local function RefreshAuto()
 	if InCombatLockdown and InCombatLockdown() then
@@ -260,7 +462,7 @@ end
 --------------------------------------------------------------------------------
 -- Window (same look as the profession-trainer window; Shift+scroll and Escape via RegisterMidnightDialogPopup)
 --------------------------------------------------------------------------------
-local W, H, ROW_H = 560, 470, 46
+local W, H, ROW_H = 560, 470, 52 -- 52 (was 46): a class row can carry a warning after its line
 local win, Fill
 
 local function Build()
@@ -338,14 +540,14 @@ local function Row(f, i)
 		if not d then
 			return
 		end
-		local ok, why = Make(d)
+		local ok, why, arg = Make(d)
 		if ok then
 			print(PREFIX .. ns:L("FMAC_MADE_FMT"):format(MacroName(d)))
 			if ShowMacroFrame then
 				pcall(ShowMacroFrame) -- open the macro window so you can drag it (AFGELEID that Forever has it)
 			end
 		else
-			print(PREFIX .. ns:L(why or "FMAC_WHY_FAILED"))
+			print(PREFIX .. Why(why, arg))
 		end
 		Fill()
 	end)
@@ -364,19 +566,33 @@ Fill = function()
 		local r = Row(f, i)
 		r:ClearAllPoints()
 		r:SetPoint("TOPLEFT", f.child, "TOPLEFT", 0, y)
-		r.name:SetText(d.plainTitle or ns:L(d.title))
-		local body, why = d.build()
-		local info = ns:L(d.descFn and d.descFn() or d.desc)
-		if not body then
-			info = info .. "  |cffff7f7f" .. ns:L(why) .. "|r"
-		end
-		r.info:SetText(info)
-		r.go.def = d
-		r.go:SetText(ns:L(Exists(d) and "FMAC_BTN_UPDATE" or "FMAC_BTN_MAKE"))
-		if body then
-			r.go:Enable()
+		if d.header then
+			local cls = UnitClass and UnitClass("player") or ""
+			r.name:SetText(ns:L("FMAC_CLASS_HEADER_FMT"):format(cls))
+			r.info:SetText(ns:L("FMAC_CLASS_SUB"))
+			r.go.def = nil
+			r.go:Hide()
 		else
-			r.go:Disable()
+			r.go:Show()
+			r.name:SetText(d.plainTitleFn and d.plainTitleFn() or d.plainTitle or ns:L(d.title))
+			local body, why, arg = d.build()
+			local info = ns:L(d.descFn and d.descFn() or d.desc)
+			if d.cls and d.cls.warn then
+				info = info .. "  |cffffd200" .. ns:L(d.cls.warn == "twopress" and "FMAC_WARN_TWOPRESS"
+					or "FMAC_WARN_FORMBAR") .. "|r"
+			end
+			if not body then
+				local col = (why == "FMAC_WHY_LEVEL_FMT" or why == "FMAC_WHY_TRAIN") and "|cff9d9d9d" or "|cffff7f7f"
+				info = info .. "  " .. col .. Why(why, arg) .. "|r"
+			end
+			r.info:SetText(info)
+			r.go.def = d
+			r.go:SetText(ns:L(Exists(d) and "FMAC_BTN_UPDATE" or "FMAC_BTN_MAKE"))
+			if body then
+				r.go:Enable()
+			else
+				r.go:Disable()
+			end
 		end
 		r:Show()
 		y = y - ROW_H - 4
@@ -405,10 +621,21 @@ function ns.ForeverMacrosSlash(arg)
 		return
 	end
 	print(PREFIX .. "handy macros: what each row would write now")
+	local _, token = UnitClass("player")
+	local nClass = 0
+	for _, c in ipairs(CLASS_MACROS) do
+		if c.class == token then
+			nClass = nClass + 1
+		end
+	end
+	print(("  class %s: %d class macros in the data (talent ones hidden until known)"):format(tostring(token), nClass))
 	for _, d in ipairs(Rows()) do
-		local body, why = d.build()
-		print(("  %s [%s]: %s"):format(MacroName(d), Exists(d) and "made" or "not made",
-			body and ("%d chars | %s"):format(#body, (body:gsub("\n", " | "))) or ("nothing: " .. tostring(why))))
+		if not d.header then
+			local body, why, arg = d.build()
+			print(("  %s [%s]: %s"):format(MacroName(d), Exists(d) and "made" or "not made",
+				body and ("%d chars | %s"):format(#body, (body:gsub("\n", " | ")))
+					or ("nothing: " .. tostring(why) .. (arg and (" " .. tostring(arg)) or ""))))
+		end
 	end
 end
 

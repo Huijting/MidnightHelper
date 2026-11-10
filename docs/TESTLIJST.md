@@ -21,6 +21,18 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 10 nov — Forever: klasse-macro's in Handige macro's (`/mh macros`)
+
+- [ ] Forever, `/mh macros`: onder de algemene macro's staat **"Voor jouw klasse: <klasse>"** met 5 macro's (Priest en
+      Paladin: 4, tot je het talent Penance / Holy Shock hebt). De titel is de spellnaam in de taal van je client.
+- [ ] Wat je nog niet kunt is grijs met "(vanaf level N)" of "Leer deze spell eerst bij je klassentrainer", en de knop is
+      uit. Druid lvl 10: Healing Touch, Rejuvenation en Wild Buffs aan; Travel "(vanaf level 30)", Innervate "(vanaf level 40)".
+- [ ] Klik **Maken** bij Healing Touch: in je macrolijst staat "MH+ Heal Touch". 🔴 Werkt hij op jezelf, op een vriend
+      onder je muis, en met Ctrl de goedkopere Rank 4? (Niemand heeft deze macro's al in Forever getest.)
+- [ ] Bij Travel (later, lvl 30): gele regel over de actiebalk na het wisselen van form. Blijft je gewone balk staan?
+- [ ] Warrior: gele regel "twee keer drukken" bij Taunt/Overpower/Execute/Charge. Klopt dat in het spel?
+- [ ] `/mh macros check` → "class DRUID: 5 class macros in the data" en per macro de tekst die hij zou schrijven.
+
 ## 🆕 10 nov — Forever: Wapentrainers (`/mh weapons`)
 
 - [ ] Druid (Night Elf, lvl 10): `/mh weapons` opent "Wapentrainers". Links: Maces, Two-Handed Maces, Polearms

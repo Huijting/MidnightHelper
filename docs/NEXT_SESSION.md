@@ -1,5 +1,20 @@
 # Midnight Helper — waar we staan
 
+## 🆕 10 nov — Forever: top 5 klasse-macro's in "Handige macro's" (Rob: "Top 5" → "Ja. Mooi.")
+
+- Rob wilde "de meest gebruikte macro's per klasse" (specs later). mh-research telde het onderzoek van 9 nov na in 12
+  Forever-bronfamilies + forumposts van spelers (Reddit gaf 403): `docs/forever/FOREVER_MACROS_POPULAR_2026-11-10.md`.
+  Score = bronnen + shortlists + spelers (formule AFGELEID, tellingen GEMETEN). Mount-macro: maar 2/12, niemand vroeg erom.
+- Gebouwd in `Modules/ForeverMacros.lua`: `CLASS_MACROS` (45 rijen, 5 per klasse), blok "Voor jouw klasse" onder de
+  algemene rijen. Spells alleen als `{id}` / `{id:rank}` → `FillTpl` zet de clientnaam erin (alle talen). `need` niet
+  gekend → grijs (level of "leer eerst"); `talent` (Holy Shock 1311606, Penance 402174) verborgen tot gekend; `tplShort`
+  voor Taunt/Healing Touch (ruRU 258 bytes). Waarschuwingen `twopress` (warrior stance) en `formbar` (druid D2), beide
+  uit forumposts. Id's GEMETEN in wago Forever 1.60.1.70862 (mh-research, bewijs in de scratchpad-notes van 10 nov).
+  Bewust anders dan de bron: warlock demon-knop zonder `[pet:…]` (familienaam is vertaald), priest dispel ingekort.
+  Offline-test (lua-stubs): 45/45 vullen zonder rest-`{`. Teksten enUS/nlNL zelf, de/fr/es/pt/ru mh-writer met
+  spellnamen per taal uit de Forever-DB2. Niets in de client getest → TESTLIJST.
+- Punt 2 van de lijst hieronder is hiermee gedaan (behalve de mount-macro: bewust niet, te weinig vraag).
+
 ## 🆕 10 nov — `tools/gamedata.py` (Rob: "Ja, bouw het") + onderzoek wapentrainers Forever
 
 - Nieuw werktuig, via de voordeur: `run gamedata db2 <Tabel> [filters] --game forever`, `run gamedata npc <id> --game
@@ -40,7 +55,7 @@ MH (TOC-regel Talebound), Forever `/mh week` (reset wo ~05:00 servertijd) en `/m
 Rest = alleen offline/linter getest → bovenaan `docs/TESTLIJST.md`.
 1. ✅ 10 nov gebouwd (zie boven): TEGEL voor "Handige macro's" (`/mh macros`) én "Waar koop ik dit?" (`/mh vendor`).
    Wacht op Robs test.
-2. Betere macro's per klasse, samen met Rob kiezen uit `docs/forever/FOREVER_MACROS_2026-11-09_B/C.md`. Ook mount-macro.
+2. ✅ 10 nov gebouwd (zie boven): top 5 macro's per klasse. Mount-macro niet (2/12 bronnen). Later: per spec.
 3. Robs tests na `/reload` in Forever: Heal-macro (`/use item:<id>` werkt?), hengel-waarschuwing, trainerpijl, weapon
    buff + hengel, mouseover, winkels + tip na beroep leren.
 4. Winkels: Redridge-frame (~5 verschil Wowhead/Zygor) en 3 EPL-rijen (`unsure`) nameten in het spel.
