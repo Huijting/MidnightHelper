@@ -18,6 +18,10 @@ on:
       # list. A trigger that misses the file the job depends on tests the wrong thing.
       - "tools/*.py"
       - ".github/workflows/**"
+      # Checks [22] and [23] (10 Nov 2026) read these too.
+      - "RELEASE_NOTES.md"
+      - "docs/SITE_SEIN.md"
+      - "tools/blizzard_events_snapshot.json"
   pull_request:
     paths:
       - "Locales/**"
@@ -30,6 +34,9 @@ on:
       # list. A trigger that misses the file the job depends on tests the wrong thing.
       - "tools/*.py"
       - ".github/workflows/**"
+      - "RELEASE_NOTES.md"
+      - "docs/SITE_SEIN.md"
+      - "tools/blizzard_events_snapshot.json"
 
 jobs:
   lint:

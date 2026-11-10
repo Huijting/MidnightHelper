@@ -1614,6 +1614,47 @@ def main() -> int:
         print("     SOFT  this check proves nothing this run; do not read silence as clean")
         soft += 1
 
+    # [22] C3 (plan deel 2, 10 Nov 2026): RELEASE_NOTES.md and docs/SITE_SEIN.md name only commands the code routes and
+    # Locales keys that exist. Italic labels in the release text are matched to Locales text and SHOWN with their key:
+    # an existence check cannot tell which window a word belongs to (the 3 Nov "Skip" fault: TOUR_CM_SKIP exists, on
+    # the welcome tour). See tools/release_text_check.py.
+    try:
+        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+        import release_text_check as rtc
+        c3_hard, c3_soft, c3_labels, c3_info = rtc.run(root)
+        print(f"\n[22] Release text and site noticeboard name things that exist: {len(c3_hard)} HARD, "
+              f"{len(c3_soft)} to check  (control {'OK' if c3_info['control_ok'] else 'FAILED'})")
+        for h in c3_hard[:20]:
+            print(f"     HARD  {h}")
+        for s in c3_soft[:20]:
+            print(f"     SOFT  {s}")
+        for rel, n, lab, hits in c3_labels[:20]:
+            print(f"     label {rel}:{n}  *{lab}* -> " + ", ".join(f"{k} ({f})" for k, f in hits[:2]))
+        hard += len(c3_hard) + (0 if c3_info["control_ok"] else 1)
+        soft += len(c3_soft)
+    except Exception as exc:  # noqa: BLE001
+        print(f"\n[22] Release text: NOT CHECKED — {type(exc).__name__}: {exc}")
+        print("     SOFT  this check proves nothing this run; do not read silence as clean")
+        soft += 1
+
+    # [23] C1 (plan deel 2, 10 Nov 2026): every literal RegisterEvent name against Blizzard's own event list
+    # (tools/blizzard_events_snapshot.json). "nakijken", never HARD: how complete that list is was not measured.
+    # The 8 Aug 2026 fault (LEARNED_SPELL_IN_TAB) is the positive control. See tools/event_check.py.
+    try:
+        import event_check as evc
+        c1_lines, c1_total, c1_stale, c1_ok = evc.run(root)
+        print(f"\n[23] Registered events not in Blizzard's list: {c1_total} to check  "
+              f"(control {'OK' if c1_ok else 'FAILED'})")
+        for line in c1_lines[:40]:
+            print(f"     {line}")
+        for s in c1_stale:
+            print(f"     SOFT  STALE {s}")
+        soft += c1_total + len(c1_stale) + (0 if c1_ok else 1)
+    except Exception as exc:  # noqa: BLE001
+        print(f"\n[23] Registered events: NOT CHECKED — {type(exc).__name__}: {exc}")
+        print("     SOFT  this check proves nothing this run; do not read silence as clean")
+        soft += 1
+
     print("=" * 70)
     print(f"HARD issues: {hard}   SOFT notes: {soft}")
     print("=" * 70)

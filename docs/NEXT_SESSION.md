@@ -14,7 +14,22 @@
     zips Release 8 nov), 11 regels *alleen op main* voor alles sinds v5.0.2 (GEMETEN `git log v5.0.2..HEAD`; knoplabels en
     commando's opgezocht in enUS.lua en Core.lua). `RELEASE_CHECKLIST.md`: seintje = regel in SITE_SEIN. CLAUDE.md
     ochtendronde 4d: lees `midnighthelper-site\drafts\BOUW_VRAAG.md` (bestaat, GEMETEN: nog geen vragen).
-  - ▶ Volgende: stap 2 (C3 release-tekst, C5 vindbaarheid, C1 events), pas na Robs ja.
+  - ✅ Stap 2 (Rob: "Ja, stap 2"; brainstorm-chat las mee en vulde aan): lint [22] = C3, [23] = C1, GitHub draait ze
+    (addon-lint.yml triggert nu ook op RELEASE_NOTES.md, SITE_SEIN.md en de snapshot). GEMETEN 10 nov: lint 0 HARD.
+    - C3 `tools/release_text_check.py`: `/mh`-woorden in RELEASE_NOTES + SITE_SEIN tegen wat de code routeert (279
+      woorden: Core + modules + CommandList), SITE_SEIN-sleutels tegen Locales = HARD; *cursief* label zonder Locales-tekst
+      = SOFT; elk gevonden label wordt getoond mét sleutel en bestand. Positieve controle in elke run (nep-commando,
+      -sleutel, -label). 🔴 De proef van 3 nov slaagt NIET als fout: "Skip" bestaat (TOUR_CM_SKIP, de rondleiding);
+      `--selftest` toont "*Skip* -> TOUR_CM_SKIP (StartHere.lua)" — zichtbaar fout voor een lezer, niet voor de check.
+    - C1 `tools/event_check.py` + `tools/event_snapshot.py` → `tools/blizzard_events_snapshot.json` (Gethe/wow-ui-source,
+      GEMETEN: live 12.1.5.70783 1784 events, ptr 12.1.7.70740 1818, **forever 1.60.1.70888 1816** — Forever heeft een
+      eigen tak). Retail-toc tegen live+ptr, Camelot-toc tegen forever; andere-spel-bestanden overgeslagen; pcall apart.
+      Uitkomst: 100 + 45 events, 0 nakijken. Proef: LEARNED_SPELL_IN_TAB staat niet in de lijst, de scanner leest hem.
+      Zegt hardop STALE bij >28 dagen of als de .toc een nieuwere Interface heeft. Verversen: `run event_snapshot --write`
+      (met de hand; later de vijfde wachter).
+    - C5 NIET gebouwd, alleen gemeten: [10] lijst→gerouteerd, [16] gerouteerd→lijst, [4] tab→zoekbalk, NavSearch indexeert
+      MH_COMMANDS. Wat ontbreekt is een lijst van VENSTERS; een heuristiek (ns.Show*/Open*/Toggle*) gaf 51 treffers, vooral
+      loos (toasts, hulpfuncties, commando's die in de module zelf routeren). ▶ Rob kiest: vensterregister bouwen of niet.
 - Rob daarna: toets klopt; ideeënlijst ja; prikbord ja. Nieuw: `docs/IDEEEN.md` = de ENE ideeënlijst (20 open + 2 uit de
   vragenlijst + 6 half; 3 van de 5 vragenlijst-wensen bleken al gebouwd; wat sinds 8 okt gebouwd is staat onder "Af", vandaag GEMETEN in de code, niet in het spel).
   Nieuwe ideeën alleen nog daar. Rob moet per regel nog ja/nee/later zeggen. Site-kant staat in de privé site-repo.
