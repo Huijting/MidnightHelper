@@ -4333,3 +4333,40 @@ kop, per bevinding MEASURED/INFERRED en [RAAKT ONS]/[RAAKT ONS NIET], met bestan
 
   — bron: Icy Veins gems-enchants-consumables-pagina's van alle 39 specs (via Exa, cache-buster
   `?nocache=20261109`) · `data/consumables_wowhead.json` · `docs/API_WATCH.md` (vandaag).
+
+- [2026-11-10] 💬 **CurseForge: geen open reacties (3 draadjes, zelfde reeks en ids als
+  [2026-11-09]).** `curseforge.com/api/v1/mods/1528577/comments?pageIndex=0&pageSize=20&nocache=20261110a`
+  (en `&nocache=20261110b` als tweede, onafhankelijke fetch) via Exa, beide volledig gelezen (JSON,
+  `pagination.totalCount: 8`). Dezelfde drie draadjes als gisteren, allemaal beantwoord (nieuwste
+  bericht in elke keten van `twelveinchy`): esES/esMX-locale-fix `8509224` → reply `8510682`
+  (timestamp `1791351710373`); MrsBoojiePanda's debug-printregel `8414729` → reply `8483898`
+  (timestamp `1790842459727`); gadrinonturalyon's coffer-key-shards/3D-boss-model-verzoek `8090710`
+  → reply-keten tot `8095337`/`8092133` — alle ids en timestamps byte-identiek aan [2026-11-09].
+  MEASURED. **[RAAKT ONS NIET]** — geen actiepunt, geen concept-antwoord nodig.
+
+  — bron: https://www.curseforge.com/api/v1/mods/1528577/comments?pageIndex=0&pageSize=20&nocache=20261110a
+  (en `&nocache=20261110b`), beide zelf gelezen via Exa.
+
+- [2026-11-10] 🔁 **Geen nieuwe hotfix-sectie — nieuwste blijft "November 6, 2026", al volledig
+  verwerkt op [2026-11-06]/[2026-11-07]; geen nieuwe eigen vondst in Delves, Professions, Quests of
+  Items.** MEASURED, zelf gelezen (`news.blizzard.com/en-gb/article/24307310/hotfixes-november-6-2026
+  ?nocache=20261110content`, volledige Dungeons and Raids/Delves/Items/Labyrinth/Classes-secties):
+  byte-voor-byte dezelfde inhoud als [2026-11-08]/[2026-11-09] — geen vijfde datumkop boven "November
+  6, 2026", geen Professions- of Quests-regel in het hele venster 27 okt–6 nov.
+  **Positieve controle tegen cache, dezelfde run:** `docs/API_WATCH.md`, `docs/PTR_12.1_WATCH.md` en
+  `docs/PTR_12.0.7_DATA.md` (alle drie gedateerd vandaag) zagen elk zelf verse, niet-Midnight content
+  van vandaag (o.a. bluetracker.gg's "PvP Faction Balance Updates — November 10", Kaivax 02:05 UTC,
+  en tientallen vandaag-gedateerde forumdraadjes) — het systeem mist dus geen activiteit van vandaag;
+  de stilstand op de Midnight-hotfixpagina zelf is een echte meting, geen cache-val.
+  De twee nog openstaande candidates krijgen vandaag geen nieuwe informatie en blijven ongewijzigd
+  wachten op een in-game check door Rob of Cisca: de Iku/Nama → Epu/Nema-naamswissel in
+  `Locales/RaidTips.lua` + `Locales/ruRU.lua` (8 taalpakketten, [2026-11-06]) en de mogelijke
+  Serpent's-Bite drie-naar-twee-tegenspraak in `Locales/RaidTips.lua:93` ([2026-11-07]/[2026-11-09]) —
+  geen van beide bestanden is sinds [2026-11-09] gewijzigd (`git log -- Locales/RaidTips.lua
+  Locales/ruRU.lua`, vandaag gecontroleerd). Vandaag is dinsdag, geen maandag: de kaarten- en
+  consumables-secties zijn dus opzettelijk weggelaten, niet vergeten. MEASURED. **[RAAKT ONS NIET]**
+
+  — bron: https://news.blizzard.com/en-gb/article/24307310/hotfixes-november-6-2026?nocache=20261110content
+  (zelf gelezen) · `docs/API_WATCH.md`, `docs/PTR_12.1_WATCH.md`, `docs/PTR_12.0.7_DATA.md` (alle
+  vandaag, kruiscontrole) · codebase: `git log -- Locales/RaidTips.lua Locales/ruRU.lua` (vandaag).
+  Geen actiepunt dat ik oppak — ik rapporteer, een mens beslist.
