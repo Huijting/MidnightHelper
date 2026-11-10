@@ -42,6 +42,17 @@ local TOOLS = {
 		icon = "Interface\\Icons\\INV_Misc_Book_11", slash = "/mh trainers",
 		open = function() if ns.ShowForeverProfTrainers then ns.ShowForeverProfTrainers() end end,
 	},
+	-- 10 Nov 2026 (Rob: "dit moet natuurlijk ook een tegel in de addon krijgen" → "Ja, bouw maar").
+	{
+		nameKey = "FMAC_TITLE", descKey = "TOOLLP_FMAC_DESC", foreverOnly = true,
+		icon = "Interface\\Icons\\INV_Misc_Note_01", slash = "/mh macros",
+		open = function() if ns.ShowForeverMacros then ns.ShowForeverMacros() end end,
+	},
+	{
+		nameKey = "FVEND_TITLE", descKey = "TOOLLP_FVEND_DESC", foreverOnly = true,
+		icon = "Interface\\Icons\\INV_Misc_Coin_01", slash = "/mh vendor",
+		open = function() if ns.ShowForeverVendors then ns.ShowForeverVendors() end end,
+	},
 	{
 		nameKey = "DELVE_COACH_TITLE", descKey = "TOOLLP_COACH_DESC",
 		icon = "Interface\\Icons\\INV_Misc_Map_01", slash = "/mh coach",

@@ -21,6 +21,14 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 10 nov — Forever: tegels voor Handige macro's en Waar koop ik dit?
+
+- [ ] Forever, MH open, klik **Ik** in de zijbalk: twee nieuwe tegels **"Handige macro's"** (briefje) en **"Waar koop ik
+      dit?"** (muntje), na Beroepstrainers. Muis erop = een zin uitleg; klik = het venster gaat open.
+- [ ] Klik **Tools** in de zijbalk, dan de tegel **"Losse vensters"**: dezelfde twee kaarten staan erin, met `/mh macros` en
+      `/mh vendor` erbij. "Open" opent het venster.
+- [ ] Retail: de Ik-kamer en "Losse vensters" zien er hetzelfde uit als gisteren (geen nieuwe tegels).
+
 ## 🆕 9 nov — Forever: "Deze week in Forever"
 
 - [ ] Forever, MH open, startpagina: links in de zijbalk en in de Ik-kamer heet hij nu **"Forever"**, niet "Deze week".

@@ -84,6 +84,14 @@ local ME_FOREVER_CARDS = {
 	{ id = "me_howto", labelKey = "HOME_FOREVER_BTN_HOWTO", tagline = "TOOLLP_HOWTO_DESC",
 		icon = "Interface\\Icons\\INV_Misc_Book_09", need = "ShowPlayCardWindow",
 		action = function() ns.ShowPlayCardWindow() end },
+	-- 10 Nov 2026 (Rob: "dit moet natuurlijk ook een tegel in de addon krijgen" → "Ja, bouw maar"): the two windows
+	-- that only had a slash command (ForeverMacros.lua, ForeverVendors.lua).
+	{ id = "me_fmacros", labelKey = "FMAC_TITLE", tagline = "TOOLLP_FMAC_DESC",
+		icon = "Interface\\Icons\\INV_Misc_Note_01", need = "ShowForeverMacros",
+		action = function() ns.ShowForeverMacros() end },
+	{ id = "me_fvendors", labelKey = "FVEND_TITLE", tagline = "TOOLLP_FVEND_DESC",
+		icon = "Interface\\Icons\\INV_Misc_Coin_01", need = "ShowForeverVendors",
+		action = function() ns.ShowForeverVendors() end },
 	{ id = "me_keyblock", labelKey = "KEYBLOCK_TITLE", tagline = "ROOMCARD_ME_KEYBLOCK_TIP",
 		icon = "Interface\\Icons\\INV_Misc_Key_03", need = "ShowKeyBlock",
 		action = function() ns.ShowKeyBlock() end },

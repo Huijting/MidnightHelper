@@ -1,12 +1,22 @@
 # Midnight Helper — waar we staan
 
+## 🆕 10 nov — Forever: tegels voor "Handige macro's" en "Waar koop ik dit?" (Rob: "Ja, bouw maar")
+
+- Punt 1 van de lijst hieronder is gebouwd. Twee tegels in de **Ik-kamer** (`RoomLauncher.lua` ME_FOREVER_CARDS,
+  `me_fmacros` + `me_fvendors`, alleen als `ns.ShowForeverMacros`/`ns.ShowForeverVendors` geladen zijn) en twee
+  kaarten in **Tools → Losse vensters** (`ToolsLaunchpad.lua`, `foreverOnly`). Retail verandert niet. Nieuwe keys
+  `TOOLLP_FMAC_DESC` / `TOOLLP_FVEND_DESC`: enUS + nlNL zelf, de/fr/es/pt/ru door mh-writer (niet native nagekeken).
+  Iconen `INV_Misc_Note_01` / `INV_Misc_Coin_01` (AFGELEID dat Forever ze heeft: vanilla-iconen). Niet in de client getest.
+- Ochtendronde 10 nov: niets voor Rob. Wachters alle vier gedraaid, 0 [MOET GEFIKST]; CF/GitHub 0 open; geen site-mail;
+  HandyNotes 170 ongewijzigd. Site-chat heet «Site chat 10-11», wacht op een sein bij de volgende release.
+
 ## ▶ Open na 9 nov (voor de bouwchat van 10 nov)
 
 Alles van 9 nov is gepusht (laatste commit 0e16b14). Niets is gereleased. GEMETEN in het spel door Rob: retail laadt
 MH (TOC-regel Talebound), Forever `/mh week` (reset wo ~05:00 servertijd) en `/mh ranks`, en de Attack-macro (melee).
 Rest = alleen offline/linter getest → bovenaan `docs/TESTLIJST.md`.
-1. Een TEGEL in de addon voor "Handige macro's" (`/mh macros`) én "Waar koop ik dit?" (`/mh vendor`) — Rob: "dit moet
-   natuurlijk ook een tegel in de addon krijgen".
+1. ✅ 10 nov gebouwd (zie boven): TEGEL voor "Handige macro's" (`/mh macros`) én "Waar koop ik dit?" (`/mh vendor`).
+   Wacht op Robs test.
 2. Betere macro's per klasse, samen met Rob kiezen uit `docs/forever/FOREVER_MACROS_2026-11-09_B/C.md`. Ook mount-macro.
 3. Robs tests na `/reload` in Forever: Heal-macro (`/use item:<id>` werkt?), hengel-waarschuwing, trainerpijl, weapon
    buff + hengel, mouseover, winkels + tip na beroep leren.
