@@ -21,6 +21,20 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 10 nov — Forever: Wapentrainers (`/mh weapons`)
+
+- [ ] Druid (Night Elf, lvl 10): `/mh weapons` opent "Wapentrainers". Links: Maces, Two-Handed Maces, Polearms
+      "(level 20)", Staves, Daggers, Fist Weapons — in de taal van je client. Wat je al kent (Staves, Daggers?) is grijs
+      met "(ken je)". 🔴 Klopt "ken je" bij elk wapen? (AFGELEID dat MH dat kan lezen) — zo niet: `/mh weapons check`.
+- [ ] Klik Maces: rechts **Buliwyf Stonehand**, Ironforge, "andere continent", en eronder "Zo kom je er: … portal …
+      boot … boot … Deeprun Tram". Bovenaan "Het kost 10 zilver".
+- [ ] Klik "Pijl": de pijl wijst naar Ironforge (en een kruis boven hem als je er bent). Praat met hem: pijl weg.
+- [ ] Bij Buliwyf (of een andere weapon master): open zijn menu, dan `/mh weapons check` → "measured Buliwyf Stonehand
+      … N rows". Zo leert MH wat hij écht leert.
+- [ ] Startpagina (Forever): onder de trainer-knoppen "Je kunt nu 2 nieuw(e) wapen(s) leren" + knop Wapentrainers.
+- [ ] Ik-kamer en Tools → Losse vensters: tegel/kaart "Wapentrainers" (icoon: een mace).
+- [ ] Na het leren van Maces: het venster zet Maces op grijs "(ken je)".
+
 ## 🆕 10 nov — Forever: tegels voor Handige macro's en Waar koop ik dit?
 
 - [ ] Forever, MH open, klik **Ik** in de zijbalk: twee nieuwe tegels **"Handige macro's"** (briefje) en **"Waar koop ik

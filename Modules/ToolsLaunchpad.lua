@@ -54,6 +54,11 @@ local TOOLS = {
 		open = function() if ns.ShowForeverVendors then ns.ShowForeverVendors() end end,
 	},
 	{
+		nameKey = "FWEAP_TITLE", descKey = "TOOLLP_FWEAP_DESC", foreverOnly = true,
+		icon = "Interface\\Icons\\INV_Mace_01", slash = "/mh weapons",
+		open = function() if ns.ShowForeverWeapons then ns.ShowForeverWeapons() end end,
+	},
+	{
 		nameKey = "DELVE_COACH_TITLE", descKey = "TOOLLP_COACH_DESC",
 		icon = "Interface\\Icons\\INV_Misc_Map_01", slash = "/mh coach",
 		open = function() if ns.ToggleDelveCoach then ns:ToggleDelveCoach() end end,

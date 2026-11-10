@@ -92,6 +92,10 @@ local ME_FOREVER_CARDS = {
 	{ id = "me_fvendors", labelKey = "FVEND_TITLE", tagline = "TOOLLP_FVEND_DESC",
 		icon = "Interface\\Icons\\INV_Misc_Coin_01", need = "ShowForeverVendors",
 		action = function() ns.ShowForeverVendors() end },
+	-- 10 Nov 2026 (Rob: "Waar leer ik mace gebruiken met mijn druid" → "Ja, bouw maar"): ForeverWeapons.lua.
+	{ id = "me_fweapons", labelKey = "FWEAP_TITLE", tagline = "TOOLLP_FWEAP_DESC",
+		icon = "Interface\\Icons\\INV_Mace_01", need = "ShowForeverWeapons",
+		action = function() ns.ShowForeverWeapons() end },
 	{ id = "me_keyblock", labelKey = "KEYBLOCK_TITLE", tagline = "ROOMCARD_ME_KEYBLOCK_TIP",
 		icon = "Interface\\Icons\\INV_Misc_Key_03", need = "ShowKeyBlock",
 		action = function() ns.ShowKeyBlock() end },

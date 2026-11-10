@@ -87,6 +87,7 @@ Modules\ForeverMacros.lua
 # Where to buy profession tools and general/trade goods, with an arrow (Rob, 9 Nov 2026: "die moeten we ook vindbaar maken").
 Modules\ForeverVendorSpots.lua
 Modules\ForeverVendors.lua
+Modules\ForeverWeapons.lua
 Modules\LayoutExtras.lua
 Modules\CombatSafety.lua
 Modules\FastMark.lua

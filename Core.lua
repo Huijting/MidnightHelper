@@ -2567,6 +2567,16 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		end
 		return
 	end
+	-- 10 Nov 2026, WoW Forever: where to learn a weapon (ForeverWeapons.lua).
+	local weapArg = (msg:lower() == "weapons" or msg:lower() == "weapon") and "" or msg:lower():match("^weapons?%s+(.+)$")
+	if weapArg then
+		if ns.ForeverWeaponsSlash then
+			ns.ForeverWeaponsSlash(weapArg)
+		else
+			print("|cffffcc00Midnight Helper:|r /mh weapons is for WoW: Forever.")
+		end
+		return
+	end
 	local moArg = msg:lower() == "mouseover" and "" or msg:lower():match("^mouseover%s+(.+)$")
 	if moArg then
 		if ns.ForeverMouseoverSlash then

@@ -12,7 +12,16 @@
 - Rob: *"dit is trouwens ook weer zoiets voor onze guide … werk dat … uit"*. Onderzoek klaar (mh-research):
   `docs/forever/FOREVER_WEAPON_MASTERS_2026-11-10.md` — 8 wapentrainers, 14 wapen-skills met spell-id's, kosten/levels,
   klasse×wapen, Forever-wijzigingen, routes. 7 open gaten staan onderaan dat bestand (o.a. Sayoc + Staves).
-  🔜 Volgende stap: bouwplan (venster zoals "Waar koop ik dit?": links wapens, rechts trainers + pijl) → Robs ja.
+  ✅ Gebouwd (plan → Rob: "Ja, bouw maar"): `Modules/ForeverWeapons.lua` (beide TOC's, na ForeverVendors). `/mh weapons
+  [check]` (Core.lua). Venster "Wapentrainers": links de 14 wapens gefilterd op je klasse (bitmasks uit Forever
+  SkillRaceClassInfo), "(ken je)" via IsPlayerSpell(spell-id) — AFGELEID, eerste test; rechts de 8 weapon masters aan
+  jouw kant + afstand + Pijl (lastTarget via "/mh weapons", weg bij TRAINER_SHOW van díe npc, kruis via
+  ForeverTrainerMark) + route-zin per stad (FWEAP_ROUTE_<stad>_FAR/_NEAR, uit de Zygor-transitdata in het onderzoek).
+  Sayoc zonder Staves (betwist). Meten: TRAINER_SHOW bij een van de 8 → `MidnightHelperDB.foreverWeaponSeen[npc]`
+  (rijen + filterstand). Ingangen: Ik-kamer `me_fweapons`, Tools → Losse vensters, startpagina-regel
+  `FWEAP_HOME_FMT` (alleen als er iets te leren is). Plaatsen GEMETEN 10 nov met `run gamedata npc`; Sayoc en Hanashi
+  staan echt samen (81,4-81,6 / 19,4-19,6). Teksten enUS/nlNL zelf, de/fr/es/pt/ru mh-writer met plaatsnamen uit
+  AreaTable per taal. Lint/syntax OK; niet in de client getest → TESTLIJST.
 
 ## 🆕 10 nov — Forever: tegels voor "Handige macro's" en "Waar koop ik dit?" (Rob: "Ja, bouw maar")
 

@@ -280,6 +280,12 @@ local function BuildLayout()
 			button(rows, ns:L("HOME_FOREVER_BTN_GO"), ns.ForeverTrainerGo and function() ns.ForeverTrainerGo() end)
 			-- Rob, 8 Nov 2026: "maak een pagina in de MH om ze te vinden" (ForeverProfTrainers.lua).
 			button(rows, ns:L("FPROF_TITLE"), ns.ShowForeverProfTrainers and function() ns.ShowForeverProfTrainers() end)
+			-- 10 Nov 2026: weapons you could learn now (ForeverWeapons.lua). Said only when there is one.
+			local nWeap = ns.ForeverWeaponsLearnableCount and ns.ForeverWeaponsLearnableCount() or 0
+			if nWeap > 0 then
+				line(rows, ns:L("FWEAP_HOME_FMT"):format(nWeap), COLOR_SOFT)
+				button(rows, ns:L("FWEAP_TITLE"), ns.ShowForeverWeapons)
+			end
 			-- 9 Nov 2026: buttons that still cast an old rank (ForeverRanks.lua). Explained here, where the button is.
 			local nRank = ns.ForeverRankCount and ns.ForeverRankCount() or 0
 			if nRank > 0 then
