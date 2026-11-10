@@ -19,7 +19,18 @@
   GET_ITEM_INFO_RECEIVED, en de chatregel wacht op de naam. Niet in het spel getest.
 - ✅ Rob bevestigde in de bouwchat ("Ja, zo"): A) één ideeënlijst — elk verzoek, ook direct in de bouwchat, komt in
   IDEEEN.md in de vaste vorm (Ja → gebouwd met commit → Af na Robs test). Gedaan: de reisplanner staat onder Ja.
-  ▶ Daarna stap 4 = C2/C4 (speldata), stap 5 = vijfde wachter + ideeën-wachter, elk na Robs ja. C5 later met /mh selftest.
+  ✅ Stap 4 (Rob: "Ja, stap 4"): `tools/data_check.py` (`run data_check [--c2|--c4] [--all] [--loose]`), lokaal/wachter,
+  NIET in de GitHub-lint (heeft wago nodig; cache in %LOCALAPPDATA%). GEMETEN 10 nov:
+  - C2: 1541 nummers (1070 spell, 341 quest, 71 kaart, 39 achievement, 25 item) tegen SpellName/QuestV2/UiMap/
+    Achievement/Item van live 12.1.5.70783 + ptr 12.1.7.70740 + forever 1.60.1.70888 → **0 nakijken**. 4 bewuste
+    nep-id's (DispelTest) op de IGNORE-lijst. Blinde vlek: 23 regels. Proef: 6603 + 947 gevonden, 99999999 niet.
+    Eigen fouten onderweg: proef-kaart 1415 bestaat alleen in Forever; `--[[ ]]`-commentaar werd meegelezen.
+  - C4: 121 enUS-waarden zijn precies een spelnaam (Area/Map/Achievement, spells alleen met 2+ woorden); per taal
+    vergeleken met wat die client toont, fill()-overschrijving gevolgd zoals in het spel. **65 nakijken**, gemengd:
+    echt (bv. "Titel: Light's Faithful" in alle 6; ruRU RITUAL_CHAL_* en CODEX_CUR_ACCOLADES nog Engels; itIT TAB_OMNIUM
+    Engels; de "Das Labyrinth"/"Der Ring" en pt-lidwoorden in MOUNTRUN_R_*) en toeval (General = NPC-rang, Test,
+    Builder, zoekwoorden SMC_SEARCH_PORTALS, GUIDE_CONS_TYPE_HEALING). ▶ Rob kiest of we de echte laten herschrijven.
+  ▶ Daarna stap 5 = vijfde wachter + ideeën-wachter, na Robs ja. C5 later met /mh selftest.
 
 ## 💡 10 nov — brainstorm werkwijze (cloud-sessie, tak `claude/midnight-helpen-brainstorm-d18bs9`)
 
