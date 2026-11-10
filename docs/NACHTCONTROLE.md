@@ -12,3 +12,7 @@ Hij meldt alleen, repareert nooit, en schrijft alleen in dit bestand. Alles is "
 Nieuwste regel onderaan.
 
 ---
+
+- [2026-11-10] 🌙 **Nachtcontrole** — C1: NIET GEDRAAID (0 nakijken bekend), builds live/ptr/forever onbekend, snapshot repo: niet vergeleken. C2: 0 nakijken, controle OK, blinde vlek 23.
+  - C1: `tools/event_snapshot.py` faalde op https://api.github.com/repos/<REPO>/commits/<tak> met HTTP Error 403: Forbidden (zelfde 403 met curl op api.github.com/repos/Gethe/wow-ui-source/commits/live; wago.tools gaf 200). Geen verse eventlijst, dus ook event_check niet gedraaid. Een controle die niet draaide is niet schoon.
+  - C2: wago-builds live 12.1.5.70783, ptr 12.1.7.70740, forever 1.60.1.70888; spell 1070/achievement 39/quest 341/item 25/map 71 ids, 0 nakijken, positieve controles OK. Blinde vlek: 23 regels met id-achtige toewijzing die geen patroon leest (niet gecontroleerd). 4 ids bewust genegeerd (DispelTest.lua 999001-999004).
