@@ -217,6 +217,15 @@ local function Route(t, pcont)
 	if here == t.map then
 		return nil
 	end
+	-- 10 Nov 2026: from where YOU stand (ForeverTravel.lua). The fixed texts below assumed a start in your own capital.
+	if ns.ForeverTravelSentence then
+		local ok, s, walk = pcall(ns.ForeverTravelSentence, t.map, t.x, t.y)
+		if ok and s then
+			return s
+		elseif ok and walk then
+			return nil -- you can walk there: no route line
+		end
+	end
 	local far = pcont ~= nil and CITY_CONT[t.city] ~= pcont
 	if pcont == nil then
 		far = true -- position unreadable: the long way is the safe one to show

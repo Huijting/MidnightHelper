@@ -88,6 +88,8 @@ Modules\ForeverMacros.lua
 Modules\ForeverVendorSpots.lua
 Modules\ForeverVendors.lua
 Modules\ForeverWeapons.lua
+# Boats, zeppelins, tram and portal for the route arrow (Rob, 10 Nov 2026: "uitzoeken en bouwen graag").
+Modules\ForeverTravel.lua
 Modules\LayoutExtras.lua
 Modules\CombatSafety.lua
 Modules\FastMark.lua

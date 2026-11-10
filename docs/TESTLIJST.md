@@ -21,6 +21,20 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 10 nov (avond) — Forever: de pijl kent boten, zeppelins, de tram en het roze portaal
+
+- [ ] Forever, `/reload`, in Darkshore: `/mh weapons` → Two-Handed Maces → **Arrow** bij Buliwyf Stonehand (Ironforge).
+      Verwacht: de pijl wijst naar de **boot naar Stormwind** in Auberdine (niet meer "travel back first"). Het venster zegt
+      bij "The way there": *the boat to Stormwind City in Darkshore, then the Deeprun Tram to Ironforge in Stormwind City.*
+- [ ] `/mh travel` → print waar MH denkt dat je bent ("land KAL"), het doel en de stappen. Stuur de regels bij twijfel.
+- [ ] Op de boot / aan de overkant in Stormwind Harbor: de pijl schuift door naar de **tram-ingang** (Dwarven District).
+      🔴 Meten: `/mh travel` op de pier in Stormwind — welke kaart zegt hij (verwacht Stormwind City 1453)?
+- [ ] In Ironforge: de pijl wijst gewoon naar Buliwyf.
+- [ ] Darnassus → iets in Darkshore: pijl naar het **roze portaal**, dan de boot in Rut'theran.
+- [ ] Optioneel bij Menethil: is er een boot die **rechtstreeks** naar Auberdine gaat, of alleen die via Southshore?
+- [ ] Fix "(loading...)" in het hengel-tipvenster: bij het volgende beroep zonder gereedschap (op een ander character)
+      moet de naam van het gereedschap na een tel verschijnen, en de chatregel pas dan komen.
+
 ## 🆕 10 nov (middag) — Midnight: Macro's-tabblad met "Top" + knop Maken
 
 - [ ] Retail, `/reload`, MH → tabblad **Macro's**: eerste knop is nu **"Top"**. Bovenaan 5 knoppen = de 5 populairste

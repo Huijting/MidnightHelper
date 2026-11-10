@@ -73,7 +73,7 @@ end
 --- `/mh poisons` is an alias of `/mh curios` since 2 sep (Rob's call): the poison slot is
 --- simply one of the companion's choice slots, and one screen reads all of them from the tree.
 ns.MH_UNLISTED_ON_PURPOSE = {
-	"anchor", "api12", "atal", "auradump", "aurainst", "auras", "bars", "boardall",
+	"travel", "anchor", "api12", "atal", "auradump", "aurainst", "auras", "bars", "boardall",
 	"bonusroll", "bossshare", "campaign", "capture", "chunklog", "chunks", "clearroute",
 	"dundun", "sniff", "sniff dump", "sniff clear", "sniff quiet", "pet", "pet test", "pet sounds",
 	"codexkeys", "colours", "companion", "consready", "coord", "crest", "crestfind", "crestscan",

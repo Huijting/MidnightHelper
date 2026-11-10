@@ -1,5 +1,25 @@
 # Midnight Helper — waar we staan
 
+## 🆕 10 nov (avond) — Forever: reisplanner voor de pijl (Rob: "uitzoeken en bouwen graag")
+
+- Aanleiding: Rob in Darkshore, pijl naar Buliwyf (Ironforge) zei alleen "travel back first". `Modules/Travel/` laadt niet
+  in Forever. Nieuw `Modules/ForeverTravel.lua` (beide TOC's, IS_FOREVER-guard): ns.BuildTravelPlan (zelfde vorm als
+  Midnight) met 14 links uit `docs/forever/FOREVER_TRAVEL_LINKS_2026-11-10.md` (mh-research: DB2 TaxiPathNode 70888
+  GEMETEN, x,y-omrekening AFGELEID, Wowhead-NPC's binnen 1 eenheid). Dijkstra over speler + link-uiteinden + doel; lopen
+  = afstand/250 + 2 per zonewissel + 8 tussen Stormwind- en Ironforge-kant (dan wint de tram). Rut'theran = Teldrassil
+  y ≥ 86 (AFGELEID). Weggelaten: directe boot Auberdine↔Menethil (vermoedelijk weg), Grom'gol↔Undercity, Feathermoon.
+- NativeArrow: `ns.ForeverTravelNeedsLink` maakt Teldrassil/tram "unreachable" → plan; `step.forever` laat de pijl naar
+  een haven in een andere zone op je eigen continent wijzen. Retail-pad onveranderd (beide hooks bestaan daar niet).
+- ForeverWeapons "The way there": nu vanaf waar je staat (`ns.ForeverTravelSentence`), oude vaste teksten als terugval.
+- `/mh travel` = diagnose (MH_UNLISTED_ON_PURPOSE). Teksten FTRAVEL_* enUS + nlNL; de/fr/es/pt/it/ru door mh-writer.
+- Offline test (nep-wereld, scratchpad `ftravel_test.lua`): 13/13 routes goed. ⚠️ NIET in het spel getest; TESTLIJST 10 nov avond.
+- Vertalingen (mh-writer, namen GEMETEN in Forever-DB2: Tiefenbahn/Tram des profondeurs/…; Rut'theran per taal; geen itIT —
+  Forever heeft geen Italiaanse client). ruRU bewust zonder naamvallen ("корабль (куда: %s)").
+- Bug Rob 10 nov: hengel-tip bleef op "(loading...)" — `ForeverVendors.lua` tekende de tip één keer; nu `RenderTip` ook op
+  GET_ITEM_INFO_RECEIVED, en de chatregel wacht op de naam. Niet in het spel getest.
+- ▶ Doorgegeven via de brainstorm-chat (Rob, nog te bevestigen in de bouwchat): A) één ideeënlijst IDEEEN.md ook voor directe
+  verzoeken; stap 4 = C2/C4 (speldata); stap 5 = vijfde wachter + ideeën-wachter. C5 later met /mh selftest.
+
 ## 💡 10 nov — brainstorm werkwijze (cloud-sessie, tak `claude/midnight-helpen-brainstorm-d18bs9`)
 
 - PLAN (Rob: "werk het hele plan maar uit"), ✅ Rob 10 nov avond: "het klopt allemaal, volgorde is goed", zesde toetsvraag ja: `docs/PLAN_WERKWIJZE_2026-11-10.md`, 7 delen +

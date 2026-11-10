@@ -425,6 +425,30 @@ local function Seen()
 	return d.foreverToolTipSeen[key]
 end
 
+--- Fill the tip window. Rob, 10 Nov 2026: it said "you have no (loading...) yet" and stayed that way — the item name
+--- was not cached yet and only the list window redrew on GET_ITEM_INFO_RECEIVED. Now the tip redraws too.
+local function RenderTip(f)
+	local c = f.tipCat
+	if not c then
+		return
+	end
+	local list = List(c)
+	local best = list[1]
+	local what = CatName(c)
+	f.tipLoading = (what == ns:L("FVEND_ITEM_LOADING"))
+	if best then
+		f.text:SetText(ns:L("FVEND_TIP_FMT"):format(f.tipProf, what, best.v.name, ZoneName(best.v.map),
+			best.dist and Distance(best.dist) or ns:L("FVEND_OTHER_CONT")))
+		f.way.entry, f.way.what = best, what
+		f.way:Enable()
+	else
+		f.text:SetText(ns:L("FVEND_TIP_NONE_FMT"):format(f.tipProf, what))
+		f.way.entry = nil
+		f.way:Disable()
+	end
+	f.all.key = c.key
+end
+
 local ready = false -- professions known at login are recorded, never announced
 local lastTip = "nothing checked yet"
 
@@ -443,24 +467,16 @@ local function CheckNewProfessions()
 			elseif HasTool(c) then
 				lastTip = c.prof .. " learned, tool already in your bags: quiet"
 			else
-				local list = List(c)
-				local best = list[1]
-				local what = CatName(c)
 				local f = TipFrame()
-				local profName = ns.ForeverProfName and ns.ForeverProfName(c.prof, mine) or c.prof
-				if best then
-					f.text:SetText(ns:L("FVEND_TIP_FMT"):format(profName, what, best.v.name, ZoneName(best.v.map),
-						best.dist and Distance(best.dist) or ns:L("FVEND_OTHER_CONT")))
-					f.way.entry, f.way.what = best, what
-					f.way:Enable()
-				else
-					f.text:SetText(ns:L("FVEND_TIP_NONE_FMT"):format(profName, what))
-					f.way.entry = nil
-					f.way:Disable()
-				end
-				f.all.key = c.key
+				f.tipCat = c
+				f.tipProf = ns.ForeverProfName and ns.ForeverProfName(c.prof, mine) or c.prof
+				RenderTip(f)
 				f:Show()
-				print(PREFIX .. f.text:GetText())
+				-- The chat line waits for the item name too: "(loading...)" in chat cannot be fixed afterwards.
+				f.tipChatPending = f.tipLoading or nil
+				if not f.tipLoading then
+					print(PREFIX .. f.text:GetText())
+				end
 				lastTip = c.prof .. " learned without its tool: tip shown"
 			end
 		end
@@ -524,6 +540,14 @@ ev:SetScript("OnEvent", function(_, event)
 	elseif event == "GET_ITEM_INFO_RECEIVED" then
 		if win and win:IsShown() then
 			Fill()
+		end
+		local f = tip
+		if f and f:IsShown() and f.tipLoading then
+			RenderTip(f)
+			if f.tipChatPending and not f.tipLoading then
+				f.tipChatPending = nil
+				print(PREFIX .. f.text:GetText())
+			end
 		end
 	end
 end)

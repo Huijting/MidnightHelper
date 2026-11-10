@@ -412,6 +412,14 @@ local function UpdateArrow()
 	if unreachable and OneContainsTheOther(pmap, t.mapID) then
 		unreachable = false
 	end
+	--- WoW Forever (ForeverTravel.lua, 10 Nov 2026): Teldrassil is on Darkshore's continent but across the sea, and
+	--- Ironforge from Stormwind is a tram ride, not a walk. Same continent, still "ask the travel plan first".
+	if not unreachable and pmap and ns.ForeverTravelNeedsLink then
+		local okN, need = pcall(ns.ForeverTravelNeedsLink, pmap, t.mapID, t.x, t.y)
+		if okN and need then
+			unreachable = true
+		end
+	end
 
 	--- ⚠️ POINT AT THE FIRST STEP INSTEAD OF GIVING UP. Rob, 18 aug, standing on the
 	--- isle with a target in the Underbelly: "kan hij niet zien dat ik er buiten sta
@@ -448,7 +456,9 @@ local function UpdateArrow()
 				--- below already draws Silvermoon -> Eversong targets. `px/py` are on `pmap`, so the
 				--- "standing on it" test only runs for a step on the player's own map.
 				local onMine = s.mapID == pmap
-				if s.kind ~= "arrive" and s.x and s.y and (onMine or OneContainsTheOther(s.mapID, pmap)) then
+				--- Forever: a dock in the next zone on your own continent is a walk too (world positions compare).
+				local onMyLand = s.forever and pc and MapContinent(s.mapID) == pc
+				if s.kind ~= "arrive" and s.x and s.y and (onMine or onMyLand or OneContainsTheOther(s.mapID, pmap)) then
 					--- ⚠️ DO NOT POINT AT SOMEONE'S OWN FEET. Rob, 18 aug: walking into
 					--- the gate corridor, the arrow kept pointing back at the gate. His
 					--- `/mh here` explains it — inside the corridor the client still

@@ -253,6 +253,7 @@ Modules\ForeverMacros.lua
 Modules\ForeverVendorSpots.lua
 Modules\ForeverVendors.lua
 Modules\ForeverWeapons.lua
+Modules\ForeverTravel.lua
 Modules\ForeverMainStats.lua
 Modules\ForeverQuestHint.lua
 Modules\ForeverLayoutCarry.lua

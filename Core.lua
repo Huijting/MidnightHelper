@@ -2567,6 +2567,15 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		end
 		return
 	end
+	-- 10 Nov 2026, WoW Forever: the travel planner's decision for the arrow's target (ForeverTravel.lua).
+	if msg:lower() == "travel" then
+		if ns.ForeverTravelSlash then
+			ns.ForeverTravelSlash()
+		else
+			print("|cffffcc00Midnight Helper:|r /mh travel is for WoW: Forever.")
+		end
+		return
+	end
 	-- 10 Nov 2026, WoW Forever: where to learn a weapon (ForeverWeapons.lua).
 	local weapArg = (msg:lower() == "weapons" or msg:lower() == "weapon") and "" or msg:lower():match("^weapons?%s+(.+)$")
 	if weapArg then

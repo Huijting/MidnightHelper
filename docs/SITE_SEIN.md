@@ -28,6 +28,17 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 10 nov 2026 — Forever: de pijl wijst de boot, zeppelin, tram of het portaal aan
+- Tag + commit:   geen tag / (deze commit)
+- Status:         alleen op main
+- Mag op de site: nee
+- Speler ziet:    Staat je doel op een ander continent, op Teldrassil, of in Ironforge terwijl jij in Stormwind bent, dan
+                  wijst de pijl eerst naar de boot, de zeppelin, de Deeprun Tram of het roze portaal. Het wapentrainer-venster
+                  beschrijft de weg vanaf waar jij staat. *(niet in het spel getest)*
+- Knoplabels:     FTRAVEL_BOAT_FMT, FTRAVEL_TRAM_FMT, FTRAVEL_PORTAL_FMT, FTRAVEL_ZEPPELIN_FMT
+- Commando's:     /mh travel
+- Spel:           Forever
+
 ## 10 nov 2026 — Midnight: macro's tonen spellnamen in jouw taal
 - Tag + commit:   geen tag / ce48fb7
 - Status:         alleen op main
