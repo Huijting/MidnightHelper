@@ -17,8 +17,9 @@
   Forever heeft geen Italiaanse client). ruRU bewust zonder naamvallen ("корабль (куда: %s)").
 - Bug Rob 10 nov: hengel-tip bleef op "(loading...)" — `ForeverVendors.lua` tekende de tip één keer; nu `RenderTip` ook op
   GET_ITEM_INFO_RECEIVED, en de chatregel wacht op de naam. Niet in het spel getest.
-- ▶ Doorgegeven via de brainstorm-chat (Rob, nog te bevestigen in de bouwchat): A) één ideeënlijst IDEEEN.md ook voor directe
-  verzoeken; stap 4 = C2/C4 (speldata); stap 5 = vijfde wachter + ideeën-wachter. C5 later met /mh selftest.
+- ✅ Rob bevestigde in de bouwchat ("Ja, zo"): A) één ideeënlijst — elk verzoek, ook direct in de bouwchat, komt in
+  IDEEEN.md in de vaste vorm (Ja → gebouwd met commit → Af na Robs test). Gedaan: de reisplanner staat onder Ja.
+  ▶ Daarna stap 4 = C2/C4 (speldata), stap 5 = vijfde wachter + ideeën-wachter, elk na Robs ja. C5 later met /mh selftest.
 
 ## 💡 10 nov — brainstorm werkwijze (cloud-sessie, tak `claude/midnight-helpen-brainstorm-d18bs9`)
 
