@@ -148,3 +148,10 @@ Overgenomen uit de oude lijst (X1 t/m X9), NIET opnieuw gemeten.
   voorstel voor "nee"; Rob beslist.*
 - Beroepenplan exporteren naar KnowledgeLoadout (oude A18) — nooit door Rob gevraagd. *Mijn voorstel voor "nee".*
 - KeyUI bestuderen (oude A16) — onderzoek, geen idee voor spelers. *Mijn voorstel voor "nee".*
+
+---
+
+## Voorstellen van de wachter
+
+De wekelijkse ideeën-wachter (cloud-routine, sinds 10 nov 2026) schrijft ALLEEN hier, onderaan, hooguit drie per week
+in de vaste vorm. De bouwchat verplaatst ze naar Open, of naar Nee met reden. Niemand anders schrijft in dit blok.

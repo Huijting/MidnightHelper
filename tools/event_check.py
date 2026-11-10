@@ -23,7 +23,10 @@ import re
 import sys
 
 STALE_DAYS = 28
-SNAP = os.path.join(os.path.dirname(os.path.abspath(__file__)), "blizzard_events_snapshot.json")
+# MH_EVENT_SNAPSHOT: the nightly watcher fetches a fresh list into a temp file and checks against that, so it can
+# report "the repo's snapshot is behind" while touching only its own report file (one writer per file).
+SNAP = os.environ.get("MH_EVENT_SNAPSHOT") or os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                                           "blizzard_events_snapshot.json")
 LIT = re.compile(r'(pcall\(\s*)?[\w.:]*Register(?:Unit)?Event[\s(,]*(?:[\w.]+\s*,\s*)?"([A-Z][A-Z0-9_]+)"')
 VAR = re.compile(r'Register(?:Unit)?Event\(\s*[a-z_][\w.]*\s*[,)]')
 TOP_FOREVER_ONLY = re.compile(r'^if not ns\.IS_FOREVER then\s*(?:return|\r?\n\s*return)', re.M)

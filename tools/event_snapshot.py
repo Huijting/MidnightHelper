@@ -29,6 +29,8 @@ REPO = "Gethe/wow-ui-source"
 DOC_DIR = "Interface/AddOns/Blizzard_APIDocumentationGenerated"
 BRANCHES = ("live", "ptr", "forever")
 OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "blizzard_events_snapshot.json")
+if "--out" in sys.argv[1:]:  # the nightly watcher writes to a temp file, never into the repo
+    OUT = sys.argv[sys.argv.index("--out") + 1]
 HDR = {"User-Agent": "midnight-helper-lint", "Accept": "application/vnd.github+json"}
 
 
