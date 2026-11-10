@@ -1,5 +1,18 @@
 # Midnight Helper — waar we staan
 
+## ▶ Open na 9 nov (voor de bouwchat van 10 nov)
+
+Alles van 9 nov is gepusht (laatste commit 0e16b14). Niets is gereleased. GEMETEN in het spel door Rob: retail laadt
+MH (TOC-regel Talebound), Forever `/mh week` (reset wo ~05:00 servertijd) en `/mh ranks`, en de Attack-macro (melee).
+Rest = alleen offline/linter getest → bovenaan `docs/TESTLIJST.md`.
+1. Een TEGEL in de addon voor "Handige macro's" (`/mh macros`) én "Waar koop ik dit?" (`/mh vendor`) — Rob: "dit moet
+   natuurlijk ook een tegel in de addon krijgen".
+2. Betere macro's per klasse, samen met Rob kiezen uit `docs/forever/FOREVER_MACROS_2026-11-09_B/C.md`. Ook mount-macro.
+3. Robs tests na `/reload` in Forever: Heal-macro (`/use item:<id>` werkt?), hengel-waarschuwing, trainerpijl, weapon
+   buff + hengel, mouseover, winkels + tip na beroep leren.
+4. Winkels: Redridge-frame (~5 verschil Wowhead/Zygor) en 3 EPL-rijen (`unsure`) nameten in het spel.
+5. Later: Forever supplies-waarschuwing, writ-helper, Omnium Folio 6/7; site-chat seinen na de volgende release.
+
 ## 🆕 9 nov (laat) — Forever: trainerpijl stopt alleen nog bij de goede trainer (Rob: "Ja, ga je gang")
 
 - Rob: op weg naar de leatherworking-trainer leerde hij vissen bij een andere trainer → pijl weg. Oorzaak (GEMETEN):
@@ -36,7 +49,8 @@
 - Macro-onderzoek Forever klaar (3× mh-research, zonder onze oude macro's) → `docs/forever/FOREVER_MACROS_2026-11-09_A/B/C.md`.
   Rob: "Plan maken voor MH" → plan (1 bewaren, 2 per klasse naast de bloktabellen leggen "zit al / nieuw", Druid eerst,
   3 lijst "Handige macro's" met knop "Maak deze macro", 4 mouseover-schakelaar in het toetsenblok, standaard uit).
-  Rob: "Ja, je mag met stap 1 en stap 2 beginnen." Stap 3 en 4 wachten op zijn ja na het Druid-lijstje.
+  Rob: "Ja, je mag met stap 1 en stap 2 beginnen." Stap 2 (Druid): het blok heeft bijna alles al; nieuw = mouseover +
+  losse handige macro's. Stap 3 en 4 daarna gebouwd op "Gaan we door zolang je kan" (zie hierboven).
 - ✅ Winkeliers vindbaar (Rob: "Yeah, je mag zo beginnen" + "Gaan we door zolang je kan"): onderzoek
   `docs/forever/FOREVER_VENDORS_2026-11-09.md` (mh-research, Wowhead Forever; 303 gereedschap- + 118 goods-rijen).
   Data `Modules/ForeverVendorSpots.lua`, venster `Modules/ForeverVendors.lua` (beide TOC's): `/mh vendor [soort|check]`,
