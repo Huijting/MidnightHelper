@@ -1,5 +1,21 @@
 # Midnight Helper — waar we staan
 
+## 🆕 10 nov (middag) — Midnight: Macro's-tabblad "Top" + knop Maken (Rob: "maak het maar, net zoals … Forever … minimaal net zo goed")
+
+- Drie mh-research-runs (A: DK/DH/Druid/Evoker, B: Hunter/Mage/Monk/Paladin, C: Priest/Rogue/Shaman/Warlock/Warrior)
+  telden per spec de macro's in Midnight-bronnen (Wowhead UI & Macros, Icy Veins, Method; okt 2026) → top 5 per spec,
+  40 specs (DH Devourer meegeteld). Notities: `docs/MIDNIGHT_TOP_MACROS_2026-11-10_A/B/C.md`. Reddit niet bereikt.
+- Nieuw `Modules/RetailTopMacros.lua` (alleen retail-TOC, na InterruptMacros): `TOP_MACROS` 183 rijen (spec 0 = elke
+  spec van de klasse; `dkey` = gedeelde tekst voor tweelingen), spells als `{id}` → clientnaam; talent-rij verborgen tot
+  gekend; niet gekend → "train"-melding. Nieuw soort "top" vooraan in `ns.MacroPanelTypes`; standaard geselecteerd.
+  `InterruptMacros.lua`: knop **Maken** naast Alles selecteren (voor elk soort; CreateMacro per karakter, "MH+ <naam>",
+  uit in gevecht en in de guide-preview). `/mh macrocheck` print ook de Top-rijen. Id's GEMETEN in wago retail
+  12.1.5.70783. Offline-test: 40 specs × 5, geen rest-`{`, ≤255 bytes. Niets in de client getest → TESTLIJST.
+- Gevonden macro-regels 12.0 (Blizzard, 1 mrt 2026): max 3 markeringen kort na elkaar; in een encounter geen macro-chat
+  buiten de groep. Spelers (niet Blizzard): `[nochanneling]` kan casten even blokkeren → waarschuwing bij die rij.
+- Open: de oude Utility/Interrupt-lijsten gebruiken nog Engelse spellnamen (werkt niet op een niet-Engelse client,
+  AFGELEID). Kandidaat voor dezelfde {id}-ombouw.
+
 ## 🆕 10 nov (middag) — Forever: top 3 macro's per spec (Rob: "Ja, laten we maar uitzoeken" → "Ja bouw maar")
 
 - Onderzoek (mh-research): `docs/forever/FOREVER_MACROS_SPECS_2026-11-10.md` — 27 specs × top 3, 13 bronfamilies,

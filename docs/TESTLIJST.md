@@ -21,6 +21,18 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 10 nov (middag) — Midnight: Macro's-tabblad met "Top" + knop Maken
+
+- [ ] Retail, `/reload`, MH → tabblad **Macro's**: eerste knop is nu **"Top"**. Bovenaan 5 knoppen = de 5 populairste
+      macro's van je spec (Prot Paladin: kijk of ze kloppen bij wat je speelt). Titel = spellnaam in je clienttaal.
+- [ ] Kies er een: uitleg + de macrotekst met spellnamen. Klik **Maken** → chat "Macro "MH+ …" staat in de macrolijst";
+      het macrovenster opent. 🔴 Werkt de macro? (niemand heeft deze al in het spel getest)
+- [ ] De knop Maken werkt ook bij Interrupt en de andere soorten (die hebben nog Engelse spellnamen).
+- [ ] Een rij met een talent dat je niet hebt, verschijnt niet. Een spell die je nog niet kent: "Deze spell ken je nog
+      niet …" en Maken staat uit.
+- [ ] In gevecht op Maken: "Niet in gevecht …". Wissel van spec: de lijst wisselt mee.
+- [ ] `/mh macrocheck` → onderaan per Top-macro "known/not known" + de tekst die hij zou maken.
+
 ## 🆕 10 nov (middag) — Forever: spec-macro's in Handige macro's (`/mh macros`)
 
 - [ ] 🔴 Eerst meten (spec-herkenning is AFGELEID): typ in Forever

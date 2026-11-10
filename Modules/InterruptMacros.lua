@@ -554,7 +554,17 @@ local function RefreshMacrosPanel(panel)
 		if panel._mhMacrosCopyBtn and panel._mhMacrosCopyBtn.Enable then
 			panel._mhMacrosCopyBtn:Enable()
 		end
+		if panel._mhMacrosMakeBtn then
+			if isPreview then
+				panel._mhMacrosMakeBtn:Disable() -- another class/spec in the guide preview: not yours to make
+			else
+				panel._mhMacrosMakeBtn:Enable()
+			end
+		end
 	else
+		if panel._mhMacrosMakeBtn then
+			panel._mhMacrosMakeBtn:Disable()
+		end
 		eb:SetText("")
 		local msgKey = "MACROS_ERR_GENERIC"
 		if reason == "nospec" then
@@ -567,6 +577,8 @@ local function RefreshMacrosPanel(panel)
 			msgKey = "MACROS_ERR_NO_DATA"
 		elseif reason == "notype" then
 			msgKey = "MACROS_ERR_NO_TYPE"
+		elseif reason == "train" then
+			msgKey = "MACROS_ERR_TRAIN"
 		end
 		eb:SetText(ns:L(msgKey))
 		eb:SetTextColor(0.75, 0.72, 0.65)
@@ -608,7 +620,8 @@ function ns.BuildInterruptMacrosPanel(panel)
 		return
 	end
 	panel._mhMacrosBuilt = true
-	panel._mhMacrosSelectedType = "interrupt"
+	-- First kind = "top" since 10 Nov 2026 (RetailTopMacros.lua puts it in front); older data: "interrupt".
+	panel._mhMacrosSelectedType = (ns.MacroPanelTypes and ns.MacroPanelTypes[1] and ns.MacroPanelTypes[1].id) or "interrupt"
 	panel._mhMacrosPickIndex = {}
 	-- Published so another tab can open this panel on a specific kind; see
 	-- ns.MH_OpenMacroType. There is only ever one Macros panel.
@@ -706,9 +719,53 @@ function ns.BuildInterruptMacrosPanel(panel)
 	end)
 	panel._mhMacrosCopyBtn = copyBtn
 
+	-- 10 Nov 2026 (Rob: "net zoals we nu voor Forever hebben"): Make puts the shown macro straight into this
+	-- character's macro list as "MH+ <name>", like the Forever window; copy and paste still works next to it.
+	local makeBtn = CreateFrame("Button", nil, panel, "UIPanelButtonTemplate")
+	makeBtn:SetSize(120, 24)
+	makeBtn:SetPoint("LEFT", copyBtn, "RIGHT", 8, 0)
+	makeBtn:SetText(ns:L("MACROS_MAKE_BUTTON"))
+	makeBtn:SetScript("OnClick", function()
+		local prefix = "|cffffcc00Midnight Helper:|r "
+		if InCombatLockdown and InCombatLockdown() then
+			print(prefix .. ns:L("MACROS_MAKE_COMBAT"))
+			return
+		end
+		local body, _r, _t, _s, _sn, entryName, _d, makeName =
+			ns.MH_GetMacroContextForType(panel._mhMacrosSelectedType or "interrupt", panel)
+		if not body then
+			return
+		end
+		if #body > 255 then
+			print(prefix .. ns:L("MACROS_MAKE_LONG"))
+			return
+		end
+		local name = ("MH+ " .. tostring(makeName or entryName or "Macro")):sub(1, 16)
+		local idx = GetMacroIndexByName and GetMacroIndexByName(name) or 0
+		if idx and idx > 0 then
+			local _, icon = GetMacroInfo(idx)
+			pcall(EditMacro, idx, name, icon or "INV_MISC_QUESTIONMARK", body)
+		else
+			local _, perChar = GetNumMacros()
+			if (perChar or 0) >= (MAX_CHARACTER_MACROS or 18) then
+				print(prefix .. ns:L("MACROS_MAKE_FULL"))
+				return
+			end
+			if not pcall(CreateMacro, name, "INV_MISC_QUESTIONMARK", body, true) then
+				print(prefix .. ns:L("MACROS_MAKE_FAILED"))
+				return
+			end
+		end
+		print(prefix .. ns:L("MACROS_MAKE_DONE_FMT"):format(name))
+		if ShowMacroFrame then
+			pcall(ShowMacroFrame)
+		end
+	end)
+	panel._mhMacrosMakeBtn = makeBtn
+
 	local hint = panel:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
 	hint:SetFontObject(ns.MHScalableFont("GameFontDisableSmall"))
-	hint:SetPoint("LEFT", copyBtn, "RIGHT", 10, 0)
+	hint:SetPoint("LEFT", makeBtn, "RIGHT", 10, 0)
 	hint:SetPoint("RIGHT", panel, "RIGHT", -12, 14)
 	hint:SetJustifyH("LEFT")
 	hint:SetText(ns:L("MACROS_COPY_HINT"))

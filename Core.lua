@@ -3466,6 +3466,9 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		if ns.MH_MacroCheck then
 			ns.MH_MacroCheck()
 		end
+		if ns.MH_TopMacrosCheck then
+			ns.MH_TopMacrosCheck() -- 10 Nov 2026: the new Top macros kind, filled in this client's language
+		end
 		return
 	end
 
