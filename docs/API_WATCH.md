@@ -9579,3 +9579,114 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
     `ForeverTrainer.lua` zit: van de 50 commits in het venster raken er **12** dat bestand, alle van
     7 en 8 nov. ⚠️ Hoe oud het bestand écht is kan ik door de shallow clone niet zeggen — het venster
     reikt niet verder terug dan 7 nov.
+- [2026-11-10] ✅ **Nul [MOET GEFIKST] — en voor het eerst sinds deze wachter bestaat staat een punt van
+  gisteren de volgende ochtend al GEREPAREERD in de code: `Modules/ForeverTrainer.lua` leest de
+  creature-GUID nu met `[^%-]+` op de velden 2 t/m 5, precies de reparatie die ik voorstelde, in Robs
+  commit `00bbb0d` ("Forever: read the npc id from obfuscated creature GUIDs", 9 nov 07:22 +0100 — een
+  uur na mijn run), mét een testregel in `docs/TESTLIJST.md` voor de `/dump UnitGUID("target")`-meting
+  die ik zelf niet kon doen. 🆕 **En de les is blijven zitten: het nieuwe GUID-lezende bestand van
+  vandaag, `Modules/ForeverVendors.lua:518`, is meteen met het losse patroon geschreven.** Verder een
+  stille dag op élke bewegende bron: geen nieuwe live-build (ZEVENDE dag op `12.1.5.70783`), geen
+  nieuwe PTR-build (ZESDE dag op `12.1.7.70740`), geen nieuwe Forever-build (DERDE dag op
+  `1.60.1.70862`), geen nieuwe regel op geen van de vier wiki-API-pagina's, GEEN nieuw hotfix-artikel
+  (het nieuwste blijft dat van 6 nov), geen blue post over API, en geen nieuwe SimC-addon-release.**
+  - ✅ **[AL AFGEDEKT] — AFSLUITING van mijn eigen [MOET GEFIKST] van 9 nov, GEMETEN in de code en niet
+    in mijn aantekening.** `Modules/ForeverTrainer.lua:1209` (het pad van `/mh trainer here`) en `:1294`
+    (`NpcOfUnit`, de nameplate-kruisjes) staan er nu letterlijk zo:
+    ```lua
+    tonumber(guid:match("^Creature%-[^%-]+%-[^%-]+%-[^%-]+%-[^%-]+%-(%d+)"))
+    ```
+    De commitboodschap noemt de reden bij naam: *"Forever 1.60.1 replaces the server and spawn id with
+    values of undocumented form, so a non-digit value would silently yield nil. Use `[^%-]+` there, as
+    SpotLog.lua already does."* 🔴 **GEMETEN dat er nu nul `%d+`-GUID-lezers meer in de addon zitten,
+    mét positieve controle op dezelfde reikwijdte** (`grep -rnF`, `.git`/`docs`/`tools`/`dist` eruit):
+    de strikte vorm `%d+%-%d+%-%d+%-%d+` → **0** treffers (gisteren 2), en de losse vorm
+    `[^%-]+%-[^%-]+` → **6** bestanden (gisteren 4): `DelveChestData.lua`, `ResetRoutine.lua`,
+    `SpotLog.lua`, `EncounterCapture.lua` plus de twee nieuwe, `ForeverTrainer.lua` en
+    `ForeverVendors.lua`. 📌 Het punt van die positieve controle is niet de netheid: zonder die tweede
+    grep is "nul treffers" niet te onderscheiden van een patroon dat niets vindt, en dáár is dit
+    project al op verbrand.
+  - 🆕 **[AL AFGEDEKT] — NIEUW GUID-LEZEND BESTAND VANDAAG, en het is goed geboren.**
+    `Modules/ForeverVendors.lua` (uit commit `0e16b14`, *"Forever: «Where do I buy this?» with an arrow
+    to the vendor"*) leest op `:516`–`:518` de GUID van de unit `"npc"` en gebruikt daarvoor meteen
+    `^Creature%-[^%-]+%-[^%-]+%-[^%-]+%-[^%-]+%-(%d+)`. GEMETEN dat dit bestand óók op Forever laadt —
+    `MidnightHelper.toc:253` **én** `MidnightHelper_Camelot.toc:89` — dus het is precies het soort
+    bestand waar de obfuscatie van 1.60.1 toeslaat, en het is er niet kwetsbaar voor. Niets te doen.
+  - ✅ **[RAAKT ONS NIET] — het `/petdefensive`-draadje is vannacht gebumpt met een Forever-klacht, en
+    MH schrijft die twee commando's niet.** GEMETEN in `/t/437857` (*"/petdefensive macro"*, van 2020,
+    **40** posts, laatste post **2026-11-09T22:54:22Z**, dus nieuw sinds mijn vorige run): post 40 zegt
+    *"Both /petdefensive and /petaggressive are broken in forever and will most likely never be
+    fixed"* en post 41 geeft als omweg *"/click PetActionButton3"*. Geen Blizzard-poster in het
+    draadje (`"moderator":false,"admin":false,"staff":false`), dus dit is een spelersbewering en geen
+    API-mededeling — ik tel het niet als gemeten feit over de client.
+    🔴 **Maar de grep is wél de moeite, want MH is deze week juist pet-macro's gaan schrijven.**
+    GEMETEN met positieve controle (`/tm` → treffers in `Modules/ForeverMacros.lua:173` en
+    `Modules/DundunShrine.lua:453`, dus het patroon vindt macrotext): MH schrijft **`/petattack`,
+    `/petfollow` en `/petstay`** — `Modules/ForeverBlock_Hunter.lua:54`–`:56` en
+    `Modules/ForeverBlock_Warlock.lua:58`–`:60` — en **nul** keer `/petdefensive`, `/petaggressive`,
+    `/petassist` of `/petpassive`. De drie die wij schrijven staan niet in de klacht.
+    📌 **Vooruit genoteerd, niet gerepareerd:** komt er ooit een `CTRL-4 = Pet: Defensive` in het
+    Forever-keyblok, dan is dat volgens dit draadje een dode toets die stil niets doet. Dat is een
+    bewering van spelers; de client beslist.
+  - ✅ **[RAAKT ONS NIET] — twee nieuwe forumdraadjes sinds mijn vorige run, beide spelersvragen zonder
+    Blizzard-reactie.** GEMETEN in `/c/guides/ui-macro/35/l/latest.json?order=created`: **`2407508`**
+    *"Numeric Keypad bindings"* (**2026-11-09T12:50:28Z**, Warqun, 1 post) — zijn keybinds op het
+    numerieke toetsenblok wérken, maar staan in de UI als *"Num…"* in plaats van het cijfer; en
+    **`2407825`** *"I made an addon"* (**2026-11-09T16:43:46Z**, pacmantmj, 1 post) — een trailer voor
+    "Guildie - Journal". Geen van beide is een API-wijziging.
+    📌 Over dat eerste draadje tóch één regel, omdat MH een toetsenbord tékent: dit is hoe Blizzards
+    bindingnamen altijd al luiden (`NUMPAD1` enz.), geen verandering, en **MH dekt het expliciet af** —
+    `Modules/KeyboardLayoutPrototype.lua:174` zegt in zijn eigen commentaar *"rawKey set but not lit =
+    a key this keyboard does not draw, e.g. numpad"*, en `Modules/KeyPresses.lua:413` print dan
+    `PRESSES_NOT_IN_LAYOUT_FMT` (*"…no key, or for example a numpad key…"*) in plaats van te zwijgen.
+    Dat is precies het "bouw je iets dat kan zwijgen, bouw dan een manier om te zien dát het zweeg"
+    uit `CLAUDE.md`, en het stond er al.
+  - ✅ **[RAAKT ONS NIET] — de sticky *"UI Add-On Development Policy"* is op 8 nov gebumpt, en er staat
+    GEEN nieuwe Blizzard-tekst in.** GEMETEN in `/t/24534`: de nieuwste post is **19**
+    (**2026-11-08T00:57:48Z**, Estebunz, speler) en gaat over donaties en betaalde addons
+    (*"90%?! I can name 1, maybe 2? out of the 100 big addons that are free"*); post 20 bestaat niet
+    (`CRAWL_NOT_FOUND`). De beleidstekst zelf is nog die van Kaivax uit 2018 met de regels van 2009
+    (*"1) Add-ons must be free of charge"*, *"2) Add-on code must be completely visible"*). MH is
+    gratis en onverhuld, dus hier verandert niets — ik noem het alleen omdat een bump op een
+    beleidsdraadje er van buiten uitziet als nieuw beleid.
+  - 🧰 **SimC-addon: geen nieuwe release sinds `12.1.5-04`.** GEMETEN op twee manieren:
+    `git ls-remote --tags --refs` op `simulationcraft/simc-addon` geeft vandaag **258** tags, exact het
+    aantal van gisteren en voorgisteren, en de nieuwste 12.1-tag is nog steeds `12.1.5-04` op
+    `83fdb00762fa…`; de releases-pagina zelf (met cache-buster) noemt bovenaan **`12.1.5-04`, 05 nov
+    2026 22:38**, met als enige regel *"Handle Forever surname"* — de release die ik op 6 nov al als
+    [RAAKT ONS NIET] heb afgehandeld. Nog steeds **geen** tag met `forever`, `camelot` of `1.60` in de
+    naam. Niets te toetsen aan `ns.BuildSimcProfile`.
+  - 📡 **Wat ik gelezen heb, zodat stilte te onderscheiden is van niet-kijken.** Alle vier de
+    wiki-API-pagina's opnieuw opgehaald mét cache-buster en ongewijzigd t.o.v. gisteren:
+    `Patch_12.1.7/API_changes` (nog exact twee punten in de samenvatting: de GUID-obfuscatie met
+    *"This change will be available for testing in a future build of 12.1.7"*, en *"TOC directives no
+    longer expand variables such as [Game] or [Family]"*), `Patch_12.1.5/API_changes` (blue posts t/m
+    29 sep), `Patch_1.60.1/API_changes` (blue posts t/m 16 okt) en `Patch_12.1.0/API_changes`.
+    `wago.tools/builds` bovenaan nog steeds `1.60.1` build **70862** (gezien 7 nov 04:43), met
+    `12.1.7.70740` (4 nov 20:47) en `12.1.5.70783` (4 nov 00:38) eronder. Het nieuwste hotfix-artikel
+    blijft dat van **6 nov**; op 9 en 10 nov is er geen. ⚠️ De drie hotfix-regels die een zoekopdracht
+    mij als "nieuwste" aanbood (een Tanning Rack-eis, Voidwalker-health) heb ik **niet** overgenomen:
+    ze kwamen van een derde-partijsite en waren niet terug te vinden in Blizzards eigen tekst.
+    ⚠️ `WebFetch` op `us.forums.blizzard.com` faalt in deze sessie met `ENOTFOUND` (naast de al bekende
+    blokkade op `warcraft.wiki.gg` en `news.blizzard.com`); het forum is vandaag volledig via Exa met
+    `?nocache=20261110` gelezen, JSON-endpoints en al, dus GEMETEN en niet via een samenvatting.
+  - ⏳ **Nog open uit eerdere runs — één punt korter, want het GUID-punt hierboven is dicht.** NIET
+    opnieuw gemeten vandaag: de UTF-8 BOM vooraan `MidnightHelper.toc`; de `GetInstanceInfo`-return-orde
+    tegenover `Modules/Showdowns.lua:226`; de dode `PickupItem`-takken in `Modules/KeyBlock.lua:1135`/
+    `:1227`/`:1380` en `Modules/ApplyLayout.lua:1311`/`:1345`/`:1605`; de vijf decoratieve
+    `GetItemInfo`-terugvaltakken; `Blizzard_DeprecatedWorldElapsedTimerTypes` als tiende
+    deprecated-addon; de verouderde namespace-lijst in `docs/WATCHER_API_PROMPT.md` (18 aug, noemt 57
+    namespaces en kent de twee TOC's niet); de client-test voor `/mh raidbots`; `GetTimerDuration`
+    toevoegen aan `Modules/ApiProbe.lua:377`; de `FrameStrata`-secret-vraag op
+    `Modules/PartyTargets.lua:517`; en de drie `WOW_PROJECT_MAINLINE`-takken in
+    `Libs/LibDBIcon-1.0.lua:533`/`:572`/`:607` die op Forever omslaan. 🔴 Niets aangeraakt.
+  - 🔧 **Repo-staat: alleen `docs/API_WATCH.md` aangeraakt.** GEMETEN vóór het schrijven:
+    `git status --short` **leeg**, geen van de vier wachter-bestanden gewijzigd-maar-ongecommit, en
+    `HEAD` losgeslagen op **`0e16b14e87c62baf8a9d84a89d0d53b7958cbac3`** ("Forever: «Where do I buy
+    this?» with an arrow to the vendor"), byte-voor-byte **gelijk aan `origin/main`** — dus ik schrijf
+    op de actuele tip. `git fetch origin main` gaf opnieuw een `(forced update)` en
+    `git rev-parse --is-shallow-repository` is **`true`** met een venster van **50** commits: dat is de
+    kloondiepte van deze sessie en geen herschreven historie, voor de derde dag op rij dezelfde
+    verklaring. 📌 Van die 50 commits zijn er **14** van 9 nov, vrijwel allemaal Forever-werk
+    (handige-macro's-venster, vissershengelwaarschuwing, de vendor-pijl) — wat ook verklaart waarom
+    zowel de reparatie als het nieuwe GUID-lezende bestand van vandaag in die hoek zitten.
