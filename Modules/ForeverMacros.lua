@@ -342,7 +342,7 @@ local function ClassRow(c)
 		plainTitleFn = function()
 			return SpellName(c.need) or c.name
 		end,
-		desc = "FMAC_C_" .. c.class .. "_" .. c.key:upper(),
+		desc = (c.spec and "FMAC_S_" or "FMAC_C_") .. c.class .. "_" .. c.key:upper(),
 		build = function()
 			if not KnownSpell(c.need) then
 				local lvl = UnitLevel and UnitLevel("player") or 0
@@ -361,6 +361,358 @@ local function ClassRow(c)
 			return body
 		end,
 	}
+end
+
+--------------------------------------------------------------------------------
+-- Spec macros. Rob, 10 Nov 2026: "Ja bouw maar" on the top 3 per spec (27 specs) from
+-- docs/forever/FOREVER_MACROS_SPECS_2026-11-10.md. Same row format as CLASS_MACROS plus `spec` (1/2/3 = talent tree
+-- left/middle/right) and `credit` ("cwf" = text from classicwowforever.com, CC BY 4.0 → credit line in the window).
+-- Shown: a talent row once its talent is known; a non-talent row only when your spec is that tree. Your spec first.
+--------------------------------------------------------------------------------
+-- 81 rows, ids GEMETEN in wago DB2 Forever 1.60.1.70862 (talent = TraitDefinition in that tree's band). `level`
+-- of a talent row = max(spell level, 10 + points its row needs): the +10 is AFGELEID. Not tested in the client.
+local SPEC_MACROS = {
+	-- WARRIOR spec 1
+	{ class = "WARRIOR", spec = 1, key = "mortalstrike", name = "MortalStrike", need = 12294, level = 40, talent = true, warn = nil, credit = "cwf", -- NEW #1
+		tpl = "#showtooltip [mod:shift] {1715}; {12294}\n/startattack\n/cast [mod:shift] {1715}; {12294}" },
+	{ class = "WARRIOR", spec = 1, key = "sweeping", name = "Sweeping", need = 12292, level = 30, talent = true, warn = "twopress", credit = "cwf", -- NEW #2
+		tpl = "#showtooltip {12292}\n/cast [nostance:1] {2457}\n/cast {12292}" },
+	{ class = "WARRIOR", spec = 1, key = "spearing", name = "Spearing", need = 1310222, level = 25, talent = true, warn = nil, credit = "cwf", -- NEW #3
+		tpl = "#showtooltip {1310222}\n/startattack\n/cast {1310222}" },
+	-- WARRIOR spec 2
+	{ class = "WARRIOR", spec = 2, key = "bloodthirst", name = "Bloodthirst", need = 23881, level = 40, talent = true, warn = nil, credit = "cwf", -- NEW #1
+		tpl = "#showtooltip {23881}\n/startattack\n/cast {23881}\n/cast [mod:shift] {78}" },
+	{ class = "WARRIOR", spec = 2, key = "deathwish", name = "Death Wish", need = 12328, level = 30, talent = true, warn = nil, credit = "cwf", -- NEW #2
+		tpl = "#showtooltip {12328}\n/cast {2687}\n/cast {12328}\n/use 14" },
+	{ class = "WARRIOR", spec = 2, key = "whirlwind", name = "Whirlwind", need = 1680, level = 36, talent = false, warn = "twopress", credit = "cwf", -- NEW #3
+		tpl = "#showtooltip {1680}\n/cast [nostance:3] {2458}\n/cast {1680}" },
+	-- WARRIOR spec 3
+	{ class = "WARRIOR", spec = 3, key = "shieldslam", name = "Shield Slam", need = 23922, level = 40, talent = true, warn = nil, credit = "cwf", -- NEW #1
+		tpl = "#showtooltip {23922}\n/startattack\n/cast {23922}\n/cast {6572}\n/cast {7386}" },
+	{ class = "WARRIOR", spec = 3, key = "revenge", name = "Revenge", need = 6572, level = 14, talent = false, warn = nil, credit = "cwf", -- NEW #2
+		tpl = "#showtooltip {6572}\n/startattack\n/cast [mod:shift] {2565}\n/cast {6572}" },
+	{ class = "WARRIOR", spec = 3, key = "shieldwall", name = "Shield Wall", need = 871, level = 28, talent = false, warn = "twopress", credit = "cwf", -- NEW #3
+		tpl = "#showtooltip {871}\n/cast [mod:shift] {12975}\n/cast [nostance:2] {71}\n/cast {871}" },
+	-- ROGUE spec 1
+	{ class = "ROGUE", spec = 1, key = "coldblood", name = "Cold Blood", need = 14177, level = 25, talent = true, warn = nil, credit = "cwf", -- NEW #1
+		tpl = "#showtooltip [mod:shift] {399956}; {2098}\n/cast {14177}\n/cast [mod:shift] {399956}; {2098}" },
+	{ class = "ROGUE", spec = 1, key = "mutilate", name = "Mutilate", need = 399956, level = 40, talent = true, warn = nil, credit = "cwf", -- NEW #2
+		tpl = "#showtooltip {399956}\n/startattack\n/cast {399956}" },
+	{ class = "ROGUE", spec = 1, key = "shankvenom", name = "Shank Venom", need = 399956, level = 40, talent = true, warn = nil, credit = "cwf", -- REPLACES #3 (Venom is passive)
+		tpl = "#showtooltip {1329283}\n/startattack\n/cast {1329283}\n/cast {399956}" },
+	-- ROGUE spec 2
+	{ class = "ROGUE", spec = 2, key = "adrenaline", name = "Adrenaline", need = 13750, level = 40, talent = true, warn = nil, credit = "cwf", -- NEW #1
+		tpl = "#showtooltip {13750}\n/use 13\n/use 14\n/cast {13750}" },
+	{ class = "ROGUE", spec = 2, key = "bladeflurry", name = "Blade Flurry", need = 13877, level = 30, talent = true, warn = nil, credit = "cwf", -- NEW #2
+		tpl = "#showtooltip {13877}\n/cancelaura [mod:shift] {13877}\n/startattack [nomod]\n/cast [nomod] {13877}" },
+	{ class = "ROGUE", spec = 2, key = "riposte", name = "Riposte", need = 14251, level = 20, talent = true, warn = nil, credit = "cwf", -- NEW #3
+		tpl = "#showtooltip {1752}\n/startattack\n/cast {14251}\n/cast {1752}" },
+	-- ROGUE spec 3
+	{ class = "ROGUE", spec = 3, key = "premed", name = "Premeditate", need = 14183, level = 20, talent = true, warn = nil, credit = "cwf", -- NEW #1
+		tpl = "#showtooltip [mod:shift] {8676}; {703}\n/cast [stealth] {14183}\n/cast [mod:shift] {8676}; {703}" },
+	{ class = "ROGUE", spec = 3, key = "ghostly", name = "Ghostly", need = 14278, level = 25, talent = true, warn = nil, credit = "cwf", -- NEW #2
+		tpl = "#showtooltip {14278}\n/startattack [nostealth]\n/cast {14278}\n/cast {53}" },
+	{ class = "ROGUE", spec = 3, key = "preparation", name = "Preparation", need = 14185, level = 30, talent = true, warn = nil, credit = "cwf", -- NEW #3
+		tpl = "#showtooltip {14185}\n/stopattack [mod:shift]\n/cast [mod:shift] {1856}; {5277}\n/cast {2983}\n/cast {14185}" },
+	-- HUNTER spec 1
+	{ class = "HUNTER", spec = 1, key = "intimidate", name = "Intimidation", need = 19577, level = 30, talent = true, warn = nil, credit = "cwf", -- NEW #1
+		tpl = "#showtooltip {19577}\n/petattack\n/cast {19577}" },
+	{ class = "HUNTER", spec = 1, key = "bestialwrath", name = "BestialWrath", need = 19574, level = 40, talent = true, warn = nil, credit = "cwf", -- NEW #2
+		tpl = "#showtooltip {19574}\n/petattack\n/use 13\n/cast [mod:shift] {3045}\n/cast {19574}" },
+	{ class = "HUNTER", spec = 1, key = "hawk", name = "Summon Hawk", need = 1293241, level = 25, talent = true, warn = nil, credit = "cwf", -- NEW #3
+		tpl = "#showtooltip {1293241}\n/petattack [@mouseover,harm,nodead][]\n/cast [@mouseover,harm,nodead][] {1293241}" },
+	-- HUNTER spec 2
+	{ class = "HUNTER", spec = 2, key = "scatter", name = "Scatter Shot", need = 19503, level = 30, talent = true, warn = nil, credit = nil, -- NEW #1
+		tpl = "#showtooltip {19503}\n/petfollow\n/cast [@mouseover,harm,nodead][] {19503}" },
+	{ class = "HUNTER", spec = 2, key = "aimedmulti", name = "Aimed+Multi", need = 19434, level = 20, talent = false, warn = nil, credit = "cwf", -- H3 #2
+		tpl = "#showtooltip\n/cast [mod:shift] {2643}; [mod:ctrl,@mouseover,harm,nodead] {2643}; {19434}\n/cast !{75}" },
+	{ class = "HUNTER", spec = 2, key = "snipershot", name = "Sniper Shot", need = 1310687, level = 40, talent = true, warn = nil, credit = "cwf", -- NEW #4 (replaces #3 H1-type)
+		tpl = "#showtooltip {1310687}\n/cast [mod:shift,@mouseover,harm,nodead][] {1310687}\n/cast !{75}" },
+	-- HUNTER spec 3
+	{ class = "HUNTER", spec = 3, key = "striderkick", name = "Strider Kick", need = 1317257, level = 30, talent = true, warn = nil, credit = "cwf", -- NEW #1
+		tpl = "#showtooltip {1317257}\n/startattack [nomod]\n/cast [mod:shift,@mouseover,harm,nodead][] {1317257}" },
+	{ class = "HUNTER", spec = 3, key = "counterattack", name = "Counter Atk", need = 19306, level = 30, talent = true, warn = nil, credit = "cwf", -- NEW #2
+		tpl = "#showtooltip {19306}\n/cast [mod:shift] {19263}\n/startattack\n/cast [@mouseover,harm,nodead][] {19306}" },
+	{ class = "HUNTER", spec = 3, key = "deterrence", name = "Deterrence", need = 19263, level = 20, talent = true, warn = nil, credit = "cwf", -- NEW #3
+		tpl = "#showtooltip {19263}\n/cast {19263}\n/cast !{13163}" },
+	-- PALADIN spec 1
+	{ class = "PALADIN", spec = 1, key = "lightsvigil", name = "Light Vigil", need = 1310911, level = 40, talent = true, warn = nil, credit = "cwf", -- NEW #2 (#1 = built holyshock)
+		tpl = "#showtooltip [mod:shift] {1311606}; {1310911}\n/cast [mod:shift,@mouseover,exists,nodead][mod:shift,exists,nodead] {1311606}; [@mouseover,help,nodead][help,nodead][@player] {1310911}" },
+	{ class = "PALADIN", spec = 1, key = "divinefavor", name = "DivineFavor", need = 20216, level = 20, talent = true, warn = nil, credit = "cwf", -- NEW #3
+		tpl = "#showtooltip [mod:shift] {19750}; {635}\n/cast {20216}\n/cast [mod:shift,@mouseover,help,nodead][mod:shift] {19750}; [@mouseover,help,nodead][help,nodead][@player] {635}",
+		tplShort = "#showtooltip\n/cast {20216}\n/cast [mod:shift] {19750}; [@mouseover,help,nodead][help,nodead][@player] {635}" },
+	{ class = "PALADIN", spec = 1, key = "cleanse", name = "Cleanse", need = 1152, level = 8, talent = false, warn = nil, credit = "cwf", -- NEW #5 (#4 = built P7)
+		tpl = "#showtooltip\n/cast [@mouseover,help,nodead][help,nodead][@player] {4987}\n/cast [@mouseover,help,nodead][help,nodead][@player] {1152}" },
+	-- PALADIN spec 2
+	{ class = "PALADIN", spec = 2, key = "judgement", name = "Judgement", need = 20271, level = 4, talent = false, warn = nil, credit = nil, -- P4 #1
+		tpl = "#showtooltip {20271}\n/cast [mod:shift,@mouseover,harm,nodead][mod:shift] {1310994}; [@mouseover,harm,nodead][] {20271}" },
+	{ class = "PALADIN", spec = 2, key = "righteous", name = "Righteous", need = 407632, level = 40, talent = false, warn = nil, credit = "cwf", -- NEW #2
+		tpl = "#showtooltip [mod:shift] {679}; {407632}\n/startattack\n/cast [mod:shift] {679}; {407632}" },
+	{ class = "PALADIN", spec = 2, key = "holyshield", name = "Holy Shield", need = 20925, level = 30, talent = true, warn = nil, credit = "cwf", -- NEW #3
+		tpl = "#showtooltip {20925}\n/startattack\n/cast {20271}\n/cast {20925}" },
+	-- PALADIN spec 3
+	{ class = "PALADIN", spec = 3, key = "sealcommand", name = "Seal Command", need = 20375, level = 20, talent = true, warn = nil, credit = "cwf", -- NEW #1
+		tpl = "#showtooltip [mod:shift] {20375}; {20271}\n/cast [mod:shift] {20375}; {20271}" },
+	{ class = "PALADIN", spec = 3, key = "retopener", name = "Ret Opener", need = 20375, level = 20, talent = true, warn = nil, credit = "cwf", -- NEW #3 (#2 = built P2)
+		tpl = "#showtooltip\n/castsequence reset=10 {21082}, {20271}, {20375}\n/startattack" },
+	{ class = "PALADIN", spec = 3, key = "hammerwrath", name = "HammerWrath", need = 24275, level = 44, talent = false, warn = nil, credit = "cwf", -- NEW #4
+		tpl = "#showtooltip [mod:shift] {24275}; {679}\n/startattack\n/cast [mod:shift] {24275}; {679}" },
+	-- SHAMAN spec 1
+	{ class = "SHAMAN", spec = 1, key = "lightmastery", name = "Lightning", need = 16166, level = 40, talent = true, warn = nil, credit = "cwf", -- NEW #1
+		tpl = "#showtooltip [mod:shift] {421}; {403}\n/cast {16166}\n/cast [mod:shift] {421}; {403}" },
+	{ class = "SHAMAN", spec = 1, key = "boltchain", name = "Bolt+Chain", need = 403, level = 1, talent = false, warn = nil, credit = "cwf", -- NEW #2
+		tpl = "#showtooltip [mod:shift] {421}; {403}\n/stopcasting [mod:shift]\n/cast [mod:shift] {421}; {403}" },
+	{ class = "SHAMAN", spec = 1, key = "earthbind", name = "Earthbind", need = 2484, level = 6, talent = false, warn = nil, credit = "cwf", -- NEW #3
+		tpl = "#showtooltip [mod:shift] {8056}; {2484}\n/stopcasting\n/cast [mod:shift,@mouseover,harm,nodead][mod:shift] {8056}; {2484}" },
+	-- SHAMAN spec 2
+	{ class = "SHAMAN", spec = 2, key = "stormstrike", name = "Stormstrike", need = 17364, level = 40, talent = true, warn = nil, credit = "cwf", -- NEW #1
+		tpl = "#showtooltip {17364}\n/startattack\n/cast {17364}" },
+	{ class = "SHAMAN", spec = 2, key = "shockswing", name = "Shock+Swing", need = 8050, level = 10, talent = false, warn = nil, credit = nil, -- S8 #2
+		tpl = "#showtooltip [mod:shift] {8056}; {8050}\n/startattack\n/cast [mod:shift] {8056}; {8050}" },
+	{ class = "SHAMAN", spec = 2, key = "farseer", name = "Rage Farseer", need = 425336, level = 40, talent = true, warn = nil, credit = "cwf", -- NEW #3
+		tpl = "#showtooltip {425336}\n/startattack\n/use 13\n/use 14\n/cast {425336}\n/cast {17364}" },
+	-- SHAMAN spec 3
+	{ class = "SHAMAN", spec = 3, key = "swiftwave", name = "Swift Wave", need = 16188, level = 30, talent = true, warn = nil, credit = "cwf", -- NEW #1
+		tpl = "#showtooltip {331}\n/cast {16188}\n/cast [mod:shift,@mouseover,help,nodead][mod:shift,help,nodead][mod:shift,@player] {1064}; [@mouseover,help,nodead][help,nodead][@player] {331}",
+		tplShort = "#showtooltip {331}\n/cast {16188}\n/cast [mod:shift] {1064}; [@mouseover,help,nodead][help,nodead][@player] {331}" },
+	{ class = "SHAMAN", spec = 3, key = "riptide", name = "Riptide", need = 408521, level = 40, talent = true, warn = nil, credit = "cwf", -- NEW #2
+		tpl = "#showtooltip {408521}\n/cast [@mouseover,help,nodead][help,nodead][@player] {408521}" },
+	{ class = "SHAMAN", spec = 3, key = "chainheal", name = "Chain Heal", need = 1064, level = 40, talent = false, warn = nil, credit = "cwf", -- NEW #3
+		tpl = "#showtooltip {1064}\n/cast [@mouseover,help,nodead][help,nodead][@player] {1064}" },
+	-- MAGE spec 1
+	{ class = "MAGE", spec = 1, key = "arcanepower", name = "Arcane Power", need = 12042, level = 40, talent = true, warn = nil, credit = "cwf", -- NEW #1
+		tpl = "#showtooltip {400574}\n/use 13\n/use 14\n/cast {12042}\n/cast [nochanneling] {400574}" },
+	{ class = "MAGE", spec = 1, key = "arcaneblast", name = "Arcane Blast", need = 400574, level = 20, talent = true, warn = nil, credit = "cwf", -- NEW #2
+		tpl = "#showtooltip {400574}\n/cast [mod:shift,nochanneling] {5143}; [mod:ctrl,nochanneling] {116}; [nochanneling] {400574}" },
+	{ class = "MAGE", spec = 1, key = "arcanewrath", name = "Arcane Wrath", need = 1326079, level = 25, talent = true, warn = nil, credit = "cwf", -- NEW #3
+		tpl = "#showtooltip {1326079}\n/stopcasting\n/use [mod:shift] 13\n/use [mod:shift] 14\n/cast [mod:shift] {12042}\n/cast {12043}\n/cast {1326079}" },
+	-- MAGE spec 2
+	{ class = "MAGE", spec = 2, key = "pyroopener", name = "Pyro Opener", need = 11366, level = 20, talent = true, warn = nil, credit = "cwf", -- NEW #1
+		tpl = "#showtooltip [nocombat] {11366}; {133}\n/cast [nocombat] {11366}; {133}" },
+	{ class = "MAGE", spec = 2, key = "combustion", name = "Combustion", need = 11129, level = 40, talent = true, warn = nil, credit = "cwf", -- NEW #2
+		tpl = "#showtooltip {11129}\n/use 13\n/use 14\n/cast {11129}\n/cast [mod:shift] {2948}; {133}" },
+	{ class = "MAGE", spec = 2, key = "blastwave", name = "Blast Wave", need = 11113, level = 30, talent = true, warn = nil, credit = "cwf", -- NEW #3
+		tpl = "#showtooltip {11113}\n/stopcasting\n/cast {11113}" },
+	-- MAGE spec 3
+	{ class = "MAGE", spec = 3, key = "iceblock", name = "Ice Block", need = 11958, level = 25, talent = true, warn = nil, credit = "cwf", -- M6 #1
+		tpl = "#showtooltip [mod:shift] {12472}; {11958}\n/stopcasting\n/cancelaura {11958}\n/cast [mod:shift] {12472}; {11958}" },
+	{ class = "MAGE", spec = 3, key = "icelance", name = "Ice Lance", need = 1312002, level = 20, talent = true, warn = nil, credit = "cwf", -- NEW #2
+		tpl = "#showtooltip {1312002}\n/stopcasting\n/cast [mod:shift] {2136}; [mod:ctrl] {120}; {1312002}" },
+	{ class = "MAGE", spec = 3, key = "icebarrier", name = "Ice Barrier", need = 11426, level = 40, talent = true, warn = nil, credit = "cwf", -- NEW #3
+		tpl = "#showtooltip {11426}\n/stopcasting\n/cast [mod:shift] {12472}\n/cast {11426}" },
+	-- WARLOCK spec 1
+	{ class = "WARLOCK", spec = 1, key = "exhaustion", name = "Exhaustion", need = 18223, level = 25, talent = true, warn = nil, credit = "cwf", -- NEW #2 (#1 = built agony)
+		tpl = "#showtooltip {18223}\n/stopcasting\n/cast {18288}\n/cast [@mouseover,harm,nodead][] {18223}" },
+	{ class = "WARLOCK", spec = 1, key = "channels", name = "Channels", need = 689, level = 14, talent = false, warn = nil, credit = "cwf", -- W6 #3
+		tpl = "#showtooltip\n/cast [mod:alt] {1454}; [nochanneling,mod:ctrl] {1316697}; [nochanneling,mod:shift] {1120}; [nochanneling] {689}" },
+	{ class = "WARLOCK", spec = 1, key = "siphonlife", name = "Siphon Life", need = 18265, level = 30, talent = true, warn = nil, credit = "cwf", -- NEW #4
+		tpl = "#showtooltip {18265}\n/cast [@mouseover,harm,nodead][] {18265}" },
+	-- WARLOCK spec 2
+	{ class = "WARLOCK", spec = 2, key = "demonsac", name = "Demon Sac", need = 18788, level = 20, talent = true, warn = nil, credit = "cwf", -- NEW #2 (#1 = built summon)
+		tpl = "#showtooltip {18788}\n/cast {18788}\n/cast [mod:shift] {688}; [mod:ctrl] {697}; [mod:alt] {712}; {691}",
+		tplShort = "#showtooltip\n/cast {18788}\n/cast [mod:shift] {688}; [mod:ctrl] {697}; [mod:alt] {712}; {691}" },
+	{ class = "WARLOCK", spec = 2, key = "healthfunnel", name = "HealthFunnel", need = 755, level = 12, talent = false, warn = nil, credit = "cwf", -- W3 #3
+		tpl = "#showtooltip {755}\n/stopcasting [mod:shift]\n/stopmacro [mod:shift]\n/cast [@pet,exists,nodead,nochanneling] {755}" },
+	{ class = "WARLOCK", spec = 2, key = "searingpain", name = "Searing Pain", need = 5676, level = 18, talent = false, warn = nil, credit = "cwf", -- NEW #4
+		tpl = "#showtooltip {5676}\n/petattack [@mouseover,harm,nodead][harm,nodead]\n/cast [@mouseover,harm,nodead][] {5676}" },
+	-- WARLOCK spec 3
+	{ class = "WARLOCK", spec = 3, key = "banehavoc", name = "Bane Havoc", need = 1225228, level = 30, talent = true, warn = nil, credit = "cwf", -- NEW #1
+		tpl = "#showtooltip {1225228}\n/cast [@mouseover,harm,nodead][] {1225228}" },
+	{ class = "WARLOCK", spec = 3, key = "shadowburn", name = "Shadowburn", need = 17877, level = 20, talent = true, warn = nil, credit = "cwf", -- NEW #2
+		tpl = "#showtooltip {17877}\n/cast [@mouseover,harm,nodead][] {17877}" },
+	{ class = "WARLOCK", spec = 3, key = "nukepicker", name = "Nuke Picker", need = 1293817, level = 25, talent = true, warn = nil, credit = "cwf", -- NEW #3
+		tpl = "#showtooltip\n/cast [mod:shift] {412758}; [mod:ctrl] {1293817}; [mod:alt] {17877}; {686}" },
+	-- PRIEST spec 1
+	{ class = "PRIEST", spec = 1, key = "powerinfuse", name = "Power Infuse", need = 10060, level = 40, talent = true, warn = nil, credit = "cwf", -- NEW #2 (#1 = built penance)
+		tpl = "#showtooltip {10060}\n/cast [mod:alt,@player][@mouseover,help,nodead][help,nodead][@player] {10060}" },
+	{ class = "PRIEST", spec = 1, key = "innerfocus", name = "Inner Focus", need = 14751, level = 40, talent = true, warn = nil, credit = "cwf", -- NEW #3
+		tpl = "#showtooltip {2060}\n/cast {14751}\n/cast [@mouseover,help,nodead][help,nodead][@player] {2060}" },
+	{ class = "PRIEST", spec = 1, key = "prayerheal", name = "Prayer Heal", need = 596, level = 30, talent = false, warn = nil, credit = "cwf", -- P8 #4
+		tpl = "#showtooltip {596}\n/cast [@mouseover,help,nodead][help,nodead][@player] {596}" },
+	-- PRIEST spec 2
+	{ class = "PRIEST", spec = 2, key = "mending", name = "PrayerMend", need = 401859, level = 40, talent = true, warn = nil, credit = "cwf", -- NEW #1
+		tpl = "#showtooltip {401859}\n/cast [@mouseover,help,nodead][help,nodead][@player] {401859}" },
+	{ class = "PRIEST", spec = 2, key = "renew", name = "Renew", need = 139, level = 8, talent = false, warn = nil, credit = "cwf", -- P2 #2
+		tpl = "#showtooltip {139}\n/cast [mod:shift,@mouseover,help,nodead][mod:shift,help,nodead][mod:shift,@player] {6077:rank}; [@mouseover,help,nodead][help,nodead][@player] {139}" },
+	{ class = "PRIEST", spec = 2, key = "holynova", name = "Holy Nova", need = 15237, level = 20, talent = true, warn = nil, credit = "cwf", -- NEW #3
+		tpl = "#showtooltip {15237}\n/stopcasting [mod:shift]\n/cast [mod:shift] {15237}; {15237:rank}" },
+	-- PRIEST spec 3
+	{ class = "PRIEST", spec = 3, key = "silence", name = "Silence", need = 15487, level = 30, talent = true, warn = nil, credit = nil, -- NEW #1
+		tpl = "#showtooltip {15487}\n/stopcasting\n/cast [@focus,harm,nodead][@mouseover,harm,nodead][] {15487}" },
+	{ class = "PRIEST", spec = 3, key = "mindflay", name = "Mind Flay", need = 15407, level = 20, talent = true, warn = nil, credit = "cwf", -- NEW #2
+		tpl = "#showtooltip {15407}\n/cast [nochanneling] {15407}" },
+	{ class = "PRIEST", spec = 3, key = "shadowform", name = "Shadowform", need = 15473, level = 40, talent = true, warn = nil, credit = "cwf", -- NEW #3
+		tpl = "#showtooltip {15473}\n/cancelaura [mod:shift] {15473}\n/cast [nomod,noform:1] {15473}" },
+	-- DRUID spec 1
+	{ class = "DRUID", spec = 1, key = "insectswarm", name = "InsectSwarm", need = 5570, level = 25, talent = true, warn = nil, credit = "cwf", -- NEW #1
+		tpl = "#showtooltip {5570}\n/cast [@mouseover,harm,nodead][] {5570}" },
+	{ class = "DRUID", spec = 1, key = "starwrath", name = "Starfire", need = 2912, level = 20, talent = false, warn = nil, credit = "cwf", -- NEW #2
+		tpl = "#showtooltip [mod:shift] {5176}; {2912}\n/cast [mod:shift] {5176}; {2912}" },
+	{ class = "DRUID", spec = 1, key = "moonkinheal", name = "Moonkin Heal", need = 24858, level = 40, talent = true, warn = nil, credit = "cwf", -- NEW #3
+		tpl = "#showtooltip\n/cancelform\n/castsequence [@player] reset=10 {8936}, {24858}" },
+	-- DRUID spec 2
+	{ class = "DRUID", spec = 2, key = "feralcharge", name = "Feral Charge", need = 1238122, level = 20, talent = true, warn = nil, credit = nil, -- NEW #1
+		tpl = "#showtooltip {1238122}\n/cast {1238122}\n/startattack" },
+	{ class = "DRUID", spec = 2, key = "growl", name = "Growl", need = 6795, level = 10, talent = false, warn = nil, credit = "cwf", -- DX3 #2
+		tpl = "#showtooltip {6795}\n/cast [@mouseover,harm,nodead][] {6795}" },
+	{ class = "DRUID", spec = 2, key = "primalbite", name = "Primal Bite", need = 407995, level = 40, talent = true, warn = nil, credit = "cwf", -- NEW #3
+		tpl = "#showtooltip {407995}\n/startattack\n/cast {407995}" },
+	-- DRUID spec 3
+	{ class = "DRUID", spec = 3, key = "swifttouch", name = "Swift Touch", need = 17116, level = 30, talent = true, warn = nil, credit = "cwf", -- NEW #1
+		tpl = "#showtooltip {17116}\n/cancelform\n/cast {17116}\n/cast [mod:shift,@mouseover,help,nodead][mod:shift,help,nodead][mod:shift,@player] {8936}; [@mouseover,help,nodead][help,nodead][@player] {5185}",
+		tplShort = "#showtooltip\n/cancelform\n/cast {17116}\n/cast [mod:shift] {8936}; [@mouseover,help,nodead][help,nodead][@player] {5185}" },
+	{ class = "DRUID", spec = 3, key = "rebirth", name = "Rebirth", need = 20484, level = 20, talent = false, warn = nil, credit = "cwf", -- D5 #2
+		tpl = "#showtooltip [combat] {20484}; {437138}\n/cast [@mouseover,help,dead,combat][help,dead,combat] {20484}\n/cast [@mouseover,help,dead,nocombat][help,dead,nocombat] {437138}" },
+	{ class = "DRUID", spec = 3, key = "swiftmend", name = "Swiftmend", need = 18562, level = 25, talent = true, warn = nil, credit = "cwf", -- NEW #3
+		tpl = "#showtooltip {18562}\n/cast [@mouseover,help,nodead][help,nodead][@player] {18562}" },
+}
+-- Tree names per client, GEMETEN in DB2 TalentTab; deDE 'Verstärk'/'Wiederherst' are cut short in Blizzard's data,
+-- written out in full here (AFGELEID). No itIT (wago has English only); itIT falls back to enUS.
+local SPEC_NAMES = {
+	WARRIOR = {
+		enUS = { "Arms", "Fury", "Protection" },
+		deDE = { "Waffen", "Furor", "Schutz" },
+		frFR = { "Armes", "Fureur", "Protection" },
+		esES = { "Armas", "Furia", "Protección" },
+		esMX = { "Armas", "Furia", "Protección" },
+		ptBR = { "Armas", "Fúria", "Proteção" },
+		ruRU = { "Оружие", "Неистовство", "Защита" },
+	},
+	PALADIN = {
+		enUS = { "Holy", "Protection", "Retribution" },
+		deDE = { "Heilig", "Schutz", "Vergeltung" },
+		frFR = { "Sacré", "Protection", "Vindicte" },
+		esES = { "Sagrado", "Protección", "Reprensión" },
+		esMX = { "Sagrado", "Protección", "Reprensión" },
+		ptBR = { "Sagrado", "Proteção", "Retribuição" },
+		ruRU = { "Свет", "Защита", "Воздаяние" },
+	},
+	HUNTER = {
+		enUS = { "Beast Mastery", "Marksmanship", "Survival" },
+		deDE = { "Tierherrschaft", "Treffsicherheit", "Überleben" },
+		frFR = { "Maîtrise des bêtes", "Précision", "Survie" },
+		esES = { "Dominio de bestias", "Puntería", "Supervivencia" },
+		esMX = { "Bestias", "Puntería", "Supervivencia" },
+		ptBR = { "Domínio das Feras", "Precisão", "Sobrevivência" },
+		ruRU = { "Чувство зверя", "Стрельба", "Выживание" },
+	},
+	ROGUE = {
+		enUS = { "Assassination", "Combat", "Subtlety" },
+		deDE = { "Meucheln", "Kampf", "Täuschung" },
+		frFR = { "Assassinat", "Combat", "Finesse" },
+		esES = { "Asesinato", "Combate", "Sutileza" },
+		esMX = { "Asesinato", "Combate", "Sutileza" },
+		ptBR = { "Assassinato", "Combate", "Subterfúgio" },
+		ruRU = { "Ликвидация", "Бой", "Скрытность" },
+	},
+	PRIEST = {
+		enUS = { "Discipline", "Holy", "Shadow" },
+		deDE = { "Disziplin", "Heilig", "Schatten" },
+		frFR = { "Discipline", "Sacré", "Ombre" },
+		esES = { "Disciplina", "Sagrado", "Sombra" },
+		esMX = { "Disciplina", "Sagrado", "Sombra" },
+		ptBR = { "Disciplina", "Sagrado", "Sombra" },
+		ruRU = { "Послушание", "Свет", "Тьма" },
+	},
+	SHAMAN = {
+		enUS = { "Elemental", "Enhancement", "Restoration" },
+		deDE = { "Elementar", "Verstärkung", "Wiederherstellung" },
+		frFR = { "Elémentaire", "Amélioration", "Restauration" },
+		esES = { "Elemental", "Mejora", "Recuperación" },
+		esMX = { "Elemental", "Mejora", "Restauración" },
+		ptBR = { "Elemental", "Aperfeiçoamento", "Restauração" },
+		ruRU = { "Стихии", "Совершенствование", "Исцеление" },
+	},
+	MAGE = {
+		enUS = { "Arcane", "Fire", "Frost" },
+		deDE = { "Arkan", "Feuer", "Frost" },
+		frFR = { "Arcanes", "Feu", "Givre" },
+		esES = { "Arcano", "Fuego", "Escarcha" },
+		esMX = { "Arcano", "Fuego", "Escarcha" },
+		ptBR = { "Arcano", "Fogo", "Gelo" },
+		ruRU = { "Тайная магия", "Огонь", "Лед" },
+	},
+	WARLOCK = {
+		enUS = { "Affliction", "Demonology", "Destruction" },
+		deDE = { "Gebrechen", "Dämonologie", "Zerstörung" },
+		frFR = { "Affliction", "Démonologie", "Destruction" },
+		esES = { "Aflicción", "Demonología", "Destrucción" },
+		esMX = { "Aflicción", "Demonología", "Destrucción" },
+		ptBR = { "Suplício", "Demonologia", "Destruição" },
+		ruRU = { "Колдовство", "Демонология", "Разрушение" },
+	},
+	DRUID = {
+		enUS = { "Balance", "Feral Combat", "Restoration" },
+		deDE = { "Gleichgewicht", "Wilder Kampf", "Wiederherstellung" },
+		frFR = { "Equilibre", "Combat farouche", "Restauration" },
+		esES = { "Equilibrio", "Combate feral", "Recuperación" },
+		esMX = { "Equilibrio", "Combate feral", "Restauración" },
+		ptBR = { "Equilíbrio", "Combate Feral", "Restauração" },
+		ruRU = { "Баланс", "Сила зверя", "Исцеление" },
+	},
+}
+
+-- Trait tree per class, GEMETEN in wago DB2 TraitTree (Forever 1.60.1.70862); the three talent tabs are PosX bands
+-- 1020-2820 / 5020-6820 / 9080-10880 (DB2, cross-checked 467/467 against TalentsForeverBook). Reading them through
+-- C_ClassTalents/C_Traits is AFGELEID: Wow.exe has those names and not GetTalentTabInfo (measured), not run in game.
+local TREE = { WARRIOR = 1117, PALADIN = 1100, HUNTER = 1091, ROGUE = 1111, PRIEST = 1114, SHAMAN = 1082, MAGE = 1112,
+	WARLOCK = 1116, DRUID = 1089 }
+
+--- @return band (1-3) or nil, the points table, and a reason when nil.
+local function SpecBand()
+	local _, cls = UnitClass("player")
+	local tree = TREE[cls]
+	if not (tree and C_Traits and C_Traits.GetTreeNodes and C_Traits.GetNodeInfo) then
+		return nil, nil, "no C_Traits"
+	end
+	local ok, best, pts, why = pcall(function()
+		local cfg = C_ClassTalents and C_ClassTalents.GetActiveConfigID and C_ClassTalents.GetActiveConfigID()
+		local info = cfg and C_Traits.GetConfigInfo and C_Traits.GetConfigInfo(cfg)
+		local has = false
+		for _, t in ipairs(info and info.treeIDs or {}) do
+			if t == tree then
+				has = true
+			end
+		end
+		if not has and C_Traits.GetConfigIDByTreeID then
+			cfg = C_Traits.GetConfigIDByTreeID(tree)
+		end
+		if not cfg then
+			return nil, nil, "no config"
+		end
+		local p = { 0, 0, 0 }
+		for _, id in ipairs(C_Traits.GetTreeNodes(tree) or {}) do
+			local n = C_Traits.GetNodeInfo(cfg, id)
+			if n and type(n.posX) == "number" then
+				local b = n.posX < 4000 and 1 or (n.posX < 8000 and 2 or 3)
+				p[b] = p[b] + (n.ranksPurchased or 0)
+			end
+		end
+		local top = (p[1] >= p[2] and p[1] >= p[3]) and 1 or (p[2] >= p[3] and 2 or 3)
+		if p[top] == 0 then
+			return nil, p, "no points"
+		end
+		for b = 1, 3 do
+			if b ~= top and p[b] == p[top] then
+				return nil, p, "tie"
+			end
+		end
+		return top, p
+	end)
+	if not ok then
+		return nil, nil, "error: " .. tostring(best)
+	end
+	return best, pts, why
+end
+
+local function SpecName(cls, band)
+	local t = SPEC_NAMES[cls]
+	if not t then
+		return nil
+	end
+	local loc = GetLocale and GetLocale() or "enUS"
+	local names = t[loc] or (loc == "esMX" and t.esES) or t.enUS
+	return names and names[band]
 end
 
 --- The rows for this character: the fixed ones, one per active racial it knows, then its class macros.
@@ -390,6 +742,24 @@ local function Rows()
 				rows[#rows + 1] = { header = true, key = "c_header" }
 				first = false
 			end
+			rows[#rows + 1] = ClassRow(c)
+		end
+	end
+	local band = SpecBand()
+	local picked, credit = {}, false
+	for pass = 1, 2 do -- your spec first, then talent rows of the other trees
+		for _, c in ipairs(SPEC_MACROS) do
+			if c.class == token and ((pass == 1) == (c.spec == band)) then
+				if (c.talent and KnownSpell(c.need)) or (not c.talent and c.spec == band) then
+					picked[#picked + 1] = c
+					credit = credit or c.credit == "cwf"
+				end
+			end
+		end
+	end
+	if #picked > 0 then
+		rows[#rows + 1] = { header = true, key = "s_header", spec = band, credit = credit }
+		for _, c in ipairs(picked) do
 			rows[#rows + 1] = ClassRow(c)
 		end
 	end
@@ -566,7 +936,14 @@ Fill = function()
 		local r = Row(f, i)
 		r:ClearAllPoints()
 		r:SetPoint("TOPLEFT", f.child, "TOPLEFT", 0, y)
-		if d.header then
+		if d.header and d.key == "s_header" then
+			local _, tok = UnitClass("player")
+			local sn = d.spec and SpecName(tok, d.spec)
+			r.name:SetText(sn and ns:L("FMAC_SPEC_HEADER_FMT"):format(sn) or ns:L("FMAC_SPEC_HEADER_NONE"))
+			r.info:SetText(ns:L("FMAC_SPEC_SUB") .. (d.credit and ("  |cff9d9d9d" .. ns:L("FMAC_SPEC_CREDIT") .. "|r") or ""))
+			r.go.def = nil
+			r.go:Hide()
+		elseif d.header then
 			local cls = UnitClass and UnitClass("player") or ""
 			r.name:SetText(ns:L("FMAC_CLASS_HEADER_FMT"):format(cls))
 			r.info:SetText(ns:L("FMAC_CLASS_SUB"))
@@ -629,6 +1006,9 @@ function ns.ForeverMacrosSlash(arg)
 		end
 	end
 	print(("  class %s: %d class macros in the data (talent ones hidden until known)"):format(tostring(token), nClass))
+	local band, pts, why = SpecBand()
+	print(("  spec: %s (points per tree %s)%s"):format(band and (tostring(band) .. " = " .. tostring(SpecName(token, band)))
+		or "none", pts and table.concat(pts, "/") or "?", why and ("  [" .. why .. "]") or ""))
 	for _, d in ipairs(Rows()) do
 		if not d.header then
 			local body, why, arg = d.build()
@@ -643,6 +1023,9 @@ local ev = CreateFrame("Frame")
 ev:RegisterEvent("BAG_UPDATE_DELAYED")
 ev:RegisterEvent("PLAYER_REGEN_ENABLED")
 ev:RegisterEvent("PLAYER_EQUIPMENT_CHANGED") -- a wand in or out changes the Attack macro
+-- New talent or spell → the class/spec rows change. pcall: an unknown event name throws (CLAUDE.md, 8 Aug 2026).
+pcall(ev.RegisterEvent, ev, "SPELLS_CHANGED")
+pcall(ev.RegisterEvent, ev, "TRAIT_CONFIG_UPDATED")
 ev:SetScript("OnEvent", function()
 	RefreshAuto()
 	if win and win:IsShown() then

@@ -21,6 +21,17 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 10 nov (middag) — Forever: spec-macro's in Handige macro's (`/mh macros`)
+
+- [ ] 🔴 Eerst meten (spec-herkenning is AFGELEID): typ in Forever
+      `/run local T,c,p=C_Traits,C_ClassTalents.GetActiveConfigID(),{0,0,0} for _,n in ipairs(T.GetTreeNodes(T.GetConfigInfo(c).treeIDs[1])) do local i=T.GetNodeInfo(c,n) local b=min(3,floor(i.posX/4e3)+1) p[b]=p[b]+(i.ranksPurchased or 0) end print(unpack(p))`
+      → drie getallen = je talentpunten per boom, links→rechts. Kloppen ze met je talentvenster?
+- [ ] `/mh macros check` → regel "spec: 3 = Restoration (points per tree 0/0/5)" (of "none … [no points]" zonder talenten).
+- [ ] `/mh macros`: onder het klasse-blok "Voor jouw spec: <naam>" met de macro's van je spec eerst, dan talent-macro's
+      uit andere bomen die je hebt. Zonder talentpunten: geen spec-blok (of "Voor je talenten").
+- [ ] Zet een talentpunt dat een spec-macro opent (bv. druid Restoration → Nature's Swiftness): de rij verschijnt vanzelf.
+- [ ] Onder de kop staat grijs "Sommige teksten: classicwowforever.com (CC BY 4.0)."
+
 ## 🆕 10 nov — Forever: klasse-macro's in Handige macro's (`/mh macros`)
 
 - [ ] Forever, `/mh macros`: onder de algemene macro's staat **"Voor jouw klasse: <klasse>"** met 5 macro's (Priest en

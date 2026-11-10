@@ -1,5 +1,19 @@
 # Midnight Helper — waar we staan
 
+## 🆕 10 nov (middag) — Forever: top 3 macro's per spec (Rob: "Ja, laten we maar uitzoeken" → "Ja bouw maar")
+
+- Onderzoek (mh-research): `docs/forever/FOREVER_MACROS_SPECS_2026-11-10.md` — 27 specs × top 3, 13 bronfamilies,
+  plus spec-herkenning. Gebouwd in `Modules/ForeverMacros.lua`: `SPEC_MACROS` (81 rijen, geen dubbel met de klasse-5;
+  vervangingen staan in de scratchpad-notes van 10 nov), `SPEC_NAMES` (boomnamen per client uit DB2 TalentTab; deDE
+  "Verstärk"/"Wiederherst" voluit geschreven, AFGELEID), `SpecBand()`: C_ClassTalents.GetActiveConfigID → C_Traits,
+  punten per PosX-band (<4000 / <8000 / rest), hoogste = spec, 0 of gelijk = geen. AFGELEID (Wow.exe heeft C_Traits en
+  niet GetTalentTabInfo — GEMETEN; in het spel niet gedraaid). Tonen: talent-rij zodra het talent gekend is, gewone rij
+  alleen bij jouw spec; jouw spec eerst. `/mh macros check` print de spec + punten. Events SPELLS_CHANGED +
+  TRAIT_CONFIG_UPDATED (pcall). 76 teksten van classicwowforever.com (CC BY 4.0) → creditregel `FMAC_SPEC_CREDIT` in het
+  venster; rankedboost (All Rights Reserved) alleen als keuze, nooit als tekst. Talent-`level` = max(spell-level, 10 +
+  rijpunten): +10 AFGELEID. Offline-test met stubs: spec-band goed, geen rest-`{`. Niets in de client getest → TESTLIJST
+  (eerst de /run-regel).
+
 ## 🆕 10 nov — Forever: top 5 klasse-macro's in "Handige macro's" (Rob: "Top 5" → "Ja. Mooi.")
 
 - Rob wilde "de meest gebruikte macro's per klasse" (specs later). mh-research telde het onderzoek van 9 nov na in 12
