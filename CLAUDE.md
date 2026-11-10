@@ -20,6 +20,13 @@ dat merk je pas bij de eerste push.
 | 05:40 | PTR/roadmap | `docs/PTR_12.1_WATCH.md` | wat er nog **komt** |
 | 05:50 | blue post/data | `docs/PTR_12.0.7_DATA.md` | welk **feit** we missen |
 | 06:00 | content | `docs/CONTENT_WATCH.md` | waar de addon **liegt** |
+| 04:15 | **MH nachtcontrole** (`trig_01EKor6SCGxyPJPurc4MML3P`, omgeving "Midnight Helper") | `docs/NACHTCONTROLE.md` | events (C1) en spel-nummers (C2) tegen de nieuwste build |
+| zo 08:00 | **MH ideeënbus** (`trig_0168w6QPWBbUob5hYf5HXFWz`) | alleen het blok "Voorstellen van de wachter" onderaan `docs/IDEEEN.md` | max 3 ideeën per week |
+
+📌 **Sinds 10 nov 2026 zes routines** (Rob: *"Ja, stap 4 en 5 mogen ook"*, bevestigd in de bouwchat). De twee nieuwe
+hebben bewust namen die NIET op de vier oude lijken (les van 12 sep). In de ochtendronde: lees ook de laatste regel van
+`docs/NACHTCONTROLE.md` (staat de snapshot achter → `run event_snapshot --write`) en, op maandag, de voorstellen van de
+ideeënbus — verplaats ze naar Open of Nee; Rob beslist.
 
 Ze rapporteren alleen; ze repareren nooit. Elk raakt precies één bestand aan.
 

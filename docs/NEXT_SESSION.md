@@ -30,7 +30,14 @@
     echt (bv. "Titel: Light's Faithful" in alle 6; ruRU RITUAL_CHAL_* en CODEX_CUR_ACCOLADES nog Engels; itIT TAB_OMNIUM
     Engels; de "Das Labyrinth"/"Der Ring" en pt-lidwoorden in MOUNTRUN_R_*) en toeval (General = NPC-rang, Test,
     Builder, zoekwoorden SMC_SEARCH_PORTALS, GUIDE_CONS_TYPE_HEALING). ▶ Rob kiest of we de echte laten herschrijven.
-  ▶ Daarna stap 5 = vijfde wachter + ideeën-wachter, na Robs ja. C5 later met /mh selftest.
+  ✅ Stap 5 (Rob: "Eerst stap 5"): twee cloud-routines, ID's ook in CLAUDE.md:
+  - **MH nachtcontrole** `trig_01EKor6SCGxyPJPurc4MML3P`, dagelijks 04:15 Parijs, omgeving "Midnight Helper"
+    (env_012F4L7VcAGercf6hQDYoFai, wago toegelaten), Sonnet 5.5, géén connectoren. C1 tegen een verse lijst in /tmp
+    (event_snapshot `--out`, event_check `MH_EVENT_SNAPSHOT`) + C2; schrijft alleen `docs/NACHTCONTROLE.md`.
+  - **MH ideeënbus** `trig_0168w6QPWBbUob5hYf5HXFWz`, zondag 08:00, Opus 5.5, alleen Exa; schrijft alleen het blok
+    "Voorstellen van de wachter" onderaan IDEEEN.md (één-schrijver-regel); drie harde regels in de opdracht.
+  - Proefrun nachtcontrole 10 nov 21:15 gestart (cse_01AezjghAscP8AAd8atJJFGh) — uitkomst: zie hieronder/volgende regel.
+  - C5 later met /mh selftest. De 65 C4-namen wachten op Robs keuze.
 
 ## 💡 10 nov — brainstorm werkwijze (cloud-sessie, tak `claude/midnight-helpen-brainstorm-d18bs9`)
 
