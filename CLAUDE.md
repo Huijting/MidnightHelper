@@ -168,6 +168,22 @@ Rob: *"kunnen we dat niet meer fout doen?"* Helpers (subagents) altijd uit `AddO
   alleen lezen. Sinds 8 okt, omdat `mh-research` volgens zijn eigen regel niets in `docs/` leest. ⚠️ Haiku is zwakker:
   elke "is af" van mh-sweep controleer ik zelf in de code voordat ik het aan Rob meld.
 
+## 🔑 10 nov 2026: spel-data snel, zonder browser — `tools/gamedata.py`
+
+Rob: *"kunnen we niet iets bouwen … om wowhead sneller te bekijken?"* → *"Ja, bouw het"*. Aanleiding: de vraag "waar leert
+mijn druid maces" kostte een helper 70 stappen en 7,5 minuut, vooral door Wowhead-403's in het browservenster.
+GEMETEN die dag, gewone Python, ~0,2 s per vraag: **wago.tools DB2-CSV** (Blizzards eigen tabellen per build, ook
+Forever `wowf`) en **Wowhead-tooltip-JSON** (`nether.wowhead.com/[forever/]tooltip/npc/<id>`: naam, ondertitel, zone,
+álle spawn-coördinaten). De gewone `www.wowhead.com`-pagina's blijven 403 voor scripts (en een CAPTCHA na een paar
+browserloads) — dus alleen voor wat de tooltip niet heeft, zoals de "Teaches"-tab.
+- Via de voordeur, bv. `run gamedata npc 11865 --game forever`, `run gamedata db2 SkillRaceClassInfo SkillID=54
+  --game forever`, `run gamedata builds`, `run gamedata help`. Filters `Col=a,b`, `Col~tekst`, `Col!=x`;
+  `--cols`, `--limit`, `--count`, `--locale deDE`.
+- Cache in `%LOCALAPPDATA%\MidnightHelper\gamedata_cache` (buiten repo én WoW-map). DB2 per build blijft; tooltips 3 dagen.
+- DB2 = structuur en id's, geen serverfeiten (wie wat leert, prijzen, droprates). Een leeg filter bewijst niets zonder
+  een filter dat zéker raakt in dezelfde run.
+- `mh-research` (`AddOns/.claude/agents/mh-research.md`) kent dit sinds die dag: eerst gamedata, dan de browser.
+
 ## 🔴 26 sep 2026: `_probe.py` krijgt GEEN argumenten meer
 
 GEMETEN: `settings.local.json` bevat 192 losse "Always allow"-regels voor `_probe.py" scratch <x>` en 66 voor

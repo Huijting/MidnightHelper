@@ -1,5 +1,19 @@
 # Midnight Helper — waar we staan
 
+## 🆕 10 nov — `tools/gamedata.py` (Rob: "Ja, bouw het") + onderzoek wapentrainers Forever
+
+- Nieuw werktuig, via de voordeur: `run gamedata db2 <Tabel> [filters] --game forever`, `run gamedata npc <id> --game
+  forever`, `run gamedata builds`, `run gamedata help`. wago.tools DB2-CSV + Wowhead-tooltip-JSON, ~0,2 s, cache in
+  `%LOCALAPPDATA%\MidnightHelper\gamedata_cache`. GETEST 10 nov: npc 11865/11866 (zone + coördinaten), een onbekend id
+  (404 netjes gemeld), `SkillRaceClassInfo SkillID=54,160` (13 rijen). CLAUDE.md-sectie + mh-research-agent bijgewerkt.
+- Rob vroeg (Forever, Night Elf Druid lvl 10): waar leer ik maces? Antwoord: niet in Darnassus (Ilyenia Moonfire:
+  staves/bows/daggers/thrown/fist), wel Buliwyf Stonehand, Ironforge ~61,89, 10 zilver. GEMETEN in de Forever-DB2:
+  SkillRaceClassInfo rij 643 (Maces, druid, Night Elf) Availability 0 = niet vanaf het begin; rij 644 (Tauren) = 1.
+- Rob: *"dit is trouwens ook weer zoiets voor onze guide … werk dat … uit"*. Onderzoek klaar (mh-research):
+  `docs/forever/FOREVER_WEAPON_MASTERS_2026-11-10.md` — 8 wapentrainers, 14 wapen-skills met spell-id's, kosten/levels,
+  klasse×wapen, Forever-wijzigingen, routes. 7 open gaten staan onderaan dat bestand (o.a. Sayoc + Staves).
+  🔜 Volgende stap: bouwplan (venster zoals "Waar koop ik dit?": links wapens, rechts trainers + pijl) → Robs ja.
+
 ## 🆕 10 nov — Forever: tegels voor "Handige macro's" en "Waar koop ik dit?" (Rob: "Ja, bouw maar")
 
 - Punt 1 van de lijst hieronder is gebouwd. Twee tegels in de **Ik-kamer** (`RoomLauncher.lua` ME_FOREVER_CARDS,
