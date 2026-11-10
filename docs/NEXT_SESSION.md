@@ -13,8 +13,12 @@
   12.1.5.70783. Offline-test: 40 specs × 5, geen rest-`{`, ≤255 bytes. Niets in de client getest → TESTLIJST.
 - Gevonden macro-regels 12.0 (Blizzard, 1 mrt 2026): max 3 markeringen kort na elkaar; in een encounter geen macro-chat
   buiten de groep. Spelers (niet Blizzard): `[nochanneling]` kan casten even blokkeren → waarschuwing bij die rij.
-- Open: de oude Utility/Interrupt-lijsten gebruiken nog Engelse spellnamen (werkt niet op een niet-Engelse client,
-  AFGELEID). Kandidaat voor dezelfde {id}-ombouw.
+- ✅ Daarna (Rob: "Ja zet om"): de oude Utility/Interrupt-lijsten krijgen nu de clientnamen. `ns.MH_LocalizeMacroBody`
+  (RetailTopMacros.lua) ruilt elke bekende Engelse naam via `NAME_IDS` (84 namen → speler-spell-id, GEMETEN retail
+  12.1.5.70783, deDE e.a. gelijk voor alle speler-ids per naam) op de plek van de naam (na de laatste `]`, castsequence-
+  lijst, `channeling:`). Aangeroepen in `MH_GetMacroContextForType` (niet voor "top") en in `/mh macrocheck`. Offline:
+  145/145 lichamen vertaald met nep-Duitse namen, 0 Engels over, Engels = ongewijzigd. Niet getest op een echte
+  niet-Engelse client. Open: "/target Dundun" (World-soort) is een NPC-naam, nog Engels.
 
 ## 🆕 10 nov (middag) — Forever: top 3 macro's per spec (Rob: "Ja, laten we maar uitzoeken" → "Ja bouw maar")
 

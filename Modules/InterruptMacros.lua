@@ -171,7 +171,13 @@ function ns.MH_GetMacroContextForType(typeId, panel)
 	if not def or not def.getContext then
 		return nil, "notype", nil, 0, nil, nil, nil
 	end
-	return def.getContext(panel)
+	local body, a, b, c, d, e, f, g = def.getContext(panel)
+	-- 10 Nov 2026: the older kinds hold English spell names; put in this client's names (RetailTopMacros.lua).
+	-- "top" is built from spell ids already, so it is left alone.
+	if body and typeId ~= "top" and ns.MH_LocalizeMacroBody then
+		body = ns.MH_LocalizeMacroBody(body)
+	end
+	return body, a, b, c, d, e, f, g
 end
 
 function ns.MH_GetInterruptMacroList()
@@ -435,7 +441,8 @@ function ns.MH_MacroCheck()
 	local byClass = ns.TeamMacrosByClassSpec and ns.TeamMacrosByClassSpec[token]
 	local list = byClass and byClass[specIdx]
 	for _, e in ipairs(type(list) == "table" and list or {}) do
-		for _, name in ipairs(MacroSpellNames(e.macro)) do
+		local body = ns.MH_LocalizeMacroBody and ns.MH_LocalizeMacroBody(e.macro) or e.macro -- client's names
+		for _, name in ipairs(MacroSpellNames(body)) do
 			print(("   %-34s %-26s %s"):format(tostring(e.name), name, mark(ClientKnowsSpell(name))))
 		end
 	end

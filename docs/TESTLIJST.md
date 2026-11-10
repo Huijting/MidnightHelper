@@ -27,7 +27,8 @@ er is niets weggegooid.
       macro's van je spec (Prot Paladin: kijk of ze kloppen bij wat je speelt). Titel = spellnaam in je clienttaal.
 - [ ] Kies er een: uitleg + de macrotekst met spellnamen. Klik **Maken** → chat "Macro "MH+ …" staat in de macrolijst";
       het macrovenster opent. 🔴 Werkt de macro? (niemand heeft deze al in het spel getest)
-- [ ] De knop Maken werkt ook bij Interrupt en de andere soorten (die hebben nog Engelse spellnamen).
+- [ ] De knop Maken werkt ook bij Interrupt en de andere soorten. Sinds 10 nov laat MH daar de spellnamen van je client
+      zien (op een Engelse client verandert er niets; een Duitse/Franse tester zou "Zuschlagen" e.d. moeten zien).
 - [ ] Een rij met een talent dat je niet hebt, verschijnt niet. Een spell die je nog niet kent: "Deze spell ken je nog
       niet …" en Maken staat uit.
 - [ ] In gevecht op Maken: "Niet in gevecht …". Wissel van spec: de lijst wisselt mee.

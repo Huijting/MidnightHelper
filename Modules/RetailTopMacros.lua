@@ -514,6 +514,165 @@ function ns.MH_GetTopMacroContext(panel)
 	return body, nil, token, specIdx, specName, e.name, e.desc, (not isPreview) and e.macroName or nil
 end
 
+--------------------------------------------------------------------------------
+-- The older kinds (Interrupt, Utility) carry ENGLISH spell names in their text. Rob, 10 Nov 2026: "Ja zet om".
+-- ns.MH_LocalizeMacroBody swaps each English name it knows for the client's own name, by spell id, at the exact
+-- places a name sits (after the last "]" of a /cast-like clause, in a castsequence list, after "channeling:").
+-- A name it does not know stays as it was, so on an English client nothing changes. Ids: NAME_IDS (measured).
+--------------------------------------------------------------------------------
+-- 84 names, GEMETEN 10 Nov 2026 in wago DB2 retail 12.1.5.70783: each id is a player spell (skill line, spec spell
+-- or class talent node), its enUS name equals the key, and every player id with that English name has the same
+-- name in deDE/frFR/esES/ptBR/itIT/ruRU/koKR/zh (esMX differs only in case for Rain of Fire).
+local NAME_IDS = {
+	["Aimed Shot"] = 19434,
+	["Aspect of the Turtle"] = 186265,
+	["Barbed Shot"] = 217200,
+	["Beacon of Light"] = 53563,
+	["Bite"] = 17253, -- hunter pet basic attack
+	["Blessing of Protection"] = 1022,
+	["Blind"] = 2094,
+	["Blizzard"] = 190356,
+	["Capacitor Totem"] = 192058,
+	["Champion's Spear"] = 376079,
+	["Claw"] = 16827, -- hunter pet basic attack
+	["Command Demon"] = 119898,
+	["Counter Shot"] = 147362,
+	["Counterspell"] = 2139,
+	["Death Grip"] = 49576,
+	["Death and Decay"] = 43265,
+	["Deep Breath"] = 357210,
+	["Disrupt"] = 183752,
+	["Divine Shield"] = 642,
+	["Earthquake"] = 61882,
+	["Efflorescence"] = 145205,
+	["Emerald Blossom"] = 355913,
+	["Eruption"] = 395160,
+	["Execution Sentence"] = 343527,
+	["Fear"] = 5782,
+	["Flame Shock"] = 470411,
+	["Flamestrike"] = 2120,
+	["Freezing Trap"] = 187650,
+	["Grappling Hook"] = 195457,
+	["Growl"] = 6795, -- druid
+	["Hand of Reckoning"] = 62124,
+	["Harpoon"] = 190925,
+	["Havoc"] = 80240,
+	["Healing Rain"] = 73920,
+	["Heroic Leap"] = 6544,
+	["Holy Word: Sanctify"] = 34861,
+	["Hover"] = 358267,
+	["Hunter's Mark"] = 257284,
+	["Ice Block"] = 45438,
+	["Intervene"] = 3411,
+	["Kick"] = 1766,
+	["Kill Command"] = 34026, -- Survival's own is 259489, same name in every measured locale
+	["Leap of Faith"] = 73325,
+	["Metamorphosis"] = 191427, -- Vengeance's 187827 overrides it, same name in every measured locale
+	["Mind Blast"] = 8092,
+	["Mind Freeze"] = 47528,
+	["Misdirection"] = 34477,
+	["Muzzle"] = 187707,
+	["Polymorph"] = 118,
+	["Power Word: Barrier"] = 62618,
+	["Power Word: Shield"] = 17,
+	["Provoke"] = 115546,
+	["Pummel"] = 6552,
+	["Quell"] = 351338,
+	["Rain of Fire"] = 5740,
+	["Rapid Fire"] = 257044,
+	["Ravager"] = 228920,
+	["Rebuke"] = 96231,
+	["Regrowth"] = 8936,
+	["Rejuvenation"] = 774,
+	["Remove Corruption"] = 2782,
+	["Rescue"] = 370665,
+	["Ring of Peace"] = 116844,
+	["Riptide"] = 61295,
+	["Shadow Word: Madness"] = 335467,
+	["Sigil of Flame"] = 204596,
+	["Silence"] = 15487,
+	["Skull Bash"] = 106839,
+	["Smack"] = 49966, -- hunter pet basic attack
+	["Solar Beam"] = 78675,
+	["Spear Hand Strike"] = 116705,
+	["Summon Black Ox Statue"] = 115315,
+	["Summon Jade Serpent Statue"] = 115313,
+	["Tentacle Slam"] = 1227280,
+	["Tiger Palm"] = 100780,
+	["Torment"] = 185245,
+	["Tricks of the Trade"] = 57934,
+	["Ursol's Vortex"] = 102793,
+	["Verdant Embrace"] = 360995,
+	["Vivify"] = 116670,
+	["Void Torrent"] = 263165,
+	["Voidform"] = 228260,
+	["Volley"] = 260243,
+	["Wind Shear"] = 57994,
+}
+
+local function LocalName(name)
+	local id = NAME_IDS[name]
+	return id and SpellName(id) or nil
+end
+
+local function SwapName(s)
+	local lead, bang, core, trail = s:match("^(%s*)(!?)(.-)(%s*)$")
+	local loc = core and LocalName(core)
+	if not loc then
+		return s
+	end
+	return lead .. bang .. loc .. trail
+end
+
+local function SwapClause(clause, isSeq)
+	local cond, name = clause:match("^(.*%])(.*)$")
+	if not cond then
+		cond, name = "", clause
+	end
+	if isSeq then
+		local reset, list = name:match("^(%s*reset=%S+%s*)(.*)$")
+		if not reset then
+			reset, list = "", name
+		end
+		local parts = {}
+		for p in (list .. ","):gmatch("([^,]*),") do
+			parts[#parts + 1] = SwapName(p)
+		end
+		return cond .. reset .. table.concat(parts, ",")
+	end
+	return cond .. SwapName(name)
+end
+
+function ns.MH_LocalizeMacroBody(body)
+	if type(body) ~= "string" or not next(NAME_IDS) then
+		return body
+	end
+	local out = {}
+	for line in (body .. "\n"):gmatch("([^\n]*)\n") do
+		line = line:gsub("(channeling:)([^%],;]+)", function(k, nm)
+			return k .. (LocalName(nm) or nm)
+		end)
+		local cmd, rest = line:match("^(#showtooltip%s+)(.+)$")
+		if not cmd then
+			cmd, rest = line:match("^(/[%a]+%s+)(.+)$")
+			local c = cmd and cmd:lower():gsub("%s+$", "")
+			if c ~= "/cast" and c ~= "/use" and c ~= "/castsequence" and c ~= "/cancelaura" then
+				cmd = nil
+			end
+		end
+		if cmd then
+			local isSeq = cmd:lower():find("^/castsequence") ~= nil
+			local clauses = {}
+			for cl in (rest .. ";"):gmatch("([^;]*);") do
+				clauses[#clauses + 1] = SwapClause(cl, isSeq)
+			end
+			line = cmd .. table.concat(clauses, ";")
+		end
+		out[#out + 1] = line
+	end
+	return table.concat(out, "\n")
+end
+
 -- First kind in the Macros tab.
 if ns.MacroPanelTypes then
 	table.insert(ns.MacroPanelTypes, 1, {
