@@ -38,8 +38,12 @@
     "Voorstellen van de wachter" onderaan IDEEEN.md (één-schrijver-regel); drie harde regels in de opdracht.
   - Proefrun nachtcontrole 10 nov 21:15 (cse_01AezjghAscP8AAd8atJJFGh), GEMETEN: **wago.tools werkt** in die omgeving
     (200), C2 schoon (zelfde 1541 als lokaal). **api.github.com geeft 403** → C1 "NIET GEDRAAID" (correct gemeld).
-    ▶ Rob: voeg in claude.ai → omgeving "Midnight Helper" de domeinen `api.github.com` en `raw.githubusercontent.com`
-    toe aan het netwerk, dan draait C1 ook. Tot dan zegt de wachter elke nacht eerlijk dat C1 niet draaide.
+    ❌ Mijn eerste advies (domeinen toevoegen) was FOUT. GEMETEN in code.claude.com/docs/en/cloud-environments: beide
+    domeinen staan al in "Trusted"; al het GitHub-verkeer gaat via de GitHub-poort, die API-aanvragen alleen doorlaat
+    voor repo's die AAN DE SESSIE GEKOPPELD zijn ("GitHub access to … is not enabled for this session", 403).
+    ✅ Opgelost (Rob: "Ja, koppel hem"): `Gethe/wow-ui-source` als tweede bron aan de routine, sparse checkout alleen
+    `Interface/AddOns/Blizzard_APIDocumentationGenerated`. Tweede proefrun: cse_01AezjgmBywxYEbFVTpsUgQr.
+    📌 Les: elke cloud-routine die een andere GitHub-repo leest, moet die repo als bron koppelen.
   - C5 later met /mh selftest. De 65 C4-namen wachten op Robs keuze.
 
 ## 💡 10 nov — brainstorm werkwijze (cloud-sessie, tak `claude/midnight-helpen-brainstorm-d18bs9`)
