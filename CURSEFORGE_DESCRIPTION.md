@@ -12,7 +12,14 @@ Despite the name, Midnight Helper has its own help for **WoW Forever**. In the C
 Retail to **Forever** and install it there as well. You get help made for levelling the way it used to be:
 
 - **Your own start page**: your level, what you can learn at your trainer right now and what it costs, your money, and
-  **Take me to my trainer**: an arrow to your nearest class trainer (218 trainers known, no other addon needed).
+  **Take me to my trainer**: an arrow to your nearest class trainer (218 trainers known, no other addon needed). Talk
+  to a trainer or vendor once and the arrow learns exactly where they stand.
+- **The arrow knows the way across the water**: boats, zeppelins, the Deeprun Tram and the portals, step by step. No
+  Hearthstone in your bags? It warns you before you cross.
+- **Weapon and profession trainers**: which weapons you may learn and where (`/mh weapons`), and an arrow to the trainer
+  for your profession.
+- **Where do I buy this?** An arrow to the nearest vendor for tools and trade goods.
+- **Handy macros**: the top macros for your class and spec, ready to make with one click.
 - **New at your trainer**: when you level up, a window shows every new spell with its rank, its price and the key it
   lands on. Hover a spell for its tooltip; your nearest trainer stands beside the list as a turning 3D figure.
 - **How you play, for all nine classes**: what your class does, your buttons for levels 1 to 10, a simple order to
@@ -20,9 +27,14 @@ Retail to **Forever** and install it there as well. You get help made for levell
 - **A key block for every class**: the same task on the same key on every character. A new character gets your bar
   layout with one click.
 - **Which quest reward to take**: MH marks the reward that is best for your class, or the one that sells for the most.
-- **Train all** under the trainer window, and a **cross above your trainer** when the arrow brings you there.
-- **A button for missing buffs**: Fortitude, Arcane Intellect, your armor, aura, shield or pet. One click casts it in
-  your highest rank.
+  Hover any piece of gear and a green line tells you why it beats what you wear: *+3 Strength (main stats for a
+  Paladin)*.
+- **You picked up an upgrade**: when better gear lands in your bags, a short message on your screen says so. No more
+  keeping your bags open.
+- **Train all** under the trainer window, a **cross above your trainer** when the arrow brings you there, and spells
+  that come from a class quest marked as such.
+- **Missing buffs, in words**: *Blessing of Might is not on you. Click the icon to cast it.* One click casts it in your
+  highest rank.
 - **Warnings you would otherwise notice too late**: only 2 free bag slots left (with your grey items to sell), low mana
   or health before you pull, and before you sell your last Mining Pick or Skinning Knife.
 
@@ -49,6 +61,9 @@ who just hit 90 or are coming back after a break:
   really press, and your whole keyboard, in one window.
 - **Professions, raid shopping lists and the Role Academy** for learning to tank or heal.
 - **What fits in 20 minutes?** (`/mh time`): the delves and rituals that fit the time you have, from your own runs.
+- **You picked up an upgrade**: when gear that clearly beats what you wear lands in your bags, a short message on your
+  screen says so, and the missing-buff icon now names the buff and says what to do.
+- **Top 5 macros per spec** with a *Make* button in the Macros tab.
 - **Using MF Nameplates?** `/mh colors` explains every colour on your nameplates, read from your own MF settings (in
   WoW Forever too).
 
