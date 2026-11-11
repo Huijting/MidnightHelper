@@ -1,5 +1,16 @@
 # Midnight Helper — waar we staan
 
+## 🆕 11 nov — CLAUDE.md korter: het shell-deel (opdracht A sparring-chat; Rob: "Ja, doe het")
+
+- GEMETEN: `tools/bash_guard.py` draait als PreToolUse-hook (`AddOns/.claude/settings.json`, matcher Bash|PowerShell) en
+  blokkeert `&&`, `||`, `;`, pijp, heredoc, `python -c`, `python -` en de PowerShell-tool. NIET: redirects (`2>&1`, `>`),
+  argumenten achter `_probe.py`/`git_stage.py`, git met paden, directe scriptpaden, extra vlaggen.
+- Het shell-deel (137 regels, "26 sep `_probe.py`" t/m de 15-aug-meting) ongewijzigd naar nieuw `docs/CLAUDE_HISTORIE.md`
+  (script-controle: oude tekst daar volledig aanwezig, weg uit CLAUDE.md). Ervoor in de plaats een blok van 25 regels met de
+  12 niet-afgedwongen regels + één regel over wat de guard afdwingt. **CLAUDE.md: 543 → 431 regels.**
+- Lint [24]: SOFT als CLAUDE.md > 350 regels (Rob: "350 is goed"); nu 81 erboven. Volgende happen (goedemorgen-ronde naar
+  een recept, overige geschiedenis) komen als aparte opdrachten van de sparring-chat.
+
 ## 🆕 11 nov — Forever: reisplanner in het spel + "geen Hearthstone" (Rob: "bouw het maar")
 
 - Rob testte de reisplanner met een Horde-Paladin in Tirisfal → Hanashi/Sayoc (Orgrimmar): pijl en venster zeggen "the

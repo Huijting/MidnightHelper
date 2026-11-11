@@ -1655,6 +1655,24 @@ def main() -> int:
         print("     SOFT  this check proves nothing this run; do not read silence as clean")
         soft += 1
 
+    # [24] CLAUDE.md length (plan deel 7, Rob 11 Nov 2026: "350 is goed"). It grew 521 -> 543 lines in three days; the
+    # longer it gets, the more of it is skimmed. Rule for trimming: a lesson only leaves CLAUDE.md when a script enforces
+    # it or it is pure history (then it goes to docs/CLAUDE_HISTORIE.md). SOFT: a reminder, never a blocker.
+    claude_limit = 350
+    claude_md = os.path.join(root, "CLAUDE.md")
+    if os.path.isfile(claude_md):
+        with open(claude_md, encoding="utf-8", errors="replace") as fh:
+            claude_lines = sum(1 for _ in fh)
+        over = claude_lines > claude_limit
+        print(f"\n[24] CLAUDE.md length: {claude_lines} lines (limit {claude_limit})")
+        if over:
+            print(f"     SOFT  {claude_lines - claude_limit} over: move enforced or historical text to "
+                  f"docs/CLAUDE_HISTORIE.md")
+            soft += 1
+    else:
+        print("\n[24] CLAUDE.md length: NOT CHECKED — file not found")
+        soft += 1
+
     print("=" * 70)
     print(f"HARD issues: {hard}   SOFT notes: {soft}")
     print("=" * 70)
