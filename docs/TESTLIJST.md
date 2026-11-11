@@ -21,6 +21,12 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 11 nov — Forever: Paladin-Judgement en Druid-Claw
+
+- [ ] Paladin, `/mh` → How you play: bij **Judgement** staat nu "werkt alleen als er een seal aan staat: zet eerst je
+      seal aan (3)". 🔴 Meten: zonder seal op Judgement drukken → zegt het spel "You can't do that yet"? Met seal: werkt hij?
+- [ ] Druid rond level 28 bij de trainer: Claw rank 2 vraagt nu om **Claw** (rank 1), niet meer om "Sharpened Claws".
+
 ## 🆕 11 nov — Forever: Enhancement Shaman blijft op Strength
 
 - [ ] Forever, Shaman met het talent **Mental Dexterity**: bij een questbeloning wijst de tip nu het stuk met

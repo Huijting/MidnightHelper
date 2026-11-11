@@ -63,7 +63,7 @@ Un **sceau** est un pouvoir sacré que tu poses sur toi. Il dure 30 secondes, et
 - **3** = Sceau de piété (niveau 1) : ton sceau.
 - **C** = Lumière sacrée (1) : ton gros soin. Les Paladins Mort-vivant l'obtiennent avec la quête de niveau 2 « Redécouverte de la Lumière ».
 - **Ctrl-1** = Aura de dévotion (1, chez le maître de classe) : active-la et laisse-la active.
-- **2** = Jugement (4) : cooldown de 10 secondes. Il ne consomme pas ton sceau.
+- **2** = Jugement (4) : cooldown de 10 secondes. Il ne consomme pas ton sceau. Il ne marche que si un sceau est actif : mets d'abord ton sceau (3).
 - **Shift-Z** = Bénédiction de puissance (4) : mets-la sur toi.
 - **1** = Frappe sacrée (6) : ton coup principal, au corps à corps.
 - **Z** = Protection divine (6) : pendant 6 secondes, rien ne peut te blesser, mais tu ne peux pas attaquer non plus. Cooldown de 5 minutes.

@@ -59,7 +59,7 @@ Een **seal** is een heilige kracht die je op jezelf zet. Hij duurt 30 seconden, 
 - **3** = Seal of Righteousness (level 1): je seal.
 - **C** = Holy Light (1): je grote heal. Undead Paladins krijgen hem uit de quest van level 2, "Rediscovering the Light".
 - **Ctrl-1** = Devotion Aura (1, van de trainer): zet hem aan en laat hem aan.
-- **2** = Judgement (4): cooldown 10 seconden. Hij gebruikt je seal niet op.
+- **2** = Judgement (4): cooldown 10 seconden. Hij gebruikt je seal niet op. Hij werkt alleen als er een seal aan staat: zet eerst je seal aan (3). Zonder seal zegt het spel "You can't do that yet".
 - **Shift-Z** = Blessing of Might (4): zet hem op jezelf.
 - **1** = Holy Strike (6): je belangrijkste klap, van dichtbij.
 - **Z** = Divine Protection (6): 6 seconden lang kan niets je pijn doen, maar jij kunt ook niet aanvallen. Cooldown 5 minuten.

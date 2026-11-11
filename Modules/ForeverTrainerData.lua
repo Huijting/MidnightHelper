@@ -83,7 +83,7 @@ ns.FOREVER_TRAINER_SPELLS = {
 		{ l = 26, id = 6809, c = 4400, n = "Maul", req = { 6808 } },
 		{ l = 26, id = 8949, c = 4400, n = "Starfire", req = { 2912 } },
 		{ l = 28, id = 5209, c = 4500, n = "Challenging Roar", req = { 5487 } },
-		{ l = 28, id = 3029, c = 4500, n = "Claw", req = { 16942 } },
+		{ l = 28, id = 3029, c = 4500, n = "Claw", req = { 1082 } }, -- hand fix 11 Nov 2026: the source said 16942 (talent Sharpened Claws); Forever DB2 SkillLineAbility 2077: 3029 supersedes 1082 (GEMETEN)
 		{ l = 28, id = 8998, c = 4500, n = "Cower", req = { 768 } },
 		{ l = 28, id = 5195, c = 4500, n = "Entangling Roots", req = { 1062 } },
 		{ l = 28, id = 8927, c = 4500, n = "Moonfire", req = { 8926 } },

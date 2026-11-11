@@ -63,7 +63,7 @@ Un **sello** es un poder sagrado que te pones a ti mismo. Dura 30 segundos, y so
 - **3** = Sello de Rectitud (nivel 1): tu sello.
 - **C** = Luz Sagrada (1): tu gran cura. Los Paladines No-muertos la consiguen con la misión de nivel 2 "Redescubrimiento de la Luz".
 - **Ctrl-1** = Aura de devoción (1, del instructor): actívala y déjala activa.
-- **2** = Sentencia (4): reutilización de 10 segundos. No gasta tu sello.
+- **2** = Sentencia (4): reutilización de 10 segundos. No gasta tu sello. Solo funciona si tienes un sello puesto: ponte primero tu sello (3).
 - **Shift-Z** = Bendición de poderío (4): póntela a ti mismo.
 - **1** = Golpe Sagrado (6): tu golpe principal, cuerpo a cuerpo.
 - **Z** = Protección divina (6): durante 6 segundos nada puede hacerte daño, pero tú tampoco puedes atacar. Reutilización de 5 minutos.

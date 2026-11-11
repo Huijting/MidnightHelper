@@ -62,7 +62,7 @@ Ein **Siegel** ist eine heilige Kraft, die du auf dich legst. Es hält 30 Sekund
 - **3** = Siegel der Rechtschaffenheit (Stufe 1): dein Siegel.
 - **C** = Heiliges Licht (1): deine große Heilung. Untote Paladine bekommen es aus der Quest „Das Licht wiederentdecken“ auf Stufe 2.
 - **Ctrl-1** = Aura der Hingabe (1, vom Lehrer): einschalten und anlassen.
-- **2** = Richturteil (4): Abklingzeit 10 Sekunden. Es verbraucht dein Siegel nicht.
+- **2** = Richturteil (4): Abklingzeit 10 Sekunden. Es verbraucht dein Siegel nicht. Es wirkt nur, solange ein Siegel aktiv ist: leg zuerst dein Siegel an (3).
 - **Shift-Z** = Segen der Macht (4): Leg ihn auf dich selbst.
 - **1** = Heiliger Stoß (6): dein wichtigster Treffer im Nahkampf.
 - **Z** = Göttlicher Schutz (6): 6 Sekunden lang kann dir nichts schaden, aber du kannst auch nicht angreifen. Abklingzeit 5 Minuten.

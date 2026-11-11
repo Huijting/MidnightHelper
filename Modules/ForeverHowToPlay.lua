@@ -77,7 +77,7 @@ A **seal** is a holy power you put on yourself. It lasts 30 seconds, and you can
 - **3** = Seal of Righteousness (level 1): your seal.
 - **C** = Holy Light (1): your big heal. Undead Paladins get it from the level-2 quest "Rediscovering the Light".
 - **Ctrl-1** = Devotion Aura (1, from the trainer): turn it on and leave it on.
-- **2** = Judgement (4): cooldown 10 seconds. It does not use up your seal.
+- **2** = Judgement (4): cooldown 10 seconds. It does not use up your seal. It only works while a seal is on: put your seal on first (3). Without one the game says "You can't do that yet".
 - **Shift-Z** = Blessing of Might (4): put it on yourself.
 - **1** = Holy Strike (6): your main hit, up close.
 - **Z** = Divine Protection (6): for 6 seconds nothing can hurt you, but you cannot attack either. Cooldown 5 minutes.

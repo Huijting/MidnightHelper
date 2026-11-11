@@ -62,7 +62,7 @@ Um **selo** é um poder sagrado que você coloca em si mesmo. Dura 30 segundos, 
 - **3** = Selo da Retidão (nível 1): seu selo.
 - **C** = Luz Sagrada (1): sua cura grande. Um Paladino Morto-vivo ganha ela na missão de nível 2 "Redescobrindo a Luz".
 - **Ctrl-1** = Aura de Devoção (1, do treinador): ligue e deixe ligada.
-- **2** = Julgamento (4): recarga de 10 segundos. Não gasta o seu selo.
+- **2** = Julgamento (4): recarga de 10 segundos. Não gasta o seu selo. Só funciona com um selo ativo: coloque o seu selo primeiro (3).
 - **Shift-Z** = Bênção do Poder (4): coloque em você mesmo.
 - **1** = Golpe Sagrado (6): seu golpe principal, de perto.
 - **Z** = Proteção Divina (6): por 6 segundos nada pode ferir você, mas você também não pode atacar. Recarga de 5 minutos.

@@ -1,5 +1,16 @@
 # Midnight Helper — waar we staan
 
+## 🆕 11 nov — stap a: Seal-tip en Claw-fix (Rob: "Seal-tip + Claw-fix")
+
+- mh-research (`docs/forever/FOREVER_QUEST_LOCKED_SPELLS_2026-11-11.md`): Judgement = trainer, level 4 (MH klopt); hij
+  vraagt een actieve seal (DB2 aura-state 5, GEMETEN; dat het "seal aan" betekent is AFGELEID), anders "You can't do that
+  yet". "Continue Your Training" = quest 91209 (Undead Paladin), geen spell.
+- How you play (Paladin, regel Judgement): zin "werkt alleen als er een seal aan staat, zet eerst je seal aan (3)" in 7
+  talen; het foutbericht alleen in enUS/nlNL (Engelse client), de andere talen zonder (niet gemeten hoe hun client het zegt).
+- `ForeverTrainerData.lua:86` Claw 3029 `req` 16942 (talent Sharpened Claws) → 1082 (SkillLineAbility 2077, GEMETEN).
+  ⚠️ Dit bestand heet "GENERATED"; bij opnieuw genereren moet deze fix mee (commentaar staat op de regel).
+- Nog open in stap a: "komt van een quest" bij de quest-spells (Redemption, Aquatic Form, Priest-rasspells, totems …).
+
 ## ▶ VOLGORDE 11 nov (sparring-chat, Rob: "ja, doe het zo"; reden: Robs testtijd is het schaarste)
 
 Eén stap af en door Rob getest, dan de volgende.
