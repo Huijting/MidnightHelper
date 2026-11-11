@@ -2551,6 +2551,18 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh usedfor [on | off] — WoW Forever: "MH: Used for Cooking (you have it)" on an ingredient's tooltip
+	-- (ForeverReagentUse.lua; Rob, 11 Nov 2026).
+	local usedArg = msg:lower() == "usedfor" and "" or msg:lower():match("^usedfor%s+(.+)$")
+	if usedArg then
+		if ns.ForeverUsedForSlash then
+			ns.ForeverUsedForSlash(usedArg)
+		else
+			print("|cffffcc00Midnight Helper:|r /mh usedfor is for WoW: Forever.")
+		end
+		return
+	end
+
 	-- /mh version [on | off] — tell me when a guild or group member runs a newer MH (VersionNotice.lua; both games;
 	-- Rob, 8 Nov 2026: "Ja bouw maar").
 	-- Forever: bags almost full, and low mana/health before a fight (ForeverWarnings.lua; Rob, 8 Nov 2026).

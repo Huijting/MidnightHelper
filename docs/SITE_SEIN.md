@@ -28,6 +28,16 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 11 nov 2026 — Forever: de tooltip zegt voor welk beroep een item een ingrediënt is
+- Tag + commit:   geen tag / (deze commit)
+- Status:         alleen op main
+- Mag op de site: nee (nog niet uit, niet in het spel getest)
+- Speler ziet:    Op een ingrediënt staat onderaan de tooltip bv. "MH: Used for Cooking (you have it)". Groen als je een
+                  van die beroepen hebt, grijs als je er geen hebt. Ook in je tas, niet alleen bij de verkoper.
+- Knoplabels:     FUSE_TIP_FMT, FUSE_HAVE_IT, FUSE_HAVE_FMT
+- Commando's:     /mh usedfor [on|off]
+- Spel:           Forever
+
 ## 11 nov 2026 — RELEASE 5.1.0 (Midnight + Forever)
 - Tag + commit:   v5.1.0 / ef2b38e (tag gepusht 11 nov ~13:20 NL-tijd). GEMETEN in de CurseForge-API: file 9556823
                   `MidnightHelper-v5.1.0.zip` (12.0.7–12.1.7) en 9556853 `MidnightHelper-v5.1.0-forever.zip` (1.60.1),

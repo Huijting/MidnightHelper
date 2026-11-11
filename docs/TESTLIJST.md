@@ -21,12 +21,28 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 11 nov — Forever: "Used for …" in de tooltip van ingrediënten (Rob: "Ja, met probe-fix")
+
+Eerst `/reload`. In Forever:
+- [ ] Muis op **Stringy Wolf Meat** of **Meaty Bat Wing** (tas of verkoper): onderaan de tooltip "MH: Used for Cooking".
+      Groen met "(you have it)" als je Cooking hebt; grijs zonder als je het niet hebt.
+- [ ] Muis op **Linen Cloth**: meerdere beroepen achter elkaar, bv. "MH: Used for Blacksmithing, Engineering, Tailoring,
+      First Aid (you have First Aid)".
+- [ ] Muis op **Copper Ore**: "MH: Used for Mining" (omsmelten).
+- [ ] Muis op iets wat geen ingrediënt is (Hearthstone, gear): géén "Used for"-regel.
+- [ ] ❓ Zegt de gewone tooltip van Stringy Wolf Meat zelf al iets als "Crafting Reagent"? Zo ja: leest onze regel dubbel?
+- [ ] `/mh usedfor` → aan/uit, hoeveel items in de lijst (524), welke beroepen de client van je ziet (met "line"-nummer:
+      dat meet meteen of de beroepsnummers kloppen), en wat hij bij het laatste item besloot. `/mh usedfor off` / `on`.
+
 ## 🆕 11 nov — Melding: je pakte net een upgrade op (stap d, Forever én Midnight)
 
 Eerst `/reload`. Gewoon spelen en spullen oppakken (loot, questbeloning):
 - [ ] Komt er gear in je tas die **duidelijk beter** is dan wat je draagt: een kort bericht midden-onder op je scherm,
       bv. "Upgrade in your bags: [Snow Boots] — +3 Strength over what you wear (main stats for a Paladin)." Het
       verdwijnt na ~7 seconden; muis erop houdt het vast; slepen en Shift+scroll werken. Ook één regel in de chat.
+      👀 Door Rob gezien in Forever, 11 nov ~21:00 (Ima Pallie, screenshot via de sparring-chat): "Upgrade in your bags:
+      [Loose Chain Gloves] — +13 Armor over what you wear (more armor, no stat difference)." Rob zei "FYI :)"; of het
+      zo goed is, nog niet gevraagd. Niet gezien: verdwijnen, vasthouden, slepen, de chatregel.
 - [ ] Géén bericht bij: slechtere gear, gear die je niet kunt dragen (rode tekst), iets wat je bij een verkoper koopt,
       iets wat je zelf uittrekt.
 - [ ] In een gevecht: het bericht komt pas als het gevecht voorbij is.
@@ -63,7 +79,8 @@ Eerst `/reload`, buiten een gevecht. Doe het één keer in **Forever** en één 
 Eerst `/reload`. In Forever, met gear in je tas die je kunt dragen:
 - [ ] Muis op een stuk dat béter is dan wat je draagt: onderaan de tooltip een groene regel, bv. "MH: +3 Strength,
       +2 Stamina over what you wear (main stats for a Paladin)." (Pawn zet er misschien ook een regel bij; die van MH
-      begint met "MH:".)
+      begint met "MH:".) 👀 Door Rob gezien in Forever, 11 nov ~21:00: "MH: +13 Armor over what you wear (more armor, no
+      stat difference)." bij Loose Chain Gloves; klopt met de tooltip (48 tegen 35 Armor).
 - [ ] Muis op iets slechters, op wat je al draagt, of op iets dat je (nog) niet kunt dragen (rode tekst): géén MH-regel.
 - [ ] Werkt ook in je Baganator-tassen (het is de tooltip, niet de tas).
 - [ ] `/mh geartip` → "gear tooltip line: on; last item you hovered: …" met de reden. `/mh geartip off` → regel weg;

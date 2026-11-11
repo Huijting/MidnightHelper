@@ -258,6 +258,8 @@ Modules\ForeverWeapons.lua
 Modules\ForeverTravel.lua
 Modules\ForeverMainStats.lua
 Modules\ForeverQuestHint.lua
+Modules\ForeverReagentData.lua
+Modules\ForeverReagentUse.lua
 Modules\SelftestData.lua
 Modules\Selftest.lua
 Modules\ForeverLayoutCarry.lua

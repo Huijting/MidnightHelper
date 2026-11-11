@@ -4947,6 +4947,13 @@ ns._mhLocales.enUS = {
 	FGEAR_TIP_FMT = "MH: %s over what you wear (%s).",
 	FGEAR_TIP_ON = "gear tooltip line on: hover gear to see what it adds over what you wear.",
 	FGEAR_TIP_OFF = "gear tooltip line off. /mh geartip on brings it back.",
+	-- Forever "used for" tooltip line (ForeverReagentUse.lua, Rob 11 Nov 2026). FMT: first %s = profession names
+	-- ("Tailoring, First Aid"), second %s = FUSE_HAVE_IT, FUSE_HAVE_FMT or nothing. HAVE_FMT %s = the ones you have.
+	FUSE_TIP_FMT = "MH: Used for %s%s",
+	FUSE_HAVE_IT = " (you have it)",
+	FUSE_HAVE_FMT = " (you have %s)",
+	FUSE_ON = "\"used for\" tooltip line on: hover an item to see which profession uses it.",
+	FUSE_OFF = "\"used for\" tooltip line off. /mh usedfor on brings it back.",
 	FQH_NO_LIST_FMT = "No stat list for your class yet. %s sells for the most.",
 	FQH_SELL_FMT = "None of these is better for you than what you wear. %s sells for the most (%s).",
 	-- 7 Nov 2026: the trainer window (ForeverTrainer.lua), translatable from today.

@@ -1,5 +1,21 @@
 # Midnight Helper — waar we staan
 
+## 🆕 11 nov — Forever: "MH: Used for Cooking" in de tooltip (Rob: "Ja, met probe-fix")
+
+- `Modules/ForeverReagentUse.lua` (tooltip post-call, GameTooltip + ItemRefTooltip, altijd, ook in de tas) +
+  gegenereerd `Modules/ForeverReagentData.lua` (524 items, 6955 bytes, één string `id:bits`, lazy geparsed).
+  Generator `tools/forever_reagents.py` (`--report` / `--emit`, build 1.60.1.70888) met 4 positieve controles
+  (Stringy Wolf Meat 2672 + Meaty Bat Wing 12223 = Cooking, Linen Cloth 2589 ∋ Tailoring, Copper Ore 2770 = Mining).
+- Regel (GEMETEN aantallen): 2121 recepten tellen; 233 af (item niet in Forever-ItemSparse), 132 af (spell-id
+  400000-1199999 = SoD e.d., AFGELEID uit de id-reeks), Herbalism/Skinning/Fishing (3 elk, housing-dingen) en Poisons
+  (26, rogue-skill) bewust weg. 9 beroepen, Mining = omsmelten.
+- Namen: eigen beroep = clientnaam (GetProfessionInfo); anders SkillLine.DisplayName_lang per taal (gegenereerd; itIT
+  leeg = Engels, Forever itIT is Engels); anders Engels. Groen als je er één hebt, grijs als niet.
+- Offline test (scratch `usedfor_test.lua`): 14/14 OK. Niet in het spel gezien. Open vraag aan Rob: zegt de gewone
+  tooltip al "Crafting Reagent"? En `/mh usedfor` meet meteen de skill-line-nummers (ForeverTrainer noemt ze AFGELEID).
+- Ook: `_probe.py` kijkt nu in álle scratchpad-mappen van dit sessie-ID, nieuwste job eerst (na een samenvatting
+  had één sessie er twee; hits[0] las de oude).
+
 ## 🆕 11 nov — Stadsnamen = clientnaam (Rob: "volgen alles zoals het originele Blizzard-spel het geeft")
 
 - Melding site-chat: de "Ironforge" en "Ventormenta" in de packs. GEMETEN met `gamedata db2 AreaTable` (10 plaatsen,

@@ -288,6 +288,20 @@ lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met d
                  `tools/zygor_watch.py`, stap 16 van de ochtendronde. Nulmeting: Midnight Zygor 9.6 (717 gidsen), Forever
                  1.6 (104). `--selftest` bewijst dat een wijziging gezien wordt. Af zodra hij de eerste echte update meldt.
 
+### Forever: de tooltip zegt voor welk beroep een item een ingrediënt is
+- Voor wie:      N + V (wie twijfelt bij de verkoper: verkopen of bewaren?)
+- Moment:        elke keer dat je met je muis op een item staat (tas, verkoper, loot)
+- Spel:          Forever (Midnight alleen als Rob het apart vraagt)
+- Bron:          Rob, 11 nov (Stringy Wolf Meat bij de verkoper; Meaty Bat Wing leek Leatherworking)
+- Bouwt op:      de tooltip-haak van ForeverQuestHint/ForeverToolGuard, `ns.ForeverMyProfessions`
+- Data:          Blizzards DB2 (SkillLineAbility + SpellReagents + ItemSparse), 524 items, 7 KB, gegenereerd
+- Vindbaar:      staat er vanzelf; `/mh usedfor` om te zien wat hij besloot
+- Werk:          klein
+- Site:          ja, één zin bij de Forever-functies (bij de volgende release)
+- Rob zegt:      ja (sparring-chat: *"Ja, laat bouwen"*; bouwchat 11 nov: *"Ja, met probe-fix"*). **Gebouwd 11 nov:**
+                 `Modules/ForeverReagentUse.lua` + gegenereerd `ForeverReagentData.lua` (`run forever_reagents --emit`).
+                 Wacht op Robs test (TESTLIJST).
+
 ### CurseForge-plaatjes: echte screenshots op één vaste achtergrond
 - Voor wie:      wij (CurseForge-pagina en de site); spelers zien alleen het resultaat
 - Moment:        als Rob nieuwe screenshots maakt (hooguit 4-6, actueel)

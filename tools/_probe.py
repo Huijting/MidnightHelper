@@ -52,18 +52,31 @@ _SCRATCH_ROOT = os.path.join(os.path.expanduser("~"), "AppData", "Local", "Temp"
                              "E--World-of-Warcraft--retail--Interface-AddOns")
 
 
-def _own_scratchpad():
+def _own_scratchpads():
     # 5 Nov 2026: the app moved the scratchpad to Temp\claude\<hash>\<sid>\scratchpad (measured:
     # e1c44003d48d72c2). The old path no longer existed, so the fallback below ran ANOTHER
     # session's stale job. Look in every Temp\claude\*\<sid>\scratchpad, still by session id only.
+    # 11 Nov 2026: after a context summary ONE session id had TWO such folders (...\2c177901b805d42c\
+    # and ...\e1c44003d48d72c2\). This used to take hits[0]: a helper wrote its job in the new folder
+    # and the probe read the old one. Now every folder of this session id counts, newest first
+    # (by its probe_job.txt if it has one, else by the folder itself).
     sid = os.environ.get("CLAUDE_CODE_SESSION_ID") or ""
     if not sid:
-        return None
-    own = os.path.join(_SCRATCH_ROOT, sid, "scratchpad")
-    if os.path.isdir(own):
-        return own
+        return []
     import glob as _gs
     hits = _gs.glob(os.path.join(os.path.dirname(_SCRATCH_ROOT), "*", sid, "scratchpad"))
+    own = os.path.join(_SCRATCH_ROOT, sid, "scratchpad")
+    if os.path.isdir(own) and own not in hits:
+        hits.append(own)
+
+    def _age(d):
+        j = os.path.join(d, "probe_job.txt")
+        return os.path.getmtime(j) if os.path.isfile(j) else os.path.getmtime(d)
+    return sorted(hits, key=_age, reverse=True)
+
+
+def _own_scratchpad():
+    hits = _own_scratchpads()
     return hits[0] if hits else None
 
 
@@ -73,8 +86,7 @@ if len(sys.argv) == 1:
     _own = _own_scratchpad()
     _jobs = []
     if _own:
-        _p = os.path.join(_own, "probe_job.txt")
-        _jobs = [_p] if os.path.isfile(_p) else []
+        _jobs = [p for p in (os.path.join(d, "probe_job.txt") for d in _own_scratchpads()) if os.path.isfile(p)]
     else:
         print("note: no scratchpad for this session id; taking the newest job of any session")
         _roots = [os.environ.get("CLAUDE_SCRATCHPAD") or "", _SCRATCH_ROOT]
@@ -113,7 +125,7 @@ if len(sys.argv) > 2 and sys.argv[1] == "scratch":
     base = os.environ.get("CLAUDE_SCRATCHPAD")
     # This session's own scratchpad first (30 Sep 2026: a same-named script of another session
     # would otherwise win on age alone); other sessions' scripts stay reachable after it.
-    roots = [r for r in (_own_scratchpad(), base) if r]
+    roots = [r for r in _own_scratchpads() + [base] if r]
     roots.append(_SCRATCH_ROOT)
     target = None
     for root in roots:
