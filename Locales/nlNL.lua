@@ -390,6 +390,7 @@ ns._mhLocales.nlNL = {
 	SELFTEST_CONTROL_FAILED = "zelftest: de test kon zichzelf niet bewijzen (een nummer dat moet bestaan, of juist niet, gaf het verkeerde antwoord). Deze run bewijst niets.",
 	SELFTEST_LIMIT = "Dit zegt alleen dat een nummer bestaat, niet dat het goed werkt. Quests en achievements worden geteld, niet gevraagd.",
 	SELFTEST_COMBAT = "zelftest: niet tijdens een gevecht. Probeer het daarna.",
+	SELFTEST_UNTRUSTED_FMT = "Niet nagelopen: %s. Het antwoord van dit spel daarvoor was niet te vertrouwen (het zei dat een verzonnen nummer bestaat).",
 	SELFTEST_BUSY = "zelftest: loopt al.",
 	REPORT_TITLE = "Kopieer dit, en vertel wat er gebeurde",
 	REPORT_CHAT_HINT = "Kopieer het vakje en plak het op Discord of GitHub. \"Hij vertelde me iets fouts\" telt ook — verouderde uitleg is hier een ergere fout dan een foutmelding.",

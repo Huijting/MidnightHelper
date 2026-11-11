@@ -29,6 +29,11 @@
   Telling 11 nov: 81 frames, 54 schaalbaar, 27 uitzondering, 0 fout. Eén echt gat gevonden en gedicht:
   `MidnightHelperActionPrompt` (`/mh prompt`) → `SCALABLE_WINDOWS`. Blinde vlek: frames zonder naam.
 - Lint [10] kent nu ook `msg:lower() == "x"` als route.
+- **Robs eerste run, Forever (GEMETEN in zijn SV):** 1164 nagelopen, 0 spells/kaarten ontbreken; maar
+  `C_Item.DoesItemExistByID(99999999)` = **true** in Forever → controle faalde (terecht). Reparatie ("Ja, repareer"):
+  items via `GetItemInfoInstant` (AFGELEID, de controle beslist), en de controle per soort: een soort die faalt wordt
+  overgeslagen en genoemd (`SELFTEST_UNTRUSTED_FMT`), de rest telt. Offline getest. Ook gezien: 21 kaarten + ~80 spells
+  uit gedeelde bestanden ontbreken in Forever (DK-spells, nieuwe kaarten) = verwacht, staan apart.
 - Niet in het spel gezien. ▶ Volgende: Robs eerste `/mh selftest` in Forever + Midnight lezen; daarna stap d (melding
   bij het oppakken van een upgrade), e (Zygor-wachter).
 

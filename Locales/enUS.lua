@@ -407,6 +407,7 @@ ns._mhLocales.enUS = {
 	SELFTEST_CONTROL_FAILED = "selftest: the test could not prove itself (a number that must exist, or must not, gave the wrong answer). This run proves nothing.",
 	SELFTEST_LIMIT = "This only says a number exists, not that it does the right thing. Quests and achievements are counted, not asked.",
 	SELFTEST_COMBAT = "selftest: not during a fight. Try again after it.",
+	SELFTEST_UNTRUSTED_FMT = "Not checked: %s. This game's answer for that could not be trusted (it said a made-up number exists).",
 	SELFTEST_BUSY = "selftest: already running.",
 	REPORT_TITLE = "Copy this, and tell us what happened",
 	REPORT_CHAT_HINT = "Copy the box and paste it on Discord or GitHub. \"It told me something wrong\" counts — an out-of-date explanation is a worse fault here than an error message.",

@@ -24,8 +24,11 @@ er is niets weggegooid.
 ## 🆕 11 nov — `/mh selftest`: MH loopt zijn eigen spelnummers na (stap c)
 
 Eerst `/reload`, buiten een gevecht. Doe het één keer in **Forever** en één keer in **Midnight**:
-- [ ] Typ `/mh selftest`. Je ziet "selftest: checking … game numbers…" en daarna één regel: "all … numbers exist" of
-      "… do not exist in this game: spell 123, …". Daaronder een grijze regel dat het alleen zegt óf iets bestaat.
+- [x] Forever, eerste run (Rob, 11 nov): liep, maar de item-controle faalde (Forever zei "ja" tegen een verzonnen item).
+      Gerepareerd: andere item-vraag, en een soort die faalt wordt alleen zelf overgeslagen.
+- [ ] Opnieuw, na `/reload`: `/mh selftest` in Forever én in Midnight. Je ziet "selftest: checking … game numbers…" en
+      daarna één regel: "all … numbers exist" of "… do not exist in this game: spell 123, …". Staat er "Not checked:
+      item …", dan vertrouwt hij ook de nieuwe item-vraag niet — zeg het me. Daarna `/reload` zodat ik het rapport lees.
 - [ ] Het scherm hapert niet (hij werkt in stukjes van 400).
 - [ ] In een gevecht: "selftest: not during a fight."
 - [ ] Doe daarna `/reload` en zeg het mij: dan lees ik het hele rapport uit je SavedVariables (`selftest`).

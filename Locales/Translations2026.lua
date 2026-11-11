@@ -20936,6 +20936,7 @@ if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	SELFTEST_CONTROL_FAILED = "Selbsttest: Der Test konnte sich selbst nicht beweisen (eine Nummer, die existieren muss oder nicht existieren darf, gab die falsche Antwort). Dieser Durchlauf beweist nichts.",
 	SELFTEST_LIMIT = "Das sagt nur, dass eine Nummer existiert, nicht dass sie das Richtige tut. Quests und Erfolge werden gezählt, nicht abgefragt.",
 	SELFTEST_COMBAT = "Selbsttest: nicht während eines Kampfes. Versuch es danach noch mal.",
+	SELFTEST_UNTRUSTED_FMT = "Nicht geprüft: %s. Der Antwort dieses Spiels darauf konnte man nicht trauen (es sagte, dass eine erfundene Nummer existiert).",
 	SELFTEST_BUSY = "Selbsttest: läuft schon.",
 }) end
 if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
@@ -20947,6 +20948,7 @@ if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	SELFTEST_CONTROL_FAILED = "autotest : le test n'a pas pu se prouver lui-même (un numéro qui doit exister, ou ne doit pas exister, a donné la mauvaise réponse). Ce passage ne prouve rien.",
 	SELFTEST_LIMIT = "Ceci dit seulement qu'un numéro existe, pas qu'il fait ce qu'il faut. Les quêtes et les hauts faits sont comptés, pas demandés.",
 	SELFTEST_COMBAT = "autotest : pas pendant un combat. Réessaie après.",
+	SELFTEST_UNTRUSTED_FMT = "Non vérifié : %s. La réponse de ce jeu pour ça n'était pas fiable (il a dit qu'un numéro inventé existe).",
 	SELFTEST_BUSY = "autotest : déjà en cours.",
 }) end
 if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
@@ -20958,6 +20960,7 @@ if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	SELFTEST_CONTROL_FAILED = "autoprueba: la prueba no pudo demostrarse a sí misma (un número que debe existir, o que no debe, dio la respuesta equivocada). Esta pasada no demuestra nada.",
 	SELFTEST_LIMIT = "Esto solo dice que un número existe, no que haga lo correcto. Las misiones y los logros se cuentan, no se consultan.",
 	SELFTEST_COMBAT = "autoprueba: no durante un combate. Inténtalo de nuevo después.",
+	SELFTEST_UNTRUSTED_FMT = "No comprobado: %s. No se podía fiar de la respuesta de este juego para eso (dijo que existe un número inventado).",
 	SELFTEST_BUSY = "autoprueba: ya está en marcha.",
 }) end
 if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
@@ -20969,6 +20972,7 @@ if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	SELFTEST_CONTROL_FAILED = "autoteste: o teste não conseguiu provar a si mesmo (um número que deve existir, ou não deve, deu a resposta errada). Esta rodada não prova nada.",
 	SELFTEST_LIMIT = "Isto só diz que um número existe, não que ele faz a coisa certa. Missões e conquistas são contadas, não consultadas.",
 	SELFTEST_COMBAT = "autoteste: não durante um combate. Tente de novo depois.",
+	SELFTEST_UNTRUSTED_FMT = "Não verificado: %s. Não dava para confiar na resposta deste jogo para isso (ele disse que um número inventado existe).",
 	SELFTEST_BUSY = "autoteste: já está rodando.",
 }) end
 if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
@@ -20980,6 +20984,7 @@ if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	SELFTEST_CONTROL_FAILED = "autotest: il test non è riuscito a dimostrare se stesso (un numero che deve esistere, o non deve, ha dato la risposta sbagliata). Questo giro non dimostra niente.",
 	SELFTEST_LIMIT = "Dice solo che un numero esiste, non che faccia la cosa giusta. Quest e imprese vengono contate, non chieste.",
 	SELFTEST_COMBAT = "autotest: non durante un combattimento. Riprova dopo.",
+	SELFTEST_UNTRUSTED_FMT = "Non controllato: %s. Non ci si poteva fidare della risposta di questo gioco su questo (ha detto che esiste un numero inventato).",
 	SELFTEST_BUSY = "autotest: già in corso.",
 }) end
 

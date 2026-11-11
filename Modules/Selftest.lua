@@ -8,7 +8,7 @@ local _, ns = ...
 	check (one list, not two). Per kind the client is asked with the call that answers "exists" without waiting for
 	data to load:
 	  spell        C_Spell.DoesSpellExist(id)
-	  item         C_Item.DoesItemExistByID(id)
+	  item         C_Item.GetItemInfoInstant(id) ~= nil  (DoesItemExistByID said yes to 99999999 in Forever, 11 Nov)
 	  map          C_Map.GetMapInfo(id) ~= nil
 	  quest        NOT asked: no call says "this quest does not exist" (a title can be nil while it loads). Counted only.
 	  achievement  NOT asked: GetAchievementInfo is not in Blizzard's API documentation. Counted only.
@@ -34,10 +34,17 @@ local function Ask(kind, id)
 		end
 		ok, res = pcall(C_Spell.DoesSpellExist, id)
 	elseif kind == "item" then
-		if not (C_Item and C_Item.DoesItemExistByID) then
+		-- 🔴 NOT C_Item.DoesItemExistByID: Rob's first run in Forever (11 Nov 2026, SavedVariables) had it answer TRUE
+		-- for the made-up 99999999, so the control failed. GetItemInfoInstant reads the client's own item table and
+		-- needs no server data (AFGELEID; the control in the same run proves or disproves it).
+		local fn = (C_Item and C_Item.GetItemInfoInstant) or GetItemInfoInstant
+		if not fn then
 			return nil
 		end
-		ok, res = pcall(C_Item.DoesItemExistByID, id)
+		ok, res = pcall(fn, id)
+		if ok then
+			res = res ~= nil
+		end
 	elseif kind == "map" then
 		if not (C_Map and C_Map.GetMapInfo) then
 			return nil
@@ -59,7 +66,7 @@ ns.SelftestAsk = Ask -- the offline check calls it
 local ASKED = { spell = true, item = true, map = true }
 
 --- The work list for this game: { kind, id, shared } for every number of the kinds we can ask.
-local function WorkList()
+local function WorkList(trusted)
 	local data = ns.SELFTEST_IDS or {}
 	local mine = ns.IS_FOREVER and "F" or "R"
 	local out, counted = {}, {}
@@ -69,7 +76,7 @@ local function WorkList()
 			if scope == mine or scope == "B" then
 				for id in tostring(list):gmatch("%d+") do
 					counted[kind] = counted[kind] + 1
-					if ASKED[kind] then
+					if ASKED[kind] and trusted[kind] then
 						out[#out + 1] = { kind = kind, id = tonumber(id), shared = (scope == "B") }
 					end
 				end
@@ -82,15 +89,22 @@ local function WorkList()
 	return out, counted
 end
 
+--- The proof per KIND (Rob, 11 Nov 2026, "Ja, repareer"): a kind whose control fails is not asked at all this run
+--- and is named on screen; the other kinds still count. Before, one bad kind (items in Forever) threw away the run.
 local function Control()
-	local res = { ok = true, lines = {} }
+	local res = { ok = true, lines = {}, trusted = {}, failed = {} }
 	for kind, id in pairs(KNOWN) do
 		local yes, no = Ask(kind, id), Ask(kind, IMPOSSIBLE)
 		local good = (yes == true) and (no == false)
 		res.lines[#res.lines + 1] = ("%s: %d exists=%s, %d exists=%s %s"):format(kind, id, tostring(yes), IMPOSSIBLE,
 			tostring(no), good and "OK" or "FAILED")
-		res.ok = res.ok and good
+		res.trusted[kind] = good
+		if not good then
+			res.ok = false
+			res.failed[#res.failed + 1] = kind
+		end
 	end
+	table.sort(res.failed)
 	return res
 end
 
@@ -110,7 +124,11 @@ local function Finish(report)
 		n = n + #list
 	end
 	local line
-	if not report.control.ok then
+	local anyTrusted = false
+	for _, good in pairs(report.control.trusted) do
+		anyTrusted = anyTrusted or good
+	end
+	if not anyTrusted then
 		line = ns:L("SELFTEST_CONTROL_FAILED")
 	elseif n == 0 then
 		line = ns:L("SELFTEST_ALL_FMT"):format(report.checked)
@@ -126,6 +144,9 @@ local function Finish(report)
 		line = ns:L("SELFTEST_MISSING_FMT"):format(n, report.checked, table.concat(parts, "; "))
 	end
 	print(PREFIX .. line)
+	if anyTrusted and #report.control.failed > 0 then
+		print("  " .. ns:L("SELFTEST_UNTRUSTED_FMT"):format(table.concat(report.control.failed, ", ")))
+	end
 	local shared = 0
 	for _, list in pairs(report.sharedMissing) do
 		shared = shared + #list
@@ -151,13 +172,14 @@ function ns.RunSelftest()
 		return
 	end
 	running = true
-	local work, counted = WorkList()
+	local control = Control()
+	local work, counted = WorkList(control.trusted)
 	local build = GetBuildInfo and select(2, GetBuildInfo()) or "?"
 	local report = {
 		at = time and time() or nil, game = ns.IS_FOREVER and "forever" or "retail", build = build,
 		listed = counted, checked = 0, unreadable = 0, missing = {}, sharedMissing = {}, unreadableIds = {},
 		notAsked = "quest and achievement: no call says 'does not exist' (counted in listed only)",
-		control = Control(), t0 = type(debugprofilestop) == "function" and debugprofilestop() or nil,
+		control = control, t0 = type(debugprofilestop) == "function" and debugprofilestop() or nil,
 	}
 	for kind in pairs(ASKED) do
 		report.missing[kind], report.sharedMissing[kind] = {}, {}
