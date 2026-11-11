@@ -25,17 +25,22 @@ er is niets weggegooid.
 
 Eerst `/reload`. In Forever:
 - [ ] Muis op **Stringy Wolf Meat** of **Meaty Bat Wing** (tas of verkoper): onderaan de tooltip "MH: Used for Cooking".
-      Groen met "(you have it)" als je Cooking hebt; grijs zonder als je het niet hebt.
+      Groen met "(you have it)" als je Cooking hebt; grijs zonder als je het niet hebt. 👀 Rob, 11 nov: Stringy Wolf Meat
+      groen "MH: Used for Cooking (you have it)". Nog niet gezien: de grijze regel (character zonder het beroep).
 - [ ] Muis op **Linen Cloth**: meerdere beroepen achter elkaar, bv. "MH: Used for Blacksmithing, Engineering, Tailoring,
       First Aid (you have First Aid)". 👀 Rob, 11 nov (screenshot, Ima Pallie, Baganator-tas): groen "MH: Used for
       Blacksmithing, Engineering, Tailoring, First Aid (you have Blacksmithing, First Aid)". De gewone tooltip zegt
       zelf "Crafting Reagent" (blauw) maar niet waarvoor: onze regel leest dus niet dubbel.
 - [ ] Muis op **Copper Ore**: "MH: Used for Mining" (omsmelten).
-- [ ] Muis op iets wat geen ingrediënt is (Hearthstone, gear): géén "Used for"-regel.
+- [ ] Muis op iets wat geen ingrediënt is (Hearthstone, gear): géén "Used for"-regel. 👀 Rob, 11 nov: Hearthstone zonder
+      regel; `/mh usedfor` zei "item 6948: not an ingredient in our list".
 - [x] ❓ Zegt de gewone tooltip zelf al "Crafting Reagent"? Ja (GEZIEN bij Linen Cloth, 11 nov), maar niet waarvoor.
       Onze regel voegt het beroep toe; geen dubbele regel.
 - [ ] `/mh usedfor` → aan/uit, hoeveel items in de lijst (524), welke beroepen de client van je ziet (met "line"-nummer:
       dat meet meteen of de beroepsnummers kloppen), en wat hij bij het laatste item besloot. `/mh usedfor off` / `on`.
+      👀 Rob, 11 nov: "list: 524 items, Forever build 1.60.1.70888 … FIRSTAID (line 129), COOKING (line 185),
+      BLACKSMITHING (line 164), MINING (line 186)". Daarmee zijn die vier skill-line-nummers GEMETEN in de client.
+      Nog niet gezien: `off` / `on`.
 
 ## 🆕 11 nov — Melding: je pakte net een upgrade op (stap d, Forever én Midnight)
 

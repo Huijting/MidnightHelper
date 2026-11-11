@@ -859,7 +859,8 @@ end
 --------------------------------------------------------------------------------
 
 -- key, skill line id, English name. The ids are the ones Zygor's Forever Profession.lua uses with GetProfessionInfo
--- (AFGELEID until /mh trainer check prints them from the client).
+-- (AFGELEID until /mh trainer check prints them from the client). GEMETEN 11 Nov 2026 for 129 First Aid, 185 Cooking,
+-- 164 Blacksmithing and 186 Mining: Rob's /mh usedfor printed them from GetProfessionInfo. The other eight: still AFGELEID.
 local PROFS = {
 	{ "ALCHEMY", 171, "Alchemy" }, { "BLACKSMITHING", 164, "Blacksmithing" }, { "ENCHANTING", 333, "Enchanting" },
 	{ "ENGINEERING", 202, "Engineering" }, { "HERBALISM", 182, "Herbalism" }, { "LEATHERWORKING", 165, "Leatherworking" },
