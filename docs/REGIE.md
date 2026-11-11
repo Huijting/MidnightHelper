@@ -27,7 +27,7 @@ De regisseur vervangt dit blok elke ronde door het nieuwe verslag. Eén verslag,
 | **Cisca** | test grote dingen als beginner | — | via Rob |
 | **bouwchat** | bouwt de addon, Midnight en Forever | de addon-repo | heet elke dag anders ("Bouwchat DD-MM"); zoek op naam |
 | **site-chat** | bouwt de site | de site-repo (privé) | heet elke dag anders ("Site chat DD-MM") |
-| **regisseur** | overziet, meet, meldt, schrijft opdrachten | alleen dit bestand en het plan | nu: de brainstorm-sessie |
+| **regisseur** | overziet, meet, meldt, schrijft opdrachten | alleen dit bestand en het plan | cloud: routine "MH regie" (06:20). Pc: recept `/regisseur` |
 
 **Routines in de cloud** (GEMETEN 11 nov in de lijst van routines; tijden in Robs tijd):
 
@@ -76,7 +76,7 @@ sinds 11 nov **`regisseur`** (`/regisseur` of "doe de regie-ronde"; doet hoofdst
 | 3 | Controles C1, C3, C5 | C1 en C3 ✅ in de lint. C5 wacht op een vensterlijst. |
 | 4 | Controles C2 en C4 | ✅ gebouwd (`tools/data_check.py`). C4: 65 → 3 namen over (commit `f08366b`, Robs ja). |
 | 5 | Nachtcontrole en ideeënbus | ✅ draaien. Nachtcontrole 11 nov: C1 en C2 schoon. Ideeënbus: nog geen run (eerste zo 15 nov). |
-| 5b | **De regisseur** (deel 8) | uitgewerkt 11 nov, niets gebouwd |
+| 5b | **De regisseur** (deel 8) | ✅ gebouwd 11 nov (`f34b15f`): routine en recept. Proefrun `c24bbe4` vond de drie testpunten. |
 | 6 | Recepten | niet begonnen |
 | 7 | `/mh selftest` + vensterlijst | niet begonnen |
 | 8–9 | Nep-spel | niet begonnen |
@@ -89,7 +89,7 @@ sinds 11 nov **`regisseur`** (`/regisseur` of "doe de regie-ronde"; doet hoofdst
 3. **Zygor-wachter**, zoals bij HandyNotes: ja of nee?
 4. **De vensterlijst:** ja, nee of later? (Advies: later, samen met de zelftest.)
 5. **De ideeënlijst:** ja, nee of later per regel.
-6. **De regisseur bouwen** (deel 8): ja of nee, en in welke vorm.
+6. **Melding op de telefoon** van de regisseur: alleen als er iets is, elke dag, of niet?
 7. **Drie voorstellen voor de site-kant** (staan in de privé site-repo, tak `claude/werkwijze-notitie`).
 
 ## 5. Loopt scheef
@@ -99,6 +99,7 @@ sinds 11 nov **`regisseur`** (`/regisseur` of "doe de regie-ronde"; doet hoofdst
 | Enhancement-Shaman-flip (Mental Dexterity) in Forever staat **averechts** volgens de content-wachter (`CONTENT_WATCH.md` 11 nov) | 11 nov, wachter-claim, door mij niet nagemeten | bouwchat: in de code nameten, dan beslissen |
 | `CLAUDE.md` is **540 regels** en groeit (521 → 536 → 540 in drie dagen) | 11 nov | plan deel 7; nog niet begonnen |
 | Het overdrachtsbriefje van de site-chat (`drafts/SITE_HANDOFF.md`) is 1696 regels, zonder grens | 11 nov, op `main` van de site-repo | voorstel ligt bij Rob |
+| **Blinde vlek:** de site-chat pusht alleen met Robs ja. De cloud ziet de site-repo dus zoals bij de laatste push (nu: 10 nov 05:33). `drafts/BOUW_VRAAG.md` staat er nog niet; op de pc wel (volgens de bouwchat). De map `drafts/` wordt wél gepusht (24 bestanden). | 11 nov, GEMETEN op `origin/main` van de site-repo | Rob: de wachtende site-commits pushen, of dit zo laten; het recept op de pc ziet de vragen wel |
 | De site-repo heeft geen vast regelbestand | 10 nov | voorstel ligt bij Rob |
 | Geen vaste controle op de handgeschreven site-teksten | 10 nov, volgens de site-chat | voorstel ligt bij Rob |
 
@@ -119,7 +120,8 @@ Dit is de hele opdracht. Het recept op de pc en de dagelijkse wachter in de clou
 **De stappen**
 
 1. Beide repo's ophalen (de site-repo als die er is; zo niet, zeg dat). Lees wat er sinds het vorige verslag op
-   `main` kwam: `git log` vanaf de datum in blok 0.
+   `main` kwam: `git log` vanaf de datum in blok 0. Noteer van de site-repo de datum van de laatste push: de
+   site-chat pusht alleen met Robs ja, dus wat jij ziet kan dagen oud zijn. Zeg in je verslag hoe oud.
 2. De zes wachter-bestanden: heeft elk een regel van vandaag (de ideeënbus: van afgelopen zondag)? Geen regel =
    "niet gedraaid", nooit "niets gevonden". Staat er een `[MOET GEFIKST]`, `[RAAKT ONS]` of "nakijken", dan is dat nieuws.
 3. Slaat een wachter iets bewust over dat inmiddels wél van ons is? Lees wat ze "overgeslagen" noemen.
@@ -131,8 +133,14 @@ Dit is de hele opdracht. Het recept op de pc en de dagelijkse wachter in de clou
    - Klopt "staat op CurseForge" met de nieuwste tag en de versie in de `.toc`?
    - Schreef iemand in een bestand dat volgens tabel 2 niet van hem is? (`git log` per bestand.)
    - Staat er iets in "Voorstellen van de wachter" dat nog niet verplaatst is?
-6. Tabel 3 (stand van het plan), lijst 4 (wacht op Rob) en tabel 5 (loopt scheef) bijwerken. Een punt gaat pas weg
-   als je in de bron gemeten hebt dat het af is.
+6. Tabel 3, lijst 4 en tabel 5 bijwerken. **Loop elke bestaande regel één voor één na**, niet alleen de nieuwe:
+   - Leg hem naast de commits sinds het vorige verslag (`git log`) en naast de bron zelf (bestaat het bestand, de
+     routine in tabel 1, de regel in de code?). Is het gebouwd of beslist, dan verandert de regel of gaat hij weg.
+   - Een punt gaat pas weg als je in de bron gemeten hebt dat het af is. Een punt blijft pas staan als je gemeten
+     hebt dat het nog open is. "Stond er gisteren ook" is geen meting.
+   - Tegencontrole: noem in je slotbericht één regel die je deze ronde als af hebt herkend, of zeg dat er geen was
+     en welke commits je daarvoor gelezen hebt. Op 11 nov liet de eerste run "de regisseur: niets gebouwd" staan
+     terwijl zijn eigen ID al in tabel 1 stond.
 7. Het verslag in blok 0 zetten, in deze vorm, hooguit zes regels:
    `- [JJJJ-MM-DD] 🎬 **Regie** — Raakt Rob: … Scheef: … Wacht op Rob: <n> punten. Niet gelezen: …`
    Niets te melden? Schrijf dat, met wat je gelezen hebt.
@@ -143,4 +151,5 @@ Dit is de hele opdracht. Het recept op de pc en de dagelijkse wachter in de clou
 
 - de helpers in `AddOns/.claude/agents/` en de recepten: bestaan ze nog, en zijn er nieuwe? Werk tabel 1 bij;
 - wat de bouwchat en de site-chat lokaal hebben staan en nog niet gepusht (alleen `git status` en `git log`, niets wijzigen);
-- het vragenbestand van de site-chat (`drafts/BOUW_VRAAG.md`): staat er een vraag open?
+- het vragenbestand van de site-chat (`drafts/BOUW_VRAAG.md`): staat er een vraag open? De cloud ziet dit bestand
+  pas na een push van de site-chat; tot dan ben jij de enige die het leest.
