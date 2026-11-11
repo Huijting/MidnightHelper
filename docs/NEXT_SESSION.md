@@ -1,5 +1,19 @@
 # Midnight Helper — waar we staan
 
+## ▶ Open voor 12 nov (bouwchat 11-11 sloot af met /nieuwe-chat)
+
+1. **Groepsmeting Forever:** Rob doet `/mh partytest` in een groep (2 is genoeg), vecht een paar keer, `/reload`. Lees
+   `ns.db.partyProbe` in `E:\World of Warcraft\_forever_\WTF\Account\JOEYWHATEVER\SavedVariables\MidnightHelper.lua`
+   (blok `fights`). Daarna: plan voor PartyTargets in Forever ("midden") aan Rob voorleggen, pas bouwen op zijn ja.
+2. **Midnight testen:** "Used for"-regel (TESTLIJST bovenaan); vraag of de gewone Midnight-tooltip het beroep al noemt.
+3. **Forever testen:** Purify-macro, Hammer of Justice zonder muis-vijand → target, grijze "Used for", Copper Ore.
+4. **Rob vragen:** zijn de upgrade-melding en de groene gear-regel (door hem gezien in Forever) af?
+5. Nog open sinds 5.1.0: buff-zin in Midnight en in gevecht, "(loading...)" in de beroepstip.
+6. Aparte vraag voor later: krijgt het Midnight-paneel ook "stop-spell op het doelwit" (nu purge)?
+7. Sinds 5.1.0 op main en niet uit: "Used for" (beide spellen), Paladin-macro's, `/mh partytest`, de stadsnaam-fix es.
+   Een release alleen op Robs go. CF-plaatjes staan erop (Rob, 11 nov); of hij de nieuwe CF-beschrijving en de
+   5.1.0-tekst al plakte: NIET GEMETEN, vragen.
+
 ## 🆕 11 nov — Forever: Paladin-macro's Hammer of Justice + Purify (Rob: "Ja, alleen klein")
 
 - `ForeverMacros.lua` CLASS_MACROS: `hammer` (853, level 8, `[@mouseover,harm,nodead][@focus,harm,nodead][]`) en `purify`
