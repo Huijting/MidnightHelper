@@ -1,5 +1,15 @@
 # Midnight Helper — waar we staan
 
+## 🆕 11 nov — Stadsnamen = clientnaam (Rob: "volgen alles zoals het originele Blizzard-spel het geeft")
+
+- Melding site-chat: de "Ironforge" en "Ventormenta" in de packs. GEMETEN met `gamedata db2 AreaTable` (10 plaatsen,
+  8 locales, Forever 1.60.1.70888 én retail 12.1.5.70783).
+- 🔑 **De Forever-client is anders dan retail.** Forever deDE zegt zelf *Ironforge*, *Undercity*, *Thunder Bluff*
+  (retail: Eisenschmiede, Unterstadt, Donnerfels); Forever frFR *Thunder Bluff*; Forever itIT alles Engels; Forever ruRU
+  *Дарнасс* (retail *Дарнас*). De Forever-routezinnen (`FWEAP_ROUTE_*`) klopten dus al; niets veranderd.
+- Wel gerepareerd: esES/esMX retail-zinnen zeiden "Ventormenta", de client zegt "Ciudad de Ventormenta" (beide spellen).
+  11 plekken: `Translations2026.lua` (LVL1080_1, 5× MOUNTRUN_HOW_*), `esMX.lua` (4), `Codex.lua` (1). Lint 0 HARD.
+
 ## 🆕 11 nov — CurseForge-plaatjes: `tools/cf_media.py` (Rob: "Ja, bouw het")
 
 - Opdracht van de sparring-chat: hooguit 4-6 echte screenshots op één vaste ComfyUI-achtergrond (Rob koos "Nummer 2").
