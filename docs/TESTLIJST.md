@@ -27,10 +27,13 @@ Eerst `/reload`. In Forever:
 - [ ] Muis op **Stringy Wolf Meat** of **Meaty Bat Wing** (tas of verkoper): onderaan de tooltip "MH: Used for Cooking".
       Groen met "(you have it)" als je Cooking hebt; grijs zonder als je het niet hebt.
 - [ ] Muis op **Linen Cloth**: meerdere beroepen achter elkaar, bv. "MH: Used for Blacksmithing, Engineering, Tailoring,
-      First Aid (you have First Aid)".
+      First Aid (you have First Aid)". 👀 Rob, 11 nov (screenshot, Ima Pallie, Baganator-tas): groen "MH: Used for
+      Blacksmithing, Engineering, Tailoring, First Aid (you have Blacksmithing, First Aid)". De gewone tooltip zegt
+      zelf "Crafting Reagent" (blauw) maar niet waarvoor: onze regel leest dus niet dubbel.
 - [ ] Muis op **Copper Ore**: "MH: Used for Mining" (omsmelten).
 - [ ] Muis op iets wat geen ingrediënt is (Hearthstone, gear): géén "Used for"-regel.
-- [ ] ❓ Zegt de gewone tooltip van Stringy Wolf Meat zelf al iets als "Crafting Reagent"? Zo ja: leest onze regel dubbel?
+- [x] ❓ Zegt de gewone tooltip zelf al "Crafting Reagent"? Ja (GEZIEN bij Linen Cloth, 11 nov), maar niet waarvoor.
+      Onze regel voegt het beroep toe; geen dubbele regel.
 - [ ] `/mh usedfor` → aan/uit, hoeveel items in de lijst (524), welke beroepen de client van je ziet (met "line"-nummer:
       dat meet meteen of de beroepsnummers kloppen), en wat hij bij het laatste item besloot. `/mh usedfor off` / `on`.
 
