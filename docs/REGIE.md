@@ -10,10 +10,11 @@ leest dit eerst en werkt het aan het eind bij. Plan: `docs/PLAN_WERKWIJZE_2026-1
 
 ## 0. Laatste verslag
 
-- [2026-11-11] 🎬 **Regie** (cloud-ronde 08:15) — Raakt Rob: niets nieuws. Af herkend: de Enhancement-Shaman-tegenspraak is gefikst
-  (`b25650f`, GEMETEN in `ForeverMainStats.lua:32`) en de telefoonmelding is beslist (`271ef05`). Alle zes wachters hebben een regel van
-  vandaag (nul `[MOET GEFIKST]`). Scheef: `CLAUDE.md` 540 regels (gelijk), site-overdracht 1798 regels (was 1696). Site-repo laatst gepusht
-  11 nov 09:38 (0 uur oud); `BOUW_VRAAG.md` staat er nu, 0 open vragen. Wacht op Rob: 6 punten. Niet gelezen: de pc, CurseForge, mail.
+- [2026-11-11] 🎬 **Regie** (cloud-ronde, avond) — Raakt Rob: `docs/NEXT_SESSION.md` is 1528 regels, 28 over de grens van 1500 (splitsen vóór er iets bij komt).
+  Af herkend: Zygor-wachter (Rob ja; `174a79e`, `tools/zygor_watch.py`), `/mh selftest` + vensterlijst C5 (`c9d3e66`; Rob: schoon, 1093 gecontroleerd, `41675dd`),
+  release 5.1.0 (tag `v5.1.0`, `.toc` 5.1.0, SITE_SEIN "staat op CurseForge"). Alle zes wachters hebben een regel van vandaag; nul `[MOET GEFIKST]` in de vandaag-regels.
+  Scheef: `CLAUDE.md` 311 regels (was 540), site-overdracht 83 regels (was 1798). Site-repo laatst gepusht 11 nov 20:42 (vers); 0 open vragen. Wacht op Rob: 4 punten.
+  Niet gelezen: de pc, CurseForge, mail.
 
 De regisseur vervangt dit blok elke ronde door het nieuwe verslag. Eén verslag, niet een logboek: de vorige staat in git.
 
@@ -65,7 +66,7 @@ sinds 11 nov **`regisseur`** (`/regisseur` of "doe de regie-ronde"; doet hoofdst
 | `docs/WATCHER_FOREVER.md` | bouwchat, alleen met Robs ja | — |
 | `CLAUDE.md` | bouwchat | geen (zie "loopt scheef") |
 | `docs/PLAN_WERKWIJZE_2026-11-10.md`, `docs/REGIE.md` | regisseur | 200 regels voor dit bestand |
-| site-repo: overdrachtsbriefje, `drafts/BOUW_VRAAG.md` | site-chat | geen (zie "loopt scheef") |
+| site-repo: overdrachtsbriefje, `drafts/BOUW_VRAAG.md`, `CLAUDE.md` | site-chat | 200 regels (volgens site-`CLAUDE.md`) |
 
 ## 3. Stand van het plan
 
@@ -73,12 +74,12 @@ sinds 11 nov **`regisseur`** (`/regisseur` of "doe de regie-ronde"; doet hoofdst
 |---|---|---|
 | 1 | Toets (6 vragen) en ideeënlijst | ✅ af |
 | 2 | Prikbord en drie vaste woorden | ✅ af (`docs/SITE_SEIN.md`) |
-| 3 | Controles C1, C3, C5 | C1 en C3 ✅ in de lint. C5 wacht op een vensterlijst. |
+| 3 | Controles C1, C3, C5 | C1 en C3 ✅ in de lint. C5 ✅ gebouwd (`c9d3e66`, in `/mh selftest`). |
 | 4 | Controles C2 en C4 | ✅ gebouwd (`tools/data_check.py`). C4: 65 → 3 namen over (commit `f08366b`, Robs ja). |
 | 5 | Nachtcontrole en ideeënbus | ✅ draaien. Nachtcontrole 11 nov: C1 en C2 schoon. Ideeënbus: nog geen run (eerste zo 15 nov). |
 | 5b | **De regisseur** (deel 8) | ✅ gebouwd 11 nov (`f34b15f`): routine en recept. Proefrun `c24bbe4` vond de drie testpunten. |
 | 6 | Recepten | niet begonnen |
-| 7 | `/mh selftest` + vensterlijst | niet begonnen |
+| 7 | `/mh selftest` + vensterlijst | ✅ gebouwd (`c9d3e66`); Robs selftest in Midnight schoon (`41675dd`). Forever-kant niet gemeten. |
 | 8–9 | Nep-spel | niet begonnen |
 | 10 | Regels worden controles | niet begonnen |
 
@@ -86,19 +87,17 @@ sinds 11 nov **`regisseur`** (`/regisseur` of "doe de regie-ronde"; doet hoofdst
 
 1. **Testen in Forever:** de reisplanner, de "loading"-fix bij de hengel-tip en de Enhancement-Shaman-tip (staat in `TESTLIJST.md`).
 2. **De laatste 3 namen** (controle C4, was 65): de bouwchat heeft er 62 gedaan; nakijken wat blijft.
-3. **Zygor-wachter**, zoals bij HandyNotes: ja of nee?
-4. **De vensterlijst:** ja, nee of later? (Advies: later, samen met de zelftest.)
-5. **De ideeënlijst:** ja, nee of later per regel.
-6. **Drie voorstellen voor de site-kant** (staan in de privé site-repo, tak `claude/werkwijze-notitie`).
+3. **De ideeënlijst:** ja, nee of later per regel.
+4. **Drie voorstellen voor de site-kant** (staan in de privé site-repo, tak `claude/werkwijze-notitie`).
 
 ## 5. Loopt scheef
 
 | wat | gemeten | wie moet iets doen |
 |---|---|---|
-| `CLAUDE.md` is **540 regels** en groeit (521 → 536 → 540 in drie dagen) | 11 nov | plan deel 7; nog niet begonnen |
-| Het overdrachtsbriefje van de site-chat (`drafts/SITE_HANDOFF.md`) is 1696 regels, zonder grens | 11 nov, 1798 regels (was 1696 eerder die dag), `main` van de site-repo | voorstel ligt bij Rob |
-| **Blinde vlek:** de site-chat pusht alleen met Robs ja; de cloud ziet de site-repo zoals bij de laatste push (nu: 11 nov 09:38, vers). `drafts/BOUW_VRAAG.md` staat er nu (16 regels, 0 open vragen). Wat lokaal nog niet gepusht is, zie ik niet. | 11 nov, GEMETEN op `origin/main` van de site-repo | niemand; alleen het pc-recept ziet lokale commits |
-| De site-repo heeft geen vast regelbestand | 10 nov | voorstel ligt bij Rob |
+| `docs/NEXT_SESSION.md` is **1528 regels**, grens 1500 | 11 nov, GEMETEN met `wc -l` | bouwchat: splitsen (`split_handoff --resplit`) vóór je er iets aan toevoegt |
+| `CLAUDE.md` is 311 regels (was 540 eerder die dag), geen grens | 11 nov, GEMETEN | niemand; daalde, blijf meten |
+| Overdrachtsbriefje site (`drafts/SITE_HANDOFF.md`) is 83 regels (was 1798); site-`CLAUDE.md` noemt grens 200 | 11 nov, GEMETEN op `main` van de site-repo | niemand |
+| **Blinde vlek:** de site-chat pusht alleen met Robs ja; de cloud ziet de site-repo zoals bij de laatste push (nu: 11 nov 20:42, vers). `drafts/BOUW_VRAAG.md` staat er nu (31 regels, 0 open vragen). Wat lokaal nog niet gepusht is, zie ik niet. | 11 nov, GEMETEN op `origin/main` van de site-repo | niemand; alleen het pc-recept ziet lokale commits |
 | Geen vaste controle op de handgeschreven site-teksten | 10 nov, volgens de site-chat | voorstel ligt bij Rob |
 
 ## 6. De ronde — wat de regisseur elke keer doet
