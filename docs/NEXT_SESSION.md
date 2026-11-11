@@ -44,6 +44,16 @@
     ✅ Opgelost (Rob: "Ja, koppel hem"): `Gethe/wow-ui-source` als tweede bron aan de routine, sparse checkout alleen
     `Interface/AddOns/Blizzard_APIDocumentationGenerated`. Tweede proefrun: cse_01AezjgmBywxYEbFVTpsUgQr.
     📌 Les: elke cloud-routine die een andere GitHub-repo leest, moet die repo als bron koppelen.
+    ✅ GEMETEN in `docs/NACHTCONTROLE.md`: de tweede proefrun (10 nov) én de geplande run van 11 nov draaien C1 en C2
+    allebei, controles OK, 0 nakijken; snapshot in de repo actueel.
+
+### ▶ Open na 10 nov (volgorde voor de volgende bouwchat)
+1. Robs test van de **Forever-reisplanner** + "(loading...)"-fix (TESTLIJST 10 nov avond); daarna IDEEEN.md-regel → Af.
+2. **C4: 65 namen** (`run data_check --c4 --all`): Rob kiest welke echte we laten herschrijven (mh-writer, namen meten).
+3. **Zygor-vergelijking**: Zygor werkte 10 nov 20:23 de MID-mounts en -achievements bij (geen oude kopie → diff onbekend).
+   Voorstel stond open: een Zygor-wachter zoals handynotes_watch + onze schatten/mounts naast Zygor leggen. Rob koos nog niet.
+4. Maandag: eerste **ideeënbus**-voorstellen (zondag 15 nov) verplaatsen naar Open/Nee.
+5. Later: C5 (vensterregister) samen met `/mh selftest`; plan deel 4/6.
   - C5 later met /mh selftest. De 65 C4-namen wachten op Robs keuze.
 
 ## 💡 10 nov — brainstorm werkwijze (cloud-sessie, tak `claude/midnight-helpen-brainstorm-d18bs9`)
