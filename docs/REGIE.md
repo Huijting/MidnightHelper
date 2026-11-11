@@ -10,10 +10,10 @@ leest dit eerst en werkt het aan het eind bij. Plan: `docs/PLAN_WERKWIJZE_2026-1
 
 ## 0. Laatste verslag
 
-- [2026-11-11] 🎬 **Regie** (cloud-ronde, 2e van de dag) — Raakt Rob: de Forever-inhaalronde van de vier wachters heeft nu gelopen
-  (8:14–8:18 UTC, nul `[MOET GEFIKST]`), met één echte tegenspraak: onze Enhancement-Shaman-flip bij Mental Dexterity in Forever
-  staat volgens de content-wachter averechts (uit zoekresultaten, niet uit de ruwe pagina). Scheef: `CLAUDE.md` 540 regels.
-  Wacht op Rob: 7 punten (lijst 4). Niet gelezen: de pc (geen toegang), CurseForge, `drafts/BOUW_VRAAG.md` (bestaat niet in de site-repo).
+- [2026-11-11] 🎬 **Regie** (cloud-ronde 08:15) — Raakt Rob: niets nieuws. Af herkend: de Enhancement-Shaman-tegenspraak is gefikst
+  (`b25650f`, GEMETEN in `ForeverMainStats.lua:32`) en de telefoonmelding is beslist (`271ef05`). Alle zes wachters hebben een regel van
+  vandaag (nul `[MOET GEFIKST]`). Scheef: `CLAUDE.md` 540 regels (gelijk), site-overdracht 1798 regels (was 1696). Site-repo laatst gepusht
+  11 nov 09:38 (0 uur oud); `BOUW_VRAAG.md` staat er nu, 0 open vragen. Wacht op Rob: 6 punten. Niet gelezen: de pc, CurseForge, mail.
 
 De regisseur vervangt dit blok elke ronde door het nieuwe verslag. Eén verslag, niet een logboek: de vorige staat in git.
 
@@ -84,22 +84,20 @@ sinds 11 nov **`regisseur`** (`/regisseur` of "doe de regie-ronde"; doet hoofdst
 
 ## 4. Wacht op Rob
 
-1. **Testen in Forever:** de reisplanner en de "loading"-fix bij de hengel-tip.
+1. **Testen in Forever:** de reisplanner, de "loading"-fix bij de hengel-tip en de Enhancement-Shaman-tip (staat in `TESTLIJST.md`).
 2. **De laatste 3 namen** (controle C4, was 65): de bouwchat heeft er 62 gedaan; nakijken wat blijft.
 3. **Zygor-wachter**, zoals bij HandyNotes: ja of nee?
 4. **De vensterlijst:** ja, nee of later? (Advies: later, samen met de zelftest.)
 5. **De ideeënlijst:** ja, nee of later per regel.
-6. **Melding op de telefoon** van de regisseur: alleen als er iets is, elke dag, of niet?
-7. **Drie voorstellen voor de site-kant** (staan in de privé site-repo, tak `claude/werkwijze-notitie`).
+6. **Drie voorstellen voor de site-kant** (staan in de privé site-repo, tak `claude/werkwijze-notitie`).
 
 ## 5. Loopt scheef
 
 | wat | gemeten | wie moet iets doen |
 |---|---|---|
-| Enhancement-Shaman-flip (Mental Dexterity) in Forever staat **averechts** volgens de content-wachter (`CONTENT_WATCH.md` 11 nov) | 11 nov, wachter-claim, door mij niet nagemeten | bouwchat: in de code nameten, dan beslissen |
 | `CLAUDE.md` is **540 regels** en groeit (521 → 536 → 540 in drie dagen) | 11 nov | plan deel 7; nog niet begonnen |
-| Het overdrachtsbriefje van de site-chat (`drafts/SITE_HANDOFF.md`) is 1696 regels, zonder grens | 11 nov, op `main` van de site-repo | voorstel ligt bij Rob |
-| **Blinde vlek:** de site-chat pusht alleen met Robs ja. De cloud ziet de site-repo dus zoals bij de laatste push (nu: 10 nov 05:33). `drafts/BOUW_VRAAG.md` staat er nog niet; op de pc wel (volgens de bouwchat). De map `drafts/` wordt wél gepusht (24 bestanden). | 11 nov, GEMETEN op `origin/main` van de site-repo | Rob: de wachtende site-commits pushen, of dit zo laten; het recept op de pc ziet de vragen wel |
+| Het overdrachtsbriefje van de site-chat (`drafts/SITE_HANDOFF.md`) is 1696 regels, zonder grens | 11 nov, 1798 regels (was 1696 eerder die dag), `main` van de site-repo | voorstel ligt bij Rob |
+| **Blinde vlek:** de site-chat pusht alleen met Robs ja; de cloud ziet de site-repo zoals bij de laatste push (nu: 11 nov 09:38, vers). `drafts/BOUW_VRAAG.md` staat er nu (16 regels, 0 open vragen). Wat lokaal nog niet gepusht is, zie ik niet. | 11 nov, GEMETEN op `origin/main` van de site-repo | niemand; alleen het pc-recept ziet lokale commits |
 | De site-repo heeft geen vast regelbestand | 10 nov | voorstel ligt bij Rob |
 | Geen vaste controle op de handgeschreven site-teksten | 10 nov, volgens de site-chat | voorstel ligt bij Rob |
 
