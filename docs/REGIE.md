@@ -27,7 +27,7 @@ De regisseur vervangt dit blok elke ronde door het nieuwe verslag. Eén verslag,
 | **Cisca** | test grote dingen als beginner | — | via Rob |
 | **bouwchat** | bouwt de addon, Midnight en Forever | de addon-repo | heet elke dag anders ("Bouwchat DD-MM"); zoek op naam |
 | **site-chat** | bouwt de site | de site-repo (privé) | heet elke dag anders ("Site chat DD-MM") |
-| **regisseur** | overziet, meet, meldt, schrijft opdrachten | alleen dit bestand en het plan | cloud: routine "MH regie" (06:20). Pc: recept `/regisseur` |
+| **regisseur** | overziet, meet, meldt, schrijft opdrachten | alleen dit bestand en het plan | cloud: routine "MH regie" (08:15). Pc: recept `/regisseur` |
 
 **Routines in de cloud** (GEMETEN 11 nov in de lijst van routines; tijden in Robs tijd):
 
@@ -39,7 +39,7 @@ De regisseur vervangt dit blok elke ronde door het nieuwe verslag. Eén verslag,
 | 05:50 | data-wachter | `trig_015Bz5PbUNrgr6x7KTiSXVqe` | `docs/PTR_12.0.7_DATA.md` |
 | 06:00 | content-wachter | `trig_01JYW9gqzFNe8MkY3x3tQzh6` | `docs/CONTENT_WATCH.md` |
 | zo 08:00 | MH ideeënbus | `trig_0168w6QPWBbUob5hYf5HXFWz` | het blok onderaan `docs/IDEEEN.md` |
-| 06:20 | **MH regie — dagelijks overzicht** (de regisseur) | `trig_017LQWJNvptK8hWLuByuEDzg` | `docs/REGIE.md` |
+| 08:15 | **MH regie — dagelijks overzicht** (de regisseur; telefoonmelding alleen bij nieuws, Rob 11 nov: niet als hij slaapt) | `trig_017LQWJNvptK8hWLuByuEDzg` | `docs/REGIE.md` |
 | 05:30 | site-wachter | (site-kant) | niets; alleen een verslag voor de site-chat |
 | 06:30 en 19:30 | "In the game now" | (site-kant) | de site-repo, één blok op de homepage |
 

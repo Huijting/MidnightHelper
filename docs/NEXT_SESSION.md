@@ -17,7 +17,12 @@
 - Recept `C:\Users\RobHu\.claude\skills\regisseur\SKILL.md`. Routine **MH regie** `trig_017LQWJNvptK8hWLuByuEDzg`,
   06:20 Parijs, Sonnet 5.5, omgeving "Midnight Helper", bronnen MidnightHelper + midnighthelper-site (lezen), geen
   connectoren, schrijft alleen `docs/REGIE.md`. Content-wachter duurt 3–10 min (GEMETEN, list_runs), dus 06:20 is ná alle vier.
-- ▶ Open: telefoonmelding bij nieuws (de routine heeft geen connectoren, dus nu geen melding) — Rob kiest.
+- ✅ Telefoonmelding (Rob: "Ja, ik wil wel een telefoonmelding … pas om 8 uur 's morgens"): de PushNotification-tool
+  heeft geen stille stand (GEMETEN in zijn schema), dus de routine draait nu om **08:15** en meldt alleen bij iets onder
+  "Raakt Rob" of een nieuw punt onder "Scheef". `PushNotification` toegevoegd aan allowed_tools (zoals "In the game now",
+  geheugen site-now-news-auto). Of de melding echt aankomt: eerste run 12 nov 08:15, nog niet gezien.
+  ⚠️ Zondag draait de ideeënbus om 08:00; de regisseur om 08:15 kan die run dan net missen.
+- Robs ja voor de 9 wachtende site-commits ("Ja, push dat maar") letterlijk doorgegeven aan «Site chat 11-11»; die pusht zelf.
 
 ## 🆕 11 nov — C4: spelnamen per taal (Rob: "Ja, alle drie")
 
