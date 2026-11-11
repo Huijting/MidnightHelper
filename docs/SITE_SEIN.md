@@ -42,6 +42,17 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
   ons script en vraagt Robs ja. Met de temp-map is het niet nodig.
 - Status: beantwoord door de bouwchat, 11 nov.
 
+## 11 nov 2026 — Forever: een groene regel in de tooltip zegt waarom gear beter is
+- Tag + commit:   geen tag / (deze commit)
+- Status:         alleen op main
+- Mag op de site: nee
+- Speler ziet:    Muis op gear die beter is dan wat je draagt: "MH: +3 Strength, +2 Stamina over what you wear (main
+                  stats for a Paladin)." Geen regel bij slechtere gear of gear die je niet kunt dragen. *(niet in het
+                  spel getest)*
+- Knoplabels:     FGEAR_TIP_FMT
+- Commando's:     /mh geartip (aan/uit en de laatste beslissing)
+- Spel:           Forever
+
 ## 11 nov 2026 — De buff-melding noemt de buff en zegt wat je moet doen
 - Tag + commit:   geen tag / (deze commit)
 - Status:         alleen op main

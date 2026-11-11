@@ -192,6 +192,40 @@ end
 
 local last = { at = nil, rows = {}, verdict = "none yet" } -- for /mh questhint check
 
+--- "+3 Strength, +12 Armor" and the reason, for a row { stats, worn, ds, dsta, darm }. Shared by the quest hint and
+--- the gear tooltip line, so both say the same thing about the same item.
+--- Names the main stats, then Stamina when it breaks ties; each stat once (Warlock has Stamina as a main stat).
+local function Explain(row, main, stamTie, token)
+	local parts, done, shown = {}, {}, {}
+	for _, k in ipairs(main) do
+		shown[#shown + 1] = k
+	end
+	if stamTie then
+		shown[#shown + 1] = "STAMINA"
+	end
+	for _, k in ipairs(shown) do
+		if not done[k] then
+			done[k] = true
+			local gain = ((row.stats and row.stats[k]) or 0)
+				- ((row.worn and row.worn.stats and row.worn.stats[k]) or 0)
+			if gain ~= 0 then
+				parts[#parts + 1] = ("%+d %s"):format(gain, StatName(k))
+			end
+		end
+	end
+	if row.darm and row.darm ~= 0 then
+		parts[#parts + 1] = ("%+d %s"):format(row.darm, (type(ARMOR) == "string" and ARMOR) or "Armor")
+	end
+	local why = (row.ds == 0 and row.dsta == 0) and ns:L("FQH_WHY_ARMOR")
+		or ns:L("FQH_WHY_MAIN_FMT"):format(ClassName(token))
+	return parts, why
+end
+
+--- Better = more main stats; equal → more Stamina (where it counts); still equal → more armor.
+local function IsBetter(row)
+	return row.ds > 0 or (row.ds == 0 and (row.dsta > 0 or (row.dsta == 0 and row.darm > 0)))
+end
+
 --- The decision for the current quest window: { index, kind = "upgrade"/"money", text } or nil, plus "not ready".
 local function Decide()
 	local n = GetNumQuestChoices and GetNumQuestChoices() or 0
@@ -226,9 +260,8 @@ local function Decide()
 			row.s, row.sta, row.stats = s, sta, stats
 			row.ds, row.dsta = s - (worn and worn.s or 0), sta - (worn and worn.sta or 0)
 			row.darm = (stats.ARMOR or 0) - (worn and worn.arm or 0)
-			-- Better = more main stats; equal → more Stamina (where it counts); still equal → more armor.
-			local better = row.ds > 0 or (row.ds == 0 and (row.dsta > 0 or (row.dsta == 0 and row.darm > 0)))
-			if better then
+			row.worn = worn
+			if IsBetter(row) then
 				if not best or row.ds > best.ds or (row.ds == best.ds and (row.dsta > best.dsta
 					or (row.dsta == best.dsta and row.darm > best.darm))) then
 					best = row
@@ -243,30 +276,7 @@ local function Decide()
 	end
 	last.rows = rows
 	if best then
-		-- Name the main stats, then Stamina when it breaks ties; each stat once (Warlock has Stamina as a main stat).
-		local parts, done = {}, {}
-		local shown = {}
-		for _, k in ipairs(main) do
-			shown[#shown + 1] = k
-		end
-		if stamTie then
-			shown[#shown + 1] = "STAMINA"
-		end
-		for _, k in ipairs(shown) do
-			if not done[k] then
-				done[k] = true
-				local gain = ((best.stats and best.stats[k]) or 0)
-					- ((best.worn and best.worn.stats and best.worn.stats[k]) or 0)
-				if gain ~= 0 then
-					parts[#parts + 1] = ("%+d %s"):format(gain, StatName(k))
-				end
-			end
-		end
-		if best.darm and best.darm ~= 0 then
-			parts[#parts + 1] = ("%+d %s"):format(best.darm, (type(ARMOR) == "string" and ARMOR) or "Armor")
-		end
-		local why = (best.ds == 0 and best.dsta == 0) and ns:L("FQH_WHY_ARMOR")
-			or ns:L("FQH_WHY_MAIN_FMT"):format(ClassName(token))
+		local parts, why = Explain(best, main, stamTie, token)
 		if not best.worn or not best.worn.link then
 			return { index = best.i, kind = "upgrade", text = ns:L("FQH_TAKE_EMPTY_FMT")
 				:format(best.link, table.concat(parts, ", "), why) }
@@ -394,6 +404,115 @@ function ns.ForeverQuestHintSlash(arg)
 			tostring(r.usable), tostring(r.equipLoc), tostring(r.s), tostring(r.sta),
 			tostring(r.stats and r.stats.ARMOR), tostring(r.ds), tostring(r.dsta), tostring(r.darm), tostring(r.sell)))
 	end
+end
+
+--[[ Gear tooltip line (Rob, 11 Nov 2026: "Alleen tooltipregel").
+	Hover a piece of gear you could wear: when it beats what you wear on YOUR main stats, the tooltip gets one green line
+	"MH: +3 Strength over what you wear (main stats for a Paladin)." Same math and words as the quest hint above.
+	Why only a line and no bag arrows: Rob's Forever runs Pawn (arrows + tooltip already) and Baganator (replaces the
+	Blizzard bags our retail arrows hook into) — measured in his AddOns.txt that day. MH adds the WHY, not another arrow.
+	Silent for: items you cannot use (any red line in the tooltip: armor type, level, class — AFGELEID that Forever
+	colours them like every client does), what you already wear, items that are not better. /mh geartip on|off. ]]
+
+local function GearTipEnabled()
+	return not (ns.db and ns.db.foreverGearTip == false)
+end
+
+local function IsRed(c)
+	return type(c) == "table" and type(c.r) == "number" and not (issecretvalue and issecretvalue(c.r))
+		and c.r > 0.95 and (c.g or 1) < 0.35 and (c.b or 1) < 0.35
+end
+
+--- Any red text in the tooltip = the game says you cannot use or wear this (yet).
+local function CannotUse(data)
+	for _, line in ipairs((data and data.lines) or {}) do
+		if IsRed(line.leftColor) or IsRed(line.rightColor) then
+			return true
+		end
+	end
+	return false
+end
+
+local tipLast = "none yet" -- for /mh geartip
+
+--- The line for this item link, or nil plus why not.
+function ns.ForeverGearTipText(link)
+	local name, _, equipLoc = ItemInfo(link)
+	if not name then
+		return nil, "item not loaded"
+	end
+	local slots = SLOTS[equipLoc]
+	if not slots then
+		return nil, "not gear (" .. tostring(equipLoc) .. ")"
+	end
+	for _, slot in ipairs(slots) do
+		if GetInventoryItemLink and GetInventoryItemLink("player", slot) == link then
+			return nil, "you wear it"
+		end
+	end
+	local token = Token()
+	local def = ns.FOREVER_MAIN_STATS and ns.FOREVER_MAIN_STATS[token]
+	local main = MainFor(def)
+	if not main then
+		return nil, "no main stats known for " .. tostring(token)
+	end
+	local stamTie = def and def.stamTie
+	local stats = Stats(link) or {}
+	local s, sta = Score(stats, main, stamTie)
+	local worn = Worn(equipLoc, main, stamTie)
+	local row = { stats = stats, worn = worn, ds = s - (worn and worn.s or 0), dsta = sta - (worn and worn.sta or 0),
+		darm = (stats.ARMOR or 0) - (worn and worn.arm or 0) }
+	if not IsBetter(row) then
+		return nil, ("not better (main %+g, stamina %+g, armor %+d)"):format(row.ds, row.dsta, row.darm)
+	end
+	local parts, why = Explain(row, main, stamTie, token)
+	return ns:L("FGEAR_TIP_FMT"):format(table.concat(parts, ", "), why)
+end
+
+if TooltipDataProcessor and TooltipDataProcessor.AddTooltipPostCall and Enum and Enum.TooltipDataType
+	and Enum.TooltipDataType.Item then
+	TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Item, function(tooltip, data)
+		-- Only the tooltips you hover or click; not the "Currently equipped" comparison tooltips beside them.
+		if not GearTipEnabled() or not (tooltip == GameTooltip or tooltip == ItemRefTooltip) then
+			return
+		end
+		local ok, err = pcall(function()
+			local _, link = tooltip:GetItem()
+			if type(link) ~= "string" or (issecretvalue and issecretvalue(link)) then
+				tipLast = "no readable item link"
+				return
+			end
+			if CannotUse(data) then
+				tipLast = "red line in the tooltip: you cannot use or wear it (yet)"
+				return
+			end
+			local text, why = ns.ForeverGearTipText(link)
+			tipLast = text and ("shown: " .. text) or why
+			if text then
+				tooltip:AddLine(text, 0.37, 1, 0.33, true)
+				tooltip:Show()
+			end
+		end)
+		if not ok then
+			tipLast = "error: " .. tostring(err)
+		end
+	end)
+else
+	tipLast = "this client has no TooltipDataProcessor: the line cannot be added"
+end
+
+--- /mh geartip [on|off]: the switch, and the last decision (its normal result is silence, CLAUDE.md).
+function ns.ForeverGearTipSlash(arg)
+	arg = (arg or ""):lower()
+	if arg == "on" or arg == "off" then
+		if ns.db then
+			ns.db.foreverGearTip = (arg == "on")
+		end
+		print(PREFIX .. ns:L(arg == "on" and "FGEAR_TIP_ON" or "FGEAR_TIP_OFF"))
+		return
+	end
+	print(PREFIX .. ("gear tooltip line: %s; last item you hovered: %s"):format(GearTipEnabled() and "on" or "off",
+		tipLast))
 end
 
 local ev = CreateFrame("Frame")

@@ -14,6 +14,19 @@
   trainer)". How you play: "(from a quest)" bij Redemption en Aquatic Form, Priest-rasspells "you get both from a quest".
   7 talen. Niet in het spel gezien. Stap a is hiermee af tot Robs test; volgende = stap b.
 
+## 🆕 11 nov — Stap b: alleen een tooltipregel (Rob: "Alleen tooltipregel")
+
+- GEMETEN (Robs Forever AddOns.txt, Ima-Pallie): Pawn + Baganator aan. Pawn doet al pijltjes + tooltip; Baganator
+  vervangt de Blizzard-tassen waar `BagUpgrade.lua` aan hangt → retail-pijltjes overzetten heeft geen zin.
+- Gebouwd in `ForeverQuestHint.lua` (zelfde rekenwerk als de questbeloning-tip; `Explain`/`IsBetter` nu gedeeld):
+  `TooltipDataProcessor.AddTooltipPostCall(Item)` op GameTooltip/ItemRefTooltip → groene regel `FGEAR_TIP_FMT` alleen
+  als het item beter is. Stil bij: rode regel in de tooltip (kan niet dragen; AFGELEID dat Forever rood kleurt), al
+  gedragen, niet beter. `/mh geartip [on|off]` print de laatste beslissing. 6 talen (geen itIT: Forever).
+- Offline getest (scratch `geartip_test.lua`). Niet in het spel gezien. NIET gemeten: of TooltipDataProcessor in
+  Forever bestaat (Pawn/Auctionator/PaladinPlan gebruiken het daar = kandidaat, geen bewijs); zo niet, dan zegt
+  `/mh geartip` dat.
+- ▶ Volgende: stap c (`/mh selftest` + vensterlijst, opdracht 7 fase 0.3).
+
 ## 🆕 11 nov — Buff-melding wordt een zin (sparring-opdracht na PaladinPlan; Rob: "Ja, met jouw advies")
 
 - Keuzes van Rob: beide spellen; icoon blijft op zijn plek (CENTER 0,+160 of waar de speler het sleepte).

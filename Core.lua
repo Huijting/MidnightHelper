@@ -2524,6 +2524,17 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		end
 		return
 	end
+	-- /mh geartip [on | off] — WoW Forever: the green "MH: +3 Strength over what you wear" tooltip line
+	-- (ForeverQuestHint.lua; Rob, 11 Nov 2026: "Alleen tooltipregel").
+	local gearArg = msg:lower() == "geartip" and "" or msg:lower():match("^geartip%s+(.+)$")
+	if gearArg then
+		if ns.ForeverGearTipSlash then
+			ns.ForeverGearTipSlash(gearArg)
+		else
+			print("|cffffcc00Midnight Helper:|r /mh geartip is for WoW: Forever.")
+		end
+		return
+	end
 
 	-- /mh version [on | off] — tell me when a guild or group member runs a newer MH (VersionNotice.lua; both games;
 	-- Rob, 8 Nov 2026: "Ja bouw maar").

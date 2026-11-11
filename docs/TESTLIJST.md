@@ -21,6 +21,17 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 11 nov — Forever: groene regel in de tooltip van gear (stap b)
+
+Eerst `/reload`. In Forever, met gear in je tas die je kunt dragen:
+- [ ] Muis op een stuk dat béter is dan wat je draagt: onderaan de tooltip een groene regel, bv. "MH: +3 Strength,
+      +2 Stamina over what you wear (main stats for a Paladin)." (Pawn zet er misschien ook een regel bij; die van MH
+      begint met "MH:".)
+- [ ] Muis op iets slechters, op wat je al draagt, of op iets dat je (nog) niet kunt dragen (rode tekst): géén MH-regel.
+- [ ] Werkt ook in je Baganator-tassen (het is de tooltip, niet de tas).
+- [ ] `/mh geartip` → "gear tooltip line: on; last item you hovered: …" met de reden. `/mh geartip off` → regel weg;
+      `/mh geartip on` → terug.
+
 ## 🆕 11 nov — De buff-melding is een zin (Forever én Midnight)
 
 Eerst `/reload`. Op je paladin in Forever, zonder blessing:

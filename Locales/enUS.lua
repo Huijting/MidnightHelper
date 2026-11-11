@@ -4914,6 +4914,10 @@ ns._mhLocales.enUS = {
 	FQH_WHY_MAIN_FMT = "main stats for a %s",
 	FQH_TAKE_EMPTY_FMT = "Take %s: %s (%s). That slot is empty now.",
 	FQH_TAKE_FMT = "Take %s: %s over what you wear (%s).",
+	-- Forever gear tooltip line (ForeverQuestHint.lua, Rob 11 Nov 2026): first %s = "+3 Strength, +12 Armor", second = why.
+	FGEAR_TIP_FMT = "MH: %s over what you wear (%s).",
+	FGEAR_TIP_ON = "gear tooltip line on: hover gear to see what it adds over what you wear.",
+	FGEAR_TIP_OFF = "gear tooltip line off. /mh geartip on brings it back.",
 	FQH_NO_LIST_FMT = "No stat list for your class yet. %s sells for the most.",
 	FQH_SELL_FMT = "None of these is better for you than what you wear. %s sells for the most (%s).",
 	-- 7 Nov 2026: the trainer window (ForeverTrainer.lua), translatable from today.

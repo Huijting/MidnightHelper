@@ -235,6 +235,10 @@ lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met d
                  bij een duidelijke upgrade, dezelfde lat als de pijltjes. Nog niets gebouwd: eerst de twee metingen.
                  Aanvulling (Rob, 11 nov, doorgegeven): **eerst de groene pijltjes en de tooltip-regel ook in Forever**, dan
                  pas de melding. Volgorde: zie NEXT_SESSION 11 nov (stap b vóór d).
+                 **Stap b, 11 nov (Rob: "Alleen tooltipregel"):** geen pijltjes in Forever (Pawn doet ze al, Baganator
+                 vervangt de tassen; GEMETEN in Robs addon-lijst). Wel gebouwd: een groene "MH: … over what you wear (…)"-
+                 regel in de tooltip, met de rekenaar van de questbeloning-tip, `/mh geartip`. Wacht op Robs test.
+                 (2) hierboven is daarmee beantwoord: de Forever-rekenaar is die van de questbeloning-tip.
 
 ### Zygor-wachter: elke ochtend wat er in Zygor veranderde
 - Voor wie:      wij (bron voor questketens, coördinaten, mounts, achievements)
