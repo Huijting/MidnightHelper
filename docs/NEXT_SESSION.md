@@ -14,6 +14,18 @@
   trainer)". How you play: "(from a quest)" bij Redemption en Aquatic Form, Priest-rasspells "you get both from a quest".
   7 talen. Niet in het spel gezien. Stap a is hiermee af tot Robs test; volgende = stap b.
 
+## 🆕 11 nov — Forever-verkoper: twee reparaties (Rob: "Ja, allebei")
+
+- Selftest Forever, tweede run (GEMETEN in SV): item-controle nu OK (GetItemInfoInstant), alle drie OK, 0 ontbrekend.
+  Midnight nog niet gedraaid.
+- `ForeverToolGuard.lua`: "Right-click sells this…" stond ook bij de hamer in de KOOP-lijst van de verkoper (Robs
+  screenshot), en bij 0 hamers (`n <= 1`). Nu alleen bij precies 1 en niet als de tooltip-eigenaar een
+  `MerchantItem…`/`MerchantBuyBack…`-knop is (namen AFGELEID uit de Blizzard-verkoper; een andere verkoper-addon zou
+  andere namen hebben).
+- `ForeverVendors.lua`: de beroepstip bleef "(loading...)" zeggen (ook na de fix van 10 nov). Oorzaak niet gemeten.
+  Nu drie wegen: tweede naamvraag (GetItemInfo), ItemMixin `ContinueOnItemLoad`, en 10× elke 0,5 s opnieuw kijken.
+  Niet in het spel gezien.
+
 ## 🆕 11 nov — Stap c: `/mh selftest` + vensterregel C5 (Rob: "Ja, bouw het")
 
 - **Eén bron:** `data_check.py` heeft nu `scan()` (C2 én de zelftest) en `--emit` → `Modules/SelftestData.lua`

@@ -115,9 +115,21 @@ local function MerchantOpen()
 	return MerchantFrame and MerchantFrame.IsShown and MerchantFrame:IsShown()
 end
 
+--- The vendor's OWN buttons: the items for sale and the buyback tab. Hovering those means buying, not selling.
+--- Rob, 11 Nov 2026 (screenshot): hovering the Blacksmith Hammer in the vendor's list to BUY it said "Right-click sells
+--- this, and it is your last one". The check only asked whether a vendor was open, not where the mouse was.
+local function OnVendorList(tooltip)
+	local owner = tooltip.GetOwner and tooltip:GetOwner()
+	local name = owner and owner.GetName and owner:GetName()
+	if type(name) ~= "string" then
+		return false
+	end
+	return name:find("^MerchantItem") ~= nil or name:find("^MerchantBuyBack") ~= nil
+end
+
 local tooltipHooked = false
 local function OnItemTooltip(tooltip, data)
-	if not On() or tooltip ~= GameTooltip or not MerchantOpen() then
+	if not On() or tooltip ~= GameTooltip or not MerchantOpen() or OnVendorList(tooltip) then
 		return
 	end
 	local id = type(data) == "table" and data.id
@@ -126,7 +138,8 @@ local function OnItemTooltip(tooltip, data)
 		return
 	end
 	local n = KindCount(t.kind)
-	if n and n <= 1 then
+	-- Exactly one: then the one you hover IS your last. Zero means you do not have it (it was <= 1, same screenshot).
+	if n == 1 then
 		tooltip:AddLine(ns:L("TOOLG_TIP_SELL"), 1, 0.3, 0.3, true)
 	end
 end

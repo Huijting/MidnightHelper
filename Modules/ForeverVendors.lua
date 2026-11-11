@@ -51,6 +51,14 @@ local function ItemName(id)
 			return n
 		end
 	end
+	-- Second way to the name (Rob, 11 Nov 2026: still "(loading...)" a day after the first fix).
+	local info = (C_Item and C_Item.GetItemInfo) or GetItemInfo
+	if info then
+		local ok, n = pcall(info, id)
+		if ok and type(n) == "string" and n ~= "" then
+			return n
+		end
+	end
 	if C_Item and C_Item.RequestLoadItemDataByID then
 		pcall(C_Item.RequestLoadItemDataByID, id) -- the name arrives later; the list redraws on GET_ITEM_INFO_RECEIVED
 	end
@@ -454,6 +462,44 @@ local function RenderTip(f)
 	f.all.key = c.key
 end
 
+--- Rob, 11 Nov 2026: the 10 Nov fix (redraw on GET_ITEM_INFO_RECEIVED) still left "(loading...)" in the tip. Why the
+--- event did not land is not measured. So the tip no longer depends on that one event: it also asks the game's own
+--- "tell me when this item has loaded" (ItemMixin ContinueOnItemLoad) and looks again every half second for 5 seconds.
+local function FinishTipName(f)
+	if not (f and f:IsShown() and f.tipLoading) then
+		return
+	end
+	RenderTip(f)
+	if f.tipChatPending and not f.tipLoading then
+		f.tipChatPending = nil
+		print(PREFIX .. f.text:GetText())
+	end
+end
+
+local function WaitForTipName(f)
+	local id = f.tipCat and f.tipCat.item
+	if not (id and f.tipLoading) then
+		return
+	end
+	if Item and Item.CreateFromItemID then
+		pcall(function()
+			Item:CreateFromItemID(id):ContinueOnItemLoad(function()
+				FinishTipName(f)
+			end)
+		end)
+	end
+	if C_Timer and C_Timer.NewTicker then
+		local tries, ticker = 0, nil
+		ticker = C_Timer.NewTicker(0.5, function()
+			tries = tries + 1
+			FinishTipName(f)
+			if tries >= 10 or not f.tipLoading or not f:IsShown() then
+				ticker:Cancel()
+			end
+		end)
+	end
+end
+
 local ready = false -- professions known at login are recorded, never announced
 local lastTip = "nothing checked yet"
 
@@ -481,6 +527,8 @@ local function CheckNewProfessions()
 				f.tipChatPending = f.tipLoading or nil
 				if not f.tipLoading then
 					print(PREFIX .. f.text:GetText())
+				else
+					WaitForTipName(f)
 				end
 				lastTip = c.prof .. " learned without its tool: tip shown"
 			end

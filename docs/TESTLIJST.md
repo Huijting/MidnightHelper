@@ -21,12 +21,22 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 11 nov — Forever: twee reparaties bij de verkoper (Rob: "Ja, allebei")
+
+- [ ] Bij een verkoper, muis op de **Blacksmith Hammer in de lijst van de verkoper** (kopen): GEEN rode regel
+      "Right-click sells this…" meer. Ook niet als je er al één hebt, en niet in het Buyback-tabblad.
+- [ ] Heb je precies één hamer en ga je met je muis op die hamer **in je eigen tas** (ook Baganator): de rode regel
+      staat er wél.
+- [ ] Een nieuw beroep leren zonder het gereedschap: de tip noemt het gereedschap bij naam (bv. "Blacksmith Hammer"),
+      binnen een paar seconden, niet "(loading...)". Ook de chatregel komt dan met de naam.
+
 ## 🆕 11 nov — `/mh selftest`: MH loopt zijn eigen spelnummers na (stap c)
 
 Eerst `/reload`, buiten een gevecht. Doe het één keer in **Forever** en één keer in **Midnight**:
 - [x] Forever, eerste run (Rob, 11 nov): liep, maar de item-controle faalde (Forever zei "ja" tegen een verzonnen item).
       Gerepareerd: andere item-vraag, en een soort die faalt wordt alleen zelf overgeslagen.
-- [ ] Opnieuw, na `/reload`: `/mh selftest` in Forever én in Midnight. Je ziet "selftest: checking … game numbers…" en
+- [x] Forever, tweede run (Rob, 11 nov, GEMETEN in SV): alle drie de controles OK, 0 ontbrekend van 1164.
+- [ ] Nog: `/mh selftest` in **Midnight**. Je ziet "selftest: checking … game numbers…" en
       daarna één regel: "all … numbers exist" of "… do not exist in this game: spell 123, …". Staat er "Not checked:
       item …", dan vertrouwt hij ook de nieuwe item-vraag niet — zeg het me. Daarna `/reload` zodat ik het rapport lees.
 - [ ] Het scherm hapert niet (hij werkt in stukjes van 400).
