@@ -11,8 +11,9 @@
   (26, rogue-skill) bewust weg. 9 beroepen, Mining = omsmelten.
 - Namen: eigen beroep = clientnaam (GetProfessionInfo); anders SkillLine.DisplayName_lang per taal (gegenereerd; itIT
   leeg = Engels, Forever itIT is Engels); anders Engels. Groen als je er één hebt, grijs als niet.
-- Offline test (scratch `usedfor_test.lua`): 14/14 OK. Niet in het spel gezien. Open vraag aan Rob: zegt de gewone
-  tooltip al "Crafting Reagent"? En `/mh usedfor` meet meteen de skill-line-nummers (ForeverTrainer noemt ze AFGELEID).
+- Offline test (scratch `usedfor_test.lua`): 14/14 OK. ✅ AF (Rob: "Ja, af") na zijn screenshots: Linen Cloth,
+  Stringy Wolf Meat (groen), Hearthstone (geen regel), `/mh usedfor`. De gewone tooltip zegt "Crafting Reagent" maar
+  niet waarvoor. Skill lines 129/185/164/186 nu GEMETEN. Niet gezien: grijze regel, Copper Ore.
 - Ook: `_probe.py` kijkt nu in álle scratchpad-mappen van dit sessie-ID, nieuwste job eerst (na een samenvatting
   had één sessie er twee; hits[0] las de oude).
 

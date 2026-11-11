@@ -23,6 +23,8 @@ er is niets weggegooid.
 
 ## 🆕 11 nov — Forever: "Used for …" in de tooltip van ingrediënten (Rob: "Ja, met probe-fix")
 
+✅ **Af volgens Rob, 11 nov ("Ja, af").** De punten met 👀 zag hij; de rest blijft open voor als hij ze tegenkomt.
+
 Eerst `/reload`. In Forever:
 - [ ] Muis op **Stringy Wolf Meat** of **Meaty Bat Wing** (tas of verkoper): onderaan de tooltip "MH: Used for Cooking".
       Groen met "(you have it)" als je Cooking hebt; grijs zonder als je het niet hebt. 👀 Rob, 11 nov: Stringy Wolf Meat

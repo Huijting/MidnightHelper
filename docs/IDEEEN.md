@@ -300,7 +300,8 @@ lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met d
 - Site:          ja, één zin bij de Forever-functies (bij de volgende release)
 - Rob zegt:      ja (sparring-chat: *"Ja, laat bouwen"*; bouwchat 11 nov: *"Ja, met probe-fix"*). **Gebouwd 11 nov:**
                  `Modules/ForeverReagentUse.lua` + gegenereerd `ForeverReagentData.lua` (`run forever_reagents --emit`).
-                 Wacht op Robs test (TESTLIJST).
+                 **AF 11 nov** (Rob: *"Ja, af"*, na Linen Cloth, Stringy Wolf Meat, Hearthstone en `/mh usedfor` in
+                 Forever). Niet gezien: de grijze regel en Copper Ore.
 
 ### CurseForge-plaatjes: echte screenshots op één vaste achtergrond
 - Voor wie:      wij (CurseForge-pagina en de site); spelers zien alleen het resultaat
