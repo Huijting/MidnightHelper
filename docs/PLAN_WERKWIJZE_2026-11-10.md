@@ -1,6 +1,6 @@
 # Het hele plan — één werkwijze voor addon, Forever en site (10 nov 2026)
 
-> **Status: PLAN. Alleen deel 1 is af. De rest is niet gebouwd en door Rob nog niet gelezen.**
+> **Status: PLAN, door Rob goedgekeurd op 10 nov. De actuele stand per stap staat in `docs/REGIE.md`.**
 > Rob, 10 nov: *"het moet één grote overkoepelende organisatie worden"* en *"werk het hele plan maar uit"*.
 > Gemaakt in een cloud-sessie. Die ziet de addon-repo en de site-repo, maar niet Robs pc en niet de helpers in
 > `AddOns/.claude/agents/`. Waar dat telt, staat het erbij.
@@ -242,6 +242,48 @@ Werk: klein per regel. Dit kan stukje bij beetje.
 
 ---
 
+## Deel 8 — de regisseur (toegevoegd 11 nov)
+
+Rob, 11 nov: *"zoiets wil ik wel bouwen, dat ik één chat heb of één agent heb of één skill heb die alles overziet. En
+gewoon weet wat alle anderen doen en eventueel nieuwe agenten kan aansturen of nieuwe skills kan bouwen in overleg
+met mij."*
+
+**Wat het Rob oplevert:** één bericht per dag in plaats van zes, en iemand die ziet wat scheefloopt zonder dat Rob
+toevallig de goede vraag stelt. Op 11 nov werden twee dingen alleen gevonden doordat Rob goedemorgen zei: de wachters
+sloegen Forever over, en het overdrachtsbriefje zat over zijn grens.
+
+**Het inzicht:** het brein zit niet in een chat maar in een bestand. Een chat vergeet en kan worden opgeruimd. Een
+bestand blijft, en elke nieuwe chat die het leest kan het werk oppakken.
+
+**Drie delen:**
+
+| # | wat | werk |
+|---|---|---|
+| 8a | **Het overzichtsbestand `docs/REGIE.md`.** Wie er is, welk bestand van wie is, de stand van het plan, wat op Rob wacht, wat scheefloopt, en de vaste ronde. Harde grens 200 regels. Eerste versie: 11 nov. | ✅ eerste versie staat er |
+| 8b | **Een recept "regisseur".** Op Robs commando doet een chat de ronde uit `REGIE.md` en geeft één kort verslag. | klein |
+| 8c | **Een dagelijkse regie-wachter** die dezelfde ronde draait terwijl Rob slaapt, na de andere wachters, en het verslag in `REGIE.md` zet. Kan op een lichter model: het is lezen, meten en melden. | klein |
+
+**Wat de regisseur mag en niet mag:**
+
+- Hij **meet en meldt**. Hij bouwt niets in de addon of de site. Anders heeft een bestand weer twee schrijvers.
+- Hij **schrijft opdrachten** voor de bouwchat en de site-chat, zoals `docs/OPDRACHT_BOUWCHAT_2026-11-10.md`.
+- Hij **stelt nieuwe recepten, helpers en controles voor** als iets steeds terugkomt of steeds misgaat. Rob zegt ja,
+  de bouwchat of de site-chat zet het neer.
+- Hij **beslist niets**. Hij legt keuzes voor.
+
+**Eerlijk over de grenzen (GEMETEN 10 en 11 nov):**
+
+- Een cloud-sessie ziet Robs pc niet: de helpers, de recepten en wat een chat lokaal heeft staan vallen erbuiten.
+- Een cloud-sessie mag de bestaande routines niet starten of aanpassen. Dat kan alleen wie ze maakte.
+- Een cloud-wachter kan de mail niet lezen.
+- Dus: 8c ziet alleen wat in de repo's staat. Dat is precies de reden voor de regel "alles wat telt staat in een
+  bestand". Wat alleen in een chat leeft, bestaat voor de regisseur niet.
+
+**Waar de regisseur draait** (Robs keuze): als recept op de pc ziet hij meer (ook de lokale mappen); als wachter in
+de cloud draait hij ook als de pc uit staat. Beide kan: 8b op de pc, 8c in de cloud.
+
+---
+
 ## De volgorde van bouwen
 
 | # | wat | werk | wat Rob moet doen |
@@ -251,6 +293,7 @@ Werk: klein per regel. Dit kan stukje bij beetje.
 | 3 | Controles C1, C3, C5 (deel 2) | middel | niets |
 | 4 | Controle C2 en C4 | middel | kiezen: wago in de cloud toelaten, of alleen lokaal |
 | 5 | De vijfde wachter en de ideeën-wachter (deel 2 en 3) | klein | twee routines aanzetten |
+| 5b | **De regisseur** (deel 8): recept en dagelijkse wachter | klein | ja zeggen; kiezen waar hij draait |
 | 6 | De recepten (deel 6) | klein per stuk | niets |
 | 7 | `/mh selftest` (deel 4b) | middel | één keer `/reload` en zeggen wat hij zag |
 | 8 | Het nep-spel, laag 1 (deel 4a) | middel | niets |

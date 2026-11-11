@@ -122,6 +122,19 @@ lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met d
   tester met een niet-Engelse client (TESTLIJST 11 nov).
 - Nog open:      dezelfde oude namen staan nog in ~70 andere zinnen per taal (`docs/C4_OUDE_NAMEN_2026-11-11.md`). Rob kiest.
 
+### De regisseur: één overzicht van alles
+- Voor wie:      Rob (één bericht per dag in plaats van zes) en alle chats
+- Moment:        elke ochtend om 06:20, en op de pc met `/regisseur`
+- Spel:          allebei
+- Bron:          Rob, 11 nov, in de brainstorm-chat: *"Ja op alle drie, bouw de regisseur maar"*; hier: *"Ja, bouw hem"*
+- Bouwt op:      `docs/REGIE.md` (het geheugen), plan deel 8, de andere wachters
+- Data:          n.v.t. (hij meet in de repo's)
+- Vindbaar:      blok 0 van `docs/REGIE.md`; CLAUDE.md ochtendronde
+- Werk:          klein
+- Site:          nee
+- Rob zegt:      ja (11 nov). **Gebouwd 11 nov:** routine `trig_017LQWJNvptK8hWLuByuEDzg`, recept `regisseur`. Af na een
+  proefrun die de dingen vindt die waar zijn, en een eerste gewone ochtend (12 nov).
+
 ### De vier ochtendwachters kijken ook naar Forever
 - Voor wie:      wij (de addon zegt veel over Forever, en geen wachter keek ernaar)
 - Moment:        elke ochtend

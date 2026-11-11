@@ -219,9 +219,10 @@ def resplit(heading):
         sys.exit("index heading not found in the live file")
     if not cut < idx:
         sys.exit("cut heading sits below the index -- nothing to move")
-    try:
-        sep = arch.index(ARCHIVE_SEPARATOR)
-    except ValueError:
+    # Match the separator whatever the line ending: measured 11 Nov 2026, the archive came back from git with CRLF
+    # ("---\r\n"), and an exact "---\n" match refused a split of a file that had not changed shape at all.
+    sep = next((i for i, l in enumerate(arch) if l.rstrip("\r\n") == ARCHIVE_SEPARATOR.rstrip("\n")), None)
+    if sep is None:
         sys.exit("archive has no '---' line under its header -- has it changed shape?")
 
     head = live[:cut]

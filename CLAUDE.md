@@ -22,6 +22,10 @@ dat merk je pas bij de eerste push.
 | 06:00 | content | `docs/CONTENT_WATCH.md` | waar de addon **liegt** |
 | 04:15 | **MH nachtcontrole** (`trig_01EKor6SCGxyPJPurc4MML3P`, omgeving "Midnight Helper") | `docs/NACHTCONTROLE.md` | events (C1) en spel-nummers (C2) tegen de nieuwste build |
 | zo 08:00 | **MH ideeënbus** (`trig_0168w6QPWBbUob5hYf5HXFWz`) | alleen het blok "Voorstellen van de wachter" onderaan `docs/IDEEEN.md` | max 3 ideeën per week |
+| 06:20 | **MH regie — dagelijks overzicht** (`trig_017LQWJNvptK8hWLuByuEDzg`, omgeving "Midnight Helper", ook de site-repo, alleen lezen) | alleen `docs/REGIE.md` | het geheel: wie wat doet, wat scheefloopt, wat op Rob wacht |
+
+📌 **Sinds 11 nov 2026 een regisseur** (Rob: *"Ja, bouw hem"*; plan deel 8). In de ochtendronde: **lees eerst blok 0 van
+`docs/REGIE.md`**. Op de pc doet het recept `/regisseur` dezelfde ronde, plus wat de cloud niet ziet.
 
 📌 **Sinds 10 nov 2026 zes routines** (Rob: *"Ja, stap 4 en 5 mogen ook"*, bevestigd in de bouwchat). De twee nieuwe
 hebben bewust namen die NIET op de vier oude lijken (les van 12 sep). In de ochtendronde: lees ook de laatste regel van

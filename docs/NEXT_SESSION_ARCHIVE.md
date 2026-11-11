@@ -6,7 +6,293 @@ History split out of `docs/NEXT_SESSION.md` on 2 Sep 2026, when it had grown to 
 
 Split again on 6 Nov 2026: 12908 lines moved here from the live file (it had 13354).
 
+Split again on this run: 284 lines moved here from the live file (it had 1547).
+
 ---
+
+## ☀️ 5 nov — ochtendronde: niets voor Rob; `_probe.py` vond zijn eigen job niet meer
+
+- GEMETEN: alle 4 wachters gedraaid (API: nieuwe PTR-build 12.1.7.70740, 0 MOET GEFIKST, `QueryTimerDuration` en
+  `ExcludeLoadGameType` 0× in MH). gh_inbox 0 open, 0 PR's/issues. addon_updates 10 bijgewerkt, geen TomTom, niets dat MH
+  raakt (gelezen, niet getest). HandyNotes 167 = 167. Site-mail 3 dagen leeg (positieve controle: 26 zonder datum).
+- 🔴 De app zet de scratchpad nu in `Temp\claude\<hash>\<sid>\scratchpad` (hier `e1c44003d48d72c2`). `_probe.py` kende
+  alleen `Temp\claude\E--World-of-…\<sid>` → viel terug op "nieuwste job van elke sessie" en draaide één keer een oude
+  job van een andere sessie (beroepen-overzicht, alleen lezen). Gerepareerd: `_own_scratchpad()` zoekt nu ook
+  `Temp\claude\*\<sid>\scratchpad`, nog steeds alleen op sessie-id. GEMETEN: daarna 3 jobs goed. `git_stage.py` had dezelfde fout
+  (zou de stage-lijst van een andere sessie pakken) → zelfde reparatie; deze commit is ermee gestaged.
+
+## 🔧 4 nov — TomTom 4.4.0 stap 1 + 2 GEBOUWD (Rob: "Ja, bouwen"), NOG NIET GETEST
+
+- Code: `Core.lua` na de ClearAllWaypoints-hook. `ns.MH_InstallTomTomCallbacks` registreert `ArrowTargetChanged`
+  (alleen als `TomTom.RegisterCallback` bestaat). Een `nil` telt als "speler stopt" alleen als: niet tijdens onze eigen
+  wis-actie, speler >60 yd (`NEAR.tomtomArrived`) van de verdwenen pin én van de lead, en 1,5 s later de pijl nog leeg is
+  zonder nieuw doel. Onmeetbaar = niets doen. Dan `ClearActiveRoute()` + chatregel `TOMTOM_ROUTE_STOPPED` (8 talen).
+- Nieuw `ns.MH_TomTomRemove(uid)` zet dezelfde `_mhSelfWaypointOp`-vlag; de 7 losse `RemoveWaypoint`-aanroepen
+  (Achievements, Profession ×2, TravelRoute ×4) gaan er nu door.
+- Stap 2: één tikker (1 s) houdt `arrow.setclosest` tegen zolang `_mhRouteOwner` gezet is, en geeft hem daarna vrij.
+- `/mh arrow`: regels "TomTom-meldingen", "laatste: …" en "'set closest' tegengehouden". Log in `travelRouteLog`.
+- Checks: syntax OK (307), lint 0 HARD, locale_probe 8/8 OK. AFGELEID, niet gemeten: het gedrag in het spel.
+- Hook + pollen blijven als terugval. "poi" en HijackCrazyArrow bewust niet.
+
+## 📝 4 nov — plan TomTom 4.4.0 (Rob: "Ja, plan 1 en 2")
+
+- Ochtendronde 4 nov: niets voor Rob. Live-build 12.1.5.70783 (4 API-wijzigingen, alle afgedekt), TomTom 4.4.0 binnen:
+  alle 10 TomTom-functies die MH aanroept bestaan nog (GEMETEN op naam), gedrag niet getest.
+- Plan: `docs/PLAN_TOMTOM_2026-11-04.md`. Stap 1 = `ArrowTargetChanged`-callback (vangt "één pin weg" dat de
+  ClearAllWaypoints-hook mist; aankomst ≠ stoppen). Stap 2 = `SuppressFeature("arrow.setclosest")` zolang een MH-route
+  loopt. TomTom is All Rights Reserved: alleen de openbare API, geen code overnemen. De dode-uid-fout zit nog in 4.4.0,
+  onze `RemoveWaypoint`-reparatie blijft. ✅ Go gekregen en gebouwd, zie hierboven.
+
+## 🚀 3 nov — release 4.15.0 (Rob: "Ja, go 4.15.0" + "je mag helemaal plaatsen")
+
+- ✅ **UIT.** Tag `v4.15.0` op 7b61c6b. GEMETEN in de run-log (41673088677, exit 0): CurseForge "Success!", Wago
+  "Success!", GitHub-release + zip + release.json "Success!". Site-chat geseind (tag-commit, keys, Szarith-zin alleen intern).
+  Nog na te kijken door Rob: CF → Files → 4.15.0 → Changelog-opmaak.
+- CF-beschrijving GEMETEN (browser, 3 nov): tekst = `CURSEFORGE_DESCRIPTION.md`, banner staat er. Rob "Ja, bijwerken" →
+  de zoekbalk-alinea heet nu "Find anything, then it takes you there" (instellingen, ah/bank/mail, tikfouten, Show me).
+  ✅ Rob 3 nov: beschrijving én nieuwe korte samenvatting ("Explains WoW Midnight in plain language and takes you
+  there: …", 228 tekens) op CF geplakt; 4.15.0 is approved; site-chat door Rob ingelicht.
+- TOC 4.15.0; in-game CHANGELOG_4150_0..7 (enUS only); CHANGELOG.md; `RELEASE_NOTES.md` = `docs/CURSEFORGE_4.15.0.md`
+  (GEMETEN sha1 1a6f53c1, 58 regels, 3137 tekens). Direct release, geen beta (Rob testte alles).
+- Site-chat (Site chat 03-11) GEMETEN in hun repo: site loopt niet achter op 4.14.0; 4.15.0-werk komt na de tag via
+  hun release-stappen. Ze vroegen locale-keys, commando's en of de Szarith-zin publiek moet (nee, alleen voor ons).
+- Open na de release: zoekbalk-placeholder `SEARCH_PLACEHOLDER` noemt nog geen instellingen; pin-labels Engels
+  ("Auktionshaus" vindt niets); `CURRENCY_QM_COURT` "SMC Court"; ruRU "Учитель (SMC)"; Duits "Stifte".
+  ✅ 5 nov: alle vijf gebouwd (zie bovenaan), nog niet in het spel getest.
+
+## 🔨 3 nov — zoekbalk vindt de Silvermoon-pins (Rob: "als ik AH zoek … krijg ik niet de Auction House"), NIET getest
+
+- GEMETEN vooraf: NavSearch had 0× "auction" (positieve controle `mykeys` gevonden). De pins zaten alleen in de oude
+  chat-vraag-zoeker (`ns._mhSMCGuideSearchRows`, Guide.lua:450).
+- UI.lua `BuildSMCSearchRows` geeft elke rij nu ook `navKeys` (categorie + label + eigen beschrijving + id, ZONDER de
+  algemene "set a waypoint to …"-zin: die maakte "arrow" via synoniem waypoint tot ~60 pins, offline gemeten).
+  `ns.RouteSMCPin(point)` = wat een klik op de pin doet. NavSearch: blok na de Hexmask-spots, TIER_ACTION, cat "place",
+  korte woorden per id (ah, bank, mail, inn, catalyst …); instance- en world-boss-rijen overgeslagen.
+- Offline (navtest): ah/AH → Auction House + Horde AH; auction → + BMAH; bank/mail/inn/alchemy trainer goed; "ah" vindt
+  geen Harandar; arrow → geen pins.
+- ⚠️ Pin-labels zijn Engels (al zo in de gids); "Auktionshaus" op een Duitse client vindt hem dus niet. Open.
+- **Rob: "in principe moeten we alles kunnen vinden wat wij in MH hebben staan."** mh-sweep-inventaris (Haiku, 3 nov;
+  ik heb 2 punten zelf nagemeten: Trading Post-tab UI.lua:2767 en 0× TRADINGPOST/PlayCard/WORLD_BOSSES/SHOWDOWNS in
+  NavSearch). Nog NIET vindbaar: (1) Zo-speel-je-kaarten, 40 specs (`/mh play`, unlisted); (2) tab Trading Post;
+  (3) 4 world bosses (WorldBoss.lua:13-50, WB_BOSS_*); (4) Showdowns (ShowdownsData.lua:18); (5) Profession hub-tabs
+  overview/treasures; (6) losse delve curios; (7) achievement-schatten zonder coördinaat; (8) unlisted commando's met een
+  venster (worldboss, showdown, play; rest onbekend); (9) Mount run-venster zelf.
+  ✅ Rob "Ja, top 4" → 1-4 gebouwd in NavSearch: tab TAB_TRADINGPOST; per spec een speelkaart-rij ("Frost Mage", naam uit
+  GetSpecializationInfoByID, eenmalig gecachet in `specText`) → ShowPlayCardWindow; 4 world bosses → RouteToWorldBoss;
+  Showdowns-kop (World-tab) + portaal/Maella-routes + de 2 bazen. Offline navtest goed (frost → beide Frosts, luashal,
+  naigtal, trading post). Niet in het spel getest.
+  ✅ Rob "Ja, dat klopt" → 5-9 ook: hub-tabs Overview (`profoverview`) + Treasures (`professions`); de curios bij naam
+  (C_Item.GetItemNameByID, ontbrekend = RequestLoadItemDataByID en volgende toets); "Mount run: old raids" als eigen rij;
+  achievement-nodes zonder plek → rij die de Achievements-tab opent. Punt 8 GEMETEN in Core.lua: portals, travel, crest,
+  crestfind en encounters printen alleen in chat (dev/diagnose); keyblock zit al onder My keys, profguide was al
+  vindbaar; worldboss/showdown/play zijn nu via hun inhoud te vinden → niets toegevoegd. Offline navtest goed. Niet in
+  het spel getest.
+
+## 🔨 3 nov — de 3 site-chat-punten opgelost (Rob: "Alle drie"), NIET in het spel getest
+
+- **RAIDSHOP_GEAR_TIP** (`RaidShoppingList.lua`): de zin "for this slot there is a choice" alleen nog als `g.choice`
+  (nieuw rij-veld `gearChoice`); het label deed dat al, de tooltip niet.
+  ✅ Rob 3 nov: Head (a choice) toont de zin. Legs (a choice) = echt item (Spellthread) → alleen spel-tooltip, zin ontbrak
+  (al vóór vandaag) → nu `AddLine` onder `SetItemByID` als `gearChoice`. ✅ Rob 3 nov: Legs mét zin, Chest zonder.
+- **Key block, nieuwe spell (Rob levelt een Evoker, Disintegrate):** bestaat al — knop rechtsboven in het key-block-venster,
+  "New spells: ask me / place automatically / never ask". GEMETEN in SV: `keyBlockNewMode = "never"` → daarom niets.
+  Rob klikt hem naar "place automatically". 2e keer (level 12, Return): weer `never`; probe toonde F = 361227 in het plan,
+  live leeg. Rob: "Ja, dat is wel slim" → `/mh block why` print nu onderaan "new spells: <stand> — waiting: X -> key"
+  (ook in `keyBlockProbe.newMode/.waiting`). Niet getest. Rob "Ja, doe maar": de knop staat nu ook als dropdown
+  `mh_keyBlockNewMode` in SettingsDefs (sectie On-screen buttons, zelfde `ns.db.keyBlockNewMode`, geen rec), met
+  SET_KEYBLOCK_NEW_TITLE/_DESC in 8 talen (door mij geschreven, niet door een moedertaalspreker nagekeken; locale_probe OK).
+  Daarvoor GEMETEN: SettingsDefs had 0× keyBlock (positieve controle rareAlert 3×).
+  ✅ Rob 3 nov (screenshot): `/mh block why` → "new spells: place automatically — waiting: none". Zoeken + dropdown:
+  Rob "het staat allemaal goed" ✅.
+- **AH-pin** (`UI.lua` SMC-gids): 51.50/74.68 zonder bron → 51.35/75.81 = Auctioneer Jenath uit Zygor NPCData.lua:6908
+  (HandyNotes_Midnight heeft geen AH; bronregel Rob > HandyNotes > Zygor). Oude punt lag ~1,3 noordelijker (ingang?).
+  Horde-AH (67.64/70.74, Zygor 67.3-67.9/72.5) niet aangeraakt.
+- **"SMC" in de/fr/es/pt/it** (mh-writer, door mij nagekeken): overal de clientnaam uit `TAB_SMC` (Silbermond,
+  Lune-d’Argent, Lunargenta/Ciudad de Lunargenta, Luaprata, Lunargenta), ook de zoekwoord-voorbeelden (silbermond, lune,
+  lunargenta, luaprata). 8 locale-bestanden, locale_probe OK. Open: `CURRENCY_QM_COURT` = "SMC Court" in alle talen
+  (clientnaam onbekend, meten); ruRU `PROFGUIDE_BTN_SMC` = "Учитель (SMC)"; de "Silbermond-Stifte" (Stifte = potloden)
+  is een oud slecht woord.
+
+## ✅ 3 nov — piepje bij de C-toets: Discord, niet MH
+
+Rob, 3 nov: *"dat hoor ik nu niet, alleen als discord open staat blijkbaar"*. Punt dicht voor MH; advies gegeven: in
+Discord bij Keybinds / Voice (push-to-talk, mute) kijken of C daar gebonden is.
+
+## ✅ 3 nov (later) — voorbeeld stap 3 + de twee losse dingen (Rob: "Gaan we verder met stap 3 en de twee losse dingen")
+
+✅ **Rob testte alle 4 punten van testlijst "3 nov (4)" in het spel: "Dit werkt allemaal."** Daarmee zijn het zoekplan (6
+stappen) en het voorbeeldplan (3 stappen + 2 losse dingen) gebouwd en grotendeels getest. Bij de volgende versie:
+changelog-regel(s) + site-hoofdpagina (regel "site volgt elke functie"); release blijft Robs go.
+
+- **Stap 3, smal gehouden:** alleen toestanden die van MH zelf zijn, geen nagebootste client-toestand (CLAUDE.md-regel).
+  `ns.TestRunScorecard(kind)` = record/slower/first/equal; de preview van de delve-melding klikt die vier rond. Rare-preview
+  wisselt tussen "in de buurt" (zone-standaard) en "aangekomen" (Szarith, met `RARE_SZARITH_HINT`). Tooltip-regel
+  `SET_PREVIEW_TT_CYCLE`. De cast-waarschuwing kreeg niets extra: zijn preview toont al balken als die aan staan.
+- **Voetregel** onder All settings (`SET_ALL_FOOTER`); scroll-onderkant 10 → 30.
+- **"Back to recommended"** per blok met minstens één `rec` (`SET_SEC_REC_BTN`), vraagt eerst (`StaticPopup
+  MH_SET_SECTION_REC`, `SET_SEC_REC_CONFIRM_FMT`), zet via de setters terug zonder de vanzelf-previews.
+- 4 nieuwe keys, 8 packs, locale_probe OK. Syntax OK, lint 0 HARD. Testlijst "3 nov (4)".
+- Rob (Labyrinth-kamer *Malicious Masks*): geen vijanden tot hij de maskers activeerde; onze tekst ("kill what attacks
+  around each") klopt ongeveer. Rob: *"we hoeven er verder niks mee"*.
+
+## 🔨 3 nov — live voorbeeld bij de instellingen, stap 1+2 gebouwd (Rob: "Stap 1 en 2")
+
+✅ **Rob testte 5 punten in het spel, alle goed:** vergrootglazen staan goed, pijl 3 s, cast-icoon aan/uit, melding na een
+delve, Accessible danger alert vanzelf bij aanzetten. Nog open in testlijst "3 nov (3)": rare, rez/lust, de andere 4
+vanzelf-schakelaars, en of de chatregels storen.
+
+Plan `docs/PLAN_VOORBEELD_2026-11-03.md` (na Robs screenshot van MF Nameplates 1.2.5): geen nagebouwd canvas, het echte
+ding op zijn echte plek.
+- `SettingsDefs.lua` `PREVIEW`: 17 instellingen → 9 bestaande tests (pijl, cast-waarschuwing, actie-geluid, grote melding,
+  rare-melding, shard-popup, scorecard/delve-melding, durability-test, rez/lust-paneel). Elke test gelezen vóór het
+  koppelen (bestand:regel in de opmerking). Weggelaten: ConsumableReadyTest (stuurt echt een whisper), RunDispelTest en
+  TestZoneLevelToast (ontwikkelaars-uitvoer).
+- `SettingsPage.lua`: goud vergrootglas (`Interface\Common\UI-Searchbox-Icon`, bestaat: MF tekent hem in Robs screenshot)
+  op die regels; klik = `d.preview`. Stap 2: `autoPreview` (5 schakelaars) toont het bij AANzetten, in `AllWrite`.
+- 3 nieuwe keys `SET_PREVIEW_*`, 8 packs, locale_probe OK. Syntax OK, lint 0 HARD. Testlijst "3 nov (3)".
+- Open: stap 3 (toestanden nadoen) en de twee losse dingen (voetregel, "blok terug naar aanbevolen"); sommige tests
+  zetten een debugregel in de chat (rare, shard) — Rob vragen of dat stoort.
+
+## 🔨 3 nov (2) — zoekbalk stap 4-6 gebouwd (Rob: "Ja, doe alle drie")
+
+✅ **Rob testte 5 punten in het spel, alle goed:** *audio* → Rare sound, *rare* → Rares-tab bovenaan, *valeera* + Enter →
+Delves, Combat warnings uit → 3 regels grijs + ingesprongen + oranje tooltip, Ctrl+klik → aanbevolen stand. Nog open in
+testlijst "3 nov (2)": alert/hotkey, aztarec/coiled/brann, Great Vault grijs, instelling zonder `rec`, Nederlands *alarm*.
+
+- **Stap 4** (`NavSearch.lua` `SYNONYMS`): groepen per MH-taal (en altijd ook Engels), opgesteld door mh-writer uit de
+  woorden die de packs echt gebruiken. Een getypt woord uit een groep zoekt de andere ×0,9, maar streng (`SynFit`:
+  heel woord, of woordbegin vanaf 4 letters; nooit binnen een woord). Weggelaten: health-groep, popup=window. ⚠️
+  Bloodlust/Heroism- en flask-woorden buiten het Engels uit het hoofd, niet tegen wago gemeten (alleen zoekwoorden, nooit
+  op het scherm). Tier-gewicht 0,05 → 0,2 en instellingen nu `TIER_CONTENT`: anders kwam "Rare sound" boven de Rares-tab
+  bij "rare" (offline GEMETEN). Bekend: "taal" vindt ook "Totaal" via de binnen-woord-regel van stap 2.
+- **Stap 5** (`Addons/Guide.lua`, mh-research tegen wago 12.1.7.70668 + Warcraft Wiki): weg brann/zekvir/dornogal/
+  undertyr/dreadshore/stormstout/m+ teleport; erbij valeera, azta'rec/aztarec, venomfall, nullaeus, coffer, coiled (isle),
+  lu'ashal, thorm'belan; dode harandar/voidstorm uit de SMC-lijst. ✅ Daarna (Rob: "los die kleine dingen ook maar even
+  op"): "sporefall"/"rotmire" + Enter → Rotmire's baas-venster (vóór de "spore"-regel); "mentor" uit de Academy-lijst
+  (Warband Mentor); ruRU `SET_REZLUST_*` (3 teksten) nu "Боевое воскрешение и Героизм", gelijk aan het paneel zelf.
+  ✅ Sporefall/Rotmire + Enter door Rob getest (3 nov). Mentor en ruRU niet in het spel getest.
+- **Stap 6** (`SettingsDefs.lua` `PARENT` + `SettingsPage.lua`): 16 instellingen onder 9 hoofdschakelaars, elk paar
+  GEMETEN in de module (regels in de opmerking). All settings: ingesprongen, grijs (alpha 0,45) als de ouder uit staat,
+  tooltip `SET_DEP_OFF_FMT`. Ctrl+klik (rij, waarde, −/+) = terug naar `rec`; tooltip `SET_CTRL_RESET_FMT` alleen als er
+  een `rec` is. Muisknop-aantal bewust niet gekoppeld (KeybindSchema.lua:656). 4 nieuwe keys, locale_probe 8/8.
+- Syntax OK, lint 0 HARD, offline test (navtest) groen. Testlijst "3 nov (2)".
+
+## 🔨 3 nov — zoekbalk stap 1-3 gebouwd (Rob: "Begin inderdaad maar met stap 1 tot en met 3")
+
+✅ **Rob testte 5 punten in het spel, alle goed** (arrow size + knipperen, *arow*, *zzzq*, pijltjes + Enter, Escape →
+lopen). Zijn enige wens: knipperen 2× zo lang → `PulseRow` nu 6 slagen + 1,2 s uitfaden (~6 s, was ~3 s); dát is nog
+niet getest. Daarna ook de rest goed (andersom, rares, Deutsch, geen haperen — gevoel, geen meting —, oude zoekwoorden).
+Niet te testen door Rob: zoeken in de/fr/es/pt/it/ru (packs alleen op die client).
+
+Plan: `docs/PLAN_ZOEKEN_2026-11-03.md` (na MF Nameplates 1.2.5; 🔴 geen open licentie → alleen ideeën, eigen code).
+- **Stap 1:** `NavSearch.lua` leest `ns.GetSettingsDefs()` → elke instelling een regel (`cat = "setting"`, context
+  "All settings > <sectie>", tooltip + dropdown-keuzes als zoekwoorden). Klik → nieuw `ns.FocusSetting(var)` in
+  `SettingsPage.lua`: opent All settings, scrolt (rij `_mhY`, één frame later), laat de rij 3× pulseren.
+- **Stap 2:** `FilterIndex` scoort per woord (Normalize: kleurcodes/accenten/`m+`; naam weegt 1, keywords/context 0,6;
+  gemist woord ×0,5; hele-query-bonus; tier −0,05). Tikfouten (1 vanaf 4 letters, 2 vanaf 7; eerste letter goed of
+  verwisseld) alleen tegen de NAAM en alleen als pass 1 niets vond. `@settings`/`@mounts` (meervoud) werkt nu ook.
+  0 resultaten → grijze regel `NAV_NO_MATCH` (8 packs, locale_probe 8/8), klik = de oude diepe zoektocht.
+- **Stap 3:** pijl op/neer + (Shift-)Tab door de lijst, Enter opent de gekozen rij (anders de oude sterke-match-regel).
+  Escape blijft focus loslaten (bewust anders dan MF).
+- GEMETEN offline (eigen Lua, NavSearch.lua geladen met stubs, 1500 nep-instellingen): 15-50 ms per query; vóór de
+  twee passes tot 0,4 s. In het spel niet gemeten; de echte index-grootte ook niet. Syntax OK, lint 0 HARD.
+- `ns.DevNavFilter(query)` geeft de lijst als data (voor `/dump` en de offline test).
+- Open: stap 4 (synoniemen per taal), 5 (TWW-woorden in `Addons/Guide.lua`), 6 (ctrl+klik/grijs, Robs keuze);
+  site-hoofdpagina + changelog-regel bij de volgende versie.
+
+## 🔨 2 nov (nacht) — Szarith als laatste (Rob: "Goed idee, beide … je krijgt toestemming voor alles"), NIET getest
+
+- `Rares.lua`: Szarith-rij krijgt `last = true`; NearestOpenRareRespectingSkips kiest een `last`-rare pas als er geen
+  gewone open rare meer is, maar vóór de geskipte (die draaien eindeloos rond, anders kwam hij nooit).
+- Gevolg van de reparatie hieronder (hunt houdt zijn rare): skip, auto-advance, de aankomst-hint en
+  `ns.GetNearestIncompleteRareLead` vroegen "de dichtstbijzijnde" en namen aan dat dat de pijl-rare was. Nu via
+  `CurrentHuntRare(zone)` (= `huntLead` als die nog open is en in deze zone, anders de dichtstbijzijnde). `huntLead`
+  staat nu boven die functie gedeclareerd; StopRareRoute zet hem op nil. Syntax OK, lint 0 HARD.
+- Hoe zwaar Szarith is (mh-research, 2 nov nacht; Wowhead npc 263456 + reacties, Method, Icy Veins, wago 12.1.7.70668;
+  niets in het spel gezien): **zelf GEEN elite** ("Level 90 Humanoid (Rare)"), maar Underbelly Coilguards en Szarith
+  Revelators (Elite) staan op zijn plek; spelers zeggen deels "groep", deels solo gedaan. **Geen rare-ster op de
+  minimap** (RareScanner/SilverDragon missen hem; onze vignette-auto-skip ziet hem dus ook niet). Spawn: 10-15 min
+  volgens Method, maar in aug uren campen; buiten de Underbelly-strike lopen spelers als geest langs een poort (1 bron).
+  Coördinaten 39.50/27.40 passen bij de Wowhead-pins. crit 115282 checkt quest 96030 (= ons veld [1]); 98349 wordt
+  door geen criterium gebruikt. → Rij krijgt `noteKey = "RARE_SZARITH_HINT"` (nieuw veld, alleen in RareHintText:
+  chat/tooltip/alarm, niet op het pijl-label): "zelf geen elite, maar elite-wachters om hem heen — een groep helpt;
+  geen rare-ster op de minimap", 8 packs, eigen vertaling. Verouderde opmerking "he now carries 98349" rechtgezet.
+- Niet gedaan, open: of de Eye of Szarith (2613 68.60/15.66, Excising Knife) hem oproept — 3 spelers, onbewezen.
+
+## 🔨 2 nov (laat) — rare-route Coiled Isle, 3 reparaties (Rob: "klopt")
+
+✅ Rob, 3 nov (gesproken): *"vandaag al een rare-route gedaan, [Coiled Isle]. Die ging helemaal goed."* Algemeen
+oordeel; de losse punten van TESTLIJST "2 nov" niet apart bevestigd.
+
+Robs melding: rares op de Coiled Isle, pijl naar "the way through" zonder te zeggen waarheen, daarna Lockjaw "686 m" en
+alle kanten op. Video `Captures\World of Warcraft 2026-11-02 21-27-15.mp4` + `travelRouteLog` (GEMETEN, 21:23-21:32):
+Szarith (2613, 4 stappen) → bij de Vaults-deur 2× terug naar stap 1 (ZONE_CHANGED_INDOORS, kaart bleef 2512) → om
+21:28:08 met "player on map nil" naar Lockjaw (lijst-volgorde: geen positie = FAR_CROSSMAP_SORT + idx, Lockjaw is rij 1)
+→ Siltmouth → Coin-Eye → Garsecg binnen 75 s, niets gedood (Rob: "ik geloof het niet").
+1. `Rares.lua` HuntNextLead: de hunt houdt zijn rare tot die klaar is deze week, met de hand geskipt, een nieuwe hunt
+   (`ctx.start`), of de plek 8 s leeg buiten gevecht. Vroeger alleen vast tijdens een gevecht.
+2. `Travel/TravelRoute.lua`: een stap die de hand-off-watcher "reached" noemt, krijgt `passed`; CurrentStep gaat daar
+   nooit meer naar terug (zelfde mechaniek als de flight master van 17 okt).
+3. `TravelPlan.lua`: de deurstap heet nu "the way into <kaartnaam van de client>" (`PLAN_STEP_DOOR_INTO_FMT`, 8 packs,
+   eigen vertaling; de/ru met dubbele punt i.v.m. naamval). Zonder kaartnaam de oude tekst.
+- NIET gedaan (eerst voorgesteld): "geen stap tonen waar je al staat". De stap "Flight master: Amani Foothold" na het
+  hervatten betekent "neem hier de vlucht"; overslaan zou die instructie wegnemen. Of je vanaf Amani Foothold echt naar
+  het eiland kunt vliegen: niet gemeten. MH kent alleen de weg NAAR BINNEN (Vaults/Underbelly), niet naar buiten.
+- Niet gerepareerd: de eerste keuze van een hunt zonder leesbare positie valt nog terug op de lijstvolgorde (zelden).
+- Geen in-game changelog-regel toegevoegd (4.14.0 is uit; de regel komt bij de volgende versie, Robs go).
+- Syntax OK (307), lint 0 HARD, locale_probe 8/8 OK. Testpunten: TESTLIJST "2 nov".
+
+## 🌆 2 nov — ronde 's avonds (bouwchat «Bouwchat 02-11»; Rob heeft griep)
+
+- GEMETEN over 31 okt t/m 2 nov: git schoon, pull leeg (alleen de wachter-commits van 1 + 2 nov). Alle 4 wachters:
+  nul "moet gefikst", geen nieuwe hotfix (laatste 30 okt), live 70688 / PTR 70668 onbewogen. CF/GitHub 0 open.
+  addon_updates: 23 bijgewerkt (alleen changelogs gelezen, niet getest), niets raakt MH; DandersFrames 5.6.1 weer zonder
+  changelog (tab Clicks blijft een let-op). HandyNotes 167 onveranderd.
+- Vragenlijsten #29 (en/GR, 4) en #30 (de/DE, 5) bijgeteld (Rob: "Ja, tel ze bij"); gemiddelde 4,07.
+- De site-chat heet nu «Site chat 03-11»; seintjes over releases gaan daarheen.
+- Geen code gewijzigd. Open punten onveranderd (zie 31 okt laat en de TESTLIJST "30 okt").
+
+## 🌙 31 okt (laat) — overdracht naar de volgende bouwchat
+
+- ✅ Labyrinth T11, volle run van 9 kamers (Robs screenshot 31 okt): venster A klopt. GEMETEN uit de screenshot: totaal
+  99:23 = som van de kamers, "If every room went like your best: 75:20" = som van de teruggerekende bests, 2 records,
+  chat = venster. TESTLIJST "Inhoud van venster A" afgevinkt. Kindo'jan-video: nog niet (niet gefilmd/gemeld).
+- Great Vault-popup toont andere characters alleen in de eerste 24 uur na de reset (`VaultReminder.lua`, logica
+  onveranderd sinds 2026-06-06, GEMETEN). Voorstel "de hele week tonen" → Rob: *"Laat maar zo"*. Niet opnieuw voorstellen.
+  AFGELEID uit de SavedVariables: Iceicebaby heeft waarschijnlijk nog een vault-beloning klaarliggen (Rob gezegd).
+- Geen MH: Zygor-fout (`Ver.lua:3`, lege `$Revision$` na hun client-update van 29 okt) opgelost door Robs *Repair* in de
+  Zygor-client. Systeempiepje bij de C-toets in WoW: alleen hypotheses gegeven (Windows-standaardgeluid, Razer/Discord/
+  NVIDIA/Willow), Rob heeft nog niets teruggemeld.
+- Geen code gewijzigd sinds 4.14.0; alles gepusht.
+
+## ✅ Het vorige lijstje 'Ouder, maar nog niet af' (vervangen bij deze splitsing)
+
+De historie is afgesplitst (2 sep en 6 nov). Deze secties lezen daar nog als OPEN, dus ze
+staan hier bij naam — een openstaand punt mag niet verdwijnen door oud te zijn.
+
+⚠️ Bewust te ruim: de lijst kijkt alleen naar de kop. Is een punt af, zet een stukje van de
+kop met de reden in `KNOWN_DONE` in `tools/split_handoff.py` en draai
+`python "<repo>/tools/_probe.py" run split_handoff --reindex --write`. Niet met de hand
+bewerken: dan loopt de lijst binnen een week uit de pas met het archief.
+
+- 🔜 OPEN na 28 okt (overdracht naar de bouwchat van 29 okt)
+- 🔜 OPEN na 26 okt (overdracht naar de bouwchat van 27 okt)
+- 🔜 OPEN na 23 okt (overdracht naar de bouwchat van 24 okt)
+- 🌅 VOLGENDE CHAT EERST (stand eind 16 okt; bouwchat gearchiveerd door Rob)
+- 🌅 16 okt — MORGEN EERST (Rob, 15 okt nacht: "onthoud dit dan kunnen we morgen verder")
+- (verslag) 🔴 VOOR MORGEN — Venom Lancer Ori'kassi is geen rare maar een SCENARIO
+- 🔴 9 sep — de weekly-vinkjes rusten op bewijs dat niets waard is (OPEN)
+- 🆕 30 aug — waar komen onaangeleerde recepten vandaan? (OPEN)
+- 🔵 OPEN 29 aug — de SMC-pin zet TWEE waypoints, plus één die niemand vroeg
+- 💡 ROB-VERZOEK 19 AUG — "dit soort info moeten wij ook gaan bieden!!!"
+- 🎯 MORGEN 19 AUG — PRIORITEIT: de EU-seizoensstart
+- ⚠️ OPEN, en het raakt alle vertaalwerk
+- 🌅 MORGENVROEG — twee dingen, en Rob brengt data mee
+- 🔴 De grootste openstaande vraag (Rob, 11 aug)
+- ⏳ Wacht op Rob
+
+📌 Al het afgeronde werk staat in het archief; daar wordt niets meer aan
+toegevoegd. Nieuwe regels horen bovenaan dit bestand.
 
 ## 🌆 31 okt — ronde 's avonds
 
