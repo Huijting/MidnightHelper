@@ -1,5 +1,17 @@
 # Midnight Helper — waar we staan
 
+## ▶ VOLGORDE 11 nov (sparring-chat, Rob: "ja, doe het zo"; reden: Robs testtijd is het schaarste)
+
+Eén stap af en door Rob getest, dan de volgende.
+a. Judgement en de class-quests afmaken (`docs/forever/FOREVER_QUEST_LOCKED_SPELLS_2026-11-11.md`; Seal-tip, Claw-fix
+   `ForeverTrainerData.lua:86`, "komt van een quest" bij de quest-spells).
+b. Groene pijltjes + tooltip-regel (BagUpgrade/LootUpgrade) ook in Forever — eerst meten: kan het op de rekenaar van
+   `ForeverQuestHint` (`ns.FOREVER_MAIN_STATS`), of is `ns.GetLootUpgradeInfo` daar bruikbaar; werkt de bag-hook in Forever.
+   Groot werk → melden en achter c zetten.
+c. Opdracht 7: `/mh selftest` + vensterlijst (hieronder).
+d. De melding bij het oppakken van een upgrade.
+e. Zygor-wachter (Rob: ja), zoals `handynotes_watch`, alle zones, via de voordeur, als stap in `docs/OCHTENDRONDE.md`.
+
 ## ▶ OPEN OPDRACHT: `/mh selftest` + vensterlijst (opdracht 7, sparring-chat; Rob: "niks later", dus al op 11 nov)
 
 Volledige tekst: **`docs/OPDRACHT_SELFTEST_2026-11-11.md`**. Begin met fase 0 (meten en voorstellen, niets bouwen): de

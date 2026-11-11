@@ -154,6 +154,20 @@ lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met d
 - Site:          ja, als het gebouwd is
 - Rob zegt:      ja (in de sparring-chat, 11 nov; doorgegeven). Voorstel van de sparring-chat, niet van Rob: alleen melden
                  bij een duidelijke upgrade, dezelfde lat als de pijltjes. Nog niets gebouwd: eerst de twee metingen.
+                 Aanvulling (Rob, 11 nov, doorgegeven): **eerst de groene pijltjes en de tooltip-regel ook in Forever**, dan
+                 pas de melding. Volgorde: zie NEXT_SESSION 11 nov (stap b vóór d).
+
+### Zygor-wachter: elke ochtend wat er in Zygor veranderde
+- Voor wie:      wij (bron voor questketens, coördinaten, mounts, achievements)
+- Moment:        elke ochtend, in de ochtendronde
+- Spel:          Midnight en Forever (beide Zygor-mappen)
+- Bron:          open punt sinds 10 nov (Zygor werkte MID-mounts en -achievements bij); Rob: ja (11 nov, via de sparring-chat)
+- Bouwt op:      `tools/handynotes_watch.py` (zelfde vorm: kopie, verschil per zone, via de voordeur)
+- Data:          Zygor-gidsen op Robs pc; alle zones
+- Vindbaar:      een stap in `docs/OCHTENDRONDE.md`
+- Werk:          klein tot middel
+- Site:          nee
+- Rob zegt:      ja (doorgegeven). Stap e in de volgorde van 11 nov.
 
 ### Forever: "je hebt geen Hearthstone" bij een reis over het water
 - Voor wie:      nieuweling (Rob: "zeker in het begin")
