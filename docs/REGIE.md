@@ -10,9 +10,10 @@ leest dit eerst en werkt het aan het eind bij. Plan: `docs/PLAN_WERKWIJZE_2026-1
 
 ## 0. Laatste verslag
 
-- [2026-11-11] 🎬 **Regie** — eerste ronde, met de hand, door de cloud-sessie "Midnight Helpen brainstorm".
-  Raakt Rob: de vier wachters sloegen Forever over (opgelost door de bouwchat, `9ca5e32`); de inhaalronde liep nog niet.
-  Scheef: `NEXT_SESSION.md` over zijn grens. Wacht op Rob: 7 punten (lijst 4).
+- [2026-11-11] 🎬 **Regie** (cloud-ronde, 2e van de dag) — Raakt Rob: de Forever-inhaalronde van de vier wachters heeft nu gelopen
+  (8:14–8:18 UTC, nul `[MOET GEFIKST]`), met één echte tegenspraak: onze Enhancement-Shaman-flip bij Mental Dexterity in Forever
+  staat volgens de content-wachter averechts (uit zoekresultaten, niet uit de ruwe pagina). Scheef: `CLAUDE.md` 540 regels.
+  Wacht op Rob: 7 punten (lijst 4). Niet gelezen: de pc (geen toegang), CurseForge, `drafts/BOUW_VRAAG.md` (bestaat niet in de site-repo).
 
 De regisseur vervangt dit blok elke ronde door het nieuwe verslag. Eén verslag, niet een logboek: de vorige staat in git.
 
@@ -73,8 +74,8 @@ sinds 11 nov **`regisseur`** (`/regisseur` of "doe de regie-ronde"; doet hoofdst
 | 1 | Toets (6 vragen) en ideeënlijst | ✅ af |
 | 2 | Prikbord en drie vaste woorden | ✅ af (`docs/SITE_SEIN.md`) |
 | 3 | Controles C1, C3, C5 | C1 en C3 ✅ in de lint. C5 wacht op een vensterlijst. |
-| 4 | Controles C2 en C4 | ✅ gebouwd (`tools/data_check.py`). C4 vond 65 namen om na te kijken. |
-| 5 | Nachtcontrole en ideeënbus | ✅ draaien. Nachtcontrole 11 nov: schoon. Ideeënbus: eerste run zo 15 nov. |
+| 4 | Controles C2 en C4 | ✅ gebouwd (`tools/data_check.py`). C4: 65 → 3 namen over (commit `f08366b`, Robs ja). |
+| 5 | Nachtcontrole en ideeënbus | ✅ draaien. Nachtcontrole 11 nov: C1 en C2 schoon. Ideeënbus: nog geen run (eerste zo 15 nov). |
 | 5b | **De regisseur** (deel 8) | uitgewerkt 11 nov, niets gebouwd |
 | 6 | Recepten | niet begonnen |
 | 7 | `/mh selftest` + vensterlijst | niet begonnen |
@@ -84,7 +85,7 @@ sinds 11 nov **`regisseur`** (`/regisseur` of "doe de regie-ronde"; doet hoofdst
 ## 4. Wacht op Rob
 
 1. **Testen in Forever:** de reisplanner en de "loading"-fix bij de hengel-tip.
-2. **65 namen in andere talen** (controle C4): welke laten we herschrijven?
+2. **De laatste 3 namen** (controle C4, was 65): de bouwchat heeft er 62 gedaan; nakijken wat blijft.
 3. **Zygor-wachter**, zoals bij HandyNotes: ja of nee?
 4. **De vensterlijst:** ja, nee of later? (Advies: later, samen met de zelftest.)
 5. **De ideeënlijst:** ja, nee of later per regel.
@@ -95,10 +96,9 @@ sinds 11 nov **`regisseur`** (`/regisseur` of "doe de regie-ronde"; doet hoofdst
 
 | wat | gemeten | wie moet iets doen |
 |---|---|---|
-| `docs/NEXT_SESSION.md` is **1531 regels**, grens 1500 | 11 nov | bouwchat: eerst splitsen |
-| De Forever-inhaalronde van de vier wachters heeft **nog niet gelopen** (0 blokken gevonden) | 11 nov 09:15 | bouwchat of Rob: de vier starten |
-| `CLAUDE.md` is **536 regels** en groeit (521 → 536 in twee dagen) | 11 nov | plan deel 7; nog niet begonnen |
-| Het overdrachtsbriefje van de site-chat is 1696 regels, zonder grens | 10 nov, op `main` van de site-repo | voorstel ligt bij Rob |
+| Enhancement-Shaman-flip (Mental Dexterity) in Forever staat **averechts** volgens de content-wachter (`CONTENT_WATCH.md` 11 nov) | 11 nov, wachter-claim, door mij niet nagemeten | bouwchat: in de code nameten, dan beslissen |
+| `CLAUDE.md` is **540 regels** en groeit (521 → 536 → 540 in drie dagen) | 11 nov | plan deel 7; nog niet begonnen |
+| Het overdrachtsbriefje van de site-chat (`drafts/SITE_HANDOFF.md`) is 1696 regels, zonder grens | 11 nov, op `main` van de site-repo | voorstel ligt bij Rob |
 | De site-repo heeft geen vast regelbestand | 10 nov | voorstel ligt bij Rob |
 | Geen vaste controle op de handgeschreven site-teksten | 10 nov, volgens de site-chat | voorstel ligt bij Rob |
 
