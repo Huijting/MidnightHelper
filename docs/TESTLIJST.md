@@ -23,8 +23,9 @@ er is niets weggegooid.
 
 ## 🆕 11 nov — Forever: twee reparaties bij de verkoper (Rob: "Ja, allebei")
 
-- [ ] Bij een verkoper, muis op de **Blacksmith Hammer in de lijst van de verkoper** (kopen): GEEN rode regel
-      "Right-click sells this…" meer. Ook niet als je er al één hebt, en niet in het Buyback-tabblad.
+- [x] Bij een verkoper, muis op de **Blacksmith Hammer in de lijst van de verkoper** (kopen): GEEN rode regel
+      "Right-click sells this…" meer. ✅ Rob, 11 nov (screenshot, Samuel Van Brunt). Nog niet gezien: met één hamer al in
+      je tas, en het Buyback-tabblad.
 - [ ] Heb je precies één hamer en ga je met je muis op die hamer **in je eigen tas** (ook Baganator): de rode regel
       staat er wél.
 - [ ] Een nieuw beroep leren zonder het gereedschap: de tip noemt het gereedschap bij naam (bv. "Blacksmith Hammer"),
