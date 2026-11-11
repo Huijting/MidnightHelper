@@ -1,5 +1,14 @@
 # Midnight Helper — waar we staan
 
+## 🆕 11 nov — Forever: Enhancement Shaman altijd Strength (Rob: "Ja, repareer")
+
+- Vondst van de content-wachter (Forever-inhaalronde, `docs/CONTENT_WATCH.md` 11 nov): Blizzard, blue post 6 nov +
+  hotfix 10 nov (Mental Dexterity terug naar 33/66/100% van Int) wil Strength als beste stat. MH's `later`-omslag naar
+  Intellect bij Mental Dexterity deed het omgekeerde. `ForeverMainStats.lua`: de `later` voor SHAMAN weg, main blijft
+  Strength, Intellect. Bron gelezen via zoekmachine op meerdere sites, niet in de client. Syntax OK. TESTLIJST 11 nov.
+- Niet nagekeken: of de Paladin-omslag (Champion of the Light) en de Hunter-omslag (Careful Aim) nog kloppen.
+- Bijwerken bij gelegenheid: `docs/forever/FOREVER_MAIN_STATS_2026-11-07.md` noemt de oude omslag nog.
+
 ## 🆕 11 nov — de regisseur (Rob: "Ja, bouw hem"; opdracht `docs/OPDRACHT_REGISSEUR_2026-11-11.md`)
 
 - Van de brainstorm-tak naar main: `docs/REGIE.md`, de opdracht, plan deel 8. Dit bestand eerst gesplitst (1547 → 1292;

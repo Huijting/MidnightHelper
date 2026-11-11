@@ -122,6 +122,18 @@ lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met d
   tester met een niet-Engelse client (TESTLIJST 11 nov).
 - Nog open:      dezelfde oude namen staan nog in ~70 andere zinnen per taal (`docs/C4_OUDE_NAMEN_2026-11-11.md`). Rob kiest.
 
+### Forever: Enhancement Shaman blijft op Strength (reparatie)
+- Voor wie:      Shaman-spelers in Forever met Mental Dexterity
+- Moment:        bij een questbeloning
+- Spel:          Forever
+- Bron:          content-wachter 11 nov (Blizzard blue post 6 nov + hotfix 10 nov)
+- Bouwt op:      `ForeverMainStats.lua` / `ForeverQuestHint.lua`
+- Data:          via zoekmachine gelezen op meerdere sites, niet in de client
+- Vindbaar:      vanzelf (de quest-tip)
+- Werk:          klein
+- Site:          nee
+- Rob zegt:      ja (*"Ja, repareer"*, 11 nov). Gebouwd 11 nov. Wacht op een test (TESTLIJST 11 nov).
+
 ### De regisseur: één overzicht van alles
 - Voor wie:      Rob (één bericht per dag in plaats van zes) en alle chats
 - Moment:        elke ochtend om 06:20, en op de pc met `/regisseur`

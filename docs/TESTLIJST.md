@@ -21,6 +21,11 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 11 nov — Forever: Enhancement Shaman blijft op Strength
+
+- [ ] Forever, Shaman met het talent **Mental Dexterity**: bij een questbeloning wijst de tip nu het stuk met
+      **Strength** aan, niet meer Intellect. (Zonder dat talent was het al Strength; dat blijft zo.)
+
 ## 🆕 11 nov — spelnamen in de zes talen (C4)
 
 Alleen te zien op een Duitse, Franse, Spaanse, Portugese, Italiaanse of Russische client (Cisca of een tester). Op een
