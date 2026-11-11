@@ -44,6 +44,9 @@ Welke routines er zijn, met ID, tijd en bestand: `docs/REGIE.md`, tabel 1. Repo 
     zin, in het Nederlands, over wat er voor hém veranderde.
 16. **`run handynotes_watch`**: wat er in HandyNotes veranderde. Leg het naast MH's eigen data (kisten, rares, schatten,
     Codex-{WAY}) en neem over wat beter is. Rob: HandyNotes is "meestal de beste bron van allemaal".
+    Daarna **`run zygor_watch`** (sinds 11 nov): wat er in de Zygor-gidsen veranderde, Midnight (MID-bestanden in detail)
+    en Forever (alles). Leg npc/quest/coördinaten naast MH's data (mounts, achievements, rares, Forever-trainers). Kopie
+    staat in `%LOCALAPPDATA%\MidnightHelper\zygor_snapshot`. Twijfel of hij nog iets ziet: `run zygor_watch --selftest`.
 17. **De site-mail:** Gmail-connector, `search_threads` met `subject:(MH feedback OR MH vragenlijst) newer_than:3d`.
     `[MH feedback]` altijd melden; `[MH vragenlijst]` bijtellen in `docs/SURVEY_RESULTS.md`. Robs eigen tests tellen niet.
     Alleen lezen: nooit antwoorden, labelen of archiveren.

@@ -284,7 +284,9 @@ lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met d
 - Vindbaar:      een stap in `docs/OCHTENDRONDE.md`
 - Werk:          klein tot middel
 - Site:          nee
-- Rob zegt:      ja (doorgegeven). Stap e in de volgorde van 11 nov.
+- Rob zegt:      ja (doorgegeven; in de bouwchat 11 nov: *"Ja, door met stap e"*). **Gebouwd 11 nov:**
+                 `tools/zygor_watch.py`, stap 16 van de ochtendronde. Nulmeting: Midnight Zygor 9.6 (717 gidsen), Forever
+                 1.6 (104). `--selftest` bewijst dat een wijziging gezien wordt. Af zodra hij de eerste echte update meldt.
 
 ### Forever: "je hebt geen Hearthstone" bij een reis over het water
 - Voor wie:      nieuweling (Rob: "zeker in het begin")

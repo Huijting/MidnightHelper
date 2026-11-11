@@ -14,6 +14,15 @@
   trainer)". How you play: "(from a quest)" bij Redemption en Aquatic Form, Priest-rasspells "you get both from a quest".
   7 talen. Niet in het spel gezien. Stap a is hiermee af tot Robs test; volgende = stap b.
 
+## 🆕 11 nov — Stap e: Zygor-wachter (Rob: "Ja, door met stap e")
+
+- `tools/zygor_watch.py` (`run zygor_watch`): kopie van alle gidsbestanden gzip in
+  `%LOCALAPPDATA%\MidnightHelper\zygor_snapshot` (buiten repo en WoW-map), per bestand de diff. Detail met npc/quest/
+  ach/goto alleen voor Midnight-bestanden met "MID" in de naam en alle Forever-bestanden; de rest alleen tellingen.
+  Nieuw/weg altijd genoemd. Nulmeting 11 nov: Midnight 9.6 (717), Forever 1.6 (104); tweede run "no guide file changed".
+  `--selftest`: kopie + nep-regel → gezien, precies één bestand: OK. In OCHTENDRONDE stap 16.
+- Daarmee is de volgorde van 11 nov (a t/m e) gebouwd. Open: Robs tests (TESTLIJST bovenaan), selftest in Midnight.
+
 ## 🆕 11 nov — Stap d: melding bij een opgepakte upgrade (Rob: "Ja, allebei" = beide spellen)
 
 - Nieuw `Modules/PickupUpgrade.lua` (beide toc's). BAG_UPDATE_DELAYED → links in de tassen tellen; een link die erbij
