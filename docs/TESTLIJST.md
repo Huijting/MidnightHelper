@@ -47,7 +47,10 @@ Engelse client verandert er niets.
 - [x] **Horde, eerste stap** (Rob, 11 nov, Paladin in Tirisfal → Hanashi/Sayoc in Orgrimmar): pijl "the zeppelin to Durotar
       1162 m", venster "The way there: the zeppelin to Durotar in Tirisfal Glades". MH-doel 60.70, 58.76; zeppelin-pin op
       Robs kaart 60.04, 59.46 (< 1 kaartpunt, zelfde toren). Verder niet gereisd (geen Hearthstone).
-- [ ] Horde verder: op de toren / in Durotar springt de pijl door naar Orgrimmar.
+- [ ] Horde verder: op de toren / in Durotar springt de pijl door naar Orgrimmar. (Rob: later, met een character mét Hearthstone.)
+- [ ] 🆕 **Zonder Hearthstone** (11 nov gebouwd): Arrow naar iets over het water → één chatregel "This route crosses the
+      water and you have no Hearthstone…"; het wapenvenster zegt het achter "The way there". `/mh travel` toont
+      "hearthstone (item 6948): 0" en "no-hearthstone warning: YES". Mét Hearthstone: niets van dit alles.
 - [ ] `/mh travel` → print waar MH denkt dat je bent ("land KAL"), het doel en de stappen. Stuur de regels bij twijfel.
 - [ ] Op de boot / aan de overkant in Stormwind Harbor: de pijl schuift door naar de **tram-ingang** (Dwarven District).
       🔴 Meten: `/mh travel` op de pier in Stormwind — welke kaart zegt hij (verwacht Stormwind City 1453)?

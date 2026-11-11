@@ -122,6 +122,18 @@ lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met d
   tester met een niet-Engelse client (TESTLIJST 11 nov).
 - Nog open:      dezelfde oude namen staan nog in ~70 andere zinnen per taal (`docs/C4_OUDE_NAMEN_2026-11-11.md`). Rob kiest.
 
+### Forever: "je hebt geen Hearthstone" bij een reis over het water
+- Voor wie:      nieuweling (Rob: "zeker in het begin")
+- Moment:        als de pijl je over het water stuurt en je geen Hearthstone draagt
+- Spel:          Forever
+- Bron:          Rob, 11 nov, Paladin zonder Hearthstone (verkocht voor geld en tasruimte) in Tirisfal
+- Bouwt op:      de reisplanner (`ForeverTravel.lua`) en het wapenvenster
+- Data:          GEMETEN — item 6948 "Hearthstone" en de naam per taal in de Forever-DB2 (1.60.1.70888)
+- Vindbaar:      vanzelf: chatregel + venster; `/mh travel` als diagnose
+- Werk:          klein
+- Site:          ja, als het uit is (`docs/SITE_SEIN.md`)
+- Rob zegt:      ja (*"bouw het maar"*, 11 nov). Gebouwd 11 nov. Wacht op een test (TESTLIJST 11 nov).
+
 ### Forever: Enhancement Shaman blijft op Strength (reparatie)
 - Voor wie:      Shaman-spelers in Forever met Mental Dexterity
 - Moment:        bij een questbeloning

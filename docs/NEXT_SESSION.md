@@ -1,5 +1,16 @@
 # Midnight Helper — waar we staan
 
+## 🆕 11 nov — Forever: reisplanner in het spel + "geen Hearthstone" (Rob: "bouw het maar")
+
+- Rob testte de reisplanner met een Horde-Paladin in Tirisfal → Hanashi/Sayoc (Orgrimmar): pijl en venster zeggen "the
+  zeppelin to Durotar"; MH-doel 60.70,58.76 vs zeppelin-pin op zijn kaart 60.04,59.46 (GEMETEN, < 1 kaartpunt). Niet
+  doorgereisd: geen Hearthstone. Rest (Durotar → Orgrimmar, Alliance, "(loading...)") later, met een character mét Hearthstone.
+- Nieuw in `ForeverTravel.lua`: gaat het plan over het water (boot/zeppelin/loop/sky; tram en portaal niet) en is
+  `GetItemCount(6948)` = 0 → `FTRAVEL_NO_HEARTH` achter de "way there"-zin, één chatregel `FTRAVEL_NO_HEARTH_CHAT` per
+  doel per sessie (in `ns.BuildTravelPlan`, dus alleen als de pijl een plan vraagt), `/mh travel` toont het aantal en het
+  oordeel. Onleesbare telling = niets zeggen. Item 6948 + namen per taal GEMETEN in de Forever-DB2. Syntax OK.
+- Niet gedaan: de tip "een herbergier geeft je een nieuwe" — niet gemeten, dus niet in de tekst.
+
 ## 🆕 11 nov — Forever: Enhancement Shaman altijd Strength (Rob: "Ja, repareer")
 
 - Vondst van de content-wachter (Forever-inhaalronde, `docs/CONTENT_WATCH.md` 11 nov): Blizzard, blue post 6 nov +

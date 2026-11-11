@@ -56,6 +56,36 @@ local LINKS = {
 	{ id = "S2", kind = "sky", side = "H", a = { MAP.ZEPHRAS, 57.94, 80.72 }, b = { MAP.MULGORE, 34.29, 25.73 } },
 }
 local COST = { boat = 4, zeppelin = 4, sky = 4, loop = 7, tram = 1, portal = 0.5 }
+
+-- No Hearthstone + a route over the water = a long way back (Rob, 11 Nov 2026, on a Paladin who had sold his to make room:
+-- "bouw het stukje maar van, je hebt geen hearthstone, zeker in het begin"). Item 6948 "Hearthstone" in the Forever DB2
+-- ItemSparse, 1.60.1.70888 (GEMETEN). The tram and the portal are short hops, so only these kinds count.
+local HEARTHSTONE = 6948
+local CROSSING = { boat = true, zeppelin = true, loop = true, sky = true }
+
+--- How many Hearthstones you carry; nil when the count cannot be read (then we say nothing).
+local function HearthCount()
+	local fn = (C_Item and C_Item.GetItemCount) or GetItemCount
+	if not fn then
+		return nil
+	end
+	local ok, n = pcall(fn, HEARTHSTONE)
+	return ok and tonumber(n) or nil
+end
+
+--- True when the plan crosses the water and you have no Hearthstone (counted, not guessed).
+local function NoHearthForTrip(steps)
+	if not steps then
+		return false
+	end
+	local crosses = false
+	for _, s in ipairs(steps) do
+		if s.linkKind and CROSSING[s.linkKind] then
+			crosses = true
+		end
+	end
+	return crosses and HearthCount() == 0
+end
 local LABEL = { boat = "FTRAVEL_BOAT_FMT", zeppelin = "FTRAVEL_ZEPPELIN_FMT", tram = "FTRAVEL_TRAM_FMT",
 	portal = "FTRAVEL_PORTAL_FMT", sky = "FTRAVEL_SKY_FMT", loop = "FTRAVEL_LOOP_FMT" }
 -- Stormwind and Ironforge are one walk apart on paper, but the walk is long and dangerous: a penalty makes the tram win.
@@ -296,7 +326,7 @@ local function Plan(tmap, tx, ty)
 				local from = nodes[c.from]
 				steps = steps or {}
 				steps[#steps + 1] = { kind = "travel", forever = true, mapID = from.map, x = from.x, y = from.y,
-					label = Label(c.edge.link, c.edge.toEnd), link = c.edge.link.id }
+					label = Label(c.edge.link, c.edge.toEnd), link = c.edge.link.id, linkKind = c.edge.link.kind }
 			end
 		end
 		if steps then
@@ -309,10 +339,21 @@ local function Plan(tmap, tx, ty)
 	return steps, why
 end
 
+-- The arrow asks for a plan many times a second; the "no Hearthstone" chat line comes once per target per session.
+-- Chat is right here (CLAUDE.md, route arrow): it is an event you might miss, and it stays readable afterwards.
+local hearthWarned = {}
 if not ns.BuildTravelPlan then
 	function ns.BuildTravelPlan(mapID, x, y)
 		local ok, steps = pcall(Plan, mapID, x, y)
-		return ok and steps or nil
+		steps = ok and steps or nil
+		if steps then
+			local k = ("%s:%.0f:%.0f"):format(tostring(mapID), x or 0, y or 0)
+			if not hearthWarned[k] and NoHearthForTrip(steps) then
+				hearthWarned[k] = true
+				print("|cffffcc00Midnight Helper:|r " .. ns:L("FTRAVEL_NO_HEARTH_CHAT"))
+			end
+		end
+		return steps
 	end
 end
 
@@ -335,7 +376,11 @@ function ns.ForeverTravelSentence(mapID, x, y)
 			parts[#parts + 1] = ns:L("FTRAVEL_IN_FMT"):format(s.label, MapName(s.mapID))
 		end
 	end
-	return table.concat(parts, ns:L("FTRAVEL_THEN")) .. "."
+	local sentence = table.concat(parts, ns:L("FTRAVEL_THEN")) .. "."
+	if NoHearthForTrip(steps) then
+		sentence = sentence .. " " .. ns:L("FTRAVEL_NO_HEARTH")
+	end
+	return sentence
 end
 
 --- /mh travel: where MH thinks you are, and the plan to the arrow's current target.
@@ -344,6 +389,8 @@ function ns.ForeverTravelSlash()
 	local pmap, px, py = PlayerPos()
 	print(P .. ("travel: you are on %s (%s) %s, land %s, side %s"):format(MapName(pmap or 0), tostring(pmap),
 		px and ("%.1f,%.1f"):format(px, py) or "?", tostring(pmap and Group(pmap, px, py)), tostring(Side())))
+	local hs = HearthCount()
+	print(("  hearthstone (item %d): %s"):format(HEARTHSTONE, hs == nil and "count unreadable" or tostring(hs)))
 	local lead = ns.GetActiveArrowLead and ns.GetActiveArrowLead()
 	if not lead then
 		print("  no arrow target. Set one (a trainer, a vendor) and type /mh travel again.")
@@ -361,4 +408,6 @@ function ns.ForeverTravelSlash()
 			print(("  %d. %s — %s %.1f,%.1f (%s)"):format(i, s.label, MapName(s.mapID), s.x, s.y, s.link))
 		end
 	end
+	print("  no-hearthstone warning: " .. (NoHearthForTrip(steps) and "YES (crosses the water, none in your bags)"
+		or "no (you have one, the count is unreadable, or the route does not cross the water)"))
 end

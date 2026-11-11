@@ -28,6 +28,20 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 11 nov 2026 — Forever: waarschuwing als je zonder Hearthstone over het water reist
+- Tag + commit:   geen tag / (deze commit)
+- Status:         alleen op main
+- Mag op de site: nee
+- Speler ziet:    Gaat je route over het water (boot, zeppelin) en heb je geen Hearthstone in je tassen, dan zegt MH één keer
+                  in de chat, en in het wapentrainer-venster, dat de weg terug dezelfde lange reis is. *(niet in het spel getest)*
+- Knoplabels:     FTRAVEL_NO_HEARTH, FTRAVEL_NO_HEARTH_CHAT
+- Commando's:     /mh travel (toont ook je aantal Hearthstones)
+- Spel:           Forever
+
+## 11 nov 2026 — Forever: de reisplanner, eerste stap gezien
+- Status-update van de regel hieronder: Rob zag op 11 nov met een Horde-Paladin in Tirisfal de pijl en het venster naar
+  de zeppelin naar Durotar wijzen *(getest door Rob, alleen de eerste stap)*. Nog steeds **alleen op main**.
+
 ## 10 nov 2026 — Forever: de pijl wijst de boot, zeppelin, tram of het portaal aan
 - Tag + commit:   geen tag / (deze commit)
 - Status:         alleen op main
