@@ -651,6 +651,11 @@ local function UpdateArrow()
 	---
 	--- Saying it earlier would undercut a direction that is perfectly good all the way.
 	local hint = (t.hintKey and dist <= ARRIVAL_HINT_YARDS) and t.hintKey or nil
+	-- An NPC route (Forever trainer/vendor) may say "you're there, look around" up close: a list place can be rounded
+	-- by a few metres, and an arrow pointing through a wall at 12 m reads as broken (Rob, 11 Nov 2026, Aramis Hammerhand).
+	if not hint and t.nearKey and t.nearYards and dist <= t.nearYards then
+		hint = t.nearKey
+	end
 	local shownInt = math.floor(shown + 0.5)
 	if t.name ~= lastLabelName or shownInt ~= lastLabelVal or unit ~= lastLabelUnit
 		or hint ~= lastLabelHint then
@@ -1028,7 +1033,7 @@ local function Tick()
 	local lt = ns.lastTarget
 	if lt and lt.mapID then
 		activeLead = { mapID = lt.mapID, x = lt.x, y = lt.y, name = lt.name, noTravelAdvice = lt.noTravelAdvice,
-			arriveYards = lt.arriveYards }
+			arriveYards = lt.arriveYards, nearKey = lt.nearKey, nearYards = lt.nearYards }
 	end
 
 	-- 🚌 Travel phase 4 (16 Oct 2026): rare and treasure routes no longer nil `ns.lastTarget` — the route runner points

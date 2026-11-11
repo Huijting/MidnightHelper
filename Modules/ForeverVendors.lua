@@ -153,12 +153,17 @@ end
 --- Arrow to one vendor (Blizzard waypoint + NativeArrow, like the trainer arrow).
 local function GoTo(e, what)
 	local v = e.v
-	if not (ns.SetBlizzardUserWaypoint and ns.SetBlizzardUserWaypoint(v.map, v.x, v.y)) then
+	-- A place we saw this vendor from beats the rounded list value (ForeverSeenPlaces.lua, Rob 11 Nov 2026).
+	local vx, vy = v.x, v.y
+	if ns.ForeverPlaceFix then
+		vx, vy = ns.ForeverPlaceFix(v.npc, v.map, v.x, v.y)
+	end
+	if not (ns.SetBlizzardUserWaypoint and ns.SetBlizzardUserWaypoint(v.map, vx, vy)) then
 		print(PREFIX .. ns:L("FVEND_NO_WAYPOINT"))
 		return false
 	end
-	ns.lastTarget = { mapID = v.map, x = v.x, y = v.y, name = v.name .. (what and (" (" .. what .. ")") or ""),
-		via = "/mh vendor", arriveYards = 5, vendorNpc = v.npc }
+	ns.lastTarget = { mapID = v.map, x = vx, y = vy, name = v.name .. (what and (" (" .. what .. ")") or ""),
+		via = "/mh vendor", arriveYards = 5, vendorNpc = v.npc, nearKey = "FARROW_NEAR_NPC", nearYards = 20 }
 	ns._mhRouteOwner = "waypoint"
 	print(PREFIX .. ns:L("FVEND_ARROW_SET_FMT"):format(v.name, ZoneName(v.map),
 		e.dist and Distance(e.dist) or ns:L("FVEND_OTHER_CONT")))

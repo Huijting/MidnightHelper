@@ -96,7 +96,7 @@ ns.FOREVER_TRAINER_SPOTS = {
 		{ npc = 254086, name = "Shenaan Spellwind", side = "N", map = 2521, x = 45.00, y = 45.80 },
 	},
 	PALADIN = {
-		{ npc = 244808, name = "Aramis Hammerhand", side = "H", map = 1420, x = 31.00, y = 66.20 },
+		{ npc = 244808, name = "Aramis Hammerhand", side = "H", map = 1420, x = 31.11, y = 66.38 }, -- Rob measured 11 Nov 2026 (2 steps in front of him); Wowhead only had 31,66.2 and the arrow pointed 12 m off
 		{ npc = 246152, name = "Shari Stilwell", side = "H", map = 1420, x = 60.20, y = 52.40 },
 		{ npc = 246389, name = "Hilda the Breaker", side = "H", map = 1420, x = 22.00, y = 47.20 },
 		{ npc = 926, name = "Bromos Grummner", side = "A", map = 1426, x = 28.80, y = 68.20 },

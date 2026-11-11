@@ -267,12 +267,17 @@ end
 
 local function GoTo(e, what)
 	local t = e.t
-	if not (ns.SetBlizzardUserWaypoint and ns.SetBlizzardUserWaypoint(t.map, t.x, t.y)) then
+	-- A place we saw this weapon master from beats the rounded list value (ForeverSeenPlaces.lua, Rob 11 Nov 2026).
+	local tx, ty = t.x, t.y
+	if ns.ForeverPlaceFix then
+		tx, ty = ns.ForeverPlaceFix(t.npc, t.map, t.x, t.y)
+	end
+	if not (ns.SetBlizzardUserWaypoint and ns.SetBlizzardUserWaypoint(t.map, tx, ty)) then
 		print(PREFIX .. ns:L("FVEND_NO_WAYPOINT"))
 		return false
 	end
-	ns.lastTarget = { mapID = t.map, x = t.x, y = t.y, name = t.name .. (what and (" (" .. what .. ")") or ""),
-		via = "/mh weapons", arriveYards = 5, weaponNpc = t.npc }
+	ns.lastTarget = { mapID = t.map, x = tx, y = ty, name = t.name .. (what and (" (" .. what .. ")") or ""),
+		via = "/mh weapons", arriveYards = 5, weaponNpc = t.npc, nearKey = "FARROW_NEAR_NPC", nearYards = 20 }
 	ns._mhRouteOwner = "waypoint"
 	if ns.ForeverTrainerMark then
 		pcall(ns.ForeverTrainerMark, { npc = t.npc, name = t.name })

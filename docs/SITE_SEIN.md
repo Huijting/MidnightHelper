@@ -42,6 +42,17 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
   ons script en vraagt Robs ja. Met de temp-map is het niet nodig.
 - Status: beantwoord door de bouwchat, 11 nov.
 
+## 11 nov 2026 — Forever: de pijl leert waar trainers en verkopers echt staan
+- Tag + commit:   geen tag / (deze commit)
+- Status:         alleen op main
+- Mag op de site: nee
+- Speler ziet:    Praat je met een trainer of verkoper, dan onthoudt MH waar die staat, en de pijl wijst er voortaan
+                  precies heen (op al je characters). Vlakbij zegt de pijl "You're there: look around, they stand right
+                  here." *(niet in het spel getest)*
+- Knoplabels:     FARROW_NEAR_NPC
+- Commando's:     /mh travel (toont hoeveel plekken geleerd zijn)
+- Spel:           Forever
+
 ## 11 nov 2026 — Forever: MH zegt welke spells van een class-quest komen
 - Tag + commit:   geen tag / (deze commit)
 - Status:         alleen op main

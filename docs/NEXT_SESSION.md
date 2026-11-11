@@ -14,6 +14,18 @@
   trainer)". How you play: "(from a quest)" bij Redemption en Aquatic Form, Priest-rasspells "you get both from a quest".
   7 talen. Niet in het spel gezien. Stap a is hiermee af tot Robs test; volgende = stap b.
 
+## 🆕 11 nov — Forever: trainerplekken (Rob: "Alle drie", na zijn melding: pijl 12 m naast Aramis Hammerhand)
+
+- GEMETEN: Wowhead geeft Aramis als "31, 66.2"; bijna alle trainer-/verkoperplekken in MH staan op één decimaal (218/217
+  class, 313/313 beroep, 405/405 verkoper), met een heel getal voor x of y bij 60 class-, 98 beroeps- en 158 verkoperrijen.
+- 1) `ForeverTrainerSpots.lua` Aramis → 31.11, 66.38 (Robs meting, coördinaat-regel).
+- 2) Nieuw `Modules/ForeverSeenPlaces.lua` (alleen Camelot-toc): bij TRAINER_SHOW/MERCHANT_SHOW de spelerpositie onder het
+  NPC-id in `ns.db.foreverSeenAt`; `ns.ForeverPlaceFix(npc, map, x, y)` gebruikt in `ForeverTrainer` (Candidates →
+  FixPlaces), `ForeverWeapons` en `ForeverVendors` GoTo. Zelfde kaart only. `/mh travel` toont het aantal. Offline getest.
+- 3) `FARROW_NEAR_NPC` via `nearKey/nearYards = 20` op de lastTarget (trainer, wapen, verkoper); NativeArrow kopieert ze en
+  zet de zin achter het label binnen 20 yd. 7 talen.
+- ▶ Later: geleerde plekken uit Robs SavedVariables (`foreverSeenAt`) in de spots-bestanden zetten.
+
 ## ▶ VOLGORDE 11 nov (sparring-chat, Rob: "ja, doe het zo"; reden: Robs testtijd is het schaarste)
 
 Eén stap af en door Rob getest, dan de volgende.

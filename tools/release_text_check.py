@@ -37,6 +37,9 @@ def _norm(s):
     return s.strip().lower().rstrip(":.…").strip()
 
 
+# ⚠️ locale_index(root) and routed_words(root) are imported by the SITE's own check (midnighthelper-site,
+# tools/check_addon_words.py, since 11 Nov 2026) on a git archive of a tag. Keep their names, arguments and return shape;
+# a rename or a new signature must be announced in docs/SITE_SEIN.md in the same commit.
 def locale_index(root):
     """value(normalised) -> [(key, file)], and the set of all keys."""
     by_value, keys = {}, set()

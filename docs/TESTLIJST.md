@@ -21,6 +21,15 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 11 nov — Forever: de pijl naar trainers en verkopers klopt beter
+
+- [ ] Undead Paladin, pijl naar **Aramis Hammerhand** (Deathknell): de pijl wijst nu naar hem, niet 12 m ernaast door de muur.
+- [ ] Binnen ~18 m van een trainer, wapentrainer of verkoper zegt de pijl erachter: "Je bent er: kijk om je heen, hij staat
+      hier vlakbij."
+- [ ] **Leren:** praat met een trainer of verkoper (venster open). Zet daarna (ook op een ander character) de pijl naar
+      dezelfde NPC: hij wijst naar de plek waar jij toen stond. `/mh travel` → regel "NPC places learned …: <aantal>".
+- [ ] 🔴 Meten voor later: na een speelavond kan ik de geleerde plekken uit je SavedVariables in de addon zetten.
+
 ## 🆕 11 nov — Forever: Paladin-Judgement en Druid-Claw
 
 - [ ] Paladin, `/mh` → How you play: bij **Judgement** staat nu "werkt alleen als er een seal aan staat: zet eerst je

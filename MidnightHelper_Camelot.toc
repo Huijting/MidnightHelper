@@ -84,6 +84,8 @@ Modules\ForeverWarnings.lua
 Modules\ForeverWeek.lua
 # Handy macros: heal, bandage, attack, focus, skull, trinkets, racials (Rob, 9 Nov 2026: macro plan step 3).
 Modules\ForeverMacros.lua
+# Remember where an NPC really stands when you talk to it; the arrows use that place (Rob, 11 Nov 2026: "Alle drie").
+Modules\ForeverSeenPlaces.lua
 # Where to buy profession tools and general/trade goods, with an arrow (Rob, 9 Nov 2026: "die moeten we ook vindbaar maken").
 Modules\ForeverVendorSpots.lua
 Modules\ForeverVendors.lua

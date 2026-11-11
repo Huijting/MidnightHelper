@@ -950,6 +950,21 @@ local function ProfFromWord(word)
 end
 ns.ForeverProfFromWord = ProfFromWord
 
+--- A place we saw the NPC from (ForeverSeenPlaces.lua) replaces the rounded list value, same map only (Rob, 11 Nov 2026:
+--- the arrow to Aramis Hammerhand pointed 12 m off). Marked `seen` so /mh trainer check can show it.
+local function FixPlaces(out)
+	if not ns.ForeverPlaceFix then
+		return out
+	end
+	for _, s in ipairs(out) do
+		local x, y, seen = ns.ForeverPlaceFix(s.npc, s.map, s.x, s.y)
+		if seen then
+			s.x, s.y, s.seen = x, y, true
+		end
+	end
+	return out
+end
+
 --- Every known trainer place for this character: { map, x, y, name, src }. `prof` = a profession key, or nil for the
 --- class trainer. For a profession, trainers that cannot teach the rank you need are left out (counted in `dropped`).
 local function Candidates(token, prof, all)
@@ -974,7 +989,7 @@ local function Candidates(token, prof, all)
 				end
 			end
 		end
-		return out, dropped, need
+		return FixPlaces(out), dropped, need
 	end
 	for _, s in ipairs(Spots()[token] or {}) do
 		out[#out + 1] = { map = s.map, x = s.x, y = s.y, name = s.name, npc = s.npc, src = "yours" }
@@ -999,7 +1014,7 @@ local function Candidates(token, prof, all)
 				measured = s.measured }
 		end
 	end
-	return out
+	return FixPlaces(out)
 end
 ns.ForeverTrainerCandidates = Candidates -- the offline check calls it
 
@@ -1200,8 +1215,11 @@ function ns.ForeverTrainerGoTo(best, dist, n, prof)
 	-- al weg ... dan moet ik alsnog zoeken"). Talking to the trainer ends the route too (TRAINER_SHOW below).
 	-- trainerNpc/trainerName: so TRAINER_SHOW only ends the route at THIS trainer (Rob, 9 Nov 2026: a fishing trainer on
 	-- the way to the leatherworker took the arrow away).
+	-- nearKey: within 20 yd the arrow adds "you're there, look around" (Rob, 11 Nov 2026: the arrow pointed 12 m off,
+	-- through a wall, because the list place was rounded). best.x/y may already be the place we saw him from.
 	ns.lastTarget = { mapID = best.map, x = best.x, y = best.y, name = label, via = "/mh trainer go", arriveYards = 5,
-		trainerNpc = (type(best.npc) == "number" and best.npc > 0) and best.npc or nil, trainerName = best.name }
+		trainerNpc = (type(best.npc) == "number" and best.npc > 0) and best.npc or nil, trainerName = best.name,
+		nearKey = "FARROW_NEAR_NPC", nearYards = 20 }
 	ns._mhRouteOwner = "waypoint"
 	if dist then
 		print(PREFIX .. ("arrow set to %s, about %s (%s, %d places known)."):format(label, Distance(dist), best.src,

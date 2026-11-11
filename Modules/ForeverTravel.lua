@@ -391,6 +391,9 @@ function ns.ForeverTravelSlash()
 		px and ("%.1f,%.1f"):format(px, py) or "?", tostring(pmap and Group(pmap, px, py)), tostring(Side())))
 	local hs = HearthCount()
 	print(("  hearthstone (item %d): %s"):format(HEARTHSTONE, hs == nil and "count unreadable" or tostring(hs)))
+	if ns.ForeverSeenCount then
+		print(("  NPC places learned by talking to them (trainers, vendors): %d"):format(ns.ForeverSeenCount()))
+	end
 	local lead = ns.GetActiveArrowLead and ns.GetActiveArrowLead()
 	if not lead then
 		print("  no arrow target. Set one (a trainer, a vendor) and type /mh travel again.")
