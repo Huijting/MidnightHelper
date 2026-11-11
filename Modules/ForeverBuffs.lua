@@ -46,7 +46,10 @@ local DEFS = {
 		{ choice = { "Demon Armor", "Demon Skin" }, key = "warlockArmor" },
 	},
 	PALADIN = {
-		{ choice = { "Blessing of Might", "Blessing of Wisdom", "Blessing of Kings" }, key = "paladinBlessing" },
+		-- covers (11 Nov 2026): a Greater Blessing (your own or another paladin's) counts as present. Without it a
+		-- Greater Blessing of Might on you read as "missing" (found by reading the code, not seen in game).
+		{ choice = { "Blessing of Might", "Blessing of Wisdom", "Blessing of Kings" }, key = "paladinBlessing",
+			covers = { "Greater Blessing of Might", "Greater Blessing of Wisdom", "Greater Blessing of Kings" } },
 		{ choice = { "Devotion Aura", "Retribution Aura", "Concentration Aura" }, key = "paladinAura",
 			textKey = "MBUFF_TXT_AURA" },
 	},
@@ -311,5 +314,10 @@ function ns.ForeverBuffsSlash(arg)
 			", id " .. tostring(BestRank(name)) .. ")") or ""))
 	end
 	print(("  pet: %s"):format(UnitExists("pet") and (UnitIsDead("pet") and "dead" or "out") or "none"))
-	print(("  on the button now: %d"):format(#ns.GetForeverMissingBuffs()))
+	local now = ns.GetForeverMissingBuffs()
+	print(("  on the button now: %d"):format(#now))
+	if now[1] and ns.MissingBuffSentence then
+		local inCombat = InCombatLockdown and InCombatLockdown()
+		print("  line under the icon: " .. ns.MissingBuffSentence(now[1], inCombat))
+	end
 end

@@ -107,6 +107,80 @@ lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met d
 - Site:          ja, als het uit is (`docs/SITE_SEIN.md`)
 - Rob zegt:      ja (*"uitzoeken en bouwen graag"*, 10 nov). **Gebouwd: 7bb1e53.** Wacht op Robs test (TESTLIJST 10 nov avond).
 
+### De buff-melding wordt een zin
+- Voor wie:      allebei (nieuweling: "wát mis ik?"; veteraan: in één blik zien welke)
+- Moment:        als er een buff, aura, stance, pet of wapen-buff ontbreekt
+- Spel:          Midnight + Forever (Rob, 11 nov: *"Ja, met jouw advies"*: beide spellen, icoon blijft waar de speler het zette)
+- Bron:          Rob, 11 nov 2026, na PaladinPlan (GPL-3.0: alleen het idee, geen code of tekst)
+- Bouwt op:      `MissingBuff.lua` (icoon + klik), `ForeverBuffs.lua` (Forever-lijst)
+- Data:          spellnaam uit de client (dus altijd in de taal van die client)
+- Vindbaar:      vanzelf, onder het icoon; `/mh buffs` (Forever) en `/mh mbuff` tonen dezelfde zin
+- Werk:          klein
+- Site:          ja (`docs/SITE_SEIN.md`)
+- Rob zegt:      ja. **Gebouwd 11 nov**, met drie reparaties: Greater Blessings tellen mee (Forever), de onware zin
+                 "de onze kun je in gevecht aanklikken" is weg, `/mh mbuff` bestaat altijd. Wacht op Robs test.
+
+### Buff "bijna afgelopen", met de tijd erbij
+- Voor wie:      allebei
+- Moment:        buiten een gevecht, als een buff bijna afloopt (rood = weg, geel = loopt af)
+- Spel:          Forever eerst
+- Bron:          Rob, 11 nov 2026, na PaladinPlan
+- Bouwt op:      de buff-melding hierboven
+- Data:          NIET GEMETEN: of `expirationTime` via `ns.Aura` leesbaar is in Forever. Eerst meten.
+- Vindbaar:      vanzelf, dezelfde plek als de buff-melding
+- Werk:          middel
+- Site:          ja, als het uit is
+- Rob zegt:      ja (later; via de sparring-chat, door Rob bevestigd in de bouwchat 11 nov)
+
+### Forever: venstertje "Doe dit nu / Alles bij / Komt eraan"
+- Voor wie:      vooral nieuweling
+- Moment:        tijdens het levelen: wat nu te doen, en welke spells de volgende 3 levels komen (bij naam)
+- Spel:          Forever
+- Bron:          Rob, 11 nov 2026, na PaladinPlan
+- Bouwt op:      ForeverTrainer, ForeverRanks, de wapenteller, GetMissingBuffs; met een schakelaar
+- Data:          AFGELEID: alles bestaat al in die modules; niets nieuw gemeten
+- Vindbaar:      nog te bepalen
+- Werk:          middel tot groot
+- Site:          ja, als het uit is
+- Rob zegt:      ja (later). Eerst met de sparring-chat doorpraten wat erin moet, voor alle classes; nog niet ontwerpen.
+
+### Eén schakelaar "Verplaatsen" voor alle MH-onderdelen op het scherm
+- Voor wie:      allebei
+- Moment:        als je je scherm inricht: alles zichtbaar met "sleep mij"
+- Spel:          Midnight + Forever
+- Bron:          Rob, 11 nov 2026, na PaladinPlan
+- Bouwt op:      de losse sleep-functies die elk onderdeel al heeft (bv. het buff-icoon)
+- Data:          niet nodig
+- Vindbaar:      instellingen + een `/mh`-commando
+- Werk:          middel
+- Site:          ja, als het uit is
+- Rob zegt:      ja (later)
+
+### Alle ontbrekende buffs tonen, en uitleggen welke MH kiest
+- Voor wie:      allebei
+- Moment:        als er meer dan één buff ontbreekt (nu toont MH alleen de eerste, `MissingBuff.lua` UpdateMissingBuff)
+- Spel:          Midnight + Forever
+- Bron:          Rob, 11 nov 2026, na PaladinPlan
+- Bouwt op:      de buff-melding; de keuze "laatst gecast wint" (`ForeverBuffs.lua` PickChoice) in de tooltip uitleggen
+- Data:          niet nodig
+- Vindbaar:      vanzelf
+- Werk:          klein tot middel
+- Site:          ja, als het uit is
+- Rob zegt:      ja (later)
+
+### Vlak voor een gevecht: je mist iets wat aan moet staan (bv. geen seal)
+- Voor wie:      vooral nieuweling
+- Moment:        je hebt een vijand als doel, buiten een gevecht
+- Spel:          Forever (Midnight: Rob nog niet gevraagd)
+- Bron:          Rob, 11 nov 2026, na PaladinPlan (*"deze melding vond ik ook briljant"*; GPL-3.0: alleen het idee)
+- Bouwt op:      ForeverWarnings (de rust-waarschuwing bij een vijandig doel) en de lijst per class in ForeverBuffs
+- Data:          GEMETEN 11 nov: "Seal" komt niet voor in `ForeverBuffs.lua`. Nog te meten: wat per class aan moet staan
+                 (seal, aspect, poison, wapen-buff, schild …) en of een seal in Forever leesbaar is via `ns.Aura`
+- Vindbaar:      een zin op de plek van de andere waarschuwingen, met een schakelaar
+- Werk:          nog te schatten na het uitzoeken
+- Site:          ja, als het gebouwd is
+- Rob zegt:      ja (via de sparring-chat, 11 nov; nog te bevestigen in de bouwchat)
+
 ### Spelnamen in de zes talen zoals die client ze toont (C4)
 - Voor wie:      allebei, in de/fr/es/pt/it/ru (Engels en Nederlands veranderen niet)
 - Moment:        overal waar MH een spelnaam toont: titel, delve, mount-plek, Trading Post, World Boss, drankje

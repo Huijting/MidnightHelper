@@ -14,6 +14,19 @@
   trainer)". How you play: "(from a quest)" bij Redemption en Aquatic Form, Priest-rasspells "you get both from a quest".
   7 talen. Niet in het spel gezien. Stap a is hiermee af tot Robs test; volgende = stap b.
 
+## 🆕 11 nov — Buff-melding wordt een zin (sparring-opdracht na PaladinPlan; Rob: "Ja, met jouw advies")
+
+- Keuzes van Rob: beide spellen; icoon blijft op zijn plek (CENTER 0,+160 of waar de speler het sleepte).
+- `MissingBuff.lua`: label GameFontNormal, goud (1, 0.82, 0.1), tekst uit `ns.MissingBuffSentence(entry, inCombat)` =
+  `MBUFF_TXT_<kind>_SAY` (%s = spellnaam uit de client) + `MBUFF_SAY_CLICK` / `MBUFF_SAY_IN_COMBAT`. Onbekende soort →
+  `MBUFF_TXT_MISSING_SAY`. `/mh buffs` en `/mh mbuff` printen dezelfde zin.
+- Fout a (GEMETEN in de code): Forever-paladin-blessings zonder `covers` → Greater Blessings toegevoegd.
+- Fout b (GEMETEN): `MBUFF_EUI_OVERLAP_HINT` + commentaar + `/mh mbuff`-regel zeiden "in combat klikbaar"; dat is
+  niet zo ("[combat] hide"). Herschreven, 7 talen.
+- Fout c (GEMETEN): `ns.PrintMissingBuffDebug` stond ín `EuiReminderLoaded` → losgehaald.
+- Offline getest (scratch `buff_test.lua`): zinnen, Greater Blessing telt, controle gewone blessing, debug zonder C_AddOns.
+  Niet in het spel gezien. Vier ideeën in IDEEEN.md (Ja, later). PaladinPlan = GPL-3.0: niets overgenomen behalve het idee.
+
 ## 🆕 11 nov — Forever: trainerplekken (Rob: "Alle drie", na zijn melding: pijl 12 m naast Aramis Hammerhand)
 
 - GEMETEN: Wowhead geeft Aramis als "31, 66.2"; bijna alle trainer-/verkoperplekken in MH staan op één decimaal (218/217

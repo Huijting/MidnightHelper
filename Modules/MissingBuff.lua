@@ -391,12 +391,29 @@ function ns.GetMissingBuffs()
 	return out
 end
 
--- Debug: /mh mbuff — toon per buff of hij geleerd/spec-ok/actief is + de missende lijst.
+--- Another addon reminds about missing buffs too — say so, once, and keep drawing.
+---
+--- ⚠️ EllesmereUI's buff reminders do the same job: `EllesmereUIAuraBuffReminders` maps
+--- "Arcane Intellect" to the label "Intellect" and draws its own icon. Rob and Carola
+--- both run it and saw the same missing buff announced twice.
+---
+--- WE DO NOT STAND DOWN, and that is deliberate. Going quiet when theirs is loaded would make ours vanish without
+--- anybody knowing why — the WaypointUI mistake exactly, where a feature this addon advertised silently never appeared
+--- for months. So it tells the player instead, once per session, and lets them decide which to keep (players choose).
+--- ⚠️ Corrected 11 Nov 2026: this comment and MBUFF_EUI_OVERLAP_HINT used to say ours "can be clicked in combat". It
+--- cannot: the secure click layer is hidden in combat ("[combat] hide", EnsureSecure). The icon stays VISIBLE in combat.
+---
+--- 📌 Fixed 11 Nov 2026: ns.PrintMissingBuffDebug used to be written INSIDE this function (between its first `if` and
+--- the rest), so /mh mbuff only existed after this had run once, and never when C_AddOns was missing.
 local function EuiReminderLoaded()
 	if not (C_AddOns and C_AddOns.IsAddOnLoaded) then
 		return false
 	end
+	local ok, loaded = pcall(C_AddOns.IsAddOnLoaded, "EllesmereUIAuraBuffReminders")
+	return (ok and loaded) and true or false
+end
 
+-- Debug: /mh mbuff — toon per buff of hij geleerd/spec-ok/actief is + de missende lijst.
 function ns.PrintMissingBuffDebug()
 	local classToken = select(2, UnitClass("player"))
 	local sid = CurrentSpecID()
@@ -480,13 +497,14 @@ function ns.PrintMissingBuffDebug()
 		print("     |cffffcc00(auras unreadable here → icon hidden on purpose)|r")
 	elseif #missing > 0 then
 		print("     |cff66dd66(should be visible now — if not: positioned off screen?)|r")
+		print("     line under the icon: " .. ns.MissingBuffSentence(missing[1], InCombatLockdown and InCombatLockdown()))
 		-- Hier hoort de overlap-melding ook thuis. Rob, 7 aug: "ik kijk zelden in de
 		-- chat bij het opstarten" -- een eenmalig regeltje bij het inloggen ziet dus
 		-- niemand. Wie DIT commando typt is juist op zoek naar waarom hij ziet wat hij
 		-- ziet, en dat is het moment om te zeggen dat er een tweede addon meepraat.
 		if EuiReminderLoaded and EuiReminderLoaded() then
 			print("     |cff9d9d9dEllesmereUI reminds you of this too, so you may see two at once.|r")
-			print("     |cff9d9d9dOurs is clickable in combat, theirs is not.|r")
+			print("     |cff9d9d9dOurs can be clicked out of combat and stays visible in combat.|r")
 		end
 	else
 		print("     (no missing buff → nothing to show)")
@@ -496,26 +514,6 @@ end
 --------------------------------------------------------------------------------
 -- Aan/uit + saved settings
 --------------------------------------------------------------------------------
-
---- Another addon reminds about missing buffs too — say so, once, and keep drawing.
----
---- ⚠️ EllesmereUI's buff reminders do the same job: `EllesmereUIAuraBuffReminders` maps
---- "Arcane Intellect" to the label "Intellect" and draws its own icon. Rob and Carola
---- both run it and saw the same missing buff announced twice.
----
---- WE DO NOT STAND DOWN, and that is deliberate. The obvious move was to go quiet when
---- theirs is loaded, and it was wrong for a specific reason: ours is clickable IN
---- COMBAT (the secure-button pattern in this file's header) and theirs is not. Going
---- quiet would trade away the better of the two and nobody would ever know why the
---- clickable one vanished — the WaypointUI mistake exactly, where a feature this addon
---- advertised silently never appeared for months.
----
---- So it tells the player instead, once per session, and lets them decide which to keep.
---- That is the same conclusion the keybind research reached about layouts: give the
---- reasoning, do not make the choice for somebody about their own screen.
-	local ok, loaded = pcall(C_AddOns.IsAddOnLoaded, "EllesmereUIAuraBuffReminders")
-	return (ok and loaded) and true or false
-end
 
 local announcedOverlap = false
 
@@ -528,7 +526,7 @@ local function AnnounceOverlapOnce()
 	print(("%s %s"):format(p, (ns.L and ns:L("MBUFF_EUI_OVERLAP"))
 		or "EllesmereUI reminds you about buffs as well, so you will see two icons."))
 	print("   |cff9d9d9d" .. ((ns.L and ns:L("MBUFF_EUI_OVERLAP_HINT"))
-		or "Ours can be clicked in combat, theirs cannot - so you may prefer to switch theirs off in EllesmereUI's options.") .. "|r")
+		or "Ours names the buff and can be clicked to cast it (out of combat). Keep the one you like and switch the other off.") .. "|r")
 end
 
 local function Enabled()
@@ -604,9 +602,12 @@ local function EnsureFrame()
 	end
 	f._border = border
 
-	local label = f:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
-	label:SetPoint("TOP", f, "BOTTOM", 0, -2)
-	label:SetTextColor(1, 0.3, 0.3)
+	-- A sentence in calm gold, the colour of Forever's "Low mana: drink first" (Rob, 11 Nov 2026, after seeing another
+	-- addon's "<buff> is missing" line: big red "MISSING" did not say WHICH buff or what to do). See ns.MissingBuffSentence.
+	local label = f:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+	label:SetPoint("TOP", f, "BOTTOM", 0, -4)
+	label:SetTextColor(1, 0.82, 0.1)
+	label:SetShadowOffset(1, -1)
 	f._label = label
 
 	f:SetScript("OnDragStart", function(self)
@@ -795,6 +796,25 @@ local function AurasUnreliable()
 	return not ns.Aura.Trusted()
 end
 
+--- The line under the icon: what is missing (by name, as this client spells it) and what to do. Out of combat the icon
+--- casts it, so the sentence says "click the icon"; in combat the click layer is hidden (state driver), so it does not.
+--- Each MBUFF_TXT_<kind> has a sentence twin MBUFF_TXT_<kind>_SAY ("%s" = the spell name). Rob, 11 Nov 2026: "Ja, met
+--- jouw advies" (both games, icon stays where the player put it).
+function ns.MissingBuffSentence(entry, inCombat)
+	if not entry then
+		return ""
+	end
+	local key = (entry.textKey or "MBUFF_TXT_MISSING") .. "_SAY"
+	local lead = ns:L(key)
+	if lead == key then
+		lead = ns:L("MBUFF_TXT_MISSING_SAY")
+	end
+	local name = entry.name or ("#" .. tostring(entry.spell))
+	local ok, s = pcall(string.format, lead, name)
+	s = ok and s or name
+	return s .. " " .. ns:L(inCombat and "MBUFF_SAY_IN_COMBAT" or "MBUFF_SAY_CLICK")
+end
+
 function ns.UpdateMissingBuff()
 	if not Enabled() or AurasUnreliable() then
 		if frame then
@@ -828,7 +848,7 @@ function ns.UpdateMissingBuff()
 	local f = EnsureFrame()
 	f._icon:SetTexture(top.icon)
 	f._spellId = top.spell
-	f._label:SetText(ns:L(top.textKey))
+	f._label:SetText(ns.MissingBuffSentence(top, inCombat))
 	f:Show()
 	-- Klikbaar casten: buiten combat de secure knop bijwerken + tonen. In combat laten
 	-- we 'm met rust (state-driver houdt 'm verborgen); de reminder blijft wél zichtbaar.

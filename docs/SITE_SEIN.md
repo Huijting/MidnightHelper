@@ -42,6 +42,17 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
   ons script en vraagt Robs ja. Met de temp-map is het niet nodig.
 - Status: beantwoord door de bouwchat, 11 nov.
 
+## 11 nov 2026 — De buff-melding noemt de buff en zegt wat je moet doen
+- Tag + commit:   geen tag / (deze commit)
+- Status:         alleen op main
+- Mag op de site: nee
+- Speler ziet:    Onder het buff-icoon staat geen rood "MISSING" meer maar een zin in goud, bijvoorbeeld "Blessing of
+                  Might is not on you. Click the icon to cast it." In een gevecht: "… Cast it from your bars." Forever:
+                  een Greater Blessing telt nu ook als aanwezig. *(niet in het spel getest)*
+- Knoplabels:     MBUFF_TXT_MISSING_SAY, MBUFF_TXT_AURA_SAY, MBUFF_SAY_CLICK, MBUFF_SAY_IN_COMBAT
+- Commando's:     /mh buffs (Forever, toont de zin), /mh mbuff
+- Spel:           Midnight + Forever
+
 ## 11 nov 2026 — Forever: de pijl leert waar trainers en verkopers echt staan
 - Tag + commit:   geen tag / (deze commit)
 - Status:         alleen op main
