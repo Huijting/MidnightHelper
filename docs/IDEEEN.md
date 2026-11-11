@@ -135,7 +135,10 @@ lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met d
 - Vindbaar:      waar de speler de spell tegenkomt (trainer-lijst, speelkaart), niet alleen in de chat
 - Werk:          na het uitzoeken
 - Site:          ja, als het gebouwd is
-- Rob zegt:      ja (in de sparring-chat, 11 nov; doorgegeven). Niets wijzigen vóór Rob de uitkomst zag.
+- Rob zegt:      ja (in de sparring-chat, 11 nov; doorgegeven), en in de bouwchat "Ja, bouw dat". **Gebouwd 11 nov:**
+                 Judgement-seal-tip + Claw-fix (ebcefef); trainervenster zegt bij een ontbrekende quest-rank "(uit een
+                 class-quest, niet bij de trainer)" (`ns.FOREVER_QUEST_FIRST` in `ForeverTrainer.lua`); How you play bij
+                 Redemption, Aquatic Form en de Priest-rasspells. Wacht op Robs test (TESTLIJST 11 nov).
 
 ### Melding bij een upgrade die je net oppakt
 - Voor wie:      allebei, vooral de nieuweling

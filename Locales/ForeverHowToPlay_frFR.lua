@@ -39,7 +39,7 @@ Une **forme** est l'une de ces apparences. Dans une forme, beaucoup de tes touch
 D'abord Eclat lunaire (2), puis Colère (1) jusqu'à ce que l'ennemi soit mort. Peu de vie ? Récupération (F4) ou Toucher guérisseur (C).]] },
 		{ "Ce qui vient plus tard", [[
 - 12 : Rétablissement sur F2 (soin rapide). Ressusciter sur F3 : ramène un ami mort, seulement hors combat.
-- 16 : Forme aquatique sur R quand tu nages. 18 : Lucioles sur 5 (marche dans toutes les formes), Hibernation sur Shift-Q.
+- 16 : Forme aquatique (via une quête) sur R quand tu nages. 18 : Lucioles sur 5 (marche dans toutes les formes), Hibernation sur Shift-Q.
 - 20 : Forme de félin (via une quête) sur Ctrl-2, avec Griffe, Déchirure et Rôder. Feu stellaire sur 3. En combat, F3 devient Renaissance.
 - 30 : Forme de voyage sur R (pour te déplacer), Tranquillité sur Q. 40 : Forme d’ours redoutable (remplace Forme d’ours sur Ctrl-1), Innervation sur F1.
 - 44 : Ecorce sur Z, dans toutes les formes.]] },
@@ -75,7 +75,7 @@ Un **sceau** est un pouvoir sacré que tu poses sur toi. Il dure 30 secondes, et
 		{ "Ordre simple", [[
 Sceau (3) avant le combat. Ensuite Frappe sacrée (1) et Jugement (2) dès qu'ils sont prêts. Remets le sceau quand il s'arrête (il dure 30 secondes). Peu de vie ? Lumière sacrée (C).]] },
 		{ "Ce qui vient plus tard", [[
-- 12 : Rédemption sur F3 (ramène un ami mort ; pas en combat). 14 : Bénédiction de sagesse sur Shift-V.
+- 12 : Rédemption (via une quête) sur F3 (ramène un ami mort ; pas en combat). 14 : Bénédiction de sagesse sur Shift-V.
 - 18 : Bénédiction de liberté sur R (rien ne peut te ralentir pendant un moment). 20 : Consécration sur Shift-1 (frappe plusieurs ennemis à la fois), Exorcisme sur 5, Eclair lumineux sur F2 (soin rapide), Bénédiction des rois sur Shift-X.
 - 30 : Intervention divine : en combat, F3 lance celle-ci au lieu de Rédemption. 34 : Bouclier divin sur Z : 10 secondes pendant lesquelles rien ne peut te blesser, et tu peux quand même te battre (avec la moitié des dégâts).
 - 42 : Epuration remplace Purification sur Shift-C. 44 : Marteau de courroux sur 4 (seulement quand l'ennemi a 20 % de vie ou moins).
@@ -228,7 +228,7 @@ Camouflage (Shift-R) et approche-toi de l'ennemi. Attaque pernicieuse (1) quelqu
 Le Prêtre soigne, et frappe de loin avec de la magie sacrée et de la magie de l'ombre. Il protège ses amis avec un bouclier. Plus tard, il peut choisir **Forme d'Ombre** (un talent, au plus tôt au niveau 40) : plus de dégâts d'ombre, mais aucun soin.
 Le Prêtre n'a pas de postures. Forme d'Ombre ne change pas les touches : chaque touche fait toujours la même chose.]] },
 		{ "Les sorts propres à ta race", [[
-Chaque race de Prêtre a deux sorts de Prêtre bien à elle : un au niveau 10 et un au niveau 20. MH les met sur **X** et **Shift-R**, donc chaque race utilise les deux mêmes touches.
+Chaque race de Prêtre a deux sorts de Prêtre bien à elle : un au niveau 10 et un au niveau 20. Tu obtiens les deux via une quête, pas chez le maître de classe. MH les met sur **X** et **Shift-R**, donc chaque race utilise les deux mêmes touches.
 - Nain : Prière du désespoir (10, X ; cooldown de 10 minutes), Châtiment (20, Shift-R).
 - Humain : Grâce divine (10, Shift-R ; un soin instantané sur un ami à moins de la moitié de sa vie, pas sur toi ; cooldown de 10 minutes), Réaction (20, X).
 - Elfe de la nuit : Eclats stellaires (10, Shift-R ; cooldown de 30 secondes), Grâce d'Elune (20, X).

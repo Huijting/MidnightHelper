@@ -26,6 +26,27 @@ end
 
 local DATA = ns.FOREVER_TRAINER_SPELLS
 
+-- First ranks you only get from a class quest, never from the trainer (Rob, 11 Nov 2026: "Als ik er geen ervaring mee
+-- had, snapte ik er niks van" → "Ja, bouw dat"). When one of these is the missing "first" rank, the trainer window says
+-- it comes from a class quest. Source: docs/forever/FOREVER_QUEST_LOCKED_SPELLS_2026-11-11.md (mh-research; Wowhead
+-- Forever "Reward from", Icy Veins 4 Nov 2026, Forever DB2 teaching spells). Hand-kept, not generated.
+ns.FOREVER_QUEST_FIRST = {
+	[7328] = true, -- Paladin: Redemption (12)
+	[635] = true, -- Paladin: Holy Light, Undead only (2); Human/Dwarf start with it, so it is never "missing" for them
+	[71] = true, [355] = true, [7386] = true, -- Warrior: Defensive Stance, Taunt, Sunder Armor (10)
+	[2458] = true, [20252] = true, -- Warrior: Berserker Stance, Intercept (30, The Affray)
+	[1515] = true, [883] = true, [2641] = true, -- Hunter: Tame Beast, Call Pet, Dismiss Pet (10)
+	[5149] = true, [6991] = true, [982] = true, -- Hunter: Beast Training, Feed Pet, Revive Pet (10)
+	[2842] = true, -- Rogue: Poisons (20)
+	[1277370] = true, [13896] = true, [13908] = true, [1277331] = true, [10797] = true, [2651] = true, -- Priest race
+	[1277455] = true, [1277462] = true, [9035] = true, [18137] = true, [2652] = true, [1277324] = true, -- spells (10/20)
+	[8071] = true, [3599] = true, [5394] = true, -- Shaman: Stoneskin (4), Searing (10), Healing Stream Totem (20)
+	[688] = true, [697] = true, [712] = true, [713] = true, [691] = true, -- Warlock: Imp, Voidwalker, Succubus, Incubus, Felhunter
+	[5487] = true, [6795] = true, [6807] = true, -- Druid: Bear Form, Growl, Maul (10)
+	[1066] = true, -- Druid: Aquatic Form (16)
+	[768] = true, [5215] = true, [1082] = true, [1079] = true, -- Druid: Cat Form, Prowl, Claw, Rip (20)
+}
+
 local function Token()
 	local _, token = UnitClass("player")
 	return token
@@ -202,7 +223,8 @@ local function Compute(level)
 					local ok, n = pcall(C_Spell.GetSpellName, missing)
 					nm = ok and n or nil
 				end
-				out.needs[#out.needs + 1] = { e = e, first = nm or ("spell " .. missing) }
+				out.needs[#out.needs + 1] = { e = e, first = nm or ("spell " .. missing),
+					fromQuest = ns.FOREVER_QUEST_FIRST and ns.FOREVER_QUEST_FIRST[missing] or nil }
 			else
 				avail[e.id] = true
 				out.now[#out.now + 1] = e
@@ -417,7 +439,7 @@ local function Text(r)
 		p[#p + 1] = ""
 		p[#p + 1] = HEAD .. ns:L("FTRAIN_NEEDS_HEAD") .. "|r"
 		for _, n in ipairs(r.needs) do
-			p[#p + 1] = ns:L("FTRAIN_NEEDS_FMT"):format(SpellName(n.e), n.first)
+			p[#p + 1] = ns:L(n.fromQuest and "FTRAIN_NEEDS_QUEST_FMT" or "FTRAIN_NEEDS_FMT"):format(SpellName(n.e), n.first)
 			ids[#p] = n.e.id
 		end
 	end

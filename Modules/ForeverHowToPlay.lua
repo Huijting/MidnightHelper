@@ -53,7 +53,7 @@ A **form** is one of those shapes. In a form, many of your keys do something els
 Moonfire (2) first, then Wrath (1) until the enemy is dead. Low on health? Rejuvenation (F4) or Healing Touch (C).]] },
 		{ "What comes later", [[
 - 12: Regrowth on F2 (quick heal). Revive on F3: brings a dead friend back, outside a fight only.
-- 16: Aquatic Form on R while you swim. 18: Faerie Fire on 5 (works in every form), Hibernate on Shift-Q.
+- 16: Aquatic Form (from a quest) on R while you swim. 18: Faerie Fire on 5 (works in every form), Hibernate on Shift-Q.
 - 20: Cat Form (from a quest) on Ctrl-2, with Claw, Rip and Prowl. Starfire on 3. In a fight, F3 becomes Rebirth.
 - 30: Travel Form on R (for moving around), Tranquility on Q. 40: Dire Bear Form (replaces Bear Form on Ctrl-1), Innervate on F1.
 - 44: Barkskin on Z, in every form.]] },
@@ -89,7 +89,7 @@ A **seal** is a holy power you put on yourself. It lasts 30 seconds, and you can
 		{ "Simple order", [[
 Seal (3) before the fight. Then Holy Strike (1) and Judgement (2) whenever they are ready. Put the seal back on when it runs out (it lasts 30 seconds). Low on health? Holy Light (C).]] },
 		{ "What comes later", [[
-- 12: Redemption on F3 (brings a dead friend back; not in a fight). 14: Blessing of Wisdom on Shift-V.
+- 12: Redemption (from a quest) on F3 (brings a dead friend back; not in a fight). 14: Blessing of Wisdom on Shift-V.
 - 18: Blessing of Freedom on R (nothing can slow you for a while). 20: Consecration on Shift-1 (hits several enemies at once), Exorcism on 5, Flash of Light on F2 (quick heal), Blessing of Kings on Shift-X.
 - 30: Divine Intervention: in a fight, F3 casts this one instead of Redemption. 34: Divine Shield on Z: 10 seconds where nothing can hurt you, and you can still fight (with half damage).
 - 42: Cleanse replaces Purify on Shift-C. 44: Hammer of Wrath on 4 (only when the enemy is at 20% health or less).
@@ -242,7 +242,7 @@ Stealth (Shift-R) and walk up to the enemy. Sinister Strike (1) a few times, the
 The Priest heals, and hits with holy and shadow magic from a distance. It protects friends with a shield. Later it can choose **Shadowform** (a talent, level 40 at the earliest): more shadow damage, but no healing.
 The Priest has no stances. Shadowform does not change the keys: every key always does the same thing.]] },
 		{ "Your race's own spells", [[
-Every Priest race has two Priest spells of its own: one at level 10 and one at level 20. MH puts them on **X** and **Shift-R**, so every race uses the same two keys.
+Every Priest race has two Priest spells of its own: one at level 10 and one at level 20. You get both from a quest, not from the trainer. MH puts them on **X** and **Shift-R**, so every race uses the same two keys.
 - Dwarf: Desperate Prayer (10, X; cooldown 10 minutes), Chastise (20, Shift-R).
 - Human: Divine Grace (10, Shift-R; an instant heal on a friend below half health, not on you; cooldown 10 minutes), Feedback (20, X).
 - Night Elf: Starshards (10, Shift-R; cooldown 30 seconds), Elune's Grace (20, X).

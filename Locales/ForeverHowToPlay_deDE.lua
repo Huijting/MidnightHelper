@@ -38,7 +38,7 @@ Eine **Gestalt** ist eine dieser Formen. In einer Gestalt machen viele deiner Ta
 Mondfeuer (2) zuerst, dann Zorn (1), bis der Gegner tot ist. Wenig Gesundheit? Verjüngung (F4) oder Heilende Berührung (C).]] },
 		{ "Was später kommt", [[
 - 12: Nachwachsen auf F2 (schnelle Heilung). Wiederbelebung (ab Rang 2: Wiederbeleben) auf F3: holt einen toten Freund zurück, nur außerhalb eines Kampfes.
-- 16: Wassergestalt auf R, während du schwimmst. 18: Feenfeuer auf 5 (wirkt in jeder Gestalt), Winterschlaf auf Shift-Q.
+- 16: Wassergestalt (aus einer Quest) auf R, während du schwimmst. 18: Feenfeuer auf 5 (wirkt in jeder Gestalt), Winterschlaf auf Shift-Q.
 - 20: Katzengestalt (aus einer Quest) auf Ctrl-2, mit Klaue, Zerfetzen und Schleichen. Sternenfeuer auf 3. Im Kampf wird F3 zu Wiedergeburt.
 - 30: Reisegestalt auf R (zum Reisen), Gelassenheit auf Q. 40: Terrorbärengestalt (ersetzt Bärengestalt auf Ctrl-1), Anregen auf F1.
 - 44: Baumrinde auf Z, in jeder Gestalt.]] },
@@ -74,7 +74,7 @@ Ein **Siegel** ist eine heilige Kraft, die du auf dich legst. Es hält 30 Sekund
 		{ "Einfache Reihenfolge", [[
 Siegel (3) vor dem Kampf. Dann Heiliger Stoß (1) und Richturteil (2), sobald sie bereit sind. Leg das Siegel neu an, wenn es ausläuft (es hält 30 Sekunden). Wenig Gesundheit? Heiliges Licht (C).]] },
 		{ "Was später kommt", [[
-- 12: Erlösung auf F3 (holt einen toten Freund zurück; nicht im Kampf). 14: Segen der Weisheit auf Shift-V.
+- 12: Erlösung (aus einer Quest) auf F3 (holt einen toten Freund zurück; nicht im Kampf). 14: Segen der Weisheit auf Shift-V.
 - 18: Segen der Freiheit auf R (eine Weile kann dich nichts verlangsamen). 20: Weihe auf Shift-1 (trifft mehrere Gegner auf einmal), Exorzismus auf 5, Lichtblitz auf F2 (schnelle Heilung), Segen der Könige auf Shift-X.
 - 30: Göttliches Eingreifen: Im Kampf wirkt F3 dieses statt Erlösung. 34: Gottesschild auf Z: 10 Sekunden, in denen dir nichts schaden kann, und du kannst trotzdem kämpfen (mit halbem Schaden).
 - 42: Reinigung des Glaubens ersetzt Läutern auf Shift-C. 44: Hammer des Zorns auf 4 (nur wenn der Gegner 20 % Gesundheit oder weniger hat).
@@ -227,7 +227,7 @@ Verstohlenheit (Shift-R) und geh zum Gegner. Ein paar Mal Finsterer Stoß (1), d
 Der Priester heilt und trifft aus der Ferne mit Heilig- und Schattenmagie. Er schützt Freunde mit einem Schild. Später kann er **Schattengestalt** wählen (ein Talent, frühestens Stufe 40): mehr Schattenschaden, aber keine Heilung.
 Der Priester hat keine Haltungen. Schattengestalt ändert die Tasten nicht: Jede Taste macht immer dasselbe.]] },
 		{ "Die eigenen Zauber deines Volkes", [[
-Jedes Priester-Volk hat zwei eigene Priesterzauber: einen auf Stufe 10 und einen auf Stufe 20. MH legt sie auf **X** und **Shift-R**, so nutzt jedes Volk dieselben zwei Tasten.
+Jedes Priester-Volk hat zwei eigene Priesterzauber: einen auf Stufe 10 und einen auf Stufe 20. Beide bekommst du aus einer Quest, nicht vom Lehrer. MH legt sie auf **X** und **Shift-R**, so nutzt jedes Volk dieselben zwei Tasten.
 - Zwerg: Verzweifeltes Gebet (10, X; Abklingzeit 10 Minuten), Züchtigung (20, Shift-R).
 - Mensch: Göttliche Anmut (10, Shift-R; eine spontane Heilung auf einen Freund unter halber Gesundheit, nicht auf dich; Abklingzeit 10 Minuten), Rückkopplung (20, X).
 - Nachtelf: Sternensplitter (10, Shift-R; Abklingzeit 30 Sekunden), Elunes Anmut (20, X).

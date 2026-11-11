@@ -9,7 +9,10 @@
   talen; het foutbericht alleen in enUS/nlNL (Engelse client), de andere talen zonder (niet gemeten hoe hun client het zegt).
 - `ForeverTrainerData.lua:86` Claw 3029 `req` 16942 (talent Sharpened Claws) → 1082 (SkillLineAbility 2077, GEMETEN).
   ⚠️ Dit bestand heet "GENERATED"; bij opnieuw genereren moet deze fix mee (commentaar staat op de regel).
-- Nog open in stap a: "komt van een quest" bij de quest-spells (Redemption, Aquatic Form, Priest-rasspells, totems …).
+- ✅ Daarna (Rob: "Ja, bouw dat"): `ns.FOREVER_QUEST_FIRST` in `ForeverTrainer.lua` (handmatig, ~45 spell-ids uit het
+  onderzoek); is de ontbrekende eerste rank zo'n spell, dan `FTRAIN_NEEDS_QUEST_FMT` "(from a class quest, not from the
+  trainer)". How you play: "(from a quest)" bij Redemption en Aquatic Form, Priest-rasspells "you get both from a quest".
+  7 talen. Niet in het spel gezien. Stap a is hiermee af tot Robs test; volgende = stap b.
 
 ## ▶ VOLGORDE 11 nov (sparring-chat, Rob: "ja, doe het zo"; reden: Robs testtijd is het schaarste)
 

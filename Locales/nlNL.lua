@@ -4152,6 +4152,7 @@ ns._mhLocales.nlNL = {
 	FTRAIN_NOTHING = "Nu niets nieuws om te leren.",
 	FTRAIN_NEEDS_HEAD = "Eerst iets anders nodig",
 	FTRAIN_NEEDS_FMT = "- %s: eerst %s",
+	FTRAIN_NEEDS_QUEST_FMT = "- %s: eerst %s (uit een class-quest, niet bij de trainer)",
 	FTRAIN_NEXT_FMT = "Volgende, op level %d",
 	FTRAIN_FOOTER = "Je class trainer staat in je hoofdstad en in je startdorp. Talents, boeken en spells uit quests staan niet in deze lijst.",
 	FTRAIN_PASSIVE = "passief: werkt vanzelf, geen toets",

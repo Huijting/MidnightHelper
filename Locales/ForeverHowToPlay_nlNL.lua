@@ -35,7 +35,7 @@ Een **form** is zo'n vorm. In een form doen veel van je toetsen iets anders. MH'
 Eerst Moonfire (2), dan Wrath (1) tot de vijand dood is. Weinig health? Rejuvenation (F4) of Healing Touch (C).]] },
 		{ "Wat er later komt", [[
 - 12: Regrowth op F2 (snelle heal). Revive op F3: brengt een dode vriend terug, alleen buiten een gevecht.
-- 16: Aquatic Form op R als je zwemt. 18: Faerie Fire op 5 (werkt in elke form), Hibernate op Shift-Q.
+- 16: Aquatic Form (uit een quest) op R als je zwemt. 18: Faerie Fire op 5 (werkt in elke form), Hibernate op Shift-Q.
 - 20: Cat Form (uit een quest) op Ctrl-2, met Claw, Rip en Prowl. Starfire op 3. In een gevecht wordt F3 Rebirth.
 - 30: Travel Form op R (om je te verplaatsen), Tranquility op Q. 40: Dire Bear Form (vervangt Bear Form op Ctrl-1), Innervate op F1.
 - 44: Barkskin op Z, in elke form.]] },
@@ -71,7 +71,7 @@ Een **seal** is een heilige kracht die je op jezelf zet. Hij duurt 30 seconden, 
 		{ "Simpele volgorde", [[
 Seal (3) voor het gevecht. Dan Holy Strike (1) en Judgement (2) zodra ze klaar zijn. Zet de seal opnieuw op als hij afloopt (hij duurt 30 seconden). Weinig health? Holy Light (C).]] },
 		{ "Wat er later komt", [[
-- 12: Redemption op F3 (brengt een dode vriend terug; niet in een gevecht). 14: Blessing of Wisdom op Shift-V.
+- 12: Redemption (uit een quest) op F3 (brengt een dode vriend terug; niet in een gevecht). 14: Blessing of Wisdom op Shift-V.
 - 18: Blessing of Freedom op R (een tijdje kan niets je vertragen). 20: Consecration op Shift-1 (raakt meerdere vijanden tegelijk), Exorcism op 5, Flash of Light op F2 (snelle heal), Blessing of Kings op Shift-X.
 - 30: Divine Intervention: in een gevecht cast F3 deze in plaats van Redemption. 34: Divine Shield op Z: 10 seconden waarin niets je pijn kan doen, en je kunt nog steeds vechten (met de helft van je schade).
 - 42: Cleanse vervangt Purify op Shift-C. 44: Hammer of Wrath op 4 (alleen als de vijand op 20% health of minder staat).
@@ -224,7 +224,7 @@ Stealth (Shift-R) en loop naar de vijand. Een paar keer Sinister Strike (1), dan
 De Priest healt, en slaat van een afstand met holy- en shadow-magie. Hij beschermt vrienden met een schild. Later kan hij kiezen voor **Shadowform** (een talent, op z'n vroegst level 40): meer shadow-schade, maar geen heals.
 De Priest heeft geen stances. Shadowform verandert de toetsen niet: elke toets doet altijd hetzelfde.]] },
 		{ "De eigen spells van je race", [[
-Elke Priest-race heeft twee eigen Priest-spells: één op level 10 en één op level 20. MH zet ze op **X** en **Shift-R**, dus elke race gebruikt dezelfde twee toetsen.
+Elke Priest-race heeft twee eigen Priest-spells: één op level 10 en één op level 20. Allebei krijg je uit een quest, niet bij de trainer. MH zet ze op **X** en **Shift-R**, dus elke race gebruikt dezelfde twee toetsen.
 - Dwarf: Desperate Prayer (10, X; cooldown 10 minuten), Chastise (20, Shift-R).
 - Human: Divine Grace (10, Shift-R; een instant heal op een vriend onder de helft van zijn health, niet op jezelf; cooldown 10 minuten), Feedback (20, X).
 - Night Elf: Starshards (10, Shift-R; cooldown 30 seconden), Elune's Grace (20, X).

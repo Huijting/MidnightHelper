@@ -40,7 +40,7 @@ Una **forma** es una de esas figuras. En una forma, muchas de tus teclas hacen o
 Primero Fuegolunar (2), luego Cólera (1) hasta que el enemigo muera. ¿Poca salud? Rejuvenecimiento (F4) o Toque curativo (C).]] },
 		{ "Lo que llega después", [[
 - 12: Recrecimiento en F2 (cura rápida). Revivir en F3: trae de vuelta a un amigo muerto, solo fuera de combate.
-- 16: Forma acuática en R mientras nadas. 18: Fuego feérico en 5 (funciona en todas las formas), Hibernar en Shift-Q.
+- 16: Forma acuática (de una misión) en R mientras nadas. 18: Fuego feérico en 5 (funciona en todas las formas), Hibernar en Shift-Q.
 - 20: Forma felina (de una misión) en Ctrl-2, con Zarpa, Destripar y Acechar. Fuego estelar en 3. En combate, F3 pasa a ser Renacer.
 - 30: Forma de viaje en R (para desplazarte), Tranquilidad en Q. 40: Forma de oso nefasto (sustituye a Forma de oso en Ctrl-1), Enervar en F1.
 - 44: Pielcorteza en Z, en todas las formas.]] },
@@ -76,7 +76,7 @@ Un **sello** es un poder sagrado que te pones a ti mismo. Dura 30 segundos, y so
 		{ "Orden sencillo", [[
 Sello (3) antes del combate. Luego Golpe Sagrado (1) y Sentencia (2) cada vez que estén listos. Vuelve a ponerte el sello cuando se acabe (dura 30 segundos). ¿Poca salud? Luz Sagrada (C).]] },
 		{ "Lo que llega después", [[
-- 12: Redención en F3 (trae de vuelta a un amigo muerto; no en combate). 14: Bendición de Sabiduría en Shift-V.
+- 12: Redención (de una misión) en F3 (trae de vuelta a un amigo muerto; no en combate). 14: Bendición de Sabiduría en Shift-V.
 - 18: Bendición de Libertad en R (nada puede ralentizarte durante un rato). 20: Consagración en Shift-1 (golpea a varios enemigos a la vez), Exorcismo en 5, Destello de Luz en F2 (cura rápida), Bendición de los Reyes en Shift-X.
 - 30: Intervención divina: en combate, F3 lanza este en lugar de Redención. 34: Escudo divino en Z: 10 segundos en los que nada puede hacerte daño, y aun así puedes luchar (con la mitad de daño).
 - 42: Purgación sustituye a Purificar en Shift-C. 44: Martillo de cólera en 4 (solo cuando el enemigo tiene un 20% de salud o menos).
@@ -229,7 +229,7 @@ Sigilo (Shift-R) y acércate al enemigo. Golpe siniestro (1) unas cuantas veces,
 El Sacerdote cura, y golpea desde lejos con magia sagrada y de sombras. Protege a sus amigos con un escudo. Más adelante puede elegir **Forma de las Sombras** (un talento, como pronto en el nivel 40): más daño de sombras, pero nada de curación.
 El Sacerdote no tiene actitudes. Forma de las Sombras no cambia las teclas: cada tecla hace siempre lo mismo.]] },
 		{ "Los hechizos propios de tu raza", [[
-Cada raza de Sacerdote tiene dos hechizos de Sacerdote propios: uno en el nivel 10 y otro en el nivel 20. MH los pone en **X** y **Shift-R**, así que todas las razas usan las mismas dos teclas.
+Cada raza de Sacerdote tiene dos hechizos de Sacerdote propios: uno en el nivel 10 y otro en el nivel 20. Los dos los consigues con una misión, no con el instructor. MH los pone en **X** y **Shift-R**, así que todas las razas usan las mismas dos teclas.
 - Enano: Rezo desesperado (10, X; reutilización de 10 minutos), Castigar (20, Shift-R).
 - Humano: Gracia divina (10, Shift-R; una cura instantánea sobre un amigo con menos de la mitad de salud, no sobre ti; reutilización de 10 minutos), Rebote (20, X).
 - Elfo de la noche: Fragmentos estelares (10, Shift-R; reutilización de 30 segundos), Gracia de Elune (20, X).

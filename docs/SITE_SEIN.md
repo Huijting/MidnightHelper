@@ -28,6 +28,17 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 11 nov 2026 — Forever: MH zegt welke spells van een class-quest komen
+- Tag + commit:   geen tag / (deze commit)
+- Status:         alleen op main
+- Mag op de site: nee
+- Speler ziet:    Het trainervenster zegt bij een spell die eerst een quest-rank nodig heeft "(from a class quest, not from
+                  the trainer)". De How you play-kaart zegt het bij Redemption, Aquatic Form en de Priest-rasspells, en dat
+                  Judgement alleen werkt als er een seal aan staat. *(niet in het spel getest)*
+- Knoplabels:     FTRAIN_NEEDS_QUEST_FMT
+- Commando's:     /mh trainer
+- Spel:           Forever
+
 ## 11 nov 2026 — Forever: waarschuwing als je zonder Hearthstone over het water reist
 - Tag + commit:   geen tag / (deze commit)
 - Status:         alleen op main

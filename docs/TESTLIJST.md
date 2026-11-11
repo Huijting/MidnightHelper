@@ -26,6 +26,11 @@ er is niets weggegooid.
 - [ ] Paladin, `/mh` → How you play: bij **Judgement** staat nu "werkt alleen als er een seal aan staat: zet eerst je
       seal aan (3)". 🔴 Meten: zonder seal op Judgement drukken → zegt het spel "You can't do that yet"? Met seal: werkt hij?
 - [ ] Druid rond level 28 bij de trainer: Claw rank 2 vraagt nu om **Claw** (rank 1), niet meer om "Sharpened Claws".
+- [ ] 🆕 **Spells uit een class-quest.** Trainervenster, blok "Eerst iets anders nodig": staat er een spell waarvan je de
+      eerste rank nog niet hebt én die van een quest komt (bv. Paladin 24 zonder Redemption, Warrior 22 zonder Sunder
+      Armor, Shaman 14 zonder Stoneskin Totem), dan staat erachter "(uit een class-quest, niet bij de trainer)".
+- [ ] How you play: Paladin "Redemption (uit een quest)", Druid "Aquatic Form (uit een quest)", Priest: de twee
+      ras-spells "krijg je uit een quest, niet bij de trainer".
 
 ## 🆕 11 nov — Forever: Enhancement Shaman blijft op Strength
 

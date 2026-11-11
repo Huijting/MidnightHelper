@@ -4910,6 +4910,7 @@ ns._mhLocales.enUS = {
 	FTRAIN_NOTHING = "Nothing new to learn right now.",
 	FTRAIN_NEEDS_HEAD = "Needs something else first",
 	FTRAIN_NEEDS_FMT = "- %s: first %s",
+	FTRAIN_NEEDS_QUEST_FMT = "- %s: first %s (from a class quest, not from the trainer)",
 	FTRAIN_NEXT_FMT = "Next, at level %d",
 	FTRAIN_FOOTER = "Your class trainer is in your capital city and in your start town. Talents, books and quest spells are not in this list.",
 	FTRAIN_PASSIVE = "passive: works by itself, no key",
