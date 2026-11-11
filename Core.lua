@@ -2551,15 +2551,11 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
-	-- /mh usedfor [on | off] — WoW Forever: "MH: Used for Cooking (you have it)" on an ingredient's tooltip
-	-- (ForeverReagentUse.lua; Rob, 11 Nov 2026).
+	-- /mh usedfor [on | off] — Forever and Midnight: "MH: Used for Cooking (you have it)" on an ingredient's tooltip
+	-- (ReagentUse.lua; Rob, 11 Nov 2026).
 	local usedArg = msg:lower() == "usedfor" and "" or msg:lower():match("^usedfor%s+(.+)$")
-	if usedArg then
-		if ns.ForeverUsedForSlash then
-			ns.ForeverUsedForSlash(usedArg)
-		else
-			print("|cffffcc00Midnight Helper:|r /mh usedfor is for WoW: Forever.")
-		end
+	if usedArg and ns.UsedForSlash then
+		ns.UsedForSlash(usedArg)
 		return
 	end
 

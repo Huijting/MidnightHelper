@@ -299,9 +299,12 @@ lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met d
 - Werk:          klein
 - Site:          ja, één zin bij de Forever-functies (bij de volgende release)
 - Rob zegt:      ja (sparring-chat: *"Ja, laat bouwen"*; bouwchat 11 nov: *"Ja, met probe-fix"*). **Gebouwd 11 nov:**
-                 `Modules/ForeverReagentUse.lua` + gegenereerd `ForeverReagentData.lua` (`run forever_reagents --emit`).
-                 **AF 11 nov** (Rob: *"Ja, af"*, na Linen Cloth, Stringy Wolf Meat, Hearthstone en `/mh usedfor` in
-                 Forever). Niet gezien: de grijze regel en Copper Ore.
+                 `Modules/ReagentUse.lua` (eerst `ForeverReagentUse.lua`) + gegenereerd `ForeverReagentData.lua`
+                 (`run forever_reagents --emit`). **AF in Forever 11 nov** (Rob: *"Ja, af"*, na Linen Cloth, Stringy Wolf
+                 Meat, Hearthstone en `/mh usedfor`). Niet gezien: de grijze regel en Copper Ore.
+                 **Midnight erbij, 11 nov** (Rob: *"Kunnen we dit ook in de midnight versie bouwen?"* → meten → *"Ja,
+                 bouw het"*): `MidnightReagentData.lua` (`--emit --midnight`), alleen Midnight-recepten, 296 items.
+                 Wacht op Robs test in Midnight.
 
 ### CurseForge-plaatjes: echte screenshots op één vaste achtergrond
 - Voor wie:      wij (CurseForge-pagina en de site); spelers zien alleen het resultaat

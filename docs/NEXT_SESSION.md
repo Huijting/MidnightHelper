@@ -1,5 +1,17 @@
 # Midnight Helper — waar we staan
 
+## 🆕 11 nov — "Used for" ook in Midnight (Rob: "Ja, bouw het")
+
+- `ForeverReagentUse.lua` → `Modules/ReagentUse.lua` (beide spellen; globals nu `ns.REAGENT_*`, eigen
+  `MyProfessions` via `ns.REAGENT_LINES`, schakelaar `ns.db.usedForTip`, `ns.UsedForSlash`). Data per spel, elk
+  bewaakt: `ForeverReagentData.lua` (524 items) en `MidnightReagentData.lua` (296 items, 6247 bytes).
+- Midnight-regel (GEMETEN, 12.1.5.70783): recepten = SkillLineAbility met `SkillupSkillLineID` = "Midnight <beroep>"
+  (2906-2918; de kolom `SkillLine` heeft 0 Midnight-rijen). Ingrediënten = SpellReagents (72) + kwaliteitsingrediënten
+  via ModifiedCraftingSpellSlot → MCRSlotXMCRCategory → CraftingReagentQuality (228). 876 recepten, 9 beroepen
+  (Midnight Mining heeft geen recepten met items). Controles: Practically Pork 242639 = Cooking, Eversong Trout 238383 =
+  Alchemy/Cooking/Enchanting.
+- itIT kreeg een eigen FUSE-blok (in Midnight is Italiaans echt). Offline test 19/19, lint 0 HARD. Niet in Midnight gezien.
+
 ## 🆕 11 nov — Forever: "MH: Used for Cooking" in de tooltip (Rob: "Ja, met probe-fix")
 
 - `Modules/ForeverReagentUse.lua` (tooltip post-call, GameTooltip + ItemRefTooltip, altijd, ook in de tas) +

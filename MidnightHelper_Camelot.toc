@@ -143,9 +143,11 @@ Modules\MissingBuff.lua
 # Which quest reward to take, and why (Rob, 7 Nov 2026: "doe de quest beloning tip maar ook").
 Modules\ForeverMainStats.lua
 Modules\ForeverQuestHint.lua
-# Tooltip: which profession an item is an ingredient for (Rob, 11 Nov 2026). Data file is generated.
+# Tooltip: which profession an item is an ingredient for (Rob, 11 Nov 2026). Data files are generated; each loads in
+# its own game only (guarded), the module runs in both.
 Modules\ForeverReagentData.lua
-Modules\ForeverReagentUse.lua
+Modules\MidnightReagentData.lua
+Modules\ReagentUse.lua
 # /mh selftest: does every game number in MH exist in this game? (Rob, 11 Nov 2026). Data file is generated.
 Modules\SelftestData.lua
 Modules\Selftest.lua

@@ -23301,3 +23301,14 @@ if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	RMAC_WA_INTERVENE = "Intervento sull'alleato sotto il mouse; senza alleato sotto il mouse, Carica sul tuo bersaglio nemico.",
 	RMAC_WA_IGNOREPAIN = "Insensibilità e Colpo di Scudo su un solo tasto, così non perdi un reset di Colpo di Scudo.",
 }) end
+
+-- "Used for <profession>" tooltip line (ReagentUse.lua, Rob 11 Nov 2026). The Forever blocks above leave itIT out on
+-- purpose (the Forever itIT client is English); since the same day the line also runs in Midnight, where itIT is real.
+-- Translated by mh-writer, not checked by a native speaker; "il tooltip" as in MPLUS_CMD_RATING_NOTE.
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
+	FUSE_TIP_FMT = "MH: Usato per %s%s",
+	FUSE_HAVE_IT = " (ce l'hai)",
+	FUSE_HAVE_FMT = " (hai %s)",
+	FUSE_ON = "riga \"usato per\" nel tooltip attiva: passa il mouse su un oggetto per vedere quale professione lo usa.",
+	FUSE_OFF = "riga \"usato per\" nel tooltip disattivata. /mh usedfor on la riattiva.",
+}) end

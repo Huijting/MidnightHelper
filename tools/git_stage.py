@@ -103,6 +103,14 @@ if not paths:
     sys.exit("stage.txt is empty -- nothing to stage. Refusing to guess.")
 
 missing = [p for p in paths if not os.path.exists(os.path.join(REPO, p))]
+# 11 Nov 2026: a file you deleted on purpose is gone from disk but still tracked; `git add <path>` stages its deletion.
+# Only a path git does not know is a typo.
+if missing:
+    known = subprocess.run(["git", "-C", REPO, "ls-files", "--"] + missing,
+                           capture_output=True, text=True, encoding="utf-8", errors="replace").stdout.split()
+    for p in [p for p in missing if p in known]:
+        print("   (deleted on disk, tracked by git: staging the deletion) " + p)
+    missing = [p for p in missing if p not in known]
 if missing:
     # A typo'd path makes `git add` fail the whole call; catching it here says which one.
     sys.exit("These do not exist in the repo:\n  " + "\n  ".join(missing))

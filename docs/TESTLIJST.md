@@ -21,6 +21,18 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 11 nov — MIDNIGHT: "Used for …" in de tooltip van ingrediënten (Rob: "Ja, bouw het")
+
+Eerst `/reload`. In Midnight, alleen Midnight-ingrediënten (oudere uitbreidingen zitten er bewust niet in):
+- [ ] Muis op een Midnight-vis of -vlees, bv. **Practically Pork**: "MH: Used for Cooking". Groen met "(you have it)" als
+      je Cooking hebt.
+- [ ] Muis op **Eversong Trout**: "MH: Used for Alchemy, Enchanting, Cooking", met "(you have …)" voor wat je hebt.
+- [ ] Muis op een Midnight-erts, -kruid of -stof (de ingrediënten met kwaliteitssterren): ook een regel.
+- [ ] ❓ Zegt de gewone Midnight-tooltip zelf al voor welk beroep iets is? Zo ja: leest onze regel dubbel?
+- [ ] Muis op iets uit een oudere uitbreiding of op gear: géén regel.
+- [ ] `/mh usedfor` → "Midnight build 12.1.5.70783", 296 items, je beroepen met hun line-nummer (meet meteen of de
+      retail-nummers kloppen), en het laatste item.
+
 ## 🆕 11 nov — Forever: "Used for …" in de tooltip van ingrediënten (Rob: "Ja, met probe-fix")
 
 ✅ **Af volgens Rob, 11 nov ("Ja, af").** De punten met 👀 zag hij; de rest blijft open voor als hij ze tegenkomt.

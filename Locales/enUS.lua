@@ -4947,7 +4947,7 @@ ns._mhLocales.enUS = {
 	FGEAR_TIP_FMT = "MH: %s over what you wear (%s).",
 	FGEAR_TIP_ON = "gear tooltip line on: hover gear to see what it adds over what you wear.",
 	FGEAR_TIP_OFF = "gear tooltip line off. /mh geartip on brings it back.",
-	-- Forever "used for" tooltip line (ForeverReagentUse.lua, Rob 11 Nov 2026). FMT: first %s = profession names
+	-- "used for" tooltip line, Forever and Midnight (ReagentUse.lua, Rob 11 Nov 2026). FMT: first %s = profession names
 	-- ("Tailoring, First Aid"), second %s = FUSE_HAVE_IT, FUSE_HAVE_FMT or nothing. HAVE_FMT %s = the ones you have.
 	FUSE_TIP_FMT = "MH: Used for %s%s",
 	FUSE_HAVE_IT = " (you have it)",
