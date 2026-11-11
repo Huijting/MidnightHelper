@@ -5223,6 +5223,8 @@ ns._mhLocales.enUS = {
 	FMAC_C_PALADIN_DIVINESHIELD = "Divine Shield, or Divine Protection until you learn Divine Shield at 34; Shift = cancel it early.",
 	FMAC_C_PALADIN_HOLYSHOCK = "Holy Shock the unit under your mouse (heals a friend, hurts an enemy), else your target.",
 	FMAC_C_PALADIN_PROTECTALLY = "Blessing of Protection on the friend under your mouse, else your target, else you; Alt = always you.",
+	FMAC_C_PALADIN_HAMMER = "Hammer of Justice on the enemy under your mouse, else your focus, else your target. It is a stun: the enemy stands still for a few seconds, and that also stops its cast. A Paladin has no real interrupt here.",
+	FMAC_C_PALADIN_PURIFY = "Purify on the friend under your mouse, else your friendly target, else you: removes a poison or a disease.",
 	FMAC_C_SHAMAN_EARTHSHOCK = "Stops your cast and Earth Shocks your focus, else the enemy under your mouse, else your target.",
 	FMAC_C_SHAMAN_HEALWAVE = "Healing Wave on the friend under your mouse, else your friendly target, else you; Shift = Lesser Healing Wave.",
 	FMAC_C_SHAMAN_TOTEMS = "Drops your totem-bar totems; Shift = Totemic Recall (pick them up), Ctrl = Totemic Call (move them to you).",

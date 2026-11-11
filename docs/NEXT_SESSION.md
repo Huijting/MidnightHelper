@@ -1,5 +1,14 @@
 # Midnight Helper — waar we staan
 
+## 🆕 11 nov — Forever: Paladin-macro's Hammer of Justice + Purify (Rob: "Ja, alleen klein")
+
+- `ForeverMacros.lua` CLASS_MACROS: `hammer` (853, level 8, `[@mouseover,harm,nodead][@focus,harm,nodead][]`) en `purify`
+  (1152, level 8, mouseover/help/player). Uitleg zegt "stun, geen echte interrupt". 7 talen (it niet: Forever-blok).
+- 📌 **Midden (PartyTargets naar Forever) staat open, bewust later.** Eerst meten via SavedVariables: welke events
+  Forever kent (PLAYER_SPECIALIZATION_CHANGED, TRAIT_CONFIG_UPDATED), of de AuraContainer-gloed werkt, wat
+  UnitGroupRolesAssigned geeft, hoe secret naam/doelwit/class in een groep zijn, of `[@focus]`/`/focus` werkt. Deels
+  alleen in een echte groep; solo-deel via een `/mh partytest`. Opdracht staat in de sparring-chat (11 nov).
+
 ## 🆕 11 nov — "Used for" ook in Midnight (Rob: "Ja, bouw het")
 
 - `ForeverReagentUse.lua` → `Modules/ReagentUse.lua` (beide spellen; globals nu `ns.REAGENT_*`, eigen

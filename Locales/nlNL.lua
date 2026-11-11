@@ -4355,6 +4355,8 @@ ns._mhLocales.nlNL = {
 	FMAC_C_PALADIN_DIVINESHIELD = "Divine Shield, of Divine Protection tot je op level 34 Divine Shield leert; Shift = vroeg weer uitzetten.",
 	FMAC_C_PALADIN_HOLYSHOCK = "Holy Shock op wie onder je muis staat (geneest een vriend, raakt een vijand), anders je target.",
 	FMAC_C_PALADIN_PROTECTALLY = "Blessing of Protection op de vriend onder je muis, anders je target, anders jezelf; Alt = altijd jezelf.",
+	FMAC_C_PALADIN_HAMMER = "Hammer of Justice op de vijand onder je muis, anders je focus, anders je target. Het is een stun: de vijand staat een paar seconden stil, en dat stopt ook zijn cast. Een Paladin heeft hier geen echte interrupt.",
+	FMAC_C_PALADIN_PURIFY = "Purify op de vriend onder je muis, anders je vriendelijke target, anders jezelf: haalt een poison of disease weg.",
 	FMAC_C_SHAMAN_EARTHSHOCK = "Stopt je cast en doet Earth Shock op je focus, anders de vijand onder je muis, anders je target.",
 	FMAC_C_SHAMAN_HEALWAVE = "Healing Wave op de vriend onder je muis, anders je vriendelijke target, anders jezelf; Shift = Lesser Healing Wave.",
 	FMAC_C_SHAMAN_TOTEMS = "Zet de totems van je totembalk neer; Shift = Totemic Recall (oppakken), Ctrl = Totemic Call (naar je toe halen).",

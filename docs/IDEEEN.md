@@ -306,6 +306,21 @@ lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met d
                  bouw het"*): `MidnightReagentData.lua` (`--emit --midnight`), alleen Midnight-recepten, 296 items.
                  Wacht op Robs test in Midnight.
 
+### Forever: stop-spell voor de Paladin (klein) en het groepspaneel (midden)
+- Voor wie:      N + V in een groep
+- Moment:        in een dungeon met een groep
+- Spel:          Forever
+- Bron:          Rob, 11 nov (via de sparring-chat: "zo'n mooie partyframe … kunnen we ook zoiets in deze maken"; koos
+                 "Klein en midden")
+- Bouwt op:      klein: `ForeverMacros.lua`; midden: `PartyTargets.lua` (nu alleen retail)
+- Data:          spell-ids GEMETEN in wago (853 Hammer of Justice, 1152 Purify)
+- Vindbaar:      klein: `/mh macros`; midden: `/mh partytargets`
+- Werk:          klein: klein; midden: middel, en deels alleen in een echte groep te testen
+- Site:          later, met het paneel
+- Rob zegt:      ja. Bouwchat 11 nov: *"Ja, alleen klein"* (midden later, eerst meten). **Klein gebouwd 11 nov:** twee
+                 Paladin-macro's (Hammer of Justice = stun, Purify). Midden: open. Aparte vraag voor later: krijgt het
+                 Midnight-paneel ook "stop-spell op het doelwit" (nu purge)?
+
 ### CurseForge-plaatjes: echte screenshots op één vaste achtergrond
 - Voor wie:      wij (CurseForge-pagina en de site); spelers zien alleen het resultaat
 - Moment:        als Rob nieuwe screenshots maakt (hooguit 4-6, actueel)

@@ -21,6 +21,16 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 11 nov — Forever: twee Paladin-macro's (Rob: "Ja, alleen klein")
+
+Eerst `/reload`. Op je Forever-Paladin (level 8 of hoger), `/mh macros`:
+- [ ] Bij de Paladin-macro's staan twee nieuwe: **Hammer of Justice** ("… It is a stun …") en **Purify**.
+- [ ] Hammer of Justice: muis op een vijand en druk → die vijand krijgt de stun, ook als je iets anders als target hebt.
+      Zonder vijand onder je muis: je target.
+- [ ] Purify: muis op een groepslid (of jezelf als target) → Purify op die speler. Niets onder je muis: op jezelf.
+- [ ] Het woord *focus* in de uitleg: of `[@focus]` in Forever werkt, is NIET gemeten. Werkt het niet, dan valt de macro
+      vanzelf door naar je target.
+
 ## 🆕 11 nov — MIDNIGHT: "Used for …" in de tooltip van ingrediënten (Rob: "Ja, bouw het")
 
 Eerst `/reload`. In Midnight, alleen Midnight-ingrediënten (oudere uitbreidingen zitten er bewust niet in):
