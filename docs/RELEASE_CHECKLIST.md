@@ -28,6 +28,15 @@ Plus: archiveer een Markdown-kopie in **`docs/CURSEFORGE_<ver>.md`** (plak-klaar
 de CF-pagina met de hand moeten bijwerken), en check of **`CURSEFORGE_DESCRIPTION.md`**
 (evergreen paginabeschrijving) nog klopt met de nieuwe tabs/features.
 
+### 🔴 Alleen wat spelers gebruiken (Rob, 11 nov 2026)
+
+`RELEASE_NOTES.md`, `docs/CURSEFORGE_<ver>.md` en de in-game `CHANGELOG_<ver>_*` noemen **alleen wat een speler zelf
+gebruikt of ziet**. Nooit onze eigen test- en diagnosegereedschappen (`/mh selftest`, linter, wachters, `/mh … check`).
+Die gaan alleen in `CHANGELOG.md` en de handoff. Rob na 5.1.0, waar `/mh selftest` als functie in stond: *"je hebt bij
+de change log ook genoemd dat we dingen kunnen testen die alleen wij doen, dat is niet handig 😕 volgende keer niet
+doen"*. Controle vóór de tag: lees elke regel en vraag "gebruikt een speler dit?". Uit-schakelaars van meldingen
+(`/mh pickup off`) zijn wél voor spelers.
+
 ### ⚠️ RELEASE_NOTES.md — drie valkuilen
 
 De packager uploadt dit bestand **letterlijk en volledig** (`.pkgmeta` →
