@@ -122,6 +122,21 @@ lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met d
   tester met een niet-Engelse client (TESTLIJST 11 nov).
 - Nog open:      dezelfde oude namen staan nog in ~70 andere zinnen per taal (`docs/C4_OUDE_NAMEN_2026-11-11.md`). Rob kiest.
 
+### Spell geleerd maar nog op slot: MH zegt welke quest je moet doen
+- Voor wie:      vooral de nieuweling
+- Moment:        zodra je een spell krijgt of ziet die je pas na een class-quest kunt gebruiken
+- Spel:          Forever (Rob bevestigde in de bouwchat: "Ja, dat was in Forever")
+- Bron:          Rob, 11 nov 2026, Paladin level 4, Judgement ("Als ik er geen ervaring mee had, snapte ik er niks van");
+                 doorgegeven door de sparring-chat
+- Bouwt op:      ForeverTrainer (questtabel), ForeverHowToPlay
+- Data:          wordt uitgezocht (mh-research, 11 nov): bij welke classes en spells, questnaam en quest-ID per geval.
+                 GEMETEN door de sparring-chat: MH zegt nu Judgement = level 4 bij de trainer, zonder quest
+                 (`ForeverTrainerData.lua:523`, `ForeverHowToPlay.lua:80`). Klopt dat niet, dan is het ook een fout.
+- Vindbaar:      waar de speler de spell tegenkomt (trainer-lijst, speelkaart), niet alleen in de chat
+- Werk:          na het uitzoeken
+- Site:          ja, als het gebouwd is
+- Rob zegt:      ja (in de sparring-chat, 11 nov; doorgegeven). Niets wijzigen vóór Rob de uitkomst zag.
+
 ### Melding bij een upgrade die je net oppakt
 - Voor wie:      allebei, vooral de nieuweling
 - Moment:        direct nadat het item in je tas komt (Rob: op lage levels loop je hard rond, je krijgt dingen vanzelf in

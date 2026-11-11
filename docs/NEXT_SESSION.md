@@ -1,5 +1,12 @@
 # Midnight Helper — waar we staan
 
+## ▶ OPEN OPDRACHT voor de bouwchat van 12 nov: `/mh selftest` (opdracht 7, sparring-chat)
+
+Volledige tekst: **`docs/OPDRACHT_SELFTEST_2026-11-11.md`**. Begin met fase 0 (meten en voorstellen, niets bouwen): de
+nummerbron van `data_check.py` C2, welke client-functies betrouwbaar "bestaat" zeggen in Midnight en Forever, en of
+`SCALABLE_WINDOWS` een bruikbare vensterlijst is. Vraag Rob eerst zelf of het mag (zijn ja kwam via de sparring-chat).
+De Judgement-uitzoekklus (mh-research, 11 nov) gaat voor.
+
 ## 🆕 11 nov — goedemorgen-ronde uit CLAUDE.md naar `docs/OCHTENDRONDE.md` (opdracht B sparring-chat; Rob: "Ja, doe het")
 
 - Het blok "Als Rob goedemorgen zegt" (128 regels, incl. de wachter-tabel) ongewijzigd naar `docs/CLAUDE_HISTORIE.md`
@@ -9,8 +16,8 @@
 - In CLAUDE.md een blok van 6 regels; de wachter-tabel staat alleen nog in `docs/REGIE.md` tabel 1. De SITE_SEIN-regel
   (elke nieuwe functie/tag/upload) stond alleen in het oude blok: teruggezet als één regel. **CLAUDE.md: 431 → 311 regels**
   (lint [24] nu onder 350).
-- ▶ Open: recept `/nieuwe-chat` (`~/.claude/skills/nieuwe-chat/SKILL.md` r.119) zegt nog "ochtendronde uit `CLAUDE.md`" →
-  moet `docs/OCHTENDRONDE.md` worden; alleen met Robs ja. REGIE.md tabel 2 mist OCHTENDRONDE.md en CLAUDE_HISTORIE.md
+- ✅ Recept `/nieuwe-chat` (`~/.claude/skills/nieuwe-chat/SKILL.md`) wijst nu naar `docs/OCHTENDRONDE.md` (Rob: "Ja, pas
+  aan"). `/verder` zegt alleen "doe het ochtendritueel", zonder bestand: hoeft niet. REGIE.md tabel 2 mist OCHTENDRONDE.md en CLAUDE_HISTORIE.md
   (schrijver bouwchat): doorgegeven aan de sparring-chat/regisseur.
 
 ## 🆕 11 nov — CLAUDE.md korter: het shell-deel (opdracht A sparring-chat; Rob: "Ja, doe het")
