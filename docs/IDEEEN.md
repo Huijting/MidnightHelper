@@ -122,6 +122,24 @@ lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met d
   tester met een niet-Engelse client (TESTLIJST 11 nov).
 - Nog open:      dezelfde oude namen staan nog in ~70 andere zinnen per taal (`docs/C4_OUDE_NAMEN_2026-11-11.md`). Rob kiest.
 
+### Melding bij een upgrade die je net oppakt
+- Voor wie:      allebei, vooral de nieuweling
+- Moment:        direct nadat het item in je tas komt (Rob: op lage levels loop je hard rond, je krijgt dingen vanzelf in
+                 je tas, en je moet nu je tas openhouden om te zien of er een upgrade bij zit)
+- Spel:          Midnight en Forever (Rob koos "allebei")
+- Bron:          Rob, 11 nov 2026, tijdens het spelen; doorgegeven door de sparring-chat («MidnightHelper werkwijze sparring»)
+- Bouwt op:      `Modules/LootUpgrade.lua` (tooltip-regel, `/mh loot`) en `Modules/BagUpgrade.lua` (groene pijltjes,
+                 `/mh bagarrows`), beide via `ns.GetLootUpgradeInfo`. Volgens de sparring-chat (GEMETEN door hen): beide
+                 alleen in `MidnightHelper.toc`, niet in de Forever-toc. Nog geen melding bij het oppakken (AFGELEID door hen).
+- Data:          nog te meten: (1) geeft `ns.GetLootUpgradeInfo` op lage levels een bruikbaar oordeel (gewichten per spec)?
+                 (2) kan de rekenaar in Forever draaien?
+- Vindbaar:      een korte melding op het scherm zelf, niet alleen in de chat (Rob: "niemand kijkt in de chat"), met een
+                 schakelaar zodat spelers zelf kiezen
+- Werk:          nog te schatten na het nameten
+- Site:          ja, als het gebouwd is
+- Rob zegt:      ja (in de sparring-chat, 11 nov; doorgegeven). Voorstel van de sparring-chat, niet van Rob: alleen melden
+                 bij een duidelijke upgrade, dezelfde lat als de pijltjes. Nog niets gebouwd: eerst de twee metingen.
+
 ### Forever: "je hebt geen Hearthstone" bij een reis over het water
 - Voor wie:      nieuweling (Rob: "zeker in het begin")
 - Moment:        als de pijl je over het water stuurt en je geen Hearthstone draagt
