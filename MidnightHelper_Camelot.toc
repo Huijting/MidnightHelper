@@ -1,7 +1,7 @@
 ## Interface: 16001
 ## AllowLoadGameType: camelot
 ## Title: Midnight Helper Forever
-## Version: 5.0.2
+## Version: 5.1.0
 ## Author: TwelveInchy
 ## Category: User Interface
 ## Notes: Midnight Helper for WoW Forever: what to learn at your trainer (Train all, an arrow and a cross), how your class plays, a key block for all nine classes, a missing-buff button, bag and mana warnings, and a quest reward hint.

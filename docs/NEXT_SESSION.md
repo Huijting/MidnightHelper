@@ -14,6 +14,15 @@
   trainer)". How you play: "(from a quest)" bij Redemption en Aquatic Form, Priest-rasspells "you get both from a quest".
   7 talen. Niet in het spel gezien. Stap a is hiermee af tot Robs test; volgende = stap b.
 
+## 🆕 11 nov — Release 5.1.0 (Rob: "je krijgt een go om het live te zetten … Zowel voor forever als voor midnight")
+
+- Rob koos release zonder testronde en zonder beta: *"Beta mensen reageren nooit. Zeker niet in de forever versie."*
+  De sparring-chat adviseerde eerst een korte testronde (4 punten); Rob besliste anders. Die 4 (upgrade-melding,
+  groene tooltipregel, buff-zin in Midnight/gevecht, "(loading...)") zijn NIET in het spel gezien en hebben elk een
+  schakelaar. Eerste meldingen van spelers daarover = eerst kijken.
+- Artefacten: beide toc's 5.1.0, `CHANGELOG_510_1..12` (enUS), `RELEASE_NOTES.md` = `docs/CURSEFORGE_5.1.0.md`,
+  `CHANGELOG.md`. Tag `v5.1.0` → twee bestanden (Retail + `-forever`). Status CurseForge: zie SITE_SEIN.
+
 ## 🆕 11 nov — Stap e: Zygor-wachter (Rob: "Ja, door met stap e")
 
 - `tools/zygor_watch.py` (`run zygor_watch`): kopie van alle gidsbestanden gzip in

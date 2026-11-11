@@ -2,6 +2,25 @@
 
 All notable changes to this project are documented in this file.
 
+## 5.1.0
+
+📌 **2026-11-11, RELEASE (Rob: "je krijgt een go om het live te zetten … Zowel voor forever als voor midnight"; geen
+beta: "Beta mensen reageren nooit. Zeker niet in de forever versie").** Tag `v5.1.0`; twee bestanden (Retail +
+`-forever`). In-game: CHANGELOG_510_1 t/m _12. `RELEASE_NOTES.md` = `docs/CURSEFORGE_5.1.0.md`. Door Rob in het spel
+gezien: trainerpijl Aramis + geleerde plek, buff-zin (Forever, buiten gevecht), verkoopwaarschuwing (beide kanten),
+`/mh selftest` (beide spellen schoon), reispijl Horde eerste stap. NIET in het spel gezien (sparring-chat adviseerde
+eerst een testronde; Rob koos release): upgrade-melding bij oppakken, groene tooltipregel, buff-zin in Midnight/gevecht,
+"(loading...)"-fix. Elk heeft een schakelaar.
+
+- **Forever:** reispijl met boten/zeppelins/tram/portalen + geen-Hearthstone-waarschuwing; trainer/verkoper-plek leren
+  (`ForeverSeenPlaces.lua`) + "You're there"; beroepstrainers (pijl + venster); wapentrainers (`/mh weapons`); "Where do I
+  buy this?"; Handy macros; class-quest-spells + Judgement-seal-uitleg; groene tooltipregel (`/mh geartip`); This week in
+  Forever; vishengel-waarschuwing; oude ranks op je balk.
+- **Beide spellen:** upgrade-melding bij oppakken (`PickupUpgrade.lua`, `/mh pickup`); buff-zin (`MissingBuffSentence`);
+  `/mh selftest` (`Selftest.lua` + gegenereerde `SelftestData.lua`); `/mh prompt` schaalbaar; vensterregel lint [25].
+- **Midnight:** 20 speelkaarten, top 5 macro's per spec + Make-knop, clientnamen (C4) in 6 talen.
+- **Fixes:** verkoopwaarschuwing op de koop-lijst, Greater Blessings, "(loading...)", `/mh travel` in Forever.
+
 ## 5.0.2
 
 📌 **2026-11-08, RELEASE (Rob: "Ja, breng versie 5.0.2 maar uit. Overleg met de chat-site. Jullie krijgen overal akkoord

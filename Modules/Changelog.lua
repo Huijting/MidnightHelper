@@ -4,6 +4,24 @@ local changelogFrame
 
 local CHANGELOG_ENTRIES = {
 	{
+		version = "5.1.0",
+		lines = {
+			-- 11 Nov 2026 (Rob: "Zorg maar dat het live gaat. Zowel voor forever als voor midnight."): Forever first.
+			"CHANGELOG_510_1",
+			"CHANGELOG_510_2",
+			"CHANGELOG_510_3",
+			"CHANGELOG_510_4",
+			"CHANGELOG_510_5",
+			"CHANGELOG_510_6",
+			"CHANGELOG_510_7",
+			"CHANGELOG_510_8",
+			"CHANGELOG_510_9",
+			"CHANGELOG_510_10",
+			"CHANGELOG_510_11",
+			"CHANGELOG_510_12",
+		},
+	},
+	{
 		version = "5.0.2",
 		lines = {
 			-- 8 Nov 2026 (Rob: "Ja, breng versie 5.0.2 maar uit"): Forever first, then what both games get.
