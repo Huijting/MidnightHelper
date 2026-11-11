@@ -23,6 +23,15 @@
   geheugen site-now-news-auto). Of de melding echt aankomt: eerste run 12 nov 08:15, nog niet gezien.
   ⚠️ Zondag draait de ideeënbus om 08:00; de regisseur om 08:15 kan die run dan net missen.
 - Robs ja voor de 9 wachtende site-commits ("Ja, push dat maar") letterlijk doorgegeven aan «Site chat 11-11»; die pusht zelf.
+- ✅ Regisseur starten vanuit Home Assistant (Rob: "draai hem nu maar, want ik ben wakker" → "Ja, bouw het"). GEMETEN 11 nov
+  09:55: HA → 200 `routine_fire`, sessie cse_01AezjghcPmsyBweoY6UXhYj.
+  - Routine heeft een API-trigger; sleutel (alleen voor deze routine) door Rob gemaakt en in HA `secrets.yaml` als
+    `regie_bearer: "Bearer …"`. Eerste test 401 (sleutel fout), na Robs correctie + `rest_command.reload` 200.
+  - HA: `packages/regie.yaml` (door Rob geplakt: de HA-koppeling mag geen `rest_command` schrijven) →
+    `rest_command.regie_nu`; `script.regisseur_nu_draaien` (bij een fout een stille melding, Android `importance: low`);
+    `automation.mh_regisseur_draaien_zodra_rob_wakker_is` (rob_slapen → uit, of 06:20; alleen 06:20–08:15; dus hooguit
+    één keer per ochtend); dashboard MH HQ, blok "Snel naar": knoppen "Regisseur nu" (met bevestiging) en "Regie-verslag".
+  - De vaste ronde om 08:15 blijft als vangnet; een tweede ronde zonder nieuws stuurt geen melding.
 
 ## 🆕 11 nov — C4: spelnamen per taal (Rob: "Ja, alle drie")
 

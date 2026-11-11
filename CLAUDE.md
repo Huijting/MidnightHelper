@@ -26,6 +26,9 @@ dat merk je pas bij de eerste push.
 
 📌 **Sinds 11 nov 2026 een regisseur** (Rob: *"Ja, bouw hem"*; plan deel 8). In de ochtendronde: **lees eerst blok 0 van
 `docs/REGIE.md`**. Op de pc doet het recept `/regisseur` dezelfde ronde, plus wat de cloud niet ziet.
+Home Assistant start hem ook zodra Rob wakker is (06:20–08:15) en via de knop "Regisseur nu" op dashboard MH HQ
+(`rest_command.regie_nu` in HA `packages/regie.yaml`, sleutel `regie_bearer` in HA `secrets.yaml`). Werkt dat niet meer:
+401 = sleutel verlopen/fout → Rob maakt een nieuwe op claude.ai → Routines → MH regie → API-trigger.
 
 📌 **Sinds 10 nov 2026 zes routines** (Rob: *"Ja, stap 4 en 5 mogen ook"*, bevestigd in de bouwchat). De twee nieuwe
 hebben bewust namen die NIET op de vier oude lijken (les van 12 sep). In de ochtendronde: lees ook de laatste regel van

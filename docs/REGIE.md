@@ -39,7 +39,7 @@ De regisseur vervangt dit blok elke ronde door het nieuwe verslag. Eén verslag,
 | 05:50 | data-wachter | `trig_015Bz5PbUNrgr6x7KTiSXVqe` | `docs/PTR_12.0.7_DATA.md` |
 | 06:00 | content-wachter | `trig_01JYW9gqzFNe8MkY3x3tQzh6` | `docs/CONTENT_WATCH.md` |
 | zo 08:00 | MH ideeënbus | `trig_0168w6QPWBbUob5hYf5HXFWz` | het blok onderaan `docs/IDEEEN.md` |
-| 08:15 | **MH regie — dagelijks overzicht** (de regisseur; telefoonmelding alleen bij nieuws, Rob 11 nov: niet als hij slaapt) | `trig_017LQWJNvptK8hWLuByuEDzg` | `docs/REGIE.md` |
+| 08:15 | **MH regie — dagelijks overzicht** (de regisseur; telefoonmelding alleen bij nieuws, Rob 11 nov: niet als hij slaapt). Ook gestart door Home Assistant zodra Rob wakker is (06:20–08:15) en via de knop "Regisseur nu" (MH HQ) | `trig_017LQWJNvptK8hWLuByuEDzg` | `docs/REGIE.md` |
 | 05:30 | site-wachter | (site-kant) | niets; alleen een verslag voor de site-chat |
 | 06:30 en 19:30 | "In the game now" | (site-kant) | de site-repo, één blok op de homepage |
 
