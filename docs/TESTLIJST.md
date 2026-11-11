@@ -49,7 +49,8 @@ Eerst `/reload`, buiten een gevecht. Doe het één keer in **Forever** en één 
 - [x] Forever, eerste run (Rob, 11 nov): liep, maar de item-controle faalde (Forever zei "ja" tegen een verzonnen item).
       Gerepareerd: andere item-vraag, en een soort die faalt wordt alleen zelf overgeslagen.
 - [x] Forever, tweede run (Rob, 11 nov, GEMETEN in SV): alle drie de controles OK, 0 ontbrekend van 1164.
-- [ ] Nog: `/mh selftest` in **Midnight**. Je ziet "selftest: checking … game numbers…" en
+- [x] Midnight (Rob, 11 nov, GEMETEN in SV, build 70783): 1093 nagelopen, alle drie de controles OK, 0 ontbrekend,
+      0 uit gedeelde bestanden. Je ziet "selftest: checking … game numbers…" en
       daarna één regel: "all … numbers exist" of "… do not exist in this game: spell 123, …". Staat er "Not checked:
       item …", dan vertrouwt hij ook de nieuwe item-vraag niet — zeg het me. Daarna `/reload` zodat ik het rapport lees.
 - [ ] Het scherm hapert niet (hij werkt in stukjes van 400).
