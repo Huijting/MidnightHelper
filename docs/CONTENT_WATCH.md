@@ -4406,3 +4406,81 @@ kop, per bevinding MEASURED/INFERRED en [RAAKT ONS]/[RAAKT ONS NIET], met bestan
   gelezen) · `docs/API_WATCH.md`, `docs/PTR_12.1_WATCH.md`, `docs/PTR_12.0.7_DATA.md` (alle vandaag,
   kruiscontrole) · codebase: `git log -- Locales/RaidTips.lua Locales/ruRU.lua` (vandaag).
   Geen actiepunt dat ik oppak — ik rapporteer, een mens beslist.
+
+- [2026-11-11] 🕰️ **Forever-inhaalronde (extra run): één echte tegenspraak — onze Enhancement-Shaman
+  hoofdstat-flip bij Mental Dexterity is sinds Blizzards eigen 6-nov-aankondiging en de 10-nov-hotfix
+  averechts.** Gelezen: alle vier "WoW: Forever Hotfixes"-artikelen sinds launch (5, 6, 9 en 10 nov,
+  `news.blizzard.com/en-us/article/24315281`, volledige tekst via Exa — het eigen feed-overzicht met
+  `?nocache=20261111fcatchup` gaf alleen een afgeknipte/dubbelzinnige snippet, dus de volledige
+  artikelteksten komen uit een gerichte zoekslag, niet uit die ene fetch; **MEASURED (via search, niet
+  zelf de ruwe pagina gelezen)**, maar elke sectie staat byte-identiek op minstens twee onafhankelijke
+  bronnen: Blizzard zelf + mein-mmo.de (10 nov, vertaald) + patchbeat.net (10 nov) + eu.forums.blizzard.com
+  (Kaivax' eigen forumpost, 6 nov)) en twee blue posts die de data-wachter vandaag wel zag maar bewust
+  niet meenam ("niet mijn terrein toen"): **"Class Tuning Incoming - November 10"** (Kaivax,
+  forums.blizzard.com/.../2404092, 6 nov 21:11 UTC) en **"PvP Faction Balance Updates - November 10"**
+  (Kaivax, bluetracker.gg/wow/topic/us-en/2408781, 10 nov 02:05 UTC) — beide **MEASURED (via search)**,
+  elk op drie onafhankelijke spiegels (bluetracker.gg, foreverdb.app, forevertracker.com/arctium.io)
+  met identieke tekst gevonden. Geen nieuwere Forever-hotfixsectie dan "November 10, 2026" gevonden —
+  Arctium's blue-post-feed (gelezen via de data-wachter van vandaag èn hier opnieuw bevestigd) toont dat
+  artikel als het nieuwste Forever-stuk, gepost 11 nov.
+
+  **De tegenspraak (MEASURED):** `Modules/ForeverMainStats.lua:32-33` geeft Enhancement Shaman
+  `main = { "STRENGTH", "INTELLECT" }` maar met een `later = { talent = "Mental Dexterity", main =
+  { "INTELLECT", "STRENGTH" } }` — zodra de speler Mental Dexterity kent, wisselt onze quest-reward-hint
+  (dit draait ook echt: `Modules/ForeverQuestHint.lua:150-156` leest `def.later` zodra
+  `ns.ForeverKnownSpell(def.later.talent)` waar is) naar **Intellect als hoofdstat**. Die keuze komt uit
+  `docs/forever/FOREVER_MAIN_STATS_2026-11-07.md:81/167/230-234`, geschreven op basis van een toen
+  GEMETEN Mental-Dexterity-ratio van **"50/100/150 % of Int (was 33/67/100)"** — dus een sterke
+  Intellect-conversie die de flip rechtvaardigde. **Sinds de hotfix van 10 nov is die ratio terug naar
+  "33/66/100% (was 50/100/150%)"** — letterlijk terug naar het niveau dat op 7 nov nog als "oud/zwak"
+  gold — en Blizzards eigen blue post van 6 nov zegt vooraf expliciet waarom: *"We plan to make changes
+  so that Strength is always their strongest stat, and Enhancement Shamans will not prefer gear
+  intended for Mages and Warlocks... Enhancement Shaman players who are leveling up will want to
+  collect Strength and Attack Power gear from now on."* Onze `later`-flip doet sinds 10 nov dus het
+  tegenovergestelde van wat Blizzard zelf als bedoeld ontwerp aankondigde én doorvoerde. **[RAAKT ONS]**
+  — actiepunt voor een mens: de `later`-regel op `ForeverMainStats.lua:32-33` voor SHAMAN heroverwegen
+  (terugdraaien naar Strength, of de flip helemaal weghalen); ik verander niets, ik meld het alleen.
+  Geen andere klasse in diezelfde blue post genoemd (alleen Hunter-pet-/Warlock-Voidwalker-health, geen
+  hoofdstat) — Paladins `later`-flip bij "Champion of the Light" (`:26-27`) en Hunters bij "Careful Aim"
+  (`:28-29`) zijn dus niet onderzocht geraakt door deze aankondiging.
+
+  **Nagelopen en in orde (geen tegenspraak):** de 5-nov-hotfix *"Zephras - Lotheluum Starbreeze now
+  offers training to Druids as expected"* — die NPC staat al correct als Druid-trainer in
+  `Modules/ForeverTrainerSpots.lua:34` (npc 252359, Zephras Isle, map 2521); onze data is van 7 nov, ná
+  de fix, dus consistent, geen actie. De 5-nov-fix *"trade supply vendors on Zephras Isle didn't sell
+  apprentice tradeskill bags"* — onze twee Zephras-Isle-"Trade Supplies"-vendors staan in
+  `Modules/ForeverVendorSpots.lua:297,437` (Belandiel Farflight, Iallion Featherfall), GEMETEN 9 nov
+  (ná de fix); **INFERRED, niet MEASURED**: ik heb de vier item-ID's (2901, 5956, 6256, 7005) niet
+  individueel tegen "apprentice tradeskill bag" nagezocht, dus ik kan niet zeggen of die bag er expliciet
+  bij staat — wel dat de meetdatum na de fix ligt, wat een stille tegenspraak onwaarschijnlijk maakt.
+  *"Dungeon Enemy XP Increased"* (10 nov, +50% op alle dungeon-kills) en *"PvP Faction Balance Updates"*
+  raken geen enkele MH-Forever-claim: grof gezocht op XP/leveling/PvP/faction-balance/queue in
+  `Modules/Forever*.lua` en `docs/forever/*.md` geeft alleen niet-MH-claims (reviews van andere addons
+  zoals Leatrix Maps en OpenMap) — **positieve controle in dezelfde zoekslag**: diezelfde grep vindt wél
+  echte dungeon-vermeldingen in die review-docs, dus het patroon werkt, de afwezigheid in MH's eigen
+  bestanden is een echte meting. **[RAAKT ONS NIET]** voor beide.
+
+  **Overige gescande hotfix-regels (5/6/9/10 nov), bewust [RAAKT ONS NIET]:** Stormstrike-tuning
+  (schade 150%→100% weapon damage, cooldown 6s→8s) raakt alleen het getal, niet het keybind/niveau dat
+  `Modules/ForeverMacros.lua:468` en `Modules/ForeverBlock_Shaman.lua:25` claimen (key 3, niveau 40) —
+  positieve controle: dezelfde grep die Stormstrike/Windfury in onze bestanden vindt, vindt ook "Mental
+  Dexterity" nergens buiten `ForeverMainStats.lua`/`ForeverQuestHint.lua`, dus het zoekpatroon mist geen
+  vindplaats. Hunter-pet-health (150%→115%), Warlock Voidwalker/Incubus/Succubus-health, Priest
+  Shadowform/Power Infusion, de Cooldown-Manager-toevoegingen (Maelstrom Weapon, Redoubt, Seals,
+  Lacerate/Berserk) en alle Alchemy/Blacksmithing/Cooking/Enchanting/Engineering/Fishing-prijs- en
+  skill-fixes, en alle dungeon-interne bugfixes (Alcaz Prison, Blackfathom Deeps, Blackrock Depths, The
+  Drowned City, The Shaper's Terrace) en questfixes: geen van deze noemt een spell-ID, niveau, prijs of
+  regel die een Forever-bestand van MH claimt (0 treffers op Vulgara/Shriekling/pet-families, 0 op
+  Zephras+Taurajo/Thunder-Bluff-vluchtroute). **[RAAKT ONS NIET]**
+
+  — bron: https://news.blizzard.com/en-us/article/24315281/wow-forever-hotfixes-november-10-2026 ·
+  https://news.blizzard.com/en-us/article/24315281/wow-forever-hotfixes-november-6-2026 ·
+  https://news.blizzard.com/en-gb/article/24315281/wow-forever-hotfixes-november-5-2026 ·
+  https://us.forums.blizzard.com/en/wow/t/class-tuning-incoming-november-10/2404092 ·
+  https://www.bluetracker.gg/wow/topic/us-en/2408781-pvp-faction-balance-updates-november-10/ ·
+  https://www.foreverdb.app/en/forever/blue-tracker/us/30830227 · https://arctium.io/blue-posts/1824 ·
+  https://mein-mmo.de/en/wow-forever-hotfixes-from-november-10-2026-patch-notes-with-adjustments-for-classes-and-dungeons,1595768/
+  · codebase: `Modules/ForeverMainStats.lua`, `Modules/ForeverQuestHint.lua`,
+  `Modules/ForeverTrainerSpots.lua`, `Modules/ForeverVendorSpots.lua`, `Modules/ForeverMacros.lua`,
+  `Modules/ForeverBlock_Shaman.lua`, `docs/forever/FOREVER_MAIN_STATS_2026-11-07.md` (alle vandaag
+  bekeken). Geen actiepunt dat ik oppak — ik rapporteer, een mens beslist.
