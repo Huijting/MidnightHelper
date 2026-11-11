@@ -4,6 +4,12 @@ Van de sparring-chat («MidnightHelper werkwijze sparring»), 11 nov 2026, met R
 maar klaar"* (doorgegeven; de bouwchat vraagt Rob zelf vóór fase 0 begint). Klaargezet voor de bouwchat van 12 nov; op 11 nov
 is niets gebouwd. De tekst hieronder is die van de sparring-chat.
 
+⚠️ **Gewijzigd 11 nov, later (Rob via de sparring-chat):** *"Nou, niks later. Zoveel mogelijk doen wat we nu kunnen doen."*
+Dus: fase 0 al vandaag (na Judgement), en **de vensterlijst is ja** — fase 2 hoort er gewoon bij: tel hoeveel vensters
+de addon heeft en hoeveel er in `SCALABLE_WINDOWS` staan, en stel voor hoe de lijst compleet wordt en hoe de linter
+bewaakt dat een nieuw venster erin komt (controle C5). Vervalt: "klaarzetten voor morgen" en "Rob moet nog ja/nee/later
+zeggen op de vensterlijst". Blijft: Robs ja op het voorstel, het bewijs dat de test kan falen, één ding tegelijk.
+
 **Doel:** de addon loopt zichzelf na in het spel en schrijft het resultaat weg. Rob doet één `/reload`, de AI leest het hele
 rapport uit de SavedVariables. Rob test dan niet meer of iets start, alleen nog of het goed voelt.
 

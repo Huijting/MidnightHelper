@@ -1,6 +1,6 @@
 # Midnight Helper — waar we staan
 
-## ▶ OPEN OPDRACHT voor de bouwchat van 12 nov: `/mh selftest` (opdracht 7, sparring-chat)
+## ▶ OPEN OPDRACHT: `/mh selftest` + vensterlijst (opdracht 7, sparring-chat; Rob: "niks later", dus al op 11 nov)
 
 Volledige tekst: **`docs/OPDRACHT_SELFTEST_2026-11-11.md`**. Begin met fase 0 (meten en voorstellen, niets bouwen): de
 nummerbron van `data_check.py` C2, welke client-functies betrouwbaar "bestaat" zeggen in Midnight en Forever, en of
