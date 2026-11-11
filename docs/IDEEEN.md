@@ -75,6 +75,7 @@ NIET GEMETEN.
 | O18 | **"Jouw Seizoen 2"** (zoals Spotify Wrapped). Advies was: venster pas vlak voor het einde van het seizoen. | V | M | `PLAN_IDEEEN` idee A | GEMETEN: geen venster, geen `/mh wrapped`. De tellers lopen wel (`SeasonStats.lua`). | middel |
 | O19 | **Valeera's dagboek**: één regel per run. | N + V | M | `PLAN_IDEEEN` idee C | GEMETEN: geen dagboek. Het verhaal per run wordt wel bewaard (`DelveHistory.lua`). | groot (vertalen) |
 | O20 | **Forever: voorraad-waarschuwing, writ-helper, Omnium Folio 6/7.** | N + V | F | `NEXT_SESSION.md` regel "Later" (10 nov) | NIET GEMETEN | ? |
+| O21 | **Accountoverzicht in Forever** (al je characters op een rij). | V | F | Rob, 11 nov: *"we missen ons account overzicht in forever"* | GEMETEN 11 nov: `AltOverview.lua`, `AccountWeeklyChecklist.lua` en `CurrencyAccount.lua` staan alleen in `MidnightHelper.toc`, niet in `MidnightHelper_Camelot.toc` (tegencontrole: ForeverWeek/ForeverTravel wél gevonden). Wat Forever erin wil zien (level, goud, beroepen, raid-locks?) is nog niet bepaald. | middel? |
 
 ### Half, of wacht op een test
 
