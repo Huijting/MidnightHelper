@@ -19,8 +19,8 @@
 - Vorm: 1920x1080, screenshot in vak (230,165)-(1690,935) zodat bureaurand en lantaarntop vrij blijven, rand #FFCC00
   3 px, zachte schaduw, titel Cinzel Bold 62 px goud bovenaan. GEMETEN in de proef: randpixel (255,204,0), Bold actief.
 - ✅ AF (Rob: "Ja, goed zo"): zes plaatjes in `E:\MidnightHelper-media\output\` (01-04 + de nieuwe 05/06 van 200749 en
-  200805; de oude 05/06 van 194516/194537 staan er nog en horen niet bij de set). Uitsnedes staan in `shots.txt`.
-  Uploaden doet Rob zelf. Gereedschap, niet in de release-tekst.
+  200805; de oude 05/06 heeft Rob weggegooid, GEMETEN). Uitsnedes staan in `shots.txt`. Rob uploadde ze zelf
+  naar CurseForge op 11 nov. Gereedschap, niet in de release-tekst.
 
 ## 🆕 11 nov — stap a: Seal-tip en Claw-fix (Rob: "Seal-tip + Claw-fix")
 
