@@ -118,7 +118,9 @@ lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met d
 - Werk:          klein
 - Site:          ja (`docs/SITE_SEIN.md`)
 - Rob zegt:      ja. **Gebouwd 11 nov**, met drie reparaties: Greater Blessings tellen mee (Forever), de onware zin
-                 "de onze kun je in gevecht aanklikken" is weg, `/mh mbuff` bestaat altijd. Wacht op Robs test.
+                 "de onze kun je in gevecht aanklikken" is weg, `/mh mbuff` bestaat altijd (2237696).
+                 ✅ Forever gezien door Rob, 11 nov (blessing + aura, `/mh buffs`). Nog open: Midnight, in een gevecht,
+                 Greater Blessing. Daarna naar **Af**.
 
 ### Buff "bijna afgelopen", met de tijd erbij
 - Voor wie:      allebei

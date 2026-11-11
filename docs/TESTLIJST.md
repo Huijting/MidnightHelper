@@ -24,12 +24,12 @@ er is niets weggegooid.
 ## 🆕 11 nov — De buff-melding is een zin (Forever én Midnight)
 
 Eerst `/reload`. Op je paladin in Forever, zonder blessing:
-- [ ] Onder het buff-icoon staat in **goud, kleiner dan vroeger**: "Blessing of Might is not on you. Click the icon to cast
-      it." (in het Nederlands: "Blessing of Might staat niet op je. Klik op het icoon om te casten."). Geen rood "MISSING" meer.
-- [ ] Het icoon staat op dezelfde plek als eerst (of waar jij het ooit naartoe sleepte).
-- [ ] Klik erop: de blessing komt erop en het icoon verdwijnt. Daarna (zonder aura): "No aura active: Devotion Aura. …".
+- [x] Onder het buff-icoon staat in **goud, kleiner dan vroeger**: "Blessing of Might is not on you. Click the icon to cast
+      it." Geen rood "MISSING" meer. ✅ Rob, 11 nov (screenshot, Forever paladin).
+- [x] Het icoon staat op dezelfde plek als eerst. ✅ Rob, 11 nov.
+- [x] Zonder aura: "No aura active: Devotion Aura. Click the icon to cast it." ✅ Rob, 11 nov (screenshot).
+- [x] `/mh buffs` → "line under the icon: Blessing of Might is not on you. Click the icon to cast it." ✅ Rob, 11 nov.
 - [ ] In een gevecht (alleen bij aura/pet): de zin eindigt op "Cast it from your bars." in plaats van "Click the icon".
-- [ ] `/mh buffs` → onderaan de regel "line under the icon: …" met dezelfde zin.
 - [ ] Krijg je ooit een **Greater Blessing** van een andere paladin: dan mag het icoon NIET om een blessing vragen.
 - [ ] Midnight (gewone WoW), een character dat een buff mist: dezelfde soort zin, met de naam van die buff.
 - [ ] `/mh mbuff` doet iets (ook meteen na het inloggen).
