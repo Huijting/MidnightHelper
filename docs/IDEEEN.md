@@ -183,6 +183,23 @@ lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met d
 - Site:          ja, als het gebouwd is
 - Rob zegt:      ja (via de sparring-chat, 11 nov; nog te bevestigen in de bouwchat)
 
+### Welke kant ga ik op? (idee 7, hoort bij het "Doe dit nu"-venster)
+- Voor wie:      de nieuweling (Rob: *"als newbie weet ik nu helemaal niks"*)
+- Moment:        zodra je kunt kiezen (eerste talentpunt), en elke keer dat je iets krijgt waarvan je niet weet of het
+                 bij je past (een wapen, gear). Robs voorbeeld: een two-handed sword; is het nu al de lange loop naar de
+                 wapentrainer waard?
+- Spel:          Forever (Midnight: Rob nog niet gevraagd)
+- Bron:          Rob, 11 nov 2026, paladin level 5 (via de sparring-chat)
+- Bouwt op:      ForeverHowToPlay (uitleg per class), ForeverWeapons (`/mh weapons`), de upgrade-rekenaar (questbeloning
+                 + tooltipregel), en het "Doe dit nu"-venster (moet weten wat de speler wil worden)
+- Data:          GEMETEN 11 nov (bouwchat): `ForeverHowToPlay.lua` noemt losse talent-spells (Seal of Command, Shadowform …)
+                 maar legt nergens de keuze tussen de richtingen uit. Nog te meten, alle classes: de richtingen in gewone
+                 woorden, wat elke richting nodig heeft, vanaf welk level de keuze telt, wat opnieuw kiezen kost.
+- Vindbaar:      op het moment van de keuze, op het scherm, niet via een commando
+- Werk:          groot; samen met het "Doe dit nu"-venster als één ontwerp
+- Site:          ja, als het gebouwd is
+- Rob zegt:      ja, eerst doorpraten in de sparring-chat (via de sparring-chat, 11 nov; nog te bevestigen in de bouwchat)
+
 ### Spelnamen in de zes talen zoals die client ze toont (C4)
 - Voor wie:      allebei, in de/fr/es/pt/it/ru (Engels en Nederlands veranderen niet)
 - Moment:        overal waar MH een spelnaam toont: titel, delve, mount-plek, Trading Post, World Boss, drankje
