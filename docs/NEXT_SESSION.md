@@ -1,5 +1,18 @@
 # Midnight Helper — waar we staan
 
+## 🆕 11 nov — goedemorgen-ronde uit CLAUDE.md naar `docs/OCHTENDRONDE.md` (opdracht B sparring-chat; Rob: "Ja, doe het")
+
+- Het blok "Als Rob goedemorgen zegt" (128 regels, incl. de wachter-tabel) ongewijzigd naar `docs/CLAUDE_HISTORIE.md`
+  (bovenaan; script-controle: tekst volledig aanwezig). Nieuw `docs/OCHTENDRONDE.md`: 19 stappen + harde regels, elk met één
+  zin waarom; ook leesbaar voor een cloud-chat vanaf Robs telefoon. Reparaties: `run addon_updates` via `probe_job.txt`;
+  `git pull --rebase` zonder `origin main` (gaf vanochtend "Cannot rebase onto multiple branches", GEMETEN).
+- In CLAUDE.md een blok van 6 regels; de wachter-tabel staat alleen nog in `docs/REGIE.md` tabel 1. De SITE_SEIN-regel
+  (elke nieuwe functie/tag/upload) stond alleen in het oude blok: teruggezet als één regel. **CLAUDE.md: 431 → 311 regels**
+  (lint [24] nu onder 350).
+- ▶ Open: recept `/nieuwe-chat` (`~/.claude/skills/nieuwe-chat/SKILL.md` r.119) zegt nog "ochtendronde uit `CLAUDE.md`" →
+  moet `docs/OCHTENDRONDE.md` worden; alleen met Robs ja. REGIE.md tabel 2 mist OCHTENDRONDE.md en CLAUDE_HISTORIE.md
+  (schrijver bouwchat): doorgegeven aan de sparring-chat/regisseur.
+
 ## 🆕 11 nov — CLAUDE.md korter: het shell-deel (opdracht A sparring-chat; Rob: "Ja, doe het")
 
 - GEMETEN: `tools/bash_guard.py` draait als PreToolUse-hook (`AddOns/.claude/settings.json`, matcher Bash|PowerShell) en

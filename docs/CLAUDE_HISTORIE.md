@@ -6,6 +6,140 @@ Ongewijzigd verplaatst; nieuwste blok bovenaan.
 
 ---
 
+## 11 nov 2026 — de goedemorgen-ronde (stond in CLAUDE.md tussen "What this is" en "How to work with Rob")
+
+Verplaatst in de bouwchat op Robs ja ("Ja, doe het"), opdracht B van de sparring-chat. De stappen en
+harde regels staan nu kort in `docs/OCHTENDRONDE.md`; de wachter-tabel alleen nog in `docs/REGIE.md`, tabel 1.
+
+## 🔴 Als Rob "goedemorgen" zegt: eerst ophalen, dan pas praten
+
+Vanaf 2 sep 2026 pushen **vier cloud-wachters** naar `main` terwijl niemand aan de pc zit, elke
+ochtend tussen 05:30 en 06:00 Robs tijd. Zonder ophalen werk je in een repo die achterloopt, en
+dat merk je pas bij de eerste push.
+
+| tijd (Rob) | wachter | schrijft | bewaakt |
+|---|---|---|---|
+| 05:30 | API | `docs/API_WATCH.md` | wat de addon **breekt** |
+| 05:40 | PTR/roadmap | `docs/PTR_12.1_WATCH.md` | wat er nog **komt** |
+| 05:50 | blue post/data | `docs/PTR_12.0.7_DATA.md` | welk **feit** we missen |
+| 06:00 | content | `docs/CONTENT_WATCH.md` | waar de addon **liegt** |
+| 04:15 | **MH nachtcontrole** (`trig_01EKor6SCGxyPJPurc4MML3P`, omgeving "Midnight Helper") | `docs/NACHTCONTROLE.md` | events (C1) en spel-nummers (C2) tegen de nieuwste build |
+| zo 08:00 | **MH ideeënbus** (`trig_0168w6QPWBbUob5hYf5HXFWz`) | alleen het blok "Voorstellen van de wachter" onderaan `docs/IDEEEN.md` | max 3 ideeën per week |
+| 08:15 | **MH regie — dagelijks overzicht** (`trig_017LQWJNvptK8hWLuByuEDzg`, omgeving "Midnight Helper", ook de site-repo, alleen lezen) | alleen `docs/REGIE.md` (+ telefoonmelding alleen bij nieuws) | het geheel: wie wat doet, wat scheefloopt, wat op Rob wacht |
+
+📌 **Sinds 11 nov 2026 een regisseur** (Rob: *"Ja, bouw hem"*; plan deel 8). In de ochtendronde: **lees eerst blok 0 van
+`docs/REGIE.md`**. Op de pc doet het recept `/regisseur` dezelfde ronde, plus wat de cloud niet ziet.
+Home Assistant start hem ook zodra Rob wakker is (06:20–08:15) en via de knop "Regisseur nu" op dashboard MH HQ
+(`rest_command.regie_nu` in HA `packages/regie.yaml`, sleutel `regie_bearer` in HA `secrets.yaml`). Werkt dat niet meer:
+401 = sleutel verlopen/fout → Rob maakt een nieuwe op claude.ai → Routines → MH regie → API-trigger.
+
+📌 **Sinds 10 nov 2026 zes routines** (Rob: *"Ja, stap 4 en 5 mogen ook"*, bevestigd in de bouwchat). De twee nieuwe
+hebben bewust namen die NIET op de vier oude lijken (les van 12 sep). In de ochtendronde: lees ook de laatste regel van
+`docs/NACHTCONTROLE.md` (staat de snapshot achter → `run event_snapshot --write`) en, op maandag, de voorstellen van de
+ideeënbus — verplaats ze naar Open of Nee; Rob beslist.
+📌 **Sinds 11 nov 2026 dekken de vier ochtendwachters ook WoW: Forever** (Rob: *"Ja, voeg Forever toe aan de wachters"*).
+Hun opdracht eindigt met een verwijzing naar `docs/WATCHER_FOREVER.md`; de Forever-regels staan dáár, niet in de vier
+opdrachten. Wijzig dat bestand alleen met Robs ja.
+
+Ze rapporteren alleen; ze repareren nooit. Elk raakt precies één bestand aan.
+
+🔴 **Exa kan een WEEK OUDE PAGINA teruggeven, en dat is aan niets te zien.** GEMETEN 3 sep 2026:
+`web_fetch_exa` op news.blizzard.com gaf een pagina met als titel *"Hotfixes: August 27, 2026"* —
+ouder dan wat de run van de dág ervoor al gelezen had. De API-wachter ving het alleen doordat hij
+tegen zijn eigen logboek vergeleek; de PTR-wachter liep er dezelfde ochtend tegenaan op
+bluetracker.gg en telde het terecht niet mee. Zonder die vangst had er gestaan *"niets sinds
+27 aug"*, terwijl er twee dagen aan hotfixes lagen.
+✅ Alle vier de routines dragen sinds 3 sep de regel *"hang een `?nocache=JJJJMMDD` achter elke
+Exa-URL"* — geverifieerd byte-voor-byte tegen wat de server opslaat, niet alleen op HTTP 200.
+📌 En de bredere vorm, want die geldt overal: **is het nieuwste dat je ziet ouder dan wat je eigen
+aantekening gisteren al noemde, dan kijk je naar een cache en niet naar de werkelijkheid.** Dat is
+dezelfde val als [[silence-is-not-absence]], maar met een tijdstempel erop die gezond oogt.
+
+Dus bij een groet of de eerste boodschap van de dag, ongevraagd en in deze volgorde:
+
+1. **`git -C "<repo>" status` EERST.** Op 2 sep stond `docs/API_WATCH.md` gewijzigd-maar-
+   ongecommit in de working tree, met een `.git/index.lock` die de pull blokkeerde. Een lege pull
+   bewijst dus niet dat er niets gebeurd is — het werk kan op schijf staan zonder ooit in een
+   commit te belanden.
+   ✅ **Staat een van de vier wachter-bestanden uit de tabel gewijzigd-maar-ongecommit, commit het
+   dan meteen** — alleen dat bestand, via `stage.txt` + `git_stage.py`, met als boodschap *"Commit
+   the «wachter» watcher's entry of «datum», left uncommitted on disk"*. Pas daarna pullen:
+   met een vuile working tree weigert `pull --rebase`. Rob, 10 sep: *"commit die API_WATCH maar
+   mee, en hoe kunnen we dat voortaan wel laten gebeuren?"* — dit is het antwoord.
+   ⚠️ **Kijk eerst wát er staat:** een nieuwe `- [JJJJ-MM-DD]`-regel onderaan is wachter-werk; iets
+   anders (een halve regel, een wijziging midden in het bestand) meld je in plaats van te committen.
+   ⚠️ **Geeft de pull daarna een conflict in dat bestand** (11 sep: de cloud-wachter had diezelfde
+   dag óók een regel gepusht), **houd dan beide regels**: eerst de gepushte, dan de lokale, met een
+   lege regel ertussen. Markeringen weg, `git_stage.py`, dan
+   `git -C "<repo>" -c core.editor=true rebase --continue` (zonder `-c` opent git een editor).
+   ✅ **DE SCHRIJVER IS GEVONDEN — 12 sep 2026.** Een **Cowork**-taak (de agentmodus van de
+   desktopapp, draait in een lokale VM met deze map gemount): `midnight-helper--api-wachter`,
+   `C:\Users\RobHu\Claude\Scheduled\midnight-helper--api-wachter\SKILL.md`, aangemaakt 18 aug,
+   dagelijks 06:00 lokaal. Zijn opdracht zegt letterlijk *"Voeg je bevindingen toe aan
+   `docs/API_WATCH.md` … geen commits"*. Dat zijn precies de wees-regels van 2, 5, 7, 10 en 11 sep, en
+   de sandbox verklaart de `EGRESS_BLOCKED` in hun tekst. Twee zustertaken schrijven op dezelfde
+   manier naar `PTR_12.0.7_DATA.md` en `PTR_12.1_WATCH.md`, met opdrachten uit juni.
+   ⚠️ Een run in september staat niet in `main.log`; de toewijzing is afgeleid, wel sterk.
+   📌 **Waarom het twee weken duurde:** `list_scheduled_tasks` toont alleen de taken van de Code-tab.
+   Cowork-taken zie je alleen in `%APPDATA%\Claude\logs\main*.log`
+   (`[ScheduledTasks] Spawning new session for scheduled task …`). GEMETEN uitgesloten op 12 sep: 7
+   cloud-routines, 2 Code-tab-taken, 394 Windows-taken, de cron van deze sessie en andere
+   desktopsessies. Memory: `cowork-scheduled-tasks-local`.
+   ✅ **Verwijderd door Rob op 12 sep**; GEMETEN dat `C:\Users\RobHu\Claude\Scheduled\` leeg is. Duikt er
+   tóch weer een wees-regel op, dan is er een nieuwe lokale schrijver: kijk eerst in die map en in
+   `main*.log`. Het recept hierboven (committen, dan pullen) blijft de terugval.
+   🔴 **LET OP DE NAMEN. De cloud-routines en de Cowork-taken lijken op elkaar** ("API watch" /
+   "api-wachter", "blue post / data watch" / "bluepost-check", "PTR / roadmap watch" /
+   "ptr-12-1-watch"). Op 12 sep zijn daardoor de drie verkeerde verwijderd: de **cloud**-wachters.
+   Diezelfde ochtend zijn ze teruggezet uit een `RemoteTrigger list` van eerder die dag, en een script
+   bevestigde byte-voor-byte gelijkheid van opdracht, schema, model, tools, repo en connectoren
+   (nieuwe ID's `trig_01FLuvPV5NAb2UEN4e1fboTS`, `trig_018jpghYW8vRpDsj9qkWWD8f`,
+   `trig_015Bz5PbUNrgr6x7KTiSXVqe`). 📌 Wie ooit routines laat opruimen: noem het ID en de plek
+   (claude.ai → Routines, of desktopapp → Cowork → Scheduled), niet alleen de naam.
+2. `git -C "<repo>" pull --rebase origin main`
+3. Lees wat er nieuw in staat: de vier bestanden uit de tabel hierboven.
+4. Kijk op CurseForge én GitHub: `run gh_inbox` (via `probe_job.txt`). Geen enkele wachter dekt mensen
+   die ons willen helpen — Andy's vijf PR's lagen daardoor 17 dagen ongelezen, en op 1 okt 2026 bleek een
+   CF-bugmelding (MrsBoojiePanda, debug-regel in de chat) óók 17 dagen ongezien. Sindsdien leest gh_inbox
+   eerst de CF-reacties (open JSON: `curseforge.com/api/v1/mods/1528577/comments`; de gewone pagina geeft
+   403). **Een 🔴 WAITING FOR AN ANSWER meld je Rob altijd, ook als de rest "niets" is.** Een draadje telt
+   als beantwoord zodra Rob (twelveinchy) er met *Reply* in reageert; een losse nieuwe reactie telt niet.
+4b. **Kijk welke van Robs andere addons zijn bijgewerkt:** `python "<repo>/tools/_probe.py" run
+   addon_updates`. Sinds 22 sep 2026 (Rob: *"hebben we addons die geupdate zijn ook getest?"* → *"ja doe
+   maar"*). Hij vergelijkt `## Version` met de vorige keer en print de top van elke changelog; **jij**
+   oordeelt of iets MH raakt (taint, markers, secret values, TomTom, DBM-formaat, JustAC-data). Lezen is
+   geen testen: zeg dat erbij, Robs `/reload` + BugSack is de test.
+   📌 **Sinds 8 nov 2026 ook Forever** (`_forever_`, eigen seen-bestand) **en een wachtlijst** (Rob: *"sinds ik het op
+   automatisch updaten heb gezet heb ik geen idee wat er verandert is"* → *"Ja, bouw maar"*). Een addon die op élk
+   character uit staat (`WTF/.../AddOns.txt`) en een nieuwe versie krijgt, staat bovenaan met 🔔: meld die Rob altijd,
+   met wat de maker veranderde — heeft hij geen changelog in de map, zoek het dan op CurseForge op. Rob praat Nederlands
+   en wil per addon één zin over wat er voor HEM veranderde (niet alleen wat MH raakt), voor beide spellen.
+4b'. **Kijk wat er in HandyNotes is veranderd:** `run handynotes_watch` (via `probe_job.txt`). Sinds 15 okt 2026 (Rob:
+   *"op alles, en dat moet eigenlijk altijd"* — HandyNotes is volgens hem *"meestal de beste bron van allemaal"*). Hij print
+   per zone de toegevoegde/verwijderde regels mét coördinaten en ID's, sinds de vorige keer (kopie in
+   `tools/handynotes_snapshot/`, lokaal). **Jij** vergelijkt met MH's eigen data (DelveChestData, rares, schatten, Codex
+   {WAY}-links) en neemt over wat beter is. Aanleiding: versie 158 gaf die dag élke Labyrinth-kist een quest-ID en 5
+   zegelkisten die geen gids had — onzichtbaar zonder het bestand te openen.
+4c. **Lees de mail van de site:** Gmail-connector, `search_threads` met
+   `subject:(MH feedback OR MH vragenlijst) newer_than:3d` (afzender `feedback@midnighthelper.com`). Sinds 2 okt
+   2026 (Rob: *"ik weet niet of we automatisch kijken in onze mail … anders moet deze alsnog in de
+   ochtendroutine"*) — tot dan keek niemand: de cloud-wachters hebben geen Gmail. `[MH feedback]` = bug of wens
+   (altijd melden, zoals een CF-reactie); `[MH vragenlijst]` = tel hem bij in `docs/SURVEY_RESULTS.md`. Robs eigen
+   tests tellen niet mee (1 okt 21:09 UTC, "winnend staatslot"). Alleen lezen: nooit antwoorden, labelen of
+   archiveren.
+4d. **Lees de vragen van de site-chat:** `C:\Users\RobHu\Downloads\midnighthelper-site\drafts\BOUW_VRAAG.md` (Read, alleen
+   lezen; de site-chat schrijft het, wij nooit). Sinds 10 nov 2026, plan deel 5 (Rob: *"het klopt allemaal, volgorde is
+   goed"*). Een open vraag beantwoord je in **`docs/SITE_SEIN.md`** (ons prikbord, nieuwste regel bovenaan, statuswoorden
+   *alleen op main / getagd / staat op CurseForge*). Bestaat het bestand niet of staat de lokale kopie achter, meld dat
+   gewoon. Bij elke nieuwe functie, tag of CurseForge-upload werk je `SITE_SEIN.md` bij in dezelfde commit.
+5. Vertel hem alleen wat hém raakt. De meeste dagen is dat "niets" — zeg dat dan ook, mét wat er
+   gelezen is, zodat stilte te onderscheiden is van niet-kijken.
+
+⚠️ **Het is nu 06:00 en de wachten schrijven vroeg, maar niet allemaal even vroeg.** Staat er nog
+niets van vandaag, meld dat als *"heeft nog niet gedraaid"* en niet als *"niets gevonden"* —
+dat is precies het verschil dat dit project al drie keer verkeerd om heeft gelezen.
+
+
 ## 11 nov 2026 — het shell-deel (stond in CLAUDE.md tussen "Spel-data snel" en "Build & verify")
 
 Verplaatst in de bouwchat op Robs ja ("Ja, doe het"), opdracht A van de sparring-chat. In CLAUDE.md staat nu een
