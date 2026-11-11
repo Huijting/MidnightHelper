@@ -1,5 +1,15 @@
 # Midnight Helper — waar we staan
 
+## 🆕 11 nov — CurseForge-plaatjes: `tools/cf_media.py` (Rob: "Ja, bouw het")
+
+- Opdracht van de sparring-chat: hooguit 4-6 echte screenshots op één vaste ComfyUI-achtergrond (Rob koos "Nummer 2").
+- `run cf_media --proef` zet `E:\MidnightHelper-media\` klaar (kopie van achtergrond, Cinzel-font, één screenshot,
+  voorbeeld `shots.txt`) en tekent. `run cf_media` tekent elke regel van `shots.txt` (`bestand | titel | x,y,w,h`) naar
+  `output\`. Alles buiten repo en WoW-map; het origineel in `E:\ComfyMCP\output` blijft staan.
+- Vorm: 1920x1080, screenshot in vak (230,165)-(1690,935) zodat bureaurand en lantaarntop vrij blijven, rand #FFCC00
+  3 px, zachte schaduw, titel Cinzel Bold 62 px goud bovenaan. GEMETEN in de proef: randpixel (255,204,0), Bold actief.
+- Open: Robs zes screenshots en de titels (sparring-chat schrijft ze met Rob). Gereedschap, niet in de release-tekst.
+
 ## 🆕 11 nov — stap a: Seal-tip en Claw-fix (Rob: "Seal-tip + Claw-fix")
 
 - mh-research (`docs/forever/FOREVER_QUEST_LOCKED_SPELLS_2026-11-11.md`): Judgement = trainer, level 4 (MH klopt); hij

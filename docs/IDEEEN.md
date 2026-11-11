@@ -288,6 +288,20 @@ lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met d
                  `tools/zygor_watch.py`, stap 16 van de ochtendronde. Nulmeting: Midnight Zygor 9.6 (717 gidsen), Forever
                  1.6 (104). `--selftest` bewijst dat een wijziging gezien wordt. Af zodra hij de eerste echte update meldt.
 
+### CurseForge-plaatjes: echte screenshots op één vaste achtergrond
+- Voor wie:      wij (CurseForge-pagina en de site); spelers zien alleen het resultaat
+- Moment:        als Rob nieuwe screenshots maakt (hooguit 4-6, actueel)
+- Spel:          Midnight en Forever
+- Bron:          Rob, 11 nov (via de sparring-chat; achtergrond "Nummer 2" uit ComfyUI)
+- Bouwt op:      niets in de addon; los gereedschap via de voordeur
+- Data:          Robs eigen screenshots + `E:\ComfyMCP\output\mh_cf_achtergrond_00002_.png` (kopie in de mediamap)
+- Vindbaar:      `run cf_media --help`; map `E:\MidnightHelper-media\` (input, output, shots.txt)
+- Werk:          klein
+- Site:          ja, de plaatjes zelf
+- Rob zegt:      ja (in de bouwchat 11 nov: *"Ja, bouw het"*). **Gebouwd 11 nov:** `tools/cf_media.py`, lettertype Cinzel
+                 (OFL 1.1). Proef met `02-this-week.png` gemaakt en ingezoomd. Af zodra Rob zijn zes screenshots erdoor
+                 heeft gehaald en ze goedkeurt.
+
 ### Forever: "je hebt geen Hearthstone" bij een reis over het water
 - Voor wie:      nieuweling (Rob: "zeker in het begin")
 - Moment:        als de pijl je over het water stuurt en je geen Hearthstone draagt
