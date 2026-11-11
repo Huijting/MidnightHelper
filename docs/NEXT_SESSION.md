@@ -20,7 +20,9 @@
   3 px, zachte schaduw, titel Cinzel Bold 62 px goud bovenaan. GEMETEN in de proef: randpixel (255,204,0), Bold actief.
 - ✅ AF (Rob: "Ja, goed zo"): zes plaatjes in `E:\MidnightHelper-media\output\` (01-04 + de nieuwe 05/06 van 200749 en
   200805; de oude 05/06 heeft Rob weggegooid, GEMETEN). Uitsnedes staan in `shots.txt`. Rob uploadde ze zelf
-  naar CurseForge op 11 nov. Gereedschap, niet in de release-tekst.
+  naar CurseForge op 11 nov. CurseForge weigert plaatjes boven 2 MB (2: 2,08 MB, 3: 2,33 MB, GEMETEN): het script
+  bewaart nu PNG als dat ≤ 1.950.000 bytes is, anders JPEG kwaliteit 95 zonder kleurverlies (2 → 0,62 MB, 3 → 0,77 MB;
+  kleine tekst ingezoomd scherp). Gereedschap, niet in de release-tekst.
 
 ## 🆕 11 nov — stap a: Seal-tip en Claw-fix (Rob: "Seal-tip + Claw-fix")
 

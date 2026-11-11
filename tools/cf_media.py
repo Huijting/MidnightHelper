@@ -161,11 +161,38 @@ def main():
         out_img, frame = compose(bg, shot, title, font)
         if font.getbbox(title)[2] - font.getbbox(title)[0] > W - 120:
             print("WARN %s: title is wider than the image; shorten it" % name)
-        out = os.path.join(p["output"], "%02d-%s.png" % (i, os.path.splitext(name)[0]))
-        out_img.save(out + ".tmp.png")
-        os.replace(out + ".tmp.png", out)
-        print("OK %s -> %s  (shot %dx%d, frame at %d,%d size %dx%d)"
-              % (name, out, shot.width, shot.height, frame[0], frame[1], frame[2], frame[3]))
+        base = os.path.join(p["output"], "%02d-%s" % (i, os.path.splitext(name)[0]))
+        out = save_under_limit(out_img, base)
+        print("OK %s -> %s  (%.2f MB; shot %dx%d, frame at %d,%d size %dx%d)"
+              % (name, out, os.path.getsize(out) / 1048576, shot.width, shot.height,
+                 frame[0], frame[1], frame[2], frame[3]))
+
+
+# CurseForge refuses images over 2 MB (Rob, 11 Nov 2026: shots 2 and 3 were 2.08 and 2.33 MB). Stay
+# under 2,000,000 bytes, whichever way "2 MB" is counted. PNG first (lossless); if that is too big, a
+# high-quality JPEG with full colour resolution so the small UI text stays sharp. One file per image:
+# the other format is removed, so the output folder never holds two versions of the same picture.
+MAX_BYTES = 1_950_000
+
+
+def save_under_limit(img, base):
+    png, jpg = base + ".png", base + ".jpg"
+    img.save(png + ".tmp", format="PNG", optimize=True)
+    if os.path.getsize(png + ".tmp") <= MAX_BYTES:
+        os.replace(png + ".tmp", png)
+        if os.path.isfile(jpg):
+            os.remove(jpg)
+        return png
+    os.remove(png + ".tmp")
+    for q in (95, 92, 90, 88, 85):
+        img.save(jpg + ".tmp", format="JPEG", quality=q, subsampling=0, optimize=True)
+        if os.path.getsize(jpg + ".tmp") <= MAX_BYTES:
+            break
+    os.replace(jpg + ".tmp", jpg)
+    if os.path.isfile(png):
+        os.remove(png)
+    print("note: %s was over %d bytes as PNG; saved as JPEG quality %d" % (os.path.basename(base), MAX_BYTES, q))
+    return jpg
 
 
 if __name__ == "__main__":
