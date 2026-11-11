@@ -23,8 +23,13 @@ er is niets weggegooid.
 
 ## 🆕 11 nov — Forever: de pijl naar trainers en verkopers klopt beter
 
-- [ ] Undead Paladin, pijl naar **Aramis Hammerhand** (Deathknell): de pijl wijst nu naar hem, niet 12 m ernaast door de muur.
-- [ ] Binnen ~18 m van een trainer, wapentrainer of verkoper zegt de pijl erachter: "Je bent er: kijk om je heen, hij staat
+- [x] Undead Paladin, pijl naar **Aramis Hammerhand** (Deathknell): klopte pas nadat je hem had aangesproken (Rob, 11 nov).
+      De eerste keer won de HandyNotes-plek (30.97, 66.77) het nog van jouw meting; gerepareerd, zie hieronder.
+- [ ] **Hertest (11 nov, ronde 2):** "Take me to my trainer" → de pijl wijst naar Aramis. ⚠️ Dat de reparatie zelf werkt, is
+      bij Aramis niet meer te zien: zijn plek is al geleerd (voor het hele account) en die wint toch. Offline getest.
+      Echt bewijs = een ándere trainer die je nog nooit sprak en die ook in HandyNotes staat: wijst de pijl goed?
+- [ ] `/mh travel` in Forever zegt nu iets (eerst bleef hij stil): "travel: you are on …", hearthstone, "NPC places learned …".
+- [ ] Binnen ~18 m van een trainer, wapentrainer of verkoper zegt de pijl erachter: "Je bent er: kijk om je heen, het is
       hier vlakbij."
 - [ ] **Leren:** praat met een trainer of verkoper (venster open). Zet daarna (ook op een ander character) de pijl naar
       dezelfde NPC: hij wijst naar de plek waar jij toen stond. `/mh travel` → regel "NPC places learned …: <aantal>".

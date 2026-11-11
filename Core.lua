@@ -2407,10 +2407,11 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 
 	-- /mh travel — the travel knowledge base (Modules/Travel/TravelData.lua, phase 1 of the travel design, 16 Oct 2026):
 	-- how many points per table, where you are, and any place stored twice with different numbers.
-	if msg == "travel" then
-		if ns.Travel and ns.Travel.PrintStatus then
-			ns.Travel.PrintStatus()
-		end
+	-- ⚠️ Only when the retail travel module is loaded. In WoW Forever it is not (Modules/Travel is not in the Camelot TOC),
+	-- and this branch used to `return` silently, so the Forever /mh travel further down never ran (Rob, 11 Nov 2026:
+	-- "toen kwam er helemaal niks").
+	if msg == "travel" and ns.Travel and ns.Travel.PrintStatus then
+		ns.Travel.PrintStatus()
 		return
 	end
 

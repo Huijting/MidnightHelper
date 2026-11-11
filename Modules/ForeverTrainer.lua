@@ -1023,12 +1023,13 @@ ns.ForeverTrainerCandidates = Candidates -- the offline check calls it
 --- Rob, 8 Nov 2026: standing next to Dark Cleric Duesten, the arrow said "12 m" and pointed into the wall. Nearest-wins
 --- had picked the HandyNotes point (31.34, 65.85) over MH's own (31.11, 66.07, measured by Rob) because it was a few
 --- yards closer from where he typed /mh trainer go. Same NPC id = same trainer: keep only the best source.
-local SRC_RANK = { yours = 1, measured = 2, HandyNotes = 3, ["MH list"] = 4 }
+--- seen (0): the place MH stored when you talked to this NPC (ForeverSeenPlaces.lua) beats everything (Rob, 11 Nov 2026).
+local SRC_RANK = { seen = 0, yours = 1, measured = 2, HandyNotes = 3, ["MH list"] = 4 }
 local function OnePerTrainer(all)
 	local best = {}
 	for _, c in ipairs(all) do
 		if c.npc then
-			local rank = SRC_RANK[c.measured and "measured" or c.src] or 9
+			local rank = SRC_RANK[(c.seen and "seen") or (c.measured and "measured") or c.src] or 9
 			local b = best[c.npc]
 			if not b or rank < b.rank then
 				best[c.npc] = { rank = rank, c = c }
