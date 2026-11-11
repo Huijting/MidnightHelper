@@ -29,8 +29,10 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 ---
 
 ## 11 nov 2026 — RELEASE 5.1.0 (Midnight + Forever)
-- Tag + commit:   v5.1.0 / ef2b38e (tag gepusht 11 nov ~13:20 NL-tijd)
-- Status:         getagd
+- Tag + commit:   v5.1.0 / ef2b38e (tag gepusht 11 nov ~13:20 NL-tijd). GEMETEN in de CurseForge-API: file 9556823
+                  `MidnightHelper-v5.1.0.zip` (12.0.7–12.1.7) en 9556853 `MidnightHelper-v5.1.0-forever.zip` (1.60.1),
+                  beide releaseType 1 (Release), status 4. Release-run GitHub: geslaagd.
+- Status:         staat op CurseForge
 - Mag op de site: Rob gaf de go voor de ADDON-release ("je krijgt een go om het live te zetten … Zowel voor forever als
                   voor midnight"). Een aparte go voor de SITE heeft de bouwchat niet gekregen: vraag Rob.
 - Speler ziet:    alles in `RELEASE_NOTES.md` (= `docs/CURSEFORGE_5.1.0.md`); per functie de regels hieronder (allemaal
@@ -53,7 +55,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ## 11 nov 2026 — MH zegt het als je net een upgrade oppakt
 - Tag + commit:   v5.1.0 (ef2b38e) / gebouwd in (deze commit)
-- Status:         getagd
+- Status:         staat op CurseForge
 - Mag op de site: nee
 - Speler ziet:    Komt er gear in je tas die duidelijk beter is dan wat je draagt, dan zegt een kort bericht op je scherm
                   waarom: "Upgrade in your bags: [Snow Boots] — +3 Strength over what you wear (main stats for a
@@ -64,7 +66,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ## 11 nov 2026 — `/mh selftest`: MH kijkt of zijn eigen spelnummers in jouw spel bestaan
 - Tag + commit:   v5.1.0 (ef2b38e) / gebouwd in (deze commit)
-- Status:         getagd
+- Status:         staat op CurseForge
 - Mag op de site: nee (vooral een hulpmiddel voor ons; misschien later als "ondersteuning")
 - Speler ziet:    `/mh selftest` → "all 1164 numbers exist in this game" of welke niet. Zegt óf iets bestaat, niet of
                   het werkt. Ook: het kick/dispel-icoon (`/mh prompt`) kan nu met Shift+scroll groter/kleiner.
@@ -75,7 +77,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ## 11 nov 2026 — Forever: een groene regel in de tooltip zegt waarom gear beter is
 - Tag + commit:   v5.1.0 (ef2b38e) / gebouwd in (deze commit)
-- Status:         getagd
+- Status:         staat op CurseForge
 - Mag op de site: nee
 - Speler ziet:    Muis op gear die beter is dan wat je draagt: "MH: +3 Strength, +2 Stamina over what you wear (main
                   stats for a Paladin)." Geen regel bij slechtere gear of gear die je niet kunt dragen. *(niet in het
@@ -86,7 +88,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ## 11 nov 2026 — De buff-melding noemt de buff en zegt wat je moet doen
 - Tag + commit:   v5.1.0 (ef2b38e) / gebouwd in (deze commit)
-- Status:         getagd
+- Status:         staat op CurseForge
 - Mag op de site: nee
 - Speler ziet:    Onder het buff-icoon staat geen rood "MISSING" meer maar een zin in goud, bijvoorbeeld "Blessing of
                   Might is not on you. Click the icon to cast it." In een gevecht: "… Cast it from your bars." Forever:
@@ -97,7 +99,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ## 11 nov 2026 — Forever: de pijl leert waar trainers en verkopers echt staan
 - Tag + commit:   v5.1.0 (ef2b38e) / gebouwd in (deze commit)
-- Status:         getagd
+- Status:         staat op CurseForge
 - Mag op de site: nee
 - Speler ziet:    Praat je met een trainer of verkoper, dan onthoudt MH waar die staat, en de pijl wijst er voortaan
                   precies heen (op al je characters). Vlakbij zegt de pijl "You're there: look around, they stand right
@@ -108,7 +110,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ## 11 nov 2026 — Forever: MH zegt welke spells van een class-quest komen
 - Tag + commit:   v5.1.0 (ef2b38e) / gebouwd in (deze commit)
-- Status:         getagd
+- Status:         staat op CurseForge
 - Mag op de site: nee
 - Speler ziet:    Het trainervenster zegt bij een spell die eerst een quest-rank nodig heeft "(from a class quest, not from
                   the trainer)". De How you play-kaart zegt het bij Redemption, Aquatic Form en de Priest-rasspells, en dat
@@ -119,7 +121,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ## 11 nov 2026 — Forever: waarschuwing als je zonder Hearthstone over het water reist
 - Tag + commit:   v5.1.0 (ef2b38e) / gebouwd in (deze commit)
-- Status:         getagd
+- Status:         staat op CurseForge
 - Mag op de site: nee
 - Speler ziet:    Gaat je route over het water (boot, zeppelin) en heb je geen Hearthstone in je tassen, dan zegt MH één keer
                   in de chat, en in het wapentrainer-venster, dat de weg terug dezelfde lange reis is. *(niet in het spel getest)*
@@ -133,7 +135,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ## 10 nov 2026 — Forever: de pijl wijst de boot, zeppelin, tram of het portaal aan
 - Tag + commit:   v5.1.0 (ef2b38e) / gebouwd in (deze commit)
-- Status:         getagd
+- Status:         staat op CurseForge
 - Mag op de site: nee
 - Speler ziet:    Staat je doel op een ander continent, op Teldrassil, of in Ironforge terwijl jij in Stormwind bent, dan
                   wijst de pijl eerst naar de boot, de zeppelin, de Deeprun Tram of het roze portaal. Het wapentrainer-venster
@@ -144,7 +146,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ## 10 nov 2026 — Midnight: macro's tonen spellnamen in jouw taal
 - Tag + commit:   v5.1.0 (ef2b38e) / gebouwd in ce48fb7
-- Status:         getagd
+- Status:         staat op CurseForge
 - Mag op de site: nee
 - Speler ziet:    De oude Interrupt- en Utility-macro's in het Macro's-tabblad gebruiken de spellnamen van je eigen client
                   (Duits, Frans …). Op een Engelse client verandert niets. *(niet in het spel getest)*
@@ -154,7 +156,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ## 10 nov 2026 — Midnight: "Top 5" macro's per spec + knop Maken
 - Tag + commit:   v5.1.0 (ef2b38e) / gebouwd in d264e54
-- Status:         getagd
+- Status:         staat op CurseForge
 - Mag op de site: nee
 - Speler ziet:    Het Macro's-tabblad opent op "Top 5": de vijf macro's die spelers het meest gebruiken voor jouw spec, in
                   jouw taal. Met Maken staat de macro meteen in je macroboek. *(niet in het spel getest)*
@@ -164,7 +166,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ## 10 nov 2026 — Forever: handige macro's (algemeen, top 5 per klasse, top 3 per spec)
 - Tag + commit:   v5.1.0 (ef2b38e) / gebouwd in a581be7, 163ccc7, ad39568, 36d6d00
-- Status:         getagd
+- Status:         staat op CurseForge
 - Mag op de site: nee
 - Speler ziet:    Een venster met kant-en-klare macro's: algemene, de vijf populairste voor je klasse en de drie
                   populairste voor je spec, met uitleg waarom. De Attack-macro schiet nu ook voor hunters en wand-gebruikers.
@@ -175,7 +177,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ## 10 nov 2026 — Forever: wapentrainers
 - Tag + commit:   v5.1.0 (ef2b38e) / gebouwd in 1d95a6c
-- Status:         getagd
+- Status:         staat op CurseForge
 - Mag op de site: nee
 - Speler ziet:    Welke wapens je klasse kan leren, bij wie, wat het kost en vanaf welk level, met een pijl naar de trainer.
                   *(niet in het spel getest)*
@@ -185,7 +187,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ## 10 nov 2026 — Forever: "Waar koop ik dit?" + tegels in de Ik-kamer
 - Tag + commit:   v5.1.0 (ef2b38e) / gebouwd in 0e16b14, 51c4c03
-- Status:         getagd
+- Status:         staat op CurseForge
 - Mag op de site: nee
 - Speler ziet:    Waar je beroepsgereedschap (hengel, mijnhouweel, mes, hamer …) en General Goods / Trade Supplies koopt,
                   dichtstbijzijnde eerst, met een pijl erheen. Leer je een beroep zonder gereedschap, dan noemt een klein
@@ -197,7 +199,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ## 9–10 nov 2026 — Forever: waarschuwing voor je hengel
 - Tag + commit:   v5.1.0 (ef2b38e) / gebouwd in 85f7f5a, c6206e0
-- Status:         getagd
+- Status:         staat op CurseForge
 - Mag op de site: nee
 - Speler ziet:    Een melding als je een vijand kiest terwijl je hengel nog in je handen is, met wat je terug moet zetten.
                   Geen WEAPON BUFF-melding meer met een hengel. *(niet in het spel getest)*
@@ -207,7 +209,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ## 9 nov 2026 — Forever: beroepentrainers + pijl naar een trainer
 - Tag + commit:   v5.1.0 (ef2b38e) / gebouwd in e810976, 950a70d, 6a5bcc7
-- Status:         getagd
+- Status:         staat op CurseForge
 - Mag op de site: nee
 - Speler ziet:    Een venster met elke beroepentrainer voor jouw kant, met een pijl erheen. De pijl stopt pas bij de trainer
                   waar hij naar wijst. *(niet in het spel getest)*
@@ -217,7 +219,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ## 9 nov 2026 — Forever: oude spell-ranks op je balken
 - Tag + commit:   v5.1.0 (ef2b38e) / gebouwd in 8bee56e
-- Status:         getagd
+- Status:         staat op CurseForge
 - Mag op de site: nee
 - Speler ziet:    MH vindt knoppen op je actiebalken die nog een oude rank casten en zet ze met één klik op de nieuwste.
                   *(getest door Rob: werkt, er was nog niets te vervangen)*
@@ -227,7 +229,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ## 9 nov 2026 — Forever: "Deze week in Forever" + Ik-kamer
 - Tag + commit:   v5.1.0 (ef2b38e) / gebouwd in 5c745d3, 1ced625
-- Status:         getagd
+- Status:         staat op CurseForge
 - Mag op de site: nee
 - Speler ziet:    Op de startpagina: wanneer de week- en dagreset is, welke feestdagen er vandaag zijn, je raid-lockouts.
                   De Ik-kamer toont zijn kaarten als raster. *(/mh week getest door Rob)*
@@ -237,7 +239,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ## 9 nov 2026 — Midnight: 20 "Zo speel je"-kaarten bijgewerkt, niet laden in Talebound
 - Tag + commit:   v5.1.0 (ef2b38e) / gebouwd in 65bc89c, 5173498
-- Status:         getagd
+- Status:         staat op CurseForge
 - Mag op de site: nee
 - Speler ziet:    De speelkaarten van 20 specs volgen de gidsen van eind oktober. MH laadt niet in Talebound (12.1.7).
                   *(laden getest door Rob)*
@@ -247,7 +249,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ## 9 nov 2026 — Midnight: 12.1.7 klaargezet (VERBORGEN tot de patch)
 - Tag + commit:   v5.1.0 (ef2b38e) / gebouwd in 65bc89c, 5c745d3
-- Status:         getagd
+- Status:         staat op CurseForge
 - Mag op de site: nee — ook na de release niet vóór patch 12.1.7 live is: de spelers zien het pas dan.
 - Speler ziet:    Codex-artikelen Turbulent Timeways VI en Lorewalking, en de mount-teller Timeways VI. Verborgen tot de
                   client 12.1.7 (interface 120107 / achievement 64207) is.
