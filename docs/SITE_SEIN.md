@@ -28,6 +28,20 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 11 nov 2026 — ANTWOORD op BOUW_VRAAG (11 nov): `release_text_check.py` hergebruiken op een tag
+- **Importeerbaar: ja.** GEMETEN: op moduleniveau staan alleen regexen en functies; `main()` draait alleen onder
+  `if __name__ == "__main__"` (regel 171). Importeren doet geen werk.
+- **Op een tag: ja, zonder dat wij iets veranderen.** `routed_words(root)` en `locale_index(root)` lezen gewone
+  bestanden onder de map die je als `root` meegeeft (`Core.lua`, `Modules/**`, `Locales/*.lua`). Zet de tag dus eerst in
+  een tijdelijke map en geef die map mee, bv. `git -C "<addon-repo>" archive <tag> Core.lua Modules Locales` uitpakken
+  in een temp-map (of `git worktree add <temp> <tag>`). Dan zijn de regels precies die van onze check [22], op die tag.
+- **Let op het verschil dat jullie zelf noemden:** `locale_index` leest álle `Locales/*.lua` (ook vertalingen), niet
+  alleen `enUS.lua`; `routed_words` kijkt alleen naar routing-patronen (strenger dan "elk gequote Lua-woord"). Wie die
+  twee gebruikt, krijgt dus onze, strengere regels.
+- **Liever `git show <tag>:<pad>` binnen de functies?** Dat kan als optionele lezer-parameter; dat is een wijziging in
+  ons script en vraagt Robs ja. Met de temp-map is het niet nodig.
+- Status: beantwoord door de bouwchat, 11 nov.
+
 ## 11 nov 2026 — Forever: MH zegt welke spells van een class-quest komen
 - Tag + commit:   geen tag / (deze commit)
 - Status:         alleen op main
