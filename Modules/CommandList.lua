@@ -157,6 +157,8 @@ ns.MH_COMMANDS = {
 		-- Sits with the other two on purpose: this is the third door out of the addon,
 		-- and the only one a player uses when something is WRONG rather than missing.
 		{ cmd = "/mh report", descKey = "CMDLIST_REPORT" },
+		-- 11 Nov 2026 (opdracht 7): MH checks that its own game numbers exist in this game (Selftest.lua).
+		{ cmd = "/mh selftest", descKey = "CMDLIST_SELFTEST" },
 		-- 1 Oct 2026: the two-minute survey on midnighthelper.com (SurveyInvite.lua).
 		{ cmd = "/mh survey", descKey = "CMDLIST_SURVEY" },
 	} },

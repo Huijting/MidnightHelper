@@ -20926,6 +20926,63 @@ if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	MBUFF_SAY_IN_COMBAT = "Lancialo dalle tue barre.",
 }) end
 
+-- 11 Nov 2026: /mh selftest (does every game number MH uses exist in this game). Both games, so itIT too. Our own translation (mh-writer); not native-checked.
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
+	CMDLIST_SELFTEST = "Prüft, ob jede Zauber-, Gegenstands- und Kartennummer, die MH nutzt, in diesem Spiel existiert. Sagt, ob etwas existiert, nicht ob es funktioniert.",
+	SELFTEST_START_FMT = "Selbsttest: prüfe %d Spielnummern…",
+	SELFTEST_ALL_FMT = "Selbsttest: alle %d Nummern existieren in diesem Spiel.",
+	SELFTEST_MISSING_FMT = "Selbsttest: %d von %d Nummern existieren nicht in diesem Spiel: %s",
+	SELFTEST_EXTRA_FMT = "Außerdem: %d Nummern aus gemeinsamen Dateien sind nicht in diesem Spiel (kein Problem, wenn das andere Spiel sie hat), %d konnten nicht abgefragt werden.",
+	SELFTEST_CONTROL_FAILED = "Selbsttest: Der Test konnte sich selbst nicht beweisen (eine Nummer, die existieren muss oder nicht existieren darf, gab die falsche Antwort). Dieser Durchlauf beweist nichts.",
+	SELFTEST_LIMIT = "Das sagt nur, dass eine Nummer existiert, nicht dass sie das Richtige tut. Quests und Erfolge werden gezählt, nicht abgefragt.",
+	SELFTEST_COMBAT = "Selbsttest: nicht während eines Kampfes. Versuch es danach noch mal.",
+	SELFTEST_BUSY = "Selbsttest: läuft schon.",
+}) end
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
+	CMDLIST_SELFTEST = "Vérifie que chaque numéro de sort, d'objet et de carte utilisé par MH existe dans ce jeu. Dit si quelque chose existe, pas si ça marche.",
+	SELFTEST_START_FMT = "autotest : vérification de %d numéros du jeu…",
+	SELFTEST_ALL_FMT = "autotest : les %d numéros existent tous dans ce jeu.",
+	SELFTEST_MISSING_FMT = "autotest : %d numéros sur %d n'existent pas dans ce jeu : %s",
+	SELFTEST_EXTRA_FMT = "Aussi : %d numéros de fichiers partagés ne sont pas dans ce jeu (pas grave si l'autre jeu les a), %d n'ont pas pu être demandés.",
+	SELFTEST_CONTROL_FAILED = "autotest : le test n'a pas pu se prouver lui-même (un numéro qui doit exister, ou ne doit pas exister, a donné la mauvaise réponse). Ce passage ne prouve rien.",
+	SELFTEST_LIMIT = "Ceci dit seulement qu'un numéro existe, pas qu'il fait ce qu'il faut. Les quêtes et les hauts faits sont comptés, pas demandés.",
+	SELFTEST_COMBAT = "autotest : pas pendant un combat. Réessaie après.",
+	SELFTEST_BUSY = "autotest : déjà en cours.",
+}) end
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
+	CMDLIST_SELFTEST = "Comprueba que cada número de hechizo, objeto y mapa que usa MH existe en este juego. Dice si algo existe, no si funciona.",
+	SELFTEST_START_FMT = "autoprueba: comprobando %d números del juego…",
+	SELFTEST_ALL_FMT = "autoprueba: los %d números existen en este juego.",
+	SELFTEST_MISSING_FMT = "autoprueba: %d de %d números no existen en este juego: %s",
+	SELFTEST_EXTRA_FMT = "Además: %d números de archivos compartidos no están en este juego (no pasa nada si el otro juego los tiene), %d no se pudieron consultar.",
+	SELFTEST_CONTROL_FAILED = "autoprueba: la prueba no pudo demostrarse a sí misma (un número que debe existir, o que no debe, dio la respuesta equivocada). Esta pasada no demuestra nada.",
+	SELFTEST_LIMIT = "Esto solo dice que un número existe, no que haga lo correcto. Las misiones y los logros se cuentan, no se consultan.",
+	SELFTEST_COMBAT = "autoprueba: no durante un combate. Inténtalo de nuevo después.",
+	SELFTEST_BUSY = "autoprueba: ya está en marcha.",
+}) end
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
+	CMDLIST_SELFTEST = "Verifica se cada número de feitiço, item e mapa que o MH usa existe neste jogo. Diz se algo existe, não se funciona.",
+	SELFTEST_START_FMT = "autoteste: verificando %d números do jogo…",
+	SELFTEST_ALL_FMT = "autoteste: todos os %d números existem neste jogo.",
+	SELFTEST_MISSING_FMT = "autoteste: %d de %d números não existem neste jogo: %s",
+	SELFTEST_EXTRA_FMT = "Também: %d números de arquivos compartilhados não estão neste jogo (tudo bem se o outro jogo os tiver), %d não puderam ser consultados.",
+	SELFTEST_CONTROL_FAILED = "autoteste: o teste não conseguiu provar a si mesmo (um número que deve existir, ou não deve, deu a resposta errada). Esta rodada não prova nada.",
+	SELFTEST_LIMIT = "Isto só diz que um número existe, não que ele faz a coisa certa. Missões e conquistas são contadas, não consultadas.",
+	SELFTEST_COMBAT = "autoteste: não durante um combate. Tente de novo depois.",
+	SELFTEST_BUSY = "autoteste: já está rodando.",
+}) end
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
+	CMDLIST_SELFTEST = "Controlla che ogni numero di incantesimo, oggetto e mappa usato da MH esista in questo gioco. Dice se qualcosa esiste, non se funziona.",
+	SELFTEST_START_FMT = "autotest: controllo %d numeri del gioco…",
+	SELFTEST_ALL_FMT = "autotest: tutti i %d numeri esistono in questo gioco.",
+	SELFTEST_MISSING_FMT = "autotest: %d numeri su %d non esistono in questo gioco: %s",
+	SELFTEST_EXTRA_FMT = "Inoltre: %d numeri da file condivisi non sono in questo gioco (va bene se l'altro gioco li ha), %d non si sono potuti chiedere.",
+	SELFTEST_CONTROL_FAILED = "autotest: il test non è riuscito a dimostrare se stesso (un numero che deve esistere, o non deve, ha dato la risposta sbagliata). Questo giro non dimostra niente.",
+	SELFTEST_LIMIT = "Dice solo che un numero esiste, non che faccia la cosa giusta. Quest e imprese vengono contate, non chieste.",
+	SELFTEST_COMBAT = "autotest: non durante un combattimento. Riprova dopo.",
+	SELFTEST_BUSY = "autotest: già in corso.",
+}) end
+
 -- WoW Forever 5.0.0 (7 Nov 2026): trainer, start page, quest hint, bar layout question, retail card. Our own
 -- translation (mh-writer), game names measured in docs/forever/CLIENT_NAMES_FOREVER_2026-11-07.md; not native-checked.
 if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {

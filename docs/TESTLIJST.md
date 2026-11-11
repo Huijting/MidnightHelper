@@ -21,6 +21,16 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 11 nov — `/mh selftest`: MH loopt zijn eigen spelnummers na (stap c)
+
+Eerst `/reload`, buiten een gevecht. Doe het één keer in **Forever** en één keer in **Midnight**:
+- [ ] Typ `/mh selftest`. Je ziet "selftest: checking … game numbers…" en daarna één regel: "all … numbers exist" of
+      "… do not exist in this game: spell 123, …". Daaronder een grijze regel dat het alleen zegt óf iets bestaat.
+- [ ] Het scherm hapert niet (hij werkt in stukjes van 400).
+- [ ] In een gevecht: "selftest: not during a fight."
+- [ ] Doe daarna `/reload` en zeg het mij: dan lees ik het hele rapport uit je SavedVariables (`selftest`).
+- [ ] `/mh prompt` (het kick/dispel-icoon): nu ook groter/kleiner met Shift+scroll (gevonden door de nieuwe vensterregel).
+
 ## 🆕 11 nov — Forever: groene regel in de tooltip van gear (stap b)
 
 Eerst `/reload`. In Forever, met gear in je tas die je kunt dragen:

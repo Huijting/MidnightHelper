@@ -14,6 +14,24 @@
   trainer)". How you play: "(from a quest)" bij Redemption en Aquatic Form, Priest-rasspells "you get both from a quest".
   7 talen. Niet in het spel gezien. Stap a is hiermee af tot Robs test; volgende = stap b.
 
+## 🆕 11 nov — Stap c: `/mh selftest` + vensterregel C5 (Rob: "Ja, bouw het")
+
+- **Eén bron:** `data_check.py` heeft nu `scan()` (C2 én de zelftest) en `--emit` → `Modules/SelftestData.lua`
+  (gegenereerd; per soort komma-strings R/F/B, pas geparsed bij `/mh selftest`). Lint [26] SOFT als hij verouderd is:
+  dan `run data_check --emit` en mee-committen. Stand: spell 1071, achievement 39, quest 341, item 25, map 72.
+- **`Modules/Selftest.lua`** (beide toc's): spell `C_Spell.DoesSpellExist`, item `C_Item.DoesItemExistByID`, map
+  `C_Map.GetMapInfo`; quest en achievement alleen geteld (geen betrouwbare "bestaat niet"-call). Controle in dezelfde run
+  (6603/947/6948 moeten bestaan, 99999999 niet). Andere-spel-nummers overgeslagen; gedeelde-bestand-nummers die hier
+  ontbreken apart. Stukjes van 400 per frame; niet in combat. Rapport → `ns.db.selftest` (laatste run). Offline getest
+  (2 ontbrekend gevonden, "alles bestaat"-spel faalt de controle, combat geweigerd). In `/mh`-lijst + zoekbalk. 7 talen.
+- **C5 = `tools/window_check.py`, lint [25] HARD:** elk benoemd frame op UIParent zit in `SCALABLE_WINDOWS`, wordt binnen
+  120 regels aangemeld (`RegisterMidnightDialogPopup`/`MakeMidnightWindowScalable`), of staat in `EXEMPT` mét reden.
+  Telling 11 nov: 81 frames, 54 schaalbaar, 27 uitzondering, 0 fout. Eén echt gat gevonden en gedicht:
+  `MidnightHelperActionPrompt` (`/mh prompt`) → `SCALABLE_WINDOWS`. Blinde vlek: frames zonder naam.
+- Lint [10] kent nu ook `msg:lower() == "x"` als route.
+- Niet in het spel gezien. ▶ Volgende: Robs eerste `/mh selftest` in Forever + Midnight lezen; daarna stap d (melding
+  bij het oppakken van een upgrade), e (Zygor-wachter).
+
 ## 🆕 11 nov — Stap b: alleen een tooltipregel (Rob: "Alleen tooltipregel")
 
 - GEMETEN (Robs Forever AddOns.txt, Ima-Pallie): Pawn + Baganator aan. Pawn doet al pijltjes + tooltip; Baganator

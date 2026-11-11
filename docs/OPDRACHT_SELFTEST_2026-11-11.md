@@ -1,5 +1,11 @@
 # Opdracht 7 — `/mh selftest` (plan deel 4b, stap 7)
 
+> ✅ **11 nov 2026: fase 0 en fase 1 gebouwd, plus de vensterregel C5** (Rob: *"Ja, bouw het"*). Stand en details:
+> `docs/NEXT_SESSION.md`, kop "Stap c". Fase 0-antwoorden: (1) één bron = `data_check.py scan()` → `--emit`;
+> (2) spell/item/map hebben een betrouwbare call, quest en achievement niet (alleen geteld); (3) `SCALABLE_WINDOWS` dekte
+> een deel: 81 benoemde frames, nu 54 schaalbaar + 27 uitzondering mét reden, bewaakt door lint [25].
+> Nog open: fase 2 (per venster "heeft zijn tekst") en Robs eerste run in het spel.
+
 Van de sparring-chat («MidnightHelper werkwijze sparring»), 11 nov 2026, met Robs ja daar: *"zet die opdracht voor stap 7
 maar klaar"* (doorgegeven; de bouwchat vraagt Rob zelf vóór fase 0 begint). Klaargezet voor de bouwchat van 12 nov; op 11 nov
 is niets gebouwd. De tekst hieronder is die van de sparring-chat.

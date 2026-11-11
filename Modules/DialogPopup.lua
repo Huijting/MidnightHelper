@@ -283,6 +283,9 @@ local SCALABLE_WINDOWS = {
 	"MidnightHelperVaultReminderPopup", "MidnightHelperVaultAdvisorBanner", "MidnightHelperValeeraPopup",
 	"MidnightHelperMapProbe", "MidnightHelperCombatLogLamp", "MidnightHelperCodexAdvicePanel", "MidnightHelperGearLadder",
 	"MidnightHelperShoppingGuide",
+	-- 11 Nov 2026: found by the new window check (tools/window_check.py, C5): the interrupt/dispel prompt can be
+	-- dragged (EnableMouse + SetMovable) but had no way to resize. A display frame, not secure, so the sweep may scale it.
+	"MidnightHelperActionPrompt",
 }
 
 local function SweepScalableWindows()

@@ -2524,6 +2524,13 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		end
 		return
 	end
+	-- /mh selftest — does every game number in MH exist in this game? (Selftest.lua; Rob, 11 Nov 2026, opdracht 7.)
+	if msg:lower() == "selftest" then
+		if ns.RunSelftest then
+			ns.RunSelftest()
+		end
+		return
+	end
 	-- /mh geartip [on | off] — WoW Forever: the green "MH: +3 Strength over what you wear" tooltip line
 	-- (ForeverQuestHint.lua; Rob, 11 Nov 2026: "Alleen tooltipregel").
 	local gearArg = msg:lower() == "geartip" and "" or msg:lower():match("^geartip%s+(.+)$")

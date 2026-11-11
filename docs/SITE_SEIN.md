@@ -42,6 +42,17 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
   ons script en vraagt Robs ja. Met de temp-map is het niet nodig.
 - Status: beantwoord door de bouwchat, 11 nov.
 
+## 11 nov 2026 — `/mh selftest`: MH kijkt of zijn eigen spelnummers in jouw spel bestaan
+- Tag + commit:   geen tag / (deze commit)
+- Status:         alleen op main
+- Mag op de site: nee (vooral een hulpmiddel voor ons; misschien later als "ondersteuning")
+- Speler ziet:    `/mh selftest` → "all 1164 numbers exist in this game" of welke niet. Zegt óf iets bestaat, niet of
+                  het werkt. Ook: het kick/dispel-icoon (`/mh prompt`) kan nu met Shift+scroll groter/kleiner.
+                  *(niet in het spel getest)*
+- Knoplabels:     CMDLIST_SELFTEST
+- Commando's:     /mh selftest
+- Spel:           Midnight + Forever
+
 ## 11 nov 2026 — Forever: een groene regel in de tooltip zegt waarom gear beter is
 - Tag + commit:   geen tag / (deze commit)
 - Status:         alleen op main

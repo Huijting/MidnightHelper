@@ -107,6 +107,20 @@ lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met d
 - Site:          ja, als het uit is (`docs/SITE_SEIN.md`)
 - Rob zegt:      ja (*"uitzoeken en bouwen graag"*, 10 nov). **Gebouwd: 7bb1e53.** Wacht op Robs test (TESTLIJST 10 nov avond).
 
+### `/mh selftest` en de vensterregel (opdracht 7, stap c)
+- Voor wie:      wij (Rob test niet meer óf iets bestaat, alleen of het goed voelt); later misschien spelers
+- Moment:        na een patch of een grote wijziging; Rob typt het, `/reload`, de bouwchat leest het rapport
+- Spel:          Midnight + Forever
+- Bron:          plan deel 4b stap 7 (sparring-chat); Rob 11 nov: *"Ja, bouw het"* (in de bouwchat)
+- Bouwt op:      `tools/data_check.py` (dezelfde scanner, één lijst), `DialogPopup.lua` SCALABLE_WINDOWS
+- Data:          GEMETEN in Blizzards API-documentatie: DoesSpellExist / DoesItemExistByID / GetMapInfo; quest en
+                 achievement hebben geen betrouwbare "bestaat niet"
+- Vindbaar:      `/mh`-commandolijst + zoekbalk
+- Werk:          middel
+- Site:          nee (hulpmiddel)
+- Rob zegt:      ja. **Gebouwd 11 nov** (zelftest + lint [25] vensters + [26] lijst actueel). Wacht op Robs eerste run.
+                 Later: fase 2, per venster "heeft zijn tekst".
+
 ### De buff-melding wordt een zin
 - Voor wie:      allebei (nieuweling: "wát mis ik?"; veteraan: in één blik zien welke)
 - Moment:        als er een buff, aura, stance, pet of wapen-buff ontbreekt
