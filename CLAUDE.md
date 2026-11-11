@@ -27,6 +27,9 @@ dat merk je pas bij de eerste push.
 hebben bewust namen die NIET op de vier oude lijken (les van 12 sep). In de ochtendronde: lees ook de laatste regel van
 `docs/NACHTCONTROLE.md` (staat de snapshot achter → `run event_snapshot --write`) en, op maandag, de voorstellen van de
 ideeënbus — verplaats ze naar Open of Nee; Rob beslist.
+📌 **Sinds 11 nov 2026 dekken de vier ochtendwachters ook WoW: Forever** (Rob: *"Ja, voeg Forever toe aan de wachters"*).
+Hun opdracht eindigt met een verwijzing naar `docs/WATCHER_FOREVER.md`; de Forever-regels staan dáár, niet in de vier
+opdrachten. Wijzig dat bestand alleen met Robs ja.
 
 Ze rapporteren alleen; ze repareren nooit. Elk raakt precies één bestand aan.
 

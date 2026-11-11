@@ -1,5 +1,12 @@
 # Midnight Helper — waar we staan
 
+## 🆕 11 nov — de vier ochtendwachters dekken ook Forever (Rob: "Yeah", op het voorstel van de brainstorm-chat)
+
+- Nieuw `docs/WATCHER_FOREVER.md`: per wachter een Forever-deel (content toetst Forever-hotfixes aan Modules/Forever* en de
+  F*-sleutels; data: "anything Classic" telt niet meer voor Forever; PTR: wat er voor Forever komt, wowf-builds; API: de
+  Camelot-toc). Plus een eenmalige inhaalronde, alleen geldig op 2026-11-11 als de gewone regel van die dag er al staat.
+- Elke opdracht kreeg alleen een slotalinea die naar dat bestand wijst (byte-controle: zie hieronder). CLAUDE.md: één zin.
+
 ## 🆕 10 nov (avond) — Forever: reisplanner voor de pijl (Rob: "uitzoeken en bouwen graag")
 
 - Aanleiding: Rob in Darkshore, pijl naar Buliwyf (Ironforge) zei alleen "travel back first". `Modules/Travel/` laadt niet
