@@ -261,6 +261,7 @@ Modules\ForeverQuestHint.lua
 Modules\ForeverReagentData.lua
 Modules\MidnightReagentData.lua
 Modules\ReagentUse.lua
+Modules\ForeverPartyProbe.lua
 Modules\SelftestData.lua
 Modules\Selftest.lua
 Modules\ForeverLayoutCarry.lua

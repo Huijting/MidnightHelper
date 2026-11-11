@@ -2559,6 +2559,18 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh partytest [clear] — WoW Forever: measure what a party panel would need (ForeverPartyProbe.lua; Rob, 11 Nov
+	-- 2026: "maak die meting maar"). Diagnosis only, writes ns.db.partyProbe.
+	local partyArg = msg:lower() == "partytest" and "" or msg:lower():match("^partytest%s+(.+)$")
+	if partyArg then
+		if ns.ForeverPartyProbeSlash then
+			ns.ForeverPartyProbeSlash(partyArg)
+		else
+			print("|cffffcc00Midnight Helper:|r /mh partytest is for WoW: Forever.")
+		end
+		return
+	end
+
 	-- /mh version [on | off] — tell me when a guild or group member runs a newer MH (VersionNotice.lua; both games;
 	-- Rob, 8 Nov 2026: "Ja bouw maar").
 	-- Forever: bags almost full, and low mana/health before a fight (ForeverWarnings.lua; Rob, 8 Nov 2026).

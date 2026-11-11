@@ -26,7 +26,17 @@ er is niets weggegooid.
 Eerst `/reload`. Op je Forever-Paladin (level 8 of hoger), `/mh macros`:
 - [ ] Bij de Paladin-macro's staan twee nieuwe: **Hammer of Justice** ("… It is a stun …") en **Purify**.
 - [ ] Hammer of Justice: muis op een vijand en druk → die vijand krijgt de stun, ook als je iets anders als target hebt.
-      Zonder vijand onder je muis: je target.
+      Zonder vijand onder je muis: je target. 👀 Rob, 11 nov: "de stun werkt met mouse over een target en niet mijn
+      target" (= de vijand onder de muis, zoals bedoeld). Nog niet gezien: zonder muis-vijand → je target.
+
+## 🆕 11 nov — Forever: meting voor het groepspaneel (Rob: "maak die meting maar")
+
+Niets zichtbaars; dit meet alleen. Eerst `/reload`.
+- [ ] **Solo:** typ `/mh partytest` → een paar regels in de chat (events die ontbreken, de rode gloed, focus). Daarna
+      `/reload`, dan staat alles in je SavedVariables (`partyProbe`) en lees ik het.
+- [ ] **In een groep (dungeon):** typ `/mh partytest` als de groep compleet is. De eerste 5 gevechten meet hij vanzelf,
+      2 seconden na de start. Na de dungeon `/reload`. Er komen geen namen van andere spelers in het bestand.
+- [ ] Zet ook eens iemand op focus (`/focus` op een vijand) vóór `/mh partytest`: dan meet hij of focus werkt.
 - [ ] Purify: muis op een groepslid (of jezelf als target) → Purify op die speler. Niets onder je muis: op jezelf.
 - [ ] Het woord *focus* in de uitleg: of `[@focus]` in Forever werkt, is NIET gemeten. Werkt het niet, dan valt de macro
       vanzelf door naar je target.
