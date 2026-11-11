@@ -299,8 +299,9 @@ lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met d
 - Werk:          klein
 - Site:          ja, de plaatjes zelf
 - Rob zegt:      ja (in de bouwchat 11 nov: *"Ja, bouw het"*). **Gebouwd 11 nov:** `tools/cf_media.py`, lettertype Cinzel
-                 (OFL 1.1). Proef met `02-this-week.png` gemaakt en ingezoomd. Af zodra Rob zijn zes screenshots erdoor
-                 heeft gehaald en ze goedkeurt.
+                 (OFL 1.1, GEMETEN in de naamtabel van het font). **AF 11 nov:** Robs zes screenshots erdoor gehaald
+                 (`E:\MidnightHelper-media\output\01-06`), 5 en 6 opnieuw gemaakt op level 8; Rob: *"Ja, goed zo"*.
+                 Uploaden naar CurseForge en site doet Rob zelf.
 
 ### Forever: "je hebt geen Hearthstone" bij een reis over het water
 - Voor wie:      nieuweling (Rob: "zeker in het begin")
