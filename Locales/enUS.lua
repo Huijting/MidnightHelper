@@ -399,6 +399,13 @@ ns._mhLocales.enUS = {
 	CMDLIST_TRANSLATE = "How to help translate Midnight Helper into your language.",
 	CMDLIST_REPORT = "Build a report you can paste — for a bug, or for something the addon told you that was wrong.",
 	CMDLIST_SELFTEST = "Check that every spell, item and map number MH uses exists in this game. Says if something exists, not if it works.",
+	-- Pickup notice (PickupUpgrade.lua, Rob 11 Nov 2026): first %s = the item link, second = the detail below.
+	PICKUP_FMT = "Upgrade in your bags: %s — %s",
+	PICKUP_DETAIL_FMT = "%s over what you wear (%s).",
+	PICKUP_MIDNIGHT_FMT = "item level %d (%+d) over %s.",
+	PICKUP_ON = "upgrade notice on: when gear that beats what you wear lands in your bags, MH says so on screen.",
+	PICKUP_OFF = "upgrade notice off. /mh pickup on brings it back.",
+	CMDLIST_PICKUP = "Turn the on-screen notice for an upgrade you just picked up on or off (on|off), and see what MH decided last.",
 	-- /mh selftest (Selftest.lua, Rob 11 Nov 2026)
 	SELFTEST_START_FMT = "selftest: checking %d game numbers…",
 	SELFTEST_ALL_FMT = "selftest: all %d numbers exist in this game.",

@@ -42,6 +42,17 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
   ons script en vraagt Robs ja. Met de temp-map is het niet nodig.
 - Status: beantwoord door de bouwchat, 11 nov.
 
+## 11 nov 2026 — MH zegt het als je net een upgrade oppakt
+- Tag + commit:   geen tag / (deze commit)
+- Status:         alleen op main
+- Mag op de site: nee
+- Speler ziet:    Komt er gear in je tas die duidelijk beter is dan wat je draagt, dan zegt een kort bericht op je scherm
+                  waarom: "Upgrade in your bags: [Snow Boots] — +3 Strength over what you wear (main stats for a
+                  Paladin)." Je hoeft je tas niet meer open te houden. *(niet in het spel getest)*
+- Knoplabels:     PICKUP_FMT
+- Commando's:     /mh pickup (aan/uit en de laatste beslissing)
+- Spel:           Midnight + Forever
+
 ## 11 nov 2026 — `/mh selftest`: MH kijkt of zijn eigen spelnummers in jouw spel bestaan
 - Tag + commit:   geen tag / (deze commit)
 - Status:         alleen op main

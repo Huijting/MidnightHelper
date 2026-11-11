@@ -14,6 +14,19 @@
   trainer)". How you play: "(from a quest)" bij Redemption en Aquatic Form, Priest-rasspells "you get both from a quest".
   7 talen. Niet in het spel gezien. Stap a is hiermee af tot Robs test; volgende = stap b.
 
+## 🆕 11 nov — Stap d: melding bij een opgepakte upgrade (Rob: "Ja, allebei" = beide spellen)
+
+- Nieuw `Modules/PickupUpgrade.lua` (beide toc's). BAG_UPDATE_DELAYED → links in de tassen tellen; een link die erbij
+  kwam = nieuw. Niet bij: eerste telling na inloggen, verkoper/bank open, een link die je net droeg. Rode regel in
+  `C_TooltipInfo.GetHyperlink` = overslaan. Oordeel Forever: `ns.ForeverGearTipText` (geeft nu ook `gains, why` terug);
+  Midnight: `ns.GetLootUpgradeInfo`, alleen ilvl>0 én score>0. Melding via `ns.ShowBriefNotice` (7 s) + chatregel; in
+  combat wachten tot PLAYER_REGEN_ENABLED. Item-data nog niet binnen → tot 5× elke seconde opnieuw.
+  `/mh pickup [on|off]` (in de lijst). Offline getest (beter/slechter/rood/verkoper/uittrekken/gevecht, beide spellen).
+- GEMETEN bij het voorstel: de Midnight-rekenaar = ilvl×8 + bijstats met spec-gewichten; zonder spec geen oordeel; hij
+  kijkt zelf niet of je het kunt dragen (daarom de rode-regel-check). Niet in het spel gezien.
+- Robs hamer-in-de-tas-test (verkoopwaarschuwing): ✅.
+- ▶ Volgende: stap e (Zygor-wachter).
+
 ## 🆕 11 nov — Forever-verkoper: twee reparaties (Rob: "Ja, allebei")
 
 - Selftest Forever, tweede run (GEMETEN in SV): item-controle nu OK (GetItemInfoInstant), alle drie OK, 0 ontbrekend.

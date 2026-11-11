@@ -2524,6 +2524,14 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		end
 		return
 	end
+	-- /mh pickup [on | off] — "you just picked up an upgrade" (PickupUpgrade.lua; Rob, 11 Nov 2026, both games).
+	local pickArg = msg:lower() == "pickup" and "" or msg:lower():match("^pickup%s+(.+)$")
+	if pickArg then
+		if ns.PickupUpgradeSlash then
+			ns.PickupUpgradeSlash(pickArg)
+		end
+		return
+	end
 	-- /mh selftest — does every game number in MH exist in this game? (Selftest.lua; Rob, 11 Nov 2026, opdracht 7.)
 	if msg:lower() == "selftest" then
 		if ns.RunSelftest then

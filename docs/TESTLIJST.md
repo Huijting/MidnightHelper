@@ -21,13 +21,25 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 11 nov — Melding: je pakte net een upgrade op (stap d, Forever én Midnight)
+
+Eerst `/reload`. Gewoon spelen en spullen oppakken (loot, questbeloning):
+- [ ] Komt er gear in je tas die **duidelijk beter** is dan wat je draagt: een kort bericht midden-onder op je scherm,
+      bv. "Upgrade in your bags: [Snow Boots] — +3 Strength over what you wear (main stats for a Paladin)." Het
+      verdwijnt na ~7 seconden; muis erop houdt het vast; slepen en Shift+scroll werken. Ook één regel in de chat.
+- [ ] Géén bericht bij: slechtere gear, gear die je niet kunt dragen (rode tekst), iets wat je bij een verkoper koopt,
+      iets wat je zelf uittrekt.
+- [ ] In een gevecht: het bericht komt pas als het gevecht voorbij is.
+- [ ] Midnight: alleen bij hoger item level én betere score: "… item level 236 (+7) over <je oude item>."
+- [ ] `/mh pickup` → wat MH bij het laatste item besloot en waarom. `/mh pickup off` / `on`.
+
 ## 🆕 11 nov — Forever: twee reparaties bij de verkoper (Rob: "Ja, allebei")
 
 - [x] Bij een verkoper, muis op de **Blacksmith Hammer in de lijst van de verkoper** (kopen): GEEN rode regel
       "Right-click sells this…" meer. ✅ Rob, 11 nov (screenshot, Samuel Van Brunt). Nog niet gezien: met één hamer al in
       je tas, en het Buyback-tabblad.
-- [ ] Heb je precies één hamer en ga je met je muis op die hamer **in je eigen tas** (ook Baganator): de rode regel
-      staat er wél.
+- [x] Heb je precies één hamer en ga je met je muis op die hamer **in je eigen tas** (ook Baganator): de rode regel
+      staat er wél. ✅ Rob, 11 nov (screenshot, Baganator, "Bags: 1").
 - [ ] Een nieuw beroep leren zonder het gereedschap: de tip noemt het gereedschap bij naam (bv. "Blacksmith Hammer"),
       binnen een paar seconden, niet "(loading...)". Ook de chatregel komt dan met de naam.
 

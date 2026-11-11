@@ -270,6 +270,9 @@ lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met d
                  vervangt de tassen; GEMETEN in Robs addon-lijst). Wel gebouwd: een groene "MH: … over what you wear (…)"-
                  regel in de tooltip, met de rekenaar van de questbeloning-tip, `/mh geartip`. Wacht op Robs test.
                  (2) hierboven is daarmee beantwoord: de Forever-rekenaar is die van de questbeloning-tip.
+                 **Stap d, 11 nov (Rob: "Ja, allebei"): de melding zelf gebouwd**, beide spellen: `PickupUpgrade.lua`,
+                 kort schermbericht + chatregel, `/mh pickup`. (1) hierboven GEMETEN: Midnight-rekenaar heeft een spec
+                 nodig en kijkt niet naar draagbaarheid → rode-regel-check + alleen ilvl én score hoger. Wacht op Robs test.
 
 ### Zygor-wachter: elke ochtend wat er in Zygor veranderde
 - Voor wie:      wij (bron voor questketens, coördinaten, mounts, achievements)

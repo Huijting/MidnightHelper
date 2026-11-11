@@ -146,6 +146,8 @@ Modules\ForeverQuestHint.lua
 # /mh selftest: does every game number in MH exist in this game? (Rob, 11 Nov 2026). Data file is generated.
 Modules\SelftestData.lua
 Modules\Selftest.lua
+# "You just picked up an upgrade" on screen (Rob, 11 Nov 2026, step d).
+Modules\PickupUpgrade.lua
 # Your Edit Mode layout to every new character, one click (Rob, 7 Nov 2026: "2").
 Modules\ForeverLayoutCarry.lua
 Modules\LayoutGrowth.lua

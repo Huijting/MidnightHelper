@@ -466,7 +466,9 @@ function ns.ForeverGearTipText(link)
 		return nil, ("not better (main %+g, stamina %+g, armor %+d)"):format(row.ds, row.dsta, row.darm)
 	end
 	local parts, why = Explain(row, main, stamTie, token)
-	return ns:L("FGEAR_TIP_FMT"):format(table.concat(parts, ", "), why)
+	local gains = table.concat(parts, ", ")
+	-- 3rd/4th return: the pieces, for the pickup notice (PickupUpgrade.lua) that words it its own way.
+	return ns:L("FGEAR_TIP_FMT"):format(gains, why), nil, gains, why
 end
 
 if TooltipDataProcessor and TooltipDataProcessor.AddTooltipPostCall and Enum and Enum.TooltipDataType

@@ -159,6 +159,8 @@ ns.MH_COMMANDS = {
 		{ cmd = "/mh report", descKey = "CMDLIST_REPORT" },
 		-- 11 Nov 2026 (opdracht 7): MH checks that its own game numbers exist in this game (Selftest.lua).
 		{ cmd = "/mh selftest", descKey = "CMDLIST_SELFTEST" },
+		-- 11 Nov 2026 (step d): the upgrade-you-just-picked-up notice's switch (PickupUpgrade.lua).
+		{ cmd = "/mh pickup", descKey = "CMDLIST_PICKUP" },
 		-- 1 Oct 2026: the two-minute survey on midnighthelper.com (SurveyInvite.lua).
 		{ cmd = "/mh survey", descKey = "CMDLIST_SURVEY" },
 	} },

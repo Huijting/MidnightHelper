@@ -20937,6 +20937,12 @@ if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	SELFTEST_LIMIT = "Das sagt nur, dass eine Nummer existiert, nicht dass sie das Richtige tut. Quests und Erfolge werden gezählt, nicht abgefragt.",
 	SELFTEST_COMBAT = "Selbsttest: nicht während eines Kampfes. Versuch es danach noch mal.",
 	SELFTEST_UNTRUSTED_FMT = "Nicht geprüft: %s. Der Antwort dieses Spiels darauf konnte man nicht trauen (es sagte, dass eine erfundene Nummer existiert).",
+	PICKUP_FMT = "Aufwertung in deinen Taschen: %s — %s",
+	PICKUP_DETAIL_FMT = "%s gegenüber dem, was du trägst (%s).",
+	PICKUP_MIDNIGHT_FMT = "Gegenstandsstufe %d (%+d) gegenüber %s.",
+	PICKUP_ON = "Aufwertungshinweis an: Wenn Ausrüstung, die besser ist als das, was du trägst, in deinen Taschen landet, sagt MH das auf dem Bildschirm.",
+	PICKUP_OFF = "Aufwertungshinweis aus. /mh pickup on schaltet ihn wieder ein.",
+	CMDLIST_PICKUP = "Den Bildschirmhinweis für eine gerade aufgehobene Aufwertung ein- oder ausschalten (on|off) und sehen, was MH zuletzt entschieden hat.",
 	SELFTEST_BUSY = "Selbsttest: läuft schon.",
 }) end
 if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
@@ -20949,6 +20955,12 @@ if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	SELFTEST_LIMIT = "Ceci dit seulement qu'un numéro existe, pas qu'il fait ce qu'il faut. Les quêtes et les hauts faits sont comptés, pas demandés.",
 	SELFTEST_COMBAT = "autotest : pas pendant un combat. Réessaie après.",
 	SELFTEST_UNTRUSTED_FMT = "Non vérifié : %s. La réponse de ce jeu pour ça n'était pas fiable (il a dit qu'un numéro inventé existe).",
+	PICKUP_FMT = "Amélioration dans tes sacs : %s — %s",
+	PICKUP_DETAIL_FMT = "%s par rapport à ce que tu portes (%s).",
+	PICKUP_MIDNIGHT_FMT = "niveau d'objet %d (%+d) par rapport à %s.",
+	PICKUP_ON = "avis d'amélioration activé : quand un équipement meilleur que ce que tu portes arrive dans tes sacs, MH le dit à l'écran.",
+	PICKUP_OFF = "avis d'amélioration désactivé. /mh pickup on le remet.",
+	CMDLIST_PICKUP = "Active ou désactive l'avis à l'écran pour une amélioration que tu viens de ramasser (on|off), et vois ce que MH a décidé en dernier.",
 	SELFTEST_BUSY = "autotest : déjà en cours.",
 }) end
 if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
@@ -20961,6 +20973,12 @@ if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	SELFTEST_LIMIT = "Esto solo dice que un número existe, no que haga lo correcto. Las misiones y los logros se cuentan, no se consultan.",
 	SELFTEST_COMBAT = "autoprueba: no durante un combate. Inténtalo de nuevo después.",
 	SELFTEST_UNTRUSTED_FMT = "No comprobado: %s. No se podía fiar de la respuesta de este juego para eso (dijo que existe un número inventado).",
+	PICKUP_FMT = "Mejora en tus bolsas: %s — %s",
+	PICKUP_DETAIL_FMT = "%s más que lo que llevas puesto (%s).",
+	PICKUP_MIDNIGHT_FMT = "nivel de objeto %d (%+d) frente a %s.",
+	PICKUP_ON = "aviso de mejora activado: cuando te llega a las bolsas equipo mejor que el que llevas puesto, MH lo dice en pantalla.",
+	PICKUP_OFF = "aviso de mejora desactivado. /mh pickup on lo vuelve a activar.",
+	CMDLIST_PICKUP = "Activa o desactiva el aviso en pantalla de una mejora que acabas de recoger (on|off), y mira qué decidió MH la última vez.",
 	SELFTEST_BUSY = "autoprueba: ya está en marcha.",
 }) end
 if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
@@ -20973,6 +20991,12 @@ if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	SELFTEST_LIMIT = "Isto só diz que um número existe, não que ele faz a coisa certa. Missões e conquistas são contadas, não consultadas.",
 	SELFTEST_COMBAT = "autoteste: não durante um combate. Tente de novo depois.",
 	SELFTEST_UNTRUSTED_FMT = "Não verificado: %s. Não dava para confiar na resposta deste jogo para isso (ele disse que um número inventado existe).",
+	PICKUP_FMT = "Melhoria nas suas bolsas: %s — %s",
+	PICKUP_DETAIL_FMT = "%s a mais do que o que você está usando (%s).",
+	PICKUP_MIDNIGHT_FMT = "nível de item %d (%+d) em relação a %s.",
+	PICKUP_ON = "aviso de melhoria ligado: quando um equipamento melhor do que o que você está usando cai nas suas bolsas, o MH avisa na tela.",
+	PICKUP_OFF = "aviso de melhoria desligado. /mh pickup on liga de novo.",
+	CMDLIST_PICKUP = "Liga ou desliga o aviso na tela para uma melhoria que você acabou de pegar (on|off), e mostra o que o MH decidiu por último.",
 	SELFTEST_BUSY = "autoteste: já está rodando.",
 }) end
 if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
@@ -20985,6 +21009,12 @@ if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	SELFTEST_LIMIT = "Dice solo che un numero esiste, non che faccia la cosa giusta. Quest e imprese vengono contate, non chieste.",
 	SELFTEST_COMBAT = "autotest: non durante un combattimento. Riprova dopo.",
 	SELFTEST_UNTRUSTED_FMT = "Non controllato: %s. Non ci si poteva fidare della risposta di questo gioco su questo (ha detto che esiste un numero inventato).",
+	PICKUP_FMT = "Miglioramento nelle tue borse: %s — %s",
+	PICKUP_DETAIL_FMT = "%s rispetto a quello che indossi (%s).",
+	PICKUP_MIDNIGHT_FMT = "livello oggetto %d (%+d) rispetto a %s.",
+	PICKUP_ON = "avviso di miglioramento attivo: quando nelle tue borse arriva equipaggiamento migliore di quello che indossi, MH lo dice sullo schermo.",
+	PICKUP_OFF = "avviso di miglioramento disattivato. /mh pickup on lo riattiva.",
+	CMDLIST_PICKUP = "Attiva/disattiva l'avviso sullo schermo per un miglioramento appena raccolto (on|off), e vedi cosa ha deciso MH l'ultima volta.",
 	SELFTEST_BUSY = "autotest: già in corso.",
 }) end
 
