@@ -15,7 +15,8 @@ local CHANGELOG_ENTRIES = {
 			"CHANGELOG_510_6",
 			"CHANGELOG_510_7",
 			"CHANGELOG_510_8",
-			"CHANGELOG_510_9",
+			-- CHANGELOG_510_9 (/mh selftest) taken out after the release: it is our test tool, not something players use
+			-- (Rob, 11 Nov 2026: "dingen ... die alleen wij doen, dat is niet handig").
 			"CHANGELOG_510_10",
 			"CHANGELOG_510_11",
 			"CHANGELOG_510_12",

@@ -4067,7 +4067,6 @@ ns._mhLocales.enUS = {
 	CHANGELOG_510_6 = "Forever: This week in Forever, a warning when you still hold your fishing pole, and a finder for bar buttons that still cast an old spell rank.",
 	CHANGELOG_510_7 = "Both games: pick up gear that clearly beats what you wear, and a short message on your screen says so, and why. /mh pickup turns it off.",
 	CHANGELOG_510_8 = "Both games: the missing-buff icon now names the buff and says what to do (\"Blessing of Might is not on you. Click the icon to cast it.\") in calm gold, instead of a big red MISSING.",
-	CHANGELOG_510_9 = "Both games: /mh selftest checks that every spell, item and map number MH uses exists in your game. It says if something exists, not if it works.",
 	CHANGELOG_510_10 = "Midnight: 20 play cards updated, the top 5 macros per spec with a Make button in the Macros tab, and game names shown the way your own client writes them (German, French, Spanish, Portuguese, Italian, Russian).",
 	CHANGELOG_510_11 = "Both games: the interrupt/dispel prompt (/mh prompt) can be resized with Shift+scroll, like every MH window.",
 	CHANGELOG_510_12 = "Fixes: no \"sells this\" warning any more when you hover a tool in a vendor's list to buy it; a Greater Blessing counts as a blessing; the new-profession tip no longer gets stuck on (loading...); /mh travel answers in Forever again.",

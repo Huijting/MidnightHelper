@@ -29,8 +29,6 @@ A big one for **WoW Forever**, and a few new things for both games.
   screen says so, and why. No more keeping your bags open. `/mh pickup off` turns it off.
 - **Missing buffs, in words:** the icon now names the buff and says what to do (*Blessing of Might is not on you. Click
   the icon to cast it.*), in calm gold instead of a big red MISSING.
-- **`/mh selftest`:** checks that every spell, item and map number Midnight Helper uses exists in your game. It says if
-  something exists, not if it works.
 - The interrupt/dispel prompt (`/mh prompt`) can be resized with Shift+scroll, like every Midnight Helper window.
 
 ## Midnight
