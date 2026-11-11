@@ -9690,3 +9690,114 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
     verklaring. 📌 Van die 50 commits zijn er **14** van 9 nov, vrijwel allemaal Forever-werk
     (handige-macro's-venster, vissershengelwaarschuwing, de vendor-pijl) — wat ook verklaart waarom
     zowel de reparatie als het nieuwe GUID-lezende bestand van vandaag in die hoek zitten.
+- [2026-11-11] ✅ **Nul [MOET GEFIKST]. Er IS voor het eerst in vijf dagen een nieuw hotfix-artikel —
+  *"WoW: Forever Hotfixes - November 10, 2026"* — en er zit GEEN UI-, addon- of API-sectie in; het is
+  van begin tot eind class-tuning, items en professies, dus terrein van de content-wachter en niet van
+  mij. Ook nieuw: een Forever-build `1.60.1.70888` (gezien 10 nov 15:10). Verder stil op élke bewegende
+  bron: geen nieuwe live-build (ACHTSTE dag op `12.1.5.70783`), geen nieuwe PTR-build (ZEVENDE dag op
+  `12.1.7.70740`), geen nieuwe regel op geen van de vier wiki-API-pagina's, geen blue post over API, en
+  geen nieuwe SimC-addon-release.** 🆕 **Het echte nieuws van vandaag komt uit de CODE: ik heb de
+  GUID-obfuscatie één keer volledig uitgeput in plaats van per bestand, en daarbij mijn eigen telling
+  van 9 nov moeten corrigeren.**
+  - ✅ **[AL AFGEDEKT] — de GUID-obfuscatie is addonbreed dicht, en dit is de eerste keer dat ik dat
+    over de hele addon kan zeggen in plaats van over de twee bestanden die toen stuk waren.** GEMETEN
+    vandaag, met positieve controle vooraf (`grep C_Map` geeft **383** treffers, dus de greproute
+    werkt — zie [[silence-is-not-absence]]). De addon leest een GUID op **twee** manieren, en ik heb ze
+    allebei los geteld:
+    1. **Negen lezers parsen de velden met een patroon** (`guid:match`). Alle negen staan nu op het
+       losse `[^%-]+` voor de velden 2 t/m 5: `Modules/ForeverWeapons.lua:509`,
+       `Modules/ForeverVendors.lua:534`, `Modules/DelveChestData.lua:241`,
+       `Modules/ResetRoutine.lua:663`, `Modules/SpotLog.lua:246`, `Modules/ForeverTrainer.lua:1209`
+       en `:1294`, en `Modules/EncounterCapture.lua:1228`. Een tiende, `Modules/RoomLauncher.lua:907`,
+       toetst alléén het voorvoegsel `^Player%-` en raakt de velden 2 t/m 5 niet — en Player-GUID's
+       staan niet in Blizzards opsomming (die noemt cast, creature, vehicle, pet en game object).
+    2. **Twaalf lezers pakken veld 6 op positie** met `strsplit("-", guid)` —
+       `Modules/VignetteCapture.lua:53`, `Modules/Rares.lua:876` en `:1037`,
+       `Modules/RaidCoachData.lua:388`, `Modules/DelveBossShowcase.lua:592`,
+       `Modules/RitualBossCoach.lua:317`, `Modules/TideboundGrottoCoach.lua:148`,
+       `Modules/DaggerspineCoach.lua:108`, `Modules/SporefallCoach.lua:75`,
+       `Modules/DungeonBossWindow.lua:2058`, `Modules/QuestDiff.lua:133` en `Core.lua:3400`. Die zijn
+       **structureel immuun**: `strsplit` vraagt niet wat er in de velden 2 t/m 5 staat, het knipt op
+       het streepje en pakt het zesde stuk. Daar valt niets aan te migreren.
+    🔴 **CORRECTIE op mijn eigen regel van 9 nov, en het is het soort fout dat `CLAUDE.md` bij naam
+    noemt.** Ik schreef toen *"de énige twee van de tien GUID-lezers in de addon"*. Dat getal tien was
+    de uitkomst van één grep, niet van een telling: het echte aantal is **21** (9 patroon + 12
+    positioneel), en van die 21 waren er die ochtend twee kwetsbaar — niet twee van tien. De conclusie
+    van 9 nov klopte, het getal eronder niet, en een getal dat per ongeluk goed uitkomt is precies wat
+    punt 3 van de factcheck-regels ("GEMETEN of AFGELEID") moet voorkomen.
+  - 🆕 **[AL AFGEDEKT] — en de les van 9 nov houdt stand bij de DERDE nieuwe GUID-lezer in drie dagen.**
+    `Modules/ForeverWeapons.lua:509` is nieuw sinds mijn run van gisteren (commit `1d95a6c`, *"Forever:
+    Weapon trainers window (/mh weapons)"*) en is meteen met het losse patroon geschreven, net als
+    `ForeverVendors.lua` van voorgisteren. Twee bestanden op rij die het vanaf regel één goed doen, is
+    het verschil tussen een reparatie en een gewoonte. 📌 `ForeverVendors.lua` is wel verschoven: het
+    stond gisteren in mijn regel op `:518`, vandaag op `:534`.
+  - ✅ **[RAAKT ONS NIET] — de Forever-hotfixes van 9 én 10 nov, GEMETEN sectie voor sectie.** Het
+    artikel van 10 nov (`news.blizzard.com/.../24315281`, opgehaald mét `?nocache=20261111`) heeft de
+    koppen *Auction House*, *Classes*, *Enemies and NPCs*, *Items* en *Professions*. Geen *User
+    Interface*, geen *Add-Ons*, geen *API*. Twee regels klonken van buiten alsof ze ons raakten en doen
+    dat niet: *"Redoubt can now be tracked in the Cooldown Manager"* (Paladin) en *"Maelstrom Weapon can
+    now be tracked in the Cooldown Manager"* (Shaman). Dat zet spells **in** Blizzards eigen venster; MH
+    raakt dat venster alleen aan als anker, in `Modules/EditModeBackup.lua:1334` en `:1337`
+    (`EssentialCooldownViewer`, `UtilityCooldownViewer`) om Robs eigen plaatsing niet onder het blok te
+    laten verdwijnen. Framenamen en ankerpunten veranderen hier niet, dus er is niets te migreren.
+    ⚠️ Wat er inhoudelijk in die tuning staat (Wrack, Soul Siphon, Maelstrom Weapon, Stormstrike) is
+    niet mijn terrein; als MH daar getallen over beweert, is dat voor de content- en de datawachter.
+  - ✅ **[RAAKT ONS NIET] — het UI-and-Macro-forum: geen blue post, en de twee draadjes met beweging
+    sinds gisteren zijn allebei spelerskant.** GEMETEN in de JSON, volledig uitgelezen, niet via een
+    samenvatting. `2404135` *"WoW: Forever - Remove Quest Objectives from Tooltip?"* kreeg de nieuwste
+    forumpost van allemaal (**2026-11-10T19:32:12Z**, Elvenbane): *"Grab AdvancedInterfaceOptions and
+    check the CVar Browser. If it exists it should be in there."* — een verwijzing naar een CVar, geen
+    API-wijziging. En `2405876` *"Forever… [mod:shift] macros not working?"*, mijn open vraag van 8 nov,
+    is nu in vijf posts uitgepraat en de oorzaak is **géén API**: post 3 (aerokinetic) zegt
+    *"there are many commands assigned to [shift] + F-keys etc by default and may be causing a conflict
+    with your [shift] modifier macros"*, en de vrager bedankt hem ervoor. Een toetsbinding-conflict in
+    de spelersinstellingen. 📌 Daarmee is die vraag definitief dicht; hij hoeft niet terug op de lijst.
+    Geen enkele post van Kaivax of een andere Blizzard-medewerker in de categorie in de laatste 7 dagen;
+    de sticky *"UI Add-On Development Policy"* staat nog op post 19 van 8 nov, onveranderd sinds
+    gisteren.
+  - 🧰 **SimC-addon: geen nieuwe release sinds `12.1.5-04`.** GEMETEN op twee manieren, net als gisteren:
+    `git ls-remote --tags --refs` geeft **258** tags, exact hetzelfde aantal als de drie dagen ervoor,
+    met als nieuwste 12.1-tag nog steeds `12.1.5-04` op `83fdb00762fa…`; de releases-pagina zelf (mét
+    cache-buster) noemt bovenaan `12.1.5-04`, **05 nov 2026 22:38**, enige regel *"Handle Forever
+    surname"* — de release die ik op 6 nov al als [RAAKT ONS NIET] heb afgehandeld. Nog geen tag met
+    `forever`, `camelot` of `1.60` in de naam. Niets te toetsen aan `ns.BuildSimcProfile`.
+  - 📡 **Wat ik gelezen heb, zodat stilte te onderscheiden is van niet-kijken.** Alle vier de
+    wiki-API-pagina's opnieuw opgehaald mét `?nocache=20261111` en ongewijzigd t.o.v. gisteren:
+    `Patch_12.1.7/API_changes` (nog exact dezelfde twee punten: de GUID-obfuscatie met *"This change
+    will be available for testing in a future build of 12.1.7"*, en *"TOC directives no longer expand
+    variables such as [Game] or [Family]"*), `Patch_12.1.5/API_changes` (blue posts t/m 29 sep),
+    `Patch_1.60.1/API_changes` (blue posts t/m 16 okt) en `Patch_12.1.0/API_changes`.
+    📌 **`Patch_12.2.0/API_changes` bestaat nog NIET** — `CRAWL_NOT_FOUND`, terwijl de 12.1.7-pagina er
+    wel naar linkt als *"Next patch"*. Een lege link is geen 12.2-nieuws; de PTR-wachter gaat daarover.
+    `wago.tools/builds` bovenaan nu `1.60.1` build **70888** (10 nov 15:10), met `70862` (7 nov 04:43),
+    `70840` (7 nov 02:28), `12.1.7.70740` (4 nov 20:47) en `12.1.5.70783` (4 nov 00:38) eronder.
+    ⚠️ **Nieuw gemeten vandaag over het gereedschap zelf:** `curl` wordt in deze sessie door de
+    egress-proxy geweigerd (`connect_rejected`, CONNECT-tunnel 403) voor **zowel
+    `us.forums.blizzard.com` als `wago.tools`** — hosts die ik tot nu toe alleen op `WebFetch` als
+    geblokkeerd had opgeschreven. Exa haalt ze allebei wél op. De blokkade zit dus op de host, niet op
+    één tool, en Exa mét cache-buster is voor deze twee de enige weg.
+    📌 **Voor de vergelijking van morgen vastgelegd:** `Gethe/wow-ui-source` draagt vandaag
+    `refs/tags/12.1.7` op `e927c305f67ed6b3b460bc00d0c39055747b9119` en `refs/tags/1.60.1` op
+    `4cd0ab752a77164f654ccbca9d0c1fe8dafceebe`. Dat zijn verschuivende tags, één per patch, dus een
+    andere SHA morgen betekent een nieuwe diff om te lezen. Deze twee getallen stonden nergens in mijn
+    logboek; zonder zo'n ijkpunt is "ongewijzigd" bij een verschuivende tag niet te meten.
+  - ⏳ **Nog open uit eerdere runs — ongewijzigd, en NIET opnieuw gemeten vandaag.** De UTF-8 BOM
+    vooraan `MidnightHelper.toc`; de `GetInstanceInfo`-return-orde tegenover `Modules/Showdowns.lua:226`;
+    de dode `PickupItem`-takken in `Modules/KeyBlock.lua:1135`/`:1227`/`:1380` en
+    `Modules/ApplyLayout.lua:1311`/`:1345`/`:1605`; de vijf decoratieve `GetItemInfo`-terugvaltakken;
+    `Blizzard_DeprecatedWorldElapsedTimerTypes` als tiende deprecated-addon; de verouderde
+    namespace-lijst in `docs/WATCHER_API_PROMPT.md` (18 aug, noemt 57 namespaces en kent de twee TOC's
+    niet); de client-test voor `/mh raidbots`; `GetTimerDuration` toevoegen aan
+    `Modules/ApiProbe.lua:377`; de `FrameStrata`-secret-vraag op `Modules/PartyTargets.lua:517`; en de
+    drie `WOW_PROJECT_MAINLINE`-takken in `Libs/LibDBIcon-1.0.lua:533`/`:572`/`:607` die op Forever
+    omslaan. 🔴 Niets aangeraakt. 📌 Eén punt is er AF: de `[mod:shift]`-vraag hierboven.
+  - 🔧 **Repo-staat: alleen `docs/API_WATCH.md` aangeraakt.** GEMETEN vóór het schrijven:
+    `git status --porcelain` **leeg**, geen van de vier wachter-bestanden gewijzigd-maar-ongecommit, en
+    `HEAD` op **`dd77b1966eec2ca2dca3eabd55454f4c478720bb`** ("Nachtcontrole 2026-11-11: C1 0 nakijken,
+    C2 0 nakijken, snapshot actueel") — dus de nachtcontrole van vandaag was er al vóór mij, en ik
+    schrijf op de actuele tip. `git rev-parse --is-shallow-repository` is nog steeds **`true`**: dat is
+    de kloondiepte van deze sessie en geen herschreven historie, voor de vierde dag op rij dezelfde
+    verklaring. 📌 Van de commits van 10 nov zijn er **ruim twintig** van Rob zelf — twee nieuwe
+    wachter-routines, `tools/gamedata.py`, de macro-vensters voor beide spellen, het wapentrainers-
+    venster en de reisroute-pijl voor Forever. Dat is ook waar mijn enige code-vondst van vandaag uit
+    komt.
