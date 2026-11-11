@@ -82,7 +82,7 @@ merge(ns._mhLocales and ns._mhLocales.enUS, {
 })
 
 if ns._mhLocales and ns._mhLocales.itIT then merge(ns._mhLocales and ns._mhLocales.itIT, {
-	TAB_OMNIUM = "Omnium Folio",
+	TAB_OMNIUM = "Foglio dell'Omnium",
 	OMNIUM_SUBTITLE = "Quale runa scegliere per riga — scegli sotto il tuo tipo di contenuto.",
 	OMNIUM_START_NAME = "imposta un waypoint",
 	OMNIUM_OPEN_INGAME = "Apri la finestra delle rune",

@@ -21,6 +21,19 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 11 nov — spelnamen in de zes talen (C4)
+
+Alleen te zien op een Duitse, Franse, Spaanse, Portugese, Italiaanse of Russische client (Cisca of een tester). Op een
+Engelse client verandert er niets.
+- [ ] Duits: drankjes-soort heet nu **Heiltrank** (was "Gesundheitstrank"); de L00T RAID-R heet **Mini-B3U13RÄUB-R**.
+- [ ] Duits: de achievement-groep heet **Das Labyrinth von Kindo'jan**. De delve-naam zelf blijft "Labyrinth von
+      Kindo'jan" (die staat ook in een zin; bewust).
+- [ ] Frans: tabblad **Comptoir**, kop **Boss hors instance**, drankje **Potion de soins**.
+- [ ] Spaans: tabblad **Puesto comercial** en **Folio del Omnium**; drankje **Poción de sanación**.
+- [ ] Portugees: **Chefe Mundial**, **Posto Comercial**, mount-plekken zonder lidwoord ("Terra Podre").
+- [ ] Russisch: Field Accolades en drie ritueel-uitdagingen nu in het Russisch.
+- [ ] Zoeken in het Duits op **Portalkammer** vindt de portaalkamer.
+
 ## 🆕 10 nov (avond) — Forever: de pijl kent boten, zeppelins, de tram en het roze portaal
 
 - [ ] Forever, `/reload`, in Darkshore: `/mh weapons` → Two-Handed Maces → **Arrow** bij Buliwyf Stonehand (Ironforge).

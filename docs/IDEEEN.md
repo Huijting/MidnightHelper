@@ -106,6 +106,34 @@ lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met d
 - Site:          ja, als het uit is (`docs/SITE_SEIN.md`)
 - Rob zegt:      ja (*"uitzoeken en bouwen graag"*, 10 nov). **Gebouwd: 7bb1e53.** Wacht op Robs test (TESTLIJST 10 nov avond).
 
+### Spelnamen in de zes talen zoals die client ze toont (C4)
+- Voor wie:      allebei, in de/fr/es/pt/it/ru (Engels en Nederlands veranderen niet)
+- Moment:        overal waar MH een spelnaam toont: titel, delve, mount-plek, Trading Post, World Boss, drankje
+- Spel:          Midnight
+- Bron:          de C4-controle (`run data_check --c4 --all`), 65 namen op 10 nov
+- Bouwt op:      de regel "clientnaam wint altijd" (CLAUDE.md, Localization)
+- Data:          GEMETEN — elke naam uit Blizzards DB2 van die taal (wago, live 12.1.5.70783)
+- Vindbaar:      vanzelf, het is de tekst zelf
+- Werk:          klein
+- Site:          nee
+- Rob zegt:      ja (*"Ja, alle drie"*, 11 nov). **Gebouwd 11 nov:** 41 waarden herschreven (mh-writer), 8 op de negeerlijst
+  met reden, 3 bewust open (de Duitse/Spaanse delve-naam staat ook midden in een zin). C4 nu 3 nakijken. Wacht op een
+  tester met een niet-Engelse client (TESTLIJST 11 nov).
+- Nog open:      dezelfde oude namen staan nog in ~70 andere zinnen per taal (`docs/C4_OUDE_NAMEN_2026-11-11.md`). Rob kiest.
+
+### De vier ochtendwachters kijken ook naar Forever
+- Voor wie:      wij (de addon zegt veel over Forever, en geen wachter keek ernaar)
+- Moment:        elke ochtend
+- Spel:          Forever
+- Bron:          brainstorm-chat 11 nov, Rob daar: *"Ja, voeg Forever toe aan de wachters"*; hier: *"Yeah"*
+- Bouwt op:      de vier wachters en `docs/WATCHER_FOREVER.md`
+- Data:          n.v.t.
+- Vindbaar:      in de vier wachterbestanden, onder **Forever:**
+- Werk:          klein
+- Site:          nee
+- Rob zegt:      ja (11 nov). **Gebouwd: 9ca5e32** + de vier opdrachten aangevuld. Af zodra de inhaalronde van 11 nov
+  en de run van 12 nov allebei een Forever-deel hebben.
+
 ---
 
 ## Af — sinds de oude lijsten gebouwd (niet opnieuw voorstellen)

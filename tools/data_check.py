@@ -173,6 +173,25 @@ C4_TABLES = (("AreaTable", "AreaName_lang"), ("Map", "MapName_lang"), ("Achievem
              ("SpellName", "Name_lang"))
 C4_LOCALES = {"deDE": ("live", "forever"), "frFR": ("live", "forever"), "esES": ("live", "forever"),
               "ptBR": ("live", "forever"), "itIT": ("live",), "ruRU": ("live", "forever")}
+# Keys whose English text only happens to equal a game name: the pack is right to translate the plain word.
+# Rob chose these on 11 Nov 2026 ("Ja, alle drie"). Counted and printed, never silently dropped.
+C4_IGNORE = {
+    "CRAFTSHOP_MAKING": "status word 'Crafting' (being made), not the Crafting achievement/area",
+    "LAYOUT_CARD_BUILDER": "resource-builder spell role, not the 'Builder' NPC/achievement",
+    "SETTINGS_SECTION_GENERAL": "settings section 'General', not the NPC rank General",
+    "SET_BTN_TEST": "button 'Test', not the Test area",
+    "TOUR_CODEX_NAV": "opens MH's own Codex tab, not the spell 'Open Codex'",
+    "DAWNCREST_TIER_CHAMPION": "crest track word; deDE client says 'Morgenlichtwappen des Champions' (CurrencyTypes "
+                               "3343, measured 11 Nov 2026), the 'Feldherr' match is another row",
+    "SMC_SEARCH_PORTALS": "search words; since 11 Nov 2026 they CONTAIN the client name, which an exact match cannot see",
+    "GUIDE_CONS_TYPE_HEALING": "category label for Midnight's potions (ItemSparse 241304 etc., measured 11 Nov 2026: "
+                               "Heiltrank / soins / sanación / Vida / лечебное); the exact 'Health Potion' row is "
+                               "another, older thing",
+}
+# Still flagged on purpose (11 Nov 2026): deDE DELVE_NAME_LABYRINTH / DELVE_NAME_RING_OF_GLORY and esES
+# DELVE_NAME_RING_OF_GLORY. The client name has an article ("Das Labyrinth", "Der Ring"), but the same key goes into
+# a sentence (DELVE_SHARE_CONFIRM_FMT via ns:GetDelveChatDisplayName), where "für Das Labyrinth" is wrong German.
+# Fixing it needs a separate label key; until then these three stay visible here.
 
 
 def _same(a):
@@ -234,12 +253,14 @@ def c4():
         return (r.get(col) or "").strip() if r else None
 
     total, shown = 0, 0
+    for k in sorted(C4_IGNORE):
+        print("     on purpose %-34s %s%s" % (k, C4_IGNORE[k], "" if k in keys else "  [no longer matched]"))
     for loc, games in C4_LOCALES.items():
         lv = values.get(loc, {})
         miss = []
         checked = 0
         for k, enval in sorted(keys.items()):
-            if k not in lv:
+            if k not in lv or k in C4_IGNORE:
                 continue  # not translated: the English fallback is a different finding (parity), not this one
             mine = lv[k][0].strip()
             want = set()

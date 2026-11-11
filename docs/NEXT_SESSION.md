@@ -1,5 +1,21 @@
 # Midnight Helper — waar we staan
 
+## 🆕 11 nov — C4: spelnamen per taal (Rob: "Ja, alle drie")
+
+- 65 → 3 nakijken (GEMETEN, `run data_check --c4 --all`). mh-writer herschreef 41 waarden in de/fr/es/pt/it/ru, elke naam
+  uit de DB2 van die taal (live 12.1.5.70783). Lint 0 HARD, syntax OK. Niet in een client gezien → TESTLIJST 11 nov.
+- `tools/data_check.py` kreeg `C4_IGNORE` (per sleutel, met reden, wordt elke run geprint): CRAFTSHOP_MAKING,
+  LAYOUT_CARD_BUILDER, SETTINGS_SECTION_GENERAL, SET_BTN_TEST, TOUR_CODEX_NAV, DAWNCREST_TIER_CHAMPION (deDE client =
+  "Morgenlichtwappen des Champions", CurrencyTypes 3343 GEMETEN), SMC_SEARCH_PORTALS (zoekwoorden bevatten nu de
+  clientnaam), GUIDE_CONS_TYPE_HEALING (Midnight-drankjes ItemSparse 241304: Heiltrank/soins/sanación/Vida/лечебное).
+- Bewust open (3): deDE DELVE_NAME_LABYRINTH / DELVE_NAME_RING_OF_GLORY, esES DELVE_NAME_RING_OF_GLORY. De clientnaam heeft
+  een lidwoord, maar dezelfde sleutel gaat ook in DELVE_SHARE_CONFIRM_FMT (via ns:GetDelveChatDisplayName,
+  DelvePartyShare.lua:403) → "für Das Labyrinth". Oplossing = aparte label-sleutel. ▶ Rob kiest.
+- ▶ Rob kiest ook: dezelfde OUDE naam staat nog in andere sleutels van hetzelfde pack (niet aangeraakt). Grootste groepen:
+  itIT "Omnium Folio" ~14×, ruRU "Field Accolades" ~17× en "Malevolent Boons" 7×, frFR/esES/ptBR Trading Post-ondertitels
+  (3× elk), "L00T RAID-R" in CODEX_CUR_UNDERCOIN_BODY (6 talen), "Gesundheitstrank"/"Poción de salud"/"Зелье здоровья"
+  in CONSREADY_HPOT. Volledige lijst: `docs/C4_OUDE_NAMEN_2026-11-11.md`.
+
 ## 🆕 11 nov — de vier ochtendwachters dekken ook Forever (Rob: "Yeah", op het voorstel van de brainstorm-chat)
 
 - Nieuw `docs/WATCHER_FOREVER.md`: per wachter een Forever-deel (content toetst Forever-hotfixes aan Modules/Forever* en de
@@ -56,7 +72,7 @@
 
 ### ▶ Open na 10 nov (volgorde voor de volgende bouwchat)
 1. Robs test van de **Forever-reisplanner** + "(loading...)"-fix (TESTLIJST 10 nov avond); daarna IDEEEN.md-regel → Af.
-2. **C4: 65 namen** (`run data_check --c4 --all`): Rob kiest welke echte we laten herschrijven (mh-writer, namen meten).
+2. ✅ 11 nov: **C4** 65 → 3 (zie boven). Nieuw open: de 3 delve-namen in een zin, en de oude namen in andere zinnen.
 3. **Zygor-vergelijking**: Zygor werkte 10 nov 20:23 de MID-mounts en -achievements bij (geen oude kopie → diff onbekend).
    Voorstel stond open: een Zygor-wachter zoals handynotes_watch + onze schatten/mounts naast Zygor leggen. Rob koos nog niet.
 4. Maandag: eerste **ideeënbus**-voorstellen (zondag 15 nov) verplaatsen naar Open/Nee.
