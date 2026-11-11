@@ -44,6 +44,10 @@ Engelse client verandert er niets.
 - [ ] Forever, `/reload`, in Darkshore: `/mh weapons` → Two-Handed Maces → **Arrow** bij Buliwyf Stonehand (Ironforge).
       Verwacht: de pijl wijst naar de **boot naar Stormwind** in Auberdine (niet meer "travel back first"). Het venster zegt
       bij "The way there": *the boat to Stormwind City in Darkshore, then the Deeprun Tram to Ironforge in Stormwind City.*
+- [x] **Horde, eerste stap** (Rob, 11 nov, Paladin in Tirisfal → Hanashi/Sayoc in Orgrimmar): pijl "the zeppelin to Durotar
+      1162 m", venster "The way there: the zeppelin to Durotar in Tirisfal Glades". MH-doel 60.70, 58.76; zeppelin-pin op
+      Robs kaart 60.04, 59.46 (< 1 kaartpunt, zelfde toren). Verder niet gereisd (geen Hearthstone).
+- [ ] Horde verder: op de toren / in Durotar springt de pijl door naar Orgrimmar.
 - [ ] `/mh travel` → print waar MH denkt dat je bent ("land KAL"), het doel en de stappen. Stuur de regels bij twijfel.
 - [ ] Op de boot / aan de overkant in Stormwind Harbor: de pijl schuift door naar de **tram-ingang** (Dwarven District).
       🔴 Meten: `/mh travel` op de pier in Stormwind — welke kaart zegt hij (verwacht Stormwind City 1453)?
