@@ -7,7 +7,11 @@
 - 👀 Rob zag de stun op mouseover werken (target bleef staan).
 - ✅ Meting gebouwd (Rob: "maak die meting maar"): `Modules/ForeverPartyProbe.lua`, `/mh partytest [clear]` →
   `ns.db.partyProbe` (events, AuraContainer-gloed, focus, API's, per unit readable/secret zonder namen, plus 5
-  gevechten automatisch 2 s na start, alleen in een groep). Wacht op Robs `/reload` solo en na een dungeon.
+  gevechten automatisch 2 s na start, alleen in een groep).
+- ✅ **Solo-meting binnen** (Rob, 11 nov 22:59, build 70888, GEMETEN in de SV): alle 15 PartyTargets-events valid
+  (ook PLAYER_SPECIALIZATION_CHANGED en TRAIT_CONFIG_UPDATED); AuraContainer + CustomAuraContainerTemplate bouwt met
+  SetUnit/AddAuraSlot/SetEnabled; FocusFrame bestaat, `[@focus,exists]` = yes (focus werkt); SecureActionButtonTemplate
+  bouwt. Open: groep + gevecht (wat is secret bij party-leden en hun doelwit, rollen, en of de gloed echt verschijnt).
 - 📌 **Midden (PartyTargets naar Forever) staat open tot de meting er is.** Eerst meten via SavedVariables: welke events
   Forever kent (PLAYER_SPECIALIZATION_CHANGED, TRAIT_CONFIG_UPDATED), of de AuraContainer-gloed werkt, wat
   UnitGroupRolesAssigned geeft, hoe secret naam/doelwit/class in een groep zijn, of `[@focus]`/`/focus` werkt. Deels

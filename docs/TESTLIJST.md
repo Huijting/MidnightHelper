@@ -32,8 +32,11 @@ Eerst `/reload`. Op je Forever-Paladin (level 8 of hoger), `/mh macros`:
 ## 🆕 11 nov — Forever: meting voor het groepspaneel (Rob: "maak die meting maar")
 
 Niets zichtbaars; dit meet alleen. Eerst `/reload`.
-- [ ] **Solo:** typ `/mh partytest` → een paar regels in de chat (events die ontbreken, de rode gloed, focus). Daarna
-      `/reload`, dan staat alles in je SavedVariables (`partyProbe`) en lees ik het.
+- [x] **Solo:** typ `/mh partytest` → een paar regels in de chat (events die ontbreken, de rode gloed, focus). Daarna
+      `/reload`, dan staat alles in je SavedVariables (`partyProbe`) en lees ik het. ✅ Rob, 11 nov 22:59, GEMETEN in
+      `_forever_\…\MidnightHelper.lua`: alle 15 events "valid"; AuraContainer-gloed bouwt; FocusFrame bestaat en
+      `[@focus,exists]` → yes; secure button bouwt; UnitGroupRolesAssigned/C_UnitAuras/issecretvalue bestaan. Solo,
+      buiten gevecht: target en focus helemaal leesbaar.
 - [ ] **In een groep (dungeon):** typ `/mh partytest` als de groep compleet is. De eerste 5 gevechten meet hij vanzelf,
       2 seconden na de start. Na de dungeon `/reload`. Er komen geen namen van andere spelers in het bestand.
 - [ ] Zet ook eens iemand op focus (`/focus` op een vijand) vóór `/mh partytest`: dan meet hij of focus werkt.
