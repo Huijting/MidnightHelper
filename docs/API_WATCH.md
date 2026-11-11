@@ -9801,3 +9801,138 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
     wachter-routines, `tools/gamedata.py`, de macro-vensters voor beide spellen, het wapentrainers-
     venster en de reisroute-pijl voor Forever. Dat is ook waar mijn enige code-vondst van vandaag uit
     komt.
+- [2026-11-11] 🕰️ **Forever-inhaalronde (extra run):** **nul [MOET GEFIKST].** Dit is de eenmalige
+  inhaalronde uit `docs/WATCHER_FOREVER.md` (alleen vandaag, alleen omdat de gewone regel van 11 nov
+  hierboven al staat). Bereik: **alleen WoW: Forever, alles sinds de release van 4 nov 2026**, getoetst
+  aan wat `MidnightHelper_Camelot.toc` laadt — níet aan de hele addon, want de helft van de bestanden
+  laadt daar niet. De gewone regel van vandaag is niet opnieuw geschreven.
+  - 📡 **Wat ik gelezen heb, met `?nocache=20261111` achter elke URL.** `warcraft.wiki.gg`
+    `Patch_1.60.1/API_changes` (de Forever-API-pagina; blue posts t/m 16 okt, ongewijzigd t.o.v.
+    vanmorgen); `Patch_1.60.2/API_changes` en `Patch_1.60.0/API_changes` bestaan **niet**
+    (`CRAWL_NOT_FOUND`) — de 1.60.1-pagina linkt wel naar 1.60.2 als *"Next patch"*, een lege link is
+    geen nieuws; het rollende hotfix-artikel `news.blizzard.com/.../24315281` **volledig** (alle vier de
+    rondes: 5, 6, 9 en 10 nov); de blue-post-index van Arctium (`/blue-posts/940`, stand 11 nov); de
+    blue-tracker-spiegel `foreverdb.app`; het UI-and-Macro-forum van Blizzard (US); en de
+    Forever-API-draad op het Blizzard API-forum (5 nov). 📌 **Niet gebruikt als bewijs:**
+    `wowforeveraddons.com`, `theforeverguides.com` en `wowforeverguides.com` kwamen alle drie boven in
+    de zoekresultaten en beweren dingen als *"old globals like GetItemInfo gone"* — ze zeggen zélf dat
+    Blizzard geen Forever-API-gids heeft gepubliceerd en dat hun regels uit andermans addon-code komen.
+    Dat is een kandidaat, geen meting; ik heb er niets uit overgenomen.
+  - ✅ **[RAAKT ONS NIET] — vier hotfix-rondes sinds de release, en nul addon-, UI- of API-items.**
+    GEMETEN op de volledige tekst van het rollende artikel (25k tekens, niet alleen de kop): 5 nov
+    (Enemies/Items/PvP/Quests), 6 nov (Classes/Dungeons/Professions/Quests/Races/World), 9 nov en
+    10 nov. Geen enkele ronde heeft een kop *"User Interface"*, *"Add-ons"* of *"API"*. Alles wat er
+    staat is class-tuning, items, professies en quests — terrein van de content- en de data-wachter.
+  - ✅ **[AL AFGEDEKT] — de Cooldown-Manager-regels in die hotfixes raken onze Edit-Mode-code niet.**
+    Drie rondes noemen de Cooldown Manager (6 nov: duur van CC-spells; 9 nov: Berserk/Lacerate, Seals,
+    Thunderclap; 10 nov: Redoubt en Maelstrom Weapon nu trackbaar). Dat is Blizzards eigen ingebouwde
+    tracker, geen addon-API. Wat MH ervan aanraakt is één ding: `Modules/EditModeBackup.lua:1334` en
+    `:1337` ankeren een layout aan `EssentialCooldownViewer` / `UtilityCooldownViewer`, en beide takken
+    staan achter `and _G.EssentialCooldownViewer then` resp. `and _G.UtilityCooldownViewer and
+    _G.EssentialCooldownViewer then`. Welke *spells* die vensters tonen verandert die frame-namen niet.
+    In Forever staat de Cooldown Manager bovendien standaard uit, dus de globals kunnen er ontbreken —
+    precies het geval dat de guard al afvangt.
+  - 🆕 **Het enige addon-rakende Blizzard-item in het hele venster: Kaivax, 4 nov 2026 19:35 UTC.**
+    GEMETEN op de spiegelpagina `foreverdb.app/en/forever/blue-tracker/us/30756539` (de Blizzard-draad
+    zelf, `us.forums.blizzard.com/.../2360696`, gaf bij ophalen alleen de septembertekst binnen mijn
+    leeslimiet; de spiegel draagt de datum en de naam van de poster). Hij voegde aan de bestaande
+    *"WoW Forever Beta Development Notes"* een sectie **User Interface and Accessibility** toe, met
+    negen regels. Het is géén API-sectie — Blizzard noemt hier geen enkele functie — maar het zijn wél
+    frames waar een addon aan kan hangen, dus ik heb alle negen tegen de Camelot-TOC gelegd. Positieve
+    controle vooraf in dezelfde run, want een leeg zoekresultaat bewijst niets: `grep "C_AddOns"` over
+    `Modules` geeft **21 bestanden** en `grep "ContainerFrame"` geeft treffers in `Modules/TierProbe.lua`
+    en `Modules/BagUpgrade.lua` — de greproute werkt.
+    1. *"While in keybinds menu, hovering over an action bar keybind will now highlight the button on
+       the action bar."* → **[AL AFGEDEKT].** `Modules/BarEightKeys.lua` is het enige bestand dat het
+       toetsenbindings-venster aanraakt, en het doet niets anders dan het **openen**: `_G.QuickKeybindFrame`
+       op `:166`, met `OnQuickKeybindModeEnter` en `Show` elk in een `pcall` (`:169`, `:172`), daarna
+       `Settings.OpenToCategory` (`:180`), `KeyBindingFrame_LoadUI` (`:185`) en `KeyBindingFrame:Show`
+       (`:188-189`), alle vier geguard en met een nette melding als niets bestaat (`:193`). Blizzards
+       nieuwe oplicht-gedrag zit ín dat venster; wij hangen er niets aan.
+    2. *"Spellbook and Talents frame now opens at the same height as other panels"* en *"Combat mode
+       for the Spellbook frame has been reduced in size"* → **[RAAKT ONS NIET] voor het frame,
+       [AL AFGEDEKT] voor de API.** `grep "SpellBookFrame|PlayerSpellsFrame"` over alles wat de
+       Camelot-TOC laadt geeft **nul** ankers; de enige treffer in de hele repo is een *commentaar* in
+       `Modules/Achievements.lua:2210` (dat bestand laadt niet in Forever) — en díe treffer is tegelijk
+       de positieve controle dat het patroon werkt. `Modules/SpellbookDump.lua` leest alleen de
+       **data**, via `C_SpellBook` achter een `if not (SB and SB.GetNumSpellBookSkillLines and …) then
+       return` op `:39`. Hoogte en grootte van Blizzards venster raken dat niet.
+    3. *"Debuff icons on the Nameplate can now be clicked through"* en *"Fixed an issue where
+       Nameplates did not display Elite enemy status"* → **[RAAKT ONS NIET].** `Modules/NameplateColors.lua`
+       is het enige nameplate-bestand in de Camelot-TOC en het raakt geen enkel Blizzard-nameplate-frame
+       aan: het leest `_G.MFNameplates.db.profile` (`:27`, de HandyNotes-regel — vraag de addon die de
+       speler toch al heeft) en tekent zijn eigen venster met `CreateFrame(… "MidnightHelperNameplateColors"
+       …)` op `:195`. Geen `C_NamePlate`, geen hook op een debuff-icoon.
+    4. *"When combined bag is enabled, the background art of the inventory slots are updated"* →
+       **[RAAKT ONS NIET] in Forever.** `ContainerFrameCombinedBags` wordt wél gebruikt, in
+       `Modules/BagUpgrade.lua:79-80` (met een `hooksecurefunc` op `ContainerFrameMixin.Update`,
+       `:85-86`), maar GEMETEN: `grep -c BagUpgrade MidnightHelper_Camelot.toc` = **0** tegen **1** in
+       `MidnightHelper.toc`. Dat bestand laadt dus niet in Forever. ⚠️ Voor de retail-kant is dit géén
+       bevinding: het item staat in de Forever-notities, niet in die van Midnight.
+    5. *"Swing Timer bar …"*, *"PvP scoreboard display has been updated"* en *"Killing a player while
+       at Honor cap …"* → **[RAAKT ONS NIET].** Nul treffers op `SwingTimer`, op
+       `WorldStateScoreFrame|PVPMatchScoreboard` en op `COMBAT_HONOR_GAIN|HonorFrame` in alles wat de
+       Camelot-TOC laadt, met de positieve controle hierboven.
+  - ⏳ **Wat uit de beta-notities van 8 en 16 okt komt is NIET nieuw en wordt hier niet als nieuws
+    gemeld** (GUID-obfuscatie, de `FrameStrata`-secret, `C_PvP.IsWarModeFeatureEnabled` → false in
+    Forever, `GetInspectHonorData` met twee extra returns, nameplate-CVars). Ze staan al in dit logboek
+    en, waar nog open, in de lijst onderaan. 📌 **Eén ervan is echter nooit tegen de Camelot-TOC gelegd,
+    en dat doe ik hier wel:** *"Edit Mode layouts are now saved separately for each UI type (mouse and
+    keyboard vs. gamepad)"* (Beta 4, 8 okt). `Modules/ForeverLayoutCarry.lua` is precies het bestand dat
+    een layout van het ene character naar het andere kopieert: `C_EditMode.GetLayouts` (`:56`),
+    `ConvertLayoutInfoToString` (`:107`), `ConvertStringToLayoutInfo` (`:165`), `SaveLayouts` (`:173`),
+    `OnLayoutAdded` (`:177`) en `SetActiveLayout` (`:181`) — **alle zes in een `pcall`**, met een
+    voorcontrole op `C_EditMode.GetLayouts` en `EditModeManagerFrame.accountSettings` (`:35-38`). Tegen
+    een Lua-fout is dit dus **[AL AFGEDEKT]**. ❓ **Maar de BETEKENIS is ongemeten en ik gok er niet
+    naar:** geen van onze zes aanroepen geeft een UI-type mee, en ik weet **niet** of `GetLayouts` nu
+    per UI-type een andere verzameling teruggeeft, of of `SaveLayouts` een UI-type verwacht. Dat is niet
+    te meten zonder de client. Vraag voor Rob: carry een layout over op een Forever-character en kijk of
+    hij op het muis/toetsenbord-profiel landt. **Niets aangepast.**
+  - ✅ **[AL AFGEDEKT], en een open punt dat hiermee kleiner wordt — de drie
+    `WOW_PROJECT_MAINLINE`-takken in `Libs/LibDBIcon-1.0.lua`.** Dat bestand laadt wél in Forever (`MidnightHelper_Camelot.toc:26`) en op Forever is `WOW_PROJECT_ID` gelijk aan `WOW_PROJECT_CAMELOT` (18, wiki
+    1.60.1, build 70170), dus die drie takken vallen daar naar hun `else`. GEMETEN wat er in staat, in
+    plaats van het open te laten staan zoals vier dagen op rij: `:533` zet de rand op 50×50 of 53×53,
+    `:572` de achtergrond op 24×24 gecentreerd of 20×20 op `TOPLEFT 7,-5`, en `:607` het icoon op 18×18
+    gecentreerd of 17×17 op `TOPLEFT 7,-6`. **Het zijn alle drie uitsluitend `SetSize`/`SetPoint` op
+    texturen** — geen API-aanroep die kan falen, geen event, geen secure frame. Het ergste wat kan
+    gebeuren is dat ons minimapknopje op Forever de Classic-maten krijgt terwijl Forever de
+    Mainline-minimapkunst draagt (en die header is op 16 okt juist nog *"reskinned"*). **Dus: geen
+    foutmelding, mogelijk een paar pixels verkeerd.** Robs oog is de test; LibDBIcon is bovendien
+    andermans bibliotheek en ik raak die niet aan.
+  - ✅ **[AL AFGEDEKT] — de TOC-game-type-waarschuwing van de wiki gaat niet over ons.** De
+    1.60.1-pagina zegt dat het `forever`-game-type *"is not yet recognized on standard 12.1.5, 12.1.0 and
+    classic clients"* en dat *"Unrecognized game types are loaded anyway"*, waardoor een
+    `AllowLoadGameType: forever` een `ExcludeLoadGameType: standard, classic` nodig heeft. GEMETEN:
+    `MidnightHelper_Camelot.toc:2` gebruikt `## AllowLoadGameType: camelot` (niet de nieuwe alias) en
+    `MidnightHelper.toc:3` `## AllowLoadGameType: standard`; geen van beide heeft een
+    `ExcludeLoadGameType`, en dat hoeft ook niet — het bestand heet `_Camelot.toc`, wat zelf al een
+    client-specifiek achtervoegsel is, en de regel ernaast (`:18`) draagt de meting dat retail dit
+    bestand negeert. **Niets te doen.**
+  - ✅ **[RAAKT ONS NIET] — de SimC-addon valt op de Forever-kant buiten bereik.** GEMETEN:
+    `grep -c SimcExport MidnightHelper_Camelot.toc` = **0**, tegen **1** in `MidnightHelper.toc`
+    (positieve controle in dezelfde run: `grep -c EditModeBackup MidnightHelper_Camelot.toc` = **1**).
+    `/mh raidbots` bestaat dus niet op een Forever-client, en een nieuwe SimC-addon-release kan de
+    Forever-kant van MH niet raken. De retail-kant staat in de gewone regel hierboven (geen nieuwe
+    release).
+  - ✅ **[RAAKT ONS NIET] — de "Forever API"-draad van 5 nov gaat over de WEB-API, niet over Lua.**
+    `us.forums.blizzard.com/en/blizzard/t/…/60334` (5 nov, aangevuld 6 nov) is een **spelerspost**, geen
+    blue post: iemand heeft Blizzards REST-API afgetast en meldt namespaces `static-forever-{region}`,
+    rulesets in plaats van realms, realmloze characters (`{naam}-{achternaam}`, pas vanaf level 10 en na
+    uitloggen) en veilinghuizen die op 6 nov live gingen. Nuttig voor een website, niet voor ons: MH is
+    een Lua-addon en doet geen enkele HTTP-aanroep. 📌 Wel een naam om te onthouden voor de site-kant
+    van het project.
+  - 📌 **Rulesets: Forever heeft ze, MH kijkt er niet naar.** De 1.60.1-pagina geeft het recept
+    (`C_GameRules.IsGameRuleActive(Enum.GameRule.HardcoreRuleset / RPRuleset / PvPRuleset)`) en de
+    Added-lijst noemt onder meer `C_GameRules.IsHardcoreActive`, `IsSelfFoundAllowed` en
+    `GetForeverExperiencePreset`. GEMETEN: `grep "C_GameRules"` over de hele addon geeft **nul**
+    bestanden (positieve controle: `grep "C_AddOns"` over `Modules` geeft **21**). Dat is **geen
+    breuk** en dus geen van de drie labels — niets roept iets aan dat verdwenen is. Ik noteer het omdat
+    het een gat in wat MH *kan* weten is: op een Hardcore- of PvP-ruleset zegt de addon hetzelfde als op
+    een normale. Of dat moet veranderen is Robs beslissing, niet de mijne.
+  - 🔧 **IJkpunten voor morgen, en de staat van de repo.** `Gethe/wow-ui-source` draagt
+    `refs/tags/1.60.1` **nog steeds op `4cd0ab752a77164f654ccbca9d0c1fe8dafceebe`** — hetzelfde getal
+    als vanmorgen — terwijl wago.tools de Forever-build al op `1.60.1` **70888** (10 nov 15:10) heeft
+    staan. Voor de nieuwste Forever-build is er dus **nog geen leesbare UI-source-diff**; dat is de
+    verklaring voor "niets nieuws aan de Forever-API", en niet dat er niet gekeken is. GEMETEN vóór het
+    schrijven: `git status --porcelain` **leeg**, geen wachter-bestand gewijzigd-maar-ongecommit.
+    🔴 Alleen `docs/API_WATCH.md` aangeraakt; geen regel code, geen ander document.
