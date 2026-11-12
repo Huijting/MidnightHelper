@@ -46,6 +46,13 @@
   knop). Per regel: kind, spellID, text, row, unit, at, zone, inCombat, char/class/spec. ⚠️ Een fout van een ANDERE
   toets terwijl de muis toevallig op een dispel-helft staat, telt ook mee (AFGELEID, zeldzaam; text maakt het
   herkenbaar). Offline 7/7 (scratch `rowlog_test.lua`), stop-spell 7/7, lint 0 HARD. Niet in het spel gezien.
+- 🔎 Rob (via sparring): "Ja, de rij was rood bij Corrosive Essence. En ik heb toen aan de linkerkant met mijn
+  rechtermuisknop proberen te dispellen." GEMETEN (DB2 SpellCategories 12.1.5.70783): Corrosive Essence 1289258
+  DispelType 4 = Poison, dus het rood was terecht. Code nagelopen: eigen rij = unit "player", gebonden buiten
+  gevecht, spell2 = "Cleanse Toxins" (naam) — geen harde fout gevonden. Kandidaten (AFGELEID): (1) de klikknop
+  vuurt op neer én op op (`RegisterForClicks("AnyUp","AnyDown")`, FastMark.lua:18 noemt dat) → tweede poging "Spell is
+  not ready yet"; (2) Cleanse Toxins heeft 8 s cooldown (ChargeCategory 1512) en de debuff komt terug. `dispelTryLog`
+  moet het beslissen; niets nieuws gebouwd.
 - ✅ Gebouwd (Rob, via sparring: "Ja, bouw dat"): elke nieuwe `dispelSelfLog`-regel krijgt `char` (UnitName), `class`
   (token) en `spec` (spec-ID), in `AfterCombatDispelCheck`. Alleen meten, niets zichtbaars. Oude regels blijven zonder.
 
