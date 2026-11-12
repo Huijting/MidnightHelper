@@ -304,6 +304,7 @@ function ns.GetMissingBuffs()
 		castSpell = specSpell or castSpell
 		if knowsAny and not InAnyForm() then
 			AddEntry(out, castSpell, "MBUFF_TXT_STANCE", true)
+			out[#out].formApi = true -- read through GetShapeshiftForm, not auras (see UpdateMissingBuff)
 		end
 	end
 
@@ -386,6 +387,7 @@ function ns.GetMissingBuffs()
 	-- shapeshift-form-API (aura's zijn "forms" voor Paladins) → nooit vals-positief.
 	if classToken == "PALADIN" and IsKnown(465) and not InAnyForm() then
 		AddEntry(out, 465, "MBUFF_TXT_AURA", true) -- Devotion Aura (default)
+		out[#out].formApi = true -- read through GetShapeshiftForm, not auras (see UpdateMissingBuff)
 	end
 
 	return out
@@ -503,7 +505,20 @@ function ns.PrintMissingBuffDebug()
 	if enabled == false then
 		print("     |cffff6060(UIT → aanzetten in Settings → missende buff)|r")
 	elseif trusted == false then
-		print("     |cffffcc00(auras unreadable here → icon hidden on purpose)|r")
+		-- 12 Nov 2026: aura-based reminders stay hidden; the Paladin aura and Warrior stances (GetShapeshiftForm) do not.
+		local formTop
+		for _, m in ipairs(missing) do
+			if m.formApi then
+				formTop = m
+				break
+			end
+		end
+		if formTop then
+			print("     |cffffcc00(auras unreadable here → only aura/stance reminders show; they do not read auras)|r")
+			print("     line under the icon: " .. ns.MissingBuffSentence(formTop, InCombatLockdown and InCombatLockdown()))
+		else
+			print("     |cffffcc00(auras unreadable here → icon hidden on purpose)|r")
+		end
 	elseif #missing > 0 then
 		print("     |cff66dd66(should be visible now — if not: positioned off screen?)|r")
 		print("     line under the icon: " .. ns.MissingBuffSentence(missing[1], InCombatLockdown and InCombatLockdown()))
@@ -825,13 +840,19 @@ function ns.MissingBuffSentence(entry, inCombat)
 end
 
 function ns.UpdateMissingBuff()
-	if not Enabled() or AurasUnreliable() then
+	if not Enabled() then
 		if frame then
 			frame:Hide()
 		end
 		HideSecure()
 		return
 	end
+	-- 🔑 12 Nov 2026 (Rob: "Eerst meten" → measured): when auras are secret (a dungeon fight) an aura-based "missing"
+	-- cannot be believed, so those stay silent as before (Cisca's shield spam, 5 Jul). But the Paladin aura and the
+	-- Warrior stances are read through GetShapeshiftForm, not auras. GEMETEN on Rob's Prot Paladin in a follower-dungeon
+	-- fight: ShouldAurasBeSecret=true, auras-trusted=false, and GetShapeshiftForm=0 secret=false. So those (formApi)
+	-- keep their line there, ending "Cast it from your bars."
+	local onlyFormApi = AurasUnreliable()
 	-- Afgeschermd: een fout in de detectie (bv. secret-values op groepsleden) mag de
 	-- reminder nooit laten vastlopen op een oude stand.
 	local ok, missing = pcall(ns.GetMissingBuffs)
@@ -842,7 +863,7 @@ function ns.UpdateMissingBuff()
 	-- Filter op combat: buiten combat alles; in combat alleen showCombat-items.
 	local top
 	for _, m in ipairs(missing) do
-		if (not inCombat) or m.showCombat then
+		if ((not inCombat) or m.showCombat) and (not onlyFormApi or m.formApi) then
 			top = m
 			break
 		end

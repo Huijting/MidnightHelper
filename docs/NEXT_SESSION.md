@@ -42,6 +42,11 @@
   `/mh mbuff` in een gevecht laten meten; dan vormen/stances/aura's (vormen-API) uitzonderen op de aura-regel.
   Rob (via sparring): *"Eerst meten"*. `/mh mbuff` print nu ook "→ form: GetShapeshiftForm=… secret=… inCombat=…" (alleen
   diagnose). Bouw daarna gedekt ALS de meting auras-trusted=false én form niet-secret laat zien; anders nieuw voorstel.
+- ✅ Meting binnen (screenshot 11.png, zelf gelezen): ShouldAurasBeSecret=true, auras-trusted=false,
+  GetShapeshiftForm=0 secret=false inCombat=true. Gebouwd: entries van de Paladin-aura (465) en Warrior-stances krijgen
+  `formApi = true`; `ns.UpdateMissingBuff` toont bij onbetrouwbare aura's alleen nog die (gewone buffs blijven zwijgen);
+  `/mh mbuff` zegt het. Pets (UnitExists) bewust NIET meegenomen: Rob koos alleen aura's en stances. Lua OK. Niet in
+  het spel gezien.
 
 ## 🆕 12 nov — Onderzoek: richtingen per class in Forever (Rob: "Ja, alle classes", via sparring; GEEN bouw-go)
 

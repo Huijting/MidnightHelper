@@ -199,7 +199,12 @@ Eerst `/reload`. Op je paladin in Forever, zonder blessing:
       ❌/❓ Rob, 12 nov (Midnight, follower dungeon, Prot Paladin): in het gevecht verdween de melding helemaal, geen
       andere zin. Code (GEMETEN): `MissingBuff.lua:819` verbergt alles als `ns.Aura.Trusted()` false is
       (`C_Secrets.ShouldAurasBeSecret`). AFGELEID: in een dungeon-gevecht is dat zo. Rob koos *"Eerst meten"*.
-- [ ] 📏 **Meting (12 nov):** `/reload` eerst. In een dungeon (follower mag), aura UIT, en tijdens een gevecht `/mh mbuff`
+- [ ] 🆕 **Gebouwd 12 nov na Robs meting** (auras-trusted=false, GetShapeshiftForm=0 secret=false, in gevecht):
+      `/reload`, dungeon (follower mag), Devotion Aura UIT, gevecht → het icoon BLIJFT staan met "Devotion Aura … Cast it
+      from your bars." Gewone buffs (bv. een flask of Arcane Intellect) blijven daar wél zwijgen. Warrior: idem voor de
+      stance. `/mh mbuff` in het gevecht zegt "only aura/stance reminders show".
+- [x] 📏 **Meting (12 nov):** ✅ Rob, screenshot via sparring: "auras-trusted=false" en "GetShapeshiftForm=0
+      secret=false inCombat=true". `/reload` eerst. In een dungeon (follower mag), aura UIT, en tijdens een gevecht `/mh mbuff`
       typen. Maak een screenshot van de chat. Belangrijk zijn twee regels: "→ icoon: … ShouldAurasBeSecret=… auras-trusted=…"
       en (nieuw) "→ form: GetShapeshiftForm=… secret=… inCombat=true". Geen `/reload` erna nodig.
 - [ ] Krijg je ooit een **Greater Blessing** van een andere paladin: dan mag het icoon NIET om een blessing vragen.
