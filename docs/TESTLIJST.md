@@ -21,6 +21,12 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 12 nov (laat) — FOREVER: toets voor "Your characters" (Rob, via sparring: "Ja, zonder toets")
+
+- [ ] `/reload`. Esc → Options → Keybindings → kopje "Midnight Helper" → regel "Your characters", zonder toets. Kies er
+      een → drukken opent het venster, nog een keer drukken sluit het.
+- [ ] In het venster: alleen het character waarop je zit zegt "now"; een character waar je net vanaf kwam "1 min ago".
+
 ## 🆕 12 nov (laat) — BEIDE SPELLEN: toetsen-kaartje per character (Rob, via sparring: "Ja, per character")
 
 - [ ] `/reload`, log in op een character zonder toetsenblok → het keuzevenster komt met alleen "A fixed key for every

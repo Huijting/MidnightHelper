@@ -5462,6 +5462,7 @@ ns._mhLocales.enUS = {
 	FCHARS_NOTE = "A character shows up here after you log in on it once. \"At the trainer\" is how it was when you last played that character.",
 	FCHARS_FORGET_TIP = "Forget this character. It comes back when you log in on it again.",
 	FCHARS_FORGOT_FMT = "forgot %s.",
+	BINDING_ALTS_FOREVER_ONLY = "the \"Your characters\" window is for WoW: Forever.",
 	CMDLIST_ALTS = "All your characters in a row: level, gold, professions, direction, when you last played them, and spells waiting at the trainer.",
 	-- 12 Nov 2026: end of the tool tip's chat line; %s = the command, e.g. /mh vendor skinning.
 	FVEND_TIP_LIST_FMT = "Type %s for the list of sellers.",

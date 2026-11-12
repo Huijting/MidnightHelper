@@ -15,6 +15,17 @@
    Een release alleen op Robs go. CF-plaatjes staan erop (Rob, 11 nov); of hij de nieuwe CF-beschrijving en de
    5.1.0-tekst al plakte: NIET GEMETEN, vragen.
 
+## 🛠️ 12 nov (laat) — toets "Your characters" + "now" alleen voor jezelf
+
+- Rob (via sparring, letterlijk): *"Ja, zonder toets"* (optie A). Bindings.xml `MIDNIGHTHELPER_ALTS`, geen standaardtoets
+  → `MidnightHelper_KeybindAlts()` (Core.lua) = `/mh alts`; in Midnight een chatregel (BINDING_ALTS_FOREVER_ONLY).
+  Naam = `FCHARS_TITLE` (Locale.lua ApplyBindingLabels), dus de toets heet zoals het venster.
+- "now" alleen nog voor het eigen character; een ander minstens "1 min ago" (29.png). ⚠️ Sparring koppelde dit voorstel
+  aan de toets en las Robs ja als ja voor beide; hij noemde de regel niet apart.
+- Rob kijkt zelf of er in Forever onder Esc → Options → Keybindings een kopje "Midnight Helper" staat (of Bindings.xml
+  daar laadt: AFGELEID, bindings-cache.wtf is niet leesbaar).
+- GEMETEN: Bindings.xml parseert (14 toetsen), fchars_test "1 min ago". In het spel: NIET GEZIEN.
+
 ## 🛠️ 12 nov (laat) — toetsen-kaartje per character (Rob via sparring, letterlijk: "Ja, per character")
 
 - `NewChoices.lua`: kaartje `keyblock` heeft `perChar = true`; "gezien" staat onder `keyblock:<GUID>` in

@@ -4665,6 +4665,7 @@ ns._mhLocales.nlNL = {
 	FCHARS_NOTE = "Een character staat hier pas als je er één keer mee hebt ingelogd. \"Bij de trainer\" is hoe het was toen je dat character het laatst speelde.",
 	FCHARS_FORGET_TIP = "Vergeet dit character. Het komt terug als je er weer mee inlogt.",
 	FCHARS_FORGOT_FMT = "%s vergeten.",
+	BINDING_ALTS_FOREVER_ONLY = "het venster \"Je characters\" is voor WoW: Forever.",
 	CMDLIST_ALTS = "Al je characters op een rij: level, goud, beroepen, richting, wanneer je ze het laatst speelde, en spells die klaarliggen bij de trainer.",
 	FVEND_NEED_FMT = "Hiervoor heb je een %s nodig. De dichtstbijzijnde verkoper: %s in %s (%s).",
 	FVEND_NEED_NONE_FMT = "Hiervoor heb je een %s nodig. MH kent geen verkoper aan jouw kant.",

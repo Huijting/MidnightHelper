@@ -200,12 +200,11 @@ local function SeenText(t)
 		return "-"
 	end
 	local now = time()
-	-- "now" only for the character you are on (set by the caller) or under 2 minutes; then minutes up to an hour.
-	-- 12 Nov: "now" under 5 minutes made three characters Rob switched between all read "now".
-	if now - t < 120 then
-		return ns:L("FCHARS_SEEN_NOW")
-	elseif now - t < 3600 then
-		return ns:L("FCHARS_SEEN_MIN_FMT"):format(math.floor((now - t) / 60))
+	-- "now" only for the character you are on (the caller does that); every other one says at least "1 min ago".
+	-- 12 Nov: first "now" under 5 minutes (three characters all "now"), then under 2 (29.png: the Shaman "now" while Rob
+	-- was on the Warrior). Rob, via sparring: "Ja, zonder toets", on the proposal that tied this line to the key.
+	if now - t < 3600 then
+		return ns:L("FCHARS_SEEN_MIN_FMT"):format(math.max(1, math.floor((now - t) / 60)))
 	end
 	local today = date and date("*t", now)
 	local then_ = date and date("*t", t)

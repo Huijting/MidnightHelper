@@ -939,6 +939,16 @@ function MidnightHelper_KeybindTab(id)
 	end
 end
 
+--- 12 Nov 2026 (Rob, via sparring: "Ja, zonder toets"): a key for "Your characters" (ForeverChars.lua), no default
+--- key; the player picks one. Press = open, press again = close, the same as /mh alts.
+function MidnightHelper_KeybindAlts()
+	if ns.ForeverCharsSlash then
+		ns.ForeverCharsSlash("")
+	else
+		print("|cffffcc00Midnight Helper:|r " .. ns:L("BINDING_ALTS_FOREVER_ONLY"))
+	end
+end
+
 -- Skip the achievement node the route arrow is currently on (e.g. an un-spawned
 -- rare) and re-point at the next-nearest open one. Handy as an in-flight keybind.
 function MidnightHelper_KeybindSkipNode()

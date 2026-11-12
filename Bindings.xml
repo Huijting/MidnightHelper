@@ -49,6 +49,10 @@
 	<Binding name="MIDNIGHTHELPER_TAB_ACCOUNT" category="Midnight Helper " runOnUp="false">
 		MidnightHelper_KeybindTab("account")
 	</Binding>
+	<!-- 12 Nov 2026 (Rob: "Ja, zonder toets"): WoW Forever's "Your characters" (/mh alts). No default key. -->
+	<Binding name="MIDNIGHTHELPER_ALTS" category="Midnight Helper " runOnUp="false">
+		MidnightHelper_KeybindAlts()
+	</Binding>
 	<!--
 		The two potion keys. `CLICK <frame>:LeftButton` is how a secure button becomes
 		bindable in Blizzard's own screen — no macro, no taint. See PotionButton.lua for

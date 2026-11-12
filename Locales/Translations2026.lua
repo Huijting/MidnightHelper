@@ -23659,6 +23659,7 @@ if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	NEWC_DONOW_BODY = "Una piccola finestra con cosa puoi fare adesso: spell che ti aspettano dal tuo addestratore, gradi vecchi sulle tue barre, armi da imparare, un buff o uno strumento che manca. Quando deve comparire?",
 	NEWC_PARTY_BODY = "Un piccolo pannello con il tuo gruppo. Clicca su una riga per prendere quel giocatore come bersaglio. Il clic destro gli toglie una maledizione, un veleno o simili con un tuo spell (lo dissolvi). Disattivato finché non lo attivi.",
 	NEWC_PT_BODY = "Un piccolo pannello con ciò che ogni giocatore del tuo gruppo sta attaccando. Tasto destro su un giocatore per togliergli una maledizione, un veleno o simili con un tuo spell (dissolverlo). Appare solo in gruppo. Disattivato finché non lo attivi.",
+	BINDING_ALTS_FOREVER_ONLY = "la finestra \"Your characters\" è per WoW: Forever.",
 	NEWC_ON = "Attivo",
 	NEWC_OFF = "Disattivato",
 	NEWC_KEYS_HEAD = "Un tasto fisso per ogni spell",
@@ -23752,6 +23753,7 @@ if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	FCHARS_NOTE = "Ein Charakter erscheint hier, nachdem du dich einmal mit ihm eingeloggt hast. \"Beim Lehrer\" zeigt den Stand vom letzten Mal, als du diesen Charakter gespielt hast.",
 	FCHARS_FORGET_TIP = "Diesen Charakter vergessen. Er kommt zurück, wenn du dich wieder mit ihm einloggst.",
 	FCHARS_FORGOT_FMT = "%s vergessen.",
+	BINDING_ALTS_FOREVER_ONLY = "das Fenster \"Deine Charaktere\" ist für WoW: Forever.",
 	CMDLIST_ALTS = "Alle deine Charaktere in einer Reihe: Stufe, Gold, Berufe, Richtung, wann du sie zuletzt gespielt hast, und Zauber, die beim Lehrer warten.",
 }) end
 
@@ -23797,6 +23799,7 @@ if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	FCHARS_NOTE = "Un personnage apparaît ici dès que tu t'es connecté une fois avec lui. \"Chez le maître\" montre l'état de la dernière fois où tu as joué ce personnage.",
 	FCHARS_FORGET_TIP = "Oublier ce personnage. Il revient quand tu te reconnectes avec lui.",
 	FCHARS_FORGOT_FMT = "%s oublié.",
+	BINDING_ALTS_FOREVER_ONLY = "la fenêtre \"Tes personnages\" est réservée à WoW: Forever.",
 	CMDLIST_ALTS = "Tous tes personnages à la suite : niveau, or, métiers, voie, quand tu les as joués pour la dernière fois, et les sorts qui t'attendent chez ton maître de classe.",
 }) end
 
@@ -23842,6 +23845,7 @@ if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	FCHARS_NOTE = "Un personaje aparece aquí después de que entres una vez con él. \"Con el instructor\" muestra cómo estaba la última vez que jugaste con ese personaje.",
 	FCHARS_FORGET_TIP = "Olvidar este personaje. Vuelve cuando entres de nuevo con él.",
 	FCHARS_FORGOT_FMT = "%s olvidado.",
+	BINDING_ALTS_FOREVER_ONLY = "la ventana \"Tus personajes\" es para WoW: Forever.",
 	CMDLIST_ALTS = "Todos tus personajes en fila: nivel, oro, profesiones, camino, cuándo jugaste con ellos por última vez y los hechizos que te esperan con el instructor.",
 }) end
 
@@ -23887,6 +23891,7 @@ if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	FCHARS_NOTE = "Um personagem aparece aqui depois que você entra com ele uma vez. \"No treinador\" mostra como estava da última vez que você jogou com esse personagem.",
 	FCHARS_FORGET_TIP = "Esquecer este personagem. Ele volta quando você entrar com ele de novo.",
 	FCHARS_FORGOT_FMT = "%s esquecido.",
+	BINDING_ALTS_FOREVER_ONLY = "a janela \"Seus personagens\" é para o WoW: Forever.",
 	CMDLIST_ALTS = "Todos os seus personagens em fila: nível, ouro, profissões, caminho, quando você jogou com eles por último e feitiços esperando no treinador.",
 }) end
 
