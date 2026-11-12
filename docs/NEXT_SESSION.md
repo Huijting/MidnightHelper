@@ -25,6 +25,8 @@
   schild-spam, 5 jul). Maar de Paladin-aura wordt NIET via aura's gelezen maar via de vormen-API (`InAnyForm`, :385-389,
   showCombat=true), dus die zou kunnen blijven staan. AFGELEID dat het die regel was. Voorstel naar sparring: eerst
   `/mh mbuff` in een gevecht laten meten; dan vormen/stances/aura's (vormen-API) uitzonderen op de aura-regel.
+  Rob (via sparring): *"Eerst meten"*. `/mh mbuff` print nu ook "→ form: GetShapeshiftForm=… secret=… inCombat=…" (alleen
+  diagnose). Bouw daarna gedekt ALS de meting auras-trusted=false én form niet-secret laat zien; anders nieuw voorstel.
 
 ## 🆕 12 nov — Onderzoek: richtingen per class in Forever (Rob: "Ja, alle classes", via sparring; GEEN bouw-go)
 

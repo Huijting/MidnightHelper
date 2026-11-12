@@ -491,6 +491,15 @@ function ns.PrintMissingBuffDebug()
 	local trusted = ns.Aura and ns.Aura.Trusted and ns.Aura.Trusted()
 	print(("  → icoon: enabled=%s  ShouldAurasBeSecret=%s  health-secret=%s  auras-trusted=%s"):format(
 		tostring(enabled), secretAuras, secretHP, tostring(trusted)))
+	-- 12 Nov 2026 (Rob: "Eerst meten"): forms, stances and the Paladin aura are read through GetShapeshiftForm, not
+	-- through auras. Is THAT readable in a fight where auras are secret? If yes, they can stay visible there.
+	if GetShapeshiftForm then
+		local okF, idx = pcall(GetShapeshiftForm)
+		local isSecret = okF and issecretvalue and issecretvalue(idx) and true or false
+		print(("  → form: GetShapeshiftForm=%s  secret=%s  inCombat=%s"):format(
+			okF and (isSecret and "?" or tostring(idx)) or "err", tostring(isSecret),
+			tostring(InCombatLockdown and InCombatLockdown() and true or false)))
+	end
 	if enabled == false then
 		print("     |cffff6060(UIT → aanzetten in Settings → missende buff)|r")
 	elseif trusted == false then

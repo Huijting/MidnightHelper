@@ -198,8 +198,10 @@ Eerst `/reload`. Op je paladin in Forever, zonder blessing:
 - [ ] In een gevecht (alleen bij aura/pet): de zin eindigt op "Cast it from your bars." in plaats van "Click the icon".
       ❌/❓ Rob, 12 nov (Midnight, follower dungeon, Prot Paladin): in het gevecht verdween de melding helemaal, geen
       andere zin. Code (GEMETEN): `MissingBuff.lua:819` verbergt alles als `ns.Aura.Trusted()` false is
-      (`C_Secrets.ShouldAurasBeSecret`). AFGELEID: in een dungeon-gevecht is dat zo. Meten: `/mh mbuff` IN het gevecht,
-      met de aura uit → regel "auras-trusted=…". Voorstel ligt bij Rob (sparring).
+      (`C_Secrets.ShouldAurasBeSecret`). AFGELEID: in een dungeon-gevecht is dat zo. Rob koos *"Eerst meten"*.
+- [ ] 📏 **Meting (12 nov):** `/reload` eerst. In een dungeon (follower mag), aura UIT, en tijdens een gevecht `/mh mbuff`
+      typen. Maak een screenshot van de chat. Belangrijk zijn twee regels: "→ icoon: … ShouldAurasBeSecret=… auras-trusted=…"
+      en (nieuw) "→ form: GetShapeshiftForm=… secret=… inCombat=true". Geen `/reload` erna nodig.
 - [ ] Krijg je ooit een **Greater Blessing** van een andere paladin: dan mag het icoon NIET om een blessing vragen.
 - [x] Midnight (gewone WoW), een character dat een buff mist: dezelfde soort zin, met de naam van die buff. ✅ Rob, 12 nov
       (via sparring): "die is goed" (welke buff en welk character: niet gezegd).
