@@ -16,6 +16,17 @@ Welke routines er zijn, met ID, tijd en bestand: **`docs/REGIE.md`, tabel 1** (�
 van de ronde staat in `docs/CLAUDE_HISTORIE.md`.
 Ook buiten de ronde: bij elke nieuwe functie, tag of CurseForge-upload werk je **`docs/SITE_SEIN.md`** bij, in dezelfde commit.
 
+## 🚪 Eén voordeur — proef 12 t/m do 19 nov 2026 (Rob: "Ja, één voordeur, een week proef")
+
+Rob praat in principe alleen met de sparring-chat van die dag; hij wil niet "van de een naar de andere gegooid" worden.
+- Een ja die de sparring-chat doorstuurt MET Robs letterlijke woorden telt als Robs ja. Zonder letterlijke woorden: geen
+  ja, vraag het aan de sparring-chat.
+- Een vraag of keuze voor Rob gaat kort naar de sparring-chat (opties + jouw advies), niet wachten in je eigen chat.
+- Release, tag en push naar spelers: alleen als Robs zin letterlijk in het bericht staat.
+- Praat Rob toch rechtstreeks met jou, dan geldt dat gewoon; meld de sparring-chat daarna in één regel wat hij besliste.
+- ⚠️ Wijzigingen aan CLAUDE.md, recepten of instellingen: alleen op Robs EIGEN woorden in je eigen chat.
+- Na 19 nov: Rob beslist of het blijft. Tot dan staat deze regel hier.
+
 ## How to work with Rob (important)
 
 - **Respond in Dutch, concise and direct.** Minimal fluff.

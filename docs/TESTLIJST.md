@@ -21,6 +21,12 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 12 nov — MIDNIGHT: `/mh partytest` doet weer de solotest (Rob: "Ja, doe allebei")
+
+Eerst `/reload`. In Midnight, solo:
+- [ ] `/mh partytest` → het Party targets-paneel verschijnt met testregels (en nog eens = weg). Niet meer "is for WoW:
+      Forever". In Forever doet `/mh partytest` nog steeds de groepsmeting.
+
 ## 🆕 12 nov — MIDNIGHT: groepspaneel, rechtsklik op het doelwit (Rob: "Optie 1, jouw advies")
 
 Eerst `/reload`. Op je Prot Paladin, in een groep (een dungeon of follower dungeon), met het Party targets-paneel:

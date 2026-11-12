@@ -242,7 +242,8 @@ local CLASS_MACROS = {
 		tpl = "#showtooltip {1022}\n/stopcasting\n/cast [mod:alt,@player][@mouseover,help,nodead][help,nodead][@player] {1022}" },
 	-- Rob, 11 Nov 2026 (via the sparring chat, "Klein en midden"; here "Ja, alleen klein"): the Paladin has no interrupt
 	-- in Forever, so its "stop" button is Hammer of Justice, a stun (GEMETEN: 853 Hammer of Justice, 1152 Purify in wago
-	-- SpellName wowf 1.60.1.70888; Rob's trainer window showed both at level 8). Same target order as Kick and Shield Bash.
+	-- SpellName wowf 1.60.1.70888; Rob's trainer window showed both at level 8). Target order: mouse, then focus, then your
+	-- target (the same as Sap and Blind; Kick and Shield Bash put focus first).
 	{ class = "PALADIN", key = "hammer", name = "Hammer Stun", need = 853, level = 8, talent = false, warn = nil,
 		tpl = "#showtooltip {853}\n/cast [@mouseover,harm,nodead][@focus,harm,nodead][] {853}" },
 	{ class = "PALADIN", key = "purify", name = "Purify", need = 1152, level = 8, talent = false, warn = nil,

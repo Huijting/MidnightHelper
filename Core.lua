@@ -2565,8 +2565,13 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 	if partyArg then
 		if ns.ForeverPartyProbeSlash then
 			ns.ForeverPartyProbeSlash(partyArg)
+		elseif partyArg == "" and ns.TogglePartyTargetsSoloTest then
+			-- 12 Nov 2026 (Rob: "Ja, doe allebei"): in Midnight this is the Party targets solo test (PartyTargets.lua).
+			-- The Forever measurement above caught every "partytest" and the solo test further down was never reached.
+			ns.TogglePartyTargetsSoloTest()
 		else
-			print("|cffffcc00Midnight Helper:|r /mh partytest is for WoW: Forever.")
+			print("|cffffcc00Midnight Helper:|r /mh partytest" .. (partyArg ~= "" and (" " .. partyArg) or "")
+				.. " is for WoW: Forever.")
 		end
 		return
 	end
@@ -4016,12 +4021,7 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
-	if msg == "partytest" then
-		if ns.TogglePartyTargetsSoloTest then
-			ns.TogglePartyTargetsSoloTest()
-		end
-		return
-	end
+	-- /mh partytest (Midnight: Party targets solo test) is routed above, next to the Forever measurement.
 
 	if msg == "map" then
 		if ns.ShowCurrentInstanceMap then

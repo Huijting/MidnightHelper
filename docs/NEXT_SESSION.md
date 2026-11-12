@@ -14,6 +14,19 @@
    Een release alleen op Robs go. CF-plaatjes staan erop (Rob, 11 nov); of hij de nieuwe CF-beschrijving en de
    5.1.0-tekst al plakte: NIET GEMETEN, vragen.
 
+## 🆕 12 nov — "Eén voordeur" vastgelegd + `/mh partytest` werkt weer in Midnight (Rob: "Ja, doe allebei", hier zelf)
+
+- 🚪 Afspraak "één voordeur", proef t/m do 19 nov (Rob in sparring: "Ja, één voordeur, een week proef"; hier zelf "Ja,
+  doe allebei"): blok bovenaan `CLAUDE.md` + regel in `~/.claude/skills/nieuwe-chat/SKILL.md` (ook in elke prompt) en
+  `~/.claude/skills/verder/SKILL.md`. De recepten staan buiten de repo (niet in git). Na 19 nov beslist Rob.
+- 🐛 `/mh partytest` in Midnight: de Forever-meting (Core.lua ~2564) ving elke "partytest" af en zei "is for WoW:
+  Forever"; de solotest verderop werd nooit bereikt (helpers sparring, GEMETEN in de code). Nu: geen Forever-meting →
+  kaal `partytest` = `ns.TogglePartyTargetsSoloTest()`; de oude dode tak (~4019) is weg. Lua-syntax OK, lint 0 HARD.
+  ⚠️ Lint [16] telt nu 237 i.p.v. 238 gerouteerd: zijn patroon ziet `msg:lower() == "partytest"` niet (blinde vlek,
+  [27] ziet hem wel). Niet in het spel gezien.
+- Ook: commentaar `ForeverMacros.lua:245` klopte niet ("zelfde volgorde als Kick en Shield Bash"); Hammer is muis →
+  focus → doelwit, net als Sap en Blind. Alleen het commentaar veranderd.
+
 ## 🆕 12 nov — Midnight-groepspaneel: stop-spell op het doelwit als je geen purge hebt (Rob: "Optie 1, jouw advies", via sparring)
 
 - Beantwoordt punt 6 van "Open voor 12 nov". Optie 1 = "Purge blijft, en wie geen purge heeft krijgt zijn stop-spell".
