@@ -58,6 +58,18 @@ Eerst `/reload`, buiten een gevecht.
 - [ ] Een gevecht beginnen met de vakjes aan → ze gaan vanzelf weg, met een regel in de chat.
 - [ ] `/mh move why` → per onderdeel: op je scherm, nu verborgen, of uit.
 
+## 🆕 12 nov (avond) — FOREVER: wat jouw richting nodig heeft (Rob, via sparring: "1 en 2, de wapens er meteen bij")
+
+Eerst `/reload`, op je Protection-paladin.
+- [ ] `/mh play` → bovenaan staat nu een blok "Your direction: Protection": zwaarste pantser (Mail, Plate vanaf level 40),
+      wapen volgens spelersgidsen (een eenhandig wapen en een schild), "Holy Shield only works with this in your hands:
+      Shields (a talent: at the earliest at level 30)", dat je elk wapen mag gebruiken, en een grijze bronregel.
+- [ ] `/mh weapons` → bij One-Handed Maces, Axes en Swords staat een groen +. Onderaan: "Your direction Protection: player
+      guides pair it with … , Shields". Je two-handed sword staat er gewoon nog, zonder +.
+- [ ] Wissel van richting (knop in `/mh play`, of `/mh direction`) → het blok en de + in `/mh weapons` veranderen mee
+      (bv. Retribution: + bij de tweehandige wapens).
+- [ ] "No choice" → het blok is weg, de + ook.
+
 ## 🆕 12 nov (avond) — FOREVER: klein groepspaneel (Rob, via sparring: "A, eerst klein")
 
 Eerst `/reload` in Forever. Het staat standaard UIT.

@@ -10,7 +10,447 @@ Split again on this run: 284 lines moved here from the live file (it had 1547).
 
 Split again on this run: 348 lines moved here from the live file (it had 1588).
 
+Split again on this run: 438 lines moved here from the live file (it had 1546).
+
 ---
+
+## 🆕 7 nov (avond) — Forever: waarschuwing voor je laatste gereedschap (Rob: "ja doe maar")
+
+- Aanleiding: Rob verkocht per ongeluk zijn Skinning Knife. Nieuw `Modules/ForeverToolGuard.lua` (beide TOCs,
+  `IS_FOREVER`), `/mh toolguard [on|off]` (Core.lua; kaal = diagnose). Alleen bij je LAATSTE van een soort:
+  1. bij een verkoper een rode tooltip-regel (`TooltipDataProcessor.AddTooltipPostCall`, Item);
+  2. bij vernietigen een eigen MH-notitie onder de game-dialoog (`DELETE_ITEM_CONFIRM` → GUID → itemID;
+     `StaticPopup_FindVisible`; niets in de Blizzard-dialoog geschreven);
+  3. toch verkocht: venster met knop Terugkopen (`GetBuybackItemLink`/`BuybackItem`), via MERCHANT_UPDATE/BAG_UPDATE_DELAYED.
+- Data GEMETEN door mh-research (wago 1.60.1.70862 ItemSparse.TotemCategoryID: 22 items; + 5060 Thieves' Tools en 4471
+  Flint and Tinder per item-id; totems 5175-5178 niet te verkopen/vernietigen → weggelaten; hengels geen categorie).
+  Interface-feiten uit Gethe wow-ui-source branch `forever` (commit 9dc84f0d3b): Forever-UI = Mainline + Camelot-overrides.
+- ✅ Rob 7 nov laat (screenshots, Mining Pick): tooltip-regel bij de verkoper, venster na verkopen, en Buy back
+  ("de buyback werkte") — alle drie GEMETEN in de game. "Dock to window" viel over de tekst → tekst naar -32 (`1dae53e`,
+  nog niet opnieuw gezien). Nog open: de vernietig-notitie, "geen regel zonder verkoper", "twee = geen waarschuwing".
+- AFGELEID: of vervangers (hogere staaf, Gnomish Army Knife) tellen — we tellen alleen dezelfde soort.
+
+## 📋 Open voor de volgende bouwchat (7 nov laat)
+
+- Site-chat seinen over de drie nieuwe Forever-dingen van vanavond (Train all, totem-regel, gereedschap-waarschuwing);
+  regel "site volgt elke functie". Live zetten alleen na Robs ja.
+- TESTLIJST bovenaan: totem-regel (bank-truc of rond level 10), Train all-details, vernietig-notitie, key block-popup.
+- ✅ CF GEMETEN 8 nov (files-API): 9495701 "v5.0.1" = 12.0.7/12.1.0/12.1.5/12.1.7, 9495775 "v5.0.1-forever" =
+  alleen 1.60.1, beide status 4 (zoals 5.0.0). De splitsing werkt.
+- Site-chat (nu «Site chat 08-11», local_c8d2e9f7) wil het sein over Train all/totem/gereedschap pas als die UIT zijn.
+- Optioneel Rob: `CURSEFORGE_DESCRIPTION.md` opnieuw plakken (zin over tooltips + 3D-trainer).
+- Volgende release (5.0.2?) bundelt Train all + totem-regel + gereedschap-waarschuwing; alleen op Robs go.
+
+## 🆕 7 nov (avond) — Forever: trainervenster zegt welk totem-voorwerp een Shaman mist (Rob: "ja")
+
+- Aanleiding: Robs Tauren leerde Earthbind Totem op 6, tooltip "Tools: Earth Totem" rood; ons venster zei niets.
+- `ForeverTrainer.lua`: `TotemFor(id)` leest de "Tools:"-regel uit de tooltip van de game (verborgen GameTooltip,
+  prefix uit `SPELL_TOTEMS` als die bestaat) en vergelijkt met de clientnamen van items 5175/5176/5177/5178 (GEMETEN
+  wago ItemSparse 70862, TotemCategory 2/4/5/3). Geen eigen spell-lijst. Zit het item niet in je tassen: oranje regel
+  onder de spell ("needs the Earth Totem, from a class quest at level 4"), en bovenaan een kopje voor totems die je al
+  kent maar niet kunt neerzetten. Alleen SHAMAN.
+- Startplek alleen op een Engelse client (Engelse NPC-namen), alleen wat twee mh-research-rapporten samen hadden:
+  Earth Tauren Seer Ravenfeather / Orc+Troll Canaga Earthcaller / Dwarf Teo Hammerstorm; Fire Tauren Narm Skychaser;
+  Water/Air Horde Searn Firewarder. Levels 4/10/20/30.
+- Teksten `FTRAIN_TOTEM_*`: enUS, nlNL, ruRU, de/fr/es/pt. ⚠️ AFGELEID, niet getest: of `SetSpellByID` op een verborgen
+  tooltip in Forever de Tools-regel geeft.
+
+## 🆕 7 nov (avond) — Forever: knop "Train all" onder het trainer-venster (Rob: "ja")
+
+- Aanleiding: Rob zag bij zijn zusje (undead warlock) de knop niet. GEMETEN: die komt van **Talents Forever**
+  (`TalentsForeverBook/UI.lua`, knop `TalentsForeverBookTrainAll`), niet van MH; zij heeft die addon vermoedelijk niet.
+  Talents Forever heeft geen licentiebestand (GEMETEN) → niets gekopieerd, eigen code.
+- Nieuw `Modules/ForeverTrainAll.lua` (beide TOCs, na ForeverTrainer.lua; `IS_FOREVER`-guard): knop onder
+  `ClassTrainerTrainButton`, tekst "Train all (n, prijs)", tooltip per spell + "X more than your money covers". Klik koopt
+  één rij, wacht op TRAINER_UPDATE, leest de lijst opnieuw; geen update na 1,5 s en de rij is nog te koop → stop + melding
+  (geweigerd kopen geeft geen Lua-fout). Geen knop bij profession trainer (`IsTradeskillTrainer`), Beast Training
+  (`npc`=pet of trainingspunten), of als Talents Forever geladen is in stand `auto`.
+  `/mh trainer button [on|off|auto]`; kaal = diagnose. Teksten `FTRAIN_ALL*`: enUS, nlNL, ruRU, de/fr/es/pt
+  (Translations2026, eigen vertaling, geen itIT).
+- ✅ Rob 7 nov: werkt in de game (Talents Forever uit, onze knop leerde de spells) → rijen lezen en kopen door een addon
+  mag bij de class trainer. Nog AFGELEID: of `IsTradeskillTrainer` bestaat (profession trainer zonder knop). We veranderen het filter van het venster niet: staat "Available" uit, dan ziet de knop niets.
+  Testpunten in TESTLIJST.
+
+## ✅ 7 nov (avond) — v5.0.1-forever: Forever-helft alsnog geüpload (Rob: "Ja, push maar")
+
+- Tag `v5.0.1-forever` op `0daad62`, run 42395063118 GEMETEN: alleen Forever-stap; "Game version: 1.60.1",
+  `MidnightHelper-v5.0.1-forever.zip` → CurseForge, Wago, GitHub "Success!"; verify: release bestaat, zip aanwezig.
+  De reparatie (`## Interface-Camelot: 16001`) werkt dus.
+- Om 17:13 UTC stonden 5.0.1 en 5.0.1-forever nog NIET in de publieke CF files-API (wachten op goedkeuring, 5.0.0 duurde
+  ~11 min). Nog nameten: twee bestanden, retail-bestand zonder 1.60.1, forever-bestand alleen 1.60.1.
+- Les: de packager toetst bij `-g` ELKE toc; een volgende normale tag doet beide stappen in één run.
+
+## 🚀⚠️ 7 nov (avond) — v5.0.1 getagd (Rob: "Ja, tag maar"): Retail UIT, Forever-helft MISLUKT
+
+- Run 42394547282 GEMETEN: stap Retail OK — `MidnightHelper-v5.0.1.zip`, game versions 12.1.7/12.1.5/12.1.0/12.0.7 (geen
+  1.60.1), CurseForge/Wago/GitHub "Success!". Stap Forever faalde meteen: *"MidnightHelper.toc does not have an interface
+  version that is compatible with the game version forever"* — de packager toetst élke toc aan `-g`. Verify-stap
+  overgeslagen. Forever-spelers zitten dus nog op 5.0.0 (dat bestand heeft 1.60.1).
+- Reparatie (gecommit, NIET getagd): `## Interface-Camelot: 16001` in MidnightHelper.toc (packager-regel; AFGELEID: de
+  client negeert hem) + `release.yml`: tag die op `-forever` eindigt draait alleen de Forever-stap (herstel-tag
+  `v5.0.1-forever`), verify verwacht dan geen Retail-zip. AFGELEID uit release.sh (fallback-tak leest
+  `## Interface-<type>`); niet lokaal gedraaid. Wacht op Robs go voor de herstel-tag.
+
+## 📦 7 nov (avond) — 5.0.1 klaargezet (Rob: "Ja, 5.0.1")
+
+- Beide TOCs 5.0.1; Changelog.lua blok 5.0.1 (CHANGELOG_501_1-3, enUS); CHANGELOG.md; RELEASE_NOTES.md =
+  docs/CURSEFORGE_5.0.1.md (GEMETEN byte-gelijk, 27 regels, met beta-alinea bovenaan); CURSEFORGE_DESCRIPTION.md: één zin
+  over tooltips + 3D-trainer (Rob moet de beschrijving opnieuw plakken als hij die zin wil). Syntax OK, lint 0 HARD.
+- Na de tag nameten (eerste gesplitste upload): CF files-API twee bestanden met juiste `gameVersions`, GitHub-release twee
+  zips, Wago in de log. Zie RELEASE_CHECKLIST stap 1.
+
+## 🧍 7 nov (avond) — trainervenster: draaiend 3D-model van de dichtstbijzijnde trainer (Rob: "Ja, bouw maar")
+
+- `ForeverTrainer.lua`: `Candidates` geeft nu `npc` mee (MH-lijst, HandyNotes `node.npc`, eigen `/mh trainer here`);
+  `ns.ForeverTrainerNearestNpc()`. Venster: `PlayerModel` rechts (170 breed), `SetCreature(npc)`, `SetPortraitZoom(0)`,
+  draait via OnUpdate; naam eronder. Venster wordt 740 breed met model, 560 zonder; scroll heeft nu een vaste breedte.
+  Nalaad-tik 0,2 s; na 1,5 s `GetModelFileID` leeg → paneel weg (geen zwart vak). Drusilla La Salle = npc 459 in
+  MH-lijst én HandyNotes (GEMETEN). ⚠️ AFGELEID, niet getest: `PlayerModel`/`SetCreature` in de Forever-client.
+
+## 💬 7 nov (avond) — trainervenster: tooltip op elke spell (Rob: "ik wil tooltips bij de spells")
+
+- `ForeverTrainer.lua`: het venster is nu één font string per regel (pool `f.rows`) i.p.v. één tekstblok; spellregels
+  (nu leren, eerst nodig, volgend level) krijgen een onzichtbare knop (`f.hot`) met `GameTooltip:SetSpellByID` (pcall).
+  Bewust geen `|Hspell`-links: die werken niet in een ScrollFrame (notitie PlayCardWindow.lua). `Text()` geeft nu ook
+  `lines, ids` terug; `ns.ForeverTrainerText` blijft één string. Syntax OK, lint 0 HARD. Niet in de client getest;
+  ⚠️ AFGELEID: `SetSpellByID` bestaat in de Forever-client (pcall vangt het als dat niet zo is → geen tooltip).
+
+## 🔑 7 nov (avond) — toetsenblok-melding noemt de spell, niet "macro" (Rob: "Ja, doe maar")
+
+- Bug (Rob, screenshot): Forever-popup "New for your key block: macro -> 2 / macro -> F". Oorzaak GEMETEN: de want is
+  `{kind="macro", id=<macronaam>}` en `OccupantName` zoekt `GetMacroInfo(naam)` — die macro bestaat pas na "Place it",
+  dus terugval "macro". Fix `KeyBlock.lua`: want krijgt `label = hit.spell.name` (clientnaam uit ForeverBlock),
+  `MissingName` gebruikt die. Ook de chatregel na Bijwerken en `/mh block` profiteren.
+- Nieuwe grijze regel onder de lijst als er een macro tussen zit: `KEYBLOCK_NEW_MACRO_NOTE` ("…always uses your highest
+  rank"). Rank-woord = clientwoord (CLIENT_NAMES_FOREVER: Rang/Rang/Rango/Grau/Уровень). itIT bewust niet (geen
+  Forever-client). locale_probe GEMETEN OK in 6 talen; lint 0 HARD; syntax OK. Niet in de client getest.
+
+## 📦 7 nov (avond) — vanaf de volgende release: apart Forever-bestand (Rob: "Ja, bij volgende")
+
+- Waarom: CF telt per bestand. 5.0.0 = één zip voor Retail + Forever → GEMETEN (CF files-API) 90 downloads, niet te
+  splitsen. Nu draait `release.yml` de packager twee keer: `-g retail` en `-g forever` (→ `…-forever.zip`, label
+  `v…-forever`, alleen 1.60.1). GEMETEN in packager@v2 `release.sh`: forever/camelot bekend, CF-type 88568,
+  `set_build_version` houdt alleen de gekozen versies, GitHub-release wordt bijgewerkt (niet dubbel). Verify-stap eist nu
+  beide zips op de GitHub-release.
+- ⚠️ AFGELEID, niet getest: dat de Retail-run de 1.60.1 echt weglaat, en dat Wago beide bestanden goed labelt. Na de
+  eerste gesplitste tag nameten (CF files-API: `gameVersions` per bestand). Tellen: CF-teller van het `-forever`-bestand.
+- Wago: bij een ontbrekende Wago-versie pakt de packager de dichtstbijzijnde (log-WARNING lezen).
+
+## 🚀 7 nov (middag) — 5.0.0 IS UIT (tag v5.0.0, Robs go)
+
+- Tag `v5.0.0` (annotated) op `817daf0`, gepusht na "SITE KLAAR" van de site-chat. Release-run 42373267211 GEMETEN:
+  multi-version 12.1.7 / 12.1.5 / 12.1.0 / 12.0.7 / **1.60.1**, `MidnightHelper_Camelot.toc` + alle Forever-bestanden in
+  de zip, CurseForge "Success!", Wago "Success!", GitHub-release bestaat.
+- ✅ GEMETEN (CF-API, 7 nov): file 9492132 "v5.0.0", releaseType 1, gameVersions 12.0.7/12.1.0/12.1.5/12.1.7 + **1.60.1
+  (type 88568 = Forever)**, goedgekeurd 12:48:55 UTC. Rob: *"CF is live en gecheked 🙂 description geplakt"*. Site-chat
+  gemeld (strip bijwerken, live na Robs ja).
+- Open: (1) Rob test na de release (TESTLIJST 7 nov nacht + nacht laat). (2) Iemand met een niet-Engelse Forever-client
+  zoeken voor het toetsenblok. (3) Site live (site-chat, na Robs ja).
+- Rob installeert MH op zijn eigen pc NIET via de CurseForge-app in `_forever_`: daar staat de koppeling naar de repo.
+
+## 🌍 7 nov (nacht, laat) — 5.0.0: vertaalronde af + toetsenblok op spellnummers (Rob: "ja op spell nummers")
+
+- **Robs go voor de tag** (letterlijk): *"Als alles klaar is, ook voor de site chat, dan krijg je bij deze een go."* en
+  *"Nee, tag maar"* (geen eigen test vooraf). Voorwaarden: vertaalronde af + checks schoon + site-chat meldt "klaar".
+- **Gemeten (mh-research, wago wowf 1.60.1.70862 = Robs build):** `docs/forever/CLIENT_NAMES_FOREVER_2026-11-07.md`,
+  448 namen in de/fr/es/esMX/pt/ru. **Forever heeft GEEN itIT-client** (launcher-config: enUS deDE esES esMX frFR ruRU
+  koKR ptBR zhTW zhCN). Spells kunnen per rank anders heten (deDE Smite r1 "Heilige Pein", r2+ "Göttliche Pein").
+  ⚠️ Correctie op die tabel (mh-research zelf): Druid-rij "Growl" noemt 1853 (Hunter-pet); de Druid-Growl is 6795; de
+  "Claw"-telling T13 telde pet-ranks mee. De namen in die rijen kloppen wel.
+- 🐛→✅ **Toetsenblok was leeg op elke niet-Engelse Forever-client** (zocht en castte op ENGELSE naam). Nu: `Known()` zoekt
+  ook op id (`Modules/ForeverSpellIds.lua`, 487 namen / 1704 ids, mh-research, in RANK-volgorde — niet sorteren! Slam
+  r1 = 1240193) + trainer-ids; de macro krijgt `C_Spell.GetSpellName(id)` (clientnaam van de hoogste bekende rank);
+  "niet in MH's lijst" vergelijkt ook op id. Offline GEMETEN (scratch `forever_locale_block_test.lua`): 9/9 classes
+  evenveel macro's als Engels, 0 Engelse namen in `/cast`, 0 namen zonder id; controle (oude code) = 0 macro's.
+  ⚠️ Niet in een echte niet-Engelse client getest. ⚠️ AFGELEID risico: frFR Smite en Chastise (Dwarf) heten beide
+  "Châtiment" → `/cast Châtiment` kan bij een Franse Dwarf Priest de verkeerde pakken.
+- **Vertalingen (mh-writer, eigen werk, niet native-gecheckt):** How you play per taal in
+  `Locales/ForeverHowToPlay_<deDE|frFR|esES|esMX|ptBR|ruRU|nlNL>.lua` (alle 52 secties; esMX ~120 namen anders), 60 korte
+  sleutels per taal (Translations2026 + ruRU; 3 oude HOME_FOREVER_* in place vervangen want `fill()` overschrijft geen
+  vertaling), itIT alleen de 4 retail-reclamesleutels. "block D" = woord van elk pakket (`FTRAIN_BLOCK_D`).
+  locale_probe GEMETEN: OK in alle 7 (itIT Forever-sleutels → Engels, bewust). check_drift: alleen `GEARLADDER_FOOT`
+  (niet van vandaag).
+- Open, niet gemeten: welk woord het Forever-menu voor "AddOns" toont per taal (vertalers lieten "AddOns" staan).
+
+## 🚀 7 nov (nacht) — 5.0.0 in voorbereiding: Forever in de release (Rob: "Ja, begin"; NOG GEEN TAG)
+
+- Robs keuzes: **5.0.0**, **meteen Release** (geen beta), retail-melding **alle drie** (changelog + Home-kaart + eenmalige
+  chatregel), How you play **"Alles in 5.0.0"** (alle talen vóór de release). Tag `v5.0.0` pas op Robs go.
+- ✅ Gedaan: `MidnightHelper_Camelot.toc` in git (uit `.gitignore`, `.pkgmeta`, `package.ps1`), `## Version 5.0.0` in
+  beide TOC's (+ `X-Curse-Project-ID`/`X-Wago-ID` in Camelot), RELEASE_CHECKLIST zegt "beide TOC's".
+  Vertaalbaar gemaakt: questhint (`FQH_*`), balken-vraag (`FBAR_*`; `/mh mylayout`-chat blijft Engels = handcommando),
+  How you play (per taal `Locales/ForeverHowToPlay_<code>.lua`, zelfde vorm; esMX valt terug op esES; nlNL ✅ klaar,
+  door mh-writer, in beide TOC's, alleen op Forever). Retail: Home-kaart `HOME_FOREVER_AD_*` (wegklikbaar,
+  `db.foreverAnnounceSeen`) + chatregel `FOREVER_AD_CHAT` (`db.foreverChatSeen`, 8 s na eerste laadscherm).
+  Changelog `CHANGELOG_500_0..9`, `RELEASE_NOTES.md` = `docs/CURSEFORGE_5.0.0.md` (byte-gelijk GEMETEN),
+  `CHANGELOG.md`, `CURSEFORGE_DESCRIPTION.md` (Forever-blok bovenaan; Rob plakt).
+- 🔴 OPEN vóór de tag:
+  1. mh-research meet de Forever-spellnamen per taal → `docs/forever/CLIENT_NAMES_FOREVER_2026-11-07.md` (loopt).
+  2. Daarna How you play + alle `FTRAIN_/FQH_/FBAR_/HOME_FOREVER_/TOOLLP_HOWTO/TRAINER/FHOWTO_/FOREVER_AD_`-sleutels naar
+     de/fr/es/pt/it/ru (Translations2026 + ruRU), `HOME_FOREVER_BODY` is gewijzigd (drift).
+  3. Site-chat inlichten (Forever op de site; live pas na de release).
+  4. Rob test (TESTLIJST), dan zijn go → tag.
+- ✅ GEMETEN (Robs screenshot): de CurseForge-app heeft een keuzelijst Retail / Forever / Retail PTR; alle teksten zeggen
+  nu "switch from Retail to Forever".
+- `docs/forever/MidnightHelper_Camelot.toc.txt` is nu overbodig (het echte bestand zit in git); bijgewerkt, niet gewist.
+
+## 🛠️ 7 nov (avond, laatst) — trainervenster: je geld + vertaalbaar (Rob: "Ja, dat klopt")
+
+- ✅ GEMETEN Rob (screenshots): het Forever-startscherm, het trainervenster en de knoppen werken. Tools-tab niet gezien.
+- Rob: *"dat we ook kunnen zien hoeveel geld we hebben … nu moet ik ook eerst op B drukken"*. `ForeverTrainer.lua`
+  `Text()`: bovenaan *Your money* (`GetMoney`), rood met het tekort als het niet genoeg is voor wat je nu kunt leren;
+  het venster vult zich opnieuw bij `PLAYER_MONEY`. Startscherm: ook een geld-regel (ververst pas bij opnieuw openen).
+- Trainervenster vertaalbaar: `FTRAIN_*`-sleutels (enUS + nlNL); ook de trainer-regel, afstand en bron. De chatregels
+  van `/mh trainer check` blijven Engels (diagnose). ⚠️ De offline scratch-test van de trainer kent `ns:L` niet; draai
+  hem niet zonder stub.
+- Kruimelpad op Forever: "Ik > Forever" (UI.lua, tab `home`). "(2)" → "2 spells". Titel goud (1, 0.82, 0).
+- Rob over retail: niet nodig — daar leer je spells vanzelf, zonder trainer of geld (AFGELEID, niet nagemeten).
+- Syntax OK, lint 0 HARD. Niet in het spel gezien.
+
+## 🛠️ 7 nov (avond, laat) — Forever-startscherm + Tools-kaarten (Rob: "Ja, graag gedaan")
+
+- Rob: het startscherm moet duidelijk "speciaal voor Forever" zijn, en `/mh play` was nergens in MH te vinden.
+- `HomeDashboard.lua`, alleen `ns.IS_FOREVER`: titel `HOME_FOREVER_TITLE`, ondertitel "Level N <class>" i.p.v. de
+  weekreset; blokken *Je trainer* (`ForeverTrainerCompute`: nu te leren + prijs, of volgende level; knoppen
+  `ShowForeverTrainer` / `ForeverTrainerGo` + `ForeverTrainerNearestText`), *Je class spelen* (How you play, toetsenblok,
+  toetsen), daarna de vroege-test-tekst (bijgewerkt: wat nu werkt). Retail ongewijzigd.
+- `ToolsLaunchpad.lua`: twee kaarten met `foreverOnly = true` (How you play `/mh play`, trainer `/mh trainer`); op retail
+  verborgen.
+- Dubbele "Info"-knop: `ABOUT_BUTTON` nl "Over MH", de "Über MH", it "Su MH" (linter wil commentaar op een eigen regel).
+- Teksten alleen enUS + nlNL. 🔴 **OPEN — stap 2 van Robs plan: de vertaalronde** — ALLE nieuwe Forever-teksten (trainer,
+  questhint, mylayout, startscherm, Tools-kaarten, `HOME_FOREVER_BODY` is gewijzigd → drift) naar de/fr/es/pt/it/ru, met
+  per taal GEMETEN clientnamen voor spells. Vóór de release.
+- Syntax OK, lint 0 HARD. Niet in het spel gezien (TESTLIJST 7 nov avond).
+
+## 🛠️ 7 nov (avond) — Forever: bij een nieuw character de MH-balkenindeling aanbieden (Rob: "Bouw het maar")
+
+- Rob: standaard vragen bij een nieuw character, IN PLAATS VAN de automatische "Use your layout Inchy Hunter?"-vraag, met
+  een knop om de vraag niet meer te krijgen en een instelling om hem weer aan te zetten; *"Doe voorlopig alleen maar
+  forever"*. Die oude automatische vraag vervalt (Robs keuze); `/mh mylayout` blijft als commando.
+- `ForeverLayoutCarry.lua`: na het inloggen (wacht op Edit Mode, filmpje, combat) op een character op Modern/Classic de
+  vraag *"Set up the Midnight Helper bar layout?"* — **Yes** = `MH_EditModeMakeOwnLayout` (= toetsenblok stap 2) + popup
+  "Reload now" → `KeyBlockReloadAndReopen` (toetsenblok gaat open voor stap 1); **Not now** = per character
+  (`foreverBarLayoutAsked`); **Never ask again** = `foreverAskBarLayout = false`. Niet bij EllesmereUI-bars of een eigen
+  layout. `/mh mylayout check` zegt ook waarom de vraag wel/niet komt.
+- Instelling `mh_foreverAskBarLayout` in SettingsDefs (alleen `ns.IS_FOREVER`, standaard aan), teksten
+  `SET_FOREVER_BARLAYOUT_TITLE/_DESC` in 8 talen (locale_probe 8/8 OK; bewust zonder preset-namen).
+- GEMETEN offline (scratch `mylayout_test.py`): beslissing klopt voor Modern / uit / EllesmereUI / eigen layout / "Not
+  now". Syntax OK, lint 0 HARD. Niet in het spel gezien.
+
+## 🐛 7 nov (middag) — stap 2 in Forever: menu/tassen over het blok, griffioenen zichtbaar (Robs screenshot)
+
+- ✅ GEMETEN Rob (nieuwe Priest "Ima Priestman"): de layoutnaam met achternaam klopt ("Ima Priestman Priest", in de SV),
+  alle balken aan. ❌ Menu + tassen midden onder over blok C; de twee griffioenen zichtbaar.
+- GEMETEN: Hunter-layout vs Modern-kopie in de SV (scratch `layoutdiff.py`) + Blizzards Forever-bron (Gethe/wow-ui-source
+  branch forever, `EditModeManagerConstantsDocumentation.lua`): `EditModeSystem` MicroMenu 13, Bags 14,
+  MainActionBarEndCap 26 (index 1 links, 2 rechts; setting 0 = Hidden). Hunter: menu/tassen rechtsonder, endcaps 0=1.
+- Reparatie `MH_EditModeApplyKeyBlock`, alleen `ns.IS_FOREVER`: Bags BOTTOMRIGHT UIParent (-4,4), MicroMenu links ernaast
+  (BOTTOMRIGHT → BagsBar BOTTOMLEFT -7), endcaps setting 0 = 1. Frame-namen MicroMenuContainer/BagsBar GEMETEN als
+  relativeTo. Retail ongemoeid. Syntax OK, lint 0 HARD. Niet offline te testen (live frames); posities AFGELEID.
+- ⚠️ Een character dat stap 2 al deed (Ima Priestman): eerst "zet terug", dan stap 2 opnieuw (anders "already a block").
+- ✅ Rob: *"Ja, dit werkte beter"*. Daarna: XP-balk *"ietsjes uit het lood"*. StatusTrackingBar = systeem 15 index 1;
+  Hunter GEMETEN: BOTTOM → MultiBarLeft TOP (48, 4). Stap 2 (Forever) zet hem nu precies zo; stance/possess (11/13)
+  16 hoger zodat ze er niet over vallen (16 = AFGELEID). Niet in het spel gezien.
+
+## 🛠️ 7 nov (middag) — layoutnaam met Forever-achternaam (Rob: "doe jouw voorstel maar")
+
+- Rob vroeg of RP-characters met voor- en achternaam goed gaan. GEMETEN (SimC-commit 5 nov, API_WATCH 6 nov): op Forever
+  geeft `UnitName("player")` de achternaam als 2e waarde; MH las alleen de 1e → "Ima Shaman".
+- `EditModeBackup.lua` `OwnLayoutName()`: Forever met achternaam → "<voor><scheiding><achter> <spec>" (Blizzards
+  `CHARACTERNAME_SURNAME_SEPARATOR`, anders spatie) als het in 30 past, anders "<voor> <spec>", anders op hele letters
+  ingekort (`CutUtf8`; de oude `sub(1,30)` kon midden in een letter knippen). Retail ongewijzigd (2e waarde = realm).
+  Een layout van vóór vandaag onder de oude naam wordt teruggevonden (geen dubbele); ook de "made"-herkenning kent beide.
+- GEMETEN offline (scratch `layoutname_test.py`, echte EditModeBackup.lua): 6/6 ("Ima Shamandwarf Shaman", te lang →
+  zonder achternaam, accenten → geldige UTF-8, retail negeert realm). Syntax OK, lint 0 HARD. Niet in het spel gezien.
+
+## 🐛 7 nov (middag) — /mh mylayout: herladen geblokkeerd, vraag kwam niet vanzelf (Rob, BugSack)
+
+- GEMETEN Rob: `ADDON_ACTION_BLOCKED … protected function 'Reload()'` uit `ForeverLayoutCarry.lua:194` (ReloadUI in
+  dezelfde klik als SaveLayouts/SetActiveLayout). En op een gloednieuw character kwam de vraag niet vanzelf (Rob dacht:
+  intro-filmpje); `/mh mylayout` toonde hem wel.
+- Reparatie: Yes wisselt alleen de layout; daarna een Blizzard-StaticPopup "Reload now" = tweede klik → `C_UI.Reload`
+  (zelfde patroon als KeyBlock NeedReload, werkt sinds 5 okt). Inloggen: alle "nog niet klaar"-redenen ~1 min opnieuw
+  proberen (eerst stopte "no layouts" het voorgoed), en wachten op `InCinematic`/CINEMATIC_STOP. Oorzaak van de gemiste
+  vraag AFGELEID. Offline: test 4b (popup, pas na klik herladen) + 5 oude gevallen goed. Syntax OK.
+- ✅ Uitgezocht met `/mh bars` (BarInventory) op beide characters, GEMETEN in de Forever-SV: Shaman actieve layout
+  "Inchy Hunter" (de layout kwam dus over), AlwaysShowButtons=1 voor balk 1-8, maar `GetActionBarToggles` 7× false;
+  Hunter dezelfde layout en 7× true. De aan/uit-knopjes van balk 2-8 zijn dus PER CHARACTER, niet in de layout.
+  Reparatie: `remember` leest ze (`ReadBarToggles`), Yes zet ze met `SetActionBarToggles` (zelfde volgorde als Get:
+  AFGELEID; bij Robs 7× true maakt de volgorde niet uit). Offline: SetActionBarToggles krijgt 7× true. ✅ GEMETEN Rob
+  (screenshot Shaman): balk 2-8 staan er nu. Spells op hun plek = toetsenblok per character (`/mh block`).
+- 💡 Rob daarna: *"Deze layout wil ik eigenlijk aan iedereen aanbieden … als mensen kiezen om die layout te gebruiken"*.
+  GEMETEN: "Inchy Hunter" staat in `keyBlockMadeLayouts` = MH's eigen toetsenblok stap 2 maakte hem al; alleen de
+  balk-knopjes ontbraken (SetActionBarToggles kwam alleen in BarInventory/ForeverLayoutCarry voor).
+  ✅ A gebouwd (Rob: *"ja begin met a"*): `EditModeBackup.lua` — stap 2 (`MH_EditModeApplyKeyBlock`) zet na
+  SaveLayouts alle 7 knopjes aan (`BarTogglesOn`, zoals op Robs werkende Hunter) en bewaart de oude stand per character;
+  "zet terug" (`MH_EditModeRestoreKeyBlock`, beide paden) zet ze terug (`BarTogglesBack`). Geldt retail + Forever.
+  Chatregel `KEYBLOCK_BARS_ON_FMT` in 8 talen (enUS/nlNL/ruRU + de/fr/es/pt/it in Translations2026), GEMETEN met
+  locale_probe: 8/8 OK. Syntax OK, lint 0 HARD. NIET offline getest (de stap hangt aan live frames); AFGELEID dat het
+  werkt — SetActionBarToggles zelf werkte op Forever via /mh mylayout. 🔜 B (Robs volledige layout meeleveren) op verzoek.
+
+## 🛠️ 7 nov (middag) — Forever: je layout naar elk nieuw character (Rob: "kan dat beter ?" → "2")
+
+- Aanleiding (Robs screenshot): zijn layout "Inchy Hunter" is een CHARACTER-layout, dus elk nieuw character begint op
+  Modern en hij zet alles opnieuw. Eerst geadviseerd: zelf een account-layout maken (spel zelf). Rob koos optie 2.
+- Nieuw `Modules/ForeverLayoutCarry.lua` (beide TOC's + docs-kopie, alleen Forever): `/mh mylayout remember` bewaart de
+  ACTIEVE layout als Blizzards exportstring accountbreed (`ns.db.foreverMyLayout`). Een character op Modern/Classic krijgt
+  na het inloggen één vraag (*"Use your layout … here?"*); Ja = toevoegen als character-layout (of een account-layout
+  met die naam kiezen) + actief maken + controleren + ReloadUI (na de klik); Nee = per character niet meer.
+  `/mh mylayout` vraagt opnieuw, `check` zegt waarom wel/niet, `forget` wist. Zelfde stappen als
+  `MH_EditModeMakeOwnLayout` (presets eerst tellen, SaveLayouts, OnLayoutAdded, SetActiveLayout). Nooit vanzelf.
+- GEMETEN offline (scratch `mylayout_test.py`, nep-Edit Mode): onthouden, nieuw char → vraag + Ja → actief, account-layout
+  met die naam → gekozen, 5 eigen layouts → nette weigering, "Nee" → geen vraag meer. Syntax OK, lint 0 HARD.
+  AFGELEID: dat C_EditMode-export/import en de bar-zichtbaarheid zo op Forever werken (retail 12.0.7 wel GEMETEN).
+
+## 🐛 7 nov (middag) — quest-hint telde armor niet (Rob: "denk dat het niet goed gaat ?!?")
+
+- GEMETEN Rob (screenshot, Dwarf Hunter): Snow Boots (7 armor, geen stats) vs gedragen laarzen (2 armor); GearQuest zag
+  de upgrade, MH zei "None of these is better … Bear Shawl sells for the most (9)". Twee fouten: armor telde niet mee, en
+  de globale `GetCoinTextureString` gaf geen munt op Forever (AFGELEID uit die "(9)").
+- Reparatie `ForeverQuestHint.lua`: volgorde main stats → Stamina (waar het telt) → armor. Armor uit de stats
+  (`RESISTANCE0_NAME`) of anders de tooltipregel via `C_TooltipInfo.GetHyperlink` + `ARMOR_TEMPLATE` (aanpak van Zygor;
+  Baganator/Syndicator/Auctionator gebruiken die API op Forever — kandidaat). `Stats()` geeft nu ook armor voor items
+  zonder stats. Prijs via `C_CurrencyInfo.GetCoinTextureString`. `/mh questhint check` toont armor per beloning.
+- Offline 9/9 (scratch `questhint_test.py`), o.a. Robs geval → "Take Snow Boots: +5 Armor over what you wear". Syntax OK,
+  lint 0 HARD. ✅ GEMETEN Rob in het spel (screenshot): groen kader om Snow Boots + precies die zin; GearQuest wijst
+  dezelfde aan. Dus op Forever werken GetNumQuestChoices/GetQuestItemLink/de knopnaam en het armor-lezen.
+
+## 🛠️ 7 nov (middag) — trainer-venster alleen bij iets nieuws (Rob: "Ja, alleen nieuw")
+
+- `ForeverTrainer.lua` OnLevel: het venster gaat vanzelf open alleen als er een spell van PRECIES dit level te leren is.
+  Oude, nog niet geleerde spells: één chatregel *"nothing new, still N to learn (…)"*. Aanleiding: Robs screenshot, venster
+  opnieuw op level 3 voor Track Beasts (level 1). Offline (scratch `trainer_level_test.py`, Dwarf Hunter): 2 en 3 alleen
+  chat, 4 opent (2 nieuw, 3 in totaal).
+
+## 🛠️ 7 nov (middag) — Forever: quest-beloning-hint (Rob: "doe de quest beloning tip maar ook")
+
+- Nieuw: `Modules/ForeverQuestHint.lua` + `Modules/ForeverMainStats.lua` (beide TOC's + docs-kopie, alleen Forever).
+  Bij QUEST_COMPLETE met ≥2 keuzes: per bruikbare (GetQuestItemInfo isUsable) draagbare beloning de main-stats vergeleken
+  met wat je in dat slot draagt (bij ring/trinket/1H het zwakste slot), Stamina als tiebreak. Groen kader op de knop +
+  één zin onder het questvenster; geen winst → wat het meest oplevert (geel kader). Klikt nooit iets. `/mh questhint
+  on|off|check`. Ideeën uit GearQuest/Zygor, geen code.
+- ✅ `ForeverMainStats.lua` gevuld uit `docs/forever/FOREVER_MAIN_STATS_2026-11-07.md` (mh-research): standaard
+  solo-leveling per class; Ret Paladin / Enh Shaman / Hunter wisselen van volgorde zodra hun talent bekend is (`later`,
+  via ForeverKnownSpell op naam; AFGELEID dat talents zo te vinden zijn). Weging 1 / 0,5 voor de 1e/2e stat is MH's eigen
+  keuze (AFGELEID). GEMETEN: de client heeft geen primary stat (ChrSpecialization 70862). Offline 7/7 goed met de echte
+  tabel (Hunter: +3 Agi wint van +4 Spirit; Warlock: Stamina één keer).
+- GEMETEN offline (scratch `questhint_test.py`, echte Decide(), test-only statslijst): 5 gevallen goed (upgrade +3 Agility,
+  niets beter → duurste, lege ringplek, data niet geladen → opnieuw proberen, geen lijst → duurste). Syntax OK, lint 0 HARD.
+  AFGELEID: GetNumQuestChoices/GetQuestItemLink/GetQuestItemInfo/C_Item.GetItemStats en de knopnaam
+  `QuestInfoRewardsFrameQuestInfoItem<n>` op Forever (Zygor gebruikt ze, dat is een kandidaat, geen bewijs).
+
+## 🛠️ 7 nov (middag) — dock-knop + Serpent's Bite (Rob: "schoonheidsfoutje" / "Zet de serpent's bite tip maar naar 2")
+
+- `DialogPopup.lua`: de "Dock to window"-knop was vast 88 px, smaller dan zijn tekst, en liep onder het kruisje (Robs
+  screenshot, Forever How you play). Nu zo breed als de tekst (`FitDockButton`, ook na Undock) en rechts op -38. Geldt voor
+  alle vensters via `RegisterMidnightDialogPopup` (retail + Forever). Niet in het spel gezien.
+- Ula'tek `RAID_BOSS_ULATEK_STEPS`: Serpent's Bite markeert nu **twee** spelers in alle 8 packs (RaidTips 7× + ruRU),
+  GEMETEN met grep (8/8). `check_drift --mark` gedaan. Bron: Wowhead-datamining (hotfix 6 nov), Blizzard noemt geen getal.
+
+## 🧭 7 nov — Forever: pijl naar je trainer, stap 2 (Rob: "alle drie, en eigenlijk vind ik dat we gewoon die van handy notes moeten kunnen gebruiken !!")
+
+- In `ForeverTrainer.lua`: knop **Take me to my trainer** in het venster, `/mh trainer go`, `/mh trainer here` (je eigen
+  plek, per class, accountbreed in `ns.db.foreverTrainerSpots`), `/mh trainer forget`. Dichtstbijzijnde op je continent wint.
+- Drie bronnen: (1) jouw plekken; (2) **HandyNotes_ClassTrainers tijdens het spelen**: MH leest
+  `AceAddon:GetAddon("HandyNotes_ClassTrainers").points` en filtert zelf op class/kant (los van hun "Only my class").
+  Niets gekopieerd: hun data is All Rights Reserved, MH vraagt alleen wat de speler al heeft; (3) `ns.FOREVER_TRAINER_SPOTS`
+  (eigen Wowhead-lijst, mh-research loopt nog; bestand nog niet gemaakt).
+- GEMETEN offline (scratch `trainer_arrow_test.py`, echte ForeverTrainer.lua + Robs echte HandyNotes Data.lua): Paladin
+  Stormwind → Arthur the Faithful, Warlock Orgrimmar → Mirket, Shaman Ironforge → Eldrun Stormbreaker; eigen plek wint;
+  zonder bron een uitleg. Gevonden en gerepareerd: `%d` met een kommagetal (afstand). Syntax OK, lint 0 HARD.
+  AFGELEID: `GetWorldPosFromMapPos` + `GetPlayerMapPosition` op Forever, en dat de pijl daar tekent.
+- 💡 Netste route naar "gewoon gebruiken": de maker (Frostaphim, CF) om toestemming vragen. Alleen Rob kan dat sturen.
+- ✅ Bron 3 erbij: `Modules/ForeverTrainerSpots.lua` (beide TOC's + docs-kopie), GEGENEREERD (scratch
+  `gen_trainer_spots.py`) uit `docs/forever/FOREVER_TRAINERS_2026-11-07.md` (mh-research: Wowhead Forever NPC-pagina's,
+  Zygor-check, wago UiMap 70790): 218 class-trainers, pet/demon/portal eruit, Zephras Isle `both` → `N`. Controle tegen
+  Robs HandyNotes (alleen ter vergelijking, niets overgenomen): 211 binnen 1 eenheid, 6 op 1-1,5 (lopende NPC's, AFGELEID),
+  1 niet in HandyNotes. Offline: zonder HandyNotes kiest de eigen lijst dezelfde trainer (Paladin/Warlock/Shaman).
+- ✅ GEMETEN Rob (screenshot, Dwarf Hunter level 2): venster opent vanzelf bij level-up, knop + HandyNotes-trainer
+  (Thorgas Grimson, 237 yards), *"en de pijl komt :)"*. ✅ Daarna (Rob: *"Ja, pas aan"*): spells uit de `listed`-lijst
+  van de class-tabel (Track Beasts) zeggen nu *"not on the block (on purpose)"*; "put it on your own bar" alleen nog bij
+  spells die in geen enkele lijst staan. Offline nagebootst met Robs geval (Dwarf Hunter level 2).
+- ✅ GEMETEN Rob: met HandyNotes UIT komt de pijl ook (MH list, "Thorgas Grimson (trainer) 141 yd"). Rob: *"wil je hem op
+  meters zetten"* → de instelling bestond al (`mh_arrowMeters`, "Route-afstand in meters", standaard uit); de teksten van
+  ForeverTrainer.lua volgen hem nu ook (`Distance()`, ×0,9144 zoals NativeArrow). Offline: 367 yd → 336 meters.
+
+## 🔎 7 nov — Leatrix Maps, OpenMap, GearQuest bekeken (mh-research, alleen lezen)
+
+- Verslagen: `docs/forever/REVIEW_LEATRIX_MAPS_2026-11-07.md`, `REVIEW_OPENMAP_2026-11-07.md`, `REVIEW_GEARQUEST_2026-11-07.md`.
+- Licenties (GEMETEN): Leatrix Maps All Rights Reserved (+ MapUtils GPLv3), GearQuest Forever All Rights Reserved,
+  OpenMap MIT (code + eigen data; Blizzard-art uitgesloten). Questie's eigen LICENSE: "bij twijfel all rights reserved".
+- ✅ Echte MH-fout, GEREPAREERD (Rob: *"Ja, repareer"*): `NativeArrow.lua` wiste aan het einde van een route de user
+  waypoint zonder te kijken of hij nog van MH was. Nu: `RememberOurWaypoint` leest de speld terug direct na het zetten,
+  `ClearOurWaypoint` wist alleen als hij er nog ligt (0,0005 marge); onleesbaar = oud gedrag (wissen), zodat de stale-pin
+  van 7 sep niet terugkomt. `/mh arrow` toont de laatste beslissing. GEMETEN offline (scratch `arrow_pin_test.py`, echte
+  NativeArrow.lua): A eigen route → gewist, B speler-speld → blijft; tegenproef op HEAD (`arrow_pin_old.py`): B gewist.
+  Syntax OK, lint 0 HARD. Niet aangeraakt: de Silvermoon-pins (`_mhSmcPinsSet`, UI.lua) wissen nog onvoorwaardelijk.
+  Test: TESTLIJST "7 nov — De route-pijl".
+- Ideeën (niets gebouwd): quest-beloning-hint (GearQuest), `/mh trainer here` om trainer-plekken zelf te meten, pijl naar
+  dungeon-ingangen/flight masters uit DB2 (OpenMap), `## LoadSavedVariablesFirst` voor `/mh lang` (Leatrix), `/mh map`
+  zegt op Forever niets. Testen met één /run: `C_Map.GetMapLevels` op Forever.
+- GEMETEN: OpenMap en GearQuestForever (+9 class-mappen) staan sinds 7 nov ~07:00 in `_forever_\Interface\AddOns`
+  (niet door ons). Leatrix Maps niet.
+
+## 🛠️ 7 nov — Forever: nieuw bij de trainer, stap A (Rob: "Ja, A + pijl")
+
+- Nieuw: `Modules/ForeverTrainer.lua` + `Modules/ForeverTrainerData.lua` (beide TOC's + docs-kopie, alleen `ns.IS_FOREVER`).
+  `/mh trainer` (venster), `/mh trainer check`, `/mh trainer auto on|off`; bij elke level-up een chatregel en, als er iets
+  te leren is, het venster (pas na combat). Per spell: prijs + toets uit de `ForeverBlock_<Class>`-tabel, "block D",
+  "passive" of "not on the block". Alleen Engels.
+- Data GEGENEREERD (scratch `gen_trainer_data.py`) uit What's Training? (MIT, commit 0654674ef735, licentietekst in de
+  kop): 1356 trainer-spells, Hunter-petskills eruit (45). Rang komt uit de client (rang 1 is vaak een start-spell).
+- GEMETEN offline (scratch `trainer_test.py`, echte data + echte class-tabellen + ForeverBlock.lua, client nagebootst):
+  7 gevallen kloppen (oneven level niets, Horde-mage geen Alliance-teleports, Druid "eerst Bear Form", alles bekend =
+  leeg). Gevonden en gerepareerd: een vervangen rang (Seal of Righteousness 20154→21084) gaf vals "needs first".
+  Syntax OK (322), lint 0 HARD. AFGELEID: `IsPlayerSpell`, `C_Spell.IsSpellPassive`, `GetSpellSubtext` op Forever.
+- 🔜 Stap 2, de pijl: wacht op de trainer-plekken (mh-research, alleen Wowhead Forever; HandyNotes_ClassTrainers is
+  All Rights Reserved, Questie GPLv3 → niet overnemen). Test: TESTLIJST "7 nov".
+
+## 🔎 7 nov — What's Training? bekeken voor Forever (Rob: "bekijk het goed")
+
+- Alleen onderzoek, niets geïnstalleerd of gebouwd: `docs/forever/WHATS_TRAINING_2026-11-07.md`. MIT (GEMETEN).
+- GEMETEN: 1358/1359 spell-levels gelijk aan onze `FOREVER_<CLASS>`-onderzoeksbestanden (1 verschil = ras, geen fout).
+- Ideeën voor Rob: A "nieuw bij de trainer" per level mét toets, B samenwerken via `WT_API`, D gewoon installeren.
+  TOC: ons `_Camelot.toc`-plan houden. Rob kiest.
+
+## ☀️ 7 nov — ochtendronde
+
+- Alle vier de wachters gedraaid. Raakt ons: 🔴 Ula'tek Serpent's Bite 3 → 2 spelers (hotfix 6 nov; het getal komt
+  alleen uit Wowheads datamining, Blizzard noemt geen getal). Onze tip `{SPELL:1295905}` zegt in 8 packs nog "drie"
+  (`Locales/RaidTips.lua:93` e.v. + `ruRU.lua:4790`, GEMETEN door de content-wachter). Niets veranderd; Rob kiest
+  (in het spel tellen of overnemen van Wowhead).
+- CF/GitHub: 0 wachtend. HandyNotes 168: 3 Midnight-rares Rare → RareElite, zelfde coördinaten. Addons: 47 bijgewerkt,
+  niets dat MH raakt (gelezen, niet getest). Vragenlijst #31 bijgeteld (Rob: *"Ja, tel bij"*), gemiddelde 4,1.
+- Forever: class-tuning aangekondigd voor 10 nov → dan de `ForeverBlock_<Class>.lua`-tabellen nalopen.
+
+## ✅ Het vorige lijstje 'Ouder, maar nog niet af' (vervangen bij deze splitsing)
+
+De historie is afgesplitst (2 sep en 6 nov). Deze secties lezen daar nog als OPEN, dus ze
+staan hier bij naam — een openstaand punt mag niet verdwijnen door oud te zijn.
+
+⚠️ Bewust te ruim: de lijst kijkt alleen naar de kop. Is een punt af, zet een stukje van de
+kop met de reden in `KNOWN_DONE` in `tools/split_handoff.py` en draai
+`python "<repo>/tools/_probe.py" run split_handoff --reindex --write`. Niet met de hand
+bewerken: dan loopt de lijst binnen een week uit de pas met het archief.
+
+- 🔜 OPEN na 28 okt (overdracht naar de bouwchat van 29 okt)
+- 🔜 OPEN na 26 okt (overdracht naar de bouwchat van 27 okt)
+- 🔜 OPEN na 23 okt (overdracht naar de bouwchat van 24 okt)
+- 🌅 VOLGENDE CHAT EERST (stand eind 16 okt; bouwchat gearchiveerd door Rob)
+- 🌅 16 okt — MORGEN EERST (Rob, 15 okt nacht: "onthoud dit dan kunnen we morgen verder")
+- (verslag) 🔴 VOOR MORGEN — Venom Lancer Ori'kassi is geen rare maar een SCENARIO
+- 🔴 9 sep — de weekly-vinkjes rusten op bewijs dat niets waard is (OPEN)
+- 🆕 30 aug — waar komen onaangeleerde recepten vandaan? (OPEN)
+- 🔵 OPEN 29 aug — de SMC-pin zet TWEE waypoints, plus één die niemand vroeg
+- 💡 ROB-VERZOEK 19 AUG — "dit soort info moeten wij ook gaan bieden!!!"
+- 🎯 MORGEN 19 AUG — PRIORITEIT: de EU-seizoensstart
+- ⚠️ OPEN, en het raakt alle vertaalwerk
+- 🌅 MORGENVROEG — twee dingen, en Rob brengt data mee
+- 🔴 De grootste openstaande vraag (Rob, 11 aug)
+- ⏳ Wacht op Rob
+
+📌 Al het afgeronde werk staat in het archief; daar wordt niets meer aan
+toegevoegd. Nieuwe regels horen bovenaan dit bestand.
 
 ## 🌙 6 nov, einde dag — Rob: "Morgen misschien een release"
 

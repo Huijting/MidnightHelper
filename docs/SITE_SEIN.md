@@ -28,6 +28,17 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 12 nov 2026 — Forever: wat jouw richting nodig heeft
+- Tag + commit:   geen tag / (deze commit)
+- Status:         alleen op main
+- Mag op de site: nee (nog niet uit)
+- Speler ziet:    Heb je een richting gekozen, dan staat bovenaan "How you play" wat die nodig heeft: zwaarste pantser,
+                  welk wapen spelersgidsen noemen, en welke spells alleen met een schild, dolk of afstandswapen werken.
+                  /mh weapons zet een groen + bij de wapensoorten die passen. Niet in het spel gezien.
+- Knoplabels:     FDIRB_HEAD_FMT, FWEAP_DIR_FIT_FMT
+- Commando's:     /mh play, /mh weapons, /mh direction
+- Spel:           Forever
+
 ## 12 nov 2026 — Forever: klein groepspaneel
 - Tag + commit:   geen tag / (deze commit)
 - Status:         alleen op main

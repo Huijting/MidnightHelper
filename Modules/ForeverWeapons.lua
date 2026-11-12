@@ -339,7 +339,7 @@ local function Build()
 	f.sub:SetJustifyH("LEFT")
 	local scroll = CreateFrame("ScrollFrame", nil, f, "UIPanelScrollFrameTemplate")
 	scroll:SetPoint("TOPLEFT", rx, -104)
-	scroll:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -40, 44)
+	scroll:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -40, 64)
 	local child = CreateFrame("Frame", nil, scroll)
 	child:SetSize(W - rx - 44, 10)
 	scroll:SetScrollChild(child)
@@ -348,6 +348,11 @@ local function Build()
 	f.hint:SetPoint("BOTTOMLEFT", 22, 18)
 	f.hint:SetPoint("RIGHT", f, "RIGHT", -24, 0)
 	f.hint:SetJustifyH("LEFT")
+	-- 12 Nov 2026: what your chosen direction pairs with (ForeverDirection.lua), above the hint.
+	f.dir = f:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	f.dir:SetPoint("BOTTOMLEFT", f.hint, "TOPLEFT", 0, 6)
+	f.dir:SetPoint("RIGHT", f, "RIGHT", -24, 0)
+	f.dir:SetJustifyH("LEFT")
 	f:SetScript("OnShow", function()
 		Fill()
 	end)
@@ -418,6 +423,12 @@ Fill = function()
 		selected = selected or (mine[1] and mine[1].w.spell)
 	end
 	local cur
+	-- 12 Nov 2026 (Rob via sparring: "1 en 2, de wapens er meteen bij"): mark what fits your chosen direction. Only a
+	-- mark: nothing is hidden, the player chooses (the fit itself comes from player guides, ForeverDirection.lua).
+	local band, tree, fit, shieldName
+	if ns.ForeverDirectionWeaponFit then
+		band, tree, fit, shieldName = ns.ForeverDirectionWeaponFit()
+	end
 	for i, b in ipairs(f.wBtns) do
 		local e = mine[i]
 		if e then
@@ -427,6 +438,9 @@ Fill = function()
 				label = "|cff9d9d9d" .. label .. "  " .. ns:L("FWEAP_KNOWN_TAG") .. "|r"
 			elseif lvl < (e.w.level or 1) then
 				label = "|cff9d9d9d" .. label .. "  " .. ns:L("FWEAP_LEVEL_TAG_FMT"):format(e.w.level) .. "|r"
+			end
+			if fit and fit[e.w.key] then
+				label = "|cff40ff40+|r " .. label
 			end
 			b:SetText(label)
 			b:Show()
@@ -439,6 +453,22 @@ Fill = function()
 		else
 			b:Hide()
 		end
+	end
+	if not band then
+		f.dir:SetText("")
+	elseif fit then
+		local names = {}
+		for _, e in ipairs(mine) do
+			if fit[e.w.key] then
+				names[#names + 1] = e.name
+			end
+		end
+		if shieldName then
+			names[#names + 1] = shieldName
+		end
+		f.dir:SetText(ns:L("FWEAP_DIR_FIT_FMT"):format(tree, table.concat(names, ", ")))
+	else
+		f.dir:SetText(ns:L("FWEAP_DIR_NONE_FMT"):format(tree))
 	end
 	if not cur then
 		f.head:SetText(ns:L("FWEAP_NONE"))
@@ -490,6 +520,13 @@ Fill = function()
 	f.scroll:SetVerticalScroll(0)
 	f.hint:SetText(ns:L("FWEAP_HINT"))
 	return f
+end
+
+--- A new direction was chosen (ForeverDirection.lua): redraw when open.
+function ns.ForeverWeaponsRefresh()
+	if win and win:IsShown() then
+		Fill()
+	end
 end
 
 function ns.ShowForeverWeapons()

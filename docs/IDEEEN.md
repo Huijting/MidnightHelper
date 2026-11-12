@@ -301,6 +301,10 @@ lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met d
                  (DB2, GEMETEN) + één zin (AFGELEID), Later / Never ask again / No choice, keuze per character,
                  `/mh direction` (+ `check`), knop in het "How you play"-venster, instelling. NIET gebouwd (bewust): het
                  "Doe dit nu"-venster, "past bij jouw richting", beroepenadvies, kosten, beste wapen. Niet in het spel gezien.
+                 ✅ Rob op een Rogue (via sparring): "dit werkt". **Stap 1 + 2 gebouwd 12 nov** (Rob via sparring,
+                 letterlijk: *"1 en 2, de wapens er meteen bij"*): blok "Your direction" bovenaan How you play (pantser en
+                 "werkt alleen met" GEMETEN; wapen = gids) en een groen + in `/mh weapons`. Stap 3 (tooltip en
+                 upgrade-melding wegen mee) NIET gebouwd: de stats tijdens het levelen zijn niet gemeten.
 
 ### Spelnamen in de zes talen zoals die client ze toont (C4)
 - Voor wie:      allebei, in de/fr/es/pt/it/ru (Engels en Nederlands veranderen niet)

@@ -424,15 +424,30 @@ local function RefreshDirection()
 	win.dir:SetText(band and ns:L("FDIR_HOWTO_BTN_FMT"):format(name) or ns:L("FDIR_HOWTO_BTN_NONE"))
 	win.dir:SetShown(ns.ShowForeverDirection ~= nil)
 end
-ns.ForeverHowToPlayRefreshDirection = RefreshDirection
+
+--- The class text, with the block for your chosen direction on top (12 Nov 2026, ForeverDirection.lua; Rob via sparring:
+--- "1 en 2"). No direction chosen = no block, the window as before.
+local function Body(token)
+	local block = ns.ForeverDirectionBlock and ns.ForeverDirectionBlock()
+	return (block and (block .. "\n\n") or "") .. TextFor(token)
+end
 
 local function Show(token)
 	shown = token
 	RefreshDirection()
 	win.title:SetText(ns:L("PLAYCARD_HEAD_FMT"):format(ClassName(token)))
-	win.body:SetText(TextFor(token))
+	win.body:SetText(Body(token))
 	win.child:SetHeight(win.body:GetStringHeight() + 20)
 	win.scroll:SetVerticalScroll(0)
+end
+
+--- After a new direction: the button and, when the window is open, the block.
+ns.ForeverHowToPlayRefreshDirection = function()
+	RefreshDirection()
+	if win and win:IsShown() and shown then
+		win.body:SetText(Body(shown))
+		win.child:SetHeight(win.body:GetStringHeight() + 20)
+	end
 end
 
 local function Build()

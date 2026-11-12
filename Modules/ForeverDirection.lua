@@ -83,6 +83,170 @@ local function SetDirection(band)
 	end
 end
 
+--------------------------------------------------------------------------------
+-- Step 1 + 2 (Rob, 12 Nov 2026, via sparring: "1 en 2, de wapens er meteen bij"): what your direction needs, as a block
+-- on top of "How you play", and which weapon kinds fit it in /mh weapons. NOT step 3 (tooltip/upgrade notice).
+-- Source: docs/forever/RICHTINGEN_PER_CLASS_2026-11-12.md, table "Nodig" per class. Rules from sparring, kept here:
+--   - GEMETEN (Blizzard data) may be said plainly: armor per class (DB2 SkillRaceClassInfo 70888), and "this spell only
+--     works with a shield / dagger / ranged weapon" (DB2 SpellEquippedItems 70888).
+--   - Weapon advice per direction comes from player guides (Warcraft Tavern, Icy Veins, written for level 60): shown as
+--     such, never "best" or "must". Where the research says the guides name no weapon for a direction (all casters,
+--     Holy Paladin, Elemental/Restoration Shaman, every Druid, Survival's melee weapon), we say exactly that.
+--   - Not measured, so never claimed: whether to switch weapons while levelling. Stats are left out (guides, level 60;
+--     that belongs to step 3).
+--   - Talent levels ("at the earliest level N") are AFGELEID from "first point at 10, one per level" (research 3c/3d).
+-- Names a player sees come from the client: spells by id (C_Spell.GetSpellName), armor/weapon kinds by item subclass
+-- (GetItemSubClassInfo), so every language shows its own game words.
+--------------------------------------------------------------------------------
+local HEADC = "|cffffcc66"
+
+-- itemClass, subClass, English fallback. Armor = class 4, weapon = class 2 (the client's own item tables).
+local SUB = {
+	cloth = { 4, 1, "Cloth" }, leather = { 4, 2, "Leather" }, mail = { 4, 3, "Mail" }, plate = { 4, 4, "Plate" },
+	shield = { 4, 6, "Shields" }, dagger = { 2, 15, "Daggers" }, bow = { 2, 2, "Bows" }, gun = { 2, 3, "Guns" },
+	crossbow = { 2, 18, "Crossbows" },
+}
+
+local function SubName(k)
+	local s = SUB[k]
+	if not s then
+		return k
+	end
+	local fn = (C_Item and C_Item.GetItemSubClassInfo) or GetItemSubClassInfo
+	if fn then
+		local ok, n = pcall(fn, s[1], s[2])
+		if ok and type(n) == "string" and n ~= "" then
+			return n
+		end
+	end
+	return s[3]
+end
+
+local function SpellNameOf(id)
+	if C_Spell and C_Spell.GetSpellName then
+		local ok, n = pcall(C_Spell.GetSpellName, id)
+		if ok and type(n) == "string" and n ~= "" then
+			return n
+		end
+	end
+	if GetSpellInfo then
+		local ok, n = pcall(GetSpellInfo, id)
+		if ok and type(n) == "string" and n ~= "" then
+			return n
+		end
+	end
+	return "#" .. id
+end
+
+-- Heaviest armor per class, GEMETEN (research 3h: SkillRaceClassInfo skills 293/413/414/415, MinLevel).
+local ARMOR = {
+	WARRIOR = { { "mail" }, { "plate", 40 } }, PALADIN = { { "mail" }, { "plate", 40 } },
+	HUNTER = { { "leather" }, { "mail", 40 } }, SHAMAN = { { "leather" }, { "mail", 40 } },
+	ROGUE = { { "leather" } }, DRUID = { { "leather" } },
+	PRIEST = { { "cloth" } }, MAGE = { { "cloth" } }, WARLOCK = { { "cloth" } },
+}
+
+-- Per direction (band 1-3, SPEC_NAMES order). w = the guides' weapon sentence (nil = the guides name none);
+-- fit = ForeverWeapons.lua keys that match it; shield = the guides pair it with a shield.
+-- needs = GEMETEN in DB2 SpellEquippedItems: { spell id, what it needs, talent level (AFGELEID) or nil }.
+local GUIDE = {
+	WARRIOR = {
+		{ w = "FDIRB_W_TWOHAND", fit = { mace2 = true, axe2 = true, sword2 = true, polearm = true } },
+		-- %s = Dual Wield by spell id 674 (ForeverTrainerData.lua; Warrior learns it at 20 there), so the client names it.
+		{ w = "FDIRB_W_DUAL", wSpell = 674, fit = { mace = true, axe = true, sword = true, fist = true, dagger = true } },
+		{ w = "FDIRB_W_SHIELD", fit = { mace = true, axe = true, sword = true, fist = true, dagger = true }, shield = true,
+			needs = { { 23922, "shield", 40 }, { 2565, "shield" }, { 72, "shield" } } },
+	},
+	PALADIN = {
+		{},
+		{ w = "FDIRB_W_SHIELD", fit = { mace = true, axe = true, sword = true }, shield = true,
+			needs = { { 20925, "shield", 30 } } },
+		{ w = "FDIRB_W_TWOHAND", fit = { mace2 = true, axe2 = true, sword2 = true, polearm = true } },
+	},
+	HUNTER = {
+		{ w = "FDIRB_W_RANGED", fit = { bow = true, crossbow = true, gun = true } },
+		{ w = "FDIRB_W_RANGED", fit = { bow = true, crossbow = true, gun = true }, needs = { { 1310687, "ranged", 40 } } },
+		{ w = "FDIRB_W_SURVIVAL", fit = { bow = true, crossbow = true, gun = true } },
+	},
+	ROGUE = {
+		{ w = "FDIRB_W_TWODAGGERS", fit = { dagger = true }, needs = { { 399956, "dagger", 40 } } },
+		{ w = "FDIRB_W_TWOONEHAND", fit = { mace = true, axe = true, sword = true, fist = true, dagger = true } },
+		-- %s = the client's own "Main Hand" (INVTYPE_WEAPONMAINHAND).
+		{ w = "FDIRB_W_DAGGERMAIN", wMainHand = true, fit = { dagger = true }, needs = { { 53, "dagger" }, { 8676, "dagger" } } },
+	},
+	SHAMAN = {
+		{},
+		{ w = "FDIRB_W_SLOWTWOHAND", fit = { mace2 = true, axe2 = true } },
+		{},
+	},
+	DRUID = { {}, {}, {} }, PRIEST = { {}, {}, {} }, MAGE = { {}, {}, {} }, WARLOCK = { {}, {}, {} },
+}
+
+local function NeedName(kind)
+	if kind == "ranged" then
+		return SubName("bow") .. " / " .. SubName("gun") .. " / " .. SubName("crossbow")
+	end
+	return SubName(kind)
+end
+
+--- The block on top of "How you play", or nil when no direction is chosen.
+function ns.ForeverDirectionBlock()
+	local band, tree = ns.GetForeverDirection()
+	local cls = ClassToken()
+	if not (band and cls and GUIDE[cls]) then
+		return nil
+	end
+	local g = GUIDE[cls][band] or {}
+	local lines = { HEADC .. ns:L("FDIRB_HEAD_FMT"):format(tree) .. "|r" }
+	local parts = {}
+	for _, a in ipairs(ARMOR[cls] or {}) do
+		parts[#parts + 1] = a[2] and ns:L("FDIRB_FROM_LEVEL_FMT"):format(SubName(a[1]), a[2]) or SubName(a[1])
+	end
+	lines[#lines + 1] = "- " .. ns:L("FDIRB_ARMOR_FMT"):format(table.concat(parts, ", "))
+	if g.w then
+		local w = ns:L(g.w)
+		if g.wSpell then
+			w = w:format(SpellNameOf(g.wSpell))
+		elseif g.wMainHand then
+			w = w:format(_G.INVTYPE_WEAPONMAINHAND or "Main Hand")
+		end
+		lines[#lines + 1] = "- " .. ns:L("FDIRB_WEAPON_FMT"):format(w)
+	else
+		lines[#lines + 1] = "- " .. ns:L("FDIRB_W_NONE")
+	end
+	for _, n in ipairs(g.needs or {}) do
+		local s = ns:L("FDIRB_NEEDS_FMT"):format(SpellNameOf(n[1]), NeedName(n[2]))
+		if n[3] then
+			s = s .. " " .. ns:L("FDIRB_TALENT_FMT"):format(n[3])
+		end
+		lines[#lines + 1] = "- " .. s .. "."
+	end
+	lines[#lines + 1] = "- " .. ns:L("FDIRB_FREE")
+	lines[#lines + 1] = GREY .. ns:L("FDIRB_SOURCE") .. "|r"
+	return table.concat(lines, "\n")
+end
+
+--- For /mh weapons: band, tree name, the fitting weapon keys (or nil when the guides name none), shield yes/no.
+function ns.ForeverDirectionWeaponFit()
+	local band, tree = ns.GetForeverDirection()
+	local cls = ClassToken()
+	if not (band and cls and GUIDE[cls]) then
+		return nil
+	end
+	local g = GUIDE[cls][band] or {}
+	return band, tree, g.fit, g.shield and SubName("shield") or nil
+end
+
+--- A choice changed: the windows that show it redraw (How you play, /mh weapons).
+function ns.ForeverDirectionChanged()
+	if ns.ForeverHowToPlayRefreshDirection then
+		pcall(ns.ForeverHowToPlayRefreshDirection)
+	end
+	if ns.ForeverWeaponsRefresh then
+		pcall(ns.ForeverWeaponsRefresh)
+	end
+end
+
 local laterThisSession = false
 
 --- Why MH does or does not ask on this character at login (also printed by /mh direction check).
