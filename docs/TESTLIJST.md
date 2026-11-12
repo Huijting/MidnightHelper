@@ -28,8 +28,9 @@ Eerst `/reload`. In Midnight, buiten een gevecht (de actie-hint mag aan of uit s
       20 seconden in beeld, met een regel in de chat. ❌ Rob, 12 nov (via sparring, screenshot): de woorden onder de
       icoontjes liepen door elkaar ("INTERRRWRGE"). Gerepareerd: INTERRUPT staat nu links van het eerste icoon, het
       purge-woord rechts van het tweede. Opnieuw kijken: twee losse, leesbare woorden.
-- [ ] In die 20 seconden: slepen werkt, en Shift+scroll maakt het groter en kleiner. Na `/reload` staat het nog op die
-      plek en op die maat.
+- [x] In die 20 seconden: slepen werkt, en Shift+scroll maakt het groter en kleiner. ✅ Rob, 12 nov (via sparring):
+      "Het slepen, het shift-scrollen. … Werkt."
+- [ ] Na `/reload` staat het nog op die plek en op die maat. (Niet gehoord.)
 - [ ] Na 20 seconden verdwijnen ze weer (of blijven ze alleen staan als de actie-hint aan staat en er iets te doen is).
 - [ ] In een gevecht: "Not in combat: try again after the fight." Begint een gevecht tijdens het voorbeeld, dan stopt het
       voorbeeld meteen.
@@ -44,9 +45,13 @@ Eerst `/reload`. In Midnight, solo:
 ## 🆕 12 nov — MIDNIGHT: groepspaneel, rechtsklik op het doelwit (Rob: "Optie 1, jouw advies")
 
 Eerst `/reload`. Op je Prot Paladin, in een groep (een dungeon of follower dungeon), met het Party targets-paneel:
-- [ ] `/mh glow` zegt "no purge, so your stop-spell: spell 96231" en "target halves armed" is 1 of meer.
+- [x] `/mh glow` zegt "no purge, so your stop-spell: spell 96231" en "target halves armed" is 1 of meer. ✅ Rob, 12 nov
+      (follower dungeon, screenshot via sparring): precies die regel, "target halves armed: 5", "rows armed to dispel: 5"
+      (Cleanse Toxins 213644). Paneel: rijen "staan keurig in rij".
 - [ ] Rechtsklik op de rechterhelft van een rij (het doelwit van een groepslid) terwijl die vijand iets cast → Rebuke
-      gaat op die vijand. Sta je te ver: het spel zegt "out of range" (Rebuke is melee).
+      gaat op die vijand. Sta je te ver: het spel zegt "out of range" (Rebuke is melee). 👀 Rob, 12 nov: "out of range,
+      dat klopt" (het half). Een Rebuke die RAAKT: nog niet gezien. In `/mh glow` "recent casts" stond geen Rebuke-regel
+      (kan eruit gescrold zijn); wel 2× "There is nothing to attack." (oorzaak NIET GEMETEN).
 - [ ] Op een Priest, Mage, Shaman of Hunter: daar blijft het de purge, zoals voorheen.
 
 ## 🆕 12 nov — `/mh selftest` niet meer in de commandolijst (Rob: "Ja, haal hem weg")
@@ -129,6 +134,8 @@ Eerst `/reload`. In Forever:
 ## 🆕 11 nov — Melding: je pakte net een upgrade op (stap d, Forever én Midnight)
 
 Eerst `/reload`. Gewoon spelen en spullen oppakken (loot, questbeloning):
+⏳ Midnight, 12 nov: niet te testen op Robs Prot Paladin (gear al "heel erg hoog niveau", er viel niets beters). Beter op
+   een alt die nog levelt.
 - [ ] Komt er gear in je tas die **duidelijk beter** is dan wat je draagt: een kort bericht midden-onder op je scherm,
       bv. "Upgrade in your bags: [Snow Boots] — +3 Strength over what you wear (main stats for a Paladin)." Het
       verdwijnt na ~7 seconden; muis erop houdt het vast; slepen en Shift+scroll werken. Ook één regel in de chat.
@@ -189,6 +196,10 @@ Eerst `/reload`. Op je paladin in Forever, zonder blessing:
 - [x] Zonder aura: "No aura active: Devotion Aura. Click the icon to cast it." ✅ Rob, 11 nov (screenshot).
 - [x] `/mh buffs` → "line under the icon: Blessing of Might is not on you. Click the icon to cast it." ✅ Rob, 11 nov.
 - [ ] In een gevecht (alleen bij aura/pet): de zin eindigt op "Cast it from your bars." in plaats van "Click the icon".
+      ❌/❓ Rob, 12 nov (Midnight, follower dungeon, Prot Paladin): in het gevecht verdween de melding helemaal, geen
+      andere zin. Code (GEMETEN): `MissingBuff.lua:819` verbergt alles als `ns.Aura.Trusted()` false is
+      (`C_Secrets.ShouldAurasBeSecret`). AFGELEID: in een dungeon-gevecht is dat zo. Meten: `/mh mbuff` IN het gevecht,
+      met de aura uit → regel "auras-trusted=…". Voorstel ligt bij Rob (sparring).
 - [ ] Krijg je ooit een **Greater Blessing** van een andere paladin: dan mag het icoon NIET om een blessing vragen.
 - [x] Midnight (gewone WoW), een character dat een buff mist: dezelfde soort zin, met de naam van die buff. ✅ Rob, 12 nov
       (via sparring): "die is goed" (welke buff en welk character: niet gezegd).

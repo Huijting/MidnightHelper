@@ -15,6 +15,17 @@
    Een release alleen op Robs go. CF-plaatjes staan erop (Rob, 11 nov); of hij de nieuwe CF-beschrijving en de
    5.1.0-tekst al plakte: NIET GEMETEN, vragen.
 
+## 🆕 12 nov — Robs Midnight-test deel 2 (follower dungeon, Prot Paladin, via sparring)
+
+- ✅ Groepspaneel: rijen netjes, `/mh glow` "no purge, so your stop-spell: spell 96231", 5 rechterhelften gewapend.
+  Rebuke-rechtsklik: "out of range, dat klopt"; een raak-Rebuke nog niet gezien. ✅ `/mh prompt test`: slepen en
+  Shift+scroll werken (na de woordfix 3361a0b? onbekend; na-reload niet gehoord). ⏳ Upgrade-melding: niet te testen.
+- ❓ Buff-zin in gevecht: de melding verdween helemaal. GEMETEN in code: `ns.UpdateMissingBuff` (MissingBuff.lua:819)
+  verbergt alles als `ns.Aura.Trusted()` false is (`C_Secrets.ShouldAurasBeSecret`). Dat is bewust ontworpen (Cisca's
+  schild-spam, 5 jul). Maar de Paladin-aura wordt NIET via aura's gelezen maar via de vormen-API (`InAnyForm`, :385-389,
+  showCombat=true), dus die zou kunnen blijven staan. AFGELEID dat het die regel was. Voorstel naar sparring: eerst
+  `/mh mbuff` in een gevecht laten meten; dan vormen/stances/aura's (vormen-API) uitzonderen op de aura-regel.
+
 ## 🆕 12 nov — Onderzoek: richtingen per class in Forever (Rob: "Ja, alle classes", via sparring; GEEN bouw-go)
 
 - `docs/forever/RICHTINGEN_PER_CLASS_2026-11-12.md` (mh-research, 1 onderzoek, vaste vorm per class). GEMETEN: 9 classes
