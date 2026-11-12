@@ -54,9 +54,18 @@ Welke routines er zijn, met ID, tijd en bestand: `docs/REGIE.md`, tabel 1. Repo 
     Een open vraag beantwoord je in `docs/SITE_SEIN.md`. Ontbreekt het bestand of staat het achter: melden.
     (En los van de ronde: elke nieuwe functie, tag of CurseForge-upload krijgt een regel in `SITE_SEIN.md`, in dezelfde commit.)
 
+19. **Robs inbak in Notion** (sinds 12 nov; Rob: *"Klinkt als een goed idee"*): de lijst **"Inbak Rob"**
+    (`https://app.notion.com/p/1714fcad6a00489997b0489d9538924e`, data source
+    `collection://41a41009-8ef2-4f5b-93ea-b419b3e0e33b`). Daar zet een chat neer wat Rob inspreekt. Lees de regels met
+    status **Nieuw** en leg ze aan Rob voor. Zegt hij ja op een addon-idee, dan gaat het in de vaste vorm naar
+    `docs/IDEEEN.md` en krijgt de regel status "Naar IDEEEN.md"; de rest blijft in Notion. Niets zelf uitwerken zonder
+    zijn ja. Heeft de chat geen Notion-connector: melden, niet overslaan.
+    ⚠️ Dit is iets anders dan de **MH ideeënbus** (stap 10): dat is de wachter die op zondag zelf ideeën voorstelt.
+    Twee ingangen, één lijst: allebei komen uit in `docs/IDEEEN.md`.
+
 ## 4. Vertellen
 
-19. **Vertel Rob alleen wat hém raakt**, in eenvoudig Nederlands. Meestal is dat "niets": zeg dat dan, mét wat je gelezen
+20. **Vertel Rob alleen wat hém raakt**, in eenvoudig Nederlands. Meestal is dat "niets": zeg dat dan, mét wat je gelezen
     hebt, zodat stilte te onderscheiden is van niet-kijken.
 
 Ook goed om te weten: de regisseur draait om 08:15, en Home Assistant start hem eerder zodra Rob wakker is (knop
