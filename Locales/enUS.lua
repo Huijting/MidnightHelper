@@ -5342,6 +5342,14 @@ ns._mhLocales.enUS = {
 	FVEND_ITEM_LOADING = "(loading…)",
 	FVEND_TIP_FMT = "You learned %s, but you have no %s yet. The nearest seller: %s in %s (%s).",
 	FVEND_TIP_NONE_FMT = "You learned %s, but you have no %s yet. MH knows no seller on your side.",
+	-- 12 Nov 2026: the small Forever group panel (ForeverPartyPanel.lua).
+	FPARTY_TITLE = "Group",
+	FPARTY_ON = "group panel: on. It shows when you are in a group: left-click a row = target, right-click = your dispel on that player (Shift+right-click = your second dispel). A red edge = something you can remove.",
+	FPARTY_OFF = "group panel: off. /mh partytargets turns it back on.",
+	FPARTY_NO_DISPEL = "group panel: this character knows no dispel yet, so right-click does nothing. Left-click still targets.",
+	FPARTY_NOT_IN_COMBAT = "group panel: not in combat. Try again after the fight.",
+	SET_FOREVER_PARTY_TITLE = "Group panel",
+	SET_FOREVER_PARTY_DESC = "WoW Forever: a small panel with your group. Left-click a row to target that player, right-click to cast your dispel on them (Shift+right-click: your second dispel). The game draws a red edge when a player has something you can remove. Same as /mh partytargets.",
 	-- 12 Nov 2026: the same tip when the game says the tool is missing (ForeverVendors.lua OnToolError).
 	FVEND_NEED_FMT = "For this you need a %s. The nearest seller: %s in %s (%s).",
 	FVEND_NEED_NONE_FMT = "For this you need a %s. MH knows no seller on your side.",

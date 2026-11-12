@@ -408,6 +408,10 @@ lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met d
 - Rob zegt:      ja. Bouwchat 11 nov: *"Ja, alleen klein"* (midden later, eerst meten). **Klein gebouwd 11 nov:** twee
                  Paladin-macro's (Hammer of Justice = stun, Purify). Midden: open. Aparte vraag voor later: krijgt het
                  Midnight-paneel ook "stop-spell op het doelwit" (nu purge)?
+                 Midden gemeten 12 nov (partyProbe, 5 gevechten), daarna Rob via sparring, letterlijk: *"A, eerst klein"*.
+                 **Gebouwd 12 nov:** `Modules/ForeverPartyPanel.lua` (rijen, klik = doelwit, rechtsklik = dispel,
+                 Blizzards rode rand; standaard uit; `/mh partytargets`). Geen stop-spell-knop (= optie B, mogelijke
+                 stap 2). Niet in het spel gezien; de rode rand moet in een dungeon blijken (TESTLIJST 12 nov avond).
 
 ### CurseForge-plaatjes: echte screenshots op één vaste achtergrond
 - Voor wie:      wij (CurseForge-pagina en de site); spelers zien alleen het resultaat

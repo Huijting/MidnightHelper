@@ -29,6 +29,14 @@
 - NIET GEMETEN: casts (altijd "nil", er werd niets gecast op het moment van de foto); of de rode rand in Forever echt
   oplicht; een dungeon; 3-5 spelers. PartyTargets leunt op DispelHelper.lua (retail) en spec-API's → overzetten = werk.
 - Plan met opties naar sparring gestuurd; niets bouwen zonder Robs ja.
+- ✅ Rob koos (via sparring, letterlijk): *"A, eerst klein"*. Gebouwd: `Modules/ForeverPartyPanel.lua` (beide tocs; returnt
+  op retail). Rijen you+party1-4 (naam/class-kleur/rol), secure knoppen op UIParent ZONDER scripts (`*type1`=target,
+  `type2`/`spell2` = eerste dispel, `shift-type2`/`shift-spell2` = tweede), RegisterUnitWatch, handmatig over de rijen
+  gezet buiten gevecht. Rode rand: AuraContainer per rij met vaste unit (nooit opnieuw binden), canvas als kind van de
+  slot maar vast aan onze rij, zonder muis. Dispels: namen/id's uit `FOREVER_SPELL_IDS` (DB2), welke class welke is
+  alleen volgorde; IsPlayerSpell beslist. Standaard UIT: `ns.db.foreverPartyPanel`, instelling `mh_foreverPartyPanel`,
+  `/mh partytargets` (zelfde commando als Midnight) + `check`. In `MoveMode.lua` en `tools/window_check.py` (EXEMPT,
+  eigen Shift+scroll). Geen stop-spell (optie B). NIET GEMETEN: of de rode rand in Forever oplicht → Robs dungeontest.
 
 ## 🛠️ 12 nov (avond) — Forever: gereedschap-tip ook bij de foutmelding van het spel
 

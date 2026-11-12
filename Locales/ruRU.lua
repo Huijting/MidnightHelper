@@ -5389,6 +5389,9 @@ ns._mhLocales.ruRU = {
 	-- 12 Nov 2026: tool-missing tip (ForeverVendors.lua); our own translation (mh-writer), not native-checked.
 	SET_FOREVER_TOOLNEED_TITLE = "Показывать, где купить недостающий инструмент",
 	SET_FOREVER_TOOLNEED_DESC = "WoW Forever: когда игра сообщает, что вам не хватает инструмента для профессии (нож, кирка, молот, удочка), MH показывает ближайшего продавца с кнопкой \"Показать путь\". Не чаще одного раза на инструмент в 10 минут.",
+	-- 12 Nov 2026: Forever group panel (ForeverPartyPanel.lua); our own translation (mh-writer), not native-checked.
+	SET_FOREVER_PARTY_TITLE = "Панель группы",
+	SET_FOREVER_PARTY_DESC = "WoW Forever: небольшая панель с вашей группой. Щелкните левой кнопкой мыши по строке, чтобы выбрать этого игрока целью, правой кнопкой – чтобы применить к нему ваше развеивание (Shift+щелчок правой кнопкой: ваше второе развеивание). Игра рисует красную рамку, когда на игроке есть то, что вы можете снять. То же самое, что /mh partytargets.",
 	-- 12 Nov 2026: direction question and Move switch, mh-writer; not native-checked.
 	SET_FOREVER_DIRECTION_TITLE = "Спрашивать, какой путь вы выберете",
 	SET_FOREVER_DIRECTION_DESC = "WoW Forever: на персонаже без выбранного направления после входа спросить, к какой из трех веток талантов вашего класса вы хотите идти. /mh direction открывает вопрос в любой момент.",
@@ -6582,6 +6585,12 @@ ns._mhLocales.ruRU = {
 	FVEND_NEED_NONE_FMT = "Для этого нужно: %s. MH не знает ни одного продавца на вашей стороне.",
 	FVEND_NEED_ON = "подсказка об инструменте: вкл. Когда игра сообщает, что у вас нет инструмента, MH показывает, где его купить.",
 	FVEND_NEED_OFF = "подсказка об инструменте: выкл. /mh vendor tip on включает её снова.",
+	-- 12 Nov 2026: Forever group panel (ForeverPartyPanel.lua); our own translation (mh-writer), not native-checked.
+	FPARTY_TITLE = "Группа",
+	FPARTY_ON = "панель группы: вкл. Она видна, когда вы в группе: щелчок левой кнопкой по строке = цель, щелчок правой кнопкой = ваше развеивание на этого игрока (Shift+щелчок правой кнопкой = ваше второе развеивание). Красная рамка = то, что вы можете снять.",
+	FPARTY_OFF = "панель группы: выкл. /mh partytargets включает её снова.",
+	FPARTY_NO_DISPEL = "панель группы: этот персонаж пока не знает ни одного развеивания, поэтому щелчок правой кнопкой ничего не делает. Щелчок левой кнопкой по-прежнему выбирает цель.",
+	FPARTY_NOT_IN_COMBAT = "панель группы: не во время боя. Попробуйте снова после боя.",
 	FVEND_TIP_WAY = "Показать путь",
 	FVEND_TIP_ALL = "Все продавцы",
 	FBUFF_ON = "кнопка недостающих баффов включена.",

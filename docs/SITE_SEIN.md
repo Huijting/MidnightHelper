@@ -28,6 +28,16 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 12 nov 2026 — Forever: klein groepspaneel
+- Tag + commit:   geen tag / (deze commit)
+- Status:         alleen op main
+- Mag op de site: nee (nog niet uit)
+- Speler ziet:    Een klein paneel met je groep (standaard uit): klik = doelwit, rechtsklik = je dispel op die speler,
+                  en Blizzards rode rand als iemand iets heeft wat jij kunt weghalen. Niet in het spel gezien.
+- Knoplabels:     SET_FOREVER_PARTY_TITLE, FPARTY_TITLE
+- Commando's:     /mh partytargets, /mh partytargets check
+- Spel:           Forever
+
 ## 12 nov 2026 — Forever: gereedschap vergeten → waar je het koopt
 - Tag + commit:   geen tag / (deze commit)
 - Status:         alleen op main

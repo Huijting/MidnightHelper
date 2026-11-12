@@ -526,6 +526,13 @@ local function Build()
 		end, function(v)
 			if ns.SetForeverBarLayoutAsk then ns.SetForeverBarLayoutAsk(v) end
 		end, true)
+		-- 12 Nov 2026 (Rob, via sparring: "A, eerst klein"): the small Forever group panel (ForeverPartyPanel.lua). Off by
+		-- default; same as /mh partytargets.
+		Toggle("mh_foreverPartyPanel", "SET_FOREVER_PARTY_TITLE", "SET_FOREVER_PARTY_DESC", function()
+			return ns.IsForeverPartyPanelOn and ns.IsForeverPartyPanelOn()
+		end, function(v)
+			if ns.SetForeverPartyPanel then ns.SetForeverPartyPanel(v) end
+		end, false)
 		-- 12 Nov 2026 (Rob, via sparring: "Ja, laat hem dat uitzoeken en bouwen"): the game says a tool is missing →
 		-- the nearest seller with "Show the way" (ForeverVendors.lua). On by default; /mh vendor tip on|off.
 		Toggle("mh_foreverToolNeedTip", "SET_FOREVER_TOOLNEED_TITLE", "SET_FOREVER_TOOLNEED_DESC", function()

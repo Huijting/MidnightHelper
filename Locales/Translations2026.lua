@@ -23679,3 +23679,47 @@ if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	SET_FOREVER_TOOLNEED_TITLE = "Mostrar onde comprar uma ferramenta que falta",
 	SET_FOREVER_TOOLNEED_DESC = "WoW Forever: quando o jogo diz que falta uma ferramenta para a sua profissão (faca, picareta, martelo, vara de pescar), o MH mostra o vendedor mais próximo com um botão \"Mostrar o caminho\". No máximo uma vez por ferramenta a cada 10 minutos.",
 }) end
+
+-- 12 Nov 2026: Forever group panel (ForeverPartyPanel.lua); our own translation (mh-writer), not native-checked.
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
+	FPARTY_TITLE = "Gruppe",
+	FPARTY_ON = "Gruppenfenster: an. Es erscheint, wenn du in einer Gruppe bist: Linksklick auf eine Zeile = Ziel, Rechtsklick = dein Dispel auf diesen Spieler (Umschalt+Rechtsklick = dein zweites Dispel). Ein roter Rand = etwas, das du entfernen kannst.",
+	FPARTY_OFF = "Gruppenfenster: aus. /mh partytargets schaltet es wieder ein.",
+	FPARTY_NO_DISPEL = "Gruppenfenster: Dieser Charakter kennt noch kein Dispel, Rechtsklick tut also nichts. Linksklick wählt weiterhin ein Ziel.",
+	FPARTY_NOT_IN_COMBAT = "Gruppenfenster: nicht während des Kampfes. Versuch es nach dem Kampf noch einmal.",
+	SET_FOREVER_PARTY_TITLE = "Gruppenfenster",
+	SET_FOREVER_PARTY_DESC = "WoW Forever: ein kleines Fenster mit deiner Gruppe. Linksklick auf eine Zeile macht diesen Spieler zu deinem Ziel, Rechtsklick wirkt dein Dispel auf ihn (Umschalt+Rechtsklick: dein zweites Dispel). Das Spiel zeichnet einen roten Rand, wenn ein Spieler etwas hat, das du entfernen kannst. Dasselbe wie /mh partytargets.",
+}) end
+
+-- 12 Nov 2026: Forever group panel (ForeverPartyPanel.lua); our own translation (mh-writer), not native-checked.
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
+	FPARTY_TITLE = "Groupe",
+	FPARTY_ON = "panneau de groupe : activé. Il s'affiche quand tu es en groupe : clic gauche sur une ligne = cible, clic droit = ta dissipation sur ce joueur (Maj+clic droit = ta deuxième dissipation). Un bord rouge = quelque chose que tu peux retirer.",
+	FPARTY_OFF = "panneau de groupe : désactivé. /mh partytargets le réactive.",
+	FPARTY_NO_DISPEL = "panneau de groupe : ce personnage ne connaît encore aucune dissipation, donc le clic droit ne fait rien. Le clic gauche cible toujours.",
+	FPARTY_NOT_IN_COMBAT = "panneau de groupe : pas pendant le combat. Réessaie après le combat.",
+	SET_FOREVER_PARTY_TITLE = "Panneau de groupe",
+	SET_FOREVER_PARTY_DESC = "WoW Forever : un petit panneau avec ton groupe. Clic gauche sur une ligne pour cibler ce joueur, clic droit pour lui lancer ta dissipation (Maj+clic droit : ta deuxième dissipation). Le jeu dessine un bord rouge quand un joueur a quelque chose que tu peux retirer. Identique à /mh partytargets.",
+}) end
+
+-- 12 Nov 2026: Forever group panel (ForeverPartyPanel.lua); our own translation (mh-writer), not native-checked.
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
+	FPARTY_TITLE = "Grupo",
+	FPARTY_ON = "panel de grupo: activado. Aparece cuando estás en un grupo: clic izquierdo en una fila = objetivo, clic derecho = tu disipación sobre ese jugador (Mayús+clic derecho = tu segunda disipación). Un borde rojo = algo que puedes quitar.",
+	FPARTY_OFF = "panel de grupo: desactivado. /mh partytargets lo vuelve a activar.",
+	FPARTY_NO_DISPEL = "panel de grupo: este personaje aún no conoce ninguna disipación, así que el clic derecho no hace nada. El clic izquierdo sigue seleccionando objetivo.",
+	FPARTY_NOT_IN_COMBAT = "panel de grupo: no durante el combate. Inténtalo de nuevo después del combate.",
+	SET_FOREVER_PARTY_TITLE = "Panel de grupo",
+	SET_FOREVER_PARTY_DESC = "WoW Forever: un panel pequeño con tu grupo. Clic izquierdo en una fila para seleccionar a ese jugador como objetivo, clic derecho para lanzarle tu disipación (Mayús+clic derecho: tu segunda disipación). El juego dibuja un borde rojo cuando un jugador tiene algo que puedes quitar. Lo mismo que /mh partytargets.",
+}) end
+
+-- 12 Nov 2026: Forever group panel (ForeverPartyPanel.lua); our own translation (mh-writer), not native-checked.
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
+	FPARTY_TITLE = "Grupo",
+	FPARTY_ON = "painel do grupo: ligado. Ele aparece quando você está em um grupo: clique com o botão esquerdo numa linha = alvo, clique com o botão direito = sua dissipação nesse jogador (Shift+clique com o botão direito = sua segunda dissipação). Uma borda vermelha = algo que você consegue remover.",
+	FPARTY_OFF = "painel do grupo: desligado. /mh partytargets liga de novo.",
+	FPARTY_NO_DISPEL = "painel do grupo: este personagem ainda não conhece nenhuma dissipação, então o clique com o botão direito não faz nada. O clique com o botão esquerdo continua pegando o alvo.",
+	FPARTY_NOT_IN_COMBAT = "painel do grupo: não durante o combate. Tente de novo depois da luta.",
+	SET_FOREVER_PARTY_TITLE = "Painel do grupo",
+	SET_FOREVER_PARTY_DESC = "WoW Forever: um painel pequeno com o seu grupo. Clique com o botão esquerdo numa linha para pegar esse jogador como alvo, clique com o botão direito para lançar sua dissipação nele (Shift+clique com o botão direito: sua segunda dissipação). O jogo desenha uma borda vermelha quando um jogador tem algo que você consegue remover. O mesmo que /mh partytargets.",
+}) end

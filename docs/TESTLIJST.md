@@ -57,6 +57,22 @@ Eerst `/reload`, buiten een gevecht.
 - [ ] Een gevecht beginnen met de vakjes aan → ze gaan vanzelf weg, met een regel in de chat.
 - [ ] `/mh move why` → per onderdeel: op je scherm, nu verborgen, of uit.
 
+## 🆕 12 nov (avond) — FOREVER: klein groepspaneel (Rob, via sparring: "A, eerst klein")
+
+Eerst `/reload` in Forever. Het staat standaard UIT.
+- [ ] `/mh partytargets` → chat "group panel: on …". Buiten een groep zie je nog niets.
+- [ ] In een groep (2 is genoeg): een paneeltje "Group" met een rij per speler: naam in class-kleur, rol rechts (als die er
+      is). Lege plekken staan grijs met "-".
+- [ ] Linksklik op een rij → die speler wordt je doelwit. Ook in een gevecht.
+- [ ] Rechtsklik op een rij → je dispel op die speler (Paladin: Cleanse of Purify; Priest: Dispel Magic, Shift+rechtsklik
+      Cure/Abolish Disease; Druid: Remove Curse, Shift: Cure/Abolish Poison; Shaman: Cure Poison, Shift: Cure Disease;
+      Mage: Remove Lesser Curse).
+- [ ] 🔑 Het echte doel, in een dungeon of met 3+ man: krijgt iemand iets wat jij kunt weghalen, dan wordt die rij ROOD
+      (Blizzards eigen rand). Dat is in Forever nog nooit gezien. Wordt hij nooit rood terwijl je wel kon dispellen: zeg het.
+- [ ] Slepen aan de titelbalk "Group", Shift+scroll = groter/kleiner; na /reload staat het nog daar. Klikken werkt daarna nog.
+- [ ] `/mh partytargets check` → wat MH ziet: getoond of niet en waarom, je dispels, hoeveel rode randen gebouwd.
+- [ ] Nog eens `/mh partytargets` → uit, paneel weg. Ook via Options → AddOns → Midnight Helper → "Group panel".
+
 ## 🆕 12 nov (avond) — FOREVER: gereedschap vergeten → MH zegt waar je het koopt (Rob, via sparring: "Ja, laat hem dat uitzoeken en bouwen")
 
 Eerst `/reload`, op een character met Skinning en zonder Skinning Knife (Cisca's situatie).

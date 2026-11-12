@@ -3155,6 +3155,15 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		end
 		return
 	end
+	-- 12 Nov 2026, WoW Forever: what the small group panel sees and why (ForeverPartyPanel.lua).
+	if msg == "partytargets check" then
+		if ns.ForeverPartyPanelCheck then
+			ns.ForeverPartyPanelCheck()
+		else
+			print("|cffffcc00Midnight Helper:|r /mh partytargets check is for WoW: Forever (in Midnight: /mh glow).")
+		end
+		return
+	end
 	if msg == "partytargets probe" or msg == "partytarget" then
 		if ns.PrintPartyTargetProbe then
 			ns.PrintPartyTargetProbe()

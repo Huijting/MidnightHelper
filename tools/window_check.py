@@ -39,6 +39,7 @@ EXEMPT = {
     "MidnightHelperCombatSafety": "own Shift+scroll (CombatSafety.lua:240)",
     "MidnightHelperCombatSafetyBars": "own Shift+scroll (CombatSafety.lua:375)",
     "MidnightHelperPartyTargets": "own size: a resize grip (PartyTargets.lua:1146 SetResizable / StartSizing)",
+    "MidnightHelperForeverParty": "own Shift+scroll (ForeverPartyPanel.lua Build, OnMouseWheel)",
     # Not a window: does not take the mouse, or is a secure/protected frame, a menu, a test pad or no frame to see.
     "MidnightHelperEventFrame": "event frame, nothing to see",
     "MidnightHelperRolesetTest": "debug probe (ApiProbe.lua), not for players",
