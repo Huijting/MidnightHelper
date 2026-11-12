@@ -66,7 +66,10 @@ Eerst `/reload` op je Protection-paladin (een paar seconden wachten).
       "Do this now" (bv. spells bij je trainer met de prijs, oude ranks op je balken, een ontbrekende buff, een beroep
       zonder gereedschap) en "Coming up (next 3 levels)": per level de trainer-spells bij naam, en "For Protection: Holy
       Shield (a talent, at the earliest at level 30)" zolang je onder 30 bent.
+- [x] Het venster staat er en werkt. ✅ Rob, 12 nov (via sparring, 21.png): "Het venster staat er, werkt".
 - [ ] Knoppen onderaan alleen als het past: "Show the way" (naar je trainer), de ranks-knop, "Weapon trainers".
+      ❌ 21.png: "Weapon trainers" stak buiten de knop uit. Gerepareerd: elke knop zo breed als zijn tekst, en een
+      nieuwe rij als ze niet naast elkaar passen. Opnieuw kijken.
 - [ ] Niets te doen → het venster is weg (standaard). In Options → AddOns → Midnight Helper → "\"Do this now\" window" op
       "always" → het blijft staan en zegt "All caught up". "off" → nooit.
 - [ ] Begint een gevecht → het venster gaat weg; na het gevecht komt het terug.

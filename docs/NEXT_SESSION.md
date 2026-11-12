@@ -31,6 +31,12 @@
 - In een gevecht weg, daarna terug. Standaardplek rechtsboven.
 - In CommandList met `foreverOnly` (nieuw in `CommandItemShown`, dus ook de zoekbalk), in MoveMode, en EXEMPT in window_check (eigen Shift+scroll).
 - Offline (scratch `donow_test.lua`): 4 punten "doe nu", 3 regels "komt eraan", de standen wisselen goed. luac schoon, lint 0 HARD. Niet in het spel gezien.
+- ✅ Rob: "Het venster staat er, werkt" (21.png). ❌ De knop "Weapon trainers" was te smal (vaste 90 px). Gerepareerd:
+  breedte uit de tekst, nieuwe rij als het niet past.
+- Open vragen van sparring (niets bouwen zonder Robs ja):
+  - dubbele titel/kop "Do this now";
+  - de rank bij hogere ranks (de trainer leest hem al met `C_Spell.GetSpellSubtext`, `RankText`);
+  - "weapon(s)" en dat de wapentelling niet naar je richting kijkt.
 
 ## 🛠️ 12 nov (avond) — "Welke kant?" stap 1 + 2: blok in How you play, + in /mh weapons
 

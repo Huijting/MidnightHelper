@@ -293,21 +293,39 @@ local function Render(info)
 	f.btnTrainer:SetText(ns:L("HOME_FOREVER_BTN_GO"))
 	f.btnRanks:SetText(ns:L("FRANK_HOME_BTN"))
 	f.btnWeapons:SetText(ns:L("FWEAP_TITLE"))
-	-- Buttons only for what is on the list; they close up from the left.
-	local x = 10
+	-- Buttons only for what is on the list; they close up from the left. Each as wide as its own text (Rob's 21.png,
+	-- 12 Nov 2026: "Weapon trainers" stuck out of a fixed 90 px button), and a new row when the next one does not fit.
+	local shown = {}
 	for _, pair in ipairs({ { f.btnTrainer, info.actions.trainer }, { f.btnRanks, info.actions.ranks },
 		{ f.btnWeapons, info.actions.weapons } }) do
 		local b, on = pair[1], pair[2]
 		if on then
-			b:ClearAllPoints()
-			b:SetPoint("BOTTOMLEFT", x, 10)
-			b:Show()
-			x = x + 94
+			local fs = b:GetFontString()
+			b:SetWidth(math.min(W - 20, math.max(80, math.ceil(((fs and fs:GetStringWidth()) or 70) + 24))))
+			shown[#shown + 1] = b
 		else
 			b:Hide()
 		end
 	end
-	local btnH = (x > 10) and 30 or 0
+	local rows, x = {}, 10
+	for _, b in ipairs(shown) do
+		if #rows == 0 or x + b:GetWidth() > W - 10 then
+			rows[#rows + 1] = {}
+			x = 10
+		end
+		local r = rows[#rows]
+		r[#r + 1] = { b = b, x = x }
+		x = x + b:GetWidth() + 4
+	end
+	for i, r in ipairs(rows) do
+		local y = 10 + (#rows - i) * 24
+		for _, e in ipairs(r) do
+			e.b:ClearAllPoints()
+			e.b:SetPoint("BOTTOMLEFT", e.x, y)
+			e.b:Show()
+		end
+	end
+	local btnH = (#rows > 0) and (#rows * 24 + 6) or 0
 	f:SetHeight(26 + f.body:GetStringHeight() + 12 + btnH)
 end
 
