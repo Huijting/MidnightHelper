@@ -53,6 +53,11 @@
   - `/mh vendor check` toont de laatste gematchte fout + de laatste fout van welke soort ook.
 - AFGELEID, niet in het spel gezien: dat het bericht precies zo als 2e argument van UI_ERROR_MESSAGE binnenkomt.
 - ⚠️ De oude leer-tip had nooit een uit-schakelaar (sparring dacht van wel); deze nieuwe heeft er wel een.
+- ✅ Rob testte het: GOED (17.png, via sparring). Daarna (Rob via sparring, gedicteerd: *"ja, die regelt ronde maar voor het
+  skinny knife ook"*, teruggelezen als "ja, die regel erbij"): de chatregel van de tip (leren én foutmelding) eindigt nu
+  met `FVEND_TIP_LIST_FMT` "Type /mh vendor <key> for the list of sellers." (`TipChat` in `ForeverVendors.lua`). De
+  10-minutenrem blijft (Rob: "Misschien terecht ook").
+- `/mh move`: Rob "mh move werkt :)". Niet gemeld: plek na /reload, buff-icoon cast na slepen.
 
 ## 🔎 12 nov (avond) — dispelTryLog na Robs run (Voidscar Arena, Prot Paladin): uitslag, niets gebouwd
 

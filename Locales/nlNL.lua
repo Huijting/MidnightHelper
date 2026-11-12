@@ -4550,6 +4550,7 @@ ns._mhLocales.nlNL = {
 	FVEND_ITEM_LOADING = "(laden…)",
 	FVEND_TIP_FMT = "Je hebt %s geleerd, maar je hebt nog geen %s. De dichtstbijzijnde verkoper: %s in %s (%s).",
 	FVEND_TIP_NONE_FMT = "Je hebt %s geleerd, maar je hebt nog geen %s. MH kent geen verkoper aan jouw kant.",
+	FVEND_TIP_LIST_FMT = "Typ %s voor de lijst met verkopers.",
 	FPARTY_TITLE = "Groep",
 	FPARTY_ON = "groepspaneel: aan. Het verschijnt als je in een groep zit: linksklik op een rij = doelwit, rechtsklik = je dispel op die speler (Shift+rechtsklik = je tweede dispel). Een rode rand = iets wat jij kunt weghalen.",
 	FPARTY_OFF = "groepspaneel: uit. /mh partytargets zet het weer aan.",

@@ -475,6 +475,18 @@ end
 --- Rob, 11 Nov 2026: the 10 Nov fix (redraw on GET_ITEM_INFO_RECEIVED) still left "(loading...)" in the tip. Why the
 --- event did not land is not measured. So the tip no longer depends on that one event: it also asks the game's own
 --- "tell me when this item has loaded" (ItemMixin ContinueOnItemLoad) and looks again every half second for 5 seconds.
+--- The tip's chat line: the window's text, plus the way back to the list (Rob, 12 Nov 2026, via sparring: the tip comes
+--- once, so the line now says which command opens the sellers again; his yes: "ja, die regelt ronde maar voor het skinny
+--- knife ook", read back by sparring as "ja, die regel erbij").
+local function TipChat(f)
+	local line = PREFIX .. (f.text:GetText() or "")
+	local key = f.tipCat and f.tipCat.key
+	if key then
+		line = line .. " " .. ns:L("FVEND_TIP_LIST_FMT"):format("/mh vendor " .. key)
+	end
+	return line
+end
+
 local function FinishTipName(f)
 	if not (f and f:IsShown() and f.tipLoading) then
 		return
@@ -482,7 +494,7 @@ local function FinishTipName(f)
 	RenderTip(f)
 	if f.tipChatPending and not f.tipLoading then
 		f.tipChatPending = nil
-		print(PREFIX .. f.text:GetText())
+		print(TipChat(f))
 	end
 end
 
@@ -537,7 +549,7 @@ local function CheckNewProfessions()
 				-- The chat line waits for the item name too: "(loading...)" in chat cannot be fixed afterwards.
 				f.tipChatPending = f.tipLoading or nil
 				if not f.tipLoading then
-					print(PREFIX .. f.text:GetText())
+					print(TipChat(f))
 				else
 					WaitForTipName(f)
 				end
@@ -643,7 +655,7 @@ local function OnToolError(msg)
 	f:Show()
 	f.tipChatPending = f.tipLoading or nil
 	if not f.tipLoading then
-		print(PREFIX .. f.text:GetText())
+		print(TipChat(f))
 	else
 		WaitForTipName(f)
 	end
@@ -729,7 +741,7 @@ ev:SetScript("OnEvent", function(_, event, a1, a2)
 			RenderTip(f)
 			if f.tipChatPending and not f.tipLoading then
 				f.tipChatPending = nil
-				print(PREFIX .. f.text:GetText())
+				print(TipChat(f))
 			end
 		end
 	end

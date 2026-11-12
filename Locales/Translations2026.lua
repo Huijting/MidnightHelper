@@ -23723,3 +23723,23 @@ if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	SET_FOREVER_PARTY_TITLE = "Painel do grupo",
 	SET_FOREVER_PARTY_DESC = "WoW Forever: um painel pequeno com o seu grupo. Clique com o botão esquerdo numa linha para pegar esse jogador como alvo, clique com o botão direito para lançar sua dissipação nele (Shift+clique com o botão direito: sua segunda dissipação). O jogo desenha uma borda vermelha quando um jogador tem algo que você consegue remover. O mesmo que /mh partytargets.",
 }) end
+
+-- 12 Nov 2026: tool tip list hint; our own translation (mh-writer), not native-checked.
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
+	FVEND_TIP_LIST_FMT = "Gib %s ein, um die Liste der Händler zu sehen.",
+}) end
+
+-- 12 Nov 2026: tool tip list hint; our own translation (mh-writer), not native-checked.
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
+	FVEND_TIP_LIST_FMT = "Tape %s pour voir la liste des vendeurs.",
+}) end
+
+-- 12 Nov 2026: tool tip list hint; our own translation (mh-writer), not native-checked.
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
+	FVEND_TIP_LIST_FMT = "Escribe %s para ver la lista de vendedores.",
+}) end
+
+-- 12 Nov 2026: tool tip list hint; our own translation (mh-writer), not native-checked.
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
+	FVEND_TIP_LIST_FMT = "Digite %s para ver a lista de vendedores.",
+}) end

@@ -49,8 +49,8 @@ Eerst `/reload`. Het beste op je Paladin in Forever zonder blessing én zonder a
 ## 🆕 12 nov (avond) — BEIDE SPELLEN: knop "Verplaatsen" (Rob, via sparring: "Knop 'Verplaatsen'")
 
 Eerst `/reload`, buiten een gevecht.
-- [ ] `/mh move` → alle MH-onderdelen op je scherm krijgen een groen vakje "Drag me: …", ook het buff-icoon als er niets
-      mist. De chat zegt hoeveel.
+- [x] `/mh move` → alle MH-onderdelen op je scherm krijgen een groen vakje "Drag me: …", ook het buff-icoon als er niets
+      mist. De chat zegt hoeveel. ✅ Rob, 12 nov (via sparring): "mh move werkt :)"
 - [ ] Sleep er een paar (buff-icoon, snelbalk, routepijl) → ze gaan mee. Klik daarna nog eens het buff-icoon: cast hij nog?
 - [ ] Nog eens `/mh move` → de vakjes weg, alles blijft op de nieuwe plek; na `/reload` ook.
 - [ ] Hetzelfde via Options → AddOns → Midnight Helper → "Move MH elements on your screen".
@@ -76,8 +76,11 @@ Eerst `/reload` in Forever. Het staat standaard UIT.
 ## 🆕 12 nov (avond) — FOREVER: gereedschap vergeten → MH zegt waar je het koopt (Rob, via sparring: "Ja, laat hem dat uitzoeken en bouwen")
 
 Eerst `/reload`, op een character met Skinning en zonder Skinning Knife (Cisca's situatie).
-- [ ] Probeer een dood beest te skinnen → het spel zegt "Requires Skinning Knife". Meteen daarna komt het venstertje
+- [x] Probeer een dood beest te skinnen → het spel zegt "Requires Skinning Knife". Meteen daarna komt het venstertje
       "For this you need a Skinning Knife. The nearest seller: …" met "Show the way", en dezelfde zin in de chat.
+      ✅ Rob, 12 nov (via sparring, 17.png): venster met Brighid Stormflayer in Dun Morogh (149 meters).
+- [ ] Nieuw 12 nov: de chatregel eindigt nu met "Type /mh vendor skinning for the list of sellers." (of mining, fishing,
+      hammer). Zo vind je de verkopers terug als het venstertje weg is.
 - [ ] "Show the way" → de pijl gaat naar die verkoper.
 - [ ] Nog eens proberen binnen 10 minuten → geen nieuw venstertje (geen spam).
 - [ ] Komt er niets? Typ `/mh vendor check`. De laatste twee regels zeggen welke foutmelding MH hoorde en wat hij deed.

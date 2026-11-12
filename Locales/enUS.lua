@@ -5350,6 +5350,8 @@ ns._mhLocales.enUS = {
 	FPARTY_NOT_IN_COMBAT = "group panel: not in combat. Try again after the fight.",
 	SET_FOREVER_PARTY_TITLE = "Group panel",
 	SET_FOREVER_PARTY_DESC = "WoW Forever: a small panel with your group. Left-click a row to target that player, right-click to cast your dispel on them (Shift+right-click: your second dispel). The game draws a red edge when a player has something you can remove. Same as /mh partytargets.",
+	-- 12 Nov 2026: end of the tool tip's chat line; %s = the command, e.g. /mh vendor skinning.
+	FVEND_TIP_LIST_FMT = "Type %s for the list of sellers.",
 	-- 12 Nov 2026: the same tip when the game says the tool is missing (ForeverVendors.lua OnToolError).
 	FVEND_NEED_FMT = "For this you need a %s. The nearest seller: %s in %s (%s).",
 	FVEND_NEED_NONE_FMT = "For this you need a %s. MH knows no seller on your side.",
