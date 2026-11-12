@@ -250,10 +250,12 @@ local function SetButtonsLive(on)
 		pending = true
 		return
 	end
+	-- Only rows that are shown get a live button: someone who joins in a fight gets row AND button after it.
+	local shown = (panel and panel._mhRowsShown) or ROWS
 	for i = 1, ROWS do
 		local b = buttons[i]
 		if b then
-			if on then
+			if on and i <= shown then
 				RegisterUnitWatch(b)
 			else
 				UnregisterUnitWatch(b)
@@ -307,12 +309,53 @@ local function RefreshRows()
 	end
 end
 
+--- Anchor by the TOP-LEFT corner, so a change of height moves only the bottom edge (Rob, 12 Nov 2026, via sparring:
+--- "Ja, doe dat" — the panel as tall as the group). Offsets are in the panel's own scale, like GetLeft/GetTop.
+local function PinTopLeft()
+	if not panel or InCombat() then
+		return
+	end
+	local l, t = panel:GetLeft(), panel:GetTop()
+	if l and t then
+		panel:ClearAllPoints()
+		panel:SetPoint("TOPLEFT", UIParent, "BOTTOMLEFT", l, t)
+	end
+end
+
 local function SavePos()
 	if not (panel and ns.db) then
 		return
 	end
+	PinTopLeft()
 	local p, _, rp, x, y = panel:GetPoint()
 	ns.db.foreverPartyPanelPos = { p, rp, x, y, panel:GetScale() }
+end
+
+--- How many rows: you plus the party members that exist now (party1-4 fill up in order).
+local function MemberCount()
+	local n = 1
+	for i = 2, ROWS do
+		local ok, ex = pcall(UnitExists, UNITS[i])
+		if ok and ex == true then
+			n = i
+		end
+	end
+	return n
+end
+
+--- The panel as tall as the group. Out of combat only: the click buttons cannot follow in a fight.
+local function FitToGroup()
+	if not panel or InCombat() then
+		pending = true
+		return
+	end
+	PinTopLeft()
+	local n = MemberCount()
+	panel:SetHeight(HEAD_H + PAD * 2 + n * ROW_H)
+	for i = 1, ROWS do
+		panel.rows[i]:SetShown(i <= n)
+	end
+	panel._mhRowsShown = n
 end
 
 local function Build()
@@ -419,6 +462,7 @@ local function Update()
 		local f = Build()
 		f.title:SetText(ns:L("FPARTY_TITLE"))
 		f:Show()
+		FitToGroup()
 		RefreshRows()
 		ApplyDispels()
 		PlaceButtons()

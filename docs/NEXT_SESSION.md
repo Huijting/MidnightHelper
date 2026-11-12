@@ -37,6 +37,10 @@
   alleen volgorde; IsPlayerSpell beslist. Standaard UIT: `ns.db.foreverPartyPanel`, instelling `mh_foreverPartyPanel`,
   `/mh partytargets` (zelfde commando als Midnight) + `check`. In `MoveMode.lua` en `tools/window_check.py` (EXEMPT,
   eigen Shift+scroll). Geen stop-spell (optie B). NIET GEMETEN: of de rode rand in Forever oplicht → Robs dungeontest.
+- ✅ Rob zag het (18.png): "Het groepspaneel staat er, de rijen kloppen". Daarna (Rob via sparring: *"Ja, doe dat"*): het
+  paneel is zo hoog als de groep (`FitToGroup`, alleen buiten een gevecht; anker TOPLEFT via `PinTopLeft`, dus alleen de
+  onderkant schuift). Alleen getoonde rijen krijgen een live knop (`panel._mhRowsShown`), dus wie in een gevecht
+  erbij komt, krijgt rij én knop pas daarna. Geen schakelaar voor de vaste maat (sparring: "pas bij een klacht").
 
 ## 🛠️ 12 nov (avond) — Forever: gereedschap-tip ook bij de foutmelding van het spel
 
