@@ -67,14 +67,17 @@ Eerst `/reload` op je Protection-paladin (een paar seconden wachten).
       zonder gereedschap) en "Coming up (next 3 levels)": per level de trainer-spells bij naam, en "For Protection: Holy
       Shield (a talent, at the earliest at level 30)" zolang je onder 30 bent.
 - [x] Het venster staat er en werkt. ✅ Rob, 12 nov (via sparring, 21.png): "Het venster staat er, werkt".
-- [ ] Knoppen onderaan alleen als het past: "Show the way" (naar je trainer), de ranks-knop, "Weapon trainers".
+- [x] Knoppen onderaan alleen als het past: "Show the way" (naar je trainer), de ranks-knop, "Weapon trainers".
+      ✅ 22.png: "Weapon trainers" past nu in de knop. ("Show the way" en de ranks-knop nog niet gezien.)
       ❌ 21.png: "Weapon trainers" stak buiten de knop uit. Gerepareerd: elke knop zo breed als zijn tekst, en een
       nieuwe rij als ze niet naast elkaar passen. Opnieuw kijken.
-- [ ] Nieuw 12 nov (Rob: "Ja, alle drie"): (1) geen tweede "Do this now" meer onder de titel; (2) bij een spell die je al
+- [x] Nieuw 12 nov (Rob: "Ja, alle drie"): (1) geen tweede "Do this now" meer onder de titel; (2) bij een spell die je al
       hebt staat de rank erbij, bv. "Level 12: Blessing of Might (Rank 2), Holy Strike"; (3) "You can learn 2 new weapon
       skills now. (fitting Protection, according to player guides: 1)".
-- [ ] Nieuw 12 nov (Rob: "Ja, ook netjes"): de startpagina van MH (Forever) zegt nu ook "You can learn 1 new weapon skill
-      now." / "… 2 new weapon skills now." (zonder het stukje over je richting).
+      ✅ Rob, 12 nov (via sparring, 22.png): "Het venster en de startpagina kloppen nu". Rank bij elke spell die hij al
+      kent (ook Holy Strike en Seal of the Crusader: die kende hij al).
+- [x] Nieuw 12 nov (Rob: "Ja, ook netjes"): de startpagina van MH (Forever) zegt nu ook "You can learn 1 new weapon skill
+      now." / "… 2 new weapon skills now." (zonder het stukje over je richting). ✅ Rob: "… de startpagina kloppen nu".
 - [ ] Niets te doen → het venster is weg (standaard). In Options → AddOns → Midnight Helper → "\"Do this now\" window" op
       "always" → het blijft staan en zegt "All caught up". "off" → nooit.
 - [ ] Begint een gevecht → het venster gaat weg; na het gevecht komt het terug.
