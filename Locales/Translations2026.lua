@@ -24087,3 +24087,21 @@ if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	FDONOW_PROF_ONE = "Você ainda pode aprender 1 profissão principal.",
 	FDONOW_PROF_TWO = "Você ainda pode aprender 2 profissões principais.",
 }) end
+
+-- 12 Nov 2026: Do this now gear; our own translation (mh-writer), not native-checked.
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
+	FDONOW_GEAR_TIP = "Wann dieses Fenster erscheint: nur wenn es etwas zu tun gibt, immer oder aus. Das Kreuz blendet es nur bis zum nächsten Einloggen aus.",
+	FDONOW_OFF_HOW = "mach das jetzt: aus. Schalte es wieder ein mit /mh donow auto (oder always) oder unter Optionen -> AddOns -> Midnight Helper.",
+}) end
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
+	FDONOW_GEAR_TIP = "Quand cette fenêtre s'affiche : seulement quand il y a quelque chose à faire, toujours, ou désactivé. La croix la masque seulement jusqu'à ta prochaine connexion.",
+	FDONOW_OFF_HOW = "fais ça maintenant : désactivé. Réactive-le avec /mh donow auto (ou always), ou dans Options -> AddOns -> Midnight Helper.",
+}) end
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
+	FDONOW_GEAR_TIP = "Cuándo aparece esta ventana: solo cuando hay algo que hacer, siempre o desactivado. La cruz solo la oculta hasta tu próxima conexión.",
+	FDONOW_OFF_HOW = "haz esto ahora: desactivado. Vuelve a activarlo con /mh donow auto (o always), o en Opciones -> AddOns -> Midnight Helper.",
+}) end
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
+	FDONOW_GEAR_TIP = "Quando esta janela aparece: só quando há algo para fazer, sempre ou desligado. O X só a esconde até o seu próximo login.",
+	FDONOW_OFF_HOW = "faça isto agora: desligado. Ligue de volta com /mh donow auto (ou always), ou em Opções -> AddOns -> Midnight Helper.",
+}) end

@@ -77,6 +77,10 @@
     `FDONOW_WEAP_MANY_FMT`, zonder het richtingdeel. `FWEAP_HOME_FMT` wordt nergens meer gebruikt (lint [18] SOFT).
   - `FDONOW_HEAD_NOW` wordt niet meer gebruikt (blijft in de packs staan, onschadelijk).
 - Rob over mijn twee keuzes, letterlijk: *"Laat zo, in een gevecht weg en rechtsboven"*.
+- ✅ Tandwieltje (Rob via sparring, keuze letterlijk: *"Tandwieltje (Recommended)"*): `ForeverDoNow.lua` Build, knop
+  naast het kruisje (`Interface\\Buttons\\UI-OptionsButton`; dat die textuur in Forever bestaat is AFGELEID), eigen
+  menuutje (geen UIDropDownMenu) dat `SetMode` + `SyncNativeSetting` aanroept. Eén bron met de instelling. "off" →
+  chat `FDONOW_OFF_HOW`. Het kruisje blijft "tot de volgende login".
 
 ## 🛠️ 12 nov (avond) — "Welke kant?" stap 1 + 2: blok in How you play, + in /mh weapons
 

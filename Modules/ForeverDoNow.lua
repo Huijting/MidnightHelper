@@ -273,6 +273,8 @@ local function Build()
 	end)
 	f.title = f:CreateFontString(nil, "OVERLAY", "GameFontNormal")
 	f.title:SetPoint("TOPLEFT", 10, -8)
+	f.title:SetPoint("RIGHT", f, "RIGHT", -46, 0) -- leave room for the gear and the cross
+	f.title:SetJustifyH("LEFT")
 	local close = CreateFrame("Button", nil, f, "UIPanelCloseButton")
 	close:SetPoint("TOPRIGHT", 2, 2)
 	close:SetScale(0.8)
@@ -281,6 +283,79 @@ local function Build()
 		f:Hide()
 		print(PREFIX .. ns:L("FDONOW_CLOSED"))
 	end)
+	-- 12 Nov 2026 (Rob via sparring: "Tandwieltje (Recommended)"): a small gear next to the cross. A click opens a menu
+	-- with the same three modes as the setting (one source: SetMode); the cross keeps hiding until the next login.
+	local gear = CreateFrame("Button", nil, f)
+	gear:SetSize(14, 14)
+	gear:SetPoint("TOPRIGHT", -26, -7)
+	gear:SetNormalTexture("Interface\\Buttons\\UI-OptionsButton")
+	gear:SetHighlightTexture("Interface\\Buttons\\UI-Common-MouseHilight", "ADD")
+	gear:SetScript("OnEnter", function(self)
+		if GameTooltip then
+			GameTooltip:SetOwner(self, "ANCHOR_LEFT")
+			GameTooltip:SetText(ns:L("SET_FOREVER_DONOW_TITLE"))
+			GameTooltip:AddLine(ns:L("FDONOW_GEAR_TIP"), 1, 1, 1, true)
+			GameTooltip:Show()
+		end
+	end)
+	gear:SetScript("OnLeave", function()
+		if GameTooltip then
+			GameTooltip:Hide()
+		end
+	end)
+	local menu = CreateFrame("Frame", nil, f, "BackdropTemplate")
+	menu:SetPoint("TOPRIGHT", gear, "BOTTOMRIGHT", 4, -2)
+	menu:SetFrameStrata("DIALOG")
+	menu:SetBackdrop({
+		bgFile = "Interface\\Buttons\\WHITE8x8",
+		edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+		tile = false, edgeSize = 12,
+		insets = { left = 3, right = 3, top = 3, bottom = 3 },
+	})
+	menu:SetBackdropColor(0.06, 0.06, 0.09, 0.97)
+	menu:SetBackdropBorderColor(0.6, 0.5, 0.2, 0.9)
+	menu.items = {}
+	for i, m in ipairs({ "auto", "always", "off" }) do
+		local it = CreateFrame("Button", nil, menu)
+		it:SetHeight(18)
+		it:SetPoint("TOPLEFT", 6, -6 - (i - 1) * 18)
+		it:SetPoint("RIGHT", menu, "RIGHT", -6, 0)
+		it.text = it:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+		it.text:SetPoint("LEFT", 2, 0)
+		it:SetHighlightTexture("Interface\\Buttons\\UI-Common-MouseHilight", "ADD")
+		it.mode = m
+		it:SetScript("OnClick", function(self)
+			menu:Hide()
+			SetMode(self.mode)
+			if ns.SyncNativeSetting then
+				ns.SyncNativeSetting("mh_foreverDoNowMode", Mode())
+			end
+			if self.mode == "off" then
+				print(PREFIX .. ns:L("FDONOW_OFF_HOW"))
+			else
+				print(PREFIX .. ns:L("FDONOW_MODE_CHAT_FMT"):format(ns:L("FDONOW_MODE_" .. self.mode:upper())))
+			end
+		end)
+		menu.items[i] = it
+	end
+	menu:Hide()
+	gear:SetScript("OnClick", function()
+		if menu:IsShown() then
+			menu:Hide()
+			return
+		end
+		local wMax = 0
+		for _, it in ipairs(menu.items) do
+			local mark = (Mode() == it.mode) and "|cff7fff7f> |r" or "   "
+			it.text:SetText(mark .. ns:L("FDONOW_MODE_" .. it.mode:upper()))
+			wMax = math.max(wMax, it.text:GetStringWidth() or 0)
+		end
+		-- As wide as its longest line (lint [28]'s lesson: no text wider than its box).
+		menu:SetSize(math.ceil(wMax) + 20, #menu.items * 18 + 12)
+		menu:Show()
+	end)
+	f.gear, f.menu = gear, menu
+
 	f.body = f:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
 	f.body:SetPoint("TOPLEFT", 10, -26)
 	f.body:SetWidth(W - 20)

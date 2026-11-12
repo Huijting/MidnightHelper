@@ -95,6 +95,9 @@ Eerst `/reload` op je Protection-paladin (een paar seconden wachten).
       "always" → het blijft staan en zegt "All caught up". "off" → nooit.
 - [ ] Begint een gevecht → het venster gaat weg; na het gevecht komt het terug.
 - [ ] Kruisje → weg tot je volgende login. `/mh donow` → weer in beeld.
+- [ ] Nieuw 12 nov (Rob: "Tandwieltje"): naast het kruisje een tandwieltje. Muis erop → uitleg. Klik → menuutje met
+      "only when there is something to do", "always", "off" (een groen > bij de huidige stand). "off" → het venster weg
+      en de chat zegt hoe je het terugkrijgt (/mh donow auto of de instelling). Dezelfde stand staat dan ook in Options.
 - [ ] Slepen, Shift+scroll = grootte; na `/reload` staat het nog daar. Ook in `/mh move`.
 - [ ] `/mh donow check` → de stand, getoond of niet en waarom, en de lijst.
 
