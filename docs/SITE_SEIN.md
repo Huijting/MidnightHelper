@@ -28,6 +28,17 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 12 nov 2026 — Forever: "Your characters"
+- Tag + commit:   geen tag / (deze commit)
+- Status:         alleen op main
+- Mag op de site: nee (nog niet uit)
+- Speler ziet:    Een venster met al je characters op een rij: level en class, goud (met het totaal), beroepen met skill,
+                  je gekozen richting, wanneer je ze het laatst speelde, en hoeveel spells klaarliggen bij de trainer. Een
+                  character staat erin na één login. Niet in het spel gezien.
+- Knoplabels:     FCHARS_TITLE, FCHARS_COL_TRAINER, FCHARS_TOTAL_FMT
+- Commando's:     /mh alts
+- Spel:           Forever
+
 ## 12 nov 2026 — Allebei: venster "Nieuw in deze versie: jouw keuze"
 - Tag + commit:   geen tag / (deze commit)
 - Status:         alleen op main
@@ -38,7 +49,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
                   spel gezien.
 - Knoplabels:     NEWC_TITLE, NEWC_KEYS_BTN, NEWC_MORE, NEWC_ON, NEWC_OFF, NEWC_CHANGELOG_BTN
 - Commando's:     /mh new
-- Spel:           allebei (de eerste twee kaartjes alleen in Forever)
+- Spel:           allebei ("Do this now" en het groepspaneel in Forever, "Party targets" in Midnight, toetsen in allebei)
 
 ## 12 nov 2026 — Forever: uitleg per beroep
 - Tag + commit:   geen tag / (deze commit)

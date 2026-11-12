@@ -15,6 +15,21 @@
    Een release alleen op Robs go. CF-plaatjes staan erop (Rob, 11 nov); of hij de nieuwe CF-beschrijving en de
    5.1.0-tekst al plakte: NIET GEMETEN, vragen.
 
+## 🛠️ 12 nov (laat) — plan 2: "Your characters" in Forever (IDEEEN O21) + Midnight-kaartje plan 1
+
+- Rob (via sparring, letterlijk): *"De vijf van het advies, bouwen (Recommended)"*. Geen release.
+- `Modules/ForeverChars.lua` (beide tocs, alleen Forever actief). Foto per character in `ns.db.foreverChars[guid]`:
+  name, realm, class/className, level, money, profs {key,name,rank,max}, dir (boomnaam), trainerN/trainerCost, seen.
+  Genomen 2 s na PEW / PLAYER_LEVEL_UP / PLAYER_MONEY / SKILL_LINES_CHANGED / SPELLS_CHANGED, en direct bij PLAYER_LOGOUT.
+- Venster `MidnightHelperForeverChars`: eigen character bovenaan, dan op laatst gespeeld; tweede regel = beroepen;
+  kruisje = vergeten (niet op je eigen rij); totaal goud onderaan. `/mh alts`, `/mh alts check`. In Midnight zegt
+  `/mh alts` dat het voor Forever is.
+- NIET gebouwd (Rob): tasplekken, rust-XP, raid-locks (later, na een meting), gespeelde tijd.
+- Plan 1-gat (sparring): kaartje `partytargets` in NewChoices.lua voor Midnight, aan/uit via `ns.SetPartyTargetsEnabled`
+  + `SyncNativeSetting("mh_partyTargets")`. Valt onder Robs bouw-ja voor plan 1 (zijn eerste zin noemde party targets).
+- GEMETEN offline: fchars_test (2 characters, totaal, vergeten) en newc_test geval 7. In het spel: NIET GEZIEN.
+- Plan 3 (oude rank op de knop): keuzes A1/B1/C1 en meting binnen (`1 61 table nil`), bouw-ja NOG NIET.
+
 ## 🛠️ 12 nov (laat) — plan 1: venster "Nieuw in deze versie: jouw keuze" (IDEEEN O29)
 
 - Rob (via sparring, letterlijk): *"Keuzes in plaats van changelog (Recommended)"*, *"Iedereen (Recommended)"*,

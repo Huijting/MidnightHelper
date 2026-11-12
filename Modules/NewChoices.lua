@@ -90,6 +90,37 @@ local CARDS = {
 			}
 		end,
 	},
+	-- Midnight's own group panel (PartyTargets.lua). Rob's first sentence about this window, 12 Nov 2026: "Misschien ook
+	-- een idee om dit met de party targets te doen, dan weten mensen gelijk dat we het hebben". Same on/off as
+	-- /mh partytargets and the setting.
+	{
+		id = "partytargets",
+		head = "SET_PARTYTARGETS_TITLE",
+		body = "NEWC_PT_BODY",
+		avail = function()
+			return not ns.IS_FOREVER and ns.SetPartyTargetsEnabled ~= nil and ns.IsPartyTargetsEnabled ~= nil
+		end,
+		buttons = function()
+			local on = ns.IsPartyTargetsEnabled() and true or false
+			local function set(v)
+				return function()
+					if InCombat() then
+						print(PREFIX .. ns:L("FPARTY_NOT_IN_COMBAT"))
+						return
+					end
+					ns.SetPartyTargetsEnabled(v)
+					if ns.SyncNativeSetting then
+						ns.SyncNativeSetting("mh_partyTargets", v)
+					end
+					print(PREFIX .. ns:L(v and "PARTYTARGETS_ON" or "PARTYTARGETS_OFF"))
+				end
+			end
+			return {
+				{ text = ns:L("NEWC_ON"), current = on, click = set(true) },
+				{ text = ns:L("NEWC_OFF"), current = not on, click = set(false) },
+			}
+		end,
+	},
 	{
 		id = "keyblock",
 		head = "NEWC_KEYS_HEAD",

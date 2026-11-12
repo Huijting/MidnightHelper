@@ -21,6 +21,22 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 12 nov (laat) — FOREVER: "Your characters" (Rob, via sparring: "De vijf van het advies, bouwen (Recommended)")
+
+Nieuw bestand (`ForeverChars.lua`): WoW opnieuw starten. Een character staat er pas in na één login met deze versie.
+- [ ] `/mh alts` → venster "Your characters". Bovenaan het character waarop je nu speelt: naam in classkleur, server,
+      level en class, goud, je richting, "now", en in groen hoeveel spells klaarliggen bij de trainer. Op de tweede regel
+      in grijs je beroepen met skill (bv. "Mining 75/150").
+- [ ] Log in op een tweede character en weer terug → beide staan erin. "Last played" van de ander zegt "today".
+- [ ] Onderaan "All your gold together" = alles bij elkaar.
+- [ ] Het kruisje rechts op een ANDER character → die verdwijnt, de chat zegt "forgot …". Op je eigen rij staat geen kruisje.
+- [ ] `/mh alts check` → hoeveel characters er bewaard zijn en wat er van dit character staat.
+
+## 🆕 12 nov (laat) — MIDNIGHT: kaartje "Party targets" in het keuzevenster
+
+- [ ] In Midnight komt het keuzevenster nu ook met een kaartje "Show party targets" (On / Off). On → de chat zegt
+      "Party targets ON"; in Options staat "Show party targets" dan ook aan.
+
 ## 🆕 12 nov (laat) — BEIDE SPELLEN: venster "Nieuw in deze versie" (Rob, via sparring: "Ja, bouw het (Recommended)")
 
 ⚠️ Er is een nieuw bestand bij gekomen (`NewChoices.lua`). Voor de zekerheid: **sluit WoW helemaal af en start
@@ -36,8 +52,7 @@ opnieuw**, in Forever (of `/reload` een nieuw bestand oppikt: AFGELEID, niet gem
 - [ ] Sluit het venster met het kruisje zonder te kiezen → alles blijft zoals het was. Na `/reload` komt het niet
       terug (de changelog wel weer, zoals altijd).
 - [ ] `/mh new` → het venster komt terug. `/mh new check` → per kaartje of het geldt en of je het al zag.
-- [ ] In Midnight: alleen het toetsenkaartje (als je het blok daar nog niet hebt). Heb je het al → geen venster, de
-      changelog gewoon.
+- [ ] In Midnight: het kaartje "Show party targets", en het toetsenkaartje als je het blok daar nog niet hebt.
 
 ## 🆕 12 nov (avond) — FOREVER: "Welke kant wil je op?" (Rob, via sparring: "De vraag 'Welke kant?'")
 

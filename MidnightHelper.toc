@@ -267,6 +267,7 @@ Modules\ForeverPartyProbe.lua
 Modules\ForeverPartyPanel.lua
 Modules\ForeverDoNow.lua
 Modules\NewChoices.lua
+Modules\ForeverChars.lua
 Modules\SelftestData.lua
 Modules\Selftest.lua
 Modules\ForeverLayoutCarry.lua

@@ -2662,6 +2662,16 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		end
 		return
 	end
+	-- 12 Nov 2026, WoW Forever: "Your characters" (ForeverChars.lua). /mh alts check = what was saved and when.
+	local altsArg = (msg:lower() == "alts") and "" or msg:lower():match("^alts%s+(.+)$")
+	if altsArg then
+		if ns.ForeverCharsSlash then
+			ns.ForeverCharsSlash(altsArg)
+		else
+			print("|cffffcc00Midnight Helper:|r /mh alts is for WoW: Forever.")
+		end
+		return
+	end
 	-- 12 Nov 2026, WoW Forever: "Do this now" (ForeverDoNow.lua).
 	local donowArg = (msg:lower() == "donow") and "" or msg:lower():match("^donow%s+(.+)$")
 	if donowArg then

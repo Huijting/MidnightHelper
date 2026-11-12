@@ -160,6 +160,8 @@ Modules\ForeverPartyPanel.lua
 Modules\ForeverDoNow.lua
 # "New in this version: your choice" instead of the changelog when there is something to choose (Rob, 12 Nov 2026, via sparring: "Ja, bouw het (Recommended)").
 Modules\NewChoices.lua
+# "Your characters": every character of this account on one row (Rob, 12 Nov 2026, via sparring: "De vijf van het advies, bouwen (Recommended)").
+Modules\ForeverChars.lua
 # /mh selftest: does every game number in MH exist in this game? (Rob, 11 Nov 2026). Data file is generated.
 Modules\SelftestData.lua
 Modules\Selftest.lua
