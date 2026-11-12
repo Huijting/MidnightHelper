@@ -3061,22 +3061,33 @@ if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	PROMPT_ON = "Aktionshinweis AN — dein Unterbrecher und dein Zauberraub, sichtbar wenn sie greifen. Frei verschiebbar.",
 	PROMPT_OFF = "Aktionshinweis AUS.",
+	-- 12 Nov 2026: /mh prompt test. Our own translation, not native-checked.
+	PROMPT_TEST_FMT = "Vorschau für %d Sekunden: Zieh ihn hin, wo du willst, Shift+Mausrad macht ihn größer oder kleiner.",
+	PROMPT_TEST_COMBAT = "Nicht im Kampf: Versuch es nach dem Kampf noch einmal.",
 }) end
 if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	PROMPT_ON = "Rappel d'action ACTIVÉ — votre interruption et votre dissipation, affichées quand elles s'appliquent. Déplaçable.",
 	PROMPT_OFF = "Rappel d'action DÉSACTIVÉ.",
+	PROMPT_TEST_FMT = "Aperçu pendant %d secondes : déplace-le où tu veux, Maj+molette pour l'agrandir ou le réduire.",
+	PROMPT_TEST_COMBAT = "Pas en combat : réessaie après le combat.",
 }) end
 if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	PROMPT_ON = "Aviso de acción ACTIVADO — tu interrupción y tu disipación, visibles cuando procede. Arrástralo donde quieras.",
 	PROMPT_OFF = "Aviso de acción DESACTIVADO.",
+	PROMPT_TEST_FMT = "Vista previa durante %d segundos: arrástralo donde quieras, Mayús+rueda lo hace más grande o más pequeño.",
+	PROMPT_TEST_COMBAT = "En combate no: inténtalo de nuevo después del combate.",
 }) end
 if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	PROMPT_ON = "Aviso de ação LIGADO — sua interrupção e sua dissipação, exibidas quando se aplicam. Arraste para onde quiser.",
 	PROMPT_OFF = "Aviso de ação DESLIGADO.",
+	PROMPT_TEST_FMT = "Prévia por %d segundos: arraste para onde quiser, Shift+rolagem deixa maior ou menor.",
+	PROMPT_TEST_COMBAT = "Em combate não: tente de novo depois do combate.",
 }) end
 if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	PROMPT_ON = "Suggerimento azione ATTIVO — il tuo interrupt e il tuo dispel, mostrati quando servono. Trascinabile.",
 	PROMPT_OFF = "Suggerimento azione DISATTIVO.",
+	PROMPT_TEST_FMT = "Anteprima per %d secondi: trascinalo dove vuoi, Maiusc+rotellina lo rende più grande o più piccolo.",
+	PROMPT_TEST_COMBAT = "Non in combattimento: riprova dopo il combattimento.",
 }) end
 
 -- Survival plan (4 aug 2026): je knoppen in de volgorde die een gevecht vraagt.

@@ -5,7 +5,8 @@
 1. **Groepsmeting Forever:** Rob doet `/mh partytest` in een groep (2 is genoeg), vecht een paar keer, `/reload`. Lees
    `ns.db.partyProbe` in `E:\World of Warcraft\_forever_\WTF\Account\JOEYWHATEVER\SavedVariables\MidnightHelper.lua`
    (blok `fights`). Daarna: plan voor PartyTargets in Forever ("midden") aan Rob voorleggen, pas bouwen op zijn ja.
-2. **Midnight testen:** "Used for"-regel (TESTLIJST bovenaan); vraag of de gewone Midnight-tooltip het beroep al noemt.
+2. ✅ **Midnight testen:** "Used for" gezien door Rob (12 nov, via sparring). De gewone tooltip noemt het niet; een
+   andere addon van Rob wel.
 3. **Forever testen:** Purify-macro, Hammer of Justice zonder muis-vijand → target, grijze "Used for", Copper Ore.
 4. **Rob vragen:** zijn de upgrade-melding en de groene gear-regel (door hem gezien in Forever) af?
 5. Nog open sinds 5.1.0: buff-zin in Midnight en in gevecht, "(loading...)" in de beroepstip.
@@ -13,6 +14,18 @@
 7. Sinds 5.1.0 op main en niet uit: "Used for" (beide spellen), Paladin-macro's, `/mh partytest`, de stadsnaam-fix es.
    Een release alleen op Robs go. CF-plaatjes staan erop (Rob, 11 nov); of hij de nieuwe CF-beschrijving en de
    5.1.0-tekst al plakte: NIET GEMETEN, vragen.
+
+## 🆕 12 nov — `/mh prompt test` + Robs Midnight-test deel 1 (Rob: "Ja, laat hem dat bouwen", via sparring)
+
+- Aanleiding: `/mh prompt` is een aan/uit-schakelaar, dus Rob kon Shift+scroll niet testen. `ns.PreviewActionPrompt()`
+  (ActionPrompt.lua) houdt het ECHTE frame met beide iconen 20 s in beeld (eigen interrupt/purge-icoon, anders vraagteken
+  134400), ook als de hint uit staat; `Update()` laat ze zolang met rust; een gevecht stopt het voorbeeld meteen (geen
+  apart pad, dezelfde frame/plek/maat). Core.lua: `/mh prompt test`. Nieuwe sleutels PROMPT_TEST_FMT/PROMPT_TEST_COMBAT,
+  7 talen (de/fr/es/pt/it/ru eigen vertaling, niet native nagekeken). Lua OK, lint 0 HARD. Niet in het spel gezien.
+- Robs uitslag (via sparring, 12 nov), afgevinkt in TESTLIJST: selftest weg uit de lijst + werkt nog; partytest Midnight
+  goed; "Used for" Midnight goed (Azeroot groen, Argentleaf grijs, Mycobloom geen regel, `/mh usedfor` herkent
+  INSCRIPTION line 773 als "you have"); buff-zin Midnight goed; Macro's-tab "Top" goed. Open: of oudere ingrediënten óók
+  een regel krijgen (vraag bij Rob via sparring; tot dan niets doen); groepspaneel deel 2 volgt.
 
 ## 🆕 12 nov — "Eén voordeur" vastgelegd + `/mh partytest` werkt weer in Midnight (Rob: "Ja, doe allebei", hier zelf)
 

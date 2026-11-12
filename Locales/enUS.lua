@@ -2631,6 +2631,9 @@ ns._mhLocales.enUS = {
 	PROMPT_WORD_PURGE = "PURGE",
 	PROMPT_ON = "Action prompt ON — your interrupt and your dispel, shown when they apply. Drag it where you want it.",
 	PROMPT_OFF = "Action prompt OFF.",
+	-- /mh prompt test (12 Nov 2026): hold the prompt on screen to place and size it.
+	PROMPT_TEST_FMT = "Preview for %d seconds: drag it where you want it, Shift+scroll to make it bigger or smaller.",
+	PROMPT_TEST_COMBAT = "Not in combat: try again after the fight.",
 	INTERRUPT_WHO_ON = "Interrupt credit ON — names who kicked, in dungeons and raids only.",
 	INTERRUPT_WHO_OFF = "Interrupt credit OFF.",
 	INTERRUPT_WHO_FMT = "Interrupted by |cff40c040%s|r: %s",

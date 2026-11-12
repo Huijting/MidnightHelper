@@ -21,11 +21,23 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 12 nov — MIDNIGHT: `/mh prompt test` (Rob: "Ja, laat hem dat bouwen")
+
+Eerst `/reload`. In Midnight, buiten een gevecht (de actie-hint mag aan of uit staan):
+- [ ] `/mh prompt test` → de twee icoontjes (je interrupt en je purge, of een vraagteken als je die niet hebt) staan
+      20 seconden in beeld, met een regel in de chat.
+- [ ] In die 20 seconden: slepen werkt, en Shift+scroll maakt het groter en kleiner. Na `/reload` staat het nog op die
+      plek en op die maat.
+- [ ] Na 20 seconden verdwijnen ze weer (of blijven ze alleen staan als de actie-hint aan staat en er iets te doen is).
+- [ ] In een gevecht: "Not in combat: try again after the fight." Begint een gevecht tijdens het voorbeeld, dan stopt het
+      voorbeeld meteen.
+
 ## 🆕 12 nov — MIDNIGHT: `/mh partytest` doet weer de solotest (Rob: "Ja, doe allebei")
 
 Eerst `/reload`. In Midnight, solo:
-- [ ] `/mh partytest` → het Party targets-paneel verschijnt met testregels (en nog eens = weg). Niet meer "is for WoW:
-      Forever". In Forever doet `/mh partytest` nog steeds de groepsmeting.
+- [x] `/mh partytest` → het Party targets-paneel verschijnt met testregels (en nog eens = weg). Niet meer "is for WoW:
+      Forever". In Forever doet `/mh partytest` nog steeds de groepsmeting. ✅ Rob, 12 nov (via sparring): "De partytest
+      is goed. Er staat niks in de chat van WoW Forever".
 
 ## 🆕 12 nov — MIDNIGHT: groepspaneel, rechtsklik op het doelwit (Rob: "Optie 1, jouw advies")
 
@@ -38,8 +50,9 @@ Eerst `/reload`. Op je Prot Paladin, in een groep (een dungeon of follower dunge
 ## 🆕 12 nov — `/mh selftest` niet meer in de commandolijst (Rob: "Ja, haal hem weg")
 
 Eerst `/reload`. In beide spellen:
-- [ ] Typ "selftest" in de MH-zoekbalk, of open de commandolijst: hij staat er niet meer tussen.
-- [ ] `/mh selftest` zelf werkt nog wel (alleen voor ons).
+- [x] Typ "selftest" in de MH-zoekbalk, of open de commandolijst: hij staat er niet meer tussen. ✅ Rob, 12 nov (via
+      sparring, Midnight): "De zelftest vind ik inderdaad niet in Midnight Helper".
+- [x] `/mh selftest` zelf werkt nog wel (alleen voor ons). ✅ Rob, 12 nov (via sparring).
 
 ## 🆕 12 nov — Forever: Priest-tip over Shadowform (Rob: "Ja, doe allebei")
 
@@ -76,11 +89,17 @@ Eerst `/reload`. In Midnight, alleen Midnight-ingrediënten (oudere uitbreidinge
 - [ ] Muis op een Midnight-vis of -vlees, bv. **Practically Pork**: "MH: Used for Cooking". Groen met "(you have it)" als
       je Cooking hebt.
 - [ ] Muis op **Eversong Trout**: "MH: Used for Alchemy, Enchanting, Cooking", met "(you have …)" voor wat je hebt.
-- [ ] Muis op een Midnight-erts, -kruid of -stof (de ingrediënten met kwaliteitssterren): ook een regel.
-- [ ] ❓ Zegt de gewone Midnight-tooltip zelf al voor welk beroep iets is? Zo ja: leest onze regel dubbel?
-- [ ] Muis op iets uit een oudere uitbreiding of op gear: géén regel.
-- [ ] `/mh usedfor` → "Midnight build 12.1.5.70783", 296 items, je beroepen met hun line-nummer (meet meteen of de
-      retail-nummers kloppen), en het laatste item.
+- [x] Muis op een Midnight-erts, -kruid of -stof (de ingrediënten met kwaliteitssterren): ook een regel. ✅ Rob, 12 nov
+      (via sparring, screenshots): Azeroot (236774) groen "MH: Used for Alchemy, Enchanting, Cooking, Inscription (you
+      have Inscription)"; Argentleaf (236776) grijs "MH: Used for Alchemy, Cooking".
+- [x] ❓ Zegt de gewone Midnight-tooltip zelf al voor welk beroep iets is? ✅ 12 nov: Blizzard niet; een ANDERE addon van
+      Rob toont "Profession: …" + "Expansion: …" erboven. Rob: "niet iedereen heeft dat" → onze regel blijft.
+- [x] Muis op iets uit een oudere uitbreiding: géén regel. ✅ 12 nov: Mycobloom (210796, The War Within) zonder regel
+      (bewust). ❓ Rob vroeg zich af of oudere ingrediënten óók een regel moeten krijgen: vraag ligt bij hem (sparring).
+      Gear apart: NIET gezien.
+- [x] `/mh usedfor` → "Midnight build 12.1.5.70783", 296 items, je beroepen met hun line-nummer, en het laatste item.
+      ✅ 12 nov: "Tooltip hook: yes … 296 items … INSCRIPTION (line 773)" en item 274476 met "(you have Inscription)":
+      de retail-line 773 wordt dus herkend (GEMETEN via Robs screenshot). `/mh usedfor off`/`on`: niet gezien.
 
 ## 🆕 11 nov — Forever: "Used for …" in de tooltip van ingrediënten (Rob: "Ja, met probe-fix")
 
@@ -144,6 +163,8 @@ Eerst `/reload`, buiten een gevecht. Doe het één keer in **Forever** en één 
 - [ ] In een gevecht: "selftest: not during a fight."
 - [ ] Doe daarna `/reload` en zeg het mij: dan lees ik het hele rapport uit je SavedVariables (`selftest`).
 - [ ] `/mh prompt` (het kick/dispel-icoon): nu ook groter/kleiner met Shift+scroll (gevonden door de nieuwe vensterregel).
+      ⚠️ 12 nov: niet te testen (Rob: "het is een soort switch … ik kan niet makkelijk even testen"). Daarom gebouwd:
+      `/mh prompt test`, zie de testregel van 12 nov bovenaan.
 
 ## 🆕 11 nov — Forever: groene regel in de tooltip van gear (stap b)
 
@@ -167,7 +188,8 @@ Eerst `/reload`. Op je paladin in Forever, zonder blessing:
 - [x] `/mh buffs` → "line under the icon: Blessing of Might is not on you. Click the icon to cast it." ✅ Rob, 11 nov.
 - [ ] In een gevecht (alleen bij aura/pet): de zin eindigt op "Cast it from your bars." in plaats van "Click the icon".
 - [ ] Krijg je ooit een **Greater Blessing** van een andere paladin: dan mag het icoon NIET om een blessing vragen.
-- [ ] Midnight (gewone WoW), een character dat een buff mist: dezelfde soort zin, met de naam van die buff.
+- [x] Midnight (gewone WoW), een character dat een buff mist: dezelfde soort zin, met de naam van die buff. ✅ Rob, 12 nov
+      (via sparring): "die is goed" (welke buff en welk character: niet gezegd).
 - [ ] `/mh mbuff` doet iets (ook meteen na het inloggen).
 
 ## 🆕 11 nov — Forever: de pijl naar trainers en verkopers klopt beter
@@ -236,8 +258,9 @@ Engelse client verandert er niets.
 
 ## 🆕 10 nov (middag) — Midnight: Macro's-tabblad met "Top" + knop Maken
 
-- [ ] Retail, `/reload`, MH → tabblad **Macro's**: eerste knop is nu **"Top"**. Bovenaan 5 knoppen = de 5 populairste
+- [x] Retail, `/reload`, MH → tabblad **Macro's**: eerste knop is nu **"Top"**. Bovenaan 5 knoppen = de 5 populairste
       macro's van je spec (Prot Paladin: kijk of ze kloppen bij wat je speelt). Titel = spellnaam in je clienttaal.
+      ✅ Rob, 12 nov (via sparring): "is ook goed". Of de 5 bij zijn spel passen: niet gezegd.
 - [ ] Kies er een: uitleg + de macrotekst met spellnamen. Klik **Maken** → chat "Macro "MH+ …" staat in de macrolijst";
       het macrovenster opent. 🔴 Werkt de macro? (niemand heeft deze al in het spel getest)
 - [ ] De knop Maken werkt ook bij Interrupt en de andere soorten. Sinds 10 nov laat MH daar de spellnamen van je client

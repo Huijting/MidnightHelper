@@ -460,8 +460,19 @@ local function UpdateDispel()
 	end
 end
 
+--- `/mh prompt test` holds the REAL frame and icons on screen for a while (12 Nov 2026). Rob: "op het moment dat dat
+--- intikt, is het een soort switch ... Dus ik kan niet makkelijk even testen dat die blijft staan om te shift scrollen."
+--- While this is set, Update leaves the icons alone; entering combat ends it at once, so it never hides a real prompt.
+local previewUntil
+
 local pending = false
 local function Update()
+	if previewUntil then
+		if GetTime and GetTime() < previewUntil and not (InCombatLockdown and InCombatLockdown()) then
+			return
+		end
+		previewUntil = nil
+	end
 	if not Enabled() then
 		if frame then
 			frame:Hide()
@@ -563,6 +574,56 @@ function ns.ToggleActionPromptSound()
 			or "Prompt sound: CHIME when a purge becomes available."))
 	else
 		print(("%s %s"):format(p, (ns.L and ns:L("PROMPT_SOUND_OFF")) or "Prompt sound OFF."))
+	end
+end
+
+local PREVIEW_SECONDS = 20
+
+--- `/mh prompt test` — show both icons for PREVIEW_SECONDS so you can drag the prompt and Shift+scroll it, without
+--- waiting for an enemy cast. Same frame, same icons, same saved position and size as the real thing; only the
+--- textures and words are filled in by hand (your own interrupt and purge when you have them, else a question mark).
+--- Out of combat only. Works with the prompt switched off too: you can place it before you turn it on.
+function ns.PreviewActionPrompt()
+	local p = ("|cffffcc00%s|r"):format((ns.L and ns:L("PRINT_PREFIX")) or "Midnight Helper:")
+	if InCombatLockdown and InCombatLockdown() then
+		print(("%s %s"):format(p, (ns.L and ns:L("PROMPT_TEST_COMBAT")) or "Not in combat: try again after the fight."))
+		return
+	end
+	RefreshInterrupt()
+	EnsureFrame()
+	local QUESTION = 134400
+	iconInterrupt.tex:SetTexture(interruptTex or QUESTION)
+	if iconInterrupt.word then
+		iconInterrupt.word:SetText((ns.L and ns:L("PROMPT_WORD_INTERRUPT")) or "INTERRUPT")
+	end
+	local ptex, pid
+	if ns.GetPlayerPurgeIcon then
+		ptex, pid = ns.GetPlayerPurgeIcon()
+	end
+	iconDispel.tex:SetTexture(ptex or QUESTION)
+	if iconDispel.word then
+		local label
+		if pid and C_Spell and C_Spell.GetSpellName then
+			local okN, n = pcall(C_Spell.GetSpellName, pid)
+			if okN and type(n) == "string" and n ~= "" then
+				label = n
+			end
+		end
+		iconDispel.word:SetText(label or (ns.L and ns:L("PROMPT_WORD_PURGE")) or "PURGE")
+	end
+	iconInterrupt:SetAlpha(1)
+	iconDispel:SetAlpha(1)
+	if frame.idle then
+		frame.idle:Show()
+	end
+	frame:Show()
+	previewUntil = (GetTime and GetTime() or 0) + PREVIEW_SECONDS
+	print(("%s %s"):format(p, ((ns.L and ns:L("PROMPT_TEST_FMT"))
+		or "Preview for %d seconds: drag it where you want it, Shift+scroll to make it bigger or smaller."):format(PREVIEW_SECONDS)))
+	if C_Timer and C_Timer.After then
+		C_Timer.After(PREVIEW_SECONDS + 0.1, function()
+			pcall(Update)
+		end)
 	end
 end
 

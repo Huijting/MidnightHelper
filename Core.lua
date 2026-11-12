@@ -2929,6 +2929,14 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh prompt test — hold the prompt on screen to place and size it (ActionPrompt.lua; Rob, 12 Nov 2026).
+	if msg == "prompt test" then
+		if ns.PreviewActionPrompt then
+			ns.PreviewActionPrompt()
+		end
+		return
+	end
+
 	if msg == "prompt" then
 		if ns.ToggleActionPrompt then
 			ns.ToggleActionPrompt()
