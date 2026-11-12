@@ -2110,9 +2110,28 @@ local function AfterCombatDispelCheck()
 	end
 	ns.db.dispelSelfLog = ns.db.dispelSelfLog or {}
 	local log = ns.db.dispelSelfLog
+	-- 12 Nov 2026 (Rob: "Ja, bouw dat"): WHO and WHICH spec. ns.db is account-wide, so without this a "youCan=false" on a
+	-- disease could not be told apart from a Prot Paladin (who can remove disease) and another character (who cannot).
+	local who, classToken, specID
+	if UnitName then
+		local okN, n = pcall(UnitName, "player")
+		who = okN and type(n) == "string" and n or nil
+	end
+	if UnitClass then
+		local okC, _, tok = pcall(UnitClass, "player")
+		classToken = okC and tok or nil
+	end
+	if ns.GetSpecialization and ns.GetSpecializationInfo then
+		local okI, idx = pcall(ns.GetSpecialization)
+		if okI and idx then
+			local okS, sid = pcall(ns.GetSpecializationInfo, idx)
+			specID = okS and sid or nil
+		end
+	end
 	for _, e in ipairs(found) do
 		e.at = date and date("%Y-%m-%d %H:%M:%S") or "?"
 		e.zone = GetRealZoneText and GetRealZoneText() or nil
+		e.char, e.class, e.spec = who, classToken, specID
 		e.filterRan = filterRan
 		log[#log + 1] = e
 		while #log > 60 do
