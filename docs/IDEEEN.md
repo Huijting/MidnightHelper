@@ -200,6 +200,10 @@ lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met d
 - Werk:          middel tot groot
 - Site:          ja, als het uit is
 - Rob zegt:      ja (later). Eerst met de sparring-chat doorpraten wat erin moet, voor alle classes; nog niet ontwerpen.
+                 ✅ **Ontwerp doorgepraat 12 nov** (sparring, samen met "Welke kant ga ik op?" hieronder; daar de schets).
+                 Rob: *"Schets klopt"*. Keuzes (letterlijk): spel *"Eerst Forever (Recommended)"*, Midnight later apart;
+                 zonder gekozen richting *"Werkt gewoon (Recommended)"* (dan zonder "past bij jouw richting"); in beeld
+                 *"Alleen als er iets is (Recommended)"*, een schakelaar zet het op "altijd". **Geen bouw-go.**
 
 ### Eén schakelaar "Verplaatsen" voor alle MH-onderdelen op het scherm
 - Voor wie:      allebei
@@ -254,6 +258,16 @@ lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met d
 - Werk:          groot; samen met het "Doe dit nu"-venster als één ontwerp
 - Site:          ja, als het gebouwd is
 - Rob zegt:      ja, eerst doorpraten in de sparring-chat (via de sparring-chat, 11 nov; nog te bevestigen in de bouwchat)
+                 ✅ **Ontwerp doorgepraat 12 nov** (sparring). Rob op de schets: *"Schets klopt"*. De schets (AFGELEID,
+                 niets gemeten): (1) één keer kiezen bij je eerste talentpunt: "Welke kant wil je op?", per class twee of
+                 drie richtingen in één gewone zin (paladin: klappen uitdelen, klappen opvangen, of genezen); (2) het
+                 "Doe dit nu"-venster gebruikt die keuze: "Doe dit nu" (bv. 2 spells bij de trainer), "Alles bij",
+                 "Komt eraan" (spells van de komende 3 levels bij naam); (3) de keuze kleurt de tooltip en de
+                 upgrade-melding ("past bij jouw richting" / "past niet"); (4) beroepen als vierde soort advies (Rob:
+                 *"Ja, misschien is het wel een goed idee."*, richting, geen besluit); (5) altijd wisselen, schakelaar
+                 om het uit te zetten. Keuzes: zie het venster hierboven. Nog te meten blijft de Data-regel hierboven;
+                 of dat uitzoeken nu gebeurt, vraagt sparring aan Rob. Grens: van PaladinPlan (GPL-3.0) alleen het idee,
+                 geen code, tabellen, plaatjes of teksten. **Geen bouw-go.**
 
 ### Spelnamen in de zes talen zoals die client ze toont (C4)
 - Voor wie:      allebei, in de/fr/es/pt/it/ru (Engels en Nederlands veranderen niet)

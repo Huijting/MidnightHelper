@@ -48,7 +48,8 @@
   📌 Open: PROMPT_WORD_PURGE = "ENTZAUBERN" in deDE zelf nog nakijken tegen de client. ruRU zegt voor dispel én purge
   развеять (het pack heeft geen apart woord).
 - Ook van Rob (via sparring, 12 nov), alleen noteren: beroepenadvies bij idee 7 = *"Ja, misschien is het wel een goed
-  idee"* (richting, geen bouw-go); de "+37% upgrade"-regel van een andere addon stoort NIET (*"Nee, juist niet, want
+  idee"* (richting, geen bouw-go; ontwerp idee 3 + 7 later die dag: *"Schets klopt"*, eerst Forever, staat in IDEEEN bij
+  beide regels, GEEN bouw-go); de "+37% upgrade"-regel van een andere addon stoort NIET (*"Nee, juist niet, want
   niet iedereen heeft dat"*), onze regel blijft; idee 3 + 7 als één ontwerp praat sparring eerst met Rob door. Nieuw in
   IDEEEN: O26 (Forever-beroepenuitleg); O21 kreeg de datum van 12 nov.
 
