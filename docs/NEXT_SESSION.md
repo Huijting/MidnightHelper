@@ -38,7 +38,8 @@
   - "(Rank N)" achter een spell die je al kent (`ForeverKnownSpell` + `C_Spell.GetSpellSubtext`);
   - wapenzin enkel/meervoud (`FDONOW_WEAP_*`) + "(fitting <richting>, according to player guides: n)" via nieuw
     `ns.ForeverWeaponsLearnable` (lijst) en `ForeverDirectionWeaponFit`.
-  - De startpagina houdt bewust haar eigen FWEAP_HOME_FMT-zin (niet breder dan gevraagd).
+  - Startpagina daarna ook (Rob via sparring: *"Ja, ook netjes"*): `HomeDashboard.lua` gebruikt `FDONOW_WEAP_ONE` /
+    `FDONOW_WEAP_MANY_FMT`, zonder het richtingdeel. `FWEAP_HOME_FMT` wordt nergens meer gebruikt (lint [18] SOFT).
   - `FDONOW_HEAD_NOW` wordt niet meer gebruikt (blijft in de packs staan, onschadelijk).
 - Rob over mijn twee keuzes, letterlijk: *"Laat zo, in een gevecht weg en rechtsboven"*.
 

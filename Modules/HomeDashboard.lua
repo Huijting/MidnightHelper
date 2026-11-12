@@ -283,7 +283,9 @@ local function BuildLayout()
 			-- 10 Nov 2026: weapons you could learn now (ForeverWeapons.lua). Said only when there is one.
 			local nWeap = ns.ForeverWeaponsLearnableCount and ns.ForeverWeaponsLearnableCount() or 0
 			if nWeap > 0 then
-				line(rows, ns:L("FWEAP_HOME_FMT"):format(nWeap), COLOR_SOFT)
+				-- 12 Nov 2026 (Rob via sparring: "Ja, ook netjes"): one/more, the same sentences as "Do this now"
+				-- (without the direction part, which was not asked for here).
+				line(rows, (nWeap == 1) and ns:L("FDONOW_WEAP_ONE") or ns:L("FDONOW_WEAP_MANY_FMT"):format(nWeap), COLOR_SOFT)
 				button(rows, ns:L("FWEAP_TITLE"), ns.ShowForeverWeapons)
 			end
 			-- 9 Nov 2026: buttons that still cast an old rank (ForeverRanks.lua). Explained here, where the button is.

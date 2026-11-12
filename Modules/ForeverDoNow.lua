@@ -90,7 +90,7 @@ local function Collect()
 		out.actions.ranks = true
 	end
 	-- 12 Nov 2026 (Rob via sparring: "Ja, alle drie"): one/more as two sentences, and with a direction how many fit
-	-- (the same player-guide fit as the green + in /mh weapons). The start page keeps its own FWEAP_HOME_FMT line.
+	-- (the same player-guide fit as the green + in /mh weapons). The start page uses the same one/more sentences (without the direction part).
 	local learn = ns.ForeverWeaponsLearnable and ns.ForeverWeaponsLearnable() or {}
 	if #learn > 0 then
 		local s = (#learn == 1) and ns:L("FDONOW_WEAP_ONE") or ns:L("FDONOW_WEAP_MANY_FMT"):format(#learn)

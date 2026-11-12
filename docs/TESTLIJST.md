@@ -72,7 +72,9 @@ Eerst `/reload` op je Protection-paladin (een paar seconden wachten).
       nieuwe rij als ze niet naast elkaar passen. Opnieuw kijken.
 - [ ] Nieuw 12 nov (Rob: "Ja, alle drie"): (1) geen tweede "Do this now" meer onder de titel; (2) bij een spell die je al
       hebt staat de rank erbij, bv. "Level 12: Blessing of Might (Rank 2), Holy Strike"; (3) "You can learn 2 new weapon
-      skills now. (fitting Protection, according to player guides: 1)". De startpagina zegt nog steeds de oude zin.
+      skills now. (fitting Protection, according to player guides: 1)".
+- [ ] Nieuw 12 nov (Rob: "Ja, ook netjes"): de startpagina van MH (Forever) zegt nu ook "You can learn 1 new weapon skill
+      now." / "… 2 new weapon skills now." (zonder het stukje over je richting).
 - [ ] Niets te doen → het venster is weg (standaard). In Options → AddOns → Midnight Helper → "\"Do this now\" window" op
       "always" → het blijft staan en zegt "All caught up". "off" → nooit.
 - [ ] Begint een gevecht → het venster gaat weg; na het gevecht komt het terug.
