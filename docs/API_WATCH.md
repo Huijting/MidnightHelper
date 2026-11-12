@@ -9936,3 +9936,169 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
     verklaring voor "niets nieuws aan de Forever-API", en niet dat er niet gekeken is. GEMETEN vóór het
     schrijven: `git status --porcelain` **leeg**, geen wachter-bestand gewijzigd-maar-ongecommit.
     🔴 Alleen `docs/API_WATCH.md` aangeraakt; geen regel code, geen ander document.
+- [2026-11-12] ✅ **Nul [MOET GEFIKST]. Er IS een nieuw hotfix-artikel — *"WoW: Forever Hotfixes -
+  November 11, 2026"* — en er zit GÉÉN UI-, addon- of API-sectie in: het is class-tuning, Customer
+  Support, enemies, items, Tailoring-tassen, quests en één world-fix, dus terrein van de
+  content-wachter. Verder stil op élke bewegende bron: geen nieuwe live-build (NEGENDE dag op
+  `12.1.5.70783`), geen nieuwe PTR-build (ACHTSTE dag op `12.1.7.70740`), geen nieuwe Forever-build
+  (TWEEDE dag op `1.60.1.70888`), geen nieuwe regel op geen van de vier wiki-API-pagina's, geen blue
+  post over API, en geen nieuwe SimC-addon-release.** 🆕 **Het nieuws van vandaag komt weer uit de
+  CODE: er zijn sinds mijn vorige run ACHT nieuwe modules bijgekomen, allemaal in BEIDE TOC's, en ik
+  heb ze alle acht tegen de twee bekende 12.1.7/1.60.1-risico's gelegd (GUID-obfuscatie en secret
+  values). Alle acht afgedekt.** ✅ **Plus TWEE punten van mijn eigen openstaande lijst DICHT, met een
+  meting in plaats van een aanname: de UTF-8 BOM en de `GetInstanceInfo`-returnorde.**
+  - ✅ **[RAAKT ONS NIET] — het hotfix-artikel van 11 nov raakt de API-kant niet.** GEMETEN in
+    Blizzards eigen tekst (`news.blizzard.com/en-us/article/24315281/wow-forever-hotfixes-november-11-2026`,
+    opgehaald mét `?nocache=20261112`, en tegengelezen op bluetracker.gg/639885): de koppen zijn
+    *Classes* (Druid/Hunter/Paladin/Priest/Shaman), *Customer Support* (*"The Item Restoration service
+    has been disabled while we investigate and address a critical bug"*), *Enemies and NPCs*
+    (Riverglades), *Items*, *Professions* (Tailoring-tassen: *"Red Mageweave Bag now requires 5 bolts
+    of mageweave (was 4 bolts) and is now 14 slots"*), *Quests* en *World*. **Nul regels over UI,
+    addons, macro's, taint of secure frames.** Niets om tegen de code te leggen.
+  - ⚠️ **[RAAKT ONS NIET] als API-WIJZIGING — maar wij roepen die functie wél twee keer aan, dus hier
+    staat wat ik gemeten heb, en wat ik NIET weet.** Het énige nieuwe draadje op het UI-and-Macro-forum
+    sinds mijn vorige run is `2411741` *"Problem with Gamepad Support"* (**2026-11-11T22:25:51Z**,
+    Nirvash). GEMETEN in de JSON: `posts_count` **1**, en `"moderator":false,"admin":false,
+    "staff":false` — dus een spelerspost zonder Blizzard-antwoord. De klacht, woordelijk: een macro
+    `/run ChatFrame_OpenChat("/g ")` geeft *"a `ForceTaint_Strong` error"*.
+    🔴 **Onze treffers, GEMETEN met positieve controle op dezelfde reikwijdte** (`grep -rnF`,
+    `.git`/`docs`/`tools`/`dist` eruit, **362** `.lua`-bestanden; positieve controle: `ChatFrame` →
+    **8** bestanden, dus het patroon vindt wat er is): `ChatFrame_OpenChat` staat in **één** bestand,
+    `Modules/Achievements.lua:1561` en `:1910`. Beide zijn de shift-klik-op-een-regel ("gooi de
+    achievement-link in de chat"), beide staan ín een `OnClick`, en beide worden **alleen** bereikt
+    als `ChatEdit_InsertLink` eerst `false` teruggeeft:
+    ```lua
+    if link and not (ChatEdit_InsertLink and ChatEdit_InsertLink(link)) and ChatFrame_OpenChat then
+    ```
+    ✅ **Waarom dit géén nieuwe API-wijziging is:** de tekst staat op **geen** van de vier
+    wiki-API-pagina's, in **geen** blue post van de afgelopen week, en een zoekronde leverde alleen
+    jaren oude WoWInterface/WoWAce-draadjes op over precies hetzelfde — de standaard-chatbox is al heel
+    lang een protected frame omdat hij `/target`, `/cast` en `/focus` verwerkt. ⚠️ **AFGELEID, niet
+    gemeten, en via een samenvatting van zoekresultaten en niet uit Blizzards eigen tekst** (de
+    gevonden pagina's zijn van derden); ik tel het dus niet als feit over 12.1.x.
+    ❓ **Wat ik NIET weet en niet ga gokken:** of een tainted aanroep met een **item-/achievement-link**
+    (wat wij doen) dezelfde fout geeft als een aanroep met een **slash-commando** (`"/g "`, wat de
+    speler doet). Dat is een wezenlijk verschil — de protected kant van die editbox is juist het
+    uitvoeren van secure commando's — en het is van buitenaf niet te meten. **Vraag voor Rob, 10
+    seconden in het spel:** sluit de chatbox, open het achievement-tabblad en shift-klik een regel.
+    Komt de link in de chatbox, dan is er niets aan de hand; komt er een taint-fout, dan is dít het
+    bestand en de regel. 📌 GEMETEN dat dit alleen retail raakt: `grep -c Achievements.lua
+    MidnightHelper_Camelot.toc` = **0** tegen **1** in `MidnightHelper.toc` (positieve controle:
+    `ForeverTrainer.lua` → camelot **1**). **Niets aangepast.**
+  - 🆕 **[AL AFGEDEKT] — ACHT nieuwe modules sinds gisterochtend, en ze zijn alle acht goed geboren.**
+    GEMETEN met `git diff --name-status` over het shallow venster (50 commits): nieuw zijn
+    `Modules/ForeverPartyProbe.lua`, `ForeverReagentData.lua`, `ForeverSeenPlaces.lua`,
+    `MidnightReagentData.lua`, `PickupUpgrade.lua`, `ReagentUse.lua`, `Selftest.lua` en
+    `SelftestData.lua`. 📌 **Alle acht staan in BEIDE TOC's** (`camelot:1 retail:1`, per bestand
+    geteld) — dat is nieuw als gewoonte en het betekent dat élke nieuwe module nu óók de
+    Forever-regels moet halen. Wat ik per risico gemeten heb:
+    - **GUID-obfuscatie (de les van 9 nov): voor de derde dag op rij blijft hij zitten.** Het nieuwe
+      GUID-lezende bestand `Modules/ForeverSeenPlaces.lua:36` is meteen met het losse patroon
+      geschreven, en `Modules/ForeverWeapons.lua:514` (gisteravond aangeraakt) ook:
+      `^Creature%-[^%-]+%-[^%-]+%-[^%-]+%-[^%-]+%-(%d+)`. 🔴 **GEMETEN over de hele addon, mét
+      positieve controle in dezelfde run:** de strikte vorm `%d+%-%d+%-%d+%-%d+` → **0** treffers
+      (gisteren 0, 9 nov 2), de losse vorm `[^%-]+%-[^%-]+` → **8** bestanden (gisteren 6):
+      `DelveChestData.lua`, `ResetRoutine.lua`, `SpotLog.lua`, `EncounterCapture.lua`,
+      `ForeverTrainer.lua`, `ForeverVendors.lua` plus de twee nieuwe.
+    - **Secret values:** `Modules/ForeverPartyProbe.lua` is het enige nieuwe bestand dat auras leest,
+      en het doet het volgens het boekje — `:152` controleert `C_UnitAuras and
+      C_UnitAuras.GetAuraDataByIndex`, `:153` roept aan in een `pcall`, `:158` vangt een secret tabel
+      en `:161` print per veld `"spellId secret"` of `"readable"` in plaats van te vergelijken. Ook
+      `:58` en `:144` guarden met `issecretvalue`, en `:68` doet `C_EventUtils.IsEventValid` achter een
+      bestaanscontrole plus `pcall`.
+    - **Tooltips:** `Modules/PickupUpgrade.lua` leest de tooltip (`:86` bestaanscontrole op
+      `C_TooltipInfo.GetHyperlink`, `:89` `pcall`) maar raakt `leftText` **niet aan** — het kijkt
+      alleen naar `line.leftColor`/`rightColor`, en `:80` eist daar `type(c.r) == "number"` plus
+      `not issecretvalue(c.r)`. Dat is precies de val die 12.x opzet, en hij loopt eromheen.
+      `:48` guardt bovendien de container-link met `issecretvalue`.
+    - **`Modules/Selftest.lua`** (de nieuwe `/mh selftest`) roept alles aan via `pcall` (`:35`, `:44`,
+      `:52`, `:192`) en guardt het resultaat met `issecretvalue` op `:59`. `ReagentUse.lua`,
+      `ForeverReagentData.lua`, `MidnightReagentData.lua` en `SelftestData.lua` bevatten **nul**
+      `C_`-aanroepen (gemeten met `grep -o -E 'C_[A-Za-z]+\.[A-Za-z]+'`) — datatabellen, geen API.
+  - ✅ **DICHT, punt 1 van mijn openstaande lijst: de UTF-8 BOM. GEMETEN in de bytes, niet geschat.**
+    `head -c 3 MidnightHelper.toc | od` geeft **`ef bb bf`** — de BOM staat er dus écht, vlak voor
+    `## Interface: 120007, 120100, 120105, 120107`. GEMETEN dat het de énige is: `MidnightHelper_Camelot.toc`
+    begint met `23 23 20` (`## `) en heeft er geen (positieve controle: `Core.lua` begint met
+    `2d 2d 5b`, `--[`). ✅ **En het is geen breuk:** dezelfde TOC draagt al tientallen releases
+    (5.1.0 ging gisteren live op CurseForge) en laadt dagelijks op Robs client, en de énige
+    TOC-wijziging op de 12.1.7-pagina gaat over variabelen (*"TOC directives no longer expand
+    variables such as [Game] or [Family]"*), niet over byte-order-marks. **Dus: aanwezig, onschadelijk,
+    van de lijst af. Niets aangeraakt.**
+  - ✅ **DICHT, punt 2: de `GetInstanceInfo`-returnorde tegenover `Modules/Showdowns.lua:226`. GEMETEN
+    op de API-pagina zelf.** `warcraft.wiki.gg/wiki/API_GetInstanceInfo` (mét `?nocache=20261112`) geeft
+    de signatuur woordelijk als `name, instanceType, difficultyID, difficultyName, maxPlayers,
+    dynamicDifficulty, isDynamic, instanceID, instanceGroupSize, lfgDungeonID, hasWorldTier` en zegt
+    onder *Patch changes*: *"Patch 12.0.7 (2026-06-16): Added `hasWorldTier` return value."* **Return 11
+    IS dus `hasWorldTier`**, exact wat `Modules/Showdowns.lua:226` leest (`local hasWT = select(11,
+    GetInstanceInfo())`, met het commentaar *"PTR-verified true inside Naigtal"* erboven). 📌 En het is
+    een retail-only pad: `grep -c Showdowns.lua MidnightHelper_Camelot.toc` = **0** tegen **1** in
+    `MidnightHelper.toc`. ⚠️ Eén observatie die blijft staan, maar geen risico, en ik
+    corrigeer hier mijn eigen eerste telling van vanmorgen: van de **15**
+    `select(n, GetInstanceInfo())`-aanroepen in de addon staan er **4** kaal, zonder bestaanscontrole —
+    `Modules/Retrospective.lua:226`, `Modules/ValeeraProgress.lua:504`, `Modules/Showdowns.lua:226` en
+    `Modules/EncounterCapture.lua:67`. De overige 11 hebben er wel een, en `Auras.lua:662` schrijft hem
+    alleen anders (`(inInst and GetInstanceInfo) and select(3, …)`), wat ik eerst als kaal had geteld. `GetInstanceInfo` is een kerne-global die in beide game-types bestaat (de
+    wiki-pagina noemt `standard + 3.1.0` **en** `forever + 1.60.1`), dus ik meld het als
+    inconsistentie, niet als fout. **Van de lijst af. Niets aangeraakt.**
+  - 🧰 **SimC-addon: geen nieuwe release sinds `12.1.5-04`.** GEMETEN op twee manieren:
+    `git ls-remote --tags --refs` op `simulationcraft/simc-addon` geeft vandaag **258** tags — exact het
+    aantal van gisteren en voorgisteren — met als nieuwste 12.1-tag nog steeds `12.1.5-04` op
+    `83fdb00762fa…`; de releases-pagina zelf (mét `?nocache=20261112`) noemt bovenaan **`12.1.5-04`,
+    05 nov 22:38**, met als enige regel *"Handle Forever surname"* — de release die ik op 6 nov al als
+    [RAAKT ONS NIET] heb afgehandeld. Nog steeds **geen** tag met `forever`, `camelot` of `1.60` in de
+    naam. Niets te toetsen aan `ItemString` of `ns.BuildSimcProfile` in `Modules/SimcExport.lua`.
+  - 📡 **Wat ik gelezen heb, mét `?nocache=20261112` achter elke URL, zodat stilte te onderscheiden is
+    van niet-kijken.** `Patch_12.1.7/API_changes`: nog exact twee punten in de samenvatting (de
+    GUID-obfuscatie mét *"This change will be available for testing in a future build of 12.1.7"*, en
+    de TOC-variabelen) — ongewijzigd. `Patch_1.60.1/API_changes`: blue posts nog t/m **16 okt**,
+    Notable changes nog t/m build 70291 — ongewijzigd. `Patch_12.1.5/API_changes`: blue posts nog t/m
+    **29 sep**. `Patch_12.1.0/API_changes`: ongewijzigd. 🆕 **Twee pagina's die ik vandaag voor het
+    eerst heb gepróbeerd, omdat beide pagina's naar ze verwijzen als "Next patch":
+    `Patch_1.60.2/API_changes` en `Patch_12.2.0/API_changes` bestaan nog NIET** (`CRAWL_NOT_FOUND` op
+    beide) — dus er is nog geen API-pagina voor wat na 12.1.7 of na 1.60.1 komt. `wago.tools/builds`
+    bovenaan onveranderd `1.60.1` build **70888** (10 nov 15:10), met `12.1.7.70740` (4 nov 20:47) en
+    `12.1.5.70783` (4 nov 00:38) eronder. UI-and-Macro-forum volledig via Exa gelezen (lijst op
+    `?order=created` plus de topic-JSON van het enige nieuwe draadje). Blue Tracker nagelopen op blue
+    posts van de laatste 7 dagen: alleen hotfixes, *PvP Faction Balance*, *Dungeon Enemy XP*,
+    *Class Tuning*, gold-uit-quests en de *Director's Take* — **nul** over API, addons of taint; het
+    nieuwste retail-hotfix-artikel blijft dat van **6 nov**. ⚠️ **Nog steeds EGRESS_BLOCKED in deze
+    sessie:** `warcraft.wiki.gg` en `news.blizzard.com` op `WebFetch`, en `wago.tools` én
+    `us.forums.blizzard.com` op zowel `WebFetch` (`ENOTFOUND`) als `curl` (de proxy weigert de tunnel
+    met 403 `connect_rejected`). Alles hierboven is daarom via Exa gehaald, mét cache-buster.
+  - 🎮 **Forever: niets nieuws aan de API-kant, en dat is GEMETEN en niet aangenomen.**
+    `Gethe/wow-ui-source` draagt `refs/heads/forever` **én** `refs/tags/1.60.1` nog steeds op
+    **`4cd0ab752a77164f654ccbca9d0c1fe8dafceebe`** — hetzelfde getal als 7, 8, 10 en 11 nov — terwijl
+    wago.tools de Forever-build al op **70888** heeft. Voor de twee nieuwste Forever-builds is er dus
+    nog geen leesbare UI-source-diff; dát is de verklaring voor de stilte. GEMETEN dat ook `live`
+    (`297d7aaa…`), `ptr` (`e927c305…`) en `ptr2` (`12380f8c…`) onbewogen zijn t.o.v. gisteren. De
+    1.60.1-wiki-pagina is woord voor woord dezelfde (blue posts 16 okt / 8 okt / 15 sep). Het
+    Forever-hotfix-artikel van 11 nov heeft geen UI-sectie (zie hierboven). **Wat de Forever-kant van
+    MH vandaag wél raakt, staat in de code en niet in het nieuws:** de acht nieuwe modules laden
+    allemaal óók op Forever, en de twee die een creature-GUID lezen doen dat met het losse patroon —
+    precies de reparatie die op 9 nov nodig was. Nog steeds **nul** `C_GameRules`-aanroepen in de hele
+    addon (positieve controle: `C_AddOns` → 21 bestanden in `Modules`), dus een Hardcore-, RP- of
+    PvP-ruleset ziet nog altijd hetzelfde als een normale — een gat in wat MH *kan* weten, geen breuk,
+    en Robs beslissing.
+  - ⏳ **Nog open uit eerdere runs — twee punten korter dan gisteren.** NIET opnieuw gemeten vandaag:
+    de dode `PickupItem`-takken in `Modules/KeyBlock.lua:1135`/`:1227`/`:1380` en
+    `Modules/ApplyLayout.lua:1311`/`:1345`/`:1605`; de vijf decoratieve `GetItemInfo`-terugvaltakken;
+    `Blizzard_DeprecatedWorldElapsedTimerTypes` als tiende deprecated-addon; de verouderde
+    namespace-lijst in `docs/WATCHER_API_PROMPT.md` (18 aug, noemt 57 namespaces en kent de twee
+    TOC's niet); de client-test voor `/mh raidbots`; `GetTimerDuration` toevoegen aan
+    `Modules/ApiProbe.lua:377`; de `FrameStrata`-secret-vraag op `Modules/PartyTargets.lua:517`; de
+    drie `WOW_PROJECT_MAINLINE`-takken in `Libs/LibDBIcon-1.0.lua:533`/`:572`/`:607` die op Forever
+    omslaan (alleen `SetSize`/`SetPoint`, dus hoogstens een paar pixels); en de ongemeten BETEKENIS
+    van *"Edit Mode layouts are now saved separately for each UI type"* voor
+    `Modules/ForeverLayoutCarry.lua`. 🆕 **Nieuw op de lijst, van vandaag:** de shift-klik-taintvraag
+    op `Modules/Achievements.lua:1561`/`:1910` hierboven. 🔴 Niets aangeraakt.
+  - 🔧 **Repo-staat: alleen `docs/API_WATCH.md` aangeraakt.** GEMETEN vóór het schrijven:
+    `git status --short` **leeg**, geen van de vier wachter-bestanden gewijzigd-maar-ongecommit. ⚠️
+    **`HEAD` stond vanmorgen LOSGESLAGEN** (`git symbolic-ref HEAD` gaf *"ref HEAD is not a symbolic
+    ref"*) op `e1b39b4` — byte-voor-byte gelijk aan `origin/main`, dus geen verloren werk, maar ik heb
+    eerst `git checkout main` moeten doen voordat ik kon pushen. Dat is nieuw t.o.v. gisteren en het
+    is het soort ding dat een push stil laat mislukken; genoteerd zodat de volgende run het herkent.
+    `git fetch` gaf opnieuw een `(forced update)` en `git rev-parse --is-shallow-repository` is
+    **`true`** met een venster van **50** commits — de kloondiepte van deze sessie, geen herschreven
+    historie, voor de vierde dag op rij dezelfde verklaring. 📌 Van die 50 commits zijn er **49** van
+    11 nov: release 5.1.0 (beide games), het `/mh selftest`-venster, de "Used for"-tooltipregel, de
+    Paladin-macro's en `/mh partytest` — wat verklaart waarom al het nieuws van vandaag uit de code komt.
