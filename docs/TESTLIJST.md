@@ -52,7 +52,8 @@ Eerst `/reload`, buiten een gevecht.
 - [x] `/mh move` → alle MH-onderdelen op je scherm krijgen een groen vakje "Drag me: …", ook het buff-icoon als er niets
       mist. De chat zegt hoeveel. ✅ Rob, 12 nov (via sparring): "mh move werkt :)"
 - [ ] Sleep er een paar (buff-icoon, snelbalk, routepijl) → ze gaan mee. Klik daarna nog eens het buff-icoon: cast hij nog?
-- [ ] Nog eens `/mh move` → de vakjes weg, alles blijft op de nieuwe plek; na `/reload` ook.
+      Waarschijnlijk goed: Rob zei nog eens "mh move werkt" toen hem dit gevraagd werd, maar niet los per punt.
+- [ ] Nog eens `/mh move` → de vakjes weg, alles blijft op de nieuwe plek; na `/reload` ook. (Idem: waarschijnlijk goed.)
 - [ ] Hetzelfde via Options → AddOns → Midnight Helper → "Move MH elements on your screen".
 - [ ] Een gevecht beginnen met de vakjes aan → ze gaan vanzelf weg, met een regel in de chat.
 - [ ] `/mh move why` → per onderdeel: op je scherm, nu verborgen, of uit.
@@ -61,8 +62,10 @@ Eerst `/reload`, buiten een gevecht.
 
 Eerst `/reload` in Forever. Het staat standaard UIT.
 - [ ] `/mh partytargets` → chat "group panel: on …". Buiten een groep zie je nog niets.
-- [ ] In een groep (2 is genoeg): een paneeltje "Group" met een rij per speler: naam in class-kleur, rol rechts (als die er
-      is). Lege plekken staan grijs met "-".
+- [x] In een groep (2 is genoeg): een paneeltje "Group" met een rij per speler: naam in class-kleur, rol rechts (als die er
+      is). Lege plekken staan grijs met "-". ✅ Rob, 12 nov (via sparring, 18.png): "Het groepspaneel staat er, de rijen
+      kloppen". Vraag van sparring: de 3 lege rijen; bewust (vaste maat i.v.m. de klikknoppen). Voorstel "zo hoog als je
+      groep" ligt bij Rob.
 - [ ] Linksklik op een rij → die speler wordt je doelwit. Ook in een gevecht.
 - [ ] Rechtsklik op een rij → je dispel op die speler (Paladin: Cleanse of Purify; Priest: Dispel Magic, Shift+rechtsklik
       Cure/Abolish Disease; Druid: Remove Curse, Shift: Cure/Abolish Poison; Shaman: Cure Poison, Shift: Cure Disease;
