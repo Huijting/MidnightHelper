@@ -27,7 +27,13 @@
   Wat de rij IN het gevecht doet, kan MH niet zien (scannen wordt geweigerd). (3) Geen regel van 12 nov.
 - Voorstel naar sparring: meten met de ogen + `/mh glow` (recent casts and errors) op het moment zelf. Klein voorstel om
   te bouwen: character + spec bij elke `dispelSelfLog`-regel.
-- 💡 Nieuwe wens (O27 in IDEEEN): MH legt de rode rij zelf vast. Plan naar sparring, nog GEEN bouw-go.
+- 💡 Nieuwe wens (O27 in IDEEEN): MH legt de rode rij zelf vast. ✅ Gebouwd (Rob, via sparring: "Ja, bouw het"):
+  `PartyTargets.lua` — `RowSignal` (bovenin) via OnShow/OnHide op ons rode canvas (PaintDispelSlot) →
+  `ns.db.dispelRowLog = { signals = {show, hide, showInCombat, hideInCombat}, events = {…max 40} }`; per moment row, unit,
+  at, seconds, inCombat/endInCombat, zone, char/class/spec, castsAtStart/castsAtEnd (kopie castLog), en na het gevecht
+  `afterFight` (samenvatting van de drie-filter-scan; `AfterCombatWithRowLog`). Offline 8/8 (scratch `rowlog_test.lua`),
+  stop-spell-proef nog 7/7, lint 0 HARD. NIET GEMETEN: of OnShow in een gevecht vuurt — daarvoor zijn de `signals`.
+  Rob: `/reload`, dungeonrun, `/reload`; dan lees ik het.
 - ✅ Gebouwd (Rob, via sparring: "Ja, bouw dat"): elke nieuwe `dispelSelfLog`-regel krijgt `char` (UnitName), `class`
   (token) en `spec` (spec-ID), in `AfterCombatDispelCheck`. Alleen meten, niets zichtbaars. Oude regels blijven zonder.
 

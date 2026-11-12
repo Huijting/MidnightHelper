@@ -21,6 +21,14 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 12 nov — MIDNIGHT: MH legt een rode rij zelf vast (O27, Rob: "Ja, bouw het")
+
+Niets zichtbaars; dit meet alleen. Jij hoeft niets te typen.
+- [ ] `/reload`, een dungeonrun (follower mag) met het Party targets-paneel aan, daarna `/reload`. Dan lees ik
+      `dispelRowLog` uit je SavedVariables: welke rij rood werd, hoe lang, in gevecht ja/nee, je casts en fouten op dat
+      moment, en wat er 1 s na het gevecht nog op je zat. ⚠️ Werkt het seintje in een gevecht niet, dan staat er
+      "signals: show 0"; dan stop ik en krijg je een nieuw voorstel.
+
 ## 🆕 12 nov — MIDNIGHT: `/mh prompt test` (Rob: "Ja, laat hem dat bouwen")
 
 Eerst `/reload`. In Midnight, buiten een gevecht (de actie-hint mag aan of uit staan):

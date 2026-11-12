@@ -148,6 +148,126 @@ local paintLog = {}
 --- same edit. It does not look at local tables, so this one went straight past it.
 local castLog = {}
 
+--- 🔬 RED-ROW LOG (O27, 12 Nov 2026, Rob: "Ja, bouw het"). Rob tanks: he cannot take screenshots or type /mh glow
+--- mid-fight, so MH writes down by itself when a row turns red and goes off again, to ns.db.dispelRowLog, read after a
+--- /reload. MEASURING ONLY, nothing visible.
+---
+--- What it records: which row (and its unit), when it turned red and for how long, zone, in combat yes/no,
+--- character/class/spec, a copy of your own last casts and errors (castLog) at start and at end, and what the existing
+--- after-combat scan found on you 1 s after that fight (afterFight).
+--- What it CANNOT record: WHICH debuff it is in combat (scans refused, values secret), whether you could remove it,
+--- or debuffs on other players.
+---
+--- ⚠️ NOT MEASURED when built: whether OnShow/OnHide of our red canvas fire in combat at all (the engine shows the
+--- canvas's parent, Blizzard's aura slot). So the signals themselves are counted in `signals`: show/hide in and out of
+--- combat. "0 shows, also out of combat" means the signal does not work here -- NOT "the row was never red".
+local RowUnitFn -- set to UnitForRow once that local exists (declared far below)
+local rowOpen, rowVisible = {}, {}
+local fightEvents = {}
+local ROWLOG_MAX = 40
+
+local function RowLog()
+	if not ns.db then
+		return nil
+	end
+	local L = ns.db.dispelRowLog
+	if type(L) ~= "table" then
+		L = { events = {}, signals = { show = 0, hide = 0, showInCombat = 0, hideInCombat = 0 } }
+		ns.db.dispelRowLog = L
+	end
+	L.events = L.events or {}
+	L.signals = L.signals or { show = 0, hide = 0, showInCombat = 0, hideInCombat = 0 }
+	return L
+end
+
+local function CastSnapshot()
+	local now = (GetTime and GetTime()) or 0
+	local out = {}
+	for _, c in ipairs(castLog) do
+		out[#out + 1] = { ago = math.floor((now - (c.at or now)) * 10 + 0.5) / 10, kind = c.kind, spellID = c.spellID,
+			extra = c.extra }
+	end
+	return out
+end
+
+local function InFight()
+	return (InCombatLockdown and InCombatLockdown()) and true or false
+end
+
+local function RowSignal(idx, shown)
+	local L = RowLog()
+	if not (L and idx) then
+		return
+	end
+	local fight = InFight()
+	local s = L.signals
+	if shown then
+		s.show = (s.show or 0) + 1
+		if fight then
+			s.showInCombat = (s.showInCombat or 0) + 1
+		end
+	else
+		s.hide = (s.hide or 0) + 1
+		if fight then
+			s.hideInCombat = (s.hideInCombat or 0) + 1
+		end
+	end
+	-- A row can have more than one red canvas (one per aura frame): open on the first, close on the last.
+	local n = (rowVisible[idx] or 0) + (shown and 1 or -1)
+	if n < 0 then
+		n = 0
+	end
+	rowVisible[idx] = n
+	if shown and n == 1 and not rowOpen[idx] then
+		local who, classToken, specID
+		if UnitName then
+			local okN, nm = pcall(UnitName, "player")
+			who = okN and type(nm) == "string" and nm or nil
+		end
+		if UnitClass then
+			local okC, _, tok = pcall(UnitClass, "player")
+			classToken = okC and tok or nil
+		end
+		if ns.GetSpecialization and ns.GetSpecializationInfo then
+			local okI, si = pcall(ns.GetSpecialization)
+			if okI and si then
+				local okS, sid = pcall(ns.GetSpecializationInfo, si)
+				specID = okS and sid or nil
+			end
+		end
+		local unit
+		if RowUnitFn then
+			local okU, u = pcall(RowUnitFn, idx)
+			unit = okU and u or nil
+		end
+		local e = {
+			at = date and date("%Y-%m-%d %H:%M:%S") or "?",
+			t0 = (GetTime and GetTime()) or 0,
+			row = idx, unit = unit,
+			zone = GetRealZoneText and GetRealZoneText() or nil,
+			inCombat = fight,
+			char = who, class = classToken, spec = specID,
+			castsAtStart = CastSnapshot(),
+		}
+		L.events[#L.events + 1] = e
+		while #L.events > ROWLOG_MAX do
+			table.remove(L.events, 1)
+		end
+		rowOpen[idx] = e
+		if fight then
+			fightEvents[#fightEvents + 1] = e
+		end
+	elseif not shown and n == 0 and rowOpen[idx] then
+		local e = rowOpen[idx]
+		rowOpen[idx] = nil
+		e.seconds = math.floor((((GetTime and GetTime()) or 0) - (e.t0 or 0)) * 10 + 0.5) / 10
+		e.endInCombat = fight
+		e.castsAtEnd = CastSnapshot()
+		e.t0 = nil
+	end
+end
+ns._PartyRowSignal = RowSignal -- for the offline test only (scratch stopspell/rowlog test); nothing calls it in game
+
 local function OwningRow(slot)
 	local f = slot
 	for _ = 1, 6 do
@@ -257,6 +377,19 @@ local function PaintDispelSlot(slot)
 	--- whatever size Blizzard gave it and never reaches the button.
 	local idx = row and row._mhRowIndex
 	local canvas = CreateFrame("Frame", nil, slot)
+	-- O27 red-row log (see RowSignal near the top): the engine shows/hides the slot, so these fire with the red.
+	if idx then
+		canvas:SetScript("OnShow", function()
+			pcall(RowSignal, idx, true)
+		end)
+		canvas:SetScript("OnHide", function()
+			pcall(RowSignal, idx, false)
+		end)
+		local okV, vis = pcall(canvas.IsVisible, canvas)
+		if okV and vis == true then
+			pcall(RowSignal, idx, true)
+		end
+	end
 	local okSize, sizeErr = pcall(function()
 		-- Belt and braces on the slot itself, since it is the thing that could still
 		-- intercept a click if the engine hands it a size of its own.
@@ -1453,6 +1586,7 @@ local function UnitForRow(i)
 	end
 	return "party" .. (rowOrder[i] or i)
 end
+RowUnitFn = UnitForRow -- for the O27 red-row log, declared near the top of the file
 
 local function RecomputeOrder()
 	if InCombatLockdown and InCombatLockdown() then
@@ -2106,7 +2240,7 @@ local function AfterCombatDispelCheck()
 		end) and true or false
 	end
 	if #found == 0 then
-		return
+		return found
 	end
 	ns.db.dispelSelfLog = ns.db.dispelSelfLog or {}
 	local log = ns.db.dispelSelfLog
@@ -2144,6 +2278,31 @@ local function AfterCombatDispelCheck()
 				(ns.L and ns:L("PRINT_PREFIX")) or "MH", tostring(e.name), e.type))
 		end
 	end
+	return found
+end
+
+--- O27: run the after-combat scan and hang its answer on every red-row moment that started in that fight.
+local function AfterCombatWithRowLog()
+	local ok, found = pcall(AfterCombatDispelCheck)
+	if #fightEvents == 0 then
+		return
+	end
+	local summary
+	if not ok then
+		summary = "scan error"
+	elseif found == nil then
+		summary = "not scanned (no party / no dispel)"
+	else
+		summary = {}
+		for _, f in ipairs(found) do
+			summary[#summary + 1] = { name = f.name, type = f.type, spellId = f.spellId, youCan = f.youCan,
+				raid = f.raid, rpd = f.rpd, any = f.any, secret = f.secret }
+		end
+	end
+	for _, e in ipairs(fightEvents) do
+		e.afterFight = summary
+	end
+	fightEvents = {}
 end
 
 local fAfter = CreateFrame("Frame")
@@ -2151,9 +2310,9 @@ fAfter:RegisterEvent("PLAYER_REGEN_ENABLED")
 fAfter:SetScript("OnEvent", function()
 	-- A moment after the fight: combat-only auras have dropped, what lingers is what Rob saw.
 	if C_Timer and C_Timer.After then
-		C_Timer.After(1, AfterCombatDispelCheck)
+		C_Timer.After(1, AfterCombatWithRowLog)
 	else
-		AfterCombatDispelCheck()
+		AfterCombatWithRowLog()
 	end
 end)
 
