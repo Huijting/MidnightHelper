@@ -24,12 +24,13 @@ er is niets weggegooid.
 ## 🆕 12 nov (avond) — FOREVER: "Welke kant wil je op?" (Rob, via sparring: "De vraag 'Welke kant?'")
 
 Eerst `/reload` in Forever, op je Paladin.
-- [ ] Een paar seconden na het inloggen komt een venster "Which way do you want to go?" met drie knoppen: **Holy**,
+- [x] Een paar seconden na het inloggen komt een venster "Which way do you want to go?" met drie knoppen: **Holy**,
       **Protection**, **Retribution**, elk met één zin eronder. Onderaan: wat je talentpunten tot nu toe zeggen (of "je eerste
       talentpunt krijg je op level 10"). Komt eerst de vraag over de balkenindeling, dan komt deze pas daarna.
+      ✅ Rob, 12 nov (via sparring, 15.png, op een Rogue): "dit werkt".
 - [ ] Klik er een → het venster gaat dicht en de chat zegt welke richting je koos.
-- [ ] `/mh play` → rechtsboven een knop "Your direction: <naam>". Klik erop → het venster komt terug, met een vinkje bij je
-      keuze. "No choice" haalt de keuze weg.
+- [x] `/mh play` → rechtsboven een knop "Your direction: <naam>". Klik erop → het venster komt terug, met een vinkje bij je
+      keuze. "No choice" haalt de keuze weg. ✅ Knop gezien (16.webp) en wisselen werkt (20.webp); "No choice" niet gemeld.
 - [ ] Na `/reload` vraagt MH het niet nog eens (je hebt al gekozen).
 - [ ] Op een ander character zonder keuze: "Later" → deze sessie niet meer; na `/reload` weer wel.
       "Never ask again" → niet meer; in Options → AddOns → Midnight Helper staat "Ask which way you want to go" dan uit.
@@ -61,13 +62,15 @@ Eerst `/reload`, buiten een gevecht.
 ## 🆕 12 nov (avond) — FOREVER: wat jouw richting nodig heeft (Rob, via sparring: "1 en 2, de wapens er meteen bij")
 
 Eerst `/reload`, op je Protection-paladin.
-- [ ] `/mh play` → bovenaan staat nu een blok "Your direction: Protection": zwaarste pantser (Mail, Plate vanaf level 40),
+✅ Rob, 12 nov (via sparring): *"De blog geeft redelijk antwoord op wat nu … voorlopig wat we nu hebben, daar ben ik heel
+erg blij mee."* Screenshots 19.webp (Protection) en 20.webp (Retribution).
+- [x] `/mh play` → bovenaan staat nu een blok "Your direction: Protection": zwaarste pantser (Mail, Plate vanaf level 40),
       wapen volgens spelersgidsen (een eenhandig wapen en een schild), "Holy Shield only works with this in your hands:
-      Shields (a talent: at the earliest at level 30)", dat je elk wapen mag gebruiken, en een grijze bronregel.
-- [ ] `/mh weapons` → bij One-Handed Maces, Axes en Swords staat een groen +. Onderaan: "Your direction Protection: player
-      guides pair it with … , Shields". Je two-handed sword staat er gewoon nog, zonder +.
-- [ ] Wissel van richting (knop in `/mh play`, of `/mh direction`) → het blok en de + in `/mh weapons` veranderen mee
-      (bv. Retribution: + bij de tweehandige wapens).
+      Shields (a talent: at the earliest at level 30)", dat je elk wapen mag gebruiken, en een grijze bronregel. ✅ 19.webp
+- [x] `/mh weapons` → bij One-Handed Maces, Axes en Swords staat een groen +. Onderaan: "Your direction Protection: player
+      guides pair it with … , Shields". Je two-handed sword staat er gewoon nog, zonder +. ✅ 19.webp
+- [x] Wissel van richting (knop in `/mh play`, of `/mh direction`) → het blok en de + in `/mh weapons` veranderen mee
+      (bv. Retribution: + bij de tweehandige wapens). ✅ 20.webp: + bij Two-Handed Maces/Axes/Swords en Polearms.
 - [ ] "No choice" → het blok is weg, de + ook.
 
 ## 🆕 12 nov (avond) — FOREVER: klein groepspaneel (Rob, via sparring: "A, eerst klein")
