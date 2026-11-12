@@ -205,6 +205,9 @@ lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met d
                  Rob: *"Schets klopt"*. Keuzes (letterlijk): spel *"Eerst Forever (Recommended)"*, Midnight later apart;
                  zonder gekozen richting *"Werkt gewoon (Recommended)"* (dan zonder "past bij jouw richting"); in beeld
                  *"Alleen als er iets is (Recommended)"*, een schakelaar zet het op "altijd". **Geen bouw-go.**
+                 **Bouw-ja 12 nov** (via sparring, letterlijk: *"Venster 'Doe dit nu'"*). **Gebouwd 12 nov:**
+                 `Modules/ForeverDoNow.lua`, `/mh donow` (+ `check`, `auto|always|off`), instelling. Alleen bestaande
+                 onderdelen, geen nieuwe meting; met richting de eerstvolgende talent-spell. Niet in het spel gezien.
 
 ### Eén schakelaar "Verplaatsen" voor alle MH-onderdelen op het scherm
 - Voor wie:      allebei

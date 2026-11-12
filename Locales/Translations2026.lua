@@ -23839,3 +23839,87 @@ if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	FWEAP_DIR_FIT_FMT = "Seu caminho %s: guias de jogadores o combinam com %s (marcado com um + verde). Você ainda pode aprender e usar os outros.",
 	FWEAP_DIR_NONE_FMT = "Seu caminho %s: os guias de jogadores que lemos não citam nenhum tipo de arma para ele.",
 }) end
+
+-- 12 Nov 2026: Do this now window (ForeverDoNow.lua); our own translation (mh-writer), not native-checked.
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
+	FDONOW_TITLE = "Mach das jetzt",
+	FDONOW_HEAD_NOW = "Mach das jetzt",
+	FDONOW_HEAD_DONE = "Alles erledigt",
+	FDONOW_HEAD_SOON = "Demnächst (nächste 3 Stufen)",
+	FDONOW_SOON_LEVEL_FMT = "Stufe %d: %s",
+	FDONOW_SOON_NONE = "Keine neuen Zauber bei deinem Lehrer in den nächsten 3 Stufen.",
+	FDONOW_TALENT_FMT = "Für %s: %s (ein Talent, frühestens ab Stufe %d)",
+	FDONOW_TOOL_FMT = "%s: Dir fehlt noch %s (%s).",
+	FDONOW_CLOSED = "mach das jetzt: ausgeblendet bis zum nächsten Einloggen. /mh donow zeigt es wieder.",
+	FDONOW_MODE_CHAT_FMT = "mach das jetzt: %s.",
+	FDONOW_MODE_AUTO = "nur wenn es etwas zu tun gibt",
+	FDONOW_MODE_ALWAYS = "immer",
+	FDONOW_MODE_OFF = "aus",
+	SET_FOREVER_DONOW_TITLE = "Fenster \"Mach das jetzt\"",
+	SET_FOREVER_DONOW_DESC = "WoW Forever: ein kleines Fenster mit dem, was du jetzt tun kannst (Zauber bei deinem Lehrer, alte Ränge auf deinen Leisten, Waffen zum Lernen, ein fehlender Buff, ein fehlendes Werkzeug), und den Lehrer-Zaubern der nächsten 3 Stufen. Im Kampf ausgeblendet. Dasselbe wie /mh donow auto|always|off.",
+	CMDLIST_DONOW = "WoW Forever: das Fenster \"Mach das jetzt\" zeigen oder ausblenden. /mh donow check sagt, warum es (nicht) zu sehen ist.",
+	MOVE_EL_DONOW = "mach das jetzt",
+}) end
+
+-- 12 Nov 2026: Do this now window (ForeverDoNow.lua); our own translation (mh-writer), not native-checked.
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
+	FDONOW_TITLE = "Fais ça maintenant",
+	FDONOW_HEAD_NOW = "Fais ça maintenant",
+	FDONOW_HEAD_DONE = "Tout est à jour",
+	FDONOW_HEAD_SOON = "Bientôt (3 prochains niveaux)",
+	FDONOW_SOON_LEVEL_FMT = "Niveau %d : %s",
+	FDONOW_SOON_NONE = "Aucun nouveau sort chez ton maître de classe dans les 3 prochains niveaux.",
+	FDONOW_TALENT_FMT = "Pour %s : %s (un talent, au plus tôt au niveau %d)",
+	FDONOW_TOOL_FMT = "%s : il te manque encore %s (%s).",
+	FDONOW_CLOSED = "fais ça maintenant : masqué jusqu'à ta prochaine connexion. /mh donow l'affiche à nouveau.",
+	FDONOW_MODE_CHAT_FMT = "fais ça maintenant : %s.",
+	FDONOW_MODE_AUTO = "seulement quand il y a quelque chose à faire",
+	FDONOW_MODE_ALWAYS = "toujours",
+	FDONOW_MODE_OFF = "désactivé",
+	SET_FOREVER_DONOW_TITLE = "Fenêtre « Fais ça maintenant »",
+	SET_FOREVER_DONOW_DESC = "WoW Forever : une petite fenêtre avec ce que tu peux faire maintenant (sorts chez ton maître de classe, anciens rangs sur tes barres, armes à apprendre, un buff manquant, un outil manquant), et les sorts du maître de classe des 3 prochains niveaux. Masquée en combat. Identique à /mh donow auto|always|off.",
+	CMDLIST_DONOW = "WoW Forever : afficher ou masquer la fenêtre « Fais ça maintenant ». /mh donow check dit pourquoi elle est affichée ou non.",
+	MOVE_EL_DONOW = "fais ça maintenant",
+}) end
+
+-- 12 Nov 2026: Do this now window (ForeverDoNow.lua); our own translation (mh-writer), not native-checked.
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
+	FDONOW_TITLE = "Haz esto ahora",
+	FDONOW_HEAD_NOW = "Haz esto ahora",
+	FDONOW_HEAD_DONE = "Todo al día",
+	FDONOW_HEAD_SOON = "Próximamente (próximos 3 niveles)",
+	FDONOW_SOON_LEVEL_FMT = "Nivel %d: %s",
+	FDONOW_SOON_NONE = "No hay hechizos nuevos con tu instructor en los próximos 3 niveles.",
+	FDONOW_TALENT_FMT = "Para %s: %s (un talento, no antes del nivel %d)",
+	FDONOW_TOOL_FMT = "%s: aún te falta %s (%s).",
+	FDONOW_CLOSED = "haz esto ahora: oculto hasta tu próxima conexión. /mh donow lo vuelve a mostrar.",
+	FDONOW_MODE_CHAT_FMT = "haz esto ahora: %s.",
+	FDONOW_MODE_AUTO = "solo cuando hay algo que hacer",
+	FDONOW_MODE_ALWAYS = "siempre",
+	FDONOW_MODE_OFF = "desactivado",
+	SET_FOREVER_DONOW_TITLE = "Ventana \"Haz esto ahora\"",
+	SET_FOREVER_DONOW_DESC = "WoW Forever: una ventana pequeña con lo que puedes hacer ahora (hechizos con tu instructor, rangos antiguos en tus barras, armas que aprender, una mejora que falta, una herramienta que falta), y los hechizos del instructor de los próximos 3 niveles. Oculta en combate. Lo mismo que /mh donow auto|always|off.",
+	CMDLIST_DONOW = "WoW Forever: mostrar u ocultar la ventana \"Haz esto ahora\". /mh donow check dice por qué se ve o no.",
+	MOVE_EL_DONOW = "haz esto ahora",
+}) end
+
+-- 12 Nov 2026: Do this now window (ForeverDoNow.lua); our own translation (mh-writer), not native-checked.
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
+	FDONOW_TITLE = "Faça isto agora",
+	FDONOW_HEAD_NOW = "Faça isto agora",
+	FDONOW_HEAD_DONE = "Tudo em dia",
+	FDONOW_HEAD_SOON = "Em breve (próximos 3 níveis)",
+	FDONOW_SOON_LEVEL_FMT = "Nível %d: %s",
+	FDONOW_SOON_NONE = "Nenhum feitiço novo no seu treinador nos próximos 3 níveis.",
+	FDONOW_TALENT_FMT = "Para %s: %s (um talento, não antes do nível %d)",
+	FDONOW_TOOL_FMT = "%s: você ainda não tem %s (%s).",
+	FDONOW_CLOSED = "faça isto agora: oculto até o seu próximo login. /mh donow mostra de novo.",
+	FDONOW_MODE_CHAT_FMT = "faça isto agora: %s.",
+	FDONOW_MODE_AUTO = "só quando há algo para fazer",
+	FDONOW_MODE_ALWAYS = "sempre",
+	FDONOW_MODE_OFF = "desligado",
+	SET_FOREVER_DONOW_TITLE = "Janela \"Faça isto agora\"",
+	SET_FOREVER_DONOW_DESC = "WoW Forever: uma janela pequena com o que fazer agora (feitiços no seu treinador, graus antigos nas suas barras, armas para aprender, um buff faltando, uma ferramenta faltando), e os feitiços do treinador dos próximos 3 níveis. Oculta em combate. O mesmo que /mh donow auto|always|off.",
+	CMDLIST_DONOW = "WoW Forever: mostrar ou ocultar a janela \"Faça isto agora\". /mh donow check diz por que ela aparece ou não.",
+	MOVE_EL_DONOW = "faça isto agora",
+}) end

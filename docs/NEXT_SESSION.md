@@ -15,6 +15,23 @@
    Een release alleen op Robs go. CF-plaatjes staan erop (Rob, 11 nov); of hij de nieuwe CF-beschrijving en de
    5.1.0-tekst al plakte: NIET GEMETEN, vragen.
 
+## 🛠️ 12 nov (avond) — Forever: venster "Doe dit nu" (Rob via sparring, letterlijk: "Venster 'Doe dit nu'")
+
+- `Modules/ForeverDoNow.lua` (beide tocs; returnt op retail). Elke regel rust op iets bestaands:
+  - trainer: `ns.ForeverTrainerCompute(level).now` en de knop `ForeverTrainerGo`;
+  - ranks: `ForeverRankCount` en `ForeverRankFixAll`;
+  - wapens: `ForeverWeaponsLearnableCount`;
+  - buff: `GetForeverMissingBuffs` en `MissingBuffSentence`;
+  - gereedschap: nieuw `ns.ForeverMissingTools` in `ForeverVendors.lua`;
+  - "Komt eraan": `ForeverTrainerCompute(level+3)`, spells boven je level, per level;
+  - met richting: nieuw `ns.ForeverDirectionTalents` (ForeverMacros SPEC_MACROS), de eerstvolgende talent-spell. Levels AFGELEID.
+- Stand: `ns.db.foreverDoNowMode` = auto (standaard, Robs keuze "Alleen als er iets is") / always / off.
+  - Instelling `mh_foreverDoNowMode` (dropdown).
+  - `/mh donow` (tonen/verbergen deze sessie), `/mh donow auto|always|off`, `/mh donow check`.
+- In een gevecht weg, daarna terug. Standaardplek rechtsboven.
+- In CommandList met `foreverOnly` (nieuw in `CommandItemShown`, dus ook de zoekbalk), in MoveMode, en EXEMPT in window_check (eigen Shift+scroll).
+- Offline (scratch `donow_test.lua`): 4 punten "doe nu", 3 regels "komt eraan", de standen wisselen goed. luac schoon, lint 0 HARD. Niet in het spel gezien.
+
 ## 🛠️ 12 nov (avond) — "Welke kant?" stap 1 + 2: blok in How you play, + in /mh weapons
 
 - Rob (via sparring, letterlijk): *"1 en 2, de wapens er meteen bij"*. Aanleiding: zijn Protection-paladin met een

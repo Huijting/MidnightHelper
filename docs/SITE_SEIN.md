@@ -28,6 +28,17 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 12 nov 2026 — Forever: venster "Do this now"
+- Tag + commit:   geen tag / (deze commit)
+- Status:         alleen op main
+- Mag op de site: nee (nog niet uit)
+- Speler ziet:    Een klein venster met wat je nu kunt doen (spells bij je trainer, oude ranks, wapens, een ontbrekende
+                  buff, ontbrekend gereedschap) en de trainer-spells van de komende 3 levels. Standaard alleen als er iets
+                  te doen is. Niet in het spel gezien.
+- Knoplabels:     FDONOW_TITLE, SET_FOREVER_DONOW_TITLE
+- Commando's:     /mh donow, /mh donow check, /mh donow auto|always|off
+- Spel:           Forever
+
 ## 12 nov 2026 — Forever: wat jouw richting nodig heeft
 - Tag + commit:   geen tag / (deze commit)
 - Status:         alleen op main

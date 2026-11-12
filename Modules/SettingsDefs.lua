@@ -526,6 +526,17 @@ local function Build()
 		end, function(v)
 			if ns.SetForeverBarLayoutAsk then ns.SetForeverBarLayoutAsk(v) end
 		end, true)
+		-- 12 Nov 2026 (Rob, via sparring: "Venster 'Doe dit nu'"): when the "Do this now" window shows (ForeverDoNow.lua).
+		-- Rob's design choice: "Alleen als er iets is" by default; "always" and "off" as switches.
+		Dropdown("mh_foreverDoNowMode", "SET_FOREVER_DONOW_TITLE", "SET_FOREVER_DONOW_DESC", "auto", {
+			{ value = "auto", labelKey = "FDONOW_MODE_AUTO" },
+			{ value = "always", labelKey = "FDONOW_MODE_ALWAYS" },
+			{ value = "off", labelKey = "FDONOW_MODE_OFF" },
+		}, function()
+			return ns.ForeverDoNowMode and ns.ForeverDoNowMode() or "auto"
+		end, function(v)
+			if ns.SetForeverDoNowMode then ns.SetForeverDoNowMode(v) end
+		end)
 		-- 12 Nov 2026 (Rob, via sparring: "A, eerst klein"): the small Forever group panel (ForeverPartyPanel.lua). Off by
 		-- default; same as /mh partytargets.
 		Toggle("mh_foreverPartyPanel", "SET_FOREVER_PARTY_TITLE", "SET_FOREVER_PARTY_DESC", function()

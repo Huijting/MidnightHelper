@@ -59,6 +59,21 @@ Eerst `/reload`, buiten een gevecht.
 - [ ] Een gevecht beginnen met de vakjes aan → ze gaan vanzelf weg, met een regel in de chat.
 - [ ] `/mh move why` → per onderdeel: op je scherm, nu verborgen, of uit.
 
+## 🆕 12 nov (avond) — FOREVER: venster "Doe dit nu" (Rob, via sparring: "Venster 'Doe dit nu'")
+
+Eerst `/reload` op je Protection-paladin (een paar seconden wachten).
+- [ ] Is er iets te doen, dan staat rechtsboven een venstertje "Do this now" met:
+      "Do this now" (bv. spells bij je trainer met de prijs, oude ranks op je balken, een ontbrekende buff, een beroep
+      zonder gereedschap) en "Coming up (next 3 levels)": per level de trainer-spells bij naam, en "For Protection: Holy
+      Shield (a talent, at the earliest at level 30)" zolang je onder 30 bent.
+- [ ] Knoppen onderaan alleen als het past: "Show the way" (naar je trainer), de ranks-knop, "Weapon trainers".
+- [ ] Niets te doen → het venster is weg (standaard). In Options → AddOns → Midnight Helper → "\"Do this now\" window" op
+      "always" → het blijft staan en zegt "All caught up". "off" → nooit.
+- [ ] Begint een gevecht → het venster gaat weg; na het gevecht komt het terug.
+- [ ] Kruisje → weg tot je volgende login. `/mh donow` → weer in beeld.
+- [ ] Slepen, Shift+scroll = grootte; na `/reload` staat het nog daar. Ook in `/mh move`.
+- [ ] `/mh donow check` → de stand, getoond of niet en waarom, en de lijst.
+
 ## 🆕 12 nov (avond) — FOREVER: wat jouw richting nodig heeft (Rob, via sparring: "1 en 2, de wapens er meteen bij")
 
 Eerst `/reload`, op je Protection-paladin.

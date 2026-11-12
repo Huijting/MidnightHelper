@@ -2636,6 +2636,16 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		end
 		return
 	end
+	-- 12 Nov 2026, WoW Forever: "Do this now" (ForeverDoNow.lua).
+	local donowArg = (msg:lower() == "donow") and "" or msg:lower():match("^donow%s+(.+)$")
+	if donowArg then
+		if ns.ForeverDoNowSlash then
+			ns.ForeverDoNowSlash(donowArg)
+		else
+			print("|cffffcc00Midnight Helper:|r /mh donow is for WoW: Forever.")
+		end
+		return
+	end
 	-- 12 Nov 2026, WoW Forever: "Which way do you want to go?" (ForeverDirection.lua).
 	local dirArg = (msg:lower() == "direction" or msg:lower() == "richting") and ""
 		or msg:lower():match("^direction%s+(.+)$") or msg:lower():match("^richting%s+(.+)$")

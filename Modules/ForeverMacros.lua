@@ -732,6 +732,21 @@ end
 ns.ForeverSpecBand = SpecBand
 ns.ForeverSpecName = SpecName
 
+--- The talent spells of one tree, lowest level first: { id, level } (SPEC_MACROS, talent = true; the levels follow the
+--- "first point at 10, one per level" rule, AFGELEID except where a comment there says GEMETEN). For "Do this now".
+function ns.ForeverDirectionTalents(cls, band)
+	local out = {}
+	for _, d in ipairs(SPEC_MACROS) do
+		if d.class == cls and d.spec == band and d.talent and d.need and d.level then
+			out[#out + 1] = { id = d.need, level = d.level }
+		end
+	end
+	table.sort(out, function(a, b)
+		return a.level < b.level
+	end)
+	return out
+end
+
 --- The rows for this character: the fixed ones, one per active racial it knows, then its class macros.
 local function Rows()
 	local rows = {}

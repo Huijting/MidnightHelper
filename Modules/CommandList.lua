@@ -105,6 +105,10 @@ ns.MH_UNLISTED_ON_PURPOSE = {
 --- Is this command row meant for this player? `needsMF` rows only when MF Nameplates is loaded (NameplateColors.lua).
 --- Used by the command list below and by NavSearch, so the two always agree.
 function ns.CommandItemShown(item)
+	-- 12 Nov 2026: a row for one game only (`foreverOnly`), e.g. /mh donow.
+	if item and item.foreverOnly and not ns.IS_FOREVER then
+		return false
+	end
 	if item and item.needsMF then
 		return ns.NameplateColorsAvailable ~= nil and ns.NameplateColorsAvailable() == true
 	end
@@ -137,6 +141,8 @@ ns.MH_COMMANDS = {
 		{ cmd = "/mh settings", descKey = "CMDLIST_SETTINGS" },
 		-- 12 Nov 2026: every MH element on screen with a "drag me" box (MoveMode.lua).
 		{ cmd = "/mh move", descKey = "CMDLIST_MOVE" },
+		-- 12 Nov 2026, WoW Forever: "Do this now" (ForeverDoNow.lua).
+		{ cmd = "/mh donow", descKey = "CMDLIST_DONOW", foreverOnly = true },
 		{ cmd = "/mh mouse", descKey = "CMDLIST_MOUSE" },
 		-- 21 Oct 2026: one door to all keybind help (KeysHub.lua). NavSearch indexes this table, so "keys",
 		-- "keybinds" and the window's own name find it from the search bar.

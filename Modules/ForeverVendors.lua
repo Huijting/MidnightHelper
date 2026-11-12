@@ -423,6 +423,23 @@ local function HasTool(c)
 	return false
 end
 
+--- 12 Nov 2026, for "Do this now" (ForeverDoNow.lua): your professions whose tool you do not carry.
+--- Each: { key = "skinning", prof = profession name as the client shows it, tool = item name }.
+function ns.ForeverMissingTools()
+	local mine = ns.ForeverMyProfessions and ns.ForeverMyProfessions()
+	local out = {}
+	if not mine then
+		return out
+	end
+	for _, c in ipairs(CATS) do
+		if c.prof and mine[c.prof] and not HasTool(c) then
+			out[#out + 1] = { key = c.key, prof = ns.ForeverProfName and ns.ForeverProfName(c.prof, mine) or c.prof,
+				tool = CatName(c) }
+		end
+	end
+	return out
+end
+
 local function CharKey()
 	local n, r = UnitFullName and UnitFullName("player")
 	return n and (n .. "-" .. (r or GetRealmName() or "")) or nil

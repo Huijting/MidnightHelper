@@ -34,6 +34,7 @@ local ELEMENTS = {
 	{ name = "MidnightHelperMarkBar", label = "MOVE_EL_MARKBAR", drag = "_mhDragHandle" },
 	{ name = "MidnightHelperPartyTargets", label = "MOVE_EL_PARTY" },
 	{ name = "MidnightHelperForeverParty", label = "MOVE_EL_PARTY" }, -- Forever's small group panel (12 Nov 2026)
+	{ name = "MidnightHelperForeverDoNow", label = "MOVE_EL_DONOW" }, -- Forever "Do this now" (12 Nov 2026)
 	{ name = "MidnightHelperCombatSafety", label = "MOVE_EL_SAFETY" },
 	{ name = "MidnightHelperCombatLogLamp", label = "MOVE_EL_LAMP" },
 	{ name = "MidnightHelperFpsPanel", label = "MOVE_EL_FPS" },
