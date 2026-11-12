@@ -27,7 +27,17 @@
 - Specs die leeg blijven (AFGELEID uit de KeybindRoles-tabellen): Holy Paladin, Mistweaver, Resto Druid, Preservation
   Evoker, alle Warlocks (Spell Lock/Axe Toss = pet, geen id). Open keuze voor Rob (via sparring): krijgt zo'n spec iets
   anders, bv. een stun? Niet gebouwd.
-- Niet gedaan: de spelerstekst (`CMDLIST_PARTYTARGETS`, `SET_PARTYTARGETS_DESC`) noemt de rechtsklik nog steeds niet.
+- Robs keuzes daarna (via sparring, letterlijk): lege specs → *"Leeg laten (Recommended)"* (geen stun); spelerstekst →
+  *"Ja, een zin erbij (Recommended)"*. Gedaan: "Right-click a player to dispel them; right-click their target to purge
+  it, or to interrupt it if you have no purge." achter `CMDLIST_PARTYTARGETS` en `SET_PARTYTARGETS_DESC`, in 7 talen
+  (de/fr/es/pt/it/ru door mh-writer, eigen vertaling, niet native nagekeken; `check_drift --mark` gedaan). deDE: de
+  helper koos "entzaubern" (uit PROMPT_WORD_PURGE), maar dat is in dit pack ook disenchanten; ik maakte er "bannen" van.
+  📌 Open: PROMPT_WORD_PURGE = "ENTZAUBERN" in deDE zelf nog nakijken tegen de client. ruRU zegt voor dispel én purge
+  развеять (het pack heeft geen apart woord).
+- Ook van Rob (via sparring, 12 nov), alleen noteren: beroepenadvies bij idee 7 = *"Ja, misschien is het wel een goed
+  idee"* (richting, geen bouw-go); de "+37% upgrade"-regel van een andere addon stoort NIET (*"Nee, juist niet, want
+  niet iedereen heeft dat"*), onze regel blijft; idee 3 + 7 als één ontwerp praat sparring eerst met Rob door. Nieuw in
+  IDEEEN: O26 (Forever-beroepenuitleg); O21 kreeg de datum van 12 nov.
 
 ## 🆕 12 nov — lint [27]: geen commando's die alleen wij gebruiken in de release-tekst (Rob: "Ja, bouw dat", via sparring)
 

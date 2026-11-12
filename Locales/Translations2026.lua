@@ -2896,7 +2896,7 @@ if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 -- Party-targets toggle in the native settings panel.
 if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	SET_PARTYTARGETS_TITLE = "Gruppenziele anzeigen",
-	SET_PARTYTARGETS_DESC = "Ein kleines Fenster mit dem, was jedes Gruppenmitglied angreift. Zieh es hin, wo du willst. Erscheint nur in einer Gruppe, und kann die Namen zwar anzeigen, aber nicht lesen — Sortieren, Hervorheben oder Vergleichen ist deshalb nicht möglich.",
+	SET_PARTYTARGETS_DESC = "Ein kleines Fenster mit dem, was jedes Gruppenmitglied angreift. Zieh es hin, wo du willst. Erscheint nur in einer Gruppe, und kann die Namen zwar anzeigen, aber nicht lesen — Sortieren, Hervorheben oder Vergleichen ist deshalb nicht möglich. Rechtsklick auf einen Spieler, um ihn zu bannen; Rechtsklick auf sein Ziel, um dort zu bannen, oder um es zu unterbrechen, wenn du dort nicht bannen kannst.",
 	SET_AHSHOP_TITLE = "Einkaufslisten-Button im Auktionshaus",
 	SET_AHSHOP_DESC = "Ein Button unter dem Auktionshaus-Fenster, der deine Einkaufslisten öffnet (Schlachtzugsabend und Beruf), mit der Anzahl der Dinge, die du noch kaufen musst.",
 	SET_AHQTY_TITLE = "Menge beim Kauf eintragen",
@@ -2922,7 +2922,7 @@ if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 
 if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	SET_PARTYTARGETS_TITLE = "Afficher les cibles du groupe",
-	SET_PARTYTARGETS_DESC = "Un petit panneau listant ce que chaque membre attaque. Déplace-le où tu veux. Ne s'affiche qu'en groupe, et peut montrer les noms sans pouvoir les lire — impossible donc de trier, surligner ou comparer.",
+	SET_PARTYTARGETS_DESC = "Un petit panneau listant ce que chaque membre attaque. Déplace-le où tu veux. Ne s'affiche qu'en groupe, et peut montrer les noms sans pouvoir les lire — impossible donc de trier, surligner ou comparer. Clic droit sur un joueur pour le dissiper ; clic droit sur sa cible pour la purger, ou pour l'interrompre si tu ne peux pas purger.",
 	SET_AHSHOP_TITLE = "Bouton de liste de courses à l'Hôtel des ventes",
 	SET_AHSHOP_DESC = "Un bouton sous la fenêtre de l'Hôtel des ventes qui ouvre tes listes de courses (soirée de raid et métier), avec le nombre de choses qu'il te reste à acheter.",
 	SET_AHQTY_TITLE = "Remplir la quantité à l’achat",
@@ -2948,7 +2948,7 @@ if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 
 if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	SET_PARTYTARGETS_TITLE = "Mostrar objetivos del grupo",
-	SET_PARTYTARGETS_DESC = "Un panel pequeño con lo que ataca cada miembro. Arrástralo donde quieras. Solo aparece en grupo, y puede mostrar los nombres sin poder leerlos, así que no puede ordenarlos, resaltarlos ni compararlos.",
+	SET_PARTYTARGETS_DESC = "Un panel pequeño con lo que ataca cada miembro. Arrástralo donde quieras. Solo aparece en grupo, y puede mostrar los nombres sin poder leerlos, así que no puede ordenarlos, resaltarlos ni compararlos. Clic derecho en un jugador para disiparlo; clic derecho en su objetivo para purgarlo, o para interrumpirlo si no puedes purgar.",
 	SET_AHSHOP_TITLE = "Botón de lista de la compra en la casa de subastas",
 	SET_AHSHOP_DESC = "Un botón bajo la ventana de la casa de subastas que abre tus listas de la compra (noche de banda y profesión), con cuántas cosas te quedan por comprar.",
 	SET_AHQTY_TITLE = "Rellenar la cantidad al comprar",
@@ -2974,7 +2974,7 @@ if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 
 if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	SET_PARTYTARGETS_TITLE = "Mostrar alvos do grupo",
-	SET_PARTYTARGETS_DESC = "Um painel pequeno com o que cada membro está atacando. Arraste para onde quiser. Só aparece em grupo, e consegue mostrar os nomes sem conseguir lê-los — por isso não ordena, destaca nem compara.",
+	SET_PARTYTARGETS_DESC = "Um painel pequeno com o que cada membro está atacando. Arraste para onde quiser. Só aparece em grupo, e consegue mostrar os nomes sem conseguir lê-los — por isso não ordena, destaca nem compara. Clique com o botão direito num jogador para dissipá-lo; clique com o botão direito no alvo dele para purgá-lo, ou para interrompê-lo se você não puder purgar.",
 	SET_AHSHOP_TITLE = "Botão de lista de compras na Casa de Leilões",
 	SET_AHSHOP_DESC = "Um botão sob a janela da Casa de Leilões que abre suas listas de compras (noite de raide e profissão), com quantas coisas você ainda precisa comprar.",
 	SET_AHQTY_TITLE = "Preencher a quantidade ao comprar",
@@ -3000,7 +3000,7 @@ if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 
 if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	SET_PARTYTARGETS_TITLE = "Mostra i bersagli del gruppo",
-	SET_PARTYTARGETS_DESC = "Un piccolo pannello con ciò che ogni membro sta attaccando. Trascinalo dove preferisci. Appare solo in gruppo e può mostrare i nomi senza poterli leggere, quindi non può ordinarli, evidenziarli o confrontarli.",
+	SET_PARTYTARGETS_DESC = "Un piccolo pannello con ciò che ogni membro sta attaccando. Trascinalo dove preferisci. Appare solo in gruppo e può mostrare i nomi senza poterli leggere, quindi non può ordinarli, evidenziarli o confrontarli. Tasto destro su un giocatore per dissolverlo; tasto destro sul suo bersaglio per togliergli i buff (purge), o per interromperlo se non puoi togliere buff.",
 	SET_AHSHOP_TITLE = "Pulsante lista della spesa alla Casa d'Aste",
 	SET_AHSHOP_DESC = "Un pulsante sotto la finestra della Casa d'Aste che apre le tue liste della spesa (serata di incursione e professione), con quante cose devi ancora comprare.",
 	SET_AHQTY_TITLE = "Inserisci la quantità all'acquisto",
@@ -5187,7 +5187,7 @@ if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	CMDLIST_NODES = "Gibt die Berufsknoten aus, die die API in deiner Umgebung meldet.",
 	CMDLIST_NPC = "Fragt deinen eigenen Client, wie eine NPC-ID heißt, damit sich eine ID aus einem Guide prüfen statt glauben lässt.",
 	CMDLIST_PANELRESET = "Die Seitenpanels wieder neben ihre Fenster stellen.",
-	CMDLIST_PARTYTARGETS = "Zeigt, was jedes Gruppenmitglied angreift. Klicke eine Zeile an, um dieses Ziel zu übernehmen.",
+	CMDLIST_PARTYTARGETS = "Zeigt, was jedes Gruppenmitglied angreift. Klicke eine Zeile an, um dieses Ziel zu übernehmen. Rechtsklick auf einen Spieler, um ihn zu bannen; Rechtsklick auf sein Ziel, um dort zu bannen, oder um es zu unterbrechen, wenn du dort nicht bannen kannst.",
 	CMDLIST_PLAN = "Der ganze Weg zu deinem aktuellen Ziel, als anklickbare Schritte.",
 	CMDLIST_PROMPT = "Aktionshinweis am Bildschirm: zeigt deinen Unterbrecher und deinen Zauberraub, sobald sie greifen.",
 	CMDLIST_PROMPT_SOUND = "Hinweis, wenn ein Zauberraub möglich ist: gesprochen, Klang oder aus (Unterbrechungen bleiben stumm).",
@@ -5461,7 +5461,7 @@ if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	CMDLIST_NODES = "Affiche les nœuds de métier que l'API signale autour de toi.",
 	CMDLIST_NPC = "Demande à ton propre client comment s'appelle un identifiant de PNJ, pour qu'un identifiant tiré d'un guide puisse être vérifié au lieu d'être cru sur parole.",
 	CMDLIST_PANELRESET = "Remet les panneaux latéraux à côté de leur fenêtre.",
-	CMDLIST_PARTYTARGETS = "Montre ce que chaque membre du groupe attaque. Clique une ligne pour prendre cette cible.",
+	CMDLIST_PARTYTARGETS = "Montre ce que chaque membre du groupe attaque. Clique une ligne pour prendre cette cible. Clic droit sur un joueur pour le dissiper ; clic droit sur sa cible pour la purger, ou pour l'interrompre si tu ne peux pas purger.",
 	CMDLIST_PLAN = "Tout le trajet jusqu'à ta cible actuelle, en étapes cliquables.",
 	CMDLIST_PROMPT = "Rappel à l'écran : affiche ton interruption et ta purge quand elles s'appliquent.",
 	CMDLIST_PROMPT_SOUND = "Alerte quand une purge est disponible : voix, carillon, ou rien (les interruptions restent silencieuses).",
@@ -5809,7 +5809,7 @@ if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	CMDLIST_NODES = "Imprime los nodos de profesión que la API detecta a tu alrededor.",
 	CMDLIST_NPC = "Le pregunta a tu propio cliente cómo se llama un id de PNJ, para que un id sacado de una guía se pueda comprobar en vez de creerlo sin más.",
 	CMDLIST_PANELRESET = "Vuelve a colocar los paneles laterales junto a sus ventanas.",
-	CMDLIST_PARTYTARGETS = "Muestra a qué está atacando cada miembro del grupo. Haz clic en una línea para seleccionar ese objetivo.",
+	CMDLIST_PARTYTARGETS = "Muestra a qué está atacando cada miembro del grupo. Haz clic en una línea para seleccionar ese objetivo. Clic derecho en un jugador para disiparlo; clic derecho en su objetivo para purgarlo, o para interrumpirlo si no puedes purgar.",
 	CMDLIST_PLAN = "Todo el camino hasta tu objetivo actual, en pasos en los que puedes hacer clic.",
 	CMDLIST_PROMPT = "Aviso en pantalla: te muestra tu interrupción y tu disipación cuando toca.",
 	CMDLIST_PROMPT_SOUND = "Aviso cuando hay una disipación disponible: hablado, campanilla o desactivado (las interrupciones siguen en silencio).",
@@ -6148,7 +6148,7 @@ if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	CMDLIST_NODES = "Imprime os nós de profissão que a API relata ao seu redor.",
 	CMDLIST_NPC = "Pergunta ao seu próprio cliente como se chama um id de npc, para que um id vindo de um guia possa ser conferido em vez de aceito na fé.",
 	CMDLIST_PANELRESET = "Devolve os painéis laterais para o lado das janelas deles.",
-	CMDLIST_PARTYTARGETS = "Mostra o que cada membro do grupo está atacando. Clique numa linha para pegar aquele alvo.",
+	CMDLIST_PARTYTARGETS = "Mostra o que cada membro do grupo está atacando. Clique numa linha para pegar aquele alvo. Clique com o botão direito num jogador para dissipá-lo; clique com o botão direito no alvo dele para purgá-lo, ou para interrompê-lo se você não puder purgar.",
 	CMDLIST_PLAN = "O caminho inteiro até o seu alvo atual, em passos clicáveis.",
 	CMDLIST_PROMPT = "Aviso na tela: mostra sua interrupção e sua dissipação quando elas se aplicam.",
 	CMDLIST_PROMPT_SOUND = "Alerta quando houver uma dissipação disponível: falado, sino ou desligado (as interrupções continuam mudas).",
@@ -6491,7 +6491,7 @@ if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	CMDLIST_NODES = "Stampa i nodi di professione che l'API riporta intorno a te.",
 	CMDLIST_NPC = "Chiede al tuo client come si chiama un id npc, così un id preso da una guida si può controllare invece di crederci sulla parola.",
 	CMDLIST_PANELRESET = "Rimette i pannelli laterali accanto alle loro finestre.",
-	CMDLIST_PARTYTARGETS = "Mostra cosa sta attaccando ogni membro del gruppo. Clicca una riga per prendere quel bersaglio.",
+	CMDLIST_PARTYTARGETS = "Mostra cosa sta attaccando ogni membro del gruppo. Clicca una riga per prendere quel bersaglio. Tasto destro su un giocatore per dissolverlo; tasto destro sul suo bersaglio per togliergli i buff (purge), o per interromperlo se non puoi togliere buff.",
 	CMDLIST_PLAN = "Tutta la strada fino al tuo obiettivo attuale, in passi cliccabili.",
 	CMDLIST_PROMPT = "Avviso a schermo: mostra il tuo interrupt e la tua purge quando servono.",
 	CMDLIST_PROMPT_SOUND = "Avviso quando una purge è disponibile: voce, campanello o niente (gli interrupt restano silenziosi).",
