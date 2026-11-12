@@ -526,6 +526,13 @@ local function Build()
 		end, function(v)
 			if ns.SetForeverBarLayoutAsk then ns.SetForeverBarLayoutAsk(v) end
 		end, true)
+		-- 12 Nov 2026 (Rob, via sparring: "Ja, laat hem dat uitzoeken en bouwen"): the game says a tool is missing →
+		-- the nearest seller with "Show the way" (ForeverVendors.lua). On by default; /mh vendor tip on|off.
+		Toggle("mh_foreverToolNeedTip", "SET_FOREVER_TOOLNEED_TITLE", "SET_FOREVER_TOOLNEED_DESC", function()
+			return ns.IsForeverToolNeedTipOn and ns.IsForeverToolNeedTipOn()
+		end, function(v)
+			if ns.SetForeverToolNeedTipOn then ns.SetForeverToolNeedTipOn(v) end
+		end, true)
 		-- 12 Nov 2026 (Rob, via sparring): "Which way do you want to go?" at login (ForeverDirection.lua). On by default;
 		-- its "Never ask again" button turns this off. /mh direction opens the question any time.
 		Toggle("mh_foreverAskDirection", "SET_FOREVER_DIRECTION_TITLE", "SET_FOREVER_DIRECTION_DESC", function()

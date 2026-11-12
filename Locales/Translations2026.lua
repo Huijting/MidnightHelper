@@ -23639,3 +23639,43 @@ if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	MOVE_EL_LAMP = "spia del registro di combattimento",
 	MOVE_EL_FPS = "pannello FPS",
 }) end
+
+-- 12 Nov 2026: tool-missing tip (ForeverVendors.lua); our own translation (mh-writer), not native-checked.
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
+	FVEND_NEED_FMT = "Dafür brauchst du: %s. Nächster Händler: %s in %s (%s).",
+	FVEND_NEED_NONE_FMT = "Dafür brauchst du: %s. MH kennt keinen Händler auf deiner Seite.",
+	FVEND_NEED_ON = "Werkzeug-Tipp: an. Sagt das Spiel, dass dir ein Werkzeug fehlt, zeigt MH, wo du es kaufst.",
+	FVEND_NEED_OFF = "Werkzeug-Tipp: aus. /mh vendor tip on schaltet ihn wieder ein.",
+	SET_FOREVER_TOOLNEED_TITLE = "Zeigen, wo man fehlendes Werkzeug kauft",
+	SET_FOREVER_TOOLNEED_DESC = "WoW Forever: Sagt das Spiel, dass dir ein Werkzeug für deinen Beruf fehlt (Messer, Spitzhacke, Hammer, Angelrute), zeigt MH den nächsten Händler mit einem Knopf \"Zeig mir den Weg\". Höchstens einmal pro Werkzeug alle 10 Minuten.",
+}) end
+
+-- 12 Nov 2026: tool-missing tip (ForeverVendors.lua); our own translation (mh-writer), not native-checked.
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
+	FVEND_NEED_FMT = "Pour ça, il te faut : %s. Le vendeur le plus proche : %s à %s (%s).",
+	FVEND_NEED_NONE_FMT = "Pour ça, il te faut : %s. MH ne connaît aucun vendeur de ton côté.",
+	FVEND_NEED_ON = "astuce outil : activée. Quand le jeu dit qu'il te manque un outil, MH montre où l'acheter.",
+	FVEND_NEED_OFF = "astuce outil : désactivée. /mh vendor tip on la réactive.",
+	SET_FOREVER_TOOLNEED_TITLE = "Montrer où acheter un outil manquant",
+	SET_FOREVER_TOOLNEED_DESC = "WoW Forever : quand le jeu dit qu'il te manque un outil pour ton métier (couteau, pioche, marteau, canne à pêche), MH montre le vendeur le plus proche avec un bouton \"Montrer le chemin\". Au plus une fois par outil toutes les 10 minutes.",
+}) end
+
+-- 12 Nov 2026: tool-missing tip (ForeverVendors.lua); our own translation (mh-writer), not native-checked.
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
+	FVEND_NEED_FMT = "Para esto necesitas: %s. El vendedor más cercano: %s en %s (%s).",
+	FVEND_NEED_NONE_FMT = "Para esto necesitas: %s. MH no conoce ningún vendedor en tu bando.",
+	FVEND_NEED_ON = "aviso de herramienta: activado. Cuando el juego dice que te falta una herramienta, MH muestra dónde comprarla.",
+	FVEND_NEED_OFF = "aviso de herramienta: desactivado. /mh vendor tip on lo vuelve a activar.",
+	SET_FOREVER_TOOLNEED_TITLE = "Mostrar dónde comprar una herramienta que falta",
+	SET_FOREVER_TOOLNEED_DESC = "WoW Forever: cuando el juego dice que te falta una herramienta para tu profesión (cuchillo, pico, martillo, caña de pescar), MH muestra el vendedor más cercano con un botón \"Muéstrame el camino\". Como mucho una vez por herramienta cada 10 minutos.",
+}) end
+
+-- 12 Nov 2026: tool-missing tip (ForeverVendors.lua); our own translation (mh-writer), not native-checked.
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
+	FVEND_NEED_FMT = "Para isto você precisa de: %s. O vendedor mais próximo: %s em %s (%s).",
+	FVEND_NEED_NONE_FMT = "Para isto você precisa de: %s. O MH não conhece nenhum vendedor do seu lado.",
+	FVEND_NEED_ON = "dica de ferramenta: ligada. Quando o jogo diz que falta uma ferramenta, o MH mostra onde comprá-la.",
+	FVEND_NEED_OFF = "dica de ferramenta: desligada. /mh vendor tip on liga de novo.",
+	SET_FOREVER_TOOLNEED_TITLE = "Mostrar onde comprar uma ferramenta que falta",
+	SET_FOREVER_TOOLNEED_DESC = "WoW Forever: quando o jogo diz que falta uma ferramenta para a sua profissão (faca, picareta, martelo, vara de pescar), o MH mostra o vendedor mais próximo com um botão \"Mostrar o caminho\". No máximo uma vez por ferramenta a cada 10 minutos.",
+}) end

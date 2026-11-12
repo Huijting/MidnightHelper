@@ -5342,6 +5342,13 @@ ns._mhLocales.enUS = {
 	FVEND_ITEM_LOADING = "(loading…)",
 	FVEND_TIP_FMT = "You learned %s, but you have no %s yet. The nearest seller: %s in %s (%s).",
 	FVEND_TIP_NONE_FMT = "You learned %s, but you have no %s yet. MH knows no seller on your side.",
+	-- 12 Nov 2026: the same tip when the game says the tool is missing (ForeverVendors.lua OnToolError).
+	FVEND_NEED_FMT = "For this you need a %s. The nearest seller: %s in %s (%s).",
+	FVEND_NEED_NONE_FMT = "For this you need a %s. MH knows no seller on your side.",
+	FVEND_NEED_ON = "tool tip: on. When the game says you are missing a tool, MH shows where to buy it.",
+	FVEND_NEED_OFF = "tool tip: off. /mh vendor tip on turns it back on.",
+	SET_FOREVER_TOOLNEED_TITLE = "Show where to buy a missing tool",
+	SET_FOREVER_TOOLNEED_DESC = "WoW Forever: when the game says you need a Skinning Knife, Mining Pick, Blacksmith Hammer or Fishing Pole that you do not have, show the nearest seller with a \"Show the way\" button. At most once per tool every 10 minutes.",
 	FVEND_TIP_WAY = "Show the way",
 	FVEND_TIP_ALL = "All sellers",
 	-- 9 Nov 2026, WoW Forever: "This week in Forever" on the start page (ForeverWeek.lua). Calendar and raid names come

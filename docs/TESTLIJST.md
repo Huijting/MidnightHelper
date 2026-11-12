@@ -57,6 +57,18 @@ Eerst `/reload`, buiten een gevecht.
 - [ ] Een gevecht beginnen met de vakjes aan → ze gaan vanzelf weg, met een regel in de chat.
 - [ ] `/mh move why` → per onderdeel: op je scherm, nu verborgen, of uit.
 
+## 🆕 12 nov (avond) — FOREVER: gereedschap vergeten → MH zegt waar je het koopt (Rob, via sparring: "Ja, laat hem dat uitzoeken en bouwen")
+
+Eerst `/reload`, op een character met Skinning en zonder Skinning Knife (Cisca's situatie).
+- [ ] Probeer een dood beest te skinnen → het spel zegt "Requires Skinning Knife". Meteen daarna komt het venstertje
+      "For this you need a Skinning Knife. The nearest seller: …" met "Show the way", en dezelfde zin in de chat.
+- [ ] "Show the way" → de pijl gaat naar die verkoper.
+- [ ] Nog eens proberen binnen 10 minuten → geen nieuw venstertje (geen spam).
+- [ ] Komt er niets? Typ `/mh vendor check`. De laatste twee regels zeggen welke foutmelding MH hoorde en wat hij deed.
+      Stuur die regels door: dan zie ik of de tekst van het spel anders is.
+- [ ] Hetzelfde kan met Mining zonder Mining Pick, of vissen zonder hengel in je hand.
+- [ ] Uitzetten: `/mh vendor tip off`, of Options → AddOns → Midnight Helper → "Show where to buy a missing tool".
+
 ## 🆕 12 nov (avond) — MIDNIGHT: start de wachttijd van je dispel? (Rob, via sparring: "Ja, bouw dat")
 
 Niets zichtbaars. Hoeft niet vandaag.

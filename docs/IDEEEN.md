@@ -236,6 +236,21 @@ lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met d
                  (AddTooltipExtras); de uitleg van de keuze alleen in Forever (Midnight heeft geen keuzelijsten). Het grote
                  icoon cast nog steeds alleen de eerste. Niet in het spel gezien.
 
+### Gereedschap vergeten: MH zegt het als het spel het zegt, met de pijl
+- Voor wie:      vooral nieuweling
+- Moment:        het spel zegt "Requires Skinning Knife" (of Mining Pick, Blacksmith Hammer, een hengel)
+- Spel:          Forever
+- Bron:          Rob, 12 nov 2026, bij Cisca (via sparring): *"Kunnen we niet gelijk iets maken waarbij we op het moment
+                 dat ze Skinning kiest, er een melding komt, hey, vergeet Skinning Knife niet. En dan ook de pijl waar we
+                 het kunnen kopen."* De leer-tip bestond al; het gat was wie het beroep al had.
+- Bouwt op:      de gereedschap-tip in `ForeverVendors.lua` (venster, "Show the way", verkoperslijst)
+- Data:          GEMETEN in Forever DB2: foutmelding "Requires %s" + de gereedschapnamen per taal (zie handoff 12 nov)
+- Vindbaar:      vanzelf, op het moment van de fout; schakelaar in de instellingen en `/mh vendor tip on|off`
+- Werk:          klein
+- Site:          ja, als het uit is
+- Rob zegt:      ja (via sparring, letterlijk: *"Ja, laat hem dat uitzoeken en bouwen"*). **Gebouwd 12 nov**, niet in het
+                 spel gezien (TESTLIJST 12 nov avond).
+
 ### Vlak voor een gevecht: je mist iets wat aan moet staan (bv. geen seal)
 - Voor wie:      vooral nieuweling
 - Moment:        je hebt een vijand als doel, buiten een gevecht

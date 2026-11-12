@@ -15,6 +15,22 @@
    Een release alleen op Robs go. CF-plaatjes staan erop (Rob, 11 nov); of hij de nieuwe CF-beschrijving en de
    5.1.0-tekst al plakte: NIET GEMETEN, vragen.
 
+## 🛠️ 12 nov (avond) — Forever: gereedschap-tip ook bij de foutmelding van het spel
+
+- Rob (via sparring): Cisca had Skinning maar geen mes; de leer-tip kwam nooit (beroep al van vóór MH). *"Ja, laat hem dat
+  uitzoeken en bouwen"*.
+- GEMETEN in Forever DB2 1.60.1.70888:
+  - De fout is GlobalStrings SPELL_FAILED_TOTEM_CATEGORY / SPELL_FAILED_TOTEMS "Requires %s".
+  - TotemCategory 162 Blacksmith Hammer, 165 Mining Pick, 166 Skinning Knife, met de namen per client in de/fr/es/esMX/pt/ru.
+  - Vissen: SPELL_FAILED_EQUIPPED_ITEM_CLASS(_MAINHAND) "Must have a %s equipped".
+- ✅ Gebouwd in `ForeverVendors.lua`:
+  - UI_ERROR_MESSAGE → OnToolError: tekst gelijk aan format(global, naam) → dezelfde tip ("For this you need a …", tipNeed).
+  - Hooguit 1× per gereedschap per 10 min; stil als er een gereedschap in je tassen zit.
+  - Schakelaar `ns.db.foreverToolNeedTip`, instelling `mh_foreverToolNeedTip`, `/mh vendor tip on|off`.
+  - `/mh vendor check` toont de laatste gematchte fout + de laatste fout van welke soort ook.
+- AFGELEID, niet in het spel gezien: dat het bericht precies zo als 2e argument van UI_ERROR_MESSAGE binnenkomt.
+- ⚠️ De oude leer-tip had nooit een uit-schakelaar (sparring dacht van wel); deze nieuwe heeft er wel een.
+
 ## 🔎 12 nov (avond) — dispelTryLog na Robs run (Voidscar Arena, Prot Paladin): uitslag, niets gebouwd
 
 - Sparring las het (8 regels, rij 5 = player, in gevecht): 5× cast 213644, 1× failed, 2× "Spell is not ready yet".

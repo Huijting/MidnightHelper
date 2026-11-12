@@ -28,6 +28,16 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 12 nov 2026 — Forever: gereedschap vergeten → waar je het koopt
+- Tag + commit:   geen tag / (deze commit)
+- Status:         alleen op main
+- Mag op de site: nee (nog niet uit)
+- Speler ziet:    Zegt het spel "Requires Skinning Knife" (of Mining Pick, Blacksmith Hammer, een hengel), dan noemt MH meteen
+                  de dichtstbijzijnde verkoper met "Show the way". Ook als je het beroep al lang had. Niet in het spel gezien.
+- Knoplabels:     FVEND_TIP_WAY, SET_FOREVER_TOOLNEED_TITLE
+- Commando's:     /mh vendor, /mh vendor check, /mh vendor tip on|off
+- Spel:           Forever
+
 ## 12 nov 2026 — Forever: "Which way do you want to go?" (je richting kiezen)
 - Tag + commit:   geen tag / (deze commit)
 - Status:         alleen op main

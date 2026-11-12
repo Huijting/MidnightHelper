@@ -449,13 +449,23 @@ local function RenderTip(f)
 	local best = list[1]
 	local what = CatName(c)
 	f.tipLoading = (what == ns:L("FVEND_ITEM_LOADING"))
+	-- f.tipNeed (12 Nov 2026): shown because the game just said the tool is missing, not because you learned the
+	-- profession; same window and button, another first sentence.
 	if best then
-		f.text:SetText(ns:L("FVEND_TIP_FMT"):format(f.tipProf, what, best.v.name, ZoneName(best.v.map),
-			best.dist and Distance(best.dist) or ns:L("FVEND_OTHER_CONT")))
+		local dist = best.dist and Distance(best.dist) or ns:L("FVEND_OTHER_CONT")
+		if f.tipNeed then
+			f.text:SetText(ns:L("FVEND_NEED_FMT"):format(what, best.v.name, ZoneName(best.v.map), dist))
+		else
+			f.text:SetText(ns:L("FVEND_TIP_FMT"):format(f.tipProf, what, best.v.name, ZoneName(best.v.map), dist))
+		end
 		f.way.entry, f.way.what = best, what
 		f.way:Enable()
 	else
-		f.text:SetText(ns:L("FVEND_TIP_NONE_FMT"):format(f.tipProf, what))
+		if f.tipNeed then
+			f.text:SetText(ns:L("FVEND_NEED_NONE_FMT"):format(what))
+		else
+			f.text:SetText(ns:L("FVEND_TIP_NONE_FMT"):format(f.tipProf, what))
+		end
 		f.way.entry = nil
 		f.way:Disable()
 	end
@@ -520,6 +530,7 @@ local function CheckNewProfessions()
 			else
 				local f = TipFrame()
 				f.tipCat = c
+				f.tipNeed = nil
 				f.tipProf = ns.ForeverProfName and ns.ForeverProfName(c.prof, mine) or c.prof
 				RenderTip(f)
 				f:Show()
@@ -537,10 +548,121 @@ local function CheckNewProfessions()
 end
 
 --------------------------------------------------------------------------------
+-- The same tip when the GAME says the tool is missing (12 Nov 2026)
+--------------------------------------------------------------------------------
+-- Rob, 12 Nov 2026 (via sparring): Cisca had Skinning but no knife, and the game said so when she tried to skin; the tip
+-- above never came, because she had the profession before MH knew about it. "Ja, laat hem dat uitzoeken en bouwen".
+-- GEMETEN in Forever DB2 1.60.1.70888: the error text is GlobalStrings SPELL_FAILED_TOTEM_CATEGORY / SPELL_FAILED_TOTEMS
+-- "Requires %s", with %s a TotemCategory name: 162 Blacksmith Hammer, 165 Mining Pick, 166 Skinning Knife (names per
+-- client below, measured per locale). Fishing has no category: SPELL_FAILED_EQUIPPED_ITEM_CLASS "Must have a %s
+-- equipped" (+ _MAINHAND), %s = the item subclass name, which the client gives us (C_Item.GetItemSubClassInfo 2, 20).
+-- AFGELEID, not seen in game: that the text arrives as UI_ERROR_MESSAGE's message argument exactly like that.
+-- /mh vendor check prints the last error MH heard and what it did with it, so one try in game settles it.
+local TOOL_NAMES = {
+	hammer = { "Blacksmith Hammer", "Schmiedehammer", "Marteau de forgeron", "Martillo de herrero", "Martelo de Ferreiro",
+		"Кузнечный молот" },
+	mining = { "Mining Pick", "Spitzhacke", "Pioche de mineur", "Pico de minería", "Picareta de Mineração",
+		"Шахтерская кирка" },
+	skinning = { "Skinning Knife", "Kürschnermesser", "Couteau à dépecer", "Cuchillo para desollar", "Faca de Esfolamento",
+		"Нож для снятия шкур" },
+}
+local NEED_QUIET = 600 -- seconds: one tip per tool per 10 minutes, not one per click
+local needShown = {}
+local lastErr = "no error heard yet"
+local lastAny = "none"
+
+function ns.IsForeverToolNeedTipOn()
+	return not (ns.db and ns.db.foreverToolNeedTip == false)
+end
+
+function ns.SetForeverToolNeedTipOn(on)
+	if ns.db then
+		ns.db.foreverToolNeedTip = on and true or false
+	end
+end
+
+local function Matches(msg, fmt, name)
+	if type(fmt) ~= "string" or not name then
+		return false
+	end
+	local ok, s = pcall(string.format, fmt, name)
+	return ok and s == msg
+end
+
+--- Which tool category does this error message ask for? Returns the CATS row or nil.
+local function CatForError(msg)
+	for key, names in pairs(TOOL_NAMES) do
+		for _, n in ipairs(names) do
+			if Matches(msg, SPELL_FAILED_TOTEM_CATEGORY, n) or Matches(msg, SPELL_FAILED_TOTEMS, n) then
+				return CAT_BY_KEY[key]
+			end
+		end
+	end
+	local pole = "Fishing Pole"
+	if C_Item and C_Item.GetItemSubClassInfo then
+		local ok, n = pcall(C_Item.GetItemSubClassInfo, 2, 20)
+		if ok and type(n) == "string" and n ~= "" then
+			pole = n
+		end
+	end
+	if Matches(msg, SPELL_FAILED_EQUIPPED_ITEM_CLASS, pole) or Matches(msg, SPELL_FAILED_EQUIPPED_ITEM_CLASS_MAINHAND, pole) then
+		return CAT_BY_KEY.fishing
+	end
+	return nil
+end
+
+local function OnToolError(msg)
+	if type(msg) ~= "string" or (issecretvalue and issecretvalue(msg)) then
+		return
+	end
+	lastAny = msg -- any game error, so /mh vendor check shows the exact text if it did not match
+	local c = CatForError(msg)
+	if not c then
+		return
+	end
+	lastErr = ("\"%s\" -> %s: "):format(msg, c.key)
+	if not ns.IsForeverToolNeedTipOn() then
+		lastErr = lastErr .. "switched off, quiet"
+		return
+	end
+	if HasTool(c) then
+		lastErr = lastErr .. "a tool is in your bags (a better one counts too): quiet"
+		return
+	end
+	local now = GetTime and GetTime() or 0
+	if needShown[c.key] and now - needShown[c.key] < NEED_QUIET then
+		lastErr = lastErr .. ("shown %d s ago: quiet"):format(math.floor(now - needShown[c.key]))
+		return
+	end
+	needShown[c.key] = now
+	local f = TipFrame()
+	f.tipCat = c
+	f.tipNeed = true
+	f.tipProf = nil
+	RenderTip(f)
+	f:Show()
+	f.tipChatPending = f.tipLoading or nil
+	if not f.tipLoading then
+		print(PREFIX .. f.text:GetText())
+	else
+		WaitForTipName(f)
+	end
+	lastErr = lastErr .. "tip shown"
+end
+
+--------------------------------------------------------------------------------
 -- /mh vendor
 --------------------------------------------------------------------------------
 function ns.ForeverVendorSlash(arg)
 	arg = (arg or ""):lower()
+	if arg == "tip on" or arg == "tip off" then
+		ns.SetForeverToolNeedTipOn(arg == "tip on")
+		if ns.SyncNativeSetting then
+			ns.SyncNativeSetting("mh_foreverToolNeedTip", arg == "tip on")
+		end
+		print(PREFIX .. ns:L(arg == "tip on" and "FVEND_NEED_ON" or "FVEND_NEED_OFF"))
+		return
+	end
 	if arg == "check" then
 		local _, posOk = List(CATS[1])
 		print(PREFIX .. ("vendors: %d tool rows, %d goods rows, your side %s, position %s"):format(
@@ -553,6 +675,8 @@ function ns.ForeverVendorSlash(arg)
 				b and (b.v.name .. " (" .. ZoneName(b.v.map) .. (b.dist and (", " .. Distance(b.dist)) or "") .. ")") or "-"))
 		end
 		print("  tip: " .. lastTip)
+		print(("  tool missing (game error): %s; last: %s"):format(ns.IsForeverToolNeedTipOn() and "on" or "off", lastErr))
+		print(("  last game error of any kind: \"%s\""):format(lastAny))
 		return
 	end
 	ns.ShowForeverVendors(ALIASES[arg] or (arg ~= "" and arg) or nil)
@@ -566,7 +690,13 @@ ev:RegisterEvent("PLAYER_ENTERING_WORLD")
 ev:RegisterEvent("SKILL_LINES_CHANGED")
 ev:RegisterEvent("MERCHANT_SHOW")
 ev:RegisterEvent("GET_ITEM_INFO_RECEIVED")
-ev:SetScript("OnEvent", function(_, event)
+ev:RegisterEvent("UI_ERROR_MESSAGE")
+ev:SetScript("OnEvent", function(_, event, a1, a2)
+	if event == "UI_ERROR_MESSAGE" then
+		-- (errorType, message); older clients sent the message first, so take whichever is a string.
+		pcall(OnToolError, type(a2) == "string" and a2 or a1)
+		return
+	end
 	if event == "PLAYER_ENTERING_WORLD" then
 		if not ready then
 			C_Timer.After(3, function()

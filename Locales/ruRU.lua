@@ -5386,6 +5386,9 @@ ns._mhLocales.ruRU = {
 	SET_ARROWUNIT_DESC = "Показывать расстояние стрелки маршрута в метрах, а не в ярдах.",
 	SET_FOREVER_BARLAYOUT_TITLE = "Предлагать раскладку панелей MH новым персонажам",
 	SET_FOREVER_BARLAYOUT_DESC = "WoW Forever: если персонаж ещё использует одну из стандартных раскладок Blizzard, один раз после входа спросить, настроить ли раскладку панелей вашего блока клавиш.",
+	-- 12 Nov 2026: tool-missing tip (ForeverVendors.lua); our own translation (mh-writer), not native-checked.
+	SET_FOREVER_TOOLNEED_TITLE = "Показывать, где купить недостающий инструмент",
+	SET_FOREVER_TOOLNEED_DESC = "WoW Forever: когда игра сообщает, что вам не хватает инструмента для профессии (нож, кирка, молот, удочка), MH показывает ближайшего продавца с кнопкой \"Показать путь\". Не чаще одного раза на инструмент в 10 минут.",
 	-- 12 Nov 2026: direction question and Move switch, mh-writer; not native-checked.
 	SET_FOREVER_DIRECTION_TITLE = "Спрашивать, какой путь вы выберете",
 	SET_FOREVER_DIRECTION_DESC = "WoW Forever: на персонаже без выбранного направления после входа спросить, к какой из трех веток талантов вашего класса вы хотите идти. /mh direction открывает вопрос в любой момент.",
@@ -6574,6 +6577,11 @@ ns._mhLocales.ruRU = {
 	FVEND_ITEM_LOADING = "(загрузка…)",
 	FVEND_TIP_FMT = "Вы изучили %s, но у вас ещё нет: %s. Ближайший продавец: %s, %s (%s).",
 	FVEND_TIP_NONE_FMT = "Вы изучили %s, но у вас ещё нет: %s. MH не знает ни одного продавца на вашей стороне.",
+	-- 12 Nov 2026: tool-missing tip (ForeverVendors.lua); our own translation (mh-writer), not native-checked.
+	FVEND_NEED_FMT = "Для этого нужно: %s. Ближайший продавец: %s, %s (%s).",
+	FVEND_NEED_NONE_FMT = "Для этого нужно: %s. MH не знает ни одного продавца на вашей стороне.",
+	FVEND_NEED_ON = "подсказка об инструменте: вкл. Когда игра сообщает, что у вас нет инструмента, MH показывает, где его купить.",
+	FVEND_NEED_OFF = "подсказка об инструменте: выкл. /mh vendor tip on включает её снова.",
 	FVEND_TIP_WAY = "Показать путь",
 	FVEND_TIP_ALL = "Все продавцы",
 	FBUFF_ON = "кнопка недостающих баффов включена.",
