@@ -27,6 +27,7 @@
   Wat de rij IN het gevecht doet, kan MH niet zien (scannen wordt geweigerd). (3) Geen regel van 12 nov.
 - Voorstel naar sparring: meten met de ogen + `/mh glow` (recent casts and errors) op het moment zelf. Klein voorstel om
   te bouwen: character + spec bij elke `dispelSelfLog`-regel.
+- 💡 Nieuwe wens (O27 in IDEEEN): MH legt de rode rij zelf vast. Plan naar sparring, nog GEEN bouw-go.
 - ✅ Gebouwd (Rob, via sparring: "Ja, bouw dat"): elke nieuwe `dispelSelfLog`-regel krijgt `char` (UnitName), `class`
   (token) en `spec` (spec-ID), in `AfterCombatDispelCheck`. Alleen meten, niets zichtbaars. Oude regels blijven zonder.
 
