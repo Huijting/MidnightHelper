@@ -124,19 +124,25 @@ Dit is de hele opdracht. Het recept op de pc en de dagelijkse wachter in de clou
 2. De zes wachter-bestanden: heeft elk een regel van vandaag (de ideeënbus: van afgelopen zondag)? Geen regel =
    "niet gedraaid", nooit "niets gevonden". Staat er een `[MOET GEFIKST]`, `[RAAKT ONS]` of "nakijken", dan is dat nieuws.
 3. Slaat een wachter iets bewust over dat inmiddels wél van ons is? Lees wat ze "overgeslagen" noemen.
-4. De lange bestanden meten tegen hun grens: `docs/NEXT_SESSION.md` (1500), dit bestand (200), `CLAUDE.md` (geen
-   grens; meld de groei), en in de site-repo het overdrachtsbriefje.
+4. De lange bestanden meten tegen hun grens: `docs/NEXT_SESSION.md` (1500), dit bestand (200), `CLAUDE.md` (350),
+   en in de site-repo het overdrachtsbriefje. Neem elke grens uit de plek die hem afdwingt, niet uit dit bestand:
+   `tools/lint_addon.py` controle [24] (`claude_limit`) voor `CLAUDE.md`, `CLAUDE.md` zelf voor `NEXT_SESSION.md`.
+   Wijkt tabel 2 of tabel 5 af van die bron, verbeter dan de tabel.
 5. Afspraken nalopen:
    - Staat elk nieuw onderdeel van de laatste dagen in `docs/IDEEEN.md` (bak Ja of Af)?
    - Heeft elk nieuw onderdeel een regel in `docs/SITE_SEIN.md`, met een van de drie statuswoorden?
    - Klopt "staat op CurseForge" met de nieuwste tag en de versie in de `.toc`?
    - Schreef iemand in een bestand dat volgens tabel 2 niet van hem is? (`git log` per bestand.)
    - Staat er iets in "Voorstellen van de wachter" dat nog niet verplaatst is?
+   - Tabel 2 naast de bestanden: welke `docs/*.md` zijn sinds het vorige verslag nieuw (`git log --diff-filter=A`)?
+     Een nieuw bestand met een vaste schrijver krijgt een rij. En bestaat elk bestand uit tabel 2 nog?
 6. Tabel 3, lijst 4 en tabel 5 bijwerken. **Loop elke bestaande regel één voor één na**, niet alleen de nieuwe:
    - Leg hem naast de commits sinds het vorige verslag (`git log`) en naast de bron zelf (bestaat het bestand, de
      routine in tabel 1, de regel in de code?). Is het gebouwd of beslist, dan verandert de regel of gaat hij weg.
    - Een punt gaat pas weg als je in de bron gemeten hebt dat het af is. Een punt blijft pas staan als je gemeten
      hebt dat het nog open is. "Stond er gisteren ook" is geen meting.
+   - Een regel "niet begonnen" in tabel 3 leg je naast `tools/`, de koppen van de lint en de hooks in
+     `AddOns/.claude/settings.json`. Werk je een rij van tabel 3 bij, zet dan de datum van vandaag in de kop.
    - Tegencontrole: noem in je slotbericht één regel die je deze ronde als af hebt herkend, of zeg dat er geen was
      en welke commits je daarvoor gelezen hebt. Op 11 nov liet de eerste run "de regisseur: niets gebouwd" staan
      terwijl zijn eigen ID al in tabel 1 stond.

@@ -14,6 +14,16 @@
    Een release alleen op Robs go. CF-plaatjes staan erop (Rob, 11 nov); of hij de nieuwe CF-beschrijving en de
    5.1.0-tekst al plakte: NIET GEMETEN, vragen.
 
+## 🆕 12 nov — regisseur aangescherpt, hoofdstuk 6 van REGIE.md (Rob: "Ja, zet ze erin")
+
+- Opdracht van Sparring 12-11: de ronde zag drie dingen niet (CLAUDE.md-grens 350, tabel 2 mist OCHTENDRONDE.md en
+  CLAUDE_HISTORIE.md, tabel 3 rij 10 "niet begonnen"). Oorzaak GEMETEN: stap 4 noemde zelf "geen grens", en geen
+  stap legde tabel 2 naast `docs/` of "niet begonnen" naast `tools/`/lint/hooks.
+- Eénmalig geschreven in `docs/REGIE.md` (van de regisseur), drie regels: stap 4 grenzen uit de bron
+  (`lint_addon.py` [24]), stap 5 tabel 2 naast nieuwe `docs/*.md`, stap 6 tabel 3 naast tools/lint/hooks + datum in
+  de kop. De drie foute tabelregels zelf NIET gerepareerd: de proef is of de regisseur ze 13 nov zelf goed zet
+  (sparring meet na). Het recept en de cloud-routine zeggen alleen "doe hoofdstuk 6" (routine-prompt NIET GELEZEN).
+
 ## 🆕 12 nov — Forever Priest-tip: Confounding Flash werkt wél in Shadowform (Rob: "Ja, doe allebei")
 
 - Aanleiding: content-wachter 12 nov [RAAKT ONS]. Forever-hotfix 11 nov (news.blizzard.com 24315281): *"Confounding
