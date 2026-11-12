@@ -15,6 +15,14 @@
    Een release alleen op Robs go. CF-plaatjes staan erop (Rob, 11 nov); of hij de nieuwe CF-beschrijving en de
    5.1.0-tekst al plakte: NIET GEMETEN, vragen.
 
+## 🛠️ 12 nov (laat) — toetsen-kaartje per character (Rob via sparring, letterlijk: "Ja, per character")
+
+- `NewChoices.lua`: kaartje `keyblock` heeft `perChar = true`; "gezien" staat onder `keyblock:<GUID>` in
+  `ns.db.newChoicesSeen`. Elk character zonder toetsenblok krijgt het venster één keer, met alleen dat kaartje.
+  "Do this now", groepspaneel en party targets blijven per account. `/mh new check` zegt "(per character)".
+- De oude account-sleutel `keyblock` telt niet meer: het character waarop Rob het al zag, krijgt het nog één keer.
+- GEMETEN offline: newc_test geval 8 (character B: 1 kaartje, daarna niets). Lint 0 HARD.
+
 ## 🐞 12 nov (laat) — Robs test van "Your characters" (24-27.png): 4 fouten gerepareerd
 
 - Rob (via sparring): *"doet hij alleen maar onthouden wat op dat moment ingelogd is … Geen professions … Al mijn

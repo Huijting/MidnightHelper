@@ -21,6 +21,11 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 12 nov (laat) — BEIDE SPELLEN: toetsen-kaartje per character (Rob, via sparring: "Ja, per character")
+
+- [ ] `/reload`, log in op een character zonder toetsenblok → het keuzevenster komt met alleen "A fixed key for every
+      spell". Op een volgend character zonder blok weer één keer. Op een character mét blok niet.
+
 ## 🔁 12 nov (laat) — FOREVER: "Your characters" na de reparatie (Robs 24-26.png)
 
 `/reload`, en log daarna op elk character één keer in (de oude, lege foto's worden dan vervangen).

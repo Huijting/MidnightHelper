@@ -123,6 +123,9 @@ local CARDS = {
 	},
 	{
 		id = "keyblock",
+		-- "Seen" per character (Rob, 12 Nov 2026, via sparring: "Ja, per character"): every character without the block
+		-- gets this card once. The other cards stay account-wide, like their settings.
+		perChar = true,
 		head = "NEWC_KEYS_HEAD",
 		body = "NEWC_KEYS_BODY",
 		-- Rob's choice C: not for whoever already placed the block on this character + spec.
@@ -169,13 +172,22 @@ local function Seen()
 	return ns.db.newChoicesSeen
 end
 
+--- The key a card's "seen" is stored under: its id, plus the character's GUID for a per-character card.
+local function SeenKey(c)
+	if c.perChar then
+		local g = UnitGUID and UnitGUID("player")
+		return c.id .. ":" .. tostring(g or "?")
+	end
+	return c.id
+end
+
 --- The cards that apply; with onlyUnseen, only those not shown automatically before.
 local function Pick(onlyUnseen)
 	local seen = Seen() or {}
 	local out = {}
 	for _, c in ipairs(CARDS) do
 		local ok, yes = pcall(c.avail)
-		if ok and yes and not (onlyUnseen and seen[c.id]) then
+		if ok and yes and not (onlyUnseen and seen[SeenKey(c)]) then
 			out[#out + 1] = c
 		end
 	end
@@ -351,7 +363,7 @@ local function MarkSeen(cards)
 		return
 	end
 	for _, c in ipairs(cards) do
-		seen[c.id] = true
+		seen[SeenKey(c)] = true
 	end
 end
 
@@ -425,7 +437,7 @@ function ns.NewChoicesSlash(arg)
 		for _, c in ipairs(CARDS) do
 			local ok, yes = pcall(c.avail)
 			print(("  %s: %s, %s"):format(c.id, (ok and yes) and "applies" or (ok and "does not apply" or "error"),
-				seen[c.id] and "seen" or "not seen"))
+				seen[SeenKey(c)] and "seen" or "not seen") .. (c.perChar and " (per character)" or ""))
 		end
 		return
 	end
