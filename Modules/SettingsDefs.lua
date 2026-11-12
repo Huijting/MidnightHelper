@@ -551,6 +551,13 @@ local function Build()
 		end, function(v)
 			if ns.SetForeverToolNeedTipOn then ns.SetForeverToolNeedTipOn(v) end
 		end, true)
+		-- 12 Nov 2026 (Rob, via sparring: "ja bouw oude reank"): an orange edge on Blizzard's buttons that still hold a lower
+		-- rank (ForeverRanks.lua). On by default ("Aan (Recommended)"); /mh ranks glow on|off.
+		Toggle("mh_foreverRankGlow", "SET_FOREVER_RANKGLOW_TITLE", "SET_FOREVER_RANKGLOW_DESC", function()
+			return ns.IsForeverRankGlowOn and ns.IsForeverRankGlowOn()
+		end, function(v)
+			if ns.SetForeverRankGlow then ns.SetForeverRankGlow(v) end
+		end, true)
 		-- 12 Nov 2026 (Rob, via sparring): "Which way do you want to go?" at login (ForeverDirection.lua). On by default;
 		-- its "Never ask again" button turns this off. /mh direction opens the question any time.
 		Toggle("mh_foreverAskDirection", "SET_FOREVER_DIRECTION_TITLE", "SET_FOREVER_DIRECTION_DESC", function()

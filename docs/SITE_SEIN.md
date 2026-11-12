@@ -28,6 +28,17 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 12 nov 2026 — Forever: oude rank licht op, op je knop
+- Tag + commit:   geen tag / (deze commit)
+- Status:         alleen op main
+- Mag op de site: nee (nog niet uit)
+- Speler ziet:    Een knop op Blizzards balken die nog een lagere rank cast, krijgt een rustige oranje rand met een
+                  pijltje omhoog: fel als je de nieuwe rank net leerde, zacht als je de lage rank er zelf neerzette.
+                  Standaard aan. Zwijgt als Glowing Bars geladen is. Niet in het spel gezien.
+- Knoplabels:     SET_FOREVER_RANKGLOW_TITLE
+- Commando's:     /mh ranks, /mh ranks glow on|off
+- Spel:           Forever
+
 ## 12 nov 2026 — Forever: "Your characters"
 - Tag + commit:   geen tag / (deze commit)
 - Status:         alleen op main

@@ -15,6 +15,22 @@
    Een release alleen op Robs go. CF-plaatjes staan erop (Rob, 11 nov); of hij de nieuwe CF-beschrijving en de
    5.1.0-tekst al plakte: NIET GEMETEN, vragen.
 
+## 🛠️ 12 nov (laat) — plan 3: oude rank licht op, op de knop (IDEEEN O24 + O25)
+
+- Rob (via sparring, letterlijk): *"ja bouw oude reank"*; keuzes A1 *"Eigen rustige rand"*, B1 *"Aan"*, C1 *"Elke
+  lagere rank"*; zijn meting in Forever *"1 61 table nil"* (ActionButton1.action 1, MultiBarBottomLeftButton1.action 61).
+- In `ForeverRanks.lua` (geen nieuw bestand): `UpdateGlows` legt `Scan()` op de Blizzard-knoppen van 8 balken
+  (`ActionButton`, `MultiBarBottomLeft/Right`, `MultiBarRight/Left`, `MultiBar5/6/7`, 1-12) via `button.action`.
+  Eigen kindframe per knop: 4 oranje lijnen + `Interface\Buttons\Arrow-Up-Up` (pad AFGELEID). Fel (2 px, alpha 1) =
+  net geleerd (`fresh`), zacht (1 px, 0,55) = zelf neergezet. Alleen zichtbare knoppen.
+- Update 0,3 s na ACTIONBAR_SLOT_CHANGED / PAGE_CHANGED / UPDATE_BONUS_ACTIONBAR / REGEN_ENABLED, 1,5 s na
+  SPELLS_CHANGED (na AfterLearn), 3 s na PEW.
+- Schakelaar `ns.db.foreverRanks.glow` (nil = aan, false = uit), instelling `mh_foreverRankGlow`, `/mh ranks glow on|off`.
+- O25: Glowing Bars NIET bij Rob geïnstalleerd (GEMETEN); detectie op mapnaam of titel "glowingbars" (genormaliseerd).
+  Geladen → stil; `/mh ranks` zegt het met de naam; `/mh ranks glow on` zet `glowWithOther` en tekent toch.
+- Bug gevangen in de offline test: `(not on) and false or nil` is altijd nil → "glow off" deed niets. Gerepareerd.
+- GEMETEN offline (scratch `rglow_test.lua`): 6 gevallen goed. In het spel: NIET GEZIEN.
+
 ## 🛠️ 12 nov (laat) — plan 2: "Your characters" in Forever (IDEEEN O21) + Midnight-kaartje plan 1
 
 - Rob (via sparring, letterlijk): *"De vijf van het advies, bouwen (Recommended)"*. Geen release.

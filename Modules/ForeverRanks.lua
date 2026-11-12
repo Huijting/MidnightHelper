@@ -361,9 +361,194 @@ ev:SetScript("OnEvent", function(_, event)
 	timer = C_Timer.NewTimer(1, AfterLearn)
 end)
 
---- /mh ranks [fix | auto on | auto off]
+--------------------------------------------------------------------------------
+-- The edge on the button (IDEEEN O24 + O25). Rob, 12 Nov 2026, via sparring, his choices verbatim:
+--   "Eigen rustige rand (Recommended)" — our own calm orange edge with a small arrow up, not the game's proc glow
+--     (a proc glow means "press me now"; this means "this button is out of date");
+--   "Aan (Recommended)" — on by default, a switch turns it off (settings, /mh ranks glow on|off);
+--   "Elke lagere rank (Recommended)" — every lower rank; a just-trained one is strong, a lower rank you placed
+--     yourself (downranking) is soft.
+-- Build-yes, verbatim: "ja bouw oude reank". Measured by Rob in Forever first (/run, 12 Nov): "1 61 table nil" =
+-- ActionButton1.action is 1 and MultiBarBottomLeftButton1.action is 61, so Blizzard's buttons know their slot.
+-- Only Blizzard's own bars (Rob has no bar addon in Forever, measured in his AddOns folder). Another bar addon's
+-- buttons simply get nothing.
+-- O25: silent while Glowing Bars is loaded (two addons saying the same thing). Its folder name is NOT measured (it is
+-- not installed on Rob's machine, measured 12 Nov), so we match name OR title, without spaces and colours, on
+-- "glowingbars": a different folder name with the same title is still found, and a wrong guess finds nothing.
+-- /mh ranks says it is silent and why; /mh ranks glow on draws anyway.
+--------------------------------------------------------------------------------
+local BAR_PREFIXES = { "ActionButton", "MultiBarBottomLeftButton", "MultiBarBottomRightButton", "MultiBarRightButton",
+	"MultiBarLeftButton", "MultiBar5Button", "MultiBar6Button", "MultiBar7Button" }
+local ORANGE = { 1, 0.55, 0.1 }
+
+local function GlowSetting()
+	-- nil = on (Rob's choice B1); false = off
+	return Settings().glow ~= false
+end
+
+local function OtherGlowAddon()
+	local n = (C_AddOns and C_AddOns.GetNumAddOns and C_AddOns.GetNumAddOns()) or (GetNumAddOns and GetNumAddOns()) or 0
+	for i = 1, n do
+		local name, title
+		if C_AddOns and C_AddOns.GetAddOnInfo then
+			name, title = C_AddOns.GetAddOnInfo(i)
+		elseif GetAddOnInfo then
+			name, title = GetAddOnInfo(i)
+		end
+		local function norm(s)
+			return type(s) == "string" and s:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", ""):gsub("[%s%-_]", ""):lower() or ""
+		end
+		if norm(name):find("glowingbars", 1, true) or norm(title):find("glowingbars", 1, true) then
+			local loaded = (C_AddOns and C_AddOns.IsAddOnLoaded and C_AddOns.IsAddOnLoaded(i))
+				or (IsAddOnLoaded and IsAddOnLoaded(i))
+			if loaded then
+				return name
+			end
+		end
+	end
+	return nil
+end
+
+local edges = {} -- button -> overlay frame
+local glowWhy, glowCount = "not drawn yet", 0
+
+local function Edge(button)
+	local e = edges[button]
+	if e then
+		return e
+	end
+	e = CreateFrame("Frame", nil, button)
+	e:SetAllPoints(button)
+	e:SetFrameLevel(button:GetFrameLevel() + 5)
+	e.lines = {}
+	for i, pts in ipairs({ { "TOPLEFT", "TOPRIGHT" }, { "BOTTOMLEFT", "BOTTOMRIGHT" }, { "TOPLEFT", "BOTTOMLEFT" },
+		{ "TOPRIGHT", "BOTTOMRIGHT" } }) do
+		local t = e:CreateTexture(nil, "OVERLAY")
+		t:SetColorTexture(ORANGE[1], ORANGE[2], ORANGE[3], 1)
+		t:SetPoint(pts[1], e, pts[1])
+		t:SetPoint(pts[2], e, pts[2])
+		t.horizontal = (i <= 2)
+		e.lines[i] = t
+	end
+	e.arrow = e:CreateTexture(nil, "OVERLAY")
+	e.arrow:SetTexture("Interface\\Buttons\\Arrow-Up-Up")
+	e.arrow:SetSize(14, 14)
+	e.arrow:SetPoint("TOPRIGHT", e, "TOPRIGHT", 3, 3)
+	e.arrow:SetVertexColor(ORANGE[1], ORANGE[2], ORANGE[3])
+	e:Hide()
+	edges[button] = e
+	return e
+end
+
+local function Style(e, strong)
+	local w = strong and 2 or 1
+	for _, t in ipairs(e.lines) do
+		if t.horizontal then
+			t:SetHeight(w)
+		else
+			t:SetWidth(w)
+		end
+		t:SetAlpha(strong and 1 or 0.55)
+	end
+	e.arrow:SetAlpha(strong and 1 or 0.55)
+end
+
+local function UpdateGlows()
+	glowCount = 0
+	local other = OtherGlowAddon()
+	local on = GlowSetting() and (not other or Settings().glowWithOther)
+	local bySlot = {}
+	if on then
+		for _, r in ipairs(Scan()) do
+			bySlot[r.slot] = r
+		end
+	end
+	for _, prefix in ipairs(BAR_PREFIXES) do
+		for i = 1, 12 do
+			local b = _G[prefix .. i]
+			if b then
+				local slot = b.action
+				if type(slot) ~= "number" and ActionButton_GetPagedID then
+					local ok, v = pcall(ActionButton_GetPagedID, b)
+					slot = ok and v or nil
+				end
+				local r = type(slot) == "number" and bySlot[slot]
+				if r and b.IsVisible and b:IsVisible() then
+					local e = Edge(b)
+					Style(e, r.fresh)
+					e:Show()
+					glowCount = glowCount + 1
+				elseif edges[b] then
+					edges[b]:Hide()
+				end
+			end
+		end
+	end
+	if not GlowSetting() then
+		glowWhy = "off (/mh ranks glow on, or Options)"
+	elseif other and not Settings().glowWithOther then
+		glowWhy = ("silent: %s is loaded and shows the same (/mh ranks glow on draws anyway)"):format(other)
+	else
+		glowWhy = ("on: %d button(s) with an edge out of %d lower rank(s) on your bars"):format(glowCount, #(Scan()))
+	end
+end
+
+local glowTimer
+local function UpdateGlowsSoon()
+	if glowTimer then
+		glowTimer:Cancel()
+	end
+	glowTimer = C_Timer.NewTimer(0.3, function()
+		glowTimer = nil
+		pcall(UpdateGlows)
+	end)
+end
+
+local gev = CreateFrame("Frame")
+for _, e in ipairs({ "PLAYER_ENTERING_WORLD", "SPELLS_CHANGED", "ACTIONBAR_SLOT_CHANGED", "ACTIONBAR_PAGE_CHANGED",
+	"UPDATE_BONUS_ACTIONBAR", "PLAYER_REGEN_ENABLED" }) do
+	pcall(gev.RegisterEvent, gev, e)
+end
+gev:SetScript("OnEvent", function(_, event)
+	if event == "PLAYER_ENTERING_WORLD" then
+		C_Timer.After(3, UpdateGlowsSoon) -- after UpdateTops' baseline (2 s), so "just trained" is known
+		return
+	end
+	if event == "SPELLS_CHANGED" then
+		C_Timer.After(1.5, UpdateGlowsSoon) -- after AfterLearn (1 s after the burst) has marked "just trained"
+		return
+	end
+	UpdateGlowsSoon()
+end)
+
+function ns.IsForeverRankGlowOn()
+	return GlowSetting()
+end
+
+function ns.SetForeverRankGlow(on)
+	-- (not "(not on) and false or nil": that is always nil in Lua; measured offline 12 Nov, "glow off" stayed on)
+	if on then
+		Settings().glow = nil
+	else
+		Settings().glow = false
+	end
+	UpdateGlowsSoon()
+end
+
+--- /mh ranks [fix | auto on | auto off | glow on | glow off]
 function ns.ForeverRanksSlash(arg)
 	arg = (arg or ""):lower()
+	if arg == "glow on" or arg == "glow off" then
+		local on = (arg == "glow on")
+		ns.SetForeverRankGlow(on)
+		-- "on" also means: draw even when Glowing Bars is loaded (the player asked for it).
+		Settings().glowWithOther = on and OtherGlowAddon() and true or nil
+		if ns.SyncNativeSetting then
+			ns.SyncNativeSetting("mh_foreverRankGlow", on)
+		end
+		print(PREFIX .. ns:L(on and "FRANK_GLOW_ON" or "FRANK_GLOW_OFF"))
+		return
+	end
 	if arg == "fix" then
 		Fix(true)
 		return
@@ -385,6 +570,8 @@ function ns.ForeverRanksSlash(arg)
 		print(("   slot %d: %s rank %d (%d) -> rank %d (%d)%s%s"):format(r.slot, r.name, r.fromIdx, r.from, r.toIdx, r.to,
 			r.fresh and " | just trained" or "", hi))
 	end
+	pcall(UpdateGlows)
+	print("   edge on the button: " .. glowWhy)
 	if spells > 0 and ranked == 0 then
 		print("   none of your spell buttons is in MH's rank list: on a non-English client the list still matches by id.")
 	end

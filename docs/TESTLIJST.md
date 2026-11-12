@@ -21,6 +21,19 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 12 nov (laat) — FOREVER: een oude rank licht op, op je knop (Rob, via sparring: "ja bouw oude reank")
+
+Geen nieuw bestand: `/reload` is genoeg.
+- [ ] Een knop op je gewone balken met een lagere rank (bv. Holy Light Rank 1 terwijl je Rank 2 kent) heeft een dunne,
+      zachte oranje rand met een pijltje omhoog rechtsboven.
+- [ ] Leer bij de trainer een nieuwe rank → binnen een paar seconden krijgt de knop met de vorige rank een FELLE, dikkere
+      rand. Klik "Update bars" (of `/mh ranks fix`) → de rand verdwijnt.
+- [ ] `/mh ranks` → onderaan "edge on the button: on: N button(s) …".
+- [ ] `/mh ranks glow off` → alle randen weg; in Options staat "Edge on buttons with an old rank" uit. `/mh ranks glow on`
+      → terug.
+- [ ] Valt de rand op zonder te lijken op een proc (het gele "druk nu"-licht van het spel)? En is het pijltje te zien
+      (het plaatje is AFGELEID, niet gemeten in Forever)?
+
 ## 🆕 12 nov (laat) — FOREVER: "Your characters" (Rob, via sparring: "De vijf van het advies, bouwen (Recommended)")
 
 Nieuw bestand (`ForeverChars.lua`): WoW opnieuw starten. Een character staat er pas in na één login met deze versie.

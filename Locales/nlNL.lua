@@ -4698,6 +4698,11 @@ ns._mhLocales.nlNL = {
 	FRANK_CURSOR = "je houdt iets vast met de muis. Leg het neer en probeer het opnieuw.",
 	FRANK_AUTO_ON = "na het trainen krijgen knoppen met je vorige rank vanzelf de nieuwe rank.",
 	FRANK_AUTO_OFF = "MH vraagt het weer eerst voordat hij je balken verandert.",
+	-- 12 Nov 2026: de oranje rand op knoppen met een oude rank (ForeverRanks.lua).
+	FRANK_GLOW_ON = "rand bij oude rank: aan. Een knop die nog een lagere rank cast van een spell die je kent, krijgt een oranje rand met een pijltje omhoog (fel als je de nieuwe rank net hebt geleerd). /mh ranks fix zet de nieuwe rank erop.",
+	FRANK_GLOW_OFF = "rand bij oude rank: uit. /mh ranks glow on zet hem weer aan.",
+	SET_FOREVER_RANKGLOW_TITLE = "Rand op knoppen met een oude rank",
+	SET_FOREVER_RANKGLOW_DESC = "WoW Forever: een knop op Blizzards balken die nog een lagere rank cast van een spell die je kent, krijgt een rustige oranje rand met een pijltje omhoog. Fel als je de nieuwe rank net hebt geleerd, zacht als je de lagere rank er zelf hebt neergezet. Hetzelfde als /mh ranks glow on|off.",
 	FRANK_HOME_FMT = "%d knoppen op je balken gebruiken een lagere rank dan je kent. Sommige spelers doen dat expres om mana te sparen; laat ze dan staan.",
 	FRANK_HOME_BTN = "Zet de nieuwste rank erop",
 	FWARN_REST_HEALTH_AT_FMT = "je krijgt nu een melding onder %d%% leven.",
