@@ -21,7 +21,15 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
-## 🆕 12 nov — MIDNIGHT: MH legt een rode rij zelf vast (O27, Rob: "Ja, bouw het")
+## 🆕 12 nov (later) — MIDNIGHT: MH legt je dispel-pogingen zelf vast (O27 optie A, Rob: "Optie A, dispel-pogingen")
+
+Niets zichtbaars; jij hoeft niets te typen.
+- [ ] `/reload`, een dungeonrun met het Party targets-paneel aan. Dispel jezelf of anderen zoals altijd (rechtsklik op de
+      linkerhelft van een rij, of je eigen toets). Daarna `/reload`. Dan lees ik `dispelTryLog`: elke Cleanse Toxins
+      (gelukt of mislukt), elke foutmelding van het spel terwijl je muis op een dispel-helft stond ("Nothing to
+      dispel", out of range, not ready), welke rij, wanneer, in gevecht ja/nee.
+
+## 🆕 12 nov — MIDNIGHT: MH legt een rode rij zelf vast (O27, Rob: "Ja, bouw het") — ❌ vervangen door optie A hierboven
 
 Niets zichtbaars; dit meet alleen. Jij hoeft niets te typen.
 - [ ] `/reload`, een dungeonrun (follower mag) met het Party targets-paneel aan, daarna `/reload`. Dan lees ik

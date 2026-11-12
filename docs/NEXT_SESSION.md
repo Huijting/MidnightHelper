@@ -39,6 +39,13 @@
   klopt. Het seintje meet dus NIET "de rij is rood". AFGELEID: Blizzards aura-slot wordt bij de opbouw één keer getoond
   en daarna via alpha aan/uit gezet, niet via Show/Hide. `dispelSelfLog` heeft geen regel van 12 nov (niets bleef
   hangen na een gevecht). Buff-zin in gevecht: ✅ Rob, screenshot 13.png. Gestopt; nieuw voorstel naar sparring.
+- ✅ Optie A gebouwd (Rob, via sparring: "Optie A, dispel-pogingen"): seintje + `RowSignal`/`afterFight`-koppeling eruit;
+  `dispelRowLog` wordt bij PLAYER_LOGIN gewist. Nieuw: `ns.db.dispelTryLog` (max 40) via de bestaande `castWatch`:
+  elke cast/failed van JOUW dispel (`IsMyDispel`: id of naam van `GetPlayerDispelIcon`) en elke UI_ERROR_MESSAGE terwijl
+  de muis op de dispel-helft van een rij staat (`DispelRowUnderMouse`, GetMouseFoci = alleen lezen, niets op de secure
+  knop). Per regel: kind, spellID, text, row, unit, at, zone, inCombat, char/class/spec. ⚠️ Een fout van een ANDERE
+  toets terwijl de muis toevallig op een dispel-helft staat, telt ook mee (AFGELEID, zeldzaam; text maakt het
+  herkenbaar). Offline 7/7 (scratch `rowlog_test.lua`), stop-spell 7/7, lint 0 HARD. Niet in het spel gezien.
 - ✅ Gebouwd (Rob, via sparring: "Ja, bouw dat"): elke nieuwe `dispelSelfLog`-regel krijgt `char` (UnitName), `class`
   (token) en `spec` (spec-ID), in `AfterCombatDispelCheck`. Alleen meten, niets zichtbaars. Oude regels blijven zonder.
 

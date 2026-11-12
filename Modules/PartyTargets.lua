@@ -148,125 +148,110 @@ local paintLog = {}
 --- same edit. It does not look at local tables, so this one went straight past it.
 local castLog = {}
 
---- 🔬 RED-ROW LOG (O27, 12 Nov 2026, Rob: "Ja, bouw het"). Rob tanks: he cannot take screenshots or type /mh glow
---- mid-fight, so MH writes down by itself when a row turns red and goes off again, to ns.db.dispelRowLog, read after a
---- /reload. MEASURING ONLY, nothing visible.
+--- 🔬 DISPEL-ATTEMPT LOG (O27 option A, 12 Nov 2026, Rob: "Optie A, dispel-pogingen"). Rob tanks and cannot take
+--- screenshots or type /mh glow mid-fight; his complaint is "dispelling does not work". So MH writes down, also in a
+--- fight, every attempt with YOUR dispel: the cast (or its failure), and every error the game gives while the mouse is
+--- on a row's dispel half ("Nothing to dispel", out of range, not ready), with the row, time, zone, combat yes/no and
+--- character/spec. To ns.db.dispelTryLog, max 40, read after a /reload. MEASURING ONLY, nothing visible.
+--- What it CANNOT record: whether the row was red at that moment, or which debuff it was.
 ---
---- What it records: which row (and its unit), when it turned red and for how long, zone, in combat yes/no,
---- character/class/spec, a copy of your own last casts and errors (castLog) at start and at end, and what the existing
---- after-combat scan found on you 1 s after that fight (afterFight).
---- What it CANNOT record: WHICH debuff it is in combat (scans refused, values secret), whether you could remove it,
---- or debuffs on other players.
+--- 🔴 WHY NOT "WHEN THE ROW TURNS RED" (the first build, same day): OnShow/OnHide on our red canvas fired 10 times, all
+--- 5 rows at once while the panel was built, never in a fight and never "off" (Rob's run, SV 12:46). The engine does not
+--- show/hide that slot for the red; it was the wrong signal. Removed; its log (dispelRowLog) is cleared on load.
 ---
---- ⚠️ NOT MEASURED when built: whether OnShow/OnHide of our red canvas fire in combat at all (the engine shows the
---- canvas's parent, Blizzard's aura slot). So the signals themselves are counted in `signals`: show/hide in and out of
---- combat. "0 shows, also out of combat" means the signal does not work here -- NOT "the row was never red".
+--- The row comes from the MOUSE, not from the secure button: GetMouseFoci() is a read, while a script on a secure
+--- button taints it (that broke click-to-target on 3 Aug).
 local RowUnitFn -- set to UnitForRow once that local exists (declared far below)
-local rowOpen, rowVisible = {}, {}
-local fightEvents = {}
-local ROWLOG_MAX = 40
+local TRYLOG_MAX = 40
 
-local function RowLog()
-	if not ns.db then
+--- Which row's DISPEL (left) half is under the mouse right now, or nil. A read only (see above).
+local function DispelRowUnderMouse()
+	local foci
+	if GetMouseFoci then
+		local ok, t = pcall(GetMouseFoci)
+		foci = ok and type(t) == "table" and t or nil
+	elseif GetMouseFocus then
+		local ok, f = pcall(GetMouseFocus)
+		foci = ok and f and { f } or nil
+	end
+	if not foci then
 		return nil
 	end
-	local L = ns.db.dispelRowLog
-	if type(L) ~= "table" then
-		L = { events = {}, signals = { show = 0, hide = 0, showInCombat = 0, hideInCombat = 0 } }
-		ns.db.dispelRowLog = L
-	end
-	L.events = L.events or {}
-	L.signals = L.signals or { show = 0, hide = 0, showInCombat = 0, hideInCombat = 0 }
-	return L
-end
-
-local function CastSnapshot()
-	local now = (GetTime and GetTime()) or 0
-	local out = {}
-	for _, c in ipairs(castLog) do
-		out[#out + 1] = { ago = math.floor((now - (c.at or now)) * 10 + 0.5) / 10, kind = c.kind, spellID = c.spellID,
-			extra = c.extra }
-	end
-	return out
-end
-
-local function InFight()
-	return (InCombatLockdown and InCombatLockdown()) and true or false
-end
-
-local function RowSignal(idx, shown)
-	local L = RowLog()
-	if not (L and idx) then
-		return
-	end
-	local fight = InFight()
-	local s = L.signals
-	if shown then
-		s.show = (s.show or 0) + 1
-		if fight then
-			s.showInCombat = (s.showInCombat or 0) + 1
-		end
-	else
-		s.hide = (s.hide or 0) + 1
-		if fight then
-			s.hideInCombat = (s.hideInCombat or 0) + 1
-		end
-	end
-	-- A row can have more than one red canvas (one per aura frame): open on the first, close on the last.
-	local n = (rowVisible[idx] or 0) + (shown and 1 or -1)
-	if n < 0 then
-		n = 0
-	end
-	rowVisible[idx] = n
-	if shown and n == 1 and not rowOpen[idx] then
-		local who, classToken, specID
-		if UnitName then
-			local okN, nm = pcall(UnitName, "player")
-			who = okN and type(nm) == "string" and nm or nil
-		end
-		if UnitClass then
-			local okC, _, tok = pcall(UnitClass, "player")
-			classToken = okC and tok or nil
-		end
-		if ns.GetSpecialization and ns.GetSpecializationInfo then
-			local okI, si = pcall(ns.GetSpecialization)
-			if okI and si then
-				local okS, sid = pcall(ns.GetSpecializationInfo, si)
-				specID = okS and sid or nil
+	for _, f in ipairs(foci) do
+		for i, b in pairs(clicks) do
+			if f == b then
+				return i
 			end
 		end
-		local unit
-		if RowUnitFn then
-			local okU, u = pcall(RowUnitFn, idx)
-			unit = okU and u or nil
+	end
+	return nil
+end
+
+--- Is this spell this character's dispel (what the left half carries)? By ID, and by name for an override.
+local function IsMyDispel(spellID)
+	if not (spellID and ns.GetPlayerDispelIcon) then
+		return false
+	end
+	local _, mine = ns.GetPlayerDispelIcon()
+	if not mine then
+		return false
+	end
+	if spellID == mine then
+		return true
+	end
+	if C_Spell and C_Spell.GetSpellName then
+		local ok1, a = pcall(C_Spell.GetSpellName, spellID)
+		local ok2, b = pcall(C_Spell.GetSpellName, mine)
+		return ok1 and ok2 and type(a) == "string" and a ~= "" and a == b
+	end
+	return false
+end
+
+--- One attempt: kind = "cast" | "failed" | "error". Rob, 12 Nov: no screenshots needed, we read it after a /reload.
+local function LogDispelTry(kind, spellID, text, row)
+	if not ns.db then
+		return
+	end
+	local L = ns.db.dispelTryLog
+	if type(L) ~= "table" then
+		L = {}
+		ns.db.dispelTryLog = L
+	end
+	local who, classToken, specID
+	if UnitName then
+		local okN, nm = pcall(UnitName, "player")
+		who = okN and type(nm) == "string" and nm or nil
+	end
+	if UnitClass then
+		local okC, _, tok = pcall(UnitClass, "player")
+		classToken = okC and tok or nil
+	end
+	if ns.GetSpecialization and ns.GetSpecializationInfo then
+		local okI, si = pcall(ns.GetSpecialization)
+		if okI and si then
+			local okS, sid = pcall(ns.GetSpecializationInfo, si)
+			specID = okS and sid or nil
 		end
-		local e = {
-			at = date and date("%Y-%m-%d %H:%M:%S") or "?",
-			t0 = (GetTime and GetTime()) or 0,
-			row = idx, unit = unit,
-			zone = GetRealZoneText and GetRealZoneText() or nil,
-			inCombat = fight,
-			char = who, class = classToken, spec = specID,
-			castsAtStart = CastSnapshot(),
-		}
-		L.events[#L.events + 1] = e
-		while #L.events > ROWLOG_MAX do
-			table.remove(L.events, 1)
-		end
-		rowOpen[idx] = e
-		if fight then
-			fightEvents[#fightEvents + 1] = e
-		end
-	elseif not shown and n == 0 and rowOpen[idx] then
-		local e = rowOpen[idx]
-		rowOpen[idx] = nil
-		e.seconds = math.floor((((GetTime and GetTime()) or 0) - (e.t0 or 0)) * 10 + 0.5) / 10
-		e.endInCombat = fight
-		e.castsAtEnd = CastSnapshot()
-		e.t0 = nil
+	end
+	local unit
+	if row and RowUnitFn then
+		local okU, u = pcall(RowUnitFn, row)
+		unit = okU and u or nil
+	end
+	L[#L + 1] = {
+		at = date and date("%Y-%m-%d %H:%M:%S") or "?",
+		kind = kind, spellID = spellID, text = text,
+		row = row, unit = unit,
+		zone = GetRealZoneText and GetRealZoneText() or nil,
+		inCombat = (InCombatLockdown and InCombatLockdown()) and true or false,
+		char = who, class = classToken, spec = specID,
+	}
+	while #L > TRYLOG_MAX do
+		table.remove(L, 1)
 	end
 end
-ns._PartyRowSignal = RowSignal -- for the offline test only (scratch stopspell/rowlog test); nothing calls it in game
+ns._PartyDispelTry = { IsMyDispel = function(id) return IsMyDispel(id) end, Log = LogDispelTry,
+	RowUnderMouse = function() return DispelRowUnderMouse() end } -- offline test only
 
 local function OwningRow(slot)
 	local f = slot
@@ -377,19 +362,6 @@ local function PaintDispelSlot(slot)
 	--- whatever size Blizzard gave it and never reaches the button.
 	local idx = row and row._mhRowIndex
 	local canvas = CreateFrame("Frame", nil, slot)
-	-- O27 red-row log (see RowSignal near the top): the engine shows/hides the slot, so these fire with the red.
-	if idx then
-		canvas:SetScript("OnShow", function()
-			pcall(RowSignal, idx, true)
-		end)
-		canvas:SetScript("OnHide", function()
-			pcall(RowSignal, idx, false)
-		end)
-		local okV, vis = pcall(canvas.IsVisible, canvas)
-		if okV and vis == true then
-			pcall(RowSignal, idx, true)
-		end
-	end
 	local okSize, sizeErr = pcall(function()
 		-- Belt and braces on the slot itself, since it is the thing that could still
 		-- intercept a click if the engine hands it a size of its own.
@@ -781,7 +753,13 @@ castWatch:SetScript("OnEvent", function(_, event, a, _b, c)
 	if event == "UI_ERROR_MESSAGE" then
 		-- The error text is the thing that says "there is nothing to dispel", which is a
 		-- SUCCESSFUL click with nothing to do — the outcome hardest to tell from failure.
-		LogCast("error", nil, tostring(_b or a or ""))
+		local text = tostring(_b or a or "")
+		LogCast("error", nil, text)
+		-- O27 A: an error while the mouse is on a row's dispel half is a dispel attempt that the game refused.
+		local row = DispelRowUnderMouse()
+		if row then
+			pcall(LogDispelTry, "error", nil, text, row)
+		end
 		return
 	end
 	-- ⚠️ Not the file's Secret() helper: that is declared 170 lines below this, so it
@@ -789,7 +767,12 @@ castWatch:SetScript("OnEvent", function(_, event, a, _b, c)
 	-- check exists because this exact shape has bitten the file before.
 	local id = c
 	if id ~= nil and not (issecretvalue and issecretvalue(id)) then
-		LogCast(event == "UNIT_SPELLCAST_FAILED" and "failed" or "cast", tonumber(id))
+		local kind = event == "UNIT_SPELLCAST_FAILED" and "failed" or "cast"
+		LogCast(kind, tonumber(id))
+		-- O27 A: your dispel, cast or failed, from the panel or from your own key (row = nil then).
+		if IsMyDispel(tonumber(id)) then
+			pcall(LogDispelTry, kind, tonumber(id), nil, DispelRowUnderMouse())
+		end
 	end
 end)
 
@@ -2281,38 +2264,25 @@ local function AfterCombatDispelCheck()
 	return found
 end
 
---- O27: run the after-combat scan and hang its answer on every red-row moment that started in that fight.
-local function AfterCombatWithRowLog()
-	local ok, found = pcall(AfterCombatDispelCheck)
-	if #fightEvents == 0 then
-		return
+-- O27 A (12 Nov 2026, Rob: "Optie A, dispel-pogingen"): the first build's red-row log measured the panel being built,
+-- not the red (10 false moments). Cleared once at login; dispelSelfLog (after combat) stays.
+local fClear = CreateFrame("Frame")
+fClear:RegisterEvent("PLAYER_LOGIN")
+fClear:SetScript("OnEvent", function(self)
+	if ns.db then
+		ns.db.dispelRowLog = nil
 	end
-	local summary
-	if not ok then
-		summary = "scan error"
-	elseif found == nil then
-		summary = "not scanned (no party / no dispel)"
-	else
-		summary = {}
-		for _, f in ipairs(found) do
-			summary[#summary + 1] = { name = f.name, type = f.type, spellId = f.spellId, youCan = f.youCan,
-				raid = f.raid, rpd = f.rpd, any = f.any, secret = f.secret }
-		end
-	end
-	for _, e in ipairs(fightEvents) do
-		e.afterFight = summary
-	end
-	fightEvents = {}
-end
+	self:UnregisterAllEvents()
+end)
 
 local fAfter = CreateFrame("Frame")
 fAfter:RegisterEvent("PLAYER_REGEN_ENABLED")
 fAfter:SetScript("OnEvent", function()
 	-- A moment after the fight: combat-only auras have dropped, what lingers is what Rob saw.
 	if C_Timer and C_Timer.After then
-		C_Timer.After(1, AfterCombatWithRowLog)
+		C_Timer.After(1, AfterCombatDispelCheck)
 	else
-		AfterCombatWithRowLog()
+		AfterCombatDispelCheck()
 	end
 end)
 
