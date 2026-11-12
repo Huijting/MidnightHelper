@@ -1432,6 +1432,21 @@ local function EnsureChangelogFrame()
 	okBtn:SetText(ns:L("CHANGELOG_CLOSE"))
 	f._closeBtn = okBtn
 
+	-- 12 Nov 2026 (plan 1, NewChoices.lua): "Choices" — the choice window again, only when a card applies.
+	local choicesBtn = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
+	choicesBtn:SetHeight(28)
+	choicesBtn:SetPoint("BOTTOMRIGHT", okBtn, "TOPRIGHT", 0, 6)
+	choicesBtn:SetText(ns:L("NEWC_CHANGELOG_BTN"))
+	ns.FitButtonToText(choicesBtn, 100, 140) -- 140 = the room right of the 480 px checkbox labels
+	choicesBtn:SetScript("OnClick", function()
+		f:Hide()
+		if ns.NewChoicesSlash then
+			ns.NewChoicesSlash("")
+		end
+	end)
+	choicesBtn:Hide()
+	f._choicesBtn = choicesBtn
+
 	LayoutChangelogWindow(f)
 
 	cbVersion:SetScript("OnClick", function(self)
@@ -1462,6 +1477,8 @@ local function EnsureChangelogFrame()
 	end)
 	f:SetScript("OnShow", function()
 		LayoutChangelogWindow(f)
+		local n = ns.NewChoicesCount and ns.NewChoicesCount() or 0
+		choicesBtn:SetShown(n > 0)
 	end)
 
 	changelogFrame = f
@@ -1526,6 +1543,11 @@ boot:RegisterEvent("PLAYER_ENTERING_WORLD")
 boot:SetScript("OnEvent", function(self)
 	self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 	DevChangelogStaleCheck()
+	-- Rob, 12 Nov 2026 (via sparring): "Keuzes in plaats van changelog (Recommended)". When there is something new to
+	-- choose, NewChoices.lua shows its window instead; its "What else is new?" button opens this one.
+	if ns and ns.NewChoicesTakeOver and ns.NewChoicesTakeOver() then
+		return
+	end
 	if ns and ns.ShowChangelogWindow then
 		ns:ShowChangelogWindow(false)
 	end

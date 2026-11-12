@@ -158,6 +158,8 @@ Modules\ForeverPartyProbe.lua
 Modules\ForeverPartyPanel.lua
 # "Do this now / All caught up / Coming up" (Rob, 12 Nov 2026, via sparring: "Venster 'Doe dit nu'").
 Modules\ForeverDoNow.lua
+# "New in this version: your choice" instead of the changelog when there is something to choose (Rob, 12 Nov 2026, via sparring: "Ja, bouw het (Recommended)").
+Modules\NewChoices.lua
 # /mh selftest: does every game number in MH exist in this game? (Rob, 11 Nov 2026). Data file is generated.
 Modules\SelftestData.lua
 Modules\Selftest.lua

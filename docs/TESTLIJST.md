@@ -21,6 +21,24 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 12 nov (laat) — BEIDE SPELLEN: venster "Nieuw in deze versie" (Rob, via sparring: "Ja, bouw het (Recommended)")
+
+⚠️ Er is een nieuw bestand bij gekomen (`NewChoices.lua`). Voor de zekerheid: **sluit WoW helemaal af en start
+opnieuw**, in Forever (of `/reload` een nieuw bestand oppikt: AFGELEID, niet gemeten).
+- [ ] Na het inloggen (en na de vraag "Welke kant?" als die komt) verschijnt één venster "New in this version: your
+      choice". De changelog komt dan NIET. Drie kaartjes: "Do this now" window (drie knoppen), Group panel (On / Off), en
+      "A fixed key for every spell" (alleen als je op dit character het toetsenblok nog niet hebt neergezet).
+- [ ] De knop van je huidige stand heeft een groen pijltje ervoor. Klik een andere → het pijltje springt mee en de chat
+      zegt wat je koos. Groepspaneel in een gevecht → de chat zegt "not in combat", er verandert niets.
+- [ ] "Show me" → het venster gaat dicht en het toetsenblok-venster opent (het plan; er wordt NIETS neergezet).
+- [ ] "What else is new?" → de changelog opent. Daar staat rechtsonder, boven Close, een knop "Choices" → het
+      keuzevenster komt terug.
+- [ ] Sluit het venster met het kruisje zonder te kiezen → alles blijft zoals het was. Na `/reload` komt het niet
+      terug (de changelog wel weer, zoals altijd).
+- [ ] `/mh new` → het venster komt terug. `/mh new check` → per kaartje of het geldt en of je het al zag.
+- [ ] In Midnight: alleen het toetsenkaartje (als je het blok daar nog niet hebt). Heb je het al → geen venster, de
+      changelog gewoon.
+
 ## 🆕 12 nov (avond) — FOREVER: "Welke kant wil je op?" (Rob, via sparring: "De vraag 'Welke kant?'")
 
 Eerst `/reload` in Forever, op je Paladin.

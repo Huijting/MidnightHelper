@@ -2654,6 +2654,14 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		end
 		return
 	end
+	-- 12 Nov 2026: "New in this version: your choice" (NewChoices.lua). Both games. /mh new check = what and why.
+	local newArg = (msg:lower() == "new") and "" or msg:lower():match("^new%s+(.+)$")
+	if newArg then
+		if ns.NewChoicesSlash then
+			ns.NewChoicesSlash(newArg)
+		end
+		return
+	end
 	-- 12 Nov 2026, WoW Forever: "Do this now" (ForeverDoNow.lua).
 	local donowArg = (msg:lower() == "donow") and "" or msg:lower():match("^donow%s+(.+)$")
 	if donowArg then

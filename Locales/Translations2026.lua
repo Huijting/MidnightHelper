@@ -23638,6 +23638,19 @@ if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	MOVE_EL_SAFETY = "sicurezza in combattimento",
 	MOVE_EL_LAMP = "spia del registro di combattimento",
 	MOVE_EL_FPS = "pannello FPS",
+	NEWC_TITLE = "Novità di questa versione: scegli tu",
+	NEWC_INTRO = "Alcune novità che puoi scegliere da solo. Prendi quello che ti piace, oppure chiudi semplicemente questa finestra: così non cambia niente. Puoi riaprirla con /mh new.",
+	NEWC_DONOW_BODY = "Una piccola finestra con cosa puoi fare adesso: spell che ti aspettano dal tuo addestratore, gradi vecchi sulle tue barre, armi da imparare, un buff o uno strumento che manca. Quando deve comparire?",
+	NEWC_PARTY_BODY = "Un piccolo pannello con il tuo gruppo. Clicca su una riga per prendere quel giocatore come bersaglio. Il clic destro gli toglie una maledizione, un veleno o simili con un tuo spell (lo dissolvi). Disattivato finché non lo attivi.",
+	NEWC_ON = "Attivo",
+	NEWC_OFF = "Disattivato",
+	NEWC_KEYS_HEAD = "Un tasto fisso per ogni spell",
+	NEWC_KEYS_BODY = "MH può dare ai tuoi spell un posto fisso sulle tue barre e sui tuoi tasti, uguale su ogni personaggio. Non ce l'hai ancora. \"Mostrami\" apre prima il piano: non cambia nulla finché non lo posizioni tu, e puoi sempre rimettere tutto com'era.",
+	NEWC_KEYS_BTN = "Mostrami",
+	NEWC_MORE = "Cos'altro c'è di nuovo?",
+	NEWC_NONE = "per ora non c'è niente di nuovo da scegliere.",
+	NEWC_CHANGELOG_BTN = "Scelte",
+	CMDLIST_NEW = "Le novità di questa versione che puoi attivare o disattivare da solo.",
 }) end
 
 -- 12 Nov 2026: tool-missing tip (ForeverVendors.lua); our own translation (mh-writer), not native-checked.
@@ -23689,6 +23702,19 @@ if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	FPARTY_NOT_IN_COMBAT = "Gruppenfenster: nicht während des Kampfes. Versuch es nach dem Kampf noch einmal.",
 	SET_FOREVER_PARTY_TITLE = "Gruppenfenster",
 	SET_FOREVER_PARTY_DESC = "WoW Forever: ein kleines Fenster mit deiner Gruppe. Linksklick auf eine Zeile macht diesen Spieler zu deinem Ziel, Rechtsklick wirkt dein Dispel auf ihn (Umschalt+Rechtsklick: dein zweites Dispel). Das Spiel zeichnet einen roten Rand, wenn ein Spieler etwas hat, das du entfernen kannst. Dasselbe wie /mh partytargets.",
+	NEWC_TITLE = "Neu in dieser Version: deine Wahl",
+	NEWC_INTRO = "Ein paar neue Dinge, die du selbst wählen kannst. Nimm, was dir gefällt, oder schließ dieses Fenster einfach: Dann ändert sich nichts. Mit /mh new öffnest du es wieder.",
+	NEWC_DONOW_BODY = "Ein kleines Fenster mit dem, was du jetzt tun kannst: Zauber, die bei deinem Lehrer warten, alte Ränge auf deinen Leisten, neue Waffen zum Lernen, ein fehlender Buff oder ein fehlendes Werkzeug. Wann soll es erscheinen?",
+	NEWC_PARTY_BODY = "Ein kleines Fenster mit deiner Gruppe. Klick auf eine Zeile, um diesen Spieler ins Ziel zu nehmen. Rechtsklick entfernt mit deinem eigenen Zauber einen Fluch, ein Gift oder Ähnliches von ihm (ein Dispel). Aus, bis du es einschaltest.",
+	NEWC_ON = "An",
+	NEWC_OFF = "Aus",
+	NEWC_KEYS_HEAD = "Eine feste Taste für jeden Zauber",
+	NEWC_KEYS_BODY = "MH kann deinen Zaubern einen festen Platz auf deinen Leisten und Tasten geben, auf jedem Charakter gleich. Das hast du noch nicht. \"Zeig es mir\" öffnet zuerst den Plan: Nichts ändert sich, bis du ihn selbst platzierst, und du kannst jederzeit alles zurücksetzen.",
+	NEWC_KEYS_BTN = "Zeig es mir",
+	NEWC_MORE = "Was ist sonst noch neu?",
+	NEWC_NONE = "gerade gibt es nichts Neues zu wählen.",
+	NEWC_CHANGELOG_BTN = "Auswahl",
+	CMDLIST_NEW = "Die neuen Dinge in dieser Version, die du selbst ein- oder ausschalten kannst.",
 }) end
 
 -- 12 Nov 2026: Forever group panel (ForeverPartyPanel.lua); our own translation (mh-writer), not native-checked.
@@ -23700,6 +23726,19 @@ if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	FPARTY_NOT_IN_COMBAT = "panneau de groupe : pas pendant le combat. Réessaie après le combat.",
 	SET_FOREVER_PARTY_TITLE = "Panneau de groupe",
 	SET_FOREVER_PARTY_DESC = "WoW Forever : un petit panneau avec ton groupe. Clic gauche sur une ligne pour cibler ce joueur, clic droit pour lui lancer ta dissipation (Maj+clic droit : ta deuxième dissipation). Le jeu dessine un bord rouge quand un joueur a quelque chose que tu peux retirer. Identique à /mh partytargets.",
+	NEWC_TITLE = "Nouveau dans cette version : à toi de choisir",
+	NEWC_INTRO = "Quelques nouveautés que tu peux choisir toi-même. Prends ce qui te plaît, ou ferme simplement cette fenêtre : alors rien ne change. Tu peux la rouvrir avec /mh new.",
+	NEWC_DONOW_BODY = "Une petite fenêtre avec ce que tu peux faire maintenant : des sorts qui t'attendent chez ton maître de classe, d'anciens rangs sur tes barres, des armes à apprendre, un buff ou un outil qui manque. Quand doit-elle s'afficher ?",
+	NEWC_PARTY_BODY = "Un petit panneau avec ton groupe. Clique sur une ligne pour cibler ce joueur. Le clic droit lui retire une malédiction, un poison ou autre chose de ce genre avec ton propre sort (une dissipation). Désactivé tant que tu ne l'actives pas.",
+	NEWC_ON = "Activé",
+	NEWC_OFF = "Désactivé",
+	NEWC_KEYS_HEAD = "Une touche fixe pour chaque sort",
+	NEWC_KEYS_BODY = "MH peut donner à tes sorts une place fixe sur tes barres et tes touches, la même sur chaque personnage. Tu ne l'as pas encore. \"Montre-moi\" ouvre d'abord le plan : rien ne change tant que tu ne le places pas toi-même, et tu peux toujours tout remettre comme avant.",
+	NEWC_KEYS_BTN = "Montre-moi",
+	NEWC_MORE = "Quoi d'autre de neuf ?",
+	NEWC_NONE = "rien de nouveau à choisir pour l'instant.",
+	NEWC_CHANGELOG_BTN = "Choix",
+	CMDLIST_NEW = "Les nouveautés de cette version que tu peux activer ou désactiver toi-même.",
 }) end
 
 -- 12 Nov 2026: Forever group panel (ForeverPartyPanel.lua); our own translation (mh-writer), not native-checked.
@@ -23711,6 +23750,19 @@ if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	FPARTY_NOT_IN_COMBAT = "panel de grupo: no durante el combate. Inténtalo de nuevo después del combate.",
 	SET_FOREVER_PARTY_TITLE = "Panel de grupo",
 	SET_FOREVER_PARTY_DESC = "WoW Forever: un panel pequeño con tu grupo. Clic izquierdo en una fila para seleccionar a ese jugador como objetivo, clic derecho para lanzarle tu disipación (Mayús+clic derecho: tu segunda disipación). El juego dibuja un borde rojo cuando un jugador tiene algo que puedes quitar. Lo mismo que /mh partytargets.",
+	NEWC_TITLE = "Nuevo en esta versión: tú eliges",
+	NEWC_INTRO = "Algunas cosas nuevas que puedes elegir tú mismo. Quédate con lo que te guste, o simplemente cierra esta ventana: entonces no cambia nada. Puedes volver a abrirla con /mh new.",
+	NEWC_DONOW_BODY = "Una ventana pequeña con lo que puedes hacer ahora: hechizos que te esperan con tu instructor, rangos antiguos en tus barras, armas por aprender, un buff o una herramienta que falta. ¿Cuándo debe aparecer?",
+	NEWC_PARTY_BODY = "Un panel pequeño con tu grupo. Haz clic en una fila para seleccionar a ese jugador como objetivo. El clic derecho le quita una maldición, un veneno o algo parecido con tu propio hechizo (una disipación). Desactivado hasta que lo actives.",
+	NEWC_ON = "Activado",
+	NEWC_OFF = "Desactivado",
+	NEWC_KEYS_HEAD = "Una tecla fija para cada hechizo",
+	NEWC_KEYS_BODY = "MH puede dar a tus hechizos un lugar fijo en tus barras y teclas, el mismo en cada personaje. Todavía no lo tienes. \"Muéstramelo\" abre primero el plan: no cambia nada hasta que lo coloques tú mismo, y siempre puedes dejarlo todo como estaba.",
+	NEWC_KEYS_BTN = "Muéstramelo",
+	NEWC_MORE = "¿Qué más hay de nuevo?",
+	NEWC_NONE = "ahora mismo no hay nada nuevo que elegir.",
+	NEWC_CHANGELOG_BTN = "Opciones",
+	CMDLIST_NEW = "Las novedades de esta versión que puedes activar o desactivar tú mismo.",
 }) end
 
 -- 12 Nov 2026: Forever group panel (ForeverPartyPanel.lua); our own translation (mh-writer), not native-checked.
@@ -23722,6 +23774,19 @@ if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	FPARTY_NOT_IN_COMBAT = "painel do grupo: não durante o combate. Tente de novo depois da luta.",
 	SET_FOREVER_PARTY_TITLE = "Painel do grupo",
 	SET_FOREVER_PARTY_DESC = "WoW Forever: um painel pequeno com o seu grupo. Clique com o botão esquerdo numa linha para pegar esse jogador como alvo, clique com o botão direito para lançar sua dissipação nele (Shift+clique com o botão direito: sua segunda dissipação). O jogo desenha uma borda vermelha quando um jogador tem algo que você consegue remover. O mesmo que /mh partytargets.",
+	NEWC_TITLE = "Novo nesta versão: você escolhe",
+	NEWC_INTRO = "Algumas coisas novas que você mesmo pode escolher. Escolha o que quiser, ou só feche esta janela: aí nada muda. Você pode abri-la de novo com /mh new.",
+	NEWC_DONOW_BODY = "Uma janela pequena com o que você pode fazer agora: feitiços esperando no seu treinador, graus antigos nas suas barras, armas para aprender, um buff ou uma ferramenta que falta. Quando ela deve aparecer?",
+	NEWC_PARTY_BODY = "Um painel pequeno com o seu grupo. Clique numa linha para pegar esse jogador como alvo. O clique com o botão direito tira dele uma maldição, um veneno ou algo parecido com o seu próprio feitiço (uma dissipação). Desligado até você ligar.",
+	NEWC_ON = "Ligado",
+	NEWC_OFF = "Desligado",
+	NEWC_KEYS_HEAD = "Uma tecla fixa para cada feitiço",
+	NEWC_KEYS_BODY = "O MH pode dar aos seus feitiços um lugar fixo nas suas barras e teclas, igual em todos os personagens. Você ainda não tem isso. \"Me mostre\" abre o plano primeiro: nada muda até você mesmo colocá-lo, e você sempre pode deixar tudo como estava.",
+	NEWC_KEYS_BTN = "Me mostre",
+	NEWC_MORE = "O que mais há de novo?",
+	NEWC_NONE = "nada novo para escolher agora.",
+	NEWC_CHANGELOG_BTN = "Escolhas",
+	CMDLIST_NEW = "As novidades desta versão que você mesmo pode ligar ou desligar.",
 }) end
 
 -- 12 Nov 2026: tool tip list hint; our own translation (mh-writer), not native-checked.

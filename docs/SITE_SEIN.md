@@ -28,6 +28,18 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 12 nov 2026 — Allebei: venster "Nieuw in deze versie: jouw keuze"
+- Tag + commit:   geen tag / (deze commit)
+- Status:         alleen op main
+- Mag op de site: nee (nog niet uit)
+- Speler ziet:    Na een update één venster met kaartjes om zelf te kiezen, in plaats van de changelog: "Do this now"
+                  (Forever, drie standen), het groepspaneel aan/uit (Forever), en vaste toetsen voor wie het toetsenblok
+                  nog niet heeft ("Show me" opent eerst het plan, zet zelf niets). Wegklikken verandert niets. Niet in het
+                  spel gezien.
+- Knoplabels:     NEWC_TITLE, NEWC_KEYS_BTN, NEWC_MORE, NEWC_ON, NEWC_OFF, NEWC_CHANGELOG_BTN
+- Commando's:     /mh new
+- Spel:           allebei (de eerste twee kaartjes alleen in Forever)
+
 ## 12 nov 2026 — Forever: uitleg per beroep
 - Tag + commit:   geen tag / (deze commit)
 - Status:         alleen op main

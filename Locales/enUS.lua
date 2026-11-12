@@ -5427,6 +5427,20 @@ ns._mhLocales.enUS = {
 	FPARTY_NOT_IN_COMBAT = "group panel: not in combat. Try again after the fight.",
 	SET_FOREVER_PARTY_TITLE = "Group panel",
 	SET_FOREVER_PARTY_DESC = "WoW Forever: a small panel with your group. Left-click a row to target that player, right-click to cast your dispel on them (Shift+right-click: your second dispel). The game draws a red edge when a player has something you can remove. Same as /mh partytargets.",
+	-- 12 Nov 2026: "New in this version: your choice" (NewChoices.lua). Comes instead of the changelog when there is something to choose.
+	NEWC_TITLE = "New in this version: your choice",
+	NEWC_INTRO = "A few new things you can choose for yourself. Pick what you like, or just close this window: then nothing changes. You can open it again with /mh new.",
+	NEWC_DONOW_BODY = "A small window with what to do now: spells waiting at your trainer, old ranks on your bars, weapon skills to learn, a missing buff or tool. When should it show?",
+	NEWC_PARTY_BODY = "A small panel with your group. Click a row to target that player. Right-click removes a curse, poison or the like from them with your own spell (a dispel). Off unless you turn it on.",
+	NEWC_ON = "On",
+	NEWC_OFF = "Off",
+	NEWC_KEYS_HEAD = "A fixed key for every spell",
+	NEWC_KEYS_BODY = "MH can give your spells a fixed place on your bars and keys, the same on every character. You do not have it yet. \"Show me\" opens the plan first: nothing changes until you place it yourself, and you can always put everything back.",
+	NEWC_KEYS_BTN = "Show me",
+	NEWC_MORE = "What else is new?",
+	NEWC_NONE = "nothing new to choose right now.",
+	NEWC_CHANGELOG_BTN = "Choices",
+	CMDLIST_NEW = "The new things in this version you can switch on or off yourself.",
 	-- 12 Nov 2026: end of the tool tip's chat line; %s = the command, e.g. /mh vendor skinning.
 	FVEND_TIP_LIST_FMT = "Type %s for the list of sellers.",
 	-- 12 Nov 2026: the same tip when the game says the tool is missing (ForeverVendors.lua OnToolError).

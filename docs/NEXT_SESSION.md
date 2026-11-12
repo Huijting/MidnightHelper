@@ -15,6 +15,24 @@
    Een release alleen op Robs go. CF-plaatjes staan erop (Rob, 11 nov); of hij de nieuwe CF-beschrijving en de
    5.1.0-tekst al plakte: NIET GEMETEN, vragen.
 
+## 🛠️ 12 nov (laat) — plan 1: venster "Nieuw in deze versie: jouw keuze" (IDEEEN O29)
+
+- Rob (via sparring, letterlijk): *"Keuzes in plaats van changelog (Recommended)"*, *"Iedereen (Recommended)"*,
+  *"Niet tonen (Recommended)"*, bouw-ja *"Ja, bouw het (Recommended)"*. Geen release.
+- `Modules/NewChoices.lua` (beide tocs, na ForeverDoNow). Kaartjes in `CARDS`, elk met `id`, `avail()`, `buttons()`:
+  - `donow` (Forever): auto / always / off via `ns.SetForeverDoNowMode` + `SyncNativeSetting`;
+  - `partypanel` (Forever): aan/uit via `ns.SetForeverPartyPanel`, geweigerd in een gevecht;
+  - `keyblock` (beide): alleen als `ns.KeyBlockIsPlaced()` false is én er op geen enkele spec van dit character een
+    snapshot staat (ook rust in de eerste seconden, als de spec nog niet leesbaar is). "Show me" = `ns.ShowKeyBlock()`.
+- Changelog.lua vraagt bij het inloggen `ns.NewChoicesTakeOver()`: true → alleen het keuzevenster (3 s later; wacht op
+  de richtings- en balkvragen en op het eind van een gevecht, max ~10 min). Knop "Choices" in de changelog (alleen als
+  er een kaartje geldt). Gezien = `ns.db.newChoicesSeen[id]`, account-breed, één keer automatisch.
+- Volgende versie een nieuw kaartje = één regel in `CARDS` met een nieuw id; alleen dat kaartje komt dan.
+- `/mh new`, `/mh new check` (diagnose: per kaartje geldt/zag). In de commandolijst (CMDLIST_NEW).
+- GEMETEN offline (scratch `newc_test.lua`): 6 gevallen goed. Lint 0 HARD. In het spel: NIET GEZIEN.
+- ⚠️ Nieuw bestand in de toc → Rob voor de zekerheid WoW opnieuw laten starten (of `/reload` genoeg is: AFGELEID).
+- Vertalingen de/fr/es/pt/it/ru: mh-writer.
+
 ## 🛠️ 12 nov (avond) — lint [28]: te smalle knoppen (Rob via sparring, letterlijk: "Ja, bouw dat")
 
 - `tools/button_width_check.py`, in `lint_addon.py` als [28], SOFT.

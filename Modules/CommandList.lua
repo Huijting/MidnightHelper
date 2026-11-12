@@ -143,6 +143,8 @@ ns.MH_COMMANDS = {
 		{ cmd = "/mh move", descKey = "CMDLIST_MOVE" },
 		-- 12 Nov 2026, WoW Forever: "Do this now" (ForeverDoNow.lua).
 		{ cmd = "/mh donow", descKey = "CMDLIST_DONOW", foreverOnly = true },
+		-- 12 Nov 2026: "New in this version: your choice" (NewChoices.lua).
+		{ cmd = "/mh new", descKey = "CMDLIST_NEW" },
 		{ cmd = "/mh mouse", descKey = "CMDLIST_MOUSE" },
 		-- 21 Oct 2026: one door to all keybind help (KeysHub.lua). NavSearch indexes this table, so "keys",
 		-- "keybinds" and the window's own name find it from the search bar.
