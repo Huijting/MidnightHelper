@@ -21,6 +21,14 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 12 nov — MIDNIGHT: groepspaneel, rechtsklik op het doelwit (Rob: "Optie 1, jouw advies")
+
+Eerst `/reload`. Op je Prot Paladin, in een groep (een dungeon of follower dungeon), met het Party targets-paneel:
+- [ ] `/mh glow` zegt "no purge, so your stop-spell: spell 96231" en "target halves armed" is 1 of meer.
+- [ ] Rechtsklik op de rechterhelft van een rij (het doelwit van een groepslid) terwijl die vijand iets cast → Rebuke
+      gaat op die vijand. Sta je te ver: het spel zegt "out of range" (Rebuke is melee).
+- [ ] Op een Priest, Mage, Shaman of Hunter: daar blijft het de purge, zoals voorheen.
+
 ## 🆕 12 nov — `/mh selftest` niet meer in de commandolijst (Rob: "Ja, haal hem weg")
 
 Eerst `/reload`. In beide spellen:

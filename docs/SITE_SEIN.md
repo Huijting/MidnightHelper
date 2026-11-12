@@ -28,6 +28,17 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 12 nov 2026 — Groepspaneel: rechtsklik op het doelwit is een stop-spell als je geen purge hebt (Midnight)
+- Tag + commit:   geen tag / (deze commit)
+- Status:         alleen op main
+- Mag op de site: nee (nog niet uit)
+- Speler ziet:    In het Party targets-paneel: rechtsklik op het doelwit van een groepslid. Heb je een purge (Priest,
+                  Mage, Shaman, Hunter), dan blijft dat de purge. Zo niet, dan is het nu je interrupt (bv. Rebuke op
+                  een Prot Paladin). Specs zonder allebei: nog steeds niets. Niet in het spel gezien.
+- Knoplabels:     geen nieuwe
+- Commando's:     /mh partytargets, /mh glow (diagnose)
+- Spel:           Midnight
+
 ## 11 nov 2026 — De tooltip zegt voor welk beroep een item een ingrediënt is (Forever én Midnight)
 - Tag + commit:   geen tag / (deze commit)
 - Status:         alleen op main

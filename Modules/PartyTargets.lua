@@ -427,13 +427,25 @@ function ns.PrintPartyDispelGlowStatus()
 	else
 		print("   |cff8a8f98This character has no dispel, so no row will ever glow.|r")
 	end
-	local pid
-	if ns.GetPlayerPurgeIcon then
-		local _, v = ns.GetPlayerPurgeIcon()
-		pid = v
+	local pid, pkind
+	if ns.PartyTargetsTargetHalfSpell then
+		pid, pkind = ns.PartyTargetsTargetHalfSpell()
 	end
-	print(pid and ("   your purge : spell %d  (right-click the right half)"):format(pid)
-		or "   |cff8a8f98This character has no purge.|r")
+	if pkind == "purge" then
+		print(("   your purge : spell %d  (right-click the right half)"):format(pid))
+	elseif pkind == "stop" then
+		print(("   no purge, so your stop-spell: spell %d  (right-click the right half)"):format(pid))
+	else
+		print("   |cff8a8f98This character has no purge and no stop-spell we know: the right half stays empty.|r")
+	end
+	local tarmed = 0
+	for i = 1, MAX_ROWS do
+		local t = tclicks[i]
+		if t and t:GetAttribute("spell2") then
+			tarmed = tarmed + 1
+		end
+	end
+	print(("   target halves armed: %d"):format(tarmed))
 
 	-- ⚠️ WHAT THE SPELL LOOKUP FOUND IS NOT WHAT THE BUTTON CARRIES. The lines above read
 	-- GetPlayerDispelIcon again, live; the button was armed by ApplyDispelAttributes,
@@ -998,6 +1010,92 @@ local function CastableForm(spellID)
 	return spellID
 end
 
+--- Fails closed, like GetPlayerPurgeIcon: "the API is missing" is not "you know it".
+local function PlayerKnows(id)
+	if IsPlayerSpell then
+		local ok, v = pcall(IsPlayerSpell, id)
+		if ok and v == true then
+			return true
+		end
+	end
+	if C_SpellBook and C_SpellBook.IsSpellKnown then
+		local ok, v = pcall(C_SpellBook.IsSpellKnown, id)
+		if ok and v == true then
+			return true
+		end
+	end
+	return false
+end
+
+--- 🆕 12 Nov 2026 — THE STOP-SPELL ON THE TARGET HALF, for whoever has no purge.
+--- Rob chose "Optie 1, jouw advies" (sparring chat): "Purge blijft, en wie geen purge heeft krijgt zijn stop-spell.
+--- Niemand verliest iets, en de lege klik is weg." The empty click is the one from 26 Sep above (:312): a Prot
+--- Paladin right-clicked the target half and nothing happened.
+---
+--- The interrupt comes from the KeybindRoleClassifier tables (role = "interrupt", with an id and the specs that
+--- have it), which are already the measured source for the E key. Only an entry with an id counts: Spell Lock and
+--- Axe Toss are pet spells without one, and IsPlayerSpell does not answer for pets (DispelHelper.lua:429), so a
+--- Warlock keeps the empty click rather than a guess. And only a spell this character KNOWS right now.
+---
+--- ⚠️ What this cannot do (Rob heard it before choosing): it cannot see whether the enemy is casting (secret;
+--- castBarID is measured for "target" only, not for partyNtarget), and it cannot see whether you are close enough
+--- (Rebuke, Pummel, Kick are melee). The click casts; the game says "out of range" or "nothing to interrupt".
+--- @return number|nil spellID
+local function GetPlayerStopSpell()
+	if not (UnitClass and ns.KeybindRoleClassifier) then
+		return nil
+	end
+	local _, token = UnitClass("player")
+	local roles = token and ns.KeybindRoleClassifier[token]
+	if type(roles) ~= "table" then
+		return nil
+	end
+	local specID
+	if ns.GetSpecialization and ns.GetSpecializationInfo then
+		local idx = ns.GetSpecialization()
+		if idx then
+			specID = ns.GetSpecializationInfo(idx)
+		end
+	end
+	local best, bestPri
+	for _, e in pairs(roles) do
+		if type(e) == "table" and e.role == "interrupt" and type(e.id) == "number" then
+			local forSpec = true
+			if type(e.specs) == "table" then
+				forSpec = false
+				for _, s in ipairs(e.specs) do
+					if s == specID then
+						forSpec = true
+						break
+					end
+				end
+			end
+			local pri = e.priority or 9
+			if forSpec and (not bestPri or pri < bestPri) and PlayerKnows(e.id) then
+				best, bestPri = e.id, pri
+			end
+		end
+	end
+	return best
+end
+
+--- For /mh glow: what the target half casts, and why. Returns spellID|nil, "purge"|"stop"|nil.
+function ns.PartyTargetsTargetHalfSpell()
+	local purge
+	if ns.GetPlayerPurgeIcon then
+		local _, id = ns.GetPlayerPurgeIcon()
+		purge = id
+	end
+	if purge then
+		return purge, "purge"
+	end
+	local stop = GetPlayerStopSpell()
+	if stop then
+		return stop, "stop"
+	end
+	return nil, nil
+end
+
 function ApplyDispelAttributes()
 	if InCombatLockdown and InCombatLockdown() then
 		return
@@ -1010,11 +1108,8 @@ function ApplyDispelAttributes()
 		local _, id = ns.GetPlayerDispelIcon()
 		dispelSpell = id
 	end
-	local purgeSpell
-	if ns.GetPlayerPurgeIcon then
-		local _, id = ns.GetPlayerPurgeIcon()
-		purgeSpell = id
-	end
+	-- The target half: the purge if you have one, else your stop-spell (12 Nov 2026, see above).
+	local purgeSpell = ns.PartyTargetsTargetHalfSpell()
 	local dispelCast = CastableForm(dispelSpell)
 	local purgeCast = CastableForm(purgeSpell)
 	for i = 1, MAX_ROWS do

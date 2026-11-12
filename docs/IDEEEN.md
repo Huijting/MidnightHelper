@@ -99,6 +99,18 @@ NIET GEMETEN.
 Hier komt wat Rob goedkeurt, ook wat hij rechtstreeks in de bouwchat vraagt (Rob, 10 nov: *"ja we willen het op 1
 lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met de commit erbij. Na zijn test naar **Af**.
 
+### Midnight-groepspaneel: stop-spell op het doelwit als je geen purge hebt
+- Voor wie:      allebei (vooral wie geen purge heeft: Paladin, Warrior, Rogue, DK, DH, Druid, Monk, Evoker)
+- Moment:        in een groep, rechtsklik op het doelwit van een groepslid in het Party targets-paneel
+- Spel:          Midnight
+- Bron:          Rob 26 sep (lege klik op de Prot Paladin); Rob 12 nov via sparring: *"Optie 1, jouw advies"*
+- Bouwt op:      `PartyTargets.lua` (purge-helft), `KeybindRoles_*.lua` (interrupt-id's per spec)
+- Data:          GEMETEN in de KeybindRoles-tabellen (id + specs); pet-kicks zonder id bewust weg
+- Vindbaar:      vanzelf (rechtsklik); `/mh glow` zegt welke spell
+- Werk:          klein
+- Site:          ja, als het uit is (`docs/SITE_SEIN.md` 12 nov)
+- Rob zegt:      ja. **Gebouwd 12 nov**, offline 7/7. Wacht op Robs test (TESTLIJST 12 nov).
+
 ### Lint [27]: geen commando's die alleen wij gebruiken in de release-tekst
 - Voor wie:      wij (spelers zien geen testknoppen meer in de release-tekst)
 - Moment:        bij elke lint-run; vooral vóór een release

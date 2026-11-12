@@ -9,10 +9,25 @@
 3. **Forever testen:** Purify-macro, Hammer of Justice zonder muis-vijand → target, grijze "Used for", Copper Ore.
 4. **Rob vragen:** zijn de upgrade-melding en de groene gear-regel (door hem gezien in Forever) af?
 5. Nog open sinds 5.1.0: buff-zin in Midnight en in gevecht, "(loading...)" in de beroepstip.
-6. Aparte vraag voor later: krijgt het Midnight-paneel ook "stop-spell op het doelwit" (nu purge)?
+6. ✅ Beslist en gebouwd 12 nov (Rob: "Optie 1, jouw advies"): purge blijft, anders stop-spell. Zie de 12 nov-sectie.
 7. Sinds 5.1.0 op main en niet uit: "Used for" (beide spellen), Paladin-macro's, `/mh partytest`, de stadsnaam-fix es.
    Een release alleen op Robs go. CF-plaatjes staan erop (Rob, 11 nov); of hij de nieuwe CF-beschrijving en de
    5.1.0-tekst al plakte: NIET GEMETEN, vragen.
+
+## 🆕 12 nov — Midnight-groepspaneel: stop-spell op het doelwit als je geen purge hebt (Rob: "Optie 1, jouw advies", via sparring)
+
+- Beantwoordt punt 6 van "Open voor 12 nov". Optie 1 = "Purge blijft, en wie geen purge heeft krijgt zijn stop-spell".
+- `PartyTargets.lua`: `GetPlayerStopSpell()` leest `ns.KeybindRoleClassifier[class]` (role "interrupt", mét id, spec in
+  `specs` of geen `specs`, en `IsPlayerSpell`, fails closed; laagste priority). `ns.PartyTargetsTargetHalfSpell()` =
+  purge, anders stop-spell, anders nil. `ApplyDispelAttributes` gebruikt dat voor de rechterhelft (zelfde regels:
+  buiten gevecht, opnieuw na spec-/talentwissel). `/mh glow` zegt welke van de twee en telt de gewapende rechterhelften.
+- Offline test (scratch `stopspell_test.lua`, PartyTargets echt geladen): 7/7 — Prot Paladin → Rebuke 96231, Holy Paladin
+  → niets, Ret zonder Rebuke → niets, Shadow Priest → purge 528 wint, Warlock (pet-kick zonder id) → niets, Warrior →
+  Pummel, Mistweaver → niets. Lua-syntax OK, lint 0 HARD. NIET in het spel gezien.
+- Specs die leeg blijven (AFGELEID uit de KeybindRoles-tabellen): Holy Paladin, Mistweaver, Resto Druid, Preservation
+  Evoker, alle Warlocks (Spell Lock/Axe Toss = pet, geen id). Open keuze voor Rob (via sparring): krijgt zo'n spec iets
+  anders, bv. een stun? Niet gebouwd.
+- Niet gedaan: de spelerstekst (`CMDLIST_PARTYTARGETS`, `SET_PARTYTARGETS_DESC`) noemt de rechtsklik nog steeds niet.
 
 ## 🆕 12 nov — lint [27]: geen commando's die alleen wij gebruiken in de release-tekst (Rob: "Ja, bouw dat", via sparring)
 
