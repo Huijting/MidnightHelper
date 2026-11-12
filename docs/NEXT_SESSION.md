@@ -15,6 +15,26 @@
    Een release alleen op Robs go. CF-plaatjes staan erop (Rob, 11 nov); of hij de nieuwe CF-beschrijving en de
    5.1.0-tekst al plakte: NIET GEMETEN, vragen.
 
+## 🐞 12 nov (laat) — Robs test van "Your characters" (24-27.png): 4 fouten gerepareerd
+
+- Rob (via sparring): *"doet hij alleen maar onthouden wat op dat moment ingelogd is … Geen professions … Al mijn
+  voornamen zijn Ima"*. Keuzevenster: verscheen na een reload. Oranje rand: werkt (27.png); pijltje NIET GEZIEN.
+- 1. Goud 0 / "no professions" bij andere characters. GEMETEN in de SV: alle drie `money = 0`, `profs = {}`. Oorzaak:
+  de foto bij PLAYER_LOGOUT overschreef de echte waarden (het spel geeft dan 0 en geen beroepen). Fix: bij logout alleen
+  `seen`; een lege beroepenlijst wist een bekende alleen na SKILL_LINES_CHANGED. ⚠️ De bestaande lege foto's worden pas
+  goed na één login per character.
+- 2. "Last played" overal "now": de drie `seen` lagen binnen 5 min (GEMETEN 1794515534/675/858) en "now" was < 5 min.
+  Fix: now < 2 min (of het eigen character), daarna "N min ago" tot een uur.
+- 3. Naam "Ima": Forever geeft de achternaam als 2e waarde van UnitName (al bekend sinds 7 nov, archief). Fix: naam +
+  achternaam. Wordt goed na één login per character.
+- 4. "level 7…" afgekapt: de servernaam (22 tekens) stond in dezelfde kolom. Fix: server alleen bij meer dan één server
+  (dan op regel 2), kolom 30 px breder.
+- Vraag 5 (sparring): de level-1 Warrior "Protection" is GEEN lek: `foreverDirection` per GUID, Warrior = band 3 =
+  Protection (GEMETEN in de SV).
+- Vraag 6: keuzevenster-gezien, Do this now-stand en groepspaneel staan account-breed in `MidnightHelperDB`; het
+  toetsenblok per character + spec. Gevolg: het toetsenkaartje komt niet terug op een ander character zonder blok.
+  Keuze bij Rob, niets veranderd.
+
 ## 🛠️ 12 nov (laat) — plan 3: oude rank licht op, op de knop (IDEEEN O24 + O25)
 
 - Rob (via sparring, letterlijk): *"ja bouw oude reank"*; keuzes A1 *"Eigen rustige rand"*, B1 *"Aan"*, C1 *"Elke

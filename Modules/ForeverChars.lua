@@ -75,8 +75,24 @@ local function Snap(why)
 		return
 	end
 	local rec = store[guid] or {}
-	local name = UnitName and UnitName("player")
+	-- At logout only the time: MEASURED in Rob's SavedVariables, 12 Nov 2026, the logout snapshot saved money 0 and an
+	-- empty profession list for all three characters (the game has emptied them by then), over the real values.
+	if why == "logout" then
+		rec.seen = time and time() or rec.seen
+		store[guid] = rec
+		lastSnap, lastWhy = rec.seen, why
+		return
+	end
+	-- Forever names have a surname: UnitName gives it as the 2nd value ("Ima", "Pallie"). Measured 7 Nov 2026 for the
+	-- layout names (NEXT_SESSION_ARCHIVE), and again 12 Nov: three rows all read "Ima".
+	local name, surname = nil, nil
+	if UnitName then
+		name, surname = UnitName("player")
+	end
 	if Readable(name) and name ~= "" and name ~= UNKNOWNOBJECT then
+		if Readable(surname) and type(surname) == "string" and surname ~= "" then
+			name = name .. " " .. surname
+		end
 		rec.name = name
 	end
 	local realm = GetRealmName and GetRealmName()
@@ -105,7 +121,11 @@ local function Snap(why)
 			table.sort(list, function(a, b)
 				return (a.rank or 0) > (b.rank or 0)
 			end)
-			rec.profs = list
+			-- An empty reading does not wipe a known list (right after login the client may not have them yet), unless the
+			-- game just said the skill lines changed (you really dropped a profession).
+			if #list > 0 or not (type(rec.profs) == "table" and #rec.profs > 0) or why == "SKILL_LINES_CHANGED" then
+				rec.profs = list
+			end
 		end
 	end
 	if ns.GetForeverDirection then
@@ -180,8 +200,12 @@ local function SeenText(t)
 		return "-"
 	end
 	local now = time()
-	if math.abs(now - t) < 300 then
+	-- "now" only for the character you are on (set by the caller) or under 2 minutes; then minutes up to an hour.
+	-- 12 Nov: "now" under 5 minutes made three characters Rob switched between all read "now".
+	if now - t < 120 then
 		return ns:L("FCHARS_SEEN_NOW")
+	elseif now - t < 3600 then
+		return ns:L("FCHARS_SEEN_MIN_FMT"):format(math.floor((now - t) / 60))
 	end
 	local today = date and date("*t", now)
 	local then_ = date and date("*t", t)
@@ -241,7 +265,9 @@ local function Sorted()
 end
 
 -- Column x positions inside a row (line 1). Line 2 = professions, across the whole row.
-local COLS = { char = 8, gold = 250, dir = 390, seen = 520, trainer = 630 }
+-- 12 Nov (Rob's 24-26.png): "level 7..." was cut off; the character column got 30 px more, gold 20 less.
+local COLS = { char = 8, gold = 280, dir = 400, seen = 525, trainer = 630 }
+local CHAR_W, GOLD_W, DIR_W, SEEN_W = 266, 110, 120, 100
 
 local function Cell(parent, x, w, font, justify)
 	local fs = parent:CreateFontString(nil, "OVERLAY", font or "GameFontHighlightSmall")
@@ -261,10 +287,10 @@ local function Row(i)
 	r.bg = r:CreateTexture(nil, "BACKGROUND")
 	r.bg:SetAllPoints()
 	r.bg:SetColorTexture(1, 1, 1, (i % 2 == 0) and 0.04 or 0)
-	r.char = Cell(r, COLS.char, 236, "GameFontNormalSmall")
-	r.gold = Cell(r, COLS.gold, 130, nil, "RIGHT")
-	r.dir = Cell(r, COLS.dir, 124)
-	r.seen = Cell(r, COLS.seen, 104)
+	r.char = Cell(r, COLS.char, CHAR_W, "GameFontNormalSmall")
+	r.gold = Cell(r, COLS.gold, GOLD_W, nil, "RIGHT")
+	r.dir = Cell(r, COLS.dir, DIR_W)
+	r.seen = Cell(r, COLS.seen, SEEN_W)
 	r.trainer = Cell(r, COLS.trainer, 70) -- ends before the forget button (row 726 px, button 22 px at the right)
 	r.profs = r:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
 	r.profs:SetPoint("TOPLEFT", COLS.char, -20)
@@ -335,10 +361,10 @@ local function Build()
 		fs.key = key
 		f.heads[#f.heads + 1] = fs
 	end
-	Head("FCHARS_COL_CHAR", COLS.char, 236)
-	Head("FCHARS_COL_GOLD", COLS.gold, 130, "RIGHT")
-	Head("FCHARS_COL_DIR", COLS.dir, 124)
-	Head("FCHARS_COL_SEEN", COLS.seen, 104)
+	Head("FCHARS_COL_CHAR", COLS.char, CHAR_W)
+	Head("FCHARS_COL_GOLD", COLS.gold, GOLD_W, "RIGHT")
+	Head("FCHARS_COL_DIR", COLS.dir, DIR_W)
+	Head("FCHARS_COL_SEEN", COLS.seen, SEEN_W)
 	Head("FCHARS_COL_TRAINER", COLS.trainer, 100)
 
 	local scroll = CreateFrame("ScrollFrame", nil, f, "UIPanelScrollFrameTemplate")
@@ -373,21 +399,27 @@ Refresh = function()
 	end
 	local list, me = Sorted(), MyGUID()
 	local total = 0
+	-- The server name only when your characters are on more than one (Rob's realm name is 22 characters long and pushed
+	-- the level out of the column, 24-26.png). Then it goes on the second line, in front of the professions.
+	local realms, nRealms = {}, 0
+	for _, e in ipairs(list) do
+		if e.rec.realm and not realms[e.rec.realm] then
+			realms[e.rec.realm] = true
+			nRealms = nRealms + 1
+		end
+	end
 	for i, e in ipairs(list) do
 		local rec, r = e.rec, Row(i)
 		r:ClearAllPoints()
 		r:SetPoint("TOPLEFT", 0, -(i - 1) * ROW_H)
 		r:SetWidth(W - 54)
 		local who = ClassColor(rec.class) .. (rec.name or "?") .. "|r"
-		if rec.realm then
-			who = who .. GREY .. " - " .. rec.realm .. "|r"
-		end
 		local lvl = rec.level and ns:L("FCHARS_LEVEL_FMT"):format(rec.level, rec.className or rec.class or "") or ""
 		r.char:SetText(who .. "  " .. lvl)
 		r.gold:SetText(rec.money and Money(rec.money) or "-")
 		total = total + (rec.money or 0)
 		r.dir:SetText(rec.dir or "-")
-		r.seen:SetText(SeenText(rec.seen))
+		r.seen:SetText(e.guid == me and ns:L("FCHARS_SEEN_NOW") or SeenText(rec.seen))
 		if rec.trainerN == nil then
 			r.trainer:SetText("-")
 		elseif rec.trainerN > 0 then
@@ -395,7 +427,11 @@ Refresh = function()
 		else
 			r.trainer:SetText(GREY .. ns:L("FCHARS_TRAINER_NONE") .. "|r")
 		end
-		r.profs:SetText(ProfText(rec))
+		local p = ProfText(rec)
+		if nRealms > 1 and rec.realm then
+			p = rec.realm .. "  ·  " .. p
+		end
+		r.profs:SetText(p)
 		r.forget.guid = e.guid
 		r.forget:SetShown(e.guid ~= me) -- this character comes straight back anyway
 		r:Show()

@@ -5452,6 +5452,7 @@ ns._mhLocales.enUS = {
 	FCHARS_LEVEL_FMT = "level %d %s",
 	FCHARS_NO_PROFS = "no professions",
 	FCHARS_SEEN_NOW = "now",
+	FCHARS_SEEN_MIN_FMT = "%d min ago",
 	FCHARS_SEEN_TODAY = "today",
 	FCHARS_SEEN_YDAY = "yesterday",
 	FCHARS_SEEN_DAYS_FMT = "%d days ago",

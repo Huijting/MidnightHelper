@@ -21,11 +21,20 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🔁 12 nov (laat) — FOREVER: "Your characters" na de reparatie (Robs 24-26.png)
+
+`/reload`, en log daarna op elk character één keer in (de oude, lege foto's worden dan vervangen).
+- [ ] De namen zijn heel: "Ima Pallie", "Ima Shammydude", "Ima Warman" … en daarachter "level 11 Paladin" zonder "…".
+- [ ] Een character waar je níet op zit, toont zijn eigen goud en beroepen; "All your gold together" telt alles op.
+- [ ] "Last played": je eigen character "now", een ander "N min ago", "today", "yesterday" of "N days ago".
+- [ ] De servernaam staat er niet meer bij (al je characters zitten op één server).
+
 ## 🆕 12 nov (laat) — FOREVER: een oude rank licht op, op je knop (Rob, via sparring: "ja bouw oude reank")
 
 Geen nieuw bestand: `/reload` is genoeg.
-- [ ] Een knop op je gewone balken met een lagere rank (bv. Holy Light Rank 1 terwijl je Rank 2 kent) heeft een dunne,
-      zachte oranje rand met een pijltje omhoog rechtsboven.
+- [x] Een knop op je gewone balken met een lagere rank (bv. Holy Light Rank 1 terwijl je Rank 2 kent) heeft een dunne,
+      zachte oranje rand met een pijltje omhoog rechtsboven. ✅ Rob 12 nov (27.png, via sparring): de rand staat er;
+      het pijltje is op het plaatje NIET te zien.
 - [ ] Leer bij de trainer een nieuwe rank → binnen een paar seconden krijgt de knop met de vorige rank een FELLE, dikkere
       rand. Klik "Update bars" (of `/mh ranks fix`) → de rand verdwijnt.
 - [ ] `/mh ranks` → onderaan "edge on the button: on: N button(s) …".

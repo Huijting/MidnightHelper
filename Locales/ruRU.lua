@@ -6690,6 +6690,7 @@ ns._mhLocales.ruRU = {
 	FCHARS_LEVEL_FMT = "уровень %d, %s",
 	FCHARS_NO_PROFS = "нет профессий",
 	FCHARS_SEEN_NOW = "сейчас",
+	FCHARS_SEEN_MIN_FMT = "%d мин. назад",
 	FCHARS_SEEN_TODAY = "сегодня",
 	FCHARS_SEEN_YDAY = "вчера",
 	FCHARS_SEEN_DAYS_FMT = "%d дн. назад",

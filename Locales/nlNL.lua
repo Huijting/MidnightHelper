@@ -4655,6 +4655,7 @@ ns._mhLocales.nlNL = {
 	FCHARS_LEVEL_FMT = "level %d %s",
 	FCHARS_NO_PROFS = "geen beroepen",
 	FCHARS_SEEN_NOW = "nu",
+	FCHARS_SEEN_MIN_FMT = "%d min geleden",
 	FCHARS_SEEN_TODAY = "vandaag",
 	FCHARS_SEEN_YDAY = "gisteren",
 	FCHARS_SEEN_DAYS_FMT = "%d dagen geleden",
