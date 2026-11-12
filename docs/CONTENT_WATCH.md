@@ -4484,3 +4484,112 @@ kop, per bevinding MEASURED/INFERRED en [RAAKT ONS]/[RAAKT ONS NIET], met bestan
   `Modules/ForeverTrainerSpots.lua`, `Modules/ForeverVendorSpots.lua`, `Modules/ForeverMacros.lua`,
   `Modules/ForeverBlock_Shaman.lua`, `docs/forever/FOREVER_MAIN_STATS_2026-11-07.md` (alle vandaag
   bekeken). Geen actiepunt dat ik oppak — ik rapporteer, een mens beslist.
+- [2026-11-12] 💬 **CurseForge: geen open reacties (3 draadjes, zelfde reeks en ids als
+  [2026-11-11]).** `curseforge.com/api/v1/mods/1528577/comments?pageIndex=0&pageSize=20&nocache=20261112a`
+  (en `&nocache=20261112b` als tweede, onafhankelijke fetch) via Exa, beide volledig gelezen (JSON,
+  `pagination.totalCount: 8`). Dezelfde drie draadjes als gisteren, allemaal beantwoord (nieuwste
+  bericht in elke keten van `twelveinchy`): esES/esMX-locale-fix `8509224` → reply `8510682`
+  (timestamp `1791351710373`); MrsBoojiePanda's debug-printregel `8414729` → reply `8483898`
+  (timestamp `1790842459727`); gadrinonturalyon's coffer-key-shards/3D-boss-model-verzoek `8090710`
+  → reply-keten tot `8095337`/`8092133` — alle ids en timestamps byte-identiek aan [2026-11-11].
+  MEASURED. **[RAAKT ONS NIET]** — geen actiepunt, geen concept-antwoord nodig.
+
+  — bron: https://www.curseforge.com/api/v1/mods/1528577/comments?pageIndex=0&pageSize=20&nocache=20261112a
+  (en `&nocache=20261112b`), beide zelf gelezen via Exa.
+
+- [2026-11-12] 🔁 **Geen nieuwe Midnight-hotfixsectie — nieuwste blijft "November 6, 2026", nu de
+  achtste dag; wel een nieuw Forever-hotfixartikel (11 nov), met één echte tegenspraak: onze Priest
+  "Beginner mistakes" zegt dat Confounding Flash niet in Shadowform werkt — Blizzard heeft dat op 11
+  nov juist gerepareerd.**
+
+  **Midnight, geen nieuwe sectie.** MEASURED, zelf gezocht en gelezen (`news.blizzard.com` via
+  WebSearch/Exa, sleutelzin "Hotfixes: November <datum>, 2026"): het nieuwste artikel blijft
+  "Hotfixes: November 6, 2026" (`news.blizzard.com/en-us/article/24307310/hotfixes-november-6-2026`,
+  gepubliceerd 7 nov 01:08 UTC) — al volledig verwerkt op [2026-11-06]/[2026-11-07], geen nieuwe
+  Delves-, Professions-, Quests- of Items-regel. Onafhankelijk bevestigd door `exwind.net/enUS/blue/`
+  (blue-post-aggregator, laatst bijgewerkt 10 nov, toont dezelfde "November 6"-post als nieuwste
+  Midnight-item) en door drie andere wachters die vandaag ditzelfde artikel als nieuwste aanmerken
+  (`docs/PTR_12.0.7_DATA.md` [2026-11-12]: "zevende dag zonder nieuwe Midnight-sectie", bevestigd via
+  `thewowdb.com/hotfixes` en `fullsendwow.com/changes/hotfixes`). **Positieve controle tegen cache,
+  zelfde run:** dezelfde zoekslag leverde zonder moeite het vérse Forever-artikel van vandaag op (zie
+  hieronder) en `docs/API_WATCH.md`/`docs/PTR_12.1_WATCH.md`/`docs/PTR_12.0.7_DATA.md` zagen elk zelf
+  verse, vandaag-gedateerde content op andere bronnen — het systeem mist dus geen activiteit van
+  vandaag, de stilstand op de Midnight-hotfixpagina zelf is een echte meting. **[RAAKT ONS NIET]**
+
+  **Forever: nieuw artikel, één echte tegenspraak.** MEASURED, zelf gelezen op vier onafhankelijke
+  spiegels: `news.blizzard.com/en-us/article/24315281/wow-forever-hotfixes-november-11-2026`
+  (gepubliceerd 12 nov 00:46 UTC), `bluetracker.gg/wow/topic/us-en/24315281-...`,
+  `wowforeverplaybook.com/wow-forever-hotfixes` (herleest Blizzards post, "11 November 2026"-blok) en
+  `seramate.com/news/forever/2026/11/12/forever-hotfixes-tailoring-bags-nov-11-4ad36109` — alle vier
+  woord-voor-woord gelijk. Secties: Classes (Druid Feral/Pounce Bleed, Hunter/Volley, Paladin/
+  Judgement als Ranged Attack, Retribution/Unsealed Fury, Priest/Confounding Flash + Twilight Focus,
+  Shaman/Flametongue Totem Rank 2), Customer Support (Item Restoration uitgeschakeld), Enemies and
+  NPCs (Riverglades: Twilight Enforcer, Executioner Morg, Twilight Forgemaster), Items (Bloody Claws
+  of Attack, Earthen Silk Slippers), Professions/Tailoring (5 lage-levelzakken: materiaal- en
+  slotaanpassing), Quests (Western Plaguelands, Arathi Highlands, Feralas) en World (Shen'dralas-
+  mount-fix).
+
+  🔴 **Tegenspraak (MEASURED):** `Modules/ForeverHowToPlay.lua:273` — Priest, "Beginner mistakes" —
+  zegt: *"Healing in Shadowform. No healing spell works in Shadowform. Fear Ward and the Dwarf and
+  Gnome race spells (Chastise, Confounding Flash) do not work in it either."* De hotfix van 11 nov
+  zegt letterlijk het omgekeerde voor één van die twee spreuken: *"Confounding Flash (Gnome) can now
+  correctly be used while in Shadowform."* Onze bewering was waar tot en met 10 nov en is sinds 11 nov
+  niet meer waar voor Confounding Flash specifiek; voor Chastise zegt de hotfix niets, dus die regel
+  blijft onbevestigd zoals hij was. `Confounding Flash` staat ook als spell-ID bekend
+  (`Modules/ForeverSpellIds.lua:91`, `1277455`), dus dit is onze eigen tekst, niet een losse aanname.
+  **[RAAKT ONS]** — actiepunt voor een mens: de zin op `ForeverHowToPlay.lua:273` aanpassen zodat hij
+  Confounding Flash niet meer bij de "werkt niet in Shadowform"-lijst noemt (Chastise blijft erin
+  staan, tenzij apart bevestigd). Ik verander niets, ik meld het alleen.
+
+  **Nagelopen en geen tegenspraak (MEASURED, met positieve controle in dezelfde zoekslag — dezelfde
+  grep-vorm vindt wél bestaande vermeldingen van bv. "Riverglades" als trainerzone, dus het patroon
+  mist geen vindplaats):**
+  - *"Rend and Tear now works on Pounce Bleed"* (Druid Feral) — de enige "Rend and Tear"-vermelding in
+    onze code is `Modules/KeybindRoles_Druid.lua:194`, en die gaat over **Midnight (retail)**
+    Guardian Druid (spec 104, Thrash), niet over Forever's Feral-talent. Andere game, andere klasse-
+    uitwerking, geen raakvlak.
+  - Hunter *Volley* (proc-/beweegfix) — `Modules/ForeverBlock_Hunter.lua:63` noemt Volley alleen als
+    naam in een keybind-plaatsingslijst (`toBlockD`), geen uitspraak over proc- of kanaliseergedrag.
+  - Paladin *Judgement* als Ranged Attack voor proc-doeleinden — `Modules/ForeverHowToPlay.lua:80`,
+    `Modules/ForeverBlock_Paladin.lua:23`, `Modules/ForeverMacros.lua:454` noemen cooldown, zegel-
+    vereiste en keybind, niets over melee/ranged-classificatie voor procs.
+  - Retribution *Unsealed Fury* + Windfury Totem-interactie — `Modules/ForeverBlock_Shaman.lua:57-62`
+    noemt Windfury Totem alleen als keybind-/totembalk-item, geen uitspraak over welke buffs het
+    triggert.
+  - Shaman *Flametongue Totem Rank 2*-bug — zelfde bestand, zelfde soort vermelding (plaatsingslijst),
+    geen functionele claim.
+  - Priest *Twilight Focus* (Holy-talent, werkt nu in Shadowform) — komt in geen enkel Forever-bestand
+    voor; wij claimen niets over dit talent.
+  - Enemies/NPCs (Twilight Enforcer, Executioner Morg, Twilight Forgemaster, Riverglades) —
+    `Modules/ForeverProfTrainerSpots.lua`/`ForeverVendorSpots.lua` noemen Riverglades alleen als
+    locatie van beroepstrainers/-vendors (bv. regel 77, 78, 104), niet deze vijandige NPC's.
+  - Items (Bloody Claws of Attack, Earthen Silk Slippers) — nergens in de code.
+  - Professions/Tailoring (Red Mageweave Bag, Green/Black Silk Pack, Green/Red Woolen Bag: materiaal-
+    en slotaantal) — `Modules/ForeverReagentData.lua` is itemID-only gegenereerde data (geen namen,
+    zie bestandskop) en bevat geen enkele "bag"/"pouch"/"pack"-naam; er is geen ander Forever-bestand
+    dat bag-recepten met materiaal- of slotaantal claimt.
+  - Quests (Western Plaguelands "Scarlet Diversions", Arathi Highlands "Witherbark Mallet"/"The Giant
+    in the Den", Feralas "Freedom for All Creatures") en World (Shen'dralas-mount-fix) — geen van deze
+    namen komt voor in `Modules/Forever*.lua`, `Locales/*.lua` of `docs/forever/*.md`.
+  **[RAAKT ONS NIET]** voor alle bovenstaande.
+
+  — bron: https://news.blizzard.com/en-us/article/24315281/wow-forever-hotfixes-november-11-2026 ·
+  https://www.bluetracker.gg/wow/topic/us-en/24315281-wow-forever-hotfixes-november-11-2026/ ·
+  https://wowforeverplaybook.com/wow-forever-hotfixes ·
+  https://seramate.com/news/forever/2026/11/12/forever-hotfixes-tailoring-bags-nov-11-4ad36109 ·
+  https://news.blizzard.com/en-us/article/24307310/hotfixes-november-6-2026 ·
+  https://exwind.net/enUS/blue/ · codebase: `Modules/ForeverHowToPlay.lua`,
+  `Modules/ForeverSpellIds.lua`, `Modules/KeybindRoles_Druid.lua`, `Modules/ForeverBlock_Hunter.lua`,
+  `Modules/ForeverBlock_Paladin.lua`, `Modules/ForeverMacros.lua`, `Modules/ForeverBlock_Shaman.lua`,
+  `Modules/ForeverProfTrainerSpots.lua`, `Modules/ForeverVendorSpots.lua`, `Modules/ForeverReagentData.lua`
+  (alle vandaag bekeken). Geen actiepunt dat ik oppak — ik rapporteer, een mens beslist. Vandaag is
+  donderdag, geen maandag: de kaarten- en consumables-secties zijn opzettelijk weggelaten.
+
+- [2026-11-12] 🔁 **De twee open candidates (Iku/Nama → Epu/Nema en de mogelijke Serpent's-Bite
+  drie-naar-twee-tegenspraak) krijgen vandaag geen nieuwe informatie.** MEASURED (meegelezen via
+  `docs/PTR_12.0.7_DATA.md` [2026-11-12], die beide forumdraadjes vandaag zelf herlas): het
+  naamswissel-draadje blijft op 3 reacties (6 nov), geen nieuwe Blizzard-bevestiging; het
+  Serpent's-Bite-punt kreeg geen nieuwe hotfix-regel (Midnight bleef immers stil vandaag, zie hierboven).
+  Geen van beide bestanden (`Locales/RaidTips.lua`, `Locales/ruRU.lua`) is sinds [2026-11-09] gewijzigd.
+  Beide blijven ongewijzigd wachten op een in-game check door Rob of Cisca. **[RAAKT ONS NIET]** —
+  geen actiepunt vandaag.
