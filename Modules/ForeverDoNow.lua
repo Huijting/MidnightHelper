@@ -89,9 +89,25 @@ local function Collect()
 		out.now[#out.now + 1] = ns:L("FRANK_HOME_FMT"):format(nRank)
 		out.actions.ranks = true
 	end
-	local nWeap = ns.ForeverWeaponsLearnableCount and ns.ForeverWeaponsLearnableCount() or 0
-	if nWeap > 0 then
-		out.now[#out.now + 1] = ns:L("FWEAP_HOME_FMT"):format(nWeap)
+	-- 12 Nov 2026 (Rob via sparring: "Ja, alle drie"): one/more as two sentences, and with a direction how many fit
+	-- (the same player-guide fit as the green + in /mh weapons). The start page keeps its own FWEAP_HOME_FMT line.
+	local learn = ns.ForeverWeaponsLearnable and ns.ForeverWeaponsLearnable() or {}
+	if #learn > 0 then
+		local s = (#learn == 1) and ns:L("FDONOW_WEAP_ONE") or ns:L("FDONOW_WEAP_MANY_FMT"):format(#learn)
+		local _, tree, fit = nil, nil, nil
+		if ns.ForeverDirectionWeaponFit then
+			_, tree, fit = ns.ForeverDirectionWeaponFit()
+		end
+		if tree and fit then
+			local n = 0
+			for _, k in ipairs(learn) do
+				if fit[k] then
+					n = n + 1
+				end
+			end
+			s = s .. " " .. ns:L("FDONOW_WEAP_FIT_FMT"):format(tree, n)
+		end
+		out.now[#out.now + 1] = s
 		out.actions.weapons = true
 	end
 	if ns.GetForeverMissingBuffs and ns.MissingBuffSentence then
@@ -121,6 +137,14 @@ local function Collect()
 				levels[#levels + 1] = e.l
 			end
 			local nm = SpellName(e.id)
+			-- 12 Nov 2026 (Rob via sparring: "Ja, alle drie"): a spell you already know comes as a stronger rank, so say
+			-- which one ("Rank 2", the client's own subtext, as the trainer window shows it). A new spell gets no rank.
+			if ns.ForeverKnownSpell and e.n and ns.ForeverKnownSpell(e.n) and C_Spell and C_Spell.GetSpellSubtext then
+				local okR, rank = pcall(C_Spell.GetSpellSubtext, e.id)
+				if okR and type(rank) == "string" and rank ~= "" and not (issecretvalue and issecretvalue(rank)) then
+					nm = nm .. " (" .. rank .. ")"
+				end
+			end
 			local dup = false
 			for _, x in ipairs(byLevel[e.l]) do
 				if x == nm then
@@ -277,7 +301,7 @@ local function Render(info)
 	f.title:SetText(ns:L("FDONOW_TITLE"))
 	local lines = {}
 	if #info.now > 0 then
-		lines[#lines + 1] = HEAD .. ns:L("FDONOW_HEAD_NOW") .. "|r"
+		-- No "Do this now" heading under the "Do this now" title (Rob via sparring: "Ja, alle drie").
 		for _, s in ipairs(info.now) do
 			lines[#lines + 1] = "- " .. s
 		end

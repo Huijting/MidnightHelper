@@ -207,7 +207,9 @@ lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met d
                  *"Alleen als er iets is (Recommended)"*, een schakelaar zet het op "altijd". **Geen bouw-go.**
                  **Bouw-ja 12 nov** (via sparring, letterlijk: *"Venster 'Doe dit nu'"*). **Gebouwd 12 nov:**
                  `Modules/ForeverDoNow.lua`, `/mh donow` (+ `check`, `auto|always|off`), instelling. Alleen bestaande
-                 onderdelen, geen nieuwe meting; met richting de eerstvolgende talent-spell. Niet in het spel gezien.
+                 onderdelen, geen nieuwe meting; met richting de eerstvolgende talent-spell. ✅ Rob: "Het venster staat
+                 er, werkt" (21.png). Daarna "Ja, alle drie" (geen dubbele kop, rank erbij, nette wapenzin) en over de
+                 standaard: *"Laat zo, in een gevecht weg en rechtsboven"*.
 
 ### Eén schakelaar "Verplaatsen" voor alle MH-onderdelen op het scherm
 - Voor wie:      allebei

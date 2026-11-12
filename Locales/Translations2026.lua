@@ -23923,3 +23923,31 @@ if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	CMDLIST_DONOW = "WoW Forever: mostrar ou ocultar a janela \"Faça isto agora\". /mh donow check diz por que ela aparece ou não.",
 	MOVE_EL_DONOW = "faça isto agora",
 }) end
+
+-- 12 Nov 2026: Do this now weapon lines; our own translation (mh-writer), not native-checked.
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
+	FDONOW_WEAP_ONE = "Du kannst jetzt 1 neue Waffe lernen.",
+	FDONOW_WEAP_MANY_FMT = "Du kannst jetzt %d neue Waffen lernen.",
+	FDONOW_WEAP_FIT_FMT = "(passend zu %s, laut Spieler-Guides: %d)",
+}) end
+
+-- 12 Nov 2026: Do this now weapon lines; our own translation (mh-writer), not native-checked.
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
+	FDONOW_WEAP_ONE = "Tu peux apprendre 1 nouvelle arme maintenant.",
+	FDONOW_WEAP_MANY_FMT = "Tu peux apprendre %d nouvelles armes maintenant.",
+	FDONOW_WEAP_FIT_FMT = "(pour %s, d'après les guides de joueurs : %d)",
+}) end
+
+-- 12 Nov 2026: Do this now weapon lines; our own translation (mh-writer), not native-checked.
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
+	FDONOW_WEAP_ONE = "Puedes aprender 1 arma nueva ahora.",
+	FDONOW_WEAP_MANY_FMT = "Puedes aprender %d armas nuevas ahora.",
+	FDONOW_WEAP_FIT_FMT = "(para %s, según las guías de jugadores: %d)",
+}) end
+
+-- 12 Nov 2026: Do this now weapon lines; our own translation (mh-writer), not native-checked.
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
+	FDONOW_WEAP_ONE = "Você pode aprender 1 arma nova agora.",
+	FDONOW_WEAP_MANY_FMT = "Você pode aprender %d armas novas agora.",
+	FDONOW_WEAP_FIT_FMT = "(para %s, segundo guias de jogadores: %d)",
+}) end

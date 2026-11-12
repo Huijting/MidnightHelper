@@ -70,6 +70,9 @@ Eerst `/reload` op je Protection-paladin (een paar seconden wachten).
 - [ ] Knoppen onderaan alleen als het past: "Show the way" (naar je trainer), de ranks-knop, "Weapon trainers".
       ❌ 21.png: "Weapon trainers" stak buiten de knop uit. Gerepareerd: elke knop zo breed als zijn tekst, en een
       nieuwe rij als ze niet naast elkaar passen. Opnieuw kijken.
+- [ ] Nieuw 12 nov (Rob: "Ja, alle drie"): (1) geen tweede "Do this now" meer onder de titel; (2) bij een spell die je al
+      hebt staat de rank erbij, bv. "Level 12: Blessing of Might (Rank 2), Holy Strike"; (3) "You can learn 2 new weapon
+      skills now. (fitting Protection, according to player guides: 1)". De startpagina zegt nog steeds de oude zin.
 - [ ] Niets te doen → het venster is weg (standaard). In Options → AddOns → Midnight Helper → "\"Do this now\" window" op
       "always" → het blijft staan en zegt "All caught up". "off" → nooit.
 - [ ] Begint een gevecht → het venster gaat weg; na het gevecht komt het terug.

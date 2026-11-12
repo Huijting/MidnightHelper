@@ -195,20 +195,26 @@ local function MyWeapons()
 	return out
 end
 
---- How many weapons you could learn right now (level reached, not known yet, a trainer on your side teaches it).
-function ns.ForeverWeaponsLearnableCount()
-	local side, lvl, n = Side(), UnitLevel and UnitLevel("player") or 1, 0
+--- The weapon keys you could learn right now (level reached, not known yet, a trainer on your side teaches it).
+--- 12 Nov 2026: a list, so "Do this now" can say how many fit your direction.
+function ns.ForeverWeaponsLearnable()
+	local side, lvl, out = Side(), UnitLevel and UnitLevel("player") or 1, {}
 	for _, e in ipairs(MyWeapons()) do
 		if not e.known and lvl >= (e.w.level or 1) then
 			for _, t in ipairs(TRAINERS) do
 				if t.side == side and Teaches(t, e.w.spell) then
-					n = n + 1
+					out[#out + 1] = e.w.key
 					break
 				end
 			end
 		end
 	end
-	return n
+	return out
+end
+
+--- How many weapons you could learn right now (the start page uses this).
+function ns.ForeverWeaponsLearnableCount()
+	return #ns.ForeverWeaponsLearnable()
 end
 
 --- The way to a trainer's city when you are not there yet, or nil. sameCont: you are on the city's continent.

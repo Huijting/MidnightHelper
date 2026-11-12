@@ -33,10 +33,14 @@
 - Offline (scratch `donow_test.lua`): 4 punten "doe nu", 3 regels "komt eraan", de standen wisselen goed. luac schoon, lint 0 HARD. Niet in het spel gezien.
 - ✅ Rob: "Het venster staat er, werkt" (21.png). ❌ De knop "Weapon trainers" was te smal (vaste 90 px). Gerepareerd:
   breedte uit de tekst, nieuwe rij als het niet past.
-- Open vragen van sparring (niets bouwen zonder Robs ja):
-  - dubbele titel/kop "Do this now";
-  - de rank bij hogere ranks (de trainer leest hem al met `C_Spell.GetSpellSubtext`, `RankText`);
-  - "weapon(s)" en dat de wapentelling niet naar je richting kijkt.
+- ✅ Rob (via sparring, letterlijk): *"Ja, alle drie"*. Gebouwd:
+  - geen kop "Do this now" onder de titel;
+  - "(Rank N)" achter een spell die je al kent (`ForeverKnownSpell` + `C_Spell.GetSpellSubtext`);
+  - wapenzin enkel/meervoud (`FDONOW_WEAP_*`) + "(fitting <richting>, according to player guides: n)" via nieuw
+    `ns.ForeverWeaponsLearnable` (lijst) en `ForeverDirectionWeaponFit`.
+  - De startpagina houdt bewust haar eigen FWEAP_HOME_FMT-zin (niet breder dan gevraagd).
+  - `FDONOW_HEAD_NOW` wordt niet meer gebruikt (blijft in de packs staan, onschadelijk).
+- Rob over mijn twee keuzes, letterlijk: *"Laat zo, in een gevecht weg en rechtsboven"*.
 
 ## 🛠️ 12 nov (avond) — "Welke kant?" stap 1 + 2: blok in How you play, + in /mh weapons
 
