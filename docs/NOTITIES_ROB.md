@@ -13,5 +13,5 @@ uitgewerkt: dit zijn Robs eigen woorden, kort opgeschreven. Nieuwste bovenaan.
   programmaatje dat ze bekijkt en er nuttige dingen voor ons uit haalt.
 
 Ook die dag bekeken, zie het gesprek: de addons Keep or Toss: Forever en Glowing Bars (beide alleen WoW Forever).
-Advies was: niet nabouwen, wel een paar ideeën overnemen. Nog niet in `docs/IDEEEN.md` gezet; Rob heeft daar nog geen
-ja op gezegd.
+Advies was: niet nabouwen, wel een paar ideeën overnemen. Keep or Toss: de twee ideeën staan als O22 en O23 in
+`docs/IDEEEN.md` (Rob, 12 nov). Glowing Bars: nog niet in `docs/IDEEEN.md` gezet; Rob heeft daar nog geen ja op gezegd.
