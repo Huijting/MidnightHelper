@@ -429,6 +429,12 @@ function ns.ForeverVendorItemName(key)
 	return c and CatName(c) or nil
 end
 
+--- The tool's item id (for waiting until the client has its name), or nil.
+function ns.ForeverVendorItemId(key)
+	local c = CAT_BY_KEY[key]
+	return c and c.item or nil
+end
+
 --- 12 Nov 2026, for "Do this now" (ForeverDoNow.lua): your professions whose tool you do not carry.
 --- Each: { key = "skinning", prof = profession name as the client shows it, tool = item name }.
 function ns.ForeverMissingTools()

@@ -227,6 +227,33 @@ Fill = function()
 	local above = f.sub -- what the list hangs under
 	if card then
 		f.card:SetText(card)
+		-- Rob's screenshot, 12 Nov 2026: "Tool: (loading...)." for Fishing. The item name was not cached yet when the
+		-- card was drawn, and nothing drew it again. Same cure as the vendor tip (ForeverVendors.lua, 10 + 11 Nov):
+		-- ask the client to tell us when the item has loaded, and also look again every half second for 5 seconds.
+		if toolKey and card:find(ns:L("FVEND_ITEM_LOADING"), 1, true) then
+			local id = ns.ForeverVendorItemId and ns.ForeverVendorItemId(toolKey)
+			if id and Item and Item.CreateFromItemID and f._waitItem ~= id then
+				f._waitItem = id
+				pcall(function()
+					Item:CreateFromItemID(id):ContinueOnItemLoad(function()
+						f._waitItem = nil
+						if f:IsShown() then
+							Fill()
+						end
+					end)
+				end)
+			end
+			if C_Timer and C_Timer.After and (f._retries or 0) < 10 then
+				f._retries = (f._retries or 0) + 1
+				C_Timer.After(0.5, function()
+					if f:IsShown() then
+						Fill()
+					end
+				end)
+			end
+		else
+			f._retries = 0
+		end
 		f.card:Show()
 		above = f.card
 		if toolKey then

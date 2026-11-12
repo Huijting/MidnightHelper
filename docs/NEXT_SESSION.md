@@ -58,6 +58,9 @@
 - `ForeverDoNow.lua`: "You can still learn 1/2 main profession(s)" + knop. Een tip, telt NIET mee voor het vanzelf
   openen (anders blijft het venster bij elk nieuw character open).
 - Offline (scratch `profcard_test.lua`): 12/12 kaartjes zonder ontbrekende tekst; telling: gelijk → 1, oneens → nil.
+- ❌→✅ Rob (screenshot, via sparring): "Tool: (loading...)." bij Fishing. `ForeverProfTrainers.lua` Fill wacht nu op de
+  naam: `Item:ContinueOnItemLoad` + 10× herkijken per 0,5 s (de les van de verkopers-tip). Nieuw `ns.ForeverVendorItemId`.
+  De half afgesneden onderste trainerrij = de onderrand van het scrollvak (dat hangt al onder het kaartje), geen fout.
   Lint 0 HARD.
 
 ## 🛠️ 12 nov (avond) — Forever: venster "Doe dit nu" (Rob via sparring, letterlijk: "Venster 'Doe dit nu'")

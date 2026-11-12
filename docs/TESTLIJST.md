@@ -74,7 +74,10 @@ Eerst `/reload`.
       het doet, "Main profession: you may have 2. You have N now.", "Tool: Skinning Knife." met een knop "Where to buy",
       "Player guides pair it with Leatherworking.", de rangen (75/150/225/300, volgende vanaf 50/125/200), jouw skill, en
       het level per rang volgens spelersgidsen. Onderaan grijs: de titel van een trainer noemt één rang hoger.
-- [ ] Kies Cooking, First Aid of Fishing → "Secondary profession…" en "Trainers teach this up to skill 150 …".
+- [x] Kies Cooking, First Aid of Fishing → "Secondary profession…" en "Trainers teach this up to skill 150 …".
+      ✅ Rob, 12 nov (via sparring, screenshot): kaartje staat er en leest goed. ❌ "Tool: (loading...)." bij Fishing.
+      Gerepareerd: het kaartje wacht nu op de naam (zoals de verkopers-tip). Opnieuw kijken: binnen een paar seconden
+      "Tool: Fishing Pole.". (De half zichtbare onderste trainer is de rand van het scrollvak: scroll verder.)
 - [ ] "Where to buy" → de verkoperslijst opent op dat gereedschap.
 - [ ] De lijst met trainers staat netjes onder het kaartje (niet eroverheen).
 - [ ] Heb je minder dan 2 hoofdberoepen en staat "Do this now" open: "You can still learn 1 main profession." met een
