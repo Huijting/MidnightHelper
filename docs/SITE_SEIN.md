@@ -28,6 +28,17 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 12 nov 2026 — Forever: uitleg per beroep
+- Tag + commit:   geen tag / (deze commit)
+- Status:         alleen op main
+- Mag op de site: nee (nog niet uit)
+- Speler ziet:    In "Profession trainers" staat boven de trainers een kaartje per beroep: wat het doet, hoofd- of bijberoep,
+                  gereedschap met "Where to buy", waar spelersgidsen het bij zetten, en de rangen. "Do this now" zegt of
+                  je nog een hoofdberoep kunt leren. Niet in het spel gezien.
+- Knoplabels:     FPROFG_BUY, FPROF_TITLE
+- Commando's:     /mh trainers
+- Spel:           Forever
+
 ## 12 nov 2026 — Forever: venster "Do this now"
 - Tag + commit:   geen tag / (deze commit)
 - Status:         alleen op main

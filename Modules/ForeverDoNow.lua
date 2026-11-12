@@ -77,7 +77,17 @@ end
 --- What the window would say. @return { now = {lines}, actions = {kind = true}, soon = {lines} }
 local function Collect()
 	local level = UnitLevel and UnitLevel("player") or 1
-	local out = { now = {}, actions = {}, soon = {} }
+	local out = { now = {}, actions = {}, soon = {}, tips = {} }
+	-- 12 Nov 2026 (O26, Rob via sparring: "A, eerst klein"): room for a main profession. Only when both readings of
+	-- ns.ForeverPrimaryCount agree. A tip, not a to-do: it does NOT make the window appear by itself (most new
+	-- characters have room, and a window that never goes away is noise); it shows when the window is up anyway.
+	if ns.ForeverPrimaryCount then
+		local okP, n = pcall(ns.ForeverPrimaryCount)
+		if okP and type(n) == "number" and n < 2 then
+			out.tips[#out.tips + 1] = (n == 1) and ns:L("FDONOW_PROF_ONE") or ns:L("FDONOW_PROF_TWO")
+			out.actions.profs = true
+		end
+	end
 	-- Do this now
 	local r = ns.ForeverTrainerCompute and ns.ForeverTrainerCompute(level)
 	if r and #r.now > 0 then
@@ -291,6 +301,11 @@ local function Build()
 			ns.ShowForeverWeapons()
 		end
 	end)
+	f.btnProfs = Btn(f, 10, function()
+		if ns.ShowForeverProfTrainers then
+			ns.ShowForeverProfTrainers()
+		end
+	end)
 	f:Hide()
 	win = f
 	return f
@@ -308,6 +323,9 @@ local function Render(info)
 	else
 		lines[#lines + 1] = GOOD .. ns:L("FDONOW_HEAD_DONE") .. "|r"
 	end
+	for _, s in ipairs(info.tips or {}) do
+		lines[#lines + 1] = "- " .. s
+	end
 	lines[#lines + 1] = " "
 	lines[#lines + 1] = HEAD .. ns:L("FDONOW_HEAD_SOON") .. "|r"
 	for _, s in ipairs(info.soon) do
@@ -317,11 +335,12 @@ local function Render(info)
 	f.btnTrainer:SetText(ns:L("HOME_FOREVER_BTN_GO"))
 	f.btnRanks:SetText(ns:L("FRANK_HOME_BTN"))
 	f.btnWeapons:SetText(ns:L("FWEAP_TITLE"))
+	f.btnProfs:SetText(ns:L("FPROF_TITLE"))
 	-- Buttons only for what is on the list; they close up from the left. Each as wide as its own text (Rob's 21.png,
 	-- 12 Nov 2026: "Weapon trainers" stuck out of a fixed 90 px button), and a new row when the next one does not fit.
 	local shown = {}
 	for _, pair in ipairs({ { f.btnTrainer, info.actions.trainer }, { f.btnRanks, info.actions.ranks },
-		{ f.btnWeapons, info.actions.weapons } }) do
+		{ f.btnWeapons, info.actions.weapons }, { f.btnProfs, info.actions.profs } }) do
 		local b, on = pair[1], pair[2]
 		if on then
 			local fs = b:GetFontString()

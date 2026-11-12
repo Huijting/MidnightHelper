@@ -423,6 +423,12 @@ local function HasTool(c)
 	return false
 end
 
+--- 12 Nov 2026, for the profession card (ForeverProfGuide.lua): the client's name of a category's tool, or nil.
+function ns.ForeverVendorItemName(key)
+	local c = CAT_BY_KEY[key]
+	return c and CatName(c) or nil
+end
+
 --- 12 Nov 2026, for "Do this now" (ForeverDoNow.lua): your professions whose tool you do not carry.
 --- Each: { key = "skinning", prof = profession name as the client shows it, tool = item name }.
 function ns.ForeverMissingTools()

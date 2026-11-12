@@ -16,7 +16,7 @@ if not ns.IS_FOREVER then
 	return
 end
 
-local W, H = 660, 480
+local W, H = 660, 560 -- 12 Nov 2026: taller, for the profession card (ForeverProfGuide.lua)
 local LEFT_W = 170
 local ROW_H = 36
 local win
@@ -93,6 +93,22 @@ local function Build()
 	f.sub:SetPoint("TOPLEFT", f.head, "BOTTOMLEFT", 0, -4)
 	f.sub:SetPoint("RIGHT", f, "RIGHT", -24, 0)
 	f.sub:SetJustifyH("LEFT")
+	-- 12 Nov 2026 (Rob via sparring: "A, eerst klein"): a card about the chosen profession, above the trainers.
+	f.card = f:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	f.card:SetPoint("TOPLEFT", f.sub, "BOTTOMLEFT", 0, -8)
+	f.card:SetPoint("RIGHT", f, "RIGHT", -24, 0)
+	f.card:SetJustifyH("LEFT")
+	f.card:SetSpacing(2)
+	f.buy = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
+	f.buy:SetHeight(20)
+	f.buy:SetPoint("TOPLEFT", f.card, "BOTTOMLEFT", 0, -4)
+	f.buy:SetScript("OnClick", function(self)
+		if self.key and ns.ShowForeverVendors then
+			ns.ShowForeverVendors(self.key)
+		end
+	end)
+	f.buy:Hide()
+	f.rx = rx
 	local scroll = CreateFrame("ScrollFrame", nil, f, "UIPanelScrollFrameTemplate")
 	scroll:SetPoint("TOPLEFT", rx, -94)
 	scroll:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -40, 44)
@@ -203,6 +219,34 @@ Fill = function()
 		sub = sub .. "  " .. ns:L("FPROF_NOPOS")
 	end
 	f.sub:SetText(sub)
+	-- The card, then the list below it.
+	local card, toolKey = nil, nil
+	if ns.ForeverProfCard then
+		card, toolKey = ns.ForeverProfCard(selected)
+	end
+	local above = f.sub -- what the list hangs under
+	if card then
+		f.card:SetText(card)
+		f.card:Show()
+		above = f.card
+		if toolKey then
+			f.buy:SetText(ns:L("FPROFG_BUY"))
+			local fs = f.buy:GetFontString()
+			f.buy:SetWidth(math.ceil(((fs and fs:GetStringWidth()) or 100) + 24))
+			f.buy.key = toolKey
+			f.buy:Show()
+			above = f.buy
+		else
+			f.buy:Hide()
+		end
+	else
+		f.card:SetText("")
+		f.card:Hide()
+		f.buy:Hide()
+	end
+	f.scroll:ClearAllPoints()
+	f.scroll:SetPoint("TOPLEFT", above, "BOTTOMLEFT", 0, -10)
+	f.scroll:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -40, 44)
 	local y = 0
 	for i, e in ipairs(list) do
 		local r = Row(f, i)

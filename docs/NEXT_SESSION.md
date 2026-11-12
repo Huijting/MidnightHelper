@@ -15,6 +15,24 @@
    Een release alleen op Robs go. CF-plaatjes staan erop (Rob, 11 nov); of hij de nieuwe CF-beschrijving en de
    5.1.0-tekst al plakte: NIET GEMETEN, vragen.
 
+## 🛠️ 12 nov (avond) — Forever: uitleg per beroep, versie A (O26; Rob via sparring, letterlijk: "A, eerst klein")
+
+- Nieuw `Modules/ForeverProfGuide.lua` (beide tocs): `ns.ForeverProfCard(key)` en `ns.ForeverPrimaryCount()`.
+  Bron: `docs/forever/BEROEPEN_2026-11-12.md`.
+- GEMETEN, stellig: wat het doet, hoofd/bij, gereedschap (alleen hammer/mining/skinning/fishing, naam uit de client via
+  nieuw `ns.ForeverVendorItemName`), rangen 75/150/225/300 en 50/125/200, jouw skill.
+- Gids, met "according to player guides": "pairs with", level per rang (10/20/35), "na 150: boek, dan quest". "Tot 150"
+  zelf ook uit MH-data.
+- Weggelaten (AFGELEID / niet gemeten / versie B): kosten, Fishing-rangen, gereedschap bij Leatherworking en First Aid,
+  gereedschapsnamen Enchanting/Engineering (alleen "sommige recepten vragen gereedschap"), het kampvuur bij Cooking.
+- Telling hoofdberoepen: (1) `GetProfessions` slot 1+2, (2) de herkende hoofdberoepen uit `ForeverMyProfessions`.
+  Alleen als ze gelijk zijn, anders zwijgt MH. Slot-volgorde in Forever AFGELEID.
+- `ForeverProfTrainers.lua`: kaartje + knop "Where to buy" boven de lijst (lijst hangt eronder), venster 560 hoog.
+- `ForeverDoNow.lua`: "You can still learn 1/2 main profession(s)" + knop. Een tip, telt NIET mee voor het vanzelf
+  openen (anders blijft het venster bij elk nieuw character open).
+- Offline (scratch `profcard_test.lua`): 12/12 kaartjes zonder ontbrekende tekst; telling: gelijk → 1, oneens → nil.
+  Lint 0 HARD.
+
 ## 🛠️ 12 nov (avond) — Forever: venster "Doe dit nu" (Rob via sparring, letterlijk: "Venster 'Doe dit nu'")
 
 - `Modules/ForeverDoNow.lua` (beide tocs; returnt op retail). Elke regel rust op iets bestaands:
