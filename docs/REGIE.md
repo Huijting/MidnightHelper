@@ -10,11 +10,11 @@ leest dit eerst en werkt het aan het eind bij. Plan: `docs/PLAN_WERKWIJZE_2026-1
 
 ## 0. Laatste verslag
 
-- [2026-11-11] 🎬 **Regie** (cloud-ronde, avond) — Raakt Rob: `docs/NEXT_SESSION.md` is 1528 regels, 28 over de grens van 1500 (splitsen vóór er iets bij komt).
-  Af herkend: Zygor-wachter (Rob ja; `174a79e`, `tools/zygor_watch.py`), `/mh selftest` + vensterlijst C5 (`c9d3e66`; Rob: schoon, 1093 gecontroleerd, `41675dd`),
-  release 5.1.0 (tag `v5.1.0`, `.toc` 5.1.0, SITE_SEIN "staat op CurseForge"). Alle zes wachters hebben een regel van vandaag; nul `[MOET GEFIKST]` in de vandaag-regels.
-  Scheef: `CLAUDE.md` 311 regels (was 540), site-overdracht 83 regels (was 1798). Site-repo laatst gepusht 11 nov 20:42 (vers); 0 open vragen. Wacht op Rob: 4 punten.
-  Niet gelezen: de pc, CurseForge, mail.
+- [2026-11-12] 🎬 **Regie** (cloud-ronde, ochtend) — Raakt Rob: `docs/NEXT_SESSION.md` is nu 1588 regels (gisteren 1528; grens 1500): er kwamen 60 regels bij zonder eerst te splitsen.
+  Scheef (NIEUW): Forever-tekst `Modules/ForeverHowToPlay.lua:273` zegt dat Confounding Flash niet werkt in Shadowform; de hotfix van 11 nov zegt het omgekeerde (content-wachter, [RAAKT ONS]; regel staat er nog).
+  Af herkend: de eerdere regel "splitsen" is nog open (niet af); wél af: "Used for"-tooltip (`1a924fe`, Rob: "Ja, af") en CurseForge-plaatjes (`5df47f9`). `/mh partytest` (`53341fa`) heeft geen regel in SITE_SEIN (grep 0; controle "Used for" vindt wel).
+  Wachters: alle zes hebben een regel van vandaag (ideeënbus: eerste run zo 15 nov); API-wachter: 0 [MOET GEFIKST]. Tag `v5.1.0` = `.toc` 5.1.0. Site-repo laatst gepusht 11 nov 23:18 (~9 uur oud); `BOUW_VRAAG.md`: 0 open. Wacht op Rob: 4 punten.
+  Niet gelezen: de pc (lokale commits, helpers, recepten), CurseForge, mail.
 
 De regisseur vervangt dit blok elke ronde door het nieuwe verslag. Eén verslag, niet een logboek: de vorige staat in git.
 
@@ -76,7 +76,7 @@ sinds 11 nov **`regisseur`** (`/regisseur` of "doe de regie-ronde"; doet hoofdst
 | 2 | Prikbord en drie vaste woorden | ✅ af (`docs/SITE_SEIN.md`) |
 | 3 | Controles C1, C3, C5 | C1 en C3 ✅ in de lint. C5 ✅ gebouwd (`c9d3e66`, in `/mh selftest`). |
 | 4 | Controles C2 en C4 | ✅ gebouwd (`tools/data_check.py`). C4: 65 → 3 namen over (commit `f08366b`, Robs ja). |
-| 5 | Nachtcontrole en ideeënbus | ✅ draaien. Nachtcontrole 11 nov: C1 en C2 schoon. Ideeënbus: nog geen run (eerste zo 15 nov). |
+| 5 | Nachtcontrole en ideeënbus | ✅ draaien. Nachtcontrole 12 nov: C1 en C2 schoon. Ideeënbus: nog geen run (eerste zo 15 nov). |
 | 5b | **De regisseur** (deel 8) | ✅ gebouwd 11 nov (`f34b15f`): routine en recept. Proefrun `c24bbe4` vond de drie testpunten. |
 | 6 | Recepten | niet begonnen |
 | 7 | `/mh selftest` + vensterlijst | ✅ gebouwd (`c9d3e66`); Robs selftest in Midnight schoon (`41675dd`). Forever-kant niet gemeten. |
@@ -94,10 +94,12 @@ sinds 11 nov **`regisseur`** (`/regisseur` of "doe de regie-ronde"; doet hoofdst
 
 | wat | gemeten | wie moet iets doen |
 |---|---|---|
-| `docs/NEXT_SESSION.md` is **1528 regels**, grens 1500 | 11 nov, GEMETEN met `wc -l` | bouwchat: splitsen (`split_handoff --resplit`) vóór je er iets aan toevoegt |
-| `CLAUDE.md` is 311 regels (was 540 eerder die dag), geen grens | 11 nov, GEMETEN | niemand; daalde, blijf meten |
-| Overdrachtsbriefje site (`drafts/SITE_HANDOFF.md`) is 83 regels (was 1798); site-`CLAUDE.md` noemt grens 200 | 11 nov, GEMETEN op `main` van de site-repo | niemand |
-| **Blinde vlek:** de site-chat pusht alleen met Robs ja; de cloud ziet de site-repo zoals bij de laatste push (nu: 11 nov 20:42, vers). `drafts/BOUW_VRAAG.md` staat er nu (31 regels, 0 open vragen). Wat lokaal nog niet gepusht is, zie ik niet. | 11 nov, GEMETEN op `origin/main` van de site-repo | niemand; alleen het pc-recept ziet lokale commits |
+| `docs/NEXT_SESSION.md` is **1588 regels**, grens 1500 (gisteren 1528) | 12 nov, GEMETEN met `wc -l` | bouwchat: splitsen (`split_handoff --resplit`) vóór je er iets aan toevoegt |
+| Forever-tekst `ForeverHowToPlay.lua:273` zegt dat Confounding Flash niet werkt in Shadowform; hotfix 11 nov zegt dat het nu wél werkt (Chastise blijft onbevestigd) | 12 nov, GEMETEN: regel staat nog in de code; hotfix door content-wachter gelezen | bouwchat: zin aanpassen (Rob beslist) |
+| `/mh partytest` (Forever, `53341fa`) staat niet in `docs/SITE_SEIN.md` | 12 nov, GEMETEN met grep (0 treffers) | bouwchat: regel erbij of zeggen dat het een meetknop is zonder spelerswaarde |
+| `CLAUDE.md` is 311 regels, ongewijzigd sinds gisteren, geen grens | 12 nov, GEMETEN | niemand; blijf meten |
+| Overdrachtsbriefje site (`drafts/SITE_HANDOFF.md`) is 101 regels (gisteren 83); site-`CLAUDE.md` noemt grens 200 | 12 nov, GEMETEN op `main` van de site-repo | niemand |
+| **Blinde vlek:** de site-chat pusht alleen met Robs ja; de cloud ziet de site-repo zoals bij de laatste push (nu: 11 nov 23:18). `drafts/BOUW_VRAAG.md` (31 regels, 0 open vragen). Wat lokaal nog niet gepusht is, zie ik niet. | 12 nov, GEMETEN op `origin/main` van de site-repo | niemand; alleen het pc-recept ziet lokale commits |
 | Geen vaste controle op de handgeschreven site-teksten | 10 nov, volgens de site-chat | voorstel ligt bij Rob |
 
 ## 6. De ronde — wat de regisseur elke keer doet
