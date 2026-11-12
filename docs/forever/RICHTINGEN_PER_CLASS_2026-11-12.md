@@ -301,6 +301,7 @@ De wapenlijst per class komt uit Blizzards eigen tabel. [GEMETEN: DB2 `SkillRace
 - Totems krijg je via quests: Earth op 4, Fire op 10, Water op 20, Air op 30. [GEMETEN: `ForeverHowToPlay.lua:285`]
 - Water Shield op 20. Stormstrike (Enhancement) en Mana Tide Totem op 25. Nature's Swiftness op 30. Lightning Mastery (Elemental), Rage of the Farseer (Enhancement) en Riptide (Restoration) op 40. [GEMETEN: `ForeverHowToPlay.lua:311`; `ForeverMacros.lua:468-489`; levels AFGELEID]
 - ⚠️ Stormstrike staat op 25 in `ForeverHowToPlay.lua:311` en op 40 in `ForeverMacros.lua:476`. Dat spreekt elkaar tegen. [GEMETEN: beide regels; welke klopt is NIET GEMETEN]
+  ✅ **Opgelost 12 nov (bouwchat):** 25 klopt. [GEMETEN: DB2 wowf 70888, TraitCond 42798 SpentAmountRequired 15 → 16e punt = level 25]. `ForeverMacros.lua` staat nu ook op 25.
 - Mail op 40. [GEMETEN: 3h]
 
 **Wat de addon al weet:** speelkaart `ForeverHowToPlay.lua:279-319` · stats `ForeverMainStats.lua:32-36` · wapens `ForeverWeapons.lua:29-44` · boomnamen `ForeverMacros.lua:625-633` · macro's `ForeverMacros.lua:468-489` · Mail `ForeverTrainerData.lua:1090`.
@@ -371,6 +372,7 @@ De wapenlijst per class komt uit Blizzards eigen tabel. [GEMETEN: DB2 `SkillRace
 - Bear Form op 10 (quest), Cat Form op 20 (quest). [GEMETEN: `ForeverHowToPlay.lua:51, 57`]
 - Feral Charge op 20. Insect Swarm (Balance) en Swiftmend (Restoration) op 25. Nature's Swiftness (Restoration) op 30. Moonkin Form (Balance) op 40. [GEMETEN: `ForeverMacros.lua:554-576`; `ForeverHowToPlay.lua:62`; levels AFGELEID]
 - ⚠️ Primal Bite (Feral) staat in de addon op 40, maar Blizzard noemt het een 16-punts-talent, dus level 25. [GEMETEN: `ForeverMacros.lua:566` tegenover BLZ-HD (beta, 30 sep)]. Welke klopt in de huidige build: NIET GEMETEN.
+  ✅ **Opgelost 12 nov (bouwchat):** 40 klopt in de live build. [GEMETEN: DB2 wowf 70888, TraitCond 42781 SpentAmountRequired 30 → 31e punt = level 40]. De beta-info was oud; de addon bleef op 40.
 - Lacerate wordt op 42 een gewone spell. [GEMETEN: BLZ-HD]
 
 **Wat de addon al weet:** speelkaart `ForeverHowToPlay.lua:37-64` · stats `ForeverMainStats.lua:39` · wapens `ForeverWeapons.lua:29-44` (polearms :36) · boomnamen `ForeverMacros.lua:652-660` · macro's `ForeverMacros.lua:554-576`.

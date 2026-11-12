@@ -473,7 +473,10 @@ local SPEC_MACROS = {
 	{ class = "SHAMAN", spec = 1, key = "earthbind", name = "Earthbind", need = 2484, level = 6, talent = false, warn = nil, credit = "cwf", -- NEW #3
 		tpl = "#showtooltip [mod:shift] {8056}; {2484}\n/stopcasting\n/cast [mod:shift,@mouseover,harm,nodead][mod:shift] {8056}; {2484}" },
 	-- SHAMAN spec 2
-	{ class = "SHAMAN", spec = 2, key = "stormstrike", name = "Stormstrike", need = 17364, level = 40, talent = true, warn = nil, credit = "cwf", -- NEW #1
+	-- level 25, was 40 (12 Nov 2026, Rob: "Ja, laat hem die twee spell-levels meten en gelijktrekken"). GEMETEN in DB2
+	-- wowf 1.60.1.70888: TraitDefinition 134204 -> node 104743 (tree 1082) -> group 11353 -> TraitCond 42798,
+	-- SpentAmountRequired 15, so the 16th talent point = level 25. Same as ForeverHowToPlay.lua (Shaman, "25").
+	{ class = "SHAMAN", spec = 2, key = "stormstrike", name = "Stormstrike", need = 17364, level = 25, talent = true, warn = nil, credit = "cwf", -- NEW #1
 		tpl = "#showtooltip {17364}\n/startattack\n/cast {17364}" },
 	{ class = "SHAMAN", spec = 2, key = "shockswing", name = "Shock+Swing", need = 8050, level = 10, talent = false, warn = nil, credit = nil, -- S8 #2
 		tpl = "#showtooltip [mod:shift] {8056}; {8050}\n/startattack\n/cast [mod:shift] {8056}; {8050}" },
@@ -563,6 +566,9 @@ local SPEC_MACROS = {
 		tpl = "#showtooltip {1238122}\n/cast {1238122}\n/startattack" },
 	{ class = "DRUID", spec = 2, key = "growl", name = "Growl", need = 6795, level = 10, talent = false, warn = nil, credit = "cwf", -- DX3 #2
 		tpl = "#showtooltip {6795}\n/cast [@mouseover,harm,nodead][] {6795}" },
+	-- level 40 stays: GEMETEN 12 Nov 2026 in DB2 wowf 1.60.1.70888: TraitDefinition 134417 -> node 104956 (tree 1089) ->
+	-- group 11341 -> TraitCond 42781, SpentAmountRequired 30, so the 31st talent point = level 40. Blizzard's beta deep
+	-- dive (30 Sep) called it a 16-point talent; the live build does not.
 	{ class = "DRUID", spec = 2, key = "primalbite", name = "Primal Bite", need = 407995, level = 40, talent = true, warn = nil, credit = "cwf", -- NEW #3
 		tpl = "#showtooltip {407995}\n/startattack\n/cast {407995}" },
 	-- DRUID spec 3

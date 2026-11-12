@@ -22,9 +22,12 @@
   Legacy-perk "Talented" vanaf 5; Dual Spec level 40 (client-strings), respec bij de class trainer. NIET gemeten: respec-
   en dual-spec-prijs (50 g = alleen Wowhead), Legacy-reset, beste wapen voor een deel van de richtingen, stats tijdens
   het levelen.
-- 📌 Twee tegenstrijdigheden in ONZE code (GEMETEN dat ze er staan, niet in de client): Stormstrike op 25 in
-  `ForeverHowToPlay.lua:311` en op 40 in `ForeverMacros.lua:476`; Primal Bite op 40 in `ForeverMacros.lua:566`, Blizzard
-  (beta) noemt het 16 punten = level 25. Icy Veins zet Intellect vóór Strength bij Enhancement (ouder dan onze bron).
+- ✅ Twee tegenstrijdigheden in ONZE code, gemeten en gelijkgetrokken (Rob, via sparring: "Ja, laat hem die twee
+  spell-levels meten en gelijktrekken"). GEMETEN in DB2 wowf 70888 (TraitDefinition → TraitNodeEntry →
+  TraitNodeXTraitNodeEntry → TraitNodeGroupXTraitNode → TraitNodeGroupXTraitCond → TraitCond): Stormstrike TraitCond
+  42798 = 15 punten → level 25 (`ForeverMacros.lua` van 40 naar 25; HowToPlay zei al 25). Primal Bite TraitCond 42781 =
+  30 punten → level 40 (addon klopte al; de beta-"16 punten" is oud). Rekenregel: eerste punt op 10, 1 per level, dus
+  rij-drempel N → level 10+N (zonder de Legacy-perk "Talented", die alles 5 levels eerder maakt). Niet in de client gezien. Icy Veins zet Intellect vóór Strength bij Enhancement (ouder dan onze bron).
 - ⚠️ mh-research leest niets in `docs/`: de 8 klasbestanden `docs/forever/FOREVER_<CLASS>_2026-11-06.md` zijn NIET
   vergeleken met dit onderzoek.
 
