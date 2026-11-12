@@ -21,6 +21,12 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 12 nov — `/mh selftest` niet meer in de commandolijst (Rob: "Ja, haal hem weg")
+
+Eerst `/reload`. In beide spellen:
+- [ ] Typ "selftest" in de MH-zoekbalk, of open de commandolijst: hij staat er niet meer tussen.
+- [ ] `/mh selftest` zelf werkt nog wel (alleen voor ons).
+
 ## 🆕 12 nov — Forever: Priest-tip over Shadowform (Rob: "Ja, doe allebei")
 
 Eerst `/reload`. Op een Forever-character: MH → How you play → Priest → "Beginner mistakes":

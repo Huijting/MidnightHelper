@@ -25,8 +25,9 @@
 - Proef: de twee weggehaalde 5.1.0-regels → 2/2 gevangen; tegenproef (`pickup off`, `geartip off`, `report`, `trainer`)
   → 0. Nepnaam op de lijst → SOFT "stale". `run release_text_check --selftest` OK. `locale_index`/`routed_words`
   ongewijzigd (de site importeert ze).
-- 📌 Open vraag voor Rob: `/mh selftest` staat wél in de spelerslijst `MH_COMMANDS` (CommandList.lua:161, met
-  zoekbalk). Laten staan of naar `MH_UNLISTED_ON_PURPOSE`? Niet aangeraakt.
+- ✅ `/mh selftest` uit de spelerslijst (Rob: "Ja, haal hem weg"): rij weg uit `MH_COMMANDS`, naam in
+  `MH_UNLISTED_ON_PURPOSE`. Het commando werkt nog; `CMDLIST_SELFTEST` (8 talen) blijft staan. Lint [16]: 92 listed /
+  149 classified (was 93/148). Niet in het spel gezien.
 
 ## 🆕 12 nov — regisseur aangescherpt, hoofdstuk 6 van REGIE.md (Rob: "Ja, zet ze erin")
 

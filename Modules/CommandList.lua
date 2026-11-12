@@ -94,6 +94,8 @@ ns.MH_UNLISTED_ON_PURPOSE = {
 	"toast", "twins", "unlearned", "vignettes", "wb", "whatis", "wiki", "worldboss",
 	-- 5 Nov 2026: measuring the WoW Forever spellbook for the key block (SpellbookDump.lua).
 	"spellbook",
+	-- 12 Nov 2026 (Rob: "Ja, haal hem weg"): our own number check, out of the player list.
+	"selftest",
 }
 
 --- Grouped so it can be scanned, not alphabetical so it can be searched. Someone
@@ -157,8 +159,8 @@ ns.MH_COMMANDS = {
 		-- Sits with the other two on purpose: this is the third door out of the addon,
 		-- and the only one a player uses when something is WRONG rather than missing.
 		{ cmd = "/mh report", descKey = "CMDLIST_REPORT" },
-		-- 11 Nov 2026 (opdracht 7): MH checks that its own game numbers exist in this game (Selftest.lua).
-		{ cmd = "/mh selftest", descKey = "CMDLIST_SELFTEST" },
+		-- /mh selftest (Selftest.lua) is NOT listed since 12 Nov 2026 (Rob: "Ja, haal hem weg"): it is our test tool,
+		-- not something players use. It still works; it sits in MH_UNLISTED_ON_PURPOSE. CMDLIST_SELFTEST is kept.
 		-- 11 Nov 2026 (step d): the upgrade-you-just-picked-up notice's switch (PickupUpgrade.lua).
 		{ cmd = "/mh pickup", descKey = "CMDLIST_PICKUP" },
 		-- 1 Oct 2026: the two-minute survey on midnighthelper.com (SurveyInvite.lua).
