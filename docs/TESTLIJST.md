@@ -69,8 +69,11 @@ Eerst `/reload` in Forever. Het staat standaard UIT.
 - [ ] Nieuw 12 nov (Rob: "Ja, doe dat"): na `/reload` in een groep van 2 heeft het paneel nog maar 2 rijen, geen "-" meer.
       De bovenkant staat waar hij stond. Komt er iemand bij (buiten een gevecht), dan groeit het paneel naar onder. Komt
       iemand erbij IN een gevecht, dan verschijnt die rij pas na het gevecht. Klik daarna een rij: klopt het doelwit nog?
-- [ ] Linksklik op een rij → die speler wordt je doelwit. Ook in een gevecht.
-- [ ] Rechtsklik op een rij → je dispel op die speler (Paladin: Cleanse of Purify; Priest: Dispel Magic, Shift+rechtsklik
+- [x] Linksklik op een rij → die speler wordt je doelwit. ✅ Rob, 12 nov (via sparring): "Linkslikken lukt, dan selecteer
+      ik." (In een gevecht: niet apart gemeld.)
+- [ ] ⏳ LATER (Rob: "dan moeten we een keertje on the fly testen"): zijn twee characters zijn te laag voor een dispel
+      (Rogue), en zijn Paladin (Horde) kan niet met Cisca (Alliance) groeperen. Test met een class die een dispel kent.
+      Rechtsklik op een rij → je dispel op die speler (Paladin: Cleanse of Purify; Priest: Dispel Magic, Shift+rechtsklik
       Cure/Abolish Disease; Druid: Remove Curse, Shift: Cure/Abolish Poison; Shaman: Cure Poison, Shift: Cure Disease;
       Mage: Remove Lesser Curse).
 - [ ] 🔑 Het echte doel, in een dungeon of met 3+ man: krijgt iemand iets wat jij kunt weghalen, dan wordt die rij ROOD
