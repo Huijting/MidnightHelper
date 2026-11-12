@@ -259,7 +259,10 @@ lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met d
 - Site:          ja, als het gebouwd is
 - Rob zegt:      ja, eerst doorpraten in de sparring-chat (via de sparring-chat, 11 nov; nog te bevestigen in de bouwchat)
                  ✅ **Ontwerp doorgepraat 12 nov** (sparring). Rob op de schets: *"Schets klopt"*. De schets (AFGELEID,
-                 niets gemeten): (1) één keer kiezen bij je eerste talentpunt: "Welke kant wil je op?", per class twee of
+                 niets gemeten): (1) één keer kiezen ~~bij je eerste talentpunt~~ → **meteen, vanaf level 1** (Rob, 12
+                 nov, keuze letterlijk: *"Meteen, vanaf level 1"*; overslaan en later wisselen mag; de keuze kleurt dan
+                 vanaf het begin het wapen- en gear-advies. Reden: eerste talentpunt pas op 10, Robs two-handed-sword-
+                 voorbeeld speelde op 5): "Welke kant wil je op?", per class twee of
                  drie richtingen in één gewone zin (paladin: klappen uitdelen, klappen opvangen, of genezen); (2) het
                  "Doe dit nu"-venster gebruikt die keuze: "Doe dit nu" (bv. 2 spells bij de trainer), "Alles bij",
                  "Komt eraan" (spells van de komende 3 levels bij naam); (3) de keuze kleurt de tooltip en de
