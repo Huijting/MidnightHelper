@@ -582,6 +582,69 @@ end
 
 local frame
 
+--- 12 Nov 2026 (Rob, 11 Nov, IDEEEN "Alle ontbrekende buffs tonen, en uitleggen welke MH kiest"; bouw-ja via sparring
+--- 12 Nov: "Alle ontbrekende buffs"): the icon's tooltip says WHY this buff (for a choice: the one you cast last, or the
+--- first one you know) and lists what else is missing. The extra entries come from UpdateMissingBuff (frame._rest).
+local function AddTooltipExtras(tip, f)
+	local top = f and f._top
+	if top and top.pickWhy and top.pickOthers and #top.pickOthers > 0 then
+		local key = top.pickWhy == "last" and "MBUFF_TIP_PICK_LAST_FMT" or "MBUFF_TIP_PICK_FIRST_FMT"
+		tip:AddLine(" ")
+		tip:AddLine(ns:L(key):format(top.name or "?", table.concat(top.pickOthers, " / ")), 1, 0.82, 0.1, true)
+	end
+	local rest = f and f._rest
+	if rest and #rest > 0 then
+		tip:AddLine(" ")
+		tip:AddLine(ns:L("MBUFF_TIP_ALSO"), 1, 0.82, 0.1, true)
+		for _, m in ipairs(rest) do
+			tip:AddLine("- " .. (m.name or ("#" .. tostring(m.spell))), 1, 1, 1, true)
+		end
+	end
+end
+
+local MAX_EXTRA = 5
+
+--- The small icons to the right of the big one: what is missing after this one (display only; the big icon casts).
+local function ShowExtras(f, rest)
+	f._extras = f._extras or {}
+	for i = 1, MAX_EXTRA do
+		local m = rest[i]
+		local x = f._extras[i]
+		if m and not x then
+			x = CreateFrame("Frame", nil, f)
+			x:SetSize(24, 24)
+			x:SetPoint("LEFT", f, "RIGHT", 8 + (i - 1) * 28, 0)
+			x.tex = x:CreateTexture(nil, "ARTWORK")
+			x.tex:SetAllPoints(x)
+			x.tex:SetTexCoord(0.07, 0.93, 0.07, 0.93)
+			x:EnableMouse(true)
+			x:SetScript("OnEnter", function(self)
+				if self._spell and GameTooltip then
+					GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+					GameTooltip:SetSpellByID(self._spell)
+					GameTooltip:AddLine(ns:L("MBUFF_TIP_EXTRA"), 0.7, 0.7, 0.7, true)
+					GameTooltip:Show()
+				end
+			end)
+			x:SetScript("OnLeave", function()
+				if GameTooltip then
+					GameTooltip:Hide()
+				end
+			end)
+			f._extras[i] = x
+		end
+		if x then
+			if m then
+				x.tex:SetTexture(m.icon)
+				x._spell = m.spell
+				x:Show()
+			else
+				x:Hide()
+			end
+		end
+	end
+end
+
 local function EnsureFrame()
 	if frame then
 		return frame
@@ -669,6 +732,7 @@ local function EnsureFrame()
 			GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
 			GameTooltip:SetSpellByID(self._spellId)
 			GameTooltip:AddLine(ns:L("MBUFF_TIP_HINT"), 0.7, 0.7, 0.7, true)
+			AddTooltipExtras(GameTooltip, self)
 			GameTooltip:Show()
 		end
 	end)
@@ -766,6 +830,7 @@ local function EnsureSecure()
 			GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
 			GameTooltip:SetSpellByID(f._spellId)
 			GameTooltip:AddLine(ns:L("MBUFF_TIP_HINT"), 0.7, 0.7, 0.7, true)
+			AddTooltipExtras(GameTooltip, f)
 			GameTooltip:Show()
 		end
 	end)
@@ -862,14 +927,19 @@ function ns.UpdateMissingBuff()
 	local inCombat = InCombatLockdown and InCombatLockdown()
 	-- Filter op combat: buiten combat alles; in combat alleen showCombat-items.
 	local top
+	local rest = {} -- 12 Nov 2026: everything else that passes the same filter (small icons + tooltip list)
 	for _, m in ipairs(missing) do
 		if ((not inCombat) or m.showCombat) and (not onlyFormApi or m.formApi) then
-			top = m
-			break
+			if not top then
+				top = m
+			elseif m.spell ~= top.spell then
+				rest[#rest + 1] = m
+			end
 		end
 	end
 	if not top then
-		if frame then
+		-- 12 Nov 2026: while "Move" is on (MoveMode.lua) the empty icon stays, so it can be placed.
+		if frame and not (ns.IsMoveModeOn and ns.IsMoveModeOn()) then
 			frame:Hide()
 		end
 		HideSecure()
@@ -878,6 +948,8 @@ function ns.UpdateMissingBuff()
 	local f = EnsureFrame()
 	f._icon:SetTexture(top.icon)
 	f._spellId = top.spell
+	f._top, f._rest = top, rest
+	ShowExtras(f, rest)
 	f._label:SetText(ns.MissingBuffSentence(top, inCombat))
 	f:Show()
 	-- Klikbaar casten: buiten combat de secure knop bijwerken + tonen. In combat laten

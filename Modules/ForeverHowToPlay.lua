@@ -413,8 +413,22 @@ ns.ForeverHowToPlayText = TextFor
 
 local win, shown
 
+local function RefreshDirection()
+	if not (win and win.dir) then
+		return
+	end
+	local band, name = nil, nil
+	if ns.GetForeverDirection then
+		band, name = ns.GetForeverDirection()
+	end
+	win.dir:SetText(band and ns:L("FDIR_HOWTO_BTN_FMT"):format(name) or ns:L("FDIR_HOWTO_BTN_NONE"))
+	win.dir:SetShown(ns.ShowForeverDirection ~= nil)
+end
+ns.ForeverHowToPlayRefreshDirection = RefreshDirection
+
 local function Show(token)
 	shown = token
+	RefreshDirection()
 	win.title:SetText(ns:L("PLAYCARD_HEAD_FMT"):format(ClassName(token)))
 	win.body:SetText(TextFor(token))
 	win.child:SetHeight(win.body:GetStringHeight() + 20)
@@ -446,6 +460,17 @@ local function Build()
 
 	local close = CreateFrame("Button", nil, f, "UIPanelCloseButton")
 	close:SetPoint("TOPRIGHT", -6, -6)
+
+	-- 12 Nov 2026: your chosen direction (ForeverDirection.lua), and the way back to the question.
+	local dir = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
+	dir:SetSize(200, 22)
+	dir:SetPoint("TOPRIGHT", -36, -18)
+	dir:SetScript("OnClick", function()
+		if ns.ShowForeverDirection then
+			ns.ShowForeverDirection()
+		end
+	end)
+	f.dir = dir
 
 	-- Only this character's class (Rob, 6 Nov 2026: "ik wil ze per character zien, dus alleen voor de geldige class").
 	-- The first version had a button per written class; they are gone.

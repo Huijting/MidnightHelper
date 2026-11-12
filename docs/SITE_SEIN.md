@@ -28,6 +28,37 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 12 nov 2026 — Forever: "Which way do you want to go?" (je richting kiezen)
+- Tag + commit:   geen tag / (deze commit)
+- Status:         alleen op main
+- Mag op de site: nee (nog niet uit)
+- Speler ziet:    In WoW Forever vraagt MH na het inloggen welke van de drie talentbomen van je class je wilt, elk met één
+                  gewone zin. Overslaan mag ("Later", "Never ask again"), wisselen kan altijd. Nog niets anders gebruikt die
+                  keuze. Niet in het spel gezien.
+- Knoplabels:     FDIR_ASK_TITLE, FDIR_LATER, FDIR_NEVER, FDIR_CLEAR, FDIR_HOWTO_BTN_FMT, SET_FOREVER_DIRECTION_TITLE
+- Commando's:     /mh direction, /mh direction check
+- Spel:           Forever
+
+## 12 nov 2026 — Alle ontbrekende buffs, en waarom MH deze kiest
+- Tag + commit:   geen tag / (deze commit)
+- Status:         alleen op main
+- Mag op de site: nee (nog niet uit)
+- Speler ziet:    Het buff-icoon toont naast zich kleine icoontjes voor de andere buffs die missen. De tooltip zegt waarom MH
+                  deze kiest (die je het laatst castte, of de eerste die je kent). Niet in het spel gezien.
+- Knoplabels:     MBUFF_TIP_ALSO, MBUFF_TIP_EXTRA
+- Commando's:     /mh buffs (Forever), /mh mbuff (Midnight)
+- Spel:           allebei
+
+## 12 nov 2026 — Eén schakelaar "Move" voor alle MH-onderdelen
+- Tag + commit:   geen tag / (deze commit)
+- Status:         alleen op main
+- Mag op de site: nee (nog niet uit)
+- Speler ziet:    Eén schakelaar laat alle MH-onderdelen op je scherm zien met een groen vakje "Drag me". Sleep ze waar je
+                  wilt; in een gevecht gaat het vanzelf uit. Niet in het spel gezien.
+- Knoplabels:     SET_MOVE_TITLE, MOVE_DRAG_FMT
+- Commando's:     /mh move, /mh move why
+- Spel:           allebei
+
 ## 12 nov 2026 — Groepspaneel: rechtsklik op het doelwit is een stop-spell als je geen purge hebt (Midnight)
 - Tag + commit:   geen tag / (deze commit)
 - Status:         alleen op main

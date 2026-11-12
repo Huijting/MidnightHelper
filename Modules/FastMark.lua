@@ -557,6 +557,7 @@ local function BuildBar()
 			bar:StartMoving()
 		end
 	end)
+	bar._mhDragHandle = grip -- MoveMode.lua drags the bar through the grip's own scripts (12 Nov 2026)
 	grip:SetScript("OnDragStop", function()
 		-- A drag that began out of combat can end in it, and the bar parents secure buttons, so stopping it
 		-- then is blocked (ADDON_ACTION_BLOCKED StopMovingOrSizing, BugGrabber 13 Oct 2026). Finish it after.

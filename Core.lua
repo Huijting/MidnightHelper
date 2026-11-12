@@ -2628,6 +2628,25 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		end
 		return
 	end
+	-- 12 Nov 2026: one switch to place every MH element on screen (MoveMode.lua). Both games.
+	local moveArg = (msg:lower() == "move") and "" or msg:lower():match("^move%s+(.+)$")
+	if moveArg then
+		if ns.MoveModeSlash then
+			ns.MoveModeSlash(moveArg)
+		end
+		return
+	end
+	-- 12 Nov 2026, WoW Forever: "Which way do you want to go?" (ForeverDirection.lua).
+	local dirArg = (msg:lower() == "direction" or msg:lower() == "richting") and ""
+		or msg:lower():match("^direction%s+(.+)$") or msg:lower():match("^richting%s+(.+)$")
+	if dirArg then
+		if ns.ForeverDirectionSlash then
+			ns.ForeverDirectionSlash(dirArg)
+		else
+			print("|cffffcc00Midnight Helper:|r /mh direction is for WoW: Forever.")
+		end
+		return
+	end
 	-- 10 Nov 2026, WoW Forever: where to learn a weapon (ForeverWeapons.lua).
 	local weapArg = (msg:lower() == "weapons" or msg:lower() == "weapon") and "" or msg:lower():match("^weapons?%s+(.+)$")
 	if weapArg then

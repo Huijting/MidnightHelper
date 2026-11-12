@@ -21,6 +21,42 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 12 nov (avond) — FOREVER: "Welke kant wil je op?" (Rob, via sparring: "De vraag 'Welke kant?'")
+
+Eerst `/reload` in Forever, op je Paladin.
+- [ ] Een paar seconden na het inloggen komt een venster "Which way do you want to go?" met drie knoppen: **Holy**,
+      **Protection**, **Retribution**, elk met één zin eronder. Onderaan: wat je talentpunten tot nu toe zeggen (of "je eerste
+      talentpunt krijg je op level 10"). Komt eerst de vraag over de balkenindeling, dan komt deze pas daarna.
+- [ ] Klik er een → het venster gaat dicht en de chat zegt welke richting je koos.
+- [ ] `/mh play` → rechtsboven een knop "Your direction: <naam>". Klik erop → het venster komt terug, met een vinkje bij je
+      keuze. "No choice" haalt de keuze weg.
+- [ ] Na `/reload` vraagt MH het niet nog eens (je hebt al gekozen).
+- [ ] Op een ander character zonder keuze: "Later" → deze sessie niet meer; na `/reload` weer wel.
+      "Never ask again" → niet meer; in Options → AddOns → Midnight Helper staat "Ask which way you want to go" dan uit.
+- [ ] `/mh direction check` → twee regels: je keuze, of hij vraagt en waarom, en je talentpunten per boom.
+
+## 🆕 12 nov (avond) — BEIDE SPELLEN: alle ontbrekende buffs (Rob, via sparring: "Alle ontbrekende buffs")
+
+Eerst `/reload`. Het beste op je Paladin in Forever zonder blessing én zonder aura (rechtsklik ze weg).
+- [ ] Het grote icoon staat er zoals altijd en cast de eerste. Ernaast, rechts, staan kleine icoontjes voor wat er nog meer
+      mist.
+- [ ] Muis op het grote icoon → in de tooltip: "Why <blessing>: …" (die heb je het laatst gecast, of: de eerste die je
+      kent) en "Also missing:" met de rest.
+- [ ] Muis op een klein icoontje → de spell, en "Also missing. Click the big icon first; this one comes next."
+- [ ] Klik het grote icoon → de buff gaat aan, het volgende kleine icoontje wordt het grote.
+- [ ] `/mh buffs` zegt nu per keuze "[cast last]" of "[none cast yet: first one known]".
+
+## 🆕 12 nov (avond) — BEIDE SPELLEN: knop "Verplaatsen" (Rob, via sparring: "Knop 'Verplaatsen'")
+
+Eerst `/reload`, buiten een gevecht.
+- [ ] `/mh move` → alle MH-onderdelen op je scherm krijgen een groen vakje "Drag me: …", ook het buff-icoon als er niets
+      mist. De chat zegt hoeveel.
+- [ ] Sleep er een paar (buff-icoon, snelbalk, routepijl) → ze gaan mee. Klik daarna nog eens het buff-icoon: cast hij nog?
+- [ ] Nog eens `/mh move` → de vakjes weg, alles blijft op de nieuwe plek; na `/reload` ook.
+- [ ] Hetzelfde via Options → AddOns → Midnight Helper → "Move MH elements on your screen".
+- [ ] Een gevecht beginnen met de vakjes aan → ze gaan vanzelf weg, met een regel in de chat.
+- [ ] `/mh move why` → per onderdeel: op je scherm, nu verborgen, of uit.
+
 ## 🆕 12 nov (later) — MIDNIGHT: MH legt je dispel-pogingen zelf vast (O27 optie A, Rob: "Optie A, dispel-pogingen")
 
 Niets zichtbaars; jij hoeft niets te typen.

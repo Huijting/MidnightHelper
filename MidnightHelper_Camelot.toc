@@ -124,6 +124,8 @@ Modules\ForeverBlock_Warlock.lua
 Modules\ForeverSpellIds.lua
 Modules\ForeverBlock.lua
 Modules\ForeverHowToPlay.lua
+# "Which way do you want to go?" per character, from level 1 (Rob, 12 Nov 2026, via sparring: "De vraag 'Welke kant?'").
+Modules\ForeverDirection.lua
 # New at your trainer, with the key each spell lands on (Rob, 7 Nov 2026: "Ja, A + pijl"). Data: What's Training? (MIT).
 Modules\ForeverTrainerData.lua
 Modules\ForeverTrainerSpots.lua
@@ -160,6 +162,8 @@ Modules\ForeverLayoutCarry.lua
 Modules\LayoutGrowth.lua
 Modules\BarPlanCard.lua
 Modules\AccessibleAlerts.lua
+# One switch "Move": every MH element on screen with a "drag me" box (Rob, 12 Nov 2026, via sparring).
+Modules\MoveMode.lua
 Modules\SettingsDefs.lua
 Modules\NativeSettings.lua
 Modules\FpsPanel.lua

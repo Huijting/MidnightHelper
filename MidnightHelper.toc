@@ -239,6 +239,7 @@ Modules\ForeverBlock_Warlock.lua
 Modules\ForeverSpellIds.lua
 Modules\ForeverBlock.lua
 Modules\ForeverHowToPlay.lua
+Modules\ForeverDirection.lua
 Modules\ForeverTrainerData.lua
 Modules\ForeverTrainerSpots.lua
 Modules\ForeverProfTrainerSpots.lua
@@ -307,6 +308,8 @@ Modules\DaggerspineCoach.lua
 Modules\AccessibleAlerts.lua
 Modules\DispelTest.lua
 Modules\InterruptEventProbe.lua
+# One switch "Move": every MH element on screen with a "drag me" box (Rob, 12 Nov 2026, via sparring).
+Modules\MoveMode.lua
 Modules\SettingsDefs.lua
 Modules\NativeSettings.lua
 Modules\FpsPanel.lua

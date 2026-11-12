@@ -470,6 +470,13 @@ local function Build()
 	-- Schermknoppen
 	----------------------------------------------------------------
 	Header("SET_SEC_SCREEN")
+	-- 12 Nov 2026 (Rob, via sparring: "Knop 'Verplaatsen'"): every MH element with a "drag me" box (MoveMode.lua).
+	-- Not saved: it switches itself off again (and in combat). Same as /mh move.
+	Toggle("mh_moveMode", "SET_MOVE_TITLE", "SET_MOVE_DESC", function()
+		return ns.IsMoveModeOn and ns.IsMoveModeOn()
+	end, function(v)
+		if ns.SetMoveMode then ns.SetMoveMode(v) end
+	end, false)
 	Toggle("mh_openables", "SET_OPEN_TOGGLE_TITLE", "SET_OPEN_TOGGLE_DESC", function()
 		return ns.IsOpenablesEnabled and ns.IsOpenablesEnabled()
 	end, function(v)
@@ -518,6 +525,13 @@ local function Build()
 			return ns.IsForeverBarLayoutAskOn and ns.IsForeverBarLayoutAskOn()
 		end, function(v)
 			if ns.SetForeverBarLayoutAsk then ns.SetForeverBarLayoutAsk(v) end
+		end, true)
+		-- 12 Nov 2026 (Rob, via sparring): "Which way do you want to go?" at login (ForeverDirection.lua). On by default;
+		-- its "Never ask again" button turns this off. /mh direction opens the question any time.
+		Toggle("mh_foreverAskDirection", "SET_FOREVER_DIRECTION_TITLE", "SET_FOREVER_DIRECTION_DESC", function()
+			return ns.IsForeverDirectionAskOn and ns.IsForeverDirectionAskOn()
+		end, function(v)
+			if ns.SetForeverDirectionAsk then ns.SetForeverDirectionAsk(v) end
 		end, true)
 	end
 

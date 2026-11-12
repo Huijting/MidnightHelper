@@ -15,6 +15,33 @@
    Een release alleen op Robs go. CF-plaatjes staan erop (Rob, 11 nov); of hij de nieuwe CF-beschrijving en de
    5.1.0-tekst al plakte: NIET GEMETEN, vragen.
 
+## 🛠️ 12 nov (avond) — vier Forever-klussen terwijl Rob at (bouw-ja via sparring, Robs keuzes letterlijk)
+
+Rob: *"Kunnen we daar niks van bouwen, dat dat zo meteen nog kan gaan testen"*; hij koos alle vier de opties. Geen release.
+1. ✅ Gebouwd: **"Which way do you want to go?"** — `Modules/ForeverDirection.lua` (beide tocs; returnt op retail). Vraagt
+   na het inloggen (6 s, wacht op gevecht/film/de balkenvraag/een StaticPopup, max ~2 min), keuze per character in
+   `ns.db.foreverDirection[GUID]` (1-3 = boomband), `ns.db.foreverAskDirection == false` = uit. Boomnamen uit
+   `ForeverMacros.lua` SPEC_NAMES (nu `ns.ForeverSpecName`/`ns.ForeverSpecBand` geëxporteerd). Zinnen = FDIR_<CLASS>_<n>
+   (AFGELEID, uit `docs/forever/RICHTINGEN_PER_CLASS_2026-11-12.md`). `/mh direction` / `richting`, `check`, `on|off`;
+   knop in het How-you-play-venster; instelling `mh_foreverAskDirection`. Nog niets leest de keuze
+   (`ns.GetForeverDirection()` is er voor de volgende stap).
+2. ✅ Gebouwd: **alle ontbrekende buffs** — `MissingBuff.lua` (ShowExtras: max 5 kleine icoontjes rechts, alleen tonen;
+   AddTooltipExtras: "Why …" + "Also missing"), `ForeverBuffs.lua` (PickChoice geeft "last"/"first", Entry krijgt
+   pickWhy/pickOthers). Zelfde filter als het grote icoon (combat, formApi).
+3. ✅ Gebouwd: **"Move"** — `Modules/MoveMode.lua` (beide tocs), `/mh move` (+ `why`, `on|off`), instelling `mh_moveMode`
+   (niet bewaard). 11 onderdelen op framenaam; het groene vakje roept de EIGEN OnDragStart/OnDragStop van het onderdeel
+   aan (FastMark via `bar._mhDragHandle` = de grip). Vakje niet verankerd aan het onderdeel (protected-frames), maar
+   2×/s erboven gezet. Verborgen onderdelen worden zolang getoond; gevecht = uit. MissingBuff verbergt het lege icoon
+   niet zolang Move aan staat.
+4. ✅ Uitgezocht (mh-research): `docs/forever/BEROEPEN_2026-11-12.md` (O26), tabel voor Rob bovenaan. 12 beroepen (9
+   primair, kies 2; 3 secundair), ranks 75/150/225/300; nieuw: Camping (kamp-spullen bij elk beroep), healing potions bij
+   First Aid. NIET gemeten: level per rank (alleen Warcraft Tavern), kosten bij 9 van de 12 trainers. Twee bijvangsten
+   (AFGELEID, niet gecontroleerd): `tools/forever_reagents.py:15` noemt de Herbalism/Skinning/Fishing-recepten "housing" maar
+   het zijn kamp-spullen (dus "Used for" mist ze); de open vraag in `ForeverToolGuard.lua` lijkt beantwoord door DB2
+   TotemCategory (beter gereedschap dekt het lagere). Niets gebouwd.
+- Teksten: en + nl zelf; de/fr/es/pt/ru (+ it voor buff/move) door mh-writer. Checks: luac -p schoon op alle 12 bestanden
+  (positieve controle: een kapot bestand werd geweigerd). Testlijst: 12 nov (avond), drie blokken.
+
 ## 🔎 12 nov — Rode eigen rij in het groepspaneel: wat `dispelSelfLog` zegt (alleen gelezen, niets gebouwd)
 
 - Rob (via sparring): zijn eigen rij wordt rood en hij kan het niet dispellen; speelt "al langer".

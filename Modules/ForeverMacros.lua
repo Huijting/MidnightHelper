@@ -728,6 +728,9 @@ local function SpecName(cls, band)
 	local names = t[loc] or (loc == "esMX" and t.esES) or t.enUS
 	return names and names[band]
 end
+-- 12 Nov 2026: the "Which way?" question (ForeverDirection.lua) uses the same tree names and the same point count.
+ns.ForeverSpecBand = SpecBand
+ns.ForeverSpecName = SpecName
 
 --- The rows for this character: the fixed ones, one per active racial it knows, then its class macros.
 local function Rows()

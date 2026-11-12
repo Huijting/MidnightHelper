@@ -124,17 +124,29 @@ local function Last()
 end
 
 --- The name to cast from a choice: the last one cast (if still known), else the first one known.
+--- Second value (12 Nov 2026, for the tooltip that explains the pick): "last" or "first".
 local function PickChoice(list, key)
 	local last = Last()[key]
 	if last and BestRank(last) then
-		return last
+		return last, "last"
 	end
 	for _, name in ipairs(list) do
 		if BestRank(name) then
-			return name
+			return name, "first"
 		end
 	end
 	return nil
+end
+
+--- The other names of a choice this player knows (for "cast one of these once and MH offers that one").
+local function OthersKnown(list, picked)
+	local out = {}
+	for _, name in ipairs(list or {}) do
+		if name ~= picked and BestRank(name) then
+			out[#out + 1] = name
+		end
+	end
+	return out
 end
 
 local function SpellName(id)
@@ -157,9 +169,21 @@ local function SpellIcon(id)
 	return "Interface\\Icons\\INV_Misc_QuestionMark"
 end
 
-local function Entry(out, id, textKey, showCombat)
-	out[#out + 1] = { spell = id, name = SpellName(id), icon = SpellIcon(id), textKey = textKey or "MBUFF_TXT_MISSING",
+--- `pick`/`list` (12 Nov 2026): for a choice, why this one ("last"/"first") and the choice's names, so MissingBuff.lua's
+--- tooltip can explain the pick (Rob, 11 Nov: "uitleggen welke MH kiest").
+local function Entry(out, id, textKey, showCombat, pick, list, picked)
+	local e = { spell = id, name = SpellName(id), icon = SpellIcon(id), textKey = textKey or "MBUFF_TXT_MISSING",
 		showCombat = showCombat and true or false, macroTarget = false }
+	if pick and list then
+		local others = {}
+		for _, n in ipairs(OthersKnown(list, picked)) do
+			others[#others + 1] = SpellName(BestRank(n))
+		end
+		if #others > 0 then
+			e.pickWhy, e.pickOthers = pick, others
+		end
+	end
+	out[#out + 1] = e
 end
 
 local function Mounted()
@@ -189,7 +213,7 @@ end
 --- Evaluate one def: name to cast (or nil when nothing is needed), and a short reason for /mh buffs.
 local function Evaluate(d)
 	if d.imbue then
-		local name = PickChoice(d.imbue, d.key)
+		local name, pick = PickChoice(d.imbue, d.key)
 		if not name then
 			return nil, "none known"
 		end
@@ -203,10 +227,15 @@ local function Evaluate(d)
 		if ok and hasMH then
 			return nil, "weapon buff on"
 		end
-		return name, "no weapon buff"
+		return name, "no weapon buff", pick
 	end
 	local list = d.choice or { d.buff }
-	local name = d.choice and PickChoice(d.choice, d.key) or (BestRank(d.buff) and d.buff)
+	local name, pick
+	if d.choice then
+		name, pick = PickChoice(d.choice, d.key)
+	else
+		name = BestRank(d.buff) and d.buff or nil
+	end
 	if not name then
 		return nil, "not learned"
 	end
@@ -223,7 +252,7 @@ local function Evaluate(d)
 	elseif has then
 		return nil, "on you"
 	end
-	return name, "missing"
+	return name, "missing", pick
 end
 
 --- Called by MissingBuff.lua's ns.GetMissingBuffs on Forever. Same entry shape as there.
@@ -231,9 +260,9 @@ function ns.GetForeverMissingBuffs()
 	local out = {}
 	local token = select(2, UnitClass("player"))
 	for _, d in ipairs(DEFS[token] or {}) do
-		local name = Evaluate(d)
+		local name, _, pick = Evaluate(d)
 		if name then
-			Entry(out, BestRank(name), d.textKey)
+			Entry(out, BestRank(name), d.textKey, nil, pick, d.choice or d.imbue, name)
 		end
 	end
 	-- Pets: a hunter or warlock who can call one and has none (not while mounted: the pet is gone then anyway).
@@ -247,9 +276,9 @@ function ns.GetForeverMissingBuffs()
 				Entry(out, BestRank("Revive Pet"), "MBUFF_TXT_PET_DEAD", true)
 			end
 		elseif token == "WARLOCK" and not hasPet then
-			local demon = PickChoice(DEMONS, "warlockDemon")
+			local demon, pick = PickChoice(DEMONS, "warlockDemon")
 			if demon then
-				Entry(out, BestRank(demon), "MBUFF_TXT_PET", true)
+				Entry(out, BestRank(demon), "MBUFF_TXT_PET", true, pick, DEMONS, demon)
 			end
 		end
 	end
@@ -308,14 +337,15 @@ function ns.ForeverBuffsSlash(arg)
 		print("  no buffs on the list for this class (on purpose: see ForeverBuffs.lua)")
 	end
 	for _, d in ipairs(defs) do
-		local name, why = Evaluate(d)
+		local name, why, pick = Evaluate(d)
 		local label = d.buff or table.concat(d.choice or d.imbue, " / ")
-		print(("  %s: %s%s"):format(label, why, name and (" -> button casts " .. name .. " (" .. SpellName(BestRank(name)) ..
-			", id " .. tostring(BestRank(name)) .. ")") or ""))
+		print(("  %s: %s%s%s"):format(label, why, name and (" -> button casts " .. name .. " (" .. SpellName(BestRank(name)) ..
+			", id " .. tostring(BestRank(name)) .. ")") or "",
+			pick and (pick == "last" and " [cast last]" or " [none cast yet: first one known]") or ""))
 	end
 	print(("  pet: %s"):format(UnitExists("pet") and (UnitIsDead("pet") and "dead" or "out") or "none"))
 	local now = ns.GetForeverMissingBuffs()
-	print(("  on the button now: %d"):format(#now))
+	print(("  missing now: %d (the big icon casts the first; the small ones beside it are next)"):format(#now))
 	if now[1] and ns.MissingBuffSentence then
 		local inCombat = InCombatLockdown and InCombatLockdown()
 		print("  line under the icon: " .. ns.MissingBuffSentence(now[1], inCombat))

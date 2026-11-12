@@ -133,6 +133,8 @@ ns.MH_COMMANDS = {
 		-- table - so without this row "macros" found the tab by its name only.
 		{ cmd = "/mh macros", descKey = "CMDLIST_MACROS" },
 		{ cmd = "/mh settings", descKey = "CMDLIST_SETTINGS" },
+		-- 12 Nov 2026: every MH element on screen with a "drag me" box (MoveMode.lua).
+		{ cmd = "/mh move", descKey = "CMDLIST_MOVE" },
 		{ cmd = "/mh mouse", descKey = "CMDLIST_MOUSE" },
 		-- 21 Oct 2026: one door to all keybind help (KeysHub.lua). NavSearch indexes this table, so "keys",
 		-- "keybinds" and the window's own name find it from the search bar.
