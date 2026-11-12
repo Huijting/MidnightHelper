@@ -98,7 +98,17 @@ local function MakeIcon(parent, index)
 	if ns.MHScalableFont then
 		f.word:SetFontObject(ns.MHScalableFont("GameFontNormalLarge"))
 	end
-	f.word:SetPoint("TOP", f, "BOTTOM", 0, -2)
+	-- ⚠️ ON THE OUTSIDE, NOT UNDERNEATH (12 Nov 2026). Both words used to sit centred under their own 34 px icon, but a
+	-- word is wider than its icon, so when both icons show at once they overlap. Rob's screenshot of `/mh prompt test`
+	-- read "INTERRRWRGE". The interrupt word now ends left of the first icon, the purge word starts right of the second:
+	-- they can never meet, whatever the language or the word.
+	if index == 1 then
+		f.word:SetPoint("RIGHT", f, "LEFT", -6, 0)
+		f.word:SetJustifyH("RIGHT")
+	else
+		f.word:SetPoint("LEFT", f, "RIGHT", 6, 0)
+		f.word:SetJustifyH("LEFT")
+	end
 	f.word:SetTextColor(1, 0.35, 0.25)
 	f.word:SetText("")
 

@@ -38,6 +38,10 @@
   134400), ook als de hint uit staat; `Update()` laat ze zolang met rust; een gevecht stopt het voorbeeld meteen (geen
   apart pad, dezelfde frame/plek/maat). Core.lua: `/mh prompt test`. Nieuwe sleutels PROMPT_TEST_FMT/PROMPT_TEST_COMBAT,
   7 talen (de/fr/es/pt/it/ru eigen vertaling, niet native nagekeken). Lua OK, lint 0 HARD. Niet in het spel gezien.
+- 🐛 Rob, 12 nov (screenshot via sparring): onder de icoontjes liepen INTERRUPT en PURGE door elkaar. Oorzaak GEMETEN in
+  de code: elk woord stond gecentreerd onder zijn eigen 34 px-icoon, maar is breder dan het icoon. Dat gebeurt ook in
+  een echt gevecht als beide tegelijk oplichten. Fix in `MakeIcon`: woord 1 rechts uitgelijnd links van icoon 1, woord 2
+  links uitgelijnd rechts van icoon 2. Niet opnieuw in het spel gezien. Slepen/Shift+scroll/na-reload: nog niet gehoord.
 - Robs uitslag (via sparring, 12 nov), afgevinkt in TESTLIJST: selftest weg uit de lijst + werkt nog; partytest Midnight
   goed; "Used for" Midnight goed (Azeroot groen, Argentleaf grijs, Mycobloom geen regel, `/mh usedfor` herkent
   INSCRIPTION line 773 als "you have"); buff-zin Midnight goed; Macro's-tab "Top" goed. Open: of oudere ingrediënten óók

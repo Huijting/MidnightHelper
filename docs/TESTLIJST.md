@@ -25,7 +25,9 @@ er is niets weggegooid.
 
 Eerst `/reload`. In Midnight, buiten een gevecht (de actie-hint mag aan of uit staan):
 - [ ] `/mh prompt test` → de twee icoontjes (je interrupt en je purge, of een vraagteken als je die niet hebt) staan
-      20 seconden in beeld, met een regel in de chat.
+      20 seconden in beeld, met een regel in de chat. ❌ Rob, 12 nov (via sparring, screenshot): de woorden onder de
+      icoontjes liepen door elkaar ("INTERRRWRGE"). Gerepareerd: INTERRUPT staat nu links van het eerste icoon, het
+      purge-woord rechts van het tweede. Opnieuw kijken: twee losse, leesbare woorden.
 - [ ] In die 20 seconden: slepen werkt, en Shift+scroll maakt het groter en kleiner. Na `/reload` staat het nog op die
       plek en op die maat.
 - [ ] Na 20 seconden verdwijnen ze weer (of blijven ze alleen staan als de actie-hint aan staat en er iets te doen is).
