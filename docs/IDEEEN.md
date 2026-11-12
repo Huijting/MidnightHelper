@@ -99,6 +99,18 @@ NIET GEMETEN.
 Hier komt wat Rob goedkeurt, ook wat hij rechtstreeks in de bouwchat vraagt (Rob, 10 nov: *"ja we willen het op 1
 lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met de commit erbij. Na zijn test naar **Af**.
 
+### Lint [27]: geen commando's die alleen wij gebruiken in de release-tekst
+- Voor wie:      wij (spelers zien geen testknoppen meer in de release-tekst)
+- Moment:        bij elke lint-run; vooral vóór een release
+- Spel:          Midnight + Forever (de release-tekst is gedeeld)
+- Bron:          Rob 11 nov over `/mh selftest` in 5.1.0; Sparring 12-11, Rob: *"Ja, bouw dat"* (12 nov)
+- Bouwt op:      `tools/release_text_check.py` (C3, lint [22])
+- Data:          GEMETEN: alle 29 namen op de lijst worden door de code gerouteerd
+- Vindbaar:      lint [27]; `run release_text_check --selftest`
+- Werk:          klein
+- Site:          nee (hulpmiddel)
+- Rob zegt:      ja. **Gebouwd 12 nov**, proef 2/2 en tegenproef 0. Niets in het spel te testen → naar Af.
+
 ### Forever: Priest-tip "Shadowform" klopt weer met de hotfix van 11 nov
 - Voor wie:      allebei (Gnome-Priest)
 - Moment:        How you play → Priest → Beginner mistakes

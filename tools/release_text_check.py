@@ -17,7 +17,8 @@ keys, and for prose labels it shows its evidence instead of pretending to judge 
 
 Usage:  run release_text_check                 -> the two real files
         run release_text_check --file <path>   -> any release text (e.g. docs/CURSEFORGE_4.15.0.md)
-        run release_text_check --selftest      -> the proofs (a fake command, key and label must be caught)
+        run release_text_check --selftest      -> the proofs (a fake command, key and label must be caught;
+                                                  the 5.1.0 /mh selftest lines must be caught as dev-only, lint [27])
 """
 import glob
 import io
@@ -129,9 +130,91 @@ def run(root, files=None):
     return hard, soft, labels, info
 
 
+# ── Commands only WE use, never in player text (lint [27]) ──────────────────────────────────────────────────────────
+# Rob, 11 Nov 2026, after 5.1.0 announced /mh selftest: "je hebt bij de change log ook genoemd dat we dingen kunnen
+# testen die alleen wij doen, dat is niet handig, volgende keer niet doen". Rob, 12 Nov 2026 (via the sparring chat):
+# "Ja, bouw dat" -> a lint error when such a command is in the release text. The build chat keeps THIS list.
+# ⚠️ Off switches (`/mh pickup off`, `/mh geartip off`) and diagnostics we ask players to run (`/mh report`,
+# `/mh arrow`) ARE for players: never put them here. Only probes and measurements whose output only we can read.
+# Every name must be routed (first word of a /mh command); a stale name is printed as SOFT.
+DEV_ONLY = (
+    "selftest", "partytest",
+    "auradump", "eventspy", "events", "sniff", "spellbook", "uinames", "api12", "debug",
+    "dispelprobe", "kickprobe", "mapprobe",
+    "tierscan", "rarescan", "questscan", "delvescan", "crestscan", "curscan", "questsnap",
+    "chunklog", "hexmasks", "curiodebug", "resetdebug", "ritualspy", "profids",
+    "raretest", "readytest", "shardtest",
+)
+
+# The 5.1.0 lines that started this (commit eb3e22a removed them): the proof that the check catches the real fault.
+DEV_PROOF = (
+    "- **`/mh selftest`:** checks that every spell, item and map number Midnight Helper uses exists in your game.\n"
+    "Both games: /mh selftest checks that every spell, item and map number MH uses exists in your game.\n"
+)
+# The counter-proof: player commands and off switches from the same release must NOT fire.
+DEV_COUNTER = "`/mh pickup off` turns it off. `/mh geartip off`. Tell us with `/mh report`. Arrows (`/mh trainer <x>`)."
+
+
+def _toc_version(root):
+    with open(os.path.join(root, "MidnightHelper.toc"), encoding="utf-8", errors="replace") as fh:
+        m = re.search(r"^##\s*Version:\s*(\S+)", fh.read(), re.M)
+    return m.group(1) if m else None
+
+
+def player_texts(root):
+    """[(name, text)] of what players read for the CURRENT version: RELEASE_NOTES.md, docs/CURSEFORGE_<ver>.md and the
+    in-game CHANGELOG_<ver>_* lines in enUS.lua. Not CHANGELOG.md or the handoff: there a dev command may stand."""
+    ver = _toc_version(root)
+    out, missing = [], []
+    for rel in ("RELEASE_NOTES.md", "docs/CURSEFORGE_%s.md" % ver):
+        p = os.path.join(root, rel)
+        if os.path.isfile(p):
+            with open(p, encoding="utf-8", errors="replace") as fh:
+                out.append((rel, fh.read()))
+        else:
+            missing.append(rel)
+    prefix = "CHANGELOG_%s_" % (ver or "").replace(".", "")
+    lines = []
+    with open(os.path.join(root, "Locales", "enUS.lua"), encoding="utf-8", errors="replace") as fh:
+        for line in fh:
+            m = LOCALE_LINE.match(line)
+            if m and m.group(1).startswith(prefix):
+                lines.append("%s = %s" % (m.group(1), m.group(2)))
+    out.append(("Locales/enUS.lua %s*" % prefix, "\n".join(lines)))
+    return out, missing, ver, len(lines)
+
+
+def dev_only_hits(text, name):
+    hits = []
+    for n, line in enumerate(text.splitlines(), 1):
+        for w in CMD.findall(line):
+            if w in DEV_ONLY:
+                hits.append("%s:%d  /mh %s — a command only we use, in text players read" % (name, n, w))
+    return hits
+
+
+def dev_only_check(root):
+    texts, missing, ver, n_changelog = player_texts(root)
+    hard = []
+    for name, text in texts:
+        hard += dev_only_hits(text, name)
+    proof = dev_only_hits(DEV_PROOF, "proof")
+    counter = dev_only_hits(DEV_COUNTER, "counter")
+    routed = routed_words(root)
+    stale = [w for w in DEV_ONLY if w not in routed]
+    info = {"version": ver, "files": [n for n, _ in texts], "missing": missing, "changelog_lines": n_changelog,
+            "proof": len(proof), "counter": len(counter), "control_ok": len(proof) == 2 and not counter,
+            "stale": stale}
+    return hard, info
+
+
 def selftest(root):
     """The proofs asked for in the assignment, printed so a human can see what the check can and cannot do."""
     ok = True
+    _, dinfo = dev_only_check(root)
+    print("[27] proof (the two 5.1.0 /mh selftest lines): %d of 2 caught; counter-proof (pickup off, geartip off, "
+          "report, trainer): %d fired -> %s" % (dinfo["proof"], dinfo["counter"], "OK" if dinfo["control_ok"] else "FAILED"))
+    ok &= dinfo["control_ok"]
     _, _, labels, info = run(root, [("docs/CURSEFORGE_4.15.0.md", False)])
     print("positive control (fake command, key, label all caught):", "OK" if info["control_ok"] else "FAILED")
     ok &= info["control_ok"]

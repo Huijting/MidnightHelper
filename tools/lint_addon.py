@@ -1703,6 +1703,30 @@ def main() -> int:
         print(f"\n[26] Selftest list: NOT CHECKED — {type(exc).__name__}: {exc}")
         soft += 1
 
+    # [27] Commands only WE use (/mh selftest, /mh partytest, probes) never in the text players read for the current
+    # version: RELEASE_NOTES.md, docs/CURSEFORGE_<ver>.md, the in-game CHANGELOG_<ver>_* lines. Rob, 12 Nov 2026 ("Ja,
+    # bouw dat"), after 5.1.0 announced /mh selftest. The list is DEV_ONLY in tools/release_text_check.py. HARD.
+    # Proof: the two 5.1.0 lines (commit eb3e22a removed them) must be caught; counter-proof: off switches must not.
+    try:
+        import release_text_check as rtc
+        d_hard, d_info = rtc.dev_only_check(root)
+        print(f"\n[27] Commands only we use, in player text (v{d_info['version']}): {len(d_hard)} HARD  "
+              f"(control {'OK' if d_info['control_ok'] else 'FAILED'}: proof {d_info['proof']}/2, "
+              f"counter {d_info['counter']})")
+        print(f"     read: {', '.join(d_info['files'])} ({d_info['changelog_lines']} changelog lines)")
+        for h in d_hard:
+            print(f"     HARD  {h}  -> leave it out, or move it to CHANGELOG.md")
+        for m in d_info["missing"]:
+            print(f"     SOFT  {m} — file missing, not checked")
+        for w in d_info["stale"]:
+            print(f"     SOFT  DEV_ONLY '{w}' — nothing routes this command any more: remove it from the list")
+        hard += len(d_hard) + (0 if d_info["control_ok"] else 1)
+        soft += len(d_info["missing"]) + len(d_info["stale"])
+    except Exception as exc:  # noqa: BLE001
+        print(f"\n[27] Dev-only commands: NOT CHECKED — {type(exc).__name__}: {exc}")
+        print("     SOFT  this check proves nothing this run; do not read silence as clean")
+        soft += 1
+
     print("=" * 70)
     print(f"HARD issues: {hard}   SOFT notes: {soft}")
     print("=" * 70)

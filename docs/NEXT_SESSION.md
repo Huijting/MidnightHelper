@@ -14,6 +14,20 @@
    Een release alleen op Robs go. CF-plaatjes staan erop (Rob, 11 nov); of hij de nieuwe CF-beschrijving en de
    5.1.0-tekst al plakte: NIET GEMETEN, vragen.
 
+## 🆕 12 nov — lint [27]: geen commando's die alleen wij gebruiken in de release-tekst (Rob: "Ja, bouw dat", via sparring)
+
+- Aanleiding: 5.1.0 noemde `/mh selftest` (Rob 11 nov: "dingen … die alleen wij doen, dat is niet handig"); eb3e22a
+  haalde het al weg. Opdracht van Sparring 12-11 (plan stap 10: regels worden controles).
+- `tools/release_text_check.py`: lijst `DEV_ONLY` (29 namen: selftest, partytest, probes, scans, dumps; GEMETEN: alle 29
+  gerouteerd) + `dev_only_check()`. Leest RELEASE_NOTES.md, `docs/CURSEFORGE_<toc-versie>.md` en de
+  `CHANGELOG_<ver>_*`-regels in enUS.lua. Niet CHANGELOG.md of de handoff. Uit-schakelaars en `/mh report`/`/mh arrow`
+  horen er NIET op. Lint [27], HARD (Rob: "een fout"); blokkeert niets, want 5.1.0 op main is al schoon.
+- Proef: de twee weggehaalde 5.1.0-regels → 2/2 gevangen; tegenproef (`pickup off`, `geartip off`, `report`, `trainer`)
+  → 0. Nepnaam op de lijst → SOFT "stale". `run release_text_check --selftest` OK. `locale_index`/`routed_words`
+  ongewijzigd (de site importeert ze).
+- 📌 Open vraag voor Rob: `/mh selftest` staat wél in de spelerslijst `MH_COMMANDS` (CommandList.lua:161, met
+  zoekbalk). Laten staan of naar `MH_UNLISTED_ON_PURPOSE`? Niet aangeraakt.
+
 ## 🆕 12 nov — regisseur aangescherpt, hoofdstuk 6 van REGIE.md (Rob: "Ja, zet ze erin")
 
 - Opdracht van Sparring 12-11: de ronde zag drie dingen niet (CLAUDE.md-grens 350, tabel 2 mist OCHTENDRONDE.md en
