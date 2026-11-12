@@ -15,6 +15,18 @@
    Een release alleen op Robs go. CF-plaatjes staan erop (Rob, 11 nov); of hij de nieuwe CF-beschrijving en de
    5.1.0-tekst al plakte: NIET GEMETEN, vragen.
 
+## 🧪 12 nov (laat) — PROEF: eigen toetsenlijst voor Forever (`Bindings_Camelot.xml`)
+
+- Rob (via sparring, letterlijk): eerst *"Haal ze in Forever uit de lijst"*, daarna *"Ja, eerst de proef"* (optie D).
+- Idee AFGELEID uit Baganator (Bindings.xml + Bindings_Mainline.xml + Bindings_Vanilla.xml, in Robs Forever-map
+  gelezen): het spel leest `Bindings_<versie>.xml` in plaats van `Bindings.xml`. Forever = "Camelot" (die toc laadt).
+- `Bindings_Camelot.xml`: TOGGLEMAIN (ALT-M), CLEARROUTE, TAB_HOME, ALTS — zelfde namen, dus Robs ALT-M blijft.
+  `Locale.lua`: TAB_HOME heet in Forever "Open: Forever".
+- Retail: geen `Bindings_Mainline.xml` in MH, dus retail leest `Bindings.xml` als altijd (AFGELEID; Rob kijkt in
+  Midnight of de lijst gelijk blijft). `Bindings.xml` zelf is NIET veranderd.
+- ⚠️ UITSLAG OPEN. Werkt het niet (Forever toont nog 14 regels): `Bindings_Camelot.xml` weg, en optie A bouwen
+  (Rob: *"Naam met (Midnight)"*; "Open: This Week" → "Open: Forever").
+
 ## 🛠️ 12 nov (laat) — drankjes-toetsen krijgen in Forever een naam
 
 - Rob (via sparring, letterlijk): *"Ja, geef ze een gewone naam"*. Zijn 32.png (Forever, Keybindings → Midnight Helper):

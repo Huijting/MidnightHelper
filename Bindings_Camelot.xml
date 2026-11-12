@@ -1,0 +1,23 @@
+<Bindings>
+	<!--
+		WoW Forever ONLY. 12 Nov 2026, a test on Rob's wish "Haal ze in Forever uit de lijst" ("Ja, eerst de proef").
+		The idea, AFGELEID from Baganator (Bindings.xml + Bindings_Mainline.xml + Bindings_Vanilla.xml, read that day): the
+		client reads Bindings_<its flavour>.xml instead of Bindings.xml when that file exists. Forever's flavour suffix is
+		"Camelot" (MidnightHelper_Camelot.toc is what Forever loads, measured). Retail has no Bindings_Mainline.xml here, so
+		it keeps reading Bindings.xml exactly as before.
+		Only what exists in Forever. Names must equal Bindings.xml's, so a key the player already set (ALT-M) stays.
+		If Forever still shows the Midnight keys after a full restart, this file does nothing: delete it.
+	-->
+	<Binding name="MIDNIGHTHELPER_TOGGLEMAIN" category="Midnight Helper " runOnUp="false" default="ALT-M">
+		MidnightHelper_KeybindToggleMain()
+	</Binding>
+	<Binding name="MIDNIGHTHELPER_CLEARROUTE" category="Midnight Helper " runOnUp="false">
+		MidnightHelper_KeybindClearRoute()
+	</Binding>
+	<Binding name="MIDNIGHTHELPER_TAB_HOME" category="Midnight Helper " runOnUp="false">
+		MidnightHelper_KeybindTab("home")
+	</Binding>
+	<Binding name="MIDNIGHTHELPER_ALTS" category="Midnight Helper " runOnUp="false">
+		MidnightHelper_KeybindAlts()
+	</Binding>
+</Bindings>

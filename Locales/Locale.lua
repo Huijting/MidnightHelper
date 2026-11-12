@@ -307,6 +307,11 @@ function ns:ApplyBindingLabels()
 	for suffix, labelKey in pairs(TAB_KEYS) do
 		_G["BINDING_NAME_MIDNIGHTHELPER_TAB_" .. suffix] = fmt:format(self:L(labelKey))
 	end
+	-- 12 Nov 2026: in Forever the Home tab is the Forever start page, not "This Week" (the breadcrumb says "Forever"
+	-- there too, UI.lua). Rob's 32.png showed "Open: This Week" in Forever.
+	if ns.IS_FOREVER then
+		_G.BINDING_NAME_MIDNIGHTHELPER_TAB_HOME = fmt:format("Forever")
+	end
 end
 
 --- Like L() but uses GetChatLocaleCode (Latin fallback when client cannot render CJK chat).

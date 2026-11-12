@@ -21,6 +21,15 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🧪 12 nov (laat) — PROEF: eigen toetsenlijst in Forever (Rob, via sparring: "Ja, eerst de proef")
+
+Sluit WoW helemaal af (niet alleen /reload) en start Forever opnieuw.
+- [ ] Esc → Options → Keybindings → kopje "Midnight Helper". WERKT HET: precies 4 regels — "Toggle main window"
+      (ALT-M), "Clear active route / arrow", "Open: Forever", "Your characters". WERKT HET NIET: nog steeds de lange lijst
+      van 14 (Rares, Delves, TAB_CODEX, drankjes …). Stuur een screenshot.
+- [ ] ALT-M opent MH nog gewoon.
+- [ ] In Midnight (retail): de lijst onder "Midnight Helper" is precies als altijd (14 regels, met "Open: This Week").
+
 ## 🆕 12 nov (laat) — FOREVER: tegel "Your characters" (Rob, via sparring: "Ja, een tegel (Recommended)")
 
 - [x] `/reload`, open MH → kamer "Me": een nieuwe tegel "Your characters" naast Weapon trainers, Vendors enz. Klik →
