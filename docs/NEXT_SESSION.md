@@ -15,6 +15,21 @@
    Een release alleen op Robs go. CF-plaatjes staan erop (Rob, 11 nov); of hij de nieuwe CF-beschrijving en de
    5.1.0-tekst al plakte: NIET GEMETEN, vragen.
 
+## 🔎 12 nov (avond) — Forever-groepsmeting gelezen (partyProbe, Forever-SV 15:11, regels 2053-2526)
+
+- Groep: Rob + 1 character van Cisca's pc, open wereld (instance "none"), 1 snapshot met de hand + 5 gevechten
+  (15:08:09-15:11:07), build 70888. party2-4 bestonden niet.
+- GEMETEN, ook in een gevecht leesbaar: bestaat, naam, class, rol (UnitGroupRolesAssigned; allebei "DAMAGER"),
+  canAttack/canAssist, voor player, party1, target, focus en party1target.
+- GEMETEN, in een gevecht GEWEIGERD: debuffs lezen (C_UnitAuras.GetAuraDataByIndex → "Auras cannot be accessed when secret
+  while tainted by 'MidnightHelper'"), op elke unit, in alle 5 gevechten. Buiten een gevecht: "nil" (leesbaar, niets op).
+  Dat is precies de retail-situatie.
+- GEMETEN: alle 15 events van PartyTargets bestaan; SecureActionButtonTemplate bouwt; Blizzards AuraContainer (de rode
+  dispel-rand) bouwt met SetUnit/AddAuraSlot/SetEnabled. Focus: `[@focus,exists]` parse werkt ("no" zonder focus).
+- NIET GEMETEN: casts (altijd "nil", er werd niets gecast op het moment van de foto); of de rode rand in Forever echt
+  oplicht; een dungeon; 3-5 spelers. PartyTargets leunt op DispelHelper.lua (retail) en spec-API's → overzetten = werk.
+- Plan met opties naar sparring gestuurd; niets bouwen zonder Robs ja.
+
 ## 🛠️ 12 nov (avond) — Forever: gereedschap-tip ook bij de foutmelding van het spel
 
 - Rob (via sparring): Cisca had Skinning maar geen mes; de leer-tip kwam nooit (beroep al van vóór MH). *"Ja, laat hem dat
