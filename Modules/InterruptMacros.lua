@@ -711,6 +711,7 @@ function ns.BuildInterruptMacrosPanel(panel)
 	copyBtn:SetSize(120, 24)
 	copyBtn:SetPoint("BOTTOMLEFT", panel, "BOTTOMLEFT", 12, 14)
 	copyBtn:SetText(ns:L("MACROS_COPY_BUTTON"))
+	ns.FitButtonToText(copyBtn, 120, 200) -- 12 Nov 2026 (lint [28])
 	copyBtn:SetScript("OnClick", function()
 		local eb = panel._mhMacrosEdit
 		if not eb or not eb.GetText then

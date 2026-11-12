@@ -774,6 +774,8 @@ local function EnsureWindow()
 	chatBtn:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -26, 8)
 	chatBtn:SetFrameLevel(f:GetFrameLevel() + 5)
 	chatBtn:SetText(ns:L("DGN_WIN_CHAT"))
+	-- 12 Nov 2026 (lint [28]): the bottom-right row (chat, share, route) grows to the LEFT, as wide as each text.
+	ns.FitButtonToText(chatBtn, 58, 90)
 	chatBtn:SetScript("OnClick", function()
 		local b = curDungeon and curDungeon.bosses and curDungeon.bosses[curIdx]
 		if b and ns.PrintDungeonBossTips then
@@ -787,6 +789,7 @@ local function EnsureWindow()
 	shareBtn:SetPoint("RIGHT", chatBtn, "LEFT", -4, 0)
 	shareBtn:SetFrameLevel(f:GetFrameLevel() + 5)
 	shareBtn:SetText(ns:L("DGN_WIN_SHARE"))
+	ns.FitButtonToText(shareBtn, 72, 90)
 	-- Linksklik = hele groep; rechtsklik = lijstje groepsleden, fluister naar één (Rob, 12 okt 2026).
 	shareBtn:RegisterForClicks("LeftButtonUp", "RightButtonUp")
 	local function GroupMemberNames()
@@ -864,6 +867,8 @@ local function EnsureWindow()
 	routeBtn:SetPoint("RIGHT", shareBtn, "LEFT", -4, 0)
 	routeBtn:SetFrameLevel(f:GetFrameLevel() + 5)
 	routeBtn:SetText(ns:L("DGN_WIN_ROUTE"))
+	-- NOT widened (12 Nov 2026): lint [28] puts it ~2 px over (ruRU), inside the estimate's error, and a wider row could
+	-- reach the "all" button bottom-left when the window is at its 340 px minimum.
 	routeBtn:Hide()
 	routeBtn:SetScript("OnClick", function()
 		local r = curDungeon and curDungeon.route

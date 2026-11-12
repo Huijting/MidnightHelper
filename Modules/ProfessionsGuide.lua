@@ -229,6 +229,7 @@ local function EnsureUrlCopyFrame()
 	openBtn:SetSize(150, 24)
 	openBtn:SetPoint("TOP", eb, "BOTTOM", 0, -12)
 	openBtn:SetText(ns:L("PROFGUIDE_BTN_OPEN_BROWSER"))
+	ns.FitButtonToText(openBtn, 150, 260) -- 12 Nov 2026 (lint [28]); centred under the edit box, alone on its row
 	openBtn:SetScript("OnClick", function()
 		local url = f._url
 		if url and url ~= "" and OpenURL then

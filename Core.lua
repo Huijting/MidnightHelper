@@ -31,6 +31,24 @@
 
 local addonName, ns = ... ---@type string, MidnightHelperNS
 
+--- 12 Nov 2026 (Rob via sparring: "Alle 18 repareren"): make a button as wide as its own text, between minW and maxW.
+--- Call it right after every SetText. Lint [28] (tools/button_width_check.py) knows this call and stops flagging.
+--- maxW is the room the button really has (its neighbours, the window edge): wider than that would overlap.
+function ns.FitButtonToText(btn, minW, maxW)
+	local fs = btn and btn.GetFontString and btn:GetFontString()
+	if not fs then
+		return
+	end
+	local w = math.ceil((fs:GetStringWidth() or 0) + 24)
+	if minW and w < minW then
+		w = minW
+	end
+	if maxW and w > maxW then
+		w = maxW
+	end
+	btn:SetWidth(w)
+end
+
 --- 🧩 WoW Forever (5 Nov 2026, MidnightHelper_Camelot.toc). True on the Forever client: interface 16000-19999, the
 --- same test EllesmereUI uses (EllesmereUI_ClientGate.lua, read that day). Forever loads only part of MH, and the
 --- Midnight API names still exist there without the content (docs/PLAN_FOREVER_2026-11-05.md), so a screen asks

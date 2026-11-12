@@ -1425,6 +1425,7 @@ local function SetupProfessionModule()
 	waypointBtn:SetSize(180, WAYPOINT_BTN_HEIGHT)
 	waypointBtn:SetPoint("BOTTOMLEFT", frame, "BOTTOMLEFT", 16, WAYPOINT_BTN_BOTTOM_INSET)
 	waypointBtn:SetText(ns:L("PROF_GENERATE_TREASURES_BTN"))
+	ns.FitButtonToText(waypointBtn, 180, 230) -- 12 Nov 2026 (lint [28]); the books button hangs on its right edge
 	waypointBtn:SetFrameLevel((frame:GetFrameLevel() or 0) + 50)
 	waypointBtn:RegisterForClicks("LeftButtonUp")
 
@@ -1433,6 +1434,7 @@ local function SetupProfessionModule()
 	booksBtn:SetPoint("LEFT", waypointBtn, "RIGHT", 8, 0)
 	booksBtn:SetPoint("BOTTOM", frame, "BOTTOM", 0, WAYPOINT_BTN_BOTTOM_INSET)
 	booksBtn:SetText(ns:L("PROF_GENERATE_BOOKS_BTN"))
+	ns.FitButtonToText(booksBtn, 180, 230)
 	booksBtn:SetFrameLevel((frame:GetFrameLevel() or 0) + 50)
 	booksBtn:RegisterForClicks("LeftButtonUp")
 

@@ -59,6 +59,14 @@ Eerst `/reload`, buiten een gevecht.
 - [ ] Een gevecht beginnen met de vakjes aan → ze gaan vanzelf weg, met een regel in de chat.
 - [ ] `/mh move why` → per onderdeel: op je scherm, nu verborgen, of uit.
 
+## 🆕 12 nov (avond) — BEIDE SPELLEN: knoppen zo breed als hun tekst (Rob, via sparring: "Alle 18 repareren")
+
+Het ging vooral om Frans, Spaans, Duits, Italiaans en Russisch; in het Engels zie je weinig verschil.
+- [ ] `/reload`. Kijk of niets over elkaar valt: het modelvoorbeeld (Spin en Reset onderaan), het dungeon-bazenvenster
+      (Chat/Share rechtsonder), de Great Vault-melding (de knop rechtsonder en de grijze zin ernaast), Consumables
+      (de knoppen bovenaan), het beroepenvenster (de twee route-knoppen onderaan).
+- [ ] Wie MH in een andere taal speelt (bv. Cisca of een tester): passen de teksten in de knoppen?
+
 ## 🆕 12 nov (avond) — FOREVER: uitleg per beroep (Rob, via sparring: "A, eerst klein")
 
 Eerst `/reload`.

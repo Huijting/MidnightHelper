@@ -190,7 +190,11 @@ local function BuildPreview()
 	local spinBtn = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
 	spinBtn:SetSize(70, 22)
 	spinBtn:SetText(ns:L("MODEL_PREVIEW_SPIN"))
-	spinBtn:SetPoint("BOTTOM", f, "BOTTOM", -38, 12)
+	-- 12 Nov 2026 (lint [28]): both buttons as wide as their text, growing OUTWARD from the middle (Spin to the left,
+	-- Reset to the right), so a longer word never pushes one over the other. Max 110: the 320 px window keeps the 28 px
+	-- "<" and ">" buttons at 12 px from each edge (160 - 3 - 110 = 47 > 40).
+	ns.FitButtonToText(spinBtn, 70, 110)
+	spinBtn:SetPoint("BOTTOMRIGHT", f, "BOTTOM", -3, 12)
 	spinBtn:SetScript("OnClick", function()
 		model._mhAuto = not model._mhAuto
 	end)
@@ -198,7 +202,8 @@ local function BuildPreview()
 	local resetBtn = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
 	resetBtn:SetSize(70, 22)
 	resetBtn:SetText(ns:L("MODEL_PREVIEW_RESET"))
-	resetBtn:SetPoint("BOTTOM", f, "BOTTOM", 38, 12)
+	ns.FitButtonToText(resetBtn, 70, 110)
+	resetBtn:SetPoint("BOTTOMLEFT", f, "BOTTOM", 3, 12)
 	resetBtn:SetScript("OnClick", function()
 		model._mhFacing = 0.6
 		model._mhZoom = 0

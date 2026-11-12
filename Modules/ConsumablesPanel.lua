@@ -156,6 +156,7 @@ function ns.BuildConsumablesPanel(panel)
 	myBtn:SetSize(108, 22)
 	myBtn:SetPoint("LEFT", toolbar, "LEFT", 0, 0)
 	myBtn:SetText(ns:L("SEARCH_MY_CHARACTER"))
+	ns.FitButtonToText(myBtn, 108, 180) -- 12 Nov 2026 (lint [28]); the toolbar row shifts right, the hint after it shrinks
 	myBtn:SetScript("OnClick", function()
 		ns.MH_ClearConsumablesPreview()
 	end)
@@ -180,6 +181,7 @@ function ns.BuildConsumablesPanel(panel)
 	specBtn:SetSize(140, 22)
 	specBtn:SetPoint("LEFT", nextBtn, "RIGHT", 6, 0)
 	specBtn:SetText(ns:L("CONS_PICK_SPEC_BTN"))
+	ns.FitButtonToText(specBtn, 140, 220)
 	specBtn:SetScript("OnClick", function()
 		ns.MH_CycleConsumablesSpec(1)
 	end)
@@ -261,9 +263,11 @@ function ns.BuildConsumablesPanel(panel)
 	panel._mhRefreshConsumables = function()
 		if myBtn.SetText then
 			myBtn:SetText(ns:L("SEARCH_MY_CHARACTER"))
+			ns.FitButtonToText(myBtn, 108, 180)
 		end
 		if specBtn.SetText then
 			specBtn:SetText(ns:L("CONS_PICK_SPEC_BTN"))
+			ns.FitButtonToText(specBtn, 140, 220)
 		end
 		if subtitle.SetText then
 			subtitle:SetText(ns:L("MACROS_CONSUMABLES_SUBTITLE"))

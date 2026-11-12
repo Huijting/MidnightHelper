@@ -941,6 +941,7 @@ function ns:RefreshLocaleUI()
 	end
 	if r.aboutBtn and r.aboutBtn.SetText then
 		r.aboutBtn:SetText(self:L("ABOUT_BUTTON"))
+		ns.FitButtonToText(r.aboutBtn, 56, 100)
 	end
 	if ns._mhRefreshLookToggle then
 		ns._mhRefreshLookToggle()
@@ -3040,6 +3041,7 @@ function ns:EnsureMainUI()
 	aboutBtn:SetPoint("RIGHT", infoToggleBtn, "LEFT", -4, 0)
 	MHTintButtonTextures(aboutBtn, MH_CHROME.tabTexInactive[1], MH_CHROME.tabTexInactive[2], MH_CHROME.tabTexInactive[3])
 	aboutBtn:SetText(ns:L("ABOUT_BUTTON"))
+	ns.FitButtonToText(aboutBtn, 56, 100) -- 12 Nov 2026 (lint [28]); the same bounds FitTitleBarButton uses on toggle
 	aboutBtn:SetScript("OnClick", function()
 		if ns._mhToggleAboutPanel then
 			ns:_mhToggleAboutPanel()
@@ -3085,6 +3087,7 @@ function ns:EnsureMainUI()
 	codexLinkBtn:SetPoint("RIGHT", lookToggleBtn, "LEFT", -6, 0)
 	MHTintButtonTextures(codexLinkBtn, MH_CHROME.tabTexInactive[1], MH_CHROME.tabTexInactive[2], MH_CHROME.tabTexInactive[3])
 	codexLinkBtn:SetText(ns:L("CODEX_LINK_OPEN"))
+	ns.FitButtonToText(codexLinkBtn, 110, 160) -- 12 Nov 2026 (lint [28]); title bar row grows to the left
 	codexLinkBtn:SetScript("OnClick", function(self)
 		if self._mhCat and ns.SetActiveCodexCategory then
 			ns.SetActiveCodexCategory(self._mhCat)

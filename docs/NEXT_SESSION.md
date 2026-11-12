@@ -31,6 +31,16 @@
   - ProfessionsGuide:231 frFR ~28;
   - ModelPreview:200 deDE "Zurücksetzen" ~24.
 - NIETS gerepareerd: lijst bij sparring, wacht op Robs keuze.
+- ✅ Rob (via sparring, keuze letterlijk: *"Alle 18 repareren (Recommended)"*): nieuwe helper `ns.FitButtonToText(btn,
+  min, max)` in `Core.lua` (beide spellen); max = de echte ruimte (buren, rand). 17 van 18 verbreed, geen vertaling
+  ingekort.
+  - DelveBossCard max 250 (de "all"-knop hangt eraan; 402 van 420 px).
+  - ModelPreview: Spin/Reset groeien nu vanuit het midden naar buiten, max 110 (de pijlknoppen blijven vrij).
+  - VaultReminder: de hint eindigt nu bij de knop.
+  - DungeonBossWindow Chat/Share max 90; Route NIET (≈2 px, en in een 340 px venster zou de rij de "all"-knop kunnen raken).
+  - Consumables ook bij de taalwissel; UI.lua About ook in de refresh.
+- Lint [28] slaat een knop alleen over als `FitButtonToText(<diezelfde knop>` erbij staat. Na de reparatie: 1 SOFT
+  (Route). Niet in het spel gezien, en niemand kan het in die talen zien: het blijft een schatting.
 
 ## 🛠️ 12 nov (avond) — Forever: uitleg per beroep, versie A (O26; Rob via sparring, letterlijk: "A, eerst klein")
 

@@ -310,7 +310,7 @@ local function EnsureVaultPopup()
 
 	f.hint = content:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
 	f.hint:SetPoint("BOTTOMLEFT", content, "BOTTOMLEFT", 0, 2)
-	f.hint:SetPoint("RIGHT", content, "RIGHT", -120, 0)
+	f.hint:SetPoint("RIGHT", content, "RIGHT", -120, 0) -- re-anchored to the button's left edge below (12 Nov 2026)
 	f.hint:SetJustifyH("LEFT")
 	f.hint:SetTextColor(0.7, 0.7, 0.7)
 
@@ -318,6 +318,12 @@ local function EnsureVaultPopup()
 	f.wayBtn:SetSize(110, 22)
 	f.wayBtn:SetPoint("BOTTOMRIGHT", content, "BOTTOMRIGHT", 0, -2)
 	f.wayBtn:SetText(ns:L("VAULT_REMINDER_POPUP_WAYPOINT"))
+	-- 12 Nov 2026 (lint [28]): as wide as its text; the hint beside it now ends at the button instead of 120 px from the
+	-- edge, so a wider button never covers it.
+	ns.FitButtonToText(f.wayBtn, 110, 180)
+	f.hint:ClearAllPoints()
+	f.hint:SetPoint("BOTTOMLEFT", content, "BOTTOMLEFT", 0, 2)
+	f.hint:SetPoint("RIGHT", f.wayBtn, "LEFT", -8, 0)
 	f.wayBtn:RegisterForClicks("LeftButtonUp")
 	f.wayBtn:SetScript("OnClick", function()
 		if ns.AddSmartTomTomWay then

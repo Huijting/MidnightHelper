@@ -499,6 +499,7 @@ local function Build()
 	go:SetSize(210, 24)
 	go:SetPoint("BOTTOMLEFT", 20, 16)
 	go:SetText(ns:L("HOME_FOREVER_BTN_GO"))
+	ns.FitButtonToText(go, 210, 300) -- 12 Nov 2026 (lint [28]); bottom-left of the trainer window, nothing beside it
 	go:SetScript("OnClick", function()
 		if ns.ForeverTrainerGo then
 			ns.ForeverTrainerGo()

@@ -669,6 +669,7 @@ function ns.BuildTradingPostPanel(panel)
 		routeBtn:GetFontString():SetFontObject(ns.MHScalableFont("GameFontHighlightSmall"))
 	end
 	routeBtn:SetText(ns:L("TRADINGPOST_ROUTE_BTN"))
+	ns.FitButtonToText(routeBtn, 150, 260) -- 12 Nov 2026 (lint [28]); beside the title, nothing to its right
 	routeBtn:SetScript("OnClick", function()
 		ns.RouteToTradingPost()
 	end)

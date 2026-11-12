@@ -123,7 +123,8 @@ def scan_source(src, rel):
             if var not in buttons or var not in width or width[var] < MIN_WIDTH:
                 continue
             after = "\n".join(lines[n:n + AUTO_LOOKAHEAD])
-            if AUTO.search(after):
+            # Sizes itself: a SetWidth from GetStringWidth nearby, or ns.FitButtonToText on THIS button.
+            if AUTO.search(after) or re.search(r"FitButtonToText\(\s*" + re.escape(var) + r"\s*[,)]", after):
                 continue
             found.append((var, width[var], key, n, rel))
     return found
