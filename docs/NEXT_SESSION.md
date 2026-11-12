@@ -15,6 +15,20 @@
    Een release alleen op Robs go. CF-plaatjes staan erop (Rob, 11 nov); of hij de nieuwe CF-beschrijving en de
    5.1.0-tekst al plakte: NIET GEMETEN, vragen.
 
+## 🔎 12 nov (avond) — dispelTryLog na Robs run (Voidscar Arena, Prot Paladin): uitslag, niets gebouwd
+
+- Sparring las het (8 regels, rij 5 = player, in gevecht): 5× cast 213644, 1× failed, 2× "Spell is not ready yet".
+  Rob: *"Hij bleef continu rood. Eén keer dacht ik dit wel deed, na de zoveelste keer rechtsklikken."*
+  `/mh prompt test`: helemaal goed (woorden los, plek blijft na /reload).
+- GEMETEN in de code: "cast" = `UNIT_SPELLCAST_SUCCEEDED` (`PartyTargets.lua:749-774`), dus echt geslaagde casts.
+- GEMETEN in DB2 12.1.5.70783: Cleanse Toxins 213644 → SpellCategories ChargeCategory 1512 = "Class - Paladin - Cleanse",
+  MaxCharges 1, ChargeRecoveryTime 8000; GCD 1500 (StartRecoveryCategory 133). Corrosive Essence 1289258:
+  SpellAuraOptions CumulativeAura 10 (stapelt tot 10).
+- Casts 2 s na elkaar kan dus niet met een cooldown van 8 s die echt start. AFGELEID: de cooldown startte niet, dus de
+  cast haalde niets weg (Blizzards regel dat een dispel die niets weghaalt geen cooldown krijgt; niet in deze build
+  gemeten). "Not ready yet" kan dan de GCD zijn. Andere mogelijkheid: het gif werd meteen opnieuw gezet. Voorstel aan
+  sparring: een kleine meting (na elke eigen dispel 0,3 s later de charge/cooldown in `dispelTryLog`), pas op Robs ja.
+
 ## 🛠️ 12 nov (avond) — vier Forever-klussen terwijl Rob at (bouw-ja via sparring, Robs keuzes letterlijk)
 
 Rob: *"Kunnen we daar niks van bouwen, dat dat zo meteen nog kan gaan testen"*; hij koos alle vier de opties. Geen release.
