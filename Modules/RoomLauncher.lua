@@ -96,6 +96,10 @@ local ME_FOREVER_CARDS = {
 	{ id = "me_fweapons", labelKey = "FWEAP_TITLE", tagline = "TOOLLP_FWEAP_DESC",
 		icon = "Interface\\Icons\\INV_Mace_01", need = "ShowForeverWeapons",
 		action = function() ns.ShowForeverWeapons() end },
+	-- 12 Nov 2026 (Rob, via sparring: "Ja, een tegel (Recommended)"): "Your characters" (ForeverChars.lua).
+	{ id = "me_fchars", labelKey = "FCHARS_TITLE", tagline = "TOOLLP_FCHARS_DESC",
+		icon = "Interface\\Icons\\INV_Misc_GroupNeedMore", need = "ShowForeverChars",
+		action = function() ns.ShowForeverChars() end },
 	{ id = "me_keyblock", labelKey = "KEYBLOCK_TITLE", tagline = "ROOMCARD_ME_KEYBLOCK_TIP",
 		icon = "Interface\\Icons\\INV_Misc_Key_03", need = "ShowKeyBlock",
 		action = function() ns.ShowKeyBlock() end },

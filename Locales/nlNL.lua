@@ -4310,6 +4310,7 @@ ns._mhLocales.nlNL = {
 	TOOLLP_FPROF_DESC = "Elke beroepstrainer voor jouw kant, dichtstbijzijnde eerst, met een pijl naar elk.",
 	TOOLLP_FMAC_DESC = "Kant-en-klare macro's voor healen, verband, aanvallen, focus, raid-markers, trinkets en de spell van je ras. Eén klik zet ze in je macrolijst.",
 	TOOLLP_FVEND_DESC = "Wie verkoopt een Fishing Pole, Mining Pick, Skinning Knife en ander gereedschap en spullen aan jouw kant, dichtstbijzijnde eerst, met een pijl.",
+	TOOLLP_FCHARS_DESC = "Al je characters op een rij: level, goud, beroepen, richting, en spells die klaarliggen bij de trainer.",
 	TOOLLP_FWEAP_DESC = "Welke wapens je klasse kan leren, welke je al kent, en de weapon master die elk wapen leert, met een pijl en de weg erheen.",
 	FWEAP_TITLE = "Wapentrainers",
 	FWEAP_KNOWN_TAG = "(ken je)",

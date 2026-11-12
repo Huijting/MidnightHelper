@@ -23755,6 +23755,7 @@ if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	FCHARS_FORGOT_FMT = "%s vergessen.",
 	BINDING_ALTS_FOREVER_ONLY = "das Fenster \"Deine Charaktere\" ist für WoW: Forever.",
 	CMDLIST_ALTS = "Alle deine Charaktere in einer Reihe: Stufe, Gold, Berufe, Richtung, wann du sie zuletzt gespielt hast, und Zauber, die beim Lehrer warten.",
+	TOOLLP_FCHARS_DESC = "Alle deine Charaktere in einer Reihe: Stufe, Gold, Berufe, Richtung und Zauber, die beim Lehrer warten.",
 }) end
 
 -- 12 Nov 2026: Forever group panel (ForeverPartyPanel.lua); our own translation (mh-writer), not native-checked.
@@ -23801,6 +23802,7 @@ if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	FCHARS_FORGOT_FMT = "%s oublié.",
 	BINDING_ALTS_FOREVER_ONLY = "la fenêtre \"Tes personnages\" est réservée à WoW: Forever.",
 	CMDLIST_ALTS = "Tous tes personnages à la suite : niveau, or, métiers, voie, quand tu les as joués pour la dernière fois, et les sorts qui t'attendent chez ton maître de classe.",
+	TOOLLP_FCHARS_DESC = "Tous tes personnages à la suite : niveau, or, métiers, voie et les sorts qui t'attendent chez ton maître de classe.",
 }) end
 
 -- 12 Nov 2026: Forever group panel (ForeverPartyPanel.lua); our own translation (mh-writer), not native-checked.
@@ -23847,6 +23849,7 @@ if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	FCHARS_FORGOT_FMT = "%s olvidado.",
 	BINDING_ALTS_FOREVER_ONLY = "la ventana \"Tus personajes\" es para WoW: Forever.",
 	CMDLIST_ALTS = "Todos tus personajes en fila: nivel, oro, profesiones, camino, cuándo jugaste con ellos por última vez y los hechizos que te esperan con el instructor.",
+	TOOLLP_FCHARS_DESC = "Todos tus personajes en fila: nivel, oro, profesiones, camino y los hechizos que te esperan con el instructor.",
 }) end
 
 -- 12 Nov 2026: Forever group panel (ForeverPartyPanel.lua); our own translation (mh-writer), not native-checked.
@@ -23893,6 +23896,7 @@ if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	FCHARS_FORGOT_FMT = "%s esquecido.",
 	BINDING_ALTS_FOREVER_ONLY = "a janela \"Seus personagens\" é para o WoW: Forever.",
 	CMDLIST_ALTS = "Todos os seus personagens em fila: nível, ouro, profissões, caminho, quando você jogou com eles por último e feitiços esperando no treinador.",
+	TOOLLP_FCHARS_DESC = "Todos os seus personagens em fila: nível, ouro, profissões, caminho e feitiços esperando no treinador.",
 }) end
 
 -- 12 Nov 2026: tool tip list hint; our own translation (mh-writer), not native-checked.

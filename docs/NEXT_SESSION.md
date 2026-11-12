@@ -15,6 +15,18 @@
    Een release alleen op Robs go. CF-plaatjes staan erop (Rob, 11 nov); of hij de nieuwe CF-beschrijving en de
    5.1.0-tekst al plakte: NIET GEMETEN, vragen.
 
+## 🛠️ 12 nov (laat) — tegel "Your characters" (Rob bedoelde "tegel", niet "toets")
+
+- Rob dicteerde "toets" en bedoelde "tegel": *"Het kopje Midnight Helper staat er. Maar ik bedoelde een tegel in onze
+  addon"*. Keuzes (via sparring, letterlijk): *"Ja, een tegel (Recommended)"*; de toets: *"Laten staan (Recommended)"*.
+- Tegel = een kaart in `ME_FOREVER_CARDS` (RoomLauncher.lua), zoals Rob op 10 nov voor macro's en verkopers vroeg
+  (*"dit moet natuurlijk ook een tegel in de addon krijgen"*). Nieuw: `me_fchars` → `ns.ShowForeverChars()`, tekst
+  TOOLLP_FCHARS_DESC, icoon `INV_Misc_GroupNeedMore` (pad AFGELEID). Er stond nog geen tegel of startpagina-regel voor
+  (GEMETEN, grep met tegencontrole in ForeverChars.lua); er is dus niets weggehaald.
+- Instellingen in Forever (vraag van sparring): één lange lijst, Esc → Options → AddOns → Midnight Helper; de
+  Forever-schakelaars staan onder het kopje "On-screen buttons" (SettingsDefs.lua:472/523). Robs plaatje met alleen
+  "Open Midnight Helper on login" is NIET gezien (niet in de map); AFGELEID: een zoekresultaat op "Midnight Helper".
+
 ## 🛠️ 12 nov (laat) — toets "Your characters" + "now" alleen voor jezelf
 
 - Rob (via sparring, letterlijk): *"Ja, zonder toets"* (optie A). Bindings.xml `MIDNIGHTHELPER_ALTS`, geen standaardtoets

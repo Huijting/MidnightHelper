@@ -21,6 +21,11 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 12 nov (laat) — FOREVER: tegel "Your characters" (Rob, via sparring: "Ja, een tegel (Recommended)")
+
+- [ ] `/reload`, open MH → kamer "Me": een nieuwe tegel "Your characters" naast Weapon trainers, Vendors enz. Klik →
+      het venster met al je characters opent. Staat het icoon er (een plaatje, geen groen vierkant)?
+
 ## 🆕 12 nov (laat) — FOREVER: toets voor "Your characters" (Rob, via sparring: "Ja, zonder toets")
 
 - [ ] `/reload`. Esc → Options → Keybindings → kopje "Midnight Helper" → regel "Your characters", zonder toets. Kies er

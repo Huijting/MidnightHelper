@@ -5094,6 +5094,7 @@ ns._mhLocales.enUS = {
 	TOOLLP_FPROF_DESC = "Every profession trainer for your side, nearest first, with an arrow to each one.",
 	TOOLLP_FMAC_DESC = "Ready-made macros for healing, bandages, attacking, focus, raid markers, trinkets and your race's own spell. One click puts them in your macro list.",
 	TOOLLP_FVEND_DESC = "Who sells fishing poles, mining picks, skinning knives and other tools and goods on your side, nearest first, with an arrow.",
+	TOOLLP_FCHARS_DESC = "All your characters in a row: level, gold, professions, direction, and spells waiting at the trainer.",
 	-- 10 Nov 2026, WoW Forever: where to learn a weapon (ForeverWeapons.lua, /mh weapons).
 	TOOLLP_FWEAP_DESC = "Which weapons your class can learn, which ones you know, and the weapon master who teaches each one, with an arrow and the way there.",
 	FWEAP_TITLE = "Weapon trainers",
