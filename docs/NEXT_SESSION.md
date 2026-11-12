@@ -34,6 +34,11 @@
   `afterFight` (samenvatting van de drie-filter-scan; `AfterCombatWithRowLog`). Offline 8/8 (scratch `rowlog_test.lua`),
   stop-spell-proef nog 7/7, lint 0 HARD. NIET GEMETEN: of OnShow in een gevecht vuurt — daarvoor zijn de `signals`.
   Rob: `/reload`, dungeonrun, `/reload`; dan lees ik het.
+- ❌ Uitslag run 12 nov (SV 12:46, zelf gelezen, regels 140227-140366): signals show=10, hide=0, in gevecht 0; 10 events
+  = 2× alle 5 rijen tegelijk (12:44:16 en 12:44:46), buiten gevecht, nooit een einde, castsAtStart leeg. char/spec
+  klopt. Het seintje meet dus NIET "de rij is rood". AFGELEID: Blizzards aura-slot wordt bij de opbouw één keer getoond
+  en daarna via alpha aan/uit gezet, niet via Show/Hide. `dispelSelfLog` heeft geen regel van 12 nov (niets bleef
+  hangen na een gevecht). Buff-zin in gevecht: ✅ Rob, screenshot 13.png. Gestopt; nieuw voorstel naar sparring.
 - ✅ Gebouwd (Rob, via sparring: "Ja, bouw dat"): elke nieuwe `dispelSelfLog`-regel krijgt `char` (UnitName), `class`
   (token) en `spec` (spec-ID), in `AfterCombatDispelCheck`. Alleen meten, niets zichtbaars. Oude regels blijven zonder.
 

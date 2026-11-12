@@ -27,7 +27,8 @@ Niets zichtbaars; dit meet alleen. Jij hoeft niets te typen.
 - [ ] `/reload`, een dungeonrun (follower mag) met het Party targets-paneel aan, daarna `/reload`. Dan lees ik
       `dispelRowLog` uit je SavedVariables: welke rij rood werd, hoe lang, in gevecht ja/nee, je casts en fouten op dat
       moment, en wat er 1 s na het gevecht nog op je zat. ⚠️ Werkt het seintje in een gevecht niet, dan staat er
-      "signals: show 0"; dan stop ik en krijg je een nieuw voorstel.
+      "signals: show 0"; dan stop ik en krijg je een nieuw voorstel. ❌ Run 12 nov: het seintje mat iets anders (alle
+      5 rijen tegelijk bij de opbouw, nooit in een gevecht). Gestopt; nieuw voorstel ligt bij Rob.
 
 ## 🆕 12 nov — MIDNIGHT: `/mh prompt test` (Rob: "Ja, laat hem dat bouwen")
 
@@ -207,7 +208,8 @@ Eerst `/reload`. Op je paladin in Forever, zonder blessing:
       ❌/❓ Rob, 12 nov (Midnight, follower dungeon, Prot Paladin): in het gevecht verdween de melding helemaal, geen
       andere zin. Code (GEMETEN): `MissingBuff.lua:819` verbergt alles als `ns.Aura.Trusted()` false is
       (`C_Secrets.ShouldAurasBeSecret`). AFGELEID: in een dungeon-gevecht is dat zo. Rob koos *"Eerst meten"*.
-- [ ] 🆕 **Gebouwd 12 nov na Robs meting** (auras-trusted=false, GetShapeshiftForm=0 secret=false, in gevecht):
+- [x] 🆕 **Gebouwd 12 nov na Robs meting** ✅ Rob, 12 nov: "Het icoon blijft staan" (screenshot: "No aura active: Devotion
+      Aura. Cast it from your bars.") (auras-trusted=false, GetShapeshiftForm=0 secret=false, in gevecht):
       `/reload`, dungeon (follower mag), Devotion Aura UIT, gevecht → het icoon BLIJFT staan met "Devotion Aura … Cast it
       from your bars." Gewone buffs (bv. een flask of Arcane Intellect) blijven daar wél zwijgen. Warrior: idem voor de
       stance. `/mh mbuff` in het gevecht zegt "only aura/stance reminders show".
