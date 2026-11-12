@@ -252,7 +252,7 @@ Schild (Z) op jezelf. Shadow Word: Pain (2), Mind Blast (3), dan Smite (1). Wein
 - 30: Prayer of Healing op Shift-2 (healt je groep), Mind Control op Shift-F. 32: Shadow Word: Death op Shift-4, Abolish Disease neemt Shift-C over. 34: Levitate op R (kost een Light Feather). 48: Prayer of Fortitude neemt Shift-X over (kost een Holy Candle).
 - Talents: Mind Flay (neemt toets 1 over), Holy Nova op Shift-1 en Inner Focus op F1, op z'n vroegst 20. Vampiric Embrace op Ctrl-3, 25. Penance op Shift-F1 en Silence op E (je **interrupt**: hij stopt de spell van een vijand), 30. Power Infusion op Q, Shadowform op Ctrl-1, Prayer of Mending op Ctrl-2, 40.]] },
 		{ "Beginnersfouten", [[
-- Healen in Shadowform. Geen enkele heal-spell werkt in Shadowform. Fear Ward en de race-spells van de Dwarf en de Gnome (Chastise, Confounding Flash) werken er ook niet in. Ga er eerst uit: druk nog eens op Ctrl-1.
+- Healen in Shadowform. Geen enkele heal-spell werkt in Shadowform. Fear Ward en de race-spell van de Dwarf (Chastise) werken er ook niet in. Ga er eerst uit: druk nog eens op Ctrl-1.
 - Smite missen nadat je Mind Flay kiest. Zodra je Mind Flay kent, cast toets 1 Mind Flay, niet Smite.
 - Shoot (5) indrukken zonder wand. Koop of vind er eerst een.
 - Vroeg een interrupt zoeken op E. De Priest krijgt er pas een via het talent Silence (op z'n vroegst 30).

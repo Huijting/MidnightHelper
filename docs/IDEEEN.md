@@ -99,6 +99,18 @@ NIET GEMETEN.
 Hier komt wat Rob goedkeurt, ook wat hij rechtstreeks in de bouwchat vraagt (Rob, 10 nov: *"ja we willen het op 1
 lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met de commit erbij. Na zijn test naar **Af**.
 
+### Forever: Priest-tip "Shadowform" klopt weer met de hotfix van 11 nov
+- Voor wie:      allebei (Gnome-Priest)
+- Moment:        How you play → Priest → Beginner mistakes
+- Spel:          Forever
+- Bron:          content-wachter 12 nov [RAAKT ONS]; Blizzard-hotfix 11 nov: Confounding Flash werkt nu in Shadowform
+- Bouwt op:      `ForeverHowToPlay.lua` + 7 `Locales/ForeverHowToPlay_*.lua`
+- Data:          GEMETEN in Blizzards hotfixtekst; Chastise/Fear Ward NIET GEMETEN (zin blijft daar zoals hij was)
+- Vindbaar:      vanzelf, in de Priest-kaart
+- Werk:          klein
+- Site:          nee (tekstfix)
+- Rob zegt:      ja (*"Ja, doe allebei"*, 12 nov). **Gebouwd 12 nov.** Wacht op Robs blik (TESTLIJST 12 nov).
+
 ### Forever: de pijl wijst de boot, zeppelin, tram of het portaal aan
 - Voor wie:      allebei (nieuweling: "waar moet ik heen?"; veteraan: "welke boot ook alweer?")
 - Moment:        als je een pijl zet naar iets op een ander continent, op Teldrassil, of in Ironforge vanuit Stormwind

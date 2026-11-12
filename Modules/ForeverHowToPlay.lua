@@ -270,7 +270,7 @@ Shield (Z) on yourself. Shadow Word: Pain (2), Mind Blast (3), then Smite (1). L
 - 30: Prayer of Healing on Shift-2 (heals your group), Mind Control on Shift-F. 32: Shadow Word: Death on Shift-4, Abolish Disease takes over Shift-C. 34: Levitate on R (costs a Light Feather). 48: Prayer of Fortitude takes over Shift-X (costs a Holy Candle).
 - Talents: Mind Flay (takes over key 1), Holy Nova on Shift-1 and Inner Focus on F1, 20 at the earliest. Vampiric Embrace on Ctrl-3, 25. Penance on Shift-F1 and Silence on E (your **interrupt**: it stops an enemy's spell), 30. Power Infusion on Q, Shadowform on Ctrl-1, Prayer of Mending on Ctrl-2, 40.]] },
 		{ "Beginner mistakes", [[
-- Healing in Shadowform. No healing spell works in Shadowform. Fear Ward and the Dwarf and Gnome race spells (Chastise, Confounding Flash) do not work in it either. Leave it first: press Ctrl-1 again.
+- Healing in Shadowform. No healing spell works in Shadowform. Fear Ward and the Dwarf race spell (Chastise) do not work in it either. Leave it first: press Ctrl-1 again.
 - Missing Smite after you take Mind Flay. Once you know Mind Flay, key 1 casts Mind Flay, not Smite.
 - Pressing Shoot (5) without a wand. Buy or find one first.
 - Looking for an interrupt on E early. The Priest only gets one from the Silence talent (30 at the earliest).

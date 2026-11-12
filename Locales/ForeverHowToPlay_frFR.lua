@@ -256,7 +256,7 @@ Bouclier (Z) sur toi. Mot de l'ombre : Douleur (2), Attaque mentale (3), puis C
 - 30 : Prière de soins sur Shift-2 (soigne ton groupe), Contrôle mental sur Shift-F. 32 : Mot de l’ombre : Mort sur Shift-4, Abolir maladie prend Shift-C. 34 : Lévitation sur R (coûte une Plume légère). 48 : Prière de robustesse prend Shift-X (coûte une Bougie sanctifiée).
 - Talents : Fouet mental (prend la touche 1), Nova sacrée sur Shift-1 et Focalisation améliorée sur F1, au plus tôt au niveau 20. Etreinte vampirique sur Ctrl-3, 25. Pénitence sur Shift-F1 et Silence sur E (ton **interruption** : elle arrête le sort d'un ennemi), 30. Infusion de puissance sur Q, Forme d'Ombre sur Ctrl-1, Prière de guérison sur Ctrl-2, 40.]] },
 		{ "Erreurs de débutant", [[
-- Soigner en Forme d'Ombre. Aucun sort de soin ne marche en Forme d'Ombre. Gardien de peur et les sorts raciaux du Nain et du Gnome (Châtiment, Éclair déconcertant) n'y marchent pas non plus. Quitte-la d'abord : appuie encore sur Ctrl-1.
+- Soigner en Forme d'Ombre. Aucun sort de soin ne marche en Forme d'Ombre. Gardien de peur et le sort racial du Nain (Châtiment) n'y marchent pas non plus. Quitte-la d'abord : appuie encore sur Ctrl-1.
 - Ne plus trouver Châtiment après avoir pris Fouet mental. Dès que tu connais Fouet mental, la touche 1 lance Fouet mental, pas Châtiment.
 - Appuyer sur Tir (5) sans baguette. Achètes-en une ou trouves-en une d'abord.
 - Chercher une interruption sur E au début. Le Prêtre n'en a une qu'avec le talent Silence (au plus tôt au niveau 30).

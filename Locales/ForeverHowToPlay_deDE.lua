@@ -255,7 +255,7 @@ Machtwort: Schild (Z) auf dich. Schattenwort: Schmerz (2), Gedankenschlag (3), d
 - 30: Gebet der Heilung auf Shift-2 (heilt deine Gruppe), Gedankenkontrolle auf Shift-F. 32: Schattenwort: Tod auf Shift-4, Krankheit aufheben übernimmt Shift-C. 34: Levitieren auf R (kostet eine Leichte Feder). 48: Gebet der Seelenstärke übernimmt Shift-X (kostet eine Heilige Kerze).
 - Talente: Gedankenschinden (übernimmt Taste 1), Heilige Nova auf Shift-1 und Innerer Fokus auf F1, frühestens 20. Vampirumarmung auf Ctrl-3, 25. Sühne auf Shift-F1 und Stille auf E (deine **Unterbrechung**: sie stoppt den Zauber eines Gegners), 30. Seele der Macht auf Q, Schattengestalt auf Ctrl-1, Gebet der Besserung auf Ctrl-2, 40.]] },
 		{ "Anfängerfehler", [[
-- In Schattengestalt heilen. Kein Heilzauber wirkt in Schattengestalt. Furchtzauberschutz und die Volkszauber von Zwerg und Gnom (Züchtigung, Verwirrender Lichtblitz) wirken darin auch nicht. Verlass sie zuerst: Drück Ctrl-1 noch einmal.
+- In Schattengestalt heilen. Kein Heilzauber wirkt in Schattengestalt. Furchtzauberschutz und der Volkszauber des Zwergs (Züchtigung) wirken darin auch nicht. Verlass sie zuerst: Drück Ctrl-1 noch einmal.
 - Göttliche Pein vermissen, nachdem du Gedankenschinden genommen hast. Sobald du Gedankenschinden kennst, wirkt Taste 1 Gedankenschinden, nicht Göttliche Pein.
 - Schießen (5) ohne Zauberstab drücken. Kauf oder finde zuerst einen.
 - Früh eine Unterbrechung auf E suchen. Der Priester bekommt erst eine mit dem Talent Stille (frühestens 30).

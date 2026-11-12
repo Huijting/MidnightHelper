@@ -21,6 +21,12 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 12 nov — Forever: Priest-tip over Shadowform (Rob: "Ja, doe allebei")
+
+Eerst `/reload`. Op een Forever-character: MH → How you play → Priest → "Beginner mistakes":
+- [ ] De eerste regel noemt nog Fear Ward en Chastise, maar **niet meer Confounding Flash** (die werkt sinds de
+      hotfix van 11 nov wél in Shadowform).
+
 ## 🆕 11 nov — Forever: twee Paladin-macro's (Rob: "Ja, alleen klein")
 
 Eerst `/reload`. Op je Forever-Paladin (level 8 of hoger), `/mh macros`:

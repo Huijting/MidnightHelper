@@ -256,7 +256,7 @@ Escudo (Z) sobre ti. Palabra de las Sombras: dolor (2), Explosión mental (3), y
 - 30: Rezo de sanación en Shift-2 (cura a tu grupo), Control mental en Shift-F. 32: Palabra de las Sombras: muerte en Shift-4, Suprimir enfermedad pasa a ocupar Shift-C. 34: Levitar en R (gasta una Pluma ligera). 48: Rezo de entereza pasa a ocupar Shift-X (gasta una Vela Sagrada).
 - Talentos: Tortura mental (ocupa la tecla 1), Nova Sagrada en Shift-1 y Enfoque interno en F1, como pronto en el 20. Abrazo vampírico en Ctrl-3, 25. Penitencia en Shift-F1 y Silencio en E (tu **interrupción**: detiene el hechizo de un enemigo), 30. Infusión de poder en Q, Forma de las Sombras en Ctrl-1, Rezo de alivio en Ctrl-2, 40.]] },
 		{ "Errores de principiante", [[
-- Curar en Forma de las Sombras. Ningún hechizo de curación funciona en Forma de las Sombras. Resguardo de miedo y los hechizos de raza del Enano y del Gnomo (Castigar, Destello desconcertante) tampoco funcionan en ella. Sal primero: pulsa otra vez Ctrl-1.
+- Curar en Forma de las Sombras. Ningún hechizo de curación funciona en Forma de las Sombras. Resguardo de miedo y el hechizo de raza del Enano (Castigar) tampoco funcionan en ella. Sal primero: pulsa otra vez Ctrl-1.
 - Echar de menos Punición después de elegir Tortura mental. En cuanto conoces Tortura mental, la tecla 1 lanza Tortura mental, no Punición.
 - Pulsar Disparar (5) sin varita. Primero compra o encuentra una.
 - Buscar una interrupción en E al principio. El Sacerdote solo consigue una con el talento Silencio (como pronto en el 30).

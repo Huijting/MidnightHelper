@@ -255,7 +255,7 @@ Escudo (Z) em você mesmo. Palavra Sombria: Dor (2), Impacto Mental (3), depois 
 - 30: Prece de Cura no Shift-2 (cura seu grupo), Controle Mental no Shift-F. 32: Palavra Sombria: Morte no Shift-4, Abolir Doença assume o Shift-C. 34: Levitar no R (custa uma Pluma). 48: Prece da Fortitude assume o Shift-X (custa uma Vela Sagrada).
 - Talentos: Açoite Mental (assume a tecla 1), Nova Sagrada no Shift-1 e Concentração Interior no F1, no mínimo 20. Abraço Vampírico no Ctrl-3, 25. Penitência no Shift-F1 e Silêncio no E (sua **interrupção**: ela para o feitiço de um inimigo), 30. Infusão de Poder no Q, Forma de Sombra no Ctrl-1, Prece da Recomposição no Ctrl-2, 40.]] },
 		{ "Erros de iniciante", [[
-- Curar na Forma de Sombra. Nenhum feitiço de cura funciona na Forma de Sombra. Proteção contra Medo e os feitiços de raça do Anão e do Gnomo (Castigar, Clarão Desconcertante) também não funcionam nela. Saia dela primeiro: aperte Ctrl-1 de novo.
+- Curar na Forma de Sombra. Nenhum feitiço de cura funciona na Forma de Sombra. Proteção contra Medo e o feitiço de raça do Anão (Castigar) também não funcionam nela. Saia dela primeiro: aperte Ctrl-1 de novo.
 - Sentir falta da Punição depois de pegar Açoite Mental. Quando você conhece Açoite Mental, a tecla 1 lança Açoite Mental, não Punição.
 - Apertar Atirar (5) sem varinha. Compre ou encontre uma primeiro.
 - Procurar uma interrupção no E cedo. O Sacerdote só ganha uma com o talento Silêncio (no mínimo 30).
