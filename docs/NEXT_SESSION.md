@@ -15,6 +15,19 @@
    Een release alleen op Robs go. CF-plaatjes staan erop (Rob, 11 nov); of hij de nieuwe CF-beschrijving en de
    5.1.0-tekst al plakte: NIET GEMETEN, vragen.
 
+## 🔎 12 nov — Rode eigen rij in het groepspaneel: wat `dispelSelfLog` zegt (alleen gelezen, niets gebouwd)
+
+- Rob (via sparring): zijn eigen rij wordt rood en hij kan het niet dispellen; speelt "al langer".
+- GEMETEN in Robs retail-SV (bewaard 12 nov 12:15), `dispelSelfLog`, 34 regels, scratch `selflog.py`: sinds de
+  drie-filter-versie (vanaf 9 okt, 27 regels) raakte `HARMFUL|RAID` (= het filter van de rode rij) ALLEEN debuffs met
+  youCan=true (3 van 3) en NOOIT een met youCan=false (0 van 24; die 24 raakten alleen `HARMFUL|DISPELLABLE`). Na een
+  gevecht klopt het rij-filter dus. De 4 valse Magic-regels van 27-30 sep zijn van vóór die versie.
+- ⚠️ Gaten: (1) de log heeft GEEN character of spec. "Rabid Bite, disease, youCan=false" kan niet op een Prot Paladin
+  (Cleanse Toxins haalt disease weg), dus dat waren AFGELEID andere characters. (2) Hij meet alleen 1 s NA het gevecht.
+  Wat de rij IN het gevecht doet, kan MH niet zien (scannen wordt geweigerd). (3) Geen regel van 12 nov.
+- Voorstel naar sparring: meten met de ogen + `/mh glow` (recent casts and errors) op het moment zelf. Klein voorstel om
+  te bouwen: character + spec bij elke `dispelSelfLog`-regel.
+
 ## 🆕 12 nov — Robs Midnight-test deel 2 (follower dungeon, Prot Paladin, via sparring)
 
 - ✅ Groepspaneel: rijen netjes, `/mh glow` "no purge, so your stop-spell: spell 96231", 5 rechterhelften gewapend.
