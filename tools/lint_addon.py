@@ -1727,6 +1727,22 @@ def main() -> int:
         print("     SOFT  this check proves nothing this run; do not read silence as clean")
         soft += 1
 
+    # [28] Buttons whose text is probably wider than the button (Rob, 12 Nov 2026, via sparring: "Ja, bouw dat"; the
+    # 21.png "Weapon trainers" case). An estimate from the locale packs: SOFT. See tools/button_width_check.py.
+    try:
+        import button_width_check as bwc
+        b_lines, b_n, b_ok, (b_proof, b_counter) = bwc.run(root)
+        print(f"\n[28] Buttons probably too narrow for their text: {b_n}  (SOFT; control "
+              f"{'OK' if b_ok else 'FAILED'}: proof {b_proof}, counter-proof {b_counter})")
+        for line in b_lines:
+            print(f"     {line}")
+        soft += 1 if b_n else 0
+        hard += 0 if b_ok else 1
+    except Exception as exc:  # noqa: BLE001
+        print(f"\n[28] Button widths: NOT CHECKED — {type(exc).__name__}: {exc}")
+        print("     SOFT  this check proves nothing this run; do not read silence as clean")
+        soft += 1
+
     print("=" * 70)
     print(f"HARD issues: {hard}   SOFT notes: {soft}")
     print("=" * 70)

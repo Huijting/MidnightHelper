@@ -15,6 +15,23 @@
    Een release alleen op Robs go. CF-plaatjes staan erop (Rob, 11 nov); of hij de nieuwe CF-beschrijving en de
    5.1.0-tekst al plakte: NIET GEMETEN, vragen.
 
+## 🛠️ 12 nov (avond) — lint [28]: te smalle knoppen (Rob via sparring, letterlijk: "Ja, bouw dat")
+
+- `tools/button_width_check.py`, in `lint_addon.py` als [28], SOFT.
+- Wat hij leest:
+  - UIPanelButtonTemplate-knoppen met een vaste breedte (≥ 30 px; ook via een hulpfunctie `local function Btn`);
+  - `SetText(ns:L("KEY"))` op die knoppen;
+  - per taal de tekst uit de packs (pack-bestanden + fill-blokken).
+- Schatting: tekens × 6,5 px + 16 px. Knoppen die zichzelf op hun tekst afstemmen (GetStringWidth binnen 40 regels) slaat hij over.
+- Proef: de 90 px-knop met FWEAP_TITLE (21.png) wordt gevangen. Tegenproef: 180 px niet. Allebei OK.
+- Eerste run: 37 knoppen bekeken, 18 waarschijnlijk te smal. De ergste:
+  - DelveBossCard:146 esES ~50 px;
+  - TradingPost:671 frFR ~42;
+  - ConsumablesPanel:182/266 esES ~32;
+  - ProfessionsGuide:231 frFR ~28;
+  - ModelPreview:200 deDE "Zurücksetzen" ~24.
+- NIETS gerepareerd: lijst bij sparring, wacht op Robs keuze.
+
 ## 🛠️ 12 nov (avond) — Forever: uitleg per beroep, versie A (O26; Rob via sparring, letterlijk: "A, eerst klein")
 
 - Nieuw `Modules/ForeverProfGuide.lua` (beide tocs): `ns.ForeverProfCard(key)` en `ns.ForeverPrimaryCount()`.
