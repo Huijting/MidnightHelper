@@ -78,6 +78,7 @@ Eerst `/reload`.
       ✅ Rob, 12 nov (via sparring, screenshot): kaartje staat er en leest goed. ❌ "Tool: (loading...)." bij Fishing.
       Gerepareerd: het kaartje wacht nu op de naam (zoals de verkopers-tip). Opnieuw kijken: binnen een paar seconden
       "Tool: Fishing Pole.". (De half zichtbare onderste trainer is de rand van het scrollvak: scroll verder.)
+      ✅ Rob (via sparring): "ja de fishing pole staat er, en ja ik kon nog verder scrollen dus hij werd net afgesneden".
 - [ ] "Where to buy" → de verkoperslijst opent op dat gereedschap.
 - [ ] De lijst met trainers staat netjes onder het kaartje (niet eroverheen).
 - [ ] Heb je minder dan 2 hoofdberoepen en staat "Do this now" open: "You can still learn 1 main profession." met een
@@ -106,7 +107,8 @@ Eerst `/reload` op je Protection-paladin (een paar seconden wachten).
       "always" → het blijft staan en zegt "All caught up". "off" → nooit.
 - [ ] Begint een gevecht → het venster gaat weg; na het gevecht komt het terug.
 - [ ] Kruisje → weg tot je volgende login. `/mh donow` → weer in beeld.
-- [ ] Nieuw 12 nov (Rob: "Tandwieltje"): naast het kruisje een tandwieltje. Muis erop → uitleg. Klik → menuutje met
+- [x] Nieuw 12 nov (Rob: "Tandwieltje"): naast het kruisje een tandwieltje. ✅ Rob (via sparring): "Het tandwieltje
+      staat er, werkt" (het plaatje bestaat dus in Forever; tooltip, standen en chatregel niet apart gemeld). Muis erop → uitleg. Klik → menuutje met
       "only when there is something to do", "always", "off" (een groen > bij de huidige stand). "off" → het venster weg
       en de chat zegt hoe je het terugkrijgt (/mh donow auto of de instelling). Dezelfde stand staat dan ook in Options.
 - [ ] Slepen, Shift+scroll = grootte; na `/reload` staat het nog daar. Ook in `/mh move`.
