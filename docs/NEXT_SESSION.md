@@ -15,6 +15,19 @@
    Een release alleen op Robs go. CF-plaatjes staan erop (Rob, 11 nov); of hij de nieuwe CF-beschrijving en de
    5.1.0-tekst al plakte: NIET GEMETEN, vragen.
 
+## 🆕 12 nov — Onderzoek: richtingen per class in Forever (Rob: "Ja, alle classes", via sparring; GEEN bouw-go)
+
+- `docs/forever/RICHTINGEN_PER_CLASS_2026-11-12.md` (mh-research, 1 onderzoek, vaste vorm per class). GEMETEN: 9 classes
+  (ChrClasses 70888), 3 TalentTab-bomen per class, geen spec-knop; eerste talentpunt level 10 (TraitCurrencySource 3820),
+  Legacy-perk "Talented" vanaf 5; Dual Spec level 40 (client-strings), respec bij de class trainer. NIET gemeten: respec-
+  en dual-spec-prijs (50 g = alleen Wowhead), Legacy-reset, beste wapen voor een deel van de richtingen, stats tijdens
+  het levelen.
+- 📌 Twee tegenstrijdigheden in ONZE code (GEMETEN dat ze er staan, niet in de client): Stormstrike op 25 in
+  `ForeverHowToPlay.lua:311` en op 40 in `ForeverMacros.lua:476`; Primal Bite op 40 in `ForeverMacros.lua:566`, Blizzard
+  (beta) noemt het 16 punten = level 25. Icy Veins zet Intellect vóór Strength bij Enhancement (ouder dan onze bron).
+- ⚠️ mh-research leest niets in `docs/`: de 8 klasbestanden `docs/forever/FOREVER_<CLASS>_2026-11-06.md` zijn NIET
+  vergeleken met dit onderzoek.
+
 ## 🆕 12 nov — `/mh prompt test` + Robs Midnight-test deel 1 (Rob: "Ja, laat hem dat bouwen", via sparring)
 
 - Aanleiding: `/mh prompt` is een aan/uit-schakelaar, dus Rob kon Shift+scroll niet testen. `ns.PreviewActionPrompt()`

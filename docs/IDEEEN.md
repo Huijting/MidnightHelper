@@ -265,7 +265,9 @@ lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met d
                  "Komt eraan" (spells van de komende 3 levels bij naam); (3) de keuze kleurt de tooltip en de
                  upgrade-melding ("past bij jouw richting" / "past niet"); (4) beroepen als vierde soort advies (Rob:
                  *"Ja, misschien is het wel een goed idee."*, richting, geen besluit); (5) altijd wisselen, schakelaar
-                 om het uit te zetten. Keuzes: zie het venster hierboven. Nog te meten blijft de Data-regel hierboven;
+                 om het uit te zetten. Keuzes: zie het venster hierboven. 🔎 Uitgezocht 12 nov (Rob: *"Ja, alle
+                 classes"*): `docs/forever/RICHTINGEN_PER_CLASS_2026-11-12.md` (richtingen, nodig, level 10, respec;
+                 prijzen NIET gemeten). Nog te meten blijft de rest van de Data-regel hierboven;
                  of dat uitzoeken nu gebeurt, vraagt sparring aan Rob. Grens: van PaladinPlan (GPL-3.0) alleen het idee,
                  geen code, tabellen, plaatjes of teksten. **Geen bouw-go.**
 
