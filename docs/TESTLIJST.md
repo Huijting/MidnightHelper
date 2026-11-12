@@ -57,8 +57,16 @@ Eerst `/reload`, buiten een gevecht.
 - [ ] Een gevecht beginnen met de vakjes aan → ze gaan vanzelf weg, met een regel in de chat.
 - [ ] `/mh move why` → per onderdeel: op je scherm, nu verborgen, of uit.
 
+## 🆕 12 nov (avond) — MIDNIGHT: start de wachttijd van je dispel? (Rob, via sparring: "Ja, bouw dat")
+
+Niets zichtbaars. Hoeft niet vandaag.
+- [ ] `/reload`, een dungeonrun met het Party targets-paneel aan, dispel zoals altijd, daarna `/reload`. Dan lees ik in
+      `dispelTryLog` bij elke geslaagde cast een `cd`: "started" (de 8 s wachttijd liep → er ging iets weg), "not started"
+      (er ging niets weg), of "unreadable" (het spel liet het in het gevecht niet zien).
+
 ## 🆕 12 nov (later) — MIDNIGHT: MH legt je dispel-pogingen zelf vast (O27 optie A, Rob: "Optie A, dispel-pogingen")
 
+✅ Gelezen 12 nov (sparring): 5 casts, 1 failed, 2× "Spell is not ready yet", rij bleef rood. Vervolg hierboven.
 Niets zichtbaars; jij hoeft niets te typen.
 - [ ] `/reload`, een dungeonrun met het Party targets-paneel aan. Dispel jezelf of anderen zoals altijd (rechtsklik op de
       linkerhelft van een rij, of je eigen toets). Daarna `/reload`. Dan lees ik `dispelTryLog`: elke Cleanse Toxins

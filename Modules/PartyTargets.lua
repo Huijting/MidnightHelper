@@ -249,6 +249,42 @@ local function LogDispelTry(kind, spellID, text, row)
 	while #L > TRYLOG_MAX do
 		table.remove(L, 1)
 	end
+	return L[#L]
+end
+
+--- 12 Nov 2026 (Rob, via sparring: "Ja, bouw dat"): did the dispel's own cooldown START after a cast? DB2 12.1.5.70783:
+--- Cleanse Toxins 213644 = ChargeCategory 1512, MaxCharges 1, 8000 ms; the GCD is 1500 ms. Rob's run had casts 2 s
+--- apart, which an 8 s cooldown that really starts does not allow. AFGELEID: a dispel that removes nothing gets no
+--- cooldown. So 0.3 s after each cast this writes `cd` on that log line: "started" (duration > 2 s), "not started"
+--- (0, or only the GCD), or "unreadable" (secret in combat / no API), with the raw duration. Measurement only.
+local function NoteDispelCooldown(entry, spellID)
+	if not (entry and spellID and C_Timer and C_Timer.After) then
+		return
+	end
+	C_Timer.After(0.3, function()
+		local dur, charges
+		if C_Spell and C_Spell.GetSpellCooldown then
+			local ok, info = pcall(C_Spell.GetSpellCooldown, spellID)
+			if ok and type(info) == "table" then
+				dur = info.duration
+			end
+		end
+		if C_Spell and C_Spell.GetSpellCharges then
+			local ok, ch = pcall(C_Spell.GetSpellCharges, spellID)
+			if ok and type(ch) == "table" then
+				charges = ch.currentCharges
+			end
+		end
+		local secret = issecretvalue and ((dur ~= nil and issecretvalue(dur)) or (charges ~= nil and issecretvalue(charges)))
+		if secret or type(dur) ~= "number" then
+			entry.cd = "unreadable"
+			entry.cdWhy = secret and "secret" or "no duration"
+		else
+			entry.cd = (dur > 2) and "started" or "not started"
+			entry.cdDur = dur
+			entry.cdCharges = type(charges) == "number" and charges or nil
+		end
+	end)
 end
 ns._PartyDispelTry = { IsMyDispel = function(id) return IsMyDispel(id) end, Log = LogDispelTry,
 	RowUnderMouse = function() return DispelRowUnderMouse() end } -- offline test only
@@ -771,7 +807,10 @@ castWatch:SetScript("OnEvent", function(_, event, a, _b, c)
 		LogCast(kind, tonumber(id))
 		-- O27 A: your dispel, cast or failed, from the panel or from your own key (row = nil then).
 		if IsMyDispel(tonumber(id)) then
-			pcall(LogDispelTry, kind, tonumber(id), nil, DispelRowUnderMouse())
+			local okL, entry = pcall(LogDispelTry, kind, tonumber(id), nil, DispelRowUnderMouse())
+			if okL and kind == "cast" then
+				NoteDispelCooldown(entry, tonumber(id)) -- 12 Nov 2026: did the cooldown start?
+			end
 		end
 	end
 end)

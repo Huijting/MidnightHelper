@@ -28,6 +28,10 @@
   cast haalde niets weg (Blizzards regel dat een dispel die niets weghaalt geen cooldown krijgt; niet in deze build
   gemeten). "Not ready yet" kan dan de GCD zijn. Andere mogelijkheid: het gif werd meteen opnieuw gezet. Voorstel aan
   sparring: een kleine meting (na elke eigen dispel 0,3 s later de charge/cooldown in `dispelTryLog`), pas op Robs ja.
+- ✅ Gebouwd (Rob via sparring: *"Ja, bouw dat"*): `PartyTargets.lua` NoteDispelCooldown — 0,3 s na elke geslaagde eigen
+  dispel zet hij op die logregel `cd` = "started" (duration > 2 s) / "not started" / "unreadable" (+ `cdDur`,
+  `cdCharges`, `cdWhy`). LogDispelTry geeft nu zijn regel terug. luac schoon, lint 0 HARD. NIET GEMETEN: of
+  C_Spell.GetSpellCooldown in een gevecht leesbaar is — daarvoor staat "unreadable" erin. Rob: één dungeonrun (niet vandaag).
 
 ## 🛠️ 12 nov (avond) — vier Forever-klussen terwijl Rob at (bouw-ja via sparring, Robs keuzes letterlijk)
 
