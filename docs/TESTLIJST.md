@@ -23,14 +23,16 @@ er is niets weggegooid.
 
 ## 🆕 12 nov (laat) — FOREVER: tegel "Your characters" (Rob, via sparring: "Ja, een tegel (Recommended)")
 
-- [ ] `/reload`, open MH → kamer "Me": een nieuwe tegel "Your characters" naast Weapon trainers, Vendors enz. Klik →
+- [x] `/reload`, open MH → kamer "Me": een nieuwe tegel "Your characters" naast Weapon trainers, Vendors enz. Klik →
       het venster met al je characters opent. Staat het icoon er (een plaatje, geen groen vierkant)?
+      ✅ Rob 12 nov (33.png, ":)"): tegel met icoon, venster open, vier characters met hele naam.
 
 ## 🆕 12 nov (laat) — FOREVER: toets voor "Your characters" (Rob, via sparring: "Ja, zonder toets")
 
 - [ ] `/reload`. Esc → Options → Keybindings → kopje "Midnight Helper" → regel "Your characters", zonder toets. Kies er
       een → drukken opent het venster, nog een keer drukken sluit het.
-- [ ] In het venster: alleen het character waarop je zit zegt "now"; een character waar je net vanaf kwam "1 min ago".
+- [x] In het venster: alleen het character waarop je zit zegt "now"; een character waar je net vanaf kwam "1 min ago".
+      ✅ Rob 12 nov (33.png): "now" alleen bij de Paladin, de Druid "1 min ago".
 
 ## 🆕 12 nov (laat) — BEIDE SPELLEN: toetsen-kaartje per character (Rob, via sparring: "Ja, per character")
 
