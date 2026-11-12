@@ -66,7 +66,9 @@ Eerst `/reload` in Forever. Het staat standaard UIT.
       is). Lege plekken staan grijs met "-". ✅ Rob, 12 nov (via sparring, 18.png): "Het groepspaneel staat er, de rijen
       kloppen". Vraag van sparring: de 3 lege rijen; bewust (vaste maat i.v.m. de klikknoppen). Voorstel "zo hoog als je
       groep" ligt bij Rob.
-- [ ] Nieuw 12 nov (Rob: "Ja, doe dat"): na `/reload` in een groep van 2 heeft het paneel nog maar 2 rijen, geen "-" meer.
+- [x] Nieuw 12 nov (Rob: "Ja, doe dat"): na `/reload` in een groep van 2 heeft het paneel nog maar 2 rijen, geen "-" meer.
+      ✅ Rob, 12 nov (via sparring): "Het paneel heeft nu twee rijen, klopt". Nog niet gemeld: dezelfde plek, en
+      groeien/krimpen bij een groepswissel (de zinnen hieronder).
       De bovenkant staat waar hij stond. Komt er iemand bij (buiten een gevecht), dan groeit het paneel naar onder. Komt
       iemand erbij IN een gevecht, dan verschijnt die rij pas na het gevecht. Klik daarna een rij: klopt het doelwit nog?
 - [x] Linksklik op een rij → die speler wordt je doelwit. ✅ Rob, 12 nov (via sparring): "Linkslikken lukt, dan selecteer
