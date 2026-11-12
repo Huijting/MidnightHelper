@@ -15,6 +15,18 @@
    Een release alleen op Robs go. CF-plaatjes staan erop (Rob, 11 nov); of hij de nieuwe CF-beschrijving en de
    5.1.0-tekst al plakte: NIET GEMETEN, vragen.
 
+## 🛠️ 12 nov (laat) — drankjes-toetsen krijgen in Forever een naam
+
+- Rob (via sparring, letterlijk): *"Ja, geef ze een gewone naam"*. Zijn 32.png (Forever, Keybindings → Midnight Helper):
+  "CLICK MidnightHelperHea…" / "…Com…". GEMETEN daarmee: Bindings.xml laadt in Forever, "Your characters" staat erin.
+- Oorzaak: `PotionButton.lua` zet de namen (POTIONKEY_HEAL/COMBAT, al in 7 talen) maar laadt niet in Forever. Fix in
+  `Locale.lua` ApplyBindingLabels: in Forever dezelfde naam + " (Midnight)", omdat de knoppen daar niet bestaan.
+- Dubbel in het zoekresultaat (31.webp): in de lijst zelf één keer (Robs plaatje). AFGELEID: het zoekvak van het spel,
+  niet van ons; na de nieuwe naam opnieuw kijken.
+- Open (vraag van sparring, voorstel gestuurd, niets gebouwd): "Open: TAB_CODEX" = kale sleutel in Forever (Codex.lua niet
+  geladen); de Midnight-toetsen (This Week, Rares, Delves, Codex, Achievements, Mounts, Account) openen in Forever de
+  startpagina (terugval in SelectTab, UI.lua:4963).
+
 ## 🛠️ 12 nov (laat) — tegel "Your characters" (Rob bedoelde "tegel", niet "toets")
 
 - Rob dicteerde "toets" en bedoelde "tegel": *"Het kopje Midnight Helper staat er. Maar ik bedoelde een tegel in onze

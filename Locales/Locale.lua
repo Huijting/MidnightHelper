@@ -275,6 +275,13 @@ function ns:ApplyBindingLabels()
 	_G.BINDING_NAME_MIDNIGHTHELPER_CLEARROUTE = self:L("BINDING_NAME_CLEARROUTE")
 	-- 12 Nov 2026: "Your characters" (WoW Forever), the window's own title so the key is named what the window is.
 	_G.BINDING_NAME_MIDNIGHTHELPER_ALTS = self:L("FCHARS_TITLE")
+	-- 12 Nov 2026 (Rob, via sparring: "Ja, geef ze een gewone naam"): in Forever the two potion keys showed their raw
+	-- command ("CLICK MidnightHelperHea…", his 32.png), because PotionButton.lua, which names them in Midnight, is not
+	-- loaded there (not in MidnightHelper_Camelot.toc). The buttons do not exist in Forever, so the name says so.
+	if ns.IS_FOREVER then
+		_G["BINDING_NAME_CLICK MidnightHelperHealPotion:LeftButton"] = self:L("POTIONKEY_HEAL") .. " (Midnight)"
+		_G["BINDING_NAME_CLICK MidnightHelperCombatPotion:LeftButton"] = self:L("POTIONKEY_COMBAT") .. " (Midnight)"
+	end
 
 	--- 🔑 The straight-to-a-screen keys (Bindings.xml). Their labels are BUILT from the tabs'
 	--- own names rather than written out, and that is the point of doing it here:
