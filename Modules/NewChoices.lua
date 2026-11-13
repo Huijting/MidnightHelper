@@ -232,8 +232,10 @@ local function Build()
 	f:SetBackdropColor(1, 1, 1, 0.95)
 
 	f.title = f:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
-	f.title:SetPoint("TOP", 0, -18)
-	f.title:SetWidth(W - 60)
+	f.title:SetPoint("TOPLEFT", PAD + 4, -18)
+	f.title:SetPoint("RIGHT", f, "RIGHT", -140, 0) -- replaced below by the dock button's left edge, once it exists
+	f.title:SetJustifyH("LEFT")
+	f.title:SetWordWrap(true)
 
 	local x = CreateFrame("Button", nil, f, "UIPanelCloseButton")
 	x:SetPoint("TOPRIGHT", -6, -6)
@@ -261,6 +263,14 @@ local function Build()
 	tinsert(UISpecialFrames, "MidnightHelperNewChoices")
 	if ns.RegisterMidnightDialogPopup then
 		ns.RegisterMidnightDialogPopup(f)
+	end
+	-- The title stops where RegisterMidnightDialogPopup's "Dock to window" button starts (Rob's screenshot, 13 Nov 2026:
+	-- the centred title ran under it, over "your choice"). Anchored to the button, so a longer label in another language
+	-- or "Undock" moves the edge with it. A long title wraps; Render starts the intro below it.
+	if f._mhDockBtn then
+		f.title:ClearAllPoints()
+		f.title:SetPoint("TOPLEFT", PAD + 4, -18)
+		f.title:SetPoint("RIGHT", f._mhDockBtn, "LEFT", -8, 0)
 	end
 	return f
 end
@@ -294,8 +304,11 @@ Render = function(cards)
 	local f = Build()
 	f.title:SetText(ns:L("NEWC_TITLE"))
 	f.intro:SetText(ns:L("NEWC_INTRO"))
+	local introTop = math.max(44, math.floor(18 + f.title:GetStringHeight() + 8))
+	f.intro:ClearAllPoints()
+	f.intro:SetPoint("TOPLEFT", PAD + 4, -introTop)
 	local innerW = W - 2 * PAD
-	local y = 44 + f.intro:GetStringHeight() + 10
+	local y = introTop + f.intro:GetStringHeight() + 10
 	for i, card in ipairs(cards) do
 		local c = CardFrame(i)
 		c:ClearAllPoints()
@@ -329,7 +342,18 @@ Render = function(cards)
 			bx = bx + b:GetWidth() + 6
 			b:SetScript("OnClick", function()
 				spec.click()
-				if spec.closes then
+				-- Rob, 13 Nov 2026, via sparring, verbatim: "Ja, dicht na kiezen" (he chose On and the window stayed).
+				-- One card: close at once. More cards: close once every card got a choice in this opening (sparring's
+				-- advice; Rob decided only the one-card case).
+				f.chosen = f.chosen or {}
+				f.chosen[card.id] = true
+				local allChosen = true
+				for _, other in ipairs(f.cards or {}) do
+					if not f.chosen[other.id] then
+						allChosen = false
+					end
+				end
+				if spec.closes or allChosen then
 					f:Hide()
 				elseif f:IsShown() then
 					Render(f.cards)
@@ -400,6 +424,7 @@ local function TryAutoShow()
 		end
 		return
 	end
+	Build().chosen = {}
 	Render(cards)
 	MarkSeen(cards)
 	win:Show()
@@ -446,6 +471,7 @@ function ns.NewChoicesSlash(arg)
 		print(PREFIX .. ns:L("NEWC_NONE"))
 		return
 	end
+	Build().chosen = {}
 	Render(cards)
 	win:Show()
 end

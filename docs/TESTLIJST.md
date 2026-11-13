@@ -21,6 +21,16 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 13 nov — keuzevenster gaat dicht na kiezen (Rob, via sparring: "Ja, dicht na kiezen")
+
+Na je dungeonrun: `/reload`, dan `/mh new` (toont het venster opnieuw, ook als je het al zag).
+- [ ] Midnight, één kaartje "Show party targets": klik On (of Off). WERKT HET: het venster gaat meteen dicht en in de
+      chat staat "on"/"off". WERKT HET NIET: het venster blijft staan. Stuur een screenshot.
+- [ ] De titel "New in this version: your choice" staat links en loopt NIET meer onder "Dock to window" rechtsboven.
+      Is hij te lang, dan breekt hij af naar een tweede regel, en de tekst eronder schuift mee omlaag.
+- [ ] Forever (meer kaartjes, o.a. "Do this now" en het groepspaneel): na één keuze blijft het venster staan; pas als
+      elk kaartje een keuze kreeg, gaat het dicht. (Het toetsen-kaartje "Show me" sluit, net als eerst, meteen.)
+
 ## 🧪 12 nov (laat) — PROEF: eigen toetsenlijst in Forever (Rob, via sparring: "Ja, eerst de proef")
 
 Sluit WoW helemaal af (niet alleen /reload) en start Forever opnieuw.

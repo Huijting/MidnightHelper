@@ -103,6 +103,20 @@ NIET GEMETEN.
 Hier komt wat Rob goedkeurt, ook wat hij rechtstreeks in de bouwchat vraagt (Rob, 10 nov: *"ja we willen het op 1
 lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met de commit erbij. Na zijn test naar **Af**.
 
+### Keuzevenster "New in this version: your choice": dicht na kiezen + titel vrij van "Dock to window"
+- Voor wie:      allebei (iedereen die het venster na een update krijgt)
+- Moment:        na een update, het keuzevenster; klik op een keuze (On/Off, een stand)
+- Spel:          Midnight + Forever
+- Bron:          Rob 13 nov: *"ik koos on maar het scherm bleef staan en ging later pas weg"*; via sparring, letterlijk:
+                 *"Ja, dicht na kiezen"*. Titel: Robs screenshot 4.png (titel liep onder "Dock to window").
+- Bouwt op:      `NewChoices.lua` (zelfde knoppen, zelfde functies als de instelling)
+- Data:          GEMETEN in de code: een keuze sloot alleen bij `closes` (alleen het toetsen-kaartje)
+- Vindbaar:      vanzelf; `/mh new` toont het venster opnieuw
+- Werk:          klein
+- Site:          nee (gedrag van een bestaand venster)
+- Rob zegt:      ja voor één kaartje. Meer kaartjes: dicht als elk kaartje een keuze kreeg (advies sparring, AFGELEID,
+                 niet Robs woord). **Gebouwd 13 nov.** Wacht op Robs test (TESTLIJST 13 nov).
+
 ### Midnight-groepspaneel: stop-spell op het doelwit als je geen purge hebt
 - Voor wie:      allebei (vooral wie geen purge heeft: Paladin, Warrior, Rogue, DK, DH, Druid, Monk, Evoker)
 - Moment:        in een groep, rechtsklik op het doelwit van een groepslid in het Party targets-paneel

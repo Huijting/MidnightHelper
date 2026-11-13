@@ -21,6 +21,16 @@ Eén voordeur t/m 19 nov: vragen voor Rob via de sparring-chat van de dag ("Spar
 5. Op main sinds 5.1.0 en niet uit: alles van 11-12 nov (plan 1/2/3, Do this now, groepspaneel, beroepenkaart, richting,
    Used for, …). Release alleen op Robs letterlijke go.
 
+## 🪟 13 nov (middag) — keuzevenster dicht na kiezen + titel (Rob via sparring, letterlijk: "Ja, dicht na kiezen")
+
+- `NewChoices.lua`: een keuze sluit het venster als elk getoond kaartje in deze opening een keuze kreeg (één kaartje =
+  meteen dicht). Robs ja geldt voor één kaartje; meer kaartjes = advies sparring (AFGELEID). Bijhouden in `f.chosen`,
+  leeg bij elke nieuwe opening (automatisch en `/mh new`).
+- Titel links, rechterrand vast aan de "Dock to window"-knop (−8), breekt af als hij te lang is; de intro schuift mee.
+- `luac -p` schoon, lint 0 HARD. NIET in het spel gezien (TESTLIJST 13 nov). Geen versie-bump, geen release.
+- NIET GEVONDEN: waarom het venster bij Rob "later" vanzelf wegging. Geen auto-hide in `NewChoices.lua`. Mogelijk Esc
+  (UISpecialFrames) of het venster vastgezet aan het hoofdvenster ("Dock"); NIET GEMETEN.
+
 ## 🚀 13 nov — RELEASE 5.2.0 (Rob via sparring, letterlijk: "je krijgt nu een go voor een release voor alles")
 
 - Eerst de CF-beschrijving (f6631bb, Rob plakt hem zelf), dan alles van main sinds v5.1.0. Geen beta.
