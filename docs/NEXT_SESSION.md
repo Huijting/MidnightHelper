@@ -13,7 +13,7 @@ Eén voordeur t/m 19 nov: vragen voor Rob via de sparring-chat van de dag ("Spar
 2. **Nog niet door Rob gezien (TESTLIJST bovenaan):** toets "Your characters" indrukken; toetsen-kaartje per character
    (d14884c); het pijltje op de oranje rand (6118be2; de rand zelf werkt, 27.png); drankjes-toetsnamen in Forever
    (89f55a5); "Show party targets"-kaartje in Midnight; alle ontbrekende buffs; Purify-macro; rechtsklik-dispel en rode
-   rand in het Forever-groepspaneel; de 17 verbrede knoppen in Midnight; dungeonrun voor dispelTryLog `cd` (9f5a96c).
+   rand in het Forever-groepspaneel; de 17 verbrede knoppen in Midnight. (dispelTryLog `cd`: 13 nov gesloten, zie 🔎 13 nov.)
 3. **Wel gezien en goed (12 nov):** keuzevenster na reload; "Your characters" na de reparatie (28-30.png, 33.png);
    tegel "Your characters" met icoon; "now" alleen voor het eigen character; oranje rand op de knop.
 4. Rob vragen (oud, NIET GEMETEN): zijn de upgrade-melding en de groene gear-regel af? Plakte hij de CF-beschrijving
@@ -31,9 +31,11 @@ Eén voordeur t/m 19 nov: vragen voor Rob via de sparring-chat van de dag ("Spar
 - AFGELEID: geslaagde casts zonder "Nothing to dispel" = er was op dat moment iets weg te halen. Casts 2 s uit elkaar
   past niet bij 8 s cooldown die start. Beide passen samen alleen als de cooldown niet start of als het gif direct
   terugkomt; niet te beslissen met wat wij in een gevecht kunnen lezen. Het rood zelf komt van de engine (niet leesbaar).
-- Niets gebouwd. Keuze voor Rob via sparring: stoppen met meten, of één keer met het oog kijken (gif-icoon bij zijn
-  eigen buffs weg na rechtsklik?).
-- ✅ Rob: keuzevenster gaat dicht na kiezen (*"o en na de keuze was ie inderdaad weg"*). Titel nog niet gemeld.
+- 🔒 **GESLOTEN** — Rob via sparring, letterlijk: *"Stoppen met meten"*. Uitkomst: niet te beslissen in een gevecht.
+  Niet opnieuw openen zonder nieuwe klacht. `dispelTryLog` + NoteDispelCooldown blijven in de code (mijn oordeel: alleen
+  schrijven, max 40 regels, niets zichtbaars; weghalen zou de live map raken voor niets). Niemand leest het meer uit.
+- ✅ Rob: keuzevenster gaat dicht na kiezen (*"o en na de keuze was ie inderdaad weg"*); titel goed (5.png).
+  Retail-toetsenlijst: 14 regels (Robs screenshot). Open: Forever met meer kaartjes.
 
 ## 🪟 13 nov (middag) — keuzevenster dicht na kiezen + titel (Rob via sparring, letterlijk: "Ja, dicht na kiezen")
 

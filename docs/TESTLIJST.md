@@ -27,8 +27,9 @@ Na je dungeonrun: `/reload`, dan `/mh new` (toont het venster opnieuw, ook als j
 - [x] Midnight, één kaartje "Show party targets": klik On (of Off). WERKT HET: het venster gaat meteen dicht en in de
       chat staat "on"/"off". WERKT HET NIET: het venster blijft staan. Stuur een screenshot.
       ✅ Rob 13 nov (via sparring): *"o en na de keuze was ie inderdaad weg"*.
-- [ ] De titel "New in this version: your choice" staat links en loopt NIET meer onder "Dock to window" rechtsboven.
+- [x] De titel "New in this version: your choice" staat links en loopt NIET meer onder "Dock to window" rechtsboven.
       Is hij te lang, dan breekt hij af naar een tweede regel, en de tekst eronder schuift mee omlaag.
+      ✅ Rob 13 nov, screenshot 5.png (Midnight, /mh new; gezien door Sparring 13-11): titel links, Dock vrij ernaast.
 - [ ] Forever (meer kaartjes, o.a. "Do this now" en het groepspaneel): na één keuze blijft het venster staan; pas als
       elk kaartje een keuze kreeg, gaat het dicht. (Het toetsen-kaartje "Show me" sluit, net als eerst, meteen.)
 
@@ -40,7 +41,8 @@ Sluit WoW helemaal af (niet alleen /reload) en start Forever opnieuw.
       van 14 (Rares, Delves, TAB_CODEX, drankjes …). Stuur een screenshot.
       ✅ Rob 13 nov (screenshot, gezien door Sparring 13-11): precies die 4 regels. `Bindings_Camelot.xml` blijft.
 - [ ] ALT-M opent MH nog gewoon.
-- [ ] In Midnight (retail): de lijst onder "Midnight Helper" is precies als altijd (14 regels, met "Open: This Week").
+- [x] In Midnight (retail): de lijst onder "Midnight Helper" is precies als altijd (14 regels, met "Open: This Week").
+      ✅ Rob 13 nov (screenshot, gezien door Sparring 13-11): 14 regels, "Open: This Week" op ALT-M.
 
 ## 🆕 12 nov (laat) — FOREVER: tegel "Your characters" (Rob, via sparring: "Ja, een tegel (Recommended)")
 
