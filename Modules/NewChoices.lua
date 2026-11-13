@@ -245,7 +245,40 @@ local function Pick(onlyUnseen)
 			out[#out + 1] = c
 		end
 	end
+	-- One subject, one card (Rob, 13 Nov 2026, via sparring: "Ja, jouw advies"): when the bar layout card is there, the
+	-- key card stays out. It is NOT marked seen (only shown cards are), so if the player does not take the bar layout,
+	-- the key card comes the next time instead. "Reload now" after the bar layout's Yes marks it seen on purpose
+	-- (ForeverLayoutCarry.lua), because the key block then opens by itself.
+	local hasBar = false
+	for _, c in ipairs(out) do
+		if c.id == "barlayout" then
+			hasBar = true
+		end
+	end
+	if hasBar then
+		for i = #out, 1, -1 do
+			if out[i].id == "keyblock" then
+				table.remove(out, i)
+			end
+		end
+	end
 	return out
+end
+
+--- Which title the window gets (Rob, 13 Nov 2026, via sparring: "Ja, jouw advies" — two titles). Rule: "New in this
+--- version" only when a NEW FEATURE (an account-wide card) is in it AND this account has seen the window before;
+--- otherwise "Welcome: set up Midnight Helper" (a new character, or someone who has MH for the first time). Decided once
+--- per opening, before the cards are marked seen, so the title does not flip while the window is open.
+local function OpenMode(cards)
+	local seen = Seen() or {}
+	local seenBefore = next(seen) ~= nil
+	local hasFeature = false
+	for _, c in ipairs(cards) do
+		if not c.perChar then
+			hasFeature = true
+		end
+	end
+	return (hasFeature and seenBefore) and "update" or "welcome"
 end
 
 --------------------------------------------------------------------------------
@@ -300,6 +333,12 @@ local function Build()
 	f.intro:SetJustifyH("LEFT")
 	f.intro:SetSpacing(2)
 
+	-- The cards sit in a scroll area; it only scrolls when the window would not fit the screen (Layout).
+	f.scroll = CreateFrame("ScrollFrame", "MidnightHelperNewChoicesScroll", f, "UIPanelScrollFrameTemplate")
+	f.content = CreateFrame("Frame", nil, f.scroll)
+	f.content:SetSize(W - 2 * PAD, 1)
+	f.scroll:SetScrollChild(f.content)
+
 	f.more = Btn(f)
 	f.more:SetScript("OnClick", function()
 		f:Hide()
@@ -352,7 +391,7 @@ local function CardFrame(i)
 	if c then
 		return c
 	end
-	c = CreateFrame("Frame", nil, win, "BackdropTemplate")
+	c = CreateFrame("Frame", nil, win.content, "BackdropTemplate")
 	c:SetBackdrop({
 		bgFile = "Interface\\Buttons\\WHITE8X8",
 		edgeFile = "Interface\\Buttons\\WHITE8X8",
@@ -373,8 +412,8 @@ local function CardFrame(i)
 	return c
 end
 
--- Window size of the last render, for /mh new check (13 Nov 2026: the direction card grew; Rob has not chosen yet
--- between dropping the key card and a scroll bar, so the window widens instead of running off the screen).
+-- Window size of the last render, for /mh new check (13 Nov 2026: the direction card grew; the window first widens,
+-- and only if that is not enough the cards scroll — Rob via sparring: "Ja, jouw advies").
 local lastSize = "not shown yet"
 
 local Layout -- (cards, width) → window height; defined below
@@ -385,32 +424,45 @@ Render = function(cards)
 	local scale = (f.GetScale and f:GetScale()) or 1
 	local screenH = (UIParent and UIParent.GetHeight and UIParent:GetHeight() or 768) / (scale > 0 and scale or 1)
 	local h, w
+	local limit = screenH * 0.92
 	for _, width in ipairs({ W, W + 120, W + 240 }) do
 		w = width
 		h = Layout(cards, width)
-		if h <= screenH * 0.92 then
+		if h <= limit then
 			break
 		end
 	end
+	local scrolled = false
+	if h > limit then
+		-- Still too high at the widest: the cards go in a scroll area (Rob, 13 Nov 2026, via sparring: "Ja, jouw
+		-- advies" — drop the key card next to the bar layout card, AND a scroll bar).
+		h = Layout(cards, w, limit)
+		scrolled = true
+	end
 	lastSize = ("%d x %d, screen %d high (%s)"):format(w, math.floor(h), math.floor(screenH),
-		h <= screenH * 0.92 and "fits" or "TOO HIGH even at the widest")
+		scrolled and "scroll bar on" or "fits")
 end
 
-Layout = function(cards, Wt)
+-- scrollLimit (optional): the window's maximum height; the cards then scroll inside it.
+Layout = function(cards, Wt, scrollLimit)
 	local f = win
 	f:SetWidth(Wt)
 	f.intro:SetWidth(Wt - 2 * PAD - 8)
-	f.title:SetText(ns:L("NEWC_TITLE"))
-	f.intro:SetText(ns:L("NEWC_INTRO"))
+	local welcome = (f.mode == "welcome")
+	f.title:SetText(ns:L(welcome and "NEWC_WELCOME_TITLE" or "NEWC_TITLE"))
+	f.intro:SetText(ns:L(welcome and "NEWC_WELCOME_INTRO" or "NEWC_INTRO"))
 	local introTop = math.max(44, math.floor(18 + f.title:GetStringHeight() + 8))
 	f.intro:ClearAllPoints()
 	f.intro:SetPoint("TOPLEFT", PAD + 4, -introTop)
-	local innerW = Wt - 2 * PAD
-	local y = introTop + f.intro:GetStringHeight() + 10
+	local SCROLLBAR = 26
+	local innerW = Wt - 2 * PAD - (scrollLimit and SCROLLBAR or 0)
+	local cardsTop = introTop + f.intro:GetStringHeight() + 10
+	-- Cards live in f.content, the scroll child; y counts from the top of that area.
+	local y = 0
 	for i, card in ipairs(cards) do
 		local c = CardFrame(i)
 		c:ClearAllPoints()
-		c:SetPoint("TOPLEFT", PAD, -y)
+		c:SetPoint("TOPLEFT", f.content, "TOPLEFT", 0, -y)
 		c:SetWidth(innerW)
 		c.head:SetWidth(innerW - 16)
 		c.body:SetWidth(innerW - 16)
@@ -538,7 +590,24 @@ Layout = function(cards, Wt)
 	f.more:SetPoint("BOTTOMLEFT", PAD, 16)
 	f.close:ClearAllPoints()
 	f.close:SetPoint("BOTTOMRIGHT", -PAD, 16)
-	local total = y + 4 + 22 + 16
+	local contentH = math.max(1, y - 8)
+	local footer = 8 + 4 + 22 + 16
+	local scrollH = contentH
+	if scrollLimit and cardsTop + contentH + footer > scrollLimit then
+		scrollH = math.max(120, scrollLimit - cardsTop - footer)
+	end
+	f.content:SetSize(innerW, contentH)
+	f.scroll:ClearAllPoints()
+	f.scroll:SetPoint("TOPLEFT", f, "TOPLEFT", PAD, -cardsTop)
+	f.scroll:SetSize(innerW, scrollH)
+	local bar = f.scroll.ScrollBar or _G["MidnightHelperNewChoicesScrollScrollBar"]
+	if bar and bar.SetShown then
+		bar:SetShown(scrollH < contentH)
+	end
+	if scrollH >= contentH and f.scroll.SetVerticalScroll then
+		f.scroll:SetVerticalScroll(0)
+	end
+	local total = cardsTop + scrollH + footer
 	f:SetHeight(total)
 	return total
 end
@@ -623,6 +692,7 @@ local function TryAutoShow()
 		return
 	end
 	Build().chosen = {}
+	win.mode = OpenMode(cards)
 	Render(cards)
 	MarkSeen(cards)
 	win:Show()
@@ -723,6 +793,7 @@ function ns.NewChoicesSlash(arg)
 		return
 	end
 	Build().chosen = {}
+	win.mode = OpenMode(cards)
 	Render(cards)
 	win:Show()
 end

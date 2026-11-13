@@ -21,6 +21,16 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 13 nov (nacht, 2) — titel + hoogte van het overzicht (Rob: "Ja, jouw advies")
+
+- [ ] Nieuw character (Forever of Midnight): titel "Welcome: set up Midnight Helper", intro "A few things to set up
+      for this character…". Na een update met iets nieuws voor iedereen: "New in this version: your choice".
+- [ ] Forever, nieuw character op een standaard-layout: het kaartje "Midnight Helper bar layout" staat er, het kaartje
+      "A fixed key for every spell" NIET. Kies je niets op het bar-kaartje, dan komt het toetsenkaartje bij je volgende
+      login (of /reload) wél.
+- [ ] Past het venster niet meer, dan krijgen de kaartjes een schuifbalk rechts (scrollen met het muiswiel werkt).
+      `/mh new check` → "window size last shown: … (fits / scroll bar on)".
+
 ## 🆕 13 nov (nacht) — FOREVER: één overzicht bij de eerste login (Rob: "Als kaartjes erin")
 
 Maak een nieuw Forever-character en wacht na het inloggen (intro-filmpje mag eerst).

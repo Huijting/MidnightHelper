@@ -41,7 +41,12 @@ Eén voordeur t/m 19 nov: vragen voor Rob via de sparring-chat van de dag ("Spar
   ~120 (zinnen 45-85 tekens, 1-2 regels). Zodat het venster niet buiten beeld valt: Render probeert breedte 440, 560,
   680 tot de hoogte ≤ 92% van het scherm is (geen schuifbalk en geen weggelaten kaartje: daar heeft Rob nog niet over
   beslist). `/mh new check` toont "window size last shown". NIET gemeten in het spel.
-- Open voor Rob (via sparring): titel (a), weglaten toetsenkaartje + schuifbalk (b).
+- ✅ Daarna (Rob via sparring, letterlijk: *"Ja, jouw advies"*): (a) twee titels — regel: "New in this version" alleen
+  als er een account-breed kaartje (nieuwe functie) in staat EN dit account het venster al eens zag; anders "Welcome:
+  set up Midnight Helper" (`NEWC_WELCOME_TITLE/_INTRO`, 7 talen zelf). Bepaald één keer per opening (`OpenMode`),
+  vóór MarkSeen. (b) keyblock-kaartje valt weg als barlayout er staat (in Pick; NIET als gezien gemarkeerd → komt de
+  volgende keer als de speler niets koos); schuifbalk: kaartjes in `f.scroll`/`f.content`, scrollen alleen als ook 680
+  breed niet past. luac schoon, lint 0 HARD. NIET in het spel gezien (TESTLIJST 13 nov nacht, 2).
 
 ## 🪟 13 nov (laat) — Forever: tekst vrij van "Dock to window" (Rob: "1 fixen") + plan drie vensters ("2 ja")
 

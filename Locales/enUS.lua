@@ -5442,6 +5442,8 @@ ns._mhLocales.enUS = {
 	-- 12 Nov 2026: "New in this version: your choice" (NewChoices.lua). Comes instead of the changelog when there is something to choose.
 	NEWC_TITLE = "New in this version: your choice",
 	NEWC_INTRO = "A few new things you can choose for yourself. Pick what you like, or just close this window: then nothing changes. You can open it again with /mh new.",
+	NEWC_WELCOME_TITLE = "Welcome: set up Midnight Helper",
+	NEWC_WELCOME_INTRO = "A few things to set up for this character. Pick what you like, or just close this window: then nothing changes. You can open it again with /mh new.",
 	NEWC_DONOW_BODY = "A small window with what to do now: spells waiting at your trainer, old ranks on your bars, weapon skills to learn, a missing buff or tool. When should it show?",
 	NEWC_PARTY_BODY = "A small panel with your group. Click a row to target that player. Right-click removes a curse, poison or the like from them with your own spell (a dispel). Off unless you turn it on.",
 	NEWC_PT_BODY = "A small panel with what each player in your party is attacking. Right-click a player to remove a curse, poison or the like with your own spell (a dispel). It only shows in a party. Off unless you turn it on.",

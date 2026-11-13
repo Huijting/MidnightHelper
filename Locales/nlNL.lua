@@ -4636,6 +4636,8 @@ ns._mhLocales.nlNL = {
 	-- 12 Nov 2026: "Nieuw in deze versie: jouw keuze" (NewChoices.lua).
 	NEWC_TITLE = "Nieuw in deze versie: jouw keuze",
 	NEWC_INTRO = "Een paar nieuwe dingen die je zelf kunt kiezen. Kies wat je wilt, of sluit dit venster gewoon: dan verandert er niets. Je opent het weer met /mh new.",
+	NEWC_WELCOME_TITLE = "Welkom: stel Midnight Helper in",
+	NEWC_WELCOME_INTRO = "Een paar dingen om in te stellen voor dit character. Kies wat je wilt, of sluit dit venster gewoon: dan verandert er niets. Je opent het weer met /mh new.",
 	NEWC_DONOW_BODY = "Een klein venster met wat je nu kunt doen: spells die klaarliggen bij je trainer, oude ranks op je balken, wapens om te leren, een buff of gereedschap dat ontbreekt. Wanneer moet het verschijnen?",
 	NEWC_PARTY_BODY = "Een klein paneel met je groep. Klik op een rij en die speler is je doelwit. Rechtsklik haalt met je eigen spell een vloek, gif of iets dergelijks bij hem weg (een dispel). Staat uit tot je hem aanzet.",
 	NEWC_PT_BODY = "Een klein paneel met wat elke speler in je party aanvalt. Rechtsklik op een speler en je haalt met je eigen spell een vloek, gif of iets dergelijks bij hem weg (een dispel). Verschijnt alleen in een party. Staat uit tot je hem aanzet.",
