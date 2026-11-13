@@ -10102,3 +10102,183 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
     historie, voor de vierde dag op rij dezelfde verklaring. 📌 Van die 50 commits zijn er **49** van
     11 nov: release 5.1.0 (beide games), het `/mh selftest`-venster, de "Used for"-tooltipregel, de
     Paladin-macro's en `/mh partytest` — wat verklaart waarom al het nieuws van vandaag uit de code komt.
+- [2026-11-13] 🆕 **Nul [MOET GEFIKST] — maar de rijkste API-dag in weken: er zijn TWEE nieuwe
+  client-builds MÉT leesbare UI-source, de eerste PTR-diff sinds 4 nov (`12.1.7.70740` → **`12.1.7.70892`**,
+  12 nov, 124 bestanden) en de eerste Forever-diff sinds 10 nov (`1.60.1.70888` → **`1.60.1.70938`**,
+  13 nov, 14 bestanden). Daar zit één échte brekende signatuurwijziging in (`PARTY_INVITE_REQUEST`
+  krijgt een argument op positie 6 en schuift drie argumenten op), één VERWIJDERDE functie
+  (`Minimap:UpdateMouseoverAtPoint`), twee gewijzigde signaturen in `C_TransmogOutfitInfo`, en elf
+  nieuwe functies/events/enumwaarden. GEMETEN: géén ervan raakt Midnight Helper, één is al afgedekt.**
+  📌 Dit is precies de blinde vlek die ik de afgelopen drie dagen heb opgeschreven: de wiki-pagina's
+  zijn ONVERANDERD (12.1.7 nog exact twee punten in de samenvatting), er is géén blue post en géén
+  nieuw hotfix-artikel — al het nieuws van vandaag komt uit Blizzards eigen source-drop. Een wachter
+  die alleen de wiki leest, had vandaag "niets nieuws" gemeld.
+  - 🔴 **HET GEVAARLIJKSTE ITEM VAN DE DAG — `PARTY_INVITE_REQUEST` krijgt een argument ERTUSSEN, niet
+    erachter. [RAAKT ONS NIET], maar lees dit als je ooit party-invites gaat lezen.** GEMETEN in
+    `Blizzard_APIDocumentationGenerated/PartyInfoDocumentation.lua` op `a750208e` (ptr, build 70892),
+    `Payload` van `PartyInviteRequest`, woordelijk de nieuwe volgorde: `name, isTank, isHealer,
+    isDamage, isNativeRealm,` **`isCrossShard`**`, allowMultipleRoles, inviterGUID, questSessionActive`.
+    Het nieuwe veld staat op **positie 6**, dus `allowMultipleRoles`, `inviterGUID` en
+    `questSessionActive` schuiven allemaal één plaats op. Blizzard past in dezelfde build zijn eigen
+    handler aan (`Blizzard_Game/Mainline/EventImplementation.lua:756`): `local name, tank, healer,
+    damage, isXRealm,` **`isXShard`**`, allowMultipleRoles, inviterGuid, isQuestSessionActive = ...;`
+    en vervangt `local text = isXRealm and INVITATION_XREALM or INVITATION` door `local text =
+    GetPartyInviteString(isXRealm, isXShard)`. ⚠️ Dit is het soort wijziging dat **stil** fout gaat:
+    wie positioneel uitleest, krijgt een boolean waar een GUID hoort te staan, zonder foutmelding.
+    ✅ **Onze meting, mét positieve controle op dezelfde reikwijdte** (`grep -rn`, `.lua`/`.xml`/`.toc`,
+    `.git`/`docs`/`tools`/`dist` eruit, **372** `.lua`-bestanden in scope; positieve controle:
+    `PLAYER_ENTERING_WORLD` → **86** bestanden, dus het patroon vindt wat er is): `PARTY_INVITE_REQUEST`
+    → **0** treffers, `INVITATION_XREALM` → **0**, `GetPartyInviteString` → **0**, `InviteConfirmation`
+    → **0**. MH registreert dit event nergens. **Niets aangeraakt.**
+  - 🔴 **[RAAKT ONS NIET] — maar er is voor het eerst sinds weken een functie VERWIJDERD, en dat hoort
+    hier te staan.** GEMETEN in de diff van `MinimapFrameAPIDocumentation.lua` (70740 → 70892): het hele
+    blok `Minimap:UpdateMouseoverAtPoint(pointX, pointY)` (`SecretArguments = "AllowedWhenUntainted"`)
+    is **weg**. Onze meting: `UpdateMouseoverAtPoint` → **0** treffers in de hele addon (positieve
+    controle in dezelfde run: `CreateFrame` → **187** bestanden). 📌 Ik weet NIET of er een vervanger
+    is — op de 12.1.7-wikipagina staat er geen woord over en in de diff staat geen nieuwe functie op die
+    plek. Ik gok er geen naam bij. Voor ons maakt het niets uit.
+  - ✅ **[AL AFGEDEKT] — de énige treffer van vandaag: `Enum.EditModeSystem` groeit van 31 naar 32
+    waarden.** GEMETEN in `EditModeManagerConstantsDocumentation.lua`: `NumValues` 31 → **32**,
+    `MaxValue` 30 → **31**, nieuw `{ Name = "GamepadInfoHud", … EnumValue = 31 }`, en in
+    `Interface/ui-toc-list.txt` een nieuwe Blizzard-addon `Blizzard_GamepadInfoHUD`. Onze vier treffers op
+    `EditModeSystem`, elk nagelezen in plaats van gehoopt:
+    - `Modules/BarInventory.lua:412` doet `if Enum and Enum.EditModeSystem then` en `:414`
+      `for k, v in pairs(Enum.EditModeSystem)` — een lus over wat er ís, dus een 32e waarde komt er
+      gewoon bij in de dump. **Afgedekt.**
+    - `Modules/EditModeBackup.lua:613` (`EXTRA_SYSTEM = 5`) en `:1199` (`MICRO_SYSTEM, BAGS_SYSTEM,
+      ENDCAP_SYSTEM, STATUS_SYSTEM = 13, 14, 26, 15`) zijn vaste getallen — maar de nieuwe waarde is
+      **achteraan** toegevoegd (31), dus 5, 13, 14, 15 en 26 betekenen nog exact hetzelfde. GEMETEN,
+      niet aangenomen: de diff raakt geen enkele bestaande `EnumValue`. `:1191` is commentaar.
+      **Afgedekt.**
+  - ✅ **[RAAKT ONS NIET] — de elf overige nieuwe en gewijzigde API's van 12.1.7.70892, in één blok,
+    allemaal nul treffers.** Zelfde grep, zelfde reikwijdte, zelfde positieve controle als hierboven:
+    `C_ActionBar.GetWoWHackUltimateProgressPercent` (nieuw, *"Returns the WoWHack ultimate progress as a
+    percentage from 0 to 100"*) → 0; het nieuwe event `ULTIMATE_PROGRESS_CHANGED` → 0;
+    `C_AreaPoiInfo.MarkAreaPOISeen(areaPoiID)` (nieuw) → 0;
+    `C_BattleNet.GetDefaultTitleWhisperTarget(id)` (nieuw) → 0;
+    `C_DelvesUI.IsPartyLeaderInTaleInstance()` (nieuw, *"Gets whether or not the party leader is currently
+    in a tale instance/map"*) → 0; `C_DuelInfo.GetDuelerInfo()` (nieuw, geeft `duelerGuid` + `realLevel`)
+    → 0; `C_Texture.GetBestTitleIconVersion(texture)` (nieuw) → 0; `SetTitleIconTexture` (`version` is nu
+    `Nilable = true`, *"Pass nil to automatically choose based on size of texture"*) → 0;
+    `GetEvictionTimeRemaining` (returnwaarde `result` van `Nilable = false` naar **`true`**) → 0;
+    `C_VoiceChat.BeginLocalCapture` (nu **`HasRestrictions = true`**) → 0; en drie enum-/struct-groei:
+    `CombatAudioAlertPulsePercentValues` 10 → 11 waarden (+`AlwaysOn` = 10), `CraftingOrderResult` 49 → 50
+    (+`ClassTrial` = 49), `HouseExteriorConstants` +`onSelectSoundKitID` → elk 0.
+    📌 `C_DelvesUI.IsPartyLeaderInTaleInstance` is het enige dat in óns straatje ligt — wij roepen **24**
+    verschillende `C_DelvesUI`-functies aan (zwaarst: `GetDelveEntranceTiers` 10×,
+    `GetCurrentDelvesSeasonNumber` 10×, `GetTraitTreeForCompanion` 9×) maar **geen** ervan gaat over de
+    party leader of over tale-instances (`IsPartyLeader` → 0, `taleInstance` → 0). Nieuwe mogelijkheid,
+    geen breuk, en ik verzin er geen feature bij.
+  - ⚠️ **[RAAKT ONS NIET] — twee GEWIJZIGDE signaturen in `C_TransmogOutfitInfo`, in BEIDE builds
+    tegelijk.** GEMETEN in de API-docs van zowel `a750208e` (ptr 70892) als `bebcb6bf` (forever 70938):
+    `GetSecondarySlotState(slot)` → `GetSecondarySlotState(slot,` **`option`**`)` en
+    `SetSecondarySlotState(slot, state)` → `SetSecondarySlotState(slot,` **`option`**`, state)`, met
+    `option` van het type `TransmogOutfitSlotOption`, `Nilable = false`. Onze meting: `TransmogOutfit`
+    → **0** treffers in de hele addon, `GetSecondarySlotState`/`SetSecondarySlotState` → **0**. MH doet
+    niets met transmog. **Niets aangeraakt.**
+  - 🎮 **Forever: de eerste leesbare Forever-diff sinds 10 nov, en er zit één NIEUWE API in die
+    retail NIET heeft.** GEMETEN in `Gethe/wow-ui-source`: `refs/heads/forever` **én** `refs/tags/1.60.1`
+    dragen nu **`bebcb6bf309cf41b41bd74f8ca651e6a105b2676`** (*"1.60.1 (70938)"*, 13 nov) in plaats van
+    het `4cd0ab75…` dat er van 7 t/m 12 nov stond; `version.txt` gaat van `1.60.1.70888` naar
+    **`1.60.1.70938`**. Veertien gewijzigde bestanden; de API-kant is:
+    - 🆕 **`C_TradeSkillUI.HasNoReagentCost(recipeID)` → `hasNoReagentCost` (bool)**, nieuw,
+      `SecretArguments = "AllowedWhenUntainted"`. 🔴 **En hij is FOREVER-ONLY, GEMETEN per build in
+      plaats van aangenomen:** `grep -c 'Name = "HasNoReagentCost"'` geeft **1** op forever 70938 en
+      **0** op ptr 12.1.7.70892 (positieve controle in dezelfde run: `IsRuneforging` → **1** op
+      beide). Blizzard gebruikt hem in dezelfde build als vervanger van zijn eigen
+      `C_TradeSkillUI.IsRuneforging()`-controles (`Blizzard_ProfessionsCrafting.lua:718` e.v.:
+      `if C_TradeSkillUI.IsRuneforging() then` → `if C_TradeSkillUI.HasNoReagentCost(recipeInfo.recipeID)
+      then`), maar `IsRuneforging` bestaat nog in beide clients.
+      ✅ **Onze meting: [RAAKT ONS NIET].** `HasNoReagentCost` → **0** treffers, `IsRuneforging` →
+      **0** treffers (positieve controle: `C_TradeSkillUI` → **11** bestanden). Wij roepen tien
+      `C_TradeSkillUI`-functies aan — `GetRecipeSourceText` 8×, `GetRecipeInfo` 7×,
+      `GetProfessionInfoBySkillLineID` 6×, `GetAllProfessionTradeSkillLines` 6×,
+      `GetTradeSkillDisplayName` 4×, `GetRecipeSchematic` 3×, `IsTradeSkillReady` 2×,
+      `GetItemCraftedQualityByItemInfo` 2×, `GetCategoryInfo` 2×, `OpenTradeSkill` 1× — en **geen**
+      ervan is in deze build van signatuur veranderd (de Forever-API-diff raakt alleen `TradeSkillUI`
+      en `TransmogOutfitInfo`, en in `TradeSkillUI` is het één toevoeging).
+      📌 **En hij raakt niet aan wat `Modules/ReagentUse.lua` doet**, hoe dicht de naam er ook bij
+      ligt: die module leest géén live profession-API maar de gegenereerde tabel in
+      `Modules/ForeverReagentData.lua`/`MidnightReagentData.lua` (gemeten in zijn eigen kop) om de
+      "Used for"-tooltipregel te zetten. `HasNoReagentCost` gaat over of een *recept* reagentia kost,
+      niet over waar een *item* voor dient. Geen actie, geen voorstel.
+    - De overige Forever-wijzigingen zijn UI, geen API: `Blizzard_Professions*` (vier bestanden, 38
+      regels — de call-sites hierboven), `Blizzard_Collections` (pets/mounts/toybox),
+      `Blizzard_Transmog`, `Blizzard_GlueXML/Camelot/CharacterCopy.lua` en
+      `Blizzard_InspectUI/Camelot/InspectPVPFrame.xml`. **Nul** regels over taint, secure frames of
+      secret values.
+    - 🔴 **GEMETEN dat de ANDERE branches NIET bewogen zijn, zodat "stil" te onderscheiden is van
+      "niet gekeken":** `refs/heads/live` staat nog op **`297d7aaa…`** (= tag `12.1.5`, onveranderd
+      t.o.v. gisteren) en `refs/heads/ptr2` nog op **`12380f8c…`**. Er is dus géén nieuwe LIVE-build
+      met leesbare source. ⚠️ `wago.tools` blijft onbereikbaar uit deze sessie (zie onderaan), dus
+      het live-buildnummer kan ik vandaag niet onafhankelijk bevestigen — ik meld wat ik gemeten heb
+      en niet meer.
+    - ⏳ De 1.60.1-wiki-pagina is woord voor woord dezelfde als gisteren (blue posts nog t/m **16 okt**,
+      Notable changes nog t/m build 70291). De ongemeten BETEKENIS van *"Edit Mode layouts are now
+      saved separately for each UI type (mouse and keyboard vs. gamepad)"* voor
+      `Modules/ForeverLayoutCarry.lua` blijft dus staan — en ⚠️ de nieuwe `GamepadInfoHud`-editmode-
+      systeemwaarde hierboven is een hint dat Blizzard aan die gamepad-UI-kant nog bezig is.
+  - ⏳ **NIET opgelost door deze build: de shift-klik-taintvraag van gisteren. GEMETEN, niet aangenomen.**
+    `Blizzard_ChatFrameBase/Shared/ChatFrameEditBox.lua` **én** `ChatFrameUtil.lua` zijn in build 70892
+    wél gewijzigd — maar álle drie de hunks gaan over één ding: whispers naar "title friends"
+    (nieuw: `ChatFrameUtil.GetCharacterWhisperTargetIfTitleFriend(tokenizedName)`, dat
+    `C_BattleNet.GetDefaultTitleWhisperTarget` gebruikt om een BN-whisper om te leiden naar een
+    character-whisper). **Nul** regels over taint, over protected editboxes of over
+    `ChatFrame_OpenChat`. De vraag op `Modules/Achievements.lua:1561`/`:1910` — geeft een tainted
+    `ChatFrame_OpenChat` met een achievement-LINK dezelfde `ForceTaint_Strong` als met een
+    slash-commando — is dus nog steeds open en nog steeds alleen in het spel te meten. **Robs test,
+    10 seconden:** chatbox dicht, achievement-tabblad open, shift-klik een regel. Link in de chatbox =
+    niets aan de hand; taint-fout = dít bestand en deze regels. (Retail-only: `grep -c Achievements.lua
+    MidnightHelper_Camelot.toc` = **0** tegen **1** in `MidnightHelper.toc`.)
+  - ✅ **DICHT, een punt van mijn eigen openstaande lijst: `Blizzard_DeprecatedWorldElapsedTimerTypes`
+    stond er al, en de hele lijst is nu getoetst aan de echte client.** GEMETEN in de code:
+    `Modules/PtrProbe.lua:116-120` bevat alle tien de namen inclusief
+    `"Blizzard_DeprecatedWorldElapsedTimerTypes"` (regel 120), plus `"Blizzard_DeprecatedChatInfo"` als
+    elfde met het commentaar dat we via die addon terugvallen op de oude global `SendChatMessage`
+    (`Comms.lua:72-75`). 🆕 **En nu ook getoetst aan de bron in plaats van aan ons eigen briefje:**
+    `Interface/ui-toc-list.txt` op ptr 70892 bevat **18** `Deprecated*`-addons, en **geen enkele** van
+    onze tien staat erbij — ze zijn dus echt weg op 12.1.7 — terwijl
+    `Blizzard_DeprecatedChatInfo` er **wél** in staat. Onze terugvalweg voor `SendChatMessage` heeft zijn
+    addon dus nog. **Van de lijst af. Niets aangeraakt.**
+  - 🧰 **SimC-addon: geen nieuwe release sinds `12.1.5-04`.** GEMETEN op twee manieren, net als gisteren:
+    `git ls-remote --tags --refs` op `simulationcraft/simc-addon` geeft **258** tags — hetzelfde aantal
+    als gisteren en voorgisteren — en de releases-pagina (mét `?nocache=20261113`) noemt bovenaan nog
+    `12.1.5-04`, **05 nov 22:38**, enige regel *"Handle Forever surname"*, commit `83fdb00`. Nog steeds
+    geen tag met `forever`, `camelot` of `1.60` in de naam. Niets te toetsen aan `ItemString` of
+    `ns.BuildSimcProfile` in `Modules/SimcExport.lua`.
+  - 📡 **Wat ik gelezen heb, mét `?nocache=20261113` achter elke URL.** `Patch_12.1.7/API_changes`:
+    onveranderd, nog exact twee punten in de samenvatting (de GUID-obfuscatie mét *"This change will be
+    available for testing in a future build of 12.1.7"* — ⚠️ en dat staat er nog steeds, ook ná build
+    70892) en de TOC-variabelen. `Patch_1.60.1/API_changes`: onveranderd. `Patch_12.1.5/API_changes`:
+    blue posts nog t/m **29 sep**, onveranderd. **UI-and-Macro-forum** (`latest.json`): twee bewegingen
+    sinds gisteren, beide van spelers, **geen** Blizzard-antwoord — `2413374` *"UI: Centering Interface on
+    Double Wide"* (**2026-11-12T22:16:01Z**, 1 post, over een 3840x1080-monitor) en een derde reactie in
+    `2362999` *"WoW Forever Addons"* (**2026-11-12T23:42:50Z**). Niets over API, taint of secure frames.
+    **news.blizzard.com**: nog steeds géén hotfix-artikel na *"WoW: Forever Hotfixes - November 11, 2026"*
+    (`/en-us/article/24315281/...`); een zoekronde op 12 én 13 nov leverde niets op. ⚠️ Dat is dezelfde
+    stand als gisteren en dus GEEN cache-verdenking: het nieuwste dat ik zie is niet ouder dan wat mijn
+    eigen logboek gisteren noemde.
+  - 🚧 **Wat ik NIET kon lezen, zodat stilte te onderscheiden is van niet-kijken.** `EGRESS_BLOCKED` op
+    `WebFetch` voor `warcraft.wiki.gg` en `news.blizzard.com`; `wago.tools` en
+    `us.forums.blizzard.com` onbereikbaar via zowel `WebFetch` als `curl` (proxy weigert de tunnel).
+    Alles hierboven is daarom via Exa gehaald, mét cache-buster — behalve de twee source-diffs, die zijn
+    rechtstreeks met `git` uit `Gethe/wow-ui-source` gehaald (`--filter=blob:none --depth 3`) en dus
+    **eerstehands**. `wowhead.com/blue-tracker` gaf `CRAWL_EMPTY_CONTENT` en is vandaag niet gelukt.
+  - ⏳ **Nog open uit eerdere runs — één punt korter dan gisteren.** NIET opnieuw gemeten vandaag: de dode
+    `PickupItem`-takken in `Modules/KeyBlock.lua:1135`/`:1227`/`:1380` en
+    `Modules/ApplyLayout.lua:1311`/`:1345`/`:1605`; de vijf decoratieve `GetItemInfo`-terugvaltakken; de
+    verouderde namespace-lijst in `docs/WATCHER_API_PROMPT.md` (18 aug, noemt 57 namespaces en kent de
+    twee TOC's niet); de client-test voor `/mh raidbots`; `GetTimerDuration` toevoegen aan
+    `Modules/ApiProbe.lua:377`; de `FrameStrata`-secret-vraag op `Modules/PartyTargets.lua:517`; de drie
+    `WOW_PROJECT_MAINLINE`-takken in `Libs/LibDBIcon-1.0.lua:533`/`:572`/`:607` die op Forever omslaan;
+    de ongemeten BETEKENIS van *"Edit Mode layouts are now saved separately for each UI type"* voor
+    `Modules/ForeverLayoutCarry.lua`; en de shift-klik-taintvraag op `Modules/Achievements.lua:1561`/`:1910`
+    (hierboven: door deze build NIET beantwoord). 🔴 Niets aangeraakt.
+  - 🔧 **Repo-staat: alleen `docs/API_WATCH.md` aangeraakt.** GEMETEN vóór het schrijven:
+    `git status --short` **leeg**, `HEAD` een nette `refs/heads/main` (anders dan gisteren, toen hij
+    losgeslagen stond), `git rev-parse --is-shallow-repository` nog steeds **`true`** met een venster van
+    **50** commits. Laatste commit in dat venster: `b206edb` *"Nachtcontrole 2026-11-13"*. 📌 De TOC's
+    staan op `## Version: 5.1.0`, `MidnightHelper.toc` op `## Interface: 120007, 120100, 120105, 120107`
+    (mét de bekende, onschadelijke UTF-8 BOM — GEMETEN `357 273 277` = `ef bb bf`) en
+    `MidnightHelper_Camelot.toc` op `## Interface: 16001`; **120107 is dus de TOC van de build waarvan ik
+    vandaag de diff heb gelezen.**
