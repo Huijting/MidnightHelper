@@ -9,7 +9,8 @@ local _, ns = ...
 	before; a switch turns the question off. From PaladinPlan (GPL-3.0) only the idea: no code, tables or texts.
 
 	What this file does, and no more (the sparring chat's limits for this step):
-	  - asks once per character, at login, out of combat, after the bar-layout question (ForeverLayoutCarry.lua);
+	  - since 13 Nov 2026 (Rob: "Als kaartjes erin") NOT by itself at login: a card in the choice window (NewChoices.lua)
+	    with one button per tree; this window opens with /mh direction and from How you play;
 	  - three buttons, one per talent tree, with the tree's client name (ForeverMacros.lua SPEC_NAMES, GEMETEN in DB2
 	    TalentTab) and one plain sentence (docs/forever/RICHTINGEN_PER_CLASS_2026-11-12.md section 1; the sentences are
 	    AFGELEID — our own summary for a beginner);
@@ -520,21 +521,48 @@ local function Try()
 		return
 	end
 	done = true
+	-- 🔴 NOT BY ITSELF ANY MORE — Rob, 13 Nov 2026, via sparring, verbatim: "Als kaartjes erin" (one overview: the
+	-- choice window is the first and only window at login; this question is a card in it, NewChoices.lua "direction").
+	-- The window still opens with /mh direction and from How you play.
 	local yes, why = Decision()
 	if yes then
-		ns.ShowForeverDirection()
-		loginWhy = "asked"
+		loginWhy = "not shown by itself: a card in the choice window (/mh new)"
 	else
-		loginWhy = "no question: " .. tostring(why)
+		loginWhy = "no card: " .. tostring(why)
 	end
 end
 
---- True while the login question is still to come or still open: the bar layout question and the choice window wait.
+--- True while this question is open: the choice window waits (it no longer comes by itself, 13 Nov 2026).
 function ns.ForeverDirectionPending()
-	if not done then
-		return true
-	end
 	return dialog ~= nil and dialog:IsShown() and true or false
+end
+
+--- For the choice window's card (NewChoices.lua): does it apply, the card's body, and one button per tree.
+function ns.ForeverDirectionCardApplies()
+	local yes = Decision()
+	return yes and true or false
+end
+
+function ns.ForeverDirectionCardBody()
+	return ns:L("FDIR_ASK_BODY_FMT"):format(ClassName(ClassToken()))
+end
+
+function ns.ForeverDirectionCardButtons()
+	local cls = ClassToken()
+	local chosen = ns.GetForeverDirection()
+	local list = {}
+	for band = 1, 3 do
+		list[#list + 1] = {
+			text = TreeName(cls, band),
+			current = (chosen == band),
+			tip = ns:L(("FDIR_%s_%d"):format(cls or "WARRIOR", band)),
+			click = function()
+				SetDirection(band)
+				print(PREFIX .. ns:L("FDIR_PICKED_CHAT_FMT"):format(TreeName(cls, band)))
+			end,
+		}
+	end
+	return list
 end
 
 ev:SetScript("OnEvent", function(_, event)

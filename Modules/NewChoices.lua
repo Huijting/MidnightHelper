@@ -35,6 +35,49 @@ end
 -- The cards. avail() = does this card apply to this player right now.
 --------------------------------------------------------------------------------
 local CARDS = {
+	-- Forever, per character (Rob, 13 Nov 2026, via sparring, verbatim: "Als kaartjes erin"): the two login questions
+	-- are cards here now, so a new character gets ONE overview instead of three windows. The direction card picks the
+	-- tree right on the card (hover a button for its sentence); the bar layout card's Yes is the question's own Yes.
+	{
+		id = "direction",
+		perChar = true,
+		head = "FDIR_ASK_TITLE",
+		bodyFn = function()
+			return ns.ForeverDirectionCardBody()
+		end,
+		avail = function()
+			return ns.IS_FOREVER and ns.ForeverDirectionCardApplies ~= nil and ns.ForeverDirectionCardApplies()
+		end,
+		buttons = function()
+			return ns.ForeverDirectionCardButtons()
+		end,
+	},
+	{
+		id = "barlayout",
+		perChar = true,
+		head = "NEWC_BAR_HEAD",
+		body = "FBAR_ASK_TEXT",
+		avail = function()
+			if not (ns.IS_FOREVER and ns.ForeverBarLayoutDecision and ns.ForeverBarLayoutYes) then
+				return false
+			end
+			local ok, yes = pcall(ns.ForeverBarLayoutDecision)
+			return ok and yes and true or false
+		end,
+		buttons = function()
+			return {
+				{
+					text = ns:L("FBAR_YES"),
+					closes = true,
+					click = function()
+						-- Hides the choice window itself (before the click handler below), logs, sets the layout and
+						-- asks for the reload.
+						ns.ForeverBarLayoutYes(_G.MidnightHelperNewChoices, "card")
+					end,
+				},
+			}
+		end,
+	},
 	{
 		id = "donow",
 		head = "SET_FOREVER_DONOW_TITLE",
@@ -346,7 +389,14 @@ Render = function(cards)
 		c.head:SetWidth(innerW - 16)
 		c.body:SetWidth(innerW - 16)
 		c.head:SetText(ns:L(card.head))
-		c.body:SetText(ns:L(card.body))
+		local bodyText
+		if card.bodyFn then
+			local okB, t = pcall(card.bodyFn)
+			bodyText = okB and t or ""
+		else
+			bodyText = ns:L(card.body)
+		end
+		c.body:SetText(bodyText)
 		local list = card.buttons()
 		for _, b in ipairs(c.btns) do
 			b:Hide()
@@ -361,6 +411,20 @@ Render = function(cards)
 				c.btns[j] = b
 			end
 			b:SetText((spec.current and (GOOD .. "> |r") or "") .. spec.text)
+			-- A button may carry one sentence of explanation (the direction card: what each tree is), on hover.
+			b:SetScript("OnEnter", spec.tip and function(self)
+				if GameTooltip then
+					GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+					GameTooltip:SetText(spec.text, 1, 0.82, 0)
+					GameTooltip:AddLine(spec.tip, 1, 1, 1, true)
+					GameTooltip:Show()
+				end
+			end or nil)
+			b:SetScript("OnLeave", spec.tip and function()
+				if GameTooltip then
+					GameTooltip:Hide()
+				end
+			end or nil)
 			ns.FitButtonToText(b, 70, innerW - 16)
 			if bx > 8 and bx + b:GetWidth() > innerW - 8 then
 				bx = 8
@@ -437,7 +501,11 @@ local function OtherQuestionOpen()
 		return "the direction question (still to come or open)"
 	end
 	if ns.ForeverBarLayoutPending and ns.ForeverBarLayoutPending() then
-		return "the bar layout question (still to come or open)"
+		return "the bar layout question (open, or reload asked)"
+	end
+	-- Edit Mode still loading: wait, or the bar layout card would be missing from the one overview (13 Nov 2026).
+	if ns.ForeverBarLayoutNotReady and ns.ForeverBarLayoutNotReady() then
+		return "Edit Mode still loading (bar layout card)"
 	end
 	-- ~1.5 s rest after the previous question closed: no click-through (13 Nov 2026).
 	if ns.LoginQuestionRestLeft and ns.LoginQuestionRestLeft() > 0 then
@@ -453,12 +521,28 @@ local function OtherQuestionOpen()
 end
 
 local tries = 0
+local changelogAfter = false -- set by NewChoicesTakeOver when it took over before knowing there would be a card
 local function TryAutoShow()
 	local cards = Pick(true)
 	if #cards == 0 then
+		-- Edit Mode not loaded yet: the bar layout card may still come; keep waiting rather than give up.
+		if ns.ForeverBarLayoutNotReady and ns.ForeverBarLayoutNotReady() and tries < 300 and C_Timer and C_Timer.After then
+			tries = tries + 1
+			lastWhy = "waiting: Edit Mode still loading (nothing else to choose yet)"
+			C_Timer.After(2, TryAutoShow)
+			return
+		end
 		lastWhy = "nothing new to choose"
+		if changelogAfter then
+			-- We took over at login without knowing yet; nothing came, so the changelog gets its turn after all.
+			changelogAfter = false
+			if ns.ShowChangelogWindow then
+				ns:ShowChangelogWindow(false)
+			end
+		end
 		return
 	end
+	changelogAfter = false
 	local busy = OtherQuestionOpen()
 	if InCombat() or busy then
 		tries = tries + 1
@@ -500,6 +584,14 @@ end
 
 function ns.NewChoicesTakeOver()
 	local ok, cards = pcall(Pick, true)
+	-- Forever with Edit Mode still loading: the bar layout card may yet apply. Take over now (one window, the overview
+	-- first: Rob, 13 Nov 2026); if in the end nothing applies, TryAutoShow hands over to the changelog after all.
+	if ok and #cards == 0 and ns.ForeverBarLayoutNotReady and ns.ForeverBarLayoutNotReady() and C_Timer and C_Timer.After then
+		changelogAfter = true
+		lastWhy = "nothing yet at login; waiting for Edit Mode (bar layout card)"
+		C_Timer.After(3, TryAutoShow)
+		return true
+	end
 	if not ok or #cards == 0 then
 		lastWhy = "nothing at login (key card: " .. keyWhy .. "); late checks pending"
 		if C_Timer and C_Timer.After then

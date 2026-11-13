@@ -21,6 +21,22 @@ Eén voordeur t/m 19 nov: vragen voor Rob via de sparring-chat van de dag ("Spar
 5. Op main sinds 5.1.0 en niet uit: alles van 11-12 nov (plan 1/2/3, Do this now, groepspaneel, beroepenkaart, richting,
    Used for, …). Release alleen op Robs letterlijke go.
 
+## 🗂️ 13 nov (nacht) — één overzicht: richting en bar layout als kaartjes (Rob: "Als kaartjes erin")
+
+- Rob, letterlijk: *"het laatste scherm … dat dat gewoon de allereerste is … alleen nog maar te zien is voor nieuwe
+  spelers of voor nieuwe karakters. En één overzicht"*, daarna op de vraag van sparring: *"Als kaartjes erin"*.
+  De volgorde van 2ef8724 (richting → bar layout → keuzevenster) VERVALT.
+- `ForeverDirection.lua`: komt niet meer vanzelf (Try zet alleen loginWhy); `ns.ForeverDirectionCardApplies/Body/
+  Buttons` voor het kaartje (drie bomen, uitleg bij hover). `ForeverLayoutCarry.lua`: komt niet meer vanzelf; de loop
+  wacht alleen tot Edit Mode kan antwoorden (`ns.ForeverBarLayoutNotReady`); Yes is nu `ns.ForeverBarLayoutYes(src,
+  from)` voor vraag én kaartje (log krijgt `from`). `NewChoices.lua`: kaartjes "direction" en "barlayout" (perChar,
+  bovenaan), `bodyFn` en `tip` op knoppen, wacht op Edit Mode, neemt bij Forever de login over zolang Edit Mode laadt
+  en geeft de changelog alsnog als er niets komt. Nieuwe key `NEWC_BAR_HEAD`; SET_FOREVER_BARLAYOUT_DESC en
+  SET_FOREVER_DIRECTION_DESC zeggen nu "kaartje in het keuzevenster" (alle talen zelf; check_drift: 0 nieuwe drift).
+- Bescherming 2e2e9ca (rust/klikwacht) en Yes-log blijven. Midnight: niets veranderd (beide bestanden returnen op
+  retail, kaartjes vragen IS_FOREVER; AFGELEID uit de code).
+- luac schoon, lint 0 HARD. NIET in het spel gezien (TESTLIJST 13 nov nacht).
+
 ## 🪟 13 nov (laat) — Forever: tekst vrij van "Dock to window" (Rob: "1 fixen") + plan drie vensters ("2 ja")
 
 - `ForeverLayoutCarry.lua`: bar-layout-vraag en "Use your layout"-vraag: tekst van −22 naar −34 (onder de Dock-knop,

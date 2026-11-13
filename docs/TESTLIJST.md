@@ -21,6 +21,19 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 13 nov (nacht) — FOREVER: één overzicht bij de eerste login (Rob: "Als kaartjes erin")
+
+Maak een nieuw Forever-character en wacht na het inloggen (intro-filmpje mag eerst).
+- [ ] WERKT HET: er komt maar ÉÉN venster: het keuzevenster. Daarin onder andere de kaartjes "Which way do you want
+      to go?" (drie knoppen, één per boom) en "Midnight Helper bar layout" (knop Yes). De richtingvraag en de
+      bar-layout-vraag komen NIET meer los. WERKT HET NIET: een tweede venster, of een kaartje ontbreekt → typ
+      `/mh new check`, `/mh direction check` en `/mh mylayout check` en stuur een screenshot van de chat.
+- [ ] Ga met de muis op een boom-knop staan: je ziet de zin over die boom. Klik er één: in de chat "direction for this
+      character: …", en op het kaartje staat ">" voor je keuze.
+- [ ] Klik Yes op het bar-layout-kaartje: het venster gaat dicht, je ziet alleen de reload-vraag, in de chat staat hoe
+      je terugzet. Reload now → het toetsenblok opent.
+- [ ] Een oud character dat al een richting koos en al een eigen layout heeft: GEEN venster bij het inloggen.
+
 ## 🆕 13 nov (laat, 3) — FOREVER: geen doorklik meer van de richtingvraag naar "Yes" (Rob: "ik klikte alleen in de keuze")
 
 Nieuw Forever-character. Kies een richting met een snelle dubbelklik (expres).
@@ -40,7 +53,7 @@ Nieuw Forever-character. Richtingvraag beantwoorden, dan bij de bar layout op **
 - [ ] (Ander nieuw character) klik **Later**: deze sessie komt het keuzevenster niet meer. Bij je volgende login (of
       /reload) komt het wél, met het kaartje "A fixed key for every spell".
 
-## 🆕 13 nov (laat) — FOREVER: vragen bij de eerste login één voor één (Rob: "Eén voor één")
+## ~~13 nov (laat) — FOREVER: vragen bij de eerste login één voor één~~ VERVALLEN: Rob koos daarna "Als kaartjes erin" (zie 13 nov nacht)
 
 Maak een nieuw Forever-character en wacht na het inloggen (intro-filmpje mag eerst).
 - [ ] WERKT HET: eerst alleen "Which way do you want to go?". Pas als je die sluit of kiest, komt (na ±2 s) "Set up the

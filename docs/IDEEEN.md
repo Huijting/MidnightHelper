@@ -103,8 +103,10 @@ NIET GEMETEN.
   nov**: tekst van de bar-layout- en mylayout-vraag begint onder de Dock-knop (−34), richtingtitel vast links van de
   knop. Wacht op Robs test (TESTLIJST 13 nov avond).
 - **Nieuw Forever-character krijgt bij de eerste login drie vensters**: richting en bar-layout tegelijk, daarna het
-  keuzevenster. Rob: *"2 ja"*, daarna via sparring letterlijk *"Eén voor één"*. **Gebouwd 13 nov**: richting →
-  bar layout → keuzevenster, één tegelijk. Wacht op Robs test (TESTLIJST 13 nov laat).
+  keuzevenster. Rob: *"2 ja"*, daarna via sparring letterlijk *"Eén voor één"* (gebouwd 2ef8724), en daarna bedoelde
+  hij het anders: *"één overzicht, zo bedoelde ik hem eigenlijk"* → *"Als kaartjes erin"*. **Gebouwd 13 nov (nacht)**:
+  het keuzevenster is het enige venster bij de login; richting en bar layout zijn kaartjes erin. Wacht op Robs test.
+  Open voor Rob (voorstel naar sparring): titel van het venster, hoogte met 5 kaartjes.
 
 ## Ja — wordt gebouwd
 

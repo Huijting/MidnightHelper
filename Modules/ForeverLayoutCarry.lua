@@ -454,6 +454,48 @@ local function AskReloadAndReopen()
 	end
 end
 
+--- "Yes" on the MH bar layout — from this question or from its card in the choice window (NewChoices.lua; Rob, 13 Nov
+--- 2026: "Als kaartjes erin"). src = the frame the click came from (hidden here; its _mhShownAt goes in the log).
+function ns.ForeverBarLayoutYes(src, from)
+	-- 🔬 Proof for next time (13 Nov 2026, Rob: "ik klikte alleen in de keuze voor welke richting"): how long the window
+	-- had been on screen, and how long ago the question before it closed. Measured BEFORE src:Hide(), whose OnHide
+	-- stamps a new "closed" time. Max 10 lines; /mh mylayout check prints the last one.
+	local now = GetTime and GetTime() or nil
+	local entry = {
+		at = date and date("%Y-%m-%d %H:%M:%S") or "?",
+		char = CharKey(),
+		from = from,
+		onScreen = (now and src and src._mhShownAt) and math.floor((now - src._mhShownAt) * 100 + 0.5) / 100 or nil,
+		prevClosedAgo = ns.LoginQuestionClosedAgo and ns.LoginQuestionClosedAgo() or nil,
+	}
+	if entry.prevClosedAgo then
+		entry.prevClosedAgo = math.floor(entry.prevClosedAgo * 100 + 0.5) / 100
+	end
+	local s = Store()
+	if s then
+		s.foreverBarYesLog = s.foreverBarYesLog or {}
+		local L = s.foreverBarYesLog
+		L[#L + 1] = entry
+		while #L > 10 do
+			table.remove(L, 1)
+		end
+	end
+	if src and src.Hide then
+		src:Hide()
+	end
+	local ok, msg = ns.MH_EditModeMakeOwnLayout()
+	if not ok then
+		print(PREFIX .. ns:L("FBAR_FAILED_FMT"):format(tostring(msg)))
+		return
+	end
+	-- Say where the way back is, in chat too (the question said it; a click-through never read it).
+	print(PREFIX .. ns:L("FBAR_UNDO_CHAT_FMT"):format(ns:L("KEYBLOCK_BTN_LAYOUT_UNDO")))
+	-- Until the reload this counts as busy, so the choice window does not come back under the reload popup (6.png).
+	reloadAsked = true
+	barWhy = "Yes: reload asked (the choice window waits until after the reload)"
+	AskReloadAndReopen()
+end
+
 local function AskBarLayout()
 	if not barDialog then
 		local f = CreateFrame("Frame", "MidnightHelperForeverBarLayout", UIParent, "BackdropTemplate")
@@ -481,42 +523,7 @@ local function AskBarLayout()
 			return b
 		end
 		f.yes = Btn("", 20, function()
-			-- 🔬 Proof for next time (13 Nov 2026, Rob: "ik klikte alleen in de keuze voor welke richting"): how long
-			-- this question had been on screen, and how long ago the question before it closed. Measured BEFORE
-			-- f:Hide(), whose OnHide stamps a new "closed" time. Max 10 lines; /mh mylayout check prints the last one.
-			local now = GetTime and GetTime() or nil
-			local entry = {
-				at = date and date("%Y-%m-%d %H:%M:%S") or "?",
-				char = CharKey(),
-				onScreen = (now and f._mhShownAt) and math.floor((now - f._mhShownAt) * 100 + 0.5) / 100 or nil,
-				prevClosedAgo = ns.LoginQuestionClosedAgo and ns.LoginQuestionClosedAgo() or nil,
-			}
-			if entry.prevClosedAgo then
-				entry.prevClosedAgo = math.floor(entry.prevClosedAgo * 100 + 0.5) / 100
-			end
-			local s = Store()
-			if s then
-				s.foreverBarYesLog = s.foreverBarYesLog or {}
-				local L = s.foreverBarYesLog
-				L[#L + 1] = entry
-				while #L > 10 do
-					table.remove(L, 1)
-				end
-			end
-			f:Hide()
-			local ok, msg = ns.MH_EditModeMakeOwnLayout()
-			if not ok then
-				print(PREFIX .. ns:L("FBAR_FAILED_FMT"):format(tostring(msg)))
-				return
-			end
-			-- Say where the way back is, in chat too (the question said it; a click-through never read it).
-			print(PREFIX .. ns:L("FBAR_UNDO_CHAT_FMT"):format(ns:L("KEYBLOCK_BTN_LAYOUT_UNDO")))
-			-- One at a time (Rob, 13 Nov 2026: "Eén voor één"; 6.png showed the choice window under the reload popup):
-			-- from here until the reload, this question counts as still busy, so the choice window waits — also
-			-- after "Later", for the rest of this session.
-			reloadAsked = true
-			barWhy = "Yes: reload asked (the choice window waits until after the reload)"
-			AskReloadAndReopen()
+			ns.ForeverBarLayoutYes(f, "question")
 		end)
 		f.notNow = Btn("", 155, function()
 			local s = Store()
@@ -578,10 +585,10 @@ local NOT_YET = {
 	["Edit Mode returned no layouts"] = true,
 	["this client has no C_EditMode.GetLayouts"] = false, -- a client without Edit Mode: nothing to wait for
 }
--- 🔴 ONE AT A TIME (Rob, 13 Nov 2026, via sparring: "Eén voor één"): the direction question goes first. While it is
--- still to come or open, this one waits — every 2 s, up to ~5 minutes, without using up the Edit Mode tries; after that
--- the next end of combat / movie tries again. Never dropped silently: barWhy says what it is waiting for.
-local dirWaits = 0
+-- 🔴 NOT BY ITSELF ANY MORE — Rob, 13 Nov 2026, via sparring, verbatim: "Als kaartjes erin". The choice window
+-- (NewChoices.lua) is the one overview at login; the MH bar layout is a card in it, with this question's "Yes"
+-- (ns.ForeverBarLayoutYes). This loop now only waits until Edit Mode can answer BarDecision, so the choice window
+-- knows whether the card applies (ns.ForeverBarLayoutNotReady). The question still opens with /mh mylayout.
 local function Try()
 	if done then
 		return
@@ -596,42 +603,28 @@ local function Try()
 		barWhy = "waiting: intro movie"
 		return
 	end
-	if ns.ForeverDirectionPending and ns.ForeverDirectionPending() then
-		dirWaits = dirWaits + 1
-		barWhy = "waiting: the direction question goes first"
-		if dirWaits < 150 and C_Timer and C_Timer.After then
-			C_Timer.After(2, Try)
-		else
-			waiting = true
-			dirWaits = 0
-		end
-		return
-	end
-	-- ~1.5 s rest after the previous question closed, so a second click never lands on this one (13 Nov 2026).
-	local rest = ns.LoginQuestionRestLeft and ns.LoginQuestionRestLeft() or 0
-	if rest > 0 and C_Timer and C_Timer.After then
-		barWhy = "waiting: rest after the previous question"
-		C_Timer.After(rest + 0.05, Try)
-		return
-	end
 	tries = tries + 1
 	local yes, why = BarDecision() -- the MH bar layout (Rob, 7 Nov 2026), no longer "Use your layout X?"
 	if yes then
 		done = true
-		barWhy = "asked (open)"
-		AskBarLayout()
+		barWhy = "not shown by itself: a card in the choice window (/mh new)"
 	elseif NOT_YET[why] and tries < 30 and C_Timer and C_Timer.After then
 		barWhy = "waiting: " .. tostring(why)
 		C_Timer.After(2, Try)
 	else
 		done = true
-		barWhy = "no question: " .. tostring(why)
+		barWhy = "no card: " .. tostring(why)
 	end
 end
 
---- True while the bar layout question is still to come or open: the choice window (NewChoices.lua) waits.
+--- True while Edit Mode cannot answer yet (the choice window waits, so the bar layout card is not missed).
+function ns.ForeverBarLayoutNotReady()
+	return not done
+end
+
+--- True while this question is open, or after "Yes" until the reload: the choice window waits.
 function ns.ForeverBarLayoutPending()
-	if not done or reloadAsked then
+	if reloadAsked then
 		return true
 	end
 	return barDialog ~= nil and barDialog:IsShown() and true or false
