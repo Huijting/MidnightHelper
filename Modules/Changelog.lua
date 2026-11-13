@@ -4,6 +4,22 @@ local changelogFrame
 
 local CHANGELOG_ENTRIES = {
 	{
+		version = "5.2.0",
+		lines = {
+			-- 13 Nov 2026 (Rob, via sparring: "je krijgt nu een go voor een release voor alles"): Forever first.
+			"CHANGELOG_520_1",
+			"CHANGELOG_520_2",
+			"CHANGELOG_520_3",
+			"CHANGELOG_520_4",
+			"CHANGELOG_520_5",
+			"CHANGELOG_520_6",
+			"CHANGELOG_520_7",
+			"CHANGELOG_520_8",
+			"CHANGELOG_520_9",
+			"CHANGELOG_520_10",
+		},
+	},
+	{
 		version = "5.1.0",
 		lines = {
 			-- 11 Nov 2026 (Rob: "Zorg maar dat het live gaat. Zowel voor forever als voor midnight."): Forever first.

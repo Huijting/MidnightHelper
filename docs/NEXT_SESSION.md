@@ -5,7 +5,8 @@
 Stand 12 nov laat, laatste commit 7daaeb2 + a176d48 op main (GEMETEN, gepusht). GEEN release, geen go daarvoor.
 Eén voordeur t/m 19 nov: vragen voor Rob via de sparring-chat van de dag ("Sparring 13-11").
 
-1. **Proef `Bindings_Camelot.xml` (a176d48): uitslag OPEN.** Rob: WoW helemaal herstarten, Forever → Esc → Options →
+0. ✅ **13 nov: release 5.2.0 (zie de sectie hieronder). Proef Bindings_Camelot.xml geslaagd.**
+1. ~~**Proef `Bindings_Camelot.xml` (a176d48): uitslag OPEN.**~~ (13 nov: geslaagd, 4 regels) Rob: WoW helemaal herstarten, Forever → Esc → Options →
    Keybindings → "Midnight Helper". Werkt = 4 regels (Toggle main window, Clear active route, Open: Forever, Your
    characters). Werkt niet (nog 14) → bestand weghalen en optie A bouwen: "(Midnight)" achter de Midnight-toetsen in
    Forever (Rob koos dat al, letterlijk: *"Naam met (Midnight)"*). Ook nakijken: retail-lijst onveranderd.
@@ -19,6 +20,15 @@ Eén voordeur t/m 19 nov: vragen voor Rob via de sparring-chat van de dag ("Spar
    en de 5.1.0-tekst?
 5. Op main sinds 5.1.0 en niet uit: alles van 11-12 nov (plan 1/2/3, Do this now, groepspaneel, beroepenkaart, richting,
    Used for, …). Release alleen op Robs letterlijke go.
+
+## 🚀 13 nov — RELEASE 5.2.0 (Rob via sparring, letterlijk: "je krijgt nu een go voor een release voor alles")
+
+- Eerst de CF-beschrijving (f6631bb, Rob plakt hem zelf), dan alles van main sinds v5.1.0. Geen beta.
+- Artefacten: beide toc's 5.2.0, `CHANGELOG_520_1..10` (enUS), `RELEASE_NOTES.md` = `docs/CURSEFORGE_5.2.0.md`,
+  `CHANGELOG.md`. SITE_SEIN: 12 regels + release-regel op "getagd". Lint 0 HARD ([27] 0: geen eigen gereedschap in de
+  spelerstekst), `luac -p` schoon op Changelog.lua + enUS.lua.
+- Proef `Bindings_Camelot.xml` GESLAAGD (Robs screenshot, door sparring gezien: 4 regels). Blijft.
+- ⏳ Nog doen na de tag: GitHub-run + CurseForge-API nameten (twee bestanden), dan SITE_SEIN op "staat op CurseForge".
 
 ## 🛠️ 13 nov (ochtend) — ochtendronde + regie-opdracht aangescherpt (Rob via sparring, letterlijk: "Ja, aanscherpen")
 

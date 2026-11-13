@@ -24,9 +24,10 @@ er is niets weggegooid.
 ## 🧪 12 nov (laat) — PROEF: eigen toetsenlijst in Forever (Rob, via sparring: "Ja, eerst de proef")
 
 Sluit WoW helemaal af (niet alleen /reload) en start Forever opnieuw.
-- [ ] Esc → Options → Keybindings → kopje "Midnight Helper". WERKT HET: precies 4 regels — "Toggle main window"
+- [x] Esc → Options → Keybindings → kopje "Midnight Helper". WERKT HET: precies 4 regels — "Toggle main window"
       (ALT-M), "Clear active route / arrow", "Open: Forever", "Your characters". WERKT HET NIET: nog steeds de lange lijst
       van 14 (Rares, Delves, TAB_CODEX, drankjes …). Stuur een screenshot.
+      ✅ Rob 13 nov (screenshot, gezien door Sparring 13-11): precies die 4 regels. `Bindings_Camelot.xml` blijft.
 - [ ] ALT-M opent MH nog gewoon.
 - [ ] In Midnight (retail): de lijst onder "Midnight Helper" is precies als altijd (14 regels, met "Open: This Week").
 

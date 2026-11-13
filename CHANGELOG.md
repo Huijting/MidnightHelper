@@ -2,6 +2,24 @@
 
 All notable changes to this project are documented in this file.
 
+## 5.2.0
+
+📌 **2026-11-13, RELEASE (Rob via sparring: "je krijgt nu een go voor een release voor alles"; geen beta).** Tag
+`v5.2.0`; twee bestanden (Retail + `-forever`). In-game: CHANGELOG_520_1 t/m _10. `RELEASE_NOTES.md` =
+`docs/CURSEFORGE_5.2.0.md`. Rob: *"ik heb tot nutoe alles bekeken"*; proef `Bindings_Camelot.xml` geslaagd (4 regels in
+Forever, screenshot via sparring).
+
+- **Forever:** Do this now (`ForeverDoNow.lua`, tandwiel voor de stand); richting kiezen + wat die nodig heeft
+  (`ForeverDirection.lua`, groen + in `/mh weapons`); Your characters (`ForeverChars.lua`, tegel + toets); kaartje per
+  beroep (`ForeverProfGuide.lua`); gereedschap vergeten → verkoper; oranje rand bij oude rank (`ForeverRanks.lua`);
+  groepspaneel (`ForeverPartyPanel.lua`); eigen toetsenlijst (`Bindings_Camelot.xml`) + drankjes-toetsnamen; Paladin-
+  macro's Hammer of Justice + Purify; Stormstrike-macro vanaf 25; Priest-tip Confounding Flash.
+- **Beide spellen:** "Used for" in de tooltip; alle ontbrekende buffs; één Move-schakelaar (`MoveMode.lua`);
+  keuzevenster na een update (`NewChoices.lua`); knoppen zo breed als hun tekst (lint [28]).
+- **Midnight:** Party targets rechtsklik = interrupt zonder purge.
+- **Alleen voor ons (niet in de spelerstekst):** `/mh partytest`, `dispelTryLog`/`dispelSelfLog`, `/mh prompt test`,
+  lint [27] en [28], `/mh new check`, `/mh alts check`.
+
 ## 5.1.0
 
 📌 **2026-11-11, RELEASE (Rob: "je krijgt een go om het live te zetten … Zowel voor forever als voor midnight"; geen

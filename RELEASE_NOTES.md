@@ -1,50 +1,45 @@
-# Midnight Helper 5.1.0: Forever finds its way, and MH tells you when you picked up an upgrade
+# Midnight Helper 5.2.0: Forever tells you what to do now, and remembers all your characters
 
 Want new things sooner and help test them? We put out betas regularly: set the release type of Midnight Helper in the
 CurseForge app to **Beta**. Found something odd, or does everything just work? Tell us: `/mh report` in game, a comment
 here on CurseForge, or the feedback form on midnighthelper.com.
 
-A big one for **WoW Forever**, and a few new things for both games.
+A big one for **WoW Forever** again, and a few new things for both games.
 
 ## WoW Forever
 
-- **The arrow knows the way across the water:** boats, zeppelins, the Deeprun Tram and the portals. Going across the
-  water without a Hearthstone in your bags? It warns you before you go.
-- **Trainers and vendors:** the arrow learns where a trainer or vendor really stands once you talk to them, and says
-  *You're there* up close. Arrows to profession trainers too (`/mh trainer <profession>`), and a *Profession trainers*
-  window.
-- **Weapon trainers** (`/mh weapons`): which weapons your class may learn, which you know, and where to learn them.
-- **Where do I buy this?** An arrow to the nearest vendor for tools and trade goods.
-- **Handy macros:** the top macros for your class and spec, ready to make.
-- **Class quests:** the trainer list marks spells that come from a class quest instead of the trainer (like the
-  Paladin's Judgement), and *How you play* tells a Paladin that Judgement needs a seal on.
-- **Why is this better?** A green line on a gear tooltip: *MH: +3 Strength over what you wear (main stats for a
-  Paladin).* `/mh geartip off` turns it off.
-- **Also new:** *This week in Forever*, a warning when you still hold your fishing pole, and a finder for bar buttons
-  that still cast an old spell rank.
+- **Do this now:** a small window with what you can do right now: new spells at your trainer, an old rank on your bars,
+  a weapon to learn, a missing tool. Below it, the trainer spells of your next 3 levels. The gear next to the cross
+  picks when it shows.
+- **Which way do you want to go?** MH asks which of your class's three talent trees you want, each in one plain
+  sentence. *How you play* then says what that way needs: your armour, the weapon guides name, and which spells need a
+  shield. `/mh weapons` puts a green **+** next to the weapons that fit.
+- **Your characters** (`/mh alts`, or the new tile in the Me room): all your characters in one window, with level,
+  gold and the total, professions, and how many spells wait for them at the trainer.
+- **A card per profession** in *Profession trainers*: what it does, the tool it needs and where to buy it. Forgot your
+  tool? When the game says you need it, MH names the nearest vendor with *Show the way*.
+- **Old ranks on your bars:** a button that still casts a lower rank gets a calm orange edge. `/mh ranks glow off`
+  turns it off.
+- **A small group panel**, off until you turn it on: click a player to target them, right-click to cast your dispel
+  on them.
 
 ## Both games
 
-- **You picked up an upgrade:** when gear that clearly beats what you wear lands in your bags, a short message on your
-  screen says so, and why. No more keeping your bags open. `/mh pickup off` turns it off.
-- **Missing buffs, in words:** the icon now names the buff and says what to do (*Blessing of Might is not on you. Click
-  the icon to cast it.*), in calm gold instead of a big red MISSING.
-- The interrupt/dispel prompt (`/mh prompt`) can be resized with Shift+scroll, like every Midnight Helper window.
+- **What is this for?** Ingredient tooltips say which profession uses them, for example *MH: Used for Cooking (you
+  have it)*. `/mh usedfor off` turns it off.
+- **All missing buffs:** next to the buff icon, small icons show the other buffs you miss.
+- **One Move switch** shows every Midnight Helper part on your screen, so you can drag each one where you want it.
+- **After an update**, one small window lets you choose the new things you want, instead of a long list.
 
 ## Midnight
 
-- **20 play cards** updated, and the **top 5 macros per spec** with a *Make* button in the Macros tab.
-- Game names (places, items, achievements, spells) now read the way **your own client** writes them in German, French,
-  Spanish, Portuguese, Italian and Russian.
+- In **Party targets**, a right-click on a party member's target casts your interrupt when you have no purge.
 
 ## Fixes
 
-- Hovering a tool in a vendor's list to buy it no longer says *Right-click sells this*.
-- A Greater Blessing now counts as a blessing for the missing-buff icon.
-- The tip after learning a new profession no longer gets stuck on *(loading...)*.
-- `/mh travel` answers in Forever again.
-
-Some of the new messages appear on their own. If one ever gets in your way, each has an off switch (`/mh pickup off`,
-`/mh geartip off`), and please tell us with `/mh report`.
+- Buttons are as wide as their text, so no label is cut off.
+- The two words of the action prompt sit beside the icons, not on top of each other.
+- The Paladin aura and Warrior stances stay visible when the game hides auras.
+- In Forever, the key list shows only the keys that work there, and the potion keys have a readable name.
 
 Have fun!
