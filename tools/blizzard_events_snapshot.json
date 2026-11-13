@@ -1,6 +1,6 @@
 {
  "source": "https://github.com/Gethe/wow-ui-source/tree/<branch>/Interface/AddOns/Blizzard_APIDocumentationGenerated",
- "fetched": "2026-11-10",
+ "fetched": "2026-11-13",
  "branches": {
   "live": {
    "build": "12.1.5 (70783)",
@@ -1795,9 +1795,9 @@
    ]
   },
   "ptr": {
-   "build": "12.1.7 (70740)",
-   "commit": "e927c305f67ed6b3b460bc00d0c39055747b9119",
-   "commit_date": "2026-11-04T21:01:03Z",
+   "build": "12.1.7 (70892)",
+   "commit": "a750208e2382f24eb3d3a83939082a182420c44b",
+   "commit_date": "2026-11-12T22:24:09Z",
    "files": 647,
    "events": [
     "ACCOUNT_CHARACTER_CURRENCY_DATA_RECEIVED",
@@ -3398,6 +3398,7 @@
     "UI_INFO_MESSAGE",
     "UI_MODEL_SCENE_INFO_UPDATED",
     "UI_SCALE_CHANGED",
+    "ULTIMATE_PROGRESS_CHANGED",
     "UNIT_ABSORB_AMOUNT_CHANGED",
     "UNIT_AREA_CHANGED",
     "UNIT_ARENA_COOLDOWNS_UPDATE",
@@ -3621,9 +3622,9 @@
    ]
   },
   "forever": {
-   "build": "1.60.1 (70888)",
-   "commit": "4cd0ab752a77164f654ccbca9d0c1fe8dafceebe",
-   "commit_date": "2026-11-10T15:16:27Z",
+   "build": "1.60.1 (70938)",
+   "commit": "bebcb6bf309cf41b41bd74f8ca651e6a105b2676",
+   "commit_date": "2026-11-13T01:46:40Z",
    "files": 642,
    "events": [
     "ACCOUNT_CHARACTER_CURRENCY_DATA_RECEIVED",

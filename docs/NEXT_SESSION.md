@@ -20,6 +20,23 @@ Eén voordeur t/m 19 nov: vragen voor Rob via de sparring-chat van de dag ("Spar
 5. Op main sinds 5.1.0 en niet uit: alles van 11-12 nov (plan 1/2/3, Do this now, groepspaneel, beroepenkaart, richting,
    Used for, …). Release alleen op Robs letterlijke go.
 
+## 🛠️ 13 nov (ochtend) — ochtendronde + regie-opdracht aangescherpt (Rob via sparring, letterlijk: "Ja, aanscherpen")
+
+- Ochtendronde: 0 open CF-reacties, geen site-mail, HandyNotes 170 en Zygor 9.6/1.6 onveranderd, BOUW_VRAAG 0 open.
+  `event_snapshot --write` gedraaid (ptr 70892, forever 70938); `event_check` daarna schoon (GEMETEN).
+- API-wachter 8871810: niets voor MH (nieuwe Forever-API `HasNoReagentCost`, 0 treffers in MH).
+- Regie 13 nov had twee punten mis (GEMETEN): het keuzevenster STAAT in SITE_SEIN.md (regel 53, Nederlands; de regie
+  zocht "choice"), en `ForeverHowToPlay.lua:273` noemt Confounding Flash al niet meer. `/mh partytest` = meetknop, geen
+  SITE_SEIN-regel nodig (lint [27] houdt hem uit spelerstekst).
+- Waarom de regie tabel 2 (grens CLAUDE.md, OCHTENDRONDE/CLAUDE_HISTORIE) en tabel 3 rij 10 oversloeg, GEMETEN in zijn
+  run-log (cse_01AezjgjdGQo9Pd9h5Prv113, 13 turns, 80 s): hij schreef alleen blok 0 + tabel 5; zag "zie loopt scheef"
+  niet als fout getal; zocht alleen bestanden "nieuw sinds vorig verslag" (beide zijn van 11 nov); `git log
+  --diff-filter=A` gaf honderden Modules (ondiepe kloon, AFGELEID) en `head -30` kapte af; keek nooit in `tools/`.
+- Hoofdstuk 6 van REGIE.md aangescherpt: getal in tabel 2, hele tabel 2 elke ronde, unshallow-check, geen `head` op
+  lijsten, `ls tools/` + lintkoppen voor tabel 3, datum alleen na alle rijen, en een verplicht rijenbewijs in het
+  slotbericht. De drie regels zelf NIET met de hand gezet (dat is de test). Routine-prompt en recept niet aangeraakt.
+  Sparring meet 14 nov.
+
 ## 🧪 12 nov (laat) — PROEF: eigen toetsenlijst voor Forever (`Bindings_Camelot.xml`)
 
 - Rob (via sparring, letterlijk): eerst *"Haal ze in Forever uit de lijst"*, daarna *"Ja, eerst de proef"* (optie D).
