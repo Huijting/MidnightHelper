@@ -21,6 +21,16 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 13 nov (nacht, 4) — "gezien" alleen als het echt in beeld stond (Rob: "geen venster, na reload")
+
+Op het character van vanavond (de Frost-mage zonder bar layout), gewoon `/reload`:
+- [ ] WERKT HET: het venster komt één keer, "New in this version: your choice", met het toetsenkaartje ("A fixed key
+      for every spell") en de schermpjes (quick bar, Fast Mark, buff-icoon, minimap, groepspaneel, Do this now).
+      Laat het minstens 2 seconden staan en sluit. Nog een `/reload`: het venster komt NIET nog eens.
+- [ ] `/mh new check` → regel "last automatic opening: … N card(s) really in the window: … ; counted as seen: yes".
+      Het aantal moet gelijk zijn aan wat je in het venster zag.
+- [ ] Sluit je het venster binnen 1 seconde, dan komt het bij de volgende `/reload` terug ("counted as seen: no").
+
 ## 🆕 13 nov (nacht, 3) — schermpjes en balken in het overzicht (Rob: "alleen voor nieuwe spelers en één keertje bij een volgende update")
 
 Gewoon `/reload` op een bestaand character (jij bent nu een "bestaande speler" die de nieuwe ronde voor het eerst ziet).

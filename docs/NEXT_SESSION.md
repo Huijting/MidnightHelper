@@ -21,6 +21,22 @@ Eén voordeur t/m 19 nov: vragen voor Rob via de sparring-chat van de dag ("Spar
 5. Op main sinds 5.1.0 en niet uit: alles van 11-12 nov (plan 1/2/3, Do this now, groepspaneel, beroepenkaart, richting,
    Used for, …). Release alleen op Robs letterlijke go.
 
+## 🐞 13 nov (nacht, 4) — kaartjes op "seen" die Rob nooit zag (Rob: "geen venster, na reload")
+
+- GEMETEN in `_forever_/WTF/.../MidnightHelper.lua` newChoicesSeen: quickbar, fastmark, missingbuff, minimap, donow#2,
+  partypanel#2 én keyblock:Player-6944-03538B8D op true; Robs 11.png toonde alleen direction + barlayout. Alleen twee
+  schrijvers in de code (MarkSeen in TryAutoShow, NewChoicesMarkSeen bij "Reload now"; GEMETEN met grep). Geen tijden in
+  de SV, dus welke opening het deed is NIET gemeten.
+- Twee gaten in de code (GEMETEN), die samen precies dit beeld geven (AFGELEID): (1) MarkSeen liep direct bij
+  win:Show(), ook als het venster niet zichtbaar was (intro-filmpje verbergt UIParent; Esc sluit het als special frame);
+  (2) een tweede automatische poging mocht een OPEN venster opnieuw vullen met alleen de nog-niet-geziene rest.
+- Gerepareerd in `NewChoices.lua`: nooit een open venster vervangen; niet tonen tijdens filmpje of verborgen UI;
+  "seen" pas na 1,5 s echt zichtbaar (IsVisible) of bij een klik op een knop van dat kaartje (`ShownLater`); elke
+  automatische opening in `ns.db.newChoicesShowLog` (max 10); `/mh new check` toont de laatste ("N card(s) really in
+  the window … counted as seen"). Eenmalige reparatie `newChoicesFix1`: zet de 7 schermpjes/tweede-ronde-keys en
+  keyblock:<GUID> naast elke barlayout:<GUID> terug op niet-gezien (alleen Robs SV heeft ze; niets gereleased).
+- luac schoon, lint 0 HARD. NIET in het spel gezien (TESTLIJST 13 nov nacht, 4).
+
 ## 🖥️ 13 nov (nacht, 3) — schermpjes in het overzicht (Rob via sparring, letterlijk: "Ja, raad alleen voor nieuwe spelers en één keertje bij een volgende update")
 
 - ✅ Welcome-venster getest (Forever, nieuwe mage): Rob *"…gekozen dat ik vast wilde. Toen dat ik inderdaad de keys

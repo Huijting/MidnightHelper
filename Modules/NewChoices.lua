@@ -283,7 +283,30 @@ local function Seen()
 		return nil
 	end
 	ns.db.newChoicesSeen = ns.db.newChoicesSeen or {}
-	return ns.db.newChoicesSeen
+	local seen = ns.db.newChoicesSeen
+	-- One-time repair (13 Nov 2026): before this fix, cards were marked "seen" the moment the window was told to show,
+	-- even when nobody could see it, and an open window could be re-filled with only the unseen rest. Measured in
+	-- Rob's SV (the only one: unreleased): the screens and the second round stood on "seen" without him ever seeing
+	-- them, and the key card on a character where he did not take the bar layout. So: forget those once.
+	if not ns.db.newChoicesFix1 then
+		ns.db.newChoicesFix1 = true
+		for _, k in ipairs({ "quickbar", "fastmark", "missingbuff", "minimap", "donow#2", "partypanel#2", "partytargets#2" }) do
+			seen[k] = nil
+		end
+		-- The key card was meant to stay unseen next to the bar layout card; give it back where the bar layout card
+		-- was shown (a character that did take the bar layout has its block placed, so the card does not apply there).
+		local back = {}
+		for k in pairs(seen) do
+			local g = type(k) == "string" and k:match("^barlayout:(.+)$")
+			if g then
+				back[#back + 1] = "keyblock:" .. g
+			end
+		end
+		for _, k in ipairs(back) do
+			seen[k] = nil
+		end
+	end
+	return seen
 end
 
 --- The key a card's "seen" is stored under: its id, plus the character's GUID for a per-character card. A card with
@@ -592,6 +615,11 @@ Layout = function(cards, Wt, scrollLimit)
 			end
 			b:SetScript("OnClick", function()
 				spec.click()
+				-- A click proves this card was seen (the 1.5 s rule in ShownLater covers the rest).
+				local seenT = Seen()
+				if seenT then
+					seenT[SeenKey(card)] = true
+				end
 				-- Rob, 13 Nov 2026, via sparring, verbatim: "Ja, dicht na kiezen" (he chose On and the window stayed).
 				-- One card: close at once. More cards: close once every card got a choice in this opening (sparring's
 				-- advice; Rob decided only the one-card case).
@@ -685,6 +713,59 @@ local function MarkSeen(cards)
 	end
 end
 
+-- 🔴 "SEEN" ONLY FOR WHAT WAS REALLY ON SCREEN (13 Nov 2026, Rob's /mh new check: six cards "seen" that he never saw).
+-- A card counts as seen when the window has been VISIBLE (IsVisible: also false while an intro movie hides the whole
+-- UI) for 1.5 s, or when the player clicks one of its buttons. Closed sooner, or never visible: the cards come again
+-- next login. Every automatic opening goes in ns.db.newChoicesShowLog (max 10) — /mh new check prints the last one.
+local SEEN_AFTER = 1.5
+local lastShow -- the log entry of the current/last automatic opening
+
+local function ShownLater(cards, how)
+	local ids = {}
+	for _, c in ipairs(cards) do
+		ids[#ids + 1] = SeenKey(c)
+	end
+	local entry = {
+		at = date and date("%Y-%m-%d %H:%M:%S") or "?",
+		char = UnitGUID and UnitGUID("player") or "?",
+		how = how,
+		mode = win and win.mode,
+		cards = table.concat(ids, ","),
+		count = #cards,
+		marked = false,
+	}
+	lastShow = entry
+	if ns.db then
+		ns.db.newChoicesShowLog = ns.db.newChoicesShowLog or {}
+		local L = ns.db.newChoicesShowLog
+		L[#L + 1] = entry
+		while #L > 10 do
+			table.remove(L, 1)
+		end
+	end
+	local token = {}
+	win._mhShowToken = token
+	local function check(n)
+		if win._mhShowToken ~= token or entry.marked then
+			return
+		end
+		if win:IsVisible() then
+			MarkSeen(cards)
+			entry.marked = true
+		elseif win:IsShown() and n < 120 and C_Timer and C_Timer.After then
+			-- Shown but hidden with the whole UI (a movie): look again until it is really visible.
+			C_Timer.After(1, function()
+				check(n + 1)
+			end)
+		end
+	end
+	if C_Timer and C_Timer.After then
+		C_Timer.After(SEEN_AFTER, function()
+			check(0)
+		end)
+	end
+end
+
 --------------------------------------------------------------------------------
 -- Automatic: after the other login questions, never in a fight.
 --------------------------------------------------------------------------------
@@ -711,6 +792,13 @@ local function OtherQuestionOpen()
 	-- ~1.5 s rest after the previous question closed: no click-through (13 Nov 2026).
 	if ns.LoginQuestionRestLeft and ns.LoginQuestionRestLeft() > 0 then
 		return "rest after the previous question"
+	end
+	-- An intro movie, or the UI hidden (Alt+Z): the window would be "shown" where nobody can see it.
+	if InCinematic and InCinematic() then
+		return "intro movie"
+	end
+	if UIParent and UIParent.IsVisible and not UIParent:IsVisible() then
+		return "the game UI is hidden"
 	end
 	for _, n in ipairs(OTHER_QUESTIONS) do
 		local fr = _G[n]
@@ -754,11 +842,18 @@ local function TryAutoShow()
 		end
 		return
 	end
+	-- 🔴 NEVER REPLACE AN OPEN WINDOW (13 Nov 2026, Rob's 11-13.png: a 2-card Welcome window while 6 other cards
+	-- already stood on "seen"). An automatic attempt that finds the window open stops; it does not re-render it with
+	-- whatever is still unseen.
+	if win and win:IsShown() then
+		lastWhy = "window already open"
+		return
+	end
 	Build().chosen = {}
 	win.mode = OpenMode(cards)
 	Render(cards)
-	MarkSeen(cards)
 	win:Show()
+	ShownLater(cards, "auto")
 	lastWhy = ("shown with %d card(s)"):format(#cards)
 end
 
@@ -842,6 +937,14 @@ function ns.NewChoicesSlash(arg)
 		print(PREFIX .. ("new choices: %d apply, %d not seen yet; last login: %s"):format(#all, #fresh, lastWhy))
 		print(("  key card now: %s"):format(keyWhy))
 		print(("  window size last shown: %s"):format(lastSize))
+		local log = ns.db and ns.db.newChoicesShowLog
+		local ls = lastShow or (type(log) == "table" and log[#log]) or nil
+		if ls then
+			print(("  last automatic opening: %s, %d card(s) really in the window: %s; counted as seen: %s"):format(
+				tostring(ls.at), tonumber(ls.count) or 0, tostring(ls.cards), ls.marked and "yes (on screen 1.5 s)" or "no"))
+		else
+			print("  last automatic opening: none logged yet")
+		end
 		local seen = Seen() or {}
 		for _, c in ipairs(CARDS) do
 			local ok, yes = pcall(c.avail)
