@@ -36,8 +36,14 @@ Eén voordeur t/m 19 nov: vragen voor Rob via de sparring-chat van de dag ("Spar
   ~5 min, telt niet mee voor de Edit Mode-pogingen; daarna bij volgend gevecht-einde/filmpje); `ns.ForeverBarLayoutPending()`.
   NewChoices wacht op beide pending-functies (ook in het gat tussen de twee). `/mh direction check` en `/mh mylayout
   check` tonen "this login: <reden>". luac schoon, lint 0 HARD. NIET in het spel gezien.
-  ⚠️ Niet gedaan: na "Yes" op de bar layout komt Blizzards reload-popup; het keuzevenster kan daaronder verschijnen tot
-  de reload (AFGELEID, onschuldig: de reload sluit alles).
+  ⚠️ Na "Yes" op de bar layout kwam het keuzevenster tóch onder de reload-popup (Rob, 6.png: *"na de eerste komt dit,
+  ik had nog niet gekozen voor een andere keyjayout"*). Gerepareerd (zelfde ja "Eén voor één"): na Yes telt de bar
+  layout als bezig tot de reload (`reloadAsked` → ForeverBarLayoutPending true, ook na "Later", rest van de sessie).
+  "Reload now" markeert het keyblock-kaartje als gezien (`ns.NewChoicesMarkSeen`), want het toetsenblok opent na de
+  reload zelf (KeyBlock.lua:2687, 2 s). NewChoices wacht ook op `MidnightHelperKeyBlock` (kijkt pas na 3 s).
+  "Later" = kaartje blijft voor de volgende login. GEMETEN: MH_EditModeMakeOwnLayout wordt alleen aangeroepen door de
+  Yes-knop en door een knop in het toetsenblok-venster (KeyBlock.lua:1946): de layout kan niet vanzelf gezet worden
+  (lezing b van sparring kan dus niet via de code). luac schoon, lint 0 HARD. NIET in het spel gezien.
 
 ## 🪟 13 nov (avond) — keuzevenster kwam niet vanzelf op een nieuw character (Rob, via sparring)
 

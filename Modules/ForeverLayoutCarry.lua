@@ -405,6 +405,7 @@ end
 ns.ForeverBarLayoutDecision = BarDecision -- the offline check calls it
 
 local barDialog
+local reloadAsked = false -- set by Yes; read by ns.ForeverBarLayoutPending
 
 local function AskReloadAndReopen()
 	if not (StaticPopupDialogs and StaticPopup_Show) then
@@ -419,6 +420,12 @@ local function AskReloadAndReopen()
 	dlg.button2 = ns:L("KEYBLOCK_NEW_LATER")
 	for k, v in pairs({
 		OnAccept = function()
+			-- The key block opens by itself after this reload, so its card in the choice window has done its job on
+			-- this character (13 Nov 2026, Rob's 6.png: the card stood under this popup). "Later" leaves the card for
+			-- the next login.
+			if ns.NewChoicesMarkSeen then
+				pcall(ns.NewChoicesMarkSeen, "keyblock")
+			end
 			if ns.KeyBlockReloadAndReopen then
 				ns.KeyBlockReloadAndReopen()
 			elseif C_UI and C_UI.Reload then
@@ -474,6 +481,11 @@ local function AskBarLayout()
 				print(PREFIX .. ns:L("FBAR_FAILED_FMT"):format(tostring(msg)))
 				return
 			end
+			-- One at a time (Rob, 13 Nov 2026: "Eén voor één"; 6.png showed the choice window under the reload popup):
+			-- from here until the reload, this question counts as still busy, so the choice window waits — also
+			-- after "Later", for the rest of this session.
+			reloadAsked = true
+			barWhy = "Yes: reload asked (the choice window waits until after the reload)"
 			AskReloadAndReopen()
 		end)
 		f.notNow = Btn("", 155, function()
@@ -558,7 +570,7 @@ local function Try()
 	local yes, why = BarDecision() -- the MH bar layout (Rob, 7 Nov 2026), no longer "Use your layout X?"
 	if yes then
 		done = true
-		barWhy = "asked"
+		barWhy = "asked (open)"
 		AskBarLayout()
 	elseif NOT_YET[why] and tries < 30 and C_Timer and C_Timer.After then
 		barWhy = "waiting: " .. tostring(why)
@@ -571,7 +583,7 @@ end
 
 --- True while the bar layout question is still to come or open: the choice window (NewChoices.lua) waits.
 function ns.ForeverBarLayoutPending()
-	if not done then
+	if not done or reloadAsked then
 		return true
 	end
 	return barDialog ~= nil and barDialog:IsShown() and true or false

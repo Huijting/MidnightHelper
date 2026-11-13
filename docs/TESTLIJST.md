@@ -21,6 +21,15 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 13 nov (laat, 2) — FOREVER: na "Yes" op de bar layout geen keuzevenster eronder (Rob, 6.png)
+
+Nieuw Forever-character. Richtingvraag beantwoorden, dan bij de bar layout op **Yes**.
+- [ ] Je ziet alleen de vraag "Your MH bar layout is set. Reload now? …". Het keuzevenster komt er NIET onder.
+- [ ] Klik **Reload now**: na het laden opent het toetsenblok vanzelf. Het kaartje "A fixed key for every spell" komt
+      daarna niet meer als los venster (ook niet als je het toetsenblok sluit zonder iets te doen).
+- [ ] (Ander nieuw character) klik **Later**: deze sessie komt het keuzevenster niet meer. Bij je volgende login (of
+      /reload) komt het wél, met het kaartje "A fixed key for every spell".
+
 ## 🆕 13 nov (laat) — FOREVER: vragen bij de eerste login één voor één (Rob: "Eén voor één")
 
 Maak een nieuw Forever-character en wacht na het inloggen (intro-filmpje mag eerst).

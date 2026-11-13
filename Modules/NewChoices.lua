@@ -407,8 +407,9 @@ end
 --------------------------------------------------------------------------------
 -- The changelog too: since 13 Nov 2026 a card can turn up after it opened (late check below), and Rob's choice A is one
 -- window, not two at once.
+-- And the key block window: after "Yes" on the bar layout question it opens by itself after the reload (13 Nov 2026).
 local OTHER_QUESTIONS = { "MidnightHelperForeverDirection", "MidnightHelperForeverBarLayout", "MidnightHelperForeverMyLayout",
-	"MidnightHelperChangelogFrame" }
+	"MidnightHelperChangelogFrame", "MidnightHelperKeyBlock" }
 local lastWhy = "not checked yet"
 
 local function OtherQuestionOpen()
@@ -495,6 +496,20 @@ function ns.NewChoicesTakeOver()
 		TryAutoShow()
 	end
 	return true
+end
+
+--- Mark one card as seen on this character/account without showing it (ForeverLayoutCarry.lua: "Reload now" opens the
+--- key block itself, so the key card has nothing left to offer there).
+function ns.NewChoicesMarkSeen(id)
+	local seen = Seen()
+	if not seen then
+		return
+	end
+	for _, c in ipairs(CARDS) do
+		if c.id == id then
+			seen[SeenKey(c)] = true
+		end
+	end
 end
 
 --- How many cards apply now (seen or not): the changelog's "Choices" button shows only when this is above 0.
