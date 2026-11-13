@@ -21,6 +21,14 @@ Eén voordeur t/m 19 nov: vragen voor Rob via de sparring-chat van de dag ("Spar
 5. Op main sinds 5.1.0 en niet uit: alles van 11-12 nov (plan 1/2/3, Do this now, groepspaneel, beroepenkaart, richting,
    Used for, …). Release alleen op Robs letterlijke go.
 
+## 🌐 13 nov (nacht) — vertaaltwijfels van de site-chat (Rob vroeg ze op te ruimen)
+
+- deDE: 4× "Ironforge" in FWEAP_ROUTE_* → "Eisenschmiede" (GEMETEN wago AreaTable 1537 deDE, build 70783). Nu 0×
+  Ironforge, 5× Eisenschmiede in Translations2026.lua.
+- frFR: MH_SETUP_BTN_BLOCK "Votre bloc de touches" → "Ton bloc de touches" (rest van frFR zegt "tu").
+- esES/esMX: GEMETEN dat de addon overal al "Ciudad de Ventormenta" zegt (wago 1519 esES én esMX); geen kale
+  "Ventormenta" gevonden. Niets veranderd. Andere "Votre"-plekken in frFR NIET nagelopen.
+
 ## 🐞 13 nov (nacht, 5) — tweede ronde: "seen" pas bij zelf sluiten
 
 - Rob (4fef65f, nieuw Forever-char): weer alleen Welcome met direction + barlayout; schermpjes op "seen".

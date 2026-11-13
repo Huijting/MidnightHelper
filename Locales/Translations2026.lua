@@ -15990,7 +15990,7 @@ if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	KEYBLOCK_OWN_NOT_ACTIVE_FMT = "Das Layout \"%s\" wurde erstellt, aber WoW hat nicht darauf gewechselt. Wähl es im Bearbeitungsmodus und drück dann \"Leisten als Block anordnen\".",
 }) end
 if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
-	MH_SETUP_BTN_BLOCK = "Votre bloc de touches",
+	MH_SETUP_BTN_BLOCK = "Ton bloc de touches",
 	MH_SETUP_NOTE_BLOCK = "Même tâche sur la même touche, sur chaque personnage. Montre d’abord, place sur demande.",
 	MH_SETUP_ACCOUNT_BLOCK = "Vos raccourcis sont liés au compte : le bloc de touches donne les mêmes touches à chaque personnage.\nPlacez le bloc sur chaque personnage, sinon ses touches y appuient sur des boutons vides.",
 	MH_SETUP_FOOT_BLOCK = "\"Annuler\" annule la dernière des anciennes étapes de disposition. Le bloc de touches a sa propre annulation dans sa fenêtre.",
@@ -20426,10 +20426,10 @@ if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	FWEAP_HOME_FMT = "Du kannst jetzt %d neue Waffe(n) lernen.",
 	FWEAP_ROUTE_LABEL = "Der Weg dorthin:",
 	FWEAP_ROUTE_SW_FAR = "in Darnassus das rosa Portal hinunter nach Rut'theran, das Schiff nach Auberdine, dann das Schiff nach Sturmwind.",
-	FWEAP_ROUTE_SW_NEAR = "von Ironforge fährt die Tiefenbahn direkt nach Sturmwind.",
-	FWEAP_ROUTE_IF_FAR = "in Darnassus das rosa Portal hinunter nach Rut'theran, das Schiff nach Auberdine, das Schiff nach Sturmwind, dann die Tiefenbahn nach Ironforge.",
-	FWEAP_ROUTE_IF_NEAR = "von Sturmwind fährt die Tiefenbahn direkt nach Ironforge.",
-	FWEAP_ROUTE_DARN_FAR = "im Hafen von Sturmwind das Schiff nach Auberdine, das Schiff nach Rut'theran, dann das rosa Portal hinauf nach Darnassus. Von Ironforge zuerst die Tiefenbahn nach Sturmwind.",
+	FWEAP_ROUTE_SW_NEAR = "von Eisenschmiede fährt die Tiefenbahn direkt nach Sturmwind.",
+	FWEAP_ROUTE_IF_FAR = "in Darnassus das rosa Portal hinunter nach Rut'theran, das Schiff nach Auberdine, das Schiff nach Sturmwind, dann die Tiefenbahn nach Eisenschmiede.",
+	FWEAP_ROUTE_IF_NEAR = "von Sturmwind fährt die Tiefenbahn direkt nach Eisenschmiede.",
+	FWEAP_ROUTE_DARN_FAR = "im Hafen von Sturmwind das Schiff nach Auberdine, das Schiff nach Rut'theran, dann das rosa Portal hinauf nach Darnassus. Von Eisenschmiede zuerst die Tiefenbahn nach Sturmwind.",
 	FWEAP_ROUTE_DARN_NEAR = "von Auberdine das Schiff nach Rut'theran, dann das rosa Portal hinauf nach Darnassus.",
 	FWEAP_ROUTE_ORG_FAR = "der Zeppelin von Tirisfal (vor Undercity) nach Durotar, dann zu Fuß nach Orgrimmar.",
 	FWEAP_ROUTE_ORG_NEAR = "von Thunder Bluff ein Flug nach Orgrimmar.",
