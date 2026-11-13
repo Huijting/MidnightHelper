@@ -21,6 +21,17 @@ Eén voordeur t/m 19 nov: vragen voor Rob via de sparring-chat van de dag ("Spar
 5. Op main sinds 5.1.0 en niet uit: alles van 11-12 nov (plan 1/2/3, Do this now, groepspaneel, beroepenkaart, richting,
    Used for, …). Release alleen op Robs letterlijke go.
 
+## 🪟 13 nov (avond) — keuzevenster kwam niet vanzelf op een nieuw character (Rob, via sparring)
+
+- Rob: *"pas kwam toen ik /MH new deed. En niet vanaf het begin. Dat zou wel moeten"* (nieuw Midnight-char, level 10).
+- GEMETEN in SV: `newChoicesSeen` = alleen `partytargets`; geen enkele `keyblock:<guid>`. Het toetsen-kaartje is dus op
+  geen enkel character ooit bij het inloggen gekozen. GEMETEN in code: één check op PLAYER_ENTERING_WORLD
+  (Changelog.lua:1564 → NewChoicesTakeOver); niets = nooit meer die sessie.
+- NIET GEMETEN: waarom het kaartje bij het inloggen "niet van toepassing" was (spec of balken nog niet leesbaar?
+  AFGELEID). Gebouwd: bij niets bij het inloggen kijkt NewChoices na 6 s en 20 s nog eens; wacht ook op een open
+  changelog (één venster). `/mh new check` toont nu "key card now: <reden>" en de uitkomst van de late checks.
+- luac schoon, lint 0 HARD. Niet in het spel gezien (TESTLIJST 13 nov avond). Geen bump/release.
+
 ## 🔎 13 nov (avond) — dispelTryLog `cd` na Robs tweede run (Voidscar Arena, Prot Paladin): meting kan het niet beslissen
 
 - GEMETEN in SV (13 nov 20:29, regels 140143-140364): 3× cast 213644, alle drie `cd` = "unreadable", `cdWhy` = "secret".

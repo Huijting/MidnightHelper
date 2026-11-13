@@ -24,6 +24,9 @@ local GOOD = "|cff7fff7f"
 local W = 440
 local PAD = 16
 
+-- Why the key card did or did not apply, the last time it was asked (for /mh new check).
+local keyWhy = "not asked yet"
+
 local function InCombat()
 	return InCombatLockdown and InCombatLockdown()
 end
@@ -131,10 +134,16 @@ local CARDS = {
 		-- Rob's choice C: not for whoever already placed the block on this character + spec.
 		avail = function()
 			if not (ns.ShowKeyBlock and ns.KeyBlockIsPlaced) then
+				keyWhy = "no key block module"
 				return false
 			end
 			local ok, placed = pcall(ns.KeyBlockIsPlaced)
-			if not ok or placed then
+			if not ok then
+				keyWhy = "KeyBlockIsPlaced error: " .. tostring(placed)
+				return false
+			end
+			if placed then
+				keyWhy = "placed on this spec"
 				return false
 			end
 			-- Placed on another spec of this character also counts: that player knows the block already. (And it keeps
@@ -144,10 +153,12 @@ local CARDS = {
 			if guid and type(snaps) == "table" then
 				for k in pairs(snaps) do
 					if type(k) == "string" and k:sub(1, #guid + 1) == guid .. ":" then
+						keyWhy = "placed on another spec (" .. k:sub(#guid + 2) .. ")"
 						return false
 					end
 				end
 			end
+			keyWhy = "not placed"
 			return true
 		end,
 		buttons = function()
@@ -394,7 +405,10 @@ end
 --------------------------------------------------------------------------------
 -- Automatic: after the other login questions, never in a fight.
 --------------------------------------------------------------------------------
-local OTHER_QUESTIONS = { "MidnightHelperForeverDirection", "MidnightHelperForeverBarLayout", "MidnightHelperForeverMyLayout" }
+-- The changelog too: since 13 Nov 2026 a card can turn up after it opened (late check below), and Rob's choice A is one
+-- window, not two at once.
+local OTHER_QUESTIONS = { "MidnightHelperForeverDirection", "MidnightHelperForeverBarLayout", "MidnightHelperForeverMyLayout",
+	"MidnightHelperChangelogFrame" }
 local lastWhy = "not checked yet"
 
 local function OtherQuestionOpen()
@@ -432,9 +446,38 @@ local function TryAutoShow()
 end
 
 --- Changelog.lua asks this at login (Rob's choice A): true = there is something to choose, this window comes instead.
+--- 13 Nov 2026, Rob (new Midnight character, level 10): "pas kwam toen ik /MH new deed. En niet vanaf het begin". The
+--- only check was AT PLAYER_ENTERING_WORLD; nothing new then = never again that session, while /mh new later showed the
+--- key card. MEASURED in his SV: newChoicesSeen holds only "partytargets", no "keyblock:<guid>" for any character, so
+--- the key card was never once picked at login. Not measured why it did not apply that early (the spec or the bars may
+--- not be readable yet, see avail). So: when nothing applies at login, look again a few seconds later.
+local LATE_CHECKS = { 6, 20 }
+local lateDone = false
+local function LateCheck(n)
+	if lateDone then
+		return
+	end
+	local ok, cards = pcall(Pick, true)
+	if ok and #cards > 0 then
+		lateDone = true
+		lastWhy = ("late check %d: %d card(s)"):format(n, #cards)
+		TryAutoShow()
+	elseif n == #LATE_CHECKS then
+		lastWhy = "nothing new to choose (also not on the late checks; key card: " .. keyWhy .. ")"
+	end
+end
+
 function ns.NewChoicesTakeOver()
 	local ok, cards = pcall(Pick, true)
 	if not ok or #cards == 0 then
+		lastWhy = "nothing at login (key card: " .. keyWhy .. "); late checks pending"
+		if C_Timer and C_Timer.After then
+			for n, sec in ipairs(LATE_CHECKS) do
+				C_Timer.After(sec, function()
+					LateCheck(n)
+				end)
+			end
+		end
 		return false
 	end
 	if C_Timer and C_Timer.After then
@@ -458,6 +501,7 @@ function ns.NewChoicesSlash(arg)
 	if arg == "check" or arg == "why" then
 		local all, fresh = Pick(false), Pick(true)
 		print(PREFIX .. ("new choices: %d apply, %d not seen yet; last login: %s"):format(#all, #fresh, lastWhy))
+		print(("  key card now: %s"):format(keyWhy))
 		local seen = Seen() or {}
 		for _, c in ipairs(CARDS) do
 			local ok, yes = pcall(c.avail)

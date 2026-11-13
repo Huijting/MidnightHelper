@@ -117,6 +117,8 @@ lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met d
 - Rob zegt:      ja voor één kaartje. Meer kaartjes: dicht als elk kaartje een keuze kreeg (advies sparring, AFGELEID,
                  niet Robs woord). **Gebouwd 13 nov (704e76b).** Midnight getest en goed (Rob: *"na de keuze was ie
                  inderdaad weg"*; titel: 5.png). Open: Forever met meer kaartjes (TESTLIJST 13 nov).
+                 13 nov avond, fout van Rob: kwam niet vanzelf op een nieuw character → late check na 6 en 20 s
+                 gebouwd; wacht op Robs test.
 
 ### Midnight-groepspaneel: stop-spell op het doelwit als je geen purge hebt
 - Voor wie:      allebei (vooral wie geen purge heeft: Paladin, Warrior, Rogue, DK, DH, Druid, Monk, Evoker)

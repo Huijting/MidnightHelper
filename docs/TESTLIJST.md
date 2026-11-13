@@ -21,6 +21,14 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 13 nov (avond) — keuzevenster komt vanzelf op een character zonder toetsenblok (Rob: "Dat zou wel moeten")
+
+- [ ] Midnight: maak een nieuw character (of log in op een character dat het toetsenblok nooit kreeg). Niets typen,
+      gewoon ~20 seconden wachten. WERKT HET: het venster "New in this version: your choice" komt vanzelf, met het
+      kaartje "A fixed key for every spell". WERKT HET NIET: na 20 s nog niets → typ `/mh new check` en stuur een
+      screenshot van de chat (regels "last login" en "key card now").
+- [ ] Forever: hetzelfde op een character zonder toetsenblok.
+
 ## 🆕 13 nov — keuzevenster gaat dicht na kiezen (Rob, via sparring: "Ja, dicht na kiezen")
 
 Na je dungeonrun: `/reload`, dan `/mh new` (toont het venster opnieuw, ook als je het al zag).
