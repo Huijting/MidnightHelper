@@ -556,6 +556,8 @@ function ns.ForeverDirectionCardButtons()
 			text = TreeName(cls, band),
 			current = (chosen == band),
 			tip = ns:L(("FDIR_%s_%d"):format(cls or "WARRIOR", band)),
+			-- Visible beside the button (Rob, 13 Nov 2026: "Laat de uitleg zichtbaar bij elke knop"); the tip stays.
+			line = ns:L(("FDIR_%s_%d"):format(cls or "WARRIOR", band)),
 			click = function()
 				SetDirection(band)
 				print(PREFIX .. ns:L("FDIR_PICKED_CHAT_FMT"):format(TreeName(cls, band)))

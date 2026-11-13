@@ -28,8 +28,12 @@ Maak een nieuw Forever-character en wacht na het inloggen (intro-filmpje mag eer
       to go?" (drie knoppen, één per boom) en "Midnight Helper bar layout" (knop Yes). De richtingvraag en de
       bar-layout-vraag komen NIET meer los. WERKT HET NIET: een tweede venster, of een kaartje ontbreekt → typ
       `/mh new check`, `/mh direction check` en `/mh mylayout check` en stuur een screenshot van de chat.
-- [ ] Ga met de muis op een boom-knop staan: je ziet de zin over die boom. Klik er één: in de chat "direction for this
-      character: …", en op het kaartje staat ">" voor je keuze.
+- [ ] Het kaartje "Which way do you want to go?": drie knoppen onder elkaar, even breed, met RECHTS ernaast de zin over
+      die boom, zonder dat je iets hoeft te doen (Rob: "Laat de uitleg zichtbaar bij elke knop"). Klik er één: in de
+      chat "direction for this character: …", en op de knop staat ">" voor je keuze.
+- [ ] Het hele venster past op je scherm (niets valt onder of boven weg). Is het breder dan eerst, dan is dat expres:
+      het wordt breder in plaats van hoger. `/mh new check` → regel "window size last shown" (breedte x hoogte, en of
+      het past).
 - [ ] Klik Yes op het bar-layout-kaartje: het venster gaat dicht, je ziet alleen de reload-vraag, in de chat staat hoe
       je terugzet. Reload now → het toetsenblok opent.
 - [ ] Een oud character dat al een richting koos en al een eigen layout heeft: GEEN venster bij het inloggen.

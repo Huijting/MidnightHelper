@@ -368,18 +368,44 @@ local function CardFrame(i)
 	c.body:SetJustifyH("LEFT")
 	c.body:SetSpacing(2)
 	c.btns = {}
+	c.lines = {} -- visible sentences beside buttons (stacked cards)
 	cardFrames[i] = c
 	return c
 end
 
+-- Window size of the last render, for /mh new check (13 Nov 2026: the direction card grew; Rob has not chosen yet
+-- between dropping the key card and a scroll bar, so the window widens instead of running off the screen).
+local lastSize = "not shown yet"
+
+local Layout -- (cards, width) → window height; defined below
+
 Render = function(cards)
 	local f = Build()
+	-- Try the normal width first; if the window would be taller than ~92% of the screen, widen (texts wrap less).
+	local scale = (f.GetScale and f:GetScale()) or 1
+	local screenH = (UIParent and UIParent.GetHeight and UIParent:GetHeight() or 768) / (scale > 0 and scale or 1)
+	local h, w
+	for _, width in ipairs({ W, W + 120, W + 240 }) do
+		w = width
+		h = Layout(cards, width)
+		if h <= screenH * 0.92 then
+			break
+		end
+	end
+	lastSize = ("%d x %d, screen %d high (%s)"):format(w, math.floor(h), math.floor(screenH),
+		h <= screenH * 0.92 and "fits" or "TOO HIGH even at the widest")
+end
+
+Layout = function(cards, Wt)
+	local f = win
+	f:SetWidth(Wt)
+	f.intro:SetWidth(Wt - 2 * PAD - 8)
 	f.title:SetText(ns:L("NEWC_TITLE"))
 	f.intro:SetText(ns:L("NEWC_INTRO"))
 	local introTop = math.max(44, math.floor(18 + f.title:GetStringHeight() + 8))
 	f.intro:ClearAllPoints()
 	f.intro:SetPoint("TOPLEFT", PAD + 4, -introTop)
-	local innerW = W - 2 * PAD
+	local innerW = Wt - 2 * PAD
 	local y = introTop + f.intro:GetStringHeight() + 10
 	for i, card in ipairs(cards) do
 		local c = CardFrame(i)
@@ -401,9 +427,21 @@ Render = function(cards)
 		for _, b in ipairs(c.btns) do
 			b:Hide()
 		end
+		for _, l in ipairs(c.lines) do
+			l:Hide()
+		end
 		-- Buttons as wide as their text (lint [28]), a new row when the next one does not fit.
 		local top = 8 + c.head:GetStringHeight() + 4 + c.body:GetStringHeight() + 8
 		local bx, rowsUsed = 8, 1
+		-- 🔴 A button with a `line` gets its sentence VISIBLE beside it, one button per row (Rob, 13 Nov 2026, via
+		-- sparring, verbatim: "Laat de uitleg zichtbaar bij elke knop" — the direction card's trees, like the bands of
+		-- the old question). All buttons of such a card get the same width, so the sentences line up.
+		local stacked, stackW, rowY = false, 0, top
+		for _, spec in ipairs(list) do
+			if spec.line then
+				stacked = true
+			end
+		end
 		for j, spec in ipairs(list) do
 			local b = c.btns[j]
 			if not b then
@@ -425,14 +463,18 @@ Render = function(cards)
 					GameTooltip:Hide()
 				end
 			end or nil)
-			ns.FitButtonToText(b, 70, innerW - 16)
-			if bx > 8 and bx + b:GetWidth() > innerW - 8 then
-				bx = 8
-				rowsUsed = rowsUsed + 1
+			ns.FitButtonToText(b, 70, stacked and math.floor(innerW * 0.4) or (innerW - 16))
+			if stacked then
+				stackW = math.max(stackW, b:GetWidth())
+			else
+				if bx > 8 and bx + b:GetWidth() > innerW - 8 then
+					bx = 8
+					rowsUsed = rowsUsed + 1
+				end
+				b:ClearAllPoints()
+				b:SetPoint("TOPLEFT", bx, -(top + (rowsUsed - 1) * 26))
+				bx = bx + b:GetWidth() + 6
 			end
-			b:ClearAllPoints()
-			b:SetPoint("TOPLEFT", bx, -(top + (rowsUsed - 1) * 26))
-			bx = bx + b:GetWidth() + 6
 			b:SetScript("OnClick", function()
 				spec.click()
 				-- Rob, 13 Nov 2026, via sparring, verbatim: "Ja, dicht na kiezen" (he chose On and the window stayed).
@@ -454,7 +496,32 @@ Render = function(cards)
 			end)
 			b:Show()
 		end
-		local h = top + rowsUsed * 26 + 4
+		local h
+		if stacked then
+			-- Second pass: same width for every button, the sentence to its right, each row as high as its sentence.
+			for j, spec in ipairs(list) do
+				local b = c.btns[j]
+				b:SetWidth(stackW)
+				b:ClearAllPoints()
+				b:SetPoint("TOPLEFT", 8, -rowY)
+				local l = c.lines[j]
+				if not l then
+					l = c:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+					l:SetJustifyH("LEFT")
+					l:SetSpacing(2)
+					c.lines[j] = l
+				end
+				l:SetWidth(innerW - 16 - stackW - 8)
+				l:ClearAllPoints()
+				l:SetPoint("TOPLEFT", 8 + stackW + 8, -(rowY + 3))
+				l:SetText(spec.line or "")
+				l:Show()
+				rowY = rowY + math.max(22, l:GetStringHeight() + 6) + 6
+			end
+			h = rowY + 2
+		else
+			h = top + rowsUsed * 26 + 4
+		end
 		c:SetHeight(h)
 		c:Show()
 		y = y + h + 8
@@ -471,7 +538,9 @@ Render = function(cards)
 	f.more:SetPoint("BOTTOMLEFT", PAD, 16)
 	f.close:ClearAllPoints()
 	f.close:SetPoint("BOTTOMRIGHT", -PAD, 16)
-	f:SetHeight(y + 4 + 22 + 16)
+	local total = y + 4 + 22 + 16
+	f:SetHeight(total)
+	return total
 end
 
 local function MarkSeen(cards)
@@ -639,6 +708,7 @@ function ns.NewChoicesSlash(arg)
 		local all, fresh = Pick(false), Pick(true)
 		print(PREFIX .. ("new choices: %d apply, %d not seen yet; last login: %s"):format(#all, #fresh, lastWhy))
 		print(("  key card now: %s"):format(keyWhy))
+		print(("  window size last shown: %s"):format(lastSize))
 		local seen = Seen() or {}
 		for _, c in ipairs(CARDS) do
 			local ok, yes = pcall(c.avail)

@@ -36,6 +36,12 @@ Eén voordeur t/m 19 nov: vragen voor Rob via de sparring-chat van de dag ("Spar
 - Bescherming 2e2e9ca (rust/klikwacht) en Yes-log blijven. Midnight: niets veranderd (beide bestanden returnen op
   retail, kaartjes vragen IS_FOREVER; AFGELEID uit de code).
 - luac schoon, lint 0 HARD. NIET in het spel gezien (TESTLIJST 13 nov nacht).
+- ✅ Daarna (Rob via sparring, letterlijk: *"Laat de uitleg zichtbaar bij elke knop"*): knoppen met `line` staan onder
+  elkaar, even breed, met de zin zichtbaar rechts ernaast (tooltip blijft). Kaartje wordt hoger: AFGELEID ~200 px i.p.v.
+  ~120 (zinnen 45-85 tekens, 1-2 regels). Zodat het venster niet buiten beeld valt: Render probeert breedte 440, 560,
+  680 tot de hoogte ≤ 92% van het scherm is (geen schuifbalk en geen weggelaten kaartje: daar heeft Rob nog niet over
+  beslist). `/mh new check` toont "window size last shown". NIET gemeten in het spel.
+- Open voor Rob (via sparring): titel (a), weglaten toetsenkaartje + schuifbalk (b).
 
 ## 🪟 13 nov (laat) — Forever: tekst vrij van "Dock to window" (Rob: "1 fixen") + plan drie vensters ("2 ja")
 
