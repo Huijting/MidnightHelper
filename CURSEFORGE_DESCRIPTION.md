@@ -14,11 +14,19 @@ Retail to **Forever** and install it there as well. You get help made for levell
 - **Your own start page**: your level, what you can learn at your trainer right now and what it costs, your money, and
   **Take me to my trainer**: an arrow to your nearest class trainer (218 trainers known, no other addon needed). Talk
   to a trainer or vendor once and the arrow learns exactly where they stand.
+- **Do this now**: a small window with what you can do right now (new spells at your trainer, an old rank on your
+  bars, a weapon to learn, a missing tool) and the trainer spells of your next 3 levels.
+- **Which way do you want to go?** Pick one of your class's three talent trees, each in one plain sentence. *How you
+  play* then tells you what that way needs: your armour, the weapon guides name, and which spells need a shield.
+- **Your characters**: all your characters in one window, with level, gold (and the total), professions, and how many
+  spells wait for them at the trainer.
 - **The arrow knows the way across the water**: boats, zeppelins, the Deeprun Tram and the portals, step by step. No
   Hearthstone in your bags? It warns you before you cross.
-- **Weapon and profession trainers**: which weapons you may learn and where (`/mh weapons`), and an arrow to the trainer
-  for your profession.
-- **Where do I buy this?** An arrow to the nearest vendor for tools and trade goods.
+- **Weapon and profession trainers**: which weapons you may learn and where (`/mh weapons`), an arrow to the trainer
+  for your profession, and a card per profession: what it does, the tool it needs and where to buy it.
+- **Where do I buy this?** An arrow to the nearest vendor for tools and trade goods. Forgot your Skinning Knife? MH
+  names the nearest vendor the moment the game says you need it. Ingredients say in their tooltip which profession
+  uses them.
 - **Handy macros**: the top macros for your class and spec, ready to make with one click.
 - **New at your trainer**: when you level up, a window shows every new spell with its rank, its price and the key it
   lands on. Hover a spell for its tooltip; your nearest trainer stands beside the list as a turning 3D figure.
@@ -32,9 +40,11 @@ Retail to **Forever** and install it there as well. You get help made for levell
 - **You picked up an upgrade**: when better gear lands in your bags, a short message on your screen says so. No more
   keeping your bags open.
 - **Train all** under the trainer window, a **cross above your trainer** when the arrow brings you there, and spells
-  that come from a class quest marked as such.
+  that come from a class quest marked as such. A button that still casts an old rank gets a calm orange edge.
 - **Missing buffs, in words**: *Blessing of Might is not on you. Click the icon to cast it.* One click casts it in your
-  highest rank.
+  highest rank, and small icons show the other buffs you miss.
+- **A small group panel** (off until you turn it on): click a player to target them, right-click to cast your dispel
+  on them.
 - **Warnings you would otherwise notice too late**: only 2 free bag slots left (with your grey items to sell), low mana
   or health before you pull, and before you sell your last Mining Pick or Skinning Knife.
 
@@ -63,7 +73,8 @@ who just hit 90 or are coming back after a break:
 - **What fits in 20 minutes?** (`/mh time`): the delves and rituals that fit the time you have, from your own runs.
 - **You picked up an upgrade**: when gear that clearly beats what you wear lands in your bags, a short message on your
   screen says so, and the missing-buff icon now names the buff and says what to do.
-- **Top 5 macros per spec** with a *Make* button in the Macros tab.
+- **Top 5 macros per spec** with a *Make* button in the Macros tab, and Midnight ingredients that say in their tooltip
+  which profession uses them.
 - **Using MF Nameplates?** `/mh colors` explains every colour on your nameplates, read from your own MF settings (in
   WoW Forever too).
 
@@ -99,7 +110,9 @@ each one, and what changes for you if you don't have it.
 ### Getting started
 
 Install it, log in and type `/mh`. Nothing in your game changes unless you press a button, and anything it sets up
-can be undone. More commands: `/mh play`, `/mh mykeys`, `/mh mountrun`, `/mh ready`, `/mh academy`, and about 70 more
+can be undone. After an update, one small window lets you choose the new things you want, instead of a long list.
+One **Move** switch shows every Midnight Helper part on your screen, so you can drag each one where you want it.
+More commands: `/mh play`, `/mh mykeys`, `/mh mountrun`, `/mh ready`, `/mh academy`, and about 70 more
 under **Tools**.
 
 ### Languages
