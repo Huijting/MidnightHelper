@@ -28,7 +28,8 @@ Eén voordeur t/m 19 nov: vragen voor Rob via de sparring-chat van de dag ("Spar
   `CHANGELOG.md`. SITE_SEIN: 12 regels + release-regel op "getagd". Lint 0 HARD ([27] 0: geen eigen gereedschap in de
   spelerstekst), `luac -p` schoon op Changelog.lua + enUS.lua.
 - Proef `Bindings_Camelot.xml` GESLAAGD (Robs screenshot, door sparring gezien: 4 regels). Blijft.
-- ⏳ Nog doen na de tag: GitHub-run + CurseForge-API nameten (twee bestanden), dan SITE_SEIN op "staat op CurseForge".
+- ✅ Staat op CurseForge (GEMETEN in de API): 9587203 (Retail) + 9587210 (-forever), status 4. Run 43380670872 geslaagd;
+  Wago + GitHub-release hebben beide zips. SITE_SEIN op "staat op CurseForge". Rob plakt de beschrijving zelf.
 
 ## 🛠️ 13 nov (ochtend) — ochtendronde + regie-opdracht aangescherpt (Rob via sparring, letterlijk: "Ja, aanscherpen")
 

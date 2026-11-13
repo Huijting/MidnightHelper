@@ -29,19 +29,21 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 ---
 
 ## 13 nov 2026 — RELEASE 5.2.0 (Midnight + Forever)
-- Tag + commit:   v5.2.0 / (commit van de tag; hash volgt bij "staat op CurseForge")
-- Status:         getagd
+- Tag + commit:   v5.2.0 / 65ca28a. GEMETEN in de CurseForge-API (13 nov): file 9587203 `MidnightHelper-v5.2.0.zip`
+                  (12.0.7–12.1.7) en 9587210 `MidnightHelper-v5.2.0-forever.zip` (1.60.1), beide releaseType 1, status 4.
+                  Release-run GitHub 43380670872: geslaagd; Wago en GitHub-release hebben allebei de zips.
+- Status:         staat op CurseForge
 - Mag op de site: Rob gaf de go voor de ADDON-release (via sparring, letterlijk: "je krijgt nu een go voor een release
-                  voor alles"). Een aparte go voor de SITE heeft de bouwchat niet gekregen: vraag Rob.
+                  voor alles"). De go voor de SITE kreeg de site-chat zelf van Rob (gemeld door chat addons-dc, 13 nov).
 - Speler ziet:    alles in `RELEASE_NOTES.md` (= `docs/CURSEFORGE_5.2.0.md`); per functie de 12 regels hieronder (allemaal
                   "getagd"). Ook: nieuwe `CURSEFORGE_DESCRIPTION.md` (f6631bb), Rob plakt hem zelf. Geen beta.
                   Rob: "ik heb tot nutoe alles bekeken". Eigen toetsenlijst in Forever: 4 regels (getest door Rob).
 - Spel:           allebei (twee bestanden: Retail + `-forever`)
 
 ## 12 nov 2026 — Forever: oude rank licht op, op je knop
-- Tag + commit:   v5.2.0 / gebouwd in (deze commit)
-- Status:         getagd
-- Mag op de site: nee (nog niet uit)
+- Tag + commit:   v5.2.0 (65ca28a) / gebouwd in (deze commit)
+- Status:         staat op CurseForge
+- Mag op de site: zie RELEASE 5.2.0 bovenaan
 - Speler ziet:    Een knop op Blizzards balken die nog een lagere rank cast, krijgt een rustige oranje rand met een
                   pijltje omhoog: fel als je de nieuwe rank net leerde, zacht als je de lage rank er zelf neerzette.
                   Standaard aan. Zwijgt als Glowing Bars geladen is. Niet in het spel gezien.
@@ -50,9 +52,9 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 - Spel:           Forever
 
 ## 12 nov 2026 — Forever: "Your characters"
-- Tag + commit:   v5.2.0 / gebouwd in (deze commit)
-- Status:         getagd
-- Mag op de site: nee (nog niet uit)
+- Tag + commit:   v5.2.0 (65ca28a) / gebouwd in (deze commit)
+- Status:         staat op CurseForge
+- Mag op de site: zie RELEASE 5.2.0 bovenaan
 - Speler ziet:    Een venster met al je characters op een rij: level en class, goud (met het totaal), beroepen met skill,
                   je gekozen richting, wanneer je ze het laatst speelde, en hoeveel spells klaarliggen bij de trainer. Een
                   character staat erin na één login. Niet in het spel gezien.
@@ -61,9 +63,9 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 - Spel:           Forever
 
 ## 12 nov 2026 — Allebei: venster "Nieuw in deze versie: jouw keuze"
-- Tag + commit:   v5.2.0 / gebouwd in (deze commit)
-- Status:         getagd
-- Mag op de site: nee (nog niet uit)
+- Tag + commit:   v5.2.0 (65ca28a) / gebouwd in (deze commit)
+- Status:         staat op CurseForge
+- Mag op de site: zie RELEASE 5.2.0 bovenaan
 - Speler ziet:    Na een update één venster met kaartjes om zelf te kiezen, in plaats van de changelog: "Do this now"
                   (Forever, drie standen), het groepspaneel aan/uit (Forever), en vaste toetsen voor wie het toetsenblok
                   nog niet heeft ("Show me" opent eerst het plan, zet zelf niets). Wegklikken verandert niets. Niet in het
@@ -73,9 +75,9 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 - Spel:           allebei ("Do this now" en het groepspaneel in Forever, "Party targets" in Midnight, toetsen in allebei)
 
 ## 12 nov 2026 — Forever: uitleg per beroep
-- Tag + commit:   v5.2.0 / gebouwd in (deze commit)
-- Status:         getagd
-- Mag op de site: nee (nog niet uit)
+- Tag + commit:   v5.2.0 (65ca28a) / gebouwd in (deze commit)
+- Status:         staat op CurseForge
+- Mag op de site: zie RELEASE 5.2.0 bovenaan
 - Speler ziet:    In "Profession trainers" staat boven de trainers een kaartje per beroep: wat het doet, hoofd- of bijberoep,
                   gereedschap met "Where to buy", waar spelersgidsen het bij zetten, en de rangen. "Do this now" zegt of
                   je nog een hoofdberoep kunt leren. Niet in het spel gezien.
@@ -84,9 +86,9 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 - Spel:           Forever
 
 ## 12 nov 2026 — Forever: venster "Do this now"
-- Tag + commit:   v5.2.0 / gebouwd in (deze commit)
-- Status:         getagd
-- Mag op de site: nee (nog niet uit)
+- Tag + commit:   v5.2.0 (65ca28a) / gebouwd in (deze commit)
+- Status:         staat op CurseForge
+- Mag op de site: zie RELEASE 5.2.0 bovenaan
 - Speler ziet:    Een klein venster met wat je nu kunt doen (spells bij je trainer, oude ranks, wapens, een ontbrekende
                   buff, ontbrekend gereedschap) en de trainer-spells van de komende 3 levels. Standaard alleen als er iets
                   te doen is. Niet in het spel gezien.
@@ -95,9 +97,9 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 - Spel:           Forever
 
 ## 12 nov 2026 — Forever: wat jouw richting nodig heeft
-- Tag + commit:   v5.2.0 / gebouwd in (deze commit)
-- Status:         getagd
-- Mag op de site: nee (nog niet uit)
+- Tag + commit:   v5.2.0 (65ca28a) / gebouwd in (deze commit)
+- Status:         staat op CurseForge
+- Mag op de site: zie RELEASE 5.2.0 bovenaan
 - Speler ziet:    Heb je een richting gekozen, dan staat bovenaan "How you play" wat die nodig heeft: zwaarste pantser,
                   welk wapen spelersgidsen noemen, en welke spells alleen met een schild, dolk of afstandswapen werken.
                   /mh weapons zet een groen + bij de wapensoorten die passen. Niet in het spel gezien.
@@ -106,9 +108,9 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 - Spel:           Forever
 
 ## 12 nov 2026 — Forever: klein groepspaneel
-- Tag + commit:   v5.2.0 / gebouwd in (deze commit)
-- Status:         getagd
-- Mag op de site: nee (nog niet uit)
+- Tag + commit:   v5.2.0 (65ca28a) / gebouwd in (deze commit)
+- Status:         staat op CurseForge
+- Mag op de site: zie RELEASE 5.2.0 bovenaan
 - Speler ziet:    Een klein paneel met je groep (standaard uit): klik = doelwit, rechtsklik = je dispel op die speler,
                   en Blizzards rode rand als iemand iets heeft wat jij kunt weghalen. Niet in het spel gezien.
 - Knoplabels:     SET_FOREVER_PARTY_TITLE, FPARTY_TITLE
@@ -116,9 +118,9 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 - Spel:           Forever
 
 ## 12 nov 2026 — Forever: gereedschap vergeten → waar je het koopt
-- Tag + commit:   v5.2.0 / gebouwd in (deze commit)
-- Status:         getagd
-- Mag op de site: nee (nog niet uit)
+- Tag + commit:   v5.2.0 (65ca28a) / gebouwd in (deze commit)
+- Status:         staat op CurseForge
+- Mag op de site: zie RELEASE 5.2.0 bovenaan
 - Speler ziet:    Zegt het spel "Requires Skinning Knife" (of Mining Pick, Blacksmith Hammer, een hengel), dan noemt MH meteen
                   de dichtstbijzijnde verkoper met "Show the way". Ook als je het beroep al lang had. Niet in het spel gezien.
 - Knoplabels:     FVEND_TIP_WAY, SET_FOREVER_TOOLNEED_TITLE
@@ -126,9 +128,9 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 - Spel:           Forever
 
 ## 12 nov 2026 — Forever: "Which way do you want to go?" (je richting kiezen)
-- Tag + commit:   v5.2.0 / gebouwd in (deze commit)
-- Status:         getagd
-- Mag op de site: nee (nog niet uit)
+- Tag + commit:   v5.2.0 (65ca28a) / gebouwd in (deze commit)
+- Status:         staat op CurseForge
+- Mag op de site: zie RELEASE 5.2.0 bovenaan
 - Speler ziet:    In WoW Forever vraagt MH na het inloggen welke van de drie talentbomen van je class je wilt, elk met één
                   gewone zin. Overslaan mag ("Later", "Never ask again"), wisselen kan altijd. Nog niets anders gebruikt die
                   keuze. Niet in het spel gezien.
@@ -137,9 +139,9 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 - Spel:           Forever
 
 ## 12 nov 2026 — Alle ontbrekende buffs, en waarom MH deze kiest
-- Tag + commit:   v5.2.0 / gebouwd in (deze commit)
-- Status:         getagd
-- Mag op de site: nee (nog niet uit)
+- Tag + commit:   v5.2.0 (65ca28a) / gebouwd in (deze commit)
+- Status:         staat op CurseForge
+- Mag op de site: zie RELEASE 5.2.0 bovenaan
 - Speler ziet:    Het buff-icoon toont naast zich kleine icoontjes voor de andere buffs die missen. De tooltip zegt waarom MH
                   deze kiest (die je het laatst castte, of de eerste die je kent). Niet in het spel gezien.
 - Knoplabels:     MBUFF_TIP_ALSO, MBUFF_TIP_EXTRA
@@ -147,9 +149,9 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 - Spel:           allebei
 
 ## 12 nov 2026 — Eén schakelaar "Move" voor alle MH-onderdelen
-- Tag + commit:   v5.2.0 / gebouwd in (deze commit)
-- Status:         getagd
-- Mag op de site: nee (nog niet uit)
+- Tag + commit:   v5.2.0 (65ca28a) / gebouwd in (deze commit)
+- Status:         staat op CurseForge
+- Mag op de site: zie RELEASE 5.2.0 bovenaan
 - Speler ziet:    Eén schakelaar laat alle MH-onderdelen op je scherm zien met een groen vakje "Drag me". Sleep ze waar je
                   wilt; in een gevecht gaat het vanzelf uit. Niet in het spel gezien.
 - Knoplabels:     SET_MOVE_TITLE, MOVE_DRAG_FMT
@@ -157,9 +159,9 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 - Spel:           allebei
 
 ## 12 nov 2026 — Groepspaneel: rechtsklik op het doelwit is een stop-spell als je geen purge hebt (Midnight)
-- Tag + commit:   v5.2.0 / gebouwd in (deze commit)
-- Status:         getagd
-- Mag op de site: nee (nog niet uit)
+- Tag + commit:   v5.2.0 (65ca28a) / gebouwd in (deze commit)
+- Status:         staat op CurseForge
+- Mag op de site: zie RELEASE 5.2.0 bovenaan
 - Speler ziet:    In het Party targets-paneel: rechtsklik op het doelwit van een groepslid. Heb je een purge (Priest,
                   Mage, Shaman, Hunter), dan blijft dat de purge. Zo niet, dan is het nu je interrupt (bv. Rebuke op
                   een Prot Paladin). Specs zonder allebei: nog steeds niets. Niet in het spel gezien.
@@ -168,9 +170,9 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 - Spel:           Midnight
 
 ## 11 nov 2026 — De tooltip zegt voor welk beroep een item een ingrediënt is (Forever én Midnight)
-- Tag + commit:   v5.2.0 / gebouwd in (deze commit)
-- Status:         getagd
-- Mag op de site: nee (nog niet uit)
+- Tag + commit:   v5.2.0 (65ca28a) / gebouwd in (deze commit)
+- Status:         staat op CurseForge
+- Mag op de site: zie RELEASE 5.2.0 bovenaan
 - Speler ziet:    Op een ingrediënt staat onderaan de tooltip bv. "MH: Used for Cooking (you have it)". Groen als je een
                   van die beroepen hebt, grijs als je er geen hebt. Ook in je tas, niet alleen bij de verkoper. In
                   Midnight alleen voor Midnight-ingrediënten. *(Forever getest door Rob, 11 nov; Midnight nog niet)*
