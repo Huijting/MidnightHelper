@@ -1,19 +1,24 @@
 # Midnight Helper — waar we staan
 
-## ▶ Open voor 12 nov (bouwchat 11-11 sloot af met /nieuwe-chat)
+## ▶ Open voor 13 nov (bouwchat 12-11 sloot af met /nieuwe-chat, op Robs vraag via sparring)
 
-1. **Groepsmeting Forever:** Rob doet `/mh partytest` in een groep (2 is genoeg), vecht een paar keer, `/reload`. Lees
-   `ns.db.partyProbe` in `E:\World of Warcraft\_forever_\WTF\Account\JOEYWHATEVER\SavedVariables\MidnightHelper.lua`
-   (blok `fights`). Daarna: plan voor PartyTargets in Forever ("midden") aan Rob voorleggen, pas bouwen op zijn ja.
-2. ✅ **Midnight testen:** "Used for" gezien door Rob (12 nov, via sparring). De gewone tooltip noemt het niet; een
-   andere addon van Rob wel.
-3. **Forever testen:** Purify-macro, Hammer of Justice zonder muis-vijand → target, grijze "Used for", Copper Ore.
-4. **Rob vragen:** zijn de upgrade-melding en de groene gear-regel (door hem gezien in Forever) af?
-5. Nog open sinds 5.1.0: buff-zin in Midnight en in gevecht, "(loading...)" in de beroepstip.
-6. ✅ Beslist en gebouwd 12 nov (Rob: "Optie 1, jouw advies"): purge blijft, anders stop-spell. Zie de 12 nov-sectie.
-7. Sinds 5.1.0 op main en niet uit: "Used for" (beide spellen), Paladin-macro's, `/mh partytest`, de stadsnaam-fix es.
-   Een release alleen op Robs go. CF-plaatjes staan erop (Rob, 11 nov); of hij de nieuwe CF-beschrijving en de
-   5.1.0-tekst al plakte: NIET GEMETEN, vragen.
+Stand 12 nov laat, laatste commit 7daaeb2 + a176d48 op main (GEMETEN, gepusht). GEEN release, geen go daarvoor.
+Eén voordeur t/m 19 nov: vragen voor Rob via de sparring-chat van de dag ("Sparring 13-11").
+
+1. **Proef `Bindings_Camelot.xml` (a176d48): uitslag OPEN.** Rob: WoW helemaal herstarten, Forever → Esc → Options →
+   Keybindings → "Midnight Helper". Werkt = 4 regels (Toggle main window, Clear active route, Open: Forever, Your
+   characters). Werkt niet (nog 14) → bestand weghalen en optie A bouwen: "(Midnight)" achter de Midnight-toetsen in
+   Forever (Rob koos dat al, letterlijk: *"Naam met (Midnight)"*). Ook nakijken: retail-lijst onveranderd.
+2. **Nog niet door Rob gezien (TESTLIJST bovenaan):** toets "Your characters" indrukken; toetsen-kaartje per character
+   (d14884c); het pijltje op de oranje rand (6118be2; de rand zelf werkt, 27.png); drankjes-toetsnamen in Forever
+   (89f55a5); "Show party targets"-kaartje in Midnight; alle ontbrekende buffs; Purify-macro; rechtsklik-dispel en rode
+   rand in het Forever-groepspaneel; de 17 verbrede knoppen in Midnight; dungeonrun voor dispelTryLog `cd` (9f5a96c).
+3. **Wel gezien en goed (12 nov):** keuzevenster na reload; "Your characters" na de reparatie (28-30.png, 33.png);
+   tegel "Your characters" met icoon; "now" alleen voor het eigen character; oranje rand op de knop.
+4. Rob vragen (oud, NIET GEMETEN): zijn de upgrade-melding en de groene gear-regel af? Plakte hij de CF-beschrijving
+   en de 5.1.0-tekst?
+5. Op main sinds 5.1.0 en niet uit: alles van 11-12 nov (plan 1/2/3, Do this now, groepspaneel, beroepenkaart, richting,
+   Used for, …). Release alleen op Robs letterlijke go.
 
 ## 🧪 12 nov (laat) — PROEF: eigen toetsenlijst voor Forever (`Bindings_Camelot.xml`)
 
