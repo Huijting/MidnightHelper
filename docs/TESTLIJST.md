@@ -27,7 +27,8 @@ er is niets weggegooid.
       gewoon ~20 seconden wachten. WERKT HET: het venster "New in this version: your choice" komt vanzelf, met het
       kaartje "A fixed key for every spell". WERKT HET NIET: na 20 s nog niets → typ `/mh new check` en stuur een
       screenshot van de chat (regels "last login" en "key card now").
-- [ ] Forever: hetzelfde op een character zonder toetsenblok.
+- [x] Forever: hetzelfde op een character zonder toetsenblok.
+      ✅ Rob 13 nov (nieuwe hunter, via sparring): na de richting- en bar-layout-vraag *"Ja, kwam vanzelf"*.
 
 ## 🆕 13 nov — keuzevenster gaat dicht na kiezen (Rob, via sparring: "Ja, dicht na kiezen")
 

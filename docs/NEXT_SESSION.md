@@ -30,7 +30,9 @@ Eén voordeur t/m 19 nov: vragen voor Rob via de sparring-chat van de dag ("Spar
 - NIET GEMETEN: waarom het kaartje bij het inloggen "niet van toepassing" was (spec of balken nog niet leesbaar?
   AFGELEID). Gebouwd: bij niets bij het inloggen kijkt NewChoices na 6 s en 20 s nog eens; wacht ook op een open
   changelog (één venster). `/mh new check` toont nu "key card now: <reden>" en de uitkomst van de late checks.
-- luac schoon, lint 0 HARD. Niet in het spel gezien (TESTLIJST 13 nov avond). Geen bump/release.
+- luac schoon, lint 0 HARD. Geen bump/release.
+- ✅ Forever getest (nieuwe hunter): Rob *"Ja, kwam vanzelf"*. Midnight nog niet opnieuw getest.
+- Twee waarnemingen (geen ja) in IDEEEN Open: Dock-label bij de bar-layout-titel; drie vensters bij eerste login Forever.
 
 ## 🔎 13 nov (avond) — dispelTryLog `cd` na Robs tweede run (Voidscar Arena, Prot Paladin): meting kan het niet beslissen
 
