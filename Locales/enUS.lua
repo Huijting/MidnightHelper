@@ -4978,6 +4978,7 @@ ns._mhLocales.enUS = {
 	FBAR_RELOAD_TEXT = "Your MH bar layout is set. Reload now? The key block opens afterwards for step 1: your spells on the keys.",
 	FBAR_RELOAD_CHAT = "bar layout: type /reload to finish, then /mh block for step 1.",
 	FBAR_RELOAD_LATER_CHAT = "bar layout: type /reload when you are ready, then /mh block for step 1.",
+	FBAR_UNDO_CHAT_FMT = "bar layout: not what you wanted? /mh block, then \"%s\" puts your bars back.",
 	-- 12 Nov 2026: "Which way do you want to go?" (ForeverDirection.lua). The sentences per tree are our own summary for a
 	-- beginner (docs/forever/RICHTINGEN_PER_CLASS_2026-11-12.md section 1, AFGELEID); _1/_2/_3 = the trees in the order
 	-- of ForeverMacros.lua SPEC_NAMES. The tree NAMES are not here: they come from SPEC_NAMES (client names, measured).

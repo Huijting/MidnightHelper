@@ -343,6 +343,12 @@ function ns.ForeverMyLayoutSlash(arg)
 		local yesB, whyB = ns.ForeverBarLayoutDecision() -- defined further down; called at run time
 		print(PREFIX .. ("bar layout question at login: %s - %s"):format(yesB and "would ask" or "no question", whyB))
 		print(PREFIX .. ("bar layout question, this login: %s"):format(barWhy))
+		local yl = Store() and Store().foreverBarYesLog
+		local last = type(yl) == "table" and yl[#yl] or nil
+		if last then
+			print(PREFIX .. ("last \"Yes\": %s on %s, question on screen %ss, previous question closed %ss before"):format(
+				tostring(last.at), tostring(last.char), tostring(last.onScreen or "?"), tostring(last.prevClosedAgo or "?")))
+		end
 	elseif Store() and Store().foreverMyLayout then
 		Ask(true)
 	else
@@ -475,12 +481,36 @@ local function AskBarLayout()
 			return b
 		end
 		f.yes = Btn("", 20, function()
+			-- 🔬 Proof for next time (13 Nov 2026, Rob: "ik klikte alleen in de keuze voor welke richting"): how long
+			-- this question had been on screen, and how long ago the question before it closed. Measured BEFORE
+			-- f:Hide(), whose OnHide stamps a new "closed" time. Max 10 lines; /mh mylayout check prints the last one.
+			local now = GetTime and GetTime() or nil
+			local entry = {
+				at = date and date("%Y-%m-%d %H:%M:%S") or "?",
+				char = CharKey(),
+				onScreen = (now and f._mhShownAt) and math.floor((now - f._mhShownAt) * 100 + 0.5) / 100 or nil,
+				prevClosedAgo = ns.LoginQuestionClosedAgo and ns.LoginQuestionClosedAgo() or nil,
+			}
+			if entry.prevClosedAgo then
+				entry.prevClosedAgo = math.floor(entry.prevClosedAgo * 100 + 0.5) / 100
+			end
+			local s = Store()
+			if s then
+				s.foreverBarYesLog = s.foreverBarYesLog or {}
+				local L = s.foreverBarYesLog
+				L[#L + 1] = entry
+				while #L > 10 do
+					table.remove(L, 1)
+				end
+			end
 			f:Hide()
 			local ok, msg = ns.MH_EditModeMakeOwnLayout()
 			if not ok then
 				print(PREFIX .. ns:L("FBAR_FAILED_FMT"):format(tostring(msg)))
 				return
 			end
+			-- Say where the way back is, in chat too (the question said it; a click-through never read it).
+			print(PREFIX .. ns:L("FBAR_UNDO_CHAT_FMT"):format(ns:L("KEYBLOCK_BTN_LAYOUT_UNDO")))
 			-- One at a time (Rob, 13 Nov 2026: "Eén voor één"; 6.png showed the choice window under the reload popup):
 			-- from here until the reload, this question counts as still busy, so the choice window waits — also
 			-- after "Later", for the rest of this session.
@@ -510,6 +540,17 @@ local function AskBarLayout()
 		else
 			tinsert(UISpecialFrames, f:GetName())
 		end
+		-- No click-through (13 Nov 2026): buttons dead for the first 0.7 s; closing starts the rest for the next one.
+		if ns.GuardFreshClicks then
+			ns.GuardFreshClicks(f, function(fr)
+				return { fr.yes, fr.notNow, fr.never }
+			end)
+		end
+		f:HookScript("OnHide", function()
+			if ns.LoginQuestionClosed then
+				ns.LoginQuestionClosed()
+			end
+		end)
 		barDialog = f
 	end
 	-- 7 Nov 2026: translatable; set on every show so the language of the moment is used.
@@ -564,6 +605,13 @@ local function Try()
 			waiting = true
 			dirWaits = 0
 		end
+		return
+	end
+	-- ~1.5 s rest after the previous question closed, so a second click never lands on this one (13 Nov 2026).
+	local rest = ns.LoginQuestionRestLeft and ns.LoginQuestionRestLeft() or 0
+	if rest > 0 and C_Timer and C_Timer.After then
+		barWhy = "waiting: rest after the previous question"
+		C_Timer.After(rest + 0.05, Try)
 		return
 	end
 	tries = tries + 1

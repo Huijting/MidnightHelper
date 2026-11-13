@@ -44,6 +44,13 @@ Eén voordeur t/m 19 nov: vragen voor Rob via de sparring-chat van de dag ("Spar
   "Later" = kaartje blijft voor de volgende login. GEMETEN: MH_EditModeMakeOwnLayout wordt alleen aangeroepen door de
   Yes-knop en door een knop in het toetsenblok-venster (KeyBlock.lua:1946): de layout kan niet vanzelf gezet worden
   (lezing b van sparring kan dus niet via de code). luac schoon, lint 0 HARD. NIET in het spel gezien.
+- ⚠️ Daarna Rob: *"ik klikte alleen in de keuze voor welke richting ga ik uit"* → doorklik (AFGELEID, sparring's som:
+  Yes ligt binnen richtingband 2). Gerepareerd voor de hele rij: `DialogPopup.lua` ns.LoginQuestionClosed /
+  LoginQuestionRestLeft (1,5 s rust na sluiten) + ns.GuardFreshClicks (knoppen 0,7 s dood na tonen). Richting, bar
+  layout en keuzevenster stempelen hun sluiten en hebben de klikwacht. Bij Yes: chatregel `FBAR_UNDO_CHAT_FMT` (en/nl/
+  de/fr/es/pt/ru zelf vertaald, it valt terug op Engels zoals alle FBAR-keys) en een logregel `foreverBarYesLog` (max
+  10: tijd, char, seconden in beeld, seconden sinds vorige vraag dicht); `/mh mylayout check` toont de laatste.
+  Toetsenblok (na reload) niet bewaakt: komt niet direct na een klik. luac schoon, lint 0 HARD. NIET in het spel gezien.
 
 ## 🪟 13 nov (avond) — keuzevenster kwam niet vanzelf op een nieuw character (Rob, via sparring)
 

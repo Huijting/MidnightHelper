@@ -269,6 +269,24 @@ local function Build()
 		f:Hide()
 	end)
 
+	-- No click-through (13 Nov 2026): every button dead for the first 0.7 s on screen; closing starts the rest.
+	if ns.GuardFreshClicks then
+		ns.GuardFreshClicks(f, function(fr)
+			local list = { fr.more, fr.close }
+			for _, c in ipairs(cardFrames) do
+				for _, b in ipairs(c.btns or {}) do
+					list[#list + 1] = b
+				end
+			end
+			return list
+		end)
+	end
+	f:HookScript("OnHide", function()
+		if ns.LoginQuestionClosed then
+			ns.LoginQuestionClosed()
+		end
+	end)
+
 	f:Hide()
 	win = f
 	tinsert(UISpecialFrames, "MidnightHelperNewChoices")
@@ -420,6 +438,10 @@ local function OtherQuestionOpen()
 	end
 	if ns.ForeverBarLayoutPending and ns.ForeverBarLayoutPending() then
 		return "the bar layout question (still to come or open)"
+	end
+	-- ~1.5 s rest after the previous question closed: no click-through (13 Nov 2026).
+	if ns.LoginQuestionRestLeft and ns.LoginQuestionRestLeft() > 0 then
+		return "rest after the previous question"
 	end
 	for _, n in ipairs(OTHER_QUESTIONS) do
 		local fr = _G[n]

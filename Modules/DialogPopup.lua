@@ -528,6 +528,70 @@ function ns.RegisterMidnightDialogPopup(frame)
 	UISpecialFrames[#UISpecialFrames + 1] = name
 end
 
+--------------------------------------------------------------------------------
+-- 🔴 LOGIN QUESTIONS: REST BETWEEN THEM, AND NO CLICK-THROUGH (13 Nov 2026). Rob, new Forever character: "ik klikte
+-- alleen in de keuze voor welke richting ga ik uit", and yet the bar layout was set and the reload popup came. The
+-- bar layout question opened (since 2ef8724, "Eén voor één") 0-2 s after the direction question closed, at the same
+-- place under the mouse; its Yes lies inside the second direction band (sparring's sum, AFGELEID). A second click
+-- landed on Yes. So, for the whole chain (direction → bar layout → choice window):
+--   - the next question waits until ~1.5 s after the previous one closed (ns.LoginQuestionRestLeft), and
+--   - a question's buttons ignore clicks for its first 0.7 s on screen (ns.GuardFreshClicks).
+--------------------------------------------------------------------------------
+local LOGIN_REST, FRESH_GUARD = 1.5, 0.7
+local questionClosedAt
+
+--- A login question closed just now (call from its OnHide).
+function ns.LoginQuestionClosed()
+	questionClosedAt = GetTime and GetTime() or nil
+end
+
+--- Seconds since the last login question closed, or nil if none closed this session.
+function ns.LoginQuestionClosedAgo()
+	if not (questionClosedAt and GetTime) then
+		return nil
+	end
+	return GetTime() - questionClosedAt
+end
+
+--- Seconds of rest still to wait before the next login question may appear (0 = may appear now).
+function ns.LoginQuestionRestLeft()
+	local ago = ns.LoginQuestionClosedAgo()
+	if not ago then
+		return 0
+	end
+	local left = LOGIN_REST - ago
+	return left > 0 and left or 0
+end
+
+--- On every show, disable the buttons getButtons(frame) returns for the first 0.7 s, then enable them again. Also
+--- stamps frame._mhShownAt (GetTime) so a click handler can say how long the question had been on screen.
+function ns.GuardFreshClicks(frame, getButtons)
+	if not (frame and frame.HookScript and getButtons) then
+		return
+	end
+	local function each(fn)
+		local ok, list = pcall(getButtons, frame)
+		if ok and type(list) == "table" then
+			for _, b in pairs(list) do
+				if b and b[fn] then
+					pcall(b[fn], b)
+				end
+			end
+		end
+	end
+	frame:HookScript("OnShow", function(self)
+		self._mhShownAt = GetTime and GetTime() or nil
+		each("Disable")
+		if C_Timer and C_Timer.After then
+			C_Timer.After(FRESH_GUARD, function()
+				each("Enable")
+			end)
+		else
+			each("Enable")
+		end
+	end)
+end
+
 --- Center of screen, slightly above the character (same idea as Delve items popup).
 function ns.PositionMidnightPopupAboveCharacter(frame, offsetY)
 	if not frame then

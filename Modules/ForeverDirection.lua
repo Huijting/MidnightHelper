@@ -398,7 +398,16 @@ local function Build()
 		if ns.ForeverHowToPlayRefreshDirection then
 			pcall(ns.ForeverHowToPlayRefreshDirection)
 		end
+		-- The next login question waits ~1.5 s after this (13 Nov 2026, click-through onto the bar layout's Yes).
+		if ns.LoginQuestionClosed then
+			ns.LoginQuestionClosed()
+		end
 	end)
+	if ns.GuardFreshClicks then
+		ns.GuardFreshClicks(f, function(fr)
+			return { fr.opt[1], fr.opt[2], fr.opt[3], fr.later, fr.clear, fr.never }
+		end)
+	end
 
 	if ns.RegisterMidnightDialogPopup then
 		ns.RegisterMidnightDialogPopup(f)

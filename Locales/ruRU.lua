@@ -6188,6 +6188,7 @@ ns._mhLocales.ruRU = {
 	FBAR_RELOAD_TEXT = "Раскладка панелей MH установлена. Перезагрузить сейчас? После этого откроется блок клавиш для шага 1: ваши заклинания на клавишах.",
 	FBAR_RELOAD_CHAT = "раскладка панелей: введите /reload, чтобы завершить, затем /mh block для шага 1.",
 	FBAR_RELOAD_LATER_CHAT = "раскладка панелей: введите /reload, когда будете готовы, затем /mh block для шага 1.",
+	FBAR_UNDO_CHAT_FMT = "раскладка панелей: не то, что хотели? /mh block, затем «%s» вернёт панели как было.",
 	-- 12 Nov 2026: "Which way do you want to go?" (ForeverDirection.lua), mh-writer; not native-checked.
 	FDIR_ASK_TITLE = "Какой путь вы выберете?",
 	FDIR_ASK_BODY_FMT = "У класса \"%s\" три направления. Выберите то, что вам нравится; MH запомнит его для этого персонажа. Это можно пропустить и изменить в любой момент командой |cffffd100/mh direction|r.",

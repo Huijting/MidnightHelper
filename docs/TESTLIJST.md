@@ -21,6 +21,16 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 13 nov (laat, 3) — FOREVER: geen doorklik meer van de richtingvraag naar "Yes" (Rob: "ik klikte alleen in de keuze")
+
+Nieuw Forever-character. Kies een richting met een snelle dubbelklik (expres).
+- [ ] WERKT HET: de richting is gekozen, en ±1,5 s later komt de bar-layout-vraag, nog steeds open — je tweede klik
+      deed niets. De knoppen zijn de eerste ±0,7 s grijs.
+- [ ] Klik dan bewust **Yes**: in de chat staat nu ook "not what you wanted? /mh block, then "Bars back as they were"
+      puts your bars back."
+- [ ] `/mh mylayout check`: een regel "last "Yes": … question on screen X s, previous question closed Y s before".
+      Een doorklik zou daar < 1 s laten zien.
+
 ## 🆕 13 nov (laat, 2) — FOREVER: na "Yes" op de bar layout geen keuzevenster eronder (Rob, 6.png)
 
 Nieuw Forever-character. Richtingvraag beantwoorden, dan bij de bar layout op **Yes**.

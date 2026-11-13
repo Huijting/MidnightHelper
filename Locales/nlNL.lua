@@ -4193,6 +4193,7 @@ ns._mhLocales.nlNL = {
 	FBAR_RELOAD_TEXT = "Je MH-balkenindeling staat. Nu herladen? Daarna gaat het toetsenblok open voor stap 1: je spells op de toetsen.",
 	FBAR_RELOAD_CHAT = "balkenindeling: typ /reload om af te maken, daarna /mh block voor stap 1.",
 	FBAR_RELOAD_LATER_CHAT = "balkenindeling: typ /reload als je zover bent, daarna /mh block voor stap 1.",
+	FBAR_UNDO_CHAT_FMT = "balkenindeling: niet wat je wilde? /mh block, dan zet \"%s\" je balken terug.",
 	-- 12 Nov 2026: "Welke kant wil je op?" (ForeverDirection.lua); zinnen uit docs/forever/RICHTINGEN_PER_CLASS_2026-11-12.md.
 	FDIR_ASK_TITLE = "Welke kant wil je op?",
 	FDIR_ASK_BODY_FMT = "Elke %s heeft drie richtingen. Kies de richting die je leuk lijkt; MH onthoudt hem voor dit character. Overslaan mag, en wisselen kan altijd met |cffffd100/mh direction|r.",
