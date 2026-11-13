@@ -23,6 +23,8 @@ er is niets weggegooid.
 
 ## 🆕 13 nov (nacht, 5) — "gezien" pas als JIJ het venster sluit
 
+- [ ] Eén schone `/reload`: GEEN rode melding (BugSack) meer over NewChoices.lua ("attempt to index upvalue 'win'").
+
 Eén `/reload` op een bestaand Forever-character (bijv. de mage van vanavond):
 - [ ] Het venster komt, "New in this version: your choice", met de schermpjes (quick bar, Fast Mark, buff-icoon,
       minimap, groepspaneel, Do this now). Sluit het zelf (Close, X of Esc).

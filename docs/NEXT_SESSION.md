@@ -34,6 +34,13 @@ Eén voordeur t/m 19 nov: vragen voor Rob via de sparring-chat van de dag ("Spar
   reparaties (1/2, met tijd) en de laatste 3 openingen. Eenmalige reparatie 2 (`newChoicesFix2`, met tijd) zet de 7
   schermpjes-keys weer op niet-gezien.
 - luac schoon, lint 0 HARD. NIET in het spel gezien (TESTLIJST 13 nov nacht, 5). Rob wil hierna releasen: eerst deze test.
+- 🐞 Rob's BugSack na reload: `NewChoices.lua:785: attempt to index upvalue 'win' (a nil value)` — de f:Hide() in
+  Build vuurt de OnHide-hook vóór `win = f`. Gerepareerd: de hook en OnWindowClosed stoppen als `win` nog nil is.
+  Pad nagelopen (GEMETEN, grep op `win`): CardFrame/Layout/ShownLater/TryAutoShow/NewChoicesSlash lopen allemaal na
+  Build(); /mh new en de changelog-knop "Choices" gaan via NewChoicesSlash (Changelog.lua:1460, Core.lua:2671).
+  Het venster kwam bij Rob toch (19.png, 7 kaartjes): de fout zat in een script-handler, die WoW apart afvangt.
+  Of zijn schermpjes nu als gezien tellen: NIET gemeten (SV nog niet bewaard sinds fcf82a7); zelf gesloten ≥ 1 s =
+  gezien, venster open bij reload = komen terug. `/mh new check` zegt het.
 
 ## 🐞 13 nov (nacht, 4) — kaartjes op "seen" die Rob nooit zag (Rob: "geen venster, na reload")
 

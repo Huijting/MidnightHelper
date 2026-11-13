@@ -459,6 +459,11 @@ local function Build()
 		end)
 	end
 	f:HookScript("OnHide", function()
+		-- The f:Hide() a few lines down (while building) also fires this, before `win` is set: that is not a player
+		-- closing anything. Rob's BugSack, 13 Nov 2026 (fcf82a7): "NewChoices.lua:785: attempt to index upvalue 'win'".
+		if not win then
+			return
+		end
 		if ns.LoginQuestionClosed then
 			ns.LoginQuestionClosed()
 		end
@@ -782,6 +787,9 @@ end
 
 --- The window closed. Mark this opening's cards seen only if it was visible long enough to be read (Build hooks this).
 local function OnWindowClosed()
+	if not win then
+		return
+	end
 	local entry, cards, since = win._mhShowEntry, win._mhShowCards, win._mhVisibleSince
 	win._mhShowEntry, win._mhShowCards, win._mhShowToken = nil, nil, nil
 	if not (entry and cards) then
