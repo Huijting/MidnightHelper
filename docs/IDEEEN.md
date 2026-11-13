@@ -98,13 +98,13 @@ NIET GEMETEN.
 
 ---
 
-### Waarnemingen 13 nov (sparring, op Robs screenshot; geen ja van Rob, niet bouwen)
-- **Bar-layout-vraag (Forever): "Dock to window" raakt bijna het eind van de titel** ("…on this character?").
-  Zelfde soort plek als de NewChoices-titel (704e76b: titel vast aan de linkerkant van de Dock-knop). Werk: klein.
-  Mijn advies: ja, zelfde reparatie.
+### Waarnemingen 13 nov (sparring, op Robs screenshot)
+- **Bar-layout-vraag (Forever): "Dock to window" raakt bijna het eind van de titel.** Rob: *"1 fixen"*. **Gebouwd 13
+  nov**: tekst van de bar-layout- en mylayout-vraag begint onder de Dock-knop (−34), richtingtitel vast links van de
+  knop. Wacht op Robs test (TESTLIJST 13 nov avond).
 - **Nieuw Forever-character krijgt bij de eerste login drie vensters**: richting en bar-layout tegelijk, daarna het
-  keuzevenster. Sparring vindt dat veel; Rob zei er niets over. Mogelijke vorm: eerst richting, dan bar-layout, dan
-  keuzes, één tegelijk. Werk: klein tot middel. Mijn advies: Rob laten kiezen.
+  keuzevenster. Rob: *"2 ja"* (wil er iets mee, niet wát). Plan naar sparring: "één voor één" (klein) of "alles in één
+  venster" (groot). Niet bouwen voor Robs keuze.
 
 ## Ja — wordt gebouwd
 

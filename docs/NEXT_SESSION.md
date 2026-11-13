@@ -21,6 +21,17 @@ Eén voordeur t/m 19 nov: vragen voor Rob via de sparring-chat van de dag ("Spar
 5. Op main sinds 5.1.0 en niet uit: alles van 11-12 nov (plan 1/2/3, Do this now, groepspaneel, beroepenkaart, richting,
    Used for, …). Release alleen op Robs letterlijke go.
 
+## 🪟 13 nov (laat) — Forever: tekst vrij van "Dock to window" (Rob: "1 fixen") + plan drie vensters ("2 ja")
+
+- `ForeverLayoutCarry.lua`: bar-layout-vraag en "Use your layout"-vraag: tekst van −22 naar −34 (onder de Dock-knop,
+  y −10..−26), vensters 12 px hoger. `ForeverDirection.lua`: titel van TOPLEFT 20 tot 8 px links van de Dock-knop,
+  gecentreerd, breekt af. luac schoon, lint 0 HARD. NIET in het spel gezien. Geen bump/release.
+- Drie vensters, GEMETEN in de code: bar-layout probeert 3 s na login, en opnieuw elke 2 s (max 30×) zolang Edit Mode
+  niet klaar is; richting 6 s na login en wacht als de bar-layout-vraag open is; keuzevenster wacht op beide.
+  ⚠️ De bar-layout-vraag wacht NIET op de richtingvraag. AFGELEID: bij Rob was Edit Mode pas na >6 s klaar → richting
+  eerst, bar-layout erbovenop. Plan naar sparring: "één voor één" = bar-layout ook laten wachten (klein), of "alles in
+  één venster" (groot, drie modules + reload-popup). Mijn advies: één voor één. Wacht op Robs keuze.
+
 ## 🪟 13 nov (avond) — keuzevenster kwam niet vanzelf op een nieuw character (Rob, via sparring)
 
 - Rob: *"pas kwam toen ik /MH new deed. En niet vanaf het begin. Dat zou wel moeten"* (nieuw Midnight-char, level 10).

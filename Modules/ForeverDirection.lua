@@ -405,6 +405,15 @@ local function Build()
 	else
 		tinsert(UISpecialFrames, f:GetName())
 	end
+	-- Keep the title clear of the "Dock to window" button (13 Nov 2026, same fault as the bar layout question and the
+	-- choice window): centred in the space left of the button, wraps if a language makes it long.
+	if f._mhDockBtn then
+		f.title:ClearAllPoints()
+		f.title:SetPoint("TOPLEFT", 20, -20)
+		f.title:SetPoint("RIGHT", f._mhDockBtn, "LEFT", -8, 0)
+		f.title:SetJustifyH("CENTER")
+		f.title:SetWordWrap(true)
+	end
 	f:Hide()
 	dialog = f
 	return f

@@ -249,7 +249,7 @@ local function Ask(force)
 	end
 	if not dialog then
 		local f = CreateFrame("Frame", "MidnightHelperForeverMyLayout", UIParent, "BackdropTemplate")
-		f:SetSize(380, 130)
+		f:SetSize(380, 142)
 		f:SetPoint("TOP", 0, -180)
 		f:SetFrameStrata("DIALOG")
 		f:SetBackdrop({
@@ -259,8 +259,9 @@ local function Ask(force)
 			insets = { left = 11, right = 12, top = 12, bottom = 11 },
 		})
 		f:SetBackdropColor(0.05, 0.05, 0.08, 0.97)
+		-- Below the "Dock to window" button, like the bar layout question (13 Nov 2026).
 		f.text = f:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
-		f.text:SetPoint("TOP", 0, -22)
+		f.text:SetPoint("TOP", 0, -34)
 		f.text:SetWidth(340)
 		local yes = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
 		yes:SetSize(150, 24)
@@ -440,7 +441,7 @@ end
 local function AskBarLayout()
 	if not barDialog then
 		local f = CreateFrame("Frame", "MidnightHelperForeverBarLayout", UIParent, "BackdropTemplate")
-		f:SetSize(440, 150)
+		f:SetSize(440, 162)
 		f:SetPoint("TOP", 0, -180)
 		f:SetFrameStrata("DIALOG")
 		f:SetBackdrop({
@@ -450,8 +451,10 @@ local function AskBarLayout()
 			insets = { left = 11, right = 12, top = 12, bottom = 11 },
 		})
 		f:SetBackdropColor(0.05, 0.05, 0.08, 0.97)
+		-- Starts below RegisterMidnightDialogPopup's "Dock to window" button (top right, y -10 to -26). Rob's screenshot,
+		-- 13 Nov 2026 (new Forever hunter): at -22 the first line ran into it; his "1 fixen". 12 px taller to match.
 		f.text = f:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
-		f.text:SetPoint("TOP", 0, -22)
+		f.text:SetPoint("TOP", 0, -34)
 		f.text:SetWidth(400)
 		local function Btn(label, x, onClick)
 			local b = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")

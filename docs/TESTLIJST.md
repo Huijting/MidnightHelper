@@ -21,6 +21,14 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 13 nov (avond) — FOREVER: "Dock to window" vrij van de tekst (Rob: "1 fixen")
+
+Nieuw Forever-character (of `/mh mylayout check` laat zien of de vraag komt). 
+- [ ] Vraag "Set up the Midnight Helper bar layout on this character?": de eerste regel staat ONDER "Dock to window",
+      niets raakt elkaar. Het venster is iets hoger; de drie knoppen staan nog onderaan.
+- [ ] Vraag "Which way do you want to go?": de titel loopt niet onder "Dock to window".
+- [ ] (Als je hem ziet) "Use your layout … here?" (`/mh mylayout`): tekst ook onder "Dock to window".
+
 ## 🆕 13 nov (avond) — keuzevenster komt vanzelf op een character zonder toetsenblok (Rob: "Dat zou wel moeten")
 
 - [ ] Midnight: maak een nieuw character (of log in op een character dat het toetsenblok nooit kreeg). Niets typen,
