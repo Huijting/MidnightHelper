@@ -21,6 +21,16 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 13 nov (nacht, 5) — "gezien" pas als JIJ het venster sluit
+
+Eén `/reload` op een bestaand Forever-character (bijv. de mage van vanavond):
+- [ ] Het venster komt, "New in this version: your choice", met de schermpjes (quick bar, Fast Mark, buff-icoon,
+      minimap, groepspaneel, Do this now). Sluit het zelf (Close, X of Esc).
+- [ ] Nog een `/reload`: het komt NIET terug. `/mh new check` → "one-time repairs: 1 done, 2 done (…)" en een regel
+      "opening … closed after X s; counted as seen: yes".
+- [ ] Laat het venster open staan en log uit (of `/reload`): bij de volgende login komt het WEL terug ("counted as
+      seen: no").
+
 ## 🆕 13 nov (nacht, 4) — "gezien" alleen als het echt in beeld stond (Rob: "geen venster, na reload")
 
 Op het character van vanavond (de Frost-mage zonder bar layout), gewoon `/reload`:

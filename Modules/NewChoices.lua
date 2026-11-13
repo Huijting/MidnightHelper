@@ -306,6 +306,15 @@ local function Seen()
 			seen[k] = nil
 		end
 	end
+	-- Second one-time repair (13 Nov 2026, late): MEASURED in Rob's SV, newChoicesShowLog — the screens were marked at
+	-- 22:58:02 under the 1.5-s-visible rule, which Rob did not experience as seeing them. The rule is now "closed by the
+	-- player"; give the screens one more round under it. Only Rob's account has these keys (nothing released yet).
+	if not ns.db.newChoicesFix2 then
+		ns.db.newChoicesFix2 = date and date("%Y-%m-%d %H:%M:%S") or true
+		for _, k in ipairs({ "quickbar", "fastmark", "missingbuff", "minimap", "donow#2", "partypanel#2", "partytargets#2" }) do
+			seen[k] = nil
+		end
+	end
 	return seen
 end
 
@@ -452,6 +461,10 @@ local function Build()
 	f:HookScript("OnHide", function()
 		if ns.LoginQuestionClosed then
 			ns.LoginQuestionClosed()
+		end
+		-- "Seen" is decided here, when the player closes it (13 Nov 2026; see ShownLater).
+		if ns._NewChoicesOnClosed then
+			ns._NewChoicesOnClosed()
 		end
 	end)
 
@@ -713,11 +726,13 @@ local function MarkSeen(cards)
 	end
 end
 
--- 🔴 "SEEN" ONLY FOR WHAT WAS REALLY ON SCREEN (13 Nov 2026, Rob's /mh new check: six cards "seen" that he never saw).
--- A card counts as seen when the window has been VISIBLE (IsVisible: also false while an intro movie hides the whole
--- UI) for 1.5 s, or when the player clicks one of its buttons. Closed sooner, or never visible: the cards come again
--- next login. Every automatic opening goes in ns.db.newChoicesShowLog (max 10) — /mh new check prints the last one.
-local SEEN_AFTER = 1.5
+-- 🔴 "SEEN" ONLY WHEN THE PLAYER DEALT WITH IT (13 Nov 2026). First rule (4fef65f): visible for 1.5 s. MEASURED in
+-- Rob's SV the same night: an opening at 22:58:02 with all 7 screen cards, visible 1.5 s, so "seen" — and Rob says he
+-- never saw it (AFGELEID: he was logging out / switching characters). Visible is not seen. Now a card counts as seen
+-- only when the player CLOSES the window himself (Close, X, Esc — after it was visible at least SEEN_AFTER) or clicks
+-- one of its buttons. Logging out or /reload with the window open does not hide it through OnHide, so those cards
+-- come again next login. Every automatic opening goes in ns.db.newChoicesShowLog (max 10); /mh new check prints them.
+local SEEN_AFTER = 1
 local lastShow -- the log entry of the current/last automatic opening
 
 local function ShownLater(cards, how)
@@ -743,27 +758,45 @@ local function ShownLater(cards, how)
 			table.remove(L, 1)
 		end
 	end
+	-- The OnHide hook in Build reads these: the cards of this opening, its log line, and since when it was visible.
+	win._mhShowCards = cards
+	win._mhShowEntry = entry
+	win._mhVisibleSince = nil
 	local token = {}
 	win._mhShowToken = token
-	local function check(n)
-		if win._mhShowToken ~= token or entry.marked then
+	local function watch(n)
+		if win._mhShowToken ~= token or not win:IsShown() then
 			return
 		end
 		if win:IsVisible() then
-			MarkSeen(cards)
-			entry.marked = true
-		elseif win:IsShown() and n < 120 and C_Timer and C_Timer.After then
+			win._mhVisibleSince = win._mhVisibleSince or (GetTime and GetTime() or 0)
+		elseif n < 600 and C_Timer and C_Timer.After then
 			-- Shown but hidden with the whole UI (a movie): look again until it is really visible.
-			C_Timer.After(1, function()
-				check(n + 1)
+			C_Timer.After(0.5, function()
+				watch(n + 1)
 			end)
 		end
 	end
-	if C_Timer and C_Timer.After then
-		C_Timer.After(SEEN_AFTER, function()
-			check(0)
-		end)
+	watch(0)
+end
+
+--- The window closed. Mark this opening's cards seen only if it was visible long enough to be read (Build hooks this).
+local function OnWindowClosed()
+	local entry, cards, since = win._mhShowEntry, win._mhShowCards, win._mhVisibleSince
+	win._mhShowEntry, win._mhShowCards, win._mhShowToken = nil, nil, nil
+	if not (entry and cards) then
+		return
 	end
+	local now = GetTime and GetTime() or 0
+	local secs = since and (now - since) or 0
+	entry.closedAfter = math.floor(secs * 10 + 0.5) / 10
+	if since and secs >= SEEN_AFTER then
+		MarkSeen(cards)
+		entry.marked = true
+	end
+end
+ns._NewChoicesOnClosed = function()
+	OnWindowClosed()
 end
 
 --------------------------------------------------------------------------------
@@ -937,13 +970,19 @@ function ns.NewChoicesSlash(arg)
 		print(PREFIX .. ("new choices: %d apply, %d not seen yet; last login: %s"):format(#all, #fresh, lastWhy))
 		print(("  key card now: %s"):format(keyWhy))
 		print(("  window size last shown: %s"):format(lastSize))
+		print(("  one-time repairs: 1 %s, 2 %s"):format(ns.db and ns.db.newChoicesFix1 and "done" or "not run",
+			ns.db and ns.db.newChoicesFix2 and ("done (" .. tostring(ns.db.newChoicesFix2) .. ")") or "not run"))
 		local log = ns.db and ns.db.newChoicesShowLog
-		local ls = lastShow or (type(log) == "table" and log[#log]) or nil
-		if ls then
-			print(("  last automatic opening: %s, %d card(s) really in the window: %s; counted as seen: %s"):format(
-				tostring(ls.at), tonumber(ls.count) or 0, tostring(ls.cards), ls.marked and "yes (on screen 1.5 s)" or "no"))
+		if type(log) == "table" and #log > 0 then
+			-- The last three automatic openings, newest last: when, where, which cards, and whether they count as seen.
+			for i = math.max(1, #log - 2), #log do
+				local ls = log[i]
+				print(("  opening %s on %s: %d card(s): %s; closed after %ss; counted as seen: %s"):format(
+					tostring(ls.at), tostring(ls.char), tonumber(ls.count) or 0, tostring(ls.cards),
+					tostring(ls.closedAfter or "-"), ls.marked and "yes" or "no"))
+			end
 		else
-			print("  last automatic opening: none logged yet")
+			print("  automatic openings: none logged yet")
 		end
 		local seen = Seen() or {}
 		for _, c in ipairs(CARDS) do

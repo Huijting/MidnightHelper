@@ -21,6 +21,20 @@ Eén voordeur t/m 19 nov: vragen voor Rob via de sparring-chat van de dag ("Spar
 5. Op main sinds 5.1.0 en niet uit: alles van 11-12 nov (plan 1/2/3, Do this now, groepspaneel, beroepenkaart, richting,
    Used for, …). Release alleen op Robs letterlijke go.
 
+## 🐞 13 nov (nacht, 5) — tweede ronde: "seen" pas bij zelf sluiten
+
+- Rob (4fef65f, nieuw Forever-char): weer alleen Welcome met direction + barlayout; schermpjes op "seen".
+- GEMETEN in de Forever-SV (bewaard vóór 23:00): `newChoicesFix1 = true` (reparatie liep), en `newChoicesShowLog` heeft
+  één opening: 2026-11-13 22:58:02 op Player-6944-0355882C (Ima Littleone, mage), mode "update", 7 kaartjes (donow#2,
+  partypanel#2, keyblock, quickbar, fastmark, missingbuff, minimap), marked = true (1,5 s zichtbaar). De code deed dus
+  wat hij moest; de 23:00-Welcome met 2 kaartjes is daarna correct (alleen character-kaartjes nog over).
+- Probleem = de regel: "1,5 s zichtbaar" ≠ gezien (AFGELEID: Rob logde uit / wisselde van character). Nieuwe regel:
+  "seen" alleen als de speler het venster zelf sluit (OnHide, na ≥ 1 s zichtbaar) of op een knop van een kaartje
+  klikt; uitloggen/`/reload` met het venster open telt niet. Log krijgt `closedAfter`. `/mh new check` toont de
+  reparaties (1/2, met tijd) en de laatste 3 openingen. Eenmalige reparatie 2 (`newChoicesFix2`, met tijd) zet de 7
+  schermpjes-keys weer op niet-gezien.
+- luac schoon, lint 0 HARD. NIET in het spel gezien (TESTLIJST 13 nov nacht, 5). Rob wil hierna releasen: eerst deze test.
+
 ## 🐞 13 nov (nacht, 4) — kaartjes op "seen" die Rob nooit zag (Rob: "geen venster, na reload")
 
 - GEMETEN in `_forever_/WTF/.../MidnightHelper.lua` newChoicesSeen: quickbar, fastmark, missingbuff, minimap, donow#2,
