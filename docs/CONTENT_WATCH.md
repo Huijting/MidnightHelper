@@ -4593,3 +4593,44 @@ kop, per bevinding MEASURED/INFERRED en [RAAKT ONS]/[RAAKT ONS NIET], met bestan
   Geen van beide bestanden (`Locales/RaidTips.lua`, `Locales/ruRU.lua`) is sinds [2026-11-09] gewijzigd.
   Beide blijven ongewijzigd wachten op een in-game check door Rob of Cisca. **[RAAKT ONS NIET]** —
   geen actiepunt vandaag.
+
+- [2026-11-13] 💬 **CurseForge: geen open reacties (3 draadjes, zelfde reeks en ids als
+  [2026-11-12]).** `curseforge.com/api/v1/mods/1528577/comments?pageIndex=0&pageSize=20&nocache=20261113a/b/c`
+  via Exa, drie onafhankelijke fetches, allemaal volledig gelezen (JSON, `pagination.totalCount: 8`,
+  identiek op elke poging). Dezelfde drie draadjes als gisteren, allemaal beantwoord (nieuwste bericht
+  in elke keten van `twelveinchy`): esES/esMX-locale-fix `8509224` → reply `8510682`
+  (timestamp `1791351710373`); MrsBoojiePanda's debug-printregel `8414729` → reply `8483898`
+  (timestamp `1790842459727`); gadrinonturalyon's coffer-key-shards/3D-boss-model-verzoek `8090710`
+  → reply-keten tot `8095337`/`8092133` — alle ids en timestamps byte-identiek aan [2026-11-12].
+  MEASURED. **[RAAKT ONS NIET]** — geen actiepunt, geen concept-antwoord nodig.
+
+  — bron: https://www.curseforge.com/api/v1/mods/1528577/comments?pageIndex=0&pageSize=20&nocache=20261113a
+  (en `&nocache=20261113b/c`), alle drie zelf gelezen via Exa.
+
+- [2026-11-13] 🔁 **Geen nieuwe Midnight-hotfixsectie — nieuwste blijft "November 6, 2026", nu de
+  negende dag; ook het Forever-spoor is vandaag stil (nieuwste blijft "November 11, 2026", al
+  volledig verwerkt op [2026-11-12]).**
+
+  **Midnight, geen nieuwe sectie.** MEASURED, zelf gezocht en gelezen (WebSearch/Exa op
+  `news.blizzard.com`, sleutelzin "Hotfixes: November <datum>, 2026"): het nieuwste artikel blijft
+  `news.blizzard.com/en-us/article/24307310/hotfixes-november-6-2026`, gepubliceerd 7 nov 01:08 UTC —
+  al volledig verwerkt op [2026-11-06]/[2026-11-07], geen nieuwe Delves-, Professions-, Quests- of
+  Items-regel sindsdien. **Positieve controle, zelfde run:** dezelfde zoekslag en dezelfde
+  Exa-fetch (met cache-buster `?nocache=20261113`) op `news.blizzard.com/en-us/feed/world-of-warcraft`
+  gaf wél vers materiaal terug (een podcast-aankondiging over WoW: Forever-lore, vandaag geplaatst) —
+  het systeem haalt dus geen verstikte cache op, de stilstand op de Midnight-hotfixpagina zelf is een
+  echte meting.
+
+  **Forever, ook stil.** MEASURED: `news.blizzard.com/en-us/article/24315281/wow-forever-hotfixes-november-12-2026`
+  met cache-buster bestaat niet als eigen artikel — de URL redirect/toont nog steeds de inhoud van
+  "WoW: Forever Hotfixes - November 11, 2026" (titel en datum 12 nov 00:46 UTC ongewijzigd t.o.v.
+  gisteren). Die 11-nov-sectie (Confounding Flash/Shadowform, Riverglades, Tailoring-zakken, etc.) is
+  al volledig tegen de code gecheckt op [2026-11-12], inclusief de ene echte tegenspraak
+  (`Modules/ForeverHowToPlay.lua:273`, Confounding Flash in Shadowform) — die blijft openstaand voor
+  een mens, ik verander er niets aan. Geen nieuwe Forever-hotfixdag om te checken.
+
+  — bron: https://news.blizzard.com/en-us/article/24307310/hotfixes-november-6-2026 ·
+  https://news.blizzard.com/en-us/feed/world-of-warcraft?nocache=20261113 ·
+  https://news.blizzard.com/en-us/article/24315281/wow-forever-hotfixes-november-12-2026?nocache=20261113
+  (toont nog "November 11, 2026"). Geen actiepunt dat ik oppak — ik rapporteer, een mens beslist.
+  Vandaag is vrijdag, geen maandag: de kaarten- en consumables-secties zijn opzettelijk weggelaten.
