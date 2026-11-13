@@ -21,12 +21,25 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 13 nov (nacht, 3) — schermpjes en balken in het overzicht (Rob: "alleen voor nieuwe spelers en één keertje bij een volgende update")
+
+Gewoon `/reload` op een bestaand character (jij bent nu een "bestaande speler" die de nieuwe ronde voor het eerst ziet).
+- [ ] Het venster komt één keer vanzelf, titel "New in this version: your choice", met kaartjes Aan/Uit voor: "Quick
+      bar" (reload, uit de groep, MH-logo), "Show Fast Mark bar" (iconen op spelers in een groep), "Show missing buff
+      icon", "Show minimap icon", en opnieuw het groepspaneel (+ in Forever "Do this now"). Het pijltje ">" staat op
+      je huidige stand. Is het venster te hoog: schuifbalk.
+- [ ] Zet de quick bar Aan: de balk verschijnt meteen. Nog een `/reload`: het venster komt NIET nog eens.
+- [ ] Nieuw character daarna: alleen de character-kaartjes (richting, bar layout of toetsenblok), niet de schermpjes.
+
 ## 🆕 13 nov (nacht, 2) — titel + hoogte van het overzicht (Rob: "Ja, jouw advies")
 
-- [ ] Nieuw character (Forever of Midnight): titel "Welcome: set up Midnight Helper", intro "A few things to set up
+- [x] Nieuw character (Forever of Midnight): titel "Welcome: set up Midnight Helper", intro "A few things to set up
       for this character…". Na een update met iets nieuws voor iedereen: "New in this version: your choice".
-- [ ] Forever, nieuw character op een standaard-layout: het kaartje "Midnight Helper bar layout" staat er, het kaartje
-      "A fixed key for every spell" NIET. Kies je niets op het bar-kaartje, dan komt het toetsenkaartje bij je volgende
+      ✅ Rob 13 nov (Forever, nieuwe mage, screenshot door sparring gezien): Welcome-titel, richting Arcane/Fire/Frost
+      met zinnen, bar-layout met Yes. *"Ik heb ten eerste gekozen dat ik vast wilde. Toen dat ik inderdaad de keys
+      wilde. Daarna deed ik reload. En hebben we de keys en dergelijke neergezet. Het protocol verder afgevolgd."*
+- [x] Forever, nieuw character op een standaard-layout: het kaartje "Midnight Helper bar layout" staat er, het kaartje
+      "A fixed key for every spell" NIET. ✅ zelfde screenshot. Kies je niets op het bar-kaartje, dan komt het toetsenkaartje bij je volgende
       login (of /reload) wél.
 - [ ] Past het venster niet meer, dan krijgen de kaartjes een schuifbalk rechts (scrollen met het muiswiel werkt).
       `/mh new check` → "window size last shown: … (fits / scroll bar on)".

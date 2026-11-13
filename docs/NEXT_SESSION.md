@@ -21,6 +21,21 @@ Eén voordeur t/m 19 nov: vragen voor Rob via de sparring-chat van de dag ("Spar
 5. Op main sinds 5.1.0 en niet uit: alles van 11-12 nov (plan 1/2/3, Do this now, groepspaneel, beroepenkaart, richting,
    Used for, …). Release alleen op Robs letterlijke go.
 
+## 🖥️ 13 nov (nacht, 3) — schermpjes in het overzicht (Rob via sparring, letterlijk: "Ja, raad alleen voor nieuwe spelers en één keertje bij een volgende update")
+
+- ✅ Welcome-venster getest (Forever, nieuwe mage): Rob *"…gekozen dat ik vast wilde. Toen dat ik inderdaad de keys
+  wilde. Daarna deed ik reload…"* ("vast" = Frost, Willow).
+- Gebouwd in `NewChoices.lua`: `ScreenCard()` → 4 account-brede Aan/Uit-kaartjes met de eigen instellingsteksten
+  (al in alle talen, Locales/SettingsPage.lua + enUS): quickbar (SETTINGS_QUICKBAR, standaard uit), fastmark
+  (SET_MARK_TOGGLE_*, standaard uit), missingbuff (SET_MBUFF_TOGGLE_*, standaard aan), minimap (SETTINGS_MINIMAP_ICON,
+  aan). Setter = die van de instelling + SyncNativeSetting. Alle vier in beide tocs (GEMETEN). Of FastMark/QuickBar in
+  Forever goed werken: NIET gemeten in deze ronde.
+- "Eén keer bij de volgende update": nieuwe ids → elke bestaande speler ziet ze één keer; donow/partypanel/partytargets
+  kregen `again = "2"` (SeenKey "id#2"), dus wie ze vanavond al zag, ziet ze nog één keer met de rest. Nieuwe
+  characters van bestaande spelers: alleen de character-kaartjes. Nieuwe spelers: alles, titel Welcome.
+- Lang venster: volgorde = character-kaartjes eerst, dan schermpjes; breedte-truc + schuifbalk (1cf57d2). Geen kolommen.
+- luac schoon, lint 0 HARD. NIET in het spel gezien (TESTLIJST 13 nov nacht, 3). Geen bump/release.
+
 ## 🗂️ 13 nov (nacht) — één overzicht: richting en bar layout als kaartjes (Rob: "Als kaartjes erin")
 
 - Rob, letterlijk: *"het laatste scherm … dat dat gewoon de allereerste is … alleen nog maar te zien is voor nieuwe

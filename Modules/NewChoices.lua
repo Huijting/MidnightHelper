@@ -34,6 +34,40 @@ end
 --------------------------------------------------------------------------------
 -- The cards. avail() = does this card apply to this player right now.
 --------------------------------------------------------------------------------
+--- An On/Off card for a screen MH can show (Rob, 13 Nov 2026, via sparring, verbatim: "Ja, raad alleen voor nieuwe
+--- spelers en één keertje bij een volgende update. Zodat ook oude spelers weten wat voor fancies we allemaal hebben.
+--- En ze moeten dan ook weten of te zien krijgen dat we meer bars hebben."). Texts are the setting's own (already in
+--- every language); the switch is the setting's own setter, and the native setting follows.
+local function ScreenCard(id, head, body, isOn, setOn, nativeKey, combatSafe)
+	return {
+		id = id,
+		head = head,
+		body = body,
+		avail = function()
+			return isOn() ~= nil
+		end,
+		buttons = function()
+			local on = isOn() and true or false
+			local function set(v)
+				return function()
+					if not combatSafe and InCombat() then
+						print(PREFIX .. ns:L("FPARTY_NOT_IN_COMBAT"))
+						return
+					end
+					setOn(v)
+					if ns.SyncNativeSetting and nativeKey then
+						ns.SyncNativeSetting(nativeKey, v)
+					end
+				end
+			end
+			return {
+				{ text = ns:L("NEWC_ON"), current = on, click = set(true) },
+				{ text = ns:L("NEWC_OFF"), current = not on, click = set(false) },
+			}
+		end,
+	}
+end
+
 local CARDS = {
 	-- Forever, per character (Rob, 13 Nov 2026, via sparring, verbatim: "Als kaartjes erin"): the two login questions
 	-- are cards here now, so a new character gets ONE overview instead of three windows. The direction card picks the
@@ -80,6 +114,7 @@ local CARDS = {
 	},
 	{
 		id = "donow",
+		again = "2", -- shown once more with the screens (13 Nov 2026)
 		head = "SET_FOREVER_DONOW_TITLE",
 		body = "NEWC_DONOW_BODY",
 		avail = function()
@@ -110,6 +145,7 @@ local CARDS = {
 	},
 	{
 		id = "partypanel",
+		again = "2", -- shown once more with the screens (13 Nov 2026)
 		head = "SET_FOREVER_PARTY_TITLE",
 		body = "NEWC_PARTY_BODY",
 		avail = function()
@@ -141,6 +177,7 @@ local CARDS = {
 	-- /mh partytargets and the setting.
 	{
 		id = "partytargets",
+		again = "2", -- shown once more with the screens (13 Nov 2026)
 		head = "SET_PARTYTARGETS_TITLE",
 		body = "NEWC_PT_BODY",
 		avail = function()
@@ -216,6 +253,29 @@ local CARDS = {
 			}
 		end,
 	},
+	-- The screens (13 Nov 2026, Rob's list: the quick bar with reload / leave group and the MH logo, and the marker bar
+	-- "waar je alle iconen neer kan zetten op spelers"; plus the two other things MH puts on screen by itself). All four
+	-- load in both games (both tocs). Account-wide, like their settings: new players see them, existing players once.
+	ScreenCard("quickbar", "SETTINGS_QUICKBAR", "SETTINGS_QUICKBAR_TT", function()
+		return ns.IsQuickBarShown and ns.IsQuickBarShown()
+	end, function(v)
+		ns.SetQuickBarShown(v)
+	end, "mh_quickBar"),
+	ScreenCard("fastmark", "SET_MARK_TOGGLE_TITLE", "SET_MARK_TOGGLE_DESC", function()
+		return ns.IsFastMarkEnabled and ns.IsFastMarkEnabled()
+	end, function(v)
+		ns.SetFastMarkEnabled(v)
+	end, "mh_fastMark"),
+	ScreenCard("missingbuff", "SET_MBUFF_TOGGLE_TITLE", "SET_MBUFF_TOGGLE_DESC", function()
+		return ns.IsMissingBuffEnabled and ns.IsMissingBuffEnabled()
+	end, function(v)
+		ns.SetMissingBuffEnabled(v)
+	end, "mh_missingBuff"),
+	ScreenCard("minimap", "SETTINGS_MINIMAP_ICON", "SETTINGS_MINIMAP_ICON_TT", function()
+		return ns.IsMinimapIconShown and ns.IsMinimapIconShown()
+	end, function(v)
+		ns.SetMinimapIconShown(v)
+	end, "mh_minimapIcon", true),
 }
 
 local function Seen()
@@ -226,13 +286,16 @@ local function Seen()
 	return ns.db.newChoicesSeen
 end
 
---- The key a card's "seen" is stored under: its id, plus the character's GUID for a per-character card.
+--- The key a card's "seen" is stored under: its id, plus the character's GUID for a per-character card. A card with
+--- `again = "<n>"` is a new round of an older card (stored as "id#n"): everyone sees it once more, also whoever saw the
+--- old round (13 Nov 2026: the group panel and "Do this now" come back once with the screens, for existing players).
 local function SeenKey(c)
+	local id = c.again and (c.id .. "#" .. c.again) or c.id
 	if c.perChar then
 		local g = UnitGUID and UnitGUID("player")
-		return c.id .. ":" .. tostring(g or "?")
+		return id .. ":" .. tostring(g or "?")
 	end
-	return c.id
+	return id
 end
 
 --- The cards that apply; with onlyUnseen, only those not shown automatically before.

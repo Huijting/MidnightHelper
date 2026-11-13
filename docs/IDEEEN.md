@@ -106,7 +106,10 @@ NIET GEMETEN.
   keuzevenster. Rob: *"2 ja"*, daarna via sparring letterlijk *"Eén voor één"* (gebouwd 2ef8724), en daarna bedoelde
   hij het anders: *"één overzicht, zo bedoelde ik hem eigenlijk"* → *"Als kaartjes erin"*. **Gebouwd 13 nov (nacht)**:
   het keuzevenster is het enige venster bij de login; richting en bar layout zijn kaartjes erin. Wacht op Robs test.
-  Open voor Rob (voorstel naar sparring): titel van het venster, hoogte met 5 kaartjes.
+  Titel + hoogte: Rob *"Ja, jouw advies"* → gebouwd (1cf57d2), getest goed (nieuwe mage).
+  13 nov nacht, Rob: *"alleen voor nieuwe spelers en één keertje bij een volgende update. Zodat ook oude spelers weten
+  wat voor fancies we allemaal hebben"* → kaartjes voor quick bar, Fast Mark, missende-buff-icoon, minimapknop, en het
+  groepspaneel / Do this now nog één keer. **Gebouwd**, wacht op Robs test.
 
 ## Ja — wordt gebouwd
 
