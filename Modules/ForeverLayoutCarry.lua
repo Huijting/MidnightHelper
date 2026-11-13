@@ -240,6 +240,8 @@ function ns.ForeverMyLayoutAskReload()
 end
 
 local dialog
+-- What the bar layout login check did this session (printed by /mh mylayout check; set at the bottom of this file).
+local barWhy = "not tried yet"
 
 local function Ask(force)
 	local db = Store()
@@ -340,6 +342,7 @@ function ns.ForeverMyLayoutSlash(arg)
 			mine and ("\"" .. mine.name .. "\" from " .. tostring(mine.from)) or "nothing", yes and "yes" or "no", why))
 		local yesB, whyB = ns.ForeverBarLayoutDecision() -- defined further down; called at run time
 		print(PREFIX .. ("bar layout question at login: %s - %s"):format(yesB and "would ask" or "no question", whyB))
+		print(PREFIX .. ("bar layout question, this login: %s"):format(barWhy))
 	elseif Store() and Store().foreverMyLayout then
 		Ask(true)
 	else
@@ -522,28 +525,56 @@ local NOT_YET = {
 	["Edit Mode returned no layouts"] = true,
 	["this client has no C_EditMode.GetLayouts"] = false, -- a client without Edit Mode: nothing to wait for
 }
+-- 🔴 ONE AT A TIME (Rob, 13 Nov 2026, via sparring: "Eén voor één"): the direction question goes first. While it is
+-- still to come or open, this one waits — every 2 s, up to ~5 minutes, without using up the Edit Mode tries; after that
+-- the next end of combat / movie tries again. Never dropped silently: barWhy says what it is waiting for.
+local dirWaits = 0
 local function Try()
 	if done then
 		return
 	end
-	tries = tries + 1
 	if InCombatLockdown and InCombatLockdown() then
 		waiting = true
+		barWhy = "waiting: in combat"
 		return
 	end
 	if InCinematic and InCinematic() then
 		waiting = true -- CINEMATIC_STOP / STOP_MOVIE tries again
+		barWhy = "waiting: intro movie"
 		return
 	end
+	if ns.ForeverDirectionPending and ns.ForeverDirectionPending() then
+		dirWaits = dirWaits + 1
+		barWhy = "waiting: the direction question goes first"
+		if dirWaits < 150 and C_Timer and C_Timer.After then
+			C_Timer.After(2, Try)
+		else
+			waiting = true
+			dirWaits = 0
+		end
+		return
+	end
+	tries = tries + 1
 	local yes, why = BarDecision() -- the MH bar layout (Rob, 7 Nov 2026), no longer "Use your layout X?"
 	if yes then
 		done = true
+		barWhy = "asked"
 		AskBarLayout()
 	elseif NOT_YET[why] and tries < 30 and C_Timer and C_Timer.After then
+		barWhy = "waiting: " .. tostring(why)
 		C_Timer.After(2, Try)
 	else
 		done = true
+		barWhy = "no question: " .. tostring(why)
 	end
+end
+
+--- True while the bar layout question is still to come or open: the choice window (NewChoices.lua) waits.
+function ns.ForeverBarLayoutPending()
+	if not done then
+		return true
+	end
+	return barDialog ~= nil and barDialog:IsShown() and true or false
 end
 ev:SetScript("OnEvent", function(_, event)
 	if (event == "PLAYER_REGEN_ENABLED" or event == "CINEMATIC_STOP" or event == "STOP_MOVIE") and not waiting then

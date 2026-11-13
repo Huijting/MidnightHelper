@@ -419,6 +419,9 @@ local function Build()
 	return f
 end
 
+-- What the login check did this session (printed by /mh direction check; set further down).
+local loginWhy = "not tried yet"
+
 function ns.ShowForeverDirection()
 	if not CLASSES[ClassToken() or ""] then
 		print(PREFIX .. "direction: no texts for this class.")
@@ -440,6 +443,7 @@ function ns.ForeverDirectionSlash(arg)
 		end
 		print(PREFIX .. ("direction: chosen %s; question at login: %s - %s"):format(
 			band and (name .. " (" .. band .. ")") or "none", yes and "would ask" or "no question", why))
+		print(PREFIX .. ("direction: this login: %s"):format(loginWhy))
 		print(PREFIX .. ("direction: talent points per tree %s; guess %s%s"):format(
 			pts and table.concat(pts, "/") or "?", guess and TreeName(ClassToken(), guess) or "none",
 			gwhy and (" (" .. gwhy .. ")") or ""))
@@ -460,8 +464,12 @@ function ns.ForeverDirectionSlash(arg)
 	end
 end
 
--- At login: never in combat or during a movie, and not on top of another MH question (the bar layout on a new
--- character, ForeverLayoutCarry.lua) or a Blizzard popup — wait until those are gone, for about two minutes.
+-- At login: never in combat or during a movie, and not on top of a Blizzard popup — wait until those are gone, for
+-- about two minutes.
+-- 🔴 ONE AT A TIME, THIS ONE FIRST — Rob, 13 Nov 2026, via sparring, verbatim: "Eén voor één". On his new Forever hunter
+-- the direction and bar layout questions came at the same moment, then the choice window. Order now: direction → bar
+-- layout (ForeverLayoutCarry.lua waits on ns.ForeverDirectionPending) → choice window (NewChoices.lua waits on both).
+-- So this one no longer waits for the bar layout question (that would make the two wait on each other).
 local ev = CreateFrame("Frame")
 ev:RegisterEvent("PLAYER_ENTERING_WORLD")
 ev:RegisterEvent("PLAYER_REGEN_ENABLED")
@@ -471,19 +479,15 @@ local done, waiting, tries = false, false, 0
 
 local function Busy()
 	if InCombatLockdown and InCombatLockdown() then
-		return true
+		return "in combat"
 	end
 	if InCinematic and InCinematic() then
-		return true
-	end
-	local other = _G.MidnightHelperForeverBarLayout
-	if other and other:IsShown() then
-		return true
+		return "intro movie"
 	end
 	if StaticPopup1 and StaticPopup1:IsShown() then
-		return true
+		return "a Blizzard popup is open"
 	end
-	return false
+	return nil
 end
 
 local function Try()
@@ -493,9 +497,12 @@ local function Try()
 	tries = tries + 1
 	if InCombatLockdown and InCombatLockdown() then
 		waiting = true -- PLAYER_REGEN_ENABLED tries again
+		loginWhy = "waiting: in combat"
 		return
 	end
-	if Busy() then
+	local busy = Busy()
+	if busy then
+		loginWhy = "waiting: " .. busy
 		if tries < 40 and C_Timer and C_Timer.After then
 			C_Timer.After(3, Try)
 		else
@@ -504,9 +511,21 @@ local function Try()
 		return
 	end
 	done = true
-	if Decision() then
+	local yes, why = Decision()
+	if yes then
 		ns.ShowForeverDirection()
+		loginWhy = "asked"
+	else
+		loginWhy = "no question: " .. tostring(why)
 	end
+end
+
+--- True while the login question is still to come or still open: the bar layout question and the choice window wait.
+function ns.ForeverDirectionPending()
+	if not done then
+		return true
+	end
+	return dialog ~= nil and dialog:IsShown() and true or false
 end
 
 ev:SetScript("OnEvent", function(_, event)
@@ -515,7 +534,7 @@ ev:SetScript("OnEvent", function(_, event)
 	end
 	waiting = false
 	if C_Timer and C_Timer.After then
-		C_Timer.After(6, Try) -- a little after the bar-layout question (3 s), so that one goes first
+		C_Timer.After(3, Try) -- first of the login questions (13 Nov 2026: "Eén voor één")
 	else
 		Try()
 	end

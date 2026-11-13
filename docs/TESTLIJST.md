@@ -21,6 +21,14 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 13 nov (laat) — FOREVER: vragen bij de eerste login één voor één (Rob: "Eén voor één")
+
+Maak een nieuw Forever-character en wacht na het inloggen (intro-filmpje mag eerst).
+- [ ] WERKT HET: eerst alleen "Which way do you want to go?". Pas als je die sluit of kiest, komt (na ±2 s) "Set up the
+      Midnight Helper bar layout on this character?". Daarna pas "New in this version: your choice". Nooit twee tegelijk.
+      WERKT HET NIET: twee vensters tegelijk, of er komt er één niet → typ `/mh direction check` en `/mh mylayout check`
+      (regels "this login") en stuur een screenshot van de chat.
+
 ## 🆕 13 nov (avond) — FOREVER: "Dock to window" vrij van de tekst (Rob: "1 fixen")
 
 Nieuw Forever-character (of `/mh mylayout check` laat zien of de vraag komt). 

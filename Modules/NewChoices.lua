@@ -412,6 +412,14 @@ local OTHER_QUESTIONS = { "MidnightHelperForeverDirection", "MidnightHelperForev
 local lastWhy = "not checked yet"
 
 local function OtherQuestionOpen()
+	-- Forever: also while a login question is still to COME (Rob, 13 Nov 2026: "Eén voor één"); between the direction
+	-- question closing and the bar layout question opening there is a moment where neither frame is shown.
+	if ns.ForeverDirectionPending and ns.ForeverDirectionPending() then
+		return "the direction question (still to come or open)"
+	end
+	if ns.ForeverBarLayoutPending and ns.ForeverBarLayoutPending() then
+		return "the bar layout question (still to come or open)"
+	end
 	for _, n in ipairs(OTHER_QUESTIONS) do
 		local fr = _G[n]
 		if fr and fr.IsShown and fr:IsShown() then

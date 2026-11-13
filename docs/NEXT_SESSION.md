@@ -30,7 +30,14 @@ Eén voordeur t/m 19 nov: vragen voor Rob via de sparring-chat van de dag ("Spar
   niet klaar is; richting 6 s na login en wacht als de bar-layout-vraag open is; keuzevenster wacht op beide.
   ⚠️ De bar-layout-vraag wacht NIET op de richtingvraag. AFGELEID: bij Rob was Edit Mode pas na >6 s klaar → richting
   eerst, bar-layout erbovenop. Plan naar sparring: "één voor één" = bar-layout ook laten wachten (klein), of "alles in
-  één venster" (groot, drie modules + reload-popup). Mijn advies: één voor één. Wacht op Robs keuze.
+  één venster" (groot, drie modules + reload-popup). Mijn advies: één voor één.
+- ✅ Gebouwd (Rob via sparring, letterlijk: *"Eén voor één"*): richtingvraag eerst (3 s, wacht niet meer op bar
+  layout); `ns.ForeverDirectionPending()`. Bar layout wacht zolang richting nog moet komen of open is (elke 2 s, tot
+  ~5 min, telt niet mee voor de Edit Mode-pogingen; daarna bij volgend gevecht-einde/filmpje); `ns.ForeverBarLayoutPending()`.
+  NewChoices wacht op beide pending-functies (ook in het gat tussen de twee). `/mh direction check` en `/mh mylayout
+  check` tonen "this login: <reden>". luac schoon, lint 0 HARD. NIET in het spel gezien.
+  ⚠️ Niet gedaan: na "Yes" op de bar layout komt Blizzards reload-popup; het keuzevenster kan daaronder verschijnen tot
+  de reload (AFGELEID, onschuldig: de reload sluit alles).
 
 ## 🪟 13 nov (avond) — keuzevenster kwam niet vanzelf op een nieuw character (Rob, via sparring)
 
