@@ -24,8 +24,9 @@ er is niets weggegooid.
 ## 🆕 13 nov — keuzevenster gaat dicht na kiezen (Rob, via sparring: "Ja, dicht na kiezen")
 
 Na je dungeonrun: `/reload`, dan `/mh new` (toont het venster opnieuw, ook als je het al zag).
-- [ ] Midnight, één kaartje "Show party targets": klik On (of Off). WERKT HET: het venster gaat meteen dicht en in de
+- [x] Midnight, één kaartje "Show party targets": klik On (of Off). WERKT HET: het venster gaat meteen dicht en in de
       chat staat "on"/"off". WERKT HET NIET: het venster blijft staan. Stuur een screenshot.
+      ✅ Rob 13 nov (via sparring): *"o en na de keuze was ie inderdaad weg"*.
 - [ ] De titel "New in this version: your choice" staat links en loopt NIET meer onder "Dock to window" rechtsboven.
       Is hij te lang, dan breekt hij af naar een tweede regel, en de tekst eronder schuift mee omlaag.
 - [ ] Forever (meer kaartjes, o.a. "Do this now" en het groepspaneel): na één keuze blijft het venster staan; pas als

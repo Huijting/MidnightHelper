@@ -21,6 +21,20 @@ Eén voordeur t/m 19 nov: vragen voor Rob via de sparring-chat van de dag ("Spar
 5. Op main sinds 5.1.0 en niet uit: alles van 11-12 nov (plan 1/2/3, Do this now, groepspaneel, beroepenkaart, richting,
    Used for, …). Release alleen op Robs letterlijke go.
 
+## 🔎 13 nov (avond) — dispelTryLog `cd` na Robs tweede run (Voidscar Arena, Prot Paladin): meting kan het niet beslissen
+
+- GEMETEN in SV (13 nov 20:29, regels 140143-140364): 3× cast 213644, alle drie `cd` = "unreadable", `cdWhy` = "secret".
+  C_Spell.GetSpellCooldown/GetSpellCharges zijn in een gevecht dus secret: de cooldown-meting van 9f5a96c kan in een
+  gevecht NIETS zeggen. Casts 20:25:23/25/27 (2 s uit elkaar), 1× failed, 10× "Spell is not ready yet", 4× "Target
+  needs to be in front of you" (fout van een andere spell terwijl de muis op de rij stond; de code waarschuwt daar al
+  voor). 0× "Nothing to dispel" in het hele SV (tegencontrole: de andere twee teksten wél, 16 treffers).
+- AFGELEID: geslaagde casts zonder "Nothing to dispel" = er was op dat moment iets weg te halen. Casts 2 s uit elkaar
+  past niet bij 8 s cooldown die start. Beide passen samen alleen als de cooldown niet start of als het gif direct
+  terugkomt; niet te beslissen met wat wij in een gevecht kunnen lezen. Het rood zelf komt van de engine (niet leesbaar).
+- Niets gebouwd. Keuze voor Rob via sparring: stoppen met meten, of één keer met het oog kijken (gif-icoon bij zijn
+  eigen buffs weg na rechtsklik?).
+- ✅ Rob: keuzevenster gaat dicht na kiezen (*"o en na de keuze was ie inderdaad weg"*). Titel nog niet gemeld.
+
 ## 🪟 13 nov (middag) — keuzevenster dicht na kiezen + titel (Rob via sparring, letterlijk: "Ja, dicht na kiezen")
 
 - `NewChoices.lua`: een keuze sluit het venster als elk getoond kaartje in deze opening een keuze kreeg (één kaartje =
