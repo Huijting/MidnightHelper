@@ -120,6 +120,17 @@ NIET GEMETEN.
   you. Click the icon to cast it") schijnt door stap 5 heen. Werk: klein (AFGELEID; achtergrond dichter of het paneel
   hoger in de laag). NIET gemeten in de code.
 
+### Waarnemingen 14 nov (site-chat, bijvangst vertaling) — geen ja, alleen genoteerd
+Bron: site-chat (mh-research), rapport `vertaaltwijfels-14-11.md` ("Bijvangst"). Valt onder de regel "clientnaam wint
+altijd" (Rob 20 okt), maar het is groot (±160 plekken), dus eerst Robs keuze.
+1. **"Mythic+" in de/fr**: de-pack 82×, fr-pack 81×; de client zegt "Mythisch+" (de, GEMETEN door mij:
+   GlobalStrings PLAYER_DIFFICULTY_MYTHIC_PLUS, 12.1.5.70783) en "Mythique +" (fr, volgens site-chat; door mij niet
+   nagemeten). ⚠️ CLAUDE.md noemt "Mythic+" nog als term die in alle packs Engels blijft; de regel van 20 okt overrulet dat.
+2. **Menupaden** wijken af van de client: it "Scorciatoie" → "Assegnazione tasti", es "Atajos" → "Atajos de teclado",
+   pt "Atalhos" → "Atalhos do teclado", de "Tastenbelegung" → "Tastaturbelegung". Welke string 12.x echt in het menu
+   toont: NIET gemeten.
+3. **TOUR_ROOMS_BODY** (de/fr/es/pt/it) zegt "Me", terwijl de knop Ich/Moi/Yo/Eu/Io zegt.
+
 ## Ja — wordt gebouwd
 
 Hier komt wat Rob goedkeurt, ook wat hij rechtstreeks in de bouwchat vraagt (Rob, 10 nov: *"ja we willen het op 1
