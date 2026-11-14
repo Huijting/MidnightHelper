@@ -283,6 +283,39 @@ function ns.ForeverRankCount()
 	return #(Scan())
 end
 
+--- 14 Nov 2026 (Rob via sparring, letterlijk: "Ja, doe allebei maar"): the "Do this now" / start-page sentence names
+--- WHICH spell casts the lower rank ("Lightning Bolt: rank 1, you know rank 2") instead of only a count, and says
+--- "1 button" instead of "1 buttons". Same Scan() as the orange edge and /mh ranks. nil when there is nothing.
+local WHICH_MAX = 4
+function ns.ForeverRankSentence()
+	local list = Scan()
+	if #list == 0 then
+		return nil
+	end
+	if #list == 1 then
+		local r = list[1]
+		return ns:L("FRANK_HOME_ONE_FMT"):format(r.name, r.fromIdx, r.toIdx)
+	end
+	-- One row per spell + rank; the same spell on two buttons is named once.
+	local rows, seen = {}, {}
+	for _, r in ipairs(list) do
+		local k = r.name .. "#" .. r.fromIdx
+		if not seen[k] then
+			seen[k] = true
+			rows[#rows + 1] = ns:L("FRANK_HOME_ROW_FMT"):format(r.name, r.fromIdx, r.toIdx)
+		end
+	end
+	local shown = {}
+	for i = 1, math.min(#rows, WHICH_MAX) do
+		shown[i] = rows[i]
+	end
+	local which = table.concat(shown, ", ")
+	if #rows > WHICH_MAX then
+		which = which .. ", " .. ns:L("FRANK_HOME_MORE_FMT"):format(#rows - WHICH_MAX)
+	end
+	return ns:L("FRANK_HOME_FMT"):format(#list) .. " " .. ns:L("FRANK_HOME_WHICH_FMT"):format(which)
+end
+
 function ns.ForeverRankFixAll()
 	Fix(true)
 end

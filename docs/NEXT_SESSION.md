@@ -34,6 +34,9 @@ fastmark, missingbuff, minimap), closedAfter 56,9 s, alle 6 in newChoicesSeen. A
 beta). Beide toc's 5.3.0, CHANGELOG_530_1..4 (enUS), `RELEASE_NOTES.md` = `docs/CURSEFORGE_5.3.0.md`, CHANGELOG.md,
 CURSEFORGE_DESCRIPTION ("Getting started"-zin: Welcome-venster; Rob plakt zelf), SITE_SEIN op "getagd". Na de upload:
 CF-API nakijken (2 bestanden) en SITE_SEIN op "staat op CurseForge". Daarna: dungeons stap 1 (IDEEEN).
+🔧 14 nov, na de tag (alleen op main): "Do this now" + startpagina noemen welke spell een lagere rank cast
+(`ns.ForeverRankSentence`, Rob via sparring: *"Ja, doe allebei maar"*). luac + lint 0 HARD; NIET in het spel gezien
+(TESTLIJST 14 nov avond). Bij de volgende release: in-game changelog-regel + SITE_SEIN-regel toevoegen.
 
 Stand 14 nov nacht: laatste commit 33c45ef op main (GEMETEN, gepusht). 5.2.0 staat op CurseForge (13 nov). Alles
 hieronder sinds 5.2.0 staat alleen op main, NIET uitgebracht. Eén voordeur t/m 19 nov: vragen voor Rob via de

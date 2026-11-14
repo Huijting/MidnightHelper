@@ -21757,6 +21757,10 @@ if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	SET_FOREVER_RANKGLOW_DESC = "WoW Forever: Ein Knopf auf Blizzards Leisten, der noch einen niedrigeren Rang eines Zaubers wirkt, den du kennst, bekommt einen ruhigen orangen Rand mit einem kleinen Pfeil nach oben. Kräftig, wenn du den neuen Rang gerade gelernt hast, sanft, wenn du den niedrigeren Rang selbst dort hingelegt hast. Dasselbe wie /mh ranks glow on|off.",
 	FRANK_HOME_FMT = "%d Knöpfe auf deinen Leisten wirken einen niedrigeren Rang, als du kennst. Manche Spieler machen das absichtlich, um Mana zu sparen; dann lass sie so.",
 	FRANK_HOME_BTN = "Neuesten Rang draufsetzen",
+	FRANK_HOME_ONE_FMT = "1 Knopf auf deinen Leisten wirkt %s Rang %d; du kennst Rang %d. Manche Spieler machen das absichtlich, um Mana zu sparen; dann lass ihn so.",
+	FRANK_HOME_WHICH_FMT = "Welche: %s.",
+	FRANK_HOME_ROW_FMT = "%s Rang %d (du kennst %d)",
+	FRANK_HOME_MORE_FMT = "und %d weitere",
 }) end
 if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	FWARN_BAGS_LOW_FMT = "Sacs : %d places libres",
@@ -22007,6 +22011,10 @@ if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	SET_FOREVER_RANKGLOW_DESC = "WoW Forever : un bouton des barres de Blizzard qui lance encore un rang inférieur d'un sort que tu connais reçoit un bord orange discret avec une petite flèche vers le haut. Vif si tu viens d'apprendre le nouveau rang, doux si tu as mis toi-même le rang inférieur à cet endroit. Pareil que /mh ranks glow on|off.",
 	FRANK_HOME_FMT = "%d boutons de tes barres lancent un rang plus bas que celui que tu connais. Certains joueurs le font exprès pour économiser du mana ; laisse-les alors.",
 	FRANK_HOME_BTN = "Mettre le rang le plus récent",
+	FRANK_HOME_ONE_FMT = "1 bouton de tes barres lance %s rang %d ; tu connais le rang %d. Certains joueurs le font exprès pour économiser du mana ; laisse-le alors.",
+	FRANK_HOME_WHICH_FMT = "Lesquels : %s.",
+	FRANK_HOME_ROW_FMT = "%s rang %d (tu connais %d)",
+	FRANK_HOME_MORE_FMT = "et %d de plus",
 }) end
 if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	FWARN_BAGS_LOW_FMT = "Bolsas: %d espacios libres",
@@ -22257,6 +22265,10 @@ if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	SET_FOREVER_RANKGLOW_DESC = "WoW Forever: un botón de las barras de Blizzard que aún lanza un rango más bajo de un hechizo que conoces recibe un borde naranja tranquilo con una pequeña flecha hacia arriba. Intenso si acabas de aprender el rango nuevo, suave si pusiste tú mismo el rango más bajo ahí. Igual que /mh ranks glow on|off.",
 	FRANK_HOME_FMT = "%d botones de tus barras lanzan un rango más bajo del que conoces. Algunos jugadores lo hacen a propósito para ahorrar maná; en ese caso, déjalos.",
 	FRANK_HOME_BTN = "Poner el rango más nuevo",
+	FRANK_HOME_ONE_FMT = "1 botón de tus barras lanza %s rango %d; conoces el rango %d. Algunos jugadores lo hacen a propósito para ahorrar maná; en ese caso, déjalo.",
+	FRANK_HOME_WHICH_FMT = "Cuáles: %s.",
+	FRANK_HOME_ROW_FMT = "%s rango %d (conoces %d)",
+	FRANK_HOME_MORE_FMT = "y %d más",
 }) end
 if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	FWARN_BAGS_LOW_FMT = "Bolsas: %d espaços livres",
@@ -22507,6 +22519,10 @@ if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	SET_FOREVER_RANKGLOW_DESC = "WoW Forever: um botão nas barras da Blizzard que ainda lança um grau mais baixo de um feitiço que você conhece ganha uma borda laranja suave com uma pequena seta para cima. Forte quando você acabou de aprender o novo grau, fraca quando você mesmo colocou o grau mais baixo ali. O mesmo que /mh ranks glow on|off.",
 	FRANK_HOME_FMT = "%d botões nas suas barras lançam um grau mais baixo do que você conhece. Alguns jogadores fazem isso de propósito para poupar mana; nesse caso, deixe-os assim.",
 	FRANK_HOME_BTN = "Colocar o grau mais novo",
+	FRANK_HOME_ONE_FMT = "1 botão nas suas barras lança %s grau %d; você conhece o grau %d. Alguns jogadores fazem isso de propósito para poupar mana; nesse caso, deixe-o assim.",
+	FRANK_HOME_WHICH_FMT = "Quais: %s.",
+	FRANK_HOME_ROW_FMT = "%s grau %d (você conhece %d)",
+	FRANK_HOME_MORE_FMT = "e mais %d",
 }) end
 
 --========================================================================

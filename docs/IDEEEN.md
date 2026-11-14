@@ -125,6 +125,24 @@ NIET GEMETEN.
 Hier komt wat Rob goedkeurt, ook wat hij rechtstreeks in de bouwchat vraagt (Rob, 10 nov: *"ja we willen het op 1
 lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met de commit erbij. Na zijn test naar **Af**.
 
+### Forever: "Do this now" noemt WELKE knop een lagere rank cast
+- Voor wie:      allebei (iedereen met een oude rank op een knop)
+- Moment:        "Do this now" en de startpagina, regel over oude ranks
+- Spel:          Forever
+- Bron:          Rob 14 nov (via Sparring 14-11, shaman, screenshot): *"Maar kan je aangeven welke het is?"*; op het
+                 voorstel (spell bij naam met oude en nieuwe rank + "1 button" i.p.v. "1 buttons"): *"Ja, doe allebei
+                 maar."* Rob zag die dag ook de oranje rand: *"Ze worden inderdaad oranje omringd."*
+- Bouwt op:      `ForeverRanks.lua` Scan() (dezelfde lijst als de oranje rand en `/mh ranks`)
+- Data:          GEMETEN in de code: Scan() geeft per knop naam, fromIdx, toIdx (al gebruikt in de tooltip "%s: %d -> %d")
+- Vindbaar:      vanzelf; `/mh ranks` toont per knop slot + id
+- Werk:          klein
+- Site:          nee (zin in een bestaand venster)
+- Rob zegt:      ja. **Gebouwd 14 nov, na de tag v5.3.0** → komt in de volgende release. `ns.ForeverRankSentence()`:
+                 1 knop = "1 button on your bars casts Lightning Bolt rank 1; you know rank 2. …"; meer = de oude
+                 telzin + "Which: X rank 1 (you know 2), …" (max 4, dan "and N more"; dezelfde spell één keer).
+                 Zelf vertaald: nl/de/fr/es/pt/ru (it valt terug op Engels, zoals de oude zin). luac + lint 0 HARD.
+                 NIET in het spel gezien.
+
 ### Forever: dungeons en raids, uitgelegd op MH's manier (richting 2 + de route erheen)
 - Voor wie:      allebei (nieuweling: "welke dungeon past bij mij en hoe kom ik er?"; veteraan: "welke quests neem ik mee?")
 - Moment:        als je level bij een dungeon past (bv. een regel in "Do this now": "je bent 18, deze dungeon past nu,

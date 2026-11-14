@@ -96,7 +96,7 @@ local function Collect()
 	end
 	local nRank = ns.ForeverRankCount and ns.ForeverRankCount() or 0
 	if nRank > 0 then
-		out.now[#out.now + 1] = ns:L("FRANK_HOME_FMT"):format(nRank)
+		out.now[#out.now + 1] = (ns.ForeverRankSentence and ns.ForeverRankSentence()) or ns:L("FRANK_HOME_FMT"):format(nRank)
 		out.actions.ranks = true
 	end
 	-- 12 Nov 2026 (Rob via sparring: "Ja, alle drie"): one/more as two sentences, and with a direction how many fit

@@ -291,7 +291,7 @@ local function BuildLayout()
 			-- 9 Nov 2026: buttons that still cast an old rank (ForeverRanks.lua). Explained here, where the button is.
 			local nRank = ns.ForeverRankCount and ns.ForeverRankCount() or 0
 			if nRank > 0 then
-				line(rows, ns:L("FRANK_HOME_FMT"):format(nRank), COLOR_WARN)
+				line(rows, (ns.ForeverRankSentence and ns.ForeverRankSentence()) or ns:L("FRANK_HOME_FMT"):format(nRank), COLOR_WARN)
 				button(rows, ns:L("FRANK_HOME_BTN"), ns.ForeverRankFixAll)
 			end
 		end)

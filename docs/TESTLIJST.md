@@ -21,7 +21,15 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
-## 🆕 13 nov (nacht, 5) — "gezien" pas als JIJ het venster sluit
+## 🆕 14 nov (avond) — Forever: "Do this now" zegt WELKE knop een oude rank heeft (komt in de release ná 5.3.0)
+
+Op je shaman (of een character met een lagere rank op een knop), open "Do this now":
+- [ ] Eén knop: de regel noemt de spell, bv. "1 button on your bars casts Lightning Bolt rank 1; you know rank 2."
+      (dus "1 button", niet "1 buttons").
+- [ ] Twee of meer: eerst "N buttons …", dan "Which: … rank 1 (you know 2), …". Dezelfde regel staat op de startpagina
+      (Me / Home).
+
+## ✅ 13 nov (nacht, 5) — "gezien" pas als JIJ het venster sluit (uitgebracht in 5.3.0)
 
 - [x] Eén schone `/reload`: GEEN rode melding (BugSack) meer over NewChoices.lua ("attempt to index upvalue 'win'").
       ✅ GEMETEN 14 nov in `_forever_/…/SavedVariables/!BugGrabber.lua`: de enige NewChoices-fout is van 13 nov 23:04:56

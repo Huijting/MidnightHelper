@@ -5529,6 +5529,10 @@ ns._mhLocales.enUS = {
 	SET_FOREVER_RANKGLOW_DESC = "WoW Forever: a button on Blizzard's bars that still casts a lower rank of a spell you know gets a calm orange edge with a small arrow up. Strong when you just trained the new rank, soft when you put the lower rank there yourself. Same as /mh ranks glow on|off.",
 	FRANK_HOME_FMT = "%d buttons on your bars cast a lower rank than you know. Some players do that on purpose to save mana; then leave them.",
 	FRANK_HOME_BTN = "Put the newest rank on them",
+	FRANK_HOME_ONE_FMT = "1 button on your bars casts %s rank %d; you know rank %d. Some players do that on purpose to save mana; then leave it.",
+	FRANK_HOME_WHICH_FMT = "Which: %s.",
+	FRANK_HOME_ROW_FMT = "%s rank %d (you know %d)",
+	FRANK_HOME_MORE_FMT = "and %d more",
 	FBUFF_ON = "the missing-buff button is on.",
 	FBUFF_OFF = "the missing-buff button is off. /mh buffs on brings it back.",
 	-- 8 Nov 2026: what the colours on your MF Nameplates mean (NameplateColors.lua, both games). Meanings read from MF's
