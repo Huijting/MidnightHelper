@@ -146,8 +146,13 @@ lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met d
 - Vindbaar:      vanzelf, in "Do this now" op het juiste level; diagnose-commando nog te kiezen
 - Werk:          groot (AFGELEID)
 - Site:          ja, als het uit is
-- Rob zegt:      ja, richting 2 + route. Eerst meten + kort plan (14 nov). Bouwen raakt de release-test niet; niet in
-                 de volgende release.
+- Rob zegt:      ja, richting 2 + route. Onderzoek klaar (`docs/forever/DUNGEONS_2026-11-14.md`, f314c9f). Op het plan
+                 (via sparring, letterlijk, Willow-dictee): *"Voor A, beginnen we met stap 1. Meneer Bouwert na de
+                 release. … En dan hebben we C. Ja, dat mag. De ingangen van de handy notes erom meeleveren."*
+                 → Stap 1 = "Do this now"-regel "past nu bij je level" + knop Route + lijst van alle dungeons (level,
+                 kant, ingang). Bouwen pas NA de release ("Meneer Bouwert" = "B: bouwen", lezing sparring).
+                 Ingangen uit HandyNotes_DungeonRaidLocations-Forever (MIT, copyrightregel "Pirson" mee); Krol'dok,
+                 Alcaz, Blackmaw, Shaper's Terrace op "nog nameten". Stap 2-5 (quests, baastips, loot, raids): later.
 
 ### Keuzevenster "New in this version: your choice": dicht na kiezen + titel vrij van "Dock to window"
 - Voor wie:      allebei (iedereen die het venster na een update krijgt)

@@ -21,6 +21,8 @@ toe"* → Forever: dungeons en raids uitleggen op MH's manier (IDEEEN "Ja"). Ond
 9 dec; levels uit DB2 GroupFinderActivity (wowf 70938); ingangen uit HandyNotes_DungeonRaidLocations-Forever (MIT,
 "Copyright (c) 2025-2026 Pirson", ZELF GEMETEN in LICENSE + 2 coördinaten nagekeken); Journal-tabellen ontbreken in
 Forever. Plan met opties naar sparring gestuurd; NIETS gebouwd, niet in de volgende release.
+✅ Rob koos (via sparring, letterlijk): *"Voor A, beginnen we met stap 1. Meneer Bouwert na de release. … C. Ja, dat
+mag."* → NA de release: stap 1 bouwen (Do this now-regel + Route + dungeonlijst), HandyNotes-ingangen mee (MIT).
 
 Stand 14 nov nacht: laatste commit 33c45ef op main (GEMETEN, gepusht). 5.2.0 staat op CurseForge (13 nov). Alles
 hieronder sinds 5.2.0 staat alleen op main, NIET uitgebracht. Eén voordeur t/m 19 nov: vragen voor Rob via de
