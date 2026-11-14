@@ -1,9 +1,22 @@
 # Midnight Helper — waar we staan
 
-## ▶ Open voor 13 nov (bouwchat 12-11 sloot af met /nieuwe-chat, op Robs vraag via sparring)
+## ▶ Open voor 14 nov (bouwchat 13-11 sloot af met /nieuwe-chat, ±00:30)
 
-Stand 12 nov laat, laatste commit 7daaeb2 + a176d48 op main (GEMETEN, gepusht). GEEN release, geen go daarvoor.
-Eén voordeur t/m 19 nov: vragen voor Rob via de sparring-chat van de dag ("Sparring 13-11").
+Stand 14 nov nacht: laatste commit 33c45ef op main (GEMETEN, gepusht). 5.2.0 staat op CurseForge (13 nov). Alles
+hieronder sinds 5.2.0 staat alleen op main, NIET uitgebracht. Eén voordeur t/m 19 nov: vragen voor Rob via de
+sparring-chat van de dag.
+
+A. **Vóór de volgende release (Rob wilde releasen zodra dit klopt):**
+   1. Eén schone `/reload` zonder rode BugSack-melding over NewChoices.lua (fix d6c0d31; NIET gezien in het spel).
+   2. Keuzevenster: "seen" pas als de speler het zelf sluit (fcf82a7) + reparatie 2 → Rob krijgt de schermpjes nog één
+      keer. Test: TESTLIJST "13 nov (nacht, 5)". `/mh new check` toont reparaties en de laatste 3 openingen.
+   3. Daarna: release-tekst + changelog + versie alleen op Robs letterlijke go (alles sinds v5.2.0, zie de 13-nov-secties).
+B. **Gebouwd 13 nov, nog niet (helemaal) door Rob gezien** (TESTLIJST, bovenste secties): één overzicht met richting /
+   bar layout / schermpjes als kaartjes; twee titels; schuifbalk; klikwacht 1,5 s rust + 0,7 s dode knoppen; Yes-log;
+   terugzet-chatregel; Dock-label vrij in de Forever-vragen. Wél goed gezien: keuzevenster dicht na kiezen (Midnight),
+   titel links (5.png), vanzelf op nieuw character (Forever), Welcome-venster met richting + bar layout (nieuwe mage).
+C. **Kleine open puntjes:** bij "Do this now" valt de knop "off" op een tweede rij (19.png); andere "Votre"-plekken in
+   frFR niet nagelopen; dispel "rij blijft rood" is GESLOTEN (Rob: "Stoppen met meten").
 
 0. ✅ **13 nov: release 5.2.0 (zie de sectie hieronder). Proef Bindings_Camelot.xml geslaagd.**
 1. ~~**Proef `Bindings_Camelot.xml` (a176d48): uitslag OPEN.**~~ (13 nov: geslaagd, 4 regels) Rob: WoW helemaal herstarten, Forever → Esc → Options →
