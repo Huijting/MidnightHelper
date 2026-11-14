@@ -26,8 +26,11 @@ mag."* → NA de release: stap 1 bouwen (Do this now-regel + Route + dungeonlijs
 ✅ 14 nov avond: A1 en A2 GEMETEN in de Forever-SV (na Robs filmpje 19:58, nieuwe gnome mage: Welcome → Yes → alleen
 reload-vraag → toetsenblok; terugzet-chatregel gezien). A1: !BugGrabber.lua heeft alleen de NewChoices-fout van 13 nov
 23:04:56 (vóór d6c0d31), niets daarna. A2: opening 13 nov 23:04:56 (na Fix2), 7 schermpjes-kaartjes, zelf gesloten na
-228,8 s, daarna geen update-opening meer. Nog open vóór release: het venster in Midnight; niet getest "venster open
-laten + uitloggen → komt terug". Release alleen op Robs letterlijke go.
+228,8 s, daarna geen update-opening meer. Niet getest: "venster open laten + uitloggen → komt terug" (klein).
+✅ Midnight (Rob, nieuw character, screenshot: *"na de layout aanmaken (show me) en de reload kwam er niets meer"*):
+GEMETEN in retail-SV: Fix2 20:11:49, opening 20:11:54 mode "update", 6 kaartjes (partytargets#2, keyblock, quickbar,
+fastmark, missingbuff, minimap), closedAfter 56,9 s, alle 6 in newChoicesSeen. Alle release-tests klaar.
+Release alleen op Robs letterlijke go.
 
 Stand 14 nov nacht: laatste commit 33c45ef op main (GEMETEN, gepusht). 5.2.0 staat op CurseForge (13 nov). Alles
 hieronder sinds 5.2.0 staat alleen op main, NIET uitgebracht. Eén voordeur t/m 19 nov: vragen voor Rob via de
