@@ -4634,3 +4634,63 @@ kop, per bevinding MEASURED/INFERRED en [RAAKT ONS]/[RAAKT ONS NIET], met bestan
   https://news.blizzard.com/en-us/article/24315281/wow-forever-hotfixes-november-12-2026?nocache=20261113
   (toont nog "November 11, 2026"). Geen actiepunt dat ik oppak — ik rapporteer, een mens beslist.
   Vandaag is vrijdag, geen maandag: de kaarten- en consumables-secties zijn opzettelijk weggelaten.
+
+- [2026-11-14] 💬 **CurseForge: geen open reacties (3 draadjes, 8 totaal, identiek aan [2026-11-13]).**
+  `curseforge.com/api/v1/mods/1528577/comments?pageIndex=0&pageSize=20&nocache=20261114a/b` via Exa, twee
+  onafhankelijke fetches, allemaal volledig gelezen (JSON, `pagination.totalCount: 8`, identiek op elke
+  poging). Dezelfde drie draadjes als gisteren, allemaal beantwoord (nieuwste bericht in elke keten van
+  `twelveinchy`): esES/esMX-locale-fix `8509224` → reply `8510682` (timestamp `1791351710373`);
+  MrsBoojiePanda's debug-printregel `8414729` → reply `8483898` (timestamp `1790842459727`);
+  gadrinonturalyon's coffer-key-shards/3D-boss-model-verzoek `8090710` → reply-keten tot `8095337`/`8092133`
+  — alle ids en timestamps byte-identiek aan [2026-11-13]. MEASURED. **[RAAKT ONS NIET]** — geen actiepunt,
+  geen concept-antwoord nodig.
+
+  — bron: https://www.curseforge.com/api/v1/mods/1528577/comments?pageIndex=0&pageSize=20&nocache=20261114a
+  (en `&nocache=20261114b`), beide zelf gelezen via Exa.
+
+- [2026-11-14] 🆕 **Midnight blijft stil (negende dag, nieuwste nog steeds "November 6, 2026"); Forever
+  heeft een nieuwe hotfixdag ("November 13, 2026") maar niets daarvan spreekt onze Forever-bestanden tegen.**
+
+  **Midnight, geen nieuwe sectie.** MEASURED: `news.blizzard.com/en-us/article/24307310/hotfixes-november-6-2026`
+  met cache-buster (`?nocache=20261114`) toont nog steeds alleen de secties van 6 en 5 nov; de
+  contentoverzichtspagina (`worldofwarcraft.blizzard.com/en-us/content-update-notes`) bevestigt "Hotfixes:
+  November 6, 2026 — 7 days ago" als nieuwste Midnight-item. **Positieve controle, zelfde run:** dezelfde
+  zoekslag liet wél vers materiaal zien — de News-lijst noemt "WoW: Forever Hotfixes - November 13, 2026 —
+  2 hours ago" — dus het systeem haalt geen verstikte cache op; de stilstand op de Midnight-hotfixpagina
+  zelf is een echte meting. Geen nieuwe Delves-, Professions-, Quests- of Items-regel sinds [2026-11-06]/
+  [2026-11-07].
+
+  **Forever: nieuwe sectie "November 13, 2026", volledig gelezen en tegen de code gezet.** Classes (een
+  algemene DR-fix tegen creature-stuns; Druid Resto Wild Growth niet meer castbaar tijdens bewegen +
+  healing-coëfficiënt 3,3%→6,6%; Mage Frost Nova nu wél correct gebroken door proc-/Blizzard-schade;
+  Paladin Judgement of Command (de Seal of Command-variant) wordt een melee-attack en activeert on-hit
+  effecten, een uitzondering op de 11-nov-regel dat Judgement zelf een Ranged Attack is; Priest Legacy
+  Perk "Quick and the Dead" repareert nu de manakosten-korting op Divine Spirit; Shaman Windfury Totem
+  werkt nu bij élke melee-ability, ook zonder main-hand-wapen; Warlock Siphon Life Rank 1 niet meer
+  castbaar tijdens silence; Warrior Berserker Rage verwijdert nu Sap), Dungeons (0 XP bij trivial kills;
+  Deadmines/Drowned City/Stratholme-fixes), Enemies/NPCs (Gnomeregan, Badlands, Eastern Plaguelands,
+  Mulgore, Blasted Lands, Stranglethorn Vale, Zephras Isle — Nyalah Brightfire's vendor-voorraad), Items
+  (Gloves of Holy Might, Glimmering Mithril Insignia, Cloak of the Fleshborer, Taran Icebreaker, Darkspear
+  signet rings, Everstaring Abomination Eye, Bad Hat, Souvenir Sea Shell, Blessed Band of Light/Channeler's
+  Ring-ruil) en Quests (10 queststukjes) — geen van deze namen of regels komt voor in `Modules/Forever*.lua`,
+  `Locales/ForeverHowToPlay*.lua` of `docs/forever/*.md` als functionele claim, met drie uitzonderingen die
+  ik apart gecontroleerd heb:
+  - **Windfury Totem** — alleen als totembalk-item (`Modules/ForeverBlock_Shaman.lua:62`), geen uitspraak
+    over welke abilities het triggert. Zelfde vermelding als op [2026-11-12].
+  - **Frost Nova** — `Modules/ForeverHowToPlay.lua:114` zegt al "Damage can break it"; de hotfix repareert
+    een bug zodat dat ook klopt in de praktijk. **Bevestigt** onze tekst, spreekt hem niet tegen.
+  - **Nyalah Brightfire** (Zephras Isle) staat wél in `Modules/ForeverProfTrainerSpots.lua:305`, maar
+    alleen als Cooking-trainer (naam/locatie/max skill); de hotfix gaat over haar vendor-voorraad, een
+    ander gegeven dat wij niet claimen.
+  **[RAAKT ONS NIET]** voor alle bovenstaande.
+
+  — bron: https://news.blizzard.com/en-us/article/24307310/hotfixes-november-6-2026?nocache=20261114 ·
+  http://worldofwarcraft.blizzard.com/en-us/content-update-notes?nocache=20261114c ·
+  https://news.blizzard.com/en-us/article/24315281/wow-forever-hotfixes-november-13-2026?nocache=20261114c
+  (en `?nocache=20261114d`) · codebase: `Modules/ForeverBlock_Druid.lua`, `Modules/ForeverBlock_Mage.lua`,
+  `Modules/ForeverBlock_Paladin.lua`, `Modules/ForeverBlock_Shaman.lua`, `Modules/ForeverBlock_Warlock.lua`,
+  `Modules/ForeverBlock_Warrior.lua`, `Modules/ForeverHowToPlay.lua`, `Modules/ForeverMacros.lua`,
+  `Modules/ForeverSpellIds.lua`, `Modules/ForeverTrainerData.lua`, `Modules/ForeverProfTrainerSpots.lua`,
+  `Modules/ForeverVendorSpots.lua` (alle vandaag bekeken). Geen actiepunt dat ik oppak — ik rapporteer, een
+  mens beslist. Vandaag is zaterdag, geen maandag: de kaarten- en consumables-secties zijn opzettelijk
+  weggelaten.
