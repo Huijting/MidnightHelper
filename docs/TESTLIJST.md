@@ -69,18 +69,23 @@ Gewoon `/reload` op een bestaand character (jij bent nu een "bestaande speler" d
 ## 🆕 13 nov (nacht) — FOREVER: één overzicht bij de eerste login (Rob: "Als kaartjes erin")
 
 Maak een nieuw Forever-character en wacht na het inloggen (intro-filmpje mag eerst).
-- [ ] WERKT HET: er komt maar ÉÉN venster: het keuzevenster. Daarin onder andere de kaartjes "Which way do you want
+- [x] WERKT HET: er komt maar ÉÉN venster: het keuzevenster. Daarin onder andere de kaartjes "Which way do you want
       to go?" (drie knoppen, één per boom) en "Midnight Helper bar layout" (knop Yes). De richtingvraag en de
       bar-layout-vraag komen NIET meer los. WERKT HET NIET: een tweede venster, of een kaartje ontbreekt → typ
       `/mh new check`, `/mh direction check` en `/mh mylayout check` en stuur een screenshot van de chat.
+      ✅ Rob 14 nov (Forever, gloednieuwe mage, code d6c0d31; 20.png gezien door Sparring 13-11): *"deze drie kreeg ik
+      na een nieuwe char, nu ga ik werken"*. "Welcome: set up Midnight Helper" met precies die twee kaartjes.
 - [ ] Het kaartje "Which way do you want to go?": drie knoppen onder elkaar, even breed, met RECHTS ernaast de zin over
       die boom, zonder dat je iets hoeft te doen (Rob: "Laat de uitleg zichtbaar bij elke knop"). Klik er één: in de
       chat "direction for this character: …", en op de knop staat ">" voor je keuze.
+      ½ Rob 14 nov (20.png): Arcane / Fire / Frost, elk met zijn zin ernaast = gezien. De klik en de chatregel: niet gezien.
 - [ ] Het hele venster past op je scherm (niets valt onder of boven weg). Is het breder dan eerst, dan is dat expres:
       het wordt breder in plaats van hoger. `/mh new check` → regel "window size last shown" (breedte x hoogte, en of
       het past).
-- [ ] Klik Yes op het bar-layout-kaartje: het venster gaat dicht, je ziet alleen de reload-vraag, in de chat staat hoe
+- [x] Klik Yes op het bar-layout-kaartje: het venster gaat dicht, je ziet alleen de reload-vraag, in de chat staat hoe
       je terugzet. Reload now → het toetsenblok opent.
+      ✅ Rob 14 nov (22.png + 21.webp, zelfde woorden): alleen de reload-vraag, daarna "Your key block" met "Getting
+      started" erboven. De chatregel over terugzetten: niet op de screenshots, dus NIET gezien.
 - [ ] Een oud character dat al een richting koos en al een eigen layout heeft: GEEN venster bij het inloggen.
 
 ## 🆕 13 nov (laat, 3) — FOREVER: geen doorklik meer van de richtingvraag naar "Yes" (Rob: "ik klikte alleen in de keuze")
@@ -96,9 +101,12 @@ Nieuw Forever-character. Kies een richting met een snelle dubbelklik (expres).
 ## 🆕 13 nov (laat, 2) — FOREVER: na "Yes" op de bar layout geen keuzevenster eronder (Rob, 6.png)
 
 Nieuw Forever-character. Richtingvraag beantwoorden, dan bij de bar layout op **Yes**.
-- [ ] Je ziet alleen de vraag "Your MH bar layout is set. Reload now? …". Het keuzevenster komt er NIET onder.
+- [x] Je ziet alleen de vraag "Your MH bar layout is set. Reload now? …". Het keuzevenster komt er NIET onder.
+      ✅ Rob 14 nov (22.png, gezien door Sparring 13-11): *"deze drie kreeg ik na een nieuwe char, nu ga ik werken"*.
+      Alleen de reload-vraag, geen tweede venster eronder.
 - [ ] Klik **Reload now**: na het laden opent het toetsenblok vanzelf. Het kaartje "A fixed key for every spell" komt
       daarna niet meer als los venster (ook niet als je het toetsenblok sluit zonder iets te doen).
+      ½ Rob 14 nov (21.webp): het toetsenblok opende vanzelf = gezien. Of het kaartje daarna wegblijft: niet getest.
 - [ ] (Ander nieuw character) klik **Later**: deze sessie komt het keuzevenster niet meer. Bij je volgende login (of
       /reload) komt het wél, met het kaartje "A fixed key for every spell".
 

@@ -110,6 +110,15 @@ NIET GEMETEN.
   13 nov nacht, Rob: *"alleen voor nieuwe spelers en één keertje bij een volgende update. Zodat ook oude spelers weten
   wat voor fancies we allemaal hebben"* → kaartjes voor quick bar, Fast Mark, missende-buff-icoon, minimapknop, en het
   groepspaneel / Do this now nog één keer. **Gebouwd**, wacht op Robs test.
+  14 nov, Rob (via sparring): *"deze drie kreeg ik na een nieuwe char, nu ga ik werken"* → Welcome → Yes → reload →
+  toetsenblok werkt (Forever, nieuwe mage). Nog niet getest: Midnight, en sluiten-reload-blijft-weg.
+
+### Waarnemingen 14 nov (sparring, op Robs 21.webp) — geen ja, alleen genoteerd
+- **"Your key block" (Forever): "Dock to window" raakt rechtsboven de knop "New spells: ask me".** Zelfde soort als de
+  Dock-fix van 13 nov. Werk: klein (AFGELEID).
+- **Paneel "Getting started, step by step" is deels doorzichtig**: de zin van het buff-icoon ("Frost Armor is not on
+  you. Click the icon to cast it") schijnt door stap 5 heen. Werk: klein (AFGELEID; achtergrond dichter of het paneel
+  hoger in de laag). NIET gemeten in de code.
 
 ## Ja — wordt gebouwd
 

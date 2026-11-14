@@ -6,6 +6,11 @@
 zonewijziging, Zygor onveranderd, geen site-mail, BOUW_VRAAG 0 open, Notion-inbak: dezelfde 4 regels van 12 nov).
 Handoff gesplitst (1544 → ~1180, knip bij "Open na 9 nov"). SITE_SEIN kreeg een regel "alleen op main" voor het
 keuzevenster van 13 nov (de regie zocht "choice" en vond de 12-nov-regel niet; die stond er wel, de 13-nov-wijzigingen niet).
+✅ 14 nov ochtend, Rob (via Sparring 13-11, Forever, nieuwe mage, d6c0d31): *"deze drie kreeg ik na een nieuwe char, nu
+ga ik werken"* → Welcome (richting + bar layout als kaartjes), Yes → alleen de reload-vraag (geen venster eronder),
+reload → toetsenblok. Afgevinkt in TESTLIJST. Nog open vóór de release: A1 (schone /reload, BugSack) en A2 (bestaand
+character: schermpjes één keer, zelf sluiten, blijft weg) + Midnight. Twee nieuwe waarnemingen (Dock raakt knop in "Your
+key block"; "Getting started" doorzichtig) in IDEEEN, zonder ja.
 
 Stand 14 nov nacht: laatste commit 33c45ef op main (GEMETEN, gepusht). 5.2.0 staat op CurseForge (13 nov). Alles
 hieronder sinds 5.2.0 staat alleen op main, NIET uitgebracht. Eén voordeur t/m 19 nov: vragen voor Rob via de
