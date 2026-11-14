@@ -5523,10 +5523,10 @@ ns._mhLocales.enUS = {
 	FRANK_AUTO_ON = "after training, buttons with the rank you had before get the new rank by themselves.",
 	FRANK_AUTO_OFF = "MH asks first again before it changes your bars.",
 	-- 12 Nov 2026: the orange edge on buttons that still hold an old rank (ForeverRanks.lua).
-	FRANK_GLOW_ON = "old rank edge: on. A button that still casts a lower rank of a spell you know gets an orange edge with a small arrow up (strong when you just trained the new rank). /mh ranks fix puts the new rank on it.",
+	FRANK_GLOW_ON = "old rank edge: on. A button that still casts a lower rank of a spell you know gets an orange edge with a small arrow up. /mh ranks fix puts the new rank on it.",
 	FRANK_GLOW_OFF = "old rank edge: off. /mh ranks glow on turns it back on.",
 	SET_FOREVER_RANKGLOW_TITLE = "Edge on buttons with an old rank",
-	SET_FOREVER_RANKGLOW_DESC = "WoW Forever: a button on Blizzard's bars that still casts a lower rank of a spell you know gets a calm orange edge with a small arrow up. Strong when you just trained the new rank, soft when you put the lower rank there yourself. Same as /mh ranks glow on|off.",
+	SET_FOREVER_RANKGLOW_DESC = "WoW Forever: a button on Blizzard's bars that still casts a lower rank of a spell you know gets a clear orange edge with a small arrow up. Same as /mh ranks glow on|off.",
 	FRANK_HOME_FMT = "%d buttons on your bars cast a lower rank than you know. Some players do that on purpose to save mana; then leave them.",
 	FRANK_HOME_BTN = "Put the newest rank on them",
 	FRANK_HOME_ONE_FMT = "1 button on your bars casts %s rank %d; you know rank %d.%s Some players do that on purpose to save mana; then leave it.",

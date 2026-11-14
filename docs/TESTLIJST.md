@@ -29,7 +29,9 @@ Op je shaman (of een character met een lagere rank op een knop), open "Do this n
       know rank 2".
 - [ ] Daarachter de PLEK: "It is on Action Bar 4, button 3 (key …)." Klopt dat met waar de knop echt zit? Zit hij op
       een balk die je nu niet ziet: "(that bar is hidden now)". `/mh ranks` zegt per knop hetzelfde.
-- [ ] Zie je op die plek de oranje rand met het pijltje? (14 nov NIET gezien: Rob keek naar zijn andere Healing Wave.)
+- [ ] Zie je op die plek de oranje rand met het pijltje? (14 nov NIET gezien, ook niet op de goede knop, toets C.)
+      Sinds 14 nov avond is de rand dik en fel voor elke lagere rank. Test: zet een lage rank op een knop (spellbook,
+      rank 1 slepen), kijk of de rand komt. Zie je hem niet: `/mh ranks` → "drawn on <knop> (alpha …)" en stuur dat.
 - [ ] Twee of meer: eerst "N buttons …", dan "Which: … rank 1 (you know 2), …". Dezelfde regel staat op de startpagina
       (Me / Home).
 

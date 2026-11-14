@@ -498,6 +498,7 @@ end
 
 local edges = {} -- button -> overlay frame
 local glowWhy, glowCount = "not drawn yet", 0
+local edgeSeen = {} -- "ButtonName (alpha 0.xx)" per drawn edge, for /mh ranks
 
 local function Edge(button)
 	local e = edges[button]
@@ -542,6 +543,7 @@ end
 
 local function UpdateGlows()
 	glowCount = 0
+	edgeSeen = {}
 	local other = OtherGlowAddon()
 	local on = GlowSetting() and (not other or Settings().glowWithOther)
 	local bySlot = {}
@@ -562,9 +564,16 @@ local function UpdateGlows()
 				local r = type(slot) == "number" and bySlot[slot]
 				if r and b.IsVisible and b:IsVisible() then
 					local e = Edge(b)
-					Style(e, r.fresh)
+					-- 14 Nov 2026 (Rob via sparring, letterlijk: "Ja, je moet die rand duidelijker maken, dus ik volg
+					-- jouw advies"): every lower rank gets the strong edge. The soft one (1 px, alpha 0.55) was not
+					-- seen by Rob on his shaman (slot 27, key C) while /mh ranks said it was drawn.
+					Style(e, true)
 					e:Show()
 					glowCount = glowCount + 1
+					-- What the player can actually see of it: a bar that fades (alpha) keeps IsVisible() true.
+					local okA, a = pcall(b.GetEffectiveAlpha, b)
+					edgeSeen[#edgeSeen + 1] = ("%s (alpha %s)"):format(b:GetName() or "?",
+						okA and type(a) == "number" and ("%.2f"):format(a) or "?")
 				elseif edges[b] then
 					edges[b]:Hide()
 				end
@@ -577,6 +586,9 @@ local function UpdateGlows()
 		glowWhy = ("silent: %s is loaded and shows the same (/mh ranks glow on draws anyway)"):format(other)
 	else
 		glowWhy = ("on: %d button(s) with an edge out of %d lower rank(s) on your bars"):format(glowCount, #(Scan()))
+		if #edgeSeen > 0 then
+			glowWhy = glowWhy .. " - drawn on " .. table.concat(edgeSeen, ", ")
+		end
 	end
 end
 

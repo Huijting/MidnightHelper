@@ -29,8 +29,10 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 ---
 
 ## 14 nov 2026 — RELEASE 5.3.0 (Midnight + Forever)
-- Tag + commit:   v5.3.0 / de release-commit "Release 5.3.0" (hash volgt bij "staat op CurseForge")
-- Status:         getagd
+- Tag + commit:   v5.3.0 / c728fc6. GEMETEN in de CurseForge-API (14 nov): file 9617031 `MidnightHelper-v5.3.0.zip`
+                  (12.0.7–12.1.7) en 9617039 `MidnightHelper-v5.3.0-forever.zip` (1.60.1), beide releaseType 1, status 4.
+                  Release-run GitHub 43631449366: geslaagd.
+- Status:         staat op CurseForge
 - Mag op de site: Rob gaf de go voor de release, rechtstreeks in de bouwchat, letterlijk: "go en dan 5.3.0 , denk ook
                   aan de site en evt description". Live zetten op de site: volgens jullie eigen afspraak met Rob.
 - Speler ziet:    alles in `RELEASE_NOTES.md` (= `docs/CURSEFORGE_5.3.0.md`): één venster bij het inloggen (regel
@@ -40,8 +42,8 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 - Spel:           allebei (twee bestanden: Retail + `-forever`)
 
 ## 13 nov 2026 — Allebei: het keuzevenster wordt één overzicht bij het inloggen
-- Tag + commit:   v5.3.0 / gebouwd in 2ef8724 … d6c0d31 (o.a. 168181b, 1cf57d2, 4fef65f, fcf82a7)
-- Status:         getagd
+- Tag + commit:   v5.3.0 (c728fc6) / gebouwd in 2ef8724 … d6c0d31 (o.a. 168181b, 1cf57d2, 4fef65f, fcf82a7)
+- Status:         staat op CurseForge
 - Mag op de site: zie RELEASE 5.3.0 hierboven. Getest door Rob: nieuw Forever-character, bestaand Forever-character en
                   nieuw Midnight-character (14 nov).
 - Speler ziet:    Eén venster bij het inloggen in plaats van losse vragen. Nieuwe speler of nieuw character: titel

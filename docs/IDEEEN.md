@@ -147,7 +147,13 @@ lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met d
                  (zelfde vraag, "welke het is") ook de PLEK: "It is on Action Bar 4, button 3 (key X)." — Blizzards
                  eigen HUD_EDIT_MODE_ACTION_BAR_LABEL (GEMETEN in Forever GlobalStrings 70938), toets via
                  GetBindingKey, "(that bar is hidden now)" als de knop niet zichtbaar is; ook in `/mh ranks`.
-                 Niet in het spel gezien.
+                 Niet in het spel gezien. (Dit plek-deel kwam als idee van sparring ZONDER Robs ja; sparring vraagt
+                 hem of het blijft. Niet terugdraaien tot hij antwoordt.)
+                 Rob vond de knop (toets C) maar zag de rand NIET, terwijl `/mh ranks` "1 button(s) with an edge" zei.
+                 Rob via sparring, letterlijk: *"Ja, je moet die rand duidelijker maken, dus ik volg jouw advies."* →
+                 **Gebouwd 14 nov:** elke lagere rank de sterke rand (2 px, vol oranje; de zachte 1 px / 0,55 vervalt);
+                 `/mh ranks` zegt nu op welke knop de rand staat en met welke alpha (een vervagende balk blijft
+                 IsVisible). Instellings- en glow-teksten in 7 talen aangepast. Niet in het spel gezien.
 
 ### Forever: dungeons en raids, uitgelegd op MH's manier (richting 2 + de route erheen)
 - Voor wie:      allebei (nieuweling: "welke dungeon past bij mij en hoe kom ik er?"; veteraan: "welke quests neem ik mee?")

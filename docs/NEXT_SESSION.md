@@ -39,7 +39,9 @@ CF-API nakijken (2 bestanden) en SITE_SEIN op "staat op CurseForge". Daarna: dun
 (TESTLIJST 14 nov avond). Bij de volgende release: in-game changelog-regel + SITE_SEIN-regel toevoegen.
 Rob zag de zin goed (Healing Wave rank 1), maar vond de knop niet en zag de oranje rand NIET (zijn /mh ranks: slot 27,
 "edge … on: 1 button"). Daarom noemt de zin nu ook de plek ("Action Bar 4, button 3 (key X)", Blizzards eigen
-bar-naam). Waarom hij de rand niet zag: NIET gemeten (AFGELEID: hij keek naar zijn tweede Healing Wave, rank 2).
+bar-naam). Waarom hij de rand niet zag: NIET gemeten. Hij vond de knop daarna (toets C) en zag nog steeds geen rand.
+Rob: *"Ja, je moet die rand duidelijker maken"* → elke lagere rank nu de sterke rand; `/mh ranks` toont knop + alpha.
+5.3.0 staat op CurseForge (GEMETEN: files 9617031 + 9617039), SITE_SEIN bijgewerkt.
 
 Stand 14 nov nacht: laatste commit 33c45ef op main (GEMETEN, gepusht). 5.2.0 staat op CurseForge (13 nov). Alles
 hieronder sinds 5.2.0 staat alleen op main, NIET uitgebracht. Eén voordeur t/m 19 nov: vragen voor Rob via de
