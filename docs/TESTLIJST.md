@@ -21,6 +21,13 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 14 nov (avond, laat) — Forever: Horde/Alliance-tekentje in "Your characters"
+
+- [ ] `/mh alts`: vóór het character waarop je nu speelt staat het Horde- of Alliance-embleem.
+- [ ] Characters waar je sinds deze versie nog niet op inlogde: een grijs "?" en rechts onderin "? = Horde or Alliance
+      not known yet …". Log er één keer op in: daarna staat er het embleem.
+- [ ] Past de naam nog in de kolom (het embleem neemt wat ruimte)?
+
 ## 🆕 14 nov (avond, laat) — Forever: dungeons voor jouw level + pijl naar de ingang (stap 1)
 
 Op een Forever-character van level 13 of hoger:

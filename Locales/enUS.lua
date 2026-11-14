@@ -5491,6 +5491,7 @@ ns._mhLocales.enUS = {
 	FCHARS_TRAINER_NONE = "nothing",
 	FCHARS_TOTAL_FMT = "All your gold together: %s",
 	FCHARS_NOTE = "A character shows up here after you log in on it once. \"At the trainer\" is how it was when you last played that character.",
+	FCHARS_SIDE_UNKNOWN = "? = Horde or Alliance not known yet: log in on that character once.",
 	FCHARS_FORGET_TIP = "Forget this character. It comes back when you log in on it again.",
 	FCHARS_FORGOT_FMT = "forgot %s.",
 	BINDING_ALTS_FOREVER_ONLY = "the \"Your characters\" window is for WoW: Forever.",

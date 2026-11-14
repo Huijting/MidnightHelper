@@ -125,6 +125,23 @@ NIET GEMETEN.
 Hier komt wat Rob goedkeurt, ook wat hij rechtstreeks in de bouwchat vraagt (Rob, 10 nov: *"ja we willen het op 1
 lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met de commit erbij. Na zijn test naar **Af**.
 
+### Forever: Horde/Alliance-tekentje vóór elk character in "Your characters"
+- Voor wie:      allebei (wie characters aan beide kanten heeft)
+- Moment:        venster "Your characters" (`/mh alts`, tegel in de Me-kamer)
+- Spel:          Forever
+- Bron:          Rob 14 nov (via Sparring 14-11, screenshot): *"Maar ik kan niet zo 1, 2, 3 zien of het nu een horde is
+                 of een alliance. Dus daar moet een horde of alliance tekentje voor."* ("voor morgen, of als het heel snel
+                 kan voor nu")
+- Bouwt op:      `ForeverChars.lua` (snapshot per character)
+- Data:          GEMETEN: Blizzards UI-PVP-Horde/-Alliance.blp bestaan in Forever (ManifestInterfaceData 70938). De kant
+                 = UnitFactionGroup bij het inloggen. Oude rijen hebben hem niet (ras werd ook niet bewaard) → "?".
+- Vindbaar:      vanzelf; `/mh alts check` toont "side"
+- Werk:          klein
+- Site:          nee
+- Rob zegt:      ja (zijn wens). **Gebouwd 14 nov:** embleem vóór de naam; "?" + zin "? = Horde or Alliance not known
+                 yet: log in on that character once." rechts op de totaalregel. 7 talen (it Engels). luac + lint 0 HARD.
+                 NIET in het spel gezien.
+
 ### Forever: "Do this now" noemt WELKE knop een lagere rank cast
 - Voor wie:      allebei (iedereen met een oude rank op een knop)
 - Moment:        "Do this now" en de startpagina, regel over oude ranks

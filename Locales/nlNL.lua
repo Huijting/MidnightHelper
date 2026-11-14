@@ -4680,6 +4680,7 @@ ns._mhLocales.nlNL = {
 	FCHARS_TRAINER_NONE = "niets",
 	FCHARS_TOTAL_FMT = "Al je goud bij elkaar: %s",
 	FCHARS_NOTE = "Een character staat hier pas als je er één keer mee hebt ingelogd. \"Bij de trainer\" is hoe het was toen je dat character het laatst speelde.",
+	FCHARS_SIDE_UNKNOWN = "? = Horde of Alliance nog niet bekend: log één keer in op dat character.",
 	FCHARS_FORGET_TIP = "Vergeet dit character. Het komt terug als je er weer mee inlogt.",
 	FCHARS_FORGOT_FMT = "%s vergeten.",
 	BINDING_ALTS_FOREVER_ONLY = "het venster \"Je characters\" is voor WoW: Forever.",

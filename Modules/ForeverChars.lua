@@ -103,6 +103,12 @@ local function Snap(why)
 	if Readable(classToken) then
 		rec.class, rec.className = classToken, className
 	end
+	-- 14 Nov 2026 (Rob via sparring: "Dus daar moet een horde of alliance tekentje voor"): Horde or Alliance. Characters
+	-- saved before this have none until their next login (the game says nothing about characters you are not on).
+	local fac = UnitFactionGroup and UnitFactionGroup("player")
+	if Readable(fac) and (fac == "Horde" or fac == "Alliance") then
+		rec.faction = fac
+	end
 	local level = UnitLevel and UnitLevel("player")
 	if Readable(level) and level > 0 then
 		rec.level = level
@@ -193,6 +199,17 @@ local function ClassColor(token)
 		return ("|cff%02x%02x%02x"):format(b(c.r), b(c.g), b(c.b))
 	end
 	return "|cffffffff"
+end
+
+-- Blizzard's own PvP emblems (Interface\TargetingFrame\UI-PVP-Horde/-Alliance.blp, MEASURED in Forever's
+-- ManifestInterfaceData, build 1.60.1.70938). The emblem sits in the top-left 40 of the 64 px file.
+local FACTION_ICON = {
+	Horde = "|TInterface\\TargetingFrame\\UI-PVP-Horde:16:16:0:0:64:64:0:40:0:40|t",
+	Alliance = "|TInterface\\TargetingFrame\\UI-PVP-Alliance:16:16:0:0:64:64:0:40:0:40|t",
+}
+
+local function FactionMark(rec)
+	return FACTION_ICON[rec.faction or ""] or (GREY .. "?|r")
 end
 
 local function SeenText(t)
@@ -376,6 +393,10 @@ local function Build()
 
 	f.total = f:CreateFontString(nil, "OVERLAY", "GameFontNormal")
 	f.total:SetPoint("BOTTOMLEFT", 22, 34)
+	-- "? = not known yet" on the total's line, right side; only when a row has a "?".
+	f.sideNote = f:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	f.sideNote:SetPoint("BOTTOMRIGHT", -22, 36)
+	f.sideNote:SetJustifyH("RIGHT")
 	f.note = f:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
 	f.note:SetPoint("BOTTOMLEFT", 22, 18)
 	f.note:SetWidth(W - 44)
@@ -398,6 +419,7 @@ Refresh = function()
 	end
 	local list, me = Sorted(), MyGUID()
 	local total = 0
+	local unknownSide = false
 	-- The server name only when your characters are on more than one (Rob's realm name is 22 characters long and pushed
 	-- the level out of the column, 24-26.png). Then it goes on the second line, in front of the professions.
 	local realms, nRealms = {}, 0
@@ -414,7 +436,10 @@ Refresh = function()
 		r:SetWidth(W - 54)
 		local who = ClassColor(rec.class) .. (rec.name or "?") .. "|r"
 		local lvl = rec.level and ns:L("FCHARS_LEVEL_FMT"):format(rec.level, rec.className or rec.class or "") or ""
-		r.char:SetText(who .. "  " .. lvl)
+		r.char:SetText(FactionMark(rec) .. " " .. who .. "  " .. lvl)
+		if not FACTION_ICON[rec.faction or ""] then
+			unknownSide = true
+		end
 		r.gold:SetText(rec.money and Money(rec.money) or "-")
 		total = total + (rec.money or 0)
 		r.dir:SetText(rec.dir or "-")
@@ -441,6 +466,7 @@ Refresh = function()
 	f.content:SetHeight(math.max(10, #list * ROW_H))
 	f.total:SetText(ns:L("FCHARS_TOTAL_FMT"):format(Money(total)))
 	f.note:SetText(ns:L("FCHARS_NOTE"))
+	f.sideNote:SetText(unknownSide and (GREY .. ns:L("FCHARS_SIDE_UNKNOWN") .. "|r") or "")
 	local visible = math.min(math.max(#list, 1), MAX_VISIBLE)
 	f:SetHeight(64 + visible * ROW_H + 64)
 end
@@ -465,8 +491,8 @@ function ns.ForeverCharsSlash(arg)
 			lastWhy))
 		local rec = guid and store[guid]
 		if rec then
-			print(("  level %s %s, gold %s, %d profession(s), direction %s, trainer %s"):format(tostring(rec.level),
-				tostring(rec.class), tostring(rec.money), type(rec.profs) == "table" and #rec.profs or -1,
+			print(("  level %s %s, side %s, gold %s, %d profession(s), direction %s, trainer %s"):format(tostring(rec.level),
+				tostring(rec.class), tostring(rec.faction), tostring(rec.money), type(rec.profs) == "table" and #rec.profs or -1,
 				tostring(rec.dir), tostring(rec.trainerN)))
 		end
 		return
