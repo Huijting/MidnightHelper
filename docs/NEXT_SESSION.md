@@ -11,6 +11,9 @@ ga ik werken"* → Welcome (richting + bar layout als kaartjes), Yes → alleen 
 reload → toetsenblok. Afgevinkt in TESTLIJST. Nog open vóór de release: A1 (schone /reload, BugSack) en A2 (bestaand
 character: schermpjes één keer, zelf sluiten, blijft weg) + Midnight. Twee nieuwe waarnemingen (Dock raakt knop in "Your
 key block"; "Getting started" doorzichtig) in IDEEEN, zonder ja.
+🚚 14 nov (later in de ochtend): de app-chat "Bouwchat 14-11" verhuist naar de ingang "Master-PC MH" (Rob, letterlijk:
+*"Zet de chats van vandaag ook over naar de ingang"*). Er is sinds 3a75535 niets gebouwd. De code staat nog op d6c0d31
++ docs (GEMETEN, git status schoon). Niets uitgebracht, geen bump. De ochtendronde van vandaag is al gedaan; niet overdoen.
 
 Stand 14 nov nacht: laatste commit 33c45ef op main (GEMETEN, gepusht). 5.2.0 staat op CurseForge (13 nov). Alles
 hieronder sinds 5.2.0 staat alleen op main, NIET uitgebracht. Eén voordeur t/m 19 nov: vragen voor Rob via de
