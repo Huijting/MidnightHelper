@@ -125,6 +125,30 @@ NIET GEMETEN.
 Hier komt wat Rob goedkeurt, ook wat hij rechtstreeks in de bouwchat vraagt (Rob, 10 nov: *"ja we willen het op 1
 lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met de commit erbij. Na zijn test naar **Af**.
 
+### Forever: dungeons en raids, uitgelegd op MH's manier (richting 2 + de route erheen)
+- Voor wie:      allebei (nieuweling: "welke dungeon past bij mij en hoe kom ik er?"; veteraan: "welke quests neem ik mee?")
+- Moment:        als je level bij een dungeon past (bv. een regel in "Do this now": "je bent 18, deze dungeon past nu,
+                 neem eerst deze quests mee"); met de pijl naar de ingang
+- Spel:          Forever
+- Bron:          Rob 14 nov (via Sparring 14-11, letterlijk): *"Maar met de addon wil ik graag het forever deel ook uit
+                 breiden met dungeons en raids"*; op de vier punten van sparring (lijst met level en ingang, tip per baas,
+                 quests vooraf, goede loot voor jouw character): *"Alle 4 die punten, er is een addon genaamt dungeon
+                 journal en ik heb hem denk ik geinstalleerd"*; uit drie richtingen: *"We gaan voor 2 incl de route er
+                 naar toe"*. Richting 2 = niet nabouwen wat DungeonJournal doet; MH legt uit in zijn eigen stijl, met
+                 eigen gegevens uit Blizzards tabellen.
+- Bouwt op:      "Do this now", de route-pijl + reisplanner (`NativeArrow.lua`, `Modules/Travel/`), raid-locks in
+                 `ForeverWeek.lua`, de vorm van het Midnight-dungeonvenster (`DungeonBossWindow.lua`)
+- Data:          NIET GEMETEN. ForeverDungeonJournal (Exehn, 2.0.5) staat in de Forever-map; geen licentie gevonden
+                 (sparring) → niets van zijn data of code overnemen. Eerst zelf meten: welke dungeons/raids, levels,
+                 ingangen, quests (wago DB2 `--game forever`, Wowhead-tooltips, Zygor, HandyNotes).
+                 GEMETEN 14 nov: geen Forever-module over dungeons (grep `dungeon|instance` in `Modules/Forever*.lua`:
+                 alleen raid-locks in ForeverWeek en losse vermeldingen; het patroon vond wél 31 regels).
+- Vindbaar:      vanzelf, in "Do this now" op het juiste level; diagnose-commando nog te kiezen
+- Werk:          groot (AFGELEID)
+- Site:          ja, als het uit is
+- Rob zegt:      ja, richting 2 + route. Eerst meten + kort plan (14 nov). Bouwen raakt de release-test niet; niet in
+                 de volgende release.
+
 ### Keuzevenster "New in this version: your choice": dicht na kiezen + titel vrij van "Dock to window"
 - Voor wie:      allebei (iedereen die het venster na een update krijgt)
 - Moment:        na een update, het keuzevenster; klik op een keuze (On/Off, een stand)

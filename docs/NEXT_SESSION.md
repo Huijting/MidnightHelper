@@ -15,6 +15,13 @@ key block"; "Getting started" doorzichtig) in IDEEEN, zonder ja.
 *"Zet de chats van vandaag ook over naar de ingang"*). Er is sinds 3a75535 niets gebouwd. De code staat nog op d6c0d31
 + docs (GEMETEN, git status schoon). Niets uitgebracht, geen bump. De ochtendronde van vandaag is al gedaan; niet overdoen.
 
+🏰 14 nov (ingang-bouwchat): nieuwe wens via Sparring 14-11, Rob letterlijk: *"We gaan voor 2 incl de route er naar
+toe"* → Forever: dungeons en raids uitleggen op MH's manier (IDEEEN "Ja"). Onderzoek (mh-research) staat in
+`docs/forever/DUNGEONS_2026-11-14.md`: 30 dungeons/vleugels open sinds 4 nov, raids (Barrow Deeps, Hyjal, Onyxia) op
+9 dec; levels uit DB2 GroupFinderActivity (wowf 70938); ingangen uit HandyNotes_DungeonRaidLocations-Forever (MIT,
+"Copyright (c) 2025-2026 Pirson", ZELF GEMETEN in LICENSE + 2 coördinaten nagekeken); Journal-tabellen ontbreken in
+Forever. Plan met opties naar sparring gestuurd; NIETS gebouwd, niet in de volgende release.
+
 Stand 14 nov nacht: laatste commit 33c45ef op main (GEMETEN, gepusht). 5.2.0 staat op CurseForge (13 nov). Alles
 hieronder sinds 5.2.0 staat alleen op main, NIET uitgebracht. Eén voordeur t/m 19 nov: vragen voor Rob via de
 sparring-chat van de dag.
