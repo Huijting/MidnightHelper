@@ -10,10 +10,11 @@ leest dit eerst en werkt het aan het eind bij. Plan: `docs/PLAN_WERKWIJZE_2026-1
 
 ## 0. Laatste verslag
 
-- [2026-11-13] 🎬 **Regie** (cloud-ronde, ochtend) — Raakt Rob: niets nieuws.
-  Scheef (NIEUW): nachtcontrole 13 nov: `tools/blizzard_events_snapshot.json` loopt achter (ptr 70740→70892, forever 70888→70938); bouwchat: `event_snapshot --write`. Het nieuwe keuzevenster (`4d7a594`) staat niet in `SITE_SEIN.md` (grep "choice" 0; tegencontrole "ranks" 4). Nog open: Forever-tekst `ForeverHowToPlay.lua:273` (Confounding Flash), `/mh partytest` zonder SITE_SEIN-regel (grep 0).
-  Af herkend: `NEXT_SESSION.md` is gesplitst (1588 → 1341 regels, `wc -l`; grens 1500). Wachters: alle zes hebben een regel van 13 nov (ideeënbus: eerste run zo 15 nov); API-wachter 0 [MOET GEFIKST]. `.toc` 5.1.0 = tag `v5.1.0` (ls-remote). Site-repo: laatste push van de site-chat 12 nov 10:22 (~1 dag oud); `BOUW_VRAAG.md` 0 open. Wacht op Rob: 4 punten.
-  Niet gelezen: de pc (lokale commits, helpers, recepten), CurseForge, mail.
+- [2026-11-14] 🎬 **Regie** (cloud-ronde, ochtend) — Raakt Rob: niets nieuws.
+  Scheef (NIEUW): `docs/NEXT_SESSION.md` is 1531 regels, grens 1500 (`wc -l`; gisteren na de splitsing 1341); bouwchat splitst eerst (`split_handoff --resplit`). Site-briefje `drafts/SITE_HANDOFF.md` 199 regels op `main` van de site-repo, grens 200 (gisteren 111 gemeld).
+  Nog open: keuzevenster en `/mh partytest` zonder SITE_SEIN-regel (grep 0 en 0).
+  Af herkend: events-snapshot is weer actueel (nachtcontrole 14 nov); Confounding Flash staat niet meer in `ForeverHowToPlay.lua:273` (grep op de regel). Wachters: alle zes een regel van vandaag (ideeënbus: eerste run zo 15 nov); API-wachter 0 [MOET GEFIKST]. `.toc` 5.2.0 = tag `v5.2.0` (ls-remote). Site-repo: laatste push 13 nov 22:49 (~9 uur oud); `BOUW_VRAAG.md` "Open: (geen)". Wacht op Rob: 4 punten.
+  Niet gelezen: de pc (lokale commits, helpers, recepten), CurseForge (5.2.0-regel in SITE_SEIN is overgenomen), mail.
 
 De regisseur vervangt dit blok elke ronde door het nieuwe verslag. Eén verslag, niet een logboek: de vorige staat in git.
 
@@ -57,30 +58,32 @@ sinds 11 nov **`regisseur`** (`/regisseur` of "doe de regie-ronde"; doet hoofdst
 
 | bestand | schrijver | grens |
 |---|---|---|
-| `docs/NEXT_SESSION.md` | bouwchat | 1500 regels |
+| `docs/NEXT_SESSION.md` | bouwchat | 1500 (`CLAUDE.md`) |
+| `docs/NEXT_SESSION_ARCHIVE.md` | bouwchat (door `split_handoff`) | — |
+| `docs/OCHTENDRONDE.md`, `docs/CLAUDE_HISTORIE.md` | bouwchat (11 nov) | — |
 | `docs/SITE_SEIN.md` (prikbord) | bouwchat | — |
 | `docs/IDEEEN.md` | bouwchat; de ideeënbus alleen het blok onderaan | — |
 | `docs/TESTLIJST.md` | bouwchat | — |
 | de zes wachter-bestanden | elk zijn eigen wachter | — |
 | `docs/WATCHER_FOREVER.md` | bouwchat, alleen met Robs ja | — |
-| `CLAUDE.md` | bouwchat | geen (zie "loopt scheef") |
-| `docs/PLAN_WERKWIJZE_2026-11-10.md`, `docs/REGIE.md` | regisseur | 200 regels voor dit bestand |
-| site-repo: overdrachtsbriefje, `drafts/BOUW_VRAAG.md`, `CLAUDE.md` | site-chat | 200 regels (volgens site-`CLAUDE.md`) |
+| `CLAUDE.md` | bouwchat | 350 (lint [24], `tools/lint_addon.py:1663`) |
+| `docs/PLAN_WERKWIJZE_2026-11-10.md`, `docs/REGIE.md` | regisseur | 200 voor dit bestand (plan: —) |
+| site-repo: overdrachtsbriefje, `drafts/BOUW_VRAAG.md`, `CLAUDE.md` | site-chat | 200 (site-`CLAUDE.md`) |
 
 ## 3. Stand van het plan
 
-| # | wat | stand (GEMETEN 13 nov op `main`) |
+| # | wat | stand (GEMETEN 14 nov op `main`) |
 |---|---|---|
 | 1 | Toets (6 vragen) en ideeënlijst | ✅ af |
 | 2 | Prikbord en drie vaste woorden | ✅ af (`docs/SITE_SEIN.md`) |
 | 3 | Controles C1, C3, C5 | C1 en C3 ✅ in de lint. C5 ✅ gebouwd (`c9d3e66`, in `/mh selftest`). |
 | 4 | Controles C2 en C4 | ✅ gebouwd (`tools/data_check.py`). C4: 65 → 3 namen over (commit `f08366b`, Robs ja). |
-| 5 | Nachtcontrole en ideeënbus | ✅ draaien. Nachtcontrole 13 nov: C1 en C2 schoon (snapshot loopt achter, zie tabel 5). Ideeënbus: nog geen run (eerste zo 15 nov). |
+| 5 | Nachtcontrole en ideeënbus | ✅ draaien. Nachtcontrole 14 nov: C1 en C2 schoon, snapshot actueel. Ideeënbus: nog geen run (eerste zo 15 nov). |
 | 5b | **De regisseur** (deel 8) | ✅ gebouwd 11 nov (`f34b15f`): routine en recept. Proefrun `c24bbe4` vond de drie testpunten. |
 | 6 | Recepten | niet begonnen |
 | 7 | `/mh selftest` + vensterlijst | ✅ gebouwd (`c9d3e66`); Robs selftest in Midnight schoon (`41675dd`). Forever-kant niet gemeten. |
-| 8–9 | Nep-spel | niet begonnen |
-| 10 | Regels worden controles | niet begonnen |
+| 8–9 | Nep-spel | niet begonnen (`ls tools`: alleen `travel_harness/` van 18 okt, een reisplanner-test, niet het nep-spel) |
+| 10 | Regels worden controles | begonnen: `tools/bash_guard.py` (hook-script) en lint [24] t/m [28]. Wat nog mist: niet gemeten. |
 
 ## 4. Wacht op Rob
 
@@ -93,13 +96,12 @@ sinds 11 nov **`regisseur`** (`/regisseur` of "doe de regie-ronde"; doet hoofdst
 
 | wat | gemeten | wie moet iets doen |
 |---|---|---|
-| `tools/blizzard_events_snapshot.json` loopt achter op ptr (70740 → 70892) en forever (70888 → 70938) | 13 nov, nachtcontrole | bouwchat: `event_snapshot --write` |
-| Keuzevenster "New in this version" (`4d7a594`, alleen op main) staat niet in `docs/SITE_SEIN.md` | 13 nov, GEMETEN met grep ("choice" 0; tegencontrole "ranks" 4) | bouwchat: regel erbij |
-| Forever-tekst `ForeverHowToPlay.lua:273` zegt dat Confounding Flash niet werkt in Shadowform; hotfix 11 nov zegt dat het nu wél werkt (Chastise blijft onbevestigd) | 13 nov, GEMETEN: regel staat nog in de code; hotfix door content-wachter gelezen | bouwchat: zin aanpassen (Rob beslist) |
-| `/mh partytest` (Forever, `53341fa`) staat niet in `docs/SITE_SEIN.md` | 13 nov, GEMETEN met grep (0 treffers) | bouwchat: regel erbij of zeggen dat het een meetknop is zonder spelerswaarde |
-| `CLAUDE.md` is 322 regels (gisteren 311), lint [24] grens 350 | 13 nov, GEMETEN | niemand; blijf meten |
-| Overdrachtsbriefje site (`drafts/SITE_HANDOFF.md`) is 111 regels (gisteren 101); site-`CLAUDE.md` noemt grens 200 | 13 nov, GEMETEN op `main` van de site-repo | niemand |
-| **Blinde vlek:** de site-chat pusht alleen met Robs ja; de cloud ziet de site-repo zoals bij de laatste push (nu: 12 nov 10:22). `drafts/BOUW_VRAAG.md` (31 regels, 0 open vragen; laatste push site-chat 12 nov 10:22). Wat lokaal nog niet gepusht is, zie ik niet. | 13 nov, GEMETEN op `origin/main` van de site-repo | niemand; alleen het pc-recept ziet lokale commits |
+| Keuzevenster "New in this version" (`NewChoices.lua`, alleen op main) staat niet in `docs/SITE_SEIN.md` | 14 nov, GEMETEN met grep -i ("choice" 0; tegencontrole "ranks" 4) | bouwchat: regel erbij |
+| `/mh partytest` (Forever, `53341fa`) staat niet in `docs/SITE_SEIN.md` | 14 nov, GEMETEN met grep (0 treffers) | bouwchat: regel erbij of zeggen dat het een meetknop is zonder spelerswaarde |
+| **`docs/NEXT_SESSION.md` is 1531 regels, grens 1500** (`CLAUDE.md`); gisteren gesplitst naar 1341 | 14 nov, GEMETEN met `wc -l` | bouwchat: splitsen vóór er iets bij komt (`split_handoff --resplit`, eerst proefrun) |
+| `CLAUDE.md` is 322 regels (gisteren 322), lint [24] grens 350 | 14 nov, GEMETEN | niemand; blijf meten |
+| Overdrachtsbriefje site (`drafts/SITE_HANDOFF.md`) is 199 regels (13 nov gemeld: 111); site-`CLAUDE.md` noemt grens 200 | 14 nov, GEMETEN met `git show origin/main:` + `wc -l` | site-chat: oudste blokken naar `SITE_HISTORY.md` |
+| **Blinde vlek:** de site-chat pusht alleen met Robs ja; de cloud ziet de site-repo zoals bij de laatste push (nu: 13 nov 22:49). `drafts/BOUW_VRAAG.md` (31 regels, "Open: (geen)"). Wat lokaal nog niet gepusht is, zie ik niet. | 14 nov, GEMETEN op `origin/main` van de site-repo | niemand; alleen het pc-recept ziet lokale commits |
 | Geen vaste controle op de handgeschreven site-teksten | 10 nov, volgens de site-chat | voorstel ligt bij Rob |
 
 ## 6. De ronde — wat de regisseur elke keer doet
