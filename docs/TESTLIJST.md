@@ -24,8 +24,12 @@ er is niets weggegooid.
 ## 🆕 14 nov (avond) — Forever: "Do this now" zegt WELKE knop een oude rank heeft (komt in de release ná 5.3.0)
 
 Op je shaman (of een character met een lagere rank op een knop), open "Do this now":
-- [ ] Eén knop: de regel noemt de spell, bv. "1 button on your bars casts Lightning Bolt rank 1; you know rank 2."
-      (dus "1 button", niet "1 buttons").
+- [x] Eén knop: de regel noemt de spell, bv. "1 button on your bars casts Lightning Bolt rank 1; you know rank 2."
+      (dus "1 button", niet "1 buttons"). ✅ Rob 14 nov (shaman, screenshot via sparring): "Healing Wave rank 1; you
+      know rank 2".
+- [ ] Daarachter de PLEK: "It is on Action Bar 4, button 3 (key …)." Klopt dat met waar de knop echt zit? Zit hij op
+      een balk die je nu niet ziet: "(that bar is hidden now)". `/mh ranks` zegt per knop hetzelfde.
+- [ ] Zie je op die plek de oranje rand met het pijltje? (14 nov NIET gezien: Rob keek naar zijn andere Healing Wave.)
 - [ ] Twee of meer: eerst "N buttons …", dan "Which: … rank 1 (you know 2), …". Dezelfde regel staat op de startpagina
       (Me / Home).
 

@@ -141,7 +141,13 @@ lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met d
                  1 knop = "1 button on your bars casts Lightning Bolt rank 1; you know rank 2. …"; meer = de oude
                  telzin + "Which: X rank 1 (you know 2), …" (max 4, dan "and N more"; dezelfde spell één keer).
                  Zelf vertaald: nl/de/fr/es/pt/ru (it valt terug op Engels, zoals de oude zin). luac + lint 0 HARD.
-                 NIET in het spel gezien.
+                 ✅ Rob zag de zin (sparring, screenshot, shaman): *"1 button on your bars casts Healing Wave rank 1;
+                 you know rank 2…"*. Maar hij vond de knop niet: *"terwijl er op mijn bar rank 2 staat … Vandaar ik ook
+                 die oranje rand natuurlijk niet zag"* (zijn `/mh ranks`: slot 27, rand "on: 1 button"). Daarom
+                 (zelfde vraag, "welke het is") ook de PLEK: "It is on Action Bar 4, button 3 (key X)." — Blizzards
+                 eigen HUD_EDIT_MODE_ACTION_BAR_LABEL (GEMETEN in Forever GlobalStrings 70938), toets via
+                 GetBindingKey, "(that bar is hidden now)" als de knop niet zichtbaar is; ook in `/mh ranks`.
+                 Niet in het spel gezien.
 
 ### Forever: dungeons en raids, uitgelegd op MH's manier (richting 2 + de route erheen)
 - Voor wie:      allebei (nieuweling: "welke dungeon past bij mij en hoe kom ik er?"; veteraan: "welke quests neem ik mee?")

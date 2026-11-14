@@ -287,6 +287,54 @@ end
 --- WHICH spell casts the lower rank ("Lightning Bolt: rank 1, you know rank 2") instead of only a count, and says
 --- "1 button" instead of "1 buttons". Same Scan() as the orange edge and /mh ranks. nil when there is nothing.
 local WHICH_MAX = 4
+
+-- 14 Nov 2026: Rob could not find the one button (*"Maar ik weet toch niet zo gauw welke"*, and he did not see the
+-- edge): the sentence also says WHERE, as Edit Mode names it. Bar n = n-th entry of BAR_PREFIXES_W (same order as
+-- Edit Mode's Action Bar 1..8; BarInventory.lua FRAME_SETS has the same order with the binding commands).
+-- "Action Bar %d" is Blizzard's own HUD_EDIT_MODE_ACTION_BAR_LABEL (GEMETEN in Forever GlobalStrings, build 70938).
+local BAR_PREFIXES_W = { "ActionButton", "MultiBarBottomLeftButton", "MultiBarBottomRightButton", "MultiBarRightButton",
+	"MultiBarLeftButton", "MultiBar5Button", "MultiBar6Button", "MultiBar7Button" }
+local BAR_COMMANDS_W = { "ACTIONBUTTON", "MULTIACTIONBAR1BUTTON", "MULTIACTIONBAR2BUTTON", "MULTIACTIONBAR3BUTTON",
+	"MULTIACTIONBAR4BUTTON", "MULTIACTIONBAR5BUTTON", "MULTIACTIONBAR6BUTTON", "MULTIACTIONBAR7BUTTON" }
+
+--- Where a slot sits on Blizzard's bars: "Action Bar 4, button 3 (key X)". A visible button wins over a hidden one.
+--- nil when no Blizzard button holds that slot (another bar addon, or a page that is not shown).
+local function Where(slot)
+	local hit
+	for n, prefix in ipairs(BAR_PREFIXES_W) do
+		for i = 1, 12 do
+			local b = _G[prefix .. i]
+			if b then
+				local s = b.action
+				if type(s) ~= "number" and ActionButton_GetPagedID then
+					local ok, v = pcall(ActionButton_GetPagedID, b)
+					s = ok and v or nil
+				end
+				if s == slot then
+					local vis = b.IsVisible and b:IsVisible() or false
+					if not hit or (vis and not hit.vis) then
+						hit = { bar = n, btn = i, vis = vis }
+					end
+				end
+			end
+		end
+	end
+	if not hit then
+		return nil
+	end
+	local label = (type(HUD_EDIT_MODE_ACTION_BAR_LABEL) == "string" and HUD_EDIT_MODE_ACTION_BAR_LABEL) or "Action Bar %d"
+	local s = ns:L("FRANK_WHERE_FMT"):format(label:format(hit.bar), hit.btn)
+	local key = GetBindingKey and GetBindingKey(BAR_COMMANDS_W[hit.bar] .. hit.btn)
+	if key then
+		local txt = (GetBindingText and GetBindingText(key, "KEY_")) or key
+		s = s .. " " .. ns:L("FRANK_WHERE_KEY_FMT"):format(txt)
+	end
+	if not hit.vis then
+		s = s .. " " .. ns:L("FRANK_WHERE_HIDDEN")
+	end
+	return s
+end
+
 function ns.ForeverRankSentence()
 	local list = Scan()
 	if #list == 0 then
@@ -294,24 +342,30 @@ function ns.ForeverRankSentence()
 	end
 	if #list == 1 then
 		local r = list[1]
-		return ns:L("FRANK_HOME_ONE_FMT"):format(r.name, r.fromIdx, r.toIdx)
+		local w = Where(r.slot)
+		-- The 4th %s is the place sentence (with a leading space) or "", so it sits right after the first sentence.
+		return ns:L("FRANK_HOME_ONE_FMT"):format(r.name, r.fromIdx, r.toIdx,
+			w and (" " .. ns:L("FRANK_WHERE_SENT_FMT"):format(w)) or "")
 	end
-	-- One row per spell + rank; the same spell on two buttons is named once.
+	-- One row per spell + rank + place (a button with no Blizzard place is named once per spell + rank).
 	local rows, seen = {}, {}
 	for _, r in ipairs(list) do
-		local k = r.name .. "#" .. r.fromIdx
+		local w = Where(r.slot)
+		local k = r.name .. "#" .. r.fromIdx .. "#" .. (w or "")
 		if not seen[k] then
 			seen[k] = true
-			rows[#rows + 1] = ns:L("FRANK_HOME_ROW_FMT"):format(r.name, r.fromIdx, r.toIdx)
+			local row = ns:L("FRANK_HOME_ROW_FMT"):format(r.name, r.fromIdx, r.toIdx)
+			rows[#rows + 1] = w and (row .. ": " .. w) or row
 		end
 	end
 	local shown = {}
 	for i = 1, math.min(#rows, WHICH_MAX) do
 		shown[i] = rows[i]
 	end
-	local which = table.concat(shown, ", ")
+	-- "; " between rows: a row with a place already holds a comma ("Action Bar 4, button 3").
+	local which = table.concat(shown, "; ")
 	if #rows > WHICH_MAX then
-		which = which .. ", " .. ns:L("FRANK_HOME_MORE_FMT"):format(#rows - WHICH_MAX)
+		which = which .. "; " .. ns:L("FRANK_HOME_MORE_FMT"):format(#rows - WHICH_MAX)
 	end
 	return ns:L("FRANK_HOME_FMT"):format(#list) .. " " .. ns:L("FRANK_HOME_WHICH_FMT"):format(which)
 end
@@ -601,7 +655,7 @@ function ns.ForeverRanksSlash(arg)
 			hi = ok and (" | game says highest: " .. tostring(v)) or ""
 		end
 		print(("   slot %d: %s rank %d (%d) -> rank %d (%d)%s%s"):format(r.slot, r.name, r.fromIdx, r.from, r.toIdx, r.to,
-			r.fresh and " | just trained" or "", hi))
+			r.fresh and " | just trained" or "", hi) .. " | " .. (Where(r.slot) or "no Blizzard button holds this slot"))
 	end
 	pcall(UpdateGlows)
 	print("   edge on the button: " .. glowWhy)
