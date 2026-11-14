@@ -28,6 +28,20 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 13 nov 2026 — Allebei: het keuzevenster wordt één overzicht bij het inloggen
+- Tag + commit:   geen tag / 2ef8724 … 55f5ced (o.a. 168181b, 1cf57d2, 4fef65f, fcf82a7, d6c0d31)
+- Status:         alleen op main
+- Mag op de site: nee (nog niet uit; Rob test eerst)
+- Speler ziet:    Eén venster bij het inloggen in plaats van losse vragen. Nieuwe speler of nieuw character: titel
+                  "Welcome", met kaartjes voor wat bij dit character hoort (in Forever: welke richting, de bar layout of
+                  het toetsenblok). Na een update: "New in this version" met Aan/Uit-kaartjes voor de schermpjes (quick
+                  bar, Fast Mark-balk, buff-icoon, minimapknop; in Forever ook het groepspaneel en "Do this now"). Je ziet
+                  elk kaartje één keer; het telt pas als gezien als je het venster zelf sluit. Te hoog: schuifbalk.
+                  Niet (helemaal) in het spel gezien.
+- Knoplabels:     NEWC_WELCOME_TITLE, NEWC_TITLE, NEWC_BAR_HEAD, NEWC_ON, NEWC_OFF
+- Commando's:     /mh new
+- Spel:           allebei (richting en bar layout alleen in Forever)
+
 ## 13 nov 2026 — RELEASE 5.2.0 (Midnight + Forever)
 - Tag + commit:   v5.2.0 / 65ca28a. GEMETEN in de CurseForge-API (13 nov): file 9587203 `MidnightHelper-v5.2.0.zip`
                   (12.0.7–12.1.7) en 9587210 `MidnightHelper-v5.2.0-forever.zip` (1.60.1), beide releaseType 1, status 4.
