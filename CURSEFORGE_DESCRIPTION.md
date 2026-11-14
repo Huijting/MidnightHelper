@@ -110,7 +110,8 @@ each one, and what changes for you if you don't have it.
 ### Getting started
 
 Install it, log in and type `/mh`. Nothing in your game changes unless you press a button, and anything it sets up
-can be undone. After an update, one small window lets you choose the new things you want, instead of a long list.
+can be undone. A new character gets one small *Welcome* window with what to set up, and after an update the same
+window lets you choose the new things you want, instead of a long list.
 One **Move** switch shows every Midnight Helper part on your screen, so you can drag each one where you want it.
 More commands: `/mh play`, `/mh mykeys`, `/mh mountrun`, `/mh ready`, `/mh academy`, and about 70 more
 under **Tools**.

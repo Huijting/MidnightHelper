@@ -2,6 +2,24 @@
 
 All notable changes to this project are documented in this file.
 
+## 5.3.0
+
+📌 **2026-11-14, RELEASE (Rob, rechtstreeks in de bouwchat: "go en dan 5.3.0 , denk ook aan de site en evt
+description"; geen beta).** Tag `v5.3.0`; twee bestanden (Retail + `-forever`). In-game: CHANGELOG_530_1 t/m _4.
+`RELEASE_NOTES.md` = `docs/CURSEFORGE_5.3.0.md`. Getest door Rob: nieuw Forever-character (Welcome → Yes → reload →
+toetsenblok, filmpje 14 nov), bestaand Forever-character (schermpjes één keer, zelf gesloten; GEMETEN in SV), nieuw
+Midnight-character (6 kaartjes, Show me, daarna weg; GEMETEN in SV), geen BugSack-fout na d6c0d31 (GEMETEN).
+
+- **Beide spellen:** keuzevenster = enig venster bij de login (`NewChoices.lua`): Welcome-titel voor nieuwe
+  characters, "New in this version" na een update; richting en bar layout als kaartjes in Forever
+  (`ForeverDirection.lua`, `ForeverLayoutCarry.lua`); schermpjes-kaartjes (quick bar, Fast Mark, buff-icoon, minimap,
+  Party targets / groepspaneel / Do this now) één keer; "gezien" pas als de speler het venster zelf sluit; dicht na
+  kiezen; schuifbalk; klikwacht (`DialogPopup.lua`); terugzet-chatregel na Yes.
+- **Fixes:** deDE Eisenschmiede in FWEAP_ROUTE_*, frFR "Ton bloc de touches", titels vrij van "Dock to window",
+  Lua-fout bij de eerste opbouw van het venster (alleen op main geweest).
+- **Alleen voor ons (niet in de spelerstekst):** `/mh new check` (reparaties, laatste 3 openingen), `newChoicesShowLog`,
+  `foreverBarYesLog`, `/mh direction check`, `/mh mylayout check`.
+
 ## 5.2.0
 
 📌 **2026-11-13, RELEASE (Rob via sparring: "je krijgt nu een go voor een release voor alles"; geen beta).** Tag

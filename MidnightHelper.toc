@@ -2,7 +2,7 @@
 ## Interface-Camelot: 16001
 ## AllowLoadGameType: standard
 ## Title: Midnight Helper
-## Version: 5.2.0
+## Version: 5.3.0
 ## Author: TwelveInchy
 ## Category: User Interface
 ## Notes: All-in-one Midnight helper: weekly planning, Delves, Great Vault, achievement hunts, a class keybind coach, combat helpers and route guidance.

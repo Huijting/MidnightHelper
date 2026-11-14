@@ -4,6 +4,16 @@ local changelogFrame
 
 local CHANGELOG_ENTRIES = {
 	{
+		version = "5.3.0",
+		lines = {
+			-- 14 Nov 2026 (Rob: "go en dan 5.3.0"): one window at login.
+			"CHANGELOG_530_1",
+			"CHANGELOG_530_2",
+			"CHANGELOG_530_3",
+			"CHANGELOG_530_4",
+		},
+	},
+	{
 		version = "5.2.0",
 		lines = {
 			-- 13 Nov 2026 (Rob, via sparring: "je krijgt nu een go voor een release voor alles"): Forever first.

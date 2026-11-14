@@ -30,7 +30,10 @@ reload-vraag → toetsenblok; terugzet-chatregel gezien). A1: !BugGrabber.lua he
 ✅ Midnight (Rob, nieuw character, screenshot: *"na de layout aanmaken (show me) en de reload kwam er niets meer"*):
 GEMETEN in retail-SV: Fix2 20:11:49, opening 20:11:54 mode "update", 6 kaartjes (partytargets#2, keyblock, quickbar,
 fastmark, missingbuff, minimap), closedAfter 56,9 s, alle 6 in newChoicesSeen. Alle release-tests klaar.
-Release alleen op Robs letterlijke go.
+🚀 14 nov avond: RELEASE 5.3.0 (Rob rechtstreeks: *"go en dan 5.3.0 , denk ook aan de site en evt description"*; geen
+beta). Beide toc's 5.3.0, CHANGELOG_530_1..4 (enUS), `RELEASE_NOTES.md` = `docs/CURSEFORGE_5.3.0.md`, CHANGELOG.md,
+CURSEFORGE_DESCRIPTION ("Getting started"-zin: Welcome-venster; Rob plakt zelf), SITE_SEIN op "getagd". Na de upload:
+CF-API nakijken (2 bestanden) en SITE_SEIN op "staat op CurseForge". Daarna: dungeons stap 1 (IDEEEN).
 
 Stand 14 nov nacht: laatste commit 33c45ef op main (GEMETEN, gepusht). 5.2.0 staat op CurseForge (13 nov). Alles
 hieronder sinds 5.2.0 staat alleen op main, NIET uitgebracht. Eén voordeur t/m 19 nov: vragen voor Rob via de

@@ -170,6 +170,7 @@ lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met d
                  inderdaad weg"*; titel: 5.png). Open: Forever met meer kaartjes (TESTLIJST 13 nov).
                  13 nov avond, fout van Rob: kwam niet vanzelf op een nieuw character → late check na 6 en 20 s
                  gebouwd; wacht op Robs test.
+                 14 nov: getest door Rob (Forever nieuw + bestaand, Midnight nieuw) en uitgebracht in **5.3.0**.
 
 ### Midnight-groepspaneel: stop-spell op het doelwit als je geen purge hebt
 - Voor wie:      allebei (vooral wie geen purge heeft: Paladin, Warrior, Rogue, DK, DH, Druid, Monk, Evoker)

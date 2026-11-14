@@ -28,10 +28,22 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 14 nov 2026 — RELEASE 5.3.0 (Midnight + Forever)
+- Tag + commit:   v5.3.0 / de release-commit "Release 5.3.0" (hash volgt bij "staat op CurseForge")
+- Status:         getagd
+- Mag op de site: Rob gaf de go voor de release, rechtstreeks in de bouwchat, letterlijk: "go en dan 5.3.0 , denk ook
+                  aan de site en evt description". Live zetten op de site: volgens jullie eigen afspraak met Rob.
+- Speler ziet:    alles in `RELEASE_NOTES.md` (= `docs/CURSEFORGE_5.3.0.md`): één venster bij het inloggen (regel
+                  hieronder), plus kleine fixes (deDE Eisenschmiede, frFR "Ton", titels vrij van "Dock to window").
+                  Nieuwe zin in `CURSEFORGE_DESCRIPTION.md` ("Getting started": Welcome-venster); Rob plakt hem zelf.
+                  Geen beta.
+- Spel:           allebei (twee bestanden: Retail + `-forever`)
+
 ## 13 nov 2026 — Allebei: het keuzevenster wordt één overzicht bij het inloggen
-- Tag + commit:   geen tag / 2ef8724 … 55f5ced (o.a. 168181b, 1cf57d2, 4fef65f, fcf82a7, d6c0d31)
-- Status:         alleen op main
-- Mag op de site: nee (nog niet uit; Rob test eerst)
+- Tag + commit:   v5.3.0 / gebouwd in 2ef8724 … d6c0d31 (o.a. 168181b, 1cf57d2, 4fef65f, fcf82a7)
+- Status:         getagd
+- Mag op de site: zie RELEASE 5.3.0 hierboven. Getest door Rob: nieuw Forever-character, bestaand Forever-character en
+                  nieuw Midnight-character (14 nov).
 - Speler ziet:    Eén venster bij het inloggen in plaats van losse vragen. Nieuwe speler of nieuw character: titel
                   "Welcome", met kaartjes voor wat bij dit character hoort (in Forever: welke richting, de bar layout of
                   het toetsenblok). Na een update: "New in this version" met Aan/Uit-kaartjes voor de schermpjes (quick
