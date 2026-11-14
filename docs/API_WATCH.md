@@ -10282,3 +10282,106 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
     (mét de bekende, onschadelijke UTF-8 BOM — GEMETEN `357 273 277` = `ef bb bf`) en
     `MidnightHelper_Camelot.toc` op `## Interface: 16001`; **120107 is dus de TOC van de build waarvan ik
     vandaag de diff heb gelezen.**
+- [2026-11-14] 🆕 **Nul [MOET GEFIKST] — maar wel de eerste hotfix-regel sinds weken die rechtstreeks in
+  onze eigen bestanden landt: de Forever-hotfix van 13 nov heeft een `User Interface`-sectie, en die gaat
+  over precies het ding dat `ForeverLayoutCarry.lua` en `EditModeBackup.lua` schrijven.** Verder stilte:
+  geen nieuwe API-changes-pagina's, geen nieuwe UI-source-build op één van de vier takken, geen
+  SimC-release, geen blue post op het UI-and-Macro-forum.
+  - 🆕 **Forever: [AL AFGEDEKT] — *"Fixed a bug that caused Action Bar settings to reset every time players
+    who acquired Secondary Talents logged out of the game."*** Letterlijk, uit de `User Interface`-sectie van
+    **13 november 2026** (GEMETEN, eerstehands: de `cooked` HTML van post 1 van Kaivax' rollende hotfix-draad
+    `us.forums.blizzard.com/en/wow/t/2403040`, opgehaald mét `?nocache=20261114`; de sectie staat ná
+    *Stranglethorn Fishing Extravaganza* en bestaat uit dit ene punt). ⚠️ Dit is een hotfix-regel, niet een
+    API-wijziging: er verandert geen functienaam en geen signature. Maar hij raakt ons wél, want **MH schrijft
+    de bar-toggles zelf**, op Forever:
+    - `Modules/ForeverLayoutCarry.lua:189-190` — `if mine.bars and type(SetActionBarToggles) == "function" then`
+      en dan `pcall(SetActionBarToggles, …)`. **Afgedekt**: typecheck én pcall.
+    - `Modules/EditModeBackup.lua:938` (`if type(GetActionBarToggles) ~= "function" or type(SetActionBarToggles)
+      ~= "function" then` → eruit), `:956`, `:970-973` — alle drie de aanroepen in een `pcall`. **Afgedekt.**
+      `EditModeBackup.lua` staat in beide TOC's (`MidnightHelper_Camelot.toc:109`, `MidnightHelper.toc:224`), dus
+      dit pad draait ook op Forever.
+    - 📌 **Er is dus niets te fiksen, en dat is een conclusie en geen aanname: de bug zat aan Blizzards kant
+      (hun eigen persistentie van de bar-instellingen bij logout) en is door hén gerepareerd.** Wat ik WEL wil
+      vastleggen voor Rob, en wat **AFGELEID** is en niet gemeten, want het is alleen in de client te zien:
+      zolang die bug leefde, zette elke logout van een Forever-character mét Secondary Talents de bars terug,
+      en MH vraagt per character maar **één keer** — `foreverMyLayoutAsked[CharKey()]` op
+      `ForeverLayoutCarry.lua:287-288` en `foreverBarLayoutAsked` op `:405-406`. Een speler die vóór 13 nov
+      "Not now" koos (of ja zei en het daarna terugzag springen) wordt dus niet opnieuw gevraagd. Dat is geen
+      [MOET GEFIKST], want de ontsnapping bestaat al en staat in de eigen tekst van de module:
+      `ForeverLayoutCarry.lua:290` print *"my layout: not asked again here. /mh mylayout asks again."* Robs
+      test, als hij een Forever-character met Secondary Talents heeft: `/mh mylayout check`, dan uitloggen,
+      inloggen, en kijken of de bars nog staan. Niets aangeraakt.
+  - ✅ **[RAAKT ONS NIET] — `Secondary Talents` zelf staat nergens in de addon.** GEMETEN: `grep -rni "secondary
+    talent\|secondarytalent\|dual spec\|dualspec"` over alle `.lua` buiten `docs/`, `tools/` en `dist/` geeft
+    **0** treffers. 🔴 Positieve controle in dezelfde run en op dezelfde reikwijdte: `grep -rni "talent"` over
+    exact diezelfde scope geeft **2236** treffers (o.a. `Modules/KeybindAutoMap.lua:81`), en `grep -rni "action
+    bar\|actionbar"` geeft **186**. Het patroon werkt dus; de nul is een echte nul.
+  - 🧰 **SimC-addon: geen nieuwe release sinds `12.1.5-04`.** GEMETEN op twee manieren, net als gisteren:
+    `git ls-remote --tags --refs` op `simulationcraft/simc-addon` geeft **258** tags — hetzelfde aantal als
+    gisteren, voorgisteren en eergisteren — en de releases-pagina (mét `?nocache=20261114`) noemt bovenaan nog
+    `12.1.5-04`, **05 nov 22:38**, enige regel *"Handle Forever surname"*, commit `83fdb00`. Dat is **9 dagen**
+    oud en valt dus ook buiten de 7-dagenregel. Niets te toetsen aan `ItemString` of `ns.BuildSimcProfile` in
+    `Modules/SimcExport.lua`.
+  - 🔬 **Forever: géén nieuwe UI-source-build, en dat is eerstehands gemeten in plaats van nagelezen.**
+    `git ls-remote --heads https://github.com/Gethe/wow-ui-source` plus een `--filter=blob:none --depth 1`
+    fetch van de vier takken die ons aangaan geeft, met commitdatum: `ptr` = `a750208e` *"12.1.7 (70892)"*
+    (12 nov 22:24 UTC), `forever` = `bebcb6bf` *"1.60.1 (70938)"* (13 nov 01:46 UTC), `live` = `297d7aaa`
+    *"12.1.5 (70783)"* (4 nov 00:46 UTC), `ptr2` = `12380f8c` *"12.1.5 (70340)"* (12 okt). **Alle vier staan op
+    exact de SHA die mijn eigen regel van gisteren noemt** — de diff 70740 → 70892 is dus al gelezen en er is
+    sindsdien niets bijgekomen. `refs/tags/1.60.1` wijst nog steeds naar dezelfde commit als `refs/heads/forever`
+    (`bebcb6bf`). Er is nog altijd géén nieuwe LIVE-build en dus geen enkele API-verandering die de spelers van
+    vandaag raakt.
+  - 📡 **Wat ik gelezen heb, mét `?nocache=20261114` achter elke Exa-URL.** `Patch_12.1.7/API_changes`:
+    onveranderd, nog exact twee punten in de samenvatting (de GUID-obfuscatie mét *"This change will be available
+    for testing in a future build of 12.1.7"* — ⚠️ nog steeds dezelfde zin, ook na build 70892 — en de
+    TOC-variabelen die niet meer expanderen). `Patch_12.1.5/API_changes`: blue posts nog t/m **29 sep**,
+    onveranderd. `Patch_1.60.1/API_changes`: onveranderd, blue posts t/m **16 okt**.
+    **`Patch_12.2.0/API_changes` en `Patch_1.60.2/API_changes` bestaan nog niet** (beide `CRAWL_NOT_FOUND`,
+    terwijl de 12.1.7- en 1.60.1-pagina's er in dezelfde run wél doorkwamen — dat is de positieve controle op dat
+    "niet gevonden"). **UI-and-Macro-forum** (`latest.json`): drie nieuwe draden sinds gisteren, alle drie van
+    spelers en **geen** Blizzard-antwoord — `2414860` *"Target Marker Icon"* (**2026-11-13T22:01:41Z**, over de
+    grootte van het raid-target-icoon), `2414696` *"Any import for retail UI in forever?"*
+    (**2026-11-13T20:12:21Z**) en `2414459` *"Macros: Hold and Harm/Help Clarification"*
+    (**2026-11-13T18:22:06Z**, vraagt of een macro tikken van ingedrukt houden kan onderscheiden). ⚠️ De
+    vastgepinde draad **`24534` *"UI Add-On Development Policy"*** bewoog ook (**2026-11-13T08:18:30Z**) en dat
+    ziet er van buiten uit als een beleidsupdate — het is er géén: GEMETEN via `posts/by_number/24534/20.json`
+    is post 20 van **TwitchZultek** (`trust_level 2`, `"admin":false`, `"moderator":false`, `"staff":false`) en
+    luidt voluit *"So much AddOns out there with premium features and services you have to pay for."* Een
+    spelersreactie op het beleid van 2009, geen nieuw beleid.
+  - 🚧 **Wat ik NIET kon lezen, zodat stilte te onderscheiden is van niet-kijken.** `EGRESS_BLOCKED` op
+    `WebFetch` voor `warcraft.wiki.gg` en `news.blizzard.com`. **GEMETEN vandaag met `curl`:**
+    `wago.tools:443` en `us.forums.blizzard.com:443` geven beide `CONNECT tunnel failed, response 403`
+    (`connect_rejected` van de egress-proxy) — de Forever-builds op de `wowf`-branch van wago zijn dus voor mij
+    opnieuw onzichtbaar. `news.blizzard.com/en-us/article/24315281` gaf via Exa `CRAWL_REDIRECT` en
+    `wowhead.com/blue-tracker` gaf `CRAWL_EMPTY_CONTENT`; de hotfix-tekst hierboven komt daarom van de
+    forumdraad zelf, wat eerstehands Blizzard-tekst is en geen samenvatting. ⚠️ **En één cache-waarschuwing die
+    ik hier expliciet noteer, want hij was bijna een gemiste dag:** een WebSearch op artikel `24315281` gaf als
+    titel *"WoW: Forever Hotfixes - November 5, 2026"* — **ouder** dan de *"November 11"* die mijn eigen logboek
+    gisteren al noemde. Dat is precies het patroon uit de opdracht: géén "er is niets nieuws", maar een stale
+    index. Een tweede zoekronde en de forumdraad gaven onmiddellijk **13 november**. De zoekindex liep hier dus
+    acht dagen achter op de werkelijkheid.
+  - ✅ **[RAAKT ONS NIET] — en voor de volledigheid: geen enkele UI- of addon-regel in de retail-hotfixes.**
+    Gezocht op de Midnight-hotfixes van november (12.1.5): de novemberrondes zijn tuning en bugfixes
+    (Vashnik, Ula'tek, Soulcoilers) en er is **geen** `User Interface`- of addon-sectie te vinden. ⚠️ Dit is
+    **MEASURED (via search, niet zelf gelezen)** — `news.blizzard.com` blijft voor mij dicht — en dus zwakker
+    dan de Forever-regel hierboven, die ik wél letterlijk uit Blizzards eigen forumtekst heb.
+  - ⏳ **Nog open uit eerdere runs — ongewijzigd, NIET opnieuw gemeten vandaag.** De dode `PickupItem`-takken in
+    `Modules/KeyBlock.lua:1135`/`:1227`/`:1380` en `Modules/ApplyLayout.lua:1311`/`:1345`/`:1605`; de vijf
+    decoratieve `GetItemInfo`-terugvaltakken; de verouderde namespace-lijst in `docs/WATCHER_API_PROMPT.md`
+    (18 aug, noemt 57 namespaces en kent de twee TOC's niet); de client-test voor `/mh raidbots`;
+    `GetTimerDuration` toevoegen aan `Modules/ApiProbe.lua:377`; de `FrameStrata`-secret-vraag op
+    `Modules/PartyTargets.lua:517`; de drie `WOW_PROJECT_MAINLINE`-takken in
+    `Libs/LibDBIcon-1.0.lua:533`/`:572`/`:607` die op Forever omslaan; en de shift-klik-taintvraag op
+    `Modules/Achievements.lua:1561`/`:1910`. 📌 **Eén punt blijft staan en komt vandaag dichter in de buurt
+    zonder beantwoord te zijn:** de ongemeten BETEKENIS van *"Edit Mode layouts are now saved separately for each
+    UI type"* (1.60.1 Beta 4, 8 okt) voor `Modules/ForeverLayoutCarry.lua`. De UI-hotfix van vandaag zit in
+    dezelfde hoek — bar-instellingen die niet bleven staan — maar zegt **niets** over het per-UI-type opslaan,
+    dus die vraag is nog steeds alleen in de client te beantwoorden. 🔴 Niets aangeraakt.
+  - 🔧 **Repo-staat: alleen `docs/API_WATCH.md` aangeraakt.** GEMETEN vóór het schrijven: `git status --short`
+    **leeg**; `HEAD` stond **losgeslagen** (`HEAD detached from refs/heads/main`) en is met `git checkout main`
+    en `git pull --rebase origin main` weer op `refs/heads/main` gezet — de werkmap liep **28 commits** achter,
+    dus zonder die stap had ik op een verouderde boom gemeten. `git rev-parse --is-shallow-repository` nog steeds
+    **`true`** met een venster van **50** commits; laatste commit daarin `c44483b` *"Nachtcontrole 2026-11-14:
+    C1 0 nakijken, C2 0 nakijken, snapshot actueel"*. 📌 **Beide TOC's staan nu op `## Version: 5.2.0`** (gisteren
+    nog 5.1.0, en er is een nieuwe `docs/CURSEFORGE_5.2.0.md`), `MidnightHelper.toc` op `## Interface: 120007,
+    120100, 120105, 120107` en `MidnightHelper_Camelot.toc` op `## Interface: 16001`.
