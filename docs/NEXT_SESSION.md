@@ -41,7 +41,12 @@ Rob zag de zin goed (Healing Wave rank 1), maar vond de knop niet en zag de oran
 "edge … on: 1 button"). Daarom noemt de zin nu ook de plek ("Action Bar 4, button 3 (key X)", Blizzards eigen
 bar-naam). Waarom hij de rand niet zag: NIET gemeten. Hij vond de knop daarna (toets C) en zag nog steeds geen rand.
 Rob: *"Ja, je moet die rand duidelijker maken"* → elke lagere rank nu de sterke rand; `/mh ranks` toont knop + alpha.
-5.3.0 staat op CurseForge (GEMETEN: files 9617031 + 9617039), SITE_SEIN bijgewerkt.
+5.3.0 staat op CurseForge (GEMETEN: files 9617031 + 9617039), SITE_SEIN bijgewerkt. Rob plakte de CF-beschrijving
+(via sparring; niet nagemeten op de pagina) en houdt de plek-zin (*"laat me staan zo"*).
+🏰 Dungeons stap 1 GEBOUWD (alleen op main): `Modules/ForeverDungeons.lua` — "Do this now"-tip + knop, venster
+"Dungeons in Forever" met Route per rij, `/mh dungeons [check]`. luac + lint 0 HARD; NIET in het spel gezien (TESTLIJST
+14 nov laat). Open: vleugelnamen in de client-taal (niet gemeten), 4 web-ingangen nameten, stap 2 (quests vooraf).
+Bij de volgende release: changelog-regels voor ranks-zin, plek, sterke rand en dungeons.
 
 Stand 14 nov nacht: laatste commit 33c45ef op main (GEMETEN, gepusht). 5.2.0 staat op CurseForge (13 nov). Alles
 hieronder sinds 5.2.0 staat alleen op main, NIET uitgebracht. Eén voordeur t/m 19 nov: vragen voor Rob via de

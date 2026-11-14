@@ -183,6 +183,13 @@ lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met d
                  kant, ingang). Bouwen pas NA de release ("Meneer Bouwert" = "B: bouwen", lezing sparring).
                  Ingangen uit HandyNotes_DungeonRaidLocations-Forever (MIT, copyrightregel "Pirson" mee); Krol'dok,
                  Alcaz, Blackmaw, Shaper's Terrace op "nog nameten". Stap 2-5 (quests, baastips, loot, raids): later.
+                 **Stap 1 gebouwd 14 nov (na 5.3.0):** `Modules/ForeverDungeons.lua` (beide toc's, returnt in Midnight).
+                 35 rijen (30 dungeons + vleugels), levels = Blizzards GroupFinderActivity, naam = de client
+                 (GetRealZoneText; vleugelwoorden Engels, NIET gemeten), ingang = HandyNotes (MIT-tekst in de kop) of
+                 web (4 nieuwe, `*` + zin "not checked"). "Do this now": tip "Dungeons for your level (18): …" (max 3,
+                 RFC alleen Horde, Stockade alleen Alliance; laat het venster niet vanzelf komen) + knop "Dungeons".
+                 Venster: groen = past, grijs = onder je, knop Route per rij (pijl via de reisplanner, tooltip met
+                 "The way there"). `/mh dungeons`, `/mh dungeons check`. luac + lint 0 HARD. NIET in het spel gezien.
 
 ### Keuzevenster "New in this version: your choice": dicht na kiezen + titel vrij van "Dock to window"
 - Voor wie:      allebei (iedereen die het venster na een update krijgt)

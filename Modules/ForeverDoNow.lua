@@ -88,6 +88,15 @@ local function Collect()
 			out.actions.profs = true
 		end
 	end
+	-- 14 Nov 2026 (Rob via sparring: "Voor A, beginnen we met stap 1"): dungeons that fit your level. A tip, like the
+	-- profession one: it fits at almost every level, so it must not make the window appear by itself.
+	if ns.ForeverDungeonTip then
+		local okD, tip = pcall(ns.ForeverDungeonTip)
+		if okD and tip then
+			out.tips[#out.tips + 1] = tip
+			out.actions.dungeons = true
+		end
+	end
 	-- Do this now
 	local r = ns.ForeverTrainerCompute and ns.ForeverTrainerCompute(level)
 	if r and #r.now > 0 then
@@ -381,6 +390,11 @@ local function Build()
 			ns.ShowForeverProfTrainers()
 		end
 	end)
+	f.btnDungeons = Btn(f, 10, function()
+		if ns.ShowForeverDungeons then
+			ns.ShowForeverDungeons()
+		end
+	end)
 	f:Hide()
 	win = f
 	return f
@@ -411,11 +425,13 @@ local function Render(info)
 	f.btnRanks:SetText(ns:L("FRANK_HOME_BTN"))
 	f.btnWeapons:SetText(ns:L("FWEAP_TITLE"))
 	f.btnProfs:SetText(ns:L("FPROF_TITLE"))
+	f.btnDungeons:SetText(ns:L("FDUNG_BTN"))
 	-- Buttons only for what is on the list; they close up from the left. Each as wide as its own text (Rob's 21.png,
 	-- 12 Nov 2026: "Weapon trainers" stuck out of a fixed 90 px button), and a new row when the next one does not fit.
 	local shown = {}
 	for _, pair in ipairs({ { f.btnTrainer, info.actions.trainer }, { f.btnRanks, info.actions.ranks },
-		{ f.btnWeapons, info.actions.weapons }, { f.btnProfs, info.actions.profs } }) do
+		{ f.btnWeapons, info.actions.weapons }, { f.btnProfs, info.actions.profs },
+		{ f.btnDungeons, info.actions.dungeons } }) do
 		local b, on = pair[1], pair[2]
 		if on then
 			local fs = b:GetFontString()

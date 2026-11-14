@@ -28,6 +28,18 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 14 nov 2026 — Forever: dungeons voor jouw level + pijl naar de ingang
+- Tag + commit:   geen tag / (deze commit, na c728fc6)
+- Status:         alleen op main
+- Mag op de site: nee (nog niet uit; Rob test eerst)
+- Speler ziet:    In "Do this now" een regel welke dungeons nu bij je level passen, met een knop "Dungeons". Dat venster
+                  toont alle Forever-dungeons met level en ingang (groen = past nu) en een knop Route per dungeon: de pijl
+                  wijst de ingang aan, met boot/zeppelin als dat moet. Ingangen van HandyNotes Dungeon & Raid Locations
+                  (MIT); vier nieuwe dungeons van internet, met een sterretje. Niet in het spel gezien.
+- Knoplabels:     FDUNG_TITLE, FDUNG_BTN, FDUNG_ROUTE
+- Commando's:     /mh dungeons
+- Spel:           Forever
+
 ## 14 nov 2026 — RELEASE 5.3.0 (Midnight + Forever)
 - Tag + commit:   v5.3.0 / c728fc6. GEMETEN in de CurseForge-API (14 nov): file 9617031 `MidnightHelper-v5.3.0.zip`
                   (12.0.7–12.1.7) en 9617039 `MidnightHelper-v5.3.0-forever.zip` (1.60.1), beide releaseType 1, status 4.

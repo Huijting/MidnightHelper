@@ -21,6 +21,19 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 14 nov (avond, laat) — Forever: dungeons voor jouw level + pijl naar de ingang (stap 1)
+
+Op een Forever-character van level 13 of hoger:
+- [ ] "Do this now" heeft een regel "Dungeons for your level (N): …" met hoogstens 3 namen (en de zone erachter), en
+      een knop "Dungeons". (Het venster komt hier niet vanzelf door; staat het al open, dan zie je de regel.)
+- [ ] De knop (of `/mh dungeons`) opent "Dungeons in Forever": alle dungeons met level en ingang. Groen = past nu, grijs
+      = onder je level. Klopt de naam van elke dungeon?
+- [ ] Muis op "Route": de zone en de plek, en zo nodig de reis ("The way there"). Klik: de pijl wijst naar de ingang,
+      ook als je eerst een boot of zeppelin moet nemen. Bij de ingang gaat de pijl weg.
+- [ ] Krol'dok, Alcaz, Blackmaw en Shaper's Terrace hebben een `*`: hun plek komt van internet. Ben je er toevallig:
+      klopt de plek?
+- [ ] `/mh dungeons check` → level, kant, wat past en de regel voor "Do this now".
+
 ## 🆕 14 nov (avond) — Forever: "Do this now" zegt WELKE knop een oude rank heeft (komt in de release ná 5.3.0)
 
 Op je shaman (of een character met een lagere rank op een knop), open "Do this now":

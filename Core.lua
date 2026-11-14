@@ -2682,6 +2682,16 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		end
 		return
 	end
+	-- 14 Nov 2026, WoW Forever: dungeons for your level + the arrow to the entrance (ForeverDungeons.lua).
+	local dungArg = (msg:lower() == "dungeons" or msg:lower() == "dungeon") and "" or msg:lower():match("^dungeons?%s+(.+)$")
+	if dungArg then
+		if ns.ForeverDungeonsSlash then
+			ns.ForeverDungeonsSlash(dungArg)
+		else
+			print("|cffffcc00Midnight Helper:|r /mh dungeons is for WoW: Forever.")
+		end
+		return
+	end
 	-- 12 Nov 2026, WoW Forever: "Do this now" (ForeverDoNow.lua).
 	local donowArg = (msg:lower() == "donow") and "" or msg:lower():match("^donow%s+(.+)$")
 	if donowArg then
