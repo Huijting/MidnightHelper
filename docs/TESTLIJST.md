@@ -23,13 +23,20 @@ er is niets weggegooid.
 
 ## 🆕 13 nov (nacht, 5) — "gezien" pas als JIJ het venster sluit
 
-- [ ] Eén schone `/reload`: GEEN rode melding (BugSack) meer over NewChoices.lua ("attempt to index upvalue 'win'").
+- [x] Eén schone `/reload`: GEEN rode melding (BugSack) meer over NewChoices.lua ("attempt to index upvalue 'win'").
+      ✅ GEMETEN 14 nov in `_forever_/…/SavedVariables/!BugGrabber.lua`: de enige NewChoices-fout is van 13 nov 23:04:56
+      (sessie 174, vóór fix d6c0d31). Daarna geen nieuwe, terwijl Rob 14 nov 06:37 en 19:58 inlogde (die openingen
+      staan in newChoicesShowLog). Tegencontrole: andere, oudere fouten staan wél in hetzelfde bestand.
 
 Eén `/reload` op een bestaand Forever-character (bijv. de mage van vanavond):
-- [ ] Het venster komt, "New in this version: your choice", met de schermpjes (quick bar, Fast Mark, buff-icoon,
+- [x] Het venster komt, "New in this version: your choice", met de schermpjes (quick bar, Fast Mark, buff-icoon,
       minimap, groepspaneel, Do this now). Sluit het zelf (Close, X of Esc).
-- [ ] Nog een `/reload`: het komt NIET terug. `/mh new check` → "one-time repairs: 1 done, 2 done (…)" en een regel
+      ✅ GEMETEN in newChoicesShowLog: 13 nov 23:04:56, 1 s na reparatie 2 (`newChoicesFix2` 23:04:55), mode "update",
+      7 kaartjes (donow#2, partypanel#2, keyblock, quickbar, fastmark, missingbuff, minimap), closedAfter 228,8 s.
+- [x] Nog een `/reload`: het komt NIET terug. `/mh new check` → "one-time repairs: 1 done, 2 done (…)" en een regel
       "opening … closed after X s; counted as seen: yes".
+      ✅ GEMETEN: daarna geen "update"-opening meer in het log (alleen twee Welcome-openingen op nieuwe characters);
+      Robs filmpje 14 nov 19:58: `/mh new check` → "6 apply, 0 not seen yet", "counted as seen: yes".
 - [ ] Laat het venster open staan en log uit (of `/reload`): bij de volgende login komt het WEL terug ("counted as
       seen: no").
 

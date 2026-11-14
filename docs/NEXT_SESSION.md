@@ -23,6 +23,11 @@ toe"* → Forever: dungeons en raids uitleggen op MH's manier (IDEEEN "Ja"). Ond
 Forever. Plan met opties naar sparring gestuurd; NIETS gebouwd, niet in de volgende release.
 ✅ Rob koos (via sparring, letterlijk): *"Voor A, beginnen we met stap 1. Meneer Bouwert na de release. … C. Ja, dat
 mag."* → NA de release: stap 1 bouwen (Do this now-regel + Route + dungeonlijst), HandyNotes-ingangen mee (MIT).
+✅ 14 nov avond: A1 en A2 GEMETEN in de Forever-SV (na Robs filmpje 19:58, nieuwe gnome mage: Welcome → Yes → alleen
+reload-vraag → toetsenblok; terugzet-chatregel gezien). A1: !BugGrabber.lua heeft alleen de NewChoices-fout van 13 nov
+23:04:56 (vóór d6c0d31), niets daarna. A2: opening 13 nov 23:04:56 (na Fix2), 7 schermpjes-kaartjes, zelf gesloten na
+228,8 s, daarna geen update-opening meer. Nog open vóór release: het venster in Midnight; niet getest "venster open
+laten + uitloggen → komt terug". Release alleen op Robs letterlijke go.
 
 Stand 14 nov nacht: laatste commit 33c45ef op main (GEMETEN, gepusht). 5.2.0 staat op CurseForge (13 nov). Alles
 hieronder sinds 5.2.0 staat alleen op main, NIET uitgebracht. Eén voordeur t/m 19 nov: vragen voor Rob via de
