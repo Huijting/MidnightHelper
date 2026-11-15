@@ -34,6 +34,15 @@ Op een Forever-character, `/mh dungeons` (of de knop "Dungeons" in "Do this now"
 - [ ] Laag character (onder level 11), vinkje aan: er staat een regel dat er nog geen dungeon past.
 - [ ] `/mh dungeons check`: een regel "window: shows only the ones for your level …" met de "net te hoge" dungeons.
 - [ ] Schuift het venster nog met Shift+scroll groter/kleiner, en past de onderste tekst?
+- [ ] De kolom "Entrance" toont nu de plek als getallen (bv. "42.5, 71.7"), niet meer de zonenaam. Muis op "Route" noemt
+      de zone nog wel.
+
+## 🆕 15 nov — talen: "Mythisch+" / "Mythique +" en de kamers in de rondleiding
+
+Alleen te zien met een Duitse, Franse, Spaanse, Portugese of Italiaanse client (of laat het Cisca zien):
+- [ ] Duits: het Mythic+-tabblad heet "Mythisch+"; Frans: "Mythique +". Ook in de dungeontips.
+- [ ] De rondleiding (stap "kamers") noemt de vier knoppen zoals ze links echt heten (bv. Duits: Ich, Codex, Werkzeuge,
+      Einstellungen). Nederlands: "Ik, Codex, Tools en Instellingen".
 
 ## 🆕 14 nov (avond, laat) — Forever: Horde/Alliance-tekentje in "Your characters"
 

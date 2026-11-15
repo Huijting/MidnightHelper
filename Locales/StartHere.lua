@@ -224,7 +224,7 @@ merge(ns._mhLocales and ns._mhLocales.nlNL, {
 	TOUR_CM_CONTENT_TITLE = "Het hoofdscherm",
 	TOUR_CM_CONTENT_BODY = "Alles wat je kiest verschijnt hier. Dat was de rondleiding — verken nu op je eigen tempo!",
 	TOUR_ROOMS_TITLE = "De vier kamers",
-	TOUR_ROOMS_BODY = "De iconen links zijn vier kamers — Me, Codex, Tools en Settings. Elke groepeert verwante tabs, dus de zijbalk toont alleen wat bij je huidige kamer past.",
+	TOUR_ROOMS_BODY = "De iconen links zijn vier kamers — Ik, Codex, Tools en Instellingen. Elke groepeert verwante tabs, dus de zijbalk toont alleen wat bij je huidige kamer past.",
 	TOUR_HOME_TITLE = "Deze week — je cockpit",
 	TOUR_HOME_BODY = "Je wekelijkse startpagina: Great Vault, de actieve world boss, wekelijkse klusjes en rares, in één oogopslag met één-klik-sprongen.",
 	TOUR_SEARCH_TITLE = "Zoeken & favorieten",

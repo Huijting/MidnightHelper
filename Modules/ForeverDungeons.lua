@@ -434,7 +434,9 @@ Refresh = function()
 						lv = lv .. " " .. ns:L("FDUNG_TEN")
 					end
 					r.level:SetText(col .. lv .. (col ~= "" and "|r" or ""))
-					r.zone:SetText(ZoneName(d.zone) .. (d.web and (" " .. WARN .. "*|r") or ""))
+					-- 15 Nov 2026, Rob: "in de kolom entrance inderdaad de coördinaten, want 2 keer dezelfde zonnenaam
+					-- staat nergens op" - the zone is the header now; the Route tooltip still names it.
+					r.zone:SetText(("%.1f, %.1f"):format(d.x, d.y) .. (d.web and (" " .. WARN .. "*|r") or ""))
 					r.route:SetText(routeText)
 					local fs = r.route:GetFontString()
 					local bw = math.max(60, math.ceil(((fs and fs:GetStringWidth()) or 40) + 20))

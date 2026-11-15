@@ -803,6 +803,7 @@ for k, v in pairs({
 	TAB_DELVE_LOG = "Registro de abismos y rituales",
 	TAB_DUNGEONS = "Calabozos",
 	TAB_SETTINGS = "Configuración",
+	TOUR_ROOMS_BODY = "Los iconos de la izquierda son cuatro salas — Yo, Codex, Herramientas y Configuración. Cada una agrupa pestañas relacionadas, así que la barra lateral solo muestra lo que encaja en la sala en la que estás.",
 	TAB_TAGLINE_ACADEMY = "Academia de roles: qué hace un tanque, un sanador o un DPS en un grupo, desde cero hasta tu primer calabozo.",
 	TAB_TAGLINE_ACCOUNT = "Todos tus personajes lado a lado: Gran bóveda, llaves, fragmentos y lo que queda pendiente esta semana.",
 	TAB_TAGLINE_ALLSETTINGS = "Toda la configuración en un solo lugar, dentro del addon.",

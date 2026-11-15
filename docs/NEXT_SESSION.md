@@ -32,6 +32,13 @@ per account (`ns.db.foreverDungeonsAll`). Nieuwe keys FDUNG_ONLY_MINE_FMT / FDUN
 herschreven (de `*`-zin eruit), in en/nl/ru/de/fr/es/pt; check_drift: geen nieuwe drift. luac 366 bestanden OK, lint 0
 HARD. NIET in het spel gezien (TESTLIJST 15 nov). Keuze die ik maakte: de kolom "Entrance" toont de zone nog steeds
 (nu dubbel met het kopje); kan coördinaten worden als Rob dat wil. Bij de volgende release: changelog-regel.
+📍 Dungeonlijst: kolom "Entrance" toont nu de coördinaten (Rob via sparring: *"in de kolom entrance inderdaad de
+coördinaten, want 2 keer dezelfde zonnenaam staat nergens op"*). Route-tooltip noemt de zone nog.
+🌐 Vertaalpunten (Rob via sparring: *"De bouwchat mag punten 1 en 3 oplossen en punt 2 nakijken."*): 1 en 3 af, 2 gemeten;
+details en getallen in IDEEEN.md ("Waarnemingen 14 nov"). Mythic+ → Mythisch+ (de 85×) / Mythique + (fr 84×), GEMETEN in
+GlobalStrings 50146. Rondleiding: echte knopnamen in 6 talen + esMX. Punt 2 (Tastaturbelegung enz.) wacht op Robs keuze.
+Open: Mythic+ in es/pt/it (niet gemeten); CLAUDE.md-regel "Mythic+ blijft Engels" is verouderd (alleen Rob mag wijzigen).
+Shift/Focus Cast: Rob is onderweg, blijft open.
 ⚠️ Voordeur: mijn eerste `_probe.py` vond geen job en draaide de oude job van een andere sessie (een beroepenlijst,
 alleen lezen). Oorzaak: ik schreef in `Temp\claude\<sid>\scratchpad`; de juiste map is
 `Temp\claude\E--World-of-Warcraft--retail--Interface-AddOns\<sid>\scratchpad`.

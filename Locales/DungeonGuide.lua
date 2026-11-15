@@ -276,7 +276,7 @@ merge(ns._mhLocales and ns._mhLocales.nlNL, {
 if ns._mhLocales and ns._mhLocales.deDE then merge(ns._mhLocales and ns._mhLocales.deDE, {
 	TAB_DUNGEONS = "Dungeons",
 	DGN_TITLE = "Dungeons",
-	DGN_SUBTITLE = "Dein Dungeon-Begleiter: was du diese Woche läufst, ein Einsteigerkurs von der ersten Warteschlange bis Heroic, und Boss-Schritte im Coach, plus ein Mythic+-Reiter mit den Affixen und Pflicht-Unterbrechungen.",
+	DGN_SUBTITLE = "Dein Dungeon-Begleiter: was du diese Woche läufst, ein Einsteigerkurs von der ersten Warteschlange bis Heroic, und Boss-Schritte im Coach, plus ein Mythisch+-Reiter mit den Affixen und Pflicht-Unterbrechungen.",
 
 	DGN_VIEW_WEEK = "Diese Woche",
 	DGN_VIEW_COURSE = "Dungeons 101",
@@ -290,8 +290,8 @@ if ns._mhLocales and ns._mhLocales.deDE then merge(ns._mhLocales and ns._mhLocal
 	DGN_WEEKDGN_INLOG_FMT = "Dungeon der Woche (Halduron): %s — Quest angenommen.",
 	DGN_WEEKDGN_DONE_FMT = "Dungeon der Woche (Halduron): %s — diese Woche erledigt.",
 	DGN_WEEKDGN_UNKNOWN = "Dungeon der Woche (Halduron): nimm seine Quest neben dem Vault an, um ihn hier zu sehen.",
-	DGN_KEYSTONE_DONE = "Cracked Keystone (Mythic+-Einstieg): erledigt.",
-	DGN_KEYSTONE_TODO = "Cracked Keystone (Mythic+-Einstieg): droppt aus einer Tier-11-Tiefen-Belohnung — einmal pro Saison.",
+	DGN_KEYSTONE_DONE = "Cracked Keystone (Mythisch+-Einstieg): erledigt.",
+	DGN_KEYSTONE_TODO = "Cracked Keystone (Mythisch+-Einstieg): droppt aus einer Tier-11-Tiefen-Belohnung — einmal pro Saison.",
 	DGN_VAULT_FMT = "Große Schatzkammer — Dungeon-Reihe: %d/%d Plätze freigeschaltet (Fortschritt %d).",
 	DGN_VAULT_UNKNOWN = "Große Schatzkammer — Dungeon-Reihe: Daten laden nach dem Login oder beim Öffnen des Vaults.",
 	DGN_FOLLOWER_HINT = "Neu in Dungeons? Starte einen Follower Dungeon (Gruppensuche): du läufst Normal solo mit NPC-Begleitern — kein Druck, perfekt zum Üben. Der Kurs unten führt dich durch alles.",
@@ -303,7 +303,7 @@ if ns._mhLocales and ns._mhLocales.deDE then merge(ns._mhLocales and ns._mhLocal
 	DGN_CH_DONE = "Erledigt — klicke zum Rückgängigmachen.",
 
 	DGN_CH1_TITLE = "1. Was ist ein Dungeon?",
-	DGN_CH1_BODY = "• Ein Dungeon ist ein instanziiertes Abenteuer für 5 Spieler: 1 Tank, 1 Heiler, 3 Schadensausteiler.|n• Schwierigkeiten, von leicht bis schwer: Follower (solo mit NPC-Begleitern — Übungsmodus), Normal (alle Midnight-Dungeons, immer verfügbar), Heroic (die Saisonrotation, bessere Beute) und Mythic/Mythic+ (kommt später in diesem Kurs).|n• Dungeon-Läufe füllen die Dungeon-Reihe deiner Großen Schatzkammer — eine kostenlose Wochenbelohnung.",
+	DGN_CH1_BODY = "• Ein Dungeon ist ein instanziiertes Abenteuer für 5 Spieler: 1 Tank, 1 Heiler, 3 Schadensausteiler.|n• Schwierigkeiten, von leicht bis schwer: Follower (solo mit NPC-Begleitern — Übungsmodus), Normal (alle Midnight-Dungeons, immer verfügbar), Heroic (die Saisonrotation, bessere Beute) und Mythic/Mythisch+ (kommt später in diesem Kurs).|n• Dungeon-Läufe füllen die Dungeon-Reihe deiner Großen Schatzkammer — eine kostenlose Wochenbelohnung.",
 
 	DGN_CH2_TITLE = "2. So kommst du rein",
 	DGN_CH2_BODY = "• Drücke I (Gruppensuche) und wähle den Dungeonbrowser.|n• Hake die Rolle an, die du spielen willst; Tank- und Heiler-Warteschlangen ploppen am schnellsten.|n• Null Druck? Wähle zuerst einen Follower Dungeon: Normal-Schwierigkeit, NPC-Begleiter in deinem Tempo, verfügbar beim Leveln 80-90 (es gibt ein tägliches Start-Limit).|n• Ploppt die Warteschlange, klicke Annehmen — du wirst hineinteleportiert und am Ende wieder hinaus.",
@@ -318,7 +318,7 @@ if ns._mhLocales and ns._mhLocales.deDE then merge(ns._mhLocales and ns._mhLocal
 	DGN_CH5_BODY = "• Öffne vor einem Lauf die Dungeon-Coach-Ansicht und lies die kurzen Schritte pro Boss — und sobald du einen Boss pullst, schreibt Midnight Helper diese Schritte direkt in deinen Chat.|n• Teile sie mit deiner Gruppe: tippe /mh bossshare nach dem Pull (Klartext; lokalisiertes Teilen folgt später).|n• Du musst nicht alles auswendig lernen: die eine tödliche Mechanik pro Boss zu kennen reicht für den Anfang.",
 
 	DGN_CH6_TITLE = "6. Nächster Schritt: Heroic",
-	DGN_CH6_BODY = "• Heroic nutzt die Saisonrotation (acht Dungeons — siehe Coach-Ansicht, mit der Saison markiert) mit stärkeren Gegnern und besserer Beute.|n• Die Gruppensuche zeigt die Ausrüstungsanforderung; rüste dich erst über Normal-Dungeons, Tiefen und Weltinhalte aus.|n• Kombiniere es mit deinen Weeklies: Haldurons Dungeon der Woche und Lady Liadrins Spark-Weekly wohnen beide neben dem Vault — die Diese-Woche-Ansicht verfolgt sie.|n• Nach Heroic kommen Mythic und Mythic+ — dieses Kapitel erscheint mit dem Mythic-Update dieses Kurses.",
+	DGN_CH6_BODY = "• Heroic nutzt die Saisonrotation (acht Dungeons — siehe Coach-Ansicht, mit der Saison markiert) mit stärkeren Gegnern und besserer Beute.|n• Die Gruppensuche zeigt die Ausrüstungsanforderung; rüste dich erst über Normal-Dungeons, Tiefen und Weltinhalte aus.|n• Kombiniere es mit deinen Weeklies: Haldurons Dungeon der Woche und Lady Liadrins Spark-Weekly wohnen beide neben dem Vault — die Diese-Woche-Ansicht verfolgt sie.|n• Nach Heroic kommen Mythic und Mythisch+ — dieses Kapitel erscheint mit dem Mythic-Update dieses Kurses.",
 
 	-- Coach ---------------------------------------------------------------------
 	DGN_COACH_HEADER = "Dungeon-Coach",
@@ -358,7 +358,7 @@ if ns._mhLocales and ns._mhLocales.deDE then merge(ns._mhLocales and ns._mhLocal
 if ns._mhLocales and ns._mhLocales.frFR then merge(ns._mhLocales and ns._mhLocales.frFR, {
 	TAB_DUNGEONS = "Donjons",
 	DGN_TITLE = "Donjons",
-	DGN_SUBTITLE = "Ton compagnon de donjon : quoi faire cette semaine, un cours débutant de la première file jusqu'au Heroic, et les étapes par boss dans le Coach, plus un onglet Mythic+ avec les affixes et les interruptions clés.",
+	DGN_SUBTITLE = "Ton compagnon de donjon : quoi faire cette semaine, un cours débutant de la première file jusqu'au Heroic, et les étapes par boss dans le Coach, plus un onglet Mythique + avec les affixes et les interruptions clés.",
 
 	DGN_VIEW_WEEK = "Cette semaine",
 	DGN_VIEW_COURSE = "Dungeons 101",
@@ -372,8 +372,8 @@ if ns._mhLocales and ns._mhLocales.frFR then merge(ns._mhLocales and ns._mhLocal
 	DGN_WEEKDGN_INLOG_FMT = "Donjon de la semaine (Halduron) : %s — quête prise.",
 	DGN_WEEKDGN_DONE_FMT = "Donjon de la semaine (Halduron) : %s — fait cette semaine.",
 	DGN_WEEKDGN_UNKNOWN = "Donjon de la semaine (Halduron) : prends sa quête à côté du Vault pour le voir ici.",
-	DGN_KEYSTONE_DONE = "Cracked Keystone (intro Mythic+) : fait.",
-	DGN_KEYSTONE_TODO = "Cracked Keystone (intro Mythic+) : tombe d'une récompense de gouffre Tier 11 — une fois par saison.",
+	DGN_KEYSTONE_DONE = "Cracked Keystone (intro Mythique +) : fait.",
+	DGN_KEYSTONE_TODO = "Cracked Keystone (intro Mythique +) : tombe d'une récompense de gouffre Tier 11 — une fois par saison.",
 	DGN_VAULT_FMT = "Grande chambre forte — rangée Donjons : %d/%d emplacements débloqués (progression %d).",
 	DGN_VAULT_UNKNOWN = "Grande chambre forte — rangée Donjons : les données se chargent après la connexion ou à l'ouverture du Vault.",
 	DGN_FOLLOWER_HINT = "Nouveau en donjon ? Lance un Follower Dungeon (Recherche de groupe) : tu joues en Normal, en solo avec des PNJ — zéro pression, parfait pour s'entraîner. Le cours ci-dessous t'accompagne pas à pas.",
@@ -385,7 +385,7 @@ if ns._mhLocales and ns._mhLocales.frFR then merge(ns._mhLocales and ns._mhLocal
 	DGN_CH_DONE = "Fait — clique pour annuler.",
 
 	DGN_CH1_TITLE = "1. C'est quoi, un donjon ?",
-	DGN_CH1_BODY = "• Un donjon est une aventure instanciée pour 5 joueurs : 1 tank, 1 soigneur, 3 DPS.|n• Difficultés, du plus simple au plus dur : Follower (solo avec des PNJ — mode entraînement), Normal (tous les donjons Midnight, toujours disponibles), Heroic (la rotation de la saison, meilleur butin) et Mythic/Mythic+ (abordés plus tard dans ce cours).|n• Les donjons remplissent la rangée Donjons de ta Grande chambre forte — une récompense hebdomadaire gratuite.",
+	DGN_CH1_BODY = "• Un donjon est une aventure instanciée pour 5 joueurs : 1 tank, 1 soigneur, 3 DPS.|n• Difficultés, du plus simple au plus dur : Follower (solo avec des PNJ — mode entraînement), Normal (tous les donjons Midnight, toujours disponibles), Heroic (la rotation de la saison, meilleur butin) et Mythic/Mythique + (abordés plus tard dans ce cours).|n• Les donjons remplissent la rangée Donjons de ta Grande chambre forte — une récompense hebdomadaire gratuite.",
 
 	DGN_CH2_TITLE = "2. Comment entrer",
 	DGN_CH2_BODY = "• Appuie sur I (Recherche de groupe) et choisis l'outil Donjons.|n• Coche le rôle que tu veux jouer ; les files tank et soigneur partent le plus vite.|n• Zéro pression ? Choisis d'abord un Follower Dungeon : difficulté Normal, des PNJ qui suivent ton rythme, disponible pendant le leveling 80-90 (avec une limite de lancements par jour).|n• Quand la file sonne, clique Accepter — tu es téléporté dedans, puis dehors à la fin.",
@@ -400,7 +400,7 @@ if ns._mhLocales and ns._mhLocales.frFR then merge(ns._mhLocales and ns._mhLocal
 	DGN_CH5_BODY = "• Avant un run, ouvre la vue Dungeon Coach et lis les étapes courtes de chaque boss — et dès que tu pull un boss, Midnight Helper affiche ces étapes directement dans ton chat.|n• Partage-les avec ton groupe : tape /mh bossshare après le pull (texte brut ; le partage localisé arrive plus tard).|n• Pas besoin de tout mémoriser : connaître LA mécanique mortelle de chaque boss suffit pour commencer.",
 
 	DGN_CH6_TITLE = "6. Étape suivante : Heroic",
-	DGN_CH6_BODY = "• Heroic utilise la rotation de la saison (huit donjons — voir la vue Coach, marqués avec la saison) avec des ennemis plus forts et un meilleur butin.|n• La Recherche de groupe affiche le prérequis d'équipement ; équipe-toi d'abord via les donjons Normal, les gouffres et le contenu mondial.|n• Combine avec tes hebdos : le donjon de la semaine d'Halduron et l'hebdo Spark de Lady Liadrin vivent tous deux à côté du Vault — la vue Cette semaine les suit.|n• Après Heroic viennent Mythic et Mythic+ — ce chapitre arrivera avec la mise à jour Mythic de ce cours.",
+	DGN_CH6_BODY = "• Heroic utilise la rotation de la saison (huit donjons — voir la vue Coach, marqués avec la saison) avec des ennemis plus forts et un meilleur butin.|n• La Recherche de groupe affiche le prérequis d'équipement ; équipe-toi d'abord via les donjons Normal, les gouffres et le contenu mondial.|n• Combine avec tes hebdos : le donjon de la semaine d'Halduron et l'hebdo Spark de Lady Liadrin vivent tous deux à côté du Vault — la vue Cette semaine les suit.|n• Après Heroic viennent Mythic et Mythique + — ce chapitre arrivera avec la mise à jour Mythic de ce cours.",
 
 	-- Coach -----------------------------------------------------------------------
 	DGN_COACH_HEADER = "Dungeon Coach",

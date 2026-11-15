@@ -142,9 +142,9 @@ merge(ns._mhLocales and ns._mhLocales.nlNL, {
 })
 
 if ns._mhLocales and ns._mhLocales.deDE then merge(ns._mhLocales and ns._mhLocales.deDE, {
-	MPLUS_VIEW = "Mythic+",
-	MPLUS_HEADER = "Mythic+ — Saison 1",
-	MPLUS_HEADER_S2 = "Mythic+ — Saison 2",
+	MPLUS_VIEW = "Mythisch+",
+	MPLUS_HEADER = "Mythisch+ — Saison 1",
+	MPLUS_HEADER_S2 = "Mythisch+ — Saison 2",
 	MPLUS_INTRO = "Wie Keys diese Saison funktionieren: die Affixe, der Pool aus 8 Dungeons und die Zauber, die du unterbrechen musst. Geschrieben anhand der Wowhead-Übersicht und method.gg — im Spiel bestätigen.",
 
 	MPLUS_AFFIX_HEADER = "Was bei jeder Keystufe aktiv wird",
@@ -163,7 +163,7 @@ if ns._mhLocales and ns._mhLocales.deDE then merge(ns._mhLocales and ns._mhLocal
 	MPLUS_BARGAIN_DEVOUR = "Devour — {SPELL:440313} legt euch allen fünf einen Schild + Verlangsamung auf; entferne es mit Heilung oder einem beliebigen Dispel für einen {SPELL:465136}-Buff, sonst heilen sich die Mobs hoch.",
 
 	MPLUS_POOL_HEADER = "Die 8 Dungeons dieser Saison",
-	MPLUS_POOL_NOTE = "Normal & Follower nutzen alle Launch-Dungeons; Heroisch, Mythisch 0 und Mythic+ nutzen diesen Pool. Öffne einen Dungeon im Dungeon-Coach-Tab für Schritte je Boss.",
+	MPLUS_POOL_NOTE = "Normal & Follower nutzen alle Launch-Dungeons; Heroisch, Mythisch 0 und Mythisch+ nutzen diesen Pool. Öffne einen Dungeon im Dungeon-Coach-Tab für Schritte je Boss.",
 
 	MPLUS_SYSTEM_HEADER = "Gut zu wissen",
 	MPLUS_SYSTEM = "• Keys starten bei +2 (nicht bei +4 wie früher).|n• Resilient Keystones: time alle 8 Dungeons auf +12, und dein Key fällt bei einer Abwertung nie unter +12 (und skaliert von dort aus weiter hoch).|n• Dungeon Waystones sind Checkpoints mitten im Run — tote Spieler respawnen am letzten, den du freigeschaltet hast.|n• Beute und Wappen skalieren mit der Keystufe: Champion-Stufe-Wappen bei niedrigen Keys bis hoch zu Mythos-Stufe-Wappen bei +10 und höher, plus ein Dungeon-Platz in der Großen Schatzkammer für das Abschließen von acht.",
@@ -181,9 +181,9 @@ if ns._mhLocales and ns._mhLocales.deDE then merge(ns._mhLocales and ns._mhLocal
 }) end
 
 if ns._mhLocales and ns._mhLocales.frFR then merge(ns._mhLocales and ns._mhLocales.frFR, {
-	MPLUS_VIEW = "Mythic+",
-	MPLUS_HEADER = "Mythic+ — Saison 1",
-	MPLUS_HEADER_S2 = "Mythic+ — Saison 2",
+	MPLUS_VIEW = "Mythique +",
+	MPLUS_HEADER = "Mythique + — Saison 1",
+	MPLUS_HEADER_S2 = "Mythique + — Saison 2",
 	MPLUS_INTRO = "Comment fonctionnent les clés cette saison : les affixes, le pool de 8 donjons et les incantations que vous devez interrompre. Rédigé d'après l'aperçu de Wowhead et method.gg — à confirmer en jeu.",
 
 	MPLUS_AFFIX_HEADER = "Ce qui s'active à chaque niveau de clé",
@@ -202,7 +202,7 @@ if ns._mhLocales and ns._mhLocales.frFR then merge(ns._mhLocales and ns._mhLocal
 	MPLUS_BARGAIN_DEVOUR = "Devour — {SPELL:440313} pose un bouclier + ralentissement sur vous cinq ; nettoyez-le avec des soins ou n'importe quelle dissipation pour un bonus {SPELL:465136}, sinon les mobs se soignent.",
 
 	MPLUS_POOL_HEADER = "Les 8 donjons de cette saison",
-	MPLUS_POOL_NOTE = "Normal & Suiveur utilisent tous les donjons de lancement ; Héroïque, Mythique 0 et Mythic+ utilisent ce pool. Ouvrez un donjon dans l'onglet Dungeon Coach pour les étapes par boss.",
+	MPLUS_POOL_NOTE = "Normal & Suiveur utilisent tous les donjons de lancement ; Héroïque, Mythique 0 et Mythique + utilisent ce pool. Ouvrez un donjon dans l'onglet Dungeon Coach pour les étapes par boss.",
 
 	MPLUS_SYSTEM_HEADER = "Bon à savoir",
 	MPLUS_SYSTEM = "• Les clés commencent à +2 (et non +4 comme avant).|n• Resilient Keystones : chronométrez les 8 donjons en +12 et votre clé ne descend jamais sous +12 lors d'une déplétion (et elle monte à partir de là).|n• Les Dungeon Waystones sont des points de contrôle en milieu de run — les joueurs morts réapparaissent au dernier que vous avez débloqué.|n• Le butin et les écussons évoluent avec le niveau de clé : écussons de palier Champion aux clés basses jusqu'aux écussons de palier Mythique en +10 et au-delà, plus un emplacement de donjon dans la Grande chambre forte pour en avoir terminé huit.",

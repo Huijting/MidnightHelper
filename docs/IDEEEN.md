@@ -131,6 +131,22 @@ altijd" (Rob 20 okt), maar het is groot (±160 plekken), dus eerst Robs keuze.
    toont: NIET gemeten.
 3. **TOUR_ROOMS_BODY** (de/fr/es/pt/it) zegt "Me", terwijl de knop Ich/Moi/Yo/Eu/Io zegt.
 
+**Rob 15 nov (via Sparring 15-11, letterlijk):** *"Taalpunten. De bouwchat mag punten 1 en 3 oplossen en punt 2
+nakijken."* Uitslag (bouwchat 15-11, alleen op main, NIET in het spel gezien):
+- **1 af:** "Mythic+" → deDE "Mythisch+" (85×), frFR "Mythique +" (84×), alleen in de de/fr-blokken van Codex,
+  DungeonGuide, DungeonTips, MythicPlus en Translations2026. GEMETEN: wago GlobalStrings
+  PLAYER_DIFFICULTY_MYTHIC_PLUS (50146), build 12.1.5.70783. locale_probe: MPLUS_VIEW de/fr OK. Nog Engels "Mythic+":
+  esES, ptBR, itIT (hun clientnaam NIET gemeten; Rob vroeg alleen de/fr). ⚠️ CLAUDE.md noemt Mythic+ nog als "blijft
+  Engels"; dat mag alleen Rob laten wijzigen.
+- **3 af:** TOUR_ROOMS_BODY noemt nu de echte knopnamen, alle vier (ook "Tools" en "Settings" waren Engels): de Ich /
+  Werkzeuge / Einstellungen, fr Moi / Outils / Paramètres, es Yo / Herramientas / Ajustes (esMX: Configuración, eigen
+  regel in esMX.lua), pt Eu / Ferramentas / Configurações, it Io / Strumenti / Impostazioni. Ook nlNL zei "Me" bij de
+  knop "Ik": nu "Ik … Instellingen".
+- **2 gemeten, niets gewijzigd:** GlobalStrings SETTINGS_KEYBINDINGS_LABEL (49040, het menu in Options), 12.1.5.70783:
+  de "Tastaturbelegung", it "Assegnazione tasti", es "Atajos de teclado", pt "Atalhos do teclado" (Forever esES 1.60.1:
+  ook "Atajos de teclado"). Ons gebruik: de "Tastenbelegung" 14×, it "Scorciatoie" 3×, es/pt kaal "Atajos"/"Atalhos"
+  8× (+1 esMX). Voorstel naar sparring.
+
 ## Ja — wordt gebouwd
 
 Hier komt wat Rob goedkeurt, ook wat hij rechtstreeks in de bouwchat vraagt (Rob, 10 nov: *"ja we willen het op 1
