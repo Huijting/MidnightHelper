@@ -672,3 +672,55 @@ Overgenomen uit de oude lijst (X1 t/m X9), NIET opnieuw gemeten.
 
 De wekelijkse ideeën-wachter (cloud-routine, sinds 10 nov 2026) schrijft ALLEEN hier, onderaan, hooguit drie per week
 in de vaste vorm. De bouwchat verplaatst ze naar Open, of naar Nee met reden. Niemand anders schrijft in dit blok.
+
+- [2026-11-15] 💡 **Ideeënbus** — 2 voorstellen; gelezen: CurseForge-reacties (API via Exa, 8 berichten, nieuwste
+  6 okt: niets binnen 14 dagen), GitHub-issues Huijting/MidnightHelper (0 sinds 1 nov), Blizzards hotfixpagina's
+  (via `CONTENT_WATCH.md` en `PTR_12.0.7_DATA.md` van 14-15 nov, plus het forumbericht van 15 nov), Reddit/forums via
+  Exa-zoeken (r/wowforever-samenvattingen, Blizzard-forum Forever, beginnersgidsen 4-14 nov). Geen Reddit-pagina zelf
+  geopend; de Reddit-citaten komen uit artikelen die ze aanhalen.
+
+### Forever: "in deze groep krijgt niemand XP" (lid meer dan 12 levels boven de dungeon)
+- Voor wie:      allebei (nieuweling die door een vriend of guildie wordt meegenomen; veteraan die een alt helpt)
+- Moment:        in een groep, als je het Dungeons-venster opent of "Do this now" de dungeonregel toont, en een
+                 groepslid meer dan 12 levels boven die dungeon zit
+- Spel:          Forever
+- Bron:          Blizzard (Kaivax), forumbericht "Player-Level Dungeon XP Adjustment – November 14",
+                 https://us.forums.blizzard.com/en/wow/t/player-level-dungeon-xp-adjustment-november-14/2416343 (15 nov
+                 2026, 01:18 UTC): XP valt voor de groep weg zodra een speler "more than 12 levels above the level of the
+                 enemies" is. Basisregel in de Forever-hotfix van 13 nov (gelogd in `CONTENT_WATCH.md` [2026-11-14]).
+- Bouwt op:      `Modules/ForeverDungeons.lua` (levels per dungeon uit GroupFinderActivity, "Do this now"-tip, venster)
+- Data:          regel GEMETEN (Blizzards eigen tekst, door de data-wachter zelf gelezen op NA en EU, `PTR_12.0.7_DATA.md`
+                 [2026-11-15]). Nog te meten: welk getal de server als "level of the enemies" neemt (de mobs, niet het
+                 dungeonbereik uit GroupFinderActivity), en of `UnitLevel("party1..4")` in Forever altijd leesbaar is.
+- Vindbaar:      vanzelf: één zin in het Dungeons-venster en bij de dungeonregel van "Do this now", alleen als het speelt;
+                 `/mh dungeons check` zegt welk groepslid en hoeveel levels
+- Werk:          klein
+- Site:          ja, als het uit is
+- Bestaat al?:   grep `trivial|nullif|12 levels|LEVELS_ABOVE` in `Modules/` en `Locales/`: alleen Midnight-treffers
+                 (`DelveCoach.lua:2116` UnitIsTrivial, `NameplateColors.lua`, `CombatSafety.lua`), niets in Forever.
+                 grep `xp|UnitLevel|party|GetNumGroupMembers` in `ForeverDungeons.lua`: alleen `UnitLevel("player")`
+                 (r. 144, 298, 340), geen groepsleden. Positieve controle zelfde ronde: `GroupFinderActivity` en "Route"
+                 wél gevonden in `ForeverDungeons.lua`. Uitkomst: bestaat niet.
+- Rob zegt:      (open)
+
+### Forever: "Do this now" zegt dat een nieuwe spell op geen enkele balk staat
+- Voor wie:      vooral nieuweling
+- Moment:        na een trainerbezoek, als je een spell hebt geleerd die op geen enkele actieknop staat
+- Spel:          Forever
+- Bron:          Blizzards development notes van 2 nov 2026 (nieuwe spells komen niet meer vanzelf op je balk), samengevat
+                 in https://timesaver.gg/blog/wow-forever-beginner-guide-new-players (4 nov 2026) als "the number one
+                 beginner trap at launch"; Rob 12 nov: *"niet iedereen zal onze Keys layout gebruiken"* (O24).
+- Bouwt op:      `Modules/ForeverDoNow.lua` (luistert al naar ACTIONBAR_SLOT_CHANGED); het "ask me"-plaatsen van het
+                 toetsenblok (`ForeverBlock.lua`, `KEYBLOCK_MODE_FMT`) doet dit al, maar alleen voor wie het blok gebruikt
+- Data:          nog te meten: welke Forever-functie zegt of een spell op een knop staat (`C_ActionBar.FindSpellActionButtons`
+                 of de 1-180-loop van `ForeverRanks.lua`), en welke spells passief zijn (die horen niet op een balk)
+- Vindbaar:      vanzelf, als regel in "Do this now" ("Fireball rank 1 is on none of your bars. Open your spellbook (P)
+                 and drag it on."), met dezelfde schakelaar als dat venster
+- Werk:          klein
+- Site:          ja, als het uit is
+- Bestaat al?:   grep op `bar` in `ForeverDoNow.lua` en de enUS-tekst: "old ranks on your bars" (`SET_FOREVER_DONOW_DESC`,
+                 `NEWC_DONOW_BODY`) = de positieve controle, wel gevonden; een regel "staat op geen balk" niet.
+                 grep `onbar|notOnBar|FindSpellBookSlot|HasAction` in `Modules/Forever*.lua`: alleen `ForeverBlock.lua:47`
+                 (het toetsenblok). grep `not on your bars`: alleen `CARD_SOLO_NOKEY` (enUS:841, een kaarttekst). Uitkomst:
+                 bestaat alleen voor gebruikers van het toetsenblok.
+- Rob zegt:      (open)
