@@ -4694,3 +4694,49 @@ kop, per bevinding MEASURED/INFERRED en [RAAKT ONS]/[RAAKT ONS NIET], met bestan
   `Modules/ForeverVendorSpots.lua` (alle vandaag bekeken). Geen actiepunt dat ik oppak — ik rapporteer, een
   mens beslist. Vandaag is zaterdag, geen maandag: de kaarten- en consumables-secties zijn opzettelijk
   weggelaten.
+
+- [2026-11-15] 💬 **CurseForge: geen open reacties (3 draadjes, 8 totaal, identiek aan [2026-11-14]).**
+  `curseforge.com/api/v1/mods/1528577/comments?pageIndex=0&pageSize=20&nocache=20261115a` (en
+  `&nocache=20261115b`), twee onafhankelijke fetches via Exa, allemaal volledig gelezen (JSON,
+  `pagination.totalCount: 8`). Dezelfde drie draadjes als gisteren, allemaal beantwoord (nieuwste
+  bericht in elke keten van `twelveinchy`): esES/esMX-locale-fix `8509224` → reply `8510682`
+  (timestamp `1791351710373`); MrsBoojiePanda's debug-printregel `8414729` → reply `8483898`
+  (timestamp `1790842459727`); gadrinonturalyon's coffer-key-shards/3D-boss-model-verzoek `8090710`
+  → reply-keten tot `8095337`/`8092133` — alle ids en timestamps byte-identiek aan [2026-11-14].
+  MEASURED. **[RAAKT ONS NIET]** — geen actiepunt, geen concept-antwoord nodig.
+
+  — bron: https://www.curseforge.com/api/v1/mods/1528577/comments?pageIndex=0&pageSize=20&nocache=20261115a
+  (en `&nocache=20261115b`), beide zelf gelezen via Exa.
+
+- [2026-11-15] 🔁 **Geen nieuwe Midnight-hotfixsectie (nu de tiende dag); Forever-spoor ook stil
+  (nieuwste blijft "November 13, 2026", al volledig verwerkt op [2026-11-14]).**
+
+  **Midnight, geen nieuwe sectie.** MEASURED, zelf gelezen via Exa (cache-buster `?nocache=20261115a`):
+  `news.blizzard.com/en-us/article/24307310/hotfixes-november-6-2026` toont nog steeds alleen de
+  secties van 6 en 5 nov (Vashnik/Ula'tek-tuning, resp. de Tortollan-naamswijziging + Shadowguard
+  Point + Venomous Abyss-tuning — allemaal al verwerkt op [2026-11-06]/[2026-11-07], inclusief het nog
+  openstaande [RAAKT ONS]-punt daar: Iku/Nama → Epu/Nema in `Locales/RaidTips.lua` e.a., een mens
+  beslist). **Positieve controle, zelfde run:** `worldofwarcraft.blizzard.com/en-us/content-update-notes`
+  (zelfde cache-buster) zegt nu **"8 days ago"** bij die Nov 6-sectie — gepubliceerd 7 nov, dus 7+8=15
+  nov, precies vandaag; was het een verstikte cache van gisteren geweest, had daar "7 days ago"
+  gestaan. De relatieve teller loopt dus mee, de pagina is vers, en de stilstand op de hotfixpagina
+  zelf is een echte meting, geen cache-artefact. Geen nieuwe Delves-, Professions-, Quests- of
+  Items-regel sinds [2026-11-06]/[2026-11-07].
+
+  **Forever, ook stil.** MEASURED: `news.blizzard.com/en-us/article/24315281/wow-forever-hotfixes-november-13-2026`
+  en de nieuwsfeed-pagina (beide met cache-buster `?nocache=20261115a`) tonen nog steeds "WoW: Forever
+  Hotfixes - November 13, 2026" (gepubliceerd 14 nov) als nieuwste; geen Nov 14-sectie, geen titel die
+  ouder is dan wat [2026-11-14] al vastlegde — geen cache-artefact. Die Nov 13-sectie (DR tegen
+  creature-stuns, Druid Resto Wild Growth, Mage Frost Nova, Paladin Judgement of Command, Priest
+  "Quick and the Dead", Shaman Windfury Totem, Warlock Siphon Life, Warrior Berserker Rage, trivial-XP,
+  dungeon- en NPC-fixes) is al volledig tegen `Modules/Forever*.lua` en `Locales/ForeverHowToPlay*.lua`
+  gezet op [2026-11-14], met de drie uitzonderingen die toen apart gecontroleerd zijn (Windfury Totem,
+  Frost Nova, Nyalah Brightfire) — geen nieuwe informatie om daar nog aan toe te voegen. Geen nieuwe
+  Forever-hotfixdag om te checken.
+
+  — bron: https://news.blizzard.com/en-us/article/24307310/hotfixes-november-6-2026?nocache=20261115a ·
+  https://worldofwarcraft.blizzard.com/en-us/content-update-notes?nocache=20261115a ·
+  https://news.blizzard.com/en-us/article/24315281/wow-forever-hotfixes-november-13-2026?nocache=20261115a ·
+  https://news.blizzard.com/en-us/feed/world-of-warcraft?nocache=20261115a (alle vier zelf gelezen via
+  Exa). Geen actiepunt dat ik oppak — ik rapporteer, een mens beslist. Vandaag is zondag, geen maandag:
+  de kaarten- en consumables-secties zijn opzettelijk weggelaten.
