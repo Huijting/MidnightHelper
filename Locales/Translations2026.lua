@@ -15764,6 +15764,28 @@ if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	ALTBOARD_IN_WINDOW = "I tuoi personaggi sono aperti in una finestra a parte. Chiudila per rivederli qui.",
 }) end
 
+-- Edit Mode copy from another game version (EditModeBackup.lua OtherBuild), 15 Nov 2026. Our own translations.
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
+	EDITMODE_OTHER_BUILD_FMT = "Diese Kopie deines Layouts stammt aus einer anderen Spielversion (%s; jetzt %s). Blizzard hat Teile des Bearbeitungsmodus dazwischen neu nummeriert, deshalb könnte das Zurücksetzen Einstellungen an die falsche Stelle setzen. Nichts wurde geändert.",
+	EDITMODE_BUILD_OLDER = "einer älteren Version",
+}) end
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
+	EDITMODE_OTHER_BUILD_FMT = "Cette copie de ta disposition vient d'une autre version du jeu (%s ; maintenant %s). Blizzard a renuméroté des parties du Mode Édition entre-temps, donc la restaurer pourrait mettre des réglages au mauvais endroit. Rien n'a été changé.",
+	EDITMODE_BUILD_OLDER = "une version plus ancienne",
+}) end
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
+	EDITMODE_OTHER_BUILD_FMT = "Esta copia de tu diseño se hizo en otra versión del juego (%s; ahora %s). Blizzard renumeró partes del Modo edición entre medias, así que restaurarla podría poner ajustes en el sitio equivocado. No se ha cambiado nada.",
+	EDITMODE_BUILD_OLDER = "una versión anterior",
+}) end
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
+	EDITMODE_OTHER_BUILD_FMT = "Esta cópia do seu layout foi feita em outra versão do jogo (%s; agora %s). A Blizzard renumerou partes do Modo de edição nesse meio-tempo, então restaurá-la poderia colocar configurações no lugar errado. Nada foi alterado.",
+	EDITMODE_BUILD_OLDER = "uma versão anterior",
+}) end
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
+	EDITMODE_OTHER_BUILD_FMT = "Questa copia del tuo layout è stata fatta in un'altra versione del gioco (%s; ora %s). Blizzard ha rinumerato parti della Modalità modifica nel frattempo, quindi ripristinarla potrebbe mettere impostazioni nel posto sbagliato. Non è stato cambiato nulla.",
+	EDITMODE_BUILD_OLDER = "una versione precedente",
+}) end
+
 -- Forever survey invitation (ForeverSurvey.lua), 15 Nov 2026. Our own translations, not native-reviewed. itIT has no
 -- Forever client, so no Italian block.
 if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {

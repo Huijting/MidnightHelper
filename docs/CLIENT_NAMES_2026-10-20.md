@@ -1,5 +1,13 @@
 # Clientnamen, gemeten 20 okt 2026
 
+## 🔴 Bewuste uitzondering: frFR "LFR" blijft "LFR" (15 nov 2026)
+Rob, via Sparring 15-11, letterlijk: *"Haha a"* (optie a = "LFR" laten staan). GEMETEN: het Franse spel noemt de
+raidzoeker alleen "Raids" (PLAYER_DIFFICULTY3, RAID_FINDER, RAID_FINDER_PVEFRAME; wago 12.1.5.70783). In een zin leest
+dat als "gewone raids" en verwart. Dus in frFR blijft "LFR" staan, ondanks de regel "clientnaam wint". KeepEnglish.lua
+kan dit niet vastleggen (die werkt per hele key, niet per woord): een volgende vertaalronde moet deze regel lezen.
+Plekken (15 nov): ACADEMY_HEAL_LADDER_BODY, ACADEMY_HEAL_RAID_BODY/_TITLE, ACADEMY_TANK_LADDER_BODY, ACADEMY_TANK_RAID_BODY/
+_TITLE, CODEX_127_SPOREFALL_BODY, OMNIUM_WK_OBJ_4. Alle andere speltermen van 15 nov: zie docs/NEXT_SESSION.md "15 nov".
+
 Bron: wago.tools DB2, build **12.1.5.70448** (live), per locale. mh-research, alles GEMETEN tenzij AFGELEID erbij staat.
 PTR 12.1.7.70424 gaf voor currency/achievement/upgrade-rijen geen verschil. Geen hotfixes op deze rijen.
 

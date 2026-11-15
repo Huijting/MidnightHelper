@@ -356,6 +356,9 @@ ns._mhLocales.enUS = {
 	SURVEY_COPY_TITLE = "Survey: two minutes for Midnight Helper",
 	SURVEY_COPY_HINT = "Press Ctrl+C and paste the link in your browser. Thank you!",
 	SURVEY_CHAT_LATER = "No problem. The survey link is always one command away: /mh survey",
+	-- Edit Mode copy from another game version (EditModeBackup.lua OtherBuild, 15 Nov 2026).
+	EDITMODE_OTHER_BUILD_FMT = "This copy of your layout was made on another game version (%s; now %s). Blizzard renumbered parts of Edit Mode in between, so putting it back could move settings to the wrong place. Nothing was changed.",
+	EDITMODE_BUILD_OLDER = "an older version",
 	-- Forever survey invitation (ForeverSurvey.lua, 15 Nov 2026): its own page on the site.
 	FSURVEY_URL = "midnighthelper.com/survey/forever/?from=game",
 	FSURVEY_POPUP_TEXT = "A few minutes for Midnight Helper in WoW Forever?\n\nMidnight Helper is made by one person, and we hear almost nothing from Forever players. A short, anonymous survey on our website tells us what you use, what you miss and what gets better next.",

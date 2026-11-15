@@ -37,6 +37,14 @@ Op een Forever-character, `/mh dungeons` (of de knop "Dungeons" in "Do this now"
 - [ ] De kolom "Entrance" toont nu de plek als getallen (bv. "42.5, 71.7"), niet meer de zonenaam. Muis op "Route" noemt
       de zone nog wel.
 
+## 🆕 15 nov (avond) — Edit Mode-back-up kent zijn spelversie
+
+- [ ] Midnight: zet het toetsenblok neer en haal het weer weg ("Your key block" → terug). Werkt het terugzetten nog
+      gewoon? (Zelfde spelversie, dus het mag NIET geweigerd worden.)
+- [ ] Na de patch 12.1.7 (2 dec): een oude back-up terugzetten moet een oranje regel geven: "This copy of your layout
+      was made on another game version …" en niets veranderen.
+- [ ] Na 12.1.7: het Codex-artikel over de Aqir Invasions is weg.
+
 ## 🆕 15 nov (middag) — Forever: uitnodiging voor de Forever-vragenlijst
 
 Op een Forever-character:

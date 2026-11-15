@@ -129,6 +129,35 @@ local function FoldLoginDuplicates(list)
 	end
 end
 
+--- The client's interface number (GetBuildInfo's 4th value), 0 when unknown.
+local function Iface()
+	if GetBuildInfo then
+		local _, _, _, n = GetBuildInfo()
+		return tonumber(n) or 0
+	end
+	return 0
+end
+
+--- 15 Nov 2026 (12.1.7 PTR, GEMETEN: Enum.EditModeSystem 26 became MainActionBarEndCap and LossOfControl moved 26 -> 28;
+--- docs/PATCH_12_1_7_PTR_2026-11-15.md). A copy saved on one game version and poured back on another could put a
+--- system's settings on the wrong system (AFGELEID, not tested). So a restore across versions is refused, with the reason.
+--- Copies from before this stamp (stored == nil) were made on retail 12.1.5 or older, so on retail 12.1.7+ they are
+--- refused too; Forever has no such change, so there an unstamped copy still restores.
+--- Returns the message to show, or nil when the restore may go ahead.
+local function OtherBuild(stored)
+	local cur = Iface()
+	if stored then
+		if stored ~= cur then
+			return ns:L("EDITMODE_OTHER_BUILD_FMT"):format(tostring(stored), tostring(cur))
+		end
+		return nil
+	end
+	if not ns.IS_FOREVER and cur >= 120107 then
+		return ns:L("EDITMODE_OTHER_BUILD_FMT"):format(ns:L("EDITMODE_BUILD_OLDER"), tostring(cur))
+	end
+	return nil
+end
+
 --- @param label string  why this capture happened, so a list of three is readable
 --- @return boolean ok, string|nil reason  ("unchanged" when nothing new was stored)
 function ns.MH_EditModeCapture(label)
@@ -151,6 +180,7 @@ function ns.MH_EditModeCapture(label)
 		summary = Describe(info),
 		data = Sanitize(info, 0),
 		at = time(),
+		iface = Iface(), -- see OtherBuild()
 	}
 	-- Newest first, and only a few: this is layout data, not a diary, and SavedVariables
 	-- is read on every login.
@@ -570,6 +600,14 @@ function ns.MH_EditModeRestore()
 	if not target then
 		print(("%s layout \"%s\" is not available on this character. Nothing changed."):format(Prefix(),
 			tostring(undo.layoutName)))
+		return
+	end
+	local otherBuild = OtherBuild(snap.iface)
+	if otherBuild then
+		print(Prefix() .. " |cffff9900" .. otherBuild .. "|r")
+		if ns.MH_SetupSay then
+			ns.MH_SetupSay("warn", otherBuild)
+		end
 		return
 	end
 	target.systems = was.systems
@@ -1028,6 +1066,10 @@ function ns.MH_EditModeRestoreKeyBlock()
 		end
 		return false, ns:L("KEYBLOCK_LAYOUT_NO_UNDO")
 	end
+	local otherBuild = OtherBuild(ns.db.keyBlockLayoutSavedIface and ns.db.keyBlockLayoutSavedIface[name])
+	if otherBuild then
+		return false, otherBuild
+	end
 	target.systems = Sanitize(saved, 0)
 	if EditModeManagerFrame and EditModeManagerFrame.ReconcileWithModern then
 		pcall(EditModeManagerFrame.ReconcileWithModern, EditModeManagerFrame, target)
@@ -1036,6 +1078,9 @@ function ns.MH_EditModeRestoreKeyBlock()
 		return false, "Edit Mode refused the restore."
 	end
 	ns.db.keyBlockLayoutSaved[name] = nil
+	if ns.db.keyBlockLayoutSavedIface then
+		ns.db.keyBlockLayoutSavedIface[name] = nil
+	end
 	BarTogglesBack()
 	MarkBack()
 	if ns.db.keyBlockOldBarsHiddenBy then
@@ -1230,6 +1275,8 @@ function ns.MH_EditModeApplyKeyBlock(fromPreset)
 	-- This layout's own way back: a copy of its systems as they are now, under its name.
 	ns.db.keyBlockLayoutSaved = ns.db.keyBlockLayoutSaved or {}
 	ns.db.keyBlockLayoutSaved[layoutName] = Sanitize(target.systems, 0)
+	ns.db.keyBlockLayoutSavedIface = ns.db.keyBlockLayoutSavedIface or {}
+	ns.db.keyBlockLayoutSavedIface[layoutName] = Iface() -- see OtherBuild()
 
 	local pinned = 0
 	for _, s in ipairs(target.systems or {}) do

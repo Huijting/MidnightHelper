@@ -22,6 +22,7 @@ local _, ns = ...
 ---@field referenceSubTab string|nil -- "crest" | "professions" when tabId is reference
 ---@field currencyId number|nil
 ---@field minInterface number|nil -- hidden until the client's interface number is at least this (e.g. 120105)
+---@field maxInterface number|nil -- hidden once the client's interface number is above this (content that ends)
 ---@field searchKeys string|nil -- extra words NavSearch matches on. Without it an article
 ---                             -- is findable only by words already in its own title.
 ---@field sort number
@@ -606,6 +607,9 @@ ns.CODEX_ARTICLES = {
 		bodyKey = "CODEX_AQIR_BODY",
 		sort = 6,
 		minInterface = 120105,
+		-- 15 Nov 2026: the Aqir Invasions are gone on the 12.1.7 PTR (Wowhead 3 Nov; docs/PATCH_12_1_7_PTR_2026-11-15.md),
+		-- so the article leaves by itself on a 12.1.7 client. Rob via sparring: "Doe ze allemaal maar."
+		maxInterface = 120105,
 		searchKeys = "aqir invasion swarm eversong zul'aman hourly event research enclave webweaver voidweaver "
 			.. "corrupted swarmer invasie",
 	},
@@ -867,7 +871,7 @@ do
 	end
 	for i = #ns.CODEX_ARTICLES, 1, -1 do
 		local a = ns.CODEX_ARTICLES[i]
-		if a.minInterface and iface < a.minInterface then
+		if (a.minInterface and iface < a.minInterface) or (a.maxInterface and iface > a.maxInterface) then
 			table.remove(ns.CODEX_ARTICLES, i)
 		end
 	end

@@ -341,6 +341,8 @@ ns._mhLocales.nlNL = {
 	SURVEY_COPY_TITLE = "Vragenlijst: twee minuten voor Midnight Helper",
 	SURVEY_COPY_HINT = "Druk op Ctrl+C en plak de link in je browser. Bedankt!",
 	SURVEY_CHAT_LATER = "Geen probleem. De link naar de vragenlijst is altijd één commando weg: /mh survey",
+	EDITMODE_OTHER_BUILD_FMT = "Deze kopie van je indeling is gemaakt op een andere spelversie (%s; nu %s). Blizzard heeft onderdelen van Edit Mode daartussen opnieuw genummerd, dus terugzetten kan instellingen op de verkeerde plek zetten. Er is niets veranderd.",
+	EDITMODE_BUILD_OLDER = "een oudere versie",
 	FSURVEY_URL = "midnighthelper.com/nl/survey/forever/?from=game",
 	FSURVEY_POPUP_TEXT = "Een paar minuten voor Midnight Helper in WoW Forever?\n\nMidnight Helper wordt door één persoon gemaakt, en we horen bijna niets van Forever-spelers. Een korte, anonieme vragenlijst op onze website vertelt ons wat je gebruikt, wat je mist en wat er als volgende beter wordt.",
 	FSURVEY_COPY_TITLE = "Vragenlijst voor WoW Forever-spelers",

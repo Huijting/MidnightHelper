@@ -184,6 +184,15 @@ Rob 15 nov (via sparring), op zes ideeën: *"Doe ze allemaal maar."* Volgorde na
 3. **Midnight klaar voor 12.1.7 / Season 3**: bronnenlijst + plan naar sparring; klein en zeker mag direct.
 4. **Midnight-controle**: verouderd/kapot nalopen (stale advice, hotfixes sinds 12.1.5, open punten); lijst + voorstel.
 (Idee 3, Reddit/forums, doet de sparring-chat zelf. Idee 6 = de woensdag hierboven.)
+Stand 15 nov avond: 1 gebouwd (1f521e5), 2 gemeten, 3 rapport + A/B gebouwd (zie NEXT_SESSION), 4 lijst naar sparring.
+
+### Forever: waarschuwing "meer dan 12 levels boven de vijanden = niemand krijgt XP"
+- Rob 15 nov (via sparring, letterlijk): *"Ja, op 12 levels, waarschuwing achterin."* = ja, achteraan de rij.
+- Bron (sparring/mh-research): Blizzard (Kaivax, 14/15 nov, us.forums.blizzard.com …/2416343): zit iemand in de groep
+  meer dan 12 levels boven een vijand, dan krijgt niemand XP voor die kill. In 2 dagen twee keer aangepast: datum in de
+  tekst, eerst de huidige regel nameten.
+- Plekken: Forever-groepspaneel ("X is more than 12 levels above these mobs") en de dungeonlijst (wie te hoog is).
+- Eerst meten: UnitLevel van groepsleden en vijanden leesbaar in Forever? Diagnose `/mh …` (zwijg-regel).
 
 ### Forever: Horde/Alliance-tekentje vóór elk character in "Your characters"
 - Voor wie:      allebei (wie characters aan beide kanten heeft)

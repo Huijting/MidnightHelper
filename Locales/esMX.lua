@@ -1012,6 +1012,8 @@ for k, v in pairs({
 	FIRSTRUN_POPUP_TEXT = "¡Bienvenido a Midnight Helper!\n\n¿Te enseño qué hacer esta semana? Ábrelo cuando quieras escribiendo /mh. Puedes asignarle tu propia tecla en Atajos, Midnight Helper.",
 	POTIONKEY_WHERE = "Asigna las teclas en Opciones \194\187 Atajos \194\187 Midnight Helper. Siguen a la poción que lleves y sobreviven a una reconstrucción de barras.",
 	PADKEYS_NO_QUICKBIND = "este cliente no abrió el modo de asignación rápida \194\183 Escape \194\187 Opciones \194\187 Atajos.",
+	-- 15 Nov 2026: Edit Mode is "Modo de edición" on the esMX client (esES: "Modo edición"; HUD_EDIT_MODE_MENU).
+	EDITMODE_OTHER_BUILD_FMT = "Esta copia de tu diseño se hizo en otra versión del juego (%s; ahora %s). Blizzard renumeró partes del Modo de edición entre medias, así que restaurarla podría poner ajustes en el sitio equivocado. No se ha cambiado nada.",
 	-- 15 Nov 2026: game terms in the esMX client's own words (wago GlobalStrings 12.1.5.70783).
 	ALTBOARD_VAULT_RAID = "Gran bóveda: banda",
 	ALTBOARD_VAULT_WORLD = "Gran bóveda: mundo",

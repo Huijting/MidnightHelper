@@ -98,6 +98,16 @@ per client). 194 stukjes in 114 keys, 15 nieuwe esMX-regels; esMX SMC_SEARCH_CRE
 Fr "palier" → "niveau" (één woord, zoals het spel). Over: tier set, crest-rang, "Normal oder Heroic am Portal",
 "Ritual-Site" (de: Ritualstätte, GEMETEN RITUAL_SITE_LABEL, nog niet vervangen), fr LFR (vraag bij Rob via sparring:
 advies laten staan). luac OK, lint 0 HARD.
+🛠️ 12.1.7 A + B GEBOUWD (alleen op main; sparring: "eerst A en B van 12.1.7", binnen Robs "Doe ze allemaal maar"):
+A. EditModeBackup.lua: elke back-up (`iface`) en elke toetsenblok-kopie (`ns.db.keyBlockLayoutSavedIface`) bewaart het
+interfacenummer; terugzetten op een ander nummer weigert met EDITMODE_OTHER_BUILD_FMT (reden in chat + Setup-zin). Oude
+kopieën zonder nummer: geweigerd op retail ≥ 120107, toegestaan in Forever. Teksten in en/nl/de/fr/es/esMX/pt/it/ru;
+"Edit Mode" per taal GEMETEN (HUD_EDIT_MODE_MENU: Bearbeitungsmodus / Mode Édition / Modo edición / esMX Modo de edición /
+Modo de edição / Modalità modifica; ru "Настройка интерфейса" = HUD_EDIT_MODE_TITLE). B. MidnightCodexData.lua:
+`maxInterface` in het filter; het Aqir-artikel heeft maxInterface = 120105 → weg op een 12.1.7-client. luac OK, lint 0 HARD.
+NIET in het spel gezien. 🇫🇷 Rob koos (via sparring, letterlijk *"Haha a"*): frFR "LFR" blijft, uitzondering vastgelegd
+bovenaan docs/CLIENT_NAMES_2026-10-20.md. Volgende in de rij: Forever XP-waarschuwing 12 levels (Rob: *"Ja, op 12
+levels, waarschuwing achterin."*), zie IDEEEN.
 🔐 Herstart-check: geen enkele call werd geweigerd (git status/pull/log, echo, _probe ×3, Write). Of Rob een vraag kreeg
 die hij goedkeurde, zie ik niet: AFGELEID "geen vragen", Rob bevestigt.
 💡 Ideeënbus zo 15 nov: 2 voorstellen (XP-drempel +12 levels in groepen; "nieuwe spell op geen balk"). Ze staan

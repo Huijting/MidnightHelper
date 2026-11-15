@@ -5749,6 +5749,8 @@ ns._mhLocales.ruRU = {
 	ST_SEASON_SOON = "2-й сезон начинается на неделе 18 августа",
 	ST_TITLE = "Смена сезона",
 	SURVEY_CHAT_LATER = "Без проблем. Ссылка на опрос всегда доступна командой: /mh survey",
+	EDITMODE_OTHER_BUILD_FMT = "Эта копия твоего макета сделана в другой версии игры (%s; сейчас %s). Blizzard перенумеровала части «Настройки интерфейса», поэтому восстановление может поставить настройки не туда. Ничего не изменено.",
+	EDITMODE_BUILD_OLDER = "более старая версия",
 	FSURVEY_URL = "midnighthelper.com/ru/survey/forever/?from=game",
 	FSURVEY_POPUP_TEXT = "Пара минут для Midnight Helper в WoW Forever?\n\nMidnight Helper делает один человек, а от игроков Forever мы почти ничего не слышим. Короткий анонимный опрос на нашем сайте подскажет, чем ты пользуешься, чего тебе не хватает и что улучшить дальше.",
 	FSURVEY_COPY_TITLE = "Опрос для игроков WoW Forever",
