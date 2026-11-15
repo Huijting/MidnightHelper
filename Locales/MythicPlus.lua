@@ -260,12 +260,12 @@ if ns._mhLocales and ns._mhLocales.esES then merge(ns._mhLocales and ns._mhLocal
 
 if ns._mhLocales and ns._mhLocales.ptBR then merge(ns._mhLocales and ns._mhLocales.ptBR, {
 	MPLUS_VIEW = "Mítico+",
-	MPLUS_HEADER = "Mítico+ — Temporada 1",
-	MPLUS_HEADER_S2 = "Mítico+ — Temporada 2",
-	MPLUS_INTRO = "Como as chaves funcionam nesta temporada: os afixos, o pool de 8 masmorras e as conjurações que você precisa interromper. Escrito com base na visão geral do Wowhead e no method.gg — confirmar no jogo.",
+	MPLUS_HEADER = "Mítico+ — Série 1",
+	MPLUS_HEADER_S2 = "Mítico+ — Série 2",
+	MPLUS_INTRO = "Como as chaves funcionam nesta série: os afixos, o pool de 8 masmorras e as conjurações que você precisa interromper. Escrito com base na visão geral do Wowhead e no method.gg — confirmar no jogo.",
 
 	MPLUS_AFFIX_HEADER = "O que entra em ação em cada nível de chave",
-	MPLUS_AFFIX_UNMEASURED = "A Temporada 2 mudou os afixos das keystones e o Midnight Helper ainda não mediu os novos. A lista que estava aqui era a da Temporada 1, e mostrá-la sob um título de Temporada 2 seria pior do que não mostrar nada. O grupo de masmorras abaixo está atualizado. A sua própria keystone mostra os afixos antes de podermos medi-los: /mh report e entram.",
+	MPLUS_AFFIX_UNMEASURED = "A Série 2 mudou os afixos das keystones e o Midnight Helper ainda não mediu os novos. A lista que estava aqui era a da Série 1, e mostrá-la sob um título de Série 2 seria pior do que não mostrar nada. O grupo de masmorras abaixo está atualizado. A sua própria keystone mostra os afixos antes de podermos medi-los: /mh report e entram.",
 	MPLUS_AFFIX_LINDORMI = "Orientação de Lindormi — marca e enfraquece certos inimigos, e remove a penalidade de morte. Uma ajuda enquanto você aprende as masmorras.",
 	MPLUS_AFFIX_BARGAIN = "Xal'atath's Bargain — uma das quatro variantes semanais de \"beijo-maldição\" está ativa (veja abaixo). Vai de +5 a +11.",
 	MPLUS_AFFIX_LINDOFF = "Lindormi's Guidance cai — daqui para cima não há mais clemência na penalidade de morte.",
@@ -279,7 +279,7 @@ if ns._mhLocales and ns._mhLocales.ptBR then merge(ns._mhLocales and ns._mhLocal
 	MPLUS_BARGAIN_PULSAR = "Pulsar — soake {SPELL:1216815} antes que expire para um buff de maestria e roubo de vida; falhe e os mobs ganham dano e redução de dano.",
 	MPLUS_BARGAIN_DEVOUR = "Devour — {SPELL:440313} coloca um escudo + lentidão sobre os cinco; limpe-o com cura ou qualquer dissipação para um buff de {SPELL:465136}, ou os mobs se curam.",
 
-	MPLUS_POOL_HEADER = "As 8 masmorras desta temporada",
+	MPLUS_POOL_HEADER = "As 8 masmorras desta série",
 	MPLUS_POOL_NOTE = "Normal e Seguidor usam todas as masmorras de lançamento; Heroico, Mítico 0 e Mítico+ usam este pool. Abra qualquer masmorra na aba Dungeon Coach para os passos por chefe.",
 
 	MPLUS_SYSTEM_HEADER = "Bom saber",
@@ -432,10 +432,10 @@ merge(ns._mhLocales and ns._mhLocales.nlNL, {
 if ns._mhLocales and ns._mhLocales.deDE then merge(ns._mhLocales and ns._mhLocales.deDE, {
 	MPLUS_BEGINNER_BTN_ON = "Anfängermodus ist AN — hier klicken für die vollständige Version",
 	MPLUS_BEGINNER_BTN_OFF = "Anfängermodus ist AUS — hier klicken für die einfache Version",
-	MPLUS_BEGINNER_INTRO = "Ein \"Key\" (Schlüsselstein) ist einfach ein Dungeon auf einer schwereren Stufe mit einer Uhr. Du musst dort nicht anfangen. Es gibt keine Eile, und es ist völlig in Ordnung, langsam zu machen — fast alle lernen erst einen Dungeon kennen und steigern sich später.",
+	MPLUS_BEGINNER_INTRO = "Ein \"Schlüsselstein\" ist einfach ein Dungeon auf einer schwereren Stufe mit einer Uhr. Du musst dort nicht anfangen. Es gibt keine Eile, und es ist völlig in Ordnung, langsam zu machen — fast alle lernen erst einen Dungeon kennen und steigern sich später.",
 	MPLUS_BEGINNER_START = "Fang hier an: Mach den Dungeon zuerst auf Follower oder Normal. Keine Uhr, Sterben macht nichts kaputt, und du gehst in deinem eigenen Tempo. Wenn es sich leicht anfühlt, probier Heroisch, dann Mythisch 0 (immer noch keine Uhr), und erst danach einen +2-Schlüsselstein.",
 	MPLUS_GLOSSARY_HEADER = "Wörter, die du hören wirst (in einfacher Sprache)",
-	MPLUS_GLOSS_KEY = "Schlüsselstein (Key) — ein Dungeon auf einer schwereren Stufe mit einer Uhr. Eine höhere Zahl bedeutet schwerer.",
+	MPLUS_GLOSS_KEY = "Schlüsselstein — ein Dungeon auf einer schwereren Stufe mit einer Uhr. Eine höhere Zahl bedeutet schwerer.",
 	MPLUS_GLOSS_AFFIX = "Affix — eine zusätzliche Regel, die den Dungeon schwerer macht. Neue kommen auf bestimmten Schlüsselstein-Stufen dazu.",
 	MPLUS_GLOSS_PULL = "Pull — zu den Gegnern hingehen, um den Kampf zu starten. Meistens entscheidet der Tank, wann.",
 	MPLUS_GLOSS_KICK = "Kick / Interrupt — mit deiner Unterbrechen-Taste stoppst du einen Gegner mitten im Zauber. Nutz sie bei den Zaubern, die wichtig sind.",

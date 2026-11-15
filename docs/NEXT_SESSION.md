@@ -69,6 +69,17 @@ retail). Pop-up één keer per installatie, pas op de 2e dag dat MH in Forever d
 Link per taal (site-chat bevestigde): midnighthelper.com/<taal>/survey/forever/?from=game (en zonder taal; nl/de/fr/es/
 pt/ru; geen it). Keys FSURVEY_URL/_POPUP_TEXT/_COPY_TITLE in en/nl/de/fr/es/pt/ru (onze vertaling). luac OK, lint 0
 HARD. NIET in het spel gezien (TESTLIJST 15 nov middag). SITE_SEIN/changelog bij de volgende release.
+🌐 Speltermen groep 3 AF (alleen op main): delve-Tier, KP, Crests, Coffer Keys/Shards, LFR, Timewalking, PvP, vault,
+ptBR temporada → Série. GEMETEN: delve-tier = Stufe/niveau/nivel/grau/grado/уровень (DELVES_* GlobalStrings); KP = Wissen/
+points de savoir/conocimiento/conhecimento/conoscenza/знания (PROFESSIONS_SPECIALIZATION_*); Coffer Key/Shards =
+CurrencyTypes 3028/3310; LFR = PLAYER_DIFFICULTY3; PvP = JcJ/JxJ (fr/es/pt). Crests: de S2-munt heet Mistcrest
+(CurrencyTypes 3437-3446: Nebelwappen / écu de brume / blasón de bruma / esMX niebloemblema / brasão brumoso / emblema
+della Nebbia), S1 = Dawncrest; de schrijvers gebruikten alleen het basiswoord (Wappen/écus/blasones/brasões/emblemi),
+GEMETEN in de edits: geen S1-namen. 989 stukjes in 682 keys (de/fr 433, es/esMX/pt/it 956), 35 nieuwe esMX-regels.
+Twijfel, NIET aangeraakt: Tier van Ritual Sites, tier set, crest-rang, Heroic World Tier, fr LFR (client toont "Raids"),
+esMX-crests (client: "emblemas"; nu erft esMX "blasones" van esES op een paar plekken), MH-tabnamen "Crests", "keys" in
+CODEX_START_BODY, ongemeten eigennamen. es/esMX "nivel" = nu zowel delve-tier als level (clientwoord, kan verwarren).
+luac OK, lint 0 HARD, drift ongewijzigd. NIET in het spel gezien.
 🔐 Herstart-check: geen enkele call werd geweigerd (git status/pull/log, echo, _probe ×3, Write). Of Rob een vraag kreeg
 die hij goedkeurde, zie ik niet: AFGELEID "geen vragen", Rob bevestigt.
 💡 Ideeënbus zo 15 nov: 2 voorstellen (XP-drempel +12 levels in groepen; "nieuwe spell op geen balk"). Ze staan
