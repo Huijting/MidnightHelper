@@ -33,7 +33,11 @@ Assegnazione tasti, es Atajos de teclado, pt Atalhos do teclado; esMX-client zeg
 regels in esMX.lua). Mythic+ GEMETEN (GlobalStrings 50146, 12.1.5.70783): esES Mítica+, esMX/ptBR Mítico+, itIT
 Mitica+; ±300 plekken. Details in IDEEEN ("Waarnemingen 14 nov", onderaan). Proef met de packs per client geladen:
 alleen CHANGELOG_* zegt nog "Mythic+". luac 366 OK, lint 0 HARD (2 dode itIT-fills opgeruimd), check_drift: alleen de
-2 oude keys. NIET in het spel gezien (TESTLIJST 15 nov later). Open: CLAUDE.md "Mythic+ blijft Engels" (alleen Rob).
+2 oude keys. NIET in het spel gezien (TESTLIJST 15 nov later). ✅ CLAUDE.md aangepast (Rob rechtstreeks in de bouwchat: *"Ja, pas
+Claude.md aan met de plus en alle andere vaste spelnamen, krijg je in elke taal de naam uit het spel."*): de regel
+"Game terms … stay WoW UI spelling" is nu "het woord van die client". Open, wacht op een opdracht: de nog Engelse
+speltermen in de packs (telling naar Sparring 15-11: Tier, Dungeon, Raid, Vault, Normal/Heroic/Mythic, KP, ilvl,
+Key(s), Season, Renown in fr/es/pt; client-woorden per term NOG NIET gemeten).
 Bij de volgende release: changelog-regel "vertalingen".
 🔐 Herstart-check: geen enkele call werd geweigerd (git status/pull/log, echo, _probe ×3, Write). Of Rob een vraag kreeg
 die hij goedkeurde, zie ik niet: AFGELEID "geen vragen", Rob bevestigt.
