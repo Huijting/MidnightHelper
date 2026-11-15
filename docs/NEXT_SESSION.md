@@ -88,6 +88,16 @@ MountProgress.lua en EditModeBackup.lua (systeem 26 = MainActionBarEndCap ook in
 build bij Edit Mode-kopieën opslaan (risico: 12.1.5-kopie op 12.1.7 → LossOfControl op de griffioenen, AFGELEID),
 maxInterface in het Codex-filter (Aqir-artikel), en het grote werk op launch-dag (Aqir, Talebound-bron, Folio 6-7,
 Timeways-dungeons, S3-dungeons later).
+🌐 Speltermen groep 4 (twijfelgevallen) AF, alleen op main (sparring: "meet ze en vervang wat zeker is", binnen Robs
+"doe inderdaad optie A maar"). GEMETEN: Ritual Site-tier = zelfde woord als delve (GREAT_VAULT_WORLD_TIER "Stufe %s" /
+"Niveau %s" / "Nivel %s" / "Grau %s" / "Grado %s"); Heroic World Tier = Heroische Weltstufe / niveau du monde Héroïque /
+nivel de mundo Heroica / Grau Mundial Heroico / Livello del Mondo Eroica / Героический уровень мира (WORLD_TIER_HEROIC +
+PARTY_PLAYER_DIFFERENT_WORLD_TIER); esMX crests = emblema(s); MH-tab "Crests" (CODEX_CUR_DAWN_TITLE,
+PROFGUIDE_SUB_DAWNCREST) toont nu Wappen/Écus/Blasones/Emblemas/Brasões/Emblemi/Гербы (GEMETEN met de packs geladen
+per client). 194 stukjes in 114 keys, 15 nieuwe esMX-regels; esMX SMC_SEARCH_CREST_EXCHANGE bewust NIET (zoekwoorden).
+Fr "palier" → "niveau" (één woord, zoals het spel). Over: tier set, crest-rang, "Normal oder Heroic am Portal",
+"Ritual-Site" (de: Ritualstätte, GEMETEN RITUAL_SITE_LABEL, nog niet vervangen), fr LFR (vraag bij Rob via sparring:
+advies laten staan). luac OK, lint 0 HARD.
 🔐 Herstart-check: geen enkele call werd geweigerd (git status/pull/log, echo, _probe ×3, Write). Of Rob een vraag kreeg
 die hij goedkeurde, zie ik niet: AFGELEID "geen vragen", Rob bevestigt.
 💡 Ideeënbus zo 15 nov: 2 voorstellen (XP-drempel +12 levels in groepen; "nieuwe spell op geen balk"). Ze staan

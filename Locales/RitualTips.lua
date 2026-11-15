@@ -154,7 +154,7 @@ if ns._mhLocales and ns._mhLocales.itIT then merge(ns._mhLocales and ns._mhLocal
 	RITUAL_COACH_SEC_NOTES = "Note sul sito",
 	RITUAL_COACH_SEC_MECHANIC = "Cosa fa",
 	RITUAL_COACH_SEC_UNLOCK = "Come sbloccarla",
-	RITUAL_COACH_SEC_TIERS = "Tier e challenge",
+	RITUAL_COACH_SEC_TIERS = "Gradi e challenge",
 	RITUAL_COACH_SEC_SCORING = "Spoils e morti",
 	RITUAL_COACH_SEC_WEEKLY = "Settimanale e Fama",
 	RITUAL_COACH_SEC_ORBS = "Regeneration Orb",
@@ -174,7 +174,7 @@ if ns._mhLocales and ns._mhLocales.itIT then merge(ns._mhLocales and ns._mhLocal
 
 	-- Etichette UI del Coach (fase 2) ----------------------------------------
 	RITUAL_COACH_HEADER = "Ritual Coach",
-	RITUAL_COACH_CHALLENGES_HEADER = "Challenge — scegli dal Tier 3+ (prima quelle con più Spoils)",
+	RITUAL_COACH_CHALLENGES_HEADER = "Challenge — scegli dal grado 3+ (prima quelle con più Spoils)",
 	RITUAL_COACH_ACTIVE_FMT = "Sito di questa settimana: %s",
 	RITUAL_COACH_ACTIVE_UNKNOWN = "Sito attivo non ancora rilevato — suggerimenti generali qui sotto.",
 	RITUAL_COACH_STATUS_UNLOCKED = "sbloccata",
@@ -208,7 +208,7 @@ if ns._mhLocales and ns._mhLocales.itIT then merge(ns._mhLocales and ns._mhLocal
 	RITUAL_WEEKLY_HINT_INPROGRESS = "È nel tuo registro delle quest — finiscila e consegnala.",
 
 	-- Intro / come funziona --------------------------------------------------
-	RITUAL_TIP_INTRO_TIERS = "• Scegli il tuo tier alla Curious Obelisk; completa ogni tier per sbloccare il successivo.|n• L'obelisco dice cosa chiede ogni tier: il Tier 3 richiede 1 challenge attiva, il Tier 4 ne richiede 2, il Tier 5 ne richiede 4, il Tier 6 ne richiede 6.|n• I tier più alti danno più Spoils e Fama. Livello oggetto consigliato dal gioco, letto dall'obelisco stesso il 20 agosto: |cffffffffT1 215 · T2 231 · T3 244 · T4 259 · T5 268 · T6 275|r. Passa il mouse su un tier nel menu per verificarlo tu stesso — questi numeri cambiano da una stagione all'altra.",
+	RITUAL_TIP_INTRO_TIERS = "• Scegli il tuo grado alla Curious Obelisk; completa ogni grado per sbloccare il successivo.|n• L'obelisco dice cosa chiede ogni grado: il grado 3 richiede 1 challenge attiva, il grado 4 ne richiede 2, il grado 5 ne richiede 4, il grado 6 ne richiede 6.|n• I gradi più alti danno più Spoils e Fama. Livello oggetto consigliato dal gioco, letto dall'obelisco stesso il 20 agosto: |cffffffffT1 215 · T2 231 · T3 244 · T4 259 · T5 268 · T6 275|r. Passa il mouse su un grado nel menu per verificarlo tu stesso — questi numeri cambiano da una stagione all'altra.",
 	RITUAL_TIP_INTRO_SCORING = "• Gli Spoils sono il tuo punteggio; il Ritual Chest finale scala con essi.|n• Morti: le prime 2 sono gratis, poi ogni morte taglia gli Spoils del 5%, fino a un massimo del -50%.|n• Le run pulite battono i pull veloci — morire costa ricompense in modo diretto.",
 	RITUAL_TIP_INTRO_WEEKLY = "• Al lancio, il tier necessario per SBLOCCARE una challenge calava di uno ogni settimana. Va avanti da mesi, quindi ormai molto probabilmente basta un tier basso.|n• Conta per la riga World della Gran Banca, come una scorribanda dello stesso tier.|n• Booster della Fama: Ritual Tablet (primo sito della settimana), Ritual Tablet Fragment (secondo sito) e Ritual Site Reports (scalati in base ai tuoi Spoils).",
 	RITUAL_TIP_INTRO_ORBS = "• In combat, i Regeneration Orb si manifestano e curano il 15% della tua vita (livello di Fama 1).|n• Orb Potency (livello di Fama 4) aumenta quella cura.|n• Affidati agli orb invece di bruciare cooldown sul self-healing.",
@@ -251,19 +251,19 @@ if ns._mhLocales and ns._mhLocales.itIT then merge(ns._mhLocales and ns._mhLocal
 	RITUAL_TIP_TENDRILS_MECHANIC = "• I tendril afferranti spawnano con un cerchio verde vorticoso — esci o vieni radicato e subisci danni.|n• Aumenta gli Spoils mentre è attiva.",
 	RITUAL_TIP_TENDRILS_UNLOCK = "• Saccheggia un Ritual Chest alla fine di un sito qualsiasi, poi consegna la quest \"Ritual Site Challenge Report: Tendrils\".",
 	RITUAL_TIP_MANIFESTATIONS_MECHANIC = "• Compaiono degli spiriti che iniziano un cast lungo. Ferma il cast e lo spirito sparisce: funziona un interrupt, e anche stun, fear e altro crowd control. Se lo lasci finire, subisci la sua magia logorante.|n• Aumenta gli Spoils mentre è attiva.",
-	RITUAL_TIP_MANIFESTATIONS_UNLOCK = "• Completa un sito Tier 3, poi parla con Ranger Captain Lilatha a Lunargenta (il tier richiesto cala ogni settimana).",
+	RITUAL_TIP_MANIFESTATIONS_UNLOCK = "• Completa un sito di grado 3, poi parla con Ranger Captain Lilatha a Lunargenta (il grado richiesto cala ogni settimana).",
 	RITUAL_TIP_ALARMBELLS_MECHANIC = "• Uccidere i nemici evoca rinforzi; più grande e forte è il pull che uccidi, più forti sono gli add.|n• Aumenta gli Spoils mentre è attiva.",
-	RITUAL_TIP_ALARMBELLS_UNLOCK = "• Completa un sito Tier 4, poi parla con Lady Darkglen a Lunargenta (il tier richiesto cala ogni settimana).",
+	RITUAL_TIP_ALARMBELLS_UNLOCK = "• Completa un sito di grado 4, poi parla con Lady Darkglen a Lunargenta (il grado richiesto cala ogni settimana).",
 	RITUAL_TIP_MALEVOLENTBOONS_MECHANIC = "• I dark obelisk buffano i nemici vicini — distruggi gli obelisk per rimuovere i buff.|n• Aumenta gli Spoils mentre è attiva.",
-	RITUAL_TIP_MALEVOLENTBOONS_UNLOCK = "• Completa un sito Tier 2 per una quest da Lady Darkglen, poi esamina 5 Dark Obelisk dentro un sito (il tier richiesto cala ogni settimana).",
+	RITUAL_TIP_MALEVOLENTBOONS_UNLOCK = "• Completa un sito di grado 2 per una quest da Lady Darkglen, poi esamina 5 Dark Obelisk dentro un sito (il grado richiesto cala ogni settimana).",
 	RITUAL_TIP_TAINTEDCORPSES_MECHANIC = "• I nemici uccisi lasciano una pozza di magia void letale — spostati fuori da essa.|n• Aumenta gli Spoils mentre è attiva.",
-	RITUAL_TIP_TAINTEDCORPSES_UNLOCK = "• Saccheggia un Tainted Bone Pile dentro un sito Tier 2+ (vedi le note sul sito per la posizione), poi consegna la quest.",
+	RITUAL_TIP_TAINTEDCORPSES_UNLOCK = "• Saccheggia un Tainted Bone Pile dentro un sito di grado 2+ (vedi le note sul sito per la posizione), poi consegna la quest.",
 	RITUAL_TIP_REINFORCED_MECHANIC = "• Nemici extra sono distribuiti per tutto il sito — aspettati pack più fitti.|n• Aumenta gli Spoils mentre è attiva (uno dei boost maggiori).",
-	RITUAL_TIP_REINFORCED_UNLOCK = "• Completa un sito Tier 2, poi parla con Ranger Captain Lilatha a Lunargenta (il tier richiesto cala ogni settimana).",
+	RITUAL_TIP_REINFORCED_UNLOCK = "• Completa un sito di grado 2, poi parla con Ranger Captain Lilatha a Lunargenta (il grado richiesto cala ogni settimana).",
 	RITUAL_TIP_PATROLS_MECHANIC = "• Nemici elite pattugliano il sito — evita i loro percorsi quando puoi.|n• Aumenta gli Spoils mentre è attiva.",
-	RITUAL_TIP_PATROLS_UNLOCK = "• \"Procura\" tesori unici da un sito Tier 3+ (il tier richiesto cala ogni settimana).",
+	RITUAL_TIP_PATROLS_UNLOCK = "• \"Procura\" tesori unici da un sito di grado 3+ (il grado richiesto cala ogni settimana).",
 	RITUAL_TIP_EMBERS_MECHANIC = "• Nemici casuali E il boss finale sono potenziati, segnalati da un orb fluttuante sopra di loro.|n• Aumenta gli Spoils mentre è attiva (uno dei boost maggiori).",
-	RITUAL_TIP_EMBERS_UNLOCK = "• Saccheggia un Ember of Power dentro un sito Tier 4 per iniziare la quest (il tier richiesto cala ogni settimana).",
+	RITUAL_TIP_EMBERS_UNLOCK = "• Saccheggia un Ember of Power dentro un sito di grado 4 per iniziare la quest (il grado richiesto cala ogni settimana).",
 }) end
 
 merge(ns._mhLocales and ns._mhLocales.nlNL, {
@@ -394,7 +394,7 @@ if ns._mhLocales and ns._mhLocales.deDE then merge(ns._mhLocales and ns._mhLocal
 	RITUAL_COACH_SEC_NOTES = "Notizen zur Stätte",
 	RITUAL_COACH_SEC_MECHANIC = "Was es bewirkt",
 	RITUAL_COACH_SEC_UNLOCK = "So schaltest du es frei",
-	RITUAL_COACH_SEC_TIERS = "Tiers & Challenges",
+	RITUAL_COACH_SEC_TIERS = "Stufen & Challenges",
 	RITUAL_COACH_SEC_SCORING = "Spoils & Tode",
 	RITUAL_COACH_SEC_WEEKLY = "Wöchentlich & Ruhm",
 	RITUAL_COACH_SEC_ORBS = "Regeneration Orbs",
@@ -414,7 +414,7 @@ if ns._mhLocales and ns._mhLocales.deDE then merge(ns._mhLocales and ns._mhLocal
 
 	-- Coach-UI-Labels (Phase 2) ------------------------------------------------
 	RITUAL_COACH_HEADER = "Ritual Coach",
-	RITUAL_COACH_CHALLENGES_HEADER = "Challenges — wählbar ab Tier 3 (höchste Spoils zuerst)",
+	RITUAL_COACH_CHALLENGES_HEADER = "Challenges — wählbar ab Stufe 3 (höchste Spoils zuerst)",
 	RITUAL_COACH_ACTIVE_FMT = "Stätte dieser Woche: %s",
 	RITUAL_COACH_ACTIVE_UNKNOWN = "Aktive Stätte noch nicht erkannt — allgemeine Tipps unten.",
 	RITUAL_COACH_STATUS_UNLOCKED = "freigeschaltet",
@@ -448,7 +448,7 @@ if ns._mhLocales and ns._mhLocales.deDE then merge(ns._mhLocales and ns._mhLocal
 	RITUAL_WEEKLY_HINT_INPROGRESS = "Steht in deinem Questlog — abschließen und abgeben.",
 
 	-- Intro / So funktioniert es -----------------------------------------------
-	RITUAL_TIP_INTRO_TIERS = "• Wähle deine Stufe am Curious Obelisk; schließe jede Stufe ab, um die nächste freizuschalten.|n• Der Obelisk nennt, was jede Stufe verlangt: Tier 3 braucht 1 aktive Challenge, Tier 4 braucht 2, Tier 5 braucht 4, Tier 6 braucht 6.|n• Höhere Stufen geben mehr Spoils und Ruhm. Vom Spiel empfohlene Gegenstandsstufe, am 20. August direkt am Obelisken abgelesen: |cffffffffT1 215 · T2 231 · T3 244 · T4 259 · T5 268 · T6 275|r. Fahr im Dropdown über eine Stufe, um es selbst zu prüfen — diese Zahlen verschieben sich pro Saison.",
+	RITUAL_TIP_INTRO_TIERS = "• Wähle deine Stufe am Curious Obelisk; schließe jede Stufe ab, um die nächste freizuschalten.|n• Der Obelisk nennt, was jede Stufe verlangt: Stufe 3 braucht 1 aktive Challenge, Stufe 4 braucht 2, Stufe 5 braucht 4, Stufe 6 braucht 6.|n• Höhere Stufen geben mehr Spoils und Ruhm. Vom Spiel empfohlene Gegenstandsstufe, am 20. August direkt am Obelisken abgelesen: |cffffffffT1 215 · T2 231 · T3 244 · T4 259 · T5 268 · T6 275|r. Fahr im Dropdown über eine Stufe, um es selbst zu prüfen — diese Zahlen verschieben sich pro Saison.",
 	RITUAL_TIP_INTRO_SCORING = "• Spoils sind deine Punktzahl; die Ritual Chest am Ende skaliert damit.|n• Tode: die ersten 2 sind frei, danach kostet jeder Tod 5% Spoils, bis maximal -50%.|n• Saubere Clears schlagen schnelle Pulls — Sterben kostet direkt Belohnung.",
 	RITUAL_TIP_INTRO_WEEKLY = "• Zum Start sank die Stufe, die zum FREISCHALTEN einer Challenge nötig ist, jede Woche um eins. Das läuft schon seit Monaten, also reicht inzwischen sehr wahrscheinlich eine niedrige Stufe.|n• Zählt für die Welt-Reihe der Großen Schatzkammer, wie eine Tiefe derselben Stufe.|n• Ruhm-Booster: Ritual Tablet (erste Stätte der Woche), Ritual Tablet Fragment (zweite Stätte) und Ritual Site Reports (skaliert mit deinen Spoils).",
 	RITUAL_TIP_INTRO_ORBS = "• Im Kampf erscheinen Regeneration Orbs, die 15% deiner Gesundheit heilen (Ruhmstufe 1).|n• Orb Potency (Ruhmstufe 4) erhöht diese Heilung.|n• Nutz die Orbs, statt Cooldowns für Selbstheilung zu verbrennen.",
@@ -490,19 +490,19 @@ if ns._mhLocales and ns._mhLocales.deDE then merge(ns._mhLocales and ns._mhLocal
 	RITUAL_TIP_TENDRILS_MECHANIC = "• Greifende Tendrils erscheinen mit einem wirbelnden grünen Kreis — geh raus, sonst wirst du festgewurzelt und nimmst Schaden.|n• Erhöht die Spoils, solange aktiv.",
 	RITUAL_TIP_TENDRILS_UNLOCK = "• Loote am Ende einer Stätte eine Ritual Chest und gib dann die Quest \"Ritual Site Challenge Report: Tendrils\" ab.",
 	RITUAL_TIP_MANIFESTATIONS_MECHANIC = "• Geister erscheinen und beginnen einen langen Zauber. Stoppst du den Zauber, verschwindet der Geist: Ein Kick wirkt, und auch Betäubungen, Furcht und andere Kontrolleffekte. Lässt du ihn fertig wirken, trifft dich seine zehrende Magie.|n• Erhöht die Spoils, solange aktiv.",
-	RITUAL_TIP_MANIFESTATIONS_UNLOCK = "• Schließe eine Tier-3-Stätte ab und sprich dann mit Ranger Captain Lilatha in Silbermond (die nötige Stufe sinkt jede Woche).",
+	RITUAL_TIP_MANIFESTATIONS_UNLOCK = "• Schließe eine Stätte der Stufe 3 ab und sprich dann mit Ranger Captain Lilatha in Silbermond (die nötige Stufe sinkt jede Woche).",
 	RITUAL_TIP_ALARMBELLS_MECHANIC = "• Kills rufen Verstärkung herbei; je größer und stärker der getötete Pull, desto stärker die Adds.|n• Erhöht die Spoils, solange aktiv.",
-	RITUAL_TIP_ALARMBELLS_UNLOCK = "• Schließe eine Tier-4-Stätte ab und sprich dann mit Lady Darkglen in Silbermond (die nötige Stufe sinkt jede Woche).",
+	RITUAL_TIP_ALARMBELLS_UNLOCK = "• Schließe eine Stätte der Stufe 4 ab und sprich dann mit Lady Darkglen in Silbermond (die nötige Stufe sinkt jede Woche).",
 	RITUAL_TIP_MALEVOLENTBOONS_MECHANIC = "• Dark Obelisks stärken Gegner in der Nähe — zerstöre die Obelisken, um die Buffs zu entfernen.|n• Erhöht die Spoils, solange aktiv.",
-	RITUAL_TIP_MALEVOLENTBOONS_UNLOCK = "• Schließe eine Tier-2-Stätte ab für eine Quest von Lady Darkglen und untersuche dann 5 Dark Obelisks in einer Stätte (die nötige Stufe sinkt jede Woche).",
+	RITUAL_TIP_MALEVOLENTBOONS_UNLOCK = "• Schließe eine Stätte der Stufe 2 ab für eine Quest von Lady Darkglen und untersuche dann 5 Dark Obelisks in einer Stätte (die nötige Stufe sinkt jede Woche).",
 	RITUAL_TIP_TAINTEDCORPSES_MECHANIC = "• Getötete Gegner hinterlassen eine Lache tödlicher Leerenmagie — raus aus der Fläche.|n• Erhöht die Spoils, solange aktiv.",
-	RITUAL_TIP_TAINTEDCORPSES_UNLOCK = "• Loote einen Tainted Bone Pile in einer Stätte ab Tier 2 (Standort: siehe Notizen zur Stätte) und gib die Quest ab.",
+	RITUAL_TIP_TAINTEDCORPSES_UNLOCK = "• Loote einen Tainted Bone Pile in einer Stätte ab Stufe 2 (Standort: siehe Notizen zur Stätte) und gib die Quest ab.",
 	RITUAL_TIP_REINFORCED_MECHANIC = "• Zusätzliche Gegner in der ganzen Stätte — rechne mit dichteren Packs.|n• Erhöht die Spoils, solange aktiv (einer der größeren Boni).",
-	RITUAL_TIP_REINFORCED_UNLOCK = "• Schließe eine Tier-2-Stätte ab und sprich dann mit Ranger Captain Lilatha in Silbermond (die nötige Stufe sinkt jede Woche).",
+	RITUAL_TIP_REINFORCED_UNLOCK = "• Schließe eine Stätte der Stufe 2 ab und sprich dann mit Ranger Captain Lilatha in Silbermond (die nötige Stufe sinkt jede Woche).",
 	RITUAL_TIP_PATROLS_MECHANIC = "• Elitegegner patrouillieren durch die Stätte — weich ihren Routen aus, wo es geht.|n• Erhöht die Spoils, solange aktiv.",
-	RITUAL_TIP_PATROLS_UNLOCK = "• \"Procure\" einzigartige Schätze aus einer Stätte ab Tier 3 (die nötige Stufe sinkt jede Woche).",
+	RITUAL_TIP_PATROLS_UNLOCK = "• \"Procure\" einzigartige Schätze aus einer Stätte ab Stufe 3 (die nötige Stufe sinkt jede Woche).",
 	RITUAL_TIP_EMBERS_MECHANIC = "• Zufällige Gegner UND der Endboss sind verstärkt, markiert durch eine schwebende Kugel über ihnen.|n• Erhöht die Spoils, solange aktiv (einer der größeren Boni).",
-	RITUAL_TIP_EMBERS_UNLOCK = "• Loote ein Ember of Power in einer Tier-4-Stätte, um die Quest zu starten (die nötige Stufe sinkt jede Woche).",
+	RITUAL_TIP_EMBERS_UNLOCK = "• Loote ein Ember of Power in einer Stätte der Stufe 4, um die Quest zu starten (die nötige Stufe sinkt jede Woche).",
 }) end
 
 if ns._mhLocales and ns._mhLocales.frFR then merge(ns._mhLocales and ns._mhLocales.frFR, {
@@ -532,7 +532,7 @@ if ns._mhLocales and ns._mhLocales.frFR then merge(ns._mhLocales and ns._mhLocal
 
 	-- Labels UI du Coach (phase 2) ------------------------------------------------
 	RITUAL_COACH_HEADER = "Ritual Coach",
-	RITUAL_COACH_CHALLENGES_HEADER = "Challenges — à choisir à partir du Tier 3 (plus hauts Spoils d'abord)",
+	RITUAL_COACH_CHALLENGES_HEADER = "Challenges — à choisir à partir du niveau 3 (plus hauts Spoils d'abord)",
 	RITUAL_COACH_ACTIVE_FMT = "Site de la semaine : %s",
 	RITUAL_COACH_ACTIVE_UNKNOWN = "Site actif pas encore détecté — conseils généraux ci-dessous.",
 	RITUAL_COACH_STATUS_UNLOCKED = "débloqué",
@@ -566,7 +566,7 @@ if ns._mhLocales and ns._mhLocales.frFR then merge(ns._mhLocales and ns._mhLocal
 	RITUAL_WEEKLY_HINT_INPROGRESS = "Elle est dans ton journal de quêtes — termine-la et rends-la.",
 
 	-- Intro / comment ça marche -----------------------------------------------------
-	RITUAL_TIP_INTRO_TIERS = "• Choisis ton palier au Curious Obelisk ; termine chaque palier pour débloquer le suivant.|n• L'obélisque indique ce que chaque palier demande : le Tier 3 demande 1 challenge actif, le Tier 4 en demande 2, le Tier 5 en demande 4, le Tier 6 en demande 6.|n• Les paliers plus élevés donnent plus de Spoils et de renommée. Niveau d'objet recommandé par le jeu, relevé sur l'obélisque même le 20 août : |cffffffffT1 215 · T2 231 · T3 244 · T4 259 · T5 268 · T6 275|r. Survole un palier dans le menu pour le vérifier toi-même — ces chiffres bougent d'une saison à l'autre.",
+	RITUAL_TIP_INTRO_TIERS = "• Choisis ton niveau au Curious Obelisk ; termine chaque niveau pour débloquer le suivant.|n• L'obélisque indique ce que chaque niveau demande : le niveau 3 demande 1 challenge actif, le niveau 4 en demande 2, le niveau 5 en demande 4, le niveau 6 en demande 6.|n• Les niveaux plus élevés donnent plus de Spoils et de renommée. Niveau d'objet recommandé par le jeu, relevé sur l'obélisque même le 20 août : |cffffffffT1 215 · T2 231 · T3 244 · T4 259 · T5 268 · T6 275|r. Survole un niveau dans le menu pour le vérifier toi-même — ces chiffres bougent d'une saison à l'autre.",
 	RITUAL_TIP_INTRO_SCORING = "• Les Spoils sont ton score ; la Ritual Chest à la fin s'ajuste dessus.|n• Morts : les 2 premières sont gratuites, ensuite chaque mort retire 5% de Spoils, jusqu'à -50% maximum.|n• Des clears propres valent mieux que des pulls rapides — mourir coûte directement des récompenses.",
 	RITUAL_TIP_INTRO_WEEKLY = "• Au lancement, le palier requis pour DÉBLOQUER un challenge baissait d'un cran chaque semaine. Cela dure depuis des mois, donc un palier bas suffit très probablement aujourd'hui.|n• Compte pour la ligne Monde de la grande chambre forte, comme un gouffre du même palier.|n• Boosters de renommée : Ritual Tablet (premier site de la semaine), Ritual Tablet Fragment (deuxième site) et Ritual Site Reports (selon tes Spoils).",
 	RITUAL_TIP_INTRO_ORBS = "• En combat, des Regeneration Orbs apparaissent et soignent 15% de ta vie (renommée 1).|n• Orb Potency (renommée 4) augmente ce soin.|n• Appuie-toi sur les orbes plutôt que de brûler tes cooldowns en soins personnels.",
@@ -608,19 +608,19 @@ if ns._mhLocales and ns._mhLocales.frFR then merge(ns._mhLocales and ns._mhLocal
 	RITUAL_TIP_TENDRILS_MECHANIC = "• Des tendrils apparaissent avec un cercle vert tourbillonnant — sors-en, sinon tu es immobilisé et tu prends des dégâts.|n• Augmente les Spoils tant qu'actif.",
 	RITUAL_TIP_TENDRILS_UNLOCK = "• Loote une Ritual Chest à la fin d'un site, puis rends la quête \"Ritual Site Challenge Report: Tendrils\".",
 	RITUAL_TIP_MANIFESTATIONS_MECHANIC = "• Des esprits apparaissent et commencent une longue incantation. Arrête l'incantation et l'esprit disparaît : une interruption marche, et aussi les étourdissements, les peurs et les autres contrôles. Laisse-la finir et tu subis sa magie flétrissante.|n• Augmente les Spoils tant qu'actif.",
-	RITUAL_TIP_MANIFESTATIONS_UNLOCK = "• Termine un site Tier 3, puis parle à Ranger Captain Lilatha à Lune-d’Argent (le palier requis baisse chaque semaine).",
+	RITUAL_TIP_MANIFESTATIONS_UNLOCK = "• Termine un site de niveau 3, puis parle à Ranger Captain Lilatha à Lune-d’Argent (le niveau requis baisse chaque semaine).",
 	RITUAL_TIP_ALARMBELLS_MECHANIC = "• Les kills invoquent des renforts ; plus le pull tué est gros et fort, plus les adds sont puissants.|n• Augmente les Spoils tant qu'actif.",
-	RITUAL_TIP_ALARMBELLS_UNLOCK = "• Termine un site Tier 4, puis parle à Lady Darkglen à Lune-d’Argent (le palier requis baisse chaque semaine).",
+	RITUAL_TIP_ALARMBELLS_UNLOCK = "• Termine un site de niveau 4, puis parle à Lady Darkglen à Lune-d’Argent (le niveau requis baisse chaque semaine).",
 	RITUAL_TIP_MALEVOLENTBOONS_MECHANIC = "• Des Dark Obelisks renforcent les ennemis proches — détruis les obélisques pour retirer les buffs.|n• Augmente les Spoils tant qu'actif.",
-	RITUAL_TIP_MALEVOLENTBOONS_UNLOCK = "• Termine un site Tier 2 pour une quête de Lady Darkglen, puis examine 5 Dark Obelisks dans un site (le palier requis baisse chaque semaine).",
+	RITUAL_TIP_MALEVOLENTBOONS_UNLOCK = "• Termine un site de niveau 2 pour une quête de Lady Darkglen, puis examine 5 Dark Obelisks dans un site (le niveau requis baisse chaque semaine).",
 	RITUAL_TIP_TAINTEDCORPSES_MECHANIC = "• Les ennemis tués laissent une flaque de magie du Vide mortelle — sors-en.|n• Augmente les Spoils tant qu'actif.",
-	RITUAL_TIP_TAINTEDCORPSES_UNLOCK = "• Loote un Tainted Bone Pile dans un site Tier 2+ (voir les notes du site pour l'emplacement), puis rends la quête.",
+	RITUAL_TIP_TAINTEDCORPSES_UNLOCK = "• Loote un Tainted Bone Pile dans un site de niveau 2+ (voir les notes du site pour l'emplacement), puis rends la quête.",
 	RITUAL_TIP_REINFORCED_MECHANIC = "• Des ennemis supplémentaires sont répartis sur tout le site — attends-toi à des packs plus denses.|n• Augmente les Spoils tant qu'actif (un des plus gros bonus).",
-	RITUAL_TIP_REINFORCED_UNLOCK = "• Termine un site Tier 2, puis parle à Ranger Captain Lilatha à Lune-d’Argent (le palier requis baisse chaque semaine).",
+	RITUAL_TIP_REINFORCED_UNLOCK = "• Termine un site de niveau 2, puis parle à Ranger Captain Lilatha à Lune-d’Argent (le niveau requis baisse chaque semaine).",
 	RITUAL_TIP_PATROLS_MECHANIC = "• Des ennemis d'élite patrouillent sur le site — évite leurs trajets quand c'est possible.|n• Augmente les Spoils tant qu'actif.",
-	RITUAL_TIP_PATROLS_UNLOCK = "• \"Procure\" des trésors uniques dans un site Tier 3+ (le palier requis baisse chaque semaine).",
+	RITUAL_TIP_PATROLS_UNLOCK = "• \"Procure\" des trésors uniques dans un site de niveau 3+ (le niveau requis baisse chaque semaine).",
 	RITUAL_TIP_EMBERS_MECHANIC = "• Des ennemis aléatoires ET le boss final sont renforcés, marqués d'un orbe flottant au-dessus d'eux.|n• Augmente les Spoils tant qu'actif (un des plus gros bonus).",
-	RITUAL_TIP_EMBERS_UNLOCK = "• Loote un Ember of Power dans un site Tier 4 pour lancer la quête (le palier requis baisse chaque semaine).",
+	RITUAL_TIP_EMBERS_UNLOCK = "• Loote un Ember of Power dans un site de niveau 4 pour lancer la quête (le niveau requis baisse chaque semaine).",
 }) end
 
 if ns._mhLocales and ns._mhLocales.esES then merge(ns._mhLocales and ns._mhLocales.esES, {
@@ -630,7 +630,7 @@ if ns._mhLocales and ns._mhLocales.esES then merge(ns._mhLocales and ns._mhLocal
 	RITUAL_COACH_SEC_NOTES = "Notas del sitio",
 	RITUAL_COACH_SEC_MECHANIC = "Qué hace",
 	RITUAL_COACH_SEC_UNLOCK = "Cómo desbloquearlo",
-	RITUAL_COACH_SEC_TIERS = "Tiers y challenges",
+	RITUAL_COACH_SEC_TIERS = "Niveles y challenges",
 	RITUAL_COACH_SEC_SCORING = "Spoils y muertes",
 	RITUAL_COACH_SEC_WEEKLY = "Semanal y renombre",
 	RITUAL_COACH_SEC_ORBS = "Regeneration Orbs",
@@ -650,7 +650,7 @@ if ns._mhLocales and ns._mhLocales.esES then merge(ns._mhLocales and ns._mhLocal
 
 	-- Etiquetas de UI del Coach (fase 2) -------------------------------------------
 	RITUAL_COACH_HEADER = "Ritual Coach",
-	RITUAL_COACH_CHALLENGES_HEADER = "Challenges — elige a partir de Tier 3 (mayor Spoils primero)",
+	RITUAL_COACH_CHALLENGES_HEADER = "Challenges — elige a partir del nivel 3 (mayor Spoils primero)",
 	RITUAL_COACH_ACTIVE_FMT = "Sitio de esta semana: %s",
 	RITUAL_COACH_ACTIVE_UNKNOWN = "Sitio activo aún no detectado — consejos generales abajo.",
 	RITUAL_COACH_STATUS_UNLOCKED = "desbloqueado",
@@ -684,7 +684,7 @@ if ns._mhLocales and ns._mhLocales.esES then merge(ns._mhLocales and ns._mhLocal
 	RITUAL_WEEKLY_HINT_INPROGRESS = "Está en tu registro de misiones — termínala y entrégala.",
 
 	-- Intro / cómo funciona ----------------------------------------------------------
-	RITUAL_TIP_INTRO_TIERS = "• Elige tu tier en el Curious Obelisk; completa cada tier para desbloquear el siguiente.|n• El obelisco dice qué pide cada tier: el Tier 3 requiere 1 challenge activo, el Tier 4 requiere 2, el Tier 5 requiere 4, el Tier 6 requiere 6.|n• Los tiers más altos dan más Spoils y renombre. Nivel de objeto que recomienda el juego, leído del propio obelisco el 20 de agosto: |cffffffffT1 215 · T2 231 · T3 244 · T4 259 · T5 268 · T6 275|r. Pasa el ratón por un tier en el desplegable para comprobarlo tú mismo — estos números cambian entre temporadas.",
+	RITUAL_TIP_INTRO_TIERS = "• Elige tu nivel en el Curious Obelisk; completa cada nivel para desbloquear el siguiente.|n• El obelisco dice qué pide cada nivel: el nivel 3 requiere 1 challenge activo, el nivel 4 requiere 2, el nivel 5 requiere 4, el nivel 6 requiere 6.|n• Los niveles más altos dan más Spoils y renombre. Nivel de objeto que recomienda el juego, leído del propio obelisco el 20 de agosto: |cffffffffT1 215 · T2 231 · T3 244 · T4 259 · T5 268 · T6 275|r. Pasa el ratón por un nivel en el desplegable para comprobarlo tú mismo — estos números cambian entre temporadas.",
 	RITUAL_TIP_INTRO_SCORING = "• Los Spoils son tu puntuación; el Ritual Chest del final escala con ellos.|n• Muertes: las 2 primeras son gratis, después cada muerte resta un 5% de Spoils, hasta un máximo de -50%.|n• Limpiar con cuidado gana a los pulls rápidos — morir cuesta recompensas directamente.",
 	RITUAL_TIP_INTRO_WEEKLY = "• Al principio, el tier necesario para DESBLOQUEAR un challenge bajaba en uno cada semana. Eso lleva meses en marcha, así que ahora lo más probable es que baste un tier bajo.|n• Cuenta para la fila de Mundo de la Gran cámara, como una profundidad del mismo tier.|n• Potenciadores de renombre: Ritual Tablet (primer sitio de la semana), Ritual Tablet Fragment (segundo sitio) y Ritual Site Reports (según tus Spoils).",
 	RITUAL_TIP_INTRO_ORBS = "• En combate aparecen Regeneration Orbs que curan el 15% de tu vida (renombre 1).|n• Orb Potency (renombre 4) aumenta esa curación.|n• Apóyate en los orbes en lugar de quemar cooldowns en curarte.",
@@ -726,19 +726,19 @@ if ns._mhLocales and ns._mhLocales.esES then merge(ns._mhLocales and ns._mhLocal
 	RITUAL_TIP_TENDRILS_MECHANIC = "• Aparecen tendrils que agarran, con un círculo verde giratorio — sal de él o quedarás inmovilizado y recibirás daño.|n• Aumenta los Spoils mientras está activo.",
 	RITUAL_TIP_TENDRILS_UNLOCK = "• Saquea un Ritual Chest al final de cualquier sitio y entrega la misión \"Ritual Site Challenge Report: Tendrils\".",
 	RITUAL_TIP_MANIFESTATIONS_MECHANIC = "• Aparecen espíritus que empiezan un lanzamiento largo. Detén el lanzamiento y el espíritu desaparece: sirve una interrupción, y también aturdimientos, miedos y otros controles. Si lo dejas terminar, recibes su magia marchitadora.|n• Aumenta los Spoils mientras está activo.",
-	RITUAL_TIP_MANIFESTATIONS_UNLOCK = "• Completa un sitio de Tier 3 y habla con Ranger Captain Lilatha en Lunargenta (el tier requerido baja cada semana).",
+	RITUAL_TIP_MANIFESTATIONS_UNLOCK = "• Completa un sitio de nivel 3 y habla con Ranger Captain Lilatha en Lunargenta (el nivel requerido baja cada semana).",
 	RITUAL_TIP_ALARMBELLS_MECHANIC = "• Matar enemigos invoca refuerzos; cuanto más grande y fuerte sea el pull que matas, más fuertes los adds.|n• Aumenta los Spoils mientras está activo.",
-	RITUAL_TIP_ALARMBELLS_UNLOCK = "• Completa un sitio de Tier 4 y habla con Lady Darkglen en Lunargenta (el tier requerido baja cada semana).",
+	RITUAL_TIP_ALARMBELLS_UNLOCK = "• Completa un sitio de nivel 4 y habla con Lady Darkglen en Lunargenta (el nivel requerido baja cada semana).",
 	RITUAL_TIP_MALEVOLENTBOONS_MECHANIC = "• Los Dark Obelisks potencian a los enemigos cercanos — destruye los obeliscos para quitarles los buffs.|n• Aumenta los Spoils mientras está activo.",
-	RITUAL_TIP_MALEVOLENTBOONS_UNLOCK = "• Completa un sitio de Tier 2 para una misión de Lady Darkglen y luego investiga 5 Dark Obelisks dentro de un sitio (el tier requerido baja cada semana).",
+	RITUAL_TIP_MALEVOLENTBOONS_UNLOCK = "• Completa un sitio de nivel 2 para una misión de Lady Darkglen y luego investiga 5 Dark Obelisks dentro de un sitio (el nivel requerido baja cada semana).",
 	RITUAL_TIP_TAINTEDCORPSES_MECHANIC = "• Los enemigos muertos dejan un charco de magia del Vacío letal — sal de él.|n• Aumenta los Spoils mientras está activo.",
-	RITUAL_TIP_TAINTEDCORPSES_UNLOCK = "• Saquea un Tainted Bone Pile dentro de un sitio de Tier 2+ (mira las notas del sitio para la ubicación) y entrega la misión.",
+	RITUAL_TIP_TAINTEDCORPSES_UNLOCK = "• Saquea un Tainted Bone Pile dentro de un sitio de nivel 2+ (mira las notas del sitio para la ubicación) y entrega la misión.",
 	RITUAL_TIP_REINFORCED_MECHANIC = "• Hay enemigos extra repartidos por todo el sitio — espera grupos más densos.|n• Aumenta los Spoils mientras está activo (uno de los bonus más grandes).",
-	RITUAL_TIP_REINFORCED_UNLOCK = "• Completa un sitio de Tier 2 y habla con Ranger Captain Lilatha en Lunargenta (el tier requerido baja cada semana).",
+	RITUAL_TIP_REINFORCED_UNLOCK = "• Completa un sitio de nivel 2 y habla con Ranger Captain Lilatha en Lunargenta (el nivel requerido baja cada semana).",
 	RITUAL_TIP_PATROLS_MECHANIC = "• Enemigos de élite patrullan el sitio — evita sus rutas cuando puedas.|n• Aumenta los Spoils mientras está activo.",
-	RITUAL_TIP_PATROLS_UNLOCK = "• \"Procure\" tesoros únicos de un sitio de Tier 3+ (el tier requerido baja cada semana).",
+	RITUAL_TIP_PATROLS_UNLOCK = "• \"Procure\" tesoros únicos de un sitio de nivel 3+ (el nivel requerido baja cada semana).",
 	RITUAL_TIP_EMBERS_MECHANIC = "• Enemigos aleatorios Y el jefe final están potenciados, marcados con un orbe flotante encima.|n• Aumenta los Spoils mientras está activo (uno de los bonus más grandes).",
-	RITUAL_TIP_EMBERS_UNLOCK = "• Saquea un Ember of Power dentro de un sitio de Tier 4 para iniciar la misión (el tier requerido baja cada semana).",
+	RITUAL_TIP_EMBERS_UNLOCK = "• Saquea un Ember of Power dentro de un sitio de nivel 4 para iniciar la misión (el nivel requerido baja cada semana).",
 }) end
 
 if ns._mhLocales and ns._mhLocales.ptBR then merge(ns._mhLocales and ns._mhLocales.ptBR, {
@@ -748,7 +748,7 @@ if ns._mhLocales and ns._mhLocales.ptBR then merge(ns._mhLocales and ns._mhLocal
 	RITUAL_COACH_SEC_NOTES = "Notas do local",
 	RITUAL_COACH_SEC_MECHANIC = "O que faz",
 	RITUAL_COACH_SEC_UNLOCK = "Como desbloquear",
-	RITUAL_COACH_SEC_TIERS = "Tiers e challenges",
+	RITUAL_COACH_SEC_TIERS = "Graus e challenges",
 	RITUAL_COACH_SEC_SCORING = "Spoils e mortes",
 	RITUAL_COACH_SEC_WEEKLY = "Semanal e renome",
 	RITUAL_COACH_SEC_ORBS = "Regeneration Orbs",
@@ -768,7 +768,7 @@ if ns._mhLocales and ns._mhLocales.ptBR then merge(ns._mhLocales and ns._mhLocal
 
 	-- Rótulos de UI do Coach (fase 2) -------------------------------------------------
 	RITUAL_COACH_HEADER = "Ritual Coach",
-	RITUAL_COACH_CHALLENGES_HEADER = "Challenges — escolha a partir do Tier 3 (maior Spoils primeiro)",
+	RITUAL_COACH_CHALLENGES_HEADER = "Challenges — escolha a partir do grau 3 (maior Spoils primeiro)",
 	RITUAL_COACH_ACTIVE_FMT = "Local desta semana: %s",
 	RITUAL_COACH_ACTIVE_UNKNOWN = "Local ativo ainda não detectado — dicas gerais abaixo.",
 	RITUAL_COACH_STATUS_UNLOCKED = "desbloqueado",
@@ -802,7 +802,7 @@ if ns._mhLocales and ns._mhLocales.ptBR then merge(ns._mhLocales and ns._mhLocal
 	RITUAL_WEEKLY_HINT_INPROGRESS = "Está no seu registro de missões — termine e entregue.",
 
 	-- Intro / como funciona --------------------------------------------------------------
-	RITUAL_TIP_INTRO_TIERS = "• Escolha seu tier no Curious Obelisk; conclua cada tier para desbloquear o próximo.|n• O obelisco diz o que cada tier pede: o Tier 3 exige 1 challenge ativo, o Tier 4 exige 2, o Tier 5 exige 4, o Tier 6 exige 6.|n• Tiers mais altos dão mais Spoils e renome. Nível de item recomendado pelo jogo, lido do próprio obelisco em 20 de agosto: |cffffffffT1 215 · T2 231 · T3 244 · T4 259 · T5 268 · T6 275|r. Passe o mouse sobre um tier no menu para conferir você mesmo — estes números mudam entre séries.",
+	RITUAL_TIP_INTRO_TIERS = "• Escolha seu grau no Curious Obelisk; conclua cada grau para desbloquear o próximo.|n• O obelisco diz o que cada grau pede: o grau 3 exige 1 challenge ativo, o grau 4 exige 2, o grau 5 exige 4, o grau 6 exige 6.|n• Graus mais altos dão mais Spoils e renome. Nível de item recomendado pelo jogo, lido do próprio obelisco em 20 de agosto: |cffffffffT1 215 · T2 231 · T3 244 · T4 259 · T5 268 · T6 275|r. Passe o mouse sobre um grau no menu para conferir você mesmo — estes números mudam entre séries.",
 	RITUAL_TIP_INTRO_SCORING = "• Spoils são sua pontuação; o Ritual Chest no final escala com eles.|n• Mortes: as 2 primeiras são de graça, depois cada morte corta 5% dos Spoils, até no máximo -50%.|n• Limpar com calma vale mais que pulls rápidos — morrer custa recompensa na hora.",
 	RITUAL_TIP_INTRO_WEEKLY = "• No lançamento, o tier necessário para DESBLOQUEAR um challenge caía em um a cada semana. Isso já corre há meses, então um tier baixo muito provavelmente já basta.|n• Conta para a fileira de Mundo do Grande Cofre, como uma Imersão do mesmo tier.|n• Reforços de renome: Ritual Tablet (primeiro local da semana), Ritual Tablet Fragment (segundo local) e Ritual Site Reports (escala com seus Spoils).",
 	RITUAL_TIP_INTRO_ORBS = "• Em combate, Regeneration Orbs aparecem e curam 15% da sua vida (renome 1).|n• Orb Potency (renome 4) aumenta essa cura.|n• Conte com os orbes em vez de gastar cooldowns com cura própria.",
@@ -844,17 +844,17 @@ if ns._mhLocales and ns._mhLocales.ptBR then merge(ns._mhLocales and ns._mhLocal
 	RITUAL_TIP_TENDRILS_MECHANIC = "• Tendrils que agarram surgem com um círculo verde girando — saia dele ou você fica enraizado e toma dano.|n• Aumenta os Spoils enquanto ativo.",
 	RITUAL_TIP_TENDRILS_UNLOCK = "• Saqueie um Ritual Chest no final de qualquer local e entregue a missão \"Ritual Site Challenge Report: Tendrils\".",
 	RITUAL_TIP_MANIFESTATIONS_MECHANIC = "• Espíritos aparecem e começam uma conjuração longa. Pare a conjuração e o espírito some: uma interrupção funciona, e atordoamentos, medos e outros controles também. Se deixar terminar, você leva a magia debilitante dele.|n• Aumenta os Spoils enquanto ativo.",
-	RITUAL_TIP_MANIFESTATIONS_UNLOCK = "• Limpe um local de Tier 3 e fale com Ranger Captain Lilatha em Luaprata (o tier exigido cai a cada semana).",
+	RITUAL_TIP_MANIFESTATIONS_UNLOCK = "• Limpe um local de grau 3 e fale com Ranger Captain Lilatha em Luaprata (o grau exigido cai a cada semana).",
 	RITUAL_TIP_ALARMBELLS_MECHANIC = "• Abates invocam reforços; quanto maior e mais forte o pull que você mata, mais fortes os adds.|n• Aumenta os Spoils enquanto ativo.",
-	RITUAL_TIP_ALARMBELLS_UNLOCK = "• Limpe um local de Tier 4 e fale com Lady Darkglen em Luaprata (o tier exigido cai a cada semana).",
+	RITUAL_TIP_ALARMBELLS_UNLOCK = "• Limpe um local de grau 4 e fale com Lady Darkglen em Luaprata (o grau exigido cai a cada semana).",
 	RITUAL_TIP_MALEVOLENTBOONS_MECHANIC = "• Dark Obelisks fortalecem inimigos próximos — destrua os obeliscos para remover os buffs.|n• Aumenta os Spoils enquanto ativo.",
-	RITUAL_TIP_MALEVOLENTBOONS_UNLOCK = "• Limpe um local de Tier 2 para uma missão de Lady Darkglen e depois investigue 5 Dark Obelisks dentro de um local (o tier exigido cai a cada semana).",
+	RITUAL_TIP_MALEVOLENTBOONS_UNLOCK = "• Limpe um local de grau 2 para uma missão de Lady Darkglen e depois investigue 5 Dark Obelisks dentro de um local (o grau exigido cai a cada semana).",
 	RITUAL_TIP_TAINTEDCORPSES_MECHANIC = "• Inimigos mortos deixam uma poça de magia do Vazio letal — saia dela.|n• Aumenta os Spoils enquanto ativo.",
-	RITUAL_TIP_TAINTEDCORPSES_UNLOCK = "• Saqueie um Tainted Bone Pile dentro de um local de Tier 2+ (veja as notas do local para a localização) e entregue a missão.",
+	RITUAL_TIP_TAINTEDCORPSES_UNLOCK = "• Saqueie um Tainted Bone Pile dentro de um local de grau 2+ (veja as notas do local para a localização) e entregue a missão.",
 	RITUAL_TIP_REINFORCED_MECHANIC = "• Inimigos extras espalhados por todo o local — espere packs mais densos.|n• Aumenta os Spoils enquanto ativo (um dos bônus maiores).",
-	RITUAL_TIP_REINFORCED_UNLOCK = "• Limpe um local de Tier 2 e fale com Ranger Captain Lilatha em Luaprata (o tier exigido cai a cada semana).",
+	RITUAL_TIP_REINFORCED_UNLOCK = "• Limpe um local de grau 2 e fale com Ranger Captain Lilatha em Luaprata (o grau exigido cai a cada semana).",
 	RITUAL_TIP_PATROLS_MECHANIC = "• Inimigos de elite patrulham o local — evite as rotas deles quando puder.|n• Aumenta os Spoils enquanto ativo.",
-	RITUAL_TIP_PATROLS_UNLOCK = "• \"Procure\" tesouros únicos de um local de Tier 3+ (o tier exigido cai a cada semana).",
+	RITUAL_TIP_PATROLS_UNLOCK = "• \"Procure\" tesouros únicos de um local de grau 3+ (o grau exigido cai a cada semana).",
 	RITUAL_TIP_EMBERS_MECHANIC = "• Inimigos aleatórios E o chefe final ficam fortalecidos, marcados por um orbe flutuante acima deles.|n• Aumenta os Spoils enquanto ativo (um dos bônus maiores).",
-	RITUAL_TIP_EMBERS_UNLOCK = "• Saqueie um Ember of Power dentro de um local de Tier 4 para iniciar a missão (o tier exigido cai a cada semana).",
+	RITUAL_TIP_EMBERS_UNLOCK = "• Saqueie um Ember of Power dentro de um local de grau 4 para iniciar a missão (o grau exigido cai a cada semana).",
 }) end
