@@ -37,8 +37,9 @@ Op een Forever-character van level 13 of hoger:
       = onder je level. Klopt de naam van elke dungeon?
 - [ ] Muis op "Route": de zone en de plek, en zo nodig de reis ("The way there"). Klik: de pijl wijst naar de ingang,
       ook als je eerst een boot of zeppelin moet nemen. Bij de ingang gaat de pijl weg.
-- [ ] Krol'dok, Alcaz, Blackmaw en Shaper's Terrace hebben een `*`: hun plek komt van internet. Ben je er toevallig:
-      klopt de plek?
+- [ ] ~~Krol'dok, Alcaz, Blackmaw en Shaper's Terrace hebben een `*`~~ (15 nov: de `*` is weg; HandyNotes-dungeons 1.02
+      heeft die vier nu ook, en de Stockade-ingang is verplaatst naar 50.3, 66.1 in Stormwind). Ben je er toevallig:
+      klopt de plek? Vooral de Stockade: wijst de pijl naar de echte ingang?
 - [ ] `/mh dungeons check` → level, kant, wat past en de regel voor "Do this now".
 
 ## 🆕 14 nov (avond) — Forever: "Do this now" zegt WELKE knop een oude rank heeft (komt in de release ná 5.3.0)

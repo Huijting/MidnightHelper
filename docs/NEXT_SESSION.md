@@ -1,5 +1,34 @@
 # Midnight Helper — waar we staan
 
+## ▶ 15 nov (Bouwchat 15-11, ingang; neemt het over van Bouwchat 14-11)
+
+📌 Ochtendronde (GEMETEN tenzij anders): git schoon, pull 2f4d78e → 87ed12b (wachters + regie + ideeënbus). CF-reacties
+0 open (8 draadjes), GitHub 0 issues/PR's. addon_updates: geen 🔔; 23 retail- en 8 Forever-addons bijgewerkt, niets
+dat MH raakt (gelezen, niet getest). HandyNotes_Midnight 171, geen zonewijziging. Zygor: "baseline recorded" voor
+Midnight (9.6, 717) én Forever (1.6, 104) = vandaag GEEN vergelijking mogelijk; morgen wel (waarom de oude snapshot
+niet gebruikt werd: NIET gemeten). BOUW_VRAAG: Open (geen). Site-mail en Notion: door de cloud-chat gedaan (0 mail;
+inbak dezelfde 4 regels van 12 nov), niet overgedaan.
+🏰 HandyNotes_DungeonRaidLocations-Forever 1.01 → 1.02 (gezien via addon_updates): heeft nu Krol'dok, Alcaz, Blackmaw
+en Shaper's Terrace, en de Stockade-ingang staat op 50.3, 66.1 (was 39.6, 53.9). Overgenomen in
+`Modules/ForeverDungeons.lua` (coördinaat-regel: HandyNotes > web); `web = true` op geen rij meer, dus geen `*`. Levels
+van 1.02 wijken soms af (bv. Alcaz 48-53 vs onze 48-55): de onze komen uit DB2 en blijven. Licentie nagekeken (MIT,
+Pirson). Lint 0 HARD; NIET in het spel gezien (TESTLIJST 14 nov laat, Stockade-regel). 1.02 heeft ook namen per taal
+voor Krol'dok/Shaper's/Drowned City: géén Blizzard-meting, dus niet overgenomen.
+📝 SITE_SEIN: regel voor het Horde/Alliance-embleem (43d4e76) nagetekend, de regie zag hem ontbreken. `/mh partytest`
+heeft nog steeds geen regel (regie; niet nagekeken of het een spelersfunctie is).
+🔴 API-wachter [MOET GEFIKST]: Forever Focus/Self Cast Key-modifier kan onze `[mod:shift]`-macro's stil laten falen
+(61× in ForeverMacros.lua, GEMETEN; bron = spelers, geen blue). Voorstel naar Sparring 15-11: Rob kijkt eerst 10 s in
+Forever → Options → Keybindings wat er op Focus Cast Key / Self Cast Key staat; daarna een waarschuwingsregel of een
+check met `GetModifiedClick("FOCUSCAST")`. Niets gebouwd.
+🔎 Nachtcontrole C2 "28 nakijken": allemaal `map =` in ForeverDungeons.lua = instantie-id's (DB2 Map), geen UiMap-id's
+(GEMETEN: het commentaar bovenaan de module zegt dat, en HandyNotes noemt ze `instanceID`). Dus loos alarm van de
+checker; open: de checker die regel leren overslaan (tools/data_check, niet aangeraakt).
+💡 Ideeënbus zo 15 nov: 2 voorstellen (XP-drempel +12 levels in groepen; "nieuwe spell op geen balk"). Ze staan
+onderaan IDEEEN.md; Rob beslist (maandag-stap), niet verplaatst.
+⚠️ Voordeur: mijn eerste `_probe.py` vond geen job en draaide de oude job van een andere sessie (een beroepenlijst,
+alleen lezen). Oorzaak: ik schreef in `Temp\claude\<sid>\scratchpad`; de juiste map is
+`Temp\claude\E--World-of-Warcraft--retail--Interface-AddOns\<sid>\scratchpad`.
+
 ## ▶ Open voor 14 nov (bouwchat 13-11 sloot af met /nieuwe-chat, ±00:30)
 
 📌 14 nov ochtend (Bouwchat 14-11): ochtendronde gedaan, niets voor Rob (0 CF-reacties, geen 🔔, HandyNotes 171 zonder

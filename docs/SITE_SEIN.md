@@ -28,6 +28,17 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 14 nov 2026 — Forever: Horde/Alliance-embleem in "Your characters"
+- Tag + commit:   geen tag / 43d4e76 (regel 15 nov nagetekend; de regie zag hem ontbreken)
+- Status:         alleen op main
+- Mag op de site: nee (nog niet uit; Rob test eerst)
+- Speler ziet:    In "Your characters" (`/mh alts`) staat vóór elk character het Horde- of Alliance-embleem. Een character
+                  waar je sinds deze versie nog niet op inlogde krijgt een grijs "?" tot je er één keer op inlogt.
+                  Niet in het spel gezien.
+- Knoplabels:     FCHARS_SIDE_UNKNOWN
+- Commando's:     /mh alts
+- Spel:           Forever
+
 ## 14 nov 2026 — Forever: dungeons voor jouw level + pijl naar de ingang
 - Tag + commit:   geen tag / (deze commit, na c728fc6)
 - Status:         alleen op main
@@ -35,7 +46,8 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 - Speler ziet:    In "Do this now" een regel welke dungeons nu bij je level passen, met een knop "Dungeons". Dat venster
                   toont alle Forever-dungeons met level en ingang (groen = past nu) en een knop Route per dungeon: de pijl
                   wijst de ingang aan, met boot/zeppelin als dat moet. Ingangen van HandyNotes Dungeon & Raid Locations
-                  (MIT); vier nieuwe dungeons van internet, met een sterretje. Niet in het spel gezien.
+                  (MIT). 15 nov: sinds HandyNotes-versie 1.02 komen álle ingangen daarvandaan (het sterretje voor
+                  "van internet" is weg). Niet in het spel gezien.
 - Knoplabels:     FDUNG_TITLE, FDUNG_BTN, FDUNG_ROUTE
 - Commando's:     /mh dungeons
 - Spel:           Forever

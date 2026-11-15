@@ -14,16 +14,17 @@ local _, ns = ...
 	  - map ............. the instance Map id (DB2 Map); the NAME comes from the client (GetRealZoneText), so every
 	                      language shows its own client name. The wing words (Graveyard, East, …) stay English: their
 	                      client names are NOT measured yet.
-	  - zone, x, y ...... the entrance. From HandyNotes_DungeonRaidLocations-Forever v1.01, Data/Entrances.lua (MIT, see
-	                      the notice below), except the four marked web = true (Krol'dok, Alcaz, Blackmaw, Shaper's
-	                      Terrace): HandyNotes does not have them; those come from web guides (Warcraft Tavern /
-	                      warcraftmaps, Nov 2026) and are NOT checked in the game. The window and the arrow say so.
+	  - zone, x, y ...... the entrance. From HandyNotes_DungeonRaidLocations-Forever v1.02, Data/Entrances.lua (MIT, see
+	                      the notice below). 15 Nov 2026: v1.02 added Krol'dok, Alcaz, Blackmaw and Shaper's Terrace
+	                      (before that web guides, marked web = true) and moved the Stockade; all rows follow v1.02.
+	                      The web = true path (a "*" in the window) stays for a future row only a web guide has;
+	                      no row uses it now. The 1.02 levels differ in places from ours; ours (DB2) stay.
 	  - side ............ only for the "fits your level" line: DB2 LFGDungeons.Faction is 0 for Ragefire Chasm and 1 for
 	                      the Stockade (MEASURED); 0 = Horde, 1 = Alliance is DERIVED. The list shows them for everyone.
 	Nothing from ForeverDungeonJournal (no licence found = all rights reserved).
 
 	------------------------------------------------------------------------------------------------------------------
-	Entrance coordinates (all rows without web = true) come from HandyNotes_DungeonRaidLocations-Forever:
+	Entrance coordinates (every row without web = true) come from HandyNotes_DungeonRaidLocations-Forever:
 
 	MIT License
 
@@ -61,7 +62,7 @@ local DUNGEONS = {
 	{ key = "WC", name = "Wailing Caverns", map = 43, min = 15, max = 24, zone = 1413, x = 46.0, y = 36.4 },
 	{ key = "DM", name = "The Deadmines", map = 36, min = 17, max = 26, zone = 1436, x = 42.5, y = 71.7 },
 	{ key = "SFK", name = "Shadowfang Keep", map = 33, min = 20, max = 30, zone = 1421, x = 44.6, y = 67.7 },
-	{ key = "STOCKS", name = "The Stockade", map = 34, min = 24, max = 32, zone = 1453, x = 39.6, y = 53.9, side = "Alliance" },
+	{ key = "STOCKS", name = "The Stockade", map = 34, min = 24, max = 32, zone = 1453, x = 50.3, y = 66.1, side = "Alliance" },
 	{ key = "BFD", name = "Blackfathom Deeps", map = 48, min = 24, max = 32, zone = 1440, x = 14.5, y = 14.2 },
 	{ key = "EXCAVATION", name = "Excavation Site", map = 2998, min = 26, max = 33, zone = 1437, x = 47.8, y = 56.3 },
 	{ key = "DALARAN", name = "City of Dalaran", map = 2959, min = 28, max = 35, zone = 1416, x = 8.0, y = 61.2 },
@@ -73,19 +74,19 @@ local DUNGEONS = {
 	{ key = "SM_ARM", name = "Scarlet Monastery", part = "Armory", map = 189, min = 36, max = 44, zone = 1420, x = 85.7, y = 31.9 },
 	{ key = "RFD", name = "Razorfen Downs", map = 129, min = 37, max = 46, zone = 1413, x = 50.9, y = 92.9 },
 	{ key = "SM_CATH", name = "Scarlet Monastery", part = "Cathedral", map = 189, min = 38, max = 46, zone = 1420, x = 85.3, y = 30.3 },
-	{ key = "KROLDOK", name = "Krol'dok Stronghold", map = 3039, min = 40, max = 47, zone = 2548, x = 37.5, y = 37.5, web = true },
+	{ key = "KROLDOK", name = "Krol'dok Stronghold", map = 3039, min = 40, max = 47, zone = 2548, x = 37.5, y = 37.3 },
 	{ key = "ULDA", name = "Uldaman", map = 70, min = 41, max = 51, zone = 1418, x = 44.6, y = 12.1 },
 	{ key = "ZF", name = "Zul'Farrak", map = 209, min = 44, max = 54, zone = 1446, x = 38.7, y = 19.5 },
 	{ key = "MARA", name = "Maraudon", map = 349, min = 46, max = 55, zone = 1443, x = 29.1, y = 62.5 },
-	{ key = "ALCAZ", name = "Alcaz Prison", map = 2994, min = 48, max = 55, zone = 1445, x = 75.5, y = 13.7, web = true },
+	{ key = "ALCAZ", name = "Alcaz Prison", map = 2994, min = 48, max = 55, zone = 1445, x = 75.3, y = 14.1 },
 	{ key = "ST", name = "Sunken Temple", map = 109, min = 50, max = 60, zone = 1435, x = 69.9, y = 53.6 },
 	{ key = "BRD", name = "Blackrock Depths", map = 230, min = 52, max = 60, zone = 1428, x = 29.4, y = 38.3 },
 	{ key = "DM_E", name = "Dire Maul", part = "East", map = 429, min = 54, max = 60, zone = 1444, x = 64.8, y = 30.2 },
 	{ key = "LBRS", name = "Blackrock Spire", part = "Lower", map = 229, min = 55, max = 60, zone = 1428, x = 29.4, y = 38.3 },
-	{ key = "BLACKMAW", name = "Blackmaw Hold", map = 2974, min = 55, max = 60, zone = 1447, x = 38.7, y = 33.4, web = true },
+	{ key = "BLACKMAW", name = "Blackmaw Hold", map = 2974, min = 55, max = 60, zone = 1447, x = 38.6, y = 33.2 },
 	{ key = "DM_N", name = "Dire Maul", part = "North", map = 429, min = 56, max = 60, zone = 1444, x = 62.9, y = 24.9 },
 	{ key = "DM_W", name = "Dire Maul", part = "West", map = 429, min = 56, max = 60, zone = 1444, x = 60.3, y = 30.2 },
-	{ key = "SHAPERS", name = "The Shaper's Terrace", map = 3001, min = 58, max = 60, zone = 1449, x = 48.1, y = 6.1, web = true },
+	{ key = "SHAPERS", name = "The Shaper's Terrace", map = 3001, min = 58, max = 60, zone = 1449, x = 48.1, y = 6.1 },
 	{ key = "SCHOLO", name = "Scholomance", map = 289, min = 58, max = 60, zone = 1422, x = 69.0, y = 72.7 },
 	{ key = "STRAT_LIVE", name = "Stratholme", part = "Main Gate", map = 329, min = 58, max = 60, zone = 1423, x = 27.8, y = 11.6 },
 	{ key = "STRAT_UD", name = "Stratholme", part = "Service Gate", map = 329, min = 58, max = 60, zone = 1423, x = 43.6, y = 19.5 },
