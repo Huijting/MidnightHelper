@@ -165,6 +165,26 @@ gebruiken."* Uitslag (bouwchat 15-11, alleen op main, NIET in het spel gezien):
 Hier komt wat Rob goedkeurt, ook wat hij rechtstreeks in de bouwchat vraagt (Rob, 10 nov: *"ja we willen het op 1
 lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met de commit erbij. Na zijn test naar **Af**.
 
+### 📅 Werkafspraak: woensdag = Midnight-dag (vanaf wo 18 nov 2026)
+Rob, 15 nov (via Sparring 15-11, letterlijk): *"Ja, pak de woensdag maar voor de midnight."* Aanleiding (Rob): *"de
+Midnight-afdeling ondersneeuwt op dit moment door de Forever"*. Elke woensdag (ook de EU-reset) gaat werk aan Midnight
+voor; Forever wacht die dag, tenzij Rob anders zegt.
+
+### Speltermen in elke taal het woord uit het spel (groep voor groep)
+- Rob 15 nov (via sparring): *"doe inderdaad optie A maar. Dan werk zoveel mogelijk door."* Groep 1 3d20a27, groep 2
+  9f2964c, groep 3 loopt. Daarna de nog niet gemeten namen (Follower Dungeon, Heroic World Tier, quest "Midnight:
+  Dungeons", Dungeon Waystones, Mythic Keystone …). Test: TESTLIJST 15 nov (middag).
+
+### Spelersfeedback + meer aandacht voor Midnight (4 opdrachten voor de bouwchat)
+Rob 15 nov (via sparring), op zes ideeën: *"Doe ze allemaal maar."* Volgorde na de speltermen:
+1. **Forever-vragenlijst, addon-kant**: uitnodiging in Forever (zelfde nudge-aanpak, eigen link; URL met de site-chat
+   afstemmen), één keer, wegklikbaar, `/mh survey` ook in Forever. GEMETEN door sparring: SurveyInvite.lua en Nudges.lua
+   staan niet in MidnightHelper_Camelot.toc.
+2. **Downloadcijfers** ✅ gemeten 15 nov (CF-API): sinds 5.0.1 Midnight 1875, Forever 94; tabel naar sparring.
+3. **Midnight klaar voor 12.1.7 / Season 3**: bronnenlijst + plan naar sparring; klein en zeker mag direct.
+4. **Midnight-controle**: verouderd/kapot nalopen (stale advice, hotfixes sinds 12.1.5, open punten); lijst + voorstel.
+(Idee 3, Reddit/forums, doet de sparring-chat zelf. Idee 6 = de woensdag hierboven.)
+
 ### Forever: Horde/Alliance-tekentje vóór elk character in "Your characters"
 - Voor wie:      allebei (wie characters aan beide kanten heeft)
 - Moment:        venster "Your characters" (`/mh alts`, tegel in de Me-kamer)

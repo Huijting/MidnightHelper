@@ -60,6 +60,9 @@ Nvl/LivOg). 508 stukjes in 316 keys, 25 nieuwe esMX-regels. apply.py kent nu ook
 Kastenschlüssel enz. zijn al gemeten, 11 okt), "Heroic World Tier", "Mythic Keystones", "Current Season Maximum",
 "Keystone Myth", "Resilient Keystones" (niet gemeten). Ook gezien: ptBR zegt nog vaak "temporada" (moet "Série"), en
 fr/it "vault" in CODEX_MPLUS_BODY + VAULT_ADVISOR_HINT_*. luac OK, lint 0 HARD, drift ongewijzigd.
+📅 Werkafspraak (Rob via sparring: *"Ja, pak de woensdag maar voor de midnight."*): elke woensdag = Midnight-dag, eerste
+wo 18 nov. Nieuw voor de bouwchat (Rob: *"Doe ze allemaal maar."*), na de speltermen: Forever-vragenlijst (addon-kant),
+12.1.7/Season 3-plan, Midnight-controle. Downloadcijfers al gemeten (sinds 5.0.1: Midnight 1875, Forever 94). Zie IDEEEN.
 🔐 Herstart-check: geen enkele call werd geweigerd (git status/pull/log, echo, _probe ×3, Write). Of Rob een vraag kreeg
 die hij goedkeurde, zie ik niet: AFGELEID "geen vragen", Rob bevestigt.
 💡 Ideeënbus zo 15 nov: 2 voorstellen (XP-drempel +12 levels in groepen; "nieuwe spell op geen balk"). Ze staan
