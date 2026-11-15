@@ -15764,6 +15764,29 @@ if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	ALTBOARD_IN_WINDOW = "I tuoi personaggi sono aperti in una finestra a parte. Chiudila per rivederli qui.",
 }) end
 
+-- Forever no-XP warning (ForeverDungeons.lua), 15 Nov 2026. XP / level = the Forever client's own words (GlobalStrings
+-- XP, LEVEL, 1.60.1.70938): de EP / Stufe, fr PX / niveau, es PE / nivel, pt EXP / nível. Our own translations.
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
+	FXP_TARGET_FMT = "Keine EP für diesen Gegner: %s (Stufe %d) ist mehr als 12 Stufen über ihm (Stufe %d), deshalb bekommt niemand in der Gruppe EP dafür. Blizzards Regel seit 14. Nov. 2026.",
+	FXP_DUNGEON_FMT = "Hier wahrscheinlich keine EP: %s (Stufe %d) ist mehr als 12 Stufen über den meisten Gegnern in %s, deshalb bekommt niemand in der Gruppe EP für diese Kills. Blizzards Regel seit 14. Nov. 2026.",
+	FXP_LIST_NOTE_FMT = "|cffff5555*|r = dort wahrscheinlich keine EP für alle: %s (Stufe %d) ist mehr als 12 Stufen über den Gegnern (Blizzards Regel seit 14. Nov. 2026).",
+}) end
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
+	FXP_TARGET_FMT = "Pas de PX pour cet ennemi : %s (niveau %d) a plus de 12 niveaux de plus que lui (niveau %d), donc personne dans le groupe ne gagne de PX. Règle de Blizzard depuis le 14 nov. 2026.",
+	FXP_DUNGEON_FMT = "Sans doute pas de PX ici : %s (niveau %d) a plus de 12 niveaux de plus que la plupart des ennemis de %s, donc personne dans le groupe ne gagne de PX pour eux. Règle de Blizzard depuis le 14 nov. 2026.",
+	FXP_LIST_NOTE_FMT = "|cffff5555*|r = sans doute pas de PX pour personne là-bas : %s (niveau %d) a plus de 12 niveaux de plus que les ennemis (règle de Blizzard depuis le 14 nov. 2026).",
+}) end
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
+	FXP_TARGET_FMT = "No hay PE por este enemigo: %s (nivel %d) está más de 12 niveles por encima (nivel %d), así que nadie del grupo gana PE por él. Regla de Blizzard desde el 14 nov. 2026.",
+	FXP_DUNGEON_FMT = "Probablemente no hay PE aquí: %s (nivel %d) está más de 12 niveles por encima de la mayoría de enemigos de %s, así que nadie del grupo gana PE por ellos. Regla de Blizzard desde el 14 nov. 2026.",
+	FXP_LIST_NOTE_FMT = "|cffff5555*|r = probablemente nadie gana PE ahí: %s (nivel %d) está más de 12 niveles por encima de los enemigos (regla de Blizzard desde el 14 nov. 2026).",
+}) end
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
+	FXP_TARGET_FMT = "Sem EXP por este inimigo: %s (nível %d) está mais de 12 níveis acima dele (nível %d), então ninguém do grupo ganha EXP por ele. Regra da Blizzard desde 14 nov. 2026.",
+	FXP_DUNGEON_FMT = "Provavelmente sem EXP aqui: %s (nível %d) está mais de 12 níveis acima da maioria dos inimigos de %s, então ninguém do grupo ganha EXP por eles. Regra da Blizzard desde 14 nov. 2026.",
+	FXP_LIST_NOTE_FMT = "|cffff5555*|r = provavelmente ninguém ganha EXP lá: %s (nível %d) está mais de 12 níveis acima dos inimigos (regra da Blizzard desde 14 nov. 2026).",
+}) end
+
 -- Edit Mode copy from another game version (EditModeBackup.lua OtherBuild), 15 Nov 2026. Our own translations.
 if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	EDITMODE_OTHER_BUILD_FMT = "Diese Kopie deines Layouts stammt aus einer anderen Spielversion (%s; jetzt %s). Blizzard hat Teile des Bearbeitungsmodus dazwischen neu nummeriert, deshalb könnte das Zurücksetzen Einstellungen an die falsche Stelle setzen. Nichts wurde geändert.",

@@ -37,6 +37,18 @@ Op een Forever-character, `/mh dungeons` (of de knop "Dungeons" in "Do this now"
 - [ ] De kolom "Entrance" toont nu de plek als getallen (bv. "42.5, 71.7"), niet meer de zonenaam. Muis op "Route" noemt
       de zone nog wel.
 
+## 🆕 15 nov (avond) — Forever: "geen XP" als iemand meer dan 12 levels boven de vijanden zit
+
+Alleen met een groep waarin één speler veel hoger is (bv. je level-60 vriend helpt je level-20 alt):
+- [ ] Groepspaneel (`/mh partytargets`): neem een vijand als doelwit die meer dan 12 levels lager is dan de hoogste in
+      de groep. Onder het paneel staat een rode regel "No XP for this enemy: … more than 12 levels above it …".
+      Doelwit weg of een vijand dichterbij: de regel verdwijnt.
+- [ ] In een dungeon die veel te laag is voor de hoogste: zonder doelwit staat er "Probably no XP here: …".
+- [ ] `/mh dungeons` in die groep: dungeons waar de hoogste meer dan 12 levels boven het maximum zit, hebben een rood
+      `*`, en onderaan staat wat het betekent.
+- [ ] `/mh dungeons check` → een regel "no-XP rule (> 12 levels …): top of group …".
+- [ ] Klopt het met wat je echt krijgt? (Blizzard: 12 levels hoger geeft nog XP, 13 niet.)
+
 ## 🆕 15 nov (avond) — Edit Mode-back-up kent zijn spelversie
 
 - [ ] Midnight: zet het toetsenblok neer en haal het weer weg ("Your key block" → terug). Werkt het terugzetten nog

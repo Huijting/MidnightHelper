@@ -28,6 +28,17 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 15 nov 2026 — Forever: waarschuwing "geen XP" bij meer dan 12 levels verschil
+- Tag + commit:   geen tag / (deze commit, zie git log "Forever: warn when nobody gets XP")
+- Status:         alleen op main
+- Mag op de site: nee (nog niet uit)
+- Speler ziet:    Zit iemand in je groep meer dan 12 levels boven een vijand, dan zegt een rode regel onder het
+                  groepspaneel dat niemand XP krijgt voor die vijand (Blizzards regel sinds 14 nov 2026). In de
+                  dungeonlijst krijgen dungeons waar dat waarschijnlijk geldt een rood `*`. Niet in het spel gezien.
+- Knoplabels:     FXP_TARGET_FMT, FXP_DUNGEON_FMT, FXP_LIST_NOTE_FMT
+- Commando's:     /mh partytargets, /mh dungeons, /mh dungeons check
+- Spel:           Forever
+
 ## 15 nov 2026 — Forever: uitnodiging voor de Forever-vragenlijst
 - Tag + commit:   geen tag / 1f521e5
 - Status:         alleen op main

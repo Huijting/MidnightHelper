@@ -171,6 +171,77 @@ local function GoTo(d)
 end
 
 --------------------------------------------------------------------------------
+-- No XP when someone is far above the enemies (15 Nov 2026; Rob via sparring: "Ja, op 12 levels, waarschuwing achterin.")
+-- Blizzard (Kaivax, us.forums 2416343, posted 15 Nov 01:18 UTC; GEMETEN by mh-research): in a dungeon, nobody in the
+-- group gets XP for an enemy when a group member is MORE THAN 12 levels above that enemy (12 still gives XP). Per enemy.
+-- Before 14 Nov the rule was "grey for anyone". The game shows no text for it (GlobalStrings 1.60.1.70938, GEMETEN),
+-- so MH says it. UnitLevel has no secret flag in Forever (Blizzard UI source); <= 0 = skull, unknown, skipped.
+--------------------------------------------------------------------------------
+local XP_GAP = 12
+
+local GROUP_UNITS = { "player", "party1", "party2", "party3", "party4" }
+
+--- The highest level in your group and who has it (you alone when not grouped).
+function ns.ForeverGroupTop()
+	local top, who = 0, nil
+	for _, u in ipairs(GROUP_UNITS) do
+		local okE, ex = pcall(UnitExists, u)
+		if okE and ex then
+			local okL, lv = pcall(UnitLevel, u)
+			if okL and type(lv) == "number" and not (issecretvalue and issecretvalue(lv)) and lv > top then
+				local okN, nm = pcall(UnitName, u)
+				top, who = lv, (okN and type(nm) == "string" and not (issecretvalue and issecretvalue(nm))) and nm or "?"
+			end
+		end
+	end
+	return top, who
+end
+
+--- The dungeon you are in now, from the instance id (DUNGEONS' `map`), or nil.
+local function CurrentDungeon()
+	if not (IsInInstance and GetInstanceInfo) then
+		return nil
+	end
+	local inInst, kind = IsInInstance()
+	if not inInst or kind ~= "party" then
+		return nil
+	end
+	local id = select(8, GetInstanceInfo())
+	for _, d in ipairs(DUNGEONS) do
+		if d.map == id then
+			return d
+		end
+	end
+	return nil
+end
+
+--- The warning line for the group panel, or nil; plus the reason (for /mh dungeons check).
+function ns.ForeverNoXpLine()
+	if not (IsInGroup and IsInGroup()) then
+		return nil, "not in a group (the rule is about groups)"
+	end
+	local top, who = ns.ForeverGroupTop()
+	local okE, hasTarget = pcall(UnitExists, "target")
+	if okE and hasTarget and UnitCanAttack and UnitCanAttack("player", "target") then
+		local okL, lv = pcall(UnitLevel, "target")
+		if okL and type(lv) == "number" and lv > 0 then
+			if top - lv > XP_GAP then
+				return ns:L("FXP_TARGET_FMT"):format(who, top, lv), ("target level %d, top %d (%s): gap %d > %d")
+					:format(lv, top, who, top - lv, XP_GAP)
+			end
+			return nil, ("target level %d, top %d: gap %d, XP still given"):format(lv, top, top - lv)
+		end
+	end
+	local d = CurrentDungeon()
+	if d and top > d.max + XP_GAP then
+		return ns:L("FXP_DUNGEON_FMT"):format(who, top, Name(d)), ("in %s (max %d), top %d (%s)"):format(Name(d),
+			d.max, top, who)
+	end
+	return nil, d and ("in %s (max %d), top %d: no warning"):format(Name(d), d.max, top)
+		or ("no enemy target and not in a known dungeon; top %d"):format(top)
+end
+
+--------------------------------------------------------------------------------
 -- Window (same look as "Your characters"; Shift+scroll and Escape via RegisterMidnightDialogPopup)
 --------------------------------------------------------------------------------
 -- 15 Nov 2026, Rob (via sparring, verbatim): "Kunnen we dat, die lijst aanpassen of zo updaten dat het per zone is? …
@@ -400,6 +471,12 @@ Refresh = function()
 	end)
 
 	local routeText = ns:L("FDUNG_ROUTE")
+	-- No-XP marker: only in a group (the rule is about groups); the highest member against the dungeon's top level.
+	local gtop, gwho = 0, nil
+	if IsInGroup and IsInGroup() then
+		gtop, gwho = ns.ForeverGroupTop()
+	end
+	local anyNoXp = false
 	local y, nh, nr = 0, 0, 0
 	for _, g in ipairs(groups) do
 		if #g.list > 0 then
@@ -425,7 +502,9 @@ Refresh = function()
 					r:SetPoint("TOPLEFT", 0, -y)
 					r:SetWidth(W - 54)
 					local col = (st == "fit" and GOOD) or (st == "near" and WARN) or (st == "low" and GREY) or ""
-					r.name:SetText(col .. Name(d) .. (col ~= "" and "|r" or ""))
+					local noXp = gwho and gtop > d.max + XP_GAP
+					anyNoXp = anyNoXp or noXp
+					r.name:SetText(col .. Name(d) .. (col ~= "" and "|r" or "") .. (noXp and " |cffff5555*|r" or ""))
 					local lv = ("%d-%d"):format(d.min, d.max)
 					if st == "near" then
 						lv = lv .. " (+" .. (d.min - level) .. ")"
@@ -468,8 +547,11 @@ Refresh = function()
 		y = ROW_H
 	end
 	f.content:SetHeight(math.max(y, ROW_H))
-	f.note:SetText(ns:L("FDUNG_NOTE"))
-	f:SetHeight(86 + MAX_VISIBLE * ROW_H + 56)
+	-- The no-XP explanation sits under the list, in the same room as the stars (CLAUDE.md: say it where you look).
+	local extra = anyNoXp and 28 or 0
+	f.note:SetText(ns:L("FDUNG_NOTE") .. (anyNoXp and ("\n" .. ns:L("FXP_LIST_NOTE_FMT"):format(gwho, gtop)) or ""))
+	f.scroll:SetPoint("BOTTOMRIGHT", -36, 50 + extra)
+	f:SetHeight(86 + MAX_VISIBLE * ROW_H + 56 + extra)
 end
 
 function ns.ShowForeverDungeons()
@@ -505,6 +587,11 @@ function ns.ForeverDungeonsSlash(arg)
 		end
 		local tip = ns.ForeverDungeonTip()
 		print("  Do this now line: " .. (tip or "(none: no dungeon fits this level)"))
+		local top, who = ns.ForeverGroupTop()
+		local line, why = ns.ForeverNoXpLine()
+		print(("  no-XP rule (> %d levels above an enemy, Blizzard 14 Nov 2026): top of group %d (%s); %s"):format(
+			XP_GAP, top, tostring(who), why))
+		print("  group panel line: " .. (line or "(none)"))
 		return
 	end
 	if win and win:IsShown() then

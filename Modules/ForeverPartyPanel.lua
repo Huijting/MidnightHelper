@@ -410,6 +410,14 @@ local function Build()
 	end)
 	f.title = f:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
 	f.title:SetPoint("TOPLEFT", PAD + 2, -PAD)
+	-- The no-XP warning (ForeverDungeons.lua ns.ForeverNoXpLine, 15 Nov 2026): under the panel, where the group is.
+	-- A plain text line, no click area, so it is fine to change in a fight.
+	f.xp = f:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+	f.xp:SetPoint("TOPLEFT", f, "BOTTOMLEFT", 4, -3)
+	f.xp:SetWidth(W - 8)
+	f.xp:SetJustifyH("LEFT")
+	f.xp:SetTextColor(1, 0.45, 0.35)
+	f.xp:Hide()
 	f.rows = {}
 	for i = 1, ROWS do
 		local r = CreateFrame("Frame", nil, f)
@@ -450,10 +458,20 @@ local function Wanted()
 	return true, "in a group"
 end
 
+local function UpdateXp()
+	if not (panel and panel.xp) then
+		return
+	end
+	local line = ns.ForeverNoXpLine and ns.ForeverNoXpLine()
+	panel.xp:SetText(line or "")
+	panel.xp:SetShown(line ~= nil and panel:IsShown())
+end
+
 local function Update()
 	if InCombat() then
 		pending = true
 		RefreshRows() -- names are readable in a fight (measured); visibility waits
+		UpdateXp()
 		return
 	end
 	pending = false
@@ -467,6 +485,7 @@ local function Update()
 		ApplyDispels()
 		PlaceButtons()
 		SetButtonsLive(true)
+		UpdateXp()
 	elseif panel then
 		SetButtonsLive(false)
 		panel:Hide()
@@ -535,6 +554,8 @@ ev:RegisterEvent("PLAYER_REGEN_ENABLED")
 ev:RegisterEvent("SPELLS_CHANGED")
 pcall(ev.RegisterEvent, ev, "PLAYER_ROLES_ASSIGNED")
 pcall(ev.RegisterEvent, ev, "UNIT_NAME_UPDATE")
+ev:RegisterEvent("PLAYER_TARGET_CHANGED")
+pcall(ev.RegisterEvent, ev, "UNIT_LEVEL")
 ev:SetScript("OnEvent", function(_, event)
 	if event == "PLAYER_REGEN_ENABLED" and not pending then
 		return
@@ -543,6 +564,10 @@ ev:SetScript("OnEvent", function(_, event)
 		if panel and panel:IsShown() then
 			ApplyDispels()
 		end
+		return
+	end
+	if event == "PLAYER_TARGET_CHANGED" or event == "UNIT_LEVEL" then
+		UpdateXp() -- just the warning line; nothing protected
 		return
 	end
 	if C_Timer and C_Timer.After then

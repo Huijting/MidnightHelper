@@ -193,6 +193,8 @@ Stand 15 nov avond: 1 gebouwd (1f521e5), 2 gemeten, 3 rapport + A/B gebouwd (zie
   tekst, eerst de huidige regel nameten.
 - Plekken: Forever-groepspaneel ("X is more than 12 levels above these mobs") en de dungeonlijst (wie te hoog is).
 - Eerst meten: UnitLevel van groepsleden en vijanden leesbaar in Forever? Diagnose `/mh …` (zwijg-regel).
+- ✅ Gebouwd 15 nov avond (alleen op main, NIET in het spel gezien): regel GEMETEN ("meer dan 12", 12 = nog XP), groepspaneel-
+  regel + `*` in de dungeonlijst + `/mh dungeons check`. Zie NEXT_SESSION en TESTLIJST 15 nov avond.
 
 ### Forever: Horde/Alliance-tekentje vóór elk character in "Your characters"
 - Voor wie:      allebei (wie characters aan beide kanten heeft)

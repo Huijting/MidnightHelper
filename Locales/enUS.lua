@@ -356,6 +356,10 @@ ns._mhLocales.enUS = {
 	SURVEY_COPY_TITLE = "Survey: two minutes for Midnight Helper",
 	SURVEY_COPY_HINT = "Press Ctrl+C and paste the link in your browser. Thank you!",
 	SURVEY_CHAT_LATER = "No problem. The survey link is always one command away: /mh survey",
+	-- Forever: no XP when someone is more than 12 levels above the enemies (ForeverDungeons.lua, 15 Nov 2026).
+	FXP_TARGET_FMT = "No XP for this enemy: %s (level %d) is more than 12 levels above it (level %d), so nobody in the group gets XP for it. Blizzard's rule since 14 Nov 2026.",
+	FXP_DUNGEON_FMT = "Probably no XP here: %s (level %d) is more than 12 levels above most enemies in %s, so nobody in the group gets XP for those kills. Blizzard's rule since 14 Nov 2026.",
+	FXP_LIST_NOTE_FMT = "|cffff5555*|r = probably no XP for anyone there: %s (level %d) is more than 12 levels above its enemies (Blizzard's rule since 14 Nov 2026).",
 	-- Edit Mode copy from another game version (EditModeBackup.lua OtherBuild, 15 Nov 2026).
 	EDITMODE_OTHER_BUILD_FMT = "This copy of your layout was made on another game version (%s; now %s). Blizzard renumbered parts of Edit Mode in between, so putting it back could move settings to the wrong place. Nothing was changed.",
 	EDITMODE_BUILD_OLDER = "an older version",

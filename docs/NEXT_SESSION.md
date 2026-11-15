@@ -108,6 +108,16 @@ Modo de edição / Modalità modifica; ru "Настройка интерфейс
 NIET in het spel gezien. 🇫🇷 Rob koos (via sparring, letterlijk *"Haha a"*): frFR "LFR" blijft, uitzondering vastgelegd
 bovenaan docs/CLIENT_NAMES_2026-10-20.md. Volgende in de rij: Forever XP-waarschuwing 12 levels (Rob: *"Ja, op 12
 levels, waarschuwing achterin."*), zie IDEEEN.
+🎯 Forever XP-waarschuwing (12 levels) GEBOUWD, alleen op main (Rob via sparring: *"Ja, op 12 levels, waarschuwing
+achterin."*). Regel GEMETEN (mh-research, Kaivax us 2416343, 15 nov 01:18 UTC, post nooit bewerkt): in een dungeon
+krijgt niemand XP voor een vijand als een groepslid MEER DAN 12 levels hoger is (12 = nog XP); per vijand; daarvóór (13
+nov) "grijs voor iemand". Spel heeft er geen tekst voor (GEMETEN, GlobalStrings wowf 70938). UnitLevel niet secret in
+Forever (Blizzard UI-bron); <= 0 (schedel) overgeslagen. ForeverDungeons.lua: ns.ForeverGroupTop, ns.ForeverNoXpLine
+(doelwit-vijand exact; anders huidige dungeon via instance-id tegen d.max = AFGELEID "waarschijnlijk"), rode `*` in de
+lijst + uitleg onderaan, `/mh dungeons check` regel. ForeverPartyPanel.lua: rode regel onder het paneel (PLAYER_TARGET_
+CHANGED, UNIT_LEVEL). XP/level per taal GEMETEN (EP/PX/PE/EXP/опыт; Stufe/niveau/nivel/nível/уровень). Open: geldt het ook
+in de open wereld (één spelersrapport, Blizzard zweeg) — nu alleen bij doelwit (overal) en dungeon. luac OK, lint 0 HARD.
+NIET in het spel gezien (TESTLIJST 15 nov avond).
 🔐 Herstart-check: geen enkele call werd geweigerd (git status/pull/log, echo, _probe ×3, Write). Of Rob een vraag kreeg
 die hij goedkeurde, zie ik niet: AFGELEID "geen vragen", Rob bevestigt.
 💡 Ideeënbus zo 15 nov: 2 voorstellen (XP-drempel +12 levels in groepen; "nieuwe spell op geen balk"). Ze staan
