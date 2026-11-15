@@ -28,6 +28,41 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 15 nov 2026 — Forever: uitnodiging voor de Forever-vragenlijst
+- Tag + commit:   geen tag / 1f521e5
+- Status:         alleen op main
+- Mag op de site: nee (nog niet uit). De pagina /<taal>/survey/forever/ staat al live (site-chat, f476ce77; GEMETEN 200
+                  in en/nl/de/fr/es/pt/ru).
+- Speler ziet:    In Forever, op de tweede dag dat MH draait, één keer een vraag om een korte anonieme vragenlijst in te
+                  vullen ("Show the link" / "Later" / "No thanks"). `/mh survey` geeft altijd de link. Niet in het spel
+                  gezien.
+- Knoplabels:     FSURVEY_POPUP_TEXT, FSURVEY_COPY_TITLE, SURVEY_SHOW_LINK, SURVEY_LATER, SURVEY_NEVER
+- Commando's:     /mh survey
+- Spel:           Forever
+
+## 15 nov 2026 — Forever: dungeonlijst per zone, vinkje "alleen voor mijn level", coördinaten
+- Tag + commit:   geen tag / b7d9360 + efe3b9d (regel nagetekend door Bouwchat 15-11)
+- Status:         alleen op main
+- Mag op de site: nee (nog niet uit)
+- Speler ziet:    "Dungeons in Forever" (`/mh dungeons`) toont kopjes per zone; een vinkje toont alleen wat bij je level
+                  past (tot 2 levels hoger, oranje "+N"); de kolom Entrance toont de plek als getallen. Niet in het spel gezien.
+- Knoplabels:     FDUNG_ONLY_MINE_FMT, FDUNG_ZONE_FMT, FDUNG_NONE_MINE
+- Commando's:     /mh dungeons
+- Spel:           Forever
+
+## 15 nov 2026 — Talen: spelwoorden zoals het spel ze noemt
+- Tag + commit:   geen tag / efe3b9d, 041316d, 3d20a27, 9f2964c, 460c984, dfac3b5
+- Status:         alleen op main
+- Mag op de site: nee (nog niet uit). Let op voor de site-teksten: dezelfde regel geldt (Rob, 15 nov: "de plus en alle
+                  andere vaste spelnamen, krijg je in elke taal de naam uit het spel").
+- Speler ziet:    In de/fr/es/pt/it/ru (en esMX) heten Mythic+, Raid, Great Vault, Dungeon, Renown, Heroic/Mythic, Season,
+                  Keystone, item level, delve-tier, crests, Coffer Keys, LFR, Timewalking, PvP en het toetsenmenu zoals de
+                  client van die taal ze toont (gemeten in Blizzards data). Voorbeelden: de "Mythisch+", "Schlachtzug",
+                  "Große Schatzkammer"; pt "Série" voor seizoen. Niet in het spel gezien.
+- Knoplabels:     (veel; o.a. MPLUS_VIEW, TAB_DELVES, CODEX_CUR_DAWN_TITLE)
+- Commando's:     geen
+- Spel:           allebei
+
 ## 14 nov 2026 — Forever: Horde/Alliance-embleem in "Your characters"
 - Tag + commit:   geen tag / 43d4e76 (regel 15 nov nagetekend; de regie zag hem ontbreken)
 - Status:         alleen op main
