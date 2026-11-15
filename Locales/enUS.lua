@@ -1063,7 +1063,10 @@ ns._mhLocales.enUS = {
 	MOUNTS_MRP_HINT = "Collecting beyond Midnight? The Mount Route Planner addon (on CurseForge) builds efficient farming routes across every expansion.",
 	HOME_COLLECTIBLE_FMT = "%s — %d/%d",
 	MOUNTPROG_SPOREGLIDER_HOWTO = "Defeat Rotmire in the Sporefall raid (Harandar) for a Delicious Sporesnack — about 1 per week, 4 needed.",
-	MOUNTPROG_VYRANOTH_HOWTO = "The Turbulent Timeways event that gave this mount ended on 11 August, so it cannot be earned right now. Expected but not confirmed: from patch 12.1.7 a Timewalking vendor sells it for 5,000 Timewarped Badges.",
+	-- From patch 12.1.7 (Locale.lua ns:L picks *_1217 on a 12.1.7 client; GEMETEN in the PTR data, 15 Nov 2026).
+	MOUNTPROG_VYRANOTH_HOWTO_1217 = "Every Timewalking vendor sells this mount for 5,000 Timewarped Badges. You earn badges in Timewalking dungeons, for example during Turbulent Timeways.",
+	TRACKCEIL_ROUTE_VENOM_1217 = "Ascendant Venomstones: a weapon, trinket or neck that is maxed on Hero or Myth goes one step higher with 10 stones, at the Catalyst in Silvermoon City (Orin Straylight's quests open it). They drop from Heroic and Mythic raid bosses, Mythic+ from +10, Tier 11 Bountiful Delves and Nightmare Prey chests. New in 12.1.7: Talebound achievements give a Venomstone Cache (10 stones) once, from the Traveling Raven in Silvermoon.",
+	MOUNTPROG_VYRANOTH_HOWTO ="The Turbulent Timeways event that gave this mount ended on 11 August, so it cannot be earned right now. Expected but not confirmed: from patch 12.1.7 a Timewalking vendor sells it for 5,000 Timewarped Badges.",
 	-- 9 Nov 2026: shown only once the client knows achievement 64207 (patch 12.1.7). The week count comes from the game.
 	MOUNTPROG_TIMEWAYS6_HOWTO = "Turbulent Timeways comes back with patch 12.1.7, for eight weeks. In a week of the event, finish 4 Timewalking dungeons. The number above shows how many of those weeks you have, and how many the game asks.",
 	MOUNTPROG_GOTO_BTN_FMT = "Open %s",

@@ -257,10 +257,34 @@ end
 
 ---@param key string
 ---@return string
+--- 15 Nov 2026 (docs/PATCH_12_1_7_DRAAIBOEK.md §2b): a text that is true only from patch 12.1.7 on lives under
+--- "<KEY>_1217". On a 12.1.7+ retail client (interface >= 120107) ns:L(KEY) returns that one when it exists, so the new
+--- text is ready before launch day and 12.1.5 keeps the old one. Forever is never affected (its interface is lower).
+local IS_1217 = false
+do
+	if GetBuildInfo then
+		local _, _, _, n = GetBuildInfo()
+		IS_1217 = (tonumber(n) or 0) >= 120107
+	end
+end
+ns.IS_1217 = IS_1217
+local key1217 = setmetatable({}, { __index = function(t, k)
+	local v = k .. "_1217"
+	t[k] = v
+	return v
+end })
+
 function ns:L(key)
 	local loc = self:GetEffectiveLocaleCode()
 	local pack = ns._mhLocales and ns._mhLocales[loc]
 	local fb = ns._mhLocales and ns._mhLocales.enUS
+	if IS_1217 and type(key) == "string" then
+		local k2 = key1217[key]
+		local s2 = pack and pack[k2] or fb and fb[k2]
+		if s2 then
+			return s2
+		end
+	end
 	local s = pack and pack[key] or fb and fb[key] or key
 	return s
 end

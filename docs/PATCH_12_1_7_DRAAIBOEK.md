@@ -40,6 +40,20 @@ Bronnen (15 nov, PTR 12.1.7.70892 tegen live 12.1.5.70783), elk met GEMETEN/AFGE
 - ✅ Timeways-tekst zegt 4 weken, in 9 talen (feabb43). Het Timeways-artikel en de mount staan al klaar achter 12.1.7.
 - ✅ MH laadt niet in Talebound (`AllowLoadGameType: standard`, AFGELEID).
 
+### 2b-stand (15 nov avond; Rob: *"Ja, je mag de klaarzetpunten mee beginnen en wij gaan dat zeker benoemen als
+midnight helper zijnde"* = Talebound als bron noemen)
+- ✅ 1 toetsenblok-"terug" zoekt de oude indeling nu OP NAAM (`EditModeBackup.lua` BackToPreset); niet gevonden = niets
+  doen, MH valt terug op de opgeslagen kopie van je eigen indeling.
+- ✅ 2 Timeways-weekschema in CODEX_TT6_BODY (9 talen; "Classic" per taal zoals de client het noemt).
+- ✅ 3 Vyranoth, ✅ 6 Talebound als bron (Venomstone/Voidcache), ✅ 4 (alleen de TEKST: 7 stappen, 2 runen) — als
+  `<KEY>_1217`: `Locales/Locale.lua` ns:L kiest die op interface ≥ 120107 (GEMETEN met de packs geladen als 12.1.5 en
+  12.1.7, en/de/esMX/fr). Namen GEMETEN in PTR-DB2; Engels gebleven (niet te meten): Memories and Tales, Traveling Raven,
+  Veldharin, frFR Venomstone Cache/Nebulous Voidcache.
+- ✅ 10 Lorewalking-zin stond er al (artikel verborgen tot 12.1.7).
+- ⏳ Patchdag: 4-data (Folio-rijen 6/7: welke rij, welke volgorde, één stap via Talebound → MH kan niet meer gewoon tellen),
+  5 campagne (startplek/volgorde onbekend, geen Zygor-gids), 7 Aqir-prijs, 8 Talebound-prestatielijst, 9 december-events.
+- Lint ziet de `_1217`-keys als "ongebruikt" (SOFT [18]); nog niet aangepast.
+
 ### 2b. Vóór 2 dec klaarzetten (zelfde truc: pas zichtbaar op een 12.1.7-client)
 | # | Wat | Waar in MH | Zeker? |
 |---|---|---|---|

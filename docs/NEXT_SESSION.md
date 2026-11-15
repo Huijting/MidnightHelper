@@ -123,6 +123,9 @@ agenten het net op …"*). 5 speur-verslagen in `docs/patch_12_1_7/`. Kern: waar
 spells anders; niets wat MH gebruikt verdwijnt. Vóór 2 dec klaarzetten (tabel 2b, 10 punten), 🔴 vooral 2b-1:
 toetsenblok-"terug" bewaart een vast preset-nummer (`EditModeBackup.lua:947/:1022`), en 12.1.7 krijgt een 3e preset
 "Gamepad". Wekelijkse hermeting op woensdag. Meetscripts gekopieerd naar `tools/patch_watch/` (+ README; ongepoetst).
+🧰 12.1.7-klaarzetpunten (Rob: *"Ja, je mag de klaarzetpunten mee beginnen en wij gaan dat zeker benoemen als midnight
+helper zijnde"*): 1, 2, 3, 4-tekst, 6, 10 klaar; 4-data, 5, 7, 8, 9 op patchdag. Nieuw mechanisme: `<KEY>_1217` in de
+packs, Locale.lua ns:L kiest die op interface ≥ 120107 (ns.IS_1217). Stand per punt: DRAAIBOEK "2b-stand".
 🔐 Herstart-check: geen enkele call werd geweigerd (git status/pull/log, echo, _probe ×3, Write). Of Rob een vraag kreeg
 die hij goedkeurde, zie ik niet: AFGELEID "geen vragen", Rob bevestigt.
 💡 Ideeënbus zo 15 nov: 2 voorstellen (XP-drempel +12 levels in groepen; "nieuwe spell op geen balk"). Ze staan

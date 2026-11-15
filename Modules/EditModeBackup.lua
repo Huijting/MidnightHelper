@@ -1019,7 +1019,38 @@ local function BackToPreset(activeName)
 	if not (back and back.layout == activeName and C_EditMode.SetActiveLayout) then
 		return false
 	end
-	if not pcall(C_EditMode.SetActiveLayout, back.preset) then
+	-- 15 Nov 2026 (docs/PATCH_12_1_7_DRAAIBOEK.md 2b-1): find the way back BY NAME, not by the number saved earlier.
+	-- 12.1.7 adds a third preset ("Gamepad", GEMETEN on the PTR), so every index after the presets shifts by one; the
+	-- saved number could then pick a different layout (AFGELEID). Not found by name = do nothing rather than guess.
+	local target = back.preset
+	if back.presetName then
+		target = nil
+		local okG, info = pcall(C_EditMode.GetLayouts)
+		local okP, presetList = false, nil
+		if EditModePresetLayoutManager and EditModePresetLayoutManager.GetCopyOfPresetLayouts then
+			okP, presetList = pcall(EditModePresetLayoutManager.GetCopyOfPresetLayouts, EditModePresetLayoutManager)
+		end
+		if okP and type(presetList) == "table" then
+			for i, p in ipairs(presetList) do
+				if p.layoutName == back.presetName then
+					target = i
+					break
+				end
+			end
+			if not target and okG and type(info) == "table" and type(info.layouts) == "table" then
+				for i, l in ipairs(info.layouts) do
+					if l.layoutName == back.presetName then
+						target = #presetList + i
+						break
+					end
+				end
+			end
+		end
+		if not target then
+			return false
+		end
+	end
+	if not pcall(C_EditMode.SetActiveLayout, target) then
 		return false
 	end
 	ns.db.keyBlockPresetBack[SpecKey()] = nil
