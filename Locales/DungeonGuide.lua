@@ -108,7 +108,7 @@ merge(ns._mhLocales and ns._mhLocales.enUS, {
 if ns._mhLocales and ns._mhLocales.itIT then merge(ns._mhLocales and ns._mhLocales.itIT, {
 	TAB_DUNGEONS = "Spedizioni",
 	DGN_TITLE = "Spedizioni",
-	DGN_SUBTITLE = "Il tuo compagno per i dungeon: cosa fare questa settimana, un corso per principianti dalla prima coda fino al Heroic, e i passi per ogni boss nel Coach, più una tab Mitica+ con gli affissi e i kick obbligatori.",
+	DGN_SUBTITLE = "Il tuo compagno per i dungeon: cosa fare questa settimana, un corso per principianti dalla prima coda fino all'Eroica, e i passi per ogni boss nel Coach, più una tab Mitica+ con gli affissi e i kick obbligatori.",
 
 	DGN_VIEW_WEEK = "Questa settimana",
 	DGN_VIEW_COURSE = "Dungeons 101",
@@ -123,25 +123,25 @@ if ns._mhLocales and ns._mhLocales.itIT then merge(ns._mhLocales and ns._mhLocal
 	DGN_WEEKDGN_DONE_FMT = "Spedizione della settimana (Halduron): %s — completata questa settimana.",
 	DGN_WEEKDGN_UNKNOWN = "Spedizione della settimana (Halduron): prendi la sua quest accanto alla Gran Banca per vederla qui.",
 	DGN_KEYSTONE_DONE = "Cracked Keystone (intro Mitica+): completato.",
-	DGN_KEYSTONE_TODO = "Cracked Keystone (intro Mitica+): cade da una ricompensa di una scorribanda di Tier 11 — una volta a season.",
+	DGN_KEYSTONE_TODO = "Cracked Keystone (intro Mitica+): cade da una ricompensa di una scorribanda di Tier 11 — una volta a stagione.",
 	DGN_VAULT_FMT = "Gran Banca — riga Spedizioni: %d/%d slot sbloccati (progresso %d).",
 	DGN_VAULT_UNKNOWN = "Gran Banca — riga Spedizioni: i dati si caricano dopo il login o aprendo la Gran Banca.",
-	DGN_FOLLOWER_HINT = "Nuovo nelle spedizioni? Avvia un Follower Dungeon (Group Finder): giochi in difficoltà Normal da solo con compagni NPC — nessuna pressione, pratica perfetta. Il corso qui sotto ti guida in ogni cosa.",
+	DGN_FOLLOWER_HINT = "Nuovo nelle spedizioni? Avvia un Follower Dungeon (Group Finder): giochi in difficoltà Normale da solo con compagni NPC — nessuna pressione, pratica perfetta. Il corso qui sotto ti guida in ogni cosa.",
 
 	-- Dungeons 101 ------------------------------------------------------------
-	DGN_COURSE_HEADER = "Spedizioni 101 — da zero al tuo primo Heroic",
+	DGN_COURSE_HEADER = "Spedizioni 101 — da zero alla tua prima spedizione eroica",
 	DGN_COURSE_PROGRESS_FMT = "Progresso: %d/%d capitoli completati",
 	DGN_CH_MARK = "Clicca qui quando l'hai fatto — salvato per personaggio.",
 	DGN_CH_DONE = "Fatto — clicca per annullare.",
 
 	DGN_CH1_TITLE = "1. Cos'è un dungeon?",
-	DGN_CH1_BODY = "• Una spedizione è un'avventura instanziata per 5 giocatori: 1 tank, 1 healer, 3 damage dealer.|n• Difficoltà, dalla più facile alla più difficile: Follower (da solo con compagni NPC — modalità pratica), Normal (tutte le spedizioni di Midnight, sempre disponibili), Heroic (la rotazione di questa season, loot migliore) e Mythic/Mitica+ (trattati più avanti in questo corso).|n• Le run nelle spedizioni riempiono la riga Spedizioni della tua Gran Banca — una ricompensa settimanale gratuita.",
+	DGN_CH1_BODY = "• Una spedizione è un'avventura instanziata per 5 giocatori: 1 tank, 1 healer, 3 damage dealer.|n• Difficoltà, dalla più facile alla più difficile: Follower (da solo con compagni NPC — modalità pratica), Normale (tutte le spedizioni di Midnight, sempre disponibili), Eroica (la rotazione di questa stagione, loot migliore) e Mitica/Mitica+ (trattati più avanti in questo corso).|n• Le run nelle spedizioni riempiono la riga Spedizioni della tua Gran Banca — una ricompensa settimanale gratuita.",
 
 	DGN_CH2_TITLE = "2. Come entrare",
-	DGN_CH2_BODY = "• Premi I (Group Finder) e scegli il Dungeon Finder.|n• Spunta il ruolo che vuoi giocare; le code per tank e healer partono più in fretta.|n• Vuoi zero pressione? Scegli prima un Follower Dungeon: difficoltà Normal, compagni NPC che seguono il tuo ritmo, disponibile mentre sali di livello 80-90 (c'è un limite giornaliero di avvii).|n• Quando la coda è pronta, clicca Accetta — vieni teletrasportato dentro, e di nuovo fuori al termine.",
+	DGN_CH2_BODY = "• Premi I (Group Finder) e scegli il Dungeon Finder.|n• Spunta il ruolo che vuoi giocare; le code per tank e healer partono più in fretta.|n• Vuoi zero pressione? Scegli prima un Follower Dungeon: difficoltà Normale, compagni NPC che seguono il tuo ritmo, disponibile mentre sali di livello 80-90 (c'è un limite giornaliero di avvii).|n• Quando la coda è pronta, clicca Accetta — vieni teletrasportato dentro, e di nuovo fuori al termine.",
 
 	DGN_CH3_TITLE = "3. Preparati",
-	DGN_CH3_BODY = "• Scegli il tuo ruolo e impara le basi — la Role Academy in questo addon spiega tanking, healing e DPS in parole semplici.|n• Imposta una macro di interrupt e una difensiva (Toolbox → Macros — pronte da copiare per la tua spec).|n• Porta una flask, del cibo e una potion (Toolbox → Consumables ha la lista per la tua spec, con copia del nome per l'Auction House).|n• Ripara il tuo equipaggiamento prima di metterti in coda. Per il Heroic, il Group Finder mostra il requisito di equipaggiamento accanto al pulsante della coda.",
+	DGN_CH3_BODY = "• Scegli il tuo ruolo e impara le basi — la Role Academy in questo addon spiega tanking, healing e DPS in parole semplici.|n• Imposta una macro di interrupt e una difensiva (Toolbox → Macros — pronte da copiare per la tua spec).|n• Porta una flask, del cibo e una potion (Toolbox → Consumables ha la lista per la tua spec, con copia del nome per l'Auction House).|n• Ripara il tuo equipaggiamento prima di metterti in coda. In Eroica, il Group Finder mostra il requisito di equipaggiamento accanto al pulsante della coda.",
 
 	DGN_CH4_TITLE = "4. Nel gruppo",
 	DGN_CH4_BODY = "• Lascia che sia il tank a pullare — correre davanti al tank è il classico errore da principiante.|n• Di' \"first time here\" all'inizio; la maggior parte dei giocatori è felice di darti indicazioni.|n• Kicka (interrompi) i cast pericolosi quando puoi — la tua macro del capitolo 3 fa il lavoro.|n• Loot: prendi ciò che puoi usare; greed/disenchant il resto.|n• Un wipe? Capita a tutti. Torna indietro, mangia per recuperare, riprova. Un \"ty gg\" alla fine fa la differenza.",
@@ -149,15 +149,15 @@ if ns._mhLocales and ns._mhLocales.itIT then merge(ns._mhLocales and ns._mhLocal
 	DGN_CH5_TITLE = "5. Conosci i boss",
 	DGN_CH5_BODY = "• Prima di una run, apri la vista Dungeon Coach e leggi i passi brevi per ogni boss — e nel momento in cui pulli un boss, Midnight Helper stampa quei passi direttamente nella tua chat.|n• Condividili col tuo gruppo: scrivi /mh bossshare dopo il pull (testo semplice; la condivisione localizzata arriverà più avanti).|n• Non memorizzare tutto: conoscere l'unica meccanica letale per ogni boss è sufficiente per iniziare.",
 
-	DGN_CH6_TITLE = "6. Prossimo passo: Heroic",
-	DGN_CH6_BODY = "• Il Heroic usa la rotazione di questa season (otto dungeon — vedi la vista Coach, contrassegnati con la stagione) con nemici più forti e loot migliore.|n• Il Group Finder mostra il requisito di equipaggiamento; equipaggiati prima tramite dungeon Normal, scorribande e contenuti del mondo.|n• Combinalo con le tue settimanali: il dungeon della settimana di Halduron e la settimanale Spark di Lady Liadrin stanno entrambi accanto al vault — la vista Questa settimana li tiene tracciati.|n• Dopo il Heroic arrivano Mythic e Mitica+ — quel capitolo arriverà con l'aggiornamento Mythic di questo corso.",
+	DGN_CH6_TITLE = "6. Prossimo passo: Eroica",
+	DGN_CH6_BODY = "• L'Eroica usa la rotazione di questa stagione (otto dungeon — vedi la vista Coach, contrassegnati con la stagione) con nemici più forti e loot migliore.|n• Il Group Finder mostra il requisito di equipaggiamento; equipaggiati prima tramite dungeon in Normale, scorribande e contenuti del mondo.|n• Combinalo con le tue settimanali: il dungeon della settimana di Halduron e la settimanale Spark di Lady Liadrin stanno entrambi accanto al vault — la vista Questa settimana li tiene tracciati.|n• Dopo l'Eroica arrivano la Mitica e la Mitica+ — quel capitolo arriverà con l'aggiornamento della Mitica di questo corso.",
 
 	-- Coach -------------------------------------------------------------------
 	DGN_COACH_HEADER = "Dungeon Coach",
 	DGN_COACH_INTRO = "Ogni dungeon e boss di questa espansione — clicca sul nome di un dungeon per aprire i passi dei suoi boss (cosa schivare, cosa kickare, cosa fa il tuo ruolo). I nomi delle spell sono link cliccabili. Scritto sulla base dei dati DBM e dei tooltip di Wowhead; la verifica in-game è in corso.",
-	DGN_GROUP_LAUNCH = "Spedizioni di Midnight — Normal & Follower (sempre disponibili)",
-	DGN_GROUP_SEASON = "Rotazione Season 1 — Heroic & Mythic",
-	DGN_GROUP_SEASON_S2 = "Rotazione Season 2 — Heroic & Mythic",
+	DGN_GROUP_LAUNCH = "Spedizioni di Midnight — Normale & Follower (sempre disponibili)",
+	DGN_GROUP_SEASON = "Rotazione Stagione 1 — Eroica & Mitica",
+	DGN_GROUP_SEASON_S2 = "Rotazione Stagione 2 — Eroica & Mitica",
 	DGN_BADGE_S1 = "Season 1",
 	DGN_BADGE_S2 = "Season 2",
 	DGN_TIPS_SOON = "I passi dei boss per questo dungeon sono in fase di scrittura e verifica — in arrivo in un prossimo aggiornamento.",
@@ -276,7 +276,7 @@ merge(ns._mhLocales and ns._mhLocales.nlNL, {
 if ns._mhLocales and ns._mhLocales.deDE then merge(ns._mhLocales and ns._mhLocales.deDE, {
 	TAB_DUNGEONS = "Dungeons",
 	DGN_TITLE = "Dungeons",
-	DGN_SUBTITLE = "Dein Dungeon-Begleiter: was du diese Woche läufst, ein Einsteigerkurs von der ersten Warteschlange bis Heroic, und Boss-Schritte im Coach, plus ein Mythisch+-Reiter mit den Affixen und Pflicht-Unterbrechungen.",
+	DGN_SUBTITLE = "Dein Dungeon-Begleiter: was du diese Woche läufst, ein Einsteigerkurs von der ersten Warteschlange bis Heroisch, und Boss-Schritte im Coach, plus ein Mythisch+-Reiter mit den Affixen und Pflicht-Unterbrechungen.",
 
 	DGN_VIEW_WEEK = "Diese Woche",
 	DGN_VIEW_COURSE = "Dungeons 101",
@@ -297,19 +297,19 @@ if ns._mhLocales and ns._mhLocales.deDE then merge(ns._mhLocales and ns._mhLocal
 	DGN_FOLLOWER_HINT = "Neu in Dungeons? Starte einen Follower Dungeon (Gruppensuche): du läufst Normal solo mit NPC-Begleitern — kein Druck, perfekt zum Üben. Der Kurs unten führt dich durch alles.",
 
 	-- Dungeons 101 --------------------------------------------------------------
-	DGN_COURSE_HEADER = "Dungeons 101 — von null zu deinem ersten Heroic",
+	DGN_COURSE_HEADER = "Dungeons 101 — von null zu deinem ersten heroischen Dungeon",
 	DGN_COURSE_PROGRESS_FMT = "Fortschritt: %d/%d Kapitel erledigt",
 	DGN_CH_MARK = "Klicke hier, wenn du das erledigt hast — wird pro Charakter gespeichert.",
 	DGN_CH_DONE = "Erledigt — klicke zum Rückgängigmachen.",
 
 	DGN_CH1_TITLE = "1. Was ist ein Dungeon?",
-	DGN_CH1_BODY = "• Ein Dungeon ist ein instanziiertes Abenteuer für 5 Spieler: 1 Tank, 1 Heiler, 3 Schadensausteiler.|n• Schwierigkeiten, von leicht bis schwer: Follower (solo mit NPC-Begleitern — Übungsmodus), Normal (alle Midnight-Dungeons, immer verfügbar), Heroic (die Saisonrotation, bessere Beute) und Mythic/Mythisch+ (kommt später in diesem Kurs).|n• Dungeon-Läufe füllen die Dungeon-Reihe deiner Großen Schatzkammer — eine kostenlose Wochenbelohnung.",
+	DGN_CH1_BODY = "• Ein Dungeon ist ein instanziiertes Abenteuer für 5 Spieler: 1 Tank, 1 Heiler, 3 Schadensausteiler.|n• Schwierigkeiten, von leicht bis schwer: Follower (solo mit NPC-Begleitern — Übungsmodus), Normal (alle Midnight-Dungeons, immer verfügbar), Heroisch (die Saisonrotation, bessere Beute) und Mythisch/Mythisch+ (kommt später in diesem Kurs).|n• Dungeon-Läufe füllen die Dungeon-Reihe deiner Großen Schatzkammer — eine kostenlose Wochenbelohnung.",
 
 	DGN_CH2_TITLE = "2. So kommst du rein",
 	DGN_CH2_BODY = "• Drücke I (Gruppensuche) und wähle den Dungeonbrowser.|n• Hake die Rolle an, die du spielen willst; Tank- und Heiler-Warteschlangen ploppen am schnellsten.|n• Null Druck? Wähle zuerst einen Follower Dungeon: Normal-Schwierigkeit, NPC-Begleiter in deinem Tempo, verfügbar beim Leveln 80-90 (es gibt ein tägliches Start-Limit).|n• Ploppt die Warteschlange, klicke Annehmen — du wirst hineinteleportiert und am Ende wieder hinaus.",
 
 	DGN_CH3_TITLE = "3. Mach dich bereit",
-	DGN_CH3_BODY = "• Wähle deine Rolle und lerne die Grundlagen — die Role Academy in diesem Addon erklärt Tanken, Heilen und DPS in einfacher Sprache.|n• Lege ein Interrupt-Makro und ein Defensiv bereit (Toolbox → Makros — fertig zum Kopieren für deine Spezialisierung).|n• Nimm Fläschchen, Essen und einen Trank mit (Toolbox → Verbrauchsgüter hat die Liste für deine Spezialisierung, mit Auktionshaus-Namenskopie).|n• Repariere deine Ausrüstung, bevor du dich anstellst. Für Heroic zeigt die Gruppensuche die Ausrüstungsanforderung neben dem Warteschlangen-Knopf.",
+	DGN_CH3_BODY = "• Wähle deine Rolle und lerne die Grundlagen — die Role Academy in diesem Addon erklärt Tanken, Heilen und DPS in einfacher Sprache.|n• Lege ein Interrupt-Makro und ein Defensiv bereit (Toolbox → Makros — fertig zum Kopieren für deine Spezialisierung).|n• Nimm Fläschchen, Essen und einen Trank mit (Toolbox → Verbrauchsgüter hat die Liste für deine Spezialisierung, mit Auktionshaus-Namenskopie).|n• Repariere deine Ausrüstung, bevor du dich anstellst. Für Heroisch zeigt die Gruppensuche die Ausrüstungsanforderung neben dem Warteschlangen-Knopf.",
 
 	DGN_CH4_TITLE = "4. In der Gruppe",
 	DGN_CH4_BODY = "• Lass den Tank pullen — vor dem Tank herzulaufen ist DER klassische Anfängerfehler.|n• Sag am Anfang \"first time here\"; die meisten Spieler zeigen dir gern den Weg.|n• Kicke (unterbrich) gefährliche Zauber, wann immer du kannst — dein Makro aus Kapitel 3 macht die Arbeit.|n• Beute: nimm nur, was du selbst nutzt; greed/entzaubere den Rest.|n• Wipe? Passiert jedem. Lauf zurück, iss dich voll, versuch es nochmal. Ein \"ty gg\" am Ende wirkt Wunder.",
@@ -317,15 +317,15 @@ if ns._mhLocales and ns._mhLocales.deDE then merge(ns._mhLocales and ns._mhLocal
 	DGN_CH5_TITLE = "5. Kenne die Bosse",
 	DGN_CH5_BODY = "• Öffne vor einem Lauf die Dungeon-Coach-Ansicht und lies die kurzen Schritte pro Boss — und sobald du einen Boss pullst, schreibt Midnight Helper diese Schritte direkt in deinen Chat.|n• Teile sie mit deiner Gruppe: tippe /mh bossshare nach dem Pull (Klartext; lokalisiertes Teilen folgt später).|n• Du musst nicht alles auswendig lernen: die eine tödliche Mechanik pro Boss zu kennen reicht für den Anfang.",
 
-	DGN_CH6_TITLE = "6. Nächster Schritt: Heroic",
-	DGN_CH6_BODY = "• Heroic nutzt die Saisonrotation (acht Dungeons — siehe Coach-Ansicht, mit der Saison markiert) mit stärkeren Gegnern und besserer Beute.|n• Die Gruppensuche zeigt die Ausrüstungsanforderung; rüste dich erst über Normal-Dungeons, Tiefen und Weltinhalte aus.|n• Kombiniere es mit deinen Weeklies: Haldurons Dungeon der Woche und Lady Liadrins Spark-Weekly wohnen beide neben der Schatzkammer — die Diese-Woche-Ansicht verfolgt sie.|n• Nach Heroic kommen Mythic und Mythisch+ — dieses Kapitel erscheint mit dem Mythic-Update dieses Kurses.",
+	DGN_CH6_TITLE = "6. Nächster Schritt: Heroisch",
+	DGN_CH6_BODY = "• Heroisch nutzt die Saisonrotation (acht Dungeons — siehe Coach-Ansicht, mit der Saison markiert) mit stärkeren Gegnern und besserer Beute.|n• Die Gruppensuche zeigt die Ausrüstungsanforderung; rüste dich erst über Normal-Dungeons, Tiefen und Weltinhalte aus.|n• Kombiniere es mit deinen Weeklies: Haldurons Dungeon der Woche und Lady Liadrins Spark-Weekly wohnen beide neben der Schatzkammer — die Diese-Woche-Ansicht verfolgt sie.|n• Nach Heroisch kommen Mythisch und Mythisch+ — dieses Kapitel erscheint mit dem Mythisch-Update dieses Kurses.",
 
 	-- Coach ---------------------------------------------------------------------
 	DGN_COACH_HEADER = "Dungeon-Coach",
 	DGN_COACH_INTRO = "Jeder Dungeon und Boss dieser Erweiterung — klicke auf einen Dungeon-Namen, um die Boss-Schritte zu öffnen (was ausweichen, was kicken, was deine Rolle tut). Zaubernamen sind klickbare Links. Geschrieben auf Basis von DBM-Daten und Wowhead-Tooltips; In-Game-Verifizierung läuft.",
 	DGN_GROUP_LAUNCH = "Midnight-Dungeons — Normal & Follower (immer verfügbar)",
-	DGN_GROUP_SEASON = "Season-1-Rotation — Heroic & Mythic",
-	DGN_GROUP_SEASON_S2 = "Season-2-Rotation — Heroic & Mythic",
+	DGN_GROUP_SEASON = "Saison-1-Rotation — Heroisch & Mythisch",
+	DGN_GROUP_SEASON_S2 = "Saison-2-Rotation — Heroisch & Mythisch",
 	DGN_BADGE_S1 = "Season 1",
 	DGN_BADGE_S2 = "Season 2",
 	DGN_TIPS_SOON = "Die Boss-Schritte für diesen Dungeon werden geschrieben und verifiziert — kommen in einem nächsten Update.",
@@ -358,7 +358,7 @@ if ns._mhLocales and ns._mhLocales.deDE then merge(ns._mhLocales and ns._mhLocal
 if ns._mhLocales and ns._mhLocales.frFR then merge(ns._mhLocales and ns._mhLocales.frFR, {
 	TAB_DUNGEONS = "Donjons",
 	DGN_TITLE = "Donjons",
-	DGN_SUBTITLE = "Ton compagnon de donjon : quoi faire cette semaine, un cours débutant de la première file jusqu'au Heroic, et les étapes par boss dans le Coach, plus un onglet Mythique + avec les affixes et les interruptions clés.",
+	DGN_SUBTITLE = "Ton compagnon de donjon : quoi faire cette semaine, un cours débutant de la première file jusqu'à l'Héroïque, et les étapes par boss dans le Coach, plus un onglet Mythique + avec les affixes et les interruptions clés.",
 
 	DGN_VIEW_WEEK = "Cette semaine",
 	DGN_VIEW_COURSE = "Dungeons 101",
@@ -379,19 +379,19 @@ if ns._mhLocales and ns._mhLocales.frFR then merge(ns._mhLocales and ns._mhLocal
 	DGN_FOLLOWER_HINT = "Nouveau en donjon ? Lance un Follower Dungeon (Recherche de groupe) : tu joues en Normal, en solo avec des PNJ — zéro pression, parfait pour s'entraîner. Le cours ci-dessous t'accompagne pas à pas.",
 
 	-- Dungeons 101 ----------------------------------------------------------------
-	DGN_COURSE_HEADER = "Donjons 101 — de zéro à ton premier Heroic",
+	DGN_COURSE_HEADER = "Donjons 101 — de zéro à ton premier donjon héroïque",
 	DGN_COURSE_PROGRESS_FMT = "Progression : %d/%d chapitres faits",
 	DGN_CH_MARK = "Clique ici quand c'est fait — sauvegardé par personnage.",
 	DGN_CH_DONE = "Fait — clique pour annuler.",
 
 	DGN_CH1_TITLE = "1. C'est quoi, un donjon ?",
-	DGN_CH1_BODY = "• Un donjon est une aventure instanciée pour 5 joueurs : 1 tank, 1 soigneur, 3 DPS.|n• Difficultés, du plus simple au plus dur : Follower (solo avec des PNJ — mode entraînement), Normal (tous les donjons Midnight, toujours disponibles), Heroic (la rotation de la saison, meilleur butin) et Mythic/Mythique + (abordés plus tard dans ce cours).|n• Les donjons remplissent la rangée Donjons de ta Grande chambre forte — une récompense hebdomadaire gratuite.",
+	DGN_CH1_BODY = "• Un donjon est une aventure instanciée pour 5 joueurs : 1 tank, 1 soigneur, 3 DPS.|n• Difficultés, du plus simple au plus dur : Follower (solo avec des PNJ — mode entraînement), Normal (tous les donjons Midnight, toujours disponibles), Héroïque (la rotation de la saison, meilleur butin) et Mythique/Mythique + (abordés plus tard dans ce cours).|n• Les donjons remplissent la rangée Donjons de ta Grande chambre forte — une récompense hebdomadaire gratuite.",
 
 	DGN_CH2_TITLE = "2. Comment entrer",
 	DGN_CH2_BODY = "• Appuie sur I (Recherche de groupe) et choisis l'outil Donjons.|n• Coche le rôle que tu veux jouer ; les files tank et soigneur partent le plus vite.|n• Zéro pression ? Choisis d'abord un Follower Dungeon : difficulté Normal, des PNJ qui suivent ton rythme, disponible pendant le leveling 80-90 (avec une limite de lancements par jour).|n• Quand la file sonne, clique Accepter — tu es téléporté dedans, puis dehors à la fin.",
 
 	DGN_CH3_TITLE = "3. Prépare-toi",
-	DGN_CH3_BODY = "• Choisis ton rôle et apprends les bases — la Role Academy de cet addon explique tank, heal et DPS en langage simple.|n• Prépare une macro d'interruption et un défensif (Toolbox → Macros — prêts à copier pour ta spé).|n• Prends un flacon, de la nourriture et une potion (Toolbox → Consommables a la liste pour ta spé, avec copie du nom pour l'hôtel des ventes).|n• Répare ton équipement avant de t'inscrire. Pour Heroic, la Recherche de groupe affiche le prérequis d'équipement à côté du bouton de file.",
+	DGN_CH3_BODY = "• Choisis ton rôle et apprends les bases — la Role Academy de cet addon explique tank, heal et DPS en langage simple.|n• Prépare une macro d'interruption et un défensif (Toolbox → Macros — prêts à copier pour ta spé).|n• Prends un flacon, de la nourriture et une potion (Toolbox → Consommables a la liste pour ta spé, avec copie du nom pour l'hôtel des ventes).|n• Répare ton équipement avant de t'inscrire. En Héroïque, la Recherche de groupe affiche le prérequis d'équipement à côté du bouton de file.",
 
 	DGN_CH4_TITLE = "4. En groupe",
 	DGN_CH4_BODY = "• Laisse le tank engager — courir devant le tank est LA classique erreur de débutant.|n• Dis \"first time here\" au début ; la plupart des joueurs t'expliqueront volontiers.|n• Interromps (kick) les incantations dangereuses quand tu peux — ta macro du chapitre 3 fait le travail.|n• Butin : ne prends que ce que tu utilises ; greed/désenchante le reste.|n• Un wipe ? Ça arrive à tout le monde. Reviens en courant, mange, réessaie. Un \"ty gg\" à la fin fait des merveilles.",
@@ -399,15 +399,15 @@ if ns._mhLocales and ns._mhLocales.frFR then merge(ns._mhLocales and ns._mhLocal
 	DGN_CH5_TITLE = "5. Connais les boss",
 	DGN_CH5_BODY = "• Avant un run, ouvre la vue Dungeon Coach et lis les étapes courtes de chaque boss — et dès que tu pull un boss, Midnight Helper affiche ces étapes directement dans ton chat.|n• Partage-les avec ton groupe : tape /mh bossshare après le pull (texte brut ; le partage localisé arrive plus tard).|n• Pas besoin de tout mémoriser : connaître LA mécanique mortelle de chaque boss suffit pour commencer.",
 
-	DGN_CH6_TITLE = "6. Étape suivante : Heroic",
-	DGN_CH6_BODY = "• Heroic utilise la rotation de la saison (huit donjons — voir la vue Coach, marqués avec la saison) avec des ennemis plus forts et un meilleur butin.|n• La Recherche de groupe affiche le prérequis d'équipement ; équipe-toi d'abord via les donjons Normal, les gouffres et le contenu mondial.|n• Combine avec tes hebdos : le donjon de la semaine d'Halduron et l'hebdo Spark de Lady Liadrin vivent tous deux à côté de la grande chambre forte — la vue Cette semaine les suit.|n• Après Heroic viennent Mythic et Mythique + — ce chapitre arrivera avec la mise à jour Mythic de ce cours.",
+	DGN_CH6_TITLE = "6. Étape suivante : Héroïque",
+	DGN_CH6_BODY = "• L'Héroïque utilise la rotation de la saison (huit donjons — voir la vue Coach, marqués avec la saison) avec des ennemis plus forts et un meilleur butin.|n• La Recherche de groupe affiche le prérequis d'équipement ; équipe-toi d'abord via les donjons Normal, les gouffres et le contenu mondial.|n• Combine avec tes hebdos : le donjon de la semaine d'Halduron et l'hebdo Spark de Lady Liadrin vivent tous deux à côté de la grande chambre forte — la vue Cette semaine les suit.|n• Après l'Héroïque viennent le Mythique et le Mythique + — ce chapitre arrivera avec la mise à jour Mythique de ce cours.",
 
 	-- Coach -----------------------------------------------------------------------
 	DGN_COACH_HEADER = "Dungeon Coach",
 	DGN_COACH_INTRO = "Chaque donjon et boss de cette extension — clique sur le nom d'un donjon pour ouvrir les étapes des boss (quoi esquiver, quoi interrompre, ce que fait ton rôle). Les noms de sorts sont des liens cliquables. Écrit à partir des données DBM et des tooltips Wowhead ; la vérification en jeu est en cours.",
 	DGN_GROUP_LAUNCH = "Donjons Midnight — Normal & Follower (toujours disponibles)",
-	DGN_GROUP_SEASON = "Rotation Season 1 — Heroic & Mythic",
-	DGN_GROUP_SEASON_S2 = "Rotation Season 2 — Heroic & Mythic",
+	DGN_GROUP_SEASON = "Rotation Saison 1 — Héroïque & Mythique",
+	DGN_GROUP_SEASON_S2 = "Rotation Saison 2 — Héroïque & Mythique",
 	DGN_BADGE_S1 = "Season 1",
 	DGN_BADGE_S2 = "Season 2",
 	DGN_TIPS_SOON = "Les étapes des boss de ce donjon sont en cours d'écriture et de vérification — elles arrivent dans une prochaine mise à jour.",
@@ -440,7 +440,7 @@ if ns._mhLocales and ns._mhLocales.frFR then merge(ns._mhLocales and ns._mhLocal
 if ns._mhLocales and ns._mhLocales.esES then merge(ns._mhLocales and ns._mhLocales.esES, {
 	TAB_DUNGEONS = "Mazmorras",
 	DGN_TITLE = "Mazmorras",
-	DGN_SUBTITLE = "Tu compañero de mazmorras: qué hacer esta semana, un curso para principiantes desde la primera cola hasta Heroic, y pasos por jefe en el Coach, además de una pestaña de Mítica+ con los afijos y las interrupciones clave.",
+	DGN_SUBTITLE = "Tu compañero de mazmorras: qué hacer esta semana, un curso para principiantes desde la primera cola hasta Heroica, y pasos por jefe en el Coach, además de una pestaña de Mítica+ con los afijos y las interrupciones clave.",
 
 	DGN_VIEW_WEEK = "Esta semana",
 	DGN_VIEW_COURSE = "Dungeons 101",
@@ -461,19 +461,19 @@ if ns._mhLocales and ns._mhLocales.esES then merge(ns._mhLocales and ns._mhLocal
 	DGN_FOLLOWER_HINT = "¿Nuevo en mazmorras? Inicia una Follower Dungeon (Buscador de grupos): juegas en Normal en solitario con PNJ de equipo — sin presión, perfecto para practicar. El curso de abajo te guía por todo.",
 
 	-- Dungeons 101 ----------------------------------------------------------------
-	DGN_COURSE_HEADER = "Mazmorras 101 — de cero a tu primer Heroic",
+	DGN_COURSE_HEADER = "Mazmorras 101 — de cero a tu primera mazmorra heroica",
 	DGN_COURSE_PROGRESS_FMT = "Progreso: %d/%d capítulos hechos",
 	DGN_CH_MARK = "Haz clic aquí cuando lo hayas hecho — se guarda por personaje.",
 	DGN_CH_DONE = "Hecho — haz clic para deshacer.",
 
 	DGN_CH1_TITLE = "1. ¿Qué es una mazmorra?",
-	DGN_CH1_BODY = "• Una mazmorra es una aventura instanciada para 5 jugadores: 1 tanque, 1 sanador, 3 DPS.|n• Dificultades, de fácil a difícil: Follower (en solitario con PNJ — modo práctica), Normal (todas las mazmorras de Midnight, siempre disponibles), Heroic (la rotación de la temporada, mejor botín) y Mythic/Mítica+ (se tratan más adelante en este curso).|n• Las mazmorras llenan la fila de Mazmorras de tu Gran cámara — una recompensa semanal gratuita.",
+	DGN_CH1_BODY = "• Una mazmorra es una aventura instanciada para 5 jugadores: 1 tanque, 1 sanador, 3 DPS.|n• Dificultades, de fácil a difícil: Follower (en solitario con PNJ — modo práctica), Normal (todas las mazmorras de Midnight, siempre disponibles), Heroica (la rotación de la temporada, mejor botín) y Mítica/Mítica+ (se tratan más adelante en este curso).|n• Las mazmorras llenan la fila de Mazmorras de tu Gran cámara — una recompensa semanal gratuita.",
 
 	DGN_CH2_TITLE = "2. Cómo entrar",
 	DGN_CH2_BODY = "• Pulsa I (Buscador de grupos) y elige el Buscador de mazmorras.|n• Marca el rol que quieres jugar; las colas de tanque y sanador salen más rápido.|n• ¿Cero presión? Elige primero una Follower Dungeon: dificultad Normal, PNJ que siguen tu ritmo, disponible mientras subes de 80 a 90 (hay un límite diario de inicios).|n• Cuando salte la cola, haz clic en Aceptar — te teletransporta dentro, y fuera al terminar.",
 
 	DGN_CH3_TITLE = "3. Prepárate",
-	DGN_CH3_BODY = "• Elige tu rol y aprende lo básico — la Role Academy de este addon explica tanquear, sanar y DPS en lenguaje sencillo.|n• Prepara una macro de interrupción y un defensivo (Toolbox → Macros — listos para copiar para tu especialización).|n• Lleva frasco, comida y una poción (Toolbox → Consumibles tiene la lista para tu especialización, con copia del nombre para la casa de subastas).|n• Repara tu equipo antes de apuntarte. Para Heroic, el Buscador de grupos muestra el requisito de equipo junto al botón de cola.",
+	DGN_CH3_BODY = "• Elige tu rol y aprende lo básico — la Role Academy de este addon explica tanquear, sanar y DPS en lenguaje sencillo.|n• Prepara una macro de interrupción y un defensivo (Toolbox → Macros — listos para copiar para tu especialización).|n• Lleva frasco, comida y una poción (Toolbox → Consumibles tiene la lista para tu especialización, con copia del nombre para la casa de subastas).|n• Repara tu equipo antes de apuntarte. En Heroica, el Buscador de grupos muestra el requisito de equipo junto al botón de cola.",
 
 	DGN_CH4_TITLE = "4. En el grupo",
 	DGN_CH4_BODY = "• Deja que el tanque tire — adelantarse al tanque es EL clásico error de principiante.|n• Di \"first time here\" al empezar; la mayoría te indicará encantada.|n• Interrumpe (kick) los lanzamientos peligrosos cuando puedas — tu macro del capítulo 3 hace el trabajo.|n• Botín: quédate solo con lo que vayas a usar; greed/desencanta el resto.|n• ¿Wipe? Le pasa a todos. Vuelve corriendo, come hasta llenarte, inténtalo de nuevo. Un \"ty gg\" al final obra milagros.",
@@ -481,15 +481,15 @@ if ns._mhLocales and ns._mhLocales.esES then merge(ns._mhLocales and ns._mhLocal
 	DGN_CH5_TITLE = "5. Conoce a los jefes",
 	DGN_CH5_BODY = "• Antes de una run, abre la vista Dungeon Coach y lee los pasos cortos de cada jefe — y al hacer pull, Midnight Helper imprime esos pasos directamente en tu chat.|n• Compártelos con tu grupo: escribe /mh bossshare tras el pull (texto plano; el compartir localizado llegará más adelante).|n• No memorices todo: conocer LA mecánica mortal de cada jefe basta para empezar.",
 
-	DGN_CH6_TITLE = "6. Siguiente paso: Heroic",
-	DGN_CH6_BODY = "• Heroic usa la rotación de la temporada (ocho mazmorras — ver la vista Coach, marcadas con la temporada) con enemigos más fuertes y mejor botín.|n• El Buscador de grupos muestra el requisito de equipo; equípate primero con mazmorras Normal, Profundidades y contenido de mundo.|n• Combínalo con tus semanales: la mazmorra de la semana de Halduron y la semanal de Spark de Lady Liadrin viven junto a la Gran cámara — la vista Esta semana las sigue.|n• Tras Heroic vienen Mythic y Mítica+ — ese capítulo llegará con la actualización Mythic de este curso.",
+	DGN_CH6_TITLE = "6. Siguiente paso: Heroica",
+	DGN_CH6_BODY = "• Heroica usa la rotación de la temporada (ocho mazmorras — ver la vista Coach, marcadas con la temporada) con enemigos más fuertes y mejor botín.|n• El Buscador de grupos muestra el requisito de equipo; equípate primero con mazmorras Normal, Profundidades y contenido de mundo.|n• Combínalo con tus semanales: la mazmorra de la semana de Halduron y la semanal de Spark de Lady Liadrin viven junto a la Gran cámara — la vista Esta semana las sigue.|n• Tras Heroica vienen Mítica y Mítica+ — ese capítulo llegará con la actualización Mítica de este curso.",
 
 	-- Coach -----------------------------------------------------------------------
 	DGN_COACH_HEADER = "Dungeon Coach",
 	DGN_COACH_INTRO = "Cada mazmorra y jefe de esta expansión — haz clic en el nombre de una mazmorra para abrir los pasos de sus jefes (qué esquivar, qué interrumpir, qué hace tu rol). Los nombres de hechizos son enlaces clicables. Escrito a partir de datos de DBM y tooltips de Wowhead; la verificación en juego está en curso.",
 	DGN_GROUP_LAUNCH = "Mazmorras de Midnight — Normal & Follower (siempre disponibles)",
-	DGN_GROUP_SEASON = "Rotación Season 1 — Heroic & Mythic",
-	DGN_GROUP_SEASON_S2 = "Rotación Season 2 — Heroic & Mythic",
+	DGN_GROUP_SEASON = "Rotación Temporada 1 — Heroica & Mítica",
+	DGN_GROUP_SEASON_S2 = "Rotación Temporada 2 — Heroica & Mítica",
 	DGN_BADGE_S1 = "Season 1",
 	DGN_BADGE_S2 = "Season 2",
 	DGN_TIPS_SOON = "Los pasos de los jefes de esta mazmorra se están escribiendo y verificando — llegarán en una próxima actualización.",
@@ -522,7 +522,7 @@ if ns._mhLocales and ns._mhLocales.esES then merge(ns._mhLocales and ns._mhLocal
 if ns._mhLocales and ns._mhLocales.ptBR then merge(ns._mhLocales and ns._mhLocales.ptBR, {
 	TAB_DUNGEONS = "Masmorras",
 	DGN_TITLE = "Masmorras",
-	DGN_SUBTITLE = "Seu companheiro de masmorras: o que rodar esta semana, um curso para iniciantes da primeira fila até o Heroic, e passos por chefe no Coach, além de uma aba de Mítico+ com os afixos e as interrupções essenciais.",
+	DGN_SUBTITLE = "Seu companheiro de masmorras: o que rodar esta semana, um curso para iniciantes da primeira fila até o Heroico, e passos por chefe no Coach, além de uma aba de Mítico+ com os afixos e as interrupções essenciais.",
 
 	DGN_VIEW_WEEK = "Esta semana",
 	DGN_VIEW_COURSE = "Dungeons 101",
@@ -543,19 +543,19 @@ if ns._mhLocales and ns._mhLocales.ptBR then merge(ns._mhLocales and ns._mhLocal
 	DGN_FOLLOWER_HINT = "Novo em masmorras? Inicie uma Follower Dungeon (Localizador de grupos): você joga no Normal sozinho com NPCs na equipe — sem pressão, perfeito para praticar. O curso abaixo te guia por tudo.",
 
 	-- Dungeons 101 ----------------------------------------------------------------
-	DGN_COURSE_HEADER = "Masmorras 101 — do zero ao seu primeiro Heroic",
+	DGN_COURSE_HEADER = "Masmorras 101 — do zero ao sua primeira masmorra heroica",
 	DGN_COURSE_PROGRESS_FMT = "Progresso: %d/%d capítulos feitos",
 	DGN_CH_MARK = "Clique aqui quando tiver feito — salvo por personagem.",
 	DGN_CH_DONE = "Feito — clique para desfazer.",
 
 	DGN_CH1_TITLE = "1. O que é uma masmorra?",
-	DGN_CH1_BODY = "• Uma masmorra é uma aventura instanciada para 5 jogadores: 1 tanque, 1 curandeiro, 3 DPS.|n• Dificuldades, da mais fácil à mais difícil: Follower (solo com NPCs — modo treino), Normal (todas as masmorras de Midnight, sempre disponíveis), Heroic (a rotação da temporada, melhor saque) e Mythic/Mítico+ (tratados mais adiante neste curso).|n• Masmorras enchem a fileira de Masmorras do seu Grande Cofre — uma recompensa semanal grátis.",
+	DGN_CH1_BODY = "• Uma masmorra é uma aventura instanciada para 5 jogadores: 1 tanque, 1 curandeiro, 3 DPS.|n• Dificuldades, da mais fácil à mais difícil: Follower (solo com NPCs — modo treino), Normal (todas as masmorras de Midnight, sempre disponíveis), Heroico (a rotação da temporada, melhor saque) e Mítico/Mítico+ (tratados mais adiante neste curso).|n• Masmorras enchem a fileira de Masmorras do seu Grande Cofre — uma recompensa semanal grátis.",
 
 	DGN_CH2_TITLE = "2. Como entrar",
 	DGN_CH2_BODY = "• Pressione I (Localizador de grupos) e escolha o Localizador de masmorras.|n• Marque a função que você quer jogar; filas de tanque e curandeiro saem mais rápido.|n• Zero pressão? Escolha primeiro uma Follower Dungeon: dificuldade Normal, NPCs que seguem o seu ritmo, disponível ao upar do 80 ao 90 (há um limite diário de inícios).|n• Quando a fila estourar, clique em Aceitar — você é teleportado para dentro, e para fora quando acabar.",
 
 	DGN_CH3_TITLE = "3. Prepare-se",
-	DGN_CH3_BODY = "• Escolha sua função e aprenda o básico — a Role Academy deste addon explica tanque, cura e DPS em linguagem simples.|n• Deixe prontos uma macro de interrupção e um defensivo (Toolbox → Macros — prontos para copiar para a sua spec).|n• Leve frasco, comida e uma poção (Toolbox → Consumíveis tem a lista para a sua spec, com cópia do nome para a casa de leilões).|n• Conserte seu equipamento antes de entrar na fila. Para Heroic, o Localizador de grupos mostra o requisito de equipamento ao lado do botão da fila.",
+	DGN_CH3_BODY = "• Escolha sua função e aprenda o básico — a Role Academy deste addon explica tanque, cura e DPS em linguagem simples.|n• Deixe prontos uma macro de interrupção e um defensivo (Toolbox → Macros — prontos para copiar para a sua spec).|n• Leve frasco, comida e uma poção (Toolbox → Consumíveis tem a lista para a sua spec, com cópia do nome para a casa de leilões).|n• Conserte seu equipamento antes de entrar na fila. No Heroico, o Localizador de grupos mostra o requisito de equipamento ao lado do botão da fila.",
 
 	DGN_CH4_TITLE = "4. No grupo",
 	DGN_CH4_BODY = "• Deixe o tanque puxar — andar na frente do tanque é O clássico erro de iniciante.|n• Diga \"first time here\" no começo; a maioria dos jogadores adora ajudar.|n• Interrompa (kick) conjurações perigosas quando puder — sua macro do capítulo 3 faz o trabalho.|n• Saque: pegue só o que você usa; greed/desencante o resto.|n• Wipe? Acontece com todo mundo. Volte correndo, coma até encher, tente de novo. Um \"ty gg\" no final faz maravilhas.",
@@ -563,15 +563,15 @@ if ns._mhLocales and ns._mhLocales.ptBR then merge(ns._mhLocales and ns._mhLocal
 	DGN_CH5_TITLE = "5. Conheça os chefes",
 	DGN_CH5_BODY = "• Antes de uma run, abra a visão Dungeon Coach e leia os passos curtos de cada chefe — e ao puxar um chefe, o Midnight Helper imprime esses passos direto no seu chat.|n• Compartilhe com o grupo: digite /mh bossshare depois do pull (texto simples; compartilhamento localizado vem depois).|n• Não decore tudo: conhecer A mecânica mortal de cada chefe já basta para começar.",
 
-	DGN_CH6_TITLE = "6. Próximo passo: Heroic",
-	DGN_CH6_BODY = "• Heroic usa a rotação da temporada (oito masmorras — veja a visão Coach, marcadas com a temporada) com inimigos mais fortes e melhor saque.|n• O Localizador de grupos mostra o requisito de equipamento; equipe-se primeiro com masmorras Normal, Imersões e conteúdo de mundo.|n• Combine com suas semanais: a masmorra da semana do Halduron e a semanal do Spark de Lady Liadrin moram ao lado do Grande Cofre — a visão Esta semana acompanha as duas.|n• Depois do Heroic vêm Mythic e Mítico+ — esse capítulo chega com a atualização Mythic deste curso.",
+	DGN_CH6_TITLE = "6. Próximo passo: Heroico",
+	DGN_CH6_BODY = "• O Heroico usa a rotação da temporada (oito masmorras — veja a visão Coach, marcadas com a temporada) com inimigos mais fortes e melhor saque.|n• O Localizador de grupos mostra o requisito de equipamento; equipe-se primeiro com masmorras Normal, Imersões e conteúdo de mundo.|n• Combine com suas semanais: a masmorra da semana do Halduron e a semanal do Spark de Lady Liadrin moram ao lado do Grande Cofre — a visão Esta semana acompanha as duas.|n• Depois do Heroico vêm o Mítico e o Mítico+ — esse capítulo chega com a atualização do Mítico deste curso.",
 
 	-- Coach -----------------------------------------------------------------------
 	DGN_COACH_HEADER = "Dungeon Coach",
 	DGN_COACH_INTRO = "Cada masmorra e chefe desta expansão — clique no nome de uma masmorra para abrir os passos dos chefes (do que desviar, o que interromper, o que a sua função faz). Nomes de feitiços são links clicáveis. Escrito com base em dados do DBM e tooltips do Wowhead; a verificação no jogo está em andamento.",
 	DGN_GROUP_LAUNCH = "Masmorras de Midnight — Normal & Follower (sempre disponíveis)",
-	DGN_GROUP_SEASON = "Rotação Season 1 — Heroic & Mythic",
-	DGN_GROUP_SEASON_S2 = "Rotação Season 2 — Heroic & Mythic",
+	DGN_GROUP_SEASON = "Rotação Série 1 — Heroico & Mítico",
+	DGN_GROUP_SEASON_S2 = "Rotação Série 2 — Heroico & Mítico",
 	DGN_BADGE_S1 = "Season 1",
 	DGN_BADGE_S2 = "Season 2",
 	DGN_TIPS_SOON = "Os passos dos chefes desta masmorra estão sendo escritos e verificados — chegam em uma próxima atualização.",

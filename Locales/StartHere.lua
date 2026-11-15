@@ -112,10 +112,10 @@ if ns._mhLocales and ns._mhLocales.itIT then merge(ns._mhLocales and ns._mhLocal
 	START_SUBTITLE = "Appena arrivato al livello massimo e non sai cosa fare? Questo è tutto l'endgame, in ordine. Clicca un passo per saltare direttamente allo strumento giusto; quelli settimanali si spuntano da soli.",
 
 	START_INTRO_HEADER = "Il loop di Midnight in breve",
-	START_INTRO_BODY = "L'endgame è un ritmo settimanale: alza il tuo item level, metti a punto il personaggio e poi ogni settimana riempi la Gran Banca con scorribande, Siti Rituali e Void Assaults. La Fama, le professioni e le valute si aggiungono una volta che il loop diventa routine.",
+	START_INTRO_BODY = "L'endgame è un ritmo settimanale: alza il tuo livello oggetto, metti a punto il personaggio e poi ogni settimana riempi la Gran Banca con scorribande, Siti Rituali e Void Assaults. La Fama, le professioni e le valute si aggiungono una volta che il loop diventa routine.",
 
-	START_S1_TITLE = "1. Alza prima il tuo item level",
-	START_S1_BODY = "Comincia con le vittorie facili: fai la campagna di Midnight, prendi equipaggiamento dalle world quest e dalle quest di traguardo della Fama, e fai scorribande normali (più le cacce Prey e i dungeon Heroic) per salire di item level. Anche qualche pezzo craftato/dell'AH economico aiuta. Un item level più alto apre poi i tier superiori, dove ci sono le ricompense vere.",
+	START_S1_TITLE = "1. Alza prima il tuo livello oggetto",
+	START_S1_BODY = "Comincia con le vittorie facili: fai la campagna di Midnight, prendi equipaggiamento dalle world quest e dalle quest di traguardo della Fama, e fai scorribande normali (più le cacce Prey e i dungeon in Eroica) per salire di livello oggetto. Anche qualche pezzo craftato/dell'AH economico aiuta. Un livello oggetto più alto apre poi i tier superiori, dove ci sono le ricompense vere.",
 	START_S1_NAV = "Apri Scorribande",
 
 	START_S2_TITLE = "2. Metti a punto il personaggio",
@@ -385,10 +385,10 @@ if ns._mhLocales and ns._mhLocales.ptBR then merge(ns._mhLocales and ns._mhLocal
 	START_SUBTITLE = "Acabou de chegar ao nível máximo e não sabe o que fazer? Este é todo o endgame, em ordem. Clique em um passo para ir direto à ferramenta certa; os semanais se marcam sozinhos.",
 
 	START_INTRO_HEADER = "O loop do Midnight em resumo",
-	START_INTRO_BODY = "O endgame é um ritmo semanal: suba seu item level, ajuste seu personagem e depois encha o Grande Cofre toda semana com Imersões, Ritual Sites e Void Assaults. Renome, profissões e moedas vêm por cima quando esse loop virar rotina.",
+	START_INTRO_BODY = "O endgame é um ritmo semanal: suba seu nível de item, ajuste seu personagem e depois encha o Grande Cofre toda semana com Imersões, Ritual Sites e Void Assaults. Renome, profissões e moedas vêm por cima quando esse loop virar rotina.",
 
-	START_S1_TITLE = "1. Suba primeiro o seu item level",
-	START_S1_BODY = "Comece pelas vitórias fáceis: faça a campanha do Midnight, pegue equipamento nas missões de mundo e nas missões de marco de renome, e rode Imersões normais (mais caçadas Prey e masmorras heroicas) para subir o item level. Algumas peças baratas craftadas ou da casa de leilões também ajudam. Um item level mais alto abre os tiers maiores, onde estão as recompensas de verdade.",
+	START_S1_TITLE = "1. Suba primeiro o seu nível de item",
+	START_S1_BODY = "Comece pelas vitórias fáceis: faça a campanha do Midnight, pegue equipamento nas missões de mundo e nas missões de marco de renome, e rode Imersões normais (mais caçadas Prey e masmorras heroicas) para subir o nível de item. Algumas peças baratas craftadas ou da casa de leilões também ajudam. Um nível de item mais alto abre os tiers maiores, onde estão as recompensas de verdade.",
 	START_S1_NAV = "Abrir Imersões",
 
 	START_S2_TITLE = "2. Ajuste seu personagem",

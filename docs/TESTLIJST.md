@@ -45,6 +45,10 @@ Alleen met een buitenlandse client (of Cisca):
 - [ ] Frans "chambre forte" / "donjon", Spaans "Gran cámara" / "mazmorra" / "Banda", Mexicaans "Gran bóveda" /
       "calabozo", Portugees "Grande Cofre" / "masmorra" / "Raide", Italiaans "Gran Banca" / "spedizione" / "Incursione".
 - [ ] Italiaans: past het tabblad "Scorribande & Gran Banca" nog op de knop?
+- [ ] Ook (groep 2): Heroic/Mythic heten zoals in het spel (Duits "auf Heroisch", Frans "Héroïque", Spaans "Heroica",
+      Portugees "Heroico"), Season = "Saison"/"temporada"/"Série" (Portugees)/"stagione", de sleutel = "Schlüsselstein"/
+      "clé"/"piedra angular"/"pedra-chave"/"Chiave del Potere", ilvl = "Gegenstandsstufe" enz. Passen de korte kolomkoppen
+      (bv. "St." in het Duits) nog?
 
 ## 🆕 15 nov (later) — talen: Mythic+ in es/pt/it en het toetsenmenu
 

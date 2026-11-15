@@ -872,7 +872,7 @@ if ns._mhLocales and ns._mhLocales.itIT then merge(ns._mhLocales and ns._mhLocal
 	DGN_TIP_ST_ZURAAL_HEALER = "Healer: {SPELL:1263399} colpisce tutti e lascia un DoT di 6 secondi. Porta tutti al massimo prima di {SPELL:1263304}, che colpisce forte tutto il gruppo.",
 
 	DGN_TIP_ST_SAPRISH_STEPS = "1. Saprish e i suoi pet condividono una sola barra della salute. Tienili insieme e colpiscili tutti insieme.|n2. {SPELL:247175}: delle bombe atterrano vicino a ogni giocatore. Non camminarci mai sopra. Esplode su di te e lascia un DoT.|n3. {SPELL:1280064}: delle ombre scattano verso ogni giocatore e fanno esplodere le bombe che toccano. Stai accanto a una bomba, non sopra, così lo scatto la elimina.|n4. {SPELL:1263523} (energia piena): ogni bomba rimasta esplode su tutto il gruppo e fa subire più danni a tutti. Elimina prima le bombe. Un tank o un giocatore con un'immunità può calpestare le ultime prima che il cast finisca.|n5. In Mitico e Mitica+: la manta Shadewing lancia {SPELL:248831}, un colpo al gruppo che disorienta tutti. Interrompilo ogni volta.",
-	DGN_TIP_ST_SAPRISH_QUICK_DPS = "Colpisci il boss e i suoi pet insieme. In Mythic e Mitica+, interrompi l'urlo di Shadewing.",
+	DGN_TIP_ST_SAPRISH_QUICK_DPS = "Colpisci il boss e i suoi pet insieme. In Mitica e Mitica+, interrompi l'urlo di Shadewing.",
 	DGN_TIP_ST_SAPRISH_QUICK_HEALER = "Porta tutti al massimo prima della grande esplosione delle bombe.",
 	DGN_TIP_ST_SAPRISH_QUICK_TANK = "Tieni insieme il boss e i suoi pet.",
 	DGN_TIP_ST_SAPRISH_QUICK = "Bombe: non calpestare mai una bomba.|nScatto: quando le ombre scattano verso di te, stai accanto a una bomba così la fanno esplodere.|nEsplosione: ogni bomba rimasta esplode su tutti, quindi eliminale prima.",

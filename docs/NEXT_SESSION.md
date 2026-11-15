@@ -50,6 +50,16 @@ Dungeon", quest "Midnight: Dungeons", "Dungeon Waystones", Codex-categorieën in
 "Raid". Open: die Blizzard-namen meten. it-tab heet nu "Scorribande & Gran Banca" (breedte niet gezien). luac OK, lint 0
 HARD, drift ongewijzigd. Werkbestanden in de scratchpad van deze sessie (g1*.tsv, apply.py). Volgende: groep 2
 (Normal/Heroic/Mythic, Season, Key/Keystone, ilvl), dan KP, Tier, Shards, Crests, LFR, PvP, Timewalking.
+🌐 Speltermen groep 2 (Heroic/Mythic/Normal, Season, Keystone/Key, ilvl) AF, alleen op main. GEMETEN (GlobalStrings
+12.1.5.70783): Heroic = Heroisch/Héroïque/Heroica/Heroico (esMX, pt)/Eroica/Героический; Mythic = Mythisch/Mythique/
+Mítica/Mítico/Mitica/Эпохальный; Normal = alleen it Normale, ru Обычный; Season = Saison/saison/temporada/**Série**
+(ptBR!)/stagione/сезон; Keystone = Schlüsselstein/Clé/piedra angular/pedra-chave/Chiave del Potere/Ключ; ilvl =
+Gegenstandsstufe/niveau d'objet/nivel de objeto/nível de item/livello oggetto/уровень предмета (afkorting St./NivO/Niv/
+Nvl/LivOg). 508 stukjes in 316 keys, 25 nieuwe esMX-regels. apply.py kent nu ook `["KEY"] =`, één-regel-fills en
+`local DE = ns._mhLocales.deDE and {`. Over (138 rijen, twijfel): "Keys" = Coffer Keys (de/it; Restaurierter
+Kastenschlüssel enz. zijn al gemeten, 11 okt), "Heroic World Tier", "Mythic Keystones", "Current Season Maximum",
+"Keystone Myth", "Resilient Keystones" (niet gemeten). Ook gezien: ptBR zegt nog vaak "temporada" (moet "Série"), en
+fr/it "vault" in CODEX_MPLUS_BODY + VAULT_ADVISOR_HINT_*. luac OK, lint 0 HARD, drift ongewijzigd.
 🔐 Herstart-check: geen enkele call werd geweigerd (git status/pull/log, echo, _probe ×3, Write). Of Rob een vraag kreeg
 die hij goedkeurde, zie ik niet: AFGELEID "geen vragen", Rob bevestigt.
 💡 Ideeënbus zo 15 nov: 2 voorstellen (XP-drempel +12 levels in groepen; "nieuwe spell op geen balk"). Ze staan
