@@ -118,6 +118,11 @@ lijst + uitleg onderaan, `/mh dungeons check` regel. ForeverPartyPanel.lua: rode
 CHANGED, UNIT_LEVEL). XP/level per taal GEMETEN (EP/PX/PE/EXP/опыт; Stufe/niveau/nivel/nível/уровень). Open: geldt het ook
 in de open wereld (één spelersrapport, Blizzard zweeg) — nu alleen bij doelwit (overal) en dungeon. luac OK, lint 0 HARD.
 NIET in het spel gezien (TESTLIJST 15 nov avond).
+📘 Patch 12.1.7: DRAAIBOEK `docs/PATCH_12_1_7_DRAAIBOEK.md` (Rob rechtstreeks: *"Klopt en stuur een aantal speur
+agenten het net op …"*). 5 speur-verslagen in `docs/patch_12_1_7/`. Kern: waarschijnlijk 1/2 dec; geen S3; 0 klassen-
+spells anders; niets wat MH gebruikt verdwijnt. Vóór 2 dec klaarzetten (tabel 2b, 10 punten), 🔴 vooral 2b-1:
+toetsenblok-"terug" bewaart een vast preset-nummer (`EditModeBackup.lua:947/:1022`), en 12.1.7 krijgt een 3e preset
+"Gamepad". Wekelijkse hermeting op woensdag. Meetscripts gekopieerd naar `tools/patch_watch/` (+ README; ongepoetst).
 🔐 Herstart-check: geen enkele call werd geweigerd (git status/pull/log, echo, _probe ×3, Write). Of Rob een vraag kreeg
 die hij goedkeurde, zie ik niet: AFGELEID "geen vragen", Rob bevestigt.
 💡 Ideeënbus zo 15 nov: 2 voorstellen (XP-drempel +12 levels in groepen; "nieuwe spell op geen balk"). Ze staan

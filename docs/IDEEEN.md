@@ -186,6 +186,14 @@ Rob 15 nov (via sparring), op zes ideeën: *"Doe ze allemaal maar."* Volgorde na
 (Idee 3, Reddit/forums, doet de sparring-chat zelf. Idee 6 = de woensdag hierboven.)
 Stand 15 nov avond: 1 gebouwd (1f521e5), 2 gemeten, 3 rapport + A/B gebouwd (zie NEXT_SESSION), 4 lijst naar sparring.
 
+### Draaiboek voor patch 12.1.7 (verwacht 1/2 dec 2026)
+- Rob 15 nov, rechtstreeks in de bouwchat: *"Als op 2 dec de patch komt moetwn we wel van te voren weten wat er komt en
+  wat we moeten checken en evt testen"*; op het voorstel (draaiboek + vooraf klaarzetten achter het interfacenummer +
+  PTR-tests + wekelijkse herhaling): *"Klopt en stuur een aantal speur agenten het net op om alle info over de patch vast
+  op te speuren"*.
+- 15 nov: 5 speur-agenten (mh-research) → `docs/patch_12_1_7/1_blizzard.md` … `5_community.md`. Daarna
+  `docs/PATCH_12_1_7_DRAAIBOEK.md`: wat komt / wat MH vooraf klaarzet / wat Rob op patchdag test.
+
 ### Forever: waarschuwing "meer dan 12 levels boven de vijanden = niemand krijgt XP"
 - Rob 15 nov (via sparring, letterlijk): *"Ja, op 12 levels, waarschuwing achterin."* = ja, achteraan de rij.
 - Bron (sparring/mh-research): Blizzard (Kaivax, 14/15 nov, us.forums.blizzard.com …/2416343): zit iemand in de groep
