@@ -1191,8 +1191,9 @@ function ns.MH_EditModeApplyKeyBlock(fromPreset)
 	-- (Gethe/wow-ui-source, branch forever, EditModeManagerConstantsDocumentation.lua): Enum.EditModeSystem MicroMenu = 13,
 	-- Bags = 14, MainActionBarEndCap = 26 (index 1 left, 2 right; its setting 0 is "Hidden"). On Forever's Modern the menu
 	-- and bags sit bottom-centre, under the block; the gryphons hang on MainActionBar and BagsBar. His Hunter: menu and bags
-	-- bottom-right, gryphons Hidden = 1. Forever only: retail's Modern already keeps them bottom-right (AFGELEID) and has
-	-- no system 26.
+	-- bottom-right, gryphons Hidden = 1. Forever only: retail's Modern already keeps them bottom-right (AFGELEID) and, on
+	-- live 12.1.5, has no system 26. ⚠️ From retail 12.1.7 on (PTR 70424+, GEMETEN 15 Nov 2026) system 26 IS
+	-- MainActionBarEndCap there too, and LossOfControl moved 26 -> 28: re-check this branch when 12.1.7 goes live.
 	-- And the experience bar (Rob, same evening: "de experience bar … staat nu ietsjes uit het lood"): StatusTrackingBar
 	-- = system 15 (Blizzard's Forever enum), index 1. His Hunter, GEMETEN in the SavedVariables: BOTTOM to MultiBarLeft's
 	-- TOP, x 48, y 4 — relative to block A, so it follows the block on any screen. Copied as he set it.

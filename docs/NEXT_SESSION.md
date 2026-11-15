@@ -80,6 +80,14 @@ Twijfel, NIET aangeraakt: Tier van Ritual Sites, tier set, crest-rang, Heroic Wo
 esMX-crests (client: "emblemas"; nu erft esMX "blasones" van esES op een paar plekken), MH-tabnamen "Crests", "keys" in
 CODEX_START_BODY, ongemeten eigennamen. es/esMX "nivel" = nu zowel delve-tier als level (clientwoord, kan verwarren).
 luac OK, lint 0 HARD, drift ongewijzigd. NIET in het spel gezien.
+🔭 12.1.7-onderzoek (mh-research): `docs/PATCH_12_1_7_PTR_2026-11-15.md`. Kort: PTR 70892; geen datum van Blizzard, maar
+de PTR-tabel Holidays zet Turbulent Timeways VI op di 1 / wo 2 dec 2026 → 12.1.7 waarschijnlijk dan (AFGELEID). GEEN Season
+3 in 12.1.7 (S3 komt kort na 12.2 Eclipse). Timeways vraagt nu 4 weken (GEMETEN, CriteriaTree 235236). Aqir Invasions weg
+op de PTR. Klein en zeker GEDAAN: CODEX_TT6_BODY in 9 talen naar "4 weken" (check_drift --mark), commentaar
+MountProgress.lua en EditModeBackup.lua (systeem 26 = MainActionBarEndCap ook in retail 12.1.7). Voorstel, NIET gedaan:
+build bij Edit Mode-kopieën opslaan (risico: 12.1.5-kopie op 12.1.7 → LossOfControl op de griffioenen, AFGELEID),
+maxInterface in het Codex-filter (Aqir-artikel), en het grote werk op launch-dag (Aqir, Talebound-bron, Folio 6-7,
+Timeways-dungeons, S3-dungeons later).
 🔐 Herstart-check: geen enkele call werd geweigerd (git status/pull/log, echo, _probe ×3, Write). Of Rob een vraag kreeg
 die hij goedkeurde, zie ik niet: AFGELEID "geen vragen", Rob bevestigt.
 💡 Ideeënbus zo 15 nov: 2 voorstellen (XP-drempel +12 levels in groepen; "nieuwe spell op geen balk"). Ze staan

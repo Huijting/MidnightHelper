@@ -83,8 +83,10 @@ local TRACKED = {
 	{
 		-- 9 Nov 2026 (Rob: "ga voorlopig door zolang je kan", keep Midnight current): Turbulent Timeways VI, patch 12.1.7.
 		-- GEMETEN on the PTR (wago build 70424, docs/PATCH_12_1_7_PTR_2026-10-16.md §3): achievement 64207 "Master of the
-		-- Turbulent Timeways VI", reward item 287513 (Markeet of the Infinite). Blizzard's text says 4 weeks, the PTR
-		-- criterion asks 5: so `need` is read from the criterion, not written here. Hidden until the client knows 64207.
+		-- Turbulent Timeways VI", reward item 287513 (Markeet of the Infinite). On build 70424 the criterion asked 5 weeks;
+		-- since 70493 it asks 4 (CriteriaTree 235236 Amount = 4, GEMETEN 15 Nov 2026 in three builds, docs/
+		-- PATCH_12_1_7_PTR_2026-11-15.md). `need` stays read from the criterion, not written here. Hidden until the client
+		-- knows 64207.
 		key = "timeways6",
 		mountItemID = 287513,     -- Markeet of the Infinite (teaches the mount)
 		achievementID = 64207,    -- Master of the Turbulent Timeways VI
