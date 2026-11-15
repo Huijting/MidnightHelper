@@ -10,11 +10,10 @@ leest dit eerst en werkt het aan het eind bij. Plan: `docs/PLAN_WERKWIJZE_2026-1
 
 ## 0. Laatste verslag
 
-- [2026-11-14] 🎬 **Regie** (cloud-ronde, ochtend) — Raakt Rob: niets nieuws.
-  Scheef (NIEUW): `docs/NEXT_SESSION.md` is 1531 regels, grens 1500 (`wc -l`; gisteren na de splitsing 1341); bouwchat splitst eerst (`split_handoff --resplit`). Site-briefje `drafts/SITE_HANDOFF.md` 199 regels op `main` van de site-repo, grens 200 (gisteren 111 gemeld).
-  Nog open: keuzevenster en `/mh partytest` zonder SITE_SEIN-regel (grep 0 en 0).
-  Af herkend: events-snapshot is weer actueel (nachtcontrole 14 nov); Confounding Flash staat niet meer in `ForeverHowToPlay.lua:273` (grep op de regel). Wachters: alle zes een regel van vandaag (ideeënbus: eerste run zo 15 nov); API-wachter 0 [MOET GEFIKST]. `.toc` 5.2.0 = tag `v5.2.0` (ls-remote). Site-repo: laatste push 13 nov 22:49 (~9 uur oud); `BOUW_VRAAG.md` "Open: (geen)". Wacht op Rob: 4 punten.
-  Niet gelezen: de pc (lokale commits, helpers, recepten), CurseForge (5.2.0-regel in SITE_SEIN is overgenomen), mail.
+- [2026-11-15] 🎬 **Regie** (cloud-ronde, ochtend) — Raakt Rob: 1 nieuw: API-wachter meldt `[MOET GEFIKST]` (Forever Focus/Self Cast Key-modifier kan `[mod:shift]`-macro's stil laten falen; `ForeverMacros.lua` heeft 61 regels, zegt er niets over; fix = tekst of check, geen API-migratie).
+  Scheef (NIEUW): die [MOET GEFIKST]; nachtcontrole C2 28 nakijken (alle in `ForeverDungeons.lua:58-92`, `map =` is instantie-id, waarschijnlijk checker leest het als UiMap); 5.3.0-commit 43d4e76 (Horde/Alliance-tekentje bij "Your characters") staat niet in SITE_SEIN (grep 0). Af: keuzevenster staat nu in SITE_SEIN (regel 56); NEXT_SESSION 1254 regels (was 1531); site-briefje 164 (was 199). Open: `/mh partytest` zonder SITE_SEIN-regel (grep 0).
+  Wachters: vijf hebben een regel van 15 nov; ideeënbus (zo 15 nov 08:00): nog geen run te zien, blok "Voorstellen" leeg = niet gedraaid. `.toc` 5.3.0 = tag `v5.3.0` (ls-remote); SITE_SEIN zegt "staat op CurseForge" met CF-API-meting. Site-repo: laatste push 14 nov 22:45 (+0100, ~9 uur oud); `BOUW_VRAAG.md` "Open: (geen)". Wacht op Rob: 4 punten.
+  Niet gelezen: de pc (lokale commits, helpers, recepten), CurseForge zelf, mail.
 
 De regisseur vervangt dit blok elke ronde door het nieuwe verslag. Eén verslag, niet een logboek: de vorige staat in git.
 
@@ -72,13 +71,13 @@ sinds 11 nov **`regisseur`** (`/regisseur` of "doe de regie-ronde"; doet hoofdst
 
 ## 3. Stand van het plan
 
-| # | wat | stand (GEMETEN 14 nov op `main`) |
+| # | wat | stand (GEMETEN 15 nov op `main`) |
 |---|---|---|
 | 1 | Toets (6 vragen) en ideeënlijst | ✅ af |
 | 2 | Prikbord en drie vaste woorden | ✅ af (`docs/SITE_SEIN.md`) |
 | 3 | Controles C1, C3, C5 | C1 en C3 ✅ in de lint. C5 ✅ gebouwd (`c9d3e66`, in `/mh selftest`). |
 | 4 | Controles C2 en C4 | ✅ gebouwd (`tools/data_check.py`). C4: 65 → 3 namen over (commit `f08366b`, Robs ja). |
-| 5 | Nachtcontrole en ideeënbus | ✅ draaien. Nachtcontrole 14 nov: C1 en C2 schoon, snapshot actueel. Ideeënbus: nog geen run (eerste zo 15 nov). |
+| 5 | Nachtcontrole en ideeënbus | ✅ draaien. Nachtcontrole 15 nov: C1 schoon, C2 28 nakijken (zie tabel 5), snapshot actueel. Ideeënbus: eerste run zo 15 nov nog niet te zien. |
 | 5b | **De regisseur** (deel 8) | ✅ gebouwd 11 nov (`f34b15f`): routine en recept. Proefrun `c24bbe4` vond de drie testpunten. |
 | 6 | Recepten | niet begonnen |
 | 7 | `/mh selftest` + vensterlijst | ✅ gebouwd (`c9d3e66`); Robs selftest in Midnight schoon (`41675dd`). Forever-kant niet gemeten. |
@@ -87,7 +86,7 @@ sinds 11 nov **`regisseur`** (`/regisseur` of "doe de regie-ronde"; doet hoofdst
 
 ## 4. Wacht op Rob
 
-1. **Testen in Forever:** "Your characters" (O21), de oranje rand bij oude ranks (O24), de reisplanner, de "loading"-fix bij de hengel-tip en de Enhancement-Shaman-tip (staat in `TESTLIJST.md`).
+1. **Testen in Forever:** "Your characters" (O21), de oranje rand bij oude ranks (O24), de reisplanner, de "loading"-fix bij de hengel-tip, de Enhancement-Shaman-tip en de dungeons-lijst (staat in `TESTLIJST.md`).
 2. **De laatste 3 namen** (controle C4, was 65): de bouwchat heeft er 62 gedaan; nakijken wat blijft.
 3. **De ideeënlijst:** ja, nee of later per regel.
 4. **Drie voorstellen voor de site-kant** (staan in de privé site-repo, tak `claude/werkwijze-notitie`).
@@ -96,12 +95,13 @@ sinds 11 nov **`regisseur`** (`/regisseur` of "doe de regie-ronde"; doet hoofdst
 
 | wat | gemeten | wie moet iets doen |
 |---|---|---|
-| Keuzevenster "New in this version" (`NewChoices.lua`, alleen op main) staat niet in `docs/SITE_SEIN.md` | 14 nov, GEMETEN met grep -i ("choice" 0; tegencontrole "ranks" 4) | bouwchat: regel erbij |
-| `/mh partytest` (Forever, `53341fa`) staat niet in `docs/SITE_SEIN.md` | 14 nov, GEMETEN met grep (0 treffers) | bouwchat: regel erbij of zeggen dat het een meetknop is zonder spelerswaarde |
-| **`docs/NEXT_SESSION.md` is 1531 regels, grens 1500** (`CLAUDE.md`); gisteren gesplitst naar 1341 | 14 nov, GEMETEN met `wc -l` | bouwchat: splitsen vóór er iets bij komt (`split_handoff --resplit`, eerst proefrun) |
-| `CLAUDE.md` is 322 regels (gisteren 322), lint [24] grens 350 | 14 nov, GEMETEN | niemand; blijf meten |
-| Overdrachtsbriefje site (`drafts/SITE_HANDOFF.md`) is 199 regels (13 nov gemeld: 111); site-`CLAUDE.md` noemt grens 200 | 14 nov, GEMETEN met `git show origin/main:` + `wc -l` | site-chat: oudste blokken naar `SITE_HISTORY.md` |
-| **Blinde vlek:** de site-chat pusht alleen met Robs ja; de cloud ziet de site-repo zoals bij de laatste push (nu: 13 nov 22:49). `drafts/BOUW_VRAAG.md` (31 regels, "Open: (geen)"). Wat lokaal nog niet gepusht is, zie ik niet. | 14 nov, GEMETEN op `origin/main` van de site-repo | niemand; alleen het pc-recept ziet lokale commits |
+| `/mh partytest` (Forever, `53341fa`) staat niet in `docs/SITE_SEIN.md` | 15 nov, GEMETEN met grep (0 treffers; tegencontrole "ranks" 4); lint [27] noemt het al als commando "alleen wij" | bouwchat: regel erbij of zeggen dat het een meetknop is zonder spelerswaarde |
+| **[MOET GEFIKST] van de API-wachter (15 nov):** Forever laat de modifier van Focus/Self Cast Key een `[mod:shift]`-macro stil falen; `Modules/ForeverMacros.lua` schrijft 61 regels `[mod:shift]` zonder woord erover. Bron: forumdraad `2405876`, post van 15 nov 04:11 UTC | 15 nov, GEMETEN in `docs/API_WATCH.md` (regel 10388); niet zelf in het spel getest | bouwchat: tekst of check (geen API-migratie); Rob test in Forever |
+| Nachtcontrole C2: 28 nakijken, allemaal `map =` in `Modules/ForeverDungeons.lua:58-92` (instantie-id's, door `tools/data_check.py` als UiMap gelezen; wachter: "waarschijnlijk verkeerde categorie, niet bewezen") | 15 nov, GEMETEN in `docs/NACHTCONTROLE.md` regel 32 | bouwchat: checker de `map =` van ForeverDungeons laten overslaan, of het echt UiMap maken |
+| Commit `43d4e76` (Horde/Alliance-tekentje bij "Your characters", Forever) staat niet in `docs/SITE_SEIN.md` (grep emblem/Horde/tekentje: alleen een ongerelateerde Horde-regel op 325; "Your characters" zelf staat er wel, regel 94) | 15 nov, GEMETEN | bouwchat: regel erbij (of bij de volgende release samenvoegen) |
+| `CLAUDE.md` is 322 regels (gisteren 322), lint [24] grens 350 | 15 nov, GEMETEN met `wc -l` en `claude_limit = 350` | niemand; blijf meten |
+| Overdrachtsbriefje site (`drafts/SITE_HANDOFF.md`) is 164 regels (14 nov: 199); grens 200 (site-`CLAUDE.md`) | 15 nov, GEMETEN met `git show origin/main:` + `wc -l` | niemand; blijf meten |
+| **Blinde vlek:** de site-chat pusht alleen met Robs ja; de cloud ziet de site-repo zoals bij de laatste push (nu: 14 nov 22:45 +0100). `drafts/BOUW_VRAAG.md` ("Open: (geen)"). Wat lokaal nog niet gepusht is, zie ik niet. | 15 nov, GEMETEN op `origin/main` van de site-repo | niemand; alleen het pc-recept ziet lokale commits |
 | Geen vaste controle op de handgeschreven site-teksten | 10 nov, volgens de site-chat | voorstel ligt bij Rob |
 
 ## 6. De ronde — wat de regisseur elke keer doet
