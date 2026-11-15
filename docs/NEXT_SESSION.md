@@ -1,5 +1,18 @@
 # Midnight Helper — waar we staan
 
+## ▶ EERST op 16 nov (Rob via Sparring 15-11, letterlijk: *"Zet dit als eerste voor de lijst voor morgen en sluit de pc af
+## en doe hem uit"*)
+
+1. **Gat in de PTR/roadmap-wachter.** Wowhead (wowhead.com/ptr, /news) geeft al 22 dagen `CRAWL_EMPTY_CONTENT`; laatste
+   eigen lezing 23 okt (`docs/PTR_12.1_WATCH.md`, regel 645, volgens sparring; NIET nagemeten door de bouwchat). Opdracht:
+   zoek een andere manier om Wowhead te lezen, of meet dat de andere bronnen genoeg zijn. (Ter info: de speur-agenten van
+   15 nov lazen Wowhead-nieuws wel via het web, zie `docs/patch_12_1_7/5_community.md`.)
+2. Daarna: de rest van de 12.1.7-lijst (`docs/PATCH_12_1_7_DRAAIBOEK.md`, "2b-stand"); wo 18 nov = Midnight-dag (oude
+   Midnight-testvinkjes in één lijst voor Rob + wekelijkse PTR-hermeting met `tools/patch_watch/`).
+
+Stand bij het afsluiten (15 nov): alles op main en gepusht, niets uitgebracht (5.3.0 staat op CurseForge). Alle
+toestemmingen liepen zonder weigering.
+
 ## ▶ 15 nov (Bouwchat 15-11, ingang; neemt het over van Bouwchat 14-11)
 
 📌 Ochtendronde (GEMETEN tenzij anders): git schoon, pull 2f4d78e → 87ed12b (wachters + regie + ideeënbus). CF-reacties
