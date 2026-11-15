@@ -304,7 +304,7 @@ if ns._mhLocales and ns._mhLocales.itIT then merge(ns._mhLocales and ns._mhLocal
 	BOSSWIN_DIFF_BTN_TT = "Quali righe di difficoltà vedi. Tutte mostra ogni riga. Auto segue l'istanza in cui ti trovi; con le altre leggi un'altra difficoltà da ovunque. Resta finché non la rimetti a posto o ricarichi.",
 	BOSSWIN_DIFF_BTN_IDLE_TT = "In grigio mentre leggi i consigli brevi: quelli valgono a ogni difficoltà, quindi non c'è nulla da filtrare. Passa a tutti i consigli per usarlo.",
 	SET_BOSSWIN_DIFF_TITLE = "Solo i consigli per la mia difficoltà",
-	SET_BOSSWIN_DIFF_DESC = "In un dungeon o incursione, la finestra del boss nasconde le righe pensate solo per difficoltà più alte (come i passi solo Mitici in Normale) e lo dice in fondo. Le pagine Incursioni e Dungeon mostrano sempre tutto.",
+	SET_BOSSWIN_DIFF_DESC = "In una spedizione o incursione, la finestra del boss nasconde le righe pensate solo per difficoltà più alte (come i passi solo Mitici in Normale) e lo dice in fondo. Le pagine Incursioni e Spedizioni mostrano sempre tutto.",
 	BOSSWIN_DIFF_HIDDEN_FMT = "%s: le righe per difficoltà più alte sono nascoste.",
 	SET_SHARDCAP_TITLE = "Avviso limite di shard",
 	SET_SHARDCAP_DESC = "Un popup quando raggiungi il limite settimanale di Schegge di Chiave dello Scrigno, così sai quando smettere di farmarle.",

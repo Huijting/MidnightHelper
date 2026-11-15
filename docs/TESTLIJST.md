@@ -37,6 +37,15 @@ Op een Forever-character, `/mh dungeons` (of de knop "Dungeons" in "Do this now"
 - [ ] De kolom "Entrance" toont nu de plek als getallen (bv. "42.5, 71.7"), niet meer de zonenaam. Muis op "Route" noemt
       de zone nog wel.
 
+## 🆕 15 nov (middag) — talen: Renown, Raid, Great Vault en Dungeon in het woord van het spel
+
+Alleen met een buitenlandse client (of Cisca):
+- [ ] Duits: "Schlachtzug" in plaats van "Raid", "Schatzkammer" in plaats van "Vault" (bv. "Vault: Dungeons" →
+      "Schatzkammer: Dungeons" in de accountoverzicht-kolommen). "Dungeon" blijft, want het Duitse spel zegt dat ook.
+- [ ] Frans "chambre forte" / "donjon", Spaans "Gran cámara" / "mazmorra" / "Banda", Mexicaans "Gran bóveda" /
+      "calabozo", Portugees "Grande Cofre" / "masmorra" / "Raide", Italiaans "Gran Banca" / "spedizione" / "Incursione".
+- [ ] Italiaans: past het tabblad "Scorribande & Gran Banca" nog op de knop?
+
 ## 🆕 15 nov (later) — talen: Mythic+ in es/pt/it en het toetsenmenu
 
 Alleen te zien met een Spaanse, Mexicaanse, Portugese, Italiaanse of Duitse client (of laat het Cisca zien):

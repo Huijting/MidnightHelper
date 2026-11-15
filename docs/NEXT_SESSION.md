@@ -39,6 +39,17 @@ Claude.md aan met de plus en alle andere vaste spelnamen, krijg je in elke taal 
 speltermen in de packs (telling naar Sparring 15-11: Tier, Dungeon, Raid, Vault, Normal/Heroic/Mythic, KP, ilvl,
 Key(s), Season, Renown in fr/es/pt; client-woorden per term NOG NIET gemeten).
 Bij de volgende release: changelog-regel "vertalingen".
+🌐 Speltermen groep 1 (Renown, Raid, Vault, Dungeon) AF, alleen op main. Rob via Sparring 15-11, letterlijk: *"Ik heb die
+opdracht al doorgegeven en doe inderdaad optie A maar. Dan werk zoveel mogelijk door."* GEMETEN (GlobalStrings
+12.1.5.70783): Renown = Ruhm/Renom/Renombre/Reconocimiento (esMX)/Renome/Fama/Известность; Raid = Schlachtzug/Raid (fr =
+Engels)/Banda/Raide/Incursione/Рейд; Great Vault = Große Schatzkammer/grande chambre forte/Gran cámara/Gran bóveda
+(esMX)/Grande Cofre/Gran Banca/Великое хранилище; Dungeon = Dungeon (de = Engels)/donjon/mazmorra/calabozo
+(esMX)/masmorra/spedizione/подземелье. mh-writer herschreef 355 stukjes (267 keys, 8 nieuwe esMX-regels); script zette ze
+alleen in het eigen taalblok. Over (73 rijen) = eigennamen: "Dungeon Coach" (MH-naam), HandyNotes-addonnaam, "Follower
+Dungeon", quest "Midnight: Dungeons", "Dungeon Waystones", Codex-categorieën in CODEX_START_BODY, de FPS_HEADER-kolom
+"Raid". Open: die Blizzard-namen meten. it-tab heet nu "Scorribande & Gran Banca" (breedte niet gezien). luac OK, lint 0
+HARD, drift ongewijzigd. Werkbestanden in de scratchpad van deze sessie (g1*.tsv, apply.py). Volgende: groep 2
+(Normal/Heroic/Mythic, Season, Key/Keystone, ilvl), dan KP, Tier, Shards, Crests, LFR, PvP, Timewalking.
 🔐 Herstart-check: geen enkele call werd geweigerd (git status/pull/log, echo, _probe ×3, Write). Of Rob een vraag kreeg
 die hij goedkeurde, zie ik niet: AFGELEID "geen vragen", Rob bevestigt.
 💡 Ideeënbus zo 15 nov: 2 voorstellen (XP-drempel +12 levels in groepen; "nieuwe spell op geen balk"). Ze staan

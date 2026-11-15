@@ -84,10 +84,10 @@ if ns._mhLocales and ns._mhLocales.itIT then merge(ns._mhLocales and ns._mhLocal
 	MPLUS_BARGAIN_DEVOUR = "Devour — {SPELL:440313} mette uno shield + slow su tutti e cinque; rimuovilo con healing o un qualsiasi dispel per un buff {SPELL:465136}, altrimenti i mob si curano.",
 
 	MPLUS_POOL_HEADER = "Gli 8 dungeon di questa stagione",
-	MPLUS_POOL_NOTE = "Normal & Follower usano tutti i dungeon di lancio; Heroic, Mythic 0 e Mitica+ usano questo pool. Apri un dungeon nella scheda Dungeon Coach per i passaggi boss per boss.",
+	MPLUS_POOL_NOTE = "Normal & Follower usano tutte le spedizioni di lancio; Heroic, Mythic 0 e Mitica+ usano questo pool. Apri una spedizione nella scheda Dungeon Coach per i passaggi boss per boss.",
 
 	MPLUS_SYSTEM_HEADER = "Utile da sapere",
-	MPLUS_SYSTEM = "• Le key partono da +2 (non da +4 come prima).|n• Resilient Keystones: completa nei tempi tutti gli 8 dungeon a +12 e la tua key non scende mai sotto +12 a un depletion (e da lì in poi scala verso l'alto).|n• Le Dungeon Waystones sono checkpoint a metà run — i giocatori morti rinascono all'ultima che hai sbloccato.|n• Loot e crest scalano con il livello di key: crest di tier Campione alle key basse fino ai crest di tier Mito a +10 e oltre, più uno slot dungeon della Gran Banca per averne completati otto.",
+	MPLUS_SYSTEM = "• Le key partono da +2 (non da +4 come prima).|n• Resilient Keystones: completa nei tempi tutte le 8 spedizioni a +12 e la tua key non scende mai sotto +12 a un depletion (e da lì in poi scala verso l'alto).|n• Le Dungeon Waystones sono checkpoint a metà run — i giocatori morti rinascono all'ultima che hai sbloccato.|n• Loot e crest scalano con il livello di key: crest di tier Campione alle key basse fino ai crest di tier Mito a +10 e oltre, più uno slot spedizioni della Gran Banca per averne completati otto.",
 
 	MPLUS_KICK_HEADER = "Cast da interrompere obbligatoriamente (per dungeon)",
 	MPLUS_KICK_NOTE = "I grossi da tenere d'occhio — nomi confermati dalle guide, confermare in-game. Aggiungiamo altri dungeon man mano che verifichiamo le loro liste di cast.",
@@ -370,7 +370,7 @@ if ns._mhLocales and ns._mhLocales.itIT then merge(ns._mhLocales and ns._mhLocal
 	MPLUS_GLOSS_VAULT = "Slot del forziere — una scelta di ricompensa nel Grande Forziere. Fai attività durante la settimana per sbloccare più slot.",
 
 	MPLUS_WEEK_HEADER = "Questa settimana, solo per te",
-	MPLUS_WEEK_BODY = "• Apri il cerca gruppo e scegli un dungeon in Follower o Normal.|n• Non c'è timer e non puoi \"fallire\" — prenditi tutto il tempo che ti serve.|n• Puoi uscire in qualsiasi momento; non si perde nulla.|n• Morire è normale e qui non costa niente — torna indietro a piedi e continua.|n• Vuoi i passaggi per ogni boss? Apri la scheda Dungeon Coach.",
+	MPLUS_WEEK_BODY = "• Apri il cerca gruppo e scegli una spedizione in Follower o Normal.|n• Non c'è timer e non puoi \"fallire\" — prenditi tutto il tempo che ti serve.|n• Puoi uscire in qualsiasi momento; non si perde nulla.|n• Morire è normale e qui non costa niente — torna indietro a piedi e continua.|n• Vuoi i passaggi per ogni boss? Apri la scheda Dungeon Coach.",
 	MPLUS_WEEK_AVOID = "Se vuoi la prima run più tranquilla, lascia le Caverne di Maisara per dopo — è il dungeon più tosto degli otto. Qualsiasi altro è più dolce per iniziare.",
 	MPLUS_WEEK_BONUS_FMT = "Bonus di questa settimana: %s è il dungeon della settimana — reputazione extra quando lo fai.",
 
@@ -451,7 +451,7 @@ if ns._mhLocales and ns._mhLocales.deDE then merge(ns._mhLocales and ns._mhLocal
 	MPLUS_GLOSS_BIS = "BiS (best in slot) — der bestmögliche Gegenstand für einen Ausrüstungsplatz. \"Das Schmuckstück ist BiS\" heißt, nichts ist dort besser.",
 	MPLUS_GLOSS_PROC = "Proc — ein Bonuseffekt, der zufällig von einem Zauber oder Gegenstand auslöst. Gratis-Wert, wenn er aufleuchtet, also nutze ihn.",
 	MPLUS_GLOSS_UPTIME = "Uptime — wie viel vom Kampf ein Effekt oder Buff aktiv ist. Mehr Uptime auf deinen wichtigen Buffs ist besser.",
-	MPLUS_GLOSS_VAULT = "Vault-Slot — eine Belohnungswahl in der Großen Schatzkammer. Erledige unter der Woche Aktivitäten, um mehr Slots freizuschalten.",
+	MPLUS_GLOSS_VAULT = "Schatzkammer-Slot — eine Belohnungswahl in der Großen Schatzkammer. Erledige unter der Woche Aktivitäten, um mehr Slots freizuschalten.",
 
 	MPLUS_WEEK_HEADER = "Diese Woche, nur für dich",
 	MPLUS_WEEK_BODY = "• Öffne die Gruppensuche und wähl einen Dungeon auf Follower oder Normal.|n• Es gibt keine Uhr und du kannst nicht \"versagen\" — nimm dir alle Zeit, die du brauchst.|n• Du kannst jederzeit gehen; nichts geht verloren.|n• Sterben ist normal und kostet hier nichts — lauf einfach zurück und mach weiter.|n• Willst du die Schritte für jeden Boss? Öffne den Tab Dungeon Coach.",

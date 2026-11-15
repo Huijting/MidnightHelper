@@ -127,7 +127,7 @@ if ns._mhLocales and ns._mhLocales.itIT then merge(ns._mhLocales and ns._mhLocal
 	START_S3_NAV = "Apri Home",
 
 	START_S4_TITLE = "4. Fai le tue scorribande",
-	START_S4_BODY = "Le scorribande sono dungeon in solo o in piccolo gruppo con Valeera al tuo fianco — equipaggiamento costante e il progresso più facile per la riga World del Vault. Sali prima i tier normali (sotto il livello 90 sei limitato al Tier 3); una volta raggiunto il Tier 8 puoi fare le Scorribande Fruttuose (ti serve una Chiave dello Scrigno Ripristinata) per equipaggiamento Campione e scelte Vault sulla track Eroe. Il Coach delle scorribande dà consigli per ogni scorribanda che puoi condividere col gruppo.",
+	START_S4_BODY = "Le scorribande sono spedizioni in solo o in piccolo gruppo con Valeera al tuo fianco — equipaggiamento costante e il progresso più facile per la riga World della Gran Banca. Sali prima i tier normali (sotto il livello 90 sei limitato al Tier 3); una volta raggiunto il Tier 8 puoi fare le Scorribande Fruttuose (ti serve una Chiave dello Scrigno Ripristinata) per equipaggiamento Campione e scelte della Gran Banca sulla track Eroe. Il Coach delle scorribande dà consigli per ogni scorribanda che puoi condividere col gruppo.",
 	START_S4_NAV = "Apri Scorribande",
 
 	START_S5_TITLE = "5. Ritual Sites & Void Assaults",
@@ -262,7 +262,7 @@ if ns._mhLocales and ns._mhLocales.deDE then merge(ns._mhLocales and ns._mhLocal
 	START_S3_NAV = "Start öffnen",
 
 	START_S4_TITLE = "4. Lauf deine Tiefen",
-	START_S4_BODY = "Tiefen sind Dungeons für solo oder kleine Gruppen mit Valeera an deiner Seite — stetige Ausrüstung und der einfachste Welt-Reihen-Fortschritt für den Vault. Klettere zuerst die normalen Stufen hoch (unter Stufe 90 ist Tier 3 das Maximum); ab Stufe 8 kannst du großzügige Tiefen laufen (du brauchst einen restaurierten Kastenschlüssel) für Champion-Ausrüstung und Held-Track-Vault-Optionen. Der Tiefen-Coach gibt Tipps pro Tiefe, die du mit deiner Gruppe teilen kannst.",
+	START_S4_BODY = "Tiefen sind Dungeons für solo oder kleine Gruppen mit Valeera an deiner Seite — stetige Ausrüstung und der einfachste Welt-Reihen-Fortschritt für die Schatzkammer. Klettere zuerst die normalen Stufen hoch (unter Stufe 90 ist Tier 3 das Maximum); ab Stufe 8 kannst du großzügige Tiefen laufen (du brauchst einen restaurierten Kastenschlüssel) für Champion-Ausrüstung und Held-Track-Schatzkammer-Optionen. Der Tiefen-Coach gibt Tipps pro Tiefe, die du mit deiner Gruppe teilen kannst.",
 	START_S4_NAV = "Tiefen öffnen",
 
 	START_S5_TITLE = "5. Ritual Sites & Void Assaults",
@@ -274,7 +274,7 @@ if ns._mhLocales and ns._mhLocales.deDE then merge(ns._mhLocales and ns._mhLocal
 	START_S6_NAV = "Berufe 101 öffnen",
 
 	START_RESET_TITLE = "Reset-Tag: alles noch einmal",
-	START_RESET_BODY = "Wochenquests und die Große Schatzkammer setzen sich jede Woche zurück — Mittwoch auf EU-Realms, Dienstag auf US. Hol zuerst die Vault-Belohnung der Vorwoche ab und lauf dann den Loop erneut. Das ist das ganze Spiel — willkommen in Midnight!",
+	START_RESET_BODY = "Wochenquests und die Große Schatzkammer setzen sich jede Woche zurück — Mittwoch auf EU-Realms, Dienstag auf US. Hol zuerst die Schatzkammer-Belohnung der Vorwoche ab und lauf dann den Loop erneut. Das ist das ganze Spiel — willkommen in Midnight!",
 
 	START_WEEKLY_RITUAL = "Ritualstätten-Weekly",
 	START_WEEKLY_VOID = "Void-Assaults-Weekly",
@@ -282,8 +282,8 @@ if ns._mhLocales and ns._mhLocales.deDE then merge(ns._mhLocales and ns._mhLocal
 	START_STATUS_TODO = "diese Woche noch offen",
 
 	START_WEEKLY_SUMMARY_FMT = "Diese Woche: %d/%d Wochenziele erledigt",
-	START_VAULT_READY = "Eine Great-Vault-Belohnung wartet — hol sie ab!",
-	START_VAULT_NONE = "Noch keine Vault-Belohnung bereit — füll ihn weiter vor dem Reset.",
+	START_VAULT_READY = "Eine Belohnung der Großen Schatzkammer wartet — hol sie ab!",
+	START_VAULT_NONE = "Noch keine Schatzkammer-Belohnung bereit — füll sie weiter vor dem Reset.",
 	START_DELVERCALL_FMT = "Ruf des Tiefenforschers: %d/%d diese Woche erledigt",
 }) end
 
@@ -308,7 +308,7 @@ if ns._mhLocales and ns._mhLocales.frFR then merge(ns._mhLocales and ns._mhLocal
 	START_S3_NAV = "Ouvrir Accueil",
 
 	START_S4_TITLE = "4. Fais tes Gouffres",
-	START_S4_BODY = "Les Gouffres sont des donjons en solo ou petit groupe avec Valeera à tes côtés — de l'équipement régulier et la progression Monde la plus simple pour le Vault. Grimpe d'abord les paliers normaux (sous le niveau 90, Tier 3 est le maximum) ; à partir du Tier 8 tu peux faire des gouffres abondants (il te faut une clé de coffret réparée) pour de l'équipement Champion et des choix de Vault sur la track Héros. Le Coach des gouffres donne des astuces par gouffre, à partager avec ton groupe.",
+	START_S4_BODY = "Les Gouffres sont des donjons en solo ou petit groupe avec Valeera à tes côtés — de l'équipement régulier et la progression Monde la plus simple pour la grande chambre forte. Grimpe d'abord les paliers normaux (sous le niveau 90, Tier 3 est le maximum) ; à partir du Tier 8 tu peux faire des gouffres abondants (il te faut une clé de coffret réparée) pour de l'équipement Champion et des choix de grande chambre forte sur la track Héros. Le Coach des gouffres donne des astuces par gouffre, à partager avec ton groupe.",
 	START_S4_NAV = "Ouvrir Gouffres",
 
 	START_S5_TITLE = "5. Ritual Sites & Void Assaults",
@@ -320,7 +320,7 @@ if ns._mhLocales and ns._mhLocales.frFR then merge(ns._mhLocales and ns._mhLocal
 	START_S6_NAV = "Ouvrir Métiers 101",
 
 	START_RESET_TITLE = "Jour de reset : on recommence",
-	START_RESET_BODY = "Les hebdos et la Grande chambre forte se réinitialisent chaque semaine — mercredi sur les royaumes EU, mardi sur les US. Réclame d'abord le Vault de la semaine passée, puis relance la boucle. C'est tout le jeu — bienvenue dans Midnight !",
+	START_RESET_BODY = "Les hebdos et la Grande chambre forte se réinitialisent chaque semaine — mercredi sur les royaumes EU, mardi sur les US. Réclame d'abord la grande chambre forte de la semaine passée, puis relance la boucle. C'est tout le jeu — bienvenue dans Midnight !",
 
 	START_WEEKLY_RITUAL = "Hebdo Sites rituels",
 	START_WEEKLY_VOID = "Hebdo Void Assaults",
@@ -329,7 +329,7 @@ if ns._mhLocales and ns._mhLocales.frFR then merge(ns._mhLocales and ns._mhLocal
 
 	START_WEEKLY_SUMMARY_FMT = "Cette semaine : %d/%d objectifs hebdo faits",
 	START_VAULT_READY = "Une récompense de la Grande chambre forte t'attend — réclame-la !",
-	START_VAULT_NONE = "Pas encore de récompense de Vault — continue de le remplir avant le reset.",
+	START_VAULT_NONE = "Pas encore de récompense de grande chambre forte — continue de la remplir avant le reset.",
 	START_DELVERCALL_FMT = "Appel du Gouffre : %d/%d faites cette semaine",
 }) end
 
@@ -354,7 +354,7 @@ if ns._mhLocales and ns._mhLocales.esES then merge(ns._mhLocales and ns._mhLocal
 	START_S3_NAV = "Abrir Inicio",
 
 	START_S4_TITLE = "4. Haz tus Profundidades",
-	START_S4_BODY = "Las Profundidades son mazmorras en solitario o en grupo pequeño con Valeera a tu lado — equipo constante y el progreso más fácil de la fila de Mundo. Sube primero los tiers normales (por debajo del nivel 90 el máximo es el Tier 3); al llegar al Tier 8 puedes hacer profundidades pródigas (necesitas una llave de arca restaurada) para equipo Campeón y opciones de track Héroe en el Vault. El Entrenador de profundidades da consejos por profundidad que puedes compartir con tu grupo.",
+	START_S4_BODY = "Las Profundidades son mazmorras en solitario o en grupo pequeño con Valeera a tu lado — equipo constante y el progreso más fácil de la fila de Mundo. Sube primero los tiers normales (por debajo del nivel 90 el máximo es el Tier 3); al llegar al Tier 8 puedes hacer profundidades pródigas (necesitas una llave de arca restaurada) para equipo Campeón y opciones de track Héroe en la Gran cámara. El Entrenador de profundidades da consejos por profundidad que puedes compartir con tu grupo.",
 	START_S4_NAV = "Abrir Profundidades",
 
 	START_S5_TITLE = "5. Ritual Sites y Void Assaults",
@@ -400,7 +400,7 @@ if ns._mhLocales and ns._mhLocales.ptBR then merge(ns._mhLocales and ns._mhLocal
 	START_S3_NAV = "Abrir Início",
 
 	START_S4_TITLE = "4. Rode suas Imersões",
-	START_S4_BODY = "Imersões são masmorras solo ou de grupo pequeno com a Valira ao seu lado — equipamento constante e o progresso mais fácil da fileira de Mundo. Suba primeiro os tiers normais (abaixo do nível 90 o máximo é o Tier 3); ao chegar ao Tier 8 você pode rodar Imersões Abundantes (precisa de uma Chave de Cofre Restaurada) para equipamento Campeão e opções da trilha Herói no Vault. O Treinador de Imersões dá dicas por imersão que você pode compartilhar com o grupo.",
+	START_S4_BODY = "Imersões são masmorras solo ou de grupo pequeno com a Valira ao seu lado — equipamento constante e o progresso mais fácil da fileira de Mundo. Suba primeiro os tiers normais (abaixo do nível 90 o máximo é o Tier 3); ao chegar ao Tier 8 você pode rodar Imersões Abundantes (precisa de uma Chave de Cofre Restaurada) para equipamento Campeão e opções da trilha Herói no Grande Cofre. O Treinador de Imersões dá dicas por imersão que você pode compartilhar com o grupo.",
 	START_S4_NAV = "Abrir Imersões",
 
 	START_S5_TITLE = "5. Ritual Sites e Void Assaults",

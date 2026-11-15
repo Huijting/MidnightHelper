@@ -106,8 +106,8 @@ merge(ns._mhLocales and ns._mhLocales.enUS, {
 })
 
 if ns._mhLocales and ns._mhLocales.itIT then merge(ns._mhLocales and ns._mhLocales.itIT, {
-	TAB_DUNGEONS = "Dungeon",
-	DGN_TITLE = "Dungeon",
+	TAB_DUNGEONS = "Spedizioni",
+	DGN_TITLE = "Spedizioni",
 	DGN_SUBTITLE = "Il tuo compagno per i dungeon: cosa fare questa settimana, un corso per principianti dalla prima coda fino al Heroic, e i passi per ogni boss nel Coach, più una tab Mitica+ con gli affissi e i kick obbligatori.",
 
 	DGN_VIEW_WEEK = "Questa settimana",
@@ -117,25 +117,25 @@ if ns._mhLocales and ns._mhLocales.itIT then merge(ns._mhLocales and ns._mhLocal
 	-- Questa settimana --------------------------------------------------------
 	DGN_WEEK_HEADER = "Questa settimana",
 	DGN_SPARK_DONE = "Settimanale Spark (Midnight: Dungeons): completata questa settimana.",
-	DGN_SPARK_INLOG = "Settimanale Spark (Midnight: Dungeons): accettata — completa un qualsiasi dungeon stagionale.",
-	DGN_SPARK_TODO = "Settimanale Spark (Midnight: Dungeons): una delle scelte di Lady Liadrin — prendila accanto al vault.",
-	DGN_WEEKDGN_INLOG_FMT = "Dungeon della settimana (Halduron): %s — quest accettata.",
-	DGN_WEEKDGN_DONE_FMT = "Dungeon della settimana (Halduron): %s — completato questa settimana.",
-	DGN_WEEKDGN_UNKNOWN = "Dungeon della settimana (Halduron): prendi la sua quest accanto al vault per vederlo qui.",
+	DGN_SPARK_INLOG = "Settimanale Spark (Midnight: Dungeons): accettata — completa una qualsiasi spedizione stagionale.",
+	DGN_SPARK_TODO = "Settimanale Spark (Midnight: Dungeons): una delle scelte di Lady Liadrin — prendila accanto alla Gran Banca.",
+	DGN_WEEKDGN_INLOG_FMT = "Spedizione della settimana (Halduron): %s — quest accettata.",
+	DGN_WEEKDGN_DONE_FMT = "Spedizione della settimana (Halduron): %s — completata questa settimana.",
+	DGN_WEEKDGN_UNKNOWN = "Spedizione della settimana (Halduron): prendi la sua quest accanto alla Gran Banca per vederla qui.",
 	DGN_KEYSTONE_DONE = "Cracked Keystone (intro Mitica+): completato.",
 	DGN_KEYSTONE_TODO = "Cracked Keystone (intro Mitica+): cade da una ricompensa di una scorribanda di Tier 11 — una volta a season.",
-	DGN_VAULT_FMT = "Gran Banca — riga Dungeons: %d/%d slot sbloccati (progresso %d).",
-	DGN_VAULT_UNKNOWN = "Gran Banca — riga Dungeons: i dati si caricano dopo il login o aprendo il vault.",
-	DGN_FOLLOWER_HINT = "Nuovo nei dungeon? Avvia un Follower Dungeon (Group Finder): giochi in difficoltà Normal da solo con compagni NPC — nessuna pressione, pratica perfetta. Il corso qui sotto ti guida in ogni cosa.",
+	DGN_VAULT_FMT = "Gran Banca — riga Spedizioni: %d/%d slot sbloccati (progresso %d).",
+	DGN_VAULT_UNKNOWN = "Gran Banca — riga Spedizioni: i dati si caricano dopo il login o aprendo la Gran Banca.",
+	DGN_FOLLOWER_HINT = "Nuovo nelle spedizioni? Avvia un Follower Dungeon (Group Finder): giochi in difficoltà Normal da solo con compagni NPC — nessuna pressione, pratica perfetta. Il corso qui sotto ti guida in ogni cosa.",
 
 	-- Dungeons 101 ------------------------------------------------------------
-	DGN_COURSE_HEADER = "Dungeons 101 — da zero al tuo primo Heroic",
+	DGN_COURSE_HEADER = "Spedizioni 101 — da zero al tuo primo Heroic",
 	DGN_COURSE_PROGRESS_FMT = "Progresso: %d/%d capitoli completati",
 	DGN_CH_MARK = "Clicca qui quando l'hai fatto — salvato per personaggio.",
 	DGN_CH_DONE = "Fatto — clicca per annullare.",
 
 	DGN_CH1_TITLE = "1. Cos'è un dungeon?",
-	DGN_CH1_BODY = "• Un dungeon è un'avventura instanziata per 5 giocatori: 1 tank, 1 healer, 3 damage dealer.|n• Difficoltà, dalla più facile alla più difficile: Follower (da solo con compagni NPC — modalità pratica), Normal (tutti i dungeon di Midnight, sempre disponibili), Heroic (la rotazione di questa season, loot migliore) e Mythic/Mitica+ (trattati più avanti in questo corso).|n• Le run nei dungeon riempiono la riga Dungeons della tua Gran Banca — una ricompensa settimanale gratuita.",
+	DGN_CH1_BODY = "• Una spedizione è un'avventura instanziata per 5 giocatori: 1 tank, 1 healer, 3 damage dealer.|n• Difficoltà, dalla più facile alla più difficile: Follower (da solo con compagni NPC — modalità pratica), Normal (tutte le spedizioni di Midnight, sempre disponibili), Heroic (la rotazione di questa season, loot migliore) e Mythic/Mitica+ (trattati più avanti in questo corso).|n• Le run nelle spedizioni riempiono la riga Spedizioni della tua Gran Banca — una ricompensa settimanale gratuita.",
 
 	DGN_CH2_TITLE = "2. Come entrare",
 	DGN_CH2_BODY = "• Premi I (Group Finder) e scegli il Dungeon Finder.|n• Spunta il ruolo che vuoi giocare; le code per tank e healer partono più in fretta.|n• Vuoi zero pressione? Scegli prima un Follower Dungeon: difficoltà Normal, compagni NPC che seguono il tuo ritmo, disponibile mentre sali di livello 80-90 (c'è un limite giornaliero di avvii).|n• Quando la coda è pronta, clicca Accetta — vieni teletrasportato dentro, e di nuovo fuori al termine.",
@@ -155,7 +155,7 @@ if ns._mhLocales and ns._mhLocales.itIT then merge(ns._mhLocales and ns._mhLocal
 	-- Coach -------------------------------------------------------------------
 	DGN_COACH_HEADER = "Dungeon Coach",
 	DGN_COACH_INTRO = "Ogni dungeon e boss di questa espansione — clicca sul nome di un dungeon per aprire i passi dei suoi boss (cosa schivare, cosa kickare, cosa fa il tuo ruolo). I nomi delle spell sono link cliccabili. Scritto sulla base dei dati DBM e dei tooltip di Wowhead; la verifica in-game è in corso.",
-	DGN_GROUP_LAUNCH = "Dungeon di Midnight — Normal & Follower (sempre disponibili)",
+	DGN_GROUP_LAUNCH = "Spedizioni di Midnight — Normal & Follower (sempre disponibili)",
 	DGN_GROUP_SEASON = "Rotazione Season 1 — Heroic & Mythic",
 	DGN_GROUP_SEASON_S2 = "Rotazione Season 2 — Heroic & Mythic",
 	DGN_BADGE_S1 = "Season 1",
@@ -286,10 +286,10 @@ if ns._mhLocales and ns._mhLocales.deDE then merge(ns._mhLocales and ns._mhLocal
 	DGN_WEEK_HEADER = "Diese Woche",
 	DGN_SPARK_DONE = "Spark-Weekly (Midnight: Dungeons): diese Woche erledigt.",
 	DGN_SPARK_INLOG = "Spark-Weekly (Midnight: Dungeons): angenommen — schließe einen beliebigen Saison-Dungeon ab.",
-	DGN_SPARK_TODO = "Spark-Weekly (Midnight: Dungeons): eine von Lady Liadrins Optionen — neben dem Vault abholen.",
+	DGN_SPARK_TODO = "Spark-Weekly (Midnight: Dungeons): eine von Lady Liadrins Optionen — neben der Schatzkammer abholen.",
 	DGN_WEEKDGN_INLOG_FMT = "Dungeon der Woche (Halduron): %s — Quest angenommen.",
 	DGN_WEEKDGN_DONE_FMT = "Dungeon der Woche (Halduron): %s — diese Woche erledigt.",
-	DGN_WEEKDGN_UNKNOWN = "Dungeon der Woche (Halduron): nimm seine Quest neben dem Vault an, um ihn hier zu sehen.",
+	DGN_WEEKDGN_UNKNOWN = "Dungeon der Woche (Halduron): nimm seine Quest neben der Schatzkammer an, um ihn hier zu sehen.",
 	DGN_KEYSTONE_DONE = "Cracked Keystone (Mythisch+-Einstieg): erledigt.",
 	DGN_KEYSTONE_TODO = "Cracked Keystone (Mythisch+-Einstieg): droppt aus einer Tier-11-Tiefen-Belohnung — einmal pro Saison.",
 	DGN_VAULT_FMT = "Große Schatzkammer — Dungeon-Reihe: %d/%d Plätze freigeschaltet (Fortschritt %d).",
@@ -318,7 +318,7 @@ if ns._mhLocales and ns._mhLocales.deDE then merge(ns._mhLocales and ns._mhLocal
 	DGN_CH5_BODY = "• Öffne vor einem Lauf die Dungeon-Coach-Ansicht und lies die kurzen Schritte pro Boss — und sobald du einen Boss pullst, schreibt Midnight Helper diese Schritte direkt in deinen Chat.|n• Teile sie mit deiner Gruppe: tippe /mh bossshare nach dem Pull (Klartext; lokalisiertes Teilen folgt später).|n• Du musst nicht alles auswendig lernen: die eine tödliche Mechanik pro Boss zu kennen reicht für den Anfang.",
 
 	DGN_CH6_TITLE = "6. Nächster Schritt: Heroic",
-	DGN_CH6_BODY = "• Heroic nutzt die Saisonrotation (acht Dungeons — siehe Coach-Ansicht, mit der Saison markiert) mit stärkeren Gegnern und besserer Beute.|n• Die Gruppensuche zeigt die Ausrüstungsanforderung; rüste dich erst über Normal-Dungeons, Tiefen und Weltinhalte aus.|n• Kombiniere es mit deinen Weeklies: Haldurons Dungeon der Woche und Lady Liadrins Spark-Weekly wohnen beide neben dem Vault — die Diese-Woche-Ansicht verfolgt sie.|n• Nach Heroic kommen Mythic und Mythisch+ — dieses Kapitel erscheint mit dem Mythic-Update dieses Kurses.",
+	DGN_CH6_BODY = "• Heroic nutzt die Saisonrotation (acht Dungeons — siehe Coach-Ansicht, mit der Saison markiert) mit stärkeren Gegnern und besserer Beute.|n• Die Gruppensuche zeigt die Ausrüstungsanforderung; rüste dich erst über Normal-Dungeons, Tiefen und Weltinhalte aus.|n• Kombiniere es mit deinen Weeklies: Haldurons Dungeon der Woche und Lady Liadrins Spark-Weekly wohnen beide neben der Schatzkammer — die Diese-Woche-Ansicht verfolgt sie.|n• Nach Heroic kommen Mythic und Mythisch+ — dieses Kapitel erscheint mit dem Mythic-Update dieses Kurses.",
 
 	-- Coach ---------------------------------------------------------------------
 	DGN_COACH_HEADER = "Dungeon-Coach",
@@ -368,18 +368,18 @@ if ns._mhLocales and ns._mhLocales.frFR then merge(ns._mhLocales and ns._mhLocal
 	DGN_WEEK_HEADER = "Cette semaine",
 	DGN_SPARK_DONE = "Hebdo Spark (Midnight: Dungeons) : faite cette semaine.",
 	DGN_SPARK_INLOG = "Hebdo Spark (Midnight: Dungeons) : prise — termine n'importe quel donjon de la saison.",
-	DGN_SPARK_TODO = "Hebdo Spark (Midnight: Dungeons) : un des choix de Lady Liadrin — à récupérer à côté du Vault.",
+	DGN_SPARK_TODO = "Hebdo Spark (Midnight: Dungeons) : un des choix de Lady Liadrin — à récupérer à côté de la grande chambre forte.",
 	DGN_WEEKDGN_INLOG_FMT = "Donjon de la semaine (Halduron) : %s — quête prise.",
 	DGN_WEEKDGN_DONE_FMT = "Donjon de la semaine (Halduron) : %s — fait cette semaine.",
-	DGN_WEEKDGN_UNKNOWN = "Donjon de la semaine (Halduron) : prends sa quête à côté du Vault pour le voir ici.",
+	DGN_WEEKDGN_UNKNOWN = "Donjon de la semaine (Halduron) : prends sa quête à côté de la grande chambre forte pour le voir ici.",
 	DGN_KEYSTONE_DONE = "Cracked Keystone (intro Mythique +) : fait.",
 	DGN_KEYSTONE_TODO = "Cracked Keystone (intro Mythique +) : tombe d'une récompense de gouffre Tier 11 — une fois par saison.",
 	DGN_VAULT_FMT = "Grande chambre forte — rangée Donjons : %d/%d emplacements débloqués (progression %d).",
-	DGN_VAULT_UNKNOWN = "Grande chambre forte — rangée Donjons : les données se chargent après la connexion ou à l'ouverture du Vault.",
+	DGN_VAULT_UNKNOWN = "Grande chambre forte — rangée Donjons : les données se chargent après la connexion ou à l'ouverture de la grande chambre forte.",
 	DGN_FOLLOWER_HINT = "Nouveau en donjon ? Lance un Follower Dungeon (Recherche de groupe) : tu joues en Normal, en solo avec des PNJ — zéro pression, parfait pour s'entraîner. Le cours ci-dessous t'accompagne pas à pas.",
 
 	-- Dungeons 101 ----------------------------------------------------------------
-	DGN_COURSE_HEADER = "Dungeons 101 — de zéro à ton premier Heroic",
+	DGN_COURSE_HEADER = "Donjons 101 — de zéro à ton premier Heroic",
 	DGN_COURSE_PROGRESS_FMT = "Progression : %d/%d chapitres faits",
 	DGN_CH_MARK = "Clique ici quand c'est fait — sauvegardé par personnage.",
 	DGN_CH_DONE = "Fait — clique pour annuler.",
@@ -400,7 +400,7 @@ if ns._mhLocales and ns._mhLocales.frFR then merge(ns._mhLocales and ns._mhLocal
 	DGN_CH5_BODY = "• Avant un run, ouvre la vue Dungeon Coach et lis les étapes courtes de chaque boss — et dès que tu pull un boss, Midnight Helper affiche ces étapes directement dans ton chat.|n• Partage-les avec ton groupe : tape /mh bossshare après le pull (texte brut ; le partage localisé arrive plus tard).|n• Pas besoin de tout mémoriser : connaître LA mécanique mortelle de chaque boss suffit pour commencer.",
 
 	DGN_CH6_TITLE = "6. Étape suivante : Heroic",
-	DGN_CH6_BODY = "• Heroic utilise la rotation de la saison (huit donjons — voir la vue Coach, marqués avec la saison) avec des ennemis plus forts et un meilleur butin.|n• La Recherche de groupe affiche le prérequis d'équipement ; équipe-toi d'abord via les donjons Normal, les gouffres et le contenu mondial.|n• Combine avec tes hebdos : le donjon de la semaine d'Halduron et l'hebdo Spark de Lady Liadrin vivent tous deux à côté du Vault — la vue Cette semaine les suit.|n• Après Heroic viennent Mythic et Mythique + — ce chapitre arrivera avec la mise à jour Mythic de ce cours.",
+	DGN_CH6_BODY = "• Heroic utilise la rotation de la saison (huit donjons — voir la vue Coach, marqués avec la saison) avec des ennemis plus forts et un meilleur butin.|n• La Recherche de groupe affiche le prérequis d'équipement ; équipe-toi d'abord via les donjons Normal, les gouffres et le contenu mondial.|n• Combine avec tes hebdos : le donjon de la semaine d'Halduron et l'hebdo Spark de Lady Liadrin vivent tous deux à côté de la grande chambre forte — la vue Cette semaine les suit.|n• Après Heroic viennent Mythic et Mythique + — ce chapitre arrivera avec la mise à jour Mythic de ce cours.",
 
 	-- Coach -----------------------------------------------------------------------
 	DGN_COACH_HEADER = "Dungeon Coach",
@@ -450,18 +450,18 @@ if ns._mhLocales and ns._mhLocales.esES then merge(ns._mhLocales and ns._mhLocal
 	DGN_WEEK_HEADER = "Esta semana",
 	DGN_SPARK_DONE = "Semanal de Spark (Midnight: Dungeons): hecha esta semana.",
 	DGN_SPARK_INLOG = "Semanal de Spark (Midnight: Dungeons): aceptada — completa cualquier mazmorra de la temporada.",
-	DGN_SPARK_TODO = "Semanal de Spark (Midnight: Dungeons): una de las opciones de Lady Liadrin — recógela junto al Vault.",
+	DGN_SPARK_TODO = "Semanal de Spark (Midnight: Dungeons): una de las opciones de Lady Liadrin — recógela junto a la Gran cámara.",
 	DGN_WEEKDGN_INLOG_FMT = "Mazmorra de la semana (Halduron): %s — misión aceptada.",
 	DGN_WEEKDGN_DONE_FMT = "Mazmorra de la semana (Halduron): %s — hecha esta semana.",
-	DGN_WEEKDGN_UNKNOWN = "Mazmorra de la semana (Halduron): acepta su misión junto al Vault para verla aquí.",
+	DGN_WEEKDGN_UNKNOWN = "Mazmorra de la semana (Halduron): acepta su misión junto a la Gran cámara para verla aquí.",
 	DGN_KEYSTONE_DONE = "Cracked Keystone (introducción a Mítica+): hecho.",
 	DGN_KEYSTONE_TODO = "Cracked Keystone (introducción a Mítica+): cae de una recompensa de profundidad Tier 11 — una vez por temporada.",
 	DGN_VAULT_FMT = "Gran cámara — fila de Mazmorras: %d/%d casillas desbloqueadas (progreso %d).",
-	DGN_VAULT_UNKNOWN = "Gran cámara — fila de Mazmorras: los datos cargan tras iniciar sesión o abrir el Vault.",
+	DGN_VAULT_UNKNOWN = "Gran cámara — fila de Mazmorras: los datos cargan tras iniciar sesión o abrir la Gran cámara.",
 	DGN_FOLLOWER_HINT = "¿Nuevo en mazmorras? Inicia una Follower Dungeon (Buscador de grupos): juegas en Normal en solitario con PNJ de equipo — sin presión, perfecto para practicar. El curso de abajo te guía por todo.",
 
 	-- Dungeons 101 ----------------------------------------------------------------
-	DGN_COURSE_HEADER = "Dungeons 101 — de cero a tu primer Heroic",
+	DGN_COURSE_HEADER = "Mazmorras 101 — de cero a tu primer Heroic",
 	DGN_COURSE_PROGRESS_FMT = "Progreso: %d/%d capítulos hechos",
 	DGN_CH_MARK = "Haz clic aquí cuando lo hayas hecho — se guarda por personaje.",
 	DGN_CH_DONE = "Hecho — haz clic para deshacer.",
@@ -482,7 +482,7 @@ if ns._mhLocales and ns._mhLocales.esES then merge(ns._mhLocales and ns._mhLocal
 	DGN_CH5_BODY = "• Antes de una run, abre la vista Dungeon Coach y lee los pasos cortos de cada jefe — y al hacer pull, Midnight Helper imprime esos pasos directamente en tu chat.|n• Compártelos con tu grupo: escribe /mh bossshare tras el pull (texto plano; el compartir localizado llegará más adelante).|n• No memorices todo: conocer LA mecánica mortal de cada jefe basta para empezar.",
 
 	DGN_CH6_TITLE = "6. Siguiente paso: Heroic",
-	DGN_CH6_BODY = "• Heroic usa la rotación de la temporada (ocho mazmorras — ver la vista Coach, marcadas con la temporada) con enemigos más fuertes y mejor botín.|n• El Buscador de grupos muestra el requisito de equipo; equípate primero con mazmorras Normal, Profundidades y contenido de mundo.|n• Combínalo con tus semanales: la mazmorra de la semana de Halduron y la semanal de Spark de Lady Liadrin viven junto al Vault — la vista Esta semana las sigue.|n• Tras Heroic vienen Mythic y Mítica+ — ese capítulo llegará con la actualización Mythic de este curso.",
+	DGN_CH6_BODY = "• Heroic usa la rotación de la temporada (ocho mazmorras — ver la vista Coach, marcadas con la temporada) con enemigos más fuertes y mejor botín.|n• El Buscador de grupos muestra el requisito de equipo; equípate primero con mazmorras Normal, Profundidades y contenido de mundo.|n• Combínalo con tus semanales: la mazmorra de la semana de Halduron y la semanal de Spark de Lady Liadrin viven junto a la Gran cámara — la vista Esta semana las sigue.|n• Tras Heroic vienen Mythic y Mítica+ — ese capítulo llegará con la actualización Mythic de este curso.",
 
 	-- Coach -----------------------------------------------------------------------
 	DGN_COACH_HEADER = "Dungeon Coach",
@@ -532,18 +532,18 @@ if ns._mhLocales and ns._mhLocales.ptBR then merge(ns._mhLocales and ns._mhLocal
 	DGN_WEEK_HEADER = "Esta semana",
 	DGN_SPARK_DONE = "Semanal do Spark (Midnight: Dungeons): feita esta semana.",
 	DGN_SPARK_INLOG = "Semanal do Spark (Midnight: Dungeons): aceita — complete qualquer masmorra da temporada.",
-	DGN_SPARK_TODO = "Semanal do Spark (Midnight: Dungeons): uma das opções de Lady Liadrin — pegue ao lado do Vault.",
+	DGN_SPARK_TODO = "Semanal do Spark (Midnight: Dungeons): uma das opções de Lady Liadrin — pegue ao lado do Grande Cofre.",
 	DGN_WEEKDGN_INLOG_FMT = "Masmorra da semana (Halduron): %s — missão aceita.",
 	DGN_WEEKDGN_DONE_FMT = "Masmorra da semana (Halduron): %s — feita esta semana.",
-	DGN_WEEKDGN_UNKNOWN = "Masmorra da semana (Halduron): aceite a missão dele ao lado do Vault para vê-la aqui.",
+	DGN_WEEKDGN_UNKNOWN = "Masmorra da semana (Halduron): aceite a missão dele ao lado do Grande Cofre para vê-la aqui.",
 	DGN_KEYSTONE_DONE = "Cracked Keystone (introdução ao Mítico+): feito.",
 	DGN_KEYSTONE_TODO = "Cracked Keystone (introdução ao Mítico+): cai de uma recompensa de imersão Tier 11 — uma vez por temporada.",
 	DGN_VAULT_FMT = "Grande Cofre — fileira de Masmorras: %d/%d espaços desbloqueados (progresso %d).",
-	DGN_VAULT_UNKNOWN = "Grande Cofre — fileira de Masmorras: os dados carregam após o login ou ao abrir o Vault.",
+	DGN_VAULT_UNKNOWN = "Grande Cofre — fileira de Masmorras: os dados carregam após o login ou ao abrir o Grande Cofre.",
 	DGN_FOLLOWER_HINT = "Novo em masmorras? Inicie uma Follower Dungeon (Localizador de grupos): você joga no Normal sozinho com NPCs na equipe — sem pressão, perfeito para praticar. O curso abaixo te guia por tudo.",
 
 	-- Dungeons 101 ----------------------------------------------------------------
-	DGN_COURSE_HEADER = "Dungeons 101 — do zero ao seu primeiro Heroic",
+	DGN_COURSE_HEADER = "Masmorras 101 — do zero ao seu primeiro Heroic",
 	DGN_COURSE_PROGRESS_FMT = "Progresso: %d/%d capítulos feitos",
 	DGN_CH_MARK = "Clique aqui quando tiver feito — salvo por personagem.",
 	DGN_CH_DONE = "Feito — clique para desfazer.",
@@ -564,7 +564,7 @@ if ns._mhLocales and ns._mhLocales.ptBR then merge(ns._mhLocales and ns._mhLocal
 	DGN_CH5_BODY = "• Antes de uma run, abra a visão Dungeon Coach e leia os passos curtos de cada chefe — e ao puxar um chefe, o Midnight Helper imprime esses passos direto no seu chat.|n• Compartilhe com o grupo: digite /mh bossshare depois do pull (texto simples; compartilhamento localizado vem depois).|n• Não decore tudo: conhecer A mecânica mortal de cada chefe já basta para começar.",
 
 	DGN_CH6_TITLE = "6. Próximo passo: Heroic",
-	DGN_CH6_BODY = "• Heroic usa a rotação da temporada (oito masmorras — veja a visão Coach, marcadas com a temporada) com inimigos mais fortes e melhor saque.|n• O Localizador de grupos mostra o requisito de equipamento; equipe-se primeiro com masmorras Normal, Imersões e conteúdo de mundo.|n• Combine com suas semanais: a masmorra da semana do Halduron e a semanal do Spark de Lady Liadrin moram ao lado do Vault — a visão Esta semana acompanha as duas.|n• Depois do Heroic vêm Mythic e Mítico+ — esse capítulo chega com a atualização Mythic deste curso.",
+	DGN_CH6_BODY = "• Heroic usa a rotação da temporada (oito masmorras — veja a visão Coach, marcadas com a temporada) com inimigos mais fortes e melhor saque.|n• O Localizador de grupos mostra o requisito de equipamento; equipe-se primeiro com masmorras Normal, Imersões e conteúdo de mundo.|n• Combine com suas semanais: a masmorra da semana do Halduron e a semanal do Spark de Lady Liadrin moram ao lado do Grande Cofre — a visão Esta semana acompanha as duas.|n• Depois do Heroic vêm Mythic e Mítico+ — esse capítulo chega com a atualização Mythic deste curso.",
 
 	-- Coach -----------------------------------------------------------------------
 	DGN_COACH_HEADER = "Dungeon Coach",
