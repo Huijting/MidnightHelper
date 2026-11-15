@@ -22,7 +22,12 @@ Forever → Options → Keybindings wat er op Focus Cast Key / Self Cast Key sta
 check met `GetModifiedClick("FOCUSCAST")`. Niets gebouwd.
 🔎 Nachtcontrole C2 "28 nakijken": allemaal `map =` in ForeverDungeons.lua = instantie-id's (DB2 Map), geen UiMap-id's
 (GEMETEN: het commentaar bovenaan de module zegt dat, en HandyNotes noemt ze `instanceID`). Dus loos alarm van de
-checker; open: de checker die regel leren overslaan (tools/data_check, niet aangeraakt).
+checker. ✅ Bouwchat 15-11 (na de herstart): `tools/data_check.py` kent nu soort "instance" (DB2 Map) via
+`MAP_IS_INSTANCE`; `map =` in ForeverDungeons.lua gaat daarheen, en de run drukt die regel af. GEMETEN: `run data_check
+--c2` → map 72 / instance 28, 0 nakijken, controle Map 1 OK in live/ptr/forever. SelftestData.lua opnieuw geschreven
+(--emit); `/mh selftest` telt instance alleen (GetMapInfo = UiMap, verkeerde tabel). Lint 0 HARD.
+🔐 Herstart-check: geen enkele call werd geweigerd (git status/pull/log, echo, _probe ×3, Write). Of Rob een vraag kreeg
+die hij goedkeurde, zie ik niet: AFGELEID "geen vragen", Rob bevestigt.
 💡 Ideeënbus zo 15 nov: 2 voorstellen (XP-drempel +12 levels in groepen; "nieuwe spell op geen balk"). Ze staan
 onderaan IDEEEN.md; Rob beslist (maandag-stap), niet verplaatst.
 🗂️ Dungeonlijst per zone GEBOUWD (alleen op main; Rob via Sparring 15-11, letterlijk: *"Ja, we beginnen met deel 1 en

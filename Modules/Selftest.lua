@@ -12,6 +12,8 @@ local _, ns = ...
 	  map          C_Map.GetMapInfo(id) ~= nil
 	  quest        NOT asked: no call says "this quest does not exist" (a title can be nil while it loads). Counted only.
 	  achievement  NOT asked: GetAchievementInfo is not in Blizzard's API documentation. Counted only.
+  instance     NOT asked: dungeon instance ids (ForeverDungeons.lua `map =`, DB2 Map); C_Map.GetMapInfo takes UiMap ids,
+               so asking it would be the wrong table (15 Nov 2026). Counted only; the offline C2 check covers them.
 	A call that is missing or errors = "could not ask", never "does not exist" (nil = unreadable, not absent).
 	Numbers from files for the OTHER game are skipped. A number from a shared file that this game lacks is listed apart
 	("shared, not in this game"): fine when the other game has it.
@@ -178,7 +180,7 @@ function ns.RunSelftest()
 	local report = {
 		at = time and time() or nil, game = ns.IS_FOREVER and "forever" or "retail", build = build,
 		listed = counted, checked = 0, unreadable = 0, missing = {}, sharedMissing = {}, unreadableIds = {},
-		notAsked = "quest and achievement: no call says 'does not exist' (counted in listed only)",
+		notAsked = "quest, achievement and instance: no call says 'does not exist' (counted in listed only)",
 		control = control, t0 = type(debugprofilestop) == "function" and debugprofilestop() or nil,
 	}
 	for kind in pairs(ASKED) do

@@ -48,12 +48,20 @@ KINDS = {
     "quest": ("QuestV2", [r"\bquest(?:ID|Id)?\s*=\s*(\d+)", r"IsQuestFlaggedCompleted\(\s*(\d+)"]),
     "item": ("Item", [r"\bitem(?:ID|Id)?\s*=\s*(\d+)", r"GetItemCount\(\s*(\d+)"]),
     "map": ("UiMap", [r"\b(?:uiMapID|uiMapId|mapID|map)\s*=\s*(\d+)"]),
+    # No patterns of its own: filled from `map =` in the files of MAP_IS_INSTANCE below.
+    "instance": ("Map", []),
+}
+# Files where `map = N` is an INSTANCE id (DB2 Map), not a UiMap id. Checked against Map instead of UiMap, and printed.
+# 15 Nov 2026: the nightly check flagged 28 of these as "nakijken" against UiMap — a false alarm (MEASURED: the module's
+# header says so, and HandyNotes calls the same numbers instanceID).
+MAP_IS_INSTANCE = {
+    "Modules/ForeverDungeons.lua": "the map column is the instance Map id (see the comment at the top of the module)",
 }
 # The blind spot: id-looking assignments that no pattern above reads.
 LOOSE = re.compile(r"\b(?:spell|ach|quest|item|map|npc)\w*\s*=\s*\d{3,}", re.I)
 # Positive control: Auto Attack and Azeroth exist in all three games. (Not 1415: that is Eastern Kingdoms in Forever
 # only; retail has no row 1415 — measured 10 Nov 2026, the first run failed on exactly that.)
-KNOWN = {"spell": 6603, "map": 947}
+KNOWN = {"spell": 6603, "map": 947, "instance": 1}  # Map 1 = Kalimdor (expected in all three games; the run proves it)
 # Numbers that are wrong on purpose, with the reason. Counted and printed, never silently dropped.
 IGNORE = {
     999001: "DispelTest.lua: fake aura for /mh dispeltest", 999002: "DispelTest.lua: fake aura",
@@ -122,7 +130,8 @@ def scan(verbose=False):
             for kind, (_, pats) in KINDS.items():
                 for pat in pats:
                     for m in re.finditer(pat, line):
-                        found[kind].setdefault(int(m.group(1)), []).append((rel, n, games))
+                        k = "instance" if (kind == "map" and rel in MAP_IS_INSTANCE) else kind
+                        found[k].setdefault(int(m.group(1)), []).append((rel, n, games))
                         read_here += 1
             if not read_here and LOOSE.search(line):
                 loose += 1
@@ -175,6 +184,8 @@ def selftest_current():
 def c2():
     found, loose = scan("--loose" in sys.argv)
     print("C2 — numbers against Blizzard's tables")
+    for rel, why in sorted(MAP_IS_INSTANCE.items()):
+        print("  map = in %s counts as instance (DB2 Map): %s" % (rel, why))
     total = 0
     ok_all = True
     for kind, (table, _) in KINDS.items():
