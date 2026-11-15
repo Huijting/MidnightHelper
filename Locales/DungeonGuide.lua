@@ -108,7 +108,7 @@ merge(ns._mhLocales and ns._mhLocales.enUS, {
 if ns._mhLocales and ns._mhLocales.itIT then merge(ns._mhLocales and ns._mhLocales.itIT, {
 	TAB_DUNGEONS = "Dungeon",
 	DGN_TITLE = "Dungeon",
-	DGN_SUBTITLE = "Il tuo compagno per i dungeon: cosa fare questa settimana, un corso per principianti dalla prima coda fino al Heroic, e i passi per ogni boss nel Coach, più una tab Mythic+ con gli affissi e i kick obbligatori.",
+	DGN_SUBTITLE = "Il tuo compagno per i dungeon: cosa fare questa settimana, un corso per principianti dalla prima coda fino al Heroic, e i passi per ogni boss nel Coach, più una tab Mitica+ con gli affissi e i kick obbligatori.",
 
 	DGN_VIEW_WEEK = "Questa settimana",
 	DGN_VIEW_COURSE = "Dungeons 101",
@@ -122,8 +122,8 @@ if ns._mhLocales and ns._mhLocales.itIT then merge(ns._mhLocales and ns._mhLocal
 	DGN_WEEKDGN_INLOG_FMT = "Dungeon della settimana (Halduron): %s — quest accettata.",
 	DGN_WEEKDGN_DONE_FMT = "Dungeon della settimana (Halduron): %s — completato questa settimana.",
 	DGN_WEEKDGN_UNKNOWN = "Dungeon della settimana (Halduron): prendi la sua quest accanto al vault per vederlo qui.",
-	DGN_KEYSTONE_DONE = "Cracked Keystone (intro Mythic+): completato.",
-	DGN_KEYSTONE_TODO = "Cracked Keystone (intro Mythic+): cade da una ricompensa di una scorribanda di Tier 11 — una volta a season.",
+	DGN_KEYSTONE_DONE = "Cracked Keystone (intro Mitica+): completato.",
+	DGN_KEYSTONE_TODO = "Cracked Keystone (intro Mitica+): cade da una ricompensa di una scorribanda di Tier 11 — una volta a season.",
 	DGN_VAULT_FMT = "Gran Banca — riga Dungeons: %d/%d slot sbloccati (progresso %d).",
 	DGN_VAULT_UNKNOWN = "Gran Banca — riga Dungeons: i dati si caricano dopo il login o aprendo il vault.",
 	DGN_FOLLOWER_HINT = "Nuovo nei dungeon? Avvia un Follower Dungeon (Group Finder): giochi in difficoltà Normal da solo con compagni NPC — nessuna pressione, pratica perfetta. Il corso qui sotto ti guida in ogni cosa.",
@@ -135,7 +135,7 @@ if ns._mhLocales and ns._mhLocales.itIT then merge(ns._mhLocales and ns._mhLocal
 	DGN_CH_DONE = "Fatto — clicca per annullare.",
 
 	DGN_CH1_TITLE = "1. Cos'è un dungeon?",
-	DGN_CH1_BODY = "• Un dungeon è un'avventura instanziata per 5 giocatori: 1 tank, 1 healer, 3 damage dealer.|n• Difficoltà, dalla più facile alla più difficile: Follower (da solo con compagni NPC — modalità pratica), Normal (tutti i dungeon di Midnight, sempre disponibili), Heroic (la rotazione di questa season, loot migliore) e Mythic/Mythic+ (trattati più avanti in questo corso).|n• Le run nei dungeon riempiono la riga Dungeons della tua Gran Banca — una ricompensa settimanale gratuita.",
+	DGN_CH1_BODY = "• Un dungeon è un'avventura instanziata per 5 giocatori: 1 tank, 1 healer, 3 damage dealer.|n• Difficoltà, dalla più facile alla più difficile: Follower (da solo con compagni NPC — modalità pratica), Normal (tutti i dungeon di Midnight, sempre disponibili), Heroic (la rotazione di questa season, loot migliore) e Mythic/Mitica+ (trattati più avanti in questo corso).|n• Le run nei dungeon riempiono la riga Dungeons della tua Gran Banca — una ricompensa settimanale gratuita.",
 
 	DGN_CH2_TITLE = "2. Come entrare",
 	DGN_CH2_BODY = "• Premi I (Group Finder) e scegli il Dungeon Finder.|n• Spunta il ruolo che vuoi giocare; le code per tank e healer partono più in fretta.|n• Vuoi zero pressione? Scegli prima un Follower Dungeon: difficoltà Normal, compagni NPC che seguono il tuo ritmo, disponibile mentre sali di livello 80-90 (c'è un limite giornaliero di avvii).|n• Quando la coda è pronta, clicca Accetta — vieni teletrasportato dentro, e di nuovo fuori al termine.",
@@ -150,7 +150,7 @@ if ns._mhLocales and ns._mhLocales.itIT then merge(ns._mhLocales and ns._mhLocal
 	DGN_CH5_BODY = "• Prima di una run, apri la vista Dungeon Coach e leggi i passi brevi per ogni boss — e nel momento in cui pulli un boss, Midnight Helper stampa quei passi direttamente nella tua chat.|n• Condividili col tuo gruppo: scrivi /mh bossshare dopo il pull (testo semplice; la condivisione localizzata arriverà più avanti).|n• Non memorizzare tutto: conoscere l'unica meccanica letale per ogni boss è sufficiente per iniziare.",
 
 	DGN_CH6_TITLE = "6. Prossimo passo: Heroic",
-	DGN_CH6_BODY = "• Il Heroic usa la rotazione di questa season (otto dungeon — vedi la vista Coach, contrassegnati con la stagione) con nemici più forti e loot migliore.|n• Il Group Finder mostra il requisito di equipaggiamento; equipaggiati prima tramite dungeon Normal, scorribande e contenuti del mondo.|n• Combinalo con le tue settimanali: il dungeon della settimana di Halduron e la settimanale Spark di Lady Liadrin stanno entrambi accanto al vault — la vista Questa settimana li tiene tracciati.|n• Dopo il Heroic arrivano Mythic e Mythic+ — quel capitolo arriverà con l'aggiornamento Mythic di questo corso.",
+	DGN_CH6_BODY = "• Il Heroic usa la rotazione di questa season (otto dungeon — vedi la vista Coach, contrassegnati con la stagione) con nemici più forti e loot migliore.|n• Il Group Finder mostra il requisito di equipaggiamento; equipaggiati prima tramite dungeon Normal, scorribande e contenuti del mondo.|n• Combinalo con le tue settimanali: il dungeon della settimana di Halduron e la settimanale Spark di Lady Liadrin stanno entrambi accanto al vault — la vista Questa settimana li tiene tracciati.|n• Dopo il Heroic arrivano Mythic e Mitica+ — quel capitolo arriverà con l'aggiornamento Mythic di questo corso.",
 
 	-- Coach -------------------------------------------------------------------
 	DGN_COACH_HEADER = "Dungeon Coach",
@@ -440,7 +440,7 @@ if ns._mhLocales and ns._mhLocales.frFR then merge(ns._mhLocales and ns._mhLocal
 if ns._mhLocales and ns._mhLocales.esES then merge(ns._mhLocales and ns._mhLocales.esES, {
 	TAB_DUNGEONS = "Mazmorras",
 	DGN_TITLE = "Mazmorras",
-	DGN_SUBTITLE = "Tu compañero de mazmorras: qué hacer esta semana, un curso para principiantes desde la primera cola hasta Heroic, y pasos por jefe en el Coach, además de una pestaña de Mythic+ con los afijos y las interrupciones clave.",
+	DGN_SUBTITLE = "Tu compañero de mazmorras: qué hacer esta semana, un curso para principiantes desde la primera cola hasta Heroic, y pasos por jefe en el Coach, además de una pestaña de Mítica+ con los afijos y las interrupciones clave.",
 
 	DGN_VIEW_WEEK = "Esta semana",
 	DGN_VIEW_COURSE = "Dungeons 101",
@@ -454,8 +454,8 @@ if ns._mhLocales and ns._mhLocales.esES then merge(ns._mhLocales and ns._mhLocal
 	DGN_WEEKDGN_INLOG_FMT = "Mazmorra de la semana (Halduron): %s — misión aceptada.",
 	DGN_WEEKDGN_DONE_FMT = "Mazmorra de la semana (Halduron): %s — hecha esta semana.",
 	DGN_WEEKDGN_UNKNOWN = "Mazmorra de la semana (Halduron): acepta su misión junto al Vault para verla aquí.",
-	DGN_KEYSTONE_DONE = "Cracked Keystone (introducción a Mythic+): hecho.",
-	DGN_KEYSTONE_TODO = "Cracked Keystone (introducción a Mythic+): cae de una recompensa de profundidad Tier 11 — una vez por temporada.",
+	DGN_KEYSTONE_DONE = "Cracked Keystone (introducción a Mítica+): hecho.",
+	DGN_KEYSTONE_TODO = "Cracked Keystone (introducción a Mítica+): cae de una recompensa de profundidad Tier 11 — una vez por temporada.",
 	DGN_VAULT_FMT = "Gran cámara — fila de Mazmorras: %d/%d casillas desbloqueadas (progreso %d).",
 	DGN_VAULT_UNKNOWN = "Gran cámara — fila de Mazmorras: los datos cargan tras iniciar sesión o abrir el Vault.",
 	DGN_FOLLOWER_HINT = "¿Nuevo en mazmorras? Inicia una Follower Dungeon (Buscador de grupos): juegas en Normal en solitario con PNJ de equipo — sin presión, perfecto para practicar. El curso de abajo te guía por todo.",
@@ -467,7 +467,7 @@ if ns._mhLocales and ns._mhLocales.esES then merge(ns._mhLocales and ns._mhLocal
 	DGN_CH_DONE = "Hecho — haz clic para deshacer.",
 
 	DGN_CH1_TITLE = "1. ¿Qué es una mazmorra?",
-	DGN_CH1_BODY = "• Una mazmorra es una aventura instanciada para 5 jugadores: 1 tanque, 1 sanador, 3 DPS.|n• Dificultades, de fácil a difícil: Follower (en solitario con PNJ — modo práctica), Normal (todas las mazmorras de Midnight, siempre disponibles), Heroic (la rotación de la temporada, mejor botín) y Mythic/Mythic+ (se tratan más adelante en este curso).|n• Las mazmorras llenan la fila de Mazmorras de tu Gran cámara — una recompensa semanal gratuita.",
+	DGN_CH1_BODY = "• Una mazmorra es una aventura instanciada para 5 jugadores: 1 tanque, 1 sanador, 3 DPS.|n• Dificultades, de fácil a difícil: Follower (en solitario con PNJ — modo práctica), Normal (todas las mazmorras de Midnight, siempre disponibles), Heroic (la rotación de la temporada, mejor botín) y Mythic/Mítica+ (se tratan más adelante en este curso).|n• Las mazmorras llenan la fila de Mazmorras de tu Gran cámara — una recompensa semanal gratuita.",
 
 	DGN_CH2_TITLE = "2. Cómo entrar",
 	DGN_CH2_BODY = "• Pulsa I (Buscador de grupos) y elige el Buscador de mazmorras.|n• Marca el rol que quieres jugar; las colas de tanque y sanador salen más rápido.|n• ¿Cero presión? Elige primero una Follower Dungeon: dificultad Normal, PNJ que siguen tu ritmo, disponible mientras subes de 80 a 90 (hay un límite diario de inicios).|n• Cuando salte la cola, haz clic en Aceptar — te teletransporta dentro, y fuera al terminar.",
@@ -482,7 +482,7 @@ if ns._mhLocales and ns._mhLocales.esES then merge(ns._mhLocales and ns._mhLocal
 	DGN_CH5_BODY = "• Antes de una run, abre la vista Dungeon Coach y lee los pasos cortos de cada jefe — y al hacer pull, Midnight Helper imprime esos pasos directamente en tu chat.|n• Compártelos con tu grupo: escribe /mh bossshare tras el pull (texto plano; el compartir localizado llegará más adelante).|n• No memorices todo: conocer LA mecánica mortal de cada jefe basta para empezar.",
 
 	DGN_CH6_TITLE = "6. Siguiente paso: Heroic",
-	DGN_CH6_BODY = "• Heroic usa la rotación de la temporada (ocho mazmorras — ver la vista Coach, marcadas con la temporada) con enemigos más fuertes y mejor botín.|n• El Buscador de grupos muestra el requisito de equipo; equípate primero con mazmorras Normal, Profundidades y contenido de mundo.|n• Combínalo con tus semanales: la mazmorra de la semana de Halduron y la semanal de Spark de Lady Liadrin viven junto al Vault — la vista Esta semana las sigue.|n• Tras Heroic vienen Mythic y Mythic+ — ese capítulo llegará con la actualización Mythic de este curso.",
+	DGN_CH6_BODY = "• Heroic usa la rotación de la temporada (ocho mazmorras — ver la vista Coach, marcadas con la temporada) con enemigos más fuertes y mejor botín.|n• El Buscador de grupos muestra el requisito de equipo; equípate primero con mazmorras Normal, Profundidades y contenido de mundo.|n• Combínalo con tus semanales: la mazmorra de la semana de Halduron y la semanal de Spark de Lady Liadrin viven junto al Vault — la vista Esta semana las sigue.|n• Tras Heroic vienen Mythic y Mítica+ — ese capítulo llegará con la actualización Mythic de este curso.",
 
 	-- Coach -----------------------------------------------------------------------
 	DGN_COACH_HEADER = "Dungeon Coach",
@@ -522,7 +522,7 @@ if ns._mhLocales and ns._mhLocales.esES then merge(ns._mhLocales and ns._mhLocal
 if ns._mhLocales and ns._mhLocales.ptBR then merge(ns._mhLocales and ns._mhLocales.ptBR, {
 	TAB_DUNGEONS = "Masmorras",
 	DGN_TITLE = "Masmorras",
-	DGN_SUBTITLE = "Seu companheiro de masmorras: o que rodar esta semana, um curso para iniciantes da primeira fila até o Heroic, e passos por chefe no Coach, além de uma aba de Mythic+ com os afixos e as interrupções essenciais.",
+	DGN_SUBTITLE = "Seu companheiro de masmorras: o que rodar esta semana, um curso para iniciantes da primeira fila até o Heroic, e passos por chefe no Coach, além de uma aba de Mítico+ com os afixos e as interrupções essenciais.",
 
 	DGN_VIEW_WEEK = "Esta semana",
 	DGN_VIEW_COURSE = "Dungeons 101",
@@ -536,8 +536,8 @@ if ns._mhLocales and ns._mhLocales.ptBR then merge(ns._mhLocales and ns._mhLocal
 	DGN_WEEKDGN_INLOG_FMT = "Masmorra da semana (Halduron): %s — missão aceita.",
 	DGN_WEEKDGN_DONE_FMT = "Masmorra da semana (Halduron): %s — feita esta semana.",
 	DGN_WEEKDGN_UNKNOWN = "Masmorra da semana (Halduron): aceite a missão dele ao lado do Vault para vê-la aqui.",
-	DGN_KEYSTONE_DONE = "Cracked Keystone (introdução ao Mythic+): feito.",
-	DGN_KEYSTONE_TODO = "Cracked Keystone (introdução ao Mythic+): cai de uma recompensa de imersão Tier 11 — uma vez por temporada.",
+	DGN_KEYSTONE_DONE = "Cracked Keystone (introdução ao Mítico+): feito.",
+	DGN_KEYSTONE_TODO = "Cracked Keystone (introdução ao Mítico+): cai de uma recompensa de imersão Tier 11 — uma vez por temporada.",
 	DGN_VAULT_FMT = "Grande Cofre — fileira de Masmorras: %d/%d espaços desbloqueados (progresso %d).",
 	DGN_VAULT_UNKNOWN = "Grande Cofre — fileira de Masmorras: os dados carregam após o login ou ao abrir o Vault.",
 	DGN_FOLLOWER_HINT = "Novo em masmorras? Inicie uma Follower Dungeon (Localizador de grupos): você joga no Normal sozinho com NPCs na equipe — sem pressão, perfeito para praticar. O curso abaixo te guia por tudo.",
@@ -549,7 +549,7 @@ if ns._mhLocales and ns._mhLocales.ptBR then merge(ns._mhLocales and ns._mhLocal
 	DGN_CH_DONE = "Feito — clique para desfazer.",
 
 	DGN_CH1_TITLE = "1. O que é uma masmorra?",
-	DGN_CH1_BODY = "• Uma masmorra é uma aventura instanciada para 5 jogadores: 1 tanque, 1 curandeiro, 3 DPS.|n• Dificuldades, da mais fácil à mais difícil: Follower (solo com NPCs — modo treino), Normal (todas as masmorras de Midnight, sempre disponíveis), Heroic (a rotação da temporada, melhor saque) e Mythic/Mythic+ (tratados mais adiante neste curso).|n• Masmorras enchem a fileira de Masmorras do seu Grande Cofre — uma recompensa semanal grátis.",
+	DGN_CH1_BODY = "• Uma masmorra é uma aventura instanciada para 5 jogadores: 1 tanque, 1 curandeiro, 3 DPS.|n• Dificuldades, da mais fácil à mais difícil: Follower (solo com NPCs — modo treino), Normal (todas as masmorras de Midnight, sempre disponíveis), Heroic (a rotação da temporada, melhor saque) e Mythic/Mítico+ (tratados mais adiante neste curso).|n• Masmorras enchem a fileira de Masmorras do seu Grande Cofre — uma recompensa semanal grátis.",
 
 	DGN_CH2_TITLE = "2. Como entrar",
 	DGN_CH2_BODY = "• Pressione I (Localizador de grupos) e escolha o Localizador de masmorras.|n• Marque a função que você quer jogar; filas de tanque e curandeiro saem mais rápido.|n• Zero pressão? Escolha primeiro uma Follower Dungeon: dificuldade Normal, NPCs que seguem o seu ritmo, disponível ao upar do 80 ao 90 (há um limite diário de inícios).|n• Quando a fila estourar, clique em Aceitar — você é teleportado para dentro, e para fora quando acabar.",
@@ -564,7 +564,7 @@ if ns._mhLocales and ns._mhLocales.ptBR then merge(ns._mhLocales and ns._mhLocal
 	DGN_CH5_BODY = "• Antes de uma run, abra a visão Dungeon Coach e leia os passos curtos de cada chefe — e ao puxar um chefe, o Midnight Helper imprime esses passos direto no seu chat.|n• Compartilhe com o grupo: digite /mh bossshare depois do pull (texto simples; compartilhamento localizado vem depois).|n• Não decore tudo: conhecer A mecânica mortal de cada chefe já basta para começar.",
 
 	DGN_CH6_TITLE = "6. Próximo passo: Heroic",
-	DGN_CH6_BODY = "• Heroic usa a rotação da temporada (oito masmorras — veja a visão Coach, marcadas com a temporada) com inimigos mais fortes e melhor saque.|n• O Localizador de grupos mostra o requisito de equipamento; equipe-se primeiro com masmorras Normal, Imersões e conteúdo de mundo.|n• Combine com suas semanais: a masmorra da semana do Halduron e a semanal do Spark de Lady Liadrin moram ao lado do Vault — a visão Esta semana acompanha as duas.|n• Depois do Heroic vêm Mythic e Mythic+ — esse capítulo chega com a atualização Mythic deste curso.",
+	DGN_CH6_BODY = "• Heroic usa a rotação da temporada (oito masmorras — veja a visão Coach, marcadas com a temporada) com inimigos mais fortes e melhor saque.|n• O Localizador de grupos mostra o requisito de equipamento; equipe-se primeiro com masmorras Normal, Imersões e conteúdo de mundo.|n• Combine com suas semanais: a masmorra da semana do Halduron e a semanal do Spark de Lady Liadrin moram ao lado do Vault — a visão Esta semana acompanha as duas.|n• Depois do Heroic vêm Mythic e Mítico+ — esse capítulo chega com a atualização Mythic deste curso.",
 
 	-- Coach -----------------------------------------------------------------------
 	DGN_COACH_HEADER = "Dungeon Coach",

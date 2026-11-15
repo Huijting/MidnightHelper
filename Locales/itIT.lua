@@ -5,7 +5,8 @@
 
 	Partial pack: any key not present here falls back to English via ns:L().
 	Convention: WoW proper nouns (spell/ability/boss/NPC/zone/dungeon/raid
-	names, class names, "Mythic+", "Omnium Folio") stay in English;
+	names, class names, "Omnium Folio") stay in English (Mythic+ = "Mitica+", the
+	Italian client word, since 15 Nov 2026: GlobalStrings 50146);
 	surrounding UI text and prose are translated to natural Italian.
 	Since 19 Oct 2026 Renown uses the Italian client word "Fama" (and the
 	Ritual Sites / Curios use "Siti Rituali" / "Reperti"), measured on wago
@@ -902,7 +903,7 @@ ns._mhLocales.itIT = {
 	SETTINGS_VAULT_ADVISOR_USE_PAWN_TT = "Quando Pawn è caricato, usa la tua scala Pawn attiva per il punteggio delle stat invece dei pesi della guida.",
 	SETTINGS_VAULT_ADVISOR_PROFILE_AUTO_TT = "Sceglie i pesi stat incursione o M+ in base ai tipi di slot del tuo vault (dungeon vs incursione).",
 	SETTINGS_VAULT_ADVISOR_PROFILE_RAID_TT = "Usa sempre le priorità stat incursione/guida nel valutare il gear del vault.",
-	SETTINGS_VAULT_ADVISOR_PROFILE_MPLUS_TT = "Usa sempre le priorità stat Mythic+ dove disponibili; altrimenti ripiega sui pesi incursione.",
+	SETTINGS_VAULT_ADVISOR_PROFILE_MPLUS_TT = "Usa sempre le priorità stat Mitica+ dove disponibili; altrimenti ripiega sui pesi incursione.",
 	VAULT_ADVISOR_NO_SPEC = "Ancora nessun peso stat curato per questa spec.",
 	VAULT_ADVISOR_GENERIC_NOTE = "Ancora nessun peso della guida per questa spec — uso i default del ruolo (l'ilvl domina comunque).",
 	VAULT_ADVISOR_HINT_OPEN_VAULT = "Visita la Gran Banca nel mondo (es. Lunargenta) e apri la vera UI di riscatto. SHIFT-J mostra solo un riepilogo, non le tue scelte di oggetti.",

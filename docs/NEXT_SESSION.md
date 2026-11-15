@@ -26,6 +26,15 @@ checker. ✅ Bouwchat 15-11 (na de herstart): `tools/data_check.py` kent nu soor
 `MAP_IS_INSTANCE`; `map =` in ForeverDungeons.lua gaat daarheen, en de run drukt die regel af. GEMETEN: `run data_check
 --c2` → map 72 / instance 28, 0 nakijken, controle Map 1 OK in live/ptr/forever. SelftestData.lua opnieuw geschreven
 (--emit); `/mh selftest` telt instance alleen (GetMapInfo = UiMap, verkeerde tabel). Lint 0 HARD.
+🌐 Vertaalpunt 2 + Mythic+ es/pt/it AF (alleen op main; Rob via Sparring 15-11, doorgestuurd door addons-67,
+letterlijk: *"Ja, dit open vragen toetsenmenu. Over de naam uit het spel gebruiken. Met de plus in het Spaans, Portugees,
+Italiaans ook het woord uit hun spel opzoeken en gebruiken."*). Toetsenmenu naar de clientnaam (de Tastaturbelegung, it
+Assegnazione tasti, es Atajos de teclado, pt Atalhos do teclado; esMX-client zegt kaal "Atajos", GEMETEN → eigen
+regels in esMX.lua). Mythic+ GEMETEN (GlobalStrings 50146, 12.1.5.70783): esES Mítica+, esMX/ptBR Mítico+, itIT
+Mitica+; ±300 plekken. Details in IDEEEN ("Waarnemingen 14 nov", onderaan). Proef met de packs per client geladen:
+alleen CHANGELOG_* zegt nog "Mythic+". luac 366 OK, lint 0 HARD (2 dode itIT-fills opgeruimd), check_drift: alleen de
+2 oude keys. NIET in het spel gezien (TESTLIJST 15 nov later). Open: CLAUDE.md "Mythic+ blijft Engels" (alleen Rob).
+Bij de volgende release: changelog-regel "vertalingen".
 🔐 Herstart-check: geen enkele call werd geweigerd (git status/pull/log, echo, _probe ×3, Write). Of Rob een vraag kreeg
 die hij goedkeurde, zie ik niet: AFGELEID "geen vragen", Rob bevestigt.
 💡 Ideeënbus zo 15 nov: 2 voorstellen (XP-drempel +12 levels in groepen; "nieuwe spell op geen balk"). Ze staan

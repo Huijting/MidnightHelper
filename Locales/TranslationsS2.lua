@@ -71,7 +71,7 @@ if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	LAYOUT_FILTER_ANCHOR = "Nur Anker",
 	LAYOUT_FILTER_EXTRAS = "Nur Extras",
 	LAYOUT_FILTER_MOD = "Nur Modifikator-Ebene",
-	LAYOUT_NO_MAP_HINT = "Für diese Klasse/Spec gibt es noch keine Midnight-Tastenbelegung — Maps existieren für Jäger, Paladin, Frost-Magier, Elementar-Schamane und Verstärkungs-Schamane. Weitere Specs folgen.",
+	LAYOUT_NO_MAP_HINT = "Für diese Klasse/Spec gibt es noch keine Midnight-Tastaturbelegung — Maps existieren für Jäger, Paladin, Frost-Magier, Elementar-Schamane und Verstärkungs-Schamane. Weitere Specs folgen.",
 	LAYOUT_STHEAL_TAG = "Mouseover",
 	LAYOUT_TAG_ONUSE = "aktiv",
 	LAYOUT_TAG_PREPULL = "vor dem Pull",

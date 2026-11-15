@@ -102,7 +102,7 @@ if ns._mhLocales and ns._mhLocales.itIT then merge(ns._mhLocales and ns._mhLocal
 	OMNIUM_STAT_SPEC_HINT = "Scegli la stat migliore per la tua spec (Versatility è la scelta jolly sicura).",
 	OMNIUM_FOOTER = "Le raccomandazioni sono linee guida generali, non BiS per spec — la tooltip della spell in gioco fa fede. Gli sblocchi (linea di quest + Mote settimanali) sono per account; solo la scelta della runa è per personaggio. Saltata una settimana? Recupera facendo le quest mancanti una dopo l'altra.",
 
-	OMNIUM_MODE_MPLUS = "Mythic+",
+	OMNIUM_MODE_MPLUS = "Mitica+",
 	OMNIUM_MODE_RAID = "Incursione",
 	OMNIUM_MODE_PVP = "PvP",
 	OMNIUM_MODE_WORLD = "Mondo",

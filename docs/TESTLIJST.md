@@ -37,6 +37,15 @@ Op een Forever-character, `/mh dungeons` (of de knop "Dungeons" in "Do this now"
 - [ ] De kolom "Entrance" toont nu de plek als getallen (bv. "42.5, 71.7"), niet meer de zonenaam. Muis op "Route" noemt
       de zone nog wel.
 
+## 🆕 15 nov (later) — talen: Mythic+ in es/pt/it en het toetsenmenu
+
+Alleen te zien met een Spaanse, Mexicaanse, Portugese, Italiaanse of Duitse client (of laat het Cisca zien):
+- [ ] Het Mythic+-tabblad heet in het Spaans "Mítica+", Mexicaans "Mítico+", Portugees "Mítico+", Italiaans "Mitica+".
+      Italiaans: de kop zegt "Mitica+ — Stagione 2" (niet "Season").
+- [ ] Waar MH zegt waar je een toets instelt (bv. de toetsen voor drankjes, of het welkomstvenster), heet het menu zoals
+      in het spel: Duits "Tastaturbelegung", Italiaans "Assegnazione tasti", Spaans "Atajos de teclado", Mexicaans
+      "Atajos", Portugees "Atalhos do teclado". Klopt dat met Esc → Opties in jouw client?
+
 ## 🆕 15 nov — talen: "Mythisch+" / "Mythique +" en de kamers in de rondleiding
 
 Alleen te zien met een Duitse, Franse, Spaanse, Portugese of Italiaanse client (of laat het Cisca zien):

@@ -63,9 +63,9 @@ merge(ns._mhLocales and ns._mhLocales.enUS, {
 })
 
 if ns._mhLocales and ns._mhLocales.itIT then merge(ns._mhLocales and ns._mhLocales.itIT, {
-	MPLUS_VIEW = "Mythic+",
-	MPLUS_HEADER = "Mythic+ — Season 1",
-	MPLUS_HEADER_S2 = "Mythic+ — Season 2",
+	MPLUS_VIEW = "Mitica+",
+	MPLUS_HEADER = "Mitica+ — Stagione 1",
+	MPLUS_HEADER_S2 = "Mitica+ — Stagione 2",
 	MPLUS_INTRO = "Come funzionano le key questa stagione: gli affix, il pool di 8 dungeon e i cast che devi interrompere. Scritto sulla base della panoramica di Wowhead e method.gg — confermare in-game.",
 
 	MPLUS_AFFIX_HEADER = "Cosa si attiva a ogni livello di key",
@@ -84,7 +84,7 @@ if ns._mhLocales and ns._mhLocales.itIT then merge(ns._mhLocales and ns._mhLocal
 	MPLUS_BARGAIN_DEVOUR = "Devour — {SPELL:440313} mette uno shield + slow su tutti e cinque; rimuovilo con healing o un qualsiasi dispel per un buff {SPELL:465136}, altrimenti i mob si curano.",
 
 	MPLUS_POOL_HEADER = "Gli 8 dungeon di questa stagione",
-	MPLUS_POOL_NOTE = "Normal & Follower usano tutti i dungeon di lancio; Heroic, Mythic 0 e Mythic+ usano questo pool. Apri un dungeon nella scheda Dungeon Coach per i passaggi boss per boss.",
+	MPLUS_POOL_NOTE = "Normal & Follower usano tutti i dungeon di lancio; Heroic, Mythic 0 e Mitica+ usano questo pool. Apri un dungeon nella scheda Dungeon Coach per i passaggi boss per boss.",
 
 	MPLUS_SYSTEM_HEADER = "Utile da sapere",
 	MPLUS_SYSTEM = "• Le key partono da +2 (non da +4 come prima).|n• Resilient Keystones: completa nei tempi tutti gli 8 dungeon a +12 e la tua key non scende mai sotto +12 a un depletion (e da lì in poi scala verso l'alto).|n• Le Dungeon Waystones sono checkpoint a metà run — i giocatori morti rinascono all'ultima che hai sbloccato.|n• Loot e crest scalano con il livello di key: crest di tier Campione alle key basse fino ai crest di tier Mito a +10 e oltre, più uno slot dungeon della Gran Banca per averne completati otto.",
@@ -220,9 +220,9 @@ if ns._mhLocales and ns._mhLocales.frFR then merge(ns._mhLocales and ns._mhLocal
 }) end
 
 if ns._mhLocales and ns._mhLocales.esES then merge(ns._mhLocales and ns._mhLocales.esES, {
-	MPLUS_VIEW = "Mythic+",
-	MPLUS_HEADER = "Mythic+ — Temporada 1",
-	MPLUS_HEADER_S2 = "Mythic+ — Temporada 2",
+	MPLUS_VIEW = "Mítica+",
+	MPLUS_HEADER = "Mítica+ — Temporada 1",
+	MPLUS_HEADER_S2 = "Mítica+ — Temporada 2",
 	MPLUS_INTRO = "Cómo funcionan las llaves esta temporada: los afijos, el pool de 8 mazmorras y los lanzamientos que debes interrumpir. Escrito a partir del resumen de Wowhead y method.gg — confirmar en el juego.",
 
 	MPLUS_AFFIX_HEADER = "Qué se activa en cada nivel de llave",
@@ -241,7 +241,7 @@ if ns._mhLocales and ns._mhLocales.esES then merge(ns._mhLocales and ns._mhLocal
 	MPLUS_BARGAIN_DEVOUR = "Devour — {SPELL:440313} pone un escudo + ralentización sobre los cinco; límpialo con sanación o cualquier disipación para un buff de {SPELL:465136}, o los mobs se curan.",
 
 	MPLUS_POOL_HEADER = "Las 8 mazmorras de esta temporada",
-	MPLUS_POOL_NOTE = "Normal y Seguidor usan todas las mazmorras de lanzamiento; Heroico, Mítico 0 y Mythic+ usan este pool. Abre cualquier mazmorra en la pestaña Dungeon Coach para los pasos por jefe.",
+	MPLUS_POOL_NOTE = "Normal y Seguidor usan todas las mazmorras de lanzamiento; Heroico, Mítico 0 y Mítica+ usan este pool. Abre cualquier mazmorra en la pestaña Dungeon Coach para los pasos por jefe.",
 
 	MPLUS_SYSTEM_HEADER = "Bueno saberlo",
 	MPLUS_SYSTEM = "• Las llaves empiezan en +2 (no en +4 como antes).|n• Resilient Keystones: cronometra las 8 mazmorras en +12 y tu llave nunca baja de +12 en una degradación (y escala hacia arriba desde ahí).|n• Las Dungeon Waystones son puntos de control a mitad de run — los jugadores muertos reaparecen en el último que hayas desbloqueado.|n• El botín y los blasones escalan con el nivel de llave: blasones de nivel Campeón en llaves bajas hasta blasones de nivel Mito en +10 y superiores, más una ranura de mazmorra de la Gran cámara por completar ocho.",
@@ -259,9 +259,9 @@ if ns._mhLocales and ns._mhLocales.esES then merge(ns._mhLocales and ns._mhLocal
 }) end
 
 if ns._mhLocales and ns._mhLocales.ptBR then merge(ns._mhLocales and ns._mhLocales.ptBR, {
-	MPLUS_VIEW = "Mythic+",
-	MPLUS_HEADER = "Mythic+ — Temporada 1",
-	MPLUS_HEADER_S2 = "Mythic+ — Temporada 2",
+	MPLUS_VIEW = "Mítico+",
+	MPLUS_HEADER = "Mítico+ — Temporada 1",
+	MPLUS_HEADER_S2 = "Mítico+ — Temporada 2",
 	MPLUS_INTRO = "Como as chaves funcionam nesta temporada: os afixos, o pool de 8 masmorras e as conjurações que você precisa interromper. Escrito com base na visão geral do Wowhead e no method.gg — confirmar no jogo.",
 
 	MPLUS_AFFIX_HEADER = "O que entra em ação em cada nível de chave",
@@ -280,7 +280,7 @@ if ns._mhLocales and ns._mhLocales.ptBR then merge(ns._mhLocales and ns._mhLocal
 	MPLUS_BARGAIN_DEVOUR = "Devour — {SPELL:440313} coloca um escudo + lentidão sobre os cinco; limpe-o com cura ou qualquer dissipação para um buff de {SPELL:465136}, ou os mobs se curam.",
 
 	MPLUS_POOL_HEADER = "As 8 masmorras desta temporada",
-	MPLUS_POOL_NOTE = "Normal e Seguidor usam todas as masmorras de lançamento; Heroico, Mítico 0 e Mythic+ usam este pool. Abra qualquer masmorra na aba Dungeon Coach para os passos por chefe.",
+	MPLUS_POOL_NOTE = "Normal e Seguidor usam todas as masmorras de lançamento; Heroico, Mítico 0 e Mítico+ usam este pool. Abra qualquer masmorra na aba Dungeon Coach para os passos por chefe.",
 
 	MPLUS_SYSTEM_HEADER = "Bom saber",
 	MPLUS_SYSTEM = "• As chaves começam em +2 (não em +4 como antes).|n• Resilient Keystones: cronometre todas as 8 masmorras em +12 e sua chave nunca cai abaixo de +12 em uma depleção (e escala para cima a partir daí).|n• As Dungeon Waystones são checkpoints no meio do run — jogadores mortos renascem no último que você desbloqueou.|n• O loot e os brasões escalam com o nível de chave: brasões de nível Campeão em chaves baixas até brasões de nível Mito em +10 e acima, mais um slot de masmorra do Grande Cofre por completar oito.",

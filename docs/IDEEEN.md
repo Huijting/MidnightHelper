@@ -147,6 +147,19 @@ nakijken."* Uitslag (bouwchat 15-11, alleen op main, NIET in het spel gezien):
   ook "Atajos de teclado"). Ons gebruik: de "Tastenbelegung" 14×, it "Scorciatoie" 3×, es/pt kaal "Atajos"/"Atalhos"
   8× (+1 esMX). Voorstel naar sparring.
 
+**Rob 15 nov (via Sparring 15-11, doorgestuurd door addons-67, letterlijk):** *"Ja, dit open vragen toetsenmenu. Over de
+naam uit het spel gebruiken. Met de plus in het Spaans, Portugees, Italiaans ook het woord uit hun spel opzoeken en
+gebruiken."* Uitslag (bouwchat 15-11, alleen op main, NIET in het spel gezien):
+- **2 af:** de "Tastaturbelegung" (12 plekken + 2 "Midnight-Tastaturbelegung"), it "Assegnazione tasti" 3×, es "Atajos
+  de teclado" 3×, pt "Atalhos do teclado" 3× (de 4e es/pt-regel zei het al). ⚠️ esMX: die client zegt kaal **"Atajos"**
+  (GEMETEN, 49040 esMX) → esMX.lua r. 30 terug naar "Atajos" en 3 eigen regels (FIRSTRUN_POPUP_TEXT, POTIONKEY_WHERE,
+  PADKEYS_NO_QUICKBIND). Forever deDE: ook "Tastaturbelegung" (GEMETEN 1.60.1.70938).
+- **Mythic+ es/pt/it af:** GEMETEN (GlobalStrings 50146, 12.1.5.70783): esES "Mítica+", esMX "Mítico+", ptBR "Mítico+",
+  itIT "Mitica+". Vervangen: esES 87, ptBR 85, itIT 93 (+2 "Season" → "Stagione"), esMX.lua 22; plus 12 ptBR-plekken die
+  al "Mítica+" zeiden → "Mítico+" ("da" → "do"), 1 esES "Mítico+" → "Mítica+". esMX.lua zet aan het eind elke
+  overgebleven esES-"Mítica+" om naar "Mítico+". Proef (packs geladen zoals elke client): alleen de 16 CHANGELOG_*-regels
+  zeggen nog "Mythic+" (Engels met opzet). ⚠️ CLAUDE.md zegt nog "Mythic+ blijft Engels": alleen Rob mag dat laten wijzigen.
+
 ## Ja — wordt gebouwd
 
 Hier komt wat Rob goedkeurt, ook wat hij rechtstreeks in de bouwchat vraagt (Rob, 10 nov: *"ja we willen het op 1
