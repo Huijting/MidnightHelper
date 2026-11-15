@@ -39,6 +39,11 @@ details en getallen in IDEEEN.md ("Waarnemingen 14 nov"). Mythic+ → Mythisch+ 
 GlobalStrings 50146. Rondleiding: echte knopnamen in 6 talen + esMX. Punt 2 (Tastaturbelegung enz.) wacht op Robs keuze.
 Open: Mythic+ in es/pt/it (niet gemeten); CLAUDE.md-regel "Mythic+ blijft Engels" is verouderd (alleen Rob mag wijzigen).
 Shift/Focus Cast: Rob is onderweg, blijft open.
+🔐 Toestemmingen: Rob vroeg waarom hij nog zo vaak ja moest geven. Oorzaak (AFGELEID): de sparring-chat zette
+`defaultMode: "auto"` in `C:\Users\RobHu\.claude\settings.json` (GEMETEN: staat erin), maar deze chat startte daarvoor;
+instellingen worden alleen bij de start gelezen. Ook buiten de allowlist van deze chat: `printenv`, en
+ListAgents/SendMessage. Daarom deze herstart (Rob: *"Doe maar"*). NIET gemeten: of "auto" echt werkt; de nieuwe chat
+ziet het aan het aantal vragen. Werkt het niet, dan kiest Rob in de app één keer "Auto" bij die chat (bekend #105267).
 ⚠️ Voordeur: mijn eerste `_probe.py` vond geen job en draaide de oude job van een andere sessie (een beroepenlijst,
 alleen lezen). Oorzaak: ik schreef in `Temp\claude\<sid>\scratchpad`; de juiste map is
 `Temp\claude\E--World-of-Warcraft--retail--Interface-AddOns\<sid>\scratchpad`.
