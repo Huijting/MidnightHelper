@@ -356,6 +356,10 @@ ns._mhLocales.enUS = {
 	SURVEY_COPY_TITLE = "Survey: two minutes for Midnight Helper",
 	SURVEY_COPY_HINT = "Press Ctrl+C and paste the link in your browser. Thank you!",
 	SURVEY_CHAT_LATER = "No problem. The survey link is always one command away: /mh survey",
+	-- Forever survey invitation (ForeverSurvey.lua, 15 Nov 2026): its own page on the site.
+	FSURVEY_URL = "midnighthelper.com/survey/forever/?from=game",
+	FSURVEY_POPUP_TEXT = "A few minutes for Midnight Helper in WoW Forever?\n\nMidnight Helper is made by one person, and we hear almost nothing from Forever players. A short, anonymous survey on our website tells us what you use, what you miss and what gets better next.",
+	FSURVEY_COPY_TITLE = "Survey for WoW Forever players",
 	CMDLIST_SURVEY = "The link to our two-minute survey: what you use, what you never use, what annoys you.",
 	-- Character overview as columns (AltBoardView.lua, 1 Oct 2026).
 	ALTBOARD_VIEW_ROWS = "Rows",

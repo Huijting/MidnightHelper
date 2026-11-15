@@ -15764,6 +15764,29 @@ if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	ALTBOARD_IN_WINDOW = "I tuoi personaggi sono aperti in una finestra a parte. Chiudila per rivederli qui.",
 }) end
 
+-- Forever survey invitation (ForeverSurvey.lua), 15 Nov 2026. Our own translations, not native-reviewed. itIT has no
+-- Forever client, so no Italian block.
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
+	FSURVEY_URL = "midnighthelper.com/de/survey/forever/?from=game",
+	FSURVEY_POPUP_TEXT = "Ein paar Minuten für Midnight Helper in WoW Forever?\n\nMidnight Helper wird von einer Person gemacht, und von Forever-Spielern hören wir fast nichts. Eine kurze, anonyme Umfrage auf unserer Website sagt uns, was du nutzt, was dir fehlt und was als Nächstes besser wird.",
+	FSURVEY_COPY_TITLE = "Umfrage für Spieler von WoW Forever",
+}) end
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
+	FSURVEY_URL = "midnighthelper.com/fr/survey/forever/?from=game",
+	FSURVEY_POPUP_TEXT = "Quelques minutes pour Midnight Helper dans WoW Forever ?\n\nMidnight Helper est fait par une seule personne, et nous n'avons presque aucun retour des joueurs de Forever. Un petit sondage anonyme sur notre site nous dit ce que tu utilises, ce qui te manque et ce qui doit s'améliorer ensuite.",
+	FSURVEY_COPY_TITLE = "Sondage pour les joueurs de WoW Forever",
+}) end
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
+	FSURVEY_URL = "midnighthelper.com/es/survey/forever/?from=game",
+	FSURVEY_POPUP_TEXT = "¿Unos minutos para Midnight Helper en WoW Forever?\n\nMidnight Helper lo hace una sola persona, y casi no sabemos nada de los jugadores de Forever. Una encuesta corta y anónima en nuestra web nos dice qué usas, qué echas de menos y qué mejora a continuación.",
+	FSURVEY_COPY_TITLE = "Encuesta para jugadores de WoW Forever",
+}) end
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
+	FSURVEY_URL = "midnighthelper.com/pt/survey/forever/?from=game",
+	FSURVEY_POPUP_TEXT = "Alguns minutos para o Midnight Helper no WoW Forever?\n\nO Midnight Helper é feito por uma pessoa só, e quase não temos notícias dos jogadores de Forever. Uma pesquisa curta e anônima no nosso site nos diz o que você usa, o que falta e o que melhora em seguida.",
+	FSURVEY_COPY_TITLE = "Pesquisa para jogadores de WoW Forever",
+}) end
+
 -- Survey invitation (SurveyInvite.lua), 1 Oct 2026. Our own translations, not native-reviewed; address
 -- forms as the packs use them (de du, fr tu, es tú, pt você, it tu). SURVEY_URL points at each
 -- language's own page on the site.

@@ -37,6 +37,15 @@ Op een Forever-character, `/mh dungeons` (of de knop "Dungeons" in "Do this now"
 - [ ] De kolom "Entrance" toont nu de plek als getallen (bv. "42.5, 71.7"), niet meer de zonenaam. Muis op "Route" noemt
       de zone nog wel.
 
+## 🆕 15 nov (middag) — Forever: uitnodiging voor de Forever-vragenlijst
+
+Op een Forever-character:
+- [ ] `/mh survey` → een venster met de link `https://midnighthelper.com/survey/forever/?from=game` (Nederlands:
+      `/nl/survey/forever/`). Ctrl+C, plakken in de browser: opent de Forever-vragenlijst?
+- [ ] `/mh survey why` → zegt hoeveel dagen MH al gebruikt is ("used on 1 day(s), the popup waits for 2").
+- [ ] `/mh survey popup` → de pop-up met "Show the link" / "Later" / "No thanks". Klopt de tekst?
+- [ ] Morgen (tweede dag), ongeveer een minuut na het inloggen: komt de pop-up één keer vanzelf? Niet in een dungeon.
+
 ## 🆕 15 nov (middag) — talen: Renown, Raid, Great Vault en Dungeon in het woord van het spel
 
 Alleen met een buitenlandse client (of Cisca):

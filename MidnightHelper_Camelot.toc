@@ -184,6 +184,7 @@ Modules\HomeDashboard.lua
 Modules\NavSearch.lua
 Modules\CommandList.lua
 Modules\SupportReport.lua
+Modules\ForeverSurvey.lua
 Modules\KeysHub.lua
 Modules\ToolsLaunchpad.lua
 Modules\RoomLauncher.lua

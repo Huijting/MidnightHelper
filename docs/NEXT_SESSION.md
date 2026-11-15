@@ -63,6 +63,12 @@ fr/it "vault" in CODEX_MPLUS_BODY + VAULT_ADVISOR_HINT_*. luac OK, lint 0 HARD, 
 📅 Werkafspraak (Rob via sparring: *"Ja, pak de woensdag maar voor de midnight."*): elke woensdag = Midnight-dag, eerste
 wo 18 nov. Nieuw voor de bouwchat (Rob: *"Doe ze allemaal maar."*), na de speltermen: Forever-vragenlijst (addon-kant),
 12.1.7/Season 3-plan, Midnight-controle. Downloadcijfers al gemeten (sinds 5.0.1: Midnight 1875, Forever 94). Zie IDEEEN.
+📝 Forever-vragenlijst, addon-kant GEBOUWD (alleen op main): `Modules/ForeverSurvey.lua` (in beide toc's, stopt in
+retail). Pop-up één keer per installatie, pas op de 2e dag dat MH in Forever draait (Forever heeft geen milestones),
+60 s na login, niet in combat/instance; "No thanks" = nooit meer; `/mh survey` (+ `why`, `popup`) geeft altijd de link.
+Link per taal (site-chat bevestigde): midnighthelper.com/<taal>/survey/forever/?from=game (en zonder taal; nl/de/fr/es/
+pt/ru; geen it). Keys FSURVEY_URL/_POPUP_TEXT/_COPY_TITLE in en/nl/de/fr/es/pt/ru (onze vertaling). luac OK, lint 0
+HARD. NIET in het spel gezien (TESTLIJST 15 nov middag). SITE_SEIN/changelog bij de volgende release.
 🔐 Herstart-check: geen enkele call werd geweigerd (git status/pull/log, echo, _probe ×3, Write). Of Rob een vraag kreeg
 die hij goedkeurde, zie ik niet: AFGELEID "geen vragen", Rob bevestigt.
 💡 Ideeënbus zo 15 nov: 2 voorstellen (XP-drempel +12 levels in groepen; "nieuwe spell op geen balk"). Ze staan
