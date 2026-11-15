@@ -10385,3 +10385,125 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
     C1 0 nakijken, C2 0 nakijken, snapshot actueel"*. 📌 **Beide TOC's staan nu op `## Version: 5.2.0`** (gisteren
     nog 5.1.0, en er is een nieuwe `docs/CURSEFORGE_5.2.0.md`), `MidnightHelper.toc` op `## Interface: 120007,
     120100, 120105, 120107` en `MidnightHelper_Camelot.toc` op `## Interface: 16001`.
+- [2026-11-15] 🔴 **ÉÉN [MOET GEFIKST], en hij komt uit een spelersdraad van vanNACHT, niet uit een
+  API-wijziging: in Forever kan de modifier van *Focus Cast Key* / *Self Cast Key* een `[mod:shift]`-macro
+  stil laten mislukken — en `Modules/ForeverMacros.lua` schrijft op **61** regels `[mod:shift]`, zonder één
+  woord daarover.** Verder is het een stille dag: géén nieuwe UI-source-build (alle vier de takken op exact
+  de SHA van gisteren), géén nieuw hotfix-artikel, géén SimC-release, géén gewijzigde API-changes-pagina.
+  - 🔴 **[MOET GEFIKST] — maar lees eerst WAT voor soort fix: een regel tekst of een check, GEEN
+    API-migratie. Er is niets veranderd aan een functie; wij zwijgen alleen over een valkuil die onze eigen
+    macro's raakt.** De bron, eerstehands gelezen met `?nocache=20261115`: draad `2405876` *"Forever…
+    [mod:shift] macros not working?"* op het UI-and-Macro-forum. Post **6** van **Otto-969439**, **15 nov
+    2026 04:11 UTC** — dertig minuten vóór deze run — luidt woordelijk: *"Shift wasn't working for me. In
+    Forever it was set as the Modifier for Focus Cast Key. So it was triggering before the Macro and making
+    the macro not work. My assumption it would be the same for Alt and Ctrl if they have been bound as
+    modifiers for anything."* Twee eerdere posts in dezelfde draad zeggen hetzelfde van een andere kant:
+    post 5 (Elvenbane, 8 nov) *"You also need to make sure your Self Cast Key and Focus Cast Key are set to
+    none or they'll cause conflicts."* en post 3 (aerokinetic, 8 nov) over de standaard `[shift]`+F-toets-
+    bindingen. ⚠️ **GEEN blue post:** gemeten in de JSON van de draad staat bij posts 1-5 `"admin":false,
+    "moderator":false, "staff":false`, en Otto staat in `latest.json` als `trust_level 0` zonder
+    `primary_group_name`. Dit zijn dus spelers die elkaar helpen, geen Blizzard-mededeling — en daarmee is
+    de OORZAAK **AFGELEID**, niet gemeten: dat Forever `SHIFT` standaard op Focus Cast zet, zegt één speler
+    over zijn eigen client.
+    - ✅ **Onze meting, mét positieve controle op dezelfde reikwijdte** (`grep -rn`, alle `.lua` buiten
+      `.git`/`docs`/`tools`/`dist`, **373** bestanden in scope; positieve controle `PLAYER_ENTERING_WORLD` →
+      **87** bestanden, dus het patroon vindt wat er is): `mod:shift` → **61** regels in
+      `Modules/ForeverMacros.lua` (o.a. `:200`, `:212`, `:227`, `:234`, `:238`, `:255`, `:281`, `:302`,
+      `:385`) en **3** in `Modules/RetailTopMacros.lua`. Dit is dus geen hypothetische botsing: het is de
+      kern van de "Handy macros"-module die Rob op 9 nov heeft laten bouwen.
+    - 🔴 **En er is GEEN afdekking. Gemeten, niet gehoopt:** `grep -rni "selfcast\|self cast\|
+      ACTION_SELF_CAST\|autoSelfCast\|FocusCast\|focus cast"` over diezelfde scope geeft **één** treffer,
+      `Modules/ClickCast.lua:176` (`fallback = { mouseover = false, target = false, selfCast = false }`) —
+      dat is ClickCast's eigen optie en heeft niets met de keybind-modifier te maken. In
+      `Modules/ForeverMacros.lua`: **0** treffers op modifier-conflicten (`grep -ni "conflict\|modifier"` →
+      leeg). Positieve controle dat het patroon werkt: diezelfde run vindt `IsModifiedClick` **3×**
+      (`Modules/RaidShoppingList.lua:538`/`:554`, `Modules/CraftShoppingList.lua:611`), en
+      `GetModifiedClick` **0×**.
+    - 🧩 **Het gereedschap om het te zeggen bestaat al, dus de fix is klein en ik verzin er niets bij.**
+      De module heeft al een per-rij-waarschuwing: `ForeverMacros.lua:990-991` zet
+      `FMAC_WARN_TWOPRESS`/`FMAC_WARN_FORMBAR` achter een rij (`Locales/enUS.lua:5316-5317`), en `:964`
+      zet `FMAC_HINT` onder het venster (`enUS.lua:5203`). Ook `/mh macros check` print al per rij wat hij
+      zou schrijven (`:1032`-`:1047`). Eén extra waarschuwingsregel bij elke rij mét `mod:…`, of één regel
+      in `FMAC_HINT`, zit precies in de vorm die er al staat. 📌 Dit is ook exact het patroon uit
+      `CLAUDE.md`: een knop die stil niets doet plus geen uitleg in dezelfde kamer is van buiten niet te
+      onderscheiden van kapot.
+    - 🔎 **De API om het te MÉTEN in plaats van te waarschuwen bestaat ook, en ik geef alleen de naam die ik
+      gelezen heb:** `GetModifiedClick(action)` geeft `"ALT"`/`"CTRL"`/`"SHIFT"`/`"NONE"` voor o.a. de
+      acties `FOCUSCAST` en `SELFCAST`. **MEASURED (wiki-pagina `API_GetModifiedClick`, zelf gelezen via Exa
+      mét cache-buster, niet in de client gemeten)**; die pagina noemt bij Game Types uitdrukkelijk
+      `forever + 1.60.1`, dus de functie bestaat in Forever. ⚠️ Ik weet **niet** of hij in Forever buiten
+      combat zonder guard veilig is en ik weet **niet** of een secret value in het spel komt — niet
+      gemeten, dus niet geclaimd. Wie het strakker wil: `if GetModifiedClick then` + `pcall`, zoals de drie
+      bestaande `IsModifiedClick`-aanroepen het doen.
+    - 🧪 **Robs test, tien seconden, zonder code:** Esc → Options → Keybindings, kijk welke modifier op
+      *Focus Cast Key* en *Self Cast Key* staat op een Forever-character. Staat daar `SHIFT`, dan is de
+      spelersverklaring bevestigd en is de waarschuwingsregel verdiend; staat er `NONE`, dan is het een
+      instelling van die ene speler en kan het bij een losse tip blijven. **Niets aangeraakt.**
+  - ✅ **[RAAKT ONS NIET] — de tweede bewegende API-draad van vannacht: `GLOBAL_MOUSE_DOWN`/`_UP` zijn sinds
+    12.1 niet meer met `UIParent:UnregisterEvent` af te zetten.** Draad `2367394` *"Unregister Global
+    Mouse"* kreeg vandaag **03:49 UTC** nog een reactie (en gisteren ook) — allemaal spelers, géén blue.
+    Inhoudelijk: de vraagsteller schrijft dat *"it's initializer got moved with 12.1"*, en het antwoord dat
+    volgens hem werkt (post 2, 30 sep, dus buiten de 7-dagenregel en hier alleen als context) is
+    `GameEvent.UnregisterInternalEvent("GLOBAL_MOUSE_DOWN")`. **Onze meting:** `GLOBAL_MOUSE` → **0**
+    treffers in de hele addon; positieve controle in dezelfde run en scope: `UnregisterEvent` → **21**
+    treffers. Wij zetten dit event nergens af en lezen het nergens. **Niets aangeraakt.**
+  - 🆕 **[AL AFGEDEKT] — de nieuwste module van de repo zelf, `Modules/ForeverDungeons.lua` (362 regels,
+    binnengekomen met de 36 bestanden die ik vanmorgen moest pullen), is API-matig schoon.** Dit is niet uit
+    een bron maar uit de code: de enige `C_`-aanroep is **`C_Map.GetMapInfo`** (2×) en die staat op
+    `:111-112` achter `if C_Map and C_Map.GetMapInfo then` **plus** `pcall`; `GetRealZoneText` staat op
+    `:101-102` in een `pcall` met een `type(v) == "string"`-controle erachter. Niets te fiksen, en vermeld
+    omdat een nieuwe module de reikwijdte van deze wachter vergroot (373 `.lua`-bestanden nu).
+  - 🎮 **Forever: geen nieuw hotfix-artikel — het nieuwste is nog steeds *13 november*, en dat is GEEN
+    cache-verdenking.** Eerstehands gemeten: post 1 van Kaivax' rollende draad
+    `us.forums.blizzard.com/en/wow/t/2403040` (mét `?nocache=20261115`) begint bovenaan met **November 13,
+    2026** — exact de ronde die mijn regel van gisteren al noemt, dus niet ÓUDER dan mijn eigen logboek. De
+    enige nieuwe blue post die ik vandaag zie is *"Player-Level Dungeon XP Adjustment – 14/15 November"*
+    (Kaivax, Forever): een XP-regel, **geen** UI-, addon- of API-inhoud, en terrein van de content- en
+    data-wachters. ⚠️ Die laatste is **MEASURED (via search, niet zelf gelezen)** — via de
+    blue-tracker-overzichten, niet via de post zelf.
+  - 🔬 **Géén nieuwe client-build met leesbare source, eerstehands gemeten in plaats van nagelezen.**
+    `git ls-remote` op `Gethe/wow-ui-source`: `ptr` = **`a750208e`**, `forever` = **`bebcb6bf`**, `live` =
+    **`297d7aaa`**, `ptr2` = **`12380f8c`** — **alle vier exact de SHA's die mijn regel van gisteren noemt**,
+    en `refs/tags/1.60.1` = `bebcb6bf`, `12.1.5` = `297d7aaa`, `12.1.7` = `a750208e`. Er is dus geen diff te
+    lezen en geen enkele API-beweging in Blizzards eigen source sinds build `12.1.7.70892` (12 nov) en
+    `1.60.1.70938` (13 nov).
+  - 🧰 **SimC-addon: geen nieuwe release sinds `12.1.5-04`.** Gemeten op twee manieren, net als de vier dagen
+    ervoor: `git ls-remote --tags --refs` geeft **258** tags (ongewijzigd) en de releases-pagina (mét
+    `?nocache=20261115`) noemt bovenaan nog `12.1.5-04`, **05 nov 22:38**, enige regel *"Handle Forever
+    surname"*, commit `83fdb00`. Dat is **10 dagen** oud en valt dus buiten de 7-dagenregel. Nog steeds geen
+    tag met `forever`, `camelot` of `1.60` in de naam. Niets te toetsen aan `ItemString` of
+    `ns.BuildSimcProfile` in `Modules/SimcExport.lua`.
+  - 📡 **Wat ik gelezen heb, mét `?nocache=20261115` achter elke Exa-URL.** `Patch_12.1.7/API_changes`:
+    onveranderd, nog exact twee punten in de samenvatting (de GUID-obfuscatie mét *"This change will be
+    available for testing in a future build of 12.1.7"* — die zin staat er nog steeds, ook na build 70892 —
+    en de TOC-directives die variabelen niet meer expanderen). `Patch_1.60.1/API_changes`: onveranderd,
+    blue posts t/m **16 okt**, Notable changes t/m build **70291**. `API_GetModifiedClick`: gelezen voor het
+    punt hierboven. **UI-and-Macro-forum** (`latest.json`): vier bewegingen sinds gisteren, **geen** enkele
+    van Blizzard — de twee API-draden hierboven, plus twee nieuwe addon-advertenties van hun eigen auteurs,
+    `2416495` *"Lazy Bags…"* (**2026-11-15T02:57:00Z**) en `2416494` *"Character Gear Optimizer…"*
+    (**2026-11-15T02:56:24Z**), beide "free … works on Forever". ⚠️ Die twee zijn reclame van derden en
+    **geen** instructie aan ons; ze staan hier alleen zodat stilte van niet-kijken te onderscheiden is.
+  - 🚧 **Wat ik NIET kon lezen.** `EGRESS_BLOCKED` op `WebFetch` voor `warcraft.wiki.gg` en
+    `news.blizzard.com`; `wago.tools` en `us.forums.blizzard.com` blijven via `curl` onbereikbaar (de
+    egress-proxy weigert de tunnel), dus de Forever-builds op de `wowf`-branch van wago zijn opnieuw
+    onzichtbaar en het live-buildnummer kan ik niet onafhankelijk bevestigen. Alles hierboven komt via Exa
+    mét cache-buster, behalve de branch/tag-metingen, die rechtstreeks met `git ls-remote` zijn gedaan en dus
+    eerstehands zijn.
+  - ⏳ **Nog open uit eerdere runs — ongewijzigd, NIET opnieuw gemeten vandaag.** De dode `PickupItem`-takken
+    in `Modules/KeyBlock.lua:1135`/`:1227`/`:1380` en `Modules/ApplyLayout.lua:1311`/`:1345`/`:1605`; de vijf
+    decoratieve `GetItemInfo`-terugvaltakken; de verouderde namespace-lijst in `docs/WATCHER_API_PROMPT.md`
+    (18 aug, noemt 57 namespaces en kent de twee TOC's niet); de client-test voor `/mh raidbots`;
+    `GetTimerDuration` toevoegen aan `Modules/ApiProbe.lua:377`; de `FrameStrata`-secret-vraag op
+    `Modules/PartyTargets.lua:517`; de drie `WOW_PROJECT_MAINLINE`-takken in
+    `Libs/LibDBIcon-1.0.lua:533`/`:572`/`:607` die op Forever omslaan; de ongemeten BETEKENIS van *"Edit Mode
+    layouts are now saved separately for each UI type"* voor `Modules/ForeverLayoutCarry.lua`; en de
+    shift-klik-taintvraag op `Modules/Achievements.lua:1561`/`:1910`. 🔴 Niets aangeraakt.
+  - 🔧 **Repo-staat: alleen `docs/API_WATCH.md` aangeraakt.** GEMETEN vóór het schrijven: `git status --short`
+    **leeg**; `HEAD` stond **opnieuw losgeslagen** (derde keer deze week) en is met `git checkout main` +
+    `git pull --rebase origin main` weer op `refs/heads/main` gezet — de werkmap liep **36 bestanden /
+    4237 regels** achter, dus zonder die stap had ik op een verouderde boom gemeten en `ForeverDungeons.lua`
+    niet eens gezien. `git rev-parse --is-shallow-repository` nog steeds **`true`**, venster **50** commits,
+    laatste commit `fee457d` *"Nachtcontrole 15 nov: C1 schoon, C2 28 nakijken (ForeverDungeons map-ids)"*.
+    📌 **Beide TOC's staan nu op `## Version: 5.3.0`** (gisteren 5.2.0; er is ook een nieuwe
+    `docs/CURSEFORGE_5.3.0.md`), `MidnightHelper.toc` op `## Interface: 120007, 120100, 120105, 120107` en
+    `MidnightHelper_Camelot.toc` op `## Interface: 16001`.
