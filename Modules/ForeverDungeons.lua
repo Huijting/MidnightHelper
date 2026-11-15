@@ -173,9 +173,62 @@ end
 --------------------------------------------------------------------------------
 -- Window (same look as "Your characters"; Shift+scroll and Escape via RegisterMidnightDialogPopup)
 --------------------------------------------------------------------------------
+-- 15 Nov 2026, Rob (via sparring, verbatim): "Kunnen we dat, die lijst aanpassen of zo updaten dat het per zone is? …
+-- dat we een optie geven of we alles willen zien. Of alleen maar beschikbaar voor je level." and "Ja, we beginnen met
+-- deel 1 en inderdaad net iets te hoog mag er ook bij." So: one header per zone (click = open/close), zones sorted by
+-- their lowest dungeon level, only the zones with something for you open by themselves; a tick box "only for my
+-- level" (account-wide, ns.db.foreverDungeonsAll = true means "show all"); "for my level" also counts a dungeon up to
+-- NEAR levels above you (shown orange with "+N").
+local NEAR = 2
 local W, ROW_H, MAX_VISIBLE = 600, 22, 16
 local COL_NAME, COL_LEVEL, COL_ZONE = 0, 270, 340
-local win, rows, Refresh = nil, {}, nil
+local INDENT = 16
+local win, rows, heads, Refresh = nil, {}, {}, nil
+local openZones, openLevel = {}, nil -- clicks this session; reset when your level changes
+
+local function ShowAll()
+	return ns.db and ns.db.foreverDungeonsAll == true
+end
+
+--- "fit" = in range now, "near" = up to NEAR levels too low, "low" = you outgrew it, "high" = further away.
+local function State(d, level, side)
+	if d.side and d.side ~= side then
+		return "high"
+	end
+	if level > d.max then
+		return "low"
+	end
+	if level >= d.min then
+		return "fit"
+	end
+	if level >= d.min - NEAR then
+		return "near"
+	end
+	return "high"
+end
+
+local function HeadRow(i)
+	if heads[i] then
+		return heads[i]
+	end
+	local h = CreateFrame("Button", nil, win.content)
+	h:SetHeight(ROW_H)
+	h:RegisterForClicks("LeftButtonUp")
+	h.text = h:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+	h.text:SetPoint("LEFT", 2, 0)
+	h.text:SetJustifyH("LEFT")
+	h.text:SetWidth(W - 60)
+	h.text:SetWordWrap(false)
+	h:SetHighlightTexture("Interface\\QuestFrame\\UI-QuestTitleHighlight", "ADD")
+	h:SetScript("OnClick", function(self)
+		if self.zone then
+			openZones[self.zone] = not self.open
+			Refresh()
+		end
+	end)
+	heads[i] = h
+	return h
+end
 
 local function Row(i)
 	if rows[i] then
@@ -184,8 +237,8 @@ local function Row(i)
 	local r = CreateFrame("Frame", nil, win.content)
 	r:SetHeight(ROW_H)
 	r.name = r:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-	r.name:SetPoint("LEFT", COL_NAME + 2, 0)
-	r.name:SetWidth(COL_LEVEL - 8)
+	r.name:SetPoint("LEFT", COL_NAME + INDENT, 0)
+	r.name:SetWidth(COL_LEVEL - INDENT - 6)
 	r.name:SetJustifyH("LEFT")
 	r.name:SetWordWrap(false)
 	r.level = r:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
@@ -260,16 +313,32 @@ local function Build()
 	local x = CreateFrame("Button", nil, f, "UIPanelCloseButton")
 	x:SetPoint("TOPRIGHT", -6, -6)
 
+	-- The tick box: ticked = only what fits your level (and up to NEAR levels higher). Remembered for the account.
+	local cb = CreateFrame("CheckButton", nil, f, "UICheckButtonTemplate")
+	cb:SetSize(24, 24)
+	cb:SetPoint("TOPLEFT", 16, -40)
+	cb.label = f:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	cb.label:SetPoint("LEFT", cb, "RIGHT", 2, 0)
+	cb.label:SetWidth(W - 80)
+	cb.label:SetJustifyH("LEFT")
+	cb:SetScript("OnClick", function(self)
+		if ns.db then
+			ns.db.foreverDungeonsAll = (not self:GetChecked()) or nil
+		end
+		Refresh()
+	end)
+	f.mine = cb
+
 	f.heads = {}
 	for _, h in ipairs({ { "FDUNG_COL_NAME", COL_NAME }, { "FDUNG_COL_LEVEL", COL_LEVEL }, { "FDUNG_COL_WHERE", COL_ZONE } }) do
 		local fs = f:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
-		fs:SetPoint("TOPLEFT", 20 + h[2], -46)
+		fs:SetPoint("TOPLEFT", 20 + h[2], -68)
 		fs.key = h[1]
 		f.heads[#f.heads + 1] = fs
 	end
 
 	local scroll = CreateFrame("ScrollFrame", nil, f, "UIPanelScrollFrameTemplate")
-	scroll:SetPoint("TOPLEFT", 18, -64)
+	scroll:SetPoint("TOPLEFT", 18, -86)
 	scroll:SetPoint("BOTTOMRIGHT", -36, 50)
 	local content = CreateFrame("Frame", nil, scroll)
 	content:SetSize(W - 54, 10)
@@ -298,35 +367,107 @@ Refresh = function()
 	end
 	local level = UnitLevel and UnitLevel("player") or 1
 	local side = MySide()
-	local routeText = ns:L("FDUNG_ROUTE")
-	for i, d in ipairs(DUNGEONS) do
-		local r = Row(i)
-		r:ClearAllPoints()
-		r:SetPoint("TOPLEFT", 0, -(i - 1) * ROW_H)
-		r:SetWidth(W - 54)
-		local fits = level >= d.min and level <= d.max and (not d.side or d.side == side)
-		local col = fits and GOOD or (level > d.max and GREY or "")
-		r.name:SetText(col .. Name(d) .. (col ~= "" and "|r" or ""))
-		local lv = ("%d-%d"):format(d.min, d.max)
-		if d.ten then
-			lv = lv .. " " .. ns:L("FDUNG_TEN")
-		end
-		r.level:SetText(col .. lv .. (col ~= "" and "|r" or ""))
-		r.zone:SetText(ZoneName(d.zone) .. (d.web and (" " .. WARN .. "*|r") or ""))
-		r.route:SetText(routeText)
-		local fs = r.route:GetFontString()
-		local bw = math.max(60, math.ceil(((fs and fs:GetStringWidth()) or 40) + 20))
-		r.route:SetWidth(bw)
-		r.zone:SetWidth(W - 54 - COL_ZONE - bw - 8)
-		r.route.d = d
-		r:Show()
+	local all = ShowAll()
+	f.mine:SetChecked(not all)
+	f.mine.label:SetText(ns:L("FDUNG_ONLY_MINE_FMT"):format(NEAR))
+	if openLevel ~= level then
+		openZones, openLevel = {}, level
 	end
-	for i = #DUNGEONS + 1, #rows do
+
+	-- Group by zone; a zone sorts by its lowest dungeon level (over ALL its dungeons, so the order never jumps).
+	local groups, byZone = {}, {}
+	for _, d in ipairs(DUNGEONS) do
+		local g = byZone[d.zone]
+		if not g then
+			g = { zone = d.zone, name = ZoneName(d.zone), low = d.min, list = {}, mine = false }
+			byZone[d.zone] = g
+			groups[#groups + 1] = g
+		end
+		g.low = math.min(g.low, d.min)
+		local st = State(d, level, side)
+		if all or st == "fit" or st == "near" then
+			g.list[#g.list + 1] = { d = d, st = st }
+		end
+		if st == "fit" or st == "near" then
+			g.mine = true
+		end
+	end
+	table.sort(groups, function(a, b)
+		if a.low ~= b.low then
+			return a.low < b.low
+		end
+		return a.name < b.name
+	end)
+
+	local routeText = ns:L("FDUNG_ROUTE")
+	local y, nh, nr = 0, 0, 0
+	for _, g in ipairs(groups) do
+		if #g.list > 0 then
+			local open = openZones[g.zone]
+			if open == nil then
+				open = g.mine
+			end
+			nh = nh + 1
+			local h = HeadRow(nh)
+			h:ClearAllPoints()
+			h:SetPoint("TOPLEFT", 0, -y)
+			h:SetWidth(W - 54)
+			h.zone, h.open = g.zone, open
+			h.text:SetText((open and "[-] " or "[+] ") .. ns:L("FDUNG_ZONE_FMT"):format(g.name, #g.list))
+			h:Show()
+			y = y + ROW_H
+			if open then
+				for _, e in ipairs(g.list) do
+					local d, st = e.d, e.st
+					nr = nr + 1
+					local r = Row(nr)
+					r:ClearAllPoints()
+					r:SetPoint("TOPLEFT", 0, -y)
+					r:SetWidth(W - 54)
+					local col = (st == "fit" and GOOD) or (st == "near" and WARN) or (st == "low" and GREY) or ""
+					r.name:SetText(col .. Name(d) .. (col ~= "" and "|r" or ""))
+					local lv = ("%d-%d"):format(d.min, d.max)
+					if st == "near" then
+						lv = lv .. " (+" .. (d.min - level) .. ")"
+					end
+					if d.ten then
+						lv = lv .. " " .. ns:L("FDUNG_TEN")
+					end
+					r.level:SetText(col .. lv .. (col ~= "" and "|r" or ""))
+					r.zone:SetText(ZoneName(d.zone) .. (d.web and (" " .. WARN .. "*|r") or ""))
+					r.route:SetText(routeText)
+					local fs = r.route:GetFontString()
+					local bw = math.max(60, math.ceil(((fs and fs:GetStringWidth()) or 40) + 20))
+					r.route:SetWidth(bw)
+					r.zone:SetWidth(W - 54 - COL_ZONE - bw - 8)
+					r.route.d = d
+					r:Show()
+					y = y + ROW_H
+				end
+			end
+		end
+	end
+	for i = nh + 1, #heads do
+		heads[i]:Hide()
+	end
+	for i = nr + 1, #rows do
 		rows[i]:Hide()
 	end
-	f.content:SetHeight(#DUNGEONS * ROW_H)
+	if nh == 0 then
+		-- Nothing for this level (e.g. below 11): say so where the list would be, and how to see everything.
+		nh = 1
+		local h = HeadRow(1)
+		h:ClearAllPoints()
+		h:SetPoint("TOPLEFT", 0, 0)
+		h:SetWidth(W - 54)
+		h.zone = nil
+		h.text:SetText(GREY .. ns:L("FDUNG_NONE_MINE") .. "|r")
+		h:Show()
+		y = ROW_H
+	end
+	f.content:SetHeight(math.max(y, ROW_H))
 	f.note:SetText(ns:L("FDUNG_NOTE"))
-	f:SetHeight(64 + MAX_VISIBLE * ROW_H + 56)
+	f:SetHeight(86 + MAX_VISIBLE * ROW_H + 56)
 end
 
 function ns.ShowForeverDungeons()
@@ -347,6 +488,15 @@ function ns.ForeverDungeonsSlash(arg)
 		end
 		print(PREFIX .. ("dungeons: %d in the list (%d with an entrance from web guides, not checked in game); level %d, side %s; %d fit now")
 			:format(#DUNGEONS, web, level, tostring(MySide()), #fits))
+		local near = {}
+		for _, d in ipairs(DUNGEONS) do
+			if State(d, level, MySide()) == "near" then
+				near[#near + 1] = ("%s (+%d)"):format(Name(d), d.min - level)
+			end
+		end
+		print(("  window: %s; up to %d levels higher counts too: %s"):format(
+			ShowAll() and "shows ALL dungeons" or "shows only the ones for your level",
+			NEAR, #near > 0 and table.concat(near, ", ") or "(none)"))
 		for _, d in ipairs(fits) do
 			print(("  - %s %d-%d, %s (%.1f, %.1f)%s"):format(Name(d), d.min, d.max, ZoneName(d.zone), d.x, d.y,
 				d.web and " [web]" or ""))

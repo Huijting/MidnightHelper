@@ -218,6 +218,30 @@ lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met d
                  RFC alleen Horde, Stockade alleen Alliance; laat het venster niet vanzelf komen) + knop "Dungeons".
                  Venster: groen = past, grijs = onder je, knop Route per rij (pijl via de reisplanner, tooltip met
                  "The way there"). `/mh dungeons`, `/mh dungeons check`. luac + lint 0 HARD. NIET in het spel gezien.
+                 15 nov: alle ingangen nu uit HandyNotes 1.02 (de vier web-rijen en de Stockade), geen `*` meer.
+
+### Forever: dungeonlijst per zone, met een vinkje "alleen voor mijn level"
+- Voor wie:      allebei (nieuweling: niet één lange lijst; veteraan: snel alles zien)
+- Moment:        het venster "Dungeons in Forever" (`/mh dungeons` of de knop in "Do this now")
+- Spel:          Forever
+- Bron:          Rob 15 nov (via Sparring 15-11, letterlijk): *"Kunnen we dat, die lijst aanpassen of zo updaten dat het
+                 per zone is? Dat het niet meer één lange lijst wordt? ... dat we een optie geven of we alles willen zien.
+                 Of alleen maar beschikbaar voor je level."* Op de drie ideeën van sparring: *"Ja, we beginnen met deel 1
+                 en inderdaad net iets te hoog mag er ook bij."* (voorbeeld van sparring: 2 levels)
+- Bouwt op:      `Modules/ForeverDungeons.lua` (stap 1 hierboven)
+- Data:          geen nieuwe; 35 rijen, 24 zones (GEMETEN door sparring in de code)
+- Vindbaar:      in het venster zelf: vinkje bovenaan, kopjes per zone; `/mh dungeons check` zegt de stand en welke
+                 dungeons "net te hoog" meetellen
+- Werk:          klein
+- Site:          ja, als het uit is
+- Rob zegt:      ja (deel 1). Niet gekozen: werelddeel-knoppen (idee 2), levelblokken (idee 3).
+                 **Gebouwd 15 nov (alleen op main):** kopje per zone ([+]/[-], klik = open/dicht, met het aantal), zones
+                 op hun laagste dungeon-level; vanzelf open = zones met iets voor jouw level; een klik blijft deze
+                 sessie gelden, tot je level verandert. Vinkje "Only dungeons for my level (also up to 2 levels higher)",
+                 standaard AAN, onthouden per account (`ns.db.foreverDungeonsAll`). Net te hoog = oranje met "(+N)",
+                 groen/grijs zoals het was. Niets voor je level → een regel die zegt dat je het vinkje weg kunt halen.
+                 en/nl/ru/de/fr/es/pt (eigen vertaling, niet nagekeken door moedertaalsprekers); itIT blijft Engels,
+                 zoals de rest van dit venster. luac + lint 0 HARD. NIET in het spel gezien.
 
 ### Keuzevenster "New in this version: your choice": dicht na kiezen + titel vrij van "Dock to window"
 - Voor wie:      allebei (iedereen die het venster na een update krijgt)

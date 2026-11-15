@@ -47,8 +47,10 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
                   toont alle Forever-dungeons met level en ingang (groen = past nu) en een knop Route per dungeon: de pijl
                   wijst de ingang aan, met boot/zeppelin als dat moet. Ingangen van HandyNotes Dungeon & Raid Locations
                   (MIT). 15 nov: sinds HandyNotes-versie 1.02 komen álle ingangen daarvandaan (het sterretje voor
-                  "van internet" is weg). Niet in het spel gezien.
-- Knoplabels:     FDUNG_TITLE, FDUNG_BTN, FDUNG_ROUTE
+                  "van internet" is weg). 15 nov ook: de lijst staat per zone (kopjes die je open en dicht klikt), met
+                  bovenaan een vinkje "alleen voor mijn level" (ook tot 2 levels hoger, oranje met +N); haal je het
+                  weg, dan zie je alles. Niet in het spel gezien.
+- Knoplabels:     FDUNG_TITLE, FDUNG_BTN, FDUNG_ROUTE, FDUNG_ONLY_MINE_FMT
 - Commando's:     /mh dungeons
 - Spel:           Forever
 

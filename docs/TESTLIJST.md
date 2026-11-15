@@ -21,6 +21,20 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 15 nov — Forever: dungeonlijst per zone + vinkje "alleen voor mijn level"
+
+Op een Forever-character, `/mh dungeons` (of de knop "Dungeons" in "Do this now"):
+- [ ] Bovenaan staat een vinkje "Only dungeons for my level (also up to 2 levels higher) …", en het staat AAN.
+- [ ] Je ziet kopjes per zone: "[-] zonenaam (aantal dungeons)". Alleen zones met iets voor jouw level staan er.
+- [ ] Klik op een kopje: het klapt dicht ([+]). Nog een klik: weer open.
+- [ ] Een dungeon die 1 of 2 levels te hoog is, staat er oranje bij met "(+1)" of "(+2)" achter het level. Groen = past nu.
+- [ ] Haal het vinkje weg: nu staan ALLE zones er, de lage eerst. Alleen de zones met iets voor jou staan open, de rest
+      is dicht.
+- [ ] `/reload` en open het venster weer: je keuze (vinkje aan of uit) is onthouden.
+- [ ] Laag character (onder level 11), vinkje aan: er staat een regel dat er nog geen dungeon past.
+- [ ] `/mh dungeons check`: een regel "window: shows only the ones for your level …" met de "net te hoge" dungeons.
+- [ ] Schuift het venster nog met Shift+scroll groter/kleiner, en past de onderste tekst?
+
 ## 🆕 14 nov (avond, laat) — Forever: Horde/Alliance-tekentje in "Your characters"
 
 - [ ] `/mh alts`: vóór het character waarop je nu speelt staat het Horde- of Alliance-embleem.

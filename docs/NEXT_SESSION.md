@@ -25,6 +25,13 @@ check met `GetModifiedClick("FOCUSCAST")`. Niets gebouwd.
 checker; open: de checker die regel leren overslaan (tools/data_check, niet aangeraakt).
 💡 Ideeënbus zo 15 nov: 2 voorstellen (XP-drempel +12 levels in groepen; "nieuwe spell op geen balk"). Ze staan
 onderaan IDEEEN.md; Rob beslist (maandag-stap), niet verplaatst.
+🗂️ Dungeonlijst per zone GEBOUWD (alleen op main; Rob via Sparring 15-11, letterlijk: *"Ja, we beginnen met deel 1 en
+inderdaad net iets te hoog mag er ook bij."*): kopjes per zone (klik = open/dicht), zones op laagste level, vanzelf open
+waar iets voor je level is; vinkje "alleen voor mijn level" (tot 2 levels hoger telt mee, oranje "+N"), standaard aan,
+per account (`ns.db.foreverDungeonsAll`). Nieuwe keys FDUNG_ONLY_MINE_FMT / FDUNG_ZONE_FMT / FDUNG_NONE_MINE, FDUNG_NOTE
+herschreven (de `*`-zin eruit), in en/nl/ru/de/fr/es/pt; check_drift: geen nieuwe drift. luac 366 bestanden OK, lint 0
+HARD. NIET in het spel gezien (TESTLIJST 15 nov). Keuze die ik maakte: de kolom "Entrance" toont de zone nog steeds
+(nu dubbel met het kopje); kan coördinaten worden als Rob dat wil. Bij de volgende release: changelog-regel.
 ⚠️ Voordeur: mijn eerste `_probe.py` vond geen job en draaide de oude job van een andere sessie (een beroepenlijst,
 alleen lezen). Oorzaak: ik schreef in `Temp\claude\<sid>\scratchpad`; de juiste map is
 `Temp\claude\E--World-of-Warcraft--retail--Interface-AddOns\<sid>\scratchpad`.
