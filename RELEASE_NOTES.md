@@ -8,8 +8,8 @@ here on CurseForge, or the feedback form on midnighthelper.com.
 
 - **Fireworks when you level up**: a short burst of stars in the middle of your screen. It never gets in the way of
   your mouse, and waits until a fight is over. Turn it off in the options if you like.
-- **Camera further away**: one switch in the options lets you zoom out further than the game allows (Midnight 2.6,
-  Forever 4). Turn it off and your old distance comes back. Scroll out with your mouse wheel afterwards.
+- **Camera further away**: one switch in the options lets you zoom out further than the game's default (Midnight
+  2.6, Forever 4). Turn it off and your old distance comes back. Scroll out with your mouse wheel afterwards.
 - **A warning in the macro windows**: when your *Self Cast Key* is set, a mouseover macro with a modifier can land on
   yourself (an old Blizzard bug). Such macros now say so, with what to change.
 - **Game words in your language**: in German, French, Spanish, Mexican Spanish, Portuguese, Italian and Russian,

@@ -28,9 +28,18 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 16 nov 2026 — RELEASE 5.4.0 (Midnight + Forever)
+- Tag + commit:   v5.4.0 / (zie git log "Release 5.4.0: camera sentence"). CurseForge-API: nog na te kijken na de run.
+- Status:         getagd
+- Mag op de site: Rob via Sparring 16-11, letterlijk: "go"; op de spelerstekst: "laat de bouwchat hem maar aanpassen"
+                  (= aanpassen en online zetten). Live zetten op de site: volgens jullie eigen afspraak met Rob.
+- Speler ziet:    alles in `RELEASE_NOTES.md` (= `docs/CURSEFORGE_5.4.0.md`); de regels hieronder met "getagd (v5.4.0)".
+                  Geen beta.
+- Spel:           allebei (twee bestanden: Retail + `-forever`)
+
 ## 16 nov 2026 — Forever: "Best stats for you now"
 - Tag + commit:   geen tag / (deze commit, zie git log "best stats")
-- Status:         alleen op main
+- Status:         getagd (v5.4.0)
 - Mag op de site: nee (nog niet uit)
 - Speler ziet:    "Do this now" zegt welke stats nu het beste zijn voor jouw gekozen richting (en voor Warrior/Paladin/
                   Druid ook als je tankt). De groene tooltipregel volgt dezelfde stats. Niet in het spel gezien.
@@ -40,7 +49,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ## 16 nov 2026 — Vuurwerk bij een level-up
 - Tag + commit:   geen tag / (deze commit, zie git log "fireworks")
-- Status:         alleen op main
+- Status:         getagd (v5.4.0)
 - Mag op de site: nee (nog niet uit)
 - Speler ziet:    Bij elk nieuw level een korte bos sterretjes midden in beeld (zonder geluid: het spel geeft zelf al
                   een "ding"). Uit te zetten. Rob zag het werken.
@@ -50,7 +59,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ## 16 nov 2026 — Forever: nieuwe spell op geen balk + tooltipregels "nooit voor jouw class" en "nodig voor je quest"
 - Tag + commit:   geen tag / (deze commit, zie git log "new spell on no bar")
-- Status:         alleen op main
+- Status:         getagd (v5.4.0)
 - Mag op de site: nee (nog niet uit)
 - Speler ziet:    "Do this now" noemt een nieuw geleerde spell die nog op geen balk staat. Op een item zegt de tooltip of
                   jouw class het nooit kan gebruiken, en of het nodig is voor een quest in je log (met de teller).
@@ -61,7 +70,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ## 16 nov 2026 — Midnight: "Je bent 90. Wat nu?"
 - Tag + commit:   geen tag / (deze commit, zie git log "max-level")
-- Status:         alleen op main
+- Status:         getagd (v5.4.0)
 - Mag op de site: nee (nog niet uit)
 - Speler ziet:    Eén keer, als je character het hoogste level haalt: een klein venster dat wijst naar "My gear: what
                   now?" en Start Here. Niet in het spel gezien.
@@ -71,7 +80,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ## 16 nov 2026 — Forever: buffknop voor steen, olie of poison
 - Tag + commit:   geen tag / (deze commit, zie git log "Forever: weapon stones")
-- Status:         alleen op main
+- Status:         getagd (v5.4.0)
 - Mag op de site: nee (nog niet uit)
 - Speler ziet:    Heb je een sharpening stone, weightstone, olie of (rogue) poison bij je, past die op je wapen en zit er
                   nog niets op, dan toont de buffknop hem; één klik zet hem erop. Main hand en off hand. Niet in het spel gezien.
@@ -81,7 +90,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ## 16 nov 2026 — Forever: opties opgeruimd, upgrade-melding als schakelaar, Self Cast Key-waarschuwing
 - Tag + commit:   geen tag / (deze commit, zie git log "Forever: hide the 63 settings")
-- Status:         alleen op main
+- Status:         getagd (v5.4.0)
 - Mag op de site: nee (nog niet uit)
 - Speler ziet:    In Forever toont de optiepagina alleen nog wat daar iets doet (63 Midnight-schakelaars weg, o.a. de
                   koppen Dungeon help en Vault). Nieuw onder Gear: een schakelaar voor de melding "upgrade in je tassen".
@@ -93,7 +102,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ## 16 nov 2026 — Forever: kaartje "Dungeons in Forever" in de kamer Me
 - Tag + commit:   geen tag / 2005da7
-- Status:         alleen op main
+- Status:         getagd (v5.4.0)
 - Mag op de site: nee (nog niet uit)
 - Speler ziet:    Een kaartje in de kamer Me dat de dungeonlijst opent. Niet in het spel gezien.
 - Knoplabels:     FDUNG_TITLE, TOOLLP_FDUNG_DESC
@@ -102,7 +111,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ## 16 nov 2026 — Schakelaar "Camera verder weg"
 - Tag + commit:   geen tag / (deze commit, zie git log "Camera further away")
-- Status:         alleen op main
+- Status:         getagd (v5.4.0)
 - Mag op de site: nee (nog niet uit)
 - Speler ziet:    Eén vinkje in de opties: de camera mag verder uitzoomen dan het spel normaal toestaat (Midnight 2.6,
                   Forever 4). Uit = je oude afstand terug. Daarna zelf uitscrollen met het muiswiel. Niet in het spel gezien.
@@ -112,7 +121,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ## 16 nov 2026 — Forever: lijst "Screens" zonder Midnight-schermen
 - Tag + commit:   geen tag / (deze commit)
-- Status:         alleen op main
+- Status:         getagd (v5.4.0)
 - Mag op de site: nee (nog niet uit; een reparatie, geen nieuwe functie)
 - Speler ziet:    In Forever toont Options → Midnight Helper → Screens alleen de schermen die Forever heeft (eerst ook
                   Midnight-schermen en twee rauwe sleutels). Niet in het spel gezien.
@@ -122,7 +131,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ## 15 nov 2026 — Forever: waarschuwing "geen XP" bij meer dan 12 levels verschil
 - Tag + commit:   geen tag / (deze commit, zie git log "Forever: warn when nobody gets XP")
-- Status:         alleen op main
+- Status:         getagd (v5.4.0)
 - Mag op de site: nee (nog niet uit)
 - Speler ziet:    Zit iemand in je groep meer dan 12 levels boven een vijand, dan zegt een rode regel onder het
                   groepspaneel dat niemand XP krijgt voor die vijand (Blizzards regel sinds 14 nov 2026). In de
@@ -133,7 +142,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ## 15 nov 2026 — Forever: uitnodiging voor de Forever-vragenlijst
 - Tag + commit:   geen tag / 1f521e5
-- Status:         alleen op main
+- Status:         getagd (v5.4.0)
 - Mag op de site: nee (nog niet uit). De pagina /<taal>/survey/forever/ staat al live (site-chat, f476ce77; GEMETEN 200
                   in en/nl/de/fr/es/pt/ru).
 - Speler ziet:    In Forever, op de tweede dag dat MH draait, één keer een vraag om een korte anonieme vragenlijst in te
@@ -145,7 +154,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ## 15 nov 2026 — Forever: dungeonlijst per zone, vinkje "alleen voor mijn level", coördinaten
 - Tag + commit:   geen tag / b7d9360 + efe3b9d (regel nagetekend door Bouwchat 15-11)
-- Status:         alleen op main
+- Status:         getagd (v5.4.0)
 - Mag op de site: nee (nog niet uit)
 - Speler ziet:    "Dungeons in Forever" (`/mh dungeons`) toont kopjes per zone; een vinkje toont alleen wat bij je level
                   past (tot 2 levels hoger, oranje "+N"); de kolom Entrance toont de plek als getallen. Niet in het spel gezien.
@@ -155,7 +164,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ## 15 nov 2026 — Talen: spelwoorden zoals het spel ze noemt
 - Tag + commit:   geen tag / efe3b9d, 041316d, 3d20a27, 9f2964c, 460c984, dfac3b5
-- Status:         alleen op main
+- Status:         getagd (v5.4.0)
 - Mag op de site: nee (nog niet uit). Let op voor de site-teksten: dezelfde regel geldt (Rob, 15 nov: "de plus en alle
                   andere vaste spelnamen, krijg je in elke taal de naam uit het spel").
 - Speler ziet:    In de/fr/es/pt/it/ru (en esMX) heten Mythic+, Raid, Great Vault, Dungeon, Renown, Heroic/Mythic, Season,
@@ -168,7 +177,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ## 14 nov 2026 — Forever: Horde/Alliance-embleem in "Your characters"
 - Tag + commit:   geen tag / 43d4e76 (regel 15 nov nagetekend; de regie zag hem ontbreken)
-- Status:         alleen op main
+- Status:         getagd (v5.4.0)
 - Mag op de site: nee (nog niet uit; Rob test eerst)
 - Speler ziet:    In "Your characters" (`/mh alts`) staat vóór elk character het Horde- of Alliance-embleem. Een character
                   waar je sinds deze versie nog niet op inlogde krijgt een grijs "?" tot je er één keer op inlogt.
@@ -179,7 +188,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ## 14 nov 2026 — Forever: dungeons voor jouw level + pijl naar de ingang
 - Tag + commit:   geen tag / (deze commit, na c728fc6)
-- Status:         alleen op main
+- Status:         getagd (v5.4.0)
 - Mag op de site: nee (nog niet uit; Rob test eerst)
 - Speler ziet:    In "Do this now" een regel welke dungeons nu bij je level passen, met een knop "Dungeons". Dat venster
                   toont alle Forever-dungeons met level en ingang (groen = past nu) en een knop Route per dungeon: de pijl
