@@ -31,6 +31,11 @@ Knife. Oorzaak NIET gemeten: MH onthield maar één beslissing. Nu onthoudt hij 
 - [ ] `/reload`, maak één stuk uitrusting met een beroep, typ meteen `/mh pickup`. Onder "last 10" staat wat er in je
       tas kwam en wat MH besloot (bv. "not better", "red line …", "shown"). Staat het gemaakte item er NIET bij, dan ziet
       MH het craften helemaal niet → screenshot naar de bouwchat.
+📝 Uitslag Rob (via sparring, shaman, screenshot): "You create: [Handstitched Leather Pants]" → "Upgrade in your bags: … +31
+Armor …" + de pop-up; `/mh pickup`: "last item: [Handstitched Leather Pants]: shown". Craften wordt dus WEL gezien
+(GEMETEN). De eerdere gemiste meldingen waren waarschijnlijk "not better", overschreven door de Skinning Knife
+(AFGELEID). Geen reparatie nodig. De lijst "last 10" verschijnt pas vanaf 2 regels (zo gebouwd, GEMETEN in de code);
+na één item na een /reload zie je dus alleen "last item".
 
 ## 🆕 16 nov (nacht) — Forever: "Best stats for you now" in "Do this now"
 
