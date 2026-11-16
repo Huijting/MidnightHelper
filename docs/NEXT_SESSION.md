@@ -132,8 +132,12 @@ Details) → "uit" zou Blizzards 1.9 zetten. Nu altijd onthouden; status toont b
 "You are 90" ✅ (Rob). "New in this version" test Rob met /mh new. Commit 56ab593.
 🚀 RELEASE 5.4.0 KLAARGEZET (Rob via Sparring 16-11, letterlijk: *"go"*; afspraak: tag pas na zijn ok op de
 spelerstekst). toc's 5.4.0, Changelog.lua + CHANGELOG_540_1..6 (enUS), RELEASE_NOTES.md = docs/CURSEFORGE_5.4.0.md
-(cmp: gelijk), CHANGELOG.md. Lint 0 HARD ([27] schoon), luac OK. ⏳ NOG NIET GETAGD. Na Robs ok: `git tag -a v5.4.0`,
-push tag, dan SITE_SEIN-regels van deze release → "getagd" / "staat op CurseForge" (CF files-API), twee zips nakijken. ⚠️ Voordeur: helpers zagen twee keer een vreemde beroepen-job in
+(cmp: gelijk), CHANGELOG.md. Lint 0 HARD ([27] schoon), luac OK.
+✅ 5.4.0 UITGEBRACHT. Rob op de tekst: *"laat de bouwchat hem maar aanpassen"* → camera-zin "further than the game's
+default" (b23e0ec), tag v5.4.0 gepusht. Run 43943568777 geslaagd; log: CF/Wago/GitHub "Success!" voor beide zips.
+CF-API: Forever 9653822 (status 4). Retail-zip om ±20:25 UTC nog niet in de openbare files-API, Rob zag hem live
+(*"beide staan live"*) → id morgen nameten en in SITE_SEIN zetten. SITE_SEIN: 15 regels "getagd (v5.4.0)" + release-regel
+"staat op CurseForge"; sparring seint de site-chat. Niet blokkerend open: rank-test op lvl 6, `/mh camera` "now 2.6". ⚠️ Voordeur: helpers zagen twee keer een vreemde beroepen-job in
 `probe_job.txt` (zie hoger); herkomst nog niet nagezocht. Test 1 en 3 doet Rob later. Afspraak (sparring, tot Rob
 anders zegt): 1-3 SAMEN bouwen na die tests. Ook later van Rob: `/mh pickup` gaf geen melding bij GESMEDE items
 (nog niet uitgezocht; AFGELEID: misschien omdat craften als "bag update terwijl een venster open is" telt) en zijn keuze

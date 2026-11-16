@@ -29,8 +29,11 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 ---
 
 ## 16 nov 2026 — RELEASE 5.4.0 (Midnight + Forever)
-- Tag + commit:   v5.4.0 / (zie git log "Release 5.4.0: camera sentence"). CurseForge-API: nog na te kijken na de run.
-- Status:         getagd
+- Tag + commit:   v5.4.0 / b23e0ec. Release-run GitHub 43943568777: geslaagd; in het log "Success!" voor CurseForge,
+                  Wago en GitHub, beide zips (Retail 19:52:01, Forever 19:53:13 UTC). CurseForge-API (GEMETEN):
+                  9653822 `MidnightHelper-v5.4.0-forever.zip` (1.60.1), releaseType 1, status 4. De Retail-zip stond om
+                  ±20:25 UTC nog niet in de openbare files-API; Rob zag hem wel live ("beide staan live"). Id nog na te meten.
+- Status:         staat op CurseForge (Rob: "beide staan live")
 - Mag op de site: Rob via Sparring 16-11, letterlijk: "go"; op de spelerstekst: "laat de bouwchat hem maar aanpassen"
                   (= aanpassen en online zetten). Live zetten op de site: volgens jullie eigen afspraak met Rob.
 - Speler ziet:    alles in `RELEASE_NOTES.md` (= `docs/CURSEFORGE_5.4.0.md`); de regels hieronder met "getagd (v5.4.0)".
