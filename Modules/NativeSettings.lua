@@ -237,7 +237,9 @@ function ns.RegisterNativeSettings()
 					end)
 				end
 			end
-			if room == "codex" then
+			-- Forever (16 Nov 2026, Rob via sparring: "ja doe maar"): no Codex there, so no Basics switch either; it showed
+			-- as the raw key "TAB_CODEX: Basics".
+			if room == "codex" and not (ns.IS_FOREVER and not ns.ForeverScreenLoaded("codex")) then
 				ScreenToggle("mh_betaReference", L("TAB_CODEX") .. ": " .. L("SETTINGS_BETA_TAB_REFERENCE"),
 					"SETTINGS_BETA_TAB_REFERENCE_TT", function()
 						local bt = ns.GetBetaTabsSettings and ns.GetBetaTabsSettings() or {}

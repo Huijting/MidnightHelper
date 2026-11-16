@@ -96,6 +96,12 @@ local ME_FOREVER_CARDS = {
 	{ id = "me_fweapons", labelKey = "FWEAP_TITLE", tagline = "TOOLLP_FWEAP_DESC",
 		icon = "Interface\\Icons\\INV_Mace_01", need = "ShowForeverWeapons",
 		action = function() ns.ShowForeverWeapons() end },
+	-- 16 Nov 2026 (Rob, via sparring: "die overigens nog een tegel missen in MH :)" → "ja doe maar"): the dungeon list
+	-- (ForeverDungeons.lua) had only /mh dungeons and the button in "Do this now".
+	{ id = "me_fdungeons", labelKey = "FDUNG_TITLE", tagline = "TOOLLP_FDUNG_DESC",
+		-- Icon GEMETEN in Forever's ManifestInterfaceData (build 1.60.1.70938, FileDataID 255343).
+		icon = "Interface\\Icons\\Achievement_Dungeon_ClassicDungeonMaster", need = "ShowForeverDungeons",
+		action = function() ns.ShowForeverDungeons() end },
 	-- 12 Nov 2026 (Rob, via sparring: "Ja, een tegel (Recommended)"): "Your characters" (ForeverChars.lua).
 	{ id = "me_fchars", labelKey = "FCHARS_TITLE", tagline = "TOOLLP_FCHARS_DESC",
 		icon = "Interface\\Icons\\INV_Misc_GroupNeedMore", need = "ShowForeverChars",

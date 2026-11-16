@@ -4624,6 +4624,7 @@ ns._mhLocales.nlNL = {
 	FDONOW_PROF_TWO = "Je kunt nog 2 hoofdberoepen leren.",
 	FDONOW_TITLE = "Doe dit nu",
 	FDUNG_TITLE = "Dungeons in Forever",
+	TOOLLP_FDUNG_DESC = "Welke dungeons bij je level passen, waar de ingang is, en de pijl erheen.",
 	FDUNG_BTN = "Dungeons",
 	FDUNG_COL_NAME = "Dungeon",
 	FDUNG_COL_LEVEL = "Level",

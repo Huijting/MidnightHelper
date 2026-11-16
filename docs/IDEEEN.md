@@ -203,6 +203,16 @@ Stand 15 nov avond: 1 gebouwd (1f521e5), 2 gemeten, 3 rapport + A/B gebouwd (zie
 - Oorzaak:       GEMETEN (sparring + bouwchat): `ns.GetHideableScreens` (UI.lua) keek niet naar Forever; de zijbalk wel.
 - Stand:         ✅ gebouwd 16 nov, alleen op main, NIET in het spel gezien (TESTLIJST 16 nov).
 
+### Forever: opruimen na Robs test van 16 nov (4 opdrachten)
+- Bron:          Rob 16 nov (via Sparring 16-11, letterlijk: *"ja doe maar"*).
+- a) "TAB_CODEX: Basics" weg uit Screens in Forever (geen Codex daar). ✅ gebouwd 16 nov.
+- b) Elke instelling op de hoofdpagina nalopen: werkt hij in Forever? Lijst (22 werkt / 63 niet / 11 weet niet) naar
+     Rob via sparring; ⏳ wacht op zijn keuze, er is nog niets weggehaald.
+- c) `[mod:alt]`-macro's tegen Self Cast Key = ALT: AFGELEID geen last (5 zonder @mouseover; 2 willen met Alt toch al op
+     jezelf); NIET in het spel gemeten, test in TESTLIJST 16 nov middag.
+- d) Kaartje "Dungeons in Forever" in de kamer Me. ✅ gebouwd 16 nov.
+- Stand:         a en d alleen op main, NIET in het spel gezien.
+
 ### Schakelaar "Camera verder weg" (retail en Forever)
 - Voor wie:      iedereen die verder wil uitzoomen
 - Moment:        Opties → Midnight Helper (algemeen deel) en `/mh camera` [on|off]

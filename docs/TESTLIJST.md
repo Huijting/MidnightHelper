@@ -21,6 +21,16 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 16 nov (middag) — Forever: kaartje "Dungeons" + Screens zonder "TAB_CODEX: Basics"
+
+Op een Forever-character:
+- [ ] MH-venster → kamer "Me": er staat een kaartje "Dungeons in Forever" (icoon met een dungeon-poort). Klik: de
+      dungeonlijst gaat open. Muis erop: "Which dungeons fit your level …".
+- [ ] Options → AddOns → Midnight Helper → Screens: de regel "TAB_CODEX: Basics" is weg. Ook in MH's eigen Settings → Screens.
+- [ ] Midnight (retail): onder Codex staat "Codex: Basics" nog gewoon.
+- [ ] Alleen met een Paladin of Priest die Blessing of Protection / Power Infusion heeft: macro uit het MH-macrovenster,
+      muis op een groepslid ZONDER toets → gaat hij naar dat groepslid? Met Alt erbij → naar jezelf? (Self Cast Key = ALT.)
+
 ## 🆕 16 nov — Forever: lijst "Screens" opgeschoond
 
 Op een Forever-character:

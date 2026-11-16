@@ -24209,6 +24209,7 @@ if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	FDONOW_TITLE = "Mach das jetzt",
 	FDUNG_TITLE = "Dungeons in Forever",
+	TOOLLP_FDUNG_DESC = "Welche Dungeons zu deiner Stufe passen, wo der Eingang ist, und der Pfeil dorthin.",
 	FDUNG_BTN = "Dungeons",
 	FDUNG_COL_NAME = "Dungeon",
 	FDUNG_COL_LEVEL = "Stufe",
@@ -24243,6 +24244,7 @@ if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	FDONOW_TITLE = "Fais ça maintenant",
 	FDUNG_TITLE = "Donjons dans Forever",
+	TOOLLP_FDUNG_DESC = "Quels donjons conviennent à ton niveau, où se trouve l'entrée, et la flèche pour y aller.",
 	FDUNG_BTN = "Donjons",
 	FDUNG_COL_NAME = "Donjon",
 	FDUNG_COL_LEVEL = "Niveau",
@@ -24277,6 +24279,7 @@ if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	FDONOW_TITLE = "Haz esto ahora",
 	FDUNG_TITLE = "Mazmorras en Forever",
+	TOOLLP_FDUNG_DESC = "Qué mazmorras van con tu nivel, dónde está la entrada y la flecha para llegar.",
 	FDUNG_BTN = "Mazmorras",
 	FDUNG_COL_NAME = "Mazmorra",
 	FDUNG_COL_LEVEL = "Nivel",
@@ -24311,6 +24314,7 @@ if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	FDONOW_TITLE = "Faça isto agora",
 	FDUNG_TITLE = "Masmorras no Forever",
+	TOOLLP_FDUNG_DESC = "Quais masmorras combinam com o seu nível, onde fica a entrada e a seta para chegar lá.",
 	FDUNG_BTN = "Masmorras",
 	FDUNG_COL_NAME = "Masmorra",
 	FDUNG_COL_LEVEL = "Nível",

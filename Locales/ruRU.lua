@@ -6277,6 +6277,7 @@ ns._mhLocales.ruRU = {
 	-- 12 Nov 2026: Do this now window (ForeverDoNow.lua); our own translation (mh-writer), not native-checked.
 	FDONOW_TITLE = "Сделайте сейчас",
 	FDUNG_TITLE = "Подземелья в Forever",
+	TOOLLP_FDUNG_DESC = "Какие подземелья подходят вашему уровню, где вход и стрелка к нему.",
 	FDUNG_BTN = "Подземелья",
 	FDUNG_COL_NAME = "Подземелье",
 	FDUNG_COL_LEVEL = "Уровень",

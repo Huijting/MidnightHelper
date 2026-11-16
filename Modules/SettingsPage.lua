@@ -135,7 +135,10 @@ local function ScreenEntries()
 	for _, s in ipairs(ns.GetHideableScreens and ns.GetHideableScreens() or {}) do
 		list[#list + 1] = { id = s.id, room = s.room, labelKey = s.labelKey }
 	end
-	list[#list + 1] = { id = "reference", room = "codex", basics = true }
+	-- Forever has no Codex (16 Nov 2026): no Basics switch there either (it showed as "TAB_CODEX: Basics").
+	if not (ns.IS_FOREVER and ns.ForeverScreenLoaded and not ns.ForeverScreenLoaded("codex")) then
+		list[#list + 1] = { id = "reference", room = "codex", basics = true }
+	end
 	return list
 end
 

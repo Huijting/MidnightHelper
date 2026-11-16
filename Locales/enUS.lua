@@ -5438,6 +5438,8 @@ ns._mhLocales.enUS = {
 	-- 12 Nov 2026: "Do this now / All caught up / Coming up" (ForeverDoNow.lua).
 	FDONOW_TITLE = "Do this now",
 	FDUNG_TITLE = "Dungeons in Forever",
+	-- Card in the Me room (RoomLauncher.lua, 16 Nov 2026; Rob: "die overigens nog een tegel missen in MH").
+	TOOLLP_FDUNG_DESC = "Which dungeons fit your level, where the entrance is, and the arrow to get there.",
 	FDUNG_BTN = "Dungeons",
 	FDUNG_COL_NAME = "Dungeon",
 	FDUNG_COL_LEVEL = "Level",

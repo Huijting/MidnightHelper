@@ -35,7 +35,18 @@ zijbalkregel (SidebarTabAvailable); Toolbox-subschermen alleen als hun bouwer ge
 SettingsDefs (niet in Aanbevolen), `/mh camera [on|off]` (status + leeswaarde na zetten). Aan = retail 2.6 / Forever 4,
 uit = oude waarde (`ns.db.cameraFarOld`, anders de CVar-default). Nooit in combat (wacht op PLAYER_REGEN_ENABLED); bij
 login opnieuw gezet als iets anders hem veranderde. Teksten en/nl zelf, de/fr/es/pt/it/ru door mh-writer. Of Forever 4
-echt houdt: NIET gemeten (Robs /run-test in TESTLIJST 16 nov). Beide NIET in het spel gezien.
+echt houdt: NIET gemeten (Robs /run-test in TESTLIJST 16 nov). Beide NIET in het spel gezien. Commit ca38d1a.
+🧪 Robs Forever-test 16 nov (via sparring, GEMETEN op zijn scherm): Focus Cast Key = None, Self Cast = "Auto and Key
+Press", Self Cast Key = ALT → Shift botst bij Rob nergens mee (API-wachter [MOET GEFIKST]: voor zijn pc dicht; Midnight
+niet gezien; andere spelers kunnen anders staan). Screens: Midnight-schermen weg (goed); over waren "TAB_CODEX: Basics"
+en "Pop-out windows" (dat laatste hoort erbij: ToolsLaunchpad laadt in Forever). Dungeonlijst werkt zoals TESTLIJST
+15 nov zegt; Rob vinkt zelf af.
+🧩 Daarop (Rob via sparring: *"ja doe maar"*): a) Basics-schakelaar niet in Forever (NativeSettings.lua +
+SettingsPage.lua). d) Kaartje "Dungeons in Forever" in de kamer Me (RoomLauncher ME_FOREVER_CARDS; icoon
+Achievement_Dungeon_ClassicDungeonMaster, GEMETEN in Forever-ManifestInterfaceData 70938; tekst TOOLLP_FDUNG_DESC).
+c) [mod:alt] tegen Self Cast Key = ALT: AFGELEID geen last, NIET gemeten (test in TESTLIJST). b) Instellingenlijst voor
+Forever (mh-research): 22 werkt / 63 doen niets / 11 weet niet; naar sparring met advies "verberg de 63", ⏳ wacht op
+Robs keuze. Ook gezien: PickupUpgrade.lua heeft geen schakelaar op de instellingenpagina.
 
 Stand bij het afsluiten (15 nov): alles op main en gepusht, niets uitgebracht (5.3.0 staat op CurseForge). Alle
 toestemmingen liepen zonder weigering.
