@@ -135,8 +135,8 @@ spelerstekst). toc's 5.4.0, Changelog.lua + CHANGELOG_540_1..6 (enUS), RELEASE_N
 (cmp: gelijk), CHANGELOG.md. Lint 0 HARD ([27] schoon), luac OK.
 ✅ 5.4.0 UITGEBRACHT. Rob op de tekst: *"laat de bouwchat hem maar aanpassen"* → camera-zin "further than the game's
 default" (b23e0ec), tag v5.4.0 gepusht. Run 43943568777 geslaagd; log: CF/Wago/GitHub "Success!" voor beide zips.
-CF-API: Forever 9653822 (status 4). Retail-zip om ±20:25 UTC nog niet in de openbare files-API, Rob zag hem live
-(*"beide staan live"*) → id morgen nameten en in SITE_SEIN zetten. SITE_SEIN: 15 regels "getagd (v5.4.0)" + release-regel
+CF-API (GEMETEN): Retail 9653805 en Forever 9653822, beide status 4 (Retail verscheen pas later in de openbare lijst;
+Rob: *"beide staan live"*). SITE_SEIN: 15 regels "getagd (v5.4.0)" + release-regel
 "staat op CurseForge"; sparring seint de site-chat. Niet blokkerend open: rank-test op lvl 6. ✅ `/mh camera` na aan/uit:
 "now 2.6 … back to 2.6" (Rob, screenshot, 5.4.0) → reparatie werkt. ⚠️ Voordeur: helpers zagen twee keer een vreemde beroepen-job in
 `probe_job.txt` (zie hoger); herkomst nog niet nagezocht. Test 1 en 3 doet Rob later. Afspraak (sparring, tot Rob
