@@ -68,6 +68,10 @@ item+slot) voor verversen/vergelijken, tooltip SetItemByID, MBUFF_SAY_CLICK_ITEM
 WEAPON_ENCHANT_CHANGED (pcall). `/mh buffs` print per hand type, enchant en beslissing. NIET gemeten: of target-slot in
 het spel werkt, welke enchant-API Forever heeft (Robs /run in TESTLIJST 16 nov laat), of steen + poison samen op één
 wapen kunnen. Keuzes: Shaman-spell eerst; beste rang eerst; rogue: poisons vóór stenen.
+✅ Robs test (via sparring, GEMETEN op zijn screenshots): in Forever bestaan GetWeaponEnchantInfo (CVar
+loadDeprecationFallbacks = 1) én C_Item.GetWeaponEnchantInfo; mace → geen steen; zwaard → Rough Sharpening Stone met de
+juiste zin, en *"de knop werkt"* = target-slot werkt in het spel. Rest (knop weg na klik, /mh buffs, rogue, shaman,
+weightstone) nog niet gezien.
 ⚠️ Voordeur: een helper zag `probe_job.txt` overschreven met de beroepen-job van een andere sessie en draaide die (alleen
 lezen). Herkomst NIET nagezocht; mogelijk weer [[probe-job-crosses-sessions]]. Morgen naar kijken.
 

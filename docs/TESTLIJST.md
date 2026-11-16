@@ -23,6 +23,12 @@ er is niets weggegooid.
 
 ## 🆕 16 nov (laat) — Forever: buffknop voor steen, olie of poison op je wapen
 
+📝 Waarneming Rob, 16 nov (via sparring, op zijn screenshots, ~level 12; Rob vinkt zelf af): de /run-regel gaf
+"function … 1 function …" = de oude GetWeaponEnchantInfo bestaat, loadDeprecationFallbacks = 1, en
+C_Item.GetWeaponEnchantInfo bestaat ook. Mace in de hand: geen steen aangeboden. Zwaard: de knop toont de Rough
+Sharpening Stone met de juiste zin, en Rob: *"en de knop werkt"* (de klik zet de steen erop). Nog niet gezien: knop weg
+na het klikken, `/mh buffs`, de 30 minuten, weightstone op de mace, rogue en shaman.
+
 Op een Forever-character met een Rough Sharpening Stone in de tas en een zwaard, bijl of dolk in je hand:
 - [ ] Eerst één regel, dan weten we welke manier van uitlezen werkt:
       `/run print(GetWeaponEnchantInfo, C_CVar.GetCVar("loadDeprecationFallbacks"), C_Item.GetWeaponEnchantInfo)`
