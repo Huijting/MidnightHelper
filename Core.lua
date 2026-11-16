@@ -1458,6 +1458,14 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh classquest [go] — Forever class quests step by step (ForeverClassQuests.lua, 16 Nov 2026).
+	if msg == "classquest" or msg == "classquest go" then
+		if ns.ForeverClassQuestSlash then
+			ns.ForeverClassQuestSlash(msg:match("^classquest%s+(%a+)$"))
+		end
+		return
+	end
+
 	-- /mh fireworks [test|on|off] — level-up fireworks (LevelUpFireworks.lua, 16 Nov 2026).
 	if msg == "fireworks" or msg == "fireworks test" or msg == "fireworks on" or msg == "fireworks off" then
 		if ns.HandleFireworksCommand then

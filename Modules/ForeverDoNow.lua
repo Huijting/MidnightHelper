@@ -265,6 +265,14 @@ local function Collect()
 		out.now[#out.now + 1] = (ns.ForeverRankSentence and ns.ForeverRankSentence()) or ns:L("FRANK_HOME_FMT"):format(nRank)
 		out.actions.ranks = true
 	end
+	-- Class quest that unlocks something (16 Nov 2026, ForeverClassQuests.lua): a to-do, with the arrow button.
+	if ns.ForeverClassQuestNow then
+		local okC, cq = pcall(ns.ForeverClassQuestNow)
+		if okC and cq then
+			out.now[#out.now + 1] = cq
+			out.actions.classquest = true
+		end
+	end
 	if not KeyBlockOn() then
 		local noBar = NoBarSpells()
 		if #noBar > 0 then
@@ -553,6 +561,11 @@ local function Build()
 			ns.ShowForeverProfTrainers()
 		end
 	end)
+	f.btnClassQuest = Btn(f, 10, function()
+		if ns.ForeverClassQuestGo then
+			ns.ForeverClassQuestGo()
+		end
+	end)
 	f.btnDungeons = Btn(f, 10, function()
 		if ns.ShowForeverDungeons then
 			ns.ShowForeverDungeons()
@@ -589,10 +602,12 @@ local function Render(info)
 	f.btnWeapons:SetText(ns:L("FWEAP_TITLE"))
 	f.btnProfs:SetText(ns:L("FPROF_TITLE"))
 	f.btnDungeons:SetText(ns:L("FDUNG_BTN"))
+	f.btnClassQuest:SetText(ns:L("FCQ_BTN"))
 	-- Buttons only for what is on the list; they close up from the left. Each as wide as its own text (Rob's 21.png,
 	-- 12 Nov 2026: "Weapon trainers" stuck out of a fixed 90 px button), and a new row when the next one does not fit.
 	local shown = {}
-	for _, pair in ipairs({ { f.btnTrainer, info.actions.trainer }, { f.btnRanks, info.actions.ranks },
+	for _, pair in ipairs({ { f.btnClassQuest, info.actions.classquest },
+		{ f.btnTrainer, info.actions.trainer }, { f.btnRanks, info.actions.ranks },
 		{ f.btnWeapons, info.actions.weapons }, { f.btnProfs, info.actions.profs },
 		{ f.btnDungeons, info.actions.dungeons } }) do
 		local b, on = pair[1], pair[2]
@@ -697,7 +712,7 @@ end
 local ev = CreateFrame("Frame")
 for _, e in ipairs({ "PLAYER_ENTERING_WORLD", "PLAYER_LEVEL_UP", "SPELLS_CHANGED", "PLAYER_REGEN_ENABLED",
 	"PLAYER_REGEN_DISABLED", "BAG_UPDATE_DELAYED", "ACTIONBAR_SLOT_CHANGED", "SKILL_LINES_CHANGED", "PLAYER_MONEY",
-	"UNIT_PET" }) do
+	"UNIT_PET", "QUEST_LOG_UPDATE" }) do -- QUEST_LOG_UPDATE: class-quest steps (16 Nov 2026; exists in Forever, snapshot)
 	pcall(ev.RegisterEvent, ev, e)
 end
 pcall(ev.RegisterUnitEvent, ev, "UNIT_AURA", "player")

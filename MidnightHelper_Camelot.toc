@@ -189,6 +189,8 @@ Modules\ForeverSurvey.lua
 Modules\CameraZoom.lua
 # Tooltip lines "never for your class" + "needed for a quest in your log" (Rob, 16 Nov 2026, via sparring: "allemaal").
 Modules\ForeverItemTips.lua
+# Class quests step by step, first the Druid's Bear Form (Rob, 16 Nov 2026, via sparring).
+Modules\ForeverClassQuests.lua
 # Level-up fireworks, both games (Rob, 16 Nov 2026, via sparring: "ja dat wil ik, dat vuurwerk, evt met geluid").
 Modules\LevelUpFireworks.lua
 Modules\KeysHub.lua

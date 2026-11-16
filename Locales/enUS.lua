@@ -5465,6 +5465,15 @@ ns._mhLocales.enUS = {
 	-- 12 Nov 2026: "Do this now / All caught up / Coming up" (ForeverDoNow.lua).
 	FDONOW_TITLE = "Do this now",
 	FDUNG_TITLE = "Dungeons in Forever",
+	-- "Do this now": class quest that unlocks something (ForeverClassQuests.lua, 16 Nov 2026).
+	-- FCQ_LINE_FMT: %s = spell name (client), %d = level, %s = what to do. NPC names stay English.
+	FCQ_LINE_FMT = "%s (from level %d), class quest: %s",
+	FCQ_GET_FMT = "get the quest from %s, %s.",
+	FCQ_TURN_FMT = "go to %s, %s.",
+	FCQ_OBJ_BEARSPIRIT = "talk to the Great Bear Spirit and pick each line in turn",
+	FCQ_OBJ_LUNACLAW = "in the cave, use the dust from your bags, defeat Lunaclaw, then talk to her spirit",
+	FCQ_BTN = "Show the way",
+	FCQ_NOTHING = "no class quest to do for you right now.",
 	-- "Do this now": best stats for you now (ForeverDoNow.lua, 16 Nov 2026). %s = the order; stat names come from the
 	-- client (SPELL_STAT1_NAME …).
 	FDONOW_STATS_FMT = "Best stats for you now: %s.",

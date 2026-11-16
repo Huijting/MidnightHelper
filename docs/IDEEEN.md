@@ -203,6 +203,16 @@ Stand 15 nov avond: 1 gebouwd (1f521e5), 2 gemeten, 3 rapport + A/B gebouwd (zie
 - Oorzaak:       GEMETEN (sparring + bouwchat): `ns.GetHideableScreens` (UI.lua) keek niet naar Forever; de zijbalk wel.
 - Stand:         ✅ gebouwd 16 nov, alleen op main, NIET in het spel gezien (TESTLIJST 16 nov).
 
+### Forever: class-quests en spec-dingen per class laten zien (begin: Druid)
+- Bron: Rob 16 nov (via sparring), letterlijk: *"Carola is net, of die kan al beervorm krijgen, maar we weten niet hoe.
+  Ik weet dat er een questlijn is en ik bedoelde meer dat soort dingen. Dat we ook dat kunnen aantonen. En later krijg je
+  ook een katvorm. En zo zullen er voor meer specs dingen zijn die speciaal spec gebonden zijn. En dat bedoelde ik als
+  eerste. En ja, inderdaad zoveel mogelijk. Tanken, healen en dat soort dingen allemaal. En ook inderdaad voor wat er na
+  level 10, 20, 30 enzovoort komt. Maar begin inderdaad met de Druid, dan kan ze daar zo meteen alvast mee beginnen."*
+- Stap 1 Druid class-quests (Bear Form lvl 10, Aquatic 16, Cat 20?, …) in "Do this now" + pijl + /mh play; stap 2 per rol
+  en per 10 levels; stap 3 de andere 8 classes.
+- Stand: Bear Form-keten (A + H) uit Zygor Forever naar sparring (voor Carola), 16 nov. ⏳ bouwen.
+
 ### Forever: "Do this now" noemt de beste stats voor jou (solo + tank, dps/heal in gedachten)
 - Bron: Rob 16 nov (eerder die dag, letterlijk): *"wat ik ook graag wil weten in het schermpje Doe This Now … wat zijn
   de beste stats voor de spec die ik heb? … moet ik nu strength nemen of moet ik nou de stamina nemen"*; op A/B

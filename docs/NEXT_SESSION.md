@@ -140,7 +140,15 @@ Rob: *"beide staan live"*). SITE_SEIN: alle 15 regels → "staat op CurseForge (
 (commit 2640445f, 8 talen, check_addon_words 0 fouten). Ter info van de site-chat: CODEX_TT6/LOREWALK hebben nog geen
 dag in hun PATCH_DAYS (12.1.7-datum onbekend) → blijven daar verborgen. SITE_SEIN: 15 regels "getagd (v5.4.0)" + release-regel
 "staat op CurseForge"; sparring seint de site-chat. Niet blokkerend open: rank-test op lvl 6. ✅ `/mh camera` na aan/uit:
-"now 2.6 … back to 2.6" (Rob, screenshot, 5.4.0) → reparatie werkt. ⚠️ Voordeur: helpers zagen twee keer een vreemde beroepen-job in
+"now 2.6 … back to 2.6" (Rob, screenshot, 5.4.0) → reparatie werkt.
+🐻 Class-quests per class (Rob via sparring: *"… Maar begin inderdaad met de Druid …"*, zie IDEEEN). STAP 1 deels GEBOUWD:
+`Modules/ForeverClassQuests.lua` (beide toc's, stopt in retail) met de Bear Form-keten A (5923→5921→5929→5931→6001) en
+H (5928→5922→5930→5932→6002) uit de Forever-Zygor (GEMETEN in het gidsbestand; coördinaten Zygor; UiMap-id's GEMETEN in
+wago 70938). Regel + knop "Show the way" in "Do this now" (QUEST_LOG_UPDATE erbij), `/mh classquest [go]`. NPC-namen
+Engels. NIET in het spel gezien. Bear Form-tekst ging eerst als platte tekst via sparring naar Carola (met correctie:
+Denatharion staat in Darnassus 34.8, 7.4, niet in Dolanaar). Open stap 1: Cure Poison (14, quests 6121-6125), Aquatic Form
+(16, vanaf quest 26 "A Lesson to Learn"), Cat Form/verder (meten), "How you play"-weergave, vertalingen FCQ_*. Stap 2 en 3:
+nog niets. ⚠️ Voordeur: helpers zagen twee keer een vreemde beroepen-job in
 `probe_job.txt` (zie hoger); herkomst nog niet nagezocht. Test 1 en 3 doet Rob later. Afspraak (sparring, tot Rob
 anders zegt): 1-3 SAMEN bouwen na die tests. Ook later van Rob: `/mh pickup` gaf geen melding bij GESMEDE items
 (nog niet uitgezocht; AFGELEID: misschien omdat craften als "bag update terwijl een venster open is" telt) en zijn keuze

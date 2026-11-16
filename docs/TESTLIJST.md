@@ -24,6 +24,16 @@ er is niets weggegooid.
 📝 **Waarneming Rob, 16 nov (nacht), Forever mage, via sparring:** *"mouse over werk"* — `/mh mouseover on`, Shift+X
 (Arcane Intellect) op een voorbijganger onder de muis werkt.
 
+## 🆕 16 nov (avond) — Forever: Druid, Bear Form-quest stap voor stap (eerst Carola)
+
+Druid van level 10+ die Bear Form nog niet heeft, `/reload`:
+- [ ] "Do this now" heeft een regel "Bear Form (from level 10), class quest: get the quest from … / go to … / talk to the
+      Great Bear Spirit …", met een knop "Show the way". Klik: de pijl wijst de plek aan.
+- [ ] Na elke stap (quest aannemen, gesprek met de geest, Lunaclaw, inleveren) schuift de regel door naar de volgende plek.
+- [ ] Na het inleveren van Body and Heart (Bear Form geleerd): de regel is weg.
+- [ ] `/mh classquest` zegt per quest "done / in log / objective done" en welke stap MH kiest. Klopt dat met je questlog?
+      (Quest-nummers komen uit Zygor en zijn pas zeker als het spel ze afvinkt.)
+
 ## 🐞 16 nov (nacht) — Midnight-test camera + "You are 90" (Rob via sparring, screenshots)
 
 📝 `/mh camera` gaf "… back to 1.900000 when off" terwijl Robs account al op 2.6 stond (Details). Fout GEMETEN in de

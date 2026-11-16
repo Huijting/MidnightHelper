@@ -271,6 +271,7 @@ Modules\ForeverSurvey.lua
 Modules\CameraZoom.lua
 Modules\MaxLevelWelcome.lua
 Modules\ForeverItemTips.lua
+Modules\ForeverClassQuests.lua
 Modules\LevelUpFireworks.lua
 Modules\NewChoices.lua
 Modules\ForeverChars.lua
