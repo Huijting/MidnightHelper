@@ -7,8 +7,13 @@
    (ns.ForeverClassQuestOverview). ✅ Ook **Cat Form (20)** GEBOUWD: een NIEUWE Forever-keten die Zygor niet heeft
    (A 98393→98394→98396→98731→98397, H 98340→98405→98342→98739→98362; serie GEMETEN op Wowhead; gevers/inleveraars uit
    de addon Spoken = derde partij; plekken uit Wowhead-tooltips; volgorde relikwieën in de Barrow Dens = gids, AFGELEID).
-   Skyborne-druids NIET (98341/98404/98738: twee schakels ongemeten). Open: vertalingen FCQ_* (mh-writer; item- en
-   NPC-namen = clientnaam).
+   Skyborne-druids NIET (98341/98404/98738: twee schakels ongemeten). ✅ Vertalingen FCQ_* de/fr/es/pt/ru (mh-writer,
+   item-/plaatsnamen GEMETEN in wago 70938; itIT bewust niet: Forever-itIT-client is Engels, zelfde als FDONOW_).
+   NIET GEMETEN, Engels gebleven: "Great Cat Spirit Statue". ⚠️ Open: de NPC-namen in de regels (Dendrite Starblaze,
+   Mathrengyl …) staan in ForeverClassQuests.lua in het Engels en blijven dat in elke taal → botst met de clientnaam-regel
+   (20 okt); nodig: namen per taal meten of runtime opzoeken. 📌 Rob, 16 nov: *"spoken mag je als betrouwbaar aanzien"*
+   (addon Spoken_Quests, Compendium.lua) → Skyborne-keten opnieuw bekijken: Spoken geeft 98404 geen prev en 98397/98362
+   alleen prev 98731/98739; de Skyborne-schakels volgen daar alleen uit de racemaskers (AFGELEID).
 2. **Stap 2:** per rol (beer = tank, kat = schade, Balance = caster, Restoration = healer) een eenvoudige volgorde, en per
    10 levels wat er verandert; richting van de speler bovenaan.
 3. **Stap 3:** de andere 8 classes op dezelfde manier (class-quests eerst).
