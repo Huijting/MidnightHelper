@@ -4,9 +4,11 @@
 
 1. **Druid stap 1 afmaken** (`Modules/ForeverClassQuests.lua`). ✅ 16 nov, Bouwchat 16-11 (2): Cure Poison (14), Aquatic
    Form (16) en Torwa Pathfinder (50) GEBOUWD, plus blok "Your class quests" bovenaan How you play
-   (ns.ForeverClassQuestOverview). Open: **Cat Form (20)** = een NIEUWE Forever-keten (A 98393→98394→98396→98731→98397,
-   H 98340→98405/98341→98342→98739→98362; GEMETEN op Wowhead door mh-research) die Zygor NIET heeft → NPC's/plekken worden
-   gemeten; daarna inbouwen. Daarna vertalingen FCQ_* (mh-writer; item- en NPC-namen = clientnaam).
+   (ns.ForeverClassQuestOverview). ✅ Ook **Cat Form (20)** GEBOUWD: een NIEUWE Forever-keten die Zygor niet heeft
+   (A 98393→98394→98396→98731→98397, H 98340→98405→98342→98739→98362; serie GEMETEN op Wowhead; gevers/inleveraars uit
+   de addon Spoken = derde partij; plekken uit Wowhead-tooltips; volgorde relikwieën in de Barrow Dens = gids, AFGELEID).
+   Skyborne-druids NIET (98341/98404/98738: twee schakels ongemeten). Open: vertalingen FCQ_* (mh-writer; item- en
+   NPC-namen = clientnaam).
 2. **Stap 2:** per rol (beer = tank, kat = schade, Balance = caster, Restoration = healer) een eenvoudige volgorde, en per
    10 levels wat er verandert; richting van de speler bovenaan.
 3. **Stap 3:** de andere 8 classes op dezelfde manier (class-quests eerst).

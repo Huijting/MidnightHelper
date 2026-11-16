@@ -5491,7 +5491,10 @@ ns._mhLocales.enUS = {
 	FCQ_OBJ_BLOODCAP = "pick 8 Bloodcap: a ball of vines, all over the crater",
 	FCQ_OBJ_DEVILSAUR = "use the Devilsaur Barb from your bags on a Devilsaur, then run",
 	FCQ_OBJ_SUNKEN = "in the dungeon Sunken Temple (you need a group), defeat Atal'alarion for the Putrid Vine",
-	FCQ_CHAIN_TORWA = "Torwa Pathfinder's quests (a chest piece or staff)",
+	FCQ_OBJ_RELIC_CLAW = "go into the Stormrage Barrow Dens (door at 71.2, 61.5). The enemies there are level 23. Click the Great Cat Spirit Statue first, out of Bear Form: you sneak for 5 minutes. Relic of the Claw: across the bridge in the first room",
+	FCQ_OBJ_RELIC_FANG = "Relic of the Fang: one level down in the Barrow Dens. Taking a relic ends your sneaking; the statue gives it back",
+	FCQ_OBJ_RELIC_SHADOW = "Relic of the Silent Shadow: at the bottom of the Barrow Dens",
+	FCQ_CHAIN_TORWA ="Torwa Pathfinder's quests (a chest piece or staff)",
 	FCQ_MOONGLADE_TIP = " (Teleport: Moonglade in your spellbook takes you there)",
 	-- How you play: a block with every class quest of this character (ForeverHowToPlay.lua).
 	FCQ_HOWTO_HEAD = "Your class quests",

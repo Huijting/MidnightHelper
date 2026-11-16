@@ -8,7 +8,7 @@ local _, ns = ...
 	First chain: Druid Bear Form (level 10), Alliance (Night Elf) and Horde (Tauren). Same day (Bouwchat 16-11 (2)): Cure
 	Poison (14), Aquatic Form (16) and Torwa Pathfinder (50), with steps inside a quest (objs) and other starter quests (alt),
 	plus a block in How you play (ns.ForeverClassQuestOverview). Cat Form (20) is a NEW Forever quest chain (98393…,
-	Wowhead) that Zygor does not have: not in yet, its NPCs and places are being measured.
+	Wowhead) that Zygor does not have: built from Wowhead tooltips + the Spoken addon's quest data (see Cat() below).
 
 	Source: the Forever Zygor guide "Leveling Guides\Druid Class Quests" (ZygorLevelingAllianceCLASSIC.lua:21298-21367,
 	ZygorLevelingHordeCLASSIC.lua:22584-22663; GEMETEN in the guide files 16 Nov 2026). Coordinates are Zygor's (rule:
@@ -60,6 +60,12 @@ local P = {
 	boxWestfall = { m = 1436, x = 17.87, y = 33.11 },
 	boxSilverpine = { m = 1421, x = 29.54, y = 29.53 },
 	boxBarrens = { m = 1413, x = 56.68, y = 8.32 },
+	-- Cat Form (level 20): a NEW Forever chain, not in Zygor. Spawns from Wowhead Forever tooltips (zone map space; equal
+	-- to UiMap AFGELEID, cross-checked against Zygor on 4 NPCs). Givers/enders from the Spoken addon data (third party).
+	catspirit = { npc = "Great Cat Spirit", m = 1450, x = 54.50, y = 75.00 },
+	relicClaw = { m = 1450, x = 75.25, y = 67.45 },
+	relicFang = { m = 1450, x = 72.45, y = 66.00 },
+	relicShadow = { m = 1450, x = 74.50, y = 65.40 },
 	-- Torwa Pathfinder (from level 50)
 	torwa = { npc = "Torwa Pathfinder", m = 1449, x = 71.63, y = 75.96 },
 	gorishi = { m = 1449, x = 50.40, y = 78.60 },
@@ -169,6 +175,29 @@ local function Torwa(faction, trainer)
 		},
 	}
 end
+-- Cat Form 768 (level 20; "Requires level 20" GEMETEN in the spell tooltip). A: 98393 → 98394 → 98396 → 98731 → 98397,
+-- H: 98340 → 98405 → 98342 → 98739 → 98362 (Wowhead series, mh-research 16 Nov). The relic quest's objectives: 1 Fang,
+-- 2 Claw, 3 Silent Shadow (Wowhead order; = client index AFGELEID). Asked in the order you walk the Barrow Dens (Claw in
+-- the first room, Fang a level down, Silent Shadow at the bottom: guide + Wowhead comments, AFGELEID). Skyborne (98341,
+-- 98404, 98738) is left out: two of its links are not measured.
+local function Cat(faction, trainer, ids)
+	return {
+		key = "cat", spell = 768, level = 20, faction = faction,
+		quests = {
+			{ q = ids[1], from = trainer, to = P.dendrite },
+			{ q = ids[2], from = P.dendrite, to = P.catspirit },
+			{ q = ids[3], from = P.catspirit, objs = {
+				O(P.relicClaw, "FCQ_OBJ_RELIC_CLAW", 2),
+				O(P.relicFang, "FCQ_OBJ_RELIC_FANG", 1),
+				O(P.relicShadow, "FCQ_OBJ_RELIC_SHADOW", 3),
+			}, to = P.catspirit },
+			{ q = ids[4], from = P.catspirit, to = P.dendrite },
+			{ q = ids[5], from = P.dendrite, to = trainer },
+		},
+	}
+end
+table.insert(CHAINS.DRUID, Cat("Alliance", P.mathrengyl, { 98393, 98394, 98396, 98731, 98397 }))
+table.insert(CHAINS.DRUID, Cat("Horde", P.turak, { 98340, 98405, 98342, 98739, 98362 }))
 table.insert(CHAINS.DRUID, Torwa("Alliance", P.mathrengyl))
 table.insert(CHAINS.DRUID, Torwa("Horde", P.turak))
 

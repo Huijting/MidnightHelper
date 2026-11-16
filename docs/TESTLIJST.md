@@ -33,6 +33,9 @@ Druid, `/reload`:
       door (sampler, paddenstoelen of kodo-hoorns, Earthroot, zieke herten of gazelles). Bij Earthroot geen pijl, alleen de regel.
 - [ ] Level 16+: Aquatic Form. Eerst de mand onder water, dan het altaar, dan Tajarri, dan twee kistjes onder water
       (A: Darkshore + Westfall, H: Silverpine + Barrens), dan het hangertje bij het altaar.
+- [ ] Level 20+: Cat Form (nieuwe Forever-quest, niet in Zygor). Trainer → Dendrite → Great Cat Spirit (heuvel boven de
+      brug, Moonglade) → drie relikwieën in de Stormrage Barrow Dens (Claw, Fang, Silent Shadow) → geest → Dendrite →
+      trainer. Wijst de pijl ongeveer naar de goede plek? (De plekken komen van Wowhead, niet uit het spel.)
 - [ ] Ken je Teleport: Moonglade, dan staat bij een plek in Moonglade "(Teleport: Moonglade in your spellbook …)".
 - [ ] `/mh classquest`: per quest "done / in log / complete" en per stap true/false. Klopt dat met je questlog?
 
