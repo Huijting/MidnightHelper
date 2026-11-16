@@ -126,7 +126,10 @@ PickupUpgrade.lua `history` (laatste 10, met tijd; elke toename in de tas, ook "
 in `/mh pickup`. Test voor Rob in TESTLIJST. Kandidaten (AFGELEID): BAG_UPDATE_DELAYED vuurt niet bij craften; of
 ForeverGearTipText zegt "not better"/"red line"; uitslag bepaalt de echte reparatie. Commit c25686b.
 ✅ Uitslag Rob: gecrafte Handstitched Leather Pants → melding + pop-up ("shown"). Craften wordt gezien (GEMETEN); geen
-reparatie nodig. Lijst "last 10" print pas bij ≥ 2 regels (`#history > 1`), daarom zag Rob alleen "last item". ⚠️ Voordeur: helpers zagen twee keer een vreemde beroepen-job in
+reparatie nodig. Lijst "last 10" print pas bij ≥ 2 regels (`#history > 1`), daarom zag Rob alleen "last item".
+📷 Camera-fout (Robs Midnight-test): SetCameraFar onthield de oude waarde niet als die al gelijk was aan het doel (2.6,
+Details) → "uit" zou Blizzards 1.9 zetten. Nu altijd onthouden; status toont bij "uit" de huidige waarde; `Num()` → "1.9".
+"You are 90" ✅ (Rob). "New in this version" test Rob met /mh new. Release: Rob wil waarschijnlijk, nog GEEN go. ⚠️ Voordeur: helpers zagen twee keer een vreemde beroepen-job in
 `probe_job.txt` (zie hoger); herkomst nog niet nagezocht. Test 1 en 3 doet Rob later. Afspraak (sparring, tot Rob
 anders zegt): 1-3 SAMEN bouwen na die tests. Ook later van Rob: `/mh pickup` gaf geen melding bij GESMEDE items
 (nog niet uitgezocht; AFGELEID: misschien omdat craften als "bag update terwijl een venster open is" telt) en zijn keuze

@@ -24,6 +24,15 @@ er is niets weggegooid.
 📝 **Waarneming Rob, 16 nov (nacht), Forever mage, via sparring:** *"mouse over werk"* — `/mh mouseover on`, Shift+X
 (Arcane Intellect) op een voorbijganger onder de muis werkt.
 
+## 🐞 16 nov (nacht) — Midnight-test camera + "You are 90" (Rob via sparring, screenshots)
+
+📝 `/mh camera` gaf "… back to 1.900000 when off" terwijl Robs account al op 2.6 stond (Details). Fout GEMETEN in de
+code: bij "aan" onthield MH de oude waarde niet als die al 2.6 was → "uit" zou 1.9 zetten. Gerepareerd: altijd de waarde
+van vóór "aan" onthouden; getallen als "1.9". "You are 90"-venster (`/mh maxlevel popup`): tekst en knoppen passen ✅.
+Macrovenster Elemental Shaman: Wind Shear zonder modifier → terecht geen gele regel.
+- [ ] Midnight, account op 2.6: vinkje "Camera further away" aan en weer uit → `/mh camera` zegt "off … now 2.6" (blijft
+      jouw 2.6, niet 1.9).
+
 ## 🐞 16 nov (nacht) — melding "upgrade in je tas" bij zelfgemaakte spullen (onderzoek)
 
 Rob (via sparring): gecrafte blacksmithing- en leather-items gaven geen melding; `/mh pickup` noemde alleen een Skinning

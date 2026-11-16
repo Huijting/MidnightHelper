@@ -30,6 +30,12 @@ local _, ns = ...
 
 local CVAR = "cameraDistanceMaxZoomFactor"
 
+--- "1.9", not "1.900000" (Rob's test, 16 Nov 2026): the client returns the CVar as a padded string.
+local function Num(v)
+	local n = tonumber(v)
+	return n and ("%g"):format(n) or tostring(v)
+end
+
 local function Target()
 	return ns.IS_FOREVER and "4" or "2.6"
 end
@@ -92,7 +98,7 @@ local function Apply(want, loud)
 	end
 	Write(value)
 	if loud then
-		Say("CAMERA_SET_FMT", tostring(value), tostring(Read()))
+		Say("CAMERA_SET_FMT", Num(value), Num(Read()))
 	end
 end
 
@@ -128,9 +134,11 @@ function ns.SetCameraFar(on, loud)
 		return
 	end
 	if on then
-		-- Remember what the player had, unless that already IS our value (then the default is the honest "before").
+		-- Remember what the player had, ALWAYS. 16 Nov 2026 (Rob's Midnight test via sparring): his account was already on
+		-- 2.6 (Details sets that), and the old rule "unless that already IS our value" stored nothing, so "off" went to
+		-- Blizzard's default 1.9 instead of back to his own 2.6. "Off" must mean "as before", not "as Blizzard ships it".
 		local cur = Read()
-		if cur ~= nil and tonumber(cur) ~= tonumber(Target()) then
+		if cur ~= nil then
 			ns.db.cameraFarOld = cur
 		end
 		ns.db.cameraFar = true
@@ -142,10 +150,12 @@ function ns.SetCameraFar(on, loud)
 end
 
 function ns.PrintCameraStatus()
+	-- While off there is nothing to go back to: "back to" shows the value it would keep, i.e. the current one.
+	local on = ns.IsCameraFarOn()
+	local back = (on and ns.db and ns.db.cameraFarOld) or (not on and Read()) or Default()
 	Say("CAMERA_STATUS_FMT",
-		ns:L(ns.IsCameraFarOn() and "CAMERA_WORD_ON" or "CAMERA_WORD_OFF"),
-		tostring(Read()), Target(),
-		tostring((ns.db and ns.db.cameraFarOld) or Default()))
+		ns:L(on and "CAMERA_WORD_ON" or "CAMERA_WORD_OFF"),
+		Num(Read()), Target(), Num(back))
 end
 
 --- `/mh camera` (Core.lua): "" = status, "on" / "off" = switch and print what the game reads back.
