@@ -118,7 +118,8 @@ Commit a114fa6.
 `docs/forever/STATS_PER_ROL_2026-11-16.md` (tabel per class/rol, bronnen, botsingen met ForeverMainStats, rol-detectie).
 4 keuzes naar sparring → Rob: *"alle 4 ja"* → GEBOUWD: ns.ForeverStatDef/ForeverTankStatDef (ForeverMainStats.lua; rol =
 class × richting, BY_TREE; boomvolgorde AFGELEID), ForeverQuestHint leest hem (MainFor zet main.equal → Score weegt 2e stat
-1), ForeverDoNow StatLines als tips + regel in /mh donow check. NIET in het spel gezien. ⚠️ Voordeur: helpers zagen twee keer een vreemde beroepen-job in
+1), ForeverDoNow StatLines als tips + regel in /mh donow check. Commit 867d325. ✅ Rob (3 chars, screenshots): Paladin
+2 = Protection, Mage 2 = Fire, Shaman 1 = Elemental → boomvolgorde klopt daar (GEMETEN); andere classes nog niet gezien. ⚠️ Voordeur: helpers zagen twee keer een vreemde beroepen-job in
 `probe_job.txt` (zie hoger); herkomst nog niet nagezocht. Test 1 en 3 doet Rob later. Afspraak (sparring, tot Rob
 anders zegt): 1-3 SAMEN bouwen na die tests. Ook later van Rob: `/mh pickup` gaf geen melding bij GESMEDE items
 (nog niet uitgezocht; AFGELEID: misschien omdat craften als "bag update terwijl een venster open is" telt) en zijn keuze

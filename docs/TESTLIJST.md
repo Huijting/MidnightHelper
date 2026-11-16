@@ -26,6 +26,12 @@ er is niets weggegooid.
 
 ## 🆕 16 nov (nacht) — Forever: "Best stats for you now" in "Do this now"
 
+📝 Waarneming Rob, 16 nov (via sparring, screenshots, 3 characters) — richting → boom klopte bij alle drie:
+Paladin 14, richting 2 = Protection → rol tank, "Stamina, then Strength" (tank-regel gelijk, dus geen tweede regel);
+Mage, richting 2 = Fire → "Intellect and Spirit count the same. Equal? Take the one with more Stamina.";
+Shaman, richting 1 = Elemental → "Intellect, then Spirit. Equal? …". Overal "new spells on no bar: none; key block
+placed: true". Andere classes/bomen nog niet gezien. Rob vinkt zelf af.
+
 📝 Waarneming Rob (via sparring): *"ik heb mijn keyblock staan dus de regel bleef keurig weg"* — "New, but on no bar yet"
 kwam niet, zoals bedoeld. De regel zelf (zonder toetsenblok) nog niet gezien.
 - [ ] "Do this now" (`/mh donow`): onderaan bij de tips "Best stats for you now: …". Klopt het met je richting? (bv.
