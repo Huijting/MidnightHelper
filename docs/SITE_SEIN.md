@@ -28,6 +28,16 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 16 nov 2026 — Vuurwerk bij een level-up
+- Tag + commit:   geen tag / (deze commit, zie git log "fireworks")
+- Status:         alleen op main
+- Mag op de site: nee (nog niet uit)
+- Speler ziet:    Bij elk nieuw level een korte bos sterretjes midden in beeld, met een kort geluidje. Allebei apart uit
+                  te zetten. Niet in het spel gezien.
+- Knoplabels:     SET_FIREWORKS_TITLE, SET_FIREWORKS_SOUND_TITLE
+- Commando's:     /mh fireworks test
+- Spel:           allebei
+
 ## 16 nov 2026 — Forever: nieuwe spell op geen balk + tooltipregels "nooit voor jouw class" en "nodig voor je quest"
 - Tag + commit:   geen tag / (deze commit, zie git log "new spell on no bar")
 - Status:         alleen op main

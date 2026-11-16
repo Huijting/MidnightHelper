@@ -373,6 +373,11 @@ ns._mhLocales.enUS = {
 	MAXLVL_POPUP_FMT = "You are %d now. What next?\n\nYour gear is where you grow from here: \"%s\" shows what you can upgrade right away and where the crests come from. %s gives you the whole road.",
 	MAXLVL_BTN_GEAR = "My gear",
 	MAXLVL_LATER = "Later",
+	-- Level-up fireworks (LevelUpFireworks.lua, 16 Nov 2026), retail and Forever.
+	SET_FIREWORKS_TITLE = "Fireworks when you level up",
+	SET_FIREWORKS_DESC = "A short burst of stars in the middle of your screen when you gain a level. It fades by itself and never gets in the way of your mouse. In a fight it waits until the fight ends. Try it: /mh fireworks test",
+	SET_FIREWORKS_SOUND_TITLE = "Fireworks: play a sound",
+	SET_FIREWORKS_SOUND_DESC = "One short sound with the fireworks.",
 	-- "Camera further away" (CameraZoom.lua, 16 Nov 2026), retail and Forever.
 	SET_CAMERAFAR_TITLE = "Camera further away",
 	SET_CAMERAFAR_DESC = "Lets you zoom the camera out further than the game's own options allow. Turning it off puts back the distance you had before.\n\nThe camera does not move by itself: scroll out with your mouse wheel.\n\nIf the game's camera options (or their Defaults button) set it back, Midnight Helper sets it again at your next login while this is on. Not changed during combat: it waits until the fight ends.",

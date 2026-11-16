@@ -529,6 +529,18 @@ local function Build()
 		ns.db = ns.db or {}
 		ns.db.keyBlockNewMode = (v == "auto" or v == "never") and v or nil
 	end)
+	-- 16 Nov 2026 (Rob, via sparring: "ja dat wil ik, dat vuurwerk, evt met geluid"): level-up fireworks and their
+	-- sound (LevelUpFireworks.lua), both games, both on by default; not in the Recommended preset (taste).
+	Toggle("mh_levelUpFireworks", "SET_FIREWORKS_TITLE", "SET_FIREWORKS_DESC", function()
+		return ns.IsLevelUpFireworksOn and ns.IsLevelUpFireworksOn()
+	end, function(v)
+		if ns.SetLevelUpFireworks then ns.SetLevelUpFireworks(v) end
+	end)
+	Toggle("mh_levelUpFireworksSound", "SET_FIREWORKS_SOUND_TITLE", "SET_FIREWORKS_SOUND_DESC", function()
+		return ns.IsLevelUpFireworksSoundOn and ns.IsLevelUpFireworksSoundOn()
+	end, function(v)
+		if ns.SetLevelUpFireworksSound then ns.SetLevelUpFireworksSound(v) end
+	end)
 	-- 16 Nov 2026 (Rob, via sparring: "beide ja"): "Camera further away" (CameraZoom.lua), retail and Forever.
 	-- Not in the Recommended preset: it changes a game setting, and that is the player's choice.
 	Toggle("mh_cameraFar", "SET_CAMERAFAR_TITLE", "SET_CAMERAFAR_DESC", function()

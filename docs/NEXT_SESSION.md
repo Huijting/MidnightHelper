@@ -106,7 +106,13 @@ uitleg in /mh usedfor). Teksten en/nl zelf, de/fr/es/pt/ru door mh-writer. Commi
 🖱️ Rob: *"mouse over werk, en zet de andere ook maar op de lijst"*: MO_HELP + Blessing of Might/Kings/Wisdom/Sacrifice,
 de drie Greater-versies (GEMETEN in FOREVER_SPELL_IDS; Salvation/Light/Sanctuary staan daar niet in) en Arcane
 Brilliance. De pair-tak in BodyRaw riep WithMouseover nooit aan → nu wel (pair-toetsen = paladin-blessings, [group]).
-255-grens via Body() blijft. MagePlan: MH blijft melden (Rob). NIET in het spel gezien. Test 1 en 3 doet Rob later. Afspraak (sparring, tot Rob
+255-grens via Body() blijft. MagePlan: MH blijft melden (Rob). NIET in het spel gezien. Commit 154c478.
+🎆 Vuurwerk bij level-up (Rob via sparring: *"ja dat wil ik, dat vuurwerk, evt met geluid 🙂"*): `Modules/LevelUpFireworks.lua`
+(beide toc's), 3 bursts × 12 sterren (Interface\Cooldown\star4, GEMETEN Forever FileDataID 131010), geen muis; geluid
+SOUNDKIT.UI_EPICLOOT_TOAST 31578 (GEMETEN in SoundKitConstants forever-branch; SoundKitName-DB2 geeft HTTP 400 bij wago,
+dus geen naamzoektocht). Schakelaars mh_levelUpFireworks / mh_levelUpFireworksSound (standaard aan); gevecht = wachten
+max 60 s; `/mh fireworks [test|on|off|sound on|off]`. Midnight 90: popup komt 3 s later, dus na het vuurwerk. NIET in het
+spel gezien. Test 1 en 3 doet Rob later. Afspraak (sparring, tot Rob
 anders zegt): 1-3 SAMEN bouwen na die tests. Ook later van Rob: `/mh pickup` gaf geen melding bij GESMEDE items
 (nog niet uitgezocht; AFGELEID: misschien omdat craften als "bag update terwijl een venster open is" telt) en zijn keuze
 voor de stats-regel.

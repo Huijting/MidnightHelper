@@ -203,6 +203,14 @@ Stand 15 nov avond: 1 gebouwd (1f521e5), 2 gemeten, 3 rapport + A/B gebouwd (zie
 - Oorzaak:       GEMETEN (sparring + bouwchat): `ns.GetHideableScreens` (UI.lua) keek niet naar Forever; de zijbalk wel.
 - Stand:         ✅ gebouwd 16 nov, alleen op main, NIET in het spel gezien (TESTLIJST 16 nov).
 
+### Vuurwerk bij een level-up (Midnight en Forever)
+- Bron: Rob 16 nov (via sparring), na het effect van een andere addon in Forever, letterlijk: *"ja dat wil ik, dat
+  vuurwerk, evt met geluid 🙂"*. Eigen versie, niets overgenomen (licentie van die addon niet gemeten).
+- ✅ gebouwd 16 nov: `Modules/LevelUpFireworks.lua` (beide toc's). Blizzards star4-textuur (GEMETEN in Forever),
+  geluid SOUNDKIT.UI_EPICLOOT_TOAST (GEMETEN in de constanten; dat hij klinkt in Forever: AFGELEID). Twee schakelaars,
+  allebei standaard aan (keuze bouwchat, = voorstel sparring); in een gevecht wacht hij (max 60 s). `/mh fireworks
+  [test]`. NIET in het spel gezien.
+
 ### Forever: mouseover ook voor blessings en Arcane Brilliance
 - Bron: Rob 16 nov (via sparring, letterlijk: *"mouse over werk, en zet de andere ook maar op de lijst"*); hij buft graag
   voorbijgangers. ✅ gebouwd 16 nov (ForeverBlock.lua MO_HELP + de "pair"-toetsen kregen mouseover, die hadden het niet).

@@ -189,6 +189,8 @@ Modules\ForeverSurvey.lua
 Modules\CameraZoom.lua
 # Tooltip lines "never for your class" + "needed for a quest in your log" (Rob, 16 Nov 2026, via sparring: "allemaal").
 Modules\ForeverItemTips.lua
+# Level-up fireworks, both games (Rob, 16 Nov 2026, via sparring: "ja dat wil ik, dat vuurwerk, evt met geluid").
+Modules\LevelUpFireworks.lua
 Modules\KeysHub.lua
 Modules\ToolsLaunchpad.lua
 Modules\RoomLauncher.lua

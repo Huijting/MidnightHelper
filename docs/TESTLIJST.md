@@ -24,6 +24,16 @@ er is niets weggegooid.
 📝 **Waarneming Rob, 16 nov (nacht), Forever mage, via sparring:** *"mouse over werk"* — `/mh mouseover on`, Shift+X
 (Arcane Intellect) op een voorbijganger onder de muis werkt.
 
+## 🆕 16 nov (nacht) — vuurwerk bij een level-up (Midnight én Forever)
+
+- [ ] `/mh fireworks test`: drie korte bossen gekleurde sterretjes midden/boven in beeld, ±2,5 s, met één kort
+      geluidje. Kun je er gewoon doorheen klikken (het vangt de muis niet)?
+- [ ] Echt een level omhoog (buiten een gevecht): het vuurwerk komt vanzelf. In een gevecht: pas na het gevecht.
+- [ ] Opties → Midnight Helper: "Fireworks when you level up" uit → geen vuurwerk; "Fireworks: play a sound" uit →
+      vuurwerk zonder geluid. `/mh fireworks` zegt wat er bij de laatste level-up gebeurde.
+- [ ] Midnight, 89 → 90: eerst het vuurwerk, daarna (na ±3 s) het venster "You are 90 now".
+- [ ] Hoor je in Forever het geluid? (Het nummer bestaat daar; of het klinkt, weten we niet.)
+
 ## 🆕 16 nov (nacht, laatst) — Forever: mouseover ook voor blessings en Arcane Brilliance
 
 `/mh mouseover on`, toetsenblok neergezet:
