@@ -32,6 +32,8 @@ van vóór "aan" onthouden; getallen als "1.9". "You are 90"-venster (`/mh maxle
 Macrovenster Elemental Shaman: Wind Shear zonder modifier → terecht geen gele regel.
 - [ ] Midnight, account op 2.6: vinkje "Camera further away" aan en weer uit → `/mh camera` zegt "off … now 2.6" (blijft
       jouw 2.6, niet 1.9).
+      📝 Rob, 16 nov (via sparring, screenshot, 5.4.0): "Camera further away: off. The game's zoom limit is now 2.6 (on =
+      2.6; back to 2.6 when off)." → eigen 2.6 blijft, getal netjes. Rob vinkt zelf af.
 
 ## 🐞 16 nov (nacht) — melding "upgrade in je tas" bij zelfgemaakte spullen (onderzoek)
 
