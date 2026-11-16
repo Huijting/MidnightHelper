@@ -72,6 +72,11 @@ wapen kunnen. Keuzes: Shaman-spell eerst; beste rang eerst; rogue: poisons vóó
 loadDeprecationFallbacks = 1) én C_Item.GetWeaponEnchantInfo; mace → geen steen; zwaard → Rough Sharpening Stone met de
 juiste zin, en *"de knop werkt"* = target-slot werkt in het spel. Rest (knop weg na klik, /mh buffs, rogue, shaman,
 weightstone) nog niet gezien.
+✅ Later (Rob via sparring: *"ja gevonden en werkt :)"*, *"1 t/5 werken goed"*): in Forever werken camera (houdt 4),
+Screens + opgeruimde opties, kaartje Dungeons, de Self Cast-regel (weg met "Auto": AFGELEID uit "goed") en de
+wapensteen (knop weg na klik; terug na 30 min: AFGELEID uit "goed"). Daarmee is "Auto wist de Self Cast Key" waarschijnlijk
+beantwoord. Midnight-kant niet gezien. Rob test nu de 11 "weet niet"; uitslag volgt via sparring → dan per stuk
+verbergen of laten staan.
 ⚠️ Voordeur: een helper zag `probe_job.txt` overschreven met de beroepen-job van een andere sessie en draaide die (alleen
 lezen). Herkomst NIET nagezocht; mogelijk weer [[probe-job-crosses-sessions]]. Morgen naar kijken.
 

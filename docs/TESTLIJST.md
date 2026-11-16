@@ -21,6 +21,12 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+📝 **Waarneming Rob, 16 nov (later), Forever, via sparring.** Letterlijk: *"ja gevonden en werkt :)"* (het camera-vinkje,
+onder On-screen buttons) en *"1 t/5 werken goed"* voor: 1 camera + `/mh camera` (Forever houdt 4), 2 Screens + de
+opgeruimde opties, 3 kaartje "Dungeons in Forever", 4 de gele Self Cast-regel (weg met Self Cast op "Auto"), 5 de
+wapensteen (knop weg na de klik, terug na 30 min). ⚠️ AFGELEID dat "terug na 30 min" en "weg met Auto" in zijn "goed"
+zitten; niet apart nagevraagd. Midnight-kant van deze punten: niet gezien. Rob vinkt zelf af.
+
 ## 🆕 16 nov (laat) — Forever: buffknop voor steen, olie of poison op je wapen
 
 📝 Waarneming Rob, 16 nov (via sparring, op zijn screenshots, ~level 12; Rob vinkt zelf af): de /run-regel gaf
