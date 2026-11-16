@@ -1,5 +1,25 @@
 # Midnight Helper — waar we staan
 
+## 🌙 NACHTOPDRACHT 16→17 nov (Bouwchat 16-11 (2) sloot af met /nieuwe-chat bouw; sparring: akkoord)
+
+Rob, letterlijk (via Sparring 16-11): *"kan je ook samen met bouw door gaan tot je mij nodig hebt, ik bedoel kunnen jullie
+samen zo ver mogelijk komen evt ook met andere specs en classes, ook wat uitzoeken enzo betreft en als jullie dan samen
+vast lopen dan pas afsluiten ?"* en op het plan: *"ja voor jullie om door te gaan"*. WoW is dicht.
+- Druid is AF (stap 1 + 2 + puntjes), zie hieronder. Volgende: **stap 3 = de andere 8 classes, één voor één**:
+  eerst hun class-quests in ForeverClassQuests.lua (warlock-demonen, warrior-stances, shaman-totems/elementen,
+  rogue-poisons, hunter-pet, paladin, priest-racespells, mage), daarna per class de rollen per 10 levels in
+  ForeverHowToPlay.lua `ROLES.<CLASS>` (zelfde vorm als DRUID; band = talentboom 1-3). Werkwijze per class zoals bij de
+  druid: mh-research (gamedata/Spoken/Zygor/HandyNotes + Forever-gidsen; let op: Forever-talentboom ≠ classic, DB2
+  TraitTree) → feitenbestand docs/forever/<CLASS>_…md → mh-writer en+nl → mh-writer de/fr/es/esMX/pt/ru → NPC_NAMES
+  per taal meten. Startpunt quest-spells: `ns.FOREVER_QUEST_FIRST` in ForeverTrainer.lua.
+- Regels vannacht: alleen main; NOOIT tag/release/CF/beta, niets verwijderen of archiveren. Na elk afgerond stuk: lint
+  0 HARD, luac OK, commit + push, TESTLIJST/IDEEEN/NEXT_SESSION bij, en één korte regel naar «Sparring 16-11» (wat,
+  commit). Keuze die echt van Rob is → lijst "Wacht op Rob" hieronder, en door met ander werk; kleine keuze met duidelijk
+  advies zelf maken met "Rob mag dit omdraaien". Nooit twee helpers tegelijk op de voordeur (probe_job.txt), en niet
+  parallel met de site-chat. Vastgelopen op alles wat over is → handoff bij, commit + push, en «Sparring 16-11» melden:
+  "KLAAR VOOR DE NACHT" met de stand. Chat te lang → eerst sparring melden, dan /nieuwe-chat bouw.
+- **Wacht op Rob:** (nog leeg)
+
 ## ▶ EERST voor de volgende bouwchat (Bouwchat 16-11 sloot af met /nieuwe-chat bouw; Rob via sparring: *"ja doe maar"*)
 
 1. **Druid stap 1 afmaken** (`Modules/ForeverClassQuests.lua`). ✅ 16 nov, Bouwchat 16-11 (2): Cure Poison (14), Aquatic
