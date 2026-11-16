@@ -53,8 +53,8 @@ A **form** is one of those shapes. In a form, many of your keys do something els
 Moonfire (2) first, then Wrath (1) until the enemy is dead. Low on health? Rejuvenation (F4) or Healing Touch (C).]] },
 		{ "What comes later", [[
 - 12: Regrowth on F2 (quick heal). Revive on F3: brings a dead friend back, outside a fight only.
-- 16: Aquatic Form (from a quest) on R while you swim. 18: Faerie Fire on 5 (works in every form), Hibernate on Shift-Q.
-- 20: Cat Form (from a quest) on Ctrl-2, with Claw, Rip and Prowl. Starfire on 3. In a fight, F3 becomes Rebirth.
+- 16: Aquatic Form (from a quest) on R while you swim. 18: Faerie Fire on 5 (works in most forms, but not in Travel or Aquatic Form), Hibernate on Shift-Q.
+- 20: Cat Form (from a quest) on Ctrl-2, with Claw, Shred, Rip and Prowl. Feral Charge on E (a talent, 20 at the earliest). Starfire on 3. In a fight, F3 becomes Rebirth.
 - 30: Travel Form on R (for moving around), Tranquility on Q. 40: Dire Bear Form (replaces Bear Form on Ctrl-1), Innervate on F1.
 - 44: Barkskin on Z, in every form.]] },
 		{ "Beginner mistakes", [[
@@ -363,6 +363,96 @@ Demon out (block D; all but the Imp need a Soul Shard), then send it in (Ctrl-1)
 }
 ns.FOREVER_HOWTOPLAY = CLASSES -- the offline check reads it
 
+--[[
+	Per role (16 Nov 2026, Rob via Sparring 16-11, letterlijk "ja" op: per rol een eenvoudige volgorde en per 10 levels wat
+	er verandert; de rol van de speler bovenaan, de rest inklapbaar). One entry per role: band = the talent tree that
+	leads to it (ForeverDirection band 1-3; Feral = both bear and cat), title, body (same "**gold**" markup as above).
+	Your direction's role(s) show in full; the others fold behind the "Other roles" button. No direction = all folded.
+	Translations: ns.FOREVER_HOWTOPLAY_L[code].ROLES[class], same shape (a missing class falls back to English).
+]]
+local ROLES = {
+	-- Druid: written 16 Nov 2026 by mh-writer from docs/forever/DRUID_ROLES_2026-11-16.md (DB2 1.60.1.70938 + guides).
+	DRUID = {
+		{ band = 2, title = "Bear: tank", body = [[
+From level 10 (Bear Form, from a quest). A **tank** is the one the enemies hit, so the rest of the group stays safe. For levelling the guides call the cat smoother; the bear is handy from 10 to 20, and for tanking in dungeons. The bear uses **Rage**: you get it when you hit and when you are hit.
+**Simple order:**
+1. Pull with Faerie Fire (**5**, from 18) or Feral Charge (**E**, from 20). **Pull** = hit one enemy from a distance so it comes to you.
+2. Demoralizing Roar (**Shift-2**) once.
+3. Primal Bite (**3**, from 40) whenever it is ready.
+4. Lacerate (**2**, from 25) until it has 5 stacks.
+5. Rage left over: Maul (**1**) on one enemy, Swipe (**Shift-1**, from 16) on two or more.
+6. Growl (**F**) when an enemy hits someone else.
+**Per 10 levels:**
+- 10: Bear Form (**Ctrl-1**), Maul (**1**), Growl (**F**), Demoralizing Roar (**Shift-2**). Then Enrage (**Q**) at 12, Bash (**V**) at 14, Swipe (**Shift-1**) at 16, Faerie Fire (**5**) at 18.
+- 20: Feral Charge (**E**, a talent): you charge the enemy, it cannot move and cannot cast for 4 seconds. Cooldown 15 seconds. Talent levels here are the earliest; a perk can bring them up to 5 levels sooner.
+- 30: Leader of the Pack (a talent). Before that: Lacerate (**2**, a talent) at 25, Challenging Roar (**Shift-F**) at 28.
+- 40: Dire Bear Form replaces Bear Form on **Ctrl-1**. Primal Bite (**3**, a talent). Before that: Frenzied Regeneration (**X**) at 36: turns Rage into health.
+- 50: stronger ranks of Primal Bite, Lacerate and Maul. Barkskin (**Z**) at 44.
+- 60: stronger ranks again; nothing new for this role.
+**Beginner mistakes:**
+- Feral Charge when the enemy is closer than 8 yards. It does not work there.
+- Enrage (**Q**) while you take heavy hits. It gives Rage, but you get 27% less armor.]] },
+		{ band = 2, title = "Cat: damage up close", body = [[
+From level 20 (Cat Form, from a quest; Prowl comes with it). For levelling it is the guides' first choice: they call it the fastest and the smoothest. The cat uses **Energy**, which fills up by itself. Your hits give **combo points** (up to 5); a **finisher** spends them all.
+**Simple order:**
+1. Prowl (**Shift-R**), then open with Shred (**3**) from behind. **Prowl** = sneak, so the enemy does not see you.
+2. Faerie Fire (**5**) on tough enemies.
+3. Rake (**2**, from 24), but not when the enemy is almost dead.
+4. Claw (**1**) for combo points; Shred (**3**) when you stand behind the enemy.
+5. At 4-5 combo points: Rip (**4**) if the enemy will live long, otherwise Ferocious Bite (**Shift-4**, from 24).
+6. Shifting Power (**Q**, from 40) when your Energy is under 50.
+**Per 10 levels:**
+- 10: nothing new for this role (the cat comes at 20).
+- 20: Cat Form (**Ctrl-2**), Claw (**1**), Shred (**3**, from behind), Rip (**4**), Prowl (**Shift-R**). Feral Charge (**E**, a talent): as a cat you leap behind the enemy. Omen of Clarity is passive: no key.
+- 30: Leader of the Pack (a talent). Before that: Rake (**2**) and Ferocious Bite (**Shift-4**) at 24, Dash (**R**) at 26, Cower (**F**) at 28.
+- 40: Shifting Power (**Q**, a talent): 40 Energy for mana, cooldown 8 seconds, cat only. Before that: Ravage (block D) at 32, Pounce (**V**, from Prowl, a stun) at 36. Talent levels here are the earliest; a perk can bring them up to 5 levels sooner.
+- 50: stronger ranks of Ferocious Bite, Rip and Shred; nothing new for this role.
+- 60: stronger ranks again; nothing new for this role.
+**Beginner mistakes:**
+- Shred from the front. It only works from behind; from the front, use Claw.
+- Shifting Power too often. Then you have no mana left to heal yourself.]] },
+		{ band = 1, title = "Balance: damage from a distance", body = [[
+From level 1: Wrath and Moonfire are there from the start. Moonkin Form is a talent, 40 at the earliest. The guides say levelling as Balance works, but it is slower than the cat. Some guides take Moonkin Form later (Zygor at 53): 40 is not a rule.
+**Simple order:**
+1. Starfire (**3**, from 20) as the opener on one enemy.
+2. Moonfire (**2**).
+3. Insect Swarm (**4**, from 25).
+4. Wrath (**1**) as your filler. With Eclipse (from 30): Wrath builds charges, then Starfire (**3**).
+5. Hurricane (**Shift-1**, from 40) on groups.
+Low on mana? Keep using Wrath: it is cheap.
+**Per 10 levels:**
+- 10: Wrath (**1**), Moonfire (**2**), Thorns (**Shift-Z**), Entangling Roots (**V**), Nature's Grasp (**X**).
+- 20: Starfire (**3**). Omen of Clarity is passive: no key.
+- 30: Eclipse (a talent): Wrath makes your next 2 Starfires faster. Before that: Insect Swarm (**4**, a talent) at 25. Talent levels here are the earliest; a perk can bring them up to 5 levels sooner.
+- 40: Moonkin Form (**Ctrl-3**, a talent): costs mana, gives your group +3% crit (**crit** = a lucky, stronger hit), but no heals in it. Hurricane (**Shift-1**), Innervate (**F1**).
+- 50: stronger ranks of Hurricane and Starfire. Barkskin (**Z**) at 44.
+- 60: stronger ranks again; nothing new for this role.
+**Beginner mistakes:**
+- Healing in Moonkin Form. It cannot be done, and leaving the form costs mana.
+- Looking for an Omen of Clarity key. It is passive: it works by itself.]] },
+		{ band = 3, title = "Restoration: healer", body = [[
+From level 1: Healing Touch is there from the start. The guides do not advise healing for solo levelling (enemies die slowly): level with Wrath and Moonfire, and heal in dungeons. A **HoT** is a heal that heals a little at a time.
+**Simple order (in a group):**
+1. Rejuvenation (**F4**) on the tank.
+2. Regrowth (**F2**) on someone who is low.
+3. Swiftmend (**Shift-F1**, from 25): only on someone who has your Rejuvenation or Regrowth.
+4. Wild Growth (**Shift-2**, from 40) when more people take damage.
+5. Healing Touch (**C**) for big damage. Emergency: Nature's Swiftness (**Shift-3**, from 30), then Healing Touch.
+6. Innervate (**F1**, from 40) when your mana is low.
+**Per 10 levels:**
+- 10: Healing Touch (**C**), Rejuvenation (**F4**). Then Regrowth (**F2**) and Revive (**F3**, outside a fight) at 12, Cure Poison (**Shift-C**) at 14.
+- 20: Rebirth (**F3**, in a fight). Then Remove Curse (**Shift-V**) at 24, Abolish Poison (**Shift-C**) at 26.
+- 30: Nature's Swiftness (**Shift-3**, a talent), Tranquility (**Q**). Before that: Swiftmend (**Shift-F1**, a talent) at 25. Talent levels here are the earliest; a perk can bring them up to 5 levels sooner.
+- 40: Wild Growth (**Shift-2**, a talent), Innervate (**F1**).
+- 50: Gift of the Wild (**Shift-X**), a stronger Wild Growth.
+- 60: stronger ranks again; nothing new for this role.
+**Beginner mistakes:**
+- Healing in a form. Heals only work in your normal shape.
+- Casting a HoT on someone who still has it. The new one replaces the old one.]] },
+	},
+}
+ns.FOREVER_HOWTOPLAY_ROLES = ROLES -- the offline check reads it
+
 local GOLD, HEAD = "|cffffd100", "|cffffcc66"
 
 --- "**word**" → gold. Everything else is plain text.
@@ -412,6 +502,45 @@ end
 ns.ForeverHowToPlayText = TextFor
 
 local win, shown
+local showAllRoles = false
+
+--- The role blocks for this class: yours in full, the rest folded (titles only) unless "Other roles" is open.
+--- Returns the text (or nil when the class has no roles written) and whether there is anything folded.
+local function RolesText(token)
+	local tr = Translated()
+	local list = (tr and tr.ROLES and tr.ROLES[token]) or ROLES[token]
+	if not list or #list == 0 then
+		return nil, false
+	end
+	local band = ns.GetForeverDirection and ns.GetForeverDirection()
+	local mine, others = {}, {}
+	for _, r in ipairs(list) do
+		if band and r.band == band then
+			mine[#mine + 1] = r
+		else
+			others[#others + 1] = r
+		end
+	end
+	local parts = {}
+	for _, r in ipairs(mine) do
+		parts[#parts + 1] = HEAD .. r.title .. "|r\n" .. Format(r.body)
+	end
+	if #others > 0 then
+		if showAllRoles then
+			for _, r in ipairs(others) do
+				parts[#parts + 1] = HEAD .. r.title .. "|r\n" .. Format(r.body)
+			end
+		else
+			local names = {}
+			for _, r in ipairs(others) do
+				names[#names + 1] = r.title
+			end
+			parts[#parts + 1] = HEAD .. ns:L(#mine > 0 and "FHOWTO_ROLES_OTHER" or "FHOWTO_ROLES_ALL") .. "|r\n"
+				.. ns:L("FHOWTO_ROLES_FOLDED_FMT"):format(table.concat(names, ", "))
+		end
+	end
+	return table.concat(parts, "\n\n"), #others > 0
+end
 
 local function RefreshDirection()
 	if not (win and win.dir) then
@@ -437,7 +566,14 @@ local function Body(token)
 			cq = HEAD .. ns:L("FCQ_HOWTO_HEAD") .. "|r\n" .. Format(text)
 		end
 	end
-	return (block and (block .. "\n\n") or "") .. (cq and (cq .. "\n\n") or "") .. TextFor(token)
+	local roles, folded = RolesText(token)
+	if win and win.roles then
+		win.roles:SetShown(folded)
+		local hasDir = ns.GetForeverDirection and ns.GetForeverDirection()
+		win.roles:SetText(ns:L(not showAllRoles and "FHOWTO_ROLES_SHOW" or (hasDir and "FHOWTO_ROLES_HIDE" or "FHOWTO_ROLES_FOLD")))
+	end
+	return (block and (block .. "\n\n") or "") .. (roles and (roles .. "\n\n") or "") .. (cq and (cq .. "\n\n") or "")
+		.. TextFor(token)
 end
 
 local function Show(token)
@@ -494,6 +630,20 @@ local function Build()
 		end
 	end)
 	f.dir = dir
+
+	-- 16 Nov 2026: unfold / fold the roles that are not your direction's (shown only when there are any).
+	local roles = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
+	roles:SetSize(110, 22)
+	roles:SetPoint("RIGHT", dir, "LEFT", -6, 0)
+	roles:SetScript("OnClick", function()
+		showAllRoles = not showAllRoles
+		if shown then
+			f.body:SetText(Body(shown))
+			f.child:SetHeight(f.body:GetStringHeight() + 20)
+		end
+	end)
+	roles:Hide()
+	f.roles = roles
 
 	-- Only this character's class (Rob, 6 Nov 2026: "ik wil ze per character zien, dus alleen voor de geldige class").
 	-- The first version had a button per written class; they are gone.

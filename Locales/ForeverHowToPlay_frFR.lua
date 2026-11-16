@@ -39,8 +39,8 @@ Une **forme** est l'une de ces apparences. Dans une forme, beaucoup de tes touch
 D'abord Eclat lunaire (2), puis Colère (1) jusqu'à ce que l'ennemi soit mort. Peu de vie ? Récupération (F4) ou Toucher guérisseur (C).]] },
 		{ "Ce qui vient plus tard", [[
 - 12 : Rétablissement sur F2 (soin rapide). Ressusciter sur F3 : ramène un ami mort, seulement hors combat.
-- 16 : Forme aquatique (via une quête) sur R quand tu nages. 18 : Lucioles sur 5 (marche dans toutes les formes), Hibernation sur Shift-Q.
-- 20 : Forme de félin (via une quête) sur Ctrl-2, avec Griffe, Déchirure et Rôder. Feu stellaire sur 3. En combat, F3 devient Renaissance.
+- 16 : Forme aquatique (via une quête) sur R quand tu nages. 18 : Lucioles sur 5 (marche dans la plupart des formes, mais pas en Forme de voyage ni en Forme aquatique), Hibernation sur Shift-Q.
+- 20 : Forme de félin (via une quête) sur Ctrl-2, avec Griffe, Lambeau, Déchirure et Rôder. Charge farouche sur E (un talent, au plus tôt au niveau 20). Feu stellaire sur 3. En combat, F3 devient Renaissance.
 - 30 : Forme de voyage sur R (pour te déplacer), Tranquillité sur Q. 40 : Forme d’ours redoutable (remplace Forme d’ours sur Ctrl-1), Innervation sur F1.
 - 44 : Ecorce sur Z, dans toutes les formes.]] },
 		{ "Erreurs de débutant", [[

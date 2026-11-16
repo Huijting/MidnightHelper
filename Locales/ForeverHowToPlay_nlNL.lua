@@ -35,8 +35,8 @@ Een **form** is zo'n vorm. In een form doen veel van je toetsen iets anders. MH'
 Eerst Moonfire (2), dan Wrath (1) tot de vijand dood is. Weinig health? Rejuvenation (F4) of Healing Touch (C).]] },
 		{ "Wat er later komt", [[
 - 12: Regrowth op F2 (snelle heal). Revive op F3: brengt een dode vriend terug, alleen buiten een gevecht.
-- 16: Aquatic Form (uit een quest) op R als je zwemt. 18: Faerie Fire op 5 (werkt in elke form), Hibernate op Shift-Q.
-- 20: Cat Form (uit een quest) op Ctrl-2, met Claw, Rip en Prowl. Starfire op 3. In een gevecht wordt F3 Rebirth.
+- 16: Aquatic Form (uit een quest) op R als je zwemt. 18: Faerie Fire op 5 (werkt in de meeste forms, maar niet in Travel of Aquatic Form), Hibernate op Shift-Q.
+- 20: Cat Form (uit een quest) op Ctrl-2, met Claw, Shred, Rip en Prowl. Feral Charge op E (een talent, op z'n vroegst 20). Starfire op 3. In een gevecht wordt F3 Rebirth.
 - 30: Travel Form op R (om je te verplaatsen), Tranquility op Q. 40: Dire Bear Form (vervangt Bear Form op Ctrl-1), Innervate op F1.
 - 44: Barkskin op Z, in elke form.]] },
 		{ "Beginnersfouten", [[
@@ -341,5 +341,86 @@ Demon erbij (blok D; alle behalve de Imp hebben een Soul Shard nodig), stuur hem
 - Banish (Shift-Q) op een gewone vijand. Hij werkt alleen op demons en elementals.
 - Bane of Doom (F1) op een speler. Hij kan niet op spelers gecast worden.
 - Je wand missen. Shoot staat niet op het blok. Sleep hem zelf uit je spellbook naar je eigen balk.]] },
+	},
+	-- Per rol (16 nov 2026), zelfde vorm als ROLES in Modules/ForeverHowToPlay.lua: zelfde band, zelfde volgorde.
+	ROLES = {
+		DRUID = {
+			{ band = 2, title = "Beer: tank", body = [[
+Vanaf level 10 (Bear Form, uit een quest). Een **tank** is degene die de vijanden slaan, zodat de rest van de groep veilig blijft. Om te levelen noemen de gidsen de kat soepeler; de beer is handig van 10 tot 20, en om te tanken in dungeons. De beer gebruikt **Rage**: die krijg je als je slaat en als je geslagen wordt.
+**Simpele volgorde:**
+1. Pull met Faerie Fire (**5**, vanaf 18) of Feral Charge (**E**, vanaf 20). **Pullen** = één vijand van een afstand raken, zodat hij naar jou toe komt.
+2. Demoralizing Roar (**Shift-2**) één keer.
+3. Primal Bite (**3**, vanaf 40) steeds als hij klaar is.
+4. Lacerate (**2**, vanaf 25) tot hij 5 stacks heeft.
+5. Rage over: Maul (**1**) op één vijand, Swipe (**Shift-1**, vanaf 16) op twee of meer.
+6. Growl (**F**) als een vijand iemand anders slaat.
+**Per 10 levels:**
+- 10: Bear Form (**Ctrl-1**), Maul (**1**), Growl (**F**), Demoralizing Roar (**Shift-2**). Daarna Enrage (**Q**) op 12, Bash (**V**) op 14, Swipe (**Shift-1**) op 16, Faerie Fire (**5**) op 18.
+- 20: Feral Charge (**E**, een talent): je stormt op de vijand af, hij kan 4 seconden niet bewegen en niet casten. Cooldown 15 seconden. Talent-levels hier zijn op z'n vroegst; een perk kan ze tot 5 levels eerder maken.
+- 30: Leader of the Pack (een talent). Daarvoor: Lacerate (**2**, een talent) op 25, Challenging Roar (**Shift-F**) op 28.
+- 40: Dire Bear Form vervangt Bear Form op **Ctrl-1**. Primal Bite (**3**, een talent). Daarvoor: Frenzied Regeneration (**X**) op 36: maakt van Rage health.
+- 50: sterkere ranks van Primal Bite, Lacerate en Maul. Barkskin (**Z**) op 44.
+- 60: weer sterkere ranks; niets nieuws voor deze rol.
+**Beginnersfouten:**
+- Feral Charge als de vijand dichterbij is dan 8 yards. Daar werkt hij niet.
+- Enrage (**Q**) terwijl je harde klappen krijgt. Hij geeft Rage, maar je krijgt 27% minder armor.]] },
+			{ band = 2, title = "Kat: schade van dichtbij", body = [[
+Vanaf level 20 (Cat Form, uit een quest; Prowl krijg je erbij). Om te levelen is dit de eerste keus van de gidsen: ze noemen hem de snelste en de soepelste. De kat gebruikt **Energy**, die vanzelf vol loopt. Je klappen geven **combo points** (tot 5); een **finisher** gebruikt ze allemaal.
+**Simpele volgorde:**
+1. Prowl (**Shift-R**), open dan met Shred (**3**) van achteren. **Prowl** = sluipen, zodat de vijand je niet ziet.
+2. Faerie Fire (**5**) op taaie vijanden.
+3. Rake (**2**, vanaf 24), maar niet als de vijand bijna dood is.
+4. Claw (**1**) voor combo points; Shred (**3**) als je achter de vijand staat.
+5. Bij 4-5 combo points: Rip (**4**) als de vijand nog lang leeft, anders Ferocious Bite (**Shift-4**, vanaf 24).
+6. Shifting Power (**Q**, vanaf 40) als je Energy onder de 50 is.
+**Per 10 levels:**
+- 10: niets nieuws voor deze rol (de kat komt op 20).
+- 20: Cat Form (**Ctrl-2**), Claw (**1**), Shred (**3**, van achteren), Rip (**4**), Prowl (**Shift-R**). Feral Charge (**E**, een talent): als kat spring je achter de vijand. Omen of Clarity is passief: geen toets.
+- 30: Leader of the Pack (een talent). Daarvoor: Rake (**2**) en Ferocious Bite (**Shift-4**) op 24, Dash (**R**) op 26, Cower (**F**) op 28.
+- 40: Shifting Power (**Q**, een talent): 40 Energy voor mana, cooldown 8 seconden, alleen als kat. Daarvoor: Ravage (blok D) op 32, Pounce (**V**, vanuit Prowl, een stun) op 36. Talent-levels hier zijn op z'n vroegst; een perk kan ze tot 5 levels eerder maken.
+- 50: sterkere ranks van Ferocious Bite, Rip en Shred; niets nieuws voor deze rol.
+- 60: weer sterkere ranks; niets nieuws voor deze rol.
+**Beginnersfouten:**
+- Shred van voren. Hij werkt alleen van achteren; van voren gebruik je Claw.
+- Te vaak Shifting Power. Dan heb je geen mana meer om jezelf te healen.]] },
+			{ band = 1, title = "Balance: schade van een afstand", body = [[
+Vanaf level 1: Wrath en Moonfire heb je vanaf het begin. Moonkin Form is een talent, op z'n vroegst 40. De gidsen zeggen dat levelen als Balance werkt, maar trager is dan de kat. Sommige gidsen nemen Moonkin Form later (Zygor op 53): 40 is geen regel.
+**Simpele volgorde:**
+1. Starfire (**3**, vanaf 20) als opener op één vijand.
+2. Moonfire (**2**).
+3. Insect Swarm (**4**, vanaf 25).
+4. Wrath (**1**) als opvuller. Met Eclipse (vanaf 30): Wrath bouwt ladingen op, dan Starfire (**3**).
+5. Hurricane (**Shift-1**, vanaf 40) op groepen.
+Weinig mana? Blijf Wrath gebruiken: die is goedkoop.
+**Per 10 levels:**
+- 10: Wrath (**1**), Moonfire (**2**), Thorns (**Shift-Z**), Entangling Roots (**V**), Nature's Grasp (**X**).
+- 20: Starfire (**3**). Omen of Clarity is passief: geen toets.
+- 30: Eclipse (een talent): Wrath maakt je volgende 2 Starfires sneller. Daarvoor: Insect Swarm (**4**, een talent) op 25. Talent-levels hier zijn op z'n vroegst; een perk kan ze tot 5 levels eerder maken.
+- 40: Moonkin Form (**Ctrl-3**, een talent): kost mana, geeft je groep +3% crit (**crit** = een sterkere geluksklap), maar geen heals erin. Hurricane (**Shift-1**), Innervate (**F1**).
+- 50: sterkere ranks van Hurricane en Starfire. Barkskin (**Z**) op 44.
+- 60: weer sterkere ranks; niets nieuws voor deze rol.
+**Beginnersfouten:**
+- Healen in Moonkin Form. Dat kan niet, en uit de form gaan kost mana.
+- Een toets voor Omen of Clarity zoeken. Hij is passief: hij werkt vanzelf.]] },
+			{ band = 3, title = "Restoration: healer", body = [[
+Vanaf level 1: Healing Touch heb je vanaf het begin. De gidsen raden healen niet aan om alleen te levelen (vijanden gaan langzaam dood): level met Wrath en Moonfire, en heal in dungeons. Een **HoT** is een heal die beetje bij beetje healt.
+**Simpele volgorde (in een groep):**
+1. Rejuvenation (**F4**) op de tank.
+2. Regrowth (**F2**) op iemand die laag staat.
+3. Swiftmend (**Shift-F1**, vanaf 25): alleen op iemand die jouw Rejuvenation of Regrowth heeft.
+4. Wild Growth (**Shift-2**, vanaf 40) als meer mensen schade krijgen.
+5. Healing Touch (**C**) bij grote schade. Nood: Nature's Swiftness (**Shift-3**, vanaf 30), dan Healing Touch.
+6. Innervate (**F1**, vanaf 40) als je mana laag is.
+**Per 10 levels:**
+- 10: Healing Touch (**C**), Rejuvenation (**F4**). Daarna Regrowth (**F2**) en Revive (**F3**, buiten een gevecht) op 12, Cure Poison (**Shift-C**) op 14.
+- 20: Rebirth (**F3**, in een gevecht). Daarna Remove Curse (**Shift-V**) op 24, Abolish Poison (**Shift-C**) op 26.
+- 30: Nature's Swiftness (**Shift-3**, een talent), Tranquility (**Q**). Daarvoor: Swiftmend (**Shift-F1**, een talent) op 25. Talent-levels hier zijn op z'n vroegst; een perk kan ze tot 5 levels eerder maken.
+- 40: Wild Growth (**Shift-2**, een talent), Innervate (**F1**).
+- 50: Gift of the Wild (**Shift-X**), een sterkere Wild Growth.
+- 60: weer sterkere ranks; niets nieuws voor deze rol.
+**Beginnersfouten:**
+- Healen in een form. Heals werken alleen in je gewone vorm.
+- Een HoT casten op iemand die hem nog heeft. De nieuwe vervangt de oude.]] },
+		},
 	},
 }

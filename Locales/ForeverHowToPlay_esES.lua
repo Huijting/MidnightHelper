@@ -40,8 +40,8 @@ Una **forma** es una de esas figuras. En una forma, muchas de tus teclas hacen o
 Primero Fuegolunar (2), luego Cólera (1) hasta que el enemigo muera. ¿Poca salud? Rejuvenecimiento (F4) o Toque curativo (C).]] },
 		{ "Lo que llega después", [[
 - 12: Recrecimiento en F2 (cura rápida). Revivir en F3: trae de vuelta a un amigo muerto, solo fuera de combate.
-- 16: Forma acuática (de una misión) en R mientras nadas. 18: Fuego feérico en 5 (funciona en todas las formas), Hibernar en Shift-Q.
-- 20: Forma felina (de una misión) en Ctrl-2, con Zarpa, Destripar y Acechar. Fuego estelar en 3. En combate, F3 pasa a ser Renacer.
+- 16: Forma acuática (de una misión) en R mientras nadas. 18: Fuego feérico en 5 (funciona en casi todas las formas, pero no en Forma de viaje ni en Forma acuática), Hibernar en Shift-Q.
+- 20: Forma felina (de una misión) en Ctrl-2, con Zarpa, Triturar, Destripar y Acechar. Carga feral en E (un talento, como pronto en el nivel 20). Fuego estelar en 3. En combate, F3 pasa a ser Renacer.
 - 30: Forma de viaje en R (para desplazarte), Tranquilidad en Q. 40: Forma de oso nefasto (sustituye a Forma de oso en Ctrl-1), Enervar en F1.
 - 44: Pielcorteza en Z, en todas las formas.]] },
 		{ "Errores de principiante", [[

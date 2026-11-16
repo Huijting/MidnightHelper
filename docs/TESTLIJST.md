@@ -24,6 +24,16 @@ er is niets weggegooid.
 📝 **Waarneming Rob, 16 nov (nacht), Forever mage, via sparring:** *"mouse over werk"* — `/mh mouseover on`, Shift+X
 (Arcane Intellect) op een voorbijganger onder de muis werkt.
 
+## 🆕 16 nov (nacht) — Forever: Druid per rol in How you play
+
+Druid, `/reload`, `/mh play`:
+- [ ] Met een richting (bv. Feral): bovenaan "Bear: tank" en "Cat: damage up close" helemaal; daaronder "Other roles"
+      met alleen de namen (Balance, Restoration).
+- [ ] Knop "All roles" rechtsboven (naast de richting-knop): klik → alle vier de rollen; de knop heet dan "My role".
+      Staat de knop niet over de titel heen?
+- [ ] Zonder richting: alle vier ingeklapt; de knop klapt ze uit en heet dan "Fold up".
+- [ ] Kloppen de toetsen in de volgordes met je balk (bv. Maul op 1, Growl op F)?
+
 ## 🆕 16 nov (laat) — Forever: Druid, meer class-quests (Cure Poison, Aquatic Form, Torwa)
 
 Druid, `/reload`:

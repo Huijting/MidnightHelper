@@ -5497,6 +5497,13 @@ ns._mhLocales.enUS = {
 	FCQ_CHAIN_TORWA ="Torwa Pathfinder's quests (a chest piece or staff)",
 	FCQ_MOONGLADE_TIP = " (Teleport: Moonglade in your spellbook takes you there)",
 	-- How you play: a block with every class quest of this character (ForeverHowToPlay.lua).
+	-- How you play (Forever): per role, yours on top, the others folded (ForeverHowToPlay.lua, 16 Nov 2026).
+	FHOWTO_ROLES_SHOW = "All roles",
+	FHOWTO_ROLES_HIDE = "My role",
+	FHOWTO_ROLES_FOLD = "Fold up",
+	FHOWTO_ROLES_OTHER = "Other roles",
+	FHOWTO_ROLES_ALL = "Roles",
+	FHOWTO_ROLES_FOLDED_FMT = "%s. Press \"All roles\" at the top to read them. Your direction decides which one comes first.",
 	FCQ_HOWTO_HEAD = "Your class quests",
 	FCQ_HOWTO_INTRO = "Some spells you only get from a class quest, not from the trainer.",
 	FCQ_ST_DONE = "Done.",

@@ -14,8 +14,12 @@
    (20 okt); nodig: namen per taal meten of runtime opzoeken. 📌 Rob, 16 nov: *"spoken mag je als betrouwbaar aanzien"*
    (addon Spoken_Quests, Compendium.lua) → Skyborne-keten opnieuw bekijken: Spoken geeft 98404 geen prev en 98397/98362
    alleen prev 98731/98739; de Skyborne-schakels volgen daar alleen uit de racemaskers (AFGELEID).
-2. **Stap 2:** per rol (beer = tank, kat = schade, Balance = caster, Restoration = healer) een eenvoudige volgorde, en per
-   10 levels wat er verandert; richting van de speler bovenaan.
+2. **Stap 2** (Rob via sparring: *"ja"*): ✅ druid GEBOUWD (en + nl), 16 nov. Feiten: `docs/forever/DRUID_ROLES_2026-11-16.md`
+   (mh-research; grootste vondst: Forever-talentboom ≠ classic, staat in DB2 TraitTree 1089). Teksten: mh-writer, in
+   ForeverHowToPlay.lua `ROLES.DRUID` (beer/kat band 2, Balance 1, Resto 3) + nlNL; rol(len) van je richting bovenaan
+   How you play, de rest ingeklapt achter de knop "All roles" (FHOWTO_ROLES_*). Tegelijk 2 correcties in de oude
+   druidtekst (Faerie Fire niet in Travel/Aquatic; Shred + Feral Charge op 20), alle 7 talen. Balance-volgorde: Starfire
+   als opener vooraan gezet (bouwchat). Open: ROLES vertalen de/fr/es/esMX/pt/ru (nu Engelse terugval).
 3. **Stap 3:** de andere 8 classes op dezelfde manier (class-quests eerst).
 4. ⚠️ Carola speelt mogelijk via CurseForge: dan ziet ze main pas na een release (Rob kiest wanneer). 5.4.0 is uit
    (16 nov); Bear Form (4faaaee) zit er NIET in.

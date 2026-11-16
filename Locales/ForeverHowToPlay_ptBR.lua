@@ -38,8 +38,8 @@ Uma **forma** é cada um desses corpos. Numa forma, muitas das suas teclas fazem
 Primeiro Fogo Lunar (2), depois Ira (1) até o inimigo morrer. Pouca vida? Rejuvenescer (F4) ou Toque de Cura (C).]] },
 		{ "O que vem depois", [[
 - 12: Recrescimento no F2 (cura rápida). Reviver no F3: traz um amigo morto de volta, só fora de combate.
-- 16: Forma Aquática (de uma missão) no R enquanto você nada. 18: Fogo Feérico no 5 (funciona em toda forma), Hibernar no Shift-Q.
-- 20: Forma de Felino (de uma missão) no Ctrl-2, com Garra, Rasgar e Espreitar. Fogo Estelar no 3. Em combate, o F3 vira Renascimento.
+- 16: Forma Aquática (de uma missão) no R enquanto você nada. 18: Fogo Feérico no 5 (funciona na maioria das formas, mas não na Forma de Viagem nem na Forma Aquática), Hibernar no Shift-Q.
+- 20: Forma de Felino (de uma missão) no Ctrl-2, com Garra, Despedaçar, Rasgar e Espreitar. Investida Feral no E (um talento, no mínimo nível 20). Fogo Estelar no 3. Em combate, o F3 vira Renascimento.
 - 30: Forma de Viagem no R (para se deslocar), Tranquilidade no Q. 40: Forma de Urso Hediondo (substitui a Forma de Urso no Ctrl-1), Avivar no F1.
 - 44: Pele de Árvore no Z, em toda forma.]] },
 		{ "Erros de iniciante", [[

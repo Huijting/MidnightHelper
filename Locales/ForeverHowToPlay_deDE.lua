@@ -38,8 +38,8 @@ Eine **Gestalt** ist eine dieser Formen. In einer Gestalt machen viele deiner Ta
 Mondfeuer (2) zuerst, dann Zorn (1), bis der Gegner tot ist. Wenig Gesundheit? Verjüngung (F4) oder Heilende Berührung (C).]] },
 		{ "Was später kommt", [[
 - 12: Nachwachsen auf F2 (schnelle Heilung). Wiederbelebung (ab Rang 2: Wiederbeleben) auf F3: holt einen toten Freund zurück, nur außerhalb eines Kampfes.
-- 16: Wassergestalt (aus einer Quest) auf R, während du schwimmst. 18: Feenfeuer auf 5 (wirkt in jeder Gestalt), Winterschlaf auf Shift-Q.
-- 20: Katzengestalt (aus einer Quest) auf Ctrl-2, mit Klaue, Zerfetzen und Schleichen. Sternenfeuer auf 3. Im Kampf wird F3 zu Wiedergeburt.
+- 16: Wassergestalt (aus einer Quest) auf R, während du schwimmst. 18: Feenfeuer auf 5 (wirkt in den meisten Gestalten, aber nicht in Reisegestalt oder Wassergestalt), Winterschlaf auf Shift-Q.
+- 20: Katzengestalt (aus einer Quest) auf Ctrl-2, mit Klaue, Schreddern, Zerfetzen und Schleichen. Wilde Attacke auf E (ein Talent, frühestens 20). Sternenfeuer auf 3. Im Kampf wird F3 zu Wiedergeburt.
 - 30: Reisegestalt auf R (zum Reisen), Gelassenheit auf Q. 40: Terrorbärengestalt (ersetzt Bärengestalt auf Ctrl-1), Anregen auf F1.
 - 44: Baumrinde auf Z, in jeder Gestalt.]] },
 		{ "Anfängerfehler", [[
