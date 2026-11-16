@@ -10,6 +10,21 @@
 2. Daarna: de rest van de 12.1.7-lijst (`docs/PATCH_12_1_7_DRAAIBOEK.md`, "2b-stand"); wo 18 nov = Midnight-dag (oude
    Midnight-testvinkjes in één lijst voor Rob + wekelijkse PTR-hermeting met `tools/patch_watch/`).
 
+🔍 **16 nov, Bouwchat 16-11 (sessie heet "addons-4e"), punt 1 GEMETEN:** Wowhead's nieuws-RSS
+`https://www.wowhead.com/news/rss/all` is gewoon leesbaar, óók met het wachter-gereedschap (Exa `web_fetch_exa`, met
+`?nocache=`): nieuwste item 15 nov 13:00 (-0600), `lastBuildDate` 16 nov 00:52, 30 items, mét PTR/12.1.7-stukken (13 en
+12 nov). Zelfde run: `/ptr/news` gaf `CRAWL_EMPTY_CONTENT`; `/news/rss/ptr` en `/news/rss/live` bestaan niet
+(`CRAWL_NOT_FOUND`). De wachter vond vannacht zelf al een tweede weg voor de versieschakelaar (Exa-zoekindex, zonder
+datum; `PTR_12.1_WATCH.md` regel 647). AFGELEID: een 12.2-PTR zou eerst als branch op wago.tools en als Wowhead-
+nieuwsbericht verschijnen; de schakelaar zelf is dus niet nodig. Voorstel naar Sparring 16-11: RSS-regel in de
+routine-prompt van de PTR-wachter (`trig_018jpghYW8vRpDsj9qkWWD8f`); routine NIET aangepast (wacht op Robs ja).
+Ochtendronde 16 nov (GEMETEN): pull a478c3c → a9723ee (alleen wachters + regie). CF 0 open (8), GitHub 0. addon_updates:
+geen 🔔; o.a. HandyNotes_WoWForever v4 (alle oude rares; MH heeft geen Forever-rares), HandyNotes_ClassTrainers 1.1.0,
+TalentsForeverBook 0.38.27 (gelezen, niet getest). HandyNotes_Midnight 171, geen wijziging. Zygor Midnight geen
+wijziging; Forever 6 bestanden (nieuwe quests/trainer-questid's, nog niet naast MH gelegd). Site-mail 0, BOUW_VRAAG
+Open (geen), Notion: dezelfde 4 regels van 12 nov. Wachters: alleen de bekende [MOET GEFIKST] (Self Cast Key, nu ook
+`RetailTopMacros.lua`).
+
 Stand bij het afsluiten (15 nov): alles op main en gepusht, niets uitgebracht (5.3.0 staat op CurseForge). Alle
 toestemmingen liepen zonder weigering.
 
