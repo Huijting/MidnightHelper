@@ -346,4 +346,86 @@ Sors ton démon (bloc D ; tous sauf le Diablotin demandent un Fragment d'âme), 
 - Plaie funeste (F1) sur un joueur. Elle ne peut pas être lancée sur des joueurs.
 - Ne plus trouver ta baguette. Tir n'est pas sur le bloc. Fais-le glisser toi-même de ton Grimoire vers ta propre barre.]] },
 	},
+	-- Par rôle (16 Nov 2026, mh-writer), same shape as ROLES in Modules/ForeverHowToPlay.lua: same band, same order.
+	-- Spell names: SpellName frFR, wowf 1.60.1.70938. Tree names: ForeverMacros.lua SPEC_NAMES.
+	ROLES = {
+		DRUID = {
+			{ band = 2, title = "Ours : tank", body = [[
+Dès le niveau 10 (Forme d’ours, via une quête). Le **tank**, c'est celui que les ennemis frappent, pour que le reste du groupe reste à l'abri. Pour monter de niveau, les guides trouvent le félin plus agréable ; l'ours est pratique de 10 à 20, et pour tanker en donjon. L'ours utilise la **Rage** : tu en gagnes quand tu frappes et quand on te frappe.
+**Ordre simple :**
+1. Attire avec Lucioles (**5**, dès 18) ou Charge farouche (**E**, dès 20). **Attirer** = frapper un ennemi de loin, pour qu'il vienne vers toi.
+2. Rugissement démoralisant (**Shift-2**) une fois.
+3. Morsure primordiale (**3**, dès 40) dès qu'elle est prête.
+4. Lacérer (**2**, dès 25) jusqu'à 5 cumuls.
+5. Rage en trop : Mutiler (**1**) sur un ennemi, Balayage (**Shift-1**, dès 16) sur deux ennemis ou plus.
+6. Grondement (**F**) quand un ennemi frappe quelqu'un d'autre.
+**Tous les 10 niveaux :**
+- 10 : Forme d’ours (**Ctrl-1**), Mutiler (**1**), Grondement (**F**), Rugissement démoralisant (**Shift-2**). Puis Enrager (**Q**) au niveau 12, Sonner (**V**) au 14, Balayage (**Shift-1**) au 16, Lucioles (**5**) au 18.
+- 20 : Charge farouche (**E**, un talent) : tu charges l'ennemi, il ne peut ni bouger ni lancer de sort pendant 4 secondes. Cooldown 15 secondes. Les niveaux de talent indiqués ici sont les plus tôt possibles ; un avantage peut les avancer jusqu'à 5 niveaux.
+- 30 : Chef de la meute (un talent). Avant ça : Lacérer (**2**, un talent) au 25, Rugissement provocateur (**Shift-F**) au 28.
+- 40 : Forme d’ours redoutable remplace Forme d’ours sur **Ctrl-1**. Morsure primordiale (**3**, un talent). Avant ça : Régénération frénétique (**X**) au 36 : transforme la Rage en vie.
+- 50 : rangs plus forts de Morsure primordiale, Lacérer et Mutiler. Ecorce (**Z**) au 44.
+- 60 : encore des rangs plus forts ; rien de nouveau pour ce rôle.
+**Erreurs de débutant :**
+- Charge farouche quand l'ennemi est à moins de 8 mètres. Elle ne marche pas à cette distance.
+- Enrager (**Q**) pendant que tu prends de gros coups. Ça donne de la Rage, mais tu as 27 % d'armure en moins.]] },
+			{ band = 2, title = "Félin : dégâts au corps à corps", body = [[
+Dès le niveau 20 (Forme de félin, via une quête ; Rôder vient avec). Pour monter de niveau, c'est le premier choix des guides : ils le disent le plus rapide et le plus agréable. Le félin utilise l'**Énergie**, qui se remplit toute seule. Tes coups te donnent des **points de combo** (jusqu'à 5) ; un **coup de grâce** les utilise tous.
+**Ordre simple :**
+1. Rôder (**Shift-R**), puis ouvre avec Lambeau (**3**) par derrière. **Rôder** = avancer en douce, pour que l'ennemi ne te voie pas.
+2. Lucioles (**5**) sur les ennemis coriaces.
+3. Griffure (**2**, dès 24), mais pas quand l'ennemi est presque mort.
+4. Griffe (**1**) pour les points de combo ; Lambeau (**3**) quand tu es derrière l'ennemi.
+5. À 4-5 points de combo : Déchirure (**4**) si l'ennemi va vivre longtemps, sinon Morsure féroce (**Shift-4**, dès 24).
+6. Puissance fluctuante (**Q**, dès 40) quand ton Énergie est sous 50.
+**Tous les 10 niveaux :**
+- 10 : rien de nouveau pour ce rôle (le félin arrive au 20).
+- 20 : Forme de félin (**Ctrl-2**), Griffe (**1**), Lambeau (**3**, par derrière), Déchirure (**4**), Rôder (**Shift-R**). Charge farouche (**E**, un talent) : en félin, tu bondis derrière l'ennemi. Augure de clarté est passif : pas de touche.
+- 30 : Chef de la meute (un talent). Avant ça : Griffure (**2**) et Morsure féroce (**Shift-4**) au 24, Célérité (**R**) au 26, Dérobade (**F**) au 28.
+- 40 : Puissance fluctuante (**Q**, un talent) : 40 Énergie contre du mana, cooldown 8 secondes, en félin seulement. Avant ça : Ravage (bloc D) au 32, Traquenard (**V**, depuis Rôder, un étourdissement) au 36. Les niveaux de talent indiqués ici sont les plus tôt possibles ; un avantage peut les avancer jusqu'à 5 niveaux.
+- 50 : rangs plus forts de Morsure féroce, Déchirure et Lambeau ; rien de nouveau pour ce rôle.
+- 60 : encore des rangs plus forts ; rien de nouveau pour ce rôle.
+**Erreurs de débutant :**
+- Lambeau de face. Il ne marche que par derrière ; de face, utilise Griffe.
+- Puissance fluctuante trop souvent. Ensuite tu n'as plus de mana pour te soigner.]] },
+			{ band = 1, title = "Equilibre : dégâts à distance", body = [[
+Dès le niveau 1 : Colère et Eclat lunaire sont là dès le début. Forme de sélénien est un talent, au plus tôt au niveau 40. Les guides disent que monter de niveau en Equilibre marche, mais plus lentement qu'en félin. Certains guides prennent Forme de sélénien plus tard (Zygor au 53) : 40 n'est pas une règle.
+**Ordre simple :**
+1. Feu stellaire (**3**, dès 20) pour ouvrir sur un ennemi.
+2. Eclat lunaire (**2**).
+3. Essaim d'insectes (**4**, dès 25).
+4. Colère (**1**) pour remplir. Avec Éclipse (dès 30) : Colère accumule des charges, puis Feu stellaire (**3**).
+5. Ouragan (**Shift-1**, dès 40) sur les groupes.
+Peu de mana ? Continue avec Colère : ce sort coûte peu.
+**Tous les 10 niveaux :**
+- 10 : Colère (**1**), Eclat lunaire (**2**), Epines (**Shift-Z**), Sarments (**V**), Emprise de la nature (**X**).
+- 20 : Feu stellaire (**3**). Augure de clarté est passif : pas de touche.
+- 30 : Éclipse (un talent) : Colère rend tes 2 prochains sorts Feu stellaire plus rapides. Avant ça : Essaim d'insectes (**4**, un talent) au 25. Les niveaux de talent indiqués ici sont les plus tôt possibles ; un avantage peut les avancer jusqu'à 5 niveaux.
+- 40 : Forme de sélénien (**Ctrl-3**, un talent) : coûte du mana, donne +3 % de critique à ton groupe (**critique** = un coup chanceux, plus fort), mais pas de soins dans cette forme. Ouragan (**Shift-1**), Innervation (**F1**).
+- 50 : rangs plus forts d'Ouragan et de Feu stellaire. Ecorce (**Z**) au 44.
+- 60 : encore des rangs plus forts ; rien de nouveau pour ce rôle.
+**Erreurs de débutant :**
+- Soigner en Forme de sélénien. C'est impossible, et quitter la forme coûte du mana.
+- Chercher une touche pour Augure de clarté. Il est passif : il marche tout seul.]] },
+			{ band = 3, title = "Restauration : soigneur", body = [[
+Dès le niveau 1 : Toucher guérisseur est là dès le début. Les guides déconseillent de soigner pour monter de niveau en solo (les ennemis meurent lentement) : monte de niveau avec Colère et Eclat lunaire, et soigne en donjon. Un **HoT** est un soin qui soigne petit à petit.
+**Ordre simple (en groupe) :**
+1. Récupération (**F4**) sur le tank.
+2. Rétablissement (**F2**) sur quelqu'un qui a peu de vie.
+3. Prompte guérison (**Shift-F1**, dès 25) : seulement sur quelqu'un qui a ta Récupération ou ton Rétablissement.
+4. Croissance sauvage (**Shift-2**, dès 40) quand plusieurs personnes prennent des dégâts.
+5. Toucher guérisseur (**C**) pour les gros dégâts. Urgence : Rapidité de la nature (**Shift-3**, dès 30), puis Toucher guérisseur.
+6. Innervation (**F1**, dès 40) quand ton mana est bas.
+**Tous les 10 niveaux :**
+- 10 : Toucher guérisseur (**C**), Récupération (**F4**). Puis Rétablissement (**F2**) et Ressusciter (**F3**, hors combat) au 12, Guérison du poison (**Shift-C**) au 14.
+- 20 : Renaissance (**F3**, en combat). Puis Délivrance de la malédiction (**Shift-V**) au 24, Abolir le poison (**Shift-C**) au 26.
+- 30 : Rapidité de la nature (**Shift-3**, un talent), Tranquillité (**Q**). Avant ça : Prompte guérison (**Shift-F1**, un talent) au 25. Les niveaux de talent indiqués ici sont les plus tôt possibles ; un avantage peut les avancer jusqu'à 5 niveaux.
+- 40 : Croissance sauvage (**Shift-2**, un talent), Innervation (**F1**).
+- 50 : Don du fauve (**Shift-X**), une Croissance sauvage plus forte.
+- 60 : encore des rangs plus forts ; rien de nouveau pour ce rôle.
+**Erreurs de débutant :**
+- Soigner dans une forme. Les soins ne marchent que sous ta forme normale.
+- Lancer un HoT sur quelqu'un qui l'a encore. Le nouveau remplace l'ancien.]] },
+		},
+	},
 }

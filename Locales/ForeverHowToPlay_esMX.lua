@@ -346,4 +346,86 @@ Saca al demonio (bloque D; todos menos el Diablillo necesitan un Fragmento de al
 - Terror de fatalidad (F1) contra un jugador. No se puede lanzar sobre jugadores.
 - Echar de menos tu varita. Disparar no está en el bloque. Arrástralo tú mismo desde tu libro de hechizos (Hechizos) a tu propia barra.]] },
 	},
+	-- Por rol (16 Nov 2026, mh-writer): the esES text with the esMX client names (SpellName esMX, wowf 1.60.1.70938;
+	-- tree names ForeverMacros.lua SPEC_NAMES). Same band, same order as ROLES in Modules/ForeverHowToPlay.lua.
+	ROLES = {
+		DRUID = {
+			{ band = 2, title = "Oso: tanque", body = [[
+Desde el nivel 10 (Forma de oso, de una misión). El **tanque** es al que golpean los enemigos, para que el resto del grupo esté a salvo. Para subir de nivel, las guías dicen que el felino es más cómodo; el oso es útil del 10 al 20, y para tanquear en calabozos. El oso usa **Ira**: la consigues cuando golpeas y cuando te golpean.
+**Orden sencillo:**
+1. Haz **pull** con Fuego feérico (**5**, desde el 18) o Carga feral (**E**, desde el 20). **Pull** = golpear a un enemigo desde lejos, para que venga hacia ti.
+2. Rugido desmoralizador (**Shift-2**) una vez.
+3. Mordedura primigenia (**3**, desde el 40) cada vez que esté lista.
+4. Lacerar (**2**, desde el 25) hasta que tenga 5 acumulaciones.
+5. Ira de sobra: Magullar (**1**) contra un enemigo, Flagelo (**Shift-1**, desde el 16) contra dos o más.
+6. Bramido (**F**) cuando un enemigo golpea a otra persona.
+**Cada 10 niveles:**
+- 10: Forma de oso (**Ctrl-1**), Magullar (**1**), Bramido (**F**), Rugido desmoralizador (**Shift-2**). Luego Enfurecer (**Q**) en el 12, Azote (**V**) en el 14, Flagelo (**Shift-1**) en el 16, Fuego feérico (**5**) en el 18.
+- 20: Carga feral (**E**, un talento): cargas contra el enemigo y no puede moverse ni lanzar hechizos durante 4 segundos. Reutilización de 15 segundos. Los niveles de talento de aquí son los más tempranos; una ventaja puede adelantarlos hasta 5 niveles.
+- 30: Líder de la manada (un talento). Antes: Lacerar (**2**, un talento) en el 25, Rugido desafiante (**Shift-F**) en el 28.
+- 40: Forma de oso temible sustituye a Forma de oso en **Ctrl-1**. Mordedura primigenia (**3**, un talento). Antes: Regeneración frenética (**X**) en el 36: convierte la Ira en salud.
+- 50: rangos más fuertes de Mordedura primigenia, Lacerar y Magullar. Piel de corteza (**Z**) en el 44.
+- 60: otra vez rangos más fuertes; nada nuevo para este rol.
+**Errores de principiante:**
+- Carga feral cuando el enemigo está a menos de 8 metros. Ahí no funciona.
+- Enfurecer (**Q**) mientras recibes golpes fuertes. Te da Ira, pero tienes un 27% menos de armadura.]] },
+			{ band = 2, title = "Felino: daño cuerpo a cuerpo", body = [[
+Desde el nivel 20 (Forma felina, de una misión; Acechar viene con ella). Para subir de nivel es la primera opción de las guías: dicen que es la más rápida y la más cómoda. El felino usa **Energía**, que se rellena sola. Tus golpes te dan **puntos de combo** (hasta 5); un **remate** los gasta todos.
+**Orden sencillo:**
+1. Acechar (**Shift-R**), y luego abre con Triturar (**3**) por la espalda. **Acechar** = moverte a escondidas, para que el enemigo no te vea.
+2. Fuego feérico (**5**) contra enemigos duros.
+3. Arañazo (**2**, desde el 24), pero no cuando el enemigo está casi muerto.
+4. Zarpa (**1**) para puntos de combo; Triturar (**3**) cuando estás detrás del enemigo.
+5. Con 4-5 puntos de combo: Destripar (**4**) si el enemigo va a vivir mucho; si no, Mordedura feroz (**Shift-4**, desde el 24).
+6. Poder cambiante (**Q**, desde el 40) cuando tu Energía está por debajo de 50.
+**Cada 10 niveles:**
+- 10: nada nuevo para este rol (el felino llega en el 20).
+- 20: Forma felina (**Ctrl-2**), Zarpa (**1**), Triturar (**3**, por la espalda), Destripar (**4**), Acechar (**Shift-R**). Carga feral (**E**, un talento): como felino saltas detrás del enemigo. Augurio de claridad es pasivo: no tiene tecla.
+- 30: Líder de la manada (un talento). Antes: Arañazo (**2**) y Mordedura feroz (**Shift-4**) en el 24, Carrerilla (**R**) en el 26, Agazapar (**F**) en el 28.
+- 40: Poder cambiante (**Q**, un talento): 40 de Energía a cambio de maná, reutilización de 8 segundos, solo como felino. Antes: Devastar (bloque D) en el 32, Abalanzarse (**V**, desde Acechar, un aturdimiento) en el 36. Los niveles de talento de aquí son los más tempranos; una ventaja puede adelantarlos hasta 5 niveles.
+- 50: rangos más fuertes de Mordedura feroz, Destripar y Triturar; nada nuevo para este rol.
+- 60: otra vez rangos más fuertes; nada nuevo para este rol.
+**Errores de principiante:**
+- Triturar de frente. Solo funciona por la espalda; de frente, usa Zarpa.
+- Poder cambiante demasiado a menudo. Luego no te queda maná para curarte.]] },
+			{ band = 1, title = "Equilibrio: daño a distancia", body = [[
+Desde el nivel 1: Cólera y Fuego lunar los tienes desde el principio. Forma de lechúcico lunar es un talento, como pronto en el 40. Las guías dicen que subir de nivel como Equilibrio funciona, pero es más lento que el felino. Algunas guías toman Forma de lechúcico lunar más tarde (Zygor en el 53): el 40 no es una regla.
+**Orden sencillo:**
+1. Fuego estelar (**3**, desde el 20) para abrir contra un enemigo.
+2. Fuego lunar (**2**).
+3. Enjambre de insectos (**4**, desde el 25).
+4. Cólera (**1**) como relleno. Con Eclipse (desde el 30): Cólera acumula cargas, y luego Fuego estelar (**3**).
+5. Huracán (**Shift-1**, desde el 40) contra grupos.
+¿Poco maná? Sigue con Cólera: es barata.
+**Cada 10 niveles:**
+- 10: Cólera (**1**), Fuego lunar (**2**), Espinas (**Shift-Z**), Raíces enredadoras (**V**), Trabazón con la Naturaleza (**X**).
+- 20: Fuego estelar (**3**). Augurio de claridad es pasivo: no tiene tecla.
+- 30: Eclipse (un talento): Cólera hace más rápidos tus 2 siguientes Fuego estelar. Antes: Enjambre de insectos (**4**, un talento) en el 25. Los niveles de talento de aquí son los más tempranos; una ventaja puede adelantarlos hasta 5 niveles.
+- 40: Forma de lechúcico lunar (**Ctrl-3**, un talento): cuesta maná, da a tu grupo +3% de crítico (**crítico** = un golpe de suerte, más fuerte), pero en ella no hay curas. Huracán (**Shift-1**), Estimular (**F1**).
+- 50: rangos más fuertes de Huracán y Fuego estelar. Piel de corteza (**Z**) en el 44.
+- 60: otra vez rangos más fuertes; nada nuevo para este rol.
+**Errores de principiante:**
+- Curar en Forma de lechúcico lunar. No se puede, y salir de la forma cuesta maná.
+- Buscar una tecla para Augurio de claridad. Es pasivo: funciona solo.]] },
+			{ band = 3, title = "Restauración: sanador", body = [[
+Desde el nivel 1: Toque de sanación lo tienes desde el principio. Las guías no aconsejan curar para subir de nivel en solitario (los enemigos mueren despacio): sube de nivel con Cólera y Fuego lunar, y cura en calabozos. Un **HoT** es una cura que cura poco a poco.
+**Orden sencillo (en grupo):**
+1. Rejuvenecimiento (**F4**) en el tanque.
+2. Recrecimiento (**F2**) en alguien con poca salud.
+3. Alivio presto (**Shift-F1**, desde el 25): solo en alguien que tiene tu Rejuvenecimiento o tu Recrecimiento.
+4. Crecimiento salvaje (**Shift-2**, desde el 40) cuando varias personas reciben daño.
+5. Toque de sanación (**C**) contra mucho daño. Emergencia: Presteza de la Naturaleza (**Shift-3**, desde el 30), y luego Toque de sanación.
+6. Estimular (**F1**, desde el 40) cuando te queda poco maná.
+**Cada 10 niveles:**
+- 10: Toque de sanación (**C**), Rejuvenecimiento (**F4**). Luego Recrecimiento (**F2**) y Revivir (**F3**, fuera de combate) en el 12, Curar envenenamiento (**Shift-C**) en el 14.
+- 20: Renacer (**F3**, en combate). Luego Eliminar maldición (**Shift-V**) en el 24, Suprimir veneno (**Shift-C**) en el 26.
+- 30: Presteza de la Naturaleza (**Shift-3**, un talento), Tranquilidad (**Q**). Antes: Alivio presto (**Shift-F1**, un talento) en el 25. Los niveles de talento de aquí son los más tempranos; una ventaja puede adelantarlos hasta 5 niveles.
+- 40: Crecimiento salvaje (**Shift-2**, un talento), Estimular (**F1**).
+- 50: Don de lo Salvaje (**Shift-X**), un Crecimiento salvaje más fuerte.
+- 60: otra vez rangos más fuertes; nada nuevo para este rol.
+**Errores de principiante:**
+- Curar en una forma. Las curas solo funcionan en tu forma normal.
+- Lanzar un HoT a alguien que todavía lo tiene. El nuevo sustituye al viejo.]] },
+		},
+	},
 }

@@ -211,7 +211,10 @@ Stand 15 nov avond: 1 gebouwd (1f521e5), 2 gemeten, 3 rapport + A/B gebouwd (zie
   level 10, 20, 30 enzovoort komt. Maar begin inderdaad met de Druid, dan kan ze daar zo meteen alvast mee beginnen."*
 - Stap 1 Druid class-quests (Bear Form lvl 10, Aquatic 16, Cat 20?, …) in "Do this now" + pijl + /mh play; stap 2 per rol
   en per 10 levels; stap 3 de andere 8 classes.
-- Stand: Bear Form-keten (A + H) uit Zygor Forever naar sparring (voor Carola), 16 nov. ⏳ bouwen.
+- Stand: Bear Form-keten (A + H) uit Zygor Forever naar sparring (voor Carola), 16 nov.
+- Stand 16 nov (nacht): ✅ Ja (Rob). Druid stap 1 GEBOUWD (Bear 10, Cure Poison 14, Aquatic 16, Cat 20, Torwa 50; commits
+  4faaaee, 0059fae, 86984a6, bb1635e) en stap 2 GEBOUWD in en/nl (dad9c38). Alleen main, NIET in het spel gezien
+  (TESTLIJST 16 nov). Open: Skyborne Cat Form, NPC-namen per taal, stap 3 (8 classes). Af na Robs/Carola's test.
 
 ### Forever: "Do this now" noemt de beste stats voor jou (solo + tank, dps/heal in gedachten)
 - Bron: Rob 16 nov (eerder die dag, letterlijk): *"wat ik ook graag wil weten in het schermpje Doe This Now … wat zijn

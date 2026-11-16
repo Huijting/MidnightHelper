@@ -19,7 +19,10 @@
    ForeverHowToPlay.lua `ROLES.DRUID` (beer/kat band 2, Balance 1, Resto 3) + nlNL; rol(len) van je richting bovenaan
    How you play, de rest ingeklapt achter de knop "All roles" (FHOWTO_ROLES_*). Tegelijk 2 correcties in de oude
    druidtekst (Faerie Fire niet in Travel/Aquatic; Shred + Feral Charge op 20), alle 7 talen. Balance-volgorde: Starfire
-   als opener vooraan gezet (bouwchat). Open: ROLES vertalen de/fr/es/esMX/pt/ru (nu Engelse terugval).
+   als opener vooraan gezet (bouwchat). ✅ ROLES + FHOWTO_ROLES_* vertaald de/fr/es/esMX/pt/ru (mh-writer; 55 spellnamen
+   GEMETEN per locale; "perk", rolwoorden, "dungeon" eigen woordkeus; ptBR Swipe "Revés" (1 id zegt "Patada", niet
+   nagezocht); pt-knop "Ver funções", es-knop "Todos los roles" 15 tekens — breedte NIET gezien). Ook: Cure Poison 8946
+   in ns.FOREVER_QUEST_FIRST (trainerlijst zegt nu "van een class-quest").
 3. **Stap 3:** de andere 8 classes op dezelfde manier (class-quests eerst).
 4. ⚠️ Carola speelt mogelijk via CurseForge: dan ziet ze main pas na een release (Rob kiest wanneer). 5.4.0 is uit
    (16 nov); Bear Form (4faaaee) zit er NIET in.

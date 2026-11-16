@@ -43,6 +43,7 @@ ns.FOREVER_QUEST_FIRST = {
 	[8071] = true, [3599] = true, [5394] = true, -- Shaman: Stoneskin (4), Searing (10), Healing Stream Totem (20)
 	[688] = true, [697] = true, [712] = true, [713] = true, [691] = true, -- Warlock: Imp, Voidwalker, Succubus, Incubus, Felhunter
 	[5487] = true, [6795] = true, [6807] = true, -- Druid: Bear Form, Growl, Maul (10)
+	[8946] = true, -- Druid: Cure Poison (14, quest 6125/6130 "Power over Poison"; Wowhead Forever, mh-research 16 Nov 2026)
 	[1066] = true, -- Druid: Aquatic Form (16)
 	[768] = true, [5215] = true, [1082] = true, [1079] = true, -- Druid: Cat Form, Prowl, Claw, Rip (20)
 }

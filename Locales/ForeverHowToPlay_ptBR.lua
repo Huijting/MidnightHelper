@@ -345,4 +345,86 @@ Demônio fora (bloco D; todos menos o Diabrete precisam de um Estilhaço de Alma
 - Ruína do Destino (F1) num jogador. Ela não pode ser lançada em jogadores.
 - Sentir falta da varinha. Atirar não está no bloco. Arraste do seu Grimório para uma barra sua, você mesmo.]] },
 	},
+	-- Por função (16 Nov 2026, mh-writer), same shape as ROLES in Modules/ForeverHowToPlay.lua: same band, same order.
+	-- Spell names: SpellName ptBR, wowf 1.60.1.70938. Tree names: ForeverMacros.lua SPEC_NAMES.
+	ROLES = {
+		DRUID = {
+			{ band = 2, title = "Urso: tanque", body = [[
+A partir do nível 10 (Forma de Urso, de uma missão). O **tanque** é quem os inimigos atacam, para o resto do grupo ficar seguro. Para subir de nível, os guias acham o felino mais tranquilo; o urso é útil do 10 ao 20, e para tanquear em masmorras. O urso usa **Raiva**: você ganha Raiva quando bate e quando apanha.
+**Ordem simples:**
+1. Puxe com Fogo Feérico (**5**, a partir do 18) ou Investida Feral (**E**, a partir do 20). **Puxar** = acertar um inimigo de longe, para ele vir até você.
+2. Rugido Desmoralizante (**Shift-2**) uma vez.
+3. Mordida Primeva (**3**, a partir do 40) sempre que estiver pronta.
+4. Lacerar (**2**, a partir do 25) até ter 5 acúmulos.
+5. Raiva sobrando: Malho (**1**) em um inimigo, Revés (**Shift-1**, a partir do 16) em dois ou mais.
+6. Rosnar (**F**) quando um inimigo bate em outra pessoa.
+**A cada 10 níveis:**
+- 10: Forma de Urso (**Ctrl-1**), Malho (**1**), Rosnar (**F**), Rugido Desmoralizante (**Shift-2**). Depois Enfurecer (**Q**) no 12, Trombar (**V**) no 14, Revés (**Shift-1**) no 16, Fogo Feérico (**5**) no 18.
+- 20: Investida Feral (**E**, um talento): você avança no inimigo, e ele não pode se mover nem lançar feitiços por 4 segundos. Recarga de 15 segundos. Os níveis de talento aqui são os mais cedo possíveis; uma vantagem pode adiantá-los em até 5 níveis.
+- 30: Líder do Bando (um talento). Antes disso: Lacerar (**2**, um talento) no 25, Rugido Desafiador (**Shift-F**) no 28.
+- 40: Forma de Urso Hediondo substitui a Forma de Urso no **Ctrl-1**. Mordida Primeva (**3**, um talento). Antes disso: Regeneração Frenética (**X**) no 36: transforma Raiva em vida.
+- 50: graus mais fortes de Mordida Primeva, Lacerar e Malho. Pele de Árvore (**Z**) no 44.
+- 60: graus mais fortes de novo; nada novo para esta função.
+**Erros de iniciante:**
+- Investida Feral quando o inimigo está a menos de 8 jardas. Ali ela não funciona.
+- Enfurecer (**Q**) enquanto você leva golpes pesados. Ele dá Raiva, mas você fica com 27% menos armadura.]] },
+			{ band = 2, title = "Felino: dano corpo a corpo", body = [[
+A partir do nível 20 (Forma de Felino, de uma missão; Espreitar vem junto). Para subir de nível, é a primeira escolha dos guias: eles dizem que é a mais rápida e a mais tranquila. O felino usa **Energia**, que enche sozinha. Seus golpes dão **Pontos de Combo** (até 5); um **finalizador** gasta todos eles.
+**Ordem simples:**
+1. Espreitar (**Shift-R**), depois abra com Despedaçar (**3**) por trás. **Espreitar** = andar escondido, para o inimigo não ver você.
+2. Fogo Feérico (**5**) em inimigos difíceis.
+3. Estraçalhar (**2**, a partir do 24), mas não quando o inimigo está quase morto.
+4. Garra (**1**) para Pontos de Combo; Despedaçar (**3**) quando você está atrás do inimigo.
+5. Com 4-5 Pontos de Combo: Rasgar (**4**) se o inimigo ainda vai viver muito; senão, Mordida Feroz (**Shift-4**, a partir do 24).
+6. Poder Cambiante (**Q**, a partir do 40) quando sua Energia está abaixo de 50.
+**A cada 10 níveis:**
+- 10: nada novo para esta função (o felino chega no 20).
+- 20: Forma de Felino (**Ctrl-2**), Garra (**1**), Despedaçar (**3**, por trás), Rasgar (**4**), Espreitar (**Shift-R**). Investida Feral (**E**, um talento): como felino, você salta para trás do inimigo. Presságio de Clareza é passivo: não tem tecla.
+- 30: Líder do Bando (um talento). Antes disso: Estraçalhar (**2**) e Mordida Feroz (**Shift-4**) no 24, Arremetida (**R**) no 26, Acovardar (**F**) no 28.
+- 40: Poder Cambiante (**Q**, um talento): 40 de Energia por mana, recarga de 8 segundos, só como felino. Antes disso: Assolar (bloco D) no 32, Pulo do Gato (**V**, a partir de Espreitar, um atordoamento) no 36. Os níveis de talento aqui são os mais cedo possíveis; uma vantagem pode adiantá-los em até 5 níveis.
+- 50: graus mais fortes de Mordida Feroz, Rasgar e Despedaçar; nada novo para esta função.
+- 60: graus mais fortes de novo; nada novo para esta função.
+**Erros de iniciante:**
+- Despedaçar pela frente. Só funciona por trás; pela frente, use Garra.
+- Poder Cambiante vezes demais. Aí você fica sem mana para se curar.]] },
+			{ band = 1, title = "Equilíbrio: dano à distância", body = [[
+A partir do nível 1: Ira e Fogo Lunar estão lá desde o começo. Forma de Luniscante é um talento, no mínimo nível 40. Os guias dizem que subir de nível como Equilíbrio funciona, mas é mais lento que o felino. Alguns guias pegam a Forma de Luniscante mais tarde (Zygor no 53): 40 não é regra.
+**Ordem simples:**
+1. Fogo Estelar (**3**, a partir do 20) para abrir em um inimigo.
+2. Fogo Lunar (**2**).
+3. Nuvem de Insetos (**4**, a partir do 25).
+4. Ira (**1**) para preencher. Com Eclipse (a partir do 30): Ira acumula cargas, depois Fogo Estelar (**3**).
+5. Furacão (**Shift-1**, a partir do 40) em grupos.
+Pouca mana? Continue com Ira: é barata.
+**A cada 10 níveis:**
+- 10: Ira (**1**), Fogo Lunar (**2**), Espinhos (**Shift-Z**), Raízes Enredantes (**V**), Enredamento (**X**).
+- 20: Fogo Estelar (**3**). Presságio de Clareza é passivo: não tem tecla.
+- 30: Eclipse (um talento): Ira deixa seus próximos 2 Fogo Estelar mais rápidos. Antes disso: Nuvem de Insetos (**4**, um talento) no 25. Os níveis de talento aqui são os mais cedo possíveis; uma vantagem pode adiantá-los em até 5 níveis.
+- 40: Forma de Luniscante (**Ctrl-3**, um talento): custa mana, dá +3% de crítico ao seu grupo (**crítico** = um golpe de sorte, mais forte), mas nela não há curas. Furacão (**Shift-1**), Avivar (**F1**).
+- 50: graus mais fortes de Furacão e Fogo Estelar. Pele de Árvore (**Z**) no 44.
+- 60: graus mais fortes de novo; nada novo para esta função.
+**Erros de iniciante:**
+- Curar na Forma de Luniscante. Não dá, e sair da forma custa mana.
+- Procurar uma tecla para Presságio de Clareza. Ele é passivo: funciona sozinho.]] },
+			{ band = 3, title = "Restauração: curandeiro", body = [[
+A partir do nível 1: Toque de Cura está lá desde o começo. Os guias não recomendam curar para subir de nível sozinho (os inimigos morrem devagar): suba de nível com Ira e Fogo Lunar, e cure em masmorras. Um **HoT** é uma cura que cura aos poucos.
+**Ordem simples (em grupo):**
+1. Rejuvenescer (**F4**) no tanque.
+2. Recrescimento (**F2**) em alguém com pouca vida.
+3. Recomposição Rápida (**Shift-F1**, a partir do 25): só em alguém que tem seu Rejuvenescer ou seu Recrescimento.
+4. Crescimento Silvestre (**Shift-2**, a partir do 40) quando mais pessoas levam dano.
+5. Toque de Cura (**C**) para dano grande. Emergência: Rapidez da Natureza (**Shift-3**, a partir do 30), depois Toque de Cura.
+6. Avivar (**F1**, a partir do 40) quando sua mana está baixa.
+**A cada 10 níveis:**
+- 10: Toque de Cura (**C**), Rejuvenescer (**F4**). Depois Recrescimento (**F2**) e Reviver (**F3**, fora de combate) no 12, Curar Veneno (**Shift-C**) no 14.
+- 20: Renascimento (**F3**, em combate). Depois Remover Maldição (**Shift-V**) no 24, Abolir Veneno (**Shift-C**) no 26.
+- 30: Rapidez da Natureza (**Shift-3**, um talento), Tranquilidade (**Q**). Antes disso: Recomposição Rápida (**Shift-F1**, um talento) no 25. Os níveis de talento aqui são os mais cedo possíveis; uma vantagem pode adiantá-los em até 5 níveis.
+- 40: Crescimento Silvestre (**Shift-2**, um talento), Avivar (**F1**).
+- 50: Dádiva do Indomado (**Shift-X**), um Crescimento Silvestre mais forte.
+- 60: graus mais fortes de novo; nada novo para esta função.
+**Erros de iniciante:**
+- Curar numa forma. As curas só funcionam na sua forma normal.
+- Lançar um HoT em alguém que ainda tem ele. O novo substitui o antigo.]] },
+		},
+	},
 }

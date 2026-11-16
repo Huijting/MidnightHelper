@@ -24687,6 +24687,13 @@ if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	FCQ_ST_NOW_FMT = "Jetzt: %s",
 	FCQ_ST_LATER_FMT = "Später. Sie beginnt bei %s, %s.",
 	FCQ_HOWTO_BTN = "\"Mach das jetzt\" zeigt den nächsten Schritt, mit einem Knopf für den Pfeil (/mh classquest go).",
+	-- How you play (Forever), per role (16 Nov 2026, mh-writer). FOLDED_FMT quotes FHOWTO_ROLES_SHOW exactly.
+	FHOWTO_ROLES_SHOW = "Alle Rollen",
+	FHOWTO_ROLES_HIDE = "Meine Rolle",
+	FHOWTO_ROLES_FOLD = "Einklappen",
+	FHOWTO_ROLES_OTHER = "Andere Rollen",
+	FHOWTO_ROLES_ALL = "Rollen",
+	FHOWTO_ROLES_FOLDED_FMT = "%s. Drück oben auf \"Alle Rollen\", um sie zu lesen. Deine Richtung bestimmt, welche zuerst kommt.",
 }) end
 if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	FCQ_LINE_FMT = "%s (à partir du niveau %d), quête de classe : %s",
@@ -24722,6 +24729,13 @@ if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	FCQ_ST_NOW_FMT = "Maintenant : %s",
 	FCQ_ST_LATER_FMT = "Plus tard. Elle commence auprès de %s, %s.",
 	FCQ_HOWTO_BTN = "\"Fais ça maintenant\" montre la prochaine étape, avec un bouton pour la flèche (/mh classquest go).",
+	-- How you play (Forever), per role (16 Nov 2026, mh-writer). FOLDED_FMT quotes FHOWTO_ROLES_SHOW exactly.
+	FHOWTO_ROLES_SHOW = "Tous les rôles",
+	FHOWTO_ROLES_HIDE = "Mon rôle",
+	FHOWTO_ROLES_FOLD = "Replier",
+	FHOWTO_ROLES_OTHER = "Autres rôles",
+	FHOWTO_ROLES_ALL = "Rôles",
+	FHOWTO_ROLES_FOLDED_FMT = "%s. Appuie sur \"Tous les rôles\" en haut pour les lire. Ta voie décide lequel vient en premier.",
 }) end
 if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	FCQ_LINE_FMT = "%s (desde el nivel %d), misión de clase: %s",
@@ -24757,6 +24771,13 @@ if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	FCQ_ST_NOW_FMT = "Ahora: %s",
 	FCQ_ST_LATER_FMT = "Más tarde. Empieza con %s, %s.",
 	FCQ_HOWTO_BTN = "\"Haz esto ahora\" muestra el siguiente paso, con un botón para la flecha (/mh classquest go).",
+	-- How you play (Forever), per role (16 Nov 2026, mh-writer). FOLDED_FMT quotes FHOWTO_ROLES_SHOW exactly.
+	FHOWTO_ROLES_SHOW = "Todos los roles",
+	FHOWTO_ROLES_HIDE = "Mi rol",
+	FHOWTO_ROLES_FOLD = "Plegar",
+	FHOWTO_ROLES_OTHER = "Otros roles",
+	FHOWTO_ROLES_ALL = "Roles",
+	FHOWTO_ROLES_FOLDED_FMT = "%s. Pulsa \"Todos los roles\" arriba para leerlos. Tu camino decide cuál sale primero.",
 }) end
 if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	FCQ_LINE_FMT = "%s (a partir do nível %d), missão de classe: %s",
@@ -24792,4 +24813,12 @@ if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	FCQ_ST_NOW_FMT = "Agora: %s",
 	FCQ_ST_LATER_FMT = "Mais tarde. Começa com %s, %s.",
 	FCQ_HOWTO_BTN = "\"Faça isto agora\" mostra o próximo passo, com um botão para a seta (/mh classquest go).",
+	-- How you play (Forever), per role (16 Nov 2026, mh-writer). FOLDED_FMT quotes FHOWTO_ROLES_SHOW exactly.
+	-- "Todas as funções" is 16 characters, too wide for the 110 px button: "Ver funções" instead.
+	FHOWTO_ROLES_SHOW = "Ver funções",
+	FHOWTO_ROLES_HIDE = "Minha função",
+	FHOWTO_ROLES_FOLD = "Recolher",
+	FHOWTO_ROLES_OTHER = "Outras funções",
+	FHOWTO_ROLES_ALL = "Funções",
+	FHOWTO_ROLES_FOLDED_FMT = "%s. Aperte \"Ver funções\" lá em cima para ler. O seu caminho decide qual vem primeiro.",
 }) end

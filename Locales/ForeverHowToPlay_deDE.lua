@@ -345,4 +345,86 @@ Dämon heraus (Block D; alle außer dem Wichtel brauchen einen Seelensplitter), 
 - Omen der Verdammnis (F1) auf einen Spieler. Es kann nicht auf Spieler gewirkt werden.
 - Deinen Zauberstab vermissen. Schießen liegt nicht auf dem Block. Zieh es selbst aus deinem Zauberbuch auf deine eigene Leiste.]] },
 	},
+	-- Pro Rolle (16 Nov 2026, mh-writer), same shape as ROLES in Modules/ForeverHowToPlay.lua: same band, same order.
+	-- Spell names: SpellName deDE, wowf 1.60.1.70938. Tree names: ForeverMacros.lua SPEC_NAMES.
+	ROLES = {
+		DRUID = {
+			{ band = 2, title = "Bär: Tank", body = [[
+Ab Stufe 10 (Bärengestalt, aus einer Quest). Ein **Tank** ist der, den die Gegner schlagen, damit der Rest der Gruppe sicher bleibt. Zum Leveln nennen die Guides die Katze angenehmer; der Bär ist praktisch von 10 bis 20 und zum Tanken in Dungeons. Der Bär nutzt **Wut**: Du bekommst sie, wenn du triffst und wenn du getroffen wirst.
+**Einfache Reihenfolge:**
+1. Pullen mit Feenfeuer (**5**, ab 18) oder Wilde Attacke (**E**, ab 20). **Pullen** = einen Gegner aus der Ferne treffen, damit er zu dir kommt.
+2. Demoralisierendes Gebrüll (**Shift-2**) einmal.
+3. Urtümlicher Biss (**3**, ab 40), sobald er bereit ist.
+4. Aufschlitzen (**2**, ab 25), bis es 5-mal gestapelt ist.
+5. Wut übrig: Zermalmen (**1**) auf einen Gegner, Prankenhieb (**Shift-1**, ab 16) auf zwei oder mehr.
+6. Knurren (**F**), wenn ein Gegner jemand anderen schlägt.
+**Alle 10 Stufen:**
+- 10: Bärengestalt (**Ctrl-1**), Zermalmen (**1**), Knurren (**F**), Demoralisierendes Gebrüll (**Shift-2**). Danach Wutanfall (**Q**) mit 12, Hieb (**V**) mit 14, Prankenhieb (**Shift-1**) mit 16, Feenfeuer (**5**) mit 18.
+- 20: Wilde Attacke (**E**, ein Talent): Du stürmst auf den Gegner zu, er kann sich 4 Sekunden nicht bewegen und nicht zaubern. Abklingzeit 15 Sekunden. Die Talentstufen hier sind die frühesten; ein Perk kann sie bis zu 5 Stufen früher bringen.
+- 30: Rudelführer (ein Talent). Davor: Aufschlitzen (**2**, ein Talent) mit 25, Herausforderndes Gebrüll (**Shift-F**) mit 28.
+- 40: Terrorbärengestalt ersetzt Bärengestalt auf **Ctrl-1**. Urtümlicher Biss (**3**, ein Talent). Davor: Rasende Regeneration (**X**) mit 36: macht aus Wut Gesundheit.
+- 50: stärkere Ränge von Urtümlicher Biss, Aufschlitzen und Zermalmen. Baumrinde (**Z**) mit 44.
+- 60: wieder stärkere Ränge; nichts Neues für diese Rolle.
+**Anfängerfehler:**
+- Wilde Attacke, wenn der Gegner näher als 8 Meter ist. Dort wirkt sie nicht.
+- Wutanfall (**Q**), während du harte Treffer bekommst. Er gibt Wut, aber du hast 27% weniger Rüstung.]] },
+			{ band = 2, title = "Katze: Schaden aus der Nähe", body = [[
+Ab Stufe 20 (Katzengestalt, aus einer Quest; Schleichen bekommst du dazu). Zum Leveln ist sie die erste Wahl der Guides: Sie nennen sie die schnellste und die angenehmste. Die Katze nutzt **Energie**, die sich von selbst füllt. Deine Treffer geben **Combopunkte** (bis zu 5); ein **Finisher** verbraucht sie alle.
+**Einfache Reihenfolge:**
+1. Schleichen (**Shift-R**), dann von hinten mit Schreddern (**3**) eröffnen. **Schleichen** = sich anschleichen, damit der Gegner dich nicht sieht.
+2. Feenfeuer (**5**) auf zähe Gegner.
+3. Krallenhieb (**2**, ab 24), aber nicht, wenn der Gegner fast tot ist.
+4. Klaue (**1**) für Combopunkte; Schreddern (**3**), wenn du hinter dem Gegner stehst.
+5. Bei 4-5 Combopunkten: Zerfetzen (**4**), wenn der Gegner noch lange lebt, sonst Wilder Biss (**Shift-4**, ab 24).
+6. Machtverschiebung (**Q**, ab 40), wenn deine Energie unter 50 ist.
+**Alle 10 Stufen:**
+- 10: nichts Neues für diese Rolle (die Katze kommt mit 20).
+- 20: Katzengestalt (**Ctrl-2**), Klaue (**1**), Schreddern (**3**, von hinten), Zerfetzen (**4**), Schleichen (**Shift-R**). Wilde Attacke (**E**, ein Talent): Als Katze springst du hinter den Gegner. Omen der Klarsicht ist passiv: keine Taste.
+- 30: Rudelführer (ein Talent). Davor: Krallenhieb (**2**) und Wilder Biss (**Shift-4**) mit 24, Spurt (**R**) mit 26, Ducken (**F**) mit 28.
+- 40: Machtverschiebung (**Q**, ein Talent): 40 Energie für Mana, Abklingzeit 8 Sekunden, nur als Katze. Davor: Verheeren (Block D) mit 32, Anspringen (**V**, aus Schleichen, eine Betäubung) mit 36. Die Talentstufen hier sind die frühesten; ein Perk kann sie bis zu 5 Stufen früher bringen.
+- 50: stärkere Ränge von Wilder Biss, Zerfetzen und Schreddern; nichts Neues für diese Rolle.
+- 60: wieder stärkere Ränge; nichts Neues für diese Rolle.
+**Anfängerfehler:**
+- Schreddern von vorn. Es wirkt nur von hinten; von vorn nimmst du Klaue.
+- Zu oft Machtverschiebung. Dann hast du kein Mana mehr, um dich selbst zu heilen.]] },
+			{ band = 1, title = "Gleichgewicht: Schaden aus der Ferne", body = [[
+Ab Stufe 1: Zorn und Mondfeuer hast du von Anfang an. Moonkingestalt ist ein Talent, frühestens 40. Die Guides sagen, Leveln als Gleichgewicht klappt, ist aber langsamer als die Katze. Manche Guides nehmen Moonkingestalt später (Zygor mit 53): 40 ist keine Regel.
+**Einfache Reihenfolge:**
+1. Sternenfeuer (**3**, ab 20) als Eröffner auf einen Gegner.
+2. Mondfeuer (**2**).
+3. Insektenschwarm (**4**, ab 25).
+4. Zorn (**1**) als Füller. Mit Finsternis (ab 30): Zorn baut Ladungen auf, dann Sternenfeuer (**3**).
+5. Hurrikan (**Shift-1**, ab 40) auf Gruppen.
+Wenig Mana? Bleib bei Zorn: Er ist billig.
+**Alle 10 Stufen:**
+- 10: Zorn (**1**), Mondfeuer (**2**), Dornen (**Shift-Z**), Wucherwurzeln (**V**), Griff der Natur (**X**).
+- 20: Sternenfeuer (**3**). Omen der Klarsicht ist passiv: keine Taste.
+- 30: Finsternis (ein Talent): Zorn macht deine nächsten 2 Sternenfeuer schneller. Davor: Insektenschwarm (**4**, ein Talent) mit 25. Die Talentstufen hier sind die frühesten; ein Perk kann sie bis zu 5 Stufen früher bringen.
+- 40: Moonkingestalt (**Ctrl-3**, ein Talent): kostet Mana, gibt deiner Gruppe +3% kritische Trefferchance (**kritischer Treffer** = ein glücklicher, stärkerer Treffer), aber darin keine Heilungen. Hurrikan (**Shift-1**), Anregen (**F1**).
+- 50: stärkere Ränge von Hurrikan und Sternenfeuer. Baumrinde (**Z**) mit 44.
+- 60: wieder stärkere Ränge; nichts Neues für diese Rolle.
+**Anfängerfehler:**
+- Heilen in Moonkingestalt. Das geht nicht, und die Gestalt zu verlassen kostet Mana.
+- Eine Taste für Omen der Klarsicht suchen. Es ist passiv: Es wirkt von selbst.]] },
+			{ band = 3, title = "Wiederherstellung: Heiler", body = [[
+Ab Stufe 1: Heilende Berührung hast du von Anfang an. Die Guides raten vom Heilen beim Leveln allein ab (Gegner sterben langsam): Level mit Zorn und Mondfeuer und heile in Dungeons. Ein **HoT** ist eine Heilung, die nach und nach heilt.
+**Einfache Reihenfolge (in einer Gruppe):**
+1. Verjüngung (**F4**) auf den Tank.
+2. Nachwachsen (**F2**) auf jemanden mit wenig Gesundheit.
+3. Rasche Heilung (**Shift-F1**, ab 25): nur auf jemanden, der deine Verjüngung oder dein Nachwachsen hat.
+4. Wildwuchs (**Shift-2**, ab 40), wenn mehrere Leute Schaden nehmen.
+5. Heilende Berührung (**C**) bei großem Schaden. Notfall: Schnelligkeit der Natur (**Shift-3**, ab 30), dann Heilende Berührung.
+6. Anregen (**F1**, ab 40), wenn dein Mana knapp ist.
+**Alle 10 Stufen:**
+- 10: Heilende Berührung (**C**), Verjüngung (**F4**). Danach Nachwachsen (**F2**) und Wiederbelebung (**F3**, außerhalb eines Kampfes) mit 12, Vergiftung heilen (**Shift-C**) mit 14.
+- 20: Wiedergeburt (**F3**, im Kampf). Danach Fluch aufheben (**Shift-V**) mit 24, Vergiftung aufheben (**Shift-C**) mit 26.
+- 30: Schnelligkeit der Natur (**Shift-3**, ein Talent), Gelassenheit (**Q**). Davor: Rasche Heilung (**Shift-F1**, ein Talent) mit 25. Die Talentstufen hier sind die frühesten; ein Perk kann sie bis zu 5 Stufen früher bringen.
+- 40: Wildwuchs (**Shift-2**, ein Talent), Anregen (**F1**).
+- 50: Gabe der Wildnis (**Shift-X**), ein stärkerer Wildwuchs.
+- 60: wieder stärkere Ränge; nichts Neues für diese Rolle.
+**Anfängerfehler:**
+- Heilen in einer Gestalt. Heilungen wirken nur in deiner normalen Gestalt.
+- Einen HoT auf jemanden wirken, der ihn noch hat. Der neue ersetzt den alten.]] },
+		},
+	},
 }

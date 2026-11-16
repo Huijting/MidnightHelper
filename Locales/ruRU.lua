@@ -6932,4 +6932,11 @@ ns._mhLocales.ruRU = {
 	FCQ_ST_NOW_FMT = "Сейчас: %s",
 	FCQ_ST_LATER_FMT = "Позже. Начинается у %s, %s.",
 	FCQ_HOWTO_BTN = "\"Сделайте сейчас\" показывает следующий шаг, с кнопкой для стрелки (/mh classquest go).",
+	-- How you play (Forever), per role (16 Nov 2026, mh-writer). FOLDED_FMT quotes FHOWTO_ROLES_SHOW exactly.
+	FHOWTO_ROLES_SHOW = "Все роли",
+	FHOWTO_ROLES_HIDE = "Моя роль",
+	FHOWTO_ROLES_FOLD = "Свернуть",
+	FHOWTO_ROLES_OTHER = "Другие роли",
+	FHOWTO_ROLES_ALL = "Роли",
+	FHOWTO_ROLES_FOLDED_FMT = "%s. Нажмите \"Все роли\" вверху, чтобы прочитать их. Ваше направление решает, какая роль идет первой.",
 }
