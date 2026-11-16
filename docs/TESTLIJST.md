@@ -26,7 +26,9 @@ er is niets weggegooid.
 - [ ] **Nieuwe spell**: typ dit, train daarna bij de trainer een NIEUWE spell én een nieuwe RANK van een oude:
       `/run local f=CreateFrame("Frame") f:RegisterEvent("LEARNED_SPELL_IN_SKILL_LINE") f:SetScript("OnEvent",function(_,e,id) print(e,id,C_Spell.GetSpellName(id),C_Spell.IsSpellPassive(id)) end)`
       Komt er per spell een regel?
-- [ ] **Quest-doelen**: met een paar quests in je log:
+- [x] **Quest-doelen** — GEDAAN 16 nov (Rob, screenshot via sparring, Engelse client): item-doelen komen als type
+      "item" met tekst "0/N <itemnaam>" (bv. "item 0/1 Riptear's Heart", "item 0/1 Dargol's Skull"); monsters als
+      "monster 0/8 Wailing Ancestor slain"; leveren als "log". Andere talen: niet gezien. Regel was:
       `/run for i=1,C_QuestLog.GetNumQuestLogEntries() do local q=C_QuestLog.GetInfo(i) if q and not q.isHeader then for _,o in ipairs(C_QuestLog.GetQuestObjectives(q.questID) or {}) do print(q.title,o.type,o.text) end end end`
 - [ ] **Tooltip-regels**: leg een quest-item in het eerste vakje van je rugzak:
       `/run local d=C_TooltipInfo.GetBagItem(0,1) for i,l in ipairs(d.lines) do print(i,l.type,l.leftText) end`

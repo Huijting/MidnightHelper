@@ -88,6 +88,12 @@ meer nodig"; tooltip "quest-item") GEMETEN door mh-research (details in IDEEEN "
 rapport: 1 → ForeverDoNow.lua Collect() + ns.ForeverSpellOnAnyBar in ForeverRanks (alle ranks, ook macro's); 2b/3 →
 de item-tooltiphook ReagentUse.lua:117-142 (achter ns.IS_FOREVER), class-mask uit SkillRaceClassInfo, ForeverWeapons
 WEAPONS exporteren; diagnose /mh usedfor en /mh questscan uitbreiden.
+🧪 Test 2 GEMETEN (Rob, Engelse client): GetQuestObjectives geeft type "item" + tekst "0/N <itemnaam>" (naam schoon
+achter de teller) → idee 3 kan op naam matchen (in andere talen kan de volgorde anders zijn: niet gezien, match daarom
+"naam staat in de tekst", niet "tekst begint met teller"). Test 1 en 3 doet Rob later. Afspraak (sparring, tot Rob
+anders zegt): 1-3 SAMEN bouwen na die tests. Ook later van Rob: `/mh pickup` gaf geen melding bij GESMEDE items
+(nog niet uitgezocht; AFGELEID: misschien omdat craften als "bag update terwijl een venster open is" telt) en zijn keuze
+voor de stats-regel.
 📦 Release: sparring adviseert Rob een release NA woensdag (Midnight-dag), als camera (2,6), de gele Self Cast-regel en
 "New in this version" in Midnight goed zijn. Rob gaf nog GEEN go.
 ⚠️ Voordeur: een helper zag `probe_job.txt` overschreven met de beroepen-job van een andere sessie en draaide die (alleen
