@@ -7,10 +7,9 @@ local _, ns = ...
 	vuurwerk, evt met geluid 🙂". Our own version: nothing taken from that addon (licence not measured).
 	- Picture: Blizzard's own Interface\Cooldown\star4 (GEMETEN in Forever ManifestInterfaceData 1.60.1.70938, FileDataID
 	  131010; retail has it too), coloured, three bursts, ~2.5 s. No mouse, nothing to click away, fades by itself.
-	- Sound: SOUNDKIT.UI_EPICLOOT_TOAST (31578), GEMETEN in Blizzard_SharedXML/Mainline/SoundKitConstants.lua of the
-	  forever branch (commit bebcb6bf); that the sound itself plays in Forever: AFGELEID. One short sound, SFX channel.
-	- Players choose: two switches, fireworks and sound, both ON by default (Settings, and /mh fireworks on|off,
-	  /mh fireworks sound on|off).
+	- No sound. The first version played SOUNDKIT.UI_EPICLOOT_TOAST; Rob, the same night: "het geluid is een tik, maar wow
+	  zelf geeft natuurlijk al een DING geluid dus geluid is niet nodig en mag weg". Sound and its switch removed.
+	- Players choose: one switch, ON by default (Settings, and /mh fireworks on|off).
 	- Not in a fight: then it waits for the end of the fight (up to 60 s, else it is skipped).
 	- Midnight at max level: the "You are 90" popup comes 3 s after the level-up (MaxLevelWelcome.lua), so the
 	  fireworks are over first.
@@ -32,10 +31,6 @@ local last = "no level-up seen yet this session"
 
 local function FireworksOn()
 	return not (ns.db and ns.db.levelUpFireworks == false)
-end
-
-local function SoundOn()
-	return not (ns.db and ns.db.levelUpFireworksSound == false)
 end
 
 local holder
@@ -111,7 +106,7 @@ local function Burst(b, colour, firstIndex)
 	end
 end
 
-local function Play(withSound)
+local function Play()
 	Holder():Show()
 	for i, b in ipairs(BURSTS) do
 		local colour = COLORS[((i - 1) % #COLORS) + 1]
@@ -124,9 +119,6 @@ local function Play(withSound)
 			Burst(b, colour, first)
 		end
 	end
-	if withSound and PlaySound and SOUNDKIT and SOUNDKIT.UI_EPICLOOT_TOAST then
-		pcall(PlaySound, SOUNDKIT.UI_EPICLOOT_TOAST, "SFX")
-	end
 end
 
 local waitingSince
@@ -137,7 +129,7 @@ ev:SetScript("OnEvent", function(self, event, newLevel)
 		self:UnregisterEvent("PLAYER_REGEN_ENABLED")
 		if waitingSince and GetTime and GetTime() - waitingSince <= 60 then
 			last = last .. "; shown after the fight"
-			Play(SoundOn())
+			Play()
 		elseif waitingSince then
 			last = last .. "; fight lasted over 60 s, skipped"
 		end
@@ -154,8 +146,8 @@ ev:SetScript("OnEvent", function(self, event, newLevel)
 		self:RegisterEvent("PLAYER_REGEN_ENABLED")
 		return
 	end
-	last = ("level %s: shown%s"):format(tostring(newLevel), SoundOn() and " with sound" or " without sound")
-	Play(SoundOn())
+	last = ("level %s: shown"):format(tostring(newLevel))
+	Play()
 end)
 
 --- Settings (SettingsDefs.lua) and /mh fireworks.
@@ -167,28 +159,16 @@ function ns.SetLevelUpFireworks(on)
 		ns.db.levelUpFireworks = on and true or false
 	end
 end
-function ns.IsLevelUpFireworksSoundOn()
-	return SoundOn()
-end
-function ns.SetLevelUpFireworksSound(on)
-	if ns.db then
-		ns.db.levelUpFireworksSound = on and true or false
-	end
-end
-
 function ns.HandleFireworksCommand(arg)
 	arg = (arg or ""):lower()
 	local P = "|cffffcc00Midnight Helper:|r "
 	if arg == "test" then
-		Play(SoundOn())
-		print(P .. "fireworks test" .. (SoundOn() and " (with sound)" or " (sound off)"))
+		Play()
+		print(P .. "fireworks test")
 		return
 	elseif arg == "on" or arg == "off" then
 		ns.SetLevelUpFireworks(arg == "on")
-	elseif arg == "sound on" or arg == "sound off" then
-		ns.SetLevelUpFireworksSound(arg == "sound on")
 	end
-	print(P .. ("level-up fireworks: %s, sound: %s (sound kit %s). Last level-up: %s. /mh fireworks test = see it."):format(
-		FireworksOn() and "on" or "off", SoundOn() and "on" or "off",
-		tostring(SOUNDKIT and SOUNDKIT.UI_EPICLOOT_TOAST or "missing on this client"), last))
+	print(P .. ("level-up fireworks: %s. Last level-up: %s. /mh fireworks test = see it."):format(
+		FireworksOn() and "on" or "off", last))
 end

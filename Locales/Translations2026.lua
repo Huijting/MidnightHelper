@@ -15856,8 +15856,6 @@ if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	CAMERA_WORD_OFF = "aus",
 	SET_FIREWORKS_TITLE = "Feuerwerk beim Stufenaufstieg",
 	SET_FIREWORKS_DESC = "Ein kurzer Sternenregen in der Mitte deines Bildschirms, wenn du eine Stufe aufsteigst. Er verblasst von selbst und kommt deiner Maus nie in die Quere. Im Kampf wartet er, bis der Kampf vorbei ist. Probier es aus: /mh fireworks test",
-	SET_FIREWORKS_SOUND_TITLE = "Feuerwerk: mit Ton",
-	SET_FIREWORKS_SOUND_DESC = "Ein kurzer Ton zum Feuerwerk.",
 }) end
 if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	SET_CAMERAFAR_TITLE = "Caméra plus éloignée",
@@ -15870,8 +15868,6 @@ if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	CAMERA_WORD_OFF = "désactivé",
 	SET_FIREWORKS_TITLE = "Feu d'artifice quand tu montes de niveau",
 	SET_FIREWORKS_DESC = "Une courte gerbe d'étoiles au milieu de ton écran quand tu gagnes un niveau. Elle s'efface toute seule et ne gêne jamais ta souris. En combat, elle attend la fin du combat. Essaie : /mh fireworks test",
-	SET_FIREWORKS_SOUND_TITLE = "Feu d'artifice : avec un son",
-	SET_FIREWORKS_SOUND_DESC = "Un seul petit son avec le feu d'artifice.",
 }) end
 if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	SET_CAMERAFAR_TITLE = "Cámara más lejos",
@@ -15884,8 +15880,6 @@ if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	CAMERA_WORD_OFF = "desactivado",
 	SET_FIREWORKS_TITLE = "Fuegos artificiales al subir de nivel",
 	SET_FIREWORKS_DESC = "Un breve estallido de estrellas en el centro de tu pantalla cuando subes de nivel. Se desvanece solo y nunca estorba a tu ratón. En combate, espera a que termine el combate. Pruébalo: /mh fireworks test",
-	SET_FIREWORKS_SOUND_TITLE = "Fuegos artificiales: con sonido",
-	SET_FIREWORKS_SOUND_DESC = "Un solo sonido corto con los fuegos artificiales.",
 }) end
 if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	SET_CAMERAFAR_TITLE = "Câmera mais distante",
@@ -15898,8 +15892,6 @@ if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	CAMERA_WORD_OFF = "desativado",
 	SET_FIREWORKS_TITLE = "Fogos de artifício ao subir de nível",
 	SET_FIREWORKS_DESC = "Uma rápida explosão de estrelas no meio da sua tela quando você sobe de nível. Ela some sozinha e nunca atrapalha o seu mouse. Em combate, ela espera o combate terminar. Experimente: /mh fireworks test",
-	SET_FIREWORKS_SOUND_TITLE = "Fogos de artifício: com som",
-	SET_FIREWORKS_SOUND_DESC = "Um único som curto com os fogos de artifício.",
 }) end
 if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	SET_CAMERAFAR_TITLE = "Visuale più lontana",
@@ -15912,8 +15904,6 @@ if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	CAMERA_WORD_OFF = "disattiva",
 	SET_FIREWORKS_TITLE = "Fuochi d'artificio quando sali di livello",
 	SET_FIREWORKS_DESC = "Una breve pioggia di stelle al centro dello schermo quando sali di livello. Svanisce da sola e non intralcia mai il mouse. In combattimento aspetta che il combattimento finisca. Provalo: /mh fireworks test",
-	SET_FIREWORKS_SOUND_TITLE = "Fuochi d'artificio: con suono",
-	SET_FIREWORKS_SOUND_DESC = "Un solo breve suono con i fuochi d'artificio.",
 }) end
 
 -- Survey invitation (SurveyInvite.lua), 1 Oct 2026. Our own translations, not native-reviewed; address

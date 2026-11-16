@@ -32,9 +32,9 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 - Tag + commit:   geen tag / (deze commit, zie git log "fireworks")
 - Status:         alleen op main
 - Mag op de site: nee (nog niet uit)
-- Speler ziet:    Bij elk nieuw level een korte bos sterretjes midden in beeld, met een kort geluidje. Allebei apart uit
-                  te zetten. Niet in het spel gezien.
-- Knoplabels:     SET_FIREWORKS_TITLE, SET_FIREWORKS_SOUND_TITLE
+- Speler ziet:    Bij elk nieuw level een korte bos sterretjes midden in beeld (zonder geluid: het spel geeft zelf al
+                  een "ding"). Uit te zetten. Rob zag het werken.
+- Knoplabels:     SET_FIREWORKS_TITLE
 - Commando's:     /mh fireworks test
 - Spel:           allebei
 

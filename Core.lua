@@ -1458,9 +1458,8 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
-	-- /mh fireworks [test|on|off|sound on|sound off] — level-up fireworks (LevelUpFireworks.lua, 16 Nov 2026).
-	if msg == "fireworks" or msg == "fireworks test" or msg == "fireworks on" or msg == "fireworks off"
-		or msg == "fireworks sound on" or msg == "fireworks sound off" then
+	-- /mh fireworks [test|on|off] — level-up fireworks (LevelUpFireworks.lua, 16 Nov 2026).
+	if msg == "fireworks" or msg == "fireworks test" or msg == "fireworks on" or msg == "fireworks off" then
 		if ns.HandleFireworksCommand then
 			ns.HandleFireworksCommand(msg:match("^fireworks%s+(.+)$"))
 		end

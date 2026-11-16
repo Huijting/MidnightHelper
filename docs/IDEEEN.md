@@ -203,13 +203,19 @@ Stand 15 nov avond: 1 gebouwd (1f521e5), 2 gemeten, 3 rapport + A/B gebouwd (zie
 - Oorzaak:       GEMETEN (sparring + bouwchat): `ns.GetHideableScreens` (UI.lua) keek niet naar Forever; de zijbalk wel.
 - Stand:         ✅ gebouwd 16 nov, alleen op main, NIET in het spel gezien (TESTLIJST 16 nov).
 
+### Forever: "Do this now" noemt de beste stats voor jou (solo + tank, dps/heal in gedachten)
+- Bron: Rob 16 nov (eerder die dag, letterlijk): *"wat ik ook graag wil weten in het schermpje Doe This Now … wat zijn
+  de beste stats voor de spec die ik heb? … moet ik nu strength nemen of moet ik nou de stamina nemen"*; op A/B
+  (via sparring): *"b , maar hou ook dps en heling in je achterhoofd"*.
+- Stand: ⏳ mh-research zoekt per class/rol de volgorde + hoe MH de rol weet; eerst de tabel naar Rob (via sparring),
+  dan bouwen. De tooltip/questhint (ForeverQuestHint) moet daarna hetzelfde zeggen.
+
 ### Vuurwerk bij een level-up (Midnight en Forever)
 - Bron: Rob 16 nov (via sparring), na het effect van een andere addon in Forever, letterlijk: *"ja dat wil ik, dat
   vuurwerk, evt met geluid 🙂"*. Eigen versie, niets overgenomen (licentie van die addon niet gemeten).
 - ✅ gebouwd 16 nov: `Modules/LevelUpFireworks.lua` (beide toc's). Blizzards star4-textuur (GEMETEN in Forever),
-  geluid SOUNDKIT.UI_EPICLOOT_TOAST (GEMETEN in de constanten; dat hij klinkt in Forever: AFGELEID). Twee schakelaars,
-  allebei standaard aan (keuze bouwchat, = voorstel sparring); in een gevecht wacht hij (max 60 s). `/mh fireworks
-  [test]`. NIET in het spel gezien.
+  één schakelaar, standaard aan; in een gevecht wacht hij (max 60 s). `/mh fireworks [test]`. Rob zag het werken; het
+  geluid ging er dezelfde avond uit (Rob: *"het geluid is een tik … geluid is niet nodig en mag weg"*).
 
 ### Forever: mouseover ook voor blessings en Arcane Brilliance
 - Bron: Rob 16 nov (via sparring, letterlijk: *"mouse over werk, en zet de andere ook maar op de lijst"*); hij buft graag

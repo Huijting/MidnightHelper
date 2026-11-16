@@ -5773,8 +5773,6 @@ ns._mhLocales.ruRU = {
 	CAMERA_WORD_OFF = "выкл.",
 	SET_FIREWORKS_TITLE = "Фейерверк при повышении уровня",
 	SET_FIREWORKS_DESC = "Короткая россыпь звёзд в центре экрана, когда ты получаешь уровень. Она гаснет сама и никогда не мешает мыши. В бою она ждёт окончания боя. Попробуй: /mh fireworks test",
-	SET_FIREWORKS_SOUND_TITLE = "Фейерверк: со звуком",
-	SET_FIREWORKS_SOUND_DESC = "Один короткий звук вместе с фейерверком.",
 	-- Max-level popup (MaxLevelWelcome.lua), 16 Nov 2026. Our own translation, not native-reviewed.
 	MAXLVL_POPUP_FMT = "Теперь у вас уровень %d. Что дальше?\n\nОтсюда вы растёте за счёт экипировки: \"%s\" показывает, что можно улучшить прямо сейчас и откуда берутся гербы. %s покажет весь путь.",
 	MAXLVL_BTN_GEAR = "Экипировка",

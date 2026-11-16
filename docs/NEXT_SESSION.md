@@ -110,9 +110,9 @@ Brilliance. De pair-tak in BodyRaw riep WithMouseover nooit aan → nu wel (pair
 🎆 Vuurwerk bij level-up (Rob via sparring: *"ja dat wil ik, dat vuurwerk, evt met geluid 🙂"*): `Modules/LevelUpFireworks.lua`
 (beide toc's), 3 bursts × 12 sterren (Interface\Cooldown\star4, GEMETEN Forever FileDataID 131010), geen muis; geluid
 SOUNDKIT.UI_EPICLOOT_TOAST 31578 (GEMETEN in SoundKitConstants forever-branch; SoundKitName-DB2 geeft HTTP 400 bij wago,
-dus geen naamzoektocht). Schakelaars mh_levelUpFireworks / mh_levelUpFireworksSound (standaard aan); gevecht = wachten
-max 60 s; `/mh fireworks [test|on|off|sound on|off]`. Midnight 90: popup komt 3 s later, dus na het vuurwerk. NIET in het
-spel gezien. Test 1 en 3 doet Rob later. Afspraak (sparring, tot Rob
+dus geen naamzoektocht). Gevecht = wachten max 60 s; `/mh fireworks [test|on|off]`. Midnight 90: popup komt 3 s later,
+dus na het vuurwerk. Commit 2cf86a4. ✅ Rob: *"firework werkt maar het geluid is een tik … geluid is niet nodig en mag
+weg"* → geluid, schakelaar mh_levelUpFireworksSound, `sound on|off` en SET_FIREWORKS_SOUND_* (7 talen) verwijderd. Test 1 en 3 doet Rob later. Afspraak (sparring, tot Rob
 anders zegt): 1-3 SAMEN bouwen na die tests. Ook later van Rob: `/mh pickup` gaf geen melding bij GESMEDE items
 (nog niet uitgezocht; AFGELEID: misschien omdat craften als "bag update terwijl een venster open is" telt) en zijn keuze
 voor de stats-regel.
