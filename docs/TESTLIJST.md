@@ -24,6 +24,18 @@ er is niets weggegooid.
 📝 **Waarneming Rob, 16 nov (nacht), Forever mage, via sparring:** *"mouse over werk"* — `/mh mouseover on`, Shift+X
 (Arcane Intellect) op een voorbijganger onder de muis werkt.
 
+## 🆕 16 nov (nacht) — Forever: "Best stats for you now" in "Do this now"
+
+📝 Waarneming Rob (via sparring): *"ik heb mijn keyblock staan dus de regel bleef keurig weg"* — "New, but on no bar yet"
+kwam niet, zoals bedoeld. De regel zelf (zonder toetsenblok) nog niet gezien.
+- [ ] "Do this now" (`/mh donow`): onderaan bij de tips "Best stats for you now: …". Klopt het met je richting? (bv.
+      Frost-mage: "Intellect and Spirit count the same. Equal? Take the one with more Stamina.")
+- [ ] Warrior, Paladin of Druid: een tweede regel "When you tank: Stamina, then …".
+- [ ] `/mh donow check`: regel "stats: class …, role …, from direction N (boomnaam); order …". Is de boomnaam de juiste
+      voor je gekozen richting? (De volgorde van de bomen is AFGELEID.)
+- [ ] Muis op uitrusting: de groene regel "MH: +3 … over what you wear" volgt nu dezelfde stats (bv. een Resto Shaman
+      ziet Intellect, niet meer Strength).
+
 ## 🆕 16 nov (nacht) — vuurwerk bij een level-up (Midnight én Forever)
 
 📝 Waarneming Rob, 16 nov (via sparring, spel niet gezegd, AFGELEID Forever): *"firework werkt maar het geluid is een

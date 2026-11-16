@@ -211,6 +211,9 @@ Stand 15 nov avond: 1 gebouwd (1f521e5), 2 gemeten, 3 rapport + A/B gebouwd (zie
   rol uit de richting, tank-regel voor W/P/D, Blizzard > Icy Veins bij onenigheid, tooltip dezelfde tabel. ⏳ wacht op
   Robs keuze. Gevonden (GEMETEN): de groene tooltipregel adviseert nu Str aan Ele/Resto Shaman en Holy/Prot Paladin,
   Agi aan Balance/Resto Druid; Warlock mist Spirit.
+- Rob (via sparring): *"alle 4 ja"*. ✅ gebouwd 16 nov: ForeverMainStats.lua `ns.ForeverStatDef` (rol uit de richting,
+  oneens = "tellen even zwaar") + `ns.ForeverTankStatDef` (W/P/D); ForeverQuestHint (tooltip + questhint) gebruikt dezelfde
+  functie; "Do this now" toont 1-2 tip-regels; `/mh donow check` print rol, bron, boomnaam en volgorde. NIET in het spel gezien.
 
 ### Vuurwerk bij een level-up (Midnight en Forever)
 - Bron: Rob 16 nov (via sparring), na het effect van een andere addon in Forever, letterlijk: *"ja dat wil ik, dat

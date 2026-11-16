@@ -155,14 +155,27 @@ local function MainFor(def)
 	if def.later and ns.ForeverKnownSpell and ns.ForeverKnownSpell(def.later.talent) then
 		return def.later.main
 	end
+	-- 16 Nov 2026: a role row where the guides disagree counts both stats the same (ForeverMainStats.lua, choice 3).
+	if def.equal then
+		def.main.equal = true
+	end
 	return def.main
+end
+
+--- The stat def for this character: by direction/role since 16 Nov 2026 (ns.ForeverStatDef), else the class table.
+local function StatDef(token)
+	if ns.ForeverStatDef then
+		return (ns.ForeverStatDef(token))
+	end
+	return ns.FOREVER_MAIN_STATS and ns.FOREVER_MAIN_STATS[token]
 end
 
 --- Weighted main-stat score and the Stamina tie-breaker of a stats table.
 local function Score(stats, main, stamTie)
 	local s, staInMain = 0, false
 	for i, k in ipairs(main or {}) do
-		s = s + ((stats and stats[k]) or 0) * (WEIGHT[i] or 0)
+		local w = (main.equal and i == 2) and 1 or (WEIGHT[i] or 0)
+		s = s + ((stats and stats[k]) or 0) * w
 		if k == "STAMINA" then
 			staInMain = true
 		end
@@ -233,7 +246,7 @@ local function Decide()
 		return nil, "fewer than 2 rewards to choose from"
 	end
 	local token = Token()
-	local def = ns.FOREVER_MAIN_STATS and ns.FOREVER_MAIN_STATS[token]
+	local def = StatDef(token)
 	local main = MainFor(def)
 	local stamTie = def and def.stamTie
 	local rows, best, bestMoney = {}, nil, nil
@@ -396,7 +409,7 @@ function ns.ForeverQuestHintSlash(arg)
 		end
 		return
 	end
-	local main = MainFor(ns.FOREVER_MAIN_STATS and ns.FOREVER_MAIN_STATS[Token()])
+	local main = MainFor(StatDef(Token()))
 	print(PREFIX .. ("quest hint: %s; main stats for %s: %s; last decision: %s"):format(Enabled() and "on" or "off",
 		ClassName(Token()), main and table.concat(main, ", ") or "none", last.verdict))
 	for _, r in ipairs(last.rows or {}) do
@@ -451,7 +464,7 @@ function ns.ForeverGearTipText(link)
 		end
 	end
 	local token = Token()
-	local def = ns.FOREVER_MAIN_STATS and ns.FOREVER_MAIN_STATS[token]
+	local def = StatDef(token)
 	local main = MainFor(def)
 	if not main then
 		return nil, "no main stats known for " .. tostring(token)

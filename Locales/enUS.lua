@@ -5459,6 +5459,13 @@ ns._mhLocales.enUS = {
 	-- 12 Nov 2026: "Do this now / All caught up / Coming up" (ForeverDoNow.lua).
 	FDONOW_TITLE = "Do this now",
 	FDUNG_TITLE = "Dungeons in Forever",
+	-- "Do this now": best stats for you now (ForeverDoNow.lua, 16 Nov 2026). %s = the order; stat names come from the
+	-- client (SPELL_STAT1_NAME …).
+	FDONOW_STATS_FMT = "Best stats for you now: %s.",
+	FDONOW_STATS_TANK_FMT = "When you tank: %s.",
+	FDONOW_STATS_THEN_FMT = "%s, then %s",
+	FDONOW_STATS_EQUAL_FMT = "%s and %s count the same",
+	FDONOW_STATS_STAM_TIE = "Equal? Take the one with more Stamina.",
 	-- "Do this now": a new spell on no action bar (ForeverDoNow.lua, 16 Nov 2026). %s = spell names.
 	FDONOW_NOBAR_FMT = "New, but on no bar yet: %s. Drag it from your spellbook onto a bar.",
 	-- Tooltip lines (ForeverItemTips.lua, 16 Nov 2026). %s = your class / the quest title; %d/%d = have/need.

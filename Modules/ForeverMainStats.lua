@@ -38,3 +38,77 @@ ns.FOREVER_MAIN_STATS = {
 	WARLOCK = { main = { "INTELLECT", "STAMINA" }, stamTie = true },
 	DRUID = { main = { "AGILITY", "STRENGTH" }, stamTie = true },
 }
+
+--[[ 16 Nov 2026 — stats per ROLE (Rob via sparring: "b , maar hou ook dps en heling in je achterhoofd" → on the four
+	choices "alle 4 ja"). Research: docs/forever/STATS_PER_ROL_2026-11-16.md (mh-research, sources per row).
+	1. The role comes from the player's own "direction" (ForeverDirection.lua, tree 1-3). No direction = the table above.
+	   Tree order per class = the classic talent-tree order (AFGELEID; /mh donow check prints the tree NAME, so it shows).
+	2. A tank line for Warrior, Paladin and Druid only (the only classes with the tank bit in ChrClasses.RolesMask,
+	   GEMETEN), always as a second line in "Do this now".
+	3. Guides disagree: Blizzard wins where it spoke (Enhancement = Strength), else Icy Veins; when guides disagree and
+	   Blizzard did not speak, the two count the SAME (`equal`: both weigh 1 in the tooltip math).
+	4. The green tooltip line and the quest-reward hint (ForeverQuestHint.lua) read ns.ForeverStatDef too, so the three
+	   never contradict each other. This also ends Strength advice for Elemental/Resto Shaman and Holy/Prot Paladin,
+	   Agility advice for Balance/Resto Druid, and gives Affliction Warlocks Spirit.
+]]
+local BY_TREE = {
+	PALADIN = {
+		[1] = { role = "heal", main = { "INTELLECT", "SPIRIT" }, stamTie = true },
+		[2] = { role = "tank", main = { "STAMINA", "STRENGTH" }, stamTie = false },
+		-- Ret: Icy Veins Int > Str, SixtySim Str first, Blizzard silent → equal.
+		[3] = { role = "melee", main = { "STRENGTH", "INTELLECT" }, stamTie = true, equal = true },
+	},
+	PRIEST = {
+		-- Healing: Icy Veins Spi > Int, others Int > Spi → equal.
+		[1] = { role = "heal", main = { "INTELLECT", "SPIRIT" }, stamTie = true, equal = true },
+		[2] = { role = "heal", main = { "INTELLECT", "SPIRIT" }, stamTie = true, equal = true },
+		[3] = { role = "caster", main = { "INTELLECT", "SPIRIT" }, stamTie = true },
+	},
+	SHAMAN = {
+		[1] = { role = "caster", main = { "INTELLECT", "SPIRIT" }, stamTie = true },
+		[2] = { role = "melee", main = { "STRENGTH", "INTELLECT" }, stamTie = false }, -- Blizzard: Strength
+		[3] = { role = "heal", main = { "INTELLECT", "SPIRIT" }, stamTie = true, equal = true },
+	},
+	MAGE = {
+		-- Icy Veins Frost Spi > Int, Mobalytics Int > Spi → equal, every tree.
+		[1] = { role = "caster", main = { "INTELLECT", "SPIRIT" }, stamTie = true, equal = true },
+		[2] = { role = "caster", main = { "INTELLECT", "SPIRIT" }, stamTie = true, equal = true },
+		[3] = { role = "caster", main = { "INTELLECT", "SPIRIT" }, stamTie = true, equal = true },
+	},
+	WARLOCK = {
+		[1] = { role = "caster", main = { "SPIRIT", "INTELLECT" }, stamTie = true }, -- Affliction: Life Tap uses Spirit
+		[2] = { role = "caster", main = { "INTELLECT", "STAMINA" }, stamTie = false, equal = true },
+		[3] = { role = "caster", main = { "INTELLECT", "STAMINA" }, stamTie = false, equal = true },
+	},
+	DRUID = {
+		[1] = { role = "caster", main = { "INTELLECT", "SPIRIT" }, stamTie = true },
+		-- Cat: Icy Veins Agi, Mobalytics/ForeverDB Str ≥ Agi → equal.
+		[2] = { role = "melee", main = { "AGILITY", "STRENGTH" }, stamTie = true, equal = true },
+		[3] = { role = "heal", main = { "INTELLECT", "SPIRIT" }, stamTie = true },
+	},
+}
+
+-- Second line in "Do this now": when you tank.
+local TANK = {
+	WARRIOR = { main = { "STAMINA", "STRENGTH" }, equal = true }, -- guides disagree (Icy Veins leveling: Str first)
+	PALADIN = { main = { "STAMINA", "STRENGTH" } },
+	DRUID = { main = { "STAMINA", "AGILITY" } },
+}
+
+--- The stat def for this class and this character's direction: def, role, source ("direction N" or "class default").
+function ns.ForeverStatDef(token)
+	local base = ns.FOREVER_MAIN_STATS[token]
+	local band = ns.GetForeverDirection and ns.GetForeverDirection()
+	local row = band and BY_TREE[token] and BY_TREE[token][band]
+	if row then
+		return row, row.role, "direction " .. tostring(band)
+	end
+	local role = (token == "HUNTER" and "ranged") or ((token == "MAGE" or token == "WARLOCK" or token == "PRIEST") and "caster")
+		or "melee"
+	return base, role, band and ("direction " .. band .. " (same as the class default)") or "class default (no direction chosen)"
+end
+
+--- The tank def for Warrior/Paladin/Druid, else nil.
+function ns.ForeverTankStatDef(token)
+	return TANK[token]
+end

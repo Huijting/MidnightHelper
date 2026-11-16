@@ -28,6 +28,16 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 16 nov 2026 — Forever: "Best stats for you now"
+- Tag + commit:   geen tag / (deze commit, zie git log "best stats")
+- Status:         alleen op main
+- Mag op de site: nee (nog niet uit)
+- Speler ziet:    "Do this now" zegt welke stats nu het beste zijn voor jouw gekozen richting (en voor Warrior/Paladin/
+                  Druid ook als je tankt). De groene tooltipregel volgt dezelfde stats. Niet in het spel gezien.
+- Knoplabels:     FDONOW_STATS_FMT, FDONOW_STATS_TANK_FMT
+- Commando's:     /mh donow check (bestond al)
+- Spel:           Forever
+
 ## 16 nov 2026 — Vuurwerk bij een level-up
 - Tag + commit:   geen tag / (deze commit, zie git log "fireworks")
 - Status:         alleen op main

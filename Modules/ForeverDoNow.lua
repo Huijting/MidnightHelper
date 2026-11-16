@@ -169,6 +169,64 @@ learnEv:SetScript("OnEvent", function(_, _, spellID)
 	end
 end)
 
+--------------------------------------------------------------------------------
+-- Best stats for you now (16 Nov 2026; Rob via sparring: "b , maar hou ook dps en heling in je achterhoofd", then
+-- "alle 4 ja"). The same table as the green tooltip line and the quest-reward hint (ns.ForeverStatDef,
+-- ForeverMainStats.lua), so the three never disagree. A tip, not a to-do: it must not open the window by itself.
+-- Stat names = the client's own (SPELL_STAT1_NAME .. 5: Strength, Agility, Stamina, Intellect, Spirit).
+--------------------------------------------------------------------------------
+local STAT_GLOBAL = { STRENGTH = "SPELL_STAT1_NAME", AGILITY = "SPELL_STAT2_NAME", STAMINA = "SPELL_STAT3_NAME",
+	INTELLECT = "SPELL_STAT4_NAME", SPIRIT = "SPELL_STAT5_NAME" }
+
+local function StatName(k)
+	local g = STAT_GLOBAL[k] and _G[STAT_GLOBAL[k]]
+	if type(g) == "string" and g ~= "" then
+		return g
+	end
+	return k and (k:sub(1, 1) .. k:sub(2):lower()) or "?"
+end
+
+--- One sentence for a stat def: "A, then B" or "A and B count the same", plus the Stamina tie when it applies.
+local function StatSentence(def, fmtKey)
+	local main = def and def.main
+	if not (main and main[1]) then
+		return nil
+	end
+	local order
+	if main[2] then
+		order = (def.equal and ns:L("FDONOW_STATS_EQUAL_FMT") or ns:L("FDONOW_STATS_THEN_FMT")):format(StatName(main[1]),
+			StatName(main[2]))
+	else
+		order = StatName(main[1])
+	end
+	local s = ns:L(fmtKey):format(order)
+	if def.stamTie then
+		s = s .. " " .. ns:L("FDONOW_STATS_STAM_TIE")
+	end
+	return s
+end
+
+local function StatLines()
+	local token = select(2, UnitClass("player"))
+	if not (token and ns.ForeverStatDef) then
+		return {}
+	end
+	local out = {}
+	local def = ns.ForeverStatDef(token)
+	local s = StatSentence(def, "FDONOW_STATS_FMT")
+	if s then
+		out[#out + 1] = s
+	end
+	local tank = ns.ForeverTankStatDef and ns.ForeverTankStatDef(token)
+	if tank and not (def and def.role == "tank") then
+		local t = StatSentence(tank, "FDONOW_STATS_TANK_FMT")
+		if t then
+			out[#out + 1] = t
+		end
+	end
+	return out
+end
+
 --- What the window would say. @return { now = {lines}, actions = {kind = true}, soon = {lines} }
 local function Collect()
 	local level = UnitLevel and UnitLevel("player") or 1
@@ -191,6 +249,10 @@ local function Collect()
 			out.tips[#out.tips + 1] = tip
 			out.actions.dungeons = true
 		end
+	end
+	-- Best stats for you now (tips: they never open the window by themselves).
+	for _, s in ipairs(StatLines()) do
+		out.tips[#out.tips + 1] = s
 	end
 	-- Do this now
 	local r = ns.ForeverTrainerCompute and ns.ForeverTrainerCompute(level)
@@ -605,6 +667,21 @@ function ns.ForeverDoNowSlash(arg)
 		print(("  to do now: %d; coming up: %d line(s); last update: %s"):format(#info.now, #info.soon, lastWhy))
 		for _, s in ipairs(info.now) do
 			print("  - " .. s)
+		end
+		-- Best stats (16 Nov 2026): role, where it came from, and the order used by this line, the tooltip and the hint.
+		local token = select(2, UnitClass("player"))
+		if ns.ForeverStatDef then
+			local def, role, src = ns.ForeverStatDef(token)
+			local tree
+			if ns.GetForeverDirection then
+				local _, t = ns.GetForeverDirection()
+				tree = t
+			end
+			print(("  stats: class %s, role %s, from %s%s; order %s%s"):format(tostring(token), tostring(role), tostring(src),
+				tree and (" (" .. tostring(tree) .. ")") or "", def and def.main and table.concat(def.main, " > ") or "none",
+				def and def.equal and " (counted the same)" or ""))
+			local tank = ns.ForeverTankStatDef and ns.ForeverTankStatDef(token)
+			print("  tank line: " .. (tank and table.concat(tank.main, " > ") or "none (this class cannot tank)"))
 		end
 		-- New spell on no bar (16 Nov 2026): the decision and why.
 		local noBar = NoBarSpells()
