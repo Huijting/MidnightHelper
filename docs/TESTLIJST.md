@@ -43,6 +43,11 @@ tik, maar wow zelf geeft natuurlijk al een DING geluid dus geluid is niet nodig 
 
 ## 🆕 16 nov (nacht, laat) — Forever: nieuwe spell op geen balk + twee tooltipregels
 
+📝 Waarneming Rob, 16 nov (via sparring, mage ~lvl 4, na /reload): bij de trainer vuurde het seintje voor elke nieuwe
+spell ("LEARNED_SPELL_IN_SKILL_LINE 5504 Conjure Water false", "… 116 Frostbolt false"). Nog open: een nieuwe RANK
+(kan pas op lvl 6), en of "Do this now" de regel "New, but on no bar yet" liet zien (niet gezien). Geen "key block
+updated" in de chat: AFGELEID dat dit character geen toetsenblok heeft.
+
 - [ ] Toetsenblok NIET neergezet. Leer bij de trainer een nieuwe spell (geen nieuwe rank). "Do this now" zegt: "New, but
       on no bar yet: <spell>. Drag it …". Sleep hem op een balk: de regel verdwijnt. Met een lagere rank al op een balk
       komt deze regel niet (dat is de oranje rand van "oude rank").
