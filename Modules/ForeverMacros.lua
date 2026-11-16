@@ -990,6 +990,11 @@ Fill = function()
 				info = info .. "  |cffffd200" .. ns:L(d.cls.warn == "twopress" and "FMAC_WARN_TWOPRESS"
 					or "FMAC_WARN_FORMBAR") .. "|r"
 			end
+			-- Self Cast Key set + modifier + @mouseover in this macro: say so on the row (Core.lua, 16 Nov 2026).
+			local scWarn = ns.SelfCastMacroWarning and ns.SelfCastMacroWarning(body)
+			if scWarn then
+				info = info .. "  " .. scWarn
+			end
 			if not body then
 				local col = (why == "FMAC_WHY_LEVEL_FMT" or why == "FMAC_WHY_TRAIN") and "|cff9d9d9d" or "|cffff7f7f"
 				info = info .. "  " .. col .. Why(why, arg) .. "|r"

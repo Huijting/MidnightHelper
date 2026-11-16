@@ -4284,3 +4284,26 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		)
 	end
 end
+
+--- Self Cast Key warning for a macro row (ForeverMacros.lua, RetailTopMacros.lua). Rob, 16 Nov 2026 (via sparring: "ja").
+--- An old Blizzard bug (since 9.2.5; pinned macro-forum thread 42937, "[ONGOING BUG]" 1255041): while the Self Cast Key
+--- is not None, it interferes with @mouseover/@focus/@cursor macros that use a modifier. Rob's Forever client has
+--- Self Cast Key = ALT (measured on his screen). So the line shows ONLY when the macro has a [mod…] AND an @mouseover/
+--- @focus/@cursor, AND the player's Self Cast Key is set (GetModifiedClick("SELFCAST") not NONE). A client without
+--- that API shows nothing (AFGELEID that both clients have it). Returns the coloured line, or nil.
+function ns.SelfCastMacroWarning(body)
+	if type(body) ~= "string" or not body:find("mod:", 1, true) then
+		return nil
+	end
+	if not (body:find("@mouseover", 1, true) or body:find("@focus", 1, true) or body:find("@cursor", 1, true)) then
+		return nil
+	end
+	if type(GetModifiedClick) ~= "function" then
+		return nil
+	end
+	local ok, key = pcall(GetModifiedClick, "SELFCAST")
+	if not ok or type(key) ~= "string" or key == "" or key == "NONE" then
+		return nil
+	end
+	return "|cffffd200" .. ns:L("MACROS_WARN_SELFCAST_FMT"):format(key) .. "|r"
+end

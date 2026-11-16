@@ -206,8 +206,9 @@ Stand 15 nov avond: 1 gebouwd (1f521e5), 2 gemeten, 3 rapport + A/B gebouwd (zie
 ### Forever: opruimen na Robs test van 16 nov (4 opdrachten)
 - Bron:          Rob 16 nov (via Sparring 16-11, letterlijk: *"ja doe maar"*).
 - a) "TAB_CODEX: Basics" weg uit Screens in Forever (geen Codex daar). ✅ gebouwd 16 nov.
-- b) Elke instelling op de hoofdpagina nalopen: werkt hij in Forever? Lijst (22 werkt / 63 niet / 11 weet niet) naar
-     Rob via sparring; ⏳ wacht op zijn keuze, er is nog niets weggehaald.
+- b) Elke instelling op de hoofdpagina nalopen: werkt hij in Forever? Lijst (22 werkt / 63 niet / 11 weet niet).
+     Rob koos *"a en ja"*: de 63 verborgen in Forever, 11 blijven tot zijn test, schakelaar voor de oppak-upgrade-melding.
+     ✅ gebouwd 16 nov avond. Plus de Self Cast Key-waarschuwing bij macro's (Forever + retail).
 - c) `[mod:alt]`-macro's tegen Self Cast Key = ALT: AFGELEID geen last (5 zonder @mouseover; 2 willen met Alt toch al op
      jezelf); NIET in het spel gemeten, test in TESTLIJST 16 nov middag.
 - d) Kaartje "Dungeons in Forever" in de kamer Me. ✅ gebouwd 16 nov.

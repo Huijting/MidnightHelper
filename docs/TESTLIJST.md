@@ -21,6 +21,31 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 16 nov (avond) — Forever: opties opgeruimd + waarschuwing Self Cast Key
+
+Op een Forever-character, Options → AddOns → Midnight Helper:
+- [ ] De koppen "Dungeon help" en "Vault" staan er niet meer. Onder "Gear" staat alleen nog "Notice when an upgrade lands
+      in your bags" (aan). Zet hem uit, pak een betere uitrusting op: geen melding. Weer aan: wel een melding.
+- [ ] Weg zijn o.a.: party targets, Death Recap, action prompt, dispel alert, rare alerts, toasts, openables-knop, Codex-tip,
+      "I mostly play solo", Leveling Guides. Mis je er een die je in Forever wél gebruikte? Zeg het.
+- [ ] In Midnight (retail): de pagina is precies als eerst (alle koppen er nog).
+- [ ] Macrovenster (`/mh macros` of het kaartje "Macros"): bij macro's met een toets én mouseover staat een gele regel
+      "Your Self Cast Key is ALT …". Bij macro's zonder mouseover niet. Zet in de opties "Self Cast" op "Auto" (nu staat
+      hij op "Auto and Key Press"), open het venster opnieuw: is de gele regel weg? (Zo meten we of "Auto" de toets echt
+      uitzet; de lijst "Self Cast Key" zelf heeft geen "None".) Daarna mag je hem terugzetten zoals jij wilt.
+
+De 11 "weet niet"-schakelaars (blijven staan tot jouw test; zeg per stuk "werkt" of "niets"):
+- [ ] **Dangerous cast warning** (+ cast bars, speak cast name, only "important"): vijandelijke naamplaatjes aan, typ
+      `/mhcsdebug`, vecht met een vijand die spells cast. Zie je per cast een chatregel, en een icoon als de cast op
+      jou gericht is? Cast bars aan: komt er een balk? Uitspreken aan (in een gevecht): hoor je de naam? "Only important"
+      aan: blijft alles stil? Daarna `/mhcsdebug` weer uit.
+- [ ] **Count which spells you press**: na 5+ casts in een gevecht `/mh presses why`. Lege lijst = werkt niet in Forever.
+- [ ] **Say where a new ability goes** (+ popup): toetsenblok NIET neergezet, leer een nieuwe spell bij de trainer. Komt
+      er binnen een paar seconden een chatregel (of popup)?
+- [ ] **Let WaypointUI drive the arrow**: staat WaypointUI in je Forever-addonlijst? Zo nee: deze doet niets.
+- [ ] **Keep key 1 for the Assisted Combat button / mouse buttons (3)**: `/mh apply` in Forever. Geeft hij een plan? Zo ja:
+      verandert het plan als je de schakelaar omzet?
+
 ## 🆕 16 nov (middag) — Forever: kaartje "Dungeons" + Screens zonder "TAB_CODEX: Basics"
 
 Op een Forever-character:

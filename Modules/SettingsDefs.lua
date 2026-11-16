@@ -188,6 +188,17 @@ local function Build()
 	-- Uitrusting (6 Oct 2026: two slash-only switches)
 	----------------------------------------------------------------
 	Header("SET_SEC_GEAR")
+	-- WoW Forever (16 Nov 2026, Rob via sparring: "a en ja"): the upgrade notice when gear lands in your bags
+	-- (PickupUpgrade.lua) had only /mh pickup. It takes the place of "Upgrade line in item tooltips", which does nothing
+	-- there (see FOREVER_HIDDEN below). Retail unchanged.
+	if ns.IS_FOREVER then
+		Toggle("mh_pickupUpgrade", "SET_PICKUP_TITLE", "SET_PICKUP_DESC", function()
+			return not (ns.db and ns.db.pickupUpgrade == false)
+		end, function(v)
+			ns.db = ns.db or {}
+			ns.db.pickupUpgrade = v and true or false
+		end)
+	end
 	Toggle("mh_lootTips", "SET_LOOTTIPS_TITLE", "SET_LOOTTIPS_DESC", function()
 		return not (ns.db and ns.db.lootUpgradeTips == false)
 	end, function(v)
@@ -851,10 +862,65 @@ local function Build()
 	return list
 end
 
+--- 🧩 WoW Forever (16 Nov 2026, Rob via sparring: "a en ja"): settings that do NOTHING there are left out, and a
+--- section left empty goes with them. Measured that day (mh-research, spot-checked in the toc): the file behind each
+--- of these is not in MidnightHelper_Camelot.toc, or the code never reaches it on Forever (sidePanels: nothing attaches
+--- a panel; homeSolo: the Forever start page returns before it; guideMode: no guide tab; toasts: nothing but the test
+--- button makes one; accessAlert: its only spell is a retail M+ debuff). The 11 "weet niet" stay until Rob tests them
+--- (TESTLIJST 16 nov). Retail unchanged.
+local FOREVER_HIDDEN = {
+	-- Combat warnings
+	mh_partyTargets = true, mh_deathAutoOpen = true, mh_deathCardSec = true, mh_actionPrompt = true,
+	mh_actionPromptSound = true, mh_dispelAlert = true,
+	-- Gear
+	mh_lootTips = true, mh_bagArrows = true,
+	-- Alerts & popups
+	mh_accessAlert = true, mh_rareAlert = true, mh_rareSound = true, mh_rareOnlyRoute = true, mh_shardCap = true,
+	mh_apConsumables = true, mh_toasts = true, mh_toastBounty = true, mh_openablesSound = true, mh_delvePopupAuto = true,
+	mh_runScorecard = true, mh_scorecardDetail = true, mh_delveRecordNotice = true,
+	-- Dungeon help
+	mh_pullSummary = true, mh_pullSummaryBoss = true, mh_pullSummaryPopup = true, mh_liveTips = true, mh_bossAuto = true,
+	mh_bossAutoRitual = true, mh_bossAutoRaid = true, mh_delveCoachAuto = true, mh_codexAdvice = true, mh_gameNews = true,
+	mh_labHexmaskHint = true, mh_labSplits = true, mh_delveBossCard = true, mh_delveRoomBossAuto = true,
+	mh_combatLogLamp = true, mh_bossModel = true, mh_bossSpotlight = true, mh_bossShortTips = true,
+	mh_bossDiffFilter = true, mh_bossScale = true, mh_consReady = true, mh_durabilityWarn = true,
+	mh_durabilityLimit = true, mh_rezLust = true, mh_rezLustKeyRaid = true,
+	-- On-screen buttons
+	mh_openables = true, mh_dailyTip = true, mh_sidePanels = true,
+	-- Route arrow
+	mh_zoneGateBlock = true, mh_routeNoFlightMasters = true,
+	-- Window & display
+	mh_ahShopButton = true, mh_ahPresetQty = true, mh_homeSolo = true, mh_guideMode = true,
+	-- Vault
+	mh_vaultEnabled = true, mh_vaultChat = true, mh_vaultMinimap = true, mh_vaultPing = true, mh_vaultPopup = true,
+	mh_vaultBlizzard = true, mh_vaultPawn = true, mh_vaultProfile = true,
+}
+ns._mhForeverHiddenSettings = FOREVER_HIDDEN -- 63 entries
+
+local function DropForForever(list)
+	local out = {}
+	for _, sec in ipairs(list) do
+		local items = {}
+		for _, d in ipairs(sec.items) do
+			if not FOREVER_HIDDEN[d.var] then
+				items[#items + 1] = d
+			end
+		end
+		if #items > 0 then
+			sec.items = items
+			out[#out + 1] = sec
+		end
+	end
+	return out
+end
+
 --- The sections of Blizzard's main Midnight Helper category, in order. Built once, on first call.
 function ns.GetSettingsDefs()
 	if not defs then
 		defs = Build()
+		if ns.IS_FOREVER then
+			defs = DropForForever(defs)
+		end
 	end
 	return defs
 end

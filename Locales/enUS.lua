@@ -425,7 +425,10 @@ ns._mhLocales.enUS = {
 	PICKUP_MIDNIGHT_FMT = "item level %d (%+d) over %s.",
 	PICKUP_ON = "upgrade notice on: when gear that beats what you wear lands in your bags, MH says so on screen.",
 	PICKUP_OFF = "upgrade notice off. /mh pickup on brings it back.",
-	CMDLIST_PICKUP = "Turn the on-screen notice for an upgrade you just picked up on or off (on|off), and see what MH decided last.",
+	-- Forever settings page switch for the same notice (SettingsDefs.lua, 16 Nov 2026).
+	SET_PICKUP_TITLE = "Notice when an upgrade lands in your bags",
+	SET_PICKUP_DESC = "When gear that is better than what you wear comes into your bags, a short notice on screen says so (and one line in chat). Same as /mh pickup on|off.",
+	CMDLIST_PICKUP ="Turn the on-screen notice for an upgrade you just picked up on or off (on|off), and see what MH decided last.",
 	-- /mh selftest (Selftest.lua, Rob 11 Nov 2026)
 	SELFTEST_START_FMT = "selftest: checking %d game numbers…",
 	SELFTEST_ALL_FMT = "selftest: all %d numbers exist in this game.",
@@ -3391,6 +3394,10 @@ ns._mhLocales.enUS = {
 	MACROS_ERR_TRAIN = "You do not know this spell yet (a higher level or another talent). Once you know it, you can make this macro.",
 	MACROS_MAKE_BUTTON = "Make",
 	MACROS_WARN_CHANNELBUG = "Players report that [nochanneling] macros sometimes lock casting for a few seconds. If that happens, use the plain spell.",
+	-- Self Cast Key set (Core.lua ns.SelfCastMacroWarning, 16 Nov 2026). %s = the key the game returns, e.g. ALT.
+	-- The Self Cast Key list has no "None" (mustChooseKey, live UI source); the key goes away through the "Self Cast"
+	-- list. Names measured in GlobalStrings: SELF_CAST, SELF_CAST_AUTO, NONE (12.1.5.70783 and Forever 1.60.1.70938).
+	MACROS_WARN_SELFCAST_FMT = "Your Self Cast Key is %s. While a key is set, this macro can land on yourself instead of the one under your mouse (an old Blizzard bug). To be sure, set Self Cast to Auto or None in the game's options. Is this line still here after that, then the key is still set.",
 	MACROS_MAKE_DONE_FMT = "Macro \"%s\" is in your character's macro list. Drag it to an action bar.",
 	MACROS_MAKE_COMBAT = "Not in combat. Try again after the fight.",
 	MACROS_MAKE_LONG = "This macro is longer than 255 characters in your language and cannot be made.",

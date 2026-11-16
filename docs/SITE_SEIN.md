@@ -28,6 +28,27 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 16 nov 2026 — Forever: opties opgeruimd, upgrade-melding als schakelaar, Self Cast Key-waarschuwing
+- Tag + commit:   geen tag / (deze commit, zie git log "Forever: hide the 63 settings")
+- Status:         alleen op main
+- Mag op de site: nee (nog niet uit)
+- Speler ziet:    In Forever toont de optiepagina alleen nog wat daar iets doet (63 Midnight-schakelaars weg, o.a. de
+                  koppen Dungeon help en Vault). Nieuw onder Gear: een schakelaar voor de melding "upgrade in je tassen".
+                  In het macrovenster (Forever én Midnight) een gele regel bij mouseover-macro's met een toets als je
+                  Self Cast Key aan staat. Niet in het spel gezien.
+- Knoplabels:     SET_PICKUP_TITLE, MACROS_WARN_SELFCAST_FMT
+- Commando's:     /mh pickup on|off (bestond al)
+- Spel:           Forever (de waarschuwing: allebei)
+
+## 16 nov 2026 — Forever: kaartje "Dungeons in Forever" in de kamer Me
+- Tag + commit:   geen tag / 2005da7
+- Status:         alleen op main
+- Mag op de site: nee (nog niet uit)
+- Speler ziet:    Een kaartje in de kamer Me dat de dungeonlijst opent. Niet in het spel gezien.
+- Knoplabels:     FDUNG_TITLE, TOOLLP_FDUNG_DESC
+- Commando's:     /mh dungeons (bestond al)
+- Spel:           Forever
+
 ## 16 nov 2026 — Schakelaar "Camera verder weg"
 - Tag + commit:   geen tag / (deze commit, zie git log "Camera further away")
 - Status:         alleen op main

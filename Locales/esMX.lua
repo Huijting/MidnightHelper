@@ -18,6 +18,8 @@ if not es then
 end
 
 for k, v in pairs({
+	-- 16 Nov 2026: SELF_CAST is "Lanzar hechizos a uno mismo" on esMX (esES: "Autohechizo"); GlobalStrings 12.1.5.70783 + Forever 1.60.1.70938.
+	MACROS_WARN_SELFCAST_FMT = "Tu \"Tecla autohechizo\" es %s. Mientras haya una tecla puesta, esta macro puede caer sobre ti en vez de sobre quien está bajo tu ratón (un viejo error de Blizzard). Para ir sobre seguro, pon \"Lanzar hechizos a uno mismo\" en \"Automático\" o \"Ninguno\" en las opciones del juego. Si después esta línea sigue aquí, la tecla sigue puesta.",
 	-- 9 Nov 2026, Forever: spell 75 is "Disparo automático" on the esMX client (esES: "Tiro automático"), wago 70862.
 	FMAC_ATTACK_DESC_SHOT = "Sin enemigo como objetivo (o está muerto): elige el más cercano y empieza tu Disparo automático a distancia. Pulsar otra vez no lo detiene.",
 	ABOUT_WINDOW_BODY = "Autores: TwelveInchy & Claude\n\nTu compañero todo en uno de Midnight, organizado en cuatro salas — Me, Codex, Tools y Settings. Fija favoritos bajo la barra de búsqueda y escribe para saltar a cualquier sitio. Incluye Esta semana, Abismos & Bóveda, coaches de Abismos y Rituales, el asesor de Encantamientos y Gemas, instantánea de cuenta, guías del Codex, profesiones y herramientas integradas — EN / NL / DE / FR / ES / PT / IT.\n\nGracias a los addons y guías con los que comprobamos nuestros datos: DBM (habilidades de jefes e ID de hechizos), HandyNotes_Midnight (ubicaciones de raros y tesoros), GTFO (ID de hechizos de peligros), RareScanner (manejo de viñetas) y Wowhead, Icy Veins, Method y wowcarry. Tomamos los ID y los números como pistas y los comprobamos en el propio juego siempre que podemos; no usamos código de estos addons.",

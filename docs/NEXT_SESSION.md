@@ -46,7 +46,21 @@ SettingsPage.lua). d) Kaartje "Dungeons in Forever" in de kamer Me (RoomLauncher
 Achievement_Dungeon_ClassicDungeonMaster, GEMETEN in Forever-ManifestInterfaceData 70938; tekst TOOLLP_FDUNG_DESC).
 c) [mod:alt] tegen Self Cast Key = ALT: AFGELEID geen last, NIET gemeten (test in TESTLIJST). b) Instellingenlijst voor
 Forever (mh-research): 22 werkt / 63 doen niets / 11 weet niet; naar sparring met advies "verberg de 63", ⏳ wacht op
-Robs keuze. Ook gezien: PickupUpgrade.lua heeft geen schakelaar op de instellingenpagina.
+Robs keuze. Ook gezien: PickupUpgrade.lua heeft geen schakelaar op de instellingenpagina. (a+d: commit 2005da7.)
+🧹 Rob koos (via sparring, letterlijk *"a en ja"*): in Forever 63 instellingen weg (SettingsDefs.lua FOREVER_HIDDEN +
+DropForForever in ns.GetSettingsDefs; lege koppen gaan mee: Dungeon help, Vault). Alle 63 namen GEMETEN in het bestand
+(58 via Toggle/Slider/Dropdown-grep, de 5 Vault-regels 717-721 apart). De 11 "weet niet" blijven tot Robs test
+(TESTLIJST 16 nov avond). Forever-schakelaar `mh_pickupUpgrade` (SET_PICKUP_*) onder Gear, op de plek van de tooltip-regel.
+Self Cast Key-waarschuwing: `ns.SelfCastMacroWarning` (Core.lua), in ForeverMacros.lua én RetailTopMacros.lua (keuze
+bouwchat: ook retail, want de bug is van 9.2.5; de regel toont alleen bij [mod…] + @mouseover/@focus/@cursor ÉN een Self
+Cast Key ≠ NONE via GetModifiedClick("SELFCAST"); dat die API in beide clients bestaat = AFGELEID, pcall-bewaakt).
+Retail ongewijzigd behalve die waarschuwing. NIET in het spel gezien.
+⚠️ Tekst-correctie (mh-writer, GEMETEN in wow-ui-source live: SELFCAST heeft `mustChooseKey = true`): de lijst "Self Cast
+Key" heeft GEEN "None". De waarschuwing zegt nu "zet Self Cast op Auto of None" (SELF_CAST / SELF_CAST_AUTO / NONE,
+GlobalStrings 50436/50437/15442, ook Forever 70938; enUS "Auto and Key Press" = wat Rob zag, positieve controle). Of
+"Auto" de toets echt wist: NIET gemeten; de gele regel zelf is de test (TESTLIJST 16 nov avond).
+⚠️ Voordeur: een helper zag `probe_job.txt` overschreven met de beroepen-job van een andere sessie en draaide die (alleen
+lezen). Herkomst NIET nagezocht; mogelijk weer [[probe-job-crosses-sessions]]. Morgen naar kijken.
 
 Stand bij het afsluiten (15 nov): alles op main en gepusht, niets uitgebracht (5.3.0 staat op CurseForge). Alle
 toestemmingen liepen zonder weigering.

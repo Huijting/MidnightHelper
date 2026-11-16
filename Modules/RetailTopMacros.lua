@@ -472,6 +472,12 @@ function ns.MH_GetTopMacroList()
 			if r.warn == "channelbug" then
 				desc = desc .. "\n|cffffd200" .. ns:L("MACROS_WARN_CHANNELBUG") .. "|r"
 			end
+			-- Self Cast Key set + modifier + @mouseover in this macro (Core.lua, 16 Nov 2026). Read from the template:
+			-- the {id} placeholders do not change the [mod]/@unit parts.
+			local scWarn = ns.SelfCastMacroWarning and ns.SelfCastMacroWarning(r.tpl)
+			if scWarn then
+				desc = desc .. "\n" .. scWarn
+			end
 			list[#list + 1] = {
 				name = SpellName(r.need) or r.name,
 				macroName = r.name,
