@@ -4740,3 +4740,103 @@ kop, per bevinding MEASURED/INFERRED en [RAAKT ONS]/[RAAKT ONS NIET], met bestan
   https://news.blizzard.com/en-us/feed/world-of-warcraft?nocache=20261115a (alle vier zelf gelezen via
   Exa). Geen actiepunt dat ik oppak — ik rapporteer, een mens beslist. Vandaag is zondag, geen maandag:
   de kaarten- en consumables-secties zijn opzettelijk weggelaten.
+
+- [2026-11-16] 💬 **CurseForge: geen open reacties (3 draadjes, 8 totaal, identiek aan [2026-11-15]).**
+  `curseforge.com/api/v1/mods/1528577/comments?pageIndex=0&pageSize=20&nocache=20261116a`, één fetch
+  via Exa, volledig gelezen (JSON, `pagination.totalCount: 8`). Dezelfde drie draadjes als gisteren,
+  allemaal beantwoord (nieuwste bericht in elke keten van `twelveinchy`): esES/esMX-locale-fix
+  `8509224` → reply `8510682` (timestamp `1791351710373`); MrsBoojiePanda's debug-printregel `8414729`
+  → reply `8483898` (timestamp `1790842459727`); gadrinonturalyon's coffer-key-shards/3D-boss-model-
+  verzoek `8090710` → reply-keten tot `8095337`/`8092133` — alle ids en timestamps byte-identiek aan
+  [2026-11-15]. MEASURED. **[RAAKT ONS NIET]** — geen actiepunt, geen concept-antwoord nodig.
+
+  — bron: https://www.curseforge.com/api/v1/mods/1528577/comments?pageIndex=0&pageSize=20&nocache=20261116a,
+  zelf gelezen via Exa.
+
+- [2026-11-16] 🔁 **Elfde dag zonder nieuwe Midnight-hotfixsectie; Forever-spoor ook stil (nieuwste
+  blijft "November 13, 2026").**
+
+  **Midnight, geen nieuwe sectie.** MEASURED, zelf gelezen via Exa (cache-buster `?nocache=20261116a`):
+  `news.blizzard.com/en-us/article/24307310/hotfixes-november-6-2026` toont nog steeds alleen de
+  secties van 6 en 5 nov (Vashnik/Ula'tek-tuning, resp. Tortollan-naamswijziging + Shadowguard Point +
+  Venomous Abyss-tuning), allebei al verwerkt op [2026-11-06]/[2026-11-07], inclusief het nog
+  openstaande [RAAKT ONS]-punt daar (Iku/Nama → Epu/Nema in `Locales/RaidTips.lua` e.a. — bevestigd nog
+  aanwezig, niets nieuws, een mens beslist; niet opnieuw opgenomen als nieuwe bevinding). **Positieve
+  controle, zelfde run:** `worldofwarcraft.blizzard.com/en-us/content-update-notes` (zelfde
+  cache-buster) zegt nu **"9 days ago"** bij die Nov 6-sectie — gepubliceerd 7 nov, dus 7+9=16 nov,
+  precies vandaag; geen verstikte cache. Geen nieuwe Delves-, Professions-, Quests- of Items-regel
+  sinds [2026-11-06]/[2026-11-07].
+
+  **Forever:** MEASURED: `news.blizzard.com/en-us/article/24315281/wow-forever-hotfixes-november-13-2026`
+  en de nieuwsfeed-pagina (beide `?nocache=20261116a`) tonen nog steeds "WoW: Forever Hotfixes -
+  November 13, 2026" (gepubliceerd 14 nov) als nieuwste Forever-item; het bovenste algemene WoW-item op
+  de feed is een "Weekly Highlights"-verhaal (podcast/kort verhaal), geen hotfix — geen cache-artefact,
+  gewoon het volgende nieuwsitem. Die Nov 13-sectie is al volledig tegen `Modules/Forever*.lua` en
+  `Locales/ForeverHowToPlay*.lua` gezet op [2026-11-14], met de drie toen apart gecontroleerde
+  uitzonderingen (Windfury Totem, Frost Nova, Nyalah Brightfire) — geen nieuwe informatie om daaraan
+  toe te voegen. Geen nieuwe Forever-hotfixdag om te checken.
+
+  — bron: https://news.blizzard.com/en-us/article/24307310/hotfixes-november-6-2026?nocache=20261116a ·
+  https://worldofwarcraft.blizzard.com/en-us/content-update-notes?nocache=20261116a ·
+  https://news.blizzard.com/en-us/article/24315281/wow-forever-hotfixes-november-13-2026?nocache=20261116a ·
+  https://news.blizzard.com/en-us/feed/world-of-warcraft?nocache=20261116a (alle vier zelf gelezen via
+  Exa).
+
+- [2026-11-16] 🃏 **Kaarten: alle 40 `source`-datums tegen Icy Veins gecontroleerd; Method.gg en
+  Wowhead NIET bezocht — reken die twee overal als ongecontroleerd.** Elke Icy Veins-pagina die gefetcht
+  is (cache-buster `?nocache=20261116a/b`) toont exact "Last Updated: Oct 12, 2026 - 4:30 PM" — dezelfde
+  dag én minuut over 25+ losse specs heen, met "— 12.1.5" in elke titel: vrijwel zeker één site-brede
+  herstempeling voor patch 12.1.5, geen 25 onafhankelijke herschrijvingen. INFERRED dat het één
+  herstempeling is; MEASURED dat de datum/minuut identiek is.
+
+  Twaalf kaarten hebben een `source`-datum ouder dan 12 okt en zijn dus NOOIT tegen die herstempeling
+  gecontroleerd: PLAYCARD_64 (Frost Mage, bron 10 aug), PLAYCARD_71/72 (Arms/Fury Warrior, 10+25 aug),
+  PLAYCARD_73 (Protection Warrior, 18 aug), PLAYCARD_250 (Blood DK, 10 aug), PLAYCARD_251 (Frost DK, 25
+  sep), PLAYCARD_255 (Survival Hunter, 30 aug), PLAYCARD_258 (Shadow Priest, 11 aug), PLAYCARD_261
+  (Subtlety Rogue, 10 aug), PLAYCARD_262 (Elemental Shaman, 10 aug), PLAYCARD_265 (Affliction Warlock,
+  31 aug), PLAYCARD_267 (Destruction Warlock, 31 aug), PLAYCARD_269 (Windwalker Monk, 25 aug). Van deze
+  twaalf is de INHOUD vergeleken voor vier (de oudste gepakt): PLAYCARD_63 (Fire Mage), PLAYCARD_105
+  (Resto Druid), PLAYCARD_264 (Resto Shaman), PLAYCARD_1473 (Augmentation Evoker) — in alle vier komt
+  onze prioriteit (Hot Streak→Pyroblast/Fire Blast; Lifebloom-self+Swiftmend→Rejuvenation/Wild Growth;
+  Riptide/Healing Stream Totem/Unleash Life→Chain Heal; Ebon Might-onderhoud+Breath of Eons+Prescience)
+  nog overeen met de huidige Icy Veins-tekst. "Guide updated, card still right" voor deze vier;
+  MEASURED.
+
+  De overige acht van de twaalf (71, 72, 73, 251, 255, 258, 261, 262, 265, 267, 269 minus de vier
+  hierboven) zijn WEL datum-gecheckt maar NIET inhoudelijk vergeleken deze run — niet als fris
+  rapporteren, behandel als openstaand.
+
+  Geen 12.x class-hotfix of tuning in de afgelopen week gevonden die HOE een spec speelt verandert
+  (alleen het 6 nov-artikel gelezen, sectie Dungeons and Raids — geen Classes-sectie met
+  knopvolgorde/drempel-wijzigingen, geen nieuwer hotfix-artikel op de feed).
+
+  **Niet gecontroleerd:** Method.gg en Wowhead voor alle 40 specs (geen tijd); content (voorbij de
+  datum) voor PLAYCARD_71, _72, _73, _251, _255, _258, _261, _262, _265, _267, _269.
+
+  — bron: alle URL's `icy-veins.com/wow/<slug>-pve-{dps|tank|healer|healing}-rotation-cooldowns-abilities
+  ?nocache=20261116a` of `...b`, zelf gelezen via Exa; plus
+  `news.blizzard.com/en-us/article/24307310/hotfixes-november-6-2026?nocache=20261116a`.
+
+- [2026-11-16] 🧪 **Consumables: `tools/check_consumables.py` faalde op alle 39 specs (egress-proxy:
+  "Tunnel connection failed: 403 Forbidden" op icy-veins.com via urllib) — uitgeweken naar Exa met
+  `?nocache=20261116a/b/c` op alle 39 gems-enchants-consumables-pagina's.** Elke pagina toont "Last
+  Updated: Oct 12, 2026" — zelfde datum als onze laatste check (`patchedSince` in
+  `data/consumables_wowhead.json`), dus niets nieuwer. Eerste genoemde flask en combat-potion van alle
+  39 specs vergeleken: geen nieuwe afwijkingen. Een aantal specs (Blood DK, Devastation Evoker,
+  Subtlety Rogue, Elemental/Enhancement Shaman, Affliction/Destruction Warlock, Arms/Fury/Protection
+  Warrior) geeft op de pagina zelf een stat-afhankelijke conditie zonder vaste volgorde — dat telt niet
+  als tegenspraak. **Bekende afwijkingen (12 okt met 3 bronnen nagekeken): 3, ongewijzigd** (DK Unholy
+  flask, Paladin Protection flask, Rogue Outlaw combat potion — alle drie opnieuw gezien, zelfde tekst
+  als 12 okt). Mana potions: Holy Paladin, Preservation Evoker, Mistweaver Monk en Restoration
+  Druid-pagina's bevestigen nog steeds het Lightfused Mana Potion/Potion of Devoured Dreams-advies;
+  Discipline Priest, Holy Priest en Restoration Shaman-pagina's zeggen zelf dat mana potions het daar
+  niet waard zijn — klopt met onze keuze om daar geen te geven. Geen hotfix van de afgelopen week die
+  een consumable toevoegt of verandert (nieuwste sectie blijft 6 nov, alleen raid-tuning). MEASURED.
+
+  **Niet gecontroleerd:** Demon Hunter Devourer (derde DH-spec in onze JSON, geen Icy
+  Veins-gidspagina/catalogus-entry om tegen te checken) en Enhancement Shaman's potion-sectie (pagina
+  brak af na de flask-tekst).
+
+  — bron: 39× `icy-veins.com/wow/<spec>-pve-<role>-gems-enchants-consumables?nocache=20261116a/b/c`
+  (via Exa) · `data/vault_stat_catalog.json`, `data/consumables_wowhead.json` ·
+  `tools/check_consumables.py` (faalde, egress-proxy).
