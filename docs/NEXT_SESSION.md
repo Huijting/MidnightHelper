@@ -136,7 +136,9 @@ spelerstekst). toc's 5.4.0, Changelog.lua + CHANGELOG_540_1..6 (enUS), RELEASE_N
 ✅ 5.4.0 UITGEBRACHT. Rob op de tekst: *"laat de bouwchat hem maar aanpassen"* → camera-zin "further than the game's
 default" (b23e0ec), tag v5.4.0 gepusht. Run 43943568777 geslaagd; log: CF/Wago/GitHub "Success!" voor beide zips.
 CF-API (GEMETEN): Retail 9653805 en Forever 9653822, beide status 4 (Retail verscheen pas later in de openbare lijst;
-Rob: *"beide staan live"*). SITE_SEIN: 15 regels "getagd (v5.4.0)" + release-regel
+Rob: *"beide staan live"*). SITE_SEIN: alle 15 regels → "staat op CurseForge (v5.4.0)". Site-chat: site live op 5.4.0
+(commit 2640445f, 8 talen, check_addon_words 0 fouten). Ter info van de site-chat: CODEX_TT6/LOREWALK hebben nog geen
+dag in hun PATCH_DAYS (12.1.7-datum onbekend) → blijven daar verborgen. SITE_SEIN: 15 regels "getagd (v5.4.0)" + release-regel
 "staat op CurseForge"; sparring seint de site-chat. Niet blokkerend open: rank-test op lvl 6. ✅ `/mh camera` na aan/uit:
 "now 2.6 … back to 2.6" (Rob, screenshot, 5.4.0) → reparatie werkt. ⚠️ Voordeur: helpers zagen twee keer een vreemde beroepen-job in
 `probe_job.txt` (zie hoger); herkomst nog niet nagezocht. Test 1 en 3 doet Rob later. Afspraak (sparring, tot Rob
