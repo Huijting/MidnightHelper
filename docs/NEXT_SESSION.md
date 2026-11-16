@@ -79,6 +79,17 @@ beantwoord. Midnight-kant niet gezien.
 ✅ GEEN open punt meer: de 11 "weet niet"-schakelaars in Forever blijven staan, niets verbergen. Rob (via sparring,
 letterlijk): *"laat deze tests maar achterwege, mocht iemand het melden dan is het vroeg genoeg"*. Alleen bij een
 spelersmelding opnieuw bekijken. (Handoff gesplitst op 16 nov: knip bij "10 nov (avond)", 201 regels naar het archief.)
+🧺 Zes kleine ideeën (Rob via sparring: *"allemaal"*): 4 Dock-botsing toetsenblok (modeBtn -120 → -150, KeyBlock.lua) en
+5 doorschijnend gids-paneel (dichte BACKGROUND-laag) en 6 "Je bent 90" (`Modules/MaxLevelWelcome.lua`, alleen retail-toc,
+StaticPopup zoals FirstRun, één keer per character-GUID bij PLAYER_LEVEL_UP naar GetMaxLevelForPlayerExpansion, wacht op
+einde gevecht; `/mh maxlevel [popup]`) GEBOUWD, NIET in het spel gezien. 1-3 (Forever: spell op geen balk; tooltip "niet
+meer nodig"; tooltip "quest-item") GEMETEN door mh-research (details in IDEEEN "Zes kleine ideeën"): 2a en 2c vallen af,
+2b bouwbaar; 1 en 3 wachten op Robs drie /run-tests (TESTLIJST 16 nov nacht). Bouwadvies + aanhaakpunten in het
+rapport: 1 → ForeverDoNow.lua Collect() + ns.ForeverSpellOnAnyBar in ForeverRanks (alle ranks, ook macro's); 2b/3 →
+de item-tooltiphook ReagentUse.lua:117-142 (achter ns.IS_FOREVER), class-mask uit SkillRaceClassInfo, ForeverWeapons
+WEAPONS exporteren; diagnose /mh usedfor en /mh questscan uitbreiden.
+📦 Release: sparring adviseert Rob een release NA woensdag (Midnight-dag), als camera (2,6), de gele Self Cast-regel en
+"New in this version" in Midnight goed zijn. Rob gaf nog GEEN go.
 ⚠️ Voordeur: een helper zag `probe_job.txt` overschreven met de beroepen-job van een andere sessie en draaide die (alleen
 lezen). Herkomst NIET nagezocht; mogelijk weer [[probe-job-crosses-sessions]]. Morgen naar kijken.
 

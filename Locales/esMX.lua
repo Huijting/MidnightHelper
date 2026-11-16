@@ -372,6 +372,7 @@ for k, v in pairs({
 	GEARLADDER_WHERE_RULES = "Mejora con Cuzolth en Lunargenta. Los precios de arriba ya llevan tus descuentos: un rango es gratis hasta el nivel de objeto que este personaje ya tuvo en esa ranura. Hasta lo que tuvo cualquiera de tus personajes, cuesta la mitad (10 emblemas), en cuanto tengas el logro \"… de la niebla\" de ese tipo.",
 	GEARLADDER_WHERE_ESTIMATE = "Mejora con Cuzolth en Lunargenta. Un rango cuesta 20 emblemas, a menudo menos: el juego te hace un descuento si antes tuviste un objeto más fuerte en esa ranura. Pon un objeto una vez en su ventana y esta lista mostrará su precio real.",
 	GEARLADDER_SOURCES_FMT = "Consigue estos emblemas en: %s",
+	MAXLVL_POPUP_FMT = "Ya eres nivel %d. ¿Y ahora qué?\n\nA partir de aquí creces con tu equipo: \"%s\" muestra lo que puedes mejorar ahora mismo y de dónde salen los emblemas. %s te muestra todo el camino.",
 	NEWS_FABLED_KINDOJAN_FMT = "Célebre déjenmelo a mí: Kindo'jan (laberinto, nivel 11, sin otros jugadores; Valeera puede ir) — Blizzard lo amplió, quedan %d día(s). Da un título. La misma victoria también da la montura Caminante bendecido por los loa, y esa sigue disponible hasta el final de la temporada 2.",
 	NEWS_VOIDCORE_BUG = "Núcleo del Vacío nebuloso: ¿tu máximo de temporada salta de forma rara? Es un error conocido de Blizzard, ya viene una corrección.",
 	NEWS_VALEERA_DAMAGE = "Valeera recibe ahora más daño del previsto (problema conocido de Blizzard). Vigila su salud en los abismos difíciles.",

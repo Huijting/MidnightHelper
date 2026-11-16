@@ -21,6 +21,31 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🧪 16 nov (nacht) — drie metingen in Forever, vóór we 1-3 bouwen (plak elke regel in de chat, screenshot de uitvoer)
+
+- [ ] **Nieuwe spell**: typ dit, train daarna bij de trainer een NIEUWE spell én een nieuwe RANK van een oude:
+      `/run local f=CreateFrame("Frame") f:RegisterEvent("LEARNED_SPELL_IN_SKILL_LINE") f:SetScript("OnEvent",function(_,e,id) print(e,id,C_Spell.GetSpellName(id),C_Spell.IsSpellPassive(id)) end)`
+      Komt er per spell een regel?
+- [ ] **Quest-doelen**: met een paar quests in je log:
+      `/run for i=1,C_QuestLog.GetNumQuestLogEntries() do local q=C_QuestLog.GetInfo(i) if q and not q.isHeader then for _,o in ipairs(C_QuestLog.GetQuestObjectives(q.questID) or {}) do print(q.title,o.type,o.text) end end end`
+- [ ] **Tooltip-regels**: leg een quest-item in het eerste vakje van je rugzak:
+      `/run local d=C_TooltipInfo.GetBagItem(0,1) for i,l in ipairs(d.lines) do print(i,l.type,l.leftText) end`
+
+## 🆕 16 nov (nacht) — kleine ideeën: toetsenblok-knoppen, gids-paneel, "Je bent 90"
+
+Forever, venster "Your key block" (`/mh block`):
+- [ ] Rechtsboven raken "Dock to window" en "New spells: ask me" elkaar niet meer. Ook "Show bars 2 and 3" (als die er
+      staat) botst niet met "Getting started".
+- [ ] Het paneel "Getting started, step by step" erboven is dicht: de gele buff-zin ("… is not on you") schijnt er niet
+      meer doorheen.
+Midnight (retail):
+- [ ] `/mh maxlevel` → zegt voor dit character wat MH zou doen (bv. "already at the top level: it only shows at the
+      moment you reach it").
+- [ ] `/mh maxlevel popup` → het venstertje "You are 90 now. What next?" met de knoppen "My gear", "Later" en
+      "Start Here". "My gear" opent "My gear: what now?", "Start Here" opent Start Here. Passen de knoppen?
+- [ ] Echt: een character dat 90 wordt krijgt het één keer vanzelf, een paar seconden na het level-up-geluid (niet in
+      een gevecht; dan na het gevecht). Een tweede keer niet.
+
 📝 **Waarneming Rob, 16 nov (later), Forever, via sparring.** Letterlijk: *"ja gevonden en werkt :)"* (het camera-vinkje,
 onder On-screen buttons) en *"1 t/5 werken goed"* voor: 1 camera + `/mh camera` (Forever houdt 4), 2 Screens + de
 opgeruimde opties, 3 kaartje "Dungeons in Forever", 4 de gele Self Cast-regel (weg met Self Cast op "Auto"), 5 de

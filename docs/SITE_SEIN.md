@@ -28,6 +28,16 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 16 nov 2026 — Midnight: "Je bent 90. Wat nu?"
+- Tag + commit:   geen tag / (deze commit, zie git log "max-level")
+- Status:         alleen op main
+- Mag op de site: nee (nog niet uit)
+- Speler ziet:    Eén keer, als je character het hoogste level haalt: een klein venster dat wijst naar "My gear: what
+                  now?" en Start Here. Niet in het spel gezien.
+- Knoplabels:     MAXLVL_POPUP_FMT, MAXLVL_BTN_GEAR, MAXLVL_LATER
+- Commando's:     geen voor spelers (/mh maxlevel is een meetknop)
+- Spel:           Midnight
+
 ## 16 nov 2026 — Forever: buffknop voor steen, olie of poison
 - Tag + commit:   geen tag / (deze commit, zie git log "Forever: weapon stones")
 - Status:         alleen op main

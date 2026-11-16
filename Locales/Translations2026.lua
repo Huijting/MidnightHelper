@@ -24573,3 +24573,31 @@ if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	FDONOW_GEAR_TIP = "Quando esta janela aparece: só quando há algo para fazer, sempre ou desligado. O X só a esconde até o seu próximo login.",
 	FDONOW_OFF_HOW = "faça isto agora: desligado. Ligue de volta com /mh donow auto (ou always), ou em Opções -> AddOns -> Midnight Helper.",
 }) end
+
+-- Max-level popup (MaxLevelWelcome.lua), 16 Nov 2026. Our own translations, not native-reviewed.
+-- %d = level, "%s" = GEARLADDER_TITLE, %s = TAB_START_HERE (filled in from this pack). Crest/upgrade words as GearLadder.
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
+	MAXLVL_POPUP_FMT = "Du bist jetzt Stufe %d. Was jetzt?\n\nAb hier wächst du über deine Ausrüstung: \"%s\" zeigt, was du sofort aufwerten kannst und woher die Wappen kommen. %s zeigt dir den ganzen Weg.",
+	MAXLVL_BTN_GEAR = "Ausrüstung",
+	MAXLVL_LATER = "Später",
+}) end
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
+	MAXLVL_POPUP_FMT = "Tu es maintenant niveau %d. Et ensuite ?\n\nÀ partir d'ici, tu progresses grâce à ton équipement : \"%s\" montre ce que tu peux améliorer tout de suite et d'où viennent les écus. %s te montre tout le chemin.",
+	MAXLVL_BTN_GEAR = "Équipement",
+	MAXLVL_LATER = "Plus tard",
+}) end
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
+	MAXLVL_POPUP_FMT = "Ya eres nivel %d. ¿Y ahora qué?\n\nA partir de aquí creces con tu equipo: \"%s\" muestra lo que puedes mejorar ahora mismo y de dónde salen los blasones. %s te muestra todo el camino.",
+	MAXLVL_BTN_GEAR = "Mi equipo",
+	MAXLVL_LATER = "Más tarde",
+}) end
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
+	MAXLVL_POPUP_FMT = "Você chegou ao nível %d. E agora?\n\nA partir daqui, você cresce pelo seu equipamento: \"%s\" mostra o que você pode melhorar agora mesmo e de onde vêm os brasões. %s mostra todo o caminho.",
+	MAXLVL_BTN_GEAR = "Equipamento",
+	MAXLVL_LATER = "Mais tarde",
+}) end
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
+	MAXLVL_POPUP_FMT = "Ora sei di livello %d. E adesso?\n\nDa qui in poi cresci con il tuo equipaggiamento: \"%s\" mostra cosa puoi potenziare subito e da dove arrivano gli emblemi. %s ti mostra tutto il percorso.",
+	MAXLVL_BTN_GEAR = "Equipaggiamento",
+	MAXLVL_LATER = "Più tardi",
+}) end

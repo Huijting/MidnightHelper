@@ -5771,6 +5771,10 @@ ns._mhLocales.ruRU = {
 	CAMERA_COMBAT = "Камера: ты в бою, поэтому это подождёт окончания боя.",
 	CAMERA_WORD_ON = "вкл.",
 	CAMERA_WORD_OFF = "выкл.",
+	-- Max-level popup (MaxLevelWelcome.lua), 16 Nov 2026. Our own translation, not native-reviewed.
+	MAXLVL_POPUP_FMT = "Теперь у вас уровень %d. Что дальше?\n\nОтсюда вы растёте за счёт экипировки: \"%s\" показывает, что можно улучшить прямо сейчас и откуда берутся гербы. %s покажет весь путь.",
+	MAXLVL_BTN_GEAR = "Экипировка",
+	MAXLVL_LATER = "Позже",
 	SURVEY_COPY_HINT = "Нажмите Ctrl+C и вставьте ссылку в браузер. Спасибо!",
 	SURVEY_COPY_TITLE = "Опрос: две минуты для Midnight Helper",
 	SURVEY_LATER = "Позже",

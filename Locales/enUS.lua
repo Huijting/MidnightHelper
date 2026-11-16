@@ -368,6 +368,11 @@ ns._mhLocales.enUS = {
 	FSURVEY_POPUP_TEXT = "A few minutes for Midnight Helper in WoW Forever?\n\nMidnight Helper is made by one person, and we hear almost nothing from Forever players. A short, anonymous survey on our website tells us what you use, what you miss and what gets better next.",
 	FSURVEY_COPY_TITLE = "Survey for WoW Forever players",
 	CMDLIST_SURVEY = "The link to our two-minute survey: what you use, what you never use, what annoys you.",
+	-- "You reached the top level" popup (MaxLevelWelcome.lua, 16 Nov 2026, Midnight). %d = the max level (90); the two %s
+	-- are the window names as this pack calls them (GEARLADDER_TITLE, TAB_START_HERE).
+	MAXLVL_POPUP_FMT = "You are %d now. What next?\n\nYour gear is where you grow from here: \"%s\" shows what you can upgrade right away and where the crests come from. %s gives you the whole road.",
+	MAXLVL_BTN_GEAR = "My gear",
+	MAXLVL_LATER = "Later",
 	-- "Camera further away" (CameraZoom.lua, 16 Nov 2026), retail and Forever.
 	SET_CAMERAFAR_TITLE = "Camera further away",
 	SET_CAMERAFAR_DESC = "Lets you zoom the camera out further than the game's own options allow. Turning it off puts back the distance you had before.\n\nThe camera does not move by itself: scroll out with your mouse wheel.\n\nIf the game's camera options (or their Defaults button) set it back, Midnight Helper sets it again at your next login while this is on. Not changed during combat: it waits until the fight ends.",

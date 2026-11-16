@@ -1458,6 +1458,14 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh maxlevel [popup] — the "you reached the top level" popup (MaxLevelWelcome.lua, retail, 16 Nov 2026).
+	if msg == "maxlevel" or msg == "maxlevel popup" then
+		if ns.HandleMaxLevelCommand then
+			ns.HandleMaxLevelCommand(msg:match("^maxlevel%s+(%a+)$"))
+		end
+		return
+	end
+
 	-- /mh camera [on|off] — "Camera further away" (CameraZoom.lua, 16 Nov 2026): status, or switch + read-back.
 	if msg == "camera" or msg == "camera on" or msg == "camera off" then
 		if ns.HandleCameraCommand then

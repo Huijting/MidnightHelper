@@ -1859,7 +1859,11 @@ local function Ensure()
 	-- New spells: ask / automatic / never. Click to switch.
 	f.modeBtn = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
 	f.modeBtn:SetSize(300, 20)
-	f.modeBtn:SetPoint("TOPRIGHT", -120, -16)
+	-- -150 (was -120), 16 Nov 2026 (Rob via sparring: "allemaal"; his 21.webp of 14 Nov): "Dock to window" (DialogPopup.lua,
+	-- TOPRIGHT -38, as wide as its text, ~90 px in English) touched this button's right edge. AFGELEID from the anchors: the
+	-- dock's left edge sits near -130; a German/French label is wider, so 20 px spare. Room on the left: with 4 blocks the
+	-- window is ~1398 px, the guide button ends at 460, the old-bars button now starts near 698.
+	f.modeBtn:SetPoint("TOPRIGHT", -150, -16)
 	f.modeBtn:SetScript("OnClick", function()
 		NextMode()
 		Refresh(f)
@@ -1984,6 +1988,13 @@ local function Ensure()
 		insets = { left = 11, right = 12, top = 12, bottom = 11 },
 	})
 	g:SetBackdropColor(0.05, 0.05, 0.08, 0.97)
+	-- 16 Nov 2026 (Rob via sparring: "allemaal"; his 21.webp of 14 Nov): the missing-buff line ("Frost Armor is not on
+	-- you …") showed through step 5. Both frames are DIALOG strata over that HIGH icon, so it is not the layer: the
+	-- dialog background texture itself lets light through (AFGELEID). A solid colour under it, inside the gold border.
+	g.solid = g:CreateTexture(nil, "BACKGROUND", nil, -8)
+	g.solid:SetPoint("TOPLEFT", 11, -12)
+	g.solid:SetPoint("BOTTOMRIGHT", -12, 11)
+	g.solid:SetColorTexture(0.05, 0.05, 0.08, 1)
 	g.title = g:CreateFontString(nil, "OVERLAY", "GameFontNormalHuge")
 	g.title:SetPoint("TOPLEFT", 22, -18)
 	g.rows = {}

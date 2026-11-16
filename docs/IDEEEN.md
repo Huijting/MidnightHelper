@@ -203,6 +203,27 @@ Stand 15 nov avond: 1 gebouwd (1f521e5), 2 gemeten, 3 rapport + A/B gebouwd (zie
 - Oorzaak:       GEMETEN (sparring + bouwchat): `ns.GetHideableScreens` (UI.lua) keek niet naar Forever; de zijbalk wel.
 - Stand:         ✅ gebouwd 16 nov, alleen op main, NIET in het spel gezien (TESTLIJST 16 nov).
 
+### Zes kleine ideeën (Rob 16 nov, via Sparring 16-11, letterlijk: *"allemaal"*)
+1. **Forever: "Do this now" zegt dat een nieuw geleerde spell op geen enkele balk staat** (wachter-voorstel 15 nov;
+   passieve spells niet). Gemeten 16 nov (mh-research, Forever UI-bron bebcb6bf + DB2 70938): event
+   LEARNED_SPELL_IN_SKILL_LINE, C_Spell.IsSpellPassive bestaan; Blizzard licht zo'n spell al op in het SPELLBOEK. Niet
+   gemeten: of het event bij de trainer vuurt → Robs /run-test eerst. Plan: elke rank telt als "op een balk" (ook in een
+   macro), zwijgen als het toetsenblok staat, `/mh donow check` uitbreiden.
+2. **Forever: tooltipregel "dit heb je niet meer nodig, omdat …"** (O22). Gemeten: (a) recept al bekend → VALT AF
+   (Blizzard toont "Already known" zelf, en GetItemSpell geeft het recept niet); (c) eten te zwak → VALT AF (Forever-eten
+   heeft alleen een MINIMUM-level; "te zwak" zou ons eigen oordeel zijn). (b) "jouw class kan dit NOOIT dragen" is
+   meetbaar (SkillRaceClassInfo 70938: mail/plate pas vanaf 40 voor sommigen, schild, wands) → alleen dat bouwen.
+3. **Forever: tooltipregel "nodig voor een quest in je log"** (O23). Gemeten: GetQuestObjectives geeft GEEN item-id,
+   alleen tekst → matchen op itemnaam. Hoe die tekst eruitziet: niet gemeten → Robs /run-test eerst.
+   ⏳ 1-3: bouwen na Robs drie /run-tests (TESTLIJST 16 nov nacht).
+4. **"Your key block" (Forever): "Dock to window" raakt "New spells: ask me"** (waarneming 14 nov). ✅ gebouwd 16 nov:
+   knop 30 px naar links (KeyBlock.lua). NIET in het spel gezien.
+5. **"Getting started, step by step": de buff-zin schijnt erdoorheen** (waarneming 14 nov). ✅ gebouwd 16 nov: dichte
+   laag onder het paneel (KeyBlock.lua). Oorzaak AFGELEID (doorzichtige textuur). NIET in het spel gezien.
+6. **Midnight: "Je bent 90. Wat nu?"** (S1 vorm 1). ✅ gebouwd 16 nov: `Modules/MaxLevelWelcome.lua`, één keer per
+   character bij het bereiken van het hoogste level, knoppen "My gear" / "Start Here" / "Later"; `/mh maxlevel [popup]`.
+   NIET in het spel gezien.
+
 ### Forever: buffknop meldt een steen, olie of poison die nog niet op je wapen zit
 - Voor wie:      iedereen in Forever die zulke spullen bij zich heeft
 - Moment:        de bestaande Forever-buffknop (ForeverBuffs.lua + MissingBuff.lua), onder hetzelfde vinkje
