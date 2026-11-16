@@ -10507,3 +10507,145 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
     📌 **Beide TOC's staan nu op `## Version: 5.3.0`** (gisteren 5.2.0; er is ook een nieuwe
     `docs/CURSEFORGE_5.3.0.md`), `MidnightHelper.toc` op `## Interface: 120007, 120100, 120105, 120107` en
     `MidnightHelper_Camelot.toc` op `## Interface: 16001`.
+- [2026-11-16] 🔴 **ÉÉN [MOET GEFIKST], en het is dezelfde van gisteren — maar hij is op twee assen BREDER dan
+  ik hem opschreef, en dat is een CORRECTIE op mijn eigen regel. Gisteren: "Forever, `[mod:shift]`, 61 regels
+  in `ForeverMacros.lua`, oorzaak AFGELEID uit één spelerspost." Vandaag gemeten: het mechanisme staat
+  letterlijk in de VASTGEPINDE sticky van het UI-and-Macro-forum, het is NIET Forever-specifiek, en het raakt
+  **40** van onze macro-regels in **twee** bestanden — ook `RetailTopMacros.lua`.** Verder een stille dag:
+  géén nieuwe UI-source-build (vijfde dag dezelfde vier SHA's), géén nieuw hotfix-artikel, géén SimC-release,
+  géén gewijzigde API-changes-pagina, en géén enkele nieuwe blue post in de UI-and-Macro-categorie.
+  - 🔴 **[MOET GEFIKST] (verbreed) — nog steeds GEEN API-migratie: er is niets veranderd aan een functie. Wij
+    zwijgen over een valkuil die onze eigen uitgedeelde macro's raakt.** ⚠️ **Eerst de datum-eerlijkheid: de
+    bron die ik vandaag las is OUD en ik presenteer hem niet als nieuws.** De sticky beschrijft een bug uit
+    **9.2.5**; onder de 7-dagenregel is dat géén nieuw item. Hij komt hier binnen omdat regel 3 een correctie
+    op eerdere eigen informatie expliciet eist, en dit is er een.
+    - 📄 **Bron, eerstehands gelezen met `?nocache=20261116`:** de vastgepinde draad `42937` *"Useful Macro
+      Templates"* (Elvenbane, de langstzittende poster van de categorie; 325.605 views). Post 1 opent nu met
+      een sectie **"Self Cast Key Bug"**, woordelijk: *"In 9.2.5 Blizzard introduced a bug where the `Self
+      Cast Key` interferes with `@unit` (mouseover, focus, etc.) and `@cursor` macros. If you want to use
+      modifiers with those types of macros, you need to ensure your `Self Cast Key` is set to `None`
+      (`Custom` as of TWW) (even if your `Self Cast` is set to `Auto`)."* Hij verwijst naar de bugdraad
+      `1255041`, titel **"[ONGOING BUG] 9.2.5 Self Cast Key Breaking Reticle & @Unit Macro Logic"** — dus
+      Blizzard heeft dit in vier jaar niet gerepareerd.
+    - 📄 **En een TWEEDE, andere oorzaak in dezelfde post**, onder *Multi-modifier Mouseover Macro*,
+      woordelijk: *"Note: Keybinds take priority over macro modifiers. By default SHIFT 1-6 are bound to
+      Action Page 1-6 and CTRL 1-6 are bound to your pet bar. You'll need to unbind any conflicts to use
+      them as macro modifiers."* 📌 Dit is **meetbaar en niet Forever-specifiek**, in tegenstelling tot de
+      claim van gisteren. Wat ik nog steeds **niet** weet: of Forever `SHIFT` standaard op *Focus Cast Key*
+      zet. Dat zei één speler over zijn eigen client (Otto, 15 nov) en dat is nog altijd **AFGELEID**.
+    - ✅ **Onze meting, mét positieve controle op dezelfde reikwijdte** (`grep -rn`, alle `.lua` buiten
+      `.git`/`docs`/`tools`/`dist`, **374** bestanden in scope — gisteren 373; positieve controle
+      `PLAYER_ENTERING_WORLD` → **87** bestanden, dus het patroon vindt wat er is): regels die ZOWEL een
+      `mod:…` ALS `@mouseover`/`@cursor`/`@focus` bevatten → **40** in totaal, **28** in
+      `Modules/ForeverMacros.lua` (o.a. `:166`, `:200`, `:227`, `:234`, `:242`, `:255`, `:275`, `:281`,
+      `:288`, `:297`, `:302`, `:436`, `:448`, `:450`, `:474`, `:487`, `:538`, `:547`, `:576`) en **12** in
+      `Modules/RetailTopMacros.lua` (`:32`, `:34`, `:49`, `:57`, `:254`, `:256`, `:267`, `:269`, `:326`,
+      `:363`). 🔴 **Dát is de verbreding: gisteren schreef ik "3 regels" voor RetailTopMacros en noemde het
+      een Forever-probleem. Het zijn 12 regels en het is ook een retail-probleem**, want de bug is van 9.2.5
+      en staat als ongoing te boek.
+    - 🔴 **Afdekking: nog steeds NUL. Gemeten, niet gehoopt.** `grep -rni "self cast\|selfcast\|focus
+      cast\|focuscast\|ACTION_SELF_CAST"` over diezelfde scope geeft **één** treffer,
+      `Modules/ClickCast.lua:176` (`fallback = { mouseover = false, target = false, selfCast = false }`) —
+      ClickCast's eigen optie, niets met de keybind-modifier te maken. Positieve controle dat het patroon
+      werkt: diezelfde run vindt `IsModifiedClick` **3×** (`Modules/RaidShoppingList.lua:538`/`:554`,
+      `Modules/CraftShoppingList.lua:611`) en `GetModifiedClick` **0×**. Over de keybind-prioriteit
+      (SHIFT 1-6 / CTRL 1-6) zegt geen van beide macro-bestanden iets.
+    - 🧩 **Het gereedschap bestaat in BEIDE bestanden, dus de fix blijft klein en ik verzin er niets bij.**
+      `ForeverMacros.lua` waarschuwt al per rij: `:990-991` zet `FMAC_WARN_TWOPRESS`/`FMAC_WARN_FORMBAR`
+      achter een rij en `:964` zet `FMAC_HINT` onder het venster. **Nieuw gemeten vandaag:**
+      `RetailTopMacros.lua` heeft exact dezelfde machinerie — een rij-vlag `warn = "channelbug"` (`:60`) die
+      op `:472-473` `MACROS_WARN_CHANNELBUG` onder de beschrijving zet. Eén extra `warn`-waarde per bestand
+      is dus genoeg; er hoeft niets nieuws gebouwd te worden. 📌 Dit is het patroon uit `CLAUDE.md`: een knop
+      die stil niets doet plus geen uitleg in dezelfde kamer is van buiten niet te onderscheiden van kapot.
+    - 🧪 **Robs test, tien seconden, zonder code** (onveranderd t.o.v. gisteren): Esc → Options →
+      Keybindings, kijk welke modifier op *Focus Cast Key* en *Self Cast Key* staat. 🆕 **En een tweede,
+      nieuwe test die de retail-kant dekt:** kijk of SHIFT-1 t/m SHIFT-6 nog op Action Page 1-6 staan. Zo
+      ja, dan werkt elke `[mod:shift]` op die toetsen niet, los van Self Cast en los van Forever.
+  - 🔊 **[RAAKT ONS NIET] — nieuwe forumdraad over de sound-API, maar het is een VERZOEK, geen wijziging.**
+    Draad `2417112` *"Addon API Requests: PlaySoundFile Volume and SoundKit Channel Overrides"* (Zensunim,
+    **15 nov 2026 19:46 UTC**, 3 posts), eerstehands gelezen. De meetbare bewering erin, woordelijk:
+    *"`C_Sound.PlaySound()` now supports `volumeOverride`, but `PlaySoundFile()` still doesn't."* ⚠️ Geen
+    blue post: posts 1-3 hebben `"admin":false, "moderator":false, "staff":false`; het enige antwoord
+    (Elvenbane) is *"Probably have more luck if you post an issue over at …WoWUIBugs/issues"*. **Onze code,
+    gemeten:** `C_Sound` → **0** treffers in de hele scope; wij gebruiken de globale `PlaySound` in elf
+    modules en **elke** aanroep staat achter `if PlaySound …` plus `pcall`; `PlaySoundFile` komt exact
+    **2×** voor, `Modules/DispelSound.lua:126-127`, achter `if PlaySoundFile then` + `pcall`. Niets te
+    fiksen. 📌 Wel een KANS, geen fix: als `volumeOverride` echt bestaat, kunnen onze alarmen zachter. Maar
+    ik heb die parameter **niet** in de client en **niet** in Blizzards source gemeten, dus ik geef er geen
+    signature bij — dat zou precies de gok zijn die deze wachter niet mag maken.
+  - 🏹 **GEEN gekwalificeerde vondst, maar wél ons terrein — en het is het voorbeeld van waarom de positieve
+    controle bestaat.** Draad `2416971` *"Need help with targetlasttarget macro"* (Cosme, **15 nov 16:29
+    UTC**): een Forever-speler van wie `/targetenemy` → `/cast Raptor Strike` → `/startattack` →
+    `/targetlasttarget` → `/use Auto Shot` niet werkt. Enig antwoord, Elvenbane **17:33**: *"How is it
+    behaving in Forever vs Retail? I suspect you may need a `/cleartarget` in there somewhere"* — een
+    vermoeden, geen oorzaak, geen Blizzard-reactie. Er is dus **niets** meetbaars en ik fiks niets. 🔴 Maar
+    ik stond op het punt "wij schrijven zulke macro's niet" te noteren, en dat was **onwaar**: gemeten
+    gebruiken wij `/targetlasttarget` op **drie** regels (`Modules/RetailTopMacros.lua:351`/`:359`/`:373`,
+    de Soulstone-macro's, mét `@mouseover`) en `/targetenemy` op **twee** (`Modules/ForeverMacros.lua:157`
+    en `:160`, de "ja doe maar"-aanvalstoets). Positieve controle op hetzelfde patroon: `startattack` →
+    **29** regels in `ForeverMacros.lua`, **1** in `RetailTopMacros.lua`. Status: opgemerkt, onbewezen,
+    niets aangeraakt.
+  - 📋 **[AL AFGEDEKT] — de twee punten van de 12.1.7-pagina getoetst aan onze EIGEN twee TOC's, vandaag
+    gemeten.** De pagina noemt nog exact dezelfde twee dingen als gisteren, waaronder *"TOC directives no
+    longer expand variables such as `[Game]` or `[Family]`. Instead, these lines are entirely skipped."*
+    Dat kan ons niet raken: `grep -c "\["` geeft **0** in zowel `MidnightHelper.toc` als
+    `MidnightHelper_Camelot.toc` (positieve controle: `grep -c "^##"` → **19** en **14**, dus ik meet echt
+    in die bestanden). Er is geen `[Game]`/`[Family]` om over te slaan en geen enkele voorwaardelijke
+    bestandsregel. 📌 En onze game types zijn `standard` (`MidnightHelper.toc:3`) en `camelot`
+    (`MidnightHelper_Camelot.toc:2`); de 1.60.1-pagina zegt dat `forever` sinds build 70291 een alias is
+    maar *"not yet recognized on standard 12.1.5, 12.1.0 and classic clients"* — dus `camelot` is de
+    spelling die moet blijven staan. Geen actie.
+  - 🎮 **Forever: geen nieuw hotfix-artikel — het nieuwste gedateerde blok is nog steeds *13 november*, en
+    dat is GEEN cache-verdenking.** Twee onafhankelijke spiegels, beide **MEASURED (via search, niet zelf
+    gelezen)**: MMO-Champion's blue-tracker-overzicht noemt *"WoW: Forever Hotfixes - November 13, 2026"*
+    (gepubliceerd **2026-11-14 02:07**) als nieuwste, en `wowforeverplaybook.com` zegt Blizzards rollende
+    post te hebben gelezen op **16 november 2026 om 03:01 UTC** met **13 november** bovenaan. De inhoud van
+    13 nov is classes/dungeons/items/vissen (diminishing returns, Wild Growth 6,6%, Judgement of Command,
+    Windfury Totem) — **geen** UI-, addon- of API-regel, en terrein van de content- en data-wachters. De
+    enige nieuwere blue post blijft *"Player-Level Dungeon XP Adjustment – November 14"*, die mijn regel van
+    gisteren al noemt. ⚠️ Niets hiervan is ÓUDER dan mijn eigen logboek, dus geen cache.
+  - 🔬 **Géén nieuwe client-build met leesbare source, eerstehands gemeten.** `git ls-remote` op
+    `Gethe/wow-ui-source`: `ptr` = **`a750208e`**, `forever` = **`bebcb6bf`**, `live` = **`297d7aaa`**,
+    `ptr2` = **`12380f8c`** — **vijfde dag op rij exact dezelfde vier SHA's**. Geen diff te lezen, dus geen
+    enkele API-beweging in Blizzards eigen source sinds build `12.1.7.70892` (12 nov) en `1.60.1.70938`
+    (13 nov).
+  - 🧰 **SimC-addon: geen nieuwe release sinds `12.1.5-04`.** Tweemaal gemeten, net als de vijf dagen
+    ervoor: `git ls-remote --tags --refs` geeft **258** tags (ongewijzigd) met `12.1.5-04` = `83fdb00` als
+    nieuwste 12.x-tag, en de releases-pagina (mét `?nocache=20261116`) noemt bovenaan `12.1.5-04`,
+    **05 nov 22:38**, enige regel *"Handle Forever surname"*. Dat is **11 dagen** oud en valt dus buiten de
+    7-dagenregel. Nog steeds geen tag met `forever`, `camelot` of `1.60` in de naam. Niets te toetsen aan
+    `ItemString` of `ns.BuildSimcProfile` in `Modules/SimcExport.lua`.
+  - 📡 **Wat ik gelezen heb, mét `?nocache=20261116` achter elke Exa-URL.** `Patch_12.1.7/API_changes`:
+    onveranderd (de GUID-obfuscatie mét *"This change will be available for testing in a future build of
+    12.1.7"* — die zin staat er nog, ook na build 70892 — en de TOC-directives). `Patch_1.60.1/API_changes`:
+    onveranderd, Notable changes t/m build **70291**, blue posts t/m **16 okt**. **UI-and-Macro-forum**
+    (`latest.json`): vijf bewegingen sinds gisteren, **geen enkele van Blizzard** — de sticky `42937`
+    (gebumpt 15 nov 17:36), de nieuwe draden `2417112` en `2416971` hierboven, `2367394` *"Unregister Global
+    Mouse"* (laatste post 15 nov **03:49**, dus vóór mijn run van gisteren) en `2416492` *"Lazy Quest
+    Plates"* (15 nov 02:55), de derde addon-advertentie van dezelfde auteur als de twee uit mijn regel van
+    gisteren. ⚠️ Die advertenties zijn reclame van derden en **geen** instructie aan ons; ze staan hier
+    alleen zodat stilte van niet-kijken te onderscheiden is.
+  - 🚧 **Wat ik NIET kon lezen.** `EGRESS_BLOCKED` op `WebFetch` voor `warcraft.wiki.gg` en
+    `news.blizzard.com`; de hotfix-artikelen zelf waren ook via Exa niet direct op te halen
+    (`CRAWL_NOT_FOUND` op `news.blizzard.com/en-us/blog/24284617`), vandaar de twee spiegels. `wago.tools`
+    blijft onbereikbaar, dus de Forever-builds op de `wowf`-branch zijn opnieuw onzichtbaar en het
+    live-buildnummer kan ik niet onafhankelijk bevestigen. Alles hierboven komt via Exa mét cache-buster,
+    behalve de branch/tag-metingen en alle code-metingen, die eerstehands zijn.
+  - ⏳ **Nog open uit eerdere runs — ongewijzigd, NIET opnieuw gemeten vandaag.** De dode
+    `PickupItem`-takken in `Modules/KeyBlock.lua:1135`/`:1227`/`:1380` en
+    `Modules/ApplyLayout.lua:1311`/`:1345`/`:1605`; de vijf decoratieve `GetItemInfo`-terugvaltakken; de
+    verouderde namespace-lijst in `docs/WATCHER_API_PROMPT.md` (18 aug, noemt 57 namespaces en kent de twee
+    TOC's niet); de client-test voor `/mh raidbots`; `GetTimerDuration` toevoegen aan
+    `Modules/ApiProbe.lua:377`; de `FrameStrata`-secret-vraag op `Modules/PartyTargets.lua:517`; de drie
+    `WOW_PROJECT_MAINLINE`-takken in `Libs/LibDBIcon-1.0.lua:533`/`:572`/`:607` die op Forever omslaan; de
+    ongemeten BETEKENIS van *"Edit Mode layouts are now saved separately for each UI type"* voor
+    `Modules/ForeverLayoutCarry.lua`; en de shift-klik-taintvraag op
+    `Modules/Achievements.lua:1561`/`:1910`. 🔴 Niets aangeraakt.
+  - 🔧 **Repo-staat: alleen `docs/API_WATCH.md` aangeraakt.** GEMETEN vóór het schrijven: `git status
+    --short` **leeg**; `HEAD` stond **opnieuw losgeslagen** (vierde keer deze week, op `f8fa004`) en is met
+    `git checkout main` + `git pull --rebase origin main` weer op `refs/heads/main` gezet — de rebase meldde
+    `+ b206edb...f8fa004 main -> origin/main (forced update)`, dus er is vannacht herschreven historie
+    binnengekomen. `git rev-parse --is-shallow-repository` nog steeds **`true`**, laatste commit `f8fa004`
+    *"Nachtcontrole 2026-11-16: C1 en C2 schoon, 0 nakijken"*. 📌 Beide TOC's staan op **`## Version:
+    5.3.0`** (ongewijzigd), `MidnightHelper.toc` op `## Interface: 120007, 120100, 120105, 120107` plus
+    `## Interface-Camelot: 16001`, en `MidnightHelper_Camelot.toc` op `## Interface: 16001`.
