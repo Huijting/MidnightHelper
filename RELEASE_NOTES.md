@@ -1,27 +1,53 @@
-# Midnight Helper 5.3.0: one window to set things up
+# Midnight Helper 5.4.0: best stats for you, weapon stones on the buff button, and fireworks
 
 Want new things sooner and help test them? We put out betas regularly: set the release type of Midnight Helper in the
 CurseForge app to **Beta**. Found something odd, or does everything just work? Tell us: `/mh report` in game, a comment
 here on CurseForge, or the feedback form on midnighthelper.com.
 
-A smaller update for **both games**: no more questions popping up one after another when you log in.
+## Both games
 
-## One window at login
+- **Fireworks when you level up**: a short burst of stars in the middle of your screen. It never gets in the way of
+  your mouse, and waits until a fight is over. Turn it off in the options if you like.
+- **Camera further away**: one switch in the options lets you zoom out further than the game allows (Midnight 2.6,
+  Forever 4). Turn it off and your old distance comes back. Scroll out with your mouse wheel afterwards.
+- **A warning in the macro windows**: when your *Self Cast Key* is set, a mouseover macro with a modifier can land on
+  yourself (an old Blizzard bug). Such macros now say so, with what to change.
+- **Game words in your language**: in German, French, Spanish, Mexican Spanish, Portuguese, Italian and Russian,
+  Mythic+, Renown, Raid, Great Vault, dungeon, difficulty, season, keystone, item level, crests and more now use the word
+  your game shows.
 
-- **New character?** You get one window, *Welcome: set up Midnight Helper*, with a card for each thing to set up for
-  that character. In **WoW Forever** that is which way you want to go (each talent tree with its sentence right beside
-  the button) and the Midnight Helper bar layout.
-- **After this update** you see once which small screen parts you can turn on or off: the quick bar, the Fast Mark
-  bar, the missing-buff icon and the minimap button. In Midnight also Party targets, in Forever also the group panel
-  and *Do this now*. Close the window and it stays away. `/mh new` opens it again.
-- The window **closes once you have chosen**, gets a scroll bar when it is too tall, and its buttons wait a moment, so
-  a quick click meant for something else does not pick for you.
-- After **Yes** on the bar layout, the chat tells you how to put your bars back.
+## Midnight
+
+- **You are 90 — what now?** Once, the moment a character reaches the top level, a small window points you to
+  *My gear: what now?* and *Start Here*.
+- **Ready for patch 12.1.7**: a saved Edit Mode layout from another game version is no longer put back in the wrong
+  places, and articles that leave with the patch leave by themselves.
+
+## WoW Forever
+
+- **Best stats for you now**: *Do this now* tells you which stats matter most for the direction you chose (and, for
+  Warriors, Paladins and Druids, when you tank). The green line on gear tooltips follows the same advice, so healers and
+  casters no longer get Strength or Agility advice.
+- **Stones, oils and poisons on the buff button**: carry a sharpening stone, weightstone, oil or (rogue) poison that fits
+  your weapon, and nothing is on that weapon yet? The buff button shows it, one click puts it on. Main hand and off hand.
+- **New spell on no bar**: *Do this now* tells you when a spell you just learned is on none of your bars (not when your
+  key block takes care of it).
+- **Two tooltip lines**: whether your class can never use a piece of gear, and whether an item is needed for a quest in
+  your log (with how many you still need).
+- **Dungeons for your level**: a list per zone with the entrance coordinates and the arrow there, a tick box for "only
+  for my level", a card in the *Me* room, and a warning when nobody gets XP because someone in the group is more than
+  12 levels above the enemies.
+- **Mouseover for your buffs**: with mouseover on, blessings and Arcane Brilliance from your key block land on whoever is
+  under your mouse.
+- **Old ranks**: *Do this now* names the spell that still casts a lower rank, and where its button is.
+- **Your characters** shows a Horde or Alliance emblem for each character.
+- **A tidier options page**: settings that do nothing in Forever are gone, and the upgrade notice for gear you pick up
+  has its own switch.
+- A short survey invitation for Forever players, once.
 
 ## Fixes
 
-- In Forever, the German weapon trainer routes say *Eisenschmiede*.
-- The French key block button says *Ton*, like the rest of the French text.
-- Window titles stay clear of the *Dock to window* button.
+- The key block's *New spells* button no longer touches *Dock to window*, and the *Getting started* panel no longer lets
+  the buff line shine through.
 
 Have fun!

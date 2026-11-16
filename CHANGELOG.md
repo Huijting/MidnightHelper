@@ -2,6 +2,26 @@
 
 All notable changes to this project are documented in this file.
 
+## 5.4.0
+
+📌 **2026-11-16, RELEASE (Rob via Sparring 16-11, letterlijk: "go"; tag pas na zijn ok op de spelerstekst; geen beta).**
+In-game: CHANGELOG_540_1 t/m _6. `RELEASE_NOTES.md` = `docs/CURSEFORGE_5.4.0.md`. Commits v5.3.0..56ab593.
+
+- **Beide spellen:** vuurwerk bij level-up (`LevelUpFireworks.lua`, zonder geluid); "Camera further away"
+  (`CameraZoom.lua`, oude waarde altijd onthouden); Self Cast Key-waarschuwing in ForeverMacros/RetailTopMacros
+  (`ns.SelfCastMacroWarning`); speltermen per client (groepen 1-4, menu-namen, Mythic+).
+- **Midnight:** "You are 90"-venster (`MaxLevelWelcome.lua`); 12.1.7-voorbereiding (Edit Mode-kopieën met versie,
+  `_1217`-teksten, Aqir-artikel met maxInterface).
+- **Forever:** beste stats per rol (`ns.ForeverStatDef`, tooltip + questhint dezelfde tabel); stenen/oils/poisons op de
+  buffknop; nieuwe spell op geen balk; tooltipregels "nooit voor jouw class" en "nodig voor je quest"
+  (`ForeverItemTips.lua`); dungeonlijst per zone + kaartje + geen-XP-waarschuwing; mouseover voor blessings/Brilliance;
+  rank-zin met knopplek; Horde/Alliance-embleem; 63 nutteloze opties verborgen + pickup-schakelaar; Screens opgeschoond;
+  vragenlijst-uitnodiging.
+- **Fixes:** toetsenblok-knop vs Dock, doorschijnend gids-paneel.
+- **Alleen voor ons (niet in de spelerstekst):** `/mh fireworks`, `/mh camera`, `/mh maxlevel`, `/mh donow check`
+  (stats/nieuwe spells), `/mh buffs` (wapen-items), `/mh usedfor` (class/quest-regels), `/mh pickup` (laatste 10),
+  lint [18] `_1217`.
+
 ## 5.3.0
 
 📌 **2026-11-14, RELEASE (Rob, rechtstreeks in de bouwchat: "go en dan 5.3.0 , denk ook aan de site en evt

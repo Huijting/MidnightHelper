@@ -4,6 +4,18 @@ local changelogFrame
 
 local CHANGELOG_ENTRIES = {
 	{
+		version = "5.4.0",
+		lines = {
+			-- 16 Nov 2026 (Rob via sparring: "go"): best stats, weapon items, fireworks, camera, many Forever helpers.
+			"CHANGELOG_540_1",
+			"CHANGELOG_540_2",
+			"CHANGELOG_540_3",
+			"CHANGELOG_540_4",
+			"CHANGELOG_540_5",
+			"CHANGELOG_540_6",
+		},
+	},
+	{
 		version = "5.3.0",
 		lines = {
 			-- 14 Nov 2026 (Rob: "go en dan 5.3.0"): one window at login.
