@@ -119,7 +119,12 @@ Commit a114fa6.
 4 keuzes naar sparring → Rob: *"alle 4 ja"* → GEBOUWD: ns.ForeverStatDef/ForeverTankStatDef (ForeverMainStats.lua; rol =
 class × richting, BY_TREE; boomvolgorde AFGELEID), ForeverQuestHint leest hem (MainFor zet main.equal → Score weegt 2e stat
 1), ForeverDoNow StatLines als tips + regel in /mh donow check. Commit 867d325. ✅ Rob (3 chars, screenshots): Paladin
-2 = Protection, Mage 2 = Fire, Shaman 1 = Elemental → boomvolgorde klopt daar (GEMETEN); andere classes nog niet gezien. ⚠️ Voordeur: helpers zagen twee keer een vreemde beroepen-job in
+2 = Protection, Mage 2 = Fire, Shaman 1 = Elemental → boomvolgorde klopt daar (GEMETEN); andere classes nog niet gezien.
+🐞 Pickup-melding bij gecrafte items (Rob: "geen melding … maar ook niets in de chat bij die check"; /mh pickup toonde
+alleen "[Skinning Knife]: not better"). Oorzaak NIET gemeten: `last` = één beslissing, kan overschreven zijn. Gebouwd:
+PickupUpgrade.lua `history` (laatste 10, met tijd; elke toename in de tas, ook "not gear", "vendor open", "you wore it")
+in `/mh pickup`. Test voor Rob in TESTLIJST. Kandidaten (AFGELEID): BAG_UPDATE_DELAYED vuurt niet bij craften; of
+ForeverGearTipText zegt "not better"/"red line"; uitslag bepaalt de echte reparatie. ⚠️ Voordeur: helpers zagen twee keer een vreemde beroepen-job in
 `probe_job.txt` (zie hoger); herkomst nog niet nagezocht. Test 1 en 3 doet Rob later. Afspraak (sparring, tot Rob
 anders zegt): 1-3 SAMEN bouwen na die tests. Ook later van Rob: `/mh pickup` gaf geen melding bij GESMEDE items
 (nog niet uitgezocht; AFGELEID: misschien omdat craften als "bag update terwijl een venster open is" telt) en zijn keuze

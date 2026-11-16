@@ -26,6 +26,17 @@ local worn = {} -- links you wore at the last count
 local pending = {} -- links waiting for item data, -> tries
 local queued = {} -- notices that waited for the end of a fight
 local last = "nothing picked up yet"
+-- 16 Nov 2026 (Rob via sparring: crafted leather/blacksmithing items gave no notice, and /mh pickup only showed a
+-- Skinning Knife): one `last` can be overwritten by the next item, so the cause could not be measured. Now the last 10
+-- decisions are kept, EVERY bag increase (gear or not) and every skipped recount, with the time.
+local history = {}
+local function Note(text)
+	last = text
+	table.insert(history, 1, (date and date("%H:%M:%S") or "") .. " " .. text)
+	if #history > 10 then
+		history[11] = nil
+	end
+end
 
 local function Enabled()
 	return not (ns.db and ns.db.pickupUpgrade == false)
@@ -162,12 +173,12 @@ local function Consider(link)
 			end)
 		else
 			pending[link] = nil
-			last = link .. ": item data never arrived"
+			Note(link .. ": item data never arrived")
 		end
 		return
 	end
 	pending[link] = nil
-	last = link .. ": " .. (text and "shown" or tostring(why))
+	Note(link .. ": " .. (text and "shown" or tostring(why)))
 	if text then
 		Announce(text)
 	end
@@ -176,7 +187,7 @@ end
 local function Recount()
 	local now = BagCounts()
 	if not now then
-		last = "bags cannot be read on this client"
+		Note("bags cannot be read on this client")
 		return
 	end
 	local wasWorn = worn
@@ -187,12 +198,19 @@ local function Recount()
 	end
 	local old = counts
 	counts = now
-	if not Enabled() or Open("MerchantFrame") or Open("BankFrame") then
-		return
-	end
+	local skip = (not Enabled() and "notice off") or (Open("MerchantFrame") and "vendor open")
+		or (Open("BankFrame") and "bank open") or nil
 	for link, n in pairs(now) do
-		if n > (old[link] or 0) and not wasWorn[link] and IsGear(link) then
-			Consider(link)
+		if n > (old[link] or 0) then
+			if skip then
+				Note(link .. ": not checked (" .. skip .. ")")
+			elseif wasWorn[link] then
+				Note(link .. ": you wore it a moment ago")
+			elseif not IsGear(link) then
+				Note(link .. ": not gear")
+			else
+				Consider(link)
+			end
 		end
 	end
 end
@@ -213,7 +231,7 @@ ev:SetScript("OnEvent", function(_, event)
 	elseif event == "BAG_UPDATE_DELAYED" then
 		local ok, err = pcall(Recount)
 		if not ok then
-			last = "error: " .. tostring(err)
+			Note("error: " .. tostring(err))
 		end
 	elseif event == "PLAYER_REGEN_ENABLED" and #queued > 0 then
 		local list = queued
@@ -236,4 +254,11 @@ function ns.PickupUpgradeSlash(arg)
 	end
 	print(PREFIX .. ("pickup notice: %s; %s game check; last item: %s"):format(Enabled() and "on" or "off",
 		ns.IS_FOREVER and "Forever" or "Midnight", last))
+	-- 16 Nov 2026: the last 10 things that came into your bags, newest first, with what MH decided.
+	if #history > 1 then
+		print("  last 10 (newest first):")
+		for i, h in ipairs(history) do
+			print(("  %d. %s"):format(i, h))
+		end
+	end
 end

@@ -24,6 +24,14 @@ er is niets weggegooid.
 📝 **Waarneming Rob, 16 nov (nacht), Forever mage, via sparring:** *"mouse over werk"* — `/mh mouseover on`, Shift+X
 (Arcane Intellect) op een voorbijganger onder de muis werkt.
 
+## 🐞 16 nov (nacht) — melding "upgrade in je tas" bij zelfgemaakte spullen (onderzoek)
+
+Rob (via sparring): gecrafte blacksmithing- en leather-items gaven geen melding; `/mh pickup` noemde alleen een Skinning
+Knife. Oorzaak NIET gemeten: MH onthield maar één beslissing. Nu onthoudt hij de laatste 10.
+- [ ] `/reload`, maak één stuk uitrusting met een beroep, typ meteen `/mh pickup`. Onder "last 10" staat wat er in je
+      tas kwam en wat MH besloot (bv. "not better", "red line …", "shown"). Staat het gemaakte item er NIET bij, dan ziet
+      MH het craften helemaal niet → screenshot naar de bouwchat.
+
 ## 🆕 16 nov (nacht) — Forever: "Best stats for you now" in "Do this now"
 
 📝 Waarneming Rob, 16 nov (via sparring, screenshots, 3 characters) — richting → boom klopte bij alle drie:
