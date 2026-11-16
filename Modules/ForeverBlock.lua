@@ -184,10 +184,15 @@ for _, n in ipairs({
 	-- Paladin
 	"Holy Light", "Flash of Light", "Lay on Hands", "Cleanse", "Purify", "Blessing of Protection",
 	"Blessing of Freedom",
+	-- 16 Nov 2026 (Rob via sparring: "zet de andere ook maar op de lijst"; he buffs passers-by): the blessings for
+	-- someone else, as far as they are in ns.FOREVER_SPELL_IDS (GEMETEN: Might, Kings, Wisdom, Sacrifice + the three
+	-- Greater ones; Salvation/Light/Sanctuary are not in that list, so not here).
+	"Blessing of Might", "Blessing of Kings", "Blessing of Wisdom", "Blessing of Sacrifice",
+	"Greater Blessing of Might", "Greater Blessing of Kings", "Greater Blessing of Wisdom",
 	-- Shaman
 	"Healing Wave", "Lesser Healing Wave", "Chain Heal",
-	-- Mage
-	"Arcane Intellect", "Remove Lesser Curse",
+	-- Mage (Arcane Brilliance: same day, same reason)
+	"Arcane Intellect", "Arcane Brilliance", "Remove Lesser Curse",
 }) do
 	MO_HELP[n] = true
 end
@@ -261,14 +266,17 @@ BodyRaw = function(cls, key)
 		return bang .. name
 	end
 	if def.pair then
-		local a, aId = First(def.pair.first)
-		local b, bId = First(def.pair.second)
+		-- 16 Nov 2026: the pair keys (paladin blessings: "[group] Greater …; normal …") get mouseover too; before, this
+		-- branch never asked WithMouseover. "[@mouseover,help,nodead,group][group] Greater X; [@mouseover,help,nodead][] X".
+		-- Body() still drops mouseover for a key that would pass 255 characters.
+		local a, aId, aEn = First(def.pair.first)
+		local b, bId, bEn = First(def.pair.second)
 		local parts = {}
 		if a then
-			parts[#parts + 1] = (b and (def.pair.cond .. " ") or "") .. use(a, aId)
+			parts[#parts + 1] = WithMouseover(b and (def.pair.cond .. " ") or "", aEn) .. use(a, aId)
 		end
 		if b then
-			parts[#parts + 1] = use(b, bId)
+			parts[#parts + 1] = WithMouseover("", bEn) .. use(b, bId)
 		end
 		if #parts == 0 then
 			return nil

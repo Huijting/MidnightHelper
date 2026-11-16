@@ -102,7 +102,11 @@ isn't on any button" (licentie niet gemeten) → keuze voor Rob of MH dan zwijgt
 ✅ 1-3 GEBOUWD (alleen op main, NIET in het spel gezien): ForeverDoNow.lua (NewSpells per GUID, OnAnyBar = zelfde naam
 in slot 1-180 als spell of macro, zwijgt bij KeyBlockActive, regel in /mh donow check) + `Modules/ForeverItemTips.lua`
 (Camelot-toc; eigen TooltipDataProcessor-hook; class-masks uit SkillRaceClassInfo 70938 + ForeverWeapons; quest-match;
-uitleg in /mh usedfor). Teksten en/nl zelf, de/fr/es/pt/ru door mh-writer. Test 1 en 3 doet Rob later. Afspraak (sparring, tot Rob
+uitleg in /mh usedfor). Teksten en/nl zelf, de/fr/es/pt/ru door mh-writer. Commit 2c76b8f.
+🖱️ Rob: *"mouse over werk, en zet de andere ook maar op de lijst"*: MO_HELP + Blessing of Might/Kings/Wisdom/Sacrifice,
+de drie Greater-versies (GEMETEN in FOREVER_SPELL_IDS; Salvation/Light/Sanctuary staan daar niet in) en Arcane
+Brilliance. De pair-tak in BodyRaw riep WithMouseover nooit aan → nu wel (pair-toetsen = paladin-blessings, [group]).
+255-grens via Body() blijft. MagePlan: MH blijft melden (Rob). NIET in het spel gezien. Test 1 en 3 doet Rob later. Afspraak (sparring, tot Rob
 anders zegt): 1-3 SAMEN bouwen na die tests. Ook later van Rob: `/mh pickup` gaf geen melding bij GESMEDE items
 (nog niet uitgezocht; AFGELEID: misschien omdat craften als "bag update terwijl een venster open is" telt) en zijn keuze
 voor de stats-regel.

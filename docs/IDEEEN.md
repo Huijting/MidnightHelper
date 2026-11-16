@@ -203,6 +203,12 @@ Stand 15 nov avond: 1 gebouwd (1f521e5), 2 gemeten, 3 rapport + A/B gebouwd (zie
 - Oorzaak:       GEMETEN (sparring + bouwchat): `ns.GetHideableScreens` (UI.lua) keek niet naar Forever; de zijbalk wel.
 - Stand:         ✅ gebouwd 16 nov, alleen op main, NIET in het spel gezien (TESTLIJST 16 nov).
 
+### Forever: mouseover ook voor blessings en Arcane Brilliance
+- Bron: Rob 16 nov (via sparring, letterlijk: *"mouse over werk, en zet de andere ook maar op de lijst"*); hij buft graag
+  voorbijgangers. ✅ gebouwd 16 nov (ForeverBlock.lua MO_HELP + de "pair"-toetsen kregen mouseover, die hadden het niet).
+  Alleen de blessings die in ns.FOREVER_SPELL_IDS staan. NIET in het spel gezien.
+- MagePlan: MH blijft ook melden (Rob: *"laat en mh en mageplan het de key maar melden"*).
+
 ### Zes kleine ideeën (Rob 16 nov, via Sparring 16-11, letterlijk: *"allemaal"*)
 1. **Forever: "Do this now" zegt dat een nieuw geleerde spell op geen enkele balk staat** (wachter-voorstel 15 nov;
    passieve spells niet). Gemeten 16 nov (mh-research, Forever UI-bron bebcb6bf + DB2 70938): event

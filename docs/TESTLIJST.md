@@ -21,6 +21,17 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+📝 **Waarneming Rob, 16 nov (nacht), Forever mage, via sparring:** *"mouse over werk"* — `/mh mouseover on`, Shift+X
+(Arcane Intellect) op een voorbijganger onder de muis werkt.
+
+## 🆕 16 nov (nacht, laatst) — Forever: mouseover ook voor blessings en Arcane Brilliance
+
+`/mh mouseover on`, toetsenblok neergezet:
+- [ ] Paladin, solo: muis op een voorbijganger, Shift+Z/X/V → Blessing of Might/Kings/Wisdom gaat naar hem, niet naar
+      jou. Zonder iemand onder de muis: zoals altijd.
+- [ ] Paladin in een groep: zelfde toetsen geven de Greater-versie op wie onder je muis staat.
+- [ ] Mage met Arcane Brilliance (level 56): Shift+X op iemand onder de muis.
+
 ## 🆕 16 nov (nacht, laat) — Forever: nieuwe spell op geen balk + twee tooltipregels
 
 - [ ] Toetsenblok NIET neergezet. Leer bij de trainer een nieuwe spell (geen nieuwe rank). "Do this now" zegt: "New, but
