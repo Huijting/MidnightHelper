@@ -215,7 +215,10 @@ Stand 15 nov avond: 1 gebouwd (1f521e5), 2 gemeten, 3 rapport + A/B gebouwd (zie
    meetbaar (SkillRaceClassInfo 70938: mail/plate pas vanaf 40 voor sommigen, schild, wands) → alleen dat bouwen.
 3. **Forever: tooltipregel "nodig voor een quest in je log"** (O23). Gemeten: GetQuestObjectives geeft GEEN item-id,
    alleen tekst → matchen op itemnaam. Hoe die tekst eruitziet: niet gemeten → Robs /run-test eerst.
-   ⏳ 1-3: bouwen na Robs drie /run-tests (TESTLIJST 16 nov nacht).
+   ✅ 1-3 gebouwd 16 nov na Robs drie tests: 1 in ForeverDoNow.lua (LEARNED_SPELL_IN_SKILL_LINE, elke rank/macro telt,
+   stil met toetsenblok); 2b + 3 in nieuw `Modules/ForeverItemTips.lua` (zelfde schakelaar als "Used for"; quest-match =
+   itemnaam als heel woord in ÁLLE open doelteksten). NIET in het spel gezien. Open keuze voor Rob: MagePlan meldt ook
+   "New spell that isn't on any button" — moet MH dan zwijgen?
 4. **"Your key block" (Forever): "Dock to window" raakt "New spells: ask me"** (waarneming 14 nov). ✅ gebouwd 16 nov:
    knop 30 px naar links (KeyBlock.lua). NIET in het spel gezien.
 5. **"Getting started, step by step": de buff-zin schijnt erdoorheen** (waarneming 14 nov). ✅ gebouwd 16 nov: dichte

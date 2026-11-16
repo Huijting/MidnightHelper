@@ -5456,6 +5456,12 @@ ns._mhLocales.enUS = {
 	-- 12 Nov 2026: "Do this now / All caught up / Coming up" (ForeverDoNow.lua).
 	FDONOW_TITLE = "Do this now",
 	FDUNG_TITLE = "Dungeons in Forever",
+	-- "Do this now": a new spell on no action bar (ForeverDoNow.lua, 16 Nov 2026). %s = spell names.
+	FDONOW_NOBAR_FMT = "New, but on no bar yet: %s. Drag it from your spellbook onto a bar.",
+	-- Tooltip lines (ForeverItemTips.lua, 16 Nov 2026). %s = your class / the quest title; %d/%d = have/need.
+	FITEM_NEVER_FMT = "MH: a %s can never use this.",
+	FITEM_QUEST_FMT = "MH: needed for your quest \"%s\".",
+	FITEM_QUEST_COUNT_FMT = "MH: needed for your quest \"%s\" (%d/%d).",
 	-- Card in the Me room (RoomLauncher.lua, 16 Nov 2026; Rob: "die overigens nog een tegel missen in MH").
 	TOOLLP_FDUNG_DESC = "Which dungeons fit your level, where the entrance is, and the arrow to get there.",
 	FDUNG_BTN = "Dungeons",

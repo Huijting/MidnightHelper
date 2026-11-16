@@ -74,6 +74,101 @@ local function Money(c)
 	return tostring(c)
 end
 
+--------------------------------------------------------------------------------
+-- New spell on no bar (16 Nov 2026; Rob via sparring: "allemaal", the idea box proposal of 15 Nov).
+-- GEMETEN by Rob on a Forever mage: LEARNED_SPELL_IN_SKILL_LINE fires at the trainer with the spell id ("1459 Arcane
+-- Intellect false"). Passive spells and auto-attack are skipped (C_Spell.IsSpellPassive / IsAutoAttackSpell, as
+-- Blizzard's own spellbook highlight does in Forever). "On a bar" = ANY rank of the same spell name in any action slot,
+-- as a spell or inside a macro: a lower rank on a button is ForeverRanks' line, not this one. Silent while the key
+-- block is placed: it asks about new spells itself (KeyBlock.lua). Remembered per character until it is on a bar.
+--------------------------------------------------------------------------------
+local function NewSpells()
+	if type(ns.db) ~= "table" or not UnitGUID then
+		return {}
+	end
+	ns.db.foreverNewSpells = ns.db.foreverNewSpells or {}
+	local g = UnitGUID("player") or "?"
+	ns.db.foreverNewSpells[g] = ns.db.foreverNewSpells[g] or {}
+	return ns.db.foreverNewSpells[g]
+end
+
+local function SpellNameOf(id)
+	if C_Spell and C_Spell.GetSpellName then
+		local ok, n = pcall(C_Spell.GetSpellName, id)
+		if ok and type(n) == "string" and n ~= "" then
+			return n
+		end
+	end
+	return nil
+end
+
+--- Is any rank of this spell (same name) in an action slot 1-180, as a spell or as the spell a macro casts?
+local function OnAnyBar(name)
+	if not (name and GetActionInfo) then
+		return nil
+	end
+	for slot = 1, 180 do
+		local ok, kind, id = pcall(GetActionInfo, slot)
+		if ok and (kind == "spell" or kind == "macro") and type(id) == "number" and id > 0 then
+			if SpellNameOf(id) == name then
+				return slot
+			end
+		end
+	end
+	return nil
+end
+
+local function KeyBlockOn()
+	return ns.KeyBlockActive and ns.KeyBlockActive() and true or false
+end
+
+--- The new spells still on no bar (names), after dropping the ones that are on a bar now. Also used by /mh donow check.
+local function NoBarSpells()
+	local list, out = NewSpells(), {}
+	for id in pairs(list) do
+		local name = SpellNameOf(id)
+		if not name then
+			list[id] = nil
+		elseif OnAnyBar(name) then
+			list[id] = nil
+		else
+			out[#out + 1] = name
+		end
+	end
+	table.sort(out)
+	return out
+end
+
+local learnEv = CreateFrame("Frame")
+pcall(learnEv.RegisterEvent, learnEv, "LEARNED_SPELL_IN_SKILL_LINE")
+learnEv:SetScript("OnEvent", function(_, _, spellID)
+	if type(spellID) ~= "number" or (issecretvalue and issecretvalue(spellID)) then
+		return
+	end
+	if C_Spell and C_Spell.IsSpellPassive then
+		local ok, p = pcall(C_Spell.IsSpellPassive, spellID)
+		if ok and p then
+			return
+		end
+	end
+	if C_Spell and C_Spell.IsAutoAttackSpell then
+		local ok, a = pcall(C_Spell.IsAutoAttackSpell, spellID)
+		if ok and a then
+			return
+		end
+	end
+	local list = NewSpells()
+	list[spellID] = true
+	-- Keep it small: a character that never drags anything should not grow this forever.
+	local n = 0
+	for _ in pairs(list) do
+		n = n + 1
+	end
+	if n > 20 then
+		list[next(list)] = nil
+	end
+end)
+
 --- What the window would say. @return { now = {lines}, actions = {kind = true}, soon = {lines} }
 local function Collect()
 	local level = UnitLevel and UnitLevel("player") or 1
@@ -107,6 +202,12 @@ local function Collect()
 	if nRank > 0 then
 		out.now[#out.now + 1] = (ns.ForeverRankSentence and ns.ForeverRankSentence()) or ns:L("FRANK_HOME_FMT"):format(nRank)
 		out.actions.ranks = true
+	end
+	if not KeyBlockOn() then
+		local noBar = NoBarSpells()
+		if #noBar > 0 then
+			out.now[#out.now + 1] = ns:L("FDONOW_NOBAR_FMT"):format(table.concat(noBar, ", "))
+		end
 	end
 	-- 12 Nov 2026 (Rob via sparring: "Ja, alle drie"): one/more as two sentences, and with a direction how many fit
 	-- (the same player-guide fit as the green + in /mh weapons). The start page uses the same one/more sentences (without the direction part).
@@ -505,6 +606,10 @@ function ns.ForeverDoNowSlash(arg)
 		for _, s in ipairs(info.now) do
 			print("  - " .. s)
 		end
+		-- New spell on no bar (16 Nov 2026): the decision and why.
+		local noBar = NoBarSpells()
+		print(("  new spells on no bar: %s; key block placed: %s (then MH stays silent: the block asks itself)"):format(
+			#noBar > 0 and table.concat(noBar, ", ") or "none", tostring(KeyBlockOn())))
 	else
 		forced = not (win and win:IsShown())
 		Update()

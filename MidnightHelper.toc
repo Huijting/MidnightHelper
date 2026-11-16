@@ -270,6 +270,7 @@ Modules\ForeverDungeons.lua
 Modules\ForeverSurvey.lua
 Modules\CameraZoom.lua
 Modules\MaxLevelWelcome.lua
+Modules\ForeverItemTips.lua
 Modules\NewChoices.lua
 Modules\ForeverChars.lua
 Modules\SelftestData.lua

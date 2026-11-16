@@ -28,6 +28,17 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 16 nov 2026 — Forever: nieuwe spell op geen balk + tooltipregels "nooit voor jouw class" en "nodig voor je quest"
+- Tag + commit:   geen tag / (deze commit, zie git log "new spell on no bar")
+- Status:         alleen op main
+- Mag op de site: nee (nog niet uit)
+- Speler ziet:    "Do this now" noemt een nieuw geleerde spell die nog op geen balk staat. Op een item zegt de tooltip of
+                  jouw class het nooit kan gebruiken, en of het nodig is voor een quest in je log (met de teller).
+                  Niet in het spel gezien.
+- Knoplabels:     FDONOW_NOBAR_FMT, FITEM_NEVER_FMT, FITEM_QUEST_FMT
+- Commando's:     /mh donow check, /mh usedfor (bestonden al)
+- Spel:           Forever
+
 ## 16 nov 2026 — Midnight: "Je bent 90. Wat nu?"
 - Tag + commit:   geen tag / (deze commit, zie git log "max-level")
 - Status:         alleen op main

@@ -21,6 +21,19 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 16 nov (nacht, laat) — Forever: nieuwe spell op geen balk + twee tooltipregels
+
+- [ ] Toetsenblok NIET neergezet. Leer bij de trainer een nieuwe spell (geen nieuwe rank). "Do this now" zegt: "New, but
+      on no bar yet: <spell>. Drag it …". Sleep hem op een balk: de regel verdwijnt. Met een lagere rank al op een balk
+      komt deze regel niet (dat is de oranje rand van "oude rank").
+- [ ] Met het toetsenblok neergezet: geen regel (het blok vraagt het zelf). `/mh donow check` zegt welke spells op geen
+      balk staan en of het blok staat.
+- [ ] Muis op plate, mail, een schild of een wand die jouw class NOOIT kan gebruiken: rode regel "MH: a Mage can never
+      use this." Op iets dat je pas later mag (bv. mail voor een hunter vóór 40): geen MH-regel.
+- [ ] Muis op een quest-item (bv. Riptear's Heart): gele regel "MH: needed for your quest "Rear Guard Patrol" (0/1)".
+      Johaan's Findings: "MH: needed for your quest "Delivery to Silverpine Forest"." Is de quest klaar: geen regel.
+- [ ] `/mh usedfor`: onderaan "class/quest lines: item …" met wat MH besloot bij het laatste item.
+
 ## 🧪 16 nov (nacht) — drie metingen in Forever, vóór we 1-3 bouwen (plak elke regel in de chat, screenshot de uitvoer)
 
 - [ ] **Nieuwe spell**: typ dit, train daarna bij de trainer een NIEUWE spell én een nieuwe RANK van een oude:

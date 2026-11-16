@@ -96,7 +96,13 @@ Findings) heeft geen item-doel; de naam staat in het "log"-doel, met andere hoof
 de itemnaam HOOFDLETTERONGEVOELIG zoeken in ÁLLE doelteksten van je log (item, log, …); teller "n/m" alleen bij type
 "item"; geen treffer = geen regel. Bijvangst: in Forever is kale GetItemInfoInstant nil (AFGELEID uit Robs fout);
 GEMETEN dat MH hem in Forever-bestanden nooit kaal aanroept (overal C_Item eerst; grep, tegencontrole 20 treffers).
-Nog open: test 1 (nieuwe spell); daarna 1-3 samen. Test 1 en 3 doet Rob later. Afspraak (sparring, tot Rob
+🧪 Test 1 GEMETEN (Rob, mage): "LEARNED_SPELL_IN_SKILL_LINE 1459 Arcane Intellect false" bij de trainer; zijn
+toetsenblok zette hem zelf op Shift X. Nieuwe RANK niet getest. Bijvangst: de addon MagePlan zegt al "New spell that
+isn't on any button" (licentie niet gemeten) → keuze voor Rob of MH dan zwijgt.
+✅ 1-3 GEBOUWD (alleen op main, NIET in het spel gezien): ForeverDoNow.lua (NewSpells per GUID, OnAnyBar = zelfde naam
+in slot 1-180 als spell of macro, zwijgt bij KeyBlockActive, regel in /mh donow check) + `Modules/ForeverItemTips.lua`
+(Camelot-toc; eigen TooltipDataProcessor-hook; class-masks uit SkillRaceClassInfo 70938 + ForeverWeapons; quest-match;
+uitleg in /mh usedfor). Teksten en/nl zelf, de/fr/es/pt/ru door mh-writer. Test 1 en 3 doet Rob later. Afspraak (sparring, tot Rob
 anders zegt): 1-3 SAMEN bouwen na die tests. Ook later van Rob: `/mh pickup` gaf geen melding bij GESMEDE items
 (nog niet uitgezocht; AFGELEID: misschien omdat craften als "bag update terwijl een venster open is" telt) en zijn keuze
 voor de stats-regel.

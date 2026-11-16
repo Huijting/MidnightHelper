@@ -169,4 +169,8 @@ function ns.UsedForSlash(arg)
 		ns.IS_FOREVER and "Forever" or "Midnight", tostring(ns.REAGENT_BUILD),
 		#have > 0 and table.concat(have, ", ") or "none"))
 	print("  last item you hovered: " .. last)
+	-- Forever: the "never for your class" and "needed for a quest" lines (ForeverItemTips.lua, 16 Nov 2026).
+	if ns.ForeverItemTipsLast then
+		print("  class/quest lines: " .. ns.ForeverItemTipsLast())
+	end
 end
