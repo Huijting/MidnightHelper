@@ -112,7 +112,12 @@ Brilliance. De pair-tak in BodyRaw riep WithMouseover nooit aan → nu wel (pair
 SOUNDKIT.UI_EPICLOOT_TOAST 31578 (GEMETEN in SoundKitConstants forever-branch; SoundKitName-DB2 geeft HTTP 400 bij wago,
 dus geen naamzoektocht). Gevecht = wachten max 60 s; `/mh fireworks [test|on|off]`. Midnight 90: popup komt 3 s later,
 dus na het vuurwerk. Commit 2cf86a4. ✅ Rob: *"firework werkt maar het geluid is een tik … geluid is niet nodig en mag
-weg"* → geluid, schakelaar mh_levelUpFireworksSound, `sound on|off` en SET_FIREWORKS_SOUND_* (7 talen) verwijderd. Test 1 en 3 doet Rob later. Afspraak (sparring, tot Rob
+weg"* → geluid, schakelaar mh_levelUpFireworksSound, `sound on|off` en SET_FIREWORKS_SOUND_* (7 talen) verwijderd.
+Commit a114fa6.
+📊 Stats-regel "Do this now" (Rob: *"b , maar hou ook dps en heling in je achterhoofd"*): onderzocht →
+`docs/forever/STATS_PER_ROL_2026-11-16.md` (tabel per class/rol, bronnen, botsingen met ForeverMainStats, rol-detectie).
+4 keuzes naar sparring; ⏳ NIETS gebouwd tot Robs ja. ⚠️ Voordeur: helpers zagen twee keer een vreemde beroepen-job in
+`probe_job.txt` (zie hoger); herkomst nog niet nagezocht. Test 1 en 3 doet Rob later. Afspraak (sparring, tot Rob
 anders zegt): 1-3 SAMEN bouwen na die tests. Ook later van Rob: `/mh pickup` gaf geen melding bij GESMEDE items
 (nog niet uitgezocht; AFGELEID: misschien omdat craften als "bag update terwijl een venster open is" telt) en zijn keuze
 voor de stats-regel.

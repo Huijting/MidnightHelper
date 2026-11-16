@@ -207,8 +207,10 @@ Stand 15 nov avond: 1 gebouwd (1f521e5), 2 gemeten, 3 rapport + A/B gebouwd (zie
 - Bron: Rob 16 nov (eerder die dag, letterlijk): *"wat ik ook graag wil weten in het schermpje Doe This Now … wat zijn
   de beste stats voor de spec die ik heb? … moet ik nu strength nemen of moet ik nou de stamina nemen"*; op A/B
   (via sparring): *"b , maar hou ook dps en heling in je achterhoofd"*.
-- Stand: ⏳ mh-research zoekt per class/rol de volgorde + hoe MH de rol weet; eerst de tabel naar Rob (via sparring),
-  dan bouwen. De tooltip/questhint (ForeverQuestHint) moet daarna hetzelfde zeggen.
+- Stand: onderzocht 16 nov → `docs/forever/STATS_PER_ROL_2026-11-16.md`. Tabel + 4 keuzes naar Rob (via sparring):
+  rol uit de richting, tank-regel voor W/P/D, Blizzard > Icy Veins bij onenigheid, tooltip dezelfde tabel. ⏳ wacht op
+  Robs keuze. Gevonden (GEMETEN): de groene tooltipregel adviseert nu Str aan Ele/Resto Shaman en Holy/Prot Paladin,
+  Agi aan Balance/Resto Druid; Warlock mist Spirit.
 
 ### Vuurwerk bij een level-up (Midnight en Forever)
 - Bron: Rob 16 nov (via sparring), na het effect van een andere addon in Forever, letterlijk: *"ja dat wil ik, dat
