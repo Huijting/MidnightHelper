@@ -15,8 +15,9 @@ local _, ns = ...
 	  - Where a class has a choice (paladin blessing and aura, mage armor, shaman shield and weapon buff, warlock armor,
 	    hunter aspect, warlock demon): the one you cast last wins; before that the first one you know (players choose).
 	  - An aura MH cannot read counts as present: a wrong "missing" is worse than none (the ns.Aura rule).
-	Left out on purpose: Battle Shout (costs rage, and a warrior has none out of combat), rogue poisons (items in
-	Forever, not spells), Shadow Protection and other situational buffs.
+	Left out on purpose: Battle Shout (costs rage, and a warrior has none out of combat), Shadow Protection and other
+	situational buffs. Rogue poisons, stones and oils are ITEMS in Forever: since 16 Nov 2026 they have their own block
+	(WEAPON_ITEMS), and the button puts the item on the weapon.
 	  /mh buffs           per buff: known rank, on you or not, what the button would cast
 	  /mh buffs on|off    the same switch as Midnight's setting (ns.db.ui.missingBuff)
 ]]
@@ -210,6 +211,37 @@ local function MainHand()
 	return "weapon"
 end
 
+--- Is there a TEMPORARY enchant (stone, oil, poison, shaman imbue) on this weapon slot? true / false / nil (cannot read).
+--- 16 Nov 2026 (mh-research, Forever UI source 1.60.1.70938): C_Item.GetWeaponEnchantInfo(slot 0 = MH, 1 = OH) returns
+--- entries {hasEnchant, enchantType (0 none, 1 permanent, 2 temporary, 3 imbue), …}; the global GetWeaponEnchantInfo is
+--- only a deprecation shim behind the loadDeprecationFallbacks CVar. So the new one first, the old one as fallback, and
+--- nil when neither answers: nil never makes a "missing" (the ns.Aura rule).
+local function TempEnchant(slotIdx)
+	if C_Item and C_Item.GetWeaponEnchantInfo then
+		local ok, r = pcall(C_Item.GetWeaponEnchantInfo, slotIdx)
+		if ok and type(r) == "table" then
+			local list = (r.hasEnchant ~= nil or r.enchantType ~= nil) and { r } or r
+			for _, e in ipairs(list) do
+				if type(e) == "table" and e.hasEnchant and e.enchantType ~= 1 then
+					return true
+				end
+			end
+			return false
+		end
+	end
+	if GetWeaponEnchantInfo then
+		local ok, hasMH, _, _, _, hasOH = pcall(GetWeaponEnchantInfo)
+		if ok then
+			if slotIdx == 0 then
+				return hasMH and true or false
+			end
+			return hasOH and true or false
+		end
+	end
+	return nil
+end
+ns.ForeverTempEnchant = TempEnchant
+
 --- Evaluate one def: name to cast (or nil when nothing is needed), and a short reason for /mh buffs.
 local function Evaluate(d)
 	if d.imbue then
@@ -223,8 +255,10 @@ local function Evaluate(d)
 		elseif hand == "none" then
 			return nil, "no weapon in main hand"
 		end
-		local ok, hasMH = pcall(GetWeaponEnchantInfo)
-		if ok and hasMH then
+		local has = TempEnchant(0)
+		if has == nil then
+			return nil, "cannot read the weapon buff (counted as present)"
+		elseif has then
 			return nil, "weapon buff on"
 		end
 		return name, "no weapon buff", pick
@@ -255,14 +289,189 @@ local function Evaluate(d)
 	return name, "missing", pick
 end
 
+--------------------------------------------------------------------------------
+-- Weapon ITEMS: sharpening stones, weightstones, oils, rogue poisons (16 Nov 2026).
+-- Rob (via sparring), at a Rough Sharpening Stone in his bags: "kunnen we daar ook een waarschuwing voor krijgen als we
+-- deze hebben en een juiste wapen hebben equiped om het te gebruiken en het er nog niet op zit ?" → stones only or also
+-- oils and poisons: "alles :)".
+-- Shown when: the item is in your bags, your level is high enough (poisons: rogue only), the weapon in that hand fits
+-- it, and that hand has NO temporary enchant yet (Rob: "het er nog niet op zit"). Click = the item on that weapon
+-- (type=item + target-slot, SecureTemplates.lua forever branch; out of combat only, like every click here).
+-- All ids, levels and weapon masks GEMETEN by mh-research in wago DB2 wowf 1.60.1.70938 (ItemSparse, ItemXItemEffect,
+-- SpellEquippedItems): sharp mask 33219, blunt 9264, Elemental 42483, poisons + Shadow/Frost Oil 173555, wizard/mana
+-- oils by inventory type (any one-hand/2H/MH/OH weapon). Left out: Blackfathom Sharpening Stone (works only in BFD),
+-- Oil of Immolation (a shield on you, not a weapon buff), warlock firestone/spellstone and mage imbue scrolls (class
+-- items; not asked). Situational ones (Consecrated stone, Blessed Wizard Oil: vs undead) come last.
+-- Order inside a kind = best first, so the button offers your best one.
+--------------------------------------------------------------------------------
+local W_SHARP = { [0] = true, [1] = true, [6] = true, [7] = true, [8] = true, [15] = true }
+local W_BLUNT = { [4] = true, [5] = true, [10] = true, [13] = true }
+local W_MELEE = { [0] = true, [1] = true, [4] = true, [5] = true, [6] = true, [7] = true, [8] = true, [10] = true,
+	[13] = true, [15] = true }
+local W_MELEE_SPEAR = { [17] = true }
+for k in pairs(W_MELEE) do
+	W_MELEE_SPEAR[k] = true
+end
+-- Wizard/mana oils: any weapon in a hand slot except ranged ones and the fishing pole (AFGELEID from the inventory-type
+-- mask: no subclass limit; the pole is left out on purpose, as for the shaman imbue).
+local W_OIL = { [11] = true, [12] = true }
+for k in pairs(W_MELEE_SPEAR) do
+	W_OIL[k] = true
+end
+
+local WEAPON_ITEMS = {
+	-- rogue poisons (class ROGUE, AllowableClass 8)
+	{ id = 8928, lvl = 60, fit = W_MELEE_SPEAR, rogue = true }, { id = 20844, lvl = 60, fit = W_MELEE_SPEAR, rogue = true },
+	{ id = 8927, lvl = 52, fit = W_MELEE_SPEAR, rogue = true }, { id = 10922, lvl = 56, fit = W_MELEE_SPEAR, rogue = true },
+	{ id = 8985, lvl = 54, fit = W_MELEE_SPEAR, rogue = true }, { id = 9186, lvl = 52, fit = W_MELEE_SPEAR, rogue = true },
+	{ id = 3776, lvl = 50, fit = W_MELEE_SPEAR, rogue = true }, { id = 10921, lvl = 48, fit = W_MELEE_SPEAR, rogue = true },
+	{ id = 8984, lvl = 46, fit = W_MELEE_SPEAR, rogue = true }, { id = 8926, lvl = 44, fit = W_MELEE_SPEAR, rogue = true },
+	{ id = 10920, lvl = 40, fit = W_MELEE_SPEAR, rogue = true }, { id = 2893, lvl = 38, fit = W_MELEE_SPEAR, rogue = true },
+	{ id = 6951, lvl = 38, fit = W_MELEE_SPEAR, rogue = true }, { id = 6950, lvl = 36, fit = W_MELEE_SPEAR, rogue = true },
+	{ id = 10918, lvl = 32, fit = W_MELEE_SPEAR, rogue = true }, { id = 2892, lvl = 30, fit = W_MELEE_SPEAR, rogue = true },
+	{ id = 6949, lvl = 28, fit = W_MELEE_SPEAR, rogue = true }, { id = 5237, lvl = 24, fit = W_MELEE_SPEAR, rogue = true },
+	{ id = 6947, lvl = 20, fit = W_MELEE_SPEAR, rogue = true }, { id = 3775, lvl = 20, fit = W_MELEE_SPEAR, rogue = true },
+	-- sharpening stones (sharp weapons; Elemental fits every melee weapon)
+	{ id = 18262, lvl = 50, fit = W_MELEE }, { id = 287980, lvl = 1, fit = W_MELEE },
+	{ id = 12404, lvl = 35, fit = W_SHARP }, { id = 7964, lvl = 25, fit = W_SHARP }, { id = 2871, lvl = 15, fit = W_SHARP },
+	{ id = 2863, lvl = 5, fit = W_SHARP }, { id = 2862, lvl = 1, fit = W_SHARP }, { id = 287978, lvl = 1, fit = W_SHARP },
+	-- weightstones (blunt weapons)
+	{ id = 12643, lvl = 35, fit = W_BLUNT }, { id = 7965, lvl = 25, fit = W_BLUNT }, { id = 3241, lvl = 15, fit = W_BLUNT },
+	{ id = 3240, lvl = 5, fit = W_BLUNT }, { id = 3239, lvl = 1, fit = W_BLUNT },
+	-- oils
+	{ id = 20749, lvl = 45, fit = W_OIL }, { id = 20748, lvl = 45, fit = W_OIL }, { id = 20750, lvl = 40, fit = W_OIL },
+	{ id = 20747, lvl = 40, fit = W_OIL }, { id = 20746, lvl = 30, fit = W_OIL }, { id = 287979, lvl = 1, fit = W_OIL },
+	{ id = 20745, lvl = 20, fit = W_OIL }, { id = 20744, lvl = 5, fit = W_OIL },
+	{ id = 3829, lvl = 30, fit = W_MELEE_SPEAR }, { id = 3824, lvl = 24, fit = W_MELEE_SPEAR },
+	-- situational (vs undead): only when nothing else fits
+	{ id = 23122, lvl = 50, fit = W_OIL }, { id = 23123, lvl = 50, fit = W_OIL },
+}
+
+local function ItemCount(id)
+	local fn = (C_Item and C_Item.GetItemCount) or GetItemCount
+	if not fn then
+		return 0
+	end
+	local ok, n = pcall(fn, id)
+	return (ok and tonumber(n)) or 0
+end
+
+local function ItemName(id)
+	local fn = (C_Item and C_Item.GetItemNameByID) or nil
+	if fn then
+		local ok, n = pcall(fn, id)
+		if ok and n then
+			return n
+		end
+	end
+	if GetItemInfo then
+		local ok, n = pcall(GetItemInfo, id)
+		if ok and n then
+			return n
+		end
+	end
+	return "item #" .. tostring(id)
+end
+
+local function ItemIcon(id)
+	local info = (C_Item and C_Item.GetItemInfoInstant) or GetItemInfoInstant
+	if info then
+		local ok, _, _, _, _, icon = pcall(info, id)
+		if ok and icon then
+			return icon
+		end
+	end
+	return "Interface\\Icons\\INV_Misc_QuestionMark"
+end
+
+--- The weapon subclass in this inventory slot (16/17), or nil plus a reason.
+local function WeaponSubclass(invSlot)
+	local id = GetInventoryItemID and GetInventoryItemID("player", invSlot)
+	if not id then
+		return nil, "no weapon"
+	end
+	local info = (C_Item and C_Item.GetItemInfoInstant) or GetItemInfoInstant
+	if not info then
+		return nil, "cannot read the weapon"
+	end
+	local ok, _, _, _, _, _, classID, subclassID = pcall(info, id)
+	if not ok then
+		return nil, "cannot read the weapon"
+	end
+	if classID ~= 2 then
+		return nil, "not a weapon (shield or off-hand item)"
+	end
+	if subclassID == FISHING_SUBCLASS then
+		return nil, "fishing pole"
+	end
+	return subclassID
+end
+
+--- For one hand: the item to put on it (def), or nil; plus a reason for /mh buffs.
+local function PickWeaponItem(invSlot, isRogue, level)
+	local sub, why = WeaponSubclass(invSlot)
+	if not sub then
+		return nil, why
+	end
+	local has = TempEnchant(invSlot == 16 and 0 or 1)
+	if has == nil then
+		return nil, "cannot read what is on the weapon (counted as present)"
+	elseif has then
+		return nil, "something is on it already"
+	end
+	local carried, fitsNot = 0, 0
+	for _, d in ipairs(WEAPON_ITEMS) do
+		if ItemCount(d.id) > 0 and (isRogue or not d.rogue) then
+			carried = carried + 1
+			if level < (d.lvl or 1) then
+				fitsNot = fitsNot + 1
+			elseif not d.fit[sub] then
+				fitsNot = fitsNot + 1
+			else
+				return d, "nothing on it, you carry " .. ItemName(d.id)
+			end
+		end
+	end
+	if carried == 0 then
+		return nil, "nothing on it, but you carry no stone/oil" .. (isRogue and "/poison" or "")
+	end
+	return nil, ("nothing on it; %d item(s) in your bags, none fits this weapon or your level"):format(fitsNot)
+end
+
+local function WeaponItemEntry(out, d, invSlot)
+	out[#out + 1] = { item = d.id, slot = invSlot, name = ItemName(d.id), icon = ItemIcon(d.id),
+		textKey = invSlot == 16 and "MBUFF_TXT_WEAPONITEM" or "MBUFF_TXT_WEAPONITEM_OH", showCombat = false,
+		macroTarget = false }
+end
+
 --- Called by MissingBuff.lua's ns.GetMissingBuffs on Forever. Same entry shape as there.
 function ns.GetForeverMissingBuffs()
 	local out = {}
 	local token = select(2, UnitClass("player"))
+	local shamanImbueOffered = false
 	for _, d in ipairs(DEFS[token] or {}) do
 		local name, _, pick = Evaluate(d)
 		if name then
 			Entry(out, BestRank(name), d.textKey, nil, pick, d.choice or d.imbue, name)
+			if d.imbue then
+				shamanImbueOffered = true
+			end
+		end
+	end
+	-- Weapon items (stones, oils, poisons). A shaman whose imbue is offered for the main hand gets no item there: the
+	-- spell costs nothing (bouwchat's choice, 16 Nov 2026). Not while mounted (you would not stop for it).
+	if not Mounted() then
+		local level = UnitLevel and UnitLevel("player") or 1
+		local isRogue = token == "ROGUE"
+		if not shamanImbueOffered then
+			local d = PickWeaponItem(16, isRogue, level)
+			if d then
+				WeaponItemEntry(out, d, 16)
+			end
+		end
+		local d2 = PickWeaponItem(17, isRogue, level)
+		if d2 then
+			WeaponItemEntry(out, d2, 17)
 		end
 	end
 	-- Pets: a hunter or warlock who can call one and has none (not while mounted: the pet is gone then anyway).
@@ -344,6 +553,17 @@ function ns.ForeverBuffsSlash(arg)
 			pick and (pick == "last" and " [cast last]" or " [none cast yet: first one known]") or ""))
 	end
 	print(("  pet: %s"):format(UnitExists("pet") and (UnitIsDead("pet") and "dead" or "out") or "none"))
+	-- Weapon items (16 Nov 2026): per hand the weapon type, whether something is on it, and the decision.
+	local level = UnitLevel and UnitLevel("player") or 1
+	local api = (C_Item and C_Item.GetWeaponEnchantInfo) and "C_Item.GetWeaponEnchantInfo"
+		or (GetWeaponEnchantInfo and "GetWeaponEnchantInfo (old)") or "none (cannot read: silent)"
+	print("  weapon items (stones/oils/poisons), read via " .. api .. ":")
+	for _, slot in ipairs({ 16, 17 }) do
+		local sub = WeaponSubclass(slot)
+		local d, why = PickWeaponItem(slot, token == "ROGUE", level)
+		print(("    %s: weapon type %s; %s%s"):format(slot == 16 and "main hand" or "off hand", tostring(sub), why,
+			d and (" -> button puts item " .. d.id .. " on slot " .. slot) or ""))
+	end
 	local now = ns.GetForeverMissingBuffs()
 	print(("  missing now: %d (the big icon casts the first; the small ones beside it are next)"):format(#now))
 	if now[1] and ns.MissingBuffSentence then

@@ -21038,6 +21038,12 @@ if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	MBUFF_TXT_ALLY_SAY = "Niemand in deiner Gruppe hat %s.",
 	MBUFF_SAY_CLICK = "Klick auf das Symbol, um es zu wirken.",
 	MBUFF_SAY_IN_COMBAT = "Wirk es über deine Aktionsleisten.",
+	-- 16 Nov 2026, Forever weapon items: slot words = GlobalStrings MAINHANDSLOT/SECONDARYHANDSLOT (12.1.5.70783 + Forever 1.60.1.70938).
+	MBUFF_TXT_WEAPONITEM = "WAFFENHAND",
+	MBUFF_TXT_WEAPONITEM_OH = "SCHILDHAND",
+	MBUFF_TXT_WEAPONITEM_SAY = "Noch nichts auf der Waffe in deiner Waffenhand: %s ist in deinen Taschen.",
+	MBUFF_TXT_WEAPONITEM_OH_SAY = "Noch nichts auf der Waffe in deiner Schildhand: %s ist in deinen Taschen.",
+	MBUFF_SAY_CLICK_ITEM = "Klick auf das Symbol, um es aufzutragen.",
 }) end
 if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	MBUFF_TXT_MISSING_SAY = "%s n'est pas sur toi.",
@@ -21053,6 +21059,12 @@ if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	MBUFF_TXT_ALLY_SAY = "Personne dans ton groupe n'a %s.",
 	MBUFF_SAY_CLICK = "Clique sur l'icône pour le lancer.",
 	MBUFF_SAY_IN_COMBAT = "Lance-le depuis tes barres.",
+	-- 16 Nov 2026, Forever weapon items: slot words = GlobalStrings MAINHANDSLOT/SECONDARYHANDSLOT (12.1.5.70783 + Forever 1.60.1.70938).
+	MBUFF_TXT_WEAPONITEM = "MAIN DROITE",
+	MBUFF_TXT_WEAPONITEM_OH = "MAIN GAUCHE",
+	MBUFF_TXT_WEAPONITEM_SAY = "Rien encore sur ton arme en main droite : %s est dans tes sacs.",
+	MBUFF_TXT_WEAPONITEM_OH_SAY = "Rien encore sur ton arme en main gauche : %s est dans tes sacs.",
+	MBUFF_SAY_CLICK_ITEM = "Clique sur l'icône pour l'appliquer.",
 }) end
 if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	MBUFF_TXT_MISSING_SAY = "No tienes %s.",
@@ -21068,6 +21080,13 @@ if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	MBUFF_TXT_ALLY_SAY = "Nadie en tu grupo tiene %s.",
 	MBUFF_SAY_CLICK = "Haz clic en el icono para lanzarlo.",
 	MBUFF_SAY_IN_COMBAT = "Lánzalo desde tus barras.",
+	-- 16 Nov 2026, Forever weapon items (Forever only): the esES FOREVER client says "Mano principal/secundaria"
+	-- (GlobalStrings MAINHANDSLOT/SECONDARYHANDSLOT, 1.60.1.70938); retail esES says "Mano derecha/izquierda" (12.1.5.70783).
+	MBUFF_TXT_WEAPONITEM = "MANO PRINCIPAL",
+	MBUFF_TXT_WEAPONITEM_OH = "MANO SECUNDARIA",
+	MBUFF_TXT_WEAPONITEM_SAY = "Aún nada en tu arma de mano principal: %s está en tus bolsas.",
+	MBUFF_TXT_WEAPONITEM_OH_SAY = "Aún nada en tu arma de mano secundaria: %s está en tus bolsas.",
+	MBUFF_SAY_CLICK_ITEM = "Haz clic en el icono para aplicarlo.",
 }) end
 if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	MBUFF_TXT_MISSING_SAY = "%s não está em você.",
@@ -21084,6 +21103,12 @@ if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	MBUFF_TXT_ALLY_SAY = "Ninguém no seu grupo tem %s.",
 	MBUFF_SAY_CLICK = "Clique no ícone para conjurar.",
 	MBUFF_SAY_IN_COMBAT = "Conjure pelas suas barras.",
+	-- 16 Nov 2026, Forever weapon items: slot words = GlobalStrings MAINHANDSLOT/SECONDARYHANDSLOT (12.1.5.70783 + Forever 1.60.1.70938).
+	MBUFF_TXT_WEAPONITEM = "MÃO PRINCIPAL",
+	MBUFF_TXT_WEAPONITEM_OH = "MÃO SECUNDÁRIA",
+	MBUFF_TXT_WEAPONITEM_SAY = "Nada ainda na sua arma da mão principal: %s está nas suas bolsas.",
+	MBUFF_TXT_WEAPONITEM_OH_SAY = "Nada ainda na sua arma da mão secundária: %s está nas suas bolsas.",
+	MBUFF_SAY_CLICK_ITEM = "Clique no ícone para aplicar.",
 }) end
 if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	MBUFF_TXT_MISSING_SAY = "%s non è su di te.",
@@ -21099,6 +21124,13 @@ if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	MBUFF_TXT_ALLY_SAY = "Nessuno nel tuo gruppo ha %s.",
 	MBUFF_SAY_CLICK = "Clicca sull'icona per lanciarlo.",
 	MBUFF_SAY_IN_COMBAT = "Lancialo dalle tue barre.",
+	-- 16 Nov 2026, Forever weapon items: slot words = retail itIT GlobalStrings MAINHANDSLOT/SECONDARYHANDSLOT (12.1.5.70783).
+	-- The Forever build (1.60.1.70938) has English text in its itIT GlobalStrings; probably no Italian Forever client.
+	MBUFF_TXT_WEAPONITEM = "MANO PRIMARIA",
+	MBUFF_TXT_WEAPONITEM_OH = "MANO SECONDARIA",
+	MBUFF_TXT_WEAPONITEM_SAY = "Ancora niente sulla tua arma in mano primaria: %s è nelle tue borse.",
+	MBUFF_TXT_WEAPONITEM_OH_SAY = "Ancora niente sulla tua arma in mano secondaria: %s è nelle tue borse.",
+	MBUFF_SAY_CLICK_ITEM = "Clicca sull'icona per applicarlo.",
 }) end
 
 -- 11 Nov 2026: /mh selftest (does every game number MH uses exist in this game). Both games, so itIT too. Our own translation (mh-writer); not native-checked.

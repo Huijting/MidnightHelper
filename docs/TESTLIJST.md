@@ -21,6 +21,23 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 16 nov (laat) — Forever: buffknop voor steen, olie of poison op je wapen
+
+Op een Forever-character met een Rough Sharpening Stone in de tas en een zwaard, bijl of dolk in je hand:
+- [ ] Eerst één regel, dan weten we welke manier van uitlezen werkt:
+      `/run print(GetWeaponEnchantInfo, C_CVar.GetCVar("loadDeprecationFallbacks"), C_Item.GetWeaponEnchantInfo)`
+- [ ] Zonder iets op je wapen: de buffknop toont de steen, met eronder "Nothing on your main-hand weapon yet: Rough
+      Sharpening Stone is in your bags. Click the icon to put it on."
+- [ ] Klik (buiten een gevecht): zet hij de steen meteen op je wapen (3 seconden casten), zonder dat je zelf nog op het
+      wapen hoeft te klikken? Daarna verdwijnt de knop.
+- [ ] `/mh buffs`: onderaan "weapon items … read via …", per hand het wapentype en de beslissing.
+- [ ] Een knots of staf in je hand: de Rough Sharpening Stone wordt NIET aangeboden (die past niet). Met een Rough
+      Weightstone wel.
+- [ ] Als de steen na 30 minuten afloopt: komt de knop vanzelf terug?
+- [ ] Rogue met poisons (vanaf level 20): main hand en off hand allebei, de knop biedt eerst main hand aan, het kleine
+      icoontje ernaast off hand.
+- [ ] Shaman met een steen: eerst de Shaman-spell voor je main hand (die kost niets), geen steen voor de main hand.
+
 ## 🆕 16 nov (avond) — Forever: opties opgeruimd + waarschuwing Self Cast Key
 
 Op een Forever-character, Options → AddOns → Midnight Helper:

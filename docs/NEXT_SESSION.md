@@ -59,6 +59,15 @@ Retail ongewijzigd behalve die waarschuwing. NIET in het spel gezien.
 Key" heeft GEEN "None". De waarschuwing zegt nu "zet Self Cast op Auto of None" (SELF_CAST / SELF_CAST_AUTO / NONE,
 GlobalStrings 50436/50437/15442, ook Forever 70938; enUS "Auto and Key Press" = wat Rob zag, positieve controle). Of
 "Auto" de toets echt wist: NIET gemeten; de gele regel zelf is de test (TESTLIJST 16 nov avond).
+🗡️ Forever: stenen/oils/poisons op de buffknop (Rob via sparring: *"kunnen we daar ook een waarschuwing voor krijgen …"*,
+*"alles :)"*). ForeverBuffs.lua: WEAPON_ITEMS (ids/levels/wapenmaskers GEMETEN, mh-research, wago wowf 70938),
+PickWeaponItem per hand (16/17), TempEnchant(slot) = C_Item.GetWeaponEnchantInfo eerst, oude globale als terugval,
+nil = stil (ook de Shaman-imbue gebruikt die nu; de globale is in Forever alleen een deprecation-shim achter een CVar).
+MissingBuff.lua: item-tak in ApplySecureCast (type=item, item=item:<id>, target-slot), ns.MissingBuffKey (spell of
+item+slot) voor verversen/vergelijken, tooltip SetItemByID, MBUFF_SAY_CLICK_ITEM; in Forever ook BAG_UPDATE_DELAYED en
+WEAPON_ENCHANT_CHANGED (pcall). `/mh buffs` print per hand type, enchant en beslissing. NIET gemeten: of target-slot in
+het spel werkt, welke enchant-API Forever heeft (Robs /run in TESTLIJST 16 nov laat), of steen + poison samen op één
+wapen kunnen. Keuzes: Shaman-spell eerst; beste rang eerst; rogue: poisons vóór stenen.
 ⚠️ Voordeur: een helper zag `probe_job.txt` overschreven met de beroepen-job van een andere sessie en draaide die (alleen
 lezen). Herkomst NIET nagezocht; mogelijk weer [[probe-job-crosses-sessions]]. Morgen naar kijken.
 

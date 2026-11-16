@@ -3742,6 +3742,12 @@ ns._mhLocales.enUS = {
 	MBUFF_TXT_ALLY_SAY = "Nobody in your group has %s.",
 	MBUFF_SAY_CLICK = "Click the icon to cast it.",
 	MBUFF_SAY_IN_COMBAT = "Cast it from your bars.",
+	-- Forever weapon items: stone, oil or poison in your bags, nothing on that weapon yet (ForeverBuffs.lua, 16 Nov 2026).
+	MBUFF_TXT_WEAPONITEM = "MAIN HAND",
+	MBUFF_TXT_WEAPONITEM_OH = "OFF HAND",
+	MBUFF_TXT_WEAPONITEM_SAY = "Nothing on your main-hand weapon yet: %s is in your bags.",
+	MBUFF_TXT_WEAPONITEM_OH_SAY = "Nothing on your off-hand weapon yet: %s is in your bags.",
+	MBUFF_SAY_CLICK_ITEM = "Click the icon to put it on.",
 	CS_WARN = "DANGEROUS CAST",
 	CS_ONYOU = "Targeting you — move / interrupt",
 	CS_TEST_NAME = "Cindering Blast",

@@ -203,6 +203,22 @@ Stand 15 nov avond: 1 gebouwd (1f521e5), 2 gemeten, 3 rapport + A/B gebouwd (zie
 - Oorzaak:       GEMETEN (sparring + bouwchat): `ns.GetHideableScreens` (UI.lua) keek niet naar Forever; de zijbalk wel.
 - Stand:         ✅ gebouwd 16 nov, alleen op main, NIET in het spel gezien (TESTLIJST 16 nov).
 
+### Forever: buffknop meldt een steen, olie of poison die nog niet op je wapen zit
+- Voor wie:      iedereen in Forever die zulke spullen bij zich heeft
+- Moment:        de bestaande Forever-buffknop (ForeverBuffs.lua + MissingBuff.lua), onder hetzelfde vinkje
+- Spel:          Forever
+- Bron:          Rob 16 nov (via Sparring 16-11, bij een screenshot van "Rough Sharpening Stone"), letterlijk: *"kunnen we
+                 daar ook een waarschuwing voor krijgen als we deze hebben en een juiste wapen hebben equiped om het te
+                 gebruiken en het er nog niet op zit ?"*; op het plan ja, en op "alleen stenen of ook oils en poisons":
+                 *"alles :)"*.
+- Wat:           in je tas + passend wapen + nog NIETS tijdelijks op dat wapen → de knop toont het item; klik = erop
+                 (buiten combat). Stenen (scherp/stomp), oils, rogue-poisons (main- en off-hand). `/mh buffs` zegt per item
+                 waarom wel/niet.
+- Stand:         ✅ gebouwd 16 nov laat (ForeverBuffs.lua WEAPON_ITEMS + MissingBuff.lua item-klik), alleen op main,
+                 NIET in het spel gezien (TESTLIJST 16 nov laat). Feiten GEMETEN door mh-research (wago wowf 70938).
+                 Keuzes van de bouwchat: Shaman = spell eerst; beste rang eerst; Blackfathom-steen, Oil of Immolation,
+                 warlock-stenen en mage-scrolls niet meegenomen; consecrated/blessed (tegen undead) als laatste.
+
 ### Forever: opruimen na Robs test van 16 nov (4 opdrachten)
 - Bron:          Rob 16 nov (via Sparring 16-11, letterlijk: *"ja doe maar"*).
 - a) "TAB_CODEX: Basics" weg uit Screens in Forever (geen Codex daar). ✅ gebouwd 16 nov.

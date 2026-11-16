@@ -28,6 +28,16 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 16 nov 2026 — Forever: buffknop voor steen, olie of poison
+- Tag + commit:   geen tag / (deze commit, zie git log "Forever: weapon stones")
+- Status:         alleen op main
+- Mag op de site: nee (nog niet uit)
+- Speler ziet:    Heb je een sharpening stone, weightstone, olie of (rogue) poison bij je, past die op je wapen en zit er
+                  nog niets op, dan toont de buffknop hem; één klik zet hem erop. Main hand en off hand. Niet in het spel gezien.
+- Knoplabels:     MBUFF_TXT_WEAPONITEM_SAY, MBUFF_TXT_WEAPONITEM_OH_SAY, MBUFF_SAY_CLICK_ITEM
+- Commando's:     /mh buffs (bestond al)
+- Spel:           Forever
+
 ## 16 nov 2026 — Forever: opties opgeruimd, upgrade-melding als schakelaar, Self Cast Key-waarschuwing
 - Tag + commit:   geen tag / (deze commit, zie git log "Forever: hide the 63 settings")
 - Status:         alleen op main

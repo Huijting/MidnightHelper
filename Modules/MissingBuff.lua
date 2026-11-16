@@ -619,9 +619,9 @@ local function ShowExtras(f, rest)
 			x.tex:SetTexCoord(0.07, 0.93, 0.07, 0.93)
 			x:EnableMouse(true)
 			x:SetScript("OnEnter", function(self)
-				if self._spell and GameTooltip then
+				if (self._spell or self._item) and GameTooltip then
 					GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
-					GameTooltip:SetSpellByID(self._spell)
+					ns._mhSetEntryTooltip(GameTooltip, self._spell, self._item)
 					GameTooltip:AddLine(ns:L("MBUFF_TIP_EXTRA"), 0.7, 0.7, 0.7, true)
 					GameTooltip:Show()
 				end
@@ -637,6 +637,7 @@ local function ShowExtras(f, rest)
 			if m then
 				x.tex:SetTexture(m.icon)
 				x._spell = m.spell
+				x._item = m.item
 				x:Show()
 			else
 				x:Hide()
@@ -728,9 +729,9 @@ local function EnsureFrame()
 		end
 	end)
 	f:SetScript("OnEnter", function(self)
-		if self._spellId and GameTooltip then
+		if (self._spellId or self._itemId) and GameTooltip then
 			GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
-			GameTooltip:SetSpellByID(self._spellId)
+			ns._mhSetEntryTooltip(GameTooltip, self._spellId, self._itemId)
 			GameTooltip:AddLine(ns:L("MBUFF_TIP_HINT"), 0.7, 0.7, 0.7, true)
 			AddTooltipExtras(GameTooltip, self)
 			GameTooltip:Show()
@@ -826,9 +827,9 @@ local function EnsureSecure()
 		SyncSecurePos(b)
 	end)
 	b:SetScript("OnEnter", function(self)
-		if f._spellId and GameTooltip then
+		if (f._spellId or f._itemId) and GameTooltip then
 			GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
-			GameTooltip:SetSpellByID(f._spellId)
+			ns._mhSetEntryTooltip(GameTooltip, f._spellId, f._itemId)
 			GameTooltip:AddLine(ns:L("MBUFF_TIP_HINT"), 0.7, 0.7, 0.7, true)
 			AddTooltipExtras(GameTooltip, f)
 			GameTooltip:Show()
@@ -845,13 +846,47 @@ local function EnsureSecure()
 	return b
 end
 
+--- What makes two entries "the same click": the spell, or for a weapon item the item AND the slot (16 Nov 2026; with
+--- only the spell compared, an item entry has none and the button would never refresh).
+function ns.MissingBuffKey(entry)
+	if not entry then
+		return nil
+	end
+	if entry.item then
+		return "item:" .. tostring(entry.item) .. ":" .. tostring(entry.slot)
+	end
+	return entry.spell
+end
+
+--- Tooltip for an entry: the item's own tooltip for a weapon item, else the spell's.
+local function SetEntryTooltip(tip, spell, item)
+	if item and tip.SetItemByID then
+		tip:SetItemByID(item)
+	elseif spell then
+		tip:SetSpellByID(spell)
+	end
+end
+ns._mhSetEntryTooltip = SetEntryTooltip
+
 -- Zet het cast-attribuut (alleen buiten combat toegestaan op een secure frame).
 local function ApplySecureCast(entry)
 	local b = secureBtn
 	if not b or (InCombatLockdown and InCombatLockdown()) then
 		return
 	end
-	if entry and entry.macroTarget then
+	-- Item attributes are cleared on every path; only the item branch sets them (16 Nov 2026).
+	b:SetAttribute("item", nil)
+	b:SetAttribute("target-slot", nil)
+	if entry and entry.item then
+		-- Forever weapon item (stone/oil/poison, ForeverBuffs.lua): use the item and target the weapon slot in one
+		-- secure click. SecureTemplates.lua (forever branch, GEMETEN by mh-research): after the action, when the
+		-- cursor wants an item target, "target-slot" is used. That it works in the game: AFGELEID until Rob clicks it.
+		b:SetAttribute("type", "item")
+		b:SetAttribute("item", "item:" .. tostring(entry.item))
+		b:SetAttribute("target-slot", entry.slot or 16)
+		b:SetAttribute("spell", nil)
+		b:SetAttribute("macrotext", nil)
+	elseif entry and entry.macroTarget then
 		-- Ally-buff: cast op mouseover → target → focus (helpful, niet dood).
 		b:SetAttribute("type", "macro")
 		b:SetAttribute("macrotext",
@@ -868,7 +903,7 @@ local function ApplySecureCast(entry)
 		b:SetAttribute("spell", nil)
 		b:SetAttribute("macrotext", nil)
 	end
-	lastCastSpell = entry and entry.spell or nil
+	lastCastSpell = ns.MissingBuffKey(entry)
 end
 
 local function HideSecure()
@@ -901,7 +936,8 @@ function ns.MissingBuffSentence(entry, inCombat)
 	local name = entry.name or ("#" .. tostring(entry.spell))
 	local ok, s = pcall(string.format, lead, name)
 	s = ok and s or name
-	return s .. " " .. ns:L(inCombat and "MBUFF_SAY_IN_COMBAT" or "MBUFF_SAY_CLICK")
+	local click = (entry.item and not inCombat) and "MBUFF_SAY_CLICK_ITEM" or (inCombat and "MBUFF_SAY_IN_COMBAT" or "MBUFF_SAY_CLICK")
+	return s .. " " .. ns:L(click)
 end
 
 function ns.UpdateMissingBuff()
@@ -932,7 +968,7 @@ function ns.UpdateMissingBuff()
 		if ((not inCombat) or m.showCombat) and (not onlyFormApi or m.formApi) then
 			if not top then
 				top = m
-			elseif m.spell ~= top.spell then
+			elseif ns.MissingBuffKey(m) ~= ns.MissingBuffKey(top) then
 				rest[#rest + 1] = m
 			end
 		end
@@ -948,6 +984,7 @@ function ns.UpdateMissingBuff()
 	local f = EnsureFrame()
 	f._icon:SetTexture(top.icon)
 	f._spellId = top.spell
+	f._itemId = top.item
 	f._top, f._rest = top, rest
 	ShowExtras(f, rest)
 	f._label:SetText(ns.MissingBuffSentence(top, inCombat))
@@ -957,7 +994,7 @@ function ns.UpdateMissingBuff()
 	if not inCombat then
 		local b = EnsureSecure()
 		if b then
-			if lastCastSpell ~= top.spell then
+			if lastCastSpell ~= ns.MissingBuffKey(top) then
 				ApplySecureCast(top)
 			end
 			SyncSecurePos(b)
@@ -999,6 +1036,12 @@ pcall(ev.RegisterEvent, ev, "PLAYER_ROLES_ASSIGNED") -- healer-in-groep-detectie
 --- the same gap: nothing here fires on login either.
 ev:RegisterEvent("PLAYER_ENTERING_WORLD")
 ev:RegisterEvent("ZONE_CHANGED_NEW_AREA")
+-- Forever weapon items (16 Nov 2026): a stone/oil/poison coming into your bags, and a temporary enchant running out.
+-- pcall for the same reason as above; WEAPON_ENCHANT_CHANGED is in the Forever docs (GEMETEN by mh-research).
+if ns.IS_FOREVER then
+	pcall(ev.RegisterEvent, ev, "BAG_UPDATE_DELAYED")
+	pcall(ev.RegisterEvent, ev, "WEAPON_ENCHANT_CHANGED")
+end
 
 local function ScheduleUpdate()
 	if throttle > 0 then
