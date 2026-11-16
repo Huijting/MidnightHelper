@@ -24,6 +24,18 @@ er is niets weggegooid.
 📝 **Waarneming Rob, 16 nov (nacht), Forever mage, via sparring:** *"mouse over werk"* — `/mh mouseover on`, Shift+X
 (Arcane Intellect) op een voorbijganger onder de muis werkt.
 
+## 🆕 16 nov (laat) — Forever: Druid, meer class-quests (Cure Poison, Aquatic Form, Torwa)
+
+Druid, `/reload`:
+- [ ] `/mh play`: bovenaan (onder je richting) een blok "Your class quests" met per quest-keten het level, de naam en
+      "Done." / "Now: …" / "Later. It starts at …".
+- [ ] Level 14+, Bear Form klaar, Cure Poison nog niet: "Do this now" noemt de Cure Poison-quest; na elke stap schuift hij
+      door (sampler, paddenstoelen of kodo-hoorns, Earthroot, zieke herten of gazelles). Bij Earthroot geen pijl, alleen de regel.
+- [ ] Level 16+: Aquatic Form. Eerst de mand onder water, dan het altaar, dan Tajarri, dan twee kistjes onder water
+      (A: Darkshore + Westfall, H: Silverpine + Barrens), dan het hangertje bij het altaar.
+- [ ] Ken je Teleport: Moonglade, dan staat bij een plek in Moonglade "(Teleport: Moonglade in your spellbook …)".
+- [ ] `/mh classquest`: per quest "done / in log / complete" en per stap true/false. Klopt dat met je questlog?
+
 ## 🆕 16 nov (avond) — Forever: Druid, Bear Form-quest stap voor stap (eerst Carola)
 
 Druid van level 10+ die Bear Form nog niet heeft, `/reload`:

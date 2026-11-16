@@ -2,11 +2,11 @@
 
 ## ▶ EERST voor de volgende bouwchat (Bouwchat 16-11 sloot af met /nieuwe-chat bouw; Rob via sparring: *"ja doe maar"*)
 
-1. **Druid stap 1 afmaken** (`Modules/ForeverClassQuests.lua`, Bear Form staat erin, zie "🐻 Class-quests" verderop in de
-   16-nov-sectie): Cure Poison (14, quests 6121-6125), Aquatic Form (16, vanaf quest 26 "A Lesson to Learn"), Cat Form
-   (20? meten: staat Cat Form in de trainerdata of is het een quest?) en wat je verder meet; bron Forever-Zygor "Leveling
-   Guides\Druid Class Quests" (A: ZygorLevelingAllianceCLASSIC.lua:21298+, H: ZygorLevelingHordeCLASSIC.lua:22584+).
-   Daarna de hele keten in "How you play" (/mh play), en vertalingen FCQ_* (mh-writer).
+1. **Druid stap 1 afmaken** (`Modules/ForeverClassQuests.lua`). ✅ 16 nov, Bouwchat 16-11 (2): Cure Poison (14), Aquatic
+   Form (16) en Torwa Pathfinder (50) GEBOUWD, plus blok "Your class quests" bovenaan How you play
+   (ns.ForeverClassQuestOverview). Open: **Cat Form (20)** = een NIEUWE Forever-keten (A 98393→98394→98396→98731→98397,
+   H 98340→98405/98341→98342→98739→98362; GEMETEN op Wowhead door mh-research) die Zygor NIET heeft → NPC's/plekken worden
+   gemeten; daarna inbouwen. Daarna vertalingen FCQ_* (mh-writer; item- en NPC-namen = clientnaam).
 2. **Stap 2:** per rol (beer = tank, kat = schade, Balance = caster, Restoration = healer) een eenvoudige volgorde, en per
    10 levels wat er verandert; richting van de speler bovenaan.
 3. **Stap 3:** de andere 8 classes op dezelfde manier (class-quests eerst).
@@ -166,6 +166,14 @@ nog niets. ⚠️ Voordeur: helpers zagen twee keer een vreemde beroepen-job in
 anders zegt): 1-3 SAMEN bouwen na die tests. Ook later van Rob: `/mh pickup` gaf geen melding bij GESMEDE items
 (nog niet uitgezocht; AFGELEID: misschien omdat craften als "bag update terwijl een venster open is" telt) en zijn keuze
 voor de stats-regel.
+🐻 16 nov, Bouwchat 16-11 (2): druid-ketens uitgebreid (ForeverClassQuests.lua). GEMETEN door mh-research (Wowhead
+Forever + wago 70938): 6125/6130 leren Cure Poison 8946 (quest, AFGELEID niet bij de trainer); 5061/31 leren Aquatic Form
+1066 (+ Aquarius Belt, Idol of Shifting Tides); 9053 = keuze Forest's Embrace / Grizzled Pelt / Moonshadow Stave (min.
+level 50 volgens fan-databases); Travel Form 783 = trainer 30; Teleport: Moonglade 18960 = level 10; alle 9 UiMap-id's
+GEMETEN. Nieuw in de code: `alt` (andere startquests 5924/5925, 5926/5927 — Wowhead-serie), `objs` per quest (doel-index
+uit GetQuestObjectives of "item in je tassen"; index-volgorde = Wowhead + Zygor, gelijk aan de client = AFGELEID), ketens
+gesorteerd op level, Moonglade-tip als je de teleport kent, Earthroot-stap zonder plek (knop print alleen de regel).
+Coördinaten = Zygor. Teksten en/nl zelf; de/fr/es/pt/it/ru nog niet. NIET in het spel gezien. Lint 0 HARD, luac OK.
 📦 Release: sparring adviseert Rob een release NA woensdag (Midnight-dag), als camera (2,6), de gele Self Cast-regel en
 "New in this version" in Midnight goed zijn. Rob gaf nog GEEN go.
 ⚠️ Voordeur: een helper zag `probe_job.txt` overschreven met de beroepen-job van een andere sessie en draaide die (alleen

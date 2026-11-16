@@ -429,7 +429,15 @@ end
 --- "1 en 2"). No direction chosen = no block, the window as before.
 local function Body(token)
 	local block = ns.ForeverDirectionBlock and ns.ForeverDirectionBlock()
-	return (block and (block .. "\n\n") or "") .. TextFor(token)
+	-- 16 Nov 2026: your class quests and where you stand in each (ForeverClassQuests.lua), under the direction block.
+	local cq
+	if ns.ForeverClassQuestOverview then
+		local ok, text = pcall(ns.ForeverClassQuestOverview)
+		if ok and text then
+			cq = HEAD .. ns:L("FCQ_HOWTO_HEAD") .. "|r\n" .. Format(text)
+		end
+	end
+	return (block and (block .. "\n\n") or "") .. (cq and (cq .. "\n\n") or "") .. TextFor(token)
 end
 
 local function Show(token)

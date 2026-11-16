@@ -5474,6 +5474,32 @@ ns._mhLocales.enUS = {
 	FCQ_OBJ_LUNACLAW = "in the cave, use the dust from your bags, defeat Lunaclaw, then talk to her spirit",
 	FCQ_BTN = "Show the way",
 	FCQ_NOTHING = "no class quest to do for you right now.",
+	-- More druid chains (16 Nov 2026): Cure Poison (14), Aquatic Form (16), Torwa Pathfinder (50). Item and NPC names
+	-- are game names: in de/fr/es/pt/it/ru the name THAT client shows.
+	FCQ_OBJ_SAMPLER_A = "use the empty sampler from your bags at the cave entrance by the falls",
+	FCQ_OBJ_SAMPLER_H = "climb to the top of Dreadmist Peak and use the empty sampler from your bags in the bubbling water. Three enemies appear right after: be ready to run",
+	FCQ_OBJ_FUNGUS = "pick 12 Lunar Fungus: small white-spotted mushrooms in the little caves around here",
+	FCQ_OBJ_KODO = "defeat Lost Barrens Kodos for 5 Kodo Horns",
+	FCQ_OBJ_EARTHROOT = "you also need 5 Earthroot (a herb: pick it with Herbalism, or buy it at the Auction House)",
+	FCQ_OBJ_DEER = "use the salve from your bags on 10 Sickly Deer (green, sick-looking deer)",
+	FCQ_OBJ_GAZELLE = "use the salve from your bags on 10 Sickly Gazelles (green gazelles)",
+	FCQ_OBJ_BAUBLE = "find the Bauble Container under water in the lake: a basket on the bottom (it can be in another spot)",
+	FCQ_OBJ_SHRINE = "use the Shrine Bauble from your bags at the shrine",
+	FCQ_OBJ_LOCKBOX = "open the Strange Lockbox under water for a half pendant",
+	FCQ_OBJ_PENDANT = "use a half pendant from your bags at the shrine: the two halves become one",
+	FCQ_OBJ_GORISHI = "defeat Gorishi insects in this cave for 8 Gorishi Stings",
+	FCQ_OBJ_BLOODCAP = "pick 8 Bloodcap: a ball of vines, all over the crater",
+	FCQ_OBJ_DEVILSAUR = "use the Devilsaur Barb from your bags on a Devilsaur, then run",
+	FCQ_OBJ_SUNKEN = "in the dungeon Sunken Temple (you need a group), defeat Atal'alarion for the Putrid Vine",
+	FCQ_CHAIN_TORWA = "Torwa Pathfinder's quests (a chest piece or staff)",
+	FCQ_MOONGLADE_TIP = " (Teleport: Moonglade in your spellbook takes you there)",
+	-- How you play: a block with every class quest of this character (ForeverHowToPlay.lua).
+	FCQ_HOWTO_HEAD = "Your class quests",
+	FCQ_HOWTO_INTRO = "Some spells you only get from a class quest, not from the trainer.",
+	FCQ_ST_DONE = "Done.",
+	FCQ_ST_NOW_FMT = "Now: %s",
+	FCQ_ST_LATER_FMT = "Later. It starts at %s, %s.",
+	FCQ_HOWTO_BTN = "\"Do this now\" shows the next step, with a button for the arrow (/mh classquest go).",
 	-- "Do this now": best stats for you now (ForeverDoNow.lua, 16 Nov 2026). %s = the order; stat names come from the
 	-- client (SPELL_STAT1_NAME …).
 	FDONOW_STATS_FMT = "Best stats for you now: %s.",
