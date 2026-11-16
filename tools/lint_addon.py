@@ -1394,8 +1394,14 @@ def main() -> int:
     # blind spot; it simply threw the literal away. It hands them over now, so this check
     # excludes the prefixes the code ACTUALLY builds.
     DYNAMIC_PREFIXES = tuple(sorted(dyn_prefixes)) + ("CHANGELOG_", "LANG_LABEL_", "BINDING_")
+    # 16 Nov 2026: `<KEY>_1217` is never named in code on purpose -- Locales/Locale.lua ns:L
+    # swaps it in for <KEY> on a 12.1.7+ client (k .. "_1217"). It is live exactly when its
+    # base key is. Without this the patch-day texts were listed as dead.
+    def _patch_variant_live(k):
+        return k.endswith("_1217") and k[:-len("_1217")] in mentioned
     unreachable = sorted(k for k in enus
                          if k not in mentioned
+                         and not _patch_variant_live(k)
                          and not k.startswith(DYNAMIC_PREFIXES))
 
     # 📌 GROUPED, BECAUSE A FLAT LIST OF 226 IS A LIST NOBODY READS. The first run printed

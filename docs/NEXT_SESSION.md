@@ -24,6 +24,8 @@ TalentsForeverBook 0.38.27 (gelezen, niet getest). HandyNotes_Midnight 171, geen
 wijziging; Forever 6 bestanden (nieuwe quests/trainer-questid's, nog niet naast MH gelegd). Site-mail 0, BOUW_VRAAG
 Open (geen), Notion: dezelfde 4 regels van 12 nov. Wachters: alleen de bekende [MOET GEFIKST] (Self Cast Key, nu ook
 `RetailTopMacros.lua`).
+🧹 12.1.7 2b: lint [18] kent nu de `_1217`-keys (`tools/lint_addon.py`, `_patch_variant_live`). GEMETEN met tegenproef
+(git stash): 1440 → 1436 ongebruikt, 0 HARD. Wat van 2b over is, kan pas op patchdag (4-data, 5, 7, 8, 9).
 
 Stand bij het afsluiten (15 nov): alles op main en gepusht, niets uitgebracht (5.3.0 staat op CurseForge). Alle
 toestemmingen liepen zonder weigering.

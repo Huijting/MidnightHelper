@@ -52,7 +52,8 @@ midnight helper zijnde"* = Talebound als bron noemen)
 - ✅ 10 Lorewalking-zin stond er al (artikel verborgen tot 12.1.7).
 - ⏳ Patchdag: 4-data (Folio-rijen 6/7: welke rij, welke volgorde, één stap via Talebound → MH kan niet meer gewoon tellen),
   5 campagne (startplek/volgorde onbekend, geen Zygor-gids), 7 Aqir-prijs, 8 Talebound-prestatielijst, 9 december-events.
-- Lint ziet de `_1217`-keys als "ongebruikt" (SOFT [18]); nog niet aangepast.
+- ✅ Lint [18] telt een `<KEY>_1217` als gebruikt als `<KEY>` in de code staat (16 nov; GEMETEN: 1440 → 1436
+  "ongebruikt", de 4 `_1217`-keys weg, 0 HARD).
 
 ### 2b. Vóór 2 dec klaarzetten (zelfde truc: pas zichtbaar op een 12.1.7-client)
 | # | Wat | Waar in MH | Zeker? |
