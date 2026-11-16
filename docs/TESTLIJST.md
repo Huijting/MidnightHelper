@@ -21,6 +21,29 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+## 🆕 16 nov — Forever: lijst "Screens" opgeschoond
+
+Op een Forever-character:
+- [ ] Options → AddOns → Midnight Helper → Screens: staan er nu alleen schermen die je in Forever ook in de zijbalk of
+      de kamers ziet? Geen Delves & Vault, Rares, Trading Post, Tier Sets meer, en geen TAB_START_HERE / TAB_OMNIUM.
+- [ ] Zelfde lijst in MH's eigen venster (Settings → Screens).
+- [ ] Een vinkje weghalen werkt nog: dat scherm verdwijnt uit de zijbalk/kamers. Vinkje terug: het komt terug.
+- [ ] In Midnight (retail): de lijst is hetzelfde als eerst (alle schermen staan er nog).
+
+## 🆕 16 nov — schakelaar "Camera verder weg" (Midnight én Forever)
+
+Eerst, in elk spel één keer (zo zien we of het spel de waarde houdt):
+`/run C_CVar.SetCVar("cameraDistanceMaxZoomFactor","4") print(C_CVar.GetCVar("cameraDistanceMaxZoomFactor"))`
+→ welk getal print hij? (Midnight verwacht: 2.6 of 4; Forever: 4?) Daarna gewoon verder:
+- [ ] `/mh camera` → een regel met "off", de huidige zoomgrens en wat "on" zou zetten (Midnight 2.6, Forever 4).
+- [ ] Options → AddOns → Midnight Helper: vinkje "Camera further away" aanzetten. In chat: "zoom limit set to …, the
+      game now reads …". Scroll uit met je muiswiel: kun je verder uitzoomen dan eerst?
+- [ ] Muis op het vinkje: de uitleg zegt dat de camera niet vanzelf uitzoomt.
+- [ ] Vinkje uit: de oude afstand komt terug (`/mh camera` laat het getal van daarvoor zien).
+- [ ] In een gevecht aanzetten (`/mh camera on`): "you are in combat, so this waits", en na het gevecht komt de regel
+      met het nieuwe getal.
+- [ ] Forever: zet Blizzards eigen schuif "Max Camera Distance" terug, `/reload`: staat hij weer op 4 (`/mh camera`)?
+
 ## 🆕 15 nov — Forever: dungeonlijst per zone + vinkje "alleen voor mijn level"
 
 Op een Forever-character, `/mh dungeons` (of de knop "Dungeons" in "Do this now"):

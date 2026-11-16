@@ -26,6 +26,16 @@ Open (geen), Notion: dezelfde 4 regels van 12 nov. Wachters: alleen de bekende [
 `RetailTopMacros.lua`).
 🧹 12.1.7 2b: lint [18] kent nu de `_1217`-keys (`tools/lint_addon.py`, `_patch_variant_live`). GEMETEN met tegenproef
 (git stash): 1440 → 1436 ongebruikt, 0 HARD. Wat van 2b over is, kan pas op patchdag (4-data, 5, 7, 8, 9).
+⚠️ PTR-wachter + RSS: NIET gelukt. `update_trigger` weigerde ("created via http_api … Agents can only update routines
+they created"). Rob ja'de via sparring (*"Doe maar A"*); de regel om te plakken staat bij Sparring 16-11, Rob plakt hem
+zelf op claude.ai/code/routines/trig_018jpghYW8vRpDsj9qkWWD8f. Morgen in PTR_12.1_WATCH.md kijken of hij de feed leest.
+🧩 Forever "Screens" opgeschoond (Rob via sparring: *"beide ja"*): `ns.GetHideableScreens` (UI.lua) volgt in Forever de
+zijbalkregel (SidebarTabAvailable); Toolbox-subschermen alleen als hun bouwer geladen is. Retail ongewijzigd.
+📷 Schakelaar "Camera verder weg" (zelfde ja): `Modules/CameraZoom.lua` (beide toc's), vinkje `mh_cameraFar` in
+SettingsDefs (niet in Aanbevolen), `/mh camera [on|off]` (status + leeswaarde na zetten). Aan = retail 2.6 / Forever 4,
+uit = oude waarde (`ns.db.cameraFarOld`, anders de CVar-default). Nooit in combat (wacht op PLAYER_REGEN_ENABLED); bij
+login opnieuw gezet als iets anders hem veranderde. Teksten en/nl zelf, de/fr/es/pt/it/ru door mh-writer. Of Forever 4
+echt houdt: NIET gemeten (Robs /run-test in TESTLIJST 16 nov). Beide NIET in het spel gezien.
 
 Stand bij het afsluiten (15 nov): alles op main en gepusht, niets uitgebracht (5.3.0 staat op CurseForge). Alle
 toestemmingen liepen zonder weigering.

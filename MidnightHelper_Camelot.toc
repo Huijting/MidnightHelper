@@ -185,6 +185,8 @@ Modules\NavSearch.lua
 Modules\CommandList.lua
 Modules\SupportReport.lua
 Modules\ForeverSurvey.lua
+# "Camera further away", retail and Forever (Rob, 16 Nov 2026, via sparring: "beide ja").
+Modules\CameraZoom.lua
 Modules\KeysHub.lua
 Modules\ToolsLaunchpad.lua
 Modules\RoomLauncher.lua

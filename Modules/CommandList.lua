@@ -88,7 +88,7 @@ ns.MH_UNLISTED_ON_PURPOSE = {
 	"rarecapture", "rarehint", "rarequests", "rarescan", "raretest", "readyall",
 	"craft", "readyboard", "readycheck", "readytest", "readytoggle", "resetdebug", "ritualspy",
 	"roleset", "route", "sba", "simc", "setline", "shards", "shardtest", "shots", "showdown",
-	"socket", "souls", "spell", "stat", "stop", "surges", "survey why", "survey popup", "survival", "tier", "tierread", "tierscan", "tips", "uinames", "aggro", "threat", "group", "grouptab", "keyblock", "block why", "block place", "block go", "block undo", "block layout", "block update", "block export", "achlist why",
+	"socket", "souls", "spell", "stat", "stop", "surges", "survey why", "survey popup", "camera on", "camera off", "survival", "tier", "tierread", "tierscan", "tips", "uinames", "aggro", "threat", "group", "grouptab", "keyblock", "block why", "block place", "block go", "block undo", "block layout", "block update", "block export", "achlist why",
 	"presses why", "presses on", "presses off", "presses reset",
 	"mark friends", "mark friend", "tp why", "klikken", "klikken blizz",
 	"toast", "twins", "unlearned", "vignettes", "wb", "whatis", "wiki", "worldboss",
@@ -179,6 +179,8 @@ ns.MH_COMMANDS = {
 		{ cmd = "/mh pickup", descKey = "CMDLIST_PICKUP" },
 		-- 1 Oct 2026: the two-minute survey on midnighthelper.com (SurveyInvite.lua).
 		{ cmd = "/mh survey", descKey = "CMDLIST_SURVEY" },
+		-- 16 Nov 2026: "Camera further away" (CameraZoom.lua); on/off are listed in its description.
+		{ cmd = "/mh camera", descKey = "CMDLIST_CAMERA" },
 	} },
 	{ headKey = "CMDLIST_GRP_WEEK", items = {
 		{ cmd = "/mh milestones", descKey = "CMDLIST_MILESTONES" },

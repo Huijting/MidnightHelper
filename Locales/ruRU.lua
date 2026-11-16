@@ -5760,6 +5760,16 @@ ns._mhLocales.ruRU = {
 	FSURVEY_URL = "midnighthelper.com/ru/survey/forever/?from=game",
 	FSURVEY_POPUP_TEXT = "Пара минут для Midnight Helper в WoW Forever?\n\nMidnight Helper делает один человек, а от игроков Forever мы почти ничего не слышим. Короткий анонимный опрос на нашем сайте подскажет, чем ты пользуешься, чего тебе не хватает и что улучшить дальше.",
 	FSURVEY_COPY_TITLE = "Опрос для игроков WoW Forever",
+	-- Camera further away (CameraZoom.lua), 16 Nov 2026. Our own translations, not native-reviewed.
+	-- Button name = client's SETTINGS_DEFAULTS (GlobalStrings 49031, build 12.1.5.70783).
+	SET_CAMERAFAR_TITLE = "Камера дальше",
+	SET_CAMERAFAR_DESC = "Позволяет отдалить камеру дальше, чем разрешают настройки игры. Если выключить это, вернётся расстояние, которое было у тебя раньше.\n\nКамера сама не сдвинется: отдали её колесом мыши.\n\nЕсли настройки камеры в игре (или их кнопка «По умолчанию») вернут её обратно, Midnight Helper снова выставит её при следующем входе в игру, пока это включено. Во время боя ничего не меняется: он ждёт окончания боя.",
+	CMDLIST_CAMERA = "Камера дальше: показывает текущий предел отдаления. /mh camera on или /mh camera off включает или выключает.",
+	CAMERA_STATUS_FMT = "Камера дальше: %s. Предел отдаления в игре сейчас %s (вкл. = %s; при выключении обратно %s).",
+	CAMERA_SET_FMT = "Камера: предел отдаления установлен на %s, игра сейчас показывает %s. Отдали камеру колесом мыши.",
+	CAMERA_COMBAT = "Камера: ты в бою, поэтому это подождёт окончания боя.",
+	CAMERA_WORD_ON = "вкл.",
+	CAMERA_WORD_OFF = "выкл.",
 	SURVEY_COPY_HINT = "Нажмите Ctrl+C и вставьте ссылку в браузер. Спасибо!",
 	SURVEY_COPY_TITLE = "Опрос: две минуты для Midnight Helper",
 	SURVEY_LATER = "Позже",

@@ -194,6 +194,24 @@ Stand 15 nov avond: 1 gebouwd (1f521e5), 2 gemeten, 3 rapport + A/B gebouwd (zie
 - 15 nov: 5 speur-agenten (mh-research) → `docs/patch_12_1_7/1_blizzard.md` … `5_community.md`. Daarna
   `docs/PATCH_12_1_7_DRAAIBOEK.md`: wat komt / wat MH vooraf klaarzet / wat Rob op patchdag test.
 
+### Forever: lijst "Screens" in Blizzards Opties alleen met schermen die er in Forever zijn
+- Voor wie:      iedereen in Forever
+- Moment:        Options → AddOns → Midnight Helper → Screens (en MH's eigen Settings → Screens)
+- Spel:          Forever (retail ongewijzigd)
+- Bron:          Rob 16 nov (via Sparring 16-11, letterlijk: *"beide ja"*). Hij zag daar alle Midnight-schermen (Delves &
+                 Vault, Rares, Trading Post, Tier Sets …) en de rauwe sleutels TAB_START_HERE en TAB_OMNIUM.
+- Oorzaak:       GEMETEN (sparring + bouwchat): `ns.GetHideableScreens` (UI.lua) keek niet naar Forever; de zijbalk wel.
+- Stand:         ✅ gebouwd 16 nov, alleen op main, NIET in het spel gezien (TESTLIJST 16 nov).
+
+### Schakelaar "Camera verder weg" (retail en Forever)
+- Voor wie:      iedereen die verder wil uitzoomen
+- Moment:        Opties → Midnight Helper (algemeen deel) en `/mh camera` [on|off]
+- Spel:          allebei. Aan = retail 2.6, Forever 4. Uit = de oude waarde terug.
+- Bron:          Rob 16 nov (via Sparring 16-11, letterlijk: *"beide ja"*), op het voorstel van één schakelaar voor
+                 `/console cameraDistanceMaxZoomFactor 4`. Meetwerk mh-research (sparring): retail max 2.6, CVar niet
+                 secure, scope account; Forever-schuif van Blizzard gaat 1.0-2.0; of Forever 4 echt houdt: NIET gemeten.
+- Stand:         ✅ gebouwd 16 nov (`Modules/CameraZoom.lua`), alleen op main, NIET in het spel gezien (TESTLIJST 16 nov).
+
 ### Forever: waarschuwing "meer dan 12 levels boven de vijanden = niemand krijgt XP"
 - Rob 15 nov (via sparring, letterlijk): *"Ja, op 12 levels, waarschuwing achterin."* = ja, achteraan de rij.
 - Bron (sparring/mh-research): Blizzard (Kaivax, 14/15 nov, us.forums.blizzard.com …/2416343): zit iemand in de groep

@@ -518,6 +518,13 @@ local function Build()
 		ns.db = ns.db or {}
 		ns.db.keyBlockNewMode = (v == "auto" or v == "never") and v or nil
 	end)
+	-- 16 Nov 2026 (Rob, via sparring: "beide ja"): "Camera further away" (CameraZoom.lua), retail and Forever.
+	-- Not in the Recommended preset: it changes a game setting, and that is the player's choice.
+	Toggle("mh_cameraFar", "SET_CAMERAFAR_TITLE", "SET_CAMERAFAR_DESC", function()
+		return ns.IsCameraFarOn and ns.IsCameraFarOn()
+	end, function(v)
+		if ns.SetCameraFar then ns.SetCameraFar(v, true) end
+	end)
 	-- WoW Forever only (Rob, 7 Nov 2026: "Doe voorlopig alleen maar forever"): offer the MH bar layout on a new character
 	-- (ForeverLayoutCarry.lua). On by default; its "Never ask again" button turns this off, and here it comes back.
 	if ns.IS_FOREVER then

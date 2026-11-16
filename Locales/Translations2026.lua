@@ -15842,6 +15842,60 @@ if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	FSURVEY_COPY_TITLE = "Pesquisa para jogadores de WoW Forever",
 }) end
 
+-- Camera further away (CameraZoom.lua), 16 Nov 2026. Our own translations, not native-reviewed.
+-- The button name in SET_CAMERAFAR_DESC is the client's SETTINGS_DEFAULTS (GlobalStrings 49031, build 12.1.5.70783);
+-- itIT says "visuale" for camera, as the client's CAMERA_LABEL (14288) does.
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
+	SET_CAMERAFAR_TITLE = "Kamera weiter weg",
+	SET_CAMERAFAR_DESC = "Damit kannst du die Kamera weiter herauszoomen, als die Optionen des Spiels erlauben. Schaltest du es aus, kommt der Abstand zurück, den du vorher hattest.\n\nDie Kamera bewegt sich nicht von selbst: Zoome mit dem Mausrad heraus.\n\nSetzen die Kameraoptionen des Spiels (oder ihr Button „Standard“) sie zurück, stellt Midnight Helper sie bei deinem nächsten Login wieder ein, solange dies an ist. Im Kampf wird nichts geändert: Es wartet, bis der Kampf vorbei ist.",
+	CMDLIST_CAMERA = "Kamera weiter weg: zeigt die aktuelle Zoomgrenze. /mh camera on oder /mh camera off schaltet es ein oder aus.",
+	CAMERA_STATUS_FMT = "Kamera weiter weg: %s. Die Zoomgrenze des Spiels ist jetzt %s (an = %s; zurück auf %s, wenn aus).",
+	CAMERA_SET_FMT = "Kamera: Zoomgrenze auf %s gesetzt, das Spiel liest jetzt %s. Zoome mit dem Mausrad heraus.",
+	CAMERA_COMBAT = "Kamera: Du bist im Kampf, also wartet das, bis der Kampf vorbei ist.",
+	CAMERA_WORD_ON = "an",
+	CAMERA_WORD_OFF = "aus",
+}) end
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
+	SET_CAMERAFAR_TITLE = "Caméra plus éloignée",
+	SET_CAMERAFAR_DESC = "Permet d'éloigner la caméra plus loin que ne le permettent les options du jeu. Si tu le désactives, la distance que tu avais avant revient.\n\nLa caméra ne bouge pas toute seule : recule-la avec la molette de ta souris.\n\nSi les options de caméra du jeu (ou leur bouton « Par défaut ») la remettent comme avant, Midnight Helper la règle à nouveau à ta prochaine connexion tant que ceci est activé. Rien n'est changé en combat : il attend la fin du combat.",
+	CMDLIST_CAMERA = "Caméra plus éloignée : affiche la limite de zoom actuelle. /mh camera on ou /mh camera off l'active ou la désactive.",
+	CAMERA_STATUS_FMT = "Caméra plus éloignée : %s. La limite de zoom du jeu est maintenant de %s (activé = %s ; retour à %s si désactivé).",
+	CAMERA_SET_FMT = "Caméra : limite de zoom réglée sur %s, le jeu lit maintenant %s. Recule avec la molette de ta souris.",
+	CAMERA_COMBAT = "Caméra : tu es en combat, donc ceci attend la fin du combat.",
+	CAMERA_WORD_ON = "activé",
+	CAMERA_WORD_OFF = "désactivé",
+}) end
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
+	SET_CAMERAFAR_TITLE = "Cámara más lejos",
+	SET_CAMERAFAR_DESC = "Te permite alejar la cámara más de lo que permiten las opciones del juego. Si lo desactivas, vuelve la distancia que tenías antes.\n\nLa cámara no se mueve sola: aléjala con la rueda del ratón.\n\nSi las opciones de cámara del juego (o su botón «Predeterm.») la devuelven a como estaba, Midnight Helper la vuelve a ajustar en tu próximo inicio de sesión mientras esto esté activado. No se cambia durante el combate: espera a que termine el combate.",
+	CMDLIST_CAMERA = "Cámara más lejos: muestra el límite de zoom actual. /mh camera on o /mh camera off lo activa o lo desactiva.",
+	CAMERA_STATUS_FMT = "Cámara más lejos: %s. El límite de zoom del juego es ahora %s (activado = %s; vuelve a %s al desactivarlo).",
+	CAMERA_SET_FMT = "Cámara: límite de zoom ajustado a %s, el juego ahora lee %s. Aléjala con la rueda del ratón.",
+	CAMERA_COMBAT = "Cámara: estás en combate, así que esto espera a que termine el combate.",
+	CAMERA_WORD_ON = "activado",
+	CAMERA_WORD_OFF = "desactivado",
+}) end
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
+	SET_CAMERAFAR_TITLE = "Câmera mais distante",
+	SET_CAMERAFAR_DESC = "Permite afastar a câmera mais do que as opções do jogo permitem. Ao desativar, volta a distância que você tinha antes.\n\nA câmera não se move sozinha: afaste com a roda do mouse.\n\nSe as opções de câmera do jogo (ou o botão “Padrões” delas) a voltarem ao normal, o Midnight Helper a ajusta de novo no seu próximo login enquanto isto estiver ativado. Nada muda durante o combate: ele espera o combate terminar.",
+	CMDLIST_CAMERA = "Câmera mais distante: mostra o limite de zoom atual. /mh camera on ou /mh camera off liga ou desliga.",
+	CAMERA_STATUS_FMT = "Câmera mais distante: %s. O limite de zoom do jogo agora é %s (ativado = %s; volta para %s ao desativar).",
+	CAMERA_SET_FMT = "Câmera: limite de zoom definido em %s, o jogo agora lê %s. Afaste com a roda do mouse.",
+	CAMERA_COMBAT = "Câmera: você está em combate, então isto espera o combate terminar.",
+	CAMERA_WORD_ON = "ativado",
+	CAMERA_WORD_OFF = "desativado",
+}) end
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
+	SET_CAMERAFAR_TITLE = "Visuale più lontana",
+	SET_CAMERAFAR_DESC = "Ti permette di allontanare la visuale più di quanto consentano le opzioni del gioco. Se disattivi l'opzione, torna la distanza che avevi prima.\n\nLa visuale non si muove da sola: allontanala con la rotellina del mouse.\n\nSe le opzioni della visuale del gioco (o il loro pulsante «Predefiniti») la riportano com'era, Midnight Helper la reimposta al tuo prossimo accesso finché questa opzione è attiva. In combattimento non cambia nulla: aspetta che il combattimento finisca.",
+	CMDLIST_CAMERA = "Visuale più lontana: mostra il limite di zoom attuale. /mh camera on o /mh camera off la attiva o la disattiva.",
+	CAMERA_STATUS_FMT = "Visuale più lontana: %s. Il limite di zoom del gioco ora è %s (attiva = %s; torna a %s quando è disattiva).",
+	CAMERA_SET_FMT = "Visuale: limite di zoom impostato a %s, il gioco ora legge %s. Allontanala con la rotellina del mouse.",
+	CAMERA_COMBAT = "Visuale: sei in combattimento, quindi questo aspetta la fine del combattimento.",
+	CAMERA_WORD_ON = "attiva",
+	CAMERA_WORD_OFF = "disattiva",
+}) end
+
 -- Survey invitation (SurveyInvite.lua), 1 Oct 2026. Our own translations, not native-reviewed; address
 -- forms as the packs use them (de du, fr tu, es tú, pt você, it tu). SURVEY_URL points at each
 -- language's own page on the site.

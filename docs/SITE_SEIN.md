@@ -28,6 +28,26 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 16 nov 2026 — Schakelaar "Camera verder weg"
+- Tag + commit:   geen tag / (deze commit, zie git log "Camera further away")
+- Status:         alleen op main
+- Mag op de site: nee (nog niet uit)
+- Speler ziet:    Eén vinkje in de opties: de camera mag verder uitzoomen dan het spel normaal toestaat (Midnight 2.6,
+                  Forever 4). Uit = je oude afstand terug. Daarna zelf uitscrollen met het muiswiel. Niet in het spel gezien.
+- Knoplabels:     SET_CAMERAFAR_TITLE, SET_CAMERAFAR_DESC
+- Commando's:     /mh camera, /mh camera on, /mh camera off
+- Spel:           allebei
+
+## 16 nov 2026 — Forever: lijst "Screens" zonder Midnight-schermen
+- Tag + commit:   geen tag / (deze commit)
+- Status:         alleen op main
+- Mag op de site: nee (nog niet uit; een reparatie, geen nieuwe functie)
+- Speler ziet:    In Forever toont Options → Midnight Helper → Screens alleen de schermen die Forever heeft (eerst ook
+                  Midnight-schermen en twee rauwe sleutels). Niet in het spel gezien.
+- Knoplabels:     SETTINGS_SCREENS_TITLE
+- Commando's:     —
+- Spel:           Forever
+
 ## 15 nov 2026 — Forever: waarschuwing "geen XP" bij meer dan 12 levels verschil
 - Tag + commit:   geen tag / (deze commit, zie git log "Forever: warn when nobody gets XP")
 - Status:         alleen op main

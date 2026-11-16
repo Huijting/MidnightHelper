@@ -2860,14 +2860,24 @@ ns._mhLookIconPath = LOOK_ICON_PATH
 
 --- Every screen a player can hide, room by room in sidebar order, for Settings -> Screens.
 --- The Toolbox expands into its sub-tabs; This Week and Settings are never listed.
+--- 🧩 WoW Forever (16 Nov 2026, Rob via sparring: "beide ja"): this list used to ignore Forever, so Rob's Options ->
+--- Screens showed every Midnight screen (Delves & Vault, Rares, Trading Post …) and raw keys (TAB_START_HERE,
+--- TAB_OMNIUM: their locale files are not in the Forever TOC). On Forever it now follows the sidebar's own rule
+--- (SidebarTabAvailable); Toolbox sub-screens only when their builder was loaded (the Tools cards ask the same).
+--- Retail is untouched.
 function ns.GetHideableScreens()
 	local list = {}
+	local forever = ns.IS_FOREVER
 	for _, section in ipairs(SIDEBAR_SECTIONS) do
 		for _, id in ipairs(section.ids) do
 			if id == "toolbox" then
 				for _, s in ipairs(TOOLBOX_SCREENS) do
-					list[#list + 1] = { id = s.id, room = section.room, labelKey = s.labelKey }
+					if not forever or ns.ForeverScreenLoaded(s.id) then
+						list[#list + 1] = { id = s.id, room = section.room, labelKey = s.labelKey }
+					end
 				end
+			elseif forever and not SidebarTabAvailable(id) then
+				-- not on this client: nothing to hide
 			elseif TAB_LABEL_BY_ID[id] and ns.IsScreenHideable and ns.IsScreenHideable(id) then
 				list[#list + 1] = { id = id, room = section.room, labelKey = TAB_LABEL_BY_ID[id] }
 			end

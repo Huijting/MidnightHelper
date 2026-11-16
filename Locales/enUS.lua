@@ -368,6 +368,15 @@ ns._mhLocales.enUS = {
 	FSURVEY_POPUP_TEXT = "A few minutes for Midnight Helper in WoW Forever?\n\nMidnight Helper is made by one person, and we hear almost nothing from Forever players. A short, anonymous survey on our website tells us what you use, what you miss and what gets better next.",
 	FSURVEY_COPY_TITLE = "Survey for WoW Forever players",
 	CMDLIST_SURVEY = "The link to our two-minute survey: what you use, what you never use, what annoys you.",
+	-- "Camera further away" (CameraZoom.lua, 16 Nov 2026), retail and Forever.
+	SET_CAMERAFAR_TITLE = "Camera further away",
+	SET_CAMERAFAR_DESC = "Lets you zoom the camera out further than the game's own options allow. Turning it off puts back the distance you had before.\n\nThe camera does not move by itself: scroll out with your mouse wheel.\n\nIf the game's camera options (or their Defaults button) set it back, Midnight Helper sets it again at your next login while this is on. Not changed during combat: it waits until the fight ends.",
+	CMDLIST_CAMERA = "Camera further away: shows the current zoom limit. /mh camera on or /mh camera off switches it.",
+	CAMERA_STATUS_FMT = "Camera further away: %s. The game's zoom limit is now %s (on = %s; back to %s when off).",
+	CAMERA_SET_FMT = "Camera: zoom limit set to %s, the game now reads %s. Scroll out with your mouse wheel.",
+	CAMERA_COMBAT = "Camera: you are in combat, so this waits until the fight ends.",
+	CAMERA_WORD_ON = "on",
+	CAMERA_WORD_OFF = "off",
 	-- Character overview as columns (AltBoardView.lua, 1 Oct 2026).
 	ALTBOARD_VIEW_ROWS = "Rows",
 	ALTBOARD_VIEW_COLUMNS = "Columns",

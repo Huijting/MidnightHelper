@@ -1458,6 +1458,14 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh camera [on|off] — "Camera further away" (CameraZoom.lua, 16 Nov 2026): status, or switch + read-back.
+	if msg == "camera" or msg == "camera on" or msg == "camera off" then
+		if ns.HandleCameraCommand then
+			ns.HandleCameraCommand(msg:match("^camera%s+(%a+)$"))
+		end
+		return
+	end
+
 	if msg == "export" then
 		if ns.ShowGearExport then
 			ns.ShowGearExport()
