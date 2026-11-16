@@ -30,7 +30,10 @@ er is niets weggegooid.
       "item" met tekst "0/N <itemnaam>" (bv. "item 0/1 Riptear's Heart", "item 0/1 Dargol's Skull"); monsters als
       "monster 0/8 Wailing Ancestor slain"; leveren als "log". Andere talen: niet gezien. Regel was:
       `/run for i=1,C_QuestLog.GetNumQuestLogEntries() do local q=C_QuestLog.GetInfo(i) if q and not q.isHeader then for _,o in ipairs(C_QuestLog.GetQuestObjectives(q.questID) or {}) do print(q.title,o.type,o.text) end end end`
-- [ ] **Tooltip-regels**: leg een quest-item in het eerste vakje van je rugzak:
+- [x] **Tooltip-regels** — GEDAAN 16 nov (Rob via sparring; Baganator, dus een eigen /run over alle tassen op classID
+      12): Johaan's Findings → "Quest Item" / "Unique" / omschrijving. Blizzard zegt dus NIET voor welke quest. De bijbehorende
+      leverquest heeft geen item-doel; de naam staat in het "log"-doel ("Take Apothecary Johaan's findings to …", kleine f).
+      Kale GetItemInfoInstant gaf "attempt to call a nil value", C_Item.GetItemInfoInstant werkte. Regel was:
       `/run local d=C_TooltipInfo.GetBagItem(0,1) for i,l in ipairs(d.lines) do print(i,l.type,l.leftText) end`
 
 ## 🆕 16 nov (nacht) — kleine ideeën: toetsenblok-knoppen, gids-paneel, "Je bent 90"

@@ -90,7 +90,13 @@ de item-tooltiphook ReagentUse.lua:117-142 (achter ns.IS_FOREVER), class-mask ui
 WEAPONS exporteren; diagnose /mh usedfor en /mh questscan uitbreiden.
 🧪 Test 2 GEMETEN (Rob, Engelse client): GetQuestObjectives geeft type "item" + tekst "0/N <itemnaam>" (naam schoon
 achter de teller) → idee 3 kan op naam matchen (in andere talen kan de volgorde anders zijn: niet gezien, match daarom
-"naam staat in de tekst", niet "tekst begint met teller"). Test 1 en 3 doet Rob later. Afspraak (sparring, tot Rob
+"naam staat in de tekst", niet "tekst begint met teller").
+🧪 Test 3 GEMETEN (Rob): Blizzards tooltip zegt alleen "Quest Item", niet welke quest. Een leverquest (Johaan's
+Findings) heeft geen item-doel; de naam staat in het "log"-doel, met andere hoofdletters. KEUZE bouwchat voor idee 3:
+de itemnaam HOOFDLETTERONGEVOELIG zoeken in ÁLLE doelteksten van je log (item, log, …); teller "n/m" alleen bij type
+"item"; geen treffer = geen regel. Bijvangst: in Forever is kale GetItemInfoInstant nil (AFGELEID uit Robs fout);
+GEMETEN dat MH hem in Forever-bestanden nooit kaal aanroept (overal C_Item eerst; grep, tegencontrole 20 treffers).
+Nog open: test 1 (nieuwe spell); daarna 1-3 samen. Test 1 en 3 doet Rob later. Afspraak (sparring, tot Rob
 anders zegt): 1-3 SAMEN bouwen na die tests. Ook later van Rob: `/mh pickup` gaf geen melding bij GESMEDE items
 (nog niet uitgezocht; AFGELEID: misschien omdat craften als "bag update terwijl een venster open is" telt) en zijn keuze
 voor de stats-regel.
