@@ -63,7 +63,9 @@ Op een Forever-character, Options → AddOns → Midnight Helper:
       hij op "Auto and Key Press"), open het venster opnieuw: is de gele regel weg? (Zo meten we of "Auto" de toets echt
       uitzet; de lijst "Self Cast Key" zelf heeft geen "None".) Daarna mag je hem terugzetten zoals jij wilt.
 
-De 11 "weet niet"-schakelaars (blijven staan tot jouw test; zeg per stuk "werkt" of "niets"):
+~~De 11 "weet niet"-schakelaars~~ — **VERVALLEN op Robs woord, 16 nov** (via sparring, letterlijk: *"laat deze tests maar
+achterwege, mocht iemand het melden dan is het vroeg genoeg"*). De 11 blijven staan zoals ze zijn; alleen bij een
+melding van een speler kijken we weer. De regels hieronder blijven als naslag, niet als open punt:
 - [ ] **Dangerous cast warning** (+ cast bars, speak cast name, only "important"): vijandelijke naamplaatjes aan, typ
       `/mhcsdebug`, vecht met een vijand die spells cast. Zie je per cast een chatregel, en een icoon als de cast op
       jou gericht is? Cast bars aan: komt er een balk? Uitspreken aan (in een gevecht): hoor je de naam? "Only important"
