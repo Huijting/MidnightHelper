@@ -1,5 +1,18 @@
 # Midnight Helper — waar we staan
 
+## ▶ EERST voor de volgende bouwchat (Bouwchat 16-11 sloot af met /nieuwe-chat bouw; Rob via sparring: *"ja doe maar"*)
+
+1. **Druid stap 1 afmaken** (`Modules/ForeverClassQuests.lua`, Bear Form staat erin, zie "🐻 Class-quests" verderop in de
+   16-nov-sectie): Cure Poison (14, quests 6121-6125), Aquatic Form (16, vanaf quest 26 "A Lesson to Learn"), Cat Form
+   (20? meten: staat Cat Form in de trainerdata of is het een quest?) en wat je verder meet; bron Forever-Zygor "Leveling
+   Guides\Druid Class Quests" (A: ZygorLevelingAllianceCLASSIC.lua:21298+, H: ZygorLevelingHordeCLASSIC.lua:22584+).
+   Daarna de hele keten in "How you play" (/mh play), en vertalingen FCQ_* (mh-writer).
+2. **Stap 2:** per rol (beer = tank, kat = schade, Balance = caster, Restoration = healer) een eenvoudige volgorde, en per
+   10 levels wat er verandert; richting van de speler bovenaan.
+3. **Stap 3:** de andere 8 classes op dezelfde manier (class-quests eerst).
+4. ⚠️ Carola speelt mogelijk via CurseForge: dan ziet ze main pas na een release (Rob kiest wanneer). 5.4.0 is uit
+   (16 nov); Bear Form (4faaaee) zit er NIET in.
+
 ## ▶ EERST op 16 nov (Rob via Sparring 15-11, letterlijk: *"Zet dit als eerste voor de lijst voor morgen en sluit de pc af
 ## en doe hem uit"*)
 
