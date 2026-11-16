@@ -24,6 +24,14 @@ er is niets weggegooid.
 📝 **Waarneming Rob, 16 nov (nacht), Forever mage, via sparring:** *"mouse over werk"* — `/mh mouseover on`, Shift+X
 (Arcane Intellect) op een voorbijganger onder de muis werkt.
 
+## 🆕 16 nov (nacht, 2) — Forever: druid-quests in je eigen taal + Skyborne
+
+- [ ] Duitse/Franse/Spaanse/… client: in "Do this now" staan de NPC-namen zoals jouw spel ze toont (bv. Spaans
+      "Mathrengyl Garroso", Russisch "Матренгил Медвежья Лапа"). Engelse client: niets veranderd.
+- [ ] Skyborne-druid op level 10: "Do this now" stuurt je naar Lotheluum Starbreeze en Urs'endris op Zephras Isle (niet
+      naar Darnassus/Thunder Bluff). Op 20: Cat Form via de Avatar of Saeyleenan in Moonglade.
+- [ ] Night Elf/Tauren-druid: nog steeds de gewone Bear- en Cat-quests (niets van Skyborne).
+
 ## 🆕 16 nov (nacht) — Forever: Druid per rol in How you play
 
 Druid, `/reload`, `/mh play`:

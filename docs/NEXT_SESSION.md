@@ -9,11 +9,13 @@
    de addon Spoken = derde partij; plekken uit Wowhead-tooltips; volgorde relikwieën in de Barrow Dens = gids, AFGELEID).
    Skyborne-druids NIET (98341/98404/98738: twee schakels ongemeten). ✅ Vertalingen FCQ_* de/fr/es/pt/ru (mh-writer,
    item-/plaatsnamen GEMETEN in wago 70938; itIT bewust niet: Forever-itIT-client is Engels, zelfde als FDONOW_).
-   NIET GEMETEN, Engels gebleven: "Great Cat Spirit Statue". ⚠️ Open: de NPC-namen in de regels (Dendrite Starblaze,
-   Mathrengyl …) staan in ForeverClassQuests.lua in het Engels en blijven dat in elke taal → botst met de clientnaam-regel
-   (20 okt); nodig: namen per taal meten of runtime opzoeken. 📌 Rob, 16 nov: *"spoken mag je als betrouwbaar aanzien"*
-   (addon Spoken_Quests, Compendium.lua) → Skyborne-keten opnieuw bekijken: Spoken geeft 98404 geen prev en 98397/98362
-   alleen prev 98731/98739; de Skyborne-schakels volgen daar alleen uit de racemaskers (AFGELEID).
+   NIET GEMETEN, Engels gebleven: "Great Cat Spirit Statue". 📌 Rob, 16 nov: *"spoken mag je als betrouwbaar aanzien"*.
+   ✅ (nacht) NPC-namen per taal: `NPC_NAMES` in ForeverClassQuests.lua (14 NPC's × de/fr/es/esMX/pt/ru, GEMETEN in
+   Wowhead-Forever-tooltips per locale + Spoken-naambestanden; controle npc 233; Gennia esES twijfel, Tajarri esMX
+   onbekend → Engels). ✅ Skyborne-druid: eigen Bear Form (94006 → 94638, Zephras Isle 2521, Ur'endra-grot; Zygor) en Cat
+   Form via de Avatar of Saeyleenan (98341 → 98404 → 98738; twee schakels AFGELEID-sterk). Ketens hebben nu `races`
+   (NightElf/Tauren/Skyborne; Skyborne = race-id 95/96 GEMETEN in ChrRaces, token "Skyborne" AFGELEID). Cure Poison en
+   Aquatic zonder ras-filter (racemaskers niet gemeten). FCQ_OBJ_URENDRA alleen en/nl (Ur'endra-naam per taal niet gemeten).
 2. **Stap 2** (Rob via sparring: *"ja"*): ✅ druid GEBOUWD (en + nl), 16 nov. Feiten: `docs/forever/DRUID_ROLES_2026-11-16.md`
    (mh-research; grootste vondst: Forever-talentboom ≠ classic, staat in DB2 TraitTree 1089). Teksten: mh-writer, in
    ForeverHowToPlay.lua `ROLES.DRUID` (beer/kat band 2, Balance 1, Resto 3) + nlNL; rol(len) van je richting bovenaan

@@ -22,7 +22,7 @@ local _, ns = ...
 	  in log, no objective/complete → go to the NPC who takes it
 	  not in log          → go to the NPC who gives it
 	The chain is over once the spell is known (Bear Form 5487) or the last quest is done.
-	NPC names stay English (the client has no NPC-name lookup by id here); zone names come from the client.
+	NPC names come from NPC_NAMES per client language (measured; English when a language is missing); zone names from the client.
 ]]
 
 if not ns.IS_FOREVER then
@@ -35,39 +35,46 @@ local PREFIX = "|cffffcc00Midnight Helper:|r "
 -- Moonglade 1450, Darkshore 1439, Thunder Bluff 1456, The Barrens 1413, Silverpine Forest 1421, Westfall 1436,
 -- Un'Goro Crater 1449, Swamp of Sorrows 1435. All coordinates are Zygor's (Druid Class Quests, both factions).
 local P = {
-	denatharion = { npc = "Denatharion", m = 1457, x = 34.77, y = 7.36 },
-	mathrengyl = { npc = "Mathrengyl Bearwalker", m = 1457, x = 35.38, y = 8.41 },
-	dendrite = { npc = "Dendrite Starblaze", m = 1450, x = 56.21, y = 30.64 },
-	bearspirit = { npc = "Great Bear Spirit", m = 1450, x = 39.11, y = 27.51 },
+	denatharion = { npc = "Denatharion", id = 4218, m = 1457, x = 34.77, y = 7.36 },
+	mathrengyl = { npc = "Mathrengyl Bearwalker", id = 4217, m = 1457, x = 35.38, y = 8.41 },
+	dendrite = { npc = "Dendrite Starblaze", id = 11802, m = 1450, x = 56.21, y = 30.64 },
+	bearspirit = { npc = "Great Bear Spirit", id = 11956, m = 1450, x = 39.11, y = 27.51 },
 	lunaclawA = { m = 1439, x = 43.48, y = 45.96 },
-	gennia = { npc = "Gennia Runetotem", m = 1412, x = 47.47, y = 62.98 },
-	turak = { npc = "Turak Runetotem", m = 1456, x = 76.46, y = 27.23 },
+	gennia = { npc = "Gennia Runetotem", id = 3064, m = 1412, x = 47.47, y = 62.98 },
+	turak = { npc = "Turak Runetotem", id = 3033, m = 1456, x = 76.46, y = 27.23 },
 	lunaclawH = { m = 1413, x = 42.00, y = 60.86 },
 	-- Cure Poison (level 14)
-	alanndarian = { npc = "Alanndarian Nightsong", m = 1439, x = 37.69, y = 40.66 },
+	alanndarian = { npc = "Alanndarian Nightsong", id = 3702, m = 1439, x = 37.69, y = 40.66 },
 	samplerA = { m = 1439, x = 54.93, y = 33.32 },
 	fungus = { m = 1439, x = 43.07, y = 45.55 },
 	deer = { m = 1439, x = 41.51, y = 46.08 },
-	tonga = { npc = "Tonga Runetotem", m = 1413, x = 52.26, y = 31.93 },
+	tonga = { npc = "Tonga Runetotem", id = 3448, m = 1413, x = 52.26, y = 31.93 },
 	samplerH = { m = 1413, x = 48.41, y = 18.89 },
 	kodo = { m = 1413, x = 51.93, y = 43.65 },
 	gazelle = { m = 1413, x = 50.17, y = 31.12 },
 	-- Aquatic Form (level 16)
 	bauble = { m = 1450, x = 54.33, y = 55.65 },
 	shrine = { m = 1450, x = 35.92, y = 41.40 },
-	tajarri = { npc = "Tajarri", m = 1450, x = 36.51, y = 40.11 },
+	tajarri = { npc = "Tajarri", id = 11799, m = 1450, x = 36.51, y = 40.11 },
 	boxDarkshore = { m = 1439, x = 48.87, y = 11.32 },
 	boxWestfall = { m = 1436, x = 17.87, y = 33.11 },
 	boxSilverpine = { m = 1421, x = 29.54, y = 29.53 },
 	boxBarrens = { m = 1413, x = 56.68, y = 8.32 },
 	-- Cat Form (level 20): a NEW Forever chain, not in Zygor. Spawns from Wowhead Forever tooltips (zone map space; equal
 	-- to UiMap AFGELEID, cross-checked against Zygor on 4 NPCs). Givers/enders from the Spoken addon data (third party).
-	catspirit = { npc = "Great Cat Spirit", m = 1450, x = 54.50, y = 75.00 },
+	catspirit = { npc = "Great Cat Spirit", id = 11957, m = 1450, x = 54.50, y = 75.00 },
 	relicClaw = { m = 1450, x = 75.25, y = 67.45 },
 	relicFang = { m = 1450, x = 72.45, y = 66.00 },
 	relicShadow = { m = 1450, x = 74.50, y = 65.40 },
+	-- Skyborne (16 Nov 2026, mh-research): Cat Form via the Avatar (Wowhead spawn 43.9-44.0, 73.4-73.6); Bear Form on
+	-- Zephras Isle (UiMap 2521 GEMETEN in DB2; "Zephras Isle/0" = 2521 AFGELEID), coordinates Zygor
+	-- ZygorLevelingCommonCLASSIC.lua:1142-1344. Ur'endra's cave: entered from the top (Wowhead comments).
+	avatar = { npc = "Avatar of Saeyleenan", id = 272054, m = 1450, x = 43.95, y = 73.50 },
+	lotheluum = { npc = "Lotheluum Starbreeze", id = 252359, m = 2521, x = 63.98, y = 75.09 },
+	ursendris = { npc = "Urs'endris", id = 255853, m = 2521, x = 69.85, y = 61.75 },
+	urendra = { m = 2521, x = 54.41, y = 65.94 },
 	-- Torwa Pathfinder (from level 50)
-	torwa = { npc = "Torwa Pathfinder", m = 1449, x = 71.63, y = 75.96 },
+	torwa = { npc = "Torwa Pathfinder", id = 9619, m = 1449, x = 71.63, y = 75.96 },
 	gorishi = { m = 1449, x = 50.40, y = 78.60 },
 	bloodcap = { m = 1449, x = 71.90, y = 57.40 },
 	devilsaur = { m = 1449, x = 67.31, y = 33.89 },
@@ -87,7 +94,7 @@ end
 local CHAINS = {
 	DRUID = {
 		{
-			key = "bear", spell = 5487, level = 10, faction = "Alliance",
+			key = "bear", spell = 5487, level = 10, faction = "Alliance", races = { NightElf = true },
 			quests = {
 				-- 5924/5925: the same letter from another druid trainer (Wowhead series, mh-research 16 Nov).
 				{ q = 5923, alt = { 5924, 5925 }, from = P.denatharion, to = P.mathrengyl },
@@ -98,7 +105,7 @@ local CHAINS = {
 			},
 		},
 		{
-			key = "bear", spell = 5487, level = 10, faction = "Horde",
+			key = "bear", spell = 5487, level = 10, faction = "Horde", races = { Tauren = true },
 			quests = {
 				{ q = 5928, alt = { 5926, 5927 }, from = P.gennia, to = P.turak },
 				{ q = 5922, from = P.turak, to = P.dendrite },
@@ -178,26 +185,45 @@ end
 -- Cat Form 768 (level 20; "Requires level 20" GEMETEN in the spell tooltip). A: 98393 → 98394 → 98396 → 98731 → 98397,
 -- H: 98340 → 98405 → 98342 → 98739 → 98362 (Wowhead series, mh-research 16 Nov). The relic quest's objectives: 1 Fang,
 -- 2 Claw, 3 Silent Shadow (Wowhead order; = client index AFGELEID). Asked in the order you walk the Barrow Dens (Claw in
--- the first room, Fang a level down, Silent Shadow at the bottom: guide + Wowhead comments, AFGELEID). Skyborne (98341,
--- 98404, 98738) is left out: two of its links are not measured.
-local function Cat(faction, trainer, ids)
+-- the first room, Fang a level down, Silent Shadow at the bottom: guide + Wowhead comments, AFGELEID).
+-- Skyborne (both factions): 98393/98340 → 98341 → 98404 → 98738 → 98397/98362, the spirit is the Avatar of Saeyleenan.
+-- 98404→98738 and Dendrite starting 98397/98362 after 98738 GEMETEN (Wowhead series, classic-wow.com NPC lists, Warcraft
+-- Tavern); the formal links 98341→98404 and 98738→98397/98362 AFGELEID (strong), mh-research 16 Nov 2026.
+local function Cat(faction, races, trainer, spirit, ids)
 	return {
-		key = "cat", spell = 768, level = 20, faction = faction,
+		key = "cat", spell = 768, level = 20, faction = faction, races = races,
 		quests = {
 			{ q = ids[1], from = trainer, to = P.dendrite },
-			{ q = ids[2], from = P.dendrite, to = P.catspirit },
-			{ q = ids[3], from = P.catspirit, objs = {
+			{ q = ids[2], from = P.dendrite, to = spirit },
+			{ q = ids[3], from = spirit, objs = {
 				O(P.relicClaw, "FCQ_OBJ_RELIC_CLAW", 2),
 				O(P.relicFang, "FCQ_OBJ_RELIC_FANG", 1),
 				O(P.relicShadow, "FCQ_OBJ_RELIC_SHADOW", 3),
-			}, to = P.catspirit },
-			{ q = ids[4], from = P.catspirit, to = P.dendrite },
+			}, to = spirit },
+			{ q = ids[4], from = spirit, to = P.dendrite },
 			{ q = ids[5], from = P.dendrite, to = trainer },
 		},
 	}
 end
-table.insert(CHAINS.DRUID, Cat("Alliance", P.mathrengyl, { 98393, 98394, 98396, 98731, 98397 }))
-table.insert(CHAINS.DRUID, Cat("Horde", P.turak, { 98340, 98405, 98342, 98739, 98362 }))
+local SKYBORNE = { Skyborne = true }
+table.insert(CHAINS.DRUID, Cat("Alliance", { NightElf = true }, P.mathrengyl, P.catspirit, { 98393, 98394, 98396, 98731, 98397 }))
+table.insert(CHAINS.DRUID, Cat("Horde", { Tauren = true }, P.turak, P.catspirit, { 98340, 98405, 98342, 98739, 98362 }))
+table.insert(CHAINS.DRUID, Cat("Alliance", SKYBORNE, P.mathrengyl, P.avatar, { 98393, 98341, 98404, 98738, 98397 }))
+table.insert(CHAINS.DRUID, Cat("Horde", SKYBORNE, P.turak, P.avatar, { 98340, 98341, 98404, 98738, 98362 }))
+
+-- Skyborne Bear Form (level 10): 94006 Lotheluum Starbreeze → Urs'endris; 94638 "Strength and Mercy": defeat Ur'endra in
+-- the cave, back to Urs'endris, who teaches Bear Form (quest text + Warcraft Tavern; that it is spell 5487 AFGELEID).
+-- Steps GEMETEN in Zygor (ZygorLevelingCommonCLASSIC.lua:1142-1344). The Skyborne Moonglade intro (94913/94914) is no
+-- bear quest and is left out.
+for _, faction in ipairs({ "Alliance", "Horde" }) do
+	table.insert(CHAINS.DRUID, {
+		key = "bear", spell = 5487, level = 10, faction = faction, races = SKYBORNE,
+		quests = {
+			{ q = 94006, from = P.lotheluum, to = P.ursendris },
+			{ q = 94638, from = P.ursendris, objs = { O(P.urendra, "FCQ_OBJ_URENDRA", 1) }, to = P.ursendris },
+		},
+	})
+end
 table.insert(CHAINS.DRUID, Torwa("Alliance", P.mathrengyl))
 table.insert(CHAINS.DRUID, Torwa("Horde", P.turak))
 
@@ -312,6 +338,37 @@ local function ZoneName(m)
 	return "#" .. tostring(m)
 end
 
+-- NPC names per client language (rule 20 Oct 2026: every game name is the name THAT client shows). Filled from measured
+-- data; a language missing here shows the English name. enUS/nlNL/itIT use English (no Dutch client; Forever itIT = English).
+-- GEMETEN 16 Nov 2026 (mh-research): Wowhead Forever NPC tooltips per locale + the Spoken addon's name files (control: npc
+-- 233 "Bauer Saldean" in both). English-looking de/fr names came back without Wowhead's [brackets] = that client's name.
+-- 3064 esES: sources disagree (Runatótem vs Tótem de Runa), majority kept. 11799 esMX: not known, left out.
+local NPC_NAMES = {
+	[4218] = { deDE = "Denatharion", frFR = "Denatharion", esES = "Denatharion", esMX = "Denatharion", ptBR = "Denatharion", ruRU = "Денатарион" },
+	[4217] = { deDE = "Mathrengyl Bearwalker", frFR = "Mathrengyl Bearwalker", esES = "Mathrengyl Garroso", esMX = "Mathrengyl Garroso", ptBR = "Mathrengyl Ursivagus", ruRU = "Матренгил Медвежья Лапа" },
+	[11802] = { deDE = "Dendrite Starblaze", frFR = "Dendrite Starblaze", esES = "Dendrite Rafagaestelar", esMX = "Dendrita Rafagaestelar", ptBR = "Dendrite Stellardor", ruRU = "Дендрит Блеск Звезд" },
+	[11956] = { deDE = "Großer Bärengeist", frFR = "Esprit du Grand ours", esES = "Espíritu del gran oso", esMX = "Espíritu del gran oso", ptBR = "Espírito do Grande Urso", ruRU = "Дух Великого Медведя" },
+	[3064] = { deDE = "Gennia Runetotem", frFR = "Gennia Runetotem", esES = "Gennia Runatótem", esMX = "Gennia Tótem de Runa", ptBR = "Gennia Runa Totem", ruRU = "Генния Рунический Тотем" },
+	[3033] = { deDE = "Turak Runetotem", frFR = "Turak Runetotem", esES = "Turak Runatótem", esMX = "Turak Tótem de Runa", ptBR = "Turak Runa Totem", ruRU = "Тюрак Рунический Тотем" },
+	[3702] = { deDE = "Alanndarian Nightsong", frFR = "Alanndarian Nightsong", esES = "Alanndarian Arrullanoche", esMX = "Alanndarian Arrullanoche", ptBR = "Alanndária Noturcanto", ruRU = "Аландариан Песня Ночи" },
+	[3448] = { deDE = "Tonga Runetotem", frFR = "Tonga Runetotem", esES = "Tonga Runatótem", esMX = "Tonga Tótem de Runa", ptBR = "Tonga Runa Totem", ruRU = "Тонга Рунический Тотем" },
+	[11799] = { deDE = "Tajarri", frFR = "Tajarri", esES = "Tajarri", ptBR = "Tajarri", ruRU = "Таджарри" },
+	[9619] = { deDE = "Torwa Pathfinder", frFR = "Torwa Pathfinder", esES = "Abrecaminos Torwa", esMX = "Torwa Abrecaminos", ptBR = "Torwa Mateiro", ruRU = "Землепроходец Торва" },
+	[11957] = { deDE = "Großer Katzengeist", frFR = "Esprit du Grand félin", esES = "Gran espíritu felino", esMX = "Gran espíritu felino", ptBR = "Espírito do Grande Felino", ruRU = "Дух Великой Кошки" },
+	[272054] = { deDE = "Avatar von Saeyleenan", frFR = "Avatar de Saeyleenan", esES = "Avatar de Saeyleenan", esMX = "Avatar de Saeyleenan", ptBR = "Avatar de Saeyleenan", ruRU = "Аватара Сэйлинан" },
+	[252359] = { deDE = "Lotheluum Starbreeze", frFR = "Lotheluum Brise-Stellaire", esES = "Lotheluum Brisa Estelar", esMX = "Lotheluum Brisa Estelar", ptBR = "Lotheluum Brisastral", ruRU = "Лотелум Звездный Ветер" },
+	[255853] = { deDE = "Urs'endris", frFR = "Urs'endris", esES = "Urs'endris", esMX = "Urs'endris", ptBR = "Urs'endris", ruRU = "Урс'ендрис" },
+}
+
+local function NpcName(p)
+	if not (p and p.npc) then
+		return "?"
+	end
+	local loc = GetLocale and GetLocale()
+	local row = p.id and NPC_NAMES[p.id]
+	return (row and loc and row[loc]) or p.npc
+end
+
 local function SpellName(id)
 	if C_Spell and C_Spell.GetSpellName then
 		local ok, n = pcall(C_Spell.GetSpellName, id)
@@ -322,13 +379,28 @@ local function SpellName(id)
 	return "#" .. tostring(id)
 end
 
---- The chain for this character (class + faction), or nil.
+--- The race token, with the two Skyborne races folded into "Skyborne": ChrRaces 95 High Order (Alliance) and 96
+--- Windshaper (Horde) both have ClientFileString "Skyborne" (GEMETEN DB2 70938); that UnitRace returns it = AFGELEID,
+--- so the race id counts too.
+local function RaceToken()
+	if not UnitRace then
+		return nil
+	end
+	local _, race, id = UnitRace("player")
+	if id == 95 or id == 96 then
+		return "Skyborne"
+	end
+	return race
+end
+
+--- The chains for this character (class + faction + race where a chain names races).
 local function MyChains()
 	local token = select(2, UnitClass("player"))
 	local faction = UnitFactionGroup and UnitFactionGroup("player")
+	local race = RaceToken()
 	local out = {}
 	for _, c in ipairs(CHAINS[token] or {}) do
-		if c.faction == faction then
+		if c.faction == faction and (not c.races or (race and c.races[race])) then
 			out[#out + 1] = c
 		end
 	end
@@ -392,11 +464,11 @@ end
 local function StepWhat(s)
 	local p = s.place
 	if s.kind == "get" then
-		return ns:L("FCQ_GET_FMT"):format(p.npc or "?", Where(p))
+		return ns:L("FCQ_GET_FMT"):format(NpcName(p), Where(p))
 	elseif s.kind == "do" then
 		return ns:L(s.textKey) .. (p and (" — " .. Where(p)) or "")
 	end
-	return ns:L("FCQ_TURN_FMT"):format(p.npc or "?", Where(p))
+	return ns:L("FCQ_TURN_FMT"):format(NpcName(p), Where(p))
 end
 
 local function StepText(c, s)
@@ -434,7 +506,7 @@ function ns.ForeverClassQuestGo()
 		print(PREFIX .. ns:L("FVEND_NO_WAYPOINT"))
 		return false
 	end
-	ns.lastTarget = { mapID = p.m, x = p.x, y = p.y, name = p.npc or ZoneName(p.m), via = "/mh classquest", arriveYards = 15 }
+	ns.lastTarget = { mapID = p.m, x = p.x, y = p.y, name = p.npc and NpcName(p) or ZoneName(p.m), via = "/mh classquest", arriveYards = 15 }
 	ns._mhRouteOwner = "waypoint"
 	print(PREFIX .. (ns.ForeverClassQuestNow()))
 	return true
@@ -483,7 +555,7 @@ function ns.ForeverClassQuestOverview()
 			state = ns:L("FCQ_ST_DONE")
 		elseif level < c.level then
 			local first = c.quests[1].from
-			state = ns:L("FCQ_ST_LATER_FMT"):format(first.npc or "?", ZoneName(first.m))
+			state = ns:L("FCQ_ST_LATER_FMT"):format(NpcName(first), ZoneName(first.m))
 		else
 			state = ns:L("FCQ_ST_NOW_FMT"):format(StepWhat(s))
 		end

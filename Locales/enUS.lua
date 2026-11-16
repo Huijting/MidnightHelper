@@ -5466,7 +5466,7 @@ ns._mhLocales.enUS = {
 	FDONOW_TITLE = "Do this now",
 	FDUNG_TITLE = "Dungeons in Forever",
 	-- "Do this now": class quest that unlocks something (ForeverClassQuests.lua, 16 Nov 2026).
-	-- FCQ_LINE_FMT: %s = spell name (client), %d = level, %s = what to do. NPC names stay English.
+	-- FCQ_LINE_FMT: %s = spell name (client), %d = level, %s = what to do. NPC names: per client language from ForeverClassQuests.lua NPC_NAMES.
 	FCQ_LINE_FMT = "%s (from level %d), class quest: %s",
 	FCQ_GET_FMT = "get the quest from %s, %s.",
 	FCQ_TURN_FMT = "go to %s, %s.",
@@ -5494,6 +5494,7 @@ ns._mhLocales.enUS = {
 	FCQ_OBJ_RELIC_CLAW = "go into the Stormrage Barrow Dens (door at 71.2, 61.5). The enemies there are level 23. Click the Great Cat Spirit Statue first, out of Bear Form: you sneak for 5 minutes. Relic of the Claw: across the bridge in the first room",
 	FCQ_OBJ_RELIC_FANG = "Relic of the Fang: one level down in the Barrow Dens. Taking a relic ends your sneaking; the statue gives it back",
 	FCQ_OBJ_RELIC_SHADOW = "Relic of the Silent Shadow: at the bottom of the Barrow Dens",
+	FCQ_OBJ_URENDRA = "defeat Ur'endra in the small cave at the top of the mountain. The way in is from above, not at the bottom (the path up starts near 57.7, 60.9)",
 	FCQ_CHAIN_TORWA ="Torwa Pathfinder's quests (a chest piece or staff)",
 	FCQ_MOONGLADE_TIP = " (Teleport: Moonglade in your spellbook takes you there)",
 	-- How you play: a block with every class quest of this character (ForeverHowToPlay.lua).

@@ -4664,6 +4664,7 @@ ns._mhLocales.nlNL = {
 	FCQ_OBJ_RELIC_CLAW = "ga de Stormrage Barrow Dens in (deur op 71.2, 61.5). De vijanden daar zijn level 23. Klik eerst op het Great Cat Spirit Statue, niet in Bear Form: je sluipt dan 5 minuten. Relic of the Claw: over de brug in de eerste ruimte",
 	FCQ_OBJ_RELIC_FANG = "Relic of the Fang: een verdieping lager in de Barrow Dens. Een relikwie pakken stopt je sluipen; het beeld geeft het terug",
 	FCQ_OBJ_RELIC_SHADOW = "Relic of the Silent Shadow: helemaal onderin de Barrow Dens",
+	FCQ_OBJ_URENDRA = "versla Ur'endra in de kleine grot boven op de berg. De ingang is van boven, niet onderaan (het pad omhoog begint bij 57.7, 60.9)",
 	FCQ_CHAIN_TORWA ="De quests van Torwa Pathfinder (een borststuk of staf)",
 	FCQ_MOONGLADE_TIP = " (Teleport: Moonglade in je spellboek brengt je erheen)",
 	FHOWTO_ROLES_SHOW = "Alle rollen",
