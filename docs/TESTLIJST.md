@@ -77,6 +77,12 @@ Priest, `/reload`. Uitgezocht met Fable; niets in het spel gezien.
 - [ ] Level 5-15: "Your first priest robe" (een wacht healen). Na level 15 verdwijnt hij uit "Do this now".
 - [ ] Undead level 10: geeft Aelthalyste de Touch of Weakness-quest, of Father Lankester naast haar?
 
+## 🧭 17 nov — Forever: rollen voor Rogue en Hunter (+ hunter-pet-zin)
+
+- [ ] Rogue of Hunter: open "How to play". Zie je drie rollen? Kloppen de toetsen?
+- [ ] Hunter, level 10: leer je Revive Pet pas bij de quest ná het temmen (zoals de tekst nu zegt)?
+- [ ] Hunter Survival: krijg je Counterattack op 25 of op 30?
+
 ## 🧭 17 nov — Forever: rollen per 10 levels voor Warrior, Mage en Priest
 
 In "How to play" staan nu bij deze drie classes, net als bij de druid, per rol: een simpele volgorde, wat je per 10

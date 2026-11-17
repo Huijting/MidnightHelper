@@ -719,6 +719,78 @@ From level 1 (Sinister Strike and Stealth). This tree fights from Stealth: a str
 - Using Premeditation and then waiting. The 2 points are gone after 20 seconds, and the cooldown is 2 minutes.
 - Death Mark without combo points. It is a finisher.]] },
 	},
+	-- Hunter: written 17 Nov 2026 by mh-writer from docs/forever/HUNTER_ROLES_2026-11-17.md (DB2 1.60.1.70938 + guides).
+	HUNTER = {
+		{ band = 1, title = "Beast Mastery: damage with your pet", body = [[
+From level 10 (your pet, from the class quests). Your pet does most of the work: it keeps the enemy busy while you shoot from a distance. Every guide we read picks Beast Mastery for levelling: they call it the easiest and the fastest. New in Forever: Summon Hawk (a talent, 25 at the earliest) sends extra birds at your target. Weak spot: groups of enemies. Your pet can hold only one.
+**Simple order:**
+Before you start: Aspect of the Hawk on (**Shift-R**). The Deadly Aspects talent only works then.
+1. Hunter's Mark (**Shift-Z**).
+2. Pet in (**Ctrl-1**), and wait until it has the enemy.
+3. Serpent Sting (**2**).
+4. Summon Hawk (**Shift-F1**, from 25): keep 2 hawks up all the time.
+5. Aimed Shot (**4**, from 20) while you stand still. Two or more enemies: Multi-Shot (**Shift-1**) instead. They share one cooldown.
+6. Auto Shot (**1**) keeps going. Arcane Shot (**3**): before 25, just use it. From 25 only when you already have 2 hawks: it shares a cooldown with Summon Hawk.
+7. Pet almost dead: Mend Pet (**F2**). Enemy on you: Intimidation (**Shift-3**, from 30) or Disengage (**Z**, from 20). Disengage is no jump: it makes the enemy want you less, up close, and stops your auto-attack. Real trouble: Feign Death (**X**, from 30).
+8. Tough enemy: Bestial Wrath (**F1**, from 40) together with Rapid Fire (**Q**, from 26).
+**Per 10 levels:**
+- 10: your pet, from the class quests. Aspect of the Hawk (**Shift-R**). First talents: Deadly Aspects, Endurance Training. Talent levels here are the earliest; a perk can bring them up to 5 levels sooner. Then Mend Pet (**F2**) at 12, Multi-Shot (**Shift-1**) at 18.
+- 20: Aimed Shot (**4**, from the trainer), Aspect of the Cheetah (**R**), Disengage (**Z**), Freezing Trap (**V**). Talents: Bestial Swiftness (your pet runs 30% faster; you need it for Intimidation), Unleashed Fury, Pathfinding.
+- 30: Intimidation (**Shift-3**, a talent): your pet stuns the enemy for 3 seconds with its next hit; cooldown 1 minute. Feign Death (**X**). Before that: Summon Hawk (**Shift-F1**, a talent) at 25: a hawk stays 18 seconds, at most 2 at a time. Rapid Fire (**Q**) at 26.
+- 40: Bestial Wrath (**F1**, a talent; all 30 points before it must be in Beast Mastery): your pet does 50% more damage for 18 seconds; cooldown 2 minutes. Volley (block D). Before that: Explosive Trap takes **Shift-2** at 34, Frenzy (a talent, passive) at 35.
+- 50: stronger ranks of Summon Hawk, Aimed Shot and Mend Pet; nothing new for this role. After 40 the guides put your points in Marksmanship.
+- 60: stronger ranks again; nothing new for this role.
+**Beginner mistakes:**
+- Shooting before your pet has the enemy. Then the enemy comes to you.
+- Seeing Summon Hawk and Arcane Shot as two separate buttons. They share one cooldown: hawks first.
+- Fighting in Aspect of the Cheetah or the Monkey. Deadly Aspects only works with the Hawk on.]] },
+		{ band = 2, title = "Marksmanship: damage from a distance", body = [[
+From level 1 (Auto Shot). Your own shots do the work, from far away. Aimed Shot comes at 20 from the trainer: it is not a talent. Sniper Shot is a talent, 40 at the earliest: a 4-second cast that reaches up to 45 yards. The guides say levelling works, but slower than Beast Mastery: your pet holds the enemy less well, because you do more damage. In groups it is strong: Trueshot Aura helps your whole party or raid. Lone Wolf (a talent, 20 at the earliest) gives 20% more damage while you have no pet; for levelling, the guides keep the pet.
+**Simple order:**
+Before you start: Aspect of the Hawk (**Shift-R**) and Trueshot Aura (**Shift-X**, from 25) on.
+1. Hunter's Mark (**Shift-Z**). With a pet: pet in (**Ctrl-1**).
+2. Enemy still far away: Sniper Shot (**Shift-4**, from 40) to open.
+3. Serpent Sting (**2**). Some guides skip it in short fights.
+4. Aimed Shot (**4**, from 20) every time it is ready. Stand still.
+5. Arcane Shot (**3**) in between, if your mana allows it.
+6. Auto Shot (**1**) keeps going.
+7. A group of enemies: Multi-Shot (**Shift-1**) instead of Aimed Shot. A big group: Volley (block D, from 40).
+8. Enemy at you: Scatter Shot (**E**, from 30), then step away. Concussive Shot (**Shift-Q**) slows it.
+9. Tough enemy: Rapid Fire (**Q**, from 26) at the start.
+**Per 10 levels:**
+- 10: your pet, from the class quests. Aspect of the Hawk (**Shift-R**). First talents: Lethal Attacks, Hawk Eye, Improved Concussive Shot; from 15: Careful Aim, Efficiency, Improved Stings. Talent levels here are the earliest; a perk can bring them up to 5 levels sooner. Then Multi-Shot (**Shift-1**) at 18.
+- 20: Aimed Shot (**4**), from the trainer: a 2-second cast, cooldown 6 seconds, shared with Multi-Shot. Talents: Rapid Killing, Improved Arcane Shot, Lone Wolf. Aspect of the Cheetah (**R**), Disengage (**Z**), Freezing Trap (**V**).
+- 30: Scatter Shot (**E**, a talent): the enemy is confused for 4 seconds, and any damage breaks it; cooldown 30 seconds. Feign Death (**X**). Before that: Trueshot Aura (**Shift-X**, a talent) at 25: more Ranged Attack Power for your party, for 30 minutes. Rapid Fire (**Q**) at 26.
+- 40: Sniper Shot (**Shift-4**, a talent; you need Trueshot Aura first): cooldown 15 seconds, and your next 3 shots reach 10 yards further. Volley (block D). Before that: Trueshot Aura rank 2 at the trainer at 32, Ranged Weapon Specialization (a talent, passive) at 35.- 50: stronger ranks: Aimed Shot at 44 and 52, Sniper Shot at 48, Trueshot Aura and Volley at 50. After 40 the guides put your points in Beast Mastery.
+- 60: stronger ranks again; nothing new for this role.
+**Beginner mistakes:**
+- Moving during Aimed Shot or Sniper Shot. They have a cast of 2 and 4 seconds.
+- Multi-Shot on one enemy. Then Aimed Shot is gone for 6 seconds too.
+- Sniper Shot when the enemy is already at you. It is a 4-second cast, and it does not work within 8 yards.]] },
+		{ band = 3, title = "Survival: damage up close, with traps", body = [[
+From level 1 (Raptor Strike), but the real Survival play starts around 30. In Forever this is the melee Hunter: Raptor Strike, Mongoose Bite, Counterattack and Strider Kick, plus traps. You keep your pet and your ranged weapon: open from a distance, then step in. The guides call it the slowest of the three to level; until about 30 you play like any Hunter (pet in, shoot). It costs a lot of mana, and a big hit from you can pull the enemy off your pet. The guides disagree on which melee weapon is best.
+**Simple order:**
+Before you start: Aspect of the Hawk (**Shift-R**) while you shoot. From 30, Aspect of the Beast for fighting up close; it has no fixed key, so put it on your own bar.
+1. Hunter's Mark (**Shift-Z**). Without the Mark, Expose Prey does not work.
+2. Pet in (**Ctrl-1**).
+3. Serpent Sting (**2**), then Arcane Shot (**3**) while the enemy comes, or while you walk to it.
+4. A trap at your feet: Immolation Trap (**Shift-2**, from 16). From 34 that key is Explosive Trap, and Immolation Trap has no key: put it on your own bar if you want it.
+5. Up close: Mongoose Bite (**Shift-C**, from 16) as soon as it lights up. Raptor Strike (**5**) every time it is ready. Strider Kick (from 30) every time it is ready; put it on your own bar. The guides differ: some step back to shoot after Strider Kick, others stay close.
+6. Counterattack (**Shift-V**) right after a parry.
+7. The enemy runs, or you want distance again: Wing Clip (**Shift-F**).
+8. In trouble: Deterrence (**C**, from 20), Feign Death (**X**, from 30).
+**Per 10 levels:**
+- 10: your pet, from the class quests. Raptor Strike (**5**) you have from level 1. First talents: Improved Tracking, Deflection; from 15: Savage Strikes, Survivalist, Entrapment, Improved Wing Clip. Talent levels here are the earliest; a perk can bring them up to 5 levels sooner. Then Wing Clip (**Shift-F**) at 12, Mongoose Bite (**Shift-C**) and Immolation Trap (**Shift-2**) at 16.
+- 20: Deterrence (**C**, a talent): 25% more dodge and parry for 10 seconds; cooldown 5 minutes. Freezing Trap (**V**), Aimed Shot (**4**), Dual Wield (passive, trainer). Disengage (**Z**): no jump; it lowers your **threat** (how much an enemy wants to attack you) up close, and stops your auto-attack. Talents: Surefooted, Clever Traps.
+- 30: Strider Kick (a talent; no fixed key, put it on your own bar): 100% weapon damage, then you run 30% faster for 3 seconds; cooldown 8 seconds. Aspect of the Beast (trainer; put it on your own bar): more Melee Attack Power. Feign Death (**X**). Before that: Counterattack (**Shift-V**, a talent), from 25 or 30 (the sources differ): it becomes active after you parry, and holds the enemy in place for 5 seconds. Predator's Edge (a talent, passive) from 25. Also in this row: Expose Prey, Resourcefulness, Survivalist's Discipline.
+- 40: Lacerating Strikes (a talent, passive; you need Expose Prey first): Mongoose Bite also makes the enemy bleed. Before that: Explosive Trap takes **Shift-2** at 34, Lightning Reflexes (a talent, passive) at 35.
+- 50: stronger ranks: Counterattack at 42 and 54, Mongoose Bite at 44, Explosive Trap at 44 and 54, Raptor Strike at 48, Aspect of the Beast at 50. The guides disagree on where your points go after 40.
+- 60: stronger ranks again; nothing new for this role.
+**Beginner mistakes:**
+- Running straight in. Open from a distance (Mark, pet, Sting, a shot), then step in.
+- Pressing Mongoose Bite or Counterattack when they do not light up. Mongoose Bite only works after a dodge (or through Expose Prey), Counterattack only after a parry.
+- Staying in Aspect of the Hawk up close after level 30. The Hawk only helps your shots; the Beast gives Melee Attack Power.]] },
+	},
 }
 ns.FOREVER_HOWTOPLAY_ROLES = ROLES -- the offline check reads it
 

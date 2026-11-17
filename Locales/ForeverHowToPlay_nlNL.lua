@@ -691,5 +691,77 @@ Vanaf level 1 (Sinister Strike en Stealth). Deze boom vecht vanuit Stealth: een 
 - Premeditation gebruiken en dan wachten. De 2 punten zijn na 20 seconden weg, en de cooldown is 2 minuten.
 - Death Mark zonder combo points. Het is een finisher.]] },
 		},
+		-- Hunter (17 nov 2026), zelfde band en volgorde als in Modules/ForeverHowToPlay.lua.
+		HUNTER = {
+			{ band = 1, title = "Beast Mastery: schade met je pet", body = [[
+Vanaf level 10 (je pet, uit de class-quests). Je pet doet het meeste werk: hij houdt de vijand bezig terwijl jij van een afstand schiet. Elke gids die we lazen kiest Beast Mastery om te levelen: ze noemen hem de makkelijkste en de snelste. Nieuw in Forever: Summon Hawk (een talent, op z'n vroegst 25) stuurt extra vogels op je doel. Zwak punt: groepen vijanden. Je pet kan er maar één vasthouden.
+**Simpele volgorde:**
+Vooraf: Aspect of the Hawk aan (**Shift-R**). Het talent Deadly Aspects werkt alleen dan.
+1. Hunter's Mark (**Shift-Z**).
+2. Pet erop (**Ctrl-1**), en wacht tot hij de vijand heeft.
+3. Serpent Sting (**2**).
+4. Summon Hawk (**Shift-F1**, vanaf 25): zorg dat er steeds 2 hawks zijn.
+5. Aimed Shot (**4**, vanaf 20) als je stilstaat. Twee of meer vijanden: Multi-Shot (**Shift-1**) in plaats daarvan. Ze delen één cooldown.
+6. Auto Shot (**1**) loopt door. Arcane Shot (**3**): vóór 25 gewoon gebruiken. Vanaf 25 alleen als je al 2 hawks hebt: hij deelt een cooldown met Summon Hawk.
+7. Pet bijna dood: Mend Pet (**F2**). Vijand op jou: Intimidation (**Shift-3**, vanaf 30) of Disengage (**Z**, vanaf 20). Disengage is geen sprong: de vijand wil jou dan minder aanvallen, van dichtbij, en je auto-attack stopt. Echt mis: Feign Death (**X**, vanaf 30).
+8. Zware vijand: Bestial Wrath (**F1**, vanaf 40) samen met Rapid Fire (**Q**, vanaf 26).
+**Per 10 levels:**
+- 10: je pet, uit de class-quests. Aspect of the Hawk (**Shift-R**). Eerste talenten: Deadly Aspects, Endurance Training. Talent-levels hier zijn op z'n vroegst; een perk kan ze tot 5 levels eerder maken. Daarna Mend Pet (**F2**) op 12, Multi-Shot (**Shift-1**) op 18.
+- 20: Aimed Shot (**4**, van de trainer), Aspect of the Cheetah (**R**), Disengage (**Z**), Freezing Trap (**V**). Talenten: Bestial Swiftness (je pet loopt 30% sneller; je hebt hem nodig voor Intimidation), Unleashed Fury, Pathfinding.
+- 30: Intimidation (**Shift-3**, een talent): je pet stunt de vijand 3 seconden bij zijn volgende klap; cooldown 1 minuut. Feign Death (**X**). Daarvoor: Summon Hawk (**Shift-F1**, een talent) op 25: een hawk blijft 18 seconden, hoogstens 2 tegelijk. Rapid Fire (**Q**) op 26.
+- 40: Bestial Wrath (**F1**, een talent; alle 30 punten ervoor moeten in Beast Mastery zitten): je pet doet 18 seconden lang 50% meer schade; cooldown 2 minuten. Volley (blok D). Daarvoor: Explosive Trap neemt **Shift-2** over op 34, Frenzy (een talent, passief) op 35.
+- 50: sterkere ranks van Summon Hawk, Aimed Shot en Mend Pet; niets nieuws voor deze rol. Na 40 zetten de gidsen je punten in Marksmanship.
+- 60: weer sterkere ranks; niets nieuws voor deze rol.
+**Beginnersfouten:**
+- Schieten voordat je pet de vijand heeft. Dan komt de vijand naar jou.
+- Summon Hawk en Arcane Shot als twee losse knoppen zien. Ze delen één cooldown: hawks eerst.
+- Vechten in Aspect of the Cheetah of de Monkey. Deadly Aspects werkt alleen met de Hawk aan.]] },
+			{ band = 2, title = "Marksmanship: schade van een afstand", body = [[
+Vanaf level 1 (Auto Shot). Je eigen schoten doen het werk, van ver. Aimed Shot komt op 20 van de trainer: het is geen talent. Sniper Shot is een talent, op z'n vroegst 40: een cast van 4 seconden die tot 45 yards reikt. De gidsen zeggen dat levelen kan, maar trager dan met Beast Mastery: je pet houdt de vijand minder goed vast, omdat jij meer schade doet. In groepen is hij sterk: Trueshot Aura helpt je hele party of raid. Lone Wolf (een talent, op z'n vroegst 20) geeft 20% meer schade zolang je geen pet hebt; om te levelen houden de gidsen de pet.
+**Simpele volgorde:**
+Vooraf: Aspect of the Hawk (**Shift-R**) en Trueshot Aura (**Shift-X**, vanaf 25) aan.
+1. Hunter's Mark (**Shift-Z**). Met een pet: pet erop (**Ctrl-1**).
+2. Vijand nog ver weg: Sniper Shot (**Shift-4**, vanaf 40) om te openen.
+3. Serpent Sting (**2**). Sommige gidsen slaan hem over in korte gevechten.
+4. Aimed Shot (**4**, vanaf 20) steeds als hij klaar is. Sta stil.
+5. Arcane Shot (**3**) tussendoor, als je mana het toelaat.
+6. Auto Shot (**1**) loopt door.
+7. Een groep vijanden: Multi-Shot (**Shift-1**) in plaats van Aimed Shot. Een grote groep: Volley (blok D, vanaf 40).
+8. Vijand bij jou: Scatter Shot (**E**, vanaf 30), stap dan weg. Concussive Shot (**Shift-Q**) maakt hem trager.
+9. Zware vijand: Rapid Fire (**Q**, vanaf 26) aan het begin.
+**Per 10 levels:**
+- 10: je pet, uit de class-quests. Aspect of the Hawk (**Shift-R**). Eerste talenten: Lethal Attacks, Hawk Eye, Improved Concussive Shot; vanaf 15: Careful Aim, Efficiency, Improved Stings. Talent-levels hier zijn op z'n vroegst; een perk kan ze tot 5 levels eerder maken. Daarna Multi-Shot (**Shift-1**) op 18.
+- 20: Aimed Shot (**4**), van de trainer: een cast van 2 seconden, cooldown 6 seconden, gedeeld met Multi-Shot. Talenten: Rapid Killing, Improved Arcane Shot, Lone Wolf. Aspect of the Cheetah (**R**), Disengage (**Z**), Freezing Trap (**V**).
+- 30: Scatter Shot (**E**, een talent): de vijand is 4 seconden in de war, en elke schade breekt dat; cooldown 30 seconden. Feign Death (**X**). Daarvoor: Trueshot Aura (**Shift-X**, een talent) op 25: meer Ranged Attack Power voor je party, 30 minuten lang. Rapid Fire (**Q**) op 26.
+- 40: Sniper Shot (**Shift-4**, een talent; je hebt eerst Trueshot Aura nodig): cooldown 15 seconden, en je volgende 3 schoten reiken 10 yards verder. Volley (blok D). Daarvoor: Trueshot Aura rank 2 bij de trainer op 32, Ranged Weapon Specialization (een talent, passief) op 35.- 50: sterkere ranks: Aimed Shot op 44 en 52, Sniper Shot op 48, Trueshot Aura en Volley op 50. Na 40 zetten de gidsen je punten in Beast Mastery.
+- 60: weer sterkere ranks; niets nieuws voor deze rol.
+**Beginnersfouten:**
+- Lopen tijdens Aimed Shot of Sniper Shot. Ze hebben een cast van 2 en 4 seconden.
+- Multi-Shot op één vijand. Dan is Aimed Shot ook 6 seconden weg.
+- Sniper Shot als de vijand al bij je staat. Het is een cast van 4 seconden, en hij werkt niet binnen 8 yards.]] },
+			{ band = 3, title = "Survival: schade van dichtbij, met traps", body = [[
+Vanaf level 1 (Raptor Strike), maar het echte Survival-spel begint rond 30. In Forever is dit de melee-Hunter: Raptor Strike, Mongoose Bite, Counterattack en Strider Kick, plus traps. Je houdt je pet en je schietwapen: open van een afstand, stap dan in. De gidsen noemen hem de traagste van de drie om te levelen; tot ongeveer 30 speel je als elke andere Hunter (pet erop, schieten). Hij kost veel mana, en een grote klap van jou kan de vijand van je pet af trekken. De gidsen zijn het oneens over welk melee-wapen het best is.
+**Simpele volgorde:**
+Vooraf: Aspect of the Hawk (**Shift-R**) zolang je schiet. Vanaf 30 Aspect of the Beast om van dichtbij te vechten; hij heeft geen vaste toets, dus zet hem op je eigen balk.
+1. Hunter's Mark (**Shift-Z**). Zonder de Mark werkt Expose Prey niet.
+2. Pet erop (**Ctrl-1**).
+3. Serpent Sting (**2**), dan Arcane Shot (**3**) terwijl de vijand komt, of terwijl jij erheen loopt.
+4. Een trap bij je voeten: Immolation Trap (**Shift-2**, vanaf 16). Vanaf 34 is die toets Explosive Trap, en heeft Immolation Trap geen toets: zet hem op je eigen balk als je hem wilt.
+5. Dichtbij: Mongoose Bite (**Shift-C**, vanaf 16) zodra hij oplicht. Raptor Strike (**5**) steeds als hij klaar is. Strider Kick (vanaf 30) steeds als hij klaar is; zet hem op je eigen balk. De gidsen verschillen: sommige stappen na Strider Kick terug om te schieten, andere blijven dichtbij.
+6. Counterattack (**Shift-V**) direct na een parry.
+7. De vijand rent weg, of jij wilt weer afstand: Wing Clip (**Shift-F**).
+8. In nood: Deterrence (**C**, vanaf 20), Feign Death (**X**, vanaf 30).
+**Per 10 levels:**
+- 10: je pet, uit de class-quests. Raptor Strike (**5**) heb je vanaf level 1. Eerste talenten: Improved Tracking, Deflection; vanaf 15: Savage Strikes, Survivalist, Entrapment, Improved Wing Clip. Talent-levels hier zijn op z'n vroegst; een perk kan ze tot 5 levels eerder maken. Daarna Wing Clip (**Shift-F**) op 12, Mongoose Bite (**Shift-C**) en Immolation Trap (**Shift-2**) op 16.
+- 20: Deterrence (**C**, een talent): 10 seconden lang 25% meer dodge en parry; cooldown 5 minuten. Freezing Trap (**V**), Aimed Shot (**4**), Dual Wield (passief, trainer). Disengage (**Z**): geen sprong; hij verlaagt je **threat** (hoe graag een vijand jou wil aanvallen) van dichtbij, en stopt je auto-attack. Talenten: Surefooted, Clever Traps.
+- 30: Strider Kick (een talent; geen vaste toets, zet hem op je eigen balk): 100% wapenschade, daarna loop je 3 seconden lang 30% sneller; cooldown 8 seconden. Aspect of the Beast (trainer; zet hem op je eigen balk): meer Melee Attack Power. Feign Death (**X**). Daarvoor: Counterattack (**Shift-V**, een talent), vanaf 25 of 30 (de bronnen verschillen): hij wordt actief nadat je pareert, en zet de vijand 5 seconden vast. Predator's Edge (een talent, passief) vanaf 25. Ook in deze rij: Expose Prey, Resourcefulness, Survivalist's Discipline.
+- 40: Lacerating Strikes (een talent, passief; je hebt eerst Expose Prey nodig): Mongoose Bite laat de vijand ook bloeden. Daarvoor: Explosive Trap neemt **Shift-2** over op 34, Lightning Reflexes (een talent, passief) op 35.
+- 50: sterkere ranks: Counterattack op 42 en 54, Mongoose Bite op 44, Explosive Trap op 44 en 54, Raptor Strike op 48, Aspect of the Beast op 50. De gidsen zijn het oneens over waar je punten na 40 heen gaan.
+- 60: weer sterkere ranks; niets nieuws voor deze rol.
+**Beginnersfouten:**
+- Meteen naar binnen rennen. Open van een afstand (Mark, pet, Sting, een schot), stap dan in.
+- Mongoose Bite of Counterattack indrukken als ze niet oplichten. Mongoose Bite werkt alleen na een dodge (of via Expose Prey), Counterattack alleen na een parry.
+- Na level 30 dichtbij in Aspect of the Hawk blijven. De Hawk helpt alleen je schoten; de Beast geeft Melee Attack Power.]] },
+		},
 	},
 }

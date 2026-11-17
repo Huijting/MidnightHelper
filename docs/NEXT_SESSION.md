@@ -100,7 +100,8 @@
   teksten, alle Sunken Temple-ketens neutraal "(item rewards)". **Talented gecorrigeerd**: rang uit `activeEntry.entryID`
   (DB2 GEMETEN: node 110298 Type 1, 5 entries 136852/137374/137373/137372/137371 = rang 1-5), probe met alle velden.
 - 🧭 **Rollen stap 2 (8 classes) begonnen**: warrior/mage/priest AF in ForeverHowToPlay `ROLES` (en + nlNL, vorm = druid;
-  gids-onenigheid eerlijk benoemd of weggelaten). Rogue AF (band 1 Assassination, 2 Combat, 3 Subtlety;
+  gids-onenigheid eerlijk benoemd of weggelaten). Hunter AF (band 1 BM, 2 MM, 3 Survival; Counterattack "25 or 30", Strider Kick/
+  Aspect of the Beast "op je eigen balk"). Rogue AF (band 1 Assassination, 2 Combat, 3 Subtlety;
   rogue-bomen omgebouwd 2 nov, oude talenten niet genoemd). Hunter- en shaman-onderzoek klaar (`HUNTER_/SHAMAN_ROLES_
   2026-11-17.md`), teksten volgen; warlock/paladin in onderzoek. Shaman: keuze Enhancement-als-noodtank (A één zin /
   B eigen rol) ligt bij Rob via sparring, zonder antwoord A. Hunter-klassetekst gerepareerd in 7 talen: tem-quests geven
