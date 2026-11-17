@@ -24,9 +24,10 @@ end
 local PREFIX = "|cffffcc00Midnight Helper:|r "
 -- English names (ForeverBlock's Known() takes the English name and finds the rank this client knows), and the block key.
 local BLESS = {
-	might = { name = "Blessing of Might", key = "SHIFT-Z", label = "Shift+Z" },
-	wisdom = { name = "Blessing of Wisdom", key = "SHIFT-V", label = "Shift+V" },
-	kings = { name = "Blessing of Kings", key = "SHIFT-X", label = "Shift+X" },
+	-- id = rank 1 (sparring, GEMETEN DB2 wowf 70938), only used to show the client's name in a chat line.
+	might = { name = "Blessing of Might", key = "SHIFT-Z", label = "Shift+Z", id = 19740 },
+	wisdom = { name = "Blessing of Wisdom", key = "SHIFT-V", label = "Shift+V", id = 19742 },
+	kings = { name = "Blessing of Kings", key = "SHIFT-X", label = "Shift+X", id = 20217 },
 }
 -- First choice per class; then the fallbacks in this order. AFGELEID, Rob/players may change it.
 local DEFAULT = {
@@ -171,7 +172,10 @@ function ns.ForeverBlessTipSlash(arg)
 		end
 		ns.db.foreverBlessTable = ns.db.foreverBlessTable or {}
 		ns.db.foreverBlessTable[cls] = kind
-		print(PREFIX .. ns:L("FBLESS_SET_FMT"):format(cls, kind))
+		-- The client's own words (a translator saw "HUNTER now gets might" in every language).
+		local names = LOCALIZED_CLASS_NAMES_MALE
+		print(PREFIX .. ns:L("FBLESS_SET_FMT"):format((names and names[cls]) or cls,
+			SpellName(BLESS[kind].id) or BLESS[kind].name))
 		return
 	end
 	if arg == "reset" then
