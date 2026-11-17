@@ -21,7 +21,10 @@ OPEN, in deze volgorde:
   data_inns.lua`; coördinatenregel Rob > HandyNotes > Zygor > gids. Sparring-voorbeelden (nameten met mh-research):
   SW AH 60.8,71.5 / bank 64.3,80.8; Org bank 49.6,69.1 / AH 55.9,62.7; TB bank 47,59 / AH ~39-40,50-52; IF AH ~24,72 /
   bank ~35,59; Valanaar (Skyborne) bank 57.6,77 + AH 57.8,77 (factie of neutraal: NIET gemeten). Namen per client
-  meten. Brievenbus/herberg: sparring vraagt Rob nog. Bouw: nieuwe data-tabel (zoals ForeverVendorSpots), FindCatalog
+  meten. **Ook Mailbox en Inn** (Rob, letterlijk, op "zullen we er ook de brievenbus en de herberg bij doen?": *"ja doe
+  maar"*): per hoofdstad, dichtstbij eerst, Show the way; Inn met "bind je hearthstone hier". Bronnen: Zygor
+  `data_inns.lua` (herbergen), brievenbussen uit het bankalt-onderzoek (wowforever.gg 3 nov; voorbeelden SW 61.6,76.1,
+  Org 50.7,70.4; herbergen SW 60.4,75.3, Org 54.1,68.4). Sparring: *wat niet gemeten is, liever weglaten dan gokken.* Bouw: nieuwe data-tabel (zoals ForeverVendorSpots), FindCatalog
   sectie, FindPlaces-tak; mh-research (Fable) voor de feiten.
 - **B. Vertalingen** de/fr/es/esMX/pt/ru van: FOV_TIP_GEAR (gewijzigd), FOV_SUB_QUIET/TOOLS, FOV_TIP_SUB_TOOLS/CMDS,
   FOV_TOOL_OPEN/MOVE/BAR/NEW/CHANGELOG, FOV_CMDS_SEARCH (+ wat A toevoegt). mh-writer per taal in
