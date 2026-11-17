@@ -169,6 +169,8 @@ Modules\ForeverPartyProbe.lua
 Modules\ForeverPartyPanel.lua
 # "Do this now / All caught up / Coming up" (Rob, 12 Nov 2026, via sparring: "Venster 'Doe dit nu'").
 Modules\ForeverDoNow.lua
+# New overview, rough style A (Rob, 17 Nov 2026, via sparring: "eerst een ruwe versie van A om te bekijken"). /mh overview
+Modules\ForeverOverview.lua
 # Dungeons: which fits your level, the entrance, and the arrow there (Rob, 14 Nov 2026, via sparring: "We gaan voor 2 incl de route er naar toe").
 Modules\ForeverDungeons.lua
 # "New in this version: your choice" instead of the changelog when there is something to choose (Rob, 12 Nov 2026, via sparring: "Ja, bouw het (Recommended)").

@@ -14,6 +14,17 @@
   modifiers in de tekst, en per combinatie "free" of "taken by <binding>"; schrijft `ns.db.foreverMacroKeysProbe`.
   Lint 0 HARD, luac OK. NIET in het spel gezien (TESTLIJST 17 nov). Na Robs meting: melding in het macrovenster +
   eventueel schakelaar welke modifier (nooit blok- of andere-addon-toetsen losmaken).
+- 🎨 **Huisstijl: RUWE VERSIE A GEBOUWD** (Rob via sparring op het plan, letterlijk: *"ja, met de mooie letters meteen
+  erin, en eerst een ruwe versie van A om te bekijken"*). Nieuw: `Modules/ForeverOverview.lua` (beide toc's), `/mh
+  overview` (CommandList: unlisted-on-purpose), fonts in `Media/Fonts/`: Cormorant SC Bold/SemiBold + Alegreya Sans
+  Regular/Medium uit github google/fonts (METADATA.pb license "OFL", Cyrillisch erin, geen Reserved Font Name in de
+  copyrightregel: GEMETEN), OFL-*.txt ernaast; package.ps1 en .pkgmeta laten .ttf/.txt door (GEMETEN). Terugval op
+  Morpheus/Friz als SetFont faalt. Data zonder nieuwe metingen: kaartjes Doe dit nu (trainer + class quest + kamp/
+  Legacy, eigen "Show the way"-knop per plek), Binnenkort (trainer-spells 6 levels vooruit), Class quest (nieuw
+  `ns.ForeverClassQuestNowParts`: titel/wat/plek los), Jouw pad (nu + 3 trainer-levels). Tabs: How you play/Class
+  quests openen /mh play, Kamperen/Legacy printen /mh camp / /mh legacy (ruw). en + nl. Lint 0 HARD, luac OK.
+  NIET in het spel gezien; nieuwe bestanden → WoW helemaal herstarten. Volgende: Robs reactie → stijlkit netjes
+  (`ForeverStyle.lua`), stap 2 (DoNow-items), B, schakelaar, vertalingen.
 - 🧪 **Robs test 17 nov (paladin 14, Undercity)**: "Eat and drink" eet en drinkt tegelijk, geen foutmelding (GEMETEN).
   `/mh macros keys`: "MH+ Holy Light … key 5: SHIFT-5 is taken by Action Page 5"; Shift+5 gaf geen Flash of Light
   (GEMETEN; SV `foreverMacroKeysProbe` "SHIFT-5=ACTIONPAGE5"). Dus ook Blizzards STANDAARD Shift+1..6 = Action Page

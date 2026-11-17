@@ -2224,7 +2224,7 @@ local function NowSkip(c, level)
 	return nil
 end
 
-function ns.ForeverClassQuestNow()
+local function NowPick()
 	local level = UnitLevel and UnitLevel("player") or 1
 	local chains = MyChains()
 	for pass = 1, 2 do
@@ -2232,12 +2232,42 @@ function ns.ForeverClassQuestNow()
 			if (pass == 1) == (c.spell ~= nil) and not NowSkip(c, level) then
 				local s = Step(c)
 				if s then
-					return StepText(c, s), s
+					return c, s
 				end
 			end
 		end
 	end
 	return nil
+end
+
+function ns.ForeverClassQuestNow()
+	local c, s = NowPick()
+	if c then
+		return StepText(c, s), s
+	end
+	return nil
+end
+
+--- 17 Nov 2026 (the new overview, ForeverOverview.lua): the same step in parts, so a card can show a title, what to do
+--- and the place on its own line (Rob: coordinates out of the sentence, an arrow button per place).
+--- @return { chain, level, kind, npc, zone, x, y, what } or nil
+function ns.ForeverClassQuestNowParts()
+	local c, s = NowPick()
+	if not c then
+		return nil
+	end
+	local p = s.place
+	local out = { chain = ChainName(c), level = c.level, kind = s.kind }
+	if p then
+		out.npc = p.npc and NpcName(p) or nil
+		out.zone, out.x, out.y = ZoneName(p.m), p.x, p.y
+	end
+	if s.kind == "do" or s.kind == "wait" then
+		out.what = ns:L(s.textKey)
+	elseif s.kind == "use" then
+		out.what = StepWhat(s)
+	end
+	return out
 end
 
 --- The arrow to the current step.

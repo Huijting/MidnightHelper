@@ -1519,6 +1519,16 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh overview — Forever: the new overview window, rough version of style A (ForeverOverview.lua, 17 Nov 2026).
+	if msg == "overview" then
+		if ns.ToggleForeverOverview then
+			ns.ToggleForeverOverview()
+		else
+			print(("|cffffcc00%s|r the overview is for WoW Forever."):format(ns:L("PRINT_PREFIX")))
+		end
+		return
+	end
+
 	-- /mh camp — Forever camping: what the client lets us read, and the "Do this now" decision (ForeverCamp.lua).
 	if msg == "camp" then
 		if ns.ForeverCampSlash then

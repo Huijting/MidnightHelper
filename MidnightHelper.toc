@@ -274,6 +274,7 @@ Modules\ReagentUse.lua
 Modules\ForeverPartyProbe.lua
 Modules\ForeverPartyPanel.lua
 Modules\ForeverDoNow.lua
+Modules\ForeverOverview.lua
 Modules\ForeverDungeons.lua
 Modules\ForeverSurvey.lua
 Modules\CameraZoom.lua

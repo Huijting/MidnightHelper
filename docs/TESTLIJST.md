@@ -38,6 +38,16 @@ Open `/mh macros`, klik "Maak" bij een nieuwe rij, sleep de macro naar een balk 
       Rogue level 6+: typ `/dump IsPlayerSpell(1752), IsSpellKnown(1752)` en zeg wat er staat (rank-vraag).
 - [ ] Shaman: Resurrect, Fire Totem (Ctrl = Magma, 26). Paladin: Resurrect.
 
+## 🎨 17 nov — Forever: ruwe versie van ontwerp A (`/mh overview`)
+
+⚠️ Nieuwe bestanden (venster + lettertypes): sluit WoW helemaal af en start opnieuw; `/reload` is niet genoeg.
+- [ ] Typ `/mh overview`. Zie je het venster met de mooie letters (sierlijke koppen, zoals de mockup)?
+- [ ] Links: je portret in een rondje, je naam, ras · class, en het rode levelzegel met jouw level.
+- [ ] "Doe dit nu": een titel, eronder wat je moet doen, daaronder klein de plek. Knop "Show the way": staat de pijl?
+- [ ] Binnenkort: de spells van de komende levels met icoon. Class quest: titel, NPC, plek en een eigen knop.
+- [ ] Jouw pad: bolletjes met levels. Shift+scroll op het venster maakt het groter/kleiner, Escape sluit.
+- [ ] Wat vind je ervan? Wat moet anders? (Screenshot graag.)
+
 ## 🔓 17 nov — Forever: knop "Free key" in het macrovenster (jouw keuze B)
 
 - [ ] `/mh macros`: staan de rijen netjes onder elkaar (geen tekst meer over de volgende rij)?
