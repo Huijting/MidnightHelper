@@ -85,7 +85,12 @@ Priest, `/reload`. Uitgezocht met Fable; niets in het spel gezien.
   "? (unreadable)"? Screenshot graag. Kloppen ze met wat Blizzards Legacy-venster zegt?
 - [ ] Heb je ongebruikte punten: zegt "Do this now" "You have N unused Legacy Points. Open Legacy…"? Geef er één uit:
   het getal gaat omlaag; bij 0 is de regel weg.
-- [ ] "Talented rank" in `/mh legacy`: is dat jouw rang? (Code leest nu eerst boom 1188, zoals Blizzard zelf.)
+- [x] Eerste meting GEDAAN 17 nov (Rob, account zonder Legacy): camp alles "no" (geen vuur in de buurt = nog geen
+  positieve controle; volgende test BIJ een vuur met Camp Benefits aan); legacy earned/available/spent/cap = 0,
+  Talented rank 1 → FOUT gevonden: een tiered node wijst zonder aankoop naar zijn eerste vakje (activeEntry 136852,
+  maar ranksPurchased/currentRank/activeEntry.rank 0). Gerepareerd: rang telt alleen als er iets gekocht is.
+- [ ] Na de fix: `/mh legacy` zegt "Talented rank: 0" en "Legacy not unlocked yet". Talent-levels in "Do this now"
+  zijn weer de gewone (niet 1 te vroeg).
 - [ ] Daarna `/reload` (dan staat de meting in je SavedVariables).
 
 ## 🔥 17 nov — Forever: kamperen, stap 1 (kan MH je kampbuffs lezen?)

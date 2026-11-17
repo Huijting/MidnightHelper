@@ -88,6 +88,10 @@
   ForeverDirectionTalents ("Do this now" Coming up, + hint FDONOW_TALENTED_HINT als de rang niet leesbaar is), de
   macro-regel "(from level X)" en een grijze regel onder de class-tekst in How you play (FHOWTO_TALENTED_NOTE /
   _RANK_FMT). `/mh donow check` print rang + bron. AFGELEID tot Robs meting (TESTLIJST 17 nov). Alleen en + nl.
+- 🔴 **Talented-fout 2 (17 nov, GEMETEN in Robs SV, account zonder Legacy)**: activeEntry = 136852 (rang 1) terwijl
+  ranksPurchased/currentRank/activeEntry.rank 0 → MH zei rang 1 → talent-levels 1 te vroeg voor iedereen zonder
+  Talented. Fix in ns.ForeverTalentedRank: entry telt alleen als er iets gekocht is; alles 0 = rang 0. `/mh legacy`
+  zegt nu "Legacy not unlocked yet" bij earned 0. Rang 1-5 met een ECHTE aankoop: nog niet gemeten.
 - ⏭️ **STAND 17 nov middag**: (1) pijl-schakelaar GEBOUWD (537c850). (2) Kamperen: onderzoek nagelopen door Fable
   (`CAMPING_VERIFIED`), stap 1 GEBOUWD (`ForeverCamp.lua`: `/mh camp` + "Do this now ga zitten"); kaart wacht op Robs
   test. (3) Legacy: nagelopen door Fable (`LEGACY_VERIFIED`, API GEMETEN in Blizzards UI-code: GetConfigIDByTreeID(1187)

@@ -88,6 +88,11 @@ function ns.ForeverLegacyNow()
 	if st.available == nil then
 		return nil, "available points unreadable (" .. tostring(st.why or "?") .. ") — silent on purpose"
 	end
+	-- GEMETEN 17 Nov 2026 on Rob's account without Legacy: earned 0, available 0, spent 0, cap 0. Blizzard's own button
+	-- stays shut while renown 2802 is 0 (LEGACY_VERIFIED 2.11), so say that rather than "no unused points".
+	if st.earned == 0 then
+		return nil, "Legacy not unlocked yet (no point earned on this account)"
+	end
 	if st.available <= 0 then
 		return nil, "no unused points"
 	end

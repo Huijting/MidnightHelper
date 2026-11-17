@@ -791,10 +791,18 @@ function ns.ForeverTalentedRank()
 					probe.entryIDs[i] = num(e)
 				end
 			end
-			if entry and TALENTED_ENTRY_RANK[entry] then
+			--- 🔴 GEMETEN 17 Nov 2026 on Rob's account WITHOUT Legacy (earned 0, cap 0; foreverTalentedProbe):
+			--- activeEntry = 136852 (the rank-1 entry) while currentRank, ranksPurchased and activeEntry.rank are all 0.
+			--- A tiered node points at its FIRST entry even when nothing is bought, so the entry alone said "rank 1" and
+			--- every talent level came out one level too early. The entry only counts when something is bought.
+			local activeRank = probe.activeRank
+			local anyBought = (cur and cur > 0) or (bought and bought > 0) or (activeRank and activeRank > 0)
+			local allZero = (cur == 0 or cur == nil) and (bought == 0 or bought == nil) and (activeRank == 0 or activeRank == nil)
+				and (cur ~= nil or bought ~= nil or activeRank ~= nil)
+			if anyBought and entry and TALENTED_ENTRY_RANK[entry] then
 				rank = TALENTED_ENTRY_RANK[entry]
-			elseif not entry and (cur == 0 or cur == nil) and (bought == 0 or bought == nil) and (cur ~= nil or bought ~= nil) then
-				rank = 0 -- no active entry and nothing bought
+			elseif allZero then
+				rank = 0 -- nothing bought (whatever entry the node points at)
 			else
 				why = "rank not readable (no known active entry)"
 			end
