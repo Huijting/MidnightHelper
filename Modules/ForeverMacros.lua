@@ -12,6 +12,7 @@ local _, ns = ...
 	combat, so it never points at a potion you no longer have. Without any such item it keeps the old text.
 	Not measured in Forever: "/use item:<id>" in a macro (modern-client syntax, AFGELEID) — docs/TESTLIJST.md.
 	/mh macros opens it; /mh macros check prints what each row would write (a module that can stay quiet needs that).
+	/mh macros keys (17 Nov 2026) checks, per MH+ macro on a bar, whether Shift/Ctrl/Alt+its key is bound to something else.
 ]]
 
 if not ns.IS_FOREVER then
@@ -1126,8 +1127,142 @@ function ns.ShowForeverMacros()
 end
 
 --- /mh macros [check]
+--[[ /mh macros keys — 17 Nov 2026 (open point "mogelijke fout", Sparring 17 nov). A macro that reads [mod:shift] on key 1
+	never sees Shift from the keyboard when Shift+1 has a binding of its own: the client fires that binding instead and
+	only falls back to the plain key when the modified key is free (AFGELEID, standard WoW binding behaviour - this command
+	is the measurement). GEMETEN 17 nov in Rob's Forever bindings-cache.wtf: MH's own key block binds Shift+1..4, Ctrl+1..3,
+	Alt+1..4 and the Shift/Alt variants of Q E R F Z X C V T. READ ONLY: GetBindingKey/GetBindingAction, nothing changes.
+	Writes ns.db.foreverMacroKeysProbe so the answer can be read from SavedVariables after a /reload. ]]
+local KEY_BAR_PREFIXES = { "ActionButton", "MultiBarBottomLeftButton", "MultiBarBottomRightButton", "MultiBarRightButton",
+	"MultiBarLeftButton", "MultiBar5Button", "MultiBar6Button", "MultiBar7Button" }
+local KEY_BAR_COMMANDS = { "ACTIONBUTTON", "MULTIACTIONBAR1BUTTON", "MULTIACTIONBAR2BUTTON", "MULTIACTIONBAR3BUTTON",
+	"MULTIACTIONBAR4BUTTON", "MULTIACTIONBAR5BUTTON", "MULTIACTIONBAR6BUTTON", "MULTIACTIONBAR7BUTTON" }
+local KEY_MODS = { "ALT", "CTRL", "SHIFT" } -- the client's own order in a key name (ALT-CTRL-SHIFT-1)
+
+--- Which modifiers a macro body tests: mod:shift/ctrl/alt (also inside nomod: and a/b lists); a bare [mod] or [nomod]
+--- tests all three.
+local function MacroMods(body)
+	local m, low = {}, (body or ""):lower()
+	for list in low:gmatch("mod:([%a/]+)") do
+		for w in list:gmatch("%a+") do
+			if w == "shift" or w == "ctrl" or w == "alt" then
+				m[w:upper()] = true
+			end
+		end
+	end
+	if low:find("mod[%],]") then
+		m.SHIFT, m.CTRL, m.ALT = true, true, true
+	end
+	return m
+end
+
+--- "SHIFT-1" -> { SHIFT = true }, "1". The key "-" and "SHIFT--" stay intact.
+local function SplitKey(key)
+	local have, base = {}, key
+	while true do
+		local pre, rest = base:match("^(%u+)%-(.+)$")
+		if pre == "ALT" or pre == "CTRL" or pre == "SHIFT" or pre == "META" then
+			have[pre], base = true, rest
+		else
+			break
+		end
+	end
+	return have, base
+end
+
+local function KeyText(key)
+	return (GetBindingText and GetBindingText(key)) or key
+end
+
+local function KeysCheck()
+	print(PREFIX .. "handy macros on your bars: does Shift/Ctrl/Alt reach them from the keyboard?")
+	local probe = { at = time and time() or nil, rows = {} }
+	local scanned, found, keyed, clashes = 0, 0, 0, 0
+	for n, prefix in ipairs(KEY_BAR_PREFIXES) do
+		for i = 1, 12 do
+			local b = _G[prefix .. i]
+			local slot = b and b.action
+			if b and type(slot) ~= "number" and ActionButton_GetPagedID then
+				local ok, v = pcall(ActionButton_GetPagedID, b)
+				slot = ok and v or nil
+			end
+			if type(slot) == "number" then
+				scanned = scanned + 1
+				local kind = GetActionInfo and GetActionInfo(slot)
+				local name = kind == "macro" and GetActionText and GetActionText(slot)
+				if type(name) == "string" and name:sub(1, #MACRO_PREFIX) == MACRO_PREFIX then
+					found = found + 1
+					local idx = GetMacroIndexByName and GetMacroIndexByName(name) or 0
+					local body = idx and idx > 0 and select(3, GetMacroInfo(idx)) or nil
+					local mods = MacroMods(body)
+					local command = KEY_BAR_COMMANDS[n] .. i
+					local keys = GetBindingKey and { GetBindingKey(command) } or {}
+					local where = ("Action Bar %d button %d"):format(n, i)
+					local row = { name = name, bar = n, btn = i, command = command, keys = keys, clash = {} }
+					local modList = {}
+					for _, m in ipairs(KEY_MODS) do
+						if mods[m] then
+							modList[#modList + 1] = m
+						end
+					end
+					row.mods = table.concat(modList, ",")
+					if #modList == 0 then
+						print(("  %s (%s): uses no Shift/Ctrl/Alt - nothing to check."):format(name, where))
+					elseif #keys == 0 then
+						print(("  %s (%s): no key on this button - with the mouse Shift/Ctrl/Alt work."):format(name, where))
+					else
+						keyed = keyed + 1
+						for _, key in ipairs(keys) do
+							local have, base = SplitKey(key)
+							local parts = {}
+							for _, m in ipairs(modList) do
+								if not have[m] then
+									local combo = {}
+									for _, mm in ipairs(KEY_MODS) do
+										if have[mm] or mm == m then
+											combo[#combo + 1] = mm
+										end
+									end
+									combo[#combo + 1] = base
+									local comboKey = table.concat(combo, "-")
+									local okA, act = pcall(GetBindingAction, comboKey, true)
+									act = okA and act or nil
+									if act and act ~= "" and act ~= command then
+										clashes = clashes + 1
+										row.clash[#row.clash + 1] = comboKey .. "=" .. act
+										local label = _G["BINDING_NAME_" .. act] or act
+										parts[#parts + 1] = ("|cffff8080%s is taken by %s|r"):format(KeyText(comboKey), label)
+									else
+										parts[#parts + 1] = ("|cff80ff80%s free|r"):format(KeyText(comboKey))
+									end
+								end
+							end
+							print(("  %s (%s), key %s: %s"):format(name, where, KeyText(key),
+								#parts > 0 and table.concat(parts, ", ") or "the key already holds the modifier"))
+						end
+					end
+					probe.rows[#probe.rows + 1] = row
+				end
+			end
+		end
+	end
+	probe.scanned, probe.found, probe.keyed, probe.clashes = scanned, found, keyed, clashes
+	if ns.db then
+		ns.db.foreverMacroKeysProbe = probe
+	end
+	print(("  scanned %d bar buttons, %d handy macros on them, %d with a key and a modifier, %d taken combinations."):format(
+		scanned, found, keyed, clashes))
+	if clashes > 0 then
+		print("  |cffffcc00A taken combination fires its own button, not this macro's Shift/Ctrl/Alt part.|r Nothing was changed.")
+	end
+end
+
 function ns.ForeverMacrosSlash(arg)
 	arg = (arg or ""):lower()
+	if arg == "keys" then
+		KeysCheck()
+		return
+	end
 	if arg ~= "check" then
 		ns.ShowForeverMacros()
 		return

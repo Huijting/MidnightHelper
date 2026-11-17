@@ -24,6 +24,16 @@ er is niets weggegooid.
 📝 **Waarneming Rob, 16 nov (nacht), Forever mage, via sparring:** *"mouse over werk"* — `/mh mouseover on`, Shift+X
 (Arcane Intellect) op een voorbijganger onder de muis werkt.
 
+## ⌨️ 17 nov — Forever: werkt Shift/Ctrl/Alt in de handige macro's op je toetsen?
+
+Het MH-toetsenblok gebruikt zelf Shift+1, Shift+Q enz. Zet je een MH+-macro met een Shift-deel op toets 1, dan doet
+Shift+1 waarschijnlijk de blokknop en niet de macro. Dat meten we nu.
+- [ ] Forever-character met het toetsenblok en een paar MH+-macro's op je balken: typ `/mh macros keys`. Per macro zie
+      je de toets en bv. "Shift+1 is taken by …" (rood) of "Shift+1 free" (groen). Screenshot graag.
+- [ ] Kies één macro met een rode regel en druk de combinatie (bv. Shift+1). Doet hij de andere knop i.p.v. het
+      Shift-deel van de macro? Klik je hem met de muis + Shift, dan doet hij wél het Shift-deel?
+- [ ] Daarna `/reload` (dan staat de meting in je SavedVariables, `foreverMacroKeysProbe`).
+
 ## 🐞 17 nov — Forever: talents komen eerder met de Legacy-perk Talented
 
 MH rekende overal met "eerste talentpunt op level 10". Met de Legacy-perk Talented krijg je ze tot 5 levels eerder.
