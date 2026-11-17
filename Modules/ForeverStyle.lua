@@ -47,7 +47,9 @@ S.THEMES = {
 			textB = FONT_DIR .. "AlegreyaSans-Medium.ttf",
 		},
 		fallback = { head = "Fonts\\MORPHEUS.TTF", head2 = "Fonts\\FRIZQT__.TTF", text = "Fonts\\FRIZQT__.TTF", textB = "Fonts\\FRIZQT__.TTF" },
-		bgTop = { 0.16, 0.11, 0.07, 0.97 }, bgBottom = { 0.07, 0.05, 0.04, 0.97 },
+		-- Fully opaque since 17 Nov 2026: at 0.97 a mob's nameplate ("Vile Fin Puddlejumper 100%") shone through behind
+		-- the title - the "vague text" of Rob's How you play screenshot (sparring found it on his first Forever test).
+		bgTop = { 0.16, 0.11, 0.07, 1 }, bgBottom = { 0.07, 0.05, 0.04, 1 },
 		card = { 0.11, 0.08, 0.06, 0.88 }, edge = { 0.55, 0.42, 0.22, 0.55 },
 		gold = { 0.86, 0.71, 0.42 }, label = { 0.93, 0.55, 0.22 }, text = { 0.92, 0.88, 0.80 }, dim = { 0.66, 0.60, 0.52 },
 		seal = { 0.55, 0.10, 0.08 }, later = { 0.55, 0.52, 0.48 }, done = { 0.45, 0.85, 0.40 },
@@ -62,6 +64,22 @@ function S.T()
 	return S.THEMES.A
 end
 
+-- Load the four font files at login (cure 1 above): a hidden string per file, so the client has them before the
+-- overview is first opened.
+do
+	local pre = CreateFrame("Frame", nil, UIParent)
+	pre:SetSize(1, 1)
+	-- Off screen, not alpha 0: a string that is never drawn may never make the client load its font (AFGELEID).
+	pre:SetPoint("TOPLEFT", UIParent, "TOPLEFT", -200, 200)
+	for _, file in pairs(S.THEMES.A.fonts) do
+		local fs = pre:CreateFontString(nil, "OVERLAY")
+		if fs:SetFont(file, 12, "") then
+			fs:SetPoint("TOPLEFT")
+			fs:SetText("Aa")
+		end
+	end
+end
+
 function S.Accent()
 	local _, token = UnitClass("player")
 	local c = token and (C_ClassColor and C_ClassColor.GetClassColor and C_ClassColor.GetClassColor(token))
@@ -72,11 +90,50 @@ function S.Accent()
 	return 0.4, 0.7, 1
 end
 
+-- Every font string the kit gave a font, with that font (weak keys: a string that is gone is forgotten).
+-- Rob's first Forever test, 17 Nov 2026 (via sparring, screenshot): the FIRST time the overview opened after a full
+-- restart, every tab button, "All tools" and the path names were EMPTY; after /reload all was fine. AFGELEID: a font
+-- file from our own folder is not loaded yet at the first SetFont, so the string draws nothing until it is set again.
+-- Two cures: (1) load the four files at login with a hidden string (below), (2) S.RefreshFonts() sets every font and
+-- text again; the overview calls it shortly after it opens. S.FontProbe() counts strings with text but no width.
+local fontOf = setmetatable({}, { __mode = "k" })
+
 --- Set a font, falling back to the game's own when the file cannot be used.
 function S.Font(fs, file, size, fallback, flags)
 	local ok = fs:SetFont(file, size, flags or "")
 	if not ok then
 		fs:SetFont(fallback, size, flags or "")
+	end
+	fontOf[fs] = { file, size, fallback, flags }
+end
+
+--- Count the font strings that hold text but draw nothing (width 0): the empty-tab fault. { strings, empty }.
+function S.FontProbe()
+	local n, empty = 0, 0
+	for fs in pairs(fontOf) do
+		local t = fs.GetText and fs:GetText()
+		if type(t) == "string" and t ~= "" and fs:IsVisible() then
+			n = n + 1
+			if (fs:GetStringWidth() or 0) <= 0 then
+				empty = empty + 1
+			end
+		end
+	end
+	return n, empty
+end
+
+--- Set every font and every text again (see fontOf above). Cheap: a few hundred strings.
+function S.RefreshFonts()
+	for fs, f in pairs(fontOf) do
+		local ok = fs:SetFont(f[1], f[2], f[4] or "")
+		if not ok then
+			fs:SetFont(f[3], f[2], f[4] or "")
+		end
+		local t = fs:GetText()
+		if type(t) == "string" and t ~= "" then
+			fs:SetText("")
+			fs:SetText(t)
+		end
 	end
 end
 
@@ -250,14 +307,34 @@ function S.Scroll(card, top, bottom, step)
 	track:SetPoint("BOTTOMRIGHT", -6, bottom)
 	local thumb = card:CreateTexture(nil, "ARTWORK", nil, 1)
 	thumb:SetWidth(3)
+	-- A soft fade over the last 16 px when there is more below (Rob's first test, 17 Nov 2026: "This week" ended on a
+	-- half line, the bottoms of the letters showing). Gone when you are at the end.
+	-- On a frame of its own above the list: a texture of the card itself would draw UNDER the list's rows.
+	local fadeHost = CreateFrame("Frame", nil, card)
+	fadeHost:SetAllPoints(sf)
+	fadeHost:SetFrameLevel(sf:GetFrameLevel() + 10)
+	local fade = fadeHost:CreateTexture(nil, "OVERLAY", nil, 7)
+	fade:SetTexture("Interface\\Buttons\\WHITE8X8")
+	fade:SetPoint("BOTTOMLEFT", sf, "BOTTOMLEFT", 0, 0)
+	fade:SetPoint("BOTTOMRIGHT", sf, "BOTTOMRIGHT", 0, 0)
+	fade:SetHeight(16)
+	if fade.SetGradient and CreateColor then
+		fade:SetGradient("VERTICAL", CreateColor(t.card[1], t.card[2], t.card[3], 1),
+			CreateColor(t.card[1], t.card[2], t.card[3], 0))
+	else
+		fade:SetVertexColor(t.card[1], t.card[2], t.card[3], 0.7)
+	end
+	fade:Hide()
 	function sf.UpdateThumb()
 		local max = sf:GetVerticalScrollRange() or 0
 		local h = sf:GetHeight() or 0
 		if max <= 1 or h <= 0 then
 			track:Hide()
 			thumb:Hide()
+			fade:Hide()
 			return
 		end
+		fade:SetShown((sf:GetVerticalScroll() or 0) < max - 1)
 		local r, g, b = S.Accent()
 		thumb:SetColorTexture(r, g, b, 0.9)
 		local th = math.max(20, h * h / (h + max))

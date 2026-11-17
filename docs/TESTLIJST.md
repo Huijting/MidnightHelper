@@ -34,6 +34,20 @@ Eerst WoW helemaal afsluiten en opnieuw starten (er is een nieuw bestand; /reloa
 - [ ] `/mh overview` opent zonder foutmelding en ziet er precies hetzelfde uit als ronde 5 (zelfde letters, kleuren,
       knoppen, NOW/LATER-labels onder Jouw pad).
 
+## 🩹 17 nov (nacht) — Forever: 4 reparaties na Robs eerste test van het overzicht (3 screenshots)
+
+Eerst WoW helemaal afsluiten en opnieuw starten (de fout zat juist in de eerste keer openen).
+- [ ] Open het overzicht meteen na het inloggen (`/mh` of Alt+M): alle 7 tabs en "All tools" hebben tekst, en bij
+      "Your path" staan de namen. (Was: lege roze vakjes tot een /reload.) Na een /reload: in
+      `WTF/.../SavedVariables/MidnightHelper.lua` staat `foreverFontProbe` met per opening hoeveel teksten leeg waren
+      vóór en na het opnieuw zetten (emptyAfter hoort 0 te zijn).
+- [ ] Kaart DO THIS NOW: geen regels meer over elkaar (de dungeon-tip met "The Hall of Thanes" en "Best stats for you
+      now" staan netjes onder elkaar). Een lange hoofdregel staat als korte titel met de rest eronder, niet afgekapt.
+- [ ] Kaart THIS WEEK (en elke lijst die scrolt): onderaan geen halve regel meer maar een zachte overgang; aan het eind
+      van de lijst verdwijnt die.
+- [ ] Geen vaag tekstje meer achter de titel: het venster is nu helemaal dicht (het was het naamplaatje van een monster
+      in de wereld dat erdoor scheen).
+
 ## 🧪 17 nov (nacht) — Forever: handige macro's pakken je hoogste rang (Fable-controle)
 
 - [ ] Rogue met **Stealth rang 2** (of hoger) en een druid met **Prowl rang 2**: in Keys & macros staat de Stealth-/

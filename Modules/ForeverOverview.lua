@@ -372,12 +372,14 @@ local function NowRow(card, i)
 	sep:SetHeight(1)
 	sep:SetPoint("TOPLEFT", 0, 3)
 	sep:SetPoint("TOPRIGHT", 0, 3)
+	-- A fixed width (not a RIGHT anchor): the row's height is measured from the text right away, before the frame
+	-- layout is done (the first opening).
 	row.text = Text(row, "textB", 13, A.text)
 	row.text:SetPoint("TOPLEFT")
-	row.text:SetPoint("RIGHT", -74, 0)
+	row.text:SetWidth(card.textW)
 	row.sub = Text(row, "text", 11, A.dim)
 	row.sub:SetPoint("TOPLEFT", row.text, "BOTTOMLEFT", 0, -1)
-	row.sub:SetPoint("RIGHT", -74, 0)
+	row.sub:SetWidth(card.textW)
 	row.sub:SetWordWrap(false)
 	row.hover = HoverOver(row, row.text)
 	row.hover:SetPoint("BOTTOMRIGHT", row.sub, "BOTTOMRIGHT")
@@ -1496,6 +1498,8 @@ local function Build()
 	-- its own button when the small window has one for it.
 	f.now.sf, f.now.child = S.Scroll(f.now, 140, 8, 44)
 	f.now.more = {}
+	-- Text width of a row: card − scroll insets (8 + 14) − row insets (6 + 2) − the button column (74).
+	f.now.textW = nowW - 22 - 8 - 74
 
 	f.soon = Card(f.pages.now)
 	f.soon:SetPoint("TOPLEFT", f.now, "TOPRIGHT", 12, 0)
@@ -1626,6 +1630,30 @@ local function Build()
 
 	f:SetScript("OnShow", function()
 		ns.ForeverOverviewFill()
+		-- Rob's first test (17 Nov 2026): after a full restart the first opening showed empty tabs (font not loaded yet,
+		-- AFGELEID). Set every font and text again a moment later, twice, and write what was seen to
+		-- ns.db.foreverFontProbe (strings with text, how many drew nothing before and after) so a /reload can show it.
+		if C_Timer and C_Timer.After and S.RefreshFonts then
+			for _, delay in ipairs({ 0.1, 0.6 }) do
+				C_Timer.After(delay, function()
+					if not f:IsShown() then
+						return
+					end
+					local n, before = S.FontProbe()
+					S.RefreshFonts()
+					local _, after = S.FontProbe()
+					if ns.db then
+						ns.db.foreverFontProbe = ns.db.foreverFontProbe or {}
+						local p = ns.db.foreverFontProbe
+						p[#p + 1] = { at = time and time() or nil, delay = delay, strings = n, emptyBefore = before,
+							emptyAfter = after }
+						while #p > 10 do
+							table.remove(p, 1)
+						end
+					end
+				end)
+			end
+		end
 	end)
 	f:Hide()
 	win = f
@@ -1761,8 +1789,22 @@ end
 local function FillNow(f, items, up)
 	local main = MainItem(items)
 	if main then
-		f.now.title:SetText(main.title or "")
-		f.now.what:SetText(main.what or "")
+		-- Rob's first test (17 Nov 2026): "YOU CAN LEARN 2 NEW WEAPON SKILLS NOW. (FIT…" was cut off in capitals. A long
+		-- sentence without its own second line is split after its first sentence (or before a bracket): the rest goes on
+		-- the line below. A title that stays long gets smaller letters, so two lines hold it.
+		local title, what = main.title or "", main.what
+		if not what and #title > 32 then
+			local a, b = title:match("^(.-[%.%!%?:])%s+(.+)$")
+			if not a then
+				a, b = title:match("^(.-)%s+(%(.+)$")
+			end
+			if a and #a >= 8 then
+				title, what = a, b
+			end
+		end
+		S.Font(f.now.title, A.fonts.head, #title > 30 and 17 or 21, A.fallback.head)
+		f.now.title:SetText(title)
+		f.now.what:SetText(what or "")
 		f.now.place:SetText(main.place or "")
 		f.now.go:SetLabel(ns:L(main.goLabel or "FOV_GO"))
 		f.now.go.tipTitle = ns:L(main.goLabel or "FOV_GO")
@@ -1772,6 +1814,7 @@ local function FillNow(f, items, up)
 			ns.ShowForeverOverviewPage(main.page)
 		end or nil)
 	else
+		S.Font(f.now.title, A.fonts.head, 21, A.fallback.head)
 		f.now.title:SetText(ns:L("FOV_ALL_DONE"))
 		local nxt = up and up[1]
 		f.now.what:SetText(nxt and ns:L("FOV_NEXT_SPELL_FMT"):format(nxt.name, nxt.l) or ns:L("FOV_ALL_DONE_SUB"))
@@ -1786,8 +1829,14 @@ local function FillNow(f, items, up)
 		end
 	end
 	-- The whole rest of the list (plan step 2), scrolling; each line with the window's own button for it.
+	-- Rob's first test (17 Nov 2026): a three-line tip ran into the next row ("The Hall of Thanes (entranc…" over "Best
+	-- stats for you now:"): every row was NOW_ROW_H tall. Now each row is as tall as its text.
+	local y = 4
 	for i, it in ipairs(rest) do
 		local row = NowRow(f.now, i)
+		row:ClearAllPoints()
+		row:SetPoint("TOPLEFT", f.now.child, "TOPLEFT", 6, -y)
+		row:SetPoint("RIGHT", f.now.child, "RIGHT", -2, 0)
 		-- A line without a place or second line (a tip) may use three lines (sparring: "Dungeons for your level… Ragefir…").
 		local sub = it.place or it.what
 		row.text:SetWordWrap(sub == nil)
@@ -1805,12 +1854,16 @@ local function FillNow(f, items, up)
 		row.go.tipTitle = label
 		row.go.tipBody = (it.go == ns.ForeverTrainerGo or it.go == ns.ForeverClassQuestGo) and ns:L("FOV_TIP_GO") or nil
 		SetGo(row.go, it.go)
+		local h = (row.text:GetStringHeight() or 14) + (sub and ((row.sub:GetStringHeight() or 12) + 1) or 0) + 4
+		h = math.max(NOW_ROW_H - 4, math.ceil(h))
+		row:SetHeight(h)
 		row:Show()
+		y = y + h + 4
 	end
 	for i = #rest + 1, #f.now.more do
 		f.now.more[i]:Hide()
 	end
-	f.now.child:SetHeight(math.max(10, #rest * NOW_ROW_H))
+	f.now.child:SetHeight(math.max(10, y))
 	f.now.sf.Reset()
 end
 

@@ -93,6 +93,18 @@
   Commit 974404a.
 - ✅ **Rob (via sparring, letterlijk): *"Midnight zelf werkt helemaal goed."*** Retail na alle gedeelde-bestand-wijzigingen
   van vandaag: `/mh`, Alt+M, minimap, snelbalk, instellingen, geen fouten. Forever-test loopt; uitslagen via sparring.
+- 🩹 **Robs eerste Forever-test van het overzicht** (Undead Paladin 14, 3 screenshots via sparring; Rob, letterlijk: *"de
+  eerste keer kreeg ik 1e screen shot , na een reload de tweede"*). GEREPAREERD (sparring: "ik wil geen fouten"):
+  (1) eerste opening na herstart: alle tabs/"All tools"/padnamen LEEG, na /reload goed. AFGELEID: eigen font-bestand
+  nog niet geladen bij de eerste SetFont. Kit: `S.Font` onthoudt elke string; `S.RefreshFonts()` zet font + tekst
+  opnieuw; het overzicht doet dat 0,1 s en 0,6 s na openen; bij het laden van ForeverStyle laden 4 verborgen strings
+  (buiten beeld) de fonts vooraf. Meting `ns.db.foreverFontProbe` (strings, emptyBefore, emptyAfter; laatste 10) — na
+  Robs volgende herstart nalezen: zegt of de oorzaak klopte. (2) Do this now: rijen hebben nu de hoogte van hun tekst
+  (vaste breedte `f.now.textW`, niet meer 46 px vast); lange hoofdregel zonder tweede regel wordt gesplitst na de eerste
+  zin of vóór "(", titel ≥ 31 tekens in 17 px. (3) `S.Scroll` heeft een zachte fade onderaan zolang er meer is (op een
+  eigen frame boven de lijst). (4) Het "vage tekstje" (open sinds 17 nov middag) = naamplaatje van een mob door de 0,97
+  doorzichtige achtergrond → achtergrond nu 1,0. (5) "All tools" = oude venster, zoals bedoeld tot stap 10. Offline
+  26.899 runs, 0 fouten. NIET in het spel gezien.
 
 ## ⏭️⏭️ NIEUWSTE OVERDRACHT (Bouwchat 17-11 (3), laatste commit 27e536b, alles gepusht, geen release)
 
