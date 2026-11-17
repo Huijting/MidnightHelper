@@ -4557,6 +4557,7 @@ ns._mhLocales.nlNL = {
 	FOV_ALL_DONE = "Alles bij",
 	FOV_ALL_DONE_SUB = "Nu niets te doen bij een trainer of voor een class-quest.",
 	FOV_SOON_NONE = "Niets nieuws in de komende levels.",
+	FOV_NEXT_SPELL_FMT = "Niets dringends: level lekker door. Volgende nieuwe spell: %s op level %d.",
 	FOV_PATH_FMT = "JOUW PAD · LEVEL %d TOT %d",
 	FOV_PATH_NOW = "Nu",
 	FOV_PATH_NEW = "nieuw bij de trainer",

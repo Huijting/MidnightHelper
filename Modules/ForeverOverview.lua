@@ -669,8 +669,19 @@ local function FillLeft(f, level)
 	end
 end
 
-local function FillNow(f, items)
-	local main = items[1]
+--- Round 5 (Rob's screenshot, 17 Nov 2026): a tip is never the big title. Only a task (trainer, class quest, camp,
+--- Legacy) can be the main line; with none, a calm title plus the next new spell, and every tip in the rows below.
+local function MainItem(items)
+	for _, it in ipairs(items) do
+		if it.kind ~= "tip" then
+			return it
+		end
+	end
+	return nil
+end
+
+local function FillNow(f, items, up)
+	local main = MainItem(items)
 	if main then
 		f.now.title:SetText(main.title or "")
 		f.now.what:SetText(main.what or "")
@@ -678,12 +689,19 @@ local function FillNow(f, items)
 		SetGo(f.now.go, main.go)
 	else
 		f.now.title:SetText(ns:L("FOV_ALL_DONE"))
-		f.now.what:SetText(ns:L("FOV_ALL_DONE_SUB"))
+		local nxt = up and up[1]
+		f.now.what:SetText(nxt and ns:L("FOV_NEXT_SPELL_FMT"):format(nxt.name, nxt.l) or ns:L("FOV_ALL_DONE_SUB"))
 		f.now.place:SetText("")
 		SetGo(f.now.go, nil)
 	end
+	local rest = {}
+	for _, it in ipairs(items) do
+		if it ~= main then
+			rest[#rest + 1] = it
+		end
+	end
 	for i, row in ipairs(f.now.more) do
-		local it = items[i + 1]
+		local it = rest[i]
 		if it then
 			-- A line without a place or second line (a tip) may use two lines (sparring: "Dungeons for your level… Ragefir…").
 			local sub = it.place or it.what
@@ -704,11 +722,19 @@ local function FillNow(f, items)
 end
 
 local function FillClassQuest(f, items)
-	local showList = items[1] and items[1].kind == "classquest" or (items[2] and items[2].kind == "classquest")
+	-- The list when "Do this now" already shows the open class quest, AND when none is open (Rob's screenshot: "No class
+	-- quest open right now" while Wolfsbane 20 and Warhorse 40 were still ahead).
+	local inNow = false
+	for _, it in ipairs(items) do
+		if it.kind == "classquest" then
+			inNow = true
+		end
+	end
 	local okC, cq = false, nil
-	if not showList and ns.ForeverClassQuestNowParts then
+	if not inNow and ns.ForeverClassQuestNowParts then
 		okC, cq = pcall(ns.ForeverClassQuestNowParts)
 	end
+	local showList = inNow or not (okC and type(cq) == "table")
 	local list = {}
 	if showList and ns.ForeverClassQuestList then
 		local ok, l = pcall(ns.ForeverClassQuestList)
@@ -782,10 +808,10 @@ function ns.ForeverOverviewFill()
 	FillLeft(f, level)
 
 	local items = NowItems()
-	FillNow(f, items)
+	local up = Upcoming(6)
+	FillNow(f, items, up)
 
 	-- Coming up (the next trainer spells, next 6 levels). Hover an icon: the spell's own tooltip.
-	local up = Upcoming(6)
 	for i, row in ipairs(f.soon.rows) do
 		local e = up[i]
 		if e then
@@ -836,7 +862,8 @@ function ns.ForeverOverviewFill()
 				n.icon.tipSpell = nil
 				n.name:SetPoint("TOPLEFT", n.ring, "BOTTOMLEFT", 0, -12)
 				n.name:SetText(ns:L("FOV_PATH_NOW"))
-				n.sub:SetText(items[1] and items[1].title or ns:L("FOV_ALL_DONE"))
+				local main = MainItem(items)
+				n.sub:SetText(main and main.title or ns:L("FOV_ALL_DONE"))
 				n.hover.tipTitle = ns:L("FOV_LEVEL_FMT"):format(d.l)
 				n.hover.tipBody = ns:L("FOV_TIP_NODE_NOW")
 			else

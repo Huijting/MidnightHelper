@@ -38,6 +38,13 @@ Open `/mh macros`, klik "Maak" bij een nieuwe rij, sleep de macro naar een balk 
       Rogue level 6+: typ `/dump IsPlayerSpell(1752), IsSpellKnown(1752)` en zeg wat er staat (rank-vraag).
 - [ ] Shaman: Resurrect, Fire Totem (Ctrl = Magma, 26). Paladin: Resurrect.
 
+## 🎨 17 nov (ronde 5) — Forever: ontwerp A als er niets dringends is (`/mh overview`)
+
+- [ ] Geen taak meer (zoals jij na Redemption): de grote titel is "All caught up" met eronder "Nothing urgent: keep
+      levelling. Next new spell: … at level …". De dungeon-tip staat eronder als gewone regel, niet als titel.
+- [ ] De rechterkaart toont "Your class quests" (klaar / vanaf level N) ook als er nu niets open staat.
+- [ ] Jouw pad, bolletje "Now": eronder "All caught up" of je taak, nooit de dungeon-tip.
+
 ## 🔎 17 nov — Forever paladin 52+: Greater Blessing via mouseover op een vreemde? (meetklus)
 
 Pas vanaf level 52 (Greater Blessing of Might). Niets veranderd; eerst meten.

@@ -33,5 +33,14 @@ Resizable + Shift-scroll (lint [25]). Elke stap: lint 0 HARD, luac OK, commit + 
 ## Stap 4 — schakelaar A/B + vertalingen
 - Instelling + `/mh overview style a|b`; uitleg waar de knop staat. Teksten en + nl, daarna de/fr/es/pt/ru.
 
+## Stap 5 — alle tabbladen in dezelfde stijl (Rob, 17 nov)
+Rob, via Sparring, letterlijk: *"bij alle andere tabbladen, komt het uiteindelijk ook zo op deze manier eruit te zien?
+Want dat zou ik wel heel graag willen."* → How you play, Class quests, Kamperen en Legacy worden pagina's IN het
+overzichtsvenster (kaartjes, labels, tooltips), in plaats van de oude vensters/chatregels te openen.
+Volgorde (voorstel bouwchat): eerst de stijlkit (stap 1), want elke pagina gebruikt dezelfde bouwstenen; dan per tab:
+Class quests (data is er al: ns.ForeverClassQuestList/NowParts) → Kamperen en Legacy (klein: de /mh camp- en /mh
+legacy-gegevens + de uitlegkaarten) → How you play (het grootst: rollen per 10 levels, macro's, Talented). Daarna B en
+de schakelaar, dan de vertalingen in één ronde.
+
 ## Wat Rob ziet per stap
 1. Nog niets (alleen de kit). 2. "Do this now" werkt als eerst. 3. `/mh overview` in A. 4. Schakelaar naar B.

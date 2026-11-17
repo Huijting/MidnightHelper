@@ -5465,6 +5465,7 @@ ns._mhLocales.enUS = {
 	FOV_ALL_DONE = "All caught up",
 	FOV_ALL_DONE_SUB = "Nothing to do at a trainer or for a class quest right now.",
 	FOV_SOON_NONE = "Nothing new in the next levels.",
+	FOV_NEXT_SPELL_FMT = "Nothing urgent: keep levelling. Next new spell: %s at level %d.",
 	FOV_PATH_FMT = "YOUR PATH · LEVEL %d TO %d",
 	FOV_PATH_NOW = "Now",
 	FOV_PATH_NEW = "new at the trainer",

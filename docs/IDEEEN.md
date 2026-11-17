@@ -267,6 +267,10 @@ lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met d
   knopje zit natuurlijk weer er doorheen. Ik wil graag bij alle dingen die... de tooltips overal bij. Maar verder, dit is
   de weg waar ik graag heen wil. Absoluut."* → ronde 2 GEBOUWD (dock-knop naast de titel, tooltips overal, pad-kolommen
   binnen het kader, class quest niet dubbel, XP links, tips in Doe dit nu, chips NU/LATER).
+- 🔼 Ook ALLE tabbladen in deze stijl (Rob via Sparring, letterlijk: *"bij alle andere tabbladen, komt het uiteindelijk
+  ook zo op deze manier eruit te zien? Want dat zou ik wel heel graag willen."*) → stap 5 in
+  `docs/forever/HUISSTIJL_PLAN_2026-11-17.md`: stijlkit → Class quests → Kamperen + Legacy → How you play → B +
+  schakelaar → vertalingen.
 - Eis "Do this now" in de nieuwe layout (Rob via Sparring, letterlijk, bij de regel "Redemption (from level 12), class
   quest: go to Danitha Morr, Tirisfal Glades (22.1, 44.7)": *"Dit staat nu keurig bovenaan bij Do This Now. Bij een
   nieuwe layout moet dat beter. En dan moet er ook een paar [= pijl] naartoe gaan om te kijken welke kant je op gaat en
