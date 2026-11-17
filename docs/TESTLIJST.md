@@ -30,6 +30,15 @@ Eerst WoW helemaal afsluiten en opnieuw starten (er is een nieuw bestand; /reloa
 - [ ] `/mh overview` opent zonder foutmelding en ziet er precies hetzelfde uit als ronde 5 (zelfde letters, kleuren,
       knoppen, NOW/LATER-labels onder Jouw pad).
 
+## 🧑‍🏫 17 nov (laat) — Forever: trainer-pagina in het overzicht
+
+- [ ] Heb je iets te leren bij je trainer: op de Now-kaart staat naast "Show the way" een knop "Details". Klik: een
+      pagina met je geld, wat alles kost, en per spell de prijs en de toets op je MH-toetsenblok (bv. "Shift-Z").
+- [ ] Muis op een icoon: de spell-tooltip. Muis op het toets-label: uitleg.
+- [ ] Ga een level omhoog (met nieuwe spells): het overzicht gaat vanzelf open op deze pagina (als "automatisch
+      openen bij level-up" aan staat, zoals het trainervenster deed).
+- [ ] `/mh trainer` opent nog het oude trainervenster (met de beroepsknoppen).
+
 ## 📋 17 nov (laat) — Forever: de hele "Do this now"-lijst in het overzicht
 
 - [ ] Open het overzicht én het kleine "Do this now"-venster: de kaart DOE DIT NU noemt dezelfde dingen (bovenaan de

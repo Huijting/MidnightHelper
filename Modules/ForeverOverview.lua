@@ -363,6 +363,75 @@ local function NowRow(card, i)
 	return row
 end
 
+local TR_ROW_H = 34
+
+--- Trainer page (product plan step 3): what your class trainer teaches you now, with its price and the key it gets on
+--- MH's key block; then what needs an earlier spell first, and the next level. Data: ns.ForeverTrainerPageData
+--- (ForeverTrainer.lua, the same as the trainer window). Opened from the Now card's "Details" and on a level-up.
+local function BuildTrainerPage(f, x0, rightW)
+	local page = f.pages.trainer
+	local card = Card(page)
+	card:SetPoint("TOPLEFT", f, "TOPLEFT", x0, TOP_Y)
+	card:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -16, 16)
+	card.label = Label(card, ns:L("FOV_LABEL_TRAINER"), "FOV_TIP_CARD_TRAINER")
+	card.go = Button(card, 130)
+	card.go:SetHeight(22)
+	card.go:SetPoint("TOPRIGHT", -12, -8)
+	card.go:SetLabel(ns:L("FOV_GO"))
+	Tip(card.go, ns:L("FOV_GO"), ns:L("FOV_TIP_GO"))
+	card.go:SetScript("OnClick", function()
+		if ns.ForeverTrainerGo then
+			ns.ForeverTrainerGo()
+		end
+	end)
+	card.money = Text(card, "head2", 15, A.text)
+	card.money:SetPoint("TOPLEFT", 14, -32)
+	card.money:SetPoint("RIGHT", card.go, "LEFT", -10, 0)
+	card.where = Text(card, "text", 12, A.dim)
+	card.where:SetPoint("TOPLEFT", card.money, "BOTTOMLEFT", 0, -3)
+	card.where:SetPoint("RIGHT", -14, 0)
+	card.where:SetWordWrap(false)
+	card.sf, card.child = S.Scroll(card, 74, 8, TR_ROW_H * 2)
+	card.rows = {}
+	page.card = card
+end
+
+--- One row of the trainer page: a heading, a spell (icon, name, rank, price, key) or a plain line.
+local function TrainerRow(card, i)
+	local row = card.rows[i]
+	if row then
+		return row
+	end
+	row = CreateFrame("Frame", nil, card.child)
+	row:SetHeight(TR_ROW_H - 2)
+	row:SetPoint("TOPLEFT", 6, -(i - 1) * TR_ROW_H)
+	row:SetPoint("RIGHT", card.child, "RIGHT", -2, 0)
+	row.icon = SpellButton(row, 26)
+	row.icon:SetPoint("LEFT", 0, 0)
+	row.chip = Tip(S.Chip(row, "", nil, 96))
+	row.chip:SetPoint("RIGHT", -4, 0)
+	row.cost = Text(row, "text", 13, A.dim)
+	row.cost:SetPoint("RIGHT", row.chip, "LEFT", -12, 0)
+	row.cost:SetJustifyH("RIGHT")
+	row.cost:SetWidth(110)
+	row.name = Text(row, "textB", 15)
+	row.name:SetPoint("LEFT", row.icon, "RIGHT", 10, 0)
+	row.name:SetPoint("RIGHT", row.cost, "LEFT", -8, 0)
+	row.name:SetWordWrap(false)
+	row.head = Text(row, "head2", 14, A.label)
+	row.head:SetPoint("LEFT", 0, -2)
+	row.head:SetPoint("RIGHT", 0, 0)
+	row.line = Text(row, "text", 13, A.text)
+	row.line:SetPoint("LEFT", 0, 0)
+	row.line:SetPoint("RIGHT", 0, 0)
+	if row.line.SetMaxLines then
+		row.line:SetMaxLines(2)
+	end
+	row.hover = HoverOver(row, row.name)
+	card.rows[i] = row
+	return row
+end
+
 local TOC_ROWS = 14
 
 --- How you play page (step 4, 17 Nov 2026): left a "contents" card (one line per section, click = jump there; the
@@ -526,7 +595,7 @@ local function Build()
 	-- Pages: the left column (portrait, level) stays, the right part switches.
 	f.page = "now"
 	f.pages = {}
-	for _, key in ipairs({ "now", "play", "cq", "camp", "legacy" }) do
+	for _, key in ipairs({ "now", "play", "cq", "camp", "legacy", "trainer" }) do
 		local p = CreateFrame("Frame", nil, f)
 		p:SetAllPoints(f)
 		p:Hide()
@@ -719,12 +788,13 @@ local function Build()
 
 	BuildClassQuestPage(f, x0, rightW)
 	BuildPlayPage(f, x0, rightW)
+	BuildTrainerPage(f, x0, rightW)
 	BuildInfoPage(f, "camp", x0, rightW, "FOV_LABEL_CAMP", "FOV_TIP_CARD_CAMP", "FOV_LABEL_CAMP_HOW")
 	BuildInfoPage(f, "legacy", x0, rightW, "FOV_LABEL_LEGACY", "FOV_TIP_CARD_LEGACY", "FOV_LABEL_LEGACY_HOW")
 	-- Camping and Legacy read live state (an aura, points): refresh every 2 s while one of them is open.
 	local acc = 0
 	f:HookScript("OnUpdate", function(_, el)
-		if f.page ~= "camp" and f.page ~= "legacy" then
+		if f.page ~= "camp" and f.page ~= "legacy" and f.page ~= "trainer" then
 			return
 		end
 		acc = acc + el
@@ -1248,6 +1318,96 @@ function ns.ShowForeverOverviewPage(page)
 	end
 end
 
+local function FillTrainerPage(f, level, refresh)
+	local card = f.pages.trainer.card
+	local d
+	if ns.ForeverTrainerPageData then
+		local ok, r = pcall(ns.ForeverTrainerPageData, level)
+		d = ok and type(r) == "table" and r or nil
+	end
+	d = d or { now = {}, needs = {}, next = {}, totems = {} }
+	-- Money on top; red with what is missing (the trainer window's rule, Rob 7 Nov 2026).
+	local money = d.haveText and ns:L("FOV_TR_MONEY_FMT"):format(d.haveText, d.totalText or "") or ""
+	if d.short then
+		money = money .. "  |cffff5555" .. ns:L("FTRAIN_SHORT_FMT"):format(d.short) .. "|r"
+	end
+	card.money:SetText(#d.now > 0 and money or ns:L("FTRAIN_NOTHING"))
+	card.where:SetText(ns.ForeverTrainerNearestText and ns.ForeverTrainerNearestText() or "")
+	local list = {}
+	local function head(t)
+		list[#list + 1] = { head = t }
+	end
+	if #d.totems > 0 then
+		head(ns:L("FTRAIN_TOTEM_HEAD"))
+		for _, t in ipairs(d.totems) do
+			list[#list + 1] = { line = "|cffff8040" .. t .. "|r" }
+		end
+	end
+	if #d.now > 0 then
+		head(ns:L("FTRAIN_NOW_FMT"):format(#d.now))
+		for _, e in ipairs(d.now) do
+			list[#list + 1] = { spell = e }
+			if e.note then
+				list[#list + 1] = { line = "|cffff8040" .. e.note .. "|r" }
+			end
+		end
+	end
+	if #d.needs > 0 then
+		head(ns:L("FTRAIN_NEEDS_HEAD"))
+		for _, n in ipairs(d.needs) do
+			list[#list + 1] = { line = n.text }
+		end
+	end
+	if d.nextLevel and #d.next > 0 then
+		head(ns:L("FTRAIN_NEXT_FMT"):format(d.nextLevel))
+		for _, e in ipairs(d.next) do
+			list[#list + 1] = { spell = e, later = true }
+		end
+	end
+	local r, g, b = Accent()
+	for i, it in ipairs(list) do
+		local row = TrainerRow(card, i)
+		local e = it.spell
+		row.head:SetShown(it.head ~= nil)
+		row.line:SetShown(it.line ~= nil)
+		for _, part in ipairs({ row.icon, row.chip, row.cost, row.name }) do
+			part:SetShown(e ~= nil)
+		end
+		if it.head then
+			row.head:SetText(it.head)
+		elseif it.line then
+			row.line:SetText(it.line)
+		else
+			row.icon.tex:SetTexture(SpellIcon(e.id))
+			row.icon.tipSpell = e.id
+			row.name:SetText(e.name .. (e.rank and (" |cff9d9d9d(" .. e.rank .. ")|r") or ""))
+			row.name:SetTextColor(it.later and A.dim[1] or A.text[1], it.later and A.dim[2] or A.text[2], it.later and A.dim[3] or A.text[3])
+			row.cost:SetText(e.cost or "")
+			row.hover.tipTitle = e.name
+			row.hover.tipBody = e.key and ns:L("FOV_TIP_TR_KEY_FMT"):format(e.key) or e.where
+			if e.key then
+				row.chip.t:SetText(e.key)
+				row.chip:SetColor(r, g, b)
+				row.chip.tipTitle, row.chip.tipBody = e.key, ns:L("FOV_TIP_TR_KEY_FMT"):format(e.key)
+			else
+				row.chip.t:SetText(e.where or "")
+				row.chip:SetColor(A.later[1], A.later[2], A.later[3])
+				row.chip.tipTitle, row.chip.tipBody = e.where, ns:L("FTRAIN_KEY_HINT")
+			end
+		end
+		row:Show()
+	end
+	for i = #list + 1, #card.rows do
+		card.rows[i]:Hide()
+	end
+	card.child:SetHeight(math.max(10, #list * TR_ROW_H))
+	if refresh then
+		card.sf.UpdateThumb() -- the 2-second refresh (money at the trainer) keeps your place in the list
+	else
+		card.sf.Reset()
+	end
+end
+
 --- When the direction changes (ForeverHowToPlay.lua calls this): refill if the overview is open.
 function ns.ForeverOverviewRefresh()
 	if win and win:IsShown() then
@@ -1276,6 +1436,9 @@ function ns.ForeverOverviewFill(refresh)
 		return f
 	elseif f.page == "play" then
 		FillPlayPage(f)
+		return f
+	elseif f.page == "trainer" then
+		FillTrainerPage(f, level, refresh)
 		return f
 	elseif f.page == "camp" then
 		FillCampPage(f, refresh)

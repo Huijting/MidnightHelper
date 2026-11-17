@@ -37,7 +37,19 @@ Plan: `docs/forever/OVERZICHT_PRODUCT_PLAN_2026-11-17.md` (7 tabs + tandwiel; de
   daaronder ALLE andere regels, scrollend, elk met de knop van het mini-venster. Kaart "THIS WEEK" (ForeverWeekRows:
   resets, evenementen, raids) vervangt de class-quest-kaart (eigen tab nu; Rob mag omdraaien). Goud links onder XP.
   Mini-venster: knop "Open overview" (`ns.ShowForeverOverviewPage`); blijft optioneel (auto/altijd/uit ongewijzigd).
-  Lint 0 HARD, luac OK. NIET in het spel gezien.
+  Lint 0 HARD, luac OK. NIET in het spel gezien. ⚠️ Mijn fout: dbb8ba4 werd gepusht met 1 lint-HARD (bij het weghalen van
+  een ongebruikte tekst plakten twee regels aan elkaar; Lua las het goed, de lint niet). Na het weghalen niet opnieuw
+  gelint. Gerepareerd in de commit van stap 3.
+- 🧑‍🏫 **Stap 3 Trainer-pagina GEBOUWD (en + nl)**: pagina "trainer" in het overzicht (geen tab: via de knop "Details"
+  op de Now-kaart en bij een level-up). Bovenaan je geld en wat alles kost (rood wat je tekortkomt), de dichtstbijzijnde
+  trainer + knop Show the way; daaronder per spell: icoon (spell-tooltip), naam + rang, prijs, en een label met de toets op
+  het MH-toetsenblok (of grijs: passive / bewust niet / eigen balk); dan totem-waarschuwingen, "eerst nodig" en het
+  volgende level. Data: nieuw `ns.ForeverTrainerPageData(level)` in ForeverTrainer.lua (zelfde regels als het
+  trainervenster). Level-up met nieuwe spells + schakelaar "auto" aan → deze pagina (anders het oude venster als het
+  overzicht er niet is). `/mh trainer` opent nog het oude venster (beroepsknoppen + model; dat gaat mee in stap 4
+  Vinden). Ververst elke 2 s (geld bij de trainer) zonder je scrollplek te verliezen. Offline gedraaid (scratch
+  tr_check: 9 classes × level 1-60 = 540 runs, 0 fouten; 22.782 van 25.745 spell-regels met een toets). Lint 0 HARD.
+  NIET in het spel gezien.
 
 ## ▶ 17 nov (avond) — Bouwchat 17-11 (3) (verse chat, nam het over na 679fed7)
 

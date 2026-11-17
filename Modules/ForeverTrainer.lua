@@ -466,6 +466,48 @@ ns.ForeverTrainerText = function(level) -- the offline check prints it
 	return (Text(Compute(level)))
 end
 
+--- 17 Nov 2026 (the overview's trainer page, docs/forever/OVERZICHT_PRODUCT_PLAN_2026-11-17.md step 3, Rob: "ja doe
+--- maar"): the same content as this window, as data. One row = { id, name, rank, cost (money text), key (gold key
+--- label), where (grey text when no key: passive / on purpose / own bar), note (totem) }.
+--- @return { have, total, short, now = rows, needs = { text, id }, nextLevel, next = rows, keyHint }
+function ns.ForeverTrainerPageData(level)
+	local r = Compute(level or (UnitLevel and UnitLevel("player")) or 1)
+	local function Row(e)
+		local key = KeyFor(r.token, e.n)
+		local where
+		if not key then
+			local passive = false
+			if C_Spell and C_Spell.IsSpellPassive then
+				local okP, p = pcall(C_Spell.IsSpellPassive, e.id)
+				passive = okP and p == true
+			end
+			where = passive and ns:L("FTRAIN_PASSIVE") or key == false and ns:L("FTRAIN_ON_PURPOSE") or ns:L("FTRAIN_OWN_BAR")
+		end
+		return { id = e.id, name = SpellName(e), rank = RankText(e.id), cost = Money(e.c), key = key or nil, where = where,
+			note = TotemNote(r.token, e.id), level = e.l }
+	end
+	local out = { have = GetMoney and GetMoney() or nil, total = r.total, now = {}, needs = {}, next = {},
+		nextLevel = r.nextLevel, totalText = Money(r.total) }
+	out.short = out.have and #r.now > 0 and out.have < r.total and Money(r.total - out.have) or nil
+	out.haveText = out.have and Money(out.have) or nil
+	for _, e in ipairs(r.now) do
+		out.now[#out.now + 1] = Row(e)
+	end
+	for _, n in ipairs(r.needs) do
+		out.needs[#out.needs + 1] = { id = n.e.id, text = ns:L(n.fromQuest and "FTRAIN_NEEDS_QUEST_FMT" or "FTRAIN_NEEDS_FMT")
+			:format(SpellName(n.e), n.first) }
+	end
+	for _, e in ipairs(r.next) do
+		out.next[#out.next + 1] = Row(e)
+	end
+	local stuck = KnownTotemsMissing(r)
+	out.totems = {}
+	for _, g in ipairs(stuck) do
+		out.totems[#out.totems + 1] = table.concat(g.names, ", ") .. ": " .. g.note
+	end
+	return out
+end
+
 local win
 local MODEL_W = 170 -- the trainer model's panel; the window grows by this plus a gap when it shows
 local BASE_W = 560
@@ -1647,7 +1689,13 @@ local function OnLevel(level)
 		print(PREFIX .. ("level %d: %d new at your trainer, %d to learn in all (%s). /mh trainer shows them with their keys.")
 			:format(level, new, #r.now, Money(r.total)))
 		if Settings().auto then
-			ns.ShowForeverTrainer(level)
+			-- 17 Nov 2026 (product plan step 3): the overview's trainer page when it is there; this window otherwise.
+			-- Same switch (Settings().auto). /mh trainer keeps opening this window (profession buttons, model).
+			if ns.ShowForeverOverviewPage then
+				ns.ShowForeverOverviewPage("trainer")
+			else
+				ns.ShowForeverTrainer(level)
+			end
 		end
 	elseif #r.now > 0 then
 		print(PREFIX .. ("level %d: nothing new, still %d to learn at your trainer (%s). /mh trainer shows them.")
