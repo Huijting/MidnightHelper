@@ -6646,6 +6646,14 @@ ns._mhLocales.ruRU = {
 	FMAC_C_ROGUE_VANISH = "«Исчезновение» и «Спринт» одним нажатием: вы исчезаете и убегаете. «Исчезновение» тратит «Воспламеняющийся порошок».",
 	FMAC_C_ROGUE_FINISHER = "«Потрошение» по вашей цели и начинает автоатаку. Ctrl = «Мясорубка».",
 	FMAC_C_SHAMAN_FIRETOTEM = "«Опаляющий тотем». Ctrl = «Тотем магмы» (с уровня 26).",
+	-- 17 Nov 2026: freeing a taken key. "Страница действия" measured: wago GlobalStrings BINDING_NAME_ACTIONPAGE1 ruRU, wowf 1.60.1.70938. Our own translation, not native-checked.
+	FMAC_KEY_TAKEN_FMT = "%s занята действием «%s»: часть этого макроса с %s работает только мышью.",
+	FMAC_BTN_FREE = "Освободить",
+	FMAC_BTN_UNDO_KEYS = "Вернуть клавиши",
+	FMAC_KEY_FREED_FMT = "%s теперь свободна (была «%s»). Эта часть макроса теперь работает с клавиатуры. /mh macros keys undo вернёт клавишу обратно.",
+	FMAC_KEY_UNDONE_FMT = "Возвращено клавиш: %d.",
+	FMAC_KEY_UNDO_NONE = "Нет освобождённых клавиш для возврата.",
+	FMAC_KEY_CHAT_HINT = "Откройте /mh macros: там клавишу страницы Blizzard («Страница действия») можно освободить одним щелчком; клавиши блока клавиш MH и других аддонов никогда не трогаются.",
 	-- 10 Nov 2026: Forever handy macros, spec block. Spell/talent/stance/form names measured: wago SpellName ruRU (Soul Shard: ItemSparse), wowf 1.60.1.70862. Our own translation, not native-checked.
 	FMAC_SPEC_HEADER_FMT = "Для вашей специализации: %s",
 	FMAC_SPEC_HEADER_NONE = "Для ваших талантов",

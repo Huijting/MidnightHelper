@@ -222,6 +222,16 @@ lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met d
   zelf maken. Fonts alleen OFL (bv. Cormorant SC/Philosopher of Alegreya Sans/Inter, mét Cyrillisch; NIET Cinzel) +
   OFL-.txt meeleveren; terugval op spel-fonts. Retail-spelkunst eerst meten. Resizable + Shift-scroll blijven.
 - Volgorde: NA Legacy en Kamperen. Spel: F (en later M?). Advies Sparring: in een verse bouwchat. NOG NIETS GEBOUWD.
+- 🔼 **Prio 1 sinds 17 nov** (Rob via Sparring, letterlijk: *"Die twee ontwerpen, die wil ik heel graag hebben. Die wil ik
+  heel graag zien. Dus die krijgt zometeen na de macro's gelijk de prio 1."*) → direct na de macro's, vóór de rest van
+  Kamperen. Dat vervangt de volgorde hierboven.
+- Eis "Do this now" in de nieuwe layout (Rob via Sparring, letterlijk, bij de regel "Redemption (from level 12), class
+  quest: go to Danitha Morr, Tirisfal Glades (22.1, 44.7)": *"Dit staat nu keurig bovenaan bij Do This Now. Bij een
+  nieuwe layout moet dat beter. En dan moet er ook een paar [= pijl] naartoe gaan om te kijken welke kant je op gaat en
+  dergelijke."*): elke regel met een plek krijgt een eigen knop/pijl die de route naar díe plek zet (NativeArrow, met
+  de pijl-schakelaar voor de Forever Leveling Guide); coördinaten uit de zin naar een kleine subregel; de belangrijkste
+  regel als kaartje met titel (bv. "Class quest: Redemption" / "Go to Danitha Morr" / "Tirisfal Glades · 22.1, 44.7" +
+  knop).
 
 ### Forever: wie stuurt de pijl — MH of de Forever Leveling Guide (schakelaar)
 - Bron: Rob 17 nov (via Sparring 17-11), na zijn test (troll mage 6: "Forever Guide: your pin stays… route paused" +

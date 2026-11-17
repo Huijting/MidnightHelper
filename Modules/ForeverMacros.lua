@@ -1411,7 +1411,20 @@ local function Row(f, i)
 	return r
 end
 
-local MOD_WORD = { SHIFT = "Shift", CTRL = "Ctrl", ALT = "Alt" }
+-- The client's own words, English as fallback. GEMETEN in GlobalStrings wowf 70938 deDE: SHIFT_KEY_TEXT "UMSCHALT",
+-- CTRL_KEY_TEXT "STRG", ALT_KEY_TEXT "ALT" (capitals) → written as "Umschalt", "Strg", "Alt" (byte-wise lower: Cyrillic
+-- stays as the client wrote it).
+local function ModWord(g, fallback)
+	if type(g) ~= "string" or g == "" then
+		return fallback
+	end
+	return g:sub(1, 1) .. g:sub(2):lower()
+end
+local MOD_WORD = {
+	SHIFT = ModWord(SHIFT_KEY_TEXT, "Shift"),
+	CTRL = ModWord(CTRL_KEY_TEXT, "Ctrl"),
+	ALT = ModWord(ALT_KEY_TEXT, "Alt"),
+}
 
 Fill = function()
 	local f = Build()

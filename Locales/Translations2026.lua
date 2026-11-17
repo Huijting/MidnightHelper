@@ -21848,6 +21848,14 @@ if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	FMAC_C_ROGUE_VANISH = "Verschwinden und Sprinten mit einem Druck: Du verschwindest und rennst. Verschwinden kostet ein Blitzstrahlpulver.",
 	FMAC_C_ROGUE_FINISHER = "Ausweiden auf dein Ziel und startet den automatischen Angriff. Strg = Zerhäckseln.",
 	FMAC_C_SHAMAN_FIRETOTEM = "Totem der Verbrennung. Strg = Totem der glühenden Magma (ab Stufe 26).",
+	-- 17 Nov 2026: freeing a taken key. "Aktionsseite" measured: wago GlobalStrings BINDING_NAME_ACTIONPAGE1 deDE, wowf 1.60.1.70938. Our own translation, not native-checked.
+	FMAC_KEY_TAKEN_FMT = "%s ist belegt durch %s: Der %s-Teil dieses Makros funktioniert nur mit der Maus.",
+	FMAC_BTN_FREE = "Taste frei",
+	FMAC_BTN_UNDO_KEYS = "Tasten zurück",
+	FMAC_KEY_FREED_FMT = "%s ist jetzt frei (war %s). Dieser Teil des Makros funktioniert jetzt mit der Tastatur. /mh macros keys undo stellt sie zurück.",
+	FMAC_KEY_UNDONE_FMT = "%d Taste(n) zurückgesetzt.",
+	FMAC_KEY_UNDO_NONE = "Keine freigegebenen Tasten zum Zurücksetzen.",
+	FMAC_KEY_CHAT_HINT = "Öffne /mh macros: Eine Seitentaste von Blizzard (Aktionsseite) gibst du dort mit einem Klick frei; Tasten von MHs Tastenblock und von anderen Addons bleiben immer unberührt.",
 	-- 10 Nov 2026: Forever handy macros, spec block. Spell/talent/stance/form names measured: wago SpellName deDE (Soul Shard: ItemSparse), wowf 1.60.1.70862. Our own translation, not native-checked.
 	FMAC_SPEC_HEADER_FMT = "Für deine Spezialisierung: %s",
 	FMAC_SPEC_HEADER_NONE = "Für deine Talente",
@@ -22129,6 +22137,14 @@ if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	FMAC_C_ROGUE_VANISH = "Disparition et Sprint en un seul appui : tu disparais et tu cours. Disparition coûte une Poudre éclipsante.",
 	FMAC_C_ROGUE_FINISHER = "Eviscération sur ta cible et lance l'attaque automatique. Ctrl = Débiter.",
 	FMAC_C_SHAMAN_FIRETOTEM = "Totem incendiaire. Ctrl = Totem de Magma (à partir du niveau 26).",
+	-- 17 Nov 2026: freeing a taken key. "Page d’action" measured: wago GlobalStrings BINDING_NAME_ACTIONPAGE1 frFR, wowf 1.60.1.70938. Our own translation, not native-checked.
+	FMAC_KEY_TAKEN_FMT = "%s est prise par %s : la partie %s de cette macro ne fonctionne qu'avec la souris.",
+	FMAC_BTN_FREE = "Libérer",
+	FMAC_BTN_UNDO_KEYS = "Rendre touches",
+	FMAC_KEY_FREED_FMT = "%s est libre maintenant (c'était %s). Cette partie de la macro fonctionne maintenant au clavier. /mh macros keys undo la remet.",
+	FMAC_KEY_UNDONE_FMT = "%d touche(s) remise(s).",
+	FMAC_KEY_UNDO_NONE = "Aucune touche libérée à remettre.",
+	FMAC_KEY_CHAT_HINT = "Ouvre /mh macros : une touche de page de Blizzard (Page d’action) s'y libère en un clic ; les touches du bloc de touches de MH et des autres addons ne sont jamais touchées.",
 	-- 10 Nov 2026: Forever handy macros, spec block. Spell/talent/stance/form names measured: wago SpellName frFR (Soul Shard: ItemSparse), wowf 1.60.1.70862. Our own translation, not native-checked.
 	FMAC_SPEC_HEADER_FMT = "Pour ta spécialisation : %s",
 	FMAC_SPEC_HEADER_NONE = "Pour tes talents",
@@ -22410,6 +22426,14 @@ if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	FMAC_C_ROGUE_VANISH = "Esfumar y Correr con una sola pulsación: desapareces y corres. Esfumar gasta unas Partículas cegadoras.",
 	FMAC_C_ROGUE_FINISHER = "Eviscerar sobre tu objetivo y empieza a atacar. Ctrl = Hacer picadillo.",
 	FMAC_C_SHAMAN_FIRETOTEM = "Tótem abrasador. Ctrl = Tótem de magma (desde el nivel 26).",
+	-- 17 Nov 2026: freeing a taken key. "Página de acción" measured: wago GlobalStrings BINDING_NAME_ACTIONPAGE1 esES, wowf 1.60.1.70938. Our own translation, not native-checked.
+	FMAC_KEY_TAKEN_FMT = "%s está ocupada por %s: la parte %s de esta macro solo funciona con el ratón.",
+	FMAC_BTN_FREE = "Liberar",
+	FMAC_BTN_UNDO_KEYS = "Devolver teclas",
+	FMAC_KEY_FREED_FMT = "%s ya está libre (era %s). Esa parte de la macro ya funciona con el teclado. /mh macros keys undo la devuelve.",
+	FMAC_KEY_UNDONE_FMT = "%d tecla(s) devuelta(s).",
+	FMAC_KEY_UNDO_NONE = "No hay teclas liberadas que devolver.",
+	FMAC_KEY_CHAT_HINT = "Abre /mh macros: allí liberas con un clic una tecla de página de Blizzard (Página de acción); las teclas del bloque de teclas de MH y de otros addons nunca se tocan.",
 	-- 10 Nov 2026: Forever handy macros, spec block. Spell/talent/stance/form names measured: wago SpellName esES (Soul Shard: ItemSparse), wowf 1.60.1.70862. Our own translation, not native-checked.
 	FMAC_SPEC_HEADER_FMT = "Para tu especialización: %s",
 	FMAC_SPEC_HEADER_NONE = "Para tus talentos",
@@ -22692,6 +22716,14 @@ if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	FMAC_C_ROGUE_VANISH = "Sumir e Disparada com um só aperto: você desaparece e corre. Sumir custa um Pó de Clarão.",
 	FMAC_C_ROGUE_FINISHER = "Eviscerar no seu alvo e começa a atacar. Ctrl = Retalhar.",
 	FMAC_C_SHAMAN_FIRETOTEM = "Totem Calcinante. Ctrl = Totem de Magma (a partir do nível 26).",
+	-- 17 Nov 2026: freeing a taken key. "Página de ação" measured: wago GlobalStrings BINDING_NAME_ACTIONPAGE1 ptBR, wowf 1.60.1.70938. Our own translation, not native-checked.
+	FMAC_KEY_TAKEN_FMT = "%s está ocupada por %s: a parte %s desta macro só funciona com o mouse.",
+	FMAC_BTN_FREE = "Liberar",
+	FMAC_BTN_UNDO_KEYS = "Devolver teclas",
+	FMAC_KEY_FREED_FMT = "%s está livre agora (era %s). Essa parte da macro agora funciona pelo teclado. /mh macros keys undo coloca a tecla de volta.",
+	FMAC_KEY_UNDONE_FMT = "%d tecla(s) devolvida(s).",
+	FMAC_KEY_UNDO_NONE = "Nenhuma tecla liberada para devolver.",
+	FMAC_KEY_CHAT_HINT = "Abra /mh macros: lá você libera com um clique uma tecla de página da Blizzard (Página de ação); as teclas do bloco de teclas do MH e de outros addons nunca são mexidas.",
 	-- 10 Nov 2026: Forever handy macros, spec block. Spell/talent/stance/form names measured: wago SpellName ptBR (Soul Shard: ItemSparse), wowf 1.60.1.70862. Our own translation, not native-checked.
 	FMAC_SPEC_HEADER_FMT = "Para a sua especialização: %s",
 	FMAC_SPEC_HEADER_NONE = "Para os seus talentos",
