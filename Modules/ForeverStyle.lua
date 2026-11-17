@@ -19,6 +19,8 @@ local _, ns = ...
 	  S.Button(parent, w)        a button with :SetLabel(t) and :SetActive(bool)
 	  S.SpellButton(parent, size)               a spell icon with the spell's own tooltip (set .tipSpell)
 	  S.Circle(parent, layerSub)                a round texture (mask)
+	  S.Scroll(card, top, bottom, step)          scrolling area with a slim thumb (Shift+wheel stays the window's)
+	  S.Format(body)             **bold** → gold, "- " lines → bullets
 	  S.SpellName(id), S.SpellIcon(id), S.Place(zone, x, y)
 	Fonts: OFL, github.com/google/fonts (Media/Fonts, OFL-*.txt beside them). Nothing from the Forever Leveling Guide
 	(All Rights Reserved): no code, text, data or textures of it.
@@ -211,6 +213,68 @@ function S.Circle(parent, layerSub)
 		t:AddMaskTexture(m)
 	end)
 	return t
+end
+
+--- A scrolling area inside a card, from `top` px below the card's top to `bottom` px above its bottom. Wheel scrolls by
+--- `step`; a slim thumb on the right shows where you are (only when it scrolls). Make it when the window is built, not
+--- later: DialogPopup wraps scroll frames on show, so Shift+wheel keeps resizing the window over it.
+--- Returns sf, child; call sf.UpdateThumb() after changing the child's height, sf.Reset() to go to the top.
+function S.Scroll(card, top, bottom, step)
+	local t = S.T()
+	local sf = CreateFrame("ScrollFrame", nil, card)
+	sf:SetPoint("TOPLEFT", 8, -top)
+	sf:SetPoint("BOTTOMRIGHT", -14, bottom)
+	local child = CreateFrame("Frame", nil, sf)
+	child:SetSize(10, 10)
+	sf:SetScrollChild(child)
+	local track = card:CreateTexture(nil, "ARTWORK")
+	track:SetColorTexture(t.later[1], t.later[2], t.later[3], 0.25)
+	track:SetWidth(3)
+	track:SetPoint("TOPRIGHT", -6, -top)
+	track:SetPoint("BOTTOMRIGHT", -6, bottom)
+	local thumb = card:CreateTexture(nil, "ARTWORK", nil, 1)
+	thumb:SetWidth(3)
+	function sf.UpdateThumb()
+		local max = sf:GetVerticalScrollRange() or 0
+		local h = sf:GetHeight() or 0
+		if max <= 1 or h <= 0 then
+			track:Hide()
+			thumb:Hide()
+			return
+		end
+		local r, g, b = S.Accent()
+		thumb:SetColorTexture(r, g, b, 0.9)
+		local th = math.max(20, h * h / (h + max))
+		thumb:SetHeight(th)
+		thumb:ClearAllPoints()
+		thumb:SetPoint("TOPRIGHT", track, "TOPRIGHT", 0, -((h - th) * (sf:GetVerticalScroll() / max)))
+		track:Show()
+		thumb:Show()
+	end
+	function sf.Reset()
+		sf:SetVerticalScroll(0)
+		sf.UpdateThumb()
+	end
+	sf:EnableMouseWheel(true)
+	sf:SetScript("OnMouseWheel", function(self, delta)
+		local max = self:GetVerticalScrollRange() or 0
+		self:SetVerticalScroll(math.min(max, math.max(0, self:GetVerticalScroll() - delta * (step or 40))))
+		self.UpdateThumb()
+	end)
+	sf:SetScript("OnSizeChanged", function(self, w)
+		child:SetWidth(w)
+		self.UpdateThumb()
+	end)
+	return sf, child
+end
+
+--- Text with **bold** marks and "- " lines as the game shows it: bold in the theme's gold, lines with a bullet.
+function S.Format(body)
+	local g = S.T().gold
+	local hex = ("|cff%02x%02x%02x"):format(g[1] * 255, g[2] * 255, g[3] * 255)
+	body = body:gsub("%*%*(.-)%*%*", hex .. "%1|r")
+	body = body:gsub("^%- ", "• "):gsub("\n%- ", "\n• ")
+	return body
 end
 
 function S.SpellName(id)

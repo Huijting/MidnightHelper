@@ -1103,6 +1103,24 @@ local function TextFor(token)
 end
 ns.ForeverHowToPlayText = TextFor
 
+--- 17 Nov 2026 (overview pages Camping and Legacy, ForeverOverview.lua): one shared section in this client's language,
+--- by its English title ("Camping", "Legacy Points"). Returns title, body (raw: **bold** marks, "- " lines) or nil.
+--- The translated COMMON tables have the same sections in the same order, so the index of the English title is used.
+function ns.ForeverHowToCommon(englishTitle)
+	local idx
+	for i, sec in ipairs(COMMON) do
+		if sec[1] == englishTitle then
+			idx = i
+		end
+	end
+	if not idx then
+		return nil
+	end
+	local tr = Translated()
+	local sec = (tr and tr.COMMON and tr.COMMON[idx]) or COMMON[idx]
+	return sec[1], sec[2]
+end
+
 local win, shown
 local showAllRoles = false
 

@@ -151,8 +151,8 @@ local TABS = {
 	{ key = "FOV_TAB_PLAY", tip = "FOV_TIP_TAB_PLAY", fn = function() if ns.TogglePlayCardWindow then ns.TogglePlayCardWindow() end end },
 	-- Step 5 of the plan (Rob: every tab in this style): a tab with `page` switches the page inside this window.
 	{ key = "FOV_TAB_CQ", tip = "FOV_TIP_TAB_CQ", page = "cq" },
-	{ key = "FOV_TAB_CAMP", tip = "FOV_TIP_TAB_CAMP", fn = function() if ns.ForeverCampSlash then ns.ForeverCampSlash() end end },
-	{ key = "FOV_TAB_LEGACY", tip = "FOV_TIP_TAB_LEGACY", fn = function() if ns.ForeverLegacySlash then ns.ForeverLegacySlash() end end },
+	{ key = "FOV_TAB_CAMP", tip = "FOV_TIP_TAB_CAMP", page = "camp" },
+	{ key = "FOV_TAB_LEGACY", tip = "FOV_TIP_TAB_LEGACY", page = "legacy" },
 }
 
 local PATH_NODES = 4
@@ -175,46 +175,8 @@ local function BuildClassQuestPage(f, x0, rightW)
 	card.intro:SetPoint("TOPLEFT", 14, -30)
 	card.intro:SetPoint("RIGHT", -14, 0)
 	card.intro:SetText(ns:L("FOV_CQP_INTRO"))
-	local sf = CreateFrame("ScrollFrame", nil, card)
-	sf:SetPoint("TOPLEFT", 8, -54)
-	sf:SetPoint("BOTTOMRIGHT", -14, 8)
-	local child = CreateFrame("Frame", nil, sf)
-	child:SetSize(rightW - 30, 10)
-	sf:SetScrollChild(child)
-	sf:EnableMouseWheel(true)
-	sf:SetScript("OnMouseWheel", function(self, delta)
-		local max = self:GetVerticalScrollRange() or 0
-		local v = math.min(max, math.max(0, self:GetVerticalScroll() - delta * CQP_ROW_H))
-		self:SetVerticalScroll(v)
-		if card.UpdateThumb then
-			card.UpdateThumb()
-		end
-	end)
-	-- A slim thumb on the right that shows where you are in the list (only when it scrolls).
-	local track = card:CreateTexture(nil, "ARTWORK")
-	track:SetColorTexture(A.later[1], A.later[2], A.later[3], 0.25)
-	track:SetWidth(3)
-	track:SetPoint("TOPRIGHT", -6, -54)
-	track:SetPoint("BOTTOMRIGHT", -6, 8)
-	local thumb = card:CreateTexture(nil, "ARTWORK", nil, 1)
-	thumb:SetWidth(3)
-	function card.UpdateThumb()
-		local max = sf:GetVerticalScrollRange() or 0
-		local h = sf:GetHeight() or 0
-		if max <= 1 or h <= 0 then
-			track:Hide()
-			thumb:Hide()
-			return
-		end
-		local r, g, b = Accent()
-		thumb:SetColorTexture(r, g, b, 0.9)
-		local th = math.max(20, h * h / (h + max))
-		thumb:SetHeight(th)
-		thumb:ClearAllPoints()
-		thumb:SetPoint("TOPRIGHT", track, "TOPRIGHT", 0, -((h - th) * (sf:GetVerticalScroll() / max)))
-		track:Show()
-		thumb:Show()
-	end
+	local sf, child = S.Scroll(card, 54, 8, CQP_ROW_H)
+	child:SetWidth(rightW - 30)
 	card.sf, card.child, card.rows = sf, child, {}
 	f.cqPage = card
 end
@@ -272,6 +234,69 @@ local function ClassQuestRow(card, i)
 	row.hover = HoverOver(row, row.name)
 	card.rows[i] = row
 	return row
+end
+
+local INFO_ROWS = 6
+
+--- Camping and Legacy pages (step 3, 17 Nov 2026): left a card with what MH can read now (one row per reading, a chip
+--- yes / no / ? or a number) and below it what that means for you; right the explanation card (the same text as in
+--- How you play, in the client's language), scrolling.
+local function BuildInfoPage(f, key, x0, rightW, labelKey, tipKey, howKey)
+	local page = f.pages[key]
+	local stW = math.floor(rightW * 0.40)
+	local st = Card(page)
+	st:SetPoint("TOPLEFT", f, "TOPLEFT", x0, -62)
+	st:SetPoint("BOTTOMLEFT", f, "BOTTOMLEFT", x0, 16)
+	st:SetWidth(stW)
+	st.label = Label(st, ns:L(labelKey), tipKey)
+	st.rows = {}
+	for i = 1, INFO_ROWS do
+		local row = CreateFrame("Frame", nil, st)
+		row:SetHeight(30)
+		row:SetPoint("TOPLEFT", 14, -34 - (i - 1) * 32)
+		row:SetPoint("RIGHT", -14, 0)
+		local sep = row:CreateTexture(nil, "ARTWORK")
+		sep:SetColorTexture(A.edge[1], A.edge[2], A.edge[3], 0.35)
+		sep:SetHeight(1)
+		sep:SetPoint("BOTTOMLEFT")
+		sep:SetPoint("BOTTOMRIGHT")
+		row.name = Text(row, "textB", 14)
+		row.name:SetPoint("LEFT")
+		row.name:SetPoint("RIGHT", -78, 0)
+		row.name:SetWordWrap(false)
+		row.chip = Tip(S.Chip(row, "", nil, 70))
+		row.chip:SetPoint("RIGHT")
+		row.hover = HoverOver(row, row.name)
+		st.rows[i] = row
+	end
+	st.what = Text(st, "head", 17)
+	st.what:SetPoint("TOPLEFT", 14, -34 - INFO_ROWS * 32 - 10)
+	st.what:SetPoint("RIGHT", -14, 0)
+	st.why = Text(st, "text", 12, A.dim)
+	st.why:SetPoint("TOPLEFT", st.what, "BOTTOMLEFT", 0, -6)
+	st.why:SetPoint("RIGHT", -14, 0)
+	local how = Card(page)
+	how:SetPoint("TOPLEFT", st, "TOPRIGHT", 12, 0)
+	how:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -16, 16)
+	how.label = Label(how, ns:L(howKey), "FOV_TIP_CARD_HOW")
+	how.sf, how.child = S.Scroll(how, 34, 10, 40)
+	how.text = Text(how.child, "text", 14)
+	how.text:SetPoint("TOPLEFT", 6, 0)
+	how.text:SetPoint("RIGHT", how.child, "RIGHT", -6, 0)
+	if how.text.SetSpacing then
+		how.text:SetSpacing(3)
+	end
+	page.status, page.how = st, how
+end
+
+--- Fill one row of an info page: name (with a tooltip), chip text and colour, chip tooltip.
+local function InfoRow(row, name, tipBody, chipText, col, chipTip)
+	row.name:SetText(name)
+	row.hover.tipTitle, row.hover.tipBody = name, tipBody
+	row.chip.t:SetText(chipText)
+	row.chip:SetColor(col[1], col[2], col[3])
+	row.chip.tipTitle, row.chip.tipBody = chipText, chipTip
+	row:Show()
 end
 
 local function Build()
@@ -347,7 +372,7 @@ local function Build()
 	-- Pages: the left column (portrait, level) stays, the right part switches.
 	f.page = "now"
 	f.pages = {}
-	for _, key in ipairs({ "now", "cq" }) do
+	for _, key in ipairs({ "now", "cq", "camp", "legacy" }) do
 		local p = CreateFrame("Frame", nil, f)
 		p:SetAllPoints(f)
 		p:Hide()
@@ -370,6 +395,7 @@ local function Build()
 	f.portraitTip = HoverOver(left, ring)
 	f.name = Text(left, "head", 22, A.text)
 	f.name:SetPoint("TOP", ring, "BOTTOM", 0, -8)
+	f.name:SetWidth(LEFT_W - 16)
 	f.name:SetJustifyH("CENTER")
 	f.who = Text(left, "text", 13, A.dim)
 	f.who:SetPoint("TOP", f.name, "BOTTOM", 0, -2)
@@ -570,6 +596,20 @@ local function Build()
 	end
 
 	BuildClassQuestPage(f, x0, rightW)
+	BuildInfoPage(f, "camp", x0, rightW, "FOV_LABEL_CAMP", "FOV_TIP_CARD_CAMP", "FOV_LABEL_CAMP_HOW")
+	BuildInfoPage(f, "legacy", x0, rightW, "FOV_LABEL_LEGACY", "FOV_TIP_CARD_LEGACY", "FOV_LABEL_LEGACY_HOW")
+	-- Camping and Legacy read live state (an aura, points): refresh every 2 s while one of them is open.
+	local acc = 0
+	f:HookScript("OnUpdate", function(_, el)
+		if f.page ~= "camp" and f.page ~= "legacy" then
+			return
+		end
+		acc = acc + el
+		if acc >= 2 then
+			acc = 0
+			ns.ForeverOverviewFill(true)
+		end
+	end)
 
 	f:SetScript("OnShow", function()
 		ns.ForeverOverviewFill()
@@ -591,13 +631,72 @@ local function SetGo(btn, fn)
 	end
 end
 
+--- The character's whole name. Rob, 17 Nov 2026 (via Sparring 17-11), verbatim: "kunnen we hier de hele naam neerzetten?
+--- Eventueel onder elkaar de voor- en de achternaam, als het te lang wordt." The overview showed only "IMA".
+--- GEMETEN: Forever characters have a first and a last name (Rob's WTF folders: Ima-Pallie, Ima-Lockie, Joey-Whatever).
+--- NOT measured: which API gives the last name. So every candidate is written to ns.db.foreverNameProbe, and a last
+--- name is only shown when the client really gives one: a candidate with a space that starts with the first name, or
+--- the second value of UnitFullName when that is not the realm (AFGELEID: the folder looks like "name-realm").
+--- Otherwise the first name alone, as before.
+local function FullName()
+	local first = UnitName and UnitName("player") or ""
+	local probe = { unitName = first }
+	local function str(v)
+		return type(v) == "string" and not (issecretvalue and issecretvalue(v)) and v ~= "" and v or nil
+	end
+	local best
+	if GetUnitName then
+		local ok, v = pcall(GetUnitName, "player", true)
+		probe.getUnitNameTrue = ok and str(v) or nil
+	end
+	if UnitPVPName then
+		local ok, v = pcall(UnitPVPName, "player")
+		probe.unitPVPName = ok and str(v) or nil
+	end
+	local realm = GetRealmName and GetRealmName() or nil
+	local norm = GetNormalizedRealmName and GetNormalizedRealmName() or nil
+	probe.realm, probe.normRealm = realm, norm
+	if UnitFullName then
+		local ok, n, r = pcall(UnitFullName, "player")
+		probe.unitFullName, probe.unitFullNameRealm = ok and str(n) or nil, ok and str(r) or nil
+		local last = probe.unitFullNameRealm
+		if last and last ~= realm and last ~= norm and not last:find("%s") then
+			best = first .. " " .. last
+		end
+	end
+	for _, k in ipairs({ "getUnitNameTrue", "unitPVPName" }) do
+		local v = probe[k]
+		if not best and v and v:find(" ", 1, true) and v:sub(1, #first + 1) == first .. " " then
+			best = v
+		end
+	end
+	probe.shown = best or first
+	if ns.db then
+		ns.db.foreverNameProbe = probe
+	end
+	return probe.shown
+end
+
 local function FillLeft(f, level)
 	local r, g, b = Accent()
 	if SetPortraitTexture then
 		pcall(SetPortraitTexture, f.portrait, "player")
 	end
-	local name = UnitName("player") or ""
+	local name = FullName()
+	-- One line when it fits (shrink to 16), else first and last name under each other; never cut off.
+	local first, rest = name:match("^(%S+)%s+(.+)$")
+	local size = 22
+	S.Font(f.name, A.fonts.head, size, A.fallback.head)
 	f.name:SetText(name)
+	while size > 16 and f.name:GetStringWidth() > LEFT_W - 16 do
+		size = size - 1
+		S.Font(f.name, A.fonts.head, size, A.fallback.head)
+		f.name:SetText(name)
+	end
+	if f.name:GetStringWidth() > LEFT_W - 16 and first then
+		S.Font(f.name, A.fonts.head, 20, A.fallback.head)
+		f.name:SetText(first .. "\n" .. rest)
+	end
 	local race = UnitRace and UnitRace("player") or ""
 	local cls = UnitClass and UnitClass("player") or ""
 	local tree
@@ -852,12 +951,142 @@ local function FillClassQuestPage(f, level)
 		card.rows[i]:Hide()
 	end
 	card.child:SetHeight(math.max(10, #list * CQP_ROW_H))
-	card.child:SetWidth(card.sf:GetWidth() > 0 and card.sf:GetWidth() or card.child:GetWidth())
-	card.sf:SetVerticalScroll(0)
-	card.UpdateThumb()
+	card.sf.Reset()
 end
 
-function ns.ForeverOverviewFill()
+local GREEN, RED = { 0.45, 0.85, 0.40 }, { 0.95, 0.45, 0.40 }
+
+--- yes / no / ? chip for an aura reading (nil = the client did not let us read it: never shown as "no").
+local function YesNo(v)
+	if v == nil then
+		return "?", A.later, ns:L("FOV_TIP_UNREADABLE")
+	end
+	if v then
+		return ns:L("FOV_YES"), GREEN, nil
+	end
+	return ns:L("FOV_NO"), A.dim, nil
+end
+
+--- The explanation card: the shared How you play section by its English title, in this client's language.
+local function FillHow(how, englishTitle, refresh)
+	if not refresh then
+		local _, body = nil, nil
+		if ns.ForeverHowToCommon then
+			_, body = ns.ForeverHowToCommon(englishTitle)
+		end
+		how.text:SetText(body and S.Format(body) or "")
+	end
+	-- Again on every refresh: right after the page is shown the width may not be laid out yet.
+	how.child:SetHeight(math.max(10, (how.text:GetStringHeight() or 0) + 12))
+	if refresh then
+		how.sf.UpdateThumb()
+	else
+		how.sf.Reset()
+	end
+end
+
+local function FillCampPage(f, refresh)
+	local page = f.pages.camp
+	local st = page.status
+	local ids = ns.FOREVER_CAMP_AURAS or {}
+	local s = ns.ForeverCampState and ns.ForeverCampState() or {}
+	local function welcoming()
+		if s.welcoming or s.welcoming2 then
+			return true
+		end
+		if s.welcoming == nil and s.welcoming2 == nil then
+			return nil
+		end
+		return false
+	end
+	local rows = {
+		{ ids.nearby, s.nearby, "FOV_TIP_CAMP_NEARBY" },
+		{ ids.welcoming, welcoming(), "FOV_TIP_CAMP_WELCOMING" },
+		{ ids.benefits, s.benefits, "FOV_TIP_CAMP_BENEFITS" },
+		{ ids.rest, s.rest, "FOV_TIP_CAMP_REST" },
+		{ ids.camping, s.camping, "FOV_TIP_CAMP_COOLDOWN" },
+	}
+	for i, row in ipairs(st.rows) do
+		local d = rows[i]
+		if d and d[1] then
+			local chip, col, chipTip = YesNo(d[2])
+			InfoRow(row, SpellName(d[1]) or ("#" .. d[1]), ns:L(d[3]), chip, col, chipTip)
+		else
+			row:Hide()
+		end
+	end
+	-- What it means for you, from the same readings as "Do this now" (ForeverCampNow); unreadable = say so, never guess.
+	local line = ns.ForeverCampNow and ns.ForeverCampNow() or nil
+	local what, why
+	if InCombatLockdown and InCombatLockdown() then
+		what = ns:L("FOV_ST_COMBAT")
+	elseif line then
+		what = line
+	elseif s.benefits then
+		what = ns:L("FOV_CAMP_ST_HAVE")
+	elseif welcoming() then
+		what = ns:L("FOV_CAMP_ST_SITTING")
+	elseif s.nearby == false then
+		what = ns:L("FOV_CAMP_ST_NOFIRE")
+	else
+		what, why = ns:L("FOV_ST_UNREADABLE"), ns:L("FOV_TIP_UNREADABLE")
+	end
+	st.what:SetText(what)
+	st.why:SetText(why or ns:L("FOV_CAMP_ST_HINT"))
+	FillHow(page.how, "Camping", refresh)
+end
+
+local function FillLegacyPage(f, refresh)
+	local page = f.pages.legacy
+	local st = page.status
+	local s = ns.ForeverLegacyState and ns.ForeverLegacyState() or {}
+	local rank = ns.ForeverTalentedRank and ns.ForeverTalentedRank() or nil
+	local function num(v)
+		if v == nil then
+			return "?", A.later, ns:L("FOV_TIP_UNREADABLE")
+		end
+		return tostring(v), A.gold, nil
+	end
+	local rows = {
+		{ "FOV_LEG_EARNED", s.earned, "FOV_TIP_LEG_EARNED" },
+		{ "FOV_LEG_AVAIL", s.available, "FOV_TIP_LEG_AVAIL" },
+		{ "FOV_LEG_SPENT", s.spent, "FOV_TIP_LEG_SPENT" },
+		{ "FOV_LEG_CAP", s.cap, "FOV_TIP_LEG_CAP" },
+		{ "FOV_LEG_TALENTED", rank, "FOV_TIP_LEG_TALENTED" },
+	}
+	for i, row in ipairs(st.rows) do
+		local d = rows[i]
+		if d then
+			local chip, col, chipTip = num(d[2])
+			-- A positive unused count is the thing to act on: in the class colour.
+			if d[1] == "FOV_LEG_AVAIL" and type(d[2]) == "number" and d[2] > 0 then
+				local r, g, b = Accent()
+				col = { r, g, b }
+			end
+			InfoRow(row, ns:L(d[1]), ns:L(d[3]), chip, col, chipTip)
+		else
+			row:Hide()
+		end
+	end
+	local line = ns.ForeverLegacyNow and ns.ForeverLegacyNow() or nil
+	local what, why
+	if InCombatLockdown and InCombatLockdown() then
+		what = ns:L("FOV_ST_COMBAT")
+	elseif line then
+		what = line
+	elseif s.earned == 0 then
+		what = ns:L("FOV_LEG_ST_LOCKED")
+	elseif type(s.available) == "number" then
+		what = ns:L("FOV_LEG_ST_NONE")
+	else
+		what, why = ns:L("FOV_ST_UNREADABLE"), ns:L("FOV_TIP_UNREADABLE")
+	end
+	st.what:SetText(what)
+	st.why:SetText(why or ns:L("FOV_LEG_ST_HINT"))
+	FillHow(page.how, "Legacy Points", refresh)
+end
+
+function ns.ForeverOverviewFill(refresh)
 	local f = Build()
 	local r, g, b = Accent()
 	f.nowAccent:SetColorTexture(r, g, b, 0.9)
@@ -875,6 +1104,12 @@ function ns.ForeverOverviewFill()
 	end
 	if f.page == "cq" then
 		FillClassQuestPage(f, level)
+		return f
+	elseif f.page == "camp" then
+		FillCampPage(f, refresh)
+		return f
+	elseif f.page == "legacy" then
+		FillLegacyPage(f, refresh)
 		return f
 	end
 

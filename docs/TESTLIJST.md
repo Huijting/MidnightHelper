@@ -30,6 +30,17 @@ Eerst WoW helemaal afsluiten en opnieuw starten (er is een nieuw bestand; /reloa
 - [ ] `/mh overview` opent zonder foutmelding en ziet er precies hetzelfde uit als ronde 5 (zelfde letters, kleuren,
       knoppen, NOW/LATER-labels onder Jouw pad).
 
+## 🏕️ 17 nov (avond) — Forever: tabs Kamperen en Legacy als pagina + je hele naam (`/mh overview`)
+
+- [ ] Tab "Camping": links "YOUR CAMP NOW" met vijf rijen (Campfire Nearby, Welcoming Campfire, Camp Benefits, Boosted
+      Rest, Camping) en ja / nee / ?. Rechts de uitleg over kamperen (scrollen met het wiel).
+- [ ] Ga bij een kampvuur staan en ga zitten: de rijen springen binnen 2 seconden om (ja), en onderaan staat wat je moet
+      doen. Een "?" betekent: het spel laat MH dat niet lezen.
+- [ ] Tab "Legacy": vijf rijen (verdiend, ongebruikt, uitgegeven, max per character, Talented-rang) met getallen, en de
+      Legacy-uitleg rechts.
+- [ ] Je naam links: staat er nu "Ima Pallie" (voor- én achternaam)? Of nog alleen "IMA"? Doe daarna `/reload`; ik lees
+      dan in je SavedVariables (`foreverNameProbe`) welke functie de achternaam geeft.
+
 ## 📜 17 nov (avond) — Forever: tab Class quests als pagina (`/mh overview`)
 
 - [ ] Klik op de tab "Class quests": de rechterkant wordt één kaart met al je class-quests op volgorde van level. Je

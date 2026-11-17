@@ -278,6 +278,12 @@ lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met d
   de pijl-schakelaar voor de Forever Leveling Guide); coördinaten uit de zin naar een kleine subregel; de belangrijkste
   regel als kaartje met titel (bv. "Class quest: Redemption" / "Go to Danitha Morr" / "Tirisfal Glades · 22.1, 44.7" +
   knop).
+- 17 nov avond (Bouwchat 17-11 (3)): stijlkit `ForeverStyle.lua` (77a9c6c), Class quests-pagina (3eadfdd), Kamperen +
+  Legacy-pagina's GEBOUWD. Open: How you play-pagina, B + schakelaar, vertalingen.
+- **Volledige naam in de kop** (Rob via Sparring, letterlijk: *"Nog een vraag, kunnen we hier de hele naam neerzetten?
+  Eventueel onder elkaar de voor- en de achternaam, als het te lang wordt."*): GEBOUWD met meting
+  (`ns.db.foreverNameProbe`): achternaam alleen als de client hem geeft; één regel (krimpt tot 16), anders twee regels.
+  Wacht op Robs meting welke functie de achternaam geeft.
 
 ### Forever: wie stuurt de pijl — MH of de Forever Leveling Guide (schakelaar)
 - Bron: Rob 17 nov (via Sparring 17-11), na zijn test (troll mage 6: "Forever Guide: your pin stays… route paused" +

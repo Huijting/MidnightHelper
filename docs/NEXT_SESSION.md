@@ -18,7 +18,19 @@
   ForeverClassQuestGo, zelfde gedrag). fcq_check loopt nu ook de lijst + elke knop: 908.461 runs, 0 fouten. Nieuwe
   sleutels FOV_CQP_*, FOV_CHIP_DONE, FOV_TIP_CHIP_DONE, FOV_TIP_CQP_* (en + nl; de/fr/es/pt/ru in de vertaalronde).
   Lint 0 HARD, luac OK. NIET in het spel gezien.
-- ⏭️ Volgende: volledige naam in de kop (Robs wens via sparring, meten), dan Kamperen + Legacy als pagina's.
+- 🏕️ **Stap 3 Kamperen + Legacy als pagina's GEBOUWD (en + nl)**: tabs wisselen in het overzicht. Links kaart "JE KAMP
+  NU" / "JOUW LEGACY POINTS" met één rij per meting (kamp: client-spellnamen van Campfire Nearby, Welcoming Campfire,
+  Camp Benefits, Boosted Rest, Camping; chip ja/nee/? — ? = onleesbaar, nooit "nee"; Legacy: verdiend/ongebruikt/
+  uitgegeven/max/Talented-rang) + wat het betekent (zelfde beslissing als Doe dit nu); rechts de uitlegkaart uit How you
+  play in de taal van de client (nieuw `ns.ForeverHowToCommon(englishTitle)`), scrollend. Ververst elke 2 s zolang de
+  pagina open is. Nieuw in de kit: `S.Scroll` (ook in Class quests) en `S.Format`. `ns.FOREVER_CAMP_AURAS` uit ForeverCamp.
+- 👤 **Volledige naam** (Robs wens via sparring, IDEEEN): GEMETEN in Robs WTF: Forever-characters hebben voor- + achternaam
+  (mappen Ima-Pallie, Ima-Lockie, Joey-Whatever). NIET gemeten welke functie de achternaam geeft → `FullName()` schrijft
+  alle kandidaten naar `ns.db.foreverNameProbe` (UnitName, GetUnitName(…, true), UnitPVPName, UnitFullName + realm,
+  GetRealmName, GetNormalizedRealmName) en toont een achternaam alleen als de client hem geeft (AFGELEID: tweede waarde
+  van UnitFullName als die niet de realm is). Eén regel (krimpt 22→16), anders voor- en achternaam onder elkaar.
+  Lint 0 HARD, luac OK. NIET in het spel gezien.
+- ⏭️ Volgende: How you play als pagina (stap 4).
 - Rob is ±1 uur weg (sparring, letterlijk: *"Ga samen door met de bouwchat zover mogelijk, dat we een kant-en-klaar
   product hebben."*): lijst afwerken, geen tag/release, geen /nieuwe-chat; context vol → "KLAAR VOOR OVERDRACHT".
 

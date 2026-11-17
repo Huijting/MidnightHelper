@@ -38,6 +38,7 @@ local AURA = {
 	camping = 1308027,
 }
 local ORDER = { "nearby", "welcoming", "welcoming2", "benefits", "tent", "rest", "camping" }
+ns.FOREVER_CAMP_AURAS = AURA -- the overview's Camping page names its rows with these (client spell names)
 
 --- true / false / nil (nil = the client did not let us read it).
 local function Read(id)
