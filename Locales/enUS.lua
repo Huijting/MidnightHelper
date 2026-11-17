@@ -5554,6 +5554,14 @@ ns._mhLocales.enUS = {
 	FOV_STYLE_TIP_TITLE = "Style A or B",
 	FOV_STYLE_TIP = "A = book: warm colours and old letters. B = modern: slate grey and plain letters. Click to switch. Also in the Midnight Helper settings, or type /mh overview style a or b.",
 	FOV_STYLE_SET_FMT = "Overview style %s.",
+	-- 17 Nov 2026, Forever paladin: which blessing for the player under your mouse (ForeverBlessTip.lua, /mh blesstip).
+	FBLESS_TIP_FMT = "Midnight Helper: give %s",
+	FBLESS_ON = "Blessing tip ON: hover a friendly player to see which blessing fits.",
+	FBLESS_OFF = "Blessing tip off.",
+	FBLESS_SET_USAGE = "Use: /mh blesstip set <class> might|wisdom|kings (for example: /mh blesstip set hunter might).",
+	FBLESS_SET_FMT = "%s now gets %s.",
+	FBLESS_RESET = "Back to Midnight Helper's own choice for every class.",
+	FBLESS_HELP = "/mh blesstip on | off | set <class> might|wisdom|kings | reset",
 	-- 17 Nov 2026 (Rob: "B"): a modifier + key that belongs to another binding.
 	FMAC_KEY_TAKEN_FMT = "%s is taken by %s: the %s part of this macro only works with the mouse.",
 	FMAC_BTN_FREE = "Free key",

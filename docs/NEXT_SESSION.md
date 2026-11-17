@@ -49,7 +49,16 @@
   "CONTENTS" op de How you play-pagina: oorzaak NIET gevonden (AFGELEID: misschien een te brede knoptekst, nu gekrompen) →
   nieuwe screenshot vragen. OPEN klein: FHOWTO_ROLES_FOLDED_FMT zegt "at the top", op de pagina staat de knop onderaan
   (in de vertaalronde aanpassen). Lint 0 HARD, luac OK. NIET in het spel gezien.
-- ⏭️ Volgende: vertaalronde (stap 6: alle FOV_*, FDUNG_IN_ENEMY_FMT, SET_FOVSTYLE_* naar de/fr/es/pt/ru, mh-writer).
+- 🌍 Stap 6 vertaalronde LOOPT: 5 mh-writers (de, fr, es+esMX, pt, ru), elk alleen in `Locales/ForeverClassQuests_<taal>.lua`
+  (fill-regel, al in beide toc's). Ook SET_FOVSTYLE_* daar (Forever-only instelling). pt klaar: 113 sleutels (108 FOV_).
+- 🛡️ **Stap 7.1 zegen-tip GEBOUWD (en + nl)**: nieuw `Modules/ForeverBlessTip.lua` (beide toc's → WoW herstarten). Paladin,
+  vriendelijke SPELER onder de muis → regel in de tooltip "Midnight Helper: give Blessing of Might (Shift+Z)". Standaard
+  UIT: `/mh blesstip on|off`, instelling SET_BLESSTIP_*. Tabel AFGELEID (Classic; Might = alleen melee AP, sparring
+  GEMETEN): warrior/rogue Might; mage/warlock/priest Wisdom; hunter/druid/shaman/paladin Kings (20+), anders terugval
+  naar wat je kent. Eigen keuze: `/mh blesstip set <class> might|wisdom|kings`, `reset`. Toets alleen als blok-macro
+  "MH SHIFT-Z/X/V" bestaat. NIET gemeten: TooltipDataProcessor/OnTooltipSetUnit in Forever, UnitClass op een vreemde →
+  `/mh blesstip` print hook + aantal keer gevuurd + keuze en reden, schrijft `foreverBlessTipProbe`. Lint 0 HARD, luac OK.
+- ⏭️ Daarna: stap 7.2 slimme zegen-knop (SecureActionButton, apart event-frame; eerst Robs meting van 7.1 afwachten?).
 - Rob is ±1 uur weg (sparring, letterlijk: *"Ga samen door met de bouwchat zover mogelijk, dat we een kant-en-klaar
   product hebben."*): lijst afwerken, geen tag/release, geen /nieuwe-chat; context vol → "KLAAR VOOR OVERDRACHT".
 

@@ -30,6 +30,16 @@ Eerst WoW helemaal afsluiten en opnieuw starten (er is een nieuw bestand; /reloa
 - [ ] `/mh overview` opent zonder foutmelding en ziet er precies hetzelfde uit als ronde 5 (zelfde letters, kleuren,
       knoppen, NOW/LATER-labels onder Jouw pad).
 
+## 🛡️ 17 nov (avond) — Forever paladin: zegen-tip in de tooltip (`/mh blesstip`)
+
+WoW eerst helemaal herstarten (nieuw bestand). Staat standaard UIT.
+- [ ] Typ `/mh blesstip on`. Ga met je muis over een vriendelijke speler (een warrior, een mage …): onderaan de tooltip
+      staat "Midnight Helper: give Blessing of …" (met "(Shift+Z)" e.d. als je MH-toetsenblok staat).
+- [ ] Warrior/rogue = Might; mage/warlock/priest = Wisdom; hunter/druid/shaman/paladin = Kings (vanaf 20; daarvoor Wisdom).
+- [ ] Muis op een speler en typ `/mh blesstip`: de chat zegt welke zegen en waarom. Daarna `/reload` (ik lees
+      `foreverBlessTipProbe`: werkt de tooltip-hook in Forever?).
+- [ ] Zie je géén regel in de tooltip? Typ `/mh blesstip` en zeg wat er bij "hook" en "fired" staat.
+
 ## 🎨 17 nov (avond) — Forever: ontwerp B en de schakelaar (`/mh overview`)
 
 - [ ] Bovenaan naast "Dock to window" staat een knop "Style A". Klik: het venster wordt strak en modern (grijs, gewone

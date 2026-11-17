@@ -209,7 +209,8 @@ lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met d
   en :1025 (Ret).
 - Te meten in het spel: UnitClass/UnitPowerType("mouseover") op een vreemde, UPDATE_MOUSEOVER_UNIT bij unit frames,
   SetAttribute vanuit het event-frame + binding/klik, de speler-tooltip-hook. Kandidaten (NIET kopiëren): PallyMe (ARR),
-  PaladinPlan (GPL-3.0). NOG NIETS GEBOUWD.
+  PaladinPlan (GPL-3.0).
+- 17 nov avond: (1) tooltip-tip GEBOUWD (`ForeverBlessTip.lua`, `/mh blesstip`, standaard uit, met meting). (2) nog niet.
 
 ### Forever: tien nieuwe handige macro's (ideeën uit de Forever-gidsen, zelf geschreven)
 - Bron: Rob 17 nov (via Sparring 17-11), letterlijk: *"Ja, die 10 macro-ideeën zijn een goed idee. Werk maar uit."*

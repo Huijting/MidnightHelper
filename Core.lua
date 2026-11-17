@@ -1520,6 +1520,16 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 	end
 
 	-- /mh overview — Forever: the new overview window, rough version of style A (ForeverOverview.lua, 17 Nov 2026).
+	-- /mh blesstip [on|off|set <class> <kind>|reset] — Forever paladin: blessing tip in the player tooltip (ForeverBlessTip.lua).
+	local blessArg = msg:match("^blesstip%s*(.*)$")
+	if blessArg then
+		if ns.ForeverBlessTipSlash then
+			ns.ForeverBlessTipSlash(blessArg)
+		else
+			print(("|cffffcc00%s|r the blessing tip is for WoW Forever."):format(ns:L("PRINT_PREFIX")))
+		end
+		return
+	end
 	-- /mh overview style a|b — switch the look (17 Nov 2026; also in the settings and the A/B button in the window).
 	local ovStyle = msg:match("^overview style%s+([abAB])$")
 	if ovStyle then

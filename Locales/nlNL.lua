@@ -4646,6 +4646,14 @@ ns._mhLocales.nlNL = {
 	FOV_STYLE_TIP_TITLE = "Stijl A of B",
 	FOV_STYLE_TIP = "A = boek: warme kleuren en oude letters. B = modern: leisteengrijs en strakke letters. Klik om te wisselen. Ook in de instellingen van Midnight Helper, of typ /mh overview style a of b.",
 	FOV_STYLE_SET_FMT = "Stijl van het overzicht: %s.",
+	-- 17 nov 2026, Forever paladin: welke zegen voor de speler onder je muis (ForeverBlessTip.lua, /mh blesstip).
+	FBLESS_TIP_FMT = "Midnight Helper: geef %s",
+	FBLESS_ON = "Zegen-tip AAN: ga met je muis over een vriendelijke speler om te zien welke zegen past.",
+	FBLESS_OFF = "Zegen-tip uit.",
+	FBLESS_SET_USAGE = "Gebruik: /mh blesstip set <class> might|wisdom|kings (bijvoorbeeld: /mh blesstip set hunter might).",
+	FBLESS_SET_FMT = "%s krijgt nu %s.",
+	FBLESS_RESET = "Terug naar de eigen keuze van Midnight Helper voor elke class.",
+	FBLESS_HELP = "/mh blesstip on | off | set <class> might|wisdom|kings | reset",
 	-- 17 nov 2026 (Rob: "B"): een modifier + toets die al van een andere binding is.
 	FMAC_KEY_TAKEN_FMT = "%s is bezet door %s: het %s-deel van deze macro werkt alleen met de muis.",
 	FMAC_BTN_FREE = "Toets vrij",

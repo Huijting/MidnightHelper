@@ -669,6 +669,14 @@ local function Build()
 				ns.ForeverOverviewSetStyle(v)
 			end
 		end, "A")
+		-- 17 Nov 2026 (Rob: "Allebei", the blessing tip first): a paladin sees which blessing fits the player under the
+		-- mouse, in the tooltip. Off by default. Same as /mh blesstip on|off.
+		Toggle("mh_foreverBlessTip", "SET_BLESSTIP_TITLE", "SET_BLESSTIP_DESC", function()
+			return ns.db and ns.db.foreverBlessTip == true
+		end, function(v)
+			ns.db = ns.db or {}
+			ns.db.foreverBlessTip = v and true or nil
+		end, false)
 	end
 	-- 9 Oct 2026 (Rob at the AH): a button on the auction house window that opens the shopping lists. On by default.
 	Toggle("mh_ahShopButton", "SET_AHSHOP_TITLE", "SET_AHSHOP_DESC", function()
