@@ -212,7 +212,7 @@ lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met d
   gaan bouwen."* ("manual" = Mana Well.)
 - Volgorde: NA de classes (stap 3 + de Fable-fixes). Spel: F. Voor wie: N + V.
 - Stand: onderzocht door mh-research (sparring, 17 nov), overgezet naar `docs/forever/CAMPING_RESEARCH_2026-11-17.md`
-  (17 nov; eerder ten onrechte als gedaan gemeld). Fable-controle loopt → `CAMPING_VERIFIED_2026-11-17.md`. Voorstel (details keuze bouwchat, spelers kiezen via schakelaars): uitlegkaart
+  (stond er al kort in; 17 nov de volledige tekst). Fable-controle loopt → `CAMPING_VERIFIED_2026-11-17.md`. Voorstel (details keuze bouwchat, spelers kiezen via schakelaars): uitlegkaart
   "Kamperen" (ForeverProfGuide versie B), "Do this now" ga 1 minuut zitten, hint beroep ≥20 zonder kamprecept, tooltip op
   kampobjecten, opt-in herinnering "geen kampbuff", `/mh camp`-diagnose, clientnamen per taal meten. Eerste test voor Rob:
   zijn de auras 1229741 / 1283391 leesbaar. NOG NIETS GEBOUWD.

@@ -1,8 +1,10 @@
 # Camping in WoW Forever — onderzoek 17 nov 2026 (overgenomen uit het bericht van Sparring 17-11)
 
 Onderzoek door mh-research (Opus, alleen gelezen; docs/ niet gelezen) in de sessie van Sparring 17-11, letterlijk
-overgezet door de bouwchat zodat het niet in een chat verdwijnt. **Niet door de bouwchat nagemeten.** ⚠️ De bouwchat
-meldde eerder dat dit bestand al bestond; dat was onwaar (Sparring GEMETEN met Glob). Aangemaakt 17 nov, later.
+overgezet door de bouwchat zodat het niet in een chat verdwijnt. **Niet door de bouwchat nagemeten.** ⚠️ Dit bestand
+bestond al (korte versie, in git); Sparring en de bouwchat vonden het allebei NIET met Glob en dachten dat het ontbrak.
+Op 17 nov vervangen door de volledige tekst; de oude versie had dezelfde feiten, korter (GEMETEN in de git-diff).
+Les: een lege Glob bewijst niets zonder positieve controle (silence-is-not-absence).
 
 Rob, letterlijk (via sparring): *"We hebben tegenwoordig kampvuurs waarbij je allerlei power-ups, hoe noem je dat,
 tijdelijke buffs kan krijgen. Onder andere bij een campchair, een sharpening wheel, incense candle, manual, lodestone en
