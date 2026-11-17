@@ -422,5 +422,207 @@ Vanaf level 1: Healing Touch heb je vanaf het begin. De gidsen raden healen niet
 - Healen in een form. Heals werken alleen in je gewone vorm.
 - Een HoT casten op iemand die hem nog heeft. De nieuwe vervangt de oude.]] },
 		},
+		-- Warrior, Mage, Priest (17 nov 2026), zelfde band en volgorde als in Modules/ForeverHowToPlay.lua.
+		WARRIOR = {
+			{ band = 3, title = "Protection: tank", body = [[
+Vanaf level 10 (Defensive Stance, uit een quest; dezelfde quest geeft Taunt en Sunder Armor). Een **tank** is degene die de vijanden slaan, zodat de rest van de groep veilig blijft. Je draagt een eenhandig wapen en een schild. **Threat** = hoe graag een vijand jou wil aanvallen; als tank heb je die op elke vijand nodig. De gidsen zijn het oneens over welke boom alleen het snelst levelt: sommige noemen Protection de snelste, andere zeggen dat hij alleen trager is. Hij komt op gang rond level 16, als je Shield Block naast Revenge hebt.
+**Simpele volgorde:**
+1. Defensive Stance (**Ctrl-2**), Battle Shout (**Shift-X**). Bloodrage (**F1**) voor Rage om mee te beginnen.
+2. Pull. **Pullen** = één vijand van een afstand raken, zodat hij naar jou toe komt. Charge (**R**) werkt alleen in Battle Stance (**Ctrl-1**); ga daarna terug naar Defensive Stance (**Ctrl-2**). Met Vanguard (vanaf 25) werkt Charge ook in Defensive Stance. Of pull met je ranged wapen (blok D).
+3. Meerdere vijanden: Demoralizing Shout (**Shift-2**, vanaf 14) één keer, Thunder Clap (**Shift-1**) steeds als hij klaar is.
+4. Shield Block (**Z**, vanaf 16), en Revenge (**2**, vanaf 14) zodra hij oplicht.
+5. Shield Slam (**3**, vanaf 40) steeds als hij klaar is.
+6. Sunder Armor (**5**) op je hoofddoel; tot 5 stacks op een baas.
+7. Taunt (**F**) als een vijand iemand anders aanvalt.
+8. Rage over: Heroic Strike (**1**) op één vijand, Cleave (**Shift-4**, vanaf 20) op twee of meer.
+**Per 10 levels:**
+- 10: Defensive Stance (**Ctrl-2**), Taunt (**F**), Sunder Armor (**5**), Bloodrage (**F1**). Daarna Shield Bash (**E**) op 12, Revenge (**2**) en Demoralizing Shout (**Shift-2**) op 14, Shield Block (**Z**) op 16, Disarm (**V**) op 18.
+- 20: Last Stand (**X**, een talent): 30% meer max health, 20 seconden lang. Victory Rush (**F2**), Cleave (**Shift-4**). Daarna Intimidating Shout (**Shift-Q**) op 22, Vanguard (een talent, passief) op 25, Challenging Shout (**Shift-F**) op 26, Shield Wall (**C**) op 28. Talent-levels hier zijn op z'n vroegst; een perk kan ze tot 5 levels eerder maken.
+- 30: Concussion Blow (**Shift-V**, een talent): een stun van 5 seconden. Berserker Stance (**Ctrl-3**, uit een quest). Daarna Bastion (een talent, passief) op 35.
+- 40: Shield Slam (**3**, een talent). Plate Mail bij de trainer: je kunt plate dragen.
+- 50: niets nieuws voor deze rol. Sterkere ranks van Shield Slam, Revenge, Sunder Armor en Thunder Clap.
+- 60: weer sterkere ranks; niets nieuws voor deze rol.
+**Beginnersfouten:**
+- Denken dat Thunder Clap de hele groep vijanden raakt. Hij raakt er 4; een vijfde kan naar de healer lopen.
+- Vijanden achter je laten staan. Van achteren kun je niet blocken, dodgen of parryen, en Revenge licht dan niet op.
+- Taunt op een vijand die jou al aanvalt. Dan doet hij niets.]] },
+			{ band = 1, title = "Arms: schade met één groot wapen", body = [[
+Vanaf level 1. Je draagt één groot tweehandig wapen en staat bijna altijd in Battle Stance. De grote stappen zijn Sweeping Strikes op 30 en Mortal Strike op 40. Een nieuw wapen is je grootste winst. Je hebt geen eigen heal behalve Victory Rush (vanaf 20), dus eten en verband blijven handig. De gidsen zijn het oneens over welke boom het snelst levelt; alle drie werken.
+**Simpele volgorde:**
+1. Battle Stance (**Ctrl-1**), Battle Shout (**Shift-X**).
+2. Charge (**R**) om te beginnen.
+3. Rend (**Shift-Z**), als de vijand nog even leeft.
+4. Overpower (**2**, vanaf 12) zodra hij oplicht.
+5. Mortal Strike (**3**, vanaf 40) steeds als hij klaar is; houd er 30 Rage voor over.
+6. Victory Rush (**F2**, vanaf 20) na een kill, als je health mist.
+7. Twee vijanden: Sweeping Strikes (**Q**, vanaf 30), dan Cleave (**Shift-4**, vanaf 20). Vóór 30: Thunder Clap (**Shift-1**).
+8. Rage over: Heroic Strike (**1**).
+**Per 10 levels:**
+- 10: Heroic Strike (**1**), Charge (**R**), Rend (**Shift-Z**), Thunder Clap (**Shift-1**), Hamstring (**V**), Battle Shout (**Shift-X**), Bloodrage (**F1**). Daarna Overpower (**2**) op 12, Demoralizing Shout (**Shift-2**) op 14.
+- 20: Victory Rush (**F2**), Cleave (**Shift-4**), Slam (**Shift-C**), Retaliation (**C**). Daarna Execute (**4**) op 24, Spearing Strike (**F3**, een talent) op 25: een extra harde klap op Giants en Dragonkin. Talent-levels hier zijn op z'n vroegst; een perk kan ze tot 5 levels eerder maken.
+- 30: Sweeping Strikes (**Q**, een talent, alleen Battle Stance): je volgende 5 klappen raken ook een vijand naast je doel. Berserker Stance (**Ctrl-3**, uit een quest) met Intercept (**R**) en Berserker Rage (**Shift-V**). Daarna Improved Slam (een talent, passief) op 35, Whirlwind (**2** in Berserker Stance) op 36, Pummel (**E** in Berserker Stance) op 38.
+- 40: Mortal Strike (**3**, een talent): de vijand krijgt 10 seconden lang 50% minder healing. Plate Mail bij de trainer.
+- 50: Recklessness (**Q** in Berserker Stance). Sterkere ranks van Mortal Strike.
+- 60: weer sterkere ranks; niets nieuws voor deze rol.
+**Beginnersfouten:**
+- Steeds Heroic Strike (**1**) indrukken. Die klap geeft geen Rage, dus er blijft niets over voor Mortal Strike of Overpower.
+- Slam (**Shift-C**) vóór het talent Improved Slam: een cast van 1,5 seconde die je gewone klap vertraagt. De meeste gidsen slaan hem tot dan over.
+- Een interrupt zoeken op **E** met een tweehandig wapen. Shield Bash heeft een schild nodig; jouw interrupt is Pummel (38, Berserker Stance).]] },
+			{ band = 2, title = "Fury: schade met twee wapens", body = [[
+Een wapen in elke hand, vanaf level 20 (Dual Wield bij de trainer). Tot dan gebruik je je beste wapen (een tweehandig wapen is prima) en speel je als Arms. Fury wordt pas echt sterk met Whirlwind (36) en Bloodthirst (40). Je hebt twee goede wapens nodig. Whirlwind, Pummel, Intercept en Berserker Rage werken alleen in Berserker Stance, dus je wisselt vaak van stance.
+**Simpele volgorde (vanaf 36; daarvoor speel je als Arms):**
+1. Battle Shout (**Shift-X**). Bloodrage (**F1**) voor Rage.
+2. Charge (**R**) in Battle Stance (**Ctrl-1**).
+3. Death Wish (**Shift-3**, vanaf 30) op een sterke vijand.
+4. Berserker Stance (**Ctrl-3**): Whirlwind (**2**, vanaf 36) steeds als hij klaar is.
+5. Bloodthirst (**3**, vanaf 40) steeds als hij klaar is. De gidsen verschillen over welke van deze twee eerst komt.
+6. Victory Rush (**F2**) na een kill, als je health mist.
+7. Rage over: Heroic Strike (**1**); op twee vijanden Cleave (**Shift-4**).
+8. Weinig Rage: Reckless Swings (**Shift-F1**, vanaf 25; kost health).
+**Per 10 levels:**
+- 10: niets nieuws voor deze rol: je speelt als Arms, met één wapen.
+- 20: Dual Wield bij de trainer: nu kan er een wapen in je andere hand. Piercing Howl (**Shift-R**, een talent): vertraagt alle vijanden bij je. Victory Rush (**F2**), Cleave (**Shift-4**). Daarna Execute (**4**) op 24, Reckless Swings (**Shift-F1**, een talent) op 25. Talent-levels hier zijn op z'n vroegst; een perk kan ze tot 5 levels eerder maken.
+- 30: Death Wish (**Shift-3**, een talent). Berserker Stance (**Ctrl-3**, uit een quest) met Intercept (**R**) en Berserker Rage (**Shift-V**). Daarna Whirlwind (**2** in Berserker Stance) op 36, Pummel (**E** in Berserker Stance) op 38.
+- 40: Bloodthirst (**3**, een talent; je hebt eerst Death Wish nodig). Hij healt niet; je loopt er sneller door. Plate Mail bij de trainer.
+- 50: Recklessness (**Q** in Berserker Stance). Sterkere ranks van Bloodthirst.
+- 60: weer sterkere ranks; niets nieuws voor deze rol.
+**Beginnersfouten:**
+- Fury spelen met één goed wapen en een slecht tweede.
+- Whirlwind (**2**) zoeken in Battle Stance. Hij werkt alleen in Berserker Stance, en daar werken Rend en Thunder Clap niet.
+- Death Wish (**Shift-3**) in een gevecht dat je misschien verliest. Je krijgt 30 seconden lang ook 5% meer schade.]] },
+		},
+		MAGE = {
+			{ band = 1, title = "Arcane: schade van een afstand", body = [[
+Vanaf level 8 (Arcane Missiles). Arcane Blast is een talent, op z'n vroegst 20; tot dan speel je zoals elke mage, met Frostbolt, Fireball en Arcane Missiles. De gidsen verschillen: sommige noemen Arcane sterk om te levelen, de meeste raden Frost aan en noemen Arcane hongerig naar mana. De boom heeft geen vertragingen, dus Arcane houdt vijanden het slechtst op afstand. Een **channel** is een spell die loopt zolang je stilstaat; bewegen stopt hem. Arcane Missiles is er een.
+**Simpele volgorde:**
+1. Open met Frostbolt (**2**): de vijand komt dan langzaam.
+2. Arcane Blast (**Ctrl-2**, vanaf 20): één of twee, op een baas tot vier. Elke Arcane Blast maakt de volgende duurder in mana.
+3. Licht Missile Barrage op (vanaf 15)? Meteen Arcane Missiles (**3**): gratis en twee keer zo snel.
+4. Arcane Wrath (**Shift-F1**, vanaf 25) steeds als hij klaar is.
+5. Vijand dicht bij je? Frost Nova (**V**), stap weg.
+6. Bijna dood: je wand (**Ctrl-3**, tot 40) of Fire Blast (**5**).
+7. Taaie vijand of baas: Presence of Mind (**Shift-3**, vanaf 30), dan Arcane Wrath voor een grote instant klap. Vanaf 40 ook Arcane Power (**Q**).
+Meerdere vijanden: Frost Nova (**V**), dan Arcane Explosion (**Shift-2**, vanaf 14). Weinig mana? Evocation (**F1**, vanaf 20).
+**Per 10 levels:**
+- 10: Frost Nova (**V**). Eerste talent: Improved Channeling (Arcane Missiles wordt niet meer korter als je geraakt wordt). Daarna Arcane Explosion (**Shift-2**) op 14, Missile Barrage (een talent, passief) op 15. Talent-levels hier zijn op z'n vroegst; een perk kan ze tot 5 levels eerder maken.
+- 20: Arcane Blast (**Ctrl-2**, een talent). Blink (**R**), Evocation (**F1**), Mana Shield (**Z**). Daarna Counterspell (**E**) op 24, Arcane Wrath (**Shift-F1**, een talent; je hebt eerst Arcane Blast nodig) op 25.
+- 30: Presence of Mind (**Shift-3**, een talent): je volgende spell met een cast korter dan 10 seconden is instant. Ice Armor (**Shift-Z**). Daarna Mage Armor (blok D) op 34.
+- 40: Arcane Power (**Q**, een talent; je hebt eerst Presence of Mind nodig): 15 seconden lang doen je spells 30% meer schade, maar kosten ze 30% meer mana. Frostfire Bolt neemt **Ctrl-3**: zet je wand (Shoot) op je eigen Alt-toets.
+- 50: sterkere ranks van Arcane Blast, Arcane Wrath en Arcane Missiles; niets nieuws voor deze rol.
+- 60: weer sterkere ranks; niets nieuws voor deze rol.
+**Beginnersfouten:**
+- Steeds weer Arcane Blast indrukken. Elke Arcane Blast maakt de volgende 100% duurder; je mana is zo op.
+- Lopen tijdens Arcane Missiles. Het is een channel: bewegen stopt hem.
+- Arcane Power op een gewone vijand. Hij maakt je spells ook duurder, en hij heeft 3 minuten cooldown.]] },
+			{ band = 2, title = "Fire: schade van een afstand", body = [[
+Vanaf level 1 (Fireball). Pyroblast is een talent, op z'n vroegst 20. Het echte Fire-spel begint met Heating Up (op z'n vroegst 25); daarvoor is Pyroblast alleen een opener. De gidsen zeggen dat Fire de meeste schade doet op één vijand, en snel levelt maar met meer risico dan Frost: hij heeft geen eigen bevriezingen. **Crit** = een sterkere geluksklap.
+**Simpele volgorde:**
+1. Open van ver met Pyroblast (**4**, vanaf 20). Daarvoor: Fireball (**1**).
+2. Fireball (**1**) als je gewone spell.
+3. Fire Blast (**5**) steeds als hij klaar is. Vanaf 25 geeft elke Fire Blast een Heating Up-stack.
+4. Twee of drie Heating Up-stacks (vanaf 25)? Pyroblast (**4**).
+5. Vijand dichtbij: Scorch (**Ctrl-1**, vanaf 22) in plaats van Fireball, of Frost Nova (**V**) en stap weg. Vanaf 30 daarna Blast Wave (**F3**).
+6. Bijna dood: je wand (**Ctrl-3**, tot 40) of Fire Blast.
+7. Elite of baas, vanaf 40: Combustion (**Q**).
+Meerdere vijanden: Frost Nova (**V**), Flamestrike (**Shift-4**, vanaf 16), Blast Wave (**F3**, vanaf 30).
+**Per 10 levels:**
+- 10: Frost Nova (**V**). Eerste talent: Accelerant (Fireball cast sneller). Daarna Ignite en Impact (talents) op 15, Flamestrike (**Shift-4**) op 16. Talent-levels hier zijn op z'n vroegst; een perk kan ze tot 5 levels eerder maken.
+- 20: Pyroblast (**4**, een talent): een cast van 6 seconden, dus alleen als opener. Blink (**R**), Evocation (**F1**), Fire Ward (**F4**), Mana Shield (**Z**). Daarna Scorch (**Ctrl-1**) op 22, Counterspell (**E**) op 24, Heating Up (een talent, passief; je hebt eerst Pyroblast nodig) op 25: een crit met Fireball, Frostfire Bolt, Fire Blast of Scorch maakt je volgende Pyroblast 25% sneller, tot 3 stacks.
+- 30: Blast Wave (**F3**, een talent): instant, om je heen; vijanden lopen 6 seconden lang 50% trager. Critical Mass (een talent). Ice Armor (**Shift-Z**). Daarna Fire Power (een talent) op 35.
+- 40: Combustion (**Q**, een talent; je hebt eerst Critical Mass nodig). Frostfire Bolt neemt **Ctrl-3**: zet je wand (Shoot) op je eigen Alt-toets.
+- 50: sterkere ranks van Fireball, Pyroblast, Blast Wave en Frostfire Bolt; niets nieuws voor deze rol.
+- 60: weer sterkere ranks; niets nieuws voor deze rol.
+**Beginnersfouten:**
+- Pyroblast casten als de vijand al bij je is. Een cast van 6 seconden is dan te traag.
+- Denken dat drie Heating Up-stacks Pyroblast instant maken. Het blijft een cast van 1,5 seconde: blijf stilstaan.
+- Een Ice Block zoeken. Fire heeft er geen. Je uitweg: Frost Nova (**V**), Blink (**R**), Blast Wave (**F3**).]] },
+			{ band = 3, title = "Frost: schade van een afstand", body = [[
+Vanaf level 4 (Frostbolt); Frost Nova komt op 10. Ice Lance is een talent, op z'n vroegst 20. Om te levelen is dit de eerste keus van de meeste gidsen: ze noemen hem de veiligste. Hij komt echt op gang rond 30. **Frozen** = de vijand is op zijn plek bevroren en kan niet lopen.
+**Simpele volgorde:**
+1. Frostbolt (**2**) van zo ver mogelijk. Elke treffer vertraagt de vijand.
+2. Vijand Frozen (door Frost Nova, of door het talent Frostbite)? Ice Lance (**F**, vanaf 20).
+3. Vijand dichtbij? Frost Nova (**V**), stap weg, Frostbolt, dan Ice Lance.
+4. Licht Fingers of Frost op (vanaf 30)? Ice Lance.
+5. Ice Lance niet klaar en de vijand is dichtbij: Cone of Cold (**Shift-F**, vanaf 26).
+6. Bijna dood: je wand (**Ctrl-3**, tot 40) of Fire Blast (**5**).
+Meerdere vijanden (vanaf 20): Frost Nova (**V**), stap weg, Blizzard (**Shift-1**), dan Cone of Cold (**Shift-F**). In nood: Ice Block (**C**, vanaf 25), Blink (**R**).
+**Per 10 levels:**
+- 10: Frost Nova (**V**). Eerste talent: Improved Frostbolt (een kortere cast). Daarna Frostbite (een talent) op 15: je vertragingen kunnen de vijand 5 seconden bevriezen. Talent-levels hier zijn op z'n vroegst; een perk kan ze tot 5 levels eerder maken.
+- 20: Ice Lance (**F**, een talent): 300% meer schade op een Frozen vijand. Blizzard (**Shift-1**), Blink (**R**), Evocation (**F1**), Mana Shield (**Z**). Daarna Frost Ward (**F2**) op 22, Counterspell (**E**) op 24, Ice Block (**C**, een talent) op 25, Cone of Cold (**Shift-F**) op 26.
+- 30: Cold Snap (**Shift-C**, een talent): zet de cooldown van je andere Frost-spells op nul; zijn eigen cooldown is 10 minuten. Fingers of Frost (een talent; je hebt eerst Ice Lance nodig): je volgende 2 spells doen alsof de vijand Frozen is. Ice Armor (**Shift-Z**). Daarna Winter's Chill (een talent) op 35.
+- 40: Ice Barrier (**X**, een talent; je hebt eerst Cold Snap nodig): een schild dat schade opvangt. Frostfire Bolt neemt **Ctrl-3**: zet je wand (Shoot) op je eigen Alt-toets.
+- 50: sterkere ranks van Frostbolt, Cone of Cold, Ice Armor, Ice Barrier en Blizzard; niets nieuws voor deze rol.
+- 60: weer sterkere ranks; niets nieuws voor deze rol.
+**Beginnersfouten:**
+- Ice Lance op een vijand die niet Frozen is. Dan is het een kleine klap.
+- Fire Blast indrukken vlak voor een bevriezing. Fire Blast en Ice Lance delen één cooldown van 8 seconden.
+- Cold Snap voor niets gebruiken. Hij heeft 10 minuten cooldown: bewaar hem voor als het misgaat.]] },
+		},
+		PRIEST = {
+			{ band = 1, title = "Discipline: healer", body = [[
+Vanaf level 1: Lesser Heal heb je vanaf het begin. De eigen spells komen later: Soul Warding op 25 en Penance op 30, allebei op z'n vroegst. In een groep is hij het sterkst in het healen van één persoon, de tank. Alleen levelen kan met Smite, Holy Fire en je wand, later Penance; de gidsen zijn het oneens of dat sneller is dan Shadow. **Weakened Soul**: na een Power Word: Shield kan dezelfde persoon 15 seconden lang geen nieuw schild krijgen.
+**Simpele volgorde (in een groep):**
+1. Power Word: Shield (**Z**) op de tank, vlak voor de pull. **Pull** = de eerste klap die een gevecht begint.
+2. Renew (**F4**) op de tank.
+3. Penance (**Shift-F1**, vanaf 30) op wie gewond is, steeds als hij klaar is.
+4. Je grote heal (**C**) bij gewone schade.
+5. Flash Heal (**F2**, vanaf 20) als C te langzaam is.
+6. Meer mensen gewond: Prayer of Healing (**Shift-2**, vanaf 30).
+7. Inner Focus (**F1**, vanaf 20) vóór een dure heal. Power Infusion (**Q**, vanaf 40) op jezelf of een caster.
+Alleen: Shield (**Z**), Holy Fire (**4**, vanaf 20), Smite (**1**), Mind Blast (**3**), Shadow Word: Pain (**2**), Penance als je hem niet nodig hebt om te healen, dan je wand (**5**).
+**Per 10 levels:**
+- 10: Lesser Heal (**C**), Power Word: Shield (**Z**), Renew (**F4**), Resurrection (**F3**, alleen buiten een gevecht), Smite (**1**). Daarna Inner Fire (**Shift-Z**) op 12, Cure Disease (**Shift-C**) op 14, Heal (**C**) op 16, Dispel Magic (**Shift-V**) op 18.
+- 20: Flash Heal (**F2**), Holy Fire (**4**), Fear Ward (blok D). Inner Focus (**F1**, een talent): je volgende spell kost geen mana en crit vaker; cooldown 3 minuten. Daarna Soul Warding (een talent, passief) op 25: Shield heeft geen cooldown en is goedkoper. Talent-levels hier zijn op z'n vroegst; een perk kan ze tot 5 levels eerder maken.
+- 30: Penance (**Shift-F1**, een talent): healt een vriend of doet schade op een vijand; cooldown 12 seconden. Prayer of Healing (**Shift-2**), Divine Spirit (blok D). Daarna Abolish Disease (**Shift-C**) op 32, Divine Aegis (een talent, passief) op 35.
+- 40: Power Infusion (**Q**, een talent; je hebt eerst Penance nodig): 20% meer spell-schade en healing; cooldown 3 minuten. Greater Heal neemt **C** over.
+- 50: sterkere ranks van Penance, Prayer of Healing, Flash Heal en Renew. Prayer of Fortitude (**Shift-X**) op 48.
+- 60: weer sterkere ranks; niets nieuws voor deze rol.
+**Beginnersfouten:**
+- Dezelfde speler twee keer achter elkaar een schild geven. Weakened Soul houdt dat tegen. Het geldt per speler: een ander kan meteen een schild krijgen.
+- Penance op een vijand om je groep te healen. Hij healt óf doet schade, niet allebei.
+- Prayer of Healing op de verkeerde speler. Hij healt de groep van de speler die je kiest.]] },
+			{ band = 2, title = "Holy: healer", body = [[
+Vanaf level 1: Lesser Heal heb je vanaf het begin. Holy is de groeps-healer. Alleen levelt hij traag: de gidsen raden aan te questen met Smite en je wand, en te healen in dungeons. De eigen spells komen laat: Holy Nova op 20 en Prayer of Mending op 40, allebei op z'n vroegst.
+**Simpele volgorde (in een groep):**
+1. Renew (**F4**) op de tank als de pull begint. **Pull** = de eerste klap die een gevecht begint.
+2. Prayer of Mending (**Ctrl-2**, vanaf 40) op de tank vóór de pull, en opnieuw steeds als hij klaar is.
+3. Je grote heal (**C**) bij gewone schade.
+4. Flash Heal (**F2**, vanaf 20) als C te laat zou komen.
+5. Hele groep gewond: Prayer of Healing (**Shift-2**, vanaf 30). Holy Nova (**Shift-1**, vanaf 20) alleen als iedereen vlak bij je staat; hij kost veel mana.
+6. Power Word: Shield (**Z**) om tijd te winnen.
+7. Valt een vijand jou aan: Fade (**F**).
+**Per 10 levels:**
+- 10: Lesser Heal (**C**), Power Word: Shield (**Z**), Renew (**F4**), Resurrection (**F3**, alleen buiten een gevecht). Daarna Inner Fire (**Shift-Z**) op 12, Cure Disease (**Shift-C**) op 14, Heal (**C**) op 16, Dispel Magic (**Shift-V**) op 18.
+- 20: Holy Nova (**Shift-1**, een talent): instant; doet schade op vijanden om je heen en healt je groep, zonder threat. Flash Heal (**F2**), Holy Fire (**4**), Fear Ward (blok D). Daarna Holy Binding (een talent, passief) op 25: Flash Heal op een ander healt jou voor de helft. Talent-levels hier zijn op z'n vroegst; een perk kan ze tot 5 levels eerder maken.
+- 30: Prayer of Healing (**Shift-2**), Divine Spirit (blok D). Spirit of Redemption (een talent, passief). Daarna Abolish Disease (**Shift-C**) op 32, Spiritual Healing (een talent, passief) op 35.
+- 40: Prayer of Mending (**Ctrl-2**, een talent; je hebt eerst Spirit of Redemption nodig): healt zodra het doel schade krijgt, en springt dan naar een ander groepslid, tot 5 keer; cooldown 10 seconden. Greater Heal neemt **C** over.
+- 50: sterkere ranks van Prayer of Mending, Holy Nova, Prayer of Healing en Renew. Prayer of Fortitude (**Shift-X**) op 48.
+- 60: weer sterkere ranks; niets nieuws voor deze rol.
+**Beginnersfouten:**
+- Prayer of Healing op de verkeerde speler. Hij healt de groep van de speler die je kiest, niet je eigen groep.
+- Flash Heal voor alles gebruiken. Hij is snel maar duur; bewaar hem voor nood.
+- Holy Nova op een groep die ver weg staat. Hij werkt alleen vlak om je heen, en hij is duur.]] },
+			{ band = 3, title = "Shadow: schade van een afstand", body = [[
+Vanaf level 4 (Shadow Word: Pain); Mind Blast komt op 10. Mind Flay is een talent, op z'n vroegst 20; Shadowform op 40. De meeste gidsen levelen als Shadow; sommige spelen Discipline tot 40. In het begin doet je wand veel van het werk. Shadow heeft geen spell die veel vijanden tegelijk raakt. Een **DoT** is schade in kleine stukjes over een paar seconden. Een **channel** is een spell die loopt zolang je stilstaat.
+**Simpele volgorde:**
+1. Power Word: Shield (**Z**) op jezelf, als de vijand bij je gaat komen.
+2. Mind Blast (**3**) van ver, om te beginnen.
+3. Shadow Word: Pain (**2**).
+4. Devouring Plague (**Shift-3**, vanaf 20) op een vijand die nog even leeft.
+5. Mind Flay (**1**, vanaf 20), en laat hem helemaal uitlopen. Daarvoor: Smite (**1**).
+6. Maak af met je wand (**5**).
+Weinig mana? Sla Devouring Plague en Mind Flay over, en gebruik eerder je wand. Vanaf 32: Shadow Word: Death (**Shift-4**) alleen als de vijand er dood van gaat. Vanaf 40: Shadowform (**Ctrl-1**) aan vóór de eerste pull, en laat hem aan.
+**Per 10 levels:**
+- 10: Mind Blast (**3**), cooldown 8 seconden. Je hebt al Smite (**1**), Shadow Word: Pain (**2**), Power Word: Shield (**Z**), Fade (**F**) en je wand (**5**). Daarna Inner Fire (**Shift-Z**) op 12, Psychic Scream (**V**) op 14.
+- 20: Mind Flay (een talent): neemt toets **1** over van Smite. Devouring Plague (**Shift-3**): een DoT die jou ook healt; cooldown 24 seconden. Daarna Vampiric Embrace (**Ctrl-3**, een talent) op 25 of 30: je groep wordt geheald voor 20% van je Shadow-schade. Talent-levels hier zijn op z'n vroegst; een perk kan ze tot 5 levels eerder maken.
+- 30: Silence (**E**, een talent): je **interrupt** (hij stopt de spell van een vijand); cooldown 45 seconden. Mind Control (**Shift-F**). Daarna Shadow Word: Death (**Shift-4**) op 32, Levitate (**R**) op 34.
+- 40: Shadowform (**Ctrl-1**, een talent; je hebt eerst Vampiric Embrace nodig): 10% meer Shadow-schade, Shadow-spells half zo duur, 15% minder fysieke schade, maar geen heal-spells. Daarvoor: Darkness (een talent, passief) op 35.
+- 50: sterkere ranks van Mind Flay, Mind Blast, Shadow Word: Pain, Devouring Plague en Shadow Word: Death. Prayer of Fortitude (**Shift-X**) op 48.
+- 60: sterkere ranks van Mind Flay en Devouring Plague; niets nieuws voor deze rol.
+**Beginnersfouten:**
+- Shadow Word: Death op een vijand met veel health. Gaat hij niet dood, dan verlies je 30% van je eigen health.
+- Mind Flay te vroeg afbreken. Met het talent Improved Mind Flay is de laatste tik de sterkste.
+- In een groep openen met Mind Blast. Hij geeft veel threat (hoe graag een vijand jou wil aanvallen): laat de tank eerst gaan. Valt een vijand jou aan: Fade (**F**).]] },
+		},
 	},
 }

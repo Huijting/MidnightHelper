@@ -99,8 +99,10 @@
 - 🔍 **Shaman nagekeken door Fable** → gerepareerd: Mastery 50, Air `always`, Skyborne Earth 3, ritueel/Kuramaa/waterzak-
   teksten, alle Sunken Temple-ketens neutraal "(item rewards)". **Talented gecorrigeerd**: rang uit `activeEntry.entryID`
   (DB2 GEMETEN: node 110298 Type 1, 5 entries 136852/137374/137373/137372/137371 = rang 1-5), probe met alle velden.
-- 🧭 **Rollen stap 2 (8 classes) begonnen**: onderzoek warrior/mage/priest klaar (`docs/forever/<CLASS>_ROLES_2026-11-17.md`,
-  Fable), teksten en+nl in ForeverHowToPlay worden geschreven; rogue/hunter/shaman in onderzoek. Inner Focus:
+- 🧭 **Rollen stap 2 (8 classes) begonnen**: warrior/mage/priest AF in ForeverHowToPlay `ROLES` (en + nlNL, vorm = druid;
+  gids-onenigheid eerlijk benoemd of weggelaten). Rogue-onderzoek klaar (`ROGUE_ROLES_2026-11-17.md`: band 1 Assassination,
+  2 Combat, 3 Subtlety; rogue-bomen omgebouwd 2 nov, oude talenten niet noemen). Hunter/shaman in onderzoek; warlock/
+  paladin daarna. Vertalingen van de ROLES-teksten naar de/fr/es/pt/ru: nog niet. Inner Focus:
   `talentLevel = 20` in SPEC_MACROS (macro 40, talent 20). Open uit priest-onderzoek: Lightwell (40/50/60), Prayer of
   Fortitude (48, uit een Codex?), Prayer of Shadow Protection (56) mogelijk niet in ForeverTrainerData; Vampiric Embrace
   25 of 30 (test). Warrior: Shield Wall ook schild-eis (CLASSES.WARRIOR r.193).

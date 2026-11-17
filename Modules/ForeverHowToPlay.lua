@@ -450,6 +450,208 @@ From level 1: Healing Touch is there from the start. The guides do not advise he
 - Healing in a form. Heals only work in your normal shape.
 - Casting a HoT on someone who still has it. The new one replaces the old one.]] },
 	},
+	-- Warrior, Mage, Priest: written 17 Nov 2026 by mh-writer from docs/forever/<CLASS>_ROLES_2026-11-17.md (DB2 1.60.1.70938 + guides).
+	WARRIOR = {
+		{ band = 3, title = "Protection: tank", body = [[
+From level 10 (Defensive Stance, from a quest; the same quest gives Taunt and Sunder Armor). A **tank** is the one the enemies hit, so the rest of the group stays safe. You carry a one-handed weapon and a shield. **Threat** = how much an enemy wants to attack you; as a tank you need it on every enemy. The guides disagree on which tree levels fastest alone: some call Protection the fastest, others say it is slower alone. It gets going around level 16, once you have Shield Block next to Revenge.
+**Simple order:**
+1. Defensive Stance (**Ctrl-2**), Battle Shout (**Shift-X**). Bloodrage (**F1**) for Rage to start with.
+2. Pull. **Pull** = hit one enemy from a distance so it comes to you. Charge (**R**) only works in Battle Stance (**Ctrl-1**); go back to Defensive Stance (**Ctrl-2**) after it. With Vanguard (from 25) Charge works in Defensive Stance too. Or pull with your ranged weapon (block D).
+3. Several enemies: Demoralizing Shout (**Shift-2**, from 14) once, Thunder Clap (**Shift-1**) whenever it is ready.
+4. Shield Block (**Z**, from 16), and Revenge (**2**, from 14) as soon as it lights up.
+5. Shield Slam (**3**, from 40) whenever it is ready.
+6. Sunder Armor (**5**) on your main target; up to 5 stacks on a boss.
+7. Taunt (**F**) when an enemy attacks someone else.
+8. Rage left over: Heroic Strike (**1**) on one enemy, Cleave (**Shift-4**, from 20) on two or more.
+**Per 10 levels:**
+- 10: Defensive Stance (**Ctrl-2**), Taunt (**F**), Sunder Armor (**5**), Bloodrage (**F1**). Then Shield Bash (**E**) at 12, Revenge (**2**) and Demoralizing Shout (**Shift-2**) at 14, Shield Block (**Z**) at 16, Disarm (**V**) at 18.
+- 20: Last Stand (**X**, a talent): 30% more max health for 20 seconds. Victory Rush (**F2**), Cleave (**Shift-4**). Then Intimidating Shout (**Shift-Q**) at 22, Vanguard (a talent, passive) at 25, Challenging Shout (**Shift-F**) at 26, Shield Wall (**C**) at 28. Talent levels here are the earliest; a perk can bring them up to 5 levels sooner.
+- 30: Concussion Blow (**Shift-V**, a talent): a 5-second stun. Berserker Stance (**Ctrl-3**, from a quest). Then Bastion (a talent, passive) at 35.
+- 40: Shield Slam (**3**, a talent). Plate Mail at the trainer: you can wear plate.
+- 50: nothing new for this role. Stronger ranks of Shield Slam, Revenge, Sunder Armor and Thunder Clap.
+- 60: stronger ranks again; nothing new for this role.
+**Beginner mistakes:**
+- Thinking Thunder Clap hits the whole pack. It hits 4 enemies; a fifth can run to the healer.
+- Leaving enemies behind you. From behind you cannot block, dodge or parry, and Revenge does not light up.
+- Taunt on an enemy that already attacks you. It does nothing then.]] },
+		{ band = 1, title = "Arms: damage with one big weapon", body = [[
+From level 1. You carry one big two-handed weapon and almost always stand in Battle Stance. The big steps are Sweeping Strikes at 30 and Mortal Strike at 40. A new weapon is your biggest gain. You have no heal of your own except Victory Rush (from 20), so food and bandages stay handy. The guides disagree on which tree levels fastest; all three work.
+**Simple order:**
+1. Battle Stance (**Ctrl-1**), Battle Shout (**Shift-X**).
+2. Charge (**R**) to start.
+3. Rend (**Shift-Z**), if the enemy will live a while.
+4. Overpower (**2**, from 12) as soon as it lights up.
+5. Mortal Strike (**3**, from 40) whenever it is ready; keep 30 Rage for it.
+6. Victory Rush (**F2**, from 20) after a kill, when you miss health.
+7. Two enemies: Sweeping Strikes (**Q**, from 30), then Cleave (**Shift-4**, from 20). Before 30: Thunder Clap (**Shift-1**).
+8. Rage left over: Heroic Strike (**1**).
+**Per 10 levels:**
+- 10: Heroic Strike (**1**), Charge (**R**), Rend (**Shift-Z**), Thunder Clap (**Shift-1**), Hamstring (**V**), Battle Shout (**Shift-X**), Bloodrage (**F1**). Then Overpower (**2**) at 12, Demoralizing Shout (**Shift-2**) at 14.
+- 20: Victory Rush (**F2**), Cleave (**Shift-4**), Slam (**Shift-C**), Retaliation (**C**). Then Execute (**4**) at 24, Spearing Strike (**F3**, a talent) at 25: an extra hard hit on Giants and Dragonkin. Talent levels here are the earliest; a perk can bring them up to 5 levels sooner.
+- 30: Sweeping Strikes (**Q**, a talent, Battle Stance only): your next 5 hits also hit an enemy next to your target. Berserker Stance (**Ctrl-3**, from a quest) with Intercept (**R**) and Berserker Rage (**Shift-V**). Then Improved Slam (a talent, passive) at 35, Whirlwind (**2** in Berserker Stance) at 36, Pummel (**E** in Berserker Stance) at 38.
+- 40: Mortal Strike (**3**, a talent): the enemy gets 50% less healing for 10 seconds. Plate Mail at the trainer.
+- 50: Recklessness (**Q** in Berserker Stance). Stronger ranks of Mortal Strike.
+- 60: stronger ranks again; nothing new for this role.
+**Beginner mistakes:**
+- Pressing Heroic Strike (**1**) all the time. That swing gives no Rage, so nothing is left for Mortal Strike or Overpower.
+- Slam (**Shift-C**) before the Improved Slam talent: a 1.5-second cast that delays your normal swing. Most guides skip it until then.
+- Looking for an interrupt on **E** with a two-handed weapon. Shield Bash needs a shield; your interrupt is Pummel (38, Berserker Stance).]] },
+		{ band = 2, title = "Fury: damage with two weapons", body = [[
+A weapon in each hand, from level 20 (Dual Wield at the trainer). Until then, use your best weapon (a two-handed one is fine) and play as Arms. Fury gets really strong with Whirlwind (36) and Bloodthirst (40). You need two good weapons. Whirlwind, Pummel, Intercept and Berserker Rage only work in Berserker Stance, so you change stance often.
+**Simple order (from 36; before that, play as Arms):**
+1. Battle Shout (**Shift-X**). Bloodrage (**F1**) for Rage.
+2. Charge (**R**) in Battle Stance (**Ctrl-1**).
+3. Death Wish (**Shift-3**, from 30) on a strong enemy.
+4. Berserker Stance (**Ctrl-3**): Whirlwind (**2**, from 36) whenever it is ready.
+5. Bloodthirst (**3**, from 40) whenever it is ready. The guides differ on which of these two comes first.
+6. Victory Rush (**F2**) after a kill, when you miss health.
+7. Rage left over: Heroic Strike (**1**); on two enemies Cleave (**Shift-4**).
+8. Low on Rage: Reckless Swings (**Shift-F1**, from 25; it costs health).
+**Per 10 levels:**
+- 10: nothing new for this role: you play as Arms, with one weapon.
+- 20: Dual Wield at the trainer: now a weapon can go in your other hand. Piercing Howl (**Shift-R**, a talent): slows all enemies near you. Victory Rush (**F2**), Cleave (**Shift-4**). Then Execute (**4**) at 24, Reckless Swings (**Shift-F1**, a talent) at 25. Talent levels here are the earliest; a perk can bring them up to 5 levels sooner.
+- 30: Death Wish (**Shift-3**, a talent). Berserker Stance (**Ctrl-3**, from a quest) with Intercept (**R**) and Berserker Rage (**Shift-V**). Then Whirlwind (**2** in Berserker Stance) at 36, Pummel (**E** in Berserker Stance) at 38.
+- 40: Bloodthirst (**3**, a talent; you need Death Wish first). It does not heal; it makes you run faster. Plate Mail at the trainer.
+- 50: Recklessness (**Q** in Berserker Stance). Stronger ranks of Bloodthirst.
+- 60: stronger ranks again; nothing new for this role.
+**Beginner mistakes:**
+- Playing Fury with one good weapon and a bad second one.
+- Looking for Whirlwind (**2**) in Battle Stance. It only works in Berserker Stance, and there Rend and Thunder Clap do not work.
+- Death Wish (**Shift-3**) in a fight you might lose. For 30 seconds you also take 5% more damage.]] },
+	},
+	MAGE = {
+		{ band = 1, title = "Arcane: damage from a distance", body = [[
+From level 8 (Arcane Missiles). Arcane Blast is a talent, 20 at the earliest; until then you play like any mage, with Frostbolt, Fireball and Arcane Missiles. The guides differ: some call Arcane strong for levelling, most advise Frost and call Arcane hungry for mana. Its tree has no slows, so it is the weakest at keeping enemies away. A **channel** is a spell that runs while you stand still; moving stops it. Arcane Missiles is one.
+**Simple order:**
+1. Open with Frostbolt (**2**): the enemy then comes slowly.
+2. Arcane Blast (**Ctrl-2**, from 20): one or two, on a boss up to four. Each one makes the next cost more mana.
+3. Missile Barrage (from 15) lights up? Arcane Missiles (**3**) right away: free and twice as fast.
+4. Arcane Wrath (**Shift-F1**, from 25) whenever it is ready.
+5. Enemy close to you? Frost Nova (**V**), step away.
+6. Almost dead: your wand (**Ctrl-3**, until 40) or Fire Blast (**5**).
+7. Tough enemy or boss: Presence of Mind (**Shift-3**, from 30), then Arcane Wrath for a big instant hit. From 40 also Arcane Power (**Q**).
+Several enemies: Frost Nova (**V**), then Arcane Explosion (**Shift-2**, from 14). Low on mana? Evocation (**F1**, from 20).
+**Per 10 levels:**
+- 10: Frost Nova (**V**). First talent: Improved Channeling (Arcane Missiles is no longer cut short when you are hit). Then Arcane Explosion (**Shift-2**) at 14, Missile Barrage (a talent, passive) at 15. Talent levels here are the earliest; a perk can bring them up to 5 levels sooner.
+- 20: Arcane Blast (**Ctrl-2**, a talent). Blink (**R**), Evocation (**F1**), Mana Shield (**Z**). Then Counterspell (**E**) at 24, Arcane Wrath (**Shift-F1**, a talent; you need Arcane Blast first) at 25.
+- 30: Presence of Mind (**Shift-3**, a talent): your next spell with a cast under 10 seconds is instant. Ice Armor (**Shift-Z**). Then Mage Armor (block D) at 34.
+- 40: Arcane Power (**Q**, a talent; you need Presence of Mind first): for 15 seconds your spells do 30% more damage, but cost 30% more mana. Frostfire Bolt takes **Ctrl-3**: put your wand (Shoot) on your own Alt key.
+- 50: stronger ranks of Arcane Blast, Arcane Wrath and Arcane Missiles; nothing new for this role.
+- 60: stronger ranks again; nothing new for this role.
+**Beginner mistakes:**
+- Pressing Arcane Blast again and again. Each one makes the next cost 100% more mana; you run dry fast.
+- Moving during Arcane Missiles. It is a channel: moving stops it.
+- Arcane Power on a normal enemy. It also makes your spells cost more, and it has a 3-minute cooldown.]] },
+		{ band = 2, title = "Fire: damage from a distance", body = [[
+From level 1 (Fireball). Pyroblast is a talent, 20 at the earliest. The real Fire play starts with Heating Up (25 at the earliest); before that, Pyroblast is only an opener. The guides say Fire does the most damage on one enemy, and levels fast but with more risk than Frost: it has no freezes of its own. A **crit** is a lucky, stronger hit.
+**Simple order:**
+1. Open from far away with Pyroblast (**4**, from 20). Before that: Fireball (**1**).
+2. Fireball (**1**) as your normal spell.
+3. Fire Blast (**5**) whenever it is ready. From 25 each Fire Blast gives a Heating Up stack.
+4. Two or three Heating Up stacks (from 25)? Pyroblast (**4**).
+5. Enemy close: Scorch (**Ctrl-1**, from 22) instead of Fireball, or Frost Nova (**V**) and step away. From 30, Blast Wave (**F3**) after it.
+6. Almost dead: your wand (**Ctrl-3**, until 40) or Fire Blast.
+7. Elite or boss, from 40: Combustion (**Q**).
+Several enemies: Frost Nova (**V**), Flamestrike (**Shift-4**, from 16), Blast Wave (**F3**, from 30).
+**Per 10 levels:**
+- 10: Frost Nova (**V**). First talent: Accelerant (Fireball casts faster). Then Ignite and Impact (talents) at 15, Flamestrike (**Shift-4**) at 16. Talent levels here are the earliest; a perk can bring them up to 5 levels sooner.
+- 20: Pyroblast (**4**, a talent): a 6-second cast, so only as an opener. Blink (**R**), Evocation (**F1**), Fire Ward (**F4**), Mana Shield (**Z**). Then Scorch (**Ctrl-1**) at 22, Counterspell (**E**) at 24, Heating Up (a talent, passive; you need Pyroblast first) at 25: a crit with Fireball, Frostfire Bolt, Fire Blast or Scorch makes your next Pyroblast 25% faster, up to 3 stacks.
+- 30: Blast Wave (**F3**, a talent): instant, around you; enemies are 50% slower for 6 seconds. Critical Mass (a talent). Ice Armor (**Shift-Z**). Then Fire Power (a talent) at 35.
+- 40: Combustion (**Q**, a talent; you need Critical Mass first). Frostfire Bolt takes **Ctrl-3**: put your wand (Shoot) on your own Alt key.
+- 50: stronger ranks of Fireball, Pyroblast, Blast Wave and Frostfire Bolt; nothing new for this role.
+- 60: stronger ranks again; nothing new for this role.
+**Beginner mistakes:**
+- Casting Pyroblast when the enemy is already at you. A 6-second cast is too slow then.
+- Thinking three Heating Up stacks make Pyroblast instant. It is still a 1.5-second cast: stand still.
+- Looking for an Ice Block. Fire has none. Your way out: Frost Nova (**V**), Blink (**R**), Blast Wave (**F3**).]] },
+		{ band = 3, title = "Frost: damage from a distance", body = [[
+From level 4 (Frostbolt); Frost Nova comes at 10. Ice Lance is a talent, 20 at the earliest. For levelling it is the first choice of most guides: they call it the safest. It really gets going around 30. **Frozen** = the enemy is frozen in place and cannot move.
+**Simple order:**
+1. Frostbolt (**2**) from as far away as you can. Every hit slows the enemy.
+2. Enemy Frozen (by Frost Nova, or by the Frostbite talent)? Ice Lance (**F**, from 20).
+3. Enemy close? Frost Nova (**V**), step away, Frostbolt, then Ice Lance.
+4. Fingers of Frost lights up (from 30)? Ice Lance.
+5. Ice Lance not ready and the enemy is close: Cone of Cold (**Shift-F**, from 26).
+6. Almost dead: your wand (**Ctrl-3**, until 40) or Fire Blast (**5**).
+Several enemies (from 20): Frost Nova (**V**), step away, Blizzard (**Shift-1**), then Cone of Cold (**Shift-F**). In trouble: Ice Block (**C**, from 25), Blink (**R**).
+**Per 10 levels:**
+- 10: Frost Nova (**V**). First talent: Improved Frostbolt (a shorter cast). Then Frostbite (a talent) at 15: your slows can freeze the enemy for 5 seconds. Talent levels here are the earliest; a perk can bring them up to 5 levels sooner.
+- 20: Ice Lance (**F**, a talent): 300% more damage on a Frozen enemy. Blizzard (**Shift-1**), Blink (**R**), Evocation (**F1**), Mana Shield (**Z**). Then Frost Ward (**F2**) at 22, Counterspell (**E**) at 24, Ice Block (**C**, a talent) at 25, Cone of Cold (**Shift-F**) at 26.
+- 30: Cold Snap (**Shift-C**, a talent): resets the cooldown of your other Frost spells; its own cooldown is 10 minutes. Fingers of Frost (a talent; you need Ice Lance first): your next 2 spells act as if the enemy is Frozen. Ice Armor (**Shift-Z**). Then Winter's Chill (a talent) at 35.
+- 40: Ice Barrier (**X**, a talent; you need Cold Snap first): a shield that soaks up damage. Frostfire Bolt takes **Ctrl-3**: put your wand (Shoot) on your own Alt key.
+- 50: stronger ranks of Frostbolt, Cone of Cold, Ice Armor, Ice Barrier and Blizzard; nothing new for this role.
+- 60: stronger ranks again; nothing new for this role.
+**Beginner mistakes:**
+- Ice Lance on an enemy that is not Frozen. Then it is a small hit.
+- Pressing Fire Blast just before a freeze. Fire Blast and Ice Lance share one 8-second cooldown.
+- Using Cold Snap for nothing. It has a 10-minute cooldown: keep it for when things go wrong.]] },
+	},
+	PRIEST = {
+		{ band = 1, title = "Discipline: healer", body = [[
+From level 1: Lesser Heal is there from the start. Its own spells come later: Soul Warding at 25 and Penance at 30, both at the earliest. In a group it is strongest at healing one person, the tank. Levelling alone works with Smite, Holy Fire and your wand, later Penance; the guides disagree on whether it is faster than Shadow. **Weakened Soul**: after a Power Word: Shield, the same person cannot get a new shield for 15 seconds.
+**Simple order (in a group):**
+1. Power Word: Shield (**Z**) on the tank, just before the pull. **Pull** = the first hit that starts a fight.
+2. Renew (**F4**) on the tank.
+3. Penance (**Shift-F1**, from 30) on whoever is hurt, every time it is ready.
+4. Your big heal (**C**) for normal damage.
+5. Flash Heal (**F2**, from 20) when C is too slow.
+6. More people hurt: Prayer of Healing (**Shift-2**, from 30).
+7. Inner Focus (**F1**, from 20) before an expensive heal. Power Infusion (**Q**, from 40) on yourself or a caster.
+Alone: Shield (**Z**), Holy Fire (**4**, from 20), Smite (**1**), Mind Blast (**3**), Shadow Word: Pain (**2**), Penance if you do not need it to heal, then your wand (**5**).
+**Per 10 levels:**
+- 10: Lesser Heal (**C**), Power Word: Shield (**Z**), Renew (**F4**), Resurrection (**F3**, outside a fight only), Smite (**1**). Then Inner Fire (**Shift-Z**) at 12, Cure Disease (**Shift-C**) at 14, Heal (**C**) at 16, Dispel Magic (**Shift-V**) at 18.
+- 20: Flash Heal (**F2**), Holy Fire (**4**), Fear Ward (block D). Inner Focus (**F1**, a talent): your next spell costs no mana and crits more often; cooldown 3 minutes. Then Soul Warding (a talent, passive) at 25: Shield has no cooldown and costs less. Talent levels here are the earliest; a perk can bring them up to 5 levels sooner.
+- 30: Penance (**Shift-F1**, a talent): heals a friend or hurts an enemy; cooldown 12 seconds. Prayer of Healing (**Shift-2**), Divine Spirit (block D). Then Abolish Disease (**Shift-C**) at 32, Divine Aegis (a talent, passive) at 35.
+- 40: Power Infusion (**Q**, a talent; you need Penance first): 20% more spell damage and healing; cooldown 3 minutes. Greater Heal takes over **C**.
+- 50: stronger ranks of Penance, Prayer of Healing, Flash Heal and Renew. Prayer of Fortitude (**Shift-X**) at 48.
+- 60: stronger ranks again; nothing new for this role.
+**Beginner mistakes:**
+- Shielding the same player twice in a row. Weakened Soul stops it. It is per player: someone else can get a shield right away.
+- Penance on an enemy to heal your group. It heals or hurts, not both.
+- Prayer of Healing on the wrong player. It heals the group of the player you pick.]] },
+		{ band = 2, title = "Holy: healer", body = [[
+From level 1: Lesser Heal is there from the start. Holy is the group healer. Alone it levels slowly: the guides advise questing with Smite and your wand, and healing in dungeons. Its own spells come late: Holy Nova at 20 and Prayer of Mending at 40, both at the earliest.
+**Simple order (in a group):**
+1. Renew (**F4**) on the tank as the pull starts. **Pull** = the first hit that starts a fight.
+2. Prayer of Mending (**Ctrl-2**, from 40) on the tank before the pull, and again every time it is ready.
+3. Your big heal (**C**) for normal damage.
+4. Flash Heal (**F2**, from 20) when C would come too late.
+5. Whole group hurt: Prayer of Healing (**Shift-2**, from 30). Holy Nova (**Shift-1**, from 20) only when everyone stands right next to you; it costs a lot of mana.
+6. Power Word: Shield (**Z**) to win time.
+7. An enemy attacks you: Fade (**F**).
+**Per 10 levels:**
+- 10: Lesser Heal (**C**), Power Word: Shield (**Z**), Renew (**F4**), Resurrection (**F3**, outside a fight only). Then Inner Fire (**Shift-Z**) at 12, Cure Disease (**Shift-C**) at 14, Heal (**C**) at 16, Dispel Magic (**Shift-V**) at 18.
+- 20: Holy Nova (**Shift-1**, a talent): instant; hurts enemies around you and heals your group, without threat. Flash Heal (**F2**), Holy Fire (**4**), Fear Ward (block D). Then Holy Binding (a talent, passive) at 25: Flash Heal on someone else heals you for half. Talent levels here are the earliest; a perk can bring them up to 5 levels sooner.
+- 30: Prayer of Healing (**Shift-2**), Divine Spirit (block D). Spirit of Redemption (a talent, passive). Then Abolish Disease (**Shift-C**) at 32, Spiritual Healing (a talent, passive) at 35.
+- 40: Prayer of Mending (**Ctrl-2**, a talent; you need Spirit of Redemption first): it heals as soon as the target takes damage, then jumps to another group member, up to 5 times; cooldown 10 seconds. Greater Heal takes over **C**.
+- 50: stronger ranks of Prayer of Mending, Holy Nova, Prayer of Healing and Renew. Prayer of Fortitude (**Shift-X**) at 48.
+- 60: stronger ranks again; nothing new for this role.
+**Beginner mistakes:**
+- Prayer of Healing on the wrong player. It heals the group of the player you pick, not your own.
+- Flash Heal for everything. It is fast but expensive; keep it for emergencies.
+- Holy Nova on a group that stands far away. It only works right around you, and it costs a lot.]] },
+		{ band = 3, title = "Shadow: damage from a distance", body = [[
+From level 4 (Shadow Word: Pain); Mind Blast comes at 10. Mind Flay is a talent, 20 at the earliest; Shadowform at 40. Most guides level as Shadow; some play Discipline until 40. Early on, your wand does much of the work. Shadow has no spell that hits many enemies at once. A **DoT** is damage in small bits over a few seconds. A **channel** is a spell that runs while you stand still.
+**Simple order:**
+1. Power Word: Shield (**Z**) on yourself, if the enemy will reach you.
+2. Mind Blast (**3**) from far away, to start.
+3. Shadow Word: Pain (**2**).
+4. Devouring Plague (**Shift-3**, from 20) on an enemy that will live a while.
+5. Mind Flay (**1**, from 20), and let it run to the end. Before that: Smite (**1**).
+6. Finish with your wand (**5**).
+Low on mana? Skip Devouring Plague and Mind Flay, and use your wand sooner. From 32: Shadow Word: Death (**Shift-4**) only when it will kill the enemy. From 40: Shadowform (**Ctrl-1**) on before the first pull, and leave it on.
+**Per 10 levels:**
+- 10: Mind Blast (**3**), cooldown 8 seconds. You already have Smite (**1**), Shadow Word: Pain (**2**), Power Word: Shield (**Z**), Fade (**F**) and your wand (**5**). Then Inner Fire (**Shift-Z**) at 12, Psychic Scream (**V**) at 14.
+- 20: Mind Flay (a talent): takes over key **1** from Smite. Devouring Plague (**Shift-3**): a DoT that also heals you; cooldown 24 seconds. Then Vampiric Embrace (**Ctrl-3**, a talent) at 25 or 30: your group is healed for 20% of your Shadow damage. Talent levels here are the earliest; a perk can bring them up to 5 levels sooner.
+- 30: Silence (**E**, a talent): your **interrupt** (it stops an enemy's spell); cooldown 45 seconds. Mind Control (**Shift-F**). Then Shadow Word: Death (**Shift-4**) at 32, Levitate (**R**) at 34.
+- 40: Shadowform (**Ctrl-1**, a talent; you need Vampiric Embrace first): 10% more Shadow damage, Shadow spells cost half, 15% less physical damage taken, but no healing spells. Before that: Darkness (a talent, passive) at 35.
+- 50: stronger ranks of Mind Flay, Mind Blast, Shadow Word: Pain, Devouring Plague and Shadow Word: Death. Prayer of Fortitude (**Shift-X**) at 48.
+- 60: stronger ranks of Mind Flay and Devouring Plague; nothing new for this role.
+**Beginner mistakes:**
+- Shadow Word: Death on an enemy with lots of health. If it does not die, you lose 30% of your own health.
+- Stopping Mind Flay early. With the Improved Mind Flay talent the last tick is the strongest.
+- Opening with Mind Blast in a group. It causes a lot of threat (how much an enemy wants to attack you): let the tank go first. If an enemy attacks you: Fade (**F**).]] },
+	},
 }
 ns.FOREVER_HOWTOPLAY_ROLES = ROLES -- the offline check reads it
 

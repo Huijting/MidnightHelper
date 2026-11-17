@@ -77,6 +77,14 @@ Priest, `/reload`. Uitgezocht met Fable; niets in het spel gezien.
 - [ ] Level 5-15: "Your first priest robe" (een wacht healen). Na level 15 verdwijnt hij uit "Do this now".
 - [ ] Undead level 10: geeft Aelthalyste de Touch of Weakness-quest, of Father Lankester naast haar?
 
+## 🧭 17 nov — Forever: rollen per 10 levels voor Warrior, Mage en Priest
+
+In "How to play" staan nu bij deze drie classes, net als bij de druid, per rol: een simpele volgorde, wat je per 10
+levels krijgt en 3 beginnersfouten (Engels en Nederlands).
+- [ ] Warrior, Mage of Priest: open "How to play". Zie je de rollen (bv. "Protection: tank", "Frost: damage from a
+  distance")? Kloppen de toetsen met jouw balken?
+- [ ] Priest: krijg je Vampiric Embrace op 25 of op 30?
+
 ## 🌍 17 nov — Forever: class-quests in het Duits, Frans, Spaans, Portugees en Russisch
 
 Alle class-quest-regels (warlock t/m mage) staan nu ook in de/fr/es/pt/ru (en een Mexicaans-Spaanse laag). Spelnamen
