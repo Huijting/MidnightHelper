@@ -41,6 +41,16 @@
   `MakeSwitch`/`FillSwitch`, ook op Keys): `ns.db.usedForTip` (Used for + ItemTips), nieuw `ns.Is/SetForeverToolGuard`,
   `Is/SetForeverToolNeedTipOn`. Do this now "ruimte voor een hoofdberoep" (ACTS.profs + knop) → deze tab. Ververst bij
   SKILL_LINES_CHANGED/BAG_UPDATE_DELAYED. Offline 21.372 runs, 0 fouten, 432 beroep-kliks. NIET in het spel gezien.
+  Commit 4124a26.
+- 🏰 **Stap 7 Dungeons & groep GEBOUWD (en + nl)**: tab "Dungeons & group" (`f.pages.dungeons`). Links de dungeons
+  (nieuw `ns.ForeverDungeonList()`: zelfde `State` als het venster; schakelaar "Only for my level" =
+  `ns.Is/SetForeverDungeonsAll` omgekeerd), levelchip, zone, "andere kant"/"stad van de …", reisstap voor de eerste 8
+  passende, "Way ›" (GoTo van het venster; niet bij alleen-andere-kant). Rechts RAIDS (nieuw `ns.ForeverRaidRows()` in
+  ForeverWeek: dezelfde regels als This week) en GROUP: hoogste level (`ForeverGroupTop`), `ForeverNoXpLine` in rood of
+  de regel zelf, schakelaars groepspaneel (`Is/SetForeverPartyPanel`) en markeerbalk (`Is/SetFastMarkEnabled`; in
+  combat niet, zegt dat). `ShowForeverDungeons` → deze tab (toggle). Ververst bij groep/target/raid-info. Tabrij is nu vol
+  (7). Offline 24.702 runs, 0 fouten, 2.682 dungeonrijen. Groepspaneel/markeerbalk in de proef niet geladen = hun
+  aan/uit NIET offline getest. NIET in het spel gezien.
 
 ## ⏭️⏭️ NIEUWSTE OVERDRACHT (Bouwchat 17-11 (3), laatste commit 27e536b, alles gepusht, geen release)
 

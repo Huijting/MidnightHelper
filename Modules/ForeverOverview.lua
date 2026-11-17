@@ -185,6 +185,7 @@ local TABS = {
 	{ key = "FOV_TAB_CLASS", tip = "FOV_TIP_TAB_CLASS", group = "class" },
 	{ key = "FOV_TAB_FIND", tip = "FOV_TIP_TAB_FIND", page = "find" },
 	{ key = "FOV_TAB_PROFS", tip = "FOV_TIP_TAB_PROFS", page = "profs" },
+	{ key = "FOV_TAB_DUNG", tip = "FOV_TIP_TAB_DUNG", page = "dungeons" },
 	{ key = "FOV_TAB_KEYS", tip = "FOV_TIP_TAB_KEYS", page = "keys" },
 	{ key = "FOV_TAB_LEGACY", tip = "FOV_TIP_TAB_LEGACY", page = "legacy" },
 }
@@ -859,6 +860,120 @@ local function BuildProfsPage(f, x0, rightW)
 	page.left, page.card = left, card
 end
 
+--- Dungeons & group page (product plan step 7, 17 Nov 2026): left every dungeon for your level (or all, a switch) with
+--- its levels, entrance zone, the way there and a Way button (ForeverDungeons.lua, the same states as that window);
+--- right your raid lockouts (ForeverWeek.lua) and the group card: the no-XP rule for your group now, and switches for
+--- the small group panel and the marker bar.
+local GROUP_SWITCHES = {
+	{ title = "SET_FOREVER_PARTY_TITLE", tip = "SET_FOREVER_PARTY_DESC",
+		get = function() return ns.IsForeverPartyPanelOn and ns.IsForeverPartyPanelOn() end,
+		set = function(on)
+			if ns.SetForeverPartyPanel then
+				ns.SetForeverPartyPanel(on)
+			end
+		end },
+	{ title = "SET_MARK_TOGGLE_TITLE", tip = "SET_MARK_TOGGLE_DESC",
+		get = function() return ns.IsFastMarkEnabled and ns.IsFastMarkEnabled() end,
+		set = function(on)
+			if InCombatLockdown and InCombatLockdown() then
+				print("|cffffcc00Midnight Helper:|r " .. ns:L("FOV_ST_COMBAT"))
+				return
+			end
+			if ns.SetFastMarkEnabled then
+				ns.SetFastMarkEnabled(on)
+			end
+		end },
+}
+local DUNG_ONLYMINE = { title = "FOV_DUNG_ONLYMINE", tip = "FOV_TIP_DUNG_ONLYMINE",
+	get = function() return not (ns.IsForeverDungeonsAll and ns.IsForeverDungeonsAll()) end,
+	set = function(on)
+		if ns.SetForeverDungeonsAll then
+			ns.SetForeverDungeonsAll(not on)
+		end
+	end }
+
+local function BuildDungeonsPage(f, x0, rightW)
+	local page = f.pages.dungeons
+	local listW = math.floor(rightW * 0.60)
+	local list = Card(page)
+	list:SetPoint("TOPLEFT", f, "TOPLEFT", x0, TOP_Y)
+	list:SetPoint("BOTTOMLEFT", f, "BOTTOMLEFT", x0, 16)
+	list:SetWidth(listW)
+	list.label = Label(list, ns:L("FOV_LABEL_DUNG"), "FOV_TIP_CARD_DUNG")
+	list.only = MakeSwitch(list, DUNG_ONLYMINE, 240)
+	list.only.text:SetPoint("TOPRIGHT", list, "TOPRIGHT", -72, -12)
+	list.only.text:SetJustifyH("RIGHT")
+	list.only.chip:SetPoint("TOPRIGHT", list, "TOPRIGHT", -12, -10)
+	list.sf, list.child = S.Scroll(list, 36, 8, 50)
+	list.rowW = listW - 22 - 8
+	list.child:SetWidth(list.rowW)
+	list.rows = {}
+	list.empty = Text(list.child, "text", 13, A.dim)
+	list.empty:SetPoint("TOPLEFT", 6, -4)
+	list.empty:SetWidth(list.rowW - 12)
+	local sideW = rightW - listW - 12
+	local raids = Card(page)
+	raids:SetPoint("TOPLEFT", list, "TOPRIGHT", 12, 0)
+	raids:SetSize(sideW, 150)
+	raids.label = Label(raids, ns:L("FOV_LABEL_RAIDS"), "FOV_TIP_CARD_RAIDS")
+	raids.text = Text(raids, "text", 13)
+	raids.text:SetPoint("TOPLEFT", 14, -34)
+	raids.text:SetPoint("RIGHT", -14, 0)
+	if raids.text.SetSpacing then
+		raids.text:SetSpacing(4)
+	end
+	local grp = Card(page)
+	grp:SetPoint("TOPLEFT", raids, "BOTTOMLEFT", 0, -12)
+	grp:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -16, 16)
+	grp.label = Label(grp, ns:L("FOV_LABEL_GROUP"), "FOV_TIP_CARD_GROUP")
+	grp.top = Text(grp, "textB", 13)
+	grp.top:SetPoint("TOPLEFT", 14, -34)
+	grp.top:SetPoint("RIGHT", -14, 0)
+	grp.xp = Text(grp, "text", 12, A.dim)
+	grp.xp:SetPoint("TOPLEFT", grp.top, "BOTTOMLEFT", 0, -4)
+	grp.xp:SetPoint("RIGHT", -14, 0)
+	grp.sw = {}
+	for i, s in ipairs(GROUP_SWITCHES) do
+		grp.sw[i] = MakeSwitch(grp, s, sideW - 28)
+	end
+	page.list, page.raids, page.grp = list, raids, grp
+end
+
+local function DungeonRow(list, i)
+	local r = list.rows[i]
+	if r then
+		return r
+	end
+	r = CreateFrame("Frame", nil, list.child)
+	r:SetWidth(list.rowW)
+	local sep = r:CreateTexture(nil, "ARTWORK")
+	sep:SetColorTexture(A.edge[1], A.edge[2], A.edge[3], 0.35)
+	sep:SetHeight(1)
+	sep:SetPoint("BOTTOMLEFT", 0, 0)
+	sep:SetPoint("BOTTOMRIGHT", 0, 0)
+	r.chip = Tip(S.Chip(r, "", nil, 58))
+	r.chip:SetPoint("TOPLEFT", 2, -6)
+	r.go = Button(r, 70)
+	r.go:SetHeight(20)
+	r.go:SetPoint("TOPRIGHT", -2, -5)
+	r.go:SetLabel(ns:L("FOV_GO_SHORT"))
+	Tip(r.go, ns:L("FOV_GO"), ns:L("FOV_TIP_GO"))
+	r.name = Text(r, "textB", 14)
+	r.name:SetPoint("TOPLEFT", r.chip, "TOPRIGHT", 10, 1)
+	r.name:SetPoint("RIGHT", r.go, "LEFT", -8, 0)
+	r.name:SetWordWrap(false)
+	r.info = Text(r, "text", 12, A.dim)
+	r.info:SetPoint("TOPLEFT", r.name, "BOTTOMLEFT", 0, -2)
+	r.info:SetPoint("RIGHT", r.go, "LEFT", -8, 0)
+	r.info:SetWordWrap(false)
+	r.route = Text(r, "text", 12, A.gold)
+	r.route:SetPoint("TOPLEFT", r.info, "BOTTOMLEFT", 0, -2)
+	r.route:SetWidth(list.rowW - 80)
+	r.hover = HoverOver(r, r.name)
+	list.rows[i] = r
+	return r
+end
+
 -- Step 4: the page starts 30 px lower (switch row of "Your class"), so the rows are 19 px apart instead of 21.
 local TOC_ROWS, TOC_STEP = 14, 19
 
@@ -1027,7 +1142,7 @@ local function Build()
 	f.page = "now"
 	f.lastInGroup = {}
 	f.pages = {}
-	for _, key in ipairs({ "now", "play", "cq", "camp", "legacy", "trainer", "find", "keys", "profs" }) do
+	for _, key in ipairs({ "now", "play", "cq", "camp", "legacy", "trainer", "find", "keys", "profs", "dungeons" }) do
 		local p = CreateFrame("Frame", nil, f)
 		p:SetAllPoints(f)
 		p:Hide()
@@ -1248,6 +1363,7 @@ local function Build()
 	BuildFindPage(f, x0, rightW)
 	BuildKeysPage(f, x0, rightW)
 	BuildProfsPage(f, x0, rightW)
+	BuildDungeonsPage(f, x0, rightW)
 	-- Find and Professions: distances, names, skills and the tool in your bags change when you change zone, the client
 	-- loads an item name, a skill goes up or your bags change; fill again then (not every 2 s: the order of the list
 	-- must not jump under your mouse).
@@ -1255,7 +1371,11 @@ local function Build()
 	f:RegisterEvent("GET_ITEM_INFO_RECEIVED")
 	f:RegisterEvent("SKILL_LINES_CHANGED")
 	f:RegisterEvent("BAG_UPDATE_DELAYED")
-	local LIVE = { find = true, profs = true }
+	-- Dungeons & group: your group, your target (the no-XP line) and the raid info that arrives late.
+	f:RegisterEvent("GROUP_ROSTER_UPDATE")
+	f:RegisterEvent("PLAYER_TARGET_CHANGED")
+	f:RegisterEvent("UPDATE_INSTANCE_INFO")
+	local LIVE = { find = true, profs = true, dungeons = true }
 	f:SetScript("OnEvent", function(self)
 		if self:IsShown() and LIVE[self.page] and not self.findPending and C_Timer and C_Timer.After then
 			self.findPending = true
@@ -2410,6 +2530,121 @@ local function FillProfsPage(f, refresh)
 	card.swHead:SetPoint("BOTTOMLEFT", card, "BOTTOMLEFT", 14, y + 4)
 end
 
+local DUNG_CHIP = { fit = "FOV_DUNG_ST_FIT", near = "FOV_DUNG_ST_NEAR", low = "FOV_DUNG_ST_LOW", high = "FOV_DUNG_ST_HIGH" }
+local DUNG_TIP = { fit = "FOV_TIP_DUNG_ST_FIT", near = "FOV_TIP_DUNG_ST_NEAR", low = "FOV_TIP_DUNG_ST_LOW",
+	high = "FOV_TIP_DUNG_ST_HIGH" }
+local DUNG_ROUTES = 8
+
+local function FillDungeonsPage(f, refresh)
+	local page = f.pages.dungeons
+	local list, raids, grp = page.list, page.raids, page.grp
+	FillSwitch(list.only)
+	local all = ns.IsForeverDungeonsAll and ns.IsForeverDungeonsAll()
+	local dl = {}
+	if ns.ForeverDungeonList then
+		local ok, l = pcall(ns.ForeverDungeonList)
+		dl = ok and type(l) == "table" and l or {}
+	end
+	local shown = {}
+	for _, d in ipairs(dl) do
+		if all or d.state == "fit" or d.state == "near" then
+			shown[#shown + 1] = d
+		end
+	end
+	local level = UnitLevel and UnitLevel("player") or 1
+	local lowest
+	for _, d in ipairs(dl) do
+		lowest = lowest and math.min(lowest, d.min) or d.min
+	end
+	list.empty:SetText(#shown == 0 and ns:L("FOV_DUNG_NONE_FMT"):format(level, lowest or 0) or "")
+	local r, g, b = Accent()
+	local y, routes = (#shown == 0) and 40 or 0, 0
+	for i, d in ipairs(shown) do
+		local row = DungeonRow(list, i)
+		row:ClearAllPoints()
+		row:SetPoint("TOPLEFT", list.child, "TOPLEFT", 0, -y)
+		row.chip.t:SetText(("%d-%d"):format(d.min, d.max))
+		local col = (d.state == "fit" and { r, g, b }) or (d.state == "near" and { 0.93, 0.69, 0.33 }) or A.later
+		row.chip:SetColor(col[1], col[2], col[3])
+		row.chip.tipTitle = ns:L(DUNG_CHIP[d.state] or "FOV_DUNG_ST_HIGH")
+		row.chip.tipBody = d.state == "near" and ns:L("FOV_TIP_DUNG_ST_NEAR_FMT"):format(d.min - level)
+			or ns:L(DUNG_TIP[d.state] or "FOV_TIP_DUNG_ST_HIGH")
+		row.name:SetText(d.name)
+		local nameCol = (d.state == "low" or d.state == "high") and A.dim or A.text
+		row.name:SetTextColor(nameCol[1], nameCol[2], nameCol[3])
+		local info = d.zone
+		if d.sideLocked then
+			info = info .. "  |cffff7f7f" .. ns:L("FOV_DUNG_SIDE") .. "|r"
+		elseif d.other then
+			info = info .. "  |cffeeb055" .. ns:L("FOV_DUNG_ENEMY_FMT"):format(d.other) .. "|r"
+		end
+		row.info:SetText(info)
+		row.hover.tipTitle, row.hover.tipBody = d.name, ns:L("FOV_TIP_DUNG_ROW_FMT"):format(d.min, d.max, d.zone)
+		-- The way there for the dungeons you can do now (ForeverTravel plans one route each, so only the first few).
+		local route
+		if (d.state == "fit" or d.state == "near") and routes < DUNG_ROUTES and ns.ForeverTravelSentence then
+			routes = routes + 1
+			local ok, s = pcall(ns.ForeverTravelSentence, d.map, d.x, d.y)
+			route = ok and s or nil
+		end
+		if type(route) == "string" and route ~= "" then
+			row.route:SetText(ns:L("FWEAP_ROUTE_LABEL") .. " " .. route)
+			row.route:Show()
+		else
+			row.route:SetText("")
+			row.route:Hide()
+		end
+		local h = 40 + (row.route:IsShown() and ((row.route:GetStringHeight() or 12) + 2) or 0)
+		row:SetHeight(h)
+		SetGo(row.go, (not d.sideLocked) and d.go or nil)
+		row:Show()
+		y = y + h + 4
+	end
+	for i = #shown + 1, #list.rows do
+		list.rows[i]:Hide()
+	end
+	list.child:SetHeight(math.max(10, y))
+	if refresh then
+		list.sf.UpdateThumb()
+	else
+		list.sf.Reset()
+	end
+	-- Raids (the same lines as "This week").
+	local lines = {}
+	if ns.ForeverRaidRows then
+		local ok, rr = pcall(ns.ForeverRaidRows)
+		for _, row in ipairs(ok and rr or {}) do
+			lines[#lines + 1] = "|c" .. (WEEK_TONE[row.tone] or WEEK_TONE.soft) .. tostring(row.text or "") .. "|r"
+		end
+	end
+	raids.text:SetText(#lines > 0 and table.concat(lines, "\n") or ns:L("FOV_ST_UNREADABLE"))
+	-- Group: who is highest, and the no-XP rule (ForeverDungeons.lua: more than 12 levels above an enemy = no XP).
+	local inGroup = IsInGroup and IsInGroup()
+	if inGroup and ns.ForeverGroupTop then
+		local top, who = ns.ForeverGroupTop()
+		grp.top:SetText(ns:L("FOV_GROUP_TOP_FMT"):format(top or 0, who or "?"))
+	else
+		grp.top:SetText(ns:L("FOV_GROUP_SOLO"))
+	end
+	local warn
+	if ns.ForeverNoXpLine then
+		local ok, line = pcall(ns.ForeverNoXpLine)
+		warn = ok and line or nil
+	end
+	grp.xp:SetText(warn and ("|cffff7f7f" .. warn .. "|r") or ns:L("FOV_GROUP_XP_RULE"))
+	-- Switches at the bottom of the group card.
+	local yy = 12
+	for i = #grp.sw, 1, -1 do
+		local s = grp.sw[i]
+		local h = FillSwitch(s)
+		s.text:ClearAllPoints()
+		s.text:SetPoint("BOTTOMLEFT", grp, "BOTTOMLEFT", 14, yy + (h - 22) + 4)
+		s.chip:ClearAllPoints()
+		s.chip:SetPoint("BOTTOMRIGHT", grp, "BOTTOMRIGHT", -14, yy + (h - 22) + 2)
+		yy = yy + h
+	end
+end
+
 --- Refill when the overview shows `page` (ForeverMacros.lua calls this when your bags or spells change).
 function ns.ForeverOverviewRefreshPage(page)
 	if win and win:IsShown() and win.page == page then
@@ -2475,6 +2710,9 @@ function ns.ForeverOverviewFill(refresh)
 		return f
 	elseif f.page == "profs" then
 		FillProfsPage(f, refresh)
+		return f
+	elseif f.page == "dungeons" then
+		FillDungeonsPage(f, refresh)
 		return f
 	elseif f.page == "cq" then
 		FillClassQuestPage(f, level)

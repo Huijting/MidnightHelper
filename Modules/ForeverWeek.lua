@@ -198,6 +198,29 @@ local function Lockouts()
 	return out
 end
 
+--- 17 Nov 2026, product plan step 7 (the overview's Dungeons & group tab): only the raid lines, the same words as the
+--- rows below. { text, tone } each; a line "raids open on …" before then, "no raid lockouts" without any.
+function ns.ForeverRaidRows()
+	if not raidAsked and RequestRaidInfo then
+		pcall(RequestRaidInfo)
+		raidAsked = true
+	end
+	local rows = {}
+	local raids = Lockouts()
+	if BeforeRaidsOpen(Now()) and not (raids and #raids > 0) then
+		rows[1] = { text = ns:L("FWEEK_RAIDS_SOON"), tone = "dim" }
+	elseif raids then
+		if #raids == 0 then
+			rows[1] = { text = ns:L("FWEEK_RAIDS_NONE"), tone = "dim" }
+		end
+		for _, r in ipairs(raids) do
+			rows[#rows + 1] = { text = ns:L("FWEEK_RAID_FMT"):format(r.name, tonumber(r.done) or 0, tonumber(r.total) or 0,
+				Duration(r.reset) or "?"), tone = "soft" }
+		end
+	end
+	return rows
+end
+
 --------------------------------------------------------------------------------
 -- The rows for HomeDashboard.lua: { text, tone } with tone = "soft" | "dim" | "warn" | "good".
 --------------------------------------------------------------------------------

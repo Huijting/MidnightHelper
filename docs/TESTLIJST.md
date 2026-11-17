@@ -30,6 +30,16 @@ Eerst WoW helemaal afsluiten en opnieuw starten (er is een nieuw bestand; /reloa
 - [ ] `/mh overview` opent zonder foutmelding en ziet er precies hetzelfde uit als ronde 5 (zelfde letters, kleuren,
       knoppen, NOW/LATER-labels onder Jouw pad).
 
+## 🏰 17 nov (nacht) — Forever: tab "Dungeons & group" in het overzicht (plan-stap 7)
+
+- [ ] Tab **Dungeons & group**: links DUNGEONS, laagste eerst, met een labeltje "13-18" (klassekleur = past nu, oranje
+      = bijna, grijs = te laag/later), naam, zone van de ingang, bij een paar de reisstap, en "Way ›" (pijl naar de
+      ingang). Een dungeon met de ingang in een stad van de andere kant zegt dat in oranje.
+- [ ] Rechtsboven het schakelaartje "Only for my level": uit = alle dungeons, aan = alleen wat nu (of bijna) past.
+- [ ] Rechts RAIDS (je raid-lockouts of "raids open on …") en GROUP: hoogste level in je groep, de XP-regel (rood als
+      iemand te hoog is voor je target of deze dungeon), en schakelaars voor het groepspaneel en de markeerbalk.
+- [ ] `/mh dungeons` en de knop in Do this now openen deze tab (nog een keer = dicht).
+
 ## 🧪 17 nov (nacht) — Forever: tab "Professions" in het overzicht (plan-stap 6)
 
 - [ ] Tab **Professions**: links alle 12 beroepen, jouw beroepen bovenaan in goud met je skill (bv. 140/150).
@@ -52,7 +62,7 @@ Eerst WoW helemaal afsluiten en opnieuw starten (er is een nieuw bestand; /reloa
 
 ## 🔎 17 nov (nacht) — Forever: tab "Find" en tab "Your class" in het overzicht (plan-stap 4)
 
-- [ ] De tabrij: Now · Your class · Find · Professions · Keys & macros · Legacy. "Your class" heeft bovenaan drie knoppen: How you play · Class quests
+- [ ] De tabrij: Now · Your class · Find · Professions · Dungeons & group · Keys & macros · Legacy. "Your class" heeft bovenaan drie knoppen: How you play · Class quests
       · Camping. Klik ze alle drie; de tab blijft oplichten. Klik Now en weer Your class: je komt terug op de laatste.
 - [ ] Tab **Find**: links "WHAT ARE YOU LOOKING FOR?" met Trainer, Professions (jouw beroepen bovenaan in goud, met je
       skill), Weapon skills (bekend = grijs "(known)", groene + = past bij je richting) en Shops. Je kunt erin scrollen.

@@ -568,7 +568,43 @@ Refresh = function()
 	f:SetHeight(86 + MAX_VISIBLE * ROW_H + 56 + extra)
 end
 
+--- 17 Nov 2026, product plan step 7 (the overview's Dungeons & group tab): every dungeon in level order with what it
+--- means for you, the same states as this window. Each: { name, zone, min, max, state = "fit"|"near"|"low"|"high",
+--- other = the other side's name when the entrance is in their capital, sideLocked = only for the other side, go }.
+function ns.ForeverDungeonList()
+	local level = UnitLevel and UnitLevel("player") or 1
+	local side = MySide()
+	local out = {}
+	for _, d in ipairs(DUNGEONS) do
+		local other
+		if d.cityOf and side and d.cityOf ~= side then
+			other = (d.cityOf == "Alliance" and FACTION_ALLIANCE) or (d.cityOf == "Horde" and FACTION_HORDE) or d.cityOf
+		end
+		out[#out + 1] = { name = Name(d), zone = ZoneName(d.zone), min = d.min, max = d.max, map = d.zone, x = d.x,
+			y = d.y, state = State(d, level, side), sideLocked = d.side ~= nil and d.side ~= side, other = other,
+			ten = d.ten, go = function()
+				return GoTo(d)
+			end }
+	end
+	return out, NEAR
+end
+
+function ns.IsForeverDungeonsAll()
+	return ShowAll()
+end
+
+function ns.SetForeverDungeonsAll(on)
+	if ns.db then
+		ns.db.foreverDungeonsAll = on and true or nil
+	end
+end
+
 function ns.ShowForeverDungeons()
+	-- Product plan step 7: every way into this window lands on the overview's Dungeons & group tab (fallback here).
+	if ns.ShowForeverOverviewPage then
+		ns.ShowForeverOverviewPage("dungeons", true)
+		return
+	end
 	Refresh()
 	win:Show()
 end
