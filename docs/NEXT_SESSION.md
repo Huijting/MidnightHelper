@@ -100,7 +100,14 @@
   teksten, alle Sunken Temple-ketens neutraal "(item rewards)". **Talented gecorrigeerd**: rang uit `activeEntry.entryID`
   (DB2 GEMETEN: node 110298 Type 1, 5 entries 136852/137374/137373/137372/137371 = rang 1-5), probe met alle velden.
 - 🧭 **Rollen stap 2 (8 classes) begonnen**: warrior/mage/priest AF in ForeverHowToPlay `ROLES` (en + nlNL, vorm = druid;
-  gids-onenigheid eerlijk benoemd of weggelaten). Shaman AF (band 1 Elemental, 2 Enhancement, 3 Restoration; variant A: één tank-zin
+  gids-onenigheid eerlijk benoemd of weggelaten). Warlock AF (band 1 Affliction, 2 Demonology, 3 Destruction; Wrack = nieuwe werking,
+  toetsloze kernknoppen = blok D). Paladin-onderzoek klaar (`PALADIN_ROLES_2026-11-17.md`), tekst volgt. Paladin-klassetekst
+  in 7 talen: Divine Intervention (F3 in gevecht) doodt jezelf (GEMETEN Spell 19752 "sacrifices himself") + Templar's
+  Bulwark geeft ook Forbearance (GEMETEN Spell 25771). OPEN uit onderzoek (bouwchat): toets 3 = {Seal of Command, Seal
+  of Righteousness} verbergt SoR voor Ret (Unsealed Wrath wil wisselen); Righteous Fury ontbreekt in de klassetekst;
+  Hammer of the Righteous (40) / Voice of Truth (20) niet in ForeverTrainerData (trainer?) en HotR vraagt eenhandig
+  wapen; Torment (warlock) zegt "taunt", onderzoek zegt alleen threat (niet zelf gemeten).
+  Shaman AF (band 1 Elemental, 2 Enhancement, 3 Restoration; variant A: één tank-zin
   bij Enhancement, Rob kan B nog kiezen; geen getallen voor Stormstrike/Mental Dexterity/Maelstrom wegens hotfix 10 nov).
   Hunter AF (band 1 BM, 2 MM, 3 Survival; Counterattack "25 or 30", Strider Kick/
   Aspect of the Beast "op je eigen balk"). Rogue AF (band 1 Assassination, 2 Combat, 3 Subtlety;

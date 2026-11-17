@@ -77,13 +77,13 @@ Sceau (3) avant le combat. Ensuite Frappe sacrée (1) et Jugement (2) dès qu'il
 		{ "Ce qui vient plus tard", [[
 - 12 : Rédemption (via une quête) sur F3 (ramène un ami mort ; pas en combat). 14 : Bénédiction de sagesse sur Shift-V.
 - 18 : Bénédiction de liberté sur R (rien ne peut te ralentir pendant un moment). 20 : Consécration sur Shift-1 (frappe plusieurs ennemis à la fois), Exorcisme sur 5, Eclair lumineux sur F2 (soin rapide), Bénédiction des rois sur Shift-X.
-- 30 : Intervention divine : en combat, F3 lance celle-ci au lieu de Rédemption. 34 : Bouclier divin sur Z : 10 secondes pendant lesquelles rien ne peut te blesser, et tu peux quand même te battre (avec la moitié des dégâts).
+- 30 : Intervention divine : en combat, F3 lance celle-ci au lieu de Rédemption. Attention : tu meurs toi-même ; l'ami que tu choisis est à l'abri de toutes les attaques pendant un court moment. 34 : Bouclier divin sur Z : 10 secondes pendant lesquelles rien ne peut te blesser, et tu peux quand même te battre (avec la moitié des dégâts).
 - 42 : Epuration remplace Purification sur Shift-C. 44 : Marteau de courroux sur 4 (seulement quand l'ennemi a 20 % de vie ou moins).
 - 52-60 : en groupe, les touches de bénédiction lancent la version supérieure pour tout le groupe ; en solo, elles lancent la normale.]] },
 		{ "Erreurs de débutant", [[
 - Appuyer sur Exorcisme (5) contre un ennemi normal. Il ne marche que sur les ennemis de type Mort-vivant et Démon. Renvoi des morts-vivants (Shift-Q, 24) ne marche que sur le type Mort-vivant.
 - Appuyer sur Marteau de courroux (4) tôt dans le combat. Il ne marche que quand l'ennemi est presque mort (20 % de vie ou moins).
-- Bouclier divin et Protection divine partagent un même cooldown, donc ils sont sur une seule touche (Z). Ces sorts de protection, et Bénédiction de protection, donnent **Longanimité** : pendant 1 minute, tu ne peux plus en recevoir aucun. Imposition des mains n'en donne pas.]] },
+- Bouclier divin et Protection divine partagent un même cooldown, donc ils sont sur une seule touche (Z). Ces sorts de protection, Bénédiction de protection et Rempart de templier donnent **Longanimité** : pendant 1 minute, tu ne peux plus en recevoir aucun. Imposition des mains n'en donne pas.]] },
 	},
 	MAGE = {
 		{ "Ce qu'il fait", [[

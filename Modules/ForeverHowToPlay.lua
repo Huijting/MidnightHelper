@@ -91,13 +91,13 @@ Seal (3) before the fight. Then Holy Strike (1) and Judgement (2) whenever they 
 		{ "What comes later", [[
 - 12: Redemption (from a quest) on F3 (brings a dead friend back; not in a fight). 14: Blessing of Wisdom on Shift-V.
 - 18: Blessing of Freedom on R (nothing can slow you for a while). 20: Consecration on Shift-1 (hits several enemies at once), Exorcism on 5, Flash of Light on F2 (quick heal), Blessing of Kings on Shift-X.
-- 30: Divine Intervention: in a fight, F3 casts this one instead of Redemption. 34: Divine Shield on Z: 10 seconds where nothing can hurt you, and you can still fight (with half damage).
+- 30: Divine Intervention: in a fight, F3 casts this one instead of Redemption. Careful: you die yourself; the friend you pick is safe from all attacks for a short time. 34: Divine Shield on Z: 10 seconds where nothing can hurt you, and you can still fight (with half damage).
 - 42: Cleanse replaces Purify on Shift-C. 44: Hammer of Wrath on 4 (only when the enemy is at 20% health or less).
 - 52-60: in a group, the blessing keys cast the Greater Blessing for the whole group; solo they cast the normal one.]] },
 		{ "Beginner mistakes", [[
 - Pressing Exorcism (5) on a normal enemy. It only works on Undead and Demons. Turn Undead (Shift-Q, 24) works on Undead only.
 - Pressing Hammer of Wrath (4) early in the fight. It only works when the enemy is almost dead (20% health or less).
-- Divine Shield and Divine Protection share one cooldown, so they sit on one key (Z). These protection spells, and Blessing of Protection, give **Forbearance**: for 1 minute you cannot get any of them again. Lay on Hands does not.]] },
+- Divine Shield and Divine Protection share one cooldown, so they sit on one key (Z). These protection spells, Blessing of Protection and Templar's Bulwark give **Forbearance**: for 1 minute you cannot get any of them again. Lay on Hands does not.]] },
 	},
 	MAGE = {
 		{ "What it does", [[
@@ -861,6 +861,80 @@ Before you start: Water Shield (**Shift-Z**, from 20). Totems down: Call of the 
 - Chain Heal on someone other than your Riptide target. The bonus only counts when you cast it directly on that target.
 - Pressing only Nature's Swiftness. It heals nothing by itself: it makes your next Nature spell instant. Press Healing Wave right after.
 - Trying to remove a curse. A Shaman cannot; only Poison (**Shift-C**) and Disease (**Shift-V**).]] },
+	},
+	-- Warlock: written 17 Nov 2026 by mh-writer from docs/forever/WARLOCK_ROLES_2026-11-17.md (DB2 1.60.1.70938 + guides).
+	WARLOCK = {
+		{ band = 1, title = "Affliction: damage over time", body = [[
+From level 4 (Corruption) and 8 (Bane of Agony). You put DoTs on the enemy and let your demon hold it. Most guides level as Affliction. Siphon Life is a talent, 30 at the earliest. Wrack is a talent, 40 at the earliest: while you channel it, your Siphon Life, Corruption and Bane of Agony on that enemy tick 100% faster. Wrack does not heal you.
+**Simple order:**
+1. Send your demon in (**Ctrl-1**).
+2. Bane of Agony (**5**) to pull. Its damage starts low, so your demon gets the enemy.
+3. Corruption (**2**). With Improved Corruption 5/5 it is instant (14 at the earliest).
+4. Siphon Life (**F4**, from 30), only on an enemy that will live long.
+5. Immolate (**3**) only on a tough enemy.
+6. Tough enemy: add your curse (**Shift-V**). The guides differ on how early.
+7. Filler: until about level 30 your wand (Shoot; not on the block, put it on your own bar), then Drain Life (**C**). The guides differ a little on when to switch.
+8. Shadow Trance lights up (Nightfall, from 25)? Shadow Bolt (**1**): it is instant then.
+9. From 40: Wrack (block D) instead of Drain Life when your health is fine. Put your DoTs on first.
+10. More health than mana? Life Tap (**F**).
+11. Need a Soul Shard? Finish the enemy with Drain Soul (**4**).
+Two enemies: DoTs on the first, Fear (**V**) on it, then fight the second. Damage can break Fear, and the guides differ on DoTs before Fear.
+**Per 10 levels:**
+- 10: Drain Soul (**4**), Create Healthstone (block D), the Voidwalker (quest). You already have Shadow Bolt (**1**), Immolate (**3**), Corruption (**2**, 4), Curse of Weakness (**Shift-V**, 4), Life Tap (**F**, 6), Bane of Agony (**5**, 8) and Fear (**V**, 8). First talent: Improved Corruption or Suppression (the guides differ). Talent levels here are the earliest; a perk can bring them up to 5 levels sooner. Then Health Funnel (**F2**) at 12; Drain Life (**C**) and Corruption rank 2 (15 seconds) at 14; Improved Drains and Soul Harvest (talents, passive) from 15; Searing Pain (block D) and Create Soulstone at 18.
+- 20: Amplify Curse (**Shift-3**, a talent): your next Curse of Weakness or Bane of Agony is 50% stronger; cooldown 3 minutes. Curse of the Elements (**Shift-V**), Demon Armor (**Shift-Z**), Rain of Fire (**Shift-1**), the Succubus or Incubus (quest). Then Corruption rank 3 (18 seconds) and Drain Mana at 24. Curse of Exhaustion (**R**, a talent; you need Amplify Curse first) at 25: the enemy is 30% slower for 12 seconds. Nightfall (a talent, passive) at 25: a small chance that your next Shadow Bolt is instant. Banish (**Shift-Q**) at 28.
+- 30: Siphon Life (**F4**, a talent): moves health from the enemy to you, for 30 seconds. Soul Siphon (a talent, passive): Drain Life, Drain Soul and Wrack do more for each of your Corruption, Siphon Life and Bane of Agony on the enemy. Drain Life rank 3, Hellfire (**Shift-2**), the Felhunter (quest). Then Shadow Ward (**Z**) at 32, Shadow Mastery (a talent, passive) at 35, Siphon Life rank 2 and Drain Life rank 4 at 38.
+- 40: Wrack (block D, a talent; you need Siphon Life first): a 6-second channel that does damage every second and makes your DoTs on that enemy tick 100% faster. Howl of Terror (**Shift-F**), the Felsteed (quest). Then Death Coil (**X**) at 42, Soul Fire (**Q**) and Siphon Life rank 3 at 48.
+- 50: Inferno (**F3**). Curse of the Elements rank 4. Otherwise stronger ranks.
+- 60: Bane of Doom (**F1**): a big hit after 60 seconds; not on players. Otherwise stronger ranks.
+**Beginner mistakes:**
+- Putting Bane of Agony back on too early. Its strongest ticks come at the end.
+- Using Wrack when you need health. Wrack does not heal; Drain Life does.
+- Curse of Recklessness on the enemy you want to Fear. That enemy ignores Fear.]] },
+		{ band = 2, title = "Demonology: damage with your demon", body = [[
+From level 1 (the Imp), really from 10 (the Voidwalker). Your demon does much of the work, and the talents make it stronger. The guides differ on when to go into this tree: some go in from 10, others level as Affliction first and switch around 26 or 27. Demonic Sacrifice (20 at the earliest) only pays off with Demonic Pact (40 at the earliest). Before that, any demon you summon removes the buff.
+**Simple order:**
+1. Send your demon in (**Ctrl-1**), and let it hit first.
+2. From 30: Soul Link (**Shift-X**) on, and again after every summon.
+3. From 25 (Demonic Brand): Searing Pain (block D) on your demon's enemy. Again when the brand is gone (10 seconds). Before Demonic Brand: no Searing Pain.
+4. Bane of Agony (**5**) and Corruption (**2**) on enemies that live long enough. Corruption has a 2-second cast here.
+5. Filler: your wand (not on the block, put it on your own bar) or Shadow Bolt (**1**). Drain Life (**C**) when you need health.
+6. Demon almost dead: Health Funnel (**F2**). It costs your own health.
+7. Life Tap (**F**). With Demonic Energies your demon gets mana too.
+8. From 40 (Demonic Pact): Demonic Sacrifice (**Shift-C**) on one demon, then summon a different one (block D). The buff lasts 2 hours. The guides differ on which demon to sacrifice.
+9. From 48, with Decimation: enemy under 35% health? Shadow Bolt or Searing Pain, then Soul Fire (**Q**): faster, and no Soul Shard.
+**Per 10 levels:**
+- 10: the Voidwalker (quest; costs 1 Soul Shard). Its Torment gives **threat** (how much an enemy wants to attack it). Drain Soul (**4**) for shards. First talents: Unholy Power, Demonic Embrace, Improved Imp, Improved Health Funnel (passive). Talent levels here are the earliest; a perk can bring them up to 5 levels sooner. Then Health Funnel (**F2**) at 12; Demonic Energies, Fel Vitality and Improved Voidwalker (talents, passive) from 15; Sacrifice (Voidwalker) at 16; Consume Shadows (Voidwalker) and Searing Pain (block D) at 18.
+- 20: Demonic Sacrifice (**Shift-C**, a talent): you sacrifice your demon for a buff of 2 hours. Imp: 15% more Shadow damage. Succubus or Incubus: 15% more Fire damage. Voidwalker: mana back. Felhunter: health back. Master Summoner (a talent, passive): summons are faster and cheaper. The Succubus or Incubus (quest). Demon Armor (**Shift-Z**). Then Suffering (Voidwalker) at 24. Fel Domination (**Shift-F1**, a talent; you need Master Summoner first) at 25: your next summon is 5.5 seconds faster and 50% cheaper. Demonic Brand and Decimation (talents, passive) from 25.
+- 30: Soul Link (**Shift-X**, a talent; you need Demonic Sacrifice first): 30% of the damage on you goes to your demon, and you both do 3% more damage. It lasts as long as your demon is there. The Felhunter (quest; Spell Lock at 36). Demonic Knowledge (a talent, passive). Then Master Demonologist (a talent, passive) from 35.
+- 40: Demonic Pact (a talent, passive; you need Soul Link first): the Demonic Sacrifice buff stays when you summon a different demon. Only now does Demonic Sacrifice pay off. Howl of Terror (**Shift-F**), the Felsteed (quest). Then Death Coil (**X**) at 42, Soul Fire (**Q**) at 48.
+- 50: Inferno (**F3**): an Infernal; 1 Infernal Stone each time; cooldown 1 hour. Otherwise stronger ranks.
+- 60: Bane of Doom (**F1**). Otherwise stronger ranks.
+**Beginner mistakes:**
+- Searing Pain before you have Demonic Brand. It causes a lot of threat and pulls the enemy off your demon.
+- Demonic Sacrifice before Demonic Pact (40). Your demon is gone, and summoning any demon removes the buff.
+- After Demonic Pact, summoning the same demon you sacrificed. Then the buff is gone.]] },
+		{ band = 3, title = "Destruction: damage with big hits", body = [[
+From level 1 (Shadow Bolt and Immolate). Big fire and shadow hits, and it costs the most mana. Some guides advise against levelling with it (a lot of mana, little to get it back); others call it playable, and one calls it strong in dungeons. Conflagrate is a talent, 25 at the earliest; Incinerate is a talent, 40 at the earliest. The turning point is Shadow and Flame 5/5 (39 at the earliest): from then on Conflagrate no longer eats your Immolate, and Shadowburn always gives its Soul Shard back.
+**Simple order:**
+1. Send your demon in (**Ctrl-1**).
+2. Immolate (**3**). One guide opens with Shadow Bolt from far away, with Immolate right after.
+3. Tough enemy: Bane of Agony (**5**) and your curse (**Shift-V**).
+4. From 25: Conflagrate (block D). Before Shadow and Flame 5/5 it eats your Immolate: use it at the end of Immolate, or as the last hit. After that: every time it is ready.
+5. Filler: Shadow Bolt (**1**). From 40 Incinerate (block D), with Immolate on the enemy.
+6. From 20: Shadowburn (**Shift-4**) as the last hit. Then you get the Soul Shard back.
+7. Life Tap (**F**) between fights. Low on mana: your wand (not on the block, put it on your own bar).
+8. More enemies: from 30 Bane of Havoc (block D) on one tough enemy, then attack the rest. Rain of Fire (**Shift-1**). Hellfire (**Shift-2**, from 30) only with enough health.
+**Per 10 levels:**
+- 10: Shadow Bolt (**1**) and Immolate (**3**; rank 2 at 10). First talent: Bane (faster casts) or Improved Shadow Bolt. Talent levels here are the earliest; a perk can bring them up to 5 levels sooner. Then Shadow Bolt rank 3 at 12 (2.8-second cast); Aftermath and Cataclysm (talents, passive) from 15; Searing Pain (block D) at 18.
+- 20: Shadowburn (**Shift-4**, a talent): an instant Shadow hit; costs 1 Soul Shard; cooldown 15 seconds. If the enemy (one that gives XP) dies within 8 seconds, you get a shard back. Ruin (a talent, passive): your Destruction crits hit harder. Rain of Fire (**Shift-1**). Shadow Bolt rank 4 (3-second cast). Then Shadowburn rank 2 at 24. Conflagrate (block D, a talent) at 25: an instant Fire hit on an enemy with your Immolate; that Immolate is then gone; cooldown 10 seconds. Agonizing Flames and Intensity (talents, passive) from 25.
+- 30: Bane of Havoc (block D, a talent): 5 minutes on one enemy; 15% of all your damage on other enemies also hits this one. Only one enemy at a time. Fire and Brimstone (you need Conflagrate first) and Pyroclasm (you need Intensity first), talents, passive. Hellfire (**Shift-2**). Then Conflagrate rank 2 and Shadowburn rank 3 at 32; Shadow and Flame (a talent, passive) from 35, 5/5 at 39 at the earliest.
+- 40: Incinerate (block D, a talent; you need Bane of Havoc first): a 2.5-second cast, 25% more damage when the enemy has your Immolate. Conflagrate rank 3, Shadowburn rank 4. Then Soul Fire (**Q**) at 48.
+- 50: Incinerate rank 2. Inferno (**F3**).
+- 60: Incinerate rank 3, Conflagrate rank 6. Bane of Doom (**F1**).
+**Beginner mistakes:**
+- Conflagrate right after Immolate. It eats your Immolate (until Shadow and Flame 5/5).
+- Shadowburn with no Soul Shard, or on an enemy that will live long. The shard only comes back if the enemy dies within 8 seconds.
+- Bane of Havoc and Bane of Agony on the same enemy. Only one bane fits on it.]] },
 	},
 }
 ns.FOREVER_HOWTOPLAY_ROLES = ROLES -- the offline check reads it

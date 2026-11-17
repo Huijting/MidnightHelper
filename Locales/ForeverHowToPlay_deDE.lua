@@ -76,13 +76,13 @@ Siegel (3) vor dem Kampf. Dann Heiliger Stoß (1) und Richturteil (2), sobald si
 		{ "Was später kommt", [[
 - 12: Erlösung (aus einer Quest) auf F3 (holt einen toten Freund zurück; nicht im Kampf). 14: Segen der Weisheit auf Shift-V.
 - 18: Segen der Freiheit auf R (eine Weile kann dich nichts verlangsamen). 20: Weihe auf Shift-1 (trifft mehrere Gegner auf einmal), Exorzismus auf 5, Lichtblitz auf F2 (schnelle Heilung), Segen der Könige auf Shift-X.
-- 30: Göttliches Eingreifen: Im Kampf wirkt F3 dieses statt Erlösung. 34: Gottesschild auf Z: 10 Sekunden, in denen dir nichts schaden kann, und du kannst trotzdem kämpfen (mit halbem Schaden).
+- 30: Göttliches Eingreifen: Im Kampf wirkt F3 dieses statt Erlösung. Achtung: Du stirbst dabei selbst; der Freund, den du wählst, ist kurz vor allen Angriffen sicher. 34: Gottesschild auf Z: 10 Sekunden, in denen dir nichts schaden kann, und du kannst trotzdem kämpfen (mit halbem Schaden).
 - 42: Reinigung des Glaubens ersetzt Läutern auf Shift-C. 44: Hammer des Zorns auf 4 (nur wenn der Gegner 20 % Gesundheit oder weniger hat).
 - 52-60: In einer Gruppe wirken die Segen-Tasten den Großen Segen für die ganze Gruppe; allein wirken sie den normalen.]] },
 		{ "Anfängerfehler", [[
 - Exorzismus (5) auf einen normalen Gegner drücken. Er wirkt nur auf Untote und Dämonen. Untote vertreiben (Shift-Q, 24) wirkt nur auf Untote.
 - Hammer des Zorns (4) früh im Kampf drücken. Er wirkt nur, wenn der Gegner fast tot ist (20 % Gesundheit oder weniger).
-- Gottesschild und Göttlicher Schutz teilen sich eine Abklingzeit, deshalb liegen sie auf einer Taste (Z). Diese Schutzzauber und Segen des Schutzes geben dir **Vorahnung**: 1 Minute lang kannst du keinen davon wieder bekommen. Handauflegung nicht.]] },
+- Gottesschild und Göttlicher Schutz teilen sich eine Abklingzeit, deshalb liegen sie auf einer Taste (Z). Diese Schutzzauber, Segen des Schutzes und Bollwerk des Templers geben dir **Vorahnung**: 1 Minute lang kannst du keinen davon wieder bekommen. Handauflegung nicht.]] },
 	},
 	MAGE = {
 		{ "Was er kann", [[

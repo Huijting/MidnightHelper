@@ -82,6 +82,10 @@ Priest, `/reload`. Uitgezocht met Fable; niets in het spel gezien.
 - [ ] Rogue of Hunter: open "How to play". Zie je drie rollen? Kloppen de toetsen?
 - [ ] Hunter, level 10: leer je Revive Pet pas bij de quest ná het temmen (zoals de tekst nu zegt)?
 - [ ] Hunter Survival: krijg je Counterattack op 25 of op 30?
+- [ ] Warlock: zie je drie rollen (Affliction, Demonology, Destruction)? Voidwalker: dwingt Torment de vijand echt
+  om de Voidwalker aan te vallen (taunt), of trekt hij alleen wat aandacht?
+- [ ] Paladin: staat er bij level 30 nu de waarschuwing dat Divine Intervention (F3 in een gevecht) jezelf doodt?
+- [ ] Paladin bij de trainer: kun je op 20 Voice of Truth en op 40 Hammer of the Righteous leren?
 - [ ] Shaman: zie je drie rollen (Elemental, Enhancement, Restoration)? Enhancement: hoe lang is de cooldown van
   Stormstrike echt (6 of 8 seconden)? Tooltip kan nog oud zijn, dus graag timen.
 

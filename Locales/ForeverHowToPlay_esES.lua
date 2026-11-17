@@ -78,13 +78,13 @@ Sello (3) antes del combate. Luego Golpe Sagrado (1) y Sentencia (2) cada vez qu
 		{ "Lo que llega después", [[
 - 12: Redención (de una misión) en F3 (trae de vuelta a un amigo muerto; no en combate). 14: Bendición de Sabiduría en Shift-V.
 - 18: Bendición de Libertad en R (nada puede ralentizarte durante un rato). 20: Consagración en Shift-1 (golpea a varios enemigos a la vez), Exorcismo en 5, Destello de Luz en F2 (cura rápida), Bendición de los Reyes en Shift-X.
-- 30: Intervención divina: en combate, F3 lanza este en lugar de Redención. 34: Escudo divino en Z: 10 segundos en los que nada puede hacerte daño, y aun así puedes luchar (con la mitad de daño).
+- 30: Intervención divina: en combate, F3 lanza este en lugar de Redención. Cuidado: mueres tú; el amigo que eliges queda a salvo de todos los ataques durante un rato. 34: Escudo divino en Z: 10 segundos en los que nada puede hacerte daño, y aun así puedes luchar (con la mitad de daño).
 - 42: Purgación sustituye a Purificar en Shift-C. 44: Martillo de cólera en 4 (solo cuando el enemigo tiene un 20% de salud o menos).
 - 52-60: en un grupo, las teclas de bendición lanzan la Bendición superior para todo el grupo (por ejemplo Bendición superior de poderío); si juegas solo, lanzan la normal.]] },
 		{ "Errores de principiante", [[
 - Pulsar Exorcismo (5) contra un enemigo normal. Solo funciona contra No-muertos y Demonios. Ahuyentar a no-muerto (Shift-Q, 24) solo funciona contra No-muertos.
 - Pulsar Martillo de cólera (4) al principio del combate. Solo funciona cuando el enemigo está casi muerto (un 20% de salud o menos).
-- Escudo divino y Protección divina comparten una reutilización, así que están en una sola tecla (Z). Estos hechizos de protección, y Bendición de Protección, dan **Paciencia**: durante 1 minuto no puedes recibir ninguno de ellos otra vez. Imposición de manos no.]] },
+- Escudo divino y Protección divina comparten una reutilización, así que están en una sola tecla (Z). Estos hechizos de protección, Bendición de Protección y Baluarte de templario dan **Paciencia**: durante 1 minuto no puedes recibir ninguno de ellos otra vez. Imposición de manos no.]] },
 	},
 	MAGE = {
 		{ "Qué hace", [[

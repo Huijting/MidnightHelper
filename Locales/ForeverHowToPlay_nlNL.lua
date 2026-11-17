@@ -73,13 +73,13 @@ Seal (3) voor het gevecht. Dan Holy Strike (1) en Judgement (2) zodra ze klaar z
 		{ "Wat er later komt", [[
 - 12: Redemption (uit een quest) op F3 (brengt een dode vriend terug; niet in een gevecht). 14: Blessing of Wisdom op Shift-V.
 - 18: Blessing of Freedom op R (een tijdje kan niets je vertragen). 20: Consecration op Shift-1 (raakt meerdere vijanden tegelijk), Exorcism op 5, Flash of Light op F2 (snelle heal), Blessing of Kings op Shift-X.
-- 30: Divine Intervention: in een gevecht cast F3 deze in plaats van Redemption. 34: Divine Shield op Z: 10 seconden waarin niets je pijn kan doen, en je kunt nog steeds vechten (met de helft van je schade).
+- 30: Divine Intervention: in een gevecht cast F3 deze in plaats van Redemption. Let op: je gaat zelf dood; de vriend die je kiest kan even door niets geraakt worden. 34: Divine Shield op Z: 10 seconden waarin niets je pijn kan doen, en je kunt nog steeds vechten (met de helft van je schade).
 - 42: Cleanse vervangt Purify op Shift-C. 44: Hammer of Wrath op 4 (alleen als de vijand op 20% health of minder staat).
 - 52-60: in een groep casten de blessing-toetsen de Greater Blessing voor de hele groep; alleen casten ze de gewone.]] },
 		{ "Beginnersfouten", [[
 - Exorcism (5) indrukken op een gewone vijand. Hij werkt alleen op Undead en Demons. Turn Undead (Shift-Q, 24) werkt alleen op Undead.
 - Hammer of Wrath (4) vroeg in het gevecht indrukken. Hij werkt alleen als de vijand bijna dood is (20% health of minder).
-- Divine Shield en Divine Protection delen één cooldown, dus ze staan op één toets (Z). Deze beschermspells, en Blessing of Protection, geven **Forbearance**: 1 minuut lang kun je er geen van allen opnieuw krijgen. Lay on Hands niet.]] },
+- Divine Shield en Divine Protection delen één cooldown, dus ze staan op één toets (Z). Deze beschermspells, Blessing of Protection en Templar's Bulwark geven **Forbearance**: 1 minuut lang kun je er geen van allen opnieuw krijgen. Lay on Hands niet.]] },
 	},
 	MAGE = {
 		{ "Wat hij doet", [[
@@ -833,6 +833,80 @@ Vooraf: Water Shield (**Shift-Z**, vanaf 20). Totems neer: Call of the Elements 
 - Chain Heal op iemand anders dan je Riptide-doel. De bonus telt alleen als je hem direct op dat doel cast.
 - Alleen Nature's Swiftness indrukken. Hij healt zelf niets: hij maakt je volgende Nature-spell direct. Druk daarna Healing Wave.
 - Een curse willen weghalen. Dat kan een Shaman niet; alleen Poison (**Shift-C**) en Disease (**Shift-V**).]] },
+		},
+		-- Warlock (17 nov 2026), zelfde band en volgorde als in Modules/ForeverHowToPlay.lua.
+		WARLOCK = {
+			{ band = 1, title = "Affliction: schade over tijd", body = [[
+Vanaf level 4 (Corruption) en 8 (Bane of Agony). Je zet DoTs op de vijand en laat je demon hem vasthouden. De meeste gidsen levelen als Affliction. Siphon Life is een talent, op z'n vroegst 30. Wrack is een talent, op z'n vroegst 40: zolang je hem kanaliseert, tikken je Siphon Life, Corruption en Bane of Agony op die vijand 100% sneller. Wrack heelt je niet.
+**Simpele volgorde:**
+1. Stuur je demon erop af (**Ctrl-1**).
+2. Bane of Agony (**5**) om te pullen. De schade begint laag, dus je demon pakt de vijand.
+3. Corruption (**2**). Met Improved Corruption 5/5 is hij direct (op z'n vroegst 14).
+4. Siphon Life (**F4**, vanaf 30), alleen op een vijand die lang leeft.
+5. Immolate (**3**) alleen op een taaie vijand.
+6. Taaie vijand: je curse erbij (**Shift-V**). De gidsen verschillen over hoe vroeg.
+7. Opvuller: tot ongeveer level 30 je wand (Shoot; niet op het blok, zet hem op je eigen balk), daarna Drain Life (**C**). De gidsen verschillen een beetje over wanneer je wisselt.
+8. Licht Shadow Trance op (Nightfall, vanaf 25)? Shadow Bolt (**1**): die is dan direct.
+9. Vanaf 40: Wrack (blok D) in plaats van Drain Life als je health goed is. Zet eerst je DoTs erop.
+10. Meer health dan mana? Life Tap (**F**).
+11. Soul Shard nodig? Maak de vijand af met Drain Soul (**4**).
+Twee vijanden: DoTs op de eerste, Fear (**V**) erop, vecht dan met de tweede. Schade kan Fear breken, en de gidsen verschillen over eerst DoTs of eerst Fear.
+**Per 10 levels:**
+- 10: Drain Soul (**4**), Create Healthstone (blok D), de Voidwalker (quest). Je had al Shadow Bolt (**1**), Immolate (**3**), Corruption (**2**, 4), Curse of Weakness (**Shift-V**, 4), Life Tap (**F**, 6), Bane of Agony (**5**, 8) en Fear (**V**, 8). Eerste talent: Improved Corruption of Suppression (de gidsen verschillen). Talent-levels hier zijn op z'n vroegst; een perk kan ze tot 5 levels eerder maken. Daarna Health Funnel (**F2**) op 12; Drain Life (**C**) en Corruption rank 2 (15 seconden) op 14; Improved Drains en Soul Harvest (talenten, passief) vanaf 15; Searing Pain (blok D) en Create Soulstone op 18.
+- 20: Amplify Curse (**Shift-3**, een talent): je volgende Curse of Weakness of Bane of Agony is 50% sterker; cooldown 3 minuten. Curse of the Elements (**Shift-V**), Demon Armor (**Shift-Z**), Rain of Fire (**Shift-1**), de Succubus of Incubus (quest). Daarna Corruption rank 3 (18 seconden) en Drain Mana op 24. Curse of Exhaustion (**R**, een talent; je hebt eerst Amplify Curse nodig) op 25: de vijand is 12 seconden lang 30% trager. Nightfall (een talent, passief) op 25: een kleine kans dat je volgende Shadow Bolt direct is. Banish (**Shift-Q**) op 28.
+- 30: Siphon Life (**F4**, een talent): haalt 30 seconden lang health van de vijand naar jou. Soul Siphon (een talent, passief): Drain Life, Drain Soul en Wrack doen meer voor elke Corruption, Siphon Life en Bane of Agony van jou op de vijand. Drain Life rank 3, Hellfire (**Shift-2**), de Felhunter (quest). Daarna Shadow Ward (**Z**) op 32, Shadow Mastery (een talent, passief) op 35, Siphon Life rank 2 en Drain Life rank 4 op 38.
+- 40: Wrack (blok D, een talent; je hebt eerst Siphon Life nodig): een kanaal van 6 seconden dat elke seconde schade doet en je DoTs op die vijand 100% sneller laat tikken. Howl of Terror (**Shift-F**), de Felsteed (quest). Daarna Death Coil (**X**) op 42, Soul Fire (**Q**) en Siphon Life rank 3 op 48.
+- 50: Inferno (**F3**). Curse of the Elements rank 4. Verder sterkere ranks.
+- 60: Bane of Doom (**F1**): een grote klap na 60 seconden; niet op spelers. Verder sterkere ranks.
+**Beginnersfouten:**
+- Bane of Agony te vroeg opnieuw zetten. De sterkste tikken komen aan het eind.
+- Wrack gebruiken als je health nodig hebt. Wrack heelt niet; Drain Life wel.
+- Curse of Recklessness op de vijand die je wilt Fearen. Die vijand negeert Fear.]] },
+			{ band = 2, title = "Demonology: schade met je demon", body = [[
+Vanaf level 1 (de Imp), echt vanaf 10 (de Voidwalker). Je demon doet veel van het werk, en de talenten maken hem sterker. De gidsen verschillen over wanneer je deze boom ingaat: sommige vanaf 10, andere levelen eerst als Affliction en wisselen rond 26 of 27. Demonic Sacrifice (op z'n vroegst 20) loont pas met Demonic Pact (op z'n vroegst 40). Daarvoor haalt elke demon die je oproept de buff weg.
+**Simpele volgorde:**
+1. Stuur je demon erop af (**Ctrl-1**), en laat hem eerst raken.
+2. Vanaf 30: Soul Link (**Shift-X**) aan, en opnieuw na elke oproep.
+3. Vanaf 25 (Demonic Brand): Searing Pain (blok D) op de vijand van je demon. Opnieuw als het merk weg is (10 seconden). Vóór Demonic Brand: geen Searing Pain.
+4. Bane of Agony (**5**) en Corruption (**2**) op vijanden die lang genoeg leven. Corruption heeft hier een cast van 2 seconden.
+5. Opvuller: je wand (niet op het blok, zet hem op je eigen balk) of Shadow Bolt (**1**). Drain Life (**C**) als je health nodig hebt.
+6. Demon bijna dood: Health Funnel (**F2**). Het kost je eigen health.
+7. Life Tap (**F**). Met Demonic Energies krijgt je demon ook mana.
+8. Vanaf 40 (Demonic Pact): Demonic Sacrifice (**Shift-C**) op de ene demon, roep daarna een andere op (blok D). De buff duurt 2 uur. De gidsen verschillen over welke demon je offert.
+9. Vanaf 48, met Decimation: vijand onder 35% health? Shadow Bolt of Searing Pain, dan Soul Fire (**Q**): sneller, en zonder Soul Shard.
+**Per 10 levels:**
+- 10: de Voidwalker (quest; kost 1 Soul Shard). Zijn Torment geeft **threat** (hoe graag een vijand hem wil aanvallen). Drain Soul (**4**) voor shards. Eerste talenten: Unholy Power, Demonic Embrace, Improved Imp, Improved Health Funnel (passief). Talent-levels hier zijn op z'n vroegst; een perk kan ze tot 5 levels eerder maken. Daarna Health Funnel (**F2**) op 12; Demonic Energies, Fel Vitality en Improved Voidwalker (talenten, passief) vanaf 15; Sacrifice (Voidwalker) op 16; Consume Shadows (Voidwalker) en Searing Pain (blok D) op 18.
+- 20: Demonic Sacrifice (**Shift-C**, een talent): je offert je demon voor een buff van 2 uur. Imp: 15% meer Shadow-schade. Succubus of Incubus: 15% meer Fire-schade. Voidwalker: mana terug. Felhunter: health terug. Master Summoner (een talent, passief): oproepen gaat sneller en goedkoper. De Succubus of Incubus (quest). Demon Armor (**Shift-Z**). Daarna Suffering (Voidwalker) op 24. Fel Domination (**Shift-F1**, een talent; je hebt eerst Master Summoner nodig) op 25: je volgende oproep is 5,5 seconden sneller en 50% goedkoper. Demonic Brand en Decimation (talenten, passief) vanaf 25.
+- 30: Soul Link (**Shift-X**, een talent; je hebt eerst Demonic Sacrifice nodig): 30% van de schade op jou gaat naar je demon, en jullie doen allebei 3% meer schade. Hij blijft zolang je demon er is. De Felhunter (quest; Spell Lock op 36). Demonic Knowledge (een talent, passief). Daarna Master Demonologist (een talent, passief) vanaf 35.
+- 40: Demonic Pact (een talent, passief; je hebt eerst Soul Link nodig): de buff van Demonic Sacrifice blijft als je een andere demon oproept. Pas nu loont Demonic Sacrifice. Howl of Terror (**Shift-F**), de Felsteed (quest). Daarna Death Coil (**X**) op 42, Soul Fire (**Q**) op 48.
+- 50: Inferno (**F3**): een Infernal; elke keer 1 Infernal Stone; cooldown 1 uur. Verder sterkere ranks.
+- 60: Bane of Doom (**F1**). Verder sterkere ranks.
+**Beginnersfouten:**
+- Searing Pain vóór je Demonic Brand hebt. Hij maakt veel threat en trekt de vijand van je demon af.
+- Demonic Sacrifice vóór Demonic Pact (40). Je demon is weg, en elke demon die je oproept haalt de buff weg.
+- Na Demonic Pact dezelfde demon oproepen die je offerde. Dan is de buff weg.]] },
+			{ band = 3, title = "Destruction: schade met grote klappen", body = [[
+Vanaf level 1 (Shadow Bolt en Immolate). Grote vuur- en shadow-klappen, en hij kost de meeste mana. Sommige gidsen raden hem af om mee te levelen (veel mana, weinig om het terug te krijgen); andere noemen hem speelbaar, en één noemt hem sterk in dungeons. Conflagrate is een talent, op z'n vroegst 25; Incinerate is een talent, op z'n vroegst 40. Het omslagpunt is Shadow and Flame 5/5 (op z'n vroegst 39): vanaf dan eet Conflagrate je Immolate niet meer op, en geeft Shadowburn zijn Soul Shard altijd terug.
+**Simpele volgorde:**
+1. Stuur je demon erop af (**Ctrl-1**).
+2. Immolate (**3**). Eén gids opent met Shadow Bolt van ver, met Immolate er direct achteraan.
+3. Taaie vijand: Bane of Agony (**5**) en je curse (**Shift-V**).
+4. Vanaf 25: Conflagrate (blok D). Vóór Shadow and Flame 5/5 eet hij je Immolate op: gebruik hem aan het eind van Immolate, of als laatste klap. Daarna: steeds als hij klaar is.
+5. Opvuller: Shadow Bolt (**1**). Vanaf 40 Incinerate (blok D), met Immolate op de vijand.
+6. Vanaf 20: Shadowburn (**Shift-4**) als laatste klap. Dan krijg je de Soul Shard terug.
+7. Life Tap (**F**) tussen gevechten. Weinig mana: je wand (niet op het blok, zet hem op je eigen balk).
+8. Meer vijanden: vanaf 30 Bane of Havoc (blok D) op één taaie vijand, val dan de rest aan. Rain of Fire (**Shift-1**). Hellfire (**Shift-2**, vanaf 30) alleen met genoeg health.
+**Per 10 levels:**
+- 10: Shadow Bolt (**1**) en Immolate (**3**; rank 2 op 10). Eerste talent: Bane (snellere casts) of Improved Shadow Bolt. Talent-levels hier zijn op z'n vroegst; een perk kan ze tot 5 levels eerder maken. Daarna Shadow Bolt rank 3 op 12 (cast van 2,8 seconden); Aftermath en Cataclysm (talenten, passief) vanaf 15; Searing Pain (blok D) op 18.
+- 20: Shadowburn (**Shift-4**, een talent): een directe Shadow-klap; kost 1 Soul Shard; cooldown 15 seconden. Gaat de vijand (een die XP geeft) binnen 8 seconden dood, dan krijg je een shard terug. Ruin (een talent, passief): je Destruction-crits slaan harder. Rain of Fire (**Shift-1**). Shadow Bolt rank 4 (cast van 3 seconden). Daarna Shadowburn rank 2 op 24. Conflagrate (blok D, een talent) op 25: een directe Fire-klap op een vijand met jouw Immolate; die Immolate is dan weg; cooldown 10 seconden. Agonizing Flames en Intensity (talenten, passief) vanaf 25.
+- 30: Bane of Havoc (blok D, een talent): 5 minuten op één vijand; 15% van al je schade op andere vijanden komt ook op deze. Maar één vijand tegelijk. Fire and Brimstone (je hebt eerst Conflagrate nodig) en Pyroclasm (je hebt eerst Intensity nodig), talenten, passief. Hellfire (**Shift-2**). Daarna Conflagrate rank 2 en Shadowburn rank 3 op 32; Shadow and Flame (een talent, passief) vanaf 35, 5/5 op z'n vroegst op 39.
+- 40: Incinerate (blok D, een talent; je hebt eerst Bane of Havoc nodig): een cast van 2,5 seconden, 25% meer schade als de vijand jouw Immolate heeft. Conflagrate rank 3, Shadowburn rank 4. Daarna Soul Fire (**Q**) op 48.
+- 50: Incinerate rank 2. Inferno (**F3**).
+- 60: Incinerate rank 3, Conflagrate rank 6. Bane of Doom (**F1**).
+**Beginnersfouten:**
+- Conflagrate direct na Immolate. Hij eet je Immolate op (tot Shadow and Flame 5/5).
+- Shadowburn zonder Soul Shard, of op een vijand die nog lang leeft. De shard komt alleen terug als de vijand binnen 8 seconden doodgaat.
+- Bane of Havoc en Bane of Agony op dezelfde vijand. Er past maar één bane op.]] },
 		},
 	},
 }

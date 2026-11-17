@@ -76,13 +76,13 @@ Selo (3) antes da luta. Depois Golpe Sagrado (1) e Julgamento (2) sempre que est
 		{ "O que vem depois", [[
 - 12: Redenção (de uma missão) no F3 (traz um amigo morto de volta; não em combate). 14: Bênção de Sabedoria no Shift-V.
 - 18: Bênção da Liberdade no R (nada pode deixar você lento por um tempo). 20: Consagração no Shift-1 (atinge vários inimigos de uma vez), Exorcismo no 5, Clarão de Luz no F2 (cura rápida), Bênção dos Reis no Shift-X.
-- 30: Intervenção Divina: em combate, o F3 lança esta em vez de Redenção. 34: Escudo Divino no Z: 10 segundos em que nada pode ferir você, e você ainda pode lutar (com metade do dano).
+- 30: Intervenção Divina: em combate, o F3 lança esta em vez de Redenção. Cuidado: você mesmo morre; o amigo que você escolhe fica a salvo de todos os ataques por um tempo curto. 34: Escudo Divino no Z: 10 segundos em que nada pode ferir você, e você ainda pode lutar (com metade do dano).
 - 42: Purificação substitui Purificar no Shift-C. 44: Martelo da Ira no 4 (só quando o inimigo está com 20% de vida ou menos).
 - 52-60: num grupo, as teclas de bênção lançam a Bênção Maior para o grupo inteiro; sozinho, elas lançam a normal.]] },
 		{ "Erros de iniciante", [[
 - Apertar Exorcismo (5) num inimigo normal. Só funciona em inimigos Morto-vivo e Demônio. Esconjurar Morto-vivo (Shift-Q, 24) só funciona em Morto-vivo.
 - Apertar Martelo da Ira (4) no começo da luta. Só funciona quando o inimigo está quase morto (20% de vida ou menos).
-- Escudo Divino e Proteção Divina compartilham um tempo de recarga, então ficam numa tecla só (Z). Esses feitiços de proteção, e a Bênção de Proteção, dão **Abstinência**: por 1 minuto você não pode receber nenhum deles de novo. Impor as Mãos não dá.]] },
+- Escudo Divino e Proteção Divina compartilham um tempo de recarga, então ficam numa tecla só (Z). Esses feitiços de proteção, a Bênção de Proteção e o Baluarte do Templário dão **Abstinência**: por 1 minuto você não pode receber nenhum deles de novo. Impor as Mãos não dá.]] },
 	},
 	MAGE = {
 		{ "O que ele faz", [[
