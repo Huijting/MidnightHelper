@@ -1,5 +1,15 @@
 # Midnight Helper — waar we staan
 
+## ⏭️⏭️ NIEUWSTE OVERDRACHT (Bouwchat 17-11 (3), laatste commit 27e536b, alles gepusht, geen release)
+
+Nieuw werk met Robs ja (*"ja doe maar"*): het overzicht wordt hét MH voor Forever — plan
+`docs/forever/OVERZICHT_PRODUCT_PLAN_2026-11-17.md`. Stap 1-3 AF in 8 talen (voordeur, één Now-lijst, trainer-pagina;
+zie "▶ 17 nov (laat)" hieronder). VOLGENDE: stap 4 **Vinden** (groot: class trainer, beroepstrainers, wapenmeesters,
+gereedschap — vervangt ForeverProfTrainers/ForeverVendors/ForeverWeapons/trainer-zoeker; dan kan `/mh trainer` ook naar
+het overzicht), daarna 5 Toetsen & macros, 6 Beroepen, 7 Dungeons & groep, 8 Karakters + Legacy, 9 Tandwiel; 10 pas na
+Robs test. Regels: elke oude ingang blijft werken en landt op de juiste pagina; 8 talen; lint als ALLERLAATSTE stap vóór
+elke commit. De lijst hieronder (blok 542715e) geldt nog voor de open meetpunten.
+
 ## ⏭️ VOLGENDE BOUWCHAT (Bouwchat 17-11 (3) draagt over; laatste commit 542715e, alles gepusht, geen release)
 
 Huisstijl-lijst AF: stijlkit, alle 5 tabs als pagina in `/mh overview` (Now, How you play, Class quests, Camping,
