@@ -4962,6 +4962,11 @@ ns._mhLocales.enUS = {
 	SET_KEYBLOCK_NEW_TITLE = "Key block: new spells",
 	SET_KEYBLOCK_NEW_DESC = "When you learn a new spell after placing your key block: ask me, place it on its own (never in combat), or do nothing. It only adds; what stands on the block stays. The same switch as top right in the key block window.",
 	TOMTOM_ROUTE_STOPPED = "Route stopped: you removed the TomTom arrow. Pick a new place to start again.",
+	-- Forever Leveling Guide and the arrow (Rob, 17 Nov 2026: a switch, by default MH steps aside).
+	ARROW_FGUIDE_YIELD = "the Forever Leveling Guide is running a route, so Midnight Helper sets no pin of its own. Want Midnight Helper to steer anyway? Type /mh arrow guide.",
+	ARROW_FGUIDE_TOOK = "the Forever Leveling Guide started a route, so Midnight Helper stopped its own. Want Midnight Helper to steer anyway? Type /mh arrow guide.",
+	ARROW_FGUIDE_ON = "route arrow: Midnight Helper steps aside while the Forever Leveling Guide runs a route.",
+	ARROW_FGUIDE_OFF = "route arrow: Midnight Helper steers its own routes, even while the Forever Leveling Guide runs one.",
 	SET_SEC_REC_BTN = "Back to recommended",
 	SET_SEC_REC_CONFIRM_FMT = "Put the settings in \"%s\" back to the recommended setting?\n\n%d settings can change.",
 	SET_PREVIEW_TT = "Shows what this does, right now and where it appears in play. Nothing is saved.",

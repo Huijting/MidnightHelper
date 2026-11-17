@@ -1211,7 +1211,9 @@ function ns.ForeverTrainerGoTo(best, dist, n, prof)
 		return false
 	end
 	if not (ns.SetBlizzardUserWaypoint and ns.SetBlizzardUserWaypoint(best.map, best.x, best.y)) then
-		print(PREFIX .. "trainer arrow: the game does not allow a waypoint on that map.")
+		if not ns._mhWaypointYielded then -- the Forever Leveling Guide steers: Core already said why
+			print(PREFIX .. "trainer arrow: the game does not allow a waypoint on that map.")
+		end
 		return false
 	end
 	local label = (best.name or (prof and ProfName(prof)) or "Class trainer") ..

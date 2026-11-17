@@ -857,8 +857,51 @@ local function MHResolveWaypointMap(mapID, x01, y01)
 	return mapID, x01, y01
 end
 
+--------------------------------------------------------------------------------
+-- Forever Leveling Guide and the pin (Rob, 17 Nov 2026, after his troll mage test: "Doe inderdaad maar C met als
+-- standaard A" = a switch, and by default MH steps aside). Both addons set the same Blizzard user waypoint, so each
+-- took the other's pin: the guide said "your pin stays… route paused", MH said "you removed the TomTom arrow".
+-- GEMETEN in ForeverLevelingGuide 4.91: global `WowF`; `WowF.viajeEstado()` is non-nil while its travel route runs
+-- (wowF_Viaje.lua 1284), and that route is the one that pauses when another pin appears (544-551). We ask only that,
+-- not `WowF.hayRutaActiva()`: that one is also true for quest markers or a mob circle, and then MH would never steer
+-- for a guide user. Never silent: SetBlizzardUserWaypoint says why it set nothing, /mh arrow shows it.
+-- Switch: ns.db.arrowYieldForeverGuide (nil = yield, the default; false = MH steers anyway). /mh arrow guide.
+--------------------------------------------------------------------------------
+function ns.ForeverGuideRouteActive()
+	local w = rawget(_G, "WowF")
+	if type(w) ~= "table" or type(w.viajeEstado) ~= "function" then
+		return false
+	end
+	local ok, st = pcall(w.viajeEstado)
+	return ok and st ~= nil
+end
+
+function ns.ArrowYieldsToForeverGuide()
+	if ns.db and ns.db.arrowYieldForeverGuide == false then
+		return false
+	end
+	return ns.ForeverGuideRouteActive()
+end
+
+--- Say it once per 10 s: a click that sets nothing must say why, in the chat line the click produces.
+function ns.SayForeverGuideYield(key)
+	local now = (GetTime and GetTime()) or 0
+	if now - (ns._mhGuideYieldSaidAt or -99) < 10 then
+		return
+	end
+	ns._mhGuideYieldSaidAt = now
+	print(("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), ns:L(key or "ARROW_FGUIDE_YIELD")))
+end
+
 --- Blizzard map waypoint using 0–100 map coordinates (fallback when TomTom is absent).
+--- Returns false, "foreverguide" when the Forever Leveling Guide steers (callers then skip their own error line).
 function ns.SetBlizzardUserWaypoint(mapID, xPct, yPct)
+	ns._mhWaypointYielded = nil
+	if ns.ArrowYieldsToForeverGuide() then
+		ns._mhWaypointYielded = true
+		ns.SayForeverGuideYield("ARROW_FGUIDE_YIELD")
+		return false, "foreverguide"
+	end
 	local targetMap = tonumber(mapID)
 	local xN, yN = tonumber(xPct), tonumber(yPct)
 	if not targetMap or not xN or not yN then
@@ -1221,11 +1264,19 @@ do
 					return
 				end
 			end
-			Note("nil", "the player removed the pin: route stopped")
+			--- Rob, 17 Nov 2026 (troll mage): this said "you removed the TomTom arrow" while the Forever Leveling Guide
+			--- had taken it. Name the one who did, so the player knows where to look.
+			local guide = ns.ForeverGuideRouteActive and ns.ForeverGuideRouteActive()
+			Note("nil", guide and "the Forever Leveling Guide took the arrow: route stopped"
+				or "the player removed the pin: route stopped")
 			if ns.ClearActiveRoute then
 				ns.ClearActiveRoute()
 			end
-			print(("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), ns:L("TOMTOM_ROUTE_STOPPED")))
+			if guide and ns.SayForeverGuideYield then
+				ns.SayForeverGuideYield("ARROW_FGUIDE_TOOK")
+			else
+				print(("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), ns:L("TOMTOM_ROUTE_STOPPED")))
+			end
 		end)
 	end
 
@@ -2242,7 +2293,9 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 				return
 			end
 			if not (ns.SetBlizzardUserWaypoint and ns.SetBlizzardUserWaypoint(mapID, x, y)) then
-				print(prefix .. " goto: could not set a waypoint there.")
+				if not ns._mhWaypointYielded then -- the Forever Leveling Guide steers: already said why
+					print(prefix .. " goto: could not set a waypoint there.")
+				end
 				return
 			end
 			-- Name it, in this order: what you typed, then whatever of ours stands
@@ -3005,7 +3058,13 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 
 	-- /mh arrow — why is the route arrow not guiding? Prints who is driving and
 	-- whether a route ever handed us a target.
-	if msg == "arrow" or msg == "arrow yield" then
+	if msg == "arrow" or msg == "arrow yield" or msg == "arrow guide" then
+		if msg == "arrow guide" then
+			if ns.ToggleArrowForeverGuide then
+				ns.ToggleArrowForeverGuide()
+			end
+			return
+		end
 		if msg == "arrow yield" then
 			if ns.ToggleArrowYield then
 				ns.ToggleArrowYield()

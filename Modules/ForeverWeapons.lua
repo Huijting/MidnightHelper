@@ -279,7 +279,9 @@ local function GoTo(e, what)
 		tx, ty = ns.ForeverPlaceFix(t.npc, t.map, t.x, t.y)
 	end
 	if not (ns.SetBlizzardUserWaypoint and ns.SetBlizzardUserWaypoint(t.map, tx, ty)) then
-		print(PREFIX .. ns:L("FVEND_NO_WAYPOINT"))
+		if not ns._mhWaypointYielded then -- the Forever Leveling Guide steers: Core already said why
+			print(PREFIX .. ns:L("FVEND_NO_WAYPOINT"))
+		end
 		return false
 	end
 	ns.lastTarget = { mapID = t.map, x = tx, y = ty, name = t.name .. (what and (" (" .. what .. ")") or ""),

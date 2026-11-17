@@ -79,6 +79,20 @@ Priest, `/reload`. Uitgezocht met Fable; niets in het spel gezien.
 - [ ] Level 5-15: "Your first priest robe" (een wacht healen). Na level 15 verdwijnt hij uit "Do this now".
 - [ ] Undead level 10: geeft Aelthalyste de Touch of Weakness-quest, of Father Lankester naast haar?
 
+## 🧭 17 nov — Forever: MH gaat opzij voor de Forever Leveling Guide
+
+Jouw keuze: een schakelaar, standaard gaat MH opzij. MH kijkt alleen naar een REISROUTE van de gids (op een plek
+klikken, "Travel"), niet naar quest-markeringen of de groene cirkel.
+- [ ] Start een reisroute in de Forever Leveling Guide. Klik daarna in MH op "Show the way" (bv. class-quest of trainer).
+  Je ziet in de chat: "the Forever Leveling Guide is running a route, so Midnight Helper sets no pin…". De pijl van de
+  gids blijft staan.
+- [ ] Andersom: start eerst een MH-route, dan een reisroute in de gids. Chat: "…started a route, so Midnight Helper
+  stopped its own." NIET meer: "you removed the TomTom arrow".
+- [ ] `/mh arrow`: regels "Forever Leveling Guide: reisroute actief ja/nee" en "wijken voor de Forever Leveling Guide".
+- [ ] `/mh arrow guide` (of de schakelaar "Step aside for the Forever Leveling Guide" in de instellingen): daarna stuurt
+  MH weer zelf, ook naast de gids. Nog een keer typen = terug naar opzij gaan.
+- [ ] Zonder reisroute in de gids (alleen quest-markeringen): MH-routes werken gewoon.
+
 ## 🌍 17 nov — Forever: rollen in het Duits, Frans, Spaans, Portugees en Russisch
 
 - [ ] Een character op een niet-Engelse client: "How to play" → rollen. Staan ze in jouw taal, met de spellnamen

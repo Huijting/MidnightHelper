@@ -1165,7 +1165,9 @@ function ns.RouteToNearestFlightPoint()
 	end
 
 	if not (ns.SetBlizzardUserWaypoint and ns.SetBlizzardUserWaypoint(mapID, x, y)) then
-		print(prefix .. " " .. ns:L("FP_NEAREST_NO_WAYPOINT"))
+		if not ns._mhWaypointYielded then -- the Forever Leveling Guide steers: Core already said why
+			print(prefix .. " " .. ns:L("FP_NEAREST_NO_WAYPOINT"))
+		end
 		return false
 	end
 	ns.lastTarget = { mapID = mapID, x = x, y = y, name = name, via = "flight point" }

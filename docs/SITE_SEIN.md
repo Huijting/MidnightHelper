@@ -28,6 +28,28 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 17 nov 2026 — Forever: MH gaat opzij voor de Forever Leveling Guide (schakelaar)
+- Tag + commit:   geen tag / (deze commit, zie git log "Forever Leveling Guide")
+- Status:         alleen op main
+- Mag op de site: nee (nog niet uit)
+- Speler ziet:    Heeft de Forever Leveling Guide een reisroute, dan zet MH geen eigen speld en tekent geen pijl, en zegt
+                  in de chat waarom. Start de gids een route terwijl die van MH loopt, dan stopt MH de zijne en zegt dat.
+                  Wie wil dat MH toch stuurt, zet de schakelaar om. *(niet in het spel getest)*
+- Knoplabels:     SET_ARROWGUIDE_TITLE ("Step aside for the Forever Leveling Guide")
+- Commando's:     /mh arrow guide, /mh arrow
+- Spel:           Forever
+
+## 17 nov 2026 — Forever: "How to play" per rol, per 10 levels, voor alle 9 classes
+- Tag + commit:   geen tag / 2b2fd6a … b0fbbec (en+nl), 81f4c2b (de/fr/es/esMX/pt/ru)
+- Status:         alleen op main
+- Mag op de site: nee (nog niet uit)
+- Speler ziet:    In "How to play" per rol (bv. Protection: tank, Frost: damage from a distance) een simpele volgorde,
+                  wat je per 10 levels krijgt (10-60) en 3 beginnersfouten. Alle 9 classes, 7 talen.
+                  *(niet in het spel getest)*
+- Knoplabels:     FHOWTO_ROLES_SHOW, FHOWTO_ROLES_HIDE
+- Commando's:     /mh play
+- Spel:           Forever
+
 ## 17 nov 2026 — Forever: Mage class-quests stap voor stap (alle 9 classes nu)
 - Tag + commit:   geen tag / (deze commit, zie git log "Mage class quests")
 - Status:         alleen op main

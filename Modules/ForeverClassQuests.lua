@@ -2254,7 +2254,9 @@ function ns.ForeverClassQuestGo()
 		return false
 	end
 	if not (ns.SetBlizzardUserWaypoint and ns.SetBlizzardUserWaypoint(p.m, p.x, p.y)) then
-		print(PREFIX .. ns:L("FVEND_NO_WAYPOINT"))
+		if not ns._mhWaypointYielded then -- the Forever Leveling Guide steers: Core already said why
+			print(PREFIX .. ns:L("FVEND_NO_WAYPOINT"))
+		end
 		return false
 	end
 	ns.lastTarget = { mapID = p.m, x = p.x, y = p.y, name = p.npc and NpcName(p) or ZoneName(p.m), via = "/mh classquest", arriveYards = 15 }

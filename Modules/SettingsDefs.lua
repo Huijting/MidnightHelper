@@ -629,6 +629,15 @@ local function Build()
 		ns.db = ns.db or {}
 		ns.db.arrowYieldWaypointUI = v and true or nil
 	end)
+	-- Rob, 17 Nov 2026: "Doe inderdaad maar C met als standaard A" — a switch, ON by default: while the Forever Leveling
+	-- Guide runs a travel route, MH sets no pin and draws no arrow (Core.lua ns.ArrowYieldsToForeverGuide). Same as
+	-- /mh arrow guide. Only means something with that guide loaded; the tip says so.
+	Toggle("mh_arrowYieldFGuide", "SET_ARROWGUIDE_TITLE", "SET_ARROWGUIDE_DESC", function()
+		return not (ns.db and ns.db.arrowYieldForeverGuide == false)
+	end, function(v)
+		ns.db = ns.db or {}
+		ns.db.arrowYieldForeverGuide = (not v) and false or nil
+	end, true)
 	-- Rob, 17 Oct 2026: "een schakelaar 'geen vluchtmeesters in routes'". Off = what everyone has now (a flight master
 	-- only when it clearly saves time, TravelRoute.lua FlightLeg), so an update changes nothing under anyone's hands.
 	Toggle("mh_routeNoFlightMasters", "SET_ROUTE_NOFP_TITLE", "SET_ROUTE_NOFP_DESC", function()

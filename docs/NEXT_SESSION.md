@@ -91,8 +91,8 @@
 - 🧪 **Rob-test 17 nov (troll mage 6, via sparring)**: LEARNED_SPELL_IN_SKILL_LINE vuurt ook voor een nieuwe RANK
   (143 Fireball). ForeverDoNow kijkt "op een balk" per spellnaam, dus Rank 2 met Rank 1 op de balk geeft geen
   "New, but on no bar"-regel (code GEMETEN r.82-118; in het spel niet gezien: toetsenblok stond). OPEN observatie:
-  **Forever Leveling Guide en MH botsen op de pijl** ("Forever Guide: your pin stays… route paused" + "Midnight Helper:
-  Route stopped: you removed the TomTom arrow"). Nog niet onderzocht; eerst Rob vragen welke hij wil laten sturen.
+  **Forever Leveling Guide en MH botsen op de pijl** → Rob: "C met als standaard A" → GEBOUWD 17 nov (schakelaar
+  `/mh arrow guide` / SET_ARROWGUIDE_*, standaard opzij bij `WowF.viajeEstado()`; details IDEEEN). Wacht op Robs test.
 - 🌍 **Vertaalronde class-quests GEDAAN** (5 mh-writers tegelijk, elk een eigen bestand): `Locales/ForeverClassQuests_
   deDE/frFR/esES/esMX/ptBR/ruRU.lua` (in beide toc's, vóór Locale.lua; stoppen zelf buiten Forever/andere client; fill-
   regel zoals Translations2026). 254 sleutels per taal (alle FCQ_ van warlock t/m mage + 3 Talented), esMX 118 overlay-

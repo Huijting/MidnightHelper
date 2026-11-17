@@ -160,7 +160,9 @@ end
 
 local function GoTo(d)
 	if not (ns.SetBlizzardUserWaypoint and ns.SetBlizzardUserWaypoint(d.zone, d.x, d.y)) then
-		print(PREFIX .. ns:L("FVEND_NO_WAYPOINT"))
+		if not ns._mhWaypointYielded then -- the Forever Leveling Guide steers: Core already said why
+			print(PREFIX .. ns:L("FVEND_NO_WAYPOINT"))
+		end
 		return false
 	end
 	ns.lastTarget = { mapID = d.zone, x = d.x, y = d.y, name = Name(d), via = "/mh dungeons", arriveYards = 15 }

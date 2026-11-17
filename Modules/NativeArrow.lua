@@ -1020,6 +1020,23 @@ local function Tick()
 		return
 	end
 
+	--- 🧭 THE FOREVER LEVELING GUIDE STARTED A ROUTE WHILE OURS RAN (Rob, 17 Nov 2026: "Doe inderdaad maar C met als
+	--- standaard A"; Core.lua ns.ArrowYieldsToForeverGuide). By default we step aside: our route ends, our arrow goes,
+	--- and the chat says who has the arrow now and how to change it. The pin is the guide's now, so forget that we
+	--- owned one BEFORE letting go — the teardown above would otherwise clear the guide's pin on the next tick.
+	if ns.ArrowYieldsToForeverGuide and ns.ArrowYieldsToForeverGuide() then
+		mhOwnedKey = nil
+		activeLead = nil
+		ns.lastTarget = nil
+		ns._mhRouteOwner = nil
+		ns._mhArrowLastClear = "Forever Leveling Guide took the arrow (/mh arrow guide)"
+		HideArrow()
+		if ns.SayForeverGuideYield then
+			ns.SayForeverGuideYield("ARROW_FGUIDE_TOOK")
+		end
+		return
+	end
+
 	-- Travel phase 3: the route's current step is something to USE (Hearthstone, toy, mage teleport) — there is no
 	-- place to point at, and the cached lead below would be the previous step's.
 	if ns.Travel and ns.Travel.CurrentIsAction and ns.Travel.CurrentIsAction() then
@@ -1384,6 +1401,27 @@ function ns.PrintArrowStatus()
 	end
 	print(("  Zygor geladen: %s |cff9d9d9d(wij wijken hier NIET voor)|r"):format(yn(zygor)))
 
+	--- 🧭 Forever Leveling Guide (Rob, 17 Nov 2026: a switch, default = we step aside). Say whether it is there, whether
+	--- its travel route runs, and what we do about it — stepping aside must never look like being broken.
+	local w = rawget(_G, "WowF")
+	if type(w) == "table" then
+		local guideRoute = ns.ForeverGuideRouteActive and ns.ForeverGuideRouteActive() or false
+		local yieldOn = not (ns.db and ns.db.arrowYieldForeverGuide == false)
+		local anyRoute
+		if type(w.hayRutaActiva) == "function" then
+			local okA, a = pcall(w.hayRutaActiva)
+			anyRoute = okA and a == true
+		end
+		print(("  Forever Leveling Guide: reisroute actief %s (iets anders van de gids actief: %s)"):format(
+			yn(guideRoute), yn(anyRoute)))
+		print(("  wijken voor de Forever Leveling Guide: %s |cff9d9d9d(/mh arrow guide)|r"):format(yn(yieldOn)))
+		if guideRoute and yieldOn then
+			print("  |cffffcc00De gids stuurt nu: wij zetten geen speld en tekenen geen pijl. Dat is expres.|r")
+		end
+	else
+		print("  Forever Leveling Guide: niet geladen")
+	end
+
 	local drive = ShouldDriveNative()
 	print(("  wij sturen: %s   onze pijl getekend: %s"):format(
 		yn(drive), yn(drive and not (IsWaypointUIPresent() and YieldToWaypointUI()))))
@@ -1404,6 +1442,18 @@ function ns.PrintArrowStatus()
 		print("  |cff9d9d9dYou set WaypointUI to drive, so our arrow stays away.|r")
 		print("  |cff9d9d9dTerugzetten: |cffffffff/mh arrow yield|r")
 	end
+end
+
+--- `/mh arrow guide` — step aside for the Forever Leveling Guide's route (default), or steer anyway.
+function ns.ToggleArrowForeverGuide()
+	ns.db = ns.db or {}
+	if ns.db.arrowYieldForeverGuide == false then
+		ns.db.arrowYieldForeverGuide = nil -- back to the default: step aside
+	else
+		ns.db.arrowYieldForeverGuide = false
+	end
+	local p = ("|cffffcc00%s|r"):format((ns.L and ns:L("PRINT_PREFIX")) or "Midnight Helper:")
+	print(("%s %s"):format(p, ns:L(ns.db.arrowYieldForeverGuide == false and "ARROW_FGUIDE_OFF" or "ARROW_FGUIDE_ON")))
 end
 
 --- `/mh arrow yield` — give the arrow back to WaypointUI, or take it back.

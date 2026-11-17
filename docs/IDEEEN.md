@@ -193,7 +193,12 @@ lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met d
   TomTom. Niet stil wijken (les WaypointUI, 5 aug): `/mh arrow` zegt dat en waarom we wijken, en de uitleg staat waar
   de speler het ziet. Spel: F. Voor wie: N + V.
 - Volgorde (keuze bouwchat): direct na de vertaalronde van de rollen, vóór Legacy en Kamperen (klein, Rob merkt het
-  elke speelsessie). NOG NIETS GEBOUWD.
+  elke speelsessie).
+- GEBOUWD 17 nov (wacht op Robs test): Core.lua `ns.ArrowYieldsToForeverGuide` (vraagt `WowF.viajeEstado()`, de
+  reisroute — niet `hayRutaActiva`, die is ook waar bij alleen quest-markeringen). SetBlizzardUserWaypoint zet dan niets
+  en zegt waarom (ARROW_FGUIDE_YIELD); NativeArrow stopt een lopende MH-route als de gids begint (ARROW_FGUIDE_TOOK);
+  de TomTom-melding noemt nu de gids i.p.v. "jij"; `/mh arrow` toont gids + schakelaar; `/mh arrow guide` en een
+  schakelaar in de instellingen (SET_ARROWGUIDE_*), 7 talen + ru.
 - Eerste meting (17 nov, alleen gelezen in `_forever_\Interface\AddOns\ForeverLevelingGuide`): de gids zet
   `C_Map.SetUserWaypoint` (+ `SetSuperTrackedUserWaypoint`), een TomTom-punt als TomTom er is (`wowF_Viaje.lua` 400-418)
   en een eigen pijl onder de minimap (`wowF_Panel.lua` 1096). Zijn melding "your pin stays… route paused" staat in
