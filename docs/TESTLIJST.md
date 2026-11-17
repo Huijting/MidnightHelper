@@ -24,6 +24,17 @@ er is niets weggegooid.
 📝 **Waarneming Rob, 16 nov (nacht), Forever mage, via sparring:** *"mouse over werk"* — `/mh mouseover on`, Shift+X
 (Arcane Intellect) op een voorbijganger onder de muis werkt.
 
+## 🆕 17 nov — Forever: Priest class-quests (ras-spells) in "Do this now"
+
+Priest, `/reload`. Uitgezocht met Fable; niets in het spel gezien.
+- [ ] Level 10 en 20: "Do this now" stuurt je naar de hogepriester van je ras (Human: Laurena in Stormwind, Dwarf: Rohan
+      en Gnome: Mims in Ironforge, Night Elf: Alathea in Darnassus, Troll: Ur'kyo in Orgrimmar, Undead: Aelthalyste in
+      Undercity). Kreeg je de quest van een andere trainer, dan zegt MH "ga naar …".
+- [ ] Heb je je level 10-spell al? Typ `/run print(C_QuestLog.IsQuestFlaggedCompleted(5627), C_QuestLog.IsQuestFlaggedCompleted(5629))`
+      (Night Elf) en zeg wat er staat. Verwacht: twee keer true.
+- [ ] Level 5-15: "Your first priest robe" (een wacht healen). Na level 15 verdwijnt hij uit "Do this now".
+- [ ] Undead level 10: geeft Aelthalyste de Touch of Weakness-quest, of Father Lankester naast haar?
+
 ## 🆕 17 nov — Forever: Shaman class-quests (totems) in "Do this now"
 
 Shaman, `/reload`. Niets in het spel gezien.

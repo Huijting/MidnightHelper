@@ -28,6 +28,16 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 17 nov 2026 — Forever: Priest class-quests stap voor stap
+- Tag + commit:   geen tag / (deze commit, zie git log "Priest class quests")
+- Status:         alleen op main
+- Mag op de site: nee (nog niet uit)
+- Speler ziet:    Priest: "Do this now" stuurt je op level 10 en 20 naar de hogepriester van je ras voor je ras-spell
+                  (ook de nieuwe Gnome-priest), plus je eerste gewaad (5) en Ogtinc's quests (50). *(niet in het spel getest)*
+- Knoplabels:     FCQ_BTN ("Show the way"), FCQ_HOWTO_HEAD ("Your class quests")
+- Commando's:     /mh classquest, /mh play
+- Spel:           Forever
+
 ## 17 nov 2026 — Forever: Shaman class-quests (totems) stap voor stap
 - Tag + commit:   geen tag / (deze commit, zie git log "Shaman class quests")
 - Status:         alleen op main

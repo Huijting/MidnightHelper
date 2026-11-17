@@ -5646,6 +5646,17 @@ ns._mhLocales.enUS = {
 	FCQ_OBJ_SH_ELEM_WATER = "bring 1 Elemental Water (it drops, or buy it at the Auction House)",
 	FCQ_OBJ_SH_SPIDEREYE = "defeat spiders for 8 Bloodshot Spider Eyes",
 	FCQ_OBJ_SH_CLAW = "defeat enemies here for 8 Thick Black Claws",
+	-- Priest class quests (17 Nov 2026; facts docs/forever/PRIEST_CLASSQUESTS_2026-11-17.md). Game names as above.
+	FCQ_CHAIN_PR_ROBE = "Your first priest robe",
+	FCQ_CHAIN_PR_CENARION = "Ogtinc's quests (a trinket, ring or wand)",
+	FCQ_OBJ_PR_ROBERTS = "heal Guard Roberts with Lesser Heal (Rank 2), then cast Power Word: Fortitude on him",
+	FCQ_OBJ_PR_DOLF = "heal Mountaineer Dolf with Lesser Heal (Rank 2), then cast Power Word: Fortitude on him",
+	FCQ_OBJ_PR_SHAYA = "heal Sentinel Shaya with Lesser Heal (Rank 2), then cast Power Word: Fortitude on her",
+	FCQ_OBJ_PR_KORJA = "heal Grunt Kor'ja with Lesser Heal (Rank 2), then cast Power Word: Fortitude on her",
+	FCQ_OBJ_PR_KEL = "heal Deathguard Kel with Lesser Heal (Rank 2), then cast Power Word: Fortitude on him",
+	FCQ_OBJ_PR_GLANDS = "defeat Mosshoof Coursers for 4 Healthy Courser Glands",
+	FCQ_OBJ_PR_ICHOR = "defeat Suffering or Anguished Highborne for 1 Ichor of Undeath (it drops rarely)",
+	FCQ_OBJ_PR_MORPHAZ = "in the dungeon Sunken Temple (you need a group), defeat Morphaz for the Blood of Morphaz",
 	-- How you play: a block with every class quest of this character (ForeverHowToPlay.lua).
 	-- How you play (Forever): per role, yours on top, the others folded (ForeverHowToPlay.lua, 16 Nov 2026).
 	FHOWTO_ROLES_SHOW = "All roles",

@@ -1066,6 +1066,102 @@ CHAINS.SHAMAN = {
 	} },
 }
 
+--[[ Priest (17 Nov 2026, Bouwchat 17-11; researched by mh-research on Fable). All facts:
+	docs/forever/PRIEST_CLASSQUESTS_2026-11-17.md: wago DB2 1.60.1.70938, Wowhead Forever, Icy Veins (guide of 4 Nov +
+	database), Spoken, HandyNotes, Zygor Forever.
+	Six priest races (CharBaseInfo): Human, Dwarf, Night Elf, Gnome (new), Undead, Troll. No Skyborne, Orc or Tauren.
+	Each race learns one spell at 10 and one at 20 from its own high priest. GEMETEN (QuestV2.UniqueBitFlag): the high
+	priest's quest and the "go and see your high priest" quests of the other trainers share one completion bit, so they
+	are one quest with several ids: one step, the other ids as alt. Handing in any of them ends the chain (AFGELEID that
+	the client then says "done" for all ids), also when a later rank has pushed rank 1 out of the spellbook.
+	NOT copied from Zygor (GEMETEN): Dwarf Desperate Prayer is handed in to Rohan in Ironforge (Zygor: Laurena); Humans
+	learn Divine Grace 94773 (Zygor: Desperate Prayer 5637); Tai'jin gives 5654, Miles Welsh 5642, Ur'kyo 5646 (Zygor:
+	5652, 5643, 5644); Zygor has no Gnome steps. Spoken's ender 376 for 5634-5640 is the Classic value.
+	AFGELEID: Touch of Weakness 5658 starts at Aelthalyste (Classic sources: Father Lankester, who stands next to her);
+	which trainer gives Cenarion Aid per faction (three are known); the objective index.
+	The first robe (level 5) is an item chain: since 17 Nov it comes after the spell chains and leaves "Do this now" at 15.
+	Not built: Benediction/Anathema (7621-7622: starts with a raid item). Trainers: HandyNotes; the rest: Zygor. ]]
+local PR_P = {
+	-- The race's high priest: gives and takes the spell quest at 10 and at 20.
+	laurena = { npc = "High Priestess Laurena", id = 376, m = 1453, x = 49.53, y = 44.60 },
+	rohan = { npc = "High Priest Rohan", id = 11406, m = 1455, x = 24.73, y = 8.16 },
+	mims = { npc = "High Priestess Mims", id = 258785, m = 1455, x = 24.80, y = 9.70 },
+	alathea = { npc = "Priestess Alathea", id = 11401, m = 1457, x = 39.52, y = 81.20 },
+	urkyo = { npc = "Ur'kyo", id = 6018, m = 1454, x = 35.56, y = 87.83 },
+	aelthalyste = { npc = "Aelthalyste", id = 4606, m = 1458, x = 49.26, y = 17.12 },
+	-- First robe (level 5): the trainer of the starting area, then the trainer of the first village.
+	anetta = { npc = "Priestess Anetta", id = 375, m = 1429, x = 49.95, y = 39.57 },
+	josetta = { npc = "Priestess Josetta", id = 377, m = 1429, x = 43.28, y = 65.71 },
+	branstock = { npc = "Branstock Khalder", id = 837, m = 1426, x = 28.45, y = 66.68 },
+	maxan = { npc = "Maxan Anvol", id = 1226, m = 1426, x = 47.06, y = 52.32 },
+	shanda = { npc = "Shanda", id = 3595, m = 1438, x = 59.17, y = 40.44 },
+	laurna = { npc = "Laurna Morninglight", id = 3600, m = 1438, x = 55.56, y = 56.75 },
+	kenjai = { npc = "Ken'jai", id = 3707, m = 1411, x = 42.33, y = 68.50 },
+	taijin = { npc = "Tai'jin", id = 3706, m = 1411, x = 54.23, y = 42.99 },
+	duesten = { npc = "Dark Cleric Duesten", id = 2123, m = 1420, x = 31.34, y = 65.85 },
+	beryl = { npc = "Dark Cleric Beryl", id = 2129, m = 1420, x = 61.31, y = 52.10 },
+	-- Whom to heal (no NPC name here: the text names them), Zygor.
+	roberts = { m = 1429, x = 48.15, y = 68.05 },
+	dolf = { m = 1426, x = 45.81, y = 54.57 },
+	shaya = { m = 1438, x = 57.24, y = 63.51 },
+	korja = { m = 1411, x = 53.10, y = 46.46 },
+	kel = { m = 1420, x = 59.18, y = 46.50 },
+	-- Cenarion Aid (level 50). Ogtinc and the coursers are the hunter's places (H); Winterspring = UiMap 1452 (DB2).
+	joshua = { npc = "Brother Joshua", id = 5489, m = 1453, x = 49.50, y = 45.21 },
+	greta = { npc = "Greta Mosshoof", id = 10922, m = 1448, x = 51.20, y = 82.20 },
+	highborne = { m = 1452, x = 52.59, y = 40.68 },
+}
+local PR = PR_P
+
+-- One quest, several ids: q = the high priest's own, alt = the same quest from another trainer.
+local function PrSpell(key, spell, level, faction, races, priest, q, alt)
+	return { key = key, spell = spell, level = level, faction = faction, races = races,
+		quests = { { q = q, alt = alt, from = priest, to = priest } } }
+end
+-- t = { first quest, its giver, second quest, the village trainer, where the guard stands, textKey }
+local function PrRobe(faction, races, t)
+	return { key = "robe", nameKey = "FCQ_CHAIN_PR_ROBE", level = 5, faction = faction, races = races, quests = {
+		{ q = t[1], from = t[2], to = t[4] },
+		{ q = t[3], from = t[4], objs = { O(t[5], t[6], 1) }, to = t[4] },
+	} }
+end
+-- Cenarion Aid (level 50): an item chain; the last quest is handed in to Greta Mosshoof in Felwood.
+local function PrCenarion(faction, trainer)
+	return { key = "cenarion", nameKey = "FCQ_CHAIN_PR_CENARION", level = 50, faction = faction, quests = {
+		{ q = 8254, from = trainer, to = H.ogtinc },
+		{ q = 8255, from = H.ogtinc, objs = { O(H.coursers, "FCQ_OBJ_PR_GLANDS", 1) }, to = H.ogtinc },
+		{ q = 8256, from = H.ogtinc, objs = { O(PR.highborne, "FCQ_OBJ_PR_ICHOR", 1) }, to = H.ogtinc },
+		{ q = 8257, from = H.ogtinc, objs = { O(P.sunken, "FCQ_OBJ_PR_MORPHAZ", 1) }, to = PR.greta },
+	} }
+end
+
+CHAINS.PRIEST = {
+	-- First robe (level 5). DWGN: Dwarf and Gnome share these two quests (Spoken races 68).
+	PrRobe("Alliance", HUM, { 5623, PR.anetta, 5624, PR.josetta, PR.roberts, "FCQ_OBJ_PR_ROBERTS" }),
+	PrRobe("Alliance", DWGN, { 5626, PR.branstock, 5625, PR.maxan, PR.dolf, "FCQ_OBJ_PR_DOLF" }),
+	PrRobe("Alliance", NELF, { 5622, PR.shanda, 5621, PR.laurna, PR.shaya, "FCQ_OBJ_PR_SHAYA" }),
+	-- ORCTROLL: there is no Orc priest (CharBaseInfo), so the extra race does nothing.
+	PrRobe("Horde", ORCTROLL, { 5649, PR.kenjai, 5648, PR.taijin, PR.korja, "FCQ_OBJ_PR_KORJA" }),
+	PrRobe("Horde", UD, { 5651, PR.duesten, 5650, PR.beryl, PR.kel, "FCQ_OBJ_PR_KEL" }),
+	-- Race spell, level 10
+	PrSpell("divinegrace", 1277370, 10, "Alliance", HUM, PR.laurena, 94773, { 94774, 94775, 94776, 94777, 94778, 94779 }),
+	PrSpell("desperateprayer", 13908, 10, "Alliance", DWARF, PR.rohan, 5639, { 5634, 5635, 5636, 5637, 5638, 5640 }),
+	PrSpell("confoundingflash", 1277455, 10, "Alliance", GNO, PR.mims, 94817, { 94821, 94822, 94823, 94824, 94825, 94826 }),
+	PrSpell("starshards", 10797, 10, "Alliance", NELF, PR.alathea, 5627, { 5628, 5629, 5630, 5631, 5632, 5633 }),
+	PrSpell("hexofweakness", 9035, 10, "Horde", ORCTROLL, PR.urkyo, 5652, { 5654, 5655, 5656, 5657 }),
+	PrSpell("touchofweakness", 2652, 10, "Horde", UD, PR.aelthalyste, 5658, { 5660, 5661, 5662, 5663 }),
+	-- Race spell, level 20
+	PrSpell("feedback", 13896, 20, "Alliance", HUM, PR.laurena, 5676, { 5677, 5678 }),
+	PrSpell("chastise", 1277331, 20, "Alliance", DWARF, PR.rohan, 5641, { 5645, 5647 }),
+	PrSpell("contingencyplan", 1277462, 20, "Alliance", GNO, PR.mims, 94818, { 94819, 94820 }),
+	PrSpell("elunesgrace", 2651, 20, "Alliance", NELF, PR.alathea, 5672, { 5673, 5674, 5675 }),
+	PrSpell("shadowguard", 18137, 20, "Horde", ORCTROLL, PR.urkyo, 5680, { 5642, 5643 }),
+	PrSpell("darksacrifice", 1277324, 20, "Horde", UD, PR.aelthalyste, 5679, { 5644, 5646 }),
+	-- Level 50: the trainer per faction is a choice (AFGELEID); Malakai Cross in Thunder Bluff gives 8254 too.
+	PrCenarion("Alliance", PR.joshua),
+	PrCenarion("Horde", PR.urkyo),
+}
+
 local MOONGLADE, TELEPORT_MOONGLADE = 1450, 18960
 
 local function Done(q)
@@ -1332,6 +1428,26 @@ local NPC_NAMES = {
 	[257808] = { deDE = "Braldir Ashmantle", frFR = "Braldir Houppecendre", esES = "Braldir Mantoceniza", ruRU = "Бралдир Пеплоплащ" },
 	[258043] = { deDE = "Norric Lochthane", frFR = "Norric Lochthane", esES = "Norric Lochthane", esMX = "Norric Lagolord", ptBR = "Norric Lochthane", ruRU = "Норрик Тан Лока" },
 	[258203] = { deDE = "Hervdana Saegrund", frFR = "Hervdana Saegrund", esES = "Hervdana Saegrund", ruRU = "Гервдана Саэгрунд" },
+	-- Priest (17 Nov 2026, mh-research: Wowhead Forever tooltips per locale; Spoken agreed where it has the name; control
+	-- npc 233 again). 2129 esES: Wowhead "Clérigo", Spoken "Clérico" (Wowhead kept). 10922 esMX: Spoken only.
+	[376] = { deDE = "Hohepriesterin Laurena", frFR = "Grande prêtresse Laurena", esES = "Suma Sacerdotisa Laurena", esMX = "Suma sacerdotisa Laurena", ptBR = "Alta-sacerdotisa Laurena", ruRU = "Верховная жрица Лорена" },
+	[11406] = { deDE = "Hohepriester Rohan", frFR = "Grandprêtre Rohan", esES = "Sumo Sacerdote Rohan", esMX = "Sumo sacerdote Rohan", ptBR = "Sumo Sacerdote Rohan", ruRU = "Верховный жрец Рохан" },
+	[258785] = { deDE = "Hohepriesterin Mims", frFR = "Grande prêtresse Mims", esES = "Suma sacerdotisa Mims", esMX = "Suma sacerdotisa Mims", ptBR = "Alta-sacerdotisa Mims", ruRU = "Верховная жрица Мимс" },
+	[11401] = { deDE = "Priesterin Alathea", frFR = "Prêtresse Alathea", esES = "Sacerdotisa Alathea", esMX = "Sacerdotisa Alathea", ptBR = "Sacerdotisa Alathea", ruRU = "Жрица Алатея" },
+	[6018] = { deDE = "Ur'kyo", frFR = "Ur'kyo", esES = "Ur'kyo", esMX = "Ur'kyo", ptBR = "Ur'kyo", ruRU = "Ур'кьо" },
+	[4606] = { deDE = "Aelthalyste", frFR = "Aelthalyste", esES = "Aelthalyste", esMX = "Aelthalyste", ptBR = "Aelthalyste", ruRU = "Эльталисте" },
+	[375] = { deDE = "Priesterin Anetta", frFR = "Prêtresse Anetta", esES = "Sacerdotisa Anetta", esMX = "Sacerdotisa Anetta", ptBR = "Sacerdotisa Anita", ruRU = "Жрица Анетта" },
+	[377] = { deDE = "Priesterin Josetta", frFR = "Prêtresse Josetta", esES = "Sacerdotisa Josetta", esMX = "Sacerdotisa Josetta", ptBR = "Sacerdotisa Joselita", ruRU = "Жрица Жозетта" },
+	[837] = { deDE = "Branstock Khalder", frFR = "Branstock Khalder", esES = "Silo Khalder", esMX = "Silo Khalder", ptBR = "Branstock Khalder", ruRU = "Брансток Халдер" },
+	[1226] = { deDE = "Maxan Anvol", frFR = "Maxan Anvol", esES = "Maxan Anvol", esMX = "Maxan Anvol", ptBR = "Maxan Begurno", ruRU = "Максан Анвол" },
+	[3595] = { deDE = "Shanda", frFR = "Shanda", esES = "Shanda", esMX = "Shanda", ptBR = "Shanda", ruRU = "Шанда" },
+	[3600] = { deDE = "Laurna Morninglight", frFR = "Laurna Morninglight", esES = "Laurna Luzdelalba", esMX = "Laurna Luzdelalba", ptBR = "Laurna Luzalbor", ruRU = "Лорна Утренний Свет" },
+	[3707] = { deDE = "Ken'jai", frFR = "Ken'jai", esES = "Ken'jai", esMX = "Ken'jai", ptBR = "Ken'jai", ruRU = "Кен'джай" },
+	[3706] = { deDE = "Tai'jin", frFR = "Tai'jin", esES = "Tai'jin", esMX = "Tai'jin", ptBR = "Tai'jin", ruRU = "Тай'джин" },
+	[2123] = { deDE = "Dunkler Kleriker Duesten", frFR = "Sombre clerc Duesten", esES = "Clérico oscuro Duesten", esMX = "Clérigo oscuro Duesten", ptBR = "Clérigo das Trevas Duesten", ruRU = "Темный священник Дьюстен" },
+	[2129] = { deDE = "Dunkler Kleriker Beryl", frFR = "Sombre clerc Beryl", esES = "Clérigo oscuro Beryl", esMX = "Clérigo oscuro Beryl", ptBR = "Clérigo das Trevas Beryl", ruRU = "Темный священник Берил" },
+	[5489] = { deDE = "Bruder Joshua", frFR = "Frère Joshua", esES = "Hermano Joshua", esMX = "Hermano Joshua", ptBR = "Irmão Josué", ruRU = "Брат Джошуа" },
+	[10922] = { deDE = "Greta Mosshoof", frFR = "Greta Mosshoof", esES = "Greta Pezuñamusgo", esMX = "Greta Pezuñamusgo", ptBR = "Greta Musgo no Casco", ruRU = "Грета Замшелое Копыто" },
 	[259023] = { deDE = "Veyric Thunderhame", frFR = "Veyric Hametonne", esES = "Veyric Tronador", esMX = "Veyric Horcatrueno", ptBR = "Veyric Tonitrular", ruRU = "Вейрик Громоцеп" },
 }
 

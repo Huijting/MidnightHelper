@@ -58,6 +58,11 @@
   En: een overgeslagen item-keten bleef bovenaan "Do this now" → `ForeverClassQuestNow` doet nu eerst spell-ketens, dan
   item-ketens, en een item-keten alleen t/m 10 levels na zijn start (`ITEM_CHAIN_SPAN`, AFGELEID); `/mh classquest` print
   de reden ("not in Do this now: …"). fcq_check 411.391 runs, 0 fouten, 175 sleutels.
+- ✨ **Priest class-quests GEBOUWD (en + nl)**, mh-research op Fable. PR_P + CHAINS.PRIEST: per ras één stap met `alt`
+  (alle "ga naar je hogepriester"-id's delen één UniqueBitFlag, GEMETEN in QuestV2; dat inleveren van één id alle id's
+  "done" maakt = AFGELEID, test in TESTLIJST), 12 ras-spells (10/20), gewaad 5 (item-keten), Cenarion Aid 50. Zygor-
+  fouten niet overgenomen (Dwarf naar Rohan, Human = Divine Grace 94773, id's Tai'jin/Miles/Ur'kyo). fcq_check 418.951
+  runs, 0 fouten, 185 sleutels. Feiten `docs/forever/PRIEST_CLASSQUESTS_2026-11-17.md`.
 - 🧪 **Nieuw hulpmiddel `run fcq_check`** (`tools/fcq_check.py` + `.lua`): laadt ForeverClassQuests.lua met nep-spelfuncties,
   loopt 9 classes × 10 rassen × levels 1-60 × alle queststanden, en checkt dat elke FCQ_-sleutel in enUS + nlNL staat.
   GEMETEN 17 nov: 149.941 runs, 0 fouten, 86 sleutels, controle OK. Bewijst dat de code draait, niet dat id's kloppen.
