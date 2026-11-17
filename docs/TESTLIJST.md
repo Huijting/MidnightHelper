@@ -38,6 +38,15 @@ Open `/mh macros`, klik "Maak" bij een nieuwe rij, sleep de macro naar een balk 
       Rogue level 6+: typ `/dump IsPlayerSpell(1752), IsSpellKnown(1752)` en zeg wat er staat (rank-vraag).
 - [ ] Shaman: Resurrect, Fire Totem (Ctrl = Magma, 26). Paladin: Resurrect.
 
+## 🎨 17 nov (ronde 3) — Forever: ontwerp A, kleine puntjes (`/mh overview`)
+
+- [x] Ronde 2 GEDAAN (Rob): *"alle tooltips komen netjes, wauw"*.
+- [x] Redemption-pijl volgt de keten (Undead paladin): Rob, *"ik ben die questline aan het uitlopen … Dat klopt."*
+- [ ] Rechterkaart "Your class quests" is breder; met je muis op een regel zie je de volledige naam (bv. "Wolfsbane: the
+      Kor Gem" = de gem-quest, "Wolfsbane (a two-handed sword)" = de wapenketen).
+- [ ] "Doe dit nu": de dungeon-tip mag nu over twee regels.
+- [ ] Binnenkort: een spell die je al hebt staat er met de rank achter, bv. "Seal of Righteousness (Rank 3)" op 18.
+
 ## 🎨 17 nov (ronde 2) — Forever: ontwerp A na jouw opmerkingen (`/mh overview`)
 
 Jouw oordeel op ronde 1: *"Ja, ik ben onder de indruk. … dit is de weg waar ik graag heen wil. Absoluut."* `/reload` is nu

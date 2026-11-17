@@ -274,6 +274,14 @@ local function Upcoming(ahead)
 	for _, e in ipairs(r and r.now or {}) do
 		if e.l > level then
 			local nm = SpellName(e.id)
+			-- A spell you already know comes as a stronger rank: say which (the client's own subtext), as "Do this now"
+			-- does (ForeverDoNow.lua, 12 Nov 2026). Sparring saw "Seal of Righteousness" at 18 on a paladin who has it.
+			if nm and ns.ForeverKnownSpell and e.n and ns.ForeverKnownSpell(e.n) and C_Spell and C_Spell.GetSpellSubtext then
+				local okR, rank = pcall(C_Spell.GetSpellSubtext, e.id)
+				if okR and type(rank) == "string" and rank ~= "" and not (issecretvalue and issecretvalue(rank)) then
+					nm = nm .. " (" .. rank .. ")"
+				end
+			end
 			if nm and not seen[nm] then
 				seen[nm] = true
 				out[#out + 1] = { id = e.id, l = e.l, name = nm }
@@ -426,8 +434,9 @@ local function Build()
 	local x0 = 16 + LEFT_W + 12
 	local rightW = W - x0 - 16
 	-- Row 1: Do this now (wide), Coming up, Class quest.
-	local nowW = math.floor(rightW * 0.44)
-	local soonW = math.floor(rightW * 0.27)
+	-- Widths: the class quest card got wider in round 3 (sparring saw "Wolfsbane: the Kor G…" cut off).
+	local nowW = math.floor(rightW * 0.41)
+	local soonW = math.floor(rightW * 0.26)
 	local cqW = rightW - nowW - soonW - 24
 	local rowH = 236
 	f.now = Card(f)
@@ -529,7 +538,12 @@ local function Build()
 		nm:SetWordWrap(false)
 		local st = Text(f.cq, FONT_TEXT, 11, A.dim)
 		st:SetPoint("TOPLEFT", nm, "BOTTOMLEFT", 0, -1)
-		f.cq.list[i] = { level = lv, name = nm, state = st }
+		-- The full name on hover (a long chain name is cut to one line).
+		local hv = Tip(CreateFrame("Frame", nil, f.cq))
+		hv:SetPoint("TOPLEFT", lv, "TOPLEFT")
+		hv:SetPoint("BOTTOM", st, "BOTTOM")
+		hv:SetPoint("RIGHT", f.cq, "RIGHT", -10, 0)
+		f.cq.list[i] = { level = lv, name = nm, state = st, hover = hv }
 	end
 
 	-- Row 2: your path (level now → +6), in equal columns that stay inside the card (Rob's screenshot: the last ran out).
@@ -664,8 +678,14 @@ local function FillNow(f, items)
 	for i, row in ipairs(f.now.more) do
 		local it = items[i + 1]
 		if it then
+			-- A line without a place or second line (a tip) may use two lines (sparring: "Dungeons for your level… Ragefir…").
+			local sub = it.place or it.what
+			row.text:SetWordWrap(sub == nil)
+			if row.text.SetMaxLines then
+				row.text:SetMaxLines(sub == nil and 2 or 1)
+			end
 			row.text:SetText(it.title or "")
-			row.sub:SetText(it.place or it.what or "")
+			row.sub:SetText(sub or "")
 			row.hover.tipTitle = it.title
 			row.hover.tipBody = it.what and it.place and (it.what .. "\n" .. it.place) or it.what or it.place
 			SetGo(row.go, it.go)
@@ -691,6 +711,7 @@ local function FillClassQuest(f, items)
 		row.level:SetText("")
 		row.name:SetText("")
 		row.state:SetText("")
+		row.hover.tipTitle = nil
 	end
 	if showList and #list > 0 then
 		f.cq.label:SetText(ns:L("FOV_LABEL_CQ_LIST"))
@@ -722,6 +743,8 @@ local function FillClassQuest(f, items)
 					row.state:SetText(ns:L("FOV_CQ_ST_LATER_FMT"):format(e.level or 0))
 					row.state:SetTextColor(A.later[1], A.later[2], A.later[3])
 				end
+				row.hover.tipTitle = e.chain
+				row.hover.tipBody = ns:L("FOV_LEVEL_FMT"):format(e.level or 0) .. " · " .. (row.state:GetText() or "")
 			end
 		end
 		return
