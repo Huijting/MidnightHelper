@@ -192,6 +192,25 @@ gebruiken."* Uitslag (bouwchat 15-11, alleen op main, NIET in het spel gezien):
 Hier komt wat Rob goedkeurt, ook wat hij rechtstreeks in de bouwchat vraagt (Rob, 10 nov: *"ja we willen het op 1
 lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met de commit erbij. Na zijn test naar **Af**.
 
+### Forever: slimme zegen op mouseover (paladin) — tooltip-tip én één slimme knop
+- Bron: Rob 17 nov (via Sparring 17-11), vraag: *"Kan er een macro komen of bestaat er een macro ... die kan zien wat voor
+  speler het is waar ik overheen [ga] en welke ik hem dan moet geven?"* Op de opties (1 tooltip-tip, 2 één slimme knop,
+  allebei, ideeënlijst), letterlijk: *"Allebei."*
+- Volgorde: NA huisstijl A+B (prio 1). Eerst (1), dan (2). Spel: F. Voor wie: N + V.
+- (1) Tooltip op een vriendelijke speler: "Blessing: Might (Shift+Z)"; tabel per class, door de speler aan te passen;
+  schakelaar standaard UIT. Eerst meten of TooltipDataProcessor (Unit) in Forever werkt.
+- (2) Eén slimme zegen-knop: SecureActionButton met unit=mouseover; een APART event-frame (UPDATE_MOUSEOVER_UNIT, buiten
+  combat) zet het spell-attribuut op basis van UnitClass/UnitPowerType; in combat blijft de laatste keuze; geen script op
+  de secure knop zelf (les ForeverPartyPanel.lua:12-13); `/mh`-diagnose met keuze + reden; schakelaar standaard UIT.
+  Twijfel (hybrides) → Kings (vanaf 20) of de tip uit (1). Greater alleen op echte groepsleden (zie de [group]-meetklus).
+- Feiten (sparring, GEMETEN DB2 wowf 70938 + Wowhead Forever): Might 19740 (4, alleen melee AP), Wisdom 19742 (14), Kings
+  20217 (20, trainer) + Greater 25782/25916, 25894/25918, 25898 (52/54/60, Symbol of Kings 21177). Salvation/Sanctuary/
+  Light bestaan niet. Voorstel per class = AFGELEID (Classic-kennis); MH's eigen uitleg: ForeverHowToPlay.lua:977 (Holy)
+  en :1025 (Ret).
+- Te meten in het spel: UnitClass/UnitPowerType("mouseover") op een vreemde, UPDATE_MOUSEOVER_UNIT bij unit frames,
+  SetAttribute vanuit het event-frame + binding/klik, de speler-tooltip-hook. Kandidaten (NIET kopiëren): PallyMe (ARR),
+  PaladinPlan (GPL-3.0). NOG NIETS GEBOUWD.
+
 ### Forever: tien nieuwe handige macro's (ideeën uit de Forever-gidsen, zelf geschreven)
 - Bron: Rob 17 nov (via Sparring 17-11), letterlijk: *"Ja, die 10 macro-ideeën zijn een goed idee. Werk maar uit."*
   Eerder: *"Wat ik ook heel erg mooi vind overigens zijn de macro's … Die wij best wel kunnen … overnemen of zelf maken."*
