@@ -5622,7 +5622,7 @@ ns._mhLocales.enUS = {
 	FOV_Q_BAGS = "Bags almost full",
 	FOV_Q_BAGS_DESC = "A big message when your bags have 2 free places left, and again at 0. Same as /mh bags on|off.",
 	FOV_Q_REST = "Low mana or health before a fight",
-	FOV_Q_REST_DESC = "When you target an enemy with little mana or health left, a short warning to rest first. Same as /mh rest on|off.",
+	FOV_Q_REST_DESC = "When you target an enemy while your own mana or health is low, a short warning to rest first. Same as /mh rest on|off.",
 	FOV_Q_POLE = "Fishing pole still in your hands",
 	FOV_Q_POLE_DESC = "A warning when you start a fight with your fishing pole still in your hands. Same as /mh pole on|off.",
 	-- 17 Nov 2026, product plan step 8: the Characters tab (your characters, Legacy, This week).

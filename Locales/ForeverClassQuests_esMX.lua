@@ -182,6 +182,19 @@ for k, v in pairs({
 	-- 17 Nov 2026, product plan steps 4-5 (Find, Your class, Keys & macros)
 	-- Tab name "Campamento" on esMX ("Acampando" on esES, see above).
 	FOV_TIP_TAB_CLASS = "Cómo se juega tu clase, todas tus misiones de clase y Campamento. Cambia arriba en la página.",
+	-- 17 Nov 2026, product plan steps 6-9 (Professions, Dungeons & group, Characters, gear page)
+	-- dungeon = "calabozo" on esMX (esMX.lua header); AddOns = "Accesorios" on esMX (as esMX.lua SET_LAUNCH_HINT).
+	FOV_TIP_Q_ALLSETTINGS = "Abre Midnight Helper en la configuración del juego (Opciones → Accesorios).",
+	FOV_TAB_DUNG = "Calabozos y grupo",
+	FOV_TIP_TAB_DUNG = "Qué calabozos van con tu nivel y el camino hasta su entrada, tus bandas bloqueadas y ayuda para tu grupo.",
+	FOV_LABEL_DUNG = "CALABOZOS",
+	FOV_TIP_CARD_DUNG = "Cada calabozo con sus niveles y la zona de su entrada, de menor a mayor. Camino pone la flecha en la entrada.",
+	FOV_TIP_DUNG_ONLYMINE = "Activado: solo los calabozos que van con tu nivel ahora y los que están uno o dos niveles por encima. Desactivado: todos los calabozos.",
+	FOV_DUNG_ST_LOW = "Demasiado bajo para ti",
+	FOV_TIP_DUNG_ST_FIT = "Tu nivel está dentro del rango de este calabozo.",
+	FOV_TIP_DUNG_ST_LOW = "Estás por encima de los niveles de este calabozo: aquí ya queda poca XP.",
+	FOV_DUNG_NONE_FMT = "Aún no hay ningún calabozo para el nivel %d. Los primeros empiezan en el nivel %d. Desactiva \"Solo para mi nivel\" para verlos todos.",
+	FOV_GROUP_XP_RULE = "En un calabozo, nadie del grupo recibe XP por un enemigo si alguien del grupo está más de 12 niveles por encima de él.",
 }) do
 	es[k] = v
 end

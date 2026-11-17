@@ -78,7 +78,18 @@
   de vertaalronde). Offline: rogue met alleen rang 2 → rij te maken (positieve controle rang 1 ook). Niet gemeten (in
   het spel): `/use item:`, `!`, `[noform]`, `[nostealth]`, twee no-GCD-casts op één druk, eten+drinken op één druk.
   Optioneel uit het rapport, NIET gedaan: Healthstone/Soulstone-tekst "Ctrl maakt alleen een nieuwe als je die steen niet
-  al draagt"; `/focus` → `/focus target`.
+  al draagt"; `/focus` → `/focus target`. Commit af92c43.
+- 🌍 **Vertaling stap 6-9 GEDAAN**: 73 sleutels in de/fr/es/pt/ru (`ForeverClassQuests_<taal>.lua`), esMX 11 eigen regels
+  ("calabozo", "Accesorios"). Fortitude + Sacred Candle in de/fr/es/pt (Translations2026) en ru (ruRU.lua); naam GEMETEN
+  in ItemSparse 70938 per taal (de Hochheilige Kerze, fr Bougie sacrée, es Vela sacra, pt Vela Sacra, ru Священная свеча),
+  positieve controle 17028 = de naam die er al stond; "Rang/Grau" GEMETEN (NameSubtext 21564). Gereedschap-zinnen in
+  de/fr/es/pt/ru als "…: %s." (geen lidwoord bij een onbekend geslacht). fr "entrée dans une ville ennemie (%s)". NIET
+  gemeten als clientwoord: dungeon/raid-woorden in pt/ru, reagents, quest log, hoofd-/bijberoep, "Options → AddOns"
+  (oudere strings schrijven "->"). In het spel nakijken: ru-tab "Подземелья и группа" (lang), fr/pt AAN/UIT-breedte.
+  FOV_Q_REST_DESC (en) daarna verduidelijkt ("your own mana or health"); de vertalingen zeiden het al goed of dubbelzinnig
+  — check_drift zal hem tonen. ⚠️ Proces: de Duitse schrijver zette eerst een probe-job in een scratchpad van een andere
+  sessie (edd6953f) en draaide zo een klaarliggende job van die sessie (alleen lezen); teruggezet op "run gh_inbox".
+  Les: helpers delen de scratchpad van deze sessie — niet twee helpers tegelijk probe-jobs laten schrijven.
 
 ## ⏭️⏭️ NIEUWSTE OVERDRACHT (Bouwchat 17-11 (3), laatste commit 27e536b, alles gepusht, geen release)
 
