@@ -116,12 +116,21 @@ local function Refresh(f)
 end
 
 function ns.ShowKeysHub()
+	-- WoW Forever, 17 Nov 2026 (product plan step 5): the three doors live on the overview's Keys tab there.
+	if ns.IS_FOREVER and ns.ShowForeverOverviewPage then
+		ns.ShowForeverOverviewPage("keys")
+		return
+	end
 	local f = Build()
 	f:Show()
 	Refresh(f)
 end
 
 function ns.ToggleKeysHub()
+	if ns.IS_FOREVER and ns.ShowForeverOverviewPage then
+		ns.ShowForeverOverviewPage("keys", true)
+		return
+	end
 	if hub and hub:IsShown() then
 		hub:Hide()
 	else

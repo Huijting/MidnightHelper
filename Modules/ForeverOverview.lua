@@ -184,6 +184,7 @@ local TABS = {
 	{ key = "FOV_TAB_NOW", tip = "FOV_TIP_TAB_NOW", page = "now" },
 	{ key = "FOV_TAB_CLASS", tip = "FOV_TIP_TAB_CLASS", group = "class" },
 	{ key = "FOV_TAB_FIND", tip = "FOV_TIP_TAB_FIND", page = "find" },
+	{ key = "FOV_TAB_KEYS", tip = "FOV_TIP_TAB_KEYS", page = "keys" },
 	{ key = "FOV_TAB_LEGACY", tip = "FOV_TIP_TAB_LEGACY", page = "legacy" },
 }
 local GROUPS = {
@@ -581,6 +582,150 @@ local function FindRow(list, i)
 	return r
 end
 
+--- Keys & macros page (product plan step 5, 17 Nov 2026): left the three doors of "Your keys" (KeysHub.lua: key block,
+--- which spells you press, your keyboard) and three switches (mouseover on the key block, the orange edge on an old
+--- rank, offering the MH bar layout on a new character); right the handy macros (ForeverMacros.lua) with Make / Update
+--- and Free key, the same rows as that window. The key block itself stays a window of its own (plan).
+local KEY_DOORS = {
+	{ btn = "KEYSHUB_BLOCK_BTN", desc = "KEYSHUB_BLOCK_DESC", fn = function()
+		if ns.ShowKeyBlock then
+			ns.ShowKeyBlock()
+		end
+	end },
+	{ btn = "KEYSHUB_PRESSES_BTN", desc = "KEYSHUB_PRESSES_DESC", presses = true, fn = function()
+		if ns.KeyPressesCommand then
+			ns.KeyPressesCommand(nil)
+		end
+	end },
+	{ btn = "KEYSHUB_KEYBOARD_BTN", desc = "KEYSHUB_KEYBOARD_DESC", fn = function()
+		if ns.ShowKeysKeyboard then
+			ns.ShowKeysKeyboard(nil)
+		end
+	end },
+}
+local KEY_SWITCHES = {
+	{ title = "FOV_KEYS_SW_MO", tip = "FOV_TIP_KEYS_SW_MO",
+		get = function() return ns.IsForeverMouseoverOn and ns.IsForeverMouseoverOn() end,
+		set = function(on)
+			if ns.ForeverMouseoverSlash then
+				ns.ForeverMouseoverSlash(on and "on" or "off")
+			end
+		end },
+	{ title = "SET_FOREVER_RANKGLOW_TITLE", tip = "SET_FOREVER_RANKGLOW_DESC",
+		get = function() return ns.IsForeverRankGlowOn and ns.IsForeverRankGlowOn() end,
+		set = function(on)
+			if ns.SetForeverRankGlow then
+				ns.SetForeverRankGlow(on)
+			end
+		end },
+	{ title = "SET_FOREVER_BARLAYOUT_TITLE", tip = "SET_FOREVER_BARLAYOUT_DESC",
+		get = function() return ns.IsForeverBarLayoutAskOn and ns.IsForeverBarLayoutAskOn() end,
+		set = function(on)
+			if ns.SetForeverBarLayoutAsk then
+				ns.SetForeverBarLayoutAsk(on)
+			end
+		end },
+}
+
+local function BuildKeysPage(f, x0, rightW)
+	local page = f.pages.keys
+	local leftW = math.floor(rightW * 0.38)
+	local left = Card(page)
+	left:SetPoint("TOPLEFT", f, "TOPLEFT", x0, TOP_Y)
+	left:SetPoint("BOTTOMLEFT", f, "BOTTOMLEFT", x0, 16)
+	left:SetWidth(leftW)
+	left.label = Label(left, ns:L("KEYSHUB_TITLE"):upper(), "FOV_TIP_CARD_KEYS")
+	left.sf, left.child = S.Scroll(left, 34, 8, 40)
+	local innerW = leftW - 22 - 12
+	left.child:SetWidth(innerW + 8)
+	left.doors = {}
+	for i, d in ipairs(KEY_DOORS) do
+		local b = Button(left.child, innerW)
+		b:SetLabel(ns:L(d.btn))
+		Tip(b, ns:L(d.btn), ns:L(d.desc))
+		b:SetScript("OnClick", d.fn)
+		local t = Text(left.child, "text", 12, A.dim)
+		t:SetWidth(innerW)
+		left.doors[i] = { btn = b, desc = t, def = d }
+	end
+	left.swHead = Text(left.child, "head2", 12, A.label)
+	left.swHead:SetText(ns:L("FOV_KEYS_SWITCHES"):upper())
+	left.switches = {}
+	for i, s in ipairs(KEY_SWITCHES) do
+		local t = Text(left.child, "textB", 13)
+		t:SetWidth(innerW - 60)
+		t:SetText(ns:L(s.title))
+		local hover = HoverOver(left.child, t, ns:L(s.title), ns:L(s.tip))
+		local chip = Tip(S.Chip(left.child, "", nil, 52), ns:L(s.title), ns:L("FOV_TIP_SWITCH"))
+		chip:SetScript("OnMouseUp", function()
+			s.set(not s.get())
+			ns.ForeverOverviewFill(true)
+		end)
+		left.switches[i] = { text = t, chip = chip, hover = hover, def = s }
+	end
+	local list = Card(page)
+	list:SetPoint("TOPLEFT", left, "TOPRIGHT", 12, 0)
+	list:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -16, 16)
+	list.label = Label(list, ns:L("FMAC_TITLE"):upper(), "FOV_TIP_CARD_MACROS")
+	list.sub = Text(list, "text", 12, A.dim)
+	list.sub:SetPoint("TOPLEFT", 14, -32)
+	list.sub:SetPoint("RIGHT", -14, 0)
+	list.sub:SetText(ns:L("FMAC_SUB"))
+	list.hint = Text(list, "text", 11, A.later)
+	list.hint:SetPoint("BOTTOMLEFT", 14, 12)
+	list.hint:SetPoint("RIGHT", -140, 0)
+	list.hint:SetText(ns:L("FMAC_HINT"))
+	list.undo = Button(list, 120)
+	list.undo:SetHeight(22)
+	list.undo:SetPoint("BOTTOMRIGHT", -12, 8)
+	list.undo:SetLabel(ns:L("FMAC_BTN_UNDO_KEYS"))
+	Tip(list.undo, ns:L("FMAC_BTN_UNDO_KEYS"), ns:L("FOV_TIP_UNDO_KEYS"))
+	list.undo:SetScript("OnClick", function()
+		if ns.ForeverMacroUndoFreedKeys then
+			ns.ForeverMacroUndoFreedKeys()
+		end
+		ns.ForeverOverviewFill(true)
+	end)
+	list.sf, list.child = S.Scroll(list, 62, 40, 50)
+	list.rowW = (rightW - leftW - 12) - 22 - 8
+	list.child:SetWidth(list.rowW)
+	list.rows = {}
+	page.left, page.list = left, list
+end
+
+--- One macro row on the Keys page: title, the line under it, Make / Update and Free key.
+local function MacroRow(list, i)
+	local r = list.rows[i]
+	if r then
+		return r
+	end
+	r = CreateFrame("Frame", nil, list.child)
+	r:SetWidth(list.rowW)
+	local sep = r:CreateTexture(nil, "ARTWORK")
+	sep:SetColorTexture(A.edge[1], A.edge[2], A.edge[3], 0.35)
+	sep:SetHeight(1)
+	sep:SetPoint("BOTTOMLEFT", 0, 0)
+	sep:SetPoint("BOTTOMRIGHT", 0, 0)
+	r.go = Button(r, 96)
+	r.go:SetHeight(22)
+	r.go:SetPoint("TOPRIGHT", -2, -4)
+	Tip(r.go)
+	r.free = Button(r, 96)
+	r.free:SetHeight(20)
+	r.free:SetPoint("TOP", r.go, "BOTTOM", 0, -4)
+	r.free:SetLabel(ns:L("FMAC_BTN_FREE"))
+	Tip(r.free, ns:L("FMAC_BTN_FREE"), ns:L("FOV_TIP_FREE_KEY"))
+	r.title = Text(r, "textB", 14)
+	r.title:SetPoint("TOPLEFT", 4, -4)
+	r.title:SetWidth(list.rowW - 112)
+	r.title:SetWordWrap(false)
+	r.info = Text(r, "text", 12, A.dim)
+	r.info:SetPoint("TOPLEFT", r.title, "BOTTOMLEFT", 0, -2)
+	r.info:SetWidth(list.rowW - 112)
+	list.rows[i] = r
+	return r
+end
+
 -- Step 4: the page starts 30 px lower (switch row of "Your class"), so the rows are 19 px apart instead of 21.
 local TOC_ROWS, TOC_STEP = 14, 19
 
@@ -749,7 +894,7 @@ local function Build()
 	f.page = "now"
 	f.lastInGroup = {}
 	f.pages = {}
-	for _, key in ipairs({ "now", "play", "cq", "camp", "legacy", "trainer", "find" }) do
+	for _, key in ipairs({ "now", "play", "cq", "camp", "legacy", "trainer", "find", "keys" }) do
 		local p = CreateFrame("Frame", nil, f)
 		p:SetAllPoints(f)
 		p:Hide()
@@ -968,6 +1113,7 @@ local function Build()
 	BuildPlayPage(f, x0, rightW)
 	BuildTrainerPage(f, x0, rightW)
 	BuildFindPage(f, x0, rightW)
+	BuildKeysPage(f, x0, rightW)
 	-- Find: distances and names change when you change zone or the client loads an item name; fill again then (not
 	-- every 2 s: the order of the list must not jump under your mouse).
 	f:RegisterEvent("ZONE_CHANGED_NEW_AREA")
@@ -1910,6 +2056,116 @@ local function FillFindPage(f, refresh)
 	end
 end
 
+--- The Keys & macros page: doors and switches left (laid out top to bottom, the texts may wrap), macro rows right.
+local function FillKeysPage(f, refresh)
+	local page = f.pages.keys
+	local left, list = page.left, page.list
+	local y = 4
+	for _, d in ipairs(left.doors) do
+		d.btn:ClearAllPoints()
+		d.btn:SetPoint("TOPLEFT", left.child, "TOPLEFT", 4, -y)
+		y = y + 26
+		local text = ns:L(d.def.desc)
+		-- Counting is off by default: say so beside the door, before the click (KeysHub.lua does the same).
+		if d.def.presses and ns.IsKeyPressesEnabled and not ns.IsKeyPressesEnabled() then
+			text = text .. "\n|cffeeb055" .. ns:L("KEYSHUB_PRESSES_OFF") .. "|r"
+		end
+		d.desc:SetText(text)
+		d.desc:ClearAllPoints()
+		d.desc:SetPoint("TOPLEFT", left.child, "TOPLEFT", 6, -y)
+		y = y + (d.desc:GetStringHeight() or 24) + 12
+	end
+	y = y + 4
+	left.swHead:ClearAllPoints()
+	left.swHead:SetPoint("TOPLEFT", left.child, "TOPLEFT", 4, -y)
+	y = y + 20
+	local r, g, b = Accent()
+	for _, s in ipairs(left.switches) do
+		s.text:ClearAllPoints()
+		s.text:SetPoint("TOPLEFT", left.child, "TOPLEFT", 4, -y)
+		s.chip:ClearAllPoints()
+		s.chip:SetPoint("TOPRIGHT", left.child, "TOPRIGHT", -6, -y)
+		local on = s.def.get() and true or false
+		s.chip.t:SetText(ns:L(on and "FOV_SWITCH_ON" or "FOV_SWITCH_OFF"))
+		if on then
+			s.chip:SetColor(r, g, b)
+		else
+			s.chip:SetColor(A.later[1], A.later[2], A.later[3])
+		end
+		y = y + math.max(22, (s.text:GetStringHeight() or 16) + 8)
+	end
+	left.child:SetHeight(math.max(10, y))
+	if refresh then
+		left.sf.UpdateThumb()
+	else
+		left.sf.Reset()
+	end
+	-- Right: the handy macros.
+	local views, canUndo = {}, false
+	if ns.ForeverMacroViews then
+		local ok, v, u = pcall(ns.ForeverMacroViews)
+		if ok and type(v) == "table" then
+			views, canUndo = v, u
+		end
+	end
+	list.undo:SetShown(canUndo and true or false)
+	local yy = 0
+	for i, v in ipairs(views) do
+		local row = MacroRow(list, i)
+		row:ClearAllPoints()
+		row:SetPoint("TOPLEFT", list.child, "TOPLEFT", 0, -yy)
+		row.title:SetText(v.title or "")
+		row.info:SetText(v.info or "")
+		local col = v.header and A.label or A.text
+		row.title:SetTextColor(col[1], col[2], col[3])
+		if v.header then
+			row.go:Hide()
+			row.free:Hide()
+		else
+			local label = ns:L(v.made and "FMAC_BTN_UPDATE" or "FMAC_BTN_MAKE")
+			row.go:SetLabel(label)
+			row.go.tipTitle, row.go.tipBody = label, ns:L("FOV_TIP_MAKE")
+			row.go:SetScript("OnClick", function()
+				v.make()
+				ns.ForeverOverviewFill(true)
+			end)
+			row.go:Show()
+			row.go:SetAlpha(v.canMake and 1 or 0.4)
+			row.go:SetEnabled(v.canMake and true or false)
+			if v.free then
+				row.free:SetScript("OnClick", function()
+					v.free()
+					ns.ForeverOverviewFill(true)
+				end)
+				row.free:Show()
+			else
+				row.free:Hide()
+			end
+		end
+		local h = 8 + (row.title:GetStringHeight() or 16) + 2 + (row.info:GetStringHeight() or 14)
+		h = math.max(h, v.free and 60 or 34)
+		row:SetHeight(h)
+		row:Show()
+		yy = yy + h + 4
+	end
+	for i = #views + 1, #list.rows do
+		list.rows[i]:Hide()
+	end
+	list.child:SetHeight(math.max(10, yy))
+	if refresh then
+		list.sf.UpdateThumb()
+	else
+		list.sf.Reset()
+	end
+end
+
+--- Refill when the overview shows `page` (ForeverMacros.lua calls this when your bags or spells change).
+function ns.ForeverOverviewRefreshPage(page)
+	if win and win:IsShown() and win.page == page then
+		ns.ForeverOverviewFill(true)
+	end
+end
+
 --- Open the overview's Find tab on one kind of place: "class", "prof", "weapon" or "shop", with an optional key
 --- (a profession key, a weapon skill spell id, a shop key). The four old windows' open functions call this.
 --- Called again for the same kind without a key while it is open = close (as those windows did).
@@ -1962,6 +2218,9 @@ function ns.ForeverOverviewFill(refresh)
 	end
 	if f.page == "find" then
 		FillFindPage(f, refresh)
+		return f
+	elseif f.page == "keys" then
+		FillKeysPage(f, refresh)
 		return f
 	elseif f.page == "cq" then
 		FillClassQuestPage(f, level)

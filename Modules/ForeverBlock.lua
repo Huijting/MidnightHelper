@@ -377,6 +377,11 @@ local function RefreshExisting()
 	end
 end
 
+--- The player's mouseover switch (not the short "too long, rebuilt without" state). The overview's Keys tab shows it.
+function ns.IsForeverMouseoverOn()
+	return ns.db and ns.db.foreverMouseover == true or false
+end
+
 --- /mh mouseover [on|off]: switch the mouseover part on or off and rewrite the placed macros at once (out of combat).
 function ns.ForeverMouseoverSlash(arg)
 	arg = (arg or ""):lower()

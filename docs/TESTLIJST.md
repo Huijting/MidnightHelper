@@ -30,9 +30,19 @@ Eerst WoW helemaal afsluiten en opnieuw starten (er is een nieuw bestand; /reloa
 - [ ] `/mh overview` opent zonder foutmelding en ziet er precies hetzelfde uit als ronde 5 (zelfde letters, kleuren,
       knoppen, NOW/LATER-labels onder Jouw pad).
 
+## ⌨️ 17 nov (nacht) — Forever: tab "Keys & macros" in het overzicht (plan-stap 5)
+
+- [ ] Tab **Keys & macros**: links YOUR KEYS met drie knoppen (1. Set up my keys → het toetsenblok-venster, 2. Which
+      spells do I press?, 3. Show my keyboard), elk met een regel uitleg. Staat tellen uit, dan zegt regel 2 dat in oranje.
+- [ ] Daaronder SWITCHES: Mouseover on the key block, de oranje rand bij een oude rang, en "Offer the MH bar layout on
+      new characters". Klik op het AAN/UIT-labeltje: het wisselt. Mouseover zegt het ook in de chat.
+- [ ] Rechts HANDY MACROS: dezelfde rijen als het oude venster, met Make/Update (opent het macrovenster) en, als een
+      andere toets je Shift/Ctrl/Alt pakt, "Free key". Onderaan "Undo freed keys" als er iets terug te zetten is.
+- [ ] `/mh macros`, `/mh mykeys` en de tegels "Handy macros" / "Your keys" openen nu deze tab (nog een keer = dicht).
+
 ## 🔎 17 nov (nacht) — Forever: tab "Find" en tab "Your class" in het overzicht (plan-stap 4)
 
-- [ ] De tabrij: Now · Your class · Find · Legacy. "Your class" heeft bovenaan drie knoppen: How you play · Class quests
+- [ ] De tabrij: Now · Your class · Find · Keys & macros · Legacy. "Your class" heeft bovenaan drie knoppen: How you play · Class quests
       · Camping. Klik ze alle drie; de tab blijft oplichten. Klik Now en weer Your class: je komt terug op de laatste.
 - [ ] Tab **Find**: links "WHAT ARE YOU LOOKING FOR?" met Trainer, Professions (jouw beroepen bovenaan in goud, met je
       skill), Weapon skills (bekend = grijs "(known)", groene + = past bij je richting) en Shops. Je kunt erin scrollen.

@@ -1426,6 +1426,90 @@ local MOD_WORD = {
 	ALT = ModWord(ALT_KEY_TEXT, "Alt"),
 }
 
+--- One row as the player reads it: title, the line under it (with warnings and taken keys), the keys "Free key" may
+--- free, and the macro text (nil = cannot be made now). Shared by this window and the overview's Keys tab (17 Nov 2026,
+--- product plan step 5) so both always say the same.
+local function View(d)
+	if d.header and d.key == "s_header" then
+		local _, tok = UnitClass("player")
+		local sn = d.spec and SpecName(tok, d.spec)
+		return sn and ns:L("FMAC_SPEC_HEADER_FMT"):format(sn) or ns:L("FMAC_SPEC_HEADER_NONE"),
+			ns:L("FMAC_SPEC_SUB") .. (d.credit and ("  |cff9d9d9d" .. ns:L("FMAC_SPEC_CREDIT") .. "|r") or "")
+	elseif d.header then
+		local cls = UnitClass and UnitClass("player") or ""
+		return ns:L("FMAC_CLASS_HEADER_FMT"):format(cls), ns:L("FMAC_CLASS_SUB")
+	end
+	local title = d.plainTitleFn and d.plainTitleFn() or d.plainTitle or ns:L(d.title)
+	local body, why, arg = d.build()
+	local info = ns:L(d.descFn and d.descFn() or d.desc)
+	if d.cls and d.cls.warn then
+		info = info .. "  |cffffd200" .. ns:L(d.cls.warn == "twopress" and "FMAC_WARN_TWOPRESS"
+			or "FMAC_WARN_FORMBAR") .. "|r"
+	end
+	-- Self Cast Key set + modifier + @mouseover in this macro: say so on the row (Core.lua, 16 Nov 2026).
+	local scWarn = ns.SelfCastMacroWarning and ns.SelfCastMacroWarning(body)
+	if scWarn then
+		info = info .. "  " .. scWarn
+	end
+	if not body then
+		local col = (why == "FMAC_WHY_LEVEL_FMT" or why == "FMAC_WHY_TRAIN") and "|cff9d9d9d" or "|cffff7f7f"
+		info = info .. "  " .. col .. Why(why, arg) .. "|r"
+	end
+	-- Made and on a bar with a key: is Shift/Ctrl/Alt + that key taken by another binding? (Rob, 17 Nov 2026: "B")
+	local freeable = {}
+	if Exists(d) then
+		for _, c in ipairs(MacroClashes(MacroName(d))) do
+			info = info .. "\n|cffff7f7f" .. ns:L("FMAC_KEY_TAKEN_FMT"):format(KeyText(c.key),
+				_G["BINDING_NAME_" .. c.act] or c.act, MOD_WORD[c.mod] or c.mod) .. "|r"
+			if Freeable(c.act) then
+				freeable[#freeable + 1] = c
+			end
+		end
+	end
+	return title, info, freeable, body
+end
+
+--- The Make button: make or rewrite, say so in chat, open the macro window to drag it. @return true when made.
+local function MakeClick(d)
+	local ok, why, arg = Make(d)
+	if ok then
+		print(PREFIX .. ns:L("FMAC_MADE_FMT"):format(MacroName(d)))
+		if ShowMacroFrame then
+			pcall(ShowMacroFrame) -- open the macro window so you can drag it (AFGELEID that Forever has it)
+		end
+	else
+		print(PREFIX .. Why(why, arg))
+	end
+	return ok
+end
+
+--- 17 Nov 2026, product plan step 5 (the overview's Keys tab): every row of this window, ready to draw. Each:
+--- { header = true, title, info } or { title, info, made, canMake, make = fn, free = fn or nil }. Second value: true
+--- when "Undo freed keys" has something to put back.
+function ns.ForeverMacroViews()
+	local out = {}
+	for _, d in ipairs(Rows()) do
+		local title, info, freeable, body = View(d)
+		if d.header then
+			out[#out + 1] = { header = true, title = title, info = info }
+		else
+			out[#out + 1] = { title = title, info = info, made = Exists(d) ~= nil, canMake = body ~= nil,
+				make = function()
+					return MakeClick(d)
+				end,
+				free = (freeable and #freeable > 0) and function()
+					FreeKeys(freeable)
+				end or nil }
+		end
+	end
+	local freed = ns.db and ns.db.foreverFreedKeys
+	return out, freed ~= nil and #freed > 0
+end
+
+function ns.ForeverMacroUndoFreedKeys()
+	UndoFreedKeys()
+end
+
 Fill = function()
 	local f = Build()
 	f.title:SetText(ns:L("FMAC_TITLE"))
@@ -1441,57 +1525,20 @@ Fill = function()
 		r.free:Hide()
 		r:ClearAllPoints()
 		r:SetPoint("TOPLEFT", f.child, "TOPLEFT", 0, y)
-		if d.header and d.key == "s_header" then
-			local _, tok = UnitClass("player")
-			local sn = d.spec and SpecName(tok, d.spec)
-			r.name:SetText(sn and ns:L("FMAC_SPEC_HEADER_FMT"):format(sn) or ns:L("FMAC_SPEC_HEADER_NONE"))
-			r.info:SetText(ns:L("FMAC_SPEC_SUB") .. (d.credit and ("  |cff9d9d9d" .. ns:L("FMAC_SPEC_CREDIT") .. "|r") or ""))
-			r.go.def = nil
-			r.go:Hide()
-		elseif d.header then
-			local cls = UnitClass and UnitClass("player") or ""
-			r.name:SetText(ns:L("FMAC_CLASS_HEADER_FMT"):format(cls))
-			r.info:SetText(ns:L("FMAC_CLASS_SUB"))
+		local title, info, freeable, body = View(d)
+		r.name:SetText(title)
+		r.info:SetText(info)
+		r.free.list = nil
+		if d.header then
 			r.go.def = nil
 			r.go:Hide()
 		else
 			r.go:Show()
-			r.name:SetText(d.plainTitleFn and d.plainTitleFn() or d.plainTitle or ns:L(d.title))
-			local body, why, arg = d.build()
-			local info = ns:L(d.descFn and d.descFn() or d.desc)
-			if d.cls and d.cls.warn then
-				info = info .. "  |cffffd200" .. ns:L(d.cls.warn == "twopress" and "FMAC_WARN_TWOPRESS"
-					or "FMAC_WARN_FORMBAR") .. "|r"
+			if freeable and #freeable > 0 then
+				r.free.list = freeable
+				r.free:SetText(ns:L("FMAC_BTN_FREE"))
+				r.free:Show()
 			end
-			-- Self Cast Key set + modifier + @mouseover in this macro: say so on the row (Core.lua, 16 Nov 2026).
-			local scWarn = ns.SelfCastMacroWarning and ns.SelfCastMacroWarning(body)
-			if scWarn then
-				info = info .. "  " .. scWarn
-			end
-			if not body then
-				local col = (why == "FMAC_WHY_LEVEL_FMT" or why == "FMAC_WHY_TRAIN") and "|cff9d9d9d" or "|cffff7f7f"
-				info = info .. "  " .. col .. Why(why, arg) .. "|r"
-			end
-			-- Made and on a bar with a key: is Shift/Ctrl/Alt + that key taken by another binding? (Rob, 17 Nov 2026: "B")
-			r.free.list = nil
-			r.free:Hide()
-			if Exists(d) then
-				local clashes = MacroClashes(MacroName(d))
-				local freeable = {}
-				for _, c in ipairs(clashes) do
-					info = info .. "\n|cffff7f7f" .. ns:L("FMAC_KEY_TAKEN_FMT"):format(KeyText(c.key),
-						_G["BINDING_NAME_" .. c.act] or c.act, MOD_WORD[c.mod] or c.mod) .. "|r"
-					if Freeable(c.act) then
-						freeable[#freeable + 1] = c
-					end
-				end
-				if #freeable > 0 then
-					r.free.list = freeable
-					r.free:SetText(ns:L("FMAC_BTN_FREE"))
-					r.free:Show()
-				end
-			end
-			r.info:SetText(info)
 			r.go.def = d
 			r.go:SetText(ns:L(Exists(d) and "FMAC_BTN_UPDATE" or "FMAC_BTN_MAKE"))
 			if body then
@@ -1523,6 +1570,11 @@ Fill = function()
 end
 
 function ns.ShowForeverMacros()
+	-- 17 Nov 2026 (product plan step 5): every way into this window lands on the overview's Keys tab (fallback here).
+	if ns.ShowForeverOverviewPage then
+		ns.ShowForeverOverviewPage("keys", true)
+		return
+	end
 	local f = Build()
 	if f:IsShown() then
 		f:Hide()
@@ -1671,5 +1723,8 @@ ev:SetScript("OnEvent", function()
 	RefreshAuto()
 	if win and win:IsShown() then
 		Fill()
+	end
+	if ns.ForeverOverviewRefreshPage then
+		ns.ForeverOverviewRefreshPage("keys") -- the overview's Keys tab shows the same rows (product plan step 5)
 	end
 end)

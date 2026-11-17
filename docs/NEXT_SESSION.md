@@ -18,7 +18,17 @@
   Your class · Find · Legacy (Legacy gaat in stap 8 naar Karakters). TOC-regels How you play 21→19 px (pagina 30 px lager).
   Offline (scratch find_check: 9 classes × 2 kanten × 2 levels, elke lijstregel aangeklikt, elke Show the way, elke
   pagina/tab/schakelknop en de oude ingangen = 17.844 runs, 0 fouten; 13.692 plekregels, 2.382 met reisstap).
-  Vertalingen de/fr/es/esMX/pt/ru: nog niet (komt in een vertaalronde). NIET in het spel gezien.
+  Vertalingen de/fr/es/esMX/pt/ru: nog niet (komt in een vertaalronde). NIET in het spel gezien. Commit 62439ad.
+- ⌨️ **Stap 5 Toetsen & macros GEBOUWD (en + nl)**: tab "Keys & macros" (`f.pages.keys`). Links de drie deuren van
+  KeysHub (toetsenblok, KeyPresses, toetsenbord; "tellen staat uit" in oranje zoals KeysHub) + drie schakelaars met een
+  AAN/UIT-chip: mouseover (nieuw `ns.IsForeverMouseoverOn`, zet via `ForeverMouseoverSlash`), oude-rang-rand
+  (`Is/SetForeverRankGlow`), MH-balklayout aanbieden (`Is/SetForeverBarLayoutAsk`). Rechts de handige macro's: nieuw
+  `ns.ForeverMacroViews()` (zelfde `View(d)` als het oude venster, dat er nu ook gebruik van maakt) met Make/Update, Free
+  key en Undo freed keys (`ns.ForeverMacroUndoFreedKeys`); ververst bij tas/spell-wijziging via
+  `ns.ForeverOverviewRefreshPage("keys")`. `ShowForeverMacros` → deze tab (toggle); in Forever ook `ShowKeysHub`/
+  `ToggleKeysHub` (`/mh mykeys`). Het toetsenblok blijft een eigen venster. Offline: find_check uitgebreid (elke chip
+  2×, elke deur, elke Make/Free, undo, oude ingangen): 19.032 runs, 0 fouten, 540 macrorijen. "Free key" kwam in de
+  proef niet voor (geen toetsbindingen nagebootst) = NIET getest. NIET in het spel gezien.
 
 ## ⏭️⏭️ NIEUWSTE OVERDRACHT (Bouwchat 17-11 (3), laatste commit 27e536b, alles gepusht, geen release)
 
