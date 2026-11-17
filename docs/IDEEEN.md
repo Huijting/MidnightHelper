@@ -181,7 +181,23 @@ lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met d
 - Volgorde: (a) de Talented-fout direct na de mage, vóór de vertalingen; (b) Legacy bouwen na de classes, naast
   Kamperen. Spel: F. Voor wie: N + V.
 - Onderzoek (sparring, mh-research Opus, 17 nov): `docs/forever/LEGACY_RESEARCH_2026-11-17.md`. Voorstel: uitlegkaart
-  Legacy, "Do this now" ongebruikte punten (alleen als gemeten), `/mh legacy`-diagnose, de Talented-fix. NOG NIETS GEBOUWD.
+  Legacy, "Do this now" ongebruikte punten (alleen als gemeten), `/mh legacy`-diagnose, de Talented-fix.
+- Stand 17 nov: (a) Talented-fix GEBOUWD (rang uit de actieve tier-entry, commit 369ee9d; wacht op Robs probe). (b) Legacy
+  zelf nog niet gebouwd.
+
+### Forever: wie stuurt de pijl — MH of de Forever Leveling Guide (schakelaar)
+- Bron: Rob 17 nov (via Sparring 17-11), na zijn test (troll mage 6: "Forever Guide: your pin stays… route paused" +
+  "Midnight Helper: Route stopped: you removed the TomTom arrow"), letterlijk: *"En wat betreft de ruzie om de pijl. Doe
+  inderdaad maar C met als standaard A."*
+- Wat: een schakelaar (spelers kiezen). Standaard: MH wijkt als de Forever Leveling Guide een route heeft, zoals bij
+  TomTom. Niet stil wijken (les WaypointUI, 5 aug): `/mh arrow` zegt dat en waarom we wijken, en de uitleg staat waar
+  de speler het ziet. Spel: F. Voor wie: N + V.
+- Volgorde (keuze bouwchat): direct na de vertaalronde van de rollen, vóór Legacy en Kamperen (klein, Rob merkt het
+  elke speelsessie). NOG NIETS GEBOUWD.
+- Eerste meting (17 nov, alleen gelezen in `_forever_\Interface\AddOns\ForeverLevelingGuide`): de gids zet
+  `C_Map.SetUserWaypoint` (+ `SetSuperTrackedUserWaypoint`), een TomTom-punt als TomTom er is (`wowF_Viaje.lua` 400-418)
+  en een eigen pijl onder de minimap (`wowF_Panel.lua` 1096). Zijn melding "your pin stays… route paused" staat in
+  `wowF_Viaje.lua` 551. Beide addons zetten dus hetzelfde Blizzard-speldje.
 
 ### Forever: Kamperen (kampvuur + kampobjecten) uitleggen en helpen
 - Bron: Rob 17 nov (via Sparring 17-11), letterlijk: *"We hebben tegenwoordig kampvuurs waarbij je allerlei power-ups,

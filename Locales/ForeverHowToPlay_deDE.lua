@@ -426,5 +426,567 @@ Ab Stufe 1: Heilende Berührung hast du von Anfang an. Die Guides raten vom Heil
 - Heilen in einer Gestalt. Heilungen wirken nur in deiner normalen Gestalt.
 - Einen HoT auf jemanden wirken, der ihn noch hat. Der neue ersetzt den alten.]] },
 		},
+		-- Warrior, Mage, Priest, Rogue, Hunter, Shaman, Warlock, Paladin: translated 17 Nov 2026 by mh-writer from ROLES in
+		-- Modules/ForeverHowToPlay.lua. Spell names: SpellName deDE, wowf 1.60.1.70938; stat words: GlobalStrings deDE.
+		WARRIOR = {
+			{ band = 3, title = "Schutz: Tank", body = [[
+Ab Stufe 10 (Verteidigungshaltung, aus einer Quest; dieselbe Quest gibt Spott und Rüstung zerreißen). Ein **Tank** ist der, den die Gegner schlagen, damit der Rest der Gruppe sicher bleibt. Du trägst eine Einhandwaffe und einen Schild. **Bedrohung** = wie sehr ein Gegner dich angreifen will; als Tank brauchst du sie auf jedem Gegner. Die Guides sind sich nicht einig, welcher Baum allein am schnellsten levelt: Manche nennen Schutz den schnellsten, andere sagen, er ist allein langsamer. Er kommt um Stufe 16 in Fahrt, sobald du Schildblock neben Rache hast.
+**Einfache Reihenfolge:**
+1. Verteidigungshaltung (**Ctrl-2**), Schlachtruf (**Shift-X**). Blutrausch (**F1**) für Wut zum Start.
+2. Pullen. **Pullen** = einen Gegner aus der Ferne treffen, damit er zu dir kommt. Sturmangriff (**R**) wirkt nur in Kampfhaltung (**Ctrl-1**); geh danach zurück in Verteidigungshaltung (**Ctrl-2**). Mit Frontkämpfer (ab 25) wirkt Sturmangriff auch in Verteidigungshaltung. Oder pulle mit deiner Fernkampfwaffe (Block D).
+3. Mehrere Gegner: Demoralisierender Ruf (**Shift-2**, ab 14) einmal, Donnerknall (**Shift-1**), sobald er bereit ist.
+4. Schildblock (**Z**, ab 16), und Rache (**2**, ab 14), sobald sie aufleuchtet.
+5. Schildschlag (**3**, ab 40), sobald er bereit ist.
+6. Rüstung zerreißen (**5**) auf dein Hauptziel; bis zu 5 Stapel auf einem Boss.
+7. Spott (**F**), wenn ein Gegner jemand anderen angreift.
+8. Wut übrig: Heldenhafter Stoß (**1**) auf einen Gegner, Spalten (**Shift-4**, ab 20) auf zwei oder mehr.
+**Alle 10 Stufen:**
+- 10: Verteidigungshaltung (**Ctrl-2**), Spott (**F**), Rüstung zerreißen (**5**), Blutrausch (**F1**). Danach Schildhieb (**E**) mit 12, Rache (**2**) und Demoralisierender Ruf (**Shift-2**) mit 14, Schildblock (**Z**) mit 16, Entwaffnen (**V**) mit 18.
+- 20: Letztes Gefecht (**X**, ein Talent): 20 Sekunden lang 30% mehr maximale Gesundheit. Siegesrausch (**F2**), Spalten (**Shift-4**). Danach Drohruf (**Shift-Q**) mit 22, Frontkämpfer (ein Talent, passiv) mit 25, Herausforderungsruf (**Shift-F**) mit 26, Schildwall (**C**) mit 28. Die Talentstufen hier sind die frühesten; ein Perk kann sie bis zu 5 Stufen früher bringen.
+- 30: Erschütternder Schlag (**Shift-V**, ein Talent): eine Betäubung von 5 Sekunden. Berserkerhaltung (**Ctrl-3**, aus einer Quest). Danach Bastion (ein Talent, passiv) mit 35.
+- 40: Schildschlag (**3**, ein Talent). Plattenpanzer beim Lehrer: Du kannst Platte tragen.
+- 50: nichts Neues für diese Rolle. Stärkere Ränge von Schildschlag, Rache, Rüstung zerreißen und Donnerknall.
+- 60: wieder stärkere Ränge; nichts Neues für diese Rolle.
+**Anfängerfehler:**
+- Glauben, dass Donnerknall die ganze Gegnergruppe trifft. Er trifft 4 Gegner; ein fünfter kann zum Heiler laufen.
+- Gegner hinter dir lassen. Von hinten kannst du nicht blocken, ausweichen oder parieren, und Rache leuchtet nicht auf.
+- Spott auf einen Gegner, der dich schon angreift. Dann macht er nichts.]] },
+			{ band = 1, title = "Waffen: Schaden mit einer großen Waffe", body = [[
+Ab Stufe 1. Du trägst eine große Zweihandwaffe und stehst fast immer in Kampfhaltung. Die großen Schritte sind Weitreichende Stöße mit 30 und Tödlicher Stoß mit 40. Eine neue Waffe ist dein größter Gewinn. Du hast keine eigene Heilung außer Siegesrausch (ab 20), also halt Essen und Verbände bereit. Die Guides sind sich nicht einig, welcher Baum am schnellsten levelt; alle drei funktionieren.
+**Einfache Reihenfolge:**
+1. Kampfhaltung (**Ctrl-1**), Schlachtruf (**Shift-X**).
+2. Sturmangriff (**R**) zum Start.
+3. Verwunden (**Shift-Z**), wenn der Gegner eine Weile lebt.
+4. Überwältigen (**2**, ab 12), sobald es aufleuchtet.
+5. Tödlicher Stoß (**3**, ab 40), sobald er bereit ist; heb 30 Wut dafür auf.
+6. Siegesrausch (**F2**, ab 20), nachdem du einen Gegner getötet hast, wenn dir Gesundheit fehlt.
+7. Zwei Gegner: Weitreichende Stöße (**Q**, ab 30), dann Spalten (**Shift-4**, ab 20). Vor 30: Donnerknall (**Shift-1**).
+8. Wut übrig: Heldenhafter Stoß (**1**).
+**Alle 10 Stufen:**
+- 10: Heldenhafter Stoß (**1**), Sturmangriff (**R**), Verwunden (**Shift-Z**), Donnerknall (**Shift-1**), Kniesehne (**V**), Schlachtruf (**Shift-X**), Blutrausch (**F1**). Danach Überwältigen (**2**) mit 12, Demoralisierender Ruf (**Shift-2**) mit 14.
+- 20: Siegesrausch (**F2**), Spalten (**Shift-4**), Zerschmettern (**Shift-C**), Gegenschlag (**C**). Danach Hinrichten (**4**) mit 24, Aufspießender Stoß (**F3**, ein Talent) mit 25: ein besonders harter Treffer gegen Riesen und Drachkin. Die Talentstufen hier sind die frühesten; ein Perk kann sie bis zu 5 Stufen früher bringen.
+- 30: Weitreichende Stöße (**Q**, ein Talent, nur Kampfhaltung): Deine nächsten 5 Treffer treffen auch einen Gegner neben deinem Ziel. Berserkerhaltung (**Ctrl-3**, aus einer Quest) mit Abfangen (**R**) und Berserkerwut (**Shift-V**). Danach Verbessertes Zerschmettern (ein Talent, passiv) mit 35, Wirbelwind (**2** in Berserkerhaltung) mit 36, Zuschlagen (**E** in Berserkerhaltung) mit 38.
+- 40: Tödlicher Stoß (**3**, ein Talent): Der Gegner bekommt 10 Sekunden lang 50% weniger Heilung. Plattenpanzer beim Lehrer.
+- 50: Tollkühnheit (**Q** in Berserkerhaltung). Stärkere Ränge von Tödlicher Stoß.
+- 60: wieder stärkere Ränge; nichts Neues für diese Rolle.
+**Anfängerfehler:**
+- Die ganze Zeit Heldenhafter Stoß (**1**) drücken. Dieser Schlag gibt keine Wut, also bleibt nichts für Tödlicher Stoß oder Überwältigen übrig.
+- Zerschmettern (**Shift-C**) vor dem Talent Verbessertes Zerschmettern: 1,5 Sekunden Zauberzeit, die deinen normalen Schlag verzögert. Die meisten Guides lassen es bis dahin weg.
+- Mit einer Zweihandwaffe eine Unterbrechung auf **E** suchen. Schildhieb braucht einen Schild; deine Unterbrechung ist Zuschlagen (38, Berserkerhaltung).]] },
+			{ band = 2, title = "Furor: Schaden mit zwei Waffen", body = [[
+Eine Waffe in jeder Hand, ab Stufe 20 (Beidhändigkeit beim Lehrer). Bis dahin nimm deine beste Waffe (eine Zweihandwaffe ist in Ordnung) und spiel wie Waffen. Furor wird richtig stark mit Wirbelwind (36) und Blutdurst (40). Du brauchst zwei gute Waffen. Wirbelwind, Zuschlagen, Abfangen und Berserkerwut wirken nur in Berserkerhaltung, also wechselst du oft die Haltung.
+**Einfache Reihenfolge (ab 36; davor spiel wie Waffen):**
+1. Schlachtruf (**Shift-X**). Blutrausch (**F1**) für Wut.
+2. Sturmangriff (**R**) in Kampfhaltung (**Ctrl-1**).
+3. Todeswunsch (**Shift-3**, ab 30) auf einen starken Gegner.
+4. Berserkerhaltung (**Ctrl-3**): Wirbelwind (**2**, ab 36), sobald er bereit ist.
+5. Blutdurst (**3**, ab 40), sobald er bereit ist. Die Guides sind sich uneinig, welcher der beiden zuerst kommt.
+6. Siegesrausch (**F2**), nachdem du einen Gegner getötet hast, wenn dir Gesundheit fehlt.
+7. Wut übrig: Heldenhafter Stoß (**1**); auf zwei Gegner Spalten (**Shift-4**).
+8. Wenig Wut: Tollkühne Schwünge (**Shift-F1**, ab 25; kostet Gesundheit).
+**Alle 10 Stufen:**
+- 10: nichts Neues für diese Rolle: Du spielst wie Waffen, mit einer Waffe.
+- 20: Beidhändigkeit beim Lehrer: Jetzt kann eine Waffe in deine andere Hand. Durchdringendes Heulen (**Shift-R**, ein Talent): verlangsamt alle Gegner in deiner Nähe. Siegesrausch (**F2**), Spalten (**Shift-4**). Danach Hinrichten (**4**) mit 24, Tollkühne Schwünge (**Shift-F1**, ein Talent) mit 25. Die Talentstufen hier sind die frühesten; ein Perk kann sie bis zu 5 Stufen früher bringen.
+- 30: Todeswunsch (**Shift-3**, ein Talent). Berserkerhaltung (**Ctrl-3**, aus einer Quest) mit Abfangen (**R**) und Berserkerwut (**Shift-V**). Danach Wirbelwind (**2** in Berserkerhaltung) mit 36, Zuschlagen (**E** in Berserkerhaltung) mit 38.
+- 40: Blutdurst (**3**, ein Talent; du brauchst zuerst Todeswunsch). Er heilt nicht; er lässt dich schneller laufen. Plattenpanzer beim Lehrer.
+- 50: Tollkühnheit (**Q** in Berserkerhaltung). Stärkere Ränge von Blutdurst.
+- 60: wieder stärkere Ränge; nichts Neues für diese Rolle.
+**Anfängerfehler:**
+- Furor mit einer guten und einer schlechten zweiten Waffe spielen.
+- Wirbelwind (**2**) in Kampfhaltung suchen. Er wirkt nur in Berserkerhaltung, und dort wirken Verwunden und Donnerknall nicht.
+- Todeswunsch (**Shift-3**) in einem Kampf, den du verlieren könntest. 30 Sekunden lang nimmst du auch 5% mehr Schaden.]] },
+		},
+		MAGE = {
+			{ band = 1, title = "Arkan: Schaden aus der Ferne", body = [[
+Ab Stufe 8 (Arkane Geschosse). Arkanschlag ist ein Talent, frühestens 20; bis dahin spielst du wie jeder Magier, mit Frostblitz, Feuerball und Arkane Geschosse. Die Guides sind sich uneinig: Manche nennen Arkan stark zum Leveln, die meisten raten zu Frost und nennen Arkan hungrig nach Mana. Sein Baum hat keine Verlangsamungen, also hält er Gegner am schlechtesten auf Abstand. Ein **kanalisierter Zauber** ist ein Zauber, der läuft, während du stillstehst; Bewegen stoppt ihn. Arkane Geschosse ist einer.
+**Einfache Reihenfolge:**
+1. Eröffne mit Frostblitz (**2**): Der Gegner kommt dann langsam.
+2. Arkanschlag (**Ctrl-2**, ab 20): einer oder zwei, auf einem Boss bis zu vier. Jeder macht den nächsten teurer an Mana.
+3. Geschosssalve (ab 15) leuchtet auf? Sofort Arkane Geschosse (**3**): kostenlos und doppelt so schnell.
+4. Arkaner Zorn (**Shift-F1**, ab 25), sobald er bereit ist.
+5. Gegner nah bei dir? Frostnova (**V**), geh ein Stück weg.
+6. Fast tot: dein Zauberstab (**Ctrl-3**, bis 40) oder Feuerschlag (**5**).
+7. Zäher Gegner oder Boss: Geistesgegenwart (**Shift-3**, ab 30), dann Arkaner Zorn für einen großen spontanen Treffer. Ab 40 auch Arkane Macht (**Q**).
+Mehrere Gegner: Frostnova (**V**), dann Arkane Explosion (**Shift-2**, ab 14). Wenig Mana? Hervorrufung (**F1**, ab 20).
+**Alle 10 Stufen:**
+- 10: Frostnova (**V**). Erstes Talent: Verbesserte Kanalisierung (Arkane Geschosse wird nicht mehr verkürzt, wenn du getroffen wirst). Danach Arkane Explosion (**Shift-2**) mit 14, Geschosssalve (ein Talent, passiv) mit 15. Die Talentstufen hier sind die frühesten; ein Perk kann sie bis zu 5 Stufen früher bringen.
+- 20: Arkanschlag (**Ctrl-2**, ein Talent). Blinzeln (**R**), Hervorrufung (**F1**), Manaschild (**Z**). Danach Gegenzauber (**E**) mit 24, Arkaner Zorn (**Shift-F1**, ein Talent; du brauchst zuerst Arkanschlag) mit 25.
+- 30: Geistesgegenwart (**Shift-3**, ein Talent): Dein nächster Zauber mit einer Zauberzeit unter 10 Sekunden ist spontan. Eisrüstung (**Shift-Z**). Danach Magische Rüstung (Block D) mit 34.
+- 40: Arkane Macht (**Q**, ein Talent; du brauchst zuerst Geistesgegenwart): 15 Sekunden lang machen deine Zauber 30% mehr Schaden, kosten aber 30% mehr Mana. Frostfeuerblitz nimmt **Ctrl-3**: Leg deinen Zauberstab (Schießen) auf deine eigene Alt-Taste.
+- 50: stärkere Ränge von Arkanschlag, Arkaner Zorn und Arkane Geschosse; nichts Neues für diese Rolle.
+- 60: wieder stärkere Ränge; nichts Neues für diese Rolle.
+**Anfängerfehler:**
+- Arkanschlag immer wieder drücken. Jeder macht den nächsten 100% teurer an Mana; du bist schnell leer.
+- Bewegen während Arkane Geschosse. Es ist ein kanalisierter Zauber: Bewegen stoppt ihn.
+- Arkane Macht auf einen normalen Gegner. Sie macht deine Zauber auch teurer, und sie hat 3 Minuten Abklingzeit.]] },
+			{ band = 2, title = "Feuer: Schaden aus der Ferne", body = [[
+Ab Stufe 1 (Feuerball). Pyroschlag ist ein Talent, frühestens 20. Das echte Feuer-Spiel beginnt mit Aufwärmen (frühestens 25); davor ist Pyroschlag nur ein Eröffner. Die Guides sagen, Feuer macht den meisten Schaden auf einen Gegner und levelt schnell, aber mit mehr Risiko als Frost: Es hat kein eigenes Einfrieren. Ein **kritischer Treffer** ist ein glücklicher, stärkerer Treffer.
+**Einfache Reihenfolge:**
+1. Eröffne aus der Ferne mit Pyroschlag (**4**, ab 20). Davor: Feuerball (**1**).
+2. Feuerball (**1**) als dein normaler Zauber.
+3. Feuerschlag (**5**), sobald er bereit ist. Ab 25 gibt jeder Feuerschlag einen Stapel Aufwärmen.
+4. Zwei oder drei Stapel Aufwärmen (ab 25)? Pyroschlag (**4**).
+5. Gegner nah: Versengen (**Ctrl-1**, ab 22) statt Feuerball, oder Frostnova (**V**) und geh ein Stück weg. Ab 30 danach Druckwelle (**F3**).
+6. Fast tot: dein Zauberstab (**Ctrl-3**, bis 40) oder Feuerschlag.
+7. Elitegegner oder Boss, ab 40: Verbrennung (**Q**).
+Mehrere Gegner: Frostnova (**V**), Flammenstoß (**Shift-4**, ab 16), Druckwelle (**F3**, ab 30).
+**Alle 10 Stufen:**
+- 10: Frostnova (**V**). Erstes Talent: Beschleuniger (Feuerball wird schneller gewirkt). Danach Entzünden und Einschlag (Talente) mit 15, Flammenstoß (**Shift-4**) mit 16. Die Talentstufen hier sind die frühesten; ein Perk kann sie bis zu 5 Stufen früher bringen.
+- 20: Pyroschlag (**4**, ein Talent): 6 Sekunden Zauberzeit, also nur als Eröffner. Blinzeln (**R**), Hervorrufung (**F1**), Feuerzauberschutz (**F4**), Manaschild (**Z**). Danach Versengen (**Ctrl-1**) mit 22, Gegenzauber (**E**) mit 24, Aufwärmen (ein Talent, passiv; du brauchst zuerst Pyroschlag) mit 25: Ein kritischer Treffer mit Feuerball, Frostfeuerblitz, Feuerschlag oder Versengen macht deinen nächsten Pyroschlag 25% schneller, bis zu 3 Stapel.
+- 30: Druckwelle (**F3**, ein Talent): spontan, um dich herum; Gegner sind 6 Sekunden lang 50% langsamer. Kritische Masse (ein Talent). Eisrüstung (**Shift-Z**). Danach Feuermacht (ein Talent) mit 35.
+- 40: Verbrennung (**Q**, ein Talent; du brauchst zuerst Kritische Masse). Frostfeuerblitz nimmt **Ctrl-3**: Leg deinen Zauberstab (Schießen) auf deine eigene Alt-Taste.
+- 50: stärkere Ränge von Feuerball, Pyroschlag, Druckwelle und Frostfeuerblitz; nichts Neues für diese Rolle.
+- 60: wieder stärkere Ränge; nichts Neues für diese Rolle.
+**Anfängerfehler:**
+- Pyroschlag wirken, wenn der Gegner schon bei dir ist. 6 Sekunden Zauberzeit sind dann zu langsam.
+- Glauben, dass drei Stapel Aufwärmen Pyroschlag spontan machen. Er hat immer noch 1,5 Sekunden Zauberzeit: Bleib stehen.
+- Einen Eisblock suchen. Feuer hat keinen. Dein Ausweg: Frostnova (**V**), Blinzeln (**R**), Druckwelle (**F3**).]] },
+			{ band = 3, title = "Frost: Schaden aus der Ferne", body = [[
+Ab Stufe 4 (Frostblitz); Frostnova kommt mit 10. Eislanze ist ein Talent, frühestens 20. Zum Leveln ist Frost die erste Wahl der meisten Guides: Sie nennen ihn den sichersten. Richtig in Fahrt kommt er um 30. **Eingefroren** = der Gegner ist an seinem Platz festgefroren und kann sich nicht bewegen.
+**Einfache Reihenfolge:**
+1. Frostblitz (**2**) aus so großer Entfernung wie möglich. Jeder Treffer verlangsamt den Gegner.
+2. Gegner eingefroren (durch Frostnova oder durch das Talent Erfrierung)? Eislanze (**F**, ab 20).
+3. Gegner nah? Frostnova (**V**), geh ein Stück weg, Frostblitz, dann Eislanze.
+4. Eisige Finger leuchtet auf (ab 30)? Eislanze.
+5. Eislanze nicht bereit und der Gegner ist nah: Kältekegel (**Shift-F**, ab 26).
+6. Fast tot: dein Zauberstab (**Ctrl-3**, bis 40) oder Feuerschlag (**5**).
+Mehrere Gegner (ab 20): Frostnova (**V**), geh ein Stück weg, Blizzard (**Shift-1**), dann Kältekegel (**Shift-F**). In Not: Eisblock (**C**, ab 25), Blinzeln (**R**).
+**Alle 10 Stufen:**
+- 10: Frostnova (**V**). Erstes Talent: Verbesserter Frostblitz (eine kürzere Zauberzeit). Danach Erfrierung (ein Talent) mit 15: Deine Verlangsamungen können den Gegner 5 Sekunden lang einfrieren. Die Talentstufen hier sind die frühesten; ein Perk kann sie bis zu 5 Stufen früher bringen.
+- 20: Eislanze (**F**, ein Talent): 300% mehr Schaden auf einen eingefrorenen Gegner. Blizzard (**Shift-1**), Blinzeln (**R**), Hervorrufung (**F1**), Manaschild (**Z**). Danach Frostzauberschutz (**F2**) mit 22, Gegenzauber (**E**) mit 24, Eisblock (**C**, ein Talent) mit 25, Kältekegel (**Shift-F**) mit 26.
+- 30: Kälteeinbruch (**Shift-C**, ein Talent): setzt die Abklingzeit deiner anderen Frostzauber zurück; seine eigene Abklingzeit ist 10 Minuten. Eisige Finger (ein Talent; du brauchst zuerst Eislanze): Deine nächsten 2 Zauber wirken, als wäre der Gegner eingefroren. Eisrüstung (**Shift-Z**). Danach Winterkälte (ein Talent) mit 35.
+- 40: Eisbarriere (**X**, ein Talent; du brauchst zuerst Kälteeinbruch): ein Schild, der Schaden aufsaugt. Frostfeuerblitz nimmt **Ctrl-3**: Leg deinen Zauberstab (Schießen) auf deine eigene Alt-Taste.
+- 50: stärkere Ränge von Frostblitz, Kältekegel, Eisrüstung, Eisbarriere und Blizzard; nichts Neues für diese Rolle.
+- 60: wieder stärkere Ränge; nichts Neues für diese Rolle.
+**Anfängerfehler:**
+- Eislanze auf einen Gegner, der nicht eingefroren ist. Dann ist sie ein kleiner Treffer.
+- Feuerschlag kurz vor einem Einfrieren drücken. Feuerschlag und Eislanze teilen sich eine Abklingzeit von 8 Sekunden.
+- Kälteeinbruch für nichts nutzen. Er hat 10 Minuten Abklingzeit: Heb ihn auf, wenn etwas schiefgeht.]] },
+		},
+		PRIEST = {
+			{ band = 1, title = "Disziplin: Heiler", body = [[
+Ab Stufe 1: Geringes Heilen hast du von Anfang an. Die eigenen Zauber des Baums kommen später: Seelenwehr mit 25 und Sühne mit 30, beide frühestens. In einer Gruppe ist er am stärksten darin, eine Person zu heilen, den Tank. Allein leveln klappt mit Göttliche Pein, Heiliges Feuer und deinem Zauberstab, später Sühne; die Guides sind sich uneinig, ob das schneller ist als Schatten. **Geschwächte Seele**: Nach einem Machtwort: Schild kann dieselbe Person 15 Sekunden lang keinen neuen Schild bekommen.
+**Einfache Reihenfolge (in einer Gruppe):**
+1. Machtwort: Schild (**Z**) auf den Tank, kurz vor dem Pull. **Pull** = der erste Treffer, der einen Kampf beginnt.
+2. Erneuerung (**F4**) auf den Tank.
+3. Sühne (**Shift-F1**, ab 30) auf den, der verletzt ist, jedes Mal, wenn sie bereit ist.
+4. Deine große Heilung (**C**) für normalen Schaden.
+5. Blitzheilung (**F2**, ab 20), wenn C zu langsam ist.
+6. Mehr Leute verletzt: Gebet der Heilung (**Shift-2**, ab 30).
+7. Innerer Fokus (**F1**, ab 20) vor einer teuren Heilung. Seele der Macht (**Q**, ab 40) auf dich oder einen Zauberwirker.
+Allein: Schild (**Z**), Heiliges Feuer (**4**, ab 20), Göttliche Pein (**1**), Gedankenschlag (**3**), Schattenwort: Schmerz (**2**), Sühne, wenn du sie nicht zum Heilen brauchst, dann dein Zauberstab (**5**).
+**Alle 10 Stufen:**
+- 10: Geringes Heilen (**C**), Machtwort: Schild (**Z**), Erneuerung (**F4**), Auferstehung (**F3**, nur außerhalb eines Kampfes), Göttliche Pein (**1**). Danach Inneres Feuer (**Shift-Z**) mit 12, Krankheit heilen (**Shift-C**) mit 14, Heilen (**C**) mit 16, Magiebannung (**Shift-V**) mit 18.
+- 20: Blitzheilung (**F2**), Heiliges Feuer (**4**), Furchtzauberschutz (Block D). Innerer Fokus (**F1**, ein Talent): Dein nächster Zauber kostet kein Mana und trifft öfter kritisch; Abklingzeit 3 Minuten. Danach Seelenwehr (ein Talent, passiv) mit 25: Schild hat keine Abklingzeit und kostet weniger. Die Talentstufen hier sind die frühesten; ein Perk kann sie bis zu 5 Stufen früher bringen.
+- 30: Sühne (**Shift-F1**, ein Talent): heilt einen Freund oder verletzt einen Gegner; Abklingzeit 12 Sekunden. Gebet der Heilung (**Shift-2**), Göttlicher Willen (Block D). Danach Krankheit aufheben (**Shift-C**) mit 32, Göttliche Aegis (ein Talent, passiv) mit 35.
+- 40: Seele der Macht (**Q**, ein Talent; du brauchst zuerst Sühne): 20% mehr Zauberschaden und Heilung; Abklingzeit 3 Minuten. Große Heilung übernimmt **C**.
+- 50: stärkere Ränge von Sühne, Gebet der Heilung, Blitzheilung und Erneuerung. Gebet der Seelenstärke (**Shift-X**) mit 48.
+- 60: wieder stärkere Ränge; nichts Neues für diese Rolle.
+**Anfängerfehler:**
+- Denselben Spieler zweimal hintereinander abschirmen. Geschwächte Seele verhindert es. Es gilt pro Spieler: Jemand anderes kann sofort einen Schild bekommen.
+- Sühne auf einen Gegner, um deine Gruppe zu heilen. Sie heilt oder verletzt, nicht beides.
+- Gebet der Heilung auf den falschen Spieler. Es heilt die Gruppe des Spielers, den du wählst.]] },
+			{ band = 2, title = "Heilig: Heiler", body = [[
+Ab Stufe 1: Geringes Heilen hast du von Anfang an. Heilig ist der Gruppenheiler. Allein levelt er langsam: Die Guides raten, mit Göttliche Pein und deinem Zauberstab zu questen und in Dungeons zu heilen. Die eigenen Zauber des Baums kommen spät: Heilige Nova mit 20 und Gebet der Besserung mit 40, beide frühestens.
+**Einfache Reihenfolge (in einer Gruppe):**
+1. Erneuerung (**F4**) auf den Tank, wenn der Pull beginnt. **Pull** = der erste Treffer, der einen Kampf beginnt.
+2. Gebet der Besserung (**Ctrl-2**, ab 40) auf den Tank vor dem Pull, und wieder jedes Mal, wenn es bereit ist.
+3. Deine große Heilung (**C**) für normalen Schaden.
+4. Blitzheilung (**F2**, ab 20), wenn C zu spät käme.
+5. Ganze Gruppe verletzt: Gebet der Heilung (**Shift-2**, ab 30). Heilige Nova (**Shift-1**, ab 20) nur, wenn alle direkt neben dir stehen; sie kostet viel Mana.
+6. Machtwort: Schild (**Z**), um Zeit zu gewinnen.
+7. Ein Gegner greift dich an: Verblassen (**F**).
+**Alle 10 Stufen:**
+- 10: Geringes Heilen (**C**), Machtwort: Schild (**Z**), Erneuerung (**F4**), Auferstehung (**F3**, nur außerhalb eines Kampfes). Danach Inneres Feuer (**Shift-Z**) mit 12, Krankheit heilen (**Shift-C**) mit 14, Heilen (**C**) mit 16, Magiebannung (**Shift-V**) mit 18.
+- 20: Heilige Nova (**Shift-1**, ein Talent): spontan; verletzt Gegner um dich herum und heilt deine Gruppe, ohne Bedrohung. Blitzheilung (**F2**), Heiliges Feuer (**4**), Furchtzauberschutz (Block D). Danach Heilige Bindung (ein Talent, passiv) mit 25: Blitzheilung auf jemand anderen heilt dich um die Hälfte. Die Talentstufen hier sind die frühesten; ein Perk kann sie bis zu 5 Stufen früher bringen.
+- 30: Gebet der Heilung (**Shift-2**), Göttlicher Willen (Block D). Geist der Erlösung (ein Talent, passiv). Danach Krankheit aufheben (**Shift-C**) mit 32, Spirituelle Heilung (ein Talent, passiv) mit 35.
+- 40: Gebet der Besserung (**Ctrl-2**, ein Talent; du brauchst zuerst Geist der Erlösung): Es heilt, sobald das Ziel Schaden nimmt, dann springt es zu einem anderen Gruppenmitglied, bis zu 5-mal; Abklingzeit 10 Sekunden. Große Heilung übernimmt **C**.
+- 50: stärkere Ränge von Gebet der Besserung, Heilige Nova, Gebet der Heilung und Erneuerung. Gebet der Seelenstärke (**Shift-X**) mit 48.
+- 60: wieder stärkere Ränge; nichts Neues für diese Rolle.
+**Anfängerfehler:**
+- Gebet der Heilung auf den falschen Spieler. Es heilt die Gruppe des Spielers, den du wählst, nicht deine eigene.
+- Blitzheilung für alles. Sie ist schnell, aber teuer; heb sie für Notfälle auf.
+- Heilige Nova auf eine Gruppe, die weit weg steht. Sie wirkt nur direkt um dich herum, und sie kostet viel.]] },
+			{ band = 3, title = "Schatten: Schaden aus der Ferne", body = [[
+Ab Stufe 4 (Schattenwort: Schmerz); Gedankenschlag kommt mit 10. Gedankenschinden ist ein Talent, frühestens 20; Schattengestalt mit 40. Die meisten Guides leveln als Schatten; manche spielen Disziplin bis 40. Am Anfang macht dein Zauberstab viel von der Arbeit. Schatten hat keinen Zauber, der viele Gegner auf einmal trifft. Ein **DoT** ist Schaden in kleinen Stücken über ein paar Sekunden. Ein **kanalisierter Zauber** ist ein Zauber, der läuft, während du stillstehst.
+**Einfache Reihenfolge:**
+1. Machtwort: Schild (**Z**) auf dich, wenn der Gegner dich erreichen wird.
+2. Gedankenschlag (**3**) aus der Ferne, zum Start.
+3. Schattenwort: Schmerz (**2**).
+4. Verschlingende Seuche (**Shift-3**, ab 20) auf einen Gegner, der eine Weile lebt.
+5. Gedankenschinden (**1**, ab 20), und lass es bis zum Ende laufen. Davor: Göttliche Pein (**1**).
+6. Erledige den Gegner mit deinem Zauberstab (**5**).
+Wenig Mana? Lass Verschlingende Seuche und Gedankenschinden weg und nimm früher deinen Zauberstab. Ab 32: Schattenwort: Tod (**Shift-4**) nur, wenn es den Gegner tötet. Ab 40: Schattengestalt (**Ctrl-1**) vor dem ersten Pull an, und lass sie an.
+**Alle 10 Stufen:**
+- 10: Gedankenschlag (**3**), Abklingzeit 8 Sekunden. Du hast schon Göttliche Pein (**1**), Schattenwort: Schmerz (**2**), Machtwort: Schild (**Z**), Verblassen (**F**) und deinen Zauberstab (**5**). Danach Inneres Feuer (**Shift-Z**) mit 12, Psychischer Schrei (**V**) mit 14.
+- 20: Gedankenschinden (ein Talent): übernimmt Taste **1** von Göttliche Pein. Verschlingende Seuche (**Shift-3**): ein DoT, der dich auch heilt; Abklingzeit 24 Sekunden. Danach Vampirumarmung (**Ctrl-3**, ein Talent) mit 25 oder 30: Deine Gruppe wird um 20% deines Schattenschadens geheilt. Die Talentstufen hier sind die frühesten; ein Perk kann sie bis zu 5 Stufen früher bringen.
+- 30: Stille (**E**, ein Talent): deine **Unterbrechung** (sie stoppt den Zauber eines Gegners); Abklingzeit 45 Sekunden. Gedankenkontrolle (**Shift-F**). Danach Schattenwort: Tod (**Shift-4**) mit 32, Levitieren (**R**) mit 34.
+- 40: Schattengestalt (**Ctrl-1**, ein Talent; du brauchst zuerst Vampirumarmung): 10% mehr Schattenschaden, Schattenzauber kosten die Hälfte, du nimmst 15% weniger körperlichen Schaden, aber keine Heilzauber. Davor: Dunkelheit (ein Talent, passiv) mit 35.
+- 50: stärkere Ränge von Gedankenschinden, Gedankenschlag, Schattenwort: Schmerz, Verschlingende Seuche und Schattenwort: Tod. Gebet der Seelenstärke (**Shift-X**) mit 48.
+- 60: stärkere Ränge von Gedankenschinden und Verschlingende Seuche; nichts Neues für diese Rolle.
+**Anfängerfehler:**
+- Schattenwort: Tod auf einen Gegner mit viel Gesundheit. Stirbt er nicht, verlierst du 30% deiner eigenen Gesundheit.
+- Gedankenschinden zu früh abbrechen. Mit dem Talent Verbessertes Gedankenschinden ist der letzte Tick der stärkste.
+- In einer Gruppe mit Gedankenschlag eröffnen. Er macht viel Bedrohung (wie sehr ein Gegner dich angreifen will): Lass den Tank zuerst gehen. Greift dich ein Gegner an: Verblassen (**F**).]] },
+		},
+		ROGUE = {
+			{ band = 1, title = "Meucheln: Dolche und Gift", body = [[
+Ab Stufe 1 (Finsterer Stoß und Ausweiden). Du kämpfst aus der Nähe, mit Dolchen und Gift. Du nutzt **Energie**, die sich von selbst füllt. Deine Treffer geben **Combopunkte** (bis zu 5) auf dem Gegner, den du triffst; ein **Finisher** verbraucht sie alle. Verstümmeln ist ein Talent, frühestens 40, und braucht einen Dolch in jeder Hand. Bis dahin spielst du mit Meucheln oder Finsterer Stoß. Die Guides nennen das nicht den leichtesten Start: Der große Schritt kommt erst mit Verstümmeln.
+**Einfache Reihenfolge:**
+1. Ab 20: Gift auf beide Waffen (Gegenstände, auf Block D).
+2. Warte auf volle Energie. Ab 18 (Bereitschaft) kostet dein erster Angriff dann 10 Energie weniger.
+3. Verstohlenheit (**Shift-R**), geh hinter den Gegner. **Verstohlenheit** = schleichen, damit der Gegner dich nicht sieht. Eröffne mit Hinterhalt (**2**, ab 18, Dolch in deiner Haupthand) oder Erdrosseln (**1**, ab 14). Starker Gegner, ab 26: Fieser Trick (**V**), eine Betäubung von 4 Sekunden.
+4. Combopunkte: Meucheln (**2**), wenn du hinter dem Gegner stehst, sonst Finsterer Stoß (**1**). Ab 40: Verstümmeln (**3**), jedes Mal 2 Punkte.
+5. Scharfe Klinge (**Shift-3**, ab 24), sobald sie bereit ist. Mit Toxin (ab 30) macht jede Scharfe Klinge dein Gift 6 Sekunden lang stärker.
+6. Finisher: Zerhäckseln (**Shift-4**) in einem langen Kampf; sonst Ausweiden (**4**) bei 5 Punkten. Blutung (**5**, ab 20) auf einen Gegner, der lange lebt (ein Elitegegner, ein Boss).
+7. Kaltblütigkeit (**F1**, ab 25) kurz vor einem Ausweiden mit 5 Punkten.
+**Alle 10 Stufen:**
+- 10: Du hast schon Finsterer Stoß (**1**), Ausweiden (**4**), Meucheln (**2**), Verstohlenheit (**Shift-R**), Solarplexus (**Shift-Q**) und Entrinnen (**Z**). Neu mit 10: Zerhäckseln (**Shift-4**), Sprinten (**R**), Kopfnuss (**Shift-Q** in Verstohlenheit) und eine Waffe in jeder Hand (Beidhändigkeit). Danach Tritt (**E**) mit 12, Erdrosseln (**1** in Verstohlenheit) und Rüstung schwächen (**Shift-Z**) mit 14, Finte (**F**) mit 16, Hinterhalt (**2** in Verstohlenheit) und Bereitschaft (passiv) mit 18.
+- 20: Blutung (**5**). Gifte, aus einer Quest. Danach Verschwinden (**X**) mit 22, Scharfe Klinge (**Shift-3**) mit 24, Kaltblütigkeit (**F1**, ein Talent) mit 25: Dein nächster Finsterer Stoß, Meucheln, Hinterhalt, Ausweiden oder Verstümmeln trifft sicher kritisch (**kritischer Treffer** = ein glücklicher, stärkerer Treffer); Abklingzeit 3 Minuten. Fieser Trick (**V** in Verstohlenheit) mit 26. Die Talentstufen hier sind die frühesten; ein Perk kann sie bis zu 5 Stufen früher bringen.
+- 30: Toxin (ein Talent, passiv: keine Taste): Jede Scharfe Klinge gibt deinem Gift 6 Sekunden lang 30% mehr Schaden und 20% mehr Chance zu wirken. Nierenhieb (**V**). Danach Blenden (**Shift-V**) mit 34, Schicksal besiegeln (ein Talent, passiv) mit 35: Ein kritischer Treffer mit einem Angriff, der Combopunkte gibt, gibt dir einen Extrapunkt.
+- 40: Verstümmeln (**3**, ein Talent; du brauchst zuerst Toxin): 60 Energie, trifft mit beiden Dolchen, 2 Combopunkte, 20% mehr Schaden auf einen vergifteten Gegner. Danach Zerhäckseln Rang 2 mit 42, Scharfe Klinge Rang 2 mit 44.
+- 50: Verstümmeln Rang 2 und Nierenhieb Rang 2; nichts Neues für diese Rolle.
+- 60: Verstümmeln Rang 3 und stärkere Ränge; nichts Neues für diese Rolle.
+**Anfängerfehler:**
+- Verstümmeln ohne Dolche. Es braucht einen Dolch in jeder Hand: Besorg dir deinen zweiten Dolch vor Stufe 40.
+- Scharfe Klinge vergessen. Toxin wirkt nur über Scharfe Klinge.
+- Mit Combopunkten auf dem alten Gegner zu einem anderen Gegner wechseln. Die Punkte kommen nicht mit.]] },
+			{ band = 2, title = "Kampf: gleichmäßiger Schaden mit jeder Waffe", body = [[
+Ab Stufe 1 (Finsterer Stoß und Ausweiden). Du musst nicht hinter dem Gegner stehen: Dein wichtigster Treffer ist Finsterer Stoß. Er funktioniert mit jeder Einhandwaffe: Schwert, Axt, Streitkolben, Faustwaffe oder Dolch. Mehrere Guides nennen Kampf den leichtesten Baum, um allein zu leveln. Sie raten zu einer langsamen Waffe in deiner Haupthand und einer schnellen in deiner Nebenhand. Du nutzt **Energie**, die sich von selbst füllt; deine Treffer geben **Combopunkte**, und ein **Finisher** verbraucht sie. Klingenwirbel (frühestens 30) ist das Einzige, was ein Schurke gegen zwei Gegner auf einmal hat.
+**Einfache Reihenfolge:**
+1. Warte auf volle Energie (Bereitschaft, ab 18).
+2. Eröffne aus der Verstohlenheit (**Shift-R**) mit Erdrosseln (**1**, ab 14), oder ab 26 mit Fieser Trick (**V**). Einfach hingehen und angreifen ist auch in Ordnung.
+3. Finsterer Stoß (**1**) für Combopunkte.
+4. Riposte (**Shift-F1**, ab 20), sobald sie aufleuchtet: Das passiert, nachdem du einen Angriff parierst.
+5. Scharfe Klinge (**Shift-3**, ab 24), wenn sie bereit ist.
+6. Finisher: Zerhäckseln (**Shift-4**) in einem langen Kampf; sonst Ausweiden (**4**) bei 5 Punkten. Die Guides sind sich uneinig, wie früh du Zerhäckseln aufrechthalten sollst.
+7. Zwei Gegner: Klingenwirbel (**Shift-1**, ab 30). Ab 40 zusammen mit Adrenalinrausch (**Q**) für einen harten Kampf. Du verlierst? Entrinnen (**Z**).
+**Alle 10 Stufen:**
+- 10: Du hast schon Finsterer Stoß (**1**), Ausweiden (**4**), Verstohlenheit (**Shift-R**), Solarplexus (**Shift-Q**) und Entrinnen (**Z**). Neu mit 10: Zerhäckseln (**Shift-4**), Sprinten (**R**), Kopfnuss (**Shift-Q** in Verstohlenheit) und eine Waffe in jeder Hand. Danach Tritt (**E**) mit 12, Erdrosseln (**1** in Verstohlenheit) und Rüstung schwächen (**Shift-Z**) mit 14, Finte (**F**) mit 16, Bereitschaft (passiv) mit 18.
+- 20: Riposte (**Shift-F1**, ein Talent; du brauchst zuerst Abwehr): wirkt nur direkt, nachdem du einen Angriff parierst. 10 Energie, und der Gegner ist 6 Sekunden lang entwaffnet. Blutung (**5**) und Gifte aus einer Quest. Danach Verschwinden (**X**) mit 22, Scharfe Klinge (**Shift-3**) mit 24, Perfekte Ausführung (ein Talent, passiv) mit 25: Ausweiden kostet 15 Energie weniger. Fieser Trick (**V** in Verstohlenheit) mit 26. Die Talentstufen hier sind die frühesten; ein Perk kann sie bis zu 5 Stufen früher bringen.
+- 30: Klingenwirbel (**Shift-1**, ein Talent): 15 Sekunden lang greifst du 20% schneller an, und jeder Treffer trifft auch einen zweiten Gegner in der Nähe; Abklingzeit 2 Minuten. Niedermetzeln (ein Talent, passiv): ein Bonus, der von deiner Waffe abhängt. Nierenhieb (**V**). Danach Blenden (**Shift-V**) mit 34, Blitzender Stahl (ein Talent, passiv) mit 35: Scharfe Klinge gibt bis zu 15 Energie extra und ist bis zu 2 Sekunden früher bereit.
+- 40: Adrenalinrausch (**Q**, ein Talent; du brauchst zuerst Klingenwirbel): 15 Sekunden lang füllt sich deine Energie doppelt so schnell; Abklingzeit 5 Minuten. Danach Zerhäckseln Rang 2 mit 42 (30% schneller statt 20%), Scharfe Klinge Rang 2 mit 44 (25 Energie zurück statt 15).
+- 50: Nierenhieb Rang 2 und stärkere Ränge; nichts Neues für diese Rolle.
+- 60: stärkere Ränge; nichts Neues für diese Rolle.
+**Anfängerfehler:**
+- Klingenwirbel neben einem Gegner, den du mit Kopfnuss, Solarplexus oder Blenden ausgeschaltet hast. Die Extratreffer wecken ihn auf.
+- Riposte drücken, wenn nichts pariert wurde. Sie wirkt nur direkt nach einer Parade.
+- Meucheln oder Hinterhalt mit Schwert, Axt oder Streitkolben. Beide brauchen einen Dolch in deiner Haupthand.]] },
+			{ band = 3, title = "Täuschung: aus der Verstohlenheit zuschlagen", body = [[
+Ab Stufe 1 (Finsterer Stoß und Verstohlenheit). Dieser Baum kämpft aus der Verstohlenheit: ein starker erster Treffer und viele Combopunkte, bevor der Kampf richtig beginnt. **Verstohlenheit** = schleichen, damit der Gegner dich nicht sieht. Die Guides sagen, allein leveln geht langsamer als mit Kampf. Blutsturz ist ein Talent, frühestens 30: billig, von vorn, mit jeder Waffe. Todesmal ist ein Talent, frühestens 40. Hinterhalt und Meucheln brauchen einen Dolch in deiner Haupthand; Blutsturz und Geisterhafter Stoß nicht.
+**Einfache Reihenfolge:**
+1. Verstohlenheit (**Shift-R**). Ein zweiter Humanoid in der Nähe? Kopfnuss (**Shift-Q**). Kopfnuss bricht die Verstohlenheit nicht.
+2. Konzentration (**Shift-C**, ab 20): 2 Combopunkte auf dem Gegner. Dann dein erster Treffer.
+3. Erster Treffer von hinten: Hinterhalt (**2**, ab 18, Dolch in deiner Haupthand). Starker Gegner, ab 26: Fieser Trick (**V**), eine Betäubung von 4 Sekunden. Die Guides sind sich uneinig über den besten Eröffner.
+4. Geisterhafter Stoß (**Shift-X**, ab 25) und Scharfe Klinge (**Shift-3**, ab 24), sobald sie bereit sind.
+5. Combopunkte: ab 30 Blutsturz (**3**). Davor: Meucheln (**2**), wenn du hinter dem Gegner stehst, sonst Finsterer Stoß (**1**).
+6. Finisher: Ausweiden (**4**), wenn der Gegner fast tot ist; Blutung (**5**) auf einen Gegner, der lange lebt; Zerhäckseln (**Shift-4**) in einem langen Kampf.
+7. Ab 40: Todesmal (**Q**) auf den stärksten Gegner, am besten, während Blutung oder Erdrosseln läuft.
+8. Notfall: Verschwinden (**X**). Vorbereitung (**F3**, ab 30) macht Verschwinden, Entrinnen und Sprinten sofort wieder bereit.
+**Alle 10 Stufen:**
+- 10: Du hast schon Finsterer Stoß (**1**), Ausweiden (**4**), Meucheln (**2**), Verstohlenheit (**Shift-R**), Solarplexus (**Shift-Q**) und Entrinnen (**Z**). Neu mit 10: Kopfnuss (**Shift-Q** in Verstohlenheit), Zerhäckseln (**Shift-4**), Sprinten (**R**) und eine Waffe in jeder Hand. Danach Tritt (**E**) mit 12, Erdrosseln (**1** in Verstohlenheit) mit 14, Finte (**F**) mit 16, Hinterhalt (**2** in Verstohlenheit) und Bereitschaft (passiv) mit 18.
+- 20: Konzentration (**Shift-C**, ein Talent): 2 Combopunkte auf deinem Ziel; nutz sie innerhalb von 20 Sekunden, sonst sind sie weg; Abklingzeit 2 Minuten. Blutung (**5**) und Gifte aus einer Quest. Danach Verschwinden (**X**) mit 22, Scharfe Klinge (**Shift-3**) mit 24, Geisterhafter Stoß (**Shift-X**, ein Talent) mit 25: 40 Energie, 1 Combopunkt, 7 Sekunden lang 15% mehr Ausweichen; Abklingzeit 20 Sekunden. Fieser Trick (**V** in Verstohlenheit) mit 26. Die Talentstufen hier sind die frühesten; ein Perk kann sie bis zu 5 Stufen früher bringen.
+- 30: Blutsturz (**3**, ein Talent; du brauchst zuerst Gezahnte Klingen): 35 Energie, 1 Combopunkt, wirkt von vorn; 15 Sekunden lang machen deine Blutung und dein Erdrosseln an diesem Gegner 15% mehr Schaden. Vorbereitung (**F3**, ein Talent): macht die Abklingzeit deiner anderen Schurkenzauber sofort bereit; ihre eigene Abklingzeit ist 10 Minuten. Eins davon bekommst du mit 30, das andere mit 31. Nierenhieb (**V**). Danach Blenden (**Shift-V**) mit 34, Stiefelmesser (ein Talent, passiv) mit 35: Scharfe Klinge kann 2 Combopunkte geben.
+- 40: Todesmal (**Q**, ein Talent; du brauchst zuerst Vorbereitung): ein Finisher, 25 Energie, Abklingzeit 10 Sekunden. 6 Sekunden lang speichert es einen Teil deines Schadens (mehr pro Combopunkt) und teilt ihn dann auf einmal aus, bis zu einer Grenze. Schaden von Blutung und Erdrosseln zählt doppelt. Danach Zerhäckseln Rang 2 und Verschwinden Rang 2 mit 42, Scharfe Klinge Rang 2 mit 44, Todesmal Rang 2 mit 48.
+- 50: Nierenhieb Rang 2, Todesmal Rang 3 mit 56; nichts Neues für diese Rolle.
+- 60: Todesmal Rang 4 und stärkere Ränge; nichts Neues für diese Rolle.
+**Anfängerfehler:**
+- Hinterhalt oder Meucheln ohne Dolch in deiner Haupthand, oder von vorn.
+- Konzentration nutzen und dann warten. Die 2 Punkte sind nach 20 Sekunden weg, und die Abklingzeit ist 2 Minuten.
+- Todesmal ohne Combopunkte. Es ist ein Finisher.]] },
+		},
+		HUNTER = {
+			{ band = 1, title = "Tierherrschaft: Schaden mit deinem Begleiter", body = [[
+Ab Stufe 10 (dein Begleiter, aus den Klassenquests). Dein Begleiter macht die meiste Arbeit: Er beschäftigt den Gegner, während du aus der Ferne schießt. Jeder Guide, den wir gelesen haben, nimmt Tierherrschaft zum Leveln: Sie nennen sie die leichteste und die schnellste. Neu in Forever: Falke beschwören (ein Talent, frühestens 25) schickt zusätzliche Vögel auf dein Ziel. Schwachpunkt: Gruppen von Gegnern. Dein Begleiter kann nur einen halten.
+**Einfache Reihenfolge:**
+Bevor du anfängst: Aspekt des Falken an (**Shift-R**). Das Talent Tödliche Aspekte wirkt nur dann.
+1. Mal des Jägers (**Shift-Z**).
+2. Begleiter hinein (**Ctrl-1**), und warte, bis er den Gegner hat.
+3. Schlangenbiss (**2**).
+4. Falke beschwören (**Shift-F1**, ab 25): Halt die ganze Zeit 2 Falken aufrecht.
+5. Gezielter Schuss (**4**, ab 20), während du stillstehst. Zwei oder mehr Gegner: stattdessen Mehrfachschuss (**Shift-1**). Sie teilen sich eine Abklingzeit.
+6. Automatischer Schuss (**1**) läuft weiter. Arkaner Schuss (**3**): vor 25 einfach nutzen. Ab 25 nur, wenn du schon 2 Falken hast: Er teilt sich eine Abklingzeit mit Falke beschwören.
+7. Begleiter fast tot: Tier heilen (**F2**). Gegner bei dir: Einschüchterung (**Shift-3**, ab 30) oder Rückzug (**Z**, ab 20). Rückzug ist kein Sprung: Er sorgt dafür, dass der Gegner dich aus der Nähe weniger angreifen will, und stoppt deinen automatischen Angriff. Echte Not: Totstellen (**X**, ab 30).
+8. Zäher Gegner: Zorn des Wildtiers (**F1**, ab 40) zusammen mit Schnellfeuer (**Q**, ab 26).
+**Alle 10 Stufen:**
+- 10: dein Begleiter, aus den Klassenquests. Aspekt des Falken (**Shift-R**). Erste Talente: Tödliche Aspekte, Belastbarkeit-Ausbildung. Die Talentstufen hier sind die frühesten; ein Perk kann sie bis zu 5 Stufen früher bringen. Danach Tier heilen (**F2**) mit 12, Mehrfachschuss (**Shift-1**) mit 18.
+- 20: Gezielter Schuss (**4**, vom Lehrer), Aspekt des Geparden (**R**), Rückzug (**Z**), Eiskältefalle (**V**). Talente: Erhöhte Tiergeschwindigkeit (dein Begleiter läuft 30% schneller; du brauchst es für Einschüchterung), Entfesselter Zorn, Orientierung.
+- 30: Einschüchterung (**Shift-3**, ein Talent): Dein Begleiter betäubt den Gegner mit seinem nächsten Treffer 3 Sekunden lang; Abklingzeit 1 Minute. Totstellen (**X**). Davor: Falke beschwören (**Shift-F1**, ein Talent) mit 25: Ein Falke bleibt 18 Sekunden, höchstens 2 gleichzeitig. Schnellfeuer (**Q**) mit 26.
+- 40: Zorn des Wildtiers (**F1**, ein Talent; alle 30 Punkte davor müssen in Tierherrschaft sein): Dein Begleiter macht 18 Sekunden lang 50% mehr Schaden; Abklingzeit 2 Minuten. Salve (Block D). Davor: Sprengfalle übernimmt **Shift-2** mit 34, Raserei (ein Talent, passiv) mit 35.
+- 50: stärkere Ränge von Falke beschwören, Gezielter Schuss und Tier heilen; nichts Neues für diese Rolle. Nach 40 stecken die Guides deine Punkte in Treffsicherheit.
+- 60: wieder stärkere Ränge; nichts Neues für diese Rolle.
+**Anfängerfehler:**
+- Schießen, bevor dein Begleiter den Gegner hat. Dann kommt der Gegner zu dir.
+- Falke beschwören und Arkaner Schuss als zwei getrennte Tasten sehen. Sie teilen sich eine Abklingzeit: Falken zuerst.
+- Kämpfen in Aspekt des Geparden oder Aspekt des Affen. Tödliche Aspekte wirkt nur mit dem Falken.]] },
+			{ band = 2, title = "Treffsicherheit: Schaden aus der Ferne", body = [[
+Ab Stufe 1 (Automatischer Schuss). Deine eigenen Schüsse machen die Arbeit, aus großer Entfernung. Gezielter Schuss kommt mit 20 vom Lehrer: Er ist kein Talent. Heckenschützenschuss ist ein Talent, frühestens 40: 4 Sekunden Zauberzeit und bis zu 45 Meter Reichweite. Die Guides sagen, Leveln klappt, aber langsamer als Tierherrschaft: Dein Begleiter hält den Gegner schlechter, weil du mehr Schaden machst. In Gruppen ist es stark: Aura des Volltreffers hilft deiner ganzen Gruppe oder deinem Schlachtzug. Einsamer Wolf (ein Talent, frühestens 20) gibt 20% mehr Schaden, solange du keinen Begleiter hast; zum Leveln behalten die Guides den Begleiter.
+**Einfache Reihenfolge:**
+Bevor du anfängst: Aspekt des Falken (**Shift-R**) und Aura des Volltreffers (**Shift-X**, ab 25) an.
+1. Mal des Jägers (**Shift-Z**). Mit Begleiter: Begleiter hinein (**Ctrl-1**).
+2. Gegner noch weit weg: Heckenschützenschuss (**Shift-4**, ab 40) zum Eröffnen.
+3. Schlangenbiss (**2**). Manche Guides lassen ihn in kurzen Kämpfen weg.
+4. Gezielter Schuss (**4**, ab 20) jedes Mal, wenn er bereit ist. Bleib stehen.
+5. Arkaner Schuss (**3**) dazwischen, wenn dein Mana es erlaubt.
+6. Automatischer Schuss (**1**) läuft weiter.
+7. Eine Gruppe von Gegnern: Mehrfachschuss (**Shift-1**) statt Gezielter Schuss. Eine große Gruppe: Salve (Block D, ab 40).
+8. Gegner bei dir: Streuschuss (**E**, ab 30), dann geh ein Stück weg. Erschütternder Schuss (**Shift-Q**) verlangsamt ihn.
+9. Zäher Gegner: Schnellfeuer (**Q**, ab 26) am Anfang.
+**Alle 10 Stufen:**
+- 10: dein Begleiter, aus den Klassenquests. Aspekt des Falken (**Shift-R**). Erste Talente: Tödliche Angriffe, Falkenauge, Verbesserter erschütternder Schuss; ab 15: Sorgfältiges Zielen, Effizienz, Verbesserte Stiche und Bisse. Die Talentstufen hier sind die frühesten; ein Perk kann sie bis zu 5 Stufen früher bringen. Danach Mehrfachschuss (**Shift-1**) mit 18.
+- 20: Gezielter Schuss (**4**), vom Lehrer: 2 Sekunden Zauberzeit, Abklingzeit 6 Sekunden, geteilt mit Mehrfachschuss. Talente: Schneller Tod, Verbesserter arkaner Schuss, Einsamer Wolf. Aspekt des Geparden (**R**), Rückzug (**Z**), Eiskältefalle (**V**).
+- 30: Streuschuss (**E**, ein Talent): Der Gegner ist 4 Sekunden lang verwirrt, und jeder Schaden bricht es; Abklingzeit 30 Sekunden. Totstellen (**X**). Davor: Aura des Volltreffers (**Shift-X**, ein Talent) mit 25: mehr Distanzangriffskraft für deine Gruppe, 30 Minuten lang. Schnellfeuer (**Q**) mit 26.
+- 40: Heckenschützenschuss (**Shift-4**, ein Talent; du brauchst zuerst Aura des Volltreffers): Abklingzeit 15 Sekunden, und deine nächsten 3 Schüsse reichen 10 Meter weiter. Salve (Block D). Davor: Aura des Volltreffers Rang 2 beim Lehrer mit 32, Distanzwaffen-Spezialisierung (ein Talent, passiv) mit 35.
+- 50: stärkere Ränge: Gezielter Schuss mit 44 und 52, Heckenschützenschuss mit 48, Aura des Volltreffers und Salve mit 50. Nach 40 stecken die Guides deine Punkte in Tierherrschaft.
+- 60: wieder stärkere Ränge; nichts Neues für diese Rolle.
+**Anfängerfehler:**
+- Bewegen während Gezielter Schuss oder Heckenschützenschuss. Sie haben 2 und 4 Sekunden Zauberzeit.
+- Mehrfachschuss auf einen Gegner. Dann ist auch Gezielter Schuss 6 Sekunden lang weg.
+- Heckenschützenschuss, wenn der Gegner schon bei dir ist. Er hat 4 Sekunden Zauberzeit und wirkt nicht innerhalb von 8 Metern.]] },
+			{ band = 3, title = "Überleben: Schaden aus der Nähe, mit Fallen", body = [[
+Ab Stufe 1 (Raptorstoß), aber das echte Überleben-Spiel beginnt um 30. In Forever ist das der Nahkampf-Jäger: Raptorstoß, Mungobiss, Gegenangriff und Streichertritt, dazu Fallen. Du behältst deinen Begleiter und deine Fernkampfwaffe: Eröffne aus der Ferne, dann geh nah heran. Die Guides nennen es den langsamsten der drei Bäume zum Leveln; bis etwa 30 spielst du wie jeder Jäger (Begleiter hinein, schießen). Es kostet viel Mana, und ein großer Treffer von dir kann den Gegner von deinem Begleiter wegziehen. Die Guides sind sich uneinig, welche Nahkampfwaffe am besten ist.
+**Einfache Reihenfolge:**
+Bevor du anfängst: Aspekt des Falken (**Shift-R**), während du schießt. Ab 30 Aspekt des Wildtiers für den Kampf aus der Nähe; er hat keine feste Taste, also leg ihn auf deine eigene Leiste.
+1. Mal des Jägers (**Shift-Z**). Ohne das Mal wirkt Beute aufspüren nicht.
+2. Begleiter hinein (**Ctrl-1**).
+3. Schlangenbiss (**2**), dann Arkaner Schuss (**3**), während der Gegner kommt oder während du zu ihm gehst.
+4. Eine Falle zu deinen Füßen: Feuerbrandfalle (**Shift-2**, ab 16). Ab 34 ist diese Taste Sprengfalle, und Feuerbrandfalle hat keine Taste: Leg sie auf deine eigene Leiste, wenn du sie willst.
+5. Aus der Nähe: Mungobiss (**Shift-C**, ab 16), sobald er aufleuchtet. Raptorstoß (**5**) jedes Mal, wenn er bereit ist. Streichertritt (ab 30) jedes Mal, wenn er bereit ist; leg ihn auf deine eigene Leiste. Die Guides sind sich uneinig: Manche gehen nach Streichertritt zurück, um zu schießen, andere bleiben nah.
+6. Gegenangriff (**Shift-V**) direkt nach einer Parade.
+7. Der Gegner läuft weg, oder du willst wieder Abstand: Zurechtstutzen (**Shift-F**).
+8. In Not: Abschreckung (**C**, ab 20), Totstellen (**X**, ab 30).
+**Alle 10 Stufen:**
+- 10: dein Begleiter, aus den Klassenquests. Raptorstoß (**5**) hast du ab Stufe 1. Erste Talente: Verbessertes Fährtenlesen, Abwehr; ab 15: Wilde Schläge, Überlebenskünstler, Einfangen, Verbessertes Zurechtstutzen. Die Talentstufen hier sind die frühesten; ein Perk kann sie bis zu 5 Stufen früher bringen. Danach Zurechtstutzen (**Shift-F**) mit 12, Mungobiss (**Shift-C**) und Feuerbrandfalle (**Shift-2**) mit 16.
+- 20: Abschreckung (**C**, ein Talent): 10 Sekunden lang 25% mehr Ausweichen und Parieren; Abklingzeit 5 Minuten. Eiskältefalle (**V**), Gezielter Schuss (**4**), Beidhändigkeit (passiv, Lehrer). Rückzug (**Z**): kein Sprung; er senkt deine **Bedrohung** (wie sehr ein Gegner dich angreifen will) aus der Nähe und stoppt deinen automatischen Angriff. Talente: Sicherer Stand, Falleneffizienz.
+- 30: Streichertritt (ein Talent; keine feste Taste, leg ihn auf deine eigene Leiste): 100% Waffenschaden, dann läufst du 3 Sekunden lang 30% schneller; Abklingzeit 8 Sekunden. Aspekt des Wildtiers (Lehrer; leg ihn auf deine eigene Leiste): mehr Nahkampfangriffskraft. Totstellen (**X**). Davor: Gegenangriff (**Shift-V**, ein Talent), ab 25 oder 30 (die Quellen sind sich uneinig): Er wird aktiv, nachdem du parierst, und hält den Gegner 5 Sekunden lang an seinem Platz fest. Vorteil des Raubtiers (ein Talent, passiv) ab 25. Auch in dieser Reihe: Beute aufspüren, Einfallsreichtum, Disziplin des Überlebenskünstlers.
+- 40: Aufschlitzende Schläge (ein Talent, passiv; du brauchst zuerst Beute aufspüren): Mungobiss lässt den Gegner auch bluten. Davor: Sprengfalle übernimmt **Shift-2** mit 34, Blitzartige Reflexe (ein Talent, passiv) mit 35.
+- 50: stärkere Ränge: Gegenangriff mit 42 und 54, Mungobiss mit 44, Sprengfalle mit 44 und 54, Raptorstoß mit 48, Aspekt des Wildtiers mit 50. Die Guides sind sich uneinig, wohin deine Punkte nach 40 gehen.
+- 60: wieder stärkere Ränge; nichts Neues für diese Rolle.
+**Anfängerfehler:**
+- Direkt hineinrennen. Eröffne aus der Ferne (Mal, Begleiter, Schlangenbiss, ein Schuss), dann geh nah heran.
+- Mungobiss oder Gegenangriff drücken, wenn sie nicht aufleuchten. Mungobiss wirkt nur nach einem Ausweichen (oder durch Beute aufspüren), Gegenangriff nur nach einer Parade.
+- Nach Stufe 30 aus der Nähe in Aspekt des Falken bleiben. Der Falke hilft nur deinen Schüssen; das Wildtier gibt Nahkampfangriffskraft.]] },
+		},
+		SHAMAN = {
+			{ band = 1, title = "Elementar: Schaden aus der Ferne", body = [[
+Ab Stufe 1: Blitzschlag hast du von Anfang an. Blitz und Feuer aus der Ferne. Flammenschock kommt mit 10, Kettenblitzschlag mit 32. Blitzbeherrschung ist ein Talent, frühestens 40. Die Guides leveln als Verstärkung: Elementar klappt, aber seine Manakosten sind sehr hoch, du musst zum Zaubern stillstehen, und viele Gegner auf einmal sind schwer.
+**Einfache Reihenfolge:**
+Bevor du anfängst: Blitzschlagschild (**Shift-Z**, ab 8) an. Totem der Verbrennung (**5**, ab 10) vor dem Pull aufstellen.
+1. Eröffne aus der Ferne mit Blitzschlag (**1**).
+2. Flammenschock (**2**, ab 10) auf einen Gegner, der lange lebt.
+3. Blitzschlag (**1**) als Füller.
+4. Drei oder mehr Gegner: Feuernova (**Shift-4**, ab 12) und Kettenblitzschlag (**Shift-1**, ab 32), wenn sie bereit sind.
+5. Blitzbeherrschung (**Q**, ab 40) für einen Elitegegner oder eine große Gruppe.
+6. Heb dir Erdschock (**E**) auf, bis der Gegner zaubert: Er unterbricht den Zauber.
+Wenig Gesundheit: Welle der Heilung (**C**). Gegner zu nah: Totem der Erdbindung (**V**) oder Frostschock (**4**, ab 20).
+**Alle 10 Stufen:**
+- 10: Blitzschlag (**1**), Erdschock (**E**, ab 4), Blitzschlagschild (**Shift-Z**, ab 8). Flammenschock (**2**), Totem der Verbrennung (**5**, aus einer Quest). Erste Talente: Konvektion, Erschütterung (passiv). Die Talentstufen hier sind die frühesten; ein Perk kann sie bis zu 5 Stufen früher bringen. Danach Feuernova (**Shift-4**) und Reinigen (**Shift-Q**) mit 12, Totem des Erdstoßes (**Shift-F**) mit 18.
+- 20: Frostschock (**4**), Geisterwolf (**R**), Ruf der Elemente (**Ctrl-1**). Elementarfokus (ein Talent, passiv). Danach Totemischer Ruf (**Shift-R**) mit 22. Erdgebunden (ein Talent) mit 25: Totem der Erdbindung (**V**) hält Gegner 5 Sekunden lang an ihrem Platz fest, nur in dem Moment, in dem du es aufstellst. Totem der glühenden Magma (Block D) mit 26.
+- 30: Ruf des Donners (ein Talent, passiv). Totem der Erdung (**X**), Ruf der Urahnen (**Ctrl-2**), Reinkarnation (passiv). Blitzschlag-Überladung (ein Talent, passiv). Danach Kettenblitzschlag (**Shift-1**) mit 32, Elementarfuror (ein Talent, passiv) mit 35.
+- 40: Blitzbeherrschung (**Q**, ein Talent): 15 Sekunden lang wird Blitzschlag 0,5 Sekunden schneller gewirkt, und Kettenblitzschlag hat keine Abklingzeit; Abklingzeit 3 Minuten. Ruf der Geister (**Ctrl-3**), Kettenheilung (**Shift-2**). Panzer beim Lehrer.
+- 50: stärkere Ränge von Blitzschlag, Kettenblitzschlag, Erdschock, Flammenschock, Feuernova und Totem der Verbrennung; nichts Neues für diese Rolle.
+- 60: wieder stärkere Ränge; nichts Neues für diese Rolle.
+**Anfängerfehler:**
+- Erdschock für Schaden in einer Gruppe. Er macht viel **Bedrohung** (wie sehr ein Gegner dich angreifen will). Und er teilt seine Abklingzeit mit Flammenschock: Danach hast du keine Unterbrechung.
+- Kettenblitzschlag auf einen Gegner. Er kostet viel Mana und hat 6 Sekunden Abklingzeit.
+- Jeden Gegner mit einem Zauber erledigen. Mana ist deine Grenze: Schlag einen Gegner, der fast tot ist, mit deiner Waffe.]] },
+			{ band = 2, title = "Verstärkung: Schaden aus der Nähe", body = [[
+Ab Stufe 1: Du schlägst mit deiner Waffe zu, mit Waffe des Felsbeißers darauf. Die Guides leveln als Verstärkung: Sie nennen es die bequeme Wahl. Nimm eine langsame Zweihandwaffe. Sturmschlag ist ein Talent, frühestens 25; Waffe des Windzorns kommt mit 30 vom Lehrer. Mana ist deine Grenze: Wenn es knapp wird, hör auf zu zaubern und schlag weiter zu. Der Rat eines Guides für den Waffen-Buff: Waffe des Felsbeißers allein, Waffe der Flammenzunge in einer Gruppe, Waffe des Windzorns ab 30. In einer kleinen Gruppe kann Verstärkung mit Waffe des Felsbeißers eine Weile tanken (Waffen der Geister gibt dann mehr Bedrohung), aber es gibt keinen Spott und keine Verteidigungs-Abklingzeit.
+**Einfache Reihenfolge:**
+Bevor du anfängst: Waffen-Buff an (Block D), Blitzschlagschild (**Shift-Z**), Totem der Verbrennung (**5**) oder deine Totems aufstellen.
+1. Pullen mit Blitzschlag (**1**). **Pullen** = einen Gegner aus der Ferne treffen, damit er zu dir kommt.
+2. Sturmschlag (**3**, ab 25), sobald er bereit ist.
+3. Blitzschlag (**1**) bei 5 Stapeln Waffe des Mahlstroms (ab 35): Dann ist er spontan und kostenlos.
+4. Erdschock (**E**). In einer Gruppe abwechselnd mit Flammenschock (**2**).
+5. Feuernova (**Shift-4**, ab 12), wenn ein Feuer-Totem steht und du Mana übrig hast; vor allem gegen mehr Gegner.
+6. Zorn des Scharfsehers (**Q**, ab 40) für einen Elitegegner oder einen großen Pull.
+7. Sonst einfach weiter zuschlagen.
+Nach dem Kampf: Welle der Heilung (**C**). Notfall im Kampf: Geringe Welle der Heilung (**F2**, ab 20).
+**Alle 10 Stufen:**
+- 10: Waffe des Felsbeißers (Block D), Blitzschlag (**1**), Erdschock (**E**, ab 4), Blitzschlagschild (**Shift-Z**, ab 8). Flammenschock (**2**), Totem der Verbrennung (**5**), Totem der Erdstärke (**Shift-X**), Waffe der Flammenzunge (Block D). Erste Talente: Donnernde Stöße und andere (passiv); Geistige Gewandtheit (passiv) ab 15. Die Talentstufen hier sind die frühesten; ein Perk kann sie bis zu 5 Stufen früher bringen. Danach Feuernova (**Shift-4**) mit 12.
+- 20: Geisterwolf (**R**), Frostschock (**4**), Geringe Welle der Heilung (**F2**), Ruf der Elemente (**Ctrl-1**). Schamanistischer Fokus (ein Talent, passiv): Schocks und Blitzschlagschild kosten 45% weniger Mana. Danach Sturmschlag (**3**, ein Talent) mit 25. Schlaghagel (ein Talent, passiv) ab 25. Verbesserter Geisterwolf (ein Talent) ab 25: Geisterwolf ist schneller (spontan mit beiden Punkten) und wirkt auch drinnen; die Guides nehmen ihn auf sehr unterschiedlichen Stufen. Totem der glühenden Magma (Block D) mit 26.
+- 30: Waffe des Windzorns (Block D). Verbesserter Sturmschlag und Waffen der Geister (Talente). Totem der Erdung (**X**), Ruf der Urahnen (**Ctrl-2**). Danach Totem des Windzorns mit 32 (keine Taste: nutz die Totemleiste), Kettenblitzschlag (**Shift-1**) mit 32, Waffe des Mahlstroms (ein Talent, passiv) mit 35.
+- 40: Zorn des Scharfsehers (**Q**, ein Talent): Du schlägst 25 Sekunden lang 30% schneller zu; nur deine Waffentreffer, nicht deine Zauber. Abklingzeit 3 Minuten. Nicht jeder Guide nimmt ihn mit 40: Manche gehen zuerst in Wiederherstellung, für Mana. Ruf der Geister (**Ctrl-3**), Panzer, eine stärkere Waffe des Windzorns. Danach Totem der luftgleichen Anmut mit 42 (keine Taste: nutz die Totemleiste).
+- 50: stärkere Ränge von Waffe des Windzorns, Waffe des Felsbeißers, Erdschock, Blitzschlag und Totem der Erdstärke; nichts Neues für diese Rolle.
+- 60: wieder stärkere Ränge; nichts Neues für diese Rolle.
+**Anfängerfehler:**
+- Blitzschlag mit weniger als 5 Stapeln Waffe des Mahlstroms. Er setzt deinen Schlagtimer zurück. Und Waffe des Mahlstroms hilft nur Blitzschlag: nicht Heilungen, nicht Kettenblitzschlag.
+- Waffe des Felsbeißers in einer Gruppe, während du den Schaden machst, sobald du Waffen der Geister hast. Mit Felsbeißer machst du 30% mehr Bedrohung, ohne ihn 30% weniger. Nimm Flammenzunge oder Windzorn.
+- Einen Spott suchen. Der Schamane hat keinen. Totem der Steinklaue (**F**) bringt Gegner dazu, das Totem anzugreifen, nicht dich.]] },
+			{ band = 3, title = "Wiederherstellung: Heiler", body = [[
+Ab Stufe 1: Welle der Heilung hast du von Anfang an, und sie ist deine wichtigste Heilung beim Leveln. Die Guides raten davon ab, allein als Wiederherstellung zu leveln (Gegner sterben langsam), aber in einer Gruppe ist es gut. Zwischen Dungeons questest du mit Blitzschlag und Flammenschock. Springflut ist ein Talent, frühestens 40. Ein Schamane kann Gift und Krankheit entfernen, aber keine Flüche und keine Magie.
+**Einfache Reihenfolge (in einer Gruppe):**
+Bevor du anfängst: Wasserschild (**Shift-Z**, ab 20). Totems aufstellen: Ruf der Elemente (**Ctrl-1**, ab 20) oder Totem des heilenden Flusses (**F4**, ab 20).
+1. Springflut (**Shift-F1**, ab 40) auf den Tank oder auf den, der Schaden nimmt.
+2. Kettenheilung (**Shift-2**, ab 40) auf dasselbe Ziel, wenn mehr Leute verletzt sind.
+3. Welle der Heilung (**C**) für eine Person oder den Tank.
+4. Geringe Welle der Heilung (**F2**, ab 20), wenn es schnell gehen muss.
+5. Notfall: Schnelligkeit der Natur (**Shift-3**, ab 30), dann Welle der Heilung (**C**).
+6. Totem der Manaflut (**F1**, ab 25), wenn dein Mana ausgeht.
+7. Niemand verletzt: Blitzschlag (**1**).
+**Alle 10 Stufen:**
+- 10: Welle der Heilung (**C**). Erste Talente: Verbesserte Welle der Heilung (eine schnellere Welle der Heilung), Gezeitenfokus (passiv). Die Talentstufen hier sind die frühesten; ein Perk kann sie bis zu 5 Stufen früher bringen. Danach Geist der Ahnen (**F3**, außerhalb eines Kampfes) mit 12, Vergiftung heilen (**Shift-C**) mit 16, Totem des Erdstoßes (**Shift-F**) mit 18.
+- 20: Geringe Welle der Heilung (**F2**), Totem des heilenden Flusses (**F4**, aus einer Quest), Ruf der Elemente (**Ctrl-1**), Geisterwolf (**R**). Wasserschild (**Shift-Z**, ein Talent): 3 Wasserkugeln; wenn du getroffen wirst oder einer deiner Zauber kritisch trifft, bekommst du pro Kugel 2% deines Manas zurück. Er hält 10 Minuten. Ab dann wirkt Shift-Z Wasserschild, nicht Blitzschlagschild. Danach Krankheit heilen (**Shift-V**) mit 22. Totem der Manaflut (**F1**, ein Talent) mit 25: gibt deiner Gruppe Mana zurück; Abklingzeit 5 Minuten. Totem der Manaquelle mit 26 (keine Taste: nutz die Totemleiste).
+- 30: Schnelligkeit der Natur (**Shift-3**, ein Talent): Dein nächster Naturzauber mit einer Zauberzeit unter 10 Sekunden ist spontan; Abklingzeit 3 Minuten. Pfad der Heilung (ein Talent, passiv). Totem der Erdung (**X**), Ruf der Urahnen (**Ctrl-2**), Reinkarnation (passiv). Danach Läuterung (ein Talent, passiv) mit 35, ein stärkeres Totem der Manaflut mit 38.
+- 40: Kettenheilung (**Shift-2**). Springflut (**Shift-F1**, ein Talent; du brauchst zuerst Pfad der Heilung): eine Heilung über 15 Sekunden, keine sofortige Heilung, und eine Kettenheilung, die du direkt auf dieses Ziel wirkst, heilt 25% mehr; Abklingzeit 12 Sekunden. Ruf der Geister (**Ctrl-3**), Panzer.
+- 50: stärkere Ränge von Springflut, Kettenheilung, Welle der Heilung, Geringe Welle der Heilung, Totem der Manaflut und Totem des heilenden Flusses; nichts Neues für diese Rolle.
+- 60: wieder stärkere Ränge; nichts Neues für diese Rolle.
+**Anfängerfehler:**
+- Kettenheilung auf jemand anderen als dein Springflut-Ziel. Der Bonus zählt nur, wenn du sie direkt auf dieses Ziel wirkst.
+- Nur Schnelligkeit der Natur drücken. Sie heilt selbst nichts: Sie macht deinen nächsten Naturzauber spontan. Drück direkt danach Welle der Heilung.
+- Versuchen, einen Fluch zu entfernen. Ein Schamane kann das nicht; nur Gift (**Shift-C**) und Krankheit (**Shift-V**).]] },
+		},
+		WARLOCK = {
+			{ band = 1, title = "Gebrechen: Schaden über Zeit", body = [[
+Ab Stufe 4 (Verderbnis) und 8 (Omen der Pein). Du legst DoTs auf den Gegner und lässt deinen Dämon ihn halten. Die meisten Guides leveln als Gebrechen. Lebensentzug ist ein Talent, frühestens 30. Zermürben ist ein Talent, frühestens 40: Während du es kanalisierst, ticken dein Lebensentzug, deine Verderbnis und dein Omen der Pein auf diesem Gegner 100% schneller. Zermürben heilt dich nicht.
+**Einfache Reihenfolge:**
+1. Schick deinen Dämon hinein (**Ctrl-1**).
+2. Omen der Pein (**5**) zum Pullen. Sein Schaden beginnt niedrig, also bekommt dein Dämon den Gegner.
+3. Verderbnis (**2**). Mit Verbesserte Verderbnis 5/5 ist sie spontan (frühestens 14).
+4. Lebensentzug (**F4**, ab 30), nur auf einen Gegner, der lange lebt.
+5. Feuerbrand (**3**) nur auf einen zähen Gegner.
+6. Zäher Gegner: Leg deinen Fluch dazu (**Shift-V**). Die Guides sind sich uneinig, wie früh.
+7. Füller: bis etwa Stufe 30 dein Zauberstab (Schießen; nicht auf dem Block, leg es auf deine eigene Leiste), dann Blutsauger (**C**). Die Guides sind sich etwas uneinig, wann du wechselst.
+8. Schattentrance leuchtet auf (Einbruch der Nacht, ab 25)? Schattenblitz (**1**): Er ist dann spontan.
+9. Ab 40: Zermürben (Block D) statt Blutsauger, wenn deine Gesundheit in Ordnung ist. Leg zuerst deine DoTs an.
+10. Mehr Gesundheit als Mana? Aderlass (**F**).
+11. Brauchst du einen Seelensplitter? Erledige den Gegner mit Seelendieb (**4**).
+Zwei Gegner: DoTs auf den ersten, Furcht (**V**) auf ihn, dann bekämpf den zweiten. Schaden kann Furcht brechen, und die Guides sind sich uneinig über DoTs vor Furcht.
+**Alle 10 Stufen:**
+- 10: Seelendieb (**4**), Gesundheitsstein herstellen (Block D), der Leerwandler (Quest). Du hast schon Schattenblitz (**1**), Feuerbrand (**3**), Verderbnis (**2**, 4), Fluch der Schwäche (**Shift-V**, 4), Aderlass (**F**, 6), Omen der Pein (**5**, 8) und Furcht (**V**, 8). Erstes Talent: Verbesserte Verderbnis oder Unterdrückung (die Guides sind sich uneinig). Die Talentstufen hier sind die frühesten; ein Perk kann sie bis zu 5 Stufen früher bringen. Danach Lebenslinie (**F2**) mit 12; Blutsauger (**C**) und Verderbnis Rang 2 (15 Sekunden) mit 14; Verbessertes Entziehen und Seelenernte (Talente, passiv) ab 15; Sengender Schmerz (Block D) und Seelenstein herstellen mit 18.
+- 20: Fluch verstärken (**Shift-3**, ein Talent): Dein nächster Fluch der Schwäche oder dein nächstes Omen der Pein ist 50% stärker; Abklingzeit 3 Minuten. Fluch der Elemente (**Shift-V**), Dämonenrüstung (**Shift-Z**), Feuerregen (**Shift-1**), der Sukkubus oder Inkubus (Quest). Danach Verderbnis Rang 3 (18 Sekunden) und Mana entziehen mit 24. Fluch der Erschöpfung (**R**, ein Talent; du brauchst zuerst Fluch verstärken) mit 25: Der Gegner ist 12 Sekunden lang 30% langsamer. Einbruch der Nacht (ein Talent, passiv) mit 25: eine kleine Chance, dass dein nächster Schattenblitz spontan ist. Verbannen (**Shift-Q**) mit 28.
+- 30: Lebensentzug (**F4**, ein Talent): überträgt 30 Sekunden lang Gesundheit vom Gegner auf dich. Seelenentzug (ein Talent, passiv): Blutsauger, Seelendieb und Zermürben machen mehr für jeden deiner Effekte Verderbnis, Lebensentzug und Omen der Pein auf dem Gegner. Blutsauger Rang 3, Höllenfeuer (**Shift-2**), der Teufelsjäger (Quest). Danach Schattenzauberschutz (**Z**) mit 32, Schattenbeherrschung (ein Talent, passiv) mit 35, Lebensentzug Rang 2 und Blutsauger Rang 4 mit 38.
+- 40: Zermürben (Block D, ein Talent; du brauchst zuerst Lebensentzug): ein kanalisierter Zauber von 6 Sekunden, der jede Sekunde Schaden macht und deine DoTs auf diesem Gegner 100% schneller ticken lässt. Schreckensgeheul (**Shift-F**), das Teufelsross (Quest). Danach Todesmantel (**X**) mit 42, Seelenfeuer (**Q**) und Lebensentzug Rang 3 mit 48.
+- 50: Inferno (**F3**). Fluch der Elemente Rang 4. Sonst stärkere Ränge.
+- 60: Omen der Verdammnis (**F1**): ein großer Treffer nach 60 Sekunden; nicht auf Spieler. Sonst stärkere Ränge.
+**Anfängerfehler:**
+- Omen der Pein zu früh neu anlegen. Seine stärksten Ticks kommen am Ende.
+- Zermürben nutzen, wenn du Gesundheit brauchst. Zermürben heilt nicht; Blutsauger schon.
+- Fluch der Tollkühnheit auf den Gegner, den du in Furcht versetzen willst. Dieser Gegner ignoriert Furcht.]] },
+			{ band = 2, title = "Dämonologie: Schaden mit deinem Dämon", body = [[
+Ab Stufe 1 (der Wichtel), richtig ab 10 (der Leerwandler). Dein Dämon macht viel von der Arbeit, und die Talente machen ihn stärker. Die Guides sind sich uneinig, wann du in diesen Baum gehst: Manche gehen ab 10 hinein, andere leveln zuerst als Gebrechen und wechseln um 26 oder 27. Dämonische Opferung (frühestens 20) lohnt sich erst mit Dämonischer Pakt (frühestens 40). Davor entfernt jeder Dämon, den du beschwörst, den Buff.
+**Einfache Reihenfolge:**
+1. Schick deinen Dämon hinein (**Ctrl-1**) und lass ihn zuerst zuschlagen.
+2. Ab 30: Seelenverbindung (**Shift-X**) an, und wieder nach jeder Beschwörung.
+3. Ab 25 (Dämonisches Brandmal): Sengender Schmerz (Block D) auf den Gegner deines Dämons. Wieder, wenn das Brandmal weg ist (10 Sekunden). Vor Dämonisches Brandmal: kein Sengender Schmerz.
+4. Omen der Pein (**5**) und Verderbnis (**2**) auf Gegner, die lange genug leben. Verderbnis hat hier 2 Sekunden Zauberzeit.
+5. Füller: dein Zauberstab (nicht auf dem Block, leg ihn auf deine eigene Leiste) oder Schattenblitz (**1**). Blutsauger (**C**), wenn du Gesundheit brauchst.
+6. Dämon fast tot: Lebenslinie (**F2**). Sie kostet deine eigene Gesundheit.
+7. Aderlass (**F**). Mit Dämonische Energien bekommt auch dein Dämon Mana.
+8. Ab 40 (Dämonischer Pakt): Dämonische Opferung (**Shift-C**) auf einen Dämon, dann beschwör einen anderen (Block D). Der Buff hält 2 Stunden. Die Guides sind sich uneinig, welchen Dämon du opferst.
+9. Ab 48, mit Dezimierung: Gegner unter 35% Gesundheit? Schattenblitz oder Sengender Schmerz, dann Seelenfeuer (**Q**): schneller und ohne Seelensplitter.
+**Alle 10 Stufen:**
+- 10: der Leerwandler (Quest; kostet 1 Seelensplitter). Seine Qual gibt **Bedrohung** (wie sehr ein Gegner ihn angreifen will). Seelendieb (**4**) für Splitter. Erste Talente: Unheilige Macht, Dämonische Umarmung, Verbesserter Wichtel, Verbesserte Lebenslinie (passiv). Die Talentstufen hier sind die frühesten; ein Perk kann sie bis zu 5 Stufen früher bringen. Danach Lebenslinie (**F2**) mit 12; Dämonische Energien, Teuflische Vitalität und Verbesserter Leerwandler (Talente, passiv) ab 15; Opferung (Leerwandler) mit 16; Schatten verzehren (Leerwandler) und Sengender Schmerz (Block D) mit 18.
+- 20: Dämonische Opferung (**Shift-C**, ein Talent): Du opferst deinen Dämon für einen Buff von 2 Stunden. Wichtel: 15% mehr Schattenschaden. Sukkubus oder Inkubus: 15% mehr Feuerschaden. Leerwandler: Mana zurück. Teufelsjäger: Gesundheit zurück. Meister der Beschwörung (ein Talent, passiv): Beschwörungen sind schneller und billiger. Der Sukkubus oder Inkubus (Quest). Dämonenrüstung (**Shift-Z**). Danach Leiden (Leerwandler) mit 24. Teufelsbeherrschung (**Shift-F1**, ein Talent; du brauchst zuerst Meister der Beschwörung) mit 25: Deine nächste Beschwörung ist 5,5 Sekunden schneller und 50% billiger. Dämonisches Brandmal und Dezimierung (Talente, passiv) ab 25.
+- 30: Seelenverbindung (**Shift-X**, ein Talent; du brauchst zuerst Dämonische Opferung): 30% des Schadens auf dich geht auf deinen Dämon, und ihr beide macht 3% mehr Schaden. Sie hält, solange dein Dämon da ist. Der Teufelsjäger (Quest; Zaubersperre mit 36). Dämonisches Wissen (ein Talent, passiv). Danach Meister der Dämonologie (ein Talent, passiv) ab 35.
+- 40: Dämonischer Pakt (ein Talent, passiv; du brauchst zuerst Seelenverbindung): Der Buff von Dämonische Opferung bleibt, wenn du einen anderen Dämon beschwörst. Erst jetzt lohnt sich Dämonische Opferung. Schreckensgeheul (**Shift-F**), das Teufelsross (Quest). Danach Todesmantel (**X**) mit 42, Seelenfeuer (**Q**) mit 48.
+- 50: Inferno (**F3**): eine Höllenbestie; jedes Mal 1 Höllenstein; Abklingzeit 1 Stunde. Sonst stärkere Ränge.
+- 60: Omen der Verdammnis (**F1**). Sonst stärkere Ränge.
+**Anfängerfehler:**
+- Sengender Schmerz, bevor du Dämonisches Brandmal hast. Er macht viel Bedrohung und zieht den Gegner von deinem Dämon weg.
+- Dämonische Opferung vor Dämonischer Pakt (40). Dein Dämon ist weg, und jeder Dämon, den du beschwörst, entfernt den Buff.
+- Nach Dämonischer Pakt denselben Dämon beschwören, den du geopfert hast. Dann ist der Buff weg.]] },
+			{ band = 3, title = "Zerstörung: Schaden mit großen Treffern", body = [[
+Ab Stufe 1 (Schattenblitz und Feuerbrand). Große Feuer- und Schattentreffer, und es kostet am meisten Mana. Manche Guides raten davon ab, damit zu leveln (viel Mana, wenig Wege, es zurückzubekommen); andere nennen es spielbar, und einer nennt es stark in Dungeons. Feuersbrunst ist ein Talent, frühestens 25; Verbrennen ist ein Talent, frühestens 40. Der Wendepunkt ist Schatten und Flamme 5/5 (frühestens 39): Ab dann frisst Feuersbrunst deinen Feuerbrand nicht mehr, und Schattenbrand gibt seinen Seelensplitter immer zurück.
+**Einfache Reihenfolge:**
+1. Schick deinen Dämon hinein (**Ctrl-1**).
+2. Feuerbrand (**3**). Ein Guide eröffnet mit Schattenblitz aus der Ferne, mit Feuerbrand direkt danach.
+3. Zäher Gegner: Omen der Pein (**5**) und dein Fluch (**Shift-V**).
+4. Ab 25: Feuersbrunst (Block D). Vor Schatten und Flamme 5/5 frisst sie deinen Feuerbrand: Nutz sie am Ende von Feuerbrand oder als letzten Treffer. Danach: jedes Mal, wenn sie bereit ist.
+5. Füller: Schattenblitz (**1**). Ab 40 Verbrennen (Block D), mit Feuerbrand auf dem Gegner.
+6. Ab 20: Schattenbrand (**Shift-4**) als letzter Treffer. Dann bekommst du den Seelensplitter zurück.
+7. Aderlass (**F**) zwischen Kämpfen. Wenig Mana: dein Zauberstab (nicht auf dem Block, leg ihn auf deine eigene Leiste).
+8. Mehr Gegner: ab 30 Omen der Verwüstung (Block D) auf einen zähen Gegner, dann greif den Rest an. Feuerregen (**Shift-1**). Höllenfeuer (**Shift-2**, ab 30) nur mit genug Gesundheit.
+**Alle 10 Stufen:**
+- 10: Schattenblitz (**1**) und Feuerbrand (**3**; Rang 2 mit 10). Erstes Talent: Dunkle Macht (schnellere Zauber) oder Verbesserter Schattenblitz. Die Talentstufen hier sind die frühesten; ein Perk kann sie bis zu 5 Stufen früher bringen. Danach Schattenblitz Rang 3 mit 12 (2,8 Sekunden Zauberzeit); Nachwirkung und Katastrophe (Talente, passiv) ab 15; Sengender Schmerz (Block D) mit 18.
+- 20: Schattenbrand (**Shift-4**, ein Talent): ein spontaner Schattentreffer; kostet 1 Seelensplitter; Abklingzeit 15 Sekunden. Stirbt der Gegner (einer, der EP gibt) innerhalb von 8 Sekunden, bekommst du einen Splitter zurück. Verderben (ein Talent, passiv): Deine kritischen Zerstörungstreffer treffen härter. Feuerregen (**Shift-1**). Schattenblitz Rang 4 (3 Sekunden Zauberzeit). Danach Schattenbrand Rang 2 mit 24. Feuersbrunst (Block D, ein Talent) mit 25: ein spontaner Feuertreffer auf einen Gegner mit deinem Feuerbrand; dieser Feuerbrand ist dann weg; Abklingzeit 10 Sekunden. Peinigende Flammen und Intensität (Talente, passiv) ab 25.
+- 30: Omen der Verwüstung (Block D, ein Talent): 5 Minuten auf einem Gegner; 15% deines ganzen Schadens auf andere Gegner trifft auch diesen. Nur ein Gegner gleichzeitig. Feuer und Schwefel (du brauchst zuerst Feuersbrunst) und Feuerschwall (du brauchst zuerst Intensität), Talente, passiv. Höllenfeuer (**Shift-2**). Danach Feuersbrunst Rang 2 und Schattenbrand Rang 3 mit 32; Schatten und Flamme (ein Talent, passiv) ab 35, 5/5 frühestens mit 39.
+- 40: Verbrennen (Block D, ein Talent; du brauchst zuerst Omen der Verwüstung): 2,5 Sekunden Zauberzeit, 25% mehr Schaden, wenn der Gegner deinen Feuerbrand hat. Feuersbrunst Rang 3, Schattenbrand Rang 4. Danach Seelenfeuer (**Q**) mit 48.
+- 50: Verbrennen Rang 2. Inferno (**F3**).
+- 60: Verbrennen Rang 3, Feuersbrunst Rang 6. Omen der Verdammnis (**F1**).
+**Anfängerfehler:**
+- Feuersbrunst direkt nach Feuerbrand. Sie frisst deinen Feuerbrand (bis Schatten und Flamme 5/5).
+- Schattenbrand ohne Seelensplitter, oder auf einen Gegner, der lange lebt. Der Splitter kommt nur zurück, wenn der Gegner innerhalb von 8 Sekunden stirbt.
+- Omen der Verwüstung und Omen der Pein auf demselben Gegner. Nur ein Omen passt darauf.]] },
+			-- derived, not measured as a standalone name: Höllenbestie (from SpellName 437833 "Höllenbestie beschwören"),
+			-- Teufelsross (from 5784 "Teufelsross beschwören").
+		},
+		PALADIN = {
+			{ band = 1, title = "Heilig: Heiler", body = [[
+Ab Stufe 1: Heiliges Licht hast du von Anfang an. Ein **Heiler** hält die Gruppe am Leben. Die Guides nennen Heilig den langsamsten Baum, um allein zu leveln: Level als Vergeltung und heile in Dungeons, oder spiel Heilig mit einem Freund. Die eigenen Tasten des Baums kommen mit 20 (Göttliche Gunst), 25 (Eid des Lichts), 30 (Heiliger Schock) und 40 (Lichtwacht).
+**Einfache Reihenfolge (in einer Gruppe):**
+Vor dem Pull: Segen der Weisheit (**Shift-V**, ab 14) auf dich, Segen der Könige (**Shift-X**, ab 20) auf die anderen. Aura: Aura der Hingabe (**Ctrl-1**), oder Aura der Konzentration (**Ctrl-3**, ab 22), wenn Zauberwirker oft getroffen werden.
+1. Eid des Lichts (**Shift-R**, ab 25) auf den Tank. Er hält 5 Minuten, und nur ein Spieler kann ihn haben.
+2. Lichtblitz (**F2**, ab 20) ist deine normale Heilung. Vor 20: Heiliges Licht (**C**).
+3. Heiliges Licht (**C**) für einen großen Treffer. Ab 25 (Lichtinfusion) wird es schneller gewirkt, direkt nach einem kritischen Treffer von Heiliger Schock oder Lichtblitz. **Kritischer Treffer** = ein glücklicher, stärkerer Treffer oder eine stärkere Heilung.
+4. Heiliger Schock (**F4**, ab 30), wenn keine Zeit zum Zaubern ist, oder während du dich bewegst.
+5. Die ganze Gruppe verletzt, ab 40: Lichtwacht (**Shift-F1**) auf einen Spieler, dann Heiliger Schock (**F4**) auf denselben Spieler.
+6. Göttliche Gunst (**Shift-3**, ab 20) vor einer Heilung, die groß sein muss.
+7. Ein schlechter Effekt auf einem Freund: Läutern, später Reinigung des Glaubens (**Shift-C**).
+8. Notfall: Handauflegung (**Q**). Sie verbraucht dein ganzes restliches Mana.
+Nichts zu heilen: dein Siegel (**3**), Richturteil (**2**) und Heiliger Stoß (**1**) aus der Nähe. Allein: Spiel wie ein Vergeltungspaladin; ab 30 ist Heiliger Schock (**F4**) auf den Gegner deine eine starke Schadenstaste.
+**Alle 10 Stufen:**
+- 10: Du hast schon Heiliges Licht (**C**), Aura der Hingabe (**Ctrl-1**), Segen der Macht (**Shift-Z**), Göttlicher Schutz (**Z**), Hammer der Gerechtigkeit (**E**) und Läutern (**Shift-C**). Neu mit 10: Handauflegung (**Q**), Segen des Schutzes (**Shift-F**). Erstes Talent: Spiritueller Fokus (passiv). Die Talentstufen hier sind die frühesten; ein Perk kann sie bis zu 5 Stufen früher bringen. Danach Erlösung (**F3**, aus einer Quest) mit 12, Segen der Weisheit (**Shift-V**) mit 14, Andacht und Heilendes Licht (Talente, passiv) ab 15, Segen der Freiheit (**R**) mit 18.
+- 20: Lichtblitz (**F2**), Segen der Könige (**Shift-X**). Göttliche Gunst (**Shift-3**, ein Talent): Dein nächster Lichtblitz, dein nächstes Heiliges Licht oder dein nächster Heiliger Schock ist sicher kritisch; Abklingzeit 2 Minuten. Illumination (ein Talent, passiv; du brauchst zuerst Andacht). Danach Aura der Konzentration (**Ctrl-3**) mit 22. Eid des Lichts (**Shift-R**, ein Talent) und Lichtinfusion (ein Talent, passiv) mit 25.
+- 30: Heiliger Schock (**F4**, ein Talent): spontan, Schaden an einem Gegner oder eine Heilung auf einen Freund; Abklingzeit 10 Sekunden. Göttliches Eingreifen (**F3** im Kampf: Du stirbst dabei selbst). Siegel des Lichts (Block D). Danach Gottesschild (**Z**) mit 34, Heilige Kraft (ein Talent, passiv) mit 35, Siegel der Weisheit (Block D) mit 38.
+- 40: Lichtwacht (**Shift-F1**, ein Talent; du brauchst zuerst Heiliger Schock): 30 Sekunden auf einem Freund; dein nächster Heiliger Schock auf diesen Freund hat keine Abklingzeit und heilt auch seine Gruppe. Heiliger Schock Rang 2. Plattenpanzer: Du kannst Platte tragen. Danach Reinigung des Glaubens (**Shift-C**) mit 42, Segen der Opferung (Block D) mit 46, Heiliger Schock Rang 3 mit 48.
+- 50: Lichtwacht Rang 2, Handauflegung Rang 3. Danach Großer Segen der Macht mit 52 und Großer Segen der Weisheit mit 54, Heiliger Schock Rang 4 mit 56.
+- 60: Großer Segen der Könige, Lichtwacht Rang 3; nichts Neues für diese Rolle.
+**Anfängerfehler:**
+- Heiliges Licht für jeden kleinen Treffer. Lichtblitz (**F2**, ab 20) ist die billige normale Heilung.
+- Lichtwacht auf einen Spieler und Heiliger Schock auf einen anderen. Die Gruppenheilung kommt nur von Heiliger Schock auf DENSELBEN Spieler.
+- Im Kampf aus Versehen F3 drücken. Dann wirkt es Göttliches Eingreifen, und du stirbst selbst. Außerhalb eines Kampfes ist F3 Erlösung.]] },
+			{ band = 2, title = "Schutz: Tank", body = [[
+Ab Stufe 10 (Zorn der Gerechtigkeit und Siegel des Furors beim Lehrer). Ein **Tank** ist der, den die Gegner schlagen, damit der Rest der Gruppe sicher bleibt. **Bedrohung** = wie sehr ein Gegner dich angreifen will. Du trägst eine Einhandwaffe und einen Schild. Die Guides sind sich uneinig, wie gut Schutz allein levelt. Die Tasten des Baums: Bollwerk des Templers mit 20, Schnelles Richturteil mit 25, Heiliger Schild mit 30.
+**Einfache Reihenfolge:**
+1. Vor dem Pull: Zorn der Gerechtigkeit an (keine feste Taste: Er liegt auf Block D, oder leg ihn auf deine eigene Leiste; er hält 30 Minuten). Siegel des Furors (**F**), ein Segen, eine Aura. Die Guides sind sich uneinig über die Aura: Aura der Hingabe (**Ctrl-1**) oder Aura der Vergeltung (**Ctrl-2**).
+2. Ab 30: Heiliger Schild (**Shift-4**), kurz bevor die Gegner dich erreichen. Drück ihn wieder jedes Mal, wenn er bereit ist.
+3. Richturteil (**2**) auf den ersten Gegner. Mit Siegel des Furors ist Richturteil dein Spott (3 Sekunden). **Spott** = den Gegner dazu bringen, dich anzugreifen.
+4. Zwei oder mehr Gegner, ab 20: Weihe (**Shift-1**) unter ihnen. Nur die ersten 4 nehmen den zusätzlichen Schaden.
+5. Heiliger Stoß (**1**) jedes Mal, wenn er bereit ist.
+6. Ein Gegner läuft zu jemand anderem: Richturteil (**2**). Nicht bereit? Ab 25: Schnelles Richturteil (**F1**), ein zweites Richturteil mit seiner eigenen Abklingzeit von 1 Minute.
+7. Ein Gegner wirkt einen Zauber: Hammer der Gerechtigkeit (**E**). Der Paladin hat keine Unterbrechung.
+8. Exorzismus (**5**, ab 20) auf Untote und Dämonen. Hammer des Zorns (**4**, ab 44).
+9. Großer Schaden kommt, ab 20: Bollwerk des Templers (**X**). Letzter Ausweg: Handauflegung (**Q**).
+Wenig Mana: Lass zuerst Weihe weg. Ab 40 (Schildgeschworen): zuerst Heiliger Schild, dann Heiliger Stoß. Nicht der Tank (allein, oder jemand anderes tankt): Nutz dein Siegel auf **3**, nicht Siegel des Furors.
+**Alle 10 Stufen:**
+- 10: Zorn der Gerechtigkeit (Block D) und Siegel des Furors (**F**). Du hast schon Richturteil (**2**), Heiliger Stoß (**1**), Hammer der Gerechtigkeit (**E**), Aura der Hingabe (**Ctrl-1**) und Göttlicher Schutz (**Z**). Auch neu: Handauflegung (**Q**), Segen des Schutzes (**Shift-F**). Erstes Talent: Verschanzen (passiv). Die Talentstufen hier sind die frühesten; ein Perk kann sie bis zu 5 Stufen früher bringen. Danach Präzision, Gunst des Hüters oder Heilige Pflicht (Talente, passiv) ab 15, Aura der Vergeltung (**Ctrl-2**) mit 16.
+- 20: Bollwerk des Templers (**X**, ein Talent): ein Schild, der 8 Sekunden lang Schaden in Höhe deiner maximalen Gesundheit aufsaugt; Abklingzeit 5 Minuten. Weihe (**Shift-1**), Segen der Könige (**Shift-X**), Exorzismus (**5**). Schild-Spezialisierung (ein Talent, passiv; du brauchst zuerst Verschanzen). Danach Schnelles Richturteil (**F1**, ein Talent; du brauchst zuerst Bollwerk des Templers) und Verbesserter Zorn der Gerechtigkeit (ein Talent, passiv) mit 25.
+- 30: Heiliger Schild (**Shift-4**, ein Talent; du brauchst einen Schild): 10 Sekunden lang 30% mehr Blockchance, 4 Aufladungen; Abklingzeit 10 Sekunden. Abrechnung (ein Talent, passiv). Danach Gottesschild (**Z**) mit 34, Eiserner Glaube (ein Talent, passiv) mit 35.
+- 40: Schildgeschworen (ein Talent, passiv; du brauchst zuerst Heiliger Schild): Heiliger Stoß alle 6 Sekunden, und er wirkt mit Heiliger Schild. Plattenpanzer: Du kannst Platte tragen. Heiliger Schild Rang 2. Danach Hammer des Zorns (**4**) mit 44, Segen der Opferung (Block D) mit 46.
+- 50: Heiliger Schild Rang 3, Heiliger Zorn (Block D); stärkere Ränge von Siegel des Furors und Weihe.
+- 60: Heiliger Schild Rang 4 und stärkere Ränge; nichts Neues für diese Rolle.
+**Anfängerfehler:**
+- Zorn der Gerechtigkeit vergessen. Ohne ihn machst du viel weniger Bedrohung. Prüf ihn vor jedem Pull; er hält 30 Minuten.
+- Siegel des Furors an, wenn du nicht der Tank bist. Jedes Richturteil spottet dann.
+- Kein Schild. Heiliger Schild wirkt ohne einen nicht, und Siegel des Furors gibt keinen Schutzschild.]] },
+			{ band = 3, title = "Vergeltung: Schaden aus der Nähe", body = [[
+Ab Stufe 1 (Siegel der Rechtschaffenheit); Richturteil kommt mit 4, Heiliger Stoß mit 6. Die Guides nennen Vergeltung den schnellsten Baum, um allein zu leveln, mit einer langsamen Zweihandwaffe. Die Klassenquest mit 20 gibt dir eine. Die Tasten des Baums: Siegel des Befehls mit 20, Buße mit 30.
+**Einfache Reihenfolge:**
+1. Vor dem Kampf: Segen der Macht (**Shift-Z**) bis 20, dann Segen der Könige (**Shift-X**).
+2. Aura: Aura der Hingabe (**Ctrl-1**); Aura der Vergeltung (**Ctrl-2**, ab 16) gegen mehrere Gegner.
+3. Siegel an (**3**): Siegel der Rechtschaffenheit, bis du Siegel des Befehls kennst (ab 20). Dann wirkt Taste 3 Siegel des Befehls.
+4. Richturteil (**2**) jedes Mal, wenn es bereit ist. Es verbraucht das Siegel nicht.
+5. Heiliger Stoß (**1**) jedes Mal, wenn er bereit ist.
+6. Untoter oder Dämon, ab 20: Exorzismus (**5**).
+7. Zwei oder mehr Gegner, ab 20: Weihe (**Shift-1**). Nicht auf einen Gegner: Sie kostet zu viel Mana.
+8. Ab 44: Hammer des Zorns (**4**), wenn der Gegner 20% Gesundheit oder weniger hat.
+9. Starker Gegner: Hammer der Gerechtigkeit (**E**), dann Richturteil (**2**). Mit Siegel des Befehls macht Richturteil doppelten Schaden an einem betäubten Gegner.
+10. Ein zweiter Humanoid, ab 30: Buße (**V**), und schlag ihn nicht.
+11. Leg das Siegel neu an, wenn es ausläuft (30 Sekunden). Wenig Gesundheit: Heiliges Licht (**C**) zwischen Kämpfen.
+**Alle 10 Stufen:**
+- 10: Du hast schon Siegel der Rechtschaffenheit (**3**), Richturteil (**2**), Heiliger Stoß (**1**), Segen der Macht (**Shift-Z**) und Hammer der Gerechtigkeit (**E**). Neu mit 10: Handauflegung (**Q**). Erstes Talent: Segnung (die meisten Guides) oder Abwehr (ein Guide), beide passiv. Die Talentstufen hier sind die frühesten; ein Perk kann sie bis zu 5 Stufen früher bringen. Danach Verbessertes Richturteil, Überzeugung oder Gesegnetes Richturteil (Talente, passiv) ab 15, Aura der Vergeltung (**Ctrl-2**) mit 16.
+- 20: Siegel des Befehls (**3**, ein Talent): Deine Treffer machen manchmal einen zusätzlichen Heiligtreffer. Ab dann wirkt Taste 3 es statt Siegel der Rechtschaffenheit. Weihe (**Shift-1**), Exorzismus (**5**), Segen der Könige (**Shift-X**), Lichtblitz (**F2**). Streben nach Gerechtigkeit (ein Talent, passiv: Du bewegst dich bei 2/2 15% schneller). Die Klassenquest für eine Zweihandwaffe. Danach Heiliger Richter und Zweihandwaffen-Spezialisierung (Talente, passiv) mit 25.
+- 30: Buße (**V**, ein Talent): nimmt einen Humanoiden bis zu 6 Sekunden lang aus dem Kampf; jeder Schaden weckt ihn; Abklingzeit 1 Minute. Rache (ein Talent, passiv; du brauchst zuerst Siegel des Befehls): Nach einem kritischen Treffer machst du 30 Sekunden lang mehr Schaden; es stapelt sich 5-mal. Siegel des Befehls Rang 2. Danach Gottesschild (**Z**) mit 34, Champion des Lichts (ein Talent, passiv) mit 35.
+- 40: Entfesselter Zorn (ein Talent, passiv; du brauchst zuerst Buße): Deine Treffer speichern Kopien deines Siegels, und ein Treffer mit einem anderen Siegel verbraucht sie. Plattenpanzer: Du kannst Platte tragen. Die Quest für das Schlachtross. Danach Hammer des Zorns (**4**) mit 44.
+- 50: Siegel des Befehls Rang 4, Heiliger Zorn (Block D), Hammer des Zorns Rang 2 mit 52; nichts Neues für diese Rolle.
+- 60: Siegel des Befehls Rang 5 und stärkere Ränge; die Quest für das Streitross (Allianz); nichts Neues für diese Rolle.
+**Anfängerfehler:**
+- Das Siegel nach jedem Richturteil neu anlegen. Richturteil verbraucht es nicht; ein Siegel hält 30 Sekunden.
+- Siegel des Befehls mit einer schnellen Waffe. Es will eine langsame Zweihandwaffe.
+- Weihe auf einen Gegner. Dafür kostet sie zu viel Mana.]] },
+			-- derived, not measured as a standalone name: Schlachtross (from SpellName 13819 "Schlachtross beschwören"),
+			-- Streitross (from 23214 "Streitross beschwören").
+		},
 	},
 }

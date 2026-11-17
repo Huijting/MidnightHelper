@@ -426,5 +426,563 @@ A partir do nível 1: Toque de Cura está lá desde o começo. Os guias não rec
 - Curar numa forma. As curas só funcionam na sua forma normal.
 - Lançar um HoT em alguém que ainda tem ele. O novo substitui o antigo.]] },
 		},
+		-- Warrior, Mage, Priest, Rogue, Hunter, Shaman, Warlock, Paladin: 17 Nov 2026, mh-writer, from Modules/ForeverHowToPlay.lua.
+		-- Spell and talent names: SpellName ptBR, wowf 1.60.1.70938 (by id). Attack power: GlobalStrings ptBR.
+		WARRIOR = {
+			{ band = 3, title = "Proteção: tanque", body = [[
+A partir do nível 10 (Postura de Defesa, de uma missão; a mesma missão dá Provocar e Fender Armadura). O **tanque** é quem os inimigos atacam, para o resto do grupo ficar seguro. Você usa uma arma de uma mão e um escudo. **Ameaça** = o quanto um inimigo quer atacar você; como tanque, você precisa dela em cada inimigo. Os guias não concordam sobre qual árvore sobe de nível mais rápido sozinha: alguns dizem que Proteção é a mais rápida, outros dizem que ela é mais lenta sozinha. Ela pega ritmo por volta do nível 16, quando você tem Levantar Escudo junto com Revanche.
+**Ordem simples:**
+1. Postura de Defesa (**Ctrl-2**), Brado de Batalha (**Shift-X**). Fúria Sanguinária (**F1**) para ter Raiva no começo.
+2. Puxe. **Puxar** = acertar um inimigo de longe, para ele vir até você. Investida (**R**) só funciona na Postura de Batalha (**Ctrl-1**); volte para a Postura de Defesa (**Ctrl-2**) depois. Com Vanguarda (a partir do 25), Investida também funciona na Postura de Defesa. Ou puxe com sua arma de longo alcance (bloco D).
+3. Vários inimigos: Brado Desmoralizador (**Shift-2**, a partir do 14) uma vez, Trovoada (**Shift-1**) sempre que estiver pronta.
+4. Levantar Escudo (**Z**, a partir do 16), e Revanche (**2**, a partir do 14) assim que acender.
+5. Escudada (**3**, a partir do 40) sempre que estiver pronta.
+6. Fender Armadura (**5**) no seu alvo principal; até 5 acúmulos num chefe.
+7. Provocar (**F**) quando um inimigo ataca outra pessoa.
+8. Raiva sobrando: Golpe Heroico (**1**) em um inimigo, Cutilada (**Shift-4**, a partir do 20) em dois ou mais.
+**A cada 10 níveis:**
+- 10: Postura de Defesa (**Ctrl-2**), Provocar (**F**), Fender Armadura (**5**), Fúria Sanguinária (**F1**). Depois Trombada com Escudo (**E**) no 12, Revanche (**2**) e Brado Desmoralizador (**Shift-2**) no 14, Levantar Escudo (**Z**) no 16, Desarmar (**V**) no 18.
+- 20: Último Recurso (**X**, um talento): 30% mais vida máxima por 20 segundos. Ímpeto da Vitória (**F2**), Cutilada (**Shift-4**). Depois Brado Intimidador (**Shift-Q**) no 22, Vanguarda (um talento, passivo) no 25, Brado Desafiador (**Shift-F**) no 26, Muralha de Escudos (**C**) no 28. Os níveis de talento aqui são os mais cedo possíveis; uma vantagem pode adiantá-los em até 5 níveis.
+- 30: Pancada de Concussão (**Shift-V**, um talento): um atordoamento de 5 segundos. Postura de Berserker (**Ctrl-3**, de uma missão). Depois Bastião (um talento, passivo) no 35.
+- 40: Escudada (**3**, um talento). Armadura de Placa no treinador: você pode usar placa.
+- 50: nada novo para esta função. Graus mais fortes de Escudada, Revanche, Fender Armadura e Trovoada.
+- 60: graus mais fortes de novo; nada novo para esta função.
+**Erros de iniciante:**
+- Achar que Trovoada atinge o bando inteiro. Ela atinge 4 inimigos; um quinto pode correr até o curandeiro.
+- Deixar inimigos atrás de você. Por trás você não pode bloquear, se esquivar nem aparar, e Revanche não acende.
+- Provocar num inimigo que já ataca você. Aí não faz nada.]] },
+			{ band = 1, title = "Armas: dano com uma arma grande", body = [[
+A partir do nível 1. Você usa uma arma grande de duas mãos e quase sempre fica na Postura de Batalha. Os grandes passos são Golpes a Esmo no 30 e Golpe Mortal no 40. Uma arma nova é o seu maior ganho. Você não tem cura própria, a não ser Ímpeto da Vitória (a partir do 20), então comida e ataduras continuam úteis. Os guias não concordam sobre qual árvore sobe de nível mais rápido; as três funcionam.
+**Ordem simples:**
+1. Postura de Batalha (**Ctrl-1**), Brado de Batalha (**Shift-X**).
+2. Investida (**R**) para começar.
+3. Dilacerar (**Shift-Z**), se o inimigo vai viver um tempo.
+4. Subjugar (**2**, a partir do 12) assim que acender.
+5. Golpe Mortal (**3**, a partir do 40) sempre que estiver pronto; guarde 30 de Raiva para ele.
+6. Ímpeto da Vitória (**F2**, a partir do 20) depois de matar, quando falta vida.
+7. Dois inimigos: Golpes a Esmo (**Q**, a partir do 30), depois Cutilada (**Shift-4**, a partir do 20). Antes do 30: Trovoada (**Shift-1**).
+8. Raiva sobrando: Golpe Heroico (**1**).
+**A cada 10 níveis:**
+- 10: Golpe Heroico (**1**), Investida (**R**), Dilacerar (**Shift-Z**), Trovoada (**Shift-1**), Cortar Tendão (**V**), Brado de Batalha (**Shift-X**), Fúria Sanguinária (**F1**). Depois Subjugar (**2**) no 12, Brado Desmoralizador (**Shift-2**) no 14.
+- 20: Ímpeto da Vitória (**F2**), Cutilada (**Shift-4**), Batida (**Shift-C**), Retaliação (**C**). Depois Executar (**4**) no 24, Golpe Lanceador (**F3**, um talento) no 25: um golpe extra forte em Gigantes e Draconianos. Os níveis de talento aqui são os mais cedo possíveis; uma vantagem pode adiantá-los em até 5 níveis.
+- 30: Golpes a Esmo (**Q**, um talento, só na Postura de Batalha): seus próximos 5 golpes também atingem um inimigo ao lado do seu alvo. Postura de Berserker (**Ctrl-3**, de uma missão) com Interceptar (**R**) e Raiva Incontrolada (**Shift-V**). Depois Batida Aprimorada (um talento, passivo) no 35, Redemoinho (**2** na Postura de Berserker) no 36, Murro (**E** na Postura de Berserker) no 38.
+- 40: Golpe Mortal (**3**, um talento): o inimigo recebe 50% menos cura por 10 segundos. Armadura de Placa no treinador.
+- 50: Temeridade (**Q** na Postura de Berserker). Graus mais fortes de Golpe Mortal.
+- 60: graus mais fortes de novo; nada novo para esta função.
+**Erros de iniciante:**
+- Apertar Golpe Heroico (**1**) o tempo todo. Esse golpe não dá Raiva, então não sobra nada para Golpe Mortal ou Subjugar.
+- Batida (**Shift-C**) antes do talento Batida Aprimorada: 1,5 segundo de conjuração, que atrasa seu golpe normal. A maioria dos guias pula ela até lá.
+- Procurar uma interrupção no **E** com uma arma de duas mãos. Trombada com Escudo precisa de um escudo; sua interrupção é Murro (38, Postura de Berserker).]] },
+			{ band = 2, title = "Fúria: dano com duas armas", body = [[
+Uma arma em cada mão, a partir do nível 20 (Empunhar Duas Armas no treinador). Até lá, use sua melhor arma (uma de duas mãos serve) e jogue como Armas. Fúria fica forte de verdade com Redemoinho (36) e Sede de Sangue (40). Você precisa de duas armas boas. Redemoinho, Murro, Interceptar e Raiva Incontrolada só funcionam na Postura de Berserker, então você troca de postura muitas vezes.
+**Ordem simples (a partir do 36; antes disso, jogue como Armas):**
+1. Brado de Batalha (**Shift-X**). Fúria Sanguinária (**F1**) para ter Raiva.
+2. Investida (**R**) na Postura de Batalha (**Ctrl-1**).
+3. Desejo de Matar (**Shift-3**, a partir do 30) num inimigo forte.
+4. Postura de Berserker (**Ctrl-3**): Redemoinho (**2**, a partir do 36) sempre que estiver pronto.
+5. Sede de Sangue (**3**, a partir do 40) sempre que estiver pronta. Os guias divergem sobre qual dos dois vem primeiro.
+6. Ímpeto da Vitória (**F2**) depois de matar, quando falta vida.
+7. Raiva sobrando: Golpe Heroico (**1**); em dois inimigos, Cutilada (**Shift-4**).
+8. Pouca Raiva: Golpes Imprudentes (**Shift-F1**, a partir do 25; custa vida).
+**A cada 10 níveis:**
+- 10: nada novo para esta função: você joga como Armas, com uma arma.
+- 20: Empunhar Duas Armas no treinador: agora uma arma pode ir na sua outra mão. Uivo Perfurante (**Shift-R**, um talento): deixa lentos todos os inimigos perto de você. Ímpeto da Vitória (**F2**), Cutilada (**Shift-4**). Depois Executar (**4**) no 24, Golpes Imprudentes (**Shift-F1**, um talento) no 25. Os níveis de talento aqui são os mais cedo possíveis; uma vantagem pode adiantá-los em até 5 níveis.
+- 30: Desejo de Matar (**Shift-3**, um talento). Postura de Berserker (**Ctrl-3**, de uma missão) com Interceptar (**R**) e Raiva Incontrolada (**Shift-V**). Depois Redemoinho (**2** na Postura de Berserker) no 36, Murro (**E** na Postura de Berserker) no 38.
+- 40: Sede de Sangue (**3**, um talento; você precisa de Desejo de Matar antes). Ela não cura; ela faz você correr mais rápido. Armadura de Placa no treinador.
+- 50: Temeridade (**Q** na Postura de Berserker). Graus mais fortes de Sede de Sangue.
+- 60: graus mais fortes de novo; nada novo para esta função.
+**Erros de iniciante:**
+- Jogar Fúria com uma arma boa e uma segunda ruim.
+- Procurar Redemoinho (**2**) na Postura de Batalha. Ele só funciona na Postura de Berserker, e lá Dilacerar e Trovoada não funcionam.
+- Desejo de Matar (**Shift-3**) numa luta que você pode perder. Por 30 segundos você também leva 5% mais dano.]] },
+		},
+		MAGE = {
+			{ band = 1, title = "Arcano: dano à distância", body = [[
+A partir do nível 8 (Mísseis Arcanos). Impacto Arcano é um talento, no mínimo nível 20; até lá você joga como qualquer mago, com Seta de Gelo, Bola de Fogo e Mísseis Arcanos. Os guias divergem: alguns dizem que Arcano é forte para subir de nível, a maioria aconselha Gelo e diz que Arcano gasta muita mana. A árvore dele não tem lentidões, então é a mais fraca para manter os inimigos longe. Um **feitiço canalizado** continua enquanto você fica parado; se você se mover, ele para. Mísseis Arcanos é um deles.
+**Ordem simples:**
+1. Abra com Seta de Gelo (**2**): o inimigo então vem devagar.
+2. Impacto Arcano (**Ctrl-2**, a partir do 20): um ou dois, num chefe até quatro. Cada um faz o próximo custar mais mana.
+3. Salva de Mísseis (a partir do 15) acendeu? Mísseis Arcanos (**3**) na hora: de graça e duas vezes mais rápido.
+4. Ira Arcana (**Shift-F1**, a partir do 25) sempre que estiver pronta.
+5. Inimigo perto de você? Nova Congelante (**V**), afaste-se.
+6. Quase morto: sua varinha (**Ctrl-3**, até o 40) ou Impacto de Fogo (**5**).
+7. Inimigo difícil ou chefe: Presença de Espírito (**Shift-3**, a partir do 30), depois Ira Arcana para um grande golpe instantâneo. A partir do 40, também Poder Arcano (**Q**).
+Vários inimigos: Nova Congelante (**V**), depois Explosão Arcana (**Shift-2**, a partir do 14). Pouca mana? Evocação (**F1**, a partir do 20).
+**A cada 10 níveis:**
+- 10: Nova Congelante (**V**). Primeiro talento: Canalização Aprimorada (Mísseis Arcanos não é mais interrompido quando você leva golpes). Depois Explosão Arcana (**Shift-2**) no 14, Salva de Mísseis (um talento, passivo) no 15. Os níveis de talento aqui são os mais cedo possíveis; uma vantagem pode adiantá-los em até 5 níveis.
+- 20: Impacto Arcano (**Ctrl-2**, um talento). Lampejo (**R**), Evocação (**F1**), Escudo de Mana (**Z**). Depois Contrafeitiço (**E**) no 24, Ira Arcana (**Shift-F1**, um talento; você precisa de Impacto Arcano antes) no 25.
+- 30: Presença de Espírito (**Shift-3**, um talento): seu próximo feitiço com conjuração abaixo de 10 segundos é instantâneo. Armadura de Gelo (**Shift-Z**). Depois Armadura de Mago (bloco D) no 34.
+- 40: Poder Arcano (**Q**, um talento; você precisa de Presença de Espírito antes): por 15 segundos seus feitiços causam 30% mais dano, mas custam 30% mais mana. Seta de Fogofrio assume o **Ctrl-3**: coloque sua varinha (Atirar) numa tecla Alt sua.
+- 50: graus mais fortes de Impacto Arcano, Ira Arcana e Mísseis Arcanos; nada novo para esta função.
+- 60: graus mais fortes de novo; nada novo para esta função.
+**Erros de iniciante:**
+- Apertar Impacto Arcano de novo e de novo. Cada um faz o próximo custar 100% mais mana; sua mana acaba rápido.
+- Se mover durante Mísseis Arcanos. É um feitiço canalizado: se mover para ele.
+- Poder Arcano num inimigo normal. Ele também deixa seus feitiços mais caros, e tem recarga de 3 minutos.]] },
+			{ band = 2, title = "Fogo: dano à distância", body = [[
+A partir do nível 1 (Bola de Fogo). Ignimpacto é um talento, no mínimo nível 20. O jogo de Fogo de verdade começa com Aquecendo (no mínimo 25); antes disso, Ignimpacto só serve para abrir. Os guias dizem que Fogo causa o maior dano em um inimigo, e sobe de nível rápido, mas com mais risco que Gelo: ele não tem congelamentos próprios. Um **crítico** é um golpe de sorte, mais forte.
+**Ordem simples:**
+1. Abra de longe com Ignimpacto (**4**, a partir do 20). Antes disso: Bola de Fogo (**1**).
+2. Bola de Fogo (**1**) como seu feitiço normal.
+3. Impacto de Fogo (**5**) sempre que estiver pronto. A partir do 25, cada Impacto de Fogo dá um acúmulo de Aquecendo.
+4. Dois ou três acúmulos de Aquecendo (a partir do 25)? Ignimpacto (**4**).
+5. Inimigo perto: Calcinar (**Ctrl-1**, a partir do 22) em vez de Bola de Fogo, ou Nova Congelante (**V**) e afaste-se. A partir do 30, Onda de Impacto (**F3**) depois disso.
+6. Quase morto: sua varinha (**Ctrl-3**, até o 40) ou Impacto de Fogo.
+7. Elite ou chefe, a partir do 40: Combustão (**Q**).
+Vários inimigos: Nova Congelante (**V**), Golpe Flamejante (**Shift-4**, a partir do 16), Onda de Impacto (**F3**, a partir do 30).
+**A cada 10 níveis:**
+- 10: Nova Congelante (**V**). Primeiro talento: Catalisador (Bola de Fogo é lançada mais rápido). Depois Incendiar e Impacto (talentos) no 15, Golpe Flamejante (**Shift-4**) no 16. Os níveis de talento aqui são os mais cedo possíveis; uma vantagem pode adiantá-los em até 5 níveis.
+- 20: Ignimpacto (**4**, um talento): 6 segundos de conjuração, então só para abrir. Lampejo (**R**), Evocação (**F1**), Proteção contra Fogo (**F4**), Escudo de Mana (**Z**). Depois Calcinar (**Ctrl-1**) no 22, Contrafeitiço (**E**) no 24, Aquecendo (um talento, passivo; você precisa de Ignimpacto antes) no 25: um crítico com Bola de Fogo, Seta de Fogofrio, Impacto de Fogo ou Calcinar deixa seu próximo Ignimpacto 25% mais rápido, até 3 acúmulos.
+- 30: Onda de Impacto (**F3**, um talento): instantânea, ao seu redor; os inimigos ficam 50% mais lentos por 6 segundos. Massa Crítica (um talento). Armadura de Gelo (**Shift-Z**). Depois Poder de Fogo (um talento) no 35.
+- 40: Combustão (**Q**, um talento; você precisa de Massa Crítica antes). Seta de Fogofrio assume o **Ctrl-3**: coloque sua varinha (Atirar) numa tecla Alt sua.
+- 50: graus mais fortes de Bola de Fogo, Ignimpacto, Onda de Impacto e Seta de Fogofrio; nada novo para esta função.
+- 60: graus mais fortes de novo; nada novo para esta função.
+**Erros de iniciante:**
+- Lançar Ignimpacto quando o inimigo já está em você. 6 segundos de conjuração é lento demais aí.
+- Achar que três acúmulos de Aquecendo deixam Ignimpacto instantâneo. Ainda é 1,5 segundo de conjuração: fique parado.
+- Procurar um Bloco de Gelo. Fogo não tem. Sua saída: Nova Congelante (**V**), Lampejo (**R**), Onda de Impacto (**F3**).]] },
+			{ band = 3, title = "Gelo: dano à distância", body = [[
+A partir do nível 4 (Seta de Gelo); Nova Congelante vem no 10. Lança de Gelo é um talento, no mínimo nível 20. Para subir de nível, é a primeira escolha da maioria dos guias: eles dizem que é a mais segura. Ela pega ritmo de verdade por volta do 30. **Congelado** = o inimigo está congelado no lugar e não pode se mover.
+**Ordem simples:**
+1. Seta de Gelo (**2**) do mais longe que puder. Cada acerto deixa o inimigo lento.
+2. Inimigo Congelado (por Nova Congelante, ou pelo talento Queimadura de Frio)? Lança de Gelo (**F**, a partir do 20).
+3. Inimigo perto? Nova Congelante (**V**), afaste-se, Seta de Gelo, depois Lança de Gelo.
+4. Dedos Glaciais acendeu (a partir do 30)? Lança de Gelo.
+5. Lança de Gelo não está pronta e o inimigo está perto: Cone de Frio (**Shift-F**, a partir do 26).
+6. Quase morto: sua varinha (**Ctrl-3**, até o 40) ou Impacto de Fogo (**5**).
+Vários inimigos (a partir do 20): Nova Congelante (**V**), afaste-se, Nevasca (**Shift-1**), depois Cone de Frio (**Shift-F**). Em apuros: Bloco de Gelo (**C**, a partir do 25), Lampejo (**R**).
+**A cada 10 níveis:**
+- 10: Nova Congelante (**V**). Primeiro talento: Seta de Gelo Aprimorada (conjuração mais curta). Depois Queimadura de Frio (um talento) no 15: suas lentidões podem congelar o inimigo por 5 segundos. Os níveis de talento aqui são os mais cedo possíveis; uma vantagem pode adiantá-los em até 5 níveis.
+- 20: Lança de Gelo (**F**, um talento): 300% mais dano num inimigo Congelado. Nevasca (**Shift-1**), Lampejo (**R**), Evocação (**F1**), Escudo de Mana (**Z**). Depois Proteção contra Gelo (**F2**) no 22, Contrafeitiço (**E**) no 24, Bloco de Gelo (**C**, um talento) no 25, Cone de Frio (**Shift-F**) no 26.
+- 30: Ruptura do Gelo (**Shift-C**, um talento): zera a recarga dos seus outros feitiços de Gelo; a recarga dela mesma é de 10 minutos. Dedos Glaciais (um talento; você precisa de Lança de Gelo antes): seus próximos 2 feitiços agem como se o inimigo estivesse Congelado. Armadura de Gelo (**Shift-Z**). Depois Calafrio do Inverno (um talento) no 35.
+- 40: Barreira de Gelo (**X**, um talento; você precisa de Ruptura do Gelo antes): um escudo que absorve dano. Seta de Fogofrio assume o **Ctrl-3**: coloque sua varinha (Atirar) numa tecla Alt sua.
+- 50: graus mais fortes de Seta de Gelo, Cone de Frio, Armadura de Gelo, Barreira de Gelo e Nevasca; nada novo para esta função.
+- 60: graus mais fortes de novo; nada novo para esta função.
+**Erros de iniciante:**
+- Lança de Gelo num inimigo que não está Congelado. Aí é um golpe pequeno.
+- Apertar Impacto de Fogo logo antes de um congelamento. Impacto de Fogo e Lança de Gelo compartilham uma recarga de 8 segundos.
+- Usar Ruptura do Gelo à toa. Ela tem recarga de 10 minutos: guarde para quando as coisas derem errado.]] },
+		},
+		PRIEST = {
+			{ band = 1, title = "Disciplina: curandeiro", body = [[
+A partir do nível 1: Cura Inferior está lá desde o começo. Os feitiços próprios dela vêm mais tarde: Proteção Anímica no 25 e Penitência no 30, ambos no mínimo. Num grupo, ela é mais forte curando uma pessoa, o tanque. Subir de nível sozinho funciona com Punição, Fogo Sagrado e sua varinha, depois Penitência; os guias não concordam se é mais rápido que Sombra. **Alma Enfraquecida**: depois de uma Palavra de Poder: Escudo, a mesma pessoa não pode receber um novo escudo por 15 segundos.
+**Ordem simples (em grupo):**
+1. Palavra de Poder: Escudo (**Z**) no tanque, logo antes de puxar. **Puxar** = o primeiro golpe que começa uma luta.
+2. Renovar (**F4**) no tanque.
+3. Penitência (**Shift-F1**, a partir do 30) em quem está ferido, toda vez que estiver pronta.
+4. Sua cura grande (**C**) para dano normal.
+5. Cura Célere (**F2**, a partir do 20) quando C é lento demais.
+6. Mais pessoas feridas: Prece de Cura (**Shift-2**, a partir do 30).
+7. Concentração Interior (**F1**, a partir do 20) antes de uma cura cara. Infusão de Poder (**Q**, a partir do 40) em você mesmo ou num conjurador.
+Sozinho: Escudo (**Z**), Fogo Sagrado (**4**, a partir do 20), Punição (**1**), Impacto Mental (**3**), Palavra Sombria: Dor (**2**), Penitência se você não precisar dela para curar, depois sua varinha (**5**).
+**A cada 10 níveis:**
+- 10: Cura Inferior (**C**), Palavra de Poder: Escudo (**Z**), Renovar (**F4**), Ressurreição (**F3**, só fora de combate), Punição (**1**). Depois Fogo Interior (**Shift-Z**) no 12, Curar Doença (**Shift-C**) no 14, Cura (**C**) no 16, Dissipar Magia (**Shift-V**) no 18.
+- 20: Cura Célere (**F2**), Fogo Sagrado (**4**), Proteção contra Medo (bloco D). Concentração Interior (**F1**, um talento): seu próximo feitiço não custa mana e tem mais chance de crítico; recarga de 3 minutos. Depois Proteção Anímica (um talento, passivo) no 25: Escudo não tem recarga e custa menos. Os níveis de talento aqui são os mais cedo possíveis; uma vantagem pode adiantá-los em até 5 níveis.
+- 30: Penitência (**Shift-F1**, um talento): cura um amigo ou fere um inimigo; recarga de 12 segundos. Prece de Cura (**Shift-2**), Espírito Divino (bloco D). Depois Abolir Doença (**Shift-C**) no 32, Égide Divina (um talento, passivo) no 35.
+- 40: Infusão de Poder (**Q**, um talento; você precisa de Penitência antes): 20% mais dano e cura de feitiços; recarga de 3 minutos. Cura Maior assume o **C**.
+- 50: graus mais fortes de Penitência, Prece de Cura, Cura Célere e Renovar. Prece da Fortitude (**Shift-X**) no 48.
+- 60: graus mais fortes de novo; nada novo para esta função.
+**Erros de iniciante:**
+- Dar escudo no mesmo jogador duas vezes seguidas. Alma Enfraquecida impede. É por jogador: outra pessoa pode receber um escudo na hora.
+- Penitência num inimigo para curar seu grupo. Ela cura ou fere, não os dois.
+- Prece de Cura no jogador errado. Ela cura o grupo do jogador que você escolhe.]] },
+			{ band = 2, title = "Sagrado: curandeiro", body = [[
+A partir do nível 1: Cura Inferior está lá desde o começo. Sagrado é o curandeiro de grupo. Sozinho, ele sobe de nível devagar: os guias aconselham fazer missões com Punição e sua varinha, e curar em masmorras. Os feitiços próprios dele vêm tarde: Nova Sagrada no 20 e Prece da Recomposição no 40, ambos no mínimo.
+**Ordem simples (em grupo):**
+1. Renovar (**F4**) no tanque quando ele começa a puxar. **Puxar** = o primeiro golpe que começa uma luta.
+2. Prece da Recomposição (**Ctrl-2**, a partir do 40) no tanque antes de puxar, e de novo toda vez que estiver pronta.
+3. Sua cura grande (**C**) para dano normal.
+4. Cura Célere (**F2**, a partir do 20) quando C chegaria tarde demais.
+5. Grupo todo ferido: Prece de Cura (**Shift-2**, a partir do 30). Nova Sagrada (**Shift-1**, a partir do 20) só quando todos estão bem do seu lado; ela custa muita mana.
+6. Palavra de Poder: Escudo (**Z**) para ganhar tempo.
+7. Um inimigo ataca você: Desvanecer (**F**).
+**A cada 10 níveis:**
+- 10: Cura Inferior (**C**), Palavra de Poder: Escudo (**Z**), Renovar (**F4**), Ressurreição (**F3**, só fora de combate). Depois Fogo Interior (**Shift-Z**) no 12, Curar Doença (**Shift-C**) no 14, Cura (**C**) no 16, Dissipar Magia (**Shift-V**) no 18.
+- 20: Nova Sagrada (**Shift-1**, um talento): instantânea; fere os inimigos ao seu redor e cura seu grupo, sem ameaça. Cura Célere (**F2**), Fogo Sagrado (**4**), Proteção contra Medo (bloco D). Depois Vínculo Sagrado (um talento, passivo) no 25: Cura Célere em outra pessoa cura você pela metade. Os níveis de talento aqui são os mais cedo possíveis; uma vantagem pode adiantá-los em até 5 níveis.
+- 30: Prece de Cura (**Shift-2**), Espírito Divino (bloco D). Espírito da Redenção (um talento, passivo). Depois Abolir Doença (**Shift-C**) no 32, Cura Espiritual (um talento, passivo) no 35.
+- 40: Prece da Recomposição (**Ctrl-2**, um talento; você precisa de Espírito da Redenção antes): ela cura assim que o alvo leva dano, depois pula para outro membro do grupo, até 5 vezes; recarga de 10 segundos. Cura Maior assume o **C**.
+- 50: graus mais fortes de Prece da Recomposição, Nova Sagrada, Prece de Cura e Renovar. Prece da Fortitude (**Shift-X**) no 48.
+- 60: graus mais fortes de novo; nada novo para esta função.
+**Erros de iniciante:**
+- Prece de Cura no jogador errado. Ela cura o grupo do jogador que você escolhe, não o seu.
+- Cura Célere para tudo. Ela é rápida mas cara; guarde para emergências.
+- Nova Sagrada num grupo que está longe. Ela só funciona bem ao seu redor, e custa muito.]] },
+			{ band = 3, title = "Sombra: dano à distância", body = [[
+A partir do nível 4 (Palavra Sombria: Dor); Impacto Mental vem no 10. Açoite Mental é um talento, no mínimo nível 20; Forma de Sombra no 40. A maioria dos guias sobe de nível como Sombra; alguns jogam Disciplina até o 40. No começo, sua varinha faz boa parte do trabalho. Sombra não tem feitiço que atinge vários inimigos de uma vez. Um **DoT** é dano em pedacinhos ao longo de alguns segundos. Um **feitiço canalizado** continua enquanto você fica parado.
+**Ordem simples:**
+1. Palavra de Poder: Escudo (**Z**) em você mesmo, se o inimigo vai chegar até você.
+2. Impacto Mental (**3**) de longe, para começar.
+3. Palavra Sombria: Dor (**2**).
+4. Peste Devoradora (**Shift-3**, a partir do 20) num inimigo que vai viver um tempo.
+5. Açoite Mental (**1**, a partir do 20), e deixe ele ir até o fim. Antes disso: Punição (**1**).
+6. Termine com sua varinha (**5**).
+Pouca mana? Pule Peste Devoradora e Açoite Mental, e use sua varinha mais cedo. A partir do 32: Palavra Sombria: Morte (**Shift-4**) só quando ela vai matar o inimigo. A partir do 40: Forma de Sombra (**Ctrl-1**) ligada antes de puxar o primeiro inimigo, e deixe ligada.
+**A cada 10 níveis:**
+- 10: Impacto Mental (**3**), recarga de 8 segundos. Você já tem Punição (**1**), Palavra Sombria: Dor (**2**), Palavra de Poder: Escudo (**Z**), Desvanecer (**F**) e sua varinha (**5**). Depois Fogo Interior (**Shift-Z**) no 12, Grito Psíquico (**V**) no 14.
+- 20: Açoite Mental (um talento): assume a tecla **1** no lugar de Punição. Peste Devoradora (**Shift-3**): um DoT que também cura você; recarga de 24 segundos. Depois Abraço Vampírico (**Ctrl-3**, um talento) no 25 ou 30: seu grupo é curado em 20% do seu dano de Sombra. Os níveis de talento aqui são os mais cedo possíveis; uma vantagem pode adiantá-los em até 5 níveis.
+- 30: Silêncio (**E**, um talento): sua **interrupção** (ela para o feitiço de um inimigo); recarga de 45 segundos. Controle Mental (**Shift-F**). Depois Palavra Sombria: Morte (**Shift-4**) no 32, Levitar (**R**) no 34.
+- 40: Forma de Sombra (**Ctrl-1**, um talento; você precisa de Abraço Vampírico antes): 10% mais dano de Sombra, feitiços de Sombra custam metade, 15% menos dano físico recebido, mas nada de feitiços de cura. Antes disso: Trevas (um talento, passivo) no 35.
+- 50: graus mais fortes de Açoite Mental, Impacto Mental, Palavra Sombria: Dor, Peste Devoradora e Palavra Sombria: Morte. Prece da Fortitude (**Shift-X**) no 48.
+- 60: graus mais fortes de Açoite Mental e Peste Devoradora; nada novo para esta função.
+**Erros de iniciante:**
+- Palavra Sombria: Morte num inimigo com muita vida. Se ele não morrer, você perde 30% da sua própria vida.
+- Parar Açoite Mental cedo. Com o talento Açoite Mental Aprimorado, o último tique é o mais forte.
+- Abrir com Impacto Mental num grupo. Ele causa muita ameaça (o quanto um inimigo quer atacar você): deixe o tanque ir primeiro. Se um inimigo atacar você: Desvanecer (**F**).]] },
+		},
+		ROGUE = {
+			{ band = 1, title = "Assassinato: adagas e veneno", body = [[
+A partir do nível 1 (Golpe Sinistro e Eviscerar). Você luta de perto, com adagas e veneno. Você usa **Energia**, que enche sozinha. Seus golpes dão **Pontos de Combo** (até 5) no inimigo que você acerta; um **finalizador** gasta todos eles. Mutilar é um talento, no mínimo nível 40, e precisa de uma adaga em cada mão. Até lá você joga com Punhalada pelas Costas ou Golpe Sinistro. Os guias não dizem que este é o começo mais fácil: o grande passo só vem com Mutilar.
+**Ordem simples:**
+1. A partir do 20: veneno nas duas armas (itens, no bloco D).
+2. Espere a Energia cheia. A partir do 18 (Presteza), seu primeiro ataque então custa 10 de Energia a menos.
+3. Furtividade (**Shift-R**), vá para trás do inimigo. **Furtividade** = andar escondido, para o inimigo não ver você. Abra com Emboscar (**2**, a partir do 18, adaga na mão principal) ou Garrote (**1**, a partir do 14). Inimigo forte, a partir do 26: Golpe Baixo (**V**), um atordoamento de 4 segundos.
+4. Pontos de Combo: Punhalada pelas Costas (**2**) quando você está atrás do inimigo, senão Golpe Sinistro (**1**). A partir do 40: Mutilar (**3**), 2 pontos cada vez.
+5. Estocar (**Shift-3**, a partir do 24) sempre que estiver pronto. Com Peçonha (a partir do 30), cada Estocar deixa seu veneno mais forte por 6 segundos.
+6. Finalizador: Retalhar (**Shift-4**) numa luta longa; senão Eviscerar (**4**) com 5 pontos. Ruptura (**5**, a partir do 20) num inimigo que vai viver muito (um elite, um chefe).
+7. Sangue Frio (**F1**, a partir do 25) logo antes de um Eviscerar com 5 pontos.
+**A cada 10 níveis:**
+- 10: você já tem Golpe Sinistro (**1**), Eviscerar (**4**), Punhalada pelas Costas (**2**), Furtividade (**Shift-R**), Esfaquear (**Shift-Q**) e Evasão (**Z**). Novo no 10: Retalhar (**Shift-4**), Disparada (**R**), Aturdir (**Shift-Q** na Furtividade), e uma arma em cada mão (Empunhar Duas Armas). Depois Chute (**E**) no 12, Garrote (**1** na Furtividade) e Expor Armadura (**Shift-Z**) no 14, Finta (**F**) no 16, Emboscar (**2** na Furtividade) e Presteza (passivo) no 18.
+- 20: Ruptura (**5**). Venenos, de uma missão. Depois Sumir (**X**) no 22, Estocar (**Shift-3**) no 24, Sangue Frio (**F1**, um talento) no 25: seu próximo Golpe Sinistro, Punhalada pelas Costas, Emboscar, Eviscerar ou Mutilar com certeza é crítico (**crítico** = um golpe de sorte, mais forte); recarga de 3 minutos. Golpe Baixo (**V** na Furtividade) no 26. Os níveis de talento aqui são os mais cedo possíveis; uma vantagem pode adiantá-los em até 5 níveis.
+- 30: Peçonha (um talento, passivo: sem tecla): cada Estocar dá ao seu veneno 30% mais dano e 20% mais chance de acertar, por 6 segundos. Golpe no Rim (**V**). Depois Cegar (**Shift-V**) no 34, Selar o Destino (um talento, passivo) no 35: um crítico com um ataque que dá Pontos de Combo dá a você um ponto extra.
+- 40: Mutilar (**3**, um talento; você precisa de Peçonha antes): 60 de Energia, acerta com as duas adagas, 2 Pontos de Combo, 20% mais dano num inimigo envenenado. Depois Retalhar Grau 2 no 42, Estocar Grau 2 no 44.
+- 50: Mutilar Grau 2 e Golpe no Rim Grau 2; nada novo para esta função.
+- 60: Mutilar Grau 3 e graus mais fortes; nada novo para esta função.
+**Erros de iniciante:**
+- Mutilar sem adagas. Ele precisa de uma adaga em cada mão: consiga sua segunda adaga antes do nível 40.
+- Esquecer Estocar. Peçonha só funciona por meio de Estocar.
+- Trocar para outro inimigo com Pontos de Combo no antigo. Os pontos não vão junto.]] },
+			{ band = 2, title = "Combate: dano constante com qualquer arma", body = [[
+A partir do nível 1 (Golpe Sinistro e Eviscerar). Você não precisa ficar atrás do inimigo: seu golpe principal é Golpe Sinistro. Ele funciona com qualquer arma de uma mão: espada, machado, maça, arma de punho ou adaga. Vários guias dizem que Combate é a árvore mais fácil para subir de nível sozinho. Eles aconselham uma arma lenta na mão principal e uma rápida na outra mão. Você usa **Energia**, que enche sozinha; seus golpes dão **Pontos de Combo**, e um **finalizador** gasta eles. Rajada de Lâminas (no mínimo 30) é a única coisa que um Ladino tem contra dois inimigos de uma vez.
+**Ordem simples:**
+1. Espere a Energia cheia (Presteza, a partir do 18).
+2. Abra da Furtividade (**Shift-R**) com Garrote (**1**, a partir do 14), ou a partir do 26 com Golpe Baixo (**V**). Só chegar e atacar também serve.
+3. Golpe Sinistro (**1**) para Pontos de Combo.
+4. Ripostar (**Shift-F1**, a partir do 20) assim que acender: isso acontece depois de você aparar um ataque.
+5. Estocar (**Shift-3**, a partir do 24) quando estiver pronto.
+6. Finalizador: Retalhar (**Shift-4**) numa luta longa; senão Eviscerar (**4**) com 5 pontos. Os guias divergem sobre quão cedo manter Retalhar ativo.
+7. Dois inimigos: Rajada de Lâminas (**Shift-1**, a partir do 30). A partir do 40, junto com Adrenalina (**Q**) para uma luta difícil. Perdendo? Evasão (**Z**).
+**A cada 10 níveis:**
+- 10: você já tem Golpe Sinistro (**1**), Eviscerar (**4**), Furtividade (**Shift-R**), Esfaquear (**Shift-Q**) e Evasão (**Z**). Novo no 10: Retalhar (**Shift-4**), Disparada (**R**), Aturdir (**Shift-Q** na Furtividade), e uma arma em cada mão. Depois Chute (**E**) no 12, Garrote (**1** na Furtividade) e Expor Armadura (**Shift-Z**) no 14, Finta (**F**) no 16, Presteza (passivo) no 18.
+- 20: Ripostar (**Shift-F1**, um talento; você precisa de Deflexão antes): só funciona logo depois de você aparar um ataque. 10 de Energia, e o inimigo fica desarmado por 6 segundos. Ruptura (**5**), e Venenos de uma missão. Depois Sumir (**X**) no 22, Estocar (**Shift-3**) no 24, Execução Impecável (um talento, passivo) no 25: Eviscerar custa 15 de Energia a menos. Golpe Baixo (**V** na Furtividade) no 26. Os níveis de talento aqui são os mais cedo possíveis; uma vantagem pode adiantá-los em até 5 níveis.
+- 30: Rajada de Lâminas (**Shift-1**, um talento): por 15 segundos você ataca 20% mais rápido, e cada golpe também atinge um segundo inimigo por perto; recarga de 2 minutos. Carnificina (um talento, passivo): um bônus que depende da sua arma. Golpe no Rim (**V**). Depois Cegar (**Shift-V**) no 34, Clarão de Aço (um talento, passivo) no 35: Estocar devolve até 15 de Energia extra e fica pronto até 2 segundos mais cedo.
+- 40: Adrenalina (**Q**, um talento; você precisa de Rajada de Lâminas antes): por 15 segundos sua Energia enche duas vezes mais rápido; recarga de 5 minutos. Depois Retalhar Grau 2 no 42 (30% mais rápido em vez de 20%), Estocar Grau 2 no 44 (25 de Energia de volta em vez de 15).
+- 50: Golpe no Rim Grau 2 e graus mais fortes; nada novo para esta função.
+- 60: graus mais fortes; nada novo para esta função.
+**Erros de iniciante:**
+- Rajada de Lâminas perto de um inimigo que você tirou da luta com Aturdir, Esfaquear ou Cegar. Os golpes extras acordam ele.
+- Apertar Ripostar quando nada foi aparado. Só funciona logo depois de aparar.
+- Punhalada pelas Costas ou Emboscar com espada, machado ou maça. Os dois precisam de uma adaga na mão principal.]] },
+			{ band = 3, title = "Subterfúgio: atacar da Furtividade", body = [[
+A partir do nível 1 (Golpe Sinistro e Furtividade). Esta árvore luta a partir da Furtividade: um primeiro golpe forte, e muitos Pontos de Combo antes de a luta começar de verdade. **Furtividade** = andar escondido, para o inimigo não ver você. Os guias dizem que subir de nível sozinho é mais lento que com Combate. Hemorragia é um talento, no mínimo nível 30: barato, pela frente, com qualquer arma. Marca da Morte é um talento, no mínimo nível 40. Emboscar e Punhalada pelas Costas precisam de uma adaga na mão principal; Hemorragia e Golpe Fantasmagórico não.
+**Ordem simples:**
+1. Furtividade (**Shift-R**). Um segundo Humanoide por perto? Aturdir (**Shift-Q**). Aturdir não quebra a Furtividade.
+2. Premeditação (**Shift-C**, a partir do 20): 2 Pontos de Combo no inimigo. Depois seu primeiro golpe.
+3. Primeiro golpe por trás: Emboscar (**2**, a partir do 18, adaga na mão principal). Inimigo forte, a partir do 26: Golpe Baixo (**V**), um atordoamento de 4 segundos. Os guias divergem sobre a melhor abertura.
+4. Golpe Fantasmagórico (**Shift-X**, a partir do 25) e Estocar (**Shift-3**, a partir do 24) sempre que estiverem prontos.
+5. Pontos de Combo: a partir do 30, Hemorragia (**3**). Antes disso: Punhalada pelas Costas (**2**) quando você está atrás do inimigo, senão Golpe Sinistro (**1**).
+6. Finalizador: Eviscerar (**4**) quando o inimigo está quase morto; Ruptura (**5**) num inimigo que vai viver muito; Retalhar (**Shift-4**) numa luta longa.
+7. A partir do 40: Marca da Morte (**Q**) no inimigo mais forte, de preferência enquanto Ruptura ou Garrote está ativo.
+8. Emergência: Sumir (**X**). Preparação (**F3**, a partir do 30) deixa Sumir, Evasão e Disparada prontos de novo na hora.
+**A cada 10 níveis:**
+- 10: você já tem Golpe Sinistro (**1**), Eviscerar (**4**), Punhalada pelas Costas (**2**), Furtividade (**Shift-R**), Esfaquear (**Shift-Q**) e Evasão (**Z**). Novo no 10: Aturdir (**Shift-Q** na Furtividade), Retalhar (**Shift-4**), Disparada (**R**), e uma arma em cada mão. Depois Chute (**E**) no 12, Garrote (**1** na Furtividade) no 14, Finta (**F**) no 16, Emboscar (**2** na Furtividade) e Presteza (passivo) no 18.
+- 20: Premeditação (**Shift-C**, um talento): 2 Pontos de Combo no seu alvo; use-os em 20 segundos, ou eles somem; recarga de 2 minutos. Ruptura (**5**), e Venenos de uma missão. Depois Sumir (**X**) no 22, Estocar (**Shift-3**) no 24, Golpe Fantasmagórico (**Shift-X**, um talento) no 25: 40 de Energia, 1 Ponto de Combo, 15% mais esquiva por 7 segundos; recarga de 20 segundos. Golpe Baixo (**V** na Furtividade) no 26. Os níveis de talento aqui são os mais cedo possíveis; uma vantagem pode adiantá-los em até 5 níveis.
+- 30: Hemorragia (**3**, um talento; você precisa de Lâminas Serrilhadas antes): 35 de Energia, 1 Ponto de Combo, funciona pela frente; por 15 segundos sua Ruptura e seu Garrote causam 15% mais dano a esse inimigo. Preparação (**F3**, um talento): deixa a recarga dos seus outros feitiços de Ladino pronta na hora; a recarga dela mesma é de 10 minutos. Você pega um destes dois no 30, o outro no 31. Golpe no Rim (**V**). Depois Cegar (**Shift-V**) no 34, Faca de Bota (um talento, passivo) no 35: Estocar pode dar 2 Pontos de Combo.
+- 40: Marca da Morte (**Q**, um talento; você precisa de Preparação antes): um finalizador, 25 de Energia, recarga de 10 segundos. Por 6 segundos ela guarda parte do seu dano (mais por Ponto de Combo), depois causa tudo de uma vez, até um limite. O dano de Ruptura e Garrote conta em dobro. Depois Retalhar Grau 2 e Sumir Grau 2 no 42, Estocar Grau 2 no 44, Marca da Morte Grau 2 no 48.
+- 50: Golpe no Rim Grau 2, Marca da Morte Grau 3 no 56; nada novo para esta função.
+- 60: Marca da Morte Grau 4 e graus mais fortes; nada novo para esta função.
+**Erros de iniciante:**
+- Emboscar ou Punhalada pelas Costas sem adaga na mão principal, ou pela frente.
+- Usar Premeditação e depois esperar. Os 2 pontos somem depois de 20 segundos, e a recarga é de 2 minutos.
+- Marca da Morte sem Pontos de Combo. É um finalizador.]] },
+		},
+		HUNTER = {
+			{ band = 1, title = "Domínio das Feras: dano com seu ajudante", body = [[
+A partir do nível 10 (seu ajudante, das missões de classe). Seu ajudante faz a maior parte do trabalho: ele mantém o inimigo ocupado enquanto você atira de longe. Todo guia que lemos escolhe Domínio das Feras para subir de nível: eles dizem que é o mais fácil e o mais rápido. Novo no Forever: Evocar Falcão (um talento, no mínimo nível 25) manda pássaros extras no seu alvo. Ponto fraco: grupos de inimigos. Seu ajudante só consegue segurar um.
+**Ordem simples:**
+Antes de começar: Aspecto do Falcão ligado (**Shift-R**). O talento Aspectos Mortais só funciona assim.
+1. Marca do Caçador (**Shift-Z**).
+2. Ajudante na frente (**Ctrl-1**), e espere até ele pegar o inimigo.
+3. Picada de Serpente (**2**).
+4. Evocar Falcão (**Shift-F1**, a partir do 25): mantenha 2 falcões o tempo todo.
+5. Tiro Certo (**4**, a partir do 20) enquanto você fica parado. Dois ou mais inimigos: Tiro Múltiplo (**Shift-1**) em vez disso. Eles compartilham uma recarga.
+6. Tiro Automático (**1**) continua. Tiro Arcano (**3**): antes do 25, é só usar. A partir do 25, só quando você já tem 2 falcões: ele compartilha uma recarga com Evocar Falcão.
+7. Ajudante quase morto: Curar Ajudante (**F2**). Inimigo em você: Intimidação (**Shift-3**, a partir do 30) ou Desvencilhar (**Z**, a partir do 20). Desvencilhar não é um salto: ele faz o inimigo querer menos você, de perto, e para seu ataque automático. Apuros de verdade: Fingir de Morto (**X**, a partir do 30).
+8. Inimigo difícil: Ira Bestial (**F1**, a partir do 40) junto com Tiro Rápido (**Q**, a partir do 26).
+**A cada 10 níveis:**
+- 10: seu ajudante, das missões de classe. Aspecto do Falcão (**Shift-R**). Primeiros talentos: Aspectos Mortais, Treinamento de Resistência. Os níveis de talento aqui são os mais cedo possíveis; uma vantagem pode adiantá-los em até 5 níveis. Depois Curar Ajudante (**F2**) no 12, Tiro Múltiplo (**Shift-1**) no 18.
+- 20: Tiro Certo (**4**, do treinador), Aspecto do Guepardo (**R**), Desvencilhar (**Z**), Armadilha Congelante (**V**). Talentos: Rapidez Bestial (seu ajudante corre 30% mais rápido; você precisa dela para Intimidação), Fúria Liberada, Desbravamento.
+- 30: Intimidação (**Shift-3**, um talento): seu ajudante atordoa o inimigo por 3 segundos com o próximo golpe; recarga de 1 minuto. Fingir de Morto (**X**). Antes disso: Evocar Falcão (**Shift-F1**, um talento) no 25: um falcão fica 18 segundos, no máximo 2 por vez. Tiro Rápido (**Q**) no 26.
+- 40: Ira Bestial (**F1**, um talento; todos os 30 pontos antes dela precisam estar em Domínio das Feras): seu ajudante causa 50% mais dano por 18 segundos; recarga de 2 minutos. Salva (bloco D). Antes disso: Armadilha Explosiva assume o **Shift-2** no 34, Frenesi (um talento, passivo) no 35.
+- 50: graus mais fortes de Evocar Falcão, Tiro Certo e Curar Ajudante; nada novo para esta função. Depois do 40, os guias colocam seus pontos em Precisão.
+- 60: graus mais fortes de novo; nada novo para esta função.
+**Erros de iniciante:**
+- Atirar antes de o seu ajudante pegar o inimigo. Aí o inimigo vem até você.
+- Ver Evocar Falcão e Tiro Arcano como dois botões separados. Eles compartilham uma recarga: falcões primeiro.
+- Lutar no Aspecto do Guepardo ou do Macaco. Aspectos Mortais só funciona com o Falcão ligado.]] },
+			{ band = 2, title = "Precisão: dano à distância", body = [[
+A partir do nível 1 (Tiro Automático). Seus próprios tiros fazem o trabalho, de longe. Tiro Certo vem no 20 do treinador: não é um talento. Tiro de Franco-atirador é um talento, no mínimo nível 40: 4 segundos de conjuração, com alcance de até 45 jardas. Os guias dizem que subir de nível funciona, mas mais devagar que Domínio das Feras: seu ajudante segura o inimigo pior, porque você causa mais dano. Em grupos ele é forte: Aura de Tiro Certeiro ajuda seu grupo ou raide inteiro. Lobo Solitário (um talento, no mínimo nível 20) dá 20% mais dano enquanto você não tem ajudante; para subir de nível, os guias ficam com o ajudante.
+**Ordem simples:**
+Antes de começar: Aspecto do Falcão (**Shift-R**) e Aura de Tiro Certeiro (**Shift-X**, a partir do 25) ligados.
+1. Marca do Caçador (**Shift-Z**). Com ajudante: ajudante na frente (**Ctrl-1**).
+2. Inimigo ainda longe: Tiro de Franco-atirador (**Shift-4**, a partir do 40) para abrir.
+3. Picada de Serpente (**2**). Alguns guias pulam ela em lutas curtas.
+4. Tiro Certo (**4**, a partir do 20) toda vez que estiver pronto. Fique parado.
+5. Tiro Arcano (**3**) no meio, se sua mana permitir.
+6. Tiro Automático (**1**) continua.
+7. Um grupo de inimigos: Tiro Múltiplo (**Shift-1**) em vez de Tiro Certo. Um grupo grande: Salva (bloco D, a partir do 40).
+8. Inimigo em você: Tiro de Dispersão (**E**, a partir do 30), depois afaste-se. Tiro de Concussão (**Shift-Q**) deixa ele lento.
+9. Inimigo difícil: Tiro Rápido (**Q**, a partir do 26) no começo.
+**A cada 10 níveis:**
+- 10: seu ajudante, das missões de classe. Aspecto do Falcão (**Shift-R**). Primeiros talentos: Ataques Letais, Olho de Águia, Tiro de Concussão Aprimorado; a partir do 15: Mira Cuidadosa, Eficiência, Picadas Aprimoradas. Os níveis de talento aqui são os mais cedo possíveis; uma vantagem pode adiantá-los em até 5 níveis. Depois Tiro Múltiplo (**Shift-1**) no 18.
+- 20: Tiro Certo (**4**), do treinador: 2 segundos de conjuração, recarga de 6 segundos, compartilhada com Tiro Múltiplo. Talentos: Matança Veloz, Tiro Arcano Aprimorado, Lobo Solitário. Aspecto do Guepardo (**R**), Desvencilhar (**Z**), Armadilha Congelante (**V**).
+- 30: Tiro de Dispersão (**E**, um talento): o inimigo fica confuso por 4 segundos, e qualquer dano quebra o efeito; recarga de 30 segundos. Fingir de Morto (**X**). Antes disso: Aura de Tiro Certeiro (**Shift-X**, um talento) no 25: mais Poder de Ataque de Longo Alcance para o seu grupo, por 30 minutos. Tiro Rápido (**Q**) no 26.
+- 40: Tiro de Franco-atirador (**Shift-4**, um talento; você precisa de Aura de Tiro Certeiro antes): recarga de 15 segundos, e seus próximos 3 tiros alcançam 10 jardas mais longe. Salva (bloco D). Antes disso: Aura de Tiro Certeiro Grau 2 no treinador no 32, Especialização em Arma de Longo Alcance (um talento, passivo) no 35.
+- 50: graus mais fortes: Tiro Certo no 44 e no 52, Tiro de Franco-atirador no 48, Aura de Tiro Certeiro e Salva no 50. Depois do 40, os guias colocam seus pontos em Domínio das Feras.
+- 60: graus mais fortes de novo; nada novo para esta função.
+**Erros de iniciante:**
+- Se mover durante Tiro Certo ou Tiro de Franco-atirador. Eles têm 2 e 4 segundos de conjuração.
+- Tiro Múltiplo em um inimigo. Aí Tiro Certo também fica fora por 6 segundos.
+- Tiro de Franco-atirador quando o inimigo já está em você. São 4 segundos de conjuração, e ele não funciona a menos de 8 jardas.]] },
+			{ band = 3, title = "Sobrevivência: dano de perto, com armadilhas", body = [[
+A partir do nível 1 (Golpe do Raptor), mas o jogo de Sobrevivência de verdade começa por volta do 30. No Forever, este é o Caçador corpo a corpo: Golpe do Raptor, Mordida de Mangusto, Contra-ataque e Chute de Moa, mais armadilhas. Você fica com seu ajudante e sua arma de longo alcance: abra de longe, depois chegue perto. Os guias dizem que é a mais lenta das três para subir de nível; até mais ou menos o 30 você joga como qualquer Caçador (ajudante na frente, atirar). Ela custa muita mana, e um golpe grande seu pode tirar o inimigo do seu ajudante. Os guias não concordam sobre qual arma corpo a corpo é a melhor.
+**Ordem simples:**
+Antes de começar: Aspecto do Falcão (**Shift-R**) enquanto você atira. A partir do 30, Aspecto da Fera para lutar de perto; ele não tem tecla fixa, então coloque numa barra sua.
+1. Marca do Caçador (**Shift-Z**). Sem a Marca, Expor Presa não funciona.
+2. Ajudante na frente (**Ctrl-1**).
+3. Picada de Serpente (**2**), depois Tiro Arcano (**3**) enquanto o inimigo vem, ou enquanto você anda até ele.
+4. Uma armadilha aos seus pés: Armadilha Imolante (**Shift-2**, a partir do 16). A partir do 34 essa tecla é Armadilha Explosiva, e Armadilha Imolante não tem tecla: coloque numa barra sua se quiser.
+5. De perto: Mordida de Mangusto (**Shift-C**, a partir do 16) assim que acender. Golpe do Raptor (**5**) toda vez que estiver pronto. Chute de Moa (a partir do 30) toda vez que estiver pronto; coloque numa barra sua. Os guias divergem: alguns se afastam para atirar depois de Chute de Moa, outros ficam perto.
+6. Contra-ataque (**Shift-V**) logo depois de aparar.
+7. O inimigo foge, ou você quer distância de novo: Cortar Asas (**Shift-F**).
+8. Em apuros: Coibição (**C**, a partir do 20), Fingir de Morto (**X**, a partir do 30).
+**A cada 10 níveis:**
+- 10: seu ajudante, das missões de classe. Golpe do Raptor (**5**) você tem desde o nível 1. Primeiros talentos: Rastreamento Aprimorado, Deflexão; a partir do 15: Golpes Selvagens, Sobrevivencialista, Cilada, Tosquiar Asas Aprimorado. Os níveis de talento aqui são os mais cedo possíveis; uma vantagem pode adiantá-los em até 5 níveis. Depois Cortar Asas (**Shift-F**) no 12, Mordida de Mangusto (**Shift-C**) e Armadilha Imolante (**Shift-2**) no 16.
+- 20: Coibição (**C**, um talento): 25% mais esquiva e aparo por 10 segundos; recarga de 5 minutos. Armadilha Congelante (**V**), Tiro Certo (**4**), Empunhar Duas Armas (passivo, treinador). Desvencilhar (**Z**): não é um salto; ele diminui sua **ameaça** (o quanto um inimigo quer atacar você) de perto, e para seu ataque automático. Talentos: Firmeza, Armadilhas Espertas.
+- 30: Chute de Moa (um talento; sem tecla fixa, coloque numa barra sua): 100% de dano da arma, depois você corre 30% mais rápido por 3 segundos; recarga de 8 segundos. Aspecto da Fera (treinador; coloque numa barra sua): mais Poder de ataque corpo a corpo. Fingir de Morto (**X**). Antes disso: Contra-ataque (**Shift-V**, um talento), a partir do 25 ou 30 (as fontes divergem): ele fica ativo depois de você aparar, e prende o inimigo no lugar por 5 segundos. Gume do Predador (um talento, passivo) a partir do 25. Também nesta fileira: Expor Presa, Desenvoltura, Disciplina de Sobrevivencialista.
+- 40: Ataques Lacerantes (um talento, passivo; você precisa de Expor Presa antes): Mordida de Mangusto também faz o inimigo sangrar. Antes disso: Armadilha Explosiva assume o **Shift-2** no 34, Reflexo Relâmpago (um talento, passivo) no 35.
+- 50: graus mais fortes: Contra-ataque no 42 e no 54, Mordida de Mangusto no 44, Armadilha Explosiva no 44 e no 54, Golpe do Raptor no 48, Aspecto da Fera no 50. Os guias não concordam sobre onde vão seus pontos depois do 40.
+- 60: graus mais fortes de novo; nada novo para esta função.
+**Erros de iniciante:**
+- Entrar correndo direto. Abra de longe (Marca, ajudante, Picada, um tiro), depois chegue perto.
+- Apertar Mordida de Mangusto ou Contra-ataque quando eles não acendem. Mordida de Mangusto só funciona depois de uma esquiva (ou por meio de Expor Presa), Contra-ataque só depois de aparar.
+- Ficar no Aspecto do Falcão de perto depois do nível 30. O Falcão só ajuda seus tiros; a Fera dá Poder de ataque corpo a corpo.]] },
+		},
+		SHAMAN = {
+			{ band = 1, title = "Elemental: dano à distância", body = [[
+A partir do nível 1: Raio está lá desde o começo. Raios e fogo de longe. Choque Flamejante vem no 10, Cadeia de Raios no 32. Maestria em Raio é um talento, no mínimo nível 40. Os guias sobem de nível como Aperfeiçoamento: Elemental funciona, mas o custo de mana é muito alto, você precisa ficar parado para lançar, e muitos inimigos de uma vez são difíceis.
+**Ordem simples:**
+Antes de começar: Escudo de Raios (**Shift-Z**, a partir do 8) ligado. Totem Calcinante (**5**, a partir do 10) no chão antes de puxar.
+1. Abra de longe com Raio (**1**).
+2. Choque Flamejante (**2**, a partir do 10) num inimigo que vai viver muito.
+3. Raio (**1**) para preencher.
+4. Três ou mais inimigos: Nova de Fogo (**Shift-4**, a partir do 12) e Cadeia de Raios (**Shift-1**, a partir do 32) quando estiverem prontas.
+5. Maestria em Raio (**Q**, a partir do 40) para um elite ou um grupo grande.
+6. Guarde Choque Terreno (**E**) para quando o inimigo lançar um feitiço: ele interrompe o feitiço.
+Pouca vida: Onda Curativa (**C**). Inimigo perto demais: Totem de Prisão Terrena (**V**) ou Choque Gélido (**4**, a partir do 20).
+**A cada 10 níveis:**
+- 10: Raio (**1**), Choque Terreno (**E**, a partir do 4), Escudo de Raios (**Shift-Z**, a partir do 8). Choque Flamejante (**2**), Totem Calcinante (**5**, de uma missão). Primeiros talentos: Convecção, Concussão (passivo). Os níveis de talento aqui são os mais cedo possíveis; uma vantagem pode adiantá-los em até 5 níveis. Depois Nova de Fogo (**Shift-4**) e Expurgar (**Shift-Q**) no 12, Totem Sísmico (**Shift-F**) no 18.
+- 20: Choque Gélido (**4**), Lobo Fantasma (**R**), Chamado dos Elementos (**Ctrl-1**). Concentração Elemental (um talento, passivo). Depois Chamado Totêmico (**Shift-R**) no 22. Prisão Terrena (um talento) no 25: Totem de Prisão Terrena (**V**) prende os inimigos no lugar por 5 segundos, só no momento em que você o coloca. Totem de Magma (bloco D) no 26.
+- 30: Chamado do Trovão (um talento, passivo). Totem de Aterramento (**X**), Chamado dos Antepassados (**Ctrl-2**), Reencarnação (passivo). Raios Sobrecarregados (um talento, passivo). Depois Cadeia de Raios (**Shift-1**) no 32, Fúria Elemental (um talento, passivo) no 35.
+- 40: Maestria em Raio (**Q**, um talento): por 15 segundos Raio é lançado 0,5 segundo mais rápido e Cadeia de Raios não tem recarga; recarga de 3 minutos. Chamado dos Espíritos (**Ctrl-3**), Cura Encadeada (**Shift-2**). Armadura de Malha no treinador.
+- 50: graus mais fortes de Raio, Cadeia de Raios, Choque Terreno, Choque Flamejante, Nova de Fogo e Totem Calcinante; nada novo para esta função.
+- 60: graus mais fortes de novo; nada novo para esta função.
+**Erros de iniciante:**
+- Choque Terreno por dano num grupo. Ele causa muita **ameaça** (o quanto um inimigo quer atacar você). E ele compartilha a recarga com Choque Flamejante: depois disso você fica sem interrupção.
+- Cadeia de Raios em um inimigo. Custa muita mana e tem recarga de 6 segundos.
+- Terminar cada inimigo com um feitiço. A mana é o seu limite: bata com a arma num inimigo que está quase morto.]] },
+			{ band = 2, title = "Aperfeiçoamento: dano corpo a corpo", body = [[
+A partir do nível 1: você bate com sua arma, com Arma Trinca-pedra nela. Os guias sobem de nível como Aperfeiçoamento: eles dizem que é a escolha confortável. Use uma arma lenta de duas mãos. Ataque da Tempestade é um talento, no mínimo nível 25; Arma de Fúria dos Ventos vem no 30 do treinador. A mana é o seu limite: quando ela fica baixa, pare de lançar e continue batendo. O conselho de um guia para o buff de arma: Arma Trinca-pedra sozinho, Arma de Labaredas em grupo, Arma de Fúria dos Ventos a partir do 30. Num grupo pequeno, Aperfeiçoamento pode tanquear por um tempo com Arma Trinca-pedra (Armas Espirituais então dá mais ameaça), mas não há provocação nem recarga defensiva.
+**Ordem simples:**
+Antes de começar: buff de arma ligado (bloco D), Escudo de Raios (**Shift-Z**), Totem Calcinante (**5**) ou seus totens no chão.
+1. Puxe com Raio (**1**). **Puxar** = acertar um inimigo de longe, para ele vir até você.
+2. Ataque da Tempestade (**3**, a partir do 25) sempre que estiver pronto.
+3. Raio (**1**) com 5 acúmulos de Arma da Voragem (a partir do 35): aí ele é instantâneo e de graça.
+4. Choque Terreno (**E**). Em grupo, alterne com Choque Flamejante (**2**).
+5. Nova de Fogo (**Shift-4**, a partir do 12) quando um totem de Fogo está no chão e sobra mana; mais contra vários inimigos.
+6. Fúria do Clarividente (**Q**, a partir do 40) para um elite ou uma puxada grande.
+7. Fora isso, só continue batendo.
+Depois da luta: Onda Curativa (**C**). Emergência durante a luta: Onda Curativa Menor (**F2**, a partir do 20).
+**A cada 10 níveis:**
+- 10: Arma Trinca-pedra (bloco D), Raio (**1**), Choque Terreno (**E**, a partir do 4), Escudo de Raios (**Shift-Z**, a partir do 8). Choque Flamejante (**2**), Totem Calcinante (**5**), Totem da Força da Terra (**Shift-X**), Arma de Labaredas (bloco D). Primeiros talentos: Golpes Trovejantes e outros (passivos); Destreza Mental (passivo) a partir do 15. Os níveis de talento aqui são os mais cedo possíveis; uma vantagem pode adiantá-los em até 5 níveis. Depois Nova de Fogo (**Shift-4**) no 12.
+- 20: Lobo Fantasma (**R**), Choque Gélido (**4**), Onda Curativa Menor (**F2**), Chamado dos Elementos (**Ctrl-1**). Concentração Xamanística (um talento, passivo): Choques e Escudo de Raios custam 45% menos mana. Depois Ataque da Tempestade (**3**, um talento) no 25. Ímpeto (um talento, passivo) a partir do 25. Lobo Fantasma Aprimorado (um talento) a partir do 25: Lobo Fantasma fica mais rápido (instantâneo com os dois pontos) e também funciona em lugares fechados; os guias pegam ele em níveis bem diferentes. Totem de Magma (bloco D) no 26.
+- 30: Arma de Fúria dos Ventos (bloco D). Ataque da Tempestade Aprimorado e Armas Espirituais (talentos). Totem de Aterramento (**X**), Chamado dos Antepassados (**Ctrl-2**). Depois Totem de Fúria dos Ventos no 32 (sem tecla: use a Barra de totens), Cadeia de Raios (**Shift-1**) no 32, Arma da Voragem (um talento, passivo) no 35.
+- 40: Fúria do Clarividente (**Q**, um talento): você bate 30% mais rápido por 25 segundos; só os golpes da arma, não seus feitiços. Recarga de 3 minutos. Nem todo guia pega ela no 40: alguns vão primeiro para Restauração, por mana. Chamado dos Espíritos (**Ctrl-3**), armadura de Malha, uma Arma de Fúria dos Ventos mais forte. Depois Totem da Graça do Ar no 42 (sem tecla: use a Barra de totens).
+- 50: graus mais fortes de Arma de Fúria dos Ventos, Arma Trinca-pedra, Choque Terreno, Raio e Totem da Força da Terra; nada novo para esta função.
+- 60: graus mais fortes de novo; nada novo para esta função.
+**Erros de iniciante:**
+- Raio com menos de 5 acúmulos de Arma da Voragem. Ele reinicia o tempo do seu golpe. E Arma da Voragem só ajuda Raio: não as curas, não Cadeia de Raios.
+- Arma Trinca-pedra em grupo enquanto você causa o dano, depois de ter Armas Espirituais. Com Trinca-pedra você gera 30% mais ameaça, sem ela 30% menos. Use Labaredas ou Fúria dos Ventos.
+- Procurar uma provocação. O Xamã não tem. Totem da Garra de Pedra (**F**) faz os inimigos atacarem o totem, não você.]] },
+			{ band = 3, title = "Restauração: curandeiro", body = [[
+A partir do nível 1: Onda Curativa está lá desde o começo, e é sua cura principal enquanto você sobe de nível. Os guias não aconselham subir de nível sozinho como Restauração (os inimigos morrem devagar), mas ela é boa em grupo. Entre masmorras, você faz missões com Raio e Choque Flamejante. Contracorrente é um talento, no mínimo nível 40. Um Xamã pode remover Veneno e Doença, mas não maldições nem magia.
+**Ordem simples (em grupo):**
+Antes de começar: Escudo de Água (**Shift-Z**, a partir do 20). Totens no chão: Chamado dos Elementos (**Ctrl-1**, a partir do 20) ou Totem de Torrente Curativa (**F4**, a partir do 20).
+1. Contracorrente (**Shift-F1**, a partir do 40) no tanque ou em quem leva dano.
+2. Cura Encadeada (**Shift-2**, a partir do 40) nesse mesmo alvo quando mais pessoas estão feridas.
+3. Onda Curativa (**C**) para uma pessoa ou o tanque.
+4. Onda Curativa Menor (**F2**, a partir do 20) quando precisa ser rápido.
+5. Emergência: Rapidez da Natureza (**Shift-3**, a partir do 30), depois Onda Curativa (**C**).
+6. Totem de Vagalhão de Mana (**F1**, a partir do 25) quando sua mana acaba.
+7. Ninguém ferido: Raio (**1**).
+**A cada 10 níveis:**
+- 10: Onda Curativa (**C**). Primeiros talentos: Onda Curativa Aprimorada (uma Onda Curativa mais rápida), Concentração das Marés (passivo). Os níveis de talento aqui são os mais cedo possíveis; uma vantagem pode adiantá-los em até 5 níveis. Depois Espírito Ancestral (**F3**, fora de combate) no 12, Curar Veneno (**Shift-C**) no 16, Totem Sísmico (**Shift-F**) no 18.
+- 20: Onda Curativa Menor (**F2**), Totem de Torrente Curativa (**F4**, de uma missão), Chamado dos Elementos (**Ctrl-1**), Lobo Fantasma (**R**). Escudo de Água (**Shift-Z**, um talento): 3 esferas de água; quando você leva um golpe ou um dos seus feitiços é crítico, você recupera 2% da sua mana por esfera. Dura 10 minutos. A partir daí o Shift-Z lança Escudo de Água, não Escudo de Raios. Depois Curar Doença (**Shift-V**) no 22. Totem de Vagalhão de Mana (**F1**, um talento) no 25: devolve mana ao seu grupo; recarga de 5 minutos. Totem de Fonte de Mana no 26 (sem tecla: use a Barra de totens).
+- 30: Rapidez da Natureza (**Shift-3**, um talento): seu próximo feitiço de Natureza com conjuração abaixo de 10 segundos é instantâneo; recarga de 3 minutos. Caminho da Cura (um talento, passivo). Totem de Aterramento (**X**), Chamado dos Antepassados (**Ctrl-2**), Reencarnação (passivo). Depois Purificação (um talento, passivo) no 35, um Totem de Vagalhão de Mana mais forte no 38.
+- 40: Cura Encadeada (**Shift-2**). Contracorrente (**Shift-F1**, um talento; você precisa de Caminho da Cura antes): uma cura ao longo de 15 segundos, não uma cura instantânea, e uma Cura Encadeada que você lança direto nesse alvo cura 25% mais; recarga de 12 segundos. Chamado dos Espíritos (**Ctrl-3**), armadura de Malha.
+- 50: graus mais fortes de Contracorrente, Cura Encadeada, Onda Curativa, Onda Curativa Menor, Totem de Vagalhão de Mana e Totem de Torrente Curativa; nada novo para esta função.
+- 60: graus mais fortes de novo; nada novo para esta função.
+**Erros de iniciante:**
+- Cura Encadeada em alguém que não é o alvo da sua Contracorrente. O bônus só conta quando você lança direto nesse alvo.
+- Apertar só Rapidez da Natureza. Ela não cura nada sozinha: ela deixa seu próximo feitiço de Natureza instantâneo. Aperte Onda Curativa logo depois.
+- Tentar remover uma maldição. Um Xamã não pode; só Veneno (**Shift-C**) e Doença (**Shift-V**).]] },
+		},
+		WARLOCK = {
+			{ band = 1, title = "Suplício: dano ao longo do tempo", body = [[
+A partir do nível 4 (Corrupção) e 8 (Ruína da Agonia). Você coloca DoTs no inimigo e deixa seu demônio segurá-lo. A maioria dos guias sobe de nível como Suplício. Sifão de Vida é um talento, no mínimo nível 30. Destruição é um talento, no mínimo nível 40: enquanto você o canaliza, seu Sifão de Vida, sua Corrupção e sua Ruína da Agonia nesse inimigo tiquetam 100% mais rápido. Destruição não cura você.
+**Ordem simples:**
+1. Mande seu demônio entrar (**Ctrl-1**).
+2. Ruína da Agonia (**5**) para puxar. O dano dela começa baixo, então seu demônio pega o inimigo.
+3. Corrupção (**2**). Com Corrupção Aprimorada 5/5 ela é instantânea (no mínimo 14).
+4. Sifão de Vida (**F4**, a partir do 30), só num inimigo que vai viver muito.
+5. Imolação (**3**) só num inimigo difícil.
+6. Inimigo difícil: coloque também sua maldição (**Shift-V**). Os guias divergem sobre quão cedo.
+7. Para preencher: até mais ou menos o nível 30, sua varinha (Atirar; não está no bloco, coloque numa barra sua), depois Drenar Vida (**C**). Os guias divergem um pouco sobre quando trocar.
+8. Transe Sombrio acendeu (Martelo do Ocaso, a partir do 25)? Seta Sombria (**1**): aí ela é instantânea.
+9. A partir do 40: Destruição (bloco D) em vez de Drenar Vida quando sua vida está boa. Coloque seus DoTs primeiro.
+10. Mais vida que mana? Conversão de Vida (**F**).
+11. Precisa de um Estilhaço de Alma? Termine o inimigo com Drenar Alma (**4**).
+Dois inimigos: DoTs no primeiro, Medo (**V**) nele, depois lute com o segundo. Dano pode quebrar o Medo, e os guias divergem sobre DoTs antes do Medo.
+**A cada 10 níveis:**
+- 10: Drenar Alma (**4**), Criar Pedra de Vida (bloco D), o Emissário do Caos (missão). Você já tem Seta Sombria (**1**), Imolação (**3**), Corrupção (**2**, 4), Maldição da Fraqueza (**Shift-V**, 4), Conversão de Vida (**F**, 6), Ruína da Agonia (**5**, 8) e Medo (**V**, 8). Primeiro talento: Corrupção Aprimorada ou Supressão (os guias divergem). Os níveis de talento aqui são os mais cedo possíveis; uma vantagem pode adiantá-los em até 5 níveis. Depois Funil de Vida (**F2**) no 12; Drenar Vida (**C**) e Corrupção Grau 2 (15 segundos) no 14; Drenagens Aprimoradas e Colheita de Almas (talentos, passivos) a partir do 15; Dor Lancinante (bloco D) e Criar Pedra da Alma no 18.
+- 20: Amplificar Maldição (**Shift-3**, um talento): sua próxima Maldição da Fraqueza ou Ruína da Agonia é 50% mais forte; recarga de 3 minutos. Maldição dos Elementos (**Shift-V**), Armadura Demoníaca (**Shift-Z**), Chuva de Fogo (**Shift-1**), o Súcubo ou Íncubo (missão). Depois Corrupção Grau 3 (18 segundos) e Drenar Mana no 24. Maldição da Exaustão (**R**, um talento; você precisa de Amplificar Maldição antes) no 25: o inimigo fica 30% mais lento por 12 segundos. Martelo do Ocaso (um talento, passivo) no 25: uma pequena chance de sua próxima Seta Sombria ser instantânea. Banir (**Shift-Q**) no 28.
+- 30: Sifão de Vida (**F4**, um talento): passa vida do inimigo para você, por 30 segundos. Sifão da Alma (um talento, passivo): Drenar Vida, Drenar Alma e Destruição causam mais para cada Corrupção, Sifão de Vida e Ruína da Agonia sua no inimigo. Drenar Vida Grau 3, Fogo do Inferno (**Shift-2**), o Caçador Vil (missão). Depois Proteção contra Sombra (**Z**) no 32, Maestria em Sombras (um talento, passivo) no 35, Sifão de Vida Grau 2 e Drenar Vida Grau 4 no 38.
+- 40: Destruição (bloco D, um talento; você precisa de Sifão de Vida antes): um feitiço canalizado de 6 segundos que causa dano a cada segundo e faz seus DoTs nesse inimigo tiquetarem 100% mais rápido. Uivo do Terror (**Shift-F**), o Corcel Vil (missão). Depois Espiral da Morte (**X**) no 42, Fogo d'Alma (**Q**) e Sifão de Vida Grau 3 no 48.
+- 50: Inferno (**F3**). Maldição dos Elementos Grau 4. Fora isso, graus mais fortes.
+- 60: Ruína do Destino (**F1**): um golpe grande depois de 60 segundos; não em jogadores. Fora isso, graus mais fortes.
+**Erros de iniciante:**
+- Colocar Ruína da Agonia de novo cedo demais. Os tiques mais fortes dela vêm no fim.
+- Usar Destruição quando você precisa de vida. Destruição não cura; Drenar Vida cura.
+- Maldição da Temeridade no inimigo em que você quer usar Medo. Esse inimigo ignora Medo.]] },
+			{ band = 2, title = "Demonologia: dano com seu demônio", body = [[
+A partir do nível 1 (o Diabrete), de verdade a partir do 10 (o Emissário do Caos). Seu demônio faz boa parte do trabalho, e os talentos deixam ele mais forte. Os guias divergem sobre quando entrar nesta árvore: alguns entram a partir do 10, outros sobem de nível como Suplício primeiro e trocam por volta do 26 ou 27. Sacrifício Demoníaco (no mínimo 20) só vale a pena com Pacto Demoníaco (no mínimo 40). Antes disso, qualquer demônio que você evocar remove o buff.
+**Ordem simples:**
+1. Mande seu demônio entrar (**Ctrl-1**), e deixe ele bater primeiro.
+2. A partir do 30: Vínculo Anímico (**Shift-X**) ligado, e de novo depois de cada evocação.
+3. A partir do 25 (Marca Demoníaca): Dor Lancinante (bloco D) no inimigo do seu demônio. De novo quando a marca acabar (10 segundos). Antes de Marca Demoníaca: nada de Dor Lancinante.
+4. Ruína da Agonia (**5**) e Corrupção (**2**) em inimigos que vivem o bastante. Corrupção tem 2 segundos de conjuração aqui.
+5. Para preencher: sua varinha (não está no bloco, coloque numa barra sua) ou Seta Sombria (**1**). Drenar Vida (**C**) quando você precisa de vida.
+6. Demônio quase morto: Funil de Vida (**F2**). Ele custa sua própria vida.
+7. Conversão de Vida (**F**). Com Energias Demoníacas, seu demônio também ganha mana.
+8. A partir do 40 (Pacto Demoníaco): Sacrifício Demoníaco (**Shift-C**) num demônio, depois evoque um diferente (bloco D). O buff dura 2 horas. Os guias divergem sobre qual demônio sacrificar.
+9. A partir do 48, com Dizimação: inimigo abaixo de 35% de vida? Seta Sombria ou Dor Lancinante, depois Fogo d'Alma (**Q**): mais rápido, e sem Estilhaço de Alma.
+**A cada 10 níveis:**
+- 10: o Emissário do Caos (missão; custa 1 Estilhaço de Alma). O Tormento dele dá **ameaça** (o quanto um inimigo quer atacá-lo). Drenar Alma (**4**) para estilhaços. Primeiros talentos: Poder Profano, Abraço Demoníaco, Diabrete Aprimorado, Funil de Vida Aprimorado (passivos). Os níveis de talento aqui são os mais cedo possíveis; uma vantagem pode adiantá-los em até 5 níveis. Depois Funil de Vida (**F2**) no 12; Energias Demoníacas, Vitalidade Vil e Emissário do Caos Aprimorado (talentos, passivos) a partir do 15; Sacrificar (Emissário do Caos) no 16; Consumir Sombras (Emissário do Caos) e Dor Lancinante (bloco D) no 18.
+- 20: Sacrifício Demoníaco (**Shift-C**, um talento): você sacrifica seu demônio por um buff de 2 horas. Diabrete: 15% mais dano de Sombra. Súcubo ou Íncubo: 15% mais dano de Fogo. Emissário do Caos: mana de volta. Caçador Vil: vida de volta. Mestre-evocador (um talento, passivo): evocações são mais rápidas e mais baratas. O Súcubo ou Íncubo (missão). Armadura Demoníaca (**Shift-Z**). Depois Sofrimento (Emissário do Caos) no 24. Dominância Vil (**Shift-F1**, um talento; você precisa de Mestre-evocador antes) no 25: sua próxima evocação é 5,5 segundos mais rápida e 50% mais barata. Marca Demoníaca e Dizimação (talentos, passivos) a partir do 25.
+- 30: Vínculo Anímico (**Shift-X**, um talento; você precisa de Sacrifício Demoníaco antes): 30% do dano em você vai para o seu demônio, e vocês dois causam 3% mais dano. Dura enquanto seu demônio estiver lá. O Caçador Vil (missão; Bloquear Feitiço no 36). Conhecimento Demoníaco (um talento, passivo). Depois Mestre Demonologista (um talento, passivo) a partir do 35.
+- 40: Pacto Demoníaco (um talento, passivo; você precisa de Vínculo Anímico antes): o buff de Sacrifício Demoníaco fica quando você evoca um demônio diferente. Só agora Sacrifício Demoníaco vale a pena. Uivo do Terror (**Shift-F**), o Corcel Vil (missão). Depois Espiral da Morte (**X**) no 42, Fogo d'Alma (**Q**) no 48.
+- 50: Inferno (**F3**): um Infernal; 1 Pedra Infernal cada vez; recarga de 1 hora. Fora isso, graus mais fortes.
+- 60: Ruína do Destino (**F1**). Fora isso, graus mais fortes.
+**Erros de iniciante:**
+- Dor Lancinante antes de você ter Marca Demoníaca. Ela causa muita ameaça e tira o inimigo do seu demônio.
+- Sacrifício Demoníaco antes de Pacto Demoníaco (40). Seu demônio some, e evocar qualquer demônio remove o buff.
+- Depois de Pacto Demoníaco, evocar o mesmo demônio que você sacrificou. Aí o buff some.]] },
+			{ band = 3, title = "Destruição: dano com golpes grandes", body = [[
+A partir do nível 1 (Seta Sombria e Imolação). Golpes grandes de fogo e de sombra, e é a que mais gasta mana. Alguns guias aconselham não subir de nível com ela (muita mana, pouco jeito de recuperá-la); outros dizem que dá para jogar, e um diz que ela é forte em masmorras. Conflagrar é um talento, no mínimo nível 25; Incinerar é um talento, no mínimo nível 40. A virada é Sombra e Chama 5/5 (no mínimo 39): a partir daí Conflagrar não consome mais sua Imolação, e Sombra Ardente sempre devolve seu Estilhaço de Alma.
+**Ordem simples:**
+1. Mande seu demônio entrar (**Ctrl-1**).
+2. Imolação (**3**). Um guia abre com Seta Sombria de longe, com Imolação logo depois.
+3. Inimigo difícil: Ruína da Agonia (**5**) e sua maldição (**Shift-V**).
+4. A partir do 25: Conflagrar (bloco D). Antes de Sombra e Chama 5/5 ele consome sua Imolação: use no fim da Imolação, ou como último golpe. Depois disso: toda vez que estiver pronto.
+5. Para preencher: Seta Sombria (**1**). A partir do 40, Incinerar (bloco D), com Imolação no inimigo.
+6. A partir do 20: Sombra Ardente (**Shift-4**) como último golpe. Aí você recebe o Estilhaço de Alma de volta.
+7. Conversão de Vida (**F**) entre as lutas. Pouca mana: sua varinha (não está no bloco, coloque numa barra sua).
+8. Mais inimigos: a partir do 30, Ruína Devastadora (bloco D) num inimigo difícil, depois ataque o resto. Chuva de Fogo (**Shift-1**). Fogo do Inferno (**Shift-2**, a partir do 30) só com vida suficiente.
+**A cada 10 níveis:**
+- 10: Seta Sombria (**1**) e Imolação (**3**; Grau 2 no 10). Primeiro talento: Ruína (conjurações mais rápidas) ou Seta Sombria Aprimorada. Os níveis de talento aqui são os mais cedo possíveis; uma vantagem pode adiantá-los em até 5 níveis. Depois Seta Sombria Grau 3 no 12 (2,8 segundos de conjuração); Consequência e Cataclismo (talentos, passivos) a partir do 15; Dor Lancinante (bloco D) no 18.
+- 20: Sombra Ardente (**Shift-4**, um talento): um golpe de Sombra instantâneo; custa 1 Estilhaço de Alma; recarga de 15 segundos. Se o inimigo (um que dá EXP) morrer em 8 segundos, você recebe um estilhaço de volta. Ruína (um talento, passivo): seus críticos de Destruição batem mais forte. Chuva de Fogo (**Shift-1**). Seta Sombria Grau 4 (3 segundos de conjuração). Depois Sombra Ardente Grau 2 no 24. Conflagrar (bloco D, um talento) no 25: um golpe de Fogo instantâneo num inimigo com sua Imolação; essa Imolação então some; recarga de 10 segundos. Chamas Agonizantes e Intensidade (talentos, passivos) a partir do 25.
+- 30: Ruína Devastadora (bloco D, um talento): 5 minutos em um inimigo; 15% de todo o seu dano em outros inimigos também atinge este. Só um inimigo por vez. Fogo e Enxofre (você precisa de Conflagrar antes) e Piroclasma (você precisa de Intensidade antes), talentos, passivos. Fogo do Inferno (**Shift-2**). Depois Conflagrar Grau 2 e Sombra Ardente Grau 3 no 32; Sombra e Chama (um talento, passivo) a partir do 35, 5/5 no mínimo no 39.
+- 40: Incinerar (bloco D, um talento; você precisa de Ruína Devastadora antes): 2,5 segundos de conjuração, 25% mais dano quando o inimigo tem sua Imolação. Conflagrar Grau 3, Sombra Ardente Grau 4. Depois Fogo d'Alma (**Q**) no 48.
+- 50: Incinerar Grau 2. Inferno (**F3**).
+- 60: Incinerar Grau 3, Conflagrar Grau 6. Ruína do Destino (**F1**).
+**Erros de iniciante:**
+- Conflagrar logo depois de Imolação. Ele consome sua Imolação (até Sombra e Chama 5/5).
+- Sombra Ardente sem Estilhaço de Alma, ou num inimigo que vai viver muito. O estilhaço só volta se o inimigo morrer em 8 segundos.
+- Ruína Devastadora e Ruína da Agonia no mesmo inimigo. Só cabe uma ruína nele.]] },
+		},
+		PALADIN = {
+			{ band = 1, title = "Sagrado: curandeiro", body = [[
+A partir do nível 1: Luz Sagrada está lá desde o começo. Um **curandeiro** mantém o grupo vivo. Os guias dizem que Sagrado é a árvore mais lenta para subir de nível sozinho: suba de nível como Retribuição e cure em masmorras, ou jogue Sagrado com um amigo. Os botões próprios da árvore vêm no 20 (Favorecimento Divino), 25 (Juramento de Luz), 30 (Choque Sagrado) e 40 (Luz Zelosa).
+**Ordem simples (em grupo):**
+Antes de puxar: Bênção de Sabedoria (**Shift-V**, a partir do 14) em você mesmo, Bênção dos Reis (**Shift-X**, a partir do 20) nos outros. Aura: Aura de Devoção (**Ctrl-1**), ou Aura de Concentração (**Ctrl-3**, a partir do 22) quando os conjuradores levam muitos golpes.
+1. Juramento de Luz (**Shift-R**, a partir do 25) no tanque. Dura 5 minutos, e só um jogador pode ter.
+2. Clarão de Luz (**F2**, a partir do 20) é sua cura normal. Antes do 20: Luz Sagrada (**C**).
+3. Luz Sagrada (**C**) para um golpe grande. A partir do 25 (Infusão de Luz), ela é lançada mais rápido logo depois de um crítico de Choque Sagrado ou Clarão de Luz. **Crítico** = um golpe ou uma cura de sorte, mais forte.
+4. Choque Sagrado (**F4**, a partir do 30) quando não há tempo para lançar, ou enquanto você se move.
+5. O grupo inteiro ferido, a partir do 40: Luz Zelosa (**Shift-F1**) em um jogador, depois Choque Sagrado (**F4**) nesse mesmo jogador.
+6. Favorecimento Divino (**Shift-3**, a partir do 20) antes de uma cura que precisa ser grande.
+7. Um efeito ruim num amigo: Purificar, depois Purificação (**Shift-C**).
+8. Emergência: Impor as Mãos (**Q**). Ele gasta toda a mana que ainda resta.
+Nada para curar: seu selo (**3**), Julgamento (**2**) e Golpe Sagrado (**1**) de perto. Sozinho: jogue como um Paladino de Retribuição; a partir do 30, Choque Sagrado (**F4**) no inimigo é o seu único botão forte de dano.
+**A cada 10 níveis:**
+- 10: você já tem Luz Sagrada (**C**), Aura de Devoção (**Ctrl-1**), Bênção do Poder (**Shift-Z**), Proteção Divina (**Z**), Martelo da Justiça (**E**) e Purificar (**Shift-C**). Novo no 10: Impor as Mãos (**Q**), Bênção de Proteção (**Shift-F**). Primeiro talento: Foco Espiritual (passivo). Os níveis de talento aqui são os mais cedo possíveis; uma vantagem pode adiantá-los em até 5 níveis. Depois Redenção (**F3**, de uma missão) no 12, Bênção de Sabedoria (**Shift-V**) no 14, Reverência e Luz Curativa (talentos, passivos) a partir do 15, Bênção da Liberdade (**R**) no 18.
+- 20: Clarão de Luz (**F2**), Bênção dos Reis (**Shift-X**). Favorecimento Divino (**Shift-3**, um talento): seu próximo Clarão de Luz, Luz Sagrada ou Choque Sagrado com certeza é crítico; recarga de 2 minutos. Iluminação (um talento, passivo; você precisa de Reverência antes). Depois Aura de Concentração (**Ctrl-3**) no 22. Juramento de Luz (**Shift-R**, um talento) e Infusão de Luz (um talento, passivo) no 25.
+- 30: Choque Sagrado (**F4**, um talento): instantâneo, dano num inimigo ou cura num amigo; recarga de 10 segundos. Intervenção Divina (**F3** em combate: você mesmo morre). Selo da Luz (bloco D). Depois Escudo Divino (**Z**) no 34, Poder Sagrado (um talento, passivo) no 35, Selo da Sabedoria (bloco D) no 38.
+- 40: Luz Zelosa (**Shift-F1**, um talento; você precisa de Choque Sagrado antes): num amigo por 30 segundos; seu próximo Choque Sagrado nesse amigo não tem recarga e também cura o grupo dele. Choque Sagrado Grau 2. Armadura de Placa: você pode usar placa. Depois Purificação (**Shift-C**) no 42, Bênção do Sacrifício (bloco D) no 46, Choque Sagrado Grau 3 no 48.
+- 50: Luz Zelosa Grau 2, Impor as Mãos Grau 3. Depois Bênção Maior de Poder no 52 e Bênção Maior de Sabedoria no 54, Choque Sagrado Grau 4 no 56.
+- 60: Bênção Maior dos Reis, Luz Zelosa Grau 3; nada novo para esta função.
+**Erros de iniciante:**
+- Luz Sagrada para cada golpe pequeno. Clarão de Luz (**F2**, a partir do 20) é a cura normal barata.
+- Luz Zelosa em um jogador e Choque Sagrado em outro. A cura de grupo só vem de Choque Sagrado no MESMO jogador.
+- Apertar F3 em combate sem querer. Aí ele lança Intervenção Divina, e você mesmo morre. Fora de combate, F3 é Redenção.]] },
+			{ band = 2, title = "Proteção: tanque", body = [[
+A partir do nível 10 (Fúria Íntegra e Selo da Fúria no treinador). O **tanque** é quem os inimigos atacam, para o resto do grupo ficar seguro. **Ameaça** = o quanto um inimigo quer atacar você. Você usa uma arma de uma mão e um escudo. Os guias não concordam sobre quão bem Proteção sobe de nível sozinho. Os botões da árvore: Baluarte do Templário no 20, Julgamento Célere no 25, Escudo Sagrado no 30.
+**Ordem simples:**
+1. Antes de puxar: Fúria Íntegra ligada (sem tecla fixa: está no bloco D, ou coloque numa barra sua; dura 30 minutos). Selo da Fúria (**F**), uma bênção, uma aura. Os guias não concordam sobre a aura: Aura de Devoção (**Ctrl-1**) ou Aura da Retribuição (**Ctrl-2**).
+2. A partir do 30: Escudo Sagrado (**Shift-4**) logo antes de os inimigos chegarem até você. Aperte de novo toda vez que estiver pronto.
+3. Julgamento (**2**) no primeiro inimigo. Com Selo da Fúria ativo, Julgamento é sua provocação (3 segundos). **Provocar** = fazer o inimigo atacar você.
+4. Dois ou mais inimigos, a partir do 20: Consagração (**Shift-1**) embaixo deles. Só os 4 primeiros levam o dano extra.
+5. Golpe Sagrado (**1**) toda vez que estiver pronto.
+6. Um inimigo corre para outra pessoa: Julgamento (**2**). Não está pronto? A partir do 25: Julgamento Célere (**F1**), um segundo Julgamento com sua própria recarga de 1 minuto.
+7. Um inimigo lança um feitiço: Martelo da Justiça (**E**). O Paladino não tem interrupção.
+8. Exorcismo (**5**, a partir do 20) em inimigos Morto-vivo e Demônio. Martelo da Ira (**4**, a partir do 44).
+9. Muito dano chegando, a partir do 20: Baluarte do Templário (**X**). Último recurso: Impor as Mãos (**Q**).
+Pouca mana: largue Consagração primeiro. A partir do 40 (Juramentado do Escudo): Escudo Sagrado primeiro, depois Golpe Sagrado. Não é o tanque (sozinho, ou outra pessoa tanqueia): use seu selo no **3**, não o Selo da Fúria.
+**A cada 10 níveis:**
+- 10: Fúria Íntegra (bloco D) e Selo da Fúria (**F**). Você já tem Julgamento (**2**), Golpe Sagrado (**1**), Martelo da Justiça (**E**), Aura de Devoção (**Ctrl-1**) e Proteção Divina (**Z**). Também novo: Impor as Mãos (**Q**), Bênção de Proteção (**Shift-F**). Primeiro talento: Reduto (passivo). Os níveis de talento aqui são os mais cedo possíveis; uma vantagem pode adiantá-los em até 5 níveis. Depois Precisão, Estima do Guardião ou Dever Sagrado (talentos, passivos) a partir do 15, Aura da Retribuição (**Ctrl-2**) no 16.
+- 20: Baluarte do Templário (**X**, um talento): um escudo que absorve dano igual à sua vida máxima, por 8 segundos; recarga de 5 minutos. Consagração (**Shift-1**), Bênção dos Reis (**Shift-X**), Exorcismo (**5**). Especialização em Escudo (um talento, passivo; você precisa de Reduto antes). Depois Julgamento Célere (**F1**, um talento; você precisa de Baluarte do Templário antes) e Fúria Íntegra Aprimorada (um talento, passivo) no 25.
+- 30: Escudo Sagrado (**Shift-4**, um talento; você precisa de um escudo): 30% mais chance de bloquear por 10 segundos, 4 cargas; recarga de 10 segundos. Ajuste de Contas (um talento, passivo). Depois Escudo Divino (**Z**) no 34, Doutrina do Ferro (um talento, passivo) no 35.
+- 40: Juramentado do Escudo (um talento, passivo; você precisa de Escudo Sagrado antes): Golpe Sagrado a cada 6 segundos, e ele funciona com Escudo Sagrado. Armadura de Placa: você pode usar placa. Escudo Sagrado Grau 2. Depois Martelo da Ira (**4**) no 44, Bênção do Sacrifício (bloco D) no 46.
+- 50: Escudo Sagrado Grau 3, Ira Sagrada (bloco D); graus mais fortes de Selo da Fúria e Consagração.
+- 60: Escudo Sagrado Grau 4 e graus mais fortes; nada novo para esta função.
+**Erros de iniciante:**
+- Esquecer Fúria Íntegra. Sem ela você gera bem menos ameaça. Confira antes de cada puxada; ela dura 30 minutos.
+- Selo da Fúria ligado quando você não é o tanque. Cada Julgamento então provoca.
+- Sem escudo. Escudo Sagrado não funciona sem um, e Selo da Fúria não dá absorção.]] },
+			{ band = 3, title = "Retribuição: dano corpo a corpo", body = [[
+A partir do nível 1 (Selo da Retidão); Julgamento vem no 4, Golpe Sagrado no 6. Os guias dizem que Retribuição é a árvore mais rápida para subir de nível sozinho, com uma arma lenta de duas mãos. A missão de classe no 20 dá uma. Os botões da árvore: Selo de Comando no 20, Contrição no 30.
+**Ordem simples:**
+1. Antes da luta: Bênção do Poder (**Shift-Z**) até o 20, depois Bênção dos Reis (**Shift-X**).
+2. Aura: Aura de Devoção (**Ctrl-1**); Aura da Retribuição (**Ctrl-2**, a partir do 16) contra vários inimigos.
+3. Selo ligado (**3**): Selo da Retidão, até você conhecer Selo de Comando (a partir do 20). Aí a tecla 3 lança Selo de Comando.
+4. Julgamento (**2**) toda vez que estiver pronto. Ele não gasta o selo.
+5. Golpe Sagrado (**1**) toda vez que estiver pronto.
+6. Morto-vivo ou Demônio, a partir do 20: Exorcismo (**5**).
+7. Dois ou mais inimigos, a partir do 20: Consagração (**Shift-1**). Não em um inimigo só: custa mana demais.
+8. A partir do 44: Martelo da Ira (**4**) quando o inimigo está com 20% de vida ou menos.
+9. Inimigo forte: Martelo da Justiça (**E**), depois Julgamento (**2**). Com Selo de Comando, Julgamento causa dano em dobro num inimigo atordoado.
+10. Um segundo Humanoide, a partir do 30: Contrição (**V**), e não bata nele.
+11. Coloque o selo de novo quando ele acabar (30 segundos). Pouca vida: Luz Sagrada (**C**) entre as lutas.
+**A cada 10 níveis:**
+- 10: você já tem Selo da Retidão (**3**), Julgamento (**2**), Golpe Sagrado (**1**), Bênção do Poder (**Shift-Z**) e Martelo da Justiça (**E**). Novo no 10: Impor as Mãos (**Q**). Primeiro talento: Bênção (a maioria dos guias) ou Deflexão (um guia), ambos passivos. Os níveis de talento aqui são os mais cedo possíveis; uma vantagem pode adiantá-los em até 5 níveis. Depois Julgamento Aprimorado, Convicção ou Julgamento Santificado (talentos, passivos) a partir do 15, Aura da Retribuição (**Ctrl-2**) no 16.
+- 20: Selo de Comando (**3**, um talento): seus golpes às vezes dão um golpe Sagrado extra. A partir daí a tecla 3 lança ele em vez de Selo da Retidão. Consagração (**Shift-1**), Exorcismo (**5**), Bênção dos Reis (**Shift-X**), Clarão de Luz (**F2**). Busca de Justiça (um talento, passivo: você se move 15% mais rápido com 2/2). A missão de classe para uma arma de duas mãos. Depois Arbítrio Sagrado e Especialização em Arma de Duas Mãos (talentos, passivos) no 25.
+- 30: Contrição (**V**, um talento): tira um Humanoide da luta por até 6 segundos; qualquer dano acorda ele; recarga de 1 minuto. Vingança (um talento, passivo; você precisa de Selo de Comando antes): depois de um crítico você causa mais dano por 30 segundos; acumula 5 vezes. Selo de Comando Grau 2. Depois Escudo Divino (**Z**) no 34, Campeão da Luz (um talento, passivo) no 35.
+- 40: Ira Desatada (um talento, passivo; você precisa de Contrição antes): seus golpes guardam cópias do seu selo, e um golpe com um selo diferente usa elas. Armadura de Placa: você pode usar placa. A missão do Cavalo de Guerra. Depois Martelo da Ira (**4**) no 44.
+- 50: Selo de Comando Grau 4, Ira Sagrada (bloco D), Martelo da Ira Grau 2 no 52; nada novo para esta função.
+- 60: Selo de Comando Grau 5 e graus mais fortes; a missão do Corcel (Aliança); nada novo para esta função.
+**Erros de iniciante:**
+- Colocar o selo de novo depois de cada Julgamento. Julgamento não gasta o selo; um selo dura 30 segundos.
+- Selo de Comando com uma arma rápida. Ele quer uma arma lenta de duas mãos.
+- Consagração em um inimigo só. Custa mana demais para isso.]] },
+		},
 	},
 }

@@ -427,5 +427,562 @@ Dès le niveau 1 : Toucher guérisseur est là dès le début. Les guides décon
 - Soigner dans une forme. Les soins ne marchent que sous ta forme normale.
 - Lancer un HoT sur quelqu'un qui l'a encore. Le nouveau remplace l'ancien.]] },
 		},
+		-- Warrior ... Paladin: translated 17 Nov 2026 by mh-writer. Spell names: SpellName frFR, wowf 1.60.1.70938.
+		WARRIOR = {
+			{ band = 3, title = "Protection : tank", body = [[
+Dès le niveau 10 (Posture défensive, via une quête ; la même quête donne Provocation et Fracasser armure). Le **tank**, c'est celui que les ennemis frappent, pour que le reste du groupe reste à l'abri. Tu portes une arme à une main et un bouclier. **Menace** = à quel point un ennemi veut t'attaquer ; comme tank, il t'en faut sur chaque ennemi. Les guides ne sont pas d'accord sur l'arbre le plus rapide pour monter de niveau seul : certains disent Protection, d'autres disent qu'elle est plus lente seul. Elle démarre vraiment vers le niveau 16, quand tu as Maîtrise du blocage en plus de Vengeance.
+**Ordre simple :**
+1. Posture défensive (**Ctrl-2**), Cri de guerre (**Shift-X**). Rage sanguinaire (**F1**) pour avoir de la Rage au départ.
+2. Attire. **Attirer** = frapper un ennemi de loin, pour qu'il vienne vers toi. Charge (**R**) ne marche qu'en Posture de combat (**Ctrl-1**) ; reviens ensuite en Posture défensive (**Ctrl-2**). Avec Avant-garde (dès 25), Charge marche aussi en Posture défensive. Ou attire avec ton arme à distance (bloc D).
+3. Plusieurs ennemis : Cri démoralisant (**Shift-2**, dès 14) une fois, Coup de tonnerre (**Shift-1**) dès qu'il est prêt.
+4. Maîtrise du blocage (**Z**, dès 16), et Vengeance (**2**, dès 14) dès qu'elle s'illumine.
+5. Heurt de bouclier (**3**, dès 40) dès qu'il est prêt.
+6. Fracasser armure (**5**) sur ta cible principale ; jusqu'à 5 cumuls sur un boss.
+7. Provocation (**F**) quand un ennemi attaque quelqu'un d'autre.
+8. Rage en trop : Frappe héroïque (**1**) sur un ennemi, Enchaînement (**Shift-4**, dès 20) sur deux ennemis ou plus.
+**Tous les 10 niveaux :**
+- 10 : Posture défensive (**Ctrl-2**), Provocation (**F**), Fracasser armure (**5**), Rage sanguinaire (**F1**). Puis Coup de bouclier (**E**) au 12, Vengeance (**2**) et Cri démoralisant (**Shift-2**) au 14, Maîtrise du blocage (**Z**) au 16, Désarmement (**V**) au 18.
+- 20 : Dernier rempart (**X**, un talent) : 30 % de vie maximum en plus pendant 20 secondes. Ivresse de la victoire (**F2**), Enchaînement (**Shift-4**). Puis Cri d’intimidation (**Shift-Q**) au 22, Avant-garde (un talent, passif) au 25, Cri de défi (**Shift-F**) au 26, Mur protecteur (**C**) au 28. Les niveaux de talent indiqués ici sont les plus tôt possibles ; un avantage peut les avancer jusqu'à 5 niveaux.
+- 30 : Bourrasque (**Shift-V**, un talent) : un étourdissement de 5 secondes. Posture berserker (**Ctrl-3**, via une quête). Puis Bastion (un talent, passif) au 35.
+- 40 : Heurt de bouclier (**3**, un talent). Armure en plaques chez le maître de classe : tu peux porter des plaques.
+- 50 : rien de nouveau pour ce rôle. Rangs plus forts de Heurt de bouclier, Vengeance, Fracasser armure et Coup de tonnerre.
+- 60 : encore des rangs plus forts ; rien de nouveau pour ce rôle.
+**Erreurs de débutant :**
+- Croire que Coup de tonnerre frappe tout le groupe d'ennemis. Il frappe 4 ennemis ; un cinquième peut courir vers le soigneur.
+- Laisser des ennemis derrière toi. Par derrière, tu ne peux ni bloquer, ni esquiver, ni parer, et Vengeance ne s'illumine pas.
+- Provocation sur un ennemi qui t'attaque déjà. Elle ne fait rien alors.]] },
+			{ band = 1, title = "Armes : dégâts avec une grande arme", body = [[
+Dès le niveau 1. Tu portes une grande arme à deux mains et tu es presque toujours en Posture de combat. Les grandes étapes sont Attaques circulaires au 30 et Frappe mortelle au 40. Une nouvelle arme est ton plus gros gain. Tu n'as pas de soin à toi, sauf Ivresse de la victoire (dès 20), donc garde de la nourriture et des bandages sous la main. Les guides ne sont pas d'accord sur l'arbre le plus rapide pour monter de niveau ; les trois marchent.
+**Ordre simple :**
+1. Posture de combat (**Ctrl-1**), Cri de guerre (**Shift-X**).
+2. Charge (**R**) pour commencer.
+3. Pourfendre (**Shift-Z**), si l'ennemi va vivre un moment.
+4. Fulgurance (**2**, dès 12) dès qu'elle s'illumine.
+5. Frappe mortelle (**3**, dès 40) dès qu'elle est prête ; garde 30 de Rage pour elle.
+6. Ivresse de la victoire (**F2**, dès 20) après avoir tué un ennemi, quand il te manque de la vie.
+7. Deux ennemis : Attaques circulaires (**Q**, dès 30), puis Enchaînement (**Shift-4**, dès 20). Avant 30 : Coup de tonnerre (**Shift-1**).
+8. Rage en trop : Frappe héroïque (**1**).
+**Tous les 10 niveaux :**
+- 10 : Frappe héroïque (**1**), Charge (**R**), Pourfendre (**Shift-Z**), Coup de tonnerre (**Shift-1**), Brise-genou (**V**), Cri de guerre (**Shift-X**), Rage sanguinaire (**F1**). Puis Fulgurance (**2**) au 12, Cri démoralisant (**Shift-2**) au 14.
+- 20 : Ivresse de la victoire (**F2**), Enchaînement (**Shift-4**), Heurtoir (**Shift-C**), Représailles (**C**). Puis Exécution (**4**) au 24, Frappe transperçante (**F3**, un talent) au 25 : un coup plus fort en plus sur les Géants et les Draconiens. Les niveaux de talent indiqués ici sont les plus tôt possibles ; un avantage peut les avancer jusqu'à 5 niveaux.
+- 30 : Attaques circulaires (**Q**, un talent, en Posture de combat seulement) : tes 5 prochains coups frappent aussi un ennemi à côté de ta cible. Posture berserker (**Ctrl-3**, via une quête) avec Interception (**R**) et Rage berserker (**Shift-V**). Puis Heurtoir amélioré (un talent, passif) au 35, Tourbillon (**2** en Posture berserker) au 36, Volée de coups (**E** en Posture berserker) au 38.
+- 40 : Frappe mortelle (**3**, un talent) : l'ennemi reçoit 50 % de soins en moins pendant 10 secondes. Armure en plaques chez le maître de classe.
+- 50 : Témérité (**Q** en Posture berserker). Rangs plus forts de Frappe mortelle.
+- 60 : encore des rangs plus forts ; rien de nouveau pour ce rôle.
+**Erreurs de débutant :**
+- Appuyer tout le temps sur Frappe héroïque (**1**). Ce coup ne donne pas de Rage, donc il n'en reste plus pour Frappe mortelle ou Fulgurance.
+- Heurtoir (**Shift-C**) avant le talent Heurtoir amélioré : 1,5 seconde d'incantation, qui retarde ton coup normal. La plupart des guides ne l'utilisent pas avant ça.
+- Chercher une interruption sur **E** avec une arme à deux mains. Coup de bouclier a besoin d'un bouclier ; ton interruption, c'est Volée de coups (38, Posture berserker).]] },
+			{ band = 2, title = "Fureur : dégâts avec deux armes", body = [[
+Une arme dans chaque main, dès le niveau 20 (Ambidextrie chez le maître de classe). Jusque-là, utilise ta meilleure arme (une arme à deux mains, c'est bien) et joue comme Armes. Fureur devient vraiment forte avec Tourbillon (36) et Sanguinaire (40). Il te faut deux bonnes armes. Tourbillon, Volée de coups, Interception et Rage berserker ne marchent qu'en Posture berserker, donc tu changes souvent de posture.
+**Ordre simple (dès 36 ; avant, joue comme Armes) :**
+1. Cri de guerre (**Shift-X**). Rage sanguinaire (**F1**) pour la Rage.
+2. Charge (**R**) en Posture de combat (**Ctrl-1**).
+3. Souhait mortel (**Shift-3**, dès 30) sur un ennemi fort.
+4. Posture berserker (**Ctrl-3**) : Tourbillon (**2**, dès 36) dès qu'il est prêt.
+5. Sanguinaire (**3**, dès 40) dès qu'elle est prête. Les guides ne sont pas d'accord sur lequel des deux passe en premier.
+6. Ivresse de la victoire (**F2**) après avoir tué un ennemi, quand il te manque de la vie.
+7. Rage en trop : Frappe héroïque (**1**) ; sur deux ennemis, Enchaînement (**Shift-4**).
+8. Peu de Rage : Frappes téméraires (**Shift-F1**, dès 25 ; ça coûte de la vie).
+**Tous les 10 niveaux :**
+- 10 : rien de nouveau pour ce rôle : tu joues comme Armes, avec une seule arme.
+- 20 : Ambidextrie chez le maître de classe : maintenant, une arme peut aller dans ton autre main. Hurlement perçant (**Shift-R**, un talent) : ralentit tous les ennemis près de toi. Ivresse de la victoire (**F2**), Enchaînement (**Shift-4**). Puis Exécution (**4**) au 24, Frappes téméraires (**Shift-F1**, un talent) au 25. Les niveaux de talent indiqués ici sont les plus tôt possibles ; un avantage peut les avancer jusqu'à 5 niveaux.
+- 30 : Souhait mortel (**Shift-3**, un talent). Posture berserker (**Ctrl-3**, via une quête) avec Interception (**R**) et Rage berserker (**Shift-V**). Puis Tourbillon (**2** en Posture berserker) au 36, Volée de coups (**E** en Posture berserker) au 38.
+- 40 : Sanguinaire (**3**, un talent ; il te faut d'abord Souhait mortel). Elle ne soigne pas ; elle te fait courir plus vite. Armure en plaques chez le maître de classe.
+- 50 : Témérité (**Q** en Posture berserker). Rangs plus forts de Sanguinaire.
+- 60 : encore des rangs plus forts ; rien de nouveau pour ce rôle.
+**Erreurs de débutant :**
+- Jouer Fureur avec une bonne arme et une mauvaise deuxième.
+- Chercher Tourbillon (**2**) en Posture de combat. Il ne marche qu'en Posture berserker, et là, Pourfendre et Coup de tonnerre ne marchent pas.
+- Souhait mortel (**Shift-3**) dans un combat que tu pourrais perdre. Pendant 30 secondes, tu subis aussi 5 % de dégâts en plus.]] },
+		},
+		MAGE = {
+			{ band = 1, title = "Arcanes : dégâts à distance", body = [[
+Dès le niveau 8 (Projectiles des arcanes). Déflagration des arcanes est un talent, au plus tôt au niveau 20 ; jusque-là, tu joues comme n'importe quel mage, avec Eclair de givre, Boule de feu et Projectiles des arcanes. Les guides ne sont pas d'accord : certains disent qu'Arcanes est fort pour monter de niveau, la plupart conseillent Givre et disent qu'Arcanes demande beaucoup de mana. Son arbre n'a pas de ralentissements, donc c'est le plus faible pour tenir les ennemis à l'écart. Un **sort canalisé** est un sort qui continue tant que tu restes immobile ; bouger l'arrête. Projectiles des arcanes en est un.
+**Ordre simple :**
+1. Ouvre avec Eclair de givre (**2**) : l'ennemi arrive alors lentement.
+2. Déflagration des arcanes (**Ctrl-2**, dès 20) : une ou deux, sur un boss jusqu'à quatre. Chacune fait coûter plus de mana à la suivante.
+3. Barrage de projectiles (dès 15) s'illumine ? Projectiles des arcanes (**3**) tout de suite : gratuit et deux fois plus rapide.
+4. Colère des arcanes (**Shift-F1**, dès 25) dès qu'elle est prête.
+5. L'ennemi est près de toi ? Nova de givre (**V**), recule.
+6. Presque mort : ta baguette (**Ctrl-3**, jusqu'au 40) ou Trait de feu (**5**).
+7. Ennemi coriace ou boss : Présence spirituelle (**Shift-3**, dès 30), puis Colère des arcanes pour un gros coup instantané. Dès 40, aussi Pouvoir des arcanes (**Q**).
+Plusieurs ennemis : Nova de givre (**V**), puis Explosion des arcanes (**Shift-2**, dès 14). Peu de mana ? Evocation (**F1**, dès 20).
+**Tous les 10 niveaux :**
+- 10 : Nova de givre (**V**). Premier talent : Canalisation améliorée (Projectiles des arcanes n'est plus interrompu quand tu es frappé). Puis Explosion des arcanes (**Shift-2**) au 14, Barrage de projectiles (un talent, passif) au 15. Les niveaux de talent indiqués ici sont les plus tôt possibles ; un avantage peut les avancer jusqu'à 5 niveaux.
+- 20 : Déflagration des arcanes (**Ctrl-2**, un talent). Transfert (**R**), Evocation (**F1**), Bouclier de mana (**Z**). Puis Contresort (**E**) au 24, Colère des arcanes (**Shift-F1**, un talent ; il te faut d'abord Déflagration des arcanes) au 25.
+- 30 : Présence spirituelle (**Shift-3**, un talent) : ton prochain sort avec moins de 10 secondes d'incantation est instantané. Armure de glace (**Shift-Z**). Puis Armure du mage (bloc D) au 34.
+- 40 : Pouvoir des arcanes (**Q**, un talent ; il te faut d'abord Présence spirituelle) : pendant 15 secondes, tes sorts font 30 % de dégâts en plus, mais coûtent 30 % de mana en plus. Éclair de givrefeu prend **Ctrl-3** : mets ta baguette (Tir) sur une de tes propres touches Alt.
+- 50 : rangs plus forts de Déflagration des arcanes, Colère des arcanes et Projectiles des arcanes ; rien de nouveau pour ce rôle.
+- 60 : encore des rangs plus forts ; rien de nouveau pour ce rôle.
+**Erreurs de débutant :**
+- Appuyer sur Déflagration des arcanes encore et encore. Chacune fait coûter 100 % de mana en plus à la suivante ; tu es vite à sec.
+- Bouger pendant Projectiles des arcanes. C'est un sort canalisé : bouger l'arrête.
+- Pouvoir des arcanes sur un ennemi normal. Il fait aussi coûter plus cher tes sorts, et il a un cooldown de 3 minutes.]] },
+			{ band = 2, title = "Feu : dégâts à distance", body = [[
+Dès le niveau 1 (Boule de feu). Explosion pyrotechnique est un talent, au plus tôt au niveau 20. Le vrai jeu Feu commence avec Réchauffement (au plus tôt au niveau 25) ; avant ça, Explosion pyrotechnique sert seulement à ouvrir. Les guides disent que Feu fait le plus de dégâts sur un ennemi, et monte vite de niveau, mais avec plus de risque que Givre : il n'a pas de gel à lui. Un **critique** est un coup chanceux, plus fort.
+**Ordre simple :**
+1. Ouvre de loin avec Explosion pyrotechnique (**4**, dès 20). Avant ça : Boule de feu (**1**).
+2. Boule de feu (**1**) comme sort normal.
+3. Trait de feu (**5**) dès qu'il est prêt. Dès 25, chaque Trait de feu donne un cumul de Réchauffement.
+4. Deux ou trois cumuls de Réchauffement (dès 25) ? Explosion pyrotechnique (**4**).
+5. Ennemi proche : Brûlure (**Ctrl-1**, dès 22) au lieu de Boule de feu, ou Nova de givre (**V**) et recule. Dès 30, Vague explosive (**F3**) après.
+6. Presque mort : ta baguette (**Ctrl-3**, jusqu'au 40) ou Trait de feu.
+7. Elite ou boss, dès 40 : Combustion (**Q**).
+Plusieurs ennemis : Nova de givre (**V**), Choc de flammes (**Shift-4**, dès 16), Vague explosive (**F3**, dès 30).
+**Tous les 10 niveaux :**
+- 10 : Nova de givre (**V**). Premier talent : Empressement (Boule de feu s'incante plus vite). Puis Enflammer et Impact (des talents) au 15, Choc de flammes (**Shift-4**) au 16. Les niveaux de talent indiqués ici sont les plus tôt possibles ; un avantage peut les avancer jusqu'à 5 niveaux.
+- 20 : Explosion pyrotechnique (**4**, un talent) : 6 secondes d'incantation, donc seulement pour ouvrir. Transfert (**R**), Evocation (**F1**), Gardien de feu (**F4**), Bouclier de mana (**Z**). Puis Brûlure (**Ctrl-1**) au 22, Contresort (**E**) au 24, Réchauffement (un talent, passif ; il te faut d'abord Explosion pyrotechnique) au 25 : un critique avec Boule de feu, Éclair de givrefeu, Trait de feu ou Brûlure rend ta prochaine Explosion pyrotechnique 25 % plus rapide, jusqu'à 3 cumuls.
+- 30 : Vague explosive (**F3**, un talent) : instantanée, autour de toi ; les ennemis sont 50 % plus lents pendant 6 secondes. Masse critique (un talent). Armure de glace (**Shift-Z**). Puis Puissance du feu (un talent) au 35.
+- 40 : Combustion (**Q**, un talent ; il te faut d'abord Masse critique). Éclair de givrefeu prend **Ctrl-3** : mets ta baguette (Tir) sur une de tes propres touches Alt.
+- 50 : rangs plus forts de Boule de feu, Explosion pyrotechnique, Vague explosive et Éclair de givrefeu ; rien de nouveau pour ce rôle.
+- 60 : encore des rangs plus forts ; rien de nouveau pour ce rôle.
+**Erreurs de débutant :**
+- Lancer Explosion pyrotechnique quand l'ennemi est déjà sur toi. 6 secondes d'incantation, c'est trop lent alors.
+- Croire que trois cumuls de Réchauffement rendent Explosion pyrotechnique instantanée. Elle a encore 1,5 seconde d'incantation : reste immobile.
+- Chercher un Bloc de glace. Feu n'en a pas. Ta sortie : Nova de givre (**V**), Transfert (**R**), Vague explosive (**F3**).]] },
+			{ band = 3, title = "Givre : dégâts à distance", body = [[
+Dès le niveau 4 (Eclair de givre) ; Nova de givre arrive au 10. Javelot de glace est un talent, au plus tôt au niveau 20. Pour monter de niveau, c'est le premier choix de la plupart des guides : ils le disent le plus sûr. Il démarre vraiment vers le 30. **Gelé** = l'ennemi est gelé sur place et ne peut pas bouger.
+**Ordre simple :**
+1. Eclair de givre (**2**) d'aussi loin que possible. Chaque coup ralentit l'ennemi.
+2. Ennemi Gelé (par Nova de givre, ou par le talent Morsure de givre) ? Javelot de glace (**F**, dès 20).
+3. Ennemi proche ? Nova de givre (**V**), recule, Eclair de givre, puis Javelot de glace.
+4. Doigts de givre s'illumine (dès 30) ? Javelot de glace.
+5. Javelot de glace pas prêt et l'ennemi est proche : Cône de froid (**Shift-F**, dès 26).
+6. Presque mort : ta baguette (**Ctrl-3**, jusqu'au 40) ou Trait de feu (**5**).
+Plusieurs ennemis (dès 20) : Nova de givre (**V**), recule, Blizzard (**Shift-1**), puis Cône de froid (**Shift-F**). En difficulté : Bloc de glace (**C**, dès 25), Transfert (**R**).
+**Tous les 10 niveaux :**
+- 10 : Nova de givre (**V**). Premier talent : Eclair de givre amélioré (une incantation plus courte). Puis Morsure de givre (un talent) au 15 : tes ralentissements peuvent geler l'ennemi pendant 5 secondes. Les niveaux de talent indiqués ici sont les plus tôt possibles ; un avantage peut les avancer jusqu'à 5 niveaux.
+- 20 : Javelot de glace (**F**, un talent) : 300 % de dégâts en plus sur un ennemi Gelé. Blizzard (**Shift-1**), Transfert (**R**), Evocation (**F1**), Bouclier de mana (**Z**). Puis Gardien de givre (**F2**) au 22, Contresort (**E**) au 24, Bloc de glace (**C**, un talent) au 25, Cône de froid (**Shift-F**) au 26.
+- 30 : Morsure du froid (**Shift-C**, un talent) : remet à zéro le cooldown de tes autres sorts de Givre ; son propre cooldown est de 10 minutes. Doigts de givre (un talent ; il te faut d'abord Javelot de glace) : tes 2 prochains sorts agissent comme si l'ennemi était Gelé. Armure de glace (**Shift-Z**). Puis Froid hivernal (un talent) au 35.
+- 40 : Barrière de glace (**X**, un talent ; il te faut d'abord Morsure du froid) : un bouclier qui absorbe des dégâts. Éclair de givrefeu prend **Ctrl-3** : mets ta baguette (Tir) sur une de tes propres touches Alt.
+- 50 : rangs plus forts d'Eclair de givre, Cône de froid, Armure de glace, Barrière de glace et Blizzard ; rien de nouveau pour ce rôle.
+- 60 : encore des rangs plus forts ; rien de nouveau pour ce rôle.
+**Erreurs de débutant :**
+- Javelot de glace sur un ennemi qui n'est pas Gelé. C'est alors un petit coup.
+- Appuyer sur Trait de feu juste avant un gel. Trait de feu et Javelot de glace partagent un même cooldown de 8 secondes.
+- Utiliser Morsure du froid pour rien. Il a un cooldown de 10 minutes : garde-le pour quand ça tourne mal.]] },
+		},
+		PRIEST = {
+			{ band = 1, title = "Discipline : soigneur", body = [[
+Dès le niveau 1 : Soins inférieurs est là dès le début. Ses propres sorts arrivent plus tard : Protection de l’âme au 25 et Pénitence au 30, les deux au plus tôt. En groupe, elle est la plus forte pour soigner une seule personne, le tank. Monter de niveau seul marche avec Châtiment, Flammes sacrées et ta baguette, plus tard Pénitence ; les guides ne sont pas d'accord pour dire si c'est plus rapide qu'Ombre. **Ame affaiblie** : après un Mot de pouvoir : Bouclier, la même personne ne peut pas recevoir de nouveau bouclier pendant 15 secondes.
+**Ordre simple (en groupe) :**
+1. Mot de pouvoir : Bouclier (**Z**) sur le tank, juste avant d'attirer. **Attirer** = le premier coup qui commence un combat.
+2. Rénovation (**F4**) sur le tank.
+3. Pénitence (**Shift-F1**, dès 30) sur celui qui est blessé, chaque fois qu'elle est prête.
+4. Ton gros soin (**C**) pour les dégâts normaux.
+5. Soins rapides (**F2**, dès 20) quand C est trop lent.
+6. Plus de gens blessés : Prière de soins (**Shift-2**, dès 30).
+7. Focalisation améliorée (**F1**, dès 20) avant un soin cher. Infusion de puissance (**Q**, dès 40) sur toi ou sur un lanceur de sorts.
+Seul : Bouclier (**Z**), Flammes sacrées (**4**, dès 20), Châtiment (**1**), Attaque mentale (**3**), Mot de l'ombre : Douleur (**2**), Pénitence si tu n'en as pas besoin pour soigner, puis ta baguette (**5**).
+**Tous les 10 niveaux :**
+- 10 : Soins inférieurs (**C**), Mot de pouvoir : Bouclier (**Z**), Rénovation (**F4**), Résurrection (**F3**, seulement hors combat), Châtiment (**1**). Puis Feu intérieur (**Shift-Z**) au 12, Guérison des maladies (**Shift-C**) au 14, Soins (**C**) au 16, Dissipation de la magie (**Shift-V**) au 18.
+- 20 : Soins rapides (**F2**), Flammes sacrées (**4**), Gardien de peur (bloc D). Focalisation améliorée (**F1**, un talent) : ton prochain sort ne coûte pas de mana et fait plus souvent un critique ; cooldown 3 minutes. Puis Protection de l’âme (un talent, passif) au 25 : Bouclier n'a plus de cooldown et coûte moins. Les niveaux de talent indiqués ici sont les plus tôt possibles ; un avantage peut les avancer jusqu'à 5 niveaux.
+- 30 : Pénitence (**Shift-F1**, un talent) : soigne un ami ou blesse un ennemi ; cooldown 12 secondes. Prière de soins (**Shift-2**), Esprit divin (bloc D). Puis Abolir maladie (**Shift-C**) au 32, Égide divine (un talent, passif) au 35.
+- 40 : Infusion de puissance (**Q**, un talent ; il te faut d'abord Pénitence) : 20 % de dégâts et de soins des sorts en plus ; cooldown 3 minutes. Soins supérieurs prend la touche **C**.
+- 50 : rangs plus forts de Pénitence, Prière de soins, Soins rapides et Rénovation. Prière de robustesse (**Shift-X**) au 48.
+- 60 : encore des rangs plus forts ; rien de nouveau pour ce rôle.
+**Erreurs de débutant :**
+- Mettre un bouclier deux fois de suite sur le même joueur. Ame affaiblie l'empêche. C'est par joueur : quelqu'un d'autre peut recevoir un bouclier tout de suite.
+- Pénitence sur un ennemi pour soigner ton groupe. Elle soigne ou elle blesse, pas les deux.
+- Prière de soins sur le mauvais joueur. Elle soigne le groupe du joueur que tu choisis.]] },
+			{ band = 2, title = "Sacré : soigneur", body = [[
+Dès le niveau 1 : Soins inférieurs est là dès le début. Sacré est le soigneur de groupe. Seul, il monte lentement de niveau : les guides conseillent de faire tes quêtes avec Châtiment et ta baguette, et de soigner en donjon. Ses propres sorts arrivent tard : Nova sacrée au 20 et Prière de guérison au 40, les deux au plus tôt.
+**Ordre simple (en groupe) :**
+1. Rénovation (**F4**) sur le tank au moment où il attire. **Attirer** = le premier coup qui commence un combat.
+2. Prière de guérison (**Ctrl-2**, dès 40) sur le tank avant d'attirer, et de nouveau chaque fois qu'elle est prête.
+3. Ton gros soin (**C**) pour les dégâts normaux.
+4. Soins rapides (**F2**, dès 20) quand C arriverait trop tard.
+5. Tout le groupe blessé : Prière de soins (**Shift-2**, dès 30). Nova sacrée (**Shift-1**, dès 20) seulement quand tout le monde est juste à côté de toi ; elle coûte beaucoup de mana.
+6. Mot de pouvoir : Bouclier (**Z**) pour gagner du temps.
+7. Un ennemi t'attaque : Oubli (**F**).
+**Tous les 10 niveaux :**
+- 10 : Soins inférieurs (**C**), Mot de pouvoir : Bouclier (**Z**), Rénovation (**F4**), Résurrection (**F3**, seulement hors combat). Puis Feu intérieur (**Shift-Z**) au 12, Guérison des maladies (**Shift-C**) au 14, Soins (**C**) au 16, Dissipation de la magie (**Shift-V**) au 18.
+- 20 : Nova sacrée (**Shift-1**, un talent) : instantanée ; blesse les ennemis autour de toi et soigne ton groupe, sans menace. Soins rapides (**F2**), Flammes sacrées (**4**), Gardien de peur (bloc D). Puis Lien sacré (un talent, passif) au 25 : Soins rapides sur quelqu'un d'autre te soigne de la moitié. Les niveaux de talent indiqués ici sont les plus tôt possibles ; un avantage peut les avancer jusqu'à 5 niveaux.
+- 30 : Prière de soins (**Shift-2**), Esprit divin (bloc D). Esprit de rédemption (un talent, passif). Puis Abolir maladie (**Shift-C**) au 32, Soins spirituels (un talent, passif) au 35.
+- 40 : Prière de guérison (**Ctrl-2**, un talent ; il te faut d'abord Esprit de rédemption) : elle soigne dès que la cible prend des dégâts, puis saute vers un autre membre du groupe, jusqu'à 5 fois ; cooldown 10 secondes. Soins supérieurs prend la touche **C**.
+- 50 : rangs plus forts de Prière de guérison, Nova sacrée, Prière de soins et Rénovation. Prière de robustesse (**Shift-X**) au 48.
+- 60 : encore des rangs plus forts ; rien de nouveau pour ce rôle.
+**Erreurs de débutant :**
+- Prière de soins sur le mauvais joueur. Elle soigne le groupe du joueur que tu choisis, pas le tien.
+- Soins rapides pour tout. C'est rapide mais cher ; garde-le pour les urgences.
+- Nova sacrée sur un groupe qui est loin. Elle ne marche que juste autour de toi, et elle coûte cher.]] },
+			{ band = 3, title = "Ombre : dégâts à distance", body = [[
+Dès le niveau 4 (Mot de l'ombre : Douleur) ; Attaque mentale arrive au 10. Fouet mental est un talent, au plus tôt au niveau 20 ; Forme d'Ombre au 40. La plupart des guides montent de niveau en Ombre ; certains jouent Discipline jusqu'au 40. Au début, ta baguette fait une grande partie du travail. Ombre n'a pas de sort qui frappe beaucoup d'ennemis à la fois. Un **DoT**, ce sont des dégâts en petits morceaux pendant quelques secondes. Un **sort canalisé** est un sort qui continue tant que tu restes immobile.
+**Ordre simple :**
+1. Mot de pouvoir : Bouclier (**Z**) sur toi, si l'ennemi va t'atteindre.
+2. Attaque mentale (**3**) de loin, pour commencer.
+3. Mot de l'ombre : Douleur (**2**).
+4. Peste dévorante (**Shift-3**, dès 20) sur un ennemi qui va vivre un moment.
+5. Fouet mental (**1**, dès 20), et laisse-le aller jusqu'au bout. Avant ça : Châtiment (**1**).
+6. Achève avec ta baguette (**5**).
+Peu de mana ? Saute Peste dévorante et Fouet mental, et utilise ta baguette plus tôt. Dès 32 : Mot de l’ombre : Mort (**Shift-4**) seulement quand il va tuer l'ennemi. Dès 40 : Forme d'Ombre (**Ctrl-1**) active avant d'attirer le premier ennemi, et laisse-la active.
+**Tous les 10 niveaux :**
+- 10 : Attaque mentale (**3**), cooldown 8 secondes. Tu as déjà Châtiment (**1**), Mot de l'ombre : Douleur (**2**), Mot de pouvoir : Bouclier (**Z**), Oubli (**F**) et ta baguette (**5**). Puis Feu intérieur (**Shift-Z**) au 12, Cri psychique (**V**) au 14.
+- 20 : Fouet mental (un talent) : prend la touche **1** à la place de Châtiment. Peste dévorante (**Shift-3**) : un DoT qui te soigne aussi ; cooldown 24 secondes. Puis Etreinte vampirique (**Ctrl-3**, un talent) au 25 ou au 30 : ton groupe est soigné de 20 % de tes dégâts d'ombre. Les niveaux de talent indiqués ici sont les plus tôt possibles ; un avantage peut les avancer jusqu'à 5 niveaux.
+- 30 : Silence (**E**, un talent) : ton **interruption** (elle arrête le sort d'un ennemi) ; cooldown 45 secondes. Contrôle mental (**Shift-F**). Puis Mot de l’ombre : Mort (**Shift-4**) au 32, Lévitation (**R**) au 34.
+- 40 : Forme d'Ombre (**Ctrl-1**, un talent ; il te faut d'abord Etreinte vampirique) : 10 % de dégâts d'ombre en plus, tes sorts d'ombre coûtent moitié moins, tu subis 15 % de dégâts physiques en moins, mais aucun sort de soin. Avant ça : Ténèbres (un talent, passif) au 35.
+- 50 : rangs plus forts de Fouet mental, Attaque mentale, Mot de l'ombre : Douleur, Peste dévorante et Mot de l’ombre : Mort. Prière de robustesse (**Shift-X**) au 48.
+- 60 : rangs plus forts de Fouet mental et Peste dévorante ; rien de nouveau pour ce rôle.
+**Erreurs de débutant :**
+- Mot de l’ombre : Mort sur un ennemi qui a beaucoup de vie. S'il ne meurt pas, tu perds 30 % de ta propre vie.
+- Arrêter Fouet mental trop tôt. Avec le talent Fouet mental amélioré, le dernier tic est le plus fort.
+- Ouvrir avec Attaque mentale en groupe. Ça crée beaucoup de menace (à quel point un ennemi veut t'attaquer) : laisse le tank commencer. Si un ennemi t'attaque : Oubli (**F**).]] },
+		},
+		ROGUE = {
+			{ band = 1, title = "Assassinat : dagues et poison", body = [[
+Dès le niveau 1 (Attaque pernicieuse et Eviscération). Tu te bats au corps à corps, avec des dagues et du poison. Tu utilises l'**Énergie**, qui se remplit toute seule. Tes coups donnent des **points de combo** (jusqu'à 5) sur l'ennemi que tu frappes ; un **coup de grâce** les utilise tous. Estropier est un talent, au plus tôt au niveau 40, et demande une dague dans chaque main. Jusque-là, tu joues avec Attaque sournoise ou Attaque pernicieuse. Les guides ne disent pas que c'est le départ le plus facile : la grande étape n'arrive qu'avec Estropier.
+**Ordre simple :**
+1. Dès 20 : du poison sur tes deux armes (des objets, sur le bloc D).
+2. Attends d'avoir toute ton Énergie. Dès 18 (En garde), ta première attaque coûte alors 10 Énergie de moins.
+3. Camouflage (**Shift-R**), passe derrière l'ennemi. **Camouflage** = avancer en douce, pour que l'ennemi ne te voie pas. Ouvre avec Embuscade (**2**, dès 18, une dague en main droite) ou Garrot (**1**, dès 14). Ennemi fort, dès 26 : Coup bas (**V**), un étourdissement de 4 secondes.
+4. Points de combo : Attaque sournoise (**2**) quand tu es derrière l'ennemi, sinon Attaque pernicieuse (**1**). Dès 40 : Estropier (**3**), 2 points à chaque fois.
+5. Surin (**Shift-3**, dès 24) dès qu'il est prêt. Avec Toxine (dès 30), chaque Surin rend ton poison plus fort pendant 6 secondes.
+6. Coup de grâce : Débiter (**Shift-4**) dans un long combat ; sinon Eviscération (**4**) à 5 points. Rupture (**5**, dès 20) sur un ennemi qui va vivre longtemps (un élite, un boss).
+7. Sang froid (**F1**, dès 25) juste avant une Eviscération à 5 points.
+**Tous les 10 niveaux :**
+- 10 : tu as déjà Attaque pernicieuse (**1**), Eviscération (**4**), Attaque sournoise (**2**), Camouflage (**Shift-R**), Suriner (**Shift-Q**) et Evasion (**Z**). Nouveau au 10 : Débiter (**Shift-4**), Sprint (**R**), Assommer (**Shift-Q** en Camouflage), et une arme dans chaque main (Ambidextrie). Puis Coup de pied (**E**) au 12, Garrot (**1** en Camouflage) et Exposer l'armure (**Shift-Z**) au 14, Feinte (**F**) au 16, Embuscade (**2** en Camouflage) et En garde (passif) au 18.
+- 20 : Rupture (**5**). Poisons, via une quête. Puis Disparition (**X**) au 22, Surin (**Shift-3**) au 24, Sang froid (**F1**, un talent) au 25 : ta prochaine Attaque pernicieuse, Attaque sournoise, Embuscade, Eviscération ou Estropier fait à coup sûr un critique (**critique** = un coup chanceux, plus fort) ; cooldown 3 minutes. Coup bas (**V** en Camouflage) au 26. Les niveaux de talent indiqués ici sont les plus tôt possibles ; un avantage peut les avancer jusqu'à 5 niveaux.
+- 30 : Toxine (un talent, passif : pas de touche) : chaque Surin donne à ton poison 30 % de dégâts en plus et 20 % de chances en plus de toucher, pendant 6 secondes. Aiguillon perfide (**V**). Puis Cécité (**Shift-V**) au 34, Scelle le destin (un talent, passif) au 35 : un critique avec une attaque qui donne des points de combo te donne un point en plus.
+- 40 : Estropier (**3**, un talent ; il te faut d'abord Toxine) : 60 Énergie, frappe avec les deux dagues, 2 points de combo, 20 % de dégâts en plus sur un ennemi empoisonné. Puis Débiter Rang 2 au 42, Surin Rang 2 au 44.
+- 50 : Estropier Rang 2 et Aiguillon perfide Rang 2 ; rien de nouveau pour ce rôle.
+- 60 : Estropier Rang 3 et des rangs plus forts ; rien de nouveau pour ce rôle.
+**Erreurs de débutant :**
+- Estropier sans dagues. Il demande une dague dans chaque main : trouve ta deuxième dague avant le niveau 40.
+- Oublier Surin. Toxine ne marche que par Surin.
+- Changer d'ennemi alors que l'ancien a des points de combo. Les points ne suivent pas.]] },
+			{ band = 2, title = "Combat : des dégâts réguliers avec n'importe quelle arme", body = [[
+Dès le niveau 1 (Attaque pernicieuse et Eviscération). Tu n'as pas besoin d'être derrière l'ennemi : ton coup principal est Attaque pernicieuse. Elle marche avec n'importe quelle arme à une main : une épée, une hache, une masse, une arme de pugilat ou une dague. Plusieurs guides disent que Combat est l'arbre le plus facile pour monter de niveau seul. Ils conseillent une arme lente en main droite et une arme rapide dans ton autre main. Tu utilises l'**Énergie**, qui se remplit toute seule ; tes coups donnent des **points de combo**, et un **coup de grâce** les utilise. Déluge de lames (au plus tôt au niveau 30) est la seule chose qu'un Voleur a contre deux ennemis à la fois.
+**Ordre simple :**
+1. Attends d'avoir toute ton Énergie (En garde, dès 18).
+2. Ouvre depuis le Camouflage (**Shift-R**) avec Garrot (**1**, dès 14), ou dès 26 avec Coup bas (**V**). Marcher vers l'ennemi et attaquer, c'est bien aussi.
+3. Attaque pernicieuse (**1**) pour les points de combo.
+4. Riposte (**Shift-F1**, dès 20) dès qu'elle s'illumine : ça arrive après que tu as paré une attaque.
+5. Surin (**Shift-3**, dès 24) quand il est prêt.
+6. Coup de grâce : Débiter (**Shift-4**) dans un long combat ; sinon Eviscération (**4**) à 5 points. Les guides ne sont pas d'accord sur le moment où garder Débiter actif.
+7. Deux ennemis : Déluge de lames (**Shift-1**, dès 30). Dès 40, avec Poussée d'adrénaline (**Q**) pour un combat difficile. Tu perds ? Evasion (**Z**).
+**Tous les 10 niveaux :**
+- 10 : tu as déjà Attaque pernicieuse (**1**), Eviscération (**4**), Camouflage (**Shift-R**), Suriner (**Shift-Q**) et Evasion (**Z**). Nouveau au 10 : Débiter (**Shift-4**), Sprint (**R**), Assommer (**Shift-Q** en Camouflage), et une arme dans chaque main. Puis Coup de pied (**E**) au 12, Garrot (**1** en Camouflage) et Exposer l'armure (**Shift-Z**) au 14, Feinte (**F**) au 16, En garde (passif) au 18.
+- 20 : Riposte (**Shift-F1**, un talent ; il te faut d'abord Déviation) : ne marche que juste après que tu as paré une attaque. 10 Énergie, et l'ennemi est désarmé pendant 6 secondes. Rupture (**5**), et Poisons via une quête. Puis Disparition (**X**) au 22, Surin (**Shift-3**) au 24, Exécution parfaite (un talent, passif) au 25 : Eviscération coûte 15 Énergie de moins. Coup bas (**V** en Camouflage) au 26. Les niveaux de talent indiqués ici sont les plus tôt possibles ; un avantage peut les avancer jusqu'à 5 niveaux.
+- 30 : Déluge de lames (**Shift-1**, un talent) : pendant 15 secondes, tu attaques 20 % plus vite, et chaque coup frappe aussi un deuxième ennemi proche ; cooldown 2 minutes. Taillader et trancher (un talent, passif) : un bonus qui dépend de ton arme. Aiguillon perfide (**V**). Puis Cécité (**Shift-V**) au 34, L’éclat de l’acier (un talent, passif) au 35 : Surin donne jusqu'à 15 Énergie en plus et est prêt jusqu'à 2 secondes plus tôt.
+- 40 : Poussée d'adrénaline (**Q**, un talent ; il te faut d'abord Déluge de lames) : pendant 15 secondes, ton Énergie se remplit deux fois plus vite ; cooldown 5 minutes. Puis Débiter Rang 2 au 42 (30 % plus vite au lieu de 20 %), Surin Rang 2 au 44 (25 Énergie rendue au lieu de 15).
+- 50 : Aiguillon perfide Rang 2 et des rangs plus forts ; rien de nouveau pour ce rôle.
+- 60 : des rangs plus forts ; rien de nouveau pour ce rôle.
+**Erreurs de débutant :**
+- Déluge de lames à côté d'un ennemi que tu as mis hors jeu avec Assommer, Suriner ou Cécité. Les coups en plus le réveillent.
+- Appuyer sur Riposte alors que rien n'a été paré. Elle ne marche que juste après une parade.
+- Attaque sournoise ou Embuscade avec une épée, une hache ou une masse. Les deux ont besoin d'une dague en main droite.]] },
+			{ band = 3, title = "Finesse : frapper depuis le Camouflage", body = [[
+Dès le niveau 1 (Attaque pernicieuse et Camouflage). Cet arbre se bat depuis le Camouflage : un premier coup fort, et beaucoup de points de combo avant que le combat commence vraiment. **Camouflage** = avancer en douce, pour que l'ennemi ne te voie pas. Les guides disent que monter de niveau seul est plus lent qu'avec Combat. Hémorragie est un talent, au plus tôt au niveau 30 : pas cher, de face, avec n'importe quelle arme. Marque de mort est un talent, au plus tôt au niveau 40. Embuscade et Attaque sournoise ont besoin d'une dague en main droite ; Hémorragie et Frappe fantomatique, non.
+**Ordre simple :**
+1. Camouflage (**Shift-R**). Un deuxième Humanoïde à côté ? Assommer (**Shift-Q**). Assommer ne brise pas le Camouflage.
+2. Préméditation (**Shift-C**, dès 20) : 2 points de combo sur l'ennemi. Puis ton premier coup.
+3. Premier coup par derrière : Embuscade (**2**, dès 18, une dague en main droite). Ennemi fort, dès 26 : Coup bas (**V**), un étourdissement de 4 secondes. Les guides ne sont pas d'accord sur la meilleure ouverture.
+4. Frappe fantomatique (**Shift-X**, dès 25) et Surin (**Shift-3**, dès 24) dès qu'ils sont prêts.
+5. Points de combo : dès 30, Hémorragie (**3**). Avant ça : Attaque sournoise (**2**) quand tu es derrière l'ennemi, sinon Attaque pernicieuse (**1**).
+6. Coup de grâce : Eviscération (**4**) quand l'ennemi est presque mort ; Rupture (**5**) sur un ennemi qui va vivre longtemps ; Débiter (**Shift-4**) dans un long combat.
+7. Dès 40 : Marque de mort (**Q**) sur l'ennemi le plus fort, de préférence pendant que Rupture ou Garrot agit.
+8. Urgence : Disparition (**X**). Préparation (**F3**, dès 30) rend Disparition, Evasion et Sprint de nouveau prêts tout de suite.
+**Tous les 10 niveaux :**
+- 10 : tu as déjà Attaque pernicieuse (**1**), Eviscération (**4**), Attaque sournoise (**2**), Camouflage (**Shift-R**), Suriner (**Shift-Q**) et Evasion (**Z**). Nouveau au 10 : Assommer (**Shift-Q** en Camouflage), Débiter (**Shift-4**), Sprint (**R**), et une arme dans chaque main. Puis Coup de pied (**E**) au 12, Garrot (**1** en Camouflage) au 14, Feinte (**F**) au 16, Embuscade (**2** en Camouflage) et En garde (passif) au 18.
+- 20 : Préméditation (**Shift-C**, un talent) : 2 points de combo sur ta cible ; utilise-les dans les 20 secondes, sinon ils disparaissent ; cooldown 2 minutes. Rupture (**5**), et Poisons via une quête. Puis Disparition (**X**) au 22, Surin (**Shift-3**) au 24, Frappe fantomatique (**Shift-X**, un talent) au 25 : 40 Énergie, 1 point de combo, 15 % d'esquive en plus pendant 7 secondes ; cooldown 20 secondes. Coup bas (**V** en Camouflage) au 26. Les niveaux de talent indiqués ici sont les plus tôt possibles ; un avantage peut les avancer jusqu'à 5 niveaux.
+- 30 : Hémorragie (**3**, un talent ; il te faut d'abord Lames dentelées) : 35 Énergie, 1 point de combo, marche de face ; pendant 15 secondes, ta Rupture et ton Garrot font 15 % de dégâts en plus à cet ennemi. Préparation (**F3**, un talent) : rend tes autres sorts de Voleur prêts tout de suite ; son propre cooldown est de 10 minutes. Tu reçois l'un des deux au 30, l'autre au 31. Aiguillon perfide (**V**). Puis Cécité (**Shift-V**) au 34, Couteau de jet (un talent, passif) au 35 : Surin peut donner 2 points de combo.
+- 40 : Marque de mort (**Q**, un talent ; il te faut d'abord Préparation) : un coup de grâce, 25 Énergie, cooldown 10 secondes. Pendant 6 secondes, elle garde une partie de tes dégâts (plus par point de combo), puis les inflige d'un coup, jusqu'à une limite. Les dégâts de Rupture et de Garrot comptent double. Puis Débiter Rang 2 et Disparition Rang 2 au 42, Surin Rang 2 au 44, Marque de mort Rang 2 au 48.
+- 50 : Aiguillon perfide Rang 2, Marque de mort Rang 3 au 56 ; rien de nouveau pour ce rôle.
+- 60 : Marque de mort Rang 4 et des rangs plus forts ; rien de nouveau pour ce rôle.
+**Erreurs de débutant :**
+- Embuscade ou Attaque sournoise sans dague en main droite, ou de face.
+- Utiliser Préméditation, puis attendre. Les 2 points disparaissent après 20 secondes, et le cooldown est de 2 minutes.
+- Marque de mort sans points de combo. C'est un coup de grâce.]] },
+		},
+		HUNTER = {
+			{ band = 1, title = "Maîtrise des bêtes : dégâts avec ton familier", body = [[
+Dès le niveau 10 (ton familier, via les quêtes de classe). Ton familier fait la plus grande partie du travail : il occupe l'ennemi pendant que tu tires de loin. Chaque guide que nous avons lu choisit Maîtrise des bêtes pour monter de niveau : ils la disent la plus facile et la plus rapide. Nouveau dans Forever : Invocation de faucon (un talent, au plus tôt au niveau 25) envoie des oiseaux en plus sur ta cible. Point faible : les groupes d'ennemis. Ton familier ne peut en tenir qu'un.
+**Ordre simple :**
+Avant de commencer : Aspect du faucon actif (**Shift-R**). Le talent Aspects mortels ne marche qu'avec lui.
+1. Marque du chasseur (**Shift-Z**).
+2. Le familier d'abord (**Ctrl-1**), et attends qu'il ait l'ennemi.
+3. Morsure de serpent (**2**).
+4. Invocation de faucon (**Shift-F1**, dès 25) : garde 2 faucons tout le temps.
+5. Visée (**4**, dès 20) pendant que tu restes immobile. Deux ennemis ou plus : Flèches multiples (**Shift-1**) à la place. Elles partagent un même cooldown.
+6. Tir automatique (**1**) continue. Tir des arcanes (**3**) : avant 25, utilise-le simplement. Dès 25, seulement quand tu as déjà 2 faucons : il partage un cooldown avec Invocation de faucon.
+7. Familier presque mort : Guérison du familier (**F2**). Ennemi sur toi : Intimidation (**Shift-3**, dès 30) ou Désengagement (**Z**, dès 20). Désengagement n'est pas un saut : de près, l'ennemi a moins envie de t'attaquer, et ton attaque automatique s'arrête. Vrai problème : Feindre la mort (**X**, dès 30).
+8. Ennemi coriace : Courroux bestial (**F1**, dès 40) avec Tir rapide (**Q**, dès 26).
+**Tous les 10 niveaux :**
+- 10 : ton familier, via les quêtes de classe. Aspect du faucon (**Shift-R**). Premiers talents : Aspects mortels, Entraînement à l'Endurance. Les niveaux de talent indiqués ici sont les plus tôt possibles ; un avantage peut les avancer jusqu'à 5 niveaux. Puis Guérison du familier (**F2**) au 12, Flèches multiples (**Shift-1**) au 18.
+- 20 : Visée (**4**, chez le maître de classe), Aspect du guépard (**R**), Désengagement (**Z**), Piège givrant (**V**). Talents : Rapidité bestiale (ton familier court 30 % plus vite ; il te la faut pour Intimidation), Fureur libérée, Science des chemins.
+- 30 : Intimidation (**Shift-3**, un talent) : ton familier étourdit l'ennemi pendant 3 secondes avec son prochain coup ; cooldown 1 minute. Feindre la mort (**X**). Avant ça : Invocation de faucon (**Shift-F1**, un talent) au 25 : un faucon reste 18 secondes, 2 au plus à la fois. Tir rapide (**Q**) au 26.
+- 40 : Courroux bestial (**F1**, un talent ; les 30 points d'avant doivent tous être en Maîtrise des bêtes) : ton familier fait 50 % de dégâts en plus pendant 18 secondes ; cooldown 2 minutes. Salve (bloc D). Avant ça : Piège explosif prend **Shift-2** au 34, Frénésie (un talent, passif) au 35.
+- 50 : rangs plus forts d'Invocation de faucon, Visée et Guérison du familier ; rien de nouveau pour ce rôle. Après 40, les guides mettent tes points en Précision.
+- 60 : encore des rangs plus forts ; rien de nouveau pour ce rôle.
+**Erreurs de débutant :**
+- Tirer avant que ton familier ait l'ennemi. L'ennemi vient alors vers toi.
+- Voir Invocation de faucon et Tir des arcanes comme deux boutons séparés. Ils partagent un même cooldown : les faucons d'abord.
+- Te battre en Aspect du guépard ou du singe. Aspects mortels ne marche qu'avec le Faucon actif.]] },
+			{ band = 2, title = "Précision : dégâts à distance", body = [[
+Dès le niveau 1 (Tir automatique). Tes propres tirs font le travail, de loin. Visée arrive au 20 chez le maître de classe : ce n'est pas un talent. Tir de précision est un talent, au plus tôt au niveau 40 : 4 secondes d'incantation, et une portée jusqu'à 45 mètres. Les guides disent que monter de niveau marche, mais plus lentement qu'en Maîtrise des bêtes : ton familier tient moins bien l'ennemi, parce que tu fais plus de dégâts. En groupe, c'est fort : Aura de précision aide tout ton groupe ou ton raid. Loup solitaire (un talent, au plus tôt au niveau 20) donne 20 % de dégâts en plus quand tu n'as pas de familier ; pour monter de niveau, les guides gardent le familier.
+**Ordre simple :**
+Avant de commencer : Aspect du faucon (**Shift-R**) et Aura de précision (**Shift-X**, dès 25) actifs.
+1. Marque du chasseur (**Shift-Z**). Avec un familier : le familier d'abord (**Ctrl-1**).
+2. Ennemi encore loin : Tir de précision (**Shift-4**, dès 40) pour ouvrir.
+3. Morsure de serpent (**2**). Certains guides la sautent dans les combats courts.
+4. Visée (**4**, dès 20) chaque fois qu'elle est prête. Reste immobile.
+5. Tir des arcanes (**3**) entre les deux, si ton mana le permet.
+6. Tir automatique (**1**) continue.
+7. Un groupe d'ennemis : Flèches multiples (**Shift-1**) au lieu de Visée. Un grand groupe : Salve (bloc D, dès 40).
+8. Ennemi sur toi : Flèche de dispersion (**E**, dès 30), puis recule. Trait de choc (**Shift-Q**) le ralentit.
+9. Ennemi coriace : Tir rapide (**Q**, dès 26) au début.
+**Tous les 10 niveaux :**
+- 10 : ton familier, via les quêtes de classe. Aspect du faucon (**Shift-R**). Premiers talents : Attaques mortelles, Oeil de faucon, Trait de choc amélioré ; dès 15 : Visée minutieuse, Efficacité, Morsures et piqûres améliorées. Les niveaux de talent indiqués ici sont les plus tôt possibles ; un avantage peut les avancer jusqu'à 5 niveaux. Puis Flèches multiples (**Shift-1**) au 18.
+- 20 : Visée (**4**), chez le maître de classe : 2 secondes d'incantation, cooldown 6 secondes, partagé avec Flèches multiples. Talents : Tueur rapide, Tir des arcanes amélioré, Loup solitaire. Aspect du guépard (**R**), Désengagement (**Z**), Piège givrant (**V**).
+- 30 : Flèche de dispersion (**E**, un talent) : l'ennemi est désorienté pendant 4 secondes, et le moindre dégât le libère ; cooldown 30 secondes. Feindre la mort (**X**). Avant ça : Aura de précision (**Shift-X**, un talent) au 25 : plus de Puissance d'attaque à distance pour ton groupe, pendant 30 minutes. Tir rapide (**Q**) au 26.
+- 40 : Tir de précision (**Shift-4**, un talent ; il te faut d'abord Aura de précision) : cooldown 15 secondes, et tes 3 prochains tirs portent 10 mètres plus loin. Salve (bloc D). Avant ça : Aura de précision Rang 2 chez le maître de classe au 32, Spécialisation Armes à distance (un talent, passif) au 35.
+- 50 : rangs plus forts : Visée au 44 et au 52, Tir de précision au 48, Aura de précision et Salve au 50. Après 40, les guides mettent tes points en Maîtrise des bêtes.
+- 60 : encore des rangs plus forts ; rien de nouveau pour ce rôle.
+**Erreurs de débutant :**
+- Bouger pendant Visée ou Tir de précision. Ils ont 2 et 4 secondes d'incantation.
+- Flèches multiples sur un seul ennemi. Visée est alors bloquée elle aussi pendant 6 secondes.
+- Tir de précision quand l'ennemi est déjà sur toi. C'est 4 secondes d'incantation, et ça ne marche pas à moins de 8 mètres.]] },
+			{ band = 3, title = "Survie : dégâts au corps à corps, avec des pièges", body = [[
+Dès le niveau 1 (Attaque du raptor), mais le vrai jeu Survie commence vers le 30. Dans Forever, c'est le Chasseur de corps à corps : Attaque du raptor, Morsure de la mangouste, Contre-attaque et Coup de trotteur, plus les pièges. Tu gardes ton familier et ton arme à distance : ouvre de loin, puis approche. Les guides la disent la plus lente des trois pour monter de niveau ; jusque vers le 30, tu joues comme n'importe quel Chasseur (le familier d'abord, puis tirer). Elle coûte beaucoup de mana, et un gros coup de ta part peut prendre l'ennemi à ton familier. Les guides ne sont pas d'accord sur la meilleure arme de corps à corps.
+**Ordre simple :**
+Avant de commencer : Aspect du faucon (**Shift-R**) pendant que tu tires. Dès 30, Aspect de la bête pour te battre de près ; il n'a pas de touche fixe, donc mets-le sur ta propre barre.
+1. Marque du chasseur (**Shift-Z**). Sans la Marque, Exposition de proie ne marche pas.
+2. Le familier d'abord (**Ctrl-1**).
+3. Morsure de serpent (**2**), puis Tir des arcanes (**3**) pendant que l'ennemi arrive, ou pendant que tu marches vers lui.
+4. Un piège à tes pieds : Piège d'Immolation (**Shift-2**, dès 16). Dès 34, cette touche est Piège explosif, et Piège d'Immolation n'a pas de touche : mets-le sur ta propre barre si tu le veux.
+5. De près : Morsure de la mangouste (**Shift-C**, dès 16) dès qu'elle s'illumine. Attaque du raptor (**5**) chaque fois qu'elle est prête. Coup de trotteur (dès 30) chaque fois qu'il est prêt ; mets-le sur ta propre barre. Les guides ne sont pas d'accord : certains reculent pour tirer après Coup de trotteur, d'autres restent près.
+6. Contre-attaque (**Shift-V**) juste après une parade.
+7. L'ennemi s'enfuit, ou tu veux reprendre de la distance : Coupure d'ailes (**Shift-F**).
+8. En difficulté : Dissuasion (**C**, dès 20), Feindre la mort (**X**, dès 30).
+**Tous les 10 niveaux :**
+- 10 : ton familier, via les quêtes de classe. Attaque du raptor (**5**), tu l'as dès le niveau 1. Premiers talents : Pistage amélioré, Déviation ; dès 15 : Frappes sauvages, Survivant, Piège, Coupure d'ailes améliorée. Les niveaux de talent indiqués ici sont les plus tôt possibles ; un avantage peut les avancer jusqu'à 5 niveaux. Puis Coupure d'ailes (**Shift-F**) au 12, Morsure de la mangouste (**Shift-C**) et Piège d'Immolation (**Shift-2**) au 16.
+- 20 : Dissuasion (**C**, un talent) : 25 % d'esquive et de parade en plus pendant 10 secondes ; cooldown 5 minutes. Piège givrant (**V**), Visée (**4**), Ambidextrie (passif, chez le maître de classe). Désengagement (**Z**) : pas un saut ; de près, il baisse ta **menace** (à quel point un ennemi veut t'attaquer), et ton attaque automatique s'arrête. Talents : Pied sûr, Pièges astucieux.
+- 30 : Coup de trotteur (un talent ; pas de touche fixe, mets-le sur ta propre barre) : 100 % des dégâts de l'arme, puis tu cours 30 % plus vite pendant 3 secondes ; cooldown 8 secondes. Aspect de la bête (chez le maître de classe ; mets-le sur ta propre barre) : plus de Puissance d’attaque. Feindre la mort (**X**). Avant ça : Contre-attaque (**Shift-V**, un talent), dès 25 ou 30 (les sources ne sont pas d'accord) : elle devient active après une parade, et immobilise l'ennemi pendant 5 secondes. Tranchant de prédateur (un talent, passif) dès 25. Aussi dans cette rangée : Exposition de proie, Ingéniosité, Discipline de survivaliste.
+- 40 : Frappes lacérantes (un talent, passif ; il te faut d'abord Exposition de proie) : Morsure de la mangouste fait aussi saigner l'ennemi. Avant ça : Piège explosif prend **Shift-2** au 34, Réflexes éclairs (un talent, passif) au 35.
+- 50 : rangs plus forts : Contre-attaque au 42 et au 54, Morsure de la mangouste au 44, Piège explosif au 44 et au 54, Attaque du raptor au 48, Aspect de la bête au 50. Les guides ne sont pas d'accord sur où mettre tes points après 40.
+- 60 : encore des rangs plus forts ; rien de nouveau pour ce rôle.
+**Erreurs de débutant :**
+- Foncer droit sur l'ennemi. Ouvre de loin (Marque, familier, Morsure de serpent, un tir), puis approche.
+- Appuyer sur Morsure de la mangouste ou Contre-attaque quand elles ne s'illuminent pas. Morsure de la mangouste ne marche qu'après une esquive (ou grâce à Exposition de proie), Contre-attaque seulement après une parade.
+- Rester en Aspect du faucon de près après le niveau 30. Le Faucon n'aide que tes tirs ; la Bête donne de la Puissance d’attaque.]] },
+		},
+		SHAMAN = {
+			{ band = 1, title = "Elémentaire : dégâts à distance", body = [[
+Dès le niveau 1 : Eclair est là dès le début. La foudre et le feu, à distance. Horion de flammes arrive au 10, Chaîne d'éclairs au 32. Maîtrise de la foudre est un talent, au plus tôt au niveau 40. Les guides montent de niveau en Amélioration : Elémentaire marche, mais ses coûts en mana sont très élevés, tu dois rester immobile pour lancer tes sorts, et beaucoup d'ennemis à la fois, c'est difficile.
+**Ordre simple :**
+Avant de commencer : Bouclier de foudre (**Shift-Z**, dès 8) actif. Totem incendiaire (**5**, dès 10) posé avant d'attirer.
+1. Ouvre de loin avec Eclair (**1**).
+2. Horion de flammes (**2**, dès 10) sur un ennemi qui va vivre longtemps.
+3. Eclair (**1**) pour remplir.
+4. Trois ennemis ou plus : Nova de feu (**Shift-4**, dès 12) et Chaîne d'éclairs (**Shift-1**, dès 32) quand elles sont prêtes.
+5. Maîtrise de la foudre (**Q**, dès 40) pour un élite ou un grand groupe.
+6. Garde Horion de terre (**E**) pour le moment où l'ennemi lance un sort : il interrompt le sort.
+Peu de vie : Vague de soins (**C**). Ennemi trop près : Totem de lien terrestre (**V**) ou Horion de givre (**4**, dès 20).
+**Tous les 10 niveaux :**
+- 10 : Eclair (**1**), Horion de terre (**E**, dès 4), Bouclier de foudre (**Shift-Z**, dès 8). Horion de flammes (**2**), Totem incendiaire (**5**, via une quête). Premiers talents : Convection, Commotion (passif). Les niveaux de talent indiqués ici sont les plus tôt possibles ; un avantage peut les avancer jusqu'à 5 niveaux. Puis Nova de feu (**Shift-4**) et Expiation (**Shift-Q**) au 12, Totem de Séisme (**Shift-F**) au 18.
+- 20 : Horion de givre (**4**), Loup fantôme (**R**), Appel des éléments (**Ctrl-1**). Focalisation élémentaire (un talent, passif). Puis Appel totémique (**Shift-R**) au 22. Lien terrestre (un talent) au 25 : Totem de lien terrestre (**V**) immobilise les ennemis pendant 5 secondes, seulement au moment où tu le poses. Totem de Magma (bloc D) au 26.
+- 30 : Appel de la foudre (un talent, passif). Totem de Glèbe (**X**), Appel des ancêtres (**Ctrl-2**), Réincarnation (passif). Surcharge de foudre (un talent, passif). Puis Chaîne d'éclairs (**Shift-1**) au 32, Fureur élémentaire (un talent, passif) au 35.
+- 40 : Maîtrise de la foudre (**Q**, un talent) : pendant 15 secondes, Eclair s'incante 0,5 seconde plus vite et Chaîne d'éclairs n'a pas de cooldown ; cooldown 3 minutes. Appel des esprits (**Ctrl-3**), Salve de guérison (**Shift-2**). Mailles chez le maître de classe.
+- 50 : rangs plus forts d'Eclair, Chaîne d'éclairs, Horion de terre, Horion de flammes, Nova de feu et Totem incendiaire ; rien de nouveau pour ce rôle.
+- 60 : encore des rangs plus forts ; rien de nouveau pour ce rôle.
+**Erreurs de débutant :**
+- Horion de terre pour faire des dégâts en groupe. Il crée beaucoup de **menace** (à quel point un ennemi veut t'attaquer). Et il partage son cooldown avec Horion de flammes : après ça, tu n'as plus d'interruption.
+- Chaîne d'éclairs sur un seul ennemi. Elle coûte beaucoup de mana et a un cooldown de 6 secondes.
+- Achever chaque ennemi avec un sort. Le mana est ta limite : frappe avec ton arme un ennemi presque mort.]] },
+			{ band = 2, title = "Amélioration : dégâts au corps à corps", body = [[
+Dès le niveau 1 : tu frappes avec ton arme, avec Arme Croque-roc dessus. Les guides montent de niveau en Amélioration : ils disent que c'est le choix confortable. Prends une arme lente à deux mains. Courroux naturel est un talent, au plus tôt au niveau 25 ; Arme Furie-des-vents arrive au 30 chez le maître de classe. Le mana est ta limite : quand il baisse, arrête de lancer des sorts et continue à frapper. Le conseil d'un guide pour le buff d'arme : Arme Croque-roc seule, Arme Langue de feu en groupe, Arme Furie-des-vents dès 30. En petit groupe, Amélioration peut tanker un moment avec Arme Croque-roc (Armes spirituelles donne alors plus de menace), mais il n'y a ni provocation ni cooldown défensif.
+**Ordre simple :**
+Avant de commencer : buff d'arme actif (bloc D), Bouclier de foudre (**Shift-Z**), Totem incendiaire (**5**) ou tes totems posés.
+1. Attire avec Eclair (**1**). **Attirer** = frapper un ennemi de loin, pour qu'il vienne vers toi.
+2. Courroux naturel (**3**, dès 25) dès qu'il est prêt.
+3. Eclair (**1**) à 5 cumuls d'Arme du Maelström (dès 35) : il est alors instantané et gratuit.
+4. Horion de terre (**E**). En groupe, alterne avec Horion de flammes (**2**).
+5. Nova de feu (**Shift-4**, dès 12) quand un totem de Feu est posé et que tu as du mana en trop ; surtout contre plus d'ennemis.
+6. Rage long-voyante (**Q**, dès 40) pour un élite ou un gros groupe attiré.
+7. Sinon, continue simplement à frapper.
+Après le combat : Vague de soins (**C**). Urgence pendant un combat : Vague de soins inférieurs (**F2**, dès 20).
+**Tous les 10 niveaux :**
+- 10 : Arme Croque-roc (bloc D), Eclair (**1**), Horion de terre (**E**, dès 4), Bouclier de foudre (**Shift-Z**, dès 8). Horion de flammes (**2**), Totem incendiaire (**5**), Totem de Force de la Terre (**Shift-X**), Arme Langue de feu (bloc D). Premiers talents : Frappe foudroyante et d'autres (passifs) ; Dextérité mentale (passif) dès 15. Les niveaux de talent indiqués ici sont les plus tôt possibles ; un avantage peut les avancer jusqu'à 5 niveaux. Puis Nova de feu (**Shift-4**) au 12.
+- 20 : Loup fantôme (**R**), Horion de givre (**4**), Vague de soins inférieurs (**F2**), Appel des éléments (**Ctrl-1**). Focalisation chamanique (un talent, passif) : les horions et Bouclier de foudre coûtent 45 % de mana en moins. Puis Courroux naturel (**3**, un talent) au 25. Rafale (un talent, passif) dès 25. Loup fantôme amélioré (un talent) dès 25 : Loup fantôme est plus rapide (instantané avec les deux points) et marche aussi à l'intérieur ; les guides le prennent à des niveaux très différents. Totem de Magma (bloc D) au 26.
+- 30 : Arme Furie-des-vents (bloc D). Frappe-tempête amélioré et Armes spirituelles (des talents). Totem de Glèbe (**X**), Appel des ancêtres (**Ctrl-2**). Puis Totem Furie-des-vents au 32 (pas de touche : utilise la Barre de totems), Chaîne d'éclairs (**Shift-1**) au 32, Arme du Maelström (un talent, passif) au 35.
+- 40 : Rage long-voyante (**Q**, un talent) : tu frappes 30 % plus vite pendant 25 secondes ; seulement les coups de ton arme, pas tes sorts. Cooldown 3 minutes. Tous les guides ne la prennent pas au 40 : certains vont d'abord en Restauration pour le mana. Appel des esprits (**Ctrl-3**), les Mailles, une Arme Furie-des-vents plus forte. Puis Totem de Grâce aérienne au 42 (pas de touche : utilise la Barre de totems).
+- 50 : rangs plus forts d'Arme Furie-des-vents, Arme Croque-roc, Horion de terre, Eclair et Totem de Force de la Terre ; rien de nouveau pour ce rôle.
+- 60 : encore des rangs plus forts ; rien de nouveau pour ce rôle.
+**Erreurs de débutant :**
+- Eclair avec moins de 5 cumuls d'Arme du Maelström. Il remet ton temps d'attaque à zéro. Et Arme du Maelström n'aide qu'Eclair : pas les soins, pas Chaîne d'éclairs.
+- Arme Croque-roc en groupe quand c'est toi qui fais les dégâts, une fois que tu as Armes spirituelles. Avec Croque-roc, tu crées 30 % de menace en plus, sans elle 30 % en moins. Utilise Langue de feu ou Furie-des-vents.
+- Chercher une provocation. Le Chaman n'en a pas. Totem de Griffes de pierre (**F**) force les ennemis à attaquer le totem, pas toi.]] },
+			{ band = 3, title = "Restauration : soigneur", body = [[
+Dès le niveau 1 : Vague de soins est là dès le début, et c'est ton soin principal pour monter de niveau. Les guides déconseillent de monter de niveau seul en Restauration (les ennemis meurent lentement), mais elle est bonne en groupe. Entre les donjons, tu fais tes quêtes avec Eclair et Horion de flammes. Remous est un talent, au plus tôt au niveau 40. Un Chaman peut retirer le Poison et la Maladie, mais pas les malédictions ni la magie.
+**Ordre simple (en groupe) :**
+Avant de commencer : Bouclier d’eau (**Shift-Z**, dès 20). Totems posés : Appel des éléments (**Ctrl-1**, dès 20) ou Totem guérisseur (**F4**, dès 20).
+1. Remous (**Shift-F1**, dès 40) sur le tank ou sur celui qui prend des dégâts.
+2. Salve de guérison (**Shift-2**, dès 40) sur cette même cible quand plus de gens sont blessés.
+3. Vague de soins (**C**) pour une personne ou pour le tank.
+4. Vague de soins inférieurs (**F2**, dès 20) quand ça doit aller vite.
+5. Urgence : Rapidité de la nature (**Shift-3**, dès 30), puis Vague de soins (**C**).
+6. Totem de Vague de mana (**F1**, dès 25) quand ton mana s'épuise.
+7. Personne n'est blessé : Eclair (**1**).
+**Tous les 10 niveaux :**
+- 10 : Vague de soins (**C**). Premiers talents : Vague de soins améliorée (une Vague de soins plus rapide), Focalisation des flots (passif). Les niveaux de talent indiqués ici sont les plus tôt possibles ; un avantage peut les avancer jusqu'à 5 niveaux. Puis Esprit ancestral (**F3**, hors combat) au 12, Guérison du poison (**Shift-C**) au 16, Totem de Séisme (**Shift-F**) au 18.
+- 20 : Vague de soins inférieurs (**F2**), Totem guérisseur (**F4**, via une quête), Appel des éléments (**Ctrl-1**), Loup fantôme (**R**). Bouclier d’eau (**Shift-Z**, un talent) : 3 globes d'eau ; quand tu es frappé ou qu'un de tes sorts fait un critique, tu récupères 2 % de ton mana par globe. Il dure 10 minutes. À partir de là, Shift-Z lance Bouclier d’eau, pas Bouclier de foudre. Puis Guérison des maladies (**Shift-V**) au 22. Totem de Vague de mana (**F1**, un talent) au 25 : rend du mana à ton groupe ; cooldown 5 minutes. Totem Fontaine de mana au 26 (pas de touche : utilise la Barre de totems).
+- 30 : Rapidité de la nature (**Shift-3**, un talent) : ton prochain sort de Nature avec moins de 10 secondes d'incantation est instantané ; cooldown 3 minutes. Flots de soins (un talent, passif). Totem de Glèbe (**X**), Appel des ancêtres (**Ctrl-2**), Réincarnation (passif). Puis Purification (un talent, passif) au 35, un Totem de Vague de mana plus fort au 38.
+- 40 : Salve de guérison (**Shift-2**). Remous (**Shift-F1**, un talent ; il te faut d'abord Flots de soins) : un soin sur 15 secondes, pas un soin instantané, et une Salve de guérison que tu lances directement sur cette cible soigne 25 % de plus ; cooldown 12 secondes. Appel des esprits (**Ctrl-3**), les Mailles.
+- 50 : rangs plus forts de Remous, Salve de guérison, Vague de soins, Vague de soins inférieurs, Totem de Vague de mana et Totem guérisseur ; rien de nouveau pour ce rôle.
+- 60 : encore des rangs plus forts ; rien de nouveau pour ce rôle.
+**Erreurs de débutant :**
+- Salve de guérison sur quelqu'un d'autre que ta cible de Remous. Le bonus ne compte que quand tu la lances directement sur cette cible.
+- Appuyer seulement sur Rapidité de la nature. Elle ne soigne rien toute seule : elle rend ton prochain sort de Nature instantané. Appuie sur Vague de soins juste après.
+- Essayer de retirer une malédiction. Un Chaman ne peut pas ; seulement le Poison (**Shift-C**) et la Maladie (**Shift-V**).]] },
+		},
+		WARLOCK = {
+			{ band = 1, title = "Affliction : dégâts sur la durée", body = [[
+Dès le niveau 4 (Corruption) et 8 (Plaie d'agonie). Tu poses des DoT sur l'ennemi et tu laisses ton démon le tenir. La plupart des guides montent de niveau en Affliction. Siphon de vie est un talent, au plus tôt au niveau 30. Calvaire est un talent, au plus tôt au niveau 40 : pendant que tu le canalises, ton Siphon de vie, ta Corruption et ta Plaie d'agonie sur cet ennemi font leurs dégâts 100 % plus vite. Calvaire ne te soigne pas.
+**Ordre simple :**
+1. Envoie ton démon (**Ctrl-1**).
+2. Plaie d'agonie (**5**) pour attirer. Ses dégâts commencent bas, donc ton démon prend l'ennemi.
+3. Corruption (**2**). Avec Corruption améliorée 5/5, elle est instantanée (au plus tôt au 14).
+4. Siphon de vie (**F4**, dès 30), seulement sur un ennemi qui va vivre longtemps.
+5. Immolation (**3**) seulement sur un ennemi coriace.
+6. Ennemi coriace : ajoute ta malédiction (**Shift-V**). Les guides ne sont pas d'accord sur le moment.
+7. Pour remplir : jusque vers le niveau 30, ta baguette (Tir ; pas sur le bloc, mets-le sur ta propre barre), puis Drain de vie (**C**). Les guides ne sont pas tout à fait d'accord sur le moment de changer.
+8. Transe de l'ombre s'illumine (Crépuscule, dès 25) ? Trait de l'ombre (**1**) : il est alors instantané.
+9. Dès 40 : Calvaire (bloc D) au lieu de Drain de vie quand ta vie va bien. Pose d'abord tes DoT.
+10. Plus de vie que de mana ? Connexion (**F**).
+11. Besoin d'un Fragment d'âme ? Achève l'ennemi avec Siphon d'âme (**4**).
+Deux ennemis : des DoT sur le premier, Peur (**V**) sur lui, puis bats-toi contre le second. Les dégâts peuvent briser la Peur, et les guides ne sont pas d'accord sur les DoT avant la Peur.
+**Tous les 10 niveaux :**
+- 10 : Siphon d'âme (**4**), Création de Pierre de soins (bloc D), le Marcheur du Vide (quête). Tu as déjà Trait de l'ombre (**1**), Immolation (**3**), Corruption (**2**, 4), Malédiction de faiblesse (**Shift-V**, 4), Connexion (**F**, 6), Plaie d'agonie (**5**, 8) et Peur (**V**, 8). Premier talent : Corruption améliorée ou Suppression (les guides ne sont pas d'accord). Les niveaux de talent indiqués ici sont les plus tôt possibles ; un avantage peut les avancer jusqu'à 5 niveaux. Puis Captation de vie (**F2**) au 12 ; Drain de vie (**C**) et Corruption Rang 2 (15 secondes) au 14 ; Drains améliorés et Récolte d’âmes (des talents, passifs) dès 15 ; Douleur brûlante (bloc D) et Création de pierre d'âme au 18.
+- 20 : Malédiction amplifiée (**Shift-3**, un talent) : ta prochaine Malédiction de faiblesse ou Plaie d'agonie est 50 % plus forte ; cooldown 3 minutes. Malédiction des éléments (**Shift-V**), Armure démoniaque (**Shift-Z**), Pluie de feu (**Shift-1**), la Succube ou l'Incube (quête). Puis Corruption Rang 3 (18 secondes) et Drain de mana au 24. Malédiction de fatigue (**R**, un talent ; il te faut d'abord Malédiction amplifiée) au 25 : l'ennemi est 30 % plus lent pendant 12 secondes. Crépuscule (un talent, passif) au 25 : une petite chance que ton prochain Trait de l'ombre soit instantané. Bannir (**Shift-Q**) au 28.
+- 30 : Siphon de vie (**F4**, un talent) : prend de la vie à l'ennemi et te la donne, pendant 30 secondes. Siphon d’âme (un talent, passif) : Drain de vie, Siphon d'âme et Calvaire font plus pour chacun de tes Corruption, Siphon de vie et Plaie d'agonie sur l'ennemi. Drain de vie Rang 3, Flammes infernales (**Shift-2**), le Chasseur corrompu (quête). Puis Gardien de l'ombre (**Z**) au 32, Maîtrise de l'ombre (un talent, passif) au 35, Siphon de vie Rang 2 et Drain de vie Rang 4 au 38.
+- 40 : Calvaire (bloc D, un talent ; il te faut d'abord Siphon de vie) : un sort canalisé de 6 secondes qui fait des dégâts chaque seconde et fait agir tes DoT sur cet ennemi 100 % plus vite. Hurlement de terreur (**Shift-F**), le Palefroi corrompu (quête). Puis Voile mortel (**X**) au 42, Feu de l'âme (**Q**) et Siphon de vie Rang 3 au 48.
+- 50 : Inferno (**F3**). Malédiction des éléments Rang 4. Sinon, des rangs plus forts.
+- 60 : Plaie funeste (**F1**) : un gros coup après 60 secondes ; pas sur les joueurs. Sinon, des rangs plus forts.
+**Erreurs de débutant :**
+- Remettre Plaie d'agonie trop tôt. Ses tics les plus forts arrivent à la fin.
+- Utiliser Calvaire quand tu as besoin de vie. Calvaire ne soigne pas ; Drain de vie, oui.
+- Malédiction de témérité sur l'ennemi que tu veux apeurer avec Peur. Cet ennemi ignore la Peur.]] },
+			{ band = 2, title = "Démonologie : dégâts avec ton démon", body = [[
+Dès le niveau 1 (le Diablotin), vraiment dès 10 (le Marcheur du Vide). Ton démon fait une grande partie du travail, et les talents le rendent plus fort. Les guides ne sont pas d'accord sur le moment d'aller dans cet arbre : certains y vont dès 10, d'autres montent d'abord en Affliction et changent vers 26 ou 27. Sacrifice démoniaque (au plus tôt au 20) ne vaut le coup qu'avec Pacte démoniaque (au plus tôt au 40). Avant ça, chaque démon que tu invoques retire le buff.
+**Ordre simple :**
+1. Envoie ton démon (**Ctrl-1**), et laisse-le frapper en premier.
+2. Dès 30 : Lien spirituel (**Shift-X**) actif, et de nouveau après chaque invocation.
+3. Dès 25 (Marque démoniaque) : Douleur brûlante (bloc D) sur l'ennemi de ton démon. De nouveau quand la marque est partie (10 secondes). Avant Marque démoniaque : pas de Douleur brûlante.
+4. Plaie d'agonie (**5**) et Corruption (**2**) sur les ennemis qui vivent assez longtemps. Corruption a ici 2 secondes d'incantation.
+5. Pour remplir : ta baguette (pas sur le bloc, mets-la sur ta propre barre) ou Trait de l'ombre (**1**). Drain de vie (**C**) quand tu as besoin de vie.
+6. Démon presque mort : Captation de vie (**F2**). Elle coûte ta propre vie.
+7. Connexion (**F**). Avec Énergie démoniaque, ton démon reçoit aussi du mana.
+8. Dès 40 (Pacte démoniaque) : Sacrifice démoniaque (**Shift-C**) sur un démon, puis invoque un autre démon (bloc D). Le buff dure 2 heures. Les guides ne sont pas d'accord sur le démon à sacrifier.
+9. Dès 48, avec Décimation : ennemi sous 35 % de vie ? Trait de l'ombre ou Douleur brûlante, puis Feu de l'âme (**Q**) : plus rapide, et sans Fragment d'âme.
+**Tous les 10 niveaux :**
+- 10 : le Marcheur du Vide (quête ; coûte 1 Fragment d'âme). Son Tourment donne de la **menace** (à quel point un ennemi veut l'attaquer). Siphon d'âme (**4**) pour les fragments. Premiers talents : Puissance impie, Baiser démoniaque, Diablotin amélioré, Captation de vie améliorée (passifs). Les niveaux de talent indiqués ici sont les plus tôt possibles ; un avantage peut les avancer jusqu'à 5 niveaux. Puis Captation de vie (**F2**) au 12 ; Énergie démoniaque, Vitalité gangrenée et Marcheur du Vide amélioré (des talents, passifs) dès 15 ; Sacrifice (Marcheur du Vide) au 16 ; Consumer les ombres (Marcheur du Vide) et Douleur brûlante (bloc D) au 18.
+- 20 : Sacrifice démoniaque (**Shift-C**, un talent) : tu sacrifies ton démon pour un buff de 2 heures. Diablotin : 15 % de dégâts d'ombre en plus. Succube ou Incube : 15 % de dégâts de feu en plus. Marcheur du Vide : du mana rendu. Chasseur corrompu : de la vie rendue. Maître invocateur (un talent, passif) : les invocations sont plus rapides et moins chères. La Succube ou l'Incube (quête). Armure démoniaque (**Shift-Z**). Puis Souffrance (Marcheur du Vide) au 24. Domination corrompue (**Shift-F1**, un talent ; il te faut d'abord Maître invocateur) au 25 : ta prochaine invocation est 5,5 secondes plus rapide et 50 % moins chère. Marque démoniaque et Décimation (des talents, passifs) dès 25.
+- 30 : Lien spirituel (**Shift-X**, un talent ; il te faut d'abord Sacrifice démoniaque) : 30 % des dégâts que tu prends vont à ton démon, et vous faites tous les deux 3 % de dégâts en plus. Il dure tant que ton démon est là. Le Chasseur corrompu (quête ; Verrou magique au 36). Connaissance démoniaque (un talent, passif). Puis Maître démonologue (un talent, passif) dès 35.
+- 40 : Pacte démoniaque (un talent, passif ; il te faut d'abord Lien spirituel) : le buff de Sacrifice démoniaque reste quand tu invoques un autre démon. C'est seulement maintenant que Sacrifice démoniaque vaut le coup. Hurlement de terreur (**Shift-F**), le Palefroi corrompu (quête). Puis Voile mortel (**X**) au 42, Feu de l'âme (**Q**) au 48.
+- 50 : Inferno (**F3**) : un infernal ; 1 Pierre infernale à chaque fois ; cooldown 1 heure. Sinon, des rangs plus forts.
+- 60 : Plaie funeste (**F1**). Sinon, des rangs plus forts.
+**Erreurs de débutant :**
+- Douleur brûlante avant d'avoir Marque démoniaque. Elle crée beaucoup de menace et prend l'ennemi à ton démon.
+- Sacrifice démoniaque avant Pacte démoniaque (40). Ton démon est parti, et invoquer n'importe quel démon retire le buff.
+- Après Pacte démoniaque, invoquer le même démon que celui que tu as sacrifié. Le buff est alors parti.]] },
+			{ band = 3, title = "Destruction : dégâts avec de gros coups", body = [[
+Dès le niveau 1 (Trait de l'ombre et Immolation). De gros coups de feu et d'ombre, et c'est ce qui coûte le plus de mana. Certains guides déconseillent de monter de niveau avec (beaucoup de mana, peu de moyens d'en récupérer) ; d'autres le disent jouable, et un guide le dit fort en donjon. Conflagration est un talent, au plus tôt au niveau 25 ; Incinérer est un talent, au plus tôt au niveau 40. Le tournant, c'est Ombre et flammes 5/5 (au plus tôt au 39) : à partir de là, Conflagration ne consomme plus ton Immolation, et Brûlure de l'ombre te rend toujours son Fragment d'âme.
+**Ordre simple :**
+1. Envoie ton démon (**Ctrl-1**).
+2. Immolation (**3**). Un guide ouvre avec Trait de l'ombre de loin, avec Immolation juste après.
+3. Ennemi coriace : Plaie d'agonie (**5**) et ta malédiction (**Shift-V**).
+4. Dès 25 : Conflagration (bloc D). Avant Ombre et flammes 5/5, elle consomme ton Immolation : utilise-la à la fin d'Immolation, ou comme dernier coup. Après : chaque fois qu'elle est prête.
+5. Pour remplir : Trait de l'ombre (**1**). Dès 40, Incinérer (bloc D), avec Immolation sur l'ennemi.
+6. Dès 20 : Brûlure de l'ombre (**Shift-4**) comme dernier coup. Tu récupères alors le Fragment d'âme.
+7. Connexion (**F**) entre les combats. Peu de mana : ta baguette (pas sur le bloc, mets-la sur ta propre barre).
+8. Plus d'ennemis : dès 30, Plaie de tumulte (bloc D) sur un ennemi coriace, puis attaque les autres. Pluie de feu (**Shift-1**). Flammes infernales (**Shift-2**, dès 30) seulement avec assez de vie.
+**Tous les 10 niveaux :**
+- 10 : Trait de l'ombre (**1**) et Immolation (**3** ; Rang 2 au 10). Premier talent : Fléau (des incantations plus rapides) ou Trait de l'ombre amélioré. Les niveaux de talent indiqués ici sont les plus tôt possibles ; un avantage peut les avancer jusqu'à 5 niveaux. Puis Trait de l'ombre Rang 3 au 12 (2,8 secondes d'incantation) ; Conséquences et Cataclysme (des talents, passifs) dès 15 ; Douleur brûlante (bloc D) au 18.
+- 20 : Brûlure de l'ombre (**Shift-4**, un talent) : un coup d'ombre instantané ; coûte 1 Fragment d'âme ; cooldown 15 secondes. Si l'ennemi (un qui rapporte des PX) meurt dans les 8 secondes, tu récupères un fragment. Ruine (un talent, passif) : tes critiques de Destruction frappent plus fort. Pluie de feu (**Shift-1**). Trait de l'ombre Rang 4 (3 secondes d'incantation). Puis Brûlure de l'ombre Rang 2 au 24. Conflagration (bloc D, un talent) au 25 : un coup de feu instantané sur un ennemi qui a ton Immolation ; cette Immolation disparaît alors ; cooldown 10 secondes. Flammes déchirantes et Intensité (des talents, passifs) dès 25.
+- 30 : Plaie de tumulte (bloc D, un talent) : 5 minutes sur un ennemi ; 15 % de tous tes dégâts sur les autres ennemis frappent aussi celui-ci. Un seul ennemi à la fois. Feu et soufre (il te faut d'abord Conflagration) et Pyroclasme (il te faut d'abord Intensité), des talents, passifs. Flammes infernales (**Shift-2**). Puis Conflagration Rang 2 et Brûlure de l'ombre Rang 3 au 32 ; Ombre et flammes (un talent, passif) dès 35, 5/5 au plus tôt au 39.
+- 40 : Incinérer (bloc D, un talent ; il te faut d'abord Plaie de tumulte) : 2,5 secondes d'incantation, 25 % de dégâts en plus quand l'ennemi a ton Immolation. Conflagration Rang 3, Brûlure de l'ombre Rang 4. Puis Feu de l'âme (**Q**) au 48.
+- 50 : Incinérer Rang 2. Inferno (**F3**).
+- 60 : Incinérer Rang 3, Conflagration Rang 6. Plaie funeste (**F1**).
+**Erreurs de débutant :**
+- Conflagration juste après Immolation. Elle consomme ton Immolation (jusqu'à Ombre et flammes 5/5).
+- Brûlure de l'ombre sans Fragment d'âme, ou sur un ennemi qui va vivre longtemps. Le fragment ne revient que si l'ennemi meurt dans les 8 secondes.
+- Plaie de tumulte et Plaie d'agonie sur le même ennemi. Une seule plaie tient sur lui.]] },
+		},
+		PALADIN = {
+			{ band = 1, title = "Sacré : soigneur", body = [[
+Dès le niveau 1 : Lumière sacrée est là dès le début. Un **soigneur** garde le groupe en vie. Les guides disent que Sacré est l'arbre le plus lent pour monter de niveau seul : monte de niveau en Vindicte et soigne en donjon, ou joue Sacré avec un ami. Les boutons propres à l'arbre arrivent au 20 (Faveur divine), au 25 (Serment de lumière), au 30 (Horion sacré) et au 40 (Vigile de Lumière).
+**Ordre simple (en groupe) :**
+Avant d'attirer : Bénédiction de sagesse (**Shift-V**, dès 14) sur toi, Bénédiction des rois (**Shift-X**, dès 20) sur les autres. Aura : Aura de dévotion (**Ctrl-1**), ou Aura de concentration (**Ctrl-3**, dès 22) quand les lanceurs de sorts sont souvent frappés.
+1. Serment de lumière (**Shift-R**, dès 25) sur le tank. Il dure 5 minutes, et un seul joueur peut l'avoir.
+2. Eclair lumineux (**F2**, dès 20) est ton soin normal. Avant 20 : Lumière sacrée (**C**).
+3. Lumière sacrée (**C**) pour un gros coup. Dès 25 (Imprégnation de lumière), elle s'incante plus vite juste après un critique d'Horion sacré ou d'Eclair lumineux. **Critique** = un coup ou un soin chanceux, plus fort.
+4. Horion sacré (**F4**, dès 30) quand il n'y a pas le temps d'incanter, ou pendant que tu bouges.
+5. Tout le groupe blessé, dès 40 : Vigile de Lumière (**Shift-F1**) sur un joueur, puis Horion sacré (**F4**) sur ce même joueur.
+6. Faveur divine (**Shift-3**, dès 20) avant un soin qui doit être gros.
+7. Un effet négatif sur un ami : Purification, plus tard Epuration (**Shift-C**).
+8. Urgence : Imposition des mains (**Q**). Elle consomme tout le mana qu'il te reste.
+Rien à soigner : ton sceau (**3**), Jugement (**2**) et Frappe sacrée (**1**) au corps à corps. Seul : joue comme un Paladin Vindicte ; dès 30, Horion sacré (**F4**) sur l'ennemi est ton seul bouton de dégâts fort.
+**Tous les 10 niveaux :**
+- 10 : tu as déjà Lumière sacrée (**C**), Aura de dévotion (**Ctrl-1**), Bénédiction de puissance (**Shift-Z**), Protection divine (**Z**), Marteau de la justice (**E**) et Purification (**Shift-C**). Nouveau au 10 : Imposition des mains (**Q**), Bénédiction de protection (**Shift-F**). Premier talent : Focalisation spirituelle (passif). Les niveaux de talent indiqués ici sont les plus tôt possibles ; un avantage peut les avancer jusqu'à 5 niveaux. Puis Rédemption (**F3**, via une quête) au 12, Bénédiction de sagesse (**Shift-V**) au 14, Révérence et Lumière guérisseuse (des talents, passifs) dès 15, Bénédiction de liberté (**R**) au 18.
+- 20 : Eclair lumineux (**F2**), Bénédiction des rois (**Shift-X**). Faveur divine (**Shift-3**, un talent) : ton prochain Eclair lumineux, Lumière sacrée ou Horion sacré fait à coup sûr un critique ; cooldown 2 minutes. Illumination (un talent, passif ; il te faut d'abord Révérence). Puis Aura de concentration (**Ctrl-3**) au 22. Serment de lumière (**Shift-R**, un talent) et Imprégnation de lumière (un talent, passif) au 25.
+- 30 : Horion sacré (**F4**, un talent) : instantané, des dégâts sur un ennemi ou un soin sur un ami ; cooldown 10 secondes. Intervention divine (**F3** en combat : tu meurs toi-même). Sceau de lumière (bloc D). Puis Bouclier divin (**Z**) au 34, Puissance sacrée (un talent, passif) au 35, Sceau de sagesse (bloc D) au 38.
+- 40 : Vigile de Lumière (**Shift-F1**, un talent ; il te faut d'abord Horion sacré) : sur un ami pendant 30 secondes ; ton prochain Horion sacré sur cet ami n'a pas de cooldown et soigne aussi son groupe. Horion sacré Rang 2. Armure en plaques : tu peux porter des plaques. Puis Epuration (**Shift-C**) au 42, Bénédiction de sacrifice (bloc D) au 46, Horion sacré Rang 3 au 48.
+- 50 : Vigile de Lumière Rang 2, Imposition des mains Rang 3. Puis Bénédiction de puissance supérieure au 52 et Bénédiction de sagesse supérieure au 54, Horion sacré Rang 4 au 56.
+- 60 : Bénédiction des rois supérieure, Vigile de Lumière Rang 3 ; rien de nouveau pour ce rôle.
+**Erreurs de débutant :**
+- Lumière sacrée pour chaque petit coup. Eclair lumineux (**F2**, dès 20) est le soin normal, pas cher.
+- Vigile de Lumière sur un joueur et Horion sacré sur un autre. Le soin de groupe ne vient que d'Horion sacré sur le MÊME joueur.
+- Appuyer sur F3 en combat par erreur. Elle lance alors Intervention divine, et tu meurs toi-même. Hors combat, F3 est Rédemption.]] },
+			{ band = 2, title = "Protection : tank", body = [[
+Dès le niveau 10 (Fureur vertueuse et Sceau de fureur chez le maître de classe). Le **tank**, c'est celui que les ennemis frappent, pour que le reste du groupe reste à l'abri. **Menace** = à quel point un ennemi veut t'attaquer. Tu portes une arme à une main et un bouclier. Les guides ne sont pas d'accord sur le fait que Protection monte bien de niveau seul. Les boutons de l'arbre : Rempart de templier au 20, Jugement rapide au 25, Bouclier sacré au 30.
+**Ordre simple :**
+1. Avant d'attirer : Fureur vertueuse active (pas de touche fixe : elle est sur le bloc D, ou mets-la sur ta propre barre ; elle dure 30 minutes). Sceau de fureur (**F**), une bénédiction, une aura. Les guides ne sont pas d'accord sur l'aura : Aura de dévotion (**Ctrl-1**) ou Aura de vindicte (**Ctrl-2**).
+2. Dès 30 : Bouclier sacré (**Shift-4**) juste avant que les ennemis t'atteignent. Appuie de nouveau dessus chaque fois qu'il est prêt.
+3. Jugement (**2**) sur le premier ennemi. Avec Sceau de fureur actif, Jugement est ta provocation (3 secondes). **Provocation** = forcer l'ennemi à t'attaquer.
+4. Deux ennemis ou plus, dès 20 : Consécration (**Shift-1**) sous eux. Seuls les 4 premiers prennent les dégâts en plus.
+5. Frappe sacrée (**1**) chaque fois qu'elle est prête.
+6. Un ennemi court vers quelqu'un d'autre : Jugement (**2**). Pas prêt ? Dès 25 : Jugement rapide (**F1**), un deuxième Jugement avec son propre cooldown de 1 minute.
+7. Un ennemi lance un sort : Marteau de la justice (**E**). Le Paladin n'a pas d'interruption.
+8. Exorcisme (**5**, dès 20) sur les Morts-vivants et les Démons. Marteau de courroux (**4**, dès 44).
+9. De gros dégâts arrivent, dès 20 : Rempart de templier (**X**). Dernier recours : Imposition des mains (**Q**).
+Peu de mana : arrête d'abord Consécration. Dès 40 (Serment du bouclier) : Bouclier sacré d'abord, puis Frappe sacrée. Tu n'es pas le tank (seul, ou quelqu'un d'autre tanke) : utilise ton sceau sur **3**, pas Sceau de fureur.
+**Tous les 10 niveaux :**
+- 10 : Fureur vertueuse (bloc D) et Sceau de fureur (**F**). Tu as déjà Jugement (**2**), Frappe sacrée (**1**), Marteau de la justice (**E**), Aura de dévotion (**Ctrl-1**) et Protection divine (**Z**). Aussi nouveau : Imposition des mains (**Q**), Bénédiction de protection (**Shift-F**). Premier talent : Redoute (passif). Les niveaux de talent indiqués ici sont les plus tôt possibles ; un avantage peut les avancer jusqu'à 5 niveaux. Puis Précision, Faveur du Gardien ou Devoir sacré (des talents, passifs) dès 15, Aura de vindicte (**Ctrl-2**) au 16.
+- 20 : Rempart de templier (**X**, un talent) : un bouclier qui absorbe autant de dégâts que ta vie maximum, pendant 8 secondes ; cooldown 5 minutes. Consécration (**Shift-1**), Bénédiction des rois (**Shift-X**), Exorcisme (**5**). Spécialisation Bouclier (un talent, passif ; il te faut d'abord Redoute). Puis Jugement rapide (**F1**, un talent ; il te faut d'abord Rempart de templier) et Fureur vertueuse améliorée (un talent, passif) au 25.
+- 30 : Bouclier sacré (**Shift-4**, un talent ; il te faut un bouclier) : 30 % de chances de bloquer en plus pendant 10 secondes, 4 charges ; cooldown 10 secondes. Rétribution (un talent, passif). Puis Bouclier divin (**Z**) au 34, Credo de fer (un talent, passif) au 35.
+- 40 : Serment du bouclier (un talent, passif ; il te faut d'abord Bouclier sacré) : Frappe sacrée toutes les 6 secondes, et elle marche avec Bouclier sacré. Armure en plaques : tu peux porter des plaques. Bouclier sacré Rang 2. Puis Marteau de courroux (**4**) au 44, Bénédiction de sacrifice (bloc D) au 46.
+- 50 : Bouclier sacré Rang 3, Colère divine (bloc D) ; rangs plus forts de Sceau de fureur et de Consécration.
+- 60 : Bouclier sacré Rang 4 et des rangs plus forts ; rien de nouveau pour ce rôle.
+**Erreurs de débutant :**
+- Oublier Fureur vertueuse. Sans elle, tu crées beaucoup moins de menace. Vérifie-la chaque fois avant d'attirer ; elle dure 30 minutes.
+- Sceau de fureur actif quand tu n'es pas le tank. Chaque Jugement provoque alors.
+- Pas de bouclier. Bouclier sacré ne marche pas sans bouclier, et Sceau de fureur ne donne pas d'absorption.]] },
+			{ band = 3, title = "Vindicte : dégâts au corps à corps", body = [[
+Dès le niveau 1 (Sceau de piété) ; Jugement arrive au 4, Frappe sacrée au 6. Les guides disent que Vindicte est l'arbre le plus rapide pour monter de niveau seul, avec une arme lente à deux mains. La quête de classe du niveau 20 t'en donne une. Les boutons de l'arbre : Sceau d'autorité au 20, Repentir au 30.
+**Ordre simple :**
+1. Avant le combat : Bénédiction de puissance (**Shift-Z**) jusqu'au 20, puis Bénédiction des rois (**Shift-X**).
+2. Aura : Aura de dévotion (**Ctrl-1**) ; Aura de vindicte (**Ctrl-2**, dès 16) contre plusieurs ennemis.
+3. Sceau actif (**3**) : Sceau de piété, jusqu'à ce que tu connaisses Sceau d'autorité (dès 20). Ensuite, la touche 3 lance Sceau d'autorité.
+4. Jugement (**2**) chaque fois qu'il est prêt. Il ne consomme pas le sceau.
+5. Frappe sacrée (**1**) chaque fois qu'elle est prête.
+6. Mort-vivant ou Démon, dès 20 : Exorcisme (**5**).
+7. Deux ennemis ou plus, dès 20 : Consécration (**Shift-1**). Pas sur un seul ennemi : elle coûte trop de mana.
+8. Dès 44 : Marteau de courroux (**4**) quand l'ennemi a 20 % de vie ou moins.
+9. Ennemi fort : Marteau de la justice (**E**), puis Jugement (**2**). Avec Sceau d'autorité, Jugement fait le double de dégâts sur un ennemi étourdi.
+10. Un deuxième Humanoïde, dès 30 : Repentir (**V**), et ne le frappe pas.
+11. Remets le sceau quand il s'arrête (30 secondes). Peu de vie : Lumière sacrée (**C**) entre les combats.
+**Tous les 10 niveaux :**
+- 10 : tu as déjà Sceau de piété (**3**), Jugement (**2**), Frappe sacrée (**1**), Bénédiction de puissance (**Shift-Z**) et Marteau de la justice (**E**). Nouveau au 10 : Imposition des mains (**Q**). Premier talent : Bénédiction (la plupart des guides) ou Déviation (un guide), les deux passifs. Les niveaux de talent indiqués ici sont les plus tôt possibles ; un avantage peut les avancer jusqu'à 5 niveaux. Puis Jugement amélioré, Conviction ou Jugement sanctifié (des talents, passifs) dès 15, Aura de vindicte (**Ctrl-2**) au 16.
+- 20 : Sceau d'autorité (**3**, un talent) : tes coups font parfois un coup sacré en plus. À partir de là, la touche 3 lance celui-ci au lieu de Sceau de piété. Consécration (**Shift-1**), Exorcisme (**5**), Bénédiction des rois (**Shift-X**), Eclair lumineux (**F2**). Poursuite de la justice (un talent, passif : tu te déplaces 15 % plus vite à 2/2). La quête de classe pour une arme à deux mains. Puis Sentence sacrée et Spécialisation Arme 2M (des talents, passifs) au 25.
+- 30 : Repentir (**V**, un talent) : met un Humanoïde hors jeu jusqu'à 6 secondes ; le moindre dégât le réveille ; cooldown 1 minute. Vengeance (un talent, passif ; il te faut d'abord Sceau d'autorité) : après un critique, tu fais plus de dégâts pendant 30 secondes ; ça se cumule 5 fois. Sceau d'autorité Rang 2. Puis Bouclier divin (**Z**) au 34, Champion de la lumière (un talent, passif) au 35.
+- 40 : Courroux descellé (un talent, passif ; il te faut d'abord Repentir) : tes coups gardent des copies de ton sceau, et un coup avec un autre sceau les utilise. Armure en plaques : tu peux porter des plaques. La quête du cheval de guerre. Puis Marteau de courroux (**4**) au 44.
+- 50 : Sceau d'autorité Rang 4, Colère divine (bloc D), Marteau de courroux Rang 2 au 52 ; rien de nouveau pour ce rôle.
+- 60 : Sceau d'autorité Rang 5 et des rangs plus forts ; la quête du destrier (Alliance) ; rien de nouveau pour ce rôle.
+**Erreurs de débutant :**
+- Remettre le sceau après chaque Jugement. Jugement ne le consomme pas ; un sceau dure 30 secondes.
+- Sceau d'autorité avec une arme rapide. Il veut une arme lente à deux mains.
+- Consécration sur un seul ennemi. Elle coûte trop de mana pour ça.]] },
+		},
 	},
 }

@@ -79,6 +79,11 @@ Priest, `/reload`. Uitgezocht met Fable; niets in het spel gezien.
 - [ ] Level 5-15: "Your first priest robe" (een wacht healen). Na level 15 verdwijnt hij uit "Do this now".
 - [ ] Undead level 10: geeft Aelthalyste de Touch of Weakness-quest, of Father Lankester naast haar?
 
+## 🌍 17 nov — Forever: rollen in het Duits, Frans, Spaans, Portugees en Russisch
+
+- [ ] Een character op een niet-Engelse client: "How to play" → rollen. Staan ze in jouw taal, met de spellnamen
+  van jouw spel? (Niet nagekeken door een moedertaalspreker.)
+
 ## 🧭 17 nov — Forever: rollen voor Rogue en Hunter (+ hunter-pet-zin)
 
 - [ ] Rogue of Hunter: open "How to play". Zie je drie rollen? Kloppen de toetsen?
