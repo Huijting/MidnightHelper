@@ -49,7 +49,9 @@ Mage, `/reload`. Uitgezocht met Fable; niets in het spel gezien.
 - [ ] 15 en 26: robe en garment. Orc- of Skyborne-mage: krijg je die quest echt? (Bronnen zijn het oneens.)
 - [ ] 30: Mage's Wand en Items of Power (Tabetha, Dustwallow). 35: Celestial Power. 42: A Lesson in Literacy (nieuw).
 - [ ] 60: Conjure Water Rank 7 en Polymorph: Pig. Heet jouw pig-quest "Scalebeard" of "Warlord Krellian"?
-- [ ] Rank-test level 6 (Fireball Rank 2): er bestaan GEEN rank-quests voor de mage (GEMETEN); ranks komen van de trainer.
+- [x] Rank-test level 6 (Fireball Rank 2) — GEDAAN 17 nov (Rob, troll mage 6): rank kwam van de trainer, tooltip toont
+      Fireball Rank 2. Geen oranje "oude rank"-rand gezien: dit character heeft het toetsenblok (MH-macro's zetten
+      zelf de nieuwste rank neer, Rob). Oranje rand zonder toetsenblok: nog niet getest.
 - [ ] Level 50 Sunken Temple-quests (druid, hunter, warrior, shaman, paladin, priest, mage): krijg je echt het voorwerp
       dat MH noemt? (Wowhead Forever toont ze; onze lokale speldata-tabel mist ze, dat bewijst niets.)
 
@@ -313,9 +315,10 @@ updated" in de chat: AFGELEID dat dit character geen toetsenblok heeft.
 
 ## 🧪 16 nov (nacht) — drie metingen in Forever, vóór we 1-3 bouwen (plak elke regel in de chat, screenshot de uitvoer)
 
-- [ ] **Nieuwe spell**: typ dit, train daarna bij de trainer een NIEUWE spell én een nieuwe RANK van een oude:
+- [x] **Nieuwe spell** — GEDAAN 17 nov (Rob, troll mage 6, screenshots via sparring): het seintje vuurt OOK voor een
+      nieuwe RANK ("LEARNED_SPELL_IN_SKILL_LINE 143 Fireball false" na "You have learned a new spell: Fireball (Rank 2)");
+      eerder 1296017 Comprehend Scroll, 587 Conjure Food, 2136 Fire Blast (alle false). Regel was:
       `/run local f=CreateFrame("Frame") f:RegisterEvent("LEARNED_SPELL_IN_SKILL_LINE") f:SetScript("OnEvent",function(_,e,id) print(e,id,C_Spell.GetSpellName(id),C_Spell.IsSpellPassive(id)) end)`
-      Komt er per spell een regel?
 - [x] **Quest-doelen** — GEDAAN 16 nov (Rob, screenshot via sparring, Engelse client): item-doelen komen als type
       "item" met tekst "0/N <itemnaam>" (bv. "item 0/1 Riptear's Heart", "item 0/1 Dargol's Skull"); monsters als
       "monster 0/8 Wailing Ancestor slain"; leveren als "log". Andere talen: niet gezien. Regel was:
