@@ -28,6 +28,17 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 17 nov 2026 — Forever: kamperen, stap 1 ("ga bij het vuur zitten")
+- Tag + commit:   geen tag / (deze commit, zie git log "camping step 1")
+- Status:         alleen op main
+- Mag op de site: nee (nog niet uit)
+- Speler ziet:    Sta je bij een kampvuur zonder kampbuff, dan zegt "Do this now": ga zitten, na 1 minuut krijg je
+                  1 uur Camp Benefits (namen in jouw taal, uit het spel). /mh camp laat zien wat MH kan lezen.
+                  *(niet in het spel getest)*
+- Knoplabels:     FCAMP_SIT_FMT (regel, geen knop)
+- Commando's:     /mh camp
+- Spel:           Forever
+
 ## 17 nov 2026 — Forever: MH gaat opzij voor de Forever Leveling Guide (schakelaar)
 - Tag + commit:   geen tag / (deze commit, zie git log "Forever Leveling Guide")
 - Status:         alleen op main

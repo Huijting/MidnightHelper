@@ -88,6 +88,12 @@
   ForeverDirectionTalents ("Do this now" Coming up, + hint FDONOW_TALENTED_HINT als de rang niet leesbaar is), de
   macro-regel "(from level X)" en een grijze regel onder de class-tekst in How you play (FHOWTO_TALENTED_NOTE /
   _RANK_FMT). `/mh donow check` print rang + bron. AFGELEID tot Robs meting (TESTLIJST 17 nov). Alleen en + nl.
+- ⏭️ **STAND 17 nov middag**: (1) pijl-schakelaar GEBOUWD (537c850). (2) Kamperen: onderzoek nagelopen door Fable
+  (`CAMPING_VERIFIED`), stap 1 GEBOUWD (`ForeverCamp.lua`: `/mh camp` + "Do this now ga zitten"); kaart wacht op Robs
+  test. (3) Legacy: nagelopen door Fable (`LEGACY_VERIFIED`, API GEMETEN in Blizzards UI-code: GetConfigIDByTreeID(1187)
+  + GetTreeCurrencyInfo; renown 2802) → VOLGENDE: Legacy bouwen (kaart, `/mh legacy`, "Do this now" ongebruikte
+  punten) + Talented-code van GetConfigIDBySystemID(45) naar GetConfigIDByTreeID(1188) nakijken. (4) Daarna: nieuwe
+  huisstijl A+B met schakelaar (IDEEEN, Robs ja), liefst in een verse bouwchat.
 - 🧪 **Rob-test 17 nov (troll mage 6, via sparring)**: LEARNED_SPELL_IN_SKILL_LINE vuurt ook voor een nieuwe RANK
   (143 Fireball). ForeverDoNow kijkt "op een balk" per spellnaam, dus Rank 2 met Rank 1 op de balk geeft geen
   "New, but on no bar"-regel (code GEMETEN r.82-118; in het spel niet gezien: toetsenblok stond). OPEN observatie:

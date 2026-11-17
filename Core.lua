@@ -1509,6 +1509,16 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh camp — Forever camping: what the client lets us read, and the "Do this now" decision (ForeverCamp.lua).
+	if msg == "camp" then
+		if ns.ForeverCampSlash then
+			ns.ForeverCampSlash()
+		else
+			print(("|cffffcc00%s|r camping is a WoW Forever feature."):format(ns:L("PRINT_PREFIX")))
+		end
+		return
+	end
+
 	-- /mh classquest [go] — Forever class quests step by step (ForeverClassQuests.lua, 16 Nov 2026).
 	if msg == "classquest" or msg == "classquest go" then
 		if ns.ForeverClassQuestSlash then

@@ -79,6 +79,14 @@ Priest, `/reload`. Uitgezocht met Fable; niets in het spel gezien.
 - [ ] Level 5-15: "Your first priest robe" (een wacht healen). Na level 15 verdwijnt hij uit "Do this now".
 - [ ] Undead level 10: geeft Aelthalyste de Touch of Weakness-quest, of Father Lankester naast haar?
 
+## 🔥 17 nov — Forever: kamperen, stap 1 (kan MH je kampbuffs lezen?)
+
+- [ ] Typ `/mh camp` ergens zonder vuur. Elke regel zegt "yes", "no" of "? (unreadable)". Screenshot graag.
+- [ ] Zet een kampvuur (of ga bij dat van een ander staan) en typ `/mh camp` nog eens. Staat "nearby" op yes?
+- [ ] Nog niet zitten: verschijnt in "Do this now" de regel "There is a campfire near you: sit down…"?
+- [ ] Ga zitten. Na 1 minuut: Camp Benefits. Typ `/mh camp`: "benefits" yes, en de "Do this now"-regel is weg.
+- [ ] Daarna `/reload` (dan staat de meting in je SavedVariables).
+
 ## 🧭 17 nov — Forever: MH gaat opzij voor de Forever Leveling Guide
 
 Jouw keuze: een schakelaar, standaard gaat MH opzij. MH kijkt alleen naar een REISROUTE van de gids (op een plek

@@ -183,7 +183,25 @@ lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met d
 - Onderzoek (sparring, mh-research Opus, 17 nov): `docs/forever/LEGACY_RESEARCH_2026-11-17.md`. Voorstel: uitlegkaart
   Legacy, "Do this now" ongebruikte punten (alleen als gemeten), `/mh legacy`-diagnose, de Talented-fix.
 - Stand 17 nov: (a) Talented-fix GEBOUWD (rang uit de actieve tier-entry, commit 369ee9d; wacht op Robs probe). (b) Legacy
-  zelf nog niet gebouwd.
+  zelf nog niet gebouwd. Fable-controle KLAAR → `docs/forever/LEGACY_VERIFIED_2026-11-17.md` (79 ✅, 2 ❌, 1 ❓).
+  🔑 API GEMETEN in Blizzards UI-code 70938 (spiegel Gethe/wow-ui-source, branch forever): punten =
+  `C_Traits.GetTreeCurrencyInfo(C_Traits.GetConfigIDByTreeID(1187), 1187, false)[1]`, verdiend totaal =
+  `C_MajorFactions.GetCurrentRenownLevel(2802)`. Blizzard gebruikt GetConfigIDBySystemID(45) NIET (onze Talented-
+  code wel → nakijken). Dedicated Study = knop (25 s cast, 23 u cooldown). Geen resetprijs noemen.
+
+### Nieuwe huisstijl / overzichtspagina, in TWEE varianten met een schakelaar
+- Bron: Rob 17 nov (via Sparring 17-11), letterlijk: *"Ja, eigenlijk vind ik ze allebei wel super mooi. En misschien
+  moeten we de user maar laten kiezen. Dus bouw ze allebei maar. Ik weet dat het veel werk is en waarschijnlijk heel
+  veel kost."*
+- Wat: A = "sfeervol boek" (spelkunst-achtergrond met sluier + vignet, serif-koppen, portret + levelzegel, doorschijnende
+  kaartjes, tijdlijn "Jouw pad", chips NU/KAN AL/LATER); B = "strak en modern" (leisteen WHITE8X8, één schreefloos font,
+  accentbalk 3 px, grote cijfers, tijdlijn met balkjes). Beide: accent = klassekleur, tabs Nu / How you play /
+  Class-quests / Kamperen / Legacy, één grote knop bij "Doe dit nu". Mockup (Sparring): `C:\Users\RobHu\Desktop\
+  mh_ontwerp.html` + `.png`. Basis: één eigen stijlkit-bestand (card/chip/label/button/timeline + thema-tabel A/B).
+- 🔴 Forever Leveling Guide = ARR: aanpak leren, NIETS overnemen (code, teksten, data, Texturas\*.tga). Eigen texturen
+  zelf maken. Fonts alleen OFL (bv. Cormorant SC/Philosopher of Alegreya Sans/Inter, mét Cyrillisch; NIET Cinzel) +
+  OFL-.txt meeleveren; terugval op spel-fonts. Retail-spelkunst eerst meten. Resizable + Shift-scroll blijven.
+- Volgorde: NA Legacy en Kamperen. Spel: F (en later M?). Advies Sparring: in een verse bouwchat. NOG NIETS GEBOUWD.
 
 ### Forever: wie stuurt de pijl — MH of de Forever Leveling Guide (schakelaar)
 - Bron: Rob 17 nov (via Sparring 17-11), na zijn test (troll mage 6: "Forever Guide: your pin stays… route paused" +
@@ -217,7 +235,10 @@ lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met d
   zoekt binnen 20 yd; bouwchat steekproef GEMETEN: 279981/279962/279967 in ItemSparse, 96606/96608 in Spoken). Voorstel (details keuze bouwchat, spelers kiezen via schakelaars): uitlegkaart
   "Kamperen" (ForeverProfGuide versie B), "Do this now" ga 1 minuut zitten, hint beroep ≥20 zonder kamprecept, tooltip op
   kampobjecten, opt-in herinnering "geen kampbuff", `/mh camp`-diagnose, clientnamen per taal meten. Eerste test voor Rob:
-  zijn de auras 1229741 / 1283391 leesbaar. NOG NIETS GEBOUWD.
+  zijn de auras 1229741 / 1283391 leesbaar.
+- Stap 1 GEBOUWD 17 nov (wacht op Robs test): `Modules/ForeverCamp.lua` — `/mh camp` (alle kamp-auras: ja/nee/
+  onleesbaar + besluit + reden, bewaard in ns.db.foreverCampProbe) en "Do this now": vuur in de buurt, geen Camp
+  Benefits → "ga zitten" (namen uit de client, stil als iets onleesbaar is). Uitlegkaart en de rest: na Robs test.
 
 ### 📅 Werkafspraak: woensdag = Midnight-dag (vanaf wo 18 nov 2026)
 Rob, 15 nov (via Sparring 15-11, letterlijk): *"Ja, pak de woensdag maar voor de midnight."* Aanleiding (Rob): *"de

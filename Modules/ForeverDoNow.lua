@@ -309,6 +309,14 @@ local function Collect()
 			end
 		end
 	end
+	-- 17 Nov 2026 (camping step 1, ForeverCamp.lua): near a fire without a camp buff → "sit down". Silent when unreadable.
+	if ns.ForeverCampNow then
+		local okF, camp = pcall(ns.ForeverCampNow)
+		if okF and camp then
+			out.now[#out.now + 1] = camp
+			out.actions.camp = true
+		end
+	end
 	if ns.ForeverMissingTools then
 		local ok, tools = pcall(ns.ForeverMissingTools)
 		if ok and type(tools) == "table" then
