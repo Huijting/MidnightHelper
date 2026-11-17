@@ -24,6 +24,20 @@ er is niets weggegooid.
 📝 **Waarneming Rob, 16 nov (nacht), Forever mage, via sparring:** *"mouse over werk"* — `/mh mouseover on`, Shift+X
 (Arcane Intellect) op een voorbijganger onder de muis werkt.
 
+## 🆕 17 nov — Forever: nieuwe handige macro's (`/mh macros`)
+
+Open `/mh macros`, klik "Maak" bij een nieuwe rij, sleep de macro naar een balk en druk. Ctrl = de tweede functie.
+- [ ] Iedereen: "Eat and drink" — eet en drinkt tegelijk het beste uit je tassen. Mage: Ctrl + druk maakt water.
+      Zonder eten of water: de rij zegt dat.
+- [ ] Mage: Intellect (Ctrl = Arcane Brilliance, 56), Mana Gem (geen gem → maakt er een; Ctrl = Evocation).
+- [ ] Priest: Fortitude (Ctrl = Prayer of Fortitude, 48), Spirit (30), Resurrect, Shackle (zet zelf een focus).
+- [ ] Warlock: Healthstone en Soulstone (Ctrl = maken), Shadow Bolt (demon valt mee aan; Ctrl = demon terug).
+- [ ] Hunter: Aspects (gevecht = Hawk, daarbuiten Cheetah vanaf 20, Ctrl = Monkey).
+- [ ] Druid: Prowl vanuit Bear/Travel: eerste druk Cat Form, tweede Prowl. Hibernate (zet zelf een focus).
+- [ ] Rogue: Stealth (Ctrl = ook Sprint), VanishSprint, Finisher (Ctrl = Slice and Dice).
+      Rogue level 6+: typ `/dump IsPlayerSpell(1752), IsSpellKnown(1752)` en zeg wat er staat (rank-vraag).
+- [ ] Shaman: Resurrect, Fire Totem (Ctrl = Magma, 26). Paladin: Resurrect.
+
 ## ⌨️ 17 nov — Forever: werkt Shift/Ctrl/Alt in de handige macro's op je toetsen?
 
 Het MH-toetsenblok gebruikt zelf Shift+1, Shift+Q enz. Zet je een MH+-macro met een Shift-deel op toets 1, dan doet

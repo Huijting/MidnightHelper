@@ -30,6 +30,37 @@ local STONES = { 9421, 5510, 5509, 5511, 5512 }
 local POTIONS = { 13446, 3928, 1710, 268883, 929, 268882, 858, 268881, 118 }
 local BANDAGES = { 14530, 14529, 8545, 8544, 6451, 6450, 3531, 3530, 2581, 1251 }
 
+-- 17 Nov 2026, macro idea 1 (Rob via sparring: "Ja, die 10 macro-ideeën zijn een goed idee. Werk maar uit."). Plain
+-- water and food without a second effect, best first, { item id, level the item needs }. GEMETEN in wago DB2 wowf
+-- 1.60.1.70938 (ItemSparse/ItemEffect/SpellEffect; docs/forever/MACRO_IDEAS_2026-11-17.md §1b/§1c). Conjured first
+-- within a tier (free, and it vanishes) = AFGELEID choice. The cooked-fish vendor line is buff food in Forever: left out.
+local WATER = {
+	{ 231778, 55 }, { 8079, 55 }, { 18300, 55 },
+	{ 8078, 45 }, { 8766, 45 }, { 23161, 45 },
+	{ 8077, 35 }, { 1645, 35 }, { 19300, 35 },
+	{ 3772, 25 }, { 1708, 25 }, { 4791, 25 }, { 17405, 25 },
+	{ 2136, 15 }, { 1205, 15 }, { 9451, 15 }, { 19299, 15 },
+	{ 2288, 5 }, { 1179, 5 }, { 17404, 5 }, { 252027, 5 },
+	{ 5350, 1 }, { 159, 1 }, { 252031, 1 },
+}
+local FOOD = {
+	{ 22895, 55 },
+	{ 8076, 45 }, { 8952, 45 }, { 8932, 45 }, { 8953, 45 }, { 8950, 45 }, { 8948, 45 }, { 11415, 45 }, { 16171, 45 },
+	{ 8075, 35 }, { 4599, 35 }, { 3927, 35 }, { 4602, 35 }, { 4601, 35 }, { 4608, 35 }, { 16168, 35 }, { 17408, 35 },
+	{ 1487, 25 }, { 3771, 25 }, { 1707, 25 }, { 4539, 25 }, { 4544, 25 }, { 4607, 25 }, { 16169, 25 },
+	{ 1114, 15 }, { 3770, 15 }, { 422, 15 }, { 4538, 15 }, { 4542, 15 }, { 4606, 15 }, { 16170, 15 },
+	{ 1113, 5 }, { 2287, 5 }, { 414, 5 }, { 4537, 5 }, { 4541, 5 }, { 4605, 5 }, { 252026, 5 }, { 252029, 5 },
+	{ 252030, 5 }, { 252032, 5 },
+	{ 5349, 1 }, { 117, 1 }, { 2070, 1 }, { 4536, 1 }, { 4540, 1 }, { 4604, 1 }, { 252022, 1 }, { 252023, 1 },
+	{ 252028, 1 },
+}
+local CONJURE_WATER = 5504 -- rank 1; the name casts the highest one you know: KL, docs §0.1
+
+-- Warlock and mage stones, best first (docs §3, GEMETEN). Mana gems: each gem is its own spell NAME, highest first.
+local SOULSTONES = { 16896, 16895, 16893, 16892, 5232 }
+local MANA_GEMS = { 8008, 8007, 5513, 5514 }
+local CONJURE_GEMS = { 10054, 10053, 3552, 759 }
+
 -- Active racials: spell id GEMETEN in wago SpellName 70862 (same doc §3); `pre` = lines before the /cast (AFGELEID:
 -- stop a cast or swing that would delay or cancel it).
 local RACIALS = {
@@ -65,6 +96,17 @@ local function BestCarried(list)
 	for _, id in ipairs(list) do
 		if Count(id) > 0 then
 			return id
+		end
+	end
+	return nil
+end
+
+--- The best carried item of a { id, level } list that this character is high enough for.
+local function BestEdible(list)
+	local lvl = UnitLevel and UnitLevel("player") or 60
+	for _, e in ipairs(list) do
+		if e[2] <= lvl and Count(e[1]) > 0 then
+			return e[1]
 		end
 	end
 	return nil
@@ -142,6 +184,34 @@ local DEFS = {
 		end,
 	},
 	{
+		-- Macro idea 1 (17 Nov 2026): eat and drink on one press. Food and drink are separate cooldown groups (DB2
+		-- SpellCategories 11 and 59, GEMETEN); both on one press = AFGELEID + guide claim (Rankedboost). Mage: Ctrl =
+		-- Conjure Water. Skips an item you are too low for.
+		key = "eatdrink", name = "Eat Drink", title = "FMAC_EAT_TITLE", desc = "FMAC_EAT_DESC", auto = true,
+		build = function()
+			local water, food = BestEdible(WATER), BestEdible(FOOD)
+			local conj = KnownSpell(CONJURE_WATER) and SpellName(CONJURE_WATER)
+			local lines = { "#showtooltip" }
+			if conj then
+				lines[#lines + 1] = "/cast [mod:ctrl] " .. conj
+				lines[#lines + 1] = "/stopmacro [mod:ctrl]"
+			end
+			if water then
+				lines[#lines + 1] = ("/use item:%d"):format(water)
+			end
+			if food then
+				lines[#lines + 1] = ("/use item:%d"):format(food)
+			end
+			if not (water or food) then
+				if conj then
+					return "#showtooltip\n/cast " .. conj
+				end
+				return nil, "FMAC_WHY_NO_FOOD"
+			end
+			return table.concat(lines, "\n")
+		end,
+	},
+	{
 		-- Rob, 9 Nov 2026: tested it, the target worked but "/startattack" only swings the weapon; he expected a ranged
 		-- attack → "ja doe maar" on: Hunter = Auto Shot, Mage/Priest/Warlock with a wand = Shoot, everyone else melee.
 		-- Rebuilt when the bags change (`auto`), so equipping a wand later updates it.
@@ -195,6 +265,55 @@ local DEFS = {
 -- source each (AFGELEID choice). Changed on purpose: the Warlock demon button has no [pet:family] (that word is
 -- translated per client); the Priest dispel is shortened; tplShort = the version used when the client's spell
 -- names make the full one longer than 255 bytes (ruRU measured 258 for Taunt and Healing Touch).
+-- 17 Nov 2026, macro ideas 3-5: rows whose text follows your bags or your form bar (ClassRow calls tplFn).
+local function WarlockHealthstoneTpl()
+	local s = BestCarried(STONES)
+	if s then
+		return ("#showtooltip\n/cast [mod:ctrl] {6201}\n/stopmacro [mod:ctrl]\n/use item:%d"):format(s)
+	end
+	return "#showtooltip {6201}\n/cast {6201}"
+end
+
+local function WarlockSoulstoneTpl()
+	local s = BestCarried(SOULSTONES)
+	if s then
+		return ("#showtooltip\n/cast [mod:ctrl] {693}\n/stopmacro [mod:ctrl]\n/use [@mouseover,help,nodead][help,nodead][@player] item:%d"):format(s)
+	end
+	return "#showtooltip {693}\n/cast {693}"
+end
+
+local function MageGemTpl()
+	local gem = BestCarried(MANA_GEMS)
+	if gem then
+		return ("#showtooltip\n/cast [mod:ctrl] {12051}\n/stopmacro [mod:ctrl]\n/use item:%d"):format(gem)
+	end
+	for _, id in ipairs(CONJURE_GEMS) do
+		if KnownSpell(id) then
+			return ("#showtooltip\n/cast [mod:ctrl] {12051}; {%d}"):format(id)
+		end
+	end
+	return nil, "FMAC_WHY_TRAIN"
+end
+
+local function HunterAspectTpl()
+	-- Out of combat Cheetah once known (20), else Hawk; in combat Hawk; Ctrl = Monkey. Pack (40) left out: it dazes the
+	-- whole group when one of you is hit (DB2 description, GEMETEN in docs §4) — a choice Rob may flip.
+	return "#showtooltip\n/cast [mod:ctrl] !{13163}; [combat] !{13165}; " .. (KnownSpell(5118) and "!{5118}" or "!{13165}")
+end
+
+local function DruidProwlTpl()
+	-- The cat's number on the form bar is read from the client (docs §5: it shifts when a druid skipped a form quest).
+	if GetNumShapeshiftForms and GetShapeshiftFormInfo then
+		for i = 1, GetNumShapeshiftForms() or 0 do
+			local ok, _, _, _, sid = pcall(GetShapeshiftFormInfo, i)
+			if ok and sid == 768 then
+				return ("#showtooltip {5215}\n/cast [noform:%d] !{768}; [nostealth] {5215}"):format(i)
+			end
+		end
+	end
+	return nil, "FMAC_WHY_NO_CATFORM"
+end
+
 local CLASS_MACROS = {
 	-- WARRIOR
 	{ class = "WARRIOR", key = "taunt", name = "Taunt", need = 355, level = 10, talent = false, warn = "twopress", -- W6
@@ -305,6 +424,56 @@ local CLASS_MACROS = {
 		tpl = "#showtooltip\n/cast [swimming] {1066}; [outdoors] {783}; {768}" },
 	{ class = "DRUID", key = "innervate", name = "Innervate", need = 29166, level = 40, talent = false, warn = nil, -- D4
 		tpl = "#showtooltip {29166}\n/cancelform\n/cast [@mouseover,help,nodead][help,nodead][@player] {29166}" },
+	-- 17 Nov 2026, the ten macro ideas (Rob via sparring: "Ja, die 10 macro-ideeën zijn een goed idee. Werk maar uit.").
+	-- Ids and levels GEMETEN in wago DB2 wowf 1.60.1.70938, rank-1 ids (docs/forever/MACRO_IDEAS_2026-11-17.md). The
+	-- modifier is Ctrl throughout; /mh macros keys shows when Ctrl+your key belongs to another button. Texts written
+	-- by MH from standard macro syntax; nothing taken from the Forever Leveling Guide (All Rights Reserved).
+	-- Idea 2: buff mouse → target → you, Ctrl = group version (a reagent; without it the cast just fails).
+	{ class = "MAGE", key = "intellect", name = "Intellect", need = 1459, level = 1, talent = false, warn = nil,
+		tpl = "#showtooltip\n/cast [mod:ctrl,@mouseover,help,nodead][mod:ctrl,help,nodead][mod:ctrl,@player] {23028}; [@mouseover,help,nodead][help,nodead][@player] {1459}" },
+	{ class = "PRIEST", key = "fortitude", name = "Fortitude", need = 1243, level = 1, talent = false, warn = nil,
+		tpl = "#showtooltip\n/cast [mod:ctrl,@mouseover,help,nodead][mod:ctrl,help,nodead][mod:ctrl,@player] {21562}; [@mouseover,help,nodead][help,nodead][@player] {1243}" },
+	{ class = "PRIEST", key = "spirit", name = "Spirit", need = 14752, level = 30, talent = false, warn = nil,
+		tpl = "#showtooltip\n/cast [mod:ctrl,@mouseover,help,nodead][mod:ctrl,help,nodead][mod:ctrl,@player] {27681}; [@mouseover,help,nodead][help,nodead][@player] {14752}" },
+	-- Idea 3: stones and gems (item:<id> from your bags, rebuilt when your bags change).
+	{ class = "WARLOCK", key = "healthstone", name = "Healthstone", need = 6201, level = 10, talent = false, warn = nil,
+		tplFn = WarlockHealthstoneTpl },
+	{ class = "WARLOCK", key = "soulstone", name = "Soulstone", need = 693, level = 18, talent = false, warn = nil,
+		tplFn = WarlockSoulstoneTpl },
+	{ class = "MAGE", key = "managem", name = "Mana Gem", need = 759, level = 28, talent = false, warn = nil,
+		tplFn = MageGemTpl },
+	-- Idea 4: hunter aspects.
+	{ class = "HUNTER", key = "aspects", name = "Aspects", need = 13165, level = 10, talent = false, warn = nil,
+		tplFn = HunterAspectTpl },
+	-- Idea 5: druid Prowl from any form.
+	{ class = "DRUID", key = "prowl", name = "Prowl", need = 5215, level = 20, talent = false, warn = nil,
+		tplFn = DruidProwlTpl },
+	-- Idea 6: warlock Shadow Bolt sends the demon too; Ctrl = demon back.
+	{ class = "WARLOCK", key = "shadowbolt", name = "Shadow Bolt", need = 686, level = 1, talent = false, warn = nil,
+		tpl = "#showtooltip {686}\n/petfollow [mod:ctrl]\n/stopmacro [mod:ctrl]\n/petattack\n/cast {686}" },
+	-- Idea 7: resurrect the dead friend under your mouse, else your target (out of combat only, DB2 GEMETEN).
+	{ class = "PRIEST", key = "res", name = "Resurrect", need = 2006, level = 10, talent = false, warn = nil,
+		tpl = "#showtooltip {2006}\n/cast [@mouseover,help,dead][] {2006}" },
+	{ class = "SHAMAN", key = "res", name = "Resurrect", need = 2008, level = 12, talent = false, warn = nil,
+		tpl = "#showtooltip {2008}\n/cast [@mouseover,help,dead][] {2008}" },
+	{ class = "PALADIN", key = "res", name = "Resurrect", need = 7328, level = 12, talent = false, warn = nil,
+		tpl = "#showtooltip {7328}\n/cast [@mouseover,help,dead][] {7328}" },
+	-- Idea 8: crowd control that remembers its enemy: no focus yet (or a dead one) → your target becomes the focus;
+	-- Ctrl = make your target the new focus. Mage Polymorph, Warlock Fear and Rogue Sap rows already exist.
+	{ class = "PRIEST", key = "shackle", name = "Shackle", need = 9484, level = 20, talent = false, warn = nil,
+		tpl = "#showtooltip {9484}\n/focus [@focus,noexists][@focus,dead][mod:ctrl]\n/cast [@focus,harm,nodead][] {9484}" },
+	{ class = "DRUID", key = "hibernate", name = "Hibernate", need = 2637, level = 18, talent = false, warn = nil,
+		tpl = "#showtooltip {2637}\n/focus [@focus,noexists][@focus,dead][mod:ctrl]\n/cast [@focus,harm,nodead][] {2637}" },
+	-- Idea 9: rogue. Sprint and Vanish have no global cooldown and Sprint does not break Stealth (DB2 GEMETEN).
+	{ class = "ROGUE", key = "stealth", name = "Stealth", need = 1784, level = 1, talent = false, warn = nil,
+		tpl = "#showtooltip {1784}\n/cast [mod:ctrl] {2983}\n/cast [nostealth] {1784}" },
+	{ class = "ROGUE", key = "vanish", name = "VanishSprint", need = 1856, level = 22, talent = false, warn = nil,
+		tpl = "#showtooltip {1856}\n/cast {2983}\n/cast {1856}" },
+	{ class = "ROGUE", key = "finisher", name = "Finisher", need = 2098, level = 1, talent = false, warn = nil,
+		tpl = "#showtooltip\n/startattack\n/cast [mod:ctrl] {5171}; {2098}" },
+	-- Idea 10: shaman fire totem, Ctrl = Magma (26). Recall/Call sit in the Totems row already.
+	{ class = "SHAMAN", key = "firetotem", name = "Fire Totem", need = 3599, level = 10, talent = false, warn = nil,
+		tpl = "#showtooltip\n/cast [mod:ctrl] {8190}; {3599}" },
 }
 
 local function SpellSubtext(id)
@@ -362,7 +531,15 @@ local function ClassRow(c)
 				end
 				return nil, "FMAC_WHY_TRAIN"
 			end
-			local body = FillTpl(c.tpl)
+			-- 17 Nov 2026: a row whose text depends on your bags or form bar builds its own template (`tplFn`).
+			local tpl, why, arg = c.tpl, nil, nil
+			if c.tplFn then
+				tpl, why, arg = c.tplFn()
+				if not tpl then
+					return nil, why or "FMAC_WHY_FAILED", arg
+				end
+			end
+			local body = FillTpl(tpl)
 			if body and #body > MAX_LEN and c.tplShort then
 				body = FillTpl(c.tplShort)
 			end
@@ -955,6 +1132,12 @@ local function RefreshAuto()
 	end
 	for _, d in ipairs(DEFS) do
 		if d.auto and Exists(d) and d.build() then
+			Make(d)
+		end
+	end
+	-- Class rows built from your bags or form bar (tplFn, 17 Nov 2026): same rule, only a macro you already made.
+	for _, d in ipairs(Rows()) do
+		if d.cls and d.cls.tplFn and Exists(d) and d.build() then
 			Make(d)
 		end
 	end

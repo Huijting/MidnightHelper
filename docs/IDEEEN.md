@@ -174,6 +174,21 @@ gebruiken."* Uitslag (bouwchat 15-11, alleen op main, NIET in het spel gezien):
 Hier komt wat Rob goedkeurt, ook wat hij rechtstreeks in de bouwchat vraagt (Rob, 10 nov: *"ja we willen het op 1
 lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met de commit erbij. Na zijn test naar **Af**.
 
+### Forever: tien nieuwe handige macro's (ideeën uit de Forever-gidsen, zelf geschreven)
+- Bron: Rob 17 nov (via Sparring 17-11), letterlijk: *"Ja, die 10 macro-ideeën zijn een goed idee. Werk maar uit."*
+  Eerder: *"Wat ik ook heel erg mooi vind overigens zijn de macro's … Die wij best wel kunnen … overnemen of zelf maken."*
+- Regel: de Forever Leveling Guide is All Rights Reserved → niets overgenomen; zelf geschreven uit openbare bronnen
+  (Rankedboost, Kami-labs, Conquestcapped) + standaard macrosyntax. Spells en items via id. Spel: F. Voor wie: N + V.
+- Feiten (mh-research Fable, 17 nov): `docs/forever/MACRO_IDEAS_2026-11-17.md`.
+- GEBOUWD 17 nov (en + nl; vertaling en Fable-controle lopen), `Modules/ForeverMacros.lua`, overal **Ctrl**:
+  eten+drinken (iedereen; mage Ctrl = water maken), buffs met Ctrl = groepsversie (Arcane Intellect, Fortitude,
+  Divine Spirit), Healthstone + Soulstone (warlock, Ctrl = maken), Mana Gem (mage, Ctrl = Evocation), aspects (hunter),
+  Prowl vanuit elke vorm (druid, vormnummer uit de client), Shadow Bolt + demon (warlock), res op muis (priest, shaman,
+  paladin), focus-CC (Shackle, Hibernate), rogue Stealth/Vanish+Sprint/Finisher, Searing/Magma (shaman).
+  Bewust niet: paladin-blessings (keuze per groep), Pack in de aspect-macro (verdooft de hele groep; Rob mag omdraaien).
+- Nog open (eigen bouw): Copy-knop, bron per rij, chips READY/level, melding "nieuwe macro" bij level-up, uitlegkaart
+  modifier, melding in het venster als Ctrl+toets bezet is (na Robs `/mh macros keys`-test).
+
 ### Forever: Legacy Points uitleggen en helpen (+ Talented-fout repareren)
 - Bron: Rob 17 nov (via Sparring 17-11), letterlijk: *"legacy points. Wat zijn het? Waar krijg ik het? Hoe krijg ik het?
   En hoe zet ik het in?"* Op het onderzoek: *"Legacy ook bouwen en het gat met talented als fout laten repareren. Want

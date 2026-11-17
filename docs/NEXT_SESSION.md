@@ -14,6 +14,15 @@
   modifiers in de tekst, en per combinatie "free" of "taken by <binding>"; schrijft `ns.db.foreverMacroKeysProbe`.
   Lint 0 HARD, luac OK. NIET in het spel gezien (TESTLIJST 17 nov). Na Robs meting: melding in het macrovenster +
   eventueel schakelaar welke modifier (nooit blok- of andere-addon-toetsen losmaken).
+- 🆕 **Tien macro-ideeën GEBOUWD (en + nl)** (Robs ja via sparring, letterlijk in IDEEEN onder Ja). Feiten:
+  `docs/forever/MACRO_IDEAS_2026-11-17.md` (mh-research Fable; bronnen DB2 70938 + Blizzards Forever-UI-code
+  Gethe/wow-ui-source branch forever + gidsen; Forever Leveling Guide niet geopend). In ForeverMacros.lua: DEFS-rij
+  `eatdrink` (WATER/FOOD-lijsten met itemlevel, BestEdible), class-rijen met `tplFn` (ClassRow nieuw; RefreshAuto
+  herbouwt ze bij tassen) voor Healthstone/Soulstone/Mana Gem/Aspects/Prowl (vormnummer via GetShapeshiftFormInfo),
+  gewone rijen Intellect/Fortitude/Spirit/Shadow Bolt/Res ×3/Shackle/Hibernate/Stealth/VanishSprint/Finisher/Fire Totem.
+  Overal Ctrl. FMAC_CLASS_SUB: "five" weg. Lint 0 HARD, luac OK. Loopt: mh-writer vertaalt de/fr/es/pt/ru, Fable-helper
+  kijkt de rijen na. Open uit het onderzoek: `/use item:`, `!`, `[form:n]` niet in de client gedraaid; rank-1-id als
+  `need` bij rogue-spells (test in TESTLIJST).
 
 ## ▶ 17 nov — Bouwchat 17-11 (sessie "addons-fd"; nam het over van 16-11 (2), die op een toestemmingsvraag hing)
 
