@@ -38,6 +38,8 @@ Eerst WoW helemaal afsluiten en opnieuw starten (er is een nieuw bestand; /reloa
 - [ ] Mailbox: de dichtstbijzijnde brievenbus staat bovenaan en staat echt daar. (Een brievenbus die we missen: zeg
       waar, dan voegen we hem toe.)
 - [ ] Inn: de herbergier van je stad bovenaan. In Dalaran (Alliance) staan er twee.
+- [ ] Forever: typ `/mh settings` → Midnight Helper opent in de instellingen van het spel (Esc > Options > AddOns), niet
+      het overzicht. (Gerepareerd 17 nov: dit ging waarschijnlijk mis; niet in het spel gezien.)
 - [ ] Valanaar (Zephras Isle): bank, AH en herberg staan erin. Opent die AH het neutrale of het gewone veilinghuis?
       (Weten we niet: zeg het als je er komt.)
 

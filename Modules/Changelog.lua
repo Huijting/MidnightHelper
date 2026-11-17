@@ -4,6 +4,18 @@ local changelogFrame
 
 local CHANGELOG_ENTRIES = {
 	{
+		version = "5.5.0",
+		lines = {
+			-- 17 Nov 2026 (prepared, waiting for Rob's go): the Forever overview, Find in town, class quests for all classes.
+			"CHANGELOG_550_1",
+			"CHANGELOG_550_2",
+			"CHANGELOG_550_3",
+			"CHANGELOG_550_4",
+			"CHANGELOG_550_5",
+			"CHANGELOG_550_6",
+		},
+	},
+	{
 		version = "5.4.0",
 		lines = {
 			-- 16 Nov 2026 (Rob via sparring: "go"): best stats, weapon items, fireworks, camera, many Forever helpers.

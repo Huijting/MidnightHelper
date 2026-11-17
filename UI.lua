@@ -5121,7 +5121,8 @@ ns.SelectTab = SelectTab
 -- and a jump to another screen opens the overview. Retail unchanged.
 if ns.IS_FOREVER then
 	ns.SelectTab = function(tabId)
-		if tabId == "settings" and ns.OpenNativeSettings then
+		-- "allsettings" too: /mh settings asks for that screen (Core.lua), found 17 Nov 2026 while checking the 5.5.0 notes.
+		if (tabId == "settings" or tabId == "allsettings") and ns.OpenNativeSettings then
 			if ns.HideForeverOverview then
 				ns.HideForeverOverview()
 			end

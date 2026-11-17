@@ -2,6 +2,30 @@
 
 All notable changes to this project are documented in this file.
 
+## 5.5.0
+
+📌 **KLAARGEZET 17 nov 2026, wacht op Robs go (geen tag).** In-game: CHANGELOG_550_1 t/m _6. `RELEASE_NOTES.md` =
+`docs/CURSEFORGE_5.5.0.md`. Commits sinds v5.4.0 (16 nov avond t/m 17 nov). Alleen Forever; Midnight onveranderd
+(Rob: *"Midnight zelf werkt helemaal goed."*). Het meeste NIET in het spel gezien (zie TESTLIJST 17 nov).
+
+- **Forever, overzicht:** `/mh overview` (`ForeverOverview.lua`, stijlkit `ForeverStyle.lua`, fonts in `Media/Fonts/`,
+  OFL) is de voordeur (`ns:ToggleMainEntry`: `/mh`, Alt+M, minimap, compartiment, snelbalk). Zeven tabs: Now (met
+  trainer-pagina en This week) · Your class (How you play, Class quests, Camping) · Find · Professions · Dungeons &
+  group · Keys & macros · Characters (Your characters, Legacy, This week). Tandwiel: Quiet helpers (19 schakelaars) ·
+  Tools · All commands (zoekvak). Oude venster en Dock-knop weg in Forever; `/mh settings` → Blizzard-instellingen.
+  Losse vensters in dezelfde stijl (`S.SkinWindow`/`S.SkinOnShow`). Oude ingangen landen op de juiste tab.
+- **Forever, Find "In town":** bank, veilinghuis, brievenbus, herberg (`ForeverCitySpots.lua`, 116 plekken), neutrale
+  AH's gemarkeerd (15% i.p.v. 5%).
+- **Forever, verder:** class-quests voor alle 9 classes (`ForeverClassQuests.lua`); How you play per rol voor alle 9;
+  tien handige macro's + hoogste bekende rang (`TopKnown`); Free key / Undo freed keys; kamperen stap 1
+  (`FCAMP_SIT_FMT`); Legacy Points stap 1 (`FLEGACY_UNUSED_FMT`); zegen-tip in de tooltip (`ForeverBlessTip.lua`,
+  standaard uit); opzij voor de Forever Leveling Guide (`SET_ARROWGUIDE_*`); Hall of Thanes voor Horde
+  (`FDUNG_IN_ENEMY_FMT`).
+- **Alleen voor ons (niet in de spelerstekst):** `/mh partytest`, `/mh macros keys` (meting) en
+  `foreverMacroKeysProbe`, `/mh blesstip` (hook-diagnose) en `foreverBlessTipProbe`, `foreverFontProbe`,
+  `foreverNameProbe`, `/mh camp` en `/mh legacy` (wat MH kan lezen), offline proeven (find_check, tr_check, fcq_check,
+  htp_check), lint.
+
 ## 5.4.0
 
 📌 **2026-11-16, RELEASE (Rob via Sparring 16-11, letterlijk: "go"; tag pas na zijn ok op de spelerstekst; geen beta).**

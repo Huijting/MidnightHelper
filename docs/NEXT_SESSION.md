@@ -28,6 +28,17 @@ Eigen woordkeus (niet gemeten): "Stille Helfer"/"Aides discrètes"/…, "In der 
 Controle: alle 23 nieuwe sleutels aanwezig in 5 packs; eigen Forever-resolve-run (IS_FOREVER aan) toont per taal de
 vertaling. ⚠️ `tools/locale_probe.lua` is blind voor `ForeverClassQuests_*` (die draaien alleen met IS_FOREVER).
 Door geen moedertaalspreker gezien.
+▶ **C KLAARGEZET, NIET GETAGD — wacht op Robs letterlijke go via sparring.** 5.5.0: beide toc's `## Version: 5.5.0`,
+CHANGELOG_550_1-6 (enUS) + Changelog.lua, `RELEASE_NOTES.md` = `docs/CURSEFORGE_5.5.0.md` (byte-gelijk GEMETEN, 4255
+bytes, alleen Forever-spelersdingen; lint [27] 0), CHANGELOG.md-blok, SITE_SEIN-regel (Mag op de site: nee). Tekst door
+mh-writer, door mij nagelopen: `/mh`/Alt+M → overzicht (UI.lua ToggleMainEntry), rechtsklik minimap → instellingen,
+macro-lijst, Hall of Thanes (FDUNG_IN_ENEMY_FMT). "Elke knop heeft een tooltip" afgezwakt (niet gemeten).
+🐞 Bij het nalopen gevonden + gerepareerd: `/mh settings` in Forever vroeg scherm "allsettings", de Forever-omleiding
+(UI.lua) ving alleen "settings" → opende niet de spelinstellingen. Nu beide. Niet in het spel gezien (TESTLIJST).
+Open bij de release (Robs keus, niet blokkerend): `CURSEFORGE_DESCRIPTION.md` noemt het Forever-overzicht nog niet
+(niet nagelopen); `CMDLIST_OVERVIEW` beschrijft het overzicht nog met de oude inhoud; `FOV_OLDWIN_BTN`/`FOV_TIP_OLDWIN`
+zijn waarschijnlijk dode sleutels; bijna alles van 5.5.0 is nog niet in het spel gezien → beta is een optie.
+Tag (na go): `git tag v5.5.0` + `git push origin v5.5.0` (zie docs/RELEASE_CHECKLIST.md).
 OPEN, in deze volgorde:
 - ~~**A. Bank & Auction House in Find**~~ (AF, zie regel hierboven) (Rob, letterlijk: *"Straks zocht ik de bank en de AH in grootsteden. … Kunnen we
   dat nog erin krijgen?"*; sparring: bouwen voor deze release). GEMETEN door sparring: MH heeft er nu niets voor

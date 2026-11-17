@@ -28,6 +28,25 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 17 nov 2026 — release 5.5.0 klaargezet
+- Tag + commit:   geen tag
+- Status:         alleen op main
+- Mag op de site: nee (wacht op Robs go)
+- Speler ziet:    alles in `RELEASE_NOTES.md` (= `docs/CURSEFORGE_5.5.0.md`). Bundelt de regels hieronder van na v5.4.0:
+                  16 nov druid class-quests + rollen; 17 nov Warlock, Warrior, Hunter en Rogue, Shaman, Priest, Paladin
+                  en Mage class-quests; How to play per rol; opzij voor de Forever Leveling Guide; kamperen stap 1;
+                  Legacy Points stap 1. Plus wat hier nog GEEN eigen regel had: het overzicht `/mh overview` als
+                  voordeur (7 tabs Now · Your class · Find · Professions · Dungeons & group · Keys & macros ·
+                  Characters; tandwiel Quiet helpers · Tools · All commands; oude venster + Dock-knop weg in Forever;
+                  losse vensters in dezelfde stijl), Find "In town" (bank, veilinghuis, brievenbus, herberg, neutrale
+                  AH's gemarkeerd), tien handige macro's met je hoogste rang, Free key, zegen-tip voor paladins, Hall of
+                  Thanes voor Horde. Grotendeels *(niet in het spel getest)*.
+- Knoplabels:     FOV_TAB_NOW, FOV_TAB_CLASS, FOV_TAB_FIND, FOV_TAB_PROFS, FOV_TAB_DUNG, FOV_TAB_KEYS, FOV_TAB_CHARS,
+                  FOV_SUB_QUIET, FOV_SUB_TOOLS, CMDLIST_TITLE, FOV_FIND_SEC_CITY, FCITY_NEUTRAL_TAG, FMAC_EAT_TITLE,
+                  FMAC_BTN_FREE, FMAC_BTN_UNDO_KEYS, SET_BLESSTIP_TITLE
+- Commando's:     /mh overview (ook /mh, Alt+M, minimapknop), /mh blesstip on|off
+- Spel:           Forever (Midnight onveranderd)
+
 ## 17 nov 2026 — Forever: Legacy Points, stap 1 ("je hebt N ongebruikte punten")
 - Tag + commit:   geen tag / (deze commit, zie git log "Legacy step 1")
 - Status:         alleen op main
