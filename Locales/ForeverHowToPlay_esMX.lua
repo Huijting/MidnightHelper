@@ -124,7 +124,7 @@ El Cazador dispara desde lejos con un arma a distancia, y desde el nivel 10 tien
 - **Shift-Z** = Marca del cazador (6): pónsela al enemigo una vez.
 - **Shift-Q** = Disparo de conmoción (8): ralentiza al enemigo.
 - **Shift-R** = Aspecto del halcón (10): tu aspecto principal.
-- **Nivel 10, misiones de mascota:** aprendes Domesticar bestia, Llamar a mascota y Revivir mascota. **F4** = Llamar a mascota (trae a tu mascota), **F3** = Revivir mascota (trae de vuelta a una mascota muerta). Domesticar bestia no tiene tecla; la usas fuera de combate.
+- **Nivel 10, misiones de mascota:** aprendes Domesticar bestia, Llamar a mascota y Retirar mascota; la misión siguiente da Revivir mascota y Alimentar mascota. **F4** = Llamar a mascota (trae a tu mascota), **F3** = Revivir mascota (trae de vuelta a una mascota muerta). Domesticar bestia no tiene tecla; la usas fuera de combate.
 - A partir de entonces tu mascota tiene tres teclas: **Ctrl-1** = atacar a tu objetivo, **Ctrl-2** = seguirte, **Ctrl-3** = quedarse donde está.]] },
 		{ "Orden sencillo", [[
 Activa Aspecto del halcón (Shift-R). Primero entra la mascota (Ctrl-1). Marca del cazador (Shift-Z), Picadura de serpiente (2), Disparo automático (1), y luego Disparo Arcano (3) cuando esté listo. ¿El enemigo está a tu lado? Golpe de raptor (5).]] },

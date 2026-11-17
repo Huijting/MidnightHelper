@@ -138,7 +138,7 @@ The Hunter shoots from a distance with a ranged weapon, and from level 10 has a 
 - **Shift-Z** = Hunter's Mark (6): put it on the enemy once.
 - **Shift-Q** = Concussive Shot (8): slows the enemy.
 - **Shift-R** = Aspect of the Hawk (10): your main aspect.
-- **Level 10, pet quests:** you learn Tame Beast, Call Pet and Revive Pet. **F4** = Call Pet (brings your pet), **F3** = Revive Pet (brings a dead pet back). Tame Beast has no key; you use it outside a fight.
+- **Level 10, pet quests:** you learn Tame Beast, Call Pet and Dismiss Pet; the quest after them (Training the Beast) gives Revive Pet and Feed Pet. **F4** = Call Pet (brings your pet), **F3** = Revive Pet (brings a dead pet back). Tame Beast has no key; you use it outside a fight.
 - From then on your pet has three keys: **Ctrl-1** = attack your target, **Ctrl-2** = follow you, **Ctrl-3** = stay where it is.]] },
 		{ "Simple order", [[
 Aspect of the Hawk on (Shift-R). Pet in first (Ctrl-1). Hunter's Mark (Shift-Z), Serpent Sting (2), Auto Shot (1), then Arcane Shot (3) when it is ready. Enemy next to you? Raptor Strike (5).]] },
@@ -651,6 +651,73 @@ Low on mana? Skip Devouring Plague and Mind Flay, and use your wand sooner. From
 - Shadow Word: Death on an enemy with lots of health. If it does not die, you lose 30% of your own health.
 - Stopping Mind Flay early. With the Improved Mind Flay talent the last tick is the strongest.
 - Opening with Mind Blast in a group. It causes a lot of threat (how much an enemy wants to attack you): let the tank go first. If an enemy attacks you: Fade (**F**).]] },
+	},
+	-- Rogue: written 17 Nov 2026 by mh-writer from docs/forever/ROGUE_ROLES_2026-11-17.md (DB2 1.60.1.70938 + guides).
+	ROGUE = {
+		{ band = 1, title = "Assassination: daggers and poison", body = [[
+From level 1 (Sinister Strike and Eviscerate). You fight up close, with daggers and poison. You use **Energy**, which fills up by itself. Your hits give **combo points** (up to 5) on the enemy you hit; a **finisher** spends them all. Mutilate is a talent, 40 at the earliest, and needs a dagger in each hand. Until then you play with Backstab or Sinister Strike. The guides do not call this the easiest start: the big step only comes with Mutilate.
+**Simple order:**
+1. From 20: poison on both weapons (items, on block D).
+2. Wait for full Energy. From 18 (Poised) your first attack then costs 10 Energy less.
+3. Stealth (**Shift-R**), walk behind the enemy. **Stealth** = sneak, so the enemy does not see you. Open with Ambush (**2**, from 18, dagger in your main hand) or Garrote (**1**, from 14). Strong enemy, from 26: Cheap Shot (**V**), a 4-second stun.
+4. Combo points: Backstab (**2**) when you stand behind the enemy, otherwise Sinister Strike (**1**). From 40: Mutilate (**3**), 2 points each time.
+5. Shank (**Shift-3**, from 24) whenever it is ready. With Venom (from 30) each Shank makes your poison stronger for 6 seconds.
+6. Finisher: Slice and Dice (**Shift-4**) in a long fight; otherwise Eviscerate (**4**) at 5 points. Rupture (**5**, from 20) on an enemy that will live long (an elite, a boss).
+7. Cold Blood (**F1**, from 25) just before an Eviscerate with 5 points.
+**Per 10 levels:**
+- 10: you already have Sinister Strike (**1**), Eviscerate (**4**), Backstab (**2**), Stealth (**Shift-R**), Gouge (**Shift-Q**) and Evasion (**Z**). New at 10: Slice and Dice (**Shift-4**), Sprint (**R**), Sap (**Shift-Q** in Stealth), and a weapon in each hand (Dual Wield). Then Kick (**E**) at 12, Garrote (**1** in Stealth) and Expose Armor (**Shift-Z**) at 14, Feint (**F**) at 16, Ambush (**2** in Stealth) and Poised (passive) at 18.
+- 20: Rupture (**5**). Poisons, from a quest. Then Vanish (**X**) at 22, Shank (**Shift-3**) at 24, Cold Blood (**F1**, a talent) at 25: your next Sinister Strike, Backstab, Ambush, Eviscerate or Mutilate is sure to crit (**crit** = a lucky, stronger hit); cooldown 3 minutes. Cheap Shot (**V** in Stealth) at 26. Talent levels here are the earliest; a perk can bring them up to 5 levels sooner.
+- 30: Venom (a talent, passive: no key): each Shank gives your poison 30% more damage and 20% more chance to land, for 6 seconds. Kidney Shot (**V**). Then Blind (**Shift-V**) at 34, Seal Fate (a talent, passive) at 35: a crit with an attack that gives combo points gives you an extra point.
+- 40: Mutilate (**3**, a talent; you need Venom first): 60 Energy, hits with both daggers, 2 combo points, 20% more damage on a poisoned enemy. Then Slice and Dice rank 2 at 42, Shank rank 2 at 44.
+- 50: Mutilate rank 2 and Kidney Shot rank 2; nothing new for this role.
+- 60: Mutilate rank 3 and stronger ranks; nothing new for this role.
+**Beginner mistakes:**
+- Mutilate without daggers. It needs a dagger in each hand: get your second dagger before level 40.
+- Forgetting Shank. Venom only works through Shank.
+- Switching to another enemy with combo points on the old one. The points do not come along.]] },
+		{ band = 2, title = "Combat: steady damage with any weapon", body = [[
+From level 1 (Sinister Strike and Eviscerate). You do not need to stand behind the enemy: your main hit is Sinister Strike. It works with any one-handed weapon: a sword, axe, mace, fist weapon or dagger. Several guides call Combat the easiest tree to level alone. They advise a slow weapon in your main hand and a fast one in your other hand. You use **Energy**, which fills up by itself; your hits give **combo points**, and a **finisher** spends them. Blade Flurry (30 at the earliest) is the only thing a Rogue has against two enemies at once.
+**Simple order:**
+1. Wait for full Energy (Poised, from 18).
+2. Open from Stealth (**Shift-R**) with Garrote (**1**, from 14), or from 26 with Cheap Shot (**V**). Just walking up and attacking is fine too.
+3. Sinister Strike (**1**) for combo points.
+4. Riposte (**Shift-F1**, from 20) as soon as it lights up: that happens after you parry an attack.
+5. Shank (**Shift-3**, from 24) when it is ready.
+6. Finisher: Slice and Dice (**Shift-4**) in a long fight; otherwise Eviscerate (**4**) at 5 points. The guides differ on how early to keep Slice and Dice up.
+7. Two enemies: Blade Flurry (**Shift-1**, from 30). From 40 together with Adrenaline Rush (**Q**) for a hard fight. Losing? Evasion (**Z**).
+**Per 10 levels:**
+- 10: you already have Sinister Strike (**1**), Eviscerate (**4**), Stealth (**Shift-R**), Gouge (**Shift-Q**) and Evasion (**Z**). New at 10: Slice and Dice (**Shift-4**), Sprint (**R**), Sap (**Shift-Q** in Stealth), and a weapon in each hand. Then Kick (**E**) at 12, Garrote (**1** in Stealth) and Expose Armor (**Shift-Z**) at 14, Feint (**F**) at 16, Poised (passive) at 18.
+- 20: Riposte (**Shift-F1**, a talent; you need Deflection first): only works right after you parry an attack. 10 Energy, and the enemy is disarmed for 6 seconds. Rupture (**5**), and Poisons from a quest. Then Vanish (**X**) at 22, Shank (**Shift-3**) at 24, Flawless Execution (a talent, passive) at 25: Eviscerate costs 15 Energy less. Cheap Shot (**V** in Stealth) at 26. Talent levels here are the earliest; a perk can bring them up to 5 levels sooner.
+- 30: Blade Flurry (**Shift-1**, a talent): for 15 seconds you attack 20% faster, and each hit also hits a second enemy nearby; cooldown 2 minutes. Hack and Slash (a talent, passive): a bonus that depends on your weapon. Kidney Shot (**V**). Then Blind (**Shift-V**) at 34, Flash of Steel (a talent, passive) at 35: Shank gives up to 15 Energy extra and is ready up to 2 seconds sooner.
+- 40: Adrenaline Rush (**Q**, a talent; you need Blade Flurry first): for 15 seconds your Energy fills twice as fast; cooldown 5 minutes. Then Slice and Dice rank 2 at 42 (30% faster instead of 20%), Shank rank 2 at 44 (25 Energy back instead of 15).
+- 50: Kidney Shot rank 2 and stronger ranks; nothing new for this role.
+- 60: stronger ranks; nothing new for this role.
+**Beginner mistakes:**
+- Blade Flurry next to an enemy you took out with Sap, Gouge or Blind. The extra hits wake it up.
+- Pressing Riposte when nothing was parried. It only works right after a parry.
+- Backstab or Ambush with a sword, axe or mace. Both need a dagger in your main hand.]] },
+		{ band = 3, title = "Subtlety: strike from Stealth", body = [[
+From level 1 (Sinister Strike and Stealth). This tree fights from Stealth: a strong first hit, and many combo points before the fight really starts. **Stealth** = sneak, so the enemy does not see you. The guides say levelling alone goes slower than with Combat. Hemorrhage is a talent, 30 at the earliest: cheap, from the front, with any weapon. Death Mark is a talent, 40 at the earliest. Ambush and Backstab need a dagger in your main hand; Hemorrhage and Ghostly Strike do not.
+**Simple order:**
+1. Stealth (**Shift-R**). A second Humanoid nearby? Sap (**Shift-Q**). Sap does not break Stealth.
+2. Premeditation (**Shift-C**, from 20): 2 combo points on the enemy. Then your first hit.
+3. First hit from behind: Ambush (**2**, from 18, dagger in your main hand). Strong enemy, from 26: Cheap Shot (**V**), a 4-second stun. The guides differ on the best opener.
+4. Ghostly Strike (**Shift-X**, from 25) and Shank (**Shift-3**, from 24) whenever they are ready.
+5. Combo points: from 30 Hemorrhage (**3**). Before that: Backstab (**2**) when you stand behind the enemy, otherwise Sinister Strike (**1**).
+6. Finisher: Eviscerate (**4**) when the enemy is almost dead; Rupture (**5**) on an enemy that will live long; Slice and Dice (**Shift-4**) in a long fight.
+7. From 40: Death Mark (**Q**) on the strongest enemy, best while Rupture or Garrote is running.
+8. Emergency: Vanish (**X**). Preparation (**F3**, from 30) makes Vanish, Evasion and Sprint ready again right away.
+**Per 10 levels:**
+- 10: you already have Sinister Strike (**1**), Eviscerate (**4**), Backstab (**2**), Stealth (**Shift-R**), Gouge (**Shift-Q**) and Evasion (**Z**). New at 10: Sap (**Shift-Q** in Stealth), Slice and Dice (**Shift-4**), Sprint (**R**), and a weapon in each hand. Then Kick (**E**) at 12, Garrote (**1** in Stealth) at 14, Feint (**F**) at 16, Ambush (**2** in Stealth) and Poised (passive) at 18.
+- 20: Premeditation (**Shift-C**, a talent): 2 combo points on your target; use them within 20 seconds, or they are gone; cooldown 2 minutes. Rupture (**5**), and Poisons from a quest. Then Vanish (**X**) at 22, Shank (**Shift-3**) at 24, Ghostly Strike (**Shift-X**, a talent) at 25: 40 Energy, 1 combo point, 15% more dodge for 7 seconds; cooldown 20 seconds. Cheap Shot (**V** in Stealth) at 26. Talent levels here are the earliest; a perk can bring them up to 5 levels sooner.
+- 30: Hemorrhage (**3**, a talent; you need Serrated Blades first): 35 Energy, 1 combo point, works from the front; for 15 seconds your Rupture and Garrote do 15% more damage to that enemy. Preparation (**F3**, a talent): makes the cooldown of your other Rogue spells ready right away; its own cooldown is 10 minutes. You get one of these two at 30, the other at 31. Kidney Shot (**V**). Then Blind (**Shift-V**) at 34, Boot Knife (a talent, passive) at 35: Shank can give 2 combo points.
+- 40: Death Mark (**Q**, a talent; you need Preparation first): a finisher, 25 Energy, cooldown 10 seconds. For 6 seconds it saves part of your damage (more per combo point), then deals it in one go, up to a limit. Rupture and Garrote damage counts double. Then Slice and Dice rank 2 and Vanish rank 2 at 42, Shank rank 2 at 44, Death Mark rank 2 at 48.
+- 50: Kidney Shot rank 2, Death Mark rank 3 at 56; nothing new for this role.
+- 60: Death Mark rank 4 and stronger ranks; nothing new for this role.
+**Beginner mistakes:**
+- Ambush or Backstab without a dagger in your main hand, or from the front.
+- Using Premeditation and then waiting. The 2 points are gone after 20 seconds, and the cooldown is 2 minutes.
+- Death Mark without combo points. It is a finisher.]] },
 	},
 }
 ns.FOREVER_HOWTOPLAY_ROLES = ROLES -- the offline check reads it

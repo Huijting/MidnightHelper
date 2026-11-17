@@ -120,7 +120,7 @@ De Hunter schiet van een afstand met een ranged wapen, en heeft vanaf level 10 e
 - **Shift-Z** = Hunter's Mark (6): zet hem één keer op de vijand.
 - **Shift-Q** = Concussive Shot (8): vertraagt de vijand.
 - **Shift-R** = Aspect of the Hawk (10): je belangrijkste aspect.
-- **Level 10, pet-quests:** je leert Tame Beast, Call Pet en Revive Pet. **F4** = Call Pet (haalt je pet), **F3** = Revive Pet (brengt een dode pet terug). Tame Beast heeft geen toets; die gebruik je buiten een gevecht.
+- **Level 10, pet-quests:** je leert Tame Beast, Call Pet en Dismiss Pet; de quest daarna (Training the Beast) geeft Revive Pet en Feed Pet. **F4** = Call Pet (haalt je pet), **F3** = Revive Pet (brengt een dode pet terug). Tame Beast heeft geen toets; die gebruik je buiten een gevecht.
 - Vanaf dan heeft je pet drie toetsen: **Ctrl-1** = val je target aan, **Ctrl-2** = volg mij, **Ctrl-3** = blijf waar je bent.]] },
 		{ "Simpele volgorde", [[
 Aspect of the Hawk aan (Shift-R). Pet er eerst op (Ctrl-1). Hunter's Mark (Shift-Z), Serpent Sting (2), Auto Shot (1), dan Arcane Shot (3) als hij klaar is. Vijand naast je? Raptor Strike (5).]] },
@@ -623,6 +623,73 @@ Weinig mana? Sla Devouring Plague en Mind Flay over, en gebruik eerder je wand. 
 - Shadow Word: Death op een vijand met veel health. Gaat hij niet dood, dan verlies je 30% van je eigen health.
 - Mind Flay te vroeg afbreken. Met het talent Improved Mind Flay is de laatste tik de sterkste.
 - In een groep openen met Mind Blast. Hij geeft veel threat (hoe graag een vijand jou wil aanvallen): laat de tank eerst gaan. Valt een vijand jou aan: Fade (**F**).]] },
+		},
+		-- Rogue (17 nov 2026), zelfde band en volgorde als in Modules/ForeverHowToPlay.lua.
+		ROGUE = {
+			{ band = 1, title = "Assassination: dolken en gif", body = [[
+Vanaf level 1 (Sinister Strike en Eviscerate). Je vecht van dichtbij, met dolken en gif. Je gebruikt **Energy**, die vanzelf vol loopt. Je klappen geven **combo points** (tot 5) op de vijand die je raakt; een **finisher** gebruikt ze allemaal. Mutilate is een talent, op z'n vroegst 40, en heeft een dolk in elke hand nodig. Tot dan speel je met Backstab of Sinister Strike. De gidsen noemen dit niet de makkelijkste start: de grote stap komt pas met Mutilate.
+**Simpele volgorde:**
+1. Vanaf 20: gif op beide wapens (items, op blok D).
+2. Wacht op volle Energy. Vanaf 18 (Poised) kost je eerste aanval dan 10 Energy minder.
+3. Stealth (**Shift-R**), loop achter de vijand. **Stealth** = sluipen, zodat de vijand je niet ziet. Open met Ambush (**2**, vanaf 18, dolk in je hoofdhand) of Garrote (**1**, vanaf 14). Sterke vijand, vanaf 26: Cheap Shot (**V**), een stun van 4 seconden.
+4. Combo points: Backstab (**2**) als je achter de vijand staat, anders Sinister Strike (**1**). Vanaf 40: Mutilate (**3**), 2 punten per keer.
+5. Shank (**Shift-3**, vanaf 24) steeds als hij klaar is. Met Venom (vanaf 30) maakt elke Shank je gif 6 seconden lang sterker.
+6. Finisher: Slice and Dice (**Shift-4**) in een lang gevecht; anders Eviscerate (**4**) bij 5 punten. Rupture (**5**, vanaf 20) op een vijand die lang leeft (een elite, een baas).
+7. Cold Blood (**F1**, vanaf 25) vlak voor een Eviscerate met 5 punten.
+**Per 10 levels:**
+- 10: je hebt al Sinister Strike (**1**), Eviscerate (**4**), Backstab (**2**), Stealth (**Shift-R**), Gouge (**Shift-Q**) en Evasion (**Z**). Nieuw op 10: Slice and Dice (**Shift-4**), Sprint (**R**), Sap (**Shift-Q** in Stealth), en een wapen in elke hand (Dual Wield). Daarna Kick (**E**) op 12, Garrote (**1** in Stealth) en Expose Armor (**Shift-Z**) op 14, Feint (**F**) op 16, Ambush (**2** in Stealth) en Poised (passief) op 18.
+- 20: Rupture (**5**). Poisons, uit een quest. Daarna Vanish (**X**) op 22, Shank (**Shift-3**) op 24, Cold Blood (**F1**, een talent) op 25: je volgende Sinister Strike, Backstab, Ambush, Eviscerate of Mutilate is zeker een crit (**crit** = een sterkere geluksklap); cooldown 3 minuten. Cheap Shot (**V** in Stealth) op 26. Talent-levels hier zijn op z'n vroegst; een perk kan ze tot 5 levels eerder maken.
+- 30: Venom (een talent, passief: geen toets): elke Shank geeft je gif 6 seconden lang 30% meer schade en 20% meer kans om aan te slaan. Kidney Shot (**V**). Daarna Blind (**Shift-V**) op 34, Seal Fate (een talent, passief) op 35: een crit met een aanval die combo points geeft, geeft je een extra punt.
+- 40: Mutilate (**3**, een talent; je hebt eerst Venom nodig): 60 Energy, slaat met beide dolken, 2 combo points, 20% meer schade op een vergiftigde vijand. Daarna Slice and Dice rank 2 op 42, Shank rank 2 op 44.
+- 50: Mutilate rank 2 en Kidney Shot rank 2; niets nieuws voor deze rol.
+- 60: Mutilate rank 3 en sterkere ranks; niets nieuws voor deze rol.
+**Beginnersfouten:**
+- Mutilate zonder dolken. Hij heeft een dolk in elke hand nodig: haal je tweede dolk vóór level 40.
+- Shank vergeten. Venom werkt alleen via Shank.
+- Naar een andere vijand gaan met combo points op de oude. De punten gaan niet mee.]] },
+			{ band = 2, title = "Combat: vaste schade met elk wapen", body = [[
+Vanaf level 1 (Sinister Strike en Eviscerate). Je hoeft niet achter de vijand te staan: je hoofdklap is Sinister Strike. Hij werkt met elk eenhandig wapen: een zwaard, bijl, knots, vuistwapen of dolk. Een aantal gidsen noemt Combat de makkelijkste boom om alleen mee te levelen. Ze raden een langzaam wapen in je hoofdhand aan en een snel wapen in je andere hand. Je gebruikt **Energy**, die vanzelf vol loopt; je klappen geven **combo points**, en een **finisher** gebruikt ze. Blade Flurry (op z'n vroegst 30) is het enige wat een Rogue heeft tegen twee vijanden tegelijk.
+**Simpele volgorde:**
+1. Wacht op volle Energy (Poised, vanaf 18).
+2. Open uit Stealth (**Shift-R**) met Garrote (**1**, vanaf 14), of vanaf 26 met Cheap Shot (**V**). Gewoon naar de vijand lopen en aanvallen mag ook.
+3. Sinister Strike (**1**) voor combo points.
+4. Riposte (**Shift-F1**, vanaf 20) zodra hij oplicht: dat gebeurt nadat je een aanval pareert.
+5. Shank (**Shift-3**, vanaf 24) als hij klaar is.
+6. Finisher: Slice and Dice (**Shift-4**) in een lang gevecht; anders Eviscerate (**4**) bij 5 punten. De gidsen verschillen over hoe vroeg je Slice and Dice aan houdt.
+7. Twee vijanden: Blade Flurry (**Shift-1**, vanaf 30). Vanaf 40 samen met Adrenaline Rush (**Q**) voor een zwaar gevecht. Verlies je? Evasion (**Z**).
+**Per 10 levels:**
+- 10: je hebt al Sinister Strike (**1**), Eviscerate (**4**), Stealth (**Shift-R**), Gouge (**Shift-Q**) en Evasion (**Z**). Nieuw op 10: Slice and Dice (**Shift-4**), Sprint (**R**), Sap (**Shift-Q** in Stealth), en een wapen in elke hand. Daarna Kick (**E**) op 12, Garrote (**1** in Stealth) en Expose Armor (**Shift-Z**) op 14, Feint (**F**) op 16, Poised (passief) op 18.
+- 20: Riposte (**Shift-F1**, een talent; je hebt eerst Deflection nodig): werkt alleen vlak nadat je een aanval pareert. 10 Energy, en de vijand is 6 seconden ontwapend. Rupture (**5**), en Poisons uit een quest. Daarna Vanish (**X**) op 22, Shank (**Shift-3**) op 24, Flawless Execution (een talent, passief) op 25: Eviscerate kost 15 Energy minder. Cheap Shot (**V** in Stealth) op 26. Talent-levels hier zijn op z'n vroegst; een perk kan ze tot 5 levels eerder maken.
+- 30: Blade Flurry (**Shift-1**, een talent): 15 seconden lang sla je 20% sneller, en elke klap raakt ook een tweede vijand vlakbij; cooldown 2 minuten. Hack and Slash (een talent, passief): een bonus die van je wapen afhangt. Kidney Shot (**V**). Daarna Blind (**Shift-V**) op 34, Flash of Steel (een talent, passief) op 35: Shank geeft tot 15 Energy extra en is tot 2 seconden eerder klaar.
+- 40: Adrenaline Rush (**Q**, een talent; je hebt eerst Blade Flurry nodig): 15 seconden lang loopt je Energy twee keer zo snel vol; cooldown 5 minuten. Daarna Slice and Dice rank 2 op 42 (30% sneller in plaats van 20%), Shank rank 2 op 44 (25 Energy terug in plaats van 15).
+- 50: Kidney Shot rank 2 en sterkere ranks; niets nieuws voor deze rol.
+- 60: sterkere ranks; niets nieuws voor deze rol.
+**Beginnersfouten:**
+- Blade Flurry naast een vijand die je met Sap, Gouge of Blind hebt uitgeschakeld. De extra klappen maken hem wakker.
+- Riposte indrukken als er niets gepareerd is. Hij werkt alleen vlak na een parry.
+- Backstab of Ambush met een zwaard, bijl of knots. Allebei hebben ze een dolk in je hoofdhand nodig.]] },
+			{ band = 3, title = "Subtlety: toeslaan uit Stealth", body = [[
+Vanaf level 1 (Sinister Strike en Stealth). Deze boom vecht vanuit Stealth: een sterke eerste klap, en veel combo points nog vóór het gevecht echt begint. **Stealth** = sluipen, zodat de vijand je niet ziet. De gidsen zeggen dat alleen levelen trager gaat dan met Combat. Hemorrhage is een talent, op z'n vroegst 30: goedkoop, van voren, met elk wapen. Death Mark is een talent, op z'n vroegst 40. Ambush en Backstab hebben een dolk in je hoofdhand nodig; Hemorrhage en Ghostly Strike niet.
+**Simpele volgorde:**
+1. Stealth (**Shift-R**). Staat er een tweede Humanoid bij? Sap (**Shift-Q**). Sap breekt Stealth niet.
+2. Premeditation (**Shift-C**, vanaf 20): 2 combo points op de vijand. Daarna je eerste klap.
+3. Eerste klap van achteren: Ambush (**2**, vanaf 18, dolk in je hoofdhand). Sterke vijand, vanaf 26: Cheap Shot (**V**), een stun van 4 seconden. De gidsen verschillen over de beste opener.
+4. Ghostly Strike (**Shift-X**, vanaf 25) en Shank (**Shift-3**, vanaf 24) steeds als ze klaar zijn.
+5. Combo points: vanaf 30 Hemorrhage (**3**). Daarvoor: Backstab (**2**) als je achter de vijand staat, anders Sinister Strike (**1**).
+6. Finisher: Eviscerate (**4**) als de vijand bijna dood is; Rupture (**5**) op een vijand die lang leeft; Slice and Dice (**Shift-4**) in een lang gevecht.
+7. Vanaf 40: Death Mark (**Q**) op de sterkste vijand, het liefst terwijl Rupture of Garrote loopt.
+8. Nood: Vanish (**X**). Preparation (**F3**, vanaf 30) maakt Vanish, Evasion en Sprint meteen weer klaar.
+**Per 10 levels:**
+- 10: je hebt al Sinister Strike (**1**), Eviscerate (**4**), Backstab (**2**), Stealth (**Shift-R**), Gouge (**Shift-Q**) en Evasion (**Z**). Nieuw op 10: Sap (**Shift-Q** in Stealth), Slice and Dice (**Shift-4**), Sprint (**R**), en een wapen in elke hand. Daarna Kick (**E**) op 12, Garrote (**1** in Stealth) op 14, Feint (**F**) op 16, Ambush (**2** in Stealth) en Poised (passief) op 18.
+- 20: Premeditation (**Shift-C**, een talent): 2 combo points op je doel; gebruik ze binnen 20 seconden, anders zijn ze weg; cooldown 2 minuten. Rupture (**5**), en Poisons uit een quest. Daarna Vanish (**X**) op 22, Shank (**Shift-3**) op 24, Ghostly Strike (**Shift-X**, een talent) op 25: 40 Energy, 1 combo point, 7 seconden lang 15% meer dodge; cooldown 20 seconden. Cheap Shot (**V** in Stealth) op 26. Talent-levels hier zijn op z'n vroegst; een perk kan ze tot 5 levels eerder maken.
+- 30: Hemorrhage (**3**, een talent; je hebt eerst Serrated Blades nodig): 35 Energy, 1 combo point, werkt van voren; 15 seconden lang doen je Rupture en Garrote 15% meer schade op die vijand. Preparation (**F3**, een talent): zet de cooldown van je andere Rogue-spells meteen op nul; zijn eigen cooldown is 10 minuten. Eén van deze twee krijg je op 30, de andere op 31. Kidney Shot (**V**). Daarna Blind (**Shift-V**) op 34, Boot Knife (een talent, passief) op 35: Shank kan 2 combo points geven.
+- 40: Death Mark (**Q**, een talent; je hebt eerst Preparation nodig): een finisher, 25 Energy, cooldown 10 seconden. Hij bewaart 6 seconden lang een deel van je schade (meer per combo point) en deelt die daarna in één keer uit, tot een maximum. Schade van Rupture en Garrote telt dubbel. Daarna Slice and Dice rank 2 en Vanish rank 2 op 42, Shank rank 2 op 44, Death Mark rank 2 op 48.
+- 50: Kidney Shot rank 2, Death Mark rank 3 op 56; niets nieuws voor deze rol.
+- 60: Death Mark rank 4 en sterkere ranks; niets nieuws voor deze rol.
+**Beginnersfouten:**
+- Ambush of Backstab zonder dolk in je hoofdhand, of van voren.
+- Premeditation gebruiken en dan wachten. De 2 punten zijn na 20 seconden weg, en de cooldown is 2 minuten.
+- Death Mark zonder combo points. Het is een finisher.]] },
 		},
 	},
 }

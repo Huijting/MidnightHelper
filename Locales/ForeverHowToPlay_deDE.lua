@@ -123,7 +123,7 @@ Der Jäger schießt aus der Ferne mit einer Fernkampfwaffe und hat ab Stufe 10 e
 - **Shift-Z** = Mal des Jägers (6): Leg es einmal auf den Gegner.
 - **Shift-Q** = Erschütternder Schuss (8): verlangsamt den Gegner.
 - **Shift-R** = Aspekt des Falken (10): dein Hauptaspekt.
-- **Stufe 10, Begleiter-Quests:** Du lernst Wildtier zähmen, Tier rufen und Tier wiederbeleben. **F4** = Tier rufen (holt deinen Begleiter), **F3** = Tier wiederbeleben (holt einen toten Begleiter zurück). Wildtier zähmen hat keine Taste; du nutzt es außerhalb eines Kampfes.
+- **Stufe 10, Begleiter-Quests:** Du lernst Wildtier zähmen, Tier rufen und Tier freigeben; die Quest danach gibt Tier wiederbeleben und Tier füttern. **F4** = Tier rufen (holt deinen Begleiter), **F3** = Tier wiederbeleben (holt einen toten Begleiter zurück). Wildtier zähmen hat keine Taste; du nutzt es außerhalb eines Kampfes.
 - Ab dann hat dein Begleiter drei Tasten: **Ctrl-1** = dein Ziel angreifen, **Ctrl-2** = dir folgen, **Ctrl-3** = bleiben, wo er ist.]] },
 		{ "Einfache Reihenfolge", [[
 Aspekt des Falken an (Shift-R). Begleiter zuerst hinein (Ctrl-1). Mal des Jägers (Shift-Z), Schlangenbiss (2), Automatischer Schuss (1), dann Arkaner Schuss (3), wenn er bereit ist. Gegner direkt neben dir? Raptorstoß (5).]] },

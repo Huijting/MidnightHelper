@@ -124,7 +124,7 @@ Le Chasseur tire de loin avec une arme à distance et, à partir du niveau 10, i
 - **Shift-Z** = Marque du chasseur (6) : pose-la une fois sur l'ennemi.
 - **Shift-Q** = Trait de choc (8) : ralentit l'ennemi.
 - **Shift-R** = Aspect du faucon (10) : ton aspect principal.
-- **Niveau 10, quêtes du familier :** tu apprends Apprivoise une bête, Appel du familier et Ressusciter le familier. **F4** = Appel du familier (fait venir ton familier), **F3** = Ressusciter le familier (ramène un familier mort). Apprivoise une bête n'a pas de touche ; tu l'utilises hors combat.
+- **Niveau 10, quêtes du familier :** tu apprends Apprivoise une bête, Appel du familier et Renvoyer le familier ; la quête suivante donne Ressusciter le familier et Nourrir le familier. **F4** = Appel du familier (fait venir ton familier), **F3** = Ressusciter le familier (ramène un familier mort). Apprivoise une bête n'a pas de touche ; tu l'utilises hors combat.
 - Ensuite, ton familier a trois touches : **Ctrl-1** = attaquer ta cible, **Ctrl-2** = te suivre, **Ctrl-3** = rester où il est.]] },
 		{ "Ordre simple", [[
 Aspect du faucon actif (Shift-R). Le familier d'abord (Ctrl-1). Marque du chasseur (Shift-Z), Morsure de serpent (2), Tir automatique (1), puis Tir des arcanes (3) quand il est prêt. L'ennemi est à côté de toi ? Attaque du raptor (5).]] },

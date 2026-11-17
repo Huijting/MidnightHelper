@@ -123,7 +123,7 @@ O Caçador atira de longe com uma arma de longo alcance, e a partir do nível 10
 - **Shift-Z** = Marca do Caçador (6): coloque no inimigo uma vez.
 - **Shift-Q** = Tiro de Concussão (8): deixa o inimigo lento.
 - **Shift-R** = Aspecto do Falcão (10): seu aspecto principal.
-- **Nível 10, missões do ajudante:** você aprende Domar Fera, Chamar Ajudante e Reviver Ajudante. **F4** = Chamar Ajudante (traz seu ajudante), **F3** = Reviver Ajudante (traz um ajudante morto de volta). Domar Fera não tem tecla; você usa fora de combate.
+- **Nível 10, missões do ajudante:** você aprende Domar Fera, Chamar Ajudante e Dispensar Ajudante; a missão seguinte dá Reviver Ajudante e Alimentar Ajudante. **F4** = Chamar Ajudante (traz seu ajudante), **F3** = Reviver Ajudante (traz um ajudante morto de volta). Domar Fera não tem tecla; você usa fora de combate.
 - A partir daí seu ajudante tem três teclas: **Ctrl-1** = atacar seu alvo, **Ctrl-2** = seguir você, **Ctrl-3** = ficar onde está.]] },
 		{ "Ordem simples", [[
 Aspecto do Falcão ligado (Shift-R). Ajudante na frente (Ctrl-1). Marca do Caçador (Shift-Z), Picada de Serpente (2), Tiro Automático (1), depois Tiro Arcano (3) quando estiver pronto. Inimigo do seu lado? Golpe do Raptor (5).]] },
