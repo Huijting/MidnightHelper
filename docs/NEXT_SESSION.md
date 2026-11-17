@@ -1,5 +1,17 @@
 # Midnight Helper — waar we staan
 
+## ▶ 17 nov (avond) — Bouwchat 17-11 (3) (verse chat, nam het over na 679fed7)
+
+- Start: git status schoon, pull "Already up to date". Gemeld bij Sparring 17-11. Fable-rapport 10 macro's: nog niet
+  binnen bij 17-11 (2), die stuurt het door.
+- 🎨 **Stap 1 stijlkit GEDAAN**: nieuw `Modules/ForeverStyle.lua` (`ns.ForeverStyle`: T() thema A, Accent, Font, Text met
+  rol head/head2/text/textB, Tip, HoverOver, Card, Label, Chip, Button met SetActive, SpellButton, Circle, SpellName,
+  SpellIcon, Place). In beide toc's vóór ForeverOverview. ForeverOverview gebruikt de kit; geen zichtbare verandering
+  bedoeld. Zonder kit (nieuw bestand na /reload) geeft het overzicht een chatregel i.p.v. een fout: Rob kreeg
+  "ForeverOverview.lua:30: attempt to index local 'S'" na een /reload halverwege → **WoW één keer helemaal herstarten**.
+  Lint 0 HARD, luac OK. NIET in het spel gezien.
+- ⏭️ Volgende: stap 2 Class quests als pagina in het overzicht.
+
 ## ⏭️ VOLGENDE BOUWCHAT (Bouwchat 17-11 (2) draagt over; Rob via sparring, letterlijk: *"ja, verse bouwchat"*)
 
 Laatste commit van deze chat: 74c9d13 (overzicht A ronde 5). Plan: `docs/forever/HUISSTIJL_PLAN_2026-11-17.md`.

@@ -25,182 +25,25 @@ if not ns.IS_FOREVER then
 	return
 end
 
-local FONT_DIR = "Interface\\AddOns\\MidnightHelper\\Media\\Fonts\\"
-local FONT_HEAD = FONT_DIR .. "CormorantSC-Bold.ttf"
-local FONT_HEAD2 = FONT_DIR .. "CormorantSC-SemiBold.ttf"
-local FONT_TEXT = FONT_DIR .. "AlegreyaSans-Regular.ttf"
-local FONT_TEXT_B = FONT_DIR .. "AlegreyaSans-Medium.ttf"
-local FALLBACK_HEAD, FALLBACK_TEXT = "Fonts\\MORPHEUS.TTF", "Fonts\\FRIZQT__.TTF"
-local MASK = "Interface\\CharacterFrame\\TempPortraitAlphaMask"
-
--- Style A colours (own values, after the mockup).
-local A = {
-	bgTop = { 0.16, 0.11, 0.07, 0.97 }, bgBottom = { 0.07, 0.05, 0.04, 0.97 },
-	card = { 0.11, 0.08, 0.06, 0.88 }, edge = { 0.55, 0.42, 0.22, 0.55 },
-	gold = { 0.86, 0.71, 0.42 }, label = { 0.93, 0.55, 0.22 }, text = { 0.92, 0.88, 0.80 }, dim = { 0.66, 0.60, 0.52 },
-	seal = { 0.55, 0.10, 0.08 }, later = { 0.55, 0.52, 0.48 },
-}
+-- The building blocks and theme live in ForeverStyle.lua (style kit, 17 Nov 2026: every page uses the same ones).
+local S = ns.ForeverStyle
+if not S then
+	-- A new file is only loaded after a full restart of the game, not after /reload (Rob hit this on 17 Nov 2026).
+	function ns.ToggleForeverOverview()
+		print("|cff66ccffMidnight Helper|r: the overview needs a full restart of the game (a new file was added).")
+	end
+	return
+end
+local A = S.T()
+local Accent, Text, Tip, HoverOver, Card, Label = S.Accent, S.Text, S.Tip, S.HoverOver, S.Card, S.Label
+local Button, SpellButton, SpellName, SpellIcon, Place = S.Button, S.SpellButton, S.SpellName, S.SpellIcon, S.Place
+local function Circle(parent, _, layerSub)
+	return S.Circle(parent, layerSub)
+end
 local W, H = 920, 486
 local LEFT_W = 176
 
 local win
-
-local function Accent()
-	local _, token = UnitClass("player")
-	local c = token and (C_ClassColor and C_ClassColor.GetClassColor and C_ClassColor.GetClassColor(token))
-		or (RAID_CLASS_COLORS and token and RAID_CLASS_COLORS[token])
-	if c then
-		return c.r, c.g, c.b
-	end
-	return 0.4, 0.7, 1
-end
-
---- Set a font, falling back to the game's own when the file cannot be used.
-local function Font(fs, file, size, fallback, flags)
-	local ok = fs:SetFont(file, size, flags or "")
-	if not ok then
-		fs:SetFont(fallback, size, flags or "")
-	end
-end
-
-local function Text(parent, file, size, color, fallback)
-	local fs = parent:CreateFontString(nil, "OVERLAY")
-	Font(fs, file, size, fallback or FALLBACK_TEXT)
-	fs:SetTextColor(color[1], color[2], color[3])
-	fs:SetJustifyH("LEFT")
-	fs:SetWordWrap(true)
-	return fs
-end
-
---- Tooltip on any frame. The text lives on the frame (tipTitle/tipBody/tipSpell), so Fill can change it later.
-local function Tip(frame, title, body)
-	frame.tipTitle, frame.tipBody = title, body
-	frame:EnableMouse(true)
-	frame:HookScript("OnEnter", function(self)
-		if not (self.tipTitle or self.tipSpell) then
-			return
-		end
-		GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
-		if self.tipSpell then
-			GameTooltip:SetSpellByID(self.tipSpell)
-		else
-			GameTooltip:SetText(self.tipTitle, 1, 0.82, 0, 1, true)
-			if self.tipBody and self.tipBody ~= "" then
-				GameTooltip:AddLine(self.tipBody, 1, 1, 1, true)
-			end
-		end
-		GameTooltip:Show()
-	end)
-	frame:HookScript("OnLeave", function()
-		GameTooltip:Hide()
-	end)
-	return frame
-end
-
---- An invisible hover area over a region (so the window can still be dragged everywhere else).
-local function HoverOver(parent, region, title, body)
-	local h = CreateFrame("Frame", nil, parent)
-	h:SetAllPoints(region)
-	return Tip(h, title, body)
-end
-
-local function Card(parent)
-	local f = CreateFrame("Frame", nil, parent, "BackdropTemplate")
-	f:SetBackdrop({ bgFile = "Interface\\Buttons\\WHITE8X8", edgeFile = "Interface\\Buttons\\WHITE8X8", edgeSize = 1 })
-	f:SetBackdropColor(A.card[1], A.card[2], A.card[3], A.card[4])
-	f:SetBackdropBorderColor(A.edge[1], A.edge[2], A.edge[3], A.edge[4])
-	return f
-end
-
---- Small capital label at the top of a card ("DO THIS NOW"), with a tooltip that says what the card is for.
-local function Label(card, text, tipKey)
-	local fs = Text(card, FONT_HEAD2, 12, A.label, FALLBACK_TEXT)
-	fs:SetPoint("TOPLEFT", 14, -12)
-	fs:SetText(text)
-	if tipKey then
-		HoverOver(card, fs, text, ns:L(tipKey))
-	end
-	return fs
-end
-
---- A button in style A: dark, accent border, serif text.
-local function Button(parent, w)
-	local b = CreateFrame("Button", nil, parent, "BackdropTemplate")
-	b:SetSize(w or 120, 24)
-	b:SetBackdrop({ bgFile = "Interface\\Buttons\\WHITE8X8", edgeFile = "Interface\\Buttons\\WHITE8X8", edgeSize = 1 })
-	local r, g, bl = Accent()
-	b:SetBackdropColor(r * 0.25, g * 0.25, bl * 0.25, 0.95)
-	b:SetBackdropBorderColor(r, g, bl, 0.9)
-	b.label = Text(b, FONT_HEAD2, 13, { 0.95, 0.92, 0.85 }, FALLBACK_TEXT)
-	b.label:SetPoint("CENTER")
-	b.label:SetJustifyH("CENTER")
-	b:SetScript("OnEnter", function(self)
-		if not self.active then
-			self:SetBackdropColor(r * 0.45, g * 0.45, bl * 0.45, 0.95)
-		end
-	end)
-	b:SetScript("OnLeave", function(self)
-		if not self.active then
-			self:SetBackdropColor(r * 0.25, g * 0.25, bl * 0.25, 0.95)
-		end
-	end)
-	function b:SetLabel(t)
-		self.label:SetText(t)
-	end
-	return b
-end
-
---- A spell icon that shows the spell's own tooltip.
-local function SpellButton(parent, size)
-	local f = CreateFrame("Frame", nil, parent)
-	f:SetSize(size, size)
-	f.tex = f:CreateTexture(nil, "ARTWORK")
-	f.tex:SetAllPoints()
-	f.tex:SetTexCoord(0.08, 0.92, 0.08, 0.92)
-	Tip(f)
-	return f
-end
-
-local function Circle(parent, tex, layerSub)
-	local t = parent:CreateTexture(nil, "ARTWORK", nil, layerSub)
-	pcall(function()
-		local m = parent:CreateMaskTexture()
-		m:SetTexture(MASK, "CLAMPTOBLACKADDITIVE", "CLAMPTOBLACKADDITIVE")
-		m:SetAllPoints(t)
-		t:AddMaskTexture(m)
-	end)
-	return t
-end
-
-local function SpellName(id)
-	if C_Spell and C_Spell.GetSpellName then
-		local ok, n = pcall(C_Spell.GetSpellName, id)
-		if ok and type(n) == "string" and n ~= "" then
-			return n
-		end
-	end
-	return nil
-end
-
-local function SpellIcon(id)
-	if C_Spell and C_Spell.GetSpellTexture then
-		local ok, t = pcall(C_Spell.GetSpellTexture, id)
-		if ok and t then
-			return t
-		end
-	end
-	return 134400 -- question mark
-end
-
-local function Place(zone, x, y)
-	if not zone then
-		return nil
-	end
-	if x and y then
-		return ("%s · %.1f, %.1f"):format(zone, x, y)
-	end
-	return zone
-end
 
 --------------------------------------------------------------------------------
 -- Data: what the cards say (nothing new is measured here)
@@ -348,7 +191,7 @@ local function Build()
 	f:SetScript("OnDragStop", f.StopMovingOrSizing)
 
 	-- Header: title, tabs, close.
-	f.title = Text(f, FONT_HEAD, 22, A.gold, FALLBACK_HEAD)
+	f.title = Text(f, "head", 22, A.gold)
 	f.title:SetPoint("TOPLEFT", 22, -14)
 	f.title:SetText("MIDNIGHT HELPER")
 	-- Rob, 17 Nov 2026: "Dock to window" ran over the Legacy tab. It lives next to the title here.
@@ -376,9 +219,7 @@ local function Build()
 			end
 		end)
 		if i == 1 then
-			local r, g, bl = Accent()
-			b.active = true
-			b:SetBackdropColor(r * 0.5, g * 0.5, bl * 0.5, 0.95)
+			b:SetActive(true)
 		end
 		Tip(b, ns:L(t.key), ns:L(t.tip))
 		f.tabs[i] = b
@@ -399,10 +240,10 @@ local function Build()
 	por:SetPoint("CENTER", ring)
 	f.portrait = por
 	f.portraitTip = HoverOver(left, ring)
-	f.name = Text(left, FONT_HEAD, 22, A.text, FALLBACK_HEAD)
+	f.name = Text(left, "head", 22, A.text)
 	f.name:SetPoint("TOP", ring, "BOTTOM", 0, -8)
 	f.name:SetJustifyH("CENTER")
-	f.who = Text(left, FONT_TEXT, 13, A.dim)
+	f.who = Text(left, "text", 13, A.dim)
 	f.who:SetPoint("TOP", f.name, "BOTTOM", 0, -2)
 	f.who:SetWidth(LEFT_W - 16)
 	f.who:SetJustifyH("CENTER")
@@ -414,7 +255,7 @@ local function Build()
 	f.xpFill = left:CreateTexture(nil, "ARTWORK", nil, 1)
 	f.xpFill:SetPoint("TOPLEFT", f.xpBg)
 	f.xpFill:SetHeight(8)
-	f.xpText = Text(left, FONT_TEXT, 12, A.dim)
+	f.xpText = Text(left, "text", 12, A.dim)
 	f.xpText:SetPoint("TOP", f.xpBg, "BOTTOM", 0, -4)
 	f.xpText:SetJustifyH("CENTER")
 	f.xpTip = HoverOver(left, f.xpBg)
@@ -427,10 +268,10 @@ local function Build()
 	seal:SetPoint("CENTER", sealRing)
 	seal:SetColorTexture(A.seal[1], A.seal[2], A.seal[3], 1)
 	f.sealTip = HoverOver(left, sealRing, ns:L("FOV_LEVEL"), ns:L("FOV_TIP_SEAL"))
-	f.sealWord = Text(left, FONT_HEAD2, 10, A.gold, FALLBACK_TEXT)
+	f.sealWord = Text(left, "head2", 10, A.gold)
 	f.sealWord:SetPoint("TOP", seal, "TOP", 0, -12)
 	f.sealWord:SetJustifyH("CENTER")
-	f.sealLevel = Text(left, FONT_HEAD, 26, { 1, 0.95, 0.85 }, FALLBACK_HEAD)
+	f.sealLevel = Text(left, "head", 26, { 1, 0.95, 0.85 })
 	f.sealLevel:SetPoint("CENTER", seal, "CENTER", 0, -6)
 	f.sealLevel:SetJustifyH("CENTER")
 
@@ -452,16 +293,16 @@ local function Build()
 	acc:SetHeight(2)
 	f.nowAccent = acc
 	f.now.label = Label(f.now, ns:L("FOV_LABEL_NOW"), "FOV_TIP_CARD_NOW")
-	f.now.title = Text(f.now, FONT_HEAD, 21, A.text, FALLBACK_HEAD)
+	f.now.title = Text(f.now, "head", 21, A.text)
 	f.now.title:SetPoint("TOPLEFT", 14, -32)
 	f.now.title:SetPoint("RIGHT", -14, 0)
 	if f.now.title.SetMaxLines then
 		f.now.title:SetMaxLines(2) -- room for the lines below it
 	end
-	f.now.what = Text(f.now, FONT_TEXT, 14, A.text)
+	f.now.what = Text(f.now, "text", 14, A.text)
 	f.now.what:SetPoint("TOPLEFT", f.now.title, "BOTTOMLEFT", 0, -4)
 	f.now.what:SetPoint("RIGHT", -14, 0)
-	f.now.place = Text(f.now, FONT_TEXT, 12, A.dim)
+	f.now.place = Text(f.now, "text", 12, A.dim)
 	f.now.place:SetPoint("TOPLEFT", f.now.what, "BOTTOMLEFT", 0, -3)
 	f.now.place:SetPoint("RIGHT", -14, 0)
 	f.now.go = Button(f.now, 132)
@@ -481,11 +322,11 @@ local function Build()
 		sep:SetHeight(1)
 		sep:SetPoint("TOPLEFT", 0, 3)
 		sep:SetPoint("TOPRIGHT", 0, 3)
-		row.text = Text(row, FONT_TEXT_B, 13, A.text)
+		row.text = Text(row, "textB", 13, A.text)
 		row.text:SetPoint("TOPLEFT")
 		row.text:SetPoint("RIGHT", -70, 0)
 		row.text:SetWordWrap(false)
-		row.sub = Text(row, FONT_TEXT, 11, A.dim)
+		row.sub = Text(row, "text", 11, A.dim)
 		row.sub:SetPoint("TOPLEFT", row.text, "BOTTOMLEFT", 0, -1)
 		row.sub:SetPoint("RIGHT", -70, 0)
 		row.sub:SetWordWrap(false)
@@ -507,11 +348,11 @@ local function Build()
 	for i = 1, 5 do
 		local ic = SpellButton(f.soon, 26)
 		ic:SetPoint("TOPLEFT", 14, -34 - (i - 1) * 38)
-		local nm = Text(f.soon, FONT_TEXT_B, 15, A.text)
+		local nm = Text(f.soon, "textB", 15, A.text)
 		nm:SetPoint("TOPLEFT", ic, "TOPRIGHT", 8, 1)
 		nm:SetPoint("RIGHT", f.soon, "RIGHT", -10, 0)
 		nm:SetWordWrap(false)
-		local lv = Text(f.soon, FONT_TEXT, 12, A.later)
+		local lv = Text(f.soon, "text", 12, A.later)
 		lv:SetPoint("TOPLEFT", nm, "BOTTOMLEFT", 0, -1)
 		f.soon.rows[i] = { icon = ic, name = nm, level = lv }
 	end
@@ -520,13 +361,13 @@ local function Build()
 	f.cq:SetPoint("TOPLEFT", f.soon, "TOPRIGHT", 12, 0)
 	f.cq:SetSize(cqW, rowH)
 	f.cq.label = Label(f.cq, ns:L("FOV_LABEL_CQ"), "FOV_TIP_CARD_CQ")
-	f.cq.title = Text(f.cq, FONT_HEAD, 18, A.text, FALLBACK_HEAD)
+	f.cq.title = Text(f.cq, "head", 18, A.text)
 	f.cq.title:SetPoint("TOPLEFT", 14, -32)
 	f.cq.title:SetPoint("RIGHT", -12, 0)
-	f.cq.what = Text(f.cq, FONT_TEXT, 13, A.text)
+	f.cq.what = Text(f.cq, "text", 13, A.text)
 	f.cq.what:SetPoint("TOPLEFT", f.cq.title, "BOTTOMLEFT", 0, -4)
 	f.cq.what:SetPoint("RIGHT", -12, 0)
-	f.cq.place = Text(f.cq, FONT_TEXT, 12, A.dim)
+	f.cq.place = Text(f.cq, "text", 12, A.dim)
 	f.cq.place:SetPoint("TOPLEFT", f.cq.what, "BOTTOMLEFT", 0, -3)
 	f.cq.place:SetPoint("RIGHT", -12, 0)
 	f.cq.go = Button(f.cq, 120)
@@ -536,14 +377,14 @@ local function Build()
 	-- List mode (when "Do this now" already shows the open class quest): every class quest with where it stands.
 	f.cq.list = {}
 	for i = 1, 6 do
-		local lv = Text(f.cq, FONT_HEAD2, 13, A.gold, FALLBACK_TEXT)
+		local lv = Text(f.cq, "head2", 13, A.gold)
 		lv:SetPoint("TOPLEFT", 14, -34 - (i - 1) * 30)
 		lv:SetWidth(24)
-		local nm = Text(f.cq, FONT_TEXT_B, 13, A.text)
+		local nm = Text(f.cq, "textB", 13, A.text)
 		nm:SetPoint("TOPLEFT", lv, "TOPRIGHT", 4, 0)
 		nm:SetPoint("RIGHT", f.cq, "RIGHT", -10, 0)
 		nm:SetWordWrap(false)
-		local st = Text(f.cq, FONT_TEXT, 11, A.dim)
+		local st = Text(f.cq, "text", 11, A.dim)
 		st:SetPoint("TOPLEFT", nm, "BOTTOMLEFT", 0, -1)
 		-- The full name on hover (a long chain name is cut to one line).
 		local hv = Tip(CreateFrame("Frame", nil, f.cq))
@@ -576,16 +417,16 @@ local function Build()
 		n.dot:SetSize(24, 24)
 		n.dot:SetPoint("CENTER", n.ring)
 		n.dot:SetColorTexture(0.10, 0.08, 0.06, 1)
-		n.num = Text(f.path, FONT_HEAD, 14, A.text, FALLBACK_HEAD)
+		n.num = Text(f.path, "head", 14, A.text)
 		n.num:SetPoint("CENTER", n.ring, "CENTER", 0, 0)
 		n.num:SetJustifyH("CENTER")
 		n.hover = HoverOver(f.path, n.ring)
 		n.icon = SpellButton(f.path, 24)
 		n.icon:SetPoint("TOPLEFT", n.ring, "BOTTOMLEFT", 0, -12)
-		n.name = Text(f.path, FONT_TEXT_B, 15, A.text)
+		n.name = Text(f.path, "textB", 15, A.text)
 		n.name:SetWidth(colW - 44)
 		n.name:SetWordWrap(false)
-		n.sub = Text(f.path, FONT_TEXT, 12, A.dim)
+		n.sub = Text(f.path, "text", 12, A.dim)
 		n.sub:SetPoint("TOPLEFT", n.name, "BOTTOMLEFT", 0, -1)
 		n.sub:SetWidth(colW - 44)
 		n.sub:SetWordWrap(false)
@@ -594,15 +435,8 @@ local function Build()
 	-- Legend: the colours the nodes really use (Rob's screenshot: three chips, but the nodes used one colour).
 	f.path.chips = {}
 	for i, key in ipairs({ "FOV_CHIP_NOW", "FOV_CHIP_LATER" }) do
-		local c = CreateFrame("Frame", nil, f.path, "BackdropTemplate")
-		c:SetSize(64, 18)
+		local c = S.Chip(f.path, ns:L(key))
 		c:SetPoint("TOPRIGHT", -14 - (2 - i) * 70, -10)
-		c:SetBackdrop({ bgFile = "Interface\\Buttons\\WHITE8X8", edgeFile = "Interface\\Buttons\\WHITE8X8", edgeSize = 1 })
-		c:SetBackdropColor(0, 0, 0, 0.3)
-		c.t = Text(c, FONT_HEAD2, 11, A.text, FALLBACK_TEXT)
-		c.t:SetPoint("CENTER")
-		c.t:SetJustifyH("CENTER")
-		c.t:SetText(ns:L(key))
 		Tip(c, ns:L(key), ns:L(i == 1 and "FOV_TIP_CHIP_NOW" or "FOV_TIP_CHIP_LATER"))
 		f.path.chips[i] = c
 	end
@@ -890,8 +724,7 @@ function ns.ForeverOverviewFill()
 	local chipCol = { { r, g, b }, A.later }
 	for i, c in ipairs(f.path.chips) do
 		local col = chipCol[i]
-		c:SetBackdropBorderColor(col[1], col[2], col[3], 0.9)
-		c.t:SetTextColor(col[1], col[2], col[3])
+		c:SetColor(col[1], col[2], col[3])
 	end
 	return f
 end

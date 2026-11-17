@@ -24,6 +24,12 @@ er is niets weggegooid.
 📝 **Waarneming Rob, 16 nov (nacht), Forever mage, via sparring:** *"mouse over werk"* — `/mh mouseover on`, Shift+X
 (Arcane Intellect) op een voorbijganger onder de muis werkt.
 
+## 🎨 17 nov (avond) — Forever: stijlkit onder het overzicht (`/mh overview`)
+
+Eerst WoW helemaal afsluiten en opnieuw starten (er is een nieuw bestand; /reload is niet genoeg).
+- [ ] `/mh overview` opent zonder foutmelding en ziet er precies hetzelfde uit als ronde 5 (zelfde letters, kleuren,
+      knoppen, NOW/LATER-labels onder Jouw pad).
+
 ## 🆕 17 nov — Forever: nieuwe handige macro's (`/mh macros`)
 
 Open `/mh macros`, klik "Maak" bij een nieuwe rij, sleep de macro naar een balk en druk. Ctrl = de tweede functie.
