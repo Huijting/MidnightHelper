@@ -1,5 +1,24 @@
 # Midnight Helper — waar we staan
 
+## ⏭️ VOLGENDE BOUWCHAT (Bouwchat 17-11 (3) draagt over; laatste commit 542715e, alles gepusht, geen release)
+
+Huisstijl-lijst AF: stijlkit, alle 5 tabs als pagina in `/mh overview` (Now, How you play, Class quests, Camping,
+Legacy), vertalingen de/fr/es/esMX/pt/ru, zegen-tip. Ontwerp B: gebouwd en op Robs woord weer weggehaald (één look).
+Niets ervan in het spel gezien behalve de naam ("IMA PALLIE") en de How you play-pagina (Robs screenshot). WoW moet één
+keer helemaal herstarten (nieuwe bestanden ForeverStyle.lua en ForeverBlessTip.lua).
+Open, in volgorde:
+1. Robs tests (TESTLIJST, bovenste blokken 17 nov avond). Zijn screenshot: vaag tekstje links naast "CONTENTS" op How you
+   play — oorzaak NIET gevonden; knoptekst krimpt nu, nieuwe screenshot vragen.
+2. Metingen nalezen na Robs `/reload`: `foreverNameProbe` (welke API geeft de achternaam), `foreverBlessTipProbe`
+   (werkt de tooltip-hook in Forever, leest UnitClass een vreemde).
+3. Zegen-KNOP (7.2): pas na Robs meting van de tip (sparring akkoord). Plan in IDEEEN "slimme zegen".
+4. Sparring maakt een inventaris van alle MH-Forever-functies en hoe ze in het overzicht passen (Robs vraag); plan komt
+   via sparring. Nog geen werk.
+5. Klein: FHOWTO_ROLES_FOLDED_FMT zegt "at the top" (in het oude venster waar; op de pagina staat de knop onderaan) — in
+   7 talen aanpassen samen met een volgende vertaalronde. "Moonkin Stone"-clientnaam nog niet gemeten.
+6. Fable-controle van de 10 macro's: kwam niet binnen bij 17-11 (2) tot de overdracht. Niet doorgestuurd gekregen → start
+   een nieuwe mh-research (Fable) zoals het blok hieronder (17-11 (2)) zegt.
+
 ## ▶ 17 nov (avond) — Bouwchat 17-11 (3) (verse chat, nam het over na 679fed7)
 
 - Start: git status schoon, pull "Already up to date". Gemeld bij Sparring 17-11. Fable-rapport 10 macro's: nog niet
@@ -81,7 +100,7 @@
 - Rob is ±1 uur weg (sparring, letterlijk: *"Ga samen door met de bouwchat zover mogelijk, dat we een kant-en-klaar
   product hebben."*): lijst afwerken, geen tag/release, geen /nieuwe-chat; context vol → "KLAAR VOOR OVERDRACHT".
 
-## ⏭️ VOLGENDE BOUWCHAT (Bouwchat 17-11 (2) draagt over; Rob via sparring, letterlijk: *"ja, verse bouwchat"*)
+## (oud) Overdracht van Bouwchat 17-11 (2) — lijst 1-6 afgewerkt door 17-11 (3); open daaruit: de meetpunten en de Fable-controle
 
 Laatste commit van deze chat: 74c9d13 (overzicht A ronde 5). Plan: `docs/forever/HUISSTIJL_PLAN_2026-11-17.md`.
 Huisstijl = prio 1 (Rob). Volgorde (stap 5 van het plan, Rob vroeg ALLE tabbladen in deze stijl):
