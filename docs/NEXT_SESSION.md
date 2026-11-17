@@ -42,6 +42,11 @@
   aangeboden, hier na een brief van C) → stap "wacht op …" i.p.v. "haal de quest". Keuzes bouwchat (Rob mag omdraaien):
   Zanzil-kuur NIET gebouwd (wie anders geneest houdt de regel), hunter 60 Ancient Leaf NIET (begint met een item),
   Skyborne-Alliance-rogue op de Human-route (AFGELEID). NIET in het spel gezien (TESTLIJST 17 nov).
+- 🌩️ **Shaman class-quests GEBOUWD (en + nl)**, mh-research op Opus (gestart vóór Robs Fable-ja; sparring kijkt hem na
+  met Fable). SH_P + CHAINS.SHAMAN: Earth 4 / Fire 10 / Water 20 / Air 30 per route (Orc/Troll, Tauren, Dwarf nieuw,
+  Windshaper nieuw), Elemental Mastery 52 Horde. Nieuw in de module: `obj` op een plek (vuurpot/altaar als gever) +
+  `OBJ_NAMES` per taal. ptBR 251374 bewust weggelaten (Wowhead "Moldavento" kapot). Feiten
+  `docs/forever/SHAMAN_CLASSQUESTS_2026-11-17.md`. fcq_check 405.721 runs 0 fouten, 171 sleutels.
 - 🧪 **Nieuw hulpmiddel `run fcq_check`** (`tools/fcq_check.py` + `.lua`): laadt ForeverClassQuests.lua met nep-spelfuncties,
   loopt 9 classes × 10 rassen × levels 1-60 × alle queststanden, en checkt dat elke FCQ_-sleutel in enUS + nlNL staat.
   GEMETEN 17 nov: 149.941 runs, 0 fouten, 86 sleutels, controle OK. Bewijst dat de code draait, niet dat id's kloppen.

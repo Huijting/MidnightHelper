@@ -24,6 +24,17 @@ er is niets weggegooid.
 📝 **Waarneming Rob, 16 nov (nacht), Forever mage, via sparring:** *"mouse over werk"* — `/mh mouseover on`, Shift+X
 (Arcane Intellect) op een voorbijganger onder de muis werkt.
 
+## 🆕 17 nov — Forever: Shaman class-quests (totems) in "Do this now"
+
+Shaman, `/reload`. Niets in het spel gezien.
+- [ ] Level 4: Earth-totem-quest (Orc/Troll: Canaga Earthcaller, Tauren: Seer Ravenfeather, Dwarf: Sten Stoutarm,
+      Skyborne: Rorian the Dayseeker). Bij de Sapta-stap: blijft de regel staan tot je met de geest gepraat hebt?
+- [ ] Level 10: Fire. Level 20: Water. Level 30: het Air Totem. Horde 52: Bath'rah (Elemental Mastery).
+- [ ] Bij een vuurpot (Brazier of the Dormant Flame) zegt de regel de naam van die pot in jouw taal?
+- [ ] Dwarf-shaman, Water: kloppen de drie waterzak-plekken (Wetlands onder de waterval, Stonewatch Falls in Redridge,
+      het meer bij Astranaar)? Ze komen uit één gids; twee gidsen verschillen een paar punten.
+- [ ] Portugese client: heet de Earth-trainer van de Orcs echt "Ranago Arauto da Terra"? En Windshaper Boro?
+
 ## 🆕 17 nov — Forever: Hunter en Rogue class-quests in "Do this now"
 
 Uitgezocht met Fable; uit Zygor, Wowhead en Spoken; niets in het spel gezien. `/reload`.

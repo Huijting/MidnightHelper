@@ -28,6 +28,17 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 17 nov 2026 — Forever: Shaman class-quests (totems) stap voor stap
+- Tag + commit:   geen tag / (deze commit, zie git log "Shaman class quests")
+- Status:         alleen op main
+- Mag op de site: nee (nog niet uit)
+- Speler ziet:    Shaman: "Do this now" leidt je met de pijl naar je Earth- (4), Fire- (10), Water- (20) en Air-totem
+                  (30), per ras de goede startplek (ook Dwarf en Skyborne), en bij de Horde Elemental Mastery (52).
+                  *(niet in het spel getest)*
+- Knoplabels:     FCQ_BTN ("Show the way"), FCQ_HOWTO_HEAD ("Your class quests")
+- Commando's:     /mh classquest, /mh play
+- Spel:           Forever
+
 ## 17 nov 2026 — Forever: Hunter en Rogue class-quests stap voor stap
 - Tag + commit:   geen tag / (deze commit, zie git log "Hunter and Rogue class quests")
 - Status:         alleen op main

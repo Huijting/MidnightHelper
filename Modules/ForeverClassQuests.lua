@@ -844,6 +844,190 @@ for _, faction in ipairs({ "Alliance", "Horde" }) do
 	} })
 end
 
+--[[ Shaman (17 Nov 2026, Bouwchat 17-11; researched by mh-research on Opus, Fable check by Sparring 17-11 follows).
+	All facts: docs/forever/SHAMAN_CLASSQUESTS_2026-11-17.md: Zygor Forever "Shaman Class Quests" (Horde) + Alliance/Common
+	leveling, Spoken (givers/enders per NPC/object), wago DB2 1.60.1.70938 (CharBaseInfo: Orc, Tauren, Troll, Dwarf,
+	Windshaper Skyborne 96; no High Order 95), Wowhead Forever (rewards: 8071/3599/5394 + Earth/Fire/Water Totem, Air
+	Totem item only), HandyNotes. NEW in Forever: the Dwarf shaman chains (94373-94375, 94449-94468, 94494-94505, 94789,
+	98581/96243) and the Windshaper chains (92466-92484, 97243-97257).
+	AFGELEID: objective order = client index; 96243 as alt of 98581; the Windshaper walks the Horde water/air route; no
+	Alliance Elemental Mastery; the three Alliance waterskin places come from a guide only (gitm.gg, 15 Nov).
+	The sapta steps have no objective: their step waits until the client says the quest is complete (like warrior 1719).
+	Not copied from Zygor: 8425 in the shaman Sunken Temple step (= 8413). Not built: The Tempest's Weapons (30-40, places
+	unknown), the breadcrumb 98517, the "lost your sapta" replacement quests. ]]
+local SH_P = {
+	-- Earth: Orc/Troll (Durotar), Tauren (Mulgore), Dwarf (Dun Morogh), Windshaper (Zephras Isle)
+	canaga = { npc = "Canaga Earthcaller", id = 5887, m = 1411, x = 42.41, y = 69.17 },
+	earthDurotar = { npc = "Minor Manifestation of Earth", id = 5891, m = 1411, x = 44.03, y = 76.20 },
+	ravenfeather = { npc = "Seer Ravenfeather", id = 5888, m = 1412, x = 44.35, y = 76.76 },
+	earthMulgore = { npc = "Minor Manifestation of Earth", id = 5891, m = 1412, x = 51.97, y = 80.41 },
+	sten = { npc = "Sten Stoutarm", id = 658, m = 1426, x = 29.93, y = 71.20 },
+	teo = { npc = "Teo Hammerstorm", id = 257446, m = 1426, x = 28.67, y = 65.64 },
+	earthDunMorogh = { npc = "Minor Manifestation of Earth", id = 5891, m = 1426, x = 24.89, y = 61.86 },
+	rorian = { npc = "Rorian the Dayseeker", id = 251361, m = 2521, x = 42.06, y = 23.48 },
+	boro = { npc = "Windshaper Boro", id = 251374, m = 2521, x = 42.84, y = 23.49 },
+	earthZephras = { npc = "Minor Manifestation of Earth", id = 251166, m = 2521, x = 49.67, y = 23.83 },
+	-- Fire
+	swart = { npc = "Swart", id = 3173, m = 1411, x = 54.55, y = 42.61 },
+	narm = { npc = "Narm Skychaser", id = 3066, m = 1412, x = 47.39, y = 62.50 },
+	kranal = { npc = "Kranal Fiss", id = 5907, m = 1413, x = 56.03, y = 19.89 },
+	telf = { npc = "Telf Joolam", id = 5900, m = 1411, x = 38.55, y = 58.96 },
+	brazierDurotar = { npc = "Brazier of the Dormant Flame", obj = 61934, m = 1411, x = 38.95, y = 58.22 },
+	ingrid = { npc = "Ingrid Dunwald", id = 258113, m = 1426, x = 47.30, y = 51.71 },
+	bruegs = { npc = "Bruegs Kindleborn", id = 257597, m = 1426, x = 87.56, y = 43.65 },
+	braldir = { npc = "Braldir Ashmantle", id = 257808, m = 1432, x = 32.16, y = 65.99 },
+	brazierLoch = { npc = "Brazier of the Dormant Flame", obj = 61934, m = 1432, x = 31.79, y = 64.52 },
+	sessaria = { npc = "Sessaria Skystride", id = 252382, m = 2521, x = 58.20, y = 78.50 },
+	olariaan = { npc = "Olariaan Swiftburn", id = 268592, m = 2521, x = 51.24, y = 86.19 },
+	-- Water
+	searn = { npc = "Searn Firewarder", id = 5892, m = 1454, x = 37.96, y = 37.74 },
+	islen = { npc = "Islen Waterseer", id = 5901, m = 1413, x = 65.83, y = 43.78 },
+	brine = { npc = "Brine", id = 5899, m = 1413, x = 43.42, y = 77.41 },
+	everfount = { npc = "Brazier of Everfount", obj = 113791, m = 1421, x = 38.28, y = 44.56 },
+	waterSilverpine = { npc = "Minor Manifestation of Water", id = 5895, m = 1421, x = 38.75, y = 44.62 },
+	eldrun = { npc = "Eldrun Stormbreaker", id = 258098, m = 1455, x = 47.40, y = 13.40 },
+	norric = { npc = "Norric Lochthane", id = 258043, m = 1432, x = 41.8, y = 19.0 },
+	hervdana = { npc = "Hervdana Saegrund", id = 258203, m = 1437, x = 65.6, y = 76.4 },
+	shrine = { npc = "Forgotten Shrine", obj = 619896, m = 1436, x = 45.4, y = 59.7 },
+	waterWestfall = { npc = "Minor Manifestation of Water", id = 5895, m = 1436, x = 46.3, y = 59.3 },
+	-- Air, Elemental Mastery
+	prate = { npc = "Prate Cloudseer", id = 5905, m = 1441, x = 53.54, y = 42.65 },
+	veyric = { npc = "Veyric Thunderhame", id = 259023, m = 1417, x = 59.8, y = 27.4 },
+	beram = { npc = "Beram Skychaser", id = 3032, m = 1456, x = 21.99, y = 18.80 },
+	-- Objective places (no NPC). Zygor, except the three Alliance waterskins (guide only, gitm.gg 15 Nov 2026).
+	felstalkers = { m = 1411, x = 44.82, y = 54.59 },
+	bristleback = { m = 1412, x = 60.30, y = 80.23 },
+	whelps = { m = 1426, x = 26.80, y = 79.86 },
+	converts = { m = 2521, x = 46.72, y = 19.83 },
+	razormane = { m = 1413, x = 54.15, y = 25.01 },
+	dustwind = { m = 1411, x = 52.12, y = 24.95 },
+	fireDurotar = { m = 1411, x = 38.84, y = 58.24 },
+	silverStream = { m = 1432, x = 35.48, y = 18.86 },
+	stonesplinter = { m = 1432, x = 35.14, y = 84.04 },
+	fireLoch = { m = 1432, x = 31.90, y = 64.34 },
+	faladiel = { m = 2521, x = 64.46, y = 63.71 },
+	kuramaa = { m = 2521, x = 42.39, y = 68.89 },
+	ritual = { m = 2521, x = 51.20, y = 86.01 },
+	brazierEternal = { m = 2521, x = 58.35, y = 78.83 },
+	skinBrownH = { m = 1413, x = 44.19, y = 76.90 },
+	skinRedH = { m = 1424, x = 62.15, y = 20.75 },
+	skinBlueH = { m = 1440, x = 33.55, y = 67.44 },
+	corruptSilverpine = { m = 1421, x = 38.84, y = 44.25 },
+	skinBrownA = { m = 1437, x = 65.0, y = 74.9 },
+	skinRedA = { m = 1433, x = 68.6, y = 60.6 },
+	skinBlueA = { m = 1440, x = 32.7, y = 50.6 },
+	spiders = { m = 1422, x = 33.60, y = 60.40 },
+}
+local S = SH_P
+local DWARF = { Dwarf = true }
+
+local function ShEarth(faction, races, quests)
+	return { key = "earth", spell = 8071, level = 4, faction = faction, races = races, quests = quests }
+end
+-- Horde fire, Orc/Troll and Tauren: four starters that all lead to Kranal Fiss (Wowhead series "1522, 1523, 2983, 2984").
+local function ShFireH(races, q, alt, starter)
+	return { key = "fire", spell = 3599, level = 10, faction = "Horde", races = races, quests = {
+		{ q = q, alt = alt, from = starter, to = S.kranal },
+		{ q = 1524, from = S.kranal, to = S.telf },
+		{ q = 1525, from = S.telf, objs = { O(S.razormane, "FCQ_OBJ_SH_FIRETAR_H", 1), O(S.dustwind, "FCQ_OBJ_SH_POUCH_H", 2) },
+			to = S.telf },
+		{ q = 1526, from = S.telf, objs = { O(S.fireDurotar, "FCQ_OBJ_SH_EMBER", 1) }, to = S.brazierDurotar },
+		{ q = 1527, from = S.brazierDurotar, to = S.kranal },
+	} }
+end
+
+CHAINS.SHAMAN = {
+	-- Earth (4): Stoneskin Totem 8071 + Earth Totem 5175. The sapta steps have no objective (Wowhead): text only.
+	ShEarth("Horde", ORCTROLL, {
+		{ q = 1516, from = S.canaga, objs = { O(S.felstalkers, "FCQ_OBJ_SH_HOOVES", 1) }, to = S.canaga },
+		{ q = 1517, from = S.canaga, objs = { O(S.earthDurotar, "FCQ_OBJ_SH_EARTHSAPTA") }, to = S.earthDurotar },
+		{ q = 1518, from = S.earthDurotar, to = S.canaga },
+	}),
+	ShEarth("Horde", TAUREN, {
+		{ q = 1519, from = S.ravenfeather, objs = { O(S.bristleback, "FCQ_OBJ_SH_SALVE", 1) }, to = S.ravenfeather },
+		{ q = 1520, from = S.ravenfeather, objs = { O(S.earthMulgore, "FCQ_OBJ_SH_EARTHSAPTA") }, to = S.earthMulgore },
+		{ q = 1521, from = S.earthMulgore, to = S.ravenfeather },
+	}),
+	ShEarth("Horde", SKYBORNE, {
+		{ q = 92484, from = S.rorian, to = S.boro },
+		{ q = 92466, from = S.boro, objs = { O(S.converts, "FCQ_OBJ_SH_SIGNET", 1) }, to = S.boro },
+		{ q = 92467, from = S.boro, objs = { O(S.earthZephras, "FCQ_OBJ_SH_EARTHSAPTA") }, to = S.earthZephras },
+		{ q = 92468, from = S.earthZephras, to = S.boro },
+	}),
+	-- 96243 ("Find Teo", from Eldrun or Ingrid) is the other way in (Spoken, Wowhead series).
+	ShEarth("Alliance", DWARF, {
+		{ q = 98581, alt = { 96243 }, from = S.sten, to = S.teo },
+		{ q = 94373, from = S.teo, objs = { O(S.whelps, "FCQ_OBJ_SH_PENDANTS", 1) }, to = S.teo },
+		{ q = 94374, from = S.teo, objs = { O(S.earthDunMorogh, "FCQ_OBJ_SH_EARTHSAPTA") }, to = S.earthDunMorogh },
+		{ q = 94375, from = S.earthDunMorogh, to = S.teo },
+	}),
+	-- Fire (10): Searing Totem 3599 + Fire Totem 5176. Windshapers may not take 1522-1524/2983/2984 (Spoken races 178).
+	ShFireH(ORCTROLL, 2983, { 2984, 1522, 1523 }, S.swart),
+	ShFireH(TAUREN, 2984, { 2983, 1522, 1523 }, S.narm),
+	{ key = "fire", spell = 3599, level = 10, faction = "Horde", races = SKYBORNE, quests = {
+		-- Aarnor Galestrike gives 97243 too (Spoken, Wowhead 98517).
+		{ q = 97243, from = S.sessaria, to = S.olariaan },
+		{ q = 97244, from = S.olariaan, objs = { O(S.faladiel, "FCQ_OBJ_SH_FALADIEL", 1) }, to = S.olariaan },
+		{ q = 97245, from = S.olariaan, objs = { O(S.kuramaa, "FCQ_OBJ_SH_KURAMAA", 1) }, to = S.olariaan },
+		{ q = 97257, from = S.olariaan, objs = { O(S.ritual, "FCQ_OBJ_SH_RITUAL", 1), O(S.brazierEternal, "FCQ_OBJ_SH_ETERNAL", 2) },
+			to = S.sessaria },
+	} },
+	{ key = "fire", spell = 3599, level = 10, faction = "Alliance", races = DWARF, quests = {
+		-- Eldrun Stormbreaker gives 94449 too (Spoken).
+		{ q = 94449, from = S.ingrid, to = S.bruegs },
+		{ q = 94465, from = S.bruegs, to = S.braldir },
+		{ q = 94466, from = S.braldir, objs = { O(S.silverStream, "FCQ_OBJ_SH_FIRETAR_A", 1), O(S.stonesplinter, "FCQ_OBJ_SH_POUCH_A", 2) },
+			to = S.braldir },
+		{ q = 94467, from = S.braldir, objs = { O(S.fireLoch, "FCQ_OBJ_SH_EMBER", 1) }, to = S.brazierLoch },
+		{ q = 94468, from = S.brazierLoch, to = S.bruegs },
+	} },
+	-- Water (20): Healing Stream Totem 5394 + Water Totem 5177. Horde = every Horde shaman, Windshapers too (Spoken).
+	{ key = "water", spell = 5394, level = 20, faction = "Horde", quests = {
+		{ q = 1528, alt = { 1529, 2985, 2986 }, from = S.searn, to = S.islen },
+		{ q = 1530, from = S.islen, to = S.brine },
+		{ q = 1535, from = S.brine, objs = { O(S.skinBrownH, "FCQ_OBJ_SH_SKIN_BROWN_H", 1) }, to = S.brine },
+		{ q = 1536, from = S.brine, objs = { O(S.skinRedH, "FCQ_OBJ_SH_SKIN_RED_H", 1) }, to = S.brine },
+		{ q = 1534, from = S.brine, objs = { O(S.skinBlueH, "FCQ_OBJ_SH_SKIN_BLUE_H", 1) }, to = S.brine },
+		{ q = 220, from = S.brine, to = S.islen },
+		{ q = 63, from = S.islen, objs = { O(S.corruptSilverpine, "FCQ_OBJ_SH_BRACERS", 1) }, to = S.everfount },
+		{ q = 100, from = S.everfount, to = S.waterSilverpine },
+		{ q = 96, from = S.waterSilverpine, to = S.islen },
+	} },
+	-- 94502 ends at the Forgotten Shrine, not at Norric (Spoken, Polestar); the spirit appears after a while.
+	{ key = "water", spell = 5394, level = 20, faction = "Alliance", races = DWARF, quests = {
+		{ q = 94494, from = S.eldrun, to = S.norric },
+		{ q = 94495, from = S.norric, to = S.hervdana },
+		{ q = 94497, from = S.hervdana, objs = { O(S.skinBrownA, "FCQ_OBJ_SH_SKIN_BROWN_A", 1) }, to = S.hervdana },
+		{ q = 94499, from = S.hervdana, objs = { O(S.skinRedA, "FCQ_OBJ_SH_SKIN_RED_A", 1) }, to = S.hervdana },
+		{ q = 94500, from = S.hervdana, objs = { O(S.skinBlueA, "FCQ_OBJ_SH_SKIN_BLUE_A", 1) }, to = S.hervdana },
+		{ q = 94501, from = S.hervdana, to = S.norric },
+		{ q = 94502, from = S.norric, objs = { O(S.shrine, "FCQ_OBJ_SH_BRACERS", 1) }, to = S.shrine },
+		{ q = 94503, from = S.shrine, to = S.waterWestfall },
+		{ q = 94505, from = S.waterWestfall, to = S.norric },
+	} },
+	-- Air (30): only the Air Totem 5178, no spell, so the chain ends when the quest is done.
+	{ key = "air", nameKey = "FCQ_CHAIN_SH_AIR", level = 30, faction = "Horde", quests = {
+		{ q = 1531, alt = { 1532, 96136 }, from = S.searn, to = S.prate } } },
+	{ key = "air", nameKey = "FCQ_CHAIN_SH_AIR", level = 30, faction = "Alliance", races = DWARF, quests = {
+		{ q = 94789, from = S.eldrun, to = S.veyric } } },
+	-- Elemental Mastery (Horde, 52): 8411 is Bath'rah's own start. The feathers are the warrior's (same items, same order).
+	{ key = "mastery", nameKey = "FCQ_CHAIN_SH_MASTERY", level = 52, faction = "Horde", quests = {
+		{ q = 8410, alt = { 8411 }, from = S.beram, objs = {
+			O(nil, "FCQ_OBJ_SH_ELEM_AIR", nil, { 7069 }),
+			O(nil, "FCQ_OBJ_SH_ELEM_FIRE", nil, { 7068 }),
+			O(nil, "FCQ_OBJ_SH_ELEM_EARTH", nil, { 7067 }),
+			O(nil, "FCQ_OBJ_SH_ELEM_WATER", nil, { 7070 }),
+		}, to = R.bathrah },
+		{ q = 8412, from = R.bathrah, objs = { O(S.spiders, "FCQ_OBJ_SH_SPIDEREYE", 1), O(S.spiders, "FCQ_OBJ_SH_CLAW", 2) },
+			to = R.bathrah },
+		{ q = 8413, from = R.bathrah, objs = {
+			O(P.sunken, "FCQ_OBJ_WR_FEATHER_AMBER", 1),
+			O(P.sunken, "FCQ_OBJ_WR_FEATHER_BLUE", 2),
+			O(P.sunken, "FCQ_OBJ_WR_FEATHER_GREEN", 3),
+		}, to = R.bathrah },
+	} },
+}
+
 local MOONGLADE, TELEPORT_MOONGLADE = 1450, 18960
 
 local function Done(q)
@@ -1078,6 +1262,45 @@ local NPC_NAMES = {
 	[3328] = { deDE = "Ormok", frFR = "Ormok", esES = "Ormok", esMX = "Ormok", ptBR = "Ormok", ruRU = "Ормок" },
 	[6768] = { deDE = "Lord Jorach Ravenholdt", frFR = "Seigneur Jorach Ravenholdt", esES = "Lord Jorach Ravenholdt", esMX = "Lord Jorach Ravenholdt", ptBR = "Lorde Jorach Corvoforte", ruRU = "Лорд Джорах Черный Ворон" },
 	[8379] = { deDE = "Erzmagier Xylem", frFR = "Archimage Xylem", esES = "Archimago Xylem", esMX = "Archimago Xylem", ptBR = "Arquimago Tauriel", ruRU = "Верховный маг Ксилем" },
+	-- Shaman (17 Nov 2026, mh-research: Wowhead Forever tooltips per locale, control npc 233; 5899 esMX from Spoken).
+	-- Left out (not on Wowhead in that language): esMX 5891/251166/5895/258098/257808/258203, ptBR 251166/257808/258203.
+	-- 251374 ptBR left out on purpose: Wowhead says "Moldavento" without "Boro" (looks broken). 5887 ptBR "Ranago" kept
+	-- as Wowhead has it (doubt in TESTLIJST).
+	[5887] = { deDE = "Canaga Earthcaller", frFR = "Canaga Earthcaller", esES = "Clamor de Tierra Canaga", esMX = "Canaga Clamatierras", ptBR = "Ranago Arauto da Terra", ruRU = "Канага заклинатель земли" },
+	[5888] = { deDE = "Seherin Ravenfeather", frFR = "Prophétesse Ravenfeather", esES = "Profeta Plumacuervo", esMX = "Vidente Pluma de Cuervo", ptBR = "Vidente Pena do Corvo", ruRU = "Провидица Воронье Перо" },
+	[5891] = { deDE = "Schwache Erdmanifestation", frFR = "Manifestation de terre mineure", esES = "Manifestación de tierra menor", ptBR = "Manifestação Menor de Terra", ruRU = "Низшее воплощение земли" },
+	[251166] = { deDE = "Schwache Erdmanifestation", frFR = "Manifestation de terre mineure", esES = "Manifestación de tierra menor", ruRU = "Низшее воплощение земли" },
+	[3173] = { deDE = "Swart", frFR = "Swart", esES = "Swart", esMX = "Swart", ptBR = "Swart", ruRU = "Злобр" },
+	[3066] = { deDE = "Narm Skychaser", frFR = "Narm Skychaser", esES = "Narm Cazacielo", esMX = "Narm Cazacielo", ptBR = "Narm Persegue-céus", ruRU = "Нарм Небесный Охотник" },
+	[5892] = { deDE = "Searn Firewarder", frFR = "Searn Firewarder", esES = "Searn Guardafogo", esMX = "Searn Guardafogo", ptBR = "Searn Guardafogo", ruRU = "Огнир хранитель Огня" },
+	[5907] = { deDE = "Kranal Fiss", frFR = "Kranal Fiss", esES = "Kranal Fiss", esMX = "Kranal Fiss", ptBR = "Kranal Fiss", ruRU = "Кранал Фисс" },
+	[5900] = { deDE = "Telf Joolam", frFR = "Telf Joolam", esES = "Telf Joolam", esMX = "Telf Joolam", ptBR = "Telf Joolam", ruRU = "Телф Джулам" },
+	[5901] = { deDE = "Islen Waterseer", frFR = "Islen Waterseer", esES = "Islen Vident'aqua", esMX = "Islen Vidente del Agua", ptBR = "Islen Vidente da Água", ruRU = "Ислен Заклинатель Воды" },
+	[5899] = { deDE = "Brine", frFR = "Brine", esES = "Salmuera", esMX = "Salmuera", ptBR = "Salma", ruRU = "Брин" },
+	[5895] = { deDE = "Schwache Wassermanifestation", frFR = "Manifestation d'eau mineure", esES = "Manifestación de agua menor", ptBR = "Manifestação Menor da Água", ruRU = "Низшее воплощение воды" },
+	[5905] = { deDE = "Prate Cloudseer", frFR = "Prate Cloudseer", esES = "Prate Nubeprofeta", esMX = "Prate Vidente de las Nubes", ptBR = "Pradosa Fita Nuvens", ruRU = "Пратта Заклинательница Туч" },
+	[3032] = { deDE = "Beram Skychaser", frFR = "Beram Skychaser", esES = "Beram Cazacielo", esMX = "Beram Cazacielo", ptBR = "Beram Persegue-céus", ruRU = "Берам Небесный Охотник" },
+	[251361] = { deDE = "Rorian der Tagsucher", frFR = "Rorian le Cherchejour", esES = "Rorian el Buscadía", esMX = "Rorian, el Buscadías", ptBR = "Rorian, o Caça-alva", ruRU = "Рориан Искатель Утра" },
+	[251374] = { deDE = "Windformer Boro", frFR = "Sculpte-vent Boro", esES = "Formavientos Boro", esMX = "Formavientos Boro", ruRU = "Ваятель Ветра Боро" },
+	[252382] = { deDE = "Sessaria Skystride", frFR = "Sessaria Marcheciel", esES = "Sessaria Caminante del Cielo", esMX = "Sessaria Zancacielo", ptBR = "Sessaria Andacéu", ruRU = "Сессария Небесная Странница" },
+	[268592] = { deDE = "Olariaan Swiftburn", frFR = "Olariaan Vivebrûle", esES = "Olariaan Ardeveloz", esMX = "Olariaan Fuegoveloz", ptBR = "Olariaan Queimabreve", ruRU = "Олариан Быстрая Вспышка" },
+	[658] = { deDE = "Sten Stoutarm", frFR = "Sten Stoutarm", esES = "Sten Brazofuerte", esMX = "Sten Brazorrecio", ptBR = "Sten Braçoforte", ruRU = "Стен Крепкорук" },
+	[257446] = { deDE = "Teo Hammerstorm", frFR = "Teo Martel-tempête", esES = "Teo Mazatormenta", esMX = "Teo Mazatormenta", ptBR = "Teo Tempestelo", ruRU = "Тео Молотошторм" },
+	[258113] = { deDE = "Ingrid Dunwald", frFR = "Ingrid Dunwald", esES = "Ingrid Montocre", esMX = "Ingrid Montocre", ptBR = "Ingrid Dunwald", ruRU = "Ингрид Дунвальд" },
+	[258098] = { deDE = "Eldrun Stormbreaker", frFR = "Eldrun Brise-tempête", esES = "Eldrun Rompetormentas", ptBR = "Eldrun Rompe-procelas", ruRU = "Элдрун Тучегон" },
+	[257597] = { deDE = "Bruegs Kindleborn", frFR = "Bruegs Flammené", esES = "Bruegs Prendecirios", esMX = "Bruegs Sangrellamas", ptBR = "Bruegs Igninato", ruRU = "Брюкс Дитя Искр" },
+	[257808] = { deDE = "Braldir Ashmantle", frFR = "Braldir Houppecendre", esES = "Braldir Mantoceniza", ruRU = "Бралдир Пеплоплащ" },
+	[258043] = { deDE = "Norric Lochthane", frFR = "Norric Lochthane", esES = "Norric Lochthane", esMX = "Norric Lagolord", ptBR = "Norric Lochthane", ruRU = "Норрик Тан Лока" },
+	[258203] = { deDE = "Hervdana Saegrund", frFR = "Hervdana Saegrund", esES = "Hervdana Saegrund", ruRU = "Гервдана Саэгрунд" },
+	[259023] = { deDE = "Veyric Thunderhame", frFR = "Veyric Hametonne", esES = "Veyric Tronador", esMX = "Veyric Horcatrueno", ptBR = "Veyric Tonitrular", ruRU = "Вейрик Громоцеп" },
+}
+
+-- Objects that give or take a quest (shaman braziers and a shrine, 17 Nov 2026): name per client language, GEMETEN in
+-- Wowhead Forever object tooltips per locale (mh-research). A place with `obj` instead of `id` uses this table.
+local OBJ_NAMES = {
+	[61934] = { deDE = "Kohlenpfanne der schlafenden Flamme", frFR = "Brasero de la Flamme Dormante", esES = "Blandón de la Llama Latente", esMX = "Blandón de la Llama Latente", ptBR = "Braseiro da Chama Latente", ruRU = "Жаровня Дремлющего Пламени" },
+	[113791] = { deDE = "Kohlenpfanne von Everfount", frFR = "Brasero d'Everfount", esES = "Blandón de Siemprefuente", ptBR = "Braseiro da Fonteterna", ruRU = "Жаровня Вечного источника" },
+	[619896] = { deDE = "Vergessener Schrein", frFR = "Sanctuaire oublié", esES = "Santuario olvidado", esMX = "Santuario olvidado", ptBR = "Santuário Esquecido", ruRU = "Забытое святилище" },
 }
 
 local function NpcName(p)
@@ -1085,7 +1308,7 @@ local function NpcName(p)
 		return "?"
 	end
 	local loc = GetLocale and GetLocale()
-	local row = p.id and NPC_NAMES[p.id]
+	local row = (p.id and NPC_NAMES[p.id]) or (p.obj and OBJ_NAMES[p.obj])
 	return (row and loc and row[loc]) or p.npc
 end
 

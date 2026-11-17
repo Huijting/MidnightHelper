@@ -227,6 +227,9 @@ Stand 15 nov avond: 1 gebouwd (1f521e5), 2 gemeten, 3 rapport + A/B gebouwd (zie
   Human en Skyborne nieuw in Forever) + Hunter's Charm 50; rogue Blade 10, Thieves' Tools 16, Poisons 20, Dead Drop-
   ketens 23/30 (nieuw), Azure Key 50. NIET in het spel gezien. Open: vertalingen, rollen; hunter 60 (begint met een item),
   rogue Zanzil-kuur (bewust niet: zou blijven staan).
+- ✅ Shaman class-quests GEBOUWD in en/nl (17 nov): Earth 4, Fire 10, Water 20, Air 30 (Horde, Dwarf en Windshaper
+  Skyborne; Dwarf-ketens nieuw in Forever), Elemental Mastery 52 (Horde). NIET in het spel gezien. Open: vertalingen,
+  rollen, The Tempest's Weapons (plekken onbekend). Fable-nakijkronde door sparring.
 
 ### Forever: "Do this now" noemt de beste stats voor jou (solo + tank, dps/heal in gedachten)
 - Bron: Rob 16 nov (eerder die dag, letterlijk): *"wat ik ook graag wil weten in het schermpje Doe This Now … wat zijn
