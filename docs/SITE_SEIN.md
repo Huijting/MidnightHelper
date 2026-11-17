@@ -28,6 +28,20 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 16 nov 2026 (avond/nacht) — Forever: druid class-quests stap voor stap + druid per rol
+- Tag + commit:   geen tag / 4faaaee, 0059fae, 86984a6, bb1635e, dad9c38, 956ed87, f707878 (na de tag v5.4.0)
+- Status:         alleen op main
+- Mag op de site: nee (nog niet uit)
+- Speler ziet:    Druid: "Do this now" leidt je stap voor stap door de class-quests (Bear Form, Cure Poison, Aquatic Form,
+                  Cat Form, Torwa Pathfinder; Skyborne-druids hun eigen Bear/Cat-ketens), met de pijl en NPC-namen in je
+                  eigen taal. How you play heeft bovenaan "Your class quests" en de rol(len) van je richting (beer, kat,
+                  Balance, Restoration); de rest achter de knop "All roles". *(niet in het spel getest)*
+- Knoplabels:     FHOWTO_ROLES_SHOW / FHOWTO_ROLES_HIDE / FHOWTO_ROLES_FOLD (de knop), FCQ_BTN ("Show the way"),
+                  FCQ_HOWTO_HEAD ("Your class quests")
+- Commando's:     /mh classquest, /mh play
+- Spel:           Forever
+- 📌 Ter info: `/mh partytest` (Forever, 53341fa) is een meetknop voor ons, geen spelersfunctie; komt niet op de site.
+
 ## 16 nov 2026 — RELEASE 5.4.0 (Midnight + Forever)
 - Tag + commit:   v5.4.0 / b23e0ec. Release-run GitHub 43943568777: geslaagd; in het log "Success!" voor CurseForge,
                   Wago en GitHub, beide zips (Retail 19:52:01, Forever 19:53:13 UTC). CurseForge-API (GEMETEN):

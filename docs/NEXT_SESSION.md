@@ -1,5 +1,17 @@
 # Midnight Helper — waar we staan
 
+## ▶ 17 nov — Bouwchat 17-11 (sessie "addons-fd"; nam het over van 16-11 (2), die op een toestemmingsvraag hing)
+
+- Ochtendronde (GEMETEN): pull 558afb5 → 273dc5a (alleen wachters + regie); 5 wachters met regel van vandaag, 0 nieuwe
+  [MOET GEFIKST]. CF 0 open (8), GitHub 0. addon_updates geen 🔔 (RaiderIO: Menu.ModifyMenu-taint in Forever-gamepad-UI;
+  MH gebruikt geen ModifyMenu, GEMETEN, tegenproef MenuUtil 8 treffers). HandyNotes 171 onveranderd. Zygor Forever: nieuwe
+  gids Drowned City; MH had hem al (ForeverDungeons.lua:73, 35-42). Mail: alleen een sitechattest-formulier. BOUW_VRAAG
+  geen open. Notion: dezelfde 4 regels "Nieuw".
+- SITE_SEIN: regel voor de druid class-quests + rollen (alleen op main) en de notitie dat `/mh partytest` een meetknop is
+  (regisseur, "Loopt scheef" rij 1 en 2).
+- Open: de 2 ideeënbus-voorstellen van 15 nov (IDEEEN r. 872) → Rob kiest Open/Nee (niet door mij beslist).
+- Nu: stap 3 (8 classes), volgorde warlock, warrior, shaman, rogue, hunter, paladin, priest, mage.
+
 ## 🌙 NACHTOPDRACHT 16→17 nov (Bouwchat 16-11 (2) sloot af met /nieuwe-chat bouw; sparring: akkoord)
 
 Rob, letterlijk (via Sparring 16-11): *"kan je ook samen met bouw door gaan tot je mij nodig hebt, ik bedoel kunnen jullie
