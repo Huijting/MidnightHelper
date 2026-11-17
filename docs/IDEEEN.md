@@ -254,6 +254,9 @@ Stand 15 nov avond: 1 gebouwd (1f521e5), 2 gemeten, 3 rapport + A/B gebouwd (zie
   rollen, The Tempest's Weapons (plekken onbekend). Fable-nakijkronde door sparring.
 - ✅ Priest class-quests GEBOUWD in en/nl (17 nov, Fable): ras-spell op 10 en 20 voor 6 rassen (Gnome nieuw), eerste
   gewaad 5, Cenarion Aid 50. NIET in het spel gezien. Open: vertalingen, rollen, Benediction (begint met een raid-item).
+- ✅ Paladin class-quests GEBOUWD in en/nl (17 nov, Fable): Alliance Redemption 12, Verigan's Fist 20, Warhorse 40,
+  Valorfist 50, Charger 60; Undead (nieuw in Forever) Holy Light 2, Bandarion Keep 8, Redemption 12, Wolfsbane 20,
+  Warhorse 40. NIET in het spel gezien. Open: Forsaken Charger (niet gebouwd), vertalingen, rollen.
 
 ### Forever: "Do this now" noemt de beste stats voor jou (solo + tank, dps/heal in gedachten)
 - Bron: Rob 16 nov (eerder die dag, letterlijk): *"wat ik ook graag wil weten in het schermpje Doe This Now … wat zijn

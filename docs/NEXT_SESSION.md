@@ -63,6 +63,12 @@
   "done" maakt = AFGELEID, test in TESTLIJST), 12 ras-spells (10/20), gewaad 5 (item-keten), Cenarion Aid 50. Zygor-
   fouten niet overgenomen (Dwarf naar Rohan, Human = Divine Grace 94773, id's Tai'jin/Miles/Ur'kyo). fcq_check 418.951
   runs, 0 fouten, 185 sleutels. Feiten `docs/forever/PRIEST_CLASSQUESTS_2026-11-17.md`.
+- 🛡️ **Paladin class-quests GEBOUWD (en + nl)**, mh-research op Fable. PA_P + CHAINS.PALADIN (12 ketens, 41 NPC's × 6 talen).
+  Nieuw in de module: `item` op een quest (start uit een boek in je tas) → stap "use %s in your bags" (FCQ_USE_ITEM_FMT,
+  itemnaam van de client). Keuzes (Rob mag omdraaien): Undead Forsaken Charger 97174-97185 NIET gebouwd (gevers AFGELEID,
+  speler meldt vastlopen na 97177); Cloak of the Divine Storm / Aeonas / Reliquary of Tyr / Errant Knight niet uitgezocht.
+  Open: 5502 Sense Undead (uit 1652) en de mount-spells niet in FOREVER_QUEST_FIRST gezet (trainer-gedrag niet gemeten).
+  fcq_check (nu ook met "item in je tas"): 767.341 runs, 0 fouten, 234 sleutels.
 - 🧪 **Nieuw hulpmiddel `run fcq_check`** (`tools/fcq_check.py` + `.lua`): laadt ForeverClassQuests.lua met nep-spelfuncties,
   loopt 9 classes × 10 rassen × levels 1-60 × alle queststanden, en checkt dat elke FCQ_-sleutel in enUS + nlNL staat.
   GEMETEN 17 nov: 149.941 runs, 0 fouten, 86 sleutels, controle OK. Bewijst dat de code draait, niet dat id's kloppen.

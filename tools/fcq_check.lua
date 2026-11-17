@@ -21,7 +21,11 @@ C_QuestLog = {
 	IsComplete = function(q) return S.complete end,
 	GetQuestObjectives = function(q) return {} end,
 }
-C_Item = { GetItemCount = function() return 0 end }
+C_Item = {
+	-- S.items: every item counts as in your bags (reaches the "use" step of a quest that starts from an item).
+	GetItemCount = function() return S.items and 1 or 0 end,
+	GetItemNameByID = function(id) return "Item" .. id end,
+}
 C_Map = { GetMapInfo = function(m) return { name = "Map" .. m } end }
 C_Spell = { GetSpellName = function(id) return "Spell" .. id end }
 IsPlayerSpell = function() return false end
@@ -85,6 +89,9 @@ for _, c in ipairs(cases) do
 			-- Same, but nothing in the log: reaches "get" and "wait" steps after a done quest (17 Nov: e.wait).
 			S.log, S.complete = {}, false
 			run(label .. " after" .. q, function() ns.ForeverClassQuestNow(); ns.ForeverClassQuestGo() end)
+			S.items = true
+			run(label .. " items" .. q, function() ns.ForeverClassQuestNow(); ns.ForeverClassQuestOverview() end)
+			S.items = false
 		end
 		S.done, S.log = {}, {}
 		for _, q in ipairs(ids) do S.done[q] = true end

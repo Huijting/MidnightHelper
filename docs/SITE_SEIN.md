@@ -28,6 +28,17 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 17 nov 2026 — Forever: Paladin class-quests stap voor stap
+- Tag + commit:   geen tag / (deze commit, zie git log "Paladin class quests")
+- Status:         alleen op main
+- Mag op de site: nee (nog niet uit)
+- Speler ziet:    Paladin: "Do this now" leidt je door Redemption (12), Verigan's Fist (20), het paard (40, 60) en
+                  Valorfist (50); de nieuwe Undead-paladin krijgt eigen quests (Holy Light, Bandarion Keep, Redemption,
+                  Wolfsbane, paard). Begint een quest met een boek in je tas, dan zegt MH dat. *(niet in het spel getest)*
+- Knoplabels:     FCQ_BTN ("Show the way"), FCQ_HOWTO_HEAD ("Your class quests")
+- Commando's:     /mh classquest, /mh play
+- Spel:           Forever
+
 ## 17 nov 2026 — Forever: Priest class-quests stap voor stap
 - Tag + commit:   geen tag / (deze commit, zie git log "Priest class quests")
 - Status:         alleen op main

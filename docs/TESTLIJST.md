@@ -24,6 +24,19 @@ er is niets weggegooid.
 📝 **Waarneming Rob, 16 nov (nacht), Forever mage, via sparring:** *"mouse over werk"* — `/mh mouseover on`, Shift+X
 (Arcane Intellect) op een voorbijganger onder de muis werkt.
 
+## 🆕 17 nov — Forever: Paladin class-quests in "Do this now"
+
+Paladin, `/reload`. Uitgezocht met Fable; niets in het spel gezien.
+- [ ] Human/Dwarf 12: Redemption. Krijg je een boek (Tome of Divinity), dan zegt "Do this now": gebruik het boek in je
+      tassen. Klopt dat, en heet het boek in jouw taal goed?
+- [ ] Alliance 20: Verigan's Fist (Duthorian Rall). Na Jordan Stilwell komen ook "Bailor's ore" en "de Kor Gem" in beeld.
+- [ ] Alliance 40/60: Warhorse en Charger. Verdwijnt de regel als je het paard hebt? (In Forever is het misschien een
+      mount uit je verzameling.)
+- [ ] Undead-paladin (nieuw in Forever): Holy Light op 2, Bandarion Keep op 8, Redemption op 12, Wolfsbane op 20,
+      Warhorse op 40. Klopt de volgorde van de plekken?
+- [ ] Undead 60, Forsaken Charger: staat er nog NIET in (een speler meldt dat de keten vastliep na 97177). Zie je hem in
+      het spel, zeg tot waar je kwam.
+
 ## 🆕 17 nov — Forever: Priest class-quests (ras-spells) in "Do this now"
 
 Priest, `/reload`. Uitgezocht met Fable; niets in het spel gezien.

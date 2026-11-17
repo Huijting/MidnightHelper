@@ -1162,6 +1162,231 @@ CHAINS.PRIEST = {
 	PrCenarion("Horde", PR.urkyo),
 }
 
+--[[ Paladin (17 Nov 2026, Bouwchat 17-11; researched by mh-research on Fable). All facts:
+	docs/forever/PALADIN_CLASSQUESTS_2026-11-17.md: Zygor Forever "Paladin Class Quests" + the leveling guides (Undead),
+	Spoken, wago DB2 1.60.1.70938, Wowhead Forever, azeroth.wiki, the Icy Veins database, HandyNotes.
+	Paladins: Human, Dwarf, Undead (CharBaseInfo, Undead NEW); no Tauren, no Skyborne.
+	AFGELEID: the trainer breadcrumbs (2998/2999, 4485, 7638, 97022) are optional; 4485 is given by Arthur the Faithful
+	(Spoken, forg.gg; azeroth.wiki says Tiza Battleforge); the objective index; Summon Charger = 23214 on 7647.
+	1786/1783 have no objective index on purpose (Wowhead shows none): the step waits until the quest is complete.
+	`item` = the quest starts from that tome in your bags (step "use … in your bags").
+	Zygor mistakes not copied: 2997 at Brandur (= 2999), 1794 at Duthorian (= Tiza), |q 8232 at the Sunken Temple step
+	(= 8418), Lost Soul as 7647/1. Trainers: HandyNotes; the rest: Zygor; Undead level 12+: azeroth.wiki / Wowhead.
+	Not built (bouwchat choice, Rob may reverse): the Undead Forsaken Charger (97174-97185: most givers AFGELEID, a
+	player wrote that nothing followed after 97177: measure in game first); Cloak of the Divine Storm (starts at an
+	object), the Aeonas quests, The Reliquary of Tyr, The Errant Knight (found, not researched). ]]
+local PA_P = {
+	-- Alliance
+	wilhelm = { npc = "Brother Wilhelm", id = 927, m = 1429, x = 40.90, y = 66.09 },
+	duthorian = { npc = "Duthorian Rall", id = 6171, m = 1453, x = 50.48, y = 47.49 },
+	stephanie = { npc = "Stephanie Turner", id = 6174, m = 1453, x = 63.84, y = 72.21 },
+	gazin = { npc = "Gazin Tenorm", id = 6173, m = 1453, x = 49.51, y = 44.90 },
+	henze = { npc = "Henze Faulk", id = 6172, m = 1429, x = 72.60, y = 51.41 },
+	brandur = { npc = "Brandur Ironhammer", id = 5149, m = 1455, x = 23.13, y = 6.14 },
+	tiza = { npc = "Tiza Battleforge", id = 6179, m = 1455, x = 27.64, y = 12.19 },
+	johnTurner = { npc = "John Turner", id = 6175, m = 1455, x = 21.55, y = 50.80 },
+	muiredon = { npc = "Muiredon Battleforge", id = 6178, m = 1455, x = 23.53, y = 8.29 },
+	narm = { npc = "Narm Faulk", id = 6177, m = 1426, x = 78.32, y = 58.09 },
+	daphne = { npc = "Daphne Stilwell", id = 6182, m = 1436, x = 42.71, y = 88.40 },
+	jordan = { npc = "Jordan Stilwell", id = 6181, m = 1426, x = 52.48, y = 36.92 },
+	bailor = { npc = "Bailor Stonehand", id = 6241, m = 1432, x = 35.96, y = 44.92 },
+	thundris = { npc = "Thundris Windweaver", id = 3649, m = 1439, x = 37.40, y = 40.13 },
+	arthur = { npc = "Arthur the Faithful", id = 5491, m = 1453, x = 49.61, y = 49.84 },
+	grayson = { npc = "Lord Grayson Shadowbreaker", id = 928, m = 1453, x = 48.43, y = 50.22 },
+	ashlam = { npc = "Commander Ashlam Valorfist", id = 10838, m = 1422, x = 42.70, y = 84.03 },
+	theldanis = { npc = "High Priest Thel'danis", id = 1854, m = 1422, x = 52.09, y = 83.35 },
+	rohan = { npc = "High Priest Rohan", id = 11406, m = 1455, x = 26.98, y = 7.30 },
+	grimand = { npc = "Grimand Elmore", id = 1416, m = 1453, x = 59.71, y = 33.77 },
+	merideth = { npc = "Merideth Carlson", id = 2357, m = 1424, x = 52.18, y = 55.50 },
+	-- Inside a dungeon: the arrow points at the Dire Maul West door / the stairs to Scholomance (AFGELEID).
+	equineSpirit = { npc = "Ancient Equine Spirit", id = 14566, m = 1444, x = 60.32, y = 30.16 },
+	fallenCharger = { npc = "Darkreaver's Fallen Charger", id = 14568, m = 1422, x = 69.94, y = 74.03 },
+	-- Horde (Undead)
+	sarvis = { npc = "Shadow Priest Sarvis", id = 1569, m = 1420, x = 30.84, y = 66.20 },
+	aramis = { npc = "Aramis Hammerhand", id = 244808, m = 1420, x = 30.97, y = 66.77 },
+	shari = { npc = "Shari Stilwell", id = 246152, m = 1420, x = 60.20, y = 52.50 },
+	breton = { npc = "Breton Samuels", id = 246349, m = 1420, x = 21.85, y = 45.21 },
+	jorin = { npc = "Jorin Croge", id = 246393, m = 1420, x = 22.70, y = 44.68 },
+	danitha = { npc = "Danitha Morr", id = 246378, m = 1420, x = 22.09, y = 44.66 },
+	sylvanas = { npc = "Lady Sylvanas Windrunner", id = 10181, m = 1458, x = 58.06, y = 91.78 },
+	tanis = { npc = "Tanis Alderwood", id = 257648, m = 1458, x = 65.45, y = 37.47 },
+	billmuth = { npc = "Deathguard Billmuth", id = 257655, m = 1420, x = 21.9, y = 44.5 },
+	falgan = { npc = "Deathguard Falgan", id = 257663, m = 1420, x = 86.7, y = 47.7 },
+	trevan = { npc = "Trevan Rol", id = 248840, m = 1421, x = 43.3, y = 41.0 },
+	baldren = { npc = "Deathguard Baldren", id = 259611, m = 1421, x = 45.8, y = 41.8 },
+	charredRemains = { npc = "Charred Remains", m = 1421, x = 64.9, y = 34.4 }, -- an object: no id, English name
+	luminaFenris = { npc = "Lumina Windsinger", id = 248755, m = 1421, x = 65.5, y = 23.5 },
+	luminaSepulcher = { npc = "Lumina Windsinger", id = 259620, m = 1421, x = 43.3, y = 41.0 },
+	ulric = { npc = "Ulric Frostveil", id = 259649, m = 1440, x = 11.8, y = 34.5 },
+	ott = { npc = "Ott", id = 3539, m = 1424, x = 60.4, y = 26.2 },
+	garen = { npc = "Garen Largo", id = 260093, m = 1458, x = 47.50, y = 14.90 },
+	-- Objective places (no NPC)
+	defiasWizards = { m = 1429, x = 74.07, y = 51.57 },
+	darkIronSpies = { m = 1426, x = 77.39, y = 61.27 },
+	bailorsOre = { m = 1432, x = 71.62, y = 21.55 },
+	deadmines = { m = 1436, x = 42.57, y = 71.83 },
+	bfd = { m = 1440, x = 14.12, y = 13.88 },
+	scourgestones = { m = 1422, x = 40.65, y = 70.27 },
+	terrordale = { m = 1423, x = 15.97, y = 25.26 },
+	stratGate = { m = 1423, x = 41.43, y = 17.71 },
+	deathguards = { m = 1420, x = 31.98, y = 64.72 },
+	vileFin = { m = 1420, x = 14.68, y = 54.75 },
+	hilda = { m = 1420, x = 21.95, y = 47.24 },
+	ander = { m = 1420, x = 25.41, y = 50.41 },
+	lumberCrypt = { m = 1420, x = 10.42, y = 65.69 },
+	gelhardt = { m = 1420, x = 11.53, y = 64.21 },
+	tarnished = { m = 1420, x = 12.87, y = 63.45 },
+	oldFireEye = { m = 1421, x = 49.4, y = 86.8 },
+}
+local PA = PA_P
+
+CHAINS.PALADIN = {
+	-- Redemption (12). DWGN: there is no Gnome paladin (CharBaseInfo), so the extra race does nothing.
+	{ key = "redemption", spell = 7328, level = 12, faction = "Alliance", races = HUM, quests = {
+		{ q = 2998, alt = { 3681 }, from = PA.wilhelm, to = PA.duthorian },
+		{ q = 1641, from = PA.duthorian, to = PA.duthorian },
+		{ q = 1642, item = 6775, from = PA.duthorian, to = PA.duthorian },
+		{ q = 1643, from = PA.duthorian, to = PA.stephanie },
+		{ q = 1644, from = PA.stephanie, objs = { O(nil, "FCQ_OBJ_PA_LINEN", 1) }, to = PA.stephanie },
+		{ q = 1780, from = PA.stephanie, to = PA.duthorian },
+		{ q = 1781, from = PA.duthorian, to = PA.gazin },
+		{ q = 1786, from = PA.gazin, objs = { O(PA.henze, "FCQ_OBJ_PA_RESURRECT") }, to = PA.henze },
+		{ q = 1787, from = PA.henze, objs = { O(PA.defiasWizards, "FCQ_OBJ_PA_DEFIAS_SCRIPT", 1) }, to = PA.gazin },
+		{ q = 1788, from = PA.gazin, to = PA.duthorian },
+	} },
+	{ key = "redemption", spell = 7328, level = 12, faction = "Alliance", races = DWGN, quests = {
+		{ q = 2999, alt = { 2997, 3000 }, from = PA.brandur, to = PA.tiza },
+		{ q = 1645, from = PA.tiza, to = PA.tiza },
+		{ q = 1646, item = 6916, from = PA.tiza, to = PA.tiza },
+		{ q = 1647, from = PA.tiza, to = PA.johnTurner },
+		{ q = 1648, from = PA.johnTurner, objs = { O(nil, "FCQ_OBJ_PA_LINEN", 1) }, to = PA.johnTurner },
+		{ q = 1778, from = PA.johnTurner, to = PA.tiza },
+		{ q = 1779, from = PA.tiza, to = PA.muiredon },
+		{ q = 1783, from = PA.muiredon, objs = { O(PA.narm, "FCQ_OBJ_PA_RESURRECT") }, to = PA.narm },
+		{ q = 1784, from = PA.narm, objs = { O(PA.darkIronSpies, "FCQ_OBJ_PA_DARKIRON_SCRIPT", 1) }, to = PA.muiredon },
+		{ q = 1785, from = PA.muiredon, to = PA.tiza },
+	} },
+	-- Verigan's Fist (20). The two side quests of 1654 stand first, so they are asked before the dungeons; they open
+	-- after 1653 (AFGELEID). 1652 also teaches Sense Undead 5502 (Wowhead).
+	{ key = "veriganore", nameKey = "FCQ_CHAIN_PA_VERIGAN_ORE", level = 20, needs = 1653, faction = "Alliance", quests = {
+		{ q = 1655, from = PA.bailor, objs = { O(PA.bailorsOre, "FCQ_OBJ_PA_ORECRATE", 1) }, to = PA.bailor } } },
+	{ key = "verigangem", nameKey = "FCQ_CHAIN_PA_VERIGAN_GEM", level = 20, needs = 1653, faction = "Alliance", quests = {
+		{ q = 1442, from = PA.thundris, objs = { O(PA.bfd, "FCQ_OBJ_PA_KORGEM", 1) }, to = PA.thundris } } },
+	{ key = "verigan", nameKey = "FCQ_CHAIN_PA_VERIGAN", level = 20, faction = "Alliance", quests = {
+		{ q = 1793, alt = { 1794 }, from = PA.duthorian, to = PA.duthorian },
+		{ q = 1649, item = 6776, from = PA.duthorian, to = PA.duthorian },
+		{ q = 1650, from = PA.duthorian, to = PA.daphne },
+		{ q = 1651, from = PA.daphne, objs = { O(PA.daphne, "FCQ_OBJ_PA_DEFEND_DAPHNE", 1) }, to = PA.daphne },
+		{ q = 1652, from = PA.daphne, to = PA.duthorian },
+		{ q = 1653, from = PA.duthorian, to = PA.jordan },
+		{ q = 1654, from = PA.jordan, objs = {
+			O(PA.bailor, "FCQ_OBJ_PA_ORE", 2),
+			O(PA.thundris, "FCQ_OBJ_PA_PURIFIEDGEM", 4),
+			O(PA.deadmines, "FCQ_OBJ_PA_LUMBER", 1),
+			O(nil, "FCQ_OBJ_PA_HAMMER", 3),
+		}, to = PA.jordan },
+		{ q = 1806, from = PA.jordan, to = PA.jordan },
+	} },
+	-- Warhorse (40). A collection mount in Forever? Whether the spell check sees it = NOT measured; the chain also ends
+	-- once 1661 is done.
+	{ key = "warhorse", spell = 13819, level = 40, faction = "Alliance", quests = {
+		{ q = 4485, alt = { 4486 }, from = PA.arthur, to = PA.duthorian },
+		{ q = 1661, from = PA.duthorian, to = PA.duthorian },
+	} },
+	-- Level 50 (quest level 52): an item to choose. Brandur Ironhammer in Ironforge gives 8415 too.
+	{ key = "mightstone", nameKey = "FCQ_CHAIN_PA_MIGHTSTONE", level = 50, faction = "Alliance", quests = {
+		{ q = 8415, from = PA.grayson, to = PA.ashlam },
+		{ q = 8414, from = PA.ashlam, objs = { O(PA.scourgestones, "FCQ_OBJ_PA_SCOURGESTONES", 1) }, to = PA.theldanis },
+		{ q = 8416, from = PA.theldanis, to = PA.ashlam },
+		{ q = 8418, from = PA.ashlam, objs = {
+			O(P.sunken, "FCQ_OBJ_WR_FEATHER_AMBER", 1),
+			O(P.sunken, "FCQ_OBJ_WR_FEATHER_BLUE", 2),
+			O(P.sunken, "FCQ_OBJ_WR_FEATHER_GREEN", 3),
+		}, to = PA.ashlam },
+	} },
+	-- Charger (60). 7645 (Merideth's horse feed) is asked inside 7643.
+	{ key = "charger", spell = 23214, level = 60, faction = "Alliance", quests = {
+		{ q = 7638, alt = { 7670 }, from = PA.duthorian, to = PA.grayson },
+		{ q = 7637, from = PA.grayson, to = PA.rohan },
+		{ q = 7639, from = PA.rohan, to = PA.grayson },
+		{ q = 7640, from = PA.grayson, objs = { O(PA.terrordale, "FCQ_OBJ_PA_TERRORDALE", 1) }, to = PA.grayson },
+		{ q = 7641, from = PA.grayson, to = PA.grimand },
+		{ q = 7642, from = PA.grimand, objs = {
+			O(PA.stratGate, "FCQ_OBJ_PA_HOLYWATER", 1),
+			O(nil, "FCQ_OBJ_PA_ARTHAS", 2),
+			O(nil, "FCQ_OBJ_PA_RUNECLOTH", 3),
+			O(nil, "FCQ_OBJ_PA_ARCANITE", 4),
+		}, to = PA.grimand },
+		{ q = 7648, from = PA.grimand, to = PA.grayson },
+		{ q = 7643, from = PA.grayson, objs = { O(PA.merideth, "FCQ_OBJ_PA_HORSEFEED", 1) }, to = PA.equineSpirit },
+		{ q = 7644, from = PA.equineSpirit, to = PA.grayson },
+		{ q = 7646, from = PA.grayson, objs = { O(nil, "FCQ_OBJ_PA_AZEROTHIAN", 1), O(nil, "FCQ_OBJ_PA_BLACKDIAMOND", 2) },
+			to = PA.grayson },
+		-- Open the satchel (objective 2 = the barding), then the Scholomance fight (objective 1 = the soul).
+		{ q = 7647, from = PA.grayson, objs = { O(nil, "FCQ_OBJ_PA_SATCHEL", 2), O(PA.fallenCharger, "FCQ_OBJ_PA_SCRYER", 1) },
+			to = PA.fallenCharger },
+	} },
+
+	-- Undead. Holy Light (2): opens after The Mindless Ones 364 (Spoken prev). The spell comes when you take 90902
+	-- (AFGELEID), so the chain may end there; the quest itself is then in your log.
+	{ key = "holylight", spell = 635, level = 2, needs = 364, faction = "Horde", races = UD, quests = {
+		{ q = 98601, from = PA.sarvis, to = PA.aramis },
+		{ q = 90902, from = PA.aramis, objs = { O(PA.deathguards, "FCQ_OBJ_PA_HEAL_DEATHGUARDS", 1) }, to = PA.aramis },
+	} },
+	-- Bandarion Keep (from 8): a mace and a shield. Optional; Making Repairs is a side quest of Jorin Croge.
+	{ key = "keep", nameKey = "FCQ_CHAIN_PA_KEEP", level = 8, faction = "Horde", races = UD, quests = {
+		{ q = 91282, from = PA.shari, to = PA.breton },
+		{ q = 91285, from = PA.breton, objs = {
+			O(PA.vileFin, "FCQ_OBJ_PA_VILEFIN_ATTACKERS", 1), O(PA.vileFin, "FCQ_OBJ_PA_VILEFIN_SEERS", 2) }, to = PA.breton },
+		{ q = 91294, from = PA.breton, objs = {
+			O(PA.jorin, "FCQ_OBJ_PA_TOUR_JORIN", 2), O(PA.hilda, "FCQ_OBJ_PA_TOUR_HILDA", 1),
+			O(PA.ander, "FCQ_OBJ_PA_TOUR_ANDER", 3), O(PA.danitha, "FCQ_OBJ_PA_TOUR_DANITHA", 4) }, to = PA.danitha },
+		{ q = 91316, from = PA.jorin, objs = { O(PA.lumberCrypt, "FCQ_OBJ_PA_STURDY_LUMBER", 1) }, to = PA.jorin },
+		{ q = 91317, from = PA.danitha, objs = {
+			O(PA.gelhardt, "FCQ_OBJ_PA_GELHARDT", 1), O(PA.tarnished, "FCQ_OBJ_PA_DRUDGES", 2),
+			O(PA.tarnished, "FCQ_OBJ_PA_ZEALOTS", 3) }, to = PA.danitha },
+		{ q = 95803, from = PA.danitha, to = PA.sylvanas },
+	} },
+	-- Redemption (12), NEW in Forever. The Scarlet camp is at Falgan's spot in Venomweb Vale (AFGELEID).
+	{ key = "redemption", spell = 7328, level = 12, faction = "Horde", races = UD, quests = {
+		{ q = 94427, from = PA.danitha, to = PA.tanis },
+		{ q = 94434, from = PA.tanis, objs = { O(nil, "FCQ_OBJ_PA_LINEN", 1) }, to = PA.tanis },
+		{ q = 94435, from = PA.tanis, to = PA.danitha },
+		{ q = 94436, from = PA.danitha, to = PA.billmuth },
+		{ q = 94438, from = PA.billmuth, objs = { O(PA.falgan, "FCQ_OBJ_PA_RESURRECT", 1) }, to = PA.falgan },
+		{ q = 94440, from = PA.falgan, objs = { O(PA.falgan, "FCQ_OBJ_PA_ATTACK_PLANS", 1) }, to = PA.billmuth },
+		{ q = 94441, from = PA.billmuth, to = PA.danitha },
+	} },
+	-- Wolfsbane (item 267369), NEW in Forever. 91858 can be taken from level 18, 95036 needs 20: level 20 here.
+	{ key = "wolfsbanegem", nameKey = "FCQ_CHAIN_PA_WOLFSBANE_GEM", level = 20, needs = 95034, faction = "Horde", races = UD,
+		quests = { { q = 95042, from = PA.ulric, objs = { O(PA.bfd, "FCQ_OBJ_PA_KORGEM", 1) }, to = PA.ulric } } },
+	{ key = "wolfsbane", nameKey = "FCQ_CHAIN_PA_WOLFSBANE", level = 20, faction = "Horde", races = UD, quests = {
+		{ q = 91858, from = PA.danitha, to = PA.trevan },
+		{ q = 91859, from = PA.trevan, to = PA.baldren },
+		{ q = 91860, from = PA.baldren, to = PA.charredRemains },
+		{ q = 91861, from = PA.charredRemains, to = PA.luminaFenris },
+		{ q = 91862, from = PA.luminaFenris, objs = { O(PA.luminaFenris, "FCQ_OBJ_PA_FENRIS_KEY", 1) }, to = PA.luminaFenris },
+		{ q = 96204, from = PA.luminaFenris, objs = { O(PA.luminaFenris, "FCQ_OBJ_PA_ESCORT_LUMINA", 1) }, to = PA.luminaSepulcher },
+		{ q = 95034, from = PA.luminaSepulcher, objs = { O(PA.luminaSepulcher, "FCQ_OBJ_PA_TALK_LUMINA", 1) },
+			to = PA.luminaSepulcher },
+		{ q = 95036, from = PA.luminaSepulcher, objs = {
+			O(PA.trevan, "FCQ_OBJ_PA_WEAPON_NOTES", 1),
+			O(PA.ulric, "FCQ_OBJ_PA_PURIFIEDGEM", 4),
+			O(PA.deadmines, "FCQ_OBJ_PA_LUMBER", 2),
+			O(nil, "FCQ_OBJ_PA_SILVER_INGOT", 3),
+		}, to = PA.trevan },
+		{ q = 95111, from = PA.trevan, to = PA.ott },
+		{ q = 95125, from = PA.ott, objs = { O(PA.ott, "FCQ_OBJ_PA_WATCH_OTT", 1) }, to = PA.ott },
+		{ q = 95126, from = PA.ott, to = PA.trevan },
+		{ q = 95140, from = PA.luminaSepulcher, objs = { O(PA.oldFireEye, "FCQ_OBJ_PA_OLD_FIREEYE", 1) }, to = PA.luminaSepulcher },
+	} },
+	-- Warhorse (40), NEW in Forever. Alodan the Hopeful in Thunder Bluff gives 97022 too.
+	{ key = "warhorse", spell = 1279399, level = 40, faction = "Horde", races = UD, quests = {
+		{ q = 97022, from = PA.garen, to = PA.danitha },
+		{ q = 94971, from = PA.danitha, to = PA.danitha },
+	} },
+}
+
 local MOONGLADE, TELEPORT_MOONGLADE = 1450, 18960
 
 local function Done(q)
@@ -1447,6 +1672,48 @@ local NPC_NAMES = {
 	[2123] = { deDE = "Dunkler Kleriker Duesten", frFR = "Sombre clerc Duesten", esES = "Clérico oscuro Duesten", esMX = "Clérigo oscuro Duesten", ptBR = "Clérigo das Trevas Duesten", ruRU = "Темный священник Дьюстен" },
 	[2129] = { deDE = "Dunkler Kleriker Beryl", frFR = "Sombre clerc Beryl", esES = "Clérigo oscuro Beryl", esMX = "Clérigo oscuro Beryl", ptBR = "Clérigo das Trevas Beryl", ruRU = "Темный священник Берил" },
 	[5489] = { deDE = "Bruder Joshua", frFR = "Frère Joshua", esES = "Hermano Joshua", esMX = "Hermano Joshua", ptBR = "Irmão Josué", ruRU = "Брат Джошуа" },
+	-- Paladin (17 Nov 2026, mh-research: Wowhead Forever tooltips per locale, control npc 233). Missing esMX/ptBR = Wowhead
+	-- has no name there. 5149 and 1854 esMX from Spoken. 927 esES, 6179/10838/1569 ruRU: Spoken disagrees, Wowhead kept.
+	-- 11406 (Rohan) is already in the priest lines above.
+	[927] = { deDE = "Bruder Wilhelm", frFR = "Frère Wilhelm", esES = "Hermano Wilhelm", esMX = "Hermano Wilhelm", ptBR = "Irmão Guilhermino", ruRU = "Брат Вильгельм" },
+	[6171] = { deDE = "Duthorian Rall", frFR = "Duthorian Rall", esES = "Duthorian Rall", esMX = "Duthorian Rall", ptBR = "Benedito Brião", ruRU = "Даториан Ралл" },
+	[6174] = { deDE = "Stephanie Turner", frFR = "Stephanie Turner", esES = "Stephanie Turner", esMX = "Stephanie Turner", ptBR = "Stephanie Turner", ruRU = "Стефани Тернер" },
+	[6173] = { deDE = "Gazin Tenorm", frFR = "Gazin Tenorm", esES = "Gazin Tenorm", esMX = "Gazin Tenorm", ptBR = "Gazin Tenorm", ruRU = "Газин Тенорм" },
+	[6172] = { deDE = "Henze Faulk", frFR = "Henze Faulk", esES = "Henze Faulk", esMX = "Henze Faulk", ptBR = "Henze Faulk", ruRU = "Хенз Фолк" },
+	[5149] = { deDE = "Brandur Ironhammer", frFR = "Brandur Ironhammer", esES = "Brandur Martiyerro", esMX = "Brandur Martiyerro", ptBR = "Brandur Ferromalho", ruRU = "Брандар Железный Молот" },
+	[6179] = { deDE = "Tiza Battleforge", frFR = "Tiza Battleforge", esES = "Tiza Forjabatalla", esMX = "Tiza Forjabatalla", ptBR = "Tiza Beloforja", ruRU = "Тиза Кузнебой" },
+	[6175] = { deDE = "John Turner", frFR = "John Turner", esES = "John Turner", esMX = "John Turner", ptBR = "João Turner", ruRU = "Джон Тернер" },
+	[6178] = { deDE = "Muiredon Battleforge", frFR = "Muiredon Battleforge", esES = "Muiredon Forjabatalla", esMX = "Muiredon Forjabatalla", ptBR = "Muiredon Beloforja", ruRU = "Майридон Кузнебой" },
+	[6177] = { deDE = "Narm Faulk", frFR = "Narm Faulk", esES = "Narm Faulk", esMX = "Narm Faulk", ptBR = "Narm Faulk", ruRU = "Нарм Фолк" },
+	[6182] = { deDE = "Daphne Stilwell", frFR = "Daphne Stilwell", esES = "Daphne Fontana", esMX = "Daphne Fontana", ptBR = "Dafne Calmafonte", ruRU = "Дафна Стилвелл" },
+	[6181] = { deDE = "Jordan Stilwell", frFR = "Jordan Stilwell", esES = "Jordan Fontana", esMX = "Jordan Fontana", ptBR = "Jardel Calmafonte", ruRU = "Джордан Стилвелл" },
+	[6241] = { deDE = "Bailor Stonehand", frFR = "Bailor Stonehand", esES = "Bailor Petramano", esMX = "Bailor Petramano", ptBR = "Bailor Manopedra", ruRU = "Балор Крепкорук" },
+	[3649] = { deDE = "Thundris Windwirker", frFR = "Thundris Windweaver", esES = "Thundris Tejevientos", esMX = "Thundris Tejevientos", ptBR = "Trovejius Tecevento", ruRU = "Тандрис Ветропряд" },
+	[5491] = { deDE = "Arthur der Treue", frFR = "Arthur le Fidèle", esES = "Arthur el Leal", esMX = "Arthur el Leal", ptBR = "Artur, o Fiel", ruRU = "Артур Верный" },
+	[928] = { deDE = "Lord Grayson Shadowbreaker", frFR = "Seigneur Grayson Shadowbreaker", esES = "Lord Grisillo Quiebrasombras", esMX = "Lord Grisillo Quiebrasombras", ptBR = "Lorde Grayson Quebrassombra", ruRU = "Лорд Грейсон Тенелом" },
+	[10838] = { deDE = "Kommandant Ashlam Valorfist", frFR = "Commandant Ashlam Valorfist", esES = "Comandante Ashlam Puñovalor", esMX = "Comandante Ashlam Puñovalor", ptBR = "Comandante Ashlam Punhobom", ruRU = "Командир Ашлам Отважный Кулак" },
+	[1854] = { deDE = "Hohepriester Thel'danis", frFR = "Grand prêtre Thel'danis", esES = "Sumo Sacerdote Thel'danis", esMX = "Sumo sacerdote Thel'danis", ptBR = "Sumo Sacerdote Thel'danis", ruRU = "Верховный жрец Тель'данис" },
+	[1416] = { deDE = "Grimand Elmore", frFR = "Grimand Elmore", esES = "Grimand Elmore", esMX = "Grimand Elmore", ptBR = "Grimand Elmore", ruRU = "Гриманд Элмор" },
+	[2357] = { deDE = "Merideth Carlson", frFR = "Merideth Carlson", esES = "Merideth Carlson", ptBR = "Judite Castanheira", ruRU = "Меридет Карлсон" },
+	[14566] = { deDE = "Uralter Pferdegeist", frFR = "Ancien esprit équin", esES = "Antiguo espíritu equino", ptBR = "Espírito Equino Antigo", ruRU = "Дух древнего коня" },
+	[14568] = { deDE = "Schattensichels gefallenes Streitross", frFR = "Destrier déchu de Ravassombre", esES = "Arremetedor Atracoscuro", ptBR = "Corcel Caído de Noctilatrus", ruRU = "Падший скакун Темного Терзателя" },
+	[1569] = { deDE = "Schattenpriester Sarvis", frFR = "Prêtre des ombres Sarvis", esES = "Sacerdote de las Sombras Sarvis", esMX = "Sacerdote de las Sombras Sarvis", ptBR = "Sacerdote Sombrio Sarvis", ruRU = "Жрец Тьмы Сарвис" },
+	[244808] = { deDE = "Aramis Hammerhand", frFR = "Aramis Mainmartel", esES = "Aramis Manomartillo", esMX = "Aramis Manomartillo", ptBR = "Aramis Cerramartelo", ruRU = "Арамис Хаммерхенд" },
+	[246152] = { deDE = "Shari Stilwell", frFR = "Shari Morpuits", esES = "Shari Fontana", esMX = "Shari Fontana", ptBR = "Shária Calmafonte", ruRU = "Шари Стилвелл" },
+	[246349] = { deDE = "Brenton Samuels", frFR = "Breton Samuels", esES = "Breton Samuels", esMX = "Breton Samuels", ptBR = "Bretônio Samuel", ruRU = "Бретон Самуэльс" },
+	[246393] = { deDE = "Jorin Croge", frFR = "Jorin Croge", esES = "Jorin Croge", esMX = "Jorin Croge", ptBR = "Jorin Croge", ruRU = "Джорин Крог" },
+	[246378] = { deDE = "Danitha Morr", frFR = "Danitha Morr", esES = "Danitha Morr", esMX = "Danitha Morr", ptBR = "Danitha Morr", ruRU = "Данита Морр" },
+	[10181] = { deDE = "Fürstin Sylvanas Windrunner", frFR = "Dame Sylvanas Windrunner", esES = "Lady Sylvanas Brisaveloz", esMX = "Lady Sylvanas Brisaveloz", ptBR = "Grande Dama Sylvana Correventos", ruRU = "Леди Сильвана Ветрокрылая" },
+	[257648] = { deDE = "Tanis Alderwood", frFR = "Tanis Aulnebois", esES = "Tanis Alderwood", esMX = "Tanis Alisero", ptBR = "Tanis Amieiro", ruRU = "Танис Элдервуд" },
+	[257655] = { deDE = "Todeswache Billmuth", frFR = "Nécrogarde Billmuth", esES = "Guardia de la Muerte Billmuth", esMX = "Guardia de la Muerte Billmuth", ptBR = "Necroguarda Billmuth", ruRU = "Страж смерти Билмут" },
+	[257663] = { deDE = "Todeswache Falgan", frFR = "Nécrogarde Falgan", esES = "Guardia de la Muerte Falgan", esMX = "Guardia de la Muerte Falgan", ptBR = "Necroguarda Falgan", ruRU = "Страж смерти Фалган" },
+	[248840] = { deDE = "Trevan Rol", frFR = "Trevan Rol", esES = "Trevan Rol", esMX = "Trevan Rol", ptBR = "Trevano Rol", ruRU = "Треван Рол" },
+	[259611] = { deDE = "Todeswache Baldren", frFR = "Nécrogarde Baldren", esES = "Guardia de la Muerte Baldren", esMX = "Guardia de la muerte Baldren", ptBR = "Necroguarda Baldreno", ruRU = "Страж смерти Балдрен" },
+	[248755] = { deDE = "Lumina Windsinger", frFR = "Lumina Chantelevent", esES = "Lumina Vientocantor", esMX = "Lumina Vientocantor", ptBR = "Lúmina Cantavento", ruRU = "Люмина Песнь Ветра" },
+	[259620] = { deDE = "Lumina Windsinger", frFR = "Lumina Chantelevent", esES = "Lumina Vientocantor", ruRU = "Люмина Песнь Ветра" },
+	[259649] = { deDE = "Ulric Frostveil", frFR = "Ulric Voile-de-givre", esES = "Ulric Veloescarcha", esMX = "Ulric Veloscarcha", ptBR = "Ulorico Glacivéu", ruRU = "Ульрик Фроствейл" },
+	[3539] = { deDE = "Ott", frFR = "Ott", esES = "Ott", esMX = "Ott", ptBR = "Ott", ruRU = "Отт" },
+	[260093] = { deDE = "Garen Largo", frFR = "Garen Largo", esES = "Garen Largo", esMX = "Garen Largo", ptBR = "Gareno Largo", ruRU = "Гарен Ларго" },
 	[10922] = { deDE = "Greta Mosshoof", frFR = "Greta Mosshoof", esES = "Greta Pezuñamusgo", esMX = "Greta Pezuñamusgo", ptBR = "Greta Musgo no Casco", ruRU = "Грета Замшелое Копыто" },
 	[259023] = { deDE = "Veyric Thunderhame", frFR = "Veyric Hametonne", esES = "Veyric Tronador", esMX = "Veyric Horcatrueno", ptBR = "Veyric Tonitrular", ruRU = "Вейрик Громоцеп" },
 }
@@ -1578,6 +1845,10 @@ local function Step(c)
 		if e.wait then
 			return { kind = "wait", place = e.from, textKey = e.wait, q = e.q }
 		end
+		-- e.item: the quest starts from that item in your bags (paladin tomes, 17 Nov 2026; ItemSparse StartQuestID).
+		if e.item and HaveItem(e.item) then
+			return { kind = "use", place = e.from, item = e.item, q = e.q }
+		end
 		return { kind = "get", place = e.from, q = e.q }
 	end
 	if e.objs and not ObjDone(q) then
@@ -1611,6 +1882,13 @@ local function StepWhat(s)
 	local p = s.place
 	if s.kind == "get" then
 		return ns:L("FCQ_GET_FMT"):format(NpcName(p), Where(p))
+	elseif s.kind == "use" then
+		local name
+		if C_Item and C_Item.GetItemNameByID then
+			local ok, n = pcall(C_Item.GetItemNameByID, s.item)
+			name = ok and n or nil
+		end
+		return ns:L("FCQ_USE_ITEM_FMT"):format(name or ("#" .. tostring(s.item)))
 	elseif s.kind == "do" or s.kind == "wait" then
 		return ns:L(s.textKey) .. (p and (" — " .. Where(p)) or "")
 	end
