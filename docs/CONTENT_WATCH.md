@@ -4840,3 +4840,116 @@ kop, per bevinding MEASURED/INFERRED en [RAAKT ONS]/[RAAKT ONS NIET], met bestan
   — bron: 39× `icy-veins.com/wow/<spec>-pve-<role>-gems-enchants-consumables?nocache=20261116a/b/c`
   (via Exa) · `data/vault_stat_catalog.json`, `data/consumables_wowhead.json` ·
   `tools/check_consumables.py` (faalde, egress-proxy).
+
+- [2026-11-17] 💬 **CurseForge: geen open reacties (3 draadjes, 8 totaal, identiek aan [2026-11-16]).**
+  `curseforge.com/api/v1/mods/1528577/comments?pageIndex=0&pageSize=20&nocache=20261117a` (en `/b`),
+  twee fetches via Exa, volledig gelezen (JSON, `pagination.totalCount: 8`). Dezelfde drie draadjes als
+  gisteren, allemaal beantwoord (nieuwste bericht in elke keten van `twelveinchy`): esES/esMX-locale-fix
+  `8509224` → reply `8510682`; MrsBoojiePanda's debug-printregel `8414729` → reply `8483898`;
+  gadrinonturalyon's coffer-key-shards/3D-boss-model-verzoek `8090710` → reply-keten tot
+  `8095337`/`8092133` — alle ids en timestamps byte-identiek aan [2026-11-16]. MEASURED. **[RAAKT ONS
+  NIET]** — geen actiepunt, geen concept-antwoord nodig.
+
+  — bron: https://www.curseforge.com/api/v1/mods/1528577/comments?pageIndex=0&pageSize=20&nocache=20261117a/b,
+  zelf gelezen via Exa.
+
+- [2026-11-17] 🆕 **Midnight blijft stil (twaalfde dag, nog steeds "November 6, 2026"); Forever heeft
+  een nieuwe hotfixdag ("November 16, 2026") met een camping-feature en een handvol class-/dungeon-/
+  item-/quest-fixes — niets daarvan spreekt een bestaande claim van ons tegen.**
+
+  **Midnight, geen nieuwe sectie.** MEASURED, zelf gelezen via Exa (cache-buster `?nocache=20261117a`):
+  `news.blizzard.com/en-us/article/24307310/hotfixes-november-6-2026` toont nog steeds alleen de secties
+  van 6 en 5 nov (Vashnik/Ula'tek-tuning resp. Tortollan-naam + Shadowguard Point + Venomous
+  Abyss-tuning), allebei al verwerkt op [2026-11-06]/[2026-11-07], inclusief het nog openstaande
+  [RAAKT ONS]-punt daar (Iku/Nama → Epu/Nema in `Locales/RaidTips.lua` e.a. — niet opnieuw als nieuwe
+  bevinding geteld). **Positieve controle, zelfde run:** `worldofwarcraft.blizzard.com/en-us/content-update-notes`
+  (zelfde cache-buster) zegt nu **"10 days ago"** bij die Nov 6-sectie — gepubliceerd 7 nov, dus 7+10=17
+  nov, precies vandaag; geen verstikte cache. Geen nieuwe Delves-, Professions-, Quests- of Items-regel
+  sinds [2026-11-06]/[2026-11-07].
+
+  **Forever: nieuwe sectie "November 16, 2026" (gepubliceerd 17 nov 02:17 UTC), volledig zelf gelezen
+  (eerst via zoek-highlights, daarna de artikelpagina zelf rechtstreeks gefetcht met
+  `?nocache=20261117c` — identieke tekst, dus MEASURED, niet via-search) en tegen de code gezet.**
+  Secties: Camping, Classes (Druid, Balance, Priest, Rogue, Shaman, Enhancement, Warrior/Fury), Dungeons
+  (The Drowned City, Sunken Temple), Items, Player versus PvP, Quests. De "November 13, 2026"-sectie
+  die er onder staat is dezelfde die al volledig verwerkt is op [2026-11-14] (DR tegen stuns, Wild
+  Growth-coëfficiënt, Frost Nova, Judgement of Command, Quick and the Dead, Windfury Totem main-hand,
+  Siphon Life, Berserker Rage/Sap) — niet opnieuw als nieuwe bevinding geteld.
+
+  Per item van de nieuwe Nov 16-sectie tegen `Modules/Forever*.lua`, `Locales/Forever*.lua`,
+  `Locales/enUS.lua` en `docs/forever/*.md` gezet (grep over de hele boom, niet alleen de voor de hand
+  liggende bestanden):
+  - **Camping — Fishing Rack geeft nu lures aan iedereen.** Geen bestaand `/mh`-onderdeel of
+    spelersgerichte tekst over de Fishing Rack: de enige vermelding (`docs/forever/BEROEPEN_2026-11-12.md:108`)
+    is een ongeshipte onderzoeksnotitie, geen Lua-tekst die een speler ziet (`grep -rn "Fishing Rack"
+    Modules/Forever*.lua Locales/Forever*.lua Locales/enUS.lua` → 0 treffers). Komt overeen met wat de
+    blue-post/data-wachter vandaag al zag (commit `1721a59`). MEASURED.
+  - **Druid — Wild Growth-cooldownbug gefixed; Balance — Genesis-talent tilde Pounce's bleed niet
+    goed op.** Wij noemen Wild Growth (toets Shift-2, level 40/50, `ForeverBlock_Druid.lua:39`,
+    `ForeverTrainerData.lua:180,217`) en Pounce (toets V, level 36, `ForeverBlock_Druid.lua:46`,
+    `ForeverHowToPlay.lua:408`) alleen qua toets en level, geen uitspraak over cooldown-gedrag of
+    talent-interacties. MEASURED, bevestigt noch spreekt tegen.
+  - **Priest — Dark Inspiration-stacking gefixed; Vampiric Embrace-genezing nu 10% van Shadow-schade
+    (was 20%), caster krijgt 100% meer genezing (weekly maintenance).** Dark Inspiration staat alleen in
+    onderzoeksnotities (`docs/forever/FOREVER_MAIN_STATS_2026-11-07.md:94`, `FOREVER_PRIEST_2026-11-06.md:158`),
+    niet in een geshipte speler-tekst. Vampiric Embrace noemen wij alleen qua toets/level (Ctrl-3, 25 —
+    `ForeverBlock_Priest.lua:54`, `ForeverHowToPlay.lua:271`), geen genezingsformule. Een percentage-wijziging
+    telt sowieso niet als tegenspraak volgens de eigen regel. MEASURED.
+  - **Rogue — Poison-ranks niet meer boven max; Shank op een doel zonder combo points verwijderde
+    combo points op andere doelen (ook zonder Boot Knife-talent) — gefixed.** Onze Shank-macro-tekst
+    (`FMAC_S_ROGUE_SHANKVENOM`) gaat over gif/Verstommelen kiezen, niet over combo-point-gedrag op
+    andere doelen. MEASURED, geen tegenspraak.
+  - **Shaman — Windfury Totem negeerde armor en had geen interne cooldown; Mutilate/Execute en
+    Shield Slam/Shield Bash/Shieldworn-Holy Strikes konden het ten onrechte extra activeren — allemaal
+    gefixed. Enhancement — Maelstrom Weapon kon twee casts bevoordelen; Thundering Strikes eiste
+    onterecht een wapen voor zijn crit-bonus — gefixed.** Windfury Totem staat bij ons alleen als
+    totembalk-item (`ForeverBlock_Shaman.lua:62`) en trainer-rang/level/id (`ForeverTrainerData.lua:1063,1096,1126`,
+    `ForeverSpellIds.lua:492`), zonder claim over armor, interne cooldown of welke abilities het
+    triggeren. Maelstrom Weapon en Thundering Strikes komen in geen enkel Forever-bestand voor (0
+    treffers; positieve controle in dezelfde scope: "Shank"/"Pounce" gaven wel treffers). MEASURED, geen
+    tegenspraak.
+  - **Warrior/Fury — Unbridled Wrath, Flurry-stacks en Reckless Swings reageerden niet (goed) op Cleave/
+    Heroic Strike — gefixed; Reckless Swings' cooldown-tracking aangepast.** Wij noemen Reckless Swings
+    alleen qua toets/level (Shift-F1, 25 — `ForeverBlock_Warrior.lua:58`, `ForeverHowToPlay.lua:187`),
+    geen uitspraak over Cleave/Heroic Strike-interactie. De cooldown-tracking-aanpassing lijkt eerder iets
+    voor de API-wachter (cooldown manager) dan voor ons — wij claimen er niets over. MEASURED.
+  - **Dungeons — Captain Dreadrise niet langer stun-immuun; "Pyromancer" Braxton reageert nu op combat;
+    Abyssal Bubble kan niet meer blokken/dodgen/parryen (Drowned City); Atal'alarion-slangenstandbeelden
+    in de Pit of Refuse bleven non-interactive bij verkeerde volgorde — gefixed (Sunken Temple).** Wij
+    noemen Captain Dreadrise en Atal'alarion alleen als bazennaam/id in de dungeon-onderzoeksnotitie
+    (`docs/forever/DUNGEONS_2026-11-14.md:393,543`) en, voor Atal'alarion, als questdoel
+    (`Locales/enUS.lua:5493` `FCQ_OBJ_SUNKEN`) — geen uitspraak over stun-immuniteit, combat-gedrag of
+    standbeeld-volgorde. MEASURED, geen tegenspraak.
+  - **Items — Formula: Enchant Boots - Speed nu bind-on-pickup zoals bedoeld; Outrider's Gloves werkt nu
+    goed; The Violet Tragan breekt crowd control niet meer.** Geen van de drie itemnamen komt voor in
+    `Modules/Forever*.lua`, `Locales/Forever*.lua` of `docs/forever/*.md` (0 treffers, zelfde positieve
+    controle als hierboven). MEASURED.
+  - **PvP — doodgaan in Arathi Basin Gold Mine stuurde je naar het verkeerde graveyard.** Wij hebben geen
+    PvP-onderdeel voor Forever (geen `FPVP_`-sleutelprefix in `Locales/enUS.lua`). MEASURED, buiten onze
+    scope.
+  - **Quests — Blood Red Bandanas-droprate omhoog; Witch Doctor Zum'rah-spawnbug bij "The Talisman of
+    Kazdor"; "No Soldier Left Behind" nu partijbreed; Vale Screamers verplaatst naar Isle of Dread voor
+    "Screecher Spirits"; "Water Pouch Bounty" geeft geen XP meer; "The Return of the King?" (Theramore)
+    kon vastlopen — gefixed.** Zum'rah staat bij ons alleen als Sunken-Temple-bazenlijst-item
+    (`docs/forever/DUNGEONS_2026-11-14.md:485`), "Screecher Spirits" alleen met de coördinaten van de
+    questgever Yeh'kinya (niet van de Vale Screamers zelf, `DUNGEONS_2026-11-14.md:493,556,644`) —
+    beide puur informatief, geen claim die deze fixes tegenspreken. "Talisman of Kazdor", "Vale
+    Screamer", "Water Pouch Bounty", "Return of the King" en "Theramore"-quest komen in geen Forever-
+    bestand voor als functionele claim (0 treffers; positieve controle in dezelfde scope: "Zul'Farrak"
+    en "Screecher Spirits" gaven wel treffers). MEASURED.
+
+  **[RAAKT ONS NIET]** voor alle bovenstaande — geen actiepunt, een mens beslist als hij het toch anders
+  wil.
+
+  — bron: https://news.blizzard.com/en-us/article/24307310/hotfixes-november-6-2026?nocache=20261117a ·
+  https://worldofwarcraft.blizzard.com/en-us/content-update-notes?nocache=20261117a ·
+  https://news.blizzard.com/en-us/feed/world-of-warcraft?nocache=20261117a ·
+  https://news.blizzard.com/en-us/article/24315281/wow-forever-hotfixes-november-16-2026?nocache=20261117c
+  (alle rechtstreeks via Exa gelezen) · codebase: `Modules/ForeverBlock_Druid.lua`,
+  `Modules/ForeverBlock_Priest.lua`, `Modules/ForeverBlock_Rogue.lua`, `Modules/ForeverBlock_Shaman.lua`,
+  `Modules/ForeverBlock_Warrior.lua`, `Modules/ForeverHowToPlay.lua`, `Modules/ForeverMacros.lua`,
+  `Modules/ForeverSpellIds.lua`, `Modules/ForeverTrainerData.lua`, `Locales/enUS.lua`,
+  `docs/forever/DUNGEONS_2026-11-14.md`, `docs/forever/BEROEPEN_2026-11-12.md`,
+  `docs/forever/FOREVER_MAIN_STATS_2026-11-07.md`, `docs/forever/FOREVER_PRIEST_2026-11-06.md` (alle
+  vandaag bekeken). Vandaag is dinsdag, geen maandag: de kaarten- en consumables-secties zijn opzettelijk
+  weggelaten.
