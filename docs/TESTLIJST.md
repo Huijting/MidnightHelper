@@ -83,6 +83,16 @@ Warlock, `/reload`. Alles komt uit Zygor, Wowhead en de addon Spoken; niets is i
 - [ ] Level 20+: Succubus én Incubus (je kunt ze allebei halen). `/mh play` → "Your class quests" toont ze apart.
 - [ ] Level 30+: Felhunter (Strahad Farsan in Ratchet). Level 40+: Felsteed. Level 60: Dreadsteed.
 - [ ] Troll-warlock op 20, 30 en 40: biedt Orgrimmar je de quest echt aan? (Wowhead noemt alleen Orc en Undead.)
+      📝 17 nov: MH stuurt een troll daar nu NIET meer heen (keuze bouwchat na de Fable-controle). Zie je de quest wel,
+      zeg het: dan zetten we het terug. `/mh classquest` met een troll van 20+ helpt.
+- [ ] Warlock 50: Inferno via Niby the Almighty en Impsy (Felwood). Ritual of Doom (60) staat er nog niet in.
+- [ ] Dreadsteed (60): heb je bij Mor'zul drie quests tegelijk, dan noemt "Do this now" ze één voor één (eerst de
+      elixirs). Pas als alle drie ingeleverd zijn, komt Arcanite.
+- [ ] Twijfels (Fable-controle): geeft Martha Strain (Undercity) de Dreadsteed-start, of alleen Kurgul? Valt de Withered
+      Scarf echt ongeveer 1 op 20? Avelina's/Isaac's Heart: moet je iemand verslaan? Moet je voor Lord Banehollow een
+      Shadowy Potion drinken?
+- [ ] Item-ketens (wapens, sieraden) verdwijnen uit "Do this now" als je meer dan 10 levels voorbij hun start bent;
+      `/mh classquest` zegt dan waarom. Voelt 10 goed?
 - [ ] Duitse/Franse/Spaanse/… client: NPC-namen in je eigen taal (stap-teksten nog Engels, vertaling volgt).
 - [ ] `/mh classquest`: per quest "done / in log / complete". Klopt dat met je questlog?
 

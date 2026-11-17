@@ -42,6 +42,7 @@ ns.FOREVER_QUEST_FIRST = {
 	[1277455] = true, [1277462] = true, [9035] = true, [18137] = true, [2652] = true, [1277324] = true, -- spells (10/20)
 	[8071] = true, [3599] = true, [5394] = true, -- Shaman: Stoneskin (4), Searing (10), Healing Stream Totem (20)
 	[688] = true, [697] = true, [712] = true, [713] = true, [691] = true, -- Warlock: Imp, Voidwalker, Succubus, Incubus, Felhunter
+	[1122] = true, [18540] = true, -- Warlock: Inferno (7603) and Ritual of Doom (7583); Wowhead Forever, Fable check 17 Nov 2026
 	[5487] = true, [6795] = true, [6807] = true, -- Druid: Bear Form, Growl, Maul (10)
 	[8946] = true, -- Druid: Cure Poison (14, quest 6125/6130 "Power over Poison"; Wowhead Forever, mh-research 16 Nov 2026)
 	[1066] = true, -- Druid: Aquatic Form (16)

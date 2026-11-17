@@ -237,8 +237,9 @@ table.insert(CHAINS.DRUID, Torwa("Horde", P.turak))
 	AFGELEID: incubus = spell 713; 65602 is given by Takar; Orc/Troll take the Orgrimmar routes (the Wowhead record says
 	"Orc, Undead" for most of them, the guides say trolls walk Orgrimmar); the Dreadsteed order below (a choice; the
 	guides take 7623 early, then the arrow jumps to Banehollow while 7626-7628 are still open: still a valid place).
-	No Skyborne warlock (DB2 CharBaseInfo). Inferno and Ritual of Doom: no quest found (trainer). Not built yet: the item
-	chains Shard of the Green Flame (7601-7603) and An Imp's Request (8419-8422). Coordinates: HandyNotes for trainers,
+	No Skyborne warlock (DB2 CharBaseInfo). CORRECTED 17 Nov 2026 (Fable check, Sparring 17-11): Inferno 1122 IS a quest
+	reward (7603, built below as WlInferno) and Ritual of Doom 18540 too (7583 "Suppression", after 7581/7582, Daio the
+	Decrepit: NOT built yet, givers and places not measured). Not built: An Imp's Request (8419-8422). Coordinates: HandyNotes for trainers,
 	else Zygor, else Wowhead/Questie pins; Stormwind uses the 39.x set (the 25.x Wowhead set is another map space). ]]
 local WL_P = {
 	drusilla = { npc = "Drusilla La Salle", id = 459, m = 1429, x = 49.69, y = 42.65 },
@@ -276,6 +277,13 @@ local WL_P = {
 	gorzeeki = { npc = "Gorzeeki Wildeyes", id = 14437, m = 1428, x = 12.43, y = 31.63 },
 	banehollow = { npc = "Lord Banehollow", id = 9516, m = 1448, x = 35.93, y = 44.41 },
 	urdan = { m = 1448, x = 36.17, y = 44.46 },
+	-- Inferno chain (facts file §7a/§8, Zygor A).
+	niby = { npc = "Niby the Almighty", id = 14469, m = 1448, x = 41.38, y = 44.86 },
+	impsy = { npc = "Impsy", id = 14470, m = 1448, x = 41.36, y = 45.02 },
+	essAzshara = { m = 1447, x = 52.03, y = 18.65 },
+	essJaedenar = { m = 1448, x = 36.25, y = 55.94 },
+	essBlasted = { m = 1419, x = 61.32, y = 54.18 },
+	kroshius = { m = 1448, x = 45.73, y = 34.81 },
 	-- The spirit has no spawn on Wowhead; the arrow points at the Dire Maul West door (ZH 25438, AFGELEID).
 	dreadsteedSpirit = { npc = "Dreadsteed Spirit", id = 14504, m = 1444, x = 60.32, y = 30.16 },
 	-- Objective places (no NPC).
@@ -306,6 +314,10 @@ local WL_P = {
 
 local HUM, GNO = { Human = true }, { Gnome = true }
 local ORCTROLL, UD = { Orc = true, Troll = true }, { Scourge = true }
+-- Warlock 20/30/40 (succubus, incubus, felhunter, felsteed): the Wowhead Forever record lists only Orc + Undead for
+-- 1507-1513, 2996/3001/1801 and 3631/4489 (Fable check 17 Nov 2026); guides say trolls walk Orgrimmar. Not proven
+-- either way, so a troll is NOT sent there (silence beats a wrong trip). Bouwchat choice, Rob may reverse; TESTLIJST.
+local WL_ORC = { Orc = true }
 local W = WL_P
 
 local function WlVoid(faction, races, first, steps)
@@ -344,24 +356,47 @@ local function WlFelsteed(faction, races, q, alt, trainer)
 	}
 end
 
--- Dreadsteed (60): 7562 from the race's demon trainer, then one line (order AFGELEID, see the header).
+-- Dreadsteed (60): 7562 from the race's demon trainer. Quests run side by side (Mor'zul gives 7626, 7627, 7628 at once;
+-- 7623 can be taken early), so the chain is strict: the first quest in your log comes first, otherwise the first one
+-- whose `needs` are done. The needs are AFGELEID from the Questie Forever data + warcraft.wiki (Classic data): 7630 after
+-- 7626-7628, 7629 after 7625, 7631 after 7629 and 7630 (Fable check, Sparring 17-11).
 local function WlDreadsteed(faction, races, starter)
 	return {
-		key = "dreadsteed", spell = 23161, level = 60, faction = faction, races = races,
+		key = "dreadsteed", spell = 23161, level = 60, faction = faction, races = races, strict = true,
 		quests = {
 			{ q = 7562, from = starter, to = W.morzul },
-			{ q = 7563, from = W.morzul, objs = { O(W.owlbeasts, "FCQ_OBJ_WL_BEASTBLOOD", 1) }, to = W.morzul },
-			{ q = 7564, from = W.morzul, to = W.gorzeeki },
-			{ q = 7626, from = W.morzul, objs = { O(nil, "FCQ_OBJ_WL_ELIXIR", 1) }, to = W.gorzeeki },
-			{ q = 7627, from = W.morzul, objs = { O(nil, "FCQ_OBJ_WL_SHARDS", 1), O(nil, "FCQ_OBJ_WL_IRONORE", 2) }, to = W.gorzeeki },
-			{ q = 7628, from = W.morzul, objs = { O(nil, "FCQ_OBJ_WL_DRAGONSCALE", 1) }, to = W.gorzeeki },
-			{ q = 7630, from = W.gorzeeki, objs = { O(nil, "FCQ_OBJ_WL_ARCANITE", 1) }, to = W.gorzeeki },
-			{ q = 7623, from = W.gorzeeki, to = W.banehollow },
-			{ q = 7624, from = W.banehollow, objs = { O(W.ulathek, "FCQ_OBJ_WL_ULATHEK", 1) }, to = W.banehollow },
-			{ q = 7625, from = W.banehollow, objs = { O(W.urdan, "FCQ_OBJ_WL_STARDUST", 1) }, to = W.gorzeeki },
-			{ q = 7629, from = W.gorzeeki, objs = { O(nil, "FCQ_OBJ_WL_IMPJAR", 1) }, to = W.gorzeeki },
+			{ q = 7563, needs = { 7562 }, from = W.morzul, objs = { O(W.owlbeasts, "FCQ_OBJ_WL_BEASTBLOOD", 1) }, to = W.morzul },
+			{ q = 7564, needs = { 7563 }, from = W.morzul, to = W.gorzeeki },
+			{ q = 7626, needs = { 7564 }, from = W.morzul, objs = { O(nil, "FCQ_OBJ_WL_ELIXIR", 1) }, to = W.gorzeeki },
+			{ q = 7627, needs = { 7564 }, from = W.morzul, objs = { O(nil, "FCQ_OBJ_WL_SHARDS", 1), O(nil, "FCQ_OBJ_WL_IRONORE", 2) },
+				to = W.gorzeeki },
+			{ q = 7628, needs = { 7564 }, from = W.morzul, objs = { O(nil, "FCQ_OBJ_WL_DRAGONSCALE", 1) }, to = W.gorzeeki },
+			{ q = 7630, needs = { 7626, 7627, 7628 }, from = W.gorzeeki, objs = { O(nil, "FCQ_OBJ_WL_ARCANITE", 1) }, to = W.gorzeeki },
+			{ q = 7623, needs = { 7564 }, from = W.gorzeeki, to = W.banehollow },
+			{ q = 7624, needs = { 7623 }, from = W.banehollow, objs = { O(W.ulathek, "FCQ_OBJ_WL_ULATHEK", 1) }, to = W.banehollow },
+			{ q = 7625, needs = { 7624 }, from = W.banehollow, objs = { O(W.urdan, "FCQ_OBJ_WL_STARDUST", 1) }, to = W.gorzeeki },
+			{ q = 7629, needs = { 7625 }, from = W.gorzeeki, objs = { O(nil, "FCQ_OBJ_WL_IMPJAR", 1) }, to = W.gorzeeki },
 			-- Objective 1 = defeat the Xorothian Dreadsteed (14502): AFGELEID (the tooltip shows no objective).
-			{ q = 7631, from = W.morzul, objs = { O(W.dreadsteedSpirit, "FCQ_OBJ_WL_RITUAL", 1) }, to = W.dreadsteedSpirit },
+			{ q = 7631, needs = { 7629, 7630 }, from = W.morzul, objs = { O(W.dreadsteedSpirit, "FCQ_OBJ_WL_RITUAL", 1) },
+				to = W.dreadsteedSpirit },
+		},
+	}
+end
+
+-- Inferno 1122 (50): reward of 7603 Kroshius' Infernal Core (Wowhead Forever 7603, Fable check 17 Nov 2026). Chain
+-- 7601 → 7602 → 7603 from Niby and Impsy in Felwood (facts file §7a, Zygor A 24083-24190). The quest also gives the
+-- Shard of the Green Flame. Same for both factions.
+local function WlInferno(faction)
+	return {
+		key = "inferno", spell = 1122, level = 50, faction = faction,
+		quests = {
+			{ q = 7601, from = W.niby, to = W.impsy },
+			{ q = 7602, from = W.impsy, objs = {
+				O(W.essAzshara, "FCQ_OBJ_WL_ESS_AZSHARA", 1),
+				O(W.essJaedenar, "FCQ_OBJ_WL_ESS_JAEDENAR", 2),
+				O(W.essBlasted, "FCQ_OBJ_WL_ESS_PORTAL", 3),
+			}, to = W.impsy },
+			{ q = 7603, from = W.impsy, objs = { O(W.kroshius, "FCQ_OBJ_WL_KROSHIUS", 1) }, to = W.niby },
 		},
 	}
 end
@@ -396,7 +431,7 @@ CHAINS.WARLOCK = {
 		{ q = 1716, from = W.gakin, to = W.takar },
 		{ q = 65602, from = W.takar, objs = { O(W.figurine, "FCQ_OBJ_WL_FIGURINE", 1) }, to = W.gakin },
 		{ q = 65603, from = W.gakin, objs = { O(W.circleSW, "FCQ_OBJ_WL_BIND_INC", 1) }, to = W.gakin } } },
-	{ key = "succubus", spell = 712, level = 20, faction = "Horde", races = ORCTROLL, quests = {
+	{ key = "succubus", spell = 712, level = 20, faction = "Horde", races = WL_ORC, quests = {
 		{ q = 1507, from = W.ganrul, to = W.cazul },
 		{ q = 1508, from = W.cazul, to = W.zankaja },
 		{ q = 1509, from = W.zankaja, to = W.gazrog },
@@ -405,7 +440,7 @@ CHAINS.WARLOCK = {
 		{ q = 1515, from = W.logmar, to = W.dogran },
 		{ q = 1512, from = W.dogran, to = W.ganrul },
 		{ q = 1513, from = W.ganrul, objs = { O(W.circleOrg, "FCQ_OBJ_WL_BIND_SUCC", 1) }, to = W.ganrul } } },
-	{ key = "incubus", spell = 713, level = 20, faction = "Horde", races = ORCTROLL, quests = {
+	{ key = "incubus", spell = 713, level = 20, faction = "Horde", races = WL_ORC, quests = {
 		{ q = 1507, from = W.ganrul, to = W.cazul },
 		{ q = 65601, from = W.cazul, to = W.magar },
 		{ q = 65610, from = W.magar, objs = { O(W.scarf, "FCQ_OBJ_WL_SCARF", 1) }, to = W.ganrul },
@@ -420,14 +455,17 @@ CHAINS.WARLOCK = {
 		{ q = 65597, from = W.carendin, objs = { O(W.circleUC, "FCQ_OBJ_WL_BIND_INC", 1) }, to = W.carendin } } },
 	-- Felhunter (30): 2996 and 3001 exclude each other, so each is the other's alt.
 	WlFelhunter("Alliance", nil, { q = 1798, from = W.gakin, to = W.strahad }, W.krom, { 1758, 1802 }, 1804),
-	WlFelhunter("Horde", ORCTROLL, { q = 2996, alt = { 3001 }, from = W.ganrul, to = W.strahad }, W.jorah, { 1801, 1803 }, 1805),
+	WlFelhunter("Horde", WL_ORC, { q = 2996, alt = { 3001 }, from = W.ganrul, to = W.strahad }, W.jorah, { 1801, 1803 }, 1805),
 	WlFelhunter("Horde", UD, { q = 3001, alt = { 2996 }, from = W.carendin, to = W.strahad }, W.jorah, { 1801, 1803 }, 1805),
 	-- Felsteed (40): one starter per race (they exclude each other), then 4490 at Strahad. In Forever the Felsteed is also
 	-- a collection mount: whether the spell check sees it = NOT measured; the chain also ends once 4490 is done.
 	WlFelsteed("Alliance", HUM, 4488, { 4487 }, W.demisette),
 	WlFelsteed("Alliance", GNO, 4487, { 4488 }, W.briarthorn),
-	WlFelsteed("Horde", ORCTROLL, 3631, { 4489 }, W.zevrost),
+	WlFelsteed("Horde", WL_ORC, 3631, { 4489 }, W.zevrost),
 	WlFelsteed("Horde", UD, 4489, { 3631 }, W.kaal),
+	-- Inferno (50)
+	WlInferno("Alliance"),
+	WlInferno("Horde"),
 	-- Dreadsteed (60)
 	WlDreadsteed("Alliance", HUM, W.spackle),
 	WlDreadsteed("Alliance", GNO, W.jubahl),
@@ -1195,6 +1233,8 @@ local NPC_NAMES = {
 	[14436] = { deDE = "Mor'zul Bloodbringer", frFR = "Mor'zul Bloodbringer", esES = "Mor'zul Sangredoble", esMX = "Mor'zul Sangredoble", ptBR = "Mor'zul Trazangre", ruRU = "Мор'зул Кровопуск" },
 	[14437] = { deDE = "Gorzeeki Wildeyes", frFR = "Gorzeeki Wildeyes", esES = "Gorzeeki Ojosalvajes", esMX = "Gorzeeki Ojovago", ptBR = "Gorzeeki Olholouco", ruRU = "Горзиеки Дикоглаз" },
 	[9516] = { deDE = "Lord Banehollow", frFR = "Seigneur Banehollow", esES = "Lord Pesadilla", ptBR = "Lorde Nihilus", ruRU = "Лорд Гиблопуст" },
+	[14469] = { deDE = "Niby der Allmächtige", frFR = "Niby le Tout-puissant", esES = "Niby el Todopoderoso", esMX = "Niby el Todopoderoso", ptBR = "Niby, o Todo-poderoso", ruRU = "Ниби Всемогущий" },
+	[14470] = { deDE = "Impsy", frFR = "Démonet", esES = "Diblis", ptBR = "Diabretim", ruRU = "Бесенок" },
 	[14504] = { deDE = "Schreckensrossgeist", frFR = "Esprit de Destrier de l'effroi", esES = "Espíritu Corcelorror", ptBR = "Espírito de Corcel Medonho", ruRU = "Дух коня погибели" },
 	-- Warrior (17 Nov 2026, mh-research, same way; second source Spoken agreed where both had a name). 6236 esMX: not measured.
 	[913] = { deDE = "Lyria Du Lac", frFR = "Lyria Du Lac", esES = "Lyria Du Lac", esMX = "Lyria Du Lac", ptBR = "Lyria Du Lac", ruRU = "Лирия дю Лак" },
@@ -1366,9 +1406,33 @@ local function Ready(c, level)
 end
 
 --- Where you are in a chain: step = { kind = "get"/"do"/"turn", place (may be nil), textKey, q }, or nil + why.
-local function Step(c)
-	if c.spell and Known(c.spell) then
-		return nil, "spell known"
+--- Every quest in e.needs is done (strict chains only).
+local function NeedsMet(e)
+	for _, n in ipairs(e.needs or {}) do
+		if not Done(n) then
+			return false
+		end
+	end
+	return true
+end
+
+--- The quest a chain is at. Normal chains: the LAST quest that is done or in the log decides (so a skipped pickup
+--- does not send you back). c.strict (17 Nov 2026, warlock Dreadsteed, found by the Fable check of Sparring 17-11):
+--- quests run side by side (three from Mor'zul at once) and some wait for several others. There the first quest of the
+--- table that is in your log comes first; otherwise the first one not done whose `needs` are all done.
+local function Current(c)
+	if c.strict then
+		for _, e in ipairs(c.quests) do
+			if not AnyDone(e) and LogQuest(e) then
+				return e
+			end
+		end
+		for _, e in ipairs(c.quests) do
+			if not AnyDone(e) and NeedsMet(e) then
+				return e
+			end
+		end
+		return nil
 	end
 	local last = 0
 	for i, e in ipairs(c.quests) do
@@ -1380,7 +1444,14 @@ local function Step(c)
 	while c.quests[i] and AnyDone(c.quests[i]) do
 		i = i + 1
 	end
-	local e = c.quests[i]
+	return c.quests[i]
+end
+
+local function Step(c)
+	if c.spell and Known(c.spell) then
+		return nil, "spell known"
+	end
+	local e = Current(c)
 	if not e then
 		return nil, "all quests done"
 	end
@@ -1435,13 +1506,32 @@ local function StepText(c, s)
 end
 
 --- For "Do this now": the line for the first chain you can do now, and its step (for the arrow).
+-- An item chain (no spell: a weapon, a trinket) is optional. 17 Nov 2026 (Sparring 17-11, a read-only check): one
+-- that is skipped would sit on top of "Do this now" for ever. So spell chains come first, and an item chain only
+-- shows until this many levels above its start (its reward is outgrown by then; AFGELEID, Rob may change the number).
+local ITEM_CHAIN_SPAN = 10
+
+--- Why a chain is (not) shown in "Do this now"; nil = it can be shown.
+local function NowSkip(c, level)
+	if not Ready(c, level) then
+		return "not open yet"
+	end
+	if not c.spell and level > c.level + ITEM_CHAIN_SPAN then
+		return ("item chain, you are more than %d levels past it"):format(ITEM_CHAIN_SPAN)
+	end
+	return nil
+end
+
 function ns.ForeverClassQuestNow()
 	local level = UnitLevel and UnitLevel("player") or 1
-	for _, c in ipairs(MyChains()) do
-		if Ready(c, level) then
-			local s = Step(c)
-			if s then
-				return StepText(c, s), s
+	local chains = MyChains()
+	for pass = 1, 2 do
+		for _, c in ipairs(chains) do
+			if (pass == 1) == (c.spell ~= nil) and not NowSkip(c, level) then
+				local s = Step(c)
+				if s then
+					return StepText(c, s), s
+				end
 			end
 		end
 	end
@@ -1480,10 +1570,13 @@ function ns.ForeverClassQuestSlash(arg)
 	local chains = MyChains()
 	print(PREFIX .. ("class quests: %d chain(s) for your class and faction; level %s"):format(#chains,
 		tostring(UnitLevel and UnitLevel("player"))))
+	local level = UnitLevel and UnitLevel("player") or 1
 	for _, c in ipairs(chains) do
 		local s, why = Step(c)
-		print(("  %s (level %d, spell %s known: %s): %s"):format(ChainName(c), c.level, tostring(c.spell),
-			c.spell and tostring(Known(c.spell)) or "-", s and (s.kind .. " quest " .. s.q) or why))
+		local skip = NowSkip(c, level)
+		print(("  %s (level %d, spell %s known: %s): %s%s"):format(ChainName(c), c.level, tostring(c.spell),
+			c.spell and tostring(Known(c.spell)) or "-", s and (s.kind .. " quest " .. s.q) or why,
+			skip and (" — not in Do this now: " .. skip) or ""))
 		for _, e in ipairs(c.quests) do
 			local q = LogQuest(e) or e.q
 			local objs = {}

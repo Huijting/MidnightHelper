@@ -47,6 +47,17 @@
   Windshaper nieuw), Elemental Mastery 52 Horde. Nieuw in de module: `obj` op een plek (vuurpot/altaar als gever) +
   `OBJ_NAMES` per taal. ptBR 251374 bewust weggelaten (Wowhead "Moldavento" kapot). Feiten
   `docs/forever/SHAMAN_CLASSQUESTS_2026-11-17.md`. fcq_check 405.721 runs 0 fouten, 171 sleutels.
+- 🔍 **Warlock nagekeken door Fable** (sparring, alleen lezen; id's/gevers/levels/plekken/indexen/namen kloppen) →
+  GEREPAREERD: (1) Inferno 1122 = beloning 7603 → keten WlInferno (7601-7603, Niby/Impsy) gebouwd, 1122 + 18540 in
+  FOREVER_QUEST_FIRST; Ritual of Doom 7581-7583 (Daio) NIET gebouwd, gevers/plekken niet gemeten (open). (2) Figurine-
+  tekst met de kar-stap. (3) Dreadsteed: nieuwe `strict`-ketens + `needs` per quest (`Current()`): eerst wat in je log
+  staat, anders de eerste quest waarvan alle voorgangers af zijn (needs AFGELEID uit Questie/warcraft.wiki). (4) Troll
+  niet meer naar Orgrimmar op 20/30/40 (`WL_ORC`; keuze, Rob mag omdraaien). Ook: Ulathek-coördinaat uit de tekst, nlNL
+  "uilbeesten" → Owlbeasts. Twijfels in TESTLIJST.
+- 🔍 **Uit sparrings wapenquest-onderzoek**: Bhossca = een ZWAARD (Ruby-Adorned Blade 277246), tekst en/nl gerepareerd.
+  En: een overgeslagen item-keten bleef bovenaan "Do this now" → `ForeverClassQuestNow` doet nu eerst spell-ketens, dan
+  item-ketens, en een item-keten alleen t/m 10 levels na zijn start (`ITEM_CHAIN_SPAN`, AFGELEID); `/mh classquest` print
+  de reden ("not in Do this now: …"). fcq_check 411.391 runs, 0 fouten, 175 sleutels.
 - 🧪 **Nieuw hulpmiddel `run fcq_check`** (`tools/fcq_check.py` + `.lua`): laadt ForeverClassQuests.lua met nep-spelfuncties,
   loopt 9 classes × 10 rassen × levels 1-60 × alle queststanden, en checkt dat elke FCQ_-sleutel in enUS + nlNL staat.
   GEMETEN 17 nov: 149.941 runs, 0 fouten, 86 sleutels, controle OK. Bewijst dat de code draait, niet dat id's kloppen.

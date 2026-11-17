@@ -26,6 +26,15 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 
 ## Open — wacht op Rob
 
+### Forever: elke class een wapenquest op het juiste level (NOG GEEN JA)
+- Bron: Rob 17 nov (via Sparring 17-11): idee *"Elk class krijgt op een bepaald level een quest ... voor een bepaald
+  wapen"*. Onderzocht (sparring, alleen gelezen): 8/9 classes hebben wapenquests; de level-52 Sunken Temple-ronde geeft
+  7/9 een wapen (niet warrior/rogue); vroege toppers Whirlwind 30, Verigan's Fist 20 (A), Wolfsbane 20-26 (Undead pal,
+  nieuw), Shaman Tempest 30 (nieuw), Mage's Wand 30, Staff of Soran'ruk 1740 (20-25).
+- Voorstel: reward-itemids + optional-vlag in ForeverClassQuests, melding bij level-up (schakelaar), stoppen bij beter
+  wapen of ver boven het level (de eerste stap daarvan, `ITEM_CHAIN_SPAN` = 10, staat er al sinds 17 nov), koppeling
+  ForeverWeapons. Spel: F. ⏳ Rob kiest.
+
 ### Uit de vragenlijst (echte spelers) — naast de toets gelegd, 10 nov
 
 **Uitkomst: drie van de vijf wensen zijn al gebouwd.** GEMETEN in de code (niet in het spel). Ze staan nu onder "Af".
@@ -164,6 +173,19 @@ gebruiken."* Uitslag (bouwchat 15-11, alleen op main, NIET in het spel gezien):
 
 Hier komt wat Rob goedkeurt, ook wat hij rechtstreeks in de bouwchat vraagt (Rob, 10 nov: *"ja we willen het op 1
 lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met de commit erbij. Na zijn test naar **Af**.
+
+### Forever: Kamperen (kampvuur + kampobjecten) uitleggen en helpen
+- Bron: Rob 17 nov (via Sparring 17-11), letterlijk: *"We hebben tegenwoordig kampvuurs waarbij je allerlei power-ups,
+  hoe noem je dat, tijdelijke buffs kan krijgen. Onder andere bij een campchair, een sharpening wheel, incense candle,
+  manual, lodestone en fishbowl. Daar hebben we volgens mij ook helemaal niks over. Ik denk dat we meer informatie kunnen
+  geven, zeker als helper zijnde."* Op het onderzoek: *"Ja, het zal vast mana wel zijn. En dat kampvuuridee moeten we ook
+  gaan bouwen."* ("manual" = Mana Well.)
+- Volgorde: NA de classes (stap 3 + de Fable-fixes). Spel: F. Voor wie: N + V.
+- Stand: onderzocht door mh-research (sparring, 17 nov; bronnen + feiten staan in het sparring-bericht, nog over te zetten
+  naar `docs/forever/CAMPING_…md`). Voorstel (details keuze bouwchat, spelers kiezen via schakelaars): uitlegkaart
+  "Kamperen" (ForeverProfGuide versie B), "Do this now" ga 1 minuut zitten, hint beroep ≥20 zonder kamprecept, tooltip op
+  kampobjecten, opt-in herinnering "geen kampbuff", `/mh camp`-diagnose, clientnamen per taal meten. Eerste test voor Rob:
+  zijn de auras 1229741 / 1283391 leesbaar. NOG NIETS GEBOUWD.
 
 ### 📅 Werkafspraak: woensdag = Midnight-dag (vanaf wo 18 nov 2026)
 Rob, 15 nov (via Sparring 15-11, letterlijk): *"Ja, pak de woensdag maar voor de midnight."* Aanleiding (Rob): *"de
