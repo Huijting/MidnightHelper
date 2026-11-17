@@ -14,6 +14,12 @@
   modifiers in de tekst, en per combinatie "free" of "taken by <binding>"; schrijft `ns.db.foreverMacroKeysProbe`.
   Lint 0 HARD, luac OK. NIET in het spel gezien (TESTLIJST 17 nov). Na Robs meting: melding in het macrovenster +
   eventueel schakelaar welke modifier (nooit blok- of andere-addon-toetsen losmaken).
+- 🔎 **MEETKLUS (sparring, zegen-onderzoek 17 nov), NIET blind wijzigen**: ForeverBlock_Paladin.lua:47-49 zet de
+  zegen-paren als `[group] Greater X; X`, en ForeverBlock.lua:269-270 maakt daar `[@mouseover,help,nodead,group][group]
+  Greater X; [@mouseover,help,nodead][] X` van. `[group]` kijkt naar JOU (warcraft.wiki, AFGELEID), dus in een groep +
+  mouseover op een voorbijganger gaat de Greater-versie (kost Symbol of Kings 21177) naar een vreemde. Speelt pas vanaf
+  52 (Greater Might 25782). Meten: is `[@mouseover,raid]`/party-check op het DOEL waar voor partyleden, en blijft de
+  macro onder 255 tekens? GEMETEN: geen Forever-tekst noemt Salvation/Sanctuary/Light (grep, controle Might 29 treffers).
 - 🎨 **Rondes 3-4 van A** (sparring-screenshots): class-quest-kaart met tooltip per regel, tips 3 regels, rank op de
   tweede regel in Binnenkort. Rob: *"alle tooltips komen netjes, wauw"*; Redemption-pijl volgt de keten (Rob bevestigd).
   🏰 **Hall of Thanes voor Horde** (Rob koos c via sparring: *"Ik volg jouw advies."*): ForeverDungeons `cityOf =

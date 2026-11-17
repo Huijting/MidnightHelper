@@ -38,6 +38,13 @@ Open `/mh macros`, klik "Maak" bij een nieuwe rij, sleep de macro naar een balk 
       Rogue level 6+: typ `/dump IsPlayerSpell(1752), IsSpellKnown(1752)` en zeg wat er staat (rank-vraag).
 - [ ] Shaman: Resurrect, Fire Totem (Ctrl = Magma, 26). Paladin: Resurrect.
 
+## 🔎 17 nov — Forever paladin 52+: Greater Blessing via mouseover op een vreemde? (meetklus)
+
+Pas vanaf level 52 (Greater Blessing of Might). Niets veranderd; eerst meten.
+- [ ] In een groep, muis op een voorbijganger die NIET in je groep zit, druk Shift+Z (blok): krijgt hij Greater
+      Blessing of Might (kost een Symbol of Kings) of de gewone? Gewone = goed; Greater = fout.
+- [ ] Zelfde, muis op een groepslid: Greater is dan goed.
+
 ## 🎨 17 nov (ronde 4) — Forever: ontwerp A, afgekapte teksten (`/mh overview`)
 
 - [ ] Binnenkort is weer breder; de rank staat op de tweede regel ("level 18 · Rank 3"), de naam past.
