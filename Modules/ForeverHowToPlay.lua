@@ -1162,6 +1162,67 @@ local function RolesText(token)
 	return table.concat(parts, "\n\n"), #others > 0
 end
 
+--- 17 Nov 2026 (the overview's How you play page, ForeverOverview.lua): the same content as this window, as separate
+--- sections so the page can show headings and a table of contents. Class quests, Camping and Legacy Points are left
+--- out: they have their own tabs there. Bodies are raw (**bold**, "- " lines, colour codes from the direction block).
+--- @return list of { title, body, kind = "dir"|"role"|"folded"|"class"|"note"|"common" }, hasFolded (other roles exist)
+function ns.ForeverHowToSections(token, allRoles)
+	local out = {}
+	local block = ns.ForeverDirectionBlock and ns.ForeverDirectionBlock()
+	if block then
+		local first, rest = block:match("^([^\n]*)\n?(.*)$")
+		out[#out + 1] = { title = (first:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", "")), body = rest, kind = "dir" }
+	end
+	local tr = Translated()
+	local list = (tr and tr.ROLES and tr.ROLES[token]) or ROLES[token] or {}
+	local band = ns.GetForeverDirection and ns.GetForeverDirection()
+	local mine, others = {}, {}
+	for _, r in ipairs(list) do
+		if band and r.band == band then
+			mine[#mine + 1] = r
+		else
+			others[#others + 1] = r
+		end
+	end
+	for _, r in ipairs(mine) do
+		out[#out + 1] = { title = r.title, body = r.body, kind = "role" }
+	end
+	if #others > 0 then
+		if allRoles then
+			for _, r in ipairs(others) do
+				out[#out + 1] = { title = r.title, body = r.body, kind = "role" }
+			end
+		else
+			local names = {}
+			for _, r in ipairs(others) do
+				names[#names + 1] = r.title
+			end
+			out[#out + 1] = { title = ns:L(#mine > 0 and "FHOWTO_ROLES_OTHER" or "FHOWTO_ROLES_ALL"),
+				body = ns:L("FHOWTO_ROLES_FOLDED_FMT"):format(table.concat(names, ", ")), kind = "folded" }
+		end
+	end
+	local cls = (tr and tr[token]) or CLASSES[token]
+	if cls then
+		for _, sec in ipairs(cls) do
+			out[#out + 1] = { title = sec[1], body = sec[2], kind = "class" }
+		end
+		local r = ns.ForeverTalentedRank and ns.ForeverTalentedRank()
+		out[#out + 1] = { body = type(r) == "number" and ns:L("FHOWTO_TALENTED_RANK_FMT"):format(r)
+			or ns:L("FHOWTO_TALENTED_NOTE"), kind = "note" }
+	else
+		out[#out + 1] = { title = ClassName(token), body = ns:L("FHOWTO_NOT_WRITTEN_FMT"):format(ClassName(token)), kind = "class" }
+	end
+	local common = (tr and tr.COMMON) or COMMON
+	for i, sec in ipairs(common) do
+		local en = COMMON[i] and COMMON[i][1]
+		if en ~= "Camping" and en ~= "Legacy Points" then
+			out[#out + 1] = { title = sec[1], body = sec[2], kind = "common" }
+		end
+	end
+	return out, #others > 0, #mine > 0
+end
+ns.ForeverClassName = ClassName
+
 local function RefreshDirection()
 	if not (win and win.dir) then
 		return
@@ -1208,6 +1269,9 @@ end
 --- After a new direction: the button and, when the window is open, the block.
 ns.ForeverHowToPlayRefreshDirection = function()
 	RefreshDirection()
+	if ns.ForeverOverviewRefresh then
+		ns.ForeverOverviewRefresh()
+	end
 	if win and win:IsShown() and shown then
 		win.body:SetText(Body(shown))
 		win.child:SetHeight(win.body:GetStringHeight() + 20)

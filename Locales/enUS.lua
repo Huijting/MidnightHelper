@@ -5481,7 +5481,7 @@ ns._mhLocales.enUS = {
 	FOV_RESTED_FMT = "rested %d%%",
 	-- Tooltips (Rob, 17 Nov 2026: "de tooltips overal bij").
 	FOV_TIP_TAB_NOW = "This page: what to do now, what comes next and your path.",
-	FOV_TIP_TAB_PLAY = "How your class and spec play, level by level (opens How you play).",
+	FOV_TIP_TAB_PLAY = "How your class and spec play, level by level.",
 	FOV_TIP_TAB_CQ = "All quests of your class and where each one stands, each with a button for the arrow.",
 	FOV_TIP_TAB_CAMP = "Camping: what MH can read of your camp buffs now, and how camping works.",
 	FOV_TIP_TAB_LEGACY = "Legacy Points: earned, unused and spent, and how Legacy works.",
@@ -5541,6 +5541,14 @@ ns._mhLocales.enUS = {
 	FOV_LEG_ST_LOCKED = "Legacy opens with your first point. For most players that is at level 25.",
 	FOV_LEG_ST_NONE = "No unused points on this character.",
 	FOV_LEG_ST_HINT = "/mh legacy prints the same readings in chat.",
+	-- 17 Nov 2026: the How you play page of the overview (step 4 of the house style).
+	FOV_LABEL_TOC = "CONTENTS",
+	FOV_TIP_CARD_TOC = "Click a line to jump to that part of the text.",
+	FOV_LABEL_PLAY_FMT = "HOW YOU PLAY · %s",
+	FOV_DIR_BTN = "Your direction",
+	FOV_TIP_DIR_BTN = "Which talent tree you follow. The text on the right shows the part for your choice first.",
+	FOV_ROLES_BTN_TIP_TITLE = "Other roles",
+	FOV_TIP_ROLES_BTN = "Show or fold the roles that are not your direction.",
 	-- 17 Nov 2026 (Rob: "B"): a modifier + key that belongs to another binding.
 	FMAC_KEY_TAKEN_FMT = "%s is taken by %s: the %s part of this macro only works with the mouse.",
 	FMAC_BTN_FREE = "Free key",

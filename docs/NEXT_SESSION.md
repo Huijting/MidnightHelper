@@ -30,7 +30,15 @@
   GetRealmName, GetNormalizedRealmName) en toont een achternaam alleen als de client hem geeft (AFGELEID: tweede waarde
   van UnitFullName als die niet de realm is). Eén regel (krimpt 22→16), anders voor- en achternaam onder elkaar.
   Lint 0 HARD, luac OK. NIET in het spel gezien.
-- ⏭️ Volgende: How you play als pagina (stap 4).
+- 📖 **Stap 4 How you play als pagina GEBOUWD (en + nl)**: tab wisselt in het overzicht. Links kaart "INHOUD" (klik =
+  spring naar dat kopje; jouw richting/rol in klassekleur) + knoppen "Direction: …" (ShowForeverDirection) en "Other
+  roles" (alleen als er andere rollen zijn). Rechts de hele tekst met echte koppen, scrollend. Nieuw
+  `ns.ForeverHowToSections(token, allRoles)` (zelfde inhoud als het oude venster, zonder class quests/kamperen/Legacy:
+  eigen tabs) en `ns.ForeverClassName`; richting kiezen ververst het overzicht (`ns.ForeverOverviewRefresh`). `/mh play`
+  opent nog het oude venster. Offline gedraaid (scratch htp_check: 10 classes × 4 richtingen × rollen open/dicht × en/nl/ru
+  = 240 runs, 0 fouten; nl-tekst echt Nederlands, ru = Engels omdat dat pack alleen op een Russische client laadt).
+  Lint 0 HARD, luac OK. NIET in het spel gezien.
+- ⏭️ Volgende: ontwerp B + schakelaar A/B (stap 5).
 - Rob is ±1 uur weg (sparring, letterlijk: *"Ga samen door met de bouwchat zover mogelijk, dat we een kant-en-klaar
   product hebben."*): lijst afwerken, geen tag/release, geen /nieuwe-chat; context vol → "KLAAR VOOR OVERDRACHT".
 

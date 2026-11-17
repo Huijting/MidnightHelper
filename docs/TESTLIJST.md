@@ -30,6 +30,14 @@ Eerst WoW helemaal afsluiten en opnieuw starten (er is een nieuw bestand; /reloa
 - [ ] `/mh overview` opent zonder foutmelding en ziet er precies hetzelfde uit als ronde 5 (zelfde letters, kleuren,
       knoppen, NOW/LATER-labels onder Jouw pad).
 
+## 📖 17 nov (avond) — Forever: tab How you play als pagina (`/mh overview`)
+
+- [ ] Tab "How you play": links "CONTENTS" met alle kopjes (je eigen rol in je klassekleur). Klik er een: de tekst rechts
+      springt naar dat kopje.
+- [ ] Rechts de hele uitleg met grote koppen in goud, scrollen met het wiel.
+- [ ] Knop "Direction: …" opent de richting-keuze; kies je een andere richting, dan past de pagina zich aan.
+- [ ] Knop "Other roles" klapt de andere rollen open en weer dicht.
+
 ## 🏕️ 17 nov (avond) — Forever: tabs Kamperen en Legacy als pagina + je hele naam (`/mh overview`)
 
 - [ ] Tab "Camping": links "YOUR CAMP NOW" met vijf rijen (Campfire Nearby, Welcoming Campfire, Camp Benefits, Boosted

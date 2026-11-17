@@ -4573,7 +4573,7 @@ ns._mhLocales.nlNL = {
 	FOV_RESTED_FMT = "rested %d%%",
 	-- Tooltips (Rob, 17 nov 2026: "de tooltips overal bij").
 	FOV_TIP_TAB_NOW = "Deze pagina: wat je nu doet, wat eraan komt en jouw pad.",
-	FOV_TIP_TAB_PLAY = "Hoe je class en spec spelen, level voor level (opent How you play).",
+	FOV_TIP_TAB_PLAY = "Hoe je class en spec spelen, level voor level.",
 	FOV_TIP_TAB_CQ = "Alle quests van je class en hoe ver je bent, elk met een knop voor de pijl.",
 	FOV_TIP_TAB_CAMP = "Kamperen: wat MH nu van je kampbuffs kan lezen, en hoe kamperen werkt.",
 	FOV_TIP_TAB_LEGACY = "Legacy Points: verdiend, ongebruikt en uitgegeven, en hoe Legacy werkt.",
@@ -4633,6 +4633,14 @@ ns._mhLocales.nlNL = {
 	FOV_LEG_ST_LOCKED = "Legacy gaat open met je eerste punt. Voor de meeste spelers is dat op level 25.",
 	FOV_LEG_ST_NONE = "Geen ongebruikte punten op dit character.",
 	FOV_LEG_ST_HINT = "/mh legacy zet dezelfde metingen in de chat.",
+	-- 17 nov 2026: de pagina How you play in het overzicht (stap 4 van de huisstijl).
+	FOV_LABEL_TOC = "INHOUD",
+	FOV_TIP_CARD_TOC = "Klik op een regel om naar dat stuk van de tekst te springen.",
+	FOV_LABEL_PLAY_FMT = "HOW YOU PLAY · %s",
+	FOV_DIR_BTN = "Je richting",
+	FOV_TIP_DIR_BTN = "Welke talentboom je volgt. De tekst rechts toont het stuk voor jouw keuze eerst.",
+	FOV_ROLES_BTN_TIP_TITLE = "Andere rollen",
+	FOV_TIP_ROLES_BTN = "Toon of vouw de rollen die niet jouw richting zijn.",
 	-- 17 nov 2026 (Rob: "B"): een modifier + toets die al van een andere binding is.
 	FMAC_KEY_TAKEN_FMT = "%s is bezet door %s: het %s-deel van deze macro werkt alleen met de muis.",
 	FMAC_BTN_FREE = "Toets vrij",

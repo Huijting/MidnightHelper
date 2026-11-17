@@ -148,7 +148,7 @@ end
 --------------------------------------------------------------------------------
 local TABS = {
 	{ key = "FOV_TAB_NOW", tip = "FOV_TIP_TAB_NOW", page = "now" },
-	{ key = "FOV_TAB_PLAY", tip = "FOV_TIP_TAB_PLAY", fn = function() if ns.TogglePlayCardWindow then ns.TogglePlayCardWindow() end end },
+	{ key = "FOV_TAB_PLAY", tip = "FOV_TIP_TAB_PLAY", page = "play" },
 	-- Step 5 of the plan (Rob: every tab in this style): a tab with `page` switches the page inside this window.
 	{ key = "FOV_TAB_CQ", tip = "FOV_TIP_TAB_CQ", page = "cq" },
 	{ key = "FOV_TAB_CAMP", tip = "FOV_TIP_TAB_CAMP", page = "camp" },
@@ -299,6 +299,81 @@ local function InfoRow(row, name, tipBody, chipText, col, chipTip)
 	row:Show()
 end
 
+local TOC_ROWS = 14
+
+--- How you play page (step 4, 17 Nov 2026): left a "contents" card (one line per section, click = jump there; the
+--- direction button and the other-roles switch), right the whole text with real headings, scrolling.
+local function BuildPlayPage(f, x0, rightW)
+	local page = f.pages.play
+	local tocW = math.floor(rightW * 0.28)
+	local toc = Card(page)
+	toc:SetPoint("TOPLEFT", f, "TOPLEFT", x0, -62)
+	toc:SetPoint("BOTTOMLEFT", f, "BOTTOMLEFT", x0, 16)
+	toc:SetWidth(tocW)
+	toc.label = Label(toc, ns:L("FOV_LABEL_TOC"), "FOV_TIP_CARD_TOC")
+	toc.rows = {}
+	for i = 1, TOC_ROWS do
+		local b = CreateFrame("Button", nil, toc)
+		b:SetHeight(20)
+		b:SetPoint("TOPLEFT", 14, -32 - (i - 1) * 21)
+		b:SetPoint("RIGHT", -10, 0)
+		b.t = Text(b, "textB", 13)
+		b.t:SetPoint("LEFT")
+		b.t:SetPoint("RIGHT")
+		b.t:SetWordWrap(false)
+		b:SetScript("OnEnter", function(self)
+			local r, g, bl = Accent()
+			self.t:SetTextColor(r, g, bl)
+		end)
+		b:SetScript("OnLeave", function(self)
+			self.t:SetTextColor(self.col[1], self.col[2], self.col[3])
+		end)
+		b.col = A.text
+		toc.rows[i] = b
+	end
+	toc.dir = Button(toc, tocW - 28)
+	toc.dir:SetPoint("BOTTOMLEFT", 14, 44)
+	toc.dir:SetScript("OnClick", function()
+		if ns.ShowForeverDirection then
+			ns.ShowForeverDirection()
+		end
+	end)
+	Tip(toc.dir, ns:L("FOV_DIR_BTN"), ns:L("FOV_TIP_DIR_BTN"))
+	toc.roles = Button(toc, tocW - 28)
+	toc.roles:SetPoint("BOTTOMLEFT", 14, 14)
+	toc.roles:SetScript("OnClick", function()
+		f.allRoles = not f.allRoles
+		ns.ForeverOverviewFill()
+	end)
+	Tip(toc.roles, ns:L("FOV_ROLES_BTN_TIP_TITLE"), ns:L("FOV_TIP_ROLES_BTN"))
+	local body = Card(page)
+	body:SetPoint("TOPLEFT", toc, "TOPRIGHT", 12, 0)
+	body:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -16, 16)
+	body.label = Label(body, "", "FOV_TIP_TAB_PLAY")
+	body.sf, body.child = S.Scroll(body, 34, 10, 60)
+	body.textW = (rightW - tocW - 12) - 22 - 12
+	body.secs = {}
+	page.toc, page.body = toc, body
+end
+
+--- One heading + text pair on the How you play page (made when needed).
+local function PlaySection(body, i)
+	local s = body.secs[i]
+	if s then
+		return s
+	end
+	s = {}
+	s.head = Text(body.child, "head", 19, A.gold)
+	s.head:SetWidth(body.textW)
+	s.text = Text(body.child, "text", 14)
+	s.text:SetWidth(body.textW)
+	if s.text.SetSpacing then
+		s.text:SetSpacing(3)
+	end
+	body.secs[i] = s
+	return s
+end
+
 local function Build()
 	if win then
 		return win
@@ -372,7 +447,7 @@ local function Build()
 	-- Pages: the left column (portrait, level) stays, the right part switches.
 	f.page = "now"
 	f.pages = {}
-	for _, key in ipairs({ "now", "cq", "camp", "legacy" }) do
+	for _, key in ipairs({ "now", "play", "cq", "camp", "legacy" }) do
 		local p = CreateFrame("Frame", nil, f)
 		p:SetAllPoints(f)
 		p:Hide()
@@ -596,6 +671,7 @@ local function Build()
 	end
 
 	BuildClassQuestPage(f, x0, rightW)
+	BuildPlayPage(f, x0, rightW)
 	BuildInfoPage(f, "camp", x0, rightW, "FOV_LABEL_CAMP", "FOV_TIP_CARD_CAMP", "FOV_LABEL_CAMP_HOW")
 	BuildInfoPage(f, "legacy", x0, rightW, "FOV_LABEL_LEGACY", "FOV_TIP_CARD_LEGACY", "FOV_LABEL_LEGACY_HOW")
 	-- Camping and Legacy read live state (an aura, points): refresh every 2 s while one of them is open.
@@ -1086,6 +1162,85 @@ local function FillLegacyPage(f, refresh)
 	FillHow(page.how, "Legacy Points", refresh)
 end
 
+local function FillPlayPage(f)
+	local page = f.pages.play
+	local toc, body = page.toc, page.body
+	local _, token = UnitClass("player")
+	token = token or "WARRIOR"
+	local secs, folded, hasMine = {}, false, false
+	if ns.ForeverHowToSections then
+		local ok, s, fo, mi = pcall(ns.ForeverHowToSections, token, f.allRoles)
+		if ok and type(s) == "table" then
+			secs, folded, hasMine = s, fo, mi
+		end
+	end
+	local cname = ns.ForeverClassName and ns.ForeverClassName(token) or token
+	body.label:SetText(ns:L("FOV_LABEL_PLAY_FMT"):format(cname:upper()))
+	-- Lay the sections out one under the other; widths are fixed, so the heights are right at once.
+	local y = 4
+	local tocItems = {}
+	for i, sec in ipairs(secs) do
+		local s = PlaySection(body, i)
+		s.head:ClearAllPoints()
+		s.text:ClearAllPoints()
+		if sec.title then
+			s.head:SetPoint("TOPLEFT", body.child, "TOPLEFT", 6, -y)
+			s.head:SetText(sec.title)
+			s.head:Show()
+			tocItems[#tocItems + 1] = { title = sec.title, y = y, kind = sec.kind }
+			y = y + (s.head:GetStringHeight() or 20) + 4
+		else
+			s.head:Hide()
+		end
+		s.text:SetPoint("TOPLEFT", body.child, "TOPLEFT", 6, -y)
+		local col = (sec.kind == "note" or sec.kind == "folded") and A.dim or A.text
+		s.text:SetTextColor(col[1], col[2], col[3])
+		s.text:SetText(S.Format(sec.body or ""))
+		s.text:Show()
+		y = y + (s.text:GetStringHeight() or 0) + 18
+	end
+	for i = #secs + 1, #body.secs do
+		body.secs[i].head:Hide()
+		body.secs[i].text:Hide()
+	end
+	body.child:SetHeight(math.max(10, y))
+	body.sf.Reset()
+	-- Contents: one line per heading; your direction's role in the class colour.
+	local r, g, b = Accent()
+	for i, row in ipairs(toc.rows) do
+		local it = tocItems[i]
+		if it then
+			row.t:SetText(it.title)
+			row.col = (it.kind == "dir" or it.kind == "role") and { r, g, b } or (it.kind == "folded" and A.dim or A.text)
+			row.t:SetTextColor(row.col[1], row.col[2], row.col[3])
+			row:SetScript("OnClick", function()
+				local max = body.sf:GetVerticalScrollRange() or 0
+				body.sf:SetVerticalScroll(math.min(max, it.y))
+				body.sf.UpdateThumb()
+			end)
+			row:Show()
+		else
+			row:Hide()
+		end
+	end
+	-- Direction button (ForeverDirection.lua) and the other-roles switch (only when there are other roles).
+	local band, dname
+	if ns.GetForeverDirection then
+		band, dname = ns.GetForeverDirection()
+	end
+	toc.dir:SetLabel(band and ns:L("FDIR_HOWTO_BTN_FMT"):format(dname) or ns:L("FDIR_HOWTO_BTN_NONE"))
+	toc.dir:SetShown(ns.ShowForeverDirection ~= nil)
+	toc.roles:SetLabel(ns:L(not f.allRoles and "FHOWTO_ROLES_SHOW" or (hasMine and "FHOWTO_ROLES_HIDE" or "FHOWTO_ROLES_FOLD")))
+	toc.roles:SetShown(folded)
+end
+
+--- When the direction changes (ForeverHowToPlay.lua calls this): refill if the overview is open.
+function ns.ForeverOverviewRefresh()
+	if win and win:IsShown() then
+		ns.ForeverOverviewFill()
+	end
+end
+
 function ns.ForeverOverviewFill(refresh)
 	local f = Build()
 	local r, g, b = Accent()
@@ -1104,6 +1259,9 @@ function ns.ForeverOverviewFill(refresh)
 	end
 	if f.page == "cq" then
 		FillClassQuestPage(f, level)
+		return f
+	elseif f.page == "play" then
+		FillPlayPage(f)
 		return f
 	elseif f.page == "camp" then
 		FillCampPage(f, refresh)
