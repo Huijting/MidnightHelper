@@ -24,6 +24,16 @@ er is niets weggegooid.
 📝 **Waarneming Rob, 16 nov (nacht), Forever mage, via sparring:** *"mouse over werk"* — `/mh mouseover on`, Shift+X
 (Arcane Intellect) op een voorbijganger onder de muis werkt.
 
+## 🐞 17 nov — Forever: talents komen eerder met de Legacy-perk Talented
+
+MH rekende overal met "eerste talentpunt op level 10". Met de Legacy-perk Talented krijg je ze tot 5 levels eerder.
+- [ ] Heb je Talented (deels) gekocht? `/reload`, dan `/mh donow check`: de regel "Legacy perk Talented: rank …" moet
+      jouw rang tonen. Staat er "rank nil", dan kan MH hem niet lezen: zeg wat er tussen haakjes staat.
+- [ ] "Do this now" → "Coming up": het volgende talent staat op het juiste (eerdere) level. Kan MH je rang niet lezen,
+      dan staat erachter "tot 5 levels eerder met de Legacy-perk Talented".
+- [ ] How you play (`/mh play`): onder de class-tekst een grijze regel over Talented, met jouw rang als MH die leest.
+- [ ] Macro's-venster: een talent-macro zegt "(from level X)" met het eerdere level.
+
 ## 🆕 17 nov — Forever: Mage class-quests in "Do this now" (jouw class, Rob)
 
 Mage, `/reload`. Uitgezocht met Fable; niets in het spel gezien.

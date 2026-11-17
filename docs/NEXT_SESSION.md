@@ -82,7 +82,13 @@
   "volg Bath'rah"; generiek in `MyChains`: toont je eigen ras-route nog niets maar de route van een ander ras van je
   factie wel (done of in log), dan volgt MH die. Ook: een item-keten verdwijnt niet als er een quest van in je log staat.
   Skyborne Taunt/Sunder: testregel in TESTLIJST.
-- ⏭️ **Volgorde nu**: (1) Talented-fix; (2) vertaalronde de/fr/es/esMX/pt/ru voor alle FCQ_ +
+- 🐞 **Talented-fout GEREPAREERD** (Rob: *"het gat met talented als fout laten repareren"*): ForeverMacros.lua
+  `ns.ForeverTalentedRank()` (C_Traits: config via systeem 45 of boom 1188, node 110298 currentRank; pcall + issecretvalue;
+  schrijft `ns.db.foreverTalentedProbe` om te meten) en `ns.ForeverTalentLevel(base)` = base − rang (min 5). Gebruikt in
+  ForeverDirectionTalents ("Do this now" Coming up, + hint FDONOW_TALENTED_HINT als de rang niet leesbaar is), de
+  macro-regel "(from level X)" en een grijze regel onder de class-tekst in How you play (FHOWTO_TALENTED_NOTE /
+  _RANK_FMT). `/mh donow check` print rang + bron. AFGELEID tot Robs meting (TESTLIJST 17 nov). Alleen en + nl.
+- ⏭️ **Volgorde nu**: (1) ✅ Talented-fix; (2) vertaalronde de/fr/es/esMX/pt/ru voor alle FCQ_ +
   NPC-namen per taal al klaar; (3) rollen per 10 levels (ROLES.<CLASS>); (4) Legacy en Kamperen bouwen.
 - 🧪 **Nieuw hulpmiddel `run fcq_check`** (`tools/fcq_check.py` + `.lua`): laadt ForeverClassQuests.lua met nep-spelfuncties,
   loopt 9 classes × 10 rassen × levels 1-60 × alle queststanden, en checkt dat elke FCQ_-sleutel in enUS + nlNL staat.

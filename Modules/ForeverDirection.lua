@@ -96,6 +96,8 @@ end
 --   - Not measured, so never claimed: whether to switch weapons while levelling. Stats are left out (guides, level 60;
 --     that belongs to step 3).
 --   - Talent levels ("at the earliest level N") are AFGELEID from "first point at 10, one per level" (research 3c/3d).
+--     17 Nov 2026: the Legacy perk Talented gives points up to 5 levels sooner; ns.ForeverTalentLevel (ForeverMacros.lua)
+--     corrects for it where MH shows a talent level ("Do this now", the macro list, a note in How you play).
 -- Names a player sees come from the client: spells by id (C_Spell.GetSpellName), armor/weapon kinds by item subclass
 -- (GetItemSubClassInfo), so every language shows its own game words.
 --------------------------------------------------------------------------------

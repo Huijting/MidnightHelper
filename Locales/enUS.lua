@@ -5811,6 +5811,11 @@ ns._mhLocales.enUS = {
 	FDONOW_SOON_LEVEL_FMT = "Level %d: %s",
 	FDONOW_SOON_NONE = "No new trainer spells in the next 3 levels.",
 	FDONOW_TALENT_FMT = "For %s: %s (a talent, at the earliest at level %d)",
+	-- 17 Nov 2026: shown after FDONOW_TALENT_FMT when MH cannot read the Legacy perk Talented (it gives talent points sooner).
+	FDONOW_TALENTED_HINT = ", up to 5 levels sooner with the Legacy perk Talented",
+	-- How you play (Forever), under the class text (17 Nov 2026). %d = your rank of Talented (1-5).
+	FHOWTO_TALENTED_NOTE = "The talent levels above count your first talent point at level 10. The Legacy perk Talented gives talent points sooner: up to 5 levels earlier.",
+	FHOWTO_TALENTED_RANK_FMT = "The talent levels above count your first talent point at level 10. You have the Legacy perk Talented at rank %d: your talents come that many levels sooner.",
 	FDONOW_TOOL_FMT = "%s: you have no %s yet (%s).",
 	FDONOW_WEAP_ONE = "You can learn 1 new weapon skill now.",
 	FDONOW_WEAP_MANY_FMT = "You can learn %d new weapon skills now.",

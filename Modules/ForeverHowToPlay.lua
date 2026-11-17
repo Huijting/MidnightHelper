@@ -454,6 +454,7 @@ From level 1: Healing Touch is there from the start. The guides do not advise he
 ns.FOREVER_HOWTOPLAY_ROLES = ROLES -- the offline check reads it
 
 local GOLD, HEAD = "|cffffd100", "|cffffcc66"
+local GREY_NOTE = "|cffb0b0b0"
 
 --- "**word**" → gold. Everything else is plain text.
 local function Format(body)
@@ -491,6 +492,12 @@ local function TextFor(token)
 		for _, sec in ipairs(cls) do
 			parts[#parts + 1] = HEAD .. sec[1] .. "|r\n" .. Format(sec[2])
 		end
+		-- 17 Nov 2026 (Rob via Sparring 17-11: the Talented gap is a bug): the talent levels in the texts count the first
+		-- point at 10. The Legacy perk Talented gives points up to 5 levels sooner; one line says so, with your rank if MH
+		-- can read it (ns.ForeverTalentedRank, ForeverMacros.lua; AFGELEID until measured in the client).
+		local r = ns.ForeverTalentedRank and ns.ForeverTalentedRank()
+		parts[#parts + 1] = GREY_NOTE .. (type(r) == "number" and ns:L("FHOWTO_TALENTED_RANK_FMT"):format(r)
+			or ns:L("FHOWTO_TALENTED_NOTE")) .. "|r"
 	else
 		parts[#parts + 1] = ns:L("FHOWTO_NOT_WRITTEN_FMT"):format(ClassName(token))
 	end

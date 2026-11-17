@@ -19,7 +19,8 @@ local _, ns = ...
 	  Coming up
 	    - trainer spells of the next 3 levels, by name . ns.ForeverTrainerCompute(level + 3), spells above your level
 	    - with a chosen direction: the next talent spell of that tree and its earliest level
-	      (ns.ForeverDirectionTalents, ForeverMacros.lua SPEC_MACROS; levels AFGELEID from "first point at 10, one per level")
+	      (ns.ForeverDirectionTalents, ForeverMacros.lua SPEC_MACROS; levels AFGELEID from "first point at 10, one per level",
+	      minus the rank of the Legacy perk Talented when readable: ns.ForeverTalentedRank, 17 Nov 2026)
 	Not here on purpose (sparring's limits): stats, "best weapon", "switch weapons now", professions advice, the tooltip /
 	upgrade notice (step 3).
 	Hidden in a fight (a text panel has nothing to do there), back afterwards.
@@ -362,7 +363,9 @@ local function Collect()
 		local _, cls = UnitClass("player")
 		for _, t in ipairs(ns.ForeverDirectionTalents(cls, band)) do
 			if t.level > level then
+				-- t.level already counts the Legacy perk Talented when its rank is readable; otherwise say it can be sooner.
 				out.soon[#out.soon + 1] = ns:L("FDONOW_TALENT_FMT"):format(tree, SpellName(t.id), t.level)
+					.. (t.known and "" or ns:L("FDONOW_TALENTED_HINT"))
 				break
 			end
 		end
@@ -680,6 +683,12 @@ function ns.ForeverDoNowSlash(arg)
 		local show, why = Decision(info)
 		print(PREFIX .. ("do this now: mode %s; %s - %s"):format(Mode(), show and "shown" or "not shown", why))
 		print(("  to do now: %d; coming up: %d line(s); last update: %s"):format(#info.now, #info.soon, lastWhy))
+		-- Legacy perk Talented (17 Nov 2026): what MH read, so a wrong talent level can be traced (silence rule).
+		if ns.ForeverTalentedRank then
+			local r, how = ns.ForeverTalentedRank()
+			print(("  Legacy perk Talented: rank %s (%s); talent levels are %s"):format(tostring(r), tostring(how),
+				r and ("moved " .. r .. " level(s) sooner") or "the plain ones, with the hint 'sooner with Talented'"))
+		end
 		for _, s in ipairs(info.now) do
 			print("  - " .. s)
 		end

@@ -354,8 +354,10 @@ local function ClassRow(c)
 		build = function()
 			if not KnownSpell(c.need) then
 				local lvl = UnitLevel and UnitLevel("player") or 0
-				if c.level and lvl < c.level then
-					return nil, "FMAC_WHY_LEVEL_FMT", c.level
+				-- A talent comes sooner with the Legacy perk Talented (17 Nov 2026).
+				local need = c.level and (c.talent and ns.ForeverTalentLevel and ns.ForeverTalentLevel(c.level) or c.level)
+				if need and lvl < need then
+					return nil, "FMAC_WHY_LEVEL_FMT", need
 				end
 				return nil, "FMAC_WHY_TRAIN"
 			end
@@ -732,13 +734,68 @@ end
 ns.ForeverSpecBand = SpecBand
 ns.ForeverSpecName = SpecName
 
---- The talent spells of one tree, lowest level first: { id, level } (SPEC_MACROS, talent = true; the levels follow the
---- "first point at 10, one per level" rule, AFGELEID except where a comment there says GEMETEN). For "Do this now".
+--[[ The Legacy perk Talented (17 Nov 2026; Rob via Sparring 17-11: "het gat met talented als fout laten repareren").
+	GEMETEN by sparring's helper in DB2 1.60.1.70938: TraitCurrencySource 37163-37167 give 1 class talent point (currency
+	3820) at PlayerLevel 9/8/7/6/5 for Talented rank 1-5; the perk is node 110298 in tree 1188 (spell 1225474).
+	AFGELEID: talent points at level L = L - 9 + rank, so a talent of "level B" (first point at 10) comes at B - rank;
+	the config is found with C_Traits.GetConfigIDBySystemID(45) or GetConfigIDByTreeID(1188), and the rank is
+	GetNodeInfo(cfg, 110298).currentRank. NOT measured in the client: what we read is written to ns.db.foreverTalentedProbe
+	(Rob: /reload, then the SavedVariables file says it). nil = not readable: the texts then say "sooner with Talented". ]]
+local TALENTED_NODE, LEGACY_SYSTEM, ADVENTURE_TREE = 110298, 45, 1188
+
+function ns.ForeverTalentedRank()
+	if not (C_Traits and C_Traits.GetNodeInfo) then
+		return nil, "no C_Traits.GetNodeInfo"
+	end
+	local cfg, src
+	if C_Traits.GetConfigIDBySystemID then
+		local ok, v = pcall(C_Traits.GetConfigIDBySystemID, LEGACY_SYSTEM)
+		if ok and type(v) == "number" and v > 0 then
+			cfg, src = v, "system 45"
+		end
+	end
+	if not cfg and C_Traits.GetConfigIDByTreeID then
+		local ok, v = pcall(C_Traits.GetConfigIDByTreeID, ADVENTURE_TREE)
+		if ok and type(v) == "number" and v > 0 then
+			cfg, src = v, "tree 1188"
+		end
+	end
+	local rank, why
+	if cfg then
+		local ok, info = pcall(C_Traits.GetNodeInfo, cfg, TALENTED_NODE)
+		if ok and type(info) == "table" and type(info.currentRank) == "number" and not
+			(issecretvalue and issecretvalue(info.currentRank)) then
+			rank = info.currentRank
+		else
+			why = "node 110298 not readable"
+		end
+	else
+		why = "no Legacy config"
+	end
+	if ns.db then
+		ns.db.foreverTalentedProbe = { cfg = cfg, src = src, rank = rank, why = why, at = time and time() or nil }
+	end
+	return rank, why or src
+end
+
+--- The earliest level of a talent of "level B" for this character: B - Talented rank (never below 5).
+function ns.ForeverTalentLevel(base)
+	local r = ns.ForeverTalentedRank()
+	if type(r) == "number" and r > 0 then
+		return math.max(5, base - r), true
+	end
+	return base, r ~= nil
+end
+
+--- The talent spells of one tree, lowest level first: { id, level, known } (SPEC_MACROS, talent = true; the levels follow
+--- the "first point at 10, one per level" rule, AFGELEID except where a comment there says GEMETEN), corrected for the
+--- Legacy perk Talented when its rank is readable (known = the rank was read). For "Do this now".
 function ns.ForeverDirectionTalents(cls, band)
 	local out = {}
 	for _, d in ipairs(SPEC_MACROS) do
 		if d.class == cls and d.spec == band and d.talent and d.need and d.level then
-			out[#out + 1] = { id = d.need, level = d.level }
+			local lvl, known = ns.ForeverTalentLevel(d.level)
+			out[#out + 1] = { id = d.need, level = lvl, known = known }
 		end
 	end
 	table.sort(out, function(a, b)
