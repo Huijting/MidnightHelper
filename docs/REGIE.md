@@ -10,10 +10,10 @@ leest dit eerst en werkt het aan het eind bij. Plan: `docs/PLAN_WERKWIJZE_2026-1
 
 ## 0. Laatste verslag
 
-- [2026-11-16] 🎬 **Regie** (cloud-ronde, ochtend) — Raakt Rob: 1, VERBREED: API-wachter (16 nov) meldt `[MOET GEFIKST]` nu op 40 macro-regels in 2 bestanden (`ForeverMacros.lua` én `RetailTopMacros.lua`, dus ook retail): de Self Cast Key stoort `[@mouseover]`/`[@focus]`-macro's met een modifier; oud Blizzard-gedrag (9.2.5), onze tekst zwijgt erover (grep in beide bestanden: 0). Fix = tekst of check, geen API-migratie.
-  Scheef (NIEUW): site-briefje 196 regels (gisteren 164, grens 200); `/mh partytest` nog niet in SITE_SEIN (grep 0). Af: C2 (28 nakijken) is weg: commit `352a0cb` + nachtcontrole 16 nov "C1 en C2 schoon, 0 nakijken"; embleem-commit `43d4e76` staat nu in SITE_SEIN (regel 77); ideeënbus liep wél (zo 15 nov 07:11 UTC, commit `87ed12b`, 2 voorstellen).
-  Wachters: alle vijf dagelijkse hebben een regel van 16 nov; `.toc` 5.3.0 = tag `v5.3.0` (ls-remote). Site-repo: laatste push 15 nov 15:18 (+0100, ~17 uur oud); `BOUW_VRAAG.md` "Open: (geen)". Wacht op Rob: 4 punten.
-  Niet gelezen: de pc (lokale commits, helpers, recepten), CurseForge zelf, mail. Niet opnieuw gemeten: de laatste 3 C4-namen.
+- [2026-11-17] 🎬 **Regie** (cloud-ronde, ochtend) — Raakt Rob: 1, TESTEN: de Self Cast-waarschuwing (API-wachter 17 nov: `[MOET GEFIKST]` DICHT in de code, `Core.lua:4318`, aangeroepen in `ForeverMacros.lua:994` en `RetailTopMacros.lua:477`); niemand zag de gele regel nog in het spel. Ook: 5.4.0 staat op CurseForge, tag `v5.4.0` = `.toc`.
+  Scheef (NIEUW): de druid-klassequests en druid per rol (16 nov avond, op `main` na de tag) staan niet in SITE_SEIN (grep "Bear Form" 0); de 2 ideeën-voorstellen van 15 nov staan nog onder "Voorstellen van de wachter". Af: site-briefje 149 regels (was 196); Self Cast dicht; wachters 17 nov: geen nieuws voor ons.
+  Wachters: alle vijf dagelijkse hebben een regel van 17 nov (nachtcontrole: QuestV2 live niet bereikbaar, quests alleen tegen ptr/forever). Site-repo: laatste push 16 nov 22:13 (+0100, ~8 uur oud); `BOUW_VRAAG.md` "Open: (geen)". Wacht op Rob: 4 punten.
+  Niet gelezen: de pc (lokale commits, helpers, recepten), CurseForge zelf, mail, de tak `claude/werkwijze-notitie` (alleen dat hij bestaat). Niet opnieuw gemeten: de laatste 3 C4-namen.
 
 De regisseur vervangt dit blok elke ronde door het nieuwe verslag. Eén verslag, niet een logboek: de vorige staat in git.
 
@@ -57,7 +57,7 @@ sinds 11 nov **`regisseur`** (`/regisseur` of "doe de regie-ronde"; doet hoofdst
 
 | bestand | schrijver | grens |
 |---|---|---|
-| `docs/NEXT_SESSION.md` | bouwchat | 1500 (`CLAUDE.md`; nu 1420) |
+| `docs/NEXT_SESSION.md` | bouwchat | 1500 (`CLAUDE.md`; nu 1453) |
 | `docs/NEXT_SESSION_ARCHIVE.md` | bouwchat (door `split_handoff`) | — |
 | `docs/OCHTENDRONDE.md`, `docs/CLAUDE_HISTORIE.md` | bouwchat (11 nov) | — |
 | `docs/SITE_SEIN.md` (prikbord) | bouwchat | — |
@@ -72,13 +72,13 @@ sinds 11 nov **`regisseur`** (`/regisseur` of "doe de regie-ronde"; doet hoofdst
 
 ## 3. Stand van het plan
 
-| # | wat | stand (GEMETEN 16 nov op `main`) |
+| # | wat | stand (GEMETEN 17 nov op `main`) |
 |---|---|---|
 | 1 | Toets (6 vragen) en ideeënlijst | ✅ af |
 | 2 | Prikbord en drie vaste woorden | ✅ af (`docs/SITE_SEIN.md`) |
 | 3 | Controles C1, C3, C5 | C1 en C3 ✅ in de lint. C5 ✅ gebouwd (`c9d3e66`, in `/mh selftest`). |
 | 4 | Controles C2 en C4 | ✅ gebouwd (`tools/data_check.py`). C4: 65 → 3 namen over (commit `f08366b`, Robs ja). |
-| 5 | Nachtcontrole en ideeënbus | ✅ draaien. Nachtcontrole 16 nov: C1 en C2 schoon, 0 nakijken. Ideeënbus liep zo 15 nov (`87ed12b`). |
+| 5 | Nachtcontrole en ideeënbus | ✅ draaien. Nachtcontrole 17 nov: C1 en C2 0 nakijken (QuestV2 live niet bereikbaar). Ideeënbus liep zo 15 nov (`87ed12b`). |
 | 5b | **De regisseur** (deel 8) | ✅ gebouwd 11 nov (`f34b15f`): routine en recept. Proefrun `c24bbe4` vond de drie testpunten. |
 | 6 | Recepten | niet begonnen |
 | 7 | `/mh selftest` + vensterlijst | ✅ gebouwd (`c9d3e66`); Robs selftest in Midnight schoon (`41675dd`). Forever-kant niet gemeten. |
@@ -87,7 +87,7 @@ sinds 11 nov **`regisseur`** (`/regisseur` of "doe de regie-ronde"; doet hoofdst
 
 ## 4. Wacht op Rob
 
-1. **Testen in Forever:** "Your characters" (O21), de oranje rand bij oude ranks (O24), de reisplanner, de "loading"-fix bij de hengel-tip, de Enhancement-Shaman-tip en de dungeons-lijst (staat in `TESTLIJST.md`).
+1. **Testen in Forever en retail:** de gele Self Cast Key-regel bij een macro met modifier + mouseover (met de Self Cast Key gezet), "Your characters" (O21), de oranje rand bij oude ranks (O24), de reisplanner, de "loading"-fix bij de hengel-tip, de Enhancement-Shaman-tip en de dungeons-lijst (staat in `TESTLIJST.md`).
 2. **De laatste 3 namen** (controle C4, was 65): de bouwchat heeft er 62 gedaan; nakijken wat blijft.
 3. **De ideeënlijst:** ja, nee of later per regel.
 4. **Drie voorstellen voor de site-kant** (staan in de privé site-repo, tak `claude/werkwijze-notitie`).
@@ -96,11 +96,13 @@ sinds 11 nov **`regisseur`** (`/regisseur` of "doe de regie-ronde"; doet hoofdst
 
 | wat | gemeten | wie moet iets doen |
 |---|---|---|
-| `/mh partytest` (Forever, `53341fa`) staat niet in `docs/SITE_SEIN.md` | 16 nov, GEMETEN met grep (0 treffers; tegencontrole "ranks" 4, ook 16 nov); lint [27] noemt het al als commando "alleen wij" | bouwchat: regel erbij of zeggen dat het een meetknop is zonder spelerswaarde |
-| **[MOET GEFIKST] van de API-wachter (15 nov, verbreed 16 nov):** de Self Cast Key (en keybind-prioriteit) laat `[@mouseover]`/`[@focus]`/`[mod:shift]`-macro's stil falen; raakt 40 macro-regels in `ForeverMacros.lua` én `RetailTopMacros.lua` (ook retail). Oud Blizzard-gedrag uit 9.2.5, vastgepinde forumdraad `42937`. Onze macrotekst zwijgt erover | 16 nov, GEMETEN in `docs/API_WATCH.md` (regel 10510 e.v.) en grep `self cast` in beide macrobestanden: 0 (tegencontrole: de wachter-regel zelf vond het); niet zelf in het spel getest | bouwchat: tekst of check (geen API-migratie); Rob test in Forever en retail |
-| `CLAUDE.md` is 322 regels (gisteren 322), lint [24] grens 350 | 16 nov, GEMETEN met `wc -l` en `claude_limit = 350` (`tools/lint_addon.py:1663`) | niemand; blijf meten |
-| **Overdrachtsbriefje site (`drafts/SITE_HANDOFF.md`) is 196 regels** (15 nov: 164, 14 nov: 199); grens 200 (site-`CLAUDE.md`) | 16 nov, GEMETEN met `git show origin/main:` + `wc -l` | site-chat: oudste blokken naar `SITE_HISTORY.md` (ochtendritueel stap 7) |
-| **Blinde vlek:** de site-chat pusht alleen met Robs ja; de cloud ziet de site-repo zoals bij de laatste push (nu: 15 nov 15:18 +0100). `drafts/BOUW_VRAAG.md` ("Open: (geen)"). Wat lokaal nog niet gepusht is, zie ik niet. | 16 nov, GEMETEN op `origin/main` van de site-repo | niemand; alleen het pc-recept ziet lokale commits |
+| `/mh partytest` (Forever, `53341fa`) staat niet in `docs/SITE_SEIN.md` | 17 nov, GEMETEN met grep (0 treffers; tegencontrole "ranks" 4, ook 17 nov); lint [27] noemt het al als commando "alleen wij" | bouwchat: regel erbij of zeggen dat het een meetknop is zonder spelerswaarde |
+| **Druid-klassequests (Bear/Cat/Aquatic Form, Cure Poison, Torwa) en druid per rol** (Forever, 16 nov avond, `4faaaee`..`f707878`, na de tag `v5.4.0`) staan niet in `docs/SITE_SEIN.md` | 17 nov, GEMETEN met grep "Bear Form\|Cat Form\|Torwa" (0; tegencontrole "class quest" vond regel 471); in `IDEEEN.md` wel (3 treffers) | bouwchat: regel erbij met status "alleen op main" |
+| 2 voorstellen van de ideeënbus (15 nov) staan nog onder "Voorstellen van de wachter" in `docs/IDEEEN.md` (r. 872) | 17 nov, GEMETEN: koptekst + 15-nov-regel aanwezig | bouwchat: naar Open of Nee met reden |
+| Self Cast-waarschuwing: dicht in code (`a73bfb5`), maar **niet in het spel gezien** (zie lijst 4, punt 1) | 17 nov, GEMETEN: `Core.lua:4318`, 2 aanroepen, `MACROS_WARN_SELFCAST_FMT` in enUS (1); in het spel niet getest | Rob of Cisca test; daarna gaat de rij weg |
+| `CLAUDE.md` is 322 regels (gisteren 322), lint [24] grens 350 | 17 nov, GEMETEN met `wc -l` en `claude_limit = 350` (`tools/lint_addon.py:1669`) | niemand; blijf meten |
+| Overdrachtsbriefje site (`drafts/SITE_HANDOFF.md`) is 149 regels (16 nov: 196); grens 200 (site-`CLAUDE.md`) | 17 nov, GEMETEN met `git show origin/main:` + `wc -l` | niemand; blijf meten |
+| **Blinde vlek:** de site-chat pusht alleen met Robs ja; de cloud ziet de site-repo zoals bij de laatste push (nu: 16 nov 22:13 +0100). `drafts/BOUW_VRAAG.md` ("Open: (geen)"). Wat lokaal nog niet gepusht is, zie ik niet. | 17 nov, GEMETEN op `origin/main` van de site-repo | niemand; alleen het pc-recept ziet lokale commits |
 | Geen vaste controle op de handgeschreven site-teksten | 10 nov, volgens de site-chat | voorstel ligt bij Rob |
 
 ## 6. De ronde — wat de regisseur elke keer doet
