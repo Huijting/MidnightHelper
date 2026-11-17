@@ -124,6 +124,35 @@ local function KnownSpell(id)
 	return false
 end
 
+--- The highest rank you know of the spell family that holds `id` (ns.FOREVER_SPELL_IDS, ranks low to high), else `id`
+--- itself when you know it, else nil. 17 Nov 2026, from the Fable check of the macro rows (mh-research, GEMETEN in DB2
+--- 70938): (1) on ptBR rank 1 of Arcane Intellect and on esMX ranks 1/3 of Create Healthstone carry ANOTHER name than
+--- the higher ranks, so "/cast <rank-1 name>" cast the weak rank; (2) for Stealth, Vanish, Eviscerate and Prowl each rank
+--- supersedes the one below, so rank 1 may no longer count as known after rank 2 (AFGELEID; Rob's test in TESTLIJST)
+--- and the row said "learn this spell first". Asking for the top known rank fixes both. Sparring, verbatim: "Ja, bouwen
+--- na stap 9".
+local rankIndex
+local function TopKnown(id)
+	if not rankIndex then
+		rankIndex = {}
+		for _, ids in pairs(ns.FOREVER_SPELL_IDS or {}) do
+			for _, v in ipairs(ids) do
+				rankIndex[v] = ids
+			end
+		end
+	end
+	local list = rankIndex[id]
+	if list then
+		for i = #list, 1, -1 do
+			if KnownSpell(list[i]) then
+				return list[i]
+			end
+		end
+		return nil
+	end
+	return KnownSpell(id) and id or nil
+end
+
 local function SpellName(id)
 	if C_Spell and C_Spell.GetSpellName then
 		local ok, n = pcall(C_Spell.GetSpellName, id)
@@ -190,7 +219,8 @@ local DEFS = {
 		key = "eatdrink", name = "Eat Drink", title = "FMAC_EAT_TITLE", desc = "FMAC_EAT_DESC", auto = true,
 		build = function()
 			local water, food = BestEdible(WATER), BestEdible(FOOD)
-			local conj = KnownSpell(CONJURE_WATER) and SpellName(CONJURE_WATER)
+			local conjId = TopKnown(CONJURE_WATER)
+			local conj = conjId and SpellName(conjId)
 			local lines = { "#showtooltip" }
 			if conj then
 				lines[#lines + 1] = "/cast [mod:ctrl] " .. conj
@@ -501,7 +531,8 @@ local function FillTpl(tpl)
 		return sub and (nm .. "(" .. sub .. ")") or nm
 	end)
 	out = out:gsub("{(%d+)}", function(id)
-		local nm = SpellName(tonumber(id))
+		id = tonumber(id)
+		local nm = SpellName(TopKnown(id) or id) -- the name of the rank you know (see TopKnown)
 		if not nm then
 			bad = true
 			return ""
@@ -518,11 +549,11 @@ local function ClassRow(c)
 	return {
 		key = "c_" .. c.key, name = c.name, cls = c,
 		plainTitleFn = function()
-			return SpellName(c.need) or c.name
+			return SpellName(TopKnown(c.need) or c.need) or c.name
 		end,
 		desc = (c.spec and "FMAC_S_" or "FMAC_C_") .. c.class .. "_" .. c.key:upper(),
 		build = function()
-			if not KnownSpell(c.need) then
+			if not TopKnown(c.need) then
 				local lvl = UnitLevel and UnitLevel("player") or 0
 				-- A talent comes sooner with the Legacy perk Talented (17 Nov 2026).
 				local need = c.level and (c.talent and ns.ForeverTalentLevel and ns.ForeverTalentLevel(c.level) or c.level)
@@ -1045,7 +1076,7 @@ local function Rows()
 	local _, token = UnitClass("player")
 	local first = true
 	for _, c in ipairs(CLASS_MACROS) do
-		if c.class == token and (not c.talent or KnownSpell(c.need)) then
+		if c.class == token and (not c.talent or TopKnown(c.need)) then
 			if first then
 				rows[#rows + 1] = { header = true, key = "c_header" }
 				first = false
@@ -1058,7 +1089,7 @@ local function Rows()
 	for pass = 1, 2 do -- your spec first, then talent rows of the other trees
 		for _, c in ipairs(SPEC_MACROS) do
 			if c.class == token and ((pass == 1) == (c.spec == band)) then
-				if (c.talent and KnownSpell(c.need)) or (not c.talent and c.spec == band) then
+				if (c.talent and TopKnown(c.need)) or (not c.talent and c.spec == band) then
 					picked[#picked + 1] = c
 					credit = credit or c.credit == "cwf"
 				end

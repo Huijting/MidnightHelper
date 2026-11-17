@@ -4517,7 +4517,7 @@ ns._mhLocales.nlNL = {
 	FMAC_WHY_NO_FOOD = "Geen eten of water in je tassen dat je op jouw level mag gebruiken.",
 	FMAC_WHY_NO_CATFORM = "Cat Form staat nog niet op je formbalk.",
 	FMAC_C_MAGE_INTELLECT = "Arcane Intellect op de vriend onder je muis, anders je vriendelijke target, anders jezelf. Ctrl = Arcane Brilliance voor de hele groep (level 56, kost Arcane Powder).",
-	FMAC_C_PRIEST_FORTITUDE = "Power Word: Fortitude op de vriend onder je muis, anders je vriendelijke target, anders jezelf. Ctrl = Prayer of Fortitude voor de hele groep (level 48, kost een Holy Candle).",
+	FMAC_C_PRIEST_FORTITUDE = "Power Word: Fortitude op de vriend onder je muis, anders je vriendelijke target, anders jezelf. Ctrl = Prayer of Fortitude voor de hele groep (level 48, kost een Holy Candle; rang 2 op level 60 kost een Sacred Candle).",
 	FMAC_C_PRIEST_SPIRIT = "Divine Spirit op de vriend onder je muis, anders je vriendelijke target, anders jezelf. Ctrl = Prayer of Spirit voor de hele groep (level 60, kost een Sacred Candle).",
 	FMAC_C_WARLOCK_HEALTHSTONE = "Gebruikt je beste Healthstone. Ctrl + druk maakt een nieuwe (kost een Soul Shard). Zonder steen in je tassen maakt een druk er een.",
 	FMAC_C_WARLOCK_SOULSTONE = "Zet je Soulstone op de vriend onder je muis, anders je vriendelijke target, anders jezelf. Ctrl + druk maakt een nieuwe (kost een Soul Shard).",

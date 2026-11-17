@@ -67,7 +67,18 @@
   Knop "All settings ›" = `ns.OpenNativeSettings`. Niet als schakelaar: drempels (mana/health/tasplekken) en de Do this
   now-modus (keuzelijst) — die staan in de instellingen. Offline 26.898 runs, 0 fouten, 684 schakelaar-kliks.
   NIET in het spel gezien. "Instellingen in dezelfde stijl per tab" (plan) = de schakelaars op Keys/Professions/
-  Dungeons + deze pagina; geen apart instellingenscherm per tab.
+  Dungeons + deze pagina; geen apart instellingenscherm per tab. Commit 561f753.
+- 🔍 **Fable-controle 10 macro's BINNEN + fix (sparring: *"Ja, bouwen na stap 9"*)**: mh-research (Fable), alleen gelezen,
+  bronnen DB2 wowf 70938 + Blizzards Forever-UI (Gethe bebcb6b) + Wowhead-tooltips. GEMETEN: alle spell-/item-id's,
+  levels, classes, reagents kloppen; macro's < 255 tekens in alle talen; `/use item:` gaat via UseItemByName (UI-code).
+  Fouten: ptBR Arcane Intellect rang 1 en esMX Create Healthstone rang 1/3 hebben een andere naam → te lage rang; R1
+  (AFGELEID): Stealth/Vanish/Eviscerate/Prowl rang 1 telt mogelijk niet meer als bekend na rang 2. FIX: nieuw
+  `TopKnown(id)` in ForeverMacros (hoogste bekende rang uit `ns.FOREVER_SPELL_IDS`) in ClassRow (need + titel), Rows()
+  (talentrijen), FillTpl `{id}` en eatdrink (Conjure Water). Fortitude-tekst + Sacred Candle (en + nl; de/fr/es/pt/ru in
+  de vertaalronde). Offline: rogue met alleen rang 2 → rij te maken (positieve controle rang 1 ook). Niet gemeten (in
+  het spel): `/use item:`, `!`, `[noform]`, `[nostealth]`, twee no-GCD-casts op één druk, eten+drinken op één druk.
+  Optioneel uit het rapport, NIET gedaan: Healthstone/Soulstone-tekst "Ctrl maakt alleen een nieuwe als je die steen niet
+  al draagt"; `/focus` → `/focus target`.
 
 ## ⏭️⏭️ NIEUWSTE OVERDRACHT (Bouwchat 17-11 (3), laatste commit 27e536b, alles gepusht, geen release)
 

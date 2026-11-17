@@ -30,6 +30,16 @@ Eerst WoW helemaal afsluiten en opnieuw starten (er is een nieuw bestand; /reloa
 - [ ] `/mh overview` opent zonder foutmelding en ziet er precies hetzelfde uit als ronde 5 (zelfde letters, kleuren,
       knoppen, NOW/LATER-labels onder Jouw pad).
 
+## 🧪 17 nov (nacht) — Forever: handige macro's pakken je hoogste rang (Fable-controle)
+
+- [ ] Rogue met **Stealth rang 2** (of hoger) en een druid met **Prowl rang 2**: in Keys & macros staat de Stealth-/
+      Prowl-rij met "Make" (niet grijs "Learn this spell at your class trainer first"). Maak hem en druk hem: je gaat in
+      stealth/prowl.
+- [ ] Rogue met Eviscerate rang 2+ en Vanish rang 2: de rijen "Finisher" en "Vanish + Sprint" zijn ook te maken.
+- [ ] (Alleen als je een Braziliaanse/Mexicaanse client hebt) Mage-Intellect / warlock-Healthstone: de macro gebruikt je
+      hoogste rang.
+- [ ] Priest-Fortitude-rij: de uitleg noemt nu ook de Sacred Candle voor rang 2 op level 60.
+
 ## ⚙️ 17 nov (nacht) — Forever: tandwiel "What Midnight Helper does quietly for you" (plan-stap 9)
 
 - [ ] Rechtsboven, links van "All tools", een knopje met een tandwiel. Klik: een pagina met alles wat MH stil voor je

@@ -5425,7 +5425,7 @@ ns._mhLocales.enUS = {
 	FMAC_WHY_NO_FOOD = "No food or water in your bags that you can use at your level.",
 	FMAC_WHY_NO_CATFORM = "Cat Form is not on your form bar yet.",
 	FMAC_C_MAGE_INTELLECT = "Arcane Intellect on the friend under your mouse, else your friendly target, else you. Ctrl = Arcane Brilliance for the whole group (level 56, needs Arcane Powder).",
-	FMAC_C_PRIEST_FORTITUDE = "Power Word: Fortitude on the friend under your mouse, else your friendly target, else you. Ctrl = Prayer of Fortitude for the whole group (level 48, needs a Holy Candle).",
+	FMAC_C_PRIEST_FORTITUDE = "Power Word: Fortitude on the friend under your mouse, else your friendly target, else you. Ctrl = Prayer of Fortitude for the whole group (level 48, needs a Holy Candle; rank 2 at level 60 needs a Sacred Candle).",
 	FMAC_C_PRIEST_SPIRIT = "Divine Spirit on the friend under your mouse, else your friendly target, else you. Ctrl = Prayer of Spirit for the whole group (level 60, needs a Sacred Candle).",
 	FMAC_C_WARLOCK_HEALTHSTONE = "Uses your best Healthstone. Ctrl + press makes a new one (costs a Soul Shard). With no stone in your bags, a press makes one.",
 	FMAC_C_WARLOCK_SOULSTONE = "Puts your Soulstone on the friend under your mouse, else your friendly target, else you. Ctrl + press makes a new one (costs a Soul Shard).",
