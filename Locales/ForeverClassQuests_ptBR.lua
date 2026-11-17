@@ -292,7 +292,7 @@ for k, v in pairs({
 	FDONOW_TALENTED_HINT = ", até 5 níveis antes com a vantagem de Legado \"Talento é para quem tem\"",
 	FHOWTO_TALENTED_NOTE = "Os níveis de talento acima contam o seu primeiro ponto de talento no nível 10. A vantagem de Legado \"Talento é para quem tem\" dá pontos de talento mais cedo: até 5 níveis antes.",
 	FHOWTO_TALENTED_RANK_FMT = "Os níveis de talento acima contam o seu primeiro ponto de talento no nível 10. Você tem a vantagem de Legado \"Talento é para quem tem\" no grau %d: os seus talentos chegam essa mesma quantidade de níveis mais cedo.",
-	-- 17 Nov 2026: the overview (/mh overview, ForeverOverview.lua): FOV_*, FDUNG_IN_ENEMY_FMT, SET_FOVSTYLE_*
+	-- 17 Nov 2026: the overview (/mh overview, ForeverOverview.lua): FOV_*, FDUNG_IN_ENEMY_FMT
 	-- Names: Acampamento (spell 1308027), Fogueira Próxima 1283391, Fogueira Acolhedora 1229739, Benefícios de Acampamento
 	-- 1229741, Barraca de Acampamento (item 279978), Pontos de Legado / Legado (GlobalStrings), Talento é para quem tem 1225474.
 	FOV_TAB_NOW = "Agora",
@@ -399,15 +399,7 @@ for k, v in pairs({
 	FOV_TIP_DIR_BTN = "Qual árvore de talentos você segue. O texto à direita mostra primeiro a parte da sua escolha.",
 	FOV_ROLES_BTN_TIP_TITLE = "Outras funções",
 	FOV_TIP_ROLES_BTN = "Mostra ou recolhe as funções que não são o seu caminho.",
-	FOV_STYLE_BTN_FMT = "Estilo %s",
-	FOV_STYLE_TIP_TITLE = "Estilo A ou B",
-	FOV_STYLE_TIP = "A = livro: cores quentes e letras antigas. B = moderno: cinza-ardósia e letras simples. Clique para trocar. Também nas configurações do Midnight Helper, ou digite /mh overview style a ou b.",
-	FOV_STYLE_SET_FMT = "Estilo da visão geral: %s.",
 	FDUNG_IN_ENEMY_FMT = "%s (entrada em %s: você atravessa território da %s)",
-	SET_FOVSTYLE_TITLE = "Aparência da visão geral",
-	SET_FOVSTYLE_DESC = "WoW Forever: a aparência de /mh overview. O mesmo que o botão Estilo na janela e /mh overview style a ou b.",
-	SET_FOVSTYLE_A = "A: livro",
-	SET_FOVSTYLE_B = "B: moderno",
 	-- Paladin blessing tip (/mh blesstip): blessing names come from the client (%s); the typed words stay English.
 	FBLESS_TIP_FMT = "Midnight Helper: dê %s",
 	FBLESS_ON = "Dica de bênção LIGADA: passe o mouse num jogador aliado para ver qual bênção combina.",

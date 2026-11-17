@@ -64,9 +64,12 @@
   "Moonkin Stone"-clientnaam: GameObjects-zoekactie op "Moonkin" gaf 0 rijen (ZONDER positieve controle → bewijst
   niets); nog open.
 - 🛑 **Ontwerp B: Rob (via sparring, letterlijk): *"ik denk dat wij gewoon gaan voor onze eerste stijl die we gemaakt
-  hebben. We gaan niet eens moeite doen voor de tweede stijl."*** → geen werk meer aan B. Of B + knop "Style A/B" +
-  instelling eruit gaan: sparring vraagt het Rob (advies: eruit). Tot zijn antwoord NIETS verwijderen. Zijn eerdere "laat
-  de user kiezen" vervalt hiermee.
+  hebben. We gaan niet eens moeite doen voor de tweede stijl."*** en daarna *"Ja, B mag eruit."* / *"Je moet gewoon één
+  mooi product maken."* → **B VERWIJDERD**: thema B + kleurbalk uit ForeverStyle (S.Style weg, S.T() = A), knop "Style
+  A/B", `ns.ForeverOverviewSetStyle`, `/mh overview style a|b` (Core + CommandList), de instelling, en alle FOV_STYLE_* /
+  SET_FOVSTYLE_* in 9 taalbestanden. `ns.db.foreverStyle` wordt nergens meer gelezen (blijft onschuldig in oude SV's).
+  Zijn eerdere "laat de user kiezen" vervalt. Ook: mijn commentaar achter de tab-regels (df8c5ad) gaf lint [7] 5 HARD —
+  lint na die commit vergeten; commentaar nu op een eigen regel.
 - 🛡️ **Stap 7.1 zegen-tip GEBOUWD (en + nl)**: nieuw `Modules/ForeverBlessTip.lua` (beide toc's → WoW herstarten). Paladin,
   vriendelijke SPELER onder de muis → regel in de tooltip "Midnight Helper: give Blessing of Might (Shift+Z)". Standaard
   UIT: `/mh blesstip on|off`, instelling SET_BLESSTIP_*. Tabel AFGELEID (Classic; Might = alleen melee AP, sparring

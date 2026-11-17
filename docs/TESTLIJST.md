@@ -40,13 +40,9 @@ WoW eerst helemaal herstarten (nieuw bestand). Staat standaard UIT.
       `foreverBlessTipProbe`: werkt de tooltip-hook in Forever?).
 - [ ] Zie je géén regel in de tooltip? Typ `/mh blesstip` en zeg wat er bij "hook" en "fired" staat.
 
-## 🎨 17 nov (avond) — Forever: ontwerp B en de schakelaar (`/mh overview`)
+## 🎨 17 nov (avond) — Forever: knoppen in het overzicht (`/mh overview`)
 
-- [ ] Bovenaan naast "Dock to window" staat een knop "Style A". Klik: het venster wordt strak en modern (grijs, gewone
-      letters, een gekleurde balk bovenop elke kaart) en de knop zegt "Style B". Nog een klik: terug naar A.
-- [ ] Je blijft op dezelfde tab als je wisselt.
-- [ ] Na `/reload` onthoudt hij je keuze. Ook te kiezen in de instellingen (Venster & weergave → "Look of the overview")
-      en met `/mh overview style a` of `b`.
+- ~~Knop "Style A/B", ontwerp B, instelling, /mh overview style~~ VERVALLEN: Rob, *"Ja, B mag eruit."* — weer weggehaald.
 - [ ] De knop "Your direction: Protection" past nu binnen zijn rand (tekst krimpt).
 - [ ] Zie je op How you play nog het vage tekstje links naast "CONTENTS"? Graag een screenshot.
 

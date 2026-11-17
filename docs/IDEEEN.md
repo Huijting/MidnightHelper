@@ -280,7 +280,10 @@ lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met d
   regel als kaartje met titel (bv. "Class quest: Redemption" / "Go to Danitha Morr" / "Tirisfal Glades · 22.1, 44.7" +
   knop).
 - 17 nov avond (Bouwchat 17-11 (3)): stijlkit `ForeverStyle.lua` (77a9c6c), Class quests-pagina (3eadfdd), Kamperen +
-  Legacy-pagina's GEBOUWD. Open: How you play-pagina, B + schakelaar, vertalingen.
+  Legacy (0db441d), How you play (26dbf00), vertalingen de/fr/es/pt/ru (2cc0165) GEBOUWD.
+- 🛑 **B VERVALLEN** (Rob via sparring, letterlijk: *"ik denk dat wij gewoon gaan voor onze eerste stijl die we gemaakt
+  hebben"*, *"Ja, B mag eruit."*, *"Je moet gewoon één mooi product maken."*): B was gebouwd (25ec782) en is weer
+  weggehaald. Eén look: A. Dit vervangt "laat de user kiezen" hierboven.
 - **Volledige naam in de kop** (Rob via Sparring, letterlijk: *"Nog een vraag, kunnen we hier de hele naam neerzetten?
   Eventueel onder elkaar de voor- en de achternaam, als het te lang wordt."*): GEBOUWD met meting
   (`ns.db.foreverNameProbe`): achternaam alleen als de client hem geeft; één regel (krimpt tot 16), anders twee regels.

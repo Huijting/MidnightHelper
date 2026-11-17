@@ -164,12 +164,13 @@ for k, v in pairs({
 	FCQ_OBJ_MA_SHELL = "derrota a Scalebeard (una tortuga) en su cueva para conseguir la Concha centelleante. Si tu misión se llama Señor de la Guerra Krellian: está en el Templo de Zin-Malor (41.0, 53.1)",
 	-- not measured esMX: Polymorph Clone (esES name kept)
 	FCQ_OBJ_MA_CLONES = "guarda la Concha centelleante en tus bolsas, lanza Polimorfia a un naga Látigo de Ira, espera unos segundos y derrota a los Clones polimórficos que aparecen. Repite hasta tener 50 (no en un grupo de banda)",
-	-- 17 Nov 2026: the overview (/mh overview, ForeverOverview.lua): FOV_*, FDUNG_IN_ENEMY_FMT, SET_FOVSTYLE_*
+	-- 17 Nov 2026: the overview (/mh overview, ForeverOverview.lua): FOV_*, FDUNG_IN_ENEMY_FMT
 	-- LEGACY_BUTTON is "Legado" on esMX ("Banda antigua" on esES; LEGACY_VERIFIED ch. 10). Camping (1308027) is
 	-- "Campamento" on esMX ("Acampando" on esES); tab and camp words as in ForeverHowToPlay_esMX.lua ("Campamento",
 	-- "elemento de campamento").
 	FOV_TAB_CAMP = "Campamento",
-	FOV_TAB_LEGACY = "Legado", -- GlobalStrings LEGACY_BUTTON esMX (LEGACY_VERIFIED r.341); esES says "Banda antigua"
+	-- GlobalStrings LEGACY_BUTTON esMX (LEGACY_VERIFIED r.341); esES says "Banda antigua"
+	FOV_TAB_LEGACY = "Legado",
 	FOV_TIP_TAB_CAMP = "Campamento: lo que MH puede leer ahora de tus buffs de campamento, y cómo funciona el campamento.",
 	FOV_LABEL_CAMP_HOW = "CÓMO FUNCIONA EL CAMPAMENTO",
 	FOV_TIP_CAMP_BENEFITS = "El buff de campamento: 1 hora, una línea por cada elemento de campamento junto a la hoguera.",

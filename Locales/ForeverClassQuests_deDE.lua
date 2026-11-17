@@ -284,14 +284,15 @@ for k, v in pairs({
 	FDONOW_TALENTED_HINT = ", mit Talentiert aus dem Vermächtnisbaum bis zu 5 Stufen früher",
 	FHOWTO_TALENTED_NOTE = "Die Talentstufen oben rechnen mit deinem ersten Talentpunkt auf Stufe 10. Talentiert aus dem Vermächtnisbaum gibt dir Talentpunkte früher: bis zu 5 Stufen früher.",
 	FHOWTO_TALENTED_RANK_FMT = "Die Talentstufen oben rechnen mit deinem ersten Talentpunkt auf Stufe 10. Du hast Talentiert aus dem Vermächtnisbaum auf Rang %d: deine Talente kommen so viele Stufen früher.",
-	-- 17 Nov 2026: the overview (/mh overview, ForeverOverview.lua): FOV_*, FDUNG_IN_ENEMY_FMT, SET_FOVSTYLE_*
+	-- 17 Nov 2026: the overview (/mh overview, ForeverOverview.lua): FOV_*, FDUNG_IN_ENEMY_FMT
 	-- Names: Lager aufschlagen / Lagervorteile / Einladendes Lagerfeuer / Lagerzelt / Lagerfeuer (CAMPING_VERIFIED 7),
 	-- Vermächtnispunkte / Vermächtnisbaum / Klassisch (= LEGACY_BUTTON) / Talentiert (LEGACY_VERIFIED 10), EP (GS XP).
 	FOV_TAB_NOW = "Jetzt",
 	FOV_TAB_PLAY = "So spielst du",
 	FOV_TAB_CQ = "Klassenquests",
 	FOV_TAB_CAMP = "Lager aufschlagen",
-	FOV_TAB_LEGACY = "Klassisch", -- GlobalStrings LEGACY_BUTTON deDE (LEGACY_VERIFIED r.341; Rob 20 Oct: client name wins)
+	-- GlobalStrings LEGACY_BUTTON deDE (LEGACY_VERIFIED r.341; Rob 20 Oct: client name wins)
+	FOV_TAB_LEGACY = "Klassisch",
 	FOV_LABEL_NOW = "MACH DAS JETZT",
 	FOV_LABEL_SOON = "DEMNÄCHST",
 	FOV_LABEL_CQ = "KLASSENQUEST",
@@ -392,15 +393,7 @@ for k, v in pairs({
 	FOV_TIP_DIR_BTN = "Welchem Talentbaum du folgst. Der Text rechts zeigt zuerst den Teil für deine Wahl.",
 	FOV_ROLES_BTN_TIP_TITLE = "Andere Rollen",
 	FOV_TIP_ROLES_BTN = "Zeig die Rollen, die nicht deine Richtung sind, oder klapp sie ein.",
-	FOV_STYLE_BTN_FMT = "Stil %s",
-	FOV_STYLE_TIP_TITLE = "Stil A oder B",
-	FOV_STYLE_TIP = "A = Buch: warme Farben und alte Schrift. B = modern: Schiefergrau und schlichte Schrift. Klick zum Wechseln. Auch in den Optionen von Midnight Helper, oder tipp /mh overview style a oder b.",
-	FOV_STYLE_SET_FMT = "Stil der Übersicht: %s.",
 	FDUNG_IN_ENEMY_FMT = "%s (Eingang in %s: du reist durch %s-Gebiet)",
-	SET_FOVSTYLE_TITLE = "Aussehen der Übersicht",
-	SET_FOVSTYLE_DESC = "WoW Forever: wie /mh overview aussieht. Wie der Knopf Stil im Fenster und /mh overview style a oder b.",
-	SET_FOVSTYLE_A = "A: Buch",
-	SET_FOVSTYLE_B = "B: modern",
 	-- Blessing tip (Paladin = ChrClasses 2 deDE, CLIENT_NAMES_FOREVER line 174; blessing names come from the client via %s)
 	FBLESS_TIP_FMT = "Midnight Helper: gib %s",
 	FBLESS_ON = "Segen-Tipp AN: Fahr mit der Maus über einen freundlichen Spieler, dann siehst du, welcher Segen passt.",

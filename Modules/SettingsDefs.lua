@@ -656,19 +656,7 @@ local function Build()
 	end, function(v)
 		if ns.db and ns.db.ui then ns.db.ui.openOnLogin = v end
 	end, false) -- expliciete default (uit); niet de toevallige login-waarde (F4.6)
-	-- 17 Nov 2026, WoW Forever: the look of the overview (/mh overview). Rob: "misschien moeten we de user maar laten
-	-- kiezen. Dus bouw ze allebei maar." A (book) is the default. Same as /mh overview style a|b and the A/B button.
 	if ns.IS_FOREVER then
-		Dropdown("mh_foreverStyle", "SET_FOVSTYLE_TITLE", "SET_FOVSTYLE_DESC", "A", {
-			{ value = "A", labelKey = "SET_FOVSTYLE_A" },
-			{ value = "B", labelKey = "SET_FOVSTYLE_B" },
-		}, function()
-			return (ns.db and ns.db.foreverStyle == "B") and "B" or "A"
-		end, function(v)
-			if ns.ForeverOverviewSetStyle then
-				ns.ForeverOverviewSetStyle(v)
-			end
-		end, "A")
 		-- 17 Nov 2026 (Rob: "Allebei", the blessing tip first): a paladin sees which blessing fits the player under the
 		-- mouse, in the tooltip. Off by default. Same as /mh blesstip on|off.
 		Toggle("mh_foreverBlessTip", "SET_BLESSTIP_TITLE", "SET_BLESSTIP_DESC", function()

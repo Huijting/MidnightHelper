@@ -301,14 +301,15 @@ for k, v in pairs({
 	FDONOW_TALENTED_HINT = ", jusqu'à 5 niveaux plus tôt avec Talent, un avantage d'Héritage",
 	FHOWTO_TALENTED_NOTE = "Les niveaux de talent ci-dessus comptent ton premier point de talent au niveau 10. Le avantage d'Héritage Talent donne des points de talent plus tôt : jusqu'à 5 niveaux avant.",
 	FHOWTO_TALENTED_RANK_FMT = "Les niveaux de talent ci-dessus comptent ton premier point de talent au niveau 10. Tu as le avantage d'Héritage Talent au rang %d : tes talents arrivent autant de niveaux plus tôt.",
-	-- 17 Nov 2026: the overview (/mh overview, ForeverOverview.lua): FOV_*, FDUNG_IN_ENEMY_FMT, SET_FOVSTYLE_*
+	-- 17 Nov 2026: the overview (/mh overview, ForeverOverview.lua): FOV_*, FDUNG_IN_ENEMY_FMT
 	-- Names: "Points d’héritage" = GlobalStrings LEGACY_REWARD_TRACK_POINTS, "Héritage" = LEGACY_BUTTON, "Talent" =
 	-- SpellName 1225474 (LEGACY_VERIFIED ch. 10); "Avantages du camp" = 1229741, "Tente du camp" = item 279978
 	-- (CAMPING_VERIFIED). Tab words as in ForeverHowToPlay_frFR.lua / PLAYCARD_BTN ("Comment jouer", "Camping").
 	FOV_TAB_NOW = "Maintenant",
 	FOV_TAB_PLAY = "Comment jouer",
 	FOV_TAB_CQ = "Quêtes de classe",
-	FOV_TAB_CAMP = "Campement", -- client name of spell 1308027 (CAMPING_VERIFIED r.345; Rob 20 Oct: client name wins)
+	-- client name of spell 1308027 (CAMPING_VERIFIED r.345; Rob 20 Oct: client name wins)
+	FOV_TAB_CAMP = "Campement",
 	FOV_TAB_LEGACY = "Héritage",
 	FOV_LABEL_NOW = "FAIS ÇA MAINTENANT",
 	FOV_LABEL_SOON = "BIENTÔT",
@@ -409,15 +410,7 @@ for k, v in pairs({
 	FOV_TIP_DIR_BTN = "L'arbre de talents que tu suis. Le texte à droite montre d'abord la partie qui correspond à ton choix.",
 	FOV_ROLES_BTN_TIP_TITLE = "Autres rôles",
 	FOV_TIP_ROLES_BTN = "Affiche ou replie les rôles qui ne sont pas ta voie.",
-	FOV_STYLE_BTN_FMT = "Style %s",
-	FOV_STYLE_TIP_TITLE = "Style A ou B",
-	FOV_STYLE_TIP = "A = livre : couleurs chaudes et lettres anciennes. B = moderne : gris ardoise et lettres simples. Clique pour changer. Aussi dans les options de Midnight Helper, ou tape /mh overview style a ou b.",
-	FOV_STYLE_SET_FMT = "Style de la vue d'ensemble : %s.",
 	FDUNG_IN_ENEMY_FMT = "%s (entrée : %s ; tu traverses le territoire %s)",
-	SET_FOVSTYLE_TITLE = "Apparence de la vue d'ensemble",
-	SET_FOVSTYLE_DESC = "WoW Forever : l'apparence de /mh overview. Comme le bouton Style dans la fenêtre et /mh overview style a ou b.",
-	SET_FOVSTYLE_A = "A : livre",
-	SET_FOVSTYLE_B = "B : moderne",
 	-- Blessing tip (/mh blesstip): the blessing names come from the client (%s); command words stay as typed.
 	FBLESS_TIP_FMT = "Midnight Helper : donne %s",
 	FBLESS_ON = "Conseil de bénédiction ACTIVÉ : survole un joueur ami pour voir quelle bénédiction lui convient.",

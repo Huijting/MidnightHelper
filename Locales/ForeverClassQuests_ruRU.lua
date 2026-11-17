@@ -314,7 +314,7 @@ for k, v in pairs({
 	FDONOW_TALENTED_HINT = ", до 5 уровней раньше со старинным бонусом «Талантливый герой»",
 	FHOWTO_TALENTED_NOTE = "Уровни талантов выше считают, что первое очко таланта вы получаете на 10-м уровне. Старинный бонус «Талантливый герой» дает очки талантов раньше: до 5 уровней раньше.",
 	FHOWTO_TALENTED_RANK_FMT = "Уровни талантов выше считают, что первое очко таланта вы получаете на 10-м уровне. У вас старинный бонус «Талантливый герой» уровня %d: ваши таланты приходят на столько же уровней раньше.",
-	-- 17 Nov 2026: the overview (/mh overview, ForeverOverview.lua): FOV_*, FDUNG_IN_ENEMY_FMT, SET_FOVSTYLE_*
+	-- 17 Nov 2026: the overview (/mh overview, ForeverOverview.lua): FOV_*, FDUNG_IN_ENEMY_FMT
 	-- Names: "Разбить лагерь" (spell 1308027), "Бонусы лагеря" (1229741), "Лагерная палатка" (item 279978),
 	-- "Классические" (GlobalStrings LEGACY_BUTTON), "Очки старинных наград" (LEGACY_REWARD_TRACK_POINTS),
 	-- "Талантливый герой" (spell 1225474), "старинный бонус" (GlobalStrings 58658); "Как вы играете" = PLAYCARD_BTN.
@@ -423,15 +423,7 @@ for k, v in pairs({
 	FOV_TIP_DIR_BTN = "Какое дерево талантов вы выбрали. Текст справа сначала показывает часть для вашего выбора.",
 	FOV_ROLES_BTN_TIP_TITLE = "Другие роли",
 	FOV_TIP_ROLES_BTN = "Показать или свернуть роли, которые не относятся к вашему направлению.",
-	FOV_STYLE_BTN_FMT = "Стиль %s",
-	FOV_STYLE_TIP_TITLE = "Стиль A или B",
-	FOV_STYLE_TIP = "A = книга: теплые цвета и старинные буквы. B = современный: сланцево-серый цвет и простые буквы. Нажмите, чтобы переключить. Также в настройках Midnight Helper или командой /mh overview style a или b.",
-	FOV_STYLE_SET_FMT = "Стиль обзора: %s.",
 	FDUNG_IN_ENEMY_FMT = "%s (вход: %s; путь идет по землям фракции %s)",
-	SET_FOVSTYLE_TITLE = "Вид обзора",
-	SET_FOVSTYLE_DESC = "WoW Forever: как выглядит /mh overview. То же, что кнопка «Стиль» в окне и команда /mh overview style a или b.",
-	SET_FOVSTYLE_A = "A: книга",
-	SET_FOVSTYLE_B = "B: современный",
 	-- Blessing tip (ForeverBlessTip.lua). "Паладин" and "Благословение ..." as in ForeverHowToPlay_ruRU.lua; the blessing
 	-- name in FBLESS_TIP_FMT comes from the client. <class>, might|wisdom|kings and hunter are typed English arguments.
 	FBLESS_TIP_FMT = "Midnight Helper: дайте %s",

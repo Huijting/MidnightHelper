@@ -322,7 +322,7 @@ for k, v in pairs({
 	FDONOW_TALENTED_HINT = ", hasta 5 niveles antes con la ventaja de legado Talentoso",
 	FHOWTO_TALENTED_NOTE = "Los niveles de talento de arriba cuentan tu primer punto de talento en el nivel 10. La ventaja de legado Talentoso da puntos de talento antes: hasta 5 niveles antes.",
 	FHOWTO_TALENTED_RANK_FMT = "Los niveles de talento de arriba cuentan tu primer punto de talento en el nivel 10. Tienes la ventaja de legado Talentoso en rango %d: tus talentos llegan esos niveles antes.",
-	-- 17 Nov 2026: the overview (/mh overview, ForeverOverview.lua): FOV_*, FDUNG_IN_ENEMY_FMT, SET_FOVSTYLE_*
+	-- 17 Nov 2026: the overview (/mh overview, ForeverOverview.lua): FOV_*, FDUNG_IN_ENEMY_FMT
 	-- Names: Camp Benefits 1229741 "Beneficios de campamento", Camp Tent item 279978 "Tienda de campamento", Legacy
 	-- Points "Puntos de legado", LEGACY_BUTTON "Banda antigua", Talented 1225474 "Talentoso" (docs/forever/
 	-- CAMPING_VERIFIED + LEGACY_VERIFIED ch. 10); Rested "Descansado" (GlobalStrings 11489, Translations2026.lua).
@@ -331,8 +331,10 @@ for k, v in pairs({
 	FOV_TAB_NOW = "Ahora",
 	FOV_TAB_PLAY = "Cómo jugar",
 	FOV_TAB_CQ = "Misiones de clase",
-	FOV_TAB_CAMP = "Acampando", -- client name of spell 1308027 (CAMPING_VERIFIED r.345; Rob 20 Oct: client name wins)
-	FOV_TAB_LEGACY = "Banda antigua", -- GlobalStrings LEGACY_BUTTON esES (LEGACY_VERIFIED r.341)
+	-- Tab names = client names (Rob 20 Oct: client name wins): spell 1308027 (CAMPING_VERIFIED r.345) and
+	-- GlobalStrings LEGACY_BUTTON esES (LEGACY_VERIFIED r.341)
+	FOV_TAB_CAMP = "Acampando",
+	FOV_TAB_LEGACY = "Banda antigua",
 	FOV_LABEL_NOW = "HAZ ESTO AHORA",
 	FOV_LABEL_SOON = "PRÓXIMAMENTE",
 	FOV_LABEL_CQ = "MISIÓN DE CLASE",
@@ -432,15 +434,7 @@ for k, v in pairs({
 	FOV_TIP_DIR_BTN = "Qué árbol de talentos sigues. El texto de la derecha muestra primero la parte de tu elección.",
 	FOV_ROLES_BTN_TIP_TITLE = "Otros roles",
 	FOV_TIP_ROLES_BTN = "Muestra o pliega los roles que no son tu camino.",
-	FOV_STYLE_BTN_FMT = "Estilo %s",
-	FOV_STYLE_TIP_TITLE = "Estilo A o B",
-	FOV_STYLE_TIP = "A = libro: colores cálidos y letras antiguas. B = moderno: gris pizarra y letras sencillas. Haz clic para cambiar. También en los ajustes de Midnight Helper, o escribe /mh overview style a o b.",
-	FOV_STYLE_SET_FMT = "Estilo del resumen: %s.",
 	FDUNG_IN_ENEMY_FMT = "%s (entrada en %s: atraviesas territorio de la %s)",
-	SET_FOVSTYLE_TITLE = "Aspecto del resumen",
-	SET_FOVSTYLE_DESC = "WoW Forever: cómo se ve /mh overview. Lo mismo que el botón Estilo de la ventana y /mh overview style a o b.",
-	SET_FOVSTYLE_A = "A: libro",
-	SET_FOVSTYLE_B = "B: moderno",
 	-- 17 Nov 2026: blessing tip (ForeverBlessTip.lua). Blessing names come from the client (%s). Typed arguments
 	-- (on, off, set, reset, might|wisdom|kings, the class word) stay as the command reads them. "Paladín" as in the es pack.
 	FBLESS_TIP_FMT = "Midnight Helper: da %s",
