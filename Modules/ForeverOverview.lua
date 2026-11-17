@@ -187,13 +187,19 @@ local TABS = {
 	{ key = "FOV_TAB_PROFS", tip = "FOV_TIP_TAB_PROFS", page = "profs" },
 	{ key = "FOV_TAB_DUNG", tip = "FOV_TIP_TAB_DUNG", page = "dungeons" },
 	{ key = "FOV_TAB_KEYS", tip = "FOV_TIP_TAB_KEYS", page = "keys" },
-	{ key = "FOV_TAB_LEGACY", tip = "FOV_TIP_TAB_LEGACY", page = "legacy" },
+	-- Step 8: Legacy moved under Characters (with "This week").
+	{ key = "FOV_TAB_CHARS", tip = "FOV_TIP_TAB_CHARS", group = "chars" },
 }
 local GROUPS = {
 	class = {
 		{ page = "play", key = "FOV_TAB_PLAY", tip = "FOV_TIP_TAB_PLAY" },
 		{ page = "cq", key = "FOV_TAB_CQ", tip = "FOV_TIP_TAB_CQ" },
 		{ page = "camp", key = "FOV_TAB_CAMP", tip = "FOV_TIP_TAB_CAMP" },
+	},
+	chars = {
+		{ page = "chars", key = "FCHARS_TITLE", tip = "FOV_TIP_SUB_CHARS" },
+		{ page = "legacy", key = "FOV_TAB_LEGACY", tip = "FOV_TIP_TAB_LEGACY" },
+		{ page = "week", key = "FOV_SUB_WEEK", tip = "FOV_TIP_CARD_WEEK" },
 	},
 }
 local PAGE_GROUP = {}
@@ -974,6 +980,88 @@ local function DungeonRow(list, i)
 	return r
 end
 
+--- Characters page (product plan step 8, 17 Nov 2026): every character of this account (ForeverChars.lua, the same
+--- snapshot and texts as that window): side, name, level, gold, direction, last played, spells ready at the trainer,
+--- professions; "x" forgets one. The total gold at the top.
+local CHAR_ROW_H = 60
+
+local function BuildCharsPage(f, x0, rightW)
+	local page = f.pages.chars
+	local card = Card(page)
+	card:SetPoint("TOPLEFT", f, "TOPLEFT", x0, SUB_TOP)
+	card:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -16, 16)
+	card.label = Label(card, ns:L("FCHARS_TITLE"):upper(), "FOV_TIP_SUB_CHARS")
+	card.total = Text(card, "head2", 14, A.gold)
+	card.total:SetPoint("TOPRIGHT", -16, -12)
+	card.total:SetJustifyH("RIGHT")
+	card.note = Text(card, "text", 11, A.later)
+	card.note:SetPoint("BOTTOMLEFT", 14, 10)
+	card.note:SetPoint("RIGHT", -14, 0)
+	if card.note.SetMaxLines then
+		card.note:SetMaxLines(2)
+	end
+	card.sf, card.child = S.Scroll(card, 34, 40, CHAR_ROW_H)
+	card.rowW = rightW - 22 - 8
+	card.child:SetWidth(card.rowW)
+	card.rows = {}
+	page.card = card
+end
+
+local function CharRow(card, i)
+	local r = card.rows[i]
+	if r then
+		return r
+	end
+	r = CreateFrame("Frame", nil, card.child)
+	r:SetSize(card.rowW, CHAR_ROW_H - 4)
+	r:SetPoint("TOPLEFT", 0, -(i - 1) * CHAR_ROW_H)
+	local sep = r:CreateTexture(nil, "ARTWORK")
+	sep:SetColorTexture(A.edge[1], A.edge[2], A.edge[3], 0.35)
+	sep:SetHeight(1)
+	sep:SetPoint("BOTTOMLEFT", 0, -2)
+	sep:SetPoint("BOTTOMRIGHT", 0, -2)
+	r.forget = Button(r, 22)
+	r.forget:SetHeight(20)
+	r.forget:SetPoint("TOPRIGHT", -2, -4)
+	r.forget:SetLabel("x")
+	Tip(r.forget, ns:L("FCHARS_FORGET_TIP"))
+	r.gold = Text(r, "textB", 14)
+	r.gold:SetPoint("TOPRIGHT", r.forget, "TOPLEFT", -12, -2)
+	r.gold:SetJustifyH("RIGHT")
+	r.who = Text(r, "head2", 15)
+	r.who:SetPoint("TOPLEFT", 4, -4)
+	r.who:SetPoint("RIGHT", r.gold, "LEFT", -12, 0)
+	r.who:SetWordWrap(false)
+	r.line = Text(r, "text", 12, A.text)
+	r.line:SetPoint("TOPLEFT", r.who, "BOTTOMLEFT", 0, -3)
+	r.line:SetPoint("RIGHT", -8, 0)
+	r.line:SetWordWrap(false)
+	r.profs = Text(r, "text", 12, A.dim)
+	r.profs:SetPoint("TOPLEFT", r.line, "BOTTOMLEFT", 0, -2)
+	r.profs:SetPoint("RIGHT", -8, 0)
+	r.profs:SetWordWrap(false)
+	r.hover = HoverOver(r, r.profs)
+	card.rows[i] = r
+	return r
+end
+
+--- "This week" page (step 8): the whole list of ForeverWeek.lua (resets, today's events, raids, PvP, writs) in one card.
+local function BuildWeekPage(f, x0, rightW)
+	local page = f.pages.week
+	local card = Card(page)
+	card:SetPoint("TOPLEFT", f, "TOPLEFT", x0, SUB_TOP)
+	card:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -16, 16)
+	card.label = Label(card, ns:L("FOV_LABEL_WEEK"), "FOV_TIP_CARD_WEEK")
+	card.sf, card.child = S.Scroll(card, 36, 10, 40)
+	card.text = Text(card.child, "text", 15)
+	card.text:SetPoint("TOPLEFT", 6, 0)
+	card.text:SetPoint("RIGHT", card.child, "RIGHT", -6, 0)
+	if card.text.SetSpacing then
+		card.text:SetSpacing(6)
+	end
+	page.card = card
+end
+
 -- Step 4: the page starts 30 px lower (switch row of "Your class"), so the rows are 19 px apart instead of 21.
 local TOC_ROWS, TOC_STEP = 14, 19
 
@@ -1142,7 +1230,7 @@ local function Build()
 	f.page = "now"
 	f.lastInGroup = {}
 	f.pages = {}
-	for _, key in ipairs({ "now", "play", "cq", "camp", "legacy", "trainer", "find", "keys", "profs", "dungeons" }) do
+	for _, key in ipairs({ "now", "play", "cq", "camp", "legacy", "trainer", "find", "keys", "profs", "dungeons", "chars", "week" }) do
 		local p = CreateFrame("Frame", nil, f)
 		p:SetAllPoints(f)
 		p:Hide()
@@ -1364,6 +1452,8 @@ local function Build()
 	BuildKeysPage(f, x0, rightW)
 	BuildProfsPage(f, x0, rightW)
 	BuildDungeonsPage(f, x0, rightW)
+	BuildCharsPage(f, x0, rightW)
+	BuildWeekPage(f, x0, rightW)
 	-- Find and Professions: distances, names, skills and the tool in your bags change when you change zone, the client
 	-- loads an item name, a skill goes up or your bags change; fill again then (not every 2 s: the order of the list
 	-- must not jump under your mouse).
@@ -2645,6 +2735,66 @@ local function FillDungeonsPage(f, refresh)
 	end
 end
 
+local function FillCharsPage(f, refresh)
+	local card = f.pages.chars.card
+	local views, total, side = {}, "", nil
+	if ns.ForeverCharsViews then
+		local ok, v, t, s = pcall(ns.ForeverCharsViews)
+		if ok and type(v) == "table" then
+			views, total, side = v, t or "", s
+		end
+	end
+	card.total:SetText(total)
+	card.note:SetText(ns:L("FCHARS_NOTE") .. (side and ("  " .. side) or ""))
+	for i, v in ipairs(views) do
+		local row = CharRow(card, i)
+		row.who:SetText(v.who)
+		row.gold:SetText(v.gold)
+		row.line:SetText(("%s  ·  %s  ·  %s"):format(v.dir, v.seen, v.trainer))
+		row.profs:SetText(v.profs)
+		row.hover.tipTitle, row.hover.tipBody = ns:L("FOV_CHARS_PROFS"), v.profs
+		if v.forget then
+			row.forget:SetScript("OnClick", function()
+				v.forget()
+				ns.ForeverOverviewFill(true)
+			end)
+			row.forget:Show()
+		else
+			row.forget:Hide()
+		end
+		row:Show()
+	end
+	for i = #views + 1, #card.rows do
+		card.rows[i]:Hide()
+	end
+	card.child:SetHeight(math.max(10, #views * CHAR_ROW_H))
+	if refresh then
+		card.sf.UpdateThumb()
+	else
+		card.sf.Reset()
+	end
+end
+
+local function FillWeekPage(f, refresh)
+	local card = f.pages.week.card
+	local rows = {}
+	if ns.ForeverWeekRows then
+		local ok, r = pcall(ns.ForeverWeekRows)
+		rows = ok and type(r) == "table" and r or {}
+	end
+	local lines = {}
+	for _, r in ipairs(rows) do
+		lines[#lines + 1] = "|c" .. (WEEK_TONE[r.tone] or WEEK_TONE.soft) .. tostring(r.text or "") .. "|r"
+	end
+	card.text:SetText(#lines > 0 and table.concat(lines, "\n") or ns:L("FOV_ST_UNREADABLE"))
+	card.child:SetHeight(math.max(10, (card.text:GetStringHeight() or 0) + 12))
+	if refresh then
+		card.sf.UpdateThumb()
+	else
+		card.sf.Reset()
+	end
+end
+
 --- Refill when the overview shows `page` (ForeverMacros.lua calls this when your bags or spells change).
 function ns.ForeverOverviewRefreshPage(page)
 	if win and win:IsShown() and win.page == page then
@@ -2713,6 +2863,12 @@ function ns.ForeverOverviewFill(refresh)
 		return f
 	elseif f.page == "dungeons" then
 		FillDungeonsPage(f, refresh)
+		return f
+	elseif f.page == "chars" then
+		FillCharsPage(f, refresh)
+		return f
+	elseif f.page == "week" then
+		FillWeekPage(f, refresh)
 		return f
 	elseif f.page == "cq" then
 		FillClassQuestPage(f, level)

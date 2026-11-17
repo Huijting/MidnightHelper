@@ -471,7 +471,68 @@ Refresh = function()
 	f:SetHeight(64 + visible * ROW_H + 64)
 end
 
+--- 17 Nov 2026, product plan step 8 (the overview's Characters tab): every saved character, the same texts as this
+--- window. Each: { me, who (side mark + name in class colour + level), gold, dir, seen, trainer, profs, forget = fn
+--- or nil }. Then the total gold text and the "? = side not known yet" note (or nil).
+function ns.ForeverCharsViews()
+	Snap("opened the overview")
+	local list, me = Sorted(), MyGUID()
+	local out, total, unknownSide = {}, 0, false
+	local realms, nRealms = {}, 0
+	for _, e in ipairs(list) do
+		if e.rec.realm and not realms[e.rec.realm] then
+			realms[e.rec.realm] = true
+			nRealms = nRealms + 1
+		end
+	end
+	for _, e in ipairs(list) do
+		local rec = e.rec
+		local lvl = rec.level and ns:L("FCHARS_LEVEL_FMT"):format(rec.level, rec.className or rec.class or "") or ""
+		if not FACTION_ICON[rec.faction or ""] then
+			unknownSide = true
+		end
+		total = total + (rec.money or 0)
+		local trainer
+		if rec.trainerN == nil then
+			trainer = "-"
+		elseif rec.trainerN > 0 then
+			trainer = "|cff7fff7f" .. ns:L("FCHARS_TRAINER_FMT"):format(rec.trainerN) .. "|r"
+		else
+			trainer = GREY .. ns:L("FCHARS_TRAINER_NONE") .. "|r"
+		end
+		local p = ProfText(rec)
+		if nRealms > 1 and rec.realm then
+			p = rec.realm .. "  ·  " .. p
+		end
+		local guid = e.guid
+		out[#out + 1] = {
+			me = guid == me,
+			who = FactionMark(rec) .. " " .. ClassColor(rec.class) .. (rec.name or "?") .. "|r  " .. lvl,
+			gold = rec.money and Money(rec.money) or "-",
+			dir = rec.dir or "-",
+			seen = guid == me and ns:L("FCHARS_SEEN_NOW") or SeenText(rec.seen),
+			trainer = trainer,
+			profs = p,
+			forget = guid ~= me and function()
+				local store = Store()
+				if store then
+					local nm = store[guid] and store[guid].name or "?"
+					store[guid] = nil
+					print(PREFIX .. ns:L("FCHARS_FORGOT_FMT"):format(nm))
+				end
+			end or nil,
+		}
+	end
+	return out, ns:L("FCHARS_TOTAL_FMT"):format(Money(total)),
+		unknownSide and (GREY .. ns:L("FCHARS_SIDE_UNKNOWN") .. "|r") or nil
+end
+
 function ns.ShowForeverChars()
+	-- Product plan step 8: every way into this window lands on the overview's Characters tab (fallback here).
+	if ns.ShowForeverOverviewPage then
+		ns.ShowForeverOverviewPage("chars", true)
+		return
+	end
 	Snap("opened the window")
 	Refresh()
 	win:Show()

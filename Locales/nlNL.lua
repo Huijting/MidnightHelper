@@ -4692,6 +4692,12 @@ ns._mhLocales.nlNL = {
 	FOV_TIP_MAKE = "Zet deze macro in de macrolijst van dit character (of schrijft hem opnieuw) en opent het macrovenster, zodat je hem naar een balk kunt slepen.",
 	FOV_TIP_FREE_KEY = "Een andere toets pakt het Shift/Ctrl/Alt-deel van de toets van deze macro. Dit maakt die toets vrij; Toetsen terug zet hem terug.",
 	FOV_TIP_UNDO_KEYS = "Zet elke toets terug die Toets vrij heeft vrijgemaakt.",
+	-- 17 nov 2026, productplan stap 8: de tab Characters (je characters, Legacy, Deze week).
+	FOV_TAB_CHARS = "Characters",
+	FOV_TIP_TAB_CHARS = "Al je characters op dit account, je Legacy Points, en de hele week. Wissel bovenaan de pagina.",
+	FOV_TIP_SUB_CHARS = "Elk character van dit account: level, goud, richting, wanneer je het laatst speelde, spells klaar bij de trainer, beroepen. Een character verschijnt na één keer inloggen met Midnight Helper.",
+	FOV_SUB_WEEK = "Deze week",
+	FOV_CHARS_PROFS = "Beroepen",
 	-- 17 nov 2026, productplan stap 7: de tab Dungeons & groep.
 	FOV_TAB_DUNG = "Dungeons & groep",
 	FOV_TIP_TAB_DUNG = "Welke dungeons bij je level passen en de weg naar hun ingang, je raid-lockouts, en hulp voor je groep.",

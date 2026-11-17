@@ -50,7 +50,13 @@
   de regel zelf, schakelaars groepspaneel (`Is/SetForeverPartyPanel`) en markeerbalk (`Is/SetFastMarkEnabled`; in
   combat niet, zegt dat). `ShowForeverDungeons` → deze tab (toggle). Ververst bij groep/target/raid-info. Tabrij is nu vol
   (7). Offline 24.702 runs, 0 fouten, 2.682 dungeonrijen. Groepspaneel/markeerbalk in de proef niet geladen = hun
-  aan/uit NIET offline getest. NIET in het spel gezien.
+  aan/uit NIET offline getest. NIET in het spel gezien. Commit 9173426.
+- 👥 **Stap 8 Karakters + Legacy GEBOUWD (en + nl)**: tab "Characters" (groep `chars` met schakelrij: `chars`, `legacy`,
+  `week`; de tab Legacy is weg, de pagina staat nu 30 px lager). Your characters: nieuw `ns.ForeverCharsViews()` (zelfde
+  snapshot/teksten als het venster; "x" = vergeten, niet bij jezelf), totaal goud bovenaan. This week: hele
+  `ForeverWeekRows`. `ShowForeverChars` → deze tab (toggle; `/mh alts`). Offline 25.386 runs, 0 fouten, 72
+  karakterrijen. NIET in het spel gezien. Tabrij nu definitief: Now · Your class · Find · Professions · Dungeons & group
+  · Keys & macros · Characters.
 
 ## ⏭️⏭️ NIEUWSTE OVERDRACHT (Bouwchat 17-11 (3), laatste commit 27e536b, alles gepusht, geen release)
 

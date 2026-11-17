@@ -5600,6 +5600,12 @@ ns._mhLocales.enUS = {
 	FOV_TIP_MAKE = "Puts this macro in this character's macro list (or rewrites it) and opens the macro window, so you can drag it to a bar.",
 	FOV_TIP_FREE_KEY = "Another key binding takes the Shift/Ctrl/Alt part of this macro's key. This frees that binding; Undo freed keys puts it back.",
 	FOV_TIP_UNDO_KEYS = "Puts back every key binding that Free key took away.",
+	-- 17 Nov 2026, product plan step 8: the Characters tab (your characters, Legacy, This week).
+	FOV_TAB_CHARS = "Characters",
+	FOV_TIP_TAB_CHARS = "All your characters on this account, your Legacy Points, and the whole week. Switch at the top of the page.",
+	FOV_TIP_SUB_CHARS = "Every character of this account: level, gold, direction, when you last played, spells ready at the trainer, professions. A character shows up after one login with Midnight Helper.",
+	FOV_SUB_WEEK = "This week",
+	FOV_CHARS_PROFS = "Professions",
 	-- 17 Nov 2026, product plan step 7: the Dungeons & group tab.
 	FOV_TAB_DUNG = "Dungeons & group",
 	FOV_TIP_TAB_DUNG = "Which dungeons fit your level and the way to their entrance, your raid lockouts, and help for your group.",

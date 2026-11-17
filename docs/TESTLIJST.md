@@ -30,6 +30,16 @@ Eerst WoW helemaal afsluiten en opnieuw starten (er is een nieuw bestand; /reloa
 - [ ] `/mh overview` opent zonder foutmelding en ziet er precies hetzelfde uit als ronde 5 (zelfde letters, kleuren,
       knoppen, NOW/LATER-labels onder Jouw pad).
 
+## 👥 17 nov (nacht) — Forever: tab "Characters" in het overzicht (plan-stap 8)
+
+- [ ] De tab **Legacy** is weg; op zijn plek staat **Characters** met bovenaan drie knoppen: Your characters · Legacy ·
+      This week.
+- [ ] Your characters: elk character van je account (na één keer inloggen) met Horde/Alliance-tekentje, naam in
+      klassekleur, level, goud, richting, wanneer laatst gespeeld, spells klaar bij de trainer, en je beroepen. Bovenaan
+      rechts het totale goud. "x" vergeet een ander character (je eigen heeft geen x).
+- [ ] Legacy: dezelfde pagina als eerst, nu onder Characters. This week: de hele lijst (resets, evenementen, raids, PvP).
+- [ ] `/mh alts` en de tegel "Your characters" openen deze tab (nog een keer = dicht).
+
 ## 🏰 17 nov (nacht) — Forever: tab "Dungeons & group" in het overzicht (plan-stap 7)
 
 - [ ] Tab **Dungeons & group**: links DUNGEONS, laagste eerst, met een labeltje "13-18" (klassekleur = past nu, oranje
@@ -62,7 +72,7 @@ Eerst WoW helemaal afsluiten en opnieuw starten (er is een nieuw bestand; /reloa
 
 ## 🔎 17 nov (nacht) — Forever: tab "Find" en tab "Your class" in het overzicht (plan-stap 4)
 
-- [ ] De tabrij: Now · Your class · Find · Professions · Dungeons & group · Keys & macros · Legacy. "Your class" heeft bovenaan drie knoppen: How you play · Class quests
+- [ ] De tabrij: Now · Your class · Find · Professions · Dungeons & group · Keys & macros · Characters. "Your class" heeft bovenaan drie knoppen: How you play · Class quests
       · Camping. Klik ze alle drie; de tab blijft oplichten. Klik Now en weer Your class: je komt terug op de laatste.
 - [ ] Tab **Find**: links "WHAT ARE YOU LOOKING FOR?" met Trainer, Professions (jouw beroepen bovenaan in goud, met je
       skill), Weapon skills (bekend = grijs "(known)", groene + = past bij je richting) en Shops. Je kunt erin scrollen.
