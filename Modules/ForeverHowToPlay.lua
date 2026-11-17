@@ -761,7 +761,8 @@ Before you start: Aspect of the Hawk (**Shift-R**) and Trueshot Aura (**Shift-X*
 - 10: your pet, from the class quests. Aspect of the Hawk (**Shift-R**). First talents: Lethal Attacks, Hawk Eye, Improved Concussive Shot; from 15: Careful Aim, Efficiency, Improved Stings. Talent levels here are the earliest; a perk can bring them up to 5 levels sooner. Then Multi-Shot (**Shift-1**) at 18.
 - 20: Aimed Shot (**4**), from the trainer: a 2-second cast, cooldown 6 seconds, shared with Multi-Shot. Talents: Rapid Killing, Improved Arcane Shot, Lone Wolf. Aspect of the Cheetah (**R**), Disengage (**Z**), Freezing Trap (**V**).
 - 30: Scatter Shot (**E**, a talent): the enemy is confused for 4 seconds, and any damage breaks it; cooldown 30 seconds. Feign Death (**X**). Before that: Trueshot Aura (**Shift-X**, a talent) at 25: more Ranged Attack Power for your party, for 30 minutes. Rapid Fire (**Q**) at 26.
-- 40: Sniper Shot (**Shift-4**, a talent; you need Trueshot Aura first): cooldown 15 seconds, and your next 3 shots reach 10 yards further. Volley (block D). Before that: Trueshot Aura rank 2 at the trainer at 32, Ranged Weapon Specialization (a talent, passive) at 35.- 50: stronger ranks: Aimed Shot at 44 and 52, Sniper Shot at 48, Trueshot Aura and Volley at 50. After 40 the guides put your points in Beast Mastery.
+- 40: Sniper Shot (**Shift-4**, a talent; you need Trueshot Aura first): cooldown 15 seconds, and your next 3 shots reach 10 yards further. Volley (block D). Before that: Trueshot Aura rank 2 at the trainer at 32, Ranged Weapon Specialization (a talent, passive) at 35.
+- 50: stronger ranks: Aimed Shot at 44 and 52, Sniper Shot at 48, Trueshot Aura and Volley at 50. After 40 the guides put your points in Beast Mastery.
 - 60: stronger ranks again; nothing new for this role.
 **Beginner mistakes:**
 - Moving during Aimed Shot or Sniper Shot. They have a cast of 2 and 4 seconds.
@@ -790,6 +791,76 @@ Before you start: Aspect of the Hawk (**Shift-R**) while you shoot. From 30, Asp
 - Running straight in. Open from a distance (Mark, pet, Sting, a shot), then step in.
 - Pressing Mongoose Bite or Counterattack when they do not light up. Mongoose Bite only works after a dodge (or through Expose Prey), Counterattack only after a parry.
 - Staying in Aspect of the Hawk up close after level 30. The Hawk only helps your shots; the Beast gives Melee Attack Power.]] },
+	},
+	-- Shaman: written 17 Nov 2026 by mh-writer from docs/forever/SHAMAN_ROLES_2026-11-17.md (DB2 1.60.1.70938 + guides).
+	SHAMAN = {
+		{ band = 1, title = "Elemental: damage from a distance", body = [[
+From level 1: Lightning Bolt is there from the start. Lightning and fire from a distance. Flame Shock comes at 10, Chain Lightning at 32. Lightning Mastery is a talent, 40 at the earliest. The guides level as Enhancement: Elemental works, but its mana costs are very high, you have to stand still to cast, and many enemies at once are hard.
+**Simple order:**
+Before you start: Lightning Shield (**Shift-Z**, from 8) on. Searing Totem (**5**, from 10) down before the pull.
+1. Open from a distance with Lightning Bolt (**1**).
+2. Flame Shock (**2**, from 10) on an enemy that will live long.
+3. Lightning Bolt (**1**) as your filler.
+4. Three or more enemies: Fire Nova (**Shift-4**, from 12) and Chain Lightning (**Shift-1**, from 32) when they are ready.
+5. Lightning Mastery (**Q**, from 40) for an elite or a big group.
+6. Keep Earth Shock (**E**) for when the enemy casts: it interrupts the cast.
+Low on health: Healing Wave (**C**). Enemy too close: Earthbind Totem (**V**) or Frost Shock (**4**, from 20).
+**Per 10 levels:**
+- 10: Lightning Bolt (**1**), Earth Shock (**E**, from 4), Lightning Shield (**Shift-Z**, from 8). Flame Shock (**2**), Searing Totem (**5**, from a quest). First talents: Convection, Concussion (passive). Talent levels here are the earliest; a perk can bring them up to 5 levels sooner. Then Fire Nova (**Shift-4**) and Purge (**Shift-Q**) at 12, Tremor Totem (**Shift-F**) at 18.
+- 20: Frost Shock (**4**), Ghost Wolf (**R**), Call of the Elements (**Ctrl-1**). Elemental Focus (a talent, passive). Then Totemic Call (**Shift-R**) at 22. Earthbound (a talent) at 25: Earthbind Totem (**V**) holds enemies in place for 5 seconds, only at the moment you put it down. Magma Totem (block D) at 26.
+- 30: Call of Thunder (a talent, passive). Grounding Totem (**X**), Call of the Ancestors (**Ctrl-2**), Reincarnation (passive). Lightning Overload (a talent, passive). Then Chain Lightning (**Shift-1**) at 32, Elemental Fury (a talent, passive) at 35.
+- 40: Lightning Mastery (**Q**, a talent): for 15 seconds Lightning Bolt casts 0.5 seconds faster and Chain Lightning has no cooldown; cooldown 3 minutes. Call of the Spirits (**Ctrl-3**), Chain Heal (**Shift-2**). Mail armor at the trainer.
+- 50: stronger ranks of Lightning Bolt, Chain Lightning, Earth Shock, Flame Shock, Fire Nova and Searing Totem; nothing new for this role.
+- 60: stronger ranks again; nothing new for this role.
+**Beginner mistakes:**
+- Earth Shock for damage in a group. It causes a lot of **threat** (how much an enemy wants to attack you). And it shares its cooldown with Flame Shock: after that you have no interrupt.
+- Chain Lightning on one enemy. It costs a lot of mana and has a 6-second cooldown.
+- Finishing every enemy with a spell. Mana is your limit: hit an enemy that is almost dead with your weapon.]] },
+		{ band = 2, title = "Enhancement: damage up close", body = [[
+From level 1: you hit with your weapon, with Rockbiter Weapon on it. The guides level as Enhancement: they call it the comfortable choice. Use a slow two-handed weapon. Stormstrike is a talent, 25 at the earliest; Windfury Weapon comes at 30 from the trainer. Mana is your limit: when it runs low, stop casting and keep hitting. One guide's advice for the weapon buff: Rockbiter Weapon alone, Flametongue Weapon in a group, Windfury Weapon from 30. In a small group Enhancement can tank for a while with Rockbiter Weapon (Spirit Weapons then gives more threat), but there is no taunt and no defensive cooldown.
+**Simple order:**
+Before you start: weapon buff on (block D), Lightning Shield (**Shift-Z**), Searing Totem (**5**) or your totems down.
+1. Pull with Lightning Bolt (**1**). **Pull** = hit one enemy from a distance so it comes to you.
+2. Stormstrike (**3**, from 25) whenever it is ready.
+3. Lightning Bolt (**1**) at 5 stacks of Maelstrom Weapon (from 35): then it is instant and free.
+4. Earth Shock (**E**). In a group, take turns with Flame Shock (**2**).
+5. Fire Nova (**Shift-4**, from 12) when a Fire totem is down and you have mana to spare; mostly against more enemies.
+6. Rage of the Farseer (**Q**, from 40) for an elite or a big pull.
+7. Otherwise just keep hitting.
+After the fight: Healing Wave (**C**). Emergency during a fight: Lesser Healing Wave (**F2**, from 20).
+**Per 10 levels:**
+- 10: Rockbiter Weapon (block D), Lightning Bolt (**1**), Earth Shock (**E**, from 4), Lightning Shield (**Shift-Z**, from 8). Flame Shock (**2**), Searing Totem (**5**), Strength of Earth Totem (**Shift-X**), Flametongue Weapon (block D). First talents: Thundering Strikes and others (passive); Mental Dexterity (passive) from 15. Talent levels here are the earliest; a perk can bring them up to 5 levels sooner. Then Fire Nova (**Shift-4**) at 12.
+- 20: Ghost Wolf (**R**), Frost Shock (**4**), Lesser Healing Wave (**F2**), Call of the Elements (**Ctrl-1**). Shamanistic Focus (a talent, passive): Shocks and Lightning Shield cost 45% less mana. Then Stormstrike (**3**, a talent) at 25. Flurry (a talent, passive) from 25. Improved Ghost Wolf (a talent) from 25: Ghost Wolf is faster (instant with both points) and works indoors too; the guides take it at very different levels. Magma Totem (block D) at 26.
+- 30: Windfury Weapon (block D). Improved Stormstrike and Spirit Weapons (talents). Grounding Totem (**X**), Call of the Ancestors (**Ctrl-2**). Then Windfury Totem at 32 (no key: use the totem bar), Chain Lightning (**Shift-1**) at 32, Maelstrom Weapon (a talent, passive) at 35.
+- 40: Rage of the Farseer (**Q**, a talent): you hit 30% faster for 25 seconds; only your weapon hits, not your spells. Cooldown 3 minutes. Not every guide takes it at 40: some first go into Restoration for mana. Call of the Spirits (**Ctrl-3**), mail armor, a stronger Windfury Weapon. Then Grace of Air Totem at 42 (no key: use the totem bar).
+- 50: stronger ranks of Windfury Weapon, Rockbiter Weapon, Earth Shock, Lightning Bolt and Strength of Earth Totem; nothing new for this role.
+- 60: stronger ranks again; nothing new for this role.
+**Beginner mistakes:**
+- Lightning Bolt with fewer than 5 stacks of Maelstrom Weapon. It resets your swing timer. And Maelstrom Weapon only helps Lightning Bolt: not heals, not Chain Lightning.
+- Rockbiter Weapon in a group while you deal the damage, once you have Spirit Weapons. With Rockbiter you make 30% more threat, without it 30% less. Use Flametongue or Windfury.
+- Looking for a taunt. The Shaman has none. Stoneclaw Totem (**F**) makes enemies attack the totem, not you.]] },
+		{ band = 3, title = "Restoration: healer", body = [[
+From level 1: Healing Wave is there from the start, and it is your main heal while levelling. The guides do not advise levelling alone as Restoration (enemies die slowly), but it is good in a group. Between dungeons you quest with Lightning Bolt and Flame Shock. Riptide is a talent, 40 at the earliest. A Shaman can remove Poison and Disease, but no curses and no magic.
+**Simple order (in a group):**
+Before you start: Water Shield (**Shift-Z**, from 20). Totems down: Call of the Elements (**Ctrl-1**, from 20) or Healing Stream Totem (**F4**, from 20).
+1. Riptide (**Shift-F1**, from 40) on the tank or on whoever takes damage.
+2. Chain Heal (**Shift-2**, from 40) on that same target when more people are hurt.
+3. Healing Wave (**C**) for one person or the tank.
+4. Lesser Healing Wave (**F2**, from 20) when it has to be fast.
+5. Emergency: Nature's Swiftness (**Shift-3**, from 30), then Healing Wave (**C**).
+6. Mana Tide Totem (**F1**, from 25) when your mana runs out.
+7. Nobody hurt: Lightning Bolt (**1**).
+**Per 10 levels:**
+- 10: Healing Wave (**C**). First talents: Improved Healing Wave (a faster Healing Wave), Tidal Focus (passive). Talent levels here are the earliest; a perk can bring them up to 5 levels sooner. Then Ancestral Spirit (**F3**, outside a fight) at 12, Cure Poison (**Shift-C**) at 16, Tremor Totem (**Shift-F**) at 18.
+- 20: Lesser Healing Wave (**F2**), Healing Stream Totem (**F4**, from a quest), Call of the Elements (**Ctrl-1**), Ghost Wolf (**R**). Water Shield (**Shift-Z**, a talent): 3 water globes; when you are hit or one of your spells crits, you get 2% of your mana back per globe. It lasts 10 minutes. From then on Shift-Z casts Water Shield, not Lightning Shield. Then Cure Disease (**Shift-V**) at 22. Mana Tide Totem (**F1**, a talent) at 25: gives your group mana back; cooldown 5 minutes. Mana Spring Totem at 26 (no key: use the totem bar).
+- 30: Nature's Swiftness (**Shift-3**, a talent): your next Nature spell with a cast under 10 seconds is instant; cooldown 3 minutes. Healing Way (a talent, passive). Grounding Totem (**X**), Call of the Ancestors (**Ctrl-2**), Reincarnation (passive). Then Purification (a talent, passive) at 35, a stronger Mana Tide Totem at 38.
+- 40: Chain Heal (**Shift-2**). Riptide (**Shift-F1**, a talent; you need Healing Way first): a heal over 15 seconds, not an instant heal, and a Chain Heal you cast directly on that target heals 25% more; cooldown 12 seconds. Call of the Spirits (**Ctrl-3**), mail armor.
+- 50: stronger ranks of Riptide, Chain Heal, Healing Wave, Lesser Healing Wave, Mana Tide Totem and Healing Stream Totem; nothing new for this role.
+- 60: stronger ranks again; nothing new for this role.
+**Beginner mistakes:**
+- Chain Heal on someone other than your Riptide target. The bonus only counts when you cast it directly on that target.
+- Pressing only Nature's Swiftness. It heals nothing by itself: it makes your next Nature spell instant. Press Healing Wave right after.
+- Trying to remove a curse. A Shaman cannot; only Poison (**Shift-C**) and Disease (**Shift-V**).]] },
 	},
 }
 ns.FOREVER_HOWTOPLAY_ROLES = ROLES -- the offline check reads it

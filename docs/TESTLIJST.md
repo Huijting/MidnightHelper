@@ -82,6 +82,8 @@ Priest, `/reload`. Uitgezocht met Fable; niets in het spel gezien.
 - [ ] Rogue of Hunter: open "How to play". Zie je drie rollen? Kloppen de toetsen?
 - [ ] Hunter, level 10: leer je Revive Pet pas bij de quest ná het temmen (zoals de tekst nu zegt)?
 - [ ] Hunter Survival: krijg je Counterattack op 25 of op 30?
+- [ ] Shaman: zie je drie rollen (Elemental, Enhancement, Restoration)? Enhancement: hoe lang is de cooldown van
+  Stormstrike echt (6 of 8 seconden)? Tooltip kan nog oud zijn, dus graag timen.
 
 ## 🧭 17 nov — Forever: rollen per 10 levels voor Warrior, Mage en Priest
 

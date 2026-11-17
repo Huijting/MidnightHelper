@@ -733,7 +733,8 @@ Vooraf: Aspect of the Hawk (**Shift-R**) en Trueshot Aura (**Shift-X**, vanaf 25
 - 10: je pet, uit de class-quests. Aspect of the Hawk (**Shift-R**). Eerste talenten: Lethal Attacks, Hawk Eye, Improved Concussive Shot; vanaf 15: Careful Aim, Efficiency, Improved Stings. Talent-levels hier zijn op z'n vroegst; een perk kan ze tot 5 levels eerder maken. Daarna Multi-Shot (**Shift-1**) op 18.
 - 20: Aimed Shot (**4**), van de trainer: een cast van 2 seconden, cooldown 6 seconden, gedeeld met Multi-Shot. Talenten: Rapid Killing, Improved Arcane Shot, Lone Wolf. Aspect of the Cheetah (**R**), Disengage (**Z**), Freezing Trap (**V**).
 - 30: Scatter Shot (**E**, een talent): de vijand is 4 seconden in de war, en elke schade breekt dat; cooldown 30 seconden. Feign Death (**X**). Daarvoor: Trueshot Aura (**Shift-X**, een talent) op 25: meer Ranged Attack Power voor je party, 30 minuten lang. Rapid Fire (**Q**) op 26.
-- 40: Sniper Shot (**Shift-4**, een talent; je hebt eerst Trueshot Aura nodig): cooldown 15 seconden, en je volgende 3 schoten reiken 10 yards verder. Volley (blok D). Daarvoor: Trueshot Aura rank 2 bij de trainer op 32, Ranged Weapon Specialization (een talent, passief) op 35.- 50: sterkere ranks: Aimed Shot op 44 en 52, Sniper Shot op 48, Trueshot Aura en Volley op 50. Na 40 zetten de gidsen je punten in Beast Mastery.
+- 40: Sniper Shot (**Shift-4**, een talent; je hebt eerst Trueshot Aura nodig): cooldown 15 seconden, en je volgende 3 schoten reiken 10 yards verder. Volley (blok D). Daarvoor: Trueshot Aura rank 2 bij de trainer op 32, Ranged Weapon Specialization (een talent, passief) op 35.
+- 50: sterkere ranks: Aimed Shot op 44 en 52, Sniper Shot op 48, Trueshot Aura en Volley op 50. Na 40 zetten de gidsen je punten in Beast Mastery.
 - 60: weer sterkere ranks; niets nieuws voor deze rol.
 **Beginnersfouten:**
 - Lopen tijdens Aimed Shot of Sniper Shot. Ze hebben een cast van 2 en 4 seconden.
@@ -762,6 +763,76 @@ Vooraf: Aspect of the Hawk (**Shift-R**) zolang je schiet. Vanaf 30 Aspect of th
 - Meteen naar binnen rennen. Open van een afstand (Mark, pet, Sting, een schot), stap dan in.
 - Mongoose Bite of Counterattack indrukken als ze niet oplichten. Mongoose Bite werkt alleen na een dodge (of via Expose Prey), Counterattack alleen na een parry.
 - Na level 30 dichtbij in Aspect of the Hawk blijven. De Hawk helpt alleen je schoten; de Beast geeft Melee Attack Power.]] },
+		},
+		-- Shaman (17 nov 2026), zelfde band en volgorde als in Modules/ForeverHowToPlay.lua.
+		SHAMAN = {
+			{ band = 1, title = "Elemental: schade van een afstand", body = [[
+Vanaf level 1: Lightning Bolt heb je vanaf het begin. Bliksem en vuur van een afstand. Flame Shock komt op 10, Chain Lightning op 32. Lightning Mastery is een talent, op z'n vroegst 40. De gidsen levelen als Enhancement: Elemental kan, maar kost heel veel mana, je moet stilstaan om te casten, en veel vijanden tegelijk is lastig.
+**Simpele volgorde:**
+Vooraf: Lightning Shield (**Shift-Z**, vanaf 8) aan. Searing Totem (**5**, vanaf 10) neerzetten vóór de pull.
+1. Open van een afstand met Lightning Bolt (**1**).
+2. Flame Shock (**2**, vanaf 10) op een vijand die lang leeft.
+3. Lightning Bolt (**1**) als opvuller.
+4. Drie of meer vijanden: Fire Nova (**Shift-4**, vanaf 12) en Chain Lightning (**Shift-1**, vanaf 32) als ze klaar zijn.
+5. Lightning Mastery (**Q**, vanaf 40) voor een elite of een grote groep.
+6. Bewaar Earth Shock (**E**) voor als de vijand cast: hij onderbreekt de cast.
+Weinig health: Healing Wave (**C**). Vijand te dichtbij: Earthbind Totem (**V**) of Frost Shock (**4**, vanaf 20).
+**Per 10 levels:**
+- 10: Lightning Bolt (**1**), Earth Shock (**E**, vanaf 4), Lightning Shield (**Shift-Z**, vanaf 8). Flame Shock (**2**), Searing Totem (**5**, uit een quest). Eerste talenten: Convection, Concussion (passief). Talent-levels hier zijn op z'n vroegst; een perk kan ze tot 5 levels eerder maken. Daarna Fire Nova (**Shift-4**) en Purge (**Shift-Q**) op 12, Tremor Totem (**Shift-F**) op 18.
+- 20: Frost Shock (**4**), Ghost Wolf (**R**), Call of the Elements (**Ctrl-1**). Elemental Focus (een talent, passief). Daarna Totemic Call (**Shift-R**) op 22. Earthbound (een talent) op 25: Earthbind Totem (**V**) zet vijanden 5 seconden vast, alleen op het moment dat je hem neerzet. Magma Totem (blok D) op 26.
+- 30: Call of Thunder (een talent, passief). Grounding Totem (**X**), Call of the Ancestors (**Ctrl-2**), Reincarnation (passief). Lightning Overload (een talent, passief). Daarna Chain Lightning (**Shift-1**) op 32, Elemental Fury (een talent, passief) op 35.
+- 40: Lightning Mastery (**Q**, een talent): 15 seconden lang cast Lightning Bolt 0,5 seconde sneller en heeft Chain Lightning geen cooldown; cooldown 3 minuten. Call of the Spirits (**Ctrl-3**), Chain Heal (**Shift-2**). Mail-armor bij de trainer.
+- 50: sterkere ranks van Lightning Bolt, Chain Lightning, Earth Shock, Flame Shock, Fire Nova en Searing Totem; niets nieuws voor deze rol.
+- 60: weer sterkere ranks; niets nieuws voor deze rol.
+**Beginnersfouten:**
+- Earth Shock voor schade in een groep. Hij maakt veel **threat** (hoe graag een vijand jou wil aanvallen). En hij deelt zijn cooldown met Flame Shock: daarna heb je geen interrupt.
+- Chain Lightning op één vijand. Hij kost veel mana en heeft een cooldown van 6 seconden.
+- Elke vijand met een spell afmaken. Mana is je grens: sla een vijand die bijna dood is met je wapen.]] },
+			{ band = 2, title = "Enhancement: schade van dichtbij", body = [[
+Vanaf level 1: je slaat met je wapen, met Rockbiter Weapon erop. De gidsen levelen als Enhancement: ze noemen het de comfortabele keus. Gebruik een langzaam tweehandig wapen. Stormstrike is een talent, op z'n vroegst 25; Windfury Weapon komt op 30 van de trainer. Mana is je grens: raakt het op, stop dan met casten en blijf slaan. Advies van één gids voor de weapon buff: Rockbiter Weapon als je alleen speelt, Flametongue Weapon in een groep, Windfury Weapon vanaf 30. In een kleine groep kan Enhancement even tanken met Rockbiter Weapon (Spirit Weapons geeft dan meer threat), maar er is geen taunt en geen verdedigings-cooldown.
+**Simpele volgorde:**
+Vooraf: weapon buff aan (blok D), Lightning Shield (**Shift-Z**), Searing Totem (**5**) of je totems neer.
+1. Pull met Lightning Bolt (**1**). **Pullen** = één vijand van een afstand raken, zodat hij naar jou toe komt.
+2. Stormstrike (**3**, vanaf 25) steeds als hij klaar is.
+3. Lightning Bolt (**1**) bij 5 stacks Maelstrom Weapon (vanaf 35): dan is hij direct en gratis.
+4. Earth Shock (**E**). In een groep afwisselen met Flame Shock (**2**).
+5. Fire Nova (**Shift-4**, vanaf 12) als er een Fire-totem staat en je mana over hebt; vooral bij meer vijanden.
+6. Rage of the Farseer (**Q**, vanaf 40) voor een elite of een grote pull.
+7. Verder gewoon blijven slaan.
+Na het gevecht: Healing Wave (**C**). In nood tijdens het gevecht: Lesser Healing Wave (**F2**, vanaf 20).
+**Per 10 levels:**
+- 10: Rockbiter Weapon (blok D), Lightning Bolt (**1**), Earth Shock (**E**, vanaf 4), Lightning Shield (**Shift-Z**, vanaf 8). Flame Shock (**2**), Searing Totem (**5**), Strength of Earth Totem (**Shift-X**), Flametongue Weapon (blok D). Eerste talenten: Thundering Strikes en andere (passief); Mental Dexterity (passief) vanaf 15. Talent-levels hier zijn op z'n vroegst; een perk kan ze tot 5 levels eerder maken. Daarna Fire Nova (**Shift-4**) op 12.
+- 20: Ghost Wolf (**R**), Frost Shock (**4**), Lesser Healing Wave (**F2**), Call of the Elements (**Ctrl-1**). Shamanistic Focus (een talent, passief): Shocks en Lightning Shield kosten 45% minder mana. Daarna Stormstrike (**3**, een talent) op 25. Flurry (een talent, passief) vanaf 25. Improved Ghost Wolf (een talent) vanaf 25: Ghost Wolf gaat sneller (direct met beide punten) en werkt ook binnen; de gidsen nemen hem op heel verschillende levels. Magma Totem (blok D) op 26.
+- 30: Windfury Weapon (blok D). Improved Stormstrike en Spirit Weapons (talenten). Grounding Totem (**X**), Call of the Ancestors (**Ctrl-2**). Daarna Windfury Totem op 32 (geen toets: gebruik de totem-balk), Chain Lightning (**Shift-1**) op 32, Maelstrom Weapon (een talent, passief) op 35.
+- 40: Rage of the Farseer (**Q**, een talent): je slaat 25 seconden lang 30% sneller; alleen je wapenklappen, niet je spells. Cooldown 3 minuten. Niet elke gids neemt hem op 40: sommige gaan eerst in Restoration voor mana. Call of the Spirits (**Ctrl-3**), mail-armor, een sterkere Windfury Weapon. Daarna Grace of Air Totem op 42 (geen toets: gebruik de totem-balk).
+- 50: sterkere ranks van Windfury Weapon, Rockbiter Weapon, Earth Shock, Lightning Bolt en Strength of Earth Totem; niets nieuws voor deze rol.
+- 60: weer sterkere ranks; niets nieuws voor deze rol.
+**Beginnersfouten:**
+- Lightning Bolt met minder dan 5 stacks Maelstrom Weapon. Dat zet je swing timer terug. En Maelstrom Weapon helpt alleen Lightning Bolt: geen heals, geen Chain Lightning.
+- Rockbiter Weapon in een groep terwijl jij de schade doet, als je Spirit Weapons hebt. Met Rockbiter maak je 30% meer threat, zonder 30% minder. Gebruik Flametongue of Windfury.
+- Een taunt zoeken. De Shaman heeft er geen. Stoneclaw Totem (**F**) laat vijanden de totem aanvallen, niet jou.]] },
+			{ band = 3, title = "Restoration: healer", body = [[
+Vanaf level 1: Healing Wave heb je vanaf het begin, en het is je hoofd-heal tijdens het levelen. De gidsen raden niet aan om alleen als Restoration te levelen (vijanden gaan langzaam dood), maar in een groep is hij goed. Tussen dungeons door quest je met Lightning Bolt en Flame Shock. Riptide is een talent, op z'n vroegst 40. Een Shaman kan Poison en Disease weghalen, maar geen curses en geen magie.
+**Simpele volgorde (in een groep):**
+Vooraf: Water Shield (**Shift-Z**, vanaf 20). Totems neer: Call of the Elements (**Ctrl-1**, vanaf 20) of Healing Stream Totem (**F4**, vanaf 20).
+1. Riptide (**Shift-F1**, vanaf 40) op de tank of op wie schade krijgt.
+2. Chain Heal (**Shift-2**, vanaf 40) op datzelfde doel als meer mensen gewond zijn.
+3. Healing Wave (**C**) voor één persoon of de tank.
+4. Lesser Healing Wave (**F2**, vanaf 20) als het snel moet.
+5. Nood: Nature's Swiftness (**Shift-3**, vanaf 30), dan Healing Wave (**C**).
+6. Mana Tide Totem (**F1**, vanaf 25) als je mana opraakt.
+7. Niemand gewond: Lightning Bolt (**1**).
+**Per 10 levels:**
+- 10: Healing Wave (**C**). Eerste talenten: Improved Healing Wave (een snellere Healing Wave), Tidal Focus (passief). Talent-levels hier zijn op z'n vroegst; een perk kan ze tot 5 levels eerder maken. Daarna Ancestral Spirit (**F3**, buiten een gevecht) op 12, Cure Poison (**Shift-C**) op 16, Tremor Totem (**Shift-F**) op 18.
+- 20: Lesser Healing Wave (**F2**), Healing Stream Totem (**F4**, uit een quest), Call of the Elements (**Ctrl-1**), Ghost Wolf (**R**). Water Shield (**Shift-Z**, een talent): 3 waterbollen; word je geraakt of crit een spell van jou, dan krijg je 2% van je mana terug per bol. Hij duurt 10 minuten. Vanaf dan cast Shift-Z Water Shield, niet meer Lightning Shield. Daarna Cure Disease (**Shift-V**) op 22. Mana Tide Totem (**F1**, een talent) op 25: geeft je groep mana terug; cooldown 5 minuten. Mana Spring Totem op 26 (geen toets: gebruik de totem-balk).
+- 30: Nature's Swiftness (**Shift-3**, een talent): je volgende Nature-spell met een cast korter dan 10 seconden is direct; cooldown 3 minuten. Healing Way (een talent, passief). Grounding Totem (**X**), Call of the Ancestors (**Ctrl-2**), Reincarnation (passief). Daarna Purification (een talent, passief) op 35, een sterkere Mana Tide Totem op 38.
+- 40: Chain Heal (**Shift-2**). Riptide (**Shift-F1**, een talent; je hebt eerst Healing Way nodig): een heal over 15 seconden, geen directe heal, en een Chain Heal die je direct op dat doel cast, healt 25% meer; cooldown 12 seconden. Call of the Spirits (**Ctrl-3**), mail-armor.
+- 50: sterkere ranks van Riptide, Chain Heal, Healing Wave, Lesser Healing Wave, Mana Tide Totem en Healing Stream Totem; niets nieuws voor deze rol.
+- 60: weer sterkere ranks; niets nieuws voor deze rol.
+**Beginnersfouten:**
+- Chain Heal op iemand anders dan je Riptide-doel. De bonus telt alleen als je hem direct op dat doel cast.
+- Alleen Nature's Swiftness indrukken. Hij healt zelf niets: hij maakt je volgende Nature-spell direct. Druk daarna Healing Wave.
+- Een curse willen weghalen. Dat kan een Shaman niet; alleen Poison (**Shift-C**) en Disease (**Shift-V**).]] },
 		},
 	},
 }
