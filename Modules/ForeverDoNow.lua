@@ -639,6 +639,11 @@ local function Build()
 		end
 	end)
 	f:Hide()
+	-- 17 Nov 2026: style A, like the overview (ForeverStyle.lua S.SkinWindow; Rob: "alle andere vensters ... in
+	-- dezelfde stijl").
+	if ns.ForeverStyle and ns.ForeverStyle.SkinOnShow then
+		ns.ForeverStyle.SkinOnShow(f)
+	end
 	win = f
 	return f
 end

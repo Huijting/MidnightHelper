@@ -474,6 +474,10 @@ local function Build()
 	end)
 
 	f:Hide()
+	-- 17 Nov 2026, WoW Forever only: style A, like the overview (ForeverStyle.lua S.SkinWindow). Retail unchanged.
+	if ns.IS_FOREVER and ns.ForeverStyle and ns.ForeverStyle.SkinOnShow then
+		ns.ForeverStyle.SkinOnShow(f)
+	end
 	win = f
 	tinsert(UISpecialFrames, "MidnightHelperNewChoices")
 	if ns.RegisterMidnightDialogPopup then

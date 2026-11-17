@@ -34,6 +34,15 @@ Eerst WoW helemaal afsluiten en opnieuw starten (er is een nieuw bestand; /reloa
 - [ ] `/mh overview` opent zonder foutmelding en ziet er precies hetzelfde uit als ronde 5 (zelfde letters, kleuren,
       knoppen, NOW/LATER-labels onder Jouw pad).
 
+## 🎨 17 nov (nacht) — Forever: de losse vensters in dezelfde stijl als het overzicht
+
+- [ ] Open: het kleine "Do this now"-venster (`/mh donow`), "Your direction" (`/mh direction`), "New in this version"
+      (`/mh new`), het toetsenblok (`/mh block`). Allemaal: warme donkere achtergrond met gouden rand, dezelfde letters
+      als het overzicht, knoppen in de kleur van je class. Niets valt over de rand, alles is leesbaar.
+- [ ] Shift+scroll maakt ze nog steeds groter/kleiner; Escape sluit ze.
+- [ ] Een knop die grijs/uit staat (bv. Make bij een macro die nog niet kan): leesbaar?
+- [ ] In Midnight (retail) zien deze vensters er nog precies zo uit als eerst.
+
 ## 🧹 17 nov (nacht) — Forever: geen oud venster meer, geen Dock-knop, tandwiel met Tools en commando's
 
 - [ ] Rechtsboven in het overzicht alleen nog het tandwiel en het kruisje (geen "Dock", geen "All tools").

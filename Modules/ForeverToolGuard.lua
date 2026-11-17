@@ -286,6 +286,10 @@ local function SoldWindow()
 	if ns.RegisterMidnightDialogPopup then
 		ns.RegisterMidnightDialogPopup(f) -- Shift+scroll scales it, like every MH window
 	end
+	-- 17 Nov 2026: style A, like the overview (ForeverStyle.lua S.SkinWindow).
+	if ns.ForeverStyle and ns.ForeverStyle.SkinOnShow then
+		ns.ForeverStyle.SkinOnShow(f)
+	end
 	soldWin = f
 	return f
 end

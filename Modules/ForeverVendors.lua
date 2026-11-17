@@ -438,6 +438,10 @@ local function TipFrame()
 		ns.RegisterMidnightDialogPopup(f)
 	end
 	f:Hide()
+	-- 17 Nov 2026: style A, like the overview (ForeverStyle.lua S.SkinWindow).
+	if ns.ForeverStyle and ns.ForeverStyle.SkinOnShow then
+		ns.ForeverStyle.SkinOnShow(f)
+	end
 	tip = f
 	return f
 end

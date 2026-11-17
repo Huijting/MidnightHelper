@@ -295,6 +295,10 @@ local function Ask(force)
 		else
 			tinsert(UISpecialFrames, f:GetName())
 		end
+		-- 17 Nov 2026: style A, like the overview (ForeverStyle.lua S.SkinWindow).
+		if ns.ForeverStyle and ns.ForeverStyle.SkinOnShow then
+			ns.ForeverStyle.SkinOnShow(f)
+		end
 		dialog = f
 	end
 	dialog.text:SetText(("Use your layout |cffffd100%s|r here?\nYour bars, where they stand and which are on, as on %s.")
@@ -558,6 +562,10 @@ local function AskBarLayout()
 				ns.LoginQuestionClosed()
 			end
 		end)
+		-- 17 Nov 2026: style A, like the overview (ForeverStyle.lua S.SkinWindow).
+		if ns.ForeverStyle and ns.ForeverStyle.SkinOnShow then
+			ns.ForeverStyle.SkinOnShow(f)
+		end
 		barDialog = f
 	end
 	-- 7 Nov 2026: translatable; set on every show so the language of the moment is used.

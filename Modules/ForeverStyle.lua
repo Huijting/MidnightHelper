@@ -361,6 +361,178 @@ function S.Scroll(card, top, bottom, step)
 	return sf, child
 end
 
+--------------------------------------------------------------------------------
+-- Skin an existing window in style A (17 Nov 2026; Rob via sparring, verbatim: "alle andere vensters die we hebben,
+-- kunnen in dezelfde stijl van dit komen"). For the small Forever windows that were built with Blizzard's dialog look
+-- (Do this now, Your direction, New in this version, the popups): the window keeps its layout, size, Shift+scroll and
+-- every script; only the look changes — flat warm background with a gold edge, our fonts at the same sizes, Blizzard's
+-- yellow/white/grey text colours mapped to the theme's gold/text/dim, and Blizzard's red panel buttons drawn as our
+-- buttons. Idempotent: rows a window makes later are skinned on the next call (windows call it after a fill).
+--------------------------------------------------------------------------------
+local function MapColor(fs)
+	local t = S.T()
+	local r, g, b = fs:GetTextColor()
+	if not r then
+		return
+	end
+	if r > 0.9 and g > 0.7 and b < 0.3 then -- GameFontNormal yellow
+		fs:SetTextColor(t.gold[1], t.gold[2], t.gold[3])
+	elseif r > 0.9 and g > 0.9 and b > 0.9 then -- highlight white
+		fs:SetTextColor(t.text[1], t.text[2], t.text[3])
+	elseif r < 0.6 and g < 0.6 and b < 0.6 and math.abs(r - g) < 0.05 then -- disabled grey
+		fs:SetTextColor(t.dim[1], t.dim[2], t.dim[3])
+	end
+end
+
+local function SkinFont(fs, isTitle)
+	if fs._mhSkinned then
+		return
+	end
+	fs._mhSkinned = true
+	local t = S.T()
+	local _, size, flags = fs:GetFont()
+	size = (type(size) == "number" and size > 0) and size or 12
+	local role = (isTitle or size >= 16) and "head2" or "text"
+	if isTitle then
+		size = math.max(size, 18)
+	end
+	local text = fs:GetText()
+	S.Font(fs, t.fonts[role], size, t.fallback[role], flags)
+	if isTitle then
+		fs:SetTextColor(t.gold[1], t.gold[2], t.gold[3])
+	else
+		MapColor(fs)
+	end
+	if text then
+		fs:SetText(text)
+	end
+end
+
+local function SkinButton(b)
+	if b._mhSkinned then
+		return
+	end
+	b._mhSkinned = true
+	for _, k in ipairs({ "Left", "Middle", "Right" }) do
+		if b[k] then
+			b[k]:SetAlpha(0)
+		end
+	end
+	for _, getter in ipairs({ "GetNormalTexture", "GetPushedTexture", "GetDisabledTexture", "GetHighlightTexture" }) do
+		local tex = b[getter] and b[getter](b)
+		if tex then
+			tex:SetAlpha(0)
+		end
+	end
+	local r, g, bl = S.Accent()
+	local bg = b:CreateTexture(nil, "BACKGROUND", nil, -1)
+	bg:SetAllPoints()
+	bg:SetColorTexture(r * 0.25, g * 0.25, bl * 0.25, 0.95)
+	local edge = {}
+	for i, pts in ipairs({ { "TOPLEFT", "TOPRIGHT", true }, { "BOTTOMLEFT", "BOTTOMRIGHT", true },
+		{ "TOPLEFT", "BOTTOMLEFT", false }, { "TOPRIGHT", "BOTTOMRIGHT", false } }) do
+		local e = b:CreateTexture(nil, "BORDER")
+		e:SetColorTexture(r, g, bl, 0.9)
+		e:SetPoint(pts[1])
+		e:SetPoint(pts[2])
+		if pts[3] then
+			e:SetHeight(1)
+		else
+			e:SetWidth(1)
+		end
+		edge[i] = e
+	end
+	b:HookScript("OnEnter", function()
+		bg:SetColorTexture(r * 0.45, g * 0.45, bl * 0.45, 0.95)
+	end)
+	b:HookScript("OnLeave", function()
+		bg:SetColorTexture(r * 0.25, g * 0.25, bl * 0.25, 0.95)
+	end)
+	local fs = b.GetFontString and b:GetFontString()
+	if fs then
+		fs._mhSkinned = true -- the walk below must not give it the plain text font again
+		local th = S.T()
+		local _, size = fs:GetFont()
+		local text = fs:GetText()
+		S.Font(fs, th.fonts.head2, (type(size) == "number" and size > 0) and size + 1 or 13, th.fallback.head2)
+		fs:SetTextColor(th.buttonText[1], th.buttonText[2], th.buttonText[3])
+		if text then
+			fs:SetText(text)
+		end
+	end
+end
+
+local function Walk(obj, title, depth)
+	if depth > 8 then
+		return
+	end
+	if obj.GetRegions then
+		for _, reg in ipairs({ obj:GetRegions() }) do
+			if reg.GetObjectType and reg:GetObjectType() == "FontString" then
+				SkinFont(reg, reg == title)
+			end
+		end
+	end
+	if obj.GetChildren then
+		for _, child in ipairs({ obj:GetChildren() }) do
+			-- Blizzard's red panel button (UIPanelButtonTemplate: Left/Middle/Right pieces).
+			if child.Left and child.Middle and child.Right and child.GetFontString then
+				SkinButton(child)
+			end
+			Walk(child, title, depth + 1)
+		end
+	end
+end
+
+--- Skin `f` (a window) in style A; `title` = its title font string (gold, larger). Safe to call again.
+function S.SkinWindow(f, title)
+	if not f then
+		return
+	end
+	local t = S.T()
+	if not f._mhSkinBg then
+		if f.SetBackdrop then
+			f:SetBackdrop({ bgFile = WHITE, edgeFile = WHITE, edgeSize = 1 })
+			f:SetBackdropColor(t.bgBottom[1], t.bgBottom[2], t.bgBottom[3], 1)
+			f:SetBackdropBorderColor(t.gold[1], t.gold[2], t.gold[3], 1)
+		end
+		local bg = f:CreateTexture(nil, "BACKGROUND", nil, 1)
+		bg:SetPoint("TOPLEFT", 1, -1)
+		bg:SetPoint("BOTTOMRIGHT", -1, 1)
+		bg:SetTexture(WHITE)
+		if bg.SetGradient and CreateColor then
+			bg:SetGradient("VERTICAL", CreateColor(unpack(t.bgBottom)), CreateColor(unpack(t.bgTop)))
+		else
+			bg:SetVertexColor(t.bgTop[1], t.bgTop[2], t.bgTop[3], 1)
+		end
+		f._mhSkinBg = bg
+	end
+	Walk(f, title, 0)
+end
+
+--- Skin a window every time it is shown (after its own OnShow fill, so rows made by the fill are included). Call it
+--- AFTER the window's own SetScript("OnShow"): a later SetScript would drop this hook.
+function S.SkinOnShow(f)
+	if not f or f._mhSkinHooked then
+		return
+	end
+	f._mhSkinHooked = true
+	f:HookScript("OnShow", function(self)
+		S.SkinWindow(self, self.title or self.titleText or self.header)
+		if C_Timer and C_Timer.After then
+			C_Timer.After(0.1, function()
+				if self:IsShown() then
+					S.SkinWindow(self, self.title or self.titleText or self.header)
+					S.RefreshFonts()
+				end
+			end)
+		end
+	end)
+	if f:IsShown() then
+		S.SkinWindow(f, f.title or f.titleText or f.header)
+	end
+end
+
 --- Text with **bold** marks and "- " lines as the game shows it: bold in the theme's gold, lines with a bullet.
 function S.Format(body)
 	local g = S.T().gold

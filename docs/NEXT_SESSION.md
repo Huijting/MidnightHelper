@@ -1,5 +1,36 @@
 # Midnight Helper — waar we staan
 
+## ⏭️⏭️⏭️ OVERDRACHT Bouwchat 17-11 (4) → volgende bouwchat (context vol; alles gepusht, GEEN release/tag)
+
+Opdracht van Rob (via Sparring 17-11, letterlijk): *"We doen alles in één keer. … Dus doe alles maar in één keer, dat we
+wat moois kunnen leveren."* Release/tag pas op zijn letterlijke go via sparring. Stand per punt van die opdracht:
+1. Dock-knop weg — AF (0358b9c). 2. Oude venster weg in Forever, tandwiel = Quiet helpers · Tools · All commands — AF
+(0358b9c). 3. Losse vensters in stijl A — GEBOUWD (deze commit): `S.SkinWindow`/`S.SkinOnShow` in ForeverStyle, aan
+Do this now, Your direction, New in this version (alleen Forever), toetsenblok (alleen Forever), laatste-gereedschap-
+verkocht, beide layout-vragen, gereedschap-tip. NIET geskind: de rode "Delete?"-notitie (waarschuwing, blijft rood),
+groepspaneel (HUD), de oude terugval-vensters (onbereikbaar). ⚠️ Niet in het spel gezien; risico: Blizzard-knoppen die
+`Disable()` krijgen pakken hun eigen grijze font weer; teksten kunnen in het andere font iets breder zijn → Robs test.
+4. Robs testpunten: fonts (be5ee47 + foreverFontProbe nalezen na zijn herstart), overlap, fade, achtergrond dicht —
+gedaan, NIET in het spel gezien.
+OPEN, in deze volgorde:
+- **A. Bank & Auction House in Find** (Rob, letterlijk: *"Straks zocht ik de bank en de AH in grootsteden. … Kunnen we
+  dat nog erin krijgen?"*; sparring: bouwen voor deze release). GEMETEN door sparring: MH heeft er nu niets voor
+  (grep 0; controle "Trade Supplies" 47). Voorstel sparring: Find-categorie "Bank & Auction House", dichtstbij eerst,
+  Show the way, reisstap; alle hoofdsteden van je factie + neutrale AH's (Gadgetzan, Booty Bay, Everlook) met de zin
+  "neutraal: 15% i.p.v. 5% en 5× borg". Bronnen: Zygor Forever `Data-Forever\NPCData.lua` r.624-698 + `LibRover-1.0\
+  data_inns.lua`; coördinatenregel Rob > HandyNotes > Zygor > gids. Sparring-voorbeelden (nameten met mh-research):
+  SW AH 60.8,71.5 / bank 64.3,80.8; Org bank 49.6,69.1 / AH 55.9,62.7; TB bank 47,59 / AH ~39-40,50-52; IF AH ~24,72 /
+  bank ~35,59; Valanaar (Skyborne) bank 57.6,77 + AH 57.8,77 (factie of neutraal: NIET gemeten). Namen per client
+  meten. Brievenbus/herberg: sparring vraagt Rob nog. Bouw: nieuwe data-tabel (zoals ForeverVendorSpots), FindCatalog
+  sectie, FindPlaces-tak; mh-research (Fable) voor de feiten.
+- **B. Vertalingen** de/fr/es/esMX/pt/ru van: FOV_TIP_GEAR (gewijzigd), FOV_SUB_QUIET/TOOLS, FOV_TIP_SUB_TOOLS/CMDS,
+  FOV_TOOL_OPEN/MOVE/BAR/NEW/CHANGELOG, FOV_CMDS_SEARCH (+ wat A toevoegt). mh-writer per taal in
+  `ForeverClassQuests_<taal>.lua`; ⚠️ niet twee helpers tegelijk probe-jobs laten draaien (zie "Vertaling stap 6-9").
+- **C. Release KLAARZETTEN, niet taggen**: versie-voorstel (laatste release 5.4.0 → voorstel 5.5.0: grote Forever-
+  functie), CHANGELOG_<ver>_* (enUS), RELEASE_NOTES.md = docs/CURSEFORGE_<ver>.md (alleen spelersdingen), CHANGELOG.md,
+  SITE_SEIN.md (nieuw overzicht = grote spelersfunctie), toc-versie. Dan "klaar voor Robs go" naar sparring.
+- Daarna/na Robs test: `foreverFontProbe` nalezen; stap 10 (oude Forever-vensters opruimen) pas na zijn test.
+
 ## ▶ 17 nov (nacht) — Bouwchat 17-11 (4): plan-stap 4 t/m 9 (Rob via sparring: *"ja ga maar door met 4 tot en met 9"*)
 
 - 🔎 **Stap 4 Vinden GEBOUWD (en + nl)**: tab "Find" in het overzicht (`f.pages.find`, `ns.ShowForeverFind(kind, key)`,
