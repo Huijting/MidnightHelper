@@ -24,6 +24,18 @@ er is niets weggegooid.
 📝 **Waarneming Rob, 16 nov (nacht), Forever mage, via sparring:** *"mouse over werk"* — `/mh mouseover on`, Shift+X
 (Arcane Intellect) op een voorbijganger onder de muis werkt.
 
+## 🆕 17 nov — Forever: Warrior class-quests in "Do this now"
+
+Warrior, `/reload`. Uit Zygor, Wowhead en Spoken; niets in het spel gezien.
+- [ ] Level 10+: Defensive Stance-quest van je ras. Human: Lyria Du Lac (Elwynn) → Harry Burlguard → Bartleby (vecht).
+      Dwarf/Gnome: Granis Swiftaxe → Muren Stormpike (Ironforge). Night Elf: Kyra Windblade → Elanaria (Darnassus).
+      Orc/Troll: Tarshaw Jaggedscar, Tauren: Krang Stonehoof → Uzzek (Barrens). Undead: Austil de Mon → Dillinger.
+      Skyborne: Seena Skybreaker (Zephras Isle).
+- [ ] Skyborne-warrior: leer je met die quest ook Taunt en Sunder Armor, of alleen Defensive Stance? (Kijk in je spellboek.)
+- [ ] Level 30+: The Affray (Klannoc Macleod, Fray Island). Pas daarna noemt "Do this now" het Whirlwind-wapen.
+- [ ] Bij The Affray: blijft de regel op "step on the grate …" staan tot alles klaar is, en zegt hij dan "go to Klannoc"?
+- [ ] Level 50+: The Fallen Hero (Swamp of Sorrows).
+
 ## 🆕 17 nov — Forever: Warlock class-quests in "Do this now"
 
 Warlock, `/reload`. Alles komt uit Zygor, Wowhead en de addon Spoken; niets is in het spel gezien.

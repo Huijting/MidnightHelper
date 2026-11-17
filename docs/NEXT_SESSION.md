@@ -20,6 +20,17 @@
   aanwezig). Lint 0 HARD, luac OK. NIET in het spel gezien (TESTLIJST 17 nov).
   Open warlock: FCQ_OBJ_WL_* vertalen (de/fr/es/pt/ru, item-namen per client meten), rollen per 10 levels (ROLES.WARLOCK),
   item-ketens Green Flame + Imp's Request.
+- ⚔️ **Warrior class-quests GEBOUWD (en + nl)**: WR_P + CHAINS.WARRIOR + 18 NPC's × 6 talen (Klannoc esMX niet gemeten).
+  Defensive Stance 10 (Human 1638-1665, Dwarf/Gnome 1679-1678, NE 1684-1683, Orc/Troll + Tauren 1505-1498, Undead
+  1818-1819, Skyborne 94003), Berserker 30 (1718-1719), Whirlwind-wapen 30 (1791-1792, `needs = 1719`), Fallen Hero 50
+  (8417-8425). Feiten `docs/forever/WARRIOR_CLASSQUESTS_2026-11-17.md`. AFGELEID: Taunt/Sunder/Intercept uit die quests;
+  ras→route = Zygor; 1719 bewust zonder objective-index. Zygor-fouten niet overgenomen.
+  Nieuw in de module: `needs` (keten wacht op een quest; `Ready()`), en bij gelijk level blijft de tabelvolgorde
+  (table.sort was niet stabiel).
+- 🧪 **Nieuw hulpmiddel `run fcq_check`** (`tools/fcq_check.py` + `.lua`): laadt ForeverClassQuests.lua met nep-spelfuncties,
+  loopt 9 classes × 10 rassen × levels 1-60 × alle queststanden, en checkt dat elke FCQ_-sleutel in enUS + nlNL staat.
+  GEMETEN 17 nov: 149.941 runs, 0 fouten, 86 sleutels, controle OK. Bewijst dat de code draait, niet dat id's kloppen.
+  Draai hem na elke class.
 
 ## 🌙 NACHTOPDRACHT 16→17 nov (Bouwchat 16-11 (2) sloot af met /nieuwe-chat bouw; sparring: akkoord)
 

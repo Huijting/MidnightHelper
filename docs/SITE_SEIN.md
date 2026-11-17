@@ -28,6 +28,17 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 17 nov 2026 — Forever: Warrior class-quests stap voor stap
+- Tag + commit:   geen tag / (deze commit, zie git log "Warrior class quests")
+- Status:         alleen op main
+- Mag op de site: nee (nog niet uit)
+- Speler ziet:    Warrior: "Do this now" leidt je met de pijl naar Defensive Stance (10, per ras de goede startplek, ook
+                  Skyborne), Berserker Stance (30), daarna het Whirlwind-wapen (30) en de Fallen Hero (50). *(niet in het
+                  spel getest)*
+- Knoplabels:     FCQ_BTN ("Show the way"), FCQ_HOWTO_HEAD ("Your class quests")
+- Commando's:     /mh classquest, /mh play
+- Spel:           Forever
+
 ## 17 nov 2026 — Forever: Warlock class-quests stap voor stap
 - Tag + commit:   geen tag / (deze commit, zie git log "Warlock class quests")
 - Status:         alleen op main

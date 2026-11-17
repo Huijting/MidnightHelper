@@ -220,6 +220,9 @@ Stand 15 nov avond: 1 gebouwd (1f521e5), 2 gemeten, 3 rapport + A/B gebouwd (zie
   Feiten `docs/forever/WARLOCK_CLASSQUESTS_2026-11-17.md`. NIET in het spel gezien. Open warlock: vertalingen de/fr/es/
   pt/ru, rollen per 10 levels, item-ketens (Green Flame, Imp's Request). Daarna warrior, shaman, rogue, hunter, paladin,
   priest, mage.
+- ✅ Warrior class-quests GEBOUWD in en/nl (17 nov): Defensive Stance 10 (6 rasroutes + Skyborne), Berserker 30,
+  Whirlwind-wapen 30 (pas na The Affray), Fallen Hero 50. Feiten `docs/forever/WARRIOR_CLASSQUESTS_2026-11-17.md`. NIET
+  in het spel gezien. Open warrior: vertalingen, rollen, wapen-/pantservervolg op 10/20 (plekken onbekend).
 
 ### Forever: "Do this now" noemt de beste stats voor jou (solo + tank, dps/heal in gedachten)
 - Bron: Rob 16 nov (eerder die dag, letterlijk): *"wat ik ook graag wil weten in het schermpje Doe This Now … wat zijn

@@ -433,6 +433,127 @@ CHAINS.WARLOCK = {
 	WlDreadsteed("Horde", UD, W.martha),
 }
 
+--[[ Warrior (17 Nov 2026, Bouwchat 17-11). All facts: docs/forever/WARRIOR_CLASSQUESTS_2026-11-17.md (mh-research):
+	Zygor Forever "Warrior Class Quests" + Common (Skyborne), Spoken, wago DB2 1.60.1.70938 (teach spells GEMETEN: 8121
+	"Path of Defense" = 71 + 7386 + 355, 8616 "Path of the Berserker" = 2458 + 20252), Wowhead Forever, HandyNotes.
+	AFGELEID: Taunt/Sunder come with the level 10 quest and Intercept with 1719 (Wowhead shows only the first spell);
+	Skyborne 94003 = Defensive Stance GEMETEN, Taunt/Sunder for Skyborne NOT measured; which race walks which level 10
+	route (every route is open to the whole faction; the split by starting zone is Zygor's). 1719 has no objective
+	index on purpose (Wowhead and Zygor disagree): its step waits until the client says the quest is complete.
+	Zygor mistakes not copied: 1821 sword /1 (not built), 1719 order, Sunken Temple |q 9053 in the Alliance guide (= 8425).
+	Not built yet: the level 10 weapon and level 20 armour follow-ups (places of most materials unknown). ]]
+local WR_P = {
+	lyria = { npc = "Lyria Du Lac", id = 913, m = 1429, x = 41.10, y = 65.63 },
+	harry = { npc = "Harry Burlguard", id = 6089, m = 1453, x = 77.13, y = 53.27 },
+	bartleby = { npc = "Bartleby", id = 6090, m = 1453, x = 76.80, y = 53.20 },
+	granis = { npc = "Granis Swiftaxe", id = 1229, m = 1426, x = 47.24, y = 52.78 },
+	muren = { npc = "Muren Stormpike", id = 6114, m = 1455, x = 70.78, y = 90.27 },
+	kyra = { npc = "Kyra Windblade", id = 3598, m = 1438, x = 56.21, y = 59.19 },
+	elanaria = { npc = "Elanaria", id = 4088, m = 1457, x = 57.29, y = 34.61 },
+	tarshaw = { npc = "Tarshaw Jaggedscar", id = 3169, m = 1411, x = 54.09, y = 42.39 },
+	krang = { npc = "Krang Stonehoof", id = 3063, m = 1412, x = 48.35, y = 63.74 },
+	uzzek = { npc = "Uzzek", id = 5810, m = 1413, x = 61.38, y = 21.11 },
+	austil = { npc = "Austil de Mon", id = 2131, m = 1420, x = 61.87, y = 52.85 },
+	dillinger = { npc = "Deathguard Dillinger", id = 1496, m = 1420, x = 58.20, y = 51.45 },
+	seena = { npc = "Seena Skybreaker", id = 252377, m = 2521, x = 59.91, y = 73.08 },
+	wushen = { npc = "Wu Shen", id = 5479, m = 1453, x = 80.70, y = 59.95 },
+	sorek = { npc = "Sorek", id = 3354, m = 1454, x = 80.39, y = 32.38 },
+	klannoc = { npc = "Klannoc Macleod", id = 6236, m = 1413, x = 68.62, y = 49.17 },
+	bathrah = { npc = "Bath'rah the Windwatcher", id = 6176, m = 1416, x = 80.50, y = 66.92 },
+	fallenHero = { npc = "Fallen Hero of the Horde", id = 7572, m = 1435, x = 34.29, y = 66.15 },
+	-- Objective places (no NPC), Zygor.
+	vejrek = { m = 1426, x = 27.83, y = 57.95 },
+	vorlus = { m = 1438, x = 47.26, y = 63.52 },
+	lizards = { m = 1411, x = 39.27, y = 28.29 },
+	ulag = { m = 1420, x = 59.64, y = 48.09 },
+	zaal = { m = 2521, x = 56.61, y = 50.37 },
+	grate = { m = 1413, x = 68.61, y = 48.72 },
+	tusks = { m = 1434, x = 25.85, y = 11.25 },
+	charmBurning = { m = 1417, x = 26.60, y = 31.80 },
+	charmThundering = { m = 1417, x = 52.60, y = 52.20 },
+	charmCresting = { m = 1417, x = 68.00, y = 30.00 },
+	cauldron = { m = 1416, x = 79.31, y = 66.81 },
+	cyclonian = { m = 1416, x = 80.57, y = 62.56 },
+	helboar = { m = 1419, x = 51.34, y = 53.45 },
+	shadowsworn = { m = 1419, x = 65.17, y = 32.83 },
+}
+local R = WR_P
+local DWGN, NELF, TAUREN = { Dwarf = true, Gnome = true }, { NightElf = true }, { Tauren = true }
+
+local function WrDefense(faction, races, quests)
+	return { key = "defensive", spell = 71, level = 10, faction = faction, races = races, quests = quests }
+end
+local function WrUzzek(races, starter)
+	return WrDefense("Horde", races, {
+		{ q = 1505, from = starter, to = R.uzzek },
+		{ q = 1498, from = R.uzzek, objs = { O(R.lizards, "FCQ_OBJ_WR_SCALES", 1) }, to = R.uzzek },
+	})
+end
+
+CHAINS.WARRIOR = {
+	WrDefense("Alliance", HUM, {
+		{ q = 1638, from = R.lyria, to = R.harry },
+		{ q = 1639, from = R.harry, to = R.bartleby },
+		{ q = 1640, from = R.bartleby, objs = { O(R.bartleby, "FCQ_OBJ_WR_BEATBARTLEBY", 1) }, to = R.bartleby },
+		{ q = 1665, from = R.bartleby, to = R.harry },
+	}),
+	WrDefense("Alliance", DWGN, {
+		{ q = 1679, from = R.granis, to = R.muren },
+		{ q = 1678, from = R.muren, objs = { O(R.vejrek, "FCQ_OBJ_WR_VEJREK", nil, { 6799 }) }, to = R.muren },
+	}),
+	WrDefense("Alliance", NELF, {
+		{ q = 1684, from = R.kyra, to = R.elanaria },
+		{ q = 1683, from = R.elanaria, objs = { O(R.vorlus, "FCQ_OBJ_WR_VORLUS", nil, { 6805 }) }, to = R.elanaria },
+	}),
+	WrUzzek(ORCTROLL, R.tarshaw),
+	WrUzzek(TAUREN, R.krang),
+	WrDefense("Horde", UD, {
+		{ q = 1818, from = R.austil, to = R.dillinger },
+		{ q = 1819, from = R.dillinger, objs = { O(R.ulag, "FCQ_OBJ_WR_ULAG", 1) }, to = R.dillinger },
+	}),
+}
+for _, faction in ipairs({ "Alliance", "Horde" }) do
+	local trainer = faction == "Alliance" and R.wushen or R.sorek
+	table.insert(CHAINS.WARRIOR, WrDefense(faction, SKYBORNE, {
+		{ q = 94003, from = R.seena, objs = { O(R.zaal, "FCQ_OBJ_WR_ZAAL", nil, { 263993 }) }, to = R.seena },
+	}))
+	table.insert(CHAINS.WARRIOR, { key = "berserker", spell = 2458, level = 30, faction = faction, quests = {
+		{ q = 1718, from = trainer, to = R.klannoc },
+		{ q = 1719, from = R.klannoc, objs = { O(R.grate, "FCQ_OBJ_WR_AFFRAY") }, to = R.klannoc },
+	} })
+	-- Item chain: opens after 1719 (Spoken prev, GEMETEN). Cyclonian is a level 40 elite. The three charms are quest
+	-- 1714 at the cauldron (an object, not an NPC): asked inside 1712; one charm in your bags counts as done (a limit).
+	table.insert(CHAINS.WARRIOR, { key = "whirlwind", nameKey = "FCQ_CHAIN_WR_WHIRLWIND", level = 30, needs = 1719,
+		faction = faction, quests = {
+			{ q = 1791, from = R.klannoc, to = R.bathrah },
+			{ q = 1712, from = R.bathrah, objs = {
+				O(nil, "FCQ_OBJ_WR_LIFEROOT", 1),
+				O(R.tusks, "FCQ_OBJ_WR_TUSKS", 2),
+				O(R.charmBurning, "FCQ_OBJ_WR_CHARM_BURNING", nil, { 4479, 6851 }),
+				O(R.charmThundering, "FCQ_OBJ_WR_CHARM_THUNDERING", nil, { 4480, 6851 }),
+				O(R.charmCresting, "FCQ_OBJ_WR_CHARM_CRESTING", nil, { 4481, 6851 }),
+				O(R.cauldron, "FCQ_OBJ_WR_ESSENCE", 3),
+			}, to = R.bathrah },
+			{ q = 1713, from = R.bathrah, objs = { O(R.cyclonian, "FCQ_OBJ_WR_CYCLONIAN", nil, { 6894 }) }, to = R.bathrah },
+			{ q = 1792, from = R.bathrah, to = R.bathrah },
+		} })
+	table.insert(CHAINS.WARRIOR, { key = "fallenhero", nameKey = "FCQ_CHAIN_WR_FALLENHERO", level = 50, faction = faction,
+		quests = {
+			{ q = 8417, from = trainer, to = R.fallenHero },
+			{ q = 8423, from = R.fallenHero, objs = { O(R.helboar, "FCQ_OBJ_WR_HELBOAR", 1) }, to = R.fallenHero },
+			{ q = 8424, from = R.fallenHero, objs = {
+				O(R.shadowsworn, "FCQ_OBJ_WR_ADEPT", 1),
+				O(R.shadowsworn, "FCQ_OBJ_WR_CULTIST", 2),
+				O(R.shadowsworn, "FCQ_OBJ_WR_THUG", 3),
+			}, to = R.fallenHero },
+			{ q = 8425, from = R.fallenHero, objs = {
+				O(P.sunken, "FCQ_OBJ_WR_FEATHER_AMBER", 1),
+				O(P.sunken, "FCQ_OBJ_WR_FEATHER_BLUE", 2),
+				O(P.sunken, "FCQ_OBJ_WR_FEATHER_GREEN", 3),
+			}, to = R.fallenHero },
+		} })
+end
+
 local MOONGLADE, TELEPORT_MOONGLADE = 1450, 18960
 
 local function Done(q)
@@ -601,6 +722,25 @@ local NPC_NAMES = {
 	[14437] = { deDE = "Gorzeeki Wildeyes", frFR = "Gorzeeki Wildeyes", esES = "Gorzeeki Ojosalvajes", esMX = "Gorzeeki Ojovago", ptBR = "Gorzeeki Olholouco", ruRU = "Горзиеки Дикоглаз" },
 	[9516] = { deDE = "Lord Banehollow", frFR = "Seigneur Banehollow", esES = "Lord Pesadilla", ptBR = "Lorde Nihilus", ruRU = "Лорд Гиблопуст" },
 	[14504] = { deDE = "Schreckensrossgeist", frFR = "Esprit de Destrier de l'effroi", esES = "Espíritu Corcelorror", ptBR = "Espírito de Corcel Medonho", ruRU = "Дух коня погибели" },
+	-- Warrior (17 Nov 2026, mh-research, same way; second source Spoken agreed where both had a name). 6236 esMX: not measured.
+	[913] = { deDE = "Lyria Du Lac", frFR = "Lyria Du Lac", esES = "Lyria Du Lac", esMX = "Lyria Du Lac", ptBR = "Lyria Du Lac", ruRU = "Лирия дю Лак" },
+	[6089] = { deDE = "Harry Burlguard", frFR = "Harry Burlguard", esES = "Harry Burlguard", esMX = "Harry Burlguard", ptBR = "Ari Barbotina", ruRU = "Гарри Берлгард" },
+	[6090] = { deDE = "Bartleby", frFR = "Bartleby", esES = "Bartleby", esMX = "Bartleby", ptBR = "Bartolino", ruRU = "Бартлби" },
+	[1229] = { deDE = "Granis Swiftaxe", frFR = "Granis Swiftaxe", esES = "Granis Hachaveloz", esMX = "Granis Hachaveloz", ptBR = "Granis Celeraxa", ruRU = "Гранис Быстрый Топор" },
+	[6114] = { deDE = "Muren Stormpike", frFR = "Muren Foudrepique", esES = "Muren Pico Tormenta", esMX = "Muren Pico Tormenta", ptBR = "Muren Lançatroz", ruRU = "Марен Грозовая Вершина" },
+	[3598] = { deDE = "Kyra Windblade", frFR = "Kyra Windblade", esES = "Kyra Espada del Viento", esMX = "Kyra Espada del Viento", ptBR = "Kyra Laminéola", ruRU = "Кайра Ветрорез" },
+	[4088] = { deDE = "Elanaria", frFR = "Elanaria", esES = "Elanaria", esMX = "Elanaria", ptBR = "Elanaria", ruRU = "Эланария" },
+	[3169] = { deDE = "Tarshaw Jaggedscar", frFR = "Tarshaw Jaggedscar", esES = "Tarshaw Marcauna", esMX = "Tarshaw Marcauna", ptBR = "Tarshaw Zigatriz", ruRU = "Таршо Рваный Шрам" },
+	[3063] = { deDE = "Krang Stonehoof", frFR = "Krang Stonehoof", esES = "Krang Pezuñapétrea", esMX = "Krang Pezuña Pétrea", ptBR = "Krang Casco de Pedra", ruRU = "Кранг Каменное Копыто" },
+	[5810] = { deDE = "Uzzek", frFR = "Uzzek", esES = "Uzzek", esMX = "Uzzek", ptBR = "Uzzek", ruRU = "Уззек" },
+	[2131] = { deDE = "Austil de Mon", frFR = "Austil de Mon", esES = "Austil de Mon", esMX = "Austil de Mon", ptBR = "Austil de Mon", ruRU = "Остил де Мон" },
+	[1496] = { deDE = "Todeswache Dillinger", frFR = "Garde noir Dillinger", esES = "Guardia de la Muerte Dillinger", esMX = "Guardia de la Muerte Dillinger", ptBR = "Necroguarda Dinis", ruRU = "Страж смерти Диллинжер" },
+	[252377] = { deDE = "Seena Skybreaker", frFR = "Seena Briseciel", esES = "Seena Rompecielos", esMX = "Seena Rompecielos", ptBR = "Seena Rompe-céus", ruRU = "Сиина Небовержица" },
+	[5479] = { deDE = "Wu Shen", frFR = "Wu Shen", esES = "Wu Shen", esMX = "Wu Shen", ptBR = "Wu Shen", ruRU = "Ву Шен" },
+	[3354] = { deDE = "Sorek", frFR = "Sorek", esES = "Sorek", esMX = "Sorek", ptBR = "Sorek", ruRU = "Сорек" },
+	[6236] = { deDE = "Klannoc Macleod", frFR = "Klannoc Macleod", esES = "Klannoc Macleod", ptBR = "Klannoc Macleod", ruRU = "Кланнок Маклеод" },
+	[6176] = { deDE = "Bath'rah der Windbehüter", frFR = "Bath'rah la Vigie des vents", esES = "Bath'rah el Cazavientos", esMX = "Bath'rah el Vigía del viento", ptBR = "Bath'rah, o Vigia dos Ventos", ruRU = "Бат'ра Ветростраж" },
+	[7572] = { deDE = "Gefallener Held der Horde", frFR = "Héros déchu de la Horde", esES = "Héroe caído de la Horda", esMX = "Héroe caído de la Horda", ptBR = "Herói Caído da Horda", ruRU = "Павший герой Орды" },
 }
 
 local function NpcName(p)
@@ -641,17 +781,28 @@ local function MyChains()
 	local token = select(2, UnitClass("player"))
 	local faction = UnitFactionGroup and UnitFactionGroup("player")
 	local race = RaceToken()
-	local out = {}
+	local out, pos = {}, {}
 	for _, c in ipairs(CHAINS[token] or {}) do
 		if c.faction == faction and (not c.races or (race and c.races[race])) then
 			out[#out + 1] = c
+			pos[c] = #out
 		end
 	end
-	-- Lowest level first, so "Do this now" names the oldest open chain (the table order is not the level order).
+	-- Lowest level first, so "Do this now" names the oldest open chain (the table order is not the level order). Same
+	-- level: the table order (17 Nov 2026: warrior Berserker before Whirlwind; table.sort alone is not stable).
 	table.sort(out, function(a, b)
-		return a.level < b.level
+		if a.level ~= b.level then
+			return a.level < b.level
+		end
+		return pos[a] < pos[b]
 	end)
 	return out
+end
+
+--- Can this chain start now? Level reached, and its `needs` quest done (a chain that only opens after another one,
+--- e.g. the warrior Whirlwind weapon after The Affray 1719).
+local function Ready(c, level)
+	return level >= c.level and (not c.needs or Done(c.needs))
 end
 
 --- Where you are in a chain: step = { kind = "get"/"do"/"turn", place (may be nil), textKey, q }, or nil + why.
@@ -722,7 +873,7 @@ end
 function ns.ForeverClassQuestNow()
 	local level = UnitLevel and UnitLevel("player") or 1
 	for _, c in ipairs(MyChains()) do
-		if level >= c.level then
+		if Ready(c, level) then
 			local s = Step(c)
 			if s then
 				return StepText(c, s), s
@@ -796,7 +947,7 @@ function ns.ForeverClassQuestOverview()
 		local state
 		if not s then
 			state = ns:L("FCQ_ST_DONE")
-		elseif level < c.level then
+		elseif not Ready(c, level) then
 			local first = c.quests[1].from
 			state = ns:L("FCQ_ST_LATER_FMT"):format(NpcName(first), ZoneName(first.m))
 		else
