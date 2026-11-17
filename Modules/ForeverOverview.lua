@@ -1062,6 +1062,121 @@ local function BuildWeekPage(f, x0, rightW)
 	page.card = card
 end
 
+--- Gear page "What MH does quietly for you" (product plan step 9, 17 Nov 2026): every tooltip line, warning and button
+--- MH adds to Blizzard's windows in Forever, one sentence each and a switch; the full settings stay in Blizzard's panel
+--- (button at the bottom). A switch writes the same saved value as its slash command / settings entry.
+local function DbSub(key, defaults)
+	if not ns.db then
+		return defaults or {}
+	end
+	ns.db[key] = ns.db[key] or defaults or {}
+	return ns.db[key]
+end
+local function DbFlag(key, defaultOn)
+	return {
+		get = function()
+			local v = ns.db and ns.db[key]
+			if defaultOn then
+				return v ~= false
+			end
+			return v == true
+		end,
+		set = function(on)
+			if ns.db then
+				if defaultOn then
+					ns.db[key] = (not on) and false or nil
+				else
+					ns.db[key] = on and true or nil
+				end
+			end
+		end,
+	}
+end
+local function Q(title, tip, gs)
+	return { title = title, tip = tip, get = gs.get, set = gs.set }
+end
+local function Warn(field)
+	return {
+		get = function() return DbSub("foreverWarn")[field] ~= false end,
+		set = function(on) DbSub("foreverWarn")[field] = on and true or false end,
+	}
+end
+local QUIET = {
+	{ head = "FOV_Q_HEAD_WINDOWS" },
+	Q("FOV_Q_TRAINALL", "FOV_Q_TRAINALL_DESC", {
+		get = function() return DbSub("foreverTrainer", { auto = true }).trainAll ~= "off" end,
+		set = function(on) DbSub("foreverTrainer", { auto = true }).trainAll = (not on) and "off" or nil end }),
+	Q("FOV_Q_TRAINERAUTO", "FOV_Q_TRAINERAUTO_DESC", {
+		get = function() return DbSub("foreverTrainer", { auto = true }).auto ~= false end,
+		set = function(on) DbSub("foreverTrainer", { auto = true }).auto = on and true or false end }),
+	Q("FOV_Q_QUESTHINT", "FOV_Q_QUESTHINT_DESC", DbFlag("foreverQuestHint", true)),
+	Q("SET_FOREVER_DIRECTION_TITLE", "SET_FOREVER_DIRECTION_DESC", {
+		get = function() return ns.IsForeverDirectionAskOn and ns.IsForeverDirectionAskOn() end,
+		set = function(on) if ns.SetForeverDirectionAsk then ns.SetForeverDirectionAsk(on) end end }),
+	KEY_SWITCHES[3], -- offer the MH bar layout
+	{ head = "FOV_Q_HEAD_TOOLTIPS" },
+	PROF_SWITCHES[1], -- Used for / never usable / quest item
+	Q("FOV_Q_GEARTIP", "FOV_Q_GEARTIP_DESC", DbFlag("foreverGearTip", true)),
+	Q("SET_BLESSTIP_TITLE", "SET_BLESSTIP_DESC", DbFlag("foreverBlessTip", false)),
+	{ head = "FOV_Q_HEAD_WARN" },
+	Q("FOV_Q_BAGS", "FOV_Q_BAGS_DESC", Warn("bags")),
+	Q("FOV_Q_REST", "FOV_Q_REST_DESC", Warn("rest")),
+	Q("FOV_Q_POLE", "FOV_Q_POLE_DESC", Warn("pole")),
+	PROF_SWITCHES[2], -- last tool
+	PROF_SWITCHES[3], -- missing tool: where to buy
+	{ head = "FOV_Q_HEAD_SCREEN" },
+	KEY_SWITCHES[2], -- old-rank edge
+	KEY_SWITCHES[1], -- mouseover on the key block
+	GROUP_SWITCHES[1], -- group panel
+	GROUP_SWITCHES[2], -- marker bar
+	Q("SET_FIREWORKS_TITLE", "SET_FIREWORKS_DESC", {
+		get = function() return ns.IsLevelUpFireworksOn and ns.IsLevelUpFireworksOn() end,
+		set = function(on) if ns.SetLevelUpFireworks then ns.SetLevelUpFireworks(on) end end }),
+	Q("SET_CAMERAFAR_TITLE", "SET_CAMERAFAR_DESC", {
+		get = function() return ns.IsCameraFarOn and ns.IsCameraFarOn() end,
+		set = function(on) if ns.SetCameraFar then ns.SetCameraFar(on, true) end end }),
+}
+
+local function BuildQuietPage(f, x0, rightW)
+	local page = f.pages.quiet
+	local card = Card(page)
+	card:SetPoint("TOPLEFT", f, "TOPLEFT", x0, TOP_Y)
+	card:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -16, 16)
+	card.label = Label(card, ns:L("FOV_LABEL_QUIET"), "FOV_TIP_CARD_QUIET")
+	card.all = Button(card, 150)
+	card.all:SetHeight(22)
+	card.all:SetPoint("TOPRIGHT", -12, -8)
+	card.all:SetLabel(ns:L("FOV_Q_ALLSETTINGS"))
+	Tip(card.all, ns:L("FOV_Q_ALLSETTINGS"), ns:L("FOV_TIP_Q_ALLSETTINGS"))
+	card.all:SetScript("OnClick", function()
+		if ns.OpenNativeSettings then
+			ns.OpenNativeSettings()
+		end
+	end)
+	card.intro = Text(card, "text", 12, A.dim)
+	card.intro:SetPoint("TOPLEFT", 14, -32)
+	card.intro:SetPoint("RIGHT", -14, 0)
+	card.intro:SetText(ns:L("FOV_Q_INTRO"))
+	card.sf, card.child = S.Scroll(card, 52, 8, 50)
+	local w = rightW - 22 - 12
+	card.child:SetWidth(w + 8)
+	card.items = {}
+	for i, q in ipairs(QUIET) do
+		if q.head then
+			local h = Text(card.child, "head2", 13, A.label)
+			h:SetText(ns:L(q.head):upper())
+			card.items[i] = { head = h }
+		else
+			local s = MakeSwitch(card.child, q, w)
+			s.desc = Text(card.child, "text", 12, A.dim)
+			s.desc:SetWidth(w - 70)
+			s.desc:SetText(ns:L(q.tip))
+			card.items[i] = s
+		end
+	end
+	page.card = card
+end
+
 -- Step 4: the page starts 30 px lower (switch row of "Your class"), so the rows are 19 px apart instead of 21.
 local TOC_ROWS, TOC_STEP = 14, 19
 
@@ -1202,6 +1317,22 @@ local function Build()
 		end
 	end)
 	Tip(old, ns:L("FOV_OLDWIN_BTN"), ns:L("FOV_TIP_OLDWIN"))
+	-- The gear (product plan step 9): the page "What MH does quietly for you", with a door to Blizzard's settings panel.
+	-- Again = back to Now. A game icon, not a glyph: our fonts have no gear sign (and lint [14] forbids emoji).
+	local gear = Button(f, 26)
+	gear:SetHeight(20)
+	gear:SetPoint("RIGHT", old, "LEFT", -6, 0)
+	gear.icon = gear:CreateTexture(nil, "OVERLAY")
+	gear.icon:SetSize(16, 16)
+	gear.icon:SetPoint("CENTER")
+	gear.icon:SetTexture("Interface\\Icons\\INV_Misc_Gear_01")
+	gear.icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
+	gear:SetScript("OnClick", function()
+		f.page = (f.page == "quiet") and "now" or "quiet"
+		ns.ForeverOverviewFill()
+	end)
+	Tip(gear, ns:L("FOV_LABEL_QUIET"), ns:L("FOV_TIP_GEAR"))
+	f.gear = gear
 	-- Tabs on their own row under the title (plan step 1: 7 tabs and long German words did not fit next to the title).
 	-- TAB_SLOTS equal widths, so the row stays put when a tab is added.
 	f.tabs = {}
@@ -1230,7 +1361,7 @@ local function Build()
 	f.page = "now"
 	f.lastInGroup = {}
 	f.pages = {}
-	for _, key in ipairs({ "now", "play", "cq", "camp", "legacy", "trainer", "find", "keys", "profs", "dungeons", "chars", "week" }) do
+	for _, key in ipairs({ "now", "play", "cq", "camp", "legacy", "trainer", "find", "keys", "profs", "dungeons", "chars", "week", "quiet" }) do
 		local p = CreateFrame("Frame", nil, f)
 		p:SetAllPoints(f)
 		p:Hide()
@@ -1454,6 +1585,7 @@ local function Build()
 	BuildDungeonsPage(f, x0, rightW)
 	BuildCharsPage(f, x0, rightW)
 	BuildWeekPage(f, x0, rightW)
+	BuildQuietPage(f, x0, rightW)
 	-- Find and Professions: distances, names, skills and the tool in your bags change when you change zone, the client
 	-- loads an item name, a skill goes up or your bags change; fill again then (not every 2 s: the order of the list
 	-- must not jump under your mouse).
@@ -2795,6 +2927,33 @@ local function FillWeekPage(f, refresh)
 	end
 end
 
+local function FillQuietPage(f, refresh)
+	local card = f.pages.quiet.card
+	local y = 2
+	for _, it in ipairs(card.items) do
+		if it.head then
+			it.head:ClearAllPoints()
+			it.head:SetPoint("TOPLEFT", card.child, "TOPLEFT", 4, -(y + 6))
+			y = y + 28
+		else
+			local h = FillSwitch(it)
+			it.text:ClearAllPoints()
+			it.text:SetPoint("TOPLEFT", card.child, "TOPLEFT", 4, -y)
+			it.chip:ClearAllPoints()
+			it.chip:SetPoint("TOPRIGHT", card.child, "TOPRIGHT", -6, -y)
+			it.desc:ClearAllPoints()
+			it.desc:SetPoint("TOPLEFT", it.text, "BOTTOMLEFT", 0, -2)
+			y = y + math.max(h, (it.text:GetStringHeight() or 16) + 4 + (it.desc:GetStringHeight() or 14) + 10)
+		end
+	end
+	card.child:SetHeight(math.max(10, y))
+	if refresh then
+		card.sf.UpdateThumb()
+	else
+		card.sf.Reset()
+	end
+end
+
 --- Refill when the overview shows `page` (ForeverMacros.lua calls this when your bags or spells change).
 function ns.ForeverOverviewRefreshPage(page)
 	if win and win:IsShown() and win.page == page then
@@ -2852,6 +3011,7 @@ function ns.ForeverOverviewFill(refresh)
 			b:SetActive(b.page == f.page)
 		end
 	end
+	f.gear:SetActive(f.page == "quiet")
 	if f.page == "find" then
 		FillFindPage(f, refresh)
 		return f
@@ -2869,6 +3029,9 @@ function ns.ForeverOverviewFill(refresh)
 		return f
 	elseif f.page == "week" then
 		FillWeekPage(f, refresh)
+		return f
+	elseif f.page == "quiet" then
+		FillQuietPage(f, refresh)
 		return f
 	elseif f.page == "cq" then
 		FillClassQuestPage(f, level)

@@ -56,7 +56,18 @@
   snapshot/teksten als het venster; "x" = vergeten, niet bij jezelf), totaal goud bovenaan. This week: hele
   `ForeverWeekRows`. `ShowForeverChars` → deze tab (toggle; `/mh alts`). Offline 25.386 runs, 0 fouten, 72
   karakterrijen. NIET in het spel gezien. Tabrij nu definitief: Now · Your class · Find · Professions · Dungeons & group
-  · Keys & macros · Characters.
+  · Keys & macros · Characters. Commit 8b85b65.
+- ⚙️ **Stap 9 Tandwiel GEBOUWD (en + nl)**: knop met tandwiel-icoon (INV_Misc_Gear_01) links van "All tools" →
+  pagina `quiet` ("What Midnight Helper does quietly for you"; nog eens = terug naar Now). `QUIET`-lijst in 4 groepjes,
+  19 schakelaars met één zin: Train all-knop (`foreverTrainer.trainAll` "off"/nil), trainer-pagina bij level-up
+  (`foreverTrainer.auto`), questbeloning (`foreverQuestHint`), richting-vraag, MH-balklayout, Used for, geartip
+  (`foreverGearTip`), zegen-tip, tassen/rust/hengel (`foreverWarn.bags/rest/pole`), laatste gereedschap,
+  gereedschap-tip, oude-rang-rand, mouseover, groepspaneel, markeerbalk, vuurwerk, camera. Zelfde opgeslagen waarden als
+  de slash-commando's (AFGELEID dat elke module ze bij het volgende moment leest — Train all bij de volgende trainer).
+  Knop "All settings ›" = `ns.OpenNativeSettings`. Niet als schakelaar: drempels (mana/health/tasplekken) en de Do this
+  now-modus (keuzelijst) — die staan in de instellingen. Offline 26.898 runs, 0 fouten, 684 schakelaar-kliks.
+  NIET in het spel gezien. "Instellingen in dezelfde stijl per tab" (plan) = de schakelaars op Keys/Professions/
+  Dungeons + deze pagina; geen apart instellingenscherm per tab.
 
 ## ⏭️⏭️ NIEUWSTE OVERDRACHT (Bouwchat 17-11 (3), laatste commit 27e536b, alles gepusht, geen release)
 

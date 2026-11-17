@@ -30,6 +30,14 @@ Eerst WoW helemaal afsluiten en opnieuw starten (er is een nieuw bestand; /reloa
 - [ ] `/mh overview` opent zonder foutmelding en ziet er precies hetzelfde uit als ronde 5 (zelfde letters, kleuren,
       knoppen, NOW/LATER-labels onder Jouw pad).
 
+## ⚙️ 17 nov (nacht) — Forever: tandwiel "What Midnight Helper does quietly for you" (plan-stap 9)
+
+- [ ] Rechtsboven, links van "All tools", een knopje met een tandwiel. Klik: een pagina met alles wat MH stil voor je
+      doet, in vier groepjes (bij de vensters van het spel, in tooltips, waarschuwingen, op je scherm), elk met één zin
+      en een AAN/UIT-labeltje. Nog een keer op het tandwiel = terug naar Now.
+- [ ] Zet er een uit en weer aan (bv. "Bags almost full"): het labeltje wisselt; `/mh bags` zegt hetzelfde.
+- [ ] Knop "All settings ›" opent Midnight Helper in de instellingen van het spel.
+
 ## 👥 17 nov (nacht) — Forever: tab "Characters" in het overzicht (plan-stap 8)
 
 - [ ] De tab **Legacy** is weg; op zijn plek staat **Characters** met bovenaan drie knoppen: Your characters · Legacy ·
