@@ -28,10 +28,14 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
-## 17 nov 2026 — release 5.5.0 klaargezet
-- Tag + commit:   geen tag
-- Status:         alleen op main
-- Mag op de site: nee (wacht op Robs go)
+## 17 nov 2026 — release 5.5.0 (getagd)
+- Tag + commit:   v5.5.0 / 41f8ec3. Release-run GitHub 44137237357: geslaagd; log: CurseForge, Wago en GitHub
+                  "Success!" voor beide zips (Retail 17:29:20, Forever 17:30:47 UTC). CurseForge-API om ~17:35 UTC: nog
+                  niet in de openbare files-lijst (bij 5.4.0 ook pas later) → bestands-id's volgen.
+- Status:         getagd (Rob via sparring, letterlijk: "Go voor 5.5.0 (en dit is binnen een uur 🙂 )")
+- Mag op de site: ja zodra de status "staat op CurseForge" is. CURSEFORGE_DESCRIPTION.md bijgewerkt (Forever-overzicht,
+                  Find, class quests); Rob plakt die zelf op CurseForge.
+- Bundelt:        de regels hieronder van na v5.4.0 → ook die zijn nu "getagd (v5.5.0)".
 - Speler ziet:    alles in `RELEASE_NOTES.md` (= `docs/CURSEFORGE_5.5.0.md`). Bundelt de regels hieronder van na v5.4.0:
                   16 nov druid class-quests + rollen; 17 nov Warlock, Warrior, Hunter en Rogue, Shaman, Priest, Paladin
                   en Mage class-quests; How to play per rol; opzij voor de Forever Leveling Guide; kamperen stap 1;

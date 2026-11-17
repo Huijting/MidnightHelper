@@ -11,9 +11,16 @@ Up to date for Midnight patch 12.1.5 and Season 2 (ready for 12.1.7), and for Wo
 Despite the name, Midnight Helper has its own help for **WoW Forever**. In the CurseForge app, switch the game from
 Retail to **Forever** and install it there as well. You get help made for levelling the way it used to be:
 
-- **Your own start page**: your level, what you can learn at your trainer right now and what it costs, your money, and
-  **Take me to my trainer**: an arrow to your nearest class trainer (218 trainers known, no other addon needed). Talk
-  to a trainer or vendor once and the arrow learns exactly where they stand.
+- **One overview for everything** (`/mh`, Alt+M or the minimap button): seven tabs. *Now* (what to do now and next),
+  *Your class* (how you play, your class quests, camping), *Find*, *Professions*, *Dungeons & group*, *Keys & macros*
+  and *Characters*. The gear button lists everything MH does by itself, each with a switch.
+- **Your trainer**: what you can learn right now and what it costs, your money, and **Take me to my trainer**: an arrow
+  to your nearest class trainer (218 trainers known, no other addon needed). Talk to a trainer or vendor once and the
+  arrow learns exactly where they stand.
+- **Find**: trainers, weapon masters, shops, and in town the bank, the auction house, mailboxes and inns. Nearest
+  first, with the way there and the arrow.
+- **Class quests for all nine classes**, step by step with the arrow: druid forms, warlock demons, shaman totems,
+  hunter pets and more.
 - **Do this now**: a small window with what you can do right now (new spells at your trainer, an old rank on your
   bars, a weapon to learn, a missing tool) and the trainer spells of your next 3 levels.
 - **Which way do you want to go?** Pick one of your class's three talent trees, each in one plain sentence. *How you
