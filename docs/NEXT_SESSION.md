@@ -101,7 +101,9 @@
   (DB2 GEMETEN: node 110298 Type 1, 5 entries 136852/137374/137373/137372/137371 = rang 1-5), probe met alle velden.
 - 🧭 **Rollen stap 2 (8 classes) begonnen**: warrior/mage/priest AF in ForeverHowToPlay `ROLES` (en + nlNL, vorm = druid;
   gids-onenigheid eerlijk benoemd of weggelaten). Warlock AF (band 1 Affliction, 2 Demonology, 3 Destruction; Wrack = nieuwe werking,
-  toetsloze kernknoppen = blok D). Paladin-onderzoek klaar (`PALADIN_ROLES_2026-11-17.md`), tekst volgt. Paladin-klassetekst
+  toetsloze kernknoppen = blok D). Paladin AF (band 1 Holy, 2 Protection, 3 Retribution; HotR/Voice of Truth
+  weggelaten). ✅ **ROLLEN STAP 2 KLAAR: alle 9 classes in ROLES (en + nl).** Volgende: vertalingen ROLES de/fr/es/pt/ru,
+  dan Legacy en Camping. Paladin-klassetekst
   in 7 talen: Divine Intervention (F3 in gevecht) doodt jezelf (GEMETEN Spell 19752 "sacrifices himself") + Templar's
   Bulwark geeft ook Forbearance (GEMETEN Spell 25771). OPEN uit onderzoek (bouwchat): toets 3 = {Seal of Command, Seal
   of Righteousness} verbergt SoR voor Ret (Unsealed Wrath wil wisselen); Righteous Fury ontbreekt in de klassetekst;

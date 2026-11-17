@@ -908,5 +908,81 @@ Vanaf level 1 (Shadow Bolt en Immolate). Grote vuur- en shadow-klappen, en hij k
 - Shadowburn zonder Soul Shard, of op een vijand die nog lang leeft. De shard komt alleen terug als de vijand binnen 8 seconden doodgaat.
 - Bane of Havoc en Bane of Agony op dezelfde vijand. Er past maar één bane op.]] },
 		},
+		-- Paladin (17 nov 2026), zelfde band en volgorde als in Modules/ForeverHowToPlay.lua.
+		PALADIN = {
+			{ band = 1, title = "Holy: healer", body = [[
+Vanaf level 1: Holy Light heb je vanaf het begin. Een **healer** houdt de groep in leven. De gidsen noemen Holy de traagste boom om alleen te levelen: level als Retribution en heal in dungeons, of speel Holy samen met een vriend. De eigen knoppen van de boom komen op 20 (Divine Favor), 25 (Oath of Light), 30 (Holy Shock) en 40 (Light's Vigil).
+**Simpele volgorde (in een groep):**
+Vóór de pull: Blessing of Wisdom (**Shift-V**, vanaf 14) op jezelf, Blessing of Kings (**Shift-X**, vanaf 20) op de anderen. Aura: Devotion Aura (**Ctrl-1**), of Concentration Aura (**Ctrl-3**, vanaf 22) als casters veel geraakt worden.
+1. Oath of Light (**Shift-R**, vanaf 25) op de tank. Hij duurt 5 minuten, en maar één speler kan hem hebben.
+2. Flash of Light (**F2**, vanaf 20) is je gewone heal. Vóór 20: Holy Light (**C**).
+3. Holy Light (**C**) voor een grote klap. Vanaf 25 (Infusion of Light) cast hij sneller vlak na een crit van Holy Shock of Flash of Light. **Crit** = een sterkere geluksklap of geluksheal.
+4. Holy Shock (**F4**, vanaf 30) als er geen tijd is om te casten, of terwijl je loopt.
+5. De hele groep gewond, vanaf 40: Light's Vigil (**Shift-F1**) op één speler, dan Holy Shock (**F4**) op diezelfde speler.
+6. Divine Favor (**Shift-3**, vanaf 20) vóór een heal die groot moet zijn.
+7. Een slecht effect op een vriend: Purify, later Cleanse (**Shift-C**).
+8. Nood: Lay on Hands (**Q**). Hij gebruikt alle mana op die je nog hebt.
+Niets te healen: je seal (**3**), Judgement (**2**) en Holy Strike (**1**) van dichtbij. Alleen: speel zoals een Retribution Paladin; vanaf 30 is Holy Shock (**F4**) op de vijand je ene sterke schadeknop.
+**Per 10 levels:**
+- 10: je had al Holy Light (**C**), Devotion Aura (**Ctrl-1**), Blessing of Might (**Shift-Z**), Divine Protection (**Z**), Hammer of Justice (**E**) en Purify (**Shift-C**). Nieuw op 10: Lay on Hands (**Q**), Blessing of Protection (**Shift-F**). Eerste talent: Spiritual Focus (passief). Talent-levels hier zijn op z'n vroegst; een perk kan ze tot 5 levels eerder maken. Daarna Redemption (**F3**, uit een quest) op 12, Blessing of Wisdom (**Shift-V**) op 14, Reverence en Healing Light (talenten, passief) vanaf 15, Blessing of Freedom (**R**) op 18.
+- 20: Flash of Light (**F2**), Blessing of Kings (**Shift-X**). Divine Favor (**Shift-3**, een talent): je volgende Flash of Light, Holy Light of Holy Shock is zeker een crit; cooldown 2 minuten. Illumination (een talent, passief; je hebt eerst Reverence nodig). Daarna Concentration Aura (**Ctrl-3**) op 22. Oath of Light (**Shift-R**, een talent) en Infusion of Light (een talent, passief) op 25.
+- 30: Holy Shock (**F4**, een talent): direct, schade op een vijand of een heal op een vriend; cooldown 10 seconden. Divine Intervention (**F3** in een gevecht: je gaat zelf dood). Seal of Light (blok D). Daarna Divine Shield (**Z**) op 34, Holy Power (een talent, passief) op 35, Seal of Wisdom (blok D) op 38.
+- 40: Light's Vigil (**Shift-F1**, een talent; je hebt eerst Holy Shock nodig): 30 seconden op een vriend; je volgende Holy Shock op die vriend heeft geen cooldown en healt ook zijn groep. Holy Shock rank 2. Plate Mail: je kunt plate dragen. Daarna Cleanse (**Shift-C**) op 42, Blessing of Sacrifice (blok D) op 46, Holy Shock rank 3 op 48.
+- 50: Light's Vigil rank 2, Lay on Hands rank 3. Daarna Greater Blessing of Might op 52 en Greater Blessing of Wisdom op 54, Holy Shock rank 4 op 56.
+- 60: Greater Blessing of Kings, Light's Vigil rank 3; niets nieuws voor deze rol.
+**Beginnersfouten:**
+- Holy Light voor elke kleine klap. Flash of Light (**F2**, vanaf 20) is de goedkope gewone heal.
+- Light's Vigil op de ene speler en Holy Shock op een andere. De groepsheal komt alleen van Holy Shock op DEZELFDE speler.
+- Per ongeluk F3 indrukken in een gevecht. Dan cast hij Divine Intervention, en ga je zelf dood. Buiten een gevecht is F3 Redemption.]] },
+			{ band = 2, title = "Protection: tank", body = [[
+Vanaf level 10 (Righteous Fury en Seal of Fury bij de trainer). Een **tank** is degene die de vijanden slaan, zodat de rest van de groep veilig blijft. **Threat** = hoe graag een vijand jou wil aanvallen. Je draagt een eenhandig wapen en een schild. De gidsen zijn het oneens over hoe goed Protection alleen levelt. De knoppen van de boom: Templar's Bulwark op 20, Swift Judgement op 25, Holy Shield op 30.
+**Simpele volgorde:**
+1. Vóór de pull: Righteous Fury aan (geen vaste toets: hij staat in blok D, of zet hem op je eigen balk; hij duurt 30 minuten). Seal of Fury (**F**), een blessing, een aura. De gidsen zijn het oneens over de aura: Devotion Aura (**Ctrl-1**) of Retribution Aura (**Ctrl-2**).
+2. Vanaf 30: Holy Shield (**Shift-4**) vlak voordat de vijanden bij je zijn. Druk hem opnieuw steeds als hij klaar is.
+3. Judgement (**2**) op de eerste vijand. Met Seal of Fury aan is Judgement je taunt (3 seconden). **Taunt** = de vijand jou laten aanvallen.
+4. Twee of meer vijanden, vanaf 20: Consecration (**Shift-1**) onder ze. Alleen de eerste 4 krijgen de extra schade.
+5. Holy Strike (**1**) steeds als hij klaar is.
+6. Een vijand loopt naar iemand anders: Judgement (**2**). Niet klaar? Vanaf 25: Swift Judgement (**F1**), een tweede Judgement met een eigen cooldown van 1 minuut.
+7. Een vijand cast een spell: Hammer of Justice (**E**). De Paladin heeft geen interrupt.
+8. Exorcism (**5**, vanaf 20) op Undead en Demons. Hammer of Wrath (**4**, vanaf 44).
+9. Er komt veel schade aan, vanaf 20: Templar's Bulwark (**X**). Laatste redmiddel: Lay on Hands (**Q**).
+Weinig mana: laat eerst Consecration weg. Vanaf 40 (Shieldsworn): eerst Holy Shield, dan Holy Strike. Ben je niet de tank (alleen, of iemand anders tankt): gebruik je seal op **3**, niet Seal of Fury.
+**Per 10 levels:**
+- 10: Righteous Fury (blok D) en Seal of Fury (**F**). Je had al Judgement (**2**), Holy Strike (**1**), Hammer of Justice (**E**), Devotion Aura (**Ctrl-1**) en Divine Protection (**Z**). Ook nieuw: Lay on Hands (**Q**), Blessing of Protection (**Shift-F**). Eerste talent: Redoubt (passief). Talent-levels hier zijn op z'n vroegst; een perk kan ze tot 5 levels eerder maken. Daarna Precision, Guardian's Favor of Sacred Duty (talenten, passief) vanaf 15, Retribution Aura (**Ctrl-2**) op 16.
+- 20: Templar's Bulwark (**X**, een talent): een schild dat 8 seconden lang schade opvangt, zoveel als je max health; cooldown 5 minuten. Consecration (**Shift-1**), Blessing of Kings (**Shift-X**), Exorcism (**5**). Shield Specialization (een talent, passief; je hebt eerst Redoubt nodig). Daarna Swift Judgement (**F1**, een talent; je hebt eerst Templar's Bulwark nodig) en Improved Righteous Fury (een talent, passief) op 25.
+- 30: Holy Shield (**Shift-4**, een talent; je hebt een schild nodig): 10 seconden lang 30% meer kans om te blocken, 4 ladingen; cooldown 10 seconden. Reckoning (een talent, passief). Daarna Divine Shield (**Z**) op 34, Iron Creed (een talent, passief) op 35.
+- 40: Shieldsworn (een talent, passief; je hebt eerst Holy Shield nodig): Holy Strike elke 6 seconden, en hij werkt samen met Holy Shield. Plate Mail: je kunt plate dragen. Holy Shield rank 2. Daarna Hammer of Wrath (**4**) op 44, Blessing of Sacrifice (blok D) op 46.
+- 50: Holy Shield rank 3, Holy Wrath (blok D); sterkere ranks van Seal of Fury en Consecration.
+- 60: Holy Shield rank 4 en sterkere ranks; niets nieuws voor deze rol.
+**Beginnersfouten:**
+- Righteous Fury vergeten. Zonder maak je veel minder threat. Kijk het na vóór elke pull; hij duurt 30 minuten.
+- Seal of Fury aan terwijl jij niet de tank bent. Elke Judgement is dan een taunt.
+- Geen schild. Holy Shield werkt niet zonder, en Seal of Fury geeft dan geen absorb.]] },
+			{ band = 3, title = "Retribution: schade van dichtbij", body = [[
+Vanaf level 1 (Seal of Righteousness); Judgement komt op 4, Holy Strike op 6. De gidsen noemen Retribution de snelste boom om alleen te levelen, met één traag tweehandig wapen. De class-quest op 20 geeft je er een. De knoppen van de boom: Seal of Command op 20, Repentance op 30.
+**Simpele volgorde:**
+1. Vóór het gevecht: Blessing of Might (**Shift-Z**) tot 20, daarna Blessing of Kings (**Shift-X**).
+2. Aura: Devotion Aura (**Ctrl-1**); Retribution Aura (**Ctrl-2**, vanaf 16) tegen meerdere vijanden.
+3. Seal aan (**3**): Seal of Righteousness, tot je Seal of Command kent (vanaf 20). Dan cast toets 3 Seal of Command.
+4. Judgement (**2**) steeds als hij klaar is. Hij gebruikt de seal niet op.
+5. Holy Strike (**1**) steeds als hij klaar is.
+6. Undead of Demon, vanaf 20: Exorcism (**5**).
+7. Twee of meer vijanden, vanaf 20: Consecration (**Shift-1**). Niet op één vijand: hij kost te veel mana.
+8. Vanaf 44: Hammer of Wrath (**4**) als de vijand op 20% health of minder staat.
+9. Sterke vijand: Hammer of Justice (**E**), dan Judgement (**2**). Met Seal of Command doet Judgement dubbele schade op een vijand met een stun.
+10. Een tweede Humanoid, vanaf 30: Repentance (**V**), en sla hem niet.
+11. Zet de seal opnieuw op als hij afloopt (30 seconden). Weinig health: Holy Light (**C**) tussen gevechten.
+**Per 10 levels:**
+- 10: je had al Seal of Righteousness (**3**), Judgement (**2**), Holy Strike (**1**), Blessing of Might (**Shift-Z**) en Hammer of Justice (**E**). Nieuw op 10: Lay on Hands (**Q**). Eerste talent: Benediction (de meeste gidsen) of Deflection (één gids), allebei passief. Talent-levels hier zijn op z'n vroegst; een perk kan ze tot 5 levels eerder maken. Daarna Improved Judgement, Conviction of Sanctified Judgement (talenten, passief) vanaf 15, Retribution Aura (**Ctrl-2**) op 16.
+- 20: Seal of Command (**3**, een talent): je klappen doen soms een extra Holy-klap. Vanaf dan cast toets 3 deze in plaats van Seal of Righteousness. Consecration (**Shift-1**), Exorcism (**5**), Blessing of Kings (**Shift-X**), Flash of Light (**F2**). Pursuit of Justice (een talent, passief: je loopt 15% sneller bij 2/2). De class-quest voor een tweehandig wapen. Daarna Sacred Arbiter en Two-Handed Weapon Specialization (talenten, passief) op 25.
+- 30: Repentance (**V**, een talent): haalt één Humanoid tot 6 seconden uit het gevecht; elke schade maakt hem wakker; cooldown 1 minuut. Vengeance (een talent, passief; je hebt eerst Seal of Command nodig): na een crit doe je 30 seconden lang meer schade; stapelt tot 5 keer. Seal of Command rank 2. Daarna Divine Shield (**Z**) op 34, Champion of the Light (een talent, passief) op 35.
+- 40: Unsealed Wrath (een talent, passief; je hebt eerst Repentance nodig): je klappen bewaren kopieën van je seal, en een klap met een andere seal gebruikt ze. Plate Mail: je kunt plate dragen. De Warhorse-quest. Daarna Hammer of Wrath (**4**) op 44.
+- 50: Seal of Command rank 4, Holy Wrath (blok D), Hammer of Wrath rank 2 op 52; niets nieuws voor deze rol.
+- 60: Seal of Command rank 5 en sterkere ranks; de Charger-quest (Alliance); niets nieuws voor deze rol.
+**Beginnersfouten:**
+- Na elke Judgement de seal opnieuw opzetten. Judgement gebruikt hem niet op; een seal duurt 30 seconden.
+- Seal of Command met een snel wapen. Hij wil een traag tweehandig wapen.
+- Consecration op één vijand. Daarvoor kost hij te veel mana.]] },
+		},
 	},
 }

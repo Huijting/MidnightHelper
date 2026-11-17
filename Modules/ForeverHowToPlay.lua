@@ -936,6 +936,82 @@ From level 1 (Shadow Bolt and Immolate). Big fire and shadow hits, and it costs 
 - Shadowburn with no Soul Shard, or on an enemy that will live long. The shard only comes back if the enemy dies within 8 seconds.
 - Bane of Havoc and Bane of Agony on the same enemy. Only one bane fits on it.]] },
 	},
+	-- Paladin: written 17 Nov 2026 by mh-writer from docs/forever/PALADIN_ROLES_2026-11-17.md (DB2 1.60.1.70938 + guides).
+	PALADIN = {
+		{ band = 1, title = "Holy: healer", body = [[
+From level 1: Holy Light is there from the start. A **healer** keeps the group alive. The guides call Holy the slowest tree to level alone: level as Retribution and heal in dungeons, or play Holy with a friend. The tree's own buttons come at 20 (Divine Favor), 25 (Oath of Light), 30 (Holy Shock) and 40 (Light's Vigil).
+**Simple order (in a group):**
+Before the pull: Blessing of Wisdom (**Shift-V**, from 14) on yourself, Blessing of Kings (**Shift-X**, from 20) on the others. Aura: Devotion Aura (**Ctrl-1**), or Concentration Aura (**Ctrl-3**, from 22) when casters get hit a lot.
+1. Oath of Light (**Shift-R**, from 25) on the tank. It lasts 5 minutes, and only one player can have it.
+2. Flash of Light (**F2**, from 20) is your normal heal. Before 20: Holy Light (**C**).
+3. Holy Light (**C**) for a big hit. From 25 (Infusion of Light) it casts faster right after a crit of Holy Shock or Flash of Light. **Crit** = a lucky, stronger hit or heal.
+4. Holy Shock (**F4**, from 30) when there is no time to cast, or while you move.
+5. The whole party hurt, from 40: Light's Vigil (**Shift-F1**) on one player, then Holy Shock (**F4**) on that same player.
+6. Divine Favor (**Shift-3**, from 20) before a heal that must be big.
+7. A bad effect on a friend: Purify, later Cleanse (**Shift-C**).
+8. Emergency: Lay on Hands (**Q**). It uses up all the mana you have left.
+Nothing to heal: your seal (**3**), Judgement (**2**) and Holy Strike (**1**) up close. Alone: play like a Retribution Paladin; from 30 Holy Shock (**F4**) on the enemy is your one strong damage button.
+**Per 10 levels:**
+- 10: you already have Holy Light (**C**), Devotion Aura (**Ctrl-1**), Blessing of Might (**Shift-Z**), Divine Protection (**Z**), Hammer of Justice (**E**) and Purify (**Shift-C**). New at 10: Lay on Hands (**Q**), Blessing of Protection (**Shift-F**). First talent: Spiritual Focus (passive). Talent levels here are the earliest; a perk can bring them up to 5 levels sooner. Then Redemption (**F3**, from a quest) at 12, Blessing of Wisdom (**Shift-V**) at 14, Reverence and Healing Light (talents, passive) from 15, Blessing of Freedom (**R**) at 18.
+- 20: Flash of Light (**F2**), Blessing of Kings (**Shift-X**). Divine Favor (**Shift-3**, a talent): your next Flash of Light, Holy Light or Holy Shock is a sure crit; cooldown 2 minutes. Illumination (a talent, passive; you need Reverence first). Then Concentration Aura (**Ctrl-3**) at 22. Oath of Light (**Shift-R**, a talent) and Infusion of Light (a talent, passive) at 25.
+- 30: Holy Shock (**F4**, a talent): instant, damage on an enemy or a heal on a friend; cooldown 10 seconds. Divine Intervention (**F3** in a fight: you die yourself). Seal of Light (block D). Then Divine Shield (**Z**) at 34, Holy Power (a talent, passive) at 35, Seal of Wisdom (block D) at 38.
+- 40: Light's Vigil (**Shift-F1**, a talent; you need Holy Shock first): on a friend for 30 seconds; your next Holy Shock on that friend has no cooldown and heals their party too. Holy Shock rank 2. Plate Mail: you can wear plate. Then Cleanse (**Shift-C**) at 42, Blessing of Sacrifice (block D) at 46, Holy Shock rank 3 at 48.
+- 50: Light's Vigil rank 2, Lay on Hands rank 3. Then Greater Blessing of Might at 52 and of Wisdom at 54, Holy Shock rank 4 at 56.
+- 60: Greater Blessing of Kings, Light's Vigil rank 3; nothing new for this role.
+**Beginner mistakes:**
+- Holy Light for every small hit. Flash of Light (**F2**, from 20) is the cheap normal heal.
+- Light's Vigil on one player and Holy Shock on another. The party heal only comes from Holy Shock on the SAME player.
+- Pressing F3 in a fight by accident. Then it casts Divine Intervention, and you die yourself. Outside a fight F3 is Redemption.]] },
+		{ band = 2, title = "Protection: tank", body = [[
+From level 10 (Righteous Fury and Seal of Fury at the trainer). A **tank** is the one the enemies hit, so the rest of the group stays safe. **Threat** = how much an enemy wants to attack you. You carry a one-handed weapon and a shield. The guides disagree on how well Protection levels alone. The tree's buttons: Templar's Bulwark at 20, Swift Judgement at 25, Holy Shield at 30.
+**Simple order:**
+1. Before the pull: Righteous Fury on (no fixed key: it is on block D, or put it on your own bar; it lasts 30 minutes). Seal of Fury (**F**), a blessing, an aura. The guides disagree on the aura: Devotion Aura (**Ctrl-1**) or Retribution Aura (**Ctrl-2**).
+2. From 30: Holy Shield (**Shift-4**) just before the enemies reach you. Press it again every time it is ready.
+3. Judgement (**2**) on the first enemy. With Seal of Fury on, Judgement is your taunt (3 seconds). **Taunt** = make the enemy attack you.
+4. Two or more enemies, from 20: Consecration (**Shift-1**) under them. Only the first 4 take the extra damage.
+5. Holy Strike (**1**) every time it is ready.
+6. An enemy runs to someone else: Judgement (**2**). Not ready? From 25: Swift Judgement (**F1**), a second Judgement with its own 1-minute cooldown.
+7. An enemy casts a spell: Hammer of Justice (**E**). The Paladin has no interrupt.
+8. Exorcism (**5**, from 20) on Undead and Demons. Hammer of Wrath (**4**, from 44).
+9. Big damage coming, from 20: Templar's Bulwark (**X**). Last resort: Lay on Hands (**Q**).
+Low on mana: drop Consecration first. From 40 (Shieldsworn): Holy Shield first, then Holy Strike. Not the tank (alone, or someone else tanks): use your seal on **3**, not Seal of Fury.
+**Per 10 levels:**
+- 10: Righteous Fury (block D) and Seal of Fury (**F**). You already have Judgement (**2**), Holy Strike (**1**), Hammer of Justice (**E**), Devotion Aura (**Ctrl-1**) and Divine Protection (**Z**). Also new: Lay on Hands (**Q**), Blessing of Protection (**Shift-F**). First talent: Redoubt (passive). Talent levels here are the earliest; a perk can bring them up to 5 levels sooner. Then Precision, Guardian's Favor or Sacred Duty (talents, passive) from 15, Retribution Aura (**Ctrl-2**) at 16.
+- 20: Templar's Bulwark (**X**, a talent): a shield that soaks up damage equal to your max health, for 8 seconds; cooldown 5 minutes. Consecration (**Shift-1**), Blessing of Kings (**Shift-X**), Exorcism (**5**). Shield Specialization (a talent, passive; you need Redoubt first). Then Swift Judgement (**F1**, a talent; you need Templar's Bulwark first) and Improved Righteous Fury (a talent, passive) at 25.
+- 30: Holy Shield (**Shift-4**, a talent; you need a shield): 30% more block chance for 10 seconds, 4 charges; cooldown 10 seconds. Reckoning (a talent, passive). Then Divine Shield (**Z**) at 34, Iron Creed (a talent, passive) at 35.
+- 40: Shieldsworn (a talent, passive; you need Holy Shield first): Holy Strike every 6 seconds, and it works with Holy Shield. Plate Mail: you can wear plate. Holy Shield rank 2. Then Hammer of Wrath (**4**) at 44, Blessing of Sacrifice (block D) at 46.
+- 50: Holy Shield rank 3, Holy Wrath (block D); stronger ranks of Seal of Fury and Consecration.
+- 60: Holy Shield rank 4 and stronger ranks; nothing new for this role.
+**Beginner mistakes:**
+- Forgetting Righteous Fury. Without it you make far less threat. Check it before every pull; it lasts 30 minutes.
+- Seal of Fury on when you are not the tank. Every Judgement then taunts.
+- No shield. Holy Shield does not work without one, and Seal of Fury gives no absorb.]] },
+		{ band = 3, title = "Retribution: damage up close", body = [[
+From level 1 (Seal of Righteousness); Judgement comes at 4, Holy Strike at 6. The guides call Retribution the fastest tree to level alone, with one slow two-handed weapon. The class quest at 20 gives you one. The tree's buttons: Seal of Command at 20, Repentance at 30.
+**Simple order:**
+1. Before the fight: Blessing of Might (**Shift-Z**) until 20, then Blessing of Kings (**Shift-X**).
+2. Aura: Devotion Aura (**Ctrl-1**); Retribution Aura (**Ctrl-2**, from 16) against several enemies.
+3. Seal on (**3**): Seal of Righteousness, until you know Seal of Command (from 20). Then key 3 casts Seal of Command.
+4. Judgement (**2**) every time it is ready. It does not use up the seal.
+5. Holy Strike (**1**) every time it is ready.
+6. Undead or Demon, from 20: Exorcism (**5**).
+7. Two or more enemies, from 20: Consecration (**Shift-1**). Not on one enemy: it costs too much mana.
+8. From 44: Hammer of Wrath (**4**) when the enemy is at 20% health or less.
+9. Strong enemy: Hammer of Justice (**E**), then Judgement (**2**). With Seal of Command, Judgement does double damage on a stunned enemy.
+10. A second Humanoid, from 30: Repentance (**V**), and do not hit it.
+11. Put the seal back on when it runs out (30 seconds). Low on health: Holy Light (**C**) between fights.
+**Per 10 levels:**
+- 10: you already have Seal of Righteousness (**3**), Judgement (**2**), Holy Strike (**1**), Blessing of Might (**Shift-Z**) and Hammer of Justice (**E**). New at 10: Lay on Hands (**Q**). First talent: Benediction (most guides) or Deflection (one guide), both passive. Talent levels here are the earliest; a perk can bring them up to 5 levels sooner. Then Improved Judgement, Conviction or Sanctified Judgement (talents, passive) from 15, Retribution Aura (**Ctrl-2**) at 16.
+- 20: Seal of Command (**3**, a talent): your hits sometimes do an extra Holy hit. From then on key 3 casts it instead of Seal of Righteousness. Consecration (**Shift-1**), Exorcism (**5**), Blessing of Kings (**Shift-X**), Flash of Light (**F2**). Pursuit of Justice (a talent, passive: you move 15% faster at 2/2). The class quest for a two-handed weapon. Then Sacred Arbiter and Two-Handed Weapon Specialization (talents, passive) at 25.
+- 30: Repentance (**V**, a talent): takes one Humanoid out for up to 6 seconds; any damage wakes it; cooldown 1 minute. Vengeance (a talent, passive; you need Seal of Command first): after a crit you do more damage for 30 seconds; it stacks 5 times. Seal of Command rank 2. Then Divine Shield (**Z**) at 34, Champion of the Light (a talent, passive) at 35.
+- 40: Unsealed Wrath (a talent, passive; you need Repentance first): your hits store copies of your seal, and a hit with a different seal uses them. Plate Mail: you can wear plate. The Warhorse quest. Then Hammer of Wrath (**4**) at 44.
+- 50: Seal of Command rank 4, Holy Wrath (block D), Hammer of Wrath rank 2 at 52; nothing new for this role.
+- 60: Seal of Command rank 5 and stronger ranks; the Charger quest (Alliance); nothing new for this role.
+**Beginner mistakes:**
+- Putting the seal on again after every Judgement. Judgement does not use it up; a seal lasts 30 seconds.
+- Seal of Command with a fast weapon. It wants a slow two-handed weapon.
+- Consecration on one enemy. It costs too much mana for that.]] },
+	},
 }
 ns.FOREVER_HOWTOPLAY_ROLES = ROLES -- the offline check reads it
 
