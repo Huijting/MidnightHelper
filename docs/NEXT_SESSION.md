@@ -11,6 +11,15 @@
   (regisseur, "Loopt scheef" rij 1 en 2).
 - Open: de 2 ideeënbus-voorstellen van 15 nov (IDEEEN r. 872) → Rob kiest Open/Nee (niet door mij beslist).
 - Nu: stap 3 (8 classes), volgorde warlock, warrior, shaman, rogue, hunter, paladin, priest, mage.
+- 🔮 **Warlock class-quests GEBOUWD (en + nl)**, `Modules/ForeverClassQuests.lua` CHAINS.WARLOCK + WL_P + NPC_NAMES (36
+  NPC's × 6 talen, GEMETEN door mh-research; esMX ontbreekt bij Banehollow/Dreadsteed Spirit → Engels). 24 ketens: imp 1
+  (4 rassen), voidwalker 10 (4), succubus + incubus 20 (A, H-Org voor Orc/Troll, H-UC voor Undead), felhunter 30 (3),
+  felsteed 40 (4), dreadsteed 60 (4). Feiten: `docs/forever/WARLOCK_CLASSQUESTS_2026-11-17.md`. Drie Zygor-fouten NIET
+  overgenomen (1795 i.p.v. 1471, 1801 i.p.v. 1758, Demisette 4488). AFGELEID: incubus = 713, Orc/Troll lopen Orgrimmar,
+  dreadsteed-volgorde, 7631 objective 1 = de Xorothian Dreadsteed. Elke `W.<plek>` nagelopen tegen WL_P (59 namen, alle
+  aanwezig). Lint 0 HARD, luac OK. NIET in het spel gezien (TESTLIJST 17 nov).
+  Open warlock: FCQ_OBJ_WL_* vertalen (de/fr/es/pt/ru, item-namen per client meten), rollen per 10 levels (ROLES.WARLOCK),
+  item-ketens Green Flame + Imp's Request.
 
 ## 🌙 NACHTOPDRACHT 16→17 nov (Bouwchat 16-11 (2) sloot af met /nieuwe-chat bouw; sparring: akkoord)
 

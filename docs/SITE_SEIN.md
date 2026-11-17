@@ -28,6 +28,17 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 17 nov 2026 — Forever: Warlock class-quests stap voor stap
+- Tag + commit:   geen tag / (deze commit, zie git log "Warlock class quests")
+- Status:         alleen op main
+- Mag op de site: nee (nog niet uit)
+- Speler ziet:    Warlock: "Do this now" leidt je met de pijl door de quests voor je demonen (Imp, Voidwalker, Succubus en
+                  Incubus, Felhunter) en je paarden (Felsteed, Dreadsteed), per ras de goede startplek, NPC-namen in je eigen
+                  taal. *(niet in het spel getest)*
+- Knoplabels:     FCQ_BTN ("Show the way"), FCQ_HOWTO_HEAD ("Your class quests")
+- Commando's:     /mh classquest, /mh play
+- Spel:           Forever
+
 ## 16 nov 2026 (avond/nacht) — Forever: druid class-quests stap voor stap + druid per rol
 - Tag + commit:   geen tag / 4faaaee, 0059fae, 86984a6, bb1635e, dad9c38, 956ed87, f707878 (na de tag v5.4.0)
 - Status:         alleen op main

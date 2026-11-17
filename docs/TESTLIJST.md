@@ -24,6 +24,19 @@ er is niets weggegooid.
 📝 **Waarneming Rob, 16 nov (nacht), Forever mage, via sparring:** *"mouse over werk"* — `/mh mouseover on`, Shift+X
 (Arcane Intellect) op een voorbijganger onder de muis werkt.
 
+## 🆕 17 nov — Forever: Warlock class-quests in "Do this now"
+
+Warlock, `/reload`. Alles komt uit Zygor, Wowhead en de addon Spoken; niets is in het spel gezien.
+- [ ] Nieuwe warlock (level 1-9): "Do this now" noemt de eerste quest van je ras (Human: Drusilla La Salle, Gnome: Alamar
+      Grimm, Orc/Troll: Ruzan, Undead: Venya Marthand). Ken je de Imp al, dan staat er niets over de Imp.
+- [ ] Level 10+: Voidwalker-quests. Human begint bij Remen Marcot (Goldshire), Gnome bij Lago Blackwrench (Ironforge),
+      Orc/Troll bij Ophek (Razor Hill), Undead bij Ageron Kargal (Brill). Wijst "Show the way" de goede plek aan?
+- [ ] Level 20+: Succubus én Incubus (je kunt ze allebei halen). `/mh play` → "Your class quests" toont ze apart.
+- [ ] Level 30+: Felhunter (Strahad Farsan in Ratchet). Level 40+: Felsteed. Level 60: Dreadsteed.
+- [ ] Troll-warlock op 20, 30 en 40: biedt Orgrimmar je de quest echt aan? (Wowhead noemt alleen Orc en Undead.)
+- [ ] Duitse/Franse/Spaanse/… client: NPC-namen in je eigen taal (stap-teksten nog Engels, vertaling volgt).
+- [ ] `/mh classquest`: per quest "done / in log / complete". Klopt dat met je questlog?
+
 ## 🆕 16 nov (nacht, 2) — Forever: druid-quests in je eigen taal + Skyborne
 
 - [ ] Duitse/Franse/Spaanse/… client: in "Do this now" staan de NPC-namen zoals jouw spel ze toont (bv. Spaans

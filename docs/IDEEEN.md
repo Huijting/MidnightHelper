@@ -215,6 +215,11 @@ Stand 15 nov avond: 1 gebouwd (1f521e5), 2 gemeten, 3 rapport + A/B gebouwd (zie
 - Stand 16 nov (nacht): ✅ Ja (Rob). Druid stap 1 GEBOUWD (Bear 10, Cure Poison 14, Aquatic 16, Cat 20, Torwa 50; commits
   4faaaee, 0059fae, 86984a6, bb1635e) en stap 2 GEBOUWD in en/nl (dad9c38). Alleen main, NIET in het spel gezien
   (TESTLIJST 16 nov). Open: Skyborne Cat Form, NPC-namen per taal, stap 3 (8 classes). Af na Robs/Carola's test.
+- Stand 17 nov: Skyborne + NPC-namen druid gedaan (f707878). Stap 3 begonnen: ✅ Warlock class-quests GEBOUWD in en/nl
+  (imp 1, voidwalker 10, succubus + incubus 20, felhunter 30, felsteed 40, dreadsteed 60; per ras; NPC-namen 6 talen).
+  Feiten `docs/forever/WARLOCK_CLASSQUESTS_2026-11-17.md`. NIET in het spel gezien. Open warlock: vertalingen de/fr/es/
+  pt/ru, rollen per 10 levels, item-ketens (Green Flame, Imp's Request). Daarna warrior, shaman, rogue, hunter, paladin,
+  priest, mage.
 
 ### Forever: "Do this now" noemt de beste stats voor jou (solo + tank, dps/heal in gedachten)
 - Bron: Rob 16 nov (eerder die dag, letterlijk): *"wat ik ook graag wil weten in het schermpje Doe This Now … wat zijn

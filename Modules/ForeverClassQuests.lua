@@ -227,6 +227,212 @@ end
 table.insert(CHAINS.DRUID, Torwa("Alliance", P.mathrengyl))
 table.insert(CHAINS.DRUID, Torwa("Horde", P.turak))
 
+--[[ Warlock (17 Nov 2026, Bouwchat 17-11, stap 3). All facts: docs/forever/WARLOCK_CLASSQUESTS_2026-11-17.md (mh-research):
+	Zygor Forever "Warlock Class Quests", the Spoken addon, wago DB2 1.60.1.70938, Wowhead Forever tooltips, gidsen.
+	NOT copied from Zygor (three Zygor mistakes, GEMETEN): the felhunter binding is 1795 (Zygor says 1471, the Undercity
+	voidwalker), the Horde hand-in at Jorah is 1801 (Zygor 1758), Demisette gives 4488 and Briarthorn 4487.
+	Not in Zygor, built from Wowhead + Spoken + guides: the Undercity succubus (1472-1476-1474) and the incubus (Forever).
+	AFGELEID: incubus = spell 713; 65602 is given by Takar; Orc/Troll take the Orgrimmar routes (the Wowhead record says
+	"Orc, Undead" for most of them, the guides say trolls walk Orgrimmar); the Dreadsteed order below (a choice; the
+	guides take 7623 early, then the arrow jumps to Banehollow while 7626-7628 are still open: still a valid place).
+	No Skyborne warlock (DB2 CharBaseInfo). Inferno and Ritual of Doom: no quest found (trainer). Not built yet: the item
+	chains Shard of the Green Flame (7601-7603) and An Imp's Request (8419-8422). Coordinates: HandyNotes for trainers,
+	else Zygor, else Wowhead/Questie pins; Stormwind uses the 39.x set (the 25.x Wowhead set is another map space). ]]
+local WL_P = {
+	drusilla = { npc = "Drusilla La Salle", id = 459, m = 1429, x = 49.69, y = 42.65 },
+	alamar = { npc = "Alamar Grimm", id = 460, m = 1426, x = 28.38, y = 66.18 },
+	ruzan = { npc = "Ruzan", id = 5765, m = 1411, x = 42.59, y = 69.00 },
+	venya = { npc = "Venya Marthand", id = 5667, m = 1420, x = 30.98, y = 66.41 },
+	remen = { npc = "Remen Marcot", id = 6121, m = 1429, x = 44.49, y = 66.27 },
+	lago = { npc = "Lago Blackwrench", id = 6120, m = 1455, x = 47.63, y = 9.26 },
+	gakin = { npc = "Gakin the Darkbinder", id = 6122, m = 1453, x = 39.22, y = 85.23 },
+	ophek = { npc = "Ophek", id = 3294, m = 1411, x = 54.37, y = 41.29 },
+	ganrul = { npc = "Gan'rul Bloodeye", id = 5875, m = 1454, x = 48.24, y = 45.29 },
+	ageron = { npc = "Ageron Kargal", id = 5724, m = 1420, x = 61.62, y = 52.67 },
+	carendin = { npc = "Carendin Halgar", id = 5675, m = 1458, x = 85.04, y = 26.01 },
+	takar = { npc = "Takar the Seer", id = 6244, m = 1413, x = 49.31, y = 57.10 },
+	cazul = { npc = "Cazul", id = 5909, m = 1454, x = 47.06, y = 46.48 },
+	zankaja = { npc = "Zankaja", id = 5910, m = 1454, x = 37.03, y = 59.45 },
+	gazrog = { npc = "Gazrog", id = 3464, m = 1413, x = 51.93, y = 30.32 },
+	kenzigla = { npc = "Ken'zigla", id = 4197, m = 1442, x = 73.25, y = 95.12 },
+	logmar = { npc = "Grunt Logmar", id = 5911, m = 1413, x = 44.62, y = 59.27 },
+	dogran = { npc = "Grunt Dogran", id = 5908, m = 1413, x = 43.31, y = 47.89 },
+	magar = { npc = "Magar", id = 3363, m = 1454, x = 63.7, y = 49.9 },
+	godrick = { npc = "Godrick Farsan", id = 5693, m = 1458, x = 84.81, y = 14.83 },
+	strahad = { npc = "Strahad Farsan", id = 6251, m = 1413, x = 62.63, y = 35.50 },
+	krom = { npc = "Krom Stoutarm", id = 6294, m = 1455, x = 74.21, y = 9.42 },
+	jorah = { npc = "Jorah Annison", id = 6293, m = 1458, x = 75.91, y = 37.87 },
+	demisette = { npc = "Demisette Cloyce", id = 461, m = 1453, x = 39.24, y = 84.96 },
+	briarthorn = { npc = "Briarthorn", id = 5172, m = 1455, x = 50.35, y = 5.66 },
+	zevrost = { npc = "Zevrost", id = 3326, m = 1454, x = 48.47, y = 45.43 },
+	kaal = { npc = "Kaal Soulreaper", id = 4563, m = 1458, x = 86.21, y = 15.93 },
+	spackle = { npc = "Spackle Thornberry", id = 5520, m = 1453, x = 39.53, y = 84.53 },
+	jubahl = { npc = "Jubahl Corpseseeker", id = 6382, m = 1455, x = 52.70, y = 6.08 },
+	kurgul = { npc = "Kurgul", id = 5815, m = 1454, x = 47.52, y = 46.72 },
+	martha = { npc = "Martha Strain", id = 5753, m = 1458, x = 85.70, y = 16.08 },
+	morzul = { npc = "Mor'zul Bloodbringer", id = 14436, m = 1428, x = 12.69, y = 31.64 },
+	gorzeeki = { npc = "Gorzeeki Wildeyes", id = 14437, m = 1428, x = 12.43, y = 31.63 },
+	banehollow = { npc = "Lord Banehollow", id = 9516, m = 1448, x = 35.93, y = 44.41 },
+	urdan = { m = 1448, x = 36.17, y = 44.46 },
+	-- The spirit has no spawn on Wowhead; the arrow points at the Dire Maul West door (ZH 25438, AFGELEID).
+	dreadsteedSpirit = { npc = "Dreadsteed Spirit", id = 14504, m = 1444, x = 60.32, y = 30.16 },
+	-- Objective places (no NPC).
+	circleSW = { m = 1453, x = 39.11, y = 84.37 },
+	circleOrg = { m = 1454, x = 49.44, y = 50.02 },
+	circleUC = { m = 1458, x = 86.62, y = 27.10 },
+	circleRatchet = { m = 1413, x = 62.60, y = 35.28 },
+	stolenBooks = { m = 1429, x = 56.71, y = 43.95 },
+	featherCharms = { m = 1426, x = 28.73, y = 82.58 },
+	familiars = { m = 1411, x = 45.34, y = 56.36 },
+	rattlecage = { m = 1420, x = 32.73, y = 60.10 },
+	surena = { m = 1429, x = 71.02, y = 80.78 },
+	verga = { m = 1411, x = 51.62, y = 9.74 },
+	grimoire = { m = 1420, x = 51.06, y = 67.57 },
+	heartswood = { m = 1440, x = 31.49, y = 31.45 },
+	figurine = { m = 1440, x = 26.6, y = 22.0 },
+	scarf = { m = 1440, x = 64.0, y = 79.0 },
+	dalin = { m = 1421, x = 44.4, y = 83.4 },
+	corma = { m = 1437, x = 50.0, y = 12.8 },
+	avelina = { m = 1421, x = 63.5, y = 65.3 },
+	isaac = { m = 1413, x = 61.8, y = 38.5 },
+	moldyTome = { m = 1424, x = 27.78, y = 72.78 },
+	manuscript = { m = 1441, x = 43.43, y = 32.69 },
+	rods = { m = 1437, x = 45.09, y = 43.08 },
+	owlbeasts = { m = 1452, x = 63.65, y = 16.33 },
+	ulathek = { m = 1448, x = 40.77, y = 48.42 },
+}
+
+local HUM, GNO = { Human = true }, { Gnome = true }
+local ORCTROLL, UD = { Orc = true, Troll = true }, { Scourge = true }
+local W = WL_P
+
+local function WlVoid(faction, races, first, steps)
+	local quests = { first }
+	for _, s in ipairs(steps) do
+		quests[#quests + 1] = s
+	end
+	return { key = "voidwalker", spell = 697, level = 10, faction = faction, races = races, quests = quests }
+end
+local VOID_A = {
+	{ q = 1688, from = W.gakin, objs = { O(W.surena, "FCQ_OBJ_WL_SURENA", 1) }, to = W.gakin },
+	{ q = 1689, from = W.gakin, objs = { O(W.circleSW, "FCQ_OBJ_WL_BIND_VOID", 1) }, to = W.gakin },
+}
+
+local function WlFelhunter(faction, races, first, tome, tomeQ, rodsQ)
+	return {
+		key = "felhunter", spell = 691, level = 30, faction = faction, races = races,
+		quests = {
+			first,
+			{ q = tomeQ[1], from = W.strahad, to = tome },
+			{ q = tomeQ[2], from = tome, objs = { O(W.moldyTome, "FCQ_OBJ_WL_MOLDYTOME", 1), O(W.manuscript, "FCQ_OBJ_WL_MANUSCRIPT", 2) },
+				to = tome },
+			{ q = rodsQ, from = tome, objs = { O(W.rods, "FCQ_OBJ_WL_RODS", 1) }, to = W.strahad },
+			{ q = 1795, from = W.strahad, objs = { O(W.circleRatchet, "FCQ_OBJ_WL_BIND_FEL", 1) }, to = W.strahad },
+		},
+	}
+end
+
+local function WlFelsteed(faction, races, q, alt, trainer)
+	return {
+		key = "felsteed", spell = 5784, level = 40, faction = faction, races = races,
+		quests = {
+			{ q = q, alt = alt, from = trainer, to = W.strahad },
+			{ q = 4490, from = W.strahad, to = W.strahad },
+		},
+	}
+end
+
+-- Dreadsteed (60): 7562 from the race's demon trainer, then one line (order AFGELEID, see the header).
+local function WlDreadsteed(faction, races, starter)
+	return {
+		key = "dreadsteed", spell = 23161, level = 60, faction = faction, races = races,
+		quests = {
+			{ q = 7562, from = starter, to = W.morzul },
+			{ q = 7563, from = W.morzul, objs = { O(W.owlbeasts, "FCQ_OBJ_WL_BEASTBLOOD", 1) }, to = W.morzul },
+			{ q = 7564, from = W.morzul, to = W.gorzeeki },
+			{ q = 7626, from = W.morzul, objs = { O(nil, "FCQ_OBJ_WL_ELIXIR", 1) }, to = W.gorzeeki },
+			{ q = 7627, from = W.morzul, objs = { O(nil, "FCQ_OBJ_WL_SHARDS", 1), O(nil, "FCQ_OBJ_WL_IRONORE", 2) }, to = W.gorzeeki },
+			{ q = 7628, from = W.morzul, objs = { O(nil, "FCQ_OBJ_WL_DRAGONSCALE", 1) }, to = W.gorzeeki },
+			{ q = 7630, from = W.gorzeeki, objs = { O(nil, "FCQ_OBJ_WL_ARCANITE", 1) }, to = W.gorzeeki },
+			{ q = 7623, from = W.gorzeeki, to = W.banehollow },
+			{ q = 7624, from = W.banehollow, objs = { O(W.ulathek, "FCQ_OBJ_WL_ULATHEK", 1) }, to = W.banehollow },
+			{ q = 7625, from = W.banehollow, objs = { O(W.urdan, "FCQ_OBJ_WL_STARDUST", 1) }, to = W.gorzeeki },
+			{ q = 7629, from = W.gorzeeki, objs = { O(nil, "FCQ_OBJ_WL_IMPJAR", 1) }, to = W.gorzeeki },
+			-- Objective 1 = defeat the Xorothian Dreadsteed (14502): AFGELEID (the tooltip shows no objective).
+			{ q = 7631, from = W.morzul, objs = { O(W.dreadsteedSpirit, "FCQ_OBJ_WL_RITUAL", 1) }, to = W.dreadsteedSpirit },
+		},
+	}
+end
+
+CHAINS.WARLOCK = {
+	-- Imp (1): the first class quest teaches it in Forever (Wowhead Forever record, GEMETEN for 1598/1485).
+	{ key = "imp", spell = 688, level = 1, faction = "Alliance", races = HUM, quests = {
+		{ q = 1598, from = W.drusilla, objs = { O(W.stolenBooks, "FCQ_OBJ_WL_POWERSVOID", 1) }, to = W.drusilla } } },
+	{ key = "imp", spell = 688, level = 1, faction = "Alliance", races = GNO, quests = {
+		{ q = 1599, from = W.alamar, objs = { O(W.featherCharms, "FCQ_OBJ_WL_FEATHERCHARM", 1) }, to = W.alamar } } },
+	{ key = "imp", spell = 688, level = 1, faction = "Horde", races = ORCTROLL, quests = {
+		{ q = 1485, from = W.ruzan, objs = { O(W.familiars, "FCQ_OBJ_WL_FAMILIARHEAD", 1) }, to = W.ruzan } } },
+	{ key = "imp", spell = 688, level = 1, faction = "Horde", races = UD, quests = {
+		{ q = 1470, from = W.venya, objs = { O(W.rattlecage, "FCQ_OBJ_WL_RATTLESKULL", 1) }, to = W.venya } } },
+	-- Voidwalker (10)
+	WlVoid("Alliance", HUM, { q = 1685, from = W.remen, to = W.gakin }, VOID_A),
+	WlVoid("Alliance", GNO, { q = 1715, from = W.lago, to = W.gakin }, VOID_A),
+	WlVoid("Horde", ORCTROLL, { q = 1506, from = W.ophek, to = W.ganrul }, {
+		{ q = 1501, from = W.ganrul, objs = { O(W.verga, "FCQ_OBJ_WL_VERGA", 1) }, to = W.ganrul },
+		{ q = 1504, from = W.ganrul, objs = { O(W.circleOrg, "FCQ_OBJ_WL_BIND_VOID", 1) }, to = W.ganrul },
+	}),
+	WlVoid("Horde", UD, { q = 1478, from = W.ageron, to = W.carendin }, {
+		{ q = 1473, from = W.carendin, objs = { O(W.grimoire, "FCQ_OBJ_WL_GRIMOIRE", 1) }, to = W.carendin },
+		{ q = 1471, from = W.carendin, objs = { O(W.circleUC, "FCQ_OBJ_WL_BIND_VOID", 1) }, to = W.carendin },
+	}),
+	-- Succubus and Incubus (20): the same first quest; you can do both.
+	{ key = "succubus", spell = 712, level = 20, faction = "Alliance", quests = {
+		{ q = 1716, from = W.gakin, to = W.takar },
+		{ q = 1738, from = W.takar, objs = { O(W.heartswood, "FCQ_OBJ_WL_HEARTSWOOD", 1) }, to = W.gakin },
+		{ q = 1739, from = W.gakin, objs = { O(W.circleSW, "FCQ_OBJ_WL_BIND_SUCC", 1) }, to = W.gakin } } },
+	{ key = "incubus", spell = 713, level = 20, faction = "Alliance", quests = {
+		{ q = 1716, from = W.gakin, to = W.takar },
+		{ q = 65602, from = W.takar, objs = { O(W.figurine, "FCQ_OBJ_WL_FIGURINE", 1) }, to = W.gakin },
+		{ q = 65603, from = W.gakin, objs = { O(W.circleSW, "FCQ_OBJ_WL_BIND_INC", 1) }, to = W.gakin } } },
+	{ key = "succubus", spell = 712, level = 20, faction = "Horde", races = ORCTROLL, quests = {
+		{ q = 1507, from = W.ganrul, to = W.cazul },
+		{ q = 1508, from = W.cazul, to = W.zankaja },
+		{ q = 1509, from = W.zankaja, to = W.gazrog },
+		{ q = 1510, from = W.gazrog, to = W.kenzigla },
+		{ q = 1511, from = W.kenzigla, to = W.logmar },
+		{ q = 1515, from = W.logmar, to = W.dogran },
+		{ q = 1512, from = W.dogran, to = W.ganrul },
+		{ q = 1513, from = W.ganrul, objs = { O(W.circleOrg, "FCQ_OBJ_WL_BIND_SUCC", 1) }, to = W.ganrul } } },
+	{ key = "incubus", spell = 713, level = 20, faction = "Horde", races = ORCTROLL, quests = {
+		{ q = 1507, from = W.ganrul, to = W.cazul },
+		{ q = 65601, from = W.cazul, to = W.magar },
+		{ q = 65610, from = W.magar, objs = { O(W.scarf, "FCQ_OBJ_WL_SCARF", 1) }, to = W.ganrul },
+		{ q = 65604, from = W.ganrul, objs = { O(W.circleOrg, "FCQ_OBJ_WL_BIND_INC", 1) }, to = W.ganrul } } },
+	{ key = "succubus", spell = 712, level = 20, faction = "Horde", races = UD, quests = {
+		{ q = 1472, from = W.carendin, to = W.godrick },
+		{ q = 1476, from = W.godrick, objs = { O(W.dalin, "FCQ_OBJ_WL_DALIN", 1), O(W.corma, "FCQ_OBJ_WL_CORMA", 2) }, to = W.carendin },
+		{ q = 1474, from = W.carendin, objs = { O(W.circleUC, "FCQ_OBJ_WL_BIND_SUCC", 1) }, to = W.carendin } } },
+	{ key = "incubus", spell = 713, level = 20, faction = "Horde", races = UD, quests = {
+		{ q = 1472, from = W.carendin, to = W.godrick },
+		{ q = 65593, from = W.godrick, objs = { O(W.avelina, "FCQ_OBJ_WL_AVELINA", 1), O(W.isaac, "FCQ_OBJ_WL_ISAAC", 2) }, to = W.carendin },
+		{ q = 65597, from = W.carendin, objs = { O(W.circleUC, "FCQ_OBJ_WL_BIND_INC", 1) }, to = W.carendin } } },
+	-- Felhunter (30): 2996 and 3001 exclude each other, so each is the other's alt.
+	WlFelhunter("Alliance", nil, { q = 1798, from = W.gakin, to = W.strahad }, W.krom, { 1758, 1802 }, 1804),
+	WlFelhunter("Horde", ORCTROLL, { q = 2996, alt = { 3001 }, from = W.ganrul, to = W.strahad }, W.jorah, { 1801, 1803 }, 1805),
+	WlFelhunter("Horde", UD, { q = 3001, alt = { 2996 }, from = W.carendin, to = W.strahad }, W.jorah, { 1801, 1803 }, 1805),
+	-- Felsteed (40): one starter per race (they exclude each other), then 4490 at Strahad. In Forever the Felsteed is also
+	-- a collection mount: whether the spell check sees it = NOT measured; the chain also ends once 4490 is done.
+	WlFelsteed("Alliance", HUM, 4488, { 4487 }, W.demisette),
+	WlFelsteed("Alliance", GNO, 4487, { 4488 }, W.briarthorn),
+	WlFelsteed("Horde", ORCTROLL, 3631, { 4489 }, W.zevrost),
+	WlFelsteed("Horde", UD, 4489, { 3631 }, W.kaal),
+	-- Dreadsteed (60)
+	WlDreadsteed("Alliance", HUM, W.spackle),
+	WlDreadsteed("Alliance", GNO, W.jubahl),
+	WlDreadsteed("Horde", ORCTROLL, W.kurgul),
+	WlDreadsteed("Horde", UD, W.martha),
+}
+
 local MOONGLADE, TELEPORT_MOONGLADE = 1450, 18960
 
 local function Done(q)
@@ -358,6 +564,43 @@ local NPC_NAMES = {
 	[272054] = { deDE = "Avatar von Saeyleenan", frFR = "Avatar de Saeyleenan", esES = "Avatar de Saeyleenan", esMX = "Avatar de Saeyleenan", ptBR = "Avatar de Saeyleenan", ruRU = "Аватара Сэйлинан" },
 	[252359] = { deDE = "Lotheluum Starbreeze", frFR = "Lotheluum Brise-Stellaire", esES = "Lotheluum Brisa Estelar", esMX = "Lotheluum Brisa Estelar", ptBR = "Lotheluum Brisastral", ruRU = "Лотелум Звездный Ветер" },
 	[255853] = { deDE = "Urs'endris", frFR = "Urs'endris", esES = "Urs'endris", esMX = "Urs'endris", ptBR = "Urs'endris", ruRU = "Урс'ендрис" },
+	-- Warlock (17 Nov 2026, mh-research: Wowhead Forever tooltips per locale; esMX gaps from Spoken esMX.lua; control npc
+	-- 233 again). Missing esMX = not measured, English shows. 460 ruRU "Мрачнн" is as Wowhead has it (kept).
+	[459] = { deDE = "Drusilla La Salle", frFR = "Drusilla La Salle", esES = "Drusilla La Salle", esMX = "Drusilla La Salle", ptBR = "Drusilla La Salle", ruRU = "Друзилла ла Салле" },
+	[460] = { deDE = "Alamar Grimm", frFR = "Alamar Grimm", esES = "Alamar Grimm", esMX = "Alamar Grimm", ptBR = "Alamar Carranca", ruRU = "Аламар Мрачнн" },
+	[5765] = { deDE = "Ruzan", frFR = "Ruzan", esES = "Ruzan", esMX = "Ruzan", ptBR = "Ruzan", ruRU = "Рузан" },
+	[5667] = { deDE = "Venya Marthand", frFR = "Venya Marthand", esES = "Venya Martmani", esMX = "Venya Marthand", ptBR = "Vênia Martingil", ruRU = "Вения Мартанд" },
+	[6121] = { deDE = "Remen Marcot", frFR = "Remen Marcot", esES = "Remen Marcot", esMX = "Remen Marcot", ptBR = "Rêmulo Marcos", ruRU = "Ремен Маркот" },
+	[6120] = { deDE = "Lago Blackwrench", frFR = "Lago Blackwrench", esES = "Llago Llavenegra", esMX = "Yago Llavenegra", ptBR = "Iago Chavenegra", ruRU = "Лаго Злобноверт" },
+	[6122] = { deDE = "Gakin der Dunkelbinder", frFR = "Gakin le Tisse-noir", esES = "Gakin el Presotenebra", esMX = "Gakin el Presotenebra", ptBR = "Gakin, o Neromante", ruRU = "Гакин Темнопряд" },
+	[3294] = { deDE = "Ophek", frFR = "Ophek", esES = "Ophek", esMX = "Ophek", ptBR = "Ophek", ruRU = "Офек" },
+	[5875] = { deDE = "Gan'rul Bloodeye", frFR = "Gan'rul Bloodeye", esES = "Ojo sangriento de Gan'rul", esMX = "Gan'rul Ojosangre", ptBR = "Gan'rul Olho de Sangue", ruRU = "Ган'рул Кровавый Глаз" },
+	[5724] = { deDE = "Ageron Kargal", frFR = "Ageron Kargal", esES = "Ageron Kargal", esMX = "Ageron Kargal", ptBR = "Ageron Karhal", ruRU = "Агерон Каргал" },
+	[5675] = { deDE = "Carendin Halgar", frFR = "Carendin Halgar", esES = "Carendin Halgar", esMX = "Carendin Halgar", ptBR = "Silvério Hidalgo", ruRU = "Карендин Халгар" },
+	[6244] = { deDE = "Takar der Seher", frFR = "Takar le Prophète", esES = "Takar el Profeta", esMX = "Takar el Vidente", ptBR = "Takar, o Vidente", ruRU = "Такар Провидец" },
+	[5909] = { deDE = "Cazul", frFR = "Cazul", esES = "Cazul", esMX = "Cazul", ptBR = "Cazul", ruRU = "Казул" },
+	[5910] = { deDE = "Zankaja", frFR = "Zankaja", esES = "Zankaja", esMX = "Zankaja", ptBR = "Zankaja", ruRU = "Занкайя" },
+	[3464] = { deDE = "Gazrog", frFR = "Gazrog", esES = "Gazrog", esMX = "Gazrog", ptBR = "Gazrog", ruRU = "Газрог" },
+	[4197] = { deDE = "Ken'zigla", frFR = "Ken'zigla", esES = "Ken'zigla", esMX = "Ken'zigla", ptBR = "Ken'zigla", ruRU = "Кен'зигла" },
+	[5911] = { deDE = "Grunzer Logmar", frFR = "Grunt Logmar", esES = "Bruto Logmar", esMX = "Bruto Logmar", ptBR = "Bruto Logmar", ruRU = "Рубака Логмар" },
+	[5908] = { deDE = "Grunzer Dogran", frFR = "Grunt Dogran", esES = "Bruto Dogran", esMX = "Bruto Dogran", ptBR = "Bruto Dogran", ruRU = "Рубака Догран" },
+	[3363] = { deDE = "Magar", frFR = "Magar", esES = "Magar", esMX = "Magar", ptBR = "Magar", ruRU = "Магар" },
+	[5693] = { deDE = "Godrick Farsan", frFR = "Godrick Farsan", esES = "Godrick Farsan", esMX = "Godrick Farsan", ptBR = "Godofredo Fasano", ruRU = "Годрик Фарсан" },
+	[6251] = { deDE = "Strahad Farsan", frFR = "Strahad Farsan", esES = "Strahad Farsan", esMX = "Strahad Farsan", ptBR = "Strahad Farsan", ruRU = "Страхад Фарсан" },
+	[6294] = { deDE = "Krom Stoutarm", frFR = "Krom Stoutarm", esES = "Krom Brazorrecio", esMX = "Krom Brazorrecio", ptBR = "Krom Braçoforte", ruRU = "Кром Крепкорук" },
+	[6293] = { deDE = "Jorah Annison", frFR = "Jorah Annison", esES = "Jorah Annison", esMX = "Jorah Annison", ptBR = "Jonas Anísio", ruRU = "Йорах Аннисон" },
+	[461] = { deDE = "Demisette Cloyce", frFR = "Demisette Cloyce", esES = "Demisette Cloyce", esMX = "Demisette Cloyce", ptBR = "Joyce Lopes", ruRU = "Демизетта Клойс" },
+	[5172] = { deDE = "Briarthorn", frFR = "Eglantine", esES = "Brezospina", esMX = "Brezospina", ptBR = "Cravespinho", ruRU = "Остротерн" },
+	[3326] = { deDE = "Zevrost", frFR = "Zevrost", esES = "Zevrost", esMX = "Zevrost", ptBR = "Zevrost", ruRU = "Зеврост" },
+	[4563] = { deDE = "Kaal Soulreaper", frFR = "Kaal Soulreaper", esES = "Revientalmas Kaal", esMX = "Kaal Segador de Almas", ptBR = "Kaal Ceifalma", ruRU = "Каел Жнец Душ" },
+	[5520] = { deDE = "Spackle Thornberry", frFR = "Spackle Thornberry", esES = "Spackle Espinamora", esMX = "Spackle Zarzamora", ptBR = "Spackle Cardopomo", ruRU = "Шпакл Шиповникс" },
+	[6382] = { deDE = "Jubaal Corpseseeker", frFR = "Jubahl Cherche-corps", esES = "Jubahl Buscadáver", esMX = "Jubahl Buscador de cadáveres", ptBR = "Jubahl Catadefunto", ruRU = "Жубал Труполов" },
+	[5815] = { deDE = "Kurgul", frFR = "Kurgul", esES = "Kurgul", esMX = "Kurgul", ptBR = "Kurgul", ruRU = "Кургул" },
+	[5753] = { deDE = "Martha Strain", frFR = "Martha Strain", esES = "Martha Forza", esMX = "Martha Strain", ptBR = "Marta Seixas", ruRU = "Марта Стрейн" },
+	[14436] = { deDE = "Mor'zul Bloodbringer", frFR = "Mor'zul Bloodbringer", esES = "Mor'zul Sangredoble", esMX = "Mor'zul Sangredoble", ptBR = "Mor'zul Trazangre", ruRU = "Мор'зул Кровопуск" },
+	[14437] = { deDE = "Gorzeeki Wildeyes", frFR = "Gorzeeki Wildeyes", esES = "Gorzeeki Ojosalvajes", esMX = "Gorzeeki Ojovago", ptBR = "Gorzeeki Olholouco", ruRU = "Горзиеки Дикоглаз" },
+	[9516] = { deDE = "Lord Banehollow", frFR = "Seigneur Banehollow", esES = "Lord Pesadilla", ptBR = "Lorde Nihilus", ruRU = "Лорд Гиблопуст" },
+	[14504] = { deDE = "Schreckensrossgeist", frFR = "Esprit de Destrier de l'effroi", esES = "Espíritu Corcelorror", ptBR = "Espírito de Corcel Medonho", ruRU = "Дух коня погибели" },
 }
 
 local function NpcName(p)
