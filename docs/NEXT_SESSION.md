@@ -1,5 +1,28 @@
 # Midnight Helper — waar we staan
 
+## ⏭️ VOLGENDE BOUWCHAT (Bouwchat 17-11 (2) draagt over; Rob via sparring, letterlijk: *"ja, verse bouwchat"*)
+
+Laatste commit van deze chat: 74c9d13 (overzicht A ronde 5). Plan: `docs/forever/HUISSTIJL_PLAN_2026-11-17.md`.
+Huisstijl = prio 1 (Rob). Volgorde (stap 5 van het plan, Rob vroeg ALLE tabbladen in deze stijl):
+1. Stijlkit `Modules/ForeverStyle.lua`: haal Card/Label/Chip/Button/SpellButton/Tip/HoverOver/Circle/Font uit
+   `ForeverOverview.lua` naar één bestand + thema-tabel A (B volgt). Fonts staan al in `Media/Fonts/` (OFL).
+2. Tab Class quests als pagina in het overzicht (data: `ns.ForeverClassQuestList` / `ns.ForeverClassQuestNowParts`).
+3. Tabs Kamperen + Legacy als pagina (`ns.ForeverCampState`, `ns.ForeverLegacyState` + de uitlegkaarten uit
+   ForeverHowToPlay COMMON).
+4. Tab How you play als pagina (het grootst: rollen per 10 levels, Talented-regel, class quests-blok).
+5. Ontwerp B + schakelaar A/B (`ns.db.foreverStyle`, instelling + `/mh overview style a|b`).
+6. Vertalingen in één ronde (mh-writer): alle FOV_*, FDUNG_IN_ENEMY_FMT naar de/fr/es/pt/ru.
+Daarna: slimme zegen (IDEEEN onder Ja): eerst de tooltip-tip, dan de slimme knop.
+Elke ronde: lint 0 HARD, luac OK, commit + push, TESTLIJST + NEXT_SESSION, één regel naar de sparring-chat.
+
+Open meetpunten (staan ook in TESTLIJST):
+- `/mh macros keys` + "Free key" (knop B) en de rijhoogte in het macrovenster: wacht op Robs test.
+- Zegen-paren `[group]` → Greater op een vreemde (paladin 52+): meetklus, niets veranderd.
+- Kookvuur in de wereld: geen "ga zitten"; kamp-test BIJ een speler-vuur met Camp Benefits nog open.
+- Fable-controle van de 10 macro's: gestart in Bouwchat 17-11 (2), nog niet terug bij de overdracht. Komt het rapport
+  niet bij jou aan, start dan een nieuwe mh-research (Fable) met dezelfde vraag (rijen onderaan CLASS_MACROS + DEFS
+  `eatdrink`, feiten in `docs/forever/MACRO_IDEAS_2026-11-17.md`).
+
 ## ▶ 17 nov (middag/avond) — Bouwchat 17-11 (2) (verse chat, nam het over na 5aa4feb)
 
 - Start: git status schoon, pull "Already up to date". NEXT_SESSION was 1616 regels → gesplitst bij "11 nov — Forever:
