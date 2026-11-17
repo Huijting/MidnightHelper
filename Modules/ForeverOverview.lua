@@ -40,7 +40,7 @@ local A = {
 	gold = { 0.86, 0.71, 0.42 }, label = { 0.93, 0.55, 0.22 }, text = { 0.92, 0.88, 0.80 }, dim = { 0.66, 0.60, 0.52 },
 	seal = { 0.55, 0.10, 0.08 }, later = { 0.55, 0.52, 0.48 },
 }
-local W, H = 920, 470
+local W, H = 920, 486
 local LEFT_W = 176
 
 local win
@@ -276,15 +276,18 @@ local function Upcoming(ahead)
 			local nm = SpellName(e.id)
 			-- A spell you already know comes as a stronger rank: say which (the client's own subtext), as "Do this now"
 			-- does (ForeverDoNow.lua, 12 Nov 2026). Sparring saw "Seal of Righteousness" at 18 on a paladin who has it.
+			-- Round 4: the rank goes on the second line ("level 18 · Rank 3"), the name alone was already cut off.
+			local rank
 			if nm and ns.ForeverKnownSpell and e.n and ns.ForeverKnownSpell(e.n) and C_Spell and C_Spell.GetSpellSubtext then
-				local okR, rank = pcall(C_Spell.GetSpellSubtext, e.id)
-				if okR and type(rank) == "string" and rank ~= "" and not (issecretvalue and issecretvalue(rank)) then
-					nm = nm .. " (" .. rank .. ")"
+				local okR, r = pcall(C_Spell.GetSpellSubtext, e.id)
+				if okR and type(r) == "string" and r ~= "" and not (issecretvalue and issecretvalue(r)) then
+					rank = r
 				end
 			end
-			if nm and not seen[nm] then
-				seen[nm] = true
-				out[#out + 1] = { id = e.id, l = e.l, name = nm }
+			local k = nm and (nm .. "|" .. (rank or ""))
+			if k and not seen[k] then
+				seen[k] = true
+				out[#out + 1] = { id = e.id, l = e.l, name = nm, rank = rank }
 			end
 		end
 	end
@@ -435,10 +438,11 @@ local function Build()
 	local rightW = W - x0 - 16
 	-- Row 1: Do this now (wide), Coming up, Class quest.
 	-- Widths: the class quest card got wider in round 3 (sparring saw "Wolfsbane: the Kor G…" cut off).
-	local nowW = math.floor(rightW * 0.41)
-	local soonW = math.floor(rightW * 0.26)
+	-- Round 4: Coming up wider again (its spell names were cut off), Do this now gives some of its room.
+	local nowW = math.floor(rightW * 0.38)
+	local soonW = math.floor(rightW * 0.30)
 	local cqW = rightW - nowW - soonW - 24
-	local rowH = 236
+	local rowH = 252
 	f.now = Card(f)
 	f.now:SetPoint("TOPLEFT", x0, -62)
 	f.now:SetSize(nowW, rowH)
@@ -451,6 +455,9 @@ local function Build()
 	f.now.title = Text(f.now, FONT_HEAD, 21, A.text, FALLBACK_HEAD)
 	f.now.title:SetPoint("TOPLEFT", 14, -32)
 	f.now.title:SetPoint("RIGHT", -14, 0)
+	if f.now.title.SetMaxLines then
+		f.now.title:SetMaxLines(2) -- room for the lines below it
+	end
 	f.now.what = Text(f.now, FONT_TEXT, 14, A.text)
 	f.now.what:SetPoint("TOPLEFT", f.now.title, "BOTTOMLEFT", 0, -4)
 	f.now.what:SetPoint("RIGHT", -14, 0)
@@ -465,10 +472,10 @@ local function Build()
 	f.now.more = {}
 	for i = 1, 2 do
 		local row = CreateFrame("Frame", nil, f.now)
-		row:SetHeight(30)
+		row:SetHeight(42) -- room for a three-line tip
 		row:SetPoint("LEFT", 14, 0)
 		row:SetPoint("RIGHT", -14, 0)
-		row:SetPoint("BOTTOM", 0, 10 + (2 - i) * 34)
+		row:SetPoint("BOTTOM", 0, 8 + (2 - i) * 46)
 		local sep = row:CreateTexture(nil, "ARTWORK")
 		sep:SetColorTexture(A.edge[1], A.edge[2], A.edge[3], 0.35)
 		sep:SetHeight(1)
@@ -682,7 +689,7 @@ local function FillNow(f, items)
 			local sub = it.place or it.what
 			row.text:SetWordWrap(sub == nil)
 			if row.text.SetMaxLines then
-				row.text:SetMaxLines(sub == nil and 2 or 1)
+				row.text:SetMaxLines(sub == nil and 3 or 1)
 			end
 			row.text:SetText(it.title or "")
 			row.sub:SetText(sub or "")
@@ -786,7 +793,7 @@ function ns.ForeverOverviewFill()
 			row.icon.tipSpell = e.id
 			row.icon:Show()
 			row.name:SetText(e.name)
-			row.level:SetText(ns:L("FOV_LEVEL_FMT"):format(e.l))
+			row.level:SetText(ns:L("FOV_LEVEL_FMT"):format(e.l) .. (e.rank and (" · " .. e.rank) or ""))
 		else
 			row.icon:Hide()
 			row.icon.tipSpell = nil
@@ -842,7 +849,7 @@ function ns.ForeverOverviewFill()
 				n.sub:SetText(#d.list > 1 and ns:L("FOV_PATH_MORE_FMT"):format(#d.list - 1) or ns:L("FOV_PATH_NEW"))
 				local names = {}
 				for _, e in ipairs(d.list) do
-					names[#names + 1] = e.name
+					names[#names + 1] = e.rank and (e.name .. " (" .. e.rank .. ")") or e.name
 				end
 				n.hover.tipTitle = ns:L("FOV_LEVEL_FMT"):format(d.l)
 				n.hover.tipBody = ns:L("FOV_TIP_NODE_FMT"):format(table.concat(names, ", "))

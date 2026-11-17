@@ -38,6 +38,14 @@ Open `/mh macros`, klik "Maak" bij een nieuwe rij, sleep de macro naar een balk 
       Rogue level 6+: typ `/dump IsPlayerSpell(1752), IsSpellKnown(1752)` en zeg wat er staat (rank-vraag).
 - [ ] Shaman: Resurrect, Fire Totem (Ctrl = Magma, 26). Paladin: Resurrect.
 
+## 🎨 17 nov (ronde 4) — Forever: ontwerp A, afgekapte teksten (`/mh overview`)
+
+- [ ] Binnenkort is weer breder; de rank staat op de tweede regel ("level 18 · Rank 3"), de naam past.
+- [ ] De dungeon-tip in "Doe dit nu" mag nu drie regels gebruiken.
+- [ ] Open vraag (via sparring): de tip noemt voor Horde ook "The Hall of Thanes (Ironforge)". Blizzards data zet hem op
+      "beide facties" (GEMETEN), maar de ingang ligt in een Alliance-stad. Wat wil je: zo laten, weglaten voor Horde,
+      of "(Alliance-stad)" erachter?
+
 ## 🎨 17 nov (ronde 3) — Forever: ontwerp A, kleine puntjes (`/mh overview`)
 
 - [x] Ronde 2 GEDAAN (Rob): *"alle tooltips komen netjes, wauw"*.
