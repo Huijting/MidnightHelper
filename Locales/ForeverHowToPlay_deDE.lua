@@ -388,7 +388,7 @@ Ab Stufe 20 (Katzengestalt, aus einer Quest; Schleichen bekommst du dazu). Zum L
 - Schreddern von vorn. Es wirkt nur von hinten; von vorn nimmst du Klaue.
 - Zu oft Machtverschiebung. Dann hast du kein Mana mehr, um dich selbst zu heilen.]] },
 			{ band = 1, title = "Gleichgewicht: Schaden aus der Ferne", body = [[
-Ab Stufe 1: Zorn und Mondfeuer hast du von Anfang an. Moonkingestalt ist ein Talent, frühestens 40. Die Guides sagen, Leveln als Gleichgewicht klappt, ist aber langsamer als die Katze. Manche Guides nehmen Moonkingestalt später (Zygor mit 53): 40 ist keine Regel.
+Ab Stufe 1: Zorn hast du von Anfang an, Mondfeuer kommt mit 4. Moonkingestalt ist ein Talent, frühestens 40. Die Guides sagen, Leveln als Gleichgewicht klappt, ist aber langsamer als die Katze. Manche Guides nehmen Moonkingestalt später (Zygor mit 53): 40 ist keine Regel.
 **Einfache Reihenfolge:**
 1. Sternenfeuer (**3**, ab 20) als Eröffner auf einen Gegner.
 2. Mondfeuer (**2**).
@@ -404,7 +404,7 @@ Wenig Mana? Bleib bei Zorn: Er ist billig.
 - 50: stärkere Ränge von Hurrikan und Sternenfeuer. Baumrinde (**Z**) mit 44.
 - 60: wieder stärkere Ränge; nichts Neues für diese Rolle.
 **Anfängerfehler:**
-- Heilen in Moonkingestalt. Das geht nicht, und die Gestalt zu verlassen kostet Mana.
+- Heilen in Moonkingestalt. Das geht nicht, und wieder in die Gestalt zu gehen kostet Mana.
 - Eine Taste für Omen der Klarsicht suchen. Es ist passiv: Es wirkt von selbst.]] },
 			{ band = 3, title = "Wiederherstellung: Heiler", body = [[
 Ab Stufe 1: Heilende Berührung hast du von Anfang an. Die Guides raten vom Heilen beim Leveln allein ab (Gegner sterben langsam): Level mit Zorn und Mondfeuer und heile in Dungeons. Ein **HoT** ist eine Heilung, die nach und nach heilt.

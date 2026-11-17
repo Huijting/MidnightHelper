@@ -4644,6 +4644,7 @@ ns._mhLocales.nlNL = {
 	FCQ_TURN_FMT = "ga naar %s, %s.",
 	FCQ_OBJ_BEARSPIRIT = "praat met de Great Bear Spirit en kies elke regel om de beurt",
 	FCQ_OBJ_LUNACLAW = "gebruik in de grot het stof uit je tassen, versla Lunaclaw en praat daarna met haar geest",
+	FCQ_OBJ_LUNACLAW_H = "gebruik het stof uit je tassen bij de Moonkin Stone (buiten, achter het eerste hutje), versla Lunaclaw en praat daarna met haar geest",
 	FCQ_BTN = "Wijs de weg",
 	FCQ_NOTHING = "er is nu geen class-quest voor je.",
 	FCQ_OBJ_SAMPLER_A = "gebruik de lege sampler uit je tassen bij de ingang van de grot bij de waterval",

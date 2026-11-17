@@ -384,7 +384,7 @@ Vanaf level 20 (Cat Form, uit een quest; Prowl krijg je erbij). Om te levelen is
 - Shred van voren. Hij werkt alleen van achteren; van voren gebruik je Claw.
 - Te vaak Shifting Power. Dan heb je geen mana meer om jezelf te healen.]] },
 			{ band = 1, title = "Balance: schade van een afstand", body = [[
-Vanaf level 1: Wrath en Moonfire heb je vanaf het begin. Moonkin Form is een talent, op z'n vroegst 40. De gidsen zeggen dat levelen als Balance werkt, maar trager is dan de kat. Sommige gidsen nemen Moonkin Form later (Zygor op 53): 40 is geen regel.
+Vanaf level 1: Wrath heb je vanaf het begin, Moonfire komt op 4. Moonkin Form is een talent, op z'n vroegst 40. De gidsen zeggen dat levelen als Balance werkt, maar trager is dan de kat. Sommige gidsen nemen Moonkin Form later (Zygor op 53): 40 is geen regel.
 **Simpele volgorde:**
 1. Starfire (**3**, vanaf 20) als opener op één vijand.
 2. Moonfire (**2**).
@@ -400,7 +400,7 @@ Weinig mana? Blijf Wrath gebruiken: die is goedkoop.
 - 50: sterkere ranks van Hurricane en Starfire. Barkskin (**Z**) op 44.
 - 60: weer sterkere ranks; niets nieuws voor deze rol.
 **Beginnersfouten:**
-- Healen in Moonkin Form. Dat kan niet, en uit de form gaan kost mana.
+- Healen in Moonkin Form. Dat kan niet, en weer terug de form in gaan kost mana.
 - Een toets voor Omen of Clarity zoeken. Hij is passief: hij werkt vanzelf.]] },
 			{ band = 3, title = "Restoration: healer", body = [[
 Vanaf level 1: Healing Touch heb je vanaf het begin. De gidsen raden healen niet aan om alleen te levelen (vijanden gaan langzaam dood): level met Wrath en Moonfire, en heal in dungeons. Een **HoT** is een heal die beetje bij beetje healt.

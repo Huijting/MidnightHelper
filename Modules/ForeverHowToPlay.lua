@@ -412,7 +412,7 @@ From level 20 (Cat Form, from a quest; Prowl comes with it). For levelling it is
 - Shred from the front. It only works from behind; from the front, use Claw.
 - Shifting Power too often. Then you have no mana left to heal yourself.]] },
 		{ band = 1, title = "Balance: damage from a distance", body = [[
-From level 1: Wrath and Moonfire are there from the start. Moonkin Form is a talent, 40 at the earliest. The guides say levelling as Balance works, but it is slower than the cat. Some guides take Moonkin Form later (Zygor at 53): 40 is not a rule.
+From level 1: Wrath is there from the start, Moonfire comes at 4. Moonkin Form is a talent, 40 at the earliest. The guides say levelling as Balance works, but it is slower than the cat. Some guides take Moonkin Form later (Zygor at 53): 40 is not a rule.
 **Simple order:**
 1. Starfire (**3**, from 20) as the opener on one enemy.
 2. Moonfire (**2**).
@@ -428,7 +428,7 @@ Low on mana? Keep using Wrath: it is cheap.
 - 50: stronger ranks of Hurricane and Starfire. Barkskin (**Z**) at 44.
 - 60: stronger ranks again; nothing new for this role.
 **Beginner mistakes:**
-- Healing in Moonkin Form. It cannot be done, and leaving the form costs mana.
+- Healing in Moonkin Form. It cannot be done, and going back into the form costs mana.
 - Looking for an Omen of Clarity key. It is passive: it works by itself.]] },
 		{ band = 3, title = "Restoration: healer", body = [[
 From level 1: Healing Touch is there from the start. The guides do not advise healing for solo levelling (enemies die slowly): level with Wrath and Moonfire, and heal in dungeons. A **HoT** is a heal that heals a little at a time.

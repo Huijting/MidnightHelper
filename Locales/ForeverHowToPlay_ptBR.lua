@@ -388,7 +388,7 @@ A partir do nível 20 (Forma de Felino, de uma missão; Espreitar vem junto). Pa
 - Despedaçar pela frente. Só funciona por trás; pela frente, use Garra.
 - Poder Cambiante vezes demais. Aí você fica sem mana para se curar.]] },
 			{ band = 1, title = "Equilíbrio: dano à distância", body = [[
-A partir do nível 1: Ira e Fogo Lunar estão lá desde o começo. Forma de Luniscante é um talento, no mínimo nível 40. Os guias dizem que subir de nível como Equilíbrio funciona, mas é mais lento que o felino. Alguns guias pegam a Forma de Luniscante mais tarde (Zygor no 53): 40 não é regra.
+A partir do nível 1: Ira está lá desde o começo, Fogo Lunar vem no 4. Forma de Luniscante é um talento, no mínimo nível 40. Os guias dizem que subir de nível como Equilíbrio funciona, mas é mais lento que o felino. Alguns guias pegam a Forma de Luniscante mais tarde (Zygor no 53): 40 não é regra.
 **Ordem simples:**
 1. Fogo Estelar (**3**, a partir do 20) para abrir em um inimigo.
 2. Fogo Lunar (**2**).
@@ -404,7 +404,7 @@ Pouca mana? Continue com Ira: é barata.
 - 50: graus mais fortes de Furacão e Fogo Estelar. Pele de Árvore (**Z**) no 44.
 - 60: graus mais fortes de novo; nada novo para esta função.
 **Erros de iniciante:**
-- Curar na Forma de Luniscante. Não dá, e sair da forma custa mana.
+- Curar na Forma de Luniscante. Não dá, e voltar para a forma custa mana.
 - Procurar uma tecla para Presságio de Clareza. Ele é passivo: funciona sozinho.]] },
 			{ band = 3, title = "Restauração: curandeiro", body = [[
 A partir do nível 1: Toque de Cura está lá desde o começo. Os guias não recomendam curar para subir de nível sozinho (os inimigos morrem devagar): suba de nível com Ira e Fogo Lunar, e cure em masmorras. Um **HoT** é uma cura que cura aos poucos.

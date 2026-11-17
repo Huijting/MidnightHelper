@@ -24,6 +24,18 @@ er is niets weggegooid.
 📝 **Waarneming Rob, 16 nov (nacht), Forever mage, via sparring:** *"mouse over werk"* — `/mh mouseover on`, Shift+X
 (Arcane Intellect) op een voorbijganger onder de muis werkt.
 
+## 🆕 17 nov — Forever: Druid, nagekeken door een tweede helper (Fable)
+
+Drie tekstfouten zijn hersteld (Horde-druid: geen grot bij Lunaclaw; Moonfire pas op 4; terug IN Moonkin Form kost
+mana). Deze punten kan alleen het spel beslissen (Carola of Rob):
+- [ ] Horde-druid, Bear Form-quest bij Lunaclaw: staat de Moonkin Stone buiten, achter het eerste hutje (Barrens 42.0, 60.9)?
+- [ ] Cat Form: waar staat de Great Cat Spirit precies? Wij wijzen 54.5, 75.0 in Moonglade (Wowhead Forever); oude sites
+      zeggen 58.4, 73.5.
+- [ ] Spaanse client: heet Gennia "Gennia Runatótem" of "Gennia Tótem de Runa"?
+- [ ] Aquatic Form: heeft alleen de Agility-helft van het hangertje een "Use"? (Dan klopt "gebruik een half hangertje" maar half.)
+- [ ] Enrage: 27% minder armor in Bear Form, maar in Dire Bear Form 16%?
+- [ ] Balance-opener Starfire en de Cat-opener Ravage vanaf 32: de gidsen zijn het oneens; voelt het goed?
+
 ## 🆕 17 nov — Forever: Warrior class-quests in "Do this now"
 
 Warrior, `/reload`. Uit Zygor, Wowhead en Spoken; niets in het spel gezien.

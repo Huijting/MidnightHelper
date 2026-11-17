@@ -5472,6 +5472,7 @@ ns._mhLocales.enUS = {
 	FCQ_TURN_FMT = "go to %s, %s.",
 	FCQ_OBJ_BEARSPIRIT = "talk to the Great Bear Spirit and pick each line in turn",
 	FCQ_OBJ_LUNACLAW = "in the cave, use the dust from your bags, defeat Lunaclaw, then talk to her spirit",
+	FCQ_OBJ_LUNACLAW_H = "use the dust from your bags at the Moonkin Stone (outside, behind the first hut), defeat Lunaclaw, then talk to her spirit",
 	FCQ_BTN = "Show the way",
 	FCQ_NOTHING = "no class quest to do for you right now.",
 	-- More druid chains (16 Nov 2026): Cure Poison (14), Aquatic Form (16), Torwa Pathfinder (50). Item and NPC names

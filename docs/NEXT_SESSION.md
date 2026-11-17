@@ -27,6 +27,13 @@
   ras→route = Zygor; 1719 bewust zonder objective-index. Zygor-fouten niet overgenomen.
   Nieuw in de module: `needs` (keten wacht op een quest; `Ready()`), en bij gelijk level blijft de tabelvolgorde
   (table.sort was niet stabiel).
+- 🔍 **Druid nagekeken door Fable** (Sparring 17-11, alleen lezen; Rob, letterlijk: *"ja dat klopt en loop de andere classes
+  die hij met opus gemaakt heeft ook maar na, ik wil geen fouten"*). Quests/volgorde/levels/NPC's/coördinaten/rassen
+  kloppen; 3 tekstfouten GEREPAREERD in 7 talen: Horde 6002 eigen sleutel `FCQ_OBJ_LUNACLAW_H` (geen grot, Moonkin Stone
+  buiten achter het eerste hutje); Balance "Moonfire op 4"; "terug IN Moonkin Form kost mana". Bijvangst: ruRU dubbel
+  "в облике Облик" (2×) weg. "Moonkin Stone" in de/fr/es/pt/ru Engels gelaten: clientnaam NIET gemeten (game-object;
+  meten met gamedata). Zes twijfels voor het spel in TESTLIJST 17 nov. Sparring laat ook warlock, warrior en shaman
+  door Fable nakijken; rogue/hunter en verder worden met Fable uitgezocht (2-3 tegelijk, één op de voordeur).
 - 🧪 **Nieuw hulpmiddel `run fcq_check`** (`tools/fcq_check.py` + `.lua`): laadt ForeverClassQuests.lua met nep-spelfuncties,
   loopt 9 classes × 10 rassen × levels 1-60 × alle queststanden, en checkt dat elke FCQ_-sleutel in enUS + nlNL staat.
   GEMETEN 17 nov: 149.941 runs, 0 fouten, 86 sleutels, controle OK. Bewijst dat de code draait, niet dat id's kloppen.

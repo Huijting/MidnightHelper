@@ -10,8 +10,8 @@ local _, ns = ...
 	plus a block in How you play (ns.ForeverClassQuestOverview). Cat Form (20) is a NEW Forever quest chain (98393…,
 	Wowhead) that Zygor does not have: built from Wowhead tooltips + the Spoken addon's quest data (see Cat() below).
 
-	Source: the Forever Zygor guide "Leveling Guides\Druid Class Quests" (ZygorLevelingAllianceCLASSIC.lua:21298-21367,
-	ZygorLevelingHordeCLASSIC.lua:22584-22663; GEMETEN in the guide files 16 Nov 2026). Coordinates are Zygor's (rule:
+	Source: the Forever Zygor guide "Leveling Guides\Druid Class Quests" (GEMETEN 16 Nov 2026; after Zygor's 17 Nov update
+	the guide sits at ZygorLevelingAllianceCLASSIC.lua:21514-21814 and ZygorLevelingHordeCLASSIC.lua:22830-23140). Coordinates are Zygor's (rule:
 	Rob measured > HandyNotes > Zygor > guide), not yet seen in game. Map ids GEMETEN in wago UiMap 1.60.1.70938.
 	Quest ids are unproven until the client ticks them off; `/mh classquest` prints what the client says per quest.
 
@@ -111,7 +111,9 @@ local CHAINS = {
 				{ q = 5922, from = P.turak, to = P.dendrite },
 				{ q = 5930, from = P.dendrite, objs = { O(P.bearspirit, "FCQ_OBJ_BEARSPIRIT", 1) }, to = P.dendrite },
 				{ q = 5932, from = P.dendrite, to = P.turak },
-				{ q = 6002, from = P.turak, objs = { O(P.lunaclawH, "FCQ_OBJ_LUNACLAW", 1) }, to = P.turak },
+				-- Horde has no cave: the Moonkin Stone stands outside, behind the first hut (Wowhead Forever 6002 + comments;
+				-- Zygor Horde has no cave step). Found by the Fable check of 17 Nov 2026 (Sparring 17-11).
+				{ q = 6002, from = P.turak, objs = { O(P.lunaclawH, "FCQ_OBJ_LUNACLAW_H", 1) }, to = P.turak },
 			},
 		},
 		{

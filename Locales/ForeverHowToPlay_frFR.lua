@@ -389,7 +389,7 @@ Dès le niveau 20 (Forme de félin, via une quête ; Rôder vient avec). Pour mo
 - Lambeau de face. Il ne marche que par derrière ; de face, utilise Griffe.
 - Puissance fluctuante trop souvent. Ensuite tu n'as plus de mana pour te soigner.]] },
 			{ band = 1, title = "Equilibre : dégâts à distance", body = [[
-Dès le niveau 1 : Colère et Eclat lunaire sont là dès le début. Forme de sélénien est un talent, au plus tôt au niveau 40. Les guides disent que monter de niveau en Equilibre marche, mais plus lentement qu'en félin. Certains guides prennent Forme de sélénien plus tard (Zygor au 53) : 40 n'est pas une règle.
+Dès le niveau 1 : Colère est là dès le début, Eclat lunaire arrive au niveau 4. Forme de sélénien est un talent, au plus tôt au niveau 40. Les guides disent que monter de niveau en Equilibre marche, mais plus lentement qu'en félin. Certains guides prennent Forme de sélénien plus tard (Zygor au 53) : 40 n'est pas une règle.
 **Ordre simple :**
 1. Feu stellaire (**3**, dès 20) pour ouvrir sur un ennemi.
 2. Eclat lunaire (**2**).
@@ -405,7 +405,7 @@ Peu de mana ? Continue avec Colère : ce sort coûte peu.
 - 50 : rangs plus forts d'Ouragan et de Feu stellaire. Ecorce (**Z**) au 44.
 - 60 : encore des rangs plus forts ; rien de nouveau pour ce rôle.
 **Erreurs de débutant :**
-- Soigner en Forme de sélénien. C'est impossible, et quitter la forme coûte du mana.
+- Soigner en Forme de sélénien. C'est impossible, et reprendre la forme coûte du mana.
 - Chercher une touche pour Augure de clarté. Il est passif : il marche tout seul.]] },
 			{ band = 3, title = "Restauration : soigneur", body = [[
 Dès le niveau 1 : Toucher guérisseur est là dès le début. Les guides déconseillent de soigner pour monter de niveau en solo (les ennemis meurent lentement) : monte de niveau avec Colère et Eclat lunaire, et soigne en donjon. Un **HoT** est un soin qui soigne petit à petit.

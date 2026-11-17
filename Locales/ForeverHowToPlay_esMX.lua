@@ -389,7 +389,7 @@ Desde el nivel 20 (Forma felina, de una misión; Acechar viene con ella). Para s
 - Triturar de frente. Solo funciona por la espalda; de frente, usa Zarpa.
 - Poder cambiante demasiado a menudo. Luego no te queda maná para curarte.]] },
 			{ band = 1, title = "Equilibrio: daño a distancia", body = [[
-Desde el nivel 1: Cólera y Fuego lunar los tienes desde el principio. Forma de lechúcico lunar es un talento, como pronto en el 40. Las guías dicen que subir de nivel como Equilibrio funciona, pero es más lento que el felino. Algunas guías toman Forma de lechúcico lunar más tarde (Zygor en el 53): el 40 no es una regla.
+Desde el nivel 1: Cólera la tienes desde el principio, Fuego lunar llega en el 4. Forma de lechúcico lunar es un talento, como pronto en el 40. Las guías dicen que subir de nivel como Equilibrio funciona, pero es más lento que el felino. Algunas guías toman Forma de lechúcico lunar más tarde (Zygor en el 53): el 40 no es una regla.
 **Orden sencillo:**
 1. Fuego estelar (**3**, desde el 20) para abrir contra un enemigo.
 2. Fuego lunar (**2**).
@@ -405,7 +405,7 @@ Desde el nivel 1: Cólera y Fuego lunar los tienes desde el principio. Forma de 
 - 50: rangos más fuertes de Huracán y Fuego estelar. Piel de corteza (**Z**) en el 44.
 - 60: otra vez rangos más fuertes; nada nuevo para este rol.
 **Errores de principiante:**
-- Curar en Forma de lechúcico lunar. No se puede, y salir de la forma cuesta maná.
+- Curar en Forma de lechúcico lunar. No se puede, y volver a la forma cuesta maná.
 - Buscar una tecla para Augurio de claridad. Es pasivo: funciona solo.]] },
 			{ band = 3, title = "Restauración: sanador", body = [[
 Desde el nivel 1: Toque de sanación lo tienes desde el principio. Las guías no aconsejan curar para subir de nivel en solitario (los enemigos mueren despacio): sube de nivel con Cólera y Fuego lunar, y cura en calabozos. Un **HoT** es una cura que cura poco a poco.
