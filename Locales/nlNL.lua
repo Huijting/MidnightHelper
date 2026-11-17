@@ -4532,6 +4532,14 @@ ns._mhLocales.nlNL = {
 	FMAC_C_ROGUE_VANISH = "Vanish en Sprint in één druk: je verdwijnt en rent. Vanish kost een Flash Powder.",
 	FMAC_C_ROGUE_FINISHER = "Eviscerate op je target en begint aan te vallen. Ctrl = Slice and Dice.",
 	FMAC_C_SHAMAN_FIRETOTEM = "Searing Totem. Ctrl = Magma Totem (vanaf level 26).",
+	-- 17 nov 2026 (Rob: "B"): een modifier + toets die al van een andere binding is.
+	FMAC_KEY_TAKEN_FMT = "%s is bezet door %s: het %s-deel van deze macro werkt alleen met de muis.",
+	FMAC_BTN_FREE = "Toets vrij",
+	FMAC_BTN_UNDO_KEYS = "Toetsen terug",
+	FMAC_KEY_FREED_FMT = "%s is nu vrij (was %s). Dat deel van de macro werkt nu met het toetsenbord. /mh macros keys undo zet hem terug.",
+	FMAC_KEY_UNDONE_FMT = "%d toets(en) teruggezet.",
+	FMAC_KEY_UNDO_NONE = "Geen vrijgemaakte toetsen om terug te zetten.",
+	FMAC_KEY_CHAT_HINT = "Open /mh macros: een paginatoets van Blizzard (Action Page) maak je daar met één klik vrij; toetsen van het MH-blok en van andere addons blijven altijd staan.",
 	-- 10 Nov 2026: Forever handy macros, spec block. Spell names stay English (no Dutch client). Our own translation.
 	FMAC_S_WARRIOR_MORTALSTRIKE = "Mortal Strike (de vijand krijgt minder healing) met gewoon aanvallen; houd Shift ingedrukt voor Hamstring om hem af te remmen.",
 	FMAC_S_WARRIOR_SWEEPING = "Sweeping Strikes: je volgende aanvallen raken ook een vijand dichtbij. Buiten Battle Stance wisselt de eerste druk eerst van stance.",

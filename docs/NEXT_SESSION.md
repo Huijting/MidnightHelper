@@ -14,6 +14,15 @@
   modifiers in de tekst, en per combinatie "free" of "taken by <binding>"; schrijft `ns.db.foreverMacroKeysProbe`.
   Lint 0 HARD, luac OK. NIET in het spel gezien (TESTLIJST 17 nov). Na Robs meting: melding in het macrovenster +
   eventueel schakelaar welke modifier (nooit blok- of andere-addon-toetsen losmaken).
+- 🧪 **Robs test 17 nov (paladin 14, Undercity)**: "Eat and drink" eet en drinkt tegelijk, geen foutmelding (GEMETEN).
+  `/mh macros keys`: "MH+ Holy Light … key 5: SHIFT-5 is taken by Action Page 5"; Shift+5 gaf geen Flash of Light
+  (GEMETEN; SV `foreverMacroKeysProbe` "SHIFT-5=ACTIONPAGE5"). Dus ook Blizzards STANDAARD Shift+1..6 = Action Page
+  botst (het bindings-cache-bestand bewaart alleen wijzigingen, daarom zag ik die eerst niet).
+  → Rob koos **"B"**: GEBOUWD in ForeverMacros.lua: per gemaakte macro in het venster een rode regel "Shift+5 is taken by
+  Action Page 5 …" + knop **Free key**, alleen voor Blizzard-paginatoetsen (ACTIONPAGE1-6, NEXT/PREVIOUSACTIONPAGE;
+  nooit MULTIACTIONBAR = MH-blok, nooit andere addons); onthouden in `ns.db.foreverFreedKeys`, knop **Undo freed keys**
+  onderaan + `/mh macros keys undo`. Ook: rijen groeien mee met hun tekst (Robs screenshot: Self Cast-waarschuwing liep
+  over de volgende rij). en + nl; de/fr/es/pt/ru volgen. Lint 0 HARD, luac OK. NIET in het spel gezien.
 - 🆕 **Tien macro-ideeën GEBOUWD (en + nl)** (Robs ja via sparring, letterlijk in IDEEEN onder Ja). Feiten:
   `docs/forever/MACRO_IDEAS_2026-11-17.md` (mh-research Fable; bronnen DB2 70938 + Blizzards Forever-UI-code
   Gethe/wow-ui-source branch forever + gidsen; Forever Leveling Guide niet geopend). In ForeverMacros.lua: DEFS-rij

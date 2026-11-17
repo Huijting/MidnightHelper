@@ -186,8 +186,10 @@ lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met d
   Prowl vanuit elke vorm (druid, vormnummer uit de client), Shadow Bolt + demon (warlock), res op muis (priest, shaman,
   paladin), focus-CC (Shackle, Hibernate), rogue Stealth/Vanish+Sprint/Finisher, Searing/Magma (shaman).
   Bewust niet: paladin-blessings (keuze per groep), Pack in de aspect-macro (verdooft de hele groep; Rob mag omdraaien).
+- Rob-test 17 nov: eten+drinken werkt (paladin 14). Bezette toets GEMETEN (Shift+5 = Action Page 5) → Rob: **"B"** =
+  rode regel in het venster + knop "Free key" (alleen Blizzard-paginatoetsen) + "Undo freed keys". GEBOUWD 17 nov.
 - Nog open (eigen bouw): Copy-knop, bron per rij, chips READY/level, melding "nieuwe macro" bij level-up, uitlegkaart
-  modifier, melding in het venster als Ctrl+toets bezet is (na Robs `/mh macros keys`-test).
+  modifier.
 
 ### Forever: Legacy Points uitleggen en helpen (+ Talented-fout repareren)
 - Bron: Rob 17 nov (via Sparring 17-11), letterlijk: *"legacy points. Wat zijn het? Waar krijg ik het? Hoe krijg ik het?

@@ -38,7 +38,17 @@ Open `/mh macros`, klik "Maak" bij een nieuwe rij, sleep de macro naar een balk 
       Rogue level 6+: typ `/dump IsPlayerSpell(1752), IsSpellKnown(1752)` en zeg wat er staat (rank-vraag).
 - [ ] Shaman: Resurrect, Fire Totem (Ctrl = Magma, 26). Paladin: Resurrect.
 
+## 🔓 17 nov — Forever: knop "Free key" in het macrovenster (jouw keuze B)
+
+- [ ] `/mh macros`: staan de rijen netjes onder elkaar (geen tekst meer over de volgende rij)?
+- [ ] Bij "Holy Light" (op toets 5) staat in rood: "Shift+5 is taken by Action Page 5 …" en een knop **Free key**.
+- [ ] Klik Free key. Chat: "Shift+5 is free now". Druk Shift+5: krijg je nu Flash of Light?
+- [ ] Onderaan staat **Undo freed keys**. Klik: Shift+5 is weer Action Page 5 (of typ `/mh macros keys undo`).
+
 ## ⌨️ 17 nov — Forever: werkt Shift/Ctrl/Alt in de handige macro's op je toetsen?
+
+- [x] GEDAAN 17 nov (Rob, paladin 14): Holy Light op toets 5 → "SHIFT-5 is taken by Action Page 5"; Shift+5 deed niets.
+      Eat and drink: eet en drinkt tegelijk, geen fout.
 
 Het MH-toetsenblok gebruikt zelf Shift+1, Shift+Q enz. Zet je een MH+-macro met een Shift-deel op toets 1, dan doet
 Shift+1 waarschijnlijk de blokknop en niet de macro. Dat meten we nu.

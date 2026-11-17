@@ -5440,6 +5440,14 @@ ns._mhLocales.enUS = {
 	FMAC_C_ROGUE_VANISH = "Vanish and Sprint on one press: you disappear and run. Vanish costs a Flash Powder.",
 	FMAC_C_ROGUE_FINISHER = "Eviscerate on your target and starts attacking. Ctrl = Slice and Dice.",
 	FMAC_C_SHAMAN_FIRETOTEM = "Searing Totem. Ctrl = Magma Totem (from level 26).",
+	-- 17 Nov 2026 (Rob: "B"): a modifier + key that belongs to another binding.
+	FMAC_KEY_TAKEN_FMT = "%s is taken by %s: the %s part of this macro only works with the mouse.",
+	FMAC_BTN_FREE = "Free key",
+	FMAC_BTN_UNDO_KEYS = "Undo freed keys",
+	FMAC_KEY_FREED_FMT = "%s is free now (it was %s). The macro's part now works from the keyboard. /mh macros keys undo puts it back.",
+	FMAC_KEY_UNDONE_FMT = "%d key(s) put back.",
+	FMAC_KEY_UNDO_NONE = "No freed keys to put back.",
+	FMAC_KEY_CHAT_HINT = "Open /mh macros: a Blizzard page key (Action Page) can be freed there with one click; keys of MH's key block and of other addons are never touched.",
 	FMAC_WHY_FAILED = "The game did not make the macro.",
 	-- 9 Nov 2026, WoW Forever: where to buy tools and goods (ForeverVendors.lua, /mh vendor).
 	FVEND_TITLE = "Where do I buy this?",

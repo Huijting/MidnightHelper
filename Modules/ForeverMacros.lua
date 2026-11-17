@@ -1144,6 +1144,158 @@ local function RefreshAuto()
 end
 
 --------------------------------------------------------------------------------
+-- Keys: does Shift/Ctrl/Alt + the macro's key reach the macro? (17 Nov 2026; /mh macros keys and the window)
+--------------------------------------------------------------------------------
+local KEY_BAR_PREFIXES = { "ActionButton", "MultiBarBottomLeftButton", "MultiBarBottomRightButton", "MultiBarRightButton",
+	"MultiBarLeftButton", "MultiBar5Button", "MultiBar6Button", "MultiBar7Button" }
+local KEY_BAR_COMMANDS = { "ACTIONBUTTON", "MULTIACTIONBAR1BUTTON", "MULTIACTIONBAR2BUTTON", "MULTIACTIONBAR3BUTTON",
+	"MULTIACTIONBAR4BUTTON", "MULTIACTIONBAR5BUTTON", "MULTIACTIONBAR6BUTTON", "MULTIACTIONBAR7BUTTON" }
+local KEY_MODS = { "ALT", "CTRL", "SHIFT" } -- the client's own order in a key name (ALT-CTRL-SHIFT-1)
+
+--- Which modifiers a macro body tests: mod:shift/ctrl/alt (also inside nomod: and a/b lists); a bare [mod] or [nomod]
+--- tests all three.
+local function MacroMods(body)
+	local m, low = {}, (body or ""):lower()
+	for list in low:gmatch("mod:([%a/]+)") do
+		for w in list:gmatch("%a+") do
+			if w == "shift" or w == "ctrl" or w == "alt" then
+				m[w:upper()] = true
+			end
+		end
+	end
+	if low:find("mod[%],]") then
+		m.SHIFT, m.CTRL, m.ALT = true, true, true
+	end
+	return m
+end
+
+--- "SHIFT-1" -> { SHIFT = true }, "1". The key "-" and "SHIFT--" stay intact.
+local function SplitKey(key)
+	local have, base = {}, key
+	while true do
+		local pre, rest = base:match("^(%u+)%-(.+)$")
+		if pre == "ALT" or pre == "CTRL" or pre == "SHIFT" or pre == "META" then
+			have[pre], base = true, rest
+		else
+			break
+		end
+	end
+	return have, base
+end
+
+local function KeyText(key)
+	return (GetBindingText and GetBindingText(key)) or key
+end
+
+--- Rob, 17 Nov 2026: "B" = a warning on the row plus a button that frees the key, but ONLY for Blizzard's own page keys
+--- (Action Page 1-6, next/previous page). Never a key of MH's key block (MULTIACTIONBAR…), never another addon's.
+local function Freeable(act)
+	return type(act) == "string" and (act:match("^ACTIONPAGE%d$") ~= nil or act == "NEXTACTIONPAGE"
+		or act == "PREVIOUSACTIONPAGE")
+end
+
+--- Taken combinations for one macro by name: { { key = "SHIFT-5", act = "ACTIONPAGE5", mod = "SHIFT" }, … } over every
+--- Blizzard bar button that holds it and has a key.
+local function MacroClashes(name)
+	local out, seen = {}, {}
+	local idx = GetMacroIndexByName and GetMacroIndexByName(name) or 0
+	if not (idx and idx > 0) then
+		return out
+	end
+	local mods = MacroMods(select(3, GetMacroInfo(idx)))
+	for n, prefix in ipairs(KEY_BAR_PREFIXES) do
+		for i = 1, 12 do
+			local b = _G[prefix .. i]
+			local slot = b and b.action
+			if b and type(slot) ~= "number" and ActionButton_GetPagedID then
+				local ok, v = pcall(ActionButton_GetPagedID, b)
+				slot = ok and v or nil
+			end
+			if type(slot) == "number" and GetActionInfo and GetActionInfo(slot) == "macro"
+				and GetActionText and GetActionText(slot) == name then
+				local command = KEY_BAR_COMMANDS[n] .. i
+				for _, key in ipairs(GetBindingKey and { GetBindingKey(command) } or {}) do
+					local have, base = SplitKey(key)
+					for _, m in ipairs(KEY_MODS) do
+						if mods[m] and not have[m] then
+							local combo = {}
+							for _, mm in ipairs(KEY_MODS) do
+								if have[mm] or mm == m then
+									combo[#combo + 1] = mm
+								end
+							end
+							combo[#combo + 1] = base
+							local comboKey = table.concat(combo, "-")
+							local okA, act = pcall(GetBindingAction, comboKey, true)
+							if okA and act and act ~= "" and act ~= command and not seen[comboKey] then
+								seen[comboKey] = true
+								out[#out + 1] = { key = comboKey, act = act, mod = m }
+							end
+						end
+					end
+				end
+			end
+		end
+	end
+	return out
+end
+
+--- Unbind the freeable keys of a clash list; remembered in ns.db.foreverFreedKeys for the undo.
+local function FreeKeys(list)
+	if InCombatLockdown and InCombatLockdown() then
+		print(PREFIX .. ns:L("FMAC_WHY_COMBAT"))
+		return 0
+	end
+	local db = ns.db
+	if db then
+		db.foreverFreedKeys = db.foreverFreedKeys or {}
+	end
+	local n = 0
+	for _, c in ipairs(list) do
+		if Freeable(c.act) and GetBindingAction(c.key, true) == c.act then
+			pcall(SetBinding, c.key) -- no command = unbind; verified by reading the key back
+			local after = GetBindingAction(c.key, true)
+			if after == nil or after == "" then
+				n = n + 1
+				if db then
+					table.insert(db.foreverFreedKeys, { key = c.key, was = c.act })
+				end
+				print(PREFIX .. ns:L("FMAC_KEY_FREED_FMT"):format(KeyText(c.key), _G["BINDING_NAME_" .. c.act] or c.act))
+			end
+		end
+	end
+	if n > 0 and SaveBindings and GetCurrentBindingSet then
+		pcall(SaveBindings, GetCurrentBindingSet())
+	end
+	return n
+end
+
+--- Put every freed key back, if nothing else took it since.
+local function UndoFreedKeys()
+	if InCombatLockdown and InCombatLockdown() then
+		print(PREFIX .. ns:L("FMAC_WHY_COMBAT"))
+		return
+	end
+	local list = ns.db and ns.db.foreverFreedKeys
+	if not (list and #list > 0) then
+		print(PREFIX .. ns:L("FMAC_KEY_UNDO_NONE"))
+		return
+	end
+	local n = 0
+	for _, e in ipairs(list) do
+		local now = GetBindingAction(e.key, true)
+		if (now == nil or now == "") and SetBinding(e.key, e.was) then
+			n = n + 1
+		end
+	end
+	ns.db.foreverFreedKeys = nil
+	if SaveBindings and GetCurrentBindingSet then
+		pcall(SaveBindings, GetCurrentBindingSet())
+	end
+	print(PREFIX .. ns:L("FMAC_KEY_UNDONE_FMT"):format(n))
+end
+
+--------------------------------------------------------------------------------
 -- Window (same look as the profession-trainer window; Shift+scroll and Escape via RegisterMidnightDialogPopup)
 --------------------------------------------------------------------------------
 local W, H, ROW_H = 560, 470, 52 -- 52 (was 46): a class row can carry a warning after its line
@@ -1186,8 +1338,17 @@ local function Build()
 	f.scroll, f.child, f.rows = scroll, child, {}
 	f.hint = f:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
 	f.hint:SetPoint("BOTTOMLEFT", 22, 18)
-	f.hint:SetPoint("RIGHT", f, "RIGHT", -24, 0)
+	f.hint:SetPoint("RIGHT", f, "RIGHT", -150, 0)
 	f.hint:SetJustifyH("LEFT")
+	-- 17 Nov 2026: puts back every key "Free key" took (shown only when there is something to undo).
+	f.undo = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
+	f.undo:SetSize(118, 22)
+	f.undo:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -24, 14)
+	f.undo:SetScript("OnClick", function()
+		UndoFreedKeys()
+		Fill()
+	end)
+	f.undo:Hide()
 	f:SetScript("OnShow", function()
 		Fill()
 	end)
@@ -1235,19 +1396,36 @@ local function Row(f, i)
 		end
 		Fill()
 	end)
+	-- 17 Nov 2026 (Rob: "B"): frees a Blizzard page key that blocks this macro's Shift/Ctrl/Alt part.
+	r.free = CreateFrame("Button", nil, r, "UIPanelButtonTemplate")
+	r.free:SetSize(88, 22)
+	r.free:SetPoint("TOP", r.go, "BOTTOM", 0, -2)
+	r.free:SetScript("OnClick", function(self)
+		if self.list then
+			FreeKeys(self.list)
+		end
+		Fill()
+	end)
+	r.free:Hide()
 	f.rows[i] = r
 	return r
 end
+
+local MOD_WORD = { SHIFT = "Shift", CTRL = "Ctrl", ALT = "Alt" }
 
 Fill = function()
 	local f = Build()
 	f.title:SetText(ns:L("FMAC_TITLE"))
 	f.sub:SetText(ns:L("FMAC_SUB"))
 	f.hint:SetText(ns:L("FMAC_HINT"))
+	local freed = ns.db and ns.db.foreverFreedKeys
+	f.undo:SetText(ns:L("FMAC_BTN_UNDO_KEYS"))
+	f.undo:SetShown(freed ~= nil and #freed > 0)
 	local y = 0
 	local rows = Rows()
 	for i, d in ipairs(rows) do
 		local r = Row(f, i)
+		r.free:Hide()
 		r:ClearAllPoints()
 		r:SetPoint("TOPLEFT", f.child, "TOPLEFT", 0, y)
 		if d.header and d.key == "s_header" then
@@ -1281,6 +1459,25 @@ Fill = function()
 				local col = (why == "FMAC_WHY_LEVEL_FMT" or why == "FMAC_WHY_TRAIN") and "|cff9d9d9d" or "|cffff7f7f"
 				info = info .. "  " .. col .. Why(why, arg) .. "|r"
 			end
+			-- Made and on a bar with a key: is Shift/Ctrl/Alt + that key taken by another binding? (Rob, 17 Nov 2026: "B")
+			r.free.list = nil
+			r.free:Hide()
+			if Exists(d) then
+				local clashes = MacroClashes(MacroName(d))
+				local freeable = {}
+				for _, c in ipairs(clashes) do
+					info = info .. "\n|cffff7f7f" .. ns:L("FMAC_KEY_TAKEN_FMT"):format(KeyText(c.key),
+						_G["BINDING_NAME_" .. c.act] or c.act, MOD_WORD[c.mod] or c.mod) .. "|r"
+					if Freeable(c.act) then
+						freeable[#freeable + 1] = c
+					end
+				end
+				if #freeable > 0 then
+					r.free.list = freeable
+					r.free:SetText(ns:L("FMAC_BTN_FREE"))
+					r.free:Show()
+				end
+			end
 			r.info:SetText(info)
 			r.go.def = d
 			r.go:SetText(ns:L(Exists(d) and "FMAC_BTN_UPDATE" or "FMAC_BTN_MAKE"))
@@ -1291,7 +1488,19 @@ Fill = function()
 			end
 		end
 		r:Show()
-		y = y - ROW_H - 4
+		-- 17 Nov 2026 (Rob's screenshot, paladin): a long line (the Self Cast warning) ran over the next row because every
+		-- row was ROW_H tall. The row now grows with its text; ROW_H stays the minimum.
+		local h = ROW_H
+		local okN, hn = pcall(r.name.GetStringHeight, r.name)
+		local okI, hi = pcall(r.info.GetStringHeight, r.info)
+		if okN and okI and type(hn) == "number" and type(hi) == "number" then
+			h = math.max(ROW_H, math.ceil(2 + hn + 2 + hi + 4))
+		end
+		if r.free:IsShown() then
+			h = math.max(h, 66) -- room for the second button under Make
+		end
+		r:SetHeight(h)
+		y = y - h - 4
 	end
 	for i = #rows + 1, #f.rows do
 		f.rows[i]:Hide()
@@ -1315,48 +1524,9 @@ end
 	only falls back to the plain key when the modified key is free (AFGELEID, standard WoW binding behaviour - this command
 	is the measurement). GEMETEN 17 nov in Rob's Forever bindings-cache.wtf: MH's own key block binds Shift+1..4, Ctrl+1..3,
 	Alt+1..4 and the Shift/Alt variants of Q E R F Z X C V T. READ ONLY: GetBindingKey/GetBindingAction, nothing changes.
-	Writes ns.db.foreverMacroKeysProbe so the answer can be read from SavedVariables after a /reload. ]]
-local KEY_BAR_PREFIXES = { "ActionButton", "MultiBarBottomLeftButton", "MultiBarBottomRightButton", "MultiBarRightButton",
-	"MultiBarLeftButton", "MultiBar5Button", "MultiBar6Button", "MultiBar7Button" }
-local KEY_BAR_COMMANDS = { "ACTIONBUTTON", "MULTIACTIONBAR1BUTTON", "MULTIACTIONBAR2BUTTON", "MULTIACTIONBAR3BUTTON",
-	"MULTIACTIONBAR4BUTTON", "MULTIACTIONBAR5BUTTON", "MULTIACTIONBAR6BUTTON", "MULTIACTIONBAR7BUTTON" }
-local KEY_MODS = { "ALT", "CTRL", "SHIFT" } -- the client's own order in a key name (ALT-CTRL-SHIFT-1)
-
---- Which modifiers a macro body tests: mod:shift/ctrl/alt (also inside nomod: and a/b lists); a bare [mod] or [nomod]
---- tests all three.
-local function MacroMods(body)
-	local m, low = {}, (body or ""):lower()
-	for list in low:gmatch("mod:([%a/]+)") do
-		for w in list:gmatch("%a+") do
-			if w == "shift" or w == "ctrl" or w == "alt" then
-				m[w:upper()] = true
-			end
-		end
-	end
-	if low:find("mod[%],]") then
-		m.SHIFT, m.CTRL, m.ALT = true, true, true
-	end
-	return m
-end
-
---- "SHIFT-1" -> { SHIFT = true }, "1". The key "-" and "SHIFT--" stay intact.
-local function SplitKey(key)
-	local have, base = {}, key
-	while true do
-		local pre, rest = base:match("^(%u+)%-(.+)$")
-		if pre == "ALT" or pre == "CTRL" or pre == "SHIFT" or pre == "META" then
-			have[pre], base = true, rest
-		else
-			break
-		end
-	end
-	return have, base
-end
-
-local function KeyText(key)
-	return (GetBindingText and GetBindingText(key)) or key
-end
-
+	Writes ns.db.foreverMacroKeysProbe so the answer can be read from SavedVariables after a /reload.
+	GEMETEN in the client 17 Nov 2026 (Rob, paladin 14): "MH+ Holy Light … key 5: SHIFT-5 is taken by Action Page 5",
+	and Shift+5 did not cast Flash of Light. The helpers live above the window (it shows the same check per row). ]]
 local function KeysCheck()
 	print(PREFIX .. "handy macros on your bars: does Shift/Ctrl/Alt reach them from the keyboard?")
 	local probe = { at = time and time() or nil, rows = {} }
@@ -1437,6 +1607,7 @@ local function KeysCheck()
 		scanned, found, keyed, clashes))
 	if clashes > 0 then
 		print("  |cffffcc00A taken combination fires its own button, not this macro's Shift/Ctrl/Alt part.|r Nothing was changed.")
+		print("  " .. ns:L("FMAC_KEY_CHAT_HINT"))
 	end
 end
 
@@ -1444,6 +1615,10 @@ function ns.ForeverMacrosSlash(arg)
 	arg = (arg or ""):lower()
 	if arg == "keys" then
 		KeysCheck()
+		return
+	end
+	if arg == "keys undo" then
+		UndoFreedKeys()
 		return
 	end
 	if arg ~= "check" then
