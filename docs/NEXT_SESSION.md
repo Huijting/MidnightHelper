@@ -29,8 +29,8 @@ Controle: alle 23 nieuwe sleutels aanwezig in 5 packs; eigen Forever-resolve-run
 vertaling. ⚠️ `tools/locale_probe.lua` is blind voor `ForeverClassQuests_*` (die draaien alleen met IS_FOREVER).
 Door geen moedertaalspreker gezien.
 ✅ **5.5.0 GETAGD** (Rob via sparring, letterlijk: *"Go voor 5.5.0 (en dit is binnen een uur 🙂 )"*): tag v5.5.0 =
-41f8ec3, run 44137237357 geslaagd (CF/Wago/GitHub "Success!" voor beide zips). CF-bestands-id's: nog niet in de
-openbare files-API om ~17:35 UTC → nameten (`scratch cf_files.py`-methode: www.curseforge.com/api/v1/mods/1528577/files).
+41f8ec3, run 44137237357 geslaagd (CF/Wago/GitHub "Success!" voor beide zips). CF-API (GEMETEN, publieke
+www.curseforge.com/api/v1/mods/1528577/files): Retail 9669670, Forever 9669685, beide status 4. SITE_SEIN → "staat op CF".
 CURSEFORGE_DESCRIPTION.md bijgewerkt in een losse commit na de tag (Rob plakt). Robs testronde van vandaag staat open.
 ▶ (was:) **C KLAARGEZET, NIET GETAGD — wacht op Robs letterlijke go via sparring.** 5.5.0: beide toc's `## Version: 5.5.0`,
 CHANGELOG_550_1-6 (enUS) + Changelog.lua, `RELEASE_NOTES.md` = `docs/CURSEFORGE_5.5.0.md` (byte-gelijk GEMETEN, 4255

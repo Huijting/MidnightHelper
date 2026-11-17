@@ -28,14 +28,14 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
-## 17 nov 2026 — release 5.5.0 (getagd)
+## 17 nov 2026 — release 5.5.0 (staat op CurseForge)
 - Tag + commit:   v5.5.0 / 41f8ec3. Release-run GitHub 44137237357: geslaagd; log: CurseForge, Wago en GitHub
-                  "Success!" voor beide zips (Retail 17:29:20, Forever 17:30:47 UTC). CurseForge-API om ~17:35 UTC: nog
-                  niet in de openbare files-lijst (bij 5.4.0 ook pas later) → bestands-id's volgen.
-- Status:         getagd (Rob via sparring, letterlijk: "Go voor 5.5.0 (en dit is binnen een uur 🙂 )")
-- Mag op de site: ja zodra de status "staat op CurseForge" is. CURSEFORGE_DESCRIPTION.md bijgewerkt (Forever-overzicht,
-                  Find, class quests); Rob plakt die zelf op CurseForge.
-- Bundelt:        de regels hieronder van na v5.4.0 → ook die zijn nu "getagd (v5.5.0)".
+                  "Success!" voor beide zips. CurseForge-API (GEMETEN): 9669670 `MidnightHelper-v5.5.0.zip`
+                  (12.0.7-12.1.7) en 9669685 `MidnightHelper-v5.5.0-forever.zip` (1.60.1), beide releaseType 1, status 4.
+- Status:         staat op CurseForge (Rob via sparring, letterlijk: "Go voor 5.5.0 (en dit is binnen een uur 🙂 )")
+- Mag op de site: ja. CURSEFORGE_DESCRIPTION.md bijgewerkt (Forever-overzicht, Find, class quests); Rob plakt die zelf
+                  op CurseForge.
+- Bundelt:        de regels hieronder van na v5.4.0 → ook die staan nu op CurseForge (v5.5.0).
 - Speler ziet:    alles in `RELEASE_NOTES.md` (= `docs/CURSEFORGE_5.5.0.md`). Bundelt de regels hieronder van na v5.4.0:
                   16 nov druid class-quests + rollen; 17 nov Warlock, Warrior, Hunter en Rogue, Shaman, Priest, Paladin
                   en Mage class-quests; How to play per rol; opzij voor de Forever Leveling Guide; kamperen stap 1;
@@ -53,8 +53,8 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ## 17 nov 2026 — Forever: Legacy Points, stap 1 ("je hebt N ongebruikte punten")
 - Tag + commit:   geen tag / (deze commit, zie git log "Legacy step 1")
-- Status:         alleen op main
-- Mag op de site: nee (nog niet uit)
+- Status:         staat op CurseForge (v5.5.0)
+- Mag op de site: ja (uit in 5.5.0)
 - Speler ziet:    Heb je ongebruikte Legacy Points, dan zegt "Do this now" hoeveel en waar je ze uitgeeft (namen in
                   jouw taal, uit het spel). /mh legacy laat zien wat MH kan lezen. *(niet in het spel getest)*
 - Knoplabels:     FLEGACY_UNUSED_FMT (regel, geen knop)
@@ -63,8 +63,8 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ## 17 nov 2026 — Forever: kamperen, stap 1 ("ga bij het vuur zitten")
 - Tag + commit:   geen tag / (deze commit, zie git log "camping step 1")
-- Status:         alleen op main
-- Mag op de site: nee (nog niet uit)
+- Status:         staat op CurseForge (v5.5.0)
+- Mag op de site: ja (uit in 5.5.0)
 - Speler ziet:    Sta je bij een kampvuur zonder kampbuff, dan zegt "Do this now": ga zitten, na 1 minuut krijg je
                   1 uur Camp Benefits (namen in jouw taal, uit het spel). /mh camp laat zien wat MH kan lezen.
                   *(niet in het spel getest)*
@@ -74,8 +74,8 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ## 17 nov 2026 — Forever: MH gaat opzij voor de Forever Leveling Guide (schakelaar)
 - Tag + commit:   geen tag / (deze commit, zie git log "Forever Leveling Guide")
-- Status:         alleen op main
-- Mag op de site: nee (nog niet uit)
+- Status:         staat op CurseForge (v5.5.0)
+- Mag op de site: ja (uit in 5.5.0)
 - Speler ziet:    Heeft de Forever Leveling Guide een reisroute, dan zet MH geen eigen speld en tekent geen pijl, en zegt
                   in de chat waarom. Start de gids een route terwijl die van MH loopt, dan stopt MH de zijne en zegt dat.
                   Wie wil dat MH toch stuurt, zet de schakelaar om. *(niet in het spel getest)*
@@ -85,8 +85,8 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ## 17 nov 2026 — Forever: "How to play" per rol, per 10 levels, voor alle 9 classes
 - Tag + commit:   geen tag / 2b2fd6a … b0fbbec (en+nl), 81f4c2b (de/fr/es/esMX/pt/ru)
-- Status:         alleen op main
-- Mag op de site: nee (nog niet uit)
+- Status:         staat op CurseForge (v5.5.0)
+- Mag op de site: ja (uit in 5.5.0)
 - Speler ziet:    In "How to play" per rol (bv. Protection: tank, Frost: damage from a distance) een simpele volgorde,
                   wat je per 10 levels krijgt (10-60) en 3 beginnersfouten. Alle 9 classes, 7 talen.
                   *(niet in het spel getest)*
@@ -96,8 +96,8 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ## 17 nov 2026 — Forever: Mage class-quests stap voor stap (alle 9 classes nu)
 - Tag + commit:   geen tag / (deze commit, zie git log "Mage class quests")
-- Status:         alleen op main
-- Mag op de site: nee (nog niet uit)
+- Status:         staat op CurseForge (v5.5.0)
+- Mag op de site: ja (uit in 5.5.0)
 - Speler ziet:    Mage: "Do this now" leidt je naar je eerste staf of orb (10), Study (6), robe (15) en garment (26),
                   Mage's Wand (30), Celestial Power (35), het Personal Spellbook (42), Magecraft (50), Conjure Water en
                   Polymorph: Pig (60). Daarmee hebben alle negen Forever-classes hun class-quests. *(niet in het spel getest)*
@@ -107,8 +107,8 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ## 17 nov 2026 — Forever: Paladin class-quests stap voor stap
 - Tag + commit:   geen tag / (deze commit, zie git log "Paladin class quests")
-- Status:         alleen op main
-- Mag op de site: nee (nog niet uit)
+- Status:         staat op CurseForge (v5.5.0)
+- Mag op de site: ja (uit in 5.5.0)
 - Speler ziet:    Paladin: "Do this now" leidt je door Redemption (12), Verigan's Fist (20), het paard (40, 60) en
                   Valorfist (50); de nieuwe Undead-paladin krijgt eigen quests (Holy Light, Bandarion Keep, Redemption,
                   Wolfsbane, paard). Begint een quest met een boek in je tas, dan zegt MH dat. *(niet in het spel getest)*
@@ -118,8 +118,8 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ## 17 nov 2026 — Forever: Priest class-quests stap voor stap
 - Tag + commit:   geen tag / (deze commit, zie git log "Priest class quests")
-- Status:         alleen op main
-- Mag op de site: nee (nog niet uit)
+- Status:         staat op CurseForge (v5.5.0)
+- Mag op de site: ja (uit in 5.5.0)
 - Speler ziet:    Priest: "Do this now" stuurt je op level 10 en 20 naar de hogepriester van je ras voor je ras-spell
                   (ook de nieuwe Gnome-priest), plus je eerste gewaad (5) en Ogtinc's quests (50). *(niet in het spel getest)*
 - Knoplabels:     FCQ_BTN ("Show the way"), FCQ_HOWTO_HEAD ("Your class quests")
@@ -128,8 +128,8 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ## 17 nov 2026 — Forever: Shaman class-quests (totems) stap voor stap
 - Tag + commit:   geen tag / (deze commit, zie git log "Shaman class quests")
-- Status:         alleen op main
-- Mag op de site: nee (nog niet uit)
+- Status:         staat op CurseForge (v5.5.0)
+- Mag op de site: ja (uit in 5.5.0)
 - Speler ziet:    Shaman: "Do this now" leidt je met de pijl naar je Earth- (4), Fire- (10), Water- (20) en Air-totem
                   (30), per ras de goede startplek (ook Dwarf en Skyborne), en bij de Horde Elemental Mastery (52).
                   *(niet in het spel getest)*
@@ -139,8 +139,8 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ## 17 nov 2026 — Forever: Hunter en Rogue class-quests stap voor stap
 - Tag + commit:   geen tag / (deze commit, zie git log "Hunter and Rogue class quests")
-- Status:         alleen op main
-- Mag op de site: nee (nog niet uit)
+- Status:         staat op CurseForge (v5.5.0)
+- Mag op de site: ja (uit in 5.5.0)
 - Speler ziet:    Hunter: "Do this now" leidt je door het temmen van je eerste beesten (10, per ras, ook Human en
                   Skyborne) en The Hunter's Charm (50). Rogue: Blade of Cunning (10), Thieves' Tools (16), Poisons (20),
                   twee nieuwe Forever-opdrachten bij de Dead Drop (23, 30, met "wacht op de brief") en The Azure Key (50).
@@ -151,8 +151,8 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ## 17 nov 2026 — Forever: Warrior class-quests stap voor stap
 - Tag + commit:   geen tag / (deze commit, zie git log "Warrior class quests")
-- Status:         alleen op main
-- Mag op de site: nee (nog niet uit)
+- Status:         staat op CurseForge (v5.5.0)
+- Mag op de site: ja (uit in 5.5.0)
 - Speler ziet:    Warrior: "Do this now" leidt je met de pijl naar Defensive Stance (10, per ras de goede startplek, ook
                   Skyborne), Berserker Stance (30), daarna het Whirlwind-wapen (30) en de Fallen Hero (50). *(niet in het
                   spel getest)*
@@ -162,8 +162,8 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ## 17 nov 2026 — Forever: Warlock class-quests stap voor stap
 - Tag + commit:   geen tag / (deze commit, zie git log "Warlock class quests")
-- Status:         alleen op main
-- Mag op de site: nee (nog niet uit)
+- Status:         staat op CurseForge (v5.5.0)
+- Mag op de site: ja (uit in 5.5.0)
 - Speler ziet:    Warlock: "Do this now" leidt je met de pijl door de quests voor je demonen (Imp, Voidwalker, Succubus en
                   Incubus, Felhunter) en je paarden (Felsteed, Dreadsteed), per ras de goede startplek, NPC-namen in je eigen
                   taal. *(niet in het spel getest)*
@@ -173,8 +173,8 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ## 16 nov 2026 (avond/nacht) — Forever: druid class-quests stap voor stap + druid per rol
 - Tag + commit:   geen tag / 4faaaee, 0059fae, 86984a6, bb1635e, dad9c38, 956ed87, f707878 (na de tag v5.4.0)
-- Status:         alleen op main
-- Mag op de site: nee (nog niet uit)
+- Status:         staat op CurseForge (v5.5.0)
+- Mag op de site: ja (uit in 5.5.0)
 - Speler ziet:    Druid: "Do this now" leidt je stap voor stap door de class-quests (Bear Form, Cure Poison, Aquatic Form,
                   Cat Form, Torwa Pathfinder; Skyborne-druids hun eigen Bear/Cat-ketens), met de pijl en NPC-namen in je
                   eigen taal. How you play heeft bovenaan "Your class quests" en de rol(len) van je richting (beer, kat,
