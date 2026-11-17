@@ -469,7 +469,7 @@ for k, v in pairs({
 	FOV_TAB_CLASS = "Tu clase",
 	FOV_TIP_TAB_CLASS = "Cómo se juega tu clase, todas tus misiones de clase y Acampando. Cambia arriba en la página.",
 	FOV_TAB_FIND = "Buscar",
-	FOV_TIP_TAB_FIND = "Instructores, maestros de armas y tiendas de tu bando, del más cercano al más lejano, cada uno con el camino hasta allí.",
+	FOV_TIP_TAB_FIND = "Instructores, maestros de armas, tiendas, el banco, la casa de subastas, buzones y posadas de tu bando, del más cercano al más lejano, cada uno con el camino hasta allí.",
 	FOV_LABEL_FIND = "¿QUÉ BUSCAS?",
 	FOV_TIP_CARD_FIND = "Elige lo que necesitas. Tus propias profesiones van primero, en dorado, con tu habilidad. Un + verde es un arma que encaja con tu camino.",
 	FOV_TIP_CARD_FIND_LIST = "Todos los lugares de tu bando que conoce Midnight Helper, del más cercano al más lejano. Los lugares de otro continente van al final.",
@@ -505,7 +505,7 @@ for k, v in pairs({
 	-- TOOLG_BUYBACK "Recomprar", FUSE_TIP_FMT "Se usa en", FITEM_*, FWARN_POLE (caña de pescar), FOV_GO_SHORT "Camino ›".
 	FOV_LABEL_QUIET = "LO QUE MIDNIGHT HELPER HACE POR TI EN SILENCIO",
 	FOV_TIP_CARD_QUIET = "Cada línea, aviso y botón que Midnight Helper añade a las ventanas del propio juego, cada uno con una frase y un interruptor.",
-	FOV_TIP_GEAR = "Lo que Midnight Helper hace por ti en silencio, con un interruptor para cada cosa. Haz clic otra vez para volver.",
+	FOV_TIP_GEAR = "Lo que Midnight Helper hace por ti en silencio (con un interruptor para cada cosa), las demás herramientas y todos los comandos. Haz clic otra vez para volver.",
 	FOV_Q_INTRO = "Esto funciona solo mientras juegas. Desactiva lo que no quieras. Todo lo demás está en la configuración.",
 	FOV_Q_ALLSETTINGS = "Toda la configuración ›",
 	FOV_TIP_Q_ALLSETTINGS = "Abre Midnight Helper en la configuración del juego (Opciones → AddOns).",
@@ -576,6 +576,34 @@ for k, v in pairs({
 	FOV_TIP_PROF_SW_USEDFOR = "\"Se usa en\" en los componentes, \"tu clase nunca podrá usar esto\" y \"necesario para una misión de tu registro\". Lo mismo que /mh usedfor on|off.",
 	FOV_PROF_SW_TOOLGUARD = "Aviso antes de perder tu última herramienta",
 	FOV_TIP_PROF_SW_TOOLGUARD = "Una línea roja en el tooltip con un vendedor, un aviso cuando la destruyes y un botón Recomprar si la vendiste de todos modos. Lo mismo que /mh toolguard on|off.",
+	-- 17 Nov 2026: gear page (Tools, Commands) and the "In town" section of Find (FCITY_*).
+	-- Tool names as in the es pack: SETTINGS_QUICKBAR "Barra rápida", NEWC_TITLE "Nuevo en esta versión: tú eliges",
+	-- CHANGELOG_TITLE "Registro de cambios", SEARCH_LABEL "Buscar:", FDONOW_OPEN_OVERVIEW "Abrir"; FVEND_* for the list texts.
+	-- Game words (Forever 1.60.1.70938, same in esES and esMX): Banco/Banquero, Casa de subastas, Buzón, posada/posadero,
+	-- Piedra de hogar (item 6948). Gadgetzan, Bahía del Botín, Vista Eterna: AreaTable 976/35/2255 (esES = esMX).
+	FOV_SUB_QUIET = "Ayudas silenciosas",
+	FOV_SUB_TOOLS = "Herramientas",
+	FOV_TIP_SUB_TOOLS = "Todas las demás ventanas de Midnight Helper, cada una con su comando y un botón Abrir.",
+	FOV_TIP_SUB_CMDS = "Todos los comandos /mh, cada uno con una línea. Escribe uno en el chat. El cuadro de búsqueda filtra la lista.",
+	FOV_TOOL_OPEN = "Abrir",
+	FOV_TOOL_MOVE = "Mover MH en tu pantalla",
+	FOV_TOOL_BAR = "Barra rápida",
+	FOV_TOOL_NEW = "Nuevo en esta versión: tú eliges",
+	FOV_TOOL_CHANGELOG = "Registro de cambios",
+	FOV_CMDS_SEARCH = "Buscar:",
+	FOV_FIND_SEC_CITY = "En la ciudad",
+	FCITY_CAT_BANK = "Banco",
+	FCITY_CAT_AUCTION = "Casa de subastas",
+	FCITY_CAT_MAIL = "Buzón",
+	FCITY_CAT_INN = "Posada",
+	FCITY_SUB_BANK = "Los banqueros de las ciudades de tu bando y de los pueblos neutrales. El más cercano primero.",
+	FCITY_SUB_AUCTION = "Las casas de subastas de tu bando y las neutrales. La más cercana primero. Una neutral (Gadgetzan, Bahía del Botín, Vista Eterna) también comercia con el otro bando, pero se queda el 15% de la venta en vez del 5%, y pide un depósito más alto.",
+	FCITY_SUB_MAIL = "Los buzones de las ciudades de tu bando y de los pueblos neutrales. El más cercano primero.",
+	FCITY_SUB_INN = "Los posaderos de las ciudades de tu bando y de los pueblos neutrales. Habla con uno para vincular allí tu Piedra de hogar. El más cercano primero.",
+	FCITY_NEUTRAL_TAG = "neutral",
+	FCITY_EMPTY = "MH no conoce ningún lugar así en tu bando.",
+	FCITY_HINT = "Lugares de los datos de WoW: Forever de Wowhead y Zygor (17 nov 2026). ¿Falta alguno? /mh vendor check muestra lo que sabe MH.",
+	FCITY_ARROW_SET_FMT = "flecha puesta en %s en %s, %s. Desaparece cuando llegas allí.",
 }) do
 	if t[k] == nil or (en and t[k] == en[k]) then
 		t[k] = v

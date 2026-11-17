@@ -19,6 +19,15 @@ uitgecommentarieerd in het rapport). Steden: SW, IF, Darn, Dalaran (A), Org, TB,
 Booty Bay (geen bus: 1 bron), Valanaar. AH-cut GEMETEN in DB2 AuctionHouse (neutraal 15%/borg 25 tegen 5/5; betekenis
 kolommen AFGELEID). Valanaar-AH: neutraal of niet NIET gemeten → geen tag. Offline (find_check + 4 soorten × 2 kanten,
 elke Show the way): 29.694 runs, 0 fouten; aantallen = rapport. Niet in het spel gezien. Daarna: B en C hieronder.
+▶ **B AF**: 25 sleutels in de/fr/es/pt/ru (`ForeverClassQuests_<taal>.lua`; esMX geen eigen regel nodig): tandwiel/Tools
+(11) + Find "In town" (14) + FOV_TIP_GEAR/FOV_TIP_TAB_FIND herschreven. Spelwoorden GEMETEN (Forever 1.60.1.70938):
+GlobalStrings BANK/BUTTON_LAG_AUCTIONHOUSE/MINIMAP_TRACKING_MAILBOX/_INNKEEPER/_BANKER, NPE_BINDPROMPT (herberg),
+item 6948 (Hearthstone), AreaTable 976/35/2255 (Gadgetzan/Booty Bay/Everlook: de houdt Engels; fr Baie-du-Butin/Long-Guet;
+es Bahía del Botín/Vista Eterna; pt Geringontzan/Angra do Butim/Visteterna; ru Прибамбасск/Пиратская бухта/Круговзор).
+Eigen woordkeus (niet gemeten): "Stille Helfer"/"Aides discrètes"/…, "In der Stadt"/"En ville"/…, borg/deposit-woord.
+Controle: alle 23 nieuwe sleutels aanwezig in 5 packs; eigen Forever-resolve-run (IS_FOREVER aan) toont per taal de
+vertaling. ⚠️ `tools/locale_probe.lua` is blind voor `ForeverClassQuests_*` (die draaien alleen met IS_FOREVER).
+Door geen moedertaalspreker gezien.
 OPEN, in deze volgorde:
 - ~~**A. Bank & Auction House in Find**~~ (AF, zie regel hierboven) (Rob, letterlijk: *"Straks zocht ik de bank en de AH in grootsteden. … Kunnen we
   dat nog erin krijgen?"*; sparring: bouwen voor deze release). GEMETEN door sparring: MH heeft er nu niets voor
