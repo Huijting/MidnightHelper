@@ -24,6 +24,20 @@ er is niets weggegooid.
 📝 **Waarneming Rob, 16 nov (nacht), Forever mage, via sparring:** *"mouse over werk"* — `/mh mouseover on`, Shift+X
 (Arcane Intellect) op een voorbijganger onder de muis werkt.
 
+## 🆕 17 nov — Forever: Hunter en Rogue class-quests in "Do this now"
+
+Uitgezocht met Fable; uit Zygor, Wowhead en Spoken; niets in het spel gezien. `/reload`.
+- [ ] Hunter level 10: drie keer "Taming the Beast" bij je trainer (Night Elf: Dazalar, Dwarf: Grif Wildheart, Human:
+      Josephine Carson in Goldshire, Orc/Troll: Thotar, Tauren: Yaw Sharpmane, Skyborne: Quel'ana Quickgale). Elke keer
+      wijst de pijl naar het beest dat je moet temmen. Daarna "Training the Beast" naar de pet-trainer.
+- [ ] Human-hunter: leer je met die nieuwe quests ook echt Tame Beast en Beast Training? (Wowhead noemt "Taming Lesson".)
+- [ ] Hunter 50: The Hunter's Charm (Ogtinc in Azshara).
+- [ ] Rogue 10: Blade of Cunning per ras. Rogue 16: Thieves' Tools. Rogue 20: Poisons (Alliance: Mathias Shaw, Horde:
+      Shenthul). Wordt de regel weg als je Poisons kent?
+- [ ] Rogue 23 en 30 (nieuw in Forever): de Dead Drop in Silverpine. Na de eerste opdracht zegt "Do this now": wacht op
+      een brief van C. Klopt dat, en hoe lang duurde het?
+- [ ] Skyborne-rogue (Alliance): stuurt MH je naar de Human-route (Keryn Sylvius)? Is dat goed?
+
 ## 🆕 17 nov — Forever: Druid, nagekeken door een tweede helper (Fable)
 
 Drie tekstfouten zijn hersteld (Horde-druid: geen grot bij Lunaclaw; Moonfire pas op 4; terug IN Moonkin Form kost

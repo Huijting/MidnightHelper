@@ -556,6 +556,294 @@ for _, faction in ipairs({ "Alliance", "Horde" }) do
 		} })
 end
 
+--[[ Hunter (17 Nov 2026, Bouwchat 17-11; researched by mh-research on Fable after Rob's "ja" via Sparring 17-11). All
+	facts: docs/forever/HUNTER_CLASSQUESTS_2026-11-17.md: Zygor Forever "Hunter Class Quests" + the leveling guides
+	(Human, Skyborne), Spoken, wago DB2 1.60.1.70938, Wowhead Forever, HandyNotes.
+	GEMETEN: teach spell 1579 = Tame Beast 1515 + Call Pet 883 + Dismiss Pet 2641; 5300 = Beast Training 5149 + Feed Pet
+	6991 + Revive Pet 982 (DB2); Wowhead shows "You will learn" Tame Beast on the third taming quest and Beast Training on
+	Training the Beast. AFGELEID: the Human quests (Wowhead: Taming Lesson 23356 / Training Lesson 23357, dummy spells)
+	teach the same six; the Elwynn chain is for Humans (Spoken: every Alliance race may take it); the objective index;
+	which trainer starts the level 50 chain per race (five trainers give 8151). No Gnome or Undead hunter (CharBaseInfo).
+	Not built: the breadcrumb The Hunter's Path (optional), and the level 60 chain The Ancient Leaf (starts from an item).
+	Zygor mistakes not copied: |q 8425 in the Horde hunter guide (= 8232), "Vartus". Trainers: HandyNotes; the rest: Zygor. ]]
+local HU_P = {
+	dazalar = { npc = "Dazalar", id = 3601, m = 1438, x = 56.66, y = 59.40 },
+	jocaste = { npc = "Jocaste", id = 4146, m = 1457, x = 40.38, y = 8.55 },
+	grif = { npc = "Grif Wildheart", id = 1231, m = 1426, x = 45.81, y = 53.04 },
+	belia = { npc = "Belia Thundergranite", id = 10090, m = 1455, x = 70.86, y = 85.83 },
+	josephine = { npc = "Josephine Carson", id = 251507, m = 1429, x = 41.36, y = 66.28 },
+	isaac = { npc = "Isaac Chan", id = 258930, m = 1429, x = 41.84, y = 66.41 },
+	thotar = { npc = "Thotar", id = 3171, m = 1411, x = 51.66, y = 43.40 },
+	ormak = { npc = "Ormak Grimshot", id = 3352, m = 1454, x = 66.05, y = 18.53 },
+	yaw = { npc = "Yaw Sharpmane", id = 3065, m = 1412, x = 47.11, y = 59.57 },
+	holt = { npc = "Holt Thunderhorn", id = 3039, m = 1456, x = 57.33, y = 89.82 },
+	quelana = { npc = "Quel'ana Quickgale", id = 252389, m = 2521, x = 59.33, y = 72.63 },
+	queldora = { npc = "Quel'dora Quickgale", id = 254411, m = 2521, x = 59.69, y = 72.11 },
+	dorion = { npc = "Dorion", id = 4205, m = 1457, x = 42.21, y = 7.27 },
+	olmin = { npc = "Olmin Burningbeard", id = 5116, m = 1455, x = 70.89, y = 83.61 },
+	ulfir = { npc = "Ulfir Ironbeard", id = 5516, m = 1453, x = 67.57, y = 35.77 },
+	ogtinc = { npc = "Ogtinc", id = 8405, m = 1447, x = 42.40, y = 42.62 },
+	-- Where to tame (no NPC), Zygor. Azshara = UiMap 1447 (DB2).
+	webwood = { m = 1438, x = 59.81, y = 59.06 },
+	nightsaber = { m = 1438, x = 55.95, y = 71.98 },
+	screecher = { m = 1438, x = 43.99, y = 51.16 },
+	cragboar = { m = 1426, x = 48.26, y = 56.81 },
+	snowleopard = { m = 1426, x = 48.68, y = 58.93 },
+	iceclaw = { m = 1426, x = 49.06, y = 62.12 },
+	rockhide = { m = 1429, x = 46.04, y = 77.92 },
+	graywolf = { m = 1429, x = 65.73, y = 63.52 },
+	forestbear = { m = 1429, x = 46.92, y = 78.34 },
+	direboar = { m = 1411, x = 51.84, y = 47.23 },
+	surfcrawler = { m = 1411, x = 59.01, y = 27.64 },
+	scorpid = { m = 1411, x = 45.21, y = 45.77 },
+	plainstrider = { m = 1412, x = 43.58, y = 56.46 },
+	stalker = { m = 1412, x = 45.81, y = 54.16 },
+	swoop = { m = 1412, x = 45.81, y = 54.16 },
+	windsong = { m = 2521, x = 53.72, y = 77.80 },
+	galestrider = { m = 2521, x = 57.30, y = 71.27 },
+	vuldren = { m = 2521, x = 56.63, y = 67.74 },
+	coursers = { m = 1447, x = 49.47, y = 17.62 },
+	wavethrashers = { m = 1447, x = 52.61, y = 41.87 },
+}
+local H = HU_P
+
+-- Three times Taming the Beast at one trainer: the Taming Rod is in your bags, objective 1 = tame the beast.
+-- t = { { quest id, place, textKey }, ... }
+local function HuTame(faction, races, trainer, t)
+	local quests = {}
+	for i, s in ipairs(t) do
+		quests[i] = { q = s[1], from = trainer, objs = { O(s[2], s[3], 1) }, to = trainer }
+	end
+	return { key = "tame", spell = 1515, level = 10, faction = faction, races = races, quests = quests }
+end
+-- Training the Beast: opens after the third taming quest (Spoken prev, GEMETEN).
+local function HuTrain(faction, races, q, needs, trainer, petTrainer)
+	return { key = "training", spell = 5149, level = 10, needs = needs, faction = faction, races = races,
+		quests = { { q = q, from = trainer, to = petTrainer } } }
+end
+-- The Hunter's Charm (level 50): an item chain. Any of the five trainers gives 8151 (Spoken).
+local function HuCharm(faction, races, trainer)
+	return { key = "charm", nameKey = "FCQ_CHAIN_HU_CHARM", level = 50, faction = faction, races = races, quests = {
+		{ q = 8151, from = trainer, to = H.ogtinc },
+		{ q = 8153, from = H.ogtinc, objs = { O(H.coursers, "FCQ_OBJ_HU_ANTLERS", 1) }, to = H.ogtinc },
+		{ q = 8231, from = H.ogtinc, objs = { O(H.wavethrashers, "FCQ_OBJ_HU_SCALES", 1) }, to = H.ogtinc },
+		{ q = 8232, from = H.ogtinc, objs = { O(P.sunken, "FCQ_OBJ_HU_MORPHAZ", 1) }, to = H.ogtinc },
+	} }
+end
+
+CHAINS.HUNTER = {
+	HuTame("Alliance", NELF, H.dazalar, {
+		{ 6063, H.webwood, "FCQ_OBJ_HU_WEBWOOD" },
+		{ 6101, H.nightsaber, "FCQ_OBJ_HU_NIGHTSABER" },
+		{ 6102, H.screecher, "FCQ_OBJ_HU_SCREECHER" },
+	}),
+	HuTrain("Alliance", NELF, 6103, 6102, H.dazalar, H.jocaste),
+	-- DWGN: there is no Gnome hunter (CharBaseInfo), so the extra race does nothing.
+	HuTame("Alliance", DWGN, H.grif, {
+		{ 6064, H.cragboar, "FCQ_OBJ_HU_CRAGBOAR" },
+		{ 6084, H.snowleopard, "FCQ_OBJ_HU_SNOWLEOPARD" },
+		{ 6085, H.iceclaw, "FCQ_OBJ_HU_ICECLAW" },
+	}),
+	HuTrain("Alliance", DWGN, 6086, 6085, H.grif, H.belia),
+	-- Human: NEW in Forever. Wowhead shows Taming Lesson / Training Lesson; the same spells AFGELEID.
+	HuTame("Alliance", HUM, H.josephine, {
+		{ 94792, H.rockhide, "FCQ_OBJ_HU_ROCKHIDE" },
+		{ 94863, H.graywolf, "FCQ_OBJ_HU_GRAYWOLF" },
+		{ 94864, H.forestbear, "FCQ_OBJ_HU_FORESTBEAR" },
+	}),
+	HuTrain("Alliance", HUM, 94793, 94864, H.josephine, H.isaac),
+	-- Orc/Troll: mind the order 6062, 6083, 6082.
+	HuTame("Horde", ORCTROLL, H.thotar, {
+		{ 6062, H.direboar, "FCQ_OBJ_HU_DIREBOAR" },
+		{ 6083, H.surfcrawler, "FCQ_OBJ_HU_SURFCRAWLER" },
+		{ 6082, H.scorpid, "FCQ_OBJ_HU_SCORPID" },
+	}),
+	HuTrain("Horde", ORCTROLL, 6081, 6082, H.thotar, H.ormak),
+	HuTame("Horde", TAUREN, H.yaw, {
+		{ 6061, H.plainstrider, "FCQ_OBJ_HU_PLAINSTRIDER" },
+		{ 6087, H.stalker, "FCQ_OBJ_HU_STALKER" },
+		{ 6088, H.swoop, "FCQ_OBJ_HU_SWOOP" },
+	}),
+	HuTrain("Horde", TAUREN, 6089, 6088, H.yaw, H.holt),
+}
+for _, faction in ipairs({ "Alliance", "Horde" }) do
+	-- Skyborne: NEW in Forever, the same quests for both factions (Zephras Isle).
+	table.insert(CHAINS.HUNTER, HuTame(faction, SKYBORNE, H.quelana, {
+		{ 94978, H.windsong, "FCQ_OBJ_HU_WINDSONG" },
+		{ 94979, H.galestrider, "FCQ_OBJ_HU_GALESTRIDER" },
+		{ 94013, H.vuldren, "FCQ_OBJ_HU_VULDREN" },
+	}))
+	table.insert(CHAINS.HUNTER, HuTrain(faction, SKYBORNE, 94050, 94013, H.quelana, H.queldora))
+end
+-- Level 50: the trainer per race is a choice (AFGELEID); any of them gives 8151.
+for _, c in ipairs({
+	{ "Alliance", HUM, H.ulfir }, { "Alliance", DWGN, H.olmin }, { "Alliance", NELF, H.dorion }, { "Alliance", SKYBORNE, H.ulfir },
+	{ "Horde", ORCTROLL, H.ormak }, { "Horde", TAUREN, H.holt }, { "Horde", SKYBORNE, H.ormak },
+}) do
+	table.insert(CHAINS.HUNTER, HuCharm(c[1], c[2], c[3]))
+end
+
+--[[ Rogue (17 Nov 2026, Bouwchat 17-11; researched by mh-research on Fable). All facts:
+	docs/forever/ROGUE_CLASSQUESTS_2026-11-17.md: Zygor Forever (class guides + main leveling guides), Spoken, wago DB2
+	1.60.1.70938 (local cache), Wowhead Forever, Icy Veins, Polestar, HandyNotes.
+	Poisons 2842 comes from 2359 (Alliance) / 2480 (Horde): GEMETEN on Wowhead Forever. Pick Lock is a trainer spell.
+	NEW in Forever, not in Zygor: The Horn of Xelthos (78261-78307) and The Eye of Bhossca (78676-78699); the hand-in
+	quests come after a letter from C, so their step says to wait (e.wait). No Tauren rogue (CharBaseInfo).
+	AFGELEID: Troll starts at 1963; Skyborne (Alliance) walks the Human route; 2379 without its pointer quest;
+	level 23/30 and needs = 78261 for the two Dead Drop chains; what 8236 pays in Forever is NOT measured.
+	Not built (bouwchat choice, Rob may reverse): the Touch of Zanzil cure (a player who cures it another way would keep
+	the line forever), the level 16 race pointers, Ravenholdt reputation quests.
+	Zygor mistakes not copied: Varimathras 59.75,84.64, the 1978 pickup at 65.53,79.73, |q 8232 / 8425 (= 8236). ]]
+local RO_P = {
+	keryn = { npc = "Keryn Sylvius", id = 917, m = 1429, x = 43.87, y = 65.94 },
+	shaw = { npc = "Master Mathias Shaw", id = 332, m = 1453, x = 78.31, y = 70.75 },
+	hogral = { npc = "Hogral Bakkan", id = 1234, m = 1426, x = 47.72, y = 52.62 },
+	hulfdan = { npc = "Hulfdan Blackbeard", id = 5165, m = 1455, x = 51.96, y = 14.84 },
+	onin = { npc = "Onin MacHammar", id = 6886, m = 1426, x = 25.16, y = 44.45 },
+	jannok = { npc = "Jannok Breezesong", id = 3599, m = 1438, x = 56.38, y = 60.14 },
+	syurna = { npc = "Syurna", id = 4163, m = 1457, x = 36.99, y = 21.91 },
+	renzik = { npc = "Renzik \"The Shiv\"", id = 6946, m = 1453, x = 78.25, y = 71.13 },
+	lucius = { npc = "Lucius", id = 6966, m = 1433, x = 22.97, y = 52.04 },
+	kearnen = { npc = "Agent Kearnen", id = 7024, m = 1436, x = 68.49, y = 70.08 },
+	romano = { npc = "Lord Tony Romano", id = 13283, m = 1453, x = 80.28, y = 68.58 },
+	kaplak = { npc = "Kaplak", id = 3170, m = 1411, x = 51.92, y = 43.83 },
+	therzok = { npc = "Therzok", id = 6446, m = 1454, x = 42.74, y = 53.54 },
+	marion = { npc = "Marion Call", id = 2130, m = 1420, x = 61.85, y = 51.89 },
+	mennet = { npc = "Mennet Carkad", id = 6467, m = 1458, x = 83.51, y = 69.11 },
+	andron = { npc = "Andron Gant", id = 6522, m = 1458, x = 54.82, y = 76.30 },
+	varimathras = { npc = "Varimathras", id = 2425, m = 1458, x = 56.24, y = 92.22 },
+	shenthul = { npc = "Shenthul", id = 3401, m = 1454, x = 43.05, y = 53.74 },
+	zandozan = { npc = "Zando'zan", id = 3402, m = 1454, x = 42.73, y = 52.95 },
+	wrenix = { npc = "Wrenix the Wretched", id = 7161, m = 1413, x = 63.07, y = 36.32 },
+	fizzule = { npc = "Taskmaster Fizzule", id = 7233, m = 1413, x = 55.44, y = 5.56 },
+	hinott = { npc = "Serge Hinott", id = 2391, m = 1424, x = 61.63, y = 19.19 },
+	ormok = { npc = "Ormok", id = 3328, m = 1454, x = 43.90, y = 54.63 },
+	jorach = { npc = "Lord Jorach Ravenholdt", id = 6768, m = 1416, x = 86.03, y = 78.88 },
+	xylem = { npc = "Archmage Xylem", id = 8379, m = 1447, x = 29.71, y = 40.52 },
+	-- The Dead Drop is a chest (object 410369), not an NPC: no id, so the English name shows in every language.
+	deadDrop = { npc = "Dead Drop", m = 1421, x = 47.1, y = 71.1 },
+	veenix = { npc = "Veenix", id = 4086, m = 1442, x = 58.2, y = 51.6 },
+	-- Objective places (no NPC).
+	dockmaster = { m = 1429, x = 48.0, y = 87.0 },
+	sethir = { m = 1438, x = 37.52, y = 24.29 },
+	luciusBox = { m = 1433, x = 46.95, y = 44.69 },
+	towerKey = { m = 1436, x = 71.63, y = 73.91 },
+	duskChest = { m = 1436, x = 70.41, y = 73.93 },
+	tazan = { m = 1413, x = 62.92, y = 44.07 },
+	gamon = { m = 1454, x = 54.00, y = 68.03 },
+	astor = { m = 1421, x = 47.50, y = 39.80 },
+	bookshelf = { m = 1458, x = 55.42, y = 77.05 },
+	gizmo = { m = 1413, x = 63.12, y = 36.32 },
+	jewel = { m = 1413, x = 64.95, y = 45.44 },
+	flare = { m = 1413, x = 55.47, y = 6.08 },
+	silixiz = { m = 1413, x = 54.80, y = 5.97 },
+	vtower = { m = 1413, x = 54.75, y = 5.59 },
+	timbermaw = { m = 1447, x = 43.77, y = 25.56 },
+	oozes = { m = 1447, x = 73.40, y = 25.20 },
+	sfk = { m = 1421, x = 44.8, y = 67.8 },
+	sm = { m = 1420, x = 82.65, y = 32.88 },
+}
+local RO = RO_P
+local HUMSKY, ORC, TROLL = { Human = true, Skyborne = true }, { Orc = true }, { Troll = true }
+
+local function RoBlade(faction, races, quests)
+	return { key = "blade", nameKey = "FCQ_CHAIN_RO_BLADE", level = 10, faction = faction, races = races, quests = quests }
+end
+-- 1963: the satchel is objective 1 (handed in, then given back for 1858). 1858: 1 = Logbook, 2 = Key (Wowhead order).
+local RO_HAND1 = { q = 1963, from = RO.therzok, objs = { O(RO.tazan, "FCQ_OBJ_RO_TAZAN", 1) }, to = RO.therzok }
+local RO_HAND2 = { q = 1858, from = RO.therzok, objs = {
+	O(RO.gamon, "FCQ_OBJ_RO_TAZANKEY", 2),
+	O(nil, "FCQ_OBJ_RO_LOGBOOK", 1),
+}, to = RO.therzok }
+
+CHAINS.ROGUE = {
+	-- Blade of Cunning (10). Skyborne (Alliance) on the Human route: Polestar + the quest's race mask, not seen in game.
+	RoBlade("Alliance", HUMSKY, {
+		{ q = 2205, from = RO.keryn, to = RO.shaw },
+		{ q = 2206, from = RO.shaw, objs = { O(RO.dockmaster, "FCQ_OBJ_RO_SCHEDULE", 1) }, to = RO.shaw },
+	}),
+	RoBlade("Alliance", DWGN, {
+		{ q = 2218, from = RO.hogral, to = RO.hulfdan },
+		{ q = 2238, from = RO.hulfdan, to = RO.onin },
+		{ q = 2239, from = RO.onin, to = RO.hulfdan },
+	}),
+	RoBlade("Alliance", NELF, {
+		{ q = 2241, from = RO.jannok, to = RO.syurna },
+		{ q = 2242, from = RO.syurna, objs = { O(RO.sethir, "FCQ_OBJ_RO_SETHIR", 1) }, to = RO.syurna },
+	}),
+	-- 1859 is Orc only (a pointer); a Troll takes 1963 straight from Therzok (Polestar; AFGELEID that it needs no 1859).
+	RoBlade("Horde", ORC, { { q = 1859, from = RO.kaplak, to = RO.therzok }, RO_HAND1, RO_HAND2 }),
+	RoBlade("Horde", TROLL, { RO_HAND1, RO_HAND2 }),
+	RoBlade("Horde", UD, {
+		{ q = 1885, from = RO.marion, to = RO.mennet },
+		{ q = 1886, from = RO.mennet, objs = { O(RO.astor, "FCQ_OBJ_RO_ASTOR", 1) }, to = RO.mennet },
+		{ q = 1898, from = RO.mennet, to = RO.andron },
+		{ q = 1899, from = RO.andron, objs = { O(RO.bookshelf, "FCQ_OBJ_RO_LEDGER", 1) }, to = RO.mennet },
+		{ q = 1978, from = RO.mennet, to = RO.varimathras },
+	}),
+	-- Thieves' Tools and the first lock (16). The race pointers (2300, 2299-2298, 2259-2260; 2380, 2378) are left out.
+	{ key = "tools", nameKey = "FCQ_CHAIN_RO_TOOLS", level = 16, faction = "Alliance", quests = {
+		{ q = 2281, from = RO.renzik, to = RO.lucius },
+		{ q = 2282, from = RO.lucius, objs = { O(RO.luciusBox, "FCQ_OBJ_RO_LUCIUSBOX", 1) }, to = RO.lucius },
+	} },
+	{ key = "tools", nameKey = "FCQ_CHAIN_RO_TOOLS", level = 16, faction = "Horde", quests = {
+		{ q = 2379, from = RO.shenthul, to = RO.zandozan },
+		{ q = 2382, from = RO.zandozan, to = RO.wrenix },
+		-- E.C.A.C. (7970) in your bags, or the treasure already: the machine step is done.
+		{ q = 2381, from = RO.wrenix, objs = {
+			O(RO.gizmo, "FCQ_OBJ_RO_GIZMO", nil, { 7970, 7968 }),
+			O(RO.jewel, "FCQ_OBJ_RO_SOUTHSEA", 1),
+		}, to = RO.wrenix },
+	} },
+	-- Poisons (20).
+	{ key = "poisons", spell = 2842, level = 20, faction = "Alliance", quests = {
+		{ q = 2360, from = RO.shaw, to = RO.kearnen },
+		{ q = 2359, from = RO.kearnen, objs = {
+			O(RO.towerKey, "FCQ_OBJ_RO_TOWERKEY", 2),
+			O(RO.duskChest, "FCQ_OBJ_RO_JOURNAL", 1),
+		}, to = RO.shaw },
+	} },
+	{ key = "poisons", spell = 2842, level = 20, faction = "Horde", quests = {
+		{ q = 2460, from = RO.shenthul, objs = { O(RO.shenthul, "FCQ_OBJ_RO_SALUTE", 1) }, to = RO.shenthul },
+		-- No index on purpose (Wowhead shows no objective, Zygor says /1): waits until the client says complete.
+		{ q = 2458, from = RO.shenthul, objs = { O(RO.flare, "FCQ_OBJ_RO_FLARE") }, to = RO.fizzule },
+		{ q = 2478, from = RO.fizzule, objs = {
+			O(RO.silixiz, "FCQ_OBJ_RO_SILIXIZ", 5),
+			O(RO.vtower, "FCQ_OBJ_RO_DRONES", 1),
+			O(RO.vtower, "FCQ_OBJ_RO_PATROLLERS", 3),
+			O(RO.vtower, "FCQ_OBJ_RO_LOOKOUTS", 2),
+			O(RO.vtower, "FCQ_OBJ_RO_GALLYWIX", 4),
+			O(RO.vtower, "FCQ_OBJ_RO_CACHE", 6),
+		}, to = RO.shenthul },
+		{ q = 2479, from = RO.shenthul, to = RO.hinott },
+		{ q = 2480, from = RO.hinott, objs = { O(RO.hinott, "FCQ_OBJ_RO_CURE", 1) }, to = RO.hinott },
+	} },
+}
+for _, faction in ipairs({ "Alliance", "Horde" }) do
+	-- NEW in Forever. 78270 Goblin Lockpicks (Veenix) is a side quest inside 78261, not a step (missing from QuestV2).
+	-- 78307 and 78699 are hand-ins only, offered after a letter from C (minutes to hours later): e.wait.
+	table.insert(CHAINS.ROGUE, { key = "xelthos", nameKey = "FCQ_CHAIN_RO_XELTHOS", level = 23, faction = faction, quests = {
+		{ q = 78261, from = RO.deadDrop, objs = {
+			O(RO.veenix, "FCQ_OBJ_RO_VEENIX", 2),
+			O(RO.sfk, "FCQ_OBJ_RO_HORN", 1),
+		}, to = RO.deadDrop },
+		{ q = 78307, from = RO.deadDrop, wait = "FCQ_WAIT_RO_LETTER", to = RO.deadDrop },
+	} })
+	table.insert(CHAINS.ROGUE, { key = "bhossca", nameKey = "FCQ_CHAIN_RO_BHOSSCA", level = 30, needs = 78261,
+		faction = faction, quests = {
+			{ q = 78676, from = RO.deadDrop, objs = { O(RO.sm, "FCQ_OBJ_RO_EYE", 1) }, to = RO.deadDrop },
+			{ q = 78699, from = RO.deadDrop, wait = "FCQ_WAIT_RO_LETTER", to = RO.deadDrop },
+		} })
+	-- The Azure Key (50). What 8236 pays in Forever is not measured (the Classic item choice may be gone).
+	local trainer = faction == "Alliance" and RO.romano or RO.ormok
+	table.insert(CHAINS.ROGUE, { key = "azure", nameKey = "FCQ_CHAIN_RO_AZURE", level = 50, faction = faction, quests = {
+		{ q = 8233, from = trainer, to = RO.jorach },
+		{ q = 8234, from = RO.jorach, objs = { O(RO.timbermaw, "FCQ_OBJ_RO_AZUREBAG", 1) }, to = RO.xylem },
+		{ q = 8235, from = RO.xylem, objs = { O(RO.oozes, "FCQ_OBJ_RO_FRAGMENTS", 1) }, to = RO.xylem },
+		{ q = 8236, from = RO.xylem, objs = { O(P.sunken, "FCQ_OBJ_RO_AZUREKEY", 1) }, to = RO.jorach },
+	} })
+end
+
 local MOONGLADE, TELEPORT_MOONGLADE = 1450, 18960
 
 local function Done(q)
@@ -743,6 +1031,53 @@ local NPC_NAMES = {
 	[6236] = { deDE = "Klannoc Macleod", frFR = "Klannoc Macleod", esES = "Klannoc Macleod", ptBR = "Klannoc Macleod", ruRU = "Кланнок Маклеод" },
 	[6176] = { deDE = "Bath'rah der Windbehüter", frFR = "Bath'rah la Vigie des vents", esES = "Bath'rah el Cazavientos", esMX = "Bath'rah el Vigía del viento", ptBR = "Bath'rah, o Vigia dos Ventos", ruRU = "Бат'ра Ветростраж" },
 	[7572] = { deDE = "Gefallener Held der Horde", frFR = "Héros déchu de la Horde", esES = "Héroe caído de la Horda", esMX = "Héroe caído de la Horda", ptBR = "Herói Caído da Horda", ruRU = "Павший герой Орды" },
+	-- Hunter (17 Nov 2026, mh-research: Wowhead Forever tooltips per locale; control npc 233; Spoken agreed where it had a name).
+	-- 3065 esES: Spoken says "Guin Crinafilada", Wowhead kept. 8405 esMX: not on Wowhead, left out. 3352 de/fr: Zygor's
+	-- language file has other names; Wowhead Forever kept (AFGELEID which one the client shows).
+	[3601] = { deDE = "Dazalar", frFR = "Dazalar", esES = "Dazalar", esMX = "Dazalar", ptBR = "Dazalar", ruRU = "Дазалар" },
+	[4146] = { deDE = "Jocaste", frFR = "Jocaste", esES = "Jocaste", esMX = "Jocaste", ptBR = "Jocasta", ruRU = "Иокаста" },
+	[1231] = { deDE = "Grif Wildheart", frFR = "Grif Wildheart", esES = "Grif Corazón Salvaje", esMX = "Grif Corazón Salvaje", ptBR = "Grif Selvacuore", ruRU = "Гриф Дикое Сердце" },
+	[10090] = { deDE = "Belia Thundergranite", frFR = "Belia Thundergranite", esES = "Belia Tronagranito", esMX = "Belia Tronagranito", ptBR = "Bélia Granitrondo", ruRU = "Белия Громовой Гранит" },
+	[3171] = { deDE = "Thotar", frFR = "Thotar", esES = "Thotar", esMX = "Thotar", ptBR = "Thotar", ruRU = "Тотар" },
+	[3352] = { deDE = "Ormak Grimshot", frFR = "Ormak Grimshot", esES = "Ormak Tirosiniestro", esMX = "Ormak Tirosiniestro", ptBR = "Ormak Tiroatroz", ruRU = "Ормак Лютострел" },
+	[3065] = { deDE = "Yaw Sharpmane", frFR = "Yaw Sharpmane", esES = "Yaw Crinafilada", esMX = "Yaw Crinafilada", ptBR = "Yaw Crina Cortante", ruRU = "Йо Колкая Грива" },
+	[3039] = { deDE = "Holt Thunderhorn", frFR = "Holt Thunderhorn", esES = "Holt Tronacuerno", esMX = "Holt Tronacuerno", ptBR = "Holto Chifre Troante", ruRU = "Холь Громовой Рог" },
+	[251507] = { deDE = "Josephine Carson", frFR = "Joséphine Carson", esES = "Josephine Carson", esMX = "Josephine Carson", ptBR = "Josefina Carsom", ruRU = "Жозефина Карсон" },
+	[258930] = { deDE = "Isaac Chan", frFR = "Isaac Chan", esES = "Isaac Chan", esMX = "Isaac Chan", ptBR = "Isaac Chan", ruRU = "Исаак Чан" },
+	[252389] = { deDE = "Quel'ana Quickgale", frFR = "Quel'ana Vent-Vif", esES = "Quel'ana Prestovendaval", esMX = "Quel'ana Ventarrápido", ptBR = "Quel'ana Ventiágil", ruRU = "Кве'лана Быстрый Порыв" },
+	[254411] = { deDE = "Quel'dora Quickgale", frFR = "Quel'dora Vent-Vif", esES = "Quel'dora Prestovendaval", esMX = "Quel'dora Ventarrápido", ptBR = "Quel'dora Ventiágil", ruRU = "Кель'дора Стремительный Шторм" },
+	[4205] = { deDE = "Dorion", frFR = "Dorion", esES = "Dorion", esMX = "Dorion", ptBR = "Dorion", ruRU = "Дорион" },
+	[5116] = { deDE = "Olmin Burningbeard", frFR = "Olmin Burningbeard", esES = "Olmin Barbanllamas", esMX = "Olmin Barbardiente", ptBR = "Olmin Barbardente", ruRU = "Олмин Пламебород" },
+	[5516] = { deDE = "Ulfir Ironbeard", frFR = "Ulfir Ironbeard", esES = "Ulfir Barbaférrea", esMX = "Ulfir Barbaférrea", ptBR = "Ulfir Barbaférrea", ruRU = "Ульфир Железнобород" },
+	[8405] = { deDE = "Ogtinc", frFR = "Ogtinc", esES = "Ogtinc", ptBR = "Ogtinc", ruRU = "Огтинк" },
+	-- Rogue (17 Nov 2026, mh-research: Spoken name files; 13283, 3328, 2425 from Wowhead Forever tooltips per locale;
+	-- control npc 233). A name equal to English = Spoken's rule "missing = not translated" (12 spot checks on Wowhead).
+	-- Veenix (4086) and the Dead Drop: not measured, English shows.
+	[917] = { deDE = "Keryn Sylvius", frFR = "Keryn Sylvius", esES = "Keryn Sylvius", esMX = "Keryn Sylvius", ptBR = "Anabela Cabreira", ruRU = "Керин Сильвиус" },
+	[332] = { deDE = "Meister Mathias Shaw", frFR = "Maître Mathias Shaw", esES = "Maestro Mathias Shaw", esMX = "Maestro Mathias Shaw", ptBR = "Mestre Mathias Shaw", ruRU = "Мастер Матиас Шоу" },
+	[1234] = { deDE = "Hogral Bakkan", frFR = "Hogral Bakkan", esES = "Hogral Bakkan", esMX = "Hogral Bakkan", ptBR = "Hogral Bakkan", ruRU = "Хограл Баккан" },
+	[5165] = { deDE = "Hulfdan Blackbeard", frFR = "Hulfdan Blackbeard", esES = "Hulfdan Barbanegra", esMX = "Hulfdan Barbanegra", ptBR = "Hulfdan Barbanegra", ruRU = "Хальфдан Чернобород" },
+	[6886] = { deDE = "Onin MacHammar", frFR = "Onin MacHammar", esES = "Onin MacHammar", esMX = "Onin MacHammar", ptBR = "Onin MacHammar", ruRU = "Онин МакМолот" },
+	[3599] = { deDE = "Jannok Breezesong", frFR = "Jannok Breezesong", esES = "Jannok Brisón", esMX = "Jannok Brisón", ptBR = "Jannok Brisacanto", ruRU = "Джаннок Поющий Ветерок" },
+	[4163] = { deDE = "Syurna", frFR = "Syurna", esES = "Syurna", esMX = "Syurna", ptBR = "Syurna", ruRU = "Сиарна" },
+	[6946] = { deDE = "Renzik \"Das Messer\"", frFR = "Renzik \"le kriss\"", esES = "Renzik \"Cuchillo\"", esMX = "Renzik \"Chafarote\"", ptBR = "Renzik, \"O Bicudo\"", ruRU = "Рензик Нож" },
+	[6966] = { deDE = "Lucius", frFR = "Lucius", esES = "Lucius", esMX = "Lucius", ptBR = "Lucius", ruRU = "Люций" },
+	[7024] = { deDE = "Agentin Kearnen", frFR = "Agent Kearnen", esES = "Agente Kearnen", esMX = "Agente Kearnen", ptBR = "Agente Marta Hari", ruRU = "Посланница Кеарнен" },
+	[13283] = { deDE = "Lord Tony Romano", frFR = "Seigneur Tony Romano", esES = "Lord Tony Romano", esMX = "Lord Tony Romano", ptBR = "Lorde Tony Romano", ruRU = "Лорд Тони Романо" },
+	[3170] = { deDE = "Kaplak", frFR = "Kaplak", esES = "Kaplak", esMX = "Kaplak", ptBR = "Kaplak", ruRU = "Каплак" },
+	[6446] = { deDE = "Therzok", frFR = "Therzok", esES = "Therzok", esMX = "Therzok", ptBR = "Therzok", ruRU = "Терзок" },
+	[2130] = { deDE = "Marion Call", frFR = "Marion Call", esES = "Marion Call", esMX = "Marion Call", ptBR = "Marion Calder", ruRU = "Марион Зов" },
+	[6467] = { deDE = "Mennet Carkad", frFR = "Mennet Carkad", esES = "Mennet Carkad", esMX = "Mennet Carkad", ptBR = "Júnio Aquino", ruRU = "Меннит Каркад" },
+	[6522] = { deDE = "Andron Gant", frFR = "Andron Gant", esES = "Andron Gant", esMX = "Andron Gant", ptBR = "Andron Gante", ruRU = "Андрон Гант" },
+	[2425] = { deDE = "Varimathras", frFR = "Varimathras", esES = "Varimathras", esMX = "Varimathras", ptBR = "Varimatras", ruRU = "Вариматрас" },
+	[3401] = { deDE = "Shenthul", frFR = "Shenthul", esES = "Shenthul", esMX = "Shenthul", ptBR = "Shenthul", ruRU = "Шентул" },
+	[3402] = { deDE = "Zando'zan", frFR = "Zando'zan", esES = "Zando'zan", esMX = "Zando'zan", ptBR = "Zando'zan", ruRU = "Зандо'зан" },
+	[7161] = { deDE = "Wrenix der Jämmerliche", frFR = "Wrenix le Misérable", esES = "Desdio el Desdichado", esMX = "Desdio el Desdichado", ptBR = "Wrenix, o Ignóbil", ruRU = "Реникс Презренный" },
+	[7233] = { deDE = "Zuchtmeister Fizzule", frFR = "Sous-chef Fizzule", esES = "Capataz Burbujita", esMX = "Capataz Fizzule", ptBR = "Capataz Arruela", ruRU = "Надсмотрщик Физзул" },
+	[2391] = { deDE = "Serge Hinott", frFR = "Serge Hinott", esES = "Serge Hinott", esMX = "Serge Hinott", ptBR = "Serguei Hinoto", ruRU = "Серж Хинотт" },
+	[3328] = { deDE = "Ormok", frFR = "Ormok", esES = "Ormok", esMX = "Ormok", ptBR = "Ormok", ruRU = "Ормок" },
+	[6768] = { deDE = "Lord Jorach Ravenholdt", frFR = "Seigneur Jorach Ravenholdt", esES = "Lord Jorach Ravenholdt", esMX = "Lord Jorach Ravenholdt", ptBR = "Lorde Jorach Corvoforte", ruRU = "Лорд Джорах Черный Ворон" },
+	[8379] = { deDE = "Erzmagier Xylem", frFR = "Archimage Xylem", esES = "Archimago Xylem", esMX = "Archimago Xylem", ptBR = "Arquimago Tauriel", ruRU = "Верховный маг Ксилем" },
 }
 
 local function NpcName(p)
@@ -828,6 +1163,11 @@ local function Step(c)
 	end
 	local q = LogQuest(e)
 	if not q then
+		-- e.wait: a quest that is only offered later (rogue: after a letter from C), so "get the quest" would send the
+		-- player to a place where nothing is yet. The text says to wait (17 Nov 2026).
+		if e.wait then
+			return { kind = "wait", place = e.from, textKey = e.wait, q = e.q }
+		end
 		return { kind = "get", place = e.from, q = e.q }
 	end
 	if e.objs and not ObjDone(q) then
@@ -861,7 +1201,7 @@ local function StepWhat(s)
 	local p = s.place
 	if s.kind == "get" then
 		return ns:L("FCQ_GET_FMT"):format(NpcName(p), Where(p))
-	elseif s.kind == "do" then
+	elseif s.kind == "do" or s.kind == "wait" then
 		return ns:L(s.textKey) .. (p and (" — " .. Where(p)) or "")
 	end
 	return ns:L("FCQ_TURN_FMT"):format(NpcName(p), Where(p))

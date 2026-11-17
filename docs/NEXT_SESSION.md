@@ -34,6 +34,14 @@
   "в облике Облик" (2×) weg. "Moonkin Stone" in de/fr/es/pt/ru Engels gelaten: clientnaam NIET gemeten (game-object;
   meten met gamedata). Zes twijfels voor het spel in TESTLIJST 17 nov. Sparring laat ook warlock, warrior en shaman
   door Fable nakijken; rogue/hunter en verder worden met Fable uitgezocht (2-3 tegelijk, één op de voordeur).
+- 🏹 **Hunter + Rogue class-quests GEBOUWD (en + nl)**, uitgezocht door mh-research op **Fable** (Robs ja via sparring),
+  zonder voordeur. Hunter: HU_P + CHAINS.HUNTER (tame 1515 + training 5149 met `needs`, per ras; Human 94792-94793 en
+  Skyborne 94978-94050 nieuw in Forever; Charm 8151-8232 op 50). Rogue: RO_P + CHAINS.ROGUE (Blade 10 per ras, Tools 16,
+  Poisons 20 = 2359/2480 GEMETEN, Xelthos 78261-78307 en Bhossca 78676-78699 nieuw in Forever, Azure Key 50). Feiten:
+  `docs/forever/HUNTER_…` en `ROGUE_CLASSQUESTS_2026-11-17.md`. Nieuw in de module: `wait` op een quest (alleen later
+  aangeboden, hier na een brief van C) → stap "wacht op …" i.p.v. "haal de quest". Keuzes bouwchat (Rob mag omdraaien):
+  Zanzil-kuur NIET gebouwd (wie anders geneest houdt de regel), hunter 60 Ancient Leaf NIET (begint met een item),
+  Skyborne-Alliance-rogue op de Human-route (AFGELEID). NIET in het spel gezien (TESTLIJST 17 nov).
 - 🧪 **Nieuw hulpmiddel `run fcq_check`** (`tools/fcq_check.py` + `.lua`): laadt ForeverClassQuests.lua met nep-spelfuncties,
   loopt 9 classes × 10 rassen × levels 1-60 × alle queststanden, en checkt dat elke FCQ_-sleutel in enUS + nlNL staat.
   GEMETEN 17 nov: 149.941 runs, 0 fouten, 86 sleutels, controle OK. Bewijst dat de code draait, niet dat id's kloppen.

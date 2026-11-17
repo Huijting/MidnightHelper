@@ -82,6 +82,9 @@ for _, c in ipairs(cases) do
 				S.complete = comp
 				run(label .. " q" .. q, function() ns.ForeverClassQuestNow(); ns.ForeverClassQuestOverview() end)
 			end
+			-- Same, but nothing in the log: reaches "get" and "wait" steps after a done quest (17 Nov: e.wait).
+			S.log, S.complete = {}, false
+			run(label .. " after" .. q, function() ns.ForeverClassQuestNow(); ns.ForeverClassQuestGo() end)
 		end
 		S.done, S.log = {}, {}
 		for _, q in ipairs(ids) do S.done[q] = true end

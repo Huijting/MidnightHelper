@@ -28,6 +28,18 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 17 nov 2026 — Forever: Hunter en Rogue class-quests stap voor stap
+- Tag + commit:   geen tag / (deze commit, zie git log "Hunter and Rogue class quests")
+- Status:         alleen op main
+- Mag op de site: nee (nog niet uit)
+- Speler ziet:    Hunter: "Do this now" leidt je door het temmen van je eerste beesten (10, per ras, ook Human en
+                  Skyborne) en The Hunter's Charm (50). Rogue: Blade of Cunning (10), Thieves' Tools (16), Poisons (20),
+                  twee nieuwe Forever-opdrachten bij de Dead Drop (23, 30, met "wacht op de brief") en The Azure Key (50).
+                  *(niet in het spel getest)*
+- Knoplabels:     FCQ_BTN ("Show the way"), FCQ_HOWTO_HEAD ("Your class quests")
+- Commando's:     /mh classquest, /mh play
+- Spel:           Forever
+
 ## 17 nov 2026 — Forever: Warrior class-quests stap voor stap
 - Tag + commit:   geen tag / (deze commit, zie git log "Warrior class quests")
 - Status:         alleen op main

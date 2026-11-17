@@ -223,6 +223,10 @@ Stand 15 nov avond: 1 gebouwd (1f521e5), 2 gemeten, 3 rapport + A/B gebouwd (zie
 - ✅ Warrior class-quests GEBOUWD in en/nl (17 nov): Defensive Stance 10 (6 rasroutes + Skyborne), Berserker 30,
   Whirlwind-wapen 30 (pas na The Affray), Fallen Hero 50. Feiten `docs/forever/WARRIOR_CLASSQUESTS_2026-11-17.md`. NIET
   in het spel gezien. Open warrior: vertalingen, rollen, wapen-/pantservervolg op 10/20 (plekken onbekend).
+- ✅ Hunter + Rogue class-quests GEBOUWD in en/nl (17 nov, uitgezocht met Fable): hunter pet-quests 10 (6 routes, ook
+  Human en Skyborne nieuw in Forever) + Hunter's Charm 50; rogue Blade 10, Thieves' Tools 16, Poisons 20, Dead Drop-
+  ketens 23/30 (nieuw), Azure Key 50. NIET in het spel gezien. Open: vertalingen, rollen; hunter 60 (begint met een item),
+  rogue Zanzil-kuur (bewust niet: zou blijven staan).
 
 ### Forever: "Do this now" noemt de beste stats voor jou (solo + tank, dps/heal in gedachten)
 - Bron: Rob 16 nov (eerder die dag, letterlijk): *"wat ik ook graag wil weten in het schermpje Doe This Now … wat zijn
