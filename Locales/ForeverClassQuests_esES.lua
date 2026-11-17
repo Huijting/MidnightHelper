@@ -1,0 +1,329 @@
+local _, ns = ...
+--[[ Spanish (esES) texts for the Forever class quests (Modules/ForeverClassQuests.lua) and the Talented note,
+	17 Nov 2026. Translated from enUS by mh-writer. Every game name (item, NPC, monster, place, spell, quest) is the name
+	the esES client shows, measured in Blizzard data (wago DB2 1.60.1.70938 per locale, Wowhead Forever tooltips per
+	locale); a name that could not be measured stays English (see the comment at that line). Not reviewed by a native
+	speaker. Runs on esES and esMX clients (Locale.lua aliases esMX -> esES); ForeverClassQuests_esMX.lua then overwrites
+	the lines whose game words the Mexican client says differently. Fill rule as in Translations2026.lua. ]]
+if not ns.IS_FOREVER then
+	return
+end
+local loc = GetLocale()
+if loc ~= "esES" and loc ~= "esMX" then
+	return
+end
+local t = ns._mhLocales and ns._mhLocales.esES
+if not t then
+	return
+end
+local en = ns._mhLocales.enUS
+for k, v in pairs({
+	-- Warlock (brujo)
+	FCQ_OBJ_WL_POWERSVOID = "toma Poderes del vacío de los Libros robados de aquí",
+	FCQ_OBJ_WL_FEATHERCHARM = "derrota a Novicios Peloescarcha para conseguir 3 Talismán de plumas (la entrada de la cueva está en 26.8, 79.9)",
+	FCQ_OBJ_WL_FAMILIARHEAD = "derrota a Familiares viles para conseguir 6 Cabeza vil familiar",
+	FCQ_OBJ_WL_RATTLESKULL = "derrota a Esqueletos armadóseos para conseguir 3 Calavera armadósea",
+	FCQ_OBJ_WL_SURENA = "derrota a Surena Caledon para conseguir la Gargantilla de Surena",
+	-- "Alijo de la Legión Ardiente" is what Wowhead Forever esES gives for object 58595 (esMX: "Alijo del Filo Ardiente").
+	FCQ_OBJ_WL_VERGA = "toma la Tablilla de Verga del Alijo de la Legión Ardiente en la cueva (entrada en 55.0, 9.8)",
+	-- not measured: Perrine's Chest
+	FCQ_OBJ_WL_GRIMOIRE = "toma el Grimorio de Egalin del Perrine's Chest",
+	FCQ_OBJ_WL_BIND_VOID = "usa el objeto de misión de tus bolsas en el círculo de invocación y luego derrota al Abisario invocado",
+	FCQ_OBJ_WL_BIND_SUCC = "usa el objeto de misión de tus bolsas en el círculo de invocación y luego derrota al Súcubo invocado",
+	FCQ_OBJ_WL_BIND_INC = "usa el objeto de misión de tus bolsas en el círculo de invocación y luego derrota al Íncubo invocado",
+	FCQ_OBJ_WL_BIND_FEL = "usa el Libro del Conciliábulo de tus bolsas en el círculo de invocación y luego derrota al Manáfago invocado",
+	FCQ_OBJ_WL_HEARTSWOOD = "toma el Duramen de aquí",
+	-- not measured: Archaeologist's Cart
+	FCQ_OBJ_WL_FIGURINE = "toma la Antorcha apagada de la mesa de fuera, enciéndela en una hoguera (la tuya o la de La Ensenada de Zoram; arde 5 minutos), prende fuego al Archaeologist's Cart que está junto a la mesa y, cuando los dos arqueólogos salgan corriendo, toma la Figurilla de madera del piso de arriba",
+	FCQ_OBJ_WL_ESS_AZSHARA = "derrota a Sátiros Legashi para conseguir la Esencia de inferi impecable (Azshara)",
+	FCQ_OBJ_WL_ESS_JAEDENAR = "derrota a Legionarios Jaedenar para conseguir la Esencia de inferi impecable (Jaedenar)",
+	FCQ_OBJ_WL_ESS_PORTAL = "derrota a Argos guardia maldito para conseguir la Esencia de inferi impecable (Portal oscuro)",
+	FCQ_OBJ_WL_KROSHIUS = "usa aquí el Fuego inferi de tus bolsas para despertar a Kroshius y luego derrótalo para conseguir el Núcleo infernal de Kroshius",
+	FCQ_OBJ_WL_SCARF = "derrota a enemigos Sombramatorral alrededor del Lago Cielo Estrellado hasta que caiga un Pañuelo deshilachado (más o menos 1 de cada 20)",
+	FCQ_OBJ_WL_DALIN = "derrota a Dalin Forjador para conseguir el Corazón de Dalin",
+	FCQ_OBJ_WL_CORMA = "derrota a Corma Villardo para conseguir el Corazón de Corma",
+	FCQ_OBJ_WL_AVELINA = "consigue aquí el Corazón de Avelina",
+	FCQ_OBJ_WL_ISAAC = "consigue aquí el Corazón de Isaac",
+	FCQ_OBJ_WL_MOLDYTOME = "toma el Escrito mohoso de aquí",
+	FCQ_OBJ_WL_MANUSCRIPT = "toma el Manuscrito andrajoso del Cofre dañado en la cueva (entrada en 44.1, 37.3)",
+	FCQ_OBJ_WL_RODS = "derrota a Guardahuesos Faucedraco y Pastores Faucedraco para conseguir 3 Vara de Mediación",
+	FCQ_OBJ_WL_BEASTBLOOD = "derrota a lechubestias para conseguir 30 Sangre de bestia enfurecida (también en la cueva de 65.0, 18.8)",
+	FCQ_OBJ_WL_ELIXIR = "trae 10 Elixir de poder de las Sombras (Alquimia o la Casa de subastas)",
+	FCQ_OBJ_WL_SHARDS = "trae 6 Fragmento luminoso grande",
+	-- "Hierro Negro" is the esES ItemSparse name of Dark Iron Ore (11099 and 11370), measured.
+	FCQ_OBJ_WL_IRONORE = "trae 25 Hierro Negro",
+	FCQ_OBJ_WL_DRAGONSCALE = "trae 35 Escamas de dragón negro",
+	FCQ_OBJ_WL_ARCANITE = "trae 3 Lingote de arcanita",
+	FCQ_OBJ_WL_ULATHEK = "habla con Ulathek y luego derrótalo para conseguir El corazón del traidor",
+	FCQ_OBJ_WL_STARDUST = "compra Polvo estelar xorotiano a Ur'dan",
+	FCQ_OBJ_WL_IMPJAR = "en la mazmorra Scholomance (necesitas un grupo), usa el Diablillo en una jarra en el laboratorio de alquimia",
+	-- not measured: the wing name "West" (AreaTable has only "La Masacre")
+	FCQ_OBJ_WL_RITUAL = "en la mazmorra La Masacre, ala oeste (necesitas un grupo), usa los objetos de Gorzeeki Ojosalvajes para el ritual y luego derrota al Corcel de la Muerte Xorothiano",
+	-- Warrior (guerrero)
+	FCQ_CHAIN_WR_WHIRLWIND = "El arma espirálica (un hacha, una espada o un martillo)",
+	FCQ_CHAIN_WR_FALLENHERO = "Las misiones del Héroe caído de la Horda (objetos como recompensa)",
+	FCQ_OBJ_WR_BEATBARTLEBY = "vence a Bartleby: te ataca enseguida",
+	FCQ_OBJ_WR_VEJREK = "derrota a Vejrek en la cabaña para conseguir la Cabeza de Vejrek",
+	FCQ_OBJ_WR_VORLUS = "derrota a Vorlus Pezuñavil para conseguir el Cuerno de Vorlus",
+	FCQ_OBJ_WR_SCALES = "derrota a Truenagartos para conseguir 5 Escama chamuscada",
+	-- not measured: Mausoleum Trigger
+	FCQ_OBJ_WR_ULAG = "haz clic en la piedra con calavera (Mausoleum Trigger) junto al mausoleo y luego derrota a Ulag el Cuchillero",
+	FCQ_OBJ_WR_ZAAL = "derrota a Zaal Escudo de Tormenta para conseguir el Baluarte Rompecielos",
+	FCQ_OBJ_WR_AFFRAY = "pisa la reja: derrota a seis Contendientes de La Reyerta, uno a uno, y luego a Will el Grande",
+	FCQ_OBJ_WR_LIFEROOT = "necesitas 8 Vidarraíz (una hierba: recógela con Herboristería o cómprala en la Casa de subastas)",
+	FCQ_OBJ_WR_TUSKS = "derrota a trols Sangrapellejo para conseguir 30 Colmillo Sangrapellejo",
+	FCQ_OBJ_WR_CHARM_BURNING = "derrota a Exiliados ardientes para conseguir 8 Talismán ardiente (más tarde los entregas en la Caldera de Bath'rah)",
+	FCQ_OBJ_WR_CHARM_THUNDERING = "derrota a Exiliados tronadores para conseguir 8 Talismán del trueno",
+	-- "Éxilu coronador" (npc 2761) is spelled so on Wowhead Forever esES; kept as measured.
+	FCQ_OBJ_WR_CHARM_CRESTING = "derrota a enemigos Éxilu coronador para conseguir 8 Talismán blasonado",
+	FCQ_OBJ_WR_ESSENCE = "lleva los 24 talismanes a la Caldera de Bath'rah para conseguir la Esencia del exilio",
+	FCQ_OBJ_WR_CYCLONIAN = "sigue a Bath'rah: invoca aquí a Ciclonio; derrótalo para conseguir el Corazón espirálico (un élite de nivel 40: lleva ayuda)",
+	FCQ_OBJ_WR_HELBOAR = "derrota a 7 Jabinfernos",
+	FCQ_OBJ_WR_ADEPT = "derrota a 20 Adeptos Sombraída",
+	FCQ_OBJ_WR_CULTIST = "derrota a 10 Fieles Sombraída",
+	FCQ_OBJ_WR_THUG = "derrota a 20 Matones Sombraída",
+	FCQ_OBJ_WR_FEATHER_AMBER = "en la mazmorra Templo Sumergido (necesitas un grupo), consigue 2 Pluma vudú ámbar",
+	FCQ_OBJ_WR_FEATHER_BLUE = "en el Templo Sumergido, consigue 2 Pluma de vudú azul",
+	FCQ_OBJ_WR_FEATHER_GREEN = "en el Templo Sumergido, consigue 2 Pluma de vudú verde",
+	-- Hunter (cazador)
+	FCQ_CHAIN_HU_CHARM = "Las misiones de El talismán del cazador (objetos como recompensa)",
+	FCQ_OBJ_HU_WEBWOOD = "usa la Fusta de domador de tus bolsas en un Rondador Tejemadera y quédate cerca hasta que esté domado",
+	FCQ_OBJ_HU_NIGHTSABER = "usa la Fusta de domador de tus bolsas en un Acechador sable de la noche y quédate cerca hasta que esté domado",
+	FCQ_OBJ_HU_SCREECHER = "usa la Fusta de domador de tus bolsas en un Estridador estrígido y quédate cerca hasta que esté domado",
+	FCQ_OBJ_HU_CRAGBOAR = "usa la Fusta de domador de tus bolsas en un Grande jabalí del risco y quédate cerca hasta que esté domado",
+	FCQ_OBJ_HU_SNOWLEOPARD = "usa la Fusta de domador de tus bolsas en un Leopardo de la nieve y quédate cerca hasta que esté domado",
+	FCQ_OBJ_HU_ICECLAW = "usa la Fusta de domador de tus bolsas en un Oso zarpahelada y quédate cerca hasta que esté domado",
+	FCQ_OBJ_HU_ROCKHIDE = "usa la Fusta de domador de tus bolsas en un Jabalí Ocultorroca y quédate cerca hasta que esté domado",
+	FCQ_OBJ_HU_GRAYWOLF = "usa la Fusta de domador de tus bolsas en un Lobo gris del bosque y quédate cerca hasta que esté domado",
+	FCQ_OBJ_HU_FORESTBEAR = "usa la Fusta de domador de tus bolsas en un Oso del bosque joven y quédate cerca hasta que esté domado",
+	FCQ_OBJ_HU_DIREBOAR = "usa la Fusta de domador de tus bolsas en un Jabalí jaspeado feroz y quédate cerca hasta que esté domado",
+	FCQ_OBJ_HU_SURFCRAWLER = "usa la Fusta de domador de tus bolsas en un Correspuma y quédate cerca hasta que esté domado",
+	FCQ_OBJ_HU_SCORPID = "usa la Fusta de domador de tus bolsas en un Escórpido acorazado y quédate cerca hasta que esté domado",
+	FCQ_OBJ_HU_PLAINSTRIDER = "usa la Fusta de domador de tus bolsas en un Zancudo de llanura adulto y quédate cerca hasta que esté domado",
+	FCQ_OBJ_HU_STALKER = "usa la Fusta de domador de tus bolsas en un Acechador de pradera y quédate cerca hasta que esté domado",
+	FCQ_OBJ_HU_SWOOP = "usa la Fusta de domador de tus bolsas en un Aguilón y quédate cerca hasta que esté domado",
+	FCQ_OBJ_HU_WINDSONG = "usa la Fusta de domador de tus bolsas en un Reptador Canzalvaje (un cangrejo, cerca del agua) y quédate cerca hasta que esté domado",
+	FCQ_OBJ_HU_GALESTRIDER = "usa la Fusta de domador de tus bolsas en un Zancavendavales malhumorado (un pájaro grande que camina) y quédate cerca hasta que esté domado",
+	-- Vuldren Alpha: npc id not known; name from the esES text of quest 94013 on Wowhead Forever ("vuldren alfa").
+	FCQ_OBJ_HU_VULDREN = "usa la Fusta de domador de tus bolsas en un vuldren alfa (un zorro con alas) y quédate cerca hasta que esté domado",
+	FCQ_OBJ_HU_ANTLERS = "derrota a Maledictores Pezuñamusgo para conseguir 2 Cuernos perfectos",
+	FCQ_OBJ_HU_SCALES = "derrota a Vándalos marinos en el agua para conseguir 6 Escamas de vándalo marino",
+	FCQ_OBJ_HU_MORPHAZ = "en la mazmorra Templo Sumergido (necesitas un grupo), derrota a Morphaz para conseguir el Diente de Morphaz",
+	-- Rogue (pícaro)
+	FCQ_CHAIN_RO_BLADE = "Hoja de Astucia (una daga)",
+	FCQ_CHAIN_RO_TOOLS = "Herramientas de ladrón (para Ganzúa)",
+	FCQ_CHAIN_RO_XELTHOS = "Cuerno de Xelthos (un anillo)",
+	FCQ_CHAIN_RO_BHOSSCA = "Ojo de Bhossca (una espada)",
+	FCQ_CHAIN_RO_AZURE = "Llave azur",
+	FCQ_OBJ_RO_SCHEDULE = "usa Robar en el Maestro de embarcadero Defias para conseguir el horario de envíos (matarlo no da nada)",
+	FCQ_OBJ_RO_SETHIR = "usa Robar en Sethir el Ancestro para conseguir el Diario de Sethir (no lo ataques)",
+	FCQ_OBJ_RO_TAZAN = "derrota a Tazan y toma su cartera",
+	FCQ_OBJ_RO_TAZANKEY = "usa Robar en Gamon, en la posada, para conseguir la Llave de Tazan",
+	FCQ_OBJ_RO_LOGBOOK = "usa la llave en la Cartera de Tazan de tus bolsas",
+	FCQ_OBJ_RO_ASTOR = "habla con Astor Hadren en el camino, elige las dos respuestas y luego derrótalo para conseguir la carta",
+	FCQ_OBJ_RO_LEDGER = "toma el Libro de contabilidad de Andron de la estantería que hay detrás de él",
+	FCQ_OBJ_RO_LUCIUSBOX = "practica con las cajas fuertes y luego abre el Arcón de Lucius",
+	FCQ_OBJ_RO_GIZMO = "toma un G.E.A.Q. y unas Herramientas de ladrón de la máquina de Desdio",
+	-- not measured: The Jewel of the Southsea
+	FCQ_OBJ_RO_SOUTHSEA = "abre el cofre de The Jewel of the Southsea (el barco), usa el G.E.A.Q. en Polly y luego derrota a Polly",
+	FCQ_OBJ_RO_TOWERKEY = "usa Robar en el Zángano defias deformado para conseguir la llave de la torre",
+	-- not measured: Duskwood Chest
+	FCQ_OBJ_RO_JOURNAL = "abre el Duskwood Chest en lo alto de la torre",
+	FCQ_OBJ_RO_SALUTE = "espera a que Shenthul te salude y luego escribe /salute hacia él",
+	FCQ_OBJ_RO_FLARE = "dispara dos veces la Pistola de bengalas y luego escribe /salute hacia el Capataz Burbujita",
+	FCQ_OBJ_RO_SILIXIZ = "usa Robar en el Supervisor Silixiz para conseguir la llave de la torre",
+	FCQ_OBJ_RO_DRONES = "derrota a 2 Zánganos mutados de Ventura y Cía.",
+	FCQ_OBJ_RO_PATROLLERS = "derrota a 2 Patrullas de Ventura y Cía.",
+	FCQ_OBJ_RO_LOOKOUTS = "derrota a 2 Vigías de Ventura y Cía.",
+	FCQ_OBJ_RO_GALLYWIX = "derrota al Gran Supervisor Puzik Gallywix (élite) para conseguir su cabeza",
+	-- not measured: Gallywix's Lockbox. "Carretilla de mezcla modificada de Zanzil" = the quest's cache (quest 2478, Wowhead Forever esES).
+	FCQ_OBJ_RO_CACHE = "fuerza la cerradura de Gallywix's Lockbox para conseguir la Carretilla de mezcla modificada de Zanzil",
+	FCQ_OBJ_RO_CURE = "espera mientras Serge Hinott termina la cura",
+	-- not measured: Goblin Lockpicks
+	FCQ_OBJ_RO_VEENIX = "busca a Veenix: toma las Goblin Lockpicks, usa Robar en un Leñero de Ventura y Cía. para conseguir un Pedido de Ventura y Cía. y entrégalo a cambio de la Carga de irrupción",
+	FCQ_OBJ_RO_HORN = "entra solo en el Castillo de Colmillo Oscuro y saca el Cuerno de Xelthos",
+	FCQ_OBJ_RO_EYE = "entra solo en el Monasterio Escarlata y saca el Ojo de Bhossca",
+	FCQ_OBJ_RO_AZUREBAG = "consigue la Bolsa azur sellada de un Chamán Fauces de Madera",
+	FCQ_OBJ_RO_FRAGMENTS = "consigue 10 Fragmento codificado de Mocos del bosque",
+	FCQ_OBJ_RO_AZUREKEY = "en la mazmorra Templo Sumergido (necesitas un grupo), consigue la Llave azur de Morphaz",
+	FCQ_WAIT_RO_LETTER = "espera una carta de C en tu buzón (de un cuarto de hora a dos horas) y luego vuelve al Escondite secreto",
+	-- Shaman (chamán)
+	FCQ_CHAIN_SH_AIR = "El Tótem de aire (tus tótems de aire lo necesitan)",
+	FCQ_CHAIN_SH_MASTERY = "Las misiones de Bath'rah (objetos como recompensa)",
+	-- "Capucha de acechador vil" is the esES ItemSparse name of Felstalker Hoof (6640), measured (esMX: "Pezuña de acechador vil").
+	FCQ_OBJ_SH_HOOVES = "derrota a Acechadores viles dentro y alrededor de la cueva para conseguir 2 Capucha de acechador vil",
+	FCQ_OBJ_SH_SALVE = "derrota a Chamanes Lomopelo para conseguir 2 Ungüento de ritual",
+	FCQ_OBJ_SH_PENDANTS = "derrota a Crías de trol Peloescarcha para conseguir 2 Colgante de oso garrahielo",
+	FCQ_OBJ_SH_SIGNET = "derrota a Convertidos Al'Aketh para conseguir un Sello de Akir",
+	FCQ_OBJ_SH_EARTHSAPTA = "sube hasta la piedra de espíritu, bebe la Sapta de tierra de tus bolsas y luego habla con la Manifestación de tierra menor",
+	-- not measured: Razormane (and the word for quilboar)
+	FCQ_OBJ_SH_FIRETAR_H = "derrota a jabaespines Razormane para conseguir Alquitrán",
+	FCQ_OBJ_SH_POUCH_H = "en la cueva (entrada en 52.8, 28.8), derrota a Fieles Filo Ardiente para conseguir una Faltriquera de componentes",
+	FCQ_OBJ_SH_FIRETAR_A = "en la Mina de Fuenteplata, derrota a Geománticos Ratatúnel para conseguir Alquitrán",
+	FCQ_OBJ_SH_POUCH_A = "derrota a Profetas Rompecantos para conseguir una Faltriquera de componentes (hay muchos troggs: lleva ayuda)",
+	FCQ_OBJ_SH_EMBER = "arriba del todo, bebe la Sapta de fuego de tus bolsas y derrota a la Manifestación de fuego menor para conseguir el Ascua resplandeciente",
+	FCQ_OBJ_SH_FALADIEL = "derrota al Sacerdote del cielo Faladiel para conseguir el Corazón de Faladiel",
+	-- not measured: Kuramaa's Stump
+	FCQ_OBJ_SH_KURAMAA = "haz clic en Kuramaa's Stump y luego derrota a Kuramaa para conseguir la Máscara de Kuramaa (solo el fuego le hace daño: aprende primero Choque de llamas)",
+	-- not measured: Eternal Flame
+	FCQ_OBJ_SH_RITUAL = "espera a que Olariaan Ardeveloz encienda la Eternal Flame y luego usa la Antorcha de la Llama eterna de tus bolsas (no se mueve de su sitio)",
+	-- not measured: Brazier of Eternal Flame
+	FCQ_OBJ_SH_ETERNAL = "date prisa (hay un temporizador): enciende el Brazier of Eternal Flame",
+	FCQ_OBJ_SH_SKIN_BROWN_H = "usa el odre marrón vacío de tus bolsas en el agua de aquí",
+	FCQ_OBJ_SH_SKIN_RED_H = "usa el odre rojo vacío de tus bolsas en el pozo de Molino Tarren",
+	FCQ_OBJ_SH_SKIN_BLUE_H = "usa el odre azul vacío de tus bolsas en la fuente de aquí",
+	FCQ_OBJ_SH_SKIN_BROWN_A = "usa el odre marrón en el lago justo debajo de la cueva de Hervdana",
+	FCQ_OBJ_SH_SKIN_RED_A = "usa el odre rojo al pie de las Cascadas Petravista, donde están los múrlocs",
+	FCQ_OBJ_SH_SKIN_BLUE_A = "usa el odre azul en el lago que rodea Astranaar (barco del Puerto de Menethil a Auberdine)",
+	FCQ_OBJ_SH_BRACERS = "bebe aquí la Sapta de agua de tus bolsas y luego derrota a la Manifestación menor de agua corrupta para conseguir los Brazales de manifestaciones corruptas",
+	FCQ_OBJ_SH_ELEM_AIR = "trae 1 Elemental de aire (cae de enemigos, o cómpralo en la Casa de subastas)",
+	FCQ_OBJ_SH_ELEM_FIRE = "trae 1 Elemental de Fuego (cae de enemigos, o cómpralo en la Casa de subastas)",
+	FCQ_OBJ_SH_ELEM_EARTH = "trae 1 Elemental de tierra (cae de enemigos, o cómpralo en la Casa de subastas)",
+	FCQ_OBJ_SH_ELEM_WATER = "trae 1 Elemental de agua (cae de enemigos, o cómpralo en la Casa de subastas)",
+	FCQ_OBJ_SH_SPIDEREYE = "derrota a arañas para conseguir 8 Ojo de araña tiro de sangre",
+	FCQ_OBJ_SH_CLAW = "derrota a enemigos de aquí para conseguir 8 Garra negra gruesa",
+	-- Priest (sacerdote)
+	FCQ_CHAIN_PR_ROBE = "Tu primera toga de sacerdote",
+	FCQ_CHAIN_PR_CENARION = "Las misiones de Ogtinc (objetos como recompensa)",
+	FCQ_OBJ_PR_ROBERTS = "sana a Guardia Roberts con Curación inferior (Rango 2) y luego lánzale Palabra de poder: entereza",
+	FCQ_OBJ_PR_DOLF = "sana a Montaraz Dolf con Curación inferior (Rango 2) y luego lánzale Palabra de poder: entereza",
+	FCQ_OBJ_PR_SHAYA = "sana a Centinela Shaya con Curación inferior (Rango 2) y luego lánzale Palabra de poder: entereza",
+	FCQ_OBJ_PR_KORJA = "sana a Bruto Kor'ja con Curación inferior (Rango 2) y luego lánzale Palabra de poder: entereza",
+	FCQ_OBJ_PR_KEL = "sana a Guardia de la Muerte Kel con Curación inferior (Rango 2) y luego lánzale Palabra de poder: entereza",
+	FCQ_OBJ_PR_GLANDS = "derrota a Maledictores Pezuñamusgo para conseguir 4 Glándula de corcel sano",
+	FCQ_OBJ_PR_ICHOR = "derrota a Altonatos sufridos o Altonatos angustiosos para conseguir 1 Icor de no-muerto (cae pocas veces)",
+	FCQ_OBJ_PR_MORPHAZ = "en la mazmorra Templo Sumergido (necesitas un grupo), derrota a Morphaz para conseguir la Sangre de Morphaz",
+	-- Paladin (paladín)
+	FCQ_USE_ITEM_FMT = "usa %s de tus bolsas: empieza la siguiente misión.",
+	FCQ_CHAIN_PA_VERIGAN = "Puño de Verigan (una maza de dos manos)",
+	FCQ_CHAIN_PA_VERIGAN_ORE = "Puño de Verigan: el mineral de Bailor",
+	FCQ_CHAIN_PA_VERIGAN_GEM = "Puño de Verigan: la Gema kor",
+	FCQ_CHAIN_PA_MIGHTSTONE = "Las misiones del Comandante Ashlam Puñovalor (objetos como recompensa)",
+	FCQ_CHAIN_PA_KEEP = "Las misiones del Castillo Bandarion (una maza y un escudo)",
+	-- not measured: Wolfsbane (item 267369 is not in the local ItemSparse)
+	FCQ_CHAIN_PA_WOLFSBANE = "Wolfsbane (una espada de dos manos)",
+	-- not measured: Wolfsbane
+	FCQ_CHAIN_PA_WOLFSBANE_GEM = "Wolfsbane: la Gema kor",
+	FCQ_OBJ_PA_LINEN = "trae 10 Paño de lino (cae de humanoides, o cómpralo en la Casa de subastas)",
+	FCQ_OBJ_PA_RESURRECT = "usa el Símbolo de Vida de tus bolsas en el cuerpo de aquí",
+	FCQ_OBJ_PA_DEFIAS_SCRIPT = "derrota a Zahoríes bribones Defias para conseguir el Pergamino Defias",
+	FCQ_OBJ_PA_DARKIRON_SCRIPT = "derrota a Espías Hierro Negro para conseguir el Guión Hierro Negro",
+	FCQ_OBJ_PA_DEFEND_DAPHNE = "protege a Daphne Fontana: llegan tres oleadas de Asaltantes Defias (3, 4 y 5: lleva ayuda)",
+	-- not measured: Bailor's Ore (the crate)
+	FCQ_OBJ_PA_ORECRATE = "saquea Bailor's Ore, una caja junto a un tocón (hay ogros élite alrededor: lleva ayuda)",
+	FCQ_OBJ_PA_KORGEM = "consigue una Gema kor corrupta de los nagas de las Cavernas de Brazanegra (son élites: lleva ayuda)",
+	-- not measured: the quest Bailor's Ore Shipment
+	FCQ_OBJ_PA_ORE = "necesitas el Envío de mineral refinado de Jordan: haz aquí la misión Bailor's Ore Shipment",
+	-- not measured: the quest Seeking the Kor Gem
+	FCQ_OBJ_PA_PURIFIEDGEM = "necesitas una Gema kor purificada: haz aquí la misión Seeking the Kor Gem",
+	FCQ_OBJ_PA_LUMBER = "en la mazmorra Las Minas de la Muerte (necesitas un grupo), derrota a Tallamaderas goblin para conseguir Madera de roble de Piedrablanca",
+	FCQ_OBJ_PA_HAMMER = "en la mazmorra Castillo de Colmillo Oscuro (necesitas un grupo), toma el Martillo de herrería de Jordan en el establo",
+	FCQ_OBJ_PA_SCOURGESTONES = "derrota a no-muertos para conseguir 20 Piedra de la Plaga de esbirro",
+	-- Terrordale Spirit: name from the esES requirement of quest 7640 on Wowhead Forever.
+	FCQ_OBJ_PA_TERRORDALE = "usa el Incensario de exorcismo en los círculos verdes y derrota a 25 Espíritus del Valle del Terror (lleva ayuda)",
+	-- not measured: Supply Crates
+	FCQ_OBJ_PA_HOLYWATER = "en la mazmorra Stratholme (necesitas un grupo), abre Supply Crates para conseguir 5 Agua bendita de Stratholme",
+	FCQ_OBJ_PA_ARTHAS = "trae 10 Lágrimas de Arthas (una hierba: recógela con Herboristería o cómprala en la Casa de subastas)",
+	FCQ_OBJ_PA_RUNECLOTH = "trae 40 Paño rúnico",
+	FCQ_OBJ_PA_ARCANITE = "trae 6 Lingote de arcanita y 150 de oro",
+	-- "Alimento paca caballos …" is the esES ItemSparse name of item 18775 as Blizzard wrote it (measured).
+	FCQ_OBJ_PA_HORSEFEED = "trae aquí 20 Galleta de maná enriquecido (intendente del Alba Argenta, desde Amistoso) y 50 de oro: esta misión da el Alimento paca caballos con maná enriquecido. Luego derrota a Tendris Madeguerra en La Masacre, ala oeste (necesitas un grupo)",
+	FCQ_OBJ_PA_AZEROTHIAN = "trae un Diamante de Azeroth (de Minería, o cómpralo en la Casa de subastas)",
+	FCQ_OBJ_PA_BLACKDIAMOND = "trae un Diamante negro prístino (cae pocas veces en mazmorras de nivel alto, o cómpralo en la Casa de subastas)",
+	FCQ_OBJ_PA_SATCHEL = "abre la bolsa que tienes en tus bolsas: dentro están el Arúspice y la barda",
+	-- not measured: Great Ossuary
+	FCQ_OBJ_PA_SCRYER = "en la mazmorra Scholomance (necesitas un grupo), usa el Arúspice en el sótano del Great Ossuary después de Traquesangre y luego derrota a los espíritus y al Caballero de la Muerte Atracoscuro",
+	FCQ_OBJ_PA_HEAL_DEATHGUARDS = "sana a 5 Guardias de la Muerte heridos con Luz Sagrada (también te hace daño a ti: vigila tu salud)",
+	FCQ_OBJ_PA_VILEFIN_ATTACKERS = "derrota a 8 Atacantes Anca Vil",
+	FCQ_OBJ_PA_VILEFIN_SEERS = "derrota a 8 Videntes Anca Vil",
+	FCQ_OBJ_PA_TOUR_JORIN = "habla con Jorin Croge (dentro)",
+	FCQ_OBJ_PA_TOUR_HILDA = "habla con Hilda la Rompedora (va caminando por la zona)",
+	FCQ_OBJ_PA_TOUR_ANDER = "habla con Ander Solliden",
+	FCQ_OBJ_PA_TOUR_DANITHA = "habla con Danitha Morr (en el piso de arriba)",
+	-- not measured: Lumber Piles
+	FCQ_OBJ_PA_STURDY_LUMBER = "recoge 12 Madera recia de los Lumber Piles de la cripta",
+	FCQ_OBJ_PA_GELHARDT = "derrota a Rudolph Gelhardt (en el piso de arriba de la casa) para conseguir su cabeza",
+	FCQ_OBJ_PA_DRUDGES = "derrota a 8 Braceros mancillados",
+	FCQ_OBJ_PA_ZEALOTS = "derrota a 6 Zelotes mancillados",
+	FCQ_OBJ_PA_ATTACK_PLANS = "derrota a Frailes Escarlata e Integristas Escarlata para conseguir los Planes de ataque de la Cruzada Escarlata",
+	FCQ_OBJ_PA_FENRIS_KEY = "derrota a gnolls Putrepellejo para conseguir la Llave de la Isla de Fenris y libera a Lumina Vientocantor",
+	FCQ_OBJ_PA_ESCORT_LUMINA = "camina con Lumina Vientocantor y mantenla con vida hasta que salga del Castillo de Fenris",
+	FCQ_OBJ_PA_TALK_LUMINA = "habla con Lumina Vientocantor",
+	FCQ_OBJ_PA_WEAPON_NOTES = "habla con Trevan Rol para conseguir los Apuntes sobre armas de Trevan",
+	FCQ_OBJ_PA_SILVER_INGOT = "en la mazmorra Castillo de Colmillo Oscuro (necesitas un grupo), consigue el Lingote de plata encantado",
+	FCQ_OBJ_PA_WATCH_OTT = "mira cómo Ott forja la hoja",
+	FCQ_OBJ_PA_OLD_FIREEYE = "derrota al Viejo Ojofuego con la Hoja de plata lunar (un huargen élite de nivel 25 que ronda cerca de La Muralla de Cringrís: lleva ayuda)",
+	-- Mage (mago)
+	FCQ_CHAIN_MA_FOCUS = "Tu primer bastón u orbe",
+	FCQ_CHAIN_MA_WINDBOUGH = "Varita de ramaviento (una varita)",
+	FCQ_CHAIN_MA_ROBE_A = "Toga Tejemaná (una toga)",
+	FCQ_CHAIN_MA_ROBE_H = "Togas inferiores del fuegohechizo (una toga)",
+	FCQ_CHAIN_MA_GARMENT_A = "Prendas de nudo astral (una toga o una blusa)",
+	FCQ_CHAIN_MA_GARMENT_H = "Prendas de encaje abisal (una toga o una túnica)",
+	FCQ_CHAIN_MA_STUDY = "Estudiar (pergaminos gratis de la biblioteca, una vez por hora)",
+	FCQ_CHAIN_MA_ITEMS = "Objetos de poder (lo necesitas para Varitas de mago)",
+	FCQ_CHAIN_MA_WAND = "Varitas de mago (una varita de escarcha, arcana o de fuego)",
+	FCQ_CHAIN_MA_CELESTIAL = "Poder celestial (un orbe o un bastón)",
+	-- not measured: A Lesson in Literacy (quest 82084 is [bracketed] on Wowhead Forever esES)
+	FCQ_CHAIN_MA_SPELLBOOK = "A Lesson in Literacy (el Libro de hechizos personal, para tu mano secundaria)",
+	FCQ_CHAIN_MA_MAGECRAFT = "Pura magia (las misiones del Archimago Xylem)",
+	FCQ_CHAIN_MA_WATER = "Conjurar agua (Rango 7)",
+	-- Spell 28272 is just "Polimorfia" in SpellName esES; ": cerdo" is our own word for the pig.
+	FCQ_CHAIN_MA_PIG = "Polimorfia: cerdo",
+	FCQ_OBJ_MA_MIRRORLAKE = "ponte bajo la cascada del Lago Espejo y usa el Frasco de Jennea de tus bolsas",
+	-- not measured: Leper Gnome
+	FCQ_OBJ_MA_GIZMONITOR = "toma el Trastónitor maguitronic de la Caja de herramientas de Bink: una cajita gris en la cabaña más alta al norte de la puerta de Gnomeregan (la vigilan Leper Gnomes)",
+	FCQ_OBJ_MA_BOUGH = "recoge del suelo una Rama imbuida de viento junto al santuario del viento (no brilla)",
+	-- not measured: Ju-Ju Heap
+	FCQ_OBJ_MA_JUJU = "en la isla grande de las Islas del Eco, haz clic en 4 Ju-Ju Heaps: los montones de calaveras dentro de las cabañas",
+	FCQ_OBJ_MA_SNAPDRAGONS = "recoge las Bocas de dragón de Balnir en el huerto de la granja (parecen arbustos; no necesitas Herboristería)",
+	FCQ_OBJ_MA_COFFERCHEST = "toma el Cofre de arcas de contención: está justo detrás del instructor",
+	FCQ_OBJ_MA_CANTATION = "toma el Canto de Manifestación: el pergamino que está justo detrás del instructor",
+	-- not measured: The Blue Recluse
+	FCQ_OBJ_MA_COFFERS_A = "en The Blue Recluse (la taberna, mejor en el sótano) usa el Canto de Manifestación, golpea a una Cría del risco hasta que se quede aturdida, usa en ella el Cofre de arcas de contención y haz clic en el Arca de contención llena del suelo. Necesitas 3; el Canto funciona una vez cada 5 minutos",
+	FCQ_OBJ_MA_COFFERS_H = "en el puente delante de la tienda del alquimista usa el Canto de Manifestación, golpea a una Cría del risco hasta que se quede aturdida, usa en ella el Cofre de arcas de contención y haz clic en el Arca de contención llena del suelo. Necesitas 3; el Canto funciona una vez cada 5 minutos",
+	-- not measured: Miners' League Crates
+	FCQ_OBJ_MA_RIFTGEMS = "en la Mina de Fuenteplata, abre las pilas altas de Miners' League Crates para conseguir 6 Gema cargada de la falla",
+	FCQ_OBJ_MA_MANAGEMS = "derrota a magos de Dalaran alrededor de Molino Ámbar para conseguir 6 Gema de maná Dalaran",
+	FCQ_OBJ_MA_LINEN = "también necesitas 10 Paño de lino (cae de humanoides, o cómpralo en la Casa de subastas)",
+	FCQ_OBJ_MA_TREATISE = "sube al último piso de la Torre de Ilgalar y toma de la estantería el Tratado de Ur sobre la magia de las Sombras",
+	FCQ_OBJ_MA_SILK = "derrota a arañas en el Cementerio del Cerro del Cuervo para conseguir 8 Seda de araña prístina (los Ermitaños carroñeros son los que más la sueltan)",
+	FCQ_OBJ_MA_XAVIAN = "nada hasta debajo de la cascada más alta de Xavian y usa el Frasco de Deino de tus bolsas",
+	-- not measured: Laughing Sister (the monster)
+	FCQ_OBJ_MA_SISTERS = "derrota a Laughing Sisters (dríadas) para conseguir 12 Cabello de la Hermana sonriente",
+	FCQ_WAIT_MA_BOOK = "primero lleva cualquier libro de la biblioteca al bibliotecario (los libros están en mesas y estanterías por el mundo). Después de tu primer libro, el bibliotecario te ofrece Acceso a la investigación",
+	FCQ_OBJ_MA_STICKS = "derrota a Trols Secacorteza para conseguir 10 Palo de tótem Secacorteza",
+	FCQ_OBJ_MA_BRAMBLE = "acaba con los elementales y luego usa un Palo de tótem Secacorteza de tus bolsas en la piedra del centro del Círculo de Vínculo Exterior. Espera unos diez segundos y haz clic en la Zarza electrificada",
+	FCQ_OBJ_MA_JADE = "también necesitas 1 Jade (una gema: los mineros la encuentran, o cómprala en la Casa de subastas)",
+	FCQ_OBJ_MA_PLUCKY = "selecciona a \"Desplumado\" Johnson (un pollito), escribe /beckon y luego habla con él y pídele la frase",
+	-- not measured: the wing name "Library"
+	FCQ_OBJ_MA_RITUALS = "en la mazmorra Monasterio Escarlata, Biblioteca (necesitas un grupo), toma el libro Rituales de Poder de la estantería de la izquierda en el último pasillo largo",
+	FCQ_WAIT_MA_RITUAL = "entrega Rituales de Poder y Objetos de poder, espera unos segundos al ritual de Tabetha y luego acepta su misión Varitas de mago",
+	FCQ_OBJ_MA_ORB = "derrota a Invocadores Filo Ardiente para conseguir el Orbe infernal",
+	FCQ_OBJ_MA_DEMON = "derrota al Demonio del orbe en el jardín de Tabetha: un élite de nivel 40, y la misión tiene un temporizador (lleva ayuda o pociones)",
+	FCQ_OBJ_MA_POWERSOURCE = "en la mazmorra Uldaman (necesitas un grupo; esta puerta trasera es la más cercana), derrota al Centinela Obsidiano para conseguir la Fuente de poder obsidiano",
+	FCQ_OBJ_MA_SURGES = "derrota a 12 Oleadas de maná junto a la casa de Tabetha antes de que se acabe el tiempo",
+	-- not measured: Savage Owlbeast
+	FCQ_OBJ_MA_QUILL = "derrota a lechubestias para conseguir 1 Pluma de lechubestia prístina (los Savage Owlbeasts son los que más la sueltan)",
+	FCQ_OBJ_MA_RESIN = "derrota a insectos Zukk'ash en Las Galerías Retorcidas para conseguir 5 Resina de Zukk'ash",
+	-- not measured: Shallow Grave
+	FCQ_OBJ_MA_PAPYRUS = "en la mazmorra Zul'Farrak (necesitas un grupo), consigue 8 Papiro farraki de las Shallow Graves y de los zombis que salen de ellas",
+	-- not measured: Blood Elf Surveyor, Blood Elf Reclaimer
+	FCQ_OBJ_MA_DUST = "derrota a Blood Elf Surveyors y Reclaimers para conseguir 10 Polvo relumbrante",
+	FCQ_OBJ_MA_CORAL = "derrota a Sirenas Látigo de Ira para conseguir 6 Coral encantado",
+	FCQ_OBJ_MA_SHARD = "en la mazmorra Templo Sumergido (necesitas un grupo), consigue el Fragmento Arcano de Morphaz",
+	-- not measured: the wing name "East" (AreaTable has only "La Masacre")
+	FCQ_OBJ_MA_HYDROSPAWN = "en la mazmorra La Masacre, ala este (necesitas un grupo), derrota a Hidromilecio para conseguir la Esencia de Hidromilecio",
+	-- not measured: Scalebeard (npc 244188 is [bracketed] on Wowhead Forever esES). The quest title Warlord Krellian is not
+	-- measured either; it uses the esES name of npc 8408.
+	FCQ_OBJ_MA_SHELL = "derrota a Scalebeard (una tortuga) en su cueva para conseguir la Concha prismática. Si tu misión se llama Señor de la Guerra Krellian: está en el Templo de Zin-Malor (41.0, 53.1)",
+	FCQ_OBJ_MA_CLONES = "guarda la Concha prismática en tus bolsas, lanza Polimorfia a un naga Látigo de Ira, espera unos segundos y derrota a los Clones polimórficos que aparecen. Repite hasta tener 50 (no en un grupo de banda)",
+	-- Talented: the legacy perk, spell 1225474 "Talentoso"; "ventaja de legado" from GlobalStrings 58658.
+	FDONOW_TALENTED_HINT = ", hasta 5 niveles antes con la ventaja de legado Talentoso",
+	FHOWTO_TALENTED_NOTE = "Los niveles de talento de arriba cuentan tu primer punto de talento en el nivel 10. La ventaja de legado Talentoso da puntos de talento antes: hasta 5 niveles antes.",
+	FHOWTO_TALENTED_RANK_FMT = "Los niveles de talento de arriba cuentan tu primer punto de talento en el nivel 10. Tienes la ventaja de legado Talentoso en rango %d: tus talentos llegan esos niveles antes.",
+}) do
+	if t[k] == nil or (en and t[k] == en[k]) then
+		t[k] = v
+	end
+end

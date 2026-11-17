@@ -48,6 +48,13 @@ Locales\ForeverHowToPlay_esES.lua
 Locales\ForeverHowToPlay_esMX.lua
 Locales\ForeverHowToPlay_ptBR.lua
 Locales\ForeverHowToPlay_ruRU.lua
+# Class-quest texts per language (17 Nov 2026): each file only runs on its own client; esMX after esES.
+Locales\ForeverClassQuests_deDE.lua
+Locales\ForeverClassQuests_frFR.lua
+Locales\ForeverClassQuests_esES.lua
+Locales\ForeverClassQuests_esMX.lua
+Locales\ForeverClassQuests_ptBR.lua
+Locales\ForeverClassQuests_ruRU.lua
 Locales\Locale.lua
 # Delve file, but it only defines functions (no frames or events at load). It owns the shared copy window
 # (ns.ShowShareCopyDialog) that the key block export and the support report use.

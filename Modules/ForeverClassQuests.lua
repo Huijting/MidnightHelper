@@ -961,8 +961,8 @@ local SH_P = {
 local S = SH_P
 local DWARF = { Dwarf = true }
 
-local function ShEarth(faction, races, quests)
-	return { key = "earth", spell = 8071, level = 4, faction = faction, races = races, quests = quests }
+local function ShEarth(faction, races, quests, level)
+	return { key = "earth", spell = 8071, level = level or 4, faction = faction, races = races, quests = quests }
 end
 -- Horde fire, Orc/Troll and Tauren: four starters that all lead to Kranal Fiss (Wowhead series "1522, 1523, 2983, 2984").
 local function ShFireH(races, q, alt, starter)
@@ -988,12 +988,13 @@ CHAINS.SHAMAN = {
 		{ q = 1520, from = S.ravenfeather, objs = { O(S.earthMulgore, "FCQ_OBJ_SH_EARTHSAPTA") }, to = S.earthMulgore },
 		{ q = 1521, from = S.earthMulgore, to = S.ravenfeather },
 	}),
+	-- Skyborne from level 3 (Polestar + Questie, Fable check 17 Nov); the others from 4.
 	ShEarth("Horde", SKYBORNE, {
 		{ q = 92484, from = S.rorian, to = S.boro },
 		{ q = 92466, from = S.boro, objs = { O(S.converts, "FCQ_OBJ_SH_SIGNET", 1) }, to = S.boro },
 		{ q = 92467, from = S.boro, objs = { O(S.earthZephras, "FCQ_OBJ_SH_EARTHSAPTA") }, to = S.earthZephras },
 		{ q = 92468, from = S.earthZephras, to = S.boro },
-	}),
+	}, 3),
 	-- 96243 ("Find Teo", from Eldrun or Ingrid) is the other way in (Spoken, Wowhead series).
 	ShEarth("Alliance", DWARF, {
 		{ q = 98581, alt = { 96243 }, from = S.sten, to = S.teo },
@@ -1045,13 +1046,16 @@ CHAINS.SHAMAN = {
 		{ q = 94503, from = S.shrine, to = S.waterWestfall },
 		{ q = 94505, from = S.waterWestfall, to = S.norric },
 	} },
-	-- Air (30): only the Air Totem 5178, no spell, so the chain ends when the quest is done.
-	{ key = "air", nameKey = "FCQ_CHAIN_SH_AIR", level = 30, faction = "Horde", quests = {
+	-- Air (30): only the Air Totem 5178, no spell, so the chain ends when the quest is done. `always`: a totem you always
+	-- need is never "outgrown", so it does not leave "Do this now" 10 levels later (Fable check 17 Nov).
+	{ key = "air", nameKey = "FCQ_CHAIN_SH_AIR", level = 30, always = true, faction = "Horde", quests = {
 		{ q = 1531, alt = { 1532, 96136 }, from = S.searn, to = S.prate } } },
-	{ key = "air", nameKey = "FCQ_CHAIN_SH_AIR", level = 30, faction = "Alliance", races = DWARF, quests = {
+	{ key = "air", nameKey = "FCQ_CHAIN_SH_AIR", level = 30, always = true, faction = "Alliance", races = DWARF, quests = {
 		{ q = 94789, from = S.eldrun, to = S.veyric } } },
 	-- Elemental Mastery (Horde, 52): 8411 is Bath'rah's own start. The feathers are the warrior's (same items, same order).
-	{ key = "mastery", nameKey = "FCQ_CHAIN_SH_MASTERY", level = 52, faction = "Horde", quests = {
+	-- Level 50 (Fable check 17 Nov: Wowhead Forever guide "Sunken Temple Class Quests" 16 Nov, Polestar, Questie minlvl 50;
+	-- Zygor's "ding 52" is pace, not a gate).
+	{ key = "mastery", nameKey = "FCQ_CHAIN_SH_MASTERY", level = 50, faction = "Horde", quests = {
 		{ q = 8410, alt = { 8411 }, from = S.beram, objs = {
 			O(nil, "FCQ_OBJ_SH_ELEM_AIR", nil, { 7069 }),
 			O(nil, "FCQ_OBJ_SH_ELEM_FIRE", nil, { 7068 }),
@@ -2214,7 +2218,7 @@ local function NowSkip(c, level)
 			break
 		end
 	end
-	if not c.spell and level > c.level + ITEM_CHAIN_SPAN and not inLog then
+	if not c.spell and not c.always and level > c.level + ITEM_CHAIN_SPAN and not inLog then
 		return ("item chain, you are more than %d levels past it"):format(ITEM_CHAIN_SPAN)
 	end
 	return nil

@@ -88,6 +88,22 @@
   ForeverDirectionTalents ("Do this now" Coming up, + hint FDONOW_TALENTED_HINT als de rang niet leesbaar is), de
   macro-regel "(from level X)" en een grijze regel onder de class-tekst in How you play (FHOWTO_TALENTED_NOTE /
   _RANK_FMT). `/mh donow check` print rang + bron. AFGELEID tot Robs meting (TESTLIJST 17 nov). Alleen en + nl.
+- 🌍 **Vertaalronde class-quests GEDAAN** (5 mh-writers tegelijk, elk een eigen bestand): `Locales/ForeverClassQuests_
+  deDE/frFR/esES/esMX/ptBR/ruRU.lua` (in beide toc's, vóór Locale.lua; stoppen zelf buiten Forever/andere client; fill-
+  regel zoals Translations2026). 254 sleutels per taal (alle FCQ_ van warlock t/m mage + 3 Talented), esMX 118 overlay-
+  regels. Spelnamen GEMETEN in DB2 per locale (ItemSparse/SpellName/AreaTable/GlobalStrings, lokale cache) + Wowhead-
+  Forever-tooltips; niet-meetbare namen Engels met `-- not measured:`. ⚠️ Wowhead-locale-codes (GEMETEN met npc 233):
+  2 fr, 3 de, 6 es, 7 RU, 8 pt, 11 esMX — mijn opdracht zei 7=esMX (fout; de es-schrijver gebruikte `?locale=esMX`).
+  10 sleutels die ik tijdens de ronde wijzigde zijn daarna in alle talen bijgewerkt. Open: "Eternal Flame" nog Engels in
+  es/esMX/ru naast de gemeten fakkelnaam; waterzak-itemnamen niet gemeten; esMX HU_CHARM/PR_CENARION nu = esES.
+- 🔍 **Shaman nagekeken door Fable** → gerepareerd: Mastery 50, Air `always`, Skyborne Earth 3, ritueel/Kuramaa/waterzak-
+  teksten, alle Sunken Temple-ketens neutraal "(item rewards)". **Talented gecorrigeerd**: rang uit `activeEntry.entryID`
+  (DB2 GEMETEN: node 110298 Type 1, 5 entries 136852/137374/137373/137372/137371 = rang 1-5), probe met alle velden.
+- 🧭 **Rollen stap 2 (8 classes) begonnen**: onderzoek warrior/mage/priest klaar (`docs/forever/<CLASS>_ROLES_2026-11-17.md`,
+  Fable), teksten en+nl in ForeverHowToPlay worden geschreven; rogue/hunter/shaman in onderzoek. Inner Focus:
+  `talentLevel = 20` in SPEC_MACROS (macro 40, talent 20). Open uit priest-onderzoek: Lightwell (40/50/60), Prayer of
+  Fortitude (48, uit een Codex?), Prayer of Shadow Protection (56) mogelijk niet in ForeverTrainerData; Vampiric Embrace
+  25 of 30 (test). Warrior: Shield Wall ook schild-eis (CLASSES.WARRIOR r.193).
 - ⏭️ **Volgorde nu**: (1) ✅ Talented-fix; (2) vertaalronde de/fr/es/esMX/pt/ru voor alle FCQ_ +
   NPC-namen per taal al klaar; (3) rollen per 10 levels (ROLES.<CLASS>); (4) Legacy en Kamperen bouwen.
 - 🧪 **Nieuw hulpmiddel `run fcq_check`** (`tools/fcq_check.py` + `.lua`): laadt ForeverClassQuests.lua met nep-spelfuncties,

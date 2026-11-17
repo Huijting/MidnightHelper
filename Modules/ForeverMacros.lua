@@ -538,7 +538,9 @@ local SPEC_MACROS = {
 	-- PRIEST spec 1
 	{ class = "PRIEST", spec = 1, key = "powerinfuse", name = "Power Infuse", need = 10060, level = 40, talent = true, warn = nil, credit = "cwf", -- NEW #2 (#1 = built penance)
 		tpl = "#showtooltip {10060}\n/cast [mod:alt,@player][@mouseover,help,nodead][help,nodead][@player] {10060}" },
-	{ class = "PRIEST", spec = 1, key = "innerfocus", name = "Inner Focus", need = 14751, level = 40, talent = true, warn = nil, credit = "cwf", -- NEW #3
+	-- talentLevel 20: the macro needs Greater Heal (40), but the talent itself comes at 20 (row of 10 points; priest roles
+	-- research 17 Nov 2026). "Do this now" names the TALENT level (ns.ForeverDirectionTalents).
+	{ class = "PRIEST", spec = 1, key = "innerfocus", name = "Inner Focus", need = 14751, level = 40, talentLevel = 20, talent = true, warn = nil, credit = "cwf", -- NEW #3
 		tpl = "#showtooltip {2060}\n/cast {14751}\n/cast [@mouseover,help,nodead][help,nodead][@player] {2060}" },
 	{ class = "PRIEST", spec = 1, key = "prayerheal", name = "Prayer Heal", need = 596, level = 30, talent = false, warn = nil, credit = "cwf", -- P8 #4
 		tpl = "#showtooltip {596}\n/cast [@mouseover,help,nodead][help,nodead][@player] {596}" },
@@ -738,10 +740,16 @@ ns.ForeverSpecName = SpecName
 	GEMETEN by sparring's helper in DB2 1.60.1.70938: TraitCurrencySource 37163-37167 give 1 class talent point (currency
 	3820) at PlayerLevel 9/8/7/6/5 for Talented rank 1-5; the perk is node 110298 in tree 1188 (spell 1225474).
 	AFGELEID: talent points at level L = L - 9 + rank, so a talent of "level B" (first point at 10) comes at B - rank;
-	the config is found with C_Traits.GetConfigIDBySystemID(45) or GetConfigIDByTreeID(1188), and the rank is
-	GetNodeInfo(cfg, 110298).currentRank. NOT measured in the client: what we read is written to ns.db.foreverTalentedProbe
+	the config is found with C_Traits.GetConfigIDBySystemID(45) or GetConfigIDByTreeID(1188); the rank comes from WHICH
+	tier entry is active (see TALENTED_ENTRY_RANK below; corrected the same day). NOT measured in the client: what we read is written to ns.db.foreverTalentedProbe
 	(Rob: /reload, then the SavedVariables file says it). nil = not readable: the texts then say "sooner with Talented". ]]
 local TALENTED_NODE, LEGACY_SYSTEM, ADVENTURE_TREE = 110298, 45, 1188
+-- GEMETEN 17 Nov 2026 in DB2 1.60.1.70938 (local cache): TraitNode 110298 has Type 1 (tiered; plain talents are 0, control
+-- nodes 104743 / 104956); TraitNodeXTraitNodeEntry gives five entries, each MaxRanks 1, in _Index order 100..500:
+-- 136852, 137374, 137373, 137372, 137371 = rank 1..5. So the rank is WHICH entry is active, not currentRank (a hint from
+-- sparring's look at another addon, measured here in our own data). Which field the client fills = NOT measured yet:
+-- the probe below stores them all.
+local TALENTED_ENTRY_RANK = { [136852] = 1, [137374] = 2, [137373] = 3, [137372] = 4, [137371] = 5 }
 
 function ns.ForeverTalentedRank()
 	if not (C_Traits and C_Traits.GetNodeInfo) then
@@ -761,11 +769,33 @@ function ns.ForeverTalentedRank()
 		end
 	end
 	local rank, why
+	local probe = { cfg = cfg, src = src }
+	local function num(v)
+		if type(v) == "number" and not (issecretvalue and issecretvalue(v)) then
+			return v
+		end
+		return nil
+	end
 	if cfg then
 		local ok, info = pcall(C_Traits.GetNodeInfo, cfg, TALENTED_NODE)
-		if ok and type(info) == "table" and type(info.currentRank) == "number" and not
-			(issecretvalue and issecretvalue(info.currentRank)) then
-			rank = info.currentRank
+		if ok and type(info) == "table" then
+			local cur, bought = num(info.currentRank), num(info.ranksPurchased)
+			local entry = type(info.activeEntry) == "table" and num(info.activeEntry.entryID) or nil
+			probe.currentRank, probe.ranksPurchased, probe.maxRanks = cur, bought, num(info.maxRanks)
+			probe.activeEntry, probe.activeRank = entry, num(type(info.activeEntry) == "table" and info.activeEntry.rank)
+			if type(info.entryIDs) == "table" then
+				probe.entryIDs = {}
+				for i, e in ipairs(info.entryIDs) do
+					probe.entryIDs[i] = num(e)
+				end
+			end
+			if entry and TALENTED_ENTRY_RANK[entry] then
+				rank = TALENTED_ENTRY_RANK[entry]
+			elseif not entry and (cur == 0 or cur == nil) and (bought == 0 or bought == nil) and (cur ~= nil or bought ~= nil) then
+				rank = 0 -- no active entry and nothing bought
+			else
+				why = "rank not readable (no known active entry)"
+			end
 		else
 			why = "node 110298 not readable"
 		end
@@ -773,7 +803,8 @@ function ns.ForeverTalentedRank()
 		why = "no Legacy config"
 	end
 	if ns.db then
-		ns.db.foreverTalentedProbe = { cfg = cfg, src = src, rank = rank, why = why, at = time and time() or nil }
+		probe.rank, probe.why, probe.at = rank, why, time and time() or nil
+		ns.db.foreverTalentedProbe = probe
 	end
 	return rank, why or src
 end
@@ -794,7 +825,7 @@ function ns.ForeverDirectionTalents(cls, band)
 	local out = {}
 	for _, d in ipairs(SPEC_MACROS) do
 		if d.class == cls and d.spec == band and d.talent and d.need and d.level then
-			local lvl, known = ns.ForeverTalentLevel(d.level)
+			local lvl, known = ns.ForeverTalentLevel(d.talentLevel or d.level)
 			out[#out + 1] = { id = d.need, level = lvl, known = known }
 		end
 	end

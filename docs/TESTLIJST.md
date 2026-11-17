@@ -27,8 +27,14 @@ er is niets weggegooid.
 ## 🐞 17 nov — Forever: talents komen eerder met de Legacy-perk Talented
 
 MH rekende overal met "eerste talentpunt op level 10". Met de Legacy-perk Talented krijg je ze tot 5 levels eerder.
+🔑 **EERSTE TEST (belangrijkst):** op een Forever-character, met én zonder Talented gekocht: `/reload`, dan
+`/mh donow check`, en daarna nog een `/reload` (dan staat de meting in je SavedVariables-bestand, onder
+`foreverTalentedProbe`: activeEntry, currentRank, ranksPurchased, entryIDs). Zeg wat je rang in het Legacy-venster is.
+Daarmee weten we of MH de rang goed leest (DB2 GEMETEN: elke rang is een eigen entry; welk veld de client invult niet).
 - [ ] Heb je Talented (deels) gekocht? `/reload`, dan `/mh donow check`: de regel "Legacy perk Talented: rank …" moet
       jouw rang tonen. Staat er "rank nil", dan kan MH hem niet lezen: zeg wat er tussen haakjes staat.
+- [ ] Zonder Talented: zegt `/mh donow check` "rank 0" (of "nil")? Zegt hij "rank 1", dan telt MH de eerste trede al
+      mee terwijl je niets kocht: zeg het.
 - [ ] "Do this now" → "Coming up": het volgende talent staat op het juiste (eerdere) level. Kan MH je rang niet lezen,
       dan staat erachter "tot 5 levels eerder met de Legacy-perk Talented".
 - [ ] How you play (`/mh play`): onder de class-tekst een grijze regel over Talented, met jouw rang als MH die leest.
@@ -70,6 +76,24 @@ Priest, `/reload`. Uitgezocht met Fable; niets in het spel gezien.
       (Night Elf) en zeg wat er staat. Verwacht: twee keer true.
 - [ ] Level 5-15: "Your first priest robe" (een wacht healen). Na level 15 verdwijnt hij uit "Do this now".
 - [ ] Undead level 10: geeft Aelthalyste de Touch of Weakness-quest, of Father Lankester naast haar?
+
+## 🌍 17 nov — Forever: class-quests in het Duits, Frans, Spaans, Portugees en Russisch
+
+Alle class-quest-regels (warlock t/m mage) staan nu ook in de/fr/es/pt/ru (en een Mexicaans-Spaanse laag). Spelnamen
+komen uit Blizzards eigen data per taal. Niet nagekeken door een moedertaalspreker.
+- [ ] Een character op een niet-Engelse client: zijn de namen in "Do this now" die van jouw spel? Klinkt de zin goed?
+- [ ] Spaans/Russisch: bij de shaman-fakkel staat "Eternal Flame" nog Engels. Hoe heet die vlam in jouw spel?
+
+## 🆕 17 nov — Forever: Shaman, nagekeken door Fable (gerepareerd + twijfels)
+
+Gerepareerd: Elemental Mastery vanaf 50 (was 52); Air Totem verdwijnt nooit uit "Do this now"; Skyborne Earth vanaf 3;
+ritueel-tekst (fakkel gebruiken, Olariaan loopt nergens heen); Kuramaa (alleen vuur doet schade); waterzakken (put van
+Tarren Mill, fontein, meer onder Hervdana's grot). Twijfels voor het spel:
+- [ ] Level 50 Sunken Temple-quests (alle classes): krijg je alle beloningen of kies je er één? MH zegt nu neutraal
+      "voorwerpen als beloning".
+- [ ] Dwarf-shaman Earth: met de quest "Find Teo" (96243) i.p.v. 98581 — kun je bij Teo dan verder, of mis je de Archaic Rune?
+- [ ] Water: verschijnt de water-geest pas na een tijdje (Silverpine en Westfall)? Dan voegen we een wacht-zin toe.
+- [ ] Skyborne (Windshaper) en Elemental Mastery bij Bath'rah: krijg je die quest?
 
 ## 🆕 17 nov — Forever: Shaman class-quests (totems) in "Do this now"
 

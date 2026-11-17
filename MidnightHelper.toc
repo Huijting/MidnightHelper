@@ -58,6 +58,12 @@ Locales\ForeverHowToPlay_esES.lua
 Locales\ForeverHowToPlay_esMX.lua
 Locales\ForeverHowToPlay_ptBR.lua
 Locales\ForeverHowToPlay_ruRU.lua
+Locales\ForeverClassQuests_deDE.lua
+Locales\ForeverClassQuests_frFR.lua
+Locales\ForeverClassQuests_esES.lua
+Locales\ForeverClassQuests_esMX.lua
+Locales\ForeverClassQuests_ptBR.lua
+Locales\ForeverClassQuests_ruRU.lua
 Locales\Locale.lua
 Modules\DelveTipsData.lua
 Modules\DelveStoryData.lua

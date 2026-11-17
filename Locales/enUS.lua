@@ -5499,7 +5499,9 @@ ns._mhLocales.enUS = {
 	-- 17 Nov 2026: the rewards of the level 50 Sunken Temple chains are missing from the local ItemSparse 70938 (1885 other
 	-- items of 20000-22999 are there), but Wowhead Forever shows them with tooltips (two helpers, 17 Nov): items can come by
 	-- hotfix/server. So the table proves nothing; the reward stays named (Sparring 17-11 caught the early removal).
-	FCQ_CHAIN_TORWA ="Torwa Pathfinder's quests (a chest piece or staff)",
+	-- Whether Forever gives all rewards or a choice is not measured (Wowhead guide 16 Nov: all three; other sites: choose),
+	-- so the level 50 chains say "item rewards" (Fable check, Sparring 17-11). TESTLIJST asks Rob to look in game.
+	FCQ_CHAIN_TORWA ="Torwa Pathfinder's quests (item rewards)",
 	FCQ_MOONGLADE_TIP = " (Teleport: Moonglade in your spellbook takes you there)",
 	-- Warlock class quests (17 Nov 2026; facts docs/forever/WARLOCK_CLASSQUESTS_2026-11-17.md). Item, NPC and place names
 	-- are game names: in de/fr/es/pt/ru the name THAT client shows.
@@ -5540,7 +5542,7 @@ ns._mhLocales.enUS = {
 	FCQ_OBJ_WL_RITUAL = "in the dungeon Dire Maul West (you need a group), use the items from Gorzeeki for the ritual, then defeat the Xorothian Dreadsteed",
 	-- Warrior class quests (17 Nov 2026; facts docs/forever/WARRIOR_CLASSQUESTS_2026-11-17.md). Same name rule as above.
 	FCQ_CHAIN_WR_WHIRLWIND = "The Whirlwind weapon (an axe, sword or hammer)",
-	FCQ_CHAIN_WR_FALLENHERO = "The Fallen Hero's quests (a reward to choose)",
+	FCQ_CHAIN_WR_FALLENHERO = "The Fallen Hero's quests (item rewards)",
 	FCQ_OBJ_WR_BEATBARTLEBY = "beat Bartleby: he attacks you right away",
 	FCQ_OBJ_WR_VEJREK = "defeat Vejrek in the hut for Vejrek's Head",
 	FCQ_OBJ_WR_VORLUS = "defeat Vorlus Vilehoof for the Horn of Vorlus",
@@ -5563,7 +5565,7 @@ ns._mhLocales.enUS = {
 	FCQ_OBJ_WR_FEATHER_BLUE = "in Sunken Temple, get 2 Blue Voodoo Feathers",
 	FCQ_OBJ_WR_FEATHER_GREEN = "in Sunken Temple, get 2 Green Voodoo Feathers",
 	-- Hunter class quests (17 Nov 2026; facts docs/forever/HUNTER_CLASSQUESTS_2026-11-17.md). Beast names are game names.
-	FCQ_CHAIN_HU_CHARM = "The Hunter's Charm quests (Devilsaur trinkets and a spear)",
+	FCQ_CHAIN_HU_CHARM = "The Hunter's Charm quests (item rewards)",
 	FCQ_OBJ_HU_WEBWOOD = "use the Taming Rod from your bags on a Webwood Lurker and stay close until it is tamed",
 	FCQ_OBJ_HU_NIGHTSABER = "use the Taming Rod from your bags on a Nightsaber Stalker and stay close until it is tamed",
 	FCQ_OBJ_HU_SCREECHER = "use the Taming Rod from your bags on a Strigid Screecher and stay close until it is tamed",
@@ -5621,7 +5623,7 @@ ns._mhLocales.enUS = {
 	FCQ_WAIT_RO_LETTER = "wait for a letter from C in your mailbox (a quarter of an hour up to two hours), then go back to the Dead Drop",
 	-- Shaman class quests (17 Nov 2026; facts docs/forever/SHAMAN_CLASSQUESTS_2026-11-17.md). Game names as above.
 	FCQ_CHAIN_SH_AIR = "The Air Totem (your air totems need it)",
-	FCQ_CHAIN_SH_MASTERY = "Bath'rah's quests (a reward to choose)",
+	FCQ_CHAIN_SH_MASTERY = "Bath'rah's quests (item rewards)",
 	FCQ_OBJ_SH_HOOVES = "defeat Felstalkers in and around the cave for 2 Felstalker Hooves",
 	FCQ_OBJ_SH_SALVE = "defeat Bristleback Shamans for 2 Ritual Salves",
 	FCQ_OBJ_SH_PENDANTS = "defeat Frostmane Troll Whelps for 2 Iceclaw Bear Pendants",
@@ -5633,13 +5635,13 @@ ns._mhLocales.enUS = {
 	FCQ_OBJ_SH_POUCH_A = "defeat Stonesplinter Seers for a Reagent Pouch (many troggs: bring help)",
 	FCQ_OBJ_SH_EMBER = "at the top, drink the Fire Sapta from your bags and defeat the Minor Manifestation of Fire for the Glowing Ember",
 	FCQ_OBJ_SH_FALADIEL = "defeat Skypriest Faladiel for Faladiel's Heart",
-	FCQ_OBJ_SH_KURAMAA = "click Kuramaa's Stump, then defeat Kuramaa for Kuramaa's Mask",
-	FCQ_OBJ_SH_RITUAL = "wait for Olariaan to begin the ritual and follow him",
+	FCQ_OBJ_SH_KURAMAA = "click Kuramaa's Stump, then defeat Kuramaa for Kuramaa's Mask (only fire hurts him: learn Flame Shock first)",
+	FCQ_OBJ_SH_RITUAL = "wait until Olariaan lights the Eternal Flame, then use the Torch of Eternal Flame from your bags (he does not walk anywhere)",
 	FCQ_OBJ_SH_ETERNAL = "hurry (there is a timer): light the Brazier of Eternal Flame",
 	FCQ_OBJ_SH_SKIN_BROWN_H = "use the empty brown waterskin from your bags in the water here",
-	FCQ_OBJ_SH_SKIN_RED_H = "use the empty red waterskin from your bags in the water here",
-	FCQ_OBJ_SH_SKIN_BLUE_H = "use the empty blue waterskin from your bags in the water here",
-	FCQ_OBJ_SH_SKIN_BROWN_A = "jump down from Hervdana's cave and use the brown waterskin in the water below the falls",
+	FCQ_OBJ_SH_SKIN_RED_H = "use the empty red waterskin from your bags at the well of Tarren Mill",
+	FCQ_OBJ_SH_SKIN_BLUE_H = "use the empty blue waterskin from your bags at the fountain here",
+	FCQ_OBJ_SH_SKIN_BROWN_A = "use the brown waterskin in the lake right below Hervdana's cave",
 	FCQ_OBJ_SH_SKIN_RED_A = "use the red waterskin at the foot of Stonewatch Falls, where the murlocs are",
 	FCQ_OBJ_SH_SKIN_BLUE_A = "use the blue waterskin in the lake around Astranaar (boat from Menethil Harbor to Auberdine)",
 	FCQ_OBJ_SH_BRACERS = "drink the Water Sapta from your bags here, then defeat the Corrupt Manifestation for its bracers",
@@ -5651,7 +5653,7 @@ ns._mhLocales.enUS = {
 	FCQ_OBJ_SH_CLAW = "defeat enemies here for 8 Thick Black Claws",
 	-- Priest class quests (17 Nov 2026; facts docs/forever/PRIEST_CLASSQUESTS_2026-11-17.md). Game names as above.
 	FCQ_CHAIN_PR_ROBE = "Your first priest robe",
-	FCQ_CHAIN_PR_CENARION = "Ogtinc's quests (a trinket, ring or wand)",
+	FCQ_CHAIN_PR_CENARION = "Ogtinc's quests (item rewards)",
 	FCQ_OBJ_PR_ROBERTS = "heal Guard Roberts with Lesser Heal (Rank 2), then cast Power Word: Fortitude on him",
 	FCQ_OBJ_PR_DOLF = "heal Mountaineer Dolf with Lesser Heal (Rank 2), then cast Power Word: Fortitude on him",
 	FCQ_OBJ_PR_SHAYA = "heal Sentinel Shaya with Lesser Heal (Rank 2), then cast Power Word: Fortitude on her",
@@ -5666,7 +5668,7 @@ ns._mhLocales.enUS = {
 	FCQ_CHAIN_PA_VERIGAN = "Verigan's Fist (a two-handed mace)",
 	FCQ_CHAIN_PA_VERIGAN_ORE = "Verigan's Fist: Bailor's ore",
 	FCQ_CHAIN_PA_VERIGAN_GEM = "Verigan's Fist: the Kor Gem",
-	FCQ_CHAIN_PA_MIGHTSTONE = "Commander Valorfist's quests (a reward to choose)",
+	FCQ_CHAIN_PA_MIGHTSTONE = "Commander Valorfist's quests (item rewards)",
 	FCQ_CHAIN_PA_KEEP = "The Bandarion Keep quests (a mace and a shield)",
 	FCQ_CHAIN_PA_WOLFSBANE = "Wolfsbane (a two-handed sword)",
 	FCQ_CHAIN_PA_WOLFSBANE_GEM = "Wolfsbane: the Kor Gem",
