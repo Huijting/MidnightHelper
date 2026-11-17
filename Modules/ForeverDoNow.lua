@@ -237,7 +237,14 @@ local ACTS = {
 	ranks = { fn = function() if ns.ForeverRankFixAll then ns.ForeverRankFixAll() end end, label = "FRANK_HOME_BTN" },
 	classquest = { fn = function() if ns.ForeverClassQuestGo then ns.ForeverClassQuestGo() end end, label = "FCQ_BTN" },
 	weapons = { fn = function() if ns.ShowForeverWeapons then ns.ShowForeverWeapons() end end, label = "FWEAP_TITLE" },
-	profs = { fn = function() if ns.ShowForeverProfTrainers then ns.ShowForeverProfTrainers() end end, label = "FPROF_TITLE" },
+	-- "Room for a main profession": the overview's Professions tab (product plan step 6), else the trainer list.
+	profs = { fn = function()
+		if ns.ShowForeverOverviewPage then
+			ns.ShowForeverOverviewPage("profs")
+		elseif ns.ShowForeverProfTrainers then
+			ns.ShowForeverProfTrainers()
+		end
+	end, label = "FPROF_TITLE" },
 	dungeons = { fn = function() if ns.ShowForeverDungeons then ns.ShowForeverDungeons() end end, label = "FDUNG_BTN" },
 	legacy = { page = "legacy", label = "FOV_TAB_LEGACY" },
 	camp = { page = "camp", label = "FOV_TAB_CAMP" },
@@ -613,9 +620,7 @@ local function Build()
 		end
 	end)
 	f.btnProfs = Btn(f, 10, function()
-		if ns.ShowForeverProfTrainers then
-			ns.ShowForeverProfTrainers()
-		end
+		ACTS.profs.fn()
 	end)
 	f.btnClassQuest = Btn(f, 10, function()
 		if ns.ForeverClassQuestGo then

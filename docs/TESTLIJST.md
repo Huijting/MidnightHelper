@@ -30,6 +30,16 @@ Eerst WoW helemaal afsluiten en opnieuw starten (er is een nieuw bestand; /reloa
 - [ ] `/mh overview` opent zonder foutmelding en ziet er precies hetzelfde uit als ronde 5 (zelfde letters, kleuren,
       knoppen, NOW/LATER-labels onder Jouw pad).
 
+## 🧪 17 nov (nacht) — Forever: tab "Professions" in het overzicht (plan-stap 6)
+
+- [ ] Tab **Professions**: links alle 12 beroepen, jouw beroepen bovenaan in goud met je skill (bv. 140/150).
+- [ ] Klik een beroep: rechts de kaart (wat het doet, hoofd/bij, gereedschap, past bij, rangen, je volgende rang), een
+      balk met je skill, en een regel of je het gereedschap bij je hebt (groen ja / rood nee).
+- [ ] Knop "Trainers" → tab Find op dat beroep. Knop "Where to buy" (alleen bij een beroep met gereedschap) → de verkopers.
+- [ ] Onderaan "HELP AROUND PROFESSIONS" met drie AAN/UIT-schakelaars: extra regels in item-tooltips (Used for …),
+      waarschuwen voor je laatste gereedschap, en de tip "gereedschap kwijt? hier te koop". Uitzetten werkt meteen.
+- [ ] De tip "Room for a main profession" in Do this now opent nu deze tab.
+
 ## ⌨️ 17 nov (nacht) — Forever: tab "Keys & macros" in het overzicht (plan-stap 5)
 
 - [ ] Tab **Keys & macros**: links YOUR KEYS met drie knoppen (1. Set up my keys → het toetsenblok-venster, 2. Which
@@ -42,7 +52,7 @@ Eerst WoW helemaal afsluiten en opnieuw starten (er is een nieuw bestand; /reloa
 
 ## 🔎 17 nov (nacht) — Forever: tab "Find" en tab "Your class" in het overzicht (plan-stap 4)
 
-- [ ] De tabrij: Now · Your class · Find · Keys & macros · Legacy. "Your class" heeft bovenaan drie knoppen: How you play · Class quests
+- [ ] De tabrij: Now · Your class · Find · Professions · Keys & macros · Legacy. "Your class" heeft bovenaan drie knoppen: How you play · Class quests
       · Camping. Klik ze alle drie; de tab blijft oplichten. Klik Now en weer Your class: je komt terug op de laatste.
 - [ ] Tab **Find**: links "WHAT ARE YOU LOOKING FOR?" met Trainer, Professions (jouw beroepen bovenaan in goud, met je
       skill), Weapon skills (bekend = grijs "(known)", groene + = past bij je richting) en Shops. Je kunt erin scrollen.

@@ -348,6 +348,15 @@ ev:SetScript("OnEvent", function(_, event, ...)
 	end
 end)
 
+--- The switch, for the overview's Professions tab (product plan step 6, 17 Nov 2026). Same as /mh toolguard on|off.
+function ns.IsForeverToolGuardOn()
+	return On()
+end
+
+function ns.SetForeverToolGuard(on)
+	Settings().on = on and true or false
+end
+
 --- /mh toolguard [on|off]
 function ns.ForeverToolGuardSlash(arg)
 	arg = (arg or ""):lower()

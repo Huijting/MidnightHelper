@@ -28,7 +28,19 @@
   `ns.ForeverOverviewRefreshPage("keys")`. `ShowForeverMacros` → deze tab (toggle); in Forever ook `ShowKeysHub`/
   `ToggleKeysHub` (`/mh mykeys`). Het toetsenblok blijft een eigen venster. Offline: find_check uitgebreid (elke chip
   2×, elke deur, elke Make/Free, undo, oude ingangen): 19.032 runs, 0 fouten, 540 macrorijen. "Free key" kwam in de
-  proef niet voor (geen toetsbindingen nagebootst) = NIET getest. NIET in het spel gezien.
+  proef niet voor (geen toetsbindingen nagebootst) = NIET getest. NIET in het spel gezien. Commit 0bc6db3.
+- 🌍 **Vertaling stap 4+5 GEDAAN**: 34 sleutels in de/fr/es/pt/ru (`ForeverClassQuests_<taal>.lua`), esMX 1 eigen regel
+  (FOV_TIP_TAB_CLASS "Campamento"). Knopnamen in tooltips = de knoptekst van dat pack. NIET gemeten als clientwoord:
+  wapenmeester/"Weapon skills" (de "Waffenfertigkeiten", es "Habilidades con armas" — lang voor een kop), roots/crowd
+  control (de/pt), "atalho"/"raccourci" (key binding), "Mouseover" bleef Engels (zoals die packs al doen). Chips: fr
+  "ACTIVÉ/DÉSACTIVÉ", pt "LIGADO/DESLIGADO" (breed, chip 52 px — in het spel nakijken), es "SÍ/NO". ru gebruikt "вы"
+  (zoals dat pack), niet "ты". Door geen moedertaalspreker gezien.
+- 🧪 **Stap 6 Beroepen GEBOUWD (en + nl)**: tab "Professions" (`f.pages.profs`, `f.prof`). Links 12 beroepen (jouw eerst,
+  goud, skill), rechts de kaart van `ns.ForeverProfCard` (S.Format), skill-balk, gereedschap-regel (ja/nee via
+  `ns.ForeverMissingTools`), knoppen Trainers → Find prof en Where to buy → Find shop; onderaan 3 schakelaars (gedeelde
+  `MakeSwitch`/`FillSwitch`, ook op Keys): `ns.db.usedForTip` (Used for + ItemTips), nieuw `ns.Is/SetForeverToolGuard`,
+  `Is/SetForeverToolNeedTipOn`. Do this now "ruimte voor een hoofdberoep" (ACTS.profs + knop) → deze tab. Ververst bij
+  SKILL_LINES_CHANGED/BAG_UPDATE_DELAYED. Offline 21.372 runs, 0 fouten, 432 beroep-kliks. NIET in het spel gezien.
 
 ## ⏭️⏭️ NIEUWSTE OVERDRACHT (Bouwchat 17-11 (3), laatste commit 27e536b, alles gepusht, geen release)
 

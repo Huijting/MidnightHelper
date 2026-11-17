@@ -184,6 +184,7 @@ local TABS = {
 	{ key = "FOV_TAB_NOW", tip = "FOV_TIP_TAB_NOW", page = "now" },
 	{ key = "FOV_TAB_CLASS", tip = "FOV_TIP_TAB_CLASS", group = "class" },
 	{ key = "FOV_TAB_FIND", tip = "FOV_TIP_TAB_FIND", page = "find" },
+	{ key = "FOV_TAB_PROFS", tip = "FOV_TIP_TAB_PROFS", page = "profs" },
 	{ key = "FOV_TAB_KEYS", tip = "FOV_TIP_TAB_KEYS", page = "keys" },
 	{ key = "FOV_TAB_LEGACY", tip = "FOV_TIP_TAB_LEGACY", page = "legacy" },
 }
@@ -627,6 +628,34 @@ local KEY_SWITCHES = {
 		end },
 }
 
+--- A switch row: the setting's name (hover = what it does) and an ON/OFF chip; a click on the chip flips it.
+--- def = { title, tip, get, set }. Used on the Keys and Professions tabs (and the gear page later).
+local function MakeSwitch(parent, def, w)
+	local t = Text(parent, "textB", 13)
+	t:SetWidth(w - 60)
+	t:SetText(ns:L(def.title))
+	local hover = HoverOver(parent, t, ns:L(def.title), ns:L(def.tip))
+	local chip = Tip(S.Chip(parent, "", nil, 52), ns:L(def.title), ns:L("FOV_TIP_SWITCH"))
+	chip:SetScript("OnMouseUp", function()
+		def.set(not def.get())
+		ns.ForeverOverviewFill(true)
+	end)
+	return { text = t, chip = chip, hover = hover, def = def }
+end
+
+--- Show the switch's state on its chip; returns the row height its text needs.
+local function FillSwitch(s)
+	local on = s.def.get() and true or false
+	s.chip.t:SetText(ns:L(on and "FOV_SWITCH_ON" or "FOV_SWITCH_OFF"))
+	if on then
+		local r, g, b = Accent()
+		s.chip:SetColor(r, g, b)
+	else
+		s.chip:SetColor(A.later[1], A.later[2], A.later[3])
+	end
+	return math.max(22, (s.text:GetStringHeight() or 16) + 8)
+end
+
 local function BuildKeysPage(f, x0, rightW)
 	local page = f.pages.keys
 	local leftW = math.floor(rightW * 0.38)
@@ -652,16 +681,7 @@ local function BuildKeysPage(f, x0, rightW)
 	left.swHead:SetText(ns:L("FOV_KEYS_SWITCHES"):upper())
 	left.switches = {}
 	for i, s in ipairs(KEY_SWITCHES) do
-		local t = Text(left.child, "textB", 13)
-		t:SetWidth(innerW - 60)
-		t:SetText(ns:L(s.title))
-		local hover = HoverOver(left.child, t, ns:L(s.title), ns:L(s.tip))
-		local chip = Tip(S.Chip(left.child, "", nil, 52), ns:L(s.title), ns:L("FOV_TIP_SWITCH"))
-		chip:SetScript("OnMouseUp", function()
-			s.set(not s.get())
-			ns.ForeverOverviewFill(true)
-		end)
-		left.switches[i] = { text = t, chip = chip, hover = hover, def = s }
+		left.switches[i] = MakeSwitch(left.child, s, innerW)
 	end
 	local list = Card(page)
 	list:SetPoint("TOPLEFT", left, "TOPRIGHT", 12, 0)
@@ -724,6 +744,119 @@ local function MacroRow(list, i)
 	r.info:SetWidth(list.rowW - 112)
 	list.rows[i] = r
 	return r
+end
+
+--- Professions page (product plan step 6, 17 Nov 2026): left every profession (yours first, gold, with your skill),
+--- right the card of the chosen one (ForeverProfGuide.lua: what it does, main/secondary, tool, pairs, caps, your next
+--- rank) with your skill bar, buttons to its trainers and its tool's sellers (Find tab), whether you carry the tool, and
+--- at the bottom the three quiet helpers around professions, each with a switch: the "Used for" / "your class can never
+--- use" / "needed for a quest" tooltip lines (ReagentUse.lua + ForeverItemTips.lua), the last-tool warnings
+--- (ForeverToolGuard.lua) and "where to buy the missing tool" (ForeverVendors.lua).
+local PROF_SWITCHES = {
+	{ title = "FOV_PROF_SW_USEDFOR", tip = "FOV_TIP_PROF_SW_USEDFOR",
+		get = function() return not (ns.db and ns.db.usedForTip == false) end,
+		set = function(on)
+			if ns.db then
+				ns.db.usedForTip = on and true or false
+			end
+		end },
+	{ title = "FOV_PROF_SW_TOOLGUARD", tip = "FOV_TIP_PROF_SW_TOOLGUARD",
+		get = function() return ns.IsForeverToolGuardOn and ns.IsForeverToolGuardOn() end,
+		set = function(on)
+			if ns.SetForeverToolGuard then
+				ns.SetForeverToolGuard(on)
+			end
+		end },
+	{ title = "SET_FOREVER_TOOLNEED_TITLE", tip = "SET_FOREVER_TOOLNEED_DESC",
+		get = function() return ns.IsForeverToolNeedTipOn and ns.IsForeverToolNeedTipOn() end,
+		set = function(on)
+			if ns.SetForeverToolNeedTipOn then
+				ns.SetForeverToolNeedTipOn(on)
+			end
+		end },
+}
+local PROF_ROW_H = 24
+
+local function BuildProfsPage(f, x0, rightW)
+	local page = f.pages.profs
+	local leftW = math.floor(rightW * 0.32)
+	local left = Card(page)
+	left:SetPoint("TOPLEFT", f, "TOPLEFT", x0, TOP_Y)
+	left:SetPoint("BOTTOMLEFT", f, "BOTTOMLEFT", x0, 16)
+	left:SetWidth(leftW)
+	left.label = Label(left, ns:L("FOV_LABEL_PROFS"), "FOV_TIP_CARD_PROFS")
+	left.rows = {}
+	for i = 1, 12 do
+		local b = CreateFrame("Button", nil, left)
+		b:SetHeight(PROF_ROW_H - 2)
+		b:SetPoint("TOPLEFT", 10, -32 - (i - 1) * PROF_ROW_H)
+		b:SetPoint("RIGHT", -10, 0)
+		b.bg = b:CreateTexture(nil, "BACKGROUND")
+		b.bg:SetAllPoints()
+		b.t = Text(b, "textB", 14)
+		b.t:SetPoint("LEFT", 4, 0)
+		b.t:SetPoint("RIGHT", -60, 0)
+		b.t:SetWordWrap(false)
+		b.skill = Text(b, "text", 12, A.dim)
+		b.skill:SetPoint("RIGHT", -4, 0)
+		b.skill:SetJustifyH("RIGHT")
+		b:SetScript("OnEnter", function(self)
+			local r, g, bl = Accent()
+			self.t:SetTextColor(r, g, bl)
+		end)
+		b:SetScript("OnLeave", function(self)
+			self.t:SetTextColor(self.col[1], self.col[2], self.col[3])
+		end)
+		b.col = A.text
+		left.rows[i] = b
+	end
+	local card = Card(page)
+	card:SetPoint("TOPLEFT", left, "TOPRIGHT", 12, 0)
+	card:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -16, 16)
+	card.label = Label(card, "", "FOV_TIP_CARD_PROF")
+	card.trainers = Button(card, 120)
+	card.trainers:SetHeight(22)
+	card.trainers:SetPoint("TOPRIGHT", -12, -8)
+	card.trainers:SetLabel(ns:L("FOV_PROF_TRAINERS"))
+	Tip(card.trainers, ns:L("FOV_PROF_TRAINERS"), ns:L("FOV_TIP_PROF_TRAINERS"))
+	card.buy = Button(card, 120)
+	card.buy:SetHeight(22)
+	card.buy:SetPoint("RIGHT", card.trainers, "LEFT", -6, 0)
+	card.buy:SetLabel(ns:L("FPROFG_BUY"))
+	Tip(card.buy, ns:L("FPROFG_BUY"), ns:L("FOV_TIP_FIND_BUY"))
+	-- Skill bar (yours only).
+	card.skill = Text(card, "head2", 14, A.text)
+	card.skill:SetPoint("TOPLEFT", 14, -34)
+	card.barBg = card:CreateTexture(nil, "ARTWORK")
+	card.barBg:SetColorTexture(0, 0, 0, 0.5)
+	card.barBg:SetHeight(8)
+	card.barBg:SetPoint("LEFT", card.skill, "RIGHT", 12, 0)
+	card.barBg:SetPoint("RIGHT", card, "RIGHT", -14, 0)
+	card.barFill = card:CreateTexture(nil, "ARTWORK", nil, 1)
+	card.barFill:SetPoint("TOPLEFT", card.barBg)
+	card.barFill:SetHeight(8)
+	card.tool = Text(card, "text", 13, A.text)
+	card.tool:SetPoint("TOPLEFT", 14, -56)
+	card.tool:SetPoint("RIGHT", -14, 0)
+	card.tool:SetWordWrap(false)
+	-- The quiet helpers, fixed at the bottom.
+	local innerW = (rightW - leftW - 12) - 28
+	card.sw = {}
+	for i, s in ipairs(PROF_SWITCHES) do
+		card.sw[i] = MakeSwitch(card, s, innerW)
+	end
+	card.swHead = Text(card, "head2", 12, A.label)
+	card.swHead:SetText(ns:L("FOV_PROF_SWITCHES"):upper())
+	HoverOver(card, card.swHead, ns:L("FOV_PROF_SWITCHES"), ns:L("FOV_TIP_PROF_SWITCHES"))
+	card.sf, card.child = S.Scroll(card, 78, 120, 40)
+	card.text = Text(card.child, "text", 14)
+	card.text:SetPoint("TOPLEFT", 6, 0)
+	card.text:SetPoint("RIGHT", card.child, "RIGHT", -6, 0)
+	if card.text.SetSpacing then
+		card.text:SetSpacing(3)
+	end
+	card.innerW = innerW
+	page.left, page.card = left, card
 end
 
 -- Step 4: the page starts 30 px lower (switch row of "Your class"), so the rows are 19 px apart instead of 21.
@@ -894,7 +1027,7 @@ local function Build()
 	f.page = "now"
 	f.lastInGroup = {}
 	f.pages = {}
-	for _, key in ipairs({ "now", "play", "cq", "camp", "legacy", "trainer", "find", "keys" }) do
+	for _, key in ipairs({ "now", "play", "cq", "camp", "legacy", "trainer", "find", "keys", "profs" }) do
 		local p = CreateFrame("Frame", nil, f)
 		p:SetAllPoints(f)
 		p:Hide()
@@ -1114,17 +1247,21 @@ local function Build()
 	BuildTrainerPage(f, x0, rightW)
 	BuildFindPage(f, x0, rightW)
 	BuildKeysPage(f, x0, rightW)
-	-- Find: distances and names change when you change zone or the client loads an item name; fill again then (not
-	-- every 2 s: the order of the list must not jump under your mouse).
+	BuildProfsPage(f, x0, rightW)
+	-- Find and Professions: distances, names, skills and the tool in your bags change when you change zone, the client
+	-- loads an item name, a skill goes up or your bags change; fill again then (not every 2 s: the order of the list
+	-- must not jump under your mouse).
 	f:RegisterEvent("ZONE_CHANGED_NEW_AREA")
 	f:RegisterEvent("GET_ITEM_INFO_RECEIVED")
 	f:RegisterEvent("SKILL_LINES_CHANGED")
+	f:RegisterEvent("BAG_UPDATE_DELAYED")
+	local LIVE = { find = true, profs = true }
 	f:SetScript("OnEvent", function(self)
-		if self:IsShown() and self.page == "find" and not self.findPending and C_Timer and C_Timer.After then
+		if self:IsShown() and LIVE[self.page] and not self.findPending and C_Timer and C_Timer.After then
 			self.findPending = true
 			C_Timer.After(0.3, function()
 				self.findPending = nil
-				if self:IsShown() and self.page == "find" then
+				if self:IsShown() and LIVE[self.page] then
 					ns.ForeverOverviewFill(true)
 				end
 			end)
@@ -2079,20 +2216,12 @@ local function FillKeysPage(f, refresh)
 	left.swHead:ClearAllPoints()
 	left.swHead:SetPoint("TOPLEFT", left.child, "TOPLEFT", 4, -y)
 	y = y + 20
-	local r, g, b = Accent()
 	for _, s in ipairs(left.switches) do
 		s.text:ClearAllPoints()
 		s.text:SetPoint("TOPLEFT", left.child, "TOPLEFT", 4, -y)
 		s.chip:ClearAllPoints()
 		s.chip:SetPoint("TOPRIGHT", left.child, "TOPRIGHT", -6, -y)
-		local on = s.def.get() and true or false
-		s.chip.t:SetText(ns:L(on and "FOV_SWITCH_ON" or "FOV_SWITCH_OFF"))
-		if on then
-			s.chip:SetColor(r, g, b)
-		else
-			s.chip:SetColor(A.later[1], A.later[2], A.later[3])
-		end
-		y = y + math.max(22, (s.text:GetStringHeight() or 16) + 8)
+		y = y + FillSwitch(s)
 	end
 	left.child:SetHeight(math.max(10, y))
 	if refresh then
@@ -2159,6 +2288,128 @@ local function FillKeysPage(f, refresh)
 	end
 end
 
+--- The Professions page: the list (yours first), the chosen profession's card, its tool, and the three switches.
+local function FillProfsPage(f, refresh)
+	local page = f.pages.profs
+	local left, card = page.left, page.card
+	local mine = ns.ForeverMyProfessions and ns.ForeverMyProfessions() or {}
+	local order = {}
+	for pass = 1, 2 do
+		for _, p in ipairs(ns.FOREVER_PROFS or {}) do
+			if (pass == 1) == (mine[p[1]] ~= nil) then
+				order[#order + 1] = p
+			end
+		end
+	end
+	local sel = f.prof
+	if not sel or not (function()
+		for _, p in ipairs(order) do
+			if p[1] == sel then
+				return true
+			end
+		end
+	end)() then
+		sel = order[1] and order[1][1] or nil
+	end
+	f.prof = sel
+	local r, g, b = Accent()
+	for i, row in ipairs(left.rows) do
+		local p = order[i]
+		if p then
+			local m = mine[p[1]]
+			row.t:SetText(ns.ForeverProfName and ns.ForeverProfName(p[1], mine) or p[3])
+			row.col = m and A.gold or A.text
+			row.t:SetTextColor(row.col[1], row.col[2], row.col[3])
+			row.skill:SetText(m and m.rank and m.maxRank and ("%d/%d"):format(m.rank, m.maxRank) or "")
+			row.bg:SetColorTexture(r, g, b, p[1] == sel and 0.22 or 0)
+			row:SetScript("OnClick", function()
+				f.prof = p[1]
+				ns.ForeverOverviewFill()
+			end)
+			row:Show()
+		else
+			row:Hide()
+		end
+	end
+	if not sel then
+		return
+	end
+	local m = mine[sel]
+	local name = ns.ForeverProfName and ns.ForeverProfName(sel, mine) or sel
+	card.label:SetText(name:upper())
+	card.trainers:SetScript("OnClick", function()
+		ns.ShowForeverFind("prof", sel)
+	end)
+	-- Your skill and its bar; a profession you do not have says so.
+	if m and m.rank and m.maxRank and m.maxRank > 0 then
+		card.skill:SetText(ns:L("FOV_PROF_SKILL_FMT"):format(m.rank, m.maxRank))
+		card.barFill:SetColorTexture(r, g, b, 0.9)
+		card.barFill:SetWidth(math.max(1, ((card.barBg:GetWidth() or 0) > 0 and card.barBg:GetWidth() or 300)
+			* math.min(1, m.rank / m.maxRank)))
+		card.barBg:Show()
+		card.barFill:Show()
+	else
+		card.skill:SetText(ns:L(m and "FOV_PROF_SKILL_UNKNOWN" or "FOV_PROF_NOT_YOURS"))
+		card.barBg:Hide()
+		card.barFill:Hide()
+	end
+	-- The card (ForeverProfGuide.lua) and its tool.
+	local text, toolKey
+	if ns.ForeverProfCard then
+		local ok, t, k = pcall(ns.ForeverProfCard, sel)
+		if ok then
+			text, toolKey = t, k
+		end
+	end
+	card.text:SetText(text and S.Format(text) or "")
+	card.child:SetHeight(math.max(10, (card.text:GetStringHeight() or 0) + 12))
+	if refresh then
+		card.sf.UpdateThumb()
+	else
+		card.sf.Reset()
+	end
+	if toolKey then
+		card.buy:SetScript("OnClick", function()
+			ns.ShowForeverFind("shop", toolKey)
+		end)
+		card.buy:Show()
+		-- Do you carry it? The same check as "Do this now" (ns.ForeverMissingTools: your professions without their tool).
+		local missing = false
+		if m and ns.ForeverMissingTools then
+			local ok, list = pcall(ns.ForeverMissingTools)
+			for _, t in ipairs(ok and list or {}) do
+				if t.key == toolKey then
+					missing = true
+				end
+			end
+		end
+		local toolName = ns.ForeverVendorItemName and ns.ForeverVendorItemName(toolKey) or toolKey
+		if not m then
+			card.tool:SetText(ns:L("FOV_PROF_TOOL_NEED_FMT"):format(toolName))
+		elseif missing then
+			card.tool:SetText("|cffff7f7f" .. ns:L("FOV_PROF_TOOL_MISSING_FMT"):format(toolName) .. "|r")
+		else
+			card.tool:SetText("|cff8fd47a" .. ns:L("FOV_PROF_TOOL_HAVE_FMT"):format(toolName) .. "|r")
+		end
+	else
+		card.buy:Hide()
+		card.tool:SetText("")
+	end
+	-- The switches at the bottom, from below upwards.
+	local y = 12
+	for i = #card.sw, 1, -1 do
+		local s = card.sw[i]
+		local h = FillSwitch(s)
+		s.text:ClearAllPoints()
+		s.text:SetPoint("BOTTOMLEFT", card, "BOTTOMLEFT", 14, y + (h - 22) + 4)
+		s.chip:ClearAllPoints()
+		s.chip:SetPoint("BOTTOMRIGHT", card, "BOTTOMRIGHT", -14, y + (h - 22) + 2)
+		y = y + h
+	end
+	card.swHead:ClearAllPoints()
+	card.swHead:SetPoint("BOTTOMLEFT", card, "BOTTOMLEFT", 14, y + 4)
+end
+
 --- Refill when the overview shows `page` (ForeverMacros.lua calls this when your bags or spells change).
 function ns.ForeverOverviewRefreshPage(page)
 	if win and win:IsShown() and win.page == page then
@@ -2221,6 +2472,9 @@ function ns.ForeverOverviewFill(refresh)
 		return f
 	elseif f.page == "keys" then
 		FillKeysPage(f, refresh)
+		return f
+	elseif f.page == "profs" then
+		FillProfsPage(f, refresh)
 		return f
 	elseif f.page == "cq" then
 		FillClassQuestPage(f, level)
