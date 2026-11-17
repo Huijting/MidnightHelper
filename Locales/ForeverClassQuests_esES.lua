@@ -446,6 +446,25 @@ for k, v in pairs({
 	FBLESS_HELP = "/mh blesstip on | off | set <class> might|wisdom|kings | reset",
 	SET_BLESSTIP_TITLE = "Paladín: consejo de bendición al pasar el ratón",
 	SET_BLESSTIP_DESC = "WoW Forever: pasa el ratón por un jugador amistoso y la descripción dice qué bendición le va a su clase. Lo mismo que /mh blesstip on.",
+	-- 17 Nov 2026 (late): overview front door, Now list, trainer page
+	-- Words as in the es pack: BROKER_TOOLTIP_HINT/BOARD (esES.lua), FDONOW_TITLE "Haz esto ahora", FTRAIN_* (instructor,
+	-- bloque de teclas), FWEEK_* (reinicio, bandas bloqueadas), "oro" as in the class-quest texts; tab names as above.
+	CMDLIST_OVERVIEW = "WoW Forever: abre o cierra el resumen de Midnight Helper: qué hacer ahora, cómo jugar, misiones de clase, Acampando y Banda antigua. /mh, Alt+M y el botón del minimapa también lo abren.",
+	BROKER_TOOLTIP_HINT_FOREVER = "Clic izquierdo: abrir/cerrar el resumen. Clic derecho: configuración.",
+	BROKER_TOOLTIP_BOARD_FOREVER = "Clic central: la ventana \"Haz esto ahora\".",
+	FOV_OLDWIN_BTN = "Todo",
+	FOV_TIP_OLDWIN = "La ventana clásica de Midnight Helper, con todo lo que aún no tiene pestaña aquí.",
+	FDONOW_OPEN_OVERVIEW = "Abrir resumen",
+	FOV_LABEL_WEEK = "ESTA SEMANA",
+	FOV_TIP_CARD_WEEK = "Reinicios, los eventos de hoy y tus bandas bloqueadas (lo mismo que /mh week).",
+	FOV_GOLD_FMT = "Oro: %s",
+	FOV_TIP_GOLD = "El dinero que lleva este personaje.",
+	FOV_DETAILS = "Detalles",
+	FOV_TIP_DETAILS = "Abre la página con todo sobre esto: qué hechizos, cuánto cuestan y qué tecla reciben.",
+	FOV_LABEL_TRAINER = "CON TU INSTRUCTOR DE CLASE",
+	FOV_TIP_CARD_TRAINER = "Lo que tu instructor de clase te enseña ahora, cuánto cuesta y qué tecla recibe cada hechizo en el bloque de teclas de Midnight Helper. Lo mismo que la ventana del instructor (/mh trainer).",
+	FOV_TR_MONEY_FMT = "Tienes %s · todo cuesta %s",
+	FOV_TIP_TR_KEY_FMT = "En el bloque de teclas, este hechizo va en %s.",
 }) do
 	if t[k] == nil or (en and t[k] == en[k]) then
 		t[k] = v

@@ -404,6 +404,23 @@ for k, v in pairs({
 	FBLESS_HELP = "/mh blesstip on | off | set <class> might|wisdom|kings | reset",
 	SET_BLESSTIP_TITLE = "Paladin: Segen-Tipp im Tooltip",
 	SET_BLESSTIP_DESC = "WoW Forever: Fahr mit der Maus über einen freundlichen Spieler, und der Tooltip sagt, welcher Segen zu seiner Klasse passt. Wie /mh blesstip on.",
+	-- 17 Nov 2026 (late): overview front door, Now list, trainer page
+	CMDLIST_OVERVIEW = "WoW Forever: die Übersicht von Midnight Helper öffnen oder schließen: was du jetzt tust, so spielst du, Klassenquests, Lager aufschlagen und Vermächtnis. /mh, Alt+M und der Knopf an der Minikarte öffnen sie auch.",
+	BROKER_TOOLTIP_HINT_FOREVER = "Linksklick: die Übersicht öffnen/schließen. Rechtsklick: Einstellungen.",
+	BROKER_TOOLTIP_BOARD_FOREVER = "Mittelklick: das Fenster \"Mach das jetzt\".",
+	FOV_OLDWIN_BTN = "Werkzeuge",
+	FOV_TIP_OLDWIN = "Das klassische Fenster von Midnight Helper, mit allem, was hier noch keinen Reiter hat.",
+	FDONOW_OPEN_OVERVIEW = "Übersicht öffnen",
+	FOV_LABEL_WEEK = "DIESE WOCHE",
+	FOV_TIP_CARD_WEEK = "Wann etwas zurückgesetzt wird, die Ereignisse von heute und für welche Schlachtzüge du gespeichert bist (wie /mh week).",
+	FOV_GOLD_FMT = "Gold: %s",
+	FOV_TIP_GOLD = "Das Geld, das dieser Charakter bei sich hat.",
+	FOV_DETAILS = "Details",
+	FOV_TIP_DETAILS = "Öffne die Seite mit allem dazu: welche Zauber, was sie kosten und welche Taste sie bekommen.",
+	FOV_LABEL_TRAINER = "BEI DEINEM KLASSENLEHRER",
+	FOV_TIP_CARD_TRAINER = "Was dein Klassenlehrer dir jetzt beibringt, was es kostet und welche Taste jeder Zauber im Tastenblock von Midnight Helper bekommt. Dasselbe wie das Lehrerfenster (/mh trainer).",
+	FOV_TR_MONEY_FMT = "Du hast %s · alles kostet %s",
+	FOV_TIP_TR_KEY_FMT = "Im Tastenblock kommt dieser Zauber auf %s.",
 }) do
 	if t[k] == nil or (en and t[k] == en[k]) then
 		t[k] = v

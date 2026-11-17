@@ -421,6 +421,24 @@ for k, v in pairs({
 	FBLESS_HELP = "/mh blesstip on | off | set <class> might|wisdom|kings | reset",
 	SET_BLESSTIP_TITLE = "Paladin : conseil de bénédiction dans l'infobulle",
 	SET_BLESSTIP_DESC = "WoW Forever : survole un joueur ami et l'infobulle indique quelle bénédiction convient à sa classe. Comme /mh blesstip on.",
+	-- 17 Nov 2026 (late): overview front door, Now list, trainer page
+	CMDLIST_OVERVIEW = "WoW Forever : ouvre ou ferme la vue d'ensemble de Midnight Helper : quoi faire maintenant, comment jouer, quêtes de classe, campement et Héritage. /mh, Alt+M et le bouton de la minicarte l'ouvrent aussi.",
+	BROKER_TOOLTIP_HINT_FOREVER = "Clic gauche : ouvrir/fermer la vue d'ensemble. Clic droit : paramètres.",
+	BROKER_TOOLTIP_BOARD_FOREVER = "Clic du milieu : la fenêtre « Fais ça maintenant ».",
+	FOV_OLDWIN_BTN = "Tous les outils",
+	FOV_TIP_OLDWIN = "La fenêtre classique de Midnight Helper, avec tout ce qui n'a pas encore d'onglet ici.",
+	FDONOW_OPEN_OVERVIEW = "Vue d'ensemble",
+	FOV_LABEL_WEEK = "CETTE SEMAINE",
+	-- not measured: the client's word for raid lockouts; written as plain French ("raids verrouillés")
+	FOV_TIP_CARD_WEEK = "Réinitialisations, évènements du jour et tes raids verrouillés (comme /mh week).",
+	FOV_GOLD_FMT = "Or : %s",
+	FOV_TIP_GOLD = "L'argent que ce personnage a sur lui.",
+	FOV_DETAILS = "Détails",
+	FOV_TIP_DETAILS = "Ouvre la page avec tout sur ce sujet : quels sorts, ce qu'ils coûtent, et quelle touche ils reçoivent.",
+	FOV_LABEL_TRAINER = "CHEZ TON MAÎTRE DE CLASSE",
+	FOV_TIP_CARD_TRAINER = "Ce que ton maître de classe t'apprend maintenant, ce que ça coûte, et quelle touche reçoit chaque sort sur le bloc de touches de Midnight Helper. Comme la fenêtre du maître de classe (/mh trainer).",
+	FOV_TR_MONEY_FMT = "Tu as %s · le tout coûte %s",
+	FOV_TIP_TR_KEY_FMT = "Sur le bloc de touches, ce sort va sur %s.",
 }) do
 	if t[k] == nil or (en and t[k] == en[k]) then
 		t[k] = v

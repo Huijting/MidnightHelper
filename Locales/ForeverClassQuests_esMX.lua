@@ -176,6 +176,9 @@ for k, v in pairs({
 	FOV_TIP_CAMP_BENEFITS = "El buff de campamento: 1 hora, una línea por cada elemento de campamento junto a la hoguera.",
 	FOV_TIP_CAMP_COOLDOWN = "Todos los elementos de campamento comparten una espera de 1 hora.",
 	FOV_TIP_LEG_AVAIL = "Puntos que este personaje aún puede gastar. Pulsa el botón Legado en la barra de menú.",
+	-- 17 Nov 2026 (late): overview front door, Now list, trainer page
+	-- Tab names on esMX: "Campamento" and "Legado" (see above).
+	CMDLIST_OVERVIEW = "WoW Forever: abre o cierra el resumen de Midnight Helper: qué hacer ahora, cómo jugar, misiones de clase, Campamento y Legado. /mh, Alt+M y el botón del minimapa también lo abren.",
 }) do
 	es[k] = v
 end

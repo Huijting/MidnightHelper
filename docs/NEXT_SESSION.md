@@ -50,6 +50,14 @@ Plan: `docs/forever/OVERZICHT_PRODUCT_PLAN_2026-11-17.md` (7 tabs + tandwiel; de
   Vinden). Ververst elke 2 s (geld bij de trainer) zonder je scrollplek te verliezen. Offline gedraaid (scratch
   tr_check: 9 classes × level 1-60 = 540 runs, 0 fouten; 22.782 van 25.745 spell-regels met een toets). Lint 0 HARD.
   NIET in het spel gezien.
+- 🌍 **Vertaling stap 1-3 GEDAAN**: 16 nieuwe sleutels in de/fr/es/esMX/pt/ru (`ForeverClassQuests_<taal>.lua`); controle
+  130/130 per taal, %s/kleurcodes 0 problemen. Niet gemeten als clientwoord (writers): "raid lockouts" in fr/pt/ru/de,
+  "Gold/Or/Ouro/Золото" (uit bestaande packs, niet uit GlobalStrings). Knop "All tools" is kort gemaakt (de "Werkzeuge",
+  es "Todo", pt "Tudo", ru "Инструменты"). esES: FOV_TIP_TAB_CAMP/FOV_LABEL_CAMP_HOW zeggen nog "acampar" naast de tab
+  "Acampando" (klein, open).
+- 📌 Proces (sparring): lint als ALLERLAATSTE stap vóór elke commit, ook na vertalingen; echte uitkomst melden.
+- ⏭️ Volgende (plan, zelfde volgorde): stap 4 Vinden (groot), 5 Toetsen & macros, 6 Beroepen, 7 Dungeons & groep,
+  8 Karakters + Legacy, 9 Tandwiel; 10 opruimen pas na Robs test.
 
 ## ▶ 17 nov (avond) — Bouwchat 17-11 (3) (verse chat, nam het over na 679fed7)
 

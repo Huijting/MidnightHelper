@@ -410,6 +410,23 @@ for k, v in pairs({
 	FBLESS_HELP = "/mh blesstip on | off | set <classe> might|wisdom|kings | reset",
 	SET_BLESSTIP_TITLE = "Paladino: dica de bênção na dica de tela",
 	SET_BLESSTIP_DESC = "WoW Forever: passe o mouse num jogador aliado e a dica de tela diz qual bênção combina com a classe dele. O mesmo que /mh blesstip on.",
+	-- 17 Nov 2026 (late): overview front door, Now list, trainer page
+	CMDLIST_OVERVIEW = "WoW Forever: abre ou fecha a visão geral do Midnight Helper: o que fazer agora, como jogar, missões de classe, acampamento e Legado. /mh, Alt+M e o botão do minimapa também a abrem.",
+	BROKER_TOOLTIP_HINT_FOREVER = "Clique com o botão esquerdo: abre/fecha a visão geral. Clique com o botão direito: configurações.",
+	BROKER_TOOLTIP_BOARD_FOREVER = "Clique do meio: a janela \"Faça isto agora\".",
+	FOV_OLDWIN_BTN = "Tudo",
+	FOV_TIP_OLDWIN = "A janela clássica do Midnight Helper, com tudo o que ainda não tem uma aba aqui.",
+	FDONOW_OPEN_OVERVIEW = "Visão geral",
+	FOV_LABEL_WEEK = "ESTA SEMANA",
+	FOV_TIP_CARD_WEEK = "Reinícios, os eventos de hoje e os seus bloqueios de raide (o mesmo que /mh week).",
+	FOV_GOLD_FMT = "Ouro: %s",
+	FOV_TIP_GOLD = "O dinheiro que este personagem carrega.",
+	FOV_DETAILS = "Detalhes",
+	FOV_TIP_DETAILS = "Abre a página com tudo sobre isto: quais feitiços, quanto custam e qual tecla cada um recebe.",
+	FOV_LABEL_TRAINER = "NO TREINADOR DA SUA CLASSE",
+	FOV_TIP_CARD_TRAINER = "O que o treinador da sua classe ensina agora, quanto custa e qual tecla cada feitiço recebe no bloco de teclas do Midnight Helper. O mesmo que a janela do treinador (/mh trainer).",
+	FOV_TR_MONEY_FMT = "Você tem %s · tudo custa %s",
+	FOV_TIP_TR_KEY_FMT = "No bloco de teclas, este feitiço vai em %s.",
 }) do
 	if t[k] == nil or (en and t[k] == en[k]) then
 		t[k] = v
