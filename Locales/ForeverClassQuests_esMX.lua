@@ -169,6 +169,7 @@ for k, v in pairs({
 	-- "Campamento" on esMX ("Acampando" on esES); tab and camp words as in ForeverHowToPlay_esMX.lua ("Campamento",
 	-- "elemento de campamento").
 	FOV_TAB_CAMP = "Campamento",
+	FOV_TAB_LEGACY = "Legado", -- GlobalStrings LEGACY_BUTTON esMX (LEGACY_VERIFIED r.341); esES says "Banda antigua"
 	FOV_TIP_TAB_CAMP = "Campamento: lo que MH puede leer ahora de tus buffs de campamento, y cómo funciona el campamento.",
 	FOV_LABEL_CAMP_HOW = "CÓMO FUNCIONA EL CAMPAMENTO",
 	FOV_TIP_CAMP_BENEFITS = "El buff de campamento: 1 hora, una línea por cada elemento de campamento junto a la hoguera.",

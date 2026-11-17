@@ -291,7 +291,7 @@ for k, v in pairs({
 	FOV_TAB_PLAY = "So spielst du",
 	FOV_TAB_CQ = "Klassenquests",
 	FOV_TAB_CAMP = "Lager aufschlagen",
-	FOV_TAB_LEGACY = "Vermächtnis",
+	FOV_TAB_LEGACY = "Klassisch", -- GlobalStrings LEGACY_BUTTON deDE (LEGACY_VERIFIED r.341; Rob 20 Oct: client name wins)
 	FOV_LABEL_NOW = "MACH DAS JETZT",
 	FOV_LABEL_SOON = "DEMNÄCHST",
 	FOV_LABEL_CQ = "KLASSENQUEST",

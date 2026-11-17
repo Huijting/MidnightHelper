@@ -58,6 +58,15 @@
   "avantage" door elkaar; de/ru Legacy-knop heet in die client echt "Klassisch"/"Классические" (GEMETEN, LEGACY_BUTTON);
   "Rested": de "Ruhebonus" en ru "отдых" niet als clientwoord gemeten (`-- not measured`); es "camino" = richting én
   knop; `/mh blesstip set` kent alleen Engelse class-woorden (hunter, mage …).
+  → Daarna (sparring: de vaste regel "clientnaam wint altijd" beslist het): tabs = clientnaam, GEMETEN in
+  CAMPING_VERIFIED r.345 / LEGACY_VERIFIED r.341: frFR Kamperen "Campement", esES "Acampando" + Legacy "Banda antigua"
+  (esMX "Legado"), deDE Legacy "Klassisch". frFR overal "avantage d'Héritage" (was ook "bonus"; Rob mag omdraaien).
+  "Moonkin Stone"-clientnaam: GameObjects-zoekactie op "Moonkin" gaf 0 rijen (ZONDER positieve controle → bewijst
+  niets); nog open.
+- 🛑 **Ontwerp B: Rob (via sparring, letterlijk): *"ik denk dat wij gewoon gaan voor onze eerste stijl die we gemaakt
+  hebben. We gaan niet eens moeite doen voor de tweede stijl."*** → geen werk meer aan B. Of B + knop "Style A/B" +
+  instelling eruit gaan: sparring vraagt het Rob (advies: eruit). Tot zijn antwoord NIETS verwijderen. Zijn eerdere "laat
+  de user kiezen" vervalt hiermee.
 - 🛡️ **Stap 7.1 zegen-tip GEBOUWD (en + nl)**: nieuw `Modules/ForeverBlessTip.lua` (beide toc's → WoW herstarten). Paladin,
   vriendelijke SPELER onder de muis → regel in de tooltip "Midnight Helper: give Blessing of Might (Shift+Z)". Standaard
   UIT: `/mh blesstip on|off`, instelling SET_BLESSTIP_*. Tabel AFGELEID (Classic; Might = alleen melee AP, sparring

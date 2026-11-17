@@ -298,9 +298,9 @@ for k, v in pairs({
 	-- not measured: Polymorph Clone
 	FCQ_OBJ_MA_CLONES = "garde la Coquille prismatique dans tes sacs, lance Métamorphose sur un naga Fouette-bile, attends quelques secondes et vaincs les Polymorph Clones qui apparaissent. Recommence jusqu'à en avoir 50 (pas dans un groupe de raid)",
 	-- Talented (Legacy perk): "Héritage" = GlobalStrings LEGACY, "Talent" = SpellName 1225474
-	FDONOW_TALENTED_HINT = ", jusqu'à 5 niveaux plus tôt avec Talent, un bonus d'Héritage",
-	FHOWTO_TALENTED_NOTE = "Les niveaux de talent ci-dessus comptent ton premier point de talent au niveau 10. Le bonus d'Héritage Talent donne des points de talent plus tôt : jusqu'à 5 niveaux avant.",
-	FHOWTO_TALENTED_RANK_FMT = "Les niveaux de talent ci-dessus comptent ton premier point de talent au niveau 10. Tu as le bonus d'Héritage Talent au rang %d : tes talents arrivent autant de niveaux plus tôt.",
+	FDONOW_TALENTED_HINT = ", jusqu'à 5 niveaux plus tôt avec Talent, un avantage d'Héritage",
+	FHOWTO_TALENTED_NOTE = "Les niveaux de talent ci-dessus comptent ton premier point de talent au niveau 10. Le avantage d'Héritage Talent donne des points de talent plus tôt : jusqu'à 5 niveaux avant.",
+	FHOWTO_TALENTED_RANK_FMT = "Les niveaux de talent ci-dessus comptent ton premier point de talent au niveau 10. Tu as le avantage d'Héritage Talent au rang %d : tes talents arrivent autant de niveaux plus tôt.",
 	-- 17 Nov 2026: the overview (/mh overview, ForeverOverview.lua): FOV_*, FDUNG_IN_ENEMY_FMT, SET_FOVSTYLE_*
 	-- Names: "Points d’héritage" = GlobalStrings LEGACY_REWARD_TRACK_POINTS, "Héritage" = LEGACY_BUTTON, "Talent" =
 	-- SpellName 1225474 (LEGACY_VERIFIED ch. 10); "Avantages du camp" = 1229741, "Tente du camp" = item 279978
@@ -308,7 +308,7 @@ for k, v in pairs({
 	FOV_TAB_NOW = "Maintenant",
 	FOV_TAB_PLAY = "Comment jouer",
 	FOV_TAB_CQ = "Quêtes de classe",
-	FOV_TAB_CAMP = "Camping",
+	FOV_TAB_CAMP = "Campement", -- client name of spell 1308027 (CAMPING_VERIFIED r.345; Rob 20 Oct: client name wins)
 	FOV_TAB_LEGACY = "Héritage",
 	FOV_LABEL_NOW = "FAIS ÇA MAINTENANT",
 	FOV_LABEL_SOON = "BIENTÔT",

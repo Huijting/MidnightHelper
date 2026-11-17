@@ -331,8 +331,8 @@ for k, v in pairs({
 	FOV_TAB_NOW = "Ahora",
 	FOV_TAB_PLAY = "Cómo jugar",
 	FOV_TAB_CQ = "Misiones de clase",
-	FOV_TAB_CAMP = "Acampar",
-	FOV_TAB_LEGACY = "Legado",
+	FOV_TAB_CAMP = "Acampando", -- client name of spell 1308027 (CAMPING_VERIFIED r.345; Rob 20 Oct: client name wins)
+	FOV_TAB_LEGACY = "Banda antigua", -- GlobalStrings LEGACY_BUTTON esES (LEGACY_VERIFIED r.341)
 	FOV_LABEL_NOW = "HAZ ESTO AHORA",
 	FOV_LABEL_SOON = "PRÓXIMAMENTE",
 	FOV_LABEL_CQ = "MISIÓN DE CLASE",
