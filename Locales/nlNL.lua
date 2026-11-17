@@ -4967,6 +4967,7 @@ ns._mhLocales.nlNL = {
 	FHOWTO_TALENTED_NOTE = "De talent-levels hierboven rekenen met je eerste talentpunt op level 10. De Legacy-perk Talented geeft talentpunten eerder: tot 5 levels eerder.",
 	FHOWTO_TALENTED_RANK_FMT = "De talent-levels hierboven rekenen met je eerste talentpunt op level 10. Jij hebt de Legacy-perk Talented op rank %d: je talents komen zoveel levels eerder.",
 	FDONOW_TOOL_FMT = "%s: je hebt nog geen %s (%s).",
+	FLEGACY_UNUSED_FMT = "Je hebt %d ongebruikte %s. Open %s in de menubalk van het spel en kies een perk.",
 	FCAMP_SIT_FMT = "Er is een kampvuur bij je: ga er dichtbij zitten (craften mag, lopen niet). Na 1 minuut %s krijg je 1 uur %s.",
 	FDONOW_WEAP_ONE = "Je kunt nu 1 nieuwe wapenvaardigheid leren.",
 	FDONOW_WEAP_MANY_FMT = "Je kunt nu %d nieuwe wapenvaardigheden leren.",

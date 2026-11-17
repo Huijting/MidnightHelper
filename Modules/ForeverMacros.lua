@@ -755,17 +755,19 @@ function ns.ForeverTalentedRank()
 	if not (C_Traits and C_Traits.GetNodeInfo) then
 		return nil, "no C_Traits.GetNodeInfo"
 	end
+	-- By tree first, the way Blizzard's own Legacy window does it (GEMETEN in Blizzard_LegacySystemUtil.lua, build 70938,
+	-- docs/forever/LEGACY_VERIFIED_2026-11-17.md 7.x); the system id only as a fallback (Blizzard does not use it).
 	local cfg, src
-	if C_Traits.GetConfigIDBySystemID then
-		local ok, v = pcall(C_Traits.GetConfigIDBySystemID, LEGACY_SYSTEM)
-		if ok and type(v) == "number" and v > 0 then
-			cfg, src = v, "system 45"
-		end
-	end
-	if not cfg and C_Traits.GetConfigIDByTreeID then
+	if C_Traits.GetConfigIDByTreeID then
 		local ok, v = pcall(C_Traits.GetConfigIDByTreeID, ADVENTURE_TREE)
 		if ok and type(v) == "number" and v > 0 then
 			cfg, src = v, "tree 1188"
+		end
+	end
+	if not cfg and C_Traits.GetConfigIDBySystemID then
+		local ok, v = pcall(C_Traits.GetConfigIDBySystemID, LEGACY_SYSTEM)
+		if ok and type(v) == "number" and v > 0 then
+			cfg, src = v, "system 45"
 		end
 	end
 	local rank, why

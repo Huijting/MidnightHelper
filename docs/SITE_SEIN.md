@@ -28,6 +28,16 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 17 nov 2026 — Forever: Legacy Points, stap 1 ("je hebt N ongebruikte punten")
+- Tag + commit:   geen tag / (deze commit, zie git log "Legacy step 1")
+- Status:         alleen op main
+- Mag op de site: nee (nog niet uit)
+- Speler ziet:    Heb je ongebruikte Legacy Points, dan zegt "Do this now" hoeveel en waar je ze uitgeeft (namen in
+                  jouw taal, uit het spel). /mh legacy laat zien wat MH kan lezen. *(niet in het spel getest)*
+- Knoplabels:     FLEGACY_UNUSED_FMT (regel, geen knop)
+- Commando's:     /mh legacy
+- Spel:           Forever
+
 ## 17 nov 2026 — Forever: kamperen, stap 1 ("ga bij het vuur zitten")
 - Tag + commit:   geen tag / (deze commit, zie git log "camping step 1")
 - Status:         alleen op main

@@ -1509,6 +1509,16 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh legacy — Forever Legacy Points: what the client lets us read, and the "Do this now" decision (ForeverLegacy.lua).
+	if msg == "legacy" then
+		if ns.ForeverLegacySlash then
+			ns.ForeverLegacySlash()
+		else
+			print(("|cffffcc00%s|r Legacy Points are a WoW Forever feature."):format(ns:L("PRINT_PREFIX")))
+		end
+		return
+	end
+
 	-- /mh camp — Forever camping: what the client lets us read, and the "Do this now" decision (ForeverCamp.lua).
 	if msg == "camp" then
 		if ns.ForeverCampSlash then

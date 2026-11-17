@@ -79,6 +79,15 @@ Priest, `/reload`. Uitgezocht met Fable; niets in het spel gezien.
 - [ ] Level 5-15: "Your first priest robe" (een wacht healen). Na level 15 verdwijnt hij uit "Do this now".
 - [ ] Undead level 10: geeft Aelthalyste de Touch of Weakness-quest, of Father Lankester naast haar?
 
+## 🏛️ 17 nov — Forever: Legacy Points, stap 1 (kan MH je punten lezen?)
+
+- [ ] Typ `/mh legacy`. Staan er getallen bij "earned", "available now", "spent" en "cap per character" (16)? Of
+  "? (unreadable)"? Screenshot graag. Kloppen ze met wat Blizzards Legacy-venster zegt?
+- [ ] Heb je ongebruikte punten: zegt "Do this now" "You have N unused Legacy Points. Open Legacy…"? Geef er één uit:
+  het getal gaat omlaag; bij 0 is de regel weg.
+- [ ] "Talented rank" in `/mh legacy`: is dat jouw rang? (Code leest nu eerst boom 1188, zoals Blizzard zelf.)
+- [ ] Daarna `/reload` (dan staat de meting in je SavedVariables).
+
 ## 🔥 17 nov — Forever: kamperen, stap 1 (kan MH je kampbuffs lezen?)
 
 - [ ] Typ `/mh camp` ergens zonder vuur. Elke regel zegt "yes", "no" of "? (unreadable)". Screenshot graag.

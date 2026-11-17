@@ -5824,6 +5824,8 @@ ns._mhLocales.enUS = {
 	FHOWTO_TALENTED_NOTE = "The talent levels above count your first talent point at level 10. The Legacy perk Talented gives talent points sooner: up to 5 levels earlier.",
 	FHOWTO_TALENTED_RANK_FMT = "The talent levels above count your first talent point at level 10. You have the Legacy perk Talented at rank %d: your talents come that many levels sooner.",
 	FDONOW_TOOL_FMT = "%s: you have no %s yet (%s).",
+	-- Legacy step 1 (ForeverLegacy.lua, 17 Nov 2026). %d = points, %s = the client's "Legacy Points", %s = its button name.
+	FLEGACY_UNUSED_FMT = "You have %d unused %s. Open %s in the game menu bar and pick a perk.",
 	-- Camping step 1 (ForeverCamp.lua, 17 Nov 2026). %s = the client's names of Welcoming Campfire and Camp Benefits.
 	FCAMP_SIT_FMT = "There is a campfire near you: sit down close to it (crafting is fine, walking is not). After 1 minute of %s you get %s for 1 hour.",
 	FDONOW_WEAP_ONE = "You can learn 1 new weapon skill now.",

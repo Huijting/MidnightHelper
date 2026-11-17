@@ -187,7 +187,10 @@ lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met d
   🔑 API GEMETEN in Blizzards UI-code 70938 (spiegel Gethe/wow-ui-source, branch forever): punten =
   `C_Traits.GetTreeCurrencyInfo(C_Traits.GetConfigIDByTreeID(1187), 1187, false)[1]`, verdiend totaal =
   `C_MajorFactions.GetCurrentRenownLevel(2802)`. Blizzard gebruikt GetConfigIDBySystemID(45) NIET (onze Talented-
-  code wel → nakijken). Dedicated Study = knop (25 s cast, 23 u cooldown). Geen resetprijs noemen.
+  code wel → nu omgedraaid: eerst boom 1188). Dedicated Study = knop (25 s cast, 23 u cooldown). Geen resetprijs noemen.
+- Stap 1 GEBOUWD 17 nov (wacht op Robs test): `Modules/ForeverLegacy.lua` — `/mh legacy` (verdiend/beschikbaar/
+  uitgegeven/cap + Talented-rang, bewaard in ns.db.foreverLegacyProbe) en "Do this now": "N ongebruikte Legacy Points"
+  (namen uit de client: LEGACY_REWARD_TRACK_POINTS + LEGACY_BUTTON; stil als onleesbaar). Uitlegkaart: na Robs test.
 
 ### Nieuwe huisstijl / overzichtspagina, in TWEE varianten met een schakelaar
 - Bron: Rob 17 nov (via Sparring 17-11), letterlijk: *"Ja, eigenlijk vind ik ze allebei wel super mooi. En misschien

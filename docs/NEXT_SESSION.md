@@ -91,8 +91,9 @@
 - ⏭️ **STAND 17 nov middag**: (1) pijl-schakelaar GEBOUWD (537c850). (2) Kamperen: onderzoek nagelopen door Fable
   (`CAMPING_VERIFIED`), stap 1 GEBOUWD (`ForeverCamp.lua`: `/mh camp` + "Do this now ga zitten"); kaart wacht op Robs
   test. (3) Legacy: nagelopen door Fable (`LEGACY_VERIFIED`, API GEMETEN in Blizzards UI-code: GetConfigIDByTreeID(1187)
-  + GetTreeCurrencyInfo; renown 2802) → VOLGENDE: Legacy bouwen (kaart, `/mh legacy`, "Do this now" ongebruikte
-  punten) + Talented-code van GetConfigIDBySystemID(45) naar GetConfigIDByTreeID(1188) nakijken. (4) Daarna: nieuwe
+  + GetTreeCurrencyInfo; renown 2802) → stap 1 GEBOUWD (`ForeverLegacy.lua`: `/mh legacy` + "Do this now"
+  ongebruikte punten; Talented leest nu eerst boom 1188). VOLGENDE na Robs tests van `/mh camp` en `/mh legacy`:
+  de twee uitlegkaarten (Kamperen = ForeverProfGuide versie B; Legacy) met mh-writer, uit de VERIFIED-bestanden. (4) Daarna: nieuwe
   huisstijl A+B met schakelaar (IDEEEN, Robs ja), liefst in een verse bouwchat.
 - 🧪 **Rob-test 17 nov (troll mage 6, via sparring)**: LEARNED_SPELL_IN_SKILL_LINE vuurt ook voor een nieuwe RANK
   (143 Fireball). ForeverDoNow kijkt "op een balk" per spellnaam, dus Rank 2 met Rank 1 op de balk geeft geen

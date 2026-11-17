@@ -309,6 +309,14 @@ local function Collect()
 			end
 		end
 	end
+	-- 17 Nov 2026 (Legacy step 1, ForeverLegacy.lua): unused Legacy Points, only when the client lets us read them.
+	if ns.ForeverLegacyNow then
+		local okL, leg = pcall(ns.ForeverLegacyNow)
+		if okL and leg then
+			out.now[#out.now + 1] = leg
+			out.actions.legacy = true
+		end
+	end
 	-- 17 Nov 2026 (camping step 1, ForeverCamp.lua): near a fire without a camp buff → "sit down". Silent when unreadable.
 	if ns.ForeverCampNow then
 		local okF, camp = pcall(ns.ForeverCampNow)
@@ -733,6 +741,10 @@ for _, e in ipairs({ "PLAYER_ENTERING_WORLD", "PLAYER_LEVEL_UP", "SPELLS_CHANGED
 	pcall(ev.RegisterEvent, ev, e)
 end
 pcall(ev.RegisterUnitEvent, ev, "UNIT_AURA", "player")
+-- Legacy Points (17 Nov 2026): the events Blizzard's own Legacy button and tree use (GEMETEN in its UI code, 70938).
+for _, e in ipairs({ "TRAIT_TREE_CURRENCY_INFO_UPDATED", "TRAIT_CONFIG_UPDATED", "MAJOR_FACTION_RENOWN_LEVEL_CHANGED" }) do
+	pcall(ev.RegisterEvent, ev, e)
+end
 local queued = false
 ev:SetScript("OnEvent", function(_, event)
 	if event == "PLAYER_REGEN_DISABLED" then

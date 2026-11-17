@@ -152,6 +152,8 @@ Modules\ForeverToolGuard.lua
 Modules\ForeverBuffs.lua
 # Camping step 1 (Rob, 17 Nov 2026: "dat kampvuuridee moeten we ook gaan bouwen"): /mh camp + "sit by the fire".
 Modules\ForeverCamp.lua
+# Legacy step 1 (Rob, 17 Nov 2026: "Legacy ook bouwen"): /mh legacy + "unused Legacy Points".
+Modules\ForeverLegacy.lua
 Modules\MissingBuff.lua
 # Which quest reward to take, and why (Rob, 7 Nov 2026: "doe de quest beloning tip maar ook").
 Modules\ForeverMainStats.lua
