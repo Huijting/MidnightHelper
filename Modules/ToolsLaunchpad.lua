@@ -202,6 +202,19 @@ local function ToolShown(tool)
 	return fn ~= nil and type(ns[fn]) == "function" -- an unknown card stays hidden on Forever rather than dead
 end
 
+--- 17 Nov 2026 (WoW Forever, Rob via sparring: "het oude venster moet dan in principe niet meer terugkomen"): the cards
+--- this client shows, for the overview's gear → Tools page. Each: { nameKey, descKey, icon, slash, open }. `skip` = a
+--- set of nameKeys the overview already has on a tab.
+function ns.ToolsLaunchpadVisible(skip)
+	local out = {}
+	for _, t in ipairs(TOOLS) do
+		if ToolShown(t) and not (skip and skip[t.nameKey]) then
+			out[#out + 1] = t
+		end
+	end
+	return out
+end
+
 -- Re-apply localized text to a built launchpad (called on locale change, and
 -- once more after build so a panel built before the locale resolver still ends
 -- up in the right language).

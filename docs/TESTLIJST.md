@@ -34,6 +34,16 @@ Eerst WoW helemaal afsluiten en opnieuw starten (er is een nieuw bestand; /reloa
 - [ ] `/mh overview` opent zonder foutmelding en ziet er precies hetzelfde uit als ronde 5 (zelfde letters, kleuren,
       knoppen, NOW/LATER-labels onder Jouw pad).
 
+## 🧹 17 nov (nacht) — Forever: geen oud venster meer, geen Dock-knop, tandwiel met Tools en commando's
+
+- [ ] Rechtsboven in het overzicht alleen nog het tandwiel en het kruisje (geen "Dock", geen "All tools").
+- [ ] Tandwiel: bovenaan drie knoppen — Quiet helpers · Tools · All commands. Tools: elke andere MH-tool met "Open"
+      (o.a. Move MH, Quick bar, New in this version, Changelog, All settings; met MF Nameplates ook de kleurkaart).
+      All commands: alle /mh-commando's; typ in het zoekvak, de lijst wordt korter.
+- [ ] Het oude MH-venster komt in Forever nergens meer tevoorschijn: niet via /mh, Alt+M, de minimapknop, de snelbalk
+      of `/mh settings`. Rechtsklik op de minimapknop en `/mh settings` openen MH in de instellingen van het spel.
+- [ ] De achtergrond van het overzicht is ook bovenin helemaal dicht.
+
 ## 🩹 17 nov (nacht) — Forever: 4 reparaties na Robs eerste test van het overzicht (3 screenshots)
 
 Eerst WoW helemaal afsluiten en opnieuw starten (de fout zat juist in de eerste keer openen).

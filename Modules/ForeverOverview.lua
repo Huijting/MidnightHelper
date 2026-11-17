@@ -201,6 +201,13 @@ local GROUPS = {
 		{ page = "legacy", key = "FOV_TAB_LEGACY", tip = "FOV_TIP_TAB_LEGACY" },
 		{ page = "week", key = "FOV_SUB_WEEK", tip = "FOV_TIP_CARD_WEEK" },
 	},
+	-- The gear (no tab of its own): quiet helpers, the tools that had only the old window, and every command. Since
+	-- 17 Nov 2026 the old window is gone in Forever (Rob: "het oude venster moet dan in principe niet meer terugkomen").
+	gear = {
+		{ page = "quiet", key = "FOV_SUB_QUIET", tip = "FOV_TIP_CARD_QUIET" },
+		{ page = "tools", key = "FOV_SUB_TOOLS", tip = "FOV_TIP_SUB_TOOLS" },
+		{ page = "cmds", key = "CMDLIST_TITLE", tip = "FOV_TIP_SUB_CMDS" },
+	},
 }
 local PAGE_GROUP = {}
 for g, list in pairs(GROUPS) do
@@ -1142,7 +1149,7 @@ local QUIET = {
 local function BuildQuietPage(f, x0, rightW)
 	local page = f.pages.quiet
 	local card = Card(page)
-	card:SetPoint("TOPLEFT", f, "TOPLEFT", x0, TOP_Y)
+	card:SetPoint("TOPLEFT", f, "TOPLEFT", x0, SUB_TOP)
 	card:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -16, 16)
 	card.label = Label(card, ns:L("FOV_LABEL_QUIET"), "FOV_TIP_CARD_QUIET")
 	card.all = Button(card, 150)
@@ -1177,6 +1184,112 @@ local function BuildQuietPage(f, x0, rightW)
 		end
 	end
 	page.card = card
+end
+
+--- Gear → Tools (17 Nov 2026): every tool card the old window had in Forever that has no tab here
+--- (ns.ToolsLaunchpadVisible: stat coach, Pawn and key exports, nameplate colours, FPS panel …), plus what only had
+--- a command or the old window's menu: move mode, quick bar, "New in this version", changelog, the settings panel.
+local TOOLS_ON_TABS = { KEYSHUB_TITLE = true, HOME_FOREVER_BTN_HOWTO = true, HOME_FOREVER_TRAINER_HEADER = true,
+	FPROF_TITLE = true, FMAC_TITLE = true, FVEND_TITLE = true, FWEAP_TITLE = true, KEYBLOCK_TITLE = true,
+	TAB_MACROS = true }
+local TOOL_EXTRAS = {
+	{ nameKey = "FOV_TOOL_MOVE", descKey = "CMDLIST_MOVE", icon = "Interface\\Icons\\INV_Misc_Map_01", slash = "/mh move",
+		open = function() if ns.MoveModeSlash then ns.MoveModeSlash("") end end },
+	{ nameKey = "FOV_TOOL_BAR", descKey = "CMDLIST_BAR", icon = "Interface\\Icons\\INV_Misc_Bag_08", slash = "/mh bar",
+		open = function() if ns.MH_ToggleQuickBar then ns.MH_ToggleQuickBar() end end },
+	{ nameKey = "FOV_TOOL_NEW", descKey = "CMDLIST_NEW", icon = "Interface\\Icons\\INV_Misc_Note_01", slash = "/mh new",
+		open = function() if ns.NewChoicesSlash then ns.NewChoicesSlash("") end end },
+	{ nameKey = "FOV_TOOL_CHANGELOG", descKey = "CMDLIST_CHANGELOG", icon = "Interface\\Icons\\INV_Misc_Book_09",
+		slash = "/mh changelog", open = function() if ns.ShowChangelogWindow then ns:ShowChangelogWindow(true) end end },
+	{ nameKey = "FOV_Q_ALLSETTINGS", descKey = "FOV_TIP_Q_ALLSETTINGS", icon = "Interface\\Icons\\INV_Misc_Gear_01",
+		slash = "/mh settings", open = function() if ns.OpenNativeSettings then ns.OpenNativeSettings() end end },
+}
+
+local function BuildListPage(f, key, x0, rightW, labelKey, tipKey)
+	local page = f.pages[key]
+	local card = Card(page)
+	card:SetPoint("TOPLEFT", f, "TOPLEFT", x0, SUB_TOP)
+	card:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -16, 16)
+	card.label = Label(card, ns:L(labelKey):upper(), tipKey)
+	card.sf, card.child = S.Scroll(card, 36, 8, 50)
+	card.rowW = rightW - 22 - 8
+	card.child:SetWidth(card.rowW)
+	card.rows = {}
+	page.card = card
+	return card
+end
+
+local function ToolRow(card, i)
+	local r = card.rows[i]
+	if r then
+		return r
+	end
+	r = CreateFrame("Frame", nil, card.child)
+	r:SetWidth(card.rowW)
+	local sep = r:CreateTexture(nil, "ARTWORK")
+	sep:SetColorTexture(A.edge[1], A.edge[2], A.edge[3], 0.35)
+	sep:SetHeight(1)
+	sep:SetPoint("BOTTOMLEFT")
+	sep:SetPoint("BOTTOMRIGHT")
+	r.icon = r:CreateTexture(nil, "ARTWORK")
+	r.icon:SetSize(28, 28)
+	r.icon:SetPoint("TOPLEFT", 4, -6)
+	r.icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
+	r.go = Button(r, 96)
+	r.go:SetHeight(22)
+	r.go:SetPoint("TOPRIGHT", -2, -6)
+	r.go:SetLabel(ns:L("FOV_TOOL_OPEN"))
+	r.name = Text(r, "textB", 14)
+	r.name:SetPoint("TOPLEFT", r.icon, "TOPRIGHT", 10, 2)
+	r.name:SetWidth(card.rowW - 150)
+	r.name:SetWordWrap(false)
+	r.desc = Text(r, "text", 12, A.dim)
+	r.desc:SetPoint("TOPLEFT", r.name, "BOTTOMLEFT", 0, -2)
+	r.desc:SetWidth(card.rowW - 150)
+	r.slash = Text(r, "text", 11, A.later)
+	r.slash:SetPoint("TOPLEFT", r.desc, "BOTTOMLEFT", 0, -2)
+	card.rows[i] = r
+	return r
+end
+
+--- Gear → Commands: every /mh command with its one line, grouped as the old command list (CommandList.lua, the same
+--- table and the same "is it for this player" rule), with a search box. Type them in chat.
+local function BuildCmdsPage(f, x0, rightW)
+	local card = BuildListPage(f, "cmds", x0, rightW, "CMDLIST_TITLE", "FOV_TIP_SUB_CMDS")
+	local box = CreateFrame("EditBox", nil, card, "InputBoxTemplate")
+	box:SetSize(200, 20)
+	box:SetPoint("TOPRIGHT", -16, -9)
+	box:SetAutoFocus(false)
+	box:SetScript("OnTextChanged", function()
+		ns.ForeverOverviewFill(true)
+	end)
+	box:SetScript("OnEscapePressed", function(self)
+		self:ClearFocus()
+	end)
+	box.hint = Text(card, "text", 11, A.later)
+	box.hint:SetPoint("RIGHT", box, "LEFT", -10, 0)
+	box.hint:SetText(ns:L("FOV_CMDS_SEARCH"))
+	card.search = box
+end
+
+local function CmdRow(card, i)
+	local r = card.rows[i]
+	if r then
+		return r
+	end
+	r = CreateFrame("Frame", nil, card.child)
+	r:SetWidth(card.rowW)
+	r.cmd = Text(r, "textB", 13, A.gold)
+	r.cmd:SetPoint("TOPLEFT", 4, -2)
+	r.cmd:SetWidth(180)
+	r.cmd:SetWordWrap(false)
+	r.desc = Text(r, "text", 12, A.text)
+	r.desc:SetPoint("TOPLEFT", 190, -2)
+	r.desc:SetWidth(card.rowW - 196)
+	r.head = Text(r, "head2", 13, A.label)
+	r.head:SetPoint("TOPLEFT", 4, -6)
+	card.rows[i] = r
+	return r
 end
 
 -- Step 4: the page starts 30 px lower (switch row of "Your class"), so the rows are 19 px apart instead of 21.
@@ -1271,8 +1384,10 @@ local function Build()
 		tinsert(UISpecialFrames, f:GetName())
 	end
 	f:SetBackdrop({ bgFile = "Interface\\Buttons\\WHITE8X8", edgeFile = "Interface\\Buttons\\WHITE8X8", edgeSize = 1 })
-	f:SetBackdropColor(0, 0, 0, 0)
-	f:SetBackdropBorderColor(A.gold[1], A.gold[2], A.gold[3], 0.6)
+	-- A solid layer under the gradient (Rob, 17 Nov 2026, after the 1.0 gradient: still "bovenin een beetje" showing
+	-- through). Two opaque layers: nothing of the world can shine through, whatever the gradient does with alpha.
+	f:SetBackdropColor(A.bgBottom[1], A.bgBottom[2], A.bgBottom[3], 1)
+	f:SetBackdropBorderColor(A.gold[1], A.gold[2], A.gold[3], 1)
 	-- Warm vertical gradient (own WHITE8X8 layer, no textures of anyone else).
 	local bg = f:CreateTexture(nil, "BACKGROUND")
 	bg:SetPoint("TOPLEFT", 1, -1)
@@ -1294,10 +1409,17 @@ local function Build()
 	f.title = Text(f, "head", 22, A.gold)
 	f.title:SetPoint("TOPLEFT", 22, -14)
 	f.title:SetText("MIDNIGHT HELPER")
-	-- Rob, 17 Nov 2026: "Dock to window" ran over the Legacy tab. It lives next to the title here.
+	-- No Dock button here. Rob, 17 Nov 2026 (via sparring, verbatim): "het knopje dock en undock is eigenlijk nergens
+	-- meer nodig. Want waar gaan we het in godsnaam aan vastplakken?" - the overview IS the main window in Forever. A
+	-- window that was docked before is undocked once.
 	if f._mhDockBtn then
-		f._mhDockBtn:ClearAllPoints()
-		f._mhDockBtn:SetPoint("LEFT", f.title, "RIGHT", 14, -1)
+		f._mhDockBtn:Hide()
+		f._mhDockBtn:SetScript("OnShow", function(self)
+			self:Hide()
+		end)
+	end
+	if ns.IsMidnightDialogDocked and ns.SetMidnightDialogDocked and ns.IsMidnightDialogDocked(f) then
+		pcall(ns.SetMidnightDialogDocked, f, false, f:GetName())
 	end
 	local line = f:CreateTexture(nil, "ARTWORK")
 	line:SetColorTexture(A.gold[1], A.gold[2], A.gold[3], 0.35)
@@ -1306,31 +1428,24 @@ local function Build()
 	line:SetHeight(1)
 	local close = CreateFrame("Button", nil, f, "UIPanelCloseButton")
 	close:SetPoint("TOPRIGHT", -2, -2)
-	-- "All tools": the classic Midnight Helper window, for everything that has no tab here yet (the front door — /mh,
-	-- Alt+M, minimap — opens this overview in Forever since 17 Nov 2026, plan step 1). Rob may drop it once every tab
-	-- of the plan exists.
-	local old = Button(f, 110)
-	old:SetHeight(20)
-	old:SetPoint("TOPRIGHT", -34, -16)
-	old:SetLabel(ns:L("FOV_OLDWIN_BTN"))
-	old:SetScript("OnClick", function()
-		if ns.ToggleMainWindow then
-			ns:ToggleMainWindow()
-		end
-	end)
-	Tip(old, ns:L("FOV_OLDWIN_BTN"), ns:L("FOV_TIP_OLDWIN"))
-	-- The gear (product plan step 9): the page "What MH does quietly for you", with a door to Blizzard's settings panel.
-	-- Again = back to Now. A game icon, not a glyph: our fonts have no gear sign (and lint [14] forbids emoji).
-	local gear = Button(f, 26)
-	gear:SetHeight(20)
-	gear:SetPoint("RIGHT", old, "LEFT", -6, 0)
+	-- "All tools" (the old window) is gone since 17 Nov 2026: everything it had in Forever has a place here (gear →
+	-- Tools and Commands), and the old window is not shown in Forever any more (UI.lua ToggleMainWindow/ShowMainUI).
+	-- The gear: quiet helpers, tools, commands (a group of pages, see GROUPS.gear); again = back to Now.
+	-- A game icon, not a glyph: our fonts have no gear sign (and lint [14] forbids emoji).
+	local gear = Button(f, 30)
+	gear:SetHeight(22)
+	gear:SetPoint("TOPRIGHT", -34, -15)
 	gear.icon = gear:CreateTexture(nil, "OVERLAY")
 	gear.icon:SetSize(16, 16)
 	gear.icon:SetPoint("CENTER")
 	gear.icon:SetTexture("Interface\\Icons\\INV_Misc_Gear_01")
 	gear.icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
 	gear:SetScript("OnClick", function()
-		f.page = (f.page == "quiet") and "now" or "quiet"
+		if PAGE_GROUP[f.page] == "gear" then
+			f.page = "now"
+		else
+			f.page = f.lastInGroup.gear or "quiet"
+		end
 		ns.ForeverOverviewFill()
 	end)
 	Tip(gear, ns:L("FOV_LABEL_QUIET"), ns:L("FOV_TIP_GEAR"))
@@ -1363,7 +1478,7 @@ local function Build()
 	f.page = "now"
 	f.lastInGroup = {}
 	f.pages = {}
-	for _, key in ipairs({ "now", "play", "cq", "camp", "legacy", "trainer", "find", "keys", "profs", "dungeons", "chars", "week", "quiet" }) do
+	for _, key in ipairs({ "now", "play", "cq", "camp", "legacy", "trainer", "find", "keys", "profs", "dungeons", "chars", "week", "quiet", "tools", "cmds" }) do
 		local p = CreateFrame("Frame", nil, f)
 		p:SetAllPoints(f)
 		p:Hide()
@@ -1590,6 +1705,8 @@ local function Build()
 	BuildCharsPage(f, x0, rightW)
 	BuildWeekPage(f, x0, rightW)
 	BuildQuietPage(f, x0, rightW)
+	BuildListPage(f, "tools", x0, rightW, "FOV_SUB_TOOLS", "FOV_TIP_SUB_TOOLS")
+	BuildCmdsPage(f, x0, rightW)
 	-- Find and Professions: distances, names, skills and the tool in your bags change when you change zone, the client
 	-- loads an item name, a skill goes up or your bags change; fill again then (not every 2 s: the order of the list
 	-- must not jump under your mouse).
@@ -3007,6 +3124,108 @@ local function FillQuietPage(f, refresh)
 	end
 end
 
+local function FillToolsPage(f, refresh)
+	local card = f.pages.tools.card
+	local list = {}
+	if ns.ToolsLaunchpadVisible then
+		local ok, l = pcall(ns.ToolsLaunchpadVisible, TOOLS_ON_TABS)
+		list = ok and type(l) == "table" and l or {}
+	end
+	for _, t in ipairs(TOOL_EXTRAS) do
+		list[#list + 1] = t
+	end
+	local y = 0
+	for i, t in ipairs(list) do
+		local r = ToolRow(card, i)
+		r:ClearAllPoints()
+		r:SetPoint("TOPLEFT", card.child, "TOPLEFT", 0, -y)
+		r.icon:SetTexture(t.icon or 134400)
+		r.name:SetText(ns:L(t.nameKey))
+		r.desc:SetText(ns:L(t.descKey))
+		r.slash:SetText(t.slash or "")
+		r.go:SetScript("OnClick", function()
+			if t.open then
+				t.open()
+			end
+		end)
+		local h = math.max(40, 8 + (r.name:GetStringHeight() or 16) + 2 + (r.desc:GetStringHeight() or 14) + 2
+			+ (r.slash:GetStringHeight() or 12) + 6)
+		r:SetHeight(h)
+		r:Show()
+		y = y + h + 4
+	end
+	for i = #list + 1, #card.rows do
+		card.rows[i]:Hide()
+	end
+	card.child:SetHeight(math.max(10, y))
+	if refresh then
+		card.sf.UpdateThumb()
+	else
+		card.sf.Reset()
+	end
+end
+
+local function FillCmdsPage(f, refresh)
+	local card = f.pages.cmds.card
+	local q = (card.search:GetText() or ""):lower()
+	local rows = {}
+	for _, grp in ipairs(ns.MH_COMMANDS or {}) do
+		local items = {}
+		for _, it in ipairs(grp.items or {}) do
+			local shown = not ns.CommandItemShown or ns.CommandItemShown(it)
+			local desc = it.descKey and ns:L(it.descKey) or ""
+			if shown and (q == "" or (it.cmd or ""):lower():find(q, 1, true) or desc:lower():find(q, 1, true)) then
+				items[#items + 1] = { cmd = it.cmd, desc = desc }
+			end
+		end
+		if #items > 0 then
+			rows[#rows + 1] = { head = grp.headKey and ns:L(grp.headKey) or "" }
+			for _, it in ipairs(items) do
+				rows[#rows + 1] = it
+			end
+		end
+	end
+	local y = 0
+	for i, it in ipairs(rows) do
+		local r = CmdRow(card, i)
+		r:ClearAllPoints()
+		r:SetPoint("TOPLEFT", card.child, "TOPLEFT", 0, -y)
+		local h
+		if it.head then
+			r.head:SetText(it.head:upper())
+			r.head:Show()
+			r.cmd:Hide()
+			r.desc:Hide()
+			h = 26
+		else
+			r.head:Hide()
+			r.cmd:SetText(it.cmd)
+			r.desc:SetText(it.desc)
+			r.cmd:Show()
+			r.desc:Show()
+			h = math.max(18, (r.desc:GetStringHeight() or 14) + 6)
+		end
+		r:SetHeight(h)
+		r:Show()
+		y = y + h
+	end
+	for i = #rows + 1, #card.rows do
+		card.rows[i]:Hide()
+	end
+	card.child:SetHeight(math.max(10, y))
+	if refresh then
+		card.sf.UpdateThumb()
+	else
+		card.sf.Reset()
+	end
+end
+
+function ns.HideForeverOverview()
+	if win then
+		win:Hide()
+	end
+end
+
 --- Refill when the overview shows `page` (ForeverMacros.lua calls this when your bags or spells change).
 function ns.ForeverOverviewRefreshPage(page)
 	if win and win:IsShown() and win.page == page then
@@ -3064,7 +3283,7 @@ function ns.ForeverOverviewFill(refresh)
 			b:SetActive(b.page == f.page)
 		end
 	end
-	f.gear:SetActive(f.page == "quiet")
+	f.gear:SetActive(group == "gear")
 	if f.page == "find" then
 		FillFindPage(f, refresh)
 		return f
@@ -3085,6 +3304,12 @@ function ns.ForeverOverviewFill(refresh)
 		return f
 	elseif f.page == "quiet" then
 		FillQuietPage(f, refresh)
+		return f
+	elseif f.page == "tools" then
+		FillToolsPage(f, refresh)
+		return f
+	elseif f.page == "cmds" then
+		FillCmdsPage(f, refresh)
 		return f
 	elseif f.page == "cq" then
 		FillClassQuestPage(f, level)

@@ -104,7 +104,21 @@
   zin of vóór "(", titel ≥ 31 tekens in 17 px. (3) `S.Scroll` heeft een zachte fade onderaan zolang er meer is (op een
   eigen frame boven de lijst). (4) Het "vage tekstje" (open sinds 17 nov middag) = naamplaatje van een mob door de 0,97
   doorzichtige achtergrond → achtergrond nu 1,0. (5) "All tools" = oude venster, zoals bedoeld tot stap 10. Offline
-  26.899 runs, 0 fouten. NIET in het spel gezien.
+  26.899 runs, 0 fouten. NIET in het spel gezien. Commit be5ee47.
+- 🧹 **"Alles in één keer vóór de release" (Rob via sparring, letterlijk: *"We doen alles in één keer. … Dus doe alles
+  maar in één keer, dat we wat moois kunnen leveren."*)** — deel 1+2 GEBOUWD (en + nl):
+  (1) Dock-knop weg uit het overzicht (Rob: *"waar gaan we het in godsnaam aan vastplakken?"*); een eerder gedockt
+  overzicht wordt één keer losgemaakt. (4) Achtergrond: ook de backdrop eronder dicht (Rob zag *"behalve bovenin een
+  beetje"*), rand vol. (2) GEMETEN (scratch forever_inv.py, positieve controle BuildRaresPanel gevonden): het oude venster
+  had in Forever alleen start (HomeDashboard), Tools (ToolsLaunchpad), Settings, zoekbalk, commandolijst; 16 andere
+  schermen bestaan daar niet. Nu: tandwiel = groep `gear` met schakelrij Stille hulpjes · Tools · All commands. Tools =
+  `ns.ToolsLaunchpadVisible(skip)` (nieuw; kaarten die Forever toont, zonder wat al op een tab staat: stat coach, Pawn/
+  toetsen-export, naamplaatkleuren, FPS …) + move, quick bar, "New in this version", changelog, instellingen. Commands =
+  `ns.MH_COMMANDS` met `CommandItemShown` + zoekvak (offline: 109 regels, "trainer" 2, "zzzz" 0). Knop "All tools"
+  weg. Oude venster in Forever onbereikbaar: `ns:ToggleMainWindow`/`ns:ShowMainUI` → overzicht; `ns.SelectTab("settings")`
+  → Blizzard-instellingenpaneel (minimap-rechts, /mh settings, snelbalk). Retail onveranderd. Code-opruimen (stap 10):
+  NIET gedaan — HomeDashboard/RoomLauncher/ToolsLaunchpad blijven in de Forever-toc (gedeeld, en ToolsLaunchpad levert
+  nu de Tools-kaarten); niets zeker dood genoeg om te schrappen.
 
 ## ⏭️⏭️ NIEUWSTE OVERDRACHT (Bouwchat 17-11 (3), laatste commit 27e536b, alles gepusht, geen release)
 

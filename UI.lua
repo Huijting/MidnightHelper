@@ -5116,6 +5116,21 @@ SelectTab = function(tabId)
 end
 
 ns.SelectTab = SelectTab
+-- WoW Forever (17 Nov 2026): the old window is not shown there any more (ToggleMainWindow/ShowMainUI), so a jump to
+-- its Settings screen (/mh settings, minimap right-click, quick bar) opens MH in the game's settings panel instead,
+-- and a jump to another screen opens the overview. Retail unchanged.
+if ns.IS_FOREVER then
+	ns.SelectTab = function(tabId)
+		if tabId == "settings" and ns.OpenNativeSettings then
+			if ns.HideForeverOverview then
+				ns.HideForeverOverview()
+			end
+			ns.OpenNativeSettings()
+			return
+		end
+		return SelectTab(tabId)
+	end
+end
 
 function ns:RefreshGuideTabVisibility()
 	if ns.RefreshBetaTabVisibility then
@@ -5235,6 +5250,12 @@ end
 -- Public entry points used by Core.lua and slash commands
 --------------------------------------------------------------------------------
 function ns:ToggleMainWindow()
+	-- WoW Forever, 17 Nov 2026 (Rob via sparring, verbatim: "het oude venster moet dan in principe niet meer
+	-- terugkomen"): the overview is the one window there; every way into the old one lands on it. Retail unchanged.
+	if ns.IS_FOREVER and ns.ToggleForeverOverview then
+		ns.ToggleForeverOverview()
+		return
+	end
 	local main = self:EnsureMainUI()
 	if main:IsShown() then
 		main:Hide()
@@ -5271,6 +5292,10 @@ function ns:ToggleMainEntry()
 end
 
 function ns:ShowMainUI()
+	if ns.IS_FOREVER and ns.ShowForeverOverviewPage then -- see ToggleMainWindow
+		ns.ShowForeverOverviewPage("now")
+		return
+	end
 	local main = self:EnsureMainUI()
 	main:Show()
 	self:ApplySavedMainWindowSize()
