@@ -38,7 +38,23 @@ Open `/mh macros`, klik "Maak" bij een nieuwe rij, sleep de macro naar een balk 
       Rogue level 6+: typ `/dump IsPlayerSpell(1752), IsSpellKnown(1752)` en zeg wat er staat (rank-vraag).
 - [ ] Shaman: Resurrect, Fire Totem (Ctrl = Magma, 26). Paladin: Resurrect.
 
+## 🎨 17 nov (ronde 2) — Forever: ontwerp A na jouw opmerkingen (`/mh overview`)
+
+Jouw oordeel op ronde 1: *"Ja, ik ben onder de indruk. … dit is de weg waar ik graag heen wil. Absoluut."* `/reload` is nu
+genoeg (geen nieuwe bestanden).
+- [ ] "Dock to window" staat nu naast de titel "MIDNIGHT HELPER", niet meer over de tab Legacy.
+- [ ] Tooltips: ga met je muis over de tabs, de knoppen, de spell-icoontjes (spell-tooltip), de kaartkopjes (DOE DIT
+      NU …), de bolletjes in Jouw pad, de chips NU/LATER, het levelzegel, je portret en de XP-balk.
+- [ ] Jouw pad: de laatste kolom blijft nu binnen het kader.
+- [ ] Class quest staat niet meer dubbel: staat hij al bij "Doe dit nu", dan toont het rechterkaartje "Jouw class-quests"
+      (klaar / nu open / vanaf level N).
+- [ ] Links onder je naam: een XP-balk met procent (en rested als je dat hebt).
+- [ ] "Doe dit nu" is voller: ook de tips voor beroepen en dungeons staan eronder.
+- [ ] Chips: alleen NU (jouw kleur) en LATER (grijs), dezelfde kleuren als de bolletjes.
+
 ## 🎨 17 nov — Forever: ruwe versie van ontwerp A (`/mh overview`)
+
+- [x] GEDAAN 17 nov (Rob, Undead Paladin Prot 14): "Ja, ik ben onder de indruk." Opmerkingen → ronde 2 hierboven.
 
 ⚠️ Nieuwe bestanden (venster + lettertypes): sluit WoW helemaal af en start opnieuw; `/reload` is niet genoeg.
 - [ ] Typ `/mh overview`. Zie je het venster met de mooie letters (sierlijke koppen, zoals de mockup)?

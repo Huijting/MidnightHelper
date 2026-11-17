@@ -14,6 +14,11 @@
   modifiers in de tekst, en per combinatie "free" of "taken by <binding>"; schrijft `ns.db.foreverMacroKeysProbe`.
   Lint 0 HARD, luac OK. NIET in het spel gezien (TESTLIJST 17 nov). Na Robs meting: melding in het macrovenster +
   eventueel schakelaar welke modifier (nooit blok- of andere-addon-toetsen losmaken).
+- 🎨 **Ronde 2 van A** na Robs oordeel ("Ja, ik ben onder de indruk … dit is de weg waar ik graag heen wil. Absoluut."):
+  dock-knop (DialogPopup `_mhDockBtn`) naast de titel; tooltips op tabs/knoppen/spell-iconen (SetSpellByID)/kaartkopjes/
+  bolletjes/chips/zegel/portret/XP (hover-frames, zodat slepen blijft werken); pad in 4 gelijke kolommen binnen het
+  kader; class-quest-kaart toont de lijst (nieuw `ns.ForeverClassQuestList`) als Doe dit nu de class quest al heeft;
+  XP + rested links; beroep/dungeon-tip als extra regels; chips NU/LATER. en + nl. Lint 0 HARD, luac OK. Niet in het spel gezien.
 - 🎨 **Huisstijl: RUWE VERSIE A GEBOUWD** (Rob via sparring op het plan, letterlijk: *"ja, met de mooie letters meteen
   erin, en eerst een ruwe versie van A om te bekijken"*). Nieuw: `Modules/ForeverOverview.lua` (beide toc's), `/mh
   overview` (CommandList: unlisted-on-purpose), fonts in `Media/Fonts/`: Cormorant SC Bold/SemiBold + Alegreya Sans

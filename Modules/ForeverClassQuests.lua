@@ -2326,6 +2326,19 @@ function ns.ForeverClassQuestSlash(arg)
 	print("  line in Do this now: " .. (line or "none"))
 end
 
+--- 17 Nov 2026 (overview card): every class quest of this character as data, in table order:
+--- { { chain, level, state = "done"|"now"|"later" }, … }; empty when the class has none.
+function ns.ForeverClassQuestList()
+	local out = {}
+	local level = UnitLevel and UnitLevel("player") or 1
+	for _, c in ipairs(MyChains()) do
+		local s = Step(c)
+		out[#out + 1] = { chain = ChainName(c), level = c.level,
+			state = (not s and "done") or (not Ready(c, level) and "later") or "now" }
+	end
+	return out
+end
+
 --- For "How you play": every class quest of this character, with where it stands. nil when the class has none.
 function ns.ForeverClassQuestOverview()
 	local chains = MyChains()

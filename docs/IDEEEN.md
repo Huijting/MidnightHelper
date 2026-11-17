@@ -243,6 +243,11 @@ lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met d
 - 🔼 **Prio 1 sinds 17 nov** (Rob via Sparring, letterlijk: *"Die twee ontwerpen, die wil ik heel graag hebben. Die wil ik
   heel graag zien. Dus die krijgt zometeen na de macro's gelijk de prio 1."*) → direct na de macro's, vóór de rest van
   Kamperen. Dat vervangt de volgorde hierboven.
+- 17 nov: ruwe A GEBOUWD (f1ad068, `/mh overview`). Robs oordeel (via Sparring, letterlijk): *"Ja, ik ben onder de
+  indruk. Er zijn natuurlijk nog veel dingen aan veranderen of beter doen. … Zoals rechtsbovenin, een doc en doc. Dat
+  knopje zit natuurlijk weer er doorheen. Ik wil graag bij alle dingen die... de tooltips overal bij. Maar verder, dit is
+  de weg waar ik graag heen wil. Absoluut."* → ronde 2 GEBOUWD (dock-knop naast de titel, tooltips overal, pad-kolommen
+  binnen het kader, class quest niet dubbel, XP links, tips in Doe dit nu, chips NU/LATER).
 - Eis "Do this now" in de nieuwe layout (Rob via Sparring, letterlijk, bij de regel "Redemption (from level 12), class
   quest: go to Danitha Morr, Tirisfal Glades (22.1, 44.7)": *"Dit staat nu keurig bovenaan bij Do This Now. Bij een
   nieuwe layout moet dat beter. En dan moet er ook een paar [= pijl] naartoe gaan om te kijken welke kant je op gaat en

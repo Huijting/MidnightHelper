@@ -7,9 +7,14 @@ local _, ns = ...
 	His demand for "Do this now", verbatim: "Bij een nieuwe layout moet dat beter. En dan moet er ook een [pijl] naartoe gaan
 	om te kijken welke kant je op gaat" → every line with a place has its own "Show the way" button, the coordinates sit
 	on a small line of their own, and the main line is a card with a title.
+	His verdict on the first rough version (17 Nov, Undead Paladin 14), verbatim: "Ja, ik ben onder de indruk. … Zoals
+	rechtsbovenin, een doc en doc. Dat knopje zit natuurlijk weer er doorheen. Ik wil graag … de tooltips overal bij. Maar
+	verder, dit is de weg waar ik graag heen wil." → round 2: the dock button next to the title, a tooltip on every part,
+	the path columns inside the frame, no class quest twice, XP in the empty left column, chips that match the nodes.
 
-	Nothing here is new data: trainer spells (ns.ForeverTrainerCompute, ForeverTrainer.lua), the class quest step
-	(ns.ForeverClassQuestNowParts, ForeverClassQuests.lua), camp and Legacy lines (ForeverCamp/ForeverLegacy.lua).
+	Nothing here is new data: trainer spells (ns.ForeverTrainerCompute, ForeverTrainer.lua), the class quest step and
+	list (ns.ForeverClassQuestNowParts / ns.ForeverClassQuestList, ForeverClassQuests.lua), camp, Legacy, dungeon and
+	profession lines (ForeverCamp/ForeverLegacy/ForeverDungeons.lua, ns.ForeverPrimaryCount).
 	Fonts: OFL, from github.com/google/fonts (Media/Fonts, OFL-*.txt beside them): Cormorant SC for headings, Alegreya
 	Sans for text, both with Cyrillic. If SetFont fails the game's own fonts take over. Not from the Forever Leveling
 	Guide (All Rights Reserved): no code, text, data or textures of it.
@@ -26,13 +31,14 @@ local FONT_HEAD2 = FONT_DIR .. "CormorantSC-SemiBold.ttf"
 local FONT_TEXT = FONT_DIR .. "AlegreyaSans-Regular.ttf"
 local FONT_TEXT_B = FONT_DIR .. "AlegreyaSans-Medium.ttf"
 local FALLBACK_HEAD, FALLBACK_TEXT = "Fonts\\MORPHEUS.TTF", "Fonts\\FRIZQT__.TTF"
+local MASK = "Interface\\CharacterFrame\\TempPortraitAlphaMask"
 
 -- Style A colours (own values, after the mockup).
 local A = {
 	bgTop = { 0.16, 0.11, 0.07, 0.97 }, bgBottom = { 0.07, 0.05, 0.04, 0.97 },
 	card = { 0.11, 0.08, 0.06, 0.88 }, edge = { 0.55, 0.42, 0.22, 0.55 },
 	gold = { 0.86, 0.71, 0.42 }, label = { 0.93, 0.55, 0.22 }, text = { 0.92, 0.88, 0.80 }, dim = { 0.66, 0.60, 0.52 },
-	seal = { 0.55, 0.10, 0.08 },
+	seal = { 0.55, 0.10, 0.08 }, later = { 0.55, 0.52, 0.48 },
 }
 local W, H = 920, 470
 local LEFT_W = 176
@@ -66,6 +72,38 @@ local function Text(parent, file, size, color, fallback)
 	return fs
 end
 
+--- Tooltip on any frame. The text lives on the frame (tipTitle/tipBody/tipSpell), so Fill can change it later.
+local function Tip(frame, title, body)
+	frame.tipTitle, frame.tipBody = title, body
+	frame:EnableMouse(true)
+	frame:HookScript("OnEnter", function(self)
+		if not (self.tipTitle or self.tipSpell) then
+			return
+		end
+		GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+		if self.tipSpell then
+			GameTooltip:SetSpellByID(self.tipSpell)
+		else
+			GameTooltip:SetText(self.tipTitle, 1, 0.82, 0, 1, true)
+			if self.tipBody and self.tipBody ~= "" then
+				GameTooltip:AddLine(self.tipBody, 1, 1, 1, true)
+			end
+		end
+		GameTooltip:Show()
+	end)
+	frame:HookScript("OnLeave", function()
+		GameTooltip:Hide()
+	end)
+	return frame
+end
+
+--- An invisible hover area over a region (so the window can still be dragged everywhere else).
+local function HoverOver(parent, region, title, body)
+	local h = CreateFrame("Frame", nil, parent)
+	h:SetAllPoints(region)
+	return Tip(h, title, body)
+end
+
 local function Card(parent)
 	local f = CreateFrame("Frame", nil, parent, "BackdropTemplate")
 	f:SetBackdrop({ bgFile = "Interface\\Buttons\\WHITE8X8", edgeFile = "Interface\\Buttons\\WHITE8X8", edgeSize = 1 })
@@ -74,11 +112,14 @@ local function Card(parent)
 	return f
 end
 
---- Small capital label at the top of a card ("DO THIS NOW").
-local function Label(card, text)
+--- Small capital label at the top of a card ("DO THIS NOW"), with a tooltip that says what the card is for.
+local function Label(card, text, tipKey)
 	local fs = Text(card, FONT_HEAD2, 12, A.label, FALLBACK_TEXT)
 	fs:SetPoint("TOPLEFT", 14, -12)
 	fs:SetText(text)
+	if tipKey then
+		HoverOver(card, fs, text, ns:L(tipKey))
+	end
 	return fs
 end
 
@@ -94,10 +135,14 @@ local function Button(parent, w)
 	b.label:SetPoint("CENTER")
 	b.label:SetJustifyH("CENTER")
 	b:SetScript("OnEnter", function(self)
-		self:SetBackdropColor(r * 0.45, g * 0.45, bl * 0.45, 0.95)
+		if not self.active then
+			self:SetBackdropColor(r * 0.45, g * 0.45, bl * 0.45, 0.95)
+		end
 	end)
 	b:SetScript("OnLeave", function(self)
-		self:SetBackdropColor(r * 0.25, g * 0.25, bl * 0.25, 0.95)
+		if not self.active then
+			self:SetBackdropColor(r * 0.25, g * 0.25, bl * 0.25, 0.95)
+		end
 	end)
 	function b:SetLabel(t)
 		self.label:SetText(t)
@@ -105,10 +150,25 @@ local function Button(parent, w)
 	return b
 end
 
-local function Icon(parent, size)
-	local t = parent:CreateTexture(nil, "ARTWORK")
-	t:SetSize(size, size)
-	t:SetTexCoord(0.08, 0.92, 0.08, 0.92)
+--- A spell icon that shows the spell's own tooltip.
+local function SpellButton(parent, size)
+	local f = CreateFrame("Frame", nil, parent)
+	f:SetSize(size, size)
+	f.tex = f:CreateTexture(nil, "ARTWORK")
+	f.tex:SetAllPoints()
+	f.tex:SetTexCoord(0.08, 0.92, 0.08, 0.92)
+	Tip(f)
+	return f
+end
+
+local function Circle(parent, tex, layerSub)
+	local t = parent:CreateTexture(nil, "ARTWORK", nil, layerSub)
+	pcall(function()
+		local m = parent:CreateMaskTexture()
+		m:SetTexture(MASK, "CLAMPTOBLACKADDITIVE", "CLAMPTOBLACKADDITIVE")
+		m:SetAllPoints(t)
+		t:AddMaskTexture(m)
+	end)
 	return t
 end
 
@@ -146,7 +206,7 @@ end
 -- Data: what the cards say (nothing new is measured here)
 --------------------------------------------------------------------------------
 
---- The "do this now" items, most important first: { label, title, what, place, go }.
+--- The "do this now" items, most important first: { title, what, place, go, kind }.
 local function NowItems()
 	local items = {}
 	local level = UnitLevel and UnitLevel("player") or 1
@@ -159,6 +219,7 @@ local function NowItems()
 		end
 		local money = GetCoinTextureString and GetCoinTextureString(r.total or 0) or tostring(r.total or 0)
 		items[#items + 1] = {
+			kind = "trainer",
 			title = (#r.now == 1 and ns:L("FOV_TRAINER_ONE_FMT") or ns:L("FOV_TRAINER_MANY_FMT")):format(#r.now,
 				npc or ns:L("FOV_YOUR_TRAINER")),
 			what = ns:L("FOV_COST_FMT"):format(money),
@@ -166,13 +227,17 @@ local function NowItems()
 			go = ns.ForeverTrainerGo,
 		}
 	end
-	local cq = ns.ForeverClassQuestNowParts and select(2, pcall(ns.ForeverClassQuestNowParts))
-	if type(cq) == "table" then
+	local okC, cq = false, nil
+	if ns.ForeverClassQuestNowParts then
+		okC, cq = pcall(ns.ForeverClassQuestNowParts)
+	end
+	if okC and type(cq) == "table" then
 		local what = cq.what
 		if not what and cq.npc then
 			what = (cq.kind == "turn" and ns:L("FOV_CQ_TURN_FMT") or ns:L("FOV_CQ_GET_FMT")):format(cq.npc)
 		end
 		items[#items + 1] = {
+			kind = "classquest",
 			title = ns:L("FOV_CQ_TITLE_FMT"):format(cq.chain or "?"),
 			what = what,
 			place = Place(cq.zone, cq.x, cq.y),
@@ -182,7 +247,20 @@ local function NowItems()
 	for _, fn in ipairs({ ns.ForeverCampNow, ns.ForeverLegacyNow }) do
 		local ok, line = pcall(fn or function() end)
 		if ok and type(line) == "string" then
-			items[#items + 1] = { title = line }
+			items[#items + 1] = { kind = "line", title = line }
+		end
+	end
+	-- Tips that never open "Do this now" by themselves, but fill the card here (Rob: the empty space).
+	if ns.ForeverPrimaryCount then
+		local ok, n = pcall(ns.ForeverPrimaryCount)
+		if ok and type(n) == "number" and n < 2 then
+			items[#items + 1] = { kind = "tip", title = (n == 1) and ns:L("FDONOW_PROF_ONE") or ns:L("FDONOW_PROF_TWO") }
+		end
+	end
+	if ns.ForeverDungeonTip then
+		local ok, tip = pcall(ns.ForeverDungeonTip)
+		if ok and type(tip) == "string" then
+			items[#items + 1] = { kind = "tip", title = tip }
 		end
 	end
 	return items
@@ -215,12 +293,14 @@ end
 -- Window
 --------------------------------------------------------------------------------
 local TABS = {
-	{ key = "FOV_TAB_NOW" },
-	{ key = "FOV_TAB_PLAY", fn = function() if ns.TogglePlayCardWindow then ns.TogglePlayCardWindow() end end },
-	{ key = "FOV_TAB_CQ", fn = function() if ns.TogglePlayCardWindow then ns.TogglePlayCardWindow() end end },
-	{ key = "FOV_TAB_CAMP", fn = function() if ns.ForeverCampSlash then ns.ForeverCampSlash() end end },
-	{ key = "FOV_TAB_LEGACY", fn = function() if ns.ForeverLegacySlash then ns.ForeverLegacySlash() end end },
+	{ key = "FOV_TAB_NOW", tip = "FOV_TIP_TAB_NOW" },
+	{ key = "FOV_TAB_PLAY", tip = "FOV_TIP_TAB_PLAY", fn = function() if ns.TogglePlayCardWindow then ns.TogglePlayCardWindow() end end },
+	{ key = "FOV_TAB_CQ", tip = "FOV_TIP_TAB_CQ", fn = function() if ns.TogglePlayCardWindow then ns.TogglePlayCardWindow() end end },
+	{ key = "FOV_TAB_CAMP", tip = "FOV_TIP_TAB_CAMP", fn = function() if ns.ForeverCampSlash then ns.ForeverCampSlash() end end },
+	{ key = "FOV_TAB_LEGACY", tip = "FOV_TIP_TAB_LEGACY", fn = function() if ns.ForeverLegacySlash then ns.ForeverLegacySlash() end end },
 }
+
+local PATH_NODES = 4
 
 local function Build()
 	if win then
@@ -239,7 +319,7 @@ local function Build()
 	f:SetBackdrop({ bgFile = "Interface\\Buttons\\WHITE8X8", edgeFile = "Interface\\Buttons\\WHITE8X8", edgeSize = 1 })
 	f:SetBackdropColor(0, 0, 0, 0)
 	f:SetBackdropBorderColor(A.gold[1], A.gold[2], A.gold[3], 0.6)
-	-- Warm vertical gradient with a darker rim (own WHITE8X8 layers, no textures of anyone else).
+	-- Warm vertical gradient (own WHITE8X8 layer, no textures of anyone else).
 	local bg = f:CreateTexture(nil, "BACKGROUND")
 	bg:SetPoint("TOPLEFT", 1, -1)
 	bg:SetPoint("BOTTOMRIGHT", -1, 1)
@@ -260,6 +340,11 @@ local function Build()
 	f.title = Text(f, FONT_HEAD, 22, A.gold, FALLBACK_HEAD)
 	f.title:SetPoint("TOPLEFT", 22, -14)
 	f.title:SetText("MIDNIGHT HELPER")
+	-- Rob, 17 Nov 2026: "Dock to window" ran over the Legacy tab. It lives next to the title here.
+	if f._mhDockBtn then
+		f._mhDockBtn:ClearAllPoints()
+		f._mhDockBtn:SetPoint("LEFT", f.title, "RIGHT", 14, -1)
+	end
 	local line = f:CreateTexture(nil, "ARTWORK")
 	line:SetColorTexture(A.gold[1], A.gold[2], A.gold[3], 0.35)
 	line:SetPoint("TOPLEFT", 1, -48)
@@ -281,38 +366,28 @@ local function Build()
 		end)
 		if i == 1 then
 			local r, g, bl = Accent()
+			b.active = true
 			b:SetBackdropColor(r * 0.5, g * 0.5, bl * 0.5, 0.95)
-			b:SetScript("OnLeave", nil)
-			b:SetScript("OnEnter", nil)
 		end
+		Tip(b, ns:L(t.key), ns:L(t.tip))
 		f.tabs[i] = b
 		x = x - 108
 	end
 
-	-- Left: portrait, name, race · class, level seal.
+	-- Left: portrait, name, race · class, XP, level seal.
 	local left = Card(f)
 	left:SetPoint("TOPLEFT", 16, -62)
 	left:SetPoint("BOTTOMLEFT", 16, 16)
 	left:SetWidth(LEFT_W)
-	local ring = left:CreateTexture(nil, "ARTWORK", nil, 1)
+	local ring = Circle(left, nil, 1)
 	ring:SetSize(76, 76)
 	ring:SetPoint("TOP", 0, -18)
 	ring:SetColorTexture(A.gold[1], A.gold[2], A.gold[3], 1)
-	local por = left:CreateTexture(nil, "ARTWORK", nil, 2)
+	local por = Circle(left, nil, 2)
 	por:SetSize(70, 70)
 	por:SetPoint("CENTER", ring)
-	local okMask = pcall(function()
-		local m1 = left:CreateMaskTexture()
-		m1:SetTexture("Interface\\CharacterFrame\\TempPortraitAlphaMask", "CLAMPTOBLACKADDITIVE", "CLAMPTOBLACKADDITIVE")
-		m1:SetAllPoints(ring)
-		ring:AddMaskTexture(m1)
-		local m2 = left:CreateMaskTexture()
-		m2:SetTexture("Interface\\CharacterFrame\\TempPortraitAlphaMask", "CLAMPTOBLACKADDITIVE", "CLAMPTOBLACKADDITIVE")
-		m2:SetAllPoints(por)
-		por:AddMaskTexture(m2)
-	end)
-	f.okMask = okMask
 	f.portrait = por
+	f.portraitTip = HoverOver(left, ring)
 	f.name = Text(left, FONT_HEAD, 22, A.text, FALLBACK_HEAD)
 	f.name:SetPoint("TOP", ring, "BOTTOM", 0, -8)
 	f.name:SetJustifyH("CENTER")
@@ -320,22 +395,27 @@ local function Build()
 	f.who:SetPoint("TOP", f.name, "BOTTOM", 0, -2)
 	f.who:SetWidth(LEFT_W - 16)
 	f.who:SetJustifyH("CENTER")
-	local sealRing = left:CreateTexture(nil, "ARTWORK", nil, 1)
+	-- XP bar and rested (Rob: empty space between name and seal).
+	f.xpBg = left:CreateTexture(nil, "ARTWORK")
+	f.xpBg:SetColorTexture(0, 0, 0, 0.5)
+	f.xpBg:SetSize(LEFT_W - 36, 8)
+	f.xpBg:SetPoint("TOP", f.who, "BOTTOM", 0, -14)
+	f.xpFill = left:CreateTexture(nil, "ARTWORK", nil, 1)
+	f.xpFill:SetPoint("TOPLEFT", f.xpBg)
+	f.xpFill:SetHeight(8)
+	f.xpText = Text(left, FONT_TEXT, 12, A.dim)
+	f.xpText:SetPoint("TOP", f.xpBg, "BOTTOM", 0, -4)
+	f.xpText:SetJustifyH("CENTER")
+	f.xpTip = HoverOver(left, f.xpBg)
+	local sealRing = Circle(left, nil, 1)
 	sealRing:SetSize(70, 70)
-	sealRing:SetPoint("BOTTOM", 0, 26)
+	sealRing:SetPoint("BOTTOM", 0, 22)
 	sealRing:SetColorTexture(A.gold[1], A.gold[2], A.gold[3], 1)
-	local seal = left:CreateTexture(nil, "ARTWORK", nil, 2)
+	local seal = Circle(left, nil, 2)
 	seal:SetSize(64, 64)
 	seal:SetPoint("CENTER", sealRing)
 	seal:SetColorTexture(A.seal[1], A.seal[2], A.seal[3], 1)
-	pcall(function()
-		for _, t in ipairs({ sealRing, seal }) do
-			local m = left:CreateMaskTexture()
-			m:SetTexture("Interface\\CharacterFrame\\TempPortraitAlphaMask", "CLAMPTOBLACKADDITIVE", "CLAMPTOBLACKADDITIVE")
-			m:SetAllPoints(t)
-			t:AddMaskTexture(m)
-		end
-	end)
+	f.sealTip = HoverOver(left, sealRing, ns:L("FOV_LEVEL"), ns:L("FOV_TIP_SEAL"))
 	f.sealWord = Text(left, FONT_HEAD2, 10, A.gold, FALLBACK_TEXT)
 	f.sealWord:SetPoint("TOP", seal, "TOP", 0, -12)
 	f.sealWord:SetJustifyH("CENTER")
@@ -353,13 +433,12 @@ local function Build()
 	f.now = Card(f)
 	f.now:SetPoint("TOPLEFT", x0, -62)
 	f.now:SetSize(nowW, rowH)
-	-- Accent line on top of the main card.
 	local acc = f.now:CreateTexture(nil, "ARTWORK")
 	acc:SetPoint("TOPLEFT", 1, -1)
 	acc:SetPoint("TOPRIGHT", -1, -1)
 	acc:SetHeight(2)
 	f.nowAccent = acc
-	f.now.label = Label(f.now, ns:L("FOV_LABEL_NOW"))
+	f.now.label = Label(f.now, ns:L("FOV_LABEL_NOW"), "FOV_TIP_CARD_NOW")
 	f.now.title = Text(f.now, FONT_HEAD, 21, A.text, FALLBACK_HEAD)
 	f.now.title:SetPoint("TOPLEFT", 14, -32)
 	f.now.title:SetPoint("RIGHT", -14, 0)
@@ -372,6 +451,7 @@ local function Build()
 	f.now.go = Button(f.now, 132)
 	f.now.go:SetPoint("TOPLEFT", f.now.place, "BOTTOMLEFT", 0, -8)
 	f.now.go:SetLabel(ns:L("FOV_GO"))
+	Tip(f.now.go, ns:L("FOV_GO"), ns:L("FOV_TIP_GO"))
 	-- Further "now" lines, each with its own arrow button when it has a place.
 	f.now.more = {}
 	for i = 1, 2 do
@@ -379,7 +459,12 @@ local function Build()
 		row:SetHeight(30)
 		row:SetPoint("LEFT", 14, 0)
 		row:SetPoint("RIGHT", -14, 0)
-		row:SetPoint("BOTTOM", 0, 10 + (2 - i) * 32)
+		row:SetPoint("BOTTOM", 0, 10 + (2 - i) * 34)
+		local sep = row:CreateTexture(nil, "ARTWORK")
+		sep:SetColorTexture(A.edge[1], A.edge[2], A.edge[3], 0.35)
+		sep:SetHeight(1)
+		sep:SetPoint("TOPLEFT", 0, 3)
+		sep:SetPoint("TOPRIGHT", 0, 3)
 		row.text = Text(row, FONT_TEXT_B, 13, A.text)
 		row.text:SetPoint("TOPLEFT")
 		row.text:SetPoint("RIGHT", -70, 0)
@@ -388,26 +473,29 @@ local function Build()
 		row.sub:SetPoint("TOPLEFT", row.text, "BOTTOMLEFT", 0, -1)
 		row.sub:SetPoint("RIGHT", -70, 0)
 		row.sub:SetWordWrap(false)
+		row.hover = HoverOver(row, row.text)
+		row.hover:SetPoint("BOTTOMRIGHT", row.sub, "BOTTOMRIGHT")
 		row.go = Button(row, 62)
 		row.go:SetHeight(20)
 		row.go:SetPoint("RIGHT")
 		row.go:SetLabel(ns:L("FOV_GO_SHORT"))
+		Tip(row.go, ns:L("FOV_GO"), ns:L("FOV_TIP_GO"))
 		f.now.more[i] = row
 	end
 
 	f.soon = Card(f)
 	f.soon:SetPoint("TOPLEFT", f.now, "TOPRIGHT", 12, 0)
 	f.soon:SetSize(soonW, rowH)
-	f.soon.label = Label(f.soon, ns:L("FOV_LABEL_SOON"))
+	f.soon.label = Label(f.soon, ns:L("FOV_LABEL_SOON"), "FOV_TIP_CARD_SOON")
 	f.soon.rows = {}
-	for i = 1, 4 do
-		local ic = Icon(f.soon, 26)
+	for i = 1, 5 do
+		local ic = SpellButton(f.soon, 26)
 		ic:SetPoint("TOPLEFT", 14, -34 - (i - 1) * 38)
 		local nm = Text(f.soon, FONT_TEXT_B, 15, A.text)
 		nm:SetPoint("TOPLEFT", ic, "TOPRIGHT", 8, 1)
 		nm:SetPoint("RIGHT", f.soon, "RIGHT", -10, 0)
 		nm:SetWordWrap(false)
-		local lv = Text(f.soon, FONT_TEXT, 12, A.dim)
+		local lv = Text(f.soon, FONT_TEXT, 12, A.later)
 		lv:SetPoint("TOPLEFT", nm, "BOTTOMLEFT", 0, -1)
 		f.soon.rows[i] = { icon = ic, name = nm, level = lv }
 	end
@@ -415,7 +503,7 @@ local function Build()
 	f.cq = Card(f)
 	f.cq:SetPoint("TOPLEFT", f.soon, "TOPRIGHT", 12, 0)
 	f.cq:SetSize(cqW, rowH)
-	f.cq.label = Label(f.cq, ns:L("FOV_LABEL_CQ"))
+	f.cq.label = Label(f.cq, ns:L("FOV_LABEL_CQ"), "FOV_TIP_CARD_CQ")
 	f.cq.title = Text(f.cq, FONT_HEAD, 18, A.text, FALLBACK_HEAD)
 	f.cq.title:SetPoint("TOPLEFT", 14, -32)
 	f.cq.title:SetPoint("RIGHT", -12, 0)
@@ -428,61 +516,73 @@ local function Build()
 	f.cq.go = Button(f.cq, 120)
 	f.cq.go:SetPoint("BOTTOMLEFT", 14, 12)
 	f.cq.go:SetLabel(ns:L("FOV_GO"))
+	Tip(f.cq.go, ns:L("FOV_GO"), ns:L("FOV_TIP_GO"))
+	-- List mode (when "Do this now" already shows the open class quest): every class quest with where it stands.
+	f.cq.list = {}
+	for i = 1, 6 do
+		local lv = Text(f.cq, FONT_HEAD2, 13, A.gold, FALLBACK_TEXT)
+		lv:SetPoint("TOPLEFT", 14, -34 - (i - 1) * 30)
+		lv:SetWidth(24)
+		local nm = Text(f.cq, FONT_TEXT_B, 13, A.text)
+		nm:SetPoint("TOPLEFT", lv, "TOPRIGHT", 4, 0)
+		nm:SetPoint("RIGHT", f.cq, "RIGHT", -10, 0)
+		nm:SetWordWrap(false)
+		local st = Text(f.cq, FONT_TEXT, 11, A.dim)
+		st:SetPoint("TOPLEFT", nm, "BOTTOMLEFT", 0, -1)
+		f.cq.list[i] = { level = lv, name = nm, state = st }
+	end
 
-	-- Row 2: your path (level now → +6).
+	-- Row 2: your path (level now → +6), in equal columns that stay inside the card (Rob's screenshot: the last ran out).
 	f.path = Card(f)
 	f.path:SetPoint("TOPLEFT", f.now, "BOTTOMLEFT", 0, -12)
 	f.path:SetPoint("BOTTOMRIGHT", -16, 16)
-	f.path.label = Label(f.path, "")
+	f.path.label = Label(f.path, "", "FOV_TIP_CARD_PATH")
+	local pathW = rightW
+	local colW = math.floor((pathW - 28) / PATH_NODES)
 	f.path.track = f.path:CreateTexture(nil, "ARTWORK")
-	f.path.track:SetColorTexture(A.dim[1], A.dim[2], A.dim[3], 0.35)
+	f.path.track:SetColorTexture(A.later[1], A.later[2], A.later[3], 0.35)
 	f.path.track:SetHeight(2)
-	f.path.track:SetPoint("TOPLEFT", 30, -54)
-	f.path.track:SetPoint("TOPRIGHT", -30, -54)
+	f.path.track:SetPoint("TOPLEFT", 14 + 14, -55)
+	f.path.track:SetPoint("TOPRIGHT", f.path, "TOPLEFT", 14 + (PATH_NODES - 1) * colW + 14, -55)
 	f.path.nodes = {}
-	for i = 1, 4 do
+	for i = 1, PATH_NODES do
 		local n = {}
-		n.ring = f.path:CreateTexture(nil, "ARTWORK", nil, 2)
+		local cx = 14 + (i - 1) * colW
+		n.ring = Circle(f.path, nil, 2)
 		n.ring:SetSize(28, 28)
-		n.ring:SetColorTexture(A.dim[1], A.dim[2], A.dim[3], 1)
-		n.dot = f.path:CreateTexture(nil, "ARTWORK", nil, 3)
+		n.ring:SetPoint("TOPLEFT", cx, -41)
+		n.dot = Circle(f.path, nil, 3)
 		n.dot:SetSize(24, 24)
 		n.dot:SetPoint("CENTER", n.ring)
 		n.dot:SetColorTexture(0.10, 0.08, 0.06, 1)
-		pcall(function()
-			for _, t in ipairs({ n.ring, n.dot }) do
-				local m = f.path:CreateMaskTexture()
-				m:SetTexture("Interface\\CharacterFrame\\TempPortraitAlphaMask", "CLAMPTOBLACKADDITIVE", "CLAMPTOBLACKADDITIVE")
-				m:SetAllPoints(t)
-				t:AddMaskTexture(m)
-			end
-		end)
 		n.num = Text(f.path, FONT_HEAD, 14, A.text, FALLBACK_HEAD)
 		n.num:SetPoint("CENTER", n.ring, "CENTER", 0, 0)
 		n.num:SetJustifyH("CENTER")
-		n.icon = Icon(f.path, 24)
+		n.hover = HoverOver(f.path, n.ring)
+		n.icon = SpellButton(f.path, 24)
 		n.icon:SetPoint("TOPLEFT", n.ring, "BOTTOMLEFT", 0, -12)
 		n.name = Text(f.path, FONT_TEXT_B, 15, A.text)
-		n.name:SetPoint("TOPLEFT", n.icon, "TOPRIGHT", 8, 2)
-		n.name:SetWidth(150)
+		n.name:SetWidth(colW - 44)
 		n.name:SetWordWrap(false)
 		n.sub = Text(f.path, FONT_TEXT, 12, A.dim)
 		n.sub:SetPoint("TOPLEFT", n.name, "BOTTOMLEFT", 0, -1)
-		n.sub:SetWidth(150)
+		n.sub:SetWidth(colW - 44)
 		n.sub:SetWordWrap(false)
 		f.path.nodes[i] = n
 	end
+	-- Legend: the colours the nodes really use (Rob's screenshot: three chips, but the nodes used one colour).
 	f.path.chips = {}
-	for i, key in ipairs({ "FOV_CHIP_NOW", "FOV_CHIP_CAN", "FOV_CHIP_LATER" }) do
+	for i, key in ipairs({ "FOV_CHIP_NOW", "FOV_CHIP_LATER" }) do
 		local c = CreateFrame("Frame", nil, f.path, "BackdropTemplate")
 		c:SetSize(64, 18)
-		c:SetPoint("TOPRIGHT", -14 - (3 - i) * 70, -10)
+		c:SetPoint("TOPRIGHT", -14 - (2 - i) * 70, -10)
 		c:SetBackdrop({ bgFile = "Interface\\Buttons\\WHITE8X8", edgeFile = "Interface\\Buttons\\WHITE8X8", edgeSize = 1 })
 		c:SetBackdropColor(0, 0, 0, 0.3)
 		c.t = Text(c, FONT_HEAD2, 11, A.text, FALLBACK_TEXT)
 		c.t:SetPoint("CENTER")
 		c.t:SetJustifyH("CENTER")
 		c.t:SetText(ns:L(key))
+		Tip(c, ns:L(key), ns:L(i == 1 and "FOV_TIP_CHIP_NOW" or "FOV_TIP_CHIP_LATER"))
 		f.path.chips[i] = c
 	end
 
@@ -506,15 +606,13 @@ local function SetGo(btn, fn)
 	end
 end
 
-function ns.ForeverOverviewFill()
-	local f = Build()
+local function FillLeft(f, level)
 	local r, g, b = Accent()
-	f.nowAccent:SetColorTexture(r, g, b, 0.9)
-	-- Left column.
 	if SetPortraitTexture then
 		pcall(SetPortraitTexture, f.portrait, "player")
 	end
-	f.name:SetText(UnitName("player") or "")
+	local name = UnitName("player") or ""
+	f.name:SetText(name)
 	local race = UnitRace and UnitRace("player") or ""
 	local cls = UnitClass and UnitClass("player") or ""
 	local tree
@@ -524,12 +622,33 @@ function ns.ForeverOverviewFill()
 	end
 	local faction = UnitFactionGroup and select(2, UnitFactionGroup("player")) or nil
 	f.who:SetText(("%s · %s%s%s"):format(race, cls, tree and (" · " .. tree) or "", faction and ("\n" .. faction) or ""))
+	f.portraitTip.tipTitle = name
+	f.portraitTip.tipBody = ns:L("FOV_TIP_PORTRAIT_FMT"):format(race, cls, tree or ns:L("FOV_NO_DIRECTION"))
 	f.sealWord:SetText(ns:L("FOV_LEVEL"))
-	local level = UnitLevel and UnitLevel("player") or 1
 	f.sealLevel:SetText(tostring(level))
+	-- XP: hidden at max level (no XP to show).
+	local cur, max = UnitXP and UnitXP("player") or 0, UnitXPMax and UnitXPMax("player") or 0
+	if max and max > 0 and not (IsPlayerAtEffectiveMaxLevel and IsPlayerAtEffectiveMaxLevel()) then
+		local pct = math.floor(cur / max * 100 + 0.5)
+		f.xpFill:SetColorTexture(r, g, b, 0.9)
+		f.xpFill:SetWidth(math.max(1, (LEFT_W - 36) * cur / max))
+		local rested = GetXPExhaustion and GetXPExhaustion() or nil
+		local restPct = rested and math.floor(rested / max * 100 + 0.5) or 0
+		f.xpText:SetText(ns:L("FOV_XP_FMT"):format(pct) .. (restPct > 0 and ("  ·  " .. ns:L("FOV_RESTED_FMT"):format(restPct)) or ""))
+		f.xpTip.tipTitle = ns:L("FOV_XP_FMT"):format(pct)
+		f.xpTip.tipBody = ns:L("FOV_TIP_XP_FMT"):format(cur, max, max - cur) .. (restPct > 0 and ("\n" .. ns:L("FOV_TIP_RESTED")) or "")
+		for _, t in ipairs({ f.xpBg, f.xpFill, f.xpText }) do
+			t:Show()
+		end
+	else
+		for _, t in ipairs({ f.xpBg, f.xpFill, f.xpText }) do
+			t:Hide()
+		end
+		f.xpTip.tipTitle = nil
+	end
+end
 
-	-- Do this now.
-	local items = NowItems()
+local function FillNow(f, items)
 	local main = items[1]
 	if main then
 		f.now.title:SetText(main.title or "")
@@ -547,34 +666,67 @@ function ns.ForeverOverviewFill()
 		if it then
 			row.text:SetText(it.title or "")
 			row.sub:SetText(it.place or it.what or "")
+			row.hover.tipTitle = it.title
+			row.hover.tipBody = it.what and it.place and (it.what .. "\n" .. it.place) or it.what or it.place
 			SetGo(row.go, it.go)
 			row:Show()
 		else
 			row:Hide()
 		end
 	end
+end
 
-	-- Coming up (the next 4 trainer spells, next 6 levels).
-	local up = Upcoming(6)
-	for i, row in ipairs(f.soon.rows) do
-		local e = up[i]
-		if e then
-			row.icon:SetTexture(SpellIcon(e.id))
-			row.icon:Show()
-			row.name:SetText(e.name)
-			row.level:SetText(ns:L("FOV_LEVEL_FMT"):format(e.l))
-		else
-			row.icon:Hide()
-			row.name:SetText(i == 1 and ns:L("FOV_SOON_NONE") or "")
-			row.level:SetText("")
-		end
-	end
-
-	-- Class quest.
+local function FillClassQuest(f, items)
+	local showList = items[1] and items[1].kind == "classquest" or (items[2] and items[2].kind == "classquest")
 	local okC, cq = false, nil
-	if ns.ForeverClassQuestNowParts then
+	if not showList and ns.ForeverClassQuestNowParts then
 		okC, cq = pcall(ns.ForeverClassQuestNowParts)
 	end
+	local list = {}
+	if showList and ns.ForeverClassQuestList then
+		local ok, l = pcall(ns.ForeverClassQuestList)
+		list = ok and type(l) == "table" and l or {}
+	end
+	for _, row in ipairs(f.cq.list) do
+		row.level:SetText("")
+		row.name:SetText("")
+		row.state:SetText("")
+	end
+	if showList and #list > 0 then
+		f.cq.label:SetText(ns:L("FOV_LABEL_CQ_LIST"))
+		f.cq.title:SetText("")
+		f.cq.what:SetText("")
+		f.cq.place:SetText("")
+		SetGo(f.cq.go, nil)
+		-- Open ones first, then later, then done; at most six.
+		local order = { now = 1, later = 2, done = 3 }
+		table.sort(list, function(a, b)
+			if order[a.state] ~= order[b.state] then
+				return order[a.state] < order[b.state]
+			end
+			return (a.level or 0) < (b.level or 0)
+		end)
+		for i, row in ipairs(f.cq.list) do
+			local e = list[i]
+			if e then
+				row.level:SetText(tostring(e.level or ""))
+				row.name:SetText(e.chain or "")
+				if e.state == "done" then
+					row.state:SetText(ns:L("FOV_CQ_ST_DONE"))
+					row.state:SetTextColor(0.45, 0.85, 0.40)
+				elseif e.state == "now" then
+					row.state:SetText(ns:L("FOV_CQ_ST_NOW"))
+					local r, g, b = Accent()
+					row.state:SetTextColor(r, g, b)
+				else
+					row.state:SetText(ns:L("FOV_CQ_ST_LATER_FMT"):format(e.level or 0))
+					row.state:SetTextColor(A.later[1], A.later[2], A.later[3])
+				end
+			end
+		end
+		return
+	end
+	f.cq.label:SetText(ns:L("FOV_LABEL_CQ"))
 	if okC and type(cq) == "table" then
 		f.cq.title:SetText(cq.chain or "")
 		local what = cq.what
@@ -590,6 +742,37 @@ function ns.ForeverOverviewFill()
 		f.cq.place:SetText("")
 		SetGo(f.cq.go, nil)
 	end
+end
+
+function ns.ForeverOverviewFill()
+	local f = Build()
+	local r, g, b = Accent()
+	f.nowAccent:SetColorTexture(r, g, b, 0.9)
+	local level = UnitLevel and UnitLevel("player") or 1
+	FillLeft(f, level)
+
+	local items = NowItems()
+	FillNow(f, items)
+
+	-- Coming up (the next trainer spells, next 6 levels). Hover an icon: the spell's own tooltip.
+	local up = Upcoming(6)
+	for i, row in ipairs(f.soon.rows) do
+		local e = up[i]
+		if e then
+			row.icon.tex:SetTexture(SpellIcon(e.id))
+			row.icon.tipSpell = e.id
+			row.icon:Show()
+			row.name:SetText(e.name)
+			row.level:SetText(ns:L("FOV_LEVEL_FMT"):format(e.l))
+		else
+			row.icon:Hide()
+			row.icon.tipSpell = nil
+			row.name:SetText(i == 1 and ns:L("FOV_SOON_NONE") or "")
+			row.level:SetText("")
+		end
+	end
+
+	FillClassQuest(f, items)
 
 	-- Your path: now, then the levels that bring trainer spells (up to 3 more nodes within 6 levels).
 	f.path.label:SetText(ns:L("FOV_PATH_FMT"):format(level, level + 6))
@@ -603,46 +786,51 @@ function ns.ForeverOverviewFill()
 	end
 	local nodes = { { l = level, now = true } }
 	for _, l in ipairs(levels) do
-		if #nodes < 4 then
+		if #nodes < PATH_NODES then
 			nodes[#nodes + 1] = { l = l, list = byLevel[l] }
 		end
 	end
-	local trackW = f.path:GetWidth() - 60
 	for i, n in ipairs(f.path.nodes) do
 		local d = nodes[i]
-		local x = 30 + (i - 1) * (trackW / 3)
-		n.ring:ClearAllPoints()
-		n.ring:SetPoint("CENTER", f.path, "TOPLEFT", x, -55)
+		local parts = { n.ring, n.dot, n.num, n.icon, n.name, n.sub, n.hover }
 		if d then
-			for _, t in ipairs({ n.ring, n.dot, n.num, n.icon, n.name, n.sub }) do
+			for _, t in ipairs(parts) do
 				t:Show()
 			end
 			n.num:SetText(tostring(d.l))
+			n.name:ClearAllPoints()
 			if d.now then
 				n.ring:SetColorTexture(r, g, b, 1)
-				local first = items[1]
-				n.icon:SetTexture(134400)
+				n.num:SetTextColor(r, g, b)
 				n.icon:Hide()
-				n.name:ClearAllPoints()
+				n.icon.tipSpell = nil
 				n.name:SetPoint("TOPLEFT", n.ring, "BOTTOMLEFT", 0, -12)
 				n.name:SetText(ns:L("FOV_PATH_NOW"))
-				n.sub:SetText(first and first.title or ns:L("FOV_ALL_DONE"))
+				n.sub:SetText(items[1] and items[1].title or ns:L("FOV_ALL_DONE"))
+				n.hover.tipTitle = ns:L("FOV_LEVEL_FMT"):format(d.l)
+				n.hover.tipBody = ns:L("FOV_TIP_NODE_NOW")
 			else
-				n.ring:SetColorTexture(A.dim[1], A.dim[2], A.dim[3], 1)
-				n.icon:SetTexture(SpellIcon(d.list[1].id))
-				n.name:ClearAllPoints()
+				n.ring:SetColorTexture(A.later[1], A.later[2], A.later[3], 1)
+				n.num:SetTextColor(A.text[1], A.text[2], A.text[3])
+				n.icon.tex:SetTexture(SpellIcon(d.list[1].id))
+				n.icon.tipSpell = d.list[1].id
 				n.name:SetPoint("TOPLEFT", n.icon, "TOPRIGHT", 8, 2)
 				n.name:SetText(d.list[1].name)
 				n.sub:SetText(#d.list > 1 and ns:L("FOV_PATH_MORE_FMT"):format(#d.list - 1) or ns:L("FOV_PATH_NEW"))
+				local names = {}
+				for _, e in ipairs(d.list) do
+					names[#names + 1] = e.name
+				end
+				n.hover.tipTitle = ns:L("FOV_LEVEL_FMT"):format(d.l)
+				n.hover.tipBody = ns:L("FOV_TIP_NODE_FMT"):format(table.concat(names, ", "))
 			end
 		else
-			for _, t in ipairs({ n.ring, n.dot, n.num, n.icon, n.name, n.sub }) do
+			for _, t in ipairs(parts) do
 				t:Hide()
 			end
 		end
 	end
-	-- Chips: NOW in the accent colour, CAN ALREADY green, LATER grey.
-	local chipCol = { { r, g, b }, { 0.45, 0.85, 0.40 }, { 0.6, 0.6, 0.6 } }
+	local chipCol = { { r, g, b }, A.later }
 	for i, c in ipairs(f.path.chips) do
 		local col = chipCol[i]
 		c:SetBackdropBorderColor(col[1], col[2], col[3], 0.9)
