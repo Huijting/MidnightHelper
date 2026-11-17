@@ -4641,6 +4641,11 @@ ns._mhLocales.nlNL = {
 	FOV_TIP_DIR_BTN = "Welke talentboom je volgt. De tekst rechts toont het stuk voor jouw keuze eerst.",
 	FOV_ROLES_BTN_TIP_TITLE = "Andere rollen",
 	FOV_TIP_ROLES_BTN = "Toon of vouw de rollen die niet jouw richting zijn.",
+	-- 17 nov 2026: stijl A of B (stap 5 van de huisstijl).
+	FOV_STYLE_BTN_FMT = "Stijl %s",
+	FOV_STYLE_TIP_TITLE = "Stijl A of B",
+	FOV_STYLE_TIP = "A = boek: warme kleuren en oude letters. B = modern: leisteengrijs en strakke letters. Klik om te wisselen. Ook in de instellingen van Midnight Helper, of typ /mh overview style a of b.",
+	FOV_STYLE_SET_FMT = "Stijl van het overzicht: %s.",
 	-- 17 nov 2026 (Rob: "B"): een modifier + toets die al van een andere binding is.
 	FMAC_KEY_TAKEN_FMT = "%s is bezet door %s: het %s-deel van deze macro werkt alleen met de muis.",
 	FMAC_BTN_FREE = "Toets vrij",

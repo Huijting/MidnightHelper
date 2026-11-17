@@ -38,7 +38,18 @@
   opent nog het oude venster. Offline gedraaid (scratch htp_check: 10 classes × 4 richtingen × rollen open/dicht × en/nl/ru
   = 240 runs, 0 fouten; nl-tekst echt Nederlands, ru = Engels omdat dat pack alleen op een Russische client laadt).
   Lint 0 HARD, luac OK. NIET in het spel gezien.
-- ⏭️ Volgende: ontwerp B + schakelaar A/B (stap 5).
+- ✅ **Naam GEMETEN door Rob** (sparring, screenshot Undead Paladin 14): kop toont "IMA PALLIE". Welke API: probe
+  `foreverNameProbe` nog nalezen na zijn volgende /reload.
+- 🎨 **Stap 5 ontwerp B + schakelaar GEBOUWD (en + nl)**: thema B in ForeverStyle (leisteen, Fonts\ARIALN.TTF voor alles,
+  3 px klassekleur-balk bovenop elke kaart, witte koppen). `S.Style()`/`S.T()` lezen `ns.db.foreverStyle` (nil = A).
+  Wisselen: knop "Style A/B" naast de dock-knop, instelling (Venster & weergave, alleen Forever: SET_FOVSTYLE_*), en
+  `/mh overview style a|b` (Core.lua). Het open venster wordt opnieuw gebouwd op dezelfde pagina
+  (`ns.ForeverOverviewSetStyle`). Ook (Robs screenshot via sparring): knoptekst krimpt in `S.Button:SetLabel` tot hij
+  past ("YOUR DIRECTION: PROTECTION" liep over de randen). OPEN: een vaag tekstje links tussen de linkerkolom en
+  "CONTENTS" op de How you play-pagina: oorzaak NIET gevonden (AFGELEID: misschien een te brede knoptekst, nu gekrompen) →
+  nieuwe screenshot vragen. OPEN klein: FHOWTO_ROLES_FOLDED_FMT zegt "at the top", op de pagina staat de knop onderaan
+  (in de vertaalronde aanpassen). Lint 0 HARD, luac OK. NIET in het spel gezien.
+- ⏭️ Volgende: vertaalronde (stap 6: alle FOV_*, FDUNG_IN_ENEMY_FMT, SET_FOVSTYLE_* naar de/fr/es/pt/ru, mh-writer).
 - Rob is ±1 uur weg (sparring, letterlijk: *"Ga samen door met de bouwchat zover mogelijk, dat we een kant-en-klaar
   product hebben."*): lijst afwerken, geen tag/release, geen /nieuwe-chat; context vol → "KLAAR VOOR OVERDRACHT".
 

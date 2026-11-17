@@ -7,7 +7,7 @@ local _, ns = ...
 	blocks, so they live here and not in ForeverOverview.lua (where round 1-5 of style A grew them).
 
 	ns.ForeverStyle (S):
-	  S.T()                      the active theme table (A now; B follows with the A/B switch, ns.db.foreverStyle)
+	  S.T(), S.Style()           the active theme table / its letter (ns.db.foreverStyle "A" | "B"; A by default)
 	  S.Accent()                 class colour r, g, b
 	  S.Font(fs, file, size, fallback, flags)   SetFont with the game's own font when the file cannot be used
 	  S.Text(parent, role, size, color)         a font string; role = "head" | "head2" | "text" | "textB"
@@ -53,10 +53,30 @@ S.THEMES = {
 		seal = { 0.55, 0.10, 0.08 }, later = { 0.55, 0.52, 0.48 }, done = { 0.45, 0.85, 0.40 },
 		buttonText = { 0.95, 0.92, 0.85 },
 	},
+	-- Theme B ("strak en modern", plan step 1): slate WHITE8X8, one sans-serif game font (Fonts\ARIALN.TTF, the client's
+	-- own, Cyrillic included), a 3 px accent bar on top of every card, white headings, no gold.
+	B = {
+		fonts = {
+			head = "Fonts\\ARIALN.TTF", head2 = "Fonts\\ARIALN.TTF", text = "Fonts\\ARIALN.TTF", textB = "Fonts\\ARIALN.TTF",
+		},
+		fallback = { head = "Fonts\\FRIZQT__.TTF", head2 = "Fonts\\FRIZQT__.TTF", text = "Fonts\\FRIZQT__.TTF", textB = "Fonts\\FRIZQT__.TTF" },
+		bgTop = { 0.11, 0.12, 0.14, 0.97 }, bgBottom = { 0.07, 0.08, 0.09, 0.97 },
+		card = { 0.14, 0.15, 0.17, 0.95 }, edge = { 0.26, 0.28, 0.31, 0.9 },
+		gold = { 0.94, 0.95, 0.97 }, label = { 0.62, 0.67, 0.74 }, text = { 0.90, 0.91, 0.93 }, dim = { 0.58, 0.61, 0.66 },
+		seal = { 0.20, 0.22, 0.26 }, later = { 0.45, 0.48, 0.52 }, done = { 0.45, 0.85, 0.40 },
+		buttonText = { 0.96, 0.97, 0.98 },
+		accentBar = 3,
+	},
 }
 
+--- The theme the player chose: ns.db.foreverStyle = "A" (default) or "B".
+function S.Style()
+	local v = ns.db and ns.db.foreverStyle
+	return (v == "B") and "B" or "A"
+end
+
 function S.T()
-	return S.THEMES.A
+	return S.THEMES[S.Style()]
 end
 
 function S.Accent()
@@ -127,6 +147,15 @@ function S.Card(parent)
 	f:SetBackdrop({ bgFile = WHITE, edgeFile = WHITE, edgeSize = 1 })
 	f:SetBackdropColor(t.card[1], t.card[2], t.card[3], t.card[4])
 	f:SetBackdropBorderColor(t.edge[1], t.edge[2], t.edge[3], t.edge[4])
+	if t.accentBar then
+		local r, g, b = S.Accent()
+		local bar = f:CreateTexture(nil, "ARTWORK")
+		bar:SetColorTexture(r, g, b, 0.95)
+		bar:SetPoint("TOPLEFT", 1, -1)
+		bar:SetPoint("TOPRIGHT", -1, -1)
+		bar:SetHeight(t.accentBar)
+		f.accentBar = bar
+	end
 	return f
 end
 
@@ -182,8 +211,21 @@ function S.Button(parent, w)
 			self:SetBackdropColor(r * 0.25, g * 0.25, bl * 0.25, 0.95)
 		end
 	end)
+	-- The text shrinks until it fits inside the button (Rob's screenshot, 17 Nov 2026: "YOUR DIRECTION: PROTECTION" ran
+	-- over both edges, and a label of a button below spilled out of its card). Never wider than the button.
 	function b:SetLabel(t)
+		local th = S.T()
+		local size = 13
+		S.Font(self.label, th.fonts.head2, size, th.fallback.head2)
 		self.label:SetText(t)
+		local room = (self:GetWidth() or 0) - 10
+		while room > 0 and size > 8 and (self.label:GetStringWidth() or 0) > room do
+			size = size - 1
+			S.Font(self.label, th.fonts.head2, size, th.fallback.head2)
+			self.label:SetText(t)
+		end
+		self.label:SetWidth(room > 0 and room or 0)
+		self.label:SetWordWrap(false)
 	end
 	function b:SetActive(on)
 		self.active = on and true or nil

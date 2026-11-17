@@ -378,6 +378,8 @@ local function Build()
 	if win then
 		return win
 	end
+	-- The theme is read when the window is built; switching A/B builds it again (ns.ForeverOverviewSetStyle).
+	A = S.T()
 	local f = CreateFrame("Frame", "MidnightHelperForeverOverview", UIParent, "BackdropTemplate")
 	f:SetSize(W, H)
 	f:SetPoint("CENTER", 0, 60)
@@ -417,6 +419,21 @@ local function Build()
 		f._mhDockBtn:ClearAllPoints()
 		f._mhDockBtn:SetPoint("LEFT", f.title, "RIGHT", 14, -1)
 	end
+	-- Style switch A / B (Rob, 17 Nov 2026: "misschien moeten we de user maar laten kiezen. Dus bouw ze allebei maar.").
+	-- Also in the settings and /mh overview style a|b.
+	local style = Button(f, 70)
+	style:SetHeight(20)
+	if f._mhDockBtn then
+		style:SetPoint("LEFT", f._mhDockBtn, "RIGHT", 8, 0)
+	else
+		style:SetPoint("LEFT", f.title, "RIGHT", 14, -1)
+	end
+	style:SetLabel(ns:L("FOV_STYLE_BTN_FMT"):format(S.Style()))
+	style:SetScript("OnClick", function()
+		ns.ForeverOverviewSetStyle(S.Style() == "A" and "B" or "A")
+	end)
+	Tip(style, ns:L("FOV_STYLE_TIP_TITLE"), ns:L("FOV_STYLE_TIP"))
+	f.styleBtn = style
 	local line = f:CreateTexture(nil, "ARTWORK")
 	line:SetColorTexture(A.gold[1], A.gold[2], A.gold[3], 0.35)
 	line:SetPoint("TOPLEFT", 1, -48)
@@ -1357,6 +1374,25 @@ function ns.ForeverOverviewFill(refresh)
 		c:SetColor(col[1], col[2], col[3])
 	end
 	return f
+end
+
+--- Switch the overview's look: "A" (book) or "B" (modern). Saved in ns.db.foreverStyle; the open window is
+--- built again in the new style on the same page, at the same place (DialogPopup remembers the position by name).
+function ns.ForeverOverviewSetStyle(style)
+	style = (type(style) == "string" and style:upper() == "B") and "B" or "A"
+	ns.db = ns.db or {}
+	ns.db.foreverStyle = (style == "B") and "B" or nil
+	if win then
+		local wasShown, page, allRoles = win:IsShown(), win.page, win.allRoles
+		win:Hide()
+		win = nil
+		local f = Build()
+		f.page, f.allRoles = page or "now", allRoles
+		if wasShown then
+			f:Show()
+		end
+	end
+	print(("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), ns:L("FOV_STYLE_SET_FMT"):format(style)))
 end
 
 function ns.ToggleForeverOverview()

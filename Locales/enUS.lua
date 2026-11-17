@@ -5549,6 +5549,11 @@ ns._mhLocales.enUS = {
 	FOV_TIP_DIR_BTN = "Which talent tree you follow. The text on the right shows the part for your choice first.",
 	FOV_ROLES_BTN_TIP_TITLE = "Other roles",
 	FOV_TIP_ROLES_BTN = "Show or fold the roles that are not your direction.",
+	-- 17 Nov 2026: style A or B (step 5 of the house style).
+	FOV_STYLE_BTN_FMT = "Style %s",
+	FOV_STYLE_TIP_TITLE = "Style A or B",
+	FOV_STYLE_TIP = "A = book: warm colours and old letters. B = modern: slate grey and plain letters. Click to switch. Also in the Midnight Helper settings, or type /mh overview style a or b.",
+	FOV_STYLE_SET_FMT = "Overview style %s.",
 	-- 17 Nov 2026 (Rob: "B"): a modifier + key that belongs to another binding.
 	FMAC_KEY_TAKEN_FMT = "%s is taken by %s: the %s part of this macro only works with the mouse.",
 	FMAC_BTN_FREE = "Free key",

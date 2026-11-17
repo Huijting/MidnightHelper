@@ -1520,6 +1520,16 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 	end
 
 	-- /mh overview — Forever: the new overview window, rough version of style A (ForeverOverview.lua, 17 Nov 2026).
+	-- /mh overview style a|b — switch the look (17 Nov 2026; also in the settings and the A/B button in the window).
+	local ovStyle = msg:match("^overview style%s+([abAB])$")
+	if ovStyle then
+		if ns.ForeverOverviewSetStyle then
+			ns.ForeverOverviewSetStyle(ovStyle)
+		else
+			print(("|cffffcc00%s|r the overview is for WoW Forever."):format(ns:L("PRINT_PREFIX")))
+		end
+		return
+	end
 	if msg == "overview" then
 		if ns.ToggleForeverOverview then
 			ns.ToggleForeverOverview()

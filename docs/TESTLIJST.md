@@ -30,6 +30,16 @@ Eerst WoW helemaal afsluiten en opnieuw starten (er is een nieuw bestand; /reloa
 - [ ] `/mh overview` opent zonder foutmelding en ziet er precies hetzelfde uit als ronde 5 (zelfde letters, kleuren,
       knoppen, NOW/LATER-labels onder Jouw pad).
 
+## 🎨 17 nov (avond) — Forever: ontwerp B en de schakelaar (`/mh overview`)
+
+- [ ] Bovenaan naast "Dock to window" staat een knop "Style A". Klik: het venster wordt strak en modern (grijs, gewone
+      letters, een gekleurde balk bovenop elke kaart) en de knop zegt "Style B". Nog een klik: terug naar A.
+- [ ] Je blijft op dezelfde tab als je wisselt.
+- [ ] Na `/reload` onthoudt hij je keuze. Ook te kiezen in de instellingen (Venster & weergave → "Look of the overview")
+      en met `/mh overview style a` of `b`.
+- [ ] De knop "Your direction: Protection" past nu binnen zijn rand (tekst krimpt).
+- [ ] Zie je op How you play nog het vage tekstje links naast "CONTENTS"? Graag een screenshot.
+
 ## 📖 17 nov (avond) — Forever: tab How you play als pagina (`/mh overview`)
 
 - [ ] Tab "How you play": links "CONTENTS" met alle kopjes (je eigen rol in je klassekleur). Klik er een: de tekst rechts
@@ -46,8 +56,8 @@ Eerst WoW helemaal afsluiten en opnieuw starten (er is een nieuw bestand; /reloa
       doen. Een "?" betekent: het spel laat MH dat niet lezen.
 - [ ] Tab "Legacy": vijf rijen (verdiend, ongebruikt, uitgegeven, max per character, Talented-rang) met getallen, en de
       Legacy-uitleg rechts.
-- [ ] Je naam links: staat er nu "Ima Pallie" (voor- én achternaam)? Of nog alleen "IMA"? Doe daarna `/reload`; ik lees
-      dan in je SavedVariables (`foreverNameProbe`) welke functie de achternaam geeft.
+- [x] Je naam links: "IMA PALLIE" (Rob, screenshot via sparring, 17 nov). Nog open: na een `/reload` lees ik in je
+      SavedVariables (`foreverNameProbe`) welke functie de achternaam geeft.
 
 ## 📜 17 nov (avond) — Forever: tab Class quests als pagina (`/mh overview`)
 
