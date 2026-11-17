@@ -177,6 +177,8 @@ Priest, `/reload`. Uitgezocht met Fable; niets in het spel gezien.
 ## 🔥 17 nov — Forever: kamperen, stap 1 (kan MH je kampbuffs lezen?)
 
 - [ ] Typ `/mh camp` ergens zonder vuur. Elke regel zegt "yes", "no" of "? (unreadable)". Screenshot graag.
+- [ ] Bij een gewoon kookvuur in de wereld (geen speler-kamp): MH toont GEEN "ga zitten" in Doe dit nu, en `/mh camp`
+      zegt "nearby: no". (Sparring 17 nov; je laatste meting in de SV zei nearby=false, maar niet waar je stond.)
 - [ ] Zet een kampvuur (of ga bij dat van een ander staan) en typ `/mh camp` nog eens. Staat "nearby" op yes?
 - [ ] Nog niet zitten: verschijnt in "Do this now" de regel "There is a campfire near you: sit down…"?
 - [ ] Ga zitten. Na 1 minuut: Camp Benefits. Typ `/mh camp`: "benefits" yes, en de "Do this now"-regel is weg.
