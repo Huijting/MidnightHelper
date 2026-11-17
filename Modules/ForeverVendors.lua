@@ -36,13 +36,20 @@ local CATS = {
 	{ key = "thief", item = 5060 },
 	{ key = "general", kind = "general", label = "FVEND_CAT_GENERAL" },
 	{ key = "trade", kind = "trade", label = "FVEND_CAT_TRADE" },
+	-- 17 Nov 2026 (Rob: "Straks zocht ik de bank en de AH in grootsteden. … Kunnen we dat nog erin krijgen?", and on
+	-- mailbox + inn: "ja doe maar"): city services, data in ForeverCitySpots.lua. svc = the row kind there.
+	{ key = "bank", svc = "bank", label = "FCITY_CAT_BANK" },
+	{ key = "auction", svc = "auction", label = "FCITY_CAT_AUCTION" },
+	{ key = "mail", svc = "mail", label = "FCITY_CAT_MAIL" },
+	{ key = "inn", svc = "inn", label = "FCITY_CAT_INN" },
 }
 local CAT_BY_KEY = {}
 for _, c in ipairs(CATS) do
 	CAT_BY_KEY[c.key] = c
 end
 local ALIASES = { pole = "fishing", fish = "fishing", pick = "mining", knife = "skinning", smith = "hammer",
-	blacksmithing = "hammer", flint = "tinder", tools = "thief", goods = "general" }
+	blacksmithing = "hammer", flint = "tinder", tools = "thief", goods = "general", ah = "auction",
+	mailbox = "mail", innkeeper = "inn" }
 
 local function ItemName(id)
 	if C_Item and C_Item.GetItemNameByID then
@@ -121,12 +128,14 @@ end
 --- @return list, positionKnown
 local function List(c)
 	local side = Side()
-	local rows = c.kind and ns.FOREVER_GOODS_VENDORS or ns.FOREVER_TOOL_VENDORS
+	local rows = (c.svc and ns.FOREVER_CITY_SPOTS) or (c.kind and ns.FOREVER_GOODS_VENDORS) or ns.FOREVER_TOOL_VENDORS
 	local pc, px, py = PlayerWorld()
 	local out = {}
 	for _, v in ipairs(rows or {}) do
 		local sells
-		if c.kind then
+		if c.svc then
+			sells = v.kind == c.svc
+		elseif c.kind then
 			sells = v.kind == c.kind
 		else
 			sells = false
@@ -159,8 +168,9 @@ local function List(c)
 end
 
 --- Arrow to one vendor (Blizzard waypoint + NativeArrow, like the trainer arrow).
-local function GoTo(e, what)
+local function GoTo(e, what, svc)
 	local v = e.v
+	local vname = v.name or what or "?" -- a mailbox has no NPC name: it is called what it is
 	-- A place we saw this vendor from beats the rounded list value (ForeverSeenPlaces.lua, Rob 11 Nov 2026).
 	local vx, vy = v.x, v.y
 	if ns.ForeverPlaceFix then
@@ -172,10 +182,11 @@ local function GoTo(e, what)
 		end
 		return false
 	end
-	ns.lastTarget = { mapID = v.map, x = vx, y = vy, name = v.name .. (what and (" (" .. what .. ")") or ""),
+	ns.lastTarget = { mapID = v.map, x = vx, y = vy,
+		name = vname .. ((what and v.name) and (" (" .. what .. ")") or ""),
 		via = "/mh vendor", arriveYards = 5, vendorNpc = v.npc, nearKey = "FARROW_NEAR_NPC", nearYards = 20 }
 	ns._mhRouteOwner = "waypoint"
-	print(PREFIX .. ns:L("FVEND_ARROW_SET_FMT"):format(v.name, ZoneName(v.map),
+	print(PREFIX .. ns:L(svc and "FCITY_ARROW_SET_FMT" or "FVEND_ARROW_SET_FMT"):format(vname, ZoneName(v.map),
 		e.dist and Distance(e.dist) or ns:L("FVEND_OTHER_CONT")))
 	return true
 end
@@ -276,7 +287,7 @@ local function Row(f, i)
 	r.go:SetPoint("RIGHT", r, "RIGHT", -2, 0)
 	r.go:SetScript("OnClick", function(self)
 		if self.entry then
-			GoTo(self.entry, self.what)
+			GoTo(self.entry, self.what, self.svc)
 		end
 	end)
 	f.rows[i] = r
@@ -300,7 +311,8 @@ Fill = function()
 	local list, posOk = List(selected)
 	local what = CatName(selected)
 	f.head:SetText(ns:L("FVEND_COUNT_FMT"):format(what, #list))
-	local sub = ns:L(selected.kind and "FVEND_SUB_GOODS" or "FVEND_SUB_TOOL")
+	local sub = ns:L((selected.svc and ("FCITY_SUB_" .. selected.svc:upper())) or (selected.kind and "FVEND_SUB_GOODS")
+		or "FVEND_SUB_TOOL")
 	if not posOk then
 		sub = sub .. "  " .. ns:L("FVEND_NOPOS")
 	end
@@ -318,10 +330,10 @@ Fill = function()
 		local loc = GetLocale and GetLocale() or "enUS"
 		local english = loc == "enUS" or loc == "enGB"
 		local tag = (english and e.v.tag and e.v.tag ~= "") and ("  |cff999999<" .. e.v.tag .. ">|r") or ""
-		r.name:SetText(e.v.name .. tag)
+		r.name:SetText((e.v.name or what) .. tag)
 		r.info:SetText(ZoneName(e.v.map) .. " · " .. (e.dist and Distance(e.dist) or ns:L("FVEND_OTHER_CONT")))
 		r.go:SetText(ns:L("FVEND_ARROW"))
-		r.go.entry, r.go.what = e, what
+		r.go.entry, r.go.what, r.go.svc = e, what, selected.svc
 		r:Show()
 		y = y - ROW_H - 4
 	end
@@ -340,7 +352,7 @@ end
 function ns.ForeverVendorFindCats()
 	local out = {}
 	for _, c in ipairs(CATS) do
-		out[#out + 1] = { key = c.key, name = CatName(c), goods = c.kind ~= nil }
+		out[#out + 1] = { key = c.key, name = CatName(c), goods = c.kind ~= nil, svc = c.svc }
 	end
 	return out
 end
@@ -356,10 +368,15 @@ function ns.ForeverVendorFindRows(key)
 	local english = loc == "enUS" or loc == "enGB"
 	local rows = {}
 	for _, e in ipairs(list) do
-		rows[#rows + 1] = { name = e.v.name, tag = (english and e.v.tag and e.v.tag ~= "") and e.v.tag or nil,
+		local tag = (english and e.v.tag and e.v.tag ~= "") and e.v.tag or nil
+		if c.svc then
+			-- Our own word, so every language: "neutral" on a Blackwater (neutral) auction house (ForeverCitySpots.lua).
+			tag = e.v.neutral and ns:L("FCITY_NEUTRAL_TAG") or nil
+		end
+		rows[#rows + 1] = { name = e.v.name or what, tag = tag,
 			zone = ZoneName(e.v.map), dist = e.dist, map = e.v.map, x = e.v.x, y = e.v.y,
 			go = function()
-				return GoTo(e, what)
+				return GoTo(e, what, c.svc)
 			end }
 	end
 	return rows, posOk
@@ -748,8 +765,9 @@ function ns.ForeverVendorSlash(arg)
 	end
 	if arg == "check" then
 		local _, posOk = List(CATS[1])
-		print(PREFIX .. ("vendors: %d tool rows, %d goods rows, your side %s, position %s"):format(
-			#(ns.FOREVER_TOOL_VENDORS or {}), #(ns.FOREVER_GOODS_VENDORS or {}), tostring(Side()),
+		print(PREFIX .. ("vendors: %d tool rows, %d goods rows, %d city rows, your side %s, position %s"):format(
+			#(ns.FOREVER_TOOL_VENDORS or {}), #(ns.FOREVER_GOODS_VENDORS or {}), #(ns.FOREVER_CITY_SPOTS or {}),
+			tostring(Side()),
 			posOk and "readable" or "NOT readable"))
 		for _, c in ipairs(CATS) do
 			local list = List(c)

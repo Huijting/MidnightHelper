@@ -28,6 +28,19 @@ snelbalk, instellingen — geen foutmeldingen. Forever wordt nu getest (uitslage
 📝 **Waarneming Rob, 16 nov (nacht), Forever mage, via sparring:** *"mouse over werk"* — `/mh mouseover on`, Shift+X
 (Arcane Intellect) op een voorbijganger onder de muis werkt.
 
+## 🏦 17 nov (laat) — Forever: bank, veilinghuis, brievenbus en herberg in Find
+
+Eerst WoW helemaal afsluiten en opnieuw starten (er is een nieuw bestand; /reload is niet genoeg).
+- [ ] `/mh overview` → tab Find: onderaan de lijst links een kopje **IN TOWN** met Bank · Auction House · Mailbox · Inn.
+- [ ] Klik Bank in een hoofdstad: bovenaan de bankiers van díe stad, met afstand. "Show the way" zet de pijl; die
+      verdwijnt als je er bent. Klopt de plek?
+- [ ] Auction House: de neutrale (Gadgetzan, Booty Bay, Everlook) staan erbij met "<neutral>" achter de naam.
+- [ ] Mailbox: de dichtstbijzijnde brievenbus staat bovenaan en staat echt daar. (Een brievenbus die we missen: zeg
+      waar, dan voegen we hem toe.)
+- [ ] Inn: de herbergier van je stad bovenaan. In Dalaran (Alliance) staan er twee.
+- [ ] Valanaar (Zephras Isle): bank, AH en herberg staan erin. Opent die AH het neutrale of het gewone veilinghuis?
+      (Weten we niet: zeg het als je er komt.)
+
 ## 🎨 17 nov (avond) — Forever: stijlkit onder het overzicht (`/mh overview`)
 
 Eerst WoW helemaal afsluiten en opnieuw starten (er is een nieuw bestand; /reload is niet genoeg).

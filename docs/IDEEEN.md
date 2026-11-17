@@ -198,6 +198,12 @@ lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met d
 - Plan + inventaris + volgorde: `docs/forever/OVERZICHT_PRODUCT_PLAN_2026-11-17.md`. Bouwchat begint met stap 1-3
   (voordeur, één Now-lijst, trainer-pagina). Spel: F; Midnight daarna als proef één scherm.
 
+### Forever: bank, veilinghuis, brievenbus en herberg in de tab Find — GEBOUWD 17 nov, wacht op Robs test
+- Bron: Rob 17 nov (via Sparring 17-11), letterlijk: *"Straks zocht ik de bank en de AH in grootsteden. … Kunnen we dat
+  nog erin krijgen?"*; op "zullen we er ook de brievenbus en de herberg bij doen?": *"ja doe maar"*. Spel: F. Voor wie: N.
+- Gebouwd: kopje "In town" in Find met Bank · Auction House · Mailbox · Inn; data `Modules/ForeverCitySpots.lua` (116
+  plekken, onderzoek `docs/forever/FOREVER_CITY_SERVICES_2026-11-17.md`). Niet in het spel gezien.
+
 ### Forever: slimme zegen op mouseover (paladin) — tooltip-tip én één slimme knop
 - Bron: Rob 17 nov (via Sparring 17-11), vraag: *"Kan er een macro komen of bestaat er een macro ... die kan zien wat voor
   speler het is waar ik overheen [ga] en welke ik hem dan moet geven?"* Op de opties (1 tooltip-tip, 2 één slimme knop,

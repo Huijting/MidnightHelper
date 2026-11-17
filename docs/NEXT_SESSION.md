@@ -12,8 +12,15 @@ groepspaneel (HUD), de oude terugval-vensters (onbereikbaar). ⚠️ Niet in het
 `Disable()` krijgen pakken hun eigen grijze font weer; teksten kunnen in het andere font iets breder zijn → Robs test.
 4. Robs testpunten: fonts (be5ee47 + foreverFontProbe nalezen na zijn herstart), overlap, fade, achtergrond dicht —
 gedaan, NIET in het spel gezien.
+▶ **Bouwchat 17-11 (5): A AF** (bank/AH/brievenbus/herberg). Kopje "In town" in Find (4 nieuwe CATS met `svc` in
+ForeverVendors.lua; data `Modules/ForeverCitySpots.lua` = 116 plekken uit `docs/forever/FOREVER_CITY_SERVICES_2026-11-17.md`,
+mh-research Fable: Zygor + Wowhead per NPC, brievenbussen alleen met 2+ bronnen; 21 één-bron-bussen staan er
+uitgecommentarieerd in het rapport). Steden: SW, IF, Darn, Dalaran (A), Org, TB, UC, + neutraal Gadgetzan, Everlook,
+Booty Bay (geen bus: 1 bron), Valanaar. AH-cut GEMETEN in DB2 AuctionHouse (neutraal 15%/borg 25 tegen 5/5; betekenis
+kolommen AFGELEID). Valanaar-AH: neutraal of niet NIET gemeten → geen tag. Offline (find_check + 4 soorten × 2 kanten,
+elke Show the way): 29.694 runs, 0 fouten; aantallen = rapport. Niet in het spel gezien. Daarna: B en C hieronder.
 OPEN, in deze volgorde:
-- **A. Bank & Auction House in Find** (Rob, letterlijk: *"Straks zocht ik de bank en de AH in grootsteden. … Kunnen we
+- ~~**A. Bank & Auction House in Find**~~ (AF, zie regel hierboven) (Rob, letterlijk: *"Straks zocht ik de bank en de AH in grootsteden. … Kunnen we
   dat nog erin krijgen?"*; sparring: bouwen voor deze release). GEMETEN door sparring: MH heeft er nu niets voor
   (grep 0; controle "Trade Supplies" 47). Voorstel sparring: Find-categorie "Bank & Auction House", dichtstbij eerst,
   Show the way, reisstap; alle hoofdsteden van je factie + neutrale AH's (Gadgetzan, Booty Bay, Everlook) met de zin

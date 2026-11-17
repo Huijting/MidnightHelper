@@ -2452,10 +2452,17 @@ local function FindCatalog()
 		local ok, c = pcall(ns.ForeverVendorFindCats)
 		shops = ok and type(c) == "table" and c or {}
 	end
-	if #shops > 0 then
-		head(ns:L("FOV_FIND_SEC_SHOP"))
+	-- 17 Nov 2026: bank, auction house, mailbox and inn get their own heading ("In town"), after the shops.
+	for pass = 1, 2 do
+		local first = true
 		for _, c in ipairs(shops) do
-			items[#items + 1] = { kind = "shop", key = c.key, name = c.name, goods = c.goods }
+			if (pass == 2) == (c.svc ~= nil) then
+				if first then
+					head(ns:L(pass == 1 and "FOV_FIND_SEC_SHOP" or "FOV_FIND_SEC_CITY"))
+					first = false
+				end
+				items[#items + 1] = { kind = "shop", key = c.key, name = c.name, goods = c.goods, svc = c.svc }
+			end
 		end
 	end
 	return items, dirText
@@ -2573,11 +2580,11 @@ local function FindPlaces(it, dirText)
 				end
 			end
 		end
-		sub = ns:L(it.goods and "FVEND_SUB_GOODS" or "FOV_FIND_SUB_TOOL")
+		sub = ns:L((it.svc and ("FCITY_SUB_" .. it.svc:upper())) or (it.goods and "FVEND_SUB_GOODS") or "FOV_FIND_SUB_TOOL")
 		if #rows == 0 then
-			sub = sub .. "  " .. ns:L("FVEND_EMPTY")
+			sub = sub .. "  " .. ns:L(it.svc and "FCITY_EMPTY" or "FVEND_EMPTY")
 		end
-		hint = ns:L("FVEND_HINT")
+		hint = ns:L(it.svc and "FCITY_HINT" or "FVEND_HINT")
 	end
 	if not posOk then
 		sub = sub .. "  " .. ns:L("FVEND_NOPOS")
