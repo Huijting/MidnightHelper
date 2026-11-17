@@ -10649,3 +10649,129 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
     *"Nachtcontrole 2026-11-16: C1 en C2 schoon, 0 nakijken"*. 📌 Beide TOC's staan op **`## Version:
     5.3.0`** (ongewijzigd), `MidnightHelper.toc` op `## Interface: 120007, 120100, 120105, 120107` plus
     `## Interface-Camelot: 16001`, en `MidnightHelper_Camelot.toc` op `## Interface: 16001`.
+- [2026-11-17] ✅ **Nul [MOET GEFIKST] — en de [MOET GEFIKST] van 15 én 16 nov is DICHT in de code. Hij is
+  gerepareerd ná mijn run van gisteren (commit `a73bfb5`, 16 nov **12:21** +0100; mijn run was 05:30), dus dit
+  is de eerste run die hem kan zien.** Verder een stille dag op mijn eigen terrein: géén nieuwe UI-source-build
+  (zesde dag dezelfde SHA's), géén gewijzigde API-changes-pagina, géén SimC-release, géén enkele blue post in
+  de UI-and-Macro-categorie. Wél één nieuw hotfix-artikel (Forever, 16 nov) en één nieuwe spelersdraad over
+  `C_Spell.GetSpellLink` op Forever — beide getoetst, beide onschuldig.
+  - ✅ **DICHT — de Self-Cast-Key-valkuil. GEMETEN door de code te lezen, niet uit het commitbericht.**
+    `Core.lua:4318-4333` is nieuw: `ns.SelfCastMacroWarning(body)` geeft een gele regel terug zodra het
+    macro-lichaam `mod:` bevat **én** `@mouseover`, `@focus` of `@cursor`, **en** `GetModifiedClick("SELFCAST")`
+    een niet-lege string is die niet `"NONE"` is. Afgedekt zoals het hoort: `type(GetModifiedClick) ~= "function"`
+    → `nil`, en de aanroep zelf in een `pcall`. Twee aanroepplaatsen, beide achter een bestaanscheck:
+    `Modules/ForeverMacros.lua:994` (`local scWarn = ns.SelfCastMacroWarning and ns.SelfCastMacroWarning(body)`)
+    en `Modules/RetailTopMacros.lua:477` (zelfde vorm, op `r.tpl`). De tekst zit in
+    `Locales/enUS.lua:3408` / `Locales/nlNL.lua:3261` als `MACROS_WARN_SELFCAST_FMT`.
+    - 📌 **En de dekking klopt met wat ik gisteren opschreef, GEMETEN in plaats van aangenomen.** Gisteren noemde
+      ik **40** geraakte macro-regels in twee bestanden. Regels die `mod:` én een `@unit`-clausule dragen — dus
+      precies de regels waarop de waarschuwing vuurt: **28** in `Modules/ForeverMacros.lua` + **12** in
+      `Modules/RetailTopMacros.lua` = **40**. Exact dezelfde 40.
+    - ⚠️ **Wat de waarschuwing bewust NIET doet, en dat is juist:** in `ForeverMacros.lua` staan nog **40**
+      andere regels met `mod:` zónder `@mouseover`/`@focus`/`@cursor`; die blijven stil. De Blizzard-bug heeft een
+      mouseover-/focus-/cursor-doel nodig om op jezelf te belanden, dus een `[mod:shift]`-regel zonder zo'n
+      clausule hoeft geen regel. AFGELEID dat één bronregel ook één macro-rij op het scherm is — de waarschuwing
+      werkt op het *samengestelde* `body`, niet op de bronregel, dus de 40 is een regel-telling en geen rij-telling.
+    - 🔴 **Blijft dus open als TESTpunt, niet als fixpunt.** Het commitbericht zegt zelf *"luac OK, lint 0 HARD.
+      Not seen in game yet."* Niemand heeft deze gele regel in het spel gezien, en `GetModifiedClick("SELFCAST")`
+      is precies het soort aanroep dat ik van buitenaf niet kan natrekken. Rob of Cisca moet het één keer zien,
+      op een character met de Self Cast Key gezet.
+  - 🆕 **Forever: nieuw hotfix-artikel — *"WoW: Forever Hotfixes - November 16, 2026"*** (news.blizzard.com,
+    artikel `24315281`, gepubliceerd **17 nov 02:17 UTC**). ⚠️ Let op de vorm: dit is **hetzelfde artikel-ID** dat
+    gisteren nog *"- November 13, 2026"* heette; Blizzard hernoemt en vult aan in plaats van een nieuw artikel te
+    maken. Zonder cache-buster had hier *"13 november"* gestaan. Op MIJN terrein staat er bijna niets in: één
+    regel, Warrior/Fury, *"Reckless Swings adjusted in the cooldown manager for tracking."* Samen met de twee
+    van **10 nov** (*"Redoubt can now be tracked in the Cooldown Manager"*, *"Maelstrom Weapon can now be tracked
+    in the Cooldown Manager"*) zijn dat **entries** in Blizzards eigen Cooldown Manager, geen API-wijziging.
+    - ✅ **[AL AFGEDEKT].** Wij raken de Cooldown Manager alleen aan als ANKERNAAM, niet als API:
+      `Modules/EditModeBackup.lua:1413` (`if s.system == 20 and s.systemIndex == 1 and _G.EssentialCooldownViewer then`)
+      en `:1416`/`:1417` (`elseif … and _G.UtilityCooldownViewer and _G.EssentialCooldownViewer then`). Beide achter
+      een `_G`-bestaanscheck, dus een extra entry in die lijst kan ons niet raken. GEMETEN: `grep` op
+      `CooldownViewer|CooldownManager|C_CooldownViewer` geeft precies die vier treffers in de hele addon, en nul
+      elders. Positieve controle in dezelfde run: `EditModeSystem` → 5 treffers, `C_DelvesUI` → 110.
+    - 📌 De rest van 16 nov is INHOUD, niet API (Camping/Fishing Rack, Druid Wild Growth-cooldown, Priest Vampiric
+      Embrace 20% → 10%, Rogue poison-ranks, vier Windfury-Totem-fixes, Warrior Unbridled Wrath/Flurry/Reckless
+      Swings bij Cleave en Heroic Strike, The Drowned City, Sunken Temple, items, quests). Dat is het terrein van
+      `docs/CONTENT_WATCH.md` en `docs/PTR_12.0.7_DATA.md`; ik laat het liggen.
+  - 🆕 **Forever: nieuwe spelersdraad over `C_Spell.GetSpellLink` — `2418159` *"Get Spell Link"*** (16 nov 17:49,
+    laatste post 16 nov 21:32, 8 posts). De vraagsteller: *"..C_Spell.GetSpellLink(“Resurrection”).. it spams the
+    text not the link,whats the spell link synthax? this is forever btw"*. Antwoord van Fizzlemizz: *"Use the
+    SpellID for the rank you want eg. `C_Spell.GetSpellLink(2010)` for rank 2 … `C_Spell.GetSpellLink(10881)` for
+    rank 4"*. Daarna de vraagsteller: *"worked once,then back to text spam"* — dus zelfs met een ID is het bij hem
+    niet stabiel. ⚠️ Dit is een SPELERSDRAAD, geen blue post en geen gedocumenteerde wijziging: dat
+    `GetSpellLink` met een naam op Forever geen link teruggeeft is hier AFGELEID uit twee spelers, niet gemeten in
+    Blizzard-data. Ik heb de posts 4 t/m 8 niet kunnen lezen (de `.json` van de draad gaf steeds opnieuw post 1
+    terug, ook met een andere cache-buster).
+    - ✅ **[RAAKT ONS NIET] — en dat is geen geluk maar ontwerp.** Wij roepen `C_Spell.GetSpellLink` **nergens**
+      aan: GEMETEN, `grep` op `GetSpellLink` geeft **12** treffers en álle twaalf zijn ons eigen
+      `ns:GetSpellLinkMarkup`. Die bouwt de link zélf uit een getal: `Modules/DelveTipMarkup.lua:14`
+      `spellID = tonumber(spellID)`, dan de naam via `C_Spell.GetSpellName` (`:20-24`) met `C_Spell.GetSpellInfo`
+      in een `pcall` als terugval (`:26-31`), en ten slotte `("|cff%s|Hspell:%d|h[%s]|h|r")` op `:36`. Een naam
+      komt er dus nooit in, en een `%d`-format op een string zou luac al vangen. Aanroepers: `GearEnchantCheck.lua:585`,
+      `OmniumFolio.lua:263`, `Hazards.lua:86`/`:121`, alle vier achter `if ns.GetSpellLinkMarkup then`.
+      Positieve controle in dezelfde run: `C_Spell.GetSpellInfo` → 40 treffers, dus de reikwijdte zoekt wel.
+  - 📏 **GEEN nieuwe UI-source-build — zesde dag dezelfde SHA's, EERSTEHANDS gemeten met `git ls-remote`, niet via
+    een pagina.** `refs/heads/forever` = `bebcb6bf309cf41b41bd74f8ca651e6a105b2676`, en `refs/tags/1.60.1` wijst
+    naar diezelfde SHA = *"1.60.1 (70938)"* (13 nov); `raw.githubusercontent.com/.../bebcb6b/version.txt` geeft
+    letterlijk `1.60.1.70938`. `refs/heads/ptr` = `a750208e2382f24eb3d3a83939082a182420c44b` = `refs/tags/12.1.7`
+    = *"12.1.7 (70892)"* (12 nov). Branch `live` = `297d7aaa` = tag `12.1.5`. 180 tags in totaal; de enige 12.x- en
+    1.60-tags zijn `12.0.0`, `12.0.1`, `12.0.5`, `12.0.7`, `12.1.0`, `12.1.5`, `12.1.7` en `1.60.1`.
+    - ⚠️ **En een eerlijkheid over mijn eigen werk: ik heb de documentatie-diffs van 70892 en 70938 vandaag
+      opnieuw gemeten vóór ik mijn eigen logboek nakeek, en ze stonden er al** — de regel van **13 nov** (vanaf
+      `docs/API_WATCH.md:10105`) heeft ze alle elf al genoemd en gelabeld (`Minimap:UpdateMouseoverAtPoint`
+      verwijderd, `C_DelvesUI.IsPartyLeaderInTaleInstance`, `C_AreaPoiInfo.MarkAreaPOISeen` + `hasUnseenGlow`,
+      `Enum.EditModeSystem` 31 = `GamepadInfoHud`, `CraftingOrderResult` 49 = `ClassTrial`,
+      `GetEvictionTimeRemaining` nu `Nilable = true`, `isCrossShard`, `ULTIMATE_PROGRESS_CHANGED`,
+      `C_TradeSkillUI.HasNoReagentCost`, de twee `C_TransmogOutfitInfo`-signaturen). Mijn hermeting kwam op
+      dezelfde uitkomsten uit, dus het is een positieve controle op die regel en niets nieuws. Ik zet het hier
+      neer in plaats van het weg te laten, want weglaten leest als "niet gekeken". Eén ding kon ik vandaag
+      bevestigen dat 13 nov niet expliciet zei: in `EditModeManagerConstantsDocumentation.lua` op build 70892
+      staat `MainActionBarEndCap` nog op **26** en `LossOfControl` nog op **28**, en `GamepadInfoHud` is er
+      achteraan geplakt op 31 — dus de meting van 15 nov in `Modules/EditModeBackup.lua:141` en `:1271` (26 werd
+      `MainActionBarEndCap`, `LossOfControl` 26 → 28) houdt op 70892 nog steeds stand en er is tussen 70740 en
+      70892 géén bestaande waarde hernummerd.
+  - 🧰 **SimC-addon: geen nieuwe release sinds `12.1.5-04`.** Tweemaal gemeten: `git ls-remote --tags --refs` geeft
+    **258** tags (ongewijzigd, zesde dag), en de releases-pagina (mét `?nocache=20261117`) noemt bovenaan
+    `12.1.5-04`, **05 nov 22:38**, `83fdb00`, enige regel *"Handle Forever surname"*. Dat is **12 dagen** oud en
+    valt buiten de 7-dagenregel. Niets te toetsen aan `ItemString` of `ns.BuildSimcProfile` in
+    `Modules/SimcExport.lua`.
+  - 📡 **Wat ik gelezen heb, mét een cache-buster achter elke Exa-URL.** `Patch_12.1.7/API_changes`: onveranderd
+    (Summary nog steeds alleen de GUID-obfuscatie mét *"This change will be available for testing in a future
+    build of 12.1.7"* en de TOC-directives). `Patch_1.60.1/API_changes`: onveranderd — Notable changes nog steeds
+    t/m build **70291**, blue posts t/m **16 okt**; die pagina loopt dus twee builds achter op wat ik hierboven
+    zelf gemeten heb. **UI-and-Macro-forum** (`latest.json`): vier bewegingen sinds gisteren, **geen enkele van
+    Blizzard** — de nieuwe draden `2418159` (hierboven) en `2418125` *"MKLink addon setup is very laggy now"*
+    (16 nov 17:01, een traag inlogprobleem, geen API), `2413374` *"UI: Centering Interface on Double Wide"*
+    (gebumpt 16 nov 23:48) en `2407000` *"Shapeshift into Cat Form and turn on tracking"* (16 nov 05:31).
+    📌 Eén ding dat mijn regel van gisteren niet noemde: de vastgepinde `24534` *"UI Add-On Development Policy"*
+    is **13 nov 08:18** gebumpt, maar door een speler (`TwitchZultek`), niet door een blue — dus **geen**
+    beleidswijziging; de laatste blue in die draad is nog steeds de openingspost van Kaivax.
+    **Midnight-hotfixes**: nieuwste artikel nog steeds **6 nov** (11 dagen oud, buiten de 7-dagenregel).
+  - 🚧 **Wat ik NIET kon lezen.** `WebFetch` is `EGRESS_BLOCKED` voor `warcraft.wiki.gg` en `news.blizzard.com`,
+    en `us.forums.blizzard.com` lost er niet eens op (`ENOTFOUND`) — die drie zijn dus alle drie via Exa gelezen,
+    mét cache-buster, en alles wat daarvan komt is MEASURED (via Exa, de pagina zelf, niet een samenvatting).
+    `Patch_1.60.2/API_changes` en `Patch_12.2.0/API_changes` (waar de twee API-changes-pagina's als "next patch"
+    naar linken) geven `CRAWL_NOT_FOUND`: vermoedelijk nog niet aangemaakt, maar dat heb ik níét kunnen
+    vaststellen. Posts 4 t/m 8 van draad `2418159`: niet te krijgen. **En wago.tools heb ik vandaag niet
+    geprobeerd** — de buildnummers hierboven komen eerstehands uit `git ls-remote` en `raw.githubusercontent.com`,
+    wat sterker bewijs is, maar ik heb dus géén onafhankelijke bevestiging van het LIVE Forever-buildnummer.
+    Alle code-metingen in deze regel zijn eerstehands in de werkmap.
+  - ⏳ **Nog open uit eerdere runs — ongewijzigd, NIET opnieuw gemeten vandaag.** De dode `PickupItem`-takken in
+    `Modules/KeyBlock.lua:1135`/`:1227`/`:1380` en `Modules/ApplyLayout.lua:1311`/`:1345`/`:1605`; de vijf
+    decoratieve `GetItemInfo`-terugvaltakken; de verouderde namespace-lijst in `docs/WATCHER_API_PROMPT.md`
+    (18 aug, noemt 57 namespaces en kent de twee TOC's niet); de client-test voor `/mh raidbots`;
+    `GetTimerDuration` toevoegen aan `Modules/ApiProbe.lua:377`; de `FrameStrata`-secret-vraag op
+    `Modules/PartyTargets.lua:517`; de drie `WOW_PROJECT_MAINLINE`-takken in `Libs/LibDBIcon-1.0.lua:533`/`:572`/
+    `:607` die op Forever omslaan; de ongemeten BETEKENIS van *"Edit Mode layouts are now saved separately for
+    each UI type"* voor `Modules/ForeverLayoutCarry.lua`; en de shift-klik-taintvraag op
+    `Modules/Achievements.lua:1561`/`:1910`. **Nieuw op deze lijst:** de in-game-test van
+    `ns.SelfCastMacroWarning` (`Core.lua:4318`). **Van deze lijst AF:** de [MOET GEFIKST] van 15/16 nov.
+    🔴 Niets aangeraakt.
+  - 🔧 **Repo-staat: alleen `docs/API_WATCH.md` aangeraakt.** GEMETEN vóór het schrijven: `git status --short`
+    **leeg**; `HEAD` stond **opnieuw losgeslagen** (vijfde keer deze week, op `2f34a1f`) en is met `git checkout
+    main` + `git pull --rebase origin main` weer op `refs/heads/main` gezet — de rebase meldde
+    `+ b206edb...2f34a1f main -> origin/main (forced update)`, dus er is opnieuw herschreven historie
+    binnengekomen. `git rev-parse --is-shallow-repository` nog steeds **`true`**, laatste commit `2f34a1f`
+    *"Nachtcontrole 2026-11-17: 0 nakijken C1/C2, QuestV2 live niet bereikbaar"*. 📌 **Beide TOC's staan sinds
+    vannacht op `## Version: 5.4.0`** (gisteren `5.3.0`); `MidnightHelper.toc` op `## Interface: 120007, 120100,
+    120105, 120107` plus `## Interface-Camelot: 16001`, en `MidnightHelper_Camelot.toc` op `## Interface: 16001`.
