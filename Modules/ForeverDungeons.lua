@@ -57,7 +57,11 @@ local GOOD, GREY, WARN = "|cff7fff7f", "|cff9d9d9d", "|cffffaa33"
 -- Sorted by the lowest level. name = English fallback when the client gives no name for the map.
 local DUNGEONS = {
 	{ key = "RFC", name = "Ragefire Chasm", map = 389, min = 13, max = 18, zone = 1454, x = 53.2, y = 48.7, side = "Horde" },
-	{ key = "THANES", name = "The Hall of Thanes", map = 3065, min = 13, max = 20, zone = 1455, x = 43.5, y = 52.0 },
+	-- cityOf: the entrance is inside that faction's capital, but the dungeon itself is open to both (GEMETEN 17 Nov 2026:
+	-- LFGDungeons Faction -1, GroupFinderActivity PlayerCondition 0; Ragefire 0 / condition 923 and the Stockade condition
+	-- 924 are side-locked and carry `side`). Blizzard, 20 Oct 2026: "Horde groups will need to brave the journey into
+	-- Alliance territory." Rob, 17 Nov (via sparring), on "say it honestly": "Ik volg jouw advies."
+	{ key = "THANES", name = "The Hall of Thanes", map = 3065, min = 13, max = 20, zone = 1455, x = 43.5, y = 52.0, cityOf = "Alliance" },
 	{ key = "LORDAERON", name = "Ruins of Lordaeron", map = 2999, min = 15, max = 22, zone = 1420, x = 64.4, y = 67.5 },
 	{ key = "WC", name = "Wailing Caverns", map = 43, min = 15, max = 24, zone = 1413, x = 46.0, y = 36.4 },
 	{ key = "DM", name = "The Deadmines", map = 36, min = 17, max = 26, zone = 1436, x = 42.5, y = 71.7 },
@@ -148,8 +152,16 @@ function ns.ForeverDungeonTip()
 		return nil
 	end
 	local parts = {}
+	local side = MySide()
 	for i = 1, math.min(#fits, FIT_MAX) do
-		parts[i] = ns:L("FDUNG_IN_FMT"):format(Name(fits[i]), ZoneName(fits[i].zone))
+		local d = fits[i]
+		if d.cityOf and side and d.cityOf ~= side then
+			-- The entrance is in the other side's capital: say so instead of hiding it (Rob's choice, 17 Nov 2026).
+			local other = (d.cityOf == "Alliance" and FACTION_ALLIANCE) or (d.cityOf == "Horde" and FACTION_HORDE) or d.cityOf
+			parts[i] = ns:L("FDUNG_IN_ENEMY_FMT"):format(Name(d), ZoneName(d.zone), other)
+		else
+			parts[i] = ns:L("FDUNG_IN_FMT"):format(Name(d), ZoneName(d.zone))
+		end
 	end
 	local s = table.concat(parts, ", ")
 	if #fits > FIT_MAX then

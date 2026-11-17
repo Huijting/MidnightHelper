@@ -42,9 +42,8 @@ Open `/mh macros`, klik "Maak" bij een nieuwe rij, sleep de macro naar een balk 
 
 - [ ] Binnenkort is weer breder; de rank staat op de tweede regel ("level 18 · Rank 3"), de naam past.
 - [ ] De dungeon-tip in "Doe dit nu" mag nu drie regels gebruiken.
-- [ ] Open vraag (via sparring): de tip noemt voor Horde ook "The Hall of Thanes (Ironforge)". Blizzards data zet hem op
-      "beide facties" (GEMETEN), maar de ingang ligt in een Alliance-stad. Wat wil je: zo laten, weglaten voor Horde,
-      of "(Alliance-stad)" erachter?
+- [ ] Hall of Thanes (jouw keuze c, "Ik volg jouw advies"): op een Horde-character van 13-20 zegt de dungeon-tip nu
+      "The Hall of Thanes (entrance in Ironforge: you travel through Alliance territory)". Op Alliance gewoon "(Ironforge)".
 
 ## 🎨 17 nov (ronde 3) — Forever: ontwerp A, kleine puntjes (`/mh overview`)
 

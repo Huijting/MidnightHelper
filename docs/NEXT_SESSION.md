@@ -14,6 +14,13 @@
   modifiers in de tekst, en per combinatie "free" of "taken by <binding>"; schrijft `ns.db.foreverMacroKeysProbe`.
   Lint 0 HARD, luac OK. NIET in het spel gezien (TESTLIJST 17 nov). Na Robs meting: melding in het macrovenster +
   eventueel schakelaar welke modifier (nooit blok- of andere-addon-toetsen losmaken).
+- 🎨 **Rondes 3-4 van A** (sparring-screenshots): class-quest-kaart met tooltip per regel, tips 3 regels, rank op de
+  tweede regel in Binnenkort. Rob: *"alle tooltips komen netjes, wauw"*; Redemption-pijl volgt de keten (Rob bevestigd).
+  🏰 **Hall of Thanes voor Horde** (Rob koos c via sparring: *"Ik volg jouw advies."*): ForeverDungeons `cityOf =
+  "Alliance"` + FDUNG_IN_ENEMY_FMT ("entrance in Ironforge: you travel through Alliance territory"). GEMETEN
+  LFGDungeons wowf 70938: Thanes Faction -1, Ragefire 0; sparring: GroupFinderActivity condition 0 / 923 / 924, Blizzard-
+  nieuws 20 okt "Horde groups will need to brave the journey into Alliance territory". Alleen en + nl; de/fr/es/pt/ru
+  samen met de overzicht-teksten (FOV_*) in de vertaalronde.
 - 🎨 **Ronde 2 van A** na Robs oordeel ("Ja, ik ben onder de indruk … dit is de weg waar ik graag heen wil. Absoluut."):
   dock-knop (DialogPopup `_mhDockBtn`) naast de titel; tooltips op tabs/knoppen/spell-iconen (SetSpellByID)/kaartkopjes/
   bolletjes/chips/zegel/portret/XP (hover-frames, zodat slepen blijft werken); pad in 4 gelijke kolommen binnen het

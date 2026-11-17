@@ -5037,6 +5037,7 @@ ns._mhLocales.nlNL = {
 	FDUNG_COL_WHERE = "Ingang",
 	FDUNG_ROUTE = "Route",
 	FDUNG_IN_FMT = "%s (%s)",
+	FDUNG_IN_ENEMY_FMT = "%s (ingang in %s: je reist door %s-gebied)",
 	FDUNG_FITS_FMT = "Dungeons voor jouw level (%d): %s.",
 	FDUNG_ARROW_SET_FMT = "pijl gezet naar de ingang van %s in %s.",
 	FDUNG_WEB_NOTE = "Deze ingang komt uit gidsen op internet en is nog niet in het spel gecontroleerd. Klopt hij niet? Zeg het met /mh report.",

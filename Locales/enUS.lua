@@ -5892,6 +5892,7 @@ ns._mhLocales.enUS = {
 	FDUNG_COL_WHERE = "Entrance",
 	FDUNG_ROUTE = "Route",
 	FDUNG_IN_FMT = "%s (%s)",
+	FDUNG_IN_ENEMY_FMT = "%s (entrance in %s: you travel through %s territory)",
 	FDUNG_FITS_FMT = "Dungeons for your level (%d): %s.",
 	FDUNG_ARROW_SET_FMT = "arrow set to the entrance of %s in %s.",
 	FDUNG_WEB_NOTE = "This entrance comes from web guides and is not checked in the game yet. Is it off? Tell us with /mh report.",
