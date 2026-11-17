@@ -319,6 +319,11 @@ end
 
 --- Open (or close) the window. `prof` = a profession key to show first.
 function ns.ShowForeverProfTrainers(prof)
+	-- 17 Nov 2026 (product plan step 4): every way into this window lands on the overview's Find tab (fallback here).
+	if ns.ShowForeverFind then
+		ns.ShowForeverFind("prof", prof)
+		return
+	end
 	local f = Build()
 	if prof then
 		selected = prof

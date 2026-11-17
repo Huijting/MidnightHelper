@@ -334,7 +334,43 @@ Fill = function()
 	return f
 end
 
+--- 17 Nov 2026, product plan step 4 (the overview's Find tab, Rob: "ja ga maar door met 4 tot en met 9"): the
+--- categories and their sellers, the same list as this window. Cats: { key, name, goods }. Rows: { name, tag, zone,
+--- dist, map, x, y, go }; the tag only on an English client (Wowhead's English subtitles, see Fill above).
+function ns.ForeverVendorFindCats()
+	local out = {}
+	for _, c in ipairs(CATS) do
+		out[#out + 1] = { key = c.key, name = CatName(c), goods = c.kind ~= nil }
+	end
+	return out
+end
+
+function ns.ForeverVendorFindRows(key)
+	local c = CAT_BY_KEY[key]
+	if not c then
+		return {}, false
+	end
+	local list, posOk = List(c)
+	local what = CatName(c)
+	local loc = GetLocale and GetLocale() or "enUS"
+	local english = loc == "enUS" or loc == "enGB"
+	local rows = {}
+	for _, e in ipairs(list) do
+		rows[#rows + 1] = { name = e.v.name, tag = (english and e.v.tag and e.v.tag ~= "") and e.v.tag or nil,
+			zone = ZoneName(e.v.map), dist = e.dist, map = e.v.map, x = e.v.x, y = e.v.y,
+			go = function()
+				return GoTo(e, what)
+			end }
+	end
+	return rows, posOk
+end
+
 function ns.ShowForeverVendors(key)
+	-- Product plan step 4: every way into this window lands on the overview's Find tab (this window is the fallback).
+	if ns.ShowForeverFind then
+		ns.ShowForeverFind("shop", key and CAT_BY_KEY[key] and key or nil)
+		return
+	end
 	local f = Build()
 	if key and CAT_BY_KEY[key] then
 		selected = CAT_BY_KEY[key]

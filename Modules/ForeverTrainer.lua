@@ -803,6 +803,12 @@ function ns.ForeverProfTooltip(tt, prof)
 end
 
 function ns.ShowForeverTrainer(level)
+	-- 17 Nov 2026 (product plan step 4): the start page, rooms and tools open the overview's trainer page now. Only a
+	-- call with a level (none left in MH) still draws this window.
+	if level == nil and ns.ShowForeverOverviewPage then
+		ns.ShowForeverOverviewPage("trainer")
+		return
+	end
 	local f = Fill(level, true)
 	f:Show()
 	-- The money line follows your purse while the window is open (buy at the trainer, loot, sell).
@@ -1664,6 +1670,10 @@ function ns.ForeverTrainerSlash(arg)
 			"no longer opens by itself. The chat line stays; /mh trainer opens it."))
 	elseif win and win:IsShown() then
 		win:Hide()
+	elseif ns.ShowForeverOverviewPage then
+		-- 17 Nov 2026 (product plan step 4): /mh trainer opens the overview's trainer page (spells, cost, keys, the way);
+		-- the profession trainers are on its Find tab. Again = close, as with the old window.
+		ns.ShowForeverOverviewPage("trainer", true)
 	else
 		ns.ShowForeverTrainer()
 	end

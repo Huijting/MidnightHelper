@@ -1,5 +1,25 @@
 # Midnight Helper — waar we staan
 
+## ▶ 17 nov (nacht) — Bouwchat 17-11 (4): plan-stap 4 t/m 9 (Rob via sparring: *"ja ga maar door met 4 tot en met 9"*)
+
+- 🔎 **Stap 4 Vinden GEBOUWD (en + nl)**: tab "Find" in het overzicht (`f.pages.find`, `ns.ShowForeverFind(kind, key)`,
+  kind = class/prof/weapon/shop). Links een scrollende lijst (Trainer · Professions, jouw beroepen eerst in goud met skill
+  · Weapon skills met (known)/(level N)/groene + · Shops), rechts de plekken dichtstbijzijnde eerst met zone · afstand,
+  "The way there: …" (ForeverTravelSentence, alleen de 8 dichtstbijzijnde; wapens: hun eigen Route) en "Show the way ›".
+  Knop rechtsboven: class → "What it teaches" (trainer-pagina), beroep met gereedschap → "Where to buy". Data = de lijsten
+  van de oude vensters: nieuw `ns.ForeverVendorFindCats/FindRows`, `ns.ForeverWeaponFindList/FindRows`; class- en
+  beroepstrainers via `ns.ForeverProfTrainerList(nil|prof)`. Oude ingangen landen op Find: `ShowForeverProfTrainers`,
+  `ShowForeverVendors`, `ShowForeverWeapons` (dus `/mh trainers`, `/mh vendor …`, `/mh weapons`, Do this now, tegels);
+  zelfde nog eens = dicht. `/mh trainer` en `ShowForeverTrainer()` openen nu de trainer-pagina (knop "All trainers" →
+  Find); het oude trainervenster tekent alleen nog met een level-argument (geen aanroeper meer). De oude vensters zelf
+  staan er nog (terugval als het overzicht ontbreekt; opruimen = stap 10, na Robs test).
+  Tab "Your class" = How you play · Class quests · Camping met een schakelrij bovenaan (`GROUPS`/`PAGE_GROUP`,
+  `f.lastInGroup`), zodat de 7 tabs van het plan passen; Camping blijft ook via de Now-regel bereikbaar. Tabrij nu: Now ·
+  Your class · Find · Legacy (Legacy gaat in stap 8 naar Karakters). TOC-regels How you play 21→19 px (pagina 30 px lager).
+  Offline (scratch find_check: 9 classes × 2 kanten × 2 levels, elke lijstregel aangeklikt, elke Show the way, elke
+  pagina/tab/schakelknop en de oude ingangen = 17.844 runs, 0 fouten; 13.692 plekregels, 2.382 met reisstap).
+  Vertalingen de/fr/es/esMX/pt/ru: nog niet (komt in een vertaalronde). NIET in het spel gezien.
+
 ## ⏭️⏭️ NIEUWSTE OVERDRACHT (Bouwchat 17-11 (3), laatste commit 27e536b, alles gepusht, geen release)
 
 Nieuw werk met Robs ja (*"ja doe maar"*): het overzicht wordt hét MH voor Forever — plan

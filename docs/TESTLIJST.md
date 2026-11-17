@@ -30,6 +30,21 @@ Eerst WoW helemaal afsluiten en opnieuw starten (er is een nieuw bestand; /reloa
 - [ ] `/mh overview` opent zonder foutmelding en ziet er precies hetzelfde uit als ronde 5 (zelfde letters, kleuren,
       knoppen, NOW/LATER-labels onder Jouw pad).
 
+## 🔎 17 nov (nacht) — Forever: tab "Find" en tab "Your class" in het overzicht (plan-stap 4)
+
+- [ ] De tabrij: Now · Your class · Find · Legacy. "Your class" heeft bovenaan drie knoppen: How you play · Class quests
+      · Camping. Klik ze alle drie; de tab blijft oplichten. Klik Now en weer Your class: je komt terug op de laatste.
+- [ ] Tab **Find**: links "WHAT ARE YOU LOOKING FOR?" met Trainer, Professions (jouw beroepen bovenaan in goud, met je
+      skill), Weapon skills (bekend = grijs "(known)", groene + = past bij je richting) en Shops. Je kunt erin scrollen.
+- [ ] Klik je class trainer: rechts alle trainers van je class aan jouw kant, dichtstbijzijnde eerst, met zone en
+      afstand. Bij een trainer verder weg (bv. in Ironforge) staat een gouden regel "The way there: …".
+- [ ] "Show the way ›" achter een rij: de pijl wijst naar DIE trainer/verkoper/wapenmeester.
+- [ ] Een beroep met gereedschap (Mining, Fishing …): knop "Where to buy" rechtsboven springt naar de verkopers.
+- [ ] Oude ingangen landen op Find: `/mh trainers`, `/mh vendor fishing`, `/mh weapons`, de knoppen "Weapon trainers" en
+      "Profession trainers" in Do this now, en de tegels op de startpagina. Nog een keer hetzelfde = overzicht dicht.
+- [ ] `/mh trainer` opent nu de trainer-pagina van het overzicht (nog een keer = dicht). Daar staat een knop "All
+      trainers" → Find.
+
 ## 🧑‍🏫 17 nov (laat) — Forever: trainer-pagina in het overzicht
 
 - [ ] Heb je iets te leren bij je trainer: op de Now-kaart staat naast "Show the way" een knop "Details". Klik: een
@@ -37,7 +52,8 @@ Eerst WoW helemaal afsluiten en opnieuw starten (er is een nieuw bestand; /reloa
 - [ ] Muis op een icoon: de spell-tooltip. Muis op het toets-label: uitleg.
 - [ ] Ga een level omhoog (met nieuwe spells): het overzicht gaat vanzelf open op deze pagina (als "automatisch
       openen bij level-up" aan staat, zoals het trainervenster deed).
-- [ ] `/mh trainer` opent nog het oude trainervenster (met de beroepsknoppen).
+- [ ] ~~`/mh trainer` opent nog het oude trainervenster~~ — vervallen 17 nov (plan-stap 4): `/mh trainer` opent nu de
+      trainer-pagina (zie het blok hierboven).
 
 ## 📋 17 nov (laat) — Forever: de hele "Do this now"-lijst in het overzicht
 

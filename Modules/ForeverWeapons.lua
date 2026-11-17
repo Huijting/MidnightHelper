@@ -537,7 +537,74 @@ function ns.ForeverWeaponsRefresh()
 	end
 end
 
+--- 17 Nov 2026, product plan step 4 (the overview's Find tab): your class's weapons, the same marks as this window.
+--- Each: { spell, key, name, known, level, tooLow, fit }; second value = the direction line (or nil).
+function ns.ForeverWeaponFindList()
+	local lvl = UnitLevel and UnitLevel("player") or 1
+	local band, tree, fit, shieldName
+	if ns.ForeverDirectionWeaponFit then
+		band, tree, fit, shieldName = ns.ForeverDirectionWeaponFit()
+	end
+	local out, names = {}, {}
+	for _, e in ipairs(MyWeapons()) do
+		local isFit = fit and fit[e.w.key] or nil
+		out[#out + 1] = { spell = e.w.spell, key = e.w.key, name = e.name, known = e.known, level = e.w.level,
+			tooLow = lvl < (e.w.level or 1), fit = isFit }
+		if isFit then
+			names[#names + 1] = e.name
+		end
+	end
+	local dirText
+	if band and fit then
+		if shieldName then
+			names[#names + 1] = shieldName
+		end
+		dirText = ns:L("FWEAP_DIR_FIT_FMT"):format(tree, table.concat(names, ", "))
+	elseif band then
+		dirText = ns:L("FWEAP_DIR_NONE_FMT"):format(tree)
+	end
+	return out, dirText
+end
+
+--- The weapon masters on your side that teach `spell`, nearest first: rows { name, zone, dist, route, go }, whether your
+--- position could be read, and one sentence about you and this weapon (known / from level N / cost).
+function ns.ForeverWeaponFindRows(spell)
+	local cur
+	for _, e in ipairs(MyWeapons()) do
+		if e.w.spell == spell then
+			cur = e
+		end
+	end
+	if not cur then
+		return {}, false, ns:L("FWEAP_NONE")
+	end
+	local lvl = UnitLevel and UnitLevel("player") or 1
+	local cost = Money(cur.w.cost or DEFAULT_COST)
+	local sub
+	if cur.known then
+		sub = ns:L("FWEAP_SUB_KNOWN")
+	elseif cur.w.level and lvl < cur.w.level then
+		sub = ns:L("FWEAP_SUB_LEVEL_FMT"):format(cur.w.level, cost)
+	else
+		sub = ns:L("FOV_FIND_WEAP_LEARN_FMT"):format(cost)
+	end
+	local list, pcont = List(spell)
+	local rows = {}
+	for _, e in ipairs(list) do
+		rows[#rows + 1] = { name = e.t.name, zone = ZoneName(e.t.map), dist = e.dist, route = Route(e.t, pcont) or false,
+			go = function()
+				return GoTo(e, cur.name)
+			end }
+	end
+	return rows, pcont ~= nil, sub
+end
+
 function ns.ShowForeverWeapons()
+	-- Product plan step 4: every way into this window lands on the overview's Find tab (this window is the fallback).
+	if ns.ShowForeverFind then
+		ns.ShowForeverFind("weapon")
+		return
+	end
 	local f = Build()
 	if f:IsShown() then
 		f:Hide()

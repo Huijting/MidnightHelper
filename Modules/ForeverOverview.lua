@@ -175,14 +175,32 @@ end
 --------------------------------------------------------------------------------
 -- Window
 --------------------------------------------------------------------------------
+-- The tabs of the product plan (docs/forever/OVERZICHT_PRODUCT_PLAN_2026-11-17.md): Now, Your class, Find, Professions,
+-- Dungeons & group, Keys & macros, Characters. A tab with `page` opens that page; a tab with `group` opens the page
+-- of that group you saw last, and the group's pages get a small switch row on top (SUB_ROWS below).
+-- Step 4 (17 Nov 2026): How you play, Class quests and Camping became one tab "Your class" (the plan's "Je class"),
+-- so seven tabs fit; Legacy keeps its own tab until step 8 moves it to Characters.
 local TABS = {
 	{ key = "FOV_TAB_NOW", tip = "FOV_TIP_TAB_NOW", page = "now" },
-	{ key = "FOV_TAB_PLAY", tip = "FOV_TIP_TAB_PLAY", page = "play" },
-	-- Step 5 of the plan (Rob: every tab in this style): a tab with `page` switches the page inside this window.
-	{ key = "FOV_TAB_CQ", tip = "FOV_TIP_TAB_CQ", page = "cq" },
-	{ key = "FOV_TAB_CAMP", tip = "FOV_TIP_TAB_CAMP", page = "camp" },
+	{ key = "FOV_TAB_CLASS", tip = "FOV_TIP_TAB_CLASS", group = "class" },
+	{ key = "FOV_TAB_FIND", tip = "FOV_TIP_TAB_FIND", page = "find" },
 	{ key = "FOV_TAB_LEGACY", tip = "FOV_TIP_TAB_LEGACY", page = "legacy" },
 }
+local GROUPS = {
+	class = {
+		{ page = "play", key = "FOV_TAB_PLAY", tip = "FOV_TIP_TAB_PLAY" },
+		{ page = "cq", key = "FOV_TAB_CQ", tip = "FOV_TIP_TAB_CQ" },
+		{ page = "camp", key = "FOV_TAB_CAMP", tip = "FOV_TIP_TAB_CAMP" },
+	},
+}
+local PAGE_GROUP = {}
+for g, list in pairs(GROUPS) do
+	for _, p in ipairs(list) do
+		PAGE_GROUP[p.page] = g
+	end
+end
+-- Pages in a group start lower: their switch row sits at TOP_Y.
+local SUB_TOP = TOP_Y - 30
 
 local PATH_NODES = 4
 local CQP_ROW_H = 74
@@ -194,7 +212,7 @@ local CQP_ROW_H = 74
 local function BuildClassQuestPage(f, x0, rightW)
 	local page = f.pages.cq
 	local card = Card(page)
-	card:SetPoint("TOPLEFT", f, "TOPLEFT", x0, TOP_Y)
+	card:SetPoint("TOPLEFT", f, "TOPLEFT", x0, SUB_TOP)
 	card:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -16, 16)
 	card.label = Label(card, ns:L("FOV_LABEL_CQ_LIST"), "FOV_TIP_CARD_CQ")
 	card.count = Text(card, "head2", 12, A.dim)
@@ -274,7 +292,7 @@ local function BuildInfoPage(f, key, x0, rightW, labelKey, tipKey, howKey)
 	local page = f.pages[key]
 	local stW = math.floor(rightW * 0.40)
 	local st = Card(page)
-	st:SetPoint("TOPLEFT", f, "TOPLEFT", x0, TOP_Y)
+	st:SetPoint("TOPLEFT", f, "TOPLEFT", x0, PAGE_GROUP[key] and SUB_TOP or TOP_Y)
 	st:SetPoint("BOTTOMLEFT", f, "BOTTOMLEFT", x0, 16)
 	st:SetWidth(stW)
 	st.label = Label(st, ns:L(labelKey), tipKey)
@@ -384,6 +402,15 @@ local function BuildTrainerPage(f, x0, rightW)
 			ns.ForeverTrainerGo()
 		end
 	end)
+	-- Step 4: every trainer of your class (and the profession trainers) is one click away on the Find tab.
+	card.find = Button(card, 120)
+	card.find:SetHeight(22)
+	card.find:SetPoint("RIGHT", card.go, "LEFT", -6, 0)
+	card.find:SetLabel(ns:L("FOV_TR_FIND_BTN"))
+	Tip(card.find, ns:L("FOV_TR_FIND_BTN"), ns:L("FOV_TIP_TR_FIND"))
+	card.find:SetScript("OnClick", function()
+		ns.ShowForeverFind("class")
+	end)
 	card.money = Text(card, "head2", 15, A.text)
 	card.money:SetPoint("TOPLEFT", 14, -32)
 	card.money:SetPoint("RIGHT", card.go, "LEFT", -10, 0)
@@ -432,7 +459,130 @@ local function TrainerRow(card, i)
 	return row
 end
 
-local TOC_ROWS = 14
+local FIND_ITEM_H = 20
+
+--- Find page (product plan step 4, 17 Nov 2026; Rob: "ja ga maar door met 4 tot en met 9"): one place for every
+--- "where is …" — your class trainer, the profession trainers, the weapon masters and the shops (tools, General Goods,
+--- Trade Supplies). It replaces four windows (ForeverProfTrainers, ForeverVendors, ForeverWeapons and the trainer
+--- finder of /mh trainer); their open functions land here. Left: what you can look for (scrolling). Right: the places,
+--- nearest first, each with the way there (ForeverTravel.lua) and its own "Show the way" button. Nothing new is
+--- measured: the lists are those windows' own (ForeverTrainer/ForeverVendors/ForeverWeapons.lua).
+local function BuildFindPage(f, x0, rightW)
+	local page = f.pages.find
+	local catW = math.floor(rightW * 0.31)
+	local cat = Card(page)
+	cat:SetPoint("TOPLEFT", f, "TOPLEFT", x0, TOP_Y)
+	cat:SetPoint("BOTTOMLEFT", f, "BOTTOMLEFT", x0, 16)
+	cat:SetWidth(catW)
+	cat.label = Label(cat, ns:L("FOV_LABEL_FIND"), "FOV_TIP_CARD_FIND")
+	cat.sf, cat.child = S.Scroll(cat, 34, 8, FIND_ITEM_H * 3)
+	cat.child:SetWidth(catW - 22)
+	cat.items = {}
+	local list = Card(page)
+	list:SetPoint("TOPLEFT", cat, "TOPRIGHT", 12, 0)
+	list:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -16, 16)
+	list.label = Label(list, "", "FOV_TIP_CARD_FIND_LIST")
+	list.act = Button(list, 130)
+	list.act:SetHeight(22)
+	list.act:SetPoint("TOPRIGHT", -12, -8)
+	Tip(list.act)
+	list.head = Text(list, "head2", 15, A.text)
+	list.head:SetPoint("TOPLEFT", 14, -34)
+	list.head:SetPoint("RIGHT", -14, 0)
+	list.head:SetWordWrap(false)
+	list.sub = Text(list, "text", 12, A.dim)
+	list.sub:SetPoint("TOPLEFT", list.head, "BOTTOMLEFT", 0, -3)
+	list.sub:SetPoint("RIGHT", -14, 0)
+	if list.sub.SetMaxLines then
+		list.sub:SetMaxLines(3)
+	end
+	list.hint = Text(list, "text", 11, A.later)
+	list.hint:SetPoint("BOTTOMLEFT", 14, 10)
+	list.hint:SetPoint("RIGHT", -14, 0)
+	if list.hint.SetMaxLines then
+		list.hint:SetMaxLines(2)
+	end
+	-- The scrolling list starts under the head and up to three sub lines; the hint keeps the bottom 40 px.
+	list.sf, list.child = S.Scroll(list, 102, 40, 60)
+	list.rowW = (rightW - catW - 12) - 22 - 8
+	list.child:SetWidth(list.rowW)
+	list.rows = {}
+	page.cat, page.list = cat, list
+end
+
+--- One entry of the "what are you looking for" list: a heading or a clickable line.
+local function FindItem(cat, i)
+	local b = cat.items[i]
+	if b then
+		return b
+	end
+	b = CreateFrame("Button", nil, cat.child)
+	b:SetHeight(FIND_ITEM_H - 1)
+	b:SetPoint("TOPLEFT", 4, -(i - 1) * FIND_ITEM_H)
+	b:SetPoint("RIGHT", cat.child, "RIGHT", -2, 0)
+	b.bg = b:CreateTexture(nil, "BACKGROUND")
+	b.bg:SetAllPoints()
+	b.t = Text(b, "textB", 13)
+	b.t:SetPoint("LEFT", 4, 0)
+	b.t:SetPoint("RIGHT", -2, 0)
+	b.t:SetWordWrap(false)
+	b:SetScript("OnEnter", function(self)
+		if self.sel then
+			local r, g, bl = Accent()
+			self.t:SetTextColor(r, g, bl)
+		end
+		if self.tipBody then
+			GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+			GameTooltip:SetText(self.tipTitle or "", 1, 0.82, 0, 1, true)
+			GameTooltip:AddLine(self.tipBody, 1, 1, 1, true)
+			GameTooltip:Show()
+		end
+	end)
+	b:SetScript("OnLeave", function(self)
+		self.t:SetTextColor(self.col[1], self.col[2], self.col[3])
+		GameTooltip:Hide()
+	end)
+	b.col = A.text
+	cat.items[i] = b
+	return b
+end
+
+--- One place on the Find page: name (+ the NPC's subtitle), zone · distance, the way there, and a button.
+local function FindRow(list, i)
+	local r = list.rows[i]
+	if r then
+		return r
+	end
+	r = CreateFrame("Frame", nil, list.child)
+	r:SetWidth(list.rowW)
+	local sep = r:CreateTexture(nil, "ARTWORK")
+	sep:SetColorTexture(A.edge[1], A.edge[2], A.edge[3], 0.35)
+	sep:SetHeight(1)
+	sep:SetPoint("BOTTOMLEFT", 0, 0)
+	sep:SetPoint("BOTTOMRIGHT", 0, 0)
+	r.go = Button(r, 124)
+	r.go:SetHeight(22)
+	r.go:SetPoint("TOPRIGHT", -2, -4)
+	r.go:SetLabel(ns:L("FOV_GO"))
+	Tip(r.go, ns:L("FOV_GO"), ns:L("FOV_TIP_GO"))
+	r.name = Text(r, "textB", 15)
+	r.name:SetPoint("TOPLEFT", 4, -4)
+	r.name:SetPoint("RIGHT", r.go, "LEFT", -10, 0)
+	r.name:SetWordWrap(false)
+	r.info = Text(r, "text", 12, A.dim)
+	r.info:SetPoint("TOPLEFT", r.name, "BOTTOMLEFT", 0, -2)
+	r.info:SetPoint("RIGHT", r.go, "LEFT", -10, 0)
+	r.info:SetWordWrap(false)
+	r.route = Text(r, "text", 12, A.gold)
+	r.route:SetPoint("TOPLEFT", r.info, "BOTTOMLEFT", 0, -3)
+	r.route:SetWidth(list.rowW - 8)
+	r.hover = HoverOver(r, r.name)
+	list.rows[i] = r
+	return r
+end
+
+-- Step 4: the page starts 30 px lower (switch row of "Your class"), so the rows are 19 px apart instead of 21.
+local TOC_ROWS, TOC_STEP = 14, 19
 
 --- How you play page (step 4, 17 Nov 2026): left a "contents" card (one line per section, click = jump there; the
 --- direction button and the other-roles switch), right the whole text with real headings, scrolling.
@@ -440,15 +590,15 @@ local function BuildPlayPage(f, x0, rightW)
 	local page = f.pages.play
 	local tocW = math.floor(rightW * 0.28)
 	local toc = Card(page)
-	toc:SetPoint("TOPLEFT", f, "TOPLEFT", x0, TOP_Y)
+	toc:SetPoint("TOPLEFT", f, "TOPLEFT", x0, SUB_TOP)
 	toc:SetPoint("BOTTOMLEFT", f, "BOTTOMLEFT", x0, 16)
 	toc:SetWidth(tocW)
 	toc.label = Label(toc, ns:L("FOV_LABEL_TOC"), "FOV_TIP_CARD_TOC")
 	toc.rows = {}
 	for i = 1, TOC_ROWS do
 		local b = CreateFrame("Button", nil, toc)
-		b:SetHeight(20)
-		b:SetPoint("TOPLEFT", 14, -32 - (i - 1) * 21)
+		b:SetHeight(TOC_STEP - 1)
+		b:SetPoint("TOPLEFT", 14, -32 - (i - 1) * TOC_STEP)
 		b:SetPoint("RIGHT", -10, 0)
 		b.t = Text(b, "textB", 13)
 		b.t:SetPoint("LEFT")
@@ -581,25 +731,53 @@ local function Build()
 		b:SetPoint("TOPLEFT", 16 + (i - 1) * (tabW + 6), TAB_Y)
 		b:SetLabel(ns:L(t.key))
 		b:SetScript("OnClick", function()
-			if t.page then
+			if t.group then
+				f.page = f.lastInGroup[t.group] or GROUPS[t.group][1].page
+				ns.ForeverOverviewFill()
+			elseif t.page then
 				f.page = t.page
 				ns.ForeverOverviewFill()
 			elseif t.fn then
 				t.fn()
 			end
 		end)
-		b.page = t.page
+		b.page, b.group = t.page, t.group
 		Tip(b, ns:L(t.key), ns:L(t.tip))
 		f.tabs[i] = b
 	end
 	-- Pages: the left column (portrait, level) stays, the right part switches.
 	f.page = "now"
+	f.lastInGroup = {}
 	f.pages = {}
-	for _, key in ipairs({ "now", "play", "cq", "camp", "legacy", "trainer" }) do
+	for _, key in ipairs({ "now", "play", "cq", "camp", "legacy", "trainer", "find" }) do
 		local p = CreateFrame("Frame", nil, f)
 		p:SetAllPoints(f)
 		p:Hide()
 		f.pages[key] = p
+	end
+	-- The switch row of a tab with several pages ("Your class": How you play · Class quests · Camping), at TOP_Y.
+	local x0s = 16 + LEFT_W + 12
+	f.subRows = {}
+	for g, list in pairs(GROUPS) do
+		local row = CreateFrame("Frame", nil, f)
+		row:SetSize(W - x0s - 16, 24)
+		row:SetPoint("TOPLEFT", x0s, TOP_Y)
+		row.btns = {}
+		for i, p in ipairs(list) do
+			local b = Button(row, 160)
+			b:SetHeight(22)
+			b:SetPoint("TOPLEFT", (i - 1) * 166, 0)
+			b:SetLabel(ns:L(p.key))
+			Tip(b, ns:L(p.key), ns:L(p.tip))
+			b:SetScript("OnClick", function()
+				f.page = p.page
+				ns.ForeverOverviewFill()
+			end)
+			b.page = p.page
+			row.btns[i] = b
+		end
+		row:Hide()
+		f.subRows[g] = row
 	end
 
 	-- Left: portrait, name, race · class, XP, level seal.
@@ -789,6 +967,23 @@ local function Build()
 	BuildClassQuestPage(f, x0, rightW)
 	BuildPlayPage(f, x0, rightW)
 	BuildTrainerPage(f, x0, rightW)
+	BuildFindPage(f, x0, rightW)
+	-- Find: distances and names change when you change zone or the client loads an item name; fill again then (not
+	-- every 2 s: the order of the list must not jump under your mouse).
+	f:RegisterEvent("ZONE_CHANGED_NEW_AREA")
+	f:RegisterEvent("GET_ITEM_INFO_RECEIVED")
+	f:RegisterEvent("SKILL_LINES_CHANGED")
+	f:SetScript("OnEvent", function(self)
+		if self:IsShown() and self.page == "find" and not self.findPending and C_Timer and C_Timer.After then
+			self.findPending = true
+			C_Timer.After(0.3, function()
+				self.findPending = nil
+				if self:IsShown() and self.page == "find" then
+					ns.ForeverOverviewFill(true)
+				end
+			end)
+		end
+	end)
 	BuildInfoPage(f, "camp", x0, rightW, "FOV_LABEL_CAMP", "FOV_TIP_CARD_CAMP", "FOV_LABEL_CAMP_HOW")
 	BuildInfoPage(f, "legacy", x0, rightW, "FOV_LABEL_LEGACY", "FOV_TIP_CARD_LEGACY", "FOV_LABEL_LEGACY_HOW")
 	-- Camping and Legacy read live state (an aura, points): refresh every 2 s while one of them is open.
@@ -1308,9 +1503,15 @@ end
 
 --- Open the overview on a page ("now", "play", "cq", "camp", "legacy", "trainer"); used by the "Do this now" window,
 --- the cards' detail buttons and the old commands (plan rule: every old way in lands on the right page).
-function ns.ShowForeverOverviewPage(page)
+--- `toggle`: when the overview is already open on that page, close it (the old windows closed on a second /mh trainer).
+function ns.ShowForeverOverviewPage(page, toggle)
 	local f = Build()
-	f.page = (page and f.pages[page]) and page or "now"
+	page = (page and f.pages[page]) and page or "now"
+	if toggle and f:IsShown() and f.page == page then
+		f:Hide()
+		return
+	end
+	f.page = page
 	if f:IsShown() then
 		ns.ForeverOverviewFill()
 	else
@@ -1408,6 +1609,324 @@ local function FillTrainerPage(f, level, refresh)
 	end
 end
 
+--------------------------------------------------------------------------------
+-- Find (product plan step 4)
+--------------------------------------------------------------------------------
+
+--- Everything you can look for, in list order: headings and items { kind, key, name, … }; second value = the
+--- weapon line for your direction (ForeverWeapons.lua), or nil.
+local function FindCatalog()
+	local items = {}
+	local function head(t)
+		items[#items + 1] = { head = t }
+	end
+	local cname, token = UnitClass and UnitClass("player")
+	if ns.ForeverClassName and token then
+		cname = ns.ForeverClassName(token) or cname
+	end
+	head(ns:L("FOV_FIND_SEC_CLASS"))
+	items[#items + 1] = { kind = "class", name = ns:L("FOV_FIND_CLASS_FMT"):format(cname or "?") }
+	head(ns:L("FOV_FIND_SEC_PROF"))
+	local mine = ns.ForeverMyProfessions and ns.ForeverMyProfessions() or {}
+	for pass = 1, 2 do
+		for _, p in ipairs(ns.FOREVER_PROFS or {}) do
+			local m = mine[p[1]]
+			if (pass == 1) == (m ~= nil) then
+				items[#items + 1] = { kind = "prof", key = p[1], english = p[3],
+					name = ns.ForeverProfName and ns.ForeverProfName(p[1], mine) or p[3], mine = m ~= nil,
+					skill = m and m.rank and m.maxRank and ("%d/%d"):format(m.rank, m.maxRank) or nil }
+			end
+		end
+	end
+	local weap, dirText = {}, nil
+	if ns.ForeverWeaponFindList then
+		local ok, w, d = pcall(ns.ForeverWeaponFindList)
+		if ok and type(w) == "table" then
+			weap, dirText = w, d
+		end
+	end
+	if #weap > 0 then
+		head(ns:L("FOV_FIND_SEC_WEAP"))
+		for _, w in ipairs(weap) do
+			items[#items + 1] = { kind = "weapon", key = w.spell, name = w.name, known = w.known, tooLow = w.tooLow,
+				level = w.level, fit = w.fit }
+		end
+	end
+	local shops = {}
+	if ns.ForeverVendorFindCats then
+		local ok, c = pcall(ns.ForeverVendorFindCats)
+		shops = ok and type(c) == "table" and c or {}
+	end
+	if #shops > 0 then
+		head(ns:L("FOV_FIND_SEC_SHOP"))
+		for _, c in ipairs(shops) do
+			items[#items + 1] = { kind = "shop", key = c.key, name = c.name, goods = c.goods }
+		end
+	end
+	return items, dirText
+end
+
+--- Which item to show for `kind` (+ optional key): the asked one, else the one you had open of that kind, else the
+--- first that makes sense (your first profession, the first weapon you can learn now).
+local function PickFind(f, items, kind, key)
+	local cur = f.find
+	local first, best
+	for _, it in ipairs(items) do
+		if it.kind == kind then
+			if key ~= nil and it.key == key then
+				return it
+			end
+			if cur and cur.kind == kind and cur.key == it.key and key == nil then
+				return it
+			end
+			first = first or it
+			if not best and ((kind == "prof" and it.mine) or (kind == "weapon" and not it.known and not it.tooLow)) then
+				best = it
+			end
+		end
+	end
+	return best or first
+end
+
+local function FindDistance(dist)
+	if dist then
+		dist = math.floor(dist + 0.5) -- whole yards: the texts use %d
+		return ns.ForeverTrainerDistance and ns.ForeverTrainerDistance(dist) or ("%d yd"):format(dist)
+	end
+	return ns:L("FVEND_OTHER_CONT")
+end
+
+--- The places for the chosen item: rows { name, info, dim, route (string / false = walk / nil = ask ForeverTravel),
+--- map, x, y, go }, the sub line, the hint, and the action button { label, tip, fn } or nil.
+local function FindPlaces(it, dirText)
+	local rows, sub, hint, act = {}, "", "", nil
+	local posOk = true
+	if it.kind == "class" or it.kind == "prof" then
+		local prof = it.kind == "prof" and it.key or nil
+		local list, need = {}, nil
+		if ns.ForeverProfTrainerList then
+			local ok, l, n, p = pcall(ns.ForeverProfTrainerList, prof)
+			if ok and type(l) == "table" then
+				list, need, posOk = l, n, p
+			end
+		end
+		for _, e in ipairs(list) do
+			local c = e.c
+			local name = c.name or "?"
+			if c.max then
+				name = name .. "  |cff999999" .. ns:L("FPROF_ROW_MAX_FMT"):format(c.max) .. "|r"
+			end
+			if c.src == "yours" then
+				name = name .. "  |cff66ccff" .. ns:L("FTRAIN_SRC_YOURS") .. "|r"
+			end
+			local info = (e.zone or "?") .. " · " .. FindDistance(e.dist)
+			if c.low then
+				info = info .. "  |cffff7f7f" .. ns:L("FPROF_ROW_LOW") .. "|r"
+			end
+			rows[#rows + 1] = { name = name, info = info, dim = c.low, map = c.map, x = c.x, y = c.y,
+				go = function()
+					return ns.ForeverTrainerGoTo and ns.ForeverTrainerGoTo(c, e.dist, nil, prof)
+				end }
+		end
+		if prof then
+			sub = (not it.mine and ns:L("FPROF_NEW")) or (need and ns:L("FPROF_NEED_FMT"):format(need))
+				or ns:L("FPROF_ANY")
+			hint = ns:L("FPROF_HINT_FMT"):format((it.english or ""):lower())
+			local toolKey
+			if ns.ForeverProfCard then
+				local ok, _, k = pcall(ns.ForeverProfCard, prof)
+				toolKey = ok and k or nil
+			end
+			if toolKey then
+				act = { label = ns:L("FPROFG_BUY"), tip = ns:L("FOV_TIP_FIND_BUY"), fn = function()
+					ns.ShowForeverFind("shop", toolKey)
+				end }
+			end
+		else
+			sub = ns:L("FOV_FIND_CLASS_SUB")
+			hint = ns:L("FOV_FIND_CLASS_HINT")
+			act = { label = ns:L("FOV_FIND_TEACHES"), tip = ns:L("FOV_TIP_DETAILS"), fn = function()
+				ns.ShowForeverOverviewPage("trainer")
+			end }
+		end
+		if #rows == 0 then
+			sub = sub .. "  " .. ns:L("FPROF_EMPTY")
+		end
+	elseif it.kind == "weapon" then
+		if ns.ForeverWeaponFindRows then
+			local ok, l, p, s = pcall(ns.ForeverWeaponFindRows, it.key)
+			if ok and type(l) == "table" then
+				posOk, sub = p, s or ""
+				for _, e in ipairs(l) do
+					rows[#rows + 1] = { name = e.name, info = (e.zone or "?") .. " · " .. FindDistance(e.dist),
+						route = e.route, go = e.go }
+				end
+			end
+		end
+		if #rows == 0 then
+			sub = sub .. "  " .. ns:L("FWEAP_EMPTY")
+		end
+		hint = dirText or ns:L("FWEAP_HINT")
+	elseif it.kind == "shop" then
+		if ns.ForeverVendorFindRows then
+			local ok, l, p = pcall(ns.ForeverVendorFindRows, it.key)
+			if ok and type(l) == "table" then
+				posOk = p
+				for _, e in ipairs(l) do
+					rows[#rows + 1] = { name = e.name .. (e.tag and ("  |cff999999<" .. e.tag .. ">|r") or ""),
+						info = (e.zone or "?") .. " · " .. FindDistance(e.dist), map = e.map, x = e.x, y = e.y, go = e.go }
+				end
+			end
+		end
+		sub = ns:L(it.goods and "FVEND_SUB_GOODS" or "FOV_FIND_SUB_TOOL")
+		if #rows == 0 then
+			sub = sub .. "  " .. ns:L("FVEND_EMPTY")
+		end
+		hint = ns:L("FVEND_HINT")
+	end
+	if not posOk then
+		sub = sub .. "  " .. ns:L("FVEND_NOPOS")
+	end
+	return rows, sub, hint, act
+end
+
+local FIND_ROUTES = 8 -- the way there is worked out for the nearest few places only (ForeverTravel plans a route each)
+
+local function FillFindPage(f, refresh)
+	local page = f.pages.find
+	local cat, list = page.cat, page.list
+	local items, dirText = FindCatalog()
+	local it = PickFind(f, items, (f.find and f.find.kind) or "class", f.find and f.find.key)
+	f.find = it and { kind = it.kind, key = it.key } or nil
+	-- Left: the catalogue.
+	local r, g, b = Accent()
+	for i, e in ipairs(items) do
+		local btn = FindItem(cat, i)
+		btn.sel = (it ~= nil and e == it)
+		btn.tipTitle, btn.tipBody = nil, nil
+		if e.head then
+			btn.t:SetText(e.head:upper())
+			S.Font(btn.t, A.fonts.head2, 12, A.fallback.head2)
+			btn.col = A.label
+			btn:SetScript("OnClick", nil)
+			btn.bg:SetColorTexture(0, 0, 0, 0)
+		else
+			S.Font(btn.t, A.fonts.textB, 13, A.fallback.textB)
+			local text = e.name or "?"
+			btn.col = A.text
+			if e.kind == "prof" and e.mine then
+				btn.col = A.gold
+				text = text .. (e.skill and ("  |cffa89a85" .. e.skill .. "|r") or "")
+			elseif e.kind == "weapon" then
+				if e.known then
+					btn.col = A.later
+					text = text .. "  " .. ns:L("FWEAP_KNOWN_TAG")
+				elseif e.tooLow then
+					btn.col = A.later
+					text = text .. "  " .. ns:L("FWEAP_LEVEL_TAG_FMT"):format(e.level or 0)
+				end
+				if e.fit then
+					text = "|cff40ff40+|r " .. text
+					btn.tipTitle, btn.tipBody = e.name, dirText
+				end
+			end
+			btn.t:SetText(text)
+			btn:SetScript("OnClick", function()
+				f.find = { kind = e.kind, key = e.key }
+				ns.ForeverOverviewFill()
+			end)
+			btn.bg:SetColorTexture(r, g, b, btn.sel and 0.22 or 0)
+		end
+		btn.t:SetTextColor(btn.col[1], btn.col[2], btn.col[3])
+		btn:Show()
+	end
+	for i = #items + 1, #cat.items do
+		cat.items[i]:Hide()
+	end
+	cat.child:SetHeight(math.max(10, #items * FIND_ITEM_H))
+	if refresh then
+		cat.sf.UpdateThumb()
+	elseif not f.findScrolled then
+		cat.sf.Reset()
+		f.findScrolled = true
+	end
+	if not it then
+		list.label:SetText("")
+		list.head:SetText("")
+		list.sub:SetText("")
+		list.act:Hide()
+		return
+	end
+	-- Right: the places.
+	local rows, sub, hint, act = FindPlaces(it, dirText)
+	list.label:SetText((it.name or ""):upper())
+	list.head:SetText(ns:L("FOV_FIND_COUNT_FMT"):format(it.name or "?", #rows))
+	list.sub:SetText(sub)
+	list.hint:SetText(hint)
+	if act then
+		list.act:SetLabel(act.label)
+		list.act.tipTitle, list.act.tipBody = act.label, act.tip
+		list.act:SetScript("OnClick", act.fn)
+		list.act:Show()
+	else
+		list.act:Hide()
+	end
+	local y = 0
+	for i, e in ipairs(rows) do
+		local row = FindRow(list, i)
+		row:ClearAllPoints()
+		row:SetPoint("TOPLEFT", list.child, "TOPLEFT", 0, -y)
+		row.name:SetText(e.name)
+		row.info:SetText(e.info or "")
+		row.hover.tipTitle = e.name
+		row.hover.tipBody = e.info
+		local route = e.route
+		if route == nil and i <= FIND_ROUTES and e.map and e.x and e.y and ns.ForeverTravelSentence then
+			local ok, s = pcall(ns.ForeverTravelSentence, e.map, e.x, e.y)
+			route = ok and s or nil
+		end
+		if type(route) == "string" and route ~= "" then
+			row.route:SetText(ns:L("FWEAP_ROUTE_LABEL") .. " " .. route)
+			row.route:Show()
+		else
+			row.route:SetText("")
+			row.route:Hide()
+		end
+		local h = 44 + (row.route:IsShown() and ((row.route:GetStringHeight() or 12) + 4) or 0)
+		row:SetHeight(h)
+		row:SetAlpha(e.dim and 0.55 or 1)
+		SetGo(row.go, e.go)
+		row:Show()
+		y = y + h + 4
+	end
+	for i = #rows + 1, #list.rows do
+		list.rows[i]:Hide()
+	end
+	list.child:SetHeight(math.max(10, y))
+	if refresh then
+		list.sf.UpdateThumb()
+	else
+		list.sf.Reset()
+	end
+end
+
+--- Open the overview's Find tab on one kind of place: "class", "prof", "weapon" or "shop", with an optional key
+--- (a profession key, a weapon skill spell id, a shop key). The four old windows' open functions call this.
+--- Called again for the same kind without a key while it is open = close (as those windows did).
+function ns.ShowForeverFind(kind, key)
+	local f = Build()
+	if f:IsShown() and f.page == "find" and key == nil and f.find and f.find.kind == kind then
+		f:Hide()
+		return
+	end
+	if kind then
+		local items = FindCatalog()
+		local it = PickFind(f, items, kind, key)
+		f.find = it and { kind = it.kind, key = it.key } or f.find
+	end
+	ns.ShowForeverOverviewPage("find")
+end
+
 --- When the direction changes (ForeverHowToPlay.lua calls this): refill if the overview is open.
 function ns.ForeverOverviewRefresh()
 	if win and win:IsShown() then
@@ -1426,12 +1945,25 @@ function ns.ForeverOverviewFill(refresh)
 	for key, p in pairs(f.pages) do
 		p:SetShown(key == f.page)
 	end
+	local group = PAGE_GROUP[f.page]
+	if group then
+		f.lastInGroup[group] = f.page
+	end
 	for _, b in ipairs(f.tabs) do
-		if b.page then
+		if b.page or b.group then
+			b:SetActive(b.page == f.page or (b.group ~= nil and b.group == group))
+		end
+	end
+	for g, row in pairs(f.subRows) do
+		row:SetShown(g == group)
+		for _, b in ipairs(row.btns) do
 			b:SetActive(b.page == f.page)
 		end
 	end
-	if f.page == "cq" then
+	if f.page == "find" then
+		FillFindPage(f, refresh)
+		return f
+	elseif f.page == "cq" then
 		FillClassQuestPage(f, level)
 		return f
 	elseif f.page == "play" then
