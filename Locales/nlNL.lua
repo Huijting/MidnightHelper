@@ -4536,7 +4536,7 @@ ns._mhLocales.nlNL = {
 	FMAC_C_SHAMAN_FIRETOTEM = "Searing Totem. Ctrl = Magma Totem (vanaf level 26).",
 	-- 17 nov 2026: het nieuwe overzicht, ruwe stijl A (ForeverOverview.lua, /mh overview).
 	FOV_TAB_NOW = "Nu",
-	FOV_TAB_PLAY = "How you play",
+	FOV_TAB_PLAY = "Zo speel je",
 	FOV_TAB_CQ = "Class-quests",
 	FOV_TAB_CAMP = "Kamperen",
 	FOV_TAB_LEGACY = "Legacy",
