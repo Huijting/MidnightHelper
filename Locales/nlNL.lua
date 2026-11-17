@@ -4574,7 +4574,7 @@ ns._mhLocales.nlNL = {
 	-- Tooltips (Rob, 17 nov 2026: "de tooltips overal bij").
 	FOV_TIP_TAB_NOW = "Deze pagina: wat je nu doet, wat eraan komt en jouw pad.",
 	FOV_TIP_TAB_PLAY = "Hoe je class en spec spelen, level voor level (opent How you play).",
-	FOV_TIP_TAB_CQ = "Alle quests van je class en hoe ver je bent (voorlopig in How you play).",
+	FOV_TIP_TAB_CQ = "Alle quests van je class en hoe ver je bent, elk met een knop voor de pijl.",
 	FOV_TIP_TAB_CAMP = "Kamperen: kun je bij een vuur zitten, en heb je Camp Benefits? (voorlopig in de chat)",
 	FOV_TIP_TAB_LEGACY = "Legacy Points: verdiend, ongebruikt en uitgegeven (voorlopig in de chat).",
 	FOV_TIP_GO = "Zet de pijl en een speld op de kaart naar deze plek. Loopt er een route van de Forever Leveling Guide, dan gaat Midnight Helper opzij (/mh arrow guide verandert dat).",
@@ -4590,6 +4590,14 @@ ns._mhLocales.nlNL = {
 	FOV_TIP_CHIP_LATER = "Een level dat nog komt (grijs).",
 	FOV_TIP_NODE_NOW = "Hier ben je. De regel eronder is het eerste uit Doe dit nu.",
 	FOV_TIP_NODE_FMT = "Nieuw bij de trainer: %s",
+	-- 17 nov 2026: de pagina Class quests in het overzicht (stap 2 van de huisstijl).
+	FOV_CQP_INTRO = "Elke quest die je class krijgt, op volgorde van level. Ze geven spells of spullen die je niet bij een trainer koopt.",
+	FOV_CQP_NONE = "Geen class-quests gevonden voor je class en kant.",
+	FOV_CQP_COUNT_FMT = "%d van %d klaar",
+	FOV_CHIP_DONE = "KLAAR",
+	FOV_TIP_CHIP_DONE = "Deze class-quest heb je af.",
+	FOV_TIP_CQP_NOW = "Deze kun je nu doen. De regel zegt de volgende stap; de knop zet de pijl daarheen.",
+	FOV_TIP_CQP_LATER_FMT = "Gaat open op level %d. De knop zet de pijl naar wie hem begint.",
 	-- 17 nov 2026 (Rob: "B"): een modifier + toets die al van een andere binding is.
 	FMAC_KEY_TAKEN_FMT = "%s is bezet door %s: het %s-deel van deze macro werkt alleen met de muis.",
 	FMAC_BTN_FREE = "Toets vrij",

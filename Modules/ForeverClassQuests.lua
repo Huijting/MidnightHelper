@@ -2270,17 +2270,11 @@ function ns.ForeverClassQuestNowParts()
 	return out
 end
 
---- The arrow to the current step.
-function ns.ForeverClassQuestGo()
-	local _, s = ns.ForeverClassQuestNow()
-	if not s then
-		print(PREFIX .. ns:L("FCQ_NOTHING"))
-		return false
-	end
-	local p = s.place
+--- Route to a place of a chain and say `line` in chat. Shared by "Do this now" and the overview page (17 Nov 2026).
+local function GoPlace(p, line)
 	if not p then
 		-- Something to collect anywhere (Earthroot): no spot to point at, the line says what to do.
-		print(PREFIX .. (ns.ForeverClassQuestNow()))
+		print(PREFIX .. line)
 		return false
 	end
 	if not (ns.SetBlizzardUserWaypoint and ns.SetBlizzardUserWaypoint(p.m, p.x, p.y)) then
@@ -2291,8 +2285,18 @@ function ns.ForeverClassQuestGo()
 	end
 	ns.lastTarget = { mapID = p.m, x = p.x, y = p.y, name = p.npc and NpcName(p) or ZoneName(p.m), via = "/mh classquest", arriveYards = 15 }
 	ns._mhRouteOwner = "waypoint"
-	print(PREFIX .. (ns.ForeverClassQuestNow()))
+	print(PREFIX .. line)
 	return true
+end
+
+--- The arrow to the current step.
+function ns.ForeverClassQuestGo()
+	local line, s = ns.ForeverClassQuestNow()
+	if not s then
+		print(PREFIX .. ns:L("FCQ_NOTHING"))
+		return false
+	end
+	return GoPlace(s.place, line)
 end
 
 --- /mh classquest [go]: per chain and quest what the client says, and the step MH picks (silence rule).
@@ -2326,15 +2330,47 @@ function ns.ForeverClassQuestSlash(arg)
 	print("  line in Do this now: " .. (line or "none"))
 end
 
---- 17 Nov 2026 (overview card): every class quest of this character as data, in table order:
---- { { chain, level, state = "done"|"now"|"later" }, … }; empty when the class has none.
+--- 17 Nov 2026 (overview card + Class quests page): every class quest of this character as data, in table order:
+--- { { chain, level, state = "done"|"now"|"later", spell, kind, npc, what, zone, x, y, go }, … }; empty when the class
+--- has none. "now" = the current step; "later" = who starts it and where (the first quest's giver, kind "get").
+--- go = a function that sets the arrow there (nil without a place).
 function ns.ForeverClassQuestList()
 	local out = {}
 	local level = UnitLevel and UnitLevel("player") or 1
 	for _, c in ipairs(MyChains()) do
 		local s = Step(c)
-		out[#out + 1] = { chain = ChainName(c), level = c.level,
+		local e = { chain = ChainName(c), level = c.level, spell = c.spell,
 			state = (not s and "done") or (not Ready(c, level) and "later") or "now" }
+		-- Same parts as ForeverClassQuestNowParts: kind, npc, and `what` only for a step that is not "go to someone"
+		-- (the place is its own line on the page, so it is not in the sentence).
+		local p
+		if e.state == "now" then
+			p = s.place
+			e.kind = s.kind
+			if s.kind == "do" or s.kind == "wait" then
+				e.what = ns:L(s.textKey)
+			elseif s.kind == "use" then
+				e.what = StepWhat(s)
+			end
+			local line = StepText(c, s)
+			e.go = function()
+				return GoPlace(p, line)
+			end
+		elseif e.state == "later" then
+			p = c.quests[1] and c.quests[1].from
+			if p then
+				e.kind = "get"
+				local line = ("%s: %s"):format(e.chain, ns:L("FCQ_ST_LATER_FMT"):format(NpcName(p), ZoneName(p.m)))
+				e.go = function()
+					return GoPlace(p, line)
+				end
+			end
+		end
+		if p then
+			e.npc = p.npc and NpcName(p) or nil
+			e.zone, e.x, e.y = ZoneName(p.m), p.x, p.y
+		end
+		out[#out + 1] = e
 	end
 	return out
 end

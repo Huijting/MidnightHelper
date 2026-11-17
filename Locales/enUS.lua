@@ -5482,7 +5482,7 @@ ns._mhLocales.enUS = {
 	-- Tooltips (Rob, 17 Nov 2026: "de tooltips overal bij").
 	FOV_TIP_TAB_NOW = "This page: what to do now, what comes next and your path.",
 	FOV_TIP_TAB_PLAY = "How your class and spec play, level by level (opens How you play).",
-	FOV_TIP_TAB_CQ = "All quests of your class and where each one stands (in How you play, for now).",
+	FOV_TIP_TAB_CQ = "All quests of your class and where each one stands, each with a button for the arrow.",
 	FOV_TIP_TAB_CAMP = "Camping: can you sit at a fire, and do you have Camp Benefits? (prints in chat, for now)",
 	FOV_TIP_TAB_LEGACY = "Legacy Points: earned, unused and spent (prints in chat, for now).",
 	FOV_TIP_GO = "Sets the arrow and a pin on the map to this place. If the Forever Leveling Guide is running a route, Midnight Helper steps aside (/mh arrow guide changes that).",
@@ -5498,6 +5498,14 @@ ns._mhLocales.enUS = {
 	FOV_TIP_CHIP_LATER = "A level still ahead of you (grey).",
 	FOV_TIP_NODE_NOW = "You are here. The line below is the first thing in Do this now.",
 	FOV_TIP_NODE_FMT = "New at the trainer: %s",
+	-- 17 Nov 2026: the Class quests page of the overview (step 2 of the house style).
+	FOV_CQP_INTRO = "Every quest your class gets, in level order. They give spells or items you cannot buy at a trainer.",
+	FOV_CQP_NONE = "No class quests found for your class and side.",
+	FOV_CQP_COUNT_FMT = "%d of %d done",
+	FOV_CHIP_DONE = "DONE",
+	FOV_TIP_CHIP_DONE = "You finished this class quest.",
+	FOV_TIP_CQP_NOW = "You can do this one now. The line says the next step; the button sets the arrow there.",
+	FOV_TIP_CQP_LATER_FMT = "Opens at level %d. The button sets the arrow to whoever starts it.",
 	-- 17 Nov 2026 (Rob: "B"): a modifier + key that belongs to another binding.
 	FMAC_KEY_TAKEN_FMT = "%s is taken by %s: the %s part of this macro only works with the mouse.",
 	FMAC_BTN_FREE = "Free key",

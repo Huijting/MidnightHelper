@@ -72,23 +72,33 @@ local function run(label, fn)
 		io.write("ERROR ", label, ": ", tostring(err), "\n")
 	end
 end
+-- 17 Nov 2026: the Class quests page of the overview reads ns.ForeverClassQuestList and presses every row's button.
+local function ListAll()
+	for _, e in ipairs(ns.ForeverClassQuestList()) do
+		assert(type(e.chain) == "string" and type(e.level) == "number", "list entry without chain/level")
+		if e.go then
+			e.go()
+		end
+	end
+end
+
 for _, c in ipairs(cases) do
 	CUR.class, CUR.faction, CUR.race, CUR.raceId = c[1], c[2], c[3], c[4]
 	for _, level in ipairs({ 1, 10, 20, 30, 40, 50, 60 }) do
 		CUR.level = level
 		local label = table.concat({ c[1], c[2], c[3], level }, "/")
 		S.done, S.log, S.complete = {}, {}, false
-		run(label .. " none", function() ns.ForeverClassQuestSlash(""); ns.ForeverClassQuestOverview(); ns.ForeverClassQuestGo() end)
+		run(label .. " none", function() ns.ForeverClassQuestSlash(""); ns.ForeverClassQuestOverview(); ns.ForeverClassQuestGo(); ListAll() end)
 		for i, q in ipairs(ids) do
 			S.done, S.log = {}, { [q] = true }
 			for j = 1, i - 1 do S.done[ids[j]] = true end
 			for _, comp in ipairs({ false, true }) do
 				S.complete = comp
-				run(label .. " q" .. q, function() ns.ForeverClassQuestNow(); ns.ForeverClassQuestOverview() end)
+				run(label .. " q" .. q, function() ns.ForeverClassQuestNow(); ns.ForeverClassQuestOverview(); ListAll() end)
 			end
 			-- Same, but nothing in the log: reaches "get" and "wait" steps after a done quest (17 Nov: e.wait).
 			S.log, S.complete = {}, false
-			run(label .. " after" .. q, function() ns.ForeverClassQuestNow(); ns.ForeverClassQuestGo() end)
+			run(label .. " after" .. q, function() ns.ForeverClassQuestNow(); ns.ForeverClassQuestGo(); ListAll() end)
 			S.items = true
 			run(label .. " items" .. q, function() ns.ForeverClassQuestNow(); ns.ForeverClassQuestOverview() end)
 			S.items = false

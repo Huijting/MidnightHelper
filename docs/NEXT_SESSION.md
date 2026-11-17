@@ -10,7 +10,17 @@
   bedoeld. Zonder kit (nieuw bestand na /reload) geeft het overzicht een chatregel i.p.v. een fout: Rob kreeg
   "ForeverOverview.lua:30: attempt to index local 'S'" na een /reload halverwege → **WoW één keer helemaal herstarten**.
   Lint 0 HARD, luac OK. NIET in het spel gezien.
-- ⏭️ Volgende: stap 2 Class quests als pagina in het overzicht.
+- 📜 **Stap 2 Class quests-pagina GEBOUWD (en + nl)**: tab "Class quests" wisselt nu IN het overzicht van pagina
+  (`f.pages.now/cq`, `f.page`; linkerkolom blijft). Eén kaart met scrollende lijst (wiel; Shift+wiel = venster groter,
+  via DialogPopup WrapChildren; dunne duim rechts): per keten level-bolletje, spell-icoon, naam, chip KLAAR/NU/LATER,
+  de stap zonder plek, de plek als subregel en een eigen "Show the way"-knop. `ns.ForeverClassQuestList` geeft nu ook
+  spell/kind/npc/what/zone/x/y/go (later = gever van de eerste quest); route via nieuwe `GoPlace` (ook gebruikt door
+  ForeverClassQuestGo, zelfde gedrag). fcq_check loopt nu ook de lijst + elke knop: 908.461 runs, 0 fouten. Nieuwe
+  sleutels FOV_CQP_*, FOV_CHIP_DONE, FOV_TIP_CHIP_DONE, FOV_TIP_CQP_* (en + nl; de/fr/es/pt/ru in de vertaalronde).
+  Lint 0 HARD, luac OK. NIET in het spel gezien.
+- ⏭️ Volgende: volledige naam in de kop (Robs wens via sparring, meten), dan Kamperen + Legacy als pagina's.
+- Rob is ±1 uur weg (sparring, letterlijk: *"Ga samen door met de bouwchat zover mogelijk, dat we een kant-en-klaar
+  product hebben."*): lijst afwerken, geen tag/release, geen /nieuwe-chat; context vol → "KLAAR VOOR OVERDRACHT".
 
 ## ⏭️ VOLGENDE BOUWCHAT (Bouwchat 17-11 (2) draagt over; Rob via sparring, letterlijk: *"ja, verse bouwchat"*)
 

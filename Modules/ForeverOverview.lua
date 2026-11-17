@@ -147,14 +147,132 @@ end
 -- Window
 --------------------------------------------------------------------------------
 local TABS = {
-	{ key = "FOV_TAB_NOW", tip = "FOV_TIP_TAB_NOW" },
+	{ key = "FOV_TAB_NOW", tip = "FOV_TIP_TAB_NOW", page = "now" },
 	{ key = "FOV_TAB_PLAY", tip = "FOV_TIP_TAB_PLAY", fn = function() if ns.TogglePlayCardWindow then ns.TogglePlayCardWindow() end end },
-	{ key = "FOV_TAB_CQ", tip = "FOV_TIP_TAB_CQ", fn = function() if ns.TogglePlayCardWindow then ns.TogglePlayCardWindow() end end },
+	-- Step 5 of the plan (Rob: every tab in this style): a tab with `page` switches the page inside this window.
+	{ key = "FOV_TAB_CQ", tip = "FOV_TIP_TAB_CQ", page = "cq" },
 	{ key = "FOV_TAB_CAMP", tip = "FOV_TIP_TAB_CAMP", fn = function() if ns.ForeverCampSlash then ns.ForeverCampSlash() end end },
 	{ key = "FOV_TAB_LEGACY", tip = "FOV_TIP_TAB_LEGACY", fn = function() if ns.ForeverLegacySlash then ns.ForeverLegacySlash() end end },
 }
 
 local PATH_NODES = 4
+local CQP_ROW_H = 74
+
+--- Class quests page (step 2 of the house style, 17 Nov 2026): one card, a scrolling list of every class quest of
+--- this character with level, spell icon, state chip, the next step, the place and its own "Show the way" button.
+--- Built with the window (not on first click): DialogPopup wraps the scroll frame's wheel on show, so Shift+wheel
+--- keeps resizing the window over the list.
+local function BuildClassQuestPage(f, x0, rightW)
+	local page = f.pages.cq
+	local card = Card(page)
+	card:SetPoint("TOPLEFT", f, "TOPLEFT", x0, -62)
+	card:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -16, 16)
+	card.label = Label(card, ns:L("FOV_LABEL_CQ_LIST"), "FOV_TIP_CARD_CQ")
+	card.count = Text(card, "head2", 12, A.dim)
+	card.count:SetPoint("TOPRIGHT", -16, -12)
+	card.count:SetJustifyH("RIGHT")
+	card.intro = Text(card, "text", 13, A.dim)
+	card.intro:SetPoint("TOPLEFT", 14, -30)
+	card.intro:SetPoint("RIGHT", -14, 0)
+	card.intro:SetText(ns:L("FOV_CQP_INTRO"))
+	local sf = CreateFrame("ScrollFrame", nil, card)
+	sf:SetPoint("TOPLEFT", 8, -54)
+	sf:SetPoint("BOTTOMRIGHT", -14, 8)
+	local child = CreateFrame("Frame", nil, sf)
+	child:SetSize(rightW - 30, 10)
+	sf:SetScrollChild(child)
+	sf:EnableMouseWheel(true)
+	sf:SetScript("OnMouseWheel", function(self, delta)
+		local max = self:GetVerticalScrollRange() or 0
+		local v = math.min(max, math.max(0, self:GetVerticalScroll() - delta * CQP_ROW_H))
+		self:SetVerticalScroll(v)
+		if card.UpdateThumb then
+			card.UpdateThumb()
+		end
+	end)
+	-- A slim thumb on the right that shows where you are in the list (only when it scrolls).
+	local track = card:CreateTexture(nil, "ARTWORK")
+	track:SetColorTexture(A.later[1], A.later[2], A.later[3], 0.25)
+	track:SetWidth(3)
+	track:SetPoint("TOPRIGHT", -6, -54)
+	track:SetPoint("BOTTOMRIGHT", -6, 8)
+	local thumb = card:CreateTexture(nil, "ARTWORK", nil, 1)
+	thumb:SetWidth(3)
+	function card.UpdateThumb()
+		local max = sf:GetVerticalScrollRange() or 0
+		local h = sf:GetHeight() or 0
+		if max <= 1 or h <= 0 then
+			track:Hide()
+			thumb:Hide()
+			return
+		end
+		local r, g, b = Accent()
+		thumb:SetColorTexture(r, g, b, 0.9)
+		local th = math.max(20, h * h / (h + max))
+		thumb:SetHeight(th)
+		thumb:ClearAllPoints()
+		thumb:SetPoint("TOPRIGHT", track, "TOPRIGHT", 0, -((h - th) * (sf:GetVerticalScroll() / max)))
+		track:Show()
+		thumb:Show()
+	end
+	card.sf, card.child, card.rows = sf, child, {}
+	f.cqPage = card
+end
+
+--- One row of the Class quests page (made when needed).
+local function ClassQuestRow(card, i)
+	local row = card.rows[i]
+	if row then
+		return row
+	end
+	local child = card.child
+	row = CreateFrame("Frame", nil, child)
+	row:SetHeight(CQP_ROW_H - 6)
+	row:SetPoint("TOPLEFT", 0, -(i - 1) * CQP_ROW_H)
+	row:SetPoint("RIGHT", child, "RIGHT", 0, 0)
+	local sep = row:CreateTexture(nil, "ARTWORK")
+	sep:SetColorTexture(A.edge[1], A.edge[2], A.edge[3], 0.35)
+	sep:SetHeight(1)
+	sep:SetPoint("BOTTOMLEFT", 6, -3)
+	sep:SetPoint("BOTTOMRIGHT", 0, -3)
+	row.ring = Circle(row, nil, 2)
+	row.ring:SetSize(34, 34)
+	row.ring:SetPoint("TOPLEFT", 8, -4)
+	row.dot = Circle(row, nil, 3)
+	row.dot:SetSize(30, 30)
+	row.dot:SetPoint("CENTER", row.ring)
+	row.dot:SetColorTexture(0.10, 0.08, 0.06, 1)
+	row.num = Text(row, "head", 15)
+	row.num:SetPoint("CENTER", row.ring, "CENTER", 0, 0)
+	row.num:SetJustifyH("CENTER")
+	row.levelTip = HoverOver(row, row.ring)
+	row.icon = SpellButton(row, 26)
+	row.icon:SetPoint("TOPLEFT", row.ring, "TOPRIGHT", 10, -4)
+	row.go = Button(row, 132)
+	row.go:SetPoint("RIGHT", -8, 0)
+	row.go:SetLabel(ns:L("FOV_GO"))
+	Tip(row.go, ns:L("FOV_GO"), ns:L("FOV_TIP_GO"))
+	row.chip = Tip(S.Chip(row, "", nil, 64))
+	row.chip:SetPoint("TOPRIGHT", row, "TOPRIGHT", -(8 + 132 + 12), -4)
+	row.name = Text(row, "head", 17)
+	row.name:SetPoint("TOPLEFT", row.icon, "TOPRIGHT", 10, 2)
+	row.name:SetPoint("RIGHT", row.chip, "LEFT", -8, 0)
+	row.name:SetWordWrap(false)
+	row.what = Text(row, "text", 13)
+	row.what:SetPoint("TOPLEFT", row.name, "BOTTOMLEFT", 0, -2)
+	row.what:SetPoint("RIGHT", row.go, "LEFT", -12, 0)
+	if row.what.SetMaxLines then
+		row.what:SetMaxLines(2)
+	end
+	row.place = Text(row, "text", 12, A.dim)
+	row.place:SetPoint("TOPLEFT", row.what, "BOTTOMLEFT", 0, -2)
+	row.place:SetPoint("RIGHT", row.go, "LEFT", -12, 0)
+	row.place:SetWordWrap(false)
+	-- The full name and step on hover (a long chain name is cut to one line).
+	row.hover = HoverOver(row, row.name)
+	card.rows[i] = row
+	return row
+end
 
 local function Build()
 	if win then
@@ -214,16 +332,26 @@ local function Build()
 		b:SetPoint("TOPRIGHT", x, -14)
 		b:SetLabel(ns:L(t.key))
 		b:SetScript("OnClick", function()
-			if t.fn then
+			if t.page then
+				f.page = t.page
+				ns.ForeverOverviewFill()
+			elseif t.fn then
 				t.fn()
 			end
 		end)
-		if i == 1 then
-			b:SetActive(true)
-		end
+		b.page = t.page
 		Tip(b, ns:L(t.key), ns:L(t.tip))
 		f.tabs[i] = b
 		x = x - 108
+	end
+	-- Pages: the left column (portrait, level) stays, the right part switches.
+	f.page = "now"
+	f.pages = {}
+	for _, key in ipairs({ "now", "cq" }) do
+		local p = CreateFrame("Frame", nil, f)
+		p:SetAllPoints(f)
+		p:Hide()
+		f.pages[key] = p
 	end
 
 	-- Left: portrait, name, race · class, XP, level seal.
@@ -284,7 +412,7 @@ local function Build()
 	local soonW = math.floor(rightW * 0.30)
 	local cqW = rightW - nowW - soonW - 24
 	local rowH = 252
-	f.now = Card(f)
+	f.now = Card(f.pages.now)
 	f.now:SetPoint("TOPLEFT", x0, -62)
 	f.now:SetSize(nowW, rowH)
 	local acc = f.now:CreateTexture(nil, "ARTWORK")
@@ -340,7 +468,7 @@ local function Build()
 		f.now.more[i] = row
 	end
 
-	f.soon = Card(f)
+	f.soon = Card(f.pages.now)
 	f.soon:SetPoint("TOPLEFT", f.now, "TOPRIGHT", 12, 0)
 	f.soon:SetSize(soonW, rowH)
 	f.soon.label = Label(f.soon, ns:L("FOV_LABEL_SOON"), "FOV_TIP_CARD_SOON")
@@ -357,7 +485,7 @@ local function Build()
 		f.soon.rows[i] = { icon = ic, name = nm, level = lv }
 	end
 
-	f.cq = Card(f)
+	f.cq = Card(f.pages.now)
 	f.cq:SetPoint("TOPLEFT", f.soon, "TOPRIGHT", 12, 0)
 	f.cq:SetSize(cqW, rowH)
 	f.cq.label = Label(f.cq, ns:L("FOV_LABEL_CQ"), "FOV_TIP_CARD_CQ")
@@ -395,7 +523,7 @@ local function Build()
 	end
 
 	-- Row 2: your path (level now → +6), in equal columns that stay inside the card (Rob's screenshot: the last ran out).
-	f.path = Card(f)
+	f.path = Card(f.pages.now)
 	f.path:SetPoint("TOPLEFT", f.now, "BOTTOMLEFT", 0, -12)
 	f.path:SetPoint("BOTTOMRIGHT", -16, 16)
 	f.path.label = Label(f.path, "", "FOV_TIP_CARD_PATH")
@@ -440,6 +568,8 @@ local function Build()
 		Tip(c, ns:L(key), ns:L(i == 1 and "FOV_TIP_CHIP_NOW" or "FOV_TIP_CHIP_LATER"))
 		f.path.chips[i] = c
 	end
+
+	BuildClassQuestPage(f, x0, rightW)
 
 	f:SetScript("OnShow", function()
 		ns.ForeverOverviewFill()
@@ -634,12 +764,119 @@ local function FillClassQuest(f, items)
 	end
 end
 
+--- The step of a class quest list entry as one sentence without the place (the place has its own line).
+local function StepLine(e)
+	if e.what then
+		return e.what
+	end
+	if e.npc then
+		return (e.kind == "turn" and ns:L("FOV_CQ_TURN_FMT") or ns:L("FOV_CQ_GET_FMT")):format(e.npc)
+	end
+	return nil
+end
+
+--- The Class quests page: every chain in level order, with the next step and an arrow button per row.
+local function FillClassQuestPage(f, level)
+	local card = f.cqPage
+	local list = {}
+	if ns.ForeverClassQuestList then
+		local ok, l = pcall(ns.ForeverClassQuestList)
+		list = ok and type(l) == "table" and l or {}
+	end
+	-- Level order; at the same level the table order stays (sort with the index as tie-break: table.sort is not stable).
+	for i, e in ipairs(list) do
+		e._i = i
+	end
+	table.sort(list, function(a, b)
+		if (a.level or 0) ~= (b.level or 0) then
+			return (a.level or 0) < (b.level or 0)
+		end
+		return a._i < b._i
+	end)
+	local done = 0
+	for _, e in ipairs(list) do
+		if e.state == "done" then
+			done = done + 1
+		end
+	end
+	card.count:SetText(#list > 0 and ns:L("FOV_CQP_COUNT_FMT"):format(done, #list) or "")
+	card.intro:SetText(#list > 0 and ns:L("FOV_CQP_INTRO") or ns:L("FOV_CQP_NONE"))
+	local r, g, b = Accent()
+	for i, e in ipairs(list) do
+		local row = ClassQuestRow(card, i)
+		row.num:SetText(tostring(e.level or ""))
+		row.levelTip.tipTitle = ns:L("FOV_LEVEL_FMT"):format(e.level or 0)
+		row.name:SetText(e.chain or "")
+		if e.spell then
+			row.icon.tex:SetTexture(SpellIcon(e.spell))
+			row.icon.tipSpell = e.spell
+			row.icon:Show()
+		else
+			row.icon.tipSpell = nil
+			row.icon:Hide()
+		end
+		if e.state == "done" then
+			row.ring:SetColorTexture(A.done[1], A.done[2], A.done[3], 1)
+			row.num:SetTextColor(A.done[1], A.done[2], A.done[3])
+			row.chip.t:SetText(ns:L("FOV_CHIP_DONE"))
+			row.chip:SetColor(A.done[1], A.done[2], A.done[3])
+			row.chip.tipTitle, row.chip.tipBody = ns:L("FOV_CHIP_DONE"), ns:L("FOV_TIP_CHIP_DONE")
+			row.what:SetText(ns:L("FOV_CQ_ST_DONE"))
+			row.what:SetTextColor(A.dim[1], A.dim[2], A.dim[3])
+		elseif e.state == "now" then
+			row.ring:SetColorTexture(r, g, b, 1)
+			row.num:SetTextColor(r, g, b)
+			row.chip.t:SetText(ns:L("FOV_CHIP_NOW"))
+			row.chip:SetColor(r, g, b)
+			row.chip.tipTitle, row.chip.tipBody = ns:L("FOV_CHIP_NOW"), ns:L("FOV_TIP_CQP_NOW")
+			row.what:SetText(StepLine(e) or "")
+			row.what:SetTextColor(A.text[1], A.text[2], A.text[3])
+		else
+			row.ring:SetColorTexture(A.later[1], A.later[2], A.later[3], 1)
+			row.num:SetTextColor(A.text[1], A.text[2], A.text[3])
+			row.chip.t:SetText(ns:L("FOV_CHIP_LATER"))
+			row.chip:SetColor(A.later[1], A.later[2], A.later[3])
+			row.chip.tipTitle, row.chip.tipBody = ns:L("FOV_CHIP_LATER"), ns:L("FOV_TIP_CQP_LATER_FMT"):format(e.level or 0)
+			local from = ns:L("FOV_FROM_LEVEL_FMT"):format(e.level or 0)
+			local step = StepLine(e)
+			row.what:SetText(step and (step .. " · " .. from) or from)
+			row.what:SetTextColor(A.dim[1], A.dim[2], A.dim[3])
+		end
+		row.place:SetText(e.state ~= "done" and Place(e.zone, e.x, e.y) or "")
+		row.hover.tipTitle = e.chain
+		row.hover.tipBody = row.what:GetText()
+		SetGo(row.go, e.state ~= "done" and e.zone and e.go or nil)
+		row:Show()
+	end
+	for i = #list + 1, #card.rows do
+		card.rows[i]:Hide()
+	end
+	card.child:SetHeight(math.max(10, #list * CQP_ROW_H))
+	card.child:SetWidth(card.sf:GetWidth() > 0 and card.sf:GetWidth() or card.child:GetWidth())
+	card.sf:SetVerticalScroll(0)
+	card.UpdateThumb()
+end
+
 function ns.ForeverOverviewFill()
 	local f = Build()
 	local r, g, b = Accent()
 	f.nowAccent:SetColorTexture(r, g, b, 0.9)
 	local level = UnitLevel and UnitLevel("player") or 1
 	FillLeft(f, level)
+
+	-- Show the open page and mark its tab.
+	for key, p in pairs(f.pages) do
+		p:SetShown(key == f.page)
+	end
+	for _, b in ipairs(f.tabs) do
+		if b.page then
+			b:SetActive(b.page == f.page)
+		end
+	end
+	if f.page == "cq" then
+		FillClassQuestPage(f, level)
+		return f
+	end
 
 	local items = NowItems()
 	local up = Upcoming(6)

@@ -30,6 +30,16 @@ Eerst WoW helemaal afsluiten en opnieuw starten (er is een nieuw bestand; /reloa
 - [ ] `/mh overview` opent zonder foutmelding en ziet er precies hetzelfde uit als ronde 5 (zelfde letters, kleuren,
       knoppen, NOW/LATER-labels onder Jouw pad).
 
+## 📜 17 nov (avond) — Forever: tab Class quests als pagina (`/mh overview`)
+
+- [ ] Klik op de tab "Class quests": de rechterkant wordt één kaart met al je class-quests op volgorde van level. Je
+      portret en level links blijven staan. Klik "Now" en je bent terug.
+- [ ] Per regel: level-bolletje, spell-icoon (muis erop = de spell), naam, een label KLAAR (groen) / NU (klassekleur) /
+      LATER (grijs), wat je moet doen, de plek eronder, en een knop "Show the way" die de pijl zet.
+- [ ] Bij LATER: "Get the quest from <naam> · from level N" en de knop wijst naar die persoon.
+- [ ] Lange lijst (mage, warlock): met het muiswiel scrollen; Shift+wiel maakt het venster nog steeds groter/kleiner.
+- [ ] Rechtsboven in de kaart: "x of y done".
+
 ## 🆕 17 nov — Forever: nieuwe handige macro's (`/mh macros`)
 
 Open `/mh macros`, klik "Maak" bij een nieuwe rij, sleep de macro naar een balk en druk. Ctrl = de tweede functie.
