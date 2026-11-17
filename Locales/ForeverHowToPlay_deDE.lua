@@ -18,6 +18,41 @@ ns.FOREVER_HOWTOPLAY_L.deDE = {
 - **Mana** ist der blaue Balken unter deiner Gesundheit. Die meisten Zauber kosten Mana. Ist er leer, kannst du nicht zaubern.
 - **Abklingzeit** = die Wartezeit, bevor du einen Zauber wieder drücken kannst.
 - Feste Tasten, für jede Klasse gleich: **T** = Trank, **Shift-T** = Gesundheitsstein, **G** = Schmuck.]] },
+		-- not measured: The Great Outdoors
+		{ "Lager aufschlagen", [[
+- **Lager aufschlagen** ist kein Beruf. Jeder Beruf kann ein **Lagerelement** herstellen. Kochkunst stellt das Feuer her.
+- **Los geht's** mit der Quest **The Great Outdoors**, in jedem Startgebiet.
+- **1. Das Feuer.** Stell mit Kochkunst ein **Einfaches Lagerfeuerset** her: 1 Einfaches Holz, mit **Feuerstein und Zunder** als Werkzeug (das behältst du). Benutze das Set im Freien, nicht im Kampf. Das Feuer hat Platz für 3 Elemente (Lagerfeuer des Gesellen 5, Expertenlagerfeuer 10). Abklingzeit: 5 Minuten.
+- **2. Ein Element.** Stell es mit deinem Beruf her. Du brauchst Fertigkeit 20, um es aufzustellen. Stell es in der Nähe des Feuers auf. Der Gegenstand wird verbraucht.
+- **3. Setz dich** in die Nähe des Feuers. Du bekommst **Einladendes Lagerfeuer** für 60 Sekunden. Du darfst herstellen, aber nicht laufen. Danach bekommst du **Lagervorteile** für 1 Stunde, mit einer Zeile pro Element.
+- **Regeln:** Alle Elemente teilen sich eine Abklingzeit von 1 Stunde. Jede Art von Element nur einmal pro Lager.
+- **Konflikte:** Du kannst einen Lager-Buff und den unten genannten Klassen-Buff nicht gleichzeitig haben. Die meisten Lager-Buffs wachsen mit deiner Stufe.
+- Kürschnerei: **Lagerstuhl** = kritische Trefferchance. Verträgt sich nicht mit Aura des Moonkin.
+- Schmiedekunst: **Schleifstein** = Stärke. Verträgt sich nicht mit Totem der Erdstärke.
+- Kräuterkunde: **Räucherkerze** = Intelligenz. Verträgt sich nicht mit Arkane Intelligenz.
+- Alchimie: **Manabrunnen** = Mana alle 5 Sekunden. Verträgt sich nicht mit Segen der Weisheit.
+- Bergbau: **Leitstein** = Nahkampfangriffskraft. Verträgt sich nicht mit Segen der Macht.
+- Angeln: **Fischglas** = alle Werte. Verträgt sich nicht mit Segen der Könige.
+- Erste Hilfe: **Verbandtasche** = Ausdauer. Verträgt sich nicht mit Machtwort: Seelenstärke.
+- Schneiderei: **Fraktionsbanner** = Willenskraft, nur für deine eigene Fraktion. Verträgt sich nicht mit Göttlicher Willen.
+- Verzauberkunst: **Verzauberte Laute** = Rüstung, alle Werte und Widerstände. Verträgt sich nicht mit Mal der Wildnis.
+- Lederverarbeitung: **Lagerzelt** = ruh dich 30 Sekunden in seiner Nähe aus, für zusätzlichen Ruhebonus, einmal pro Stunde.
+- Ingenieurskunst: **Materialbot** = kein Buff, er verkauft Reagenzien.
+- **/mh camp** zeigt, was MH von deinen Lager-Buffs lesen kann.]] },
+		-- not measured: Innkeeper Wiley, Scarce
+		{ "Vermächtnispunkte", [[
+- **Vermächtnispunkte** verdient dein ganzer Account: 65 Herausforderungen, je 1 Punkt. Jeder Charakter gibt seine eigenen Punkte aus, vorerst bis zu 16.
+- **So verdienst du sie:** Eine Klasse erreicht zum ersten Mal Stufe 25, 45 und 60. Alchimie, Schmiedekunst, Verzauberkunst, Ingenieurskunst, Lederverarbeitung und Schneiderei bei 150, 225 und 300. Ein paar weitere für PvP, Dungeons, Schlachtzüge und Erkunden.
+- Sammelberufe, Kochkunst, Erste Hilfe und Angeln geben keine Punkte.
+- Das Fenster öffnet sich mit deinem ersten Punkt. Für die meisten Spieler ist das auf Stufe 25.
+- **Ausgeben:** Drück den Knopf **Klassisch** in der Menüleiste. Es gibt drei Bäume: **Berufe**, **Abenteuer** und **Einfallsreichtum**. Jeder Rang kostet 1 Punkt.
+- **Spalte 2** öffnet sich nach 5 Punkten in diesem Baum, **Spalte 3** nach 10.
+- **Rückgängig:** bei deinem Klassenlehrer, alle Perks auf einmal. Der Lehrer zeigt den Preis. Hast du Talentiert? Dann verlerne zuerst deine Klassentalente.
+- **Belohnungen** bei 15, 25, 40 und 55 verdienten Punkten (verdient, nicht ausgegeben). Hol sie bei **Innkeeper Wiley** in Ratchet ab.
+- **Beispiel, Leveln:** **Gut ausgeruht** (Ruhebonus baut sich schneller auf), dann **Talentiert** (braucht Gut ausgeruht): Talentpunkte bis zu 5 Stufen früher, nie mehr als 51 insgesamt.
+- **Beispiel, Berufe:** **Überstunden machen** (mehr Fertigkeitsaufstiege) und **Reiche Ernte** (Scarce-Materialien öfter aus Bergbau, Kräuterkunde und Kürschnerei).
+- **Engagiertes Studium** ist ein Knopf, kein passiver Perk: 25 Sekunden Zauberzeit, dann 23 Stunden warten. Es erhöht deinen niedrigsten Beruf um 1.
+- **/mh legacy** zeigt, wie viele Punkte MH lesen kann.]] },
 	},
 	DRUID = {
 		{ "Was er kann", [[

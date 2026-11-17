@@ -18,6 +18,41 @@ ns.FOREVER_HOWTOPLAY_L.ptBR = {
 - **Mana** é a barra azul embaixo da sua vida. A maioria dos feitiços custa mana. Quando ela acaba, você não pode lançar feitiços.
 - **Tempo de recarga** = a espera antes de você poder apertar um feitiço de novo.
 - Teclas fixas, iguais para toda classe: **T** = poção, **Shift-T** = Pedra de Vida, **G** = Berloque.]] },
+		-- not measured: The Great Outdoors (no ptBR quest title in the DB2 cache)
+		{ "Acampamento", [[
+- **Acampamento** não é uma profissão. Cada profissão pode fazer um **objeto de acampamento**. Culinária faz a fogueira.
+- **Comece** com a missão **The Great Outdoors**, em toda zona inicial.
+- **1. A fogueira.** Com Culinária, faça um **Kit de Fogueira Básica**: 1 Madeira Simples, com **Pederneira e Lenha** como ferramenta (você fica com ela). Use o kit ao ar livre, fora de combate. A fogueira tem espaço para 3 objetos (Fogueira Profissional 5, Fogueira do Especialista 10). Tempo de recarga: 5 minutos.
+- **2. Um objeto.** Faça com a sua profissão. Você precisa de perícia 20 para colocá-lo. Coloque perto da fogueira. O item é gasto.
+- **3. Sente-se** perto da fogueira. Você ganha **Fogueira Acolhedora** por 60 segundos. Você pode fabricar, mas não ande. Depois você ganha **Benefícios de Acampamento** por 1 hora, com uma linha por objeto.
+- **Regras:** todos os objetos dividem um tempo de recarga de 1 hora. Cada tipo de objeto só uma vez por acampamento.
+- **Conflitos:** você não pode ter um buff de acampamento e o buff de classe citado abaixo ao mesmo tempo. A maioria dos buffs de acampamento cresce com o seu nível.
+- Esfolamento: **Cadeira de Acampamento** = chance de acerto crítico. Conflita com Aura de Luniscante.
+- Ferraria: **Roda de Afiar** = Força. Conflita com Totem da Força da Terra.
+- Herborismo: **Vela de Incenso** = Intelecto. Conflita com Inteligência Arcana.
+- Alquimia: **Poço de Mana** = mana a cada 5 segundos. Conflita com Bênção de Sabedoria.
+- Mineração: **Magnetita** = poder de ataque corpo a corpo. Conflita com Bênção do Poder.
+- Pesca: **Aquário** = todos os atributos. Conflita com Bênção dos Reis.
+- Primeiros Socorros: **Kit de Primeiros Socorros** = Vigor. Conflita com Palavra de Poder: Fortitude.
+- Alfaiataria: **Estandarte de Facção** = Espírito, só para a sua própria facção. Conflita com Espírito Divino.
+- Encantamento: **Alaúde Encantado** = armadura, todos os atributos e resistências. Conflita com Marca do Indomado.
+- Couraria: **Barraca de Acampamento** = descanse 30 segundos perto dela para ganhar EXP descansada extra, uma vez por hora.
+- Engenharia: **Robô de Reagentes** = sem buff, ele vende reagentes.
+- **/mh camp** mostra o que o MH consegue ler dos seus buffs de acampamento.]] },
+		-- not measured: Innkeeper Wiley (no ptBR creature name in the DB2 cache)
+		{ "Pontos de Legado", [[
+- **Pontos de Legado** são ganhos pela sua conta inteira: 65 desafios, 1 ponto cada. Cada personagem gasta os próprios pontos, até 16 por enquanto.
+- **Como ganhar:** uma classe chegando aos níveis 25, 45 e 60 pela primeira vez. Alquimia, Ferraria, Encantamento, Engenharia, Couraria e Alfaiataria em 150, 225 e 300. Mais alguns por JxJ, masmorras, raides e exploração.
+- Profissões de coleta, Culinária, Primeiros Socorros e Pesca não dão pontos.
+- A janela abre com o seu primeiro ponto. Para a maioria dos jogadores, isso é no nível 25.
+- **Gastar:** aperte o botão **Legado** na barra de menu. Há três árvores: **Profissões**, **Aventura** e **Desenvoltura**. Cada grau custa 1 ponto.
+- A **coluna 2** abre depois de 5 pontos naquela árvore, a **coluna 3** depois de 10.
+- **Desfazer:** no treinador da sua classe, todas as vantagens de uma vez. O treinador mostra o preço. Você tem Talento é para quem tem? Então desaprenda primeiro os seus talentos de classe.
+- **Recompensas** com 15, 25, 40 e 55 pontos ganhos (ganhos, não gastos). Pegue com **Innkeeper Wiley** em Vila Catraca.
+- **Exemplo, subir de nível:** **Bem Descansado** (a EXP descansada acumula mais rápido), depois **Talento é para quem tem** (exige Bem Descansado): pontos de talento até 5 níveis mais cedo, nunca mais de 51 no total.
+- **Exemplo, profissões:** **Hora Extra** (mais pontos de perícia) e **Colheita Farta** (materiais escassos com mais frequência de Mineração, Herborismo e Esfolamento).
+- **Estudo Dedicado** é um botão, não uma vantagem passiva: 25 segundos lançando, depois 23 horas de espera. Ele aumenta em 1 a sua perícia de profissão mais baixa.
+- **/mh legacy** mostra quantos pontos o MH consegue ler.]] },
 	},
 	DRUID = {
 		{ "O que ele faz", [[

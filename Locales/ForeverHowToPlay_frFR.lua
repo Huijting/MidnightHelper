@@ -19,6 +19,42 @@ ns.FOREVER_HOWTOPLAY_L.frFR = {
 - **Mana** : c'est la barre bleue sous ta vie. La plupart des sorts coûtent du mana. Quand elle est vide, tu ne peux plus lancer de sorts.
 - **Cooldown** = le temps d'attente avant de pouvoir relancer un sort.
 - Touches fixes, les mêmes pour chaque classe : **T** = potion, **Shift-T** = Pierre de soins, **G** = bijou.]] },
+		-- not measured: The Great Outdoors (no QuestV2.frFR in the gamedata cache)
+		{ "Camping", [[
+- Le **camping** n'est pas un métier. Chaque métier peut fabriquer un **élément de camp**. La Cuisine fabrique le feu.
+- **Commence** par la quête **The Great Outdoors**, dans chaque zone de départ.
+- **1. Le feu.** Avec la Cuisine, fabrique un **Kit de feu de camp basique** : 1 Bois simple, avec **Silex et amadou** comme outil (tu le gardes). Utilise le kit en extérieur, pas en combat. Le feu a de la place pour 3 éléments (Feu de camp de compagnon 5, Feu de camp de spécialiste 10). Cooldown : 5 minutes.
+- **2. Un élément.** Fabrique-le avec ton métier. Il te faut la compétence 20 pour le poser. Pose-le près du feu. L'objet est consommé.
+- **3. Assieds-toi** près du feu. Tu reçois **Feu de camp accueillant** pendant 60 secondes. Tu peux fabriquer, mais ne marche pas. Ensuite, tu reçois **Avantages du camp** pendant 1 heure, avec une ligne par élément.
+- **Règles :** tous les éléments partagent un cooldown de 1 heure. Chaque sorte d'élément une seule fois par camp.
+- **Conflits :** tu ne peux pas avoir un buff de camp et le buff de classe indiqué ci-dessous en même temps. La plupart des buffs de camp augmentent avec ton niveau.
+- Dépeçage : **Chaise du camp** = chances de coup critique. Conflit avec Aura de sélénien.
+- Forge : **Meule à aiguiser** = Force. Conflit avec Totem de Force de la Terre.
+- Herboristerie : **Bougie d’encens** = Intelligence. Conflit avec Intelligence des arcanes.
+- Alchimie : **Puits de mana** = du mana toutes les 5 secondes. Conflit avec Bénédiction de sagesse.
+- Minage : **Magnétite** = puissance d'attaque en mêlée. Conflit avec Bénédiction de puissance.
+- Pêche : **Bocal à poisson** = toutes les caractéristiques. Conflit avec Bénédiction des rois.
+- Premiers soins : **Trousse de premiers soins** = Endurance. Conflit avec Mot de pouvoir : Robustesse.
+- Couture : **Bannière de faction** = Esprit, seulement pour ta propre faction. Conflit avec Esprit divin.
+- Enchantement : **Luth enchanté** = armure, toutes les caractéristiques et résistances. Conflit avec Marque du fauve.
+- Travail du cuir : **Tente du camp** = repose-toi 30 secondes près d'elle pour plus d'XP de repos, une fois par heure.
+- Ingénierie : **Robot vendeur de composants** = pas de buff, il vend des composants.
+- **/mh camp** montre ce que MH peut lire de tes buffs de camp.]] },
+		-- not measured: Innkeeper Wiley (NPC 6791 not in Creature.frFR of the gamedata cache)
+		-- not measured: Scarce (material quality word, no frFR source found)
+		{ "Points d’héritage", [[
+- Les **Points d’héritage** se gagnent pour tout ton compte : 65 défis, 1 point chacun. Chaque personnage dépense ses propres points, jusqu'à 16 pour l'instant.
+- **Comment les gagner :** une classe qui atteint 25, 45 et 60 pour la première fois. Alchimie, Forge, Enchantement, Ingénierie, Travail du cuir et Couture à 150, 225 et 300. Quelques-uns de plus pour le JcJ, les donjons, les raids et l'exploration.
+- Les métiers de récolte, la Cuisine, les Premiers soins et la Pêche ne donnent aucun point.
+- La fenêtre s'ouvre avec ton premier point. Pour la plupart des joueurs, c'est au niveau 25.
+- **Dépenser :** appuie sur le bouton **Héritage** dans la barre de menu. Il y a trois arbres : **Métiers**, **Aventure** et **Ingéniosité**. Chaque rang coûte 1 point.
+- La **colonne 2** s'ouvre après 5 points dans cet arbre, la **colonne 3** après 10.
+- **Annuler :** chez ton maître de classe, tous les avantages d'un coup. Le maître affiche le prix. Tu as Talent ? Alors désapprends d'abord tes talents de classe.
+- **Récompenses** à 15, 25, 40 et 55 points gagnés (gagnés, pas dépensés). Va les chercher auprès d'**Innkeeper Wiley** à Cabestan.
+- **Exemple, monter de niveau :** **Bien reposé** (l'XP de repos s'accumule plus vite), puis **Talent** (demande Bien reposé) : des points de talent jusqu'à 5 niveaux plus tôt, jamais plus de 51 au total.
+- **Exemple, métiers :** **Heures supplémentaires** (plus de points de compétence gagnés) et **Récolte généreuse** (des matériaux Scarce plus souvent avec le Minage, l'Herboristerie et le Dépeçage).
+- **Étude assidue** est un bouton, pas un avantage passif : 25 secondes d'incantation, puis 23 heures d'attente. Elle augmente de 1 ton métier le plus bas.
+- **/mh legacy** montre combien de points MH peut lire.]] },
 	},
 	DRUID = {
 		{ "Ce qu'il fait", [[

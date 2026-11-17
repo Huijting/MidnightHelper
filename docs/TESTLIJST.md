@@ -79,6 +79,11 @@ Priest, `/reload`. Uitgezocht met Fable; niets in het spel gezien.
 - [ ] Level 5-15: "Your first priest robe" (een wacht healen). Na level 15 verdwijnt hij uit "Do this now".
 - [ ] Undead level 10: geeft Aelthalyste de Touch of Weakness-quest, of Father Lankester naast haar?
 
+## 🗂️ 17 nov — Forever: uitleg Kamperen en Legacy Points in "How to play"
+
+- [ ] `/mh play`: bovenaan, na "Before you start", twee nieuwe stukken: "Camping" en "Legacy Points". Snap je ze?
+  Klopt wat er staat met wat je in het spel ziet (Basic Campfire Kit, Welcoming Campfire, Camp Benefits, de Legacy-knop)?
+
 ## 🏛️ 17 nov — Forever: Legacy Points, stap 1 (kan MH je punten lezen?)
 
 - [ ] Typ `/mh legacy`. Staan er getallen bij "earned", "available now", "spent" en "cap per character" (16)? Of

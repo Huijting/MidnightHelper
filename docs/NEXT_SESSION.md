@@ -88,6 +88,21 @@
   ForeverDirectionTalents ("Do this now" Coming up, + hint FDONOW_TALENTED_HINT als de rang niet leesbaar is), de
   macro-regel "(from level X)" en een grijze regel onder de class-tekst in How you play (FHOWTO_TALENTED_NOTE /
   _RANK_FMT). `/mh donow check` print rang + bron. AFGELEID tot Robs meting (TESTLIJST 17 nov). Alleen en + nl.
+- 🔎 **MOGELIJKE FOUT, eerst METEN (Sparring 17 nov, macro-onderzoek Opus)**: ForeverMacros.lua gebruikt vooral
+  `[mod:shift]` (61× vs 20× ctrl/alt, helper GEMETEN). Heeft Shift+toets een eigen binding (Blizzard ACTIONPAGE, of MH's
+  eigen blok: Shift+1..4 / Ctrl+1..3 / Alt+1..4 volgens Robs bindings-cache 16 nov), dan ziet de macro op de kale toets
+  de modifier nooit → werkt alleen met muis+Shift (AFGELEID). Meten: probe met `GetBindingAction(key, true)` voor
+  SHIFT-1..6, CTRL-1..0, ALT-1..0 in Robs client. Klopt het: melding in het macrovenster ("Shift+1 is al bezet door X"),
+  `/mh macros keys`-diagnose, eventueel schakelaar welke modifier. NOOIT blok- of andere-addon-toetsen losmaken; alleen
+  Blizzard-standaarden, met ongedaan maken (patroon row.was in ApplyLayout.lua). Ter info: "Free the keys" van de
+  Forever Leveling Guide wist zulke bindings zonder ongedaan maken (AFGELEID uit hun code) — Sparring waarschuwt Rob.
+- 🗂️ **Uitlegkaarten Kamperen + Legacy Points GEBOUWD (17 nov)**: in ForeverHowToPlay `COMMON` na "Before you start",
+  en + nl + de/fr/es/esMX/pt/ru (mh-writer, alleen uit de VERIFIED-hoofdstukken "mag gebruiken"; namen uit hun
+  hoofdstuk 10 + SpellName per taal). Niet gemeten in alle talen: questtitel "The Great Outdoors", "Innkeeper Wiley",
+  het woord "Scarce" (Bountiful Harvest) — Engels gelaten met `-- not measured`. Twijfels: deDE "Alchimie" vs
+  "Alchemie", frFR First Aid "Premiers soins" vs "Secourisme", ptBR Talented = "Talento é para quem tem".
+  ⏭️ VOLGENDE (verse bouwchat, Robs ja): Robs test bij een vuur met Camp Benefits aan (positieve controle voor
+  `/mh camp`), dan de huisstijl A+B (IDEEEN).
 - 🔴 **Talented-fout 2 (17 nov, GEMETEN in Robs SV, account zonder Legacy)**: activeEntry = 136852 (rang 1) terwijl
   ranksPurchased/currentRank/activeEntry.rank 0 → MH zei rang 1 → talent-levels 1 te vroeg voor iedereen zonder
   Talented. Fix in ns.ForeverTalentedRank: entry telt alleen als er iets gekocht is; alles 0 = rang 0. `/mh legacy`

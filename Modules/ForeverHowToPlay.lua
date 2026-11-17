@@ -31,6 +31,39 @@ local COMMON = {
 - **Mana** is the blue bar under your health. Most spells cost mana. When it is empty, you cannot cast.
 - **Cooldown** = the wait before you can press a spell again.
 - Fixed keys, the same for every class: **T** = potion, **Shift-T** = healthstone, **G** = trinket.]] },
+	{ "Camping", [[
+- **Camping** is not a profession. Every profession can make one **camp feature**. Cooking makes the fire.
+- **Start** with the quest **The Great Outdoors**, in every starting zone.
+- **1. The fire.** With Cooking, make a **Basic Campfire Kit**: 1 Simple Wood, with **Flint and Tinder** as a tool (you keep it). Use the kit outdoors, not in combat. The fire has room for 3 features (Journeyman Campfire 5, Expert Campfire 10). Cooldown: 5 minutes.
+- **2. A feature.** Make it with your profession. You need skill 20 to place it. Place it near the fire. The item is used up.
+- **3. Sit down** near the fire. You get **Welcoming Campfire** for 60 seconds. You may craft, but do not walk. Then you get **Camp Benefits** for 1 hour, with one line per feature.
+- **Rules:** all features share a cooldown of 1 hour. Each kind of feature only once per camp.
+- **Clashes:** you cannot have a camp buff and the class buff named below at the same time. Most camp buffs grow with your level.
+- Skinning: **Camp Chair** = critical strike chance. Clashes with Moonkin Aura.
+- Blacksmithing: **Sharpening Wheel** = Strength. Clashes with Strength of Earth Totem.
+- Herbalism: **Incense Candle** = Intellect. Clashes with Arcane Intellect.
+- Alchemy: **Mana Well** = mana every 5 seconds. Clashes with Blessing of Wisdom.
+- Mining: **Lodestone** = melee attack power. Clashes with Blessing of Might.
+- Fishing: **Fish Bowl** = all stats. Clashes with Blessing of Kings.
+- First Aid: **First Aid Kit** = Stamina. Clashes with Power Word: Fortitude.
+- Tailoring: **Faction Banner** = Spirit, for your own faction only. Clashes with Divine Spirit.
+- Enchanting: **Enchanted Lute** = armor, all stats and resistances. Clashes with Mark of the Wild.
+- Leatherworking: **Camp Tent** = rest 30 seconds near it for extra rested XP, once per hour.
+- Engineering: **Reagent Bot** = no buff, it sells reagents.
+- **/mh camp** shows what MH can read of your camp buffs.]] },
+	{ "Legacy Points", [[
+- **Legacy Points** are earned by your whole account: 65 challenges, 1 point each. Each character spends its own points, up to 16 for now.
+- **How you earn them:** a class reaching 25, 45 and 60 for the first time. Alchemy, Blacksmithing, Enchanting, Engineering, Leatherworking and Tailoring at 150, 225 and 300. A few more for PvP, dungeons, raids and exploring.
+- Gathering professions, Cooking, First Aid and Fishing give no points.
+- The window opens with your first point. For most players that is at level 25.
+- **Spending:** press the **Legacy** button in the menu bar. There are three trees: **Professions**, **Adventure** and **Resourcefulness**. Each rank costs 1 point.
+- **Column 2** opens after 5 points in that tree, **column 3** after 10.
+- **Undo:** at your class trainer, all perks at once. The trainer shows the price. Do you have Talented? Then unlearn your class talents first.
+- **Rewards** at 15, 25, 40 and 55 earned points (earned, not spent). Pick them up from **Innkeeper Wiley** in Ratchet.
+- **Example, leveling:** **Well Rested** (rested XP builds up faster), then **Talented** (needs Well Rested): talent points up to 5 levels earlier, never more than 51 in total.
+- **Example, professions:** **Working Overtime** (more skill-ups) and **Bountiful Harvest** (Scarce materials more often from Mining, Herbalism and Skinning).
+- **Dedicated Study** is a button, not a passive perk: a 25-second cast, then 23 hours wait. It raises your lowest tradeskill by 1.
+- **/mh legacy** shows how many points MH can read.]] },
 }
 
 local CLASSES = {

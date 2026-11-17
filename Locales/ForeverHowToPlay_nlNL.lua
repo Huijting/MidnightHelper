@@ -15,6 +15,39 @@ ns.FOREVER_HOWTOPLAY_L.nlNL = {
 - **Mana** is de blauwe balk onder je health. De meeste spells kosten mana. Is hij leeg, dan kun je niet casten.
 - **Cooldown** = de wachttijd voor je een spell weer kunt indrukken.
 - Vaste toetsen, voor elke class hetzelfde: **T** = potion, **Shift-T** = healthstone, **G** = trinket.]] },
+		{ "Kamperen", [[
+- **Kamperen** is geen beroep. Elk beroep kan één **kampobject** maken. Cooking maakt het vuur.
+- **Begin** met de quest **The Great Outdoors**, in elke startzone.
+- **1. Het vuur.** Maak met Cooking een **Basic Campfire Kit**: 1 Simple Wood, met **Flint and Tinder** als gereedschap (dat houd je). Gebruik de kit buiten, niet in combat. Het vuur heeft plek voor 3 objecten (Journeyman Campfire 5, Expert Campfire 10). Cooldown: 5 minuten.
+- **2. Een object.** Maak het met je beroep. Je hebt skill 20 nodig om het neer te zetten. Zet het bij het vuur. Het item gaat op.
+- **3. Ga zitten** bij het vuur. Je krijgt **Welcoming Campfire** voor 60 seconden. Craften mag, lopen niet. Daarna krijg je **Camp Benefits** voor 1 uur, met één regel per object.
+- **Regels:** alle objecten delen een cooldown van 1 uur. Elk soort object maar één keer per kamp.
+- **Botsen:** een kampbuff en de class-buff hieronder kun je niet tegelijk hebben. De meeste kampbuffs groeien mee met je level.
+- Skinning: **Camp Chair** = kans op een critical strike. Botst met Moonkin Aura.
+- Blacksmithing: **Sharpening Wheel** = Strength. Botst met Strength of Earth Totem.
+- Herbalism: **Incense Candle** = Intellect. Botst met Arcane Intellect.
+- Alchemy: **Mana Well** = mana elke 5 seconden. Botst met Blessing of Wisdom.
+- Mining: **Lodestone** = melee attack power. Botst met Blessing of Might.
+- Fishing: **Fish Bowl** = alle stats. Botst met Blessing of Kings.
+- First Aid: **First Aid Kit** = Stamina. Botst met Power Word: Fortitude.
+- Tailoring: **Faction Banner** = Spirit, alleen voor je eigen factie. Botst met Divine Spirit.
+- Enchanting: **Enchanted Lute** = armor, alle stats en resistances. Botst met Mark of the Wild.
+- Leatherworking: **Camp Tent** = rust er 30 seconden bij voor extra rested XP, één keer per uur.
+- Engineering: **Reagent Bot** = geen buff, hij verkoopt reagents.
+- **/mh camp** laat zien wat MH van je kampbuffs kan lezen.]] },
+		{ "Legacy Points", [[
+- **Legacy Points** verdien je met je hele account: 65 challenges, 1 punt per stuk. Elk character geeft zijn eigen punten uit, voorlopig tot 16.
+- **Zo krijg je ze:** een class die voor het eerst 25, 45 en 60 wordt. Alchemy, Blacksmithing, Enchanting, Engineering, Leatherworking en Tailoring op 150, 225 en 300. Nog een paar voor PvP, dungeons, raids en verkennen.
+- Verzamelberoepen, Cooking, First Aid en Fishing geven geen punten.
+- Het venster gaat open bij je eerste punt. Voor de meeste spelers is dat op level 25.
+- **Uitgeven:** druk op de knop **Legacy** in de menubalk. Er zijn drie bomen: **Professions**, **Adventure** en **Resourcefulness**. Elke rang kost 1 punt.
+- **Kolom 2** gaat open na 5 punten in die boom, **kolom 3** na 10.
+- **Terugdraaien:** bij je class trainer, alle perks tegelijk. De trainer laat de prijs zien. Heb je Talented? Draai dan eerst je class-talenten terug.
+- **Beloningen** bij 15, 25, 40 en 55 verdiende punten (verdiend, niet uitgegeven). Haal ze op bij **Innkeeper Wiley** in Ratchet.
+- **Voorbeeld, levelen:** **Well Rested** (rested XP bouwt sneller op), daarna **Talented** (vraagt Well Rested): talentpunten tot 5 levels eerder, nooit meer dan 51 in totaal.
+- **Voorbeeld, beroepen:** **Working Overtime** (vaker een skill-up) en **Bountiful Harvest** (vaker Scarce materials uit Mining, Herbalism en Skinning).
+- **Dedicated Study** is een knop, geen passieve perk: 25 seconden casten, daarna 23 uur wachten. Hij verhoogt je laagste beroep met 1.
+- **/mh legacy** laat zien hoeveel punten MH kan lezen.]] },
 	},
 	DRUID = {
 		{ "Wat hij doet", [[

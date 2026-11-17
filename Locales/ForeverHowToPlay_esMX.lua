@@ -19,6 +19,42 @@ ns.FOREVER_HOWTOPLAY_L.esMX = {
 - **Maná** es la barra azul debajo de tu salud. La mayoría de los hechizos cuestan maná. Cuando se vacía, no puedes lanzar hechizos.
 - **Reutilización** = la espera antes de poder pulsar un hechizo otra vez.
 - Teclas fijas, iguales para todas las clases: **T** = poción, **Shift-T** = piedra de salud, **G** = abalorio.]] },
+		-- not measured: The Great Outdoors (no esMX quest table in the gamedata cache)
+		{ "Campamento", [[
+- **Campamento** no es una profesión. Cada profesión puede hacer un **elemento de campamento**. Cocina hace la hoguera.
+- **Empieza** con la misión **The Great Outdoors**, en todas las zonas de inicio.
+- **1. La hoguera.** Con Cocina, haz el objeto **Hoguera básica**: 1 Madera simple, con **Sílex y yesca** como herramienta (te la quedas). Usa el objeto al aire libre, no en combate. La hoguera tiene espacio para 3 elementos (Hoguera de oficial 5, Hoguera de experto 10). Reutilización: 5 minutos.
+- **2. Un elemento.** Hazlo con tu profesión. Necesitas habilidad 20 para colocarlo. Colócalo cerca de la hoguera. El objeto se gasta.
+- **3. Siéntate** cerca de la hoguera. Recibes **Hoguera acogedora** durante 60 segundos. Puedes fabricar, pero no camines. Luego recibes **Beneficios de campamento** durante 1 hora, con una línea por elemento.
+- **Reglas:** todos los elementos comparten una reutilización de 1 hora. Cada tipo de elemento solo una vez por campamento.
+- **Choques:** no puedes tener a la vez un buff de campamento y el buff de clase indicado abajo. La mayoría de los buffs de campamento crecen con tu nivel.
+- Desuello: **Silla de campamento** = probabilidad de golpe crítico. Choca con Aura de lechúcico lunar.
+- Herrería: **Rueda de afilar** = Fuerza. Choca con Tótem Fuerza de la tierra.
+- Herboristería: **Vela de incienso** = Intelecto. Choca con Intelecto Arcano.
+- Alquimia: **Pozo de maná** = maná cada 5 segundos. Choca con Bendición de sabiduría.
+- Minería: **Magnetita** = poder de ataque cuerpo a cuerpo. Choca con Bendición de poderío.
+- Pesca: **Cuenco de pescado** = todas las estadísticas. Choca con Bendición de reyes.
+- Primeros auxilios: **Equipo de primeros auxilios** = Aguante. Choca con Palabra de poder: entereza.
+- Sastrería: **Estandarte de facción** = Espíritu, solo para tu propia facción. Choca con Espíritu divino.
+- Encantamiento: **Laúd encantado** = armadura, todas las estadísticas y resistencias. Choca con Marca de lo Salvaje.
+- Peletería: **Tienda de campamento** = descansa 30 segundos cerca de ella para ganar más experiencia de descanso, una vez por hora.
+- Ingeniería: **Robot de componentes** = sin buff, vende componentes.
+- **/mh camp** muestra lo que MH puede leer de tus buffs de campamento.]] },
+		-- not measured: Innkeeper Wiley, Ratchet (no esMX NPC/area table in the gamedata cache)
+		-- not measured: Scarce (material quality word; not found in esMX GlobalStrings)
+		{ "Puntos de legado", [[
+- Los **Puntos de legado** los gana toda tu cuenta: 65 desafíos, 1 punto cada uno. Cada personaje gasta sus propios puntos, hasta 16 por ahora.
+- **Cómo se ganan:** una clase que llega a 25, 45 y 60 por primera vez. Alquimia, Herrería, Encantamiento, Ingeniería, Peletería y Sastrería en 150, 225 y 300. Algunos más por Jugador contra Jugador, calabozos, bandas y exploración.
+- Las profesiones de recolección, Cocina, Primeros auxilios y Pesca no dan puntos.
+- La ventana se abre con tu primer punto. Para la mayoría de los jugadores, eso es en el nivel 25.
+- **Gastar:** pulsa el botón **Legado** en la barra de menú. Hay tres árboles: **Profesiones**, **Aventura** e **Inventiva**. Cada rango cuesta 1 punto.
+- La **columna 2** se abre tras 5 puntos en ese árbol, la **columna 3** tras 10.
+- **Deshacer:** con tu instructor de clase, todas las ventajas a la vez. El instructor muestra el precio. ¿Tienes Talentoso? Entonces olvida primero tus talentos de clase.
+- **Recompensas** con 15, 25, 40 y 55 puntos ganados (ganados, no gastados). Recógelas con **Innkeeper Wiley** en Ratchet.
+- **Ejemplo, subir de nivel:** **Bien descansado** (la experiencia de descanso se acumula más rápido), luego **Talentoso** (requiere Bien descansado): puntos de talento hasta 5 niveles antes, nunca más de 51 en total.
+- **Ejemplo, profesiones:** **Horas extra** (más subidas de habilidad) y **Cosecha abundante** (materiales Scarce más a menudo con Minería, Herboristería y Desuello).
+- **Estudio dedicado** es un botón, no una ventaja pasiva: un lanzamiento de 25 segundos y luego 23 horas de espera. Sube en 1 tu habilidad comercial más baja.
+- **/mh legacy** muestra cuántos puntos puede leer MH.]] },
 	},
 	DRUID = {
 		{ "Qué hace", [[
