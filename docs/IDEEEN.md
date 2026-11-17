@@ -174,6 +174,15 @@ gebruiken."* Uitslag (bouwchat 15-11, alleen op main, NIET in het spel gezien):
 Hier komt wat Rob goedkeurt, ook wat hij rechtstreeks in de bouwchat vraagt (Rob, 10 nov: *"ja we willen het op 1
 lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met de commit erbij. Na zijn test naar **Af**.
 
+### Forever: Legacy Points uitleggen en helpen (+ Talented-fout repareren)
+- Bron: Rob 17 nov (via Sparring 17-11), letterlijk: *"legacy points. Wat zijn het? Waar krijg ik het? Hoe krijg ik het?
+  En hoe zet ik het in?"* Op het onderzoek: *"Legacy ook bouwen en het gat met talented als fout laten repareren. Want
+  we willen gewoon een goed product leveren, toch?"*
+- Volgorde: (a) de Talented-fout direct na de mage, vóór de vertalingen; (b) Legacy bouwen na de classes, naast
+  Kamperen. Spel: F. Voor wie: N + V.
+- Onderzoek (sparring, mh-research Opus, 17 nov): `docs/forever/LEGACY_RESEARCH_2026-11-17.md`. Voorstel: uitlegkaart
+  Legacy, "Do this now" ongebruikte punten (alleen als gemeten), `/mh legacy`-diagnose, de Talented-fix. NOG NIETS GEBOUWD.
+
 ### Forever: Kamperen (kampvuur + kampobjecten) uitleggen en helpen
 - Bron: Rob 17 nov (via Sparring 17-11), letterlijk: *"We hebben tegenwoordig kampvuurs waarbij je allerlei power-ups,
   hoe noem je dat, tijdelijke buffs kan krijgen. Onder andere bij een campchair, een sharpening wheel, incense candle,
@@ -257,6 +266,9 @@ Stand 15 nov avond: 1 gebouwd (1f521e5), 2 gemeten, 3 rapport + A/B gebouwd (zie
 - ✅ Paladin class-quests GEBOUWD in en/nl (17 nov, Fable): Alliance Redemption 12, Verigan's Fist 20, Warhorse 40,
   Valorfist 50, Charger 60; Undead (nieuw in Forever) Holy Light 2, Bandarion Keep 8, Redemption 12, Wolfsbane 20,
   Warhorse 40. NIET in het spel gezien. Open: Forsaken Charger (niet gebouwd), vertalingen, rollen.
+- ✅ Mage class-quests GEBOUWD in en/nl (17 nov, Fable): staf/orb 10 per ras (+ Skyborne-wand), Study 6, robe 15,
+  garment 26, Mage's Wand + Items of Power 30, Celestial 35, Spellbook 42, Magecraft 50, Conjure Water 7 + Pig 60.
+  Daarmee alle 9 classes stap 1. NIET in het spel gezien. Open: vertalingen alle classes, rollen per 10 levels.
 
 ### Forever: "Do this now" noemt de beste stats voor jou (solo + tank, dps/heal in gedachten)
 - Bron: Rob 16 nov (eerder die dag, letterlijk): *"wat ik ook graag wil weten in het schermpje Doe This Now … wat zijn

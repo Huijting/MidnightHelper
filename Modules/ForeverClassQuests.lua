@@ -1387,6 +1387,235 @@ CHAINS.PALADIN = {
 	} },
 }
 
+--[[ Mage (17 Nov 2026, Bouwchat 17-11; researched by mh-research on Fable). All facts:
+	docs/forever/MAGE_CLASSQUESTS_2026-11-17.md: Zygor Forever "Mage Class Quests" + Common + the Sunken Temple dungeon
+	guide, Spoken, wago DB2 1.60.1.70938 (local cache), Wowhead Forever, Icy Veins DB, azeroth.wiki, Polestar, HandyNotes.
+	GEMETEN on Wowhead Forever: 7463 teaches Conjure Water 10140, 9364 teaches Polymorph 28272 (the pig), 97286 teaches
+	Study 1302508. There are no rank quests and no teleport or portal quests (trainers). Mage races (CharBaseInfo): Human,
+	Gnome, High Order Skyborne, Orc, Troll, Undead.
+	NEW in Forever: Boughs in the Wind (93791-93797), Research Access (97286), A Lesson in Literacy (82084), Scalebeard
+	(90789; shares its completion bit with 9362 Warlord Krellian).
+	AFGELEID: which race walks which route; that a pointer quest may be skipped (Troll starts at 1884, Skyborne at 1861);
+	Orc and Skyborne on the level 15 and 26 chains (sources disagree: item chains, so at worst the line leaves "Do this
+	now" 10 levels later); 90789 before 9362; the trainer per race from level 30; level 6 for Study; Lydros' place = the
+	Dire Maul West door; the objective index. 1955 has no objective index on purpose (Wowhead shows two lines).
+	1948 runs beside 1949-1951: its own chain, first. Not built: Tabetha's Task / Tiara of the Deep (any class), The
+	Arcanist's Cookbook (starts from an item), the level 1 letters (experience only). Magecraft's Destroy Morphaz probably
+	pays experience only (its Classic items are not in ItemSparse 70938).
+	Zygor mistakes not copied: ding 15 before the level 10 quest, |q 18299 (= 7463), Return to the Marsh at 40 (= 35). ]]
+local MA_P = {
+	zaldimar = { npc = "Zaldimar Wefhellt", id = 328, m = 1429, x = 43.25, y = 66.20 },
+	jennea = { npc = "Jennea Cannon", id = 5497, m = 1453, x = 49.56, y = 85.80 },
+	magis = { npc = "Magis Sparkmantle", id = 1228, m = 1426, x = 47.53, y = 52.16 },
+	bink = { npc = "Bink", id = 5144, m = 1455, x = 27.28, y = 8.20 },
+	dink = { npc = "Dink", id = 7312, m = 1455, x = 27.13, y = 8.67 },
+	anathamaas = { npc = "Anathamaas Aetherwind", id = 252373, m = 2521, x = 65.80, y = 80.50 },
+	belann = { npc = "Belann Windwood", id = 256507, m = 2521, x = 62.90, y = 77.44 },
+	wynne = { npc = "Wynne Larson", id = 1309, m = 1453, x = 51.84, y = 83.51 },
+	andromath = { npc = "High Sorcerer Andromath", id = 5694, m = 1453, x = 48.71, y = 87.61 },
+	maginor = { npc = "Maginor Dumas", id = 331, m = 1453, x = 49.25, y = 87.77 },
+	garion = { npc = "Garion Wendell", id = 211033, m = 1453, x = 48.9, y = 86.5 },
+	uthelnay = { npc = "Uthel'nay", id = 7311, m = 1454, x = 39.16, y = 86.27 },
+	unthuwa = { npc = "Un'Thuwa", id = 5880, m = 1411, x = 56.31, y = 75.11 },
+	cain = { npc = "Cain Firesong", id = 2128, m = 1420, x = 62.22, y = 52.33 },
+	anastasia = { npc = "Anastasia Hartwell", id = 4568, m = 1458, x = 85.14, y = 10.03 },
+	josef = { npc = "Josef Gregorian", id = 4576, m = 1458, x = 70.75, y = 30.69 },
+	deino = { npc = "Deino", id = 5885, m = 1454, x = 38.45, y = 86.13 },
+	kilhala = { npc = "Kil'hala", id = 3484, m = 1413, x = 52.20, y = 31.70 },
+	pierce = { npc = "Pierce Shackleton", id = 4567, m = 1458, x = 85.45, y = 13.51 },
+	owen = { npc = "Owen Thadd", id = 211022, m = 1458, x = 73.4, y = 33.0 },
+	tabetha = { npc = "Tabetha", id = 6546, m = 1445, x = 46.06, y = 57.09 },
+	tirth = { npc = "Magus Tirth", id = 6548, m = 1441, x = 78.29, y = 75.70 },
+	sanath = { npc = "Sanath Lim-yo", id = 8395, m = 1447, x = 28.11, y = 50.09 },
+	-- Lydros stands inside Dire Maul (the Athenaeum): the arrow points at the West door (AFGELEID).
+	lydros = { npc = "Lorekeeper Lydros", id = 14368, m = 1444, x = 60.32, y = 30.16 },
+	-- Objective places (no NPC).
+	mirrorLake = { m = 1429, x = 28.78, y = 61.47 },
+	toolbox = { m = 1426, x = 27.7, y = 36.4 },
+	bough = { m = 2521, x = 48.72, y = 67.77 },
+	juju = { m = 1411, x = 67.76, y = 83.50 },
+	snapdragons = { m = 1420, x = 76.94, y = 62.38 },
+	cofferChestSW = { m = 1453, x = 49.54, y = 85.61 },
+	cantationSW = { m = 1453, x = 49.62, y = 85.40 },
+	blueRecluse = { m = 1453, x = 51.12, y = 95.56 },
+	riftGems = { m = 1432, x = 35.85, y = 22.58 },
+	cofferChestUC = { m = 1458, x = 85.65, y = 10.00 },
+	alchemist = { m = 1458, x = 52.99, y = 74.92 },
+	manaGems = { m = 1421, x = 62.26, y = 64.24 },
+	treatise = { m = 1433, x = 73.78, y = 47.64 },
+	spiderSilk = { m = 1431, x = 31.38, y = 26.95 },
+	xavian = { m = 1440, x = 76.33, y = 41.43 },
+	sisters = { m = 1440, x = 58.61, y = 59.49 },
+	plucky = { m = 1441, x = 79.60, y = 75.60 },
+	witherbark = { m = 1417, x = 66.66, y = 64.37 },
+	bramble = { m = 1417, x = 52.06, y = 50.69 },
+	summoners = { m = 1443, x = 53.34, y = 79.05 },
+	demon = { m = 1445, x = 46.04, y = 57.10 },
+	uldaman = { m = 1418, x = 65.05, y = 43.45 },
+	surges = { m = 1445, x = 45.85, y = 56.76 },
+	owlbeasts = { m = 1425, x = 55.2, y = 51.4 },
+	zukkash = { m = 1444, x = 75.4, y = 61.4 },
+	zulfarrak = { m = 1446, x = 38.7, y = 19.5 },
+	dust = { m = 1447, x = 56.94, y = 29.30 },
+	coral = { m = 1447, x = 47.65, y = 43.93 },
+	dmEast = { m = 1444, x = 64.85, y = 30.18 },
+	scalebeard = { m = 1447, x = 54.20, y = 48.60 },
+}
+local MA = MA_P
+
+-- Level 10: one staff-or-orb quest per character (1861/1880 and 1882/1884 share a completion bit in QuestV2), so each
+-- route names the other as alt.
+local function MaFocus(faction, races, quests)
+	return { key = "focus", nameKey = "FCQ_CHAIN_MA_FOCUS", level = 10, faction = faction, races = races, quests = quests }
+end
+local MA_MIRROR = { q = 1861, alt = { 1880 }, from = MA.jennea, objs = { O(MA.mirrorLake, "FCQ_OBJ_MA_MIRRORLAKE", 1) },
+	to = MA.jennea }
+local MA_JUJU = { q = 1884, alt = { 1882 }, from = MA.unthuwa, objs = { O(MA.juju, "FCQ_OBJ_MA_JUJU", 1) }, to = MA.unthuwa }
+
+-- Level 15: the robe. Orc and Skyborne: the sources disagree whether they may take it (not seen in game).
+local function MaRobeA(races, starter)
+	return { key = "robe", nameKey = "FCQ_CHAIN_MA_ROBE_A", level = 15, faction = "Alliance", races = races, quests = {
+		{ q = 1919, from = starter, to = MA.jennea },
+		{ q = 1920, from = MA.jennea, objs = {
+			O(MA.cofferChestSW, "FCQ_OBJ_MA_COFFERCHEST", 2),
+			O(MA.cantationSW, "FCQ_OBJ_MA_CANTATION", 3),
+			O(MA.blueRecluse, "FCQ_OBJ_MA_COFFERS_A", 1),
+		}, to = MA.jennea },
+		{ q = 1921, from = MA.jennea, objs = { O(MA.riftGems, "FCQ_OBJ_MA_RIFTGEMS", 2), O(nil, "FCQ_OBJ_MA_LINEN", 1) },
+			to = MA.wynne },
+		{ q = 1941, from = MA.wynne, to = MA.wynne },
+	} }
+end
+local function MaRobeH(races, starter)
+	return { key = "robe", nameKey = "FCQ_CHAIN_MA_ROBE_H", level = 15, faction = "Horde", races = races, quests = {
+		{ q = 1959, from = starter, to = MA.anastasia },
+		{ q = 1960, from = MA.anastasia, objs = {
+			O(MA.cofferChestUC, "FCQ_OBJ_MA_COFFERCHEST", 2),
+			O(MA.cofferChestUC, "FCQ_OBJ_MA_CANTATION", 3),
+			O(MA.alchemist, "FCQ_OBJ_MA_COFFERS_H", 1),
+		}, to = MA.anastasia },
+		{ q = 1961, from = MA.anastasia, objs = { O(MA.manaGems, "FCQ_OBJ_MA_MANAGEMS", 2), O(nil, "FCQ_OBJ_MA_LINEN", 1) },
+			to = MA.josef },
+		{ q = 1962, from = MA.josef, to = MA.josef },
+	} }
+end
+local function MaGarmentA(races, starter)
+	return { key = "garment", nameKey = "FCQ_CHAIN_MA_GARMENT_A", level = 26, faction = "Alliance", races = races, quests = {
+		{ q = 1939, from = starter, to = MA.andromath },
+		{ q = 1938, from = MA.andromath, objs = { O(MA.treatise, "FCQ_OBJ_MA_TREATISE", 1) }, to = MA.andromath },
+		{ q = 1940, from = MA.andromath, objs = { O(MA.spiderSilk, "FCQ_OBJ_MA_SILK", 1) }, to = MA.wynne },
+		{ q = 1942, from = MA.wynne, to = MA.wynne },
+	} }
+end
+
+CHAINS.MAGE = {
+	MaFocus("Alliance", HUM, { { q = 1860, alt = { 1879 }, from = MA.zaldimar, to = MA.jennea }, MA_MIRROR }),
+	MaFocus("Alliance", GNO, {
+		{ q = 1879, alt = { 1860 }, from = MA.magis, to = MA.bink },
+		{ q = 1880, alt = { 1861 }, from = MA.bink, objs = { O(MA.toolbox, "FCQ_OBJ_MA_GIZMONITOR", 1) }, to = MA.bink },
+	}),
+	-- Skyborne: NEW in Forever. The wand on Zephras Isle first (table order), Mirror Lake once they reach Stormwind
+	-- (1860 is for Human and Gnome only; Jennea gives 1861 without it: Polestar, not seen in game).
+	{ key = "windbough", nameKey = "FCQ_CHAIN_MA_WINDBOUGH", level = 10, faction = "Alliance", races = SKYBORNE, quests = {
+		{ q = 93791, from = MA.anathamaas, to = MA.belann },
+		{ q = 93797, from = MA.belann, objs = { O(MA.bough, "FCQ_OBJ_MA_BOUGH", 1) }, to = MA.belann },
+	} },
+	MaFocus("Alliance", SKYBORNE, { MA_MIRROR }),
+	-- 1883 is a pointer from Orgrimmar; a Troll in Sen'jin takes 1884 straight from Un'Thuwa (Polestar).
+	MaFocus("Horde", ORC, { { q = 1883, alt = { 1881 }, from = MA.uthelnay, to = MA.unthuwa }, MA_JUJU }),
+	MaFocus("Horde", TROLL, { MA_JUJU }),
+	MaFocus("Horde", UD, {
+		{ q = 1881, alt = { 1883 }, from = MA.cain, to = MA.anastasia },
+		{ q = 1882, alt = { 1884 }, from = MA.anastasia, objs = { O(MA.snapdragons, "FCQ_OBJ_MA_SNAPDRAGONS", 1) },
+			to = MA.anastasia },
+	}),
+	MaRobeA(HUMSKY, MA.zaldimar),
+	MaRobeA(GNO, MA.dink),
+	MaRobeH(ORCTROLL, MA.uthelnay),
+	MaRobeH(UD, MA.cain),
+	MaGarmentA(HUMSKY, MA.jennea),
+	MaGarmentA(GNO, MA.bink),
+	{ key = "garment", nameKey = "FCQ_CHAIN_MA_GARMENT_H", level = 26, faction = "Horde", quests = {
+		{ q = 1943, from = MA.anastasia, to = MA.deino },
+		{ q = 1944, from = MA.deino, objs = { O(MA.xavian, "FCQ_OBJ_MA_XAVIAN", 1) }, to = MA.deino },
+		{ q = 1945, from = MA.deino, objs = { O(MA.sisters, "FCQ_OBJ_MA_SISTERS", 1) }, to = MA.kilhala },
+		{ q = 1946, from = MA.kilhala, to = MA.kilhala },
+	} },
+}
+-- From level 30 every mage trainer hands out the pointer; the trainer per race is a choice (AFGELEID).
+-- c = { faction, races, trainer (1947/1953), giver of Magecraft, librarian }
+for _, c in ipairs({
+	{ "Alliance", HUMSKY, MA.jennea, MA.maginor, MA.garion },
+	{ "Alliance", GNO, MA.bink, MA.dink, MA.garion },
+	{ "Horde", ORCTROLL, MA.deino, MA.uthelnay, MA.owen },
+	{ "Horde", UD, MA.anastasia, MA.pierce, MA.owen },
+}) do
+	local faction, races, trainer, master, librarian = c[1], c[2], c[3], c[4], c[5]
+	-- NEW in Forever. The librarian only offers 97286 after your first library book: e.wait says so. Study is a recipe in
+	-- the Comprehension tab: whether the spell check sees it = NOT measured; the chain also ends once 97286 is done.
+	table.insert(CHAINS.MAGE, { key = "study", spell = 1302508, nameKey = "FCQ_CHAIN_MA_STUDY", level = 6, faction = faction,
+		races = races, quests = {
+			{ q = 97286, from = librarian, wait = "FCQ_WAIT_MA_BOOK", to = librarian },
+		} })
+	-- Items of Power runs beside 1949-1951 and Mage's Wand needs both: its own chain, BEFORE the wand chain (table order),
+	-- open once 1947 is done. The sticks are no objective: one stick or the bramble in your bags counts (a limit).
+	table.insert(CHAINS.MAGE, { key = "items", nameKey = "FCQ_CHAIN_MA_ITEMS", level = 30, needs = 1947, faction = faction,
+		races = races, quests = {
+			{ q = 1948, from = MA.tabetha, objs = {
+				O(MA.witherbark, "FCQ_OBJ_MA_STICKS", nil, { 7273, 7272 }),
+				O(MA.bramble, "FCQ_OBJ_MA_BRAMBLE", 2),
+				O(nil, "FCQ_OBJ_MA_JADE", 1),
+			}, to = MA.tabetha },
+		} })
+	table.insert(CHAINS.MAGE, { key = "wand", nameKey = "FCQ_CHAIN_MA_WAND", level = 30, faction = faction, races = races,
+		quests = {
+			{ q = 1947, from = trainer, to = MA.tabetha },
+			{ q = 1949, from = MA.tabetha, to = MA.tirth },
+			{ q = 1950, from = MA.tirth, objs = { O(MA.plucky, "FCQ_OBJ_MA_PLUCKY", 1) }, to = MA.tirth },
+			{ q = 1951, from = MA.tirth, objs = { O(RO.sm, "FCQ_OBJ_MA_RITUALS", 1) }, to = MA.tabetha },
+			-- Offered a few seconds after 1951 and 1948 are both handed in (Tabetha's ritual).
+			{ q = 1952, from = MA.tabetha, wait = "FCQ_WAIT_MA_RITUAL", to = MA.tabetha },
+		} })
+	table.insert(CHAINS.MAGE, { key = "celestial", nameKey = "FCQ_CHAIN_MA_CELESTIAL", level = 35, faction = faction,
+		races = races, quests = {
+			{ q = 1953, from = trainer, to = MA.tabetha },
+			{ q = 1954, from = MA.tabetha, objs = { O(MA.summoners, "FCQ_OBJ_MA_ORB", 1) }, to = MA.tabetha },
+			-- No index on purpose (Wowhead shows two lines, Zygor says /1): waits until the client says complete.
+			{ q = 1955, from = MA.tabetha, objs = { O(MA.demon, "FCQ_OBJ_MA_DEMON") }, to = MA.tabetha },
+			{ q = 1956, from = MA.tabetha, objs = { O(MA.uldaman, "FCQ_OBJ_MA_POWERSOURCE", 1) }, to = MA.tabetha },
+			{ q = 1957, from = MA.tabetha, objs = { O(MA.surges, "FCQ_OBJ_MA_SURGES", 1) }, to = MA.tabetha },
+			{ q = 1958, from = MA.tabetha, to = MA.tabetha },
+		} })
+	-- NEW in Forever. Whether it needs Research Access first = NOT measured.
+	table.insert(CHAINS.MAGE, { key = "spellbook", nameKey = "FCQ_CHAIN_MA_SPELLBOOK", level = 42, faction = faction,
+		races = races, quests = {
+			{ q = 82084, from = librarian, objs = {
+				O(MA.owlbeasts, "FCQ_OBJ_MA_QUILL", 1),
+				O(MA.zukkash, "FCQ_OBJ_MA_RESIN", 2),
+				O(MA.zulfarrak, "FCQ_OBJ_MA_PAPYRUS", 3),
+			}, to = librarian },
+		} })
+	-- Magecraft (50). What 8253 pays in Forever is not measured (the Classic items are not in ItemSparse 70938).
+	table.insert(CHAINS.MAGE, { key = "magecraft", nameKey = "FCQ_CHAIN_MA_MAGECRAFT", level = 50, faction = faction,
+		races = races, quests = {
+			{ q = 8250, from = master, to = MA.sanath },
+			{ q = 8251, from = RO.xylem, objs = { O(MA.dust, "FCQ_OBJ_MA_DUST", 1) }, to = RO.xylem },
+			{ q = 8252, from = RO.xylem, objs = { O(MA.coral, "FCQ_OBJ_MA_CORAL", 1) }, to = RO.xylem },
+			{ q = 8253, from = RO.xylem, objs = { O(P.sunken, "FCQ_OBJ_MA_SHARD", 1) }, to = RO.xylem },
+		} })
+	-- Conjure Water Rank 7 (60): the giver stands inside Dire Maul.
+	table.insert(CHAINS.MAGE, { key = "water", spell = 10140, nameKey = "FCQ_CHAIN_MA_WATER", level = 60, faction = faction,
+		races = races, quests = {
+			{ q = 7463, from = MA.lydros, objs = { O(MA.dmEast, "FCQ_OBJ_MA_HYDROSPAWN", 1) }, to = MA.lydros },
+		} })
+	-- Polymorph: Pig (60). 90789 Scalebeard is NEW and shares its completion bit with 9362 Warlord Krellian: alt.
+	table.insert(CHAINS.MAGE, { key = "pig", spell = 28272, nameKey = "FCQ_CHAIN_MA_PIG", level = 60, faction = faction,
+		races = races, quests = {
+			{ q = 90789, alt = { 9362 }, from = RO.xylem, objs = { O(MA.scalebeard, "FCQ_OBJ_MA_SHELL", 1) }, to = RO.xylem },
+			{ q = 9364, from = RO.xylem, objs = { O(MA.coral, "FCQ_OBJ_MA_CLONES", 1) }, to = RO.xylem },
+		} })
+end
+
 local MOONGLADE, TELEPORT_MOONGLADE = 1450, 18960
 
 local function Done(q)
@@ -1714,6 +1943,32 @@ local NPC_NAMES = {
 	[259649] = { deDE = "Ulric Frostveil", frFR = "Ulric Voile-de-givre", esES = "Ulric Veloescarcha", esMX = "Ulric Veloscarcha", ptBR = "Ulorico Glacivéu", ruRU = "Ульрик Фроствейл" },
 	[3539] = { deDE = "Ott", frFR = "Ott", esES = "Ott", esMX = "Ott", ptBR = "Ott", ruRU = "Отт" },
 	[260093] = { deDE = "Garen Largo", frFR = "Garen Largo", esES = "Garen Largo", esMX = "Garen Largo", ptBR = "Gareno Largo", ruRU = "Гарен Ларго" },
+	-- Mage (17 Nov 2026, mh-research: Wowhead Forever tooltips per locale; control npc 233; Spoken agreed where it had a
+	-- name). 252373 and 8395 esMX: not on Wowhead, left out. 14368 esMX: from Spoken (Wowhead has none).
+	[328] = { deDE = "Zaldimar Wefhellt", frFR = "Zaldimar Wefhellt", esES = "Zaldimar Wefhellt", esMX = "Zaldimar Wefhellt", ptBR = "Zaldimar Wefhellt", ruRU = "Залдимар Вефхеллт" },
+	[5497] = { deDE = "Jennea Cannon", frFR = "Jennea Cannon", esES = "Jennea Cannon", esMX = "Jennea Cañón", ptBR = "Jana Catão", ruRU = "Джинния Пушка" },
+	[1228] = { deDE = "Magis Sparkmantle", frFR = "Magis Sparkmantle", esES = "Magis Chispamanto", esMX = "Magis Chispamanto", ptBR = "Magis Fagulhamanto", ruRU = "Магис Искроплащ" },
+	[5144] = { deDE = "Bink", frFR = "Bink", esES = "Bink", esMX = "Bink", ptBR = "Bink", ruRU = "Бинк" },
+	[7312] = { deDE = "Dink", frFR = "Dink", esES = "Dink", esMX = "Dink", ptBR = "Dink", ruRU = "Динк" },
+	[252373] = { deDE = "Anathamaas Aetherwind", frFR = "Anathamaas Vent-d'éther", esES = "Anathamaas Vientoéter", ptBR = "Anathamaas Brisetéria", ruRU = "Анатамаас Эфирный Ветер" },
+	[256507] = { deDE = "Belann Windwood", frFR = "Belann Vif-Bois", esES = "Belann Vientomadera", esMX = "Belann Vientosauco", ptBR = "Belann Lenhéolo", ruRU = "Беланн Древо Ветров" },
+	[1309] = { deDE = "Wynne Larson", frFR = "Wynne Larson", esES = "Wynne Larson", esMX = "Wynne Larson", ptBR = "Manoela Galante", ruRU = "Уинн Ларсон" },
+	[5694] = { deDE = "Zaubermeister Andromath", frFR = "Grand sorcier Andromath", esES = "Sumo Hechicero Andromath", esMX = "Sumo Hechicero Andromath", ptBR = "Grão-Feiticeiro Andromath", ruRU = "Верховный колдун Андромат" },
+	[331] = { deDE = "Maginor Dumas", frFR = "Maginor Dumas", esES = "Maginor Dumas", esMX = "Maginor Dumas", ptBR = "Maginor Dumas", ruRU = "Магинор Дюма" },
+	[211033] = { deDE = "Garion Wendell", frFR = "Garion Wendell", esES = "Garion Wendell", esMX = "Garion Wendell", ptBR = "Garion Wendell", ruRU = "Гэрион Уэнделл" },
+	[7311] = { deDE = "Uthel'nay", frFR = "Uthel'nay", esES = "Uthel'nay", esMX = "Uthel'nay", ptBR = "Uthel'nay", ruRU = "Утель'най" },
+	[5880] = { deDE = "Un'Thuwa", frFR = "Un'Thuwa", esES = "Un'Thuwa", esMX = "Un'Thuwa", ptBR = "Un'Thuwa", ruRU = "Ун'Тува" },
+	[2128] = { deDE = "Cain Firesong", frFR = "Cain Firesong", esES = "Cain Pirosón", esMX = "Cain Pirosón", ptBR = "Caio Cantígnea", ruRU = "Кейн Песнь Пламени" },
+	[4568] = { deDE = "Anastasia Hartwell", frFR = "Anastasia Hartwell", esES = "Anastasia Pozovenado", esMX = "Anastasia Hartwell", ptBR = "Anastácia Cordato", ruRU = "Анастасия Хартвелл" },
+	[4576] = { deDE = "Josef Gregorian", frFR = "Josef Gregorian", esES = "Josef Gregorian", esMX = "Josef Gregorian", ptBR = "Josefo Gregório", ruRU = "Джозеф Грегориан" },
+	[5885] = { deDE = "Deino", frFR = "Deino", esES = "Deino", esMX = "Deino", ptBR = "Denya", ruRU = "Дейно" },
+	[3484] = { deDE = "Kil'hala", frFR = "Kil'hala", esES = "Kil'hala", esMX = "Kil'hala", ptBR = "Kil'hala", ruRU = "Кил'хала" },
+	[4567] = { deDE = "Pierce Shackleton", frFR = "Pierce Shackleton", esES = "Pierce Esqueletonio", esMX = "Pierce Shackleton", ptBR = "Frederico Grilhões", ruRU = "Пирс Шеклтон" },
+	[211022] = { deDE = "Owen Thadd", frFR = "Owen Thadd", esES = "Owen Thadd", esMX = "Owen Thadd", ptBR = "Adélio Tadeu", ruRU = "Оуэн Тадд" },
+	[6546] = { deDE = "Tabetha", frFR = "Tabetha", esES = "Tabetha", esMX = "Tabetha", ptBR = "Tabetha", ruRU = "Табета" },
+	[6548] = { deDE = "Magus Tirth", frFR = "Magus Tirth", esES = "Magus Tirth", esMX = "Magus Tirth", ptBR = "Tirth, o Mago", ruRU = "Волхв Тирт" },
+	[8395] = { deDE = "Sanath Lim-yo", frFR = "Sanath Lim-yo", esES = "Sanath Lim-yo", ptBR = "Sanath Lim-yo", ruRU = "Санат Лим-Йо" },
+	[14368] = { deDE = "Hüter des Wissens Lydros", frFR = "Gardien du savoir Lydros", esES = "Tradicionalista Lydros", esMX = "Tradicionalista Lydros", ptBR = "Erudito Lydros", ruRU = "Сказитель Лидрос" },
 	[10922] = { deDE = "Greta Mosshoof", frFR = "Greta Mosshoof", esES = "Greta Pezuñamusgo", esMX = "Greta Pezuñamusgo", ptBR = "Greta Musgo no Casco", ruRU = "Грета Замшелое Копыто" },
 	[259023] = { deDE = "Veyric Thunderhame", frFR = "Veyric Hametonne", esES = "Veyric Tronador", esMX = "Veyric Horcatrueno", ptBR = "Veyric Tonitrular", ruRU = "Вейрик Громоцеп" },
 }

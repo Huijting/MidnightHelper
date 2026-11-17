@@ -28,6 +28,17 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 17 nov 2026 — Forever: Mage class-quests stap voor stap (alle 9 classes nu)
+- Tag + commit:   geen tag / (deze commit, zie git log "Mage class quests")
+- Status:         alleen op main
+- Mag op de site: nee (nog niet uit)
+- Speler ziet:    Mage: "Do this now" leidt je naar je eerste staf of orb (10), Study (6), robe (15) en garment (26),
+                  Mage's Wand (30), Celestial Power (35), het Personal Spellbook (42), Magecraft (50), Conjure Water en
+                  Polymorph: Pig (60). Daarmee hebben alle negen Forever-classes hun class-quests. *(niet in het spel getest)*
+- Knoplabels:     FCQ_BTN ("Show the way"), FCQ_HOWTO_HEAD ("Your class quests")
+- Commando's:     /mh classquest, /mh play
+- Spel:           Forever
+
 ## 17 nov 2026 — Forever: Paladin class-quests stap voor stap
 - Tag + commit:   geen tag / (deze commit, zie git log "Paladin class quests")
 - Status:         alleen op main

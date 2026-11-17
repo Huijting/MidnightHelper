@@ -69,6 +69,15 @@
   speler meldt vastlopen na 97177); Cloak of the Divine Storm / Aeonas / Reliquary of Tyr / Errant Knight niet uitgezocht.
   Open: 5502 Sense Undead (uit 1652) en de mount-spells niet in FOREVER_QUEST_FIRST gezet (trainer-gedrag niet gemeten).
   fcq_check (nu ook met "item in je tas"): 767.341 runs, 0 fouten, 234 sleutels.
+- 🔮 **Mage class-quests GEBOUWD (en + nl)**, Fable. MA_P + CHAINS.MAGE (14 ketennamen). GEMETEN: geen rank-quests,
+  geen teleport/portal-quests. Daarmee **stap 3: alle 9 classes gebouwd** (en + nl). fcq_check 908.461 runs, 0 fouten,
+  284 sleutels. Ook: de 7 level-50 Sunken Temple-ketens beloven geen voorwerp meer (Classic-beloningen niet in ItemSparse
+  70938, AFGELEID: alleen XP); FCQ_CHAIN_TORWA ook in de/fr/es/pt/ru ingekort.
+- 📋 **Nieuw werk (Robs ja via sparring)**: Legacy (onderzoek in `docs/forever/LEGACY_RESEARCH_2026-11-17.md`) + de
+  **Talented-fout** (eerst!), Kamperen (`docs/forever/CAMPING_RESEARCH_2026-11-17.md`). Wapenquest-idee: Open, geen ja.
+- ⏭️ **Volgorde nu**: (1) Talented-fix + warrior-fouten uit de Fable-controle (F1-F5: charms 8 stuks, Burning-charm-tekst,
+  Ulag skull stone, Cyclonian follow, andere-ras-route generiek); (2) vertaalronde de/fr/es/esMX/pt/ru voor alle FCQ_ +
+  NPC-namen per taal al klaar; (3) rollen per 10 levels (ROLES.<CLASS>); (4) Legacy en Kamperen bouwen.
 - 🧪 **Nieuw hulpmiddel `run fcq_check`** (`tools/fcq_check.py` + `.lua`): laadt ForeverClassQuests.lua met nep-spelfuncties,
   loopt 9 classes × 10 rassen × levels 1-60 × alle queststanden, en checkt dat elke FCQ_-sleutel in enUS + nlNL staat.
   GEMETEN 17 nov: 149.941 runs, 0 fouten, 86 sleutels, controle OK. Bewijst dat de code draait, niet dat id's kloppen.

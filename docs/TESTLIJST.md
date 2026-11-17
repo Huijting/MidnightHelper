@@ -24,6 +24,19 @@ er is niets weggegooid.
 📝 **Waarneming Rob, 16 nov (nacht), Forever mage, via sparring:** *"mouse over werk"* — `/mh mouseover on`, Shift+X
 (Arcane Intellect) op een voorbijganger onder de muis werkt.
 
+## 🆕 17 nov — Forever: Mage class-quests in "Do this now" (jouw class, Rob)
+
+Mage, `/reload`. Uitgezocht met Fable; niets in het spel gezien.
+- [ ] Level 10: je eerste staf of orb (Human: Zaldimar Wefhellt, Gnome: Magis Sparkmantle, Orc: Uthel'nay, Troll:
+      Un'Thuwa, Undead: Cain Firesong; Skyborne eerst de Windbough Wand op Zephras Isle).
+- [ ] Vanaf 6: "Study" bij de bibliothecaris. Eerst zegt MH: breng een bibliotheekboek. Klopt dat?
+- [ ] 15 en 26: robe en garment. Orc- of Skyborne-mage: krijg je die quest echt? (Bronnen zijn het oneens.)
+- [ ] 30: Mage's Wand en Items of Power (Tabetha, Dustwallow). 35: Celestial Power. 42: A Lesson in Literacy (nieuw).
+- [ ] 60: Conjure Water Rank 7 en Polymorph: Pig. Heet jouw pig-quest "Scalebeard" of "Warlord Krellian"?
+- [ ] Rank-test level 6 (Fireball Rank 2): er bestaan GEEN rank-quests voor de mage (GEMETEN); ranks komen van de trainer.
+- [ ] Level 50 Sunken Temple-quests (druid, hunter, warrior, shaman, paladin, priest, mage): geven die in Forever nog een
+      voorwerp? De oude beloningen staan niet in de speldata; MH belooft daarom geen voorwerp meer.
+
 ## 🆕 17 nov — Forever: Paladin class-quests in "Do this now"
 
 Paladin, `/reload`. Uitgezocht met Fable; niets in het spel gezien.
