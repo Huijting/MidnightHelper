@@ -26,6 +26,24 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 
 ## Open — wacht op Rob
 
+### Bedanken voor een buff (zoals "Thanks for the Buff") (NOG GEEN JA)
+- Bron: Rob 17 nov (via Sparring 17-11), letterlijk: *"Wat me opvalt is, als ik sommige mensen een buff geef tijdens het
+  passeren, dan bedanken ze me direct. Is dat een auto-reply of een iets? ... Kan je dat voor mij nakijken? Dat ik dat
+  ook kan maken?"* en daarna: *"Ik volg jouw advies en zet dat thank you idee maar eventjes op de ideeënlijst.
+  Ondertussen zet ik thanks voor de buff maar eventjes als add-on aan."*
+- Onderzoek (sparring, mh-research Opus, 17 nov, alleen gelezen; bronnen in `Temp\claude\tftb_src_1117\`): addons
+  "Thanks for the Buff" en Manners (MIT); Kindred/BuffBack/DriveByBuffs/BuffResponder (ARR) en BuffThanks/AutoThank
+  (GPLv3): niet kopiëren. Detectie zonder CLEU: UNIT_AURA player addedAuras → aura.sourceUnit of
+  C_UnitAuras.GetAuraCasterGUID + UnitNameFromGUID. Retail 12.1: payload secret als auras secret zijn → alleen buiten
+  combat/instances. Terugzeggen: C_ChatInfo.PerformEmote(token, target) zonder hardware event (wiki); SAY/YELL/EMOTE
+  met eigen tekst wél met hardware event; fluisteren mag; retail chat-lockdown in encounter/M+/PvP/dungeon.
+  Niet gemeten: sourceUnit/CasterGUID leesbaar voor een vreemde, PerformEmote met unit-token, lockdown op PerformEmote.
+- Voorstel (sparring): schakelaar standaard UIT; standen (1) alleen melding, (2) melding + klik om te bedanken
+  (veiligst, ook retail), (3) automatisch gericht /thank; fluisteren apart; nooit in combat/instance/BG, niet bij secret
+  auras, geen groepsleden/ignore, alleen lange klassebuffs, pauze na laadscherm, cooldown per persoon; `/mh thanks`-
+  diagnose. Herbruikbaar: ns.MH_SendChat, ns.Aura.Trusted, MidnightToast, ForeverBuffs/MissingBuffData.
+  Spel: F + M. ⏳ Rob kiest.
+
 ### Forever: elke class een wapenquest op het juiste level (NOG GEEN JA)
 - Bron: Rob 17 nov (via Sparring 17-11): idee *"Elk class krijgt op een bepaald level een quest ... voor een bepaald
   wapen"*. Onderzocht (sparring, alleen gelezen): 8/9 classes hebben wapenquests; de level-52 Sunken Temple-ronde geeft
