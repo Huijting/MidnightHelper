@@ -90,6 +90,9 @@
   — check_drift zal hem tonen. ⚠️ Proces: de Duitse schrijver zette eerst een probe-job in een scratchpad van een andere
   sessie (edd6953f) en draaide zo een klaarliggende job van die sessie (alleen lezen); teruggezet op "run gh_inbox".
   Les: helpers delen de scratchpad van deze sessie — niet twee helpers tegelijk probe-jobs laten schrijven.
+  Commit 974404a.
+- ✅ **Rob (via sparring, letterlijk): *"Midnight zelf werkt helemaal goed."*** Retail na alle gedeelde-bestand-wijzigingen
+  van vandaag: `/mh`, Alt+M, minimap, snelbalk, instellingen, geen fouten. Forever-test loopt; uitslagen via sparring.
 
 ## ⏭️⏭️ NIEUWSTE OVERDRACHT (Bouwchat 17-11 (3), laatste commit 27e536b, alles gepusht, geen release)
 

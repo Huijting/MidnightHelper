@@ -21,6 +21,10 @@ hij laadt. Zet niets hieronder op ✅ omdat het "zou moeten werken".
 op Robs verzoek; 21 sep volgden de rondes van 16 en 17 sep). Deze lijst houdt de jongste testrondes;
 er is niets weggegooid.
 
+✅ **Rob, 17 nov (nacht), via sparring, letterlijk: *"Midnight zelf werkt helemaal goed."*** Retail (Midnight) nagelopen na
+alle wijzigingen van vandaag aan gedeelde bestanden (KeysHub, FastMark, instellingen, Core): `/mh`, Alt+M, minimapknop,
+snelbalk, instellingen — geen foutmeldingen. Forever wordt nu getest (uitslagen via sparring).
+
 📝 **Waarneming Rob, 16 nov (nacht), Forever mage, via sparring:** *"mouse over werk"* — `/mh mouseover on`, Shift+X
 (Arcane Intellect) op een voorbijganger onder de muis werkt.
 
