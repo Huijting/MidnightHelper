@@ -34,8 +34,8 @@ Mage, `/reload`. Uitgezocht met Fable; niets in het spel gezien.
 - [ ] 30: Mage's Wand en Items of Power (Tabetha, Dustwallow). 35: Celestial Power. 42: A Lesson in Literacy (nieuw).
 - [ ] 60: Conjure Water Rank 7 en Polymorph: Pig. Heet jouw pig-quest "Scalebeard" of "Warlord Krellian"?
 - [ ] Rank-test level 6 (Fireball Rank 2): er bestaan GEEN rank-quests voor de mage (GEMETEN); ranks komen van de trainer.
-- [ ] Level 50 Sunken Temple-quests (druid, hunter, warrior, shaman, paladin, priest, mage): geven die in Forever nog een
-      voorwerp? De oude beloningen staan niet in de speldata; MH belooft daarom geen voorwerp meer.
+- [ ] Level 50 Sunken Temple-quests (druid, hunter, warrior, shaman, paladin, priest, mage): krijg je echt het voorwerp
+      dat MH noemt? (Wowhead Forever toont ze; onze lokale speldata-tabel mist ze, dat bewijst niets.)
 
 ## 🆕 17 nov — Forever: Paladin class-quests in "Do this now"
 
@@ -105,7 +105,10 @@ Warrior, `/reload`. Uit Zygor, Wowhead en Spoken; niets in het spel gezien.
       Dwarf/Gnome: Granis Swiftaxe → Muren Stormpike (Ironforge). Night Elf: Kyra Windblade → Elanaria (Darnassus).
       Orc/Troll: Tarshaw Jaggedscar, Tauren: Krang Stonehoof → Uzzek (Barrens). Undead: Austil de Mon → Dillinger.
       Skyborne: Seena Skybreaker (Zephras Isle).
-- [ ] Skyborne-warrior: leer je met die quest ook Taunt en Sunder Armor, of alleen Defensive Stance? (Kijk in je spellboek.)
+- [ ] Skyborne-warrior: leer je met die quest ook Taunt en Sunder Armor, of alleen Defensive Stance? Na de quest:
+      `/run print(IsPlayerSpell(71), IsPlayerSpell(355), IsPlayerSpell(7386))` — drie keer true = alle drie.
+- [ ] Neem je de route van een ander ras (bv. Night Elf-warrior in Goldshire), dan volgt "Do this now" die route.
+- [ ] Whirlwind: telt MH de charms goed (pas klaar bij 8 van elk)? En The Affray heeft een tijdslimiet: zag je die?
 - [ ] Level 30+: The Affray (Klannoc Macleod, Fray Island). Pas daarna noemt "Do this now" het Whirlwind-wapen.
 - [ ] Bij The Affray: blijft de regel op "step on the grate …" staan tot alles klaar is, en zegt hij dan "go to Klannoc"?
 - [ ] Level 50+: The Fallen Hero (Swamp of Sorrows).

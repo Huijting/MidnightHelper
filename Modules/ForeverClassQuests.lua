@@ -87,8 +87,8 @@ local P = {
 -- GEMETEN in Wowhead tooltips + Zygor "q <id>/<n>" (mh-research, 16 Nov); that it equals the client's index = AFGELEID.
 -- Rewards GEMETEN on Wowhead Forever (mh-research, 16 Nov): 6125/6130 teach Cure Poison 8946, 5061/31 Aquatic Form 1066
 -- (+ Aquarius Belt, Idol of Shifting Tides), 9053 a choice of Forest's Embrace / Grizzled Pelt / Moonshadow Stave.
-local function O(place, textKey, idx, items)
-	return { place = place, textKey = textKey, idx = idx, items = items }
+local function O(place, textKey, idx, items, count)
+	return { place = place, textKey = textKey, idx = idx, items = items, count = count }
 end
 
 local CHAINS = {
@@ -505,7 +505,8 @@ local WR_P = {
 	vejrek = { m = 1426, x = 27.83, y = 57.95 },
 	vorlus = { m = 1438, x = 47.26, y = 63.52 },
 	lizards = { m = 1411, x = 39.27, y = 28.29 },
-	ulag = { m = 1420, x = 59.64, y = 48.09 },
+	-- The Mausoleum Trigger (skull stone, object 104593/706178, Wowhead Forever; Fable check 17 Nov). Zygor said "Doors".
+	ulag = { m = 1420, x = 59.2, y = 48.6 },
 	zaal = { m = 2521, x = 56.61, y = 50.37 },
 	grate = { m = 1413, x = 68.61, y = 48.72 },
 	tusks = { m = 1434, x = 25.85, y = 11.25 },
@@ -569,9 +570,10 @@ for _, faction in ipairs({ "Alliance", "Horde" }) do
 			{ q = 1712, from = R.bathrah, objs = {
 				O(nil, "FCQ_OBJ_WR_LIFEROOT", 1),
 				O(R.tusks, "FCQ_OBJ_WR_TUSKS", 2),
-				O(R.charmBurning, "FCQ_OBJ_WR_CHARM_BURNING", nil, { 4479, 6851 }),
-				O(R.charmThundering, "FCQ_OBJ_WR_CHARM_THUNDERING", nil, { 4480, 6851 }),
-				O(R.charmCresting, "FCQ_OBJ_WR_CHARM_CRESTING", nil, { 4481, 6851 }),
+				-- 8 of each charm (Wowhead Forever 1714), or the Essence of the Exile 6851 once the cauldron made it.
+				O(R.charmBurning, "FCQ_OBJ_WR_CHARM_BURNING", nil, { 4479, 6851 }, 8),
+				O(R.charmThundering, "FCQ_OBJ_WR_CHARM_THUNDERING", nil, { 4480, 6851 }, 8),
+				O(R.charmCresting, "FCQ_OBJ_WR_CHARM_CRESTING", nil, { 4481, 6851 }, 8),
 				O(R.cauldron, "FCQ_OBJ_WR_ESSENCE", 3),
 			}, to = R.bathrah },
 			{ q = 1713, from = R.bathrah, objs = { O(R.cyclonian, "FCQ_OBJ_WR_CYCLONIAN", nil, { 6894 }) }, to = R.bathrah },
@@ -1400,8 +1402,8 @@ CHAINS.PALADIN = {
 	now" 10 levels later); 90789 before 9362; the trainer per race from level 30; level 6 for Study; Lydros' place = the
 	Dire Maul West door; the objective index. 1955 has no objective index on purpose (Wowhead shows two lines).
 	1948 runs beside 1949-1951: its own chain, first. Not built: Tabetha's Task / Tiara of the Deep (any class), The
-	Arcanist's Cookbook (starts from an item), the level 1 letters (experience only). Magecraft's Destroy Morphaz probably
-	pays experience only (its Classic items are not in ItemSparse 70938).
+	Arcanist's Cookbook (starts from an item), the level 1 letters (experience only). Destroy Morphaz pays Glacial Spike
+	20035 (Wowhead Forever, 17 Nov); that it is missing from the local ItemSparse 70938 proves nothing (hotfix items).
 	Zygor mistakes not copied: ding 15 before the level 10 quest, |q 18299 (= 7463), Return to the Marsh at 40 (= 35). ]]
 local MA_P = {
 	zaldimar = { npc = "Zaldimar Wefhellt", id = 328, m = 1429, x = 43.25, y = 66.20 },
@@ -1595,7 +1597,7 @@ for _, c in ipairs({
 				O(MA.zulfarrak, "FCQ_OBJ_MA_PAPYRUS", 3),
 			}, to = librarian },
 		} })
-	-- Magecraft (50). What 8253 pays in Forever is not measured (the Classic items are not in ItemSparse 70938).
+	-- Magecraft (50). 8253 pays Glacial Spike 20035 (Wowhead Forever; not in the local ItemSparse = no proof either way).
 	table.insert(CHAINS.MAGE, { key = "magecraft", nameKey = "FCQ_CHAIN_MA_MAGECRAFT", level = 50, faction = faction,
 		races = races, quests = {
 			{ q = 8250, from = master, to = MA.sanath },
@@ -1673,23 +1675,30 @@ local function LogQuest(e)
 	return nil
 end
 
-local function HaveItem(id)
+local function ItemCount(id)
 	for _, fn in ipairs({ C_Item and C_Item.GetItemCount, GetItemCount }) do
 		if fn then
 			local ok, n = pcall(fn, id)
 			if ok and type(n) == "number" then
-				return n > 0
+				return n
 			end
 		end
 	end
-	return false
+	return 0
 end
 
---- One objective of a quest in your log: finished? items = one of them in your bags; idx = the client's objective.
+local function HaveItem(id)
+	return ItemCount(id) > 0
+end
+
+--- One objective of a quest in your log: finished? items = one of them in your bags (o.count: the FIRST item needs that
+--- many, the others count as done when one is there: warrior charms 8 each, or the Essence; Fable check 17 Nov 2026);
+--- idx = the client's objective.
 local function ObjFinished(q, o)
 	if o.items then
-		for _, id in ipairs(o.items) do
-			if HaveItem(id) then
+		for i, id in ipairs(o.items) do
+			local n = ItemCount(id)
+			if (i == 1 and o.count and n >= o.count) or ((i > 1 or not o.count) and n > 0) then
 				return true
 			end
 		end
@@ -2019,9 +2028,41 @@ local function MyChains()
 	local token = select(2, UnitClass("player"))
 	local faction = UnitFactionGroup and UnitFactionGroup("player")
 	local race = RaceToken()
-	local out, pos = {}, {}
+	-- 17 Nov 2026 (Fable check, Sparring 17-11): every race route is open to the whole faction (race masks), so a player
+	-- may take another race's route (a Night Elf warrior in Goldshire). Per key: if your own route shows no quest done or
+	-- in your log but another race's route of your faction does, follow that one (the first such) instead of sending you
+	-- to your own giver, who offers nothing any more.
+	local function Active(c)
+		for _, e in ipairs(c.quests) do
+			if AnyDone(e) or LogQuest(e) then
+				return true
+			end
+		end
+		return false
+	end
+	local own, foreign, ownActive = {}, {}, {}
 	for _, c in ipairs(CHAINS[token] or {}) do
-		if c.faction == faction and (not c.races or (race and c.races[race])) then
+		if c.faction == faction then
+			if not c.races or (race and c.races[race]) then
+				own[#own + 1] = c
+				if c.races and Active(c) then
+					ownActive[c.key] = true
+				end
+			elseif not foreign[c.key] and Active(c) then
+				foreign[c.key] = c
+			end
+		end
+	end
+	local out, pos, swapped = {}, {}, {}
+	for _, c in ipairs(own) do
+		local f = c.races and not ownActive[c.key] and foreign[c.key]
+		if f then
+			if not swapped[c.key] then
+				swapped[c.key] = true
+				out[#out + 1] = f
+				pos[f] = #out
+			end
+		else
 			out[#out + 1] = c
 			pos[c] = #out
 		end
@@ -2165,7 +2206,15 @@ local function NowSkip(c, level)
 	if not Ready(c, level) then
 		return "not open yet"
 	end
-	if not c.spell and level > c.level + ITEM_CHAIN_SPAN then
+	-- Never hide one you are in the middle of (a quest of it in your log; Fable check: Cyclonian is a level 40 elite).
+	local inLog = false
+	for _, e in ipairs(c.quests) do
+		if LogQuest(e) then
+			inLog = true
+			break
+		end
+	end
+	if not c.spell and level > c.level + ITEM_CHAIN_SPAN and not inLog then
 		return ("item chain, you are more than %d levels past it"):format(ITEM_CHAIN_SPAN)
 	end
 	return nil

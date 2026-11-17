@@ -71,12 +71,18 @@
   fcq_check (nu ook met "item in je tas"): 767.341 runs, 0 fouten, 234 sleutels.
 - 🔮 **Mage class-quests GEBOUWD (en + nl)**, Fable. MA_P + CHAINS.MAGE (14 ketennamen). GEMETEN: geen rank-quests,
   geen teleport/portal-quests. Daarmee **stap 3: alle 9 classes gebouwd** (en + nl). fcq_check 908.461 runs, 0 fouten,
-  284 sleutels. Ook: de 7 level-50 Sunken Temple-ketens beloven geen voorwerp meer (Classic-beloningen niet in ItemSparse
-  70938, AFGELEID: alleen XP); FCQ_CHAIN_TORWA ook in de/fr/es/pt/ru ingekort.
+  284 sleutels. ⚠️ Ook gedaan en weer TERUGGEDRAAID (sparring, terecht): de 7 level-50 Sunken Temple-ketens beloofden
+  even geen voorwerp meer omdat de beloningen niet in de lokale ItemSparse 70938 staan. GEMETEN daarna: die tabel heeft
+  1885 andere items van 20000-22999 maar mist juist deze; Wowhead Forever toont ze wel (twee helpers) → items via
+  hotfix/server, de tabel bewijst niets. Beloningen staan weer in de namen (ook Torwa in 5 talen). Les: [[silence-is-not-absence]].
 - 📋 **Nieuw werk (Robs ja via sparring)**: Legacy (onderzoek in `docs/forever/LEGACY_RESEARCH_2026-11-17.md`) + de
   **Talented-fout** (eerst!), Kamperen (`docs/forever/CAMPING_RESEARCH_2026-11-17.md`). Wapenquest-idee: Open, geen ja.
-- ⏭️ **Volgorde nu**: (1) Talented-fix + warrior-fouten uit de Fable-controle (F1-F5: charms 8 stuks, Burning-charm-tekst,
-  Ulag skull stone, Cyclonian follow, andere-ras-route generiek); (2) vertaalronde de/fr/es/esMX/pt/ru voor alle FCQ_ +
+- 🔍 **Warrior nagekeken door Fable** (sparring): F1-F5 GEREPAREERD: `O(…, count)` (charms pas klaar bij 8, of de
+  Essence); Burning-charm-tekst zonder "haal de quest"; Ulag = de schedelsteen (Mausoleum Trigger 59.2, 48.6); Cyclonian
+  "volg Bath'rah"; generiek in `MyChains`: toont je eigen ras-route nog niets maar de route van een ander ras van je
+  factie wel (done of in log), dan volgt MH die. Ook: een item-keten verdwijnt niet als er een quest van in je log staat.
+  Skyborne Taunt/Sunder: testregel in TESTLIJST.
+- ⏭️ **Volgorde nu**: (1) Talented-fix; (2) vertaalronde de/fr/es/esMX/pt/ru voor alle FCQ_ +
   NPC-namen per taal al klaar; (3) rollen per 10 levels (ROLES.<CLASS>); (4) Legacy en Kamperen bouwen.
 - 🧪 **Nieuw hulpmiddel `run fcq_check`** (`tools/fcq_check.py` + `.lua`): laadt ForeverClassQuests.lua met nep-spelfuncties,
   loopt 9 classes × 10 rassen × levels 1-60 × alle queststanden, en checkt dat elke FCQ_-sleutel in enUS + nlNL staat.
