@@ -192,6 +192,12 @@ gebruiken."* Uitslag (bouwchat 15-11, alleen op main, NIET in het spel gezien):
 Hier komt wat Rob goedkeurt, ook wat hij rechtstreeks in de bouwchat vraagt (Rob, 10 nov: *"ja we willen het op 1
 lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met de commit erbij. Na zijn test naar **Af**.
 
+### Forever: het overzicht wordt hét MH voor Forever (7 tabs + tandwiel)
+- Bron: Rob 17 nov (via Sparring 17-11), letterlijk: *"hoe gaan we de rest van onze Midnight helpen, in ieder geval voor
+  Forever al, hierin verwerken?"*, *"Je moet gewoon één mooi product maken."* Op het voorstel: *"ja doe maar"*.
+- Plan + inventaris + volgorde: `docs/forever/OVERZICHT_PRODUCT_PLAN_2026-11-17.md`. Bouwchat begint met stap 1-3
+  (voordeur, één Now-lijst, trainer-pagina). Spel: F; Midnight daarna als proef één scherm.
+
 ### Forever: slimme zegen op mouseover (paladin) — tooltip-tip én één slimme knop
 - Bron: Rob 17 nov (via Sparring 17-11), vraag: *"Kan er een macro komen of bestaat er een macro ... die kan zien wat voor
   speler het is waar ik overheen [ga] en welke ik hem dan moet geven?"* Op de opties (1 tooltip-tip, 2 één slimme knop,

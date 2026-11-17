@@ -210,8 +210,8 @@ local ACTIONS = {
 				end
 				return
 			end
-			if ns.ToggleMainWindow then
-				ns:ToggleMainWindow()
+			if ns.ToggleMainEntry then
+				ns:ToggleMainEntry() -- Forever: the overview (UI.lua)
 			end
 		end,
 	},

@@ -19,6 +19,18 @@ Open, in volgorde:
 6. Fable-controle van de 10 macro's: kwam niet binnen bij 17-11 (2) tot de overdracht. Niet doorgestuurd gekregen → start
    een nieuwe mh-research (Fable) zoals het blok hieronder (17-11 (2)) zegt.
 
+## ▶ 17 nov (laat) — Bouwchat 17-11 (3): het overzicht wordt hét MH voor Forever (Robs ja: *"ja doe maar"*)
+
+Plan: `docs/forever/OVERZICHT_PRODUCT_PLAN_2026-11-17.md` (7 tabs + tandwiel; deze opdracht = stap 1-3).
+- 🚪 **Stap 1 Voordeur GEBOUWD (en + nl)**: nieuw `ns:ToggleMainEntry()` (UI.lua): in Forever het overzicht, anders het
+  hoofdvenster. Gebruikt door `/mh` + Alt+M (Core.lua, via MidnightHelper_KeybindToggleMain), compartiment en
+  minimap-links (Broker.lua), snelbalk-MH (QuickBar.lua). Minimap-middenklik in Forever = "Do this now" (de
+  consumable-borden zitten niet in de Forever-toc); tooltip zegt dat (BROKER_TOOLTIP_*_FOREVER). `/mh overview` staat nu
+  in de commandolijst (CMDLIST_OVERVIEW, foreverOnly). Overzicht: tabs op een eigen rij onder de titel (7 gelijke
+  plekken), venster 520 hoog; knop "All tools" rechtsboven opent het oude venster (alles zonder tab blijft bereikbaar;
+  Rob mag hem weghalen als alle tabs er zijn). Rechtsklik minimap = instellingen (ongewijzigd). Lint 0 HARD, luac OK.
+  NIET in het spel gezien.
+
 ## ▶ 17 nov (avond) — Bouwchat 17-11 (3) (verse chat, nam het over na 679fed7)
 
 - Start: git status schoon, pull "Already up to date". Gemeld bij Sparring 17-11. Fable-rapport 10 macro's: nog niet

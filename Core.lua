@@ -4399,8 +4399,8 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
-	if ns.ToggleMainWindow then
-		ns:ToggleMainWindow()
+	if ns.ToggleMainEntry then
+		ns:ToggleMainEntry() -- Forever: the overview; retail: the main window (UI.lua)
 	else
 		DEFAULT_CHAT_FRAME:AddMessage(
 			("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), ns:L("UI_LOADING"))

@@ -4020,6 +4020,8 @@ ns._mhLocales.nlNL = {
 
 	BROKER_TOOLTIP_HINT = "Linksklik: open/sluit Midnight Helper. Rechtermuisklik: instellingen.",
 	BROKER_TOOLTIP_BOARD = "Middelklik: consumable-bord.",
+	BROKER_TOOLTIP_HINT_FOREVER = "Linksklik: open/sluit het overzicht. Rechtermuisklik: instellingen.",
+	BROKER_TOOLTIP_BOARD_FOREVER = "Middelklik: het venster \"Doe dit nu\".",
 	BROKER_TOOLTIP_RELOAD = "Shift-klik: herlaad de interface.",
 	BROKER_RELOAD_COMBAT = "niet herladen in gevecht \194\183 probeer het daarna opnieuw.",
 	POTIONKEY_HEAL = "Healing potion",
@@ -4641,6 +4643,8 @@ ns._mhLocales.nlNL = {
 	FOV_TIP_DIR_BTN = "Welke talentboom je volgt. De tekst rechts toont het stuk voor jouw keuze eerst.",
 	FOV_ROLES_BTN_TIP_TITLE = "Andere rollen",
 	FOV_TIP_ROLES_BTN = "Toon of vouw de rollen die niet jouw richting zijn.",
+	FOV_OLDWIN_BTN = "Alle tools",
+	FOV_TIP_OLDWIN = "Het klassieke venster van Midnight Helper, met alles wat hier nog geen tab heeft.",
 	-- 17 nov 2026, Forever paladin: welke zegen voor de speler onder je muis (ForeverBlessTip.lua, /mh blesstip).
 	FBLESS_TIP_FMT = "Midnight Helper: geef %s",
 	FBLESS_ON = "Zegen-tip AAN: ga met je muis over een vriendelijke speler om te zien welke zegen past.",
@@ -5131,6 +5135,7 @@ ns._mhLocales.nlNL = {
 	SET_FOREVER_DONOW_TITLE = "Venster \"Doe dit nu\"",
 	SET_FOREVER_DONOW_DESC = "WoW Forever: een klein venster met wat je nu kunt doen (spells bij je trainer, oude ranks op je balken, wapens om te leren, een ontbrekende buff, ontbrekend gereedschap) en de trainer-spells van de komende 3 levels. Verborgen in een gevecht. Hetzelfde als /mh donow auto|always|off.",
 	CMDLIST_DONOW = "WoW Forever: het venster \"Doe dit nu\" tonen of verbergen. /mh donow check zegt waarom het wel of niet in beeld is.",
+	CMDLIST_OVERVIEW = "WoW Forever: het overzicht van Midnight Helper openen of sluiten: wat je nu doet, hoe je speelt, class-quests, kamperen en Legacy. /mh, Alt+M en de minimapknop openen het ook.",
 	MOVE_EL_DONOW = "doe dit nu",
 	FPARTY_TITLE = "Groep",
 	FPARTY_ON = "groepspaneel: aan. Het verschijnt als je in een groep zit: linksklik op een rij = doelwit, rechtsklik = je dispel op die speler (Shift+rechtsklik = je tweede dispel). Een rode rand = iets wat jij kunt weghalen.",

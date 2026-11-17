@@ -30,6 +30,15 @@ Eerst WoW helemaal afsluiten en opnieuw starten (er is een nieuw bestand; /reloa
 - [ ] `/mh overview` opent zonder foutmelding en ziet er precies hetzelfde uit als ronde 5 (zelfde letters, kleuren,
       knoppen, NOW/LATER-labels onder Jouw pad).
 
+## 🚪 17 nov (laat) — Forever: /mh, Alt+M en de minimapknop openen het overzicht
+
+- [ ] Typ `/mh` (of druk Alt+M, of klik links op de minimapknop, of op MH in het addon-menu rechtsboven, of de MH-knop
+      op de snelbalk): het nieuwe overzicht gaat open/dicht, niet het oude venster.
+- [ ] De tabs staan nu op een eigen rij onder "MIDNIGHT HELPER" en passen (ook in het Duits).
+- [ ] Rechtsboven: knop "All tools" opent het oude venster met alles wat nog geen tab heeft.
+- [ ] Middenklik op de minimapknop: het venster "Do this now". Muis op de knop: de tooltip zegt dat ook.
+- [ ] Rechtsklik op de minimapknop: nog steeds de instellingen.
+
 ## 🛡️ 17 nov (avond) — Forever paladin: zegen-tip in de tooltip (`/mh blesstip`)
 
 WoW eerst helemaal herstarten (nieuw bestand). Staat standaard UIT.

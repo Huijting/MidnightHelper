@@ -40,7 +40,9 @@ local Button, SpellButton, SpellName, SpellIcon, Place = S.Button, S.SpellButton
 local function Circle(parent, _, layerSub)
 	return S.Circle(parent, layerSub)
 end
-local W, H = 920, 486
+local W, H = 920, 520
+-- Header: title row, then a row of tabs (room for 7: plan step 1), then the line and the content.
+local TAB_Y, LINE_Y, TOP_Y, TAB_SLOTS = -50, -82, -96, 7
 local LEFT_W = 176
 
 local win
@@ -165,7 +167,7 @@ local CQP_ROW_H = 74
 local function BuildClassQuestPage(f, x0, rightW)
 	local page = f.pages.cq
 	local card = Card(page)
-	card:SetPoint("TOPLEFT", f, "TOPLEFT", x0, -62)
+	card:SetPoint("TOPLEFT", f, "TOPLEFT", x0, TOP_Y)
 	card:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -16, 16)
 	card.label = Label(card, ns:L("FOV_LABEL_CQ_LIST"), "FOV_TIP_CARD_CQ")
 	card.count = Text(card, "head2", 12, A.dim)
@@ -245,7 +247,7 @@ local function BuildInfoPage(f, key, x0, rightW, labelKey, tipKey, howKey)
 	local page = f.pages[key]
 	local stW = math.floor(rightW * 0.40)
 	local st = Card(page)
-	st:SetPoint("TOPLEFT", f, "TOPLEFT", x0, -62)
+	st:SetPoint("TOPLEFT", f, "TOPLEFT", x0, TOP_Y)
 	st:SetPoint("BOTTOMLEFT", f, "BOTTOMLEFT", x0, 16)
 	st:SetWidth(stW)
 	st.label = Label(st, ns:L(labelKey), tipKey)
@@ -307,7 +309,7 @@ local function BuildPlayPage(f, x0, rightW)
 	local page = f.pages.play
 	local tocW = math.floor(rightW * 0.28)
 	local toc = Card(page)
-	toc:SetPoint("TOPLEFT", f, "TOPLEFT", x0, -62)
+	toc:SetPoint("TOPLEFT", f, "TOPLEFT", x0, TOP_Y)
 	toc:SetPoint("BOTTOMLEFT", f, "BOTTOMLEFT", x0, 16)
 	toc:SetWidth(tocW)
 	toc.label = Label(toc, ns:L("FOV_LABEL_TOC"), "FOV_TIP_CARD_TOC")
@@ -420,17 +422,32 @@ local function Build()
 	end
 	local line = f:CreateTexture(nil, "ARTWORK")
 	line:SetColorTexture(A.gold[1], A.gold[2], A.gold[3], 0.35)
-	line:SetPoint("TOPLEFT", 1, -48)
-	line:SetPoint("TOPRIGHT", -1, -48)
+	line:SetPoint("TOPLEFT", 1, LINE_Y)
+	line:SetPoint("TOPRIGHT", -1, LINE_Y)
 	line:SetHeight(1)
 	local close = CreateFrame("Button", nil, f, "UIPanelCloseButton")
 	close:SetPoint("TOPRIGHT", -2, -2)
+	-- "All tools": the classic Midnight Helper window, for everything that has no tab here yet (the front door — /mh,
+	-- Alt+M, minimap — opens this overview in Forever since 17 Nov 2026, plan step 1). Rob may drop it once every tab
+	-- of the plan exists.
+	local old = Button(f, 110)
+	old:SetHeight(20)
+	old:SetPoint("TOPRIGHT", -34, -16)
+	old:SetLabel(ns:L("FOV_OLDWIN_BTN"))
+	old:SetScript("OnClick", function()
+		if ns.ToggleMainWindow then
+			ns:ToggleMainWindow()
+		end
+	end)
+	Tip(old, ns:L("FOV_OLDWIN_BTN"), ns:L("FOV_TIP_OLDWIN"))
+	-- Tabs on their own row under the title (plan step 1: 7 tabs and long German words did not fit next to the title).
+	-- TAB_SLOTS equal widths, so the row stays put when a tab is added.
 	f.tabs = {}
-	local x = -40
-	for i = #TABS, 1, -1 do
+	local tabW = math.floor((W - 32 - (TAB_SLOTS - 1) * 6) / TAB_SLOTS)
+	for i = 1, #TABS do
 		local t = TABS[i]
-		local b = Button(f, 104)
-		b:SetPoint("TOPRIGHT", x, -14)
+		local b = Button(f, tabW)
+		b:SetPoint("TOPLEFT", 16 + (i - 1) * (tabW + 6), TAB_Y)
 		b:SetLabel(ns:L(t.key))
 		b:SetScript("OnClick", function()
 			if t.page then
@@ -443,7 +460,6 @@ local function Build()
 		b.page = t.page
 		Tip(b, ns:L(t.key), ns:L(t.tip))
 		f.tabs[i] = b
-		x = x - 108
 	end
 	-- Pages: the left column (portrait, level) stays, the right part switches.
 	f.page = "now"
@@ -457,7 +473,7 @@ local function Build()
 
 	-- Left: portrait, name, race · class, XP, level seal.
 	local left = Card(f)
-	left:SetPoint("TOPLEFT", 16, -62)
+	left:SetPoint("TOPLEFT", 16, TOP_Y)
 	left:SetPoint("BOTTOMLEFT", 16, 16)
 	left:SetWidth(LEFT_W)
 	local ring = Circle(left, nil, 1)
@@ -515,7 +531,7 @@ local function Build()
 	local cqW = rightW - nowW - soonW - 24
 	local rowH = 252
 	f.now = Card(f.pages.now)
-	f.now:SetPoint("TOPLEFT", x0, -62)
+	f.now:SetPoint("TOPLEFT", x0, TOP_Y)
 	f.now:SetSize(nowW, rowH)
 	local acc = f.now:CreateTexture(nil, "ARTWORK")
 	acc:SetPoint("TOPLEFT", 1, -1)

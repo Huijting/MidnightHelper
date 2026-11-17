@@ -14,8 +14,8 @@ local MINIMAP_ICON = "Interface\\AddOns\\MidnightHelper\\Media\\Addon_Icon"
 -- AddonCompartment entry (the top-right addon button menu; wired via `## AddonCompartmentFunc`
 -- in the .toc). Clicking it toggles the main window, same as a left-click on the minimap icon.
 function MidnightHelper_OnAddonCompartmentClick()
-	if ns.ToggleMainWindow then
-		ns:ToggleMainWindow()
+	if ns.ToggleMainEntry then
+		ns:ToggleMainEntry() -- Forever: the overview (UI.lua)
 	end
 end
 
@@ -404,11 +404,16 @@ function ns:InitMinimapBroker()
 				end
 				return
 			end
-			if btn == "LeftButton" and ns.ToggleMainWindow then
-				ns:ToggleMainWindow()
+			if btn == "LeftButton" and ns.ToggleMainEntry then
+				ns:ToggleMainEntry() -- Forever: the overview (UI.lua)
 			elseif btn == "MiddleButton" then
-				-- Snelkoppeling: consumable-bord tonen (zelfde als /mh board).
-				if ns.ShowConsumableBoard then
+				-- Snelkoppeling: consumable-bord tonen (zelfde als /mh board). Forever has no consumable board (not in
+				-- the Camelot toc), so there the middle button opens the "Do this now" window instead (17 Nov 2026).
+				if ns.IS_FOREVER then
+					if ns.ForeverDoNowSlash then
+						ns.ForeverDoNowSlash("") -- same as /mh donow: show or hide the window
+					end
+				elseif ns.ShowConsumableBoard then
 					ns.ShowConsumableBoard()
 				end
 			elseif btn == "RightButton" then
@@ -427,8 +432,9 @@ function ns:InitMinimapBroker()
 			tt:AddLine(ns:L("MAIN_TITLE"), 1, 1, 1)
 			local ver = ns.GetAddonVersion and ns.GetAddonVersion() or "?"
 			tt:AddLine(ns:L("BROKER_TOOLTIP_VERSION_FMT"):format(ver), 0.72, 0.82, 0.95)
-			tt:AddLine(ns:L("BROKER_TOOLTIP_HINT"), 0.86, 0.86, 0.82, true)
-			tt:AddLine(ns:L("BROKER_TOOLTIP_BOARD"), 0.86, 0.86, 0.82, true)
+			-- Forever: the left click opens the overview and the middle click "Do this now" (17 Nov 2026).
+			tt:AddLine(ns:L(ns.IS_FOREVER and "BROKER_TOOLTIP_HINT_FOREVER" or "BROKER_TOOLTIP_HINT"), 0.86, 0.86, 0.82, true)
+			tt:AddLine(ns:L(ns.IS_FOREVER and "BROKER_TOOLTIP_BOARD_FOREVER" or "BROKER_TOOLTIP_BOARD"), 0.86, 0.86, 0.82, true)
 			tt:AddLine(ns:L("BROKER_TOOLTIP_RELOAD"), 0.86, 0.86, 0.82, true)
 			tt:AddLine(" ")
 			tt:AddLine(ns:L("BROKER_TOOLTIP_CURRENT_SETTINGS"), 1, 0.9, 0.5)

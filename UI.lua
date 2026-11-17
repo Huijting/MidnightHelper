@@ -5258,6 +5258,18 @@ function ns:ToggleMainWindow()
 	end
 end
 
+--- The front door: what /mh, Alt+M, the minimap button, the addon compartment and the QuickBar's MH button open.
+--- WoW Forever: the overview (ForeverOverview.lua). Rob, 17 Nov 2026 (via Sparring 17-11): "Je moet gewoon één mooi
+--- product maken." — docs/forever/OVERZICHT_PRODUCT_PLAN_2026-11-17.md step 1. Retail: the main window, as before.
+--- The old window stays reachable in Forever through the overview's "All tools" button and every tab-specific command.
+function ns:ToggleMainEntry()
+	if ns.IS_FOREVER and ns.ToggleForeverOverview then
+		ns.ToggleForeverOverview()
+		return
+	end
+	self:ToggleMainWindow()
+end
+
 function ns:ShowMainUI()
 	local main = self:EnsureMainUI()
 	main:Show()

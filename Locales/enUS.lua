@@ -4818,6 +4818,8 @@ ns._mhLocales.enUS = {
 	-- LDB minimap launcher
 	BROKER_TOOLTIP_HINT = "Left-click: open/close Midnight Helper. Right-click: settings.",
 	BROKER_TOOLTIP_BOARD = "Middle-click: consumable ready board.",
+	BROKER_TOOLTIP_HINT_FOREVER = "Left-click: open/close the overview. Right-click: settings.",
+	BROKER_TOOLTIP_BOARD_FOREVER = "Middle-click: the \"Do this now\" window.",
 	BROKER_TOOLTIP_RELOAD = "Shift-click: reload the interface.",
 	BROKER_RELOAD_COMBAT = "not reloading in combat \194\183 try again afterwards.",
 	POTIONKEY_HEAL = "Healing potion",
@@ -5549,6 +5551,8 @@ ns._mhLocales.enUS = {
 	FOV_TIP_DIR_BTN = "Which talent tree you follow. The text on the right shows the part for your choice first.",
 	FOV_ROLES_BTN_TIP_TITLE = "Other roles",
 	FOV_TIP_ROLES_BTN = "Show or fold the roles that are not your direction.",
+	FOV_OLDWIN_BTN = "All tools",
+	FOV_TIP_OLDWIN = "The classic Midnight Helper window, with everything that has no tab here yet.",
 	-- 17 Nov 2026, Forever paladin: which blessing for the player under your mouse (ForeverBlessTip.lua, /mh blesstip).
 	FBLESS_TIP_FMT = "Midnight Helper: give %s",
 	FBLESS_ON = "Blessing tip ON: hover a friendly player to see which blessing fits.",
@@ -5990,6 +5994,7 @@ ns._mhLocales.enUS = {
 	SET_FOREVER_DONOW_TITLE = "\"Do this now\" window",
 	SET_FOREVER_DONOW_DESC = "WoW Forever: a small window with what to do now (spells at your trainer, old ranks on your bars, weapons to learn, a missing buff, a missing tool) and the trainer spells of the next 3 levels. Hidden in combat. Same as /mh donow auto|always|off.",
 	CMDLIST_DONOW = "WoW Forever: show or hide the \"Do this now\" window. /mh donow check says why it is (not) shown.",
+	CMDLIST_OVERVIEW = "WoW Forever: open or close Midnight Helper's overview: what to do now, how you play, class quests, camping and Legacy. /mh, Alt+M and the minimap button open it too.",
 	MOVE_EL_DONOW = "do this now",
 	-- 12 Nov 2026: the small Forever group panel (ForeverPartyPanel.lua).
 	FPARTY_TITLE = "Group",
