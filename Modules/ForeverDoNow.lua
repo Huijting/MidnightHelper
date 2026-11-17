@@ -229,9 +229,34 @@ local function StatLines()
 end
 
 --- What the window would say. @return { now = {lines}, actions = {kind = true}, soon = {lines} }
-local function Collect()
+--- One action per kind of line, shared by this window's buttons and the overview (ForeverOverview.lua). 17 Nov 2026,
+--- docs/forever/OVERZICHT_PRODUCT_PLAN_2026-11-17.md step 2 (Rob: "ja doe maar"): the overview shows THIS list, so the
+--- card and this small window always say the same. `page` = a page of the overview instead of a function.
+local ACTS = {
+	trainer = { fn = function() if ns.ForeverTrainerGo then ns.ForeverTrainerGo() end end, label = "HOME_FOREVER_BTN_GO", page = "trainer" },
+	ranks = { fn = function() if ns.ForeverRankFixAll then ns.ForeverRankFixAll() end end, label = "FRANK_HOME_BTN" },
+	classquest = { fn = function() if ns.ForeverClassQuestGo then ns.ForeverClassQuestGo() end end, label = "FCQ_BTN" },
+	weapons = { fn = function() if ns.ShowForeverWeapons then ns.ShowForeverWeapons() end end, label = "FWEAP_TITLE" },
+	profs = { fn = function() if ns.ShowForeverProfTrainers then ns.ShowForeverProfTrainers() end end, label = "FPROF_TITLE" },
+	dungeons = { fn = function() if ns.ShowForeverDungeons then ns.ShowForeverDungeons() end end, label = "FDUNG_BTN" },
+	legacy = { page = "legacy", label = "FOV_TAB_LEGACY" },
+	camp = { page = "camp", label = "FOV_TAB_CAMP" },
+}
+ns.FOREVER_DONOW_ACTS = ACTS
+
+local Collect -- defined below; ns.ForeverDoNowCollect needs the local
+--- The same lists the window shows, for the overview (pcall'd there).
+function ns.ForeverDoNowCollect()
+	return Collect()
+end
+
+function Collect()
 	local level = UnitLevel and UnitLevel("player") or 1
-	local out = { now = {}, actions = {}, soon = {}, tips = {} }
+	-- items: every now- and tip-line in order, { text, kind, tip = true for a tip, key = vendor key for a tool }.
+	local out = { now = {}, actions = {}, soon = {}, tips = {}, items = {} }
+	local function item(text, kind, tip, key)
+		out.items[#out.items + 1] = { text = text, kind = kind, tip = tip, key = key }
+	end
 	-- 12 Nov 2026 (O26, Rob via sparring: "A, eerst klein"): room for a main profession. Only when both readings of
 	-- ns.ForeverPrimaryCount agree. A tip, not a to-do: it does NOT make the window appear by itself (most new
 	-- characters have room, and a window that never goes away is noise); it shows when the window is up anyway.
@@ -239,6 +264,7 @@ local function Collect()
 		local okP, n = pcall(ns.ForeverPrimaryCount)
 		if okP and type(n) == "number" and n < 2 then
 			out.tips[#out.tips + 1] = (n == 1) and ns:L("FDONOW_PROF_ONE") or ns:L("FDONOW_PROF_TWO")
+			item(out.tips[#out.tips], "profs", true)
 			out.actions.profs = true
 		end
 	end
@@ -248,22 +274,26 @@ local function Collect()
 		local okD, tip = pcall(ns.ForeverDungeonTip)
 		if okD and tip then
 			out.tips[#out.tips + 1] = tip
+			item(tip, "dungeons", true)
 			out.actions.dungeons = true
 		end
 	end
 	-- Best stats for you now (tips: they never open the window by themselves).
 	for _, s in ipairs(StatLines()) do
 		out.tips[#out.tips + 1] = s
+		item(s, "stats", true)
 	end
 	-- Do this now
 	local r = ns.ForeverTrainerCompute and ns.ForeverTrainerCompute(level)
 	if r and #r.now > 0 then
 		out.now[#out.now + 1] = ns:L("HOME_FOREVER_TRAINER_NOW_FMT"):format(#r.now, Money(r.total))
+		item(out.now[#out.now], "trainer")
 		out.actions.trainer = true
 	end
 	local nRank = ns.ForeverRankCount and ns.ForeverRankCount() or 0
 	if nRank > 0 then
 		out.now[#out.now + 1] = (ns.ForeverRankSentence and ns.ForeverRankSentence()) or ns:L("FRANK_HOME_FMT"):format(nRank)
+		item(out.now[#out.now], "ranks")
 		out.actions.ranks = true
 	end
 	-- Class quest that unlocks something (16 Nov 2026, ForeverClassQuests.lua): a to-do, with the arrow button.
@@ -271,6 +301,7 @@ local function Collect()
 		local okC, cq = pcall(ns.ForeverClassQuestNow)
 		if okC and cq then
 			out.now[#out.now + 1] = cq
+			item(cq, "classquest")
 			out.actions.classquest = true
 		end
 	end
@@ -278,6 +309,7 @@ local function Collect()
 		local noBar = NoBarSpells()
 		if #noBar > 0 then
 			out.now[#out.now + 1] = ns:L("FDONOW_NOBAR_FMT"):format(table.concat(noBar, ", "))
+			item(out.now[#out.now], "nobar")
 		end
 	end
 	-- 12 Nov 2026 (Rob via sparring: "Ja, alle drie"): one/more as two sentences, and with a direction how many fit
@@ -299,6 +331,7 @@ local function Collect()
 			s = s .. " " .. ns:L("FDONOW_WEAP_FIT_FMT"):format(tree, n)
 		end
 		out.now[#out.now + 1] = s
+		item(s, "weapons")
 		out.actions.weapons = true
 	end
 	if ns.GetForeverMissingBuffs and ns.MissingBuffSentence then
@@ -306,6 +339,7 @@ local function Collect()
 		if ok and type(list) == "table" then
 			for _, e in ipairs(list) do
 				out.now[#out.now + 1] = ns.MissingBuffSentence(e, false)
+				item(out.now[#out.now], "buff")
 			end
 		end
 	end
@@ -314,6 +348,7 @@ local function Collect()
 		local okL, leg = pcall(ns.ForeverLegacyNow)
 		if okL and leg then
 			out.now[#out.now + 1] = leg
+			item(leg, "legacy")
 			out.actions.legacy = true
 		end
 	end
@@ -322,6 +357,7 @@ local function Collect()
 		local okF, camp = pcall(ns.ForeverCampNow)
 		if okF and camp then
 			out.now[#out.now + 1] = camp
+			item(camp, "camp")
 			out.actions.camp = true
 		end
 	end
@@ -330,6 +366,7 @@ local function Collect()
 		if ok and type(tools) == "table" then
 			for _, t in ipairs(tools) do
 				out.now[#out.now + 1] = ns:L("FDONOW_TOOL_FMT"):format(t.prof, t.tool, "/mh vendor " .. t.key)
+				item(out.now[#out.now], "tool", false, t.key)
 				out.actions.tool = out.actions.tool or t.key
 			end
 		end
@@ -590,6 +627,12 @@ local function Build()
 			ns.ShowForeverDungeons()
 		end
 	end)
+	-- 17 Nov 2026 (product plan step 2): the same list, bigger, with a button per line.
+	f.btnOverview = Btn(f, 10, function()
+		if ns.ShowForeverOverviewPage then
+			ns.ShowForeverOverviewPage("now")
+		end
+	end)
 	f:Hide()
 	win = f
 	return f
@@ -622,13 +665,14 @@ local function Render(info)
 	f.btnProfs:SetText(ns:L("FPROF_TITLE"))
 	f.btnDungeons:SetText(ns:L("FDUNG_BTN"))
 	f.btnClassQuest:SetText(ns:L("FCQ_BTN"))
+	f.btnOverview:SetText(ns:L("FDONOW_OPEN_OVERVIEW"))
 	-- Buttons only for what is on the list; they close up from the left. Each as wide as its own text (Rob's 21.png,
 	-- 12 Nov 2026: "Weapon trainers" stuck out of a fixed 90 px button), and a new row when the next one does not fit.
 	local shown = {}
 	for _, pair in ipairs({ { f.btnClassQuest, info.actions.classquest },
 		{ f.btnTrainer, info.actions.trainer }, { f.btnRanks, info.actions.ranks },
 		{ f.btnWeapons, info.actions.weapons }, { f.btnProfs, info.actions.profs },
-		{ f.btnDungeons, info.actions.dungeons } }) do
+		{ f.btnDungeons, info.actions.dungeons }, { f.btnOverview, ns.ShowForeverOverviewPage ~= nil } }) do
 		local b, on = pair[1], pair[2]
 		if on then
 			local fs = b:GetFontString()

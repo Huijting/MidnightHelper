@@ -30,6 +30,14 @@ Plan: `docs/forever/OVERZICHT_PRODUCT_PLAN_2026-11-17.md` (7 tabs + tandwiel; de
   plekken), venster 520 hoog; knop "All tools" rechtsboven opent het oude venster (alles zonder tab blijft bereikbaar;
   Rob mag hem weghalen als alle tabs er zijn). Rechtsklik minimap = instellingen (ongewijzigd). Lint 0 HARD, luac OK.
   NIET in het spel gezien.
+- 📋 **Stap 2 Eén Now-lijst GEBOUWD (en + nl)**: ForeverDoNow `Collect()` geeft nu ook `items` (elke now- en tip-regel met
+  `kind`, tool met `key`) en `ns.FOREVER_DONOW_ACTS` (één actie per soort: trainer/ranks/classquest/weapons/profs/
+  dungeons; legacy/camp = pagina). `ns.ForeverDoNowCollect()` voor het overzicht. Overzicht `NowItems()` leest DIE lijst
+  (trainer en class quest houden hun rijke delen); de Now-kaart toont de hoofdregel met knop(pen) op de labelrij en
+  daaronder ALLE andere regels, scrollend, elk met de knop van het mini-venster. Kaart "THIS WEEK" (ForeverWeekRows:
+  resets, evenementen, raids) vervangt de class-quest-kaart (eigen tab nu; Rob mag omdraaien). Goud links onder XP.
+  Mini-venster: knop "Open overview" (`ns.ShowForeverOverviewPage`); blijft optioneel (auto/altijd/uit ongewijzigd).
+  Lint 0 HARD, luac OK. NIET in het spel gezien.
 
 ## ▶ 17 nov (avond) — Bouwchat 17-11 (3) (verse chat, nam het over na 679fed7)
 

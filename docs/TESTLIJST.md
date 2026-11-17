@@ -30,6 +30,14 @@ Eerst WoW helemaal afsluiten en opnieuw starten (er is een nieuw bestand; /reloa
 - [ ] `/mh overview` opent zonder foutmelding en ziet er precies hetzelfde uit als ronde 5 (zelfde letters, kleuren,
       knoppen, NOW/LATER-labels onder Jouw pad).
 
+## 📋 17 nov (laat) — Forever: de hele "Do this now"-lijst in het overzicht
+
+- [ ] Open het overzicht én het kleine "Do this now"-venster: de kaart DOE DIT NU noemt dezelfde dingen (bovenaan de
+      belangrijkste, daaronder de rest — oude rangen, wapens, buffs, gereedschap, tips), en je kunt erin scrollen.
+- [ ] Achter een regel staat dezelfde knop als in het kleine venster (bv. "Fix all", "Weapon trainers").
+- [ ] Rechts staat nu de kaart THIS WEEK (resets, evenementen van vandaag, raids). Links onder je XP: je goud.
+- [ ] In het kleine venster: knop "Open overview" opent het overzicht.
+
 ## 🚪 17 nov (laat) — Forever: /mh, Alt+M en de minimapknop openen het overzicht
 
 - [ ] Typ `/mh` (of druk Alt+M, of klik links op de minimapknop, of op MH in het addon-menu rechtsboven, of de MH-knop

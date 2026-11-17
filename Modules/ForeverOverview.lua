@@ -51,10 +51,41 @@ local win
 -- Data: what the cards say (nothing new is measured here)
 --------------------------------------------------------------------------------
 
---- The "do this now" items, most important first: { title, what, place, go, kind }.
+--- The "do this now" items, most important first: { title, what, place, go, goLabel, kind, tip }.
+--- 17 Nov 2026 (product plan step 2, Rob: "ja doe maar"): the list is ForeverDoNow's own Collect() — the small "Do this
+--- now" window and this card say the same, line for line. Only the trainer and the class quest get richer parts here
+--- (title, what, place on its own line); every other line is the window's sentence with the window's action.
 local function NowItems()
 	local items = {}
 	local level = UnitLevel and UnitLevel("player") or 1
+	local okI, info = false, nil
+	if ns.ForeverDoNowCollect then
+		okI, info = pcall(ns.ForeverDoNowCollect)
+	end
+	if not (okI and type(info) == "table" and type(info.items) == "table") then
+		return items
+	end
+	local ACTS = ns.FOREVER_DONOW_ACTS or {}
+	local function Act(kind, key)
+		if kind == "tool" and key then
+			return function()
+				if SlashCmdList and SlashCmdList["MIDNIGHTHELPER"] then
+					SlashCmdList["MIDNIGHTHELPER"]("vendor " .. key)
+				end
+			end, "FOV_GO_SHORT"
+		end
+		local a = ACTS[kind]
+		if not a then
+			return nil
+		end
+		if a.page and not a.fn then
+			return function()
+				ns.ShowForeverOverviewPage(a.page)
+			end, a.label
+		end
+		return a.fn, a.label
+	end
+	local rich = {}
 	local r = ns.ForeverTrainerCompute and ns.ForeverTrainerCompute(level)
 	if r and #r.now > 0 then
 		local npc
@@ -63,13 +94,14 @@ local function NowItems()
 			npc = nm
 		end
 		local money = GetCoinTextureString and GetCoinTextureString(r.total or 0) or tostring(r.total or 0)
-		items[#items + 1] = {
+		rich.trainer = {
 			kind = "trainer",
 			title = (#r.now == 1 and ns:L("FOV_TRAINER_ONE_FMT") or ns:L("FOV_TRAINER_MANY_FMT")):format(#r.now,
 				npc or ns:L("FOV_YOUR_TRAINER")),
 			what = ns:L("FOV_COST_FMT"):format(money),
 			place = ns.ForeverTrainerNearestText and ns.ForeverTrainerNearestText() or nil,
 			go = ns.ForeverTrainerGo,
+			page = "trainer", -- the card's "Details" button (step 3)
 		}
 	end
 	local okC, cq = false, nil
@@ -81,7 +113,7 @@ local function NowItems()
 		if not what and cq.npc then
 			what = (cq.kind == "turn" and ns:L("FOV_CQ_TURN_FMT") or ns:L("FOV_CQ_GET_FMT")):format(cq.npc)
 		end
-		items[#items + 1] = {
+		rich.classquest = {
 			kind = "classquest",
 			title = ns:L("FOV_CQ_TITLE_FMT"):format(cq.chain or "?"),
 			what = what,
@@ -89,23 +121,18 @@ local function NowItems()
 			go = cq.zone and ns.ForeverClassQuestGo or nil,
 		}
 	end
-	for _, fn in ipairs({ ns.ForeverCampNow, ns.ForeverLegacyNow }) do
-		local ok, line = pcall(fn or function() end)
-		if ok and type(line) == "string" then
-			items[#items + 1] = { kind = "line", title = line }
-		end
-	end
-	-- Tips that never open "Do this now" by themselves, but fill the card here (Rob: the empty space).
-	if ns.ForeverPrimaryCount then
-		local ok, n = pcall(ns.ForeverPrimaryCount)
-		if ok and type(n) == "number" and n < 2 then
-			items[#items + 1] = { kind = "tip", title = (n == 1) and ns:L("FDONOW_PROF_ONE") or ns:L("FDONOW_PROF_TWO") }
-		end
-	end
-	if ns.ForeverDungeonTip then
-		local ok, tip = pcall(ns.ForeverDungeonTip)
-		if ok and type(tip) == "string" then
-			items[#items + 1] = { kind = "tip", title = tip }
+	-- To-dos first (in the window's order), then the tips.
+	for pass = 1, 2 do
+		for _, it in ipairs(info.items) do
+			if (pass == 1) == (not it.tip) then
+				if rich[it.kind] then
+					items[#items + 1] = rich[it.kind]
+					rich[it.kind] = nil
+				elseif not (it.kind == "trainer" or it.kind == "classquest") then
+					local go, label = Act(it.kind, it.key)
+					items[#items + 1] = { kind = it.tip and "tip" or it.kind, title = it.text, go = go, goLabel = label }
+				end
+			end
 		end
 	end
 	return items
@@ -299,6 +326,41 @@ local function InfoRow(row, name, tipBody, chipText, col, chipTip)
 	row.chip:SetColor(col[1], col[2], col[3])
 	row.chip.tipTitle, row.chip.tipBody = chipText, chipTip
 	row:Show()
+end
+
+local NOW_ROW_H = 46
+
+--- One row of the "Do this now" list under the main line (made when needed).
+local function NowRow(card, i)
+	local row = card.more[i]
+	if row then
+		return row
+	end
+	row = CreateFrame("Frame", nil, card.child)
+	row:SetHeight(NOW_ROW_H - 4) -- room for a three-line tip
+	row:SetPoint("TOPLEFT", 6, -(i - 1) * NOW_ROW_H - 4)
+	row:SetPoint("RIGHT", card.child, "RIGHT", -2, 0)
+	local sep = row:CreateTexture(nil, "ARTWORK")
+	sep:SetColorTexture(A.edge[1], A.edge[2], A.edge[3], 0.35)
+	sep:SetHeight(1)
+	sep:SetPoint("TOPLEFT", 0, 3)
+	sep:SetPoint("TOPRIGHT", 0, 3)
+	row.text = Text(row, "textB", 13, A.text)
+	row.text:SetPoint("TOPLEFT")
+	row.text:SetPoint("RIGHT", -74, 0)
+	row.sub = Text(row, "text", 11, A.dim)
+	row.sub:SetPoint("TOPLEFT", row.text, "BOTTOMLEFT", 0, -1)
+	row.sub:SetPoint("RIGHT", -74, 0)
+	row.sub:SetWordWrap(false)
+	row.hover = HoverOver(row, row.text)
+	row.hover:SetPoint("BOTTOMRIGHT", row.sub, "BOTTOMRIGHT")
+	row.go = Button(row, 70)
+	row.go:SetHeight(20)
+	row.go:SetPoint("RIGHT")
+	row.go:SetLabel(ns:L("FOV_GO_SHORT"))
+	Tip(row.go)
+	card.more[i] = row
+	return row
 end
 
 local TOC_ROWS = 14
@@ -505,6 +567,11 @@ local function Build()
 	f.xpText:SetPoint("TOP", f.xpBg, "BOTTOM", 0, -4)
 	f.xpText:SetJustifyH("CENTER")
 	f.xpTip = HoverOver(left, f.xpBg)
+	-- Gold (product plan step 2: "Deze week + geld").
+	f.gold = Text(left, "text", 13, A.text)
+	f.gold:SetPoint("TOP", f.xpText, "BOTTOM", 0, -8)
+	f.gold:SetJustifyH("CENTER")
+	HoverOver(left, f.gold, ns:L("FOV_GOLD_FMT"):format(""), ns:L("FOV_TIP_GOLD"))
 	local sealRing = Circle(left, nil, 1)
 	sealRing:SetSize(70, 70)
 	sealRing:SetPoint("BOTTOM", 0, 22)
@@ -548,43 +615,28 @@ local function Build()
 	f.now.what = Text(f.now, "text", 14, A.text)
 	f.now.what:SetPoint("TOPLEFT", f.now.title, "BOTTOMLEFT", 0, -4)
 	f.now.what:SetPoint("RIGHT", -14, 0)
+	if f.now.what.SetMaxLines then
+		f.now.what:SetMaxLines(2)
+	end
 	f.now.place = Text(f.now, "text", 12, A.dim)
 	f.now.place:SetPoint("TOPLEFT", f.now.what, "BOTTOMLEFT", 0, -3)
 	f.now.place:SetPoint("RIGHT", -14, 0)
-	f.now.go = Button(f.now, 132)
-	f.now.go:SetPoint("TOPLEFT", f.now.place, "BOTTOMLEFT", 0, -8)
+	f.now.place:SetWordWrap(false)
+	-- Plan step 2: the main line's buttons sit on the label row, so the whole list fits below.
+	f.now.go = Button(f.now, 110)
+	f.now.go:SetHeight(20)
+	f.now.go:SetPoint("TOPRIGHT", -10, -8)
 	f.now.go:SetLabel(ns:L("FOV_GO"))
 	Tip(f.now.go, ns:L("FOV_GO"), ns:L("FOV_TIP_GO"))
-	-- Further "now" lines, each with its own arrow button when it has a place.
+	f.now.detail = Button(f.now, 70)
+	f.now.detail:SetHeight(20)
+	f.now.detail:SetPoint("RIGHT", f.now.go, "LEFT", -6, 0)
+	f.now.detail:SetLabel(ns:L("FOV_DETAILS"))
+	Tip(f.now.detail, ns:L("FOV_DETAILS"), ns:L("FOV_TIP_DETAILS"))
+	-- Every other line of the "Do this now" list (product plan step 2: the whole list, not two), scrolling, each with
+	-- its own button when the small window has one for it.
+	f.now.sf, f.now.child = S.Scroll(f.now, 140, 8, 44)
 	f.now.more = {}
-	for i = 1, 2 do
-		local row = CreateFrame("Frame", nil, f.now)
-		row:SetHeight(42) -- room for a three-line tip
-		row:SetPoint("LEFT", 14, 0)
-		row:SetPoint("RIGHT", -14, 0)
-		row:SetPoint("BOTTOM", 0, 8 + (2 - i) * 46)
-		local sep = row:CreateTexture(nil, "ARTWORK")
-		sep:SetColorTexture(A.edge[1], A.edge[2], A.edge[3], 0.35)
-		sep:SetHeight(1)
-		sep:SetPoint("TOPLEFT", 0, 3)
-		sep:SetPoint("TOPRIGHT", 0, 3)
-		row.text = Text(row, "textB", 13, A.text)
-		row.text:SetPoint("TOPLEFT")
-		row.text:SetPoint("RIGHT", -70, 0)
-		row.text:SetWordWrap(false)
-		row.sub = Text(row, "text", 11, A.dim)
-		row.sub:SetPoint("TOPLEFT", row.text, "BOTTOMLEFT", 0, -1)
-		row.sub:SetPoint("RIGHT", -70, 0)
-		row.sub:SetWordWrap(false)
-		row.hover = HoverOver(row, row.text)
-		row.hover:SetPoint("BOTTOMRIGHT", row.sub, "BOTTOMRIGHT")
-		row.go = Button(row, 62)
-		row.go:SetHeight(20)
-		row.go:SetPoint("RIGHT")
-		row.go:SetLabel(ns:L("FOV_GO_SHORT"))
-		Tip(row.go, ns:L("FOV_GO"), ns:L("FOV_TIP_GO"))
-		f.now.more[i] = row
-	end
 
 	f.soon = Card(f.pages.now)
 	f.soon:SetPoint("TOPLEFT", f.now, "TOPRIGHT", 12, 0)
@@ -603,41 +655,19 @@ local function Build()
 		f.soon.rows[i] = { icon = ic, name = nm, level = lv }
 	end
 
-	f.cq = Card(f.pages.now)
-	f.cq:SetPoint("TOPLEFT", f.soon, "TOPRIGHT", 12, 0)
-	f.cq:SetSize(cqW, rowH)
-	f.cq.label = Label(f.cq, ns:L("FOV_LABEL_CQ"), "FOV_TIP_CARD_CQ")
-	f.cq.title = Text(f.cq, "head", 18, A.text)
-	f.cq.title:SetPoint("TOPLEFT", 14, -32)
-	f.cq.title:SetPoint("RIGHT", -12, 0)
-	f.cq.what = Text(f.cq, "text", 13, A.text)
-	f.cq.what:SetPoint("TOPLEFT", f.cq.title, "BOTTOMLEFT", 0, -4)
-	f.cq.what:SetPoint("RIGHT", -12, 0)
-	f.cq.place = Text(f.cq, "text", 12, A.dim)
-	f.cq.place:SetPoint("TOPLEFT", f.cq.what, "BOTTOMLEFT", 0, -3)
-	f.cq.place:SetPoint("RIGHT", -12, 0)
-	f.cq.go = Button(f.cq, 120)
-	f.cq.go:SetPoint("BOTTOMLEFT", 14, 12)
-	f.cq.go:SetLabel(ns:L("FOV_GO"))
-	Tip(f.cq.go, ns:L("FOV_GO"), ns:L("FOV_TIP_GO"))
-	-- List mode (when "Do this now" already shows the open class quest): every class quest with where it stands.
-	f.cq.list = {}
-	for i = 1, 6 do
-		local lv = Text(f.cq, "head2", 13, A.gold)
-		lv:SetPoint("TOPLEFT", 14, -34 - (i - 1) * 30)
-		lv:SetWidth(24)
-		local nm = Text(f.cq, "textB", 13, A.text)
-		nm:SetPoint("TOPLEFT", lv, "TOPRIGHT", 4, 0)
-		nm:SetPoint("RIGHT", f.cq, "RIGHT", -10, 0)
-		nm:SetWordWrap(false)
-		local st = Text(f.cq, "text", 11, A.dim)
-		st:SetPoint("TOPLEFT", nm, "BOTTOMLEFT", 0, -1)
-		-- The full name on hover (a long chain name is cut to one line).
-		local hv = Tip(CreateFrame("Frame", nil, f.cq))
-		hv:SetPoint("TOPLEFT", lv, "TOPLEFT")
-		hv:SetPoint("BOTTOM", st, "BOTTOM")
-		hv:SetPoint("RIGHT", f.cq, "RIGHT", -10, 0)
-		f.cq.list[i] = { level = lv, name = nm, state = st, hover = hv }
+	-- "This week" (product plan step 2): resets, today's events, raid lockouts (ForeverWeek.lua, the same rows as the
+	-- start page and /mh week). It took the place of the class-quest card: class quests have their own tab now, and
+	-- the open step is in "Do this now" (Rob may turn this back).
+	f.week = Card(f.pages.now)
+	f.week:SetPoint("TOPLEFT", f.soon, "TOPRIGHT", 12, 0)
+	f.week:SetSize(cqW, rowH)
+	f.week.label = Label(f.week, ns:L("FOV_LABEL_WEEK"), "FOV_TIP_CARD_WEEK")
+	f.week.sf, f.week.child = S.Scroll(f.week, 32, 8, 30)
+	f.week.text = Text(f.week.child, "text", 13)
+	f.week.text:SetPoint("TOPLEFT", 6, 0)
+	f.week.text:SetPoint("RIGHT", f.week.child, "RIGHT", -4, 0)
+	if f.week.text.SetSpacing then
+		f.week.text:SetSpacing(4)
 	end
 
 	-- Row 2: your path (level now → +6), in equal columns that stay inside the card (Rob's screenshot: the last ran out).
@@ -823,6 +853,8 @@ local function FillLeft(f, level)
 		end
 		f.xpTip.tipTitle = nil
 	end
+	local money = GetMoney and GetMoney() or 0
+	f.gold:SetText(ns:L("FOV_GOLD_FMT"):format(GetCoinTextureString and GetCoinTextureString(money) or tostring(money)))
 end
 
 --- Round 5 (Rob's screenshot, 17 Nov 2026): a tip is never the big title. Only a task (trainer, class quest, camp,
@@ -842,13 +874,20 @@ local function FillNow(f, items, up)
 		f.now.title:SetText(main.title or "")
 		f.now.what:SetText(main.what or "")
 		f.now.place:SetText(main.place or "")
+		f.now.go:SetLabel(ns:L(main.goLabel or "FOV_GO"))
+		f.now.go.tipTitle = ns:L(main.goLabel or "FOV_GO")
 		SetGo(f.now.go, main.go)
+		-- A detail page for this line (the trainer, plan step 3), when the overview has one.
+		SetGo(f.now.detail, main.page and f.pages[main.page] and function()
+			ns.ShowForeverOverviewPage(main.page)
+		end or nil)
 	else
 		f.now.title:SetText(ns:L("FOV_ALL_DONE"))
 		local nxt = up and up[1]
 		f.now.what:SetText(nxt and ns:L("FOV_NEXT_SPELL_FMT"):format(nxt.name, nxt.l) or ns:L("FOV_ALL_DONE_SUB"))
 		f.now.place:SetText("")
 		SetGo(f.now.go, nil)
+		SetGo(f.now.detail, nil)
 	end
 	local rest = {}
 	for _, it in ipairs(items) do
@@ -856,104 +895,50 @@ local function FillNow(f, items, up)
 			rest[#rest + 1] = it
 		end
 	end
-	for i, row in ipairs(f.now.more) do
-		local it = rest[i]
-		if it then
-			-- A line without a place or second line (a tip) may use two lines (sparring: "Dungeons for your level… Ragefir…").
-			local sub = it.place or it.what
-			row.text:SetWordWrap(sub == nil)
-			if row.text.SetMaxLines then
-				row.text:SetMaxLines(sub == nil and 3 or 1)
-			end
-			row.text:SetText(it.title or "")
-			row.sub:SetText(sub or "")
-			row.hover.tipTitle = it.title
-			row.hover.tipBody = it.what and it.place and (it.what .. "\n" .. it.place) or it.what or it.place
-			SetGo(row.go, it.go)
-			row:Show()
-		else
-			row:Hide()
+	-- The whole rest of the list (plan step 2), scrolling; each line with the window's own button for it.
+	for i, it in ipairs(rest) do
+		local row = NowRow(f.now, i)
+		-- A line without a place or second line (a tip) may use three lines (sparring: "Dungeons for your level… Ragefir…").
+		local sub = it.place or it.what
+		row.text:SetWordWrap(sub == nil)
+		if row.text.SetMaxLines then
+			row.text:SetMaxLines(sub == nil and 3 or 1)
 		end
+		row.text:SetTextColor(it.kind == "tip" and A.dim[1] or A.text[1], it.kind == "tip" and A.dim[2] or A.text[2],
+			it.kind == "tip" and A.dim[3] or A.text[3])
+		row.text:SetText(it.title or "")
+		row.sub:SetText(sub or "")
+		row.hover.tipTitle = it.title
+		row.hover.tipBody = it.what and it.place and (it.what .. "\n" .. it.place) or it.what or it.place
+		local label = ns:L(it.goLabel or "FOV_GO_SHORT")
+		row.go:SetLabel(label)
+		row.go.tipTitle = label
+		row.go.tipBody = (it.go == ns.ForeverTrainerGo or it.go == ns.ForeverClassQuestGo) and ns:L("FOV_TIP_GO") or nil
+		SetGo(row.go, it.go)
+		row:Show()
 	end
+	for i = #rest + 1, #f.now.more do
+		f.now.more[i]:Hide()
+	end
+	f.now.child:SetHeight(math.max(10, #rest * NOW_ROW_H))
+	f.now.sf.Reset()
 end
 
-local function FillClassQuest(f, items)
-	-- The list when "Do this now" already shows the open class quest, AND when none is open (Rob's screenshot: "No class
-	-- quest open right now" while Wolfsbane 20 and Warhorse 40 were still ahead).
-	local inNow = false
-	for _, it in ipairs(items) do
-		if it.kind == "classquest" then
-			inNow = true
-		end
+--- "This week" card: the rows ForeverWeek.lua gives the start page (resets, events, raids), coloured by tone.
+local WEEK_TONE = { soft = "ffe6dcc8", dim = "ffa89a85", warn = "ffeeb055", good = "ff8fd47a" }
+local function FillWeek(f)
+	local rows = {}
+	if ns.ForeverWeekRows then
+		local ok, r = pcall(ns.ForeverWeekRows)
+		rows = ok and type(r) == "table" and r or {}
 	end
-	local okC, cq = false, nil
-	if not inNow and ns.ForeverClassQuestNowParts then
-		okC, cq = pcall(ns.ForeverClassQuestNowParts)
+	local lines = {}
+	for _, r in ipairs(rows) do
+		lines[#lines + 1] = "|c" .. (WEEK_TONE[r.tone] or WEEK_TONE.soft) .. tostring(r.text or "") .. "|r"
 	end
-	local showList = inNow or not (okC and type(cq) == "table")
-	local list = {}
-	if showList and ns.ForeverClassQuestList then
-		local ok, l = pcall(ns.ForeverClassQuestList)
-		list = ok and type(l) == "table" and l or {}
-	end
-	for _, row in ipairs(f.cq.list) do
-		row.level:SetText("")
-		row.name:SetText("")
-		row.state:SetText("")
-		row.hover.tipTitle = nil
-	end
-	if showList and #list > 0 then
-		f.cq.label:SetText(ns:L("FOV_LABEL_CQ_LIST"))
-		f.cq.title:SetText("")
-		f.cq.what:SetText("")
-		f.cq.place:SetText("")
-		SetGo(f.cq.go, nil)
-		-- Open ones first, then later, then done; at most six.
-		local order = { now = 1, later = 2, done = 3 }
-		table.sort(list, function(a, b)
-			if order[a.state] ~= order[b.state] then
-				return order[a.state] < order[b.state]
-			end
-			return (a.level or 0) < (b.level or 0)
-		end)
-		for i, row in ipairs(f.cq.list) do
-			local e = list[i]
-			if e then
-				row.level:SetText(tostring(e.level or ""))
-				row.name:SetText(e.chain or "")
-				if e.state == "done" then
-					row.state:SetText(ns:L("FOV_CQ_ST_DONE"))
-					row.state:SetTextColor(0.45, 0.85, 0.40)
-				elseif e.state == "now" then
-					row.state:SetText(ns:L("FOV_CQ_ST_NOW"))
-					local r, g, b = Accent()
-					row.state:SetTextColor(r, g, b)
-				else
-					row.state:SetText(ns:L("FOV_CQ_ST_LATER_FMT"):format(e.level or 0))
-					row.state:SetTextColor(A.later[1], A.later[2], A.later[3])
-				end
-				row.hover.tipTitle = e.chain
-				row.hover.tipBody = ns:L("FOV_LEVEL_FMT"):format(e.level or 0) .. " · " .. (row.state:GetText() or "")
-			end
-		end
-		return
-	end
-	f.cq.label:SetText(ns:L("FOV_LABEL_CQ"))
-	if okC and type(cq) == "table" then
-		f.cq.title:SetText(cq.chain or "")
-		local what = cq.what
-		if not what and cq.npc then
-			what = (cq.kind == "turn" and ns:L("FOV_CQ_TURN_FMT") or ns:L("FOV_CQ_GET_FMT")):format(cq.npc)
-		end
-		f.cq.what:SetText((what or "") .. (cq.level and ("\n" .. ns:L("FOV_FROM_LEVEL_FMT"):format(cq.level)) or ""))
-		f.cq.place:SetText(Place(cq.zone, cq.x, cq.y) or "")
-		SetGo(f.cq.go, cq.zone and ns.ForeverClassQuestGo or nil)
-	else
-		f.cq.title:SetText(ns:L("FOV_CQ_NONE"))
-		f.cq.what:SetText("")
-		f.cq.place:SetText("")
-		SetGo(f.cq.go, nil)
-	end
+	f.week.text:SetText(table.concat(lines, "\n"))
+	f.week.child:SetHeight(math.max(10, (f.week.text:GetStringHeight() or 0) + 8))
+	f.week.sf.UpdateThumb()
 end
 
 --- The step of a class quest list entry as one sentence without the place (the place has its own line).
@@ -1251,6 +1236,18 @@ local function FillPlayPage(f)
 	toc.roles:SetShown(folded)
 end
 
+--- Open the overview on a page ("now", "play", "cq", "camp", "legacy", "trainer"); used by the "Do this now" window,
+--- the cards' detail buttons and the old commands (plan rule: every old way in lands on the right page).
+function ns.ShowForeverOverviewPage(page)
+	local f = Build()
+	f.page = (page and f.pages[page]) and page or "now"
+	if f:IsShown() then
+		ns.ForeverOverviewFill()
+	else
+		f:Show()
+	end
+end
+
 --- When the direction changes (ForeverHowToPlay.lua calls this): refill if the overview is open.
 function ns.ForeverOverviewRefresh()
 	if win and win:IsShown() then
@@ -1309,7 +1306,7 @@ function ns.ForeverOverviewFill(refresh)
 		end
 	end
 
-	FillClassQuest(f, items)
+	FillWeek(f)
 
 	-- Your path: now, then the levels that bring trainer spells (up to 3 more nodes within 6 levels).
 	f.path.label:SetText(ns:L("FOV_PATH_FMT"):format(level, level + 6))
