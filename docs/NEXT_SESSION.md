@@ -1,5 +1,32 @@
 # Midnight Helper — waar we staan
 
+## ▶ 18 nov (nacht, later) — Bouwchat addons-12: optie A (wapens) + Cozy Sleeping Bag GEBOUWD
+
+Rob via sparring, letterlijk: *"Oh en 1 t/m 3 mag ook"*, *"Ik ben onderweg dus kan niks in game doen"* en *"Ja"* op de
+volgorde (1 optie A, 2 wapenquests, 3 slaapzak, 4 optie B nog NIET; zijn /dump-meting staat bovenaan TESTLIJST).
+- ⚔️ **Optie A** (`ForeverQuestHint.lua`, één rekensom voor tooltipregel, questbeloning en "Upgrade in your bags"):
+  `Worn()` per wapensoort — 1H tegen je hoofdhand (met Dual Wield 674 en een wapen in de off-hand: tegen de zwakste;
+  lege off-hand + Dual Wield: vult die hand); 2H tegen beide handen samen (ook DPS opgeteld); schild/off-hand-ding
+  bij een tweehander of off-hand-wapen zonder Dual Wield = geen oordeel (nooit "beter", en dan ook geen
+  "verkoop"-advies). DPS (`Dps()`: stats-tabel of de tooltipregel DPS_TEMPLATE, GEMETEN GlobalStrings 12672/19881)
+  telt alleen voor Strength/Agility; minder DPS = nooit "beter"; meer DPS met minder Stamina = stil (gemengd = optie B).
+  Nieuwe reden `FQH_WHY_DPS` (7 talen, clientwoord per taal GEMETEN). Questbeloning kiest de beste van meerdere betere.
+  Tweede controle (Fable, `docs/forever/CONTROLE_OPTIE_A_WAPENS_2026-11-18.md`): 5 FOUT + 10 RISICO, de geteste patch
+  is overgenomen. Offline: mijn 18 + zijn 36 gevallen; 2 bewust open: Franse spatie als duizendtal (> 1000 DPS) en een
+  hunter met een melee-wapen als stat stick (melee-DPS telt dan mee). Niet meetbaar zonder client: of de wapentooltip
+  de DPS-regel heeft, of `GetItemStats` DPS vult (Rob: `/mh geartip` → "dps" met een getal, niet "n/a").
+- 🔧 Ook gerepareerd (zelfde controle): `ForeverBlock.lua` KnownId — `ipairs({ IsPlayerSpell, IsSpellKnown })` stopte
+  bij de eerste nil (IsPlayerSpell is in Forever alleen een deprecation-fallback, GEMETEN Blizzard-bron); nu vaste
+  plekken met `C_SpellBook.IsSpellKnown` voorop. Raakte de talentcheck voor de hoofdstats op niet-Engelse clients.
+- 🛏️ **Cozy Sleeping Bag** (`ForeverCamp.lua`): hotfix 17 nov GEMETEN (Blizzard News: "Resting aura … within its area",
+  "Mounted Players will no longer be permitted to sleep"). Aura 1331671 "Resting" (tas-icoon): GEMETEN Wowhead Forever +
+  Icy Veins DB ("added in 1.60.1.70959"), NIET in de basis-DB2 (hotfix-rij; positieve controle 1286090 wel gevonden);
+  dat het DE slaapzak-aura is = AFGELEID. Well-Rested 429959 (+1% XP per stapel, max 3), Unroll Bag 429961 (ItemEffect
+  van 211527): GEMETEN. Do this now: in het gebied + niet op een mount + minder dan 3 stapels → "lie down in it … %d of
+  3"; op een mount → "get off first"; onleesbaar = stil. `/mh camp` toont beide aura's + stapels + mount. Teksten 7 talen
+  (+ esMX "bolsa de dormir", GEMETEN). Offline 8 gevallen OK.
+- ⏭️ Volgende: wapenquests per class (Fable-onderzoek loopt; data in `wapenquests_data.lua` in de scratchpad).
+
 ## ▶ 18 nov (nacht) — Bouwchat addons-12: Fable-nakijkronde (punt 1 van Robs ja) GEDAAN
 
 Rob via sparring, letterlijk: *"Fable mag en ik volg je advies"*. Vier Fable-helpers (G1-G4) kregen alleen code + teksten

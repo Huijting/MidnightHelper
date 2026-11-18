@@ -98,7 +98,12 @@ end
 ns.ForeverSpellIdsFor = IdsFor -- the offline check calls it
 
 local function KnownId(id)
-	for _, fn in ipairs({ IsPlayerSpell, IsSpellKnown }) do
+	-- 18 Nov 2026 (second check of option A): `ipairs({ IsPlayerSpell, IsSpellKnown })` stops at the first nil, so on a
+	-- client without IsPlayerSpell (in Forever only a deprecation fallback, GEMETEN in Blizzard's 1.60.1.70959 source) the
+	-- others were never asked. Fixed slots + C_SpellBook.IsSpellKnown (documented in Forever) first.
+	local fns = { C_SpellBook and C_SpellBook.IsSpellKnown, IsPlayerSpell, IsSpellKnown }
+	for i = 1, 3 do
+		local fn = fns[i]
 		if fn then
 			local ok, v = pcall(fn, id)
 			if ok and v == true then

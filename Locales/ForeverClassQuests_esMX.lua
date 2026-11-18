@@ -155,6 +155,8 @@ for k, v in pairs({
 	-- Boss guide (18 Nov 2026): esMX says "calabozo" where esES says "mazmorra" (CLAUDE.md, esMX overlay).
 	FDG_NONE = "MH aún no tiene guía de jefes para este calabozo.",
 	FDG_HINT = "Dentro de un calabozo se abre en ese calabozo. Pon a un jefe como objetivo: MH lo marca. /mh bosses lo abre.",
+	FCAMP_BAG_SLEEP_FMT = "Estás junto a una bolsa de dormir: acuéstate dentro. Cada minuto da una acumulación de %s (+1%% de experiencia cada una); tienes %d de %d.",
+	FCAMP_BAG_MOUNTED = "Estás junto a una bolsa de dormir, pero sobre una montura: bájate primero, no puedes dormir en ella sobre una montura.",
 	FDG_DROWN_2_D1 = "Dos sacerdotisas escamasalada lo sanan.",
 	FDGP_ARMORY = "Arsenal",
 	FDG_SM_7_D3 = "El cofre detrás de él guarda la llave Escarlata: la necesitas para las puertas del Arsenal y la Catedral.",

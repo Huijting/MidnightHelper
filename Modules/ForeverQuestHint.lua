@@ -121,9 +121,52 @@ local function Armor(link, t)
 	return 0
 end
 
+--- Damage per second of a weapon, or nil (not a weapon / not readable). Option A, 18 Nov 2026. The stats table first
+--- (ITEM_MOD_DAMAGE_PER_SECOND_SHORT, GEMETEN in Forever GlobalStrings 19881; whether GetItemStats fills it in Forever is
+--- NOT measured), else the tooltip line "(%s damage per second)" (DPS_TEMPLATE, GEMETEN GlobalStrings 12672; that the
+--- weapon tooltip uses it is AFGELEID — the same way Armor() reads ARMOR_TEMPLATE).
+local function Dps(link, t)
+	local v = t and t.ITEM_MOD_DAMAGE_PER_SECOND_SHORT
+	if type(v) == "number" and not (issecretvalue and issecretvalue(v)) and v > 0 then
+		return v
+	end
+	if not (C_TooltipInfo and C_TooltipInfo.GetHyperlink and link) then
+		return nil
+	end
+	local ok, data = pcall(C_TooltipInfo.GetHyperlink, link)
+	if not ok or type(data) ~= "table" or type(data.lines) ~= "table" then
+		return nil
+	end
+	local tpl = type(DPS_TEMPLATE) == "string" and DPS_TEMPLATE or "(%s damage per second)"
+	local pat = "^" .. tpl:gsub("([%(%)%.%+%-%*%?%[%]%^%$])", "%%%1"):gsub("%%s", "([%%d,%%.]+)") .. "$"
+	for _, line in ipairs(data.lines) do
+		for _, txt in ipairs({ line.leftText, line.rightText }) do
+			if type(txt) == "string" and not (issecretvalue and issecretvalue(txt)) then
+				local n = txt:match(pat)
+				if n then
+					-- "12,5" / "12.5" / "1,234.5" / "1.234,5": the LAST separator, followed by one or two digits, is the
+					-- decimal mark; every other separator is a thousands mark
+					local int, frac = n:match("^(.*)[,%.](%d%d?)$")
+					if int then
+						n = int:gsub("[,%.]", "") .. "." .. frac
+					else
+						n = n:gsub("[,%.]", "")
+					end
+					return tonumber(n)
+				end
+			end
+		end
+	end
+	return nil
+end
+
 --- { STRENGTH = n, ..., ARMOR = n } for a link (the five primary stats + armor). An item without stats (plain cloth
 --- boots) still gets its armor: the stats call may return nil for it.
-local function Stats(link)
+-- Only these can have a "(x damage per second)" line: no tooltip read for a ring, a helm or a shield.
+local WEAPON_LOC = { INVTYPE_WEAPON = true, INVTYPE_2HWEAPON = true, INVTYPE_WEAPONMAINHAND = true,
+	INVTYPE_WEAPONOFFHAND = true, INVTYPE_RANGED = true, INVTYPE_RANGEDRIGHT = true, INVTYPE_THROWN = true }
+
+local function Stats(link, equipLoc)
 	if not link then
 		return nil
 	end
@@ -142,6 +185,7 @@ local function Stats(link)
 		end
 	end
 	out.ARMOR = Armor(link, t)
+	out.DPS = WEAPON_LOC[equipLoc] and Dps(link, t) or nil
 	return out
 end
 
@@ -184,20 +228,108 @@ local function Score(stats, main, stamTie)
 	return s, tie
 end
 
---- What the player wears in the weaker of the slots this equipLoc fits: main score, stamina, stats, link.
+--- What the player wears in ONE slot: main score, stamina, armor, stats, link, equipLoc.
+local function WornSlot(slot, main, stamTie)
+	local link = GetInventoryItemLink and GetInventoryItemLink("player", slot)
+	local _, _, loc = ItemInfo(link)
+	local stats = link and Stats(link, loc) or {}
+	local s, sta = Score(stats, main, stamTie)
+	return { s = s, sta = sta, arm = stats.ARMOR or 0, dps = stats.DPS, stats = stats, link = link, slot = slot,
+		equipLoc = loc }
+end
+
+-- Option A (Rob via sparring: "Ja", 18 Nov 2026). The old rule compared a one-hand weapon with the WEAKER of both hands,
+-- and an empty off-hand counted as 0: with a two-hander nearly every one-hand weapon looked "better", also for classes
+-- that cannot wield two weapons (Fable research, docs/forever/BETER_DAN_WAT_JE_DRAAGT_2026-11-18.md). Now:
+local OFFHAND_WEAPON = { INVTYPE_WEAPON = true, INVTYPE_WEAPONOFFHAND = true }
+local DUAL_WIELD = 674 -- GEMETEN DB2 SpellName 1.60.1.70959 "Dual Wield"
+
+local function CanDualWield()
+	-- the client's own answer first (C_SpellBook.IsSpellKnown: documented in Forever 1.60.1.70959)
+	if C_SpellBook and C_SpellBook.IsSpellKnown then
+		local ok, k = pcall(C_SpellBook.IsSpellKnown, DUAL_WIELD)
+		if ok and k == true then
+			return true
+		end
+	end
+	if ns.ForeverKnownSpell then
+		local ok, k = pcall(ns.ForeverKnownSpell, DUAL_WIELD)
+		if ok and k then
+			return true
+		end
+	end
+	if IsPlayerSpell then
+		local ok, k = pcall(IsPlayerSpell, DUAL_WIELD)
+		if ok and k then
+			return true
+		end
+	end
+	return false
+end
+
+--- Two worn pieces as one (a two-hander replaces main hand AND off-hand).
+local function Sum(a, b)
+	local stats = {}
+	for _, x in ipairs({ a, b }) do
+		for k, v in pairs(x.stats or {}) do
+			if type(v) == "number" and k ~= "DPS" then
+				stats[k] = (stats[k] or 0) + v
+			end
+		end
+	end
+	-- DPS of both hands together: an empty main hand does 0; a second weapon counts in full (how much an off-hand
+	-- weapon really adds in Forever is not measured, so a two-hander is only called "more DPS" when it beats both).
+	local dps
+	if not a.link then
+		dps = b.dps or 0
+	elseif a.dps then
+		dps = a.dps + (b.dps or 0)
+	end
+	return { s = a.s + b.s, sta = a.sta + b.sta, arm = a.arm + b.arm, dps = dps, stats = stats,
+		link = a.link or b.link, slot = a.slot, equipLoc = a.equipLoc }
+end
+
+--- What a new item of this equipLoc would replace: main score, stamina, armor, stats, link, slot. nil = no fair
+--- comparison (an off-hand item while you wear a two-hander: then you would give up the two-hander for it).
 local function Worn(equipLoc, main, stamTie)
-	local slots = SLOTS[equipLoc]
-	if not slots then
+	if not SLOTS[equipLoc] then
 		return nil
 	end
+	local first = SLOTS[equipLoc][1]
+	local mh = (first == 16 or first == 17) and WornSlot(16, main, stamTie) or nil -- a ring never needs your weapon
+	local twoHanderWorn = mh ~= nil and mh.equipLoc == "INVTYPE_2HWEAPON"
+	if equipLoc == "INVTYPE_2HWEAPON" then
+		-- replaces both hands: compare with what you hold in both together
+		return twoHanderWorn and mh or Sum(mh, WornSlot(17, main, stamTie))
+	elseif equipLoc == "INVTYPE_WEAPON" then
+		if twoHanderWorn or not CanDualWield() then
+			return mh -- only the main hand counts
+		end
+		local oh = WornSlot(17, main, stamTie)
+		if not oh.link then
+			return (mh.link and oh) or mh -- you can dual wield and that hand is empty: it fills the empty hand
+		end
+		if not OFFHAND_WEAPON[oh.equipLoc] then
+			return mh -- a shield or an off-hand item: it would go in the main hand
+		end
+		local weaker = mh
+		if oh.s < mh.s or (oh.s == mh.s and (oh.sta < mh.sta or (oh.sta == mh.sta and (oh.arm < mh.arm
+			or (oh.arm == mh.arm and (oh.dps or 0) < (mh.dps or 0)))))) then
+			weaker = oh -- same stats (most low-level weapons have none): the one with less DPS is the weaker
+		end
+		return weaker
+	elseif equipLoc == "INVTYPE_WEAPONMAINHAND" then
+		return mh
+	elseif equipLoc == "INVTYPE_WEAPONOFFHAND" and not CanDualWield() then
+		return nil -- this class cannot hold a weapon in the off-hand
+	elseif SLOTS[equipLoc][1] == 17 and twoHanderWorn then
+		return nil -- shield / off-hand item / off-hand weapon while you hold a two-hander
+	end
 	local best
-	for _, slot in ipairs(slots) do
-		local link = GetInventoryItemLink and GetInventoryItemLink("player", slot)
-		local stats = link and Stats(link) or {}
-		local s, sta = Score(stats, main, stamTie)
-		local arm = stats.ARMOR or 0
-		if not best or s < best.s or (s == best.s and (sta < best.sta or (sta == best.sta and arm < best.arm))) then
-			best = { s = s, sta = sta, arm = arm, stats = stats, link = link, slot = slot }
+	for _, slot in ipairs(SLOTS[equipLoc]) do
+		local w = WornSlot(slot, main, stamTie)
+		if not best or w.s < best.s or (w.s == best.s and (w.sta < best.sta or (w.sta == best.sta and w.arm < best.arm))) then
+			best = w
 		end
 	end
 	return best
@@ -229,14 +361,85 @@ local function Explain(row, main, stamTie, token)
 	if row.darm and row.darm ~= 0 then
 		parts[#parts + 1] = ("%+d %s"):format(row.darm, (type(ARMOR) == "string" and ARMOR) or "Armor")
 	end
-	local why = (row.ds == 0 and row.dsta == 0) and ns:L("FQH_WHY_ARMOR")
-		or ns:L("FQH_WHY_MAIN_FMT"):format(ClassName(token))
+	if row.ddps and math.abs(row.ddps) >= 0.05 then
+		local w = ITEM_MOD_DAMAGE_PER_SECOND_SHORT
+		parts[#parts + 1] = ("%+.1f %s"):format(row.ddps, (type(w) == "string" and w ~= "") and w or "damage per second")
+	end
+	local why
+	if row.ds == 0 and row.dsta == 0 then
+		why = (row.ddps and row.ddps >= 0.05) and ns:L("FQH_WHY_DPS") or ns:L("FQH_WHY_ARMOR")
+	else
+		why = ns:L("FQH_WHY_MAIN_FMT"):format(ClassName(token))
+	end
 	return parts, why
 end
 
+--- Does weapon damage count for these main stats? Only for Strength/Agility players (a caster's staff DPS does not).
+local function Physical(main)
+	for _, k in ipairs(main or {}) do
+		if k == "STRENGTH" or k == "AGILITY" then
+			return true
+		end
+	end
+	return false
+end
+
+--- DPS difference new − worn for a weapon, or nil when it does not count or cannot be read. An empty hand = 0 DPS.
+local function DeltaDps(stats, worn, main)
+	if not Physical(main) then
+		return nil
+	end
+	local new = stats and stats.DPS
+	local old = worn and worn.link and worn.dps or nil
+	if not new then
+		-- a shield or off-hand item in the place of a weapon (or a weapon whose DPS cannot be read): you lose that damage
+		return old and -old or nil
+	end
+	if worn and worn.link then
+		if not worn.dps then
+			return nil
+		end
+		return new - worn.dps
+	end
+	return new
+end
+
 --- Better = more main stats; equal → more Stamina (where it counts); still equal → more armor.
+--- Weapons for Strength/Agility players (option A, 18 Nov 2026): never "better" with LESS damage per second; with equal
+--- stats, more DPS is better. Stats up and DPS down = mixed: MH stays silent (saying "mixed" is option B).
 local function IsBetter(row)
-	return row.ds > 0 or (row.ds == 0 and (row.dsta > 0 or (row.dsta == 0 and row.darm > 0)))
+	local dd = row.ddps
+	if dd and math.abs(dd) < 0.05 then
+		dd = 0
+	end
+	if dd and dd < 0 then
+		return false
+	end
+	if row.ds > 0 then
+		return true
+	end
+	if row.ds < 0 then
+		return false
+	end
+	if dd and dd > 0 then
+		return row.dsta >= 0 -- more DPS but less Stamina = mixed too: silent
+	end
+	return row.dsta > 0 or (row.dsta == 0 and row.darm > 0)
+end
+
+--- Is reward row a a better pick than row b? The same order as IsBetter: main stats, then DPS, Stamina, armor.
+local function Outranks(a, b)
+	if a.ds ~= b.ds then
+		return a.ds > b.ds
+	end
+	local da, db = a.ddps or 0, b.ddps or 0
+	if math.abs(da - db) >= 0.05 then
+		return da > db
+	end
+	if a.dsta ~= b.dsta then
+		return a.dsta > b.dsta
+	end
+	return a.darm > b.darm
 end
 
 --- The decision for the current quest window: { index, kind = "upgrade"/"money", text } or nil, plus "not ready".
@@ -249,7 +452,7 @@ local function Decide()
 	local def = StatDef(token)
 	local main = MainFor(def)
 	local stamTie = def and def.stamTie
-	local rows, best, bestMoney = {}, nil, nil
+	local rows, best, bestMoney, unsure = {}, nil, nil, false
 	for i = 1, n do
 		local link = GetQuestItemLink and GetQuestItemLink("choice", i)
 		local name, quality, equipLoc, sell = ItemInfo(link)
@@ -266,21 +469,22 @@ local function Decide()
 		count = tonumber(count) or 1
 		local row = { i = i, link = link, name = name, usable = isUsable and true or false, equipLoc = equipLoc,
 			sell = (sell or 0) * count }
-		if row.usable and SLOTS[equipLoc] and main then
-			local stats = Stats(link) or {}
+		-- Worn() == nil: no fair comparison (an off-hand item while you hold a two-hander, or an off-hand weapon for a
+		-- class that cannot wield two): no verdict for this reward, never "better" (option A, 18 Nov 2026).
+		local worn = (row.usable and SLOTS[equipLoc] and main) and Worn(equipLoc, main, stamTie) or nil
+		if worn then
+			local stats = Stats(link, equipLoc) or {}
 			local s, sta = Score(stats, main, stamTie)
-			local worn = Worn(equipLoc, main, stamTie)
 			row.s, row.sta, row.stats = s, sta, stats
-			row.ds, row.dsta = s - (worn and worn.s or 0), sta - (worn and worn.sta or 0)
-			row.darm = (stats.ARMOR or 0) - (worn and worn.arm or 0)
+			row.ds, row.dsta = s - worn.s, sta - worn.sta
+			row.darm = (stats.ARMOR or 0) - worn.arm
+			row.ddps = DeltaDps(stats, worn, main)
 			row.worn = worn
-			if IsBetter(row) then
-				if not best or row.ds > best.ds or (row.ds == best.ds and (row.dsta > best.dsta
-					or (row.dsta == best.dsta and row.darm > best.darm))) then
-					best = row
-				end
+			if IsBetter(row) and (not best or Outranks(row, best)) then
+				best = row
 			end
-			row.worn = worn
+		elseif row.usable and SLOTS[equipLoc] and main then
+			unsure, row.noCompare = true, true -- gear you can wear, but no fair comparison: MH has no verdict on it
 		end
 		if not bestMoney or row.sell > bestMoney.sell then
 			bestMoney = row
@@ -299,6 +503,10 @@ local function Decide()
 	end
 	if not main then
 		return { index = bestMoney.i, kind = "money", text = ns:L("FQH_NO_LIST_FMT"):format(bestMoney.link) }
+	end
+	if unsure then
+		-- "None of these is better" would be a claim MH did not check for that reward: say nothing
+		return nil, "a reward without a fair comparison (two-hander worn, or an off-hand weapon you cannot hold): no sell advice"
 	end
 	if bestMoney and bestMoney.sell > 0 then
 		return { index = bestMoney.i, kind = "money", text = ns:L("FQH_SELL_FMT")
@@ -413,9 +621,11 @@ function ns.ForeverQuestHintSlash(arg)
 	print(PREFIX .. ("quest hint: %s; main stats for %s: %s; last decision: %s"):format(Enabled() and "on" or "off",
 		ClassName(Token()), main and table.concat(main, ", ") or "none", last.verdict))
 	for _, r in ipairs(last.rows or {}) do
-		print(("  %d %s usable=%s slot=%s main=%s stam=%s armor=%s gain=%s/%s/%s sells=%s"):format(r.i, r.link or r.name,
-			tostring(r.usable), tostring(r.equipLoc), tostring(r.s), tostring(r.sta),
-			tostring(r.stats and r.stats.ARMOR), tostring(r.ds), tostring(r.dsta), tostring(r.darm), tostring(r.sell)))
+		print(("  %d %s usable=%s slot=%s main=%s stam=%s armor=%s gain=%s/%s/%s dps=%s sells=%s%s"):format(r.i,
+			r.link or r.name, tostring(r.usable), tostring(r.equipLoc), tostring(r.s), tostring(r.sta),
+			tostring(r.stats and r.stats.ARMOR), tostring(r.ds), tostring(r.dsta), tostring(r.darm),
+			r.ddps and ("%+.1f"):format(r.ddps) or "n/a", tostring(r.sell),
+			r.noCompare and " NO FAIR COMPARISON (two-hander worn / no dual wield)" or ""))
 	end
 end
 
@@ -470,13 +680,18 @@ function ns.ForeverGearTipText(link)
 		return nil, "no main stats known for " .. tostring(token)
 	end
 	local stamTie = def and def.stamTie
-	local stats = Stats(link) or {}
-	local s, sta = Score(stats, main, stamTie)
 	local worn = Worn(equipLoc, main, stamTie)
-	local row = { stats = stats, worn = worn, ds = s - (worn and worn.s or 0), dsta = sta - (worn and worn.sta or 0),
-		darm = (stats.ARMOR or 0) - (worn and worn.arm or 0) }
+	if not worn then
+		return nil, "no fair comparison (" .. tostring(equipLoc) .. ": two-hander worn, or no off-hand weapons for you)"
+	end
+	local stats = Stats(link, equipLoc) or {}
+	local s, sta = Score(stats, main, stamTie)
+	local row = { stats = stats, worn = worn, ds = s - worn.s, dsta = sta - worn.sta,
+		darm = (stats.ARMOR or 0) - worn.arm }
+	row.ddps = DeltaDps(stats, worn, main)
 	if not IsBetter(row) then
-		return nil, ("not better (main %+g, stamina %+g, armor %+d)"):format(row.ds, row.dsta, row.darm)
+		return nil, ("not better (main %+g, stamina %+g, armor %+d, dps %s)"):format(row.ds, row.dsta, row.darm,
+			row.ddps and ("%+.1f"):format(row.ddps) or "n/a")
 	end
 	local parts, why = Explain(row, main, stamTie, token)
 	local gains = table.concat(parts, ", ")

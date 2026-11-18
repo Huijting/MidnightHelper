@@ -36,8 +36,17 @@ local AURA = {
 	tent = 1229487,
 	rest = 1229451,
 	camping = 1308027,
+	-- Cozy Sleeping Bag (Rob via sparring: "Oh en 1 t/m 3 mag ook", 18 Nov 2026). Hotfix 17 Nov 2026 (Blizzard News,
+	-- GEMETEN): "will now provide a Resting aura indicating when you are within its area of effect" and "Mounted Players
+	-- will no longer be permitted to sleep". 1331671 "Resting" (bag icon): GEMETEN in Wowhead Forever + Icy Veins DB
+	-- ("added in 1.60.1.70959"); NOT in the build's base DB2 (a hotfix row, AFGELEID). That it is THE bag aura: AFGELEID
+	-- (icon, date, hotfix text) — /mh camp shows the reading. 429959 Well-Rested (+1% XP per stack, up to 3): GEMETEN
+	-- DB2 SpellName + Wowhead Forever; the bag item 211527 casts 429961 Unroll Bag (GEMETEN DB2 ItemEffect).
+	bagRest = 1331671,
+	wellRested = 429959,
 }
-local ORDER = { "nearby", "welcoming", "welcoming2", "benefits", "tent", "rest", "camping" }
+local ORDER = { "nearby", "welcoming", "welcoming2", "benefits", "tent", "rest", "camping", "bagRest", "wellRested" }
+local WELL_RESTED_MAX = 3 -- up to 3 stacks (Wowhead Forever guide, 16 Nov 2026; item spell text "stacking up to 3 times")
 ns.FOREVER_CAMP_AURAS = AURA -- the overview's Camping page names its rows with these (client spell names)
 
 --- true / false / nil (nil = the client did not let us read it).
@@ -71,12 +80,63 @@ function ns.ForeverCampState()
 	return st
 end
 
+--- Well-Rested stacks: a number, or nil when unreadable (secret / no data). 0 = readable and absent.
+local function WellRestedStacks()
+	if not (ns.Aura and ns.Aura.GetPlayerAura) then
+		return nil
+	end
+	local ok, data, readable = pcall(ns.Aura.GetPlayerAura, AURA.wellRested)
+	if not ok then
+		return nil
+	end
+	if data == nil then
+		return readable and 0 or nil
+	end
+	local n = data.applications
+	if type(n) ~= "number" or (issecretvalue and issecretvalue(n)) then
+		return nil
+	end
+	return math.max(n, 1)
+end
+
+local function Mounted()
+	if IsMounted then
+		local ok, m = pcall(IsMounted)
+		if ok then
+			return m and true or false
+		end
+	end
+	return false
+end
+
+--- The sleeping-bag line, or nil plus why not. Only when the bag's Resting aura reads as PRESENT (you are in its area).
+local function BagLine(st)
+	if st.bagRest ~= true then
+		return nil, st.bagRest == nil and "sleeping bag Resting unreadable" or "not in a sleeping bag's area"
+	end
+	if Mounted() then
+		return ns:L("FCAMP_BAG_MOUNTED"), "in the bag's area, but mounted (no sleeping on a mount since 17 Nov)"
+	end
+	local n = WellRestedStacks()
+	if n == nil then
+		return nil, "Well-Rested unreadable (silent on purpose)"
+	end
+	if n >= WELL_RESTED_MAX then
+		return nil, "Well-Rested is full (" .. n .. ")"
+	end
+	return ns:L("FCAMP_BAG_SLEEP_FMT"):format(SpellName(AURA.wellRested), n, WELL_RESTED_MAX), "in the bag's area, stacks " .. n
+end
+
 --- The "Do this now" line, or nil plus the reason it stays silent.
 function ns.ForeverCampNow()
 	if InCombatLockdown and InCombatLockdown() then
 		return nil, "in combat"
 	end
 	local st = ns.ForeverCampState()
+	local bag, bagWhy = BagLine(st)
+	if bag then
+		return bag, bagWhy
+	end
 	if st.nearby == nil then
 		return nil, "Campfire Nearby unreadable (silent on purpose)"
 	end
@@ -114,6 +174,10 @@ function ns.ForeverCampSlash()
 		print(("  %s %d (%s): %s"):format(k, id, SpellName(id), YN(st[k])))
 		probe.readings[k] = (st[k] == nil) and "unreadable" or tostring(st[k])
 	end
+	local _, bagWhy = BagLine(st)
+	print(("  sleeping bag: mounted %s, Well-Rested stacks %s — %s"):format(tostring(Mounted()),
+		tostring(WellRestedStacks()), tostring(bagWhy)))
+	probe.bag = { mounted = Mounted(), stacks = WellRestedStacks(), why = bagWhy }
 	print(("  \"Do this now\": %s — %s"):format(line and "|cff40c040shows a line|r" or "silent", tostring(why)))
 	probe.decision = line and "line" or "silent"
 	probe.why = why

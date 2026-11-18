@@ -50,6 +50,19 @@ en druk op Enter. Doe dat voor 4 items en maak een screenshot van elk antwoord:
 - [ ] (d) een groen item met "of the …" in de naam (bv. "… of the Bear").
 Geen item van een soort bij de hand? Sla die over en zeg welke.
 
+## ⚔️ 18 nov (nacht) — Forever: "beter dan wat je draagt" bij wapens (optie A) + de Cozy Sleeping Bag
+
+`/reload` is genoeg.
+- [ ] Draag je een **tweehander**: een eenhandig wapen met minder stats krijgt GEEN groene regel "MH: … over what you
+      wear" meer (vroeger wel). Een schild of off-hand-ding ook niet.
+- [ ] Een wapen met dezelfde stats maar meer schade: de groene regel zegt "+x.x damage per second".
+- [ ] Een class zonder twee wapens (paladin, priest, mage, warlock, druid) met 1H + schild: een eenhandig wapen wordt nu
+      alleen met je hoofdhand vergeleken.
+- [ ] Bij een questbeloning en bij "Upgrade in your bags": hetzelfde oordeel.
+- [ ] **Slaapzak**: leg je Cozy Sleeping Bag neer en ga erbij staan. *Do this now* zegt "lie down in it … you have 0 of
+      3". Op een mount: "get off first". `/mh camp` toont of MH de aura's kan lezen (`bagRest` 1331671, `wellRested`
+      429959) — maak een screenshot als hij "unreadable" zegt.
+
 ## 🗺️ 18 nov (laat) — Forever: bazengids, stap 2b (alle dungeons tot 60) + namen van het naamplaatje
 
 Geen nieuw bestand: `/reload` is genoeg.
