@@ -28,6 +28,14 @@ snelbalk, instellingen — geen foutmeldingen. Forever wordt nu getest (uitslage
 📝 **Waarneming Rob, 16 nov (nacht), Forever mage, via sparring:** *"mouse over werk"* — `/mh mouseover on`, Shift+X
 (Arcane Intellect) op een voorbijganger onder de muis werkt.
 
+## 📏 18 nov — Forever: meting valuta en reputaties (`/mh repprobe`)
+
+Geen nieuw bestand: een `/reload` is genoeg. Het liefst op je hoogste Forever-character.
+- [ ] Typ `/mh repprobe`. In chat: vijf regels met yes/no, je Honor, Rank Points, Merchant's Favor, Tarnished Undermine
+      Real en Darkmoon-tickets (aantal / maximum), en hoeveel facties leesbaar zijn.
+- [ ] Daarna `/reload` (dan staat alles in het SavedVariables-bestand) en zeg het tegen de sparring-chat. Ik lees het
+      bestand zelf; geen screenshot nodig.
+
 ## 🔍 18 nov — Forever: zoekbalk bovenin het overzicht (stap 1)
 
 Geen nieuw bestand: een `/reload` is genoeg.

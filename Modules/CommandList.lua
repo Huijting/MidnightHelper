@@ -98,6 +98,8 @@ ns.MH_UNLISTED_ON_PURPOSE = {
 	"selftest",
 	-- 12 Nov 2026: Forever group panel diagnosis (ForeverPartyPanel.lua).
 	"partytargets check",
+	-- 18 Nov 2026: Forever currency/reputation measurement (ForeverLegacy.lua).
+	"repprobe",
 }
 
 --- Grouped so it can be scanned, not alphabetical so it can be searched. Someone

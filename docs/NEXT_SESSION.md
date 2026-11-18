@@ -34,7 +34,14 @@
   (scratch search_check: 9 classes × 2 kanten × 2 levels, elke regel aangeklikt + 40 zoekwoorden + Enter): 19.235 runs,
   0 fouten (eerste run vond een crash op `goods = true`, gerepareerd). Dungeon- en wapennamen komen van de client:
   in de test nep → "deadmines"/"sword" offline niet te testen. NIET in het spel gezien; Midnight-balk ook nakijken.
-  ⏭️ Stap 2: de ~1400 plekken zelf met "Show the way". Daarna B: valuta/reputatie-meting.
+  ⏭️ Stap 2: de ~1400 plekken zelf met "Show the way".
+- 📏 **B: meting valuta/reputaties GEBOUWD** (alleen meten, nog geen kaart): `/mh repprobe` (`ForeverLegacy.lua`
+  `ns.ForeverRepProbeSlash`, route in Core.lua, unlisted in CommandList.lua) → `ns.db.foreverRepProbe`: welke
+  functies bestaan, GetCurrencyInfo voor 1792/3468/3402/3469/515 (+3473/3485), GetFactionDataByID + oude
+  GetFactionInfoByID voor 35 facties, de reputatielijst (max 120), C_Item.GetItemCount voor 14 rep-tokens, 5 events
+  via C_EventUtils.IsEventValid. "missing"/"error"/"secret"/"nil" worden zo opgeslagen (nooit als 0). Offline: met
+  en zonder functies, 0 fouten. Steamwheedle-id's 21/369/470/577 = classic, NIET in Forever gemeten (de meting doet dat).
+  Wacht op Robs `/mh repprobe` + `/reload`; daarna kiest hij over de kaart.
 
 ## 🔴 18 nov — GEEN FABLE deze week (t/m reset za 21 nov 10:00)
 

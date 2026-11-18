@@ -1519,6 +1519,16 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh repprobe — Forever: measure the currency and reputation functions (ForeverLegacy.lua, 18 Nov 2026).
+	if msg == "repprobe" then
+		if ns.ForeverRepProbeSlash then
+			ns.ForeverRepProbeSlash()
+		else
+			print(("|cffffcc00%s|r This measurement is for WoW Forever."):format(ns:L("PRINT_PREFIX")))
+		end
+		return
+	end
+
 	-- /mh overview — Forever: the new overview window, rough version of style A (ForeverOverview.lua, 17 Nov 2026).
 	-- /mh blesstip [on|off|set <class> <kind>|reset] — Forever paladin: blessing tip in the player tooltip (ForeverBlessTip.lua).
 	local blessArg = msg:match("^blesstip%s*(.*)$")
