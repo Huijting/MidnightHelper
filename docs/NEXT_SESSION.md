@@ -63,6 +63,14 @@
   in groep chars (4e knop), zoekbalk cat `rep`/`currency`. Offline 70.220 runs, 0 fouten (Horde + Alliance, alles
   onleesbaar, Honor 24000/25000). ⚠️ Teksten alleen en + nl: de/fr/es/pt/ru vallen terug op Engels → één vertaalronde
   (mh-writer) na rares A. NIET in het spel gezien.
+- 🐉 **Rares STAP A GEBOUWD**: nieuw bestand `Modules/ForeverRares.lua` (beide toc's, na ForeverCitySpots → Rob moet
+  WoW herstarten): `FOREVER_RARES_WORTH` = 24 rares (coords = HandyNotes WoW Forever hoofdpunt, alleen gelezen; levels
+  uit het rapport, 4 nagemeten in Wowhead-tooltips: 12/13/24/22 klopt), `kill` = wie hem kan aanvallen (Horde 23,
+  Alliance 22). Find: kopje Rares → "Worth the trip"; FindPlaces kind `rare`, de waarom-zin staat op de plek van de
+  route-regel (`e.why`). Zoekbalk cat `rare` (@rare), waarom-zin = zoekwoorden. Pijl: nieuwe eigenaar `rarespot` in
+  NativeArrow.lua (rode rare-stijl, weg bij aankomst zoals `waypoint`; Midnight's `rare` ongemoeid). Geen kill-vinkje
+  (Forever heeft er geen). Pexmit weggelaten (verkoopt of laat vallen: niet gemeten). NPC-namen Engels (andere talen
+  NIET gemeten). Offline 71.919 runs, 0 fouten. NIET in het spel gezien. ⏭️ Stap B: alle 406 per zone.
 - 🐉 **Forever-rares ONDERZOCHT, niets gebouwd** (Rob via sparring: *"en hebben we ook rares in forever ?"* → *"ja"* op
   uitzoeken). Rapport `docs/forever/RARES_2026-11-18.md`; IDEEEN.md bovenaan. 406 rares / 41 zones (HandyNotes WoW
   Forever v4 = ARR: lezen, niet kopiëren); DB2 heeft geen rares en maar 2 vignettes. Voorstel A (top ~20 in Find +

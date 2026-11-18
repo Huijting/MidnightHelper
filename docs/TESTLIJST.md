@@ -32,6 +32,16 @@ snelbalk, instellingen — geen foutmeldingen. Forever wordt nu getest (uitslage
 een logische afkorting voor de action house. 6 komt later"*** (Willow: "action house" = Auction House). Zoekbalk stap 1 +
 stap 2 werken in Forever; `/mh repprobe` gedaan. De Midnight-check van de zoekbalk komt later.
 
+## 🐉 18 nov — Forever: rares die de moeite waard zijn (stap A)
+
+⚠️ Nieuw bestand: eerst WoW helemaal afsluiten en opnieuw starten (/reload is niet genoeg).
+- [ ] Overzicht → Find: onderaan de lijst links het kopje **RARES** met "Worth the trip". Rechts de rares die jouw kant
+      kan aanvallen, de dichtstbijzijnde eerst, met level (en "elite") en onder elke naam één zin waarom.
+- [ ] "Show the way" bij een rare: een **rode** pijl met het rare-icoon. Als je er bent (binnen ~20 m) gaat hij weg.
+      Klopt de plek? (Sommige rares lopen rond.)
+- [ ] Zoekbalk: `@rare` toont ze allemaal; `pet` vindt de rares met een huisdiertje; `tame` de nieuwe hunter-beesten.
+- [ ] Horde ziet Dalaran Spellscribe en Aean Swiftriver wél en Sewer Beast niet; Alliance andersom.
+
 ## 🪙 18 nov — Forever: kaart "Reputation & currency"
 
 Geen nieuw bestand: een `/reload` is genoeg.

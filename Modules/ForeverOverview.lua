@@ -2554,6 +2554,16 @@ local function FindCatalog()
 			end
 		end
 	end
+	-- 18 Nov 2026 (Rob: rares, "eerst a daarna b"): rares (ForeverRares.lua).
+	if ns.ForeverRareFindCats then
+		local ok, cats = pcall(ns.ForeverRareFindCats)
+		if ok and type(cats) == "table" and #cats > 0 then
+			head(ns:L("FOV_FIND_SEC_RARE"))
+			for _, c in ipairs(cats) do
+				items[#items + 1] = { kind = "rare", key = c.key, name = c.name }
+			end
+		end
+	end
 	return items, dirText
 end
 
@@ -2674,6 +2684,23 @@ local function FindPlaces(it, dirText)
 			sub = sub .. "  " .. ns:L(it.svc and "FCITY_EMPTY" or "FVEND_EMPTY")
 		end
 		hint = ns:L(it.svc and "FCITY_HINT" or "FVEND_HINT")
+	elseif it.kind == "rare" then
+		if ns.ForeverRareFindRows then
+			local ok, l, p = pcall(ns.ForeverRareFindRows, it.key)
+			if ok and type(l) == "table" then
+				posOk = p
+				for _, e in ipairs(l) do
+					rows[#rows + 1] = { name = e.name .. (e.tag and ("  |cff999999" .. e.tag .. "|r") or ""),
+						info = (e.zone or "?") .. " · " .. FindDistance(e.dist), map = e.map, x = e.x, y = e.y,
+						why = e.why, go = e.go }
+				end
+			end
+		end
+		sub = ns:L("FRARE_SUB")
+		if #rows == 0 then
+			sub = sub .. "  " .. ns:L("FRARE_EMPTY")
+		end
+		hint = ns:L("FRARE_HINT")
 	end
 	if not posOk then
 		sub = sub .. "  " .. ns:L("FVEND_NOPOS")
@@ -2772,11 +2799,18 @@ local function FillFindPage(f, refresh)
 		row.hover.tipTitle = e.name
 		row.hover.tipBody = e.info
 		local route = e.route
-		if route == nil and i <= FIND_ROUTES and e.map and e.x and e.y and ns.ForeverTravelSentence then
+		-- A rare's line is WHY it is worth the trip (ForeverRares.lua), shown where the way there would be.
+		if e.why then
+			route = false
+			row.route:SetText(e.why)
+			row.route:Show()
+		elseif route == nil and i <= FIND_ROUTES and e.map and e.x and e.y and ns.ForeverTravelSentence then
 			local ok, s = pcall(ns.ForeverTravelSentence, e.map, e.x, e.y)
 			route = ok and s or nil
 		end
-		if type(route) == "string" and route ~= "" then
+		if e.why then
+			-- already set above
+		elseif type(route) == "string" and route ~= "" then
 			row.route:SetText(ns:L("FWEAP_ROUTE_LABEL") .. " " .. route)
 			row.route:Show()
 		else
@@ -3503,13 +3537,17 @@ local function SearchRows()
 			-- the Mining item before thirty trainers.
 			local okP, places = pcall(FindPlaces, it, dirText)
 			-- FindPlaces lists nearest first; that rank goes along, so "bank" shows the nearest banker first.
+			-- Rares (18 Nov 2026): their own kind for "@rare", and the "why" line is searchable ("pet", "recipe" …).
+			local isRare = kind == "rare"
 			for rank, p in ipairs(okP and type(places) == "table" and places or {}) do
 				if p.go and type(p.name) == "string" then
 					local go = p.go
-					row(p.name, keys .. " " .. (it.name or "") .. " way route arrow place", function()
+					local extra = isRare and (" rare elite " .. (type(p.why) == "string" and p.why or "")) or ""
+					row(p.name, keys .. " " .. (it.name or "") .. " way route arrow place" .. extra, function()
 						openItem()
 						go()
-					end, "content", (it.name or "") .. " · " .. (p.info or "") .. " · " .. wayWord, "place", rank)
+					end, "content", (it.name or "") .. " · " .. (p.info or "") .. " · " .. wayWord,
+						isRare and "rare" or "place", rank)
 				end
 			end
 		end

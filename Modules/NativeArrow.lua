@@ -42,6 +42,9 @@ local DEFAULT_SIZE, MIN_SIZE, MAX_SIZE = 64, 28, 160
 -- label. Any owner not listed falls back to DEFAULT_STYLE (gold, no icon).
 local OWNER_STYLE = {
 	rare        = { icon = "Interface\\Icons\\Ability_Hunter_MarkedForDeath", r = 1.00, g = 0.32, b = 0.32 }, -- rood: rare
+	-- WoW Forever (18 Nov 2026, ForeverRares.lua): one rare's spot. Looks like `rare`, but it is a single destination,
+	-- so it is released on arrival like `waypoint` (Midnight's `rare` route manages its own lifecycle).
+	rarespot    = { icon = "Interface\\Icons\\Ability_Hunter_MarkedForDeath", r = 1.00, g = 0.32, b = 0.32 },
 	treasure    = { icon = "Interface\\Icons\\INV_Misc_Coin_01",             r = 1.00, g = 0.82, b = 0.20 }, -- goud: treasure/chest
 	achievement = { icon = "Interface\\Icons\\Achievement_Quests_Completed_08", r = 1.00, g = 0.90, b = 0.42 }, -- geel: achievement
 	reset       = { icon = "Interface\\Icons\\INV_Misc_Map_01",              r = 0.42, g = 0.78, b = 1.00 }, -- blauw: reset-route
@@ -1176,7 +1179,8 @@ local function Tick()
 	-- ...but not at a step ON THE WAY (Travel phase 3): reaching the portal is not arriving, and letting the owner go
 	-- there would end the route runner's route one step early.
 	local onLeg = ns.Travel and ns.Travel.OnLeg and ns.Travel.OnLeg()
-	if (ns._mhRouteOwner == "delve" or ns._mhRouteOwner == "waypoint") and arrived and not onLeg then
+	if (ns._mhRouteOwner == "delve" or ns._mhRouteOwner == "waypoint" or ns._mhRouteOwner == "rarespot") and arrived
+		and not onLeg then
 		ns._mhRouteOwner = nil
 		activeLead = nil
 		HideArrow()
