@@ -2,6 +2,20 @@
 
 ## ▶ 18 nov — Bouwchat 18-11
 
+- ✨ **Forever disenchant + inklapbare Find-kopjes GEBOUWD** (Rob via sparring: *"Hoe kan ik zien of ik iets kan
+  disenchanten? …"* → *"Ja, dat mag zo. … Baconator [Baganator] …"* → *"ja"*; en *"Kunnen we daar inklapbare dingen van
+  maken? …"* → *"ja"*). ⚠️ **2 nieuwe bestanden → WoW herstarten.**
+  - Kopjes: `FindCatalog` geeft elk kopje een `sec`-id (class/prof/weapon/shop/city/travel/rare); `FillFindPage` toont
+    alleen open kopjes (plus/min-textuur, aantal verborgen). `ns.db.foreverFindOpen[sec]`; ongeklikt = alleen het kopje
+    van wat je open hebt; een selectie van buitenaf (zoekbalk, ShowForeverFind) opent zijn kopje.
+  - `Modules/ForeverDisenchant.lua` (+ gegenereerd `ForeverDisenchantData.lua`, 54 rijen, 1615 vlag-items): verdict
+    yes/unsure/no; tooltipregel met de client-woorden; icoon in Blizzard-tassen + Baganator corner widget; secure knop
+    "Disenchant next" (standaard UIT); `/mh disenchant`; twee schakelaars bij de stille helpers (FOV_Q_DISENCHANT*).
+  - Onderzoek: `docs/forever/DISENCHANT_2026-11-18.md` + tweede controle `DISENCHANT_CONTROLE2_2026-11-18.md`.
+  - Offline: verdicts (8 gevallen), bag-hook, Baganator onUpdate true/false/nil, knop-attributen, overslaan, combat
+    (pending) → na combat bijgewerkt, kopjes open/dicht/zoek-opent. 0 fouten. NIET in het spel gezien.
+  - Open (in het spel meten): skill-drempel (AFGELEID geen), of de server vlag/geen-verkoopprijs weigert, of de secure
+    knop met Disenchant + tasvak werkt, `C_SpellBook.IsSpellKnown(13262)`.
 - 📚 **Forever class quests: eerst wat je nodig hebt, dán de reis — GEBOUWD** (Rob via sparring, letterlijk: *"Ik ben de
   halve wereld over gereisd om bij dit quest te doen … dan had ik een boek moeten hebben …"* → *"ja"*). Onderzoek één
   mh-research → `docs/forever/CLASSQUEST_VOORWAARDEN_2026-11-18.md` (tabel per class + wat NIET gemeten is).

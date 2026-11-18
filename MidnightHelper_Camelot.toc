@@ -161,6 +161,9 @@ Modules\MissingBuff.lua
 # Which quest reward to take, and why (Rob, 7 Nov 2026: "doe de quest beloning tip maar ook").
 Modules\ForeverMainStats.lua
 Modules\ForeverQuestHint.lua
+# Can this be disenchanted: tooltip line, bag icon (Blizzard + Baganator), "Disenchant next" (Rob, 18 Nov 2026: "ja").
+Modules\ForeverDisenchantData.lua
+Modules\ForeverDisenchant.lua
 # Tooltip: which profession an item is an ingredient for (Rob, 11 Nov 2026). Data files are generated; each loads in
 # its own game only (guarded), the module runs in both.
 Modules\ForeverReagentData.lua

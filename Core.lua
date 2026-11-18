@@ -2714,6 +2714,18 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh disenchant [on | off | next on | next off] — WoW Forever: can this be disenchanted (ForeverDisenchant.lua;
+	-- Rob, 18 Nov 2026: "ja").
+	local deArg = msg:lower() == "disenchant" and "" or msg:lower():match("^disenchant%s+(.+)$")
+	if deArg then
+		if ns.ForeverDisenchantSlash then
+			ns.ForeverDisenchantSlash(deArg)
+		else
+			print("|cffffcc00Midnight Helper:|r /mh disenchant is for WoW: Forever.")
+		end
+		return
+	end
+
 	-- /mh usedfor [on | off] — Forever and Midnight: "MH: Used for Cooking (you have it)" on an ingredient's tooltip
 	-- (ReagentUse.lua; Rob, 11 Nov 2026).
 	local usedArg = msg:lower() == "usedfor" and "" or msg:lower():match("^usedfor%s+(.+)$")

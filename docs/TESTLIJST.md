@@ -39,6 +39,23 @@ zoekbalk, de reputaties, de rares, de muntjes, de Now-kaart, het ronde plaatje e
 achternaam, "Step aside"-instelling, Your path, Set focus). Daarna vond Rob nog: "scroll for more" over de tekst
 (gerepareerd, zie Travel) en het boek bij de mage-quest "Study" (in bouw).
 
+## ✨ 18 nov (nacht) — Forever: disenchanten + inklapbare kopjes in Find
+
+⚠️ **Twee nieuwe bestanden: WoW helemaal afsluiten en opnieuw starten** (/reload is niet genoeg).
+- [ ] Overzicht → Find: elk kopje (TRAINER, PROFESSIONS …) heeft een plus/min-knopje. Klik: open/dicht; een dicht kopje
+      toont tussen haakjes hoeveel erin zit. Na een /reload staat alles nog zoals je het liet.
+- [ ] Zoekbalk: zoek iets uit een dicht kopje (bv. `zep` of de naam van een rare) en klik: dat kopje klapt vanzelf open.
+- [ ] Enchanter: muis op een groen wapen of armor → "MH: Disenchantable" (paars). Op een grijs/wit wapen: "MH: Cannot be
+      disenchanted (only green, blue and purple items)". Op een drankje: niets.
+- [ ] Je tassen (Baganator): linksboven op wat kan een klein Disenchant-icoontje. (Verplaatsen/uitzetten kan in
+      Baganator → Customise.) Blizzard-tassen: hetzelfde icoontje.
+- [ ] Tandwiel → stille helpers → "Disenchant next button" aan: een knop met het volgende item. Klik = Disenchant op dat
+      item. Rechtsklik = overslaan. Alt+slepen = verplaatsen. In een gevecht is hij weg.
+- [ ] `/mh disenchant`: in chat hoeveel items "yes / not sure / cannot" in je tassen, en "spell 13262 known: true/false"
+      (zeg wat er staat: dat is een meting).
+- [ ] (Als je die hebt) een enchanter-wand (Lesser Magic Wand): "Cannot be disenchanted (this item never can)". Klopt dat?
+      En een item met lage skill disenchanten lukt? (Dan heeft Forever geen skill-drempel; AFGELEID.)
+
 ## 📚 18 nov (nacht) — Forever: eerst wat je nodig hebt, dán de reis (class quests)
 
 Geen nieuw bestand: een `/reload` is genoeg.

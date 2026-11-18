@@ -1163,6 +1163,21 @@ local QUIET = {
 	PROF_SWITCHES[1], -- Used for / never usable / quest item
 	Q("FOV_Q_GEARTIP", "FOV_Q_GEARTIP_DESC", DbFlag("foreverGearTip", true)),
 	Q("SET_BLESSTIP_TITLE", "SET_BLESSTIP_DESC", DbFlag("foreverBlessTip", false)),
+	-- 18 Nov 2026 (Rob: disenchant, "ja"): tooltip line + bag icons (on), and the "Disenchant next" button (off).
+	Q("FOV_Q_DISENCHANT", "FOV_Q_DISENCHANT_DESC", (function()
+		local f = DbFlag("foreverDisenchant", true)
+		return { get = f.get, set = function(on)
+			f.set(on)
+			if ns.ForeverDisenchantRefresh then ns.ForeverDisenchantRefresh() end
+		end }
+	end)()),
+	Q("FOV_Q_DISENCHANTNEXT", "FOV_Q_DISENCHANTNEXT_DESC", (function()
+		local f = DbFlag("foreverDisenchantNext", false)
+		return { get = f.get, set = function(on)
+			f.set(on)
+			if ns.ForeverDisenchantRefresh then ns.ForeverDisenchantRefresh() end
+		end }
+	end)()),
 	{ head = "FOV_Q_HEAD_WARN" },
 	Q("FOV_Q_BAGS", "FOV_Q_BAGS_DESC", Warn("bags")),
 	Q("FOV_Q_REST", "FOV_Q_REST_DESC", Warn("rest")),
@@ -2696,16 +2711,18 @@ end
 --- weapon line for your direction (ForeverWeapons.lua), or nil.
 local function FindCatalog()
 	local items = {}
-	local function head(t)
-		items[#items + 1] = { head = t }
+	-- 18 Nov 2026 (Rob via sparring: "Kunnen we daar inklapbare dingen van maken? … Want dit wordt één hele lange lijst
+	-- zo." → "ja"): every heading has an id (`sec`); before returning, every item gets the id of its heading.
+	local function head(t, id)
+		items[#items + 1] = { head = t, sec = id or t }
 	end
 	local cname, token = UnitClass and UnitClass("player")
 	if ns.ForeverClassName and token then
 		cname = ns.ForeverClassName(token) or cname
 	end
-	head(ns:L("FOV_FIND_SEC_CLASS"))
+	head(ns:L("FOV_FIND_SEC_CLASS"), "class")
 	items[#items + 1] = { kind = "class", name = ns:L("FOV_FIND_CLASS_FMT"):format(cname or "?") }
-	head(ns:L("FOV_FIND_SEC_PROF"))
+	head(ns:L("FOV_FIND_SEC_PROF"), "prof")
 	local mine = ns.ForeverMyProfessions and ns.ForeverMyProfessions() or {}
 	for pass = 1, 2 do
 		for _, p in ipairs(ns.FOREVER_PROFS or {}) do
@@ -2725,7 +2742,7 @@ local function FindCatalog()
 		end
 	end
 	if #weap > 0 then
-		head(ns:L("FOV_FIND_SEC_WEAP"))
+		head(ns:L("FOV_FIND_SEC_WEAP"), "weapon")
 		for _, w in ipairs(weap) do
 			items[#items + 1] = { kind = "weapon", key = w.spell, name = w.name, known = w.known, tooLow = w.tooLow,
 				level = w.level, fit = w.fit }
@@ -2739,13 +2756,14 @@ local function FindCatalog()
 	-- 17 Nov 2026: bank, auction house, mailbox and inn get their own heading ("In town"), after the shops.
 	-- 18 Nov 2026: and travel (boats, zeppelins, tram, portals, flight masters) a third one ("Travel").
 	local SEC = { "FOV_FIND_SEC_SHOP", "FOV_FIND_SEC_CITY", "FOV_FIND_SEC_TRAVEL" }
+	local SEC_ID = { "shop", "city", "travel" }
 	for pass = 1, 3 do
 		local first = true
 		for _, c in ipairs(shops) do
 			local group = (c.travel and 3) or (c.svc and 2) or 1
 			if group == pass then
 				if first then
-					head(ns:L(SEC[pass]))
+					head(ns:L(SEC[pass]), SEC_ID[pass])
 					first = false
 				end
 				items[#items + 1] = { kind = "shop", key = c.key, name = c.name, goods = c.goods, svc = c.svc }
@@ -2756,10 +2774,18 @@ local function FindCatalog()
 	if ns.ForeverRareFindCats then
 		local ok, cats = pcall(ns.ForeverRareFindCats)
 		if ok and type(cats) == "table" and #cats > 0 then
-			head(ns:L("FOV_FIND_SEC_RARE"))
+			head(ns:L("FOV_FIND_SEC_RARE"), "rare")
 			for _, c in ipairs(cats) do
 				items[#items + 1] = { kind = "rare", key = c.key, name = c.name }
 			end
+		end
+	end
+	local sec
+	for _, e in ipairs(items) do
+		if e.head then
+			sec = e.sec
+		else
+			e.sec = sec
 		end
 	end
 	return items, dirText
@@ -2916,17 +2942,51 @@ local function FillFindPage(f, refresh)
 	local items, dirText = FindCatalog()
 	local it = PickFind(f, items, (f.find and f.find.kind) or "class", f.find and f.find.key)
 	f.find = it and { kind = it.kind, key = it.key } or nil
+	-- Collapsible headings (18 Nov 2026, Rob: "ja"). ns.db.foreverFindOpen[sec] = true/false once you clicked it;
+	-- not clicked yet: only the heading of what you have selected is open. Whatever gets selected from outside (the
+	-- search bar, "Show the way", a button elsewhere) opens its own heading, so a hit is never hidden.
+	ns.db = ns.db or {}
+	ns.db.foreverFindOpen = type(ns.db.foreverFindOpen) == "table" and ns.db.foreverFindOpen or {}
+	local open = ns.db.foreverFindOpen
+	local selKey = it and (tostring(it.kind) .. ":" .. tostring(it.key)) or nil
+	if it and it.sec and selKey ~= f._findSelKey then
+		open[it.sec] = true
+	end
+	f._findSelKey = selKey
+	local function IsOpen(sec)
+		if open[sec] ~= nil then
+			return open[sec] == true
+		end
+		return it ~= nil and it.sec == sec
+	end
+	local shown, hiddenIn = {}, {}
+	for _, e in ipairs(items) do
+		if e.head or IsOpen(e.sec) then
+			shown[#shown + 1] = e
+		else
+			hiddenIn[e.sec] = (hiddenIn[e.sec] or 0) + 1
+		end
+	end
 	-- Left: the catalogue.
 	local r, g, b = Accent()
-	for i, e in ipairs(items) do
+	for i, e in ipairs(shown) do
 		local btn = FindItem(cat, i)
 		btn.sel = (it ~= nil and e == it)
 		btn.tipTitle, btn.tipBody = nil, nil
 		if e.head then
-			btn.t:SetText(e.head:upper())
+			local isOpen = IsOpen(e.sec)
+			-- Blizzard's own plus/minus textures (present in every client) rather than a glyph the font may lack.
+			local icon = isOpen and "|TInterface\\Buttons\\UI-MinusButton-Up:14:14:0:0|t "
+				or "|TInterface\\Buttons\\UI-PlusButton-Up:14:14:0:0|t "
+			local n = hiddenIn[e.sec]
+			btn.t:SetText(icon .. e.head:upper() .. ((not isOpen and n) and ("  |cff8a7d6b(" .. n .. ")|r") or ""))
 			S.Font(btn.t, A.fonts.head2, 12, A.fallback.head2)
 			btn.col = A.label
-			btn:SetScript("OnClick", nil)
+			btn.tipTitle, btn.tipBody = e.head, ns:L(isOpen and "FOV_FIND_TIP_CLOSE" or "FOV_FIND_TIP_OPEN")
+			btn:SetScript("OnClick", function()
+				open[e.sec] = not isOpen
+				ns.ForeverOverviewFill(true)
+			end)
 			btn.bg:SetColorTexture(0, 0, 0, 0)
 		else
 			S.Font(btn.t, A.fonts.textB, 13, A.fallback.textB)
@@ -2958,10 +3018,10 @@ local function FillFindPage(f, refresh)
 		btn.t:SetTextColor(btn.col[1], btn.col[2], btn.col[3])
 		btn:Show()
 	end
-	for i = #items + 1, #cat.items do
+	for i = #shown + 1, #cat.items do
 		cat.items[i]:Hide()
 	end
-	cat.child:SetHeight(math.max(10, #items * FIND_ITEM_H))
+	cat.child:SetHeight(math.max(10, #shown * FIND_ITEM_H))
 	if refresh then
 		cat.sf.UpdateThumb()
 	elseif not f.findScrolled then
