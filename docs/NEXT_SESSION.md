@@ -2,6 +2,18 @@
 
 ## ▶ 18 nov — Bouwchat 18-11
 
+- 🗺️ **Forever dungeon-gids: ALLEEN ONDERZOCHT, niets gebouwd** (Rob: *"… daarna door naar 1"*; sparring: eerst onderzoek
+  + voorstel). `docs/forever/DUNGEONGIDS_2026-11-18.md` (mh-research) + `DUNGEONGIDS_CONTROLE2_2026-11-18.md` (tweede
+  Opus) + voorbeelddata DM/WC/SFK (`dungeongids_voorbeeld_2026-11-18.lua.txt`, geen addon-bestand).
+  - GEMETEN: Journal-tabellen ontbreken in Forever DB2 (HTTP 400, positieve controle retail); `DungeonEncounter` wel
+    (376 rijen, namen per taal; dubbele sets + testrijen); `Blizzard_EncounterJournal.toc` r.7 `AllowLoadGameType:
+    standard, classic` → laadt niet in Forever. 9 nieuwe Forever-dungeons (alleen in Forever). DungeonBossWindow.lua is
+    Midnight-only (patroon herbruikbaar).
+  - Let op: drop-% uit gidsen = Classic-cijfers (Wowhead Forever wijkt af, bv. Meteor Shard 29,4% i.p.v. 18%); 5 itemstats
+    verschillen. Silverlaine-spell niet zeker (7068 vs 460755). ForeverDungeonJournal: geen licentie → niets overnemen;
+    Spoken_Bosses: "Addon code MIT" (data onduidelijk).
+  - Voorstel bij sparring: A / B / C, advies A+ (1-3 regels per baas + 2-3 items per dungeon, eerst 9 dungeons tot lvl 32,
+    zonder drop-%). ⏳ Rob kiest.
 - 📦 **Forever Openables GEBOUWD** (Rob via sparring: *"Ik denk dat 3 het makkelijkste is dus die kunnen we nu doen en
   daarna door naar 1"*). Midnight's `Modules/Openables.lua` hergebruikt (zelfde secure knop `type=item`, één klik = één
   item, opbouw alleen buiten combat, verborgen in combat): nu ook in `MidnightHelper_Camelot.toc` → herstart.

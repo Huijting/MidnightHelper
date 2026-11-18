@@ -1,0 +1,166 @@
+--[[
+	dungeon_guide_sample.lua  -  VOORBEELDDATA voor een Forever-dungeongids (scratchpad, NIET in de repo, 18 nov 2026).
+	Alleen om de vorm te laten zien. Niets hiervan is in het spel getest.
+
+	Sleutels:
+	  [map]      = instance Map-id, dezelfde als `map` in Modules/ForeverDungeons.lua.
+	  encounter  = DungeonEncounter.ID (DB2). nil = de baas heeft GEEN rij in die tabel (GEMETEN: rij ontbreekt).
+	  npc        = creature-id, naam GEMETEN in Wowhead Forever-tooltip op 18 nov 2026 (kandidaat kwam uit Spoken_Bosses
+	               Data/Creatures.lua, MIT; voor de twee rares uit eigen geheugen, daarna door Wowhead bevestigd).
+	  name       = Engelse naam. In het spel: per taal uit DB2 DungeonEncounter (--locale), niet zelf vertalen.
+	  does       = 1-3 dingen die de baas doet, eenvoudige taal, geen spellnamen (spell-id's zijn NIET gemeten).
+	  tip        = een tip.
+	  src        = bronnen; "2x" = twee onafhankelijke gidsen zeggen hetzelfde, "1x" = maar een gids.
+	  loot.role  = AFGELEID uit de stats in de Wowhead-tooltip; welke class het mag dragen bepaalt de client.
+
+	Bronnen (afkortingen):
+	  DB2 = wago.tools DungeonEncounter, build 1.60.1.70959 (Forever), gelezen 18 nov 2026
+	  WHT = Wowhead Forever tooltip-JSON (nether.wowhead.com/forever/tooltip), gelezen 18 nov 2026
+	  FC  = foreverchanges.pro/dungeons/<naam>, build 1.60.1.70959, "drops seen in game as of" 3 okt (DM) / 6 okt (WC, SFK) 2026;
+	        de site zegt zelf: wie wat dropt en de kansen zijn die van Classic
+	  IV  = Icy Veins Forever-gids (Neryssa), "Last Updated" 18 okt (DM) / 19 okt (WC, SFK) 2026
+	  MOB = Mobalytics Forever-gids, "Updated on" 12 nov (DM, PhaseShifter) / 14 nov (WC, Ruse_Cruize) 2026
+	  WT  = Warcraft Tavern Forever SFK-gids (Luxrah), geen datum zichtbaar; zegt foutief "Location: The Barrens"
+	  MG  = method.gg Forever SFK-gids, alleen als zoekfragment gezien
+]]
+
+local GUIDE = {
+	[36] = { -- The Deadmines (Map 36, DB2 MapName "Deadmines")
+		bosses = {
+			{ encounter = 2741, npc = 644, name = "Rhahk'Zor",
+				does = { "Stuns the tank now and then." },
+				tip = "Pull the two Defias Watchmen in his room first, on their own.",
+				src = "2x IV+MOB" },
+			{ encounter = 3676, npc = 3586, name = "Miner Johnson", rare = true,
+				does = { "A tougher Defias Miner; not always there." },
+				tip = "Kill the miners around him first.",
+				src = "1x IV; rare = WHT 'Rare Elite'" },
+			{ encounter = 2742, npc = 643, extraNpc = 642, name = "Sneed", -- 642 = Sneed's Shredder (WHT), geen eigen DB2-rij
+				does = { "Starts in his Shredder; when it breaks, Sneed jumps out and fights on.", "Sneed can disarm the tank." },
+				tip = "Do not relax when the Shredder dies: give the tank a moment before you go all out.",
+				src = "2x IV+MOB (twee fasen, disarm); Shredder-angst alleen IV" },
+			{ encounter = 2743, npc = 1763, name = "Gilnid",
+				does = { "Puts a fire debuff on the tank." },
+				tip = "Stop the goblin engineer near him (crowd control or kill): he builds robots.",
+				src = "2x IV+MOB" },
+			{ encounter = 2745, npc = 646, name = "Mr. Smite",
+				does = { "Stuns the whole group at set health points, then changes weapons.", "Hits harder near the end." },
+				tip = "Two hidden Defias Blackguards fight with him: kill them first.",
+				src = "2x IV+MOB (IV noemt 66% en 33%)" },
+			{ encounter = 2744, npc = 647, name = "Captain Greenskin",
+				does = { "Cleaves in front of him." },
+				tip = "Melee stand behind him; kill the Squallshaper with him first.",
+				src = "1x IV" },
+			{ encounter = 2747, npc = 639, name = "Edwin VanCleef",
+				does = { "Hits the tank fast and hard.", "Calls two more Blackguards at half health." },
+				tip = "Kill the Blackguards first, each time they come.",
+				src = "1x IV (MOB-tekst afgebroken voor VanCleef)" },
+			{ encounter = 2746, npc = 645, name = "Cookie",
+				does = { "Cooks to heal himself." },
+				tip = "Interrupt the cooking.",
+				src = "1x IV" },
+		},
+		loot = {
+			{ item = 5191, boss = 639, role = "melee DPS (one-hand sword)", src = "FC 16%, IV, MOB; stats WHT" }, -- Cruel Barb
+			{ item = 7230, boss = 646, role = "strength melee (two-hand mace, +11 Str)", src = "FC 19%, IV, MOB; stats WHT" }, -- Smite's Mighty Hammer
+			{ item = 5193, boss = 639, role = "agility users (cloak, +5 Agi)", src = "FC 23%, WHT 'Dropped by Edwin VanCleef 19.28%', IV, MOB" }, -- Cape of the Brotherhood
+			-- Leuk, nieuw in Forever: Lookie's Spyglass 273298 (trinket), WHT "Dropped by: Cookie 29.10%".
+		},
+	},
+
+	[43] = { -- Wailing Caverns (Map 43)
+		-- Vier "Lords of the Fang" zijn druid-bazen: allemaal Sleep, Lightning Bolt en Healing Touch (IV+MOB).
+		bosses = {
+			{ encounter = 585, npc = 3671, name = "Lady Anacondra",
+				does = { "Puts someone to sleep, casts lightning, heals herself." },
+				tip = "Interrupt her sleep spell first, then her heal.",
+				src = "2x IV+MOB; op 1 van 4 plekken: FC + MOB" },
+			{ encounter = 586, npc = 3669, name = "Lord Cobrahn",
+				does = { "Same druid spells as Anacondra.", "Turns into a snake when low: hits harder." },
+				tip = "Healer: be ready when he becomes a snake.",
+				src = "2x IV+MOB" },
+			{ encounter = 587, npc = 3653, name = "Kresh",
+				does = { "A big turtle with very thick armor; nothing else to watch." },
+				tip = "Armor-lowering attacks help a lot.",
+				src = "2x IV+MOB (MOB: daze bij een klap)" },
+			{ encounter = 588, npc = 3670, name = "Lord Pythas",
+				does = { "Same druid spells.", "Thunderclap around him." },
+				tip = "Ranged: stay away from him.",
+				src = "2x IV+MOB (IV zet dit stuk per ongeluk onder de kop 'Lord Serpentis')" },
+			{ encounter = 589, npc = 3674, name = "Skum",
+				does = { "Chain lightning that jumps between people close together." },
+				tip = "Spread out a little.",
+				src = "2x IV+MOB" },
+			{ encounter = 590, npc = 3673, name = "Lord Serpentis",
+				does = { "Only the druid spells." },
+				tip = "Keep interrupting him.",
+				src = "2x IV+MOB" },
+			{ encounter = 591, npc = 5775, name = "Verdan the Everliving",
+				does = { "Hits the tank very hard.", "Roots and knocks down everyone close to him." },
+				tip = "If you do not have to be in melee, stay at range.",
+				src = "2x IV+MOB (IV: binnen 10 yards)" },
+			{ encounter = 592, npc = 3654, name = "Mutanus the Devourer",
+				does = { "Only comes after all four Lords are dead and you escort the Disciple of Naralex from the entrance.",
+					"Damage all around him; also a fear and a sleep." },
+				tip = "Keep the Disciple alive; ranged stay out of melee.",
+				src = "2x IV+MOB (MOB: de klap rond hem stunt ook 2 s = 1x)" },
+			{ encounter = nil, npc = 5912, name = "Deviate Faerie Dragon", rare = true, -- GEMETEN: geen DB2-rij (WC = 585-592)
+				does = { "Nothing special; the danger is the extra mobs near him." },
+				tip = "Interrupt the Druids of the Fang that come with him.",
+				src = "1x IV" },
+		},
+		loot = {
+			{ item = 6469, boss = 3673, role = "hunter (bow)", src = "FC 17%, IV, MOB; stats WHT" }, -- Venomstrike
+			{ item = 6631, boss = 5775, role = "healer (staff, Spirit; IV: 'Healing Staff')", src = "FC 38%, IV; stats WHT" }, -- Living Root
+			{ item = 6627, boss = 3654, role = "strength mail wearer (+10 Str)", src = "FC 22%, IV, MOB; stats WHT" }, -- Mutant Scale Breastplate
+		},
+	},
+
+	[33] = { -- Shadowfang Keep (Map 33)
+		bosses = {
+			{ encounter = 2748, npc = 3914, name = "Rethilgore",
+				does = { "Drains health from the tank." },
+				tip = "Interrupt the drain.",
+				src = "2x IV+WT (onderbreken: alleen IV)" },
+			{ encounter = 2749, npc = 3886, name = "Razorclaw the Butcher",
+				does = { "Drains the tank again and again." },
+				tip = "Healer: just heal through it; do not pull the patrols with him.",
+				src = "2x IV+WT" },
+			{ encounter = 2750, npc = 3887, name = "Baron Silverlaine",
+				does = { "Curses someone: healing on them is 75% weaker." },
+				tip = "Remove the curse if you can.",
+				src = "2x IV+WT" },
+			{ encounter = 2751, npc = 4278, name = "Commander Springvale",
+				does = { "Heals himself with Holy Light.", "Comes with a guard who silences everyone near him." },
+				tip = "Kill the Wailing Guardsman first; interrupt the heal.",
+				src = "2x IV+WT (WT: Divine Shield op 30% = 1x)" },
+			{ encounter = 2752, npc = 4279, name = "Odo the Blindwatcher",
+				does = { "Comes with bats that disarm and cleave.", "Hits harder the lower his health." },
+				tip = "Tank: turn the bats away from the group.",
+				src = "bats 2x IV+WT; harder-bij-weinig-leven 1x WT" },
+			{ encounter = 2753, npc = 4274, name = "Fenrus the Devourer",
+				does = { "Spit that hurts the tank more." },
+				tip = "Healer: keep the tank topped up.",
+				src = "1x IV; voidwalkers NIET opgenomen (IV zegt 'bij 50%', niet nagemeten bij een 2e bron)" },
+			{ encounter = 2754, npc = 3927, name = "Wolf Master Nandos",
+				does = { "Calls more wolves during the fight." },
+				tip = "Pull the wolves in his room first; kill the new ones fast.",
+				src = "1x IV (WT-tekst afgebroken)" },
+			{ encounter = 2755, npc = 4275, name = "Archmage Arugal",
+				does = { "Shoots shadow bolts at the tank.", "Teleports around the room." },
+				tip = "Hide behind a wall or corner so he has to come to you.",
+				src = "Void Bolt + om de hoek: 2x IV+MG; teleport 1x IV; MG noemt ook een curse van 10 s" },
+			{ encounter = nil, npc = 3872, name = "Deathsworn Captain", rare = true, -- GEMETEN: geen DB2-rij (SFK = 2748-2755)
+				does = { "Cleaves in front of him." },
+				tip = "Stand behind him; kill his two helpers.",
+				src = "cleave 1x WT; helpers 1x IV" },
+		},
+		loot = {
+			{ item = 6220, boss = 4275, role = "melee (dagger; IV: 'Melee Dagger')", src = "FC 18%, IV; stats WHT" }, -- Meteor Shard
+			{ item = 6324, boss = 4275, role = "cloth caster/healer (+6 Spirit)", src = "FC 35%, IV; stats WHT" }, -- Robes of Arugal
+			{ item = 273643, boss = 4278, role = "healer/caster (mana per 5 s trinket)", src = "WHT 'Dropped by: Commander Springvale 32.10%', FC (New), IV" }, -- Worgenbane Talisman
+		},
+	},
+}
+
+return GUIDE
