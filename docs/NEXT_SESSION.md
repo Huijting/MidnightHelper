@@ -63,6 +63,13 @@
   in groep chars (4e knop), zoekbalk cat `rep`/`currency`. Offline 70.220 runs, 0 fouten (Horde + Alliance, alles
   onleesbaar, Honor 24000/25000). ⚠️ Teksten alleen en + nl: de/fr/es/pt/ru vallen terug op Engels → één vertaalronde
   (mh-writer) na rares A. NIET in het spel gezien.
+- 🧩 **Now-kaart + portret standaard uit** (Rob via sparring, letterlijk: *"Ja, zet hem standaard op uit. … En zoals je
+  ziet staat hier tekst om elkaar heen. … Net onder de class quest."*): (1) `foreverPortrait3D` standaard UIT
+  (DbFlag default false; SetPortrait leest `== true`). (2) De Now-lijst begon op een vaste 140 px (GEMETEN) → nieuw
+  `sf.SetTop()` in S.Scroll; FillNow meet titel/uitleg/plek en zet de lijst eronder (`f.now.listTop`, min 110).
+  (3) Titel en uitleg tot 3 regels, plek tot 2, vaste breedte, volle tekst in een tooltip (`f.now.mainHover`).
+  (4) Portret: zoom/camera opnieuw in OnModelLoaded (scheef model; oorzaak AFGELEID). Offline: 360 Now-vullingen
+  (9 classes × 2 kanten × levels 1-60, teksthoogte ~lengte), lijst 0× over de tekst, diepste start 193/252 px.
 - 🔧 **Schakelaar-bug GEREPAREERD** (Rob via sparring, letterlijk: *"Het bewegende werkt keurig, maar de knop, Moving
   Portrait, werkt niet"*): `DbFlag` in ForeverOverview.lua zette bij standaard-aan `(not on) and false or nil` = altijd
   nil (GEMETEN in de code; ForeverRanks.lua:628 vond dezelfde valkuil 12 nov) → uitzetten werd nooit opgeslagen. Raakte

@@ -355,6 +355,18 @@ function S.Scroll(card, top, bottom, step)
 		track:Show()
 		thumb:Show()
 	end
+	--- Move the top of the list (18 Nov 2026: the Now card's main line can be one to nine lines tall; the list below it
+	--- must start where that text ends, or the two run over each other - Rob's screenshot, Ima Magieman).
+	function sf.SetTop(newTop)
+		top = newTop
+		sf:ClearAllPoints()
+		sf:SetPoint("TOPLEFT", 8, -top)
+		sf:SetPoint("BOTTOMRIGHT", -14, bottom)
+		track:ClearAllPoints()
+		track:SetPoint("TOPRIGHT", -6, -top)
+		track:SetPoint("BOTTOMRIGHT", -6, bottom)
+		sf.UpdateThumb()
+	end
 	function sf.Reset()
 		sf:SetVerticalScroll(0)
 		sf.UpdateThumb()

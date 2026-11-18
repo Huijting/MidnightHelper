@@ -32,6 +32,15 @@ snelbalk, instellingen — geen foutmeldingen. Forever wordt nu getest (uitslage
 een logische afkorting voor de action house. 6 komt later"*** (Willow: "action house" = Auction House). Zoekbalk stap 1 +
 stap 2 werken in Forever; `/mh repprobe` gedaan. De Midnight-check van de zoekbalk komt later.
 
+## 🧩 18 nov (avond) — Forever: Now-kaart zonder overlap, portret standaard rond
+
+Geen nieuw bestand: een `/reload` is genoeg.
+- [ ] Overzicht: linksboven weer het ronde plaatje (Moving portrait staat nu standaard UIT). Zet je hem aan: het
+      3D-model, beter op het gezicht gericht dan eerst.
+- [ ] Now-kaart met een class quest (bv. Ima Magieman, "Study"): titel, uitleg en plek staan helemaal (tot 3 regels),
+      en de lijst eronder ("You can learn 2 new weapon skills now.") begint pas daaronder - niets over elkaar.
+- [ ] Muis op de titel van de Now-kaart: de hele tekst in een tooltip.
+
 ## 🎭 18 nov (laat) — Forever: bewegend portret linksboven
 
 Geen nieuw bestand: een `/reload` is genoeg.

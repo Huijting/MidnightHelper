@@ -1170,8 +1170,9 @@ local QUIET = {
 	PROF_SWITCHES[2], -- last tool
 	PROF_SWITCHES[3], -- missing tool: where to buy
 	{ head = "FOV_Q_HEAD_SCREEN" },
-	-- 18 Nov 2026: the moving 3D portrait at the top left (on by default; off = the flat picture).
-	Q("FOV_Q_PORTRAIT3D", "FOV_Q_PORTRAIT3D_DESC", DbFlag("foreverPortrait3D", true)),
+	-- 18 Nov 2026: the moving 3D portrait at the top left. OFF by default since the same evening (Rob via sparring:
+	-- "Ja, zet hem standaard op uit" - he finds the round picture nicer); on = the 3D model.
+	Q("FOV_Q_PORTRAIT3D", "FOV_Q_PORTRAIT3D_DESC", DbFlag("foreverPortrait3D", false)),
 	KEY_SWITCHES[2], -- old-rank edge
 	KEY_SWITCHES[1], -- mouseover on the key block
 	GROUP_SWITCHES[1], -- group panel
@@ -1653,6 +1654,24 @@ local function Build()
 		if m.EnableMouse then
 			m:EnableMouse(false)
 		end
+		-- Rob's screenshot (Troll, 18 Nov 2026): the model sat off-centre, mostly hair. A portrait zoom set before the
+		-- model has loaded is not used (AFGELEID): set the face camera again once it has loaded.
+		pcall(m.SetScript, m, "OnModelLoaded", function(self)
+			pcall(function()
+				if self.SetPortraitZoom then
+					self:SetPortraitZoom(1)
+				end
+				if self.SetCamDistanceScale then
+					self:SetCamDistanceScale(1)
+				end
+				if self.SetPosition then
+					self:SetPosition(0, 0, 0)
+				end
+				if self.RefreshCamera then
+					self:RefreshCamera()
+				end
+			end)
+		end)
 		box:Hide()
 		f.portraitBox, f.portraitModel = box, m
 	end
@@ -1716,22 +1735,31 @@ local function Build()
 	acc:SetHeight(2)
 	f.nowAccent = acc
 	f.now.label = Label(f.now, ns:L("FOV_LABEL_NOW"), "FOV_TIP_CARD_NOW")
+	-- 18 Nov 2026 (Rob's screenshot, Ima Magieman: "Class quest: Study (free scrolls from the library, o…" and its line
+	-- below cut off, and the place line lying over the list): up to 3 lines each, a fixed width so the height can be
+	-- measured right away, the whole text in a tooltip, and the list below starts where this text ends (FillNow).
+	local mainW = nowW - 28
 	f.now.title = Text(f.now, "head", 21, A.text)
 	f.now.title:SetPoint("TOPLEFT", 14, -32)
-	f.now.title:SetPoint("RIGHT", -14, 0)
+	f.now.title:SetWidth(mainW)
 	if f.now.title.SetMaxLines then
-		f.now.title:SetMaxLines(2) -- room for the lines below it
+		f.now.title:SetMaxLines(3)
 	end
 	f.now.what = Text(f.now, "text", 14, A.text)
 	f.now.what:SetPoint("TOPLEFT", f.now.title, "BOTTOMLEFT", 0, -4)
-	f.now.what:SetPoint("RIGHT", -14, 0)
+	f.now.what:SetWidth(mainW)
 	if f.now.what.SetMaxLines then
-		f.now.what:SetMaxLines(2)
+		f.now.what:SetMaxLines(3)
 	end
 	f.now.place = Text(f.now, "text", 12, A.dim)
 	f.now.place:SetPoint("TOPLEFT", f.now.what, "BOTTOMLEFT", 0, -3)
-	f.now.place:SetPoint("RIGHT", -14, 0)
-	f.now.place:SetWordWrap(false)
+	f.now.place:SetWidth(mainW)
+	f.now.place:SetWordWrap(true)
+	if f.now.place.SetMaxLines then
+		f.now.place:SetMaxLines(2)
+	end
+	f.now.mainHover = HoverOver(f.now, f.now.title)
+	f.now.mainHover:SetPoint("BOTTOMRIGHT", f.now.place, "BOTTOMRIGHT")
 	-- Plan step 2: the main line's buttons sit on the label row, so the whole list fits below.
 	-- 18 Nov 2026 (Rob's screenshot: "Details" and "Show the way" lay over "DO THIS NOW"): the card is 266 px wide and
 	-- the two buttons took 196 of it. Smaller buttons (their text shrinks to fit, S.Button), and the label now stops
@@ -2000,7 +2028,8 @@ local function UsePortraitFlat(f, why)
 end
 
 local function SetPortrait(f, force)
-	local want = not (ns.db and ns.db.foreverPortrait3D == false)
+	-- Off unless switched on (Rob, 18 Nov 2026: "Ja, zet hem standaard op uit").
+	local want = ns.db and ns.db.foreverPortrait3D == true
 	local m = f.portraitModel
 	if not want or not (m and m.SetUnit) then
 		f._modelSet = nil
@@ -2176,6 +2205,17 @@ local function FillNow(f, items, up)
 		SetGo(f.now.go, nil)
 		SetGo(f.now.detail, nil)
 	end
+	-- The whole main line in a tooltip (for when 3 lines are not enough), and the list starts below the text.
+	local tt, tw, tp = f.now.title:GetText() or "", f.now.what:GetText() or "", f.now.place:GetText() or ""
+	f.now.mainHover.tipTitle = tt
+	f.now.mainHover.tipBody = (tw ~= "" and tw or "") .. ((tw ~= "" and tp ~= "") and "\n" or "") .. tp
+	local function H(fs)
+		local t = fs:GetText()
+		return (t and t ~= "") and (fs:GetStringHeight() or 0) or 0
+	end
+	local top = 32 + H(f.now.title) + 4 + H(f.now.what) + 3 + H(f.now.place) + 10
+	f.now.listTop = math.max(110, math.ceil(top))
+	f.now.sf.SetTop(f.now.listTop)
 	local rest = {}
 	for _, it in ipairs(items) do
 		if it ~= main then
