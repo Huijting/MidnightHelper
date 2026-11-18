@@ -150,6 +150,12 @@ for k, v in pairs({
 	FCQ_OBJ_MA_SILK = "derrota a arañas en el Cementerio del Cerro del Cuervo para conseguir 8 Seda prístina de araña (los Ermitaños carroñeros son los que más la sueltan)",
 	FCQ_WAIT_MA_BOOK = "primero lleva cualquier libro de la biblioteca al bibliotecario (los libros están en mesas y estanterías por el mundo). Después de tu primer libro, el bibliotecario te ofrece Acceso de investigación",
 	FCQ_OBJ_MA_STICKS = "derrota a Trols Secacorteza para conseguir 10 Palo totémico Secacorteza",
+	-- 18 Nov 2026: esMX client says Sanación inferior for spell 2052 (DB2 70959, measured; esES Curación inferior).
+	FTRAVEL_NOTE_TB = "¿Buscas un zepelín? Cima del Trueno no tiene: vuela a Orgrimmar con el maestro de vuelo y toma allí el zepelín. Esta nave voladora va a la Isla Zephras.",
+	FCQ_PRE_WL_POTION = "primero compra Pociones enigmáticas a Gorzeeki Ojovago (unas 6 de oro por 3): las necesitas para atravesar Jaedenar. Lleva también 150 de oro para el Polvo estelar xorothiano de después",
+	-- esMX: Tarro de J'eevee 18663, Glifos xorothianos 18670 (DB2 70959, measured).
+	FCQ_PRE_WL_RITUAL = "primero compra el Tarro de J'eevee, una Magnetita negra y los Glifos xorothianos a Gorzeeki Ojovago (unos 250 de oro en total): el ritual de La Masacre necesita los tres",
+	FCQ_PRE_PR_HEAL2 = "primero aprende el segundo rango de Sanación inferior con tu instructor (desde el nivel 4): la misión pide ese rango",
 	FCQ_OBJ_MA_BRAMBLE = "acaba con los elementales y luego usa un Palo totémico Secacorteza de tus bolsas en la piedra del centro del Círculo de Vínculo Exterior. Espera unos diez segundos y haz clic en la Zarza electrificada",
 	FCQ_OBJ_MA_PLUCKY = "selecciona a Johnson el \"Desplumado\" (un pollito), escribe /beckon y luego habla con él y pídele la frase",
 	-- not measured: the wing name "Library"

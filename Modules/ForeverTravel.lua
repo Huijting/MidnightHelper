@@ -37,24 +37,30 @@ local MAP = {
 local RUTTHERAN_MIN_Y = 86
 
 -- kind, side (A/H/nil = both), the two ends, oneway. Costs below are in "minutes-ish"; walking is distance / 250 yd.
+-- 18 Nov 2026 (Rob via sparring: "ja"): the boat/zeppelin/skycutter ends are now OUR OWN values - the stop (Delay > 0)
+-- of each TaxiPathNode path in DB2 Forever 1.60.1.70959 (path id after the line), converted to the zone map (AFGELEID,
+-- mh-research; docs/forever/REIZEN_2026-11-18.md). The old values were equal to Zygor's LibRover (All Rights Reserved).
+-- A stop is the ship's centre: 10-20 yd off the dock edge is normal (the arrow arrives within 25 yd for these).
+-- A5 (portal) and A6 (tram) are not in the taxi tables and keep their own measured values.
 local LINKS = {
-	{ id = "A1", kind = "boat", side = "A", a = { MAP.STORMWIND, 22.60, 56.13 }, b = { MAP.DARKSHORE, 30.76, 41.00 } },
-	{ id = "A2", kind = "boat", side = "A", a = { MAP.DARKSHORE, 33.19, 40.13 }, b = { MAP.TELDRASSIL, 54.86, 96.79 } },
+	{ id = "A1", kind = "boat", side = "A", a = { MAP.STORMWIND, 21.78, 56.86 }, b = { MAP.DARKSHORE, 30.53, 40.88 } }, -- 11616
+	{ id = "A2", kind = "boat", side = "A", a = { MAP.DARKSHORE, 33.31, 39.82 }, b = { MAP.TELDRASSIL, 54.81, 97.22 } }, -- 293
 	-- The loop: Menethil > Southshore > Auberdine > Menethil, one way only. Menethil > Auberdine means staying on board.
-	{ id = "A3a", kind = "boat", side = "A", oneway = true, a = { MAP.DARKSHORE, 32.39, 43.80 }, b = { MAP.WETLANDS, 4.65, 57.16 } },
-	{ id = "A3c", kind = "boat", side = "A", oneway = true, a = { MAP.HILLSBRAD, 50.60, 69.71 }, b = { MAP.DARKSHORE, 32.39, 43.80 } },
-	{ id = "A3m", kind = "loop", side = "A", oneway = true, a = { MAP.WETLANDS, 4.65, 57.16 }, b = { MAP.DARKSHORE, 32.39, 43.80 },
+	-- Path 11167; stops Wetlands 4.49,56.66 > Hillsbrad 50.67,70.44 > Darkshore 32.34,44.13.
+	{ id = "A3a", kind = "boat", side = "A", oneway = true, a = { MAP.DARKSHORE, 32.34, 44.13 }, b = { MAP.WETLANDS, 4.49, 56.66 } },
+	{ id = "A3c", kind = "boat", side = "A", oneway = true, a = { MAP.HILLSBRAD, 50.67, 70.44 }, b = { MAP.DARKSHORE, 32.34, 44.13 } },
+	{ id = "A3m", kind = "loop", side = "A", oneway = true, a = { MAP.WETLANDS, 4.49, 56.66 }, b = { MAP.DARKSHORE, 32.34, 44.13 },
 		via = MAP.HILLSBRAD },
-	{ id = "A4", kind = "boat", side = "A", a = { MAP.WETLANDS, 5.08, 63.40 }, b = { MAP.DUSTWALLOW, 71.54, 56.34 } },
+	{ id = "A4", kind = "boat", side = "A", a = { MAP.WETLANDS, 4.74, 63.76 }, b = { MAP.DUSTWALLOW, 71.73, 56.66 } }, -- 292
 	{ id = "A5", kind = "portal", side = "A", a = { MAP.TELDRASSIL, 55.91, 89.64 }, b = { MAP.DARNASSUS, 30.06, 41.44 },
 		aName = "FTRAVEL_RUTTHERAN" },
 	{ id = "A6", kind = "tram", side = "A", a = { MAP.STORMWIND, 69.31, 30.56 }, b = { MAP.IRONFORGE, 76.58, 51.14 } },
-	{ id = "H1", kind = "zeppelin", side = "H", a = { MAP.DUROTAR, 50.82, 13.81 }, b = { MAP.TIRISFAL, 60.70, 58.76 } },
-	{ id = "H2", kind = "zeppelin", side = "H", a = { MAP.DUROTAR, 50.57, 12.66 }, b = { MAP.STV, 31.35, 30.12 } },
-	{ id = "N1", kind = "boat", a = { MAP.BARRENS, 63.66, 38.65 }, b = { MAP.STV, 25.92, 73.15 } },
-	{ id = "N2", kind = "boat", a = { MAP.TANARIS, 68.34, 22.98 }, b = { MAP.RIVERGLADES, 80.30, 54.40 } },
-	{ id = "S1", kind = "sky", side = "A", a = { MAP.ZEPHRAS, 65.82, 83.42 }, b = { MAP.ALTERAC, 12.52, 51.96 }, bName = "FTRAVEL_DALARAN" },
-	{ id = "S2", kind = "sky", side = "H", a = { MAP.ZEPHRAS, 57.94, 80.72 }, b = { MAP.MULGORE, 34.29, 25.73 } },
+	{ id = "H1", kind = "zeppelin", side = "H", a = { MAP.DUROTAR, 50.98, 13.91 }, b = { MAP.TIRISFAL, 60.64, 58.93 } }, -- 302
+	{ id = "H2", kind = "zeppelin", side = "H", a = { MAP.DUROTAR, 50.47, 12.69 }, b = { MAP.STV, 31.17, 30.45 } }, -- 285
+	{ id = "N1", kind = "boat", a = { MAP.BARRENS, 63.80, 38.75 }, b = { MAP.STV, 25.67, 73.08 } }, -- 241
+	{ id = "N2", kind = "boat", a = { MAP.TANARIS, 68.58, 22.99 }, b = { MAP.RIVERGLADES, 80.60, 54.61 } }, -- 11391
+	{ id = "S1", kind = "sky", side = "A", a = { MAP.ZEPHRAS, 65.84, 83.81 }, b = { MAP.ALTERAC, 12.83, 51.17 }, bName = "FTRAVEL_DALARAN" }, -- 11398
+	{ id = "S2", kind = "sky", side = "H", a = { MAP.ZEPHRAS, 57.78, 81.01 }, b = { MAP.MULGORE, 34.33, 26.05 } }, -- 11457
 }
 local COST = { boat = 4, zeppelin = 4, sky = 4, loop = 7, tram = 1, portal = 0.5 }
 
@@ -439,6 +445,9 @@ local TRAVEL_EXTRA = {
 local STOP_NOTE = {
 	H1a = "FTRAVEL_NOTE_ORG", H2a = "FTRAVEL_NOTE_ORG",
 	H1b = "FTRAVEL_NOTE_UC", X1b = "FTRAVEL_NOTE_UC",
+	-- Thunder Bluff has no zeppelin (no zeppelin path touches Mulgore in DB2, GEMETEN); the flight TB <> Orgrimmar exists
+	-- (TaxiPath 387/42). The skycutter in Mulgore is the stop a Thunder Bluff player sees first, so the line goes there.
+	S2b = "FTRAVEL_NOTE_TB",
 }
 
 local function TitleCase(s)

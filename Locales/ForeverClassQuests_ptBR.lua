@@ -239,7 +239,7 @@ for k, v in pairs({
 	FCQ_CHAIN_MA_ROBE_H = "Vestes de Fogo Místico Inferior (uma veste)",
 	FCQ_CHAIN_MA_GARMENT_A = "Traje do nó astral (uma veste ou uma blusa)",
 	FCQ_CHAIN_MA_GARMENT_H = "Traje do laço etéreo (uma veste ou uma túnica)",
-	FCQ_CHAIN_MA_STUDY = "Estudar (pergaminhos grátis da biblioteca, uma vez por hora)",
+	FCQ_CHAIN_MA_STUDY = "Estudar (pergaminhos da biblioteca, uma vez por hora)",
 	FCQ_CHAIN_MA_ITEMS = "Itens do poder (você precisa dela para a Varinha do Mago)",
 	FCQ_CHAIN_MA_WAND = "Varinha do Mago (uma varinha de gelo, arcana ou de fogo)",
 	FCQ_CHAIN_MA_CELESTIAL = "Poder celestial (um orbe ou um cajado)",
@@ -267,6 +267,16 @@ for k, v in pairs({
 	FCQ_OBJ_MA_SISTERS = "derrote Irmãs Risonhas (dríades) para conseguir 12 Cabelo da Irmã Risonha",
 	FCQ_WAIT_MA_BOOK = "primeiro leve qualquer livro da biblioteca ao bibliotecário (os livros ficam em mesas e estantes pelo mundo). Depois do seu primeiro livro, o bibliotecário oferece Acesso à pesquisa",
 	FCQ_OBJ_MA_STICKS = "derrote trolls Cascasseca para conseguir 10 Vara Totêmica dos Cascasseca",
+	-- 18 Nov 2026: before the trip. Poção Sombria (18802), Cura Inferior (2052) = DB2 70959, measured. Our own translation.
+	FCQ_MA_BOOK_GET_FMT = "primeiro pegue um livro da biblioteca: %s. Clique nele onde ele estiver (livros não caem de monstros). Depois leve-o até %s; aí o bibliotecário oferece a próxima missão",
+	FCQ_MA_BOOK_GUIDE = " (este local vem de um guia de jogadores, não verificado pelo MH)",
+	FCQ_MA_BOOK_HANDIN_FMT = "você tem um livro da biblioteca (%s): entregue-o a %s. Depois o bibliotecário oferece a próxima missão",
+	FCQ_MA_BOOK_UNKNOWN = "primeiro você precisa de um livro da biblioteca (eles ficam em mesas e estantes pelo mundo), mas o MH não conhece nenhum perto de você. Não viaje até o bibliotecário sem um",
+	FCQ_PRE_GOLD_FMT = "primeiro junte %s: você paga em %s e tem %s agora. Não faça a viagem sem isso",
+	FCQ_PRE_WL_POTION = "primeiro compre Poções Sombrias de Gorzeeki (cerca de 6 de ouro por 3): você precisa delas para atravessar Jaedenar. Leve também 150 de ouro para a Poeira Estelar Zorotiana depois",
+	-- Jarra do Jivil 18663, Magnetita Preta 18629, Glifos Zorothianos 18670 (DB2 70959, measured).
+	FCQ_PRE_WL_RITUAL = "primeiro compre a Jarra do Jivil, uma Magnetita Preta e os Glifos Zorothianos de Gorzeeki (cerca de 250 de ouro no total): o ritual em Gládio Cruel precisa dos três",
+	FCQ_PRE_PR_HEAL2 = "primeiro aprenda a segunda categoria de Cura Inferior com seu instrutor (a partir do nível 4): a missão pede essa categoria",
 	FCQ_OBJ_MA_BRAMBLE = "elimine os elementais e depois use uma Vara Totêmica dos Cascasseca das suas bolsas na pedra do meio do Círculo de União Externo. Espere uns dez segundos e clique na Morácea Carregada por Raio",
 	FCQ_OBJ_MA_JADE = "você também precisa de 1 Jade (uma gema: mineradores encontram, ou compre na Casa de leilões)",
 	FCQ_OBJ_MA_PLUCKY = "selecione Johnson \"Depenado\" (uma galinha pequena), digite /chamar, depois fale com ele e peça a frase",
@@ -661,6 +671,8 @@ for k, v in pairs({
 	FTRAVEL_FEATHERMOON = "Domínio de Plumaluna",
 	FTRAVEL_NOTE_ORG = "Fora de Orgrimmar: saia pelo portão principal (sul) e vire à esquerda (leste), subindo até a torre. Lado sul: Cidade Baixa. Lado norte: Grom'gol.",
 	FTRAVEL_NOTE_UC = "Pegue um elevador até as ruínas e saia para o norte. A torre fica na colina perto da estrada para Montalvo.",
+	-- Penhasco do Trovão, Ilha de Zefras = AreaTable 1638 / UiMap 2521 (70959, measured).
+	FTRAVEL_NOTE_TB = "Procurando um zepelim? Penhasco do Trovão não tem: voe até Orgrimmar com o mestre de voo e pegue o zepelim lá. Esta nave voadora vai para a Ilha de Zefras.",
 }) do
 	if t[k] == nil or (en and t[k] == en[k]) then
 		t[k] = v

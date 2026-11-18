@@ -372,13 +372,26 @@ local function WlDreadsteed(faction, races, starter)
 				to = W.gorzeeki },
 			{ q = 7628, needs = { 7564 }, from = W.morzul, objs = { O(nil, "FCQ_OBJ_WL_DRAGONSCALE", 1) }, to = W.gorzeeki },
 			{ q = 7630, needs = { 7626, 7627, 7628 }, from = W.gorzeeki, objs = { O(nil, "FCQ_OBJ_WL_ARCANITE", 1) }, to = W.gorzeeki },
-			{ q = 7623, needs = { 7564 }, from = W.gorzeeki, to = W.banehollow },
-			{ q = 7624, needs = { 7623 }, from = W.banehollow, objs = { O(W.ulathek, "FCQ_OBJ_WL_ULATHEK", 1) }, to = W.banehollow },
-			{ q = 7625, needs = { 7624 }, from = W.banehollow, objs = { O(W.urdan, "FCQ_OBJ_WL_STARDUST", 1) }, to = W.gorzeeki },
+			-- 7623: "Purchase Shadowy Potions from Gorzeeki … to travel through Jaedenar" (Wowhead Forever, GEMETEN); item
+			-- 18802, DB2 BuyPrice 6 gold with VendorStackCount 3 (= 6 gold for 3, AFGELEID; warcraft.wiki "Buys 3").
+			-- How many: NOT measured. Only said in the Burning Steppes (onlyMap), where you can buy them: elsewhere an empty
+			-- bag may mean used up. The 150 gold for 7625's Stardust goes along from here too (second check, 18 Nov: 7625 is
+			-- handed out next to Ur'dan, so a check there comes when the trip is already made).
+			{ q = 7623, needs = { 7564 }, from = W.gorzeeki, to = W.banehollow,
+				pre = { { items = { 18802 }, place = W.gorzeeki, textKey = "FCQ_PRE_WL_POTION", onlyMap = 1428 },
+					{ gold = 1500000, unlessItem = 18687, at = W.urdan } } },
+			{ q = 7624, needs = { 7623 }, from = W.banehollow, objs = { O(W.ulathek, "FCQ_OBJ_WL_ULATHEK", 1) }, to = W.banehollow,
+				pre = { { gold = 1500000, unlessItem = 18687, at = W.urdan } } },
+			-- 7625: Xorothian Stardust 18687, DB2 BuyPrice 150 gold (that Ur'dan asks exactly that = AFGELEID).
+			{ q = 7625, needs = { 7624 }, from = W.banehollow, objs = { O(W.urdan, "FCQ_OBJ_WL_STARDUST", 1) }, to = W.gorzeeki,
+				pre = { { gold = 1500000, unlessItem = 18687, at = W.urdan } } },
 			{ q = 7629, needs = { 7625 }, from = W.gorzeeki, objs = { O(nil, "FCQ_OBJ_WL_IMPJAR", 1) }, to = W.gorzeeki },
 			-- Objective 1 = defeat the Xorothian Dreadsteed (14502): AFGELEID (the tooltip shows no objective).
+			-- 7631: the ritual needs J'eevee's Jar 18663, Black Lodestone 18629 and Xorothian Glyphs 18670 from Gorzeeki
+			-- (DB2 BuyPrice 150 + 50 + 50 gold, GEMETEN; second check 18 Nov 2026). All three; only said in the Burning Steppes.
 			{ q = 7631, needs = { 7629, 7630 }, from = W.morzul, objs = { O(W.dreadsteedSpirit, "FCQ_OBJ_WL_RITUAL", 1) },
-				to = W.dreadsteedSpirit },
+				to = W.dreadsteedSpirit,
+				pre = { { allItems = { 18663, 18629, 18670 }, place = W.gorzeeki, textKey = "FCQ_PRE_WL_RITUAL", onlyMap = 1428 } } },
 		},
 	}
 end
@@ -1128,7 +1141,11 @@ end
 local function PrRobe(faction, races, t)
 	return { key = "robe", nameKey = "FCQ_CHAIN_PR_ROBE", level = 5, faction = faction, races = races, quests = {
 		{ q = t[1], from = t[2], to = t[4] },
-		{ q = t[3], from = t[4], objs = { O(t[5], t[6], 1) }, to = t[4] },
+		-- "heal his wounds using Lesser Heal (Rank 2)" (Wowhead Forever): rank 2 = spell 2052, level 4 (DB2 SpellLevels,
+		-- GEMETEN). That the client reports a known RANK this way = AFGELEID (TESTLIJST).
+		{ q = t[3], from = t[4], objs = { O(t[5], t[6], 1) }, to = t[4],
+			-- Rank 3 (2053, level 10) counts too: should it replace rank 2 in the spellbook, nobody gets stuck (second check).
+			pre = { { spell = { 2052, 2053 }, place = t[4], textKey = "FCQ_PRE_PR_HEAL2" } } },
 	} }
 end
 -- Cenarion Aid (level 50): an item chain; the last quest is handed in to Greta Mosshoof in Felwood.
@@ -1313,7 +1330,8 @@ CHAINS.PALADIN = {
 	-- Charger (60). 7645 (Merideth's horse feed) is asked inside 7643.
 	{ key = "charger", spell = 23214, level = 60, faction = "Alliance", quests = {
 		{ q = 7638, alt = { 7670 }, from = PA.duthorian, to = PA.grayson },
-		{ q = 7637, from = PA.grayson, to = PA.rohan },
+		-- 7637: "a donation of 150 gold", Requirements Money:150 (Wowhead Forever, GEMETEN, 18 Nov 2026).
+		{ q = 7637, from = PA.grayson, to = PA.rohan, pre = { { gold = 1500000, at = PA.rohan } } },
 		{ q = 7639, from = PA.rohan, to = PA.grayson },
 		{ q = 7640, from = PA.grayson, objs = { O(PA.terrordale, "FCQ_OBJ_PA_TERRORDALE", 1) }, to = PA.grayson },
 		{ q = 7641, from = PA.grayson, to = PA.grimand },
@@ -1322,7 +1340,10 @@ CHAINS.PALADIN = {
 			O(nil, "FCQ_OBJ_PA_ARTHAS", 2),
 			O(nil, "FCQ_OBJ_PA_RUNECLOTH", 3),
 			O(nil, "FCQ_OBJ_PA_ARCANITE", 4),
-		}, to = PA.grimand },
+		}, to = PA.grimand,
+			-- Money:150 too (Wowhead Forever, GEMETEN by the second check, 18 Nov 2026).
+			-- turn = true: only once the four objectives are done, so the Stratholme steps still show first.
+			pre = { { gold = 1500000, at = PA.grimand, turn = true } } },
 		{ q = 7648, from = PA.grimand, to = PA.grayson },
 		{ q = 7643, from = PA.grayson, objs = { O(PA.merideth, "FCQ_OBJ_PA_HORSEFEED", 1) }, to = PA.equineSpirit },
 		{ q = 7644, from = PA.equineSpirit, to = PA.grayson },
@@ -1561,14 +1582,16 @@ for _, c in ipairs({
 	-- the Comprehension tab: whether the spell check sees it = NOT measured; the chain also ends once 97286 is done.
 	table.insert(CHAINS.MAGE, { key = "study", spell = 1302508, nameKey = "FCQ_CHAIN_MA_STUDY", level = 6, faction = faction,
 		races = races, quests = {
-			{ q = 97286, from = librarian, wait = "FCQ_WAIT_MA_BOOK", to = librarian },
+			-- book = true (18 Nov 2026): first a library book, the arrow goes to the nearest one (BookStep).
+			{ q = 97286, from = librarian, book = true, wait = "FCQ_WAIT_MA_BOOK", to = librarian },
 		} })
 	-- Items of Power runs beside 1949-1951 and Mage's Wand needs both: its own chain, BEFORE the wand chain (table order),
 	-- open once 1947 is done. The sticks are no objective: one stick or the bramble in your bags counts (a limit).
 	table.insert(CHAINS.MAGE, { key = "items", nameKey = "FCQ_CHAIN_MA_ITEMS", level = 30, needs = 1947, faction = faction,
 		races = races, quests = {
 			{ q = 1948, from = MA.tabetha, objs = {
-				O(MA.witherbark, "FCQ_OBJ_MA_STICKS", nil, { 7273, 7272 }),
+				-- 10 sticks (Wowhead Forever 1948 "Witherbark Totem Stick x 10", GEMETEN 18 Nov 2026); before, 1 counted.
+				O(MA.witherbark, "FCQ_OBJ_MA_STICKS", nil, { 7273, 7272 }, 10),
 				O(MA.bramble, "FCQ_OBJ_MA_BRAMBLE", 2),
 				O(nil, "FCQ_OBJ_MA_JADE", 1),
 			}, to = MA.tabetha },
@@ -2130,6 +2153,206 @@ local function Current(c)
 	return c.quests[i]
 end
 
+--------------------------------------------------------------------------------
+-- What you must HAVE before the trip (18 Nov 2026). Rob, via sparring, letterlijk: "Ik ben de halve wereld over gereisd
+-- om bij dit quest te doen, deze class quest. Maar dan kom ik aan, dan had ik een boek moeten hebben. … misschien was er
+-- een waarschuwing geweest" → "ja". Research: docs/forever/CLASSQUEST_VOORWAARDEN_2026-11-18.md (mh-research).
+--------------------------------------------------------------------------------
+-- Mage library books. The librarian offers Research Access 97286 after you handed in ANY ONE book (azeroth.wiki,
+-- foreverquestlog, warcraft.wiki: "first book"; that one is enough in today's build = AFGELEID). Each book has its own
+-- hand-in quest that needs the book in your bags (Wowhead Forever tooltips, GEMETEN). Books are world objects you click.
+-- Book items + quests GEMETEN: DB2 ItemSparse 1.60.1.70959 (40 items, unique) + Wowhead Forever quest tooltips.
+local BOOK_ITEMS = {
+	203754, 203755, 207972, 208185, 208800, 208860, 209843, 209844, 209845, 209846, 209847, 209848, 209849, 209850,
+	209851, 210177, 213165, 215683, 215815, 215816, 215817, 215820, 215822, 215824, 220345, 220346, 220347, 220348,
+	220349, 220350, 220352, 220353, 228132, 228133, 228134, 228135, 228136, 228138, 228140, 228141,
+}
+local BOOK_QUESTS = {
+	78124, 78127, 78142, 78143, 78145, 78146, 78147, 78148, 78149, 79091, 79092, 79093, 79094, 79095, 79096, 79097,
+	79535, 79947, 79948, 79949, 79950, 79951, 79952, 79953, 81947, 81949, 81951, 81952, 81953, 81954, 81955, 81956,
+	84395, 84396, 84397, 84398, 84399, 84400, 84401, 84402,
+}
+-- The books a level-6 mage can fetch safely near the starting cities, per side; the arrow goes to the nearest one on
+-- your continent, else the first of your side. Spawns GEMETEN (Wowhead Forever object tooltips) unless guide = true
+-- (Wowhead Forever guide "Collecting Library Books", 13 Nov 2026: object id not found). Left out on purpose: books
+-- behind elites, in caves or dungeons (Mo'grosh, Sludge Fen, Wailing Caverns, Raven Hill crypt, Grimtotem Post).
+local START_BOOKS = {
+	Alliance = {
+		{ item = 203755, name = "Archmage Theocritus' Research Journal", m = 1429, x = 65.4, y = 70.1 }, -- Tower of Azora, object 386759
+		{ item = 203754, name = "Archmage Antonidas: The Unabridged Autobiography", m = 1455, x = 75.7, y = 10.5 }, -- Hall of Explorers, 386691
+		{ item = 208860, name = "Rumi of Gnomeregan: The Collected Works", m = 1432, x = 35.6, y = 48.9 }, -- Thelsamar inn, 408014
+		{ item = 208860, name = "Rumi of Gnomeregan: The Collected Works", m = 1436, x = 52.7, y = 53.8, guide = true }, -- Sentinel Hill
+		-- Bewitchments and Glamours (Moonbrook) left out: a level 25 book (second check, 18 Nov 2026).
+	},
+	Horde = {
+		{ item = 208185, name = "The Apothecary's Metaphysical Primer", m = 1420, x = 59.4, y = 52.3 }, -- Brill, 405879
+		-- A painted tablet on the wall, not a book on a table (second check): the text says "click it where it lies".
+		{ item = 207972, name = "The Lessons of Ta'zo", m = 1454, x = 38.7, y = 78.4, guide = true }, -- Valley of Spirits
+		{ item = 208800, name = "Baxtan: On Destructive Magics", m = 1413, x = 62.7, y = 36.3 }, -- Ratchet, 407566
+		{ item = 210177, name = "Ataeric: On Arcane Curiosities", m = 1421, x = 43.4, y = 41.2 }, -- Sepulcher inn, 410299
+		-- The Dalaran Digest (Ambermill) left out: a level 25 book (second check, 18 Nov 2026).
+	},
+}
+
+local function ItemName(id, fallback)
+	if C_Item and C_Item.GetItemNameByID then
+		local ok, n = pcall(C_Item.GetItemNameByID, id)
+		if ok and type(n) == "string" and n ~= "" then
+			return n
+		end
+	end
+	return fallback or ("#" .. tostring(id))
+end
+
+--- World position of a map point (continent, x, y in yards), or nil.
+local function WorldPos(m, x, y)
+	if not (C_Map and C_Map.GetWorldPosFromMapPos and CreateVector2D) then
+		return nil
+	end
+	local ok, cont, v = pcall(C_Map.GetWorldPosFromMapPos, m, CreateVector2D(x / 100, y / 100))
+	if ok and cont and v and v.GetXY then
+		local wx, wy = v:GetXY()
+		return cont, wx, wy
+	end
+	return nil
+end
+
+local function PlayerWorldPos()
+	if not (C_Map and C_Map.GetBestMapForUnit and C_Map.GetPlayerMapPosition) then
+		return nil
+	end
+	local okM, m = pcall(C_Map.GetBestMapForUnit, "player")
+	if not (okM and m) then
+		return nil
+	end
+	local okP, pos = pcall(C_Map.GetPlayerMapPosition, m, "player")
+	if not (okP and pos and pos.GetXY) then
+		return nil
+	end
+	local px, py = pos:GetXY()
+	return WorldPos(m, px * 100, py * 100)
+end
+
+local function NearestBook()
+	local faction = UnitFactionGroup and UnitFactionGroup("player")
+	local list = START_BOOKS[faction]
+	if not list then
+		return nil
+	end
+	local pc, px, py = PlayerWorldPos()
+	-- A spot from a guide counts as 1.5 times as far as a measured one: still the Ta'zo tablet for an orc in Orgrimmar,
+	-- but a measured book when the two are about as near (AFGELEID weighting).
+	local best, bestD
+	for _, b in ipairs(list) do
+		local bc, bx, by = WorldPos(b.m, b.x, b.y)
+		if pc and bc and bc == pc then
+			local d = math.sqrt((bx - px) ^ 2 + (by - py) ^ 2) * (b.guide and 1.5 or 1)
+			if not bestD or d < bestD then
+				best, bestD = b, d
+			end
+		end
+	end
+	return best or list[1]
+end
+
+--- Research Access: where to go first. Any book handed in → the librarian offers it; a book in your bags → hand it
+--- in; else → the nearest book, never the librarian with empty hands.
+local function BookStep(e)
+	for _, q in ipairs(BOOK_QUESTS) do
+		if Done(q) then
+			return { kind = "get", place = e.from, q = e.q }
+		end
+	end
+	local who = NpcName(e.from)
+	for _, id in ipairs(BOOK_ITEMS) do
+		if HaveItem(id) then
+			return { kind = "do", place = e.from, q = e.q,
+				text = ns:L("FCQ_MA_BOOK_HANDIN_FMT"):format(ItemName(id), who) }
+		end
+	end
+	local b = NearestBook()
+	if not b then
+		return { kind = "do", place = nil, q = e.q, text = ns:L("FCQ_MA_BOOK_UNKNOWN") }
+	end
+	return { kind = "do", place = { m = b.m, x = b.x, y = b.y }, q = e.q,
+		text = ns:L("FCQ_MA_BOOK_GET_FMT"):format(ItemName(b.item, b.name), who)
+			.. (b.guide and ns:L("FCQ_MA_BOOK_GUIDE") or "") }
+end
+
+local function MoneyText(c)
+	local S = ns.ForeverStyle
+	if S and S.Money then
+		return S.Money(c)
+	end
+	return tostring(math.floor(c / 10000)) .. "g"
+end
+
+local function MapNow()
+	if C_Map and C_Map.GetBestMapForUnit then
+		local ok, m = pcall(C_Map.GetBestMapForUnit, "player")
+		if ok then
+			return m
+		end
+	end
+	return nil
+end
+
+--- e.pre: what you need before the destination makes sense. Each entry, checked while the quest is in your log:
+---   { gold = copper, unlessItem = id, at = place } — not enough money (and not yet bought the item it pays for);
+---   { items = { ids }, place, textKey, unlessMap = mapID } — none of the items in your bags (unless you are on that map:
+---     the potions get used up in Jaedenar, so in Felwood an empty bag is no reason to go back);
+---   { allItems = { ids }, place, textKey } — every one of the items is needed;
+---   { spell = id or { ids }, place, textKey } — a spell rank the quest asks for (any of the ids known is enough).
+--- onlyMap = mapID: only checked while you are on that map (where you can buy it). turn = true: only checked once the
+--- objectives are done (the gold you pay at the hand-in), else before them.
+--- @return a "do" step, or nil when nothing is missing
+local function PreStep(e, q, atTurn)
+	local here
+	for _, p in ipairs(e.pre or {}) do
+		if p.onlyMap then
+			here = here or MapNow() or -1
+		end
+		if (p.turn == true) ~= (atTurn == true) or (p.onlyMap and here ~= p.onlyMap) then
+			-- not this phase / not on the map where it can be fixed
+		elseif p.allItems then
+			for _, id in ipairs(p.allItems) do
+				if not HaveItem(id) then
+					return { kind = "do", place = p.place, q = q, textKey = p.textKey }
+				end
+			end
+		elseif p.gold then
+			local have = GetMoney and GetMoney() or 0
+			if have < p.gold and not (p.unlessItem and HaveItem(p.unlessItem)) then
+				-- Ur'dan has no npc name in our data: then the zone ("Felwood").
+				local where = (p.at and p.at.npc and NpcName(p.at)) or (p.at and ZoneName(p.at.m)) or "?"
+				return { kind = "do", place = nil, q = q, text = ns:L("FCQ_PRE_GOLD_FMT"):format(MoneyText(p.gold),
+					where, MoneyText(have)) }
+			end
+		elseif p.items then
+			local any = false
+			for _, id in ipairs(p.items) do
+				if HaveItem(id) then
+					any = true
+				end
+			end
+			if not any and not (p.unlessMap and MapNow() == p.unlessMap) then
+				return { kind = "do", place = p.place, q = q, textKey = p.textKey }
+			end
+		elseif p.spell then
+			local known = false
+			for _, id in ipairs(type(p.spell) == "table" and p.spell or { p.spell }) do
+				if Known(id) then
+					known = true
+				end
+			end
+			if not known then
+				return { kind = "do", place = p.place, q = q, textKey = p.textKey }
+			end
+		end
+	end
+	return nil
+end
+
 local function Step(c)
 	if c.spell and Known(c.spell) then
 		return nil, "spell known"
@@ -2140,6 +2363,13 @@ local function Step(c)
 	end
 	local q = LogQuest(e)
 	if not q then
+		-- e.book: Research Access, see BookStep (18 Nov 2026). A failure falls back to the wait text below.
+		if e.book then
+			local ok, s = pcall(BookStep, e)
+			if ok and s then
+				return s
+			end
+		end
 		-- e.wait: a quest that is only offered later (rogue: after a letter from C), so "get the quest" would send the
 		-- player to a place where nothing is yet. The text says to wait (17 Nov 2026).
 		if e.wait then
@@ -2151,12 +2381,20 @@ local function Step(c)
 		end
 		return { kind = "get", place = e.from, q = e.q }
 	end
+	local pre = PreStep(e, q)
+	if pre then
+		return pre
+	end
 	if e.objs and not ObjDone(q) then
 		for _, o in ipairs(e.objs) do
 			if not ObjFinished(q, o) then
 				return { kind = "do", place = o.place, textKey = o.textKey, q = q }
 			end
 		end
+	end
+	local preTurn = PreStep(e, q, true)
+	if preTurn then
+		return preTurn
 	end
 	return { kind = "turn", place = e.to, q = q }
 end
@@ -2190,7 +2428,7 @@ local function StepWhat(s)
 		end
 		return ns:L("FCQ_USE_ITEM_FMT"):format(name or ("#" .. tostring(s.item)))
 	elseif s.kind == "do" or s.kind == "wait" then
-		return ns:L(s.textKey) .. (p and (" — " .. Where(p)) or "")
+		return (s.text or ns:L(s.textKey)) .. (p and (" — " .. Where(p)) or "")
 	end
 	return ns:L("FCQ_TURN_FMT"):format(NpcName(p), Where(p))
 end
@@ -2263,7 +2501,7 @@ function ns.ForeverClassQuestNowParts()
 		out.zone, out.x, out.y = ZoneName(p.m), p.x, p.y
 	end
 	if s.kind == "do" or s.kind == "wait" then
-		out.what = ns:L(s.textKey)
+		out.what = s.text or ns:L(s.textKey)
 	elseif s.kind == "use" then
 		out.what = StepWhat(s)
 	end
@@ -2348,7 +2586,7 @@ function ns.ForeverClassQuestList()
 			p = s.place
 			e.kind = s.kind
 			if s.kind == "do" or s.kind == "wait" then
-				e.what = ns:L(s.textKey)
+				e.what = s.text or ns:L(s.textKey)
 			elseif s.kind == "use" then
 				e.what = StepWhat(s)
 			end

@@ -260,7 +260,7 @@ for k, v in pairs({
 	FCQ_CHAIN_MA_ROBE_H = "Togas inferiores del fuegohechizo (una toga)",
 	FCQ_CHAIN_MA_GARMENT_A = "Prendas de nudo astral (una toga o una blusa)",
 	FCQ_CHAIN_MA_GARMENT_H = "Prendas de encaje abisal (una toga o una túnica)",
-	FCQ_CHAIN_MA_STUDY = "Estudiar (pergaminos gratis de la biblioteca, una vez por hora)",
+	FCQ_CHAIN_MA_STUDY = "Estudiar (pergaminos de la biblioteca, una vez por hora)",
 	FCQ_CHAIN_MA_ITEMS = "Objetos de poder (lo necesitas para Varitas de mago)",
 	FCQ_CHAIN_MA_WAND = "Varitas de mago (una varita de escarcha, arcana o de fuego)",
 	FCQ_CHAIN_MA_CELESTIAL = "Poder celestial (un orbe o un bastón)",
@@ -293,6 +293,17 @@ for k, v in pairs({
 	FCQ_OBJ_MA_SISTERS = "derrota a Laughing Sisters (dríadas) para conseguir 12 Cabello de la Hermana sonriente",
 	FCQ_WAIT_MA_BOOK = "primero lleva cualquier libro de la biblioteca al bibliotecario (los libros están en mesas y estanterías por el mundo). Después de tu primer libro, el bibliotecario te ofrece Acceso a la investigación",
 	FCQ_OBJ_MA_STICKS = "derrota a Trols Secacorteza para conseguir 10 Palo de tótem Secacorteza",
+	-- 18 Nov 2026: before the trip. Poción enigmática (18802), Curación inferior (2052; esMX Sanación inferior, see
+	-- ForeverClassQuests_esMX.lua) = DB2 70959, measured. Our own translation.
+	FCQ_MA_BOOK_GET_FMT = "primero consigue un libro de biblioteca: %s. Haz clic en él donde esté (los libros no los sueltan los monstruos). Luego llévaselo a %s y el bibliotecario te ofrecerá la siguiente misión",
+	FCQ_MA_BOOK_GUIDE = " (este lugar viene de una guía de jugadores, MH no lo ha comprobado)",
+	FCQ_MA_BOOK_HANDIN_FMT = "tienes un libro de biblioteca (%s): entrégaselo a %s. Después el bibliotecario te ofrecerá la siguiente misión",
+	FCQ_MA_BOOK_UNKNOWN = "primero necesitas un libro de biblioteca (están en mesas y estanterías por el mundo), pero MH no conoce ninguno cerca de ti. No viajes al bibliotecario sin uno",
+	FCQ_PRE_GOLD_FMT = "primero reúne %s: lo pagas en %s y ahora tienes %s. No hagas el viaje sin ello",
+	FCQ_PRE_WL_POTION = "primero compra Pociones enigmáticas a Gorzeeki Ojosalvajes (unas 6 de oro por 3): las necesitas para atravesar Jaedenar. Lleva también 150 de oro para el Polvo estelar xorotiano de después",
+	-- Jarra de J'eevee 18663, Magnetita negra 18629, Glifos xorotianos 18670 (DB2 70959, measured; esMX differs, see esMX file).
+	FCQ_PRE_WL_RITUAL = "primero compra la Jarra de J'eevee, una Magnetita negra y los Glifos xorotianos a Gorzeeki Ojosalvajes (unos 250 de oro en total): el ritual de La Masacre necesita los tres",
+	FCQ_PRE_PR_HEAL2 = "primero aprende el segundo rango de Curación inferior con tu instructor (desde el nivel 4): la misión pide ese rango",
 	FCQ_OBJ_MA_BRAMBLE = "acaba con los elementales y luego usa un Palo de tótem Secacorteza de tus bolsas en la piedra del centro del Círculo de Vínculo Exterior. Espera unos diez segundos y haz clic en la Zarza electrificada",
 	FCQ_OBJ_MA_JADE = "también necesitas 1 Jade (una gema: los mineros la encuentran, o cómprala en la Casa de subastas)",
 	FCQ_OBJ_MA_PLUCKY = "selecciona a \"Desplumado\" Johnson (un pollito), escribe /beckon y luego habla con él y pídele la frase",
@@ -706,6 +717,8 @@ for k, v in pairs({
 	FTRAVEL_FEATHERMOON = "Bastión Plumaluna",
 	FTRAVEL_NOTE_ORG = "Fuera de Orgrimmar: sal por la puerta principal (sur) y gira a la izquierda (este), sube hasta la torre. Lado sur: Entrañas. Lado norte: Grom'gol.",
 	FTRAVEL_NOTE_UC = "Sube en un ascensor hasta las ruinas y sal hacia el norte. La torre está en la colina junto al camino a Rémol.",
+	-- Cima del Trueno, Isla de Zephras = AreaTable 1638 / UiMap 2521 (70959, measured; esMX: Isla Zephras, see esMX file).
+	FTRAVEL_NOTE_TB = "¿Buscas un zepelín? Cima del Trueno no tiene: vuela a Orgrimmar con el maestro de vuelo y toma allí el zepelín. Esta nave voladora va a la Isla de Zephras.",
 }) do
 	if t[k] == nil or (en and t[k] == en[k]) then
 		t[k] = v

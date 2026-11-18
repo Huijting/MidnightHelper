@@ -190,7 +190,9 @@ local function GoTo(e, what, svc)
 	end
 	ns.lastTarget = { mapID = v.map, x = vx, y = vy,
 		name = vname .. ((what and v.name) and (" (" .. what .. ")") or ""),
-		via = "/mh vendor", arriveYards = 5, vendorNpc = v.npc, nearKey = "FARROW_NEAR_NPC", nearYards = 20 }
+		-- A transport stop is the ship's or zeppelin's centre (DB2), 10-20 yd off the dock: arrive within 25 yd there.
+		via = "/mh vendor", arriveYards = (v.kind == "transport") and 25 or 5, vendorNpc = v.npc,
+		nearKey = "FARROW_NEAR_NPC", nearYards = 20 }
 	ns._mhRouteOwner = "waypoint"
 	print(PREFIX .. ns:L(svc and "FCITY_ARROW_SET_FMT" or "FVEND_ARROW_SET_FMT"):format(vname, ZoneName(v.map),
 		e.dist and Distance(e.dist) or ns:L("FVEND_OTHER_CONT")))

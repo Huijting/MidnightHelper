@@ -234,7 +234,7 @@ for k, v in pairs({
 	FCQ_CHAIN_MA_ROBE_H = "Roben des geringen Zauberfeuers (eine Robe)",
 	FCQ_CHAIN_MA_GARMENT_A = "Astralknotengewand (eine Robe oder eine Bluse)",
 	FCQ_CHAIN_MA_GARMENT_H = "Netherspitzengewand (eine Robe oder eine Tunika)",
-	FCQ_CHAIN_MA_STUDY = "Studieren (kostenlose Schriftrollen aus der Bibliothek, einmal pro Stunde)",
+	FCQ_CHAIN_MA_STUDY = "Studieren (Schriftrollen aus der Bibliothek, einmal pro Stunde)",
 	FCQ_CHAIN_MA_ITEMS = "Gegenstände der Macht (du brauchst es für Der Zauberstab des Magiers)",
 	FCQ_CHAIN_MA_WAND = "Der Zauberstab des Magiers (ein Frost-, Arkan- oder Feuerzauberstab)",
 	FCQ_CHAIN_MA_CELESTIAL = "Himmlische Macht (eine Kugel oder ein Stab)",
@@ -261,6 +261,17 @@ for k, v in pairs({
 	FCQ_OBJ_MA_SISTERS = "besiege Lachende Schwestern (Dryaden) für 12 Haar der lachenden Schwester",
 	FCQ_WAIT_MA_BOOK = "bring zuerst ein beliebiges Bibliotheksbuch zum Bibliothekar (die Bücher liegen in der Welt auf Tischen und in Regalen). Nach deinem ersten Buch bietet dir der Bibliothekar Forscherzugang an",
 	FCQ_OBJ_MA_STICKS = "besiege Trolle der Witherbark für 10 Totemstecken der Witherbark",
+	-- 18 Nov 2026: before the trip. Schattenhafter Trank (item 18802), Geringes Heilen (spell 2052) = DB2 70959, measured.
+	-- Forscherzugang = the German title of 97286 (measured by the second check, 18 Nov 2026). Our own translation.
+	FCQ_MA_BOOK_GET_FMT = "hol zuerst ein Bibliotheksbuch: %s. Klick es dort an, wo es liegt (Bücher fallen nicht von Monstern). Bring es dann zu %s; danach bietet der Bibliothekar Forscherzugang an",
+	FCQ_MA_BOOK_GUIDE = " (dieser Ort stammt aus einem Spielerleitfaden, von MH nicht geprüft)",
+	FCQ_MA_BOOK_HANDIN_FMT = "du hast ein Bibliotheksbuch (%s): gib es bei %s ab. Danach bietet der Bibliothekar Forscherzugang an",
+	FCQ_MA_BOOK_UNKNOWN = "du brauchst zuerst ein Bibliotheksbuch (sie liegen auf Tischen und Regalen in der Welt), aber MH kennt keins in deiner Nähe. Reise nicht ohne Buch zum Bibliothekar",
+	FCQ_PRE_GOLD_FMT = "besorg zuerst %s: du bezahlst es bei %s und hast jetzt %s. Mach die Reise nicht ohne",
+	FCQ_PRE_WL_POTION = "kauf zuerst Schattenhafte Tränke bei Gorzeeki (etwa 6 Gold für 3): du brauchst sie, um durch Jaedenar zu kommen. Nimm auch 150 Gold mit, für den Xorothianischen Sternenstaub später",
+	-- J'eevees Glas 18663, Schwarzer Leitstein 18629, Xorothianische Glyphen 18670 (DB2 70959, measured).
+	FCQ_PRE_WL_RITUAL = "kauf zuerst J'eevees Glas, einen Schwarzen Leitstein und Xorothianische Glyphen bei Gorzeeki (zusammen etwa 250 Gold): das Ritual in Düsterbruch braucht alle drei",
+	FCQ_PRE_PR_HEAL2 = "lern zuerst den zweiten Rang von Geringes Heilen bei deinem Lehrer (ab Stufe 4): die Quest verlangt diesen Rang",
 	FCQ_OBJ_MA_BRAMBLE = "räum die Elementare weg und benutze dann einen Totemstecken der Witherbark aus deinen Taschen am mittleren Stein des Kreises der Äußeren Bindung. Warte etwa zehn Sekunden und klick auf den Vom Blitz aufgeladenen Dornbusch",
 	FCQ_OBJ_MA_JADE = "du brauchst auch 1 Jade (ein Edelstein: Bergbauer finden ihn, oder kauf ihn im Auktionshaus)",
 	FCQ_OBJ_MA_PLUCKY = "nimm Eisenherz Johnson (ein kleines Huhn) ins Ziel, tippe /beckon, sprich dann mit ihm und frag nach dem Satz",
@@ -458,6 +469,8 @@ for k, v in pairs({
 	FTRAVEL_FEATHERMOON = "Festung Feathermoon",
 	FTRAVEL_NOTE_ORG = "Außerhalb von Orgrimmar: geh durch das Haupttor (Süden) und dann nach links (Osten), hinauf zum Turm. Südseite: Undercity. Nordseite: Grom'gol.",
 	FTRAVEL_NOTE_UC = "Nimm einen Aufzug hinauf zu den Ruinen und geh nach Norden hinaus. Der Turm steht auf dem Hügel an der Straße nach Brill.",
+	-- Thunder Bluff, Insel Zephras = AreaTable 1638 / UiMap 2521 (70959, measured). The flight master by role, not by name.
+	FTRAVEL_NOTE_TB = "Suchst du einen Zeppelin? Thunder Bluff hat keinen: flieg beim Flugmeister nach Orgrimmar und nimm dort den Zeppelin. Dieses Himmelsschiff fliegt zur Insel Zephras.",
 	FOV_FIND_CLASS_FMT = "%s-Lehrer",
 	FOV_FIND_COUNT_FMT = "%s: %d auf deiner Seite",
 	FOV_FIND_CLASS_SUB = "Jeder Lehrer deiner Klasse auf deiner Seite. Der nächste zuerst.",

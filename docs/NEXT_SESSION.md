@@ -2,6 +2,28 @@
 
 ## ▶ 18 nov — Bouwchat 18-11
 
+- 📚 **Forever class quests: eerst wat je nodig hebt, dán de reis — GEBOUWD** (Rob via sparring, letterlijk: *"Ik ben de
+  halve wereld over gereisd om bij dit quest te doen … dan had ik een boek moeten hebben …"* → *"ja"*). Onderzoek één
+  mh-research → `docs/forever/CLASSQUEST_VOORWAARDEN_2026-11-18.md` (tabel per class + wat NIET gemeten is).
+  - `ForeverClassQuests.lua`: BookStep (97286 `book = true`: boek-quest gedaan → bibliothecaris; boek in tassen →
+    inleveren; anders → dichtstbijzijnde START_BOOKS van je kant, gidsplekken ×1,5 + "uit een spelersgids"); PreStep
+    (`pre` gold/items/spell, terwijl de quest in je log staat): paladin 7637 + warlock 7625 150 goud, warlock 7623
+    Shadowy Potion (niet in Felwood), priest-robe Lesser Heal R2 (2052, AFGELEID dat de client een rank zo meldt).
+    1948 sticks 10. Teksten `s.text` naast `s.textKey`.
+  - Vertaald de/fr/es/esMX/pt/ru; item/spell-namen GEMETEN (ItemSparse 18802/7272/7273, SpellName 2052, esMX "Sanación").
+  - Offline: mage zonder boek → boek (Elwynn / Brill), boek in tassen → bibliothecaris, ingeleverd → 97286 halen; paladin
+    arm → "first get 150 gold" (geen pijl), rijk → Rohan; warlock zonder potion → Gorzeeki, in Felwood → Banehollow;
+    priest zonder rank 2 → trainer. 0 fouten.
+  - Tweede Opus-controle (`docs/forever/CLASSQUEST_CONTROLE2_2026-11-18.md`): 2 FOUT + 10 RISICO. Gerepareerd: 7642
+    150 goud (`turn = true`, na de doelen), Stardust-goud al bij 7623/7624, 7631 drie ritueel-items (`allItems`,
+    `onlyMap 1428`), potion "6 gold for 3" + `onlyMap`, rank 3 telt, start-items weg, 2 level-25-boeken weg, "free" weg,
+    de Forscherzugang / anders "de volgende quest". Offline opnieuw: 0 fouten, alle gevallen nagespeeld.
+    Open: Scholomance-sleutel 7629/7647; Study staat bij elke mage 6+ bovenaan Do this now (keuze voor Rob).
+  - Zelfde ronde: LINKS boot/zeppelin/skycutter = eigen DB2-stops (was gelijk aan Zygor LibRover, ARR), pijl "aangekomen"
+    bij een halte binnen 25 yd; Thunder Bluff-zin onder de Mulgore-skycutter (FTRAVEL_NOTE_TB, 7 talen, namen gemeten).
+  - TESTLIJST: Robs "1 is goed gekeurd" = sparring-punt 1 → Forever-punten van vandaag afgevinkt; plus Characters-totaal
+    en Your path op Robs screenshots (sparring). Open: druid-vorm, leeg vakje, achternaam, Step aside, Set focus, Midnight.
+  - Open: 94502 inleverplek (Norric vs Forgotten Shrine), aantal Shadowy Potions, Pick Lock 2478, of 1 boek genoeg is.
 - 🧭 **Forever Find → Travel GEBOUWD** (Rob via sparring, letterlijk: *"Maar ik ben nu op zoek naar de zeppelins in
   ogrimar en heb geen idee hoe ik daar kom … net zoals flight masters.... kortom ... HELP !!!"* → *"ja"*). Onderzoek: één
   mh-research → `docs/forever/REIZEN_2026-11-18.md`.

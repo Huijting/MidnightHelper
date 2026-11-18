@@ -33,7 +33,27 @@ een logische afkorting voor de action house. 6 komt later"*** (Willow: "action h
 stap 2 werken in Forever; `/mh repprobe` gedaan. De Midnight-check van de zoekbalk komt later.
 
 ✅ **Rob, 18 nov, via sparring, letterlijk: *"1 is goed gekeurd"*** (sparring: "zijn Forever-test van de testlijst is OK").
-⚠️ Welke punten "1" precies zijn, stond niet in het bericht; daarom hieronder niets op [x] gezet. Gevraagd aan sparring.
+Sparring legde uit: punt 1 was *"Forever: sluit WoW één keer helemaal af en start opnieuw. Loop dan de testlijst door: de
+zoekbalk, de reputaties, de rares, de muntjes, de Now-kaart, het ronde plaatje en de schakelaars."* Afgevinkt met
+"(Rob, 18 nov, punt 1)". NIET afgevinkt: Midnight, Travel (nieuw), en wat niet in die zin stond (druid-vorm, leeg vakje,
+achternaam, "Step aside"-instelling, Your path, Set focus). Daarna vond Rob nog: "scroll for more" over de tekst
+(gerepareerd, zie Travel) en het boek bij de mage-quest "Study" (in bouw).
+
+## 📚 18 nov (nacht) — Forever: eerst wat je nodig hebt, dán de reis (class quests)
+
+Geen nieuw bestand: een `/reload` is genoeg.
+- [ ] Mage zonder boek, nog geen Research Access (bv. Ima Magieman): Now-kaart / Class quests zegt "first get a library
+      book: <naam>" en "Show the way" wijst naar dat BOEK (Human: Tower of Azora in Elwynn; Gnome: Ironforge; Undead:
+      Brill; Orc/Troll: een tablet in Orgrimmar, plek uit een gids). NIET meer naar de bibliothecaris.
+- [ ] Klik het boek aan (het ligt op een tafel/plank). Nu zegt de kaart: "you have a library book: hand it in to Garion
+      Wendell" (Alliance) / "Owen Thadd" (Horde), en de pijl gaat naar de bibliothecaris.
+- [ ] Lever het boek in. Biedt de bibliothecaris nu meteen Research Access aan? (Dat één boek genoeg is, is NIET gemeten.)
+- [ ] (Wie er toevallig is) Paladin met de charger-quest en minder dan 150 goud: de kaart zegt eerst 150 goud halen
+      (bij Rohan, en bij Grimand pas als de Stratholme-spullen binnen zijn). Warlock Dreadsteed in de Burning Steppes
+      zonder Shadowy Potions: eerst kopen, en 150 goud meenemen; voor het ritueel eerst de drie spullen van Gorzeeki.
+      Priest-robe zonder Lesser Heal (Rank 2): eerst leren — klopt dat, of zegt hij het ook als je hem al hebt?
+      (AFGELEID hoe het spel een rank meldt.)
+- [ ] Mage "Items of Power": hij gaat pas verder na 10 Witherbark Totem Sticks (was: na 1).
 
 ## 🧭 18 nov (laat) — Forever: Find → Travel (zeppelins, boten, flight masters)
 
@@ -50,6 +70,10 @@ Geen nieuw bestand: een `/reload` is genoeg.
       Plaguelands), en of de zeppelin **Grom'gol ↔ Undercity** en de **Feathermoon-veerboot** echt varen.
 - [ ] Lange lijsten (bv. This week, de dungeonlijst): de oranje woorden "scroll for more" staan nu in een eigen strookje
       ONDER de lijst, niet meer over de laatste regel of een knop. Korte lijst: geen strookje, geen woorden.
+- [ ] (18 nov nacht) Boot- en zeppelinpunten zijn nu onze eigen waarden (speldata). Bij de halte: verdwijnt de pijl
+      als je op de steiger/het platform staat (binnen 25 yd)?
+- [ ] Horde in Thunder Bluff: "Boats, zeppelins & portals" → onder de skycutter in Mulgore staat "Thunder Bluff has
+      none: fly to Orgrimmar with Tal …".
 
 ## 🧪 18 nov (avond) — MIDNIGHT: aura-code las andermans buffs altijd als "onleesbaar"
 
@@ -72,11 +96,11 @@ Geen nieuw bestand: een `/reload` is genoeg.
 ## 🧩 18 nov (avond) — Forever: Now-kaart zonder overlap, portret standaard rond
 
 Geen nieuw bestand: een `/reload` is genoeg.
-- [ ] Overzicht: linksboven weer het ronde plaatje (Moving portrait staat nu standaard UIT). Zet je hem aan: het
-      3D-model, beter op het gezicht gericht dan eerst.
-- [ ] Now-kaart met een class quest (bv. Ima Magieman, "Study"): titel, uitleg en plek staan helemaal (tot 3 regels),
-      en de lijst eronder ("You can learn 2 new weapon skills now.") begint pas daaronder - niets over elkaar.
-- [ ] Muis op de titel van de Now-kaart: de hele tekst in een tooltip.
+- [x] Overzicht: linksboven weer het ronde plaatje (Moving portrait staat nu standaard UIT). Zet je hem aan: het
+      3D-model, beter op het gezicht gericht dan eerst. (Rob, 18 nov, punt 1)
+- [x] Now-kaart met een class quest (bv. Ima Magieman, "Study"): titel, uitleg en plek staan helemaal (tot 3 regels),
+      en de lijst eronder ("You can learn 2 new weapon skills now.") begint pas daaronder - niets over elkaar. (Rob, 18 nov, punt 1)
+- [x] Muis op de titel van de Now-kaart: de hele tekst in een tooltip. (Rob, 18 nov, punt 1)
 
 ## 🎭 18 nov (laat) — Forever: bewegend portret linksboven
 
@@ -85,38 +109,39 @@ Geen nieuw bestand: een `/reload` is genoeg.
       niet rond afknippen). Hij ademt en knippert. Steekt er niets buiten het vakje? (Rob, 18 nov: *"Het bewegende werkt
       keurig"*; hij vindt het ronde plaatje stiekem mooier - standaardstand vraagt sparring hem.)
 - [ ] Wissel van uitrusting of vorm (druid): het model past zich aan.
-- [ ] Tandwiel → stille helpers → "Moving portrait" uit: het oude ronde plaatje komt METEEN terug (zonder /reload). Weer
-      aan: het model. (Rob, 18 nov: werkte niet → gerepareerd, zie hieronder.)
-- [ ] Zelfde reparatie: "Which quest reward to take" en "Better than what you wear" bij de stille helpers gaan nu ook
-      echt uit (ze bleven eerst ook aan).
+- [x] Tandwiel → stille helpers → "Moving portrait" uit: het oude ronde plaatje komt METEEN terug (zonder /reload). Weer
+      aan: het model. (Rob, 18 nov: werkte niet → gerepareerd, zie hieronder.) (Rob, 18 nov, punt 1)
+- [x] Zelfde reparatie: "Which quest reward to take" en "Better than what you wear" bij de stille helpers gaan nu ook
+      echt uit (ze bleven eerst ook aan). (Rob, 18 nov, punt 1)
 - [ ] Blijft het vakje leeg/zwart? Zeg het: dan staat in `foreverPortraitProbe` (SavedVariables, na /reload) waarom.
 
 ## 🪙 18 nov (laat) — Forever: altijd goud, zilver én koper + Now-regels helemaal leesbaar
 
 Geen nieuw bestand: een `/reload` is genoeg (na de herstart voor de rares).
-- [ ] Links: "Gold: 0 [goud] 3 [zilver] 14 [koper]" - alle drie de muntjes, ook bij 0. Zo ook "Costs …" op de Now-kaart,
-      de Characters-regels, het totaal en de trainerpagina.
-- [ ] Now-lijst: "You can learn 8 new weapon skills now. (fitting Beast Mastery, according to …)" staat er helemaal; de rij
-      wordt zo hoog als nodig. Geen enkele regel in die lijst eindigt nog op "…".
+- [x] Links: "Gold: 0 [goud] 3 [zilver] 14 [koper]" - alle drie de muntjes, ook bij 0. Zo ook "Costs …" op de Now-kaart,
+      de Characters-regels, het totaal en de trainerpagina. (Rob, 18 nov, punt 1)
+- [x] Now-lijst: "You can learn 8 new weapon skills now. (fitting Beast Mastery, according to …)" staat er helemaal; de rij
+      wordt zo hoog als nodig. Geen enkele regel in die lijst eindigt nog op "…". (Rob, 18 nov, punt 1)
 
 ## 🗺️ 18 nov — Forever: alle rares per zone (stap B)
 
 ⚠️ Nog een nieuw bestand: WoW helemaal herstarten (/reload is niet genoeg).
-- [ ] Find → Rares: onder "Worth the trip" een regel per zone met levels, bv. "The Barrens (13-36)". Klik er een: alle
-      rares van die zone, de dichtstbijzijnde eerst, met level (of "level ??") en Show the way (rode pijl).
-- [ ] Zoekbalk: typ de naam van een rare die je kent, of een zone-naam → de rare of de zonelijst.
-- [ ] Merk je bij het typen dat het spel hapert? (Offline max 0,06 s per letter, nu ~1400 regels per character.)
+- [x] Find → Rares: onder "Worth the trip" een regel per zone met levels, bv. "The Barrens (13-36)". Klik er een: alle
+      rares van die zone, de dichtstbijzijnde eerst, met level (of "level ??") en Show the way (rode pijl). (Rob, 18 nov, punt 1)
+- [x] Zoekbalk: typ de naam van een rare die je kent, of een zone-naam → de rare of de zonelijst. (Rob, 18 nov, punt 1)
+- [x] Merk je bij het typen dat het spel hapert? (Offline max 0,06 s per letter, nu ~1400 regels per character.) (Rob, 18 nov, punt 1)
 
 ## 🧽 18 nov — Forever: goud en 6 schermfouten van Robs screenshots (daarna nieuwe screenshots voor de site)
 
 Zit in dezelfde ronde als de rares (nieuw bestand): WoW eerst helemaal herstarten.
-- [ ] Links onder je character: "Gold: 3 silver 14 copper" (met muntjes), niet "Gold: 314". Now-kaart: "Costs 10
-      copper" met muntje, niet "Costs 10".
-- [ ] Characters: "All your gold together: … (14 characters)" — het getal is al je characters samen, ook die je pas
-      ziet als je naar beneden scrollt.
-- [ ] Now-kaart: "DO THIS NOW" staat vrij, de knoppen Details en Show the way liggen er niet meer overheen.
-- [ ] Knoppen in de Now-lijst: "Weapon trainer" en "Profession trainer" helemaal leesbaar.
-- [ ] Your path: "Aspect of the Monkey" heel, eventueel op twee regels.
+- [x] Links onder je character: "Gold: 3 silver 14 copper" (met muntjes), niet "Gold: 314". Now-kaart: "Costs 10
+      copper" met muntje, niet "Costs 10". (Rob, 18 nov, punt 1)
+- [x] Characters: "All your gold together: … (14 characters)" — het getal is al je characters samen, ook die je pas
+      ziet als je naar beneden scrollt. (screenshot Rob 18 nov: "0g 98s 22c (15 characters)", gemeten door sparring)
+- [x] Now-kaart: "DO THIS NOW" staat vrij, de knoppen Details en Show the way liggen er niet meer overheen. (Rob, 18 nov, punt 1)
+- [x] Knoppen in de Now-lijst: "Weapon trainer" en "Profession trainer" helemaal leesbaar. (Rob, 18 nov, punt 1)
+- [x] Your path: "Aspect of the Monkey" heel, eventueel op twee regels. (screenshot Rob 18 nov: mage-pad level 7-13 toont
+      netjes zonder afkappen, gemeten door sparring; de hunter-naam zelf niet gezien)
 - [ ] Elke lijst die verder gaat (Now-lijst, This week, dungeons, macro's) zegt onderaan in oranje "scroll for more";
       aan het eind van de lijst verdwijnt dat.
 - [ ] Keys & macros, "Set focus": de gele regel blijft binnen zijn eigen rij.
@@ -124,29 +149,29 @@ Zit in dezelfde ronde als de rares (nieuw bestand): WoW eerst helemaal herstarte
 ## 🐉 18 nov — Forever: rares die de moeite waard zijn (stap A)
 
 ⚠️ Nieuw bestand: eerst WoW helemaal afsluiten en opnieuw starten (/reload is niet genoeg).
-- [ ] Overzicht → Find: onderaan de lijst links het kopje **RARES** met "Worth the trip". Rechts de rares die jouw kant
-      kan aanvallen, de dichtstbijzijnde eerst, met level (en "elite") en onder elke naam één zin waarom.
-- [ ] "Show the way" bij een rare: een **rode** pijl met het rare-icoon. Als je er bent (binnen ~20 m) gaat hij weg.
-      Klopt de plek? (Sommige rares lopen rond.)
-- [ ] Zoekbalk: `@rare` toont ze allemaal; `pet` vindt de rares met een huisdiertje; `tame` de nieuwe hunter-beesten.
-- [ ] Horde ziet Dalaran Spellscribe en Aean Swiftriver wél en Sewer Beast niet; Alliance andersom.
+- [x] Overzicht → Find: onderaan de lijst links het kopje **RARES** met "Worth the trip". Rechts de rares die jouw kant
+      kan aanvallen, de dichtstbijzijnde eerst, met level (en "elite") en onder elke naam één zin waarom. (Rob, 18 nov, punt 1)
+- [x] "Show the way" bij een rare: een **rode** pijl met het rare-icoon. Als je er bent (binnen ~20 m) gaat hij weg.
+      Klopt de plek? (Sommige rares lopen rond.) (Rob, 18 nov, punt 1)
+- [x] Zoekbalk: `@rare` toont ze allemaal; `pet` vindt de rares met een huisdiertje; `tame` de nieuwe hunter-beesten. (Rob, 18 nov, punt 1)
+- [x] Horde ziet Dalaran Spellscribe en Aean Swiftriver wél en Sewer Beast niet; Alliance andersom. (Rob, 18 nov, punt 1)
 
 ## 🪙 18 nov — Forever: kaart "Reputation & currency"
 
 Geen nieuw bestand: een `/reload` is genoeg.
-- [ ] Overzicht → tab Characters → knop **Reputation & currency** (vierde knop). Bovenaan je 5 munten met aantal (en
+- [x] Overzicht → tab Characters → knop **Reputation & currency** (vierde knop). Bovenaan je 5 munten met aantal (en
       maximum: Honor 25000, Real 165). Daaronder de groepen van jouw kant: naam, rang, punten (bv. 200 / 3000),
-      "Next: …" en "How: …". Onderaan "Other groups you know" (je steden) en een grijze regel over de bronnen.
-- [ ] Geen groepen van de andere kant (Horde ziet geen Kirin Tor, Alliance geen Earthen Ring).
-- [ ] Zoekbalk: typ `honor` of de naam van een groep (bv. `argent`) → klik → deze pagina opent.
-- [ ] Haal wat reputatie (een quest of een kill): de pagina past zich aan terwijl hij open is.
+      "Next: …" en "How: …". Onderaan "Other groups you know" (je steden) en een grijze regel over de bronnen. (Rob, 18 nov, punt 1)
+- [x] Geen groepen van de andere kant (Horde ziet geen Kirin Tor, Alliance geen Earthen Ring). (Rob, 18 nov, punt 1)
+- [x] Zoekbalk: typ `honor` of de naam van een groep (bv. `argent`) → klik → deze pagina opent. (Rob, 18 nov, punt 1)
+- [x] Haal wat reputatie (een quest of een kill): de pagina past zich aan terwijl hij open is. (Rob, 18 nov, punt 1)
 - [ ] (Alleen als je veel Honor hebt) This week zegt bij 90% "almost full".
 
 ## 🔤 18 nov — Forever: zoeken op afkortingen (na Robs test)
 
 Geen nieuw bestand: een `/reload` is genoeg.
-- [ ] Typ `ah` (of `AH`): bovenaan Auction House, daaronder de veilingmeesters, de dichtstbijzijnde eerst.
-- [ ] Ook: `hearth` (herberg), `mail` (brievenbus), `banker` (bank).
+- [x] Typ `ah` (of `AH`): bovenaan Auction House, daaronder de veilingmeesters, de dichtstbijzijnde eerst. (Rob, 18 nov, punt 1)
+- [x] Ook: `hearth` (herberg), `mail` (brievenbus), `banker` (bank). (Rob, 18 nov, punt 1)
 
 ## 🧭 18 nov — Forever: zoekbalk stap 2, elke plek met "Show the way"
 
