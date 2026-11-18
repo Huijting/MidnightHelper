@@ -2714,6 +2714,17 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh bosses [check] — WoW Forever: the boss guide (ForeverDungeonGuide.lua, 18 Nov 2026).
+	local bossArg = msg:lower() == "bosses" and "" or msg:lower():match("^bosses%s+(.+)$")
+	if bossArg then
+		if ns.ForeverDungeonGuideSlash then
+			ns.ForeverDungeonGuideSlash(bossArg)
+		else
+			print("|cffffcc00Midnight Helper:|r /mh bosses is for WoW: Forever.")
+		end
+		return
+	end
+
 	-- /mh open [on | off] — the open-this-box button (Openables.lua; Forever since 18 Nov 2026).
 	local openArg = msg:lower() == "open" and "" or msg:lower():match("^open%s+(.+)$")
 	if openArg and ns.OpenablesSlash then

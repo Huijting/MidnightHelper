@@ -39,6 +39,21 @@ zoekbalk, de reputaties, de rares, de muntjes, de Now-kaart, het ronde plaatje e
 achternaam, "Step aside"-instelling, Your path, Set focus). Daarna vond Rob nog: "scroll for more" over de tekst
 (gerepareerd, zie Travel) en het boek bij de mage-quest "Study" (in bouw).
 
+## 🗺️ 18 nov (nacht) — Forever: bazengids, stap 1 (9 dungeons tot ~32)
+
+⚠️ **Twee nieuwe bestanden: WoW helemaal herstarten.**
+- [ ] Overzicht → Dungeons & group: bij Ragefire Chasm, Hall of Thanes, Ruins of Lordaeron, Wailing Caverns, Deadmines,
+      Shadowfang Keep, Stockade, Blackfathom Deeps en Excavation Site een knop **Bosses** (onder Way). Klik: een venster
+      met links de 9 dungeons, rechts per baas wat hij doet + een tip, onderaan 2-3 items "Worth knowing".
+- [ ] In een van die dungeons: `/mh bosses` opent meteen op die dungeon. Target een baas: hij krijgt "> … (your target)".
+- [ ] Bij de 3 nieuwe dungeons staat bovenaan "New in WoW Forever … check these lines again later".
+- [ ] Kloppen de tips met wat je ziet? Een regel die niet klopt: zeg welke (dungeon + baas).
+- [ ] **Meetpunten** (als je er toch bent):
+      - Shadowfang Keep, Baron Silverlaine: zet hij zijn "healing 75% minder"-debuff op één speler of op iedereen dichtbij?
+      - Hall of Thanes: heet de vuurbaas in het spel **Magmatus** of **Infurnus**? Ruins of Lordaeron: **The Baron** of
+        **The Butcher**? (Speldata en Wowhead zeggen het verschillend.)
+      - `/mh bosses check` in Blackfathom Deeps: welk "target npc" en welke map ziet MH?
+
 ## 📦 18 nov (nacht) — Forever: knop "doos openen"
 
 ⚠️ Openables.lua staat nu ook in de Forever-toc: **WoW helemaal herstarten** (samen met disenchant hierboven).

@@ -2,6 +2,26 @@
 
 ## ▶ 18 nov — Bouwchat 18-11
 
+- 🗺️ **Forever bazengids STAP 1 GEBOUWD** (Rob via sparring: *"Ja bouw maar"*; daarna *"Die nieuwe dungeons erbij. En dan
+  later nog een keer controleren. … Uiteindelijk wil ik gewoon alle dungeons erin hebben … En ook de nieuwe raids"*).
+  ⚠️ **2 nieuwe bestanden → WoW herstarten.**
+  - `Modules/ForeverDungeonGuide.lua` (venster stijl A, `/mh bosses [check]`, knop "Bosses" op de dungeonregels in het
+    overzicht, opent op je huidige dungeon, target = baas gemarkeerd incl. extraNpc) + `ForeverDungeonGuideData.lua`
+    (GEGENEREERD door scratchpad `dg_gen.lua` uit `dungeon_guide_data.lua`; bronnen per regel als commentaar).
+  - 9 dungeons tot ~32 (RFC, Hall of Thanes, Ruins of Lordaeron, WC, DM, SFK, Stockade, BFD, Excavation Site), 59 bazen,
+    27 items. De 3 nieuwe: `recheck` + regel bovenaan voor de speler. `one` = "(one of these lines comes from one guide only)".
+    Geen drop-kansen. Bazennamen per taal: DB2 DungeonEncounter, behalve Magmatus/The Baron/Plunder (npc-naam van Wowhead;
+    DB2 zegt Infurnus/The Butcher/Plünderung…) en 3 rares zonder DB2-rij (Wowhead per taal).
+  - Teksten: 192 FDG_*-sleutels + 13 UI-sleutels, 7 talen (mh-writer), stat/slotwoorden GEMETEN (GlobalStrings ITEM_MOD_*,
+    INVTYPE_*). esMX-overlay: 7 regels (Mano derecha/izquierda, Abalorio, Poder con hechizos, calabozo).
+  - Tweede Opus-controle (`docs/forever/DUNGEONGIDS_CONTROLE3_2026-11-18.md`): 9 FOUT, alle gerepareerd (o.a. 6× "one-hand"
+    = Main Hand, LORD_6_D2 geen vuur, WC_7_T te dicht bij Icy Veins, DM_5_T, 3× ontbrekende namen, Shredder-markering,
+    Disciple of Naralex-naam terug in 5 talen); 3 van de 11 RISICO's ook (Plunder-naam, one-source-tekst, EXCAV_4 stomp).
+  - Open: Silverlaine-spell, Magmatus/The Baron/Plunder-naam in de client, BFD encounter-set (TESTLIJST); ~20 klassieke
+    bazen hebben in DB2 een andere taalnaam dan Wowhead (DB2 gevolgd; alleen een niet-Engelse client beslist).
+  - ⚠️ Bij opnieuw genereren: de Engelse teksten in `dungeon_guide_data.lua` zijn NIET bijgewerkt met de 11 correcties
+    (die staan direct in enUS.lua); dg_insert weigert dubbele sleutels, dus enUS blijft goed.
+  - Plan (IDEEEN H14): stap 2 = dungeons 32-60, stap 3 = raids (open 9 dec).
 - 🗺️ **Forever dungeon-gids: ALLEEN ONDERZOCHT, niets gebouwd** (Rob: *"… daarna door naar 1"*; sparring: eerst onderzoek
   + voorstel). `docs/forever/DUNGEONGIDS_2026-11-18.md` (mh-research) + `DUNGEONGIDS_CONTROLE2_2026-11-18.md` (tweede
   Opus) + voorbeelddata DM/WC/SFK (`dungeongids_voorbeeld_2026-11-18.lua.txt`, geen addon-bestand).

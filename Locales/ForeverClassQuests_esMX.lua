@@ -152,6 +152,16 @@ for k, v in pairs({
 	FCQ_OBJ_MA_STICKS = "derrota a Trols Secacorteza para conseguir 10 Palo totémico Secacorteza",
 	-- 18 Nov 2026: esMX client says Sanación inferior for spell 2052 (DB2 70959, measured; esES Curación inferior).
 	FTRAVEL_NOTE_TB = "¿Buscas un zepelín? Cima del Trueno no tiene: vuela a Orgrimmar con el maestro de vuelo y toma allí el zepelín. Esta nave voladora va a la Isla Zephras.",
+	-- Boss guide (18 Nov 2026): esMX says "calabozo" where esES says "mazmorra" (CLAUDE.md, esMX overlay).
+	FDG_NONE = "MH aún no tiene guía de jefes para este calabozo.",
+	FDG_HINT = "Dentro de un calabozo se abre en ese calabozo. Pon a un jefe como objetivo: MH lo marca. /mh bosses lo abre.",
+	FDG_RFC_L1 = "sanador (maza de mano derecha, +33 de sanación)",
+	FDG_RFC_L3 = "cuerpo a cuerpo (espada de mano derecha)",
+	FDG_THANES_L3 = "cuerpo a cuerpo de Fuerza (hacha de mano derecha)",
+	FDG_LORD_L2 = "lanzador de hechizos/sanador (maza de mano derecha, +24 de poder con hechizos)",
+	FDG_SFK_L3 = "sanador/lanzador de hechizos (abalorio, maná cada 5 s)",
+	FDG_STOCKS_L1 = "lanzador de hechizos/sanador (espada de mano derecha, +34 de poder con hechizos)",
+	FDG_STOCKS_L2 = "cuerpo a cuerpo de Fuerza (hacha de mano derecha)",
 	-- esMX client says Forzar cerradura for Pick Lock 1804 (DB2 70959, measured; esES Ganzúa).
 	FOV_Q_OPENABLES_DESC = "Un botón que aparece cuando tus bolsas tienen una caja, una bolsita o una almeja que puedes abrir. Un clic abre una. Las cajas cerradas con llave se quedan fuera (primero Forzar cerradura de un pícaro o una llave). Oculto en combate. Lo mismo que /mh open on|off.",
 	FCQ_PRE_WL_POTION = "primero compra Pociones enigmáticas a Gorzeeki Ojovago (unas 6 de oro por 3): las necesitas para atravesar Jaedenar. Lleva también 150 de oro para el Polvo estelar xorothiano de después",

@@ -582,11 +582,17 @@ function ns.ForeverDungeonList()
 		end
 		out[#out + 1] = { name = Name(d), zone = ZoneName(d.zone), min = d.min, max = d.max, map = d.zone, x = d.x,
 			y = d.y, state = State(d, level, side), sideLocked = d.side ~= nil and d.side ~= side, other = other,
-			ten = d.ten, go = function()
+			ten = d.ten, instance = d.map, key = d.key, go = function()
 				return GoTo(d)
 			end }
 	end
 	return out, NEAR
+end
+
+--- The instance map id of the dungeon you stand in, or nil (for the boss guide, ForeverDungeonGuide.lua).
+function ns.ForeverCurrentDungeonMap()
+	local d = CurrentDungeon()
+	return d and d.map or nil
 end
 
 function ns.IsForeverDungeonsAll()

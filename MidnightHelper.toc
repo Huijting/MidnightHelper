@@ -283,6 +283,8 @@ Modules\ForeverStyle.lua
 Modules\ForeverOverview.lua
 Modules\ForeverBlessTip.lua
 Modules\ForeverDungeons.lua
+Modules\ForeverDungeonGuideData.lua
+Modules\ForeverDungeonGuide.lua
 Modules\ForeverSurvey.lua
 Modules\CameraZoom.lua
 Modules\MaxLevelWelcome.lua

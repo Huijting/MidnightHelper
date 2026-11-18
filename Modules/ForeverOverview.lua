@@ -983,6 +983,13 @@ local function DungeonRow(list, i)
 	r.go:SetPoint("TOPRIGHT", -2, -5)
 	r.go:SetLabel(ns:L("FOV_GO_SHORT"))
 	Tip(r.go, ns:L("FOV_GO"), ns:L("FOV_TIP_GO"))
+	-- 18 Nov 2026 (dungeon guide step 1, Rob: "Ja bouw maar"): "Bosses" opens the boss guide on this dungeon.
+	r.boss = Button(r, 70)
+	r.boss:SetHeight(20)
+	r.boss:SetPoint("TOPRIGHT", r.go, "BOTTOMRIGHT", 0, -3)
+	r.boss:SetLabel(ns:L("FDG_BTN"))
+	Tip(r.boss, ns:L("FDG_TITLE"), ns:L("FDG_TIP_BTN"))
+	r.boss:Hide()
 	r.name = Text(r, "textB", 14)
 	r.name:SetPoint("TOPLEFT", r.chip, "TOPRIGHT", 10, 1)
 	r.name:SetPoint("RIGHT", r.go, "LEFT", -8, 0)
@@ -3382,6 +3389,19 @@ local function FillDungeonsPage(f, refresh)
 			row.route:Hide()
 		end
 		local h = 40 + (row.route:IsShown() and ((row.route:GetStringHeight() or 12) + 2) or 0)
+		local hasGuide = ns.ForeverDungeonHasGuide and ns.ForeverDungeonHasGuide(d.instance)
+		if hasGuide then
+			local inst = d.instance
+			row.boss:SetScript("OnClick", function()
+				if ns.ShowForeverDungeonGuide then
+					ns.ShowForeverDungeonGuide(inst)
+				end
+			end)
+			row.boss:Show()
+			h = math.max(h, 52)
+		else
+			row.boss:Hide()
+		end
 		row:SetHeight(h)
 		SetGo(row.go, (not d.sideLocked) and d.go or nil)
 		row:Show()
