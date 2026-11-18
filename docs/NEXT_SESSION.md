@@ -54,6 +54,10 @@
   "Renown - PvP Rank" max 7 (niet 14). Onleesbaar (nil): 270/749/910 (raids niet in Forever), 890/2586/2740/2826
   (Alliance-facties op een Horde-character), 2800/2802 (verborgen). Alliance-facties die wél lezen staan op Hated
   (-42000). Rep-tokens in de tas: alle 0. Kaart: Rob kiest.
+- 🐉 **Forever-rares ONDERZOCHT, niets gebouwd** (Rob via sparring: *"en hebben we ook rares in forever ?"* → *"ja"* op
+  uitzoeken). Rapport `docs/forever/RARES_2026-11-18.md`; IDEEEN.md bovenaan. 406 rares / 41 zones (HandyNotes WoW
+  Forever v4 = ARR: lezen, niet kopiëren); DB2 heeft geen rares en maar 2 vignettes. Voorstel A (top ~20 in Find +
+  zoeken + rode pijl) / B (alle 406, eigen lijst uit Wowhead) / C (HandyNotes tijdens het spelen lezen). Rob kiest.
 - 📏 **B: meting valuta/reputaties GEBOUWD** (alleen meten, nog geen kaart): `/mh repprobe` (`ForeverLegacy.lua`
   `ns.ForeverRepProbeSlash`, route in Core.lua, unlisted in CommandList.lua) → `ns.db.foreverRepProbe`: welke
   functies bestaan, GetCurrencyInfo voor 1792/3468/3402/3469/515 (+3473/3485), GetFactionDataByID + oude

@@ -26,6 +26,16 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 
 ## Open — wacht op Rob
 
+### Forever: rares (NOG GEEN BOUW-JA)
+- Bron: Rob 18 nov (via Sparring 18-11), letterlijk: *"en hebben we ook rares in forever ? die hebben we ook nog niet
+  toch ?"* en *"ja"* op uitzoeken.
+- Onderzoek: `docs/forever/RARES_2026-11-18.md`. GEMETEN: 406 rares in 41 zones (HandyNotes WoW Forever, nagekeken in
+  Wowhead Forever); MH heeft voor Forever niets (Rares.lua is Midnight-only); de pijl laadt wel en kent de rode
+  rare-stijl; Forever heeft geen rare-vignettes (dus geen "rare in de buurt"-melding op de Midnight-manier).
+- Voorstel: (A) ~20 rares die de moeite waard zijn, met één zin waarom, in Find + zoekbalk + rode pijl; (B) alle 406
+  uit onze eigen lijst (Wowhead-tooltips per id); (C) HandyNotes tijdens het spelen lezen als die geïnstalleerd is.
+  Advies: A, daarna B. Spel: F. Voor wie: N + V (AFGELEID). ⏳ Rob kiest.
+
 ### Forever: een grote zoekbalk zoals in Midnight + valuta en reputaties (NOG GEEN BOUW-JA)
 - Bron: Rob 18 nov (via Sparring 18-11), letterlijk: *"wat we nog missen in de forever versie is net zo een uitgebreide
   zoek functie (bar) als in de midnight versie."* en *"… laat hem nog niets bouwen maar met een voorstel komen , in
