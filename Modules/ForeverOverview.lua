@@ -47,6 +47,33 @@ local LEFT_W = 176
 
 local win
 
+--- Coins with their icons. 18 Nov 2026 (site chat on Rob's screenshots: "Gold: 314" for 3 silver 14 copper, and
+--- "Costs 10"): this file used the global GetCoinTextureString, which Forever does not have (ForeverQuestHint.lua
+--- found that on 10 Nov), so the raw copper number was shown. Same order as the other Forever modules.
+local function Money(c)
+	c = tonumber(c) or 0
+	if C_CurrencyInfo and C_CurrencyInfo.GetCoinTextureString then
+		local ok, s = pcall(C_CurrencyInfo.GetCoinTextureString, c)
+		if ok and type(s) == "string" and s ~= "" then
+			return s
+		end
+	end
+	if GetCoinTextureString then
+		local ok, s = pcall(GetCoinTextureString, c)
+		if ok and type(s) == "string" and s ~= "" then
+			return s
+		end
+	end
+	-- Neither exists: still say gold/silver/copper, never a bare copper number.
+	local g, s, k = math.floor(c / 10000), math.floor(c / 100) % 100, c % 100
+	if g > 0 then
+		return ("%dg %ds %dc"):format(g, s, k)
+	elseif s > 0 then
+		return ("%ds %dc"):format(s, k)
+	end
+	return ("%dc"):format(k)
+end
+
 --------------------------------------------------------------------------------
 -- Data: what the cards say (nothing new is measured here)
 --------------------------------------------------------------------------------
@@ -93,7 +120,7 @@ local function NowItems()
 			local _, nm = ns.ForeverTrainerNearestNpc()
 			npc = nm
 		end
-		local money = GetCoinTextureString and GetCoinTextureString(r.total or 0) or tostring(r.total or 0)
+		local money = Money(r.total or 0)
 		rich.trainer = {
 			kind = "trainer",
 			title = (#r.now == 1 and ns:L("FOV_TRAINER_ONE_FMT") or ns:L("FOV_TRAINER_MANY_FMT")):format(#r.now,
@@ -392,7 +419,7 @@ local function NowRow(card, i)
 	row.sub:SetWordWrap(false)
 	row.hover = HoverOver(row, row.text)
 	row.hover:SetPoint("BOTTOMRIGHT", row.sub, "BOTTOMRIGHT")
-	row.go = Button(row, 70)
+	row.go = Button(row, 92)
 	row.go:SetHeight(20)
 	row.go:SetPoint("RIGHT")
 	row.go:SetLabel(ns:L("FOV_GO_SHORT"))
@@ -1687,22 +1714,28 @@ local function Build()
 	f.now.place:SetPoint("RIGHT", -14, 0)
 	f.now.place:SetWordWrap(false)
 	-- Plan step 2: the main line's buttons sit on the label row, so the whole list fits below.
-	f.now.go = Button(f.now, 110)
+	-- 18 Nov 2026 (Rob's screenshot: "Details" and "Show the way" lay over "DO THIS NOW"): the card is 266 px wide and
+	-- the two buttons took 196 of it. Smaller buttons (their text shrinks to fit, S.Button), and the label now stops
+	-- before them ("…" when a language's word is longer) instead of running under them.
+	f.now.go = Button(f.now, 86)
 	f.now.go:SetHeight(20)
 	f.now.go:SetPoint("TOPRIGHT", -10, -8)
 	f.now.go:SetLabel(ns:L("FOV_GO"))
 	Tip(f.now.go, ns:L("FOV_GO"), ns:L("FOV_TIP_GO"))
-	f.now.detail = Button(f.now, 70)
+	f.now.detail = Button(f.now, 58)
 	f.now.detail:SetHeight(20)
-	f.now.detail:SetPoint("RIGHT", f.now.go, "LEFT", -6, 0)
+	f.now.detail:SetPoint("RIGHT", f.now.go, "LEFT", -4, 0)
 	f.now.detail:SetLabel(ns:L("FOV_DETAILS"))
 	Tip(f.now.detail, ns:L("FOV_DETAILS"), ns:L("FOV_TIP_DETAILS"))
+	f.now.label:SetPoint("RIGHT", f.now.detail, "LEFT", -6, 0)
+	f.now.label:SetWordWrap(false)
 	-- Every other line of the "Do this now" list (product plan step 2: the whole list, not two), scrolling, each with
 	-- its own button when the small window has one for it.
 	f.now.sf, f.now.child = S.Scroll(f.now, 140, 8, 44)
 	f.now.more = {}
-	-- Text width of a row: card − scroll insets (8 + 14) − row insets (6 + 2) − the button column (74).
-	f.now.textW = nowW - 22 - 8 - 74
+	-- Text width of a row: card − scroll insets (8 + 14) − row insets (6 + 2) − the button column (96; was 74 with a
+	-- 70 px button, and "Weapon trai…" / "Profession tr…" were cut off on Rob's screenshot, 18 Nov 2026).
+	f.now.textW = nowW - 22 - 8 - 96
 
 	f.soon = Card(f.pages.now)
 	f.soon:SetPoint("TOPLEFT", f.now, "TOPRIGHT", 12, 0)
@@ -1765,9 +1798,14 @@ local function Build()
 		n.hover = HoverOver(f.path, n.ring)
 		n.icon = SpellButton(f.path, 24)
 		n.icon:SetPoint("TOPLEFT", n.ring, "BOTTOMLEFT", 0, -12)
-		n.name = Text(f.path, "textB", 15, A.text)
+		-- Two lines (Rob's screenshot, 18 Nov 2026: "Aspect of the Mon…"): a column is 168 px, the name 124 px; the card
+		-- has room for a second line above the "+1 more" line.
+		n.name = Text(f.path, "textB", 14, A.text)
 		n.name:SetWidth(colW - 44)
-		n.name:SetWordWrap(false)
+		n.name:SetWordWrap(true)
+		if n.name.SetMaxLines then
+			n.name:SetMaxLines(2)
+		end
 		n.sub = Text(f.path, "text", 12, A.dim)
 		n.sub:SetPoint("TOPLEFT", n.name, "BOTTOMLEFT", 0, -1)
 		n.sub:SetWidth(colW - 44)
@@ -1857,6 +1895,10 @@ local function Build()
 							table.remove(p, 1)
 						end
 					end
+					-- 18 Nov 2026 (Rob's screenshot: the yellow Self Cast line of "Set focus" ran out of its row): row
+					-- heights are measured while filling, and the fonts change size when they are set again just above.
+					-- Lay the open page out once more with the final fonts (refresh = keep the scroll position).
+					ns.ForeverOverviewFill(true)
 				end)
 			end
 		end
@@ -1978,7 +2020,7 @@ local function FillLeft(f, level)
 		f.xpTip.tipTitle = nil
 	end
 	local money = GetMoney and GetMoney() or 0
-	f.gold:SetText(ns:L("FOV_GOLD_FMT"):format(GetCoinTextureString and GetCoinTextureString(money) or tostring(money)))
+	f.gold:SetText(ns:L("FOV_GOLD_FMT"):format(Money(money)))
 end
 
 --- Round 5 (Rob's screenshot, 17 Nov 2026): a tip is never the big title. Only a task (trainer, class quest, camp,

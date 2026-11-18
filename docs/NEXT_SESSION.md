@@ -63,6 +63,15 @@
   in groep chars (4e knop), zoekbalk cat `rep`/`currency`. Offline 70.220 runs, 0 fouten (Horde + Alliance, alles
   onleesbaar, Honor 24000/25000). ⚠️ Teksten alleen en + nl: de/fr/es/pt/ru vallen terug op Engels → één vertaalronde
   (mh-writer) na rares A. NIET in het spel gezien.
+- 🧽 **Goud + 6 schermfouten GEREPAREERD** (Rob via sparring, letterlijk: *"1 ja , 2 voor en 3 ja"* = goud nu, de
+  schermfouten vóór rares B, namen op de site). (1) Goud: ForeverOverview.lua gebruikte de globale
+  GetCoinTextureString (bestaat niet in Forever) → nieuw lokaal `Money()` (C_CurrencyInfo eerst, terugval "3g 14s
+  14c"); "Gold: 314" en "Costs 10" waren koper. (2) Totaal 96s82c was JUIST: 14 bewaarde characters (GEMETEN in Robs
+  SV, samen 9682 koper), 5 in beeld; het totaal zegt nu "(N characters)" (`FCHARS_TOTAL_COUNT_FMT`). (3) Now-knoppen
+  86/58 px + label stopt vóór Details; Now-lijstknop 70→92 px; Your path-naam 2 regels; S.Scroll: fade 24 px +
+  "scroll for more" (`FOV_SCROLL_MORE`) zolang er meer is, + UpdateThumb een frame later; na RefreshFonts één
+  ForeverOverviewFill(true) zodat rijhoogtes met de echte letters gemeten worden (Set focus-rij; oorzaak AFGELEID).
+  Offline 71.922 runs, 0 fouten. NIET in het spel gezien.
 - 🐉 **Rares STAP A GEBOUWD**: nieuw bestand `Modules/ForeverRares.lua` (beide toc's, na ForeverCitySpots → Rob moet
   WoW herstarten): `FOREVER_RARES_WORTH` = 24 rares (coords = HandyNotes WoW Forever hoofdpunt, alleen gelezen; levels
   uit het rapport, 4 nagemeten in Wowhead-tooltips: 12/13/24/22 klopt), `kill` = wie hem kan aanvallen (Horde 23,

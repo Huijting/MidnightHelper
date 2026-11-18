@@ -32,6 +32,20 @@ snelbalk, instellingen — geen foutmeldingen. Forever wordt nu getest (uitslage
 een logische afkorting voor de action house. 6 komt later"*** (Willow: "action house" = Auction House). Zoekbalk stap 1 +
 stap 2 werken in Forever; `/mh repprobe` gedaan. De Midnight-check van de zoekbalk komt later.
 
+## 🧽 18 nov — Forever: goud en 6 schermfouten van Robs screenshots (daarna nieuwe screenshots voor de site)
+
+Zit in dezelfde ronde als de rares (nieuw bestand): WoW eerst helemaal herstarten.
+- [ ] Links onder je character: "Gold: 3 silver 14 copper" (met muntjes), niet "Gold: 314". Now-kaart: "Costs 10
+      copper" met muntje, niet "Costs 10".
+- [ ] Characters: "All your gold together: … (14 characters)" — het getal is al je characters samen, ook die je pas
+      ziet als je naar beneden scrollt.
+- [ ] Now-kaart: "DO THIS NOW" staat vrij, de knoppen Details en Show the way liggen er niet meer overheen.
+- [ ] Knoppen in de Now-lijst: "Weapon trainer" en "Profession trainer" helemaal leesbaar.
+- [ ] Your path: "Aspect of the Monkey" heel, eventueel op twee regels.
+- [ ] Elke lijst die verder gaat (Now-lijst, This week, dungeons, macro's) zegt onderaan in oranje "scroll for more";
+      aan het eind van de lijst verdwijnt dat.
+- [ ] Keys & macros, "Set focus": de gele regel blijft binnen zijn eigen rij.
+
 ## 🐉 18 nov — Forever: rares die de moeite waard zijn (stap A)
 
 ⚠️ Nieuw bestand: eerst WoW helemaal afsluiten en opnieuw starten (/reload is niet genoeg).

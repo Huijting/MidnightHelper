@@ -530,7 +530,10 @@ function ns.ForeverCharsViews()
 			end or nil,
 		}
 	end
-	return out, ns:L("FCHARS_TOTAL_FMT"):format(Money(total)),
+	-- 18 Nov 2026 (site chat on Rob's screenshot: the total was 8s 25c more than the five rows in view): the total is
+	-- right - it counts all saved characters (14 on Rob's account, GEMETEN in his SavedVariables), the list scrolls.
+	-- So the total now says how many characters it adds up.
+	return out, ns:L("FCHARS_TOTAL_FMT"):format(Money(total)) .. "  " .. ns:L("FCHARS_TOTAL_COUNT_FMT"):format(#out),
 		unknownSide and (GREY .. ns:L("FCHARS_SIDE_UNKNOWN") .. "|r") or nil
 end
 

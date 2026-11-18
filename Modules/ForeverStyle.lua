@@ -317,7 +317,10 @@ function S.Scroll(card, top, bottom, step)
 	fade:SetTexture("Interface\\Buttons\\WHITE8X8")
 	fade:SetPoint("BOTTOMLEFT", sf, "BOTTOMLEFT", 0, 0)
 	fade:SetPoint("BOTTOMRIGHT", sf, "BOTTOMRIGHT", 0, 0)
-	fade:SetHeight(16)
+	-- 18 Nov 2026 (Rob's screenshots: "Best stats for you now", This week, a dungeon row and the Set focus macro all
+	-- showed half a line at the bottom - the fade and the 3 px bar were not enough to see that the list goes on): a
+	-- taller fade and the words "scroll for more" on it while there is more below.
+	fade:SetHeight(24)
 	if fade.SetGradient and CreateColor then
 		fade:SetGradient("VERTICAL", CreateColor(t.card[1], t.card[2], t.card[3], 1),
 			CreateColor(t.card[1], t.card[2], t.card[3], 0))
@@ -325,6 +328,11 @@ function S.Scroll(card, top, bottom, step)
 		fade:SetVertexColor(t.card[1], t.card[2], t.card[3], 0.7)
 	end
 	fade:Hide()
+	local more = S.Text(fadeHost, "textB", 11, t.label)
+	more:SetPoint("BOTTOMRIGHT", sf, "BOTTOMRIGHT", -2, 2)
+	more:SetJustifyH("RIGHT")
+	more:SetText(ns:L("FOV_SCROLL_MORE"))
+	more:Hide()
 	function sf.UpdateThumb()
 		local max = sf:GetVerticalScrollRange() or 0
 		local h = sf:GetHeight() or 0
@@ -332,9 +340,12 @@ function S.Scroll(card, top, bottom, step)
 			track:Hide()
 			thumb:Hide()
 			fade:Hide()
+			more:Hide()
 			return
 		end
-		fade:SetShown((sf:GetVerticalScroll() or 0) < max - 1)
+		local below = (sf:GetVerticalScroll() or 0) < max - 1
+		fade:SetShown(below)
+		more:SetShown(below)
 		local r, g, b = S.Accent()
 		thumb:SetColorTexture(r, g, b, 0.9)
 		local th = math.max(20, h * h / (h + max))
@@ -347,6 +358,10 @@ function S.Scroll(card, top, bottom, step)
 	function sf.Reset()
 		sf:SetVerticalScroll(0)
 		sf.UpdateThumb()
+		-- The scroll range is only known after the next layout pass: look again a moment later.
+		if C_Timer and C_Timer.After then
+			C_Timer.After(0, sf.UpdateThumb)
+		end
 	end
 	sf:EnableMouseWheel(true)
 	sf:SetScript("OnMouseWheel", function(self, delta)
