@@ -74,9 +74,9 @@
   Portrait, werkt niet"*): `DbFlag` in ForeverOverview.lua zette bij standaard-aan `(not on) and false or nil` = altijd
   nil (GEMETEN in de code; ForeverRanks.lua:628 vond dezelfde valkuil 12 nov) → uitzetten werd nooit opgeslagen. Raakte
   ook Quest reward hint (`foreverQuestHint`) en Gear tip (`foreverGearTip`). Nu een gewone if. Offline: alle drie aan →
-  uit → aan, portretvakje volgt. Standaardstand NIET veranderd (sparring vraagt Rob). ⚠️ Hetzelfde patroon staat nog
-  (NIET gerepareerd, wacht op ja): SettingsDefs.lua:639 `arrowYieldForeverGuide` en :680 `ahPresetQuantity` (die
-  instellingen kunnen niet uit), Auras.lua:194 `(not sawSecret) and false or nil` (aura-facade geeft aan het eind van de
+  uit → aan, portretvakje volgt. Standaardstand NIET veranderd (sparring vraagt Rob). ✅ Ronde 1 (Rob via sparring:
+  *"ja"*): SettingsDefs.lua `arrowYieldForeverGuide` en `ahPresetQuantity` nu een gewone if; offline (echte
+  GetSettingsDefs, Midnight + Forever) uit → aan → uit → aan klopt. ⏳ Ronde 2 (apart, eerst meten): Auras.lua:194 `(not sawSecret) and false or nil` (aura-facade geeft aan het eind van de
   lijst altijd nil = "onleesbaar" i.p.v. false = "afwezig"), ConsumableReadyCheck.lua:190 `anyReadable and false or nil`.
 - 🎭 **Bewegend portret GEBOUWD, optie b** (Rob via sparring, letterlijk: *"is dit te animeren, ?"* → *"ja doe maar"*):
   PlayerModel "player" (portretzoom 1, idle-animatie -1) in een vierkant vakje 76 px met gouden rand en clip

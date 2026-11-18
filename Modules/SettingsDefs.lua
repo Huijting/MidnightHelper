@@ -636,7 +636,12 @@ local function Build()
 		return not (ns.db and ns.db.arrowYieldForeverGuide == false)
 	end, function(v)
 		ns.db = ns.db or {}
-		ns.db.arrowYieldForeverGuide = (not v) and false or nil
+		-- 18 Nov 2026: was `(not v) and false or nil` = always nil in Lua, so this switch could not be turned off.
+		if v then
+			ns.db.arrowYieldForeverGuide = nil
+		else
+			ns.db.arrowYieldForeverGuide = false
+		end
 	end, true)
 	-- Rob, 17 Oct 2026: "een schakelaar 'geen vluchtmeesters in routes'". Off = what everyone has now (a flight master
 	-- only when it clearly saves time, TravelRoute.lua FlightLeg), so an update changes nothing under anyone's hands.
@@ -677,7 +682,14 @@ local function Build()
 	Toggle("mh_ahPresetQty", "SET_AHQTY_TITLE", "SET_AHQTY_DESC", function()
 		return not (ns.db and ns.db.ahPresetQuantity == false)
 	end, function(v)
-		if ns.db then ns.db.ahPresetQuantity = (not v) and false or nil end
+		-- 18 Nov 2026: was `(not v) and false or nil` = always nil in Lua, so this switch could not be turned off.
+		if ns.db then
+			if v then
+				ns.db.ahPresetQuantity = nil
+			else
+				ns.db.ahPresetQuantity = false
+			end
+		end
 	end, true)
 	-- 2 Oct 2026, from the survey: "make the weekly plan … tailored … i like to play solo mostly".
 	-- Hides the Mythic+ and Raids blocks on Home; a grey line says they are hidden and where.

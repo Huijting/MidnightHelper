@@ -32,6 +32,13 @@ snelbalk, instellingen — geen foutmeldingen. Forever wordt nu getest (uitslage
 een logische afkorting voor de action house. 6 komt later"*** (Willow: "action house" = Auction House). Zoekbalk stap 1 +
 stap 2 werken in Forever; `/mh repprobe` gedaan. De Midnight-check van de zoekbalk komt later.
 
+## 🔁 18 nov (avond) — twee instellingen die niet uit konden
+
+Geen nieuw bestand: een `/reload` is genoeg.
+- [ ] Forever: Esc → Options → AddOns → Midnight Helper: "Step aside for the Forever Leveling Guide" gaat uit en blijft
+      uit na een /reload.
+- [ ] Midnight: zelfde plek: "Fill in the amount when buying" gaat uit en blijft uit na een /reload.
+
 ## 🧩 18 nov (avond) — Forever: Now-kaart zonder overlap, portret standaard rond
 
 Geen nieuw bestand: een `/reload` is genoeg.
