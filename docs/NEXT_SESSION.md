@@ -1,5 +1,16 @@
 # Midnight Helper — waar we staan
 
+## 🔴 18 nov — GEEN FABLE deze week (t/m reset za 21 nov 10:00)
+
+Rob (via Sparring 17-11), letterlijk: *"goedemorgen, we stoppen even met fabble voor deze week 🙂 we hebben al aardig wat
+uitgezocht en moeten een manier vinden om net zo een goed resultaat te halen zonder fable :)"*.
+- Geen `model: "fable"` op helpers tot na de reset. Uitzoeken = `mh-research` (Opus, extra high).
+- Kwaliteit zonder Fable: (1) mh-research zoekt het uit; (2) een TWEEDE, onafhankelijke Opus-helper legt de code tegen
+  de bronnen (krijgt de code, NIET de conclusie van de eerste); (3) offline simulaties; (4) lint als laatste vóór elke commit.
+- Foutsoorten-checklist, in ELKE brief: aantallen bij item-doelen · parallelle quests / meerdere voorgangers · route van
+  een ander ras · factie-filters · "afwezig in ItemSparse ≠ bestaat niet" · clientnamen per taal · "wat moet je precies
+  klikken/doen".
+
 ## ⏭️⏭️⏭️ OVERDRACHT Bouwchat 17-11 (4) → volgende bouwchat (context vol; alles gepusht, GEEN release/tag)
 
 Opdracht van Rob (via Sparring 17-11, letterlijk): *"We doen alles in één keer. … Dus doe alles maar in één keer, dat we
