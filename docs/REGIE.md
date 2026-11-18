@@ -10,10 +10,10 @@ leest dit eerst en werkt het aan het eind bij. Plan: `docs/PLAN_WERKWIJZE_2026-1
 
 ## 0. Laatste verslag
 
-- [2026-11-17] 🎬 **Regie** (cloud-ronde, ochtend) — Raakt Rob: 1, TESTEN: de Self Cast-waarschuwing (API-wachter 17 nov: `[MOET GEFIKST]` DICHT in de code, `Core.lua:4318`, aangeroepen in `ForeverMacros.lua:994` en `RetailTopMacros.lua:477`); niemand zag de gele regel nog in het spel. Ook: 5.4.0 staat op CurseForge, tag `v5.4.0` = `.toc`.
-  Scheef (NIEUW): de druid-klassequests en druid per rol (16 nov avond, op `main` na de tag) staan niet in SITE_SEIN (grep "Bear Form" 0); de 2 ideeën-voorstellen van 15 nov staan nog onder "Voorstellen van de wachter". Af: site-briefje 149 regels (was 196); Self Cast dicht; wachters 17 nov: geen nieuws voor ons.
-  Wachters: alle vijf dagelijkse hebben een regel van 17 nov (nachtcontrole: QuestV2 live niet bereikbaar, quests alleen tegen ptr/forever). Site-repo: laatste push 16 nov 22:13 (+0100, ~8 uur oud); `BOUW_VRAAG.md` "Open: (geen)". Wacht op Rob: 4 punten.
-  Niet gelezen: de pc (lokale commits, helpers, recepten), CurseForge zelf, mail, de tak `claude/werkwijze-notitie` (alleen dat hij bestaat). Niet opnieuw gemeten: de laatste 3 C4-namen.
+- [2026-11-18] 🎬 **Regie** (cloud-ronde, ochtend) — Raakt Rob: 2, (a) API-wachter 18 nov `[MOET GEFIKST]` staat nog OPEN: `Modules/ForeverChars.lua:94` plakt naam + achternaam met een vaste spatie, `EditModeBackup.lua:848-849` gebruikt Blizzards scheidingsteken (nieuwe Forever-build 70959); (b) `docs/NEXT_SESSION.md` is 1732 regels, grens 1500: de bouwchat moet eerst splitsen. Blijft staan: Self Cast-regel nog niet in het spel gezien. 5.5.0 staat op CurseForge (tag `v5.5.0` = `.toc`).
+  Scheef (NIEUW): die twee, en het event-snapshot loopt achter (Forever 70938 -> 70959; bouwchat: `run event_snapshot --write`). AF sinds vorige ronde: druid-klassequests staan in SITE_SEIN (r. 178), `/mh partytest` ook (r. 186, "ter info"). De 2 ideeën-voorstellen van 15 nov staan nog onder "Voorstellen van de wachter".
+  Wachters: alle vijf dagelijkse hebben een regel van 18 nov, de ideeënbus van zo 15 nov. Site-repo: laatste push 17 nov 18:56 (+0100, ~13 uur oud); `BOUW_VRAAG.md` "Open: (geen)"; briefje 183 regels (grens 200). Wacht op Rob: 4 punten.
+  Niet gelezen: de pc (lokale commits, helpers, recepten), CurseForge zelf, mail, de tak `claude/werkwijze-notitie` (alleen dat hij bestaat; laatste commit 10 nov). Niet opnieuw gemeten: de laatste 3 C4-namen. De regel `RAAKT ONS` van de contentwachter 18 nov alleen op kopniveau gelezen (zelfde Iku/Nama-punt als eerder).
 
 De regisseur vervangt dit blok elke ronde door het nieuwe verslag. Eén verslag, niet een logboek: de vorige staat in git.
 
@@ -57,7 +57,7 @@ sinds 11 nov **`regisseur`** (`/regisseur` of "doe de regie-ronde"; doet hoofdst
 
 | bestand | schrijver | grens |
 |---|---|---|
-| `docs/NEXT_SESSION.md` | bouwchat | 1500 (`CLAUDE.md`; nu 1453) |
+| `docs/NEXT_SESSION.md` | bouwchat | 1500 (`CLAUDE.md`, regel "GRENS") |
 | `docs/NEXT_SESSION_ARCHIVE.md` | bouwchat (door `split_handoff`) | — |
 | `docs/OCHTENDRONDE.md`, `docs/CLAUDE_HISTORIE.md` | bouwchat (11 nov) | — |
 | `docs/SITE_SEIN.md` (prikbord) | bouwchat | — |
@@ -72,13 +72,13 @@ sinds 11 nov **`regisseur`** (`/regisseur` of "doe de regie-ronde"; doet hoofdst
 
 ## 3. Stand van het plan
 
-| # | wat | stand (GEMETEN 17 nov op `main`) |
+| # | wat | stand (GEMETEN 18 nov op `main`) |
 |---|---|---|
 | 1 | Toets (6 vragen) en ideeënlijst | ✅ af |
 | 2 | Prikbord en drie vaste woorden | ✅ af (`docs/SITE_SEIN.md`) |
 | 3 | Controles C1, C3, C5 | C1 en C3 ✅ in de lint. C5 ✅ gebouwd (`c9d3e66`, in `/mh selftest`). |
 | 4 | Controles C2 en C4 | ✅ gebouwd (`tools/data_check.py`). C4: 65 → 3 namen over (commit `f08366b`, Robs ja). |
-| 5 | Nachtcontrole en ideeënbus | ✅ draaien. Nachtcontrole 17 nov: C1 en C2 0 nakijken (QuestV2 live niet bereikbaar). Ideeënbus liep zo 15 nov (`87ed12b`). |
+| 5 | Nachtcontrole en ideeënbus | ✅ draaien. Nachtcontrole 18 nov: C1 en C2 0 nakijken (snapshot Forever loopt achter). Ideeënbus liep zo 15 nov (`87ed12b`). |
 | 5b | **De regisseur** (deel 8) | ✅ gebouwd 11 nov (`f34b15f`): routine en recept. Proefrun `c24bbe4` vond de drie testpunten. |
 | 6 | Recepten | niet begonnen |
 | 7 | `/mh selftest` + vensterlijst | ✅ gebouwd (`c9d3e66`); Robs selftest in Midnight schoon (`41675dd`). Forever-kant niet gemeten. |
@@ -96,13 +96,14 @@ sinds 11 nov **`regisseur`** (`/regisseur` of "doe de regie-ronde"; doet hoofdst
 
 | wat | gemeten | wie moet iets doen |
 |---|---|---|
-| `/mh partytest` (Forever, `53341fa`) staat niet in `docs/SITE_SEIN.md` | 17 nov, GEMETEN met grep (0 treffers; tegencontrole "ranks" 4, ook 17 nov); lint [27] noemt het al als commando "alleen wij" | bouwchat: regel erbij of zeggen dat het een meetknop is zonder spelerswaarde |
-| **Druid-klassequests (Bear/Cat/Aquatic Form, Cure Poison, Torwa) en druid per rol** (Forever, 16 nov avond, `4faaaee`..`f707878`, na de tag `v5.4.0`) staan niet in `docs/SITE_SEIN.md` | 17 nov, GEMETEN met grep "Bear Form\|Cat Form\|Torwa" (0; tegencontrole "class quest" vond regel 471); in `IDEEEN.md` wel (3 treffers) | bouwchat: regel erbij met status "alleen op main" |
 | 2 voorstellen van de ideeënbus (15 nov) staan nog onder "Voorstellen van de wachter" in `docs/IDEEEN.md` (r. 872) | 17 nov, GEMETEN: koptekst + 15-nov-regel aanwezig | bouwchat: naar Open of Nee met reden |
-| Self Cast-waarschuwing: dicht in code (`a73bfb5`), maar **niet in het spel gezien** (zie lijst 4, punt 1) | 17 nov, GEMETEN: `Core.lua:4318`, 2 aanroepen, `MACROS_WARN_SELFCAST_FMT` in enUS (1); in het spel niet getest | Rob of Cisca test; daarna gaat de rij weg |
-| `CLAUDE.md` is 322 regels (gisteren 322), lint [24] grens 350 | 17 nov, GEMETEN met `wc -l` en `claude_limit = 350` (`tools/lint_addon.py:1669`) | niemand; blijf meten |
-| Overdrachtsbriefje site (`drafts/SITE_HANDOFF.md`) is 149 regels (16 nov: 196); grens 200 (site-`CLAUDE.md`) | 17 nov, GEMETEN met `git show origin/main:` + `wc -l` | niemand; blijf meten |
-| **Blinde vlek:** de site-chat pusht alleen met Robs ja; de cloud ziet de site-repo zoals bij de laatste push (nu: 16 nov 22:13 +0100). `drafts/BOUW_VRAAG.md` ("Open: (geen)"). Wat lokaal nog niet gepusht is, zie ik niet. | 17 nov, GEMETEN op `origin/main` van de site-repo | niemand; alleen het pc-recept ziet lokale commits |
+| Self Cast-waarschuwing: dicht in code (`a73bfb5`), maar **niet in het spel gezien** (zie lijst 4, punt 1) | 18 nov, GEMETEN: `Core.lua:4431` (functie), `MACROS_WARN_SELFCAST_FMT` in enUS r. 3408; in het spel niet getest | Rob of Cisca test; daarna gaat de rij weg |
+| `CLAUDE.md` is 322 regels (gisteren 322), lint [24] grens 350 | 18 nov, GEMETEN met `wc -l` en `claude_limit = 350` (`tools/lint_addon.py:1669`) | niemand; blijf meten |
+| Overdrachtsbriefje site (`drafts/SITE_HANDOFF.md`) is 183 regels (17 nov: 149); grens 200 (site-`CLAUDE.md`) | 18 nov, GEMETEN met `wc -l` op `origin/main` | site-chat: oudste blokken naar `SITE_HISTORY.md` vóór het over 200 gaat |
+| **Blinde vlek:** de site-chat pusht alleen met Robs ja; de cloud ziet de site-repo zoals bij de laatste push (nu: 17 nov 18:56 +0100). `drafts/BOUW_VRAAG.md` ("Open: (geen)"). Wat lokaal nog niet gepusht is, zie ik niet. | 18 nov, GEMETEN op `origin/main` van de site-repo | niemand; alleen het pc-recept ziet lokale commits |
+| **`NEXT_SESSION.md` is 1732 regels, grens 1500** (17 nov stond hier 1453) | 18 nov, GEMETEN met `wc -l`; grens uit `CLAUDE.md` r. 188 | bouwchat: eerst `split_handoff --resplit` (proefrun), dan verder |
+| **API-wachter 18 nov `[MOET GEFIKST]`:** `ForeverChars.lua:94` vaste spatie tussen naam en achternaam; `EditModeBackup.lua:849` gebruikt `CHARACTERNAME_SURNAME_SEPARATOR` | 18 nov, GEMETEN in de bron (regel 94 nog `name .. " " .. surname`; de constante komt maar 1 keer voor in `Modules/`) | bouwchat: zelfde patroon als EditModeBackup; Rob beslist |
+| Event-snapshot Forever loopt achter (70938 -> 70959) | 18 nov, nachtcontrole `NACHTCONTROLE.md` r. 37 | bouwchat: `run event_snapshot --write` |
 | Geen vaste controle op de handgeschreven site-teksten | 10 nov, volgens de site-chat | voorstel ligt bij Rob |
 
 ## 6. De ronde — wat de regisseur elke keer doet
