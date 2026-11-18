@@ -32,6 +32,17 @@ snelbalk, instellingen — geen foutmeldingen. Forever wordt nu getest (uitslage
 een logische afkorting voor de action house. 6 komt later"*** (Willow: "action house" = Auction House). Zoekbalk stap 1 +
 stap 2 werken in Forever; `/mh repprobe` gedaan. De Midnight-check van de zoekbalk komt later.
 
+## 🪙 18 nov — Forever: kaart "Reputation & currency"
+
+Geen nieuw bestand: een `/reload` is genoeg.
+- [ ] Overzicht → tab Characters → knop **Reputation & currency** (vierde knop). Bovenaan je 5 munten met aantal (en
+      maximum: Honor 25000, Real 165). Daaronder de groepen van jouw kant: naam, rang, punten (bv. 200 / 3000),
+      "Next: …" en "How: …". Onderaan "Other groups you know" (je steden) en een grijze regel over de bronnen.
+- [ ] Geen groepen van de andere kant (Horde ziet geen Kirin Tor, Alliance geen Earthen Ring).
+- [ ] Zoekbalk: typ `honor` of de naam van een groep (bv. `argent`) → klik → deze pagina opent.
+- [ ] Haal wat reputatie (een quest of een kill): de pagina past zich aan terwijl hij open is.
+- [ ] (Alleen als je veel Honor hebt) This week zegt bij 90% "almost full".
+
 ## 🔤 18 nov — Forever: zoeken op afkortingen (na Robs test)
 
 Geen nieuw bestand: een `/reload` is genoeg.

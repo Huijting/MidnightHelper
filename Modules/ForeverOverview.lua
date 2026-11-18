@@ -200,6 +200,8 @@ local GROUPS = {
 		{ page = "chars", key = "FCHARS_TITLE", tip = "FOV_TIP_SUB_CHARS" },
 		{ page = "legacy", key = "FOV_TAB_LEGACY", tip = "FOV_TIP_TAB_LEGACY" },
 		{ page = "week", key = "FOV_SUB_WEEK", tip = "FOV_TIP_CARD_WEEK" },
+		-- 18 Nov 2026 (Rob via sparring: "2 Nu"): reputations and currencies (ForeverLegacy.lua ForeverRepViews).
+		{ page = "rep", key = "FOV_SUB_REP", tip = "FOV_TIP_SUB_REP" },
 	},
 	-- The gear (no tab of its own): quiet helpers, the tools that had only the old window, and every command. Since
 	-- 17 Nov 2026 the old window is gone in Forever (Rob: "het oude venster moet dan in principe niet meer terugkomen").
@@ -1071,6 +1073,24 @@ local function BuildWeekPage(f, x0, rightW)
 	page.card = card
 end
 
+--- "Reputations & currencies" page (18 Nov 2026): one scrolling text, like This week - the five currencies on top,
+--- then per group your rank, how far into it, the next reward and how to get there.
+local function BuildRepPage(f, x0, rightW)
+	local page = f.pages.rep
+	local card = Card(page)
+	card:SetPoint("TOPLEFT", f, "TOPLEFT", x0, SUB_TOP)
+	card:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -16, 16)
+	card.label = Label(card, ns:L("FOV_SUB_REP"):upper(), "FOV_TIP_SUB_REP")
+	card.sf, card.child = S.Scroll(card, 36, 10, 40)
+	card.text = Text(card.child, "text", 14)
+	card.text:SetPoint("TOPLEFT", 6, 0)
+	card.text:SetPoint("RIGHT", card.child, "RIGHT", -6, 0)
+	if card.text.SetSpacing then
+		card.text:SetSpacing(4)
+	end
+	page.card = card
+end
+
 --- Gear page "What MH does quietly for you" (product plan step 9, 17 Nov 2026): every tooltip line, warning and button
 --- MH adds to Blizzard's windows in Forever, one sentence each and a switch; the full settings stay in Blizzard's panel
 --- (button at the bottom). A switch writes the same saved value as its slash command / settings entry.
@@ -1546,7 +1566,7 @@ local function Build()
 	f.page = "now"
 	f.lastInGroup = {}
 	f.pages = {}
-	for _, key in ipairs({ "now", "play", "cq", "camp", "legacy", "trainer", "find", "keys", "profs", "dungeons", "chars", "week", "quiet", "tools", "cmds" }) do
+	for _, key in ipairs({ "now", "play", "cq", "camp", "legacy", "trainer", "find", "keys", "profs", "dungeons", "chars", "week", "rep", "quiet", "tools", "cmds" }) do
 		local p = CreateFrame("Frame", nil, f)
 		p:SetAllPoints(f)
 		p:Hide()
@@ -1772,6 +1792,7 @@ local function Build()
 	BuildDungeonsPage(f, x0, rightW)
 	BuildCharsPage(f, x0, rightW)
 	BuildWeekPage(f, x0, rightW)
+	BuildRepPage(f, x0, rightW)
 	BuildQuietPage(f, x0, rightW)
 	BuildListPage(f, "tools", x0, rightW, "FOV_SUB_TOOLS", "FOV_TIP_SUB_TOOLS")
 	BuildCmdsPage(f, x0, rightW)
@@ -3172,6 +3193,75 @@ local function FillWeekPage(f, refresh)
 	end
 end
 
+local function FillRepPage(f, refresh)
+	local card = f.pages.rep.card
+	local function c(hex, s)
+		return "|c" .. hex .. tostring(s or "") .. "|r"
+	end
+	local GOLD, DIM, LAB, TXT = "ffdbb56b", "ffa89a85", "ffed8c38", "ffebe0cc"
+	local lines = {}
+	-- Currencies.
+	lines[#lines + 1] = c(LAB, ns:L("FREP_HEAD_CUR"))
+	local okC, cur = false, nil
+	if ns.ForeverCurrencyViews then
+		okC, cur = pcall(ns.ForeverCurrencyViews)
+	end
+	for _, e in ipairs(okC and type(cur) == "table" and cur or {}) do
+		if e.unreadable then
+			lines[#lines + 1] = c(DIM, ns:L("FREP_CUR_UNREAD_FMT"):format(e.id))
+		elseif e.max then
+			lines[#lines + 1] = c(TXT, ("%s: %d / %d"):format(e.name, e.qty, e.max))
+		else
+			lines[#lines + 1] = c(TXT, ("%s: %d"):format(e.name, e.qty))
+		end
+	end
+	if not okC then
+		lines[#lines + 1] = c(DIM, ns:L("FOV_ST_UNREADABLE"))
+	end
+	-- Groups.
+	lines[#lines + 1] = " "
+	lines[#lines + 1] = c(LAB, ns:L("FREP_HEAD_GROUPS"))
+	local okR, groups, unread, others = false, nil, nil, nil
+	if ns.ForeverRepViews then
+		okR, groups, unread, others = pcall(ns.ForeverRepViews)
+	end
+	if not okR or type(groups) ~= "table" then
+		lines[#lines + 1] = c(DIM, ns:L("FOV_ST_UNREADABLE"))
+		groups, unread, others = {}, {}, {}
+	end
+	for _, g in ipairs(groups) do
+		local prog = (g.have and g.need) and ("  %d / %d"):format(g.have, g.need) or ""
+		lines[#lines + 1] = c(GOLD, g.name) .. "  " .. c(TXT, (g.rank or "?") .. prog)
+		if g.next then
+			lines[#lines + 1] = "   " .. c(TXT, ns:L("FREP_NEXT_FMT"):format(g.nextRank or "?", g.next))
+				.. (g.measured and "" or (" " .. c(DIM, ns:L("FREP_GUIDE_TAG"))))
+		else
+			lines[#lines + 1] = "   " .. c(DIM, ns:L("FREP_NEXT_NONE"))
+		end
+		lines[#lines + 1] = "   " .. c(DIM, ns:L("FREP_HOW_FMT"):format(g.how or ""))
+	end
+	if type(unread) == "table" and #unread > 0 then
+		lines[#lines + 1] = c(DIM, ns:L("FREP_UNREAD_FMT"):format(#unread))
+	end
+	-- The rest of the character's own reputation list.
+	if type(others) == "table" and #others > 0 then
+		lines[#lines + 1] = " "
+		lines[#lines + 1] = c(LAB, ns:L("FREP_HEAD_OTHERS"))
+		for _, o in ipairs(others) do
+			lines[#lines + 1] = c(TXT, o.name) .. "  " .. c(DIM, o.rank or "?")
+		end
+	end
+	lines[#lines + 1] = " "
+	lines[#lines + 1] = c(DIM, ns:L("FREP_NOTE"))
+	card.text:SetText(table.concat(lines, "\n"))
+	card.child:SetHeight(math.max(10, (card.text:GetStringHeight() or 0) + 12))
+	if refresh then
+		card.sf.UpdateThumb()
+	else
+		card.sf.Reset()
+	end
+end
+
 local function FillQuietPage(f, refresh)
 	local card = f.pages.quiet.card
 	local y = 2
@@ -3470,6 +3560,28 @@ local function SearchRows()
 		end
 	end
 
+	-- Reputations and currencies (18 Nov 2026): each group and coin by the client's own name → the rep page.
+	local repLabel = ns:L("FOV_SUB_REP")
+	if ns.ForeverRepViews then
+		local okG, groups, _, others = pcall(ns.ForeverRepViews)
+		if okG then
+			for _, list in ipairs({ groups or {}, others or {} }) do
+				for _, g in ipairs(list) do
+					row(g.name, "reputation rep faction standing " .. (g.rank or ""), page("rep"), "content",
+						repLabel .. " · " .. (g.rank or ""), "rep")
+				end
+			end
+		end
+	end
+	if ns.ForeverCurrencyViews then
+		local okC, cur = pcall(ns.ForeverCurrencyViews)
+		for _, e in ipairs(okC and type(cur) == "table" and cur or {}) do
+			if e.name then
+				row(e.name, "currency coin money points", page("rep"), "content", repLabel, "currency")
+			end
+		end
+	end
+
 	-- Quiet helpers (the gear): every switch by its own name.
 	for _, q in ipairs(QUIET) do
 		if q.title then
@@ -3576,6 +3688,9 @@ function ns.ForeverOverviewFill(refresh)
 		return f
 	elseif f.page == "week" then
 		FillWeekPage(f, refresh)
+		return f
+	elseif f.page == "rep" then
+		FillRepPage(f, refresh)
 		return f
 	elseif f.page == "quiet" then
 		FillQuietPage(f, refresh)

@@ -288,3 +288,192 @@ function ns.ForeverRepProbeSlash()
 		tostring(P.numFactions)))
 	print("  saved in SavedVariables (foreverRepProbe) — /reload writes it to disk.")
 end
+
+--------------------------------------------------------------------------------
+-- Reputations & currencies card (18 Nov 2026). Rob via sparring: "1 eerst a daarna b / 2 Nu , voor de rares" → first
+-- this card. The functions are GEMETEN in Rob's /mh repprobe (Forever, Horde character, 18 Nov): C_CurrencyInfo.
+-- GetCurrencyInfo, C_Reputation.GetFactionDataByID / GetNumFactions / GetFactionDataByIndex work; the old globals are
+-- missing. Names come from the client (its language). An answer we cannot read is said, never shown as 0.
+--------------------------------------------------------------------------------
+-- The five player currencies (DB2 CurrencyTypes Forever 70959; names/max GEMETEN in the probe: Real max 165).
+local REP_CURRENCIES = { 1792, 3468, 3402, 3469, 515 }
+
+-- The groups that matter for a Forever player (mh-research 18 Nov, docs/forever/ZOEKBALK_EN_VALUTA_2026-11-18.md).
+-- side: only that side can earn it (A/H from the DB2 race masks, AFGELEID; matches the probe: the other side's
+-- groups read nil or Hated). r = reaction index of the reward (5 Friendly, 6 Honored, 7 Revered, 8 Exalted).
+-- Source per row in the comment; everything except the Seed Pod is from player guides (NOT measured in the game).
+local REP_GROUPS = {
+	-- ItemSparse 274379 RequiredLevel 60, MinFactionID 2765, MinReputation 6 (GEMETEN); quests: ConquestCapped 15 Nov,
+	-- warcraftmaps 16 Nov; how to reach Revered: unknown.
+	{ id = 2765, how = "FREP_HOW_HYJAL", rewards = { { 7, "FREP_R_HYJAL_7", measured = true } } },
+	-- ConquestCapped 14 Nov.
+	{ id = 2747, how = "FREP_HOW_BARKSKIN", rewards = { { 6, "FREP_R_BARKSKIN_6" }, { 7, "FREP_R_BARKSKIN_7" },
+		{ 8, "FREP_R_BARKSKIN_8" } } },
+	-- ConquestCapped 14 Nov (+ hotfix 11 Nov); Manna Biscuits at Friendly: enUS FCQ_OBJ_PA_HORSEFEED.
+	{ id = 529, how = "FREP_HOW_ARGENT", rewards = { { 5, "FREP_R_ARGENT_5" }, { 6, "FREP_R_ARGENT_6" },
+		{ 7, "FREP_R_ARGENT_7" } } },
+	-- ConquestCapped 16 Nov.
+	{ id = 576, how = "FREP_HOW_TIMBERMAW", rewards = { { 5, "FREP_R_TIMBERMAW_5" }, { 8, "FREP_R_TIMBERMAW_8" } } },
+	-- ConquestCapped 14 Nov; reward list foreverdb.net (client data).
+	{ id = 59, how = "FREP_HOW_THORIUM", rewards = { { 5, "FREP_R_THORIUM_5" } } },
+	-- ConquestCapped 15 Nov.
+	{ id = 609, how = "FREP_HOW_CENARION", rewards = { { 5, "FREP_R_CENARION_5" } } },
+	-- LFCarry 14 Nov (quotes Blizzard's dev notes of 16 Oct: Horde no longer gains Kirin Tor).
+	{ id = 2740, side = "Alliance", how = "FREP_HOW_KIRINTOR", rewards = { { 5, "FREP_R_AZURE_5" },
+		{ 8, "FREP_R_TABARD_8" } } },
+	-- foreverdb.net, ConquestCapped 17 Nov.
+	{ id = 2787, side = "Horde", how = "FREP_HOW_EARTHEN", rewards = { { 5, "FREP_R_CLOUDY_5" } } },
+	-- ConquestCapped 14 Nov; foreverdb.net.
+	{ id = 2758, how = "FREP_HOW_NIGHTCLAW", rewards = { { 7, "FREP_R_NIGHTCLAW_7" }, { 8, "FREP_R_NIGHTCLAW_8" } } },
+	-- wow-professions.com (undated), SenseOS 15 Nov.
+	{ id = 2586, side = "Alliance", how = "FREP_HOW_MERCHANT", rewards = { { 5, "FREP_R_MERCHANT_5" },
+		{ 8, "FREP_R_TABARD_8" } } },
+	{ id = 2587, side = "Horde", how = "FREP_HOW_MERCHANT", rewards = { { 5, "FREP_R_MERCHANT_5" },
+		{ 8, "FREP_R_TABARD_8" } } },
+	-- Battleground groups: Exalted with each = 1 Legacy Point (ForeverChanges 7 Oct, EpicCarry 16 Nov; achievements
+	-- 62046-62049 "Master of ..." GEMETEN in DB2).
+	{ id = 509, side = "Alliance", how = "FREP_HOW_BG", rewards = { { 8, "FREP_R_BG_8" } } },
+	{ id = 510, side = "Horde", how = "FREP_HOW_BG", rewards = { { 8, "FREP_R_BG_8" } } },
+	{ id = 890, side = "Alliance", how = "FREP_HOW_BG", rewards = { { 8, "FREP_R_BG_8" } } },
+	{ id = 889, side = "Horde", how = "FREP_HOW_BG", rewards = { { 8, "FREP_R_BG_8" } } },
+	{ id = 730, side = "Alliance", how = "FREP_HOW_BG", rewards = { { 8, "FREP_R_BG_8" } } },
+	{ id = 729, side = "Horde", how = "FREP_HOW_BG", rewards = { { 8, "FREP_R_BG_8" } } },
+	{ id = 2799, side = "Alliance", how = "FREP_HOW_BG", rewards = { { 8, "FREP_R_BG_8" } } },
+	{ id = 2798, side = "Horde", how = "FREP_HOW_BG", rewards = { { 8, "FREP_R_BG_8" } } },
+	-- Goblin towns: ConquestCapped 16 Nov; foreverdb.net.
+	{ id = 21, how = "FREP_HOW_TOWN", rewards = { { 5, "FREP_R_TOWN_5" }, { 7, "FREP_R_TOWN_7" } } },
+	{ id = 369, how = "FREP_HOW_TOWN", rewards = { { 5, "FREP_R_TOWN_5" }, { 7, "FREP_R_TOWN_7" } } },
+	{ id = 470, how = "FREP_HOW_TOWN", rewards = { { 5, "FREP_R_TOWN_5" }, { 7, "FREP_R_TOWN_7" } } },
+	{ id = 577, how = "FREP_HOW_TOWN", rewards = { { 5, "FREP_R_TOWN_5" }, { 7, "FREP_R_TOWN_7" } } },
+	{ id = 2827, how = "FREP_HOW_TOWN", rewards = { { 5, "FREP_R_TOWN_5" }, { 7, "FREP_R_TOWN_7" } } },
+}
+
+local REP_RANK_EN = { "Hated", "Hostile", "Unfriendly", "Neutral", "Friendly", "Honored", "Revered", "Exalted" }
+
+--- The client's own word for a reputation rank (FACTION_STANDING_LABELn), English when the client has none.
+local function RankName(r)
+	r = tonumber(r)
+	if not r then
+		return nil
+	end
+	local v = rawget(_G, "FACTION_STANDING_LABEL" .. r)
+	return (type(v) == "string" and v ~= "") and v or REP_RANK_EN[r]
+end
+ns.ForeverRankName = RankName
+
+local function MySide()
+	local f = UnitFactionGroup and UnitFactionGroup("player")
+	return (f == "Alliance" or f == "Horde") and f or nil
+end
+
+local function Faction(id)
+	if not (C_Reputation and C_Reputation.GetFactionDataByID) then
+		return nil, "missing"
+	end
+	local ok, d = pcall(C_Reputation.GetFactionDataByID, id)
+	if not ok or type(d) ~= "table" or IsSecret(d.name) or type(d.name) ~= "string" then
+		return nil, ok and "nil" or "error"
+	end
+	for _, k in ipairs({ "reaction", "currentStanding", "currentReactionThreshold", "nextReactionThreshold" }) do
+		if IsSecret(d[k]) then
+			return nil, "secret"
+		end
+	end
+	return d
+end
+
+--- The five currencies: { id, name, qty, max } (max nil = no cap); `unreadable` = true when the client did not answer.
+function ns.ForeverCurrencyViews()
+	local out = {}
+	for _, id in ipairs(REP_CURRENCIES) do
+		local e = { id = id }
+		local ok, c = false, nil
+		if C_CurrencyInfo and C_CurrencyInfo.GetCurrencyInfo then
+			ok, c = pcall(C_CurrencyInfo.GetCurrencyInfo, id)
+		end
+		if ok and type(c) == "table" and type(c.name) == "string" and not IsSecret(c.name)
+			and type(c.quantity) == "number" and not IsSecret(c.quantity) then
+			e.name, e.qty = c.name, c.quantity
+			local m = c.maxQuantity
+			if type(m) == "number" and not IsSecret(m) and m > 0 then
+				e.max = m
+			end
+			e.icon = c.iconFileID
+		else
+			e.unreadable = true
+		end
+		out[#out + 1] = e
+	end
+	return out
+end
+
+--- The groups for this character's side: { id, name, rank, r, have, need, next, how, measured } plus `unread` (ids the
+--- client did not answer for), and `others` = the rest of the character's own reputation list (name + rank).
+function ns.ForeverRepViews()
+	local side = MySide()
+	local out, unread, seen = {}, {}, {}
+	for _, g in ipairs(REP_GROUPS) do
+		if not g.side or g.side == side then
+			local d = Faction(g.id)
+			if d then
+				seen[g.id] = true
+				local e = { id = g.id, name = d.name, r = d.reaction, rank = RankName(d.reaction), how = ns:L(g.how) }
+				local lo, hi, cur = d.currentReactionThreshold, d.nextReactionThreshold, d.currentStanding
+				if type(lo) == "number" and type(hi) == "number" and type(cur) == "number" and hi > lo then
+					e.have, e.need = cur - lo, hi - lo
+				end
+				for _, rw in ipairs(g.rewards) do
+					if type(d.reaction) == "number" and rw[1] > d.reaction then
+						e.next = ns:L(rw[2])
+						e.nextRank = RankName(rw[1])
+						e.measured = rw.measured
+						break
+					end
+				end
+				out[#out + 1] = e
+			else
+				unread[#unread + 1] = g.id
+			end
+		end
+	end
+	-- What the character's own reputation pane lists besides these (home cities etc.).
+	local others = {}
+	if C_Reputation and C_Reputation.GetNumFactions and C_Reputation.GetFactionDataByIndex then
+		local okN, n = pcall(C_Reputation.GetNumFactions)
+		n = okN and type(n) == "number" and not IsSecret(n) and math.min(n, 120) or 0
+		for i = 1, n do
+			local ok, d = pcall(C_Reputation.GetFactionDataByIndex, i)
+			if ok and type(d) == "table" and not d.isHeader and type(d.factionID) == "number" and not seen[d.factionID]
+				and type(d.name) == "string" and not IsSecret(d.name) and not IsSecret(d.reaction) then
+				seen[d.factionID] = true
+				others[#others + 1] = { id = d.factionID, name = d.name, rank = RankName(d.reaction) }
+			end
+		end
+	end
+	return out, unread, others
+end
+
+-- Refill the page while it is open when rep or currencies change (events GEMETEN valid in the probe).
+do
+	local ev = CreateFrame("Frame")
+	for _, e in ipairs({ "UPDATE_FACTION", "CURRENCY_DISPLAY_UPDATE" }) do
+		pcall(ev.RegisterEvent, ev, e)
+	end
+	ev:SetScript("OnEvent", function()
+		if ns.ForeverOverviewRefreshPage then
+			ns.ForeverOverviewRefreshPage("rep")
+		end
+	end)
+end
+
+--- Lines for This week (ForeverWeek.lua): only what can be measured. "Honor almost full" from 90% of the cap. The
+--- Real ("N bosses left today") is NOT measurable (no client answer for which bosses you killed today): left out.
+function ns.ForeverRepWeekLines()
+	local lines = {}
+	for _, c in ipairs(ns.ForeverCurrencyViews()) do
+		if c.id == 1792 and c.qty and c.max and c.qty >= c.max * 0.9 then
+			lines[#lines + 1] = { text = ns:L("FREP_WEEK_HONOR_FMT"):format(c.qty, c.max, c.name), tone = "warn" }
+		end
+	end
+	return lines
+end

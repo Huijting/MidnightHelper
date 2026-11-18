@@ -54,6 +54,15 @@
   "Renown - PvP Rank" max 7 (niet 14). Onleesbaar (nil): 270/749/910 (raids niet in Forever), 890/2586/2740/2826
   (Alliance-facties op een Horde-character), 2800/2802 (verborgen). Alliance-facties die wél lezen staan op Hated
   (-42000). Rep-tokens in de tas: alle 0. Kaart: Rob kiest.
+- 🪙 **Kaart "Reputation & currency" GEBOUWD** (Rob via sparring, letterlijk: *"1 eerst a daarna b / 2 Nu , voor de
+  rares"* → eerst deze kaart, dan rares A, dan B). `ForeverLegacy.lua`: `REP_GROUPS` (24 groepen, bron per regel in
+  commentaar; alleen de Seed Pod GEMETEN, de rest "(from guides)"), `ns.ForeverCurrencyViews`, `ns.ForeverRepViews`
+  (eigen kant; onleesbaar = geteld en gezegd), `ns.ForeverRepWeekLines` (alleen "Honor bijna vol" ≥ 90%; Reals per
+  dag NIET meetbaar → weggelaten), events UPDATE_FACTION/CURRENCY_DISPLAY_UPDATE → pagina ververst. Rangnamen uit de
+  client (`FACTION_STANDING_LABELn`, Engels als terugval; NIET gemeten of Forever ze heeft). Overzicht: pagina `rep`
+  in groep chars (4e knop), zoekbalk cat `rep`/`currency`. Offline 70.220 runs, 0 fouten (Horde + Alliance, alles
+  onleesbaar, Honor 24000/25000). ⚠️ Teksten alleen en + nl: de/fr/es/pt/ru vallen terug op Engels → één vertaalronde
+  (mh-writer) na rares A. NIET in het spel gezien.
 - 🐉 **Forever-rares ONDERZOCHT, niets gebouwd** (Rob via sparring: *"en hebben we ook rares in forever ?"* → *"ja"* op
   uitzoeken). Rapport `docs/forever/RARES_2026-11-18.md`; IDEEEN.md bovenaan. 406 rares / 41 zones (HandyNotes WoW
   Forever v4 = ARR: lezen, niet kopiëren); DB2 heeft geen rares en maar 2 vignettes. Voorstel A (top ~20 in Find +

@@ -275,6 +275,13 @@ function ns.ForeverWeekRows()
 		end
 	end
 
+	-- 18 Nov 2026: currency lines that can be measured (ForeverLegacy.lua), e.g. "Honor almost full".
+	if ns.ForeverRepWeekLines then
+		local okR, extra = pcall(ns.ForeverRepWeekLines)
+		for _, l in ipairs(okR and type(extra) == "table" and extra or {}) do
+			add(l.text, l.tone)
+		end
+	end
 	add(ns:L("FWEEK_PVP_FMT"):format(_G.HONOR or "Honor"), "dim")
 	add(ns:L("FWEEK_WRITS"), "dim")
 	return rows
