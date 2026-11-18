@@ -191,7 +191,11 @@ function Aura.HasUnitBuff(unit, spellID)
 			return nil -- the API refused: unknown, not absent
 		end
 		if not aura then
-			return (not sawSecret) and false or nil -- end of the list: absent, unless something was hidden
+			-- End of the list. 18 Nov 2026: this line was `return (not sawSecret) and false or nil`, which is ALWAYS nil
+			-- in Lua (`false or nil` = nil): every other unit read as "unreadable", so BUFF ALLY never asked for a buff
+			-- and the raid-buff counts never counted. Fall through instead: the checks below the loop decide - a secret
+			-- id seen = unknown (the Beacon of Light rule of 5 Oct), an untrusted read (combat) = unknown, else absent.
+			break
 		end
 		local sid = aura.spellId
 		if sid and Secret(sid) then

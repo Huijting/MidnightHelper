@@ -76,7 +76,13 @@
   ook Quest reward hint (`foreverQuestHint`) en Gear tip (`foreverGearTip`). Nu een gewone if. Offline: alle drie aan →
   uit → aan, portretvakje volgt. Standaardstand NIET veranderd (sparring vraagt Rob). ✅ Ronde 1 (Rob via sparring:
   *"ja"*): SettingsDefs.lua `arrowYieldForeverGuide` en `ahPresetQuantity` nu een gewone if; offline (echte
-  GetSettingsDefs, Midnight + Forever) uit → aan → uit → aan klopt. ⏳ Ronde 2 (apart, eerst meten): Auras.lua:194 `(not sawSecret) and false or nil` (aura-facade geeft aan het eind van de
+  GetSettingsDefs, Midnight + Forever) uit → aan → uit → aan klopt (109942e). ✅ Ronde 2 GEREPAREERD: Auras.lua
+  HasUnitBuff einde-lijst = `break` (niet `false`: dan sloeg hij de Trusted()-controle over → in een gevecht zeker
+  "afwezig"); nu beslist de bestaande eindcontrole (geheim id → nil, niet te vertrouwen → nil, anders false).
+  ConsumableReadyCheck UnitHasBuffFromSet: gewone if. Gemeten effect (callers): MissingBuff:172 BUFF ALLY kwam nooit
+  (nil = "heeft hem al") → kan nu verschijnen; GroupBuffs:151 telde nooit → nu "x van y"; ConsumableReadyCheck:745 en
+  :190 "?" → nu rood kruis bij echt afwezig. Offline aura_check: 7 gevallen OK (gevonden / afwezig / leeg / geheim id
+  / gevonden na geheim id / in gevecht / API weigert). Midnight-test in TESTLIJST. Oude tekst hieronder: Auras.lua:194 `(not sawSecret) and false or nil` (aura-facade geeft aan het eind van de
   lijst altijd nil = "onleesbaar" i.p.v. false = "afwezig"), ConsumableReadyCheck.lua:190 `anyReadable and false or nil`.
 - 🎭 **Bewegend portret GEBOUWD, optie b** (Rob via sparring, letterlijk: *"is dit te animeren, ?"* → *"ja doe maar"*):
   PlayerModel "player" (portretzoom 1, idle-animatie -1) in een vierkant vakje 76 px met gouden rand en clip

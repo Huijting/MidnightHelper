@@ -187,7 +187,12 @@ local function UnitHasBuffFromSet(unit, set)
 			end
 		end
 		-- Nothing found. Only call that "no" if at least one lookup actually answered.
-		return anyReadable and false or nil
+		-- 18 Nov 2026: was `anyReadable and false or nil`, which is ALWAYS nil in Lua: a missing flask or rune showed "?"
+		-- instead of "no". HasPlayerAura only says false when the read can be trusted, so false here is a real "no".
+		if anyReadable then
+			return false
+		end
+		return nil
 	end
 	-- Andere units: hun aura-spellId's zijn secret en niet te matchen → onbekend
 	-- (MH-gebruikers vullen dit via comms; niet-MH blijft "?").

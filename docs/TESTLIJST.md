@@ -32,6 +32,17 @@ snelbalk, instellingen — geen foutmeldingen. Forever wordt nu getest (uitslage
 een logische afkorting voor de action house. 6 komt later"*** (Willow: "action house" = Auction House). Zoekbalk stap 1 +
 stap 2 werken in Forever; `/mh repprobe` gedaan. De Midnight-check van de zoekbalk komt later.
 
+## 🧪 18 nov (avond) — MIDNIGHT: aura-code las andermans buffs altijd als "onleesbaar"
+
+Geen nieuw bestand: een `/reload` is genoeg. Buiten een gevecht testen (in een gevecht blijft het bewust "onbekend").
+- [ ] Groep (of je Delve-companion) zonder jouw bondgenoot-buff (bv. Beacon of Light als Holy Paladin): de herinnering
+      BUFF ALLY verschijnt nu wél. Geef de buff: hij verdwijnt. (Was: kwam nooit.)
+- [ ] Raid-buffs ("x van y gebufft", GroupBuffs): in een groep buiten een instance telt hij nu echt mee, in plaats van
+      "het spel verbergt groepsaura's".
+- [ ] Ready check-bord / consumables: zonder flask of rune staat er nu een rood kruis i.p.v. "?"; met flask groen.
+- [ ] Geen valse meldingen: in een gevecht of in een instance waar het spel aura's verbergt, blijft het "?" / stil.
+- [ ] (Nog open van eerder) De Midnight-zoekbalk werkt nog als vanouds: typ `rares` en klik.
+
 ## 🔁 18 nov (avond) — twee instellingen die niet uit konden
 
 Geen nieuw bestand: een `/reload` is genoeg.
