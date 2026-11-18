@@ -4,9 +4,13 @@
 
 - 🗂️ Briefje gesplitst (regie: 1743 regels, grens 1500): alles vanaf "▶ Open voor 14 nov" (776 regels, 39 secties) staat
   nu bovenaan `NEXT_SESSION_ARCHIVE.md`; hier blijven 966 regels + index. Proefrun eerst, daarna `--resplit … --write`.
-- ⏳ Open, wacht op Robs ja via sparring: `ForeverChars.lua:94` vaste spatie tussen naam en achternaam (API-wachter
-  `[MOET GEFIKST]`; EditModeBackup gebruikt `CHARACTERNAME_SURNAME_SEPARATOR`). Midnight in stijl A: eerst meten + plan
-  naar sparring, nog GEEN bouw-ja.
+- ✅ API-wachter `[MOET GEFIKST]` GEREPAREERD (Rob via sparring, letterlijk: *"ja dat mag ie"*): `ForeverChars.lua`
+  plakt naam + achternaam nu met `Constants.CharacterNameSeparatorConsts.CHARACTERNAME_SURNAME_SEPARATOR` (spatie als
+  terugval), zoals `EditModeBackup.lua:848`. `rec.name` wordt alleen getoond (r. 444/517), nergens vergeleken (GEMETEN).
+  luac OK; niet offline gesimuleerd, niet in het spel gezien (TESTLIJST). Welk teken de client geeft: NIET gemeten.
+- ⏳ Midnight in stijl A: gemeten + plan (3 opties, advies optie 1 met schakelaar standaard uit) bij sparring; nog GEEN
+  bouw-ja. Gemeten: ForeverStyle.lua stopt in Midnight op r. 29 (`if not ns.IS_FOREVER`); UI.lua 5315 regels, 4 kamers,
+  24 tabbladen, perkament-backdrop (r. 2946); 115 bestanden met Blizzard-sjablonen.
 
 ## 🔴 18 nov — GEEN FABLE deze week (t/m reset za 21 nov 10:00)
 

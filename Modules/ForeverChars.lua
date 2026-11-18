@@ -91,7 +91,14 @@ local function Snap(why)
 	end
 	if Readable(name) and name ~= "" and name ~= UNKNOWNOBJECT then
 		if Readable(surname) and type(surname) == "string" and surname ~= "" then
-			name = name .. " " .. surname
+			-- Blizzard's own separator, as EditModeBackup.lua does (API watcher 18 Nov 2026, Forever build 70959); a
+			-- space when the constant is missing.
+			local sep = Constants and Constants.CharacterNameSeparatorConsts
+				and Constants.CharacterNameSeparatorConsts.CHARACTERNAME_SURNAME_SEPARATOR
+			if type(sep) ~= "string" then
+				sep = " "
+			end
+			name = name .. sep .. surname
 		end
 		rec.name = name
 	end

@@ -28,6 +28,11 @@ snelbalk, instellingen — geen foutmeldingen. Forever wordt nu getest (uitslage
 📝 **Waarneming Rob, 16 nov (nacht), Forever mage, via sparring:** *"mouse over werk"* — `/mh mouseover on`, Shift+X
 (Arcane Intellect) op een voorbijganger onder de muis werkt.
 
+## 🪪 18 nov — Forever: naam + achternaam in Characters
+
+- [ ] Forever: log één keer in op een character met achternaam, dan `/mh alts` (tab Characters). De naam staat er net zo
+      als het spel hem zelf schrijft (bv. "Ima Pallie"), zonder rare tekens of dubbele spatie.
+
 ## 🏦 17 nov (laat) — Forever: bank, veilinghuis, brievenbus en herberg in Find
 
 Eerst WoW helemaal afsluiten en opnieuw starten (er is een nieuw bestand; /reload is niet genoeg).
