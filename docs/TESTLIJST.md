@@ -39,6 +39,23 @@ zoekbalk, de reputaties, de rares, de muntjes, de Now-kaart, het ronde plaatje e
 achternaam, "Step aside"-instelling, Your path, Set focus). Daarna vond Rob nog: "scroll for more" over de tekst
 (gerepareerd, zie Travel) en het boek bij de mage-quest "Study" (in bouw).
 
+## 🗺️ 18 nov (laat) — Forever: bazengids, stap 2b (alle dungeons tot 60) + namen van het naamplaatje
+
+Geen nieuw bestand: `/reload` is genoeg.
+- [ ] `/mh bosses`: de lijst heeft nu **28 dungeons** (tot Stratholme). Scroll naar onderen: alles bereikbaar.
+- [ ] Ook bij Sunken Temple, Blackrock Depths, de drie Dire Maul-rijen, Lower/Upper Blackrock Spire, Scholomance, de twee
+      Stratholme-rijen, Blackmaw Hold en The Shaper's Terrace een knop **Bosses**.
+- [ ] **Dire Maul**: kopjes "— East —", "— North —", "— West —". **Blackrock Spire**: "— Lower —", "— Upper —".
+      **Stratholme**: "— Main Gate —", "— Service Gate —".
+- [ ] Blackmaw Hold en Shaper's Terrace: bovenaan "New in WoW Forever … check these lines again later".
+- [ ] Scholomance, eerste baas: de regel over de **Skeleton Key** (hoe je binnenkomt).
+- [ ] Dire Maul North: bij Guard Mol'dar en King Gordok staat wat je doet voor een **tribute run** (Mizzle).
+- [ ] Kloppen de tips? Een regel die niet klopt: zeg welke (dungeon + baas).
+- [ ] **Meetpunten**: Sunken Temple `/mh bosses check` bij een baas (welke encounter-set vuurt); Stratholme: moet de
+      deur van de Scarlet Bastion open met The Scarlet Key / lockpicking?; Dire Maul: King Gordok en Cho'Rush, welk id.
+- [ ] **Namen (alleen te zien met een Duitse, Franse, Spaanse of Russische client)**: de bazennaam in de gids is nu de naam boven het
+      hoofd van de baas. Klopt dat? (bv. Duits: Deadmines "Captain Greenskin", SM "Hochinquisitor Fairbanks").
+
 ## 🗺️ 18 nov (avond) — Forever: bazengids, stap 2a (11 dungeons ~28-55)
 
 Geen nieuw bestand: `/reload` is genoeg (doe eerst de herstart van stap 1 hieronder, als je die nog niet deed).

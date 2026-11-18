@@ -1,5 +1,36 @@
 # Midnight Helper — waar we staan
 
+## ▶ 18 nov (laat) — Bouwchat addons-12: bazengids STAP 2b GEBOUWD + namen van het naamplaatje
+
+- 🗺️ **Stap 2b GEBOUWD** (zelfde bouw-ja): Sunken Temple, Blackrock Depths, Dire Maul (East/North/West), Blackrock Spire
+  (Lower/Upper; Upper = 10 spelers, GEMETEN GroupFinderActivity 837), Scholomance, Stratholme (Main Gate/Service Gate) +
+  nieuw in Forever (recheck): Blackmaw Hold, The Shaper's Terrace. Nu **28 dungeons, 267 bazen, 106 items** (GEMETEN in
+  generator + offline test). Geen nieuw bestand → `/reload`. Geen codewijziging nodig (alleen de kop van de module).
+  - 4 mh-research (D/E/F/G) + 2 Opus-controles (`docs/forever/DUNGEONGIDS_CONTROLE2B_{DE,FG}_2026-11-18.md`): 2 FOUT
+    (Dire Maul North binnendeur bij een tribute run; Tor'Rel-zin bijna letterlijk) + 24 RISICO, allemaal verwerkt door
+    een mh-writer (30 Engelse regels, opnieuw vertaald). Malor the Zealous bewust NIET optional (bronnen tegenstrijdig).
+    Bronnen: `docs/forever/DUNGEONGIDS_DATA2B_2026-11-18.md`.
+  - ✅ **Robs keuze "B" GEBOUWD**: scratch `dg2_gen.lua` leest `dg2_names_B.lua` (147 bazen × 6 talen, GEMETEN Wowhead
+    Forever) en vervangt 52 namen in stap 1 + 2a; verschillen in alleen apostrof/accent/spatie/hoofdletter niet
+    (AFGELEID: Wowhead-spelling); groepsgevechten (Lost Dwarves, Atal'ai Defenders, The Seven) houden de groepsnaam.
+    Lijst: scratch `dg2_plate_changes.tsv`. In de zinnen 9 regels aangepast (de/fr/es/ru); esMX houdt "Faucepeste"
+    (esMX-naamplaatje). 2b-bazen kregen meteen de naamplaatje-naam. Gevolg (GEMETEN Wowhead Classic = Forever): deDE/
+    frFR tonen vaak de Engelse Classic-naam ("Captain Greenskin", "Mr. Smite"). In het spel: NIET gezien.
+  - Vertaald (2 mh-writers + 1 voor de 30 reparaties). Vertaalcontrole (2 Opus,
+    `docs/forever/DUNGEONGIDS_VERTAALCONTROLE2B_{NDF,EPR}_2026-11-18.md`): 12 FOUT (o.a. deDE "Zauberdurchdringung",
+    esMX "calabozo" i.p.v. "mazmorra", esES "coger" → "tomar", ptBR "Praça dos Cruzados") + risico's; 39 regels
+    verbeterd. enUS/nlNL "Crusaders' Square" → "Crusader's Square" (GEMETEN retail UiMapGroupMember 536; Forever
+    heeft die tabel niet). Open: 11 esMX-regels zetten de Engelse naam waar Wowhead esMX een placeholder heeft, terwijl
+    de kop van ForeverClassQuests_esMX.lua zegt "dan de esES-naam" (2a deed hetzelfde) — één regel kiezen. Sleutels per taal GEMETEN: 999
+    (enUS = 986 gids + 13 UI), geen dubbele/verouderde/ontbrekende; esMX-overlay 69, geen verouderde regel (scratch
+    `dg2_mxcheck.py`).
+  - Open: Sunken Temple heeft in Forever een NIEUWE encounterset (3582-3589) naast de oude (`encounterAlt`), welke vuurt
+    = meten; Scarlet Bastion-deur (Scarlet Key?); King Gordok/Cho'Rush id; Titan Panel en "Archival Panel" zonder
+    clientnaam; esES Roughshod Pike zonder naam in ItemSparse ("Pica despiadada" uit een itemtekst, niet gebruikt);
+    BRD-plekken in es/pt/ru deels uit LibBabble-SubZone (Zygor), niet uit de client.
+  - Scripts: `dg2_gen.py all2b` (ORDER/SHORT 2b via DG_2B; DG_PLATES), `dg2b_diff.py`, `dg2b_newkeys.py`, `dg2b_docs.py`.
+- ⏭️ Volgende voor de bazengids: Robs test. Stap 3 (raids, open 9 dec) staat in IDEEEN H14, nog niet bouwen.
+
 ## ▶ 18 nov (avond) — Bouwchat addons-12: bazengids STAP 2a GEBOUWD
 
 - 🗺️ **Stap 2a GEBOUWD** (Robs bouw-ja via sparring: *"Ga maar verder met 2"*). 11 dungeons erbij: Gnomeregan, Razorfen
@@ -23,8 +54,8 @@
   - Offline (scratch `search_check.lua`, blok "Step 2a"): 20 dungeons, 0 ruwe sleutels, SM-kopjes in volgorde, lijst
     scrolt naar Alcaz (532 px), SM-kop 30-46, 23 dungeonrijen met Bosses-knop; 109.372 runs, 0 fouten. NIET in het spel.
   - ✅ **Rob koos B** (via sparring, letterlijk: *"B"*): bazennaam per taal = de naam van het **naamplaatje** (Wowhead
-    Forever npc-naam per locale), niet de DB2 DungeonEncounter-naam. Geldt voor ALLE dungeons, ook stap 1. ⏭️ Bouwen
-    in stap 2b: `names` per baas uit WHT `--locale` (esMX ook, bestaat bij Wowhead, GEMETEN door deel B); ook de
+    Forever npc-naam per locale), niet de DB2 DungeonEncounter-naam. Geldt voor ALLE dungeons, ook stap 1. ✅ Gebouwd
+    in stap 2b (zie daar). Oorspronkelijk plan: `names` per baas uit WHT `--locale` (esMX ook, bestaat bij Wowhead, GEMETEN door deel B); ook de
     bazennamen IN de vertaalde zinnen (tips) nalopen. Het gaat om ~25 bazen in fr/de/es/ru (bv. frFR Vislar→Vishas,
     deDE Schönufer→Fairbanks, deDE Nar'gurk→Nar'guk, ruRU Келебрас→Селебрас). Het idee "naam onthouden bij het
     targeten" koos hij NIET: niet bouwen. Staat ook in `docs/CLIENT_NAMES_2026-10-20.md`.
@@ -36,7 +67,7 @@
     uitbreiden voor 2b), `dg2_apply.py` (`enus` = alleen nieuwe sleutels; `<prefix>` = vervang of voeg toe per taal),
     `dg2_diff.py` (gewijzigde Engelse regels na een controle; Alcaz-omnummering), `dg2_keycheck.py`, `search_check.py`,
     briefs `dg2a_brief.md`, `dg2a_vertaalbrief.md`, `dg2a_controlebrief.md` (herbruikbaar voor 2b).
-- ⏭️ **VOLGENDE: STAP 2b**, zelfde recept en dezelfde scripts. ⚠️ SHORT "DM" is al The Deadmines: Dire Maul krijgt een
+- ✅ (gedaan, zie hierboven) **STAP 2b**, zelfde recept en dezelfde scripts. ⚠️ SHORT "DM" is al The Deadmines: Dire Maul krijgt een
   andere sleutel (bv. DIRE). Dire Maul (429), Blackrock Spire (229) en Stratholme (329) hebben vleugels → `part`.
 
 ## ▶ 18 nov — Bouwchat 18-11

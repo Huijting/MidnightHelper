@@ -21,6 +21,10 @@ local _, ns = ...
 	Krol'dok Stronghold, Alcaz Prison). New here: the dungeon list scrolls, a dungeon with wings is one page with a
 	header per wing (`part`, an FDGP_* key), its level range spans all wings, and extraNpc may be a list. Two
 	independent checks (docs/forever/DUNGEONGIDS_CONTROLE2A_*_2026-11-18.md): 0 errors, 23 risks; text repairs done.
+	Step 2b (same day): the last 8 dungeons up to 60 (Sunken Temple, Blackrock Depths, Dire Maul, Blackrock Spire,
+	Scholomance, Stratholme + new: Blackmaw Hold, The Shaper's Terrace): 28 dungeons, 267 bosses. Boss names per
+	language now follow Rob's choice "B" (via sparring, 18 Nov 2026): the NAME PLATE (Wowhead Forever npc name per
+	locale), not the DB2 DungeonEncounter name — for every dungeon; see docs/CLIENT_NAMES_2026-10-20.md.
 
 	Open it: the "Bosses" button on a dungeon row (overview → Dungeons & group), or /mh bosses. Inside a dungeon it opens
 	on that dungeon; targeting a boss marks him (as Midnight's boss window does).

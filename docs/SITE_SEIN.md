@@ -28,12 +28,13 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
-## 18 nov 2026 — Forever: bazengids (stap 1 + 2a, 20 dungeons)
-- Tag + commit:   geen tag (stap 2a = de commit van deze regel)
+## 18 nov 2026 — Forever: bazengids (stap 1 + 2a + 2b, alle 28 dungeons)
+- Tag + commit:   geen tag (2a = 87f3488; 2b = de commit die deze regel bijwerkt)
 - Status:         alleen op main
 - Mag op de site: nee (nog niet uit; Rob heeft het nog niet in het spel gezien)
 - Speler ziet:    WoW Forever heeft geen Dungeon Journal. MH toont per dungeon wie de bazen zijn, wat ze doen, één tip
-                  en 2-3 items die het weten waard zijn — nu 20 dungeons tot ~level 55, in 7 talen. Nieuwe
+                  en 2-3 items die het weten waard zijn — nu alle 28 dungeons tot level 60, in 7 talen; bazennamen zoals
+                  boven hun hoofd. Nieuwe
                   Forever-dungeons zeggen zelf dat de regels later nog eens nagekeken worden.
 - Knoplabels:     FDG_BTN (knop "Bosses" op een dungeonregel in het overzicht), FDG_TITLE (venstertitel)
 - Commando's:     /mh bosses, /mh bosses check
