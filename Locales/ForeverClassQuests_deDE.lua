@@ -591,7 +591,7 @@ for k, v in pairs({
 	FDG_BRD_13_D1 = "Optional: Er kommt nur, wenn du die drei Fässer in einem Lagerraum des Grim Guzzler zerschlägst, mit ein paar Helfern.",
 	FDG_BRD_13_D2 = "Lässt ein verlorenes Rezept fallen, das eine Quest der Allianz und eine der Horde wollen.",
 	FDG_BRD_13_T = "Setz CC auf seine Helfer, und triff nie einen der Gäste der Bar.",
-	FDG_BRD_14_D1 = "Wacht auf, nachdem Gefreiter Rocknot von dir ein paar Mal Bier von Plugger Spazzring bekommen hat; die Tür hinter der Bar bricht auf.",
+	FDG_BRD_14_D1 = "Wacht auf, nachdem Gefreiter Rocknot von dir ein paar Mal Bier von Stöpsel Zapfring bekommen hat; die Tür hinter der Bar bricht auf.",
 	FDG_BRD_14_D2 = "Schlägt den Tank hart, stampft auf alle in seiner Nähe und wirft Feuerbälle auf die ganze Gruppe.",
 	FDG_BRD_14_T = "Halte den Kampf von den Gästen der Bar fern; der Heiler füllt nach den Feuerbällen alle wieder auf.",
 	FDG_BRD_15_D1 = "Optional: Er sitzt im Grim Guzzler und kämpft mit ein paar Kumpanen.",

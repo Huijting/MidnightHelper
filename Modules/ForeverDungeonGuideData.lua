@@ -222,19 +222,19 @@ ns.FOREVER_DGUIDE = {
 				-- src: metaal op tank 2x IV+MOB; trager threat 2x IV+WFI; tip 2x IV+MOB
 			},
 			{ npc = 647, encounter = 2744, name = "Captain Greenskin",
-				names = { deDE = "Captain Greenskin", frFR = "Capitaine Vertepeau", esES = "Capitán Verdepel", esMX = "Capitán Verdetez", ptBR = "Capitão Peleverde", ruRU = "Капитан Зеленямс" },
+				names = { deDE = "Kapitän Grünhaut", frFR = "Capitaine Vertepeau", esES = "Capitán Verdepel", esMX = "Capitán Verdetez", ptBR = "Capitão Peleverde", ruRU = "Капитан Зеленямс" },
 				does = { "FDG_DM_5_D1", "FDG_DM_5_D2" },
 				tip = "FDG_DM_5_T",
 				-- src: cleave 2x IV+MOB; gif 2x MOB+FH; tip 2x IV+MOB
 			},
 			{ npc = 646, encounter = 2745, name = "Mr. Smite",
-				names = { deDE = "Mr. Smite", frFR = "M. Smite", esES = "Sr. Golpin", esMX = "Don Mamporro", ptBR = "Sr. Castiga", ruRU = "Мистер Каюк" },
+				names = { deDE = "Handlanger Pein", frFR = "M. Smite", esES = "Sr. Golpin", esMX = "Don Mamporro", ptBR = "Sr. Castiga", ruRU = "Мистер Каюк" },
 				does = { "FDG_DM_6_D1", "FDG_DM_6_D2" },
 				tip = "FDG_DM_6_T",
 				-- src: 2x IV+MOB (IV: 66% en 33%; 'hidden' = MOB+FH)
 			},
 			{ npc = 645, encounter = 2746, name = "Cookie",
-				names = { deDE = "Cookie", frFR = "Macaron", esES = "El Chef", esMX = "Cocinitas", ptBR = "Cuca", ruRU = "Пирожок" },
+				names = { deDE = "Krümel", frFR = "Macaron", esES = "El Chef", esMX = "Cocinitas", ptBR = "Cuca", ruRU = "Пирожок" },
 				does = { "FDG_DM_7_D1" },
 				tip = "FDG_DM_7_T",
 				-- src: 2x IV+MOB
@@ -255,7 +255,7 @@ ns.FOREVER_DGUIDE = {
 	[33] = { -- SFK
 		bosses = {
 			{ npc = 3914, encounter = 2748, name = "Rethilgore",
-				names = { deDE = "Rethilgore", frFR = "Rethilgore", esES = "Rethilgore", esMX = "Rethilgore", ptBR = "Rethilgore", ruRU = "Ретилгор" },
+				names = { deDE = "Rotkralle", frFR = "Rethiltripe", esES = "Rethilgore", esMX = "Rethilgore", ptBR = "Rethilgore", ruRU = "Ретилгор" },
 				does = { "FDG_SFK_1_D1" },
 				tip = "FDG_SFK_1_T",
 				-- src: drain 2x IV+WFDB (MOB en WH: niet gevaarlijk); tip 2x IV+MOB (WH ook)
@@ -267,7 +267,7 @@ ns.FOREVER_DGUIDE = {
 				-- src: 2x IV+MOB
 			},
 			{ npc = 3887, encounter = 2750, name = "Baron Silverlaine",
-				names = { deDE = "Baron Silverlaine", frFR = "Baron d’Argelaine", esES = "Barón Filargenta", esMX = "Barón Filargenta", ptBR = "Barão Silverlaine", ruRU = "Барон Сребролен" },
+				names = { deDE = "Baron Silberlein", frFR = "Baron d’Argelaine", esES = "Barón Filargenta", esMX = "Barón Filargenta", ptBR = "Barão Silverlaine", ruRU = "Барон Сребролен" },
 				does = { "FDG_SFK_3_D1" },
 				tip = "FDG_SFK_3_T",
 				-- src: 2x IV+MOB (WH ook); tip 2x MOB+WH (IV: heal more) | MEASURE: Veil of Shadow: curse on one player or on everyone near him? (7068 vs 460755; 23224 also exists)
@@ -324,7 +324,7 @@ ns.FOREVER_DGUIDE = {
 				-- src: 2x IV+MOB (enrage: IV 30%, MOB ~20%, daarom geen getal)
 			},
 			{ npc = 1666, encounter = 2757, name = "Kam Deepfury",
-				names = { deDE = "Kam Deepfury", frFR = "Kam Deepfury", esES = "Kam Furiahonda", esMX = "Kam Furiahonda", ptBR = "Kam Fundafúria", ruRU = "Кам Гневливый" },
+				names = { deDE = "Kam Tiefenzorn", frFR = "Kam Furie-du-fond", esES = "Kam Furiahonda", esMX = "Kam Furiahonda", ptBR = "Kam Fundafúria", ruRU = "Кам Гневливый" },
 				does = { "FDG_STOCKS_2_D1" },
 				tip = "FDG_STOCKS_2_T",
 				-- src: 2x IV+MOB
@@ -393,7 +393,7 @@ ns.FOREVER_DGUIDE = {
 				-- src: optioneel + water 2x MOB+SK; frost 2x SK+GG; tip 2x MOB+SK. IV noemt hem niet (7 bazen)
 			},
 			{ npc = 4830, encounter = 2912, encounterAlt = 2765, name = "Old Serra'kis",
-				names = { deDE = "Old Serra'kis", frFR = "Vieux Serra’kis", esES = "Viejo Serra'kis", esMX = "Viejo Serra'kis", ptBR = "Velho Serra'kis", ruRU = "Старина Серракис" },
+				names = { deDE = "Alter Serra'kis", frFR = "Vieux Serra’kis", esES = "Viejo Serra'kis", esMX = "Viejo Serra'kis", ptBR = "Velho Serra'kis", ruRU = "Старина Серракис" },
 				does = { "FDG_BFD_6_D1" },
 				tip = "FDG_BFD_6_T",
 				-- src: 2x IV+MOB; tip 2x IV+GG
@@ -585,7 +585,7 @@ ns.FOREVER_DGUIDE = {
 				-- src: hard 2x WH+WT (MOB ook); enrage 2x WH+MOB; tip 2x IV+WH
 			},
 			{ npc = 4421, encounter = 2778, name = "Charlga Razorflank",
-				names = { deDE = "Charlga Razorflank", frFR = "Charlga Trancheflanc", esES = "Charlga Filonavaja", esMX = "Charlga Filonavaja", ptBR = "Charlga Talhaflanco", ruRU = "Чарлга Остробок" },
+				names = { deDE = "Charlga Klingenflanke", frFR = "Charlga Trancheflanc", esES = "Charlga Filonavaja", esMX = "Charlga Filonavaja", ptBR = "Charlga Talhaflanco", ruRU = "Чарлга Остробок" },
 				does = { "FDG_RFK_6_D1", "FDG_RFK_6_D2" },
 				tip = "FDG_RFK_6_T",
 				-- src: bliksem 2x WH+WT (MOB, SK ook); immuun + heal 2x IV+WH (WT, SK ook); uit de hut 2x IV+WH (WT ook); spreiden 2x WH+WT (MOB, SK ook); onderbreken 2x IV+WH (SK ook)
@@ -654,7 +654,7 @@ ns.FOREVER_DGUIDE = {
 				-- src: schaap + silence 2x IV+WH (WT, GG ook); grote ontploffing 2x IV+WH (WT, GG, WFDB ook); kist + sleutel 2x IV+WH (WT, MOB, FDJ ook); tip 2x IV+WH (WT: de kamer uit)
 			},
 			{ npc = 3975, encounter = 448, name = "Herod", part = "FDGP_ARMORY",
-				names = { deDE = "Herod", frFR = "Herod", esES = "Herod", esMX = "Herod", ptBR = "Herodes", ruRU = "Герод" },
+				names = { deDE = "Herod", frFR = "Hérode", esES = "Herod", esMX = "Herod", ptBR = "Herodes", ruRU = "Герод" },
 				does = { "FDG_SM_8_D1", "FDG_SM_8_D2" },
 				tip = "FDG_SM_8_T",
 				-- src: cleave 2x IV+WH; spinnen 2x IV+WH (WT, GG, WFDB ook); trainees 2x IV+WH (WT, GG, WFDB, FDJ ook); wegstappen 2x IV+WH (WT, GG ook); samenblijven 2x IV+WH (GG ook). Wanneer hij spint verschilt (IV: vanaf de helft, GG: elke 15-25 s): weggelaten
@@ -885,13 +885,13 @@ ns.FOREVER_DGUIDE = {
 				-- src: pantser/leven 2x WT+CQ; zandwolken 2x CQ+IVC (WT ook); tip 2x CQ+IVC. Weggelaten: vertragen + stilte in het zand (alleen WT), DoT-immuun (alleen WT)
 			},
 			{ npc = 7291, encounter = 552, name = "Galgann Firehammer",
-				names = { deDE = "Galgann Feuerhammer", frFR = "Galgann Firehammer", esES = "Galgann Flamartillo", esMX = "Galgann Flamartillo", ptBR = "Galnann Martelígneo", ruRU = "Галганн Огнемолот" },
+				names = { deDE = "Galgann Feuerhammer", frFR = "Galgann Martel-de-Feu", esES = "Galgann Flamartillo", esMX = "Galgann Flamartillo", ptBR = "Galnann Martelígneo", ruRU = "Галганн Огнемолот" },
 				does = { "FDG_ULDA_6_D1", "FDG_ULDA_6_D2" },
 				tip = "FDG_ULDA_6_T",
 				-- src: helpers 2x WT+CQ (WT: twee; IVC: bodyguards); vuur rond hem 2x CQ+IVC; meer vuurschade 2x WT+CQ; helpers eerst 2x WT+IVC; weghalen 2x WT+CQ
 			},
 			{ npc = 4854, encounter = 553, name = "Grimlok",
-				names = { deDE = "Grimlok", frFR = "Grimlok", esES = "Grimlok", esMX = "Grimlok", ptBR = "Grimlok", ruRU = "Гримлок" },
+				names = { deDE = "Grimlok", frFR = "Grimelok", esES = "Grimlok", esMX = "Grimlok", ptBR = "Grimlok", ruRU = "Гримлок" },
 				does = { "FDG_ULDA_7_D1", "FDG_ULDA_7_D2" },
 				tip = "FDG_ULDA_7_T",
 				-- src: helpers + basilisk 2x WT+CQ (EXP ook); krimpen 2x CQ+IVC; bliksem 2x CQ+IVC; tip 2x WT+CQ (IVC ook)
@@ -993,7 +993,7 @@ ns.FOREVER_DGUIDE = {
 	[349] = { -- MARA
 		bosses = {
 			{ npc = 13282, encounter = 422, name = "Noxxion", part = "FDGP_ORANGE_SIDE",
-				names = { deDE = "Noxxion", frFR = "Noxxion", esES = "Noxxion", esMX = "Noxxion", ptBR = "Tóxxico", ruRU = "Ноксион" },
+				names = { deDE = "Noxxion", frFR = "Noxcion", esES = "Noxxion", esMX = "Noxxion", ptBR = "Tóxxico", ruRU = "Ноксион" },
 				does = { "FDG_MARA_1_D1", "FDG_MARA_1_D2", "FDG_MARA_1_D3" },
 				tip = "FDG_MARA_1_T",
 				-- src: gif op groep 2x CQ+IVC (WOWF ook); kopieën 2x CQ+IVC (WT ook); Rod 2x CQ+WHT 17702 'Dropped by: Noxxion' (FDJ ook); tip 2x CQ+IVC
@@ -1207,7 +1207,7 @@ ns.FOREVER_DGUIDE = {
 				-- src: twaalf kisten 2x WH+CQ (IVC, WTC ook); sleutels uit de dungeon 2x CQ+IVC(Classic) (CQ: van Dark Iron-dwergen; FDJ ook); stenen wachters + Doomgrip 2x WH+CQ (IVC, WTC ook; aantal verschilt: WTC drie of vier, daarom geen getal); Secret Safe + Heart 2x WH+CQ (IVC, WTC ook); tip AFGELEID uit 'meteen' 2x WH+CQ | DB2 encounter name: The Vault | MEASURE: Name: DB2 encounter 2791 = 'The Vault'; the fight there is Watchman Doomgrip with the stone guardians (WH, CQ). Does ENCOUNTER_START 2791 fire for this fight, and which name does the client show?
 			},
 			{ npc = 9056, encounter = 234, name = "Fineous Darkvire",
-				names = { deDE = "Fineous Darkvire", frFR = "Fineous Darkvire", esES = "Finoso Virunegro", esMX = "Finoso Virunegro", ptBR = "Fineous Forçanegra", ruRU = "Точень Темнострой" },
+				names = { deDE = "Fineous Dunkelader", frFR = "Fineous Sombrevire", esES = "Finoso Virunegro", esMX = "Finoso Virunegro", ptBR = "Fineous Forçanegra", ruRU = "Точень Темнострой" },
 				does = { "FDG_BRD_9_D1", "FDG_BRD_9_D2", "FDG_BRD_9_D3" },
 				tip = "FDG_BRD_9_T",
 				-- src: Hall of Crafting + golems 2x WH+CQ (WTC ook); paladin 2x CQ+IVC(Classic, vaardigheden; WH-lijst ook); hard slaan 2x WH+IVC (WTC ook); heal 2x WH+CQ (IVC, WTC ook); Ironfel + monument + sleutel 2x WH+CQ (FDJ ook); golems eerst 2x WH+CQ; onderbreken 2x WH+CQ (IVC, WTC ook)
@@ -1231,7 +1231,7 @@ ns.FOREVER_DGUIDE = {
 				-- src: Manufactory + golems 2x CQ+WTC (IVC ook); bliksem springt 2x WH+CQ (IVC ook); schild 2x WH(lijst)+WTC(Classic) (IVC-lijst ook); spreiden 2x WH+CQ (IVC ook); golems eerst 2x IVC+WTC (Classic; CQ bevestigt dat ze meedoen)
 			},
 			{ npc = 9537, encounter = 238, name = "Hurley Blackbreath", optional = true,
-				names = { deDE = "Hurley Pestatem", frFR = "Hurley Blackbreath", esES = "Hurley Negrálito", esMX = "Hurley Negrálito", ptBR = "Hurley Bafonegro", ruRU = "Харли Пьянодых" },
+				names = { deDE = "Hurley Pestatem", frFR = "Hurley Soufflenoir", esES = "Hurley Negrálito", esMX = "Hurley Negrálito", ptBR = "Hurley Bafonegro", ruRU = "Харли Пьянодых" },
 				does = { "FDG_BRD_13_D1", "FDG_BRD_13_D2" },
 				tip = "FDG_BRD_13_T",
 				-- src: optioneel 2x WH+WTC(Classic); drie vaten + helpers 2x WH+CQ (IVC, WTC ook; aantal helpers verschilt: WH 3, WTC 4); recept + quests 2x WH+FDJ (CQ ook); CC helpers 2x WH+WTC; patrons 2x CQ+WH (WTC ook). IVC: eerst de helpers doden, WH/WTC: Hurley eerst; daarom geen volgorde
@@ -1243,13 +1243,13 @@ ns.FOREVER_DGUIDE = {
 				-- src: Rocknot + ale + deur 2x WH+CQ (WTC ook); hard + slam + vuurballen 2x WH(lijst)+IVC(Classic) (WTC ook); patrons 2x WH+CQ (WTC ook); healen na vuurballen 2x IVC+WTC (Classic)
 			},
 			{ npc = 9543, encounter = 240, name = "Ribbly Screwspigot", optional = true,
-				names = { deDE = "Ribbly Screwspigot", frFR = "Ribbly Screwspigot", esES = "Ribbly Llavenrosca", esMX = "Ribbly Llavenrosca", ptBR = "Ribas Parafuseta", ruRU = "Риббли Крутипроб" },
+				names = { deDE = "Ribbly Schraubstutz", frFR = "Ribbly Fermevanne", esES = "Ribbly Llavenrosca", esMX = "Ribbly Llavenrosca", ptBR = "Ribas Parafuseta", ruRU = "Риббли Крутипроб" },
 				does = { "FDG_BRD_15_D1", "FDG_BRD_15_D2" },
 				tip = "FDG_BRD_15_T",
 				-- src: optioneel + cronies 2x IVC+WTC (Classic; FDJ 'Ribbly's Crony'; WH: klein gevecht in de Grim Guzzler); quest 2x WH+CQ (FDJ ook); makkelijk 2x WH+IVC; patrons 2x CQ+WTC. Volgorde (IVC: cronies eerst, WTC: Ribbly eerst) weggelaten
 			},
 			{ npc = 9499, encounter = 241, name = "Plugger Spazzring", optional = true, one = true,
-				names = { deDE = "Plugger Spazzring", frFR = "Plugger Spazzring", esES = "Plugger Aropatoso", esMX = "Plugger Aropatoso", ptBR = "Birra Guardachave", ruRU = "Штоппор Наливалс" },
+				names = { deDE = "Stöpsel Zapfring", frFR = "Lanfiche Brouillecircuit", esES = "Plugger Aropatoso", esMX = "Plugger Aropatoso", ptBR = "Birra Guardachave", ruRU = "Штоппор Наливалс" },
 				does = { "FDG_BRD_16_D1", "FDG_BRD_16_D2" },
 				tip = "FDG_BRD_16_T",
 				-- src: barman + ale 2x WH+CQ (WTC ook); optioneel + hele bar 2x WH+WTC(Classic) (CQ ook); te veel mokken 1x WH; tip 2x WH+WTC
@@ -1312,7 +1312,7 @@ ns.FOREVER_DGUIDE = {
 				-- src: vijver 2x WH+WTC (IVC ook); kleine elementalen 2x WH+CQ (WTC, IVC ook); meer schade dan hij 2x WH+WTC; tip 2x WH+CQ (WTC, IVC ook)
 			},
 			{ npc = 11490, encounter = 343, name = "Zevrim Thornhoof", part = "FDGP_EAST",
-				names = { deDE = "Zevrim Dornhuf", frFR = "Zevrim Thornhoof", esES = "Zevrim Pezuñahendida", esMX = "Zevrim Pezuñahendida", ptBR = "Zevrim Cascardo", ruRU = "Зеврим Терновое Копыто" },
+				names = { deDE = "Zevrim Dornhuf", frFR = "Zevrim Sabot-de-Ronce", esES = "Zevrim Pezuñahendida", esMX = "Zevrim Pezuñahendida", ptBR = "Zevrim Cascardo", ruRU = "Зеврим Терновое Копыто" },
 				does = { "FDG_DIRE_4_D1", "FDG_DIRE_4_D2" },
 				tip = "FDG_DIRE_4_T",
 				-- src: altaar 2x WH+CQ (WTC, IVC ook); schade dichtbij 2x WH+IVC (WTC, CQ ook); tip heal 2x WH+CQ (WTC, IVC ook), afstand 2x WH+IVC (CQ, WTC ook)
@@ -1348,7 +1348,7 @@ ns.FOREVER_DGUIDE = {
 				-- src: plek 2x WTC+WH; zelfde vaardigheden 2x WH+WTC (CQ ook); val 2x WH+WTC (CQ ook); tip 2x WH+WTC
 			},
 			{ npc = 14325, encounter = 366, name = "Captain Kromcrush", part = "FDGP_NORTH",
-				names = { deDE = "Captain Kromcrush", frFR = "Capitaine Kromcrush", esES = "Capitán Kromcrush", esMX = "Capitán Kromcrush", ptBR = "Capitão Kebrapaw", ruRU = "Капитан Давигром" },
+				names = { deDE = "Hauptmann Krombruch", frFR = "Capitaine Kromcrush", esES = "Capitán Kromcrush", esMX = "Capitán Kromcrush", ptBR = "Capitão Kebrapaw", ruRU = "Капитан Давигром" },
 				does = { "FDG_DIRE_10_D1", "FDG_DIRE_10_D2", "FDG_DIRE_10_D3" },
 				tip = "FDG_DIRE_10_T",
 				-- src: hard + fear 2x WH+CQ (WTC ook); twee ogres 2x WH+CQ (WTC ook); pak 2x WH+WTC (CQ ook); tip 2x WH+WTC
@@ -1372,13 +1372,13 @@ ns.FOREVER_DGUIDE = {
 				-- src: ancients 2x WH+WTC; trample 2x WH+CQ (WTC ook); tip ancients 2x WH+WTC, afstand 2x WH+WTC (CQ: zo weinig mogelijk melee)
 			},
 			{ npc = 11488, extraNpc = 14308, encounter = 347, name = "Illyanna Ravenoak", part = "FDGP_WEST",
-				names = { deDE = "Illyanna Rabeneiche", frFR = "Illyanna Ravenoak", esES = "Illyanna Roblecuervo", esMX = "Illyanna Roblecuervo", ptBR = "Illyanna Corvalho", ruRU = "Иллиана Воронья Ольха" },
+				names = { deDE = "Illyanna Rabeneiche", frFR = "Illyanna Corvichêne", esES = "Illyanna Roblecuervo", esMX = "Illyanna Roblecuervo", ptBR = "Illyanna Corvalho", ruRU = "Иллиана Воронья Ольха" },
 				does = { "FDG_DIRE_14_D1", "FDG_DIRE_14_D2" },
 				tip = "FDG_DIRE_14_T",
 				-- src: beer 2x WH+CQ (WTC ook); schieten + vallen 2x WH+WTC; dichtbij 2x WH+CQ (WTC ook); tip dichtbij 2x WH+WTC, eerst Illyanna 2x WH+WTC
 			},
 			{ npc = 11487, encounter = 348, name = "Magister Kalendris", part = "FDGP_WEST",
-				names = { deDE = "Magister Kalendris", frFR = "Magistère Kalendris", esES = "Magister Kalendris", esMX = "Magister Kalendris", ptBR = "Magíster Kalendris", ruRU = "Магистр Календрис" },
+				names = { deDE = "Magister Kalendris", frFR = "Magistère Kalendris", esES = "Magíster Kalendris", esMX = "Magister Kalendris", ptBR = "Magíster Kalendris", ruRU = "Магистр Календрис" },
 				does = { "FDG_DIRE_15_D1" },
 				tip = "FDG_DIRE_15_T",
 				-- src: shadow priest 2x WH+CQ (WTC ook); geest overnemen 2x WH+WTC; onderbreken 2x WH+CQ (WTC ook); schaduwweerstand 2x WH+CQ (WTC ook)
@@ -1693,7 +1693,7 @@ ns.FOREVER_DGUIDE = {
 				-- src: hard 2x WH+WT(C) (MOB ook); stomp + stun 2x MOB+WFG; knockback 2x WH+MOB (CQ, WT(C) ook); sleutel 2x WH+CQ (MOB-loottabel, WT(C), LFC ook); kamer leeg 2x WH+MOB (CQ, WT(C) ook); buiten stomp 2x MOB+WT(C) (WH: ranged ver weg)
 			},
 			{ npc = 10433, encounter = 2809, name = "Marduk Blackpool",
-				names = { deDE = "Marduk Blackpool", frFR = "Marduk Noirétang", esES = "Marduz Pozonegro", esMX = "Marduk Pozonegro", ptBR = "Marduque Lagonero", ruRU = "Мардук Блэкпул" },
+				names = { deDE = "Marduk Schwarzborn", frFR = "Marduk Noirétang", esES = "Marduz Pozonegro", esMX = "Marduk Pozonegro", ptBR = "Marduque Lagonero", ruRU = "Мардук Блэкпул" },
 				does = { "FDG_SCHOLO_4_D1", "FDG_SCHOLO_4_D2", "FDG_SCHOLO_4_D3" },
 				tip = "FDG_SCHOLO_4_T",
 				-- src: Viewing Room + studenten 2x MOB+CQ (WT(C) ook); Dawn's Gambit 2x MOB+CQ; aura 2x WH+CQ (WT(C) ook); cleave 2x WH+MOB (WT(C) ook); schild 2x WH+WT(C) (MOB ook); afstand 2x WH+WT(C) (CQ ook); stoppen bij schild 2x WH+WT(C) (MOB ook) | MEASURE: Optional? WT and Icy Veins (both Classic) say Marduk and Vectus are neutral and usually skipped unless someone has Dawn's Gambit; wowf.io (via WFG) says they cannot be skipped. Can a Forever group walk past them?
@@ -1717,7 +1717,7 @@ ns.FOREVER_DGUIDE = {
 				-- src: optioneel + brazier 2x WH+CQ (WT(C), WFG, FDJ ook); skeletten 2x WT(C)+WFG; botschild 2x WT(C)+WFG; tip 1x WT(C). MOB en WH geven geen tactiek
 			},
 			{ npc = 10505, encounter = 2803, name = "Instructor Malicia",
-				names = { deDE = "Instrukteurin Malicia", frFR = "Instructeur Malicia", esES = "Instructor Malicia", esMX = "Instructora Malicia", ptBR = "Instrutora Malícia", ruRU = "Инструктор Коварница" },
+				names = { deDE = "Instrukteurin Malicia", frFR = "Instructeur Malicia", esES = "Instructora Malicia", esMX = "Instructora Malicia", ptBR = "Instrutora Malícia", ruRU = "Инструктор Коварница" },
 				does = { "FDG_SCHOLO_8_D1", "FDG_SCHOLO_8_D2" },
 				tip = "FDG_SCHOLO_8_T",
 				-- src: zes 2x WH+CQ (MOB, WT(C), WFG, LFC ook); heal 2x WH+MOB (WT(C), WFG ook); slow 2x WH+MOB; schade over tijd 2x WH+WFG (MOB ook); tip 2x WH+MOB (WT(C), WFG ook). 'Remove the curse' weggelaten: alleen WH noemt het een curse. 'Priestess' weggelaten: geen bron (WH-lijst, WT(C) 'heavy magic user')
@@ -1780,7 +1780,7 @@ ns.FOREVER_DGUIDE = {
 				-- src: optioneel 2x MM(C)+FDJ (WH ook); winkel links van de poort 2x WFG+CQ(quests 18 nov); tabaksdoos 2x WH+MM(C) (FX, FDJ ook); helpers 2x WH+FX; vuur + rookbom 2x WH+MM(C) (FX ook); tabak/quest 2x WH+CQ (MOB ook); eerst leeg 2x WH+FX (FDJ ook); wegdraaien 2x MM(C)+FX
 			},
 			{ npc = 10558, encounter = 473, name = "Hearthsinger Forresten", part = "FDGP_MAIN_GATE", rare = true,
-				names = { deDE = "Herdsinger Forresten", frFR = "Hearthsinger Forresten", esES = "Escupezones Foreste", esMX = "Cantachimeneas Forresten", ptBR = "Cantalar Forresten", ruRU = "Певчий Форрестен" },
+				names = { deDE = "Herdsinger Forresten", frFR = "Chanteloge Forrestin", esES = "Escupezones Foreste", esMX = "Cantachimeneas Forresten", ptBR = "Cantalar Forresten", ruRU = "Певчий Форрестен" },
 				does = { "FDG_STRAT_3_D1", "FDG_STRAT_3_D2" },
 				tip = "FDG_STRAT_3_T",
 				-- src: rare 2x WH+CQ (WT(C), WFG, WHT 'Rare Elite' ook); slaap 2x WH+CQ (WT(C), WFG ook); meerdere spelers 2x WH+WT(C) (WFG ook); spreiden 2x WH+WT(C) (WFG ook)
@@ -1801,7 +1801,7 @@ ns.FOREVER_DGUIDE = {
 				names = { deDE = "Timmy der Grausame", frFR = "Timmy le Cruel", esES = "Timmy el Cruel", esMX = "Timmy el Cruel", ptBR = "Tico, o Cruel", ruRU = "Тайлер" },
 				does = { "FDG_STRAT_6_D1", "FDG_STRAT_6_D2", "FDG_STRAT_6_D3" },
 				tip = "FDG_STRAT_6_T",
-				-- src: plein leeg 2x WT(C)+WFG (MM(C), FDJ ook; CQ zegt 'market square'); melee 2x WH+WT(C) (MOB ook); enrage 2x WH+MOB (WT(C), WFG ook; WFG 20%, de rest geen getal); Bastion-deur in Classic 2x WT(C)+MM(C) (wowforever.be, wowforever.ninja, IVC ook; DB2 Lock 299); tip 2x MOB+WT(C) | MEASURE: Wowhead lists him as 'Rare Elite', but every guide says he always comes once Crusaders' Square is cleared. Is he there every run? (ruRU: Wowhead npc 'Тайлер', DB2 474 'Тимми Беспощадный'; which one is on the nameplate?)
+				-- src: plein leeg 2x WT(C)+WFG (MM(C), FDJ ook; CQ zegt 'market square'); melee 2x WH+WT(C) (MOB ook); enrage 2x WH+MOB (WT(C), WFG ook; WFG 20%, de rest geen getal); Bastion-deur in Classic 2x WT(C)+MM(C) (wowforever.be, wowforever.ninja, IVC ook; DB2 Lock 299); tip 2x MOB+WT(C) | MEASURE: Wowhead lists him as 'Rare Elite', but every guide says he always comes once Crusader's Square is cleared. Is he there every run? (ruRU: Wowhead npc 'Тайлер', DB2 474 'Тимми Беспощадный'; which one is on the nameplate?)
 			},
 			{ npc = 11032, encounter = 476, name = "Malor the Zealous", part = "FDGP_MAIN_GATE", one = true,
 				names = { deDE = "Malor der Eifrige", frFR = "Malor le Zélé", esES = "Malor el Entusiasta", esMX = "Malor el Fanático", ptBR = "Malor, o Zeloso", ruRU = "Малор Ревностный" },
@@ -1852,7 +1852,7 @@ ns.FOREVER_DGUIDE = {
 				-- src: ziggurat 2x WH+CQ (MOB, WT(C) ook); overname 2x WH+CQ (MOB, WT(C), WFG ook); silence 2x WH+WT(C) (WFG ook); curse 2x WH+WT(C) (WFG ook); halve health 2x WH+CQ (WT(C), WFG ook); Acolytes 2x WH+WT(C) (WFG ook)
 			},
 			{ npc = 11121, encounter = 2795, name = "Black Guard Swordsmith", part = "FDGP_SERVICE_GATE", optional = true,
-				names = { deDE = "Schwertschmied der schwarzen Wache", frFR = "Fabricant d'épées de la Garde noire", esES = "Armero Guardia Negra", ptBR = "Cuteleiro da Guarda Negra", ruRU = "Оружейник Черной Стражи" },
+				names = { deDE = "Schwertschmied der schwarzen Wache", frFR = "Fabricant d'épées de la Garde noire", esES = "Armero Guardia Negra", esMX = "Armero Guardia Negra", ptBR = "Cuteleiro da Guarda Negra", ruRU = "Оружейник Черной Стражи" },
 				does = { "FDG_STRAT_15_D1" },
 				tip = "FDG_STRAT_15_T",
 				-- src: optioneel + plans 2x WH+WT(C) (WFG, MM(C) ook; CQ: 'als je zijn plek passeert', zie notes); bij de Baroness 2x WH+WFG (MM(C) ook); smid-buit 2x WH+CQ; tip 2x WT(C)+WFG. Vaardigheden weggelaten: WH 'geen', WFG 'curse'
@@ -1876,7 +1876,7 @@ ns.FOREVER_DGUIDE = {
 				-- src: plein na ziggurats 2x WT(C)+WFG (CQ, MOB, WH ook); abominaties 2x WH+MOB (CQ, WT(C), WFG ook); knockout + wissel 2x WH+MOB (CQ, WFG ook); trample 2x WH+WFG; golf + wachters 2x WFG+WT(C) (MM(C) ook; CQ zegt de golf vóór Ramstein; controle 2b FG R5); taunt 2x MOB+WFG; AoE 2x CQ+WFG
 			},
 			{ npc = 10440, encounter = 484, name = "Baron Rivendare", part = "FDGP_SERVICE_GATE",
-				names = { deDE = "Baron Rivendare", frFR = "Baron Rivendare", esES = "Barón Osahendido", esMX = "Barón Osahendido", ptBR = "Barão Rivendare", ruRU = "Барон Ривендер" },
+				names = { deDE = "Baron Rivendare", frFR = "Baron Vaillefendre", esES = "Barón Osahendido", esMX = "Barón Osahendido", ptBR = "Barão Rivendare", ruRU = "Барон Ривендер" },
 				does = { "FDG_STRAT_19_D1", "FDG_STRAT_19_D2", "FDG_STRAT_19_D3" },
 				tip = "FDG_STRAT_19_T",
 				-- src: 45 min 2x CQ+WFG (WT(C), MM(C), FDJ ook; wanneer de klok start verschilt: WT(C)/WFG de Gauntlet-poort, CQ het binnengaan); aura 2x WH+MOB (CQ, WT(C), WFG ook); minder healing 2x WH+MOB (WT(C), WFG ook); skeletten die hem helen 2x MOB+WFG (WH, CQ: skeletten); deur 2x WH+WFG; afstand 2x WH+MOB (WFG ook); skeletten doden 2x WH+MOB (CQ, WFG ook)

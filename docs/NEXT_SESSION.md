@@ -2,6 +2,19 @@
 
 ## ▶ 18 nov (laat) — Bouwchat addons-12: bazengids STAP 2b GEBOUWD + namen van het naamplaatje
 
+- ✅ **Bijstelling van keuze B GEBOUWD** (Rob via sparring, letterlijk: *"Ja, volg jouw advies, dus dat mag."*): is de
+  naamplaatje-naam in een niet-Engelse taal gelijk aan de Engelse naam terwijl DB2 DungeonEncounter wél vertaalt → de
+  DB2-naam (Wowhead valt dan terug op Engels, GEMETEN door sparring met npc 647 vs 639); esMX zonder eigen naam → esES.
+  Alle 267 bazen nagelopen met scratch `dg2_namesC.py` → `dg2_names_fix.lua` (generator past hem toe na de plates):
+  **30 namen** (deDE 13, frFR 14, esES 2, esMX 1; bv. deDE "Kapitän Grünhaut", "Hauptmann Krombruch", frFR "Baron
+  Vaillefendre"). Overgeslagen: alleen een andere apostrof, groepsgevechten, DB2-encounter met een andere Engelse naam.
+  Zinnen: `dg2_namesC_text.py` vond 5 regels met de hele oude naam (de/fr/es) → vervangen; 4 treffers met alleen een
+  voornaam of een andere naam bleven. ⚠️ `dg2_namesC.py` leest het GEGENEREERDE bestand: niet opnieuw draaien nadat de
+  fix erin zit (dan maakt hij een lege lijst); bij een nieuwe baas eerst `dg2_gen.py all2b` zonder `dg2_names_fix.lua`.
+  Ook vastgelegd in `docs/CLIENT_NAMES_2026-10-20.md`. Het esMX-punt hieronder ("Engels of esES") is hiermee beslist
+  voor de bazennamen én de zinnen: 13 esMX-overlayregels (11 uit 2b + ZF_6_D1/ZF_8_D1 uit 2a) verschilden van esES
+  alleen in een Engelse placeholder-npcnaam (scratch `dg2_mx11.py`) → verwijderd, esMX toont nu de esES-zin.
+
 - 🗺️ **Stap 2b GEBOUWD** (zelfde bouw-ja): Sunken Temple, Blackrock Depths, Dire Maul (East/North/West), Blackrock Spire
   (Lower/Upper; Upper = 10 spelers, GEMETEN GroupFinderActivity 837), Scholomance, Stratholme (Main Gate/Service Gate) +
   nieuw in Forever (recheck): Blackmaw Hold, The Shaper's Terrace. Nu **28 dungeons, 267 bazen, 106 items** (GEMETEN in
@@ -20,8 +33,7 @@
     `docs/forever/DUNGEONGIDS_VERTAALCONTROLE2B_{NDF,EPR}_2026-11-18.md`): 12 FOUT (o.a. deDE "Zauberdurchdringung",
     esMX "calabozo" i.p.v. "mazmorra", esES "coger" → "tomar", ptBR "Praça dos Cruzados") + risico's; 39 regels
     verbeterd. enUS/nlNL "Crusaders' Square" → "Crusader's Square" (GEMETEN retail UiMapGroupMember 536; Forever
-    heeft die tabel niet). Open: 11 esMX-regels zetten de Engelse naam waar Wowhead esMX een placeholder heeft, terwijl
-    de kop van ForeverClassQuests_esMX.lua zegt "dan de esES-naam" (2a deed hetzelfde) — één regel kiezen. Sleutels per taal GEMETEN: 999
+    heeft die tabel niet). (Het esMX-placeholderpunt is beslist en gebouwd: zie "Bijstelling van keuze B" hierboven.) Sleutels per taal GEMETEN: 999
     (enUS = 986 gids + 13 UI), geen dubbele/verouderde/ontbrekende; esMX-overlay 69, geen verouderde regel (scratch
     `dg2_mxcheck.py`).
   - Open: Sunken Temple heeft in Forever een NIEUWE encounterset (3582-3589) naast de oude (`encounterAlt`), welke vuurt

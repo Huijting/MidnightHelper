@@ -921,7 +921,7 @@ for k, v in pairs({
 	FDG_DIRE_14_T = "Todos luchan cerca de ella; mata primero a Illyanna, luego al oso.",
 	FDG_DIRE_15_D1 = "Un sacerdote de las sombras fantasmal: hechizos de sombras, y toma el control de la mente de un jugador.",
 	FDG_DIRE_15_T = "Interrumpe sus hechizos; la resistencia a las Sombras ayuda.",
-	FDG_DIRE_16_D1 = "Un raro: no siempre está; cerca de las rampas junto al Magister Kalendris.",
+	FDG_DIRE_16_D1 = "Un raro: no siempre está; cerca de las rampas junto al Magíster Kalendris.",
 	FDG_DIRE_16_D2 = "Lucha como un pícaro: golpea fuerte y ciega o aturde a los jugadores un momento.",
 	FDG_DIRE_16_T = "Deja que el tanque la agarre primero; quita la ceguera si puedes.",
 	FDG_DIRE_17_D1 = "Encerrado tras un campo de fuerza: mata a los guardias de los cinco pilones de cristal para abrirlo.",

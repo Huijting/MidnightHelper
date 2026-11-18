@@ -8,6 +8,13 @@ Vislar" ↔ "Interrogateur Vishas", deDE "Hochinquisitor Schönufer" ↔ "Hochin
 "Nar'guk", ruRU "Келебрас" ↔ "Селебрас". AFGELEID: Forever toont boven het monster de oude Classic-naam. Keuze: de
 npc-naam per locale wint, voor alle dungeons (ook stap 1); `DungeonEncounter` alleen nog als id. Bouw: stap 2b.
 Het idee "naam onthouden bij het targeten" koos Rob niet: niet bouwen.
+**Bijstelling, zelfde avond** — Rob via Sparring 18-11, letterlijk: *"Ja, volg jouw advies, dus dat mag."* GEMETEN door
+sparring: Wowhead npc 647 deDE geeft de naam "Captain Greenskin" in een verder Duitse tooltip ("Stufe 20 Humanoid");
+positieve controle npc 639 deDE = "Edwin van Cleef". AFGELEID: Wowhead valt terug op Engels als een npc geen vertaalde
+naam heeft. Regel: (1) is de naamplaatje-naam in de/fr/es/esMX/pt/ru precies de Engelse naam en heeft DB2
+`DungeonEncounter` wél een vertaling (meer dan een andere apostrof), dan de DB2-naam; anders blijft het naamplaatje.
+(2) esMX zonder eigen naam = de esES-naam. Gebouwd: 30 namen (deDE 13, frFR 14, esES 2, esMX 1), plus 5 zinnen; en 13 esMX-zinnen met een
+Engelse placeholder-npcnaam vervallen (esMX toont dan de esES-zin).
 
 ## 🔴 Bewuste uitzondering: frFR "LFR" blijft "LFR" (15 nov 2026)
 Rob, via Sparring 15-11, letterlijk: *"Haha a"* (optie a = "LFR" laten staan). GEMETEN: het Franse spel noemt de
