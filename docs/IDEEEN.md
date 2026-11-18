@@ -26,6 +26,18 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 
 ## Open — wacht op Rob
 
+### Forever: een grote zoekbalk zoals in Midnight + valuta en reputaties (NOG GEEN BOUW-JA)
+- Bron: Rob 18 nov (via Sparring 18-11), letterlijk: *"wat we nog missen in de forever versie is net zo een uitgebreide
+  zoek functie (bar) als in de midnight versie."* en *"… laat hem nog niets bouwen maar met een voorstel komen , in
+  principe moet je alles kunnen vinden. ook moeten we kijken wat voor een currencies, reputaties ed in forever zijn die
+  belangrijk zijn :)"*
+- Onderzoek: `docs/forever/ZOEKBALK_EN_VALUTA_2026-11-18.md`. GEMETEN: NavSearch.lua laadt in Forever maar de balk zat
+  in het oude venster (onbereikbaar); ~1500 Forever-dingen zijn doorzoekbaar te maken; 5 valuta voor spelers
+  (Honor, Rank Points, Merchant's Favor, Undermine Real, Darkmoon Ticket); MH heeft er nu niets voor.
+- Voorstel: (1) balk bovenin het overzicht met de Midnight-zoekmotor en een eigen Forever-lijst; (2) plekken met
+  "Show the way"; (3) eerst een meting in de client (`C_Reputation`, `C_CurrencyInfo`), dan een kaart Reputaties &
+  valuta. Spel: F. Voor wie: N + V (AFGELEID). ⏳ Rob kiest.
+
 ### Midnight: de eerste blik bij openen, zoals het Forever-overzicht (GEPAUZEERD tot na za 21 nov 10:00)
 - Bron: Rob 18 nov (via Sparring 18-11), letterlijk: *"Ik denk dat we het nooit zo mooi kunnen krijgen als de forever
   versie omdat we al zoveel hebben in midnight, we pauzeren dit tot na de Claude Code reset 🙂 , wat ik juist mooi vond

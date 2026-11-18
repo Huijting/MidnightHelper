@@ -21,6 +21,10 @@
   de Claude Code reset 🙂 , wat ik juist mooi vond van onze forever versie is de eerste blik die je ziet als je MH
   opent :)"*). Kern = de eerste blik bij openen (overzicht als voordeur), niet per se de jas. Staat in IDEEEN.md (Open,
   bovenaan). Niets gebouwd.
+- 🔎 Forever-zoekbalk + valuta/reputaties: ONDERZOCHT, niets gebouwd (Rob via sparring: *"laat hem nog niets bouwen maar
+  met een voorstel komen"*). Rapport `docs/forever/ZOEKBALK_EN_VALUTA_2026-11-18.md` (deel A eigen meting, deel B één
+  mh-research Opus). Voorstel naar sparring; IDEEEN.md bovenaan. ⚠️ Een helper schrijft zijn probe-job in DEZELFDE
+  scratchpad als deze chat (zelfde sessie-id) → tijdens een helperrun zelf geen `_probe.py` draaien.
 
 ## 🔴 18 nov — GEEN FABLE deze week (t/m reset za 21 nov 10:00)
 
