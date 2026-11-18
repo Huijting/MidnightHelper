@@ -166,6 +166,10 @@ local function Distance(yards)
 end
 
 local function Money(c)
+	-- 18 Nov 2026 (Rob: "ja laat alle 3 zien"): gold, silver and copper with coins, also when 0 (ForeverStyle.lua).
+	if ns.ForeverStyle and ns.ForeverStyle.Money then
+		return ns.ForeverStyle.Money(c)
+	end
 	if C_CurrencyInfo and C_CurrencyInfo.GetCoinTextureString then
 		local ok, s = pcall(C_CurrencyInfo.GetCoinTextureString, c)
 		if ok and s then

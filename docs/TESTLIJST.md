@@ -32,6 +32,14 @@ snelbalk, instellingen — geen foutmeldingen. Forever wordt nu getest (uitslage
 een logische afkorting voor de action house. 6 komt later"*** (Willow: "action house" = Auction House). Zoekbalk stap 1 +
 stap 2 werken in Forever; `/mh repprobe` gedaan. De Midnight-check van de zoekbalk komt later.
 
+## 🪙 18 nov (laat) — Forever: altijd goud, zilver én koper + Now-regels helemaal leesbaar
+
+Geen nieuw bestand: een `/reload` is genoeg (na de herstart voor de rares).
+- [ ] Links: "Gold: 0 [goud] 3 [zilver] 14 [koper]" - alle drie de muntjes, ook bij 0. Zo ook "Costs …" op de Now-kaart,
+      de Characters-regels, het totaal en de trainerpagina.
+- [ ] Now-lijst: "You can learn 8 new weapon skills now. (fitting Beast Mastery, according to …)" staat er helemaal; de rij
+      wordt zo hoog als nodig. Geen enkele regel in die lijst eindigt nog op "…".
+
 ## 🗺️ 18 nov — Forever: alle rares per zone (stap B)
 
 ⚠️ Nog een nieuw bestand: WoW helemaal herstarten (/reload is niet genoeg).

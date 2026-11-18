@@ -63,6 +63,11 @@
   in groep chars (4e knop), zoekbalk cat `rep`/`currency`. Offline 70.220 runs, 0 fouten (Horde + Alliance, alles
   onleesbaar, Honor 24000/25000). ⚠️ Teksten alleen en + nl: de/fr/es/pt/ru vallen terug op Engels → één vertaalronde
   (mh-writer) na rares A. NIET in het spel gezien.
+- 🪙 **Altijd g/s/c + Now-regels vrij** (Rob via sparring, letterlijk: *"ja laat alle 3 zien"* en *"tekst gaat hier niet
+  helemaal goed, de bovenste"*): `S.Money(c, plain)` in ForeverStyle.lua bouwt altijd goud, zilver en koper met de
+  muntplaatjes `Interface\MoneyFrame\UI-*Icon` (bestaan in Forever: AFGELEID); gebruikt door ForeverOverview,
+  ForeverChars, ForeverTrainer, ForeverDoNow en ForeverWeapons (hun oude terugval blijft eronder). Now-rijen: geen
+  regellimiet meer (tekst én subregel wrappen, rij groeit mee). Offline 103.610 runs, 0 fouten. /reload genoeg.
 - 🌍 **Vertaalronde GEDAAN** (één mh-writer, geen Fable): 78 sleutels (rep-kaart, rares, scroll-hint, "(N characters)")
   in de/fr/es/pt/ru (`ForeverClassQuests_<taal>.lua`, na FOV_SEARCH_CTX_TAB) + 30 esMX-regels; telling per pack GEMETEN
   (78 = enUS), luac OK. Spelnamen GEMETEN in Forever 70959 (ItemSparse, Wowhead item-tooltips, ItemSet 2132, AreaTable,

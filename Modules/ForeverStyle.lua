@@ -548,6 +548,24 @@ function S.SkinOnShow(f)
 	end
 end
 
+--- Money as gold, silver AND copper, each with its coin, also when a part is 0 ("0g 3s 14c" with coins). Rob, 18 Nov
+--- 2026 (via sparring): "kunnen we niet ook wanneer we 0 goud hebben we dat ook laten zien dmv een 0m en een goud
+--- symbooltje net zoals de zilver en copper ?" → "ja laat alle 3 zien". GetCoinTextureString leaves zero parts out, so
+--- the text is built here, with the same coin textures that function uses (Interface\MoneyFrame\UI-*Icon; that they
+--- exist in the Forever client is AFGELEID - the files are as old as the game). `plain` = letters instead of coins.
+local COIN = "|TInterface\\MoneyFrame\\UI-%sIcon:0:0:2:0|t"
+function S.Money(copper, plain)
+	local c = math.floor(tonumber(copper) or 0)
+	if c < 0 then
+		c = 0
+	end
+	local g, s, k = math.floor(c / 10000), math.floor(c / 100) % 100, c % 100
+	if plain then
+		return ("%dg %ds %dc"):format(g, s, k)
+	end
+	return ("%d" .. COIN .. " %d" .. COIN .. " %d" .. COIN):format(g, "Gold", s, "Silver", k, "Copper")
+end
+
 --- Text with **bold** marks and "- " lines as the game shows it: bold in the theme's gold, lines with a bullet.
 function S.Format(body)
 	local g = S.T().gold

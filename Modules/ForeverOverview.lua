@@ -50,28 +50,9 @@ local win
 --- Coins with their icons. 18 Nov 2026 (site chat on Rob's screenshots: "Gold: 314" for 3 silver 14 copper, and
 --- "Costs 10"): this file used the global GetCoinTextureString, which Forever does not have (ForeverQuestHint.lua
 --- found that on 10 Nov), so the raw copper number was shown. Same order as the other Forever modules.
+--- 18 Nov 2026 (later, Rob: "ja laat alle 3 zien"): always gold, silver and copper with their coins (S.Money).
 local function Money(c)
-	c = tonumber(c) or 0
-	if C_CurrencyInfo and C_CurrencyInfo.GetCoinTextureString then
-		local ok, s = pcall(C_CurrencyInfo.GetCoinTextureString, c)
-		if ok and type(s) == "string" and s ~= "" then
-			return s
-		end
-	end
-	if GetCoinTextureString then
-		local ok, s = pcall(GetCoinTextureString, c)
-		if ok and type(s) == "string" and s ~= "" then
-			return s
-		end
-	end
-	-- Neither exists: still say gold/silver/copper, never a bare copper number.
-	local g, s, k = math.floor(c / 10000), math.floor(c / 100) % 100, c % 100
-	if g > 0 then
-		return ("%dg %ds %dc"):format(g, s, k)
-	elseif s > 0 then
-		return ("%ds %dc"):format(s, k)
-	end
-	return ("%dc"):format(k)
+	return S.Money(c)
 end
 
 --------------------------------------------------------------------------------
@@ -2087,9 +2068,16 @@ local function FillNow(f, items, up)
 		row:SetPoint("RIGHT", f.now.child, "RIGHT", -2, 0)
 		-- A line without a place or second line (a tip) may use three lines (sparring: "Dungeons for your level… Ragefir…").
 		local sub = it.place or it.what
-		row.text:SetWordWrap(sub == nil)
+		-- 18 Nov 2026 (Rob's screenshot: "You can learn 8 new weapon skills now. (fitting Beast Mastery, accordin…" stopped
+		-- after 3 lines once the button got wider): no line limit any more - the row grows with its text (height below),
+		-- the line under it too.
+		row.text:SetWordWrap(true)
 		if row.text.SetMaxLines then
-			row.text:SetMaxLines(sub == nil and 3 or 1)
+			row.text:SetMaxLines(0)
+		end
+		row.sub:SetWordWrap(true)
+		if row.sub.SetMaxLines then
+			row.sub:SetMaxLines(0)
 		end
 		row.text:SetTextColor(it.kind == "tip" and A.dim[1] or A.text[1], it.kind == "tip" and A.dim[2] or A.text[2],
 			it.kind == "tip" and A.dim[3] or A.text[3])
