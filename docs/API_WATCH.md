@@ -10775,3 +10775,186 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
     *"Nachtcontrole 2026-11-17: 0 nakijken C1/C2, QuestV2 live niet bereikbaar"*. 📌 **Beide TOC's staan sinds
     vannacht op `## Version: 5.4.0`** (gisteren `5.3.0`); `MidnightHelper.toc` op `## Interface: 120007, 120100,
     120105, 120107` plus `## Interface-Camelot: 16001`, en `MidnightHelper_Camelot.toc` op `## Interface: 16001`.
+- [2026-11-18] 🔴 **ÉÉN [MOET GEFIKST], en hij komt niet uit een patch note maar uit een nieuwe LIVE
+  Forever-build (`1.60.1.70959`) die Blizzards eigen code op één regel omzette — waarna bleek dat MH
+  diezelfde naam op twee plekken verschillend bouwt. Verder: óók een nieuwe LIVE retail-build
+  (`12.1.5.70961`), een opnieuw hernoemd hotfix-artikel, één nieuwe spelersdraad, géén blue post, géén
+  SimC-release, géén gewijzigde API-changes-pagina.**
+  - 🔴 **[MOET GEFIKST] — `Modules/ForeverChars.lua:94` plakt voornaam en surname met een HARDGECODEERDE
+    spatie, terwijl `Modules/EditModeBackup.lua:848-849` sinds gisteren de client-constante gebruikt.
+    Eén addon, twee antwoorden op dezelfde vraag; de naam uit regel 94 staat op het scherm.**
+    GEMETEN, eerstehands in de werkmap:
+    - `Modules/ForeverChars.lua:88-96` doet `local name, surname = UnitName("player")` en dan
+      `name = name .. " " .. surname`. Die `rec.name` wordt getekend op **`:437`**
+      (`local who = ClassColor(rec.class) .. (rec.name or "?") .. "|r"`) en op **`:510`** (dezelfde vorm
+      in de rij-opbouw). Het is dus geen interne sleutel maar zichtbare tekst.
+    - `Modules/EditModeBackup.lua:848-849` doet het wél zoals Blizzard:
+      `local sep = Constants and Constants.CharacterNameSeparatorConsts and
+      Constants.CharacterNameSeparatorConsts.CHARACTERNAME_SURNAME_SEPARATOR or " "`, mét
+      `issecretvalue`-guard op `:846-847`. **De fix is dus geen verzonnen migratie: het patroon staat al in
+      de repo, vier bestanden verderop.** Ik heb niets aangeraakt.
+    - 🔁 **CORRECTIE op mijn eigen regel van 6 nov (`docs/API_WATCH.md:8947`).** Die mat
+      *"`CHARACTERNAME_SURNAME_SEPARATOR` → 0"* in MH en dat was die dag waar. Vandaag is het **1**:
+      `git log -S` wijst de regel toe aan commit **`a61367d`** *"Forever: tien nieuwe handige macro's
+      (en + nl)"*, **17 nov** — dus gisteren, ná mijn vorige run. Mijn 6-novemberregel is niet fout,
+      hij is verlopen.
+    - ⚠️ **Wat ik NIET kon meten, en het verandert de ernst.** De WAARDE van
+      `CHARACTERNAME_SURNAME_SEPARATOR` staat niet in Blizzards gegenereerde API-documentatie: GEMETEN
+      op build 70959, `grep -rn "CharacterNameSeparator"` over alle **643** bestanden van
+      `Blizzard_APIDocumentationGenerated` → **0 treffers** (positieve controle in dezelfde run, zelfde
+      map: `Surname` → 4 bestanden, waaronder `NameUtilDocumentation.lua`). Het is een
+      client-`Constants`-tabel, geen Lua-bron. **Is die waarde `" "`, dan is de fix een no-op en puur
+      hygiëne; is hij dat niet, dan noemt de Forever-karakterlijst namen anders dan het spel zelf.**
+      Dat is in-game-werk voor Rob of Cisca, niet van buiten vast te stellen. Ernst daarom: laag en
+      cosmetisch, maar de reparatie is één regel en het voorbeeld staat al in huis.
+    - 📌 **Waar het vandaan komt, zodat de bron dateerbaar blijft:** in build 70959 zette Blizzard in
+      `Interface/AddOns/Blizzard_AddOnList/AddonList.lua:664` `local text = UnitName("player")` om in
+      `local text = NameUtil.FormatUnitNameForDisplay("player")`. Die helper
+      (`Blizzard_FrameXMLUtil/Camelot/NameUtil.lua`, eerstehands gelezen op 70959) doet letterlijk
+      `return name..Constants.CharacterNameSeparatorConsts.CHARACTERNAME_SURNAME_SEPARATOR..surname`.
+      **`NameUtil` zelf is NIET nieuw vandaag** — het bestand stond niet in de diff, en
+      `C_NameUtil.ReplaceSurnameSeparatorWithLinkSeparator` staat al in de Added-lijst van
+      `Patch_1.60.1/API_changes`. Nieuw is alleen dat Blizzards eigen UI nu op de constante overstapt.
+      In MH: `NameUtil` → **0** treffers, `FormatUnitNameForDisplay` → **0** (positieve controle zelfde
+      reikwijdte: `UnitName` → **158**).
+  - 🆕 **Forever: NIEUWE LIVE-BUILD `1.60.1.70959` — de eerste in vijf dagen, en de tag `1.60.1` is
+    MEEVERHUISD.** EERSTEHANDS: `git ls-remote` geeft `refs/heads/forever` =
+    **`3d8abb1da73acd38e412e24fb3f99454a6392346`** (gisteren `bebcb6bf`), en `refs/tags/1.60.1` wijst
+    naar diezelfde nieuwe SHA — Blizzard/Gethe hangt de tag dus opnieuw op in plaats van een nieuwe te
+    maken. `raw.githubusercontent.com/.../3d8abb1/version.txt` geeft letterlijk `1.60.1.70959`.
+    Onafhankelijk bevestigd op wago.tools: `wowf` **1.60.1 build 70959**, *detected* **17 nov 15:19:07**.
+    Diff `70938 → 70959`: **17 bestanden, 102 toevoegingen, 69 verwijderingen** (eerstehands gediffd in
+    een partiële clone, niet via een pagina). Alles in die diff per label:
+    - ✅ **[RAAKT ONS NIET] — `C_Mail.IsCODEnabled()` is NIEUW.** `MailInfoDocumentation.lua`
+      (`Namespace = "C_Mail"`, `Environment = "All"`), returnt `isCODEnabled` (`bool`, niet nilable).
+      Blizzard gebruikt hem meteen zelf: `MailFrame.lua:1323` is nu
+      `if ( itemCount > 0 and C_Mail.IsCODEnabled()) then`, plus een nieuwe `SendMailCODButtonMixin`
+      met een rode `COD_DISABLED`-tooltip. MH: `C_Mail` → **0**, `IsCODEnabled` → **0**,
+      `COD_DISABLED` → **0**.
+    - ✅ **[RAAKT ONS NIET] — nieuwe constante `EncodingDeserializeSizeLimit = 104857600`** in
+      `EncodingUtilConstantsDocumentation.lua`, naast de bestaande `EncodingDecompressSizeLimit`
+      (zelfde waarde) en `EncodingStackSizeLimit = 100`. MH: `EncodingUtil` → **0**,
+      `C_EncodingUtil` → **0**, `EncodingDeserialize` → **0**.
+    - ✅ **[RAAKT ONS NIET] — nieuw linktype `nonbattlepet`** in `GetFixedLink` (`Mainline/ItemRef.lua:58`,
+      kleur `|cffffd200`, dezelfde als `battlepet`). MH: `GetFixedLink` → **0**, `nonbattlepet` → **0**,
+      `SetItemRef` → **0**, `LinkUtil` → **0**. Positieve controle zelfde reikwijdte, want wij doen wél
+      iets met links: `SetHyperlink` → **19**, `ItemRefTooltip` → **6**, `OnHyperlinkClick` → **4**.
+    - ✅ **[RAAKT ONS NIET] — `ContainerFrameCombinedBagsMixin:ApplySmartNavOverrideForLeftmostButton`
+      is VERWIJDERD** (36 regels weg uit `Mainline/ContainerFrame.lua`, plus de aanroep in `:OnShow`;
+      de `assert`-tekst in `:SmartNavPanelInfoAdded` is van *"FindTopLeftButton called outside gamepad
+      mode!"* naar *"SmartNavPanelInfoAdded called outside gamepad mode!"* gezet). MH:
+      `SmartNavigation` → **0**, `ApplySmartNavOverride` → **0**, `GamepadBagBar` → **0**,
+      `InputUtil` → **0**.
+    - ✅ **[RAAKT ONS NIET] — de rest van de diff is Blizzards eigen tutorial-laag:** een nieuw
+      `Blizzard_Tutorials/Camelot/Blizzard_TutorialsOverrides.lua` (ook toegevoegd aan
+      `Interface/ui-code-list.txt`), wijzigingen in `Blizzard_Tutorial.lua`,
+      `Blizzard_TutorialManager.lua`, `Blizzard_Tutorials_Classes.lua` en de micro-buttons
+      (`Camelot/MainMenuBarMicroButtonsOverrides.lua`, `Mainline/MainMenuBarMicroButtons.lua`). MH:
+      `TutorialManager` → **0**, `Blizzard_Tutorials` → **0**.
+  - 🆕 **Retail: NIEUWE LIVE-BUILD `12.1.5.70961` — en de API-documentatie ervan is nog NIET te meten.**
+    wago.tools: branch `wow`, **12.1.5 build 70961**, *detected* **17 nov 20:16:02** (daarnaast
+    `wow_classic` **5.5.4.70960**, niet mijn terrein). ⚠️ `Gethe/wow-ui-source` loopt daar nog op
+    achter: `refs/heads/live` = **`297d7aaa`** = `version.txt` **`12.1.5.70783`** (4 nov, veertiende
+    dag). **Er is dus een live-build waarvan ik de Lua-bron en de gegenereerde documentatie vandaag
+    níét kan diffen; dat is géén "geen wijzigingen", dat is "nog niet te zien".** Morgen opnieuw kijken.
+    PTR ongewijzigd: `refs/heads/ptr` = `a750208e` = `refs/tags/12.1.7` = `12.1.7.70892` (12 nov,
+    zevende dag), wago `wowt` ook nog op 70892. Branch `beta` = `078d0cf7` = `12.0.1.66220`, oud.
+  - 🆕 **Forever: het hotfix-artikel heet nu *"WoW: Forever Hotfixes - November 17, 2026"* — en het is
+    ALWEER hetzelfde artikel-ID `24315281`** (gisteren *"- November 16"*, de dag ervoor
+    *"- November 13"*). Dit is nu drie dagen op rij hetzelfde ID; Blizzard hernoemt en vult aan in
+    plaats van een nieuw artikel te plaatsen. Zonder cache-buster leest dat als "niets nieuws". Op MIJN
+    terrein staan er precies twee regels, beide onder **User Interface**:
+    - ✅ **[RAAKT ONS NIET]** — *"Fixed a bug preventing players' ignore lists from persisting through
+      logging out of the game."* MH: `C_FriendList` → **0**, `AddIgnore` → **0**, `GetNumIgnores` → **0**,
+      `IsIgnored` → **0**.
+    - ✅ **[RAAKT ONS NIET]** — *"Fix a UI bug with Master Swordsmith, Master Axesmith, Master
+      Hammersmith."* MH: `Swordsmith` → **0**, `Axesmith` → **0**, `Hammersmith` → **0**,
+      `WeaponMaster` → **0**. ⚠️ Dit lijkt op ons `FWEAP_`-terrein maar is het niet: dat zijn de
+      Blacksmithing-specialisatietrainers, niet de weapon masters. Positieve controle in dezelfde run,
+      zodat die nullen afwezigheid zijn en geen meetfout: `FWEAP_` → **223** treffers.
+    - 📌 De rest van 17 nov is INHOUD (Cozy Sleeping Bag, Might of Stormwind/Warchief's Blessing,
+      Shaman Flurry/Windfury, Upper Blackrock Spire-moeilijkheid terug omhoog, Soulforge Armor naar
+      Spell Power, Waylaid Crate, *The Old Ways*-recept, Bronze Mace nu BoE, Cultivation op Mageroyal,
+      Spectral Iron Ore, *Agamaggan's Blood* geen dungeon quest meer, AV-quests vanaf level 58). Dat is
+      `docs/CONTENT_WATCH.md` en `docs/PTR_12.0.7_DATA.md`; ik laat het liggen.
+  - 🆕 **Forum: één nieuwe draad, `2419978` *"Why isn this variables being saved?"*** (17 nov 21:16,
+    laatste post 18 nov 01:54, 6 posts, Nirran). Geen API-wijziging maar een fout in eigen code: de TOC
+    zegt `## SavedVariables: namesTable, ignoredPlayers` terwijl de addon naar `SayMyName.namesTable`
+    schrijft. Fizzlemizz, letterlijk: *"Saved Variables are initially nil. … Moving to Forever (or
+    whicheve client) you are starting from a blank slate."* en *"ADDON_LOADED is fired first when your
+    addon loads and again for every addon that loads after that so you should make sure you only call
+    your code once."*
+    - ✅ **[AL AFGEDEKT], en dat is de moeite van het natrekken waard, want dit is precies de val waar
+      MH 23 `ADDON_LOADED`-aanroepen in staat.** GEMETEN, elke handler apart gelezen: `Core.lua:514-517`
+      doet `local loadedAddon = ...` en `if loadedAddon ~= addonName then return end` vóór
+      `InitSavedVariables()`, en meldt zich op `:549` af (`UnregisterEvent("ADDON_LOADED")`), dus de
+      init loopt precies één keer. De andere handlers filteren óók, elk op zijn eigen doel:
+      `Modules/DelveItemsPopup.lua:1984` en `Modules/DelveItemBrokers.lua:256` (`if arg1 ~= addonName
+      then return end`), `Modules/DelveCuriosAdvisor.lua:1230`
+      (`== "Blizzard_DelvesCompanionConfiguration"`), `Modules/AuctionShopButton.lua:151` en
+      `Modules/RaidShoppingList.lua:510` (`== "Blizzard_AuctionHouseUI"`),
+      `Modules/SidePanel.lua:392` (`== cfg.addon`, en meldt zich op `:395` af zodra de hook zit).
+      `Modules/Rares.lua:798` filtert bewust de ándere kant op (`addonName ~= "MidnightHelper"`), met de
+      reden erboven op `:768-772`.
+  - 🧩 **Forum: `2417112` *"Addon API Requests: PlaySoundFile Volume and SoundKit Channel Overrides"***
+    (15 nov 19:46, 3 posts, laatste 15 nov 21:21) — binnen de 7 dagen en nooit eerder in dit logboek.
+    ⚠️ **Het is een VERZOEK, geen wijziging**, en de vraagsteller stuurt zijn eigen melding door naar
+    `Stanzilla/WoWUIBugs` issue 132. Eén bewering erin is wel een feit om te onthouden:
+    *"`C_Sound.PlaySound()` now supports `volumeOverride`, but `PlaySoundFile()` still doesn't."*
+    - ✅ **[AL AFGEDEKT] — en wij raken dit nauwelijks aan.** GEMETEN: `PlaySoundFile` → **2** treffers,
+      beide in `Modules/DispelSound.lua:126-127`, achter `if PlaySoundFile then` én in een `pcall`.
+      `PlaySound(` → **1** treffer, `Modules/Openables.lua:585`:
+      `PlaySound((SOUNDKIT and SOUNDKIT.IG_BACKPACK_OPEN) or 5274, "SFX")` — bestaanscheck plus
+      numerieke terugval. `C_Sound` → **0**, `volumeOverride` → **0**. Niets te migreren; als Blizzard
+      dit verzoek ooit inwilligt is het een extra argument, geen breuk.
+  - 📡 **Wat ik gelezen heb, mét een cache-buster achter elke Exa-URL.** `Patch_12.1.7/API_changes`:
+    **onveranderd** (Summary nog steeds alleen de GUID-obfuscatie mét *"This change will be available
+    for testing in a future build of 12.1.7"* en de TOC-directives die variabelen niet meer
+    expanderen; TOC `120107`). `Patch_1.60.1/API_changes`: **onveranderd** — Notable changes nog steeds
+    t/m build **70291** (7 okt), blue posts t/m **16 okt**, dus die pagina loopt nu **drie** builds
+    achter op wat ik hierboven zelf gemeten heb. **UI-and-Macro-forum** volledig via `latest.json`
+    (30 draden, alle velden geparsed): twee bewegingen sinds gisteren — de nieuwe draad `2419978` en
+    een bump van `2413374` *"UI: Centering Interface on Double Wide"* (17 nov 18:07). **GÉÉN blue post
+    in de hele categorie, en dat is dit keer echt gemeten en niet aangenomen:** van alle 30 draden
+    heeft precies één een staff-account als *Most Recent Poster*, en dat is de vastgepinde `24526`
+    *"Welcome! Please read!"* van Kaivax uit **2018**; `21139` heeft Adreaver (groep 57, WoW-Private-
+    Feedback) uit **2024**, en op `2418125` staat een cs-mvp (groep 48), geen blue. De vastgepinde
+    `24534` *"UI Add-On Development Policy"* staat nog steeds op de spelersbump van 13 nov 08:18
+    (TwitchZultek), dus nog steeds **geen** beleidswijziging.
+    **wago.tools/builds**: gelezen, en de bron van de twee nieuwe buildnummers hierboven.
+  - 🧰 **SimC-addon: geen nieuwe release sinds `12.1.5-04`.** Tweemaal gemeten: `git ls-remote --tags
+    --refs` geeft **258** tags (ongewijzigd, zevende dag), en de releases-pagina (mét
+    `?nocache=20261118`) noemt bovenaan `12.1.5-04`, **05 nov 22:38**, `83fdb00`, enige regel
+    *"Handle Forever surname"*. Dat is **13 dagen** oud en valt buiten de 7-dagenregel. Niets te
+    toetsen aan `ItemString` of `ns.BuildSimcProfile` in `Modules/SimcExport.lua`.
+  - 🚧 **Wat ik NIET kon lezen.** `curl` wordt door de egress-proxy geweigerd voor
+    `us.forums.blizzard.com` (`CONNECT tunnel failed, 403`) en voor `wago.tools` — die twee zijn dus via
+    Exa gelezen, mét cache-buster, en alles wat daarvan komt is MEASURED (via Exa, de pagina zelf, niet
+    een samenvatting). `api.github.com` is in deze sessie geblokkeerd (*"GitHub access to this
+    repository is not enabled"*), dus de build-diff is niet via de compare-API maar met een eigen
+    partiële clone gemaakt — sterker bewijs, niet zwakker. `news.blizzard.com/en-us/blizzard/24315281`
+    geeft `CRAWL_REDIRECT` en `wowhead.com/blue-tracker` `CRAWL_EMPTY_CONTENT`; het hotfix-artikel is
+    daarom via WebSearch gevonden en toen op zijn volledige URL via Exa gelezen (de titelregel van die
+    pagina zegt `Published: 2026-11-18`). `Patch_1.60.2/API_changes` geeft nog steeds
+    `CRAWL_NOT_FOUND` — vermoedelijk niet aangemaakt, maar dat heb ik níét kunnen vaststellen. Alle
+    code- en git-metingen in deze regel zijn eerstehands in de werkmap.
+  - ⏳ **Nog open uit eerdere runs — ongewijzigd, NIET opnieuw gemeten vandaag.** De dode
+    `PickupItem`-takken in `Modules/KeyBlock.lua:1135`/`:1227`/`:1380` en
+    `Modules/ApplyLayout.lua:1311`/`:1345`/`:1605`; de vijf decoratieve `GetItemInfo`-terugvaltakken;
+    de verouderde namespace-lijst in `docs/WATCHER_API_PROMPT.md` (18 aug, noemt 57 namespaces en kent
+    de twee TOC's niet); de client-test voor `/mh raidbots`; `GetTimerDuration` toevoegen aan
+    `Modules/ApiProbe.lua:377`; de `FrameStrata`-secret-vraag op `Modules/PartyTargets.lua:517`; de drie
+    `WOW_PROJECT_MAINLINE`-takken in `Libs/LibDBIcon-1.0.lua:533`/`:572`/`:607` die op Forever omslaan;
+    de ongemeten BETEKENIS van *"Edit Mode layouts are now saved separately for each UI type"* voor
+    `Modules/ForeverLayoutCarry.lua`; de shift-klik-taintvraag op `Modules/Achievements.lua:1561`/
+    `:1910`; en de in-game-test van `ns.SelfCastMacroWarning` (`Core.lua:4318`). **Nieuw op deze lijst:**
+    de WAARDE van `Constants.CharacterNameSeparatorConsts.CHARACTERNAME_SURNAME_SEPARATOR` op een echte
+    Forever-client (niet van buiten te meten), en de API-documentatie van live-build `12.1.5.70961`
+    zodra Gethe hem publiceert. 🔴 Niets aangeraakt.
+  - 🔧 **Repo-staat: alleen `docs/API_WATCH.md` aangeraakt.** GEMETEN vóór het schrijven:
+    `git status --short` **leeg**; `HEAD` stond **opnieuw losgeslagen** (gisteren was het de vijfde keer deze week) en is met
+    `git checkout main` weer op `refs/heads/main` gezet — `git pull --rebase origin main` meldde daarna
+    `Already up to date`, dus er is deze keer géén herschreven historie binnengekomen. Laatste commit
+    `abb3007` *"Nachtcontrole 18 nov: 0 nakijken C1/C2; snapshot forever loopt achter (70938 -> 70959)"*
+    — de nachtcontrole zag dezelfde nieuwe Forever-build en noemt hem bij hetzelfde nummer, wat een
+    onafhankelijke derde bevestiging is van `70959`.
