@@ -5408,6 +5408,8 @@ ns._mhLocales.nlNL = {
 	FCHARS_TOTAL_FMT = "Al je goud bij elkaar: %s",
 	FCHARS_TOTAL_COUNT_FMT = "(%d characters)",
 	FOV_SCROLL_MORE = "scroll voor meer",
+	FOV_Q_PORTRAIT3D = "Bewegend portret",
+	FOV_Q_PORTRAIT3D_DESC = "Linksboven in dit venster: je character in 3D, ademend en knipperend. Uit: het platte plaatje.",
 	FCHARS_NOTE = "Een character staat hier pas als je er één keer mee hebt ingelogd. \"Bij de trainer\" is hoe het was toen je dat character het laatst speelde.",
 	FCHARS_SIDE_UNKNOWN = "? = Horde of Alliance nog niet bekend: log één keer in op dat character.",
 	FCHARS_FORGET_TIP = "Vergeet dit character. Het komt terug als je er weer mee inlogt.",

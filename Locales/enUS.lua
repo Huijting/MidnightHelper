@@ -6279,6 +6279,8 @@ ns._mhLocales.enUS = {
 	FCHARS_TOTAL_FMT = "All your gold together: %s",
 	FCHARS_TOTAL_COUNT_FMT = "(%d characters)",
 	FOV_SCROLL_MORE = "scroll for more",
+	FOV_Q_PORTRAIT3D = "Moving portrait",
+	FOV_Q_PORTRAIT3D_DESC = "At the top left of this window: your character in 3D, breathing and blinking. Off: the flat picture.",
 	FCHARS_NOTE = "A character shows up here after you log in on it once. \"At the trainer\" is how it was when you last played that character.",
 	FCHARS_SIDE_UNKNOWN = "? = Horde or Alliance not known yet: log in on that character once.",
 	FCHARS_FORGET_TIP = "Forget this character. It comes back when you log in on it again.",

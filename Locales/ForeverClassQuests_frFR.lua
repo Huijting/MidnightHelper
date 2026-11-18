@@ -588,6 +588,8 @@ for k, v in pairs({
 	FRARE_WHY_TAME = "Chasseurs : une nouvelle bête à dresser dans Forever.",
 	FCHARS_TOTAL_COUNT_FMT = "(%d personnages)",
 	FOV_SCROLL_MORE = "fais défiler pour voir la suite",
+	FOV_Q_PORTRAIT3D = "Portrait animé",
+	FOV_Q_PORTRAIT3D_DESC = "En haut à gauche de cette fenêtre : ton personnage en 3D, qui respire et cligne des yeux. Désactivé : l'image plate.",
 	FOV_Q_INTRO = "Tout ceci marche tout seul pendant que tu joues. Désactive ce que tu ne veux pas. Tout le reste est dans les paramètres.",
 	FOV_Q_ALLSETTINGS = "Tous les paramètres ›",
 	FOV_TIP_Q_ALLSETTINGS = "Ouvre Midnight Helper dans les paramètres du jeu (Options → AddOns).",

@@ -572,6 +572,8 @@ for k, v in pairs({
 	FRARE_WHY_TAME = "Jäger: ein neues Tier zum Zähmen in Forever.",
 	FCHARS_TOTAL_COUNT_FMT = "(%d Charaktere)",
 	FOV_SCROLL_MORE = "scrollen für mehr",
+	FOV_Q_PORTRAIT3D = "Bewegtes Porträt",
+	FOV_Q_PORTRAIT3D_DESC = "Oben links in diesem Fenster: dein Charakter in 3D, er atmet und blinzelt. Aus: das flache Bild.",
 	FOV_Q_INTRO = "Das läuft von selbst, während du spielst. Schalte aus, was du nicht willst. Alles andere findest du in den Einstellungen.",
 	FOV_Q_ALLSETTINGS = "Alle Einstellungen ›",
 	FOV_TIP_Q_ALLSETTINGS = "Öffnet Midnight Helper in den Einstellungen des Spiels (Optionen → AddOns).",

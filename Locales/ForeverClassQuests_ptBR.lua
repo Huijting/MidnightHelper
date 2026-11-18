@@ -564,6 +564,8 @@ for k, v in pairs({
 	FRARE_WHY_TAME = "Caçadores: uma fera nova para domar no Forever.",
 	FCHARS_TOTAL_COUNT_FMT = "(%d personagens)",
 	FOV_SCROLL_MORE = "role para ver mais",
+	FOV_Q_PORTRAIT3D = "Retrato animado",
+	FOV_Q_PORTRAIT3D_DESC = "No canto superior esquerdo desta janela: seu personagem em 3D, respirando e piscando. Desligado: a imagem plana.",
 	FOV_Q_INTRO = "Isto funciona sozinho enquanto você joga. Desligue o que você não quer. Todo o resto está nas configurações.",
 	FOV_Q_ALLSETTINGS = "Todas as configurações ›",
 	FOV_TIP_Q_ALLSETTINGS = "Abre o Midnight Helper nas configurações do jogo (Opções → AddOns).",

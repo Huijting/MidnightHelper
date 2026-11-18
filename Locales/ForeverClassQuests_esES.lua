@@ -680,6 +680,8 @@ for k, v in pairs({
 	FRARE_WHY_TAME = "Cazadores: una bestia nueva para domesticar en Forever.",
 	FCHARS_TOTAL_COUNT_FMT = "(%d personajes)",
 	FOV_SCROLL_MORE = "desplázate para ver más",
+	FOV_Q_PORTRAIT3D = "Retrato animado",
+	FOV_Q_PORTRAIT3D_DESC = "Arriba a la izquierda de esta ventana: tu personaje en 3D, respirando y parpadeando. Desactivado: la imagen plana.",
 	FOV_FIND_SEC_CITY = "En la ciudad",
 	FCITY_CAT_BANK = "Banco",
 	FCITY_CAT_AUCTION = "Casa de subastas",

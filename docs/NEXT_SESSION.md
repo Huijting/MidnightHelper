@@ -63,6 +63,14 @@
   in groep chars (4e knop), zoekbalk cat `rep`/`currency`. Offline 70.220 runs, 0 fouten (Horde + Alliance, alles
   onleesbaar, Honor 24000/25000). ⚠️ Teksten alleen en + nl: de/fr/es/pt/ru vallen terug op Engels → één vertaalronde
   (mh-writer) na rares A. NIET in het spel gezien.
+- 🎭 **Bewegend portret GEBOUWD, optie b** (Rob via sparring, letterlijk: *"is dit te animeren, ?"* → *"ja doe maar"*):
+  PlayerModel "player" (portretzoom 1, idle-animatie -1) in een vierkant vakje 76 px met gouden rand en clip
+  (`f.portraitBox/portraitModel`). Niet rond (optie a): een model negeert ronde maskers, alleen een rechthoekige clip
+  houdt het binnen (MidnightToast.lua; AFGELEID, niet in Forever nagemeten). Terugval op het platte ronde plaatje:
+  schakelaar uit (`foreverPortrait3D`, stille helpers "Moving portrait", standaard aan), geen SetUnit, of na 0,6 s
+  GetModelFileID leeg. Reden in `ns.db.foreverPortraitProbe`. Opnieuw zetten bij UNIT_MODEL_CHANGED (player),
+  PLAYER_EQUIPMENT_CHANGED, UPDATE_SHAPESHIFT_FORM en bij elke opening. Vertaald (6 packs, zelf). Offline 103.687 runs,
+  0 fouten (aan / leeg / geladen / uit). /reload genoeg. NIET in het spel gezien.
 - 🪙 **Altijd g/s/c + Now-regels vrij** (Rob via sparring, letterlijk: *"ja laat alle 3 zien"* en *"tekst gaat hier niet
   helemaal goed, de bovenste"*): `S.Money(c, plain)` in ForeverStyle.lua bouwt altijd goud, zilver en koper met de
   muntplaatjes `Interface\MoneyFrame\UI-*Icon` (bestaan in Forever: AFGELEID); gebruikt door ForeverOverview,

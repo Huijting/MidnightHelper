@@ -1162,6 +1162,8 @@ local QUIET = {
 	PROF_SWITCHES[2], -- last tool
 	PROF_SWITCHES[3], -- missing tool: where to buy
 	{ head = "FOV_Q_HEAD_SCREEN" },
+	-- 18 Nov 2026: the moving 3D portrait at the top left (on by default; off = the flat picture).
+	Q("FOV_Q_PORTRAIT3D", "FOV_Q_PORTRAIT3D_DESC", DbFlag("foreverPortrait3D", true)),
 	KEY_SWITCHES[2], -- old-rank edge
 	KEY_SWITCHES[1], -- mouseover on the key block
 	GROUP_SWITCHES[1], -- group panel
@@ -1543,6 +1545,7 @@ local function Build()
 		f:HookScript("OnHide", function()
 			box:SetText("")
 			box:ClearFocus()
+			f._modelSet = nil -- set the moving portrait again on the next opening
 		end)
 		f.search = box
 	end
@@ -1618,6 +1621,33 @@ local function Build()
 	por:SetSize(70, 70)
 	por:SetPoint("CENTER", ring)
 	f.portrait = por
+	f.portraitRing = ring
+	-- Moving portrait (18 Nov 2026, Rob via sparring: "is dit te animeren, ?" → "ja doe maar"): a 3D PlayerModel of you,
+	-- breathing and blinking (idle animation). Option b of the plan: a square box with a gold edge, because a model
+	-- ignores round masks and only a rectangle clip holds it (MidnightToast.lua: "PlayerModels renderen buiten hun
+	-- frame-rect"). The flat round picture stays as the fallback (switch off, or the model loads nothing).
+	do
+		local W8 = "Interface\\Buttons\\WHITE8X8"
+		local box = CreateFrame("Frame", nil, left, "BackdropTemplate")
+		box:SetSize(76, 76)
+		box:SetPoint("CENTER", ring)
+		box:SetBackdrop({ bgFile = W8, edgeFile = W8, edgeSize = 2 })
+		box:SetBackdropColor(0.07, 0.05, 0.04, 1)
+		box:SetBackdropBorderColor(A.gold[1], A.gold[2], A.gold[3], 1)
+		local clip = CreateFrame("Frame", nil, box)
+		clip:SetPoint("TOPLEFT", 2, -2)
+		clip:SetPoint("BOTTOMRIGHT", -2, 2)
+		if clip.SetClipsChildren then
+			clip:SetClipsChildren(true)
+		end
+		local m = CreateFrame("PlayerModel", nil, clip)
+		m:SetAllPoints(clip)
+		if m.EnableMouse then
+			m:EnableMouse(false)
+		end
+		box:Hide()
+		f.portraitBox, f.portraitModel = box, m
+	end
 	f.portraitTip = HoverOver(left, ring)
 	f.name = Text(left, "head", 22, A.text)
 	f.name:SetPoint("TOP", ring, "BOTTOM", 0, -8)
@@ -1947,11 +1977,98 @@ local function FullName()
 	return probe.shown
 end
 
-local function FillLeft(f, level)
-	local r, g, b = Accent()
+--- The portrait: the moving 3D model when the switch is on (default) and the model loads, else the flat picture.
+--- Every decision and its reason goes to ns.db.foreverPortraitProbe (an empty model looks like a broken one).
+local function UsePortraitFlat(f, why)
+	f.portraitBox:Hide()
+	f.portraitRing:Show()
+	f.portrait:Show()
 	if SetPortraitTexture then
 		pcall(SetPortraitTexture, f.portrait, "player")
 	end
+	if ns.db then
+		ns.db.foreverPortraitProbe = { at = time and time() or nil, shown = "flat", why = why }
+	end
+end
+
+local function SetPortrait(f, force)
+	local want = not (ns.db and ns.db.foreverPortrait3D == false)
+	local m = f.portraitModel
+	if not want or not (m and m.SetUnit) then
+		f._modelSet = nil
+		UsePortraitFlat(f, want and "no PlayerModel:SetUnit" or "switch off")
+		return
+	end
+	if f._modelSet and not force then
+		return -- already showing: setting it again would restart the idle animation on every page change
+	end
+	local ok = pcall(function()
+		m:ClearModel()
+		m:SetUnit("player")
+		if m.SetPortraitZoom then
+			m:SetPortraitZoom(1)
+		end
+		if m.SetPosition then
+			m:SetPosition(0, 0, 0)
+		end
+		-- Without an animation call a PlayerModel holds a frozen pose (MidnightToast.lua, 15 Sep 2026): -1 loops the idle.
+		if m.SetAnimation then
+			pcall(m.SetAnimation, m, 0, -1)
+		end
+		if m.SetPaused then
+			pcall(m.SetPaused, m, false)
+		end
+	end)
+	if not ok then
+		f._modelSet = nil
+		UsePortraitFlat(f, "SetUnit failed")
+		return
+	end
+	f._modelSet = true
+	f.portraitRing:Hide()
+	f.portrait:Hide()
+	f.portraitBox:Show()
+	-- A PlayerModel sometimes loads nothing (DevShots.lua). Look a moment later: no model file = back to the picture.
+	if C_Timer and C_Timer.After then
+		C_Timer.After(0.6, function()
+			if not f._modelSet then
+				return
+			end
+			local okId, id = true, nil
+			if m.GetModelFileID then
+				okId, id = pcall(m.GetModelFileID, m)
+			end
+			if m.GetModelFileID and (not okId or not id or id == 0) then
+				f._modelSet = nil
+				UsePortraitFlat(f, "model loaded nothing (GetModelFileID " .. tostring(id) .. ")")
+			elseif ns.db then
+				ns.db.foreverPortraitProbe = { at = time and time() or nil, shown = "3d", fileID = id }
+			end
+		end)
+	end
+end
+
+--- Your look changed (gear, shapeshift, appearance): set the model again.
+do
+	local ev = CreateFrame("Frame")
+	for _, e in ipairs({ "UNIT_MODEL_CHANGED", "PLAYER_EQUIPMENT_CHANGED", "UPDATE_SHAPESHIFT_FORM" }) do
+		pcall(ev.RegisterEvent, ev, e)
+	end
+	ev:SetScript("OnEvent", function(_, event, unit)
+		if event == "UNIT_MODEL_CHANGED" and unit ~= "player" then
+			return
+		end
+		if win and win:IsShown() and win.portraitModel then
+			SetPortrait(win, true)
+		elseif win then
+			win._modelSet = nil
+		end
+	end)
+end
+
+local function FillLeft(f, level)
+	local r, g, b = Accent()
+	SetPortrait(f)
 	local name = FullName()
 	-- One line when it fits (shrink to 16), else first and last name under each other; never cut off.
 	local first, rest = name:match("^(%S+)%s+(.+)$")

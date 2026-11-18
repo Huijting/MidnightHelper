@@ -32,6 +32,15 @@ snelbalk, instellingen — geen foutmeldingen. Forever wordt nu getest (uitslage
 een logische afkorting voor de action house. 6 komt later"*** (Willow: "action house" = Auction House). Zoekbalk stap 1 +
 stap 2 werken in Forever; `/mh repprobe` gedaan. De Midnight-check van de zoekbalk komt later.
 
+## 🎭 18 nov (laat) — Forever: bewegend portret linksboven
+
+Geen nieuw bestand: een `/reload` is genoeg.
+- [ ] Overzicht: linksboven je character in 3D in een vierkant vakje met gouden rand (niet rond: een 3D-model laat zich
+      niet rond afknippen). Hij ademt en knippert. Steekt er niets buiten het vakje?
+- [ ] Wissel van uitrusting of vorm (druid): het model past zich aan.
+- [ ] Tandwiel → stille helpers → "Moving portrait" uit: het oude ronde plaatje komt terug. Weer aan: het model.
+- [ ] Blijft het vakje leeg/zwart? Zeg het: dan staat in `foreverPortraitProbe` (SavedVariables, na /reload) waarom.
+
 ## 🪙 18 nov (laat) — Forever: altijd goud, zilver én koper + Now-regels helemaal leesbaar
 
 Geen nieuw bestand: een `/reload` is genoeg (na de herstart voor de rares).
