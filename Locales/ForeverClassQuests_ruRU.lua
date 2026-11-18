@@ -514,6 +514,12 @@ for k, v in pairs({
 	FOV_TOOL_NEW = "Новое в этой версии: выбирайте сами",
 	FOV_TOOL_CHANGELOG = "Список изменений",
 	FOV_CMDS_SEARCH = "Поиск:",
+	-- 18 Nov 2026: search bar of the overview. Words as this pack already uses them (учитель, классовое задание,
+	-- подземелье); "вы" as in the rest of the pack.
+	FOV_SEARCH_HINT = "Искать всё: учитель, банк, классовое задание, подземелье, макрос…",
+	FOV_SEARCH_NONE = "Ничего не найдено. Попробуйте другое слово.",
+	FOV_SEARCH_TIP = "Введите слово: учителя, профессию, магазин, банк или таверну, классовое задание, подземелье, макрос, настройку или команду /mh. Щёлкните строку или нажмите Enter, чтобы перейти туда. Начните с @, чтобы искать только в одном виде: @find, @quest, @dungeon, @macro, @setting, @tool, @command.",
+	FOV_SEARCH_CTX_TAB = "Вкладка",
 	FOV_Q_INTRO = "Это работает само, пока вы играете. Выключите то, что вам не нужно. Все остальное – в настройках.",
 	FOV_Q_ALLSETTINGS = "Все настройки ›",
 	FOV_TIP_Q_ALLSETTINGS = "Открывает Midnight Helper в настройках игры (Параметры → Модификации).",

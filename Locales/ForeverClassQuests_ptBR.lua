@@ -476,6 +476,12 @@ for k, v in pairs({
 	FOV_TOOL_NEW = "Novo nesta versão: você escolhe",
 	FOV_TOOL_CHANGELOG = "Log de alterações",
 	FOV_CMDS_SEARCH = "Procurar:",
+	-- 18 Nov 2026: search bar of the overview. Words as this pack already uses them (treinador, missão de classe,
+	-- masmorra).
+	FOV_SEARCH_HINT = "Procurar tudo: treinador, banco, missão de classe, masmorra, macro…",
+	FOV_SEARCH_NONE = "Nada encontrado. Tente outra palavra.",
+	FOV_SEARCH_TIP = "Digite uma palavra: um treinador, uma profissão, uma loja, o banco ou a estalagem, uma missão de classe, uma masmorra, uma macro, uma opção ou um comando /mh. Clique numa linha ou aperte Enter para ir até lá. Comece com @ para procurar em um só tipo: @find, @quest, @dungeon, @macro, @setting, @tool, @command.",
+	FOV_SEARCH_CTX_TAB = "Aba",
 	FOV_Q_INTRO = "Isto funciona sozinho enquanto você joga. Desligue o que você não quer. Todo o resto está nas configurações.",
 	FOV_Q_ALLSETTINGS = "Todas as configurações ›",
 	FOV_TIP_Q_ALLSETTINGS = "Abre o Midnight Helper nas configurações do jogo (Opções → AddOns).",

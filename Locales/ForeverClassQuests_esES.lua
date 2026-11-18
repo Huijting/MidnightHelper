@@ -591,6 +591,12 @@ for k, v in pairs({
 	FOV_TOOL_NEW = "Nuevo en esta versión: tú eliges",
 	FOV_TOOL_CHANGELOG = "Registro de cambios",
 	FOV_CMDS_SEARCH = "Buscar:",
+	-- 18 Nov 2026: search bar of the overview. Words as this pack already uses them (instructor, misión de clase,
+	-- mazmorra); esMX says "calabozo" (ForeverClassQuests_esMX.lua).
+	FOV_SEARCH_HINT = "Buscar todo: instructor, banco, misión de clase, mazmorra, macro…",
+	FOV_SEARCH_NONE = "No se ha encontrado nada. Prueba otra palabra.",
+	FOV_SEARCH_TIP = "Escribe una palabra: un instructor, una profesión, una tienda, el banco o la posada, una misión de clase, una mazmorra, una macro, un ajuste o un comando /mh. Haz clic en una línea o pulsa Intro para ir allí. Empieza con @ para buscar en un solo tipo: @find, @quest, @dungeon, @macro, @setting, @tool, @command.",
+	FOV_SEARCH_CTX_TAB = "Pestaña",
 	FOV_FIND_SEC_CITY = "En la ciudad",
 	FCITY_CAT_BANK = "Banco",
 	FCITY_CAT_AUCTION = "Casa de subastas",

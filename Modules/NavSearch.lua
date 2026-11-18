@@ -127,6 +127,26 @@ local function BuildNavIndex()
 		end, nil, nil, "tab")
 	end
 
+	-- WoW Forever (18 Nov 2026, Rob via sparring: "wat we nog missen in de forever versie is net zo een uitgebreide zoek
+	-- functie (bar) als in de midnight versie" … "in principe moet je alles kunnen vinden"). The old window and its bar
+	-- are gone there and everything below is Midnight content, so the overview hands over its own list
+	-- (ForeverOverview.lua ns.ForeverSearchIndex). Same matcher, typo pass, synonyms and @filters as here.
+	if ns.IS_FOREVER then
+		if ns.ForeverSearchIndex then
+			local ok, err = pcall(ns.ForeverSearchIndex, add, { action = TIER_ACTION, nav = TIER_NAV, content = TIER_CONTENT })
+			if not ok then
+				-- Never silent (CLAUDE.md "bouw een manier om te zien dát het zweeg"): kept in ns._foreverSearchErr and
+				-- said once in chat.
+				ns._foreverSearchErr = tostring(err)
+				if not ns._foreverSearchErrSaid then
+					ns._foreverSearchErrSaid = true
+					print("|cffff5555Midnight Helper search:|r " .. tostring(err))
+				end
+			end
+		end
+		return idx
+	end
+
 	-- Top-level tabs.
 	tab("TAB_START_HERE", "starthere", "begin new player intro start")
 	tab("TAB_HOME", "home", "this week dashboard overview")
@@ -1456,7 +1476,14 @@ end
 -- Dropdown UI (built lazily, once the search bar exists)
 --------------------------------------------------------------------------------
 
+-- One list per search box (18 Nov 2026: the Forever overview got its own box). `activeEdit` is the box you typed in
+-- last; `navDrop` is its list. Midnight has one box (ns.mhSearchEdit), so nothing changes there.
 local navDrop
+local activeEdit
+
+local function CurEdit()
+	return activeEdit or ns.mhSearchEdit
+end
 
 local function HideNavDrop()
 	if navDrop then
@@ -1465,16 +1492,19 @@ local function HideNavDrop()
 end
 
 local function EnsureNavDrop()
-	if navDrop then
-		return navDrop
-	end
-	local edit = ns.mhSearchEdit
+	local edit = CurEdit()
 	if not edit then
 		return nil
 	end
-	local parent = ns.mainUI or edit:GetParent() or UIParent
+	if edit._mhNavDrop then
+		navDrop = edit._mhNavDrop
+		return navDrop
+	end
+	local parent = edit._mhNavParent or ns.mainUI or edit:GetParent() or UIParent
 
-	navDrop = CreateFrame("Frame", "MidnightHelperNavSearchDrop", parent, "BackdropTemplate")
+	-- The first list keeps its old global name (screenshot rigs and other code look it up by name).
+	navDrop = CreateFrame("Frame", edit._mhNavName or "MidnightHelperNavSearchDrop", parent, "BackdropTemplate")
+	edit._mhNavDrop = navDrop
 	navDrop:SetFrameStrata("FULLSCREEN_DIALOG")
 	navDrop:SetFrameLevel((parent.GetFrameLevel and parent:GetFrameLevel() or 100) + 30)
 	navDrop:SetPoint("TOPLEFT", edit, "BOTTOMLEFT", -4, -2)
@@ -1579,9 +1609,10 @@ local function EnsureNavDrop()
 			--- 📌 Read from the row, not from the edit box: this handler runs after the box
 			--- has been cleared, so by then the query is already gone.
 			local query = self._mhQuery
-			if ns.mhSearchEdit then
-				ns.mhSearchEdit:SetText("")
-				ns.mhSearchEdit:ClearFocus()
+			local box = CurEdit()
+			if box then
+				box:SetText("")
+				box:ClearFocus()
 			end
 			HideNavDrop()
 			if go then
@@ -1597,6 +1628,11 @@ local function EnsureNavDrop()
 	navDrop.more:SetPoint("BOTTOMRIGHT", navDrop, "BOTTOMRIGHT", -8, 4)
 	navDrop.more:SetJustifyH("RIGHT")
 	navDrop.more:Hide()
+
+	-- A box may restyle its own list (the Forever overview: style A colours and fonts).
+	if edit._mhNavOnCreate then
+		pcall(edit._mhNavOnCreate, navDrop)
+	end
 
 	return navDrop
 end
@@ -1624,18 +1660,21 @@ local function ShowNavResults(query)
 			return
 		end
 		local s = (ns.GetContentFontScale and ns.GetContentFontScale()) or 1
+		-- A box without a deeper search (Forever) says its own line and does nothing on a click.
+		local box = CurEdit()
+		local ownNone = box and box._mhNoMatchKey
 		for i, r in ipairs(drop.rows) do
 			if i == 1 then
 				r:SetHeight(ROW_H * s)
-				r._mhFull = "|cff9a9a9a" .. L("NAV_NO_MATCH") .. "|r"
+				r._mhFull = "|cff9a9a9a" .. L(ownNone or "NAV_NO_MATCH") .. "|r"
 				r.fs:SetText(r._mhFull)
 				r.sel:Hide()
 				r._mhQuery = query
-				r._mhGo = function(q)
+				r._mhGo = (not ownNone) and function(q)
 					if not (ns.TryCodexSearch and ns.TryCodexSearch(q)) and ns.MH_RunSearchQuery then
 						ns.MH_RunSearchQuery(q)
 					end
-				end
+				end or nil
 				r:Show()
 			else
 				r:Hide()
@@ -1783,32 +1822,44 @@ end
 -- Attach to the search EditBox once the main UI exists (PLAYER_LOGIN is after
 -- the ADDON_LOADED EnsureMainUI call, so ns.mhSearchEdit is ready).
 --------------------------------------------------------------------------------
-local hookFrame = CreateFrame("Frame")
-hookFrame:RegisterEvent("PLAYER_LOGIN")
-hookFrame:SetScript("OnEvent", function()
-	local edit = ns.mhSearchEdit
+--- Hook a search box to the live list. Midnight: the main window's bar (below, at login). Forever: the overview's
+--- box (ForeverOverview.lua, 18 Nov 2026). Optional fields on the box, set before this call: `_mhNavParent` (the
+--- frame the list belongs to), `_mhNavName` (its global name), `_mhNoMatchKey` (own "nothing found" line, no deeper
+--- search), `_mhNavOnCreate(drop)` (restyle the list once).
+function ns.NavSearchAttach(edit)
 	if not edit or edit._mhNavHooked then
 		return
 	end
 	edit._mhNavHooked = true
+	local function use(self)
+		if activeEdit ~= self then
+			HideNavDrop()
+			activeEdit = self
+			navDrop = self._mhNavDrop
+		end
+	end
 	edit:HookScript("OnTextChanged", function(self, userInput)
 		if not userInput then
 			return -- ignore programmatic SetText
 		end
+		use(self)
 		ShowNavResults(self:GetText())
 	end)
 	-- Escape keeps doing what UI.lua makes it do: let go of the keyboard (or you cannot walk), and close the list.
-	edit:HookScript("OnEscapePressed", function()
+	edit:HookScript("OnEscapePressed", function(self)
+		use(self)
 		HideNavDrop()
 	end)
-	edit:HookScript("OnArrowPressed", function(_, key)
+	edit:HookScript("OnArrowPressed", function(self, key)
+		use(self)
 		if key == "DOWN" then
 			MoveSel(1)
 		elseif key == "UP" then
 			MoveSel(-1)
 		end
 	end)
-	edit:HookScript("OnTabPressed", function()
+	edit:HookScript("OnTabPressed", function(self)
+		use(self)
 		MoveSel(IsShiftKeyDown and IsShiftKeyDown() and -1 or 1)
 	end)
 	edit:HookScript("OnEditFocusLost", function()
@@ -1819,4 +1870,32 @@ hookFrame:SetScript("OnEvent", function()
 			HideNavDrop()
 		end
 	end)
+end
+
+--- Enter in a box with no deeper search behind it (Forever): the row picked with the keys, else the best match.
+--- Returns true when it went somewhere.
+function ns.NavSearchEnter(edit)
+	if edit and activeEdit ~= edit then
+		HideNavDrop()
+		activeEdit = edit
+		navDrop = edit._mhNavDrop
+	end
+	local query = edit and edit:GetText() or ""
+	local e = PickedEntry() or FilterIndex(query)[1]
+	HideNavDrop()
+	if not e then
+		return false
+	end
+	if edit then
+		edit:SetText("")
+		edit:ClearFocus()
+	end
+	e.go(query)
+	return true
+end
+
+local hookFrame = CreateFrame("Frame")
+hookFrame:RegisterEvent("PLAYER_LOGIN")
+hookFrame:SetScript("OnEvent", function()
+	ns.NavSearchAttach(ns.mhSearchEdit)
 end)

@@ -1450,6 +1450,74 @@ local function Build()
 	end)
 	Tip(gear, ns:L("FOV_LABEL_QUIET"), ns:L("FOV_TIP_GEAR"))
 	f.gear = gear
+	-- The search bar (18 Nov 2026, Rob via sparring: "wat we nog missen in de forever versie is net zo een uitgebreide
+	-- zoek functie (bar) als in de midnight versie" … "in principe moet je alles kunnen vinden"; "ik volg jullie
+	-- advies"). In the title row between the name and the gear. Midnight's matcher (NavSearch.lua) with the list of
+	-- ns.ForeverSearchIndex below; its result list is restyled in style A.
+	do
+		local WHITE8 = "Interface\\Buttons\\WHITE8X8"
+		local sb = CreateFrame("Frame", nil, f, "BackdropTemplate")
+		sb:SetPoint("TOPLEFT", 270, -14)
+		sb:SetPoint("TOPRIGHT", gear, "TOPLEFT", -10, 1)
+		sb:SetHeight(24)
+		sb:SetBackdrop({ bgFile = WHITE8, edgeFile = WHITE8, edgeSize = 1 })
+		sb:SetBackdropColor(A.card[1], A.card[2], A.card[3], 0.95)
+		sb:SetBackdropBorderColor(A.edge[1], A.edge[2], A.edge[3], 0.9)
+		local box = CreateFrame("EditBox", "MidnightHelperForeverSearchBox", sb)
+		box:SetPoint("TOPLEFT", 8, -2)
+		box:SetPoint("BOTTOMRIGHT", -8, 2)
+		box:SetAutoFocus(false)
+		box:SetMaxLetters(60)
+		if not box:SetFont(A.fonts.text, 13, "") then
+			box:SetFont(A.fallback.text, 13, "")
+		end
+		box:SetTextColor(A.text[1], A.text[2], A.text[3])
+		local hint = Text(sb, "text", 13, A.dim)
+		hint:SetPoint("LEFT", 8, 0)
+		hint:SetPoint("RIGHT", -8, 0)
+		hint:SetWordWrap(false)
+		hint:SetText(ns:L("FOV_SEARCH_HINT"))
+		local function ShowHint()
+			hint:SetShown(box:GetText() == "" and not box:HasFocus())
+		end
+		box:SetScript("OnEditFocusGained", ShowHint)
+		box:SetScript("OnEditFocusLost", ShowHint)
+		box:SetScript("OnTextChanged", ShowHint)
+		box:SetScript("OnEscapePressed", function(self)
+			self:SetText("")
+			self:ClearFocus()
+		end)
+		box:SetScript("OnEnterPressed", function(self)
+			if ns.NavSearchEnter then
+				ns.NavSearchEnter(self)
+			end
+		end)
+		Tip(box, (ns:L("FOV_CMDS_SEARCH"):gsub("%s*:%s*$", "")), ns:L("FOV_SEARCH_TIP"))
+		box._mhNavParent = f
+		box._mhNavName = "MidnightHelperForeverSearchDrop"
+		box._mhNoMatchKey = "FOV_SEARCH_NONE"
+		box._mhNavOnCreate = function(drop)
+			if drop.SetBackdropColor then
+				drop:SetBackdropColor(A.bgBottom[1], A.bgBottom[2], A.bgBottom[3], 0.98)
+				drop:SetBackdropBorderColor(A.gold[1], A.gold[2], A.gold[3], 0.9)
+			end
+			for _, r in ipairs(drop.rows or {}) do
+				S.Font(r.fs, A.fonts.text, 13, A.fallback.text)
+				r.fs:SetTextColor(A.text[1], A.text[2], A.text[3])
+			end
+			if drop.more then
+				S.Font(drop.more, A.fonts.text, 11, A.fallback.text)
+			end
+		end
+		if ns.NavSearchAttach then
+			ns.NavSearchAttach(box)
+		end
+		f:HookScript("OnHide", function()
+			box:SetText("")
+			box:ClearFocus()
+		end)
+		f.search = box
+	end
 	-- Tabs on their own row under the title (plan step 1: 7 tabs and long German words did not fit next to the title).
 	-- TAB_SLOTS equal widths, so the row stays put when a tab is added.
 	f.tabs = {}
@@ -3255,6 +3323,163 @@ function ns.ShowForeverFind(kind, key)
 		f.find = it and { kind = it.kind, key = it.key } or f.find
 	end
 	ns.ShowForeverOverviewPage("find")
+end
+
+--------------------------------------------------------------------------------
+-- Search (18 Nov 2026, step 1 of the search plan: docs/forever/ZOEKBALK_EN_VALUTA_2026-11-18.md). Everything the
+-- overview can show, as rows for NavSearch.lua's matcher: tabs and pages, every Find item (class trainer,
+-- professions, weapon skills, shops, In town), class quests, dungeons, macros, quiet helpers, tools and /mh commands.
+-- A hit opens the tab or page where that thing is. Step 2 adds the places themselves with "Show the way".
+--------------------------------------------------------------------------------
+local searchCache, searchAt = nil, -100
+local SEARCH_TTL = 15 -- seconds: NavSearch asks on every keystroke; the lists change only with level, bags or a zone
+
+local function SearchRows()
+	local now = GetTime and GetTime() or 0
+	if searchCache and now - searchAt < SEARCH_TTL then
+		return searchCache
+	end
+	local rows = {}
+	-- label, keys, go, tier ("action"/"nav"/"content"), context, cat
+	local function row(label, keys, go, tier, context, cat)
+		if type(label) == "string" and label ~= "" and go then
+			rows[#rows + 1] = { label, keys, go, tier, context, cat }
+		end
+	end
+	local function page(p)
+		return function()
+			ns.ShowForeverOverviewPage(p)
+		end
+	end
+	local tabWord = ns:L("FOV_SEARCH_CTX_TAB")
+
+	-- Tabs and the pages inside them (Your class, Characters, the gear).
+	local groupLabel = { gear = ns:L("FOV_LABEL_QUIET") }
+	for _, t in ipairs(TABS) do
+		local label = ns:L(t.key)
+		if t.group then
+			groupLabel[t.group] = label
+		end
+		local first = t.page or (t.group and GROUPS[t.group][1].page)
+		row(label, "tab page " .. ns:L(t.tip), first and page(first), "nav", tabWord, "tab")
+	end
+	for g, list in pairs(GROUPS) do
+		for _, p in ipairs(list) do
+			row(ns:L(p.key), "tab page " .. ns:L(p.tip), page(p.page), "nav", groupLabel[g], "tab")
+		end
+	end
+	row(ns:L("FOV_FIND_TEACHES"), "trainer train learn spells teaches cost", page("trainer"), "nav",
+		ns:L("FOV_FIND_SEC_CLASS"), "tab")
+
+	-- Find: every item of the left list.
+	local ok, items = pcall(FindCatalog)
+	local head
+	for _, it in ipairs(ok and type(items) == "table" and items or {}) do
+		if it.head then
+			head = it.head
+		elseif it.kind then
+			local kind, key = it.kind, it.key
+			-- `goods` is a flag (true) on some shops, not a word: only strings go into the keywords (offline test, 18 Nov).
+			local function w(v)
+				return type(v) == "string" and v or ""
+			end
+			local keys = "find where " .. w(it.english) .. " " .. w(it.goods) .. " " .. w(it.svc) .. " " .. w(it.key)
+			if kind == "class" then
+				keys = keys .. " class trainer train spells learn"
+			elseif kind == "prof" then
+				keys = keys .. " profession trainer"
+			elseif kind == "weapon" then
+				keys = keys .. " weapon skill master"
+			end
+			row(it.name, keys, function()
+				local f = Build()
+				f.find = { kind = kind, key = key }
+				ns.ShowForeverOverviewPage("find")
+			end, "nav", head, "find")
+		end
+	end
+
+	-- Class quests (your class only, as the page shows them).
+	if ns.ForeverClassQuestList then
+		local okQ, list = pcall(ns.ForeverClassQuestList)
+		for _, e in ipairs(okQ and type(list) == "table" and list or {}) do
+			local ctx = ns:L("FOV_TAB_CQ") .. (e.level and (" · " .. ns:L("FOV_LEVEL_FMT"):format(e.level)) or "")
+			row(e.chain, "class quest " .. (e.npc or "") .. " " .. (e.zone or ""), page("cq"), "content", ctx, "quest")
+		end
+	end
+
+	-- Dungeons.
+	if ns.ForeverDungeonList then
+		local okD, list = pcall(ns.ForeverDungeonList)
+		for _, d in ipairs(okD and type(list) == "table" and list or {}) do
+			local lv = (d.min and d.max) and (" · %d-%d"):format(d.min, d.max) or ""
+			row(d.name, "dungeon instance group", page("dungeons"), "content", (d.zone or "") .. lv, "dungeon")
+		end
+	end
+
+	-- Macros (Keys & macros).
+	if ns.ForeverMacroViews then
+		local okM, list = pcall(ns.ForeverMacroViews)
+		for _, m in ipairs(okM and type(list) == "table" and list or {}) do
+			if not m.header then
+				row(m.title, "macro key " .. (m.info or ""), page("keys"), "content", ns:L("FOV_TAB_KEYS"), "macro")
+			end
+		end
+	end
+
+	-- Quiet helpers (the gear): every switch by its own name.
+	for _, q in ipairs(QUIET) do
+		if q.title then
+			row(ns:L(q.title), "setting switch on off " .. (q.tip and ns:L(q.tip) or ""), page("quiet"), "nav",
+				ns:L("FOV_SUB_QUIET"), "setting")
+		end
+	end
+
+	-- Tools (the gear → Tools): the same list as that page.
+	local tools = {}
+	if ns.ToolsLaunchpadVisible then
+		local okT, l = pcall(ns.ToolsLaunchpadVisible, TOOLS_ON_TABS)
+		tools = okT and type(l) == "table" and l or {}
+	end
+	for _, t in ipairs(TOOL_EXTRAS) do
+		tools[#tools + 1] = t
+	end
+	for _, t in ipairs(tools) do
+		if t.nameKey and t.open then
+			row(ns:L(t.nameKey), "tool window " .. (t.descKey and ns:L(t.descKey) or "") .. " " .. (t.slash or ""),
+				t.open, "nav", ns:L("FOV_SUB_TOOLS"), "tool")
+		end
+	end
+
+	-- /mh commands (the same "is it for this player" rule as the Commands page).
+	for _, group in ipairs(ns.MH_COMMANDS or {}) do
+		for _, item in ipairs(group.items or {}) do
+			local cmd = item.cmd
+			if type(cmd) == "string" and cmd ~= "" and (not ns.CommandItemShown or ns.CommandItemShown(item)) then
+				local sub = cmd:match("^/mh%s+(.+)$") or ""
+				row(item.descKey and ns:L(item.descKey) or cmd, "command slash " .. cmd, function()
+					if SlashCmdList and SlashCmdList["MIDNIGHTHELPER"] then
+						SlashCmdList["MIDNIGHTHELPER"](sub)
+					end
+				end, "content", cmd, "command")
+			end
+		end
+	end
+
+	searchCache, searchAt = rows, now
+	return rows
+end
+
+--- NavSearch.lua calls this in Forever with its own `add` (label, keys, go, tier, context, cat) and the tier values.
+function ns.ForeverSearchIndex(add, tiers)
+	for _, r in ipairs(SearchRows()) do
+		add(r[1], r[2], r[3], tiers[r[4]] or tiers.nav, r[5], r[6])
+	end
+end
+
+--- Forget the cached list (offline test; a level-up or a new profession changes it).
+function ns.ForeverSearchReset()
+	searchCache = nil
 end
 
 --- When the direction changes (ForeverHowToPlay.lua calls this): refill if the overview is open.

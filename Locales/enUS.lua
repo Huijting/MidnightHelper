@@ -5620,6 +5620,11 @@ ns._mhLocales.enUS = {
 	FOV_TOOL_NEW = "New in this version: your choice",
 	FOV_TOOL_CHANGELOG = "Changelog",
 	FOV_CMDS_SEARCH = "Search:",
+	-- The search bar at the top of the overview (18 Nov 2026).
+	FOV_SEARCH_HINT = "Search everything: trainer, bank, quest, dungeon, macro…",
+	FOV_SEARCH_NONE = "Nothing found. Try another word.",
+	FOV_SEARCH_TIP = "Type a word: a trainer, a profession, a shop, the bank or the inn, a class quest, a dungeon, a macro, a setting or a /mh command. Click a line or press Enter to go there. Start with @ to look in one kind only: @find, @quest, @dungeon, @macro, @setting, @tool, @command.",
+	FOV_SEARCH_CTX_TAB = "Tab",
 	FOV_Q_INTRO = "These work by themselves, while you play. Switch off what you do not want. Everything else is in the settings.",
 	FOV_Q_ALLSETTINGS = "All settings ›",
 	FOV_TIP_Q_ALLSETTINGS = "Opens Midnight Helper in the game's settings (Options → AddOns).",

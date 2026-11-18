@@ -25,6 +25,16 @@
   met een voorstel komen"*). Rapport `docs/forever/ZOEKBALK_EN_VALUTA_2026-11-18.md` (deel A eigen meting, deel B één
   mh-research Opus). Voorstel naar sparring; IDEEEN.md bovenaan. ⚠️ Een helper schrijft zijn probe-job in DEZELFDE
   scratchpad als deze chat (zelfde sessie-id) → tijdens een helperrun zelf geen `_probe.py` draaien.
+- 🔍 **Forever-zoekbalk STAP 1 GEBOUWD** (Rob via sparring, letterlijk: *"we beginnen nu en ik volg jullie advies"*):
+  zoekvak in de titelrij van het overzicht (`ForeverOverview.lua` Build, `f.search`), lijst `ns.ForeverSearchIndex`
+  (tabs/pagina's, alle Find-items, class quests, dungeons, macro's, stille helpers, tools, /mh-commando's; 220-232
+  regels per character, cache 15 s). `NavSearch.lua`: Forever-tak vooraan in BuildNavIndex (fout → één chatregel +
+  `ns._foreverSearchErr`), één lijst per zoekvak (`ns.NavSearchAttach`, `_mhNavParent/_mhNavName/_mhNoMatchKey/
+  _mhNavOnCreate`), `ns.NavSearchEnter`. Vertaald de/fr/es/esMX/pt/ru (woorden van de packs zelf). Offline
+  (scratch search_check: 9 classes × 2 kanten × 2 levels, elke regel aangeklikt + 40 zoekwoorden + Enter): 19.235 runs,
+  0 fouten (eerste run vond een crash op `goods = true`, gerepareerd). Dungeon- en wapennamen komen van de client:
+  in de test nep → "deadmines"/"sword" offline niet te testen. NIET in het spel gezien; Midnight-balk ook nakijken.
+  ⏭️ Stap 2: de ~1400 plekken zelf met "Show the way". Daarna B: valuta/reputatie-meting.
 
 ## 🔴 18 nov — GEEN FABLE deze week (t/m reset za 21 nov 10:00)
 

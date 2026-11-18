@@ -28,6 +28,19 @@ snelbalk, instellingen — geen foutmeldingen. Forever wordt nu getest (uitslage
 📝 **Waarneming Rob, 16 nov (nacht), Forever mage, via sparring:** *"mouse over werk"* — `/mh mouseover on`, Shift+X
 (Arcane Intellect) op een voorbijganger onder de muis werkt.
 
+## 🔍 18 nov — Forever: zoekbalk bovenin het overzicht (stap 1)
+
+Geen nieuw bestand: een `/reload` is genoeg.
+- [ ] `/mh` (overzicht): in de titelrij, tussen MIDNIGHT HELPER en het tandwiel, staat een zoekvak met grijze tekst
+      "Search everything: …". Muis erop: uitleg.
+- [ ] Typ `bank`: een lijst onder het vak, bovenaan "Bank  In town". Klik erop → tab Find opent op Bank.
+- [ ] Probeer ook: `mining` (of je eigen beroep), een dungeon-naam, `mouseover`, `macro`, `/move`, en een typfout
+      (`banck`). Elke klik opent de juiste tab of pagina; een /mh-regel voert dat commando uit.
+- [ ] `@quest` toont je class quests, `@dungeon` de dungeons. Pijltjes omlaag/omhoog + Enter werken ook.
+- [ ] `zzzz`: één grijze regel "Nothing found…", klikken doet niets. Escape maakt het vak leeg en je kunt weer lopen.
+- [ ] De lijst heeft de warme kleuren en letters van het overzicht.
+- [ ] Midnight (retail): de zoekbalk in het grote MH-venster werkt nog precies als eerst (typ `rares`, klik).
+
 ## 🪪 18 nov — Forever: naam + achternaam in Characters
 
 - [ ] Forever: log één keer in op een character met achternaam, dan `/mh alts` (tab Characters). De naam staat er net zo

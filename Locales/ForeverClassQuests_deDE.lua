@@ -485,6 +485,11 @@ for k, v in pairs({
 	FOV_TOOL_NEW = "Neu in dieser Version: deine Wahl",
 	FOV_TOOL_CHANGELOG = "Änderungsprotokoll",
 	FOV_CMDS_SEARCH = "Suche:",
+	-- 18 Nov 2026: search bar of the overview. Words as this pack already uses them (Lehrer, Klassenquest, Dungeon).
+	FOV_SEARCH_HINT = "Alles suchen: Lehrer, Bank, Klassenquest, Dungeon, Makro…",
+	FOV_SEARCH_NONE = "Nichts gefunden. Versuch ein anderes Wort.",
+	FOV_SEARCH_TIP = "Tippe ein Wort: einen Lehrer, einen Beruf, einen Händler, die Bank oder den Gastwirt, eine Klassenquest, einen Dungeon, ein Makro, eine Einstellung oder einen /mh-Befehl. Klick auf eine Zeile oder drück Enter, um dorthin zu gehen. Mit @ am Anfang suchst du nur in einer Sorte: @find, @quest, @dungeon, @macro, @setting, @tool, @command.",
+	FOV_SEARCH_CTX_TAB = "Reiter",
 	FOV_Q_INTRO = "Das läuft von selbst, während du spielst. Schalte aus, was du nicht willst. Alles andere findest du in den Einstellungen.",
 	FOV_Q_ALLSETTINGS = "Alle Einstellungen ›",
 	FOV_TIP_Q_ALLSETTINGS = "Öffnet Midnight Helper in den Einstellungen des Spiels (Optionen → AddOns).",

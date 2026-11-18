@@ -195,6 +195,9 @@ for k, v in pairs({
 	FOV_TIP_DUNG_ST_LOW = "Estás por encima de los niveles de este calabozo: aquí ya queda poca XP.",
 	FOV_DUNG_NONE_FMT = "Aún no hay ningún calabozo para el nivel %d. Los primeros empiezan en el nivel %d. Desactiva \"Solo para mi nivel\" para verlos todos.",
 	FOV_GROUP_XP_RULE = "En un calabozo, nadie del grupo recibe XP por un enemigo si alguien del grupo está más de 12 niveles por encima de él.",
+	-- 18 Nov 2026: search bar, "calabozo" instead of esES "mazmorra".
+	FOV_SEARCH_HINT = "Buscar todo: instructor, banco, misión de clase, calabozo, macro…",
+	FOV_SEARCH_TIP = "Escribe una palabra: un instructor, una profesión, una tienda, el banco o la posada, una misión de clase, un calabozo, una macro, un ajuste o un comando /mh. Haz clic en una línea o pulsa Intro para ir allí. Empieza con @ para buscar en un solo tipo: @find, @quest, @dungeon, @macro, @setting, @tool, @command.",
 }) do
 	es[k] = v
 end
