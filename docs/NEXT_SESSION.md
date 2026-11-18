@@ -2,6 +2,28 @@
 
 ## ▶ 18 nov — Bouwchat 18-11
 
+- ⏭️ **VOLGENDE: bazengids STAP 2 (dungeons ~32-60) — bouw-ja is er** (Rob via sparring, letterlijk: *"Ga maar verder met
+  2"*; eerder: *"foutloos"*, *"Die nieuwe dungeons erbij. En dan later nog een keer controleren"*). NIET begonnen in
+  Bouwchat 18-11: de context was vol (sparring vroeg dan eerst de handoff). Recept, zelfde als stap 1:
+  1. Splits: **2a** = Gnomeregan, Razorfen Kraul, SM (Graveyard/Library/Armory/Cathedral), Razorfen Downs, Uldaman,
+     Zul'Farrak, Maraudon + nieuw: City of Dalaran (28-35, valt in de rand), The Drowned City, Krol'dok, Alcaz Prison;
+     **2b** = Sunken Temple, BRD, Dire Maul (E/N/W), LBRS, UBRS, Scholomance, Stratholme (2 delen) + nieuw: Blackmaw
+     Hold, The Shaper's Terrace. Map-id's: `Modules/ForeverDungeons.lua` DUNGEONS. Meld de splitsing aan sparring.
+  2. mh-research maakt per deel de data in hetzelfde formaat als `dungeon_guide_data.lua` van stap 1 (velden: encounter,
+     npc, name, names per taal uit DB2 DungeonEncounter, does 1-3, tip, src met 2 bronnen, one, rare, recheck voor
+     nieuwe dungeons, measure; loot 2-3 items met "Dropped by" + stats uit Wowhead Forever, rol). Bronregels: zie de kop
+     van `Modules/ForeverDungeonGuideData.lua` en `docs/forever/DUNGEONGIDS_DATA_2026-11-18.md`. Let op:
+     `tools/gamedata.py` print maar 8 tooltipregels ("Dropped by" valt weg): volledige JSON via een scratch-script.
+  3. Scripts van stap 1 (oude scratchpad, map
+     `C:\Users\RobHu\AppData\Local\Temp\claude\E--World-of-Warcraft--retail--Interface-AddOns\bcc6113e-4d5e-5fd0-87be-27c8b4e4d9ef\scratchpad\`):
+     `dg_gen.lua`/`dg_gen.py` (data → `ForeverDungeonGuideData.lua` + enUS-regels + TSV voor vertalers; ORDER/SHORT
+     uitbreiden en de bestaande 9 behouden: de nieuwe data AAN de oude toevoegen, niet vervangen), `dg_insert.py`
+     (regels na `\tFDG_HINT =` invoegen), `dg_fix_apply.py` (correcties per sleutel; esMX = overlay), `stat_words.txt`
+     (gemeten stat/slotwoorden), `search_check.lua`/`.py` (offline test, blok "Boss guide"). Kopieer ze naar je eigen
+     scratchpad en draai ze via de voordeur.
+  4. mh-writer vertaalt (7 talen, regels zoals stap 1: clientwoorden, geen verzonnen monsternamen, geen recht ").
+  5. Tweede, onafhankelijke Opus-controle op code + tekst (geeft fix-bestanden per taal) → toepassen → offline test →
+     lint als laatste → TESTLIJST/NEXT_SESSION → push. Geen tag/release. Geen nieuw bestand → /reload.
 - 🗺️ **Forever bazengids STAP 1 GEBOUWD** (Rob via sparring: *"Ja bouw maar"*; daarna *"Die nieuwe dungeons erbij. En dan
   later nog een keer controleren. … Uiteindelijk wil ik gewoon alle dungeons erin hebben … En ook de nieuwe raids"*).
   ⚠️ **2 nieuwe bestanden → WoW herstarten.**
