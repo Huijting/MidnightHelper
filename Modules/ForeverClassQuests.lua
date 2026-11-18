@@ -276,7 +276,8 @@ local WL_P = {
 	morzul = { npc = "Mor'zul Bloodbringer", id = 14436, m = 1428, x = 12.69, y = 31.64 },
 	gorzeeki = { npc = "Gorzeeki Wildeyes", id = 14437, m = 1428, x = 12.43, y = 31.63 },
 	banehollow = { npc = "Lord Banehollow", id = 9516, m = 1448, x = 35.93, y = 44.41 },
-	urdan = { m = 1448, x = 36.17, y = 44.46 },
+	-- npc + id (Fable check, 18 Nov 2026): without a name the gold line said "you pay it at Felwood". GEMETEN WH-F 14522.
+	urdan = { npc = "Ur'dan", id = 14522, m = 1448, x = 36.17, y = 44.46 },
 	-- Inferno chain (facts file §7a/§8, Zygor A).
 	niby = { npc = "Niby the Almighty", id = 14469, m = 1448, x = 41.38, y = 44.86 },
 	impsy = { npc = "Impsy", id = 14470, m = 1448, x = 41.36, y = 45.02 },
@@ -1819,6 +1820,7 @@ local NPC_NAMES = {
 	[5815] = { deDE = "Kurgul", frFR = "Kurgul", esES = "Kurgul", esMX = "Kurgul", ptBR = "Kurgul", ruRU = "Кургул" },
 	[5753] = { deDE = "Martha Strain", frFR = "Martha Strain", esES = "Martha Forza", esMX = "Martha Strain", ptBR = "Marta Seixas", ruRU = "Марта Стрейн" },
 	[14436] = { deDE = "Mor'zul Bloodbringer", frFR = "Mor'zul Bloodbringer", esES = "Mor'zul Sangredoble", esMX = "Mor'zul Sangredoble", ptBR = "Mor'zul Trazangre", ruRU = "Мор'зул Кровопуск" },
+	[14522] = { ruRU = "Ур'дан" }, -- Ur'dan (GEMETEN WH-F ruRU, 18 Nov 2026); other languages: "Ur'dan"
 	[14437] = { deDE = "Gorzeeki Wildeyes", frFR = "Gorzeeki Wildeyes", esES = "Gorzeeki Ojosalvajes", esMX = "Gorzeeki Ojovago", ptBR = "Gorzeeki Olholouco", ruRU = "Горзиеки Дикоглаз" },
 	[9516] = { deDE = "Lord Banehollow", frFR = "Seigneur Banehollow", esES = "Lord Pesadilla", ptBR = "Lorde Nihilus", ruRU = "Лорд Гиблопуст" },
 	[14469] = { deDE = "Niby der Allmächtige", frFR = "Niby le Tout-puissant", esES = "Niby el Todopoderoso", esMX = "Niby el Todopoderoso", ptBR = "Niby, o Todo-poderoso", ruRU = "Ниби Всемогущий" },
@@ -2362,6 +2364,24 @@ local function Step(c)
 	local e = Current(c)
 	if not e then
 		return nil, "all quests done"
+	end
+	-- Strict chains run quests side by side (Fable check, 18 Nov 2026): the warlock takes 7626-7628 from Mor'zul and 7623
+	-- from Gorzeeki together, and then 7626 is "current" — so 7623's "first buy Shadowy Potions here" never showed. A
+	-- "buy it here" warning (a pre with onlyMap) of ANY quest of the chain in your log now comes first.
+	if c.strict then
+		for _, o in ipairs(c.quests) do
+			local oq = (o ~= e) and not AnyDone(o) and LogQuest(o)
+			if oq then
+				for _, p in ipairs(o.pre or {}) do
+					if p.onlyMap then
+						local s = PreStep({ pre = { p } }, oq)
+						if s then
+							return s
+						end
+					end
+				end
+			end
+		end
 	end
 	local q = LogQuest(e)
 	if not q then

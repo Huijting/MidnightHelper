@@ -343,6 +343,9 @@ local function MakeButton()
 		btn:SetPoint("RIGHT", UIParent, "RIGHT", -260, 0)
 	end
 	btn:RegisterForClicks("LeftButtonUp")
+	-- Pin the click phase (Fable check, 18 Nov 2026): without this the CVar ActionButtonUseKeyDown decides, and "on" leaves
+	-- an Up-only button dead (Forever SecureTemplates.lua, SecureActionButton_ShouldUseOnKeyDown; FastMark.lua pins too).
+	btn:SetAttribute("useOnKeyDown", false)
 	-- Alt+left is for moving: no action then.
 	btn:SetAttribute("alt-type1", "")
 	btn.icon = btn:CreateTexture(nil, "ARTWORK")

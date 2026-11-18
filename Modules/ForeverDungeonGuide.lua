@@ -108,6 +108,12 @@ local function BossName(b)
 	return (loc and b.names and b.names[loc]) or b.name
 end
 
+-- True while the text built last had an item without its name yet ("#id"); Fill() then retries a few times. Fable
+-- check, 18 Nov 2026: waiting for GET_ITEM_INFO_RECEIVED alone stuck on Forever before (ForeverVendors.lua:66, :571;
+-- RequestLoadItemDataByID answers with ITEM_DATA_LOAD_RESULT, RaidShoppingList.lua:726) — same cure as ForeverVendors.
+local missingItem = false
+local waitingItem = {} -- item id -> true while a load callback is registered: one per item, not one per refill. Fable C1
+
 local function ItemName(id)
 	if C_Item and C_Item.GetItemNameByID then
 		local ok, n = pcall(C_Item.GetItemNameByID, id)
@@ -115,9 +121,28 @@ local function ItemName(id)
 			return n
 		end
 	end
+	local info = (C_Item and C_Item.GetItemInfo) or GetItemInfo
+	if info then
+		local ok, n = pcall(info, id)
+		if ok and type(n) == "string" and n ~= "" then
+			return n
+		end
+	end
 	if C_Item and C_Item.RequestLoadItemDataByID then
 		pcall(C_Item.RequestLoadItemDataByID, id)
 	end
+	if Item and Item.CreateFromItemID and not waitingItem[id] then
+		waitingItem[id] = true
+		pcall(function()
+			Item:CreateFromItemID(id):ContinueOnItemLoad(function()
+				waitingItem[id] = nil
+				if ns.ForeverDungeonGuideRefresh then
+					ns.ForeverDungeonGuideRefresh()
+				end
+			end)
+		end)
+	end
+	missingItem = true
 	return nil
 end
 
@@ -140,6 +165,7 @@ function ns.ForeverDungeonGuideText(map)
 	local parts = {}
 	local byNpc = {}
 	local recheck = g.recheck
+	missingItem = false
 	for _, b in ipairs(g.bosses or {}) do
 		-- A boss without a known npc id (Ruins of Lordaeron's captain) has no entry here; the offline test found that
 		-- `byNpc[nil] = b` broke the whole page (18 Nov 2026).
@@ -156,7 +182,7 @@ function ns.ForeverDungeonGuideText(map)
 	end
 	local part
 	for i, b in ipairs(g.bosses or {}) do
-		-- A wing starts: its name as a small header (the wing names are the English ones the dungeon list already uses).
+		-- A wing starts: its name as a small header (an FDGP_* key, translated; PartName).
 		if b.part and b.part ~= part then
 			part = b.part
 			parts[#parts + 1] = "|cffeeb055— " .. PartName(part) .. " —|r"
@@ -295,12 +321,18 @@ Fill = function()
 	end
 	for i, b in ipairs(f.btns) do
 		b:SetEnabled(b.map ~= selected)
-		-- Opened on a dungeon further down (its row's button, or you are inside it): scroll the list so it shows.
-		if b.map == selected and f.list then
+		-- Opened on a dungeon further down (its row's button, or you are inside it): scroll the list so it shows. Only
+		-- when the choice changed (Fable C2: every item/target event refills, and would pull the list back while you
+		-- scroll); marked done only once the scroll range is known (keeps the second Fill at first opening useful).
+		if b.map == selected and f.list and f.scrolledFor ~= selected then
 			local top, view = (i - 1) * 28, f.list:GetHeight() or 0
-			local cur = f.list:GetVerticalScroll() or 0
-			if view > 0 and (top < cur or top + 28 > cur + view) then
-				f.list:SetVerticalScroll(math.max(0, math.min(top, (f.list:GetVerticalScrollRange() or 0))))
+			local range = f.list:GetVerticalScrollRange() or 0
+			if view > 0 and (range > 0 or #f.btns * 28 <= view) then
+				local cur = f.list:GetVerticalScroll() or 0
+				if top < cur or top + 28 > cur + view then
+					f.list:SetVerticalScroll(math.max(0, math.min(top, range)))
+				end
+				f.scrolledFor = selected
 			end
 		end
 	end
@@ -313,8 +345,38 @@ Fill = function()
 	local r = d and range[d.map]
 	f.head:SetText(d and ("%s  |cff9d9d9d%d-%d|r"):format(DungeonName(d), r and r.min or d.min or 0, r and r.max or d.max or 0)
 		or "")
+	-- Another dungeon: its text starts at the top (Fable C3; it kept the old scroll position).
+	if f.shownMap ~= selected then
+		f.shownMap = selected
+		f.scroll:SetVerticalScroll(0)
+	end
 	f.body:SetText(selected and ns.ForeverDungeonGuideText(selected) or ns:L("FDG_NONE"))
 	f.child:SetHeight(math.max(10, (f.body:GetStringHeight() or 0) + 10))
+	-- An item name was not loaded yet: try again every 0.5 s, at most 10 times, while the window is open.
+	if missingItem and not f.nameTicker and C_Timer and C_Timer.NewTicker then
+		local tries, ticker = 0, nil
+		ticker = C_Timer.NewTicker(0.5, function()
+			tries = tries + 1
+			if not f:IsShown() or tries >= 10 then
+				ticker:Cancel()
+				f.nameTicker = nil
+				return
+			end
+			Fill()
+			if not missingItem then
+				ticker:Cancel()
+				f.nameTicker = nil
+			end
+		end)
+		f.nameTicker = ticker
+	end
+end
+
+--- Refill an open window (an item's data arrived).
+function ns.ForeverDungeonGuideRefresh()
+	if win and win:IsShown() then
+		Fill()
+	end
 end
 
 --- Open the guide, on `map` when given (a dungeon row's button), else on where you are.

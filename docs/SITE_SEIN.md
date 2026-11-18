@@ -28,6 +28,16 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 18 nov 2026 — concept voor de volgende release klaargezet (nog GEEN release)
+- Tag + commit:   geen tag; concept in `docs/CURSEFORGE_DRAFT_volgende.md` (geen versienummer, geen RELEASE_NOTES.md)
+- Status:         alleen op main
+- Mag op de site: nee, nog niet. Rob beslist zelf of en wanneer de release komt (via sparring: "Fable mag en ik volg je
+                  advies"; advies: concept klaarzetten).
+- Afspraak:       🔴 bij DIE release zet de site-chat de **screenshots-draft v2** live (samen met de nieuwe tekst).
+- Speler ziet:    zie het concept: bazengids 28 dungeons, zoekbalk, Travel, rares, class-quest-voorwaarden,
+                  disenchant, Open-box button, ranks kiezen, Reputation & currency.
+- Spel:           vooral Forever; twee Midnight-reparaties
+
 ## 18 nov 2026 — Forever: bazengids (stap 1 + 2a + 2b, alle 28 dungeons)
 - Tag + commit:   geen tag (2a = 87f3488; 2b = de commit die deze regel bijwerkt)
 - Status:         alleen op main

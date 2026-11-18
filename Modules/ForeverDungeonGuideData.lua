@@ -89,23 +89,23 @@ ns.FOREVER_DGUIDE = {
 				tip = "FDG_LORD_1_T",
 				-- src: spinnen 2x IV+MOB; gif 2x IV+MOB; leegzuigen 2x GS+RF; tip 2x GS+RF
 			},
-			{ npc = 250631, encounter = 3357, name = "The Abandoned", recheck = true,
-				names = { deDE = "Der Verlassene", frFR = "L’Abandonné", esES = "El Abandonado", esMX = "El Abandonado", ptBR = "O Abandonado", ruRU = "Покинутый" },
-				does = { "FDG_LORD_2_D1", "FDG_LORD_2_D2" },
-				tip = "FDG_LORD_2_T",
-				-- src: golven 2x IV+MOB (GS, MG ook); vaardigheden 2x IV+MOB; volle mana 2x MM+WFG; onderbreken 2x IV+MOB
-			},
 			{ npc = 250660, encounter = 3355, name = "The Baron", recheck = true,
 				names = { deDE = "Der Baron", frFR = "Le baron", esES = "El barón", esMX = "El barón", ptBR = "O Barão", ruRU = "Барон" },
-				does = { "FDG_LORD_3_D1", "FDG_LORD_3_D2" },
-				tip = "FDG_LORD_3_T",
+				does = { "FDG_LORD_2_D1", "FDG_LORD_2_D2" },
+				tip = "FDG_LORD_2_T",
 				-- src: cleave 2x IV+MOB; knock + threat 2x IV+MOB (GS ook); volle health 2x MG+RF; terug-taunten 2x IV+GS; achter hem 2x IV+RF | DB2 encounter name: The Butcher | MEASURE: Name: DB2 encounter 3355 = 'The Butcher'; Wowhead npc 250660, FC and the guides = 'The Baron'. Which name does the client show?
 			},
 			{ npc = 256035, encounter = 3411, name = "Viktor the Vile", optional = true, recheck = true,
 				names = { deDE = "Viktor der Üble", frFR = "Viktor le Vil", esES = "Viktor el Abyecto", esMX = "Viktor, el Vil", ptBR = "Viktor, o Vil", ruRU = "Виктор Вероломный" },
+				does = { "FDG_LORD_3_D1", "FDG_LORD_3_D2" },
+				tip = "FDG_LORD_3_T",
+				-- src: optioneel 2x GS+MG; vuur + golven 2x IV+MOB (5 golven: GS+MG); hard slaan 2x GS+MG; tip 2x IV+MOB
+			},
+			{ npc = 250631, encounter = 3357, name = "The Abandoned", recheck = true,
+				names = { deDE = "Der Verlassene", frFR = "L’Abandonné", esES = "El Abandonado", esMX = "El Abandonado", ptBR = "O Abandonado", ruRU = "Покинутый" },
 				does = { "FDG_LORD_4_D1", "FDG_LORD_4_D2" },
 				tip = "FDG_LORD_4_T",
-				-- src: optioneel 2x GS+MG; vuur + golven 2x IV+MOB (5 golven: GS+MG); hard slaan 2x GS+MG; tip 2x IV+MOB
+				-- src: golven 2x IV+MOB (GS, MG ook); vaardigheden 2x IV+MOB; volle mana 2x MM+WFG; onderbreken 2x IV+MOB
 			},
 			{ npc = 256097, encounter = 3412, name = "Bjork", recheck = true,
 				names = { deDE = "Bjork", frFR = "Bjork", esES = "Bjork", esMX = "Bjork", ptBR = "Bjork", ruRU = "Бьорк" },
@@ -119,7 +119,7 @@ ns.FOREVER_DGUIDE = {
 				tip = "FDG_LORD_6_T",
 				-- src: vuurveld 2x IV+MOB (op plek tank: GS+RF); puls rond hem 2x IV+MOB; tip 2x IV+MOB (wegstappen: GS+MG)
 			},
-			{ encounter = 3408, name = "Lordaeron Captain", rare = true, recheck = true,
+			{ npc = 255699, encounter = 3408, name = "Lordaeron Captain", rare = true, recheck = true,
 				names = { deDE = "Hauptmann von Lordaeron", frFR = "Capitaine de Lordaeron", esES = "Capitán de Lordaeron", esMX = "Capitán de Lordaeron", ptBR = "Capitão de Lordaeron", ruRU = "Лордеронский капитан" },
 				does = { "FDG_LORD_7_D1", "FDG_LORD_7_D2" },
 				tip = "FDG_LORD_7_T",
@@ -138,7 +138,7 @@ ns.FOREVER_DGUIDE = {
 				names = { deDE = "Lady Anacondra", frFR = "Dame Anacondra", esES = "Lady Anacondra", esMX = "Lady Anacondra", ptBR = "Lady Sucurina", ruRU = "Повелительница Анакондра" },
 				does = { "FDG_WC_1_D1", "FDG_WC_1_D2" },
 				tip = "FDG_WC_1_T",
-				-- src: spells 2x IV+MOB; vier plekken 2x MOB+WT; tip 2x IV+MOB
+				-- src: spells 2x IV+MOB; plekken 2x MOB+WT, het getal vier alleen MOB (Fable G1 A8); tip 2x IV+MOB
 			},
 			{ npc = 3669, encounter = 586, name = "Lord Cobrahn",
 				names = { deDE = "Lord Kobrahn", frFR = "Seigneur Cobrahn", esES = "Lord Cobrahn", esMX = "Lord Cobrahn", ptBR = "Lorde Cobrahn", ruRU = "Лорд Кобран" },
@@ -221,17 +221,17 @@ ns.FOREVER_DGUIDE = {
 				tip = "FDG_DM_4_T",
 				-- src: metaal op tank 2x IV+MOB; trager threat 2x IV+WFI; tip 2x IV+MOB
 			},
-			{ npc = 647, encounter = 2744, name = "Captain Greenskin",
-				names = { deDE = "Kapitän Grünhaut", frFR = "Capitaine Vertepeau", esES = "Capitán Verdepel", esMX = "Capitán Verdetez", ptBR = "Capitão Peleverde", ruRU = "Капитан Зеленямс" },
-				does = { "FDG_DM_5_D1", "FDG_DM_5_D2" },
-				tip = "FDG_DM_5_T",
-				-- src: cleave 2x IV+MOB; gif 2x MOB+FH; tip 2x IV+MOB
-			},
 			{ npc = 646, encounter = 2745, name = "Mr. Smite",
 				names = { deDE = "Handlanger Pein", frFR = "M. Smite", esES = "Sr. Golpin", esMX = "Don Mamporro", ptBR = "Sr. Castiga", ruRU = "Мистер Каюк" },
+				does = { "FDG_DM_5_D1", "FDG_DM_5_D2" },
+				tip = "FDG_DM_5_T",
+				-- src: 2x IV+MOB (IV: 66% en 33%; 'hidden' = MOB+FH)
+			},
+			{ npc = 647, encounter = 2744, name = "Captain Greenskin",
+				names = { deDE = "Kapitän Grünhaut", frFR = "Capitaine Vertepeau", esES = "Capitán Verdepel", esMX = "Capitán Verdetez", ptBR = "Capitão Peleverde", ruRU = "Капитан Зеленямс" },
 				does = { "FDG_DM_6_D1", "FDG_DM_6_D2" },
 				tip = "FDG_DM_6_T",
-				-- src: 2x IV+MOB (IV: 66% en 33%; 'hidden' = MOB+FH)
+				-- src: cleave 2x IV+MOB; gif 2x MOB+FH; tip 2x IV+MOB
 			},
 			{ npc = 645, encounter = 2746, name = "Cookie",
 				names = { deDE = "Krümel", frFR = "Macaron", esES = "El Chef", esMX = "Cocinitas", ptBR = "Cuca", ruRU = "Пирожок" },
@@ -399,7 +399,7 @@ ns.FOREVER_DGUIDE = {
 				-- src: 2x IV+MOB; tip 2x IV+GG
 			},
 			{ npc = 4832, encounter = 2911, encounterAlt = 2766, name = "Twilight Lord Kelris",
-				names = { deDE = "Twilight-Lord Kelris", frFR = "Seigneur du Crépuscule Kelris", esES = "Señor Crepuscular Kelris", esMX = "Señor Crepuscular Kelris", ptBR = "Senhor do Crepúsculo Kelris", ruRU = "Повелитель сумрака Келрис" },
+				names = { deDE = "Twilight-Lord Kelris", frFR = "Seigneur du crépuscule Kelris", esES = "Señor Crepuscular Kelris", esMX = "Señor Crepuscular Kelris", ptBR = "Senhor do Crepúsculo Kelris", ruRU = "Повелитель сумрака Келрис" },
 				does = { "FDG_BFD_7_D1", "FDG_BFD_7_D2" },
 				tip = "FDG_BFD_7_T",
 				-- src: 2x IV+MOB; tip 2x IV+WH (CQ ook)
@@ -839,7 +839,7 @@ ns.FOREVER_DGUIDE = {
 				tip = "FDG_KROL_6_T",
 				-- src: centurions 2x WH+WT (MOBU, CQ ook); sprong 2x WH+WT (MOBU, CQ ook); wapens 2x WH+WT; centurions eerst 2x WH+WT (CQ ook); spreiden 2x WT+MOBU | DB2 encounter name: Overseer Mugg | MEASURE: Name: DB2 encounter 3451 = 'Overseer Mugg'; Wowhead npc 258968, every guide and a stream nameplate (GGA) = 'Overlord Mugg'. Which name does the client show?
 			},
-			{ npc = 262716, name = "Kroog", rare = true, one = true, recheck = true,
+			{ npc = 262716, name = "Kroog", rare = true, recheck = true,
 				names = { deDE = "Kroog", frFR = "Kroog", esES = "Kroog", esMX = "Kroog", ptBR = "Kroog", ruRU = "Кроог" },
 				does = { "FDG_KROL_7_D1" },
 				tip = "FDG_KROL_7_T",
@@ -1801,7 +1801,7 @@ ns.FOREVER_DGUIDE = {
 				names = { deDE = "Timmy der Grausame", frFR = "Timmy le Cruel", esES = "Timmy el Cruel", esMX = "Timmy el Cruel", ptBR = "Tico, o Cruel", ruRU = "Тайлер" },
 				does = { "FDG_STRAT_6_D1", "FDG_STRAT_6_D2", "FDG_STRAT_6_D3" },
 				tip = "FDG_STRAT_6_T",
-				-- src: plein leeg 2x WT(C)+WFG (MM(C), FDJ ook; CQ zegt 'market square'); melee 2x WH+WT(C) (MOB ook); enrage 2x WH+MOB (WT(C), WFG ook; WFG 20%, de rest geen getal); Bastion-deur in Classic 2x WT(C)+MM(C) (wowforever.be, wowforever.ninja, IVC ook; DB2 Lock 299); tip 2x MOB+WT(C) | MEASURE: Wowhead lists him as 'Rare Elite', but every guide says he always comes once Crusader's Square is cleared. Is he there every run? (ruRU: Wowhead npc 'Тайлер', DB2 474 'Тимми Беспощадный'; which one is on the nameplate?)
+				-- src: plein leeg 2x WT(C)+WFG (MM(C), FDJ ook; CQ zegt 'market square'); melee 2x WH+WT(C) (MOB ook); enrage 2x WH+MOB (WT(C), WFG ook; WFG 20%, de rest geen getal); Bastion-deur in Classic 2x WT(C)+MM(C) (wowforever.be, wowforever.ninja, IVC ook; DB2 Lock 299); tip 2x MOB+WT(C) | MEASURE: Wowhead lists him as 'Rare Elite', but every guide says he always comes once Crusaders' Square is cleared. Is he there every run? (ruRU: Wowhead npc 'Тайлер', DB2 474 'Тимми Беспощадный'; which one is on the nameplate?)
 			},
 			{ npc = 11032, encounter = 476, name = "Malor the Zealous", part = "FDGP_MAIN_GATE", one = true,
 				names = { deDE = "Malor der Eifrige", frFR = "Malor le Zélé", esES = "Malor el Entusiasta", esMX = "Malor el Fanático", ptBR = "Malor, o Zeloso", ruRU = "Малор Ревностный" },

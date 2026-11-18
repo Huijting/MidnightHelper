@@ -437,7 +437,9 @@ local TRAVEL_EXTRA = {
 	-- Feathermoon ferry, path 303: mainland dock <> Sardor Isle. Wowhead Forever object 177233 "Feathermoon Ferry".
 	-- side A = it lands at the Alliance stronghold (AFGELEID; DB2 has no side for transports).
 	{ id = "X2", kind = "boat", side = "A", a = { MAP.FERALAS, 43.13, 42.76 }, b = { MAP.FERALAS, 31.01, 39.51 },
-		bName = "FTRAVEL_FEATHERMOON" },
+		-- aName (Fable check, 18 Nov 2026): the way back left Feathermoon "to Feralas" while you are in Feralas; it goes to
+		-- the Forgotten Coast (games.gg; DB2 AreaTable 1108).
+		aName = "FTRAVEL_FORGOTTEN_COAST", bName = "FTRAVEL_FEATHERMOON" },
 }
 
 -- A line under a stop that is hard to find from the nearest city. [link id .. "a"/"b"] = locale key. Directions from the

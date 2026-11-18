@@ -39,6 +39,17 @@ zoekbalk, de reputaties, de rares, de muntjes, de Now-kaart, het ronde plaatje e
 achternaam, "Step aside"-instelling, Your path, Set focus). Daarna vond Rob nog: "scroll for more" over de tekst
 (gerepareerd, zie Travel) en het boek bij de mage-quest "Study" (in bouw).
 
+## 🔴 EERST, thuis (2 minuten): meting voor "Beter dan wat je draagt" (optie B)
+
+Rob via sparring: *"Ja"* (optie A nu, B later in stappen; deze meting beslist hoe B gebouwd wordt). Forever, in de stad.
+Typ in de chat `/dump C_Item.GetItemStats(` , **shift-klik** het item in je tas (dan staat de link in de chat), typ `)`
+en druk op Enter. Doe dat voor 4 items en maak een screenshot van elk antwoord:
+- [ ] (a) een item met alleen gewone stats (Strength/Agility/Stamina…).
+- [ ] (b) een caster-item met een groene "Equip: Increases damage and healing…"-regel.
+- [ ] (c) een wapen (staat er iets over schade per seconde in het antwoord?).
+- [ ] (d) een groen item met "of the …" in de naam (bv. "… of the Bear").
+Geen item van een soort bij de hand? Sla die over en zeg welke.
+
 ## 🗺️ 18 nov (laat) — Forever: bazengids, stap 2b (alle dungeons tot 60) + namen van het naamplaatje
 
 Geen nieuw bestand: `/reload` is genoeg.

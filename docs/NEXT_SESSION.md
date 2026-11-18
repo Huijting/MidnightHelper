@@ -1,5 +1,31 @@
 # Midnight Helper — waar we staan
 
+## ▶ 18 nov (nacht) — Bouwchat addons-12: Fable-nakijkronde (punt 1 van Robs ja) GEDAAN
+
+Rob via sparring, letterlijk: *"Fable mag en ik volg je advies"*. Vier Fable-helpers (G1-G4) kregen alleen code + teksten
+(geen rapporten). Rapporten: `docs/forever/FABLE_NAKIJK_G1..G4_*_2026-11-18.md`. Samen ±20 FOUT + ±50 RISICO; verwerkt:
+- **Bazengids, code** (`ForeverDungeonGuide.lua`): itemnamen bleven "#id" (alleen GET_ITEM_INFO_RECEIVED) → tweede
+  naamopvraag + `Item:ContinueOnItemLoad` (één per item) + ticker 0,5 s × 10 (zoals ForeverVendors); lijst sprong terug
+  bij elk event → alleen scrollen als de keuze verandert (`f.scrolledFor`); tekst opent bovenaan bij een andere dungeon.
+- **Bazengids, data**: looproute Deadmines (Smite vóór Greenskin) en Ruins of Lordaeron (Witherfang, Baron, Viktor,
+  Abandoned…), sleutels in 8 taalbestanden omgenummerd (scratch `dg1_reorder.py`, 15 per bestand, steekproef GEMETEN);
+  Lordaeron Captain npc 255699 (GEMETEN WHT); Baron Aquanis = alleen Horde met de quest (Fathom Stone); 23 Engelse
+  regels 2a herschreven (Azshir fear = één speler, Katerina-bloeding, Noxxion vaste tijd…); Kelris frFR kleine c;
+  bronregel Anacondra. Stap-1-bron staat nu in deze scratchpad (`dg1_data.lua`; de generator wijst ernaar).
+- **Vertalingen**: o.a. deDE "Schwere Rüstung", ptBR "cajado"/"Défias"/"Draconiano", esES "mallas", Engelse
+  plaatsnamen BRD/ST/Strat in de/fr → clientnamen (WMOAreaTable), "Black Anvil", Angry Tomes, ruRU "Реликварий",
+  skycutter-woord in alle talen (ook `Translations2026.lua`), Watchman Doomgrip esMX. "Crusaders' Square" is juist
+  (Forever WMOAreaTable; mijn eerdere "Crusader's" kwam uit een retail-kaarttabel en was fout).
+- **Class quests** (`ForeverClassQuests.lua`): strikte keten toont nu een "koop het hier"-waarschuwing van ELKE quest in
+  je log (warlock potions kwamen anders niet); Ur'dan npc 14522 (GEMETEN) → "you pay it to Ur'dan".
+- **Travel**: veerboot terug vanaf Feathermoon → "the Forgotten Coast" (nieuwe sleutel FTRAVEL_FORGOTTEN_COAST, 7 talen).
+- **Disenchant**: knop `useOnKeyDown = false` (anders dood bij "cast on key down", Forever SecureTemplates).
+- **Open, voor Rob (via sparring)**: G1 adviseert "Wowhead wint altijd, ook als de naam Engels is" — tegen Robs net
+  goedgekeurde bijstelling; niets veranderd. G2: 6 fr/ru-namen verschillen alleen in accent/hoofdletter — zo gelaten.
+  Niet meetbaar zonder client: welke naam het naamplaatje echt toont, of `GetItemStats`/`CastSpellByID(13262)` werken.
+- Bekende rest-risico's (in de rapporten): `optional` wordt nergens getoond; enkele `src`-velden beschrijven de oude
+  tekst (Loksey, Anomaly, Wrex, Noxxion); "Fly to Orgrimmar with Tal" vraagt dat je dat vliegpunt kent (tekst nu zo).
+
 ## ▶ 18 nov (laat) — Bouwchat addons-12: bazengids STAP 2b GEBOUWD + namen van het naamplaatje
 
 - ✅ **Bijstelling van keuze B GEBOUWD** (Rob via sparring, letterlijk: *"Ja, volg jouw advies, dus dat mag."*): is de
@@ -32,8 +58,8 @@
   - Vertaald (2 mh-writers + 1 voor de 30 reparaties). Vertaalcontrole (2 Opus,
     `docs/forever/DUNGEONGIDS_VERTAALCONTROLE2B_{NDF,EPR}_2026-11-18.md`): 12 FOUT (o.a. deDE "Zauberdurchdringung",
     esMX "calabozo" i.p.v. "mazmorra", esES "coger" → "tomar", ptBR "Praça dos Cruzados") + risico's; 39 regels
-    verbeterd. enUS/nlNL "Crusaders' Square" → "Crusader's Square" (GEMETEN retail UiMapGroupMember 536; Forever
-    heeft die tabel niet). (Het esMX-placeholderpunt is beslist en gebouwd: zie "Bijstelling van keuze B" hierboven.) Sleutels per taal GEMETEN: 999
+    verbeterd. (enUS/nlNL "Crusader's Square" was een fout van de bouwchat — gemeten in een retail-kaarttabel; de
+    Forever-zonetekst, WMOAreaTable 1.60.1.70959, zegt "Crusaders' Square". Teruggezet in de Fable-ronde.) (Het esMX-placeholderpunt is beslist en gebouwd: zie "Bijstelling van keuze B" hierboven.) Sleutels per taal GEMETEN: 999
     (enUS = 986 gids + 13 UI), geen dubbele/verouderde/ontbrekende; esMX-overlay 69, geen verouderde regel (scratch
     `dg2_mxcheck.py`).
   - Open: Sunken Temple heeft in Forever een NIEUWE encounterset (3582-3589) naast de oude (`encounterAlt`), welke vuurt
@@ -371,7 +397,13 @@
   en zonder functies, 0 fouten. Steamwheedle-id's 21/369/470/577 = classic, NIET in Forever gemeten (de meting doet dat).
   Wacht op Robs `/mh repprobe` + `/reload`; daarna kiest hij over de kaart.
 
-## 🔴 18 nov — GEEN FABLE deze week (t/m reset za 21 nov 10:00)
+## ✅ 18 nov (laat) — FABLE MAG WEER (ook op helpers)
+
+Rob (via Sparring 18-11), letterlijk: *"Oke, ik heb de fable reset ingezet dus geen angst meer voor geen tokens 😇"* en
+*"Fable mag en ik volg je advies"*. De regel hieronder (geen Fable t/m 21 nov) VERVALT. De werkwijze erachter (tweede,
+onafhankelijke controle die de code krijgt en niet de conclusie; foutsoorten-checklist; lint als laatste) blijft.
+
+## (vervallen 18 nov laat) 18 nov — GEEN FABLE deze week (t/m reset za 21 nov 10:00)
 
 Rob (via Sparring 17-11), letterlijk: *"goedemorgen, we stoppen even met fabble voor deze week 🙂 we hebben al aardig wat
 uitgezocht en moeten een manier vinden om net zo een goed resultaat te halen zonder fable :)"*.
