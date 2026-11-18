@@ -1185,6 +1185,11 @@ local QUIET = {
 	PROF_SWITCHES[2], -- last tool
 	PROF_SWITCHES[3], -- missing tool: where to buy
 	{ head = "FOV_Q_HEAD_SCREEN" },
+	-- 18 Nov 2026: the open-this-box button (Openables.lua). On by default: it only appears when a bag holds something
+	-- you can open, and hides in combat.
+	Q("FOV_Q_OPENABLES", "FOV_Q_OPENABLES_DESC", {
+		get = function() return ns.IsOpenablesEnabled and ns.IsOpenablesEnabled() end,
+		set = function(on) if ns.SetOpenablesEnabled then ns.SetOpenablesEnabled(on) end end }),
 	-- 18 Nov 2026: the moving 3D portrait at the top left. OFF by default since the same evening (Rob via sparring:
 	-- "Ja, zet hem standaard op uit" - he finds the round picture nicer); on = the 3D model.
 	Q("FOV_Q_PORTRAIT3D", "FOV_Q_PORTRAIT3D_DESC", DbFlag("foreverPortrait3D", false)),

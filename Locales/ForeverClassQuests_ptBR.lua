@@ -680,6 +680,8 @@ for k, v in pairs({
 	FDE_NEXT_NONE = "Nada para desencantar",
 	FDE_NEXT_TIP = "Clique: desencantar este item (um clique é um Desencantar). Clique direito: pular por agora. Alt+arrastar: mover o botão. Some em combate.",
 	FDE_SKIPPED_FMT = "%s pulado até você entrar de novo.",
+	FOV_Q_OPENABLES = "Botão: abrir caixa",
+	FOV_Q_OPENABLES_DESC = "Um botão que aparece quando suas bolsas têm uma caixa, bolsinha ou concha que você pode abrir. Um clique abre uma. Cofres trancados ficam de fora (primeiro Abrir Fechadura de um ladino ou uma chave). Escondido em combate. O mesmo que /mh open on|off.",
 	FOV_Q_DISENCHANT = "Pode ser desencantado",
 	FOV_Q_DISENCHANT_DESC = "Para encantadores: uma linha na dica de armas e armaduras, e um pequeno ícone de Desencantar nos itens das suas bolsas que podem (bolsas da Blizzard e Baganator). O mesmo que /mh disenchant on|off.",
 	FOV_Q_DISENCHANTNEXT = "Botão: desencantar o próximo",

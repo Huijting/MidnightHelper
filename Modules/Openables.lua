@@ -95,6 +95,12 @@ local function SlotKind(bag, slot)
 	for _, line in ipairs(data.lines) do
 		local text = line and line.leftText
 		if text and not IsSecret(text) then
+			-- 18 Nov 2026 (Forever, Rob via sparring: "3 … die kunnen we nu doen"): a lockbox that is still locked
+			-- (the tooltip line LOCKED, "Locked") cannot be opened with a click: a rogue's Pick Lock or a key first.
+			-- Forever only, so Midnight's list stays exactly as it was.
+			if ns.IS_FOREVER and type(LOCKED) == "string" and text == LOCKED then
+				return "locked"
+			end
 			if LineIsRedRequirement(line) then
 				return nil -- can't use/learn it (wrong level, missing profession, …)
 			end
@@ -227,9 +233,13 @@ local function CrestCapBlock(itemName)
 	return nil
 end
 
+-- For /mh open: what the last scan saw.
+local lastScan = { open = 0, locked = 0, lowLevel = 0 }
+
 -- @return geordende lijst { { bag, slot, itemID, name, icon, count }, ... }
 local function ScanOpenables()
 	local out = {}
+	lastScan.open, lastScan.locked, lastScan.lowLevel = 0, 0, 0
 	if not (C_Container and C_Container.GetContainerNumSlots) then
 		return out
 	end
@@ -256,6 +266,10 @@ local function ScanOpenables()
 			if not kind and info and info.hasLoot and not IsSecret(info.hasLoot) then
 				kind = "openable"
 			end
+			if kind == "locked" then
+				lastScan.locked = lastScan.locked + 1
+				kind = nil -- not offered: the click would only say "Locked"
+			end
 			if kind then
 				if info then
 					-- Level-vereiste: verberg items die je nog niet kunt openen (bv. een
@@ -263,7 +277,11 @@ local function ScanOpenables()
 					local minLvl = info.itemID and C_Item and C_Item.GetItemInfo
 						and select(5, C_Item.GetItemInfo(info.itemID))
 					local plvl = (UnitLevel and UnitLevel("player")) or 999
+					if minLvl and minLvl > plvl then
+						lastScan.lowLevel = lastScan.lowLevel + 1
+					end
 					if not minLvl or minLvl <= plvl then
+						lastScan.open = lastScan.open + 1
 						local itemName = info.itemName
 							or (C_Item and C_Item.GetItemNameByID and C_Item.GetItemNameByID(info.itemID))
 							or "?"
@@ -306,6 +324,10 @@ function ns.IsOpenablesEnabled()
 end
 
 function ns.SetOpenablesEnabled(v)
+	-- Forever's saved table may not have `ui` yet (18 Nov 2026): make it, or the switch would do nothing.
+	if ns.db and type(ns.db.ui) ~= "table" then
+		ns.db.ui = {}
+	end
 	local uiDb = ns.db and ns.db.ui
 	if type(uiDb) == "table" then
 		uiDb.openables = v and true or false
@@ -675,3 +697,25 @@ ev:SetScript("OnEvent", function(_, event)
 	end
 	Schedule()
 end)
+
+--- /mh open [on|off]: the switch and what the last scan saw (a module that can stay quiet needs this, CLAUDE.md).
+function ns.OpenablesSlash(arg)
+	arg = (arg or ""):lower()
+	if arg == "on" then
+		ns.SetOpenablesEnabled(true)
+	elseif arg == "off" then
+		ns.SetOpenablesEnabled(false)
+	end
+	local list = ScanOpenables()
+	local P = "|cffffcc00Midnight Helper:|r "
+	print(P .. ("open: %s; %d to open now, %d locked (Pick Lock or a key first, not offered), %d for a higher level; in combat: %s"):format(
+		Enabled() and "on" or "off (/mh open on)", lastScan.open, lastScan.locked, lastScan.lowLevel,
+		tostring(InCombatLockdown and InCombatLockdown() or false)))
+	for i = 1, math.min(5, #list) do
+		local e = list[i]
+		print(("  %d. %s (bag %d slot %d, %s)"):format(i, tostring(e.name), e.bag, e.slot, e.kind))
+	end
+	if frame then
+		print("  button: " .. (frame:IsShown() and "shown" or "hidden") .. ", next item " .. tostring(frame:GetAttribute("item")))
+	end
+end

@@ -2714,6 +2714,13 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh open [on | off] — the open-this-box button (Openables.lua; Forever since 18 Nov 2026).
+	local openArg = msg:lower() == "open" and "" or msg:lower():match("^open%s+(.+)$")
+	if openArg and ns.OpenablesSlash then
+		ns.OpenablesSlash(openArg)
+		return
+	end
+
 	-- /mh disenchant [on | off | next on | next off] — WoW Forever: can this be disenchanted (ForeverDisenchant.lua;
 	-- Rob, 18 Nov 2026: "ja").
 	local deArg = msg:lower() == "disenchant" and "" or msg:lower():match("^disenchant%s+(.+)$")

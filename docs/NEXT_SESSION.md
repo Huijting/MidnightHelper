@@ -2,6 +2,17 @@
 
 ## ▶ 18 nov — Bouwchat 18-11
 
+- 📦 **Forever Openables GEBOUWD** (Rob via sparring: *"Ik denk dat 3 het makkelijkste is dus die kunnen we nu doen en
+  daarna door naar 1"*). Midnight's `Modules/Openables.lua` hergebruikt (zelfde secure knop `type=item`, één klik = één
+  item, opbouw alleen buiten combat, verborgen in combat): nu ook in `MidnightHelper_Camelot.toc` → herstart.
+  - Herkenning = client-vlag `hasLoot` (GEMETEN in gebruik door Baganator/Syndicator in Forever) + tooltipregel
+    `ITEM_OPENABLE` (in alle Forever-talen, GEMETEN DB2 70959). NIET met een eigen itemlijst uit DB2 (een lijst veroudert;
+    de client weet het).
+  - Nieuw, alleen Forever: tooltipregel `LOCKED` ("Locked", GEMETEN) → niet aangeboden, geteld voor `/mh open`.
+  - Standaard AAN (advies: hij verschijnt alleen als er iets te openen is en is in combat weg); schakelaar bij de stille
+    helpers (`FOV_Q_OPENABLES`), `/mh open [on|off]`. `SetOpenablesEnabled` maakt `ns.db.ui` als Forever die nog niet heeft.
+  - Pick Lock per taal GEMETEN (SpellName 1804; esES Ganzúa, esMX Forzar cerradura → esMX-regel).
+  - Offline: schelp → knop `item:5523`, lockbox op slot overgeslagen, drankje niet; aan/uit. 0 fouten.
 - 🎚️ **Ranks zelf kiezen + Study lager GEBOUWD** (Rob via sparring: *"Een studie, laten we inderdaad jouw advies volgen,
   lager zetten. En wat de Finse speler betreft, werk dat maar vast uit."*). Speler (vragenlijst 18 nov, Druid 20-39, FI):
   *"I would like to choose which action bar spells I want to upgrade."*

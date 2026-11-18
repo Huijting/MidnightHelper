@@ -481,6 +481,8 @@ for k, v in pairs({
 	FDE_NEXT_NONE = "Rien à désenchanter",
 	FDE_NEXT_TIP = "Clic : désenchanter cet objet (un clic = un Désenchanter). Clic droit : le passer pour l'instant. Alt+glisser : déplacer le bouton. Caché en combat.",
 	FDE_SKIPPED_FMT = "%s passé jusqu'à ta prochaine connexion.",
+	FOV_Q_OPENABLES = "Bouton : ouvrir une boîte",
+	FOV_Q_OPENABLES_DESC = "Un bouton qui apparaît quand tes sacs contiennent une boîte, une bourse ou une palourde que tu peux ouvrir. Un clic en ouvre une. Les coffrets verrouillés sont laissés de côté (d'abord Crochetage d'un voleur ou une clé). Caché en combat. Comme /mh open on|off.",
 	FOV_Q_DISENCHANT = "Désenchantable",
 	FOV_Q_DISENCHANT_DESC = "Pour les enchanteurs : une ligne dans l'infobulle des armes et armures, et une petite icône Désenchanter sur les objets de tes sacs qui le peuvent (sacs Blizzard et Baganator). Comme /mh disenchant on|off.",
 	FOV_Q_DISENCHANTNEXT = "Bouton : désenchanter le suivant",

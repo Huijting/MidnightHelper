@@ -39,6 +39,15 @@ zoekbalk, de reputaties, de rares, de muntjes, de Now-kaart, het ronde plaatje e
 achternaam, "Step aside"-instelling, Your path, Set focus). Daarna vond Rob nog: "scroll for more" over de tekst
 (gerepareerd, zie Travel) en het boek bij de mage-quest "Study" (in bouw).
 
+## 📦 18 nov (nacht) — Forever: knop "doos openen"
+
+⚠️ Openables.lua staat nu ook in de Forever-toc: **WoW helemaal herstarten** (samen met disenchant hierboven).
+- [ ] Raap een doos, zakje of schelp op (bv. een Small Barnacled Clam): links in beeld een knop met het icoon. Klik =
+      hij gaat open. Meer dan één: een getal op de knop; het pijltje rechtsboven klapt de lijst uit.
+- [ ] Een lockbox die nog op slot zit, komt NIET op de knop (eerst Pick Lock of een sleutel).
+- [ ] In een gevecht is de knop weg; rechts-slepen verplaatst hem, Shift+scroll maakt hem groter/kleiner.
+- [ ] Tandwiel → stille helpers → "Open-box button" uit: de knop is weg. `/mh open` zegt wat MH ziet.
+
 ## 🎚️ 18 nov (nacht) — Forever: zelf kiezen welke knoppen een hogere rank krijgen + Study lager
 
 Geen nieuw bestand (maar de ronde hieronder wel: herstart WoW één keer, dan is alles mee).

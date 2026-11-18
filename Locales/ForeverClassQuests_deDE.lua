@@ -478,6 +478,8 @@ for k, v in pairs({
 	FDE_NEXT_NONE = "Nichts zum Entzaubern",
 	FDE_NEXT_TIP = "Klick: diesen Gegenstand entzaubern (ein Klick ist ein Entzaubern). Rechtsklick: jetzt überspringen. Alt+Ziehen: Knopf verschieben. Im Kampf ist er weg.",
 	FDE_SKIPPED_FMT = "%s übersprungen, bis du dich neu einloggst.",
+	FOV_Q_OPENABLES = "Knopf: Kiste öffnen",
+	FOV_Q_OPENABLES_DESC = "Ein Knopf, der erscheint, wenn in deinen Taschen eine Kiste, ein Beutel oder eine Muschel liegt, die du öffnen kannst. Ein Klick öffnet eins. Verschlossene Schließkassetten bleiben weg (erst „Schloss knacken“ eines Schurken oder ein Schlüssel). Im Kampf versteckt. Dasselbe wie /mh open on|off.",
 	FOV_Q_DISENCHANT = "Entzauberbar",
 	FOV_Q_DISENCHANT_DESC = "Für Verzauberer: eine Zeile im Tooltip von Waffen und Rüstung und ein kleines Entzaubern-Symbol auf den Gegenständen in deinen Taschen, die es können (Blizzard-Taschen und Baganator). Dasselbe wie /mh disenchant on|off.",
 	FOV_Q_DISENCHANTNEXT = "Knopf: als Nächstes entzaubern",
