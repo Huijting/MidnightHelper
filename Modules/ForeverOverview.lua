@@ -3332,6 +3332,15 @@ end
 -- A hit opens the tab or page where that thing is. Step 2 adds the places themselves with "Show the way".
 --------------------------------------------------------------------------------
 local searchCache, searchAt = nil, -100
+-- The short words players type for the In town items (Rob's test, 18 Nov 2026, via sparring: "Wat ik wel niet kon is
+-- zoeken op AH, een logische afkorting voor de [auction] house"). Same words as Midnight's Silvermoon pins
+-- (NavSearch.lua SMC_WORDS). Only for things in the list: Forever has no flight masters here, so no "fp".
+local CITY_WORDS = {
+	auction = "ah auction auctioneer auctionhouse",
+	bank = "bank banker vault",
+	mail = "mail mailbox post letter",
+	inn = "inn innkeeper hearth hearthstone rest",
+}
 local SEARCH_TTL = 15 -- seconds: NavSearch asks on every keystroke; the lists change only with level, bags or a zone
 
 local function SearchRows()
@@ -3385,6 +3394,7 @@ local function SearchRows()
 				return type(v) == "string" and v or ""
 			end
 			local keys = "find where " .. w(it.english) .. " " .. w(it.goods) .. " " .. w(it.svc) .. " " .. w(it.key)
+				.. " " .. (it.svc and CITY_WORDS[it.svc] or "")
 			if kind == "class" then
 				keys = keys .. " class trainer train spells learn"
 			elseif kind == "prof" then

@@ -39,7 +39,21 @@
   NavSearch `add`, tie-break vóór het alfabet; Midnight-regels hebben geen order) → dichtstbijzijnde eerst. Plus een
   "Show the way"-regel per class quest (zelfde regel als FillClassQuestPage) en per dungeon (niet bij `sideLocked`, zoals
   FillDungeonsPage). Nu 857-964 regels per character. Offline: 68.343 runs, 0 fouten, 32.712 kliks; lijst bouwen max
-  0,032 s, toetsaanslag (typfout-ronde, warme cache) max 0,036 s. NIET in het spel gezien.
+  0,032 s, toetsaanslag (typfout-ronde, warme cache) max 0,036 s.
+- ✅ **Robs test 18 nov** (via sparring, letterlijk: *"1 tot en met 4 gaat goed, 5 gedaan. Wat ik wel niet kon is zoeken
+  op AH … 6 komt later"*): zoekbalk stap 1+2 OK in Forever; Midnight-check open. 🔤 **AH-fix**: `CITY_WORDS` in
+  ForeverOverview.lua (auction "ah auction auctioneer auctionhouse", bank, mail, inn/hearth) — zelfde woorden als
+  Midnight's `SMC_WORDS` (NavSearch.lua r. 670: Midnight kent "ah" al, GEMETEN in de code, niet offline getest). Geen
+  "fp": Forever heeft geen vluchtmeesters in de lijst. Offline: "ah"/"AH" → Auction House + veilingmeesters
+  (controle "bank" ok), 68.343 runs, 0 fouten. Niet in het spel gezien.
+- 📏 **Uitslag `/mh repprobe`** (Rob, Forever, Horde-character; SV 18 nov, GEMETEN): werkt: `C_CurrencyInfo.
+  GetCurrencyInfo` (alle 7 id's met naam), `C_Reputation.GetFactionDataByID` (26 van 35 leesbaar), `GetNumFactions`/
+  `GetFactionDataByIndex` (5 rijen = wat dit character kent), `C_Item.GetItemCount`, `C_MajorFactions` (2800 = 0),
+  alle 5 events geldig. Ontbreekt: de oude `GetFactionInfoByID`, `GetNumFactions`, `GetFactionInfo`, `GetItemCount`.
+  Munten allemaal 0; max Honor 25000, Real 165 (de client zegt 165, niet de 250 van de tooltip), Rank Points max 0,
+  "Renown - PvP Rank" max 7 (niet 14). Onleesbaar (nil): 270/749/910 (raids niet in Forever), 890/2586/2740/2826
+  (Alliance-facties op een Horde-character), 2800/2802 (verborgen). Alliance-facties die wél lezen staan op Hated
+  (-42000). Rep-tokens in de tas: alle 0. Kaart: Rob kiest.
 - 📏 **B: meting valuta/reputaties GEBOUWD** (alleen meten, nog geen kaart): `/mh repprobe` (`ForeverLegacy.lua`
   `ns.ForeverRepProbeSlash`, route in Core.lua, unlisted in CommandList.lua) → `ns.db.foreverRepProbe`: welke
   functies bestaan, GetCurrencyInfo voor 1792/3468/3402/3469/515 (+3473/3485), GetFactionDataByID + oude

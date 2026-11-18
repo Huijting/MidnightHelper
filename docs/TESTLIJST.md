@@ -28,37 +28,50 @@ snelbalk, instellingen — geen foutmeldingen. Forever wordt nu getest (uitslage
 📝 **Waarneming Rob, 16 nov (nacht), Forever mage, via sparring:** *"mouse over werk"* — `/mh mouseover on`, Shift+X
 (Arcane Intellect) op een voorbijganger onder de muis werkt.
 
+✅ **Rob, 18 nov, via sparring, letterlijk: *"1 tot en met 4 gaat goed, 5 gedaan. Wat ik wel niet kon is zoeken op AH ,
+een logische afkorting voor de action house. 6 komt later"*** (Willow: "action house" = Auction House). Zoekbalk stap 1 +
+stap 2 werken in Forever; `/mh repprobe` gedaan. De Midnight-check van de zoekbalk komt later.
+
+## 🔤 18 nov — Forever: zoeken op afkortingen (na Robs test)
+
+Geen nieuw bestand: een `/reload` is genoeg.
+- [ ] Typ `ah` (of `AH`): bovenaan Auction House, daaronder de veilingmeesters, de dichtstbijzijnde eerst.
+- [ ] Ook: `hearth` (herberg), `mail` (brievenbus), `banker` (bank).
+
 ## 🧭 18 nov — Forever: zoekbalk stap 2, elke plek met "Show the way"
 
 Geen nieuw bestand: een `/reload` is genoeg.
-- [ ] Typ `bank`: onder "Bank" staan de bankiers zelf, de dichtstbijzijnde eerst, met zone · afstand · Show the way.
-      Klik er een: Find opent op Bank én de pijl gaat naar die bankier. Klopt de plek?
-- [ ] Hetzelfde met de naam van een trainer of verkoper die je kent, een herbergier, en `auction`.
-- [ ] Een dungeon-naam: twee regels; de ene opent de dungeon-tab, de andere ("· Show the way") zet de pijl naar de
-      ingang.
-- [ ] `@quest`: per class quest ook een regel "· Show the way" die de pijl naar de volgende stap zet.
-- [ ] Merk je bij het typen dat het spel even hapert? (Gemeten offline: max 0,04 s per letter.)
+- [x] Typ `bank`: onder "Bank" staan de bankiers zelf, de dichtstbijzijnde eerst, met zone · afstand · Show the way.
+      Klik er een: Find opent op Bank én de pijl gaat naar die bankier. Klopt de plek? (Rob, 18 nov)
+- [x] Hetzelfde met de naam van een trainer of verkoper die je kent, een herbergier, en `auction`. (Rob, 18 nov)
+- [x] Een dungeon-naam: twee regels; de ene opent de dungeon-tab, de andere ("· Show the way") zet de pijl naar de
+      ingang. (Rob, 18 nov)
+- [x] `@quest`: per class quest ook een regel "· Show the way" die de pijl naar de volgende stap zet. (Rob, 18 nov)
+- [x] Merk je bij het typen dat het spel even hapert? (Gemeten offline: max 0,04 s per letter.) (Rob, 18 nov: goed)
 
 ## 📏 18 nov — Forever: meting valuta en reputaties (`/mh repprobe`)
 
 Geen nieuw bestand: een `/reload` is genoeg. Het liefst op je hoogste Forever-character.
-- [ ] Typ `/mh repprobe`. In chat: vijf regels met yes/no, je Honor, Rank Points, Merchant's Favor, Tarnished Undermine
-      Real en Darkmoon-tickets (aantal / maximum), en hoeveel facties leesbaar zijn.
-- [ ] Daarna `/reload` (dan staat alles in het SavedVariables-bestand) en zeg het tegen de sparring-chat. Ik lees het
-      bestand zelf; geen screenshot nodig.
+- [x] Typ `/mh repprobe`. In chat: vijf regels met yes/no, je Honor, Rank Points, Merchant's Favor, Tarnished Undermine
+      Real en Darkmoon-tickets (aantal / maximum), en hoeveel facties leesbaar zijn. (Rob, 18 nov)
+- [x] Daarna `/reload` (dan staat alles in het SavedVariables-bestand) en zeg het tegen de sparring-chat. Ik lees het
+      bestand zelf; geen screenshot nodig. (Rob, 18 nov; uitslag in NEXT_SESSION)
 
 ## 🔍 18 nov — Forever: zoekbalk bovenin het overzicht (stap 1)
 
 Geen nieuw bestand: een `/reload` is genoeg.
-- [ ] `/mh` (overzicht): in de titelrij, tussen MIDNIGHT HELPER en het tandwiel, staat een zoekvak met grijze tekst
-      "Search everything: …". Muis erop: uitleg.
-- [ ] Typ `bank`: een lijst onder het vak, bovenaan "Bank  In town". Klik erop → tab Find opent op Bank.
-- [ ] Probeer ook: `mining` (of je eigen beroep), een dungeon-naam, `mouseover`, `macro`, `/move`, en een typfout
-      (`banck`). Elke klik opent de juiste tab of pagina; een /mh-regel voert dat commando uit.
-- [ ] `@quest` toont je class quests, `@dungeon` de dungeons. Pijltjes omlaag/omhoog + Enter werken ook.
-- [ ] `zzzz`: één grijze regel "Nothing found…", klikken doet niets. Escape maakt het vak leeg en je kunt weer lopen.
-- [ ] De lijst heeft de warme kleuren en letters van het overzicht.
-- [ ] Midnight (retail): de zoekbalk in het grote MH-venster werkt nog precies als eerst (typ `rares`, klik).
+- [x] `/mh` (overzicht): in de titelrij, tussen MIDNIGHT HELPER en het tandwiel, staat een zoekvak met grijze tekst
+      "Search everything: …". Muis erop: uitleg. (Rob, 18 nov)
+- [x] Typ `bank`: een lijst onder het vak, bovenaan "Bank  In town". Klik erop → tab Find opent op Bank. (Rob, 18 nov)
+- [x] Probeer ook: `mining` (of je eigen beroep), een dungeon-naam, `mouseover`, `macro`, `/move`, en een typfout
+      (`banck`). Elke klik opent de juiste tab of pagina; een /mh-regel voert dat commando uit. (Rob, 18 nov)
+- [x] `@quest` toont je class quests, `@dungeon` de dungeons. Pijltjes omlaag/omhoog + Enter werken ook. (Rob, 18 nov)
+- [x] `zzzz`: één grijze regel "Nothing found…", klikken doet niets. Escape maakt het vak leeg en je kunt weer lopen.
+      (Rob, 18 nov, in "1 tot en met 4". ⚠️ Sinds stap 2 vindt `zzzz` via de typfout-ronde de visser "Zizzek"
+      (offline gemeten); wat Rob bij `zzzz` zag, weten we niet precies.)
+- [x] De lijst heeft de warme kleuren en letters van het overzicht. (Rob, 18 nov)
+- [ ] Midnight (retail): de zoekbalk in het grote MH-venster werkt nog precies als eerst (typ `rares`, klik). Komt later
+      (Rob, 18 nov: *"6 komt later"*).
 
 ## 🪪 18 nov — Forever: naam + achternaam in Characters
 
