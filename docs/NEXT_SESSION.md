@@ -1,8 +1,47 @@
 # Midnight Helper — waar we staan
 
+## ▶ 18 nov (avond) — Bouwchat addons-12: bazengids STAP 2a GEBOUWD
+
+- 🗺️ **Stap 2a GEBOUWD** (Robs bouw-ja via sparring: *"Ga maar verder met 2"*). 11 dungeons erbij: Gnomeregan, Razorfen
+  Kraul, Scarlet Monastery (4 vleugels, één pagina), Razorfen Downs, Uldaman, Zul'Farrak, Maraudon (4 delen) + nieuw in
+  Forever (alles `recheck`): City of Dalaran, The Drowned City, Krol'dok Stronghold, Alcaz Prison. Nu 20 dungeons,
+  148 bazen, 70 items (GEMETEN in de generator én de offline test). Geen nieuw bestand → `/reload`.
+  - Code `ForeverDungeonGuide.lua`: dungeonlijst links scrolt (venster 640→660 breed); `part` = vleugelkopje (FDGP_*-
+    sleutel, vertaald; SM-vleugels hebben in de client geen eigen naam, GEMETEN door de vertalers); level-bereik over
+    alle rijen van één kaart (SM 30-46); `extraNpc` mag een lijst zijn (`IsBoss`; The Lost Dwarves = 3 npc's, Olaf 6908
+    GEMETEN); lijst scrolt naar de gekozen dungeon (+ één Fill een frame later, AFGELEID nodig voor de eerste opening).
+  - Data: 3 mh-research-helpers (A/B/C), 2 onafhankelijke Opus-controles: **0 FOUT, 23 RISICO**; 33 Engelse regels
+    gerepareerd (o.a. Doan "op halve health", Fairbanks optioneel + fakkel, Fel Ancient eerst treants, Questioner als
+    laatste in de lijst, 11+3 zinnen te dicht bij een gids herschreven) en opnieuw vertaald. Bronnen + controles:
+    `docs/forever/DUNGEONGIDS_DATA2A_2026-11-18.md`, `DUNGEONGIDS_CONTROLE2A_A_…`, `…_BC_2026-11-18.md`.
+  - Vertaald nl/de/fr/es/pt/ru + esMX-overlay (2 mh-writers + 1 voor de 33 reparaties). Sleutels per taal GEMETEN
+    (scratch `dg2_keycheck.py`: geen dubbele, geen verouderde, geen ontbrekende).
+  - Vertaalcontrole (2 Opus, `docs/forever/DUNGEONGIDS_VERTAALCONTROLE2A_{NDF,EPR}_2026-11-18.md`): 11 FOUT (deDE/frFR
+    Shadowforge Geologist = clientnaam, deDE naamvallen, esES "turn away" ≠ "wegzetten" 4×, ptBR quilboar = javatusco)
+    + risico's; 26 regels verbeterd. ruRU en esMX: geen fout. Open (zelfde soort, stap 1): esES `FDG_SFK_5_T` heeft
+    ook "wegzetten"; esES mengt "a dos manos"/"de dos manos" (client: "de dos manos").
+  - Offline (scratch `search_check.lua`, blok "Step 2a"): 20 dungeons, 0 ruwe sleutels, SM-kopjes in volgorde, lijst
+    scrolt naar Alcaz (532 px), SM-kop 30-46, 23 dungeonrijen met Bosses-knop; 109.372 runs, 0 fouten. NIET in het spel.
+  - ✅ **Rob koos B** (via sparring, letterlijk: *"B"*): bazennaam per taal = de naam van het **naamplaatje** (Wowhead
+    Forever npc-naam per locale), niet de DB2 DungeonEncounter-naam. Geldt voor ALLE dungeons, ook stap 1. ⏭️ Bouwen
+    in stap 2b: `names` per baas uit WHT `--locale` (esMX ook, bestaat bij Wowhead, GEMETEN door deel B); ook de
+    bazennamen IN de vertaalde zinnen (tips) nalopen. Het gaat om ~25 bazen in fr/de/es/ru (bv. frFR Vislar→Vishas,
+    deDE Schönufer→Fairbanks, deDE Nar'gurk→Nar'guk, ruRU Келебрас→Селебрас). Het idee "naam onthouden bij het
+    targeten" koos hij NIET: niet bouwen. Staat ook in `docs/CLIENT_NAMES_2026-10-20.md`.
+  - Let op voor stap 1 (controle C): method.gg en Wowhead-gids Ruins of Lordaeron zijn misschien dezelfde auteur
+    (Jurdi) → daar telden ze als twee bronnen. Niet nagekeken.
+  - ⚠️ `tools/lua_syntax_check.py` negeert een bestandsargument en checkt altijd de hele repo (GEMETEN door 3 helpers).
+  - Scripts (scratchpad van deze chat, `…\0ff9d808-51da-56d7-a418-3ca97753cc37\scratchpad\`): `dg2_gen.lua/.py`
+    (`old` = stap 1 opnieuw + diff met de repo, gaf 0 verschil; `all` = stap 1 + `dg2a_A/B/C.lua` → repo; ORDER/SHORT
+    uitbreiden voor 2b), `dg2_apply.py` (`enus` = alleen nieuwe sleutels; `<prefix>` = vervang of voeg toe per taal),
+    `dg2_diff.py` (gewijzigde Engelse regels na een controle; Alcaz-omnummering), `dg2_keycheck.py`, `search_check.py`,
+    briefs `dg2a_brief.md`, `dg2a_vertaalbrief.md`, `dg2a_controlebrief.md` (herbruikbaar voor 2b).
+- ⏭️ **VOLGENDE: STAP 2b**, zelfde recept en dezelfde scripts. ⚠️ SHORT "DM" is al The Deadmines: Dire Maul krijgt een
+  andere sleutel (bv. DIRE). Dire Maul (429), Blackrock Spire (229) en Stratholme (329) hebben vleugels → `part`.
+
 ## ▶ 18 nov — Bouwchat 18-11
 
-- ⏭️ **VOLGENDE: bazengids STAP 2 (dungeons ~32-60) — bouw-ja is er** (Rob via sparring, letterlijk: *"Ga maar verder met
+- ✅ (stap 2a is gebouwd, zie hierboven; het recept hieronder geldt ook voor 2b) **bazengids STAP 2 (dungeons ~32-60) — bouw-ja is er** (Rob via sparring, letterlijk: *"Ga maar verder met
   2"*; eerder: *"foutloos"*, *"Die nieuwe dungeons erbij. En dan later nog een keer controleren"*). NIET begonnen in
   Bouwchat 18-11: de context was vol (sparring vroeg dan eerst de handoff). Recept, zelfde als stap 1:
   1. Splits: **2a** = Gnomeregan, Razorfen Kraul, SM (Graveyard/Library/Armory/Cathedral), Razorfen Downs, Uldaman,

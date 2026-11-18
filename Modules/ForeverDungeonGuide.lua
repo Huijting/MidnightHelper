@@ -16,6 +16,11 @@ local _, ns = ...
 	Lordaeron, Excavation Site; Rob: "Die nieuwe dungeons erbij. En dan later nog een keer controleren." — they carry
 	`recheck` and say so on top). A second, independent check (docs/forever/DUNGEONGIDS_CONTROLE3_2026-11-18.md) found 9
 	errors; all fixed. Plan: step 2 = dungeons 32-60, step 3 = the raids (open 9 Dec), with fresh sources.
+	Step 2a (18 Nov 2026, Rob via sparring: "Ga maar verder met 2"): 11 more dungeons ~28-55 (Gnomeregan, Razorfen
+	Kraul, Scarlet Monastery, Razorfen Downs, Uldaman, Zul'Farrak, Maraudon + new: City of Dalaran, The Drowned City,
+	Krol'dok Stronghold, Alcaz Prison). New here: the dungeon list scrolls, a dungeon with wings is one page with a
+	header per wing (`part`, an FDGP_* key), its level range spans all wings, and extraNpc may be a list. Two
+	independent checks (docs/forever/DUNGEONGIDS_CONTROLE2A_*_2026-11-18.md): 0 errors, 23 risks; text repairs done.
 
 	Open it: the "Bosses" button on a dungeon row (overview → Dungeons & group), or /mh bosses. Inside a dungeon it opens
 	on that dungeon; targeting a boss marks him (as Midnight's boss window does).
@@ -26,7 +31,7 @@ if not ns.IS_FOREVER then
 end
 
 local S = ns.ForeverStyle
-local W, H, LEFT_W = 640, 470, 170
+local W, H, LEFT_W = 660, 470, 170 -- 660 (was 640): room for the list's scroll bar, the text keeps its width
 local win
 local selected -- instance map id
 local targetNpc -- npc id of your target, when it is a boss of this guide
@@ -36,15 +41,23 @@ local function Data()
 end
 
 local function Order()
-	-- The guide's dungeons in the order of ns.FOREVER_DUNGEONS (level order), each once.
-	local out, seen = {}, {}
+	-- The guide's dungeons in the order of ns.FOREVER_DUNGEONS (level order), each once. A dungeon with wings (Scarlet
+	-- Monastery: four rows, one map 189) is one page; its level range spans all its rows (step 2a, 18 Nov 2026).
+	local out, seen, range = {}, {}, {}
 	for _, d in ipairs(ns.FOREVER_DUNGEONS or {}) do
-		if Data()[d.map] and not seen[d.map] then
-			seen[d.map] = true
-			out[#out + 1] = d
+		if Data()[d.map] then
+			if not seen[d.map] then
+				seen[d.map] = true
+				out[#out + 1] = d
+				range[d.map] = { min = d.min or 0, max = d.max or 0 }
+			else
+				local r = range[d.map]
+				r.min = math.min(r.min, d.min or r.min)
+				r.max = math.max(r.max, d.max or r.max)
+			end
 		end
 	end
-	return out
+	return out, range
 end
 
 local function DungeonName(d)
@@ -55,6 +68,35 @@ local function DungeonName(d)
 		end
 	end
 	return d.name
+end
+
+-- Is `id` this boss? extraNpc is one id (Sneed's Shredder) or a list (The Lost Dwarves: three dwarves, step 2a).
+local function IsBoss(b, id)
+	if not id then
+		return false
+	end
+	if b.npc == id then
+		return true
+	end
+	local x = b.extraNpc
+	if type(x) == "table" then
+		for _, v in ipairs(x) do
+			if v == id then
+				return true
+			end
+		end
+		return false
+	end
+	return x ~= nil and x == id
+end
+
+-- A wing's name: a FDGP_* key (step 2a; Maraudon's parts have no name in the client, so they are translated), or
+-- plain text.
+local function PartName(p)
+	if type(p) == "string" and p:find("^FDGP_") then
+		return ns:L(p)
+	end
+	return tostring(p)
 end
 
 local function BossName(b)
@@ -108,9 +150,15 @@ function ns.ForeverDungeonGuideText(map)
 		parts[#parts + 1] = "|cffeeb055" .. ns:L("FDG_RECHECK") .. "|r"
 		parts[#parts + 1] = " "
 	end
+	local part
 	for i, b in ipairs(g.bosses or {}) do
+		-- A wing starts: its name as a small header (the wing names are the English ones the dungeon list already uses).
+		if b.part and b.part ~= part then
+			part = b.part
+			parts[#parts + 1] = "|cffeeb055— " .. PartName(part) .. " —|r"
+		end
 		-- extraNpc: Sneed's Shredder marks Sneed too (second check, 18 Nov 2026).
-		local here = targetNpc and (targetNpc == b.npc or (b.extraNpc ~= nil and targetNpc == b.extraNpc))
+		local here = IsBoss(b, targetNpc)
 		local head = ("%d. %s"):format(i, BossName(b))
 		if b.rare then
 			head = head .. "  |cff9d9d9d" .. ns:L("FDG_RARE") .. "|r"
@@ -137,7 +185,8 @@ function ns.ForeverDungeonGuideText(map)
 		for _, l in ipairs(g.loot) do
 			local name = ItemName(l.item)
 			local boss = byNpc[l.boss]
-			parts[#parts + 1] = ("   %s%s|r  %s"):format(ItemColor(l.item), name or ("#" .. l.item), ns:L(l.role))
+			parts[#parts + 1] = ("   %s%s%s|r  %s"):format(l.part and ("|cff9d9d9d" .. PartName(l.part) .. ":|r ") or "",
+				ItemColor(l.item), name or ("#" .. l.item), ns:L(l.role))
 				.. (boss and ("  |cff9d9d9d" .. ns:L("FDG_FROM_FMT"):format(BossName(boss)) .. "|r") or "")
 		end
 		parts[#parts + 1] = "|cff9d9d9d" .. ns:L("FDG_LOOT_NOTE") .. "|r"
@@ -166,11 +215,21 @@ local function Build()
 	f.title:SetText(ns:L("FDG_TITLE"))
 	local close = CreateFrame("Button", nil, f, "UIPanelCloseButton")
 	close:SetPoint("TOPRIGHT", -4, -4)
+	-- The dungeon list scrolls: 9 dungeons fitted, step 2 brings ~28 (18 Nov 2026). Room for 13 rows of 28 px.
 	f.btns = {}
-	for i, d in ipairs(Order()) do
-		local b = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
-		b:SetSize(LEFT_W, 24)
-		b:SetPoint("TOPLEFT", 18, -50 - (i - 1) * 28)
+	local order = Order()
+	local list = CreateFrame("ScrollFrame", nil, f, "UIPanelScrollFrameTemplate")
+	list:SetPoint("TOPLEFT", 18, -50)
+	list:SetPoint("BOTTOMLEFT", f, "BOTTOMLEFT", 18, 40)
+	list:SetWidth(LEFT_W)
+	local listChild = CreateFrame("Frame", nil, list)
+	listChild:SetSize(LEFT_W, math.max(10, #order * 28))
+	list:SetScrollChild(listChild)
+	f.list = list
+	for i, d in ipairs(order) do
+		local b = CreateFrame("Button", nil, listChild, "UIPanelButtonTemplate")
+		b:SetSize(LEFT_W - 4, 24)
+		b:SetPoint("TOPLEFT", 0, -(i - 1) * 28)
 		b.map = d.map
 		b:SetText(DungeonName(d))
 		b:SetScript("OnClick", function(self)
@@ -179,7 +238,7 @@ local function Build()
 		end)
 		f.btns[i] = b
 	end
-	local rx = 18 + LEFT_W + 14
+	local rx = 18 + LEFT_W + 34 -- 20 px more since 18 Nov: the list's scroll bar sits to the right of the list
 	f.head = f:CreateFontString(nil, "OVERLAY", "GameFontNormal")
 	f.head:SetPoint("TOPLEFT", rx, -52)
 	f.head:SetPoint("RIGHT", f, "RIGHT", -24, 0)
@@ -225,13 +284,21 @@ Fill = function()
 	if not (f and f:IsShown()) then
 		return
 	end
-	local order = Order()
+	local order, range = Order()
 	if not selected or not Data()[selected] then
 		local here = ns.ForeverCurrentDungeonMap and ns.ForeverCurrentDungeonMap()
 		selected = (here and Data()[here] and here) or (order[1] and order[1].map)
 	end
-	for _, b in ipairs(f.btns) do
+	for i, b in ipairs(f.btns) do
 		b:SetEnabled(b.map ~= selected)
+		-- Opened on a dungeon further down (its row's button, or you are inside it): scroll the list so it shows.
+		if b.map == selected and f.list then
+			local top, view = (i - 1) * 28, f.list:GetHeight() or 0
+			local cur = f.list:GetVerticalScroll() or 0
+			if view > 0 and (top < cur or top + 28 > cur + view) then
+				f.list:SetVerticalScroll(math.max(0, math.min(top, (f.list:GetVerticalScrollRange() or 0))))
+			end
+		end
 	end
 	local d
 	for _, x in ipairs(order) do
@@ -239,7 +306,9 @@ Fill = function()
 			d = x
 		end
 	end
-	f.head:SetText(d and ("%s  |cff9d9d9d%d-%d|r"):format(DungeonName(d), d.min or 0, d.max or 0) or "")
+	local r = d and range[d.map]
+	f.head:SetText(d and ("%s  |cff9d9d9d%d-%d|r"):format(DungeonName(d), r and r.min or d.min or 0, r and r.max or d.max or 0)
+		or "")
 	f.body:SetText(selected and ns.ForeverDungeonGuideText(selected) or ns:L("FDG_NONE"))
 	f.child:SetHeight(math.max(10, (f.body:GetStringHeight() or 0) + 10))
 end
@@ -256,6 +325,11 @@ function ns.ShowForeverDungeonGuide(map)
 	end
 	f:Show()
 	Fill()
+	-- On the very first opening the list has no scroll range yet (AFGELEID: layout comes a frame later); one more Fill
+	-- then scrolls a dungeon low in the list into view.
+	if C_Timer and C_Timer.After then
+		C_Timer.After(0, Fill)
+	end
 end
 
 --- Is there a guide for this instance map? (the overview shows the button only then)
@@ -289,7 +363,7 @@ ev:SetScript("OnEvent", function(_, event)
 		local found
 		for map, g in pairs(Data()) do
 			for _, b in ipairs(g.bosses or {}) do
-				if id and (b.npc == id or b.extraNpc == id) then
+				if IsBoss(b, id) then
 					found = map
 				end
 			end

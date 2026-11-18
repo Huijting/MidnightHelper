@@ -1,5 +1,14 @@
 # Clientnamen, gemeten 20 okt 2026
 
+## 🔴 Forever-bazengids: bazennaam = naam op het NAAMPLAATJE (18 nov 2026)
+Rob, via Sparring 18-11, letterlijk: *"B"* (optie B = de naam boven het hoofd van de baas). GEMETEN door twee controles
+(18 nov): Blizzards DB2 `DungeonEncounter` (Forever 1.60.1.70959) geeft in fr/de/es/ru bij ~25 bazen een andere naam
+dan de npc-naam van Wowhead Forever (`nether.wowhead.com/forever/tooltip/npc/<id>`, per locale), bv. frFR "Interrogateur
+Vislar" ↔ "Interrogateur Vishas", deDE "Hochinquisitor Schönufer" ↔ "Hochinquisitor Fairbanks", deDE "Nar'gurk" ↔
+"Nar'guk", ruRU "Келебрас" ↔ "Селебрас". AFGELEID: Forever toont boven het monster de oude Classic-naam. Keuze: de
+npc-naam per locale wint, voor alle dungeons (ook stap 1); `DungeonEncounter` alleen nog als id. Bouw: stap 2b.
+Het idee "naam onthouden bij het targeten" koos Rob niet: niet bouwen.
+
 ## 🔴 Bewuste uitzondering: frFR "LFR" blijft "LFR" (15 nov 2026)
 Rob, via Sparring 15-11, letterlijk: *"Haha a"* (optie a = "LFR" laten staan). GEMETEN: het Franse spel noemt de
 raidzoeker alleen "Raids" (PLAYER_DIFFICULTY3, RAID_FINDER, RAID_FINDER_PVEFRAME; wago 12.1.5.70783). In een zin leest

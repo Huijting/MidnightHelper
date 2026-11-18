@@ -39,6 +39,29 @@ zoekbalk, de reputaties, de rares, de muntjes, de Now-kaart, het ronde plaatje e
 achternaam, "Step aside"-instelling, Your path, Set focus). Daarna vond Rob nog: "scroll for more" over de tekst
 (gerepareerd, zie Travel) en het boek bij de mage-quest "Study" (in bouw).
 
+## 🗺️ 18 nov (avond) — Forever: bazengids, stap 2a (11 dungeons ~28-55)
+
+Geen nieuw bestand: `/reload` is genoeg (doe eerst de herstart van stap 1 hieronder, als je die nog niet deed).
+- [ ] `/mh bosses`: de lijst links heeft nu 20 dungeons en **scrollt** (muiswiel). Het venster is iets breder.
+      Klik een dungeon onderaan (bv. Alcaz Prison): rechts komt die gids.
+- [ ] Overzicht → Dungeons & group: ook bij Gnomeregan, Razorfen Kraul, de vier Scarlet Monastery-rijen, Razorfen
+      Downs, Uldaman, Zul'Farrak, Maraudon, City of Dalaran, The Drowned City, Krol'dok en Alcaz een knop **Bosses**.
+      Klik bij een dungeon laag in de lijst: het venster opent op die dungeon en de lijst links scrolt mee.
+- [ ] **Scarlet Monastery**: één pagina met tussenkopjes "— Graveyard —", "— Library —", "— Armory —", "— Cathedral —";
+      bovenaan level **30-46**. Onderaan bij de items staat de vleugel ervoor ("Library: …").
+- [ ] **Maraudon**: kopjes "— Orange side —", "— Purple side —", "— Poison Falls —", "— Earth Song Falls —".
+- [ ] De 4 nieuwe dungeons (Dalaran, Drowned City, Krol'dok, Alcaz): bovenaan "New in WoW Forever … check these lines
+      again later".
+- [ ] Uldaman (Horde): target Baelog, Eric of Olaf → alle drie markeren "The Lost Dwarves" als "(your target)".
+- [ ] Kloppen de tips met wat je ziet? Een regel die niet klopt: zeg welke (dungeon + baas).
+- [ ] **Meetpunten** (als je er toch bent):
+      - SM Cathedral: opent een fakkel in het kleine zijkamertje de verborgen kamer van Fairbanks?
+      - Maraudon: staat Tinkerer Gizlock bij Earth Song Falls of aan de paarse kant? En Celebras?
+      - Uldaman Archaedas: hoeveel spelers moeten de altaren aanklikken?
+      - Razorfen Downs: is Ragglesnout er elke keer, of maar soms (rare)?
+      - Alcaz: Katerina — veel vuur op de hele groep, of niet?
+      - `/mh bosses check` bij Mograine (SM): welk target npc ziet MH?
+
 ## 🗺️ 18 nov (nacht) — Forever: bazengids, stap 1 (9 dungeons tot ~32)
 
 ⚠️ **Twee nieuwe bestanden: WoW helemaal herstarten.**

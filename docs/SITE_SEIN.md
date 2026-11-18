@@ -28,6 +28,17 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 18 nov 2026 — Forever: bazengids (stap 1 + 2a, 20 dungeons)
+- Tag + commit:   geen tag (stap 2a = de commit van deze regel)
+- Status:         alleen op main
+- Mag op de site: nee (nog niet uit; Rob heeft het nog niet in het spel gezien)
+- Speler ziet:    WoW Forever heeft geen Dungeon Journal. MH toont per dungeon wie de bazen zijn, wat ze doen, één tip
+                  en 2-3 items die het weten waard zijn — nu 20 dungeons tot ~level 55, in 7 talen. Nieuwe
+                  Forever-dungeons zeggen zelf dat de regels later nog eens nagekeken worden.
+- Knoplabels:     FDG_BTN (knop "Bosses" op een dungeonregel in het overzicht), FDG_TITLE (venstertitel)
+- Commando's:     /mh bosses, /mh bosses check
+- Spel:           Forever
+
 ## 17 nov 2026 — release 5.5.0 (staat op CurseForge)
 - Tag + commit:   v5.5.0 / 41f8ec3. Release-run GitHub 44137237357: geslaagd; log: CurseForge, Wago en GitHub
                   "Success!" voor beide zips. CurseForge-API (GEMETEN): 9669670 `MidnightHelper-v5.5.0.zip`
