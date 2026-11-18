@@ -50,6 +50,18 @@ en druk op Enter. Doe dat voor 4 items en maak een screenshot van elk antwoord:
 - [ ] (d) een groen item met "of the …" in de naam (bv. "… of the Bear").
 Geen item van een soort bij de hand? Sla die over en zeg welke.
 
+## 🗡️ 18 nov (nacht) — Forever: wapenquests per class
+
+`/reload` is genoeg. Ze verschijnen in *Do this now* en bij *Your class* zodra je het level hebt (en de vorige quest).
+- [ ] **Warrior level 10** (na je Defensive Stance-quest): "Your first warrior weapon" met de route van jouw startgebied
+      (Human: Marshal Haggard; Dwarf/Gnome: Tormus Deepforge; Night Elf: Elanaria/Mathiel; Orc/Troll/Tauren: Thun'grim;
+      Undead: Coleman Farthing, de wapenrekken in de crypte van Agamand Mills).
+- [ ] **Warlock 20**: Orb/Staff of Soran'ruk (Doan Karhan, Barrens; BFD + SFK). **35**: Orb/Staff of Orahil (Menara
+      Voidrender; kies één van de twee shard-quests). **50**: An Imp's Request (neem 1 Felcloth mee).
+- [ ] **Shaman 30** (na Call of Air): The Tempest's Weapons. ⚠️ **Horde**: klopt bij elke stap "hand in to …"? De bronnen
+      zijn het oneens over Rau Cliffrunner / Prate Cloudseer / Bath'rah. Zeg welke npc het écht was.
+- [ ] Klopt een stap niet (verkeerde npc, plek of aantal)? Zeg welke quest.
+
 ## ⚔️ 18 nov (nacht) — Forever: "beter dan wat je draagt" bij wapens (optie A) + de Cozy Sleeping Bag
 
 `/reload` is genoeg.

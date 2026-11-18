@@ -77,7 +77,13 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
   diagnose. Herbruikbaar: ns.MH_SendChat, ns.Aura.Trusted, MidnightToast, ForeverBuffs/MissingBuffData.
   Spel: F + M. ⏳ Rob kiest.
 
-### Forever: elke class een wapenquest op het juiste level (NOG GEEN JA)
+### Forever: elke class een wapenquest op het juiste level — ✅ JA + GEBOUWD 18 nov (wacht op Robs test)
+- Rob via sparring, letterlijk: *"Oh en 1 t/m 3 mag ook"* (2 = wapenquests). Gebouwd: warrior "first weapon" (5 routes,
+  10), warlock Soran'ruk (20) / Orahil (35) / An Imp's Request (50), shaman The Tempest's Weapons (30). Al aanwezig: o.a.
+  Whirlwind, Verigan's Fist, Wolfsbane, Blade of Cunning, Mage's Wand, de level-50-ronde. Onderzoek:
+  `docs/forever/WAPENQUESTS_ONDERZOEK_2026-11-18.md`. Melding bij level-up: niet apart gebouwd (Do this now ververst al
+  bij PLAYER_LEVEL_UP, AFGELEID); voorstel `weapon = true` + kaartregel + schakelaar ligt open.
+- (Oorspronkelijke notitie hieronder.)
 - Bron: Rob 17 nov (via Sparring 17-11): idee *"Elk class krijgt op een bepaald level een quest ... voor een bepaald
   wapen"*. Onderzocht (sparring, alleen gelezen): 8/9 classes hebben wapenquests; de level-52 Sunken Temple-ronde geeft
   7/9 een wapen (niet warrior/rogue); vroege toppers Whirlwind 30, Verigan's Fist 20 (A), Wolfsbane 20-26 (Undead pal,

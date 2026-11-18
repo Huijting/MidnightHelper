@@ -1648,6 +1648,251 @@ for _, c in ipairs({
 		} })
 end
 
+-- Weapon class quests (Rob via sparring: "Oh en 1 t/m 3 mag ook", 18 Nov 2026): data by mh-research (Fable) with
+-- a source per line; second check: docs/forever/WAPENQUESTS_*_2026-11-18.md. Pasted here because the warlock
+-- chains use MA/PA/RO places defined above. None seen in game.
+local WQ_P = {
+	-- Warrior, first weapon (level 10)
+	thungrim = { npc = "Thun'grim Firegaze", id = 5878, m = 1413, x = 57.23, y = 30.34 }, -- ZY H 23551; WH-F spawn 57.2,30.2 (2)
+	ironChest = { m = 1413, x = 55.05, y = 26.66 }, -- Stolen Iron Chest, object 58369: ZY H 23557; WH-F object 55.0,26.6; QF item 6534 (3)
+	haggard = { npc = "Marshal Haggard", id = 294, m = 1429, x = 84.5, y = 69.4 }, -- WH-F spawns 84.4-84.6,69.2-69.6 (1 source)
+	deadtooth = { m = 1429, x = 88.5, y = 79.3 }, -- Dead-Tooth Jack, npc 6093, level 11 normal: WH-F 12 spawns 86.2-89.6,78.0-80.6 (centre AFGELEID)
+	strongbox = { m = 1429, x = 89.4, y = 79.0 }, -- Dead-tooth's Strongbox, object 85563: WH-F 89.3-89.5,78.9-79.0; QF item 6782 (2)
+	tormus = { npc = "Tormus Deepforge", id = 6031, m = 1455, x = 48.6, y = 43.0 }, -- WH-F spawns 48.4-49.8,42.4-44.2 (1 source)
+	ironband = { m = 1426, x = 77.9, y = 62.2 }, -- Ironband's Strongbox, object 85562: WH-F; QF item 6800 (2)
+	eluniteCrates = { m = 1439, x = 31.9, y = 44.0 }, -- Crate of Elunite, object 86492: WH-F 16 spawns 31.1-33.1,42.4-46.6; QF item 6808 (2)
+	shadeElura = { m = 1439, x = 31.5, y = 44.8 }, -- Shade of Elura, npc 6133, level 11 normal: WH-F; QF item 6809 (2)
+	mathiel = { npc = "Mathiel", id = 6142, m = 1457, x = 59.2, y = 45.5 }, -- WH-F spawns 59.2,45.4-45.6 (1 source)
+	coleman = { npc = "Coleman Farthing", id = 1500, m = 1420, x = 61.72, y = 52.29 }, -- ZY H 23588; WH-F 61.8,52.4-52.6 (2)
+	rackAxe = { m = 1420, x = 51.70, y = 25.69 }, -- Agamand Weapon Rack 105169, ZY H 23608-23611 (1 source)
+	rackSword = { m = 1420, x = 52.65, y = 25.86 }, -- rack 105170, ZY H 23614-23617
+	rackMace = { m = 1420, x = 52.66, y = 27.04 }, -- rack 105172, ZY H 23596-23599
+	rackDagger = { m = 1420, x = 51.89, y = 27.12 }, -- rack 105171, ZY H 23602-23605
+	-- Warlock
+	doan = { npc = "Doan Karhan", id = 6247, m = 1413, x = 49.2, y = 57.2 }, -- WH-F spawn; FQL 49.3,57.2 (2)
+	menara = { npc = "Menara Voidrender", id = 6266, m = 1413, x = 62.5, y = 35.4 }, -- WH-F 62.4-62.6,35.4; FQL 62.5,35.5 (2)
+	-- Acolyte Wytula (6254, Shard of a Felhound 4962) and Acolyte Magaz (6252, Shard of an Infernal 4963) stand on one
+	-- spot: WH-F 62.6,35.2 for both; who gives which = QF (1 source). Used as an objective place only (no npc name).
+	acolytes = { m = 1413, x = 62.6, y = 35.2 },
+	-- Mannoroc Coven: Burning Blade Summoner 4668 (WH-F 19 spawns 50.2-53.0,72.1-84.2), Lesser Infernal 4676 (48-51,68-78),
+	-- Mage Hunter 4681, a felhound (52-54,76-83). FQL says "80.3, 77.0" for the summoner: NOT used (conflicts with WH-F).
+	mannoroc = { m = 1443, x = 51.5, y = 80.0 },
+	rottingWood = { m = 1448, x = 46.89, y = 24.16 }, -- ZY A 24106 (more at 52.81,21.50); WH-F Withered Protector 7149 from 43.2,23.2 (2)
+	bloodvenom = { m = 1448, x = 40.92, y = 46.83 }, -- ZY A 24101 (more at 41.93,49.75); WH-F Tainted Ooze 7092 38.4-40.2,48.2-56.6 (2)
+	-- Shaman, The Tempest's Weapons
+	rau = { npc = "Rau Cliffrunner", id = 4722, m = 1441, x = 46.0, y = 51.5 }, -- WH-F 46.0,51.4-51.6; FQL 46.1,51.7 (2)
+	rfk = { m = 1413, x = 42.2, y = 89.8 }, -- Razorfen Kraul entrance: HN Entrances.lua (1 source)
+	totemWater = { m = 1445, x = 57.4, y = 20.5 }, -- Mirefin Murloc 4359: WH-F 12 spawns 56.2-57.8,19.4-22.8 (centre AFGELEID)
+	totemEarth = { m = 1435, x = 55.5, y = 28.5 }, -- Lost One Hunter 759 / Fisherman 757: WH-F 54.4-57.6,23.4-30.6 (centre AFGELEID)
+	totemFire = { m = 1418, x = 26.2, y = 58.5 }, -- Dustbelcher Ogre 2701: WH-F first 12 of 56 spawns 25.4-27.2,56.1-62.0 (the list is sorted, so this is the WEST camp only; AFGELEID)
+	totemAir = { m = 1443, x = 29.8, y = 54.5 }, -- Maraudine Mauler 4656: WH-F 29.0-30.5,52.0-60.8; guide "Valley of Spears ~31.7,57.4" (2)
+	-- Ravaging Tempest 216474: WH-F 5 spawns 36.7-37.5,37.9-41.4 (centre AFGELEID; a 6th, 54.0,41.2, is the old Season of
+	-- Discovery ledge). The steam pools = Scalding/Boiling Elemental 10756/10757, WH-F 32.4-40.6,32.4-39.8; lfcarry
+	-- (16 Nov): "beneath Darkcloud Pinnacle". FQL "31.0,45.8" NOT used (conflicts with WH-F; second check 18 Nov).
+	steamPools = { m = 1441, x = 36.8, y = 39.2 },
+}
+local Q = WQ_P
+
+--------------------------------------------------------------------------------
+-- WARRIOR: the first weapon (level 10), one route per starting zone. Opens after that route's Defensive Stance quest
+-- (prequest: QF preQuestSingle + SP prev, 2 sources). Min level 10 (QF). Race masks: whole faction (QF + SP), the split
+-- by starting zone is the same choice as WrDefense. Rewards = choose 1 of 4, item level 15, no level requirement
+-- (WH-Fp names + DB2 ids): GEMETEN. No elite, no group (WH-F: Dead-Tooth Jack and Shade of Elura level 11 normal).
+-- Skyborne: no weapon follow-up found after 94003 (SP lists only 92532 + 94003 for them): not built.
+--------------------------------------------------------------------------------
+local function WrFirstWeapon(faction, races, needs, quests)
+	return { key = "firstweapon", nameKey = "FCQ_CHAIN_WR_FIRSTWEAPON", level = 10, needs = needs, faction = faction,
+		races = races, quests = quests }
+end
+-- Human: reward of 1667 = Haggard's Axe 6979 / Hammer 6983 / Dagger 6980 / Sword 6985 (WH-Fp 1667, DB2).
+table.insert(CHAINS.WARRIOR, WrFirstWeapon("Alliance", HUM, 1665, {
+	{ q = 1666, from = R.harry, to = Q.haggard }, -- QF start 6089 end 294, pre 1665; SP prev 1665, ender 294 (2)
+	-- 1667: WH-F lists "Marshal Haggard's Badge" and "Dead-tooth's Key". QF: only the badge (6782, from the strongbox)
+	-- is an objective; the key 6783 drops from Dead-Tooth Jack 6093 and is a required source item. That the key opens
+	-- the strongbox = AFGELEID. The key step counts as done with the key OR the badge in your bags.
+	{ q = 1667, from = Q.haggard, objs = {
+		O(Q.deadtooth, "FCQ_OBJ_WR_DEADTOOTH_KEY", nil, { 6783, 6782 }),
+		O(Q.strongbox, "FCQ_OBJ_WR_HAGGARD_BADGE", 1),
+	}, to = Q.haggard }, -- QF start/end 294, pre 1666; SP prev 1666 (2)
+}))
+-- Dwarf/Gnome: reward of 1682 = Umbral Axe 6978 / Mace 6982 / Dagger 6981 / Sword 6984 (WH-Fp 1682, DB2).
+table.insert(CHAINS.WARRIOR, WrFirstWeapon("Alliance", DWGN, 1678, {
+	{ q = 1680, from = R.muren, to = Q.tormus }, -- QF start 6114 end 6031, pre 1678; SP prev 1678, ender 6031 (2)
+	{ q = 1681, from = Q.tormus, objs = { O(Q.ironband, "FCQ_OBJ_WR_UMBRAL_ORE", 1) }, to = Q.tormus }, -- WH-F "Umbral Ore"; QF item 6800 ← object 85562
+	{ q = 1682, from = Q.tormus, to = Q.tormus }, -- QF pre 1681; SP prev 1681 (2); no objective (WH-F)
+}))
+-- Night Elf: reward of 1693 = Elunite Axe 6966 / Hammer 6968 / Dagger 6969 / Sword 6967 (WH-Fp 1693, DB2).
+table.insert(CHAINS.WARRIOR, WrFirstWeapon("Alliance", NELF, 1683, {
+	-- WH-F: "Elunite Ore x 8" (line 1), "Elura's Medallion" (line 2). QF: ore 6808 ← Crate of Elunite 86492, medallion
+	-- 6809 ← Shade of Elura 6133. The crates lie off the Darkshore coast (x 31-33 is west of Auberdine): under water = AFGELEID.
+	{ q = 1686, from = R.elanaria, objs = {
+		O(Q.eluniteCrates, "FCQ_OBJ_WR_ELUNITE_ORE", 1),
+		O(Q.shadeElura, "FCQ_OBJ_WR_ELURA_MEDALLION", 2),
+	}, to = R.elanaria }, -- QF start/end 4088, pre 1683; SP prev 1683 (2)
+	{ q = 1692, from = R.elanaria, to = Q.mathiel }, -- QF start 4088 end 6142, pre 1686; SP prev 1686, ender 6142 (2); you carry the Case of Elunite 6812
+	{ q = 1693, from = Q.mathiel, to = Q.mathiel }, -- QF pre 1692; SP prev 1692 (2)
+}))
+-- Orc, Troll, Tauren (all via Uzzek): reward of 1503 = Thun'grim's Axe 7326 / Mace 7328 / Dagger 7327 / Sword 7329
+-- (WH-Fp 1503 + series "Veteran Uzzek, Path of Defense, Thun'grim Firegaze, Forged Steel"; DB2).
+table.insert(CHAINS.WARRIOR, WrFirstWeapon("Horde", { Orc = true, Troll = true, Tauren = true }, 1498, {
+	{ q = 1502, from = R.uzzek, to = Q.thungrim }, -- QF start 5810 end 5878, pre 1498; SP prev 1498, ender 5878; ZY H 23546-23551 (3)
+	{ q = 1503, from = Q.thungrim, objs = { O(Q.ironChest, "FCQ_OBJ_WR_STEEL_BARS", 1) }, to = Q.thungrim }, -- ZY H 23552-23562; QF item 6534 ← object 58369 (2)
+}))
+-- Undead: reward of 1822 = Heirloom Axe 7115 / Hammer 7117 / Dagger 7116 / Sword 7118 (WH-Fp 1822, DB2).
+table.insert(CHAINS.WARRIOR, WrFirstWeapon("Horde", UD, 1819, {
+	{ q = 1820, from = R.dillinger, to = Q.coleman }, -- QF start 1496 end 1500, pre 1819; SP prev 1819, ender 1500; ZY H 23582-23588 (3)
+	-- Four weapon racks in the crypt at Agamand Mills (ZY: crypt door 52.25,26.86). Index = WH-F line order: 1 Axe,
+	-- 2 Dagger, 3 Mace, 4 Sword (= QF 7567, 7568, 7569, 7566). Zygor's "sword /1" is a Zygor mistake (already noted in
+	-- the file header). Asked in walking order (axe and sword in the back, mace and dagger in front: AFGELEID from x/y).
+	{ q = 1821, from = Q.coleman, objs = {
+		O(Q.rackMace, "FCQ_OBJ_WR_AGAMAND_MACE", 3),
+		O(Q.rackDagger, "FCQ_OBJ_WR_AGAMAND_DAGGER", 2),
+		O(Q.rackAxe, "FCQ_OBJ_WR_AGAMAND_AXE", 1),
+		O(Q.rackSword, "FCQ_OBJ_WR_AGAMAND_SWORD", 4),
+	}, to = Q.coleman }, -- QF pre 1820; SP prev 1820; ZY H 23589-23624 (3)
+	{ q = 1822, from = Q.coleman, to = Q.coleman }, -- QF pre 1821; SP prev 1821, ender 1500 (2); not in Zygor
+}))
+
+--------------------------------------------------------------------------------
+-- WARLOCK
+--------------------------------------------------------------------------------
+-- The Orb of Soran'ruk (min level 20, quest level 25: QF + FQL + WH-F "Level 25"). One quest, both factions, no
+-- prequest (QF, FQL "Previous quest: none listed"; SP has no prev). Reward: choose Orb of Soran'ruk 6898 (off-hand,
+-- +9 fire/+9 shadow) or Staff of Soran'ruk 15109 (WH-Fp 1740, FQL, DB2; tooltips WH-F). Both objectives are in
+-- dungeons: Twilight Acolyte 4809 in Blackfathom Deeps (3 fragments), Shadowfang Darksoul 3855 in Shadowfang Keep
+-- (1 large fragment; FQL shows 20% drop: 1 source). Entrances reuse PA.bfd and RO.sfk (already in the file).
+for _, faction in ipairs({ "Alliance", "Horde" }) do
+	table.insert(CHAINS.WARLOCK, { key = "soranruk", nameKey = "FCQ_CHAIN_WL_SORANRUK", level = 20, faction = faction, quests = {
+		{ q = 1740, from = Q.doan, objs = {
+			O(PA.bfd, "FCQ_OBJ_WL_SORANRUK_FRAGMENTS", 1), -- WH-F "Soran'ruk Fragment x 3"; QF item 6914 ← npc 4809; FQL (3)
+			O(RO.sfk, "FCQ_OBJ_WL_SORANRUK_LARGE", 2), -- WH-F "Large Soran'ruk Fragment"; QF item 6915 ← npc 3855; FQL (3)
+		}, to = Q.doan }, -- QF start/end 6247; FQL start/end Doan Karhan (2)
+	} })
+end
+
+-- The Orb of Orahil (min level 35, quest level 40: QF + FQL). Order (QF pre/next + SP prev + FQL "step 2 of 5"):
+--   Knowledge of the Orb of Orahil (a pointer from a demon trainer: 4965 Briarthorn/Ironforge, 4968 Demisette Cloyce/
+--   Stormwind, 4967 Zevrost/Orgrimmar, 4969 Kaal Soulreaper/Undercity; they exclude each other, QF exclusiveTo)
+--   → 1799 Fragments of the Orb of Orahil (Menara → Tabetha) → 4961 Cleansing of the Orb (Tabetha: Demon of the Orb,
+--   npc 6549, level 40 ELITE, WH-F) → 4976 Returning the Cleansed Orb (Tabetha → Menara) → the finished item.
+--   Side by side with 1799 you take ONE of two shard quests from Menara's acolytes (they exclude each other, QF):
+--     4962 Shard of a Felhound  → 4964 The Completed Orb of Dar'Orahil: Orb 15108 (shadow) or Staff 15106
+--     4963 Shard of an Infernal → 4975 The Completed Orb of Noh'Orahil: Orb 15107 (fire) or Staff 15105
+--   (which shard leads to which orb: SP prev 4964←4962, 4975←4963; rewards WH-Fp + DB2; shadow/fire from WH-F tooltips).
+-- The shard quest is no step of its own (the engine has no "either of two side quests"): it is asked INSIDE 1799 with
+-- item checks, in the order you walk: the gem (Felhas Ruby 12647 / Infus Emerald 12646) in your bags = path chosen;
+-- an Imprisoned Spirit (12648 / 12649) in your bags = gem used. Second check 18 Nov: these are `pre` steps with
+-- `unlessDone` (the shard quest handed in = done), not `objs`: objs are skipped once 1799 is complete (its only
+-- objective is the Infernal Orb), so a player who loots the orb first never saw them and left Desolace without a spirit.
+-- The gem: use it when the demon is close to dying (WH-F 4962/4963 description, GEMETEN 18 Nov 2026).
+-- NOT measured: whether 1799 needs the pointer quest
+-- (QF: no prequest; SP: prev 4965). Race masks: QF has 4967/4968 swapped (it gives 4967 from Zevrost in Orgrimmar an
+-- Alliance mask); SP says 4965 + 4968 Alliance, 4967 + 4969 Horde, which matches where the givers stand: SP followed.
+-- Which trainer per race = AFGELEID (same split as the Felsteed starters).
+local function WlOrahil(faction, races, q, alt, trainer)
+	return { key = "orahil", nameKey = "FCQ_CHAIN_WL_ORAHIL", level = 35, faction = faction, races = races, quests = {
+		{ q = q, alt = alt, from = trainer, to = Q.menara }, -- QF start 5172/461/3326/4563, end 6266; SP ender 6266 (2)
+		{ q = 1799, from = Q.menara,
+			pre = {
+				{ items = { 12647, 12646, 12648, 12649 }, place = Q.acolytes, textKey = "FCQ_OBJ_WL_ORAHIL_PATH", unlessDone = { 4962, 4963 } }, -- QF 4962 start 6254 (ruby 12647), 4963 start 6252 (emerald 12646)
+				{ items = { 12648, 12649 }, place = Q.mannoroc, textKey = "FCQ_OBJ_WL_ORAHIL_SPIRIT", unlessDone = { 4962, 4963 } }, -- WH-F 4962/4963
+			},
+			objs = { O(Q.mannoroc, "FCQ_OBJ_WL_INFERNAL_ORB", 1) }, -- WH-F "Infernal Orb"; QF item 7291 ← Burning Blade Summoner 4668; FQL (3)
+			to = MA.tabetha }, -- QF start 6266 end 6546; SP ender 6546; FQL (3)
+		{ q = 4961, from = MA.tabetha, objs = { O(MA.demon, "FCQ_OBJ_WL_ORB_DEMON", 1) }, to = MA.tabetha }, -- QF pre 1799, kill 6549; SP prev 1799; WH-F "Level 40" (3)
+		{ q = 4976, from = MA.tabetha, to = Q.menara }, -- QF start 6546 end 6266, pre 4961; SP prev 4961, ender 6266 (2)
+		-- One step for both endings: the objective is "Wait for Menara Voidrender to complete your item" (WH-F).
+		{ q = 4964, alt = { 4975 }, from = Q.menara, to = Q.menara }, -- QF pre 4976, exclusive to each other (1 source for the prequest)
+	} }
+end
+table.insert(CHAINS.WARLOCK, WlOrahil("Alliance", HUM, 4968, { 4965 }, W.demisette))
+table.insert(CHAINS.WARLOCK, WlOrahil("Alliance", GNO, 4965, { 4968 }, W.briarthorn))
+table.insert(CHAINS.WARLOCK, WlOrahil("Horde", ORCTROLL, 4967, { 4969 }, W.zevrost))
+table.insert(CHAINS.WARLOCK, WlOrahil("Horde", UD, 4969, { 4967 }, W.kaal))
+
+-- An Imp's Request (min level 50, quest level 52: QF; WH-F "Level 52" on 8422): the warlock's Sunken Temple round, the
+-- only class that was still missing. 8419 comes from a warlock trainer (QF starters 461, 988, 3324-3326, 4563-4565,
+-- 5171, 5173, 5495, 5496; ZY: Demisette Cloyce in Stormwind, Zevrost in Orgrimmar); 8420 Hot and Itchy is the same
+-- quest straight from Impsy (they exclude each other, QF) = alt. 8421 needs 8419 or 8420 (QF); 8422 needs 8421.
+-- The trainer comes first on purpose: you need 1 Felcloth BEFORE the trip to Felwood, and with the quest in your log
+-- the step says so. Reward of 8422: choose Soul Harvester 20536 (staff, item level 52), Abyss Shard 20534 (trinket)
+-- or Robes of Servitude 20530 (WH-Fp 8422 + WH-F item tooltips; the three are missing from ItemSparse 70959, which
+-- proves nothing: hotfix items, like Glacial Spike). Briarthorn (5172) is NOT in QF's starter list: Gnomes go to
+-- Demisette too. Kaal Soulreaper (4563) is in the list: Undead start there.
+local function WlImpRequest(faction, races, trainer)
+	return { key = "imprequest", nameKey = "FCQ_CHAIN_WL_IMPREQUEST", level = 50, faction = faction, races = races, quests = {
+		{ q = 8419, alt = { 8420 }, from = trainer, objs = { O(nil, "FCQ_OBJ_WL_FELCLOTH", 1) }, to = W.impsy }, -- WH-F "Felcloth" (14256); QF end 14470; SP ender 14470; ZY A 24079-24097 (3)
+		{ q = 8421, from = W.impsy, objs = {
+			O(Q.rottingWood, "FCQ_OBJ_WL_ROTTING_WOOD", 1), -- WH-F "Rotting Wood x 10"; QF 20613 ← npcs 7138, 7139, 7149; ZY "8421/1" (3)
+			O(Q.bloodvenom, "FCQ_OBJ_WL_BLOODVENOM", 2), -- WH-F "Bloodvenom Essence x 4"; QF 20614 ← Tainted Ooze 7092; ZY "8421/2" (3)
+		}, to = W.impsy },
+		-- 2 of each feather (WH-F 8422 "x 2" three times; ZY "collect 2"). The warrior texts already say "get 2 …".
+		{ q = 8422, from = W.impsy, objs = {
+			O(P.sunken, "FCQ_OBJ_WR_FEATHER_AMBER", 1),
+			O(P.sunken, "FCQ_OBJ_WR_FEATHER_BLUE", 2),
+			O(P.sunken, "FCQ_OBJ_WR_FEATHER_GREEN", 3),
+		}, to = W.impsy }, -- QF pre 8421; SP prev 8421; ZY A 24153-24175 (3)
+	} }
+end
+table.insert(CHAINS.WARLOCK, WlImpRequest("Alliance", nil, W.demisette))
+table.insert(CHAINS.WARLOCK, WlImpRequest("Horde", ORCTROLL, W.zevrost))
+table.insert(CHAINS.WARLOCK, WlImpRequest("Horde", UD, W.kaal))
+
+--------------------------------------------------------------------------------
+-- SHAMAN: The Tempest's Weapons (NEW in Forever). Min level 30 on every step (QF + FQL + guides); quest levels 33
+-- (Elemental Aid, a dungeon), 38 (totems), 40 (ritual, ELITE). Reward of the last quest (WH-Fp 79442, raw page text):
+-- choose Lightning's Grasp 280607 (fist), Tidebringer's Claw 280605 (fist) or Rage of the Storm 280604 (two-handed
+-- mace), "you will also receive" Elementalist's Guard 280696 (shield) and, on the Horde page, a Rune of the Storm
+-- (a Season of Discovery leftover per foreverwisp). Ids: DB2 ItemSparse 70959 + QF. FQL shows only Rage of the Storm
+-- for 79442: conflict, Wowhead followed.
+-- ALLIANCE (Dwarf): every step from Veyric Thunderhame (QF, FQL 96135, 4 guides): solid.
+-- HORDE: the sources DISAGREE on who gives and takes each step (QF and FQL list Rau Cliffrunner, Prate Cloudseer AND
+--   Bath'rah; three guides say "follow your quest log"). Built here: the NPC that the quest's own objective text names
+--   (GEMETEN: 79364 "Speak with Prate Cloudseer", 79361 "for Prate Cloudseer", 79442 "to Bath'rah"), Rau for the rest
+--   (FQL primary start/end; wowforeversite.wiki 16 Nov). 79360 hand-in: Rau (FQL, wiki) or Bath'rah (QF, lfcarry) =
+--   NOT settled. 79365 With Wind Beneath Your Wings (Bath'rah → Rau, FQL; not in the Wowhead series) is left out.
+--   → TESTLIJST: a Horde shaman must check every "hand in to" of this chain in game.
+-- Races, Horde: QF and FQL list only Orc, Tauren, Troll on 79361 and 79442 (lfcarry says Windshapers do the chain too):
+--   Skyborne NOT built (silence beats a wrong trip, as with WL_ORC); a Windshaper with one of these quests in the log
+--   gets NOTHING here, also with one of these quests in the log: MyChains only swaps a foreign route in for an own
+--   route with the same key (second check, 18 Nov 2026, GEMETEN in MyChains). Making it show = a MyChains change, open.
+-- Prequest: Call of Air (Alliance 94789 = needs; Horde has three ids 1531/1532/96136, so no `needs`: the Air chain
+--   stands earlier in the table at the same level and is shown first). That Call of Air is required: Wowhead comment
+--   (beta) + 3 guides; AFGELEID for the live game.
+-- Totem order = WH-F lines: 1 Water, 2 Earth, 3 Fire, 4 Air (QF items 274046, 274045, 274044, 274047). Mobs are level
+--   34-42 (guides), far above 30. Drop lists: QF (older) has only Stonevault troggs for Fire; three guides (Blizzard notes
+--   of 8 Oct 2026) add Dustbelcher ogres, Murdaloc, Maraudine Scouts and Ongeku.
+--------------------------------------------------------------------------------
+local SH_TWISTED = {
+	O(Q.totemWater, "FCQ_OBJ_SH_TWISTED_WATER", 1), -- QF 274046 ← Mirefin 4358-4363; guides: Dustwallow Marsh NE coast
+	O(Q.totemEarth, "FCQ_OBJ_SH_TWISTED_EARTH", 2), -- QF 274045 ← Lost Ones 755-763, 1106; guides: Swamp of Sorrows
+	O(Q.totemFire, "FCQ_OBJ_SH_TWISTED_FIRE", 3), -- QF 274044 ← Stonevault 2891, 2893, 2894 (WH-F Bonesnapper 47.2-49.4,63.7-71.8); guides: + Dustbelcher ogres
+	O(Q.totemAir, "FCQ_OBJ_SH_TWISTED_AIR", 4), -- QF 274047 ← Maraudine 4655-4659, 4704; guides: Desolace, Valley of Spears
+}
+-- The ritual: "the steam pools" in Thousand Needles (quest text, WH-Fp 96135). Wowhead comments (96135): a small blue
+-- summoning circle in the southern part with a bag on top; four waves of two elementals, then a quilboar and the elite
+-- Ravaging Tempest (level 40, FQL; "38-40", conquestcapped); "kill the water elemental within a few yards of the
+-- circle or it will not give you credit". The Eye of the Tempest 212792 drops from Ravaging Tempest (WH-F item
+-- tooltip, 100%); multi-drop since the 8 Oct notes (3 guides). Click the bag vs. use the Corrupted Totems 268582 from
+-- your bags: the sources differ, the text names both.
+table.insert(CHAINS.SHAMAN, { key = "tempest", nameKey = "FCQ_CHAIN_SH_TEMPEST", level = 30, needs = 94789,
+	faction = "Alliance", races = DWARF, quests = {
+		{ q = 96264, from = S.veyric, objs = { O(Q.rfk, "FCQ_OBJ_SH_TATTERED_NOTE", 1) }, to = S.veyric }, -- QF start/end 259023; WH-F "Tattered Note" (274463 ← Charlga Razorflank 4421, QF); guides (3)
+		{ q = 79358, from = S.veyric, objs = SH_TWISTED, to = S.veyric }, -- WH-F "… for Veyric Thunderhame in Arathi Highlands"; QF start 259023 (its end "4722" is not followed); guides (3)
+		{ q = 96135, from = S.veyric, objs = { O(Q.steamPools, "FCQ_OBJ_SH_TEMPEST_RITUAL", 1) }, to = S.veyric }, -- QF + FQL start/end Veyric (2)
+		{ q = 96016, from = S.veyric, to = R.bathrah }, -- QF end 6176; WH-F "Deliver the Eye of the Tempest to Bath'rah"; guides (3). Giver Veyric: guides (QF has no starter)
+	} })
+table.insert(CHAINS.SHAMAN, { key = "tempest", nameKey = "FCQ_CHAIN_SH_TEMPEST", level = 30, faction = "Horde",
+	races = { Orc = true, Tauren = true, Troll = true }, quests = {
+		{ q = 79360, from = S.prate, objs = { O(Q.rfk, "FCQ_OBJ_SH_TATTERED_NOTE", 1) }, to = Q.rau }, -- giver: QF 4722 + 5905, Wowhead comment "same person as Call of Air"; hand-in Rau (FQL, wiki) or Bath'rah (QF, lfcarry): NOT settled
+		{ q = 79364, from = Q.rau, to = S.prate }, -- WH-F "Speak with Prate Cloudseer"; FQL start Rau, end Prate; QF also lists Bath'rah (2)
+		{ q = 79361, from = S.prate, objs = SH_TWISTED, to = S.prate }, -- WH-F "… for Prate Cloudseer in Thousand Needles"; FQL start/end Prate; QF says Bath'rah (2 vs 1)
+		{ q = 79366, from = S.prate, objs = { O(Q.steamPools, "FCQ_OBJ_SH_TEMPEST_RITUAL", 1) }, to = Q.rau }, -- hand-in Rau: QF + FQL + wiki (3). Giver: FQL lists Rau and Prate, QF Rau; Prate = where you hand in the totems (AFGELEID)
+		{ q = 79442, from = Q.rau, to = R.bathrah }, -- QF + FQL start Rau, end Bath'rah; WH-F objective (3)
+	} })
+
+--
+
 local MOONGLADE, TELEPORT_MOONGLADE = 1450, 18960
 
 local function Done(q)
@@ -1772,6 +2017,15 @@ end
 -- 233 "Bauer Saldean" in both). English-looking de/fr names came back without Wowhead's [brackets] = that client's name.
 -- 3064 esES: sources disagree (Runatótem vs Tótem de Runa), majority kept. 11799 esMX: not known, left out.
 local NPC_NAMES = {
+	-- weapon class quests, 18 Nov 2026 (mh-research: Wowhead Forever per locale + Spoken; [4722] ptBR 1 source)
+	[5878] = { deDE = "Thun'grim Firegaze", frFR = "Thun'grim Firegaze", esES = "Thun'grim Vistafuego", esMX = "Thun'grim Vistafuego", ptBR = "Thun'grim Olhafogo", ruRU = "Тун'грим Огневзор" },
+	[294] = { deDE = "Marshal Haggard", frFR = "Maréchal Haggard", esES = "Alguacil Haggard", esMX = "Mariscal Haggard", ptBR = "Delegado Fadigas", ruRU = "Маршал Хаггард" },
+	[6031] = { deDE = "Tormus Deepforge", frFR = "Tormus Deepforge", esES = "Tormus Forjahonda", esMX = "Tormus Forjahonda", ptBR = "Tormus Baixaforja", ruRU = "Тормус Подземная Кузня" },
+	[6142] = { deDE = "Mathiel", frFR = "Mathiel", esES = "Mathiel", esMX = "Mathiel", ptBR = "Mathiel", ruRU = "Матиль" },
+	[1500] = { deDE = "Coleman Farthing", frFR = "Coleman Farthing", esES = "Coleman Lontananza", esMX = "Coleman Farthing", ptBR = "Eurico Palhares", ruRU = "Колман Фартинг" },
+	[6247] = { deDE = "Doan Karhan", frFR = "Doan Karhan", esES = "Doan Karhan", esMX = "Doan Karhan", ptBR = "Doan Karhan", ruRU = "Доан Кархан" },
+	[6266] = { deDE = "Menara Voidrender", frFR = "Menara Voidrender", esES = "Menara Nadiz", esMX = "Menara Nadiz", ptBR = "Menara Nihila", ruRU = "Менара Расщепительница Бездны" },
+	[4722] = { deDE = "Rau Cliffrunner", frFR = "Rau Cliffrunner", esES = "Rau Abiscorredor", esMX = "Rau Abiscorredor", ptBR = "Rau Corta Montes", ruRU = "Рау Скальный Бегун" },
 	[4218] = { deDE = "Denatharion", frFR = "Denatharion", esES = "Denatharion", esMX = "Denatharion", ptBR = "Denatharion", ruRU = "Денатарион" },
 	[4217] = { deDE = "Mathrengyl Bearwalker", frFR = "Mathrengyl Bearwalker", esES = "Mathrengyl Garroso", esMX = "Mathrengyl Garroso", ptBR = "Mathrengyl Ursivagus", ruRU = "Матренгил Медвежья Лапа" },
 	[11802] = { deDE = "Dendrite Starblaze", frFR = "Dendrite Starblaze", esES = "Dendrite Rafagaestelar", esMX = "Dendrita Rafagaestelar", ptBR = "Dendrite Stellardor", ruRU = "Дендрит Блеск Звезд" },
@@ -2336,6 +2590,13 @@ local function PreStep(e, q, atTurn)
 			local any = false
 			for _, id in ipairs(p.items) do
 				if HaveItem(id) then
+					any = true
+				end
+			end
+			-- unlessDone = { quest ids }: the items went with one of these quests (handed in), so nothing is missing
+			-- (Orahil's shard quests, second check 18 Nov 2026).
+			for _, dq in ipairs(p.unlessDone or {}) do
+				if Done(dq) then
 					any = true
 				end
 			end

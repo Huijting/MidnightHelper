@@ -25,7 +25,16 @@ volgorde (1 optie A, 2 wapenquests, 3 slaapzak, 4 optie B nog NIET; zijn /dump-m
   van 211527): GEMETEN. Do this now: in het gebied + niet op een mount + minder dan 3 stapels → "lie down in it … %d of
   3"; op een mount → "get off first"; onleesbaar = stil. `/mh camp` toont beide aura's + stapels + mount. Teksten 7 talen
   (+ esMX "bolsa de dormir", GEMETEN). Offline 8 gevallen OK.
-- ⏭️ Volgende: wapenquests per class (Fable-onderzoek loopt; data in `wapenquests_data.lua` in de scratchpad).
+- 🗡️ **Wapenquests per class GEBOUWD** (`ForeverClassQuests.lua`, blok "Weapon class quests" vóór `local MOONGLADE`):
+  warrior "first weapon" lvl 10 (5 routes per startgebied), warlock Soran'ruk 20 / Orahil 35 / An Imp's Request 50,
+  shaman The Tempest's Weapons 30 (A + H). Onderzoek (Fable): `docs/forever/WAPENQUESTS_ONDERZOEK_2026-11-18.md`;
+  tweede controle (Fable): `docs/forever/WAPENQUESTS_CONTROLE_2026-11-18.md` — 3 FOUT (ritueel-pijl 31.0,45.8 →
+  36.8,39.2 GEMETEN WHT 216474; Orahil "gebruik de steen als hij bijna dood is" GEMETEN WHT 4962/4963; Windshaper-
+  commentaar) + Orahil-risico (steen-stappen nu `pre` met `unlessDone`, nieuw in `PreStep`) verwerkt. Offline: 5
+  Orahil-gevallen OK, 109.424 runs 0 fouten. Teksten: 30 sleutels × 7 talen + esMX 18 (namen GEMETEN), deDE
+  Charlga = Klingenflanke (regel B-bijstelling). Open: Horde-Tempest gevers/inleveraars (TESTLIJST), Windshaper-shaman
+  (MyChains-wijziging nodig), Agamand-rek-id's bijl/zwaard, aparte level-up-melding (`weapon = true`) niet gebouwd,
+  "eerst Felcloth" pas zichtbaar na de Inferno-keten, een lichter ogre-kamp voor Twisted Fire (1 gids).
 
 ## ▶ 18 nov (nacht) — Bouwchat addons-12: Fable-nakijkronde (punt 1 van Robs ja) GEDAAN
 
