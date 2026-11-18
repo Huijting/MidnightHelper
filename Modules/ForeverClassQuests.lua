@@ -1580,7 +1580,9 @@ for _, c in ipairs({
 	local faction, races, trainer, master, librarian = c[1], c[2], c[3], c[4], c[5]
 	-- NEW in Forever. The librarian only offers 97286 after your first library book: e.wait says so. Study is a recipe in
 	-- the Comprehension tab: whether the spell check sees it = NOT measured; the chain also ends once 97286 is done.
-	table.insert(CHAINS.MAGE, { key = "study", spell = 1302508, nameKey = "FCQ_CHAIN_MA_STUDY", level = 6, faction = faction,
+	-- low = true (18 Nov 2026, Rob via sparring: "Een studie, laten we inderdaad jouw advies volgen, lager zetten"):
+	-- Study comes after every other class quest, and in "Do this now" as a tip after the to-dos, not on top.
+	table.insert(CHAINS.MAGE, { key = "study", low = true, spell = 1302508, nameKey = "FCQ_CHAIN_MA_STUDY", level = 6, faction = faction,
 		races = races, quests = {
 			-- book = true (18 Nov 2026): first a library book, the arrow goes to the nearest one (BookStep).
 			{ q = 97286, from = librarian, book = true, wait = "FCQ_WAIT_MA_BOOK", to = librarian },
@@ -2465,9 +2467,11 @@ end
 local function NowPick()
 	local level = UnitLevel and UnitLevel("player") or 1
 	local chains = MyChains()
-	for pass = 1, 2 do
+	-- Pass 1: spell chains; pass 2: item chains; pass 3: the low ones (c.low, mage Study).
+	for pass = 1, 3 do
 		for _, c in ipairs(chains) do
-			if (pass == 1) == (c.spell ~= nil) and not NowSkip(c, level) then
+			local want = (pass == 3 and c.low) or (pass < 3 and not c.low and (pass == 1) == (c.spell ~= nil))
+			if want and not NowSkip(c, level) then
 				local s = Step(c)
 				if s then
 					return c, s
@@ -2478,10 +2482,11 @@ local function NowPick()
 	return nil
 end
 
+--- @return line, step, low (true = a low-priority chain: "Do this now" lists it as a tip, after the to-dos)
 function ns.ForeverClassQuestNow()
 	local c, s = NowPick()
 	if c then
-		return StepText(c, s), s
+		return StepText(c, s), s, c.low == true
 	end
 	return nil
 end

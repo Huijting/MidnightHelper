@@ -115,8 +115,65 @@ local function UpdateTops()
 	end
 end
 
---- Every spell button holding a lower rank than you know: { slot, from, to, name, fromIdx, toIdx, fresh }.
-local function Scan()
+--------------------------------------------------------------------------------
+-- Player's choice per bar and per button (18 Nov 2026). A player in the in-game survey (Druid 20-39, FI, 18 Nov),
+-- verbatim: "at Shaman we got rank 1 earth shock in different action bar and many ranks healing spells as all healers
+-- got, I would like to choose which action bar spells I want to upgrade." Rob via sparring: "werk dat maar vast uit".
+-- Per character: except.bars[n] = true ("never touch bar n"), except.buttons["slot:spell name"] = true ("never touch
+-- this button"; the name, not the rank id, so the choice survives the next rank). Every path respects it: the edge,
+-- the count and sentence, the trainer button, /mh ranks fix and auto.
+--------------------------------------------------------------------------------
+local function Except()
+	local s = Settings()
+	s.except = s.except or {}
+	local k = CharKey()
+	s.except[k] = s.except[k] or {}
+	local e = s.except[k]
+	e.bars = e.bars or {}
+	e.buttons = e.buttons or {}
+	return e
+end
+
+-- Blizzard's slot ranges per Edit Mode bar (bar 1 also holds its pages and the stance/bonus bars). AFGELEID from the
+-- standard action slot layout; a visible Blizzard button that holds the slot wins (BarOf below).
+local SLOT_BAR = { { 1, 24, 1 }, { 73, 144, 1 }, { 61, 72, 2 }, { 49, 60, 3 }, { 25, 36, 4 }, { 37, 48, 5 },
+	{ 145, 156, 6 }, { 157, 168, 7 }, { 169, 180, 8 } }
+
+local WhereHit -- forward (the Blizzard button that holds a slot), defined further down, beside the place sentence
+
+local function BarOf(slot)
+	local hit = WhereHit and WhereHit(slot)
+	if hit then
+		return hit.bar, hit.btn
+	end
+	for _, r in ipairs(SLOT_BAR) do
+		if slot >= r[1] and slot <= r[2] then
+			return r[3], nil
+		end
+	end
+	return nil
+end
+
+local function ButtonKey(slot, name)
+	return tostring(slot) .. ":" .. tostring(name)
+end
+
+--- Why a button is left alone: "bar", "button" or nil.
+local function Skipped(slot, name)
+	local e = Except()
+	local bar = BarOf(slot)
+	if bar and e.bars[bar] then
+		return "bar"
+	end
+	if e.buttons[ButtonKey(slot, name)] then
+		return "button"
+	end
+	return nil
+end
+
+--- Every spell button holding a lower rank than you know: { slot, from, to, name, fromIdx, toIdx, fresh, bar, skip }.
+--- The ones the player excluded are left out unless `withSkipped` (the choice window and /mh ranks show them).
+local function Scan(withSkipped)
 	local out, spells, ranked = {}, 0, 0
 	if not GetActionInfo then
 		return out, spells, ranked
@@ -131,8 +188,11 @@ local function Scan()
 				ranked = ranked + 1
 				local topIdx, topId = Top(i.list)
 				if topIdx and topIdx > i.idx then
-					out[#out + 1] = { slot = slot, from = id, to = topId, name = i.name, fromIdx = i.idx, toIdx = topIdx,
-						fresh = fresh[i.name] == i.idx }
+					local skip = Skipped(slot, i.name)
+					if withSkipped or not skip then
+						out[#out + 1] = { slot = slot, from = id, to = topId, name = i.name, fromIdx = i.idx, toIdx = topIdx,
+							fresh = fresh[i.name] == i.idx, bar = BarOf(slot), skip = skip }
+					end
 				end
 			end
 		end
@@ -245,8 +305,14 @@ Refresh = function()
 	if not btn then
 		btn = CreateFrame("Button", "MidnightHelperRankUp", tf, "UIPanelButtonTemplate")
 		btn:SetSize(170, 22)
+		-- 18 Nov 2026: Shift-click opens the choice window (which buttons, which bars); a plain click upgrades the
+		-- just-trained buttons, without the ones you excluded (Scan leaves those out).
 		btn:SetScript("OnClick", function()
-			Fix(false)
+			if IsShiftKeyDown and IsShiftKeyDown() then
+				ns.ShowForeverRanks()
+			else
+				Fix(false)
+			end
 		end)
 		btn:SetScript("OnEnter", function(self)
 			GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
@@ -255,6 +321,7 @@ Refresh = function()
 				GameTooltip:AddLine(ns:L("FRANK_TIP_ROW_FMT"):format(r.name, r.fromIdx, r.toIdx), 1, 1, 1)
 			end
 			GameTooltip:AddLine(ns:L("FRANK_BTN_TIP_BODY"), 0.75, 0.75, 0.75, true)
+			GameTooltip:AddLine(ns:L("FRANK_BTN_TIP_CHOOSE"), 0.6, 0.85, 1, true)
 			GameTooltip:Show()
 		end)
 		btn:SetScript("OnLeave", function()
@@ -297,9 +364,8 @@ local BAR_PREFIXES_W = { "ActionButton", "MultiBarBottomLeftButton", "MultiBarBo
 local BAR_COMMANDS_W = { "ACTIONBUTTON", "MULTIACTIONBAR1BUTTON", "MULTIACTIONBAR2BUTTON", "MULTIACTIONBAR3BUTTON",
 	"MULTIACTIONBAR4BUTTON", "MULTIACTIONBAR5BUTTON", "MULTIACTIONBAR6BUTTON", "MULTIACTIONBAR7BUTTON" }
 
---- Where a slot sits on Blizzard's bars: "Action Bar 4, button 3 (key X)". A visible button wins over a hidden one.
---- nil when no Blizzard button holds that slot (another bar addon, or a page that is not shown).
-local function Where(slot)
+--- The Blizzard button that holds a slot: { bar, btn, vis } (a visible one wins), or nil.
+WhereHit = function(slot)
 	local hit
 	for n, prefix in ipairs(BAR_PREFIXES_W) do
 		for i = 1, 12 do
@@ -319,6 +385,13 @@ local function Where(slot)
 			end
 		end
 	end
+	return hit
+end
+
+--- Where a slot sits on Blizzard's bars: "Action Bar 4, button 3 (key X)". A visible button wins over a hidden one.
+--- nil when no Blizzard button holds that slot (another bar addon, or a page that is not shown).
+local function Where(slot)
+	local hit = WhereHit(slot)
 	if not hit then
 		return nil
 	end
@@ -634,9 +707,256 @@ function ns.SetForeverRankGlow(on)
 	UpdateGlowsSoon()
 end
 
---- /mh ranks [fix | auto on | auto off | glow on | glow off]
+--------------------------------------------------------------------------------
+-- The choice window (18 Nov 2026, the survey player's wish, see Except() above): every button with a lower rank,
+-- per bar; a tick "upgrade" per button, "never touch this bar", "never touch this button", one "Upgrade checked".
+-- Style A (ForeverStyle SkinOnShow), Escape + Shift+scroll via RegisterMidnightDialogPopup.
+--------------------------------------------------------------------------------
+local RW, RH, ROW_H = 560, 440, 26
+local rwin
+local unchecked = {} -- slot → true: the player took the tick off this session
+
+local function BarLabel(n)
+	local label = (type(HUD_EDIT_MODE_ACTION_BAR_LABEL) == "string" and HUD_EDIT_MODE_ACTION_BAR_LABEL) or "Action Bar %d"
+	return n and label:format(n) or ns:L("FRANK_WIN_NOBAR")
+end
+
+local FillRanks -- forward
+
+local function Check(parent)
+	local c = CreateFrame("CheckButton", nil, parent, "UICheckButtonTemplate")
+	c:SetSize(22, 22)
+	return c
+end
+
+local function RankRow(f, i)
+	local r = f.rows[i]
+	if r then
+		return r
+	end
+	r = CreateFrame("Frame", nil, f.child)
+	r:SetSize(RW - 70, ROW_H)
+	r.check = Check(r)
+	r.check:SetPoint("LEFT", 0, 0)
+	r.text = r:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+	r.text:SetPoint("LEFT", r.check, "RIGHT", 4, 0)
+	r.text:SetPoint("RIGHT", r, "RIGHT", -150, 0)
+	r.text:SetJustifyH("LEFT")
+	r.text:SetWordWrap(false)
+	r.never = Check(r)
+	r.never:SetPoint("RIGHT", r, "RIGHT", -120, 0)
+	r.neverText = r:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+	r.neverText:SetPoint("LEFT", r.never, "RIGHT", 2, 0)
+	f.rows[i] = r
+	return r
+end
+
+FillRanks = function()
+	local f = rwin
+	if not (f and f:IsShown()) then
+		return
+	end
+	local list = Scan(true)
+	table.sort(list, function(a, b)
+		if (a.bar or 99) ~= (b.bar or 99) then
+			return (a.bar or 99) < (b.bar or 99)
+		end
+		return a.slot < b.slot
+	end)
+	local e = Except()
+	-- The bars that have a row, plus the bars you excluded (so you can let them go again).
+	local bars, seenBar = {}, {}
+	for _, r in ipairs(list) do
+		if r.bar and not seenBar[r.bar] then
+			seenBar[r.bar] = true
+			bars[#bars + 1] = r.bar
+		end
+	end
+	for n in pairs(e.bars) do
+		if not seenBar[n] then
+			seenBar[n] = true
+			bars[#bars + 1] = n
+		end
+	end
+	table.sort(bars)
+	local lines = {}
+	for _, n in ipairs(bars) do
+		lines[#lines + 1] = { bar = n }
+		for _, r in ipairs(list) do
+			if r.bar == n then
+				lines[#lines + 1] = { row = r }
+			end
+		end
+	end
+	for _, r in ipairs(list) do
+		if not r.bar then
+			lines[#lines + 1] = { row = r }
+		end
+	end
+	local y = 0
+	for i, ln in ipairs(lines) do
+		local row = RankRow(f, i)
+		row:ClearAllPoints()
+		row:SetPoint("TOPLEFT", f.child, "TOPLEFT", 0, -y)
+		if ln.bar then
+			local n = ln.bar
+			row.check:Hide()
+			row.text:SetFontObject("GameFontNormal")
+			row.text:SetText(BarLabel(n))
+			row.never:Show()
+			row.never:SetChecked(e.bars[n] == true)
+			row.neverText:SetText(ns:L("FRANK_WIN_NEVER_BAR"))
+			row.never:SetScript("OnClick", function(self)
+				e.bars[n] = self:GetChecked() and true or nil
+				FillRanks()
+				if Refresh then Refresh() end
+				UpdateGlowsSoon()
+			end)
+		else
+			local r = ln.row
+			local key = ButtonKey(r.slot, r.name)
+			row.check:Show()
+			row.check:SetEnabled(r.skip == nil)
+			row.check:SetChecked(r.skip == nil and not unchecked[r.slot])
+			row.check:SetScript("OnClick", function(self)
+				unchecked[r.slot] = (not self:GetChecked()) or nil
+				FillRanks()
+			end)
+			row.text:SetFontObject(r.skip and "GameFontDisable" or "GameFontHighlight")
+			local w = r.bar and select(2, BarOf(r.slot))
+			row.text:SetText(ns:L("FRANK_WIN_ROW_FMT"):format(w and ns:L("FRANK_WIN_BTN_FMT"):format(w) or ("#" .. r.slot),
+				r.name, r.fromIdx, r.toIdx) .. (r.fresh and ("  |cff66ff66" .. ns:L("FRANK_WIN_FRESH") .. "|r") or ""))
+			row.never:SetShown(r.skip ~= "bar")
+			row.never:SetChecked(e.buttons[key] == true)
+			row.neverText:SetText(r.skip == "bar" and ns:L("FRANK_WIN_BAR_SKIPPED") or ns:L("FRANK_WIN_NEVER_BTN"))
+			row.never:SetScript("OnClick", function(self)
+				e.buttons[key] = self:GetChecked() and true or nil
+				FillRanks()
+				if Refresh then Refresh() end
+				UpdateGlowsSoon()
+			end)
+		end
+		row:Show()
+		y = y + ROW_H
+	end
+	for i = #lines + 1, #f.rows do
+		f.rows[i]:Hide()
+	end
+	f.child:SetHeight(math.max(10, y))
+	local n = 0
+	for _, r in ipairs(list) do
+		if not r.skip and not unchecked[r.slot] then
+			n = n + 1
+		end
+	end
+	f.empty:SetShown(#list == 0)
+	f.go:SetText(ns:L("FRANK_WIN_GO_FMT"):format(n))
+	f.go:SetEnabled(n > 0)
+end
+
+local function UpgradeChecked()
+	local todo = {}
+	for _, r in ipairs(Scan()) do
+		if not unchecked[r.slot] then
+			todo[#todo + 1] = r
+		end
+	end
+	if #todo == 0 then
+		print(PREFIX .. ns:L("FRANK_NONE"))
+		return
+	end
+	local done, failed, reason = Replace(todo)
+	Report(done, failed, reason)
+	if done > 0 then
+		for _, r in ipairs(todo) do
+			fresh[r.name] = nil
+		end
+	end
+	FillRanks()
+	Refresh()
+	UpdateGlowsSoon()
+	if ns.RefreshHomePanel then
+		pcall(ns.RefreshHomePanel)
+	end
+end
+
+local function BuildRanks()
+	if rwin then
+		return rwin
+	end
+	local f = CreateFrame("Frame", "MidnightHelperForeverRanks", UIParent, "BackdropTemplate")
+	f:SetSize(RW, RH)
+	f:SetPoint("CENTER", 0, 40)
+	f:SetFrameStrata("DIALOG")
+	f:SetBackdrop({ bgFile = "Interface\\Buttons\\WHITE8X8", edgeFile = "Interface\\Buttons\\WHITE8X8", edgeSize = 1 })
+	f:EnableMouse(true)
+	f:SetMovable(true)
+	f:RegisterForDrag("LeftButton")
+	f:SetScript("OnDragStart", f.StartMoving)
+	f:SetScript("OnDragStop", f.StopMovingOrSizing)
+	f.title = f:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
+	f.title:SetPoint("TOPLEFT", 20, -16)
+	f.title:SetText(ns:L("FRANK_WIN_TITLE"))
+	f.sub = f:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	f.sub:SetPoint("TOPLEFT", f.title, "BOTTOMLEFT", 0, -6)
+	f.sub:SetPoint("RIGHT", f, "RIGHT", -24, 0)
+	f.sub:SetJustifyH("LEFT")
+	f.sub:SetText(ns:L("FRANK_WIN_SUB"))
+	local close = CreateFrame("Button", nil, f, "UIPanelCloseButton")
+	close:SetPoint("TOPRIGHT", -4, -4)
+	local scroll = CreateFrame("ScrollFrame", nil, f, "UIPanelScrollFrameTemplate")
+	scroll:SetPoint("TOPLEFT", 18, -70)
+	scroll:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -36, 50)
+	local child = CreateFrame("Frame", nil, scroll)
+	child:SetSize(RW - 60, 10)
+	scroll:SetScrollChild(child)
+	f.child, f.rows = child, {}
+	f.empty = f:CreateFontString(nil, "OVERLAY", "GameFontDisable")
+	f.empty:SetPoint("TOPLEFT", 22, -80)
+	f.empty:SetText(ns:L("FRANK_NONE"))
+	f.go = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
+	f.go:SetSize(200, 24)
+	f.go:SetPoint("BOTTOMRIGHT", -20, 16)
+	f.go:SetScript("OnClick", UpgradeChecked)
+	f.hint = f:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+	f.hint:SetPoint("BOTTOMLEFT", 20, 22)
+	f.hint:SetPoint("RIGHT", f.go, "LEFT", -10, 0)
+	f.hint:SetJustifyH("LEFT")
+	f.hint:SetText(ns:L("FRANK_WIN_HINT"))
+	f:SetScript("OnShow", function()
+		FillRanks()
+	end)
+	if ns.ForeverStyle and ns.ForeverStyle.SkinOnShow then
+		ns.ForeverStyle.SkinOnShow(f)
+	end
+	if ns.RegisterMidnightDialogPopup then
+		ns.RegisterMidnightDialogPopup(f)
+	else
+		tinsert(UISpecialFrames, f:GetName())
+	end
+	f:Hide()
+	rwin = f
+	return f
+end
+
+--- Open (or close) the choice window.
+function ns.ShowForeverRanks()
+	local f = BuildRanks()
+	if f:IsShown() then
+		f:Hide()
+	else
+		f:Show()
+		FillRanks()
+	end
+end
+
+--- /mh ranks [fix | auto on | auto off | glow on | glow off | choose]
 function ns.ForeverRanksSlash(arg)
 	arg = (arg or ""):lower()
+	if arg == "choose" or arg == "window" then
+		ns.ShowForeverRanks()
+		return
+	end
 	if arg == "glow on" or arg == "glow off" then
 		local on = (arg == "glow on")
 		ns.SetForeverRankGlow(on)
@@ -657,17 +977,31 @@ function ns.ForeverRanksSlash(arg)
 		print(PREFIX .. ns:L(arg == "auto on" and "FRANK_AUTO_ON" or "FRANK_AUTO_OFF"))
 		return
 	end
-	local list, spells, ranked = Scan()
+	local list, spells, ranked = Scan(true)
 	print(PREFIX .. ("ranks: %d spell buttons, %d with a spell MH knows the ranks of, %d with a lower rank than you know. Auto: %s."):format(
 		spells, ranked, #list, Settings().auto and "on" or "off (/mh ranks auto on)"))
+	-- The player's own exceptions (per character), and where to change them.
+	local e = Except()
+	local bars, btns = {}, {}
+	for n in pairs(e.bars) do
+		bars[#bars + 1] = BarLabel(n)
+	end
+	for k in pairs(e.buttons) do
+		btns[#btns + 1] = k
+	end
+	table.sort(bars)
+	table.sort(btns)
+	print(("   never touched: bars %s; buttons (slot:spell) %s. Change them in /mh ranks choose."):format(
+		#bars > 0 and table.concat(bars, ", ") or "none", #btns > 0 and table.concat(btns, ", ") or "none"))
 	for _, r in ipairs(list) do
 		local hi = ""
 		if C_ActionBar and C_ActionBar.IsHighestSpellRank then
 			local ok, v = pcall(C_ActionBar.IsHighestSpellRank, r.from)
 			hi = ok and (" | game says highest: " .. tostring(v)) or ""
 		end
-		print(("   slot %d: %s rank %d (%d) -> rank %d (%d)%s%s"):format(r.slot, r.name, r.fromIdx, r.from, r.toIdx, r.to,
-			r.fresh and " | just trained" or "", hi) .. " | " .. (Where(r.slot) or "no Blizzard button holds this slot"))
+		print(("   slot %d: %s rank %d (%d) -> rank %d (%d)%s%s%s"):format(r.slot, r.name, r.fromIdx, r.from, r.toIdx, r.to,
+			r.fresh and " | just trained" or "", hi, r.skip and (" | never touched (" .. r.skip .. ")") or "")
+			.. " | " .. (Where(r.slot) or "no Blizzard button holds this slot"))
 	end
 	pcall(UpdateGlows)
 	print("   edge on the button: " .. glowWhy)

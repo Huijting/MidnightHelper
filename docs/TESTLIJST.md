@@ -39,6 +39,18 @@ zoekbalk, de reputaties, de rares, de muntjes, de Now-kaart, het ronde plaatje e
 achternaam, "Step aside"-instelling, Your path, Set focus). Daarna vond Rob nog: "scroll for more" over de tekst
 (gerepareerd, zie Travel) en het boek bij de mage-quest "Study" (in bouw).
 
+## 🎚️ 18 nov (nacht) — Forever: zelf kiezen welke knoppen een hogere rank krijgen + Study lager
+
+Geen nieuw bestand (maar de ronde hieronder wel: herstart WoW één keer, dan is alles mee).
+- [ ] `/mh ranks choose` (of Shift-klik op de rank-knop onder het trainervenster): een venster met per balk de knoppen die
+      een lagere rank hebben ("Action Bar 2: button 3: Healing Wave, rank 2 -> 5"), elk met een vinkje.
+- [ ] Vink er één uit en klik "Upgrade checked": alleen de aangevinkte gaan omhoog.
+- [ ] "never touch this bar" bij een balk, en "never" bij één knop: die blijven ook bij `/mh ranks fix`, bij "auto" en
+      bij de knop onder de trainer met rust, en krijgen geen oranje rand meer. Na /reload nog steeds zo.
+- [ ] `/mh ranks`: een regel "never touched: bars … ; buttons …".
+- [ ] Mage vanaf level 6: "Study" staat niet meer bovenaan de Now-kaart; het is een tip onderaan. In Class quests en de
+      zoekbalk staat hij nog gewoon.
+
 ## ✨ 18 nov (nacht) — Forever: disenchanten + inklapbare kopjes in Find
 
 ⚠️ **Twee nieuwe bestanden: WoW helemaal afsluiten en opnieuw starten** (/reload is niet genoeg).

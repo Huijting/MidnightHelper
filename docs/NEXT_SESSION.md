@@ -2,6 +2,19 @@
 
 ## ▶ 18 nov — Bouwchat 18-11
 
+- 🎚️ **Ranks zelf kiezen + Study lager GEBOUWD** (Rob via sparring: *"Een studie, laten we inderdaad jouw advies volgen,
+  lager zetten. En wat de Finse speler betreft, werk dat maar vast uit."*). Speler (vragenlijst 18 nov, Druid 20-39, FI):
+  *"I would like to choose which action bar spells I want to upgrade."*
+  - `ForeverRanks.lua`: `Except()` per character (`foreverRanks.except[char].bars[n]`, `.buttons["slot:spell"]`),
+    `BarOf` (Blizzard-knop wint, anders slot-reeksen: AFGELEID), `Scan(withSkipped)` laat uitgezonderde weg → rand,
+    telling, zin, trainerknop, fix en auto respecteren het. Keuzevenster `MidnightHelperForeverRanks` (stijl A via
+    SkinOnShow, RegisterMidnightDialogPopup): per balk "never touch this bar", per knop vinkje + "never", knop "Upgrade
+    checked". `/mh ranks choose`, Shift-klik op de trainerknop; `/mh ranks` toont de uitzonderingen.
+  - Study: chain `low = true` → laatste in NowPick (pass 3), en in Do this now een TIP (opent het venster niet zelf).
+  - Offline: Aimed Shot op 3 balken, bar 3 uitgezonderd, auto aan → alleen de net getrainde (slot 61) omhoog; knop slot 1
+    uitgezonderd → fix verandert niets; venster 4 regels; na vrijgeven + "Upgrade checked" alleen slot 1. 0 fouten.
+  - ⚠️ Gezien: `CharKey()` neemt de realm van `GetRealmName` (de `UnitFullName`-tak verliest de 2e waarde door `and`);
+    werkt in het spel, alleen opgemerkt.
 - ✨ **Forever disenchant + inklapbare Find-kopjes GEBOUWD** (Rob via sparring: *"Hoe kan ik zien of ik iets kan
   disenchanten? …"* → *"Ja, dat mag zo. … Baconator [Baganator] …"* → *"ja"*; en *"Kunnen we daar inklapbare dingen van
   maken? …"* → *"ja"*). ⚠️ **2 nieuwe bestanden → WoW herstarten.**

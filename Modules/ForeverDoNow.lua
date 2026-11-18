@@ -308,11 +308,18 @@ function Collect()
 		out.actions.ranks = true
 	end
 	-- Class quest that unlocks something (16 Nov 2026, ForeverClassQuests.lua): a to-do, with the arrow button.
+	-- A low-priority one (mage Study, 18 Nov 2026, Rob: "lager zetten") is a tip instead: after every to-do, and it does
+	-- not open the window by itself.
 	if ns.ForeverClassQuestNow then
-		local okC, cq = pcall(ns.ForeverClassQuestNow)
+		local okC, cq, _, low = pcall(ns.ForeverClassQuestNow)
 		if okC and cq then
-			out.now[#out.now + 1] = cq
-			item(cq, "classquest")
+			if low then
+				out.tips[#out.tips + 1] = cq
+				item(cq, "classquest", true)
+			else
+				out.now[#out.now + 1] = cq
+				item(cq, "classquest")
+			end
 			out.actions.classquest = true
 		end
 	end
