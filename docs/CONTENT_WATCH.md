@@ -4953,3 +4953,92 @@ kop, per bevinding MEASURED/INFERRED en [RAAKT ONS]/[RAAKT ONS NIET], met bestan
   `docs/forever/FOREVER_MAIN_STATS_2026-11-07.md`, `docs/forever/FOREVER_PRIEST_2026-11-06.md` (alle
   vandaag bekeken). Vandaag is dinsdag, geen maandag: de kaarten- en consumables-secties zijn opzettelijk
   weggelaten.
+
+- [2026-11-18] 💬 **CurseForge: geen open reacties (3 draadjes, 8 totaal, identiek aan [2026-11-17]).**
+  `curseforge.com/api/v1/mods/1528577/comments?pageIndex=0&pageSize=20&nocache=20261118a` (en `/b`), twee
+  fetches via Exa, volledig gelezen (JSON, `pagination.totalCount: 8`). Dezelfde drie draadjes als
+  gisteren, allemaal beantwoord (nieuwste bericht in elke keten van `twelveinchy`): esES/esMX-locale-fix
+  `8509224` → reply `8510682`; MrsBoojiePanda's debug-printregel `8414729` → reply `8483898`;
+  gadrinonturalyon's coffer-key-shards/3D-boss-model-verzoek `8090710` → reply-keten tot
+  `8095337`/`8092133` — alle ids en timestamps byte-identiek aan [2026-11-17]. MEASURED. **[RAAKT ONS
+  NIET]** — geen actiepunt, geen concept-antwoord nodig.
+
+  — bron: https://www.curseforge.com/api/v1/mods/1528577/comments?pageIndex=0&pageSize=20&nocache=20261118a/b,
+  zelf gelezen via Exa.
+
+- [2026-11-18] 🆕 **Midnight blijft stil (dertiende dag, nog steeds "November 6, 2026"); Forever heeft
+  een nieuwe hotfixdag ("November 17, 2026") met kamperen-, klasse-, dungeon-, item-, beroepen- en
+  questregels — niets daarvan spreekt een bestaande claim van ons tegen.**
+
+  **Midnight, geen nieuwe sectie.** MEASURED, zelf gelezen via Exa (cache-buster `?nocache=20261118a`):
+  `news.blizzard.com/en-us/article/24307310/hotfixes-november-6-2026` toont nog steeds alleen de secties
+  van 6 en 5 nov (Vashnik/Ula'tek-tuning resp. Tortollan-naam + Shadowguard Point + Venomous
+  Abyss-tuning), allebei al verwerkt op [2026-11-06]/[2026-11-07]. **Positieve controle, zelfde run:**
+  `worldofwarcraft.blizzard.com/en-us/content-update-notes` (zelfde cache-buster) zegt nu **"11 days
+  ago"** bij die Nov 6-sectie — gepubliceerd 7 nov, dus 7+11=18, precies vandaag; geen verstikte cache.
+  Geen nieuwe Delves-, Professions-, Quests- of Items-regel sinds [2026-11-06]/[2026-11-07].
+
+  **Forever: nieuwe sectie "November 17, 2026" (gepubliceerd 18 nov ~03:23 UTC), volledig zelf gelezen
+  (rechtstreeks via Exa met `?nocache=20261118c`, niet via zoek-highlights) en tegen de hele boom gezet
+  (grep over `Modules/`, `Locales/` én `docs/forever/` in één keer, niet alleen de voor de hand liggende
+  bestanden; positieve controle in dezelfde scope: zoektermen als "Windfury", "Flurry", "Shank",
+  "Blackrock Spire" en "Thousand Needles" gaven wél treffers).** De secties "November 16" en "November
+  13" eronder zijn dezelfde die al verwerkt zijn op [2026-11-17] resp. eerder — niet opnieuw als nieuwe
+  bevinding geteld.
+
+  Per item van de nieuwe Nov 17-sectie tegen `Modules/Forever*.lua`, `Locales/*.lua` en `docs/forever/*.md` gezet:
+  - **Shaman — Flurry verloor stacks als Windfury Totem-aanvallen raakten — gefixed.** `Flurry` staat bij
+    ons alleen als toets/level-vermelding (`ForeverHowToPlay.lua:866`, "Flurry (a talent, passive) from
+    25"), geen uitspraak over stacken met Windfury Totem. Rogue's eigen "Blade Flurry" is een andere
+    ability (spell id 13877, `ForeverSpellIds.lua:52`) en niet verward hiermee. MEASURED, geen
+    tegenspraak.
+  - **Rogue — Poison-rangen konden niet meer boven de max-rang uitkomen.** Wij noemen Poison-rangen
+    alleen als leerbare trainer-items met level/kosten/id (`ForeverTrainerData.lua`), geen uitspraak over
+    overschrijden van de max-rang in combat. MEASURED, geen tegenspraak.
+  - **Herbalism — Cultivation werkte niet goed op Mageroyal — gefixed.** `Cultivation` staat bij ons
+    alleen in de `toBlockD`-lijst van Shaman/Hunter/Warrior (overflow-knoppen voor beroeps-/ras-passives,
+    naast "Find Treasure", "Eureka!", "Walk on Air") en als spell-id 20552 in `ForeverSpellIds.lua` —
+    geen uitspraak over wel/niet procen op Mageroyal specifiek. "Mageroyal" zelf komt in geen enkel
+    bestand voor (0 treffers). MEASURED, geen tegenspraak. Komt overeen met wat de blue-post/data-wachter
+    vandaag al zag (commit `5703bc1`, één van de 4 genoemde Forever-kandidaten).
+  - **Rogue — "The Manor, Ravenholdt" kreeg een startbrief via Mathias Shaw (mailbak ontdekt in SI:7).**
+    Die precieze questketen (6681, item Elegant Letter 17126, npc Fahrad) staat alleen in de
+    onderzoeksnotitie `docs/forever/ROGUE_CLASSQUESTS_2026-11-17.md:198` — nog niet geshipt in
+    `Modules/ForeverClassQuests.lua` (0 treffers voor "6681"/"17126"/"Fahrad"/"Elegant Letter" in
+    Modules/Locales). Wij noemen Ravenholdt zelf alleen generiek (reputatiequests, Lord Jorach
+    Ravenholdt-locatie). MEASURED, buiten ons geshipte bereik.
+  - **Shen'dralas — Bristleback Skullcrushers casten minder vaak.** Wij noemen alleen "Bristleback
+    Shamans" als questdoel (`FCQ_OBJ_SH_SALVE`, enUS.lua) — andere creatuurnaam, geen uitspraak over
+    castfrequentie. MEASURED, geen tegenspraak.
+  - **Dungeons — Upper Blackrock Spire's vijand-gezondheid/schade was te laag — gecorrigeerd.** Wij
+    noemen Blackrock Spire alleen als dungeon-entry (naam/zone/coördinaten/levelrange,
+    `ForeverDungeons.lua:89,97`), geen uitspraak over moeilijkheidsgraad. MEASURED, geen tegenspraak.
+  - **Enemies and NPCs — Thousand Needles: een Pesterhide Snarler/Needles Cougar kon in een rots spawnen;
+    een Gravelysnout Digger/Surveyour kon in een rots pathen — gefixed.** Wij noemen Thousand Needles
+    alleen voor drie vendor-NPC's (Jandia/Jawn Highmesa/Jinky Twizzlefixxit, `ForeverVendorSpots.lua`) —
+    andere creaturen, geen uitspraak. "Pesterhide"/"Gravelsnout"/"Gravelysnout" komen verder in geen
+    bestand voor (0 treffers). MEASURED, geen tegenspraak.
+  - **Overig zonder enige vermelding bij ons (0 treffers, positieve controle hierboven bewijst dat de
+    zoekmethode treft waar iets wél staat):** Camping (Cozy Sleeping Bag), Might of Stormwind/Warchief's
+    Blessing, Items (Night Watchman's Torch, Escape Plan, Whiteout Staff, Crackling Staff, **Soulforge
+    Armor**), Legacy (Reagent Economy — alleen in onderzoeksnotities, niet geshipt), PvP (mount in
+    Warsong Gulch-startkamer, **Battle for Alterac Valley level 58**), Professions (Waylaid Crate,
+    Paletusk-pickpocket, Blacksmithing: The Old Ways/Bronze Mace/Craftsman's Writ, Herbalism: "Her
+    World"-wildflowers, Skinning), Quests (Show Them How It's Done, Blisters on the Land, Step One: Rock,
+    A New Ore Sample, Shen'dralas: Powering the Pylons/Heart of Crystal/Going Home/Spectral Iron
+    Ore/Decrepit Pylon Protectors/Summon Undead Ravager, Agamaggan's Blood), UI (ignore-lijst,
+    Master Swordsmith/Axesmith/Hammersmith).
+
+  **[RAAKT ONS NIET]** voor alle bovenstaande — geen actiepunt, een mens beslist als hij het toch anders
+  wil.
+
+  — bron: https://news.blizzard.com/en-us/article/24307310/hotfixes-november-6-2026?nocache=20261118a ·
+  https://worldofwarcraft.blizzard.com/en-us/content-update-notes?nocache=20261118a ·
+  https://news.blizzard.com/en-us/feed/world-of-warcraft?nocache=20261118a ·
+  https://news.blizzard.com/en-us/article/24315281/wow-forever-hotfixes-november-17-2026?nocache=20261118c
+  (alle rechtstreeks via Exa gelezen) · codebase: `Modules/ForeverBlock_Shaman.lua`,
+  `Modules/ForeverBlock_Hunter.lua`, `Modules/ForeverBlock_Warrior.lua`, `Modules/ForeverBlock_Rogue.lua`,
+  `Modules/ForeverHowToPlay.lua`, `Modules/ForeverSpellIds.lua`, `Modules/ForeverTrainerData.lua`,
+  `Modules/ForeverVendorSpots.lua`, `Modules/ForeverDungeons.lua`, `Modules/ForeverClassQuests.lua`,
+  `Locales/enUS.lua`, `docs/forever/ROGUE_CLASSQUESTS_2026-11-17.md` (alle vandaag bekeken). Vandaag is
+  woensdag, geen maandag: de kaarten- en consumables-secties zijn opzettelijk weggelaten.
