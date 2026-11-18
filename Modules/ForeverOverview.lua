@@ -3340,10 +3340,10 @@ local function SearchRows()
 		return searchCache
 	end
 	local rows = {}
-	-- label, keys, go, tier ("action"/"nav"/"content"), context, cat
-	local function row(label, keys, go, tier, context, cat)
+	-- label, keys, go, tier ("action"/"nav"/"content"), context, cat, order (places: rank by distance)
+	local function row(label, keys, go, tier, context, cat, order)
 		if type(label) == "string" and label ~= "" and go then
-			rows[#rows + 1] = { label, keys, go, tier, context, cat }
+			rows[#rows + 1] = { label, keys, go, tier, context, cat, order }
 		end
 	end
 	local function page(p)
@@ -3371,8 +3371,9 @@ local function SearchRows()
 	row(ns:L("FOV_FIND_TEACHES"), "trainer train learn spells teaches cost", page("trainer"), "nav",
 		ns:L("FOV_FIND_SEC_CLASS"), "tab")
 
-	-- Find: every item of the left list.
-	local ok, items = pcall(FindCatalog)
+	-- Find: every item of the left list, and (step 2) every place of it with its own "Show the way".
+	local ok, items, dirText = pcall(FindCatalog)
+	local wayWord = ns:L("FCQ_BTN")
 	local head
 	for _, it in ipairs(ok and type(items) == "table" and items or {}) do
 		if it.head then
@@ -3391,11 +3392,26 @@ local function SearchRows()
 			elseif kind == "weapon" then
 				keys = keys .. " weapon skill master"
 			end
-			row(it.name, keys, function()
+			local function openItem()
 				local f = Build()
 				f.find = { kind = kind, key = key }
 				ns.ShowForeverOverviewPage("find")
-			end, "nav", head, "find")
+			end
+			row(it.name, keys, openItem, "nav", head, "find")
+			-- Step 2 (18 Nov 2026): the places themselves. A hit opens Find on that item (so you see the list and the
+			-- way there) and sets the arrow, as the row's "Show the way" button does. Content tier: typing "mining" shows
+			-- the Mining item before thirty trainers.
+			local okP, places = pcall(FindPlaces, it, dirText)
+			-- FindPlaces lists nearest first; that rank goes along, so "bank" shows the nearest banker first.
+			for rank, p in ipairs(okP and type(places) == "table" and places or {}) do
+				if p.go and type(p.name) == "string" then
+					local go = p.go
+					row(p.name, keys .. " " .. (it.name or "") .. " way route arrow place", function()
+						openItem()
+						go()
+					end, "content", (it.name or "") .. " · " .. (p.info or "") .. " · " .. wayWord, "place", rank)
+				end
+			end
 		end
 	end
 
@@ -3405,6 +3421,14 @@ local function SearchRows()
 		for _, e in ipairs(okQ and type(list) == "table" and list or {}) do
 			local ctx = ns:L("FOV_TAB_CQ") .. (e.level and (" · " .. ns:L("FOV_LEVEL_FMT"):format(e.level)) or "")
 			row(e.chain, "class quest " .. (e.npc or "") .. " " .. (e.zone or ""), page("cq"), "content", ctx, "quest")
+			-- Step 2: the next step's place, with the arrow (the page's own "Show the way").
+			if e.go and e.zone and e.state ~= "done" then -- the page's own rule (FillClassQuestPage)
+				local go = e.go
+				row(e.chain, "class quest way route arrow place " .. (e.npc or "") .. " " .. (e.zone or ""), function()
+					ns.ShowForeverOverviewPage("cq")
+					go()
+				end, "content", ((e.npc and (e.npc .. ", ") or "") .. (e.zone or "")) .. " · " .. wayWord, "quest")
+			end
 		end
 	end
 
@@ -3414,6 +3438,15 @@ local function SearchRows()
 		for _, d in ipairs(okD and type(list) == "table" and list or {}) do
 			local lv = (d.min and d.max) and (" · %d-%d"):format(d.min, d.max) or ""
 			row(d.name, "dungeon instance group", page("dungeons"), "content", (d.zone or "") .. lv, "dungeon")
+			-- Step 2: the entrance, with the arrow - not for a dungeon only the other side can reach (the page shows no
+			-- Way button there either).
+			if d.go and not d.sideLocked then
+				local go = d.go
+				row(d.name, "dungeon instance entrance way route arrow place", function()
+					ns.ShowForeverOverviewPage("dungeons")
+					go()
+				end, "content", (d.zone or "") .. lv .. " · " .. wayWord, "dungeon")
+			end
 		end
 	end
 
@@ -3473,7 +3506,7 @@ end
 --- NavSearch.lua calls this in Forever with its own `add` (label, keys, go, tier, context, cat) and the tier values.
 function ns.ForeverSearchIndex(add, tiers)
 	for _, r in ipairs(SearchRows()) do
-		add(r[1], r[2], r[3], tiers[r[4]] or tiers.nav, r[5], r[6])
+		add(r[1], r[2], r[3], tiers[r[4]] or tiers.nav, r[5], r[6], r[7])
 	end
 end
 

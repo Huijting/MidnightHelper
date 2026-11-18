@@ -28,6 +28,17 @@ snelbalk, instellingen — geen foutmeldingen. Forever wordt nu getest (uitslage
 📝 **Waarneming Rob, 16 nov (nacht), Forever mage, via sparring:** *"mouse over werk"* — `/mh mouseover on`, Shift+X
 (Arcane Intellect) op een voorbijganger onder de muis werkt.
 
+## 🧭 18 nov — Forever: zoekbalk stap 2, elke plek met "Show the way"
+
+Geen nieuw bestand: een `/reload` is genoeg.
+- [ ] Typ `bank`: onder "Bank" staan de bankiers zelf, de dichtstbijzijnde eerst, met zone · afstand · Show the way.
+      Klik er een: Find opent op Bank én de pijl gaat naar die bankier. Klopt de plek?
+- [ ] Hetzelfde met de naam van een trainer of verkoper die je kent, een herbergier, en `auction`.
+- [ ] Een dungeon-naam: twee regels; de ene opent de dungeon-tab, de andere ("· Show the way") zet de pijl naar de
+      ingang.
+- [ ] `@quest`: per class quest ook een regel "· Show the way" die de pijl naar de volgende stap zet.
+- [ ] Merk je bij het typen dat het spel even hapert? (Gemeten offline: max 0,04 s per letter.)
+
 ## 📏 18 nov — Forever: meting valuta en reputaties (`/mh repprobe`)
 
 Geen nieuw bestand: een `/reload` is genoeg. Het liefst op je hoogste Forever-character.

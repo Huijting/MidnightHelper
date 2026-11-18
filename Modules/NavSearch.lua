@@ -107,7 +107,8 @@ local function BuildNavIndex()
 	local idx = {}
 	--- @param context string|nil dim text after the label ("Eversong Woods"), also searchable
 	--- @param cat string|nil category for the "@cat" filter (tab/mount/rare/treasure/boss/tool/codex/command/place)
-	local function add(label, keys, go, tier, context, cat)
+	--- @param order number|nil tie-break before the alphabet (Forever places: nearest first, 18 Nov 2026)
+	local function add(label, keys, go, tier, context, cat, order)
 		if type(label) ~= "string" or label == "" then
 			return
 		end
@@ -119,6 +120,7 @@ local function BuildNavIndex()
 			go = go,
 			tier = tier or TIER_NAV,
 			cat = cat,
+			order = order,
 		}
 	end
 	local function tab(labelKey, id, keys)
@@ -1462,6 +1464,15 @@ local function FilterIndex(query)
 		-- Destinations before content at an equal fit (also folded into the score; this settles exact ties).
 		if a.e.tier ~= b.e.tier then
 			return a.e.tier < b.e.tier
+		end
+		-- Rows that carry an order (Forever places: distance rank) keep it; Midnight rows have none.
+		local oa, ob = a.e.order, b.e.order
+		if oa and ob and oa ~= ob then
+			return oa < ob
+		elseif oa and not ob then
+			return false
+		elseif ob and not oa then
+			return true
 		end
 		return a.e.label < b.e.label
 	end)

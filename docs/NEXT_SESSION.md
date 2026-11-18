@@ -34,7 +34,12 @@
   (scratch search_check: 9 classes × 2 kanten × 2 levels, elke regel aangeklikt + 40 zoekwoorden + Enter): 19.235 runs,
   0 fouten (eerste run vond een crash op `goods = true`, gerepareerd). Dungeon- en wapennamen komen van de client:
   in de test nep → "deadmines"/"sword" offline niet te testen. NIET in het spel gezien; Midnight-balk ook nakijken.
-  ⏭️ Stap 2: de ~1400 plekken zelf met "Show the way".
+- 🧭 **Zoekbalk STAP 2 GEBOUWD**: elke plek van elk Find-item (FindPlaces) als eigen regel (cat `place`, laag
+  content), klik = Find op dat item + `go()` (pijl); rang uit FindPlaces gaat mee als `order` (nieuw 7e veld van
+  NavSearch `add`, tie-break vóór het alfabet; Midnight-regels hebben geen order) → dichtstbijzijnde eerst. Plus een
+  "Show the way"-regel per class quest (zelfde regel als FillClassQuestPage) en per dungeon (niet bij `sideLocked`, zoals
+  FillDungeonsPage). Nu 857-964 regels per character. Offline: 68.343 runs, 0 fouten, 32.712 kliks; lijst bouwen max
+  0,032 s, toetsaanslag (typfout-ronde, warme cache) max 0,036 s. NIET in het spel gezien.
 - 📏 **B: meting valuta/reputaties GEBOUWD** (alleen meten, nog geen kaart): `/mh repprobe` (`ForeverLegacy.lua`
   `ns.ForeverRepProbeSlash`, route in Core.lua, unlisted in CommandList.lua) → `ns.db.foreverRepProbe`: welke
   functies bestaan, GetCurrencyInfo voor 1792/3468/3402/3469/515 (+3473/3485), GetFactionDataByID + oude
