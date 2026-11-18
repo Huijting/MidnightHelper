@@ -10,7 +10,13 @@
   luac OK; niet offline gesimuleerd, niet in het spel gezien (TESTLIJST). Welk teken de client geeft: NIET gemeten.
 - ⏳ Midnight in stijl A: gemeten + plan (3 opties, advies optie 1 met schakelaar standaard uit) bij sparring; nog GEEN
   bouw-ja. Gemeten: ForeverStyle.lua stopt in Midnight op r. 29 (`if not ns.IS_FOREVER`); UI.lua 5315 regels, 4 kamers,
-  24 tabbladen, perkament-backdrop (r. 2946); 115 bestanden met Blizzard-sjablonen.
+  24 tabbladen, perkament-backdrop (r. 2946); 115 bestanden met Blizzard-sjablonen. Er is al een schil-kleurtabel
+  `LOOK_PALETTE` (UI.lua r. 220) + schakelaar Classic/nieuw → stijl A kan een derde keuze worden.
+- 🖼️ Proefplaatje (Rob via sparring, letterlijk: *"doe maar, ik zit nog zeker 4 uur achter mijn pc dus daar kan ik het
+  goed zien"*): `docs/ontwerp/midnight_stijl_A_2026-11-18.html` + `.png`. Links Robs echte screenshot (mh-shots/
+  02-this-week.png, 6 okt, v4.7.3), rechts dezelfde inhoud in stijl A (kleuren/fonts/knoppen GEMETEN uit ForeverStyle;
+  icoontjes, schildje en maten nagetekend/geschat — staat op de pagina). Niets in de addon veranderd. PNG gemaakt met
+  headless Edge (Python-playwright staat niet op de pc). Wacht op Robs oordeel.
 
 ## 🔴 18 nov — GEEN FABLE deze week (t/m reset za 21 nov 10:00)
 

@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<title>Midnight Helper — Midnight in stijl A (proefplaatje 18 nov 2026)</title>
+<style>
+  /* Fonts: the four OFL files the addon itself ships (Media/Fonts), read straight from the repo. */
+  @font-face{font-family:"CormorantSC";font-weight:700;src:url("../../Media/Fonts/CormorantSC-Bold.ttf")}
+  @font-face{font-family:"CormorantSC";font-weight:600;src:url("../../Media/Fonts/CormorantSC-SemiBold.ttf")}
+  @font-face{font-family:"Alegreya";font-weight:400;src:url("../../Media/Fonts/AlegreyaSans-Regular.ttf")}
+  @font-face{font-family:"Alegreya";font-weight:500;src:url("../../Media/Fonts/AlegreyaSans-Medium.ttf")}
+
+  body{margin:0;background:#0b0b0d;color:#ddd;font-family:Arial,sans-serif;padding:18px 22px}
+  h1{font-size:20px;margin:0 0 4px;color:#fff}
+  .intro{font-size:14px;color:#aaa;margin:0 0 14px;max-width:1500px}
+  .row{display:flex;gap:22px;align-items:flex-start}
+  .col{width:760px}
+  .cap{font:700 13px Arial;letter-spacing:.1em;color:#999;margin:0 0 6px}
+  .shot{width:760px;display:block;border:1px solid #333}
+  /* The A window is drawn at the screenshot's own size (1248 x 1123) and scaled to the same 760 px. */
+  .frame{width:760px;height:684px;overflow:hidden;border:1px solid #333}
+  .A{width:1248px;height:1123px;transform:scale(.609);transform-origin:0 0;position:relative;box-sizing:border-box;
+     border:2px solid #dbb56b;font-family:"Alegreya",sans-serif;color:#ebe0cc;
+     background:linear-gradient(0deg,#120d0a 0%,#291c12 100%)}
+  .A *{box-sizing:border-box}
+  /* title strip */
+  .A .title{position:absolute;left:0;right:0;top:0;height:52px;display:flex;align-items:center;padding:0 14px;gap:12px;
+     border-bottom:1px solid rgba(219,181,107,.45);background:linear-gradient(180deg,rgba(0,0,0,.35),rgba(0,0,0,.05))}
+  .A .crest{width:34px;height:34px;border-radius:50%;border:2px solid #dbb56b;background:radial-gradient(circle,#3a2a1a,#140e0a)}
+  .A .brand{font:700 30px "CormorantSC";color:#dbb56b;letter-spacing:.04em}
+  .A .ver{font:400 14px "Alegreya";color:#a89a85;margin-top:6px}
+  .A .crumb{font:600 20px "CormorantSC";color:#ebe0cc;margin-left:26px}
+  .A .crumb span{color:#a89a85;margin:0 8px}
+  .A .tbtns{margin-left:auto;display:flex;gap:6px}
+  /* buttons: paladin class colour (RAID_CLASS_COLORS PALADIN 0.96,0.55,0.73), fill = colour x 0.25, edge = colour */
+  .A .btn{font:600 17px "CormorantSC";color:#f2ebd9;padding:5px 14px;border:1px solid rgba(245,140,186,.9);
+     background:rgba(61,35,47,.95);white-space:nowrap}
+  .A .btn.on{background:rgba(122,70,93,.95)}
+  .A .x{width:30px;height:30px;border:1px solid #dbb56b;color:#dbb56b;font:700 18px Arial;display:flex;align-items:center;justify-content:center}
+  /* search row */
+  .A .search{position:absolute;left:14px;right:14px;top:60px;height:34px;display:flex;gap:8px;align-items:center}
+  .A .search .lab{font:500 15px "Alegreya";color:#a89a85}
+  .A .field{flex:1;height:30px;border:1px solid rgba(140,107,56,.55);background:rgba(28,20,15,.88);
+     font:400 15px "Alegreya";color:#8a7d6a;padding:5px 10px}
+  /* favourites row */
+  .A .favs{position:absolute;left:14px;top:102px;display:flex;gap:6px}
+  .A .fav{font:600 19px "CormorantSC";color:#ebe0cc;padding:4px 10px;border:1px solid rgba(140,107,56,.55);background:rgba(28,20,15,.88)}
+  .A .fav.plus{color:#dbb56b}
+  /* sidebar */
+  .A .side{position:absolute;left:14px;top:140px;bottom:14px;width:156px;border-right:1px solid rgba(140,107,56,.45)}
+  .A .room{display:flex;align-items:center;gap:10px;height:56px;padding:0 8px;margin-bottom:6px;font:600 19px "CormorantSC";color:#ebe0cc}
+  .A .room.on{background:rgba(122,70,93,.55);border-left:3px solid #f58cba;color:#dbb56b}
+  .A .ico{width:42px;height:42px;border:1px solid #dbb56b;background:linear-gradient(135deg,#4a3826,#1c140e);
+     display:flex;align-items:center;justify-content:center;font:700 18px "CormorantSC";color:#dbb56b}
+  /* content */
+  .A .content{position:absolute;left:180px;right:14px;top:126px;bottom:14px}
+  .A .tag{height:72px;display:flex;align-items:center;gap:14px;border-bottom:1px solid rgba(219,181,107,.45);padding:0 10px}
+  .A .tag .ico{width:64px;height:64px}
+  .A .tag p{margin:0;font:500 19px "Alegreya";color:#ebe0cc}
+  .A .page{padding:14px 18px}
+  .A h2{font:700 40px "CormorantSC";color:#dbb56b;margin:0}
+  .A .sub{font:500 20px "Alegreya";color:#a89a85;margin:0 0 12px}
+  .A .card{background:rgba(28,20,15,.88);border:1px solid rgba(140,107,56,.55);padding:12px 14px 12px;margin-bottom:12px}
+  .A .label{font:700 19px "CormorantSC";color:#ed8c38;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}
+  .A .gold{color:#dbb56b} .A .blue{color:#73ccf2} .A .green{color:#73d966}
+  .A .t{font:500 21px "Alegreya";line-height:1.3;margin:0 0 6px}
+  .A .card .btn{display:inline-block;margin:4px 6px 0 0;font-size:18px;padding:3px 14px}
+  .A ol{margin:0;padding-left:0;list-style:none}
+  .A li{font:500 21px "Alegreya";line-height:1.28;margin:0 0 5px}
+  .notes{margin-top:18px;max-width:1542px;font-size:14px;line-height:1.5;color:#ccc}
+  .notes h3{font-size:15px;color:#fff;margin:14px 0 4px}
+  .notes li{margin-bottom:3px}
+  .m{color:#7fd67f;font-weight:700} .a{color:#f0c060;font-weight:700}
+</style>
+</head>
+<body>
+<h1>Midnight Helper — het grote Midnight-venster, nu en in stijl A</h1>
+<p class="intro">Een proefplaatje, geen echt addonvenster. Er is niets in de addon veranderd. Links staat een echte
+screenshot van jou (6 okt 2026, versie 4.7.3, tab Me &gt; This Week). Rechts staat precies dezelfde inhoud, nagetekend in
+stijl A, zoals optie 1 hem zou maken. Dezelfde plek, dezelfde knoppen en dezelfde tekst; alleen de jas is anders.
+Knoppen hebben de kleur van je class. Hier is dat Paladin-roze, omdat je Prot Paladin speelt.</p>
+
+<div class="row">
+  <div class="col">
+    <div class="cap">NU (ECHTE SCREENSHOT, 6 OKT, v4.7.3)</div>
+    <img class="shot" src="file:///E:/World%20of%20Warcraft/_retail_/Screenshots/mh-shots/02-this-week.png" alt="screenshot">
+  </div>
+  <div class="col">
+    <div class="cap">STIJL A (NAGETEKEND, OPTIE 1)</div>
+    <div class="frame"><div class="A">
+      <div class="title">
+        <div class="crest"></div>
+        <div class="brand">Midnight Helper</div><div class="ver">v5.5.0</div>
+        <div class="crumb">Me<span>&gt;</span>This Week</div>
+        <div class="tbtns"><div class="btn">Classic</div><div class="btn">About</div><div class="btn">Info</div><div class="x">✕</div></div>
+      </div>
+      <div class="search">
+        <div class="lab">Search:</div>
+        <div class="field">Find a tab, setting, tool, boss, mount, rare or treasure…</div>
+        <div class="btn">Search</div><div class="btn">My character</div><div class="btn on">How you play</div>
+      </div>
+      <div class="favs"><div class="fav">Delves &amp; Vault</div><div class="fav">Rares</div><div class="fav">Silvermoon City</div><div class="fav">Account snapshot</div><div class="fav plus">+</div></div>
+      <div class="side">
+        <div class="room on"><div class="ico">M</div>Me</div>
+        <div class="room"><div class="ico">C</div>Codex</div>
+        <div class="room"><div class="ico">T</div>Tools</div>
+        <div class="room"><div class="ico">S</div>Settings</div>
+      </div>
+      <div class="content">
+        <div class="tag"><div class="ico">⌛</div><p>Your week at a glance: Great Vault, world boss, weekly chores and rares, each one click away.</p></div>
+        <div class="page">
+          <h2>This Week</h2>
+          <div class="sub">Resets in 17h 32m</div>
+          <div class="card">
+            <div class="label">Next up</div>
+            <p class="t gold">Weekly (Zerella): Sparks of War, a different zone each week. She stands elsewhere in Silvermoon (follow the pin), not next to the vault. Turn War Mode on, or the quest does not progress.</p>
+            <span class="btn">Take me there</span>
+            <p class="t" style="margin-top:8px">7 of 14 weekly things done</p>
+          </div>
+          <div class="card">
+            <div class="label">Join the Midnight Helper Discord</div>
+            <p class="t">Questions, ideas, or want to help translate? Come say hi — the addon stays free either way.</p>
+            <span class="btn">Show Discord invite link</span><span class="btn">Don't show again</span>
+          </div>
+          <div class="card">
+            <div class="label">Let Midnight Helper set up your bars?</div>
+            <p class="t">Your spells can be placed for you and your keys bound to them, per specialisation. It shows you what would change before anything moves, and everything can be undone.</p>
+            <span class="btn">Show me</span><span class="btn">Don't show again</span>
+          </div>
+          <div class="card">
+            <div class="label">Your week — do these in order</div>
+            <ol>
+              <li class="blue">1. Weekly (Lady Liadrin): picked up — finish and turn it in.</li>
+              <li class="gold">2. Weekly (Zerella): Sparks of War, a different zone each week. She stands elsewhere in Silvermoon (follow the pin), not next to the vault. Turn War Mode on, or the quest does not progress.</li>
+              <li class="blue">3. Weekly (Talon Commander Zela): picked up — finish and turn it in.</li>
+              <li class="gold">4. Weekly (Riftblade Maella): take the Voidstorm portal in the Bazaar. She is on the other side, in this week's world — not in Silvermoon.</li>
+              <li class="gold">5. Midnight: Ritual Sites weekly: finish the intro questline first (Lilatha, Bazaar hub).</li>
+              <li class="blue">6. Void Assaults weekly: in your log — do the assault in the active zone.</li>
+              <li class="green">✓ Done this week: 7 (click to show)</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div></div>
+  </div>
+</div>
+
+<div class="notes">
+  <h3>Wat is <span class="m">GEMETEN</span> (uit de code van vandaag)</h3>
+  <ul>
+    <li>Kleuren van stijl A: <code>Modules/ForeverStyle.lua</code> regel 52-56 (achtergrond van onder #120d0a naar boven #291c12, goud #dbb56b, label-oranje #ed8c38, tekst #ebe0cc, dim #a89a85, vlak #1c140f 88%, rand #8c6b38 55%).</li>
+    <li>Knoppen: zoals <code>S.Button</code> (regel 225-266): vulling = classkleur × 0,25, rand = classkleur, letters Cormorant SC. Paladin-kleur = Blizzards standaard (0,96 / 0,55 / 0,73).</li>
+    <li>Fonts: de vier OFL-bestanden die MH zelf meelevert (<code>Media/Fonts</code>); deze pagina laadt precies die bestanden.</li>
+    <li>Indeling: zijbalk met 4 kamers Me / Codex / Tools / Settings (<code>UI.lua</code> regel 484-489), titelbalk 32 px, zoekbalk 30 px, zijbalk 132 px (regel 20-23).</li>
+    <li>Teksten: <code>Locales/enUS.lua</code> (TAB_TAGLINE_HOME, HOME_HERO_HEADER "Next up", HOME_ROUTINE_HEADER, SEARCH_PLACEHOLDER — die laatste is sinds de screenshot iets veranderd: "setting" kwam erbij).</li>
+    <li>Het venster heeft nu al een kleurtabel voor de hele schil (<code>LOOK_PALETTE</code>, regel 220) en een schakelaar Classic / nieuw (de knop "Classic" rechtsboven). Stijl A kan daar een derde keuze worden.</li>
+  </ul>
+  <h3>Wat is <span class="a">NAGETEKEND of GESCHAT</span></h3>
+  <ul>
+    <li>De icoontjes van de kamers en het zandloper-plaatje zijn spelplaatjes van Blizzard. Die kan ik niet uit het spel halen: ze zitten in de spelbestanden, niet als losse bestanden op de schijf. Hier staan er letters in een gouden vakje voor in de plaats. In het spel blijven de echte icoontjes gewoon staan.</li>
+    <li>Het MH-schildje linksboven is weggelaten; hier staat een lege gouden cirkel.</li>
+    <li>Lettergroottes en afstanden heb ik van de screenshot afgemeten (op het oog), niet uit de code gehaald.</li>
+    <li>De inhoud van This Week is die van 6 okt (screenshot), niet van vandaag. De lijst is ingekort (regel 7 en de TomTom-knop weggelaten), zodat alles past.</li>
+    <li>De rechterkant zet de vier blokken in kaartjes met een oranje kopje. Dat is iets meer dan alleen een jas. Wil je het nóg kleiner houden, dan blijven de kopjes zoals links (alleen andere letters en kleuren).</li>
+    <li>Of de teksten in het spel even breed uitkomen, weet ik pas in het spel: het andere font kan iets breder zijn.</li>
+  </ul>
+</div>
+</body>
+</html>
