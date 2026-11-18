@@ -47,6 +47,8 @@ achternaam, "Step aside"-instelling, Your path, Set focus). Daarna vond Rob nog:
 - [ ] Een lockbox die nog op slot zit, komt NIET op de knop (eerst Pick Lock of een sleutel).
 - [ ] In een gevecht is de knop weg; rechts-slepen verplaatst hem, Shift+scroll maakt hem groter/kleiner.
 - [ ] Tandwiel → stille helpers → "Open-box button" uit: de knop is weg. `/mh open` zegt wat MH ziet.
+- [ ] (Meting, als je een lockbox op slot hebt) `/mh open` noemt hem bij "locked". Twee dezelfde dozen, één al
+      opengepikt: de knop opent de goede (niet "Item is locked").
 
 ## 🎚️ 18 nov (nacht) — Forever: zelf kiezen welke knoppen een hogere rank krijgen + Study lager
 

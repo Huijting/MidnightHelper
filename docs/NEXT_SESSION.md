@@ -25,6 +25,14 @@
     helpers (`FOV_Q_OPENABLES`), `/mh open [on|off]`. `SetOpenablesEnabled` maakt `ns.db.ui` als Forever die nog niet heeft.
   - Pick Lock per taal GEMETEN (SpellName 1804; esES Ganzúa, esMX Forzar cerradura → esMX-regel).
   - Offline: schelp → knop `item:5523`, lockbox op slot overgeslagen, drankje niet; aan/uit. 0 fouten.
+  - Tweede Opus-controle (Rob: *"Zuinig is goed maar het moet wel foutloos 💪"*; `docs/forever/OPENABLES_CONTROLE2_
+    2026-11-18.md`): geen FOUT, 4 RISICO. Gerepareerd: R1 "Locked" wordt nu eerst over de hele tooltip gezocht (ook
+    na een rode regel) en zonder leesbare tooltip biedt Forever niets aan (niet terugvallen op hasLoot); Frans
+    "Verrouillé(e)" ↔ "Verrouillé" beide; R2 uitzetten in combat roept geen Hide() aan (na combat wel; dit geldt ook in
+    Midnight: daar kon dat een blokkade geven); R3 zit van hetzelfde item ook een doos op slot in je tas, dan richt de
+    knop op het tasvak ("bag slot") i.p.v. het item-id. R4 (Engelse "Use:"-patronen in andere talen) = alleen minder
+    aanbieden, zo gelaten. Offline alle gevallen nagespeeld, 0 fouten.
+  - In het spel te meten (TESTLIJST): `hasLoot` en de "Locked"-regel van een doos op slot (`/dump`-regels in het verslag).
 - 🎚️ **Ranks zelf kiezen + Study lager GEBOUWD** (Rob via sparring: *"Een studie, laten we inderdaad jouw advies volgen,
   lager zetten. En wat de Finse speler betreft, werk dat maar vast uit."*). Speler (vragenlijst 18 nov, Druid 20-39, FI):
   *"I would like to choose which action bar spells I want to upgrade."*

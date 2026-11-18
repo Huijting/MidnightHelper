@@ -63,13 +63,37 @@ end
 -- Shared with GearExport.lua (10 Oct 2026): bag gear with an unmet requirement is left out too.
 ns.TooltipLineIsRedRequirement = LineIsRedRequirement
 
+-- "Locked" in this client's language. The French GlobalString is "Verrouillé(e)" while other French "Locked" texts
+-- read "Verrouillé" (second check, 18 Nov 2026): accept the string with and without a "(…)" ending.
+local function IsLockedLine(text)
+	if type(LOCKED) ~= "string" or LOCKED == "" then
+		return false
+	end
+	if text == LOCKED then
+		return true
+	end
+	local bare = LOCKED:gsub("%s*%(.-%)%s*$", "")
+	return bare ~= "" and text == bare
+end
+
 local function SlotKind(bag, slot)
 	if not (C_TooltipInfo and C_TooltipInfo.GetBagItem) then
-		return nil
+		return ns.IS_FOREVER and "unknown" or nil
 	end
 	local ok, data = pcall(C_TooltipInfo.GetBagItem, bag, slot)
 	if not ok or type(data) ~= "table" or type(data.lines) ~= "table" then
-		return nil
+		-- Forever: no tooltip yet → we cannot see "Locked", so do not fall back to hasLoot either (second check R1);
+		-- the next bag update looks again.
+		return ns.IS_FOREVER and "unknown" or nil
+	end
+	-- Forever: "Locked" anywhere in the tooltip wins, before a red requirement line could end the scan (second check R1).
+	if ns.IS_FOREVER then
+		for _, line in ipairs(data.lines) do
+			local text = line and line.leftText
+			if text and not IsSecret(text) and IsLockedLine(text) then
+				return "locked"
+			end
+		end
 	end
 	-- Equippable gear with a collect-by-use appearance (a belt, etc.) must NOT go in the list:
 	-- clicking it there would try to EQUIP it — bind + "not your armor type" popup, not collect
@@ -97,10 +121,7 @@ local function SlotKind(bag, slot)
 		if text and not IsSecret(text) then
 			-- 18 Nov 2026 (Forever, Rob via sparring: "3 … die kunnen we nu doen"): a lockbox that is still locked
 			-- (the tooltip line LOCKED, "Locked") cannot be opened with a click: a rogue's Pick Lock or a key first.
-			-- Forever only, so Midnight's list stays exactly as it was.
-			if ns.IS_FOREVER and type(LOCKED) == "string" and text == LOCKED then
-				return "locked"
-			end
+			-- Checked above, before this loop; Forever only, so Midnight's list stays exactly as it was.
 			if LineIsRedRequirement(line) then
 				return nil -- can't use/learn it (wrong level, missing profession, …)
 			end
@@ -235,11 +256,17 @@ end
 
 -- For /mh open: what the last scan saw.
 local lastScan = { open = 0, locked = 0, lowLevel = 0 }
+-- Item ids of which a LOCKED copy sits in your bags (Forever): a click "by id" could pick that copy (second check R3),
+-- so for those the button targets the bag slot instead.
+local lockedIds = {}
 
 -- @return geordende lijst { { bag, slot, itemID, name, icon, count }, ... }
 local function ScanOpenables()
 	local out = {}
 	lastScan.open, lastScan.locked, lastScan.lowLevel = 0, 0, 0
+	for k in pairs(lockedIds) do
+		lockedIds[k] = nil
+	end
 	if not (C_Container and C_Container.GetContainerNumSlots) then
 		return out
 	end
@@ -266,8 +293,14 @@ local function ScanOpenables()
 			if not kind and info and info.hasLoot and not IsSecret(info.hasLoot) then
 				kind = "openable"
 			end
+			if kind == "unknown" then
+				kind = nil -- Forever, tooltip not readable yet: not offered this scan (second check R1)
+			end
 			if kind == "locked" then
 				lastScan.locked = lastScan.locked + 1
+				if info and info.itemID then
+					lockedIds[info.itemID] = true
+				end
 				kind = nil -- not offered: the click would only say "Locked"
 			end
 			if kind then
@@ -372,7 +405,14 @@ local function ApplyOpenAttr(btn, entry)
 	end
 	if entry and entry.itemID then
 		btn:SetAttribute("type", "item")
-		btn:SetAttribute("item", ("item:%d"):format(entry.itemID))
+		-- Forever: when a locked copy of the same item is also in your bags, "item:<id>" might use that one ("Item is
+		-- locked"), so target this exact bag slot ("bag slot" form of the item attribute). Only then: a slot target
+		-- goes stale when the bag changes, and every bag change rebuilds the button anyway.
+		if ns.IS_FOREVER and lockedIds[entry.itemID] and entry.bag and entry.slot then
+			btn:SetAttribute("item", ("%d %d"):format(entry.bag, entry.slot))
+		else
+			btn:SetAttribute("item", ("item:%d"):format(entry.itemID))
+		end
 	else
 		btn:SetAttribute("type", nil)
 		btn:SetAttribute("item", nil)
@@ -551,15 +591,17 @@ end
 local lastCount = 0
 
 function ns.UpdateOpenables()
+	-- Second check 18 Nov 2026 (R2): switching it off in combat must not Hide() the secure button (blocked); the
+	-- state driver hides it in combat already, and PLAYER_REGEN_ENABLED runs this again afterwards.
+	if InCombatLockdown and InCombatLockdown() then
+		return -- niks aan protected frames in combat; state-driver regelt de zichtbaarheid
+	end
 	if not Enabled() then
 		if frame then
 			frame:Hide()
 		end
 		lastCount = 0
 		return
-	end
-	if InCombatLockdown and InCombatLockdown() then
-		return -- niks aan protected frames in combat; state-driver regelt de zichtbaarheid
 	end
 	local list = ScanOpenables()
 
