@@ -1,5 +1,12 @@
 # Midnight Helper — waar we staan
 
+## ▶ 18 nov (avond) — `/mh disenchant` gemeten door Rob
+
+Rob (via sparring, screenshot, Ima Magieman na herstart): Enchanting learned true, spell 13262 known true, Baganator
+registered (GEMETEN). Tassen leeg, dus tooltip/icoontjes/next-knop nog niet gezien; /dump voor optie B blijft open.
+"last tooltip: skipped: FDE_WHY_KIND" was geen ontbrekende sleutel (alle 7 talen hebben hem, GEMETEN) maar de ruwe code
+in de diagnose. `ForeverDisenchant.lua`: toont nu "skipped: <tekst> (<code>)".
+
 ## ▶ 18 nov (nacht, later) — Bouwchat addons-12: optie A (wapens) + Cozy Sleeping Bag GEBOUWD
 
 Rob via sparring, letterlijk: *"Oh en 1 t/m 3 mag ook"*, *"Ik ben onderweg dus kan niks in game doen"* en *"Ja"* op de

@@ -131,7 +131,8 @@ if TooltipDataProcessor and TooltipDataProcessor.AddTooltipPostCall and Enum and
 			end
 			local v, why = ns.ForeverDisenchantVerdict(link)
 			if v == nil or why == "FDE_WHY_KIND" then
-				last.tip = "skipped: " .. tostring(why or "item not loaded")
+				-- Readable reason first, the internal code after it for us (Rob 18 Nov read the bare code as a bug).
+				last.tip = why and ("skipped: " .. ns:L(why) .. " (" .. why .. ")") or "skipped: item not loaded"
 				return
 			end
 			-- The client's own words where it has them (GlobalStrings ITEM_DISENCHANT_ANY_SKILL "Disenchantable" and

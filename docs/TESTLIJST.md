@@ -165,8 +165,11 @@ Geen nieuw bestand (maar de ronde hieronder wel: herstart WoW één keer, dan is
       Baganator → Customise.) Blizzard-tassen: hetzelfde icoontje.
 - [ ] Tandwiel → stille helpers → "Disenchant next button" aan: een knop met het volgende item. Klik = Disenchant op dat
       item. Rechtsklik = overslaan. Alt+slepen = verplaatsen. In een gevecht is hij weg.
-- [ ] `/mh disenchant`: in chat hoeveel items "yes / not sure / cannot" in je tassen, en "spell 13262 known: true/false"
-      (zeg wat er staat: dat is een meting).
+- [x] `/mh disenchant`: in chat hoeveel items "yes / not sure / cannot" in je tassen, en "spell 13262 known: true/false"
+      (zeg wat er staat: dat is een meting). ✅ Rob 18 nov (screenshot, Ima Magieman, na herstart): "Enchanting learned:
+      true; spell 13262 known (spellbook): true" en "Baganator: registered". Tassen leeg (0/0/0), dus tooltip en icoontjes
+      nog niet gezien. "skipped: FDE_WHY_KIND" was de ruwe code (geen fout: geen wapen/armor onder de muis); toont nu
+      "skipped: only weapons and armor (FDE_WHY_KIND)".
 - [ ] (Als je die hebt) een enchanter-wand (Lesser Magic Wand): "Cannot be disenchanted (this item never can)". Klopt dat?
       En een item met lage skill disenchanten lukt? (Dan heeft Forever geen skill-drempel; AFGELEID.)
 
