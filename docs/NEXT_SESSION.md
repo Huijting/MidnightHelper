@@ -63,6 +63,11 @@
   in groep chars (4e knop), zoekbalk cat `rep`/`currency`. Offline 70.220 runs, 0 fouten (Horde + Alliance, alles
   onleesbaar, Honor 24000/25000). ⚠️ Teksten alleen en + nl: de/fr/es/pt/ru vallen terug op Engels → één vertaalronde
   (mh-writer) na rares A. NIET in het spel gezien.
+- 🧹 **Lint [29] `and false or` TOEGEVOEGD** (Rob via sparring, letterlijk: *"ja"* op "een automatische controle die
+  het voortaan zelf vindt vóór elke commit"): `check_and_false_or()` in tools/lint_addon.py, HARD. Doorzoekt *.lua in
+  de root, `module_files()` (dus ook Modules/Travel/) en Addons/; strings en commentaar eruit. Ingebouwde controle
+  (1 regel moet raken, commentaar en string niet; faalt die → 1 HARD). Positieve proef (scratch afo_check): tijdelijke
+  map met Modules/Travel/Bad.lua → 1 treffer op de foute regel, 0 op commentaar/string/goede if; echte repo 0.
 - 🧩 **Now-kaart + portret standaard uit** (Rob via sparring, letterlijk: *"Ja, zet hem standaard op uit. … En zoals je
   ziet staat hier tekst om elkaar heen. … Net onder de class quest."*): (1) `foreverPortrait3D` standaard UIT
   (DbFlag default false; SetPortrait leest `== true`). (2) De Now-lijst begon op een vaste 140 px (GEMETEN) → nieuw

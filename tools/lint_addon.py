@@ -595,6 +595,44 @@ def check_and_guard_truncation(root):
     return hits
 
 
+AND_FALSE_OR_RE = re.compile(r"\band\s+false\s+or\b")
+_LUA_STRING_RE = re.compile(r"\x22(?:[^\x22\\]|\\.)*\x22|'(?:[^'\\]|\\.)*'")
+
+
+def _and_false_or_in_code(line: str) -> bool:
+    """True when the CODE part of a Lua line holds `X and false or Y` (strings and the comment removed)."""
+    code = _LUA_STRING_RE.sub('""', line)
+    cut = code.find("--")
+    if cut != -1:
+        code = code[:cut]
+    return AND_FALSE_OR_RE.search(code) is not None
+
+
+def check_and_false_or(root):
+    """[29] `X and false or Y` - in Lua that is ALWAYS Y, because `false or Y` is Y. Rob, 18 Nov 2026 (via sparring,
+    "ja" on adding this check): the pattern was found five times that day - the Forever quiet-helper switches
+    (DbFlag), two settings, the aura facade and the ready check - after ForeverRanks.lua had already met it on 12 Nov.
+    Each time a switch could not be turned off or "absent" read as "unknown", silently. Comments and strings are
+    skipped (the fixes explain the trap in a comment next to the line). Returns (hits, control_ok): the control runs
+    the same matcher on a line that must hit and two that must not."""
+    control_ok = (_and_false_or_in_code("\tns.db.x = (not v) and false or nil")
+                  and not _and_false_or_in_code("\t-- was `(not v) and false or nil` = always nil")
+                  and not _and_false_or_in_code('\tprint("a and false or b")'))
+    paths = sorted(glob.glob(os.path.join(root, "*.lua")))
+    paths += module_files(root)
+    paths += sorted(glob.glob(os.path.join(root, "Addons", "**", "*.lua"), recursive=True))
+    hits = []
+    seen = set()
+    for path in paths:
+        if path in seen or not os.path.exists(path):
+            continue
+        seen.add(path)
+        for n, line in enumerate(read_lines(path), 1):
+            if _and_false_or_in_code(line):
+                hits.append((os.path.relpath(path, root).replace("\\", "/"), n, line.strip()))
+    return hits, control_ok
+
+
 VALUE_BARE_RE = re.compile(r'^\s*([A-Z][A-Z0-9_]+)\s*=\s*\x22((?:[^\x22\\]|\\.)*)\x22')
 VALUE_BRACKET_RE = re.compile(
     r'^\s*\[\s*\x22([A-Z][A-Z0-9_]+)\x22\s*\]\s*=\s*\x22((?:[^\x22\\]|\\.)*)\x22')
@@ -1748,6 +1786,14 @@ def main() -> int:
         print(f"\n[28] Button widths: NOT CHECKED — {type(exc).__name__}: {exc}")
         print("     SOFT  this check proves nothing this run; do not read silence as clean")
         soft += 1
+
+    # [29] `X and false or Y` is always Y in Lua (Rob, 18 Nov 2026, via sparring: "ja"). HARD.
+    afo, afo_ok = check_and_false_or(root)
+    print(f"\n[29] `and false or` (always the right-hand value in Lua): {len(afo)}  "
+          f"(control {'OK' if afo_ok else 'FAILED'})")
+    for rel, n, text in afo:
+        print(f"     HARD  {rel}:{n}  {text[:110]}")
+    hard += len(afo) + (0 if afo_ok else 1)
 
     print("=" * 70)
     print(f"HARD issues: {hard}   SOFT notes: {soft}")
