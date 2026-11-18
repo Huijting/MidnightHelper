@@ -63,6 +63,16 @@
   in groep chars (4e knop), zoekbalk cat `rep`/`currency`. Offline 70.220 runs, 0 fouten (Horde + Alliance, alles
   onleesbaar, Honor 24000/25000). ⚠️ Teksten alleen en + nl: de/fr/es/pt/ru vallen terug op Engels → één vertaalronde
   (mh-writer) na rares A. NIET in het spel gezien.
+- 🌍 **Vertaalronde GEDAAN** (één mh-writer, geen Fable): 78 sleutels (rep-kaart, rares, scroll-hint, "(N characters)")
+  in de/fr/es/pt/ru (`ForeverClassQuests_<taal>.lua`, na FOV_SEARCH_CTX_TAB) + 30 esMX-regels; telling per pack GEMETEN
+  (78 = enUS), luac OK. Spelnamen GEMETEN in Forever 70959 (ItemSparse, Wowhead item-tooltips, ItemSet 2132, AreaTable,
+  CurrencyTypes, SkillLine, GlobalStrings incl. FACTION_STANDING_LABEL/MAP_LEGEND_RARE, npc 5828/5831/5842). Engels
+  gebleven (geen id): Nightclaw Mantle, Artisan's Tier, questtitels "Hail the Dragonslayer"/"Brawl at the Maul",
+  "Outrunners". ⚠️ Nalopen (Rob/sparring): (1) esES SpellName 17039 = "Maestro invocador" (Blizzard-data, esMX zegt
+  "Maestro forjador de espadas") — gemeten waarde gebruikt; (2) esES "rare" = "Poco común" (MAP_LEGEND_RARE) terwijl
+  esES.lua elders "raro(s)" zegt — clientwoord gebruikt; deDE "Seltene Gegner" vs RARES_TITLE "Rares"; (3) esES Dire
+  Maul en The Maul heten allebei "La Masacre" → zin klinkt dubbel; (4) ptBR Friendly = "Respeitado" (gemeten); (5) ruRU
+  "(персонажей: %d)". Door geen moedertaalspreker gezien.
 - 🗺️ **Rares STAP B GEBOUWD**: nieuw gegenereerd bestand `Modules/ForeverRaresAll.lua` (beide toc's, vóór
   ForeverRares.lua → WoW herstarten). Generator = scratch `rares_build.py` (in de scratchpad van deze sessie, niet in de
   repo): welke rares uit HandyNotes (alleen gelezen), alle waarden uit Wowhead-tooltips, alleen als Wowhead-punt en

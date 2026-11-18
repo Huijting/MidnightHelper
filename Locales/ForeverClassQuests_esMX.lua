@@ -198,6 +198,41 @@ for k, v in pairs({
 	-- 18 Nov 2026: search bar, "calabozo" instead of esES "mazmorra".
 	FOV_SEARCH_HINT = "Buscar todo: instructor, banco, misión de clase, calabozo, macro…",
 	FOV_SEARCH_TIP = "Escribe una palabra: un instructor, una profesión, una tienda, el banco o la posada, una misión de clase, un calabozo, una macro, un ajuste o un comando /mh. Haz clic en una línea o pulsa Intro para ir allí. Empieza con @ para buscar en un solo tipo: @find, @quest, @dungeon, @macro, @setting, @tool, @command.",
+	-- 18 Nov 2026: reputation & currency page, rares, scroll hint
+	-- Only the lines whose game words esMX shows differently, measured in Forever 1.60.1.70959 esMX (ItemSparse,
+	-- ItemSet, AreaTable, CurrencyTypes, SkillLine, SpellName, GlobalStrings: Honorable/Venerado, MAP_LEGEND_RARE
+	-- "Rara", MAP_LEGEND_RAREELITE "Raro de élite") and Wowhead Forever tooltips esMX. Not measured, kept English as
+	-- in esES: Artisan's Tier, Nightclaw Mantle, Outrunners, "Hail the Dragonslayer", "Brawl at the Maul".
+	FOV_TIP_SUB_REP = "Tus monedas (Honor, Puntos de rango, Favor del mercader, Real de Minahonda deslustrado, Vales de la Luna Negra) y los grupos que importan: tu rango, cuánto llevas, la siguiente recompensa y cómo llegar a ella.",
+	FREP_NOTE = "Las recompensas y el \"cómo\" vienen de guías de jugadores (noviembre de 2026) y no están comprobados en el juego, salvo la Vaina de semilla estimulante. Los rangos, los puntos y las monedas se leen del juego.",
+	FREP_HOW_HYJAL = "5 misiones en Monte Hyjal a nivel 59-60. Aún no se sabe cómo llegar a Venerado.",
+	FREP_R_HYJAL_7 = "Vaina de semilla estimulante (nivel 60): lleva 2 piezas de Artisan's Tier en vez de 1",
+	FREP_R_BARKSKIN_8 = "Defensor de los piel de corteza",
+	FREP_HOW_ARGENT = "Lleva la Comisión de El Alba Argenta, mata no-muertos y entrega piedras de la Plaga (20, 10 o 1 por entrega).",
+	FREP_R_ARGENT_5 = "Galletas enriquecidas con maná en el intendente",
+	FREP_R_ARGENT_7 = "encantamientos de hombros (con Muestras de valor de El Alba Argenta)",
+	FREP_HOW_TIMBERMAW = "Mata furbolgs Muertobosque y Nevada; entrega 5 plumas o 5 cuentas, o 5 cuernos Legashi o 5 faltriqueras Faucenegra.",
+	FREP_R_TIMBERMAW_8 = "Defensor de los Fauces de Madera (la mitad del tiempo de reutilización en Forever)",
+	FREP_HOW_THORIUM = "Entrega mena de hierro negro, escamas y cuero del Núcleo en La Garganta de Fuego y Profundidades de Roca Negra (nivel 50-60).",
+	FREP_HOW_CENARION = "Textos Crepusculares codificados y entregas en Silithus (nivel 55-60).",
+	FREP_R_CENARION_5 = "patrones de sastrería y diseños de herrería",
+	FREP_HOW_NIGHTCLAW = "Entrega orejas de cultistas en Isla Zephras.",
+	FREP_R_NIGHTCLAW_7 = "Ardilla Ventarrosombra (una mascota)",
+	FREP_HOW_MERCHANT = "Libranzas del artesano (cada una una vez al día), la misión de la Etiqueta de envío (2000 puntos) y cajas llenas a partir de Amistoso.",
+	FREP_R_MERCHANT_5 = "recetas por Favor del mercader",
+	FOV_FIND_SEC_RARE = "Criaturas raras",
+	FRARE_SUB = "Criaturas raras con un motivo para ir: una mascota, una misión, una receta o buen botín. Solo las que tu bando puede atacar, la más cercana primero. No se marca nada: el juego no nos dice a quién has matado.",
+	FRARE_SUB_ZONE = "Cada criatura rara de esta zona que pudimos situar, la más cercana primero, con su nivel. De la mayoría no sabemos qué bando puede atacarlas: a una que sale en verde (amistosa) no la puedes combatir.",
+	FRARE_HINT = "Puede que una criatura rara no esté cuando llegues (alguien fue más rápido) - vuelve más tarde. Raro de élite: lleva a un amigo.",
+	FRARE_EMPTY = "MH no conoce ninguna criatura rara así para tu bando.",
+	FRARE_ARROW_FMT = "flecha de criatura rara puesta en %s (%s, %s).",
+	FRARE_WHY_SET = "Una de las tres criaturas raras de Los Baldíos para el conjunto La bendición de Kalimdor (Humar, Velocrín, Takk).",
+	FRARE_WHY_MAUL = "Encima de La Marra, en La Masacre: suelta un abalorio de +15 a resistencia que inicia \"Brawl at the Maul\".",
+	FRARE_WHY_5797 = "Va con otros tres Outrunners - lleva un grupo. Suelta un Pergamino rúnico que inicia una misión.",
+	FRARE_WHY_1844 = "Suelta Diseño: guardia de Escarcha (Herrería 300, Maestro forjador de espadas).",
+	FRARE_WHY_2447 = "Puede soltar la Marca del Vuelo Rojo, un abalorio con un escudo de fuego.",
+	FRARE_WHY_8206 = "Puede soltar Vientos de Tanaris, un abalorio que ralentiza a los enemigos.",
+	FRARE_WHY_10644 = "Suelta el Silbato de lobo: llama a un lobo que te ayuda.",
 }) do
 	es[k] = v
 end
