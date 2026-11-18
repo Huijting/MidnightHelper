@@ -63,6 +63,13 @@
   in groep chars (4e knop), zoekbalk cat `rep`/`currency`. Offline 70.220 runs, 0 fouten (Horde + Alliance, alles
   onleesbaar, Honor 24000/25000). ⚠️ Teksten alleen en + nl: de/fr/es/pt/ru vallen terug op Engels → één vertaalronde
   (mh-writer) na rares A. NIET in het spel gezien.
+- 🗺️ **Rares STAP B GEBOUWD**: nieuw gegenereerd bestand `Modules/ForeverRaresAll.lua` (beide toc's, vóór
+  ForeverRares.lua → WoW herstarten). Generator = scratch `rares_build.py` (in de scratchpad van deze sessie, niet in de
+  repo): welke rares uit HandyNotes (alleen gelezen), alle waarden uit Wowhead-tooltips, alleen als Wowhead-punt en
+  HandyNotes-punt ≤ 3,0 overeenkomen → 399 regels, 14 weggelaten (lijst in docs/forever/RARES_2026-11-18.md). Find:
+  per zone een item "Zone (lo-hi)" (42), `ForeverRareFindRows("z<map>")`; level nil → "level ??". Kant onbekend
+  behalve voor de 24 van A. Zoekbalk ~1350-1450 regels per character, toetsaanslag max 0,06 s. Offline 103.610 runs,
+  0 fouten. NIET in het spel gezien. ⏭️ Daarna: één vertaalronde (rep-kaart, rares, zoekbalk-extra's, scroll-hint).
 - 🧽 **Goud + 6 schermfouten GEREPAREERD** (Rob via sparring, letterlijk: *"1 ja , 2 voor en 3 ja"* = goud nu, de
   schermfouten vóór rares B, namen op de site). (1) Goud: ForeverOverview.lua gebruikte de globale
   GetCoinTextureString (bestaat niet in Forever) → nieuw lokaal `Money()` (C_CurrencyInfo eerst, terugval "3g 14s

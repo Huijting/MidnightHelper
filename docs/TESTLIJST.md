@@ -32,6 +32,14 @@ snelbalk, instellingen — geen foutmeldingen. Forever wordt nu getest (uitslage
 een logische afkorting voor de action house. 6 komt later"*** (Willow: "action house" = Auction House). Zoekbalk stap 1 +
 stap 2 werken in Forever; `/mh repprobe` gedaan. De Midnight-check van de zoekbalk komt later.
 
+## 🗺️ 18 nov — Forever: alle rares per zone (stap B)
+
+⚠️ Nog een nieuw bestand: WoW helemaal herstarten (/reload is niet genoeg).
+- [ ] Find → Rares: onder "Worth the trip" een regel per zone met levels, bv. "The Barrens (13-36)". Klik er een: alle
+      rares van die zone, de dichtstbijzijnde eerst, met level (of "level ??") en Show the way (rode pijl).
+- [ ] Zoekbalk: typ de naam van een rare die je kent, of een zone-naam → de rare of de zonelijst.
+- [ ] Merk je bij het typen dat het spel hapert? (Offline max 0,06 s per letter, nu ~1400 regels per character.)
+
 ## 🧽 18 nov — Forever: goud en 6 schermfouten van Robs screenshots (daarna nieuwe screenshots voor de site)
 
 Zit in dezelfde ronde als de rares (nieuw bestand): WoW eerst helemaal herstarten.

@@ -2738,7 +2738,7 @@ local function FindPlaces(it, dirText)
 				end
 			end
 		end
-		sub = ns:L("FRARE_SUB")
+		sub = ns:L(it.key == "worth" and "FRARE_SUB" or "FRARE_SUB_ZONE")
 		if #rows == 0 then
 			sub = sub .. "  " .. ns:L("FRARE_EMPTY")
 		end

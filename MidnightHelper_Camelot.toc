@@ -96,6 +96,7 @@ Modules\ForeverSeenPlaces.lua
 # Where to buy profession tools and general/trade goods, with an arrow (Rob, 9 Nov 2026: "die moeten we ook vindbaar maken").
 Modules\ForeverVendorSpots.lua
 Modules\ForeverCitySpots.lua
+Modules\ForeverRaresAll.lua
 Modules\ForeverRares.lua
 Modules\ForeverVendors.lua
 Modules\ForeverWeapons.lua

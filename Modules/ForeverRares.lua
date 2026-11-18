@@ -110,22 +110,82 @@ local function GoTo(r, dist)
 	return true
 end
 
---- Find categories for the overview: { key, name }. Step A: one list, "Worth the trip".
+-- Step B (18 Nov 2026): ForeverRaresAll.lua (generated, 399 rares). A rare that is also in the list above keeps its
+-- "why" line and its side rule there; the others are shown for both sides (who can attack them is not known).
+local WORTH_BY_NPC = {}
+for _, r in ipairs(ns.FOREVER_RARES_WORTH) do
+	WORTH_BY_NPC[r.npc] = r
+end
+
+local zoneCats -- { key = "z<map>", map, lo, hi }, sorted by lowest level; built once
+local function ZoneCats()
+	if zoneCats then
+		return zoneCats
+	end
+	local by = {}
+	for _, r in ipairs(ns.FOREVER_RARES_ALL or {}) do
+		local c = by[r.map]
+		if not c then
+			c = { key = "z" .. r.map, map = r.map }
+			by[r.map] = c
+		end
+		if r.level then
+			c.lo = math.min(c.lo or r.level, r.level)
+			c.hi = math.max(c.hi or r.level, r.level)
+		end
+	end
+	zoneCats = {}
+	for _, c in pairs(by) do
+		zoneCats[#zoneCats + 1] = c
+	end
+	table.sort(zoneCats, function(a, b)
+		if (a.lo or 99) ~= (b.lo or 99) then
+			return (a.lo or 99) < (b.lo or 99)
+		end
+		return a.map < b.map
+	end)
+	return zoneCats
+end
+
+--- Find categories for the overview: { key, name }: "Worth the trip", then every zone with rares (level range).
 function ns.ForeverRareFindCats()
-	return { { key = "worth", name = ns:L("FRARE_CAT_WORTH") } }
+	local out = { { key = "worth", name = ns:L("FRARE_CAT_WORTH") } }
+	for _, c in ipairs(ZoneCats()) do
+		local range = (c.lo and c.hi) and ((c.lo == c.hi) and (" (%d)"):format(c.lo) or (" (%d-%d)"):format(c.lo, c.hi)) or ""
+		out[#out + 1] = { key = c.key, name = ZoneName(c.map) .. range }
+	end
+	return out
+end
+
+local function Allowed(r, side)
+	local w = WORTH_BY_NPC[r.npc]
+	local kill = (w and w.kill) or r.kill or "both"
+	return kill == "both" or (side and kill == side)
 end
 
 --- The rares of a category that your side can attack, nearest first: rows { name, tag, why, zone, dist, map, x, y, go }.
 --- Second value: whether your own position could be read.
 function ns.ForeverRareFindRows(key)
-	if key ~= "worth" then
-		return {}, true
+	local src
+	if key == "worth" then
+		src = ns.FOREVER_RARES_WORTH
+	else
+		local map = tonumber(type(key) == "string" and key:match("^z(%d+)$"))
+		if not map then
+			return {}, true
+		end
+		src = {}
+		for _, r in ipairs(ns.FOREVER_RARES_ALL or {}) do
+			if r.map == map then
+				src[#src + 1] = r
+			end
+		end
 	end
 	local side = Side()
 	local pc, px, py = PlayerWorld()
 	local list = {}
-	for _, r in ipairs(ns.FOREVER_RARES_WORTH) do
-		if r.kill == "both" or (side and r.kill == side) then
+	for _, r in ipairs(src) do
+		if Allowed(r, side) then
 			local rc, rx, ry = World(r.map, r.x, r.y)
 			local dist
 			if pc and rc and pc == rc then
@@ -141,15 +201,26 @@ function ns.ForeverRareFindRows(key)
 		if a.dist or b.dist then
 			return a.dist ~= nil
 		end
-		return a.r.level < b.r.level
+		if (a.r.level or 99) ~= (b.r.level or 99) then
+			return (a.r.level or 99) < (b.r.level or 99)
+		end
+		return a.r.name < b.r.name
 	end)
 	local rows = {}
 	for _, e in ipairs(list) do
 		local r = e.r
+		local w = WORTH_BY_NPC[r.npc]
+		local tag
+		if r.level then
+			tag = ns:L(r.elite and "FRARE_TAG_ELITE_FMT" or "FRARE_TAG_FMT"):format(r.level)
+		else
+			tag = ns:L(r.elite and "FRARE_TAG_SKULL_ELITE" or "FRARE_TAG_SKULL") -- Wowhead says "??"
+		end
+		local whyKey = r.why or (w and w.why)
 		rows[#rows + 1] = {
 			name = r.name,
-			tag = ns:L(r.elite and "FRARE_TAG_ELITE_FMT" or "FRARE_TAG_FMT"):format(r.level),
-			why = ns:L(r.why),
+			tag = tag,
+			why = whyKey and ns:L(whyKey) or nil,
 			zone = ZoneName(r.map), dist = e.dist, map = r.map, x = r.x, y = r.y,
 			go = function()
 				return GoTo(r, e.dist)
