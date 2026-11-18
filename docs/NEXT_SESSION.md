@@ -63,6 +63,14 @@
   in groep chars (4e knop), zoekbalk cat `rep`/`currency`. Offline 70.220 runs, 0 fouten (Horde + Alliance, alles
   onleesbaar, Honor 24000/25000). ⚠️ Teksten alleen en + nl: de/fr/es/pt/ru vallen terug op Engels → één vertaalronde
   (mh-writer) na rares A. NIET in het spel gezien.
+- 🔧 **Schakelaar-bug GEREPAREERD** (Rob via sparring, letterlijk: *"Het bewegende werkt keurig, maar de knop, Moving
+  Portrait, werkt niet"*): `DbFlag` in ForeverOverview.lua zette bij standaard-aan `(not on) and false or nil` = altijd
+  nil (GEMETEN in de code; ForeverRanks.lua:628 vond dezelfde valkuil 12 nov) → uitzetten werd nooit opgeslagen. Raakte
+  ook Quest reward hint (`foreverQuestHint`) en Gear tip (`foreverGearTip`). Nu een gewone if. Offline: alle drie aan →
+  uit → aan, portretvakje volgt. Standaardstand NIET veranderd (sparring vraagt Rob). ⚠️ Hetzelfde patroon staat nog
+  (NIET gerepareerd, wacht op ja): SettingsDefs.lua:639 `arrowYieldForeverGuide` en :680 `ahPresetQuantity` (die
+  instellingen kunnen niet uit), Auras.lua:194 `(not sawSecret) and false or nil` (aura-facade geeft aan het eind van de
+  lijst altijd nil = "onleesbaar" i.p.v. false = "afwezig"), ConsumableReadyCheck.lua:190 `anyReadable and false or nil`.
 - 🎭 **Bewegend portret GEBOUWD, optie b** (Rob via sparring, letterlijk: *"is dit te animeren, ?"* → *"ja doe maar"*):
   PlayerModel "player" (portretzoom 1, idle-animatie -1) in een vierkant vakje 76 px met gouden rand en clip
   (`f.portraitBox/portraitModel`). Niet rond (optie a): een model negeert ronde maskers, alleen een rechthoekige clip

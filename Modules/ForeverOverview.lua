@@ -1121,7 +1121,15 @@ local function DbFlag(key, defaultOn)
 		set = function(on)
 			if ns.db then
 				if defaultOn then
-					ns.db[key] = (not on) and false or nil
+					-- 18 Nov 2026 (Rob: "de knop, Moving Portrait, werkt niet"): this line was
+					-- `(not on) and false or nil`, which is ALWAYS nil in Lua (`false or nil` = nil), so a default-on switch
+					-- could never be turned off - Moving portrait, the quest reward tip and the gear tip alike.
+					-- ForeverRanks.lua:628 had already found the same trap on 12 Nov.
+					if on then
+						ns.db[key] = nil
+					else
+						ns.db[key] = false
+					end
 				else
 					ns.db[key] = on and true or nil
 				end
