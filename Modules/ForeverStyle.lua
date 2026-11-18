@@ -328,15 +328,34 @@ function S.Scroll(card, top, bottom, step)
 		fade:SetVertexColor(t.card[1], t.card[2], t.card[3], 0.7)
 	end
 	fade:Hide()
-	local more = S.Text(fadeHost, "textB", 11, t.label)
-	more:SetPoint("BOTTOMRIGHT", sf, "BOTTOMRIGHT", -2, 2)
+	-- 18 Nov 2026 (later, Rob's screenshots: the orange words lay over the last line or over a "Show the way" button):
+	-- "scroll for more" gets a strip of its own BELOW the list. While the list can scroll, the list stops STRIP px
+	-- higher and the words sit in that strip, over nothing.
+	local STRIP = 14
+	local reserved = false
+	local more = S.Text(card, "textB", 11, t.label)
+	more:SetPoint("TOPRIGHT", sf, "BOTTOMRIGHT", -2, -1)
 	more:SetJustifyH("RIGHT")
 	more:SetText(ns:L("FOV_SCROLL_MORE"))
 	more:Hide()
+	local function Place()
+		local b = bottom + (reserved and STRIP or 0)
+		sf:ClearAllPoints()
+		sf:SetPoint("TOPLEFT", 8, -top)
+		sf:SetPoint("BOTTOMRIGHT", -14, b)
+		track:ClearAllPoints()
+		track:SetPoint("TOPRIGHT", -6, -top)
+		track:SetPoint("BOTTOMRIGHT", -6, b)
+	end
 	function sf.UpdateThumb()
 		local max = sf:GetVerticalScrollRange() or 0
 		local h = sf:GetHeight() or 0
-		if max <= 1 or h <= 0 then
+		local scrollable = max > 1 and h > 0
+		if scrollable ~= reserved then
+			reserved = scrollable
+			Place() -- the size change calls UpdateThumb again; `reserved` no longer changes then
+		end
+		if not scrollable then
 			track:Hide()
 			thumb:Hide()
 			fade:Hide()
@@ -359,12 +378,7 @@ function S.Scroll(card, top, bottom, step)
 	--- must start where that text ends, or the two run over each other - Rob's screenshot, Ima Magieman).
 	function sf.SetTop(newTop)
 		top = newTop
-		sf:ClearAllPoints()
-		sf:SetPoint("TOPLEFT", 8, -top)
-		sf:SetPoint("BOTTOMRIGHT", -14, bottom)
-		track:ClearAllPoints()
-		track:SetPoint("TOPRIGHT", -6, -top)
-		track:SetPoint("BOTTOMRIGHT", -6, bottom)
+		Place()
 		sf.UpdateThumb()
 	end
 	function sf.Reset()

@@ -150,6 +150,7 @@ NIET GEMETEN.
 | # | idee | stand |
 |---|---|---|
 | H1 | **Blizzards dispel-rand uitleggen** in de Codex (oude lijst B1). | GEMETEN: geen artikel; "dispel" staat alleen als zoekwoord in `MidnightCodexData.lua`. |
+| H7 | **Forever: Find → Travel** (zeppelins, boten, tram, portals + alle flight masters van je kant, met "Show the way"). Rob 18 nov via sparring: *"… zeppelins in ogrimar … net zoals flight masters.... kortom ... HELP !!!"* → *"ja"*. Spel: F. | Gebouwd 18 nov (zie NEXT_SESSION, `docs/forever/REIZEN_2026-11-18.md`); offline 0 fouten. Wacht op Robs test (TESTLIJST). |
 | H2 | **Piepje bij een dispelbare debuff** (B2). | GEMETEN: gebouwd, de kop zegt nog "NOT MEASURED". Wacht op een test in een gevecht. |
 | H3 | **Heal-lens voor Season 2-bazen** (B3). | GEMETEN: `HealerCooldowns.lua:401` zegt dat S2-bazen nog moeten komen. |
 | H4 | **Laatste losse instellingen in het instellingenscherm** (B4). | GEMETEN: deels. Een van de gezochte namen staat nu in `SettingsDefs.lua`; welke nog ontbreken is NIET GEMETEN. |

@@ -42,6 +42,11 @@ local CATS = {
 	{ key = "auction", svc = "auction", label = "FCITY_CAT_AUCTION" },
 	{ key = "mail", svc = "mail", label = "FCITY_CAT_MAIL" },
 	{ key = "inn", svc = "inn", label = "FCITY_CAT_INN" },
+	-- 18 Nov 2026 (Rob: "ik ben nu op zoek naar de zeppelins in ogrimar … net zoals flight masters … HELP !!!" → "ja"):
+	-- travel. transport = every boat/zeppelin/tram/portal stop (ForeverTravel.lua ns.ForeverTravelTransportSpots);
+	-- flight = the flight masters (kind "flight" in ForeverCitySpots.lua). Their own heading "Travel" in Find.
+	{ key = "transport", svc = "transport", travel = true, label = "FCITY_CAT_TRANSPORT" },
+	{ key = "flight", svc = "flight", travel = true, label = "FCITY_CAT_FLIGHT" },
 }
 local CAT_BY_KEY = {}
 for _, c in ipairs(CATS) do
@@ -128,7 +133,8 @@ end
 --- @return list, positionKnown
 local function List(c)
 	local side = Side()
-	local rows = (c.svc and ns.FOREVER_CITY_SPOTS) or (c.kind and ns.FOREVER_GOODS_VENDORS) or ns.FOREVER_TOOL_VENDORS
+	local rows = (c.svc == "transport" and ns.ForeverTravelTransportSpots and ns.ForeverTravelTransportSpots())
+		or (c.svc and ns.FOREVER_CITY_SPOTS) or (c.kind and ns.FOREVER_GOODS_VENDORS) or ns.FOREVER_TOOL_VENDORS
 	local pc, px, py = PlayerWorld()
 	local out = {}
 	for _, v in ipairs(rows or {}) do
@@ -352,7 +358,7 @@ end
 function ns.ForeverVendorFindCats()
 	local out = {}
 	for _, c in ipairs(CATS) do
-		out[#out + 1] = { key = c.key, name = CatName(c), goods = c.kind ~= nil, svc = c.svc }
+		out[#out + 1] = { key = c.key, name = CatName(c), goods = c.kind ~= nil, svc = c.svc, travel = c.travel }
 	end
 	return out
 end
@@ -373,7 +379,7 @@ function ns.ForeverVendorFindRows(key)
 			-- Our own word, so every language: "neutral" on a Blackwater (neutral) auction house (ForeverCitySpots.lua).
 			tag = e.v.neutral and ns:L("FCITY_NEUTRAL_TAG") or nil
 		end
-		rows[#rows + 1] = { name = e.v.name or what, tag = tag,
+		rows[#rows + 1] = { name = e.v.name or what, tag = tag, note = e.v.note,
 			zone = ZoneName(e.v.map), dist = e.dist, map = e.v.map, x = e.v.x, y = e.v.y,
 			go = function()
 				return GoTo(e, what, c.svc)

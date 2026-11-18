@@ -29,6 +29,7 @@ local MAP = {
 	DARKSHORE = 1439, TELDRASSIL = 1438, DARNASSUS = 1457, STORMWIND = 1453, ELWYNN = 1429, IRONFORGE = 1455,
 	DUN_MOROGH = 1426, WETLANDS = 1437, HILLSBRAD = 1424, DUSTWALLOW = 1445, DUROTAR = 1411, TIRISFAL = 1420,
 	STV = 1434, BARRENS = 1413, TANARIS = 1446, RIVERGLADES = 2548, ZEPHRAS = 2521, ALTERAC = 1416, MULGORE = 1412,
+	FERALAS = 1444,
 }
 
 -- Rut'theran Village is on the Teldrassil map but on its own island below the portal. Boat stop 54.9,96.8, portal
@@ -413,4 +414,62 @@ function ns.ForeverTravelSlash()
 	end
 	print("  no-hearthstone warning: " .. (NoHearthForTrip(steps) and "YES (crosses the water, none in your bags)"
 		or "no (you have one, the count is unreadable, or the route does not cross the water)"))
+end
+
+--------------------------------------------------------------------------------
+-- Find → Travel (18 Nov 2026, Rob via sparring: "ik ben nu op zoek naar de zeppelins in ogrimar en heb geen idee hoe ik
+-- daar kom … kortom … HELP !!!" → "ja"). Every boat, zeppelin, tram, portal and skycutter stop as a place to walk to,
+-- named after where it goes. The planner's LINKS above, plus TRAVEL_EXTRA: crossings the planner leaves out (both ends
+-- on one continent) but a player still looks for. Nothing here changes the planner.
+--------------------------------------------------------------------------------
+-- Research of 18 Nov 2026 (mh-research; docs/forever/REIZEN_2026-11-18.md). Stops = DB2 TaxiPathNode stops (Delay > 0)
+-- of build 1.60.1.70959, converted to the zone map (AFGELEID). Whether the server really runs them: NOT measured.
+local TRAVEL_EXTRA = {
+	-- Grom'gol <> Undercity, path 301. Masters Squibby Overspeck 12137 (STV 31.5,29.4) and Hin Denburg 3150
+	-- (Tirisfal 61.8,59.0), Wowhead Forever; object 176495 "Zeppelin - Grom'Gol to Undercity". Same towers as H1/H2.
+	{ id = "X1", kind = "zeppelin", side = "H", a = { MAP.STV, 31.48, 29.10 }, b = { MAP.TIRISFAL, 61.92, 58.92 } },
+	-- Feathermoon ferry, path 303: mainland dock <> Sardor Isle. Wowhead Forever object 177233 "Feathermoon Ferry".
+	-- side A = it lands at the Alliance stronghold (AFGELEID; DB2 has no side for transports).
+	{ id = "X2", kind = "boat", side = "A", a = { MAP.FERALAS, 43.13, 42.76 }, b = { MAP.FERALAS, 31.01, 39.51 },
+		bName = "FTRAVEL_FEATHERMOON" },
+}
+
+-- A line under a stop that is hard to find from the nearest city. [link id .. "a"/"b"] = locale key. Directions from the
+-- Wowhead Classic guide "Flight Points, Zeppelins, and Ships" + Warcraft Wiki; platform sides fit the DB2 stops.
+local STOP_NOTE = {
+	H1a = "FTRAVEL_NOTE_ORG", H2a = "FTRAVEL_NOTE_ORG",
+	H1b = "FTRAVEL_NOTE_UC", X1b = "FTRAVEL_NOTE_UC",
+}
+
+local function TitleCase(s)
+	return (s:gsub("^%l", string.upper))
+end
+
+--- { kind = "transport", name, side ("A"/"H"/"both"), map, x, y, note } for every stop of every crossing, both ends
+--- unless the crossing runs one way.
+function ns.ForeverTravelTransportSpots()
+	local out = {}
+	local function add(link, from, to, toName, endKey)
+		local dest = toName and ns:L(toName) or MapName(to[1])
+		local label = LABEL[link.kind] or "FTRAVEL_BOAT_FMT"
+		local name
+		if link.kind == "loop" then
+			name = ns:L(label):format(dest, MapName(link.via))
+		else
+			name = ns:L(label):format(dest)
+		end
+		local side = (link.side == "A" or link.side == "H") and link.side or "both"
+		local noteKey = STOP_NOTE[(link.id or "") .. endKey]
+		out[#out + 1] = { kind = "transport", name = TitleCase(name), side = side, map = from[1], x = from[2], y = from[3],
+			note = noteKey and ns:L(noteKey) or nil, linkKind = link.kind }
+	end
+	for _, list in ipairs({ LINKS, TRAVEL_EXTRA }) do
+		for _, link in ipairs(list) do
+			add(link, link.a, link.b, link.bName, "a")
+			if not link.oneway then
+				add(link, link.b, link.a, link.aName, "b")
+			end
+		end
+	end
+	return out
 end

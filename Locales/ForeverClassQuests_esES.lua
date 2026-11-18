@@ -695,6 +695,17 @@ for k, v in pairs({
 	FCITY_EMPTY = "MH no conoce ningún lugar así en tu bando.",
 	FCITY_HINT = "Lugares de los datos de WoW: Forever de Wowhead y Zygor (17 nov 2026). ¿Falta alguno? /mh vendor check muestra lo que sabe MH.",
 	FCITY_ARROW_SET_FMT = "flecha puesta en %s en %s, %s. Desaparece cuando llegas allí.",
+	-- Travel (18 Nov 2026). Maestro de vuelo = GlobalStrings MINIMAP_TRACKING_FLIGHTMASTER (esES = esMX); Bastión Plumaluna,
+	-- Entrañas, Grom'gol, Rémol, Orgrimmar = AreaTable 1116/1497/117/159/1637 (Forever 1.60.1.70959, esES = esMX, measured).
+	-- Our own translation.
+	FOV_FIND_SEC_TRAVEL = "Viajar",
+	FCITY_CAT_TRANSPORT = "Barcos, zepelines y portales",
+	FCITY_CAT_FLIGHT = "Maestros de vuelo",
+	FCITY_SUB_TRANSPORT = "Cada barco, zepelín, el Tranvía Subterráneo y cada portal de tu bando y los neutrales, con el nombre de su destino. El más cercano primero. «Mostrar el camino» te lleva a la parada.",
+	FCITY_SUB_FLIGHT = "Los maestros de vuelo de tu bando y los neutrales. El más cercano primero. Habla una vez con uno para aprender ese punto de vuelo; después puedes volar allí desde cualquier otro punto que conozcas.",
+	FTRAVEL_FEATHERMOON = "Bastión Plumaluna",
+	FTRAVEL_NOTE_ORG = "Fuera de Orgrimmar: sal por la puerta principal (sur) y gira a la izquierda (este), sube hasta la torre. Lado sur: Entrañas. Lado norte: Grom'gol.",
+	FTRAVEL_NOTE_UC = "Sube en un ascensor hasta las ruinas y sal hacia el norte. La torre está en la colina junto al camino a Rémol.",
 }) do
 	if t[k] == nil or (en and t[k] == en[k]) then
 		t[k] = v

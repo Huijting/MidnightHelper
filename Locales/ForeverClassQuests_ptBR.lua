@@ -651,6 +651,16 @@ for k, v in pairs({
 	FCITY_EMPTY = "O MH não conhece nenhum lugar assim do seu lado.",
 	FCITY_HINT = "Lugares dos dados de WoW: Forever do Wowhead e do Zygor (17 nov 2026). Falta algum? /mh vendor check mostra o que o MH sabe.",
 	FCITY_ARROW_SET_FMT = "seta posta em %s em %s, %s. Ela some quando você chega lá.",
+	-- Travel (18 Nov 2026). Mestre de voo = GlobalStrings MINIMAP_TRACKING_FLIGHTMASTER; Domínio de Plumaluna, Cidade Baixa,
+	-- Grom'gol, Montalvo, Orgrimmar = AreaTable 1116/1497/117/159/1637 (Forever 1.60.1.70959, measured). Our own translation.
+	FOV_FIND_SEC_TRAVEL = "Viajar",
+	FCITY_CAT_TRANSPORT = "Barcos, zepelins e portais",
+	FCITY_CAT_FLIGHT = "Mestres de voo",
+	FCITY_SUB_TRANSPORT = "Cada barco, zepelim, o Metrô Correfundo e cada portal da sua facção e os neutros, com o nome do destino. O mais próximo primeiro. \"Ir até lá\" leva você até a parada.",
+	FCITY_SUB_FLIGHT = "Os mestres de voo da sua facção e os neutros. O mais próximo primeiro. Fale uma vez com um para aprender esse ponto de voo; depois você pode voar até lá de qualquer outro ponto que conheça.",
+	FTRAVEL_FEATHERMOON = "Domínio de Plumaluna",
+	FTRAVEL_NOTE_ORG = "Fora de Orgrimmar: saia pelo portão principal (sul) e vire à esquerda (leste), subindo até a torre. Lado sul: Cidade Baixa. Lado norte: Grom'gol.",
+	FTRAVEL_NOTE_UC = "Pegue um elevador até as ruínas e saia para o norte. A torre fica na colina perto da estrada para Montalvo.",
 }) do
 	if t[k] == nil or (en and t[k] == en[k]) then
 		t[k] = v

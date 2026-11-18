@@ -2737,12 +2737,15 @@ local function FindCatalog()
 		shops = ok and type(c) == "table" and c or {}
 	end
 	-- 17 Nov 2026: bank, auction house, mailbox and inn get their own heading ("In town"), after the shops.
-	for pass = 1, 2 do
+	-- 18 Nov 2026: and travel (boats, zeppelins, tram, portals, flight masters) a third one ("Travel").
+	local SEC = { "FOV_FIND_SEC_SHOP", "FOV_FIND_SEC_CITY", "FOV_FIND_SEC_TRAVEL" }
+	for pass = 1, 3 do
 		local first = true
 		for _, c in ipairs(shops) do
-			if (pass == 2) == (c.svc ~= nil) then
+			local group = (c.travel and 3) or (c.svc and 2) or 1
+			if group == pass then
 				if first then
-					head(ns:L(pass == 1 and "FOV_FIND_SEC_SHOP" or "FOV_FIND_SEC_CITY"))
+					head(ns:L(SEC[pass]))
 					first = false
 				end
 				items[#items + 1] = { kind = "shop", key = c.key, name = c.name, goods = c.goods, svc = c.svc }
@@ -2869,8 +2872,10 @@ local function FindPlaces(it, dirText)
 			if ok and type(l) == "table" then
 				posOk = p
 				for _, e in ipairs(l) do
+					-- `why` = a stop's own line (Travel: "from Orgrimmar: out through the front gate …").
 					rows[#rows + 1] = { name = e.name .. (e.tag and ("  |cff999999<" .. e.tag .. ">|r") or ""),
-						info = (e.zone or "?") .. " · " .. FindDistance(e.dist), map = e.map, x = e.x, y = e.y, go = e.go }
+						info = (e.zone or "?") .. " · " .. FindDistance(e.dist), map = e.map, x = e.x, y = e.y, go = e.go,
+						why = e.note }
 				end
 			end
 		end
@@ -3653,12 +3658,15 @@ end
 local searchCache, searchAt = nil, -100
 -- The short words players type for the In town items (Rob's test, 18 Nov 2026, via sparring: "Wat ik wel niet kon is
 -- zoeken op AH, een logische afkorting voor de [auction] house"). Same words as Midnight's Silvermoon pins
--- (NavSearch.lua SMC_WORDS). Only for things in the list: Forever has no flight masters here, so no "fp".
+-- (NavSearch.lua SMC_WORDS). Only for things in the list (flight masters since 18 Nov 2026, so "fp" is here now).
 local CITY_WORDS = {
 	auction = "ah auction auctioneer auctionhouse",
 	bank = "bank banker vault",
 	mail = "mail mailbox post letter",
 	inn = "inn innkeeper hearth hearthstone rest",
+	-- 18 Nov 2026 (travel): the words players type for a crossing or a flight.
+	transport = "travel zeppelin zep boat ship ferry tram portal skycutter dock tower",
+	flight = "travel flight master fp taxi gryphon wind rider hippogryph bat fly",
 }
 local SEARCH_TTL = 15 -- seconds: NavSearch asks on every keystroke; the lists change only with level, bags or a zone
 

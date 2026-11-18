@@ -2,6 +2,25 @@
 
 ## ▶ 18 nov — Bouwchat 18-11
 
+- 🧭 **Forever Find → Travel GEBOUWD** (Rob via sparring, letterlijk: *"Maar ik ben nu op zoek naar de zeppelins in
+  ogrimar en heb geen idee hoe ik daar kom … net zoals flight masters.... kortom ... HELP !!!"* → *"ja"*). Onderzoek: één
+  mh-research → `docs/forever/REIZEN_2026-11-18.md`.
+  - `ForeverCitySpots.lua`: 65 vluchtmeesters als `kind = "flight"` (31 A / 30 H / 4 beide; kant GEMETEN in DB2 TaxiNodes,
+    x,y Wowhead-spawns bij het DB2-punt). Light's Hope (2×) = DB2-punt, AFGELEID → TESTLIJST.
+  - `ForeverTravel.lua`: `ns.ForeverTravelTransportSpots()` (elke halte van LINKS + `TRAVEL_EXTRA`, genoemd naar de
+    bestemming); `TRAVEL_EXTRA` = X1 zeppelin Grom'gol↔Undercity, X2 Feathermoon-veerboot (planner ongewijzigd);
+    `STOP_NOTE` = uitleg onder de Orgrimmar-torens (H1a/H2a) en de Undercity-toren (H1b/X1b). Varen ze echt: NIET gemeten.
+  - `ForeverVendors.lua`: CATS transport + flight (`travel = true`); `ForeverOverview.lua`: derde kop "Travel" in Find,
+    notitie als tweede regel, zoekwoorden zep/boat/ship/tram/portal/flight/fp/taxi/gryphon/wind rider…
+  - `ForeverStyle.lua`: "scroll for more" in een eigen strook van 14 px onder de lijst (lijst stopt erboven zolang hij
+    kan scrollen). Rob zag de woorden over de laatste regel/knop liggen.
+  - Vertaald de/fr/es/pt/ru (ForeverClassQuests_*), namen GEMETEN (GlobalStrings MINIMAP_TRACKING_FLIGHTMASTER, AreaTable);
+    zinnen eigen vertaling. Knopnaam in de uitleg = de echte knop (FOV_GO) per taal; nlNL "Wijs de weg".
+  - Offline (search_check): 109.123 runs, 0 fouten; Horde 12 haltes / 34 FM's, Alliance 21 / 35; 4 haltes met uitleg;
+    strook-test 24/10/24 px. Geen nieuw bestand → `/reload`. NIET in het spel gezien.
+  - ⚠️ Open: de bestaande LINKS-coördinaten zijn gelijk aan Zygor LibRover (ARR) — eigen DB2-waarden staan klaar in de
+    scratchpad-data; kadercheck voor andere Wowhead-punten in Stormwind/Redridge/EPL; Thunder Bluff-zin ("geen zeppelin,
+    vlieg naar Org") nog niet in MH. Rob: *"1 is goed gekeurd"* — welke punten precies, gevraagd aan sparring.
 - 🗂️ Briefje gesplitst (regie: 1743 regels, grens 1500): alles vanaf "▶ Open voor 14 nov" (776 regels, 39 secties) staat
   nu bovenaan `NEXT_SESSION_ARCHIVE.md`; hier blijven 966 regels + index. Proefrun eerst, daarna `--resplit … --write`.
 - ✅ API-wachter `[MOET GEFIKST]` GEREPAREERD (Rob via sparring, letterlijk: *"ja dat mag ie"*): `ForeverChars.lua`

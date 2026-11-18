@@ -5825,6 +5825,15 @@ ns._mhLocales.enUS = {
 	FCITY_EMPTY = "MH knows no such place on your side.",
 	FCITY_HINT = "Places from Wowhead's and Zygor's WoW: Forever data (17 Nov 2026). Missing one? /mh vendor check shows what MH knows.",
 	FCITY_ARROW_SET_FMT = "arrow set to %s in %s, %s. It goes away when you get there.",
+	-- Travel in Find (18 Nov 2026).
+	FOV_FIND_SEC_TRAVEL = "Travel",
+	FCITY_CAT_TRANSPORT = "Boats, zeppelins & portals",
+	FCITY_CAT_FLIGHT = "Flight Masters",
+	FCITY_SUB_TRANSPORT = "Every boat, zeppelin, tram and portal of your side and the neutral ones, named after where it goes. Nearest first. Show the way takes you to the stop.",
+	FCITY_SUB_FLIGHT = "The flight masters of your side and the neutral ones. Nearest first. Talk to one once to learn that flight point; after that you can fly there from any other one you know.",
+	FTRAVEL_FEATHERMOON = "Feathermoon Stronghold",
+	FTRAVEL_NOTE_ORG = "Outside Orgrimmar: leave by the main (south) gate and turn left (east), up to the tower. South side: Undercity. North side: Grom'gol.",
+	FTRAVEL_NOTE_UC = "Take a lift up to the ruins and walk out to the north. The tower stands on the hill by the road to Brill.",
 	-- 12 Nov 2026: the profession card in "Profession trainers" (ForeverProfGuide.lua). Source:
 	-- docs/forever/BEROEPEN_2026-11-12.md. "according to player guides" = Warcraft Tavern, the rest is measured.
 	FPROFG_DOES_ALCHEMY = "Makes potions, elixirs, flasks and weapon oils, and transmutes.",

@@ -32,6 +32,25 @@ snelbalk, instellingen — geen foutmeldingen. Forever wordt nu getest (uitslage
 een logische afkorting voor de action house. 6 komt later"*** (Willow: "action house" = Auction House). Zoekbalk stap 1 +
 stap 2 werken in Forever; `/mh repprobe` gedaan. De Midnight-check van de zoekbalk komt later.
 
+✅ **Rob, 18 nov, via sparring, letterlijk: *"1 is goed gekeurd"*** (sparring: "zijn Forever-test van de testlijst is OK").
+⚠️ Welke punten "1" precies zijn, stond niet in het bericht; daarom hieronder niets op [x] gezet. Gevraagd aan sparring.
+
+## 🧭 18 nov (laat) — Forever: Find → Travel (zeppelins, boten, flight masters)
+
+Geen nieuw bestand: een `/reload` is genoeg.
+- [ ] Overzicht → Find: onderaan een kopje **Travel** met "Boats, zeppelins & portals" en "Flight Masters".
+- [ ] Horde in Orgrimmar: "Boats, zeppelins & portals" → de twee zeppelins in Durotar ("The zeppelin to Tirisfal Glades" en
+      "… to Stranglethorn Vale"). Eronder de uitleg: hoofdpoort uit, links, omhoog naar de toren. Klopt die uitleg?
+- [ ] Klik "Show the way" bij een zeppelin: de pijl gaat naar de toren. Sta je er, dan verdwijnt hij.
+- [ ] "Flight Masters": alleen die van jouw kant (plus Ratchet, Marshal's Refuge, Mount Hyjal), dichtstbijzijnde eerst.
+      Klik er een: pijl erheen. Staat hij op de goede plek?
+- [ ] Zoekbalk: typ `zep`, `fp`, `flight master`, `boat`, `tram`, `wind rider` of `gryphon`: bovenaan het juiste kopje
+      en de dichtstbijzijnde plekken, elk met "Show the way".
+- [ ] Nakijken als je er toch bent (niet in het spel gemeten): de flight masters van **Light's Hope Chapel** (Eastern
+      Plaguelands), en of de zeppelin **Grom'gol ↔ Undercity** en de **Feathermoon-veerboot** echt varen.
+- [ ] Lange lijsten (bv. This week, de dungeonlijst): de oranje woorden "scroll for more" staan nu in een eigen strookje
+      ONDER de lijst, niet meer over de laatste regel of een knop. Korte lijst: geen strookje, geen woorden.
+
 ## 🧪 18 nov (avond) — MIDNIGHT: aura-code las andermans buffs altijd als "onleesbaar"
 
 Geen nieuw bestand: een `/reload` is genoeg. Buiten een gevecht testen (in een gevecht blijft het bewust "onbekend").
