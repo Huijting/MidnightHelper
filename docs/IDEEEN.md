@@ -26,6 +26,17 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 
 ## Open — wacht op Rob
 
+### Midnight: de eerste blik bij openen, zoals het Forever-overzicht (GEPAUZEERD tot na za 21 nov 10:00)
+- Bron: Rob 18 nov (via Sparring 18-11), letterlijk: *"Ik denk dat we het nooit zo mooi kunnen krijgen als de forever
+  versie omdat we al zoveel hebben in midnight, we pauzeren dit tot na de Claude Code reset 🙂 , wat ik juist mooi vond
+  van onze forever versie is de eerste blik die je ziet als je MH opent :)"*
+- 🔑 Kern van de wens: de EERSTE BLIK bij het openen van MH — een overzicht als voordeur, zoals `/mh overview` in Forever.
+  Niet per se een nieuwe jas voor het hele venster.
+- Wat er al ligt: proefplaatje "Midnight in stijl A" (optie 1 = alleen de jas), commit 2d25d45,
+  `docs/ontwerp/midnight_stijl_A_2026-11-18.html` + `.png`. Gemeten die dag: ForeverStyle.lua stopt in Midnight
+  (r. 29 `if not ns.IS_FOREVER`); UI.lua heeft al `LOOK_PALETTE` (r. 220) + schakelaar Classic/nieuw; 4 kamers, 24
+  tabbladen. Spel: M. Voor wie: N + V (AFGELEID). ⏳ Na de reset: Rob kiest opnieuw.
+
 ### Bedanken voor een buff (zoals "Thanks for the Buff") (NOG GEEN JA)
 - Bron: Rob 17 nov (via Sparring 17-11), letterlijk: *"Wat me opvalt is, als ik sommige mensen een buff geef tijdens het
   passeren, dan bedanken ze me direct. Is dat een auto-reply of een iets? ... Kan je dat voor mij nakijken? Dat ik dat

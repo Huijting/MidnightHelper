@@ -16,7 +16,11 @@
   goed zien"*): `docs/ontwerp/midnight_stijl_A_2026-11-18.html` + `.png`. Links Robs echte screenshot (mh-shots/
   02-this-week.png, 6 okt, v4.7.3), rechts dezelfde inhoud in stijl A (kleuren/fonts/knoppen GEMETEN uit ForeverStyle;
   icoontjes, schildje en maten nagetekend/geschat — staat op de pagina). Niets in de addon veranderd. PNG gemaakt met
-  headless Edge (Python-playwright staat niet op de pc). Wacht op Robs oordeel.
+  headless Edge (Python-playwright staat niet op de pc).
+- ⏸️ **Midnight in stijl A GEPAUZEERD tot na za 21 nov 10:00** (Rob via sparring, letterlijk: *"… we pauzeren dit tot na
+  de Claude Code reset 🙂 , wat ik juist mooi vond van onze forever versie is de eerste blik die je ziet als je MH
+  opent :)"*). Kern = de eerste blik bij openen (overzicht als voordeur), niet per se de jas. Staat in IDEEEN.md (Open,
+  bovenaan). Niets gebouwd.
 
 ## 🔴 18 nov — GEEN FABLE deze week (t/m reset za 21 nov 10:00)
 
