@@ -46,6 +46,15 @@ achternaam, "Step aside"-instelling, Your path, Set focus). Daarna vond Rob nog:
       hoofdstad met de mount-run of de reisplanner). Muis op het icoontje → de tooltip van het spel (van de Hearthstone,
       de toy of de mage-teleport). Klikken werkt nog net als eerst.
 
+## 🧾 19 nov — "Used for" noemt nu het recept (Forever + Midnight)
+
+`/reload` is genoeg.
+- [ ] Ga met je muis op **Linen Cloth** staan (tas of verkoper). Onder "MH: Used for …" staat een grijze regel:
+      "Recipes: Bolt of Linen Cloth, SAF-T Dynamite (+10 more)".
+- [ ] Een **Scroll of Protection** zegt: "Recipes: Tenets of the Silver Hand".
+- [ ] Mage: Overzicht → **Professions**. Onderaan de lijst staat nu **Comprehension**. Klik erop: het kaartje komt.
+- [ ] Geen recept-regel? Typ `/mh usedfor` en maak een screenshot.
+
 ## 🙏 19 nov — Forever (paladin): slimme zegen-knop
 
 `/reload` is genoeg. Met je paladin, buiten een gevecht.

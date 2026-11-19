@@ -253,6 +253,12 @@ lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met d
   maakt. Voorstel "only when a talent makes it free" ligt bij Rob; niet gebouwd.
 - ✅ Rob koos 19 nov (via sparring), letterlijk: *"a"* = de mage-zin blijft zonder Arcane Missiles. Niets te bouwen.
 
+### Forever + Midnight: "Used for" noemt ook het recept — ✅ JA + GEBOUWD 19 nov
+- Bron: Rob 19 nov (via Sparring 19-11), op het voorstel "noem het recept" na de Scroll of Protection-vraag:
+  *"ja graag"*. Spel: F + M. Voor wie: N + V.
+- Gebouwd: onder "MH: Used for …" een grijze regel "Recipes: X, Y (+N more)". De twee makkelijkste recepten eerst
+  (Forever); de naam komt uit de client, dus in de taal van de speler. Wacht op Robs test.
+
 ### Forever: Comprehension uitleggen (mage) + "Do this now" zegt het bij een scroll — ✅ JA + GEBOUWD 19 nov
 - Bron: Rob 19 nov (via Sparring 19-11), letterlijk: *"En dat comprehensive kaartje. Ik heb inmiddels inderdaad de knop
   gevonden. Maar dit verrast mij. En ik heb het ook nergens bij ons in onze add-on gezien."* Spel: F. Voor wie: N.

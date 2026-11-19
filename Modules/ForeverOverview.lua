@@ -844,7 +844,9 @@ local function BuildProfsPage(f, x0, rightW)
 	left:SetWidth(leftW)
 	left.label = Label(left, ns:L("FOV_LABEL_PROFS"), "FOV_TIP_CARD_PROFS")
 	left.rows = {}
-	for i = 1, 12 do
+	-- Every profession plus one: Comprehension for a mage (19 Nov 2026; with a fixed 12 its row was never made, Rob
+	-- saw no Comprehension). FillProfsPage places the rows and closes them up when the card is too short.
+	for i = 1, math.max(13, #(ns.FOREVER_PROFS or {}) + 1) do
 		local b = CreateFrame("Button", nil, left)
 		b:SetHeight(PROF_ROW_H - 2)
 		b:SetPoint("TOPLEFT", 10, -32 - (i - 1) * PROF_ROW_H)
@@ -3426,8 +3428,18 @@ local function FillProfsPage(f, refresh)
 	end
 	f.prof = sel
 	local r, g, b = Accent()
+	-- Row step: 24 px, smaller when all rows would not fit in the card (never under 18).
+	local step = PROF_ROW_H
+	local h = left:GetHeight()
+	if h and h > 0 and #order > 0 then
+		step = math.max(18, math.min(PROF_ROW_H, math.floor((h - 40) / #order)))
+	end
 	for i, row in ipairs(left.rows) do
 		local p = order[i]
+		row:ClearAllPoints()
+		row:SetPoint("TOPLEFT", 10, -32 - (i - 1) * step)
+		row:SetPoint("RIGHT", -10, 0)
+		row:SetHeight(step - 2)
 		if p then
 			local m = mine[p[1]]
 			row.t:SetText((p[1] == "COMPREHENSION" and p[3]) or (ns.ForeverProfName and ns.ForeverProfName(p[1], mine)) or p[3])

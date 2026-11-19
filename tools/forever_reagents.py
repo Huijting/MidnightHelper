@@ -26,6 +26,10 @@ MIDNIGHT (product wow). Rule, measured on 12.1.5.70783:
   - Only Midnight recipes, not every expansion: what a Midnight player picks up today, and it keeps the file small.
 
 What DB2 does NOT know: at which skill you learn a recipe, or whether a trainer teaches it. So no skill number.
+(TrivialSkillLineRankLow, where a recipe turns yellow, is only used to put beginner recipes first in the recipe list.)
+
+RECIPES (19 Nov 2026, Rob "ja graag"): per item the first two recipe spell ids and the total count; the tooltip names
+them through the client, so in the player's language.
 
 Usage (front door):  run forever_reagents --report [--midnight]   numbers and samples, writes nothing
                      run forever_reagents --emit [--midnight]     write the data file
@@ -66,6 +70,11 @@ GAMES = {
     },
 }
 FOREVER_LEFT_OUT = {182: "Herbalism", 393: "Skinning", 356: "Fishing", 40: "Poisons (rogue class skill)"}
+# [item] = {(sort key, recipe spell id)}. 19 Nov 2026 (Rob: "ja graag"): the tooltip names the first two recipes.
+# Forever sorts by SkillLineAbility.TrivialSkillLineRankLow (where a recipe turns yellow; 0 = unknown, sorted last),
+# so the beginner recipes come first; Midnight by spell id. The NAME is not stored: the client gives it in its own
+# language at runtime (GetSpellInfo / C_Spell.GetSpellName).
+recipes = defaultdict(set)
 
 
 def rows(build, table, locale="enUS"):
@@ -127,8 +136,10 @@ def build_forever(build, g, report):
                 samples[key].append("%d %s" % (s, names.get(s, "?")))
             continue
         why["kept"] += 1
+        low = I(r.get("TrivialSkillLineRankLow"))
         for i in reag[s]:
             use[i].add(line_key[line])
+            recipes[i].add((low if low > 0 else 9999, s))
     if report:
         for k, n in why.most_common():
             print("  %-42s %5d recipes   e.g. %s" % (k, n, "; ".join(samples.get(k, []))))
@@ -161,11 +172,13 @@ def build_midnight(build, g, report):
     for s, prof in spell_prof.items():
         for i in reag.get(s, []):
             use[i].add(prof)
+            recipes[i].add((0, s))
             plain.add(i)
         for sl in spell_slots.get(s, []):
             for c in slot_cats.get(sl, []):
                 for i in cat_items.get(c, []):
                     use[i].add(prof)
+                    recipes[i].add((0, s))
                     quality.add(i)
     if report:
         print("  Midnight child lines: %s" % sorted(child.items()))
@@ -196,7 +209,12 @@ def check_controls(use, g):
 
 def emit(game, build, use, names, g):
     order = [p for p, _ in g["profs"]]
-    pairs = ["%d:%d" % (i, sum(1 << order.index(p) for p in v)) for i, v in sorted(use.items())]
+    pairs = []
+    for i, v in sorted(use.items()):
+        rec = sorted(recipes.get(i, ()))
+        first = "/".join(str(s) for _, s in rec[:2])
+        pairs.append("%d:%d:%s/%d" % (i, sum(1 << order.index(p) for p in v), first, len(rec)) if rec
+                     else "%d:%d" % (i, sum(1 << order.index(p) for p in v)))
     chunks, cur = [], ""
     for p in pairs:
         if len(cur) + len(p) + 1 > 110:
@@ -228,7 +246,8 @@ def emit(game, build, use, names, g):
         "ns.REAGENT_NAMES = {",
     ] + name_lines + [
         "}",
-        "-- itemID:bits, comma separated",
+        "-- itemID:bits[:recipe1/recipe2/count], comma separated. recipe = spell id (first two, beginner ones first);",
+        "-- count = how many recipes use it in all",
         "ns.REAGENT_PACKED = [[",
     ] + chunks + ["]]", ""])
     tmp = g["out"] + ".tmp"
@@ -252,6 +271,9 @@ def main():
     print("  items: %d, used by 2+ professions: %d; per profession %s" % (
         len(use), sum(1 for v in use.values() if len(v) > 1), dict(per.most_common())))
     ok = check_controls(use, g)
+    for item in list(g["controls"]) + [3013]:
+        rec = sorted(recipes.get(item, ()))
+        print("  recipes for %d: %d in all, first %s" % (item, len(rec), [s for _, s in rec[:2]]))
     if "--emit" in args:
         if not ok:
             gd.die("a positive control failed; nothing written")

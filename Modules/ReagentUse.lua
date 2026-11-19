@@ -14,6 +14,10 @@ local _, ns = ...
 	  "MH: Used for Cooking (you have it)"                        green: you have (one of) the professions
 	  "MH: Used for Tailoring, First Aid (you have First Aid)"    green
 	  "MH: Used for Leatherworking"                               grey: you have none of them
+	and under it, grey (19 Nov 2026, Rob "ja graag"):
+	  "   Recipes: Bolt of Linen Cloth, SAF-T Dynamite (+10 more)"
+	The data holds the recipe SPELL ids (first two; Forever sorts beginner recipes first); the client names them in its
+	own language (C_Spell.GetSpellName), so nothing extra to translate.
 	Profession names: what this character's client calls its own professions (GetProfessionInfo), else the generated
 	SkillLine name for this client language, else English. DB2 does not know at which skill a recipe is learned, so the
 	line never names a skill number.
@@ -33,15 +37,69 @@ local function Readable(v)
 end
 
 local USE -- [itemID] = bits, filled on first use
+local REC -- [itemID] = { spellA, spellB, n = recipes in all } (19 Nov 2026, Rob "ja graag": name the recipe)
 local function Use()
 	if USE then
 		return USE
 	end
-	USE = {}
-	for id, bits in (ns.REAGENT_PACKED or ""):gmatch("(%d+):(%d+)") do
-		USE[tonumber(id)] = tonumber(bits)
+	USE, REC = {}, {}
+	for entry in (ns.REAGENT_PACKED or ""):gmatch("[^,%s]+") do
+		local id, bits, rest = entry:match("^(%d+):(%d+):?(.*)$")
+		if id then
+			id = tonumber(id)
+			USE[id] = tonumber(bits)
+			if rest and rest ~= "" then
+				local parts = {}
+				for n in rest:gmatch("%d+") do
+					parts[#parts + 1] = tonumber(n)
+				end
+				if #parts >= 2 then
+					local rec = { n = table.remove(parts) }
+					for i = 1, #parts do
+						rec[i] = parts[i]
+					end
+					REC[id] = rec
+				end
+			end
+		end
 	end
 	return USE
+end
+
+local function SpellName(id)
+	if C_Spell and C_Spell.GetSpellName then
+		local ok, n = pcall(C_Spell.GetSpellName, id)
+		if ok and type(n) == "string" and n ~= "" and not (issecretvalue and issecretvalue(n)) then
+			return n
+		end
+	end
+	return nil
+end
+
+--- The second line: "Recipes: Charred Wolf Meat, Spiced Wolf Meat (+3 more)" — the first two recipes (beginner ones
+--- first in Forever), named by the client in its own language. nil plus why when there is nothing to name.
+function ns.ReagentRecipeText(id)
+	Use()
+	local rec = id and REC[id]
+	if not rec then
+		return nil, "no recipe ids for this item"
+	end
+	local names = {}
+	for i = 1, #rec do
+		local n = SpellName(rec[i])
+		if n then
+			names[#names + 1] = n
+		end
+	end
+	if #names == 0 then
+		return nil, "the client named none of the recipe spells " .. table.concat(rec, "/")
+	end
+	local text = table.concat(names, ", ")
+	local more = (rec.n or #names) - #names
+	if more > 0 then
+		text = text .. ns:L("FUSE_MORE_FMT"):format(more)
+	end
+	return ns:L("FUSE_RECIPES_FMT"):format(text)
 end
 
 --- This character's professions from the client: [key] = { name, line }. Keys as in ns.REAGENT_LINES.
@@ -132,8 +190,12 @@ if TooltipDataProcessor and TooltipDataProcessor.AddTooltipPostCall and Enum and
 				last = ("item %d: %s"):format(id, tostring(r))
 				return
 			end
-			last = ("item %d: shown \"%s\""):format(id, text)
 			tooltip:AddLine(text, r, g, b, true)
+			local rt, why = ns.ReagentRecipeText(id)
+			if rt then
+				tooltip:AddLine(rt, 0.6, 0.6, 0.6, true)
+			end
+			last = ("item %d: shown \"%s\"; recipes: %s"):format(id, text, rt and ("\"" .. rt .. "\"") or tostring(why))
 			tooltip:Show()
 		end)
 		if not ok then

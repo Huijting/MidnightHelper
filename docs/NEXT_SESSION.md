@@ -30,9 +30,17 @@
   `/mh blesstip` print aan/uit, gebouwd, de spell erop, de laatste beslissing en of de macro bestaat. Teksten 7 talen.
   NIET gemeten: of `/click` in Forever een secure knop bereikt, en UPDATE_MOUSEOVER_UNIT boven unit frames.
   Greater Blessings: niet (plan: alleen op echte groepsleden, eerst de [group]-meting).
-- Alle vier klaar. Volgende: receptnaam in "Used for" (Rob: *"ja graag"*).
-- Open en los hiervan: Scroll of Protection — GEMETEN: Enchanting-recept "Tenets of the Silver Hand" (1248754) gebruikt
-  5× item 3013; de regel klopt. Voorstel "noem het recept" ligt bij Rob.
+- Alle vier klaar.
+- **Receptnaam in "Used for" GEBOUWD** (Rob: *"ja graag"*; Forever + Midnight). `tools/forever_reagents.py` zet per
+  item nu `item:bits:spellA/spellB/aantal` in `REAGENT_PACKED` (zelfde builds als eerst: Forever 1.60.1.70888,
+  Midnight 12.1.5.70783; alle controles OK). Forever sorteert op `SkillLineAbility.TrivialSkillLineRankLow` (beginners
+  eerst), Midnight op spell-id. `ReagentUse.lua`: tweede grijze regel "Recipes: X, Y (+N more)" via
+  `C_Spell.GetSpellName` (taal van de client); `/mh usedfor` toont ook die regel of waarom niet. Offline GEMETEN:
+  524/524 Forever-items hebben recept-id's; Linen Cloth → "Bolt of Linen Cloth, SAF-T Dynamite (+10 more)"; 3013 →
+  "Tenets of the Silver Hand". Teksten 7 talen. NIET in het spel gezien.
+- **Bug Professions-pagina GEREPAREERD** (Rob, mage 10: *"ik zie geen compehension"*): er waren maar 12 rijen, Comprehension
+  was de 13e. Nu `#FOREVER_PROFS + 1` rijen (minstens 13); `FillProfsPage` schuift de rijen dichter op (min. 18 px) als
+  het kaartje te laag is. AFGELEID, niet in het spel gezien.
 
 ## ▶ 19 nov — "Buff bijna afgelopen" GEBOUWD (buiten een gevecht) + voordeur VAST
 

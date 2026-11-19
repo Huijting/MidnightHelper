@@ -5134,6 +5134,9 @@ ns._mhLocales.enUS = {
 	FUSE_TIP_FMT = "MH: Used for %s%s",
 	FUSE_HAVE_IT = " (you have it)",
 	FUSE_HAVE_FMT = " (you have %s)",
+	-- second line, 19 Nov 2026: %s = the first two recipe names (from the client) plus FUSE_MORE_FMT; %d = how many more
+	FUSE_RECIPES_FMT = "   Recipes: %s",
+	FUSE_MORE_FMT = " (+%d more)",
 	FUSE_ON = "\"used for\" tooltip line on: hover an item to see which profession uses it.",
 	FUSE_OFF = "\"used for\" tooltip line off. /mh usedfor on brings it back.",
 	FQH_NO_LIST_FMT = "No stat list for your class yet. %s sells for the most.",
