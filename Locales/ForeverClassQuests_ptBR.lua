@@ -301,6 +301,9 @@ for k, v in pairs({
 	-- Talented (Legacy perk): spell 1225474 "Talento é para quem tem" (SpellName.ptBR)
 	FDONOW_TALENTED_HINT = ", até 5 níveis antes com a vantagem de Legado \"Talento é para quem tem\"",
 	FHOWTO_TALENTED_NOTE = "Os níveis de talento acima contam o seu primeiro ponto de talento no nível 10. A vantagem de Legado \"Talento é para quem tem\" dá pontos de talento mais cedo: até 5 níveis antes.",
+	-- 19 Nov 2026, our own translation.
+	FHOWTO_NOTYET_FMT = "Ainda não aprendido: %s.",
+	FHOWTO_NOTYET_LV_FMT = "%s (nível %d)",
 	FHOWTO_TALENTED_RANK_FMT = "Os níveis de talento acima contam o seu primeiro ponto de talento no nível 10. Você tem a vantagem de Legado \"Talento é para quem tem\" no grau %d: os seus talentos chegam essa mesma quantidade de níveis mais cedo.",
 	-- 17 Nov 2026: the overview (/mh overview, ForeverOverview.lua): FOV_*, FDUNG_IN_ENEMY_FMT
 	-- Names: Acampamento (spell 1308027), Fogueira Próxima 1283391, Fogueira Acolhedora 1229739, Benefícios de Acampamento

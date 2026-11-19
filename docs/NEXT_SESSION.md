@@ -1,5 +1,21 @@
 # Midnight Helper — waar we staan
 
+## ▶ 19 nov — Bug "Simple order" noemt spells die je nog niet hebt — GEREPAREERD
+
+Rob (via sparring, mage Frost level 9): *"Terwijl ik inmiddels ook ... Arcane Missiles heb gekregen ... als hij er
+dichtbij komt, doe Nova. Frost Nova. Maar dat krijg ik pas als ik level 54 ben."*
+- GEMETEN (Forever DB2 SpellLevels, 1.60.1.70959): Fireball 133 = 1, Frostbolt 116 = 4, Fire Blast 2136 = 6, Arcane
+  Missiles 5143 = 8, Frost Nova 122 = 10, Frost Ward 6143 = 22. MH's trainerdata zegt hetzelfde (Frost Nova rank 1 =
+  10, rank 4 = 54; ForeverTrainerData.lua:358/495). De "54" kwam uit AbsoluteSpells (ARR, niet MH); AFGELEID dat dat
+  de hoogste rank toont. Rob op 9 heeft Frost Nova dus nog niet; op 10 wel.
+- Fix (`ForeverHowToPlay.lua` `NotYetLine`): onder elk "Simple order"-blok van ELKE class een grijze regel "Not
+  learned yet: Frost Nova (level 10)." voor de spells die de Engelse tekst noemt (gezocht in `ns.FOREVER_SPELL_IDS`) en
+  die je character nog niet kent (`IsPlayerSpell`/`IsSpellKnown`, elke rank); naam in de taal van de client, level =
+  eerste trainer-level. Ook op de How you play-pagina van het overzicht (`ForeverHowToSections`). De rol-teksten
+  kregen het NIET: die zetten al "(from N)" achter elke latere spell. Teksten 7 talen. NIET in het spel gezien.
+- Arcane Missiles (level 8) staat NIET in de mage-zin. Of hij erin hoort is een speladvies (gidsen), geen meting —
+  gevraagd aan de sparring (mh-research zou het moeten uitzoeken; Fable is uit).
+
 ## ▶ 19 nov — "Welke kant ga ik op?" stap 3 GEBOUWD (wapentype tegen je richting)
 
 Volgorde van Rob (via sparring): *"we gaan akkoord met het voorstel van het bouwadvies"* → dit is punt (4).

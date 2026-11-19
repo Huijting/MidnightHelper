@@ -39,6 +39,14 @@ zoekbalk, de reputaties, de rares, de muntjes, de Now-kaart, het ronde plaatje e
 achternaam, "Step aside"-instelling, Your path, Set focus). Daarna vond Rob nog: "scroll for more" over de tekst
 (gerepareerd, zie Travel) en het boek bij de mage-quest "Study" (in bouw).
 
+## 🔧 19 nov — Forever: "Simple order" zegt welke spells je nog niet hebt
+
+`/reload` is genoeg. Your class → How you play (of het venster).
+- [ ] Mage onder level 10: onder "Simple order" staat grijs "Not learned yet: Frost Nova (level 10)."
+- [ ] Op level 10, na de trainer: die regel is weg.
+- [ ] Een andere class (bv. paladin of druid op een laag level): de grijze regel noemt alleen spells die je echt nog
+      niet hebt, met het juiste level. Klopt een level niet? Zeg welke spell.
+
 ## 🧭 19 nov — Forever: tooltip zegt of een wapen bij je richting past
 
 `/reload` is genoeg. Je moet een richting gekozen hebben (`/mh direction`).

@@ -1078,14 +1078,99 @@ local function Translated()
 	return all[code]
 end
 
+--------------------------------------------------------------------------------
+-- 19 Nov 2026 (Rob's screenshot, mage level 9: "Enemy close to you? Frost Nova (V)" — "dat krijg ik pas als ik level 54
+-- ben", via sparring). GEMETEN that day: Frost Nova rank 1 = level 10 (Forever DB2 SpellLevels 122 BaseLevel 10, and
+-- MH's trainer data ForeverTrainerData.lua; rank 4 is level 54 — AFGELEID that the other addon showed the top rank).
+-- The "Simple order" texts are fixed sentences and named spells you may not have yet. Now, for EVERY class (the role
+-- texts already say "from N" themselves, see RoleBody):
+-- the spells the English text names (matched against ns.FOREVER_SPELL_IDS) that this character does not know yet get
+-- one grey line under the section, "Not learned yet: Frost Nova (level 10)", with the client's own spell name and the
+-- first level from the trainer data. The translated texts keep the same sections in the same order, so the English
+-- text of the same index is read.
+--------------------------------------------------------------------------------
+local function KnownAny(list)
+	for _, id in ipairs(list or {}) do
+		if IsPlayerSpell and select(2, pcall(IsPlayerSpell, id)) == true then
+			return true
+		end
+		if IsSpellKnown and select(2, pcall(IsSpellKnown, id)) == true then
+			return true
+		end
+	end
+	return false
+end
+
+local function FirstLevel(token, name)
+	local best
+	for _, e in ipairs((ns.FOREVER_TRAINER_SPELLS or {})[token] or {}) do
+		if e.n == name and (not best or e.l < best) then
+			best = e.l
+		end
+	end
+	return best
+end
+
+local notYetCache = {} -- englishText -> sorted list of names in it (the scan is the same every time)
+
+--- The grey "not learned yet" line for an English text, or nil when you know every spell it names.
+local function NotYetLine(token, english)
+	if type(english) ~= "string" or not ns.FOREVER_SPELL_IDS then
+		return nil
+	end
+	local names = notYetCache[english]
+	if not names then
+		names = {}
+		for name in pairs(ns.FOREVER_SPELL_IDS) do
+			if #name >= 4 and english:find(name, 1, true) then
+				names[#names + 1] = name
+			end
+		end
+		-- The order they appear in the sentence.
+		table.sort(names, function(a, b)
+			return (english:find(a, 1, true) or 0) < (english:find(b, 1, true) or 0)
+		end)
+		notYetCache[english] = names
+	end
+	local out = {}
+	for _, name in ipairs(names) do
+		local list = ns.FOREVER_SPELL_IDS[name]
+		if not KnownAny(list) then
+			local shown = (C_Spell and C_Spell.GetSpellName and list[1] and C_Spell.GetSpellName(list[1])) or name
+			local lv = FirstLevel(token, name)
+			out[#out + 1] = lv and ns:L("FHOWTO_NOTYET_LV_FMT"):format(shown, lv) or shown
+		end
+	end
+	if #out == 0 then
+		return nil
+	end
+	return GREY_NOTE .. ns:L("FHOWTO_NOTYET_FMT"):format(table.concat(out, ", ")) .. "|r"
+end
+
+--- The English "Simple order" text of a class section, or nil for any other section.
+local function OrderPart(title, body)
+	if type(title) == "string" and title:find("^Simple order") then
+		return body
+	end
+	return nil
+end
+
+--- A role body. The role texts already say "(from 18)" after every spell that comes later (written so on 16 Nov), so
+--- they get no extra "not learned yet" line: it would only say the same twice. Kept as one place to change that.
+local function RoleBody(token, list, r)
+	return r.body
+end
+
 --- The whole text for one class, sections first, then the part every class shares.
 local function TextFor(token)
 	local parts = {}
 	local tr = Translated()
 	local cls = (tr and tr[token]) or CLASSES[token]
 	if cls then
-		for _, sec in ipairs(cls) do
-			parts[#parts + 1] = HEAD .. sec[1] .. "|r\n" .. Format(sec[2])
+		for i, sec in ipairs(cls) do
+			local en = CLASSES[token] and CLASSES[token][i]
+			local note = en and NotYetLine(token, OrderPart(en[1], en[2]))
+			parts[#parts + 1] = HEAD .. sec[1] .. "|r\n" .. Format(sec[2]) .. (note and ("\n" .. note) or "")
 		end
 		-- 17 Nov 2026 (Rob via Sparring 17-11: the Talented gap is a bug): the talent levels in the texts count the first
 		-- point at 10. The Legacy perk Talented gives points up to 5 levels sooner; one line says so, with your rank if MH
@@ -1143,12 +1228,12 @@ local function RolesText(token)
 	end
 	local parts = {}
 	for _, r in ipairs(mine) do
-		parts[#parts + 1] = HEAD .. r.title .. "|r\n" .. Format(r.body)
+		parts[#parts + 1] = HEAD .. r.title .. "|r\n" .. Format(RoleBody(token, list, r))
 	end
 	if #others > 0 then
 		if showAllRoles then
 			for _, r in ipairs(others) do
-				parts[#parts + 1] = HEAD .. r.title .. "|r\n" .. Format(r.body)
+				parts[#parts + 1] = HEAD .. r.title .. "|r\n" .. Format(RoleBody(token, list, r))
 			end
 		else
 			local names = {}
@@ -1185,12 +1270,12 @@ function ns.ForeverHowToSections(token, allRoles)
 		end
 	end
 	for _, r in ipairs(mine) do
-		out[#out + 1] = { title = r.title, body = r.body, kind = "role" }
+		out[#out + 1] = { title = r.title, body = RoleBody(token, list, r), kind = "role" }
 	end
 	if #others > 0 then
 		if allRoles then
 			for _, r in ipairs(others) do
-				out[#out + 1] = { title = r.title, body = r.body, kind = "role" }
+				out[#out + 1] = { title = r.title, body = RoleBody(token, list, r), kind = "role" }
 			end
 		else
 			local names = {}
@@ -1203,8 +1288,10 @@ function ns.ForeverHowToSections(token, allRoles)
 	end
 	local cls = (tr and tr[token]) or CLASSES[token]
 	if cls then
-		for _, sec in ipairs(cls) do
-			out[#out + 1] = { title = sec[1], body = sec[2], kind = "class" }
+		for i, sec in ipairs(cls) do
+			local en = CLASSES[token] and CLASSES[token][i]
+			local note = en and NotYetLine(token, OrderPart(en[1], en[2]))
+			out[#out + 1] = { title = sec[1], body = sec[2] .. (note and ("\n" .. note) or ""), kind = "class" }
 		end
 		local r = ns.ForeverTalentedRank and ns.ForeverTalentedRank()
 		out[#out + 1] = { body = type(r) == "number" and ns:L("FHOWTO_TALENTED_RANK_FMT"):format(r)

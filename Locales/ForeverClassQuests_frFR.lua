@@ -310,6 +310,9 @@ for k, v in pairs({
 	-- Talented (Legacy perk): "Héritage" = GlobalStrings LEGACY, "Talent" = SpellName 1225474
 	FDONOW_TALENTED_HINT = ", jusqu'à 5 niveaux plus tôt avec Talent, un avantage d'Héritage",
 	FHOWTO_TALENTED_NOTE = "Les niveaux de talent ci-dessus comptent ton premier point de talent au niveau 10. Le avantage d'Héritage Talent donne des points de talent plus tôt : jusqu'à 5 niveaux avant.",
+	-- 19 Nov 2026, our own translation.
+	FHOWTO_NOTYET_FMT = "Pas encore appris : %s.",
+	FHOWTO_NOTYET_LV_FMT = "%s (niveau %d)",
 	FHOWTO_TALENTED_RANK_FMT = "Les niveaux de talent ci-dessus comptent ton premier point de talent au niveau 10. Tu as le avantage d'Héritage Talent au rang %d : tes talents arrivent autant de niveaux plus tôt.",
 	-- 17 Nov 2026: the overview (/mh overview, ForeverOverview.lua): FOV_*, FDUNG_IN_ENEMY_FMT
 	-- Names: "Points d’héritage" = GlobalStrings LEGACY_REWARD_TRACK_POINTS, "Héritage" = LEGACY_BUTTON, "Talent" =

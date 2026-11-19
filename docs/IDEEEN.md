@@ -239,6 +239,12 @@ gebruiken."* Uitslag (bouwchat 15-11, alleen op main, NIET in het spel gezien):
 Hier komt wat Rob goedkeurt, ook wat hij rechtstreeks in de bouwchat vraagt (Rob, 10 nov: *"ja we willen het op 1
 lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met de commit erbij. Na zijn test naar **Af**.
 
+### Forever: "Simple order" noemt geen spells meer die je nog niet hebt (bugmelding) — GEREPAREERD 19 nov
+- Bron: Rob 19 nov (via Sparring 19-11), letterlijk: *"... doe Nova. Frost Nova. Maar dat krijg ik pas als ik level 54
+  ben. Dus ik denk dat dit soort uitleg niet helemaal goed gaat."* Gemeten: Frost Nova = level 10 (DB2 + trainerdata).
+- Gebouwd: grijze regel "Not learned yet: … (level N)" onder elk Simple order-blok, alle classes, 7 talen. Open vraag:
+  Arcane Missiles (level 8) in de mage-zin opnemen? (speladvies, eerst uitzoeken). Wacht op Robs test.
+
 ### Forever: namen met een tooltip in een eigen kleur + je goud in "Do this now" — ✅ JA + GEBOUWD 19 nov
 - Bron: Rob 19 nov (via Sparring 19-11), letterlijk: *"dat we bijvoorbeeld Conjugal Water of Conjugal Food een ander
   kleurtje krijgt als het een tooltip bevat. Want nu zie ik dat niet"* (Willow: Conjure Water/Food) en *"dat ik in dat

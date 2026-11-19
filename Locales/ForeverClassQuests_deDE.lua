@@ -294,6 +294,9 @@ for k, v in pairs({
 	-- Talented (Legacy perk; spell 1225474 = "Talentiert", Legacy = "Vermächtnis" in GlobalStrings)
 	FDONOW_TALENTED_HINT = ", mit Talentiert aus dem Vermächtnisbaum bis zu 5 Stufen früher",
 	FHOWTO_TALENTED_NOTE = "Die Talentstufen oben rechnen mit deinem ersten Talentpunkt auf Stufe 10. Talentiert aus dem Vermächtnisbaum gibt dir Talentpunkte früher: bis zu 5 Stufen früher.",
+	-- 19 Nov 2026, our own translation.
+	FHOWTO_NOTYET_FMT = "Noch nicht gelernt: %s.",
+	FHOWTO_NOTYET_LV_FMT = "%s (Stufe %d)",
 	FHOWTO_TALENTED_RANK_FMT = "Die Talentstufen oben rechnen mit deinem ersten Talentpunkt auf Stufe 10. Du hast Talentiert aus dem Vermächtnisbaum auf Rang %d: deine Talente kommen so viele Stufen früher.",
 	-- 17 Nov 2026: the overview (/mh overview, ForeverOverview.lua): FOV_*, FDUNG_IN_ENEMY_FMT
 	-- Names: Lager aufschlagen / Lagervorteile / Einladendes Lagerfeuer / Lagerzelt / Lagerfeuer (CAMPING_VERIFIED 7),

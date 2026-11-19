@@ -332,6 +332,9 @@ for k, v in pairs({
 	-- Talented: the legacy perk, spell 1225474 "Talentoso"; "ventaja de legado" from GlobalStrings 58658.
 	FDONOW_TALENTED_HINT = ", hasta 5 niveles antes con la ventaja de legado Talentoso",
 	FHOWTO_TALENTED_NOTE = "Los niveles de talento de arriba cuentan tu primer punto de talento en el nivel 10. La ventaja de legado Talentoso da puntos de talento antes: hasta 5 niveles antes.",
+	-- 19 Nov 2026, our own translation.
+	FHOWTO_NOTYET_FMT = "Aún no aprendido: %s.",
+	FHOWTO_NOTYET_LV_FMT = "%s (nivel %d)",
 	FHOWTO_TALENTED_RANK_FMT = "Los niveles de talento de arriba cuentan tu primer punto de talento en el nivel 10. Tienes la ventaja de legado Talentoso en rango %d: tus talentos llegan esos niveles antes.",
 	-- 17 Nov 2026: the overview (/mh overview, ForeverOverview.lua): FOV_*, FDUNG_IN_ENEMY_FMT
 	-- Names: Camp Benefits 1229741 "Beneficios de campamento", Camp Tent item 279978 "Tienda de campamento", Legacy

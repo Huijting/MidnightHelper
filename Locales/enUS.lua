@@ -7300,6 +7300,9 @@ ns._mhLocales.enUS = {
 	FDONOW_TALENTED_HINT = ", up to 5 levels sooner with the Legacy perk Talented",
 	-- How you play (Forever), under the class text (17 Nov 2026). %d = your rank of Talented (1-5).
 	FHOWTO_TALENTED_NOTE = "The talent levels above count your first talent point at level 10. The Legacy perk Talented gives talent points sooner: up to 5 levels earlier.",
+	-- 19 Nov 2026: under "Simple order", the spells it names that you do not know yet (ForeverHowToPlay.lua NotYetLine).
+	FHOWTO_NOTYET_FMT = "Not learned yet: %s.",
+	FHOWTO_NOTYET_LV_FMT = "%s (level %d)",
 	FHOWTO_TALENTED_RANK_FMT = "The talent levels above count your first talent point at level 10. You have the Legacy perk Talented at rank %d: your talents come that many levels sooner.",
 	FDONOW_TOOL_FMT = "%s: you have no %s yet (%s).",
 	-- Legacy step 1 (ForeverLegacy.lua, 17 Nov 2026). %d = points, %s = the client's "Legacy Points", %s = its button name.
