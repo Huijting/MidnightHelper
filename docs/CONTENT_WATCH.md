@@ -5042,3 +5042,51 @@ kop, per bevinding MEASURED/INFERRED en [RAAKT ONS]/[RAAKT ONS NIET], met bestan
   `Modules/ForeverVendorSpots.lua`, `Modules/ForeverDungeons.lua`, `Modules/ForeverClassQuests.lua`,
   `Locales/enUS.lua`, `docs/forever/ROGUE_CLASSQUESTS_2026-11-17.md` (alle vandaag bekeken). Vandaag is
   woensdag, geen maandag: de kaarten- en consumables-secties zijn opzettelijk weggelaten.
+
+- [2026-11-19] 💬 **CurseForge: geen open reacties (3 draadjes, 8 totaal, identiek aan [2026-11-18]).**
+  `curseforge.com/api/v1/mods/1528577/comments?pageIndex=0&pageSize=20&nocache=20261119a` (en `/b`), twee
+  fetches via Exa, volledig gelezen (JSON, `pagination.totalCount: 8`). Dezelfde drie draadjes als
+  gisteren, allemaal beantwoord (nieuwste bericht in elke keten van `twelveinchy`): esES/esMX-locale-fix
+  `8509224` → reply `8510682`; MrsBoojiePanda's debug-printregel `8414729` → reply `8483898`;
+  gadrinonturalyon's coffer-key-shards/3D-boss-model-verzoek `8090710` → reply-keten tot
+  `8095337`/`8092133` — alle ids en timestamps byte-identiek aan [2026-11-18]. MEASURED. **[RAAKT ONS
+  NIET]** — geen actiepunt, geen concept-antwoord nodig.
+
+  — bron: https://www.curseforge.com/api/v1/mods/1528577/comments?pageIndex=0&pageSize=20&nocache=20261119a/b,
+  zelf gelezen via Exa.
+
+- [2026-11-19] 🔁 **Midnight blijft stil (veertiende dag, nog steeds "November 6, 2026"); Forever's
+  nieuwste sectie is nog dezelfde "November 17, 2026" die al volledig verwerkt is op [2026-11-18] — niets
+  nieuws op geen van beide sporen.**
+
+  **Midnight, geen nieuwe sectie.** MEASURED, zelf gelezen via Exa (cache-buster `?nocache=20261119a`):
+  `news.blizzard.com/en-us/article/24307310/hotfixes-november-6-2026` toont nog steeds alleen de secties
+  van 6 en 5 nov (Vashnik/Ula'tek-tuning resp. Tortollan-naam + Shadowguard Point + Venomous
+  Abyss-tuning), allebei al verwerkt op [2026-11-06]/[2026-11-07], inclusief het nog openstaande
+  [RAAKT ONS]-punt daar (Iku/Nama → Epu/Nema in `Locales/RaidTips.lua` e.a. — niet opnieuw als nieuwe
+  bevinding geteld). **Positieve controle, zelfde run:** `worldofwarcraft.blizzard.com/en-us/content-update-notes`
+  (zelfde cache-buster) zegt nu **"12 days ago"** bij die Nov 6-sectie — gepubliceerd 7 nov, dus 7+12=19,
+  precies vandaag; geen verstikte cache. Geen nieuwe Delves-, Professions-, Quests- of Items-regel sinds
+  [2026-11-06]/[2026-11-07].
+
+  **Forever: geen nieuwe sectie.** MEASURED, zelf gelezen via Exa (`wow-forever-hotfixes-november-17-2026`
+  met `?nocache=20261119c`, en los nagekeken via `web_search_exa`): de nieuwste "WoW: Forever
+  Hotfixes"-pagina blijft die van 17 nov (gepost 18 nov 03:23 UTC) — tekst woordelijk identiek aan wat op
+  [2026-11-18] al volledig per item tegen de code is gezet (Camping/Cozy Sleeping Bag, Classes/Shaman
+  Flurry, Dungeons/Upper Blackrock Spire, Enemies and NPCs/Thousand Needles, Items/Night Watchman's
+  Torch e.a., Legacy/Reagent Economy, Player versus PvP/Warsong Gulch + Alterac Valley level 58,
+  Professions/Blacksmithing+Herbalism+Skinning, Quests/Shen'dralas e.a., User Interface) — niet opnieuw
+  als nieuwe bevinding geteld. Geen "November 18, 2026"-hotfixartikel gevonden; drie onafhankelijke
+  fan-sites (forevermastery, wowsod.pro, wowforeverinfo) schrijven zelf ook nog over de 17 nov-sectie, met
+  publicatiedatums tot en met 19 nov — geen enkele noemt een nieuwere Blizzard-sectie. Geen verstikte
+  cache: zowel de directe Exa-fetch als de onafhankelijke zoekresultaten wijzen naar dezelfde, al bekende
+  17 nov-tekst.
+
+  **[RAAKT ONS NIET]** — geen actiepunt, een mens beslist als hij het toch anders wil.
+
+  — bron: https://news.blizzard.com/en-us/article/24307310/hotfixes-november-6-2026?nocache=20261119a ·
+  https://worldofwarcraft.blizzard.com/en-us/content-update-notes?nocache=20261119a ·
+  https://news.blizzard.com/en-us/feed/world-of-warcraft?nocache=20261119a ·
+  https://news.blizzard.com/en-us/article/24315281/wow-forever-hotfixes-november-17-2026?nocache=20261119c
+  (alle rechtstreeks via Exa gelezen, laatste ook via web_search_exa als onafhankelijke controle).
+  Vandaag is donderdag, geen maandag: de kaarten- en consumables-secties zijn opzettelijk weggelaten.
