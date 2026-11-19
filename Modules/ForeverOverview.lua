@@ -2435,11 +2435,20 @@ local function FillClassQuestPage(f, level)
 	card.count:SetText(#list > 0 and ns:L("FOV_CQP_COUNT_FMT"):format(done, #list) or "")
 	card.intro:SetText(#list > 0 and ns:L("FOV_CQP_INTRO") or ns:L("FOV_CQP_NONE"))
 	local r, g, b = Accent()
+	local y = 0
 	for i, e in ipairs(list) do
 		local row = ClassQuestRow(card, i)
+		-- 19 Nov 2026 (Rob's screenshot: "dat daar tekst doorheen staat"): rows were a fixed 74 px at a fixed place, so a
+		-- two-line step plus its place line ran into the next row. Now each row is placed under the one before it.
+		row:ClearAllPoints()
+		row:SetPoint("TOPLEFT", card.child, "TOPLEFT", 0, -y)
+		row:SetPoint("RIGHT", card.child, "RIGHT", 0, 0)
 		row.num:SetText(tostring(e.level or ""))
 		row.levelTip.tipTitle = ns:L("FOV_LEVEL_FMT"):format(e.level or 0)
 		row.name:SetText(e.chain or "")
+		-- A chain with a reward spell has the game's tooltip on its name: link blue (19 Nov 2026).
+		local nc = (e.spell and S.LINK) or A.text
+		row.name:SetTextColor(nc[1], nc[2], nc[3])
 		row.icon.tipLink = nil
 		if e.spell then
 			row.icon.tex:SetTexture(SpellIcon(e.spell))
@@ -2492,13 +2501,35 @@ local function FillClassQuestPage(f, level)
 		row.questHover.tipBody = row.what:GetText()
 		row.questHover.tipLink = (e.state ~= "done" and e.quest) and ("quest:" .. e.quest) or nil
 		SetGo(row.go, e.state ~= "done" and e.zone and e.go or nil)
+		-- Height from the text that is drawn: name, step (up to 2 lines), place (the name starts ~6 px down).
+		local function H(fs)
+			local t = fs:GetText()
+			return (t and t ~= "") and (fs:GetStringHeight() or 0) or 0
+		end
+		local need = 6 + H(row.name) + 2 + H(row.what) + 2 + H(row.place) + 10
+		local h = math.max(CQP_ROW_H - 6, math.ceil(need))
+		row:SetHeight(h)
 		row:Show()
+		y = y + h + 6
 	end
 	for i = #list + 1, #card.rows do
 		card.rows[i]:Hide()
 	end
-	card.child:SetHeight(math.max(10, #list * CQP_ROW_H))
+	card.child:SetHeight(math.max(10, y))
 	card.sf.Reset()
+	-- The step and place lines are anchored left AND right, so their width (and so their wrapped height) is only known
+	-- after the layout pass (AFGELEID; the same reason NowRow uses a fixed width). Measure once more a frame later; the
+	-- flag makes every outside fill cause exactly one extra fill, never a loop.
+	card._cqAgain = not card._cqAgain
+	if card._cqAgain and C_Timer and C_Timer.After then
+		C_Timer.After(0, function()
+			if card:IsVisible() then
+				FillClassQuestPage(f, level)
+			else
+				card._cqAgain = false
+			end
+		end)
+	end
 end
 
 local GREEN, RED = { 0.45, 0.85, 0.40 }, { 0.95, 0.45, 0.40 }
@@ -2789,7 +2820,9 @@ local function FillTrainerPage(f, level, refresh)
 			row.icon.tex:SetTexture(SpellIcon(e.id))
 			row.icon.tipSpell = e.id
 			row.name:SetText(e.name .. (e.rank and (" |cff9d9d9d(" .. e.rank .. ")|r") or ""))
-			row.name:SetTextColor(it.later and A.dim[1] or A.text[1], it.later and A.dim[2] or A.text[2], it.later and A.dim[3] or A.text[3])
+			-- Link blue for a spell you can learn now (it has the game's tooltip, 19 Nov 2026); later ones stay dim.
+			local lc = S.LINK or A.text
+			row.name:SetTextColor(it.later and A.dim[1] or lc[1], it.later and A.dim[2] or lc[2], it.later and A.dim[3] or lc[3])
 			row.cost:SetText(e.cost or "")
 			row.hover.tipTitle = e.name
 			row.hover.tipBody = e.key and ns:L("FOV_TIP_TR_KEY_FMT"):format(e.key) or e.where
@@ -4179,6 +4212,9 @@ function ns.ForeverOverviewFill(refresh)
 				row.hover.tipSpell = e.id
 			end
 			row.name:SetText(e.name)
+			-- A name with the game's tooltip looks like a link (S.LINK, 19 Nov 2026).
+			local lc = S.LINK or A.text
+			row.name:SetTextColor(lc[1], lc[2], lc[3])
 			row.level:SetText(ns:L("FOV_LEVEL_FMT"):format(e.l) .. (e.rank and (" · " .. e.rank) or ""))
 		else
 			row.icon:Hide()
@@ -4187,6 +4223,7 @@ function ns.ForeverOverviewFill(refresh)
 				row.hover.tipSpell = nil
 			end
 			row.name:SetText(i == 1 and ns:L("FOV_SOON_NONE") or "")
+			row.name:SetTextColor(A.text[1], A.text[2], A.text[3])
 			row.level:SetText("")
 		end
 	end

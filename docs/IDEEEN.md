@@ -239,6 +239,14 @@ gebruiken."* Uitslag (bouwchat 15-11, alleen op main, NIET in het spel gezien):
 Hier komt wat Rob goedkeurt, ook wat hij rechtstreeks in de bouwchat vraagt (Rob, 10 nov: *"ja we willen het op 1
 lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met de commit erbij. Na zijn test naar **Af**.
 
+### Forever: namen met een tooltip in een eigen kleur + je goud in "Do this now" — ✅ JA + GEBOUWD 19 nov
+- Bron: Rob 19 nov (via Sparring 19-11), letterlijk: *"dat we bijvoorbeeld Conjugal Water of Conjugal Food een ander
+  kleurtje krijgt als het een tooltip bevat. Want nu zie ik dat niet"* (Willow: Conjure Water/Food) en *"dat ik in dat
+  overzichtje rechts onderin mijn goudvoorraadje krijg ... ik doe nu heel vaak mijn tas open om te kijken hoeveel geld
+  ik heb"*. Spel: F. Voor wie: N + V.
+- Gebouwd: lichtblauw (de spell-link-kleur van het spel) voor namen met een spell-tooltip; goud rechtsonder in Do this
+  now, ververst bij elke verandering. Wacht op Robs test.
+
 ### Forever: Find → Rares begint bij het gebied waar je bent — ✅ JA + GEBOUWD 19 nov (wacht op Robs test)
 - Bron: Rob 19 nov (via Sparring 19-11), letterlijk: *"Kunnen we het zo instellen dat we gewoon waar ik nu ben altijd
   bovenaan staat?"* → *"Ja, doe maar."* Spel: F. Voor wie: N + V.
@@ -280,6 +288,9 @@ lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met d
   Forever al, hierin verwerken?"*, *"Je moet gewoon één mooi product maken."* Op het voorstel: *"ja doe maar"*.
 - Plan + inventaris + volgorde: `docs/forever/OVERZICHT_PRODUCT_PLAN_2026-11-17.md`. Bouwchat begint met stap 1-3
   (voordeur, één Now-lijst, trainer-pagina). Spel: F; Midnight daarna als proef één scherm.
+- ✅ Stand 19 nov (bijgewerkt; deze regel liep achter): het overzicht met tabs + tandwiel bestaat en wordt getest
+  (`Modules/ForeverOverview.lua`, GEMETEN dat het er is; per stap zie NEXT_SESSION/TESTLIJST 17-19 nov). Midnight-proef:
+  gepauzeerd (zie "Midnight: de eerste blik" bovenaan).
 
 ### Forever: bank, veilinghuis, brievenbus en herberg in de tab Find — GEBOUWD 17 nov, wacht op Robs test
 - Bron: Rob 17 nov (via Sparring 17-11), letterlijk: *"Straks zocht ik de bank en de AH in grootsteden. … Kunnen we dat
@@ -449,6 +460,8 @@ Stand 15 nov avond: 1 gebouwd (1f521e5), 2 gemeten, 3 rapport + A/B gebouwd (zie
   op te speuren"*.
 - 15 nov: 5 speur-agenten (mh-research) → `docs/patch_12_1_7/1_blizzard.md` … `5_community.md`. Daarna
   `docs/PATCH_12_1_7_DRAAIBOEK.md`: wat komt / wat MH vooraf klaarzet / wat Rob op patchdag test.
+- ✅ Stand 19 nov (bijgewerkt; deze regel liep achter): het draaiboek bestaat (`docs/PATCH_12_1_7_DRAAIBOEK.md`,
+  GEMETEN dat het er is). Wat er nog in moet: zie het draaiboek zelf.
 
 ### Forever: lijst "Screens" in Blizzards Opties alleen met schermen die er in Forever zijn
 - Voor wie:      iedereen in Forever

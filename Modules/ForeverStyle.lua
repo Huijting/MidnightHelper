@@ -149,6 +149,9 @@ function S.Text(parent, role, size, color)
 	return fs
 end
 
+--- 19 Nov 2026 (Rob: names with a tooltip "een ander kleurtje", like a link): the game's own spell-link blue (71d5ff).
+S.LINK = { 0x71 / 255, 0xd5 / 255, 1 }
+
 --- Tooltip on any frame. The text lives on the frame (tipTitle/tipBody/tipSpell/tipLink), so a fill can change it
 --- later. Order: tipLink (a game link), then tipSpell, then our own title and body.
 function S.Tip(frame, title, body)

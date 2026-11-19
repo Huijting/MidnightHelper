@@ -1,5 +1,25 @@
 # Midnight Helper — waar we staan
 
+## ▶ 19 nov — Robs test (3 screenshots) + reparatie class quests + blauwe namen + goud GEBOUWD
+
+Rob via sparring: *"dat ging helemaal goed"* — afgevinkt: Do this now spell-tooltip (Frost Armor), Class quests
+naam → spell-tooltip (Study), rank-keuzevenster opent (inhoud niet getest: niets oud).
+Bouwvolgorde, Rob letterlijk: *"we gaan akkoord met het voorstel van het bouwadvies, waar je ook mee eens bent"* →
+na deze drie: (4) "Welke kant ga ik op?" stap 3, (5) macro-rest, dan buff bijna afgelopen + "je mist iets" (eerst
+meten), dan Midnight-tooltips. Een rank-vraag van de sparring heeft nog GEEN ja.
+- 🔧 **Class quests-rijen** (`ForeverOverview.lua` FillClassQuestPage): waren vast 74 px op een vaste plek (GEMETEN
+  regels 233/266/267), dus een stap van 2 regels + plaatsregel liep over de volgende rij (Rob: *"dat daar tekst
+  doorheen staat"*). Nu: elke rij onder de vorige, hoogte uit de getekende tekst; één extra vulling een beeld later
+  (de regels hangen links én rechts vast, breedte pas na de layout bekend — AFGELEID).
+- 🎨 **Blauwe namen** (Rob: *"een ander kleurtje krijgt als het een tooltip bevat"*): `S.LINK` = 71d5ff, de kleur
+  van een spell-link in het spel. In `SpellLink` (Do this now), Coming up, trainer-pagina (later = grijs, zoals
+  eerst) en class quests met een spell. Bazengids-loot houdt de item-kwaliteitskleur.
+- 💰 **Goud in Do this now** (Rob: *"rechts onderin mijn goudvoorraadje"*): `f.money` rechtsonder op een eigen regel,
+  `ForeverStyle.Money` (g/s/c met muntjes), ververst bij `PLAYER_MONEY`; knoppen 16 px hoger.
+- IDEEEN achterstand gemeld: "Forever-overzicht 7 tabs" en "draaiboek 12.1.7" zijn al gebouwd/geschreven
+  (`ForeverOverview.lua`, `docs/PATCH_12_1_7_DRAAIBOEK.md`, GEMETEN dat ze bestaan); de regels daar zijn bijgewerkt.
+- Gecontroleerd: syntax OK, lint 0 HARD (GEMETEN, vlak voor de commit). NIET in het spel gezien.
+
 ## ▶ 19 nov — Find → Rares: het gebied waar je bent bovenaan GEBOUWD
 
 Rob (via sparring), letterlijk: *"Kunnen we het zo instellen dat we gewoon waar ik nu ben altijd bovenaan staat?"*

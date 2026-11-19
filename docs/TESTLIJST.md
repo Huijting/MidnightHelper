@@ -39,6 +39,16 @@ zoekbalk, de reputaties, de rares, de muntjes, de Now-kaart, het ronde plaatje e
 achternaam, "Step aside"-instelling, Your path, Set focus). Daarna vond Rob nog: "scroll for more" over de tekst
 (gerepareerd, zie Travel) en het boek bij de mage-quest "Study" (in bouw).
 
+## 💰 19 nov — Forever: rijen class quests, blauwe namen, je goud in "Do this now"
+
+`/reload` is genoeg.
+- [ ] Your class → **Class quests**: een rij met een lange stap (bv. "Study (scrolls from the library, once an h…)") en
+      een plaatsregel eronder: niets valt meer over de volgende rij heen. Elke rij is zo hoog als zijn tekst.
+- [ ] Namen met een tooltip zijn **lichtblauw** (de kleur van een spell-link in het spel): in "Do this now", bij
+      "Coming up", op de trainer-pagina (spells van later blijven grijs) en bij class quests met een spell-beloning.
+- [ ] **Do this now**: rechtsonder staat je goud (goud, zilver, koper met muntjes). Koop of loot iets: het getal
+      verandert meteen. De knoppen staan erboven, niets overlapt.
+
 ## 📍 19 nov — Forever: Find → Rares begint bij het gebied waar je bent
 
 `/reload` is genoeg.
@@ -80,8 +90,9 @@ achternaam, "Step aside"-instelling, Your path, Set focus). Daarna vond Rob nog:
 ## 🎚️ 19 nov — Forever: het rank-keuzevenster is makkelijker te vinden
 
 `/reload` is genoeg.
-- [ ] Overzicht → tandwiel → **Quiet helpers**: onder "Edge on buttons with an old rank" staat "Choose which spells get
+- [x] Overzicht → tandwiel → **Quiet helpers**: onder "Edge on buttons with an old rank" staat "Choose which spells get
       a new rank" met een knop **Open**. Klik → het venster om te kiezen welke knoppen en balken een nieuwe rank krijgen.
+      (Rob, 19 nov: het venster opent, "no buttons with an old rank" — er was niets oud, dus de inhoud is niet getest.)
 - [ ] Overzicht → **Keys & macros**: links staat een vierde knop met dezelfde naam. Klik → hetzelfde venster.
 - [ ] Zoekbalk: typ "rank" (of "ranks") → de regel "Choose which spells get a new rank" staat erbij; klik → het venster.
 - [ ] Shift-klik op de knop bij de trainer en `/mh ranks choose` werken nog zoals altijd.
@@ -91,7 +102,8 @@ achternaam, "Step aside"-instelling, Your path, Set focus). Daarna vond Rob nog:
 `/reload` is genoeg. Alles in het overzicht, tenzij anders gezegd.
 - [ ] **Now-kaart**: staat er "new spell(s) on no bar"? Onder die regel staan kleine spell-icoontjes. Muis erop →
       de gewone spell-tooltip.
-- [ ] **Your class → Class quests**: muis op de naam van een keten → de spell-tooltip van de beloning. Muis op de regel
+- [x] **Your class → Class quests**: muis op de naam van een keten → de spell-tooltip van de beloning. (Rob, 19 nov:
+      Study, met reagents.) De rest van dit punt (stap-regel → quest-tooltip) nog niet gemeld: Muis op de regel
       eronder (de stap) → de quest-tooltip van het spel, of onze eigen tekst als het spel er geen geeft. Zeg welke van
       de twee je ziet.
 - [ ] **Find**: muis op een gereedschap (Mining Pick, Skinning Knife …) → de item-tooltip. Muis op een wapen →
@@ -101,8 +113,9 @@ achternaam, "Step aside"-instelling, Your path, Set focus). Daarna vond Rob nog:
 ## 🖱️ 19 nov — Forever: tooltips in "Do this now" en op de trainer-pagina
 
 `/reload` is genoeg.
-- [ ] Het kleine venster **Do this now**: muis op een spellnaam (bij "coming up", "new spell on no bar" of de
-      talentregel) → de gewone spell-tooltip van het spel. Shift-klik → de spell staat in je chat.
+- [x] Het kleine venster **Do this now**: muis op een spellnaam (bij "coming up", "new spell on no bar" of de
+      talentregel) → de gewone spell-tooltip van het spel. Shift-klik → de spell staat in je chat. (Rob, 19 nov,
+      screenshot: Frost Armor; *"dat ging helemaal goed"*. Shift-klik niet apart gezien.)
 - [ ] Het overzicht, pagina **Now**, kaart "Coming up": muis op de NAAM (niet alleen het icoontje) → spell-tooltip.
 - [ ] Het overzicht, pagina **Trainer**: muis op een spellnaam → eerst de spell-tooltip van het spel, daaronder in
       blauw welke toets of waar je hem hebt. Muis op een kopje → géén spell-tooltip.

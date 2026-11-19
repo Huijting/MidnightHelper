@@ -134,7 +134,9 @@ local function SpellLink(id, name)
 	if not (id and name) or name:sub(1, 1) == "#" then
 		return name
 	end
-	return ("|Hspell:%d|h%s|h"):format(id, name)
+	-- 19 Nov 2026 (Rob: "een ander kleurtje krijgt als het een tooltip bevat. Want nu zie ik dat niet"): the light blue
+	-- the game uses for its own spell links (|cff71d5ff), so a name with a tooltip looks like a link.
+	return ("|cff71d5ff|Hspell:%d|h%s|h|r"):format(id, name)
 end
 
 --- The new spells still on no bar (names), after dropping the ones that are on a bar now. Also used by /mh donow check.
@@ -763,17 +765,36 @@ local function Render(info)
 		r[#r + 1] = { b = b, x = x }
 		x = x + b:GetWidth() + 4
 	end
+	-- 19 Nov 2026 (Rob: "dat ik in dat overzichtje rechts onderin mijn goudvoorraadje krijg ... ik doe nu heel vaak mijn
+	-- tas open om te kijken hoeveel geld ik heb"): your money on its own line at the bottom right (gold, silver and copper
+	-- with coins, ForeverStyle.Money); the buttons sit above it. Refreshed on PLAYER_MONEY (moneyEv below).
+	local MONEY_H = 16
 	for i, r in ipairs(rows) do
-		local y = 10 + (#rows - i) * 24
+		local y = 10 + MONEY_H + (#rows - i) * 24
 		for _, e in ipairs(r) do
 			e.b:ClearAllPoints()
 			e.b:SetPoint("BOTTOMLEFT", e.x, y)
 			e.b:Show()
 		end
 	end
+	if not f.money then
+		f.money = f:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+		f.money:SetPoint("BOTTOMRIGHT", -10, 8)
+		f.money:SetJustifyH("RIGHT")
+	end
+	f.money:SetText(Money(GetMoney and GetMoney() or 0))
 	local btnH = (#rows > 0) and (#rows * 24 + 6) or 0
-	f:SetHeight(26 + f.body:GetStringHeight() + 12 + btnH)
+	f:SetHeight(26 + f.body:GetStringHeight() + 12 + btnH + MONEY_H)
 end
+
+-- Your money in the corner follows every change (looting, buying, the trainer), without refilling the whole list.
+local moneyEv = CreateFrame("Frame")
+moneyEv:RegisterEvent("PLAYER_MONEY")
+moneyEv:SetScript("OnEvent", function()
+	if win and win.money then
+		win.money:SetText(Money(GetMoney and GetMoney() or 0))
+	end
+end)
 
 local lastWhy = "not checked yet"
 
