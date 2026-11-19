@@ -1825,7 +1825,10 @@ local function Build()
 		nm:SetWordWrap(false)
 		local lv = Text(f.soon, "text", 12, A.later)
 		lv:SetPoint("TOPLEFT", nm, "BOTTOMLEFT", 0, -1)
-		f.soon.rows[i] = { icon = ic, name = nm, level = lv }
+		-- 19 Nov 2026 (Rob: "overal waar een tooltip bestaat in de game"): the name shows the spell's tooltip too, not only
+		-- the icon. tipSpell is set in the fill; without it the hover stays silent.
+		local hv = HoverOver(f.soon, nm)
+		f.soon.rows[i] = { icon = ic, name = nm, level = lv, hover = hv }
 	end
 
 	-- "This week" (product plan step 2): resets, today's events, raid lockouts (ForeverWeek.lua, the same rows as the
@@ -2680,6 +2683,9 @@ local function FillTrainerPage(f, level, refresh)
 		for _, part in ipairs({ row.icon, row.chip, row.cost, row.name }) do
 			part:SetShown(e ~= nil)
 		end
+		if not e then
+			row.hover.tipSpell = nil -- a header or note row: no stale spell from the row's earlier use
+		end
 		if it.head then
 			row.head:SetText(it.head)
 		elseif it.line then
@@ -2692,6 +2698,7 @@ local function FillTrainerPage(f, level, refresh)
 			row.cost:SetText(e.cost or "")
 			row.hover.tipTitle = e.name
 			row.hover.tipBody = e.key and ns:L("FOV_TIP_TR_KEY_FMT"):format(e.key) or e.where
+			row.hover.tipSpell = e.id -- 19 Nov 2026: the name shows the game's spell tooltip, our key line under it
 			if e.key then
 				row.chip.t:SetText(e.key)
 				row.chip:SetColor(r, g, b)
@@ -4055,11 +4062,17 @@ function ns.ForeverOverviewFill(refresh)
 			row.icon.tex:SetTexture(SpellIcon(e.id))
 			row.icon.tipSpell = e.id
 			row.icon:Show()
+			if row.hover then
+				row.hover.tipSpell = e.id
+			end
 			row.name:SetText(e.name)
 			row.level:SetText(ns:L("FOV_LEVEL_FMT"):format(e.l) .. (e.rank and (" · " .. e.rank) or ""))
 		else
 			row.icon:Hide()
 			row.icon.tipSpell = nil
+			if row.hover then
+				row.hover.tipSpell = nil
+			end
 			row.name:SetText(i == 1 and ns:L("FOV_SOON_NONE") or "")
 			row.level:SetText("")
 		end

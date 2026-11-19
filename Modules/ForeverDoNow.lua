@@ -127,9 +127,20 @@ local function KeyBlockOn()
 	return ns.KeyBlockActive and ns.KeyBlockActive() and true or false
 end
 
+--- A spell name the window's hover can answer: |Hspell:id|h…|h shows nothing extra on screen, and the window's
+--- OnHyperlinkEnter gives the game's own spell tooltip (19 Nov 2026, Rob: "overal waar een tooltip bestaat in de game").
+--- The overview shows the same sentences; there the link is plain text (no hover), which reads the same.
+local function SpellLink(id, name)
+	if not (id and name) or name:sub(1, 1) == "#" then
+		return name
+	end
+	return ("|Hspell:%d|h%s|h"):format(id, name)
+end
+
 --- The new spells still on no bar (names), after dropping the ones that are on a bar now. Also used by /mh donow check.
+--- Second value: the same names as spell links, in the same order (for the window).
 local function NoBarSpells()
-	local list, out = NewSpells(), {}
+	local list, found = NewSpells(), {}
 	for id in pairs(list) do
 		local name = SpellNameOf(id)
 		if not name then
@@ -137,11 +148,18 @@ local function NoBarSpells()
 		elseif OnAnyBar(name) then
 			list[id] = nil
 		else
-			out[#out + 1] = name
+			found[#found + 1] = { id = id, name = name }
 		end
 	end
-	table.sort(out)
-	return out
+	table.sort(found, function(a, b)
+		return a.name < b.name
+	end)
+	local out, links = {}, {}
+	for i, e in ipairs(found) do
+		out[i] = e.name
+		links[i] = SpellLink(e.id, e.name)
+	end
+	return out, links
 end
 
 local learnEv = CreateFrame("Frame")
@@ -324,9 +342,9 @@ function Collect()
 		end
 	end
 	if not KeyBlockOn() then
-		local noBar = NoBarSpells()
+		local noBar, noBarLinks = NoBarSpells()
 		if #noBar > 0 then
-			out.now[#out.now + 1] = ns:L("FDONOW_NOBAR_FMT"):format(table.concat(noBar, ", "))
+			out.now[#out.now + 1] = ns:L("FDONOW_NOBAR_FMT"):format(table.concat(noBarLinks, ", "))
 			item(out.now[#out.now], "nobar")
 		end
 	end
@@ -407,14 +425,11 @@ function Collect()
 					nm = nm .. " (" .. rank .. ")"
 				end
 			end
-			local dup = false
-			for _, x in ipairs(byLevel[e.l]) do
-				if x == nm then
-					dup = true -- two ranks/variants with one name: once is enough
-				end
-			end
-			if not dup then
-				byLevel[e.l][#byLevel[e.l] + 1] = nm
+			-- Compare on the plain text (two ids with one name would differ as links); show the first one as a link.
+			byLevel[e.l].seen = byLevel[e.l].seen or {}
+			if not byLevel[e.l].seen[nm] then
+				byLevel[e.l].seen[nm] = true -- two ranks/variants with one name: once is enough
+				byLevel[e.l][#byLevel[e.l] + 1] = SpellLink(e.id, nm)
 			end
 		end
 	end
@@ -435,7 +450,7 @@ function Collect()
 		for _, t in ipairs(ns.ForeverDirectionTalents(cls, band)) do
 			if t.level > level then
 				-- t.level already counts the Legacy perk Talented when its rank is readable; otherwise say it can be sooner.
-				out.soon[#out.soon + 1] = ns:L("FDONOW_TALENT_FMT"):format(tree, SpellName(t.id), t.level)
+				out.soon[#out.soon + 1] = ns:L("FDONOW_TALENT_FMT"):format(tree, SpellLink(t.id, SpellName(t.id)), t.level)
 					.. (t.known and "" or ns:L("FDONOW_TALENTED_HINT"))
 				break
 			end
@@ -615,6 +630,38 @@ local function Build()
 	f.body:SetWidth(W - 20)
 	f.body:SetJustifyH("LEFT")
 	f.body:SetSpacing(2)
+	-- Spell names in the body are |Hspell links (SpellLink): hover = the game's own spell tooltip (19 Nov 2026). The body
+	-- sits on the window itself, not in a ScrollFrame, so the window's hyperlink events reach it (PlayCardWindow.lua:97).
+	-- Shift-click puts the spell in chat, as in the spellbook. Guarded: a client without it simply has no hover.
+	if f.SetHyperlinksEnabled then
+		f:SetHyperlinksEnabled(true)
+		f:SetScript("OnHyperlinkEnter", function(self, link)
+			if not (GameTooltip and link) then
+				return
+			end
+			GameTooltip:SetOwner(self, "ANCHOR_CURSOR")
+			pcall(GameTooltip.SetHyperlink, GameTooltip, link)
+			GameTooltip:Show()
+		end)
+		f:SetScript("OnHyperlinkLeave", function()
+			if GameTooltip then
+				GameTooltip:Hide()
+			end
+		end)
+		f:SetScript("OnHyperlinkClick", function(_, link)
+			local id = type(link) == "string" and tonumber(link:match("^spell:(%d+)"))
+			if not (id and IsModifiedClick and IsModifiedClick("CHATLINK")) then
+				return
+			end
+			local okL, sl = false, nil
+			if C_Spell and C_Spell.GetSpellLink then
+				okL, sl = pcall(C_Spell.GetSpellLink, id)
+			end
+			if okL and type(sl) == "string" and ChatEdit_InsertLink then
+				pcall(ChatEdit_InsertLink, sl)
+			end
+		end)
+	end
 	f.btnTrainer = Btn(f, 10, function()
 		if ns.ForeverTrainerGo then
 			ns.ForeverTrainerGo()

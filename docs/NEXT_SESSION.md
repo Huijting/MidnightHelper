@@ -1,5 +1,24 @@
 # Midnight Helper — waar we staan
 
+## ▶ 19 nov — Bouwchat 19-11: tooltips stap 2 — Forever "Do this now" + trainer GEBOUWD
+
+Rob via sparring, letterlijk: *"Doe maar"* op Forever 1 (Do this now) en 2 (Trainer). Na 1+2 melden; de sparring vraagt
+verder (3 class quests, 4 verkopers, 5 wapentrainers, dan Midnight).
+- `ForeverDoNow.lua`: spellnamen in de regels "new spells on no bar", "coming up" en de talentregel zijn nu
+  `|Hspell:id|h…|h` (`SpellLink`); het venster heeft `SetHyperlinksEnabled` + `OnHyperlinkEnter` (body staat op het
+  venster zelf, niet in een ScrollFrame) en shift-klik = spell-link in de chat. Dedup in "coming up" vergelijkt nu op
+  de platte naam (anders twee id's met één naam dubbel). `/mh donow check` print nog de platte namen.
+- `ForeverOverview.lua`: Now-pagina "Coming up": ook de NAAM heeft nu de spell-tooltip (was alleen het icoon).
+  Trainer-pagina: de naam toont de spell-tooltip van het spel met onze sleutel-regel eronder; kop/notitie-rijen wissen
+  een oude `tipSpell`.
+- `ForeverStyle.lua` `S.Tip`: met `tipSpell` én `tipBody` komt onze regel onder de spell-tooltip (tot nu toe werd
+  `tipBody` dan genegeerd; `tipSpell` werd alleen op icoontjes gezet, zonder body — GEMETEN: alleen ForeverOverview).
+- Het losse trainer-venster (`ForeverTrainer.lua:712-739`) had al een spell-tooltip per regel sinds 7 nov (GEMETEN);
+  de inventaris (mh-sweep) zei "UNKNOWN".
+- ⚠️ In de Now-kaart van het overzicht staan de spellnamen als link-tekst zonder hover (die kaart heeft geen
+  hyperlinks). Ziet er hetzelfde uit; tooltip daar = later, als Rob het mist.
+- Gecontroleerd: syntax OK en lint 0 HARD (GEMETEN, vlak voor de commit). NIET in het spel gezien.
+
 ## ▶ 19 nov — Bouwchat 19-11: tooltips van het spel, stap 1 (loot in de bazengids) GEBOUWD
 
 Rob via sparring, letterlijk: *"overal waar wen tooltip bestaat in de game wil ik ook in de addon zien :)"* en *"Tooltip

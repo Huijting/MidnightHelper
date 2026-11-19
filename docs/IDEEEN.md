@@ -246,7 +246,10 @@ lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met d
 - Stap 1 GEBOUWD 19 nov: de loot in de Forever-bazengids (`ForeverDungeonGuide.lua`): elke loot-regel is een eigen rij
   met de tooltip van het spel; shift-klik = link in de chat, ctrl-klik = paskamer (de handler van het spel). Niet in het
   spel gezien. De bazenregels hebben geen spell- of npc-id in de data, dus daar kan nog geen tooltip.
-- Daarna: de inventaris van de rest (welke schermen nog geen tooltip hebben) gaat naar de sparring met een volgorde.
+- Inventaris naar de sparring (19 nov). Volgorde: Forever 1 Do this now, 2 Trainer, 3 class quests, 4 verkopers,
+  5 wapentrainers; dan Midnight (achievements, rares, reisplanner) en de staart in groepjes.
+- Stap 2 GEBOUWD 19 nov (Rob: *"Doe maar"* op 1 en 2): spellnamen in "Do this now" (klein venster) met tooltip;
+  overzicht "Coming up" en trainer-pagina ook op de naam. Niet in het spel gezien.
 
 ### Forever: het overzicht wordt hét MH voor Forever (7 tabs + tandwiel)
 - Bron: Rob 17 nov (via Sparring 17-11), letterlijk: *"hoe gaan we de rest van onze Midnight helpen, in ieder geval voor

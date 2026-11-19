@@ -159,7 +159,13 @@ function S.Tip(frame, title, body)
 		end
 		GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
 		if self.tipSpell then
+			-- The game's own spell tooltip; our own line (tipBody) under it when there is one (19 Nov 2026, trainer page:
+			-- "which key" stays, the spell text comes first. Rob: "overal waar een tooltip bestaat in de game").
 			GameTooltip:SetSpellByID(self.tipSpell)
+			if self.tipBody and self.tipBody ~= "" then
+				GameTooltip:AddLine(" ")
+				GameTooltip:AddLine(self.tipBody, 0.6, 0.8, 1, true)
+			end
 		else
 			GameTooltip:SetText(self.tipTitle, 1, 0.82, 0, 1, true)
 			if self.tipBody and self.tipBody ~= "" then

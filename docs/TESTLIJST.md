@@ -39,6 +39,15 @@ zoekbalk, de reputaties, de rares, de muntjes, de Now-kaart, het ronde plaatje e
 achternaam, "Step aside"-instelling, Your path, Set focus). Daarna vond Rob nog: "scroll for more" over de tekst
 (gerepareerd, zie Travel) en het boek bij de mage-quest "Study" (in bouw).
 
+## 🖱️ 19 nov — Forever: tooltips in "Do this now" en op de trainer-pagina
+
+`/reload` is genoeg.
+- [ ] Het kleine venster **Do this now**: muis op een spellnaam (bij "coming up", "new spell on no bar" of de
+      talentregel) → de gewone spell-tooltip van het spel. Shift-klik → de spell staat in je chat.
+- [ ] Het overzicht, pagina **Now**, kaart "Coming up": muis op de NAAM (niet alleen het icoontje) → spell-tooltip.
+- [ ] Het overzicht, pagina **Trainer**: muis op een spellnaam → eerst de spell-tooltip van het spel, daaronder in
+      blauw welke toets of waar je hem hebt. Muis op een kopje → géén spell-tooltip.
+
 ## 🖱️ 19 nov — Forever: tooltip op de loot in de bazengids
 
 `/reload` is genoeg. Open de bazengids van een dungeon (bv. Deadmines) en scroll naar de loot onderaan.
