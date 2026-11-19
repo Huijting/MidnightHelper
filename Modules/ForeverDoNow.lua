@@ -139,15 +139,28 @@ local function SpellLink(id, name)
 	return ("|cff71d5ff|Hspell:%d|h%s|h|r"):format(id, name)
 end
 
+--- 19 Nov 2026 (the learn list, ForeverRanks.lua; Rob: "volg het maar en doe het maar"): spell names the player said
+--- "never" to in that list. Per character, by name, so the next rank of the same spell is not asked about either.
+local function NeverNames()
+	if type(ns.db) ~= "table" or not UnitGUID then
+		return {}
+	end
+	ns.db.foreverNewSpellsNever = ns.db.foreverNewSpellsNever or {}
+	local g = UnitGUID("player") or "?"
+	ns.db.foreverNewSpellsNever[g] = ns.db.foreverNewSpellsNever[g] or {}
+	return ns.db.foreverNewSpellsNever[g]
+end
+
 --- The new spells still on no bar (names), after dropping the ones that are on a bar now. Also used by /mh donow check.
 --- Second value: the same names as spell links, in the same order (for the window).
 local function NoBarSpells()
 	local list, found = NewSpells(), {}
+	local never = NeverNames()
 	for id in pairs(list) do
 		local name = SpellNameOf(id)
 		if not name then
 			list[id] = nil
-		elseif OnAnyBar(name) then
+		elseif never[name] or OnAnyBar(name) then
 			list[id] = nil
 		else
 			found[#found + 1] = { id = id, name = name }
@@ -163,6 +176,28 @@ local function NoBarSpells()
 		ids[i] = e.id
 	end
 	return out, links, ids
+end
+
+--- For the learn list (ForeverRanks.lua): the new spells on no bar, { { id, name }, … } (empty while the key block is
+--- placed: it asks about new spells itself), and a way to forget one ("never" = never ask about that name again).
+function ns.ForeverNoBarList()
+	if KeyBlockOn() then
+		return {}
+	end
+	local names, _, ids = NoBarSpells()
+	local out = {}
+	for i, n in ipairs(names) do
+		out[i] = { id = ids[i], name = n }
+	end
+	return out
+end
+
+function ns.ForeverNoBarForget(id, never)
+	local name = SpellNameOf(id)
+	NewSpells()[id] = nil
+	if never and name then
+		NeverNames()[name] = true
+	end
 end
 
 local learnEv = CreateFrame("Frame")

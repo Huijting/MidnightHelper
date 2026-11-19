@@ -39,6 +39,22 @@ zoekbalk, de reputaties, de rares, de muntjes, de Now-kaart, het ronde plaatje e
 achternaam, "Step aside"-instelling, Your path, Set focus). Daarna vond Rob nog: "scroll for more" over de tekst
 (gerepareerd, zie Travel) en het boek bij de mage-quest "Study" (in bouw).
 
+## 📋 19 nov — Forever: lijstje "You just learned" na de trainer + meting "met de hand neergezet"
+
+`/reload` is genoeg. Bij je class trainer, met een spell die je al op een balk hebt (zodat je een nieuwe rank leert),
+en liefst ook een helemaal nieuwe spell.
+- [ ] Na het trainen komt een klein lijstje "You just learned". Een nieuwe rank: "Frostbolt: rank 2 -> 3 (2 buttons)"
+      met **Upgrade / Not now / Never**. Een nieuwe spell: "…: new, not on a bar yet" met **On my bar / Not now / Never**.
+- [ ] **Upgrade** zet die knoppen op de nieuwe rank. **On my bar** zet de spell op een vrije knop van je balken.
+      **Never** laat die knoppen voortaan met rust (zie ook /mh ranks choose). **Not now** haalt de regel weg.
+- [ ] Muis op een naam → de spell-tooltip. Passen de knoppen om hun tekst (ook in een andere taal)?
+- [ ] In een gevecht is het lijstje weg; na het gevecht komt het terug. `/mh ranks list` opent het opnieuw.
+- [ ] Quiet helpers → "Ask after the trainer: which spells go on your bars" uit → geen lijstje meer.
+- [ ] **Meting (2 minuten)**: typ `/mh ranks watch`. Sleep dan een spell uit je spellbook op een knop — ook een
+      LAGERE rank (in het spellbook staan de oude ranks ook). Laat MH ook één knop upgraden (Upgrade in het lijstje of
+      bij de trainer). Maak een screenshot van de chatregels "MH ranks watch". Daarmee bouw ik "een knop die je zelf met de
+      hand neerzet, wordt niet vanzelf omhoog gezet".
+
 ## 💰 19 nov — Forever: rijen class quests, blauwe namen, je goud in "Do this now"
 
 `/reload` is genoeg.

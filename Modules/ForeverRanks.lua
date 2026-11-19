@@ -214,6 +214,13 @@ local function CursorEmpty()
 	return not (GetCursorInfo and GetCursorInfo())
 end
 
+-- Slots MH itself just changed (slot -> GetTime()), so the measurement for "placed by hand" (/mh ranks watch, 19 Nov
+-- 2026) can tell our own PlaceAction from the player's.
+local ours = {}
+local function MarkOurs(slot)
+	ours[slot] = GetTime and GetTime() or 0
+end
+
 --- Put the top rank on each button. Returns done, failed, reason.
 local function Replace(list)
 	if InCombatLockdown and InCombatLockdown() then
@@ -224,6 +231,7 @@ local function Replace(list)
 	end
 	local done, failed = 0, 0
 	for _, r in ipairs(list) do
+		MarkOurs(r.slot)
 		pcall(function()
 			ClearCursor()
 			if C_Spell and C_Spell.PickupSpell then
@@ -450,6 +458,7 @@ end
 -- After a learn: remember the new tops, then offer (or, with auto on, do) the upgrade of "just trained" buttons.
 local pending = false
 local said = {}
+local ShowLearnList -- forward: the small "just learned" list (19 Nov 2026), defined after the choice window
 local function AfterLearn()
 	pending = false
 	if InCombatLockdown and InCombatLockdown() then
@@ -458,12 +467,17 @@ local function AfterLearn()
 	end
 	UpdateTops()
 	local list = FreshOnly(Scan())
-	if #list > 0 then
+	if #list > 0 and Settings().auto then
+		Report(Replace(list))
+		for _, r in ipairs(list) do
+			fresh[r.name] = nil
+		end
+	end
+	-- The learn list asks per spell (it replaces the chat line below while it shows).
+	local listed = ShowLearnList and ShowLearnList()
+	if #list > 0 and not listed then
 		if Settings().auto then
-			Report(Replace(list))
-			for _, r in ipairs(list) do
-				fresh[r.name] = nil
-			end
+			-- done above
 		else
 			-- One chat line per spell and rank, not on every SPELLS_CHANGED.
 			local key = {}
@@ -950,11 +964,417 @@ function ns.ShowForeverRanks()
 	end
 end
 
---- /mh ranks [fix | auto on | auto off | glow on | glow off | choose]
+--------------------------------------------------------------------------------
+-- The "just learned" list (19 Nov 2026). Rob via sparring, letterlijk: "Ik denk dat hij bedoelde allebei ... En
+-- inderdaad, jouw overzicht ziet er goed uit, volg het maar en doe het maar." The survey player's wish (18 Nov): "I
+-- would like to choose which action bar spells I want to upgrade." After the trainer a small list asks, per spell:
+--   a new RANK of a spell on your bars  → "Upgrade" (those buttons) / "Not now" / "Never" (never touch those buttons)
+--   a NEW spell on no bar              → "On my bar" (a free visible Blizzard button) / "Not now" / "Never"
+-- Only what was trained this session, only out of combat (hidden in a fight, back after it), once per spell and rank.
+-- A switch in Quiet helpers (players choose; on by default): Settings().listOff == true = off. Style A, Escape and
+-- Shift+scroll via RegisterMidnightDialogPopup. With "auto" on, ranks are already done: the list has only new spells.
+--------------------------------------------------------------------------------
+local LW, LROW = 380, 26
+local lwin
+local asked = {} -- "r:<name>:<toIdx>" / "n:<id>" -> true: shown once this session
+local later = {} -- the same keys: "Not now" this session
+local sessionNew = {} -- spell id -> true: learned at a trainer this session (LEARNED_SPELL_IN_SKILL_LINE)
+local listWhy = "nothing learned yet this session"
+
+function ns.IsForeverLearnListOn()
+	return Settings().listOff ~= true
+end
+
+function ns.SetForeverLearnList(on)
+	-- Not `(not on) and true or nil`-style tricks: plain branches (lint [29]).
+	if on then
+		Settings().listOff = nil
+	else
+		Settings().listOff = true
+		if lwin then
+			lwin:Hide()
+		end
+	end
+end
+
+--- A free, visible button on Blizzard's bars: its action slot, or nil.
+local function FreeSlot()
+	if not HasAction then
+		return nil
+	end
+	for _, prefix in ipairs(BAR_PREFIXES_W) do
+		for i = 1, 12 do
+			local b = _G[prefix .. i]
+			if b and b.IsVisible and b:IsVisible() then
+				local s = b.action
+				if type(s) ~= "number" and ActionButton_GetPagedID then
+					local ok, v = pcall(ActionButton_GetPagedID, b)
+					s = ok and v or nil
+				end
+				if type(s) == "number" and s > 0 then
+					local ok, has = pcall(HasAction, s)
+					if ok and not has then
+						return s
+					end
+				end
+			end
+		end
+	end
+	return nil
+end
+
+--- The rows: rank rows grouped per spell (all its "just trained" buttons), then new spells on no bar.
+local function LearnRows()
+	local rows = {}
+	local by = {}
+	for _, r in ipairs(FreshOnly(Scan())) do
+		local k = "r:" .. r.name .. ":" .. r.toIdx
+		if not later[k] then
+			local g = by[k]
+			if not g then
+				g = { kind = "rank", key = k, name = r.name, fromIdx = r.fromIdx, toIdx = r.toIdx, list = {} }
+				by[k] = g
+				rows[#rows + 1] = g
+			end
+			g.list[#g.list + 1] = r
+		end
+	end
+	for _, s in ipairs(ns.ForeverNoBarList and ns.ForeverNoBarList() or {}) do
+		local k = "n:" .. s.id
+		if sessionNew[s.id] and not later[k] then
+			rows[#rows + 1] = { kind = "new", key = k, id = s.id, name = s.name }
+		end
+	end
+	return rows
+end
+
+local FillLearn -- forward
+
+local function LearnButton(parent, w)
+	local b = CreateFrame("Button", nil, parent, "UIPanelButtonTemplate")
+	b:SetSize(w, 20)
+	return b
+end
+
+local function LearnRow(f, i)
+	local r = f.rows[i]
+	if r then
+		return r
+	end
+	r = CreateFrame("Frame", nil, f)
+	r:SetSize(LW - 24, LROW)
+	r.never = LearnButton(r, 58)
+	r.never:SetPoint("RIGHT", 0, 0)
+	r.later = LearnButton(r, 66)
+	r.later:SetPoint("RIGHT", r.never, "LEFT", -3, 0)
+	r.yes = LearnButton(r, 78)
+	r.yes:SetPoint("RIGHT", r.later, "LEFT", -3, 0)
+	r.text = r:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	r.text:SetPoint("LEFT", 0, 0)
+	r.text:SetPoint("RIGHT", r.yes, "LEFT", -6, 0)
+	r.text:SetJustifyH("LEFT")
+	r.text:SetWordWrap(true)
+	-- The spell's own tooltip on the name (19 Nov 2026 tooltips wish).
+	r.hot = CreateFrame("Frame", nil, r)
+	r.hot:SetAllPoints(r.text)
+	r.hot:EnableMouse(true)
+	r.hot:SetScript("OnEnter", function(self)
+		if self.spell and GameTooltip then
+			GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+			if pcall(GameTooltip.SetSpellByID, GameTooltip, self.spell) then
+				GameTooltip:Show()
+			end
+		end
+	end)
+	r.hot:SetScript("OnLeave", function()
+		if GameTooltip then
+			GameTooltip:Hide()
+		end
+	end)
+	f.rows[i] = r
+	return r
+end
+
+local function BuildLearn()
+	if lwin then
+		return lwin
+	end
+	local f = CreateFrame("Frame", "MidnightHelperForeverLearnList", UIParent, "BackdropTemplate")
+	f:SetSize(LW, 100)
+	f:SetPoint("CENTER", 260, 120)
+	f:SetFrameStrata("DIALOG")
+	f:SetBackdrop({ bgFile = "Interface\\Buttons\\WHITE8X8", edgeFile = "Interface\\Buttons\\WHITE8X8", edgeSize = 1 })
+	f:EnableMouse(true)
+	f:SetMovable(true)
+	f:RegisterForDrag("LeftButton")
+	f:SetScript("OnDragStart", f.StartMoving)
+	f:SetScript("OnDragStop", f.StopMovingOrSizing)
+	f.title = f:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+	f.title:SetPoint("TOPLEFT", 12, -10)
+	f.title:SetPoint("RIGHT", f, "RIGHT", -28, 0)
+	f.title:SetJustifyH("LEFT")
+	local close = CreateFrame("Button", nil, f, "UIPanelCloseButton")
+	close:SetPoint("TOPRIGHT", 2, 2)
+	close:SetScale(0.8)
+	f.rows = {}
+	f.hint = f:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+	f.hint:SetPoint("BOTTOMLEFT", 12, 8)
+	f.hint:SetPoint("RIGHT", f, "RIGHT", -12, 0)
+	f.hint:SetJustifyH("LEFT")
+	if ns.ForeverStyle and ns.ForeverStyle.SkinOnShow then
+		ns.ForeverStyle.SkinOnShow(f)
+	end
+	if ns.RegisterMidnightDialogPopup then
+		ns.RegisterMidnightDialogPopup(f)
+	end
+	f:Hide()
+	lwin = f
+	return f
+end
+
+local function AfterChange()
+	if Refresh then
+		Refresh()
+	end
+	UpdateGlowsSoon()
+	if ns.RefreshHomePanel then
+		pcall(ns.RefreshHomePanel)
+	end
+	if ns.ForeverDoNowUpdate then
+		pcall(ns.ForeverDoNowUpdate)
+	end
+end
+
+FillLearn = function()
+	local f = lwin
+	if not (f and f:IsShown()) then
+		return 0
+	end
+	local rows = LearnRows()
+	f.title:SetText(ns:L("FRANK_LIST_TITLE"))
+	f.hint:SetText(ns:L("FRANK_LIST_HINT"))
+	local y = 32
+	for i, row in ipairs(rows) do
+		local r = LearnRow(f, i)
+		r:ClearAllPoints()
+		r:SetPoint("TOPLEFT", f, "TOPLEFT", 12, -y)
+		r.hot.spell = (row.kind == "rank" and row.list[1] and row.list[1].to) or row.id
+		r.later:SetText(ns:L("FRANK_LIST_LATER"))
+		r.never:SetText(ns:L("FRANK_LIST_NEVER"))
+		if row.kind == "rank" then
+			r.text:SetText(ns:L("FRANK_LIST_RANK_FMT"):format(row.name, row.fromIdx, row.toIdx, #row.list))
+			r.yes:SetText(ns:L("FRANK_LIST_UPGRADE"))
+			r.yes:SetScript("OnClick", function()
+				local done, failed, reason = Replace(row.list)
+				Report(done, failed, reason)
+				if done > 0 then
+					fresh[row.name] = nil
+				end
+				FillLearn()
+				AfterChange()
+			end)
+			r.never:SetScript("OnClick", function()
+				local e = Except()
+				for _, x in ipairs(row.list) do
+					e.buttons[ButtonKey(x.slot, x.name)] = true
+				end
+				FillLearn()
+				AfterChange()
+			end)
+		else
+			r.text:SetText(ns:L("FRANK_LIST_NEW_FMT"):format(row.name))
+			r.yes:SetText(ns:L("FRANK_LIST_ONBAR"))
+			r.yes:SetScript("OnClick", function()
+				if (InCombatLockdown and InCombatLockdown()) then
+					print(PREFIX .. ns:L("FRANK_COMBAT"))
+					return
+				end
+				if not CursorEmpty() then
+					print(PREFIX .. ns:L("FRANK_CURSOR"))
+					return
+				end
+				local slot = FreeSlot()
+				if not slot then
+					print(PREFIX .. ns:L("FRANK_LIST_NOSLOT"))
+					return
+				end
+				MarkOurs(slot)
+				pcall(function()
+					ClearCursor()
+					if C_Spell and C_Spell.PickupSpell then
+						C_Spell.PickupSpell(row.id)
+					else
+						PickupSpell(row.id)
+					end
+					PlaceAction(slot)
+					ClearCursor()
+				end)
+				pcall(ClearCursor)
+				if ns.ForeverNoBarForget then
+					ns.ForeverNoBarForget(row.id)
+				end
+				FillLearn()
+				AfterChange()
+			end)
+			r.never:SetScript("OnClick", function()
+				if ns.ForeverNoBarForget then
+					ns.ForeverNoBarForget(row.id, true)
+				end
+				FillLearn()
+				AfterChange()
+			end)
+		end
+		r.later:SetScript("OnClick", function()
+			later[row.key] = true
+			FillLearn()
+		end)
+		-- Each button as wide as its own text in this language (lint [28]'s lesson: no text wider than its box).
+		for _, b in ipairs({ r.yes, r.later, r.never }) do
+			local fs = b:GetFontString()
+			b:SetWidth(math.max(50, math.ceil(((fs and fs:GetStringWidth()) or 40) + 18)))
+		end
+		local h = math.max(LROW, (r.text:GetStringHeight() or 12) + 8)
+		r:SetHeight(h)
+		r:Show()
+		y = y + h + 2
+	end
+	for i = #rows + 1, #f.rows do
+		f.rows[i]:Hide()
+	end
+	if #rows == 0 then
+		f:Hide()
+		return 0
+	end
+	f:SetHeight(y + 8 + (f.hint:GetStringHeight() or 12) + 10)
+	return #rows
+end
+
+--- Show the list when there is something new to ask about. Returns true when it shows.
+ShowLearnList = function()
+	if not ns.IsForeverLearnListOn() then
+		listWhy = "switched off (Quiet helpers)"
+		return false
+	end
+	if InCombatLockdown and InCombatLockdown() then
+		listWhy = "in combat (comes after the fight)"
+		return false
+	end
+	local rows = LearnRows()
+	local new = false
+	for _, row in ipairs(rows) do
+		if not asked[row.key] then
+			new = true
+		end
+	end
+	if #rows == 0 then
+		listWhy = "nothing new to ask about"
+		if lwin then
+			lwin:Hide()
+		end
+		return false
+	end
+	if not new and not (lwin and lwin:IsShown()) then
+		listWhy = "already asked this session (Not now / closed)"
+		return false
+	end
+	for _, row in ipairs(rows) do
+		asked[row.key] = true
+	end
+	local f = BuildLearn()
+	f:Show()
+	local n = FillLearn()
+	listWhy = ("shown with %d row(s)"):format(n or 0)
+	return (n or 0) > 0
+end
+
+-- Learned at a trainer this session; hidden in a fight, back after it.
+local lev = CreateFrame("Frame")
+pcall(lev.RegisterEvent, lev, "LEARNED_SPELL_IN_SKILL_LINE")
+pcall(lev.RegisterEvent, lev, "PLAYER_REGEN_DISABLED")
+pcall(lev.RegisterEvent, lev, "PLAYER_REGEN_ENABLED")
+local hiddenForFight = false
+lev:SetScript("OnEvent", function(_, event, spellID)
+	if event == "LEARNED_SPELL_IN_SKILL_LINE" then
+		if type(spellID) == "number" and not (issecretvalue and issecretvalue(spellID)) then
+			sessionNew[spellID] = true
+		end
+	elseif event == "PLAYER_REGEN_DISABLED" then
+		if lwin and lwin:IsShown() then
+			hiddenForFight = true
+			lwin:Hide()
+		end
+	elseif event == "PLAYER_REGEN_ENABLED" and hiddenForFight then
+		hiddenForFight = false
+		if lwin then
+			lwin:Show()
+			FillLearn()
+		end
+	end
+end)
+
+--------------------------------------------------------------------------------
+-- Measurement for "placed by hand" (Rob's assumption B, 19 Nov 2026: a button the player sets to a lower rank himself
+-- should not be upgraded again by itself). NOT built as a rule yet: how to tell the player's own drag from an addon's
+-- PlaceAction in Forever is not measured. /mh ranks watch logs, for 2 minutes, every changed slot with what it holds,
+-- whether MH placed it, and how long ago the cursor got a spell (an addon picks up and places in the same frame; a hand
+-- drag takes longer — AFGELEID, this log is meant to measure exactly that).
+--------------------------------------------------------------------------------
+local watchUntil = 0
+local lastCursor -- { t, kind, a, b, c }
+local wev = CreateFrame("Frame")
+pcall(wev.RegisterEvent, wev, "CURSOR_CHANGED")
+pcall(wev.RegisterEvent, wev, "ACTIONBAR_SLOT_CHANGED")
+wev:SetScript("OnEvent", function(_, event, slot)
+	local now = GetTime and GetTime() or 0
+	if now > watchUntil then
+		return
+	end
+	if event == "CURSOR_CHANGED" then
+		local kind, a, b, c = GetCursorInfo()
+		if kind then
+			lastCursor = { t = now, kind = kind, a = a, b = b, c = c }
+		end
+		return
+	end
+	if type(slot) ~= "number" or slot <= 0 then
+		return
+	end
+	local ok, kind, id = pcall(GetActionInfo, slot)
+	local i = ok and type(id) == "number" and Info()[id]
+	local top = i and select(1, Top(i.list))
+	local mine = ours[slot] and (now - ours[slot]) < 1
+	print(("|cffffcc00MH ranks watch|r slot %d: %s %s%s; MH placed it: %s; cursor: %s"):format(slot, tostring(kind),
+		tostring(id), i and (" (" .. i.name .. " rank " .. i.idx .. ", you know " .. tostring(top) .. ")") or "",
+		mine and "yes" or "no",
+		lastCursor and ("%s %s/%s/%s, %.2f s before"):format(lastCursor.kind, tostring(lastCursor.a), tostring(lastCursor.b),
+			tostring(lastCursor.c), now - lastCursor.t) or "nothing seen"))
+end)
+
+--- /mh ranks [fix | auto on | auto off | glow on | glow off | choose | list | watch]
 function ns.ForeverRanksSlash(arg)
 	arg = (arg or ""):lower()
 	if arg == "choose" or arg == "window" then
 		ns.ShowForeverRanks()
+		return
+	end
+	if arg == "list" then
+		-- The "just learned" list again (also after "Not now" or closing it).
+		for k in pairs(later) do
+			later[k] = nil
+		end
+		local f = BuildLearn()
+		f:Show()
+		if (FillLearn() or 0) == 0 then
+			print(PREFIX .. ns:L("FRANK_LIST_EMPTY"))
+		end
+		return
+	end
+	if arg == "watch" then
+		watchUntil = (GetTime and GetTime() or 0) + 120
+		lastCursor = nil
+		print(PREFIX .. "ranks watch: 2 minutes. Drag a spell (also a LOWER rank from the spellbook) onto a button, let MH"
+			.. " upgrade one, and screenshot the lines. They say per slot what it holds, whether MH placed it, and how long"
+			.. " before the cursor held a spell.")
 		return
 	end
 	if arg == "glow on" or arg == "glow off" then
@@ -993,6 +1413,8 @@ function ns.ForeverRanksSlash(arg)
 	table.sort(btns)
 	print(("   never touched: bars %s; buttons (slot:spell) %s. Change them in /mh ranks choose."):format(
 		#bars > 0 and table.concat(bars, ", ") or "none", #btns > 0 and table.concat(btns, ", ") or "none"))
+	print(("   just-learned list: %s; last decision: %s (/mh ranks list opens it)"):format(
+		ns.IsForeverLearnListOn() and "on" or "off", listWhy))
 	for _, r in ipairs(list) do
 		local hi = ""
 		if C_ActionBar and C_ActionBar.IsHighestSpellRank then

@@ -1,5 +1,27 @@
 # Midnight Helper — waar we staan
 
+## ▶ 19 nov — Ranks A (lijstje na de trainer) GEBOUWD; B (met de hand neergezet) = eerst meten
+
+Rob via sparring, letterlijk: *"Ik denk dat hij bedoelde allebei. Dat wanneer hij eenmaal met de hand iets ergens
+neerzet, dat hij dat voorlopig niet zomaar geüpgrade wordt, denk ik. Dat is een aanname van mij. En inderdaad, jouw
+overzicht ziet er goed uit, volg het maar en doe het maar."* Bron: de vragenlijst-speler (18 nov): *"I would like to
+choose which action bar spells I want to upgrade."*
+- **A GEBOUWD** (`ForeverRanks.lua`, blok "The just learned list"): na `AfterLearn` (1 s na de SPELLS_CHANGED-golf) een
+  klein venster `MidnightHelperForeverLearnList` met per spell: nieuwe rank (gegroepeerd per spell, alle "just
+  trained" knoppen) → Upgrade / Not now / Never (Never = `Except().buttons`, dezelfde lijst als /mh ranks choose);
+  nieuwe spell zonder balk (`ns.ForeverNoBarList`, nieuw in `ForeverDoNow.lua`, alleen wat je DEZE sessie leerde via
+  LEARNED_SPELL_IN_SKILL_LINE) → On my bar (eerste vrije zichtbare Blizzard-knop, `FreeSlot`) / Not now / Never
+  (`ns.ForeverNoBarForget(id, true)`: naam per character in `ns.db.foreverNewSpellsNever`, ook "Do this now" vraagt
+  er dan niet meer naar). Eén keer per spell+rank per sessie; vervangt dan de chatregel; weg in een gevecht, terug
+  erna; stijl A, Shift+scroll, Escape; knoppen zo breed als hun tekst. Schakelaar Quiet helpers (standaard aan;
+  `Settings().listOff`). `/mh ranks list` opent het opnieuw; `/mh ranks` zegt de laatste beslissing. Teksten 12 × 7
+  talen (rank-woord = client, GEMETEN eerder vandaag). NIET in het spel gezien.
+- **B NIET als regel gebouwd** — hoe je in Forever "met de hand neergezet" betrouwbaar ziet is NIET gemeten. Er is nu
+  een meting: `/mh ranks watch` (2 min) print per veranderd slot: wat erop staat (+ rank / jouw hoogste), of MH het
+  zette (`ours`, gevuld in `Replace` en "On my bar"), en hoe lang geleden de cursor een spell kreeg (CURSOR_CHANGED,
+  GEMETEN dat Forever dat event kent in `tools/blizzard_events_snapshot.json`). AFGELEID idee: een addon pakt op en
+  zet neer in hetzelfde beeld, een mens sleept langer. Op Robs screenshot beslist: bouwen of niet.
+
 ## ▶ 19 nov — Robs test (3 screenshots) + reparatie class quests + blauwe namen + goud GEBOUWD
 
 Rob via sparring: *"dat ging helemaal goed"* — afgevinkt: Do this now spell-tooltip (Frost Armor), Class quests

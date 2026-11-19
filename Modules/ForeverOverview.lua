@@ -1231,6 +1231,10 @@ local QUIET = {
 	-- "Ja, zet hem standaard op uit" - he finds the round picture nicer); on = the 3D model.
 	Q("FOV_Q_PORTRAIT3D", "FOV_Q_PORTRAIT3D_DESC", DbFlag("foreverPortrait3D", false)),
 	KEY_SWITCHES[2], -- old-rank edge
+	-- 19 Nov 2026 (Rob: "volg het maar en doe het maar"): the "just learned" list after the trainer (ForeverRanks.lua).
+	Q("FRANK_LIST_SW", "FRANK_LIST_SW_DESC", {
+		get = function() return ns.IsForeverLearnListOn and ns.IsForeverLearnListOn() end,
+		set = function(on) if ns.SetForeverLearnList then ns.SetForeverLearnList(on) end end }),
 	-- 19 Nov 2026 (Rob via sparring: "Op beide vragen ja"): a door to the rank choice window, right under the old-rank
 	-- switch. An `action` entry: a button instead of an on/off chip (BuildQuietPage / FillQuietPage), and the search
 	-- bar opens the window itself.

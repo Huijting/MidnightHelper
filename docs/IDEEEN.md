@@ -261,6 +261,14 @@ lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met d
 - 1 lange namen passend: GEBOUWD 19 nov. 2 klein baaskaartje bij targeten (met schakelaar): GEBOUWD 19 nov. 3 model
   bij muis op een baasnaam: GEBOUWD 19 nov. Alle drie wachten op Robs test.
 
+### Forever: na de trainer per spell kiezen + met de hand neergezette rank met rust laten — ✅ JA 19 nov (A GEBOUWD)
+- Bron: de vragenlijst-speler (18 nov): *"I would like to choose which action bar spells I want to upgrade."* Rob 19 nov
+  (via Sparring 19-11), letterlijk: *"Ik denk dat hij bedoelde allebei. Dat wanneer hij eenmaal met de hand iets ergens
+  neerzet, dat hij dat voorlopig niet zomaar geüpgrade wordt, denk ik. Dat is een aanname van mij. En inderdaad, jouw
+  overzicht ziet er goed uit, volg het maar en doe het maar."* Spel: F. Voor wie: N + V.
+- A (lijstje "You just learned" na de trainer, met schakelaar): GEBOUWD 19 nov, wacht op Robs test.
+- B (met de hand neergezet = niet vanzelf omhoog): eerst meten met `/mh ranks watch` (TESTLIJST), dan bouwen.
+
 ### Forever: het rank-keuzevenster vindbaar maken — ✅ JA + GEBOUWD 19 nov (wacht op Robs test)
 - Bron: Rob 19 nov (via Sparring 19-11), letterlijk: *"Op beide vragen ja"* op: een knop in de instellingen van Forever
   + vindbaar via de zoekbalk op "rank"/"ranks" en het woord per taal. Spel: F. Voor wie: N + V.
