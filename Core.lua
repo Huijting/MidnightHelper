@@ -1529,6 +1529,15 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh thanks [on|off|test] — both games: thank a stranger for a buff with the THANK emote (ThanksBuff.lua, 19 Nov 2026).
+	local thanksArg = msg:match("^thanks%s*(.*)$")
+	if thanksArg then
+		if ns.ThanksBuffSlash then
+			ns.ThanksBuffSlash(thanksArg)
+		end
+		return
+	end
+
 	-- /mh overview — Forever: the new overview window, rough version of style A (ForeverOverview.lua, 17 Nov 2026).
 	-- /mh blesstip [on|off|set <class> <kind>|reset] — Forever paladin: blessing tip in the player tooltip (ForeverBlessTip.lua).
 	local blessArg = msg:match("^blesstip%s*(.*)$")

@@ -537,6 +537,13 @@ local function Build()
 	end, function(v)
 		if ns.SetLevelUpFireworks then ns.SetLevelUpFireworks(v) end
 	end)
+	-- 19 Nov 2026 (Rob, via sparring: "de vaste dingen die de andere addon ook heeft, niet in de whisper"): thank a
+	-- stranger for a buff with the game's THANK emote (ThanksBuff.lua), both games. Off by default.
+	Toggle("mh_thanksBuff", "SET_THANKS_TITLE", "SET_THANKS_DESC", function()
+		return ns.IsThanksBuffOn and ns.IsThanksBuffOn()
+	end, function(v)
+		if ns.SetThanksBuff then ns.SetThanksBuff(v) end
+	end, false)
 	-- 16 Nov 2026 (Rob, via sparring: "beide ja"): "Camera further away" (CameraZoom.lua), retail and Forever.
 	-- Not in the Recommended preset: it changes a game setting, and that is the player's choice.
 	Toggle("mh_cameraFar", "SET_CAMERAFAR_TITLE", "SET_CAMERAFAR_DESC", function()

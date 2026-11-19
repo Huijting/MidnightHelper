@@ -5146,6 +5146,13 @@ ns._mhLocales.enUS = {
 	FUSE_MORE_FMT = " (+%d more)",
 	FUSE_ON = "\"used for\" tooltip line on: hover an item to see which profession uses it.",
 	FUSE_OFF = "\"used for\" tooltip line off. /mh usedfor on brings it back.",
+	-- 19 Nov 2026: thank a stranger for a buff with the game's emote (ThanksBuff.lua), both games.
+	SET_THANKS_TITLE = "Thank strangers for a buff",
+	SET_THANKS_DESC = "When a player outside your group gives you a buff, you thank them with the game's own emote (\"You thank …\"). Never in combat or in a dungeon, and once an hour per player. No whisper. Stays silent when Thanks for the Buff is on.",
+	THANKS_ON = "thanking strangers for a buff: on. You thank them with the game's emote.",
+	THANKS_OFF = "thanking strangers for a buff: off. /mh thanks on brings it back.",
+	THANKS_TEST_NOTARGET = "target a friendly player first, then type /mh thanks test.",
+	CMDLIST_THANKS = "Thank a stranger for a buff with the game's emote (on, off, test).",
 	FQH_NO_LIST_FMT = "No stat list for your class yet. %s sells for the most.",
 	FQH_SELL_FMT = "None of these is better for you than what you wear. %s sells for the most (%s).",
 	-- 7 Nov 2026: the trainer window (ForeverTrainer.lua), translatable from today.

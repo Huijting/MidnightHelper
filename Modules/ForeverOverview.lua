@@ -1215,6 +1215,10 @@ local QUIET = {
 	Q("FCQWIN_SW", "FCQWIN_SW_DESC", {
 		get = function() return ns.IsForeverCQWindowOn and ns.IsForeverCQWindowOn() end,
 		set = function(on) if ns.SetForeverCQWindow then ns.SetForeverCQWindow(on) end end }),
+	-- 19 Nov 2026: thank a stranger for a buff with the game's emote (ThanksBuff.lua). Same setting as /mh thanks.
+	Q("SET_THANKS_TITLE", "SET_THANKS_DESC", {
+		get = function() return ns.IsThanksBuffOn and ns.IsThanksBuffOn() end,
+		set = function(on) if ns.SetThanksBuff then ns.SetThanksBuff(on) end end }),
 	Q("FBLESS_BTN_SW", "FBLESS_BTN_SW_DESC", {
 		get = function() return ns.IsForeverSmartBlessOn and ns.IsForeverSmartBlessOn() end,
 		set = function(on) if ns.SetForeverSmartBless then ns.SetForeverSmartBless(on) end end }),

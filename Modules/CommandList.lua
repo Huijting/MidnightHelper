@@ -185,6 +185,8 @@ ns.MH_COMMANDS = {
 		{ cmd = "/mh survey", descKey = "CMDLIST_SURVEY" },
 		-- 16 Nov 2026: "Camera further away" (CameraZoom.lua); on/off are listed in its description.
 		{ cmd = "/mh camera", descKey = "CMDLIST_CAMERA" },
+		-- 19 Nov 2026: thank a stranger for a buff with the game's emote (ThanksBuff.lua).
+		{ cmd = "/mh thanks", descKey = "CMDLIST_THANKS" },
 	} },
 	{ headKey = "CMDLIST_GRP_WEEK", items = {
 		{ cmd = "/mh milestones", descKey = "CMDLIST_MILESTONES" },

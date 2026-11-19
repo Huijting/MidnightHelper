@@ -213,6 +213,8 @@ Modules\SupportReport.lua
 Modules\ForeverSurvey.lua
 # "Camera further away", retail and Forever (Rob, 16 Nov 2026, via sparring: "beide ja").
 Modules\CameraZoom.lua
+# Thank a stranger for a buff with the game's emote (Rob, 19 Nov 2026, via sparring: "de vaste dingen ... niet in de whisper").
+Modules\ThanksBuff.lua
 # Tooltip lines "never for your class" + "needed for a quest in your log" (Rob, 16 Nov 2026, via sparring: "allemaal").
 Modules\ForeverItemTips.lua
 # Class quests step by step, first the Druid's Bear Form (Rob, 16 Nov 2026, via sparring).

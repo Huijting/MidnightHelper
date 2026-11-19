@@ -37,7 +37,15 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
   (r. 29 `if not ns.IS_FOREVER`); UI.lua heeft al `LOOK_PALETTE` (r. 220) + schakelaar Classic/nieuw; 4 kamers, 24
   tabbladen. Spel: M. Voor wie: N + V (AFGELEID). ⏳ Na de reset: Rob kiest opnieuw.
 
-### Bedanken voor een buff (zoals "Thanks for the Buff") (NOG GEEN JA)
+### Bedanken voor een buff (zoals "Thanks for the Buff") — ✅ JA + GEBOUWD 19 nov (wacht op Robs test)
+- Rob 19 nov (via sparring), letterlijk: *"3 wil ik wel hebben, maar daar hebben we het dan wel over"* → *"Ik wil dan
+  iets hebben als mijn naam bedankt je voor de buff naam, enjoy the game"* → na de uitleg definitief: *"Nee dan de
+  manier met de vaste dingen die de andere addon ook heeft, niet in de whisper"*. Dus stand (3): automatisch de
+  spel-emote THANK, geen whisper, geen eigen tekst (de "enjoy the game"-zin vervalt).
+- Gebouwd: `Modules/ThanksBuff.lua` (beide spellen, NIEUW bestand → spel helemaal herstarten). Schakelaar standaard UIT
+  (Midnight-instellingen `mh_thanksBuff` + Quiet helpers in Forever), `/mh thanks on|off|test`. Zwijgt als TFTB geladen
+  is. TFTB-licentie: GEMETEN geen LICENSE-bestand en niets in de README → alleen het idee/de API-aanpak, eigen code.
+- Hieronder het onderzoek van 17 nov (ongewijzigd).
 - Bron: Rob 17 nov (via Sparring 17-11), letterlijk: *"Wat me opvalt is, als ik sommige mensen een buff geef tijdens het
   passeren, dan bedanken ze me direct. Is dat een auto-reply of een iets? ... Kan je dat voor mij nakijken? Dat ik dat
   ook kan maken?"* en daarna: *"Ik volg jouw advies en zet dat thank you idee maar eventjes op de ideeënlijst.

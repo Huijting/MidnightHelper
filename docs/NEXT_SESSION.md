@@ -64,6 +64,16 @@ Rob via sparring, letterlijk: *"Laten we dat vanaf zaterdag wanneer de reset is 
   Escape). Kruisje = weg tot de stap verandert; Escape = weg tot de volgende update (bewust: Escape sluit álle MH-vensters).
   Schakelaar Quiet helpers `FCQWIN_SW`, standaard AAN (`ns.db.foreverCQWindow ~= false`). `/mh classquest` print de
   beslissing. Teksten 7 talen. Staat in de 5.6.0-tekst. NIET in het spel gezien.
+- 🙏 **Vreemden bedanken voor een buff GEBOUWD** (Rob: *"Nee dan de manier met de vaste dingen die de andere addon ook
+  heeft, niet in de whisper"*). `Modules/ThanksBuff.lua` (NIEUW, in beide toc's → Rob moet WoW herstarten). UNIT_AURA
+  (player) addedAuras → gever via `sourceUnit` of `C_UnitAuras.GetAuraCasterGUID`; alleen spelers, niet jezelf, geen
+  groep/ignore/onvriendelijk, niet in combat/instance, 10 s pauze na een laadscherm, 1 u per speler. Emote THANK via
+  `C_ChatInfo.PerformEmote(unit of naam)` (DoEmote als terugval); nooit zonder doel (dan zou je je target bedanken).
+  TFTB geladen → zwijgt. Schakelaar standaard UIT: `mh_thanksBuff` (SettingsDefs, Screen) + Quiet helpers (Forever).
+  `/mh thanks [on|off|test]`: aan/uit, TFTB, API's, tellers, laatste beslissing; `test` = emote naar je target.
+  TFTB-code NIET gekopieerd (geen licentie gevonden). NIET gemeten: gever leesbaar bij een vreemde; PerformEmote met
+  unit of naam; retail chat-lockdown. Teksten 7 talen; het woord "buff" in de/fr/es/pt/it is niet tegen de client
+  gemeten (game-term-regel) — nalopen. Niet in 5.6.0 (die is al uit).
 - 🚀 **5.6.0 STAAT OP CURSEFORGE** (Rob via sparring, letterlijk: *"Go voor release."*). Tag v5.6.0 = cf06c1e; run
   44520447351 geslaagd (CF, Wago, GitHub "Success!" voor beide zips). CF-API GEMETEN: 9699302 (retail) en 9699316
   (forever), status 4. CURSEFORGE_DESCRIPTION.md bijgewerkt (ceced4f); Rob plakt hem zelf. SITE_SEIN bijgewerkt.
