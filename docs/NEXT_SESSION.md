@@ -54,9 +54,9 @@
   Escape). Kruisje = weg tot de stap verandert; Escape = weg tot de volgende update (bewust: Escape sluit álle MH-vensters).
   Schakelaar Quiet helpers `FCQWIN_SW`, standaard AAN (`ns.db.foreverCQWindow ~= false`). `/mh classquest` print de
   beslissing. Teksten 7 talen. Staat in de 5.6.0-tekst. NIET in het spel gezien.
-- 🚀 **5.6.0 GETAGD** (Rob via sparring, letterlijk: *"Go voor release."*). CURSEFORGE_DESCRIPTION.md eerst bijgewerkt
-  (ceced4f; Rob plakt hem). Na de tag: release-run nakijken, en SITE_SEIN op "staat op CurseForge" zodra de CF-API
-  beide bestanden toont (`MidnightHelper-v5.6.0.zip` en `-forever.zip`).
+- 🚀 **5.6.0 STAAT OP CURSEFORGE** (Rob via sparring, letterlijk: *"Go voor release."*). Tag v5.6.0 = cf06c1e; run
+  44520447351 geslaagd (CF, Wago, GitHub "Success!" voor beide zips). CF-API GEMETEN: 9699302 (retail) en 9699316
+  (forever), status 4. CURSEFORGE_DESCRIPTION.md bijgewerkt (ceced4f); Rob plakt hem zelf. SITE_SEIN bijgewerkt.
 - 📦 (eerder) **RELEASE 5.6.0 KLAARGEZET, GEEN TAG** (Rob via sparring: *"Ja, de bouwchat mag alles klaarzetten."*). Beide toc's
   5.6.0; `Changelog.lua` + `CHANGELOG_560_1..7` (enUS); `RELEASE_NOTES.md` = `docs/CURSEFORGE_5.6.0.md` (byte-gelijk
   GEMETEN); `CHANGELOG.md`; SITE_SEIN-regel "alleen op main". Het concept `CURSEFORGE_DRAFT_volgende.md` is verwerkt.
