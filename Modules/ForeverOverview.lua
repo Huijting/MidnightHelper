@@ -3402,6 +3402,13 @@ local function FillProfsPage(f, refresh)
 			end
 		end
 	end
+	-- 19 Nov 2026 (Rob: "En dat comprehensive kaartje"): a mage gets Comprehension, the mage-only scroll skill
+	-- (SkillLine 3012), as the last row. GetProfessions does not list class skills, so its card says whether you know
+	-- Comprehend Scroll instead of a skill bar (ForeverProfGuide.lua CompCard).
+	local isMage = select(2, UnitClass("player")) == "MAGE"
+	if isMage and ns.ForeverCompName then
+		order[#order + 1] = { "COMPREHENSION", 3012, ns.ForeverCompName() }
+	end
 	local sel = f.prof
 	if not sel or not (function()
 		for _, p in ipairs(order) do
@@ -3418,7 +3425,7 @@ local function FillProfsPage(f, refresh)
 		local p = order[i]
 		if p then
 			local m = mine[p[1]]
-			row.t:SetText(ns.ForeverProfName and ns.ForeverProfName(p[1], mine) or p[3])
+			row.t:SetText((p[1] == "COMPREHENSION" and p[3]) or (ns.ForeverProfName and ns.ForeverProfName(p[1], mine)) or p[3])
 			row.col = m and A.gold or A.text
 			row.t:SetTextColor(row.col[1], row.col[2], row.col[3])
 			row.skill:SetText(m and m.rank and m.maxRank and ("%d/%d"):format(m.rank, m.maxRank) or "")
@@ -3436,13 +3443,26 @@ local function FillProfsPage(f, refresh)
 		return
 	end
 	local m = mine[sel]
-	local name = ns.ForeverProfName and ns.ForeverProfName(sel, mine) or sel
+	local comp = sel == "COMPREHENSION"
+	local name = comp and (ns.ForeverCompName and ns.ForeverCompName() or "Comprehension")
+		or (ns.ForeverProfName and ns.ForeverProfName(sel, mine) or sel)
 	card.label:SetText(name:upper())
 	card.trainers:SetScript("OnClick", function()
-		ns.ShowForeverFind("prof", sel)
+		-- Comprehend Scroll is taught by your CLASS trainer: the class row of Find.
+		if comp then
+			ns.ShowForeverFind("class")
+		else
+			ns.ShowForeverFind("prof", sel)
+		end
 	end)
 	-- Your skill and its bar; a profession you do not have says so.
-	if m and m.rank and m.maxRank and m.maxRank > 0 then
+	if comp then
+		-- No skill bar: the client does not give a class skill through GetProfessions. The card says it instead.
+		card.skill:SetText(ns:L(ns.ForeverKnowsComprehend and ns.ForeverKnowsComprehend() and "FPROFG_COMP_SKILL_KNOWN"
+			or "FPROFG_COMP_SKILL_NOT"))
+		card.barBg:Hide()
+		card.barFill:Hide()
+	elseif m and m.rank and m.maxRank and m.maxRank > 0 then
 		card.skill:SetText(ns:L("FOV_PROF_SKILL_FMT"):format(m.rank, m.maxRank))
 		card.barFill:SetColorTexture(r, g, b, 0.9)
 		card.barFill:SetWidth(math.max(1, ((card.barBg:GetWidth() or 0) > 0 and card.barBg:GetWidth() or 300)

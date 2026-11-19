@@ -15,7 +15,8 @@ local _, ns = ...
 	    tooltip), a tool line for Leatherworking ("none in the recipes measured") and First Aid, the tool NAMES for
 	    Enchanting and Engineering (their localized names were not measured), and Cooking's campfire (that is Camping,
 	    version B).
-	  - Not in this version: Camping, which profession fits a direction, Comprehension, Poisons, recipes.
+	  - Not in this version: Camping, which profession fits a direction, Poisons, recipes. (Comprehension: since 19 Nov
+	    2026, CompCard below, mages only.)
 	The trainer-title note (a "Journeyman" trainer teaches up to 75) is GEMETEN in ForeverProfTrainerSpots.lua's own
 	notes (Wowhead, 8 Nov) and the research (Kylanna Windwhisper).
 	Names the player sees: professions through ns.ForeverProfName (the client's own), tools through the vendor list
@@ -75,8 +76,105 @@ function ns.ForeverPrimaryCount()
 	return byKey, ("slots %d = skill lines %d"):format(bySlot, byKey)
 end
 
+--------------------------------------------------------------------------------
+-- Comprehension, the mage's own scroll skill (19 Nov 2026; Rob via sparring: "En dat comprehensive kaartje. Ik heb
+-- inmiddels inderdaad de knop gevonden. Maar dit verrast mij. En ik heb het ook nergens bij ons in onze add-on gezien.").
+-- Only what is MEASURED (GEMETEN Forever DB2 1.60.1.70959 unless said): SkillLine 3012, mage only, from level 6
+-- (SkillRaceClassInfo 2551); Comprehend Scroll 1296017 at the mage trainer, level 6 (MH's trainer data); 17 untranslated
+-- scrolls with RequiredSkill 3012 at skill 1 / 15 / 50 / 175 (ItemSparse, list below); Study 1302508: a library, a
+-- Light Feather, 1 hour (Wowhead tooltip, docs/forever/BEROEPEN_2026-11-12.md). The General tab of the spellbook: where
+-- Rob found it (his report, 19 Nov). Left out: what each scroll does, the decipher time (sources disagree; DB2 cast
+-- index 1), how fast the skill rises, and which city has a library (one guide only).
+--------------------------------------------------------------------------------
+ns.FOREVER_COMP_SCROLLS = { 211780, 211785, 211786, 211787, 211784, 211853, 211854, 211855, 213543, 213544, 213545,
+	213546, 213547, 281015, 281016, 281017, 281018 }
+ns.FOREVER_COMP_SPELLS = { 1296017, 1309965, 1309973, 1310029, 1310030 } -- Comprehend Scroll, every id (ForeverSpellIds)
+
+function ns.ForeverKnowsComprehend()
+	for _, id in ipairs(ns.FOREVER_COMP_SPELLS) do
+		if IsPlayerSpell and select(2, pcall(IsPlayerSpell, id)) == true then
+			return true
+		end
+		if IsSpellKnown and select(2, pcall(IsSpellKnown, id)) == true then
+			return true
+		end
+	end
+	return false
+end
+
+--- How many untranslated scrolls are in your bags, and the first one's id.
+function ns.ForeverCompScrollsCarried()
+	local fn = (C_Item and C_Item.GetItemCount) or GetItemCount
+	if not fn then
+		return 0
+	end
+	local n, first = 0, nil
+	for _, id in ipairs(ns.FOREVER_COMP_SCROLLS) do
+		local ok, c = pcall(fn, id)
+		c = ok and tonumber(c) or 0
+		if c > 0 then
+			n = n + c
+			first = first or id
+		end
+	end
+	return n, first
+end
+
+--- The skill's name as this client shows it (C_TradeSkillUI, like ForeverProfName), English when it does not say.
+function ns.ForeverCompName()
+	if C_TradeSkillUI and C_TradeSkillUI.GetTradeSkillDisplayName then
+		local ok, nm = pcall(C_TradeSkillUI.GetTradeSkillDisplayName, 3012)
+		if ok and type(nm) == "string" and nm ~= "" and not (issecretvalue and issecretvalue(nm)) then
+			return nm
+		end
+	end
+	return "Comprehension"
+end
+
+--- The name of the spellbook's first tab as this client shows it (Rob found the spell in "General"), else GENERAL.
+function ns.ForeverSpellbookGeneralTab()
+	if C_SpellBook and C_SpellBook.GetSpellBookSkillLineInfo then
+		local ok, line = pcall(C_SpellBook.GetSpellBookSkillLineInfo, 1)
+		local nm = ok and type(line) == "table" and line.name
+		if type(nm) == "string" and nm ~= "" and not (issecretvalue and issecretvalue(nm)) then
+			return nm
+		end
+	end
+	return (type(GENERAL) == "string" and GENERAL ~= "" and GENERAL) or "General"
+end
+
+local function CompCard()
+	local spell = (C_Spell and C_Spell.GetSpellName and C_Spell.GetSpellName(1296017)) or "Comprehend Scroll"
+	-- The example scroll by its client name (item 211780, GEMETEN ItemSparse: "Scroll: KWYJIBO" in English).
+	local example = (C_Item and C_Item.GetItemNameByID and C_Item.GetItemNameByID(211780)) or "Scroll: KWYJIBO"
+	local L = { ns:L("FPROFG_COMP_DOES_FMT"):format(example) }
+	if ns.ForeverKnowsComprehend() then
+		L[#L + 1] = ns:L("FPROFG_COMP_KNOWN_FMT"):format(spell)
+	else
+		L[#L + 1] = ns:L("FPROFG_COMP_LEARN_FMT"):format(spell)
+	end
+	L[#L + 1] = ns:L("FPROFG_COMP_USE_FMT"):format(spell, ns.ForeverSpellbookGeneralTab())
+	L[#L + 1] = ns:L("FPROFG_COMP_TIERS")
+	local study = (C_Spell and C_Spell.GetSpellName and C_Spell.GetSpellName(1302508)) or "Study"
+	-- Light Feather = item 17056 (GEMETEN ItemSparse); its name from the client, English until it is cached.
+	local feather = (C_Item and C_Item.GetItemNameByID and C_Item.GetItemNameByID(17056)) or "Light Feather"
+	L[#L + 1] = ns:L("FPROFG_COMP_STUDY_FMT"):format(study, feather)
+	local n = ns.ForeverCompScrollsCarried()
+	if n > 0 then
+		L[#L + 1] = "|cff8fd47a" .. ns:L("FPROFG_COMP_CARRY_FMT"):format(n) .. "|r"
+	end
+	local out = {}
+	for i, s in ipairs(L) do
+		out[#out + 1] = (i == 1) and (HEAD .. s .. "|r") or ("- " .. s)
+	end
+	return table.concat(out, "\n")
+end
+
 --- The card text for one profession, and the vendor key for its tool (or nil).
 function ns.ForeverProfCard(key)
+	if key == "COMPREHENSION" then
+		return CompCard(), nil
+	end
 	local info = INFO[key]
 	if not info then
 		return nil

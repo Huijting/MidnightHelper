@@ -46,6 +46,16 @@ achternaam, "Step aside"-instelling, Your path, Set focus). Daarna vond Rob nog:
       hoofdstad met de mount-run of de reisplanner). Muis op het icoontje → de tooltip van het spel (van de Hearthstone,
       de toy of de mage-teleport). Klikken werkt nog net als eerst.
 
+## 📜 19 nov — Forever (mage): Comprehension uitgelegd + regel in "Do this now"
+
+`/reload` is genoeg. Met je mage.
+- [ ] Overzicht → **Professions**: onderaan de lijst staat "Comprehension". Klik → het kaartje legt uit wat het is,
+      of je de spell kent, waar hij in je spellboek staat, de drempels 1/15/50/175 en Study.
+- [ ] Draag je een onvertaalde scroll (bv. "Scroll: KWYJIBO")? Dan staat er in **Do this now**: "You carry 1
+      untranslated scroll(s): use Comprehend Scroll on it (General tab of your spellbook)." Muis op de spellnaam →
+      tooltip.
+- [ ] Klopt de tabnaam ("General") met jouw spellboek?
+
 ## 🌀 19 nov — Forever: Windshaper-shaman en The Tempest's Weapons
 
 - [ ] Een Windshaper (Skyborne, Horde) shaman op level 30 met Call of Air gedaan: "Your class" / "Do this now" noemt

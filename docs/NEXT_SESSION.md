@@ -8,7 +8,19 @@
 - **4a. Windshaper-shaman**: Skyborne in de rassen van de Horde-keten The Tempest's Weapons (`ForeverClassQuests.lua`).
   `MyChains` vergelijkt `c.races[race]` en `RaceToken()` geeft "Skyborne" (GEMETEN) → geen MyChains-wijziging nodig.
 - **4b.** Geen aparte level-up-melding voor wapenquests: in IDEEEN als NEE, met de reden.
-- Nog te doen van de vier: 2 (Comprehension-kaartje + Do this now-regel) en 3 (slimme zegen-knop).
+- **2. Comprehension GEBOUWD**: overzicht → Professions krijgt voor een mage een laatste regel "Comprehension"
+  (naam via `C_TradeSkillUI.GetTradeSkillDisplayName(3012)`, anders Engels) met een kaartje (`ForeverProfGuide.lua`
+  `CompCard`): wat het is, of je Comprehend Scroll kent / leer hem bij je mage-trainer vanaf 6, gebruik hem op de
+  scroll (tab = naam van de eerste spellbook-tab uit de client, anders `GENERAL`), drempels 1/15/50/175 en 17 scrolls,
+  Study (bibliotheek, Light Feather, 1 uur) en hoeveel scrolls je bij je hebt. Geen skillbalk: `GetProfessions` geeft
+  geen klasse-skills (GEMETEN ForeverTrainer.lua:942). De knop "trainers" opent de class-trainer-regel van Find.
+  "Do this now": een onvertaalde scroll in je tas → "use Comprehend Scroll on it (General tab …)" of, zonder de spell
+  en level ≥6, "learn … at your mage trainer" (eigen soort `comp`, anders vouwt de Now-kaart hem weg).
+  GEMETEN (Forever DB2 1.60.1.70959): de 17 scrolls (ItemSparse RequiredSkill 3012: 211780, 211784-211787, 211853-211855,
+  213543-213547, 281015-281018), Comprehend Scroll-id's (ForeverSpellIds), Light Feather 17056, voorbeeld 211780.
+  NIET gezegd (niet gemeten/oneens): wat een scroll doet, de ontcijfertijd (DB2 cast-index 1), hoe snel de skill stijgt,
+  welke stad een bibliotheek heeft. Item- en spellnamen komen uit de client. Teksten 7 talen. NIET in het spel gezien.
+- Nog te doen van de vier: 3 (slimme zegen-knop). Daarna: receptnaam in "Used for" (Rob: *"ja graag"*).
 - Open en los hiervan: Scroll of Protection — GEMETEN: Enchanting-recept "Tenets of the Silver Hand" (1248754) gebruikt
   5× item 3013; de regel klopt. Voorstel "noem het recept" ligt bij Rob.
 

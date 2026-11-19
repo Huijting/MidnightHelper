@@ -505,6 +505,18 @@ for k, v in pairs({
 	FRANK_CHOOSE_TITLE = "Wähle, welche Zauber einen neuen Rang bekommen",
 	FRANK_CHOOSE_DESC = "Öffnet ein Fenster: hak an, welche Knöpfe und Leisten MH auf deinen höchsten Rang setzen darf und welche nie. Dasselbe wie Umschalt-Klick auf den Knopf beim Lehrer oder /mh ranks choose.",
 	FRANK_CHOOSE_KEYS = "rang ränge zauber leisten knöpfe verbessern rank",
+	-- 19 Nov 2026: the Comprehension card (mages only). %s = client names. Our own translation.
+	FPROFG_COMP_DOES_FMT = "Eine Fertigkeit, die nur Magier haben: Sie liest alte Schriftrollen mit seltsamen Namen, etwa \"%s\".",
+	FPROFG_COMP_KNOWN_FMT = "Du kennst %s.",
+	FPROFG_COMP_LEARN_FMT = "Lerne %s bei deinem Magierlehrer, ab Stufe 6.",
+	FPROFG_COMP_USE_FMT = "Benutze %s auf so eine Schriftrolle in deinen Taschen, um sie zu lesen. Der Zauber steht im Reiter %s deines Zauberbuchs.",
+	FPROFG_COMP_TIERS = "Jede Schriftrolle braucht eine Fertigkeit von 1, 15, 50 oder 175. Es gibt 17 solcher Schriftrollen.",
+	FPROFG_COMP_STUDY_FMT = "%s (aus einer Magier-Klassenquest) gibt ein Bündel Schriftrollen: nur in einer Bibliothek, es kostet eine %s, danach wartest du 1 Stunde.",
+	FPROFG_COMP_CARRY_FMT = "Du trägst jetzt %d unübersetzte Schriftrolle(n).",
+	FPROFG_COMP_SKILL_KNOWN = "Du hast den Schriftrollen-Zauber.",
+	FPROFG_COMP_SKILL_NOT = "Du hast den Schriftrollen-Zauber noch nicht.",
+	FDONOW_COMP_USE_FMT = "Du trägst %d unübersetzte Schriftrolle(n): Benutze %s darauf (Reiter %s deines Zauberbuchs).",
+	FDONOW_COMP_LEARN_FMT = "Du trägst %d unübersetzte Schriftrolle(n): Lerne %s bei deinem Magierlehrer, um sie zu lesen.",
 	-- 19 Nov 2026: a buff that runs out soon. Our own translation.
 	MBUFF_TXT_EXPIRING = "LÄUFT AB",
 	MBUFF_TXT_EXPIRING_SAY = "%s läuft bald ab.",

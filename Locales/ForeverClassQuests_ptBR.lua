@@ -708,6 +708,18 @@ for k, v in pairs({
 	FRANK_CHOOSE_TITLE = "Escolha quais feitiços recebem um grau novo",
 	FRANK_CHOOSE_DESC = "Abre uma janela: marque quais botões e barras o MH pode colocar no seu grau mais alto, e quais ele nunca deve tocar. O mesmo que Shift-clique no botão do instrutor, ou /mh ranks choose.",
 	FRANK_CHOOSE_KEYS = "grau graus feitiços barras botões melhorar rank",
+	-- 19 Nov 2026: the Comprehension card (mages only). %s = client names. Our own translation.
+	FPROFG_COMP_DOES_FMT = "Uma habilidade que só os magos têm: lê pergaminhos antigos com nomes estranhos, como \"%s\".",
+	FPROFG_COMP_KNOWN_FMT = "Você conhece %s.",
+	FPROFG_COMP_LEARN_FMT = "Aprenda %s com o seu instrutor de magos, a partir do nível 6.",
+	FPROFG_COMP_USE_FMT = "Use %s num desses pergaminhos das suas bolsas para lê-lo. O feitiço fica na aba %s do seu grimório.",
+	FPROFG_COMP_TIERS = "Cada pergaminho pede uma habilidade de 1, 15, 50 ou 175. Existem 17 desses pergaminhos.",
+	FPROFG_COMP_STUDY_FMT = "%s (de uma missão de classe de mago) dá um pacote de pergaminhos: só numa biblioteca, custa uma %s e depois você espera 1 hora.",
+	FPROFG_COMP_CARRY_FMT = "Agora você carrega %d pergaminho(s) não traduzido(s).",
+	FPROFG_COMP_SKILL_KNOWN = "Você tem o feitiço dos pergaminhos.",
+	FPROFG_COMP_SKILL_NOT = "Você ainda não tem o feitiço dos pergaminhos.",
+	FDONOW_COMP_USE_FMT = "Você carrega %d pergaminho(s) não traduzido(s): use %s nele (aba %s do seu grimório).",
+	FDONOW_COMP_LEARN_FMT = "Você carrega %d pergaminho(s) não traduzido(s): aprenda %s com o seu instrutor de magos para lê-lo.",
 	-- 19 Nov 2026: a buff that runs out soon. Our own translation.
 	MBUFF_TXT_EXPIRING = "ACABANDO",
 	MBUFF_TXT_EXPIRING_SAY = "%s acaba em breve.",

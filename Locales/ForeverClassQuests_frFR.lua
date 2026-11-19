@@ -507,6 +507,18 @@ for k, v in pairs({
 	FRANK_CHOOSE_TITLE = "Choisir quels sorts passent à un nouveau rang",
 	FRANK_CHOOSE_DESC = "Ouvre une fenêtre : coche les boutons et les barres que MH peut mettre à ton rang le plus élevé, et ceux qu'il ne doit jamais toucher. Pareil que Maj-clic sur le bouton chez le maître, ou /mh ranks choose.",
 	FRANK_CHOOSE_KEYS = "rang rangs sorts barres boutons améliorer rank",
+	-- 19 Nov 2026: the Comprehension card (mages only). %s = client names. Our own translation.
+	FPROFG_COMP_DOES_FMT = "Une compétence que seuls les mages ont : elle lit de vieux parchemins aux noms étranges, comme « %s ».",
+	FPROFG_COMP_KNOWN_FMT = "Tu connais %s.",
+	FPROFG_COMP_LEARN_FMT = "Apprends %s auprès de ton maître des mages, à partir du niveau 6.",
+	FPROFG_COMP_USE_FMT = "Utilise %s sur un tel parchemin dans tes sacs pour le lire. Le sort se trouve dans l'onglet %s de ton grimoire.",
+	FPROFG_COMP_TIERS = "Chaque parchemin demande une compétence de 1, 15, 50 ou 175. Il existe 17 de ces parchemins.",
+	FPROFG_COMP_STUDY_FMT = "%s (d'une quête de classe de mage) donne un lot de parchemins : seulement dans une bibliothèque, cela coûte une %s, puis tu attends 1 heure.",
+	FPROFG_COMP_CARRY_FMT = "Tu portes maintenant %d parchemin(s) non traduit(s).",
+	FPROFG_COMP_SKILL_KNOWN = "Tu as le sort des parchemins.",
+	FPROFG_COMP_SKILL_NOT = "Tu n'as pas encore le sort des parchemins.",
+	FDONOW_COMP_USE_FMT = "Tu portes %d parchemin(s) non traduit(s) : utilise %s dessus (onglet %s de ton grimoire).",
+	FDONOW_COMP_LEARN_FMT = "Tu portes %d parchemin(s) non traduit(s) : apprends %s auprès de ton maître des mages pour le lire.",
 	-- 19 Nov 2026: a buff that runs out soon. Our own translation.
 	MBUFF_TXT_EXPIRING = "BIENTÔT FINI",
 	MBUFF_TXT_EXPIRING_SAY = "%s se termine bientôt.",

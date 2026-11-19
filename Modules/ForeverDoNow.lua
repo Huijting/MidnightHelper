@@ -388,6 +388,25 @@ function Collect()
 			item(out.now[#out.now], "nobar", nil, nil, noBarIds)
 		end
 	end
+	-- 19 Nov 2026 (Rob: he found Comprehend Scroll himself, "Maar dit verrast mij"): an untranslated scroll in your bags
+	-- (the 17 of ForeverProfGuide.lua, GEMETEN ItemSparse RequiredSkill 3012) → use Comprehend Scroll from the General tab
+	-- (where Rob found it), or, without the spell and level 6+, learn it at your class trainer. Mages only.
+	if select(2, UnitClass("player")) == "MAGE" and ns.ForeverCompScrollsCarried then
+		local nScroll = ns.ForeverCompScrollsCarried()
+		if nScroll > 0 then
+			local spell = (C_Spell and C_Spell.GetSpellName and C_Spell.GetSpellName(1296017)) or "Comprehend Scroll"
+			if ns.ForeverKnowsComprehend and ns.ForeverKnowsComprehend() then
+				local tab = ns.ForeverSpellbookGeneralTab and ns.ForeverSpellbookGeneralTab() or "General"
+				out.now[#out.now + 1] = ns:L("FDONOW_COMP_USE_FMT"):format(nScroll, SpellLink(1296017, spell), tab)
+				item(out.now[#out.now], "comp", nil, nil, { 1296017 })
+			elseif level >= 6 then
+				out.now[#out.now + 1] = ns:L("FDONOW_COMP_LEARN_FMT"):format(nScroll, SpellLink(1296017, spell))
+				-- Its own kind: the overview folds every "trainer" line into its one rich trainer row (ForeverOverview
+				-- NowItems), which would drop this sentence.
+				item(out.now[#out.now], "comp", nil, nil, { 1296017 })
+			end
+		end
+	end
 	-- 12 Nov 2026 (Rob via sparring: "Ja, alle drie"): one/more as two sentences, and with a direction how many fit
 	-- (the same player-guide fit as the green + in /mh weapons). The start page uses the same one/more sentences (without the direction part).
 	local learn = ns.ForeverWeaponsLearnable and ns.ForeverWeaponsLearnable() or {}

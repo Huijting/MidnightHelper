@@ -754,6 +754,18 @@ for k, v in pairs({
 	FRANK_CHOOSE_TITLE = "Elige qué hechizos reciben un rango nuevo",
 	FRANK_CHOOSE_DESC = "Abre una ventana: marca qué botones y barras puede poner MH en tu rango más alto, y cuáles no debe tocar nunca. Lo mismo que Mayús-clic en el botón del instructor, o /mh ranks choose.",
 	FRANK_CHOOSE_KEYS = "rango rangos hechizos barras botones mejorar rank",
+	-- 19 Nov 2026: the Comprehension card (mages only). %s = client names. Our own translation.
+	FPROFG_COMP_DOES_FMT = "Una habilidad que solo tienen los magos: lee pergaminos antiguos con nombres raros, como «%s».",
+	FPROFG_COMP_KNOWN_FMT = "Conoces %s.",
+	FPROFG_COMP_LEARN_FMT = "Aprende %s con tu instructor de magos, desde el nivel 6.",
+	FPROFG_COMP_USE_FMT = "Usa %s sobre uno de esos pergaminos de tus bolsas para leerlo. El hechizo está en la pestaña %s de tu libro de hechizos.",
+	FPROFG_COMP_TIERS = "Cada pergamino pide una habilidad de 1, 15, 50 o 175. Hay 17 de estos pergaminos.",
+	FPROFG_COMP_STUDY_FMT = "%s (de una misión de clase de mago) da un lote de pergaminos: solo en una biblioteca, cuesta una %s y luego esperas 1 hora.",
+	FPROFG_COMP_CARRY_FMT = "Ahora llevas %d pergamino(s) sin traducir.",
+	FPROFG_COMP_SKILL_KNOWN = "Tienes el hechizo de los pergaminos.",
+	FPROFG_COMP_SKILL_NOT = "Aún no tienes el hechizo de los pergaminos.",
+	FDONOW_COMP_USE_FMT = "Llevas %d pergamino(s) sin traducir: usa %s sobre él (pestaña %s de tu libro de hechizos).",
+	FDONOW_COMP_LEARN_FMT = "Llevas %d pergamino(s) sin traducir: aprende %s con tu instructor de magos para leerlo.",
 	-- 19 Nov 2026: a buff that runs out soon. Our own translation.
 	MBUFF_TXT_EXPIRING = "SE ACABA",
 	MBUFF_TXT_EXPIRING_SAY = "%s se acaba pronto.",

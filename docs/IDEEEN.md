@@ -253,6 +253,13 @@ lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met d
   maakt. Voorstel "only when a talent makes it free" ligt bij Rob; niet gebouwd.
 - ✅ Rob koos 19 nov (via sparring), letterlijk: *"a"* = de mage-zin blijft zonder Arcane Missiles. Niets te bouwen.
 
+### Forever: Comprehension uitleggen (mage) + "Do this now" zegt het bij een scroll — ✅ JA + GEBOUWD 19 nov
+- Bron: Rob 19 nov (via Sparring 19-11), letterlijk: *"En dat comprehensive kaartje. Ik heb inmiddels inderdaad de knop
+  gevonden. Maar dit verrast mij. En ik heb het ook nergens bij ons in onze add-on gezien."* Spel: F. Voor wie: N.
+- Gebouwd: regel + kaartje "Comprehension" op de Professions-pagina (alleen mage); "Do this now" bij een onvertaalde
+  scroll in je tas. Alleen gemeten feiten. Wacht op Robs test.
+- Ook uit dezelfde ja: FutureSpell-filter (ForeverBlock) gebouwd; slimme zegen-knop deel 2: volgt.
+
 ### Forever: namen met een tooltip in een eigen kleur + je goud in "Do this now" — ✅ JA + GEBOUWD 19 nov
 - Bron: Rob 19 nov (via Sparring 19-11), letterlijk: *"dat we bijvoorbeeld Conjugal Water of Conjugal Food een ander
   kleurtje krijgt als het een tooltip bevat. Want nu zie ik dat niet"* (Willow: Conjure Water/Food) en *"dat ik in dat
