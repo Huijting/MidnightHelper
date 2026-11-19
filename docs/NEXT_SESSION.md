@@ -1,5 +1,25 @@
 # Midnight Helper — waar we staan
 
+## ▶ 19 nov — Robs test van de bazengids + reparaties
+
+Rob (via sparring, 3 screenshots): *"Het lijkt allemaal goed te staan. Alleen de wetlands, Sky ding staat nog steeds
+buiten zijn grenzen."*
+- ✅ 3D-model bij muis op een baasnaam werkt (Sneed, Captain Greenskin). Afgevinkt.
+- ❌→🔧 **Lange namen**: de fix van 2cc98f6 deed niets. Oorzaak GEMETEN in de code: hij mat bij Build, en de
+  Forever-stijl (`ForeverStyle.lua` SkinButton, :515-525) zet DAARNA bij het tonen een eigen, grotere letter op elke
+  knop; een uitgeschakelde knop wisselt ook van letter. Nu: `FitLabel`/`FitLabels` in `ForeverDungeonGuide.lua` meten
+  bij elke `Fill` (na `SetEnabled`) en nog eens 0,25 s na openen (na de late stijlronde van 0,1 s); kleiner via
+  `S.Font` (dan houdt `RefreshFonts` de kleine maat), tot 8 pt, daarna 2 regels. `/mh bosses check` print per lange
+  naam de gemeten breedte, de ruimte (154 px), de gekozen letter en de getekende breedte. NIET in het spel gezien.
+- 🔧 **Tekst die na het openen nieuw wordt gemaakt** (blokken, loot-rijen bij een andere dungeon) kreeg de stijl-letter
+  pas bij de volgende keer openen (GEMETEN: `SkinFont` slaat al opgemaakte strings over en loopt alleen bij tonen).
+  Nu doet `Fill` dan meteen `S.SkinWindow` en meet opnieuw (één keer, met een vlag). De rijhoogte groeide al mee met
+  de tekst (`GetStringHeight`); nu ook in de juiste letter.
+- 🔧 **Trainer-pagina, blauwe regel**: alleen de NAAM had `tipBody`; het icoontje niet. AFGELEID dat Rob het icoontje
+  aanwees. Nu heeft het icoontje dezelfde regel. Niet uitgesloten (AFGELEID, niet gemeten): dat de Forever-client
+  een spell-tooltip opnieuw opbouwt als de spell-gegevens later binnenkomen, waarbij onze regel wegvalt.
+  De tooltip over de kop "At your class trainer": zo gelaten (anker van de tooltip; mag volgens de sparring).
+
 ## ▶ 19 nov — Bazengids: 3 wensen (Rob: *"Ja, dat klopt uiteindelijk wel."* op alle 3) — stap 1 GEBOUWD
 
 Robs test (screenshot, Forever, Deadmines): de loot-tooltip werkt (Cruel Barb, met de Equipped-vergelijking). Afgevinkt.

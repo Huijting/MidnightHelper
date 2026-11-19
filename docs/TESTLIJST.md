@@ -42,8 +42,8 @@ achternaam, "Step aside"-instelling, Your path, Set focus). Daarna vond Rob nog:
 ## 🧸 19 nov — Forever bazengids: 3D-model bij de muis op een baasnaam
 
 `/reload` is genoeg. Open de bazengids (bv. Deadmines).
-- [ ] Zet de muis op een baasnaam (bv. "Captain Greenskin"): rechts naast de gids komt een klein kader met de baas,
-      draaiend, en zijn naam eronder. Muis weg → kader weg.
+- [x] Zet de muis op een baasnaam (bv. "Captain Greenskin"): rechts naast de gids komt een klein kader met de baas,
+      draaiend, en zijn naam eronder. Muis weg → kader weg. (Rob, 19 nov, screenshots: Sneed en Captain Greenskin.)
 - [ ] Komt er bij een baas niets, of een leeg kader? Zeg welke baas (dan kent de client dat model nog niet; bekend risico).
 - [ ] De tekst van de gids ziet er verder hetzelfde uit als eerst (regels, kleuren, afstand).
 
@@ -62,6 +62,11 @@ achternaam, "Step aside"-instelling, Your path, Set focus). Daarna vond Rob nog:
 `/reload` is genoeg.
 - [ ] De lijst links: "Excavation Site: Wetlands" (en elke andere lange naam) past nu in zijn knop: kleinere letter,
       zo nodig op twee regels. Ook als je hem kiest (de knop wordt dan grijs).
+      ❌ Rob, 19 nov: de eerste poging (2cc98f6) werkte NIET ("staat nog steeds buiten zijn grenzen"). Tweede poging:
+      opnieuw testen. Past hij nog steeds niet? Open de gids, typ `/mh bosses check` en maak een screenshot: de
+      "list:"-regels zeggen hoe breed MH de naam mat en welke lettergrootte hij koos.
+- [ ] Wissel een paar keer van dungeon (ook naar een met veel loot, zoals Deadmines): lange loot-regels lopen netjes op
+      twee regels en niets ligt over elkaar.
 
 ## 🎚️ 19 nov — Forever: het rank-keuzevenster is makkelijker te vinden
 
@@ -92,6 +97,8 @@ achternaam, "Step aside"-instelling, Your path, Set focus). Daarna vond Rob nog:
 - [ ] Het overzicht, pagina **Now**, kaart "Coming up": muis op de NAAM (niet alleen het icoontje) → spell-tooltip.
 - [ ] Het overzicht, pagina **Trainer**: muis op een spellnaam → eerst de spell-tooltip van het spel, daaronder in
       blauw welke toets of waar je hem hebt. Muis op een kopje → géén spell-tooltip.
+      (Rob, 19 nov: spell-tooltip kwam, de blauwe regel NIET. Nu heeft ook het icoontje die regel. Zie je hem nog steeds
+      niet, zeg dan of je op het icoontje of op de naam stond.)
 
 ## 🖱️ 19 nov — Forever: tooltip op de loot in de bazengids
 

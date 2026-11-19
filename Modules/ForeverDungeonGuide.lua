@@ -402,6 +402,7 @@ local function LootRow(f, i)
 		return r
 	end
 	r = CreateFrame("Button", nil, f.child)
+	f._mhNewFs = true -- Fill skins and measures again (a string made after the window opened has no skin font yet)
 	r.text = r:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
 	r.text:SetPoint("TOPLEFT", 0, 0)
 	r.text:SetJustifyH("LEFT")
@@ -418,6 +419,51 @@ local function LootRow(f, i)
 end
 
 local Fill
+
+-- 19 Nov 2026 (Rob: "Excavation Site Wetlands, dat die niet helemaal erin past"; after the first fix, 2cc98f6: "staat nog
+-- steeds buiten zijn grenzen"). Why that fix did nothing (GEMETEN in the code): it measured at Build, and the Forever
+-- skin (ForeverStyle.lua SkinButton) sets its own, larger font on every button AFTER that, on show; a disabled button
+-- (the chosen dungeon) swaps fonts too. So: measure every time the list is filled and once more after the skin's late
+-- pass, and shrink with S.Font (RefreshFonts then keeps the small size). Still too wide at the smallest size: two lines.
+local LABEL_ROOM = LEFT_W - 4 - 12
+local LABEL_MIN = 8
+local function FitLabel(b)
+	local fs = b and b.GetFontString and b:GetFontString()
+	if not fs then
+		return
+	end
+	fs:SetWidth(0) -- measure the whole name, not a width set last time
+	fs:SetWordWrap(false)
+	local file, size, flags = fs:GetFont()
+	size = math.floor((size or 12) + 0.5)
+	local w = fs:GetStringWidth() or 0
+	b._mhLabelW = w
+	if w <= LABEL_ROOM then
+		return
+	end
+	while size > LABEL_MIN and (fs:GetStringWidth() or 0) > LABEL_ROOM do
+		size = size - 1
+		if S and S.Font and file then
+			S.Font(fs, file, size, "Fonts\\FRIZQT__.TTF", flags)
+		elseif file then
+			fs:SetFont(file, size, flags or "")
+		end
+	end
+	b._mhLabelSize = size
+	fs:SetWidth(LABEL_ROOM)
+	if (fs:GetStringWidth() or 0) > LABEL_ROOM then
+		fs:SetWordWrap(true)
+		if fs.SetMaxLines then
+			fs:SetMaxLines(2)
+		end
+	end
+end
+
+local function FitLabels(f)
+	for _, b in ipairs(f and f.btns or {}) do
+		FitLabel(b)
+	end
+end
 
 local function Build()
 	if win then
@@ -455,23 +501,7 @@ local function Build()
 		b:SetPoint("TOPLEFT", 0, -(i - 1) * 28)
 		b.map = d.map
 		b:SetText(DungeonName(d))
-		-- 19 Nov 2026 (Rob: "Excavation Site Wetlands, dat die niet helemaal erin past"): a name wider than the button gets
-		-- the small font, and two lines if it still does not fit (the 24 px button holds two small lines).
-		local fs = b:GetFontString()
-		if fs then
-			local room = LEFT_W - 4 - 14
-			if (fs:GetStringWidth() or 0) > room then
-				-- All three states: the chosen dungeon's button is disabled, and a button swaps in its disabled font then.
-				b:SetNormalFontObject("GameFontNormalSmall")
-				b:SetHighlightFontObject("GameFontHighlightSmall")
-				b:SetDisabledFontObject("GameFontDisableSmall")
-				fs:SetWidth(room)
-				fs:SetWordWrap(true)
-				if fs.SetMaxLines then
-					fs:SetMaxLines(2)
-				end
-			end
-		end
+		-- Long names: FitLabel (after the Forever skin, which sets its own larger font on every button), see below.
 		b:SetScript("OnClick", function(self)
 			selected = self.map
 			Fill()
@@ -547,6 +577,7 @@ Fill = function()
 			end
 		end
 	end
+	FitLabels(f) -- after SetEnabled above: a disabled button swaps its font
 	local d
 	for _, x in ipairs(order) do
 		if x.map == selected then
@@ -584,6 +615,7 @@ Fill = function()
 					fs:SetSpacing(3)
 				end
 				f.blockFs[i] = fs
+				f._mhNewFs = true
 			end
 			fs:SetWidth(width)
 			fs:ClearAllPoints()
@@ -659,6 +691,18 @@ Fill = function()
 		f.lootRows[i]:Hide()
 	end
 	f.child:SetHeight(math.max(10, y + 10))
+	-- New text strings this fill (another dungeon, more blocks or loot rows): give them the Forever skin font now and lay
+	-- out once more, so heights are measured in the font that is drawn (Rob's screenshot, 19 Nov 2026: long loot lines on
+	-- two rows). The skin skips strings it already did; the flag stops a loop.
+	if f._mhNewFs and not f._mhRefill and S and S.SkinWindow and f:IsShown() then
+		f._mhNewFs = nil
+		f._mhRefill = true
+		S.SkinWindow(f, f.title)
+		Fill()
+		f._mhRefill = nil
+		return
+	end
+	f._mhNewFs = nil
 	-- An item name was not loaded yet: try again every 0.5 s, at most 10 times, while the window is open.
 	if missingItem and not f.nameTicker and C_Timer and C_Timer.NewTicker then
 		local tries, ticker = 0, nil
@@ -702,6 +746,13 @@ function ns.ShowForeverDungeonGuide(map)
 	-- then scrolls a dungeon low in the list into view.
 	if C_Timer and C_Timer.After then
 		C_Timer.After(0, Fill)
+		-- The skin's late pass (ForeverStyle.lua SkinOnShow: 0.1 s) sets fonts again (RefreshFonts); fill once more after
+		-- it, so the list names are fitted and the text heights measured in the drawn font.
+		C_Timer.After(0.25, function()
+			if win and win:IsShown() then
+				Fill()
+			end
+		end)
 	end
 end
 
@@ -915,6 +966,24 @@ function ns.ForeverDungeonGuideSlash(arg)
 		print(P .. ("boss guide: %d dungeons, %d bosses, %d items; you are in map %s; target npc %s"):format(#Order(), nB,
 			nL, tostring(ns.ForeverCurrentDungeonMap and ns.ForeverCurrentDungeonMap()), tostring(NpcOf("target"))))
 		print(("  small boss card: %s; last decision: %s"):format(ns.IsForeverBossCardOn() and "on" or "off", cardWhy))
+		-- List labels (19 Nov 2026): every name wider than its button, what MH measured and the size it chose.
+		if win and win.btns then
+			local wide = 0
+			for _, b in ipairs(win.btns) do
+				local fs = b:GetFontString()
+				local _, size = fs and fs:GetFont()
+				-- _mhLabelSize stays set once a name was shrunk (later fills measure the already small name).
+				if (b._mhLabelW or 0) > LABEL_ROOM or b._mhLabelSize then
+					wide = wide + 1
+					print(("  list: %s — measured %d px, room %d px, font now %s, drawn %d px"):format(tostring(fs and fs:GetText()),
+						math.floor(b._mhLabelW + 0.5), LABEL_ROOM, tostring(size and math.floor(size + 0.5)),
+						math.floor((fs and fs:GetStringWidth() or 0) + 0.5)))
+				end
+			end
+			print(("  list: %d of %d names needed a smaller font (open the guide first to measure)"):format(wide, #win.btns))
+		else
+			print("  list: not built yet — open the guide once, then /mh bosses check again")
+		end
 		return
 	end
 	ns.ShowForeverDungeonGuide()

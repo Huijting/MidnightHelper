@@ -2794,6 +2794,9 @@ local function FillTrainerPage(f, level, refresh)
 			row.hover.tipTitle = e.name
 			row.hover.tipBody = e.key and ns:L("FOV_TIP_TR_KEY_FMT"):format(e.key) or e.where
 			row.hover.tipSpell = e.id -- 19 Nov 2026: the name shows the game's spell tooltip, our key line under it
+			-- The icon too (Rob's screenshot, 19 Nov: spell tooltip without the blue line — AFGELEID he hovered the icon,
+			-- which had no body). Header rows hide the icon, so no stale body shows there.
+			row.icon.tipBody = row.hover.tipBody
 			if e.key then
 				row.chip.t:SetText(e.key)
 				row.chip:SetColor(r, g, b)
