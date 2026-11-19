@@ -1,5 +1,16 @@
 # Midnight Helper — waar we staan
 
+## ▶ 19 nov — Find → Rares: het gebied waar je bent bovenaan GEBOUWD
+
+Rob (via sparring), letterlijk: *"Kunnen we het zo instellen dat we gewoon waar ik nu ben altijd bovenaan staat?"*
+(Durotar, hij moest de hele lijst door) → op het voorstel: *"Ja, doe maar."*
+- `ForeverRares.lua` `ns.ForeverRareFindCats`: eerst het gebied waar je nu bent, met "(you are here)" (`FRARE_HERE`, 7
+  talen), dan "Worth the trip", dan de rest zoals eerst. `HereZone()` loopt van je kaart omhoog via `parentMapID` (stad,
+  grot) tot een gebied uit de lijst; onleesbaar = oude volgorde. Binnen het gebied blijft dichtstbijzijnde eerst
+  (`ForeverRareFindRows`, ongewijzigd). Het overzicht vult opnieuw bij `ZONE_CHANGED_NEW_AREA` (GEMETEN
+  ForeverOverview.lua:1965), dus het wisselt mee. De zoekbalk volgt dezelfde lijst (FindCatalog). NIET in het spel.
+- Robs test: "Excavation Site: Wetlands" past nu (*"Ja, het past er nu netjes in. Dat ziet er goed uit."*). Afgevinkt.
+
 ## ▶ 19 nov — Robs test van de bazengids + reparaties
 
 Rob (via sparring, 3 screenshots): *"Het lijkt allemaal goed te staan. Alleen de wetlands, Sky ding staat nog steeds

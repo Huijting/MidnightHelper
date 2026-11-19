@@ -239,6 +239,11 @@ gebruiken."* Uitslag (bouwchat 15-11, alleen op main, NIET in het spel gezien):
 Hier komt wat Rob goedkeurt, ook wat hij rechtstreeks in de bouwchat vraagt (Rob, 10 nov: *"ja we willen het op 1
 lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met de commit erbij. Na zijn test naar **Af**.
 
+### Forever: Find → Rares begint bij het gebied waar je bent — ✅ JA + GEBOUWD 19 nov (wacht op Robs test)
+- Bron: Rob 19 nov (via Sparring 19-11), letterlijk: *"Kunnen we het zo instellen dat we gewoon waar ik nu ben altijd
+  bovenaan staat?"* → *"Ja, doe maar."* Spel: F. Voor wie: N + V.
+- Gebouwd: je gebied bovenaan met "(you are here)", dan "Worth the trip", dan de rest; wisselt mee met je gebied.
+
 ### Forever bazengids: lange namen, klein baaskaartje, 3D-model — ✅ JA + GEBOUWD 19 nov (wacht op Robs test)
 - Bron: Rob 19 nov (via Sparring 19-11), letterlijk: *"bij Excavation Site Wetlands, dat die niet helemaal erin past"*;
   *"als ik zo meteen een baas aanklik in een dungeon, krijg ik dan hetzelfde scherm te zien? Of ... een kleiner, wat

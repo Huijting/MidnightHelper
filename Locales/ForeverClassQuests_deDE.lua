@@ -1642,6 +1642,8 @@ for k, v in pairs({
 	FREP_R_TOWN_7 = "Hüte",
 	FOV_FIND_SEC_RARE = "Seltene Gegner",
 	FRARE_CAT_WORTH = "Den Weg wert",
+	-- 19 Nov 2026, our own translation.
+	FRARE_HERE = "(du bist hier)",
 	FRARE_SUB = "Seltene Gegner mit einem Grund hinzugehen: ein Haustier, eine Quest, ein Rezept oder starke Beute. Nur die, die deine Seite angreifen kann, der nächste zuerst. Nichts wird abgehakt: das Spiel sagt uns nicht, wen du getötet hast.",
 	FRARE_SUB_ZONE = "Jeder seltene Gegner dieser Zone, den wir verorten konnten, der nächste zuerst, mit seiner Stufe. Bei den meisten wissen wir nicht, welche Seite sie angreifen kann: einen, der grün (freundlich) erscheint, kannst du nicht bekämpfen.",
 	FRARE_HINT = "Ein seltener Gegner ist vielleicht nicht da, wenn du ankommst (jemand war schneller) - er kommt später wieder. Selten - Elite: nimm einen Freund mit.",

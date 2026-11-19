@@ -5676,6 +5676,8 @@ ns._mhLocales.enUS = {
 	-- Rares in Find (18 Nov 2026, ForeverRares.lua). Item and NPC names stay English (enUS pack).
 	FOV_FIND_SEC_RARE = "Rares",
 	FRARE_CAT_WORTH = "Worth the trip",
+	-- 19 Nov 2026: the zone you are in, first in Find → Rares.
+	FRARE_HERE = "(you are here)",
 	FRARE_SUB = "Rare monsters with a reason to go: a pet, a quest, a recipe or strong loot. Only the ones your side can attack, nearest first. Nothing is ticked off: the game does not tell us whom you killed.",
 	FRARE_SUB_ZONE = "Every rare of this zone we could place, nearest first, with its level. For most of them we do not know which side can attack them: one that shows green (friendly) you cannot fight.",
 	FRARE_HINT ="A rare may not be there when you arrive (someone was faster) - it comes back later. Rare elite: bring a friend.",

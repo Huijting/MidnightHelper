@@ -4758,6 +4758,7 @@ ns._mhLocales.nlNL = {
 	FREP_R_TOWN_7 = "hoeden",
 	FOV_FIND_SEC_RARE = "Rares",
 	FRARE_CAT_WORTH = "De moeite waard",
+	FRARE_HERE = "(hier ben je)",
 	FRARE_SUB = "Zeldzame monsters met een reden om te gaan: een huisdiertje, een quest, een recept of sterke buit. Alleen die jouw kant kan aanvallen, de dichtstbijzijnde eerst. Er wordt niets afgevinkt: het spel vertelt ons niet wie je versloeg.",
 	FRARE_SUB_ZONE = "Elke rare van deze zone die we konden plaatsen, de dichtstbijzijnde eerst, met zijn level. Bij de meeste weten we niet welke kant hem kan aanvallen: een groene (vriendelijke) kun je niet bevechten.",
 	FRARE_HINT ="Een rare kan er net niet zijn (iemand was sneller) - hij komt later terug. Rare elite: neem een maatje mee.",

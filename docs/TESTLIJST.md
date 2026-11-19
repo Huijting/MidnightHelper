@@ -39,6 +39,14 @@ zoekbalk, de reputaties, de rares, de muntjes, de Now-kaart, het ronde plaatje e
 achternaam, "Step aside"-instelling, Your path, Set focus). Daarna vond Rob nog: "scroll for more" over de tekst
 (gerepareerd, zie Travel) en het boek bij de mage-quest "Study" (in bouw).
 
+## 📍 19 nov — Forever: Find → Rares begint bij het gebied waar je bent
+
+`/reload` is genoeg.
+- [ ] Overzicht → Find → Rares: bovenaan staat het gebied waar je nu bent, met "(you are here)" erachter. Daaronder
+      "Worth the trip", dan de rest. In het gebied staat de dichtstbijzijnde rare eerst.
+- [ ] Ga naar een ander gebied (met het overzicht open of daarna opnieuw open): het nieuwe gebied staat bovenaan.
+- [ ] In een stad of grot: ook dan staat het gebied eromheen bovenaan.
+
 ## 🧸 19 nov — Forever bazengids: 3D-model bij de muis op een baasnaam
 
 `/reload` is genoeg. Open de bazengids (bv. Deadmines).
@@ -60,8 +68,9 @@ achternaam, "Step aside"-instelling, Your path, Set focus). Daarna vond Rob nog:
 ## 🗺️ 19 nov — Forever bazengids: lange namen in de lijst
 
 `/reload` is genoeg.
-- [ ] De lijst links: "Excavation Site: Wetlands" (en elke andere lange naam) past nu in zijn knop: kleinere letter,
-      zo nodig op twee regels. Ook als je hem kiest (de knop wordt dan grijs).
+- [x] De lijst links: "Excavation Site: Wetlands" (en elke andere lange naam) past nu in zijn knop: kleinere letter,
+      zo nodig op twee regels. Ook als je hem kiest (de knop wordt dan grijs). (Rob, 19 nov, na 2b17133: *"Ja, het past
+      er nu netjes in. Dat ziet er goed uit."*)
       ❌ Rob, 19 nov: de eerste poging (2cc98f6) werkte NIET ("staat nog steeds buiten zijn grenzen"). Tweede poging:
       opnieuw testen. Past hij nog steeds niet? Open de gids, typ `/mh bosses check` en maak een screenshot: de
       "list:"-regels zeggen hoe breed MH de naam mat en welke lettergrootte hij koos.

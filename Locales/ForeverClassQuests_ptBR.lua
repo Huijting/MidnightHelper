@@ -543,6 +543,8 @@ for k, v in pairs({
 	FREP_R_TOWN_7 = "chapéus",
 	FOV_FIND_SEC_RARE = "Raros",
 	FRARE_CAT_WORTH = "Vale a viagem",
+	-- 19 Nov 2026, our own translation.
+	FRARE_HERE = "(você está aqui)",
 	FRARE_SUB = "Monstros raros com um motivo para ir: uma mascote, uma missão, uma receita ou um bom saque. Só os que a sua facção pode atacar, o mais perto primeiro. Nada é marcado: o jogo não nos diz quem você matou.",
 	FRARE_SUB_ZONE = "Cada raro desta zona que conseguimos localizar, o mais perto primeiro, com o nível dele. Para a maioria não sabemos qual facção pode atacá-los: um que aparece em verde (amistoso) você não pode enfrentar.",
 	FRARE_HINT = "Um raro pode não estar lá quando você chegar (alguém foi mais rápido) - ele volta depois. Elite Raro: leve um amigo.",

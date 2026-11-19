@@ -1656,6 +1656,8 @@ for k, v in pairs({
 	FREP_R_TOWN_7 = "des chapeaux",
 	FOV_FIND_SEC_RARE = "Rares",
 	FRARE_CAT_WORTH = "Ça vaut le détour",
+	-- 19 Nov 2026, our own translation.
+	FRARE_HERE = "(tu es ici)",
 	FRARE_SUB = "Des monstres rares qui valent le déplacement : une mascotte, une quête, une recette ou un bon butin. Seulement ceux que ton camp peut attaquer, le plus proche d'abord. Rien n'est coché : le jeu ne nous dit pas qui tu as tué.",
 	FRARE_SUB_ZONE = "Chaque rare de cette zone que nous avons pu placer, le plus proche d'abord, avec son niveau. Pour la plupart, nous ne savons pas quel camp peut les attaquer : un rare qui apparaît en vert (amical), tu ne peux pas le combattre.",
 	FRARE_HINT = "Un rare n'est peut-être pas là quand tu arrives (quelqu'un a été plus rapide) - il revient plus tard. Élite rare : viens avec un ami.",

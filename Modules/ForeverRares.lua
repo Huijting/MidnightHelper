@@ -147,15 +147,56 @@ local function ZoneCats()
 	return zoneCats
 end
 
---- Find categories for the overview: { key, name }: "Worth the trip", then every zone with rares (level range).
-function ns.ForeverRareFindCats()
-	local out = { { key = "worth", name = ns:L("FRARE_CAT_WORTH") } }
+--- The zone you are in that has rares in our list, or nil. A city, cave or building map has its own map id, so walk up
+--- the parents (C_Map.GetMapInfo parentMapID) until a zone of the list is found. Unreadable = nil (old order).
+local function HereZone()
+	if not (C_Map and C_Map.GetBestMapForUnit) then
+		return nil
+	end
+	local ok, map = pcall(C_Map.GetBestMapForUnit, "player")
+	if not ok or type(map) ~= "number" then
+		return nil
+	end
+	local has = {}
 	for _, c in ipairs(ZoneCats()) do
-		local range = (c.lo and c.hi) and ((c.lo == c.hi) and (" (%d)"):format(c.lo) or (" (%d-%d)"):format(c.lo, c.hi)) or ""
-		out[#out + 1] = { key = c.key, name = ZoneName(c.map) .. range }
+		has[c.map] = c
+	end
+	for _ = 1, 6 do
+		if not map or map == 0 then
+			return nil
+		end
+		if has[map] then
+			return has[map]
+		end
+		local info = C_Map.GetMapInfo and C_Map.GetMapInfo(map)
+		map = info and info.parentMapID
+	end
+	return nil
+end
+
+--- Find categories for the overview: { key, name }: "Worth the trip", then every zone with rares (level range).
+--- 19 Nov 2026 (Rob via sparring: "Kunnen we het zo instellen dat we gewoon waar ik nu ben altijd bovenaan staat?" →
+--- "Ja, doe maar."): the zone you are in comes first, with "(you are here)", then "Worth the trip", then the rest as
+--- before. Built at every call, so it follows you when you change zone (the overview asks again on every fill).
+function ns.ForeverRareFindCats()
+	local here = HereZone()
+	local out = {}
+	local function range(c)
+		return (c.lo and c.hi) and ((c.lo == c.hi) and (" (%d)"):format(c.lo) or (" (%d-%d)"):format(c.lo, c.hi)) or ""
+	end
+	if here then
+		out[#out + 1] = { key = here.key, name = ZoneName(here.map) .. range(here) .. "  " .. ns:L("FRARE_HERE"),
+			here = true }
+	end
+	out[#out + 1] = { key = "worth", name = ns:L("FRARE_CAT_WORTH") }
+	for _, c in ipairs(ZoneCats()) do
+		if c ~= here then
+			out[#out + 1] = { key = c.key, name = ZoneName(c.map) .. range(c) }
+		end
 	end
 	return out
 end
+ns.ForeverRareHereZone = HereZone -- readable from /dump when the zone does not come first (silence rule)
 
 local function Allowed(r, side)
 	local w = WORTH_BY_NPC[r.npc]

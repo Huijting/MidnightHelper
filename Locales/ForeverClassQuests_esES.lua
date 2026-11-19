@@ -660,6 +660,8 @@ for k, v in pairs({
 	FREP_R_TOWN_7 = "sombreros",
 	FOV_FIND_SEC_RARE = "Criaturas poco comunes",
 	FRARE_CAT_WORTH = "Vale la pena el viaje",
+	-- 19 Nov 2026, our own translation.
+	FRARE_HERE = "(estás aquí)",
 	FRARE_SUB = "Criaturas poco comunes con un motivo para ir: una mascota, una misión, una receta o buen botín. Solo las que tu bando puede atacar, la más cercana primero. No se marca nada: el juego no nos dice a quién has matado.",
 	FRARE_SUB_ZONE = "Cada criatura poco común de esta zona que pudimos situar, la más cercana primero, con su nivel. De la mayoría no sabemos qué bando puede atacarlas: a una que sale en verde (amistosa) no la puedes combatir.",
 	FRARE_HINT = "Puede que una criatura poco común no esté cuando llegues (alguien fue más rápido) - vuelve más tarde. Élite poco común: lleva a un amigo.",
