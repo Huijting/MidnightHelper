@@ -14,13 +14,20 @@ Retail to **Forever** and install it there as well. You get help made for levell
 - **One overview for everything** (`/mh`, Alt+M or the minimap button): seven tabs. *Now* (what to do now and next),
   *Your class* (how you play, your class quests, camping), *Find*, *Professions*, *Dungeons & group*, *Keys & macros*
   and *Characters*. The gear button lists everything MH does by itself, each with a switch.
+- **A boss guide for all 28 dungeons**, because WoW Forever has no Dungeon Journal: who the bosses are, what they do,
+  one tip per boss and the items worth knowing. Hover a boss to see him in 3D; target one in a dungeon and a small
+  card shows his tip.
 - **Your trainer**: what you can learn right now and what it costs, your money, and **Take me to my trainer**: an arrow
-  to your nearest class trainer (218 trainers known, no other addon needed). Talk to a trainer or vendor once and the
-  arrow learns exactly where they stand.
-- **Find**: trainers, weapon masters, shops, and in town the bank, the auction house, mailboxes and inns. Nearest
-  first, with the way there and the arrow.
+  to your nearest class trainer who can teach you something new (218 trainers known, no other addon needed). Talk to a
+  trainer or vendor once and the arrow learns exactly where they stand.
+- **Search and Find**: type a trainer, shop, dungeon, class quest or place in the search bar. *Find* lists trainers,
+  weapon masters, shops, the bank, the auction house, mailboxes, inns, zeppelins, boats, flight masters and the rares
+  worth the trip. Nearest first, with the way there and the arrow.
 - **Class quests for all nine classes**, step by step with the arrow: druid forms, warlock demons, shaman totems,
-  hunter pets and more.
+  hunter pets, weapon quests and more. *Do this now* tells you what to bring before the trip, and a small window you
+  can move shows just the step you are on.
+- **The game's own tooltips everywhere**: hover a spell, item, tool or boss loot in MH for the same tooltip as in your
+  bags or spellbook.
 - **Do this now**: a small window with what you can do right now (new spells at your trainer, an old rank on your
   bars, a weapon to learn, a missing tool) and the trainer spells of your next 3 levels.
 - **Which way do you want to go?** Pick one of your class's three talent trees, each in one plain sentence. *How you
@@ -33,7 +40,7 @@ Retail to **Forever** and install it there as well. You get help made for levell
   for your profession, and a card per profession: what it does, the tool it needs and where to buy it.
 - **Where do I buy this?** An arrow to the nearest vendor for tools and trade goods. Forgot your Skinning Knife? MH
   names the nearest vendor the moment the game says you need it. Ingredients say in their tooltip which profession
-  uses them.
+  and which recipes use them.
 - **Handy macros**: the top macros for your class and spec, ready to make with one click.
 - **New at your trainer**: when you level up, a window shows every new spell with its rank, its price and the key it
   lands on. Hover a spell for its tooltip; your nearest trainer stands beside the list as a turning 3D figure.
