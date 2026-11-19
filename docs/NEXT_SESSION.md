@@ -1,5 +1,15 @@
 # Midnight Helper — waar we staan
 
+## 🔴 Fable-afspraak — vanaf za 21 nov (na de reset) één week proef
+
+Rob via sparring, letterlijk: *"Laten we dat vanaf zaterdag wanneer de reset is geweest eens een week proberen."*
+- **Tot za 21 nov: Fable UIT** (blijft zo).
+- **Vanaf za 21 nov, één week:** Fable ALLEEN voor feitenteksten die spelers lezen (bazentips, class-uitleg,
+  wapenadvies), plus **één Fable-ronde vóór een release** (alle nieuwe teksten in één keer).
+- **Geen Fable** voor knoppen, vensters, tooltips en lay-out: daar Opus + Robs test in het spel.
+- Nalopen met goedkope helpers (mh-sweep); minder helpers tegelijk.
+- Rond 28 nov evalueren. Een regel in CLAUDE.md alleen op Robs eigen woorden in de bouwchat.
+
 ## ▶ 19 nov — Robs lijst van vier (*"Ja, die mogen door. En dat comprehensive kaartje."*): stap 1 + 4 GEBOUWD
 
 - **1. FutureSpell** (`ForeverBlock.lua` `ForeverBlockUnlisted`): een spellbook-item van type
