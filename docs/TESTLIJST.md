@@ -80,12 +80,17 @@ achternaam, "Step aside"-instelling, Your path, Set focus). Daarna vond Rob nog:
 ## 🔴 EERST, thuis (2 minuten): meting voor "Beter dan wat je draagt" (optie B)
 
 Rob via sparring: *"Ja"* (optie A nu, B later in stappen; deze meting beslist hoe B gebouwd wordt). Forever, in de stad.
-Typ in de chat `/dump C_Item.GetItemStats("` (mét het aanhalingsteken), **shift-klik** het item in je tas (dan staat
-de link in de chat), typ `")` (weer mét aanhalingsteken) en druk op Enter. Zonder de aanhalingstekens krijg je
-"unexpected symbol near '|'" (Rob, 19 nov — de instructie hier was fout). Doe dat voor 4 items en maak een screenshot van elk antwoord:
-- [ ] (a) een item met alleen gewone stats (Strength/Agility/Stamina…).
+⚠️ **De shift-klik-vorm werkt NIET** (Rob, 19 nov, twee keer: zonder aanhalingstekens "unexpected symbol near '|'",
+mét aanhalingstekens viel het laatste teken weg: "unfinished string"). **Werkende vorm** (Rob, 19 nov): trek het item
+AAN en typ, met het nummer van het vak:
+`/dump C_Item.GetItemStats(GetInventoryItemLink("player",16))`
+Vakken: 1 hoofd, 2 nek, 3 schouders, 5 borst, 6 riem, 7 benen, 8 voeten, 9 polsen, 10 handen, 11-12 ringen,
+13-14 trinkets, 15 cape, 16 hoofdhand, 17 off-hand, 18 afstandswapen. Een leeg vak geeft "bad argument #1" (geen MH-fout).
+- [ ] (a) een item met alleen gewone stats (Strength/Agility/Stamina…). (Handschoenen, vak 10, gaven alleen armor:
+      `{ RESISTANCE0_NAME = 4 }` — dat telt nog niet als (a).)
 - [ ] (b) een caster-item met een groene "Equip: Increases damage and healing…"-regel.
-- [ ] (c) een wapen (staat er iets over schade per seconde in het antwoord?).
+- [x] (c) een wapen — Rob, 19 nov, vak 16: `{ ITEM_MOD_DAMAGE_PER_SECOND_SHORT = 2.58… }`. GetItemStats vult DPS in
+      Forever (dat was een open punt van optie A).
 - [ ] (d) een groen item met "of the …" in de naam (bv. "… of the Bear").
 Geen item van een soort bij de hand? Sla die over en zeg welke.
 

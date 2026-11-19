@@ -1,5 +1,16 @@
 # Midnight Helper — waar we staan
 
+## ▶ 19 nov — Robs /dump-meting voor optie B (deels)
+
+Rob via sparring (Forever, screenshot). GEMETEN:
+- `C_Item.GetItemStats` vult DPS in Forever: vak 16 = `{ ITEM_MOD_DAMAGE_PER_SECOND_SHORT = 2.58… }` → het open punt van
+  optie A ("of GetItemStats DPS vult") is beantwoord: ja. `Dps()` in `ForeverQuestHint.lua` leest die sleutel al.
+- Armor komt als `RESISTANCE0_NAME` (handschoenen, vak 10: `{ RESISTANCE0_NAME = 4 }`); `Armor()` leest die al.
+  Beide opmerkingen in de code zeggen nu GEMETEN (alleen commentaar veranderd).
+- De shift-klik-vorm in `/dump` werkt niet in de chat (zie TESTLIJST); werkende vorm:
+  `/dump C_Item.GetItemStats(GetInventoryItemLink("player",<vak>))`.
+- Open: (a) gewone stats, (b) groene Equip-regel, (d) "of the …"-item. Optie B: nog NIET bouwen.
+
 ## ▶ 19 nov — Bouwchat 19-11: rank-keuzevenster vindbaar GEBOUWD
 
 Rob via sparring, letterlijk: *"Op beide vragen ja"* (vraag 2: het rank-keuzevenster `ns.ShowForeverRanks` beter
@@ -88,7 +99,7 @@ volgorde (1 optie A, 2 wapenquests, 3 slaapzak, 4 optie B nog NIET; zijn /dump-m
   Tweede controle (Fable, `docs/forever/CONTROLE_OPTIE_A_WAPENS_2026-11-18.md`): 5 FOUT + 10 RISICO, de geteste patch
   is overgenomen. Offline: mijn 18 + zijn 36 gevallen; 2 bewust open: Franse spatie als duizendtal (> 1000 DPS) en een
   hunter met een melee-wapen als stat stick (melee-DPS telt dan mee). Niet meetbaar zonder client: of de wapentooltip
-  de DPS-regel heeft, of `GetItemStats` DPS vult (Rob: `/mh geartip` → "dps" met een getal, niet "n/a").
+  de DPS-regel heeft. ✅ Dat `GetItemStats` DPS vult: GEMETEN door Rob op 19 nov (zie boven).
 - 🔧 Ook gerepareerd (zelfde controle): `ForeverBlock.lua` KnownId — `ipairs({ IsPlayerSpell, IsSpellKnown })` stopte
   bij de eerste nil (IsPlayerSpell is in Forever alleen een deprecation-fallback, GEMETEN Blizzard-bron); nu vaste
   plekken met `C_SpellBook.IsSpellKnown` voorop. Raakte de talentcheck voor de hoofdstats op niet-Engelse clients.

@@ -92,7 +92,8 @@ end
 
 --- 🔴 ARMOR — Rob, 7 Nov 2026 (screenshot, "denk dat het niet goed gaat ?!?"): Snow Boots (7 armor) against worn boots
 --- (2 armor), no stats on either reward, and MH said "none is better". At low level armor is often the ONLY
---- difference. Read it from the stats table (RESISTANCE0_NAME, the classic key; AFGELEID for Forever) or else from the
+--- difference. Read it from the stats table (RESISTANCE0_NAME, the classic key; GEMETEN in Forever by Rob, 19 Nov 2026:
+--- /dump GetItemStats of his gloves = { RESISTANCE0_NAME = 4 }) or else from the
 --- item's tooltip line ("%s Armor", Blizzard's ARMOR_TEMPLATE; the approach Zygor uses, and C_TooltipInfo.GetHyperlink
 --- is what Baganator/Syndicator/Auctionator use on Forever — candidates, not proof).
 local function Armor(link, t)
@@ -122,8 +123,8 @@ local function Armor(link, t)
 end
 
 --- Damage per second of a weapon, or nil (not a weapon / not readable). Option A, 18 Nov 2026. The stats table first
---- (ITEM_MOD_DAMAGE_PER_SECOND_SHORT, GEMETEN in Forever GlobalStrings 19881; whether GetItemStats fills it in Forever is
---- NOT measured), else the tooltip line "(%s damage per second)" (DPS_TEMPLATE, GEMETEN GlobalStrings 12672; that the
+--- (ITEM_MOD_DAMAGE_PER_SECOND_SHORT, GEMETEN in Forever GlobalStrings 19881; GetItemStats FILLS it in Forever, GEMETEN by
+--- Rob 19 Nov 2026: his main hand gave { ITEM_MOD_DAMAGE_PER_SECOND_SHORT = 2.58… }), else the tooltip line "(%s damage per second)" (DPS_TEMPLATE, GEMETEN GlobalStrings 12672; that the
 --- weapon tooltip uses it is AFGELEID — the same way Armor() reads ARMOR_TEMPLATE).
 local function Dps(link, t)
 	local v = t and t.ITEM_MOD_DAMAGE_PER_SECOND_SHORT
