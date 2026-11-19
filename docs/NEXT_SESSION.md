@@ -38,6 +38,17 @@
   `C_Spell.GetSpellName` (taal van de client); `/mh usedfor` toont ook die regel of waarom niet. Offline GEMETEN:
   524/524 Forever-items hebben recept-id's; Linen Cloth → "Bolt of Linen Cloth, SAF-T Dynamite (+10 more)"; 3013 →
   "Tenets of the Silver Hand". Teksten 7 talen. NIET in het spel gezien.
+- **Bug "breng me naar de trainer" GEREPAREERD** (Rob, Troll mage 10: *"Hij brengt me naar de dichtstbijzijnde trainer,
+  maar ik kan helemaal niks leren. Help"*). GEMETEN (mh-research, 5 bronnen + Robs screenshots; verslag
+  `docs/forever/STARTER_TRAINERS_2026-11-19.md`): de 43 trainers in de startgebieden leren tot level 6, voor elke class.
+  Dorpstrainers (Razor Hill, Sen'jin, Bloodhoof …) en steden: volle lijst (gids + Classic-data; een paar GEMETEN in
+  Forever). Gebouwd in `ForeverTrainer.lua`: (1) `cap = 6` op die 43 rijen in `ForeverTrainerSpots.lua`; (2) bij elke
+  eigen klassetrainer leest MH de lijst (filters even aan, daarna terug) en bewaart het hoogste level in
+  `MidnightHelperDB.foreverTrainerCap[npc]` (wint van de vaste 6); (3) `Nearest` slaat een trainer over als zijn cap lager is
+  dan de hoogste spell die je NU kunt leren; (4) sta je bij zo'n trainer, dan zegt MH in de chat tot welk level hij leert
+  en noemt hij de dichtstbijzijnde goede trainer (FTRAIN_CAP_GO_FMT). `/mh trainer check` heeft een regel "short lists".
+  NIET gemeten: of `SetTrainerServiceTypeFilter`/`GetTrainerServiceLevelReq` in Forever bestaan en direct werken; zo niet,
+  dan zegt de check-regel dat en blijft alleen de vaste 6.
 - **Bug Professions-pagina GEREPAREERD** (Rob, mage 10: *"ik zie geen compehension"*): er waren maar 12 rijen, Comprehension
   was de 13e. Nu `#FOREVER_PROFS + 1` rijen (minstens 13); `FillProfsPage` schuift de rijen dichter op (min. 18 px) als
   het kaartje te laag is. AFGELEID, niet in het spel gezien.

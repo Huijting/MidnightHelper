@@ -5168,6 +5168,9 @@ ns._mhLocales.enUS = {
 	FTRAIN_WHY_NONE = "no trainer places known yet",
 	FTRAIN_WHY_CONT = "no trainer known on this continent",
 	FTRAIN_WHY_RANK = "no trainer in MH's list teaches your next rank",
+	-- 19 Nov 2026, said at a trainer with a short list: name, its highest level, the level you need (+ the better trainer)
+	FTRAIN_CAP_GO_FMT = "%s only teaches spells up to level %d; yours need level %d. Go to %s (%s): /mh trainer go.",
+	FTRAIN_CAP_FMT = "%s only teaches spells up to level %d; yours need level %d. Try a trainer in a city.",
 	FPROF_TITLE = "Profession trainers",
 	FPROF_COUNT_FMT = "%s: %d trainers for your side",
 	FPROF_NEW = "You do not have this profession yet. Every trainer below can teach you the start.",

@@ -1101,12 +1101,78 @@ local function OnePerTrainer(all)
 	return out
 end
 
+--------------------------------------------------------------------------------
+-- Trainers with a short list (Rob, 19 Nov 2026, Troll mage level 10: "Hij brengt me naar de dichtstbijzijnde trainer,
+-- maar ik kan helemaal niks leren. Help"). Mai'ah in Valley of Trials showed only spells he knew, with every filter
+-- on (GEMETEN, his screenshots): a starting-zone trainer teaches the low levels only. So:
+--   * at every class trainer MH reads the whole list (filters on for a moment, then back) and remembers the highest
+--     level it teaches: MidnightHelperDB.foreverTrainerCap[npc] = { cap = level, seen = your level then };
+--   * the arrow skips a trainer whose cap is below the highest spell you can learn now;
+--   * standing at such a trainer, MH says so in chat and names the nearest trainer that can teach you.
+-- A cap is a fact about the NPC, so it counts for every character. Rows from FOREVER_TRAINER_SPOTS may carry a
+-- measured `cap` too (so the first visit is already right).
+--------------------------------------------------------------------------------
+local capState = { last = "no class trainer opened yet this session" }
+
+local function StaticCap(npc)
+	for _, rows in pairs(ns.FOREVER_TRAINER_SPOTS or {}) do
+		for _, s in ipairs(rows) do
+			if s.npc == npc and s.cap then
+				return s.cap
+			end
+		end
+	end
+	return nil
+end
+
+local function TrainerCap(npc)
+	if type(npc) ~= "number" then
+		return nil
+	end
+	local seen = ns.db and ns.db.foreverTrainerCap and ns.db.foreverTrainerCap[npc]
+	return (type(seen) == "table" and seen.cap) or StaticCap(npc)
+end
+
+--- The level a trainer must teach up to for you: the highest spell you can learn right now (nil = nothing to learn).
+local function NeedLevel(token)
+	local r = Compute(UnitLevel("player"))
+	if r.token ~= token then
+		return nil
+	end
+	local need
+	for _, e in ipairs(r.now) do
+		if not need or e.l > need then
+			need = e.l
+		end
+	end
+	return need
+end
+
 local function Nearest(token, prof)
 	local cands, dropped = Candidates(token, prof)
 	local all = OnePerTrainer(cands)
 	if #all == 0 and dropped and dropped > 0 then
 		-- Every trainer in the list stops below your next rank (Cooking, First Aid and Fishing past 150 on Wowhead).
 		return nil, nil, 0, "no trainer teaches your next rank"
+	end
+	if not prof then
+		local need = NeedLevel(token)
+		if need then
+			local keep, skipped = {}, 0
+			for _, c in ipairs(all) do
+				local cap = TrainerCap(c.npc)
+				if cap and cap < need then
+					skipped = skipped + 1
+				else
+					keep[#keep + 1] = c
+				end
+			end
+			if #keep > 0 then
+				all = keep
+			end
+			capState.skipped = skipped
+			capState.need = need
+		end
 	end
 	local map, px, py = PlayerPlace()
 	local cont, wx, wy
@@ -1592,6 +1658,112 @@ do
 	end)
 end
 
+--- Is this NPC one of your class trainers? (by npc id, from every source the arrow uses)
+local function IsMyClassTrainer(npc)
+	if not npc then
+		return false
+	end
+	for _, c in ipairs(Candidates(Token())) do
+		if c.npc == npc then
+			return true
+		end
+	end
+	return false
+end
+
+--- Read the open trainer window: the highest level it teaches, or nil plus why. Every state filter is switched on for a
+--- moment (the player's own filters can hide rows; Rob's window was empty until he did that by hand) and put back.
+local FILTERS = { "available", "unavailable", "used" }
+local STATE_OK = { available = true, unavailable = true, used = true }
+local function ReadCap()
+	if not (GetNumTrainerServices and GetTrainerServiceInfo and GetTrainerServiceLevelReq) then
+		return nil, "this client has no GetTrainerServiceLevelReq"
+	end
+	if not (GetTrainerServiceTypeFilter and SetTrainerServiceTypeFilter) then
+		return nil, "this client has no trainer filters to switch on"
+	end
+	local saved = {}
+	for _, t in ipairs(FILTERS) do
+		local ok, v = pcall(GetTrainerServiceTypeFilter, t)
+		saved[t] = ok and v and true or false
+		if not saved[t] then
+			pcall(SetTrainerServiceTypeFilter, t, 1)
+		end
+	end
+	local cap, rows, open = nil, 0, 0
+	local okN, n = pcall(GetNumTrainerServices)
+	for i = 1, (okN and tonumber(n) or 0) do
+		local ok, name, s1, s2 = pcall(GetTrainerServiceInfo, i)
+		local state = ok and ((STATE_OK[s1] and s1) or (STATE_OK[s2] and s2)) or nil
+		if state and type(name) == "string" then
+			rows = rows + 1
+			if state ~= "used" then
+				open = open + 1
+			end
+			local okL, l = pcall(GetTrainerServiceLevelReq, i)
+			l = okL and tonumber(l) or nil
+			if l and (not cap or l > cap) then
+				cap = l
+			end
+		end
+	end
+	for _, t in ipairs(FILTERS) do
+		if not saved[t] then
+			pcall(SetTrainerServiceTypeFilter, t, 0)
+		end
+	end
+	if rows == 0 then
+		return nil, "the list was empty, even with every filter on"
+	end
+	return cap, rows, open
+end
+
+do
+	local capFrame = CreateFrame("Frame")
+	capFrame:RegisterEvent("TRAINER_SHOW")
+	capFrame:SetScript("OnEvent", function()
+		local npc = NpcOfUnit("npc")
+		local name = NameOfUnit("npc")
+		if not IsMyClassTrainer(npc) then
+			capState.last = ("%s (npc %s): not one of your class trainers, not measured"):format(tostring(name), tostring(npc))
+			return
+		end
+		-- a moment later: the window fills its own list first
+		C_Timer.After(0.3, function()
+			local cap, rows, open = ReadCap()
+			if not cap then
+				capState.last = ("%s (npc %d): %s"):format(tostring(name), npc, tostring(rows))
+				return
+			end
+			if ns.db then
+				ns.db.foreverTrainerCap = ns.db.foreverTrainerCap or {}
+				ns.db.foreverTrainerCap[npc] = { cap = cap, seen = UnitLevel("player"), name = name }
+			end
+			local need = NeedLevel(Token())
+			capState.last = ("%s (npc %d): teaches up to level %d (%d rows, %d not learned yet); you need %s"):format(
+				tostring(name), npc, cap, rows, open, tostring(need))
+			if need and cap < need then
+				local best, dist = Nearest(Token())
+				if best and best.npc ~= npc then
+					print(PREFIX .. ns:L("FTRAIN_CAP_GO_FMT"):format(tostring(name), cap, need, best.name or "?",
+						Distance(dist)))
+				else
+					print(PREFIX .. ns:L("FTRAIN_CAP_FMT"):format(tostring(name), cap, need))
+				end
+			end
+		end)
+	end)
+end
+
+function ns.ForeverTrainerCapLine()
+	local n = 0
+	for _ in pairs(ns.db and ns.db.foreverTrainerCap or {}) do
+		n = n + 1
+	end
+	return ("short lists: %d trainers measured; last: %s; arrow skipped %s trainer(s) for a level-%s spell"):format(
+		n, capState.last, tostring(capState.skipped or 0), tostring(capState.need or "-"))
+end
+
 local function Check()
 	local level = UnitLevel("player")
 	local r = Compute(level)
@@ -1616,6 +1788,7 @@ local function Check()
 		HandyNotesTrainers() and tostring(hn) or "not installed", list))
 	local best, dist, _, why = Nearest(r.token)
 	print("  nearest: " .. (best and ("%s, %s (%s)"):format(best.name or "?", Distance(dist), best.src) or why))
+	print("  " .. ns.ForeverTrainerCapLine())
 	print(("  cross above the trainer: %s (/mh trainer mark shows why)"):format(MarkOn() and "on" or "off"))
 	-- Professions: what the client says you have, and what the arrow would pick per profession.
 	local mine, whyNone = MyProfessions()

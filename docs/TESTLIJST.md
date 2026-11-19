@@ -46,6 +46,16 @@ achternaam, "Step aside"-instelling, Your path, Set focus). Daarna vond Rob nog:
       hoofdstad met de mount-run of de reisplanner). Muis op het icoontje → de tooltip van het spel (van de Hearthstone,
       de toy of de mage-teleport). Klikken werkt nog net als eerst.
 
+## 🧭 19 nov — Forever: de pijl slaat trainers over die jou niets kunnen leren
+
+`/reload` is genoeg. Met je Troll mage (level 10), in Durotar.
+- [ ] Overzicht → de trainer-knop ("breng me naar de trainer"). De pijl wijst nu NIET naar Mai'ah in Valley of Trials,
+      maar naar Un'Thuwa (Sen'jin Village) of Orgrimmar.
+- [ ] Loop toch even naar Mai'ah en praat met haar. In de chat staat: "Mai'ah only teaches spells up to level 6; yours
+      need level 10. Go to …".
+- [ ] Bij de goede trainer: Frost Nova, Conjure Water (rank 2) en Frost Armor (rank 2) staan erbij.
+- [ ] Typ `/mh trainer check`, maak een screenshot: de regel "short lists" zegt wat MH bij de trainer las.
+
 ## 🧾 19 nov — "Used for" noemt nu het recept (Forever + Midnight)
 
 `/reload` is genoeg.
