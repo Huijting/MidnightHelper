@@ -434,6 +434,9 @@ for k, v in pairs({
 	FBLESS_HELP = "/mh blesstip on | off | button on | button off | set <class> might|wisdom|kings | reset",
 	-- 19 Nov 2026: the smart blessing button. Our own translation.
 	FBLESS_BTN_SW = "Bouton : bénédiction intelligente sur le joueur sous ta souris",
+	FCQWIN_SW = "Petite fenêtre avec ton étape de quête de classe",
+	FCQWIN_SW_DESC = "Une petite fenêtre que tu peux déplacer, avec seulement l'étape de quête de classe où tu en es, en plus gros, et un bouton pour le chemin. Elle suit l'étape toute seule et disparaît quand il n'y en a pas. Si tu la fermes, elle revient à l'étape suivante.",
+	FCQ_WIN_TITLE = "Quête de classe",
 	FBLESS_BTN_SW_DESC = "Une seule touche pour toutes les bénédictions : elle donne au joueur ami sous ta souris la bénédiction que choisit le conseil ci-dessus (ta propre table compte). L'activer crée une macro à glisser sur une barre. En combat, le dernier choix reste.",
 	FBLESS_BTN_ON_FMT = "bénédiction intelligente ACTIVÉE. Glisse la macro « %s » de la fenêtre des macros vers une barre, puis survole un joueur et appuie dessus.",
 	FBLESS_BTN_NOMACRO = "bénédiction intelligente ACTIVÉE, mais MH n'a pas pu créer la macro maintenant (en combat, ou plus de place). Désactive-la puis réactive-la plus tard.",

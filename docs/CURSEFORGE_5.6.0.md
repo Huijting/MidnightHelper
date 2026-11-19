@@ -45,6 +45,8 @@ shops in *Find* have tooltips too, and so do the items in the boss guide.
 - **Class quests: what you need before the trip.** *Do this now* tells you first when a quest needs something you do
   not have yet, like a library book for the mage quest, gold, a potion or a higher spell rank. Class quest rows no
   longer run into each other.
+- **A small window with your class quest step**: only the step you are on, in larger letters, with *Show the way*.
+  Move it where you like; it follows the step by itself. Don't want it? Switch it off in *Quiet helpers*.
 - **Weapon class quests**: the warrior's first weapon at level 10, the warlock's Soran'ruk, Orahil and An Imp's Request,
   and the shaman's The Tempest's Weapons at 30, step by step.
 - **Weapons**: the tooltip compares a weapon with what you wear in a fair way, with its damage per second, and says

@@ -38,6 +38,15 @@
   `C_Spell.GetSpellName` (taal van de client); `/mh usedfor` toont ook die regel of waarom niet. Offline GEMETEN:
   524/524 Forever-items hebben recept-id's; Linen Cloth → "Bolt of Linen Cloth, SAF-T Dynamite (+10 more)"; 3013 →
   "Tenets of the Silver Hand". Teksten 7 talen. NIET in het spel gezien.
+- 🪟 **Klein class-quest-venster GEBOUWD** (Rob via sparring: *"Kunnen we misschien de optie maken dat we een extra
+  venstertje krijgen wat we los kunnen plaatsen. Al dan niet met een aan- en uitknop in onze settings."* → *"Doe het nu
+  maar."*). In `ForeverClassQuests.lua` (onderaan; bestaand bestand, /reload genoeg): `MidnightHelperForeverClassQuestWindow`
+  met de zin van `ns.ForeverClassQuestNow()` (= de regel in Do this now), titel = ketennaam, letter 15, knop Show the way
+  (`ns.ForeverClassQuestGo`). Ververst 0,5 s na QUEST_LOG_UPDATE/ACCEPTED/TURNED_IN, level-up, SPELLS_CHANGED,
+  BAG_UPDATE_DELAYED, PLAYER_ENTERING_WORLD. Plek in `ns.db.foreverCQWindowPos`; RegisterMidnightDialogPopup (Shift+scroll,
+  Escape). Kruisje = weg tot de stap verandert; Escape = weg tot de volgende update (bewust: Escape sluit álle MH-vensters).
+  Schakelaar Quiet helpers `FCQWIN_SW`, standaard AAN (`ns.db.foreverCQWindow ~= false`). `/mh classquest` print de
+  beslissing. Teksten 7 talen. Staat in de 5.6.0-tekst. NIET in het spel gezien.
 - 📦 **RELEASE 5.6.0 KLAARGEZET, GEEN TAG** (Rob via sparring: *"Ja, de bouwchat mag alles klaarzetten."*). Beide toc's
   5.6.0; `Changelog.lua` + `CHANGELOG_560_1..7` (enUS); `RELEASE_NOTES.md` = `docs/CURSEFORGE_5.6.0.md` (byte-gelijk
   GEMETEN); `CHANGELOG.md`; SITE_SEIN-regel "alleen op main". Het concept `CURSEFORGE_DRAFT_volgende.md` is verwerkt.

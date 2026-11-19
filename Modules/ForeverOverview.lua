@@ -1211,6 +1211,10 @@ local QUIET = {
 	Q("SET_BLESSTIP_TITLE", "SET_BLESSTIP_DESC", DbFlag("foreverBlessTip", false)),
 	-- 19 Nov 2026 (Rob: "Ja, die mogen door"): the smart blessing button (ForeverBlessTip.lua). Off by default; turning it
 	-- on also makes the macro to drag onto a bar.
+	-- 19 Nov 2026 (Rob: "Doe het nu maar"): the small window with only your class quest step (ForeverClassQuests.lua).
+	Q("FCQWIN_SW", "FCQWIN_SW_DESC", {
+		get = function() return ns.IsForeverCQWindowOn and ns.IsForeverCQWindowOn() end,
+		set = function(on) if ns.SetForeverCQWindow then ns.SetForeverCQWindow(on) end end }),
 	Q("FBLESS_BTN_SW", "FBLESS_BTN_SW_DESC", {
 		get = function() return ns.IsForeverSmartBlessOn and ns.IsForeverSmartBlessOn() end,
 		set = function(on) if ns.SetForeverSmartBless then ns.SetForeverSmartBless(on) end end }),

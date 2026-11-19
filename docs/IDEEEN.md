@@ -253,6 +253,13 @@ lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met d
   maakt. Voorstel "only when a talent makes it free" ligt bij Rob; niet gebouwd.
 - ✅ Rob koos 19 nov (via sparring), letterlijk: *"a"* = de mage-zin blijft zonder Arcane Missiles. Niets te bouwen.
 
+### Forever: klein los venster met je class-quest-stap — ✅ JA + GEBOUWD 19 nov
+- Bron: Rob 19 nov (via Sparring 19-11), letterlijk: *"ik moet heel goed lezen in Do This Now wat ik precies moet doen.
+  En, ja, het valt een beetje weg. Kunnen we misschien de optie maken dat we een extra venstertje krijgen wat we los
+  kunnen plaatsen. Al dan niet met een aan- en uitknop in onze settings."* → *"Doe het nu maar."* Spel: F. Voor wie: N.
+- Gebouwd: venster met alleen de huidige stap, grotere letter, Show the way, verplaatsbaar; schakelaar in Quiet helpers
+  (standaard aan). Wacht op Robs test.
+
 ### Forever: "breng me naar de trainer" kiest een trainer die je iets kan leren — ✅ AF 19 nov (Rob getest: *"de testen 1 tot en met 5 zijn allemaal goed en goedgekeurd"*)
 - Bron: Rob 19 nov (via Sparring 19-11), letterlijk: *"Hij brengt me naar de dichtstbijzijnde trainer, maar ik kan
   helemaal niks leren. Help"*. Spel: F. Voor wie: N.

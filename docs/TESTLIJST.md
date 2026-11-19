@@ -44,6 +44,18 @@ achternaam, "Step aside"-instelling, Your path, Set focus). Daarna vond Rob nog:
 rank-lijstje: werkt (screenshot: "You just learned", Conjure Water rank 1 -> 2 en Frost Armor rank 1 -> 2, met de knoppen
 Upgrade / Not now / Never). Afgevinkt met "(Rob, 19 nov)". De hulpregels ("typ /mh … als het niet werkt") blijven open.
 
+## 🪟 19 nov — Forever: klein venster met je class-quest-stap
+
+`/reload` is genoeg. Met je mage, midden in de class quest.
+- [ ] Er staat een klein venster (links op je scherm) met de naam van de quest en alleen de stap waar je bent, in
+      grotere letters. Dezelfde zin als in **Do this now**.
+- [ ] Sleep het waar je wilt. Na `/reload` staat het nog daar. Shift+scroll maakt het groter of kleiner.
+- [ ] **Show the way** zet de pijl naar de plek van de stap.
+- [ ] Doe de stap (bv. de Ju-Ju Heaps): het venster gaat vanzelf naar de volgende stap.
+- [ ] Kruisje: weg tot de volgende stap. Escape: weg tot de volgende quest-update (dan komt het terug).
+- [ ] Quiet helpers → "Small window with your class quest step" uit → het venster is weg.
+- [ ] Komt er niets? Typ `/mh classquest` en maak een screenshot: de laatste regel zegt waarom.
+
 ## 🧳 19 nov — Midnight: tooltip op de reisknop
 
 `/reload` is genoeg. Retail (Midnight).

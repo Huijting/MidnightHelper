@@ -423,6 +423,9 @@ for k, v in pairs({
 	FBLESS_HELP = "/mh blesstip on | off | button on | button off | set <classe> might|wisdom|kings | reset",
 	-- 19 Nov 2026: the smart blessing button. Our own translation.
 	FBLESS_BTN_SW = "Botão: bênção inteligente no jogador sob o seu mouse",
+	FCQWIN_SW = "Janela pequena com a sua etapa de missão de classe",
+	FCQWIN_SW_DESC = "Uma janela pequena que você pode mover, só com a etapa de missão de classe em que você está, com letra maior, e um botão para o caminho. Ela segue a etapa sozinha e some quando não há nenhuma. Se você fechar, ela volta na próxima etapa.",
+	FCQ_WIN_TITLE = "Missão de classe",
 	FBLESS_BTN_SW_DESC = "Uma tecla para todas as bênçãos: ela dá ao jogador aliado sob o seu mouse a bênção que a dica acima escolhe (a sua própria tabela conta). Ligar cria uma macro para arrastar para uma barra. Em combate, a última escolha fica.",
 	FBLESS_BTN_ON_FMT = "bênção inteligente LIGADA. Arraste a macro \"%s\" da janela de macros para uma barra, depois passe o mouse num jogador e aperte.",
 	FBLESS_BTN_NOMACRO = "bênção inteligente LIGADA, mas o MH não conseguiu criar a macro agora (em combate ou sem espaço). Desligue e ligue de novo mais tarde.",

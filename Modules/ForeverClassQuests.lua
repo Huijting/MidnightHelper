@@ -2855,6 +2855,9 @@ function ns.ForeverClassQuestSlash(arg)
 	end
 	local line = ns.ForeverClassQuestNow()
 	print("  line in Do this now: " .. (line or "none"))
+	if ns.ForeverCQWindowLine then
+		print("  " .. ns.ForeverCQWindowLine())
+	end
 end
 
 --- 17 Nov 2026 (overview card + Class quests page): every class quest of this character as data, in table order:
@@ -2930,4 +2933,168 @@ function ns.ForeverClassQuestOverview()
 	end
 	lines[#lines + 1] = ns:L("FCQ_HOWTO_BTN")
 	return table.concat(lines, "\n")
+end
+
+--------------------------------------------------------------------------------
+-- A small window with only the class quest step you are on (Rob, 19 Nov 2026, doing the mage quest: "ik moet heel goed
+-- lezen in Do This Now wat ik precies moet doen. En, ja, het valt een beetje weg. Kunnen we misschien de optie maken
+-- dat we een extra venstertje krijgen wat we los kunnen plaatsen. Al dan niet met een aan- en uitknop in onze
+-- settings." → "Doe het nu maar."). The same sentence as the class quest line in Do this now, larger, with Show the way.
+-- It follows the step by itself; no step = hidden. Movable (place remembered), Shift+scroll = size; the cross hides it
+-- until the step changes, Escape until the next quest update. Switch in Quiet helpers, on by default: ns.db.foreverCQWindow ~= false.
+-- Silence rule: /mh classquest prints whether it shows and why.
+--------------------------------------------------------------------------------
+local CQW_W = 340
+local cqw
+local cqwWhy = "not looked yet"
+local cqwClosedFor -- the step text the player closed the window on
+
+function ns.IsForeverCQWindowOn()
+	return not (type(ns.db) == "table" and ns.db.foreverCQWindow == false)
+end
+
+local CQWUpdate -- forward
+
+function ns.SetForeverCQWindow(on)
+	if type(ns.db) ~= "table" then
+		return
+	end
+	-- plain branches, not `and false or` (lint [29])
+	if on then
+		ns.db.foreverCQWindow = nil
+		cqwClosedFor = nil
+	else
+		ns.db.foreverCQWindow = false
+	end
+	CQWUpdate()
+end
+
+local function CQWBuild()
+	if cqw then
+		return cqw
+	end
+	local f = CreateFrame("Frame", "MidnightHelperForeverClassQuestWindow", UIParent, "BackdropTemplate")
+	f:SetSize(CQW_W, 100)
+	f:SetFrameStrata("MEDIUM")
+	f:SetBackdrop({ bgFile = "Interface\\Buttons\\WHITE8X8", edgeFile = "Interface\\Buttons\\WHITE8X8", edgeSize = 1 })
+	local pos = type(ns.db) == "table" and ns.db.foreverCQWindowPos
+	if type(pos) == "table" and pos[1] then
+		f:SetPoint(pos[1], UIParent, pos[2] or pos[1], pos[3] or 0, pos[4] or 0)
+	else
+		f:SetPoint("TOPLEFT", UIParent, "TOPLEFT", 40, -220)
+	end
+	f:EnableMouse(true)
+	f:SetMovable(true)
+	f:SetClampedToScreen(true)
+	f:RegisterForDrag("LeftButton")
+	f:SetScript("OnDragStart", f.StartMoving)
+	f:SetScript("OnDragStop", function(self)
+		self:StopMovingOrSizing()
+		if type(ns.db) == "table" then
+			local p, _, rp, x, y = self:GetPoint(1)
+			ns.db.foreverCQWindowPos = { p, rp, x, y }
+		end
+	end)
+	f.title = f:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+	f.title:SetPoint("TOPLEFT", 12, -10)
+	f.title:SetPoint("RIGHT", f, "RIGHT", -28, 0)
+	f.title:SetJustifyH("LEFT")
+	local close = CreateFrame("Button", nil, f, "UIPanelCloseButton")
+	close:SetPoint("TOPRIGHT", 2, 2)
+	close:SetScale(0.8)
+	close:HookScript("OnClick", function()
+		cqwClosedFor = f.stepText -- back with the next step
+	end)
+	f.body = f:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+	f.body:SetPoint("TOPLEFT", f.title, "BOTTOMLEFT", 0, -8)
+	f.body:SetWidth(CQW_W - 24)
+	f.body:SetJustifyH("LEFT")
+	f.body:SetJustifyV("TOP")
+	if f.body.SetSpacing then
+		f.body:SetSpacing(3)
+	end
+	f.go = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
+	f.go:SetSize(130, 22)
+	f.go:SetPoint("BOTTOMRIGHT", -10, 8)
+	f.go:SetText(ns:L("FCQ_BTN"))
+	f.go:SetScript("OnClick", function()
+		ns.ForeverClassQuestGo()
+	end)
+	local Style = ns.ForeverStyle
+	if Style and Style.SkinOnShow then
+		Style.SkinOnShow(f)
+	end
+	-- Larger letters than Do this now (that was the point): after the skin, which sets the fonts when it shows.
+	f:HookScript("OnShow", function(self)
+		local font, _, flags = self.body:GetFont()
+		if font then
+			self.body:SetFont(font, 15, flags)
+		end
+		self:Fit()
+	end)
+	function f:Fit()
+		self:SetHeight(10 + (self.title:GetStringHeight() or 14) + 8 + (self.body:GetStringHeight() or 15) + 12 + 22 + 8)
+	end
+	if ns.RegisterMidnightDialogPopup then
+		ns.RegisterMidnightDialogPopup(f) -- Shift+scroll = size (every MH window), Escape closes
+	end
+	-- Only the cross keeps it away for this step. Escape (which closes every MH window at once, also when you only
+	-- wanted to close the map) hides it until the next quest update brings it back.
+	f:Hide()
+	cqw = f
+	return f
+end
+
+local function CQWHide(why)
+	cqwWhy = why
+	if cqw and cqw:IsShown() then
+		cqw:Hide()
+	end
+end
+
+CQWUpdate = function()
+	if not ns.IsForeverCQWindowOn() then
+		return CQWHide("switched off (Quiet helpers)")
+	end
+	local ok, line = pcall(ns.ForeverClassQuestNow)
+	if not ok or not line then
+		return CQWHide(ok and "no class quest step right now" or ("error: " .. tostring(line)))
+	end
+	if cqwClosedFor == line then
+		return CQWHide("you closed it on this step; it comes back with the next one")
+	end
+	cqwClosedFor = nil
+	local f = CQWBuild()
+	local okP, parts = pcall(ns.ForeverClassQuestNowParts)
+	local title = okP and parts and parts.chain or ns:L("FCQ_WIN_TITLE")
+	f.title:SetText(title)
+	f.body:SetText(line)
+	f.stepText = line
+	f:Fit()
+	f:Show()
+	cqwWhy = "shown: " .. title
+end
+
+do
+	local pending = false
+	local function Soon()
+		if pending then
+			return
+		end
+		pending = true
+		C_Timer.After(0.5, function()
+			pending = false
+			CQWUpdate()
+		end)
+	end
+	local ev = CreateFrame("Frame")
+	for _, e in ipairs({ "PLAYER_ENTERING_WORLD", "QUEST_LOG_UPDATE", "QUEST_ACCEPTED", "QUEST_TURNED_IN",
+		"PLAYER_LEVEL_UP", "SPELLS_CHANGED", "BAG_UPDATE_DELAYED" }) do
+		pcall(ev.RegisterEvent, ev, e)
+	end
+	ev:SetScript("OnEvent", Soon)
+end
+
+function ns.ForeverCQWindowLine()
+	return ("small step window: %s (Quiet helpers); %s"):format(ns.IsForeverCQWindowOn() and "on" or "off", cqwWhy)
 end
