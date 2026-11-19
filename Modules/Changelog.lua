@@ -4,6 +4,19 @@ local changelogFrame
 
 local CHANGELOG_ENTRIES = {
 	{
+		version = "5.6.0",
+		lines = {
+			-- 19 Nov 2026 (prepared on Rob's "Ja, de bouwchat mag alles klaarzetten"; no tag until his go).
+			"CHANGELOG_560_1",
+			"CHANGELOG_560_2",
+			"CHANGELOG_560_3",
+			"CHANGELOG_560_4",
+			"CHANGELOG_560_5",
+			"CHANGELOG_560_6",
+			"CHANGELOG_560_7",
+		},
+	},
+	{
 		version = "5.5.0",
 		lines = {
 			-- 17 Nov 2026 (prepared, waiting for Rob's go): the Forever overview, Find in town, class quests for all classes.

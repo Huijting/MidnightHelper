@@ -253,26 +253,26 @@ lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met d
   maakt. Voorstel "only when a talent makes it free" ligt bij Rob; niet gebouwd.
 - ✅ Rob koos 19 nov (via sparring), letterlijk: *"a"* = de mage-zin blijft zonder Arcane Missiles. Niets te bouwen.
 
-### Forever: "breng me naar de trainer" kiest een trainer die je iets kan leren — ✅ BUG + GEBOUWD 19 nov
+### Forever: "breng me naar de trainer" kiest een trainer die je iets kan leren — ✅ AF 19 nov (Rob getest: *"de testen 1 tot en met 5 zijn allemaal goed en goedgekeurd"*)
 - Bron: Rob 19 nov (via Sparring 19-11), letterlijk: *"Hij brengt me naar de dichtstbijzijnde trainer, maar ik kan
   helemaal niks leren. Help"*. Spel: F. Voor wie: N.
 - Gebouwd: startgebied-trainers (leren tot level 6, GEMETEN) worden overgeslagen als je iets hogers moet leren; MH
   onthoudt per trainer tot welk level hij leert, en zegt het bij een trainer met een te korte lijst. Wacht op Robs test.
 
-### Forever + Midnight: "Used for" noemt ook het recept — ✅ JA + GEBOUWD 19 nov
+### Forever + Midnight: "Used for" noemt ook het recept — ✅ AF 19 nov (Rob getest, test 3; Midnight nog niet gezien)
 - Bron: Rob 19 nov (via Sparring 19-11), op het voorstel "noem het recept" na de Scroll of Protection-vraag:
   *"ja graag"*. Spel: F + M. Voor wie: N + V.
 - Gebouwd: onder "MH: Used for …" een grijze regel "Recipes: X, Y (+N more)". De twee makkelijkste recepten eerst
   (Forever); de naam komt uit de client, dus in de taal van de speler. Wacht op Robs test.
 
-### Forever: Comprehension uitleggen (mage) + "Do this now" zegt het bij een scroll — ✅ JA + GEBOUWD 19 nov
+### Forever: Comprehension uitleggen (mage) + "Do this now" zegt het bij een scroll — ✅ JA + GEBOUWD 19 nov (rij in Professions getest door Rob; de scroll-regel nog niet)
 - Bron: Rob 19 nov (via Sparring 19-11), letterlijk: *"En dat comprehensive kaartje. Ik heb inmiddels inderdaad de knop
   gevonden. Maar dit verrast mij. En ik heb het ook nergens bij ons in onze add-on gezien."* Spel: F. Voor wie: N.
 - Gebouwd: regel + kaartje "Comprehension" op de Professions-pagina (alleen mage); "Do this now" bij een onvertaalde
   scroll in je tas. Alleen gemeten feiten. Wacht op Robs test.
 - Ook uit dezelfde ja: FutureSpell-filter (ForeverBlock) gebouwd; slimme zegen-knop deel 2 gebouwd (zie daar).
 
-### Forever: namen met een tooltip in een eigen kleur + je goud in "Do this now" — ✅ JA + GEBOUWD 19 nov
+### Forever: namen met een tooltip in een eigen kleur + je goud in "Do this now" — ✅ AF 19 nov (Rob getest, test 5)
 - Bron: Rob 19 nov (via Sparring 19-11), letterlijk: *"dat we bijvoorbeeld Conjugal Water of Conjugal Food een ander
   kleurtje krijgt als het een tooltip bevat. Want nu zie ik dat niet"* (Willow: Conjure Water/Food) en *"dat ik in dat
   overzichtje rechts onderin mijn goudvoorraadje krijg ... ik doe nu heel vaak mijn tas open om te kijken hoeveel geld
@@ -280,7 +280,7 @@ lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met d
 - Gebouwd: lichtblauw (de spell-link-kleur van het spel) voor namen met een spell-tooltip; goud rechtsonder in Do this
   now, ververst bij elke verandering. Wacht op Robs test.
 
-### Forever: Find → Rares begint bij het gebied waar je bent — ✅ JA + GEBOUWD 19 nov (wacht op Robs test)
+### Forever: Find → Rares begint bij het gebied waar je bent — ✅ AF 19 nov (Rob getest, test 4)
 - Bron: Rob 19 nov (via Sparring 19-11), letterlijk: *"Kunnen we het zo instellen dat we gewoon waar ik nu ben altijd
   bovenaan staat?"* → *"Ja, doe maar."* Spel: F. Voor wie: N + V.
 - Gebouwd: je gebied bovenaan met "(you are here)", dan "Worth the trip", dan de rest; wisselt mee met je gebied.
@@ -294,7 +294,7 @@ lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met d
 - 1 lange namen passend: GEBOUWD 19 nov. 2 klein baaskaartje bij targeten (met schakelaar): GEBOUWD 19 nov. 3 model
   bij muis op een baasnaam: GEBOUWD 19 nov. Alle drie wachten op Robs test.
 
-### Forever: na de trainer per spell kiezen + met de hand neergezette rank met rust laten — ✅ JA 19 nov (A GEBOUWD)
+### Forever: na de trainer per spell kiezen + met de hand neergezette rank met rust laten — ✅ JA 19 nov (A GEBOUWD en door Rob gezien werken; B wacht op `/mh ranks watch`)
 - Bron: de vragenlijst-speler (18 nov): *"I would like to choose which action bar spells I want to upgrade."* Rob 19 nov
   (via Sparring 19-11), letterlijk: *"Ik denk dat hij bedoelde allebei. Dat wanneer hij eenmaal met de hand iets ergens
   neerzet, dat hij dat voorlopig niet zomaar geüpgrade wordt, denk ik. Dat is een aanname van mij. En inderdaad, jouw

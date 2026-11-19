@@ -2,6 +2,31 @@
 
 All notable changes to this project are documented in this file.
 
+## 5.6.0
+
+📌 **KLAARGEZET 19 nov 2026, wacht op Robs go (geen tag).** Rob via sparring, letterlijk: *"Ja, de bouwchat mag alles
+klaarzetten."* Eerst doet hij een Midnight-/reload-check. In-game: CHANGELOG_560_1 t/m _7. `RELEASE_NOTES.md` =
+`docs/CURSEFORGE_5.6.0.md` (uit het concept `docs/CURSEFORGE_DRAFT_volgende.md` + alles van 18 nov nacht en 19 nov).
+Commits v5.5.0..HEAD (18 en 19 nov). Getest door Rob: zie TESTLIJST 18 en 19 nov (o.a. trainer-pijl, Comprehension-rij,
+Recipes-regel, rares, blauwe namen + goud, "You just learned", loot-tooltips, baasmodel, lange namen).
+
+- **Forever, bazengids:** alle 28 dungeons (`ForeverDungeonGuide.lua`, naamplaatje-namen), 3D-model bij de muis, klein
+  baaskaartje bij het targeten (`FDG_CARD_SW`), lange namen passen (`FitLabel`), loot-tooltips.
+- **Forever, vinden:** zoekbalk (stap 1+2), Find → Travel, Rares (stap A+B, je eigen gebied eerst), inklapbare koppen;
+  de trainer-pijl slaat trainers met een te korte lijst over (`cap`, `foreverTrainerCap`; startgebied = tot level 6).
+- **Forever, tooltips:** spell-tooltips in Do this now, trainer-pagina, Coming up, class quests; items, gereedschap,
+  wapens, verkopers; `S.LINK` lichtblauw.
+- **Forever, verder:** "You just learned" (`ForeverRanks.lua`), rank-keuze vindbaar, class-quest-voorwaarden, wapenquests
+  (warrior/warlock/shaman, Windshaper), wapenvergelijking met DPS (optie A) + richting-regel, buff "runs out soon",
+  goud in Do this now, macro-chips/Copy/melding, Simple order "not learned yet", Comprehension-kaart, slimme zegen-knop,
+  Cozy Sleeping Bag, disenchant, Open-box button, Reputation & currency, geld in munten, 3D-portret (standaard uit),
+  standaard-aan-schakelaars weer uit te zetten.
+- **Beide spellen:** "Used for" noemt de eerste twee recepten (`forever_reagents.py`, `ReagentUse.lua`).
+- **Midnight:** tooltip op de reisknop (`TravelRoute.lua`); aura's van andere spelers weer "afwezig" leesbaar; twee
+  standaard-aan-schakelaars weer uit te zetten.
+- **Alleen voor ons (niet in de spelerstekst):** `/mh bosses check`, `/mh buffs time`, `/mh ranks watch`, `/mh repprobe`,
+  `/mh camp`, `/mh disenchant`, `/mh trainer check` (short lists), `/mh usedfor`-diagnose, lint [29], FutureSpell-filter.
+
 ## 5.5.0
 
 📌 **KLAARGEZET 17 nov 2026, wacht op Robs go (geen tag).** In-game: CHANGELOG_550_1 t/m _6. `RELEASE_NOTES.md` =

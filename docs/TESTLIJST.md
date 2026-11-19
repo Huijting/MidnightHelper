@@ -39,6 +39,11 @@ zoekbalk, de reputaties, de rares, de muntjes, de Now-kaart, het ronde plaatje e
 achternaam, "Step aside"-instelling, Your path, Set focus). Daarna vond Rob nog: "scroll for more" over de tekst
 (gerepareerd, zie Travel) en het boek bij de mage-quest "Study" (in bouw).
 
+✅ **Rob, 19 nov, via sparring, letterlijk: *"de testen 1 tot en met 5 zijn allemaal goed en goedgekeurd"*** (sparring:
+1 trainer-pijl, 2 Comprehension-rij, 3 Recipes-regel, 4 rares bij het huidige gebied, 5 lichtblauw + goud). Test 6, het
+rank-lijstje: werkt (screenshot: "You just learned", Conjure Water rank 1 -> 2 en Frost Armor rank 1 -> 2, met de knoppen
+Upgrade / Not now / Never). Afgevinkt met "(Rob, 19 nov)". De hulpregels ("typ /mh … als het niet werkt") blijven open.
+
 ## 🧳 19 nov — Midnight: tooltip op de reisknop
 
 `/reload` is genoeg. Retail (Midnight).
@@ -49,20 +54,22 @@ achternaam, "Step aside"-instelling, Your path, Set focus). Daarna vond Rob nog:
 ## 🧭 19 nov — Forever: de pijl slaat trainers over die jou niets kunnen leren
 
 `/reload` is genoeg. Met je Troll mage (level 10), in Durotar.
-- [ ] Overzicht → de trainer-knop ("breng me naar de trainer"). De pijl wijst nu NIET naar Mai'ah in Valley of Trials,
-      maar naar Un'Thuwa (Sen'jin Village) of Orgrimmar.
+- [x] Overzicht → de trainer-knop ("breng me naar de trainer"). De pijl wijst nu NIET naar Mai'ah in Valley of Trials,
+      maar naar Un'Thuwa (Sen'jin Village) of Orgrimmar. (Rob, 19 nov)
 - [ ] Loop toch even naar Mai'ah en praat met haar. In de chat staat: "Mai'ah only teaches spells up to level 6; yours
       need level 10. Go to …".
-- [ ] Bij de goede trainer: Frost Nova, Conjure Water (rank 2) en Frost Armor (rank 2) staan erbij.
+- [x] Bij de goede trainer: Frost Nova, Conjure Water (rank 2) en Frost Armor (rank 2) staan erbij. (Rob, 19 nov; het
+      rank-lijstje toonde Conjure Water en Frost Armor 1 -> 2)
 - [ ] Typ `/mh trainer check`, maak een screenshot: de regel "short lists" zegt wat MH bij de trainer las.
 
 ## 🧾 19 nov — "Used for" noemt nu het recept (Forever + Midnight)
 
 `/reload` is genoeg.
-- [ ] Ga met je muis op **Linen Cloth** staan (tas of verkoper). Onder "MH: Used for …" staat een grijze regel:
-      "Recipes: Bolt of Linen Cloth, SAF-T Dynamite (+10 more)".
+- [x] Ga met je muis op **Linen Cloth** staan (tas of verkoper). Onder "MH: Used for …" staat een grijze regel:
+      "Recipes: Bolt of Linen Cloth, SAF-T Dynamite (+10 more)". (Rob, 19 nov: de Recipes-regel)
 - [ ] Een **Scroll of Protection** zegt: "Recipes: Tenets of the Silver Hand".
-- [ ] Mage: Overzicht → **Professions**. Onderaan de lijst staat nu **Comprehension**. Klik erop: het kaartje komt.
+- [x] Mage: Overzicht → **Professions**. Onderaan de lijst staat nu **Comprehension**. Klik erop: het kaartje komt.
+      (Rob, 19 nov)
 - [ ] Geen recept-regel? Typ `/mh usedfor` en maak een screenshot.
 
 ## 🙏 19 nov — Forever (paladin): slimme zegen-knop
@@ -78,7 +85,7 @@ achternaam, "Step aside"-instelling, Your path, Set focus). Daarna vond Rob nog:
 ## 📜 19 nov — Forever (mage): Comprehension uitgelegd + regel in "Do this now"
 
 `/reload` is genoeg. Met je mage.
-- [ ] Overzicht → **Professions**: onderaan de lijst staat "Comprehension". Klik → het kaartje legt uit wat het is,
+- [x] (Rob, 19 nov) Overzicht → **Professions**: onderaan de lijst staat "Comprehension". Klik → het kaartje legt uit wat het is,
       of je de spell kent, waar hij in je spellboek staat, de drempels 1/15/50/175 en Study.
 - [ ] Draag je een onvertaalde scroll (bv. "Scroll: KWYJIBO")? Dan staat er in **Do this now**: "You carry 1
       untranslated scroll(s): use Comprehend Scroll on it (General tab of your spellbook)." Muis op de spellnaam →
@@ -142,8 +149,8 @@ De regels zeggen per buff: naam, id, duur, wanneer hij afloopt en hoeveel second
 
 `/reload` is genoeg. Bij je class trainer, met een spell die je al op een balk hebt (zodat je een nieuwe rank leert),
 en liefst ook een helemaal nieuwe spell.
-- [ ] Na het trainen komt een klein lijstje "You just learned". Een nieuwe rank: "Frostbolt: rank 2 -> 3 (2 buttons)"
-      met **Upgrade / Not now / Never**. Een nieuwe spell: "…: new, not on a bar yet" met **On my bar / Not now / Never**.
+- [x] Na het trainen komt een klein lijstje "You just learned". Een nieuwe rank: "Frostbolt: rank 2 -> 3 (2 buttons)"
+      met **Upgrade / Not now / Never**. (Rob, 19 nov, screenshot: Conjure Water en Frost Armor rank 1 -> 2) Een nieuwe spell: "…: new, not on a bar yet" met **On my bar / Not now / Never**.
 - [ ] **Upgrade** zet die knoppen op de nieuwe rank. **On my bar** zet de spell op een vrije knop van je balken.
       **Never** laat die knoppen voortaan met rust (zie ook /mh ranks choose). **Not now** haalt de regel weg.
 - [ ] Muis op een naam → de spell-tooltip. Passen de knoppen om hun tekst (ook in een andere taal)?
@@ -159,16 +166,17 @@ en liefst ook een helemaal nieuwe spell.
 `/reload` is genoeg.
 - [ ] Your class → **Class quests**: een rij met een lange stap (bv. "Study (scrolls from the library, once an h…)") en
       een plaatsregel eronder: niets valt meer over de volgende rij heen. Elke rij is zo hoog als zijn tekst.
-- [ ] Namen met een tooltip zijn **lichtblauw** (de kleur van een spell-link in het spel): in "Do this now", bij
+- [x] Namen met een tooltip zijn **lichtblauw** (de kleur van een spell-link in het spel): in "Do this now", bij
       "Coming up", op de trainer-pagina (spells van later blijven grijs) en bij class quests met een spell-beloning.
-- [ ] **Do this now**: rechtsonder staat je goud (goud, zilver, koper met muntjes). Koop of loot iets: het getal
-      verandert meteen. De knoppen staan erboven, niets overlapt.
+      (Rob, 19 nov)
+- [x] **Do this now**: rechtsonder staat je goud (goud, zilver, koper met muntjes). Koop of loot iets: het getal
+      verandert meteen. De knoppen staan erboven, niets overlapt. (Rob, 19 nov)
 
 ## 📍 19 nov — Forever: Find → Rares begint bij het gebied waar je bent
 
 `/reload` is genoeg.
-- [ ] Overzicht → Find → Rares: bovenaan staat het gebied waar je nu bent, met "(you are here)" erachter. Daaronder
-      "Worth the trip", dan de rest. In het gebied staat de dichtstbijzijnde rare eerst.
+- [x] Overzicht → Find → Rares: bovenaan staat het gebied waar je nu bent, met "(you are here)" erachter. Daaronder
+      "Worth the trip", dan de rest. In het gebied staat de dichtstbijzijnde rare eerst. (Rob, 19 nov)
 - [ ] Ga naar een ander gebied (met het overzicht open of daarna opnieuw open): het nieuwe gebied staat bovenaan.
 - [ ] In een stad of grot: ook dan staat het gebied eromheen bovenaan.
 

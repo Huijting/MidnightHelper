@@ -38,6 +38,16 @@
   `C_Spell.GetSpellName` (taal van de client); `/mh usedfor` toont ook die regel of waarom niet. Offline GEMETEN:
   524/524 Forever-items hebben recept-id's; Linen Cloth → "Bolt of Linen Cloth, SAF-T Dynamite (+10 more)"; 3013 →
   "Tenets of the Silver Hand". Teksten 7 talen. NIET in het spel gezien.
+- 📦 **RELEASE 5.6.0 KLAARGEZET, GEEN TAG** (Rob via sparring: *"Ja, de bouwchat mag alles klaarzetten."*). Beide toc's
+  5.6.0; `Changelog.lua` + `CHANGELOG_560_1..7` (enUS); `RELEASE_NOTES.md` = `docs/CURSEFORGE_5.6.0.md` (byte-gelijk
+  GEMETEN); `CHANGELOG.md`; SITE_SEIN-regel "alleen op main". Het concept `CURSEFORGE_DRAFT_volgende.md` is verwerkt.
+  Wacht op: Robs Midnight-/reload-check, dan zijn letterlijke go → `git tag -a v5.6.0` + push van de tag.
+  Gelezen tegen de 11-nov-regel: geen /mh-diagnose in de spelerstekst. Eén regel nagemeten: het 3D-portret staat
+  standaard UIT (het concept zei dat al goed).
+- Open, uitgezocht, keuze voor Rob: het "New for your key block"-venster en het lijstje "You just learned" kwamen
+  tegelijk (Conjure Water in allebei). GEMETEN: ze doen verschillende dingen (het blok zet een macro op zijn eigen toets,
+  het lijstje zet je bestaande rank-1-knop omhoog); Frost Nova staat bewust niet in het lijstje als het toetsenblok
+  staat (`ForeverDoNow.lua:181-184`). Advies: na elkaar (het lijstje wacht tot het blok-venster dicht is). Niet gebouwd.
 - **Bug "breng me naar de trainer" GEREPAREERD** (Rob, Troll mage 10: *"Hij brengt me naar de dichtstbijzijnde trainer,
   maar ik kan helemaal niks leren. Help"*). GEMETEN (mh-research, 5 bronnen + Robs screenshots; verslag
   `docs/forever/STARTER_TRAINERS_2026-11-19.md`): de 43 trainers in de startgebieden leren tot level 6, voor elke class.

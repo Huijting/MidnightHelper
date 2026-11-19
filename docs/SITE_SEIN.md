@@ -28,6 +28,22 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 19 nov 2026 — release 5.6.0 klaargezet (nog GEEN tag)
+- Tag + commit:   geen tag (komt pas na Robs letterlijke go); commit = de commit die deze regel toevoegt
+- Status:         alleen op main
+- Mag op de site: nee, nog niet. Rob via sparring: *"Ja, de bouwchat mag alles klaarzetten."* Eerst zijn
+                  Midnight-/reload-check, dan zijn go.
+- Afspraak:       🔴 bij DEZE release zet de site-chat de **screenshots-draft v2** live (afspraak van 18 nov, hieronder).
+- Speler ziet:    zie `RELEASE_NOTES.md` (= `docs/CURSEFORGE_5.6.0.md`): bazengids 28 dungeons (met 3D-model en klein
+                  baaskaartje), zoekbalk, Travel, rares (je eigen gebied eerst), de juiste class trainer, tooltips overal
+                  (lichtblauwe namen), "You just learned", wapenquests, buff "runs out soon", je goud in Do this now,
+                  Comprehension (mage), slimme zegen-knop (paladin), "Used for" noemt het recept (ook Midnight).
+                  *(getest door Rob: trainer-pijl, Comprehension-rij, Recipes-regel, rares, blauwe namen + goud,
+                  "You just learned", loot-tooltips, baasmodel, lange namen)*
+- Knoplabels:     FDG_BTN, FDG_CARD_SW, FRANK_LIST_SW, FBLESS_BTN_SW, FOV_SUB_QUIET, FOV_TAB_KEYS
+- Commando's:     /mh, /mh bosses, /mh trainer go
+- Spel:           vooral Forever; Midnight: "Used for"-recepten, tooltip op de reisknop, twee reparaties
+
 ## 18 nov 2026 — concept voor de volgende release klaargezet (nog GEEN release)
 - Tag + commit:   geen tag; concept in `docs/CURSEFORGE_DRAFT_volgende.md` (geen versienummer, geen RELEASE_NOTES.md)
 - Status:         alleen op main

@@ -1,3 +1,6 @@
+<!-- 19 nov 2026: VERWERKT in 5.6.0 (RELEASE_NOTES.md = docs/CURSEFORGE_5.6.0.md). Dit concept is geschiedenis;
+begin een nieuw concept voor de release daarna. -->
+
 # Midnight Helper (next version): a boss guide for every Forever dungeon, a search bar, and travel help
 
 <!-- CONCEPT (bouwchat, 18 nov 2026), op Robs ja via sparring ("Fable mag en ik volg je advies"). Rob beslist zelf of
