@@ -1,5 +1,16 @@
 # Midnight Helper — waar we staan
 
+## ▶ 19 nov — Bazengids: 3 wensen (Rob: *"Ja, dat klopt uiteindelijk wel."* op alle 3) — stap 1 GEBOUWD
+
+Robs test (screenshot, Forever, Deadmines): de loot-tooltip werkt (Cruel Barb, met de Equipped-vergelijking). Afgevinkt.
+Volgorde (sparring-voorstel, Rob ja): 1 lange namen in de lijst passend, 2 klein baaskaartje bij targeten in een
+dungeon (schakelaar), 3 luxe: 3D-model bij muis op een baasnaam.
+- **Stap 1** (`ForeverDungeonGuide.lua`, Build): een dungeonnaam breder dan zijn knop (Rob: "Excavation Site:
+  Wetlands") krijgt de kleine letter en zo nodig 2 regels. Gemeten per knop met `GetStringWidth`, dus elke taal en
+  elke naam vanzelf. Voor alle drie de knopstanden (de gekozen dungeon is een uitgeschakelde knop). NIET in het spel.
+- ⚠️ Correctie op mijn eerdere regel "bazenregels hebben geen spell- of npc-id": de bazen hebben WEL `b.npc`
+  (`ForeverDungeonGuideData.lua`, GEMETEN door de sparring); alleen spell-id's ontbreken.
+
 ## ▶ 19 nov — Robs /dump-meting voor optie B (deels)
 
 Rob via sparring (Forever, screenshot). GEMETEN:
@@ -75,7 +86,8 @@ over beide"* (Midnight + Forever). In `docs/IDEEEN.md` onder "Ja".
   `DelveTipMarkup.lua:483`). Zonder `split` geeft de functie de oude volle tekst (slash/tests).
 - Gecontroleerd: Lua-syntax hele repo OK (GEMETEN). NIET in het spel gezien; niet offline in een stub gedraaid.
 - Open: inventaris van alle andere plekken zonder tooltip (helper mh-sweep loopt) → lijst + volgorde naar de sparring.
-  Bazenregels hebben geen spell/npc-id in de data → geen tooltip mogelijk zonder nieuwe data.
+  Bazenregels hebben geen spell-id in de data → geen spell-tooltip zonder nieuwe data. (npc-id wél: `b.npc`; zie
+  de correctie bovenaan, 19 nov.)
 - NIET meegenomen (geen ja): een vindbare plek voor `/mh ranks choose`.
 
 ## ▶ 18 nov (avond) — `/mh disenchant` gemeten door Rob

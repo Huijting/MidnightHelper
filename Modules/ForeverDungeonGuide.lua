@@ -336,6 +336,23 @@ local function Build()
 		b:SetPoint("TOPLEFT", 0, -(i - 1) * 28)
 		b.map = d.map
 		b:SetText(DungeonName(d))
+		-- 19 Nov 2026 (Rob: "Excavation Site Wetlands, dat die niet helemaal erin past"): a name wider than the button gets
+		-- the small font, and two lines if it still does not fit (the 24 px button holds two small lines).
+		local fs = b:GetFontString()
+		if fs then
+			local room = LEFT_W - 4 - 14
+			if (fs:GetStringWidth() or 0) > room then
+				-- All three states: the chosen dungeon's button is disabled, and a button swaps in its disabled font then.
+				b:SetNormalFontObject("GameFontNormalSmall")
+				b:SetHighlightFontObject("GameFontHighlightSmall")
+				b:SetDisabledFontObject("GameFontDisableSmall")
+				fs:SetWidth(room)
+				fs:SetWordWrap(true)
+				if fs.SetMaxLines then
+					fs:SetMaxLines(2)
+				end
+			end
+		end
 		b:SetScript("OnClick", function(self)
 			selected = self.map
 			Fill()

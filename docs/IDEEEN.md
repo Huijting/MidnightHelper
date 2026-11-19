@@ -239,6 +239,15 @@ gebruiken."* Uitslag (bouwchat 15-11, alleen op main, NIET in het spel gezien):
 Hier komt wat Rob goedkeurt, ook wat hij rechtstreeks in de bouwchat vraagt (Rob, 10 nov: *"ja we willen het op 1
 lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met de commit erbij. Na zijn test naar **Af**.
 
+### Forever bazengids: lange namen, klein baaskaartje, 3D-model — ✅ JA 19 nov (stap 1 GEBOUWD)
+- Bron: Rob 19 nov (via Sparring 19-11), letterlijk: *"bij Excavation Site Wetlands, dat die niet helemaal erin past"*;
+  *"als ik zo meteen een baas aanklik in een dungeon, krijg ik dan hetzelfde scherm te zien? Of ... een kleiner, wat
+  makkelijker scherm ... dit vult best wel weer veel beeld"*; *"wanneer ik bijvoorbeeld op Captain Greenskin ga staan,
+  dat we ook plaatjes krijgen ... dat moet geen apart groot scherm worden ... puur luxe extra"*. Op "ja op alle 3?":
+  *"Ja, dat klopt uiteindelijk wel."* Spel: F. Voor wie: N + V.
+- 1 lange namen passend: GEBOUWD 19 nov. 2 klein baaskaartje bij targeten (met schakelaar): open. 3 model bij muis op
+  een baasnaam: open.
+
 ### Forever: het rank-keuzevenster vindbaar maken — ✅ JA + GEBOUWD 19 nov (wacht op Robs test)
 - Bron: Rob 19 nov (via Sparring 19-11), letterlijk: *"Op beide vragen ja"* op: een knop in de instellingen van Forever
   + vindbaar via de zoekbalk op "rank"/"ranks" en het woord per taal. Spel: F. Voor wie: N + V.
@@ -251,7 +260,8 @@ lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met d
   *"Tooltip over beide"*. Spel: M + F. Voor wie: N + V.
 - Stap 1 GEBOUWD 19 nov: de loot in de Forever-bazengids (`ForeverDungeonGuide.lua`): elke loot-regel is een eigen rij
   met de tooltip van het spel; shift-klik = link in de chat, ctrl-klik = paskamer (de handler van het spel). Niet in het
-  spel gezien. De bazenregels hebben geen spell- of npc-id in de data, dus daar kan nog geen tooltip.
+  spel gezien. De bazenregels hebben geen spell-id in de data, dus daar kan nog geen spell-tooltip. (Een npc-id
+  hebben de bazen wél, `b.npc`; mijn eerdere "geen npc-id" was fout — gecorrigeerd 19 nov.)
 - Inventaris naar de sparring (19 nov). Volgorde: Forever 1 Do this now, 2 Trainer, 3 class quests, 4 verkopers,
   5 wapentrainers; dan Midnight (achievements, rares, reisplanner) en de staart in groepjes.
 - Stap 2 GEBOUWD 19 nov (Rob: *"Doe maar"* op 1 en 2): spellnamen in "Do this now" (klein venster) met tooltip;
