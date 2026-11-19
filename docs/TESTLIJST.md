@@ -39,6 +39,13 @@ zoekbalk, de reputaties, de rares, de muntjes, de Now-kaart, het ronde plaatje e
 achternaam, "Step aside"-instelling, Your path, Set focus). Daarna vond Rob nog: "scroll for more" over de tekst
 (gerepareerd, zie Travel) en het boek bij de mage-quest "Study" (in bouw).
 
+## 🧳 19 nov — Midnight: tooltip op de reisknop
+
+`/reload` is genoeg. Retail (Midnight).
+- [ ] Zet een route waarbij MH de knop "gebruik je Hearthstone / toy / teleport" laat zien (bv. een route naar een
+      hoofdstad met de mount-run of de reisplanner). Muis op het icoontje → de tooltip van het spel (van de Hearthstone,
+      de toy of de mage-teleport). Klikken werkt nog net als eerst.
+
 ## 🔴 19 nov — METING (5 minuten): hoe lang je buffs nog duren + of MH een seal ziet
 
 Voor twee ideeën met jouw ja: "buff bijna afgelopen, met de tijd erbij" en "vlak voor een gevecht: je mist iets (bv.

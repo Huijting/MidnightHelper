@@ -233,6 +233,34 @@ local function HearthFrame()
 	b.icon:SetTexture(134414) -- Hearthstone icon, replaced by the toy's or spell's own below
 	b:SetHighlightTexture("Interface\\Buttons\\ButtonHilight-Square", "ADD")
 	b:RegisterForClicks("AnyUp", "AnyDown")
+	-- 19 Nov 2026 (Rob: tooltips "overal waar een tooltip bestaat in de game", Midnight part): the game's own tooltip of
+	-- what this button uses — the mage teleport, the toy or the Hearthstone item. Only reads b._mhStep (set out of
+	-- combat in ShowHearthButton); a tooltip never touches the secure attributes.
+	b:HookScript("OnEnter", function(self)
+		local s = self._mhStep
+		if not (s and GameTooltip) then
+			return
+		end
+		GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+		local ok
+		if s.mage and s.spellID then
+			ok = pcall(GameTooltip.SetSpellByID, GameTooltip, s.spellID)
+		elseif s.isToy and s.useID and GameTooltip.SetToyByItemID then
+			ok = pcall(GameTooltip.SetToyByItemID, GameTooltip, s.useID)
+		elseif s.useID then
+			ok = pcall(GameTooltip.SetHyperlink, GameTooltip, "item:" .. tostring(s.useID))
+		end
+		if ok and (GameTooltip:NumLines() or 0) > 0 then
+			GameTooltip:Show()
+		else
+			GameTooltip:Hide()
+		end
+	end)
+	b:HookScript("OnLeave", function()
+		if GameTooltip then
+			GameTooltip:Hide()
+		end
+	end)
 	f.btn = b
 	f.text = f:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
 	f.text:SetPoint("LEFT", b, "RIGHT", 10, 0)
@@ -268,6 +296,7 @@ local function ShowHearthButton(s)
 	end
 	local f = HearthFrame()
 	local b = f.btn
+	b._mhStep = s -- for the tooltip (19 Nov 2026)
 	local icon
 	if s.mage and s.spellID then
 		b:SetAttribute("type", "spell")

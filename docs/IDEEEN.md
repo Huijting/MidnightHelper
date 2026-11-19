@@ -299,6 +299,8 @@ lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met d
 - Stap 3 GEBOUWD 19 nov (Rob: *"Op beide vragen ja en ook de do now in het overzicht"*): Now-kaart (spell-icoontjes),
   class quests (spell + quest + item), verkopers (gereedschap) en wapens (vaardigheid). Niet in het spel gezien.
   Daarna: Midnight (achievements, rares, reisplanner), dan de staart in groepjes.
+- Midnight 19 nov: reisplanner-knop GEBOUWD; achievements bewust zo gelaten (de spel-tooltip kleurt meta-onderdelen
+  fout groen, onze eigen is eerlijk); rares hebben al een eigen tooltip + 3D-voorbeeld. Staart: na een ja.
 
 ### Forever: het overzicht wordt hét MH voor Forever (7 tabs + tandwiel)
 - Bron: Rob 17 nov (via Sparring 17-11), letterlijk: *"hoe gaan we de rest van onze Midnight helpen, in ieder geval voor

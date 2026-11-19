@@ -1,5 +1,19 @@
 # Midnight Helper — waar we staan
 
+## ▶ 19 nov — Tooltips Midnight (punt 7): achievements, rares, reisplanner nagelopen
+
+Rob (via sparring): de volgorde met "7. De tooltips in Midnight" kreeg *"volg het maar en doe het maar"*.
+- **Achievements: NIET veranderd, bewust.** GEMETEN `Achievements.lua:1400-1402`: de tooltip is expres zelf gebouwd,
+  omdat `GameTooltip:SetAchievementByID` bij een meta-achievement alle onderdelen groen toont, ook als ze niet af zijn.
+  Onze tooltip toont naam, beschrijving en criteria met de juiste kleur — dezelfde inhoud, maar eerlijk.
+- **Rares: niets toe te voegen.** GEMETEN `Rares.lua:2403-2432`: eigen tooltip (status, hint) + 3D-voorbeeld; de
+  questtitels (r. 598/1137) zijn alleen een reservenaam (verborgen tracking-quest); een npc heeft geen spel-tooltip.
+- **Reisplanner: GEBOUWD.** De knop van een stap die je gebruikt (mage-teleport, toy of Hearthstone;
+  `Travel/TravelRoute.lua` HearthFrame) toont nu de tooltip van het spel (spell / toy / item). `HookScript`, raakt de
+  secure attributen niet. NIET in het spel gezien.
+- Volgende uit de inventaris (de "staart"): Openables, RaidShoppingList, MountRun, TradingPost, ApplyLayout, LiveKeys,
+  HealerCooldowns, PartyTargets … — in groepjes, na een ja.
+
 ## ▶ 19 nov — Meting voor "buff bijna afgelopen" + "je mist iets vóór een gevecht" (nog NIET gebouwd)
 
 Volgorde van Rob (via sparring): beide eerst meten. Nieuw: `/mh buffs time` (`ForeverBuffs.lua`) print elke buff op
