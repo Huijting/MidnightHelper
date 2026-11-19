@@ -1,5 +1,14 @@
 # Midnight Helper — waar we staan
 
+## ▶ 19 nov — Meting voor "buff bijna afgelopen" + "je mist iets vóór een gevecht" (nog NIET gebouwd)
+
+Volgorde van Rob (via sparring): beide eerst meten. Nieuw: `/mh buffs time` (`ForeverBuffs.lua`) print elke buff op
+jou zoals de client hem geeft: naam, id, duration, expirationTime, seconden over, bron, en "SECRET" als iets onleesbaar
+is; plus de tijdelijke wapen-enchants (C_Item.GetWeaponEnchantInfo, alle velden). Op TESTLIJST: paladin met seal
+buiten en in een gevecht, en een wapen met poison/olie/steen. GEMETEN vooraf in de code: `ForeverBuffs.lua` DEFS
+bewaakt al armors, Inner Fire, aspects, schilden, imbues, blessing + aura en wapen-items; wat voor (2) ontbreekt is
+vooral de paladin-seal (kort, vlak voor een gevecht). Bouwen na Robs screenshots.
+
 ## ▶ 19 nov — Macro-rest (punt 5): chips, Copy, melding "nieuwe macro" GEBOUWD + uitslag Arcane Missiles
 
 - **Macro's** (`ForeverMacros.lua` + `ForeverOverview.lua` Keys & macros): per macro een chip **Made / Ready /
@@ -15,6 +24,7 @@
   Voorstel van de helper (NIET gebouwd, Rob kiest): "Arcane Missiles (3) only when a talent makes it free (Missile
   Barrage or Clearcasting)." — vraagt uitleg van twee speltermen. Bronnen in het helper-rapport (Icy Veins, Method,
   Mobalytics, Warcraft Tavern, Zygor Skill_Training.lua:609/630).
+  ✅ Rob koos via sparring, letterlijk: *"a"* → de mage-zin blijft zoals hij is (zonder Arcane Missiles). Afgesloten.
 
 ## ▶ 19 nov — Bug "Simple order" noemt spells die je nog niet hebt — GEREPAREERD
 

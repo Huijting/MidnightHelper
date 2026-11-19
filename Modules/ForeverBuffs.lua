@@ -537,6 +537,60 @@ function ns.ForeverBuffsSlash(arg)
 		print(P .. ns:L(arg == "on" and "FBUFF_ON" or "FBUFF_OFF"))
 		return
 	end
+	-- 19 Nov 2026: a MEASUREMENT for two ideas with Rob's yes ("buff almost over, with the time" and "before a fight you
+	-- miss something, e.g. no seal"; Rob via sparring: "eerst meten"). Prints every buff on you as the client gives it:
+	-- name, id, duration, expirationTime and seconds left, and whether a value is secret; then the temporary weapon
+	-- enchants with their time. Run it once out of combat and once in a fight (a seal / aspect / armor on, a poison or
+	-- oil on the weapon), and screenshot both. Nothing is decided from it yet.
+	if arg == "time" then
+		local now = GetTime and GetTime() or 0
+		local inCombat = InCombatLockdown and InCombatLockdown()
+		print(P .. ("buffs time: %s, GetTime %.1f, auras trusted %s"):format(inCombat and "IN COMBAT" or "out of combat", now,
+			tostring(ns.Aura and ns.Aura.Trusted and ns.Aura.Trusted())))
+		local n = 0
+		local scanned = ns.Aura and ns.Aura.ForEachPlayerBuff and ns.Aura.ForEachPlayerBuff(function(a)
+			n = n + 1
+			local function S(v)
+				if issecretvalue and issecretvalue(v) then
+					return "SECRET"
+				end
+				return tostring(v)
+			end
+			local left = "?"
+			local exp = a.expirationTime
+			if type(exp) == "number" and not (issecretvalue and issecretvalue(exp)) then
+				left = exp == 0 and "no end" or ("%.0f s"):format(exp - now)
+			end
+			print(("  %d. %s (id %s): duration %s, expirationTime %s, left %s, from %s"):format(n, S(a.name), S(a.spellId),
+				S(a.duration), S(exp), left, S(a.sourceUnit)))
+		end)
+		print(("  %d buff(s); scan %s"):format(n, scanned and "done" or "REFUSED or not possible"))
+		if C_Item and C_Item.GetWeaponEnchantInfo then
+			for _, slotIdx in ipairs({ 0, 1 }) do
+				local ok, r = pcall(C_Item.GetWeaponEnchantInfo, slotIdx)
+				local list = ok and type(r) == "table" and ((r.hasEnchant ~= nil or r.enchantType ~= nil) and { r } or r) or {}
+				for _, e in ipairs(list) do
+					if type(e) == "table" then
+						local parts = {}
+						for k, v in pairs(e) do
+							parts[#parts + 1] = k .. "=" .. tostring(v)
+						end
+						table.sort(parts)
+						print(("  weapon %s: %s"):format(slotIdx == 0 and "main hand" or "off hand", table.concat(parts, ", ")))
+					end
+				end
+				if not ok or #list == 0 then
+					print(("  weapon %s: nothing read (%s)"):format(slotIdx == 0 and "main hand" or "off hand",
+						ok and "empty answer" or tostring(r)))
+				end
+			end
+		elseif GetWeaponEnchantInfo then
+			local ok, hasMH, mhMs, mhCh, mhId, hasOH, ohMs, ohCh, ohId = pcall(GetWeaponEnchantInfo)
+			print(("  weapons (old API): ok %s, main %s %s ms id %s, off %s %s ms id %s"):format(tostring(ok), tostring(hasMH),
+				tostring(mhMs), tostring(mhId), tostring(hasOH), tostring(ohMs), tostring(ohId)))
+		end
+		return
+	end
 	local token = select(2, UnitClass("player"))
 	local on = not (ns.IsMissingBuffEnabled and ns.IsMissingBuffEnabled() == false)
 	print(P .. ("buffs: %s, class %s, auras readable %s (/mh buffs on||off)"):format(on and "on" or "off",

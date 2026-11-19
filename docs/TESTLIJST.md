@@ -39,6 +39,16 @@ zoekbalk, de reputaties, de rares, de muntjes, de Now-kaart, het ronde plaatje e
 achternaam, "Step aside"-instelling, Your path, Set focus). Daarna vond Rob nog: "scroll for more" over de tekst
 (gerepareerd, zie Travel) en het boek bij de mage-quest "Study" (in bouw).
 
+## 🔴 19 nov — METING (5 minuten): hoe lang je buffs nog duren + of MH een seal ziet
+
+Voor twee ideeën met jouw ja: "buff bijna afgelopen, met de tijd erbij" en "vlak voor een gevecht: je mist iets (bv.
+geen seal)". Eerst meten, dan bouwen. `/reload` is genoeg.
+- [ ] **Paladin** met een seal op (bv. Seal of Righteousness), buiten een gevecht: typ `/mh buffs time`, screenshot.
+- [ ] Dezelfde paladin **in een gevecht** (seal op): typ nog eens `/mh buffs time`, screenshot.
+- [ ] Een character met een **poison, olie of steen** op het wapen (of een shaman met een weapon-imbue): `/mh buffs time`,
+      screenshot. (Geen bij de hand? Sla over en zeg het.)
+De regels zeggen per buff: naam, id, duur, wanneer hij afloopt en hoeveel seconden nog ("SECRET" = onleesbaar).
+
 ## 🧩 19 nov — Forever: macro's met een chip, Copy-knop en melding
 
 `/reload` is genoeg. Overzicht → Keys & macros.

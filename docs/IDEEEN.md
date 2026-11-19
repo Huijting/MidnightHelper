@@ -246,6 +246,7 @@ lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met d
   Arcane Missiles (level 8) in de mage-zin opnemen? (speladvies, eerst uitzoeken). Wacht op Robs test.
 - Uitgezocht 19 nov (Rob: *"ja"*, mh-research): gidsen gebruiken AM pas vanaf ~15 en alleen als een talent hem gratis
   maakt. Voorstel "only when a talent makes it free" ligt bij Rob; niet gebouwd.
+- ✅ Rob koos 19 nov (via sparring), letterlijk: *"a"* = de mage-zin blijft zonder Arcane Missiles. Niets te bouwen.
 
 ### Forever: namen met een tooltip in een eigen kleur + je goud in "Do this now" — ✅ JA + GEBOUWD 19 nov
 - Bron: Rob 19 nov (via Sparring 19-11), letterlijk: *"dat we bijvoorbeeld Conjugal Water of Conjugal Food een ander
