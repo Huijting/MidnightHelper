@@ -60,6 +60,9 @@
   Wacht op: Robs Midnight-/reload-check, dan zijn letterlijke go → `git tag -a v5.6.0` + push van de tag.
   Gelezen tegen de 11-nov-regel: geen /mh-diagnose in de spelerstekst. Eén regel nagemeten: het 3D-portret staat
   standaard UIT (het concept zei dat al goed).
+- ✏️ Site-chat zag op Robs screenshots: `FDIRB_W_NONE` (How you play) las stroef → enUS nu "Weapon: the guides we read
+  don't name one for this direction. …". De vertalingen zeiden het al vlot: ongewijzigd. check_drift: geen nieuwe drift.
+  Hun tweede punt (Excavation Site te breed) waren foto's van vóór 2b17133; vervalt.
 - 🔀 **Toetsenblok-vraag en "You just learned" na elkaar GEBOUWD** (Rob: *"Ja, ik volg jullie advies, dus het is een
   kleine wijziging, ja."*). Ze kwamen tegelijk (Conjure Water in allebei; GEMETEN: ze doen iets anders — het blok zet een
   macro op zijn eigen toets, het lijstje zet je rank-1-knop omhoog). `ForeverRanks.lua`: `ShowLearnList` wacht zolang
