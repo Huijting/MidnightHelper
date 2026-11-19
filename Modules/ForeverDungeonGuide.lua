@@ -167,6 +167,7 @@ function ns.ForeverDungeonGuideText(map, split)
 		return ns:L("FDG_NONE")
 	end
 	local parts = {}
+	local headAt = {} -- line index in `parts` -> boss, for the boss-name lines (split mode: their own hover row)
 	local byNpc = {}
 	local recheck = g.recheck
 	missingItem = false
@@ -203,6 +204,7 @@ function ns.ForeverDungeonGuideText(map, split)
 			head = "|cffdbb56b" .. head .. "|r"
 		end
 		parts[#parts + 1] = head
+		headAt[#parts] = b
 		for _, k in ipairs(b.does or {}) do
 			parts[#parts + 1] = "   " .. ns:L(k)
 		end
@@ -235,9 +237,126 @@ function ns.ForeverDungeonGuideText(map, split)
 		end
 	end
 	if split then
-		return table.concat(parts, "\n"), rows or {}, note
+		-- Fourth value: the same text cut into blocks; a boss-name line is a block of its own with `boss`, so the window
+		-- can give it a hover (the 3D model, 19 Nov 2026). Joined with "\n" the blocks are the first value again.
+		local blocks, cur = {}, {}
+		for i, line in ipairs(parts) do
+			if headAt[i] then
+				if #cur > 0 then
+					blocks[#blocks + 1] = { text = table.concat(cur, "\n") }
+					cur = {}
+				end
+				blocks[#blocks + 1] = { text = line, boss = headAt[i] }
+			else
+				cur[#cur + 1] = line
+			end
+		end
+		if #cur > 0 then
+			blocks[#blocks + 1] = { text = table.concat(cur, "\n") }
+		end
+		return table.concat(parts, "\n"), rows or {}, note, blocks
 	end
 	return table.concat(parts, "\n")
+end
+
+--------------------------------------------------------------------------------
+-- 3D model on hover (19 Nov 2026). Rob via sparring: "wanneer ik bijvoorbeeld op Captain Greenskin ga staan, dat we ook
+-- plaatjes krijgen ... dat moet geen apart groot scherm worden ... puur luxe extra"; "Ja, dat klopt uiteindelijk wel."
+-- Mouse on a boss name in the guide → a small frame beside the guide with the boss turning (PlayerModel:SetCreature
+-- with the boss's npc id, b.npc). Leave the name → gone. Whether SetCreature draws an npc the client has not seen yet
+-- is NOT measured in Forever: when no model loaded after 1.5 s the frame hides itself (as the trainer model does,
+-- ForeverTrainer.lua ShowModel) — no empty black box.
+--------------------------------------------------------------------------------
+local modelFrame
+local modelToken = 0
+
+local function ModelFrame()
+	if modelFrame then
+		return modelFrame
+	end
+	local f = CreateFrame("Frame", nil, UIParent, "BackdropTemplate") -- unnamed: a hover picture, not a window
+	f:SetSize(200, 240)
+	f:SetFrameStrata("TOOLTIP")
+	f:SetClampedToScreen(true)
+	f:SetBackdrop({ bgFile = "Interface\\Buttons\\WHITE8X8", edgeFile = "Interface\\Buttons\\WHITE8X8", edgeSize = 1 })
+	f:SetBackdropColor(0.04, 0.04, 0.06, 0.95)
+	f:SetBackdropBorderColor(0.6, 0.5, 0.2, 0.9)
+	f.m = CreateFrame("PlayerModel", nil, f)
+	f.m:SetPoint("TOPLEFT", 6, -6)
+	f.m:SetPoint("BOTTOMRIGHT", -6, 24)
+	f.m:SetScript("OnUpdate", function(self, elapsed)
+		self._facing = ((self._facing or 0.45) + elapsed * 0.6) % (2 * math.pi)
+		if self.SetFacing then
+			pcall(self.SetFacing, self, self._facing)
+		end
+	end)
+	f.name = f:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+	f.name:SetPoint("BOTTOMLEFT", 6, 6)
+	f.name:SetPoint("BOTTOMRIGHT", -6, 6)
+	f.name:SetJustifyH("CENTER")
+	f:Hide()
+	modelFrame = f
+	return f
+end
+
+local function HideModel()
+	modelToken = modelToken + 1
+	if modelFrame then
+		modelFrame:Hide()
+	end
+end
+
+local function ShowModel(b)
+	local npc = b and b.npc
+	if not (npc and win and win:IsShown()) then
+		HideModel()
+		return
+	end
+	local f = ModelFrame()
+	if not f.m.SetCreature then
+		return
+	end
+	modelToken = modelToken + 1
+	local token = modelToken
+	f:ClearAllPoints()
+	f:SetPoint("TOPLEFT", win, "TOPRIGHT", 6, -40)
+	f.name:SetText(BossName(b))
+	local function apply()
+		f.m:ClearModel()
+		f.m:SetCreature(npc)
+		if f.m.SetPortraitZoom then
+			f.m:SetPortraitZoom(0) -- the whole figure
+		end
+		if f.m.SetCamDistanceScale then
+			f.m:SetCamDistanceScale(1.0)
+		end
+		if f.m.SetPosition then
+			f.m:SetPosition(0, 0, 0)
+		end
+	end
+	if not pcall(apply) then
+		f:Hide()
+		return
+	end
+	f:Show()
+	if not (C_Timer and C_Timer.After) then
+		return
+	end
+	-- Models load async: once more, then hide the frame if nothing loaded.
+	C_Timer.After(0.2, function()
+		if token == modelToken and f:IsShown() then
+			pcall(apply)
+		end
+	end)
+	C_Timer.After(1.5, function()
+		if token ~= modelToken or not f.m.GetModelFileID then
+			return
+		end
+		local ok, fid = pcall(f.m.GetModelFileID, f.m)
+		if ok and (fid == nil or fid == 0) then
+			f:Hide()
+		end
+	end)
 end
 
 -- The game's own item tooltip on a loot row; shift-click puts the link in chat, as on any item in the game.
@@ -387,6 +506,7 @@ local function Build()
 	f:SetScript("OnShow", function()
 		Fill()
 	end)
+	f:HookScript("OnHide", HideModel) -- the boss model never stays behind on its own
 	if S and S.SkinOnShow then
 		S.SkinOnShow(f)
 	end
@@ -441,14 +561,69 @@ Fill = function()
 		f.shownMap = selected
 		f.scroll:SetVerticalScroll(0)
 	end
-	local text, rows, note = ns:L("FDG_NONE"), {}, nil
+	local text, rows, note, blocks = ns:L("FDG_NONE"), {}, nil, nil
 	if selected then
-		text, rows, note = ns.ForeverDungeonGuideText(selected, true)
+		text, rows, note, blocks = ns.ForeverDungeonGuideText(selected, true)
 	end
-	f.body:SetText(text)
-	-- Loot rows under the text: one Button each, so the item's own tooltip shows on hover (19 Nov 2026).
 	local width = f.body:GetWidth() or (W - 200)
-	local y = (f.body:GetStringHeight() or 0) + 3
+	local y = 0
+	-- 19 Nov 2026: the text as blocks, one font string each; a boss name is a block of its own with a hover area that
+	-- shows his 3D model beside the guide (ShowModel). Without blocks (no guide for this map): the one body text.
+	f.blockFs, f.blockHot = f.blockFs or {}, f.blockHot or {}
+	local nb = 0
+	if blocks then
+		f.body:SetText("")
+		for i, blk in ipairs(blocks) do
+			nb = i
+			local fs = f.blockFs[i]
+			if not fs then
+				fs = f.child:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+				fs:SetJustifyH("LEFT")
+				fs:SetJustifyV("TOP")
+				if fs.SetSpacing then
+					fs:SetSpacing(3)
+				end
+				f.blockFs[i] = fs
+			end
+			fs:SetWidth(width)
+			fs:ClearAllPoints()
+			fs:SetPoint("TOPLEFT", f.child, "TOPLEFT", 0, -y)
+			fs:SetText(blk.text)
+			fs:Show()
+			local h = math.max(12, fs:GetStringHeight() or 12)
+			local hot = f.blockHot[i]
+			if blk.boss and blk.boss.npc then
+				if not hot then
+					hot = CreateFrame("Frame", nil, f.child)
+					hot:EnableMouse(true)
+					hot:SetScript("OnEnter", function(self)
+						ShowModel(self.boss)
+					end)
+					hot:SetScript("OnLeave", HideModel)
+					f.blockHot[i] = hot
+				end
+				hot.boss = blk.boss
+				hot:ClearAllPoints()
+				hot:SetPoint("TOPLEFT", fs, "TOPLEFT")
+				hot:SetSize(math.max(20, math.min(width, fs:GetStringWidth() or width)), h)
+				hot:Show()
+			elseif hot then
+				hot:Hide()
+				hot.boss = nil
+			end
+			y = y + h + 3
+		end
+	else
+		f.body:SetText(text)
+		y = (f.body:GetStringHeight() or 0) + 3
+	end
+	for i = nb + 1, #f.blockFs do
+		f.blockFs[i]:Hide()
+		if f.blockHot[i] then
+			f.blockHot[i]:Hide()
+		end
+	end
+	-- Loot rows under the text: one Button each, so the item's own tooltip shows on hover (19 Nov 2026).
 	local n = 0
 	for _, l in ipairs(rows or {}) do
 		n = n + 1

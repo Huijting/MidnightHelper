@@ -39,6 +39,14 @@ zoekbalk, de reputaties, de rares, de muntjes, de Now-kaart, het ronde plaatje e
 achternaam, "Step aside"-instelling, Your path, Set focus). Daarna vond Rob nog: "scroll for more" over de tekst
 (gerepareerd, zie Travel) en het boek bij de mage-quest "Study" (in bouw).
 
+## 🧸 19 nov — Forever bazengids: 3D-model bij de muis op een baasnaam
+
+`/reload` is genoeg. Open de bazengids (bv. Deadmines).
+- [ ] Zet de muis op een baasnaam (bv. "Captain Greenskin"): rechts naast de gids komt een klein kader met de baas,
+      draaiend, en zijn naam eronder. Muis weg → kader weg.
+- [ ] Komt er bij een baas niets, of een leeg kader? Zeg welke baas (dan kent de client dat model nog niet; bekend risico).
+- [ ] De tekst van de gids ziet er verder hetzelfde uit als eerst (regels, kleuren, afstand).
+
 ## 🃏 19 nov — Forever: klein baaskaartje als je een baas target
 
 `/reload` is genoeg. In een dungeon, met de grote bazengids DICHT.

@@ -16,6 +16,12 @@ dungeon (schakelaar), 3 luxe: 3D-model bij muis op een baasnaam.
   helpers ("Small boss card when you target a boss", standaard aan; `ns.db.foreverBossCard == false` = uit).
   `/mh bosses check` zegt of het kaartje aan staat en waarom het (niet) kwam (stilte-regel). Teksten `FDG_CARD_SW/_DESC`
   in 7 talen + esMX ("calabozo"); eigen vertaling. NIET in het spel gezien.
+- **Stap 3 GEBOUWD** (zelfde bestand): muis op een baasnaam in de grote gids → naast de gids een klein kader (200×240,
+  strata TOOLTIP, zonder naam: geen venster) met de baas draaiend (`PlayerModel:SetCreature(b.npc)`, zoals het
+  trainer-model in `ForeverTrainer.lua`). Muis weg of gids dicht → weg. Daarvoor tekent `Fill` de tekst nu in blokken
+  (`ForeverDungeonGuideText(map, true)` geeft als 4e waarde `blocks`; een baasnaam = eigen blok met muisvlak).
+  ⚠️ NIET gemeten: of `SetCreature` in Forever een npc tekent die de client nog niet zag; laadt er na 1,5 s geen model,
+  dan verdwijnt het kader (geen zwart vlak). Niet in het kaartje van stap 2 gezet (dat blijft klein). NIET in het spel.
 - ⚠️ Correctie op mijn eerdere regel "bazenregels hebben geen spell- of npc-id": de bazen hebben WEL `b.npc`
   (`ForeverDungeonGuideData.lua`, GEMETEN door de sparring); alleen spell-id's ontbreken.
 
