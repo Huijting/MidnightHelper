@@ -500,6 +500,10 @@ for k, v in pairs({
 	FRANK_WIN_GO_FMT = "Améliorer les cochés (%d)",
 	FRANK_WIN_HINT = "Seulement hors combat. /mh ranks montre ce que MH voit.",
 	FRANK_BTN_TIP_CHOOSE = "Maj-clic : choisir les boutons et les barres (aussi /mh ranks choose).",
+	-- 19 Nov 2026: the door to the choice window. "Rang" = the client's spell subtext (Spell 1459, Forever). Our own translation.
+	FRANK_CHOOSE_TITLE = "Choisir quels sorts passent à un nouveau rang",
+	FRANK_CHOOSE_DESC = "Ouvre une fenêtre : coche les boutons et les barres que MH peut mettre à ton rang le plus élevé, et ceux qu'il ne doit jamais toucher. Pareil que Maj-clic sur le bouton chez le maître, ou /mh ranks choose.",
+	FRANK_CHOOSE_KEYS = "rang rangs sorts barres boutons améliorer rank",
 	-- Boss guide (18 Nov 2026). Our own translation.
 	FDG_TITLE = "Guide des boss",
 	FDG_BTN = "Boss",

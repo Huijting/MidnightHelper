@@ -1,5 +1,20 @@
 # Midnight Helper — waar we staan
 
+## ▶ 19 nov — Bouwchat 19-11: rank-keuzevenster vindbaar GEBOUWD
+
+Rob via sparring, letterlijk: *"Op beide vragen ja"* (vraag 2: het rank-keuzevenster `ns.ShowForeverRanks` beter
+vindbaar; het venster zelf, Shift-klik bij de trainer en `/mh ranks choose` blijven hetzelfde).
+- `ForeverOverview.lua`: tandwiel → **Quiet helpers**: onder de schakelaar "Edge on buttons with an old rank" een
+  nieuwe regel "Choose which spells get a new rank" met een knop **Open** (nieuw soort regel `action` in `QUIET`;
+  `BuildQuietPage`/`FillQuietPage` kennen hem). Ook een vierde knop op de pagina **Keys & macros** (`KEY_DOORS`).
+- Zoekbalk: de `action`-regel komt erin en opent het venster zelf; zoekwoorden `FRANK_CHOOSE_KEYS` met "rank" en het
+  rank-woord van de client per taal — GEMETEN in Spell 1459 NameSubtext (Forever 1.60.1.70959): deDE/frFR "Rang",
+  esES "Rango", ptBR "Grau", ruRU "Уровень", itIT "Rank" (Forever vertaalt het daar niet).
+- Teksten `FRANK_CHOOSE_TITLE/_DESC/_KEYS`: enUS, nlNL, en de/fr/es/pt/ru in `Locales/ForeverClassQuests_<taal>.lua`
+  (zoals de andere FRANK_WIN_*-regels; itIT valt terug op Engels, net als die). Eigen vertaling, niet nagekeken door
+  een moedertaalspreker. `tools/locale_probe.lua` NIET gedraaid (`lua5.1` niet in het pad van deze chat).
+- Gecontroleerd: syntax OK en lint 0 HARD (GEMETEN, vlak voor de commit). NIET in het spel gezien.
+
 ## ▶ 19 nov — Bouwchat 19-11: tooltips stap 3 — Now-kaart, class quests, verkopers, wapens GEBOUWD
 
 Rob via sparring, letterlijk: *"Op beide vragen ja en ook de do now in het overzicht"* (= tooltips 3/4/5, het

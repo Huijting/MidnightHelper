@@ -7417,6 +7417,12 @@ ns._mhLocales.enUS = {
 	FRANK_WIN_GO_FMT = "Upgrade checked (%d)",
 	FRANK_WIN_HINT = "Only out of combat. /mh ranks shows what MH sees.",
 	FRANK_BTN_TIP_CHOOSE = "Shift-click: choose which buttons and bars (also /mh ranks choose).",
+	-- 19 Nov 2026 (Rob via sparring: "Op beide vragen ja"): a findable door to the choice window, in Quiet helpers and on
+	-- the Keys & macros page. FRANK_CHOOSE_KEYS = search words only (never shown); the rank word per language is the
+	-- client's own spell subtext (Spell 1459 NameSubtext, Forever 1.60.1.70959: Rang / Rango / Grau / Уровень / Rank).
+	FRANK_CHOOSE_TITLE = "Choose which spells get a new rank",
+	FRANK_CHOOSE_DESC = "Opens a window: tick which buttons and bars MH may put on your highest rank, and which it must never touch. The same as Shift-click on the button at the trainer, or /mh ranks choose.",
+	FRANK_CHOOSE_KEYS = "rank ranks upgrade spells bars buttons",
 	FRANK_COMBAT = "not during a fight. Try again when the fight is over.",
 	FRANK_CURSOR = "you are holding something on the cursor. Put it down and try again.",
 	FRANK_AUTO_ON = "after training, buttons with the rank you had before get the new rank by themselves.",

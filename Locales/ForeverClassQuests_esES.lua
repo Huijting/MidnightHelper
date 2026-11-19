@@ -745,6 +745,10 @@ for k, v in pairs({
 	FRANK_WIN_GO_FMT = "Mejorar los marcados (%d)",
 	FRANK_WIN_HINT = "Solo fuera de combate. /mh ranks muestra lo que ve MH.",
 	FRANK_BTN_TIP_CHOOSE = "Mayús-clic: elige botones y barras (también /mh ranks choose).",
+	-- 19 Nov 2026: the door to the choice window. "Rango" = the client's spell subtext (Spell 1459, Forever). Our own translation.
+	FRANK_CHOOSE_TITLE = "Elige qué hechizos reciben un rango nuevo",
+	FRANK_CHOOSE_DESC = "Abre una ventana: marca qué botones y barras puede poner MH en tu rango más alto, y cuáles no debe tocar nunca. Lo mismo que Mayús-clic en el botón del instructor, o /mh ranks choose.",
+	FRANK_CHOOSE_KEYS = "rango rangos hechizos barras botones mejorar rank",
 	-- Boss guide (18 Nov 2026). Our own translation ("mazmorra"; esMX file says "calabozo").
 	FDG_TITLE = "Guía de jefes",
 	FDG_BTN = "Jefes",

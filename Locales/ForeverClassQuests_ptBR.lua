@@ -699,6 +699,10 @@ for k, v in pairs({
 	FRANK_WIN_GO_FMT = "Melhorar os marcados (%d)",
 	FRANK_WIN_HINT = "Só fora de combate. /mh ranks mostra o que o MH vê.",
 	FRANK_BTN_TIP_CHOOSE = "Shift-clique: escolha botões e barras (também /mh ranks choose).",
+	-- 19 Nov 2026: the door to the choice window. "Grau" = the client's spell subtext (Spell 1459, Forever). Our own translation.
+	FRANK_CHOOSE_TITLE = "Escolha quais feitiços recebem um grau novo",
+	FRANK_CHOOSE_DESC = "Abre uma janela: marque quais botões e barras o MH pode colocar no seu grau mais alto, e quais ele nunca deve tocar. O mesmo que Shift-clique no botão do instrutor, ou /mh ranks choose.",
+	FRANK_CHOOSE_KEYS = "grau graus feitiços barras botões melhorar rank",
 	-- Boss guide (18 Nov 2026). Our own translation.
 	FDG_TITLE = "Guia de chefes",
 	FDG_BTN = "Chefes",

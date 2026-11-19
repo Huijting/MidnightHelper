@@ -39,6 +39,15 @@ zoekbalk, de reputaties, de rares, de muntjes, de Now-kaart, het ronde plaatje e
 achternaam, "Step aside"-instelling, Your path, Set focus). Daarna vond Rob nog: "scroll for more" over de tekst
 (gerepareerd, zie Travel) en het boek bij de mage-quest "Study" (in bouw).
 
+## 🎚️ 19 nov — Forever: het rank-keuzevenster is makkelijker te vinden
+
+`/reload` is genoeg.
+- [ ] Overzicht → tandwiel → **Quiet helpers**: onder "Edge on buttons with an old rank" staat "Choose which spells get
+      a new rank" met een knop **Open**. Klik → het venster om te kiezen welke knoppen en balken een nieuwe rank krijgen.
+- [ ] Overzicht → **Keys & macros**: links staat een vierde knop met dezelfde naam. Klik → hetzelfde venster.
+- [ ] Zoekbalk: typ "rank" (of "ranks") → de regel "Choose which spells get a new rank" staat erbij; klik → het venster.
+- [ ] Shift-klik op de knop bij de trainer en `/mh ranks choose` werken nog zoals altijd.
+
 ## 🖱️ 19 nov — Forever: tooltips op de Now-kaart, bij class quests, verkopers en wapens
 
 `/reload` is genoeg. Alles in het overzicht, tenzij anders gezegd.

@@ -514,6 +514,10 @@ for k, v in pairs({
 	FRANK_WIN_GO_FMT = "Улучшить отмеченные (%d)",
 	FRANK_WIN_HINT = "Только вне боя. /mh ranks показывает, что видит MH.",
 	FRANK_BTN_TIP_CHOOSE = "Shift+щелчок: выбрать кнопки и панели (также /mh ranks choose).",
+	-- 19 Nov 2026: the door to the choice window. "Уровень" = the client's spell subtext (Spell 1459, Forever). Our own translation.
+	FRANK_CHOOSE_TITLE = "Выбрать, какие заклинания получат новый уровень",
+	FRANK_CHOOSE_DESC = "Открывает окно: отметьте, какие кнопки и панели MH может перевести на ваш высший уровень заклинания, а какие не трогать никогда. То же, что Shift+щелчок по кнопке у наставника или /mh ranks choose.",
+	FRANK_CHOOSE_KEYS = "уровень уровни заклинания панели кнопки ранг rank",
 	-- Boss guide (18 Nov 2026). Our own translation.
 	FDG_TITLE = "Путеводитель по боссам",
 	FDG_BTN = "Боссы",

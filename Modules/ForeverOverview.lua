@@ -648,6 +648,12 @@ local KEY_DOORS = {
 			ns.ShowKeysKeyboard(nil)
 		end
 	end },
+	-- 19 Nov 2026 (Rob via sparring: "Op beide vragen ja"): the rank choice window, findable beside the old-rank switch.
+	{ btn = "FRANK_CHOOSE_TITLE", desc = "FRANK_CHOOSE_DESC", fn = function()
+		if ns.ShowForeverRanks then
+			ns.ShowForeverRanks()
+		end
+	end },
 }
 local KEY_SWITCHES = {
 	{ title = "FOV_KEYS_SW_MO", tip = "FOV_TIP_KEYS_SW_MO",
@@ -1220,6 +1226,11 @@ local QUIET = {
 	-- "Ja, zet hem standaard op uit" - he finds the round picture nicer); on = the 3D model.
 	Q("FOV_Q_PORTRAIT3D", "FOV_Q_PORTRAIT3D_DESC", DbFlag("foreverPortrait3D", false)),
 	KEY_SWITCHES[2], -- old-rank edge
+	-- 19 Nov 2026 (Rob via sparring: "Op beide vragen ja"): a door to the rank choice window, right under the old-rank
+	-- switch. An `action` entry: a button instead of an on/off chip (BuildQuietPage / FillQuietPage), and the search
+	-- bar opens the window itself.
+	{ action = true, title = "FRANK_CHOOSE_TITLE", tip = "FRANK_CHOOSE_DESC", keys = "FRANK_CHOOSE_KEYS",
+		fn = function() if ns.ShowForeverRanks then ns.ShowForeverRanks() end end },
 	KEY_SWITCHES[1], -- mouseover on the key block
 	GROUP_SWITCHES[1], -- group panel
 	GROUP_SWITCHES[2], -- marker bar
@@ -1260,6 +1271,19 @@ local function BuildQuietPage(f, x0, rightW)
 			local h = Text(card.child, "head2", 13, A.label)
 			h:SetText(ns:L(q.head):upper())
 			card.items[i] = { head = h }
+		elseif q.action then
+			local t = Text(card.child, "textB", 13)
+			t:SetWidth(w - 110)
+			t:SetText(ns:L(q.title))
+			local b = Button(card.child, 96)
+			b:SetHeight(22)
+			b:SetLabel(ns:L("FOV_TOOL_OPEN"))
+			Tip(b, ns:L(q.title), ns:L(q.tip))
+			b:SetScript("OnClick", q.fn)
+			local d = Text(card.child, "text", 12, A.dim)
+			d:SetWidth(w - 110)
+			d:SetText(ns:L(q.tip))
+			card.items[i] = { action = true, text = t, btn = b, desc = d }
 		else
 			local s = MakeSwitch(card.child, q, w)
 			s.desc = Text(card.child, "text", 12, A.dim)
@@ -3664,6 +3688,14 @@ local function FillQuietPage(f, refresh)
 			it.head:ClearAllPoints()
 			it.head:SetPoint("TOPLEFT", card.child, "TOPLEFT", 4, -(y + 6))
 			y = y + 28
+		elseif it.action then
+			it.text:ClearAllPoints()
+			it.text:SetPoint("TOPLEFT", card.child, "TOPLEFT", 4, -y)
+			it.btn:ClearAllPoints()
+			it.btn:SetPoint("TOPRIGHT", card.child, "TOPRIGHT", -6, -y)
+			it.desc:ClearAllPoints()
+			it.desc:SetPoint("TOPLEFT", it.text, "BOTTOMLEFT", 0, -2)
+			y = y + math.max(26, (it.text:GetStringHeight() or 16) + 4 + (it.desc:GetStringHeight() or 14) + 10)
 		else
 			local h = FillSwitch(it)
 			it.text:ClearAllPoints()
@@ -3985,7 +4017,12 @@ local function SearchRows()
 
 	-- Quiet helpers (the gear): every switch by its own name.
 	for _, q in ipairs(QUIET) do
-		if q.title then
+		if q.action then
+			-- A door (the rank choice window): the search opens the window itself. Its search words hold the client's
+			-- rank word and "rank" in every language (FRANK_CHOOSE_KEYS).
+			row(ns:L(q.title), "setting window open " .. (q.keys and ns:L(q.keys) or "") .. " " .. ns:L(q.tip), q.fn,
+				"nav", ns:L("FOV_SUB_QUIET"), "setting")
+		elseif q.title then
 			row(ns:L(q.title), "setting switch on off " .. (q.tip and ns:L(q.tip) or ""), page("quiet"), "nav",
 				ns:L("FOV_SUB_QUIET"), "setting")
 		end

@@ -498,6 +498,10 @@ for k, v in pairs({
 	FRANK_WIN_GO_FMT = "Angehakte verbessern (%d)",
 	FRANK_WIN_HINT = "Nur außerhalb des Kampfes. /mh ranks zeigt, was MH sieht.",
 	FRANK_BTN_TIP_CHOOSE = "Umschalt-Klick: wähle Knöpfe und Leisten (auch /mh ranks choose).",
+	-- 19 Nov 2026: the door to the choice window. "Rang" = the client's spell subtext (Spell 1459, Forever). Our own translation.
+	FRANK_CHOOSE_TITLE = "Wähle, welche Zauber einen neuen Rang bekommen",
+	FRANK_CHOOSE_DESC = "Öffnet ein Fenster: hak an, welche Knöpfe und Leisten MH auf deinen höchsten Rang setzen darf und welche nie. Dasselbe wie Umschalt-Klick auf den Knopf beim Lehrer oder /mh ranks choose.",
+	FRANK_CHOOSE_KEYS = "rang ränge zauber leisten knöpfe verbessern rank",
 	-- Boss guide (18 Nov 2026). Our own translation.
 	FDG_TITLE = "Bossführer",
 	FDG_BTN = "Bosse",

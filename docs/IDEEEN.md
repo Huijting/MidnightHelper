@@ -239,6 +239,12 @@ gebruiken."* Uitslag (bouwchat 15-11, alleen op main, NIET in het spel gezien):
 Hier komt wat Rob goedkeurt, ook wat hij rechtstreeks in de bouwchat vraagt (Rob, 10 nov: *"ja we willen het op 1
 lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met de commit erbij. Na zijn test naar **Af**.
 
+### Forever: het rank-keuzevenster vindbaar maken — ✅ JA + GEBOUWD 19 nov (wacht op Robs test)
+- Bron: Rob 19 nov (via Sparring 19-11), letterlijk: *"Op beide vragen ja"* op: een knop in de instellingen van Forever
+  + vindbaar via de zoekbalk op "rank"/"ranks" en het woord per taal. Spel: F. Voor wie: N + V.
+- Gebouwd: tandwiel → Quiet helpers (knop Open onder de rank-schakelaar), een knop op Keys & macros, en de zoekbalk
+  (rank-woord per taal GEMETEN in de client-data). Het venster zelf is niet veranderd. Niet in het spel gezien.
+
 ### Tooltips van het spel overal waar MH een item, spell, quest, npc of munt toont (Midnight én Forever)
 - Bron: Rob 19 nov (via Sparring 19-11), letterlijk: *"Wel viel me op dat ik tooltips miste bij oa de loot in dungeons
   overal waar wen tooltip bestaat in de game wil ik ook in de addon zien :)"*; op "hele addon of eerst Forever?":
