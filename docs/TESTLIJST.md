@@ -39,6 +39,13 @@ zoekbalk, de reputaties, de rares, de muntjes, de Now-kaart, het ronde plaatje e
 achternaam, "Step aside"-instelling, Your path, Set focus). Daarna vond Rob nog: "scroll for more" over de tekst
 (gerepareerd, zie Travel) en het boek bij de mage-quest "Study" (in bouw).
 
+## 🧩 19 nov — Forever: macro's met een chip, Copy-knop en melding
+
+`/reload` is genoeg. Overzicht → Keys & macros.
+- [ ] Naast elke macro staat een chip: **Made** (gemaakt), **Ready** (kan nu), **Level N** of **Trainer** (nog niet).
+- [ ] **Copy** (onder Make/Update): een vakje met de macrotekst; Ctrl+C kopieert hem. Niets overlapt in de rij.
+- [ ] Na de trainer, als er een macro bij komt die je nog niet hebt: één chatregel "a new macro you can make now: …".
+
 ## 🔧 19 nov — Forever: "Simple order" zegt welke spells je nog niet hebt
 
 `/reload` is genoeg. Your class → How you play (of het venster).

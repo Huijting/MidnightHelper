@@ -1497,7 +1497,8 @@ local function View(d)
 			end
 		end
 	end
-	return title, info, freeable, body
+	-- 5th/6th (19 Nov 2026): why it cannot be made now and its argument (the level), for the overview's chip.
+	return title, info, freeable, body, why, arg
 end
 
 --- The Make button: make or rewrite, say so in chat, open the macro window to drag it. @return true when made.
@@ -1520,11 +1521,14 @@ end
 function ns.ForeverMacroViews()
 	local out = {}
 	for _, d in ipairs(Rows()) do
-		local title, info, freeable, body = View(d)
+		local title, info, freeable, body, why, arg = View(d)
 		if d.header then
 			out[#out + 1] = { header = true, title = title, info = info }
 		else
+			-- 19 Nov 2026 (the macro rest, Rob: "we gaan akkoord met het voorstel van het bouwadvies"): the text (for the
+			-- Copy button), the key, and why/level (for the chip Ready / Made / Level N / Trainer).
 			out[#out + 1] = { title = title, info = info, made = Exists(d) ~= nil, canMake = body ~= nil,
+				body = body, key = d.key, why = why, whyArg = arg,
 				make = function()
 					return MakeClick(d)
 				end,
@@ -1540,6 +1544,71 @@ end
 function ns.ForeverMacroUndoFreedKeys()
 	UndoFreedKeys()
 end
+
+--------------------------------------------------------------------------------
+-- "A new macro you can make" (19 Nov 2026, the macro rest). A macro becomes makeable when you learn its spell (at
+-- the trainer, after a level-up). The rows that can be made are noted at login (the baseline: no message for what you
+-- could already make); a row that becomes makeable later and is not made yet gets one chat line, once per session.
+-- Silent when nothing is new; /mh macros says the last check (silence rule).
+--------------------------------------------------------------------------------
+local canBefore -- key -> true: makeable at the last check (nil until the baseline)
+local newSaid = {}
+local newWhy = "no check yet"
+
+local function CheckNewMacros()
+	if InCombatLockdown and InCombatLockdown() then
+		return
+	end
+	local now, fresh = {}, {}
+	for _, d in ipairs(Rows()) do
+		if not d.header and d.key then
+			local title, _, _, body = View(d)
+			if body then
+				now[d.key] = true
+				if canBefore and not canBefore[d.key] and not Exists(d) and not newSaid[d.key] then
+					newSaid[d.key] = true
+					fresh[#fresh + 1] = title
+				end
+			end
+		end
+	end
+	local baseline = canBefore == nil
+	canBefore = now
+	if baseline then
+		newWhy = "baseline taken (nothing is 'new' from before this login)"
+		return
+	end
+	if #fresh > 0 then
+		-- The 2nd %s = the tab's own name in this language (FOV_TAB_KEYS), so the sentence names what you see.
+		print(PREFIX .. ns:L("FMAC_NEW_FMT"):format(table.concat(fresh, ", "), ns:L("FOV_TAB_KEYS")))
+		newWhy = "said: " .. table.concat(fresh, ", ")
+	else
+		newWhy = "nothing new"
+	end
+end
+ns.ForeverMacroNewWhy = function()
+	return newWhy
+end
+
+local nev = CreateFrame("Frame")
+pcall(nev.RegisterEvent, nev, "PLAYER_ENTERING_WORLD")
+pcall(nev.RegisterEvent, nev, "SPELLS_CHANGED")
+pcall(nev.RegisterEvent, nev, "PLAYER_LEVEL_UP")
+local newTimer
+nev:SetScript("OnEvent", function(_, event)
+	if event == "PLAYER_ENTERING_WORLD" then
+		nev:UnregisterEvent("PLAYER_ENTERING_WORLD")
+		C_Timer.After(3, CheckNewMacros) -- the baseline
+		return
+	end
+	if canBefore == nil then
+		return -- before the baseline: the login burst of SPELLS_CHANGED
+	end
+	if newTimer then
+		newTimer:Cancel()
+	end
+	newTimer = C_Timer.NewTimer(1.5, CheckNewMacros) -- SPELLS_CHANGED comes in bursts while you train
+end)
 
 Fill = function()
 	local f = Build()
@@ -1722,6 +1791,7 @@ function ns.ForeverMacrosSlash(arg)
 		return
 	end
 	print(PREFIX .. "handy macros: what each row would write now")
+	print("  new-macro notice: " .. newWhy)
 	local _, token = UnitClass("player")
 	local nClass = 0
 	for _, c in ipairs(CLASS_MACROS) do

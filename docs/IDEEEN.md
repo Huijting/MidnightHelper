@@ -244,6 +244,8 @@ lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met d
   ben. Dus ik denk dat dit soort uitleg niet helemaal goed gaat."* Gemeten: Frost Nova = level 10 (DB2 + trainerdata).
 - Gebouwd: grijze regel "Not learned yet: … (level N)" onder elk Simple order-blok, alle classes, 7 talen. Open vraag:
   Arcane Missiles (level 8) in de mage-zin opnemen? (speladvies, eerst uitzoeken). Wacht op Robs test.
+- Uitgezocht 19 nov (Rob: *"ja"*, mh-research): gidsen gebruiken AM pas vanaf ~15 en alleen als een talent hem gratis
+  maakt. Voorstel "only when a talent makes it free" ligt bij Rob; niet gebouwd.
 
 ### Forever: namen met een tooltip in een eigen kleur + je goud in "Do this now" — ✅ JA + GEBOUWD 19 nov
 - Bron: Rob 19 nov (via Sparring 19-11), letterlijk: *"dat we bijvoorbeeld Conjugal Water of Conjugal Food een ander
@@ -348,6 +350,8 @@ lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met d
   rode regel in het venster + knop "Free key" (alleen Blizzard-paginatoetsen) + "Undo freed keys". GEBOUWD 17 nov.
 - Nog open (eigen bouw): Copy-knop, bron per rij, chips READY/level, melding "nieuwe macro" bij level-up, uitlegkaart
   modifier.
+- GEBOUWD 19 nov (Rob: *"we gaan akkoord met het voorstel van het bouwadvies"*): chips Made/Ready/Level/Trainer,
+  Copy-knop, melding "nieuwe macro" (na de trainer). Nog open: bron per rij, uitlegkaart modifier. Wacht op Robs test.
 
 ### Forever: Legacy Points uitleggen en helpen (+ Talented-fout repareren)
 - Bron: Rob 17 nov (via Sparring 17-11), letterlijk: *"legacy points. Wat zijn het? Waar krijg ik het? Hoe krijg ik het?

@@ -786,9 +786,16 @@ local function MacroRow(list, i)
 	r.free:SetPoint("TOP", r.go, "BOTTOM", 0, -4)
 	r.free:SetLabel(ns:L("FMAC_BTN_FREE"))
 	Tip(r.free, ns:L("FMAC_BTN_FREE"), ns:L("FOV_TIP_FREE_KEY"))
+	-- 19 Nov 2026 (the macro rest): Copy = the macro text in a box to copy (Ctrl+C), and a chip with where it stands.
+	r.copy = Button(r, 96)
+	r.copy:SetHeight(20)
+	r.copy:SetLabel(ns:L("FMAC_BTN_COPY"))
+	Tip(r.copy, ns:L("FMAC_BTN_COPY"), ns:L("FMAC_TIP_COPY"))
+	r.chip = Tip(S.Chip(r, "", nil, 70))
+	r.chip:SetPoint("TOPRIGHT", r.go, "TOPLEFT", -8, 0)
 	r.title = Text(r, "textB", 14)
 	r.title:SetPoint("TOPLEFT", 4, -4)
-	r.title:SetWidth(list.rowW - 112)
+	r.title:SetWidth(list.rowW - 112 - 80)
 	r.title:SetWordWrap(false)
 	r.info = Text(r, "text", 12, A.dim)
 	r.info:SetPoint("TOPLEFT", r.title, "BOTTOMLEFT", 0, -2)
@@ -3308,7 +3315,41 @@ local function FillKeysPage(f, refresh)
 		if v.header then
 			row.go:Hide()
 			row.free:Hide()
+			row.copy:Hide()
+			row.chip:Hide()
 		else
+			-- The chip (19 Nov 2026): Made / Ready / Level N / Trainer, the colours the other chips use.
+			local r, g, b = Accent()
+			local ct, col, ctip
+			if v.made then
+				ct, col, ctip = ns:L("FMAC_CHIP_MADE"), A.done, ns:L("FMAC_TIP_CHIP_MADE")
+			elseif v.canMake then
+				ct, col, ctip = ns:L("FMAC_CHIP_READY"), { r, g, b }, ns:L("FMAC_TIP_CHIP_READY")
+			elseif v.why == "FMAC_WHY_LEVEL_FMT" and tonumber(v.whyArg) then
+				ct, col, ctip = ns:L("FMAC_CHIP_LEVEL_FMT"):format(tonumber(v.whyArg)), A.later, ns:L("FMAC_TIP_CHIP_LATER")
+			elseif v.why == "FMAC_WHY_TRAIN" then
+				ct, col, ctip = ns:L("FMAC_CHIP_TRAIN"), A.later, ns:L("FMAC_TIP_CHIP_LATER")
+			end
+			if ct then
+				row.chip.t:SetText(ct)
+				row.chip:SetColor(col[1], col[2], col[3])
+				row.chip.tipTitle, row.chip.tipBody = ct, ctip
+				row.chip:Show()
+			else
+				row.chip:Hide()
+			end
+			-- Copy: only when there is a text to copy.
+			row.copy:ClearAllPoints()
+			row.copy:SetPoint("TOP", v.free and row.free or row.go, "BOTTOM", 0, -4)
+			if v.body and ns.ShowShareCopyDialog then
+				local body, key = v.body, v.key
+				row.copy:SetScript("OnClick", function()
+					ns.ShowShareCopyDialog({ id = "fmac:" .. tostring(key), text = body, titleKey = "FMAC_COPY_TITLE" })
+				end)
+				row.copy:Show()
+			else
+				row.copy:Hide()
+			end
 			local label = ns:L(v.made and "FMAC_BTN_UPDATE" or "FMAC_BTN_MAKE")
 			row.go:SetLabel(label)
 			row.go.tipTitle, row.go.tipBody = label, ns:L("FOV_TIP_MAKE")
@@ -3330,7 +3371,9 @@ local function FillKeysPage(f, refresh)
 			end
 		end
 		local h = 8 + (row.title:GetStringHeight() or 16) + 2 + (row.info:GetStringHeight() or 14)
-		h = math.max(h, v.free and 60 or 34)
+		-- Room for the buttons on the right: Make (22), Free key (+24), Copy (+24).
+		local btns = 34 + (v.free and 26 or 0) + ((not v.header and v.body) and 26 or 0)
+		h = math.max(h, btns)
 		row:SetHeight(h)
 		row:Show()
 		yy = yy + h + 4

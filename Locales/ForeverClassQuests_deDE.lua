@@ -505,6 +505,18 @@ for k, v in pairs({
 	FRANK_CHOOSE_TITLE = "Wähle, welche Zauber einen neuen Rang bekommen",
 	FRANK_CHOOSE_DESC = "Öffnet ein Fenster: hak an, welche Knöpfe und Leisten MH auf deinen höchsten Rang setzen darf und welche nie. Dasselbe wie Umschalt-Klick auf den Knopf beim Lehrer oder /mh ranks choose.",
 	FRANK_CHOOSE_KEYS = "rang ränge zauber leisten knöpfe verbessern rank",
+	-- 19 Nov 2026: the macro rest. "Strg" = the client's CTRL_KEY_TEXT (GEMETEN, ForeverMacros.lua). Our own translation.
+	FMAC_CHIP_MADE = "Erstellt",
+	FMAC_CHIP_READY = "Bereit",
+	FMAC_CHIP_LEVEL_FMT = "Stufe %d",
+	FMAC_CHIP_TRAIN = "Lehrer",
+	FMAC_TIP_CHIP_MADE = "Dieses Makro ist erstellt. Aktualisieren schreibt es neu.",
+	FMAC_TIP_CHIP_READY = "Du kannst dieses Makro jetzt erstellen.",
+	FMAC_TIP_CHIP_LATER = "Noch nicht: du brauchst zuerst seinen Zauber (eine höhere Stufe oder den Lehrer).",
+	FMAC_BTN_COPY = "Kopieren",
+	FMAC_TIP_COPY = "Der Makrotext in einem Feld. Drück Strg+C zum Kopieren, etwa für einen anderen Charakter oder einen Freund.",
+	FMAC_COPY_TITLE = "Makrotext",
+	FMAC_NEW_FMT = "ein neues Makro, das du jetzt erstellen kannst: %s. Siehe %s im Überblick.",
 	-- 19 Nov 2026: weapon kind against your direction ("Richtung" as FDIRB_HEAD_FMT). Our own translation.
 	FDIRFIT_YES_FMT = "Passt zu deiner Richtung (%s).",
 	FDIRFIT_NO_FMT = "Deine Richtung (%s) nutzt diese Waffenart nicht (Spielerguides).",

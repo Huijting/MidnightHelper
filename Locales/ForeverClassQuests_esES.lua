@@ -754,6 +754,18 @@ for k, v in pairs({
 	FRANK_CHOOSE_TITLE = "Elige qué hechizos reciben un rango nuevo",
 	FRANK_CHOOSE_DESC = "Abre una ventana: marca qué botones y barras puede poner MH en tu rango más alto, y cuáles no debe tocar nunca. Lo mismo que Mayús-clic en el botón del instructor, o /mh ranks choose.",
 	FRANK_CHOOSE_KEYS = "rango rangos hechizos barras botones mejorar rank",
+	-- 19 Nov 2026: the macro rest. Our own translation.
+	FMAC_CHIP_MADE = "Creada",
+	FMAC_CHIP_READY = "Lista",
+	FMAC_CHIP_LEVEL_FMT = "Nivel %d",
+	FMAC_CHIP_TRAIN = "Instructor",
+	FMAC_TIP_CHIP_MADE = "Esta macro está creada. Actualizar la vuelve a escribir.",
+	FMAC_TIP_CHIP_READY = "Puedes crear esta macro ahora.",
+	FMAC_TIP_CHIP_LATER = "Todavía no: primero necesitas su hechizo (un nivel más alto o el instructor).",
+	FMAC_BTN_COPY = "Copiar",
+	FMAC_TIP_COPY = "El texto de la macro en un recuadro. Pulsa Ctrl+C para copiarlo, por ejemplo para otro personaje o un amigo.",
+	FMAC_COPY_TITLE = "Texto de la macro",
+	FMAC_NEW_FMT = "una macro nueva que puedes crear ahora: %s. Mira %s en el resumen.",
 	-- 19 Nov 2026: weapon kind against your direction ("camino" as FDIRB_HEAD_FMT). Our own translation.
 	FDIRFIT_YES_FMT = "Encaja con tu camino (%s).",
 	FDIRFIT_NO_FMT = "Tu camino (%s) no usa este tipo de arma (guías de jugadores).",

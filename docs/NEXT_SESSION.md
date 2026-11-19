@@ -1,5 +1,21 @@
 # Midnight Helper — waar we staan
 
+## ▶ 19 nov — Macro-rest (punt 5): chips, Copy, melding "nieuwe macro" GEBOUWD + uitslag Arcane Missiles
+
+- **Macro's** (`ForeverMacros.lua` + `ForeverOverview.lua` Keys & macros): per macro een chip **Made / Ready /
+  Level N / Trainer** (uit de bestaande "waarom niet"-reden van `View`, nu 5e/6e waarde); een knop **Copy** opent de
+  macrotekst in het bestaande kopieervenster (`ns.ShowShareCopyDialog`, DelvePartyShare.lua, staat in de Forever-toc,
+  GEMETEN); een chatregel als een macro maakbaar WORDT (na de trainer) en nog niet gemaakt is — basislijn 3 s na
+  inloggen, één keer per macro per sessie, `/mh macros check` zegt de laatste beslissing. De tabnaam in die zin komt
+  uit `FOV_TAB_KEYS` (fr/nl wijken af van een vaste tekst, GEMETEN). Teksten 7 talen. NIET in het spel gezien.
+  Nog open uit de oude lijst: "bron per rij" en "uitlegkaart modifier" (niet gebouwd; de spec-kop noemt de bron al).
+- **Arcane Missiles** (mh-research, Opus, 5 Forever-gidsen + Zygor Forever, GEMETEN in die bronnen): geen gids
+  gebruikt AM op level 8-14; vanaf ~15-16 alleen als een talent hem gratis maakt (Missile Barrage, later
+  Clearcasting), dus vooral bij Arcane-talenten. De huidige mage-zin (zonder AM) klopt daarmee voor een lage mage.
+  Voorstel van de helper (NIET gebouwd, Rob kiest): "Arcane Missiles (3) only when a talent makes it free (Missile
+  Barrage or Clearcasting)." — vraagt uitleg van twee speltermen. Bronnen in het helper-rapport (Icy Veins, Method,
+  Mobalytics, Warcraft Tavern, Zygor Skill_Training.lua:609/630).
+
 ## ▶ 19 nov — Bug "Simple order" noemt spells die je nog niet hebt — GEREPAREERD
 
 Rob (via sparring, mage Frost level 9): *"Terwijl ik inmiddels ook ... Arcane Missiles heb gekregen ... als hij er

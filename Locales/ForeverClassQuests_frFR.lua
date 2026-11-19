@@ -507,6 +507,18 @@ for k, v in pairs({
 	FRANK_CHOOSE_TITLE = "Choisir quels sorts passent à un nouveau rang",
 	FRANK_CHOOSE_DESC = "Ouvre une fenêtre : coche les boutons et les barres que MH peut mettre à ton rang le plus élevé, et ceux qu'il ne doit jamais toucher. Pareil que Maj-clic sur le bouton chez le maître, ou /mh ranks choose.",
 	FRANK_CHOOSE_KEYS = "rang rangs sorts barres boutons améliorer rank",
+	-- 19 Nov 2026: the macro rest. Our own translation.
+	FMAC_CHIP_MADE = "Créée",
+	FMAC_CHIP_READY = "Prête",
+	FMAC_CHIP_LEVEL_FMT = "Niveau %d",
+	FMAC_CHIP_TRAIN = "Maître",
+	FMAC_TIP_CHIP_MADE = "Cette macro est créée. Mettre à jour la réécrit.",
+	FMAC_TIP_CHIP_READY = "Tu peux créer cette macro maintenant.",
+	FMAC_TIP_CHIP_LATER = "Pas encore : il te faut d'abord son sort (un niveau plus haut, ou le maître).",
+	FMAC_BTN_COPY = "Copier",
+	FMAC_TIP_COPY = "Le texte de la macro dans une case. Appuie sur Ctrl+C pour le copier, par exemple pour un autre personnage ou un ami.",
+	FMAC_COPY_TITLE = "Texte de la macro",
+	FMAC_NEW_FMT = "une nouvelle macro que tu peux créer maintenant : %s. Voir %s dans l'aperçu.",
 	-- 19 Nov 2026: weapon kind against your direction ("voie" as FDIRB_HEAD_FMT). Our own translation.
 	FDIRFIT_YES_FMT = "Convient à ta voie (%s).",
 	FDIRFIT_NO_FMT = "Ta voie (%s) n'utilise pas ce type d'arme (guides de joueurs).",

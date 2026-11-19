@@ -521,6 +521,18 @@ for k, v in pairs({
 	FRANK_CHOOSE_TITLE = "Выбрать, какие заклинания получат новый уровень",
 	FRANK_CHOOSE_DESC = "Открывает окно: отметьте, какие кнопки и панели MH может перевести на ваш высший уровень заклинания, а какие не трогать никогда. То же, что Shift+щелчок по кнопке у наставника или /mh ranks choose.",
 	FRANK_CHOOSE_KEYS = "уровень уровни заклинания панели кнопки ранг rank",
+	-- 19 Nov 2026: the macro rest. Our own translation.
+	FMAC_CHIP_MADE = "Создан",
+	FMAC_CHIP_READY = "Готов",
+	FMAC_CHIP_LEVEL_FMT = "Ур. %d",
+	FMAC_CHIP_TRAIN = "Наставник",
+	FMAC_TIP_CHIP_MADE = "Этот макрос создан. «Обновить» запишет его заново.",
+	FMAC_TIP_CHIP_READY = "Этот макрос можно создать сейчас.",
+	FMAC_TIP_CHIP_LATER = "Пока нет: сначала нужно его заклинание (уровень выше или наставник).",
+	FMAC_BTN_COPY = "Копировать",
+	FMAC_TIP_COPY = "Текст макроса в поле. Нажмите Ctrl+C, чтобы скопировать, например для другого персонажа или друга.",
+	FMAC_COPY_TITLE = "Текст макроса",
+	FMAC_NEW_FMT = "новый макрос, который можно создать сейчас: %s. См. «%s» в обзоре.",
 	-- 19 Nov 2026: weapon kind against your direction ("направление" as FDIRB_HEAD_FMT). Our own translation.
 	FDIRFIT_YES_FMT = "Подходит вашему направлению (%s).",
 	FDIRFIT_NO_FMT = "Ваше направление (%s) не использует этот тип оружия (гайды игроков).",
