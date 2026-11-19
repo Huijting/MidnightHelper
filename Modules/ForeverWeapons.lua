@@ -338,6 +338,24 @@ local function Build()
 			selected = self.spell
 			Fill()
 		end)
+		-- 19 Nov 2026 (Rob: tooltips "overal waar een tooltip bestaat in de game"): the weapon skill's own tooltip.
+		b:SetScript("OnEnter", function(self)
+			if not (self.spell and GameTooltip) then
+				return
+			end
+			GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+			local ok = pcall(GameTooltip.SetSpellByID, GameTooltip, self.spell)
+			if ok and (GameTooltip:NumLines() or 0) > 0 then
+				GameTooltip:Show()
+			else
+				GameTooltip:Hide()
+			end
+		end)
+		b:SetScript("OnLeave", function()
+			if GameTooltip then
+				GameTooltip:Hide()
+			end
+		end)
 		f.wBtns[i] = b
 	end
 	local rx = 20 + LEFT_W + 16

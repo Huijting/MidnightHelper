@@ -250,6 +250,9 @@ lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met d
   5 wapentrainers; dan Midnight (achievements, rares, reisplanner) en de staart in groepjes.
 - Stap 2 GEBOUWD 19 nov (Rob: *"Doe maar"* op 1 en 2): spellnamen in "Do this now" (klein venster) met tooltip;
   overzicht "Coming up" en trainer-pagina ook op de naam. Niet in het spel gezien.
+- Stap 3 GEBOUWD 19 nov (Rob: *"Op beide vragen ja en ook de do now in het overzicht"*): Now-kaart (spell-icoontjes),
+  class quests (spell + quest + item), verkopers (gereedschap) en wapens (vaardigheid). Niet in het spel gezien.
+  Daarna: Midnight (achievements, rares, reisplanner), dan de staart in groepjes.
 
 ### Forever: het overzicht wordt hét MH voor Forever (7 tabs + tandwiel)
 - Bron: Rob 17 nov (via Sparring 17-11), letterlijk: *"hoe gaan we de rest van onze Midnight helpen, in ieder geval voor

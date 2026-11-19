@@ -154,12 +154,13 @@ local function NoBarSpells()
 	table.sort(found, function(a, b)
 		return a.name < b.name
 	end)
-	local out, links = {}, {}
+	local out, links, ids = {}, {}, {}
 	for i, e in ipairs(found) do
 		out[i] = e.name
 		links[i] = SpellLink(e.id, e.name)
+		ids[i] = e.id
 	end
-	return out, links
+	return out, links, ids
 end
 
 local learnEv = CreateFrame("Frame")
@@ -283,8 +284,10 @@ function Collect()
 	local level = UnitLevel and UnitLevel("player") or 1
 	-- items: every now- and tip-line in order, { text, kind, tip = true for a tip, key = vendor key for a tool }.
 	local out = { now = {}, actions = {}, soon = {}, tips = {}, items = {} }
-	local function item(text, kind, tip, key)
-		out.items[#out.items + 1] = { text = text, kind = kind, tip = tip, key = key }
+	-- spells: the spell ids the line names (19 Nov 2026): the overview's Now card shows them as icons with the game's
+	-- tooltip (its list scrolls, so links in the text could not answer the mouse there).
+	local function item(text, kind, tip, key, spells)
+		out.items[#out.items + 1] = { text = text, kind = kind, tip = tip, key = key, spells = spells }
 	end
 	-- 12 Nov 2026 (O26, Rob via sparring: "A, eerst klein"): room for a main profession. Only when both readings of
 	-- ns.ForeverPrimaryCount agree. A tip, not a to-do: it does NOT make the window appear by itself (most new
@@ -342,10 +345,10 @@ function Collect()
 		end
 	end
 	if not KeyBlockOn() then
-		local noBar, noBarLinks = NoBarSpells()
+		local noBar, noBarLinks, noBarIds = NoBarSpells()
 		if #noBar > 0 then
 			out.now[#out.now + 1] = ns:L("FDONOW_NOBAR_FMT"):format(table.concat(noBarLinks, ", "))
-			item(out.now[#out.now], "nobar")
+			item(out.now[#out.now], "nobar", nil, nil, noBarIds)
 		end
 	end
 	-- 12 Nov 2026 (Rob via sparring: "Ja, alle drie"): one/more as two sentences, and with a direction how many fit

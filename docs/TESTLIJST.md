@@ -39,6 +39,18 @@ zoekbalk, de reputaties, de rares, de muntjes, de Now-kaart, het ronde plaatje e
 achternaam, "Step aside"-instelling, Your path, Set focus). Daarna vond Rob nog: "scroll for more" over de tekst
 (gerepareerd, zie Travel) en het boek bij de mage-quest "Study" (in bouw).
 
+## 🖱️ 19 nov — Forever: tooltips op de Now-kaart, bij class quests, verkopers en wapens
+
+`/reload` is genoeg. Alles in het overzicht, tenzij anders gezegd.
+- [ ] **Now-kaart**: staat er "new spell(s) on no bar"? Onder die regel staan kleine spell-icoontjes. Muis erop →
+      de gewone spell-tooltip.
+- [ ] **Your class → Class quests**: muis op de naam van een keten → de spell-tooltip van de beloning. Muis op de regel
+      eronder (de stap) → de quest-tooltip van het spel, of onze eigen tekst als het spel er geen geeft. Zeg welke van
+      de twee je ziet.
+- [ ] **Find**: muis op een gereedschap (Mining Pick, Skinning Knife …) → de item-tooltip. Muis op een wapen →
+      de tooltip van die wapenvaardigheid (met "+" ervoor: ook de regel over je richting eronder).
+- [ ] Het losse wapenvenster (`/mh weapons`) en het losse verkopersvenster: dezelfde tooltips op de knoppen links.
+
 ## 🖱️ 19 nov — Forever: tooltips in "Do this now" en op de trainer-pagina
 
 `/reload` is genoeg.

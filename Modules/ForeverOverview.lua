@@ -138,7 +138,8 @@ local function NowItems()
 					rich[it.kind] = nil
 				elseif not (it.kind == "trainer" or it.kind == "classquest") then
 					local go, label = Act(it.kind, it.key)
-					items[#items + 1] = { kind = it.tip and "tip" or it.kind, title = it.text, go = go, goLabel = label }
+					items[#items + 1] = { kind = it.tip and "tip" or it.kind, title = it.text, go = go, goLabel = label,
+						spells = it.spells }
 				end
 			end
 		end
@@ -305,6 +306,8 @@ local function ClassQuestRow(card, i)
 	row.place:SetWordWrap(false)
 	-- The full name and step on hover (a long chain name is cut to one line).
 	row.hover = HoverOver(row, row.name)
+	-- 19 Nov 2026: the step line shows the quest's own tooltip (tipLink "quest:<id>"; our text when the client has none).
+	row.questHover = HoverOver(row, row.what)
 	card.rows[i] = row
 	return row
 end
@@ -559,11 +562,27 @@ local function FindItem(cat, i)
 			local r, g, bl = Accent()
 			self.t:SetTextColor(r, g, bl)
 		end
+		-- 19 Nov 2026 (tooltips, Rob: "Op beide vragen ja"): a tool or a weapon skill shows the game's own tooltip
+		-- (tipLink "item:<id>" / "spell:<id>"), our line under it; nothing readable → our own text as before.
+		if self.tipLink then
+			GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+			local ok = pcall(GameTooltip.SetHyperlink, GameTooltip, self.tipLink)
+			if ok and (GameTooltip:NumLines() or 0) > 0 then
+				if self.tipBody then
+					GameTooltip:AddLine(" ")
+					GameTooltip:AddLine(self.tipBody, 0.6, 0.8, 1, true)
+				end
+				GameTooltip:Show()
+				return
+			end
+		end
 		if self.tipBody then
 			GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
 			GameTooltip:SetText(self.tipTitle or "", 1, 0.82, 0, 1, true)
 			GameTooltip:AddLine(self.tipBody, 1, 1, 1, true)
 			GameTooltip:Show()
+		else
+			GameTooltip:Hide()
 		end
 	end)
 	b:SetScript("OnLeave", function(self)
@@ -2199,6 +2218,37 @@ local function MainItem(items)
 	return nil
 end
 
+--- Spell icons under a "Do this now" line that names spells (19 Nov 2026, Rob: "ook de do now in het overzicht"): one
+--- icon per spell with the game's own tooltip. Links in the text cannot answer the mouse in this scrolling list, so
+--- icons, as in "Coming up". Placed at (x, -y) from `holder`'s top left; returns the height used (0 without spells).
+local STRIP_MAX, STRIP_SIZE = 8, 20
+local function SpellStrip(owner, parent, holder, x, y, spells)
+	owner.strip = owner.strip or {}
+	local n = 0
+	for i, id in ipairs(spells or {}) do
+		if i > STRIP_MAX then
+			break
+		end
+		local ic = owner.strip[i]
+		if not ic then
+			ic = SpellButton(parent, STRIP_SIZE)
+			ic:SetFrameLevel(parent:GetFrameLevel() + 5) -- above the line's own hover area (HoverOver)
+			owner.strip[i] = ic
+		end
+		ic:ClearAllPoints()
+		ic:SetPoint("TOPLEFT", holder, "TOPLEFT", x + (i - 1) * (STRIP_SIZE + 4), -y)
+		ic.tex:SetTexture(SpellIcon(id))
+		ic.tipSpell = id
+		ic:Show()
+		n = i
+	end
+	for i = n + 1, #owner.strip do
+		owner.strip[i]:Hide()
+		owner.strip[i].tipSpell = nil
+	end
+	return n > 0 and (STRIP_SIZE + 4) or 0
+end
+
 local function FillNow(f, items, up)
 	local main = MainItem(items)
 	if main then
@@ -2243,7 +2293,9 @@ local function FillNow(f, items, up)
 		local t = fs:GetText()
 		return (t and t ~= "") and (fs:GetStringHeight() or 0) or 0
 	end
-	local top = 32 + H(f.now.title) + 4 + H(f.now.what) + 3 + H(f.now.place) + 10
+	local top = 32 + H(f.now.title) + 4 + H(f.now.what) + 3 + H(f.now.place) + 4
+	-- The main line's spells as icons, right under its text (the list starts below them).
+	top = top + SpellStrip(f.now, f.now, f.now, 14, top, main and main.spells) + 6
 	f.now.listTop = math.max(110, math.ceil(top))
 	f.now.sf.SetTop(f.now.listTop)
 	local rest = {}
@@ -2286,6 +2338,7 @@ local function FillNow(f, items, up)
 		row.go.tipBody = (it.go == ns.ForeverTrainerGo or it.go == ns.ForeverClassQuestGo) and ns:L("FOV_TIP_GO") or nil
 		SetGo(row.go, it.go)
 		local h = (row.text:GetStringHeight() or 14) + (sub and ((row.sub:GetStringHeight() or 12) + 1) or 0) + 4
+		h = h + SpellStrip(row, row, row, 0, math.ceil(h), it.spells)
 		h = math.max(NOW_ROW_H - 4, math.ceil(h))
 		row:SetHeight(h)
 		row:Show()
@@ -2358,9 +2411,17 @@ local function FillClassQuestPage(f, level)
 		row.num:SetText(tostring(e.level or ""))
 		row.levelTip.tipTitle = ns:L("FOV_LEVEL_FMT"):format(e.level or 0)
 		row.name:SetText(e.chain or "")
+		row.icon.tipLink = nil
 		if e.spell then
 			row.icon.tex:SetTexture(SpellIcon(e.spell))
 			row.icon.tipSpell = e.spell
+			row.icon:Show()
+		elseif e.item and C_Item and C_Item.GetItemIconByID then
+			-- A chain without a spell whose step uses an item (paladin tomes): that item, with its own tooltip.
+			local okI, tex = pcall(C_Item.GetItemIconByID, e.item)
+			row.icon.tex:SetTexture(okI and tex or nil)
+			row.icon.tipSpell = nil
+			row.icon.tipLink = "item:" .. e.item
 			row.icon:Show()
 		else
 			row.icon.tipSpell = nil
@@ -2396,6 +2457,11 @@ local function FillClassQuestPage(f, level)
 		row.place:SetText(e.state ~= "done" and Place(e.zone, e.x, e.y) or "")
 		row.hover.tipTitle = e.chain
 		row.hover.tipBody = row.what:GetText()
+		-- The chain's spell: the name shows the game's spell tooltip, the step under it (19 Nov 2026).
+		row.hover.tipSpell = e.spell
+		row.questHover.tipTitle = e.chain
+		row.questHover.tipBody = row.what:GetText()
+		row.questHover.tipLink = (e.state ~= "done" and e.quest) and ("quest:" .. e.quest) or nil
 		SetGo(row.go, e.state ~= "done" and e.zone and e.go or nil)
 		row:Show()
 	end
@@ -2785,7 +2851,7 @@ local function FindCatalog()
 					head(ns:L(SEC[pass]), SEC_ID[pass])
 					first = false
 				end
-				items[#items + 1] = { kind = "shop", key = c.key, name = c.name, goods = c.goods, svc = c.svc }
+				items[#items + 1] = { kind = "shop", key = c.key, name = c.name, goods = c.goods, svc = c.svc, item = c.item }
 			end
 		end
 	end
@@ -2992,6 +3058,8 @@ local function FillFindPage(f, refresh)
 		local btn = FindItem(cat, i)
 		btn.sel = (it ~= nil and e == it)
 		btn.tipTitle, btn.tipBody = nil, nil
+		btn.tipLink = (e.kind == "shop" and e.item and ("item:" .. e.item))
+			or (e.kind == "weapon" and type(e.key) == "number" and ("spell:" .. e.key)) or nil
 		if e.head then
 			local isOpen = IsOpen(e.sec)
 			-- Blizzard's own plus/minus textures (present in every client) rather than a glyph the font may lack.

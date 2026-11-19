@@ -1,5 +1,24 @@
 # Midnight Helper — waar we staan
 
+## ▶ 19 nov — Bouwchat 19-11: tooltips stap 3 — Now-kaart, class quests, verkopers, wapens GEBOUWD
+
+Rob via sparring, letterlijk: *"Op beide vragen ja en ook de do now in het overzicht"* (= tooltips 3/4/5, het
+rank-venster vindbaar maken, en de Now-kaart). Het rank-venster komt in een eigen commit.
+- **Now-kaart** (`ForeverOverview.lua` `SpellStrip`): een regel die spells noemt ("new spells on no bar") krijgt onder
+  de tekst een icoontje per spell (max 8, 20 px) met de spell-tooltip van het spel — ook de hoofdregel bovenaan. Links
+  in de tekst werken daar niet (scrollende lijst). `ForeverDoNow.lua` geeft de id's mee (`item(..., spells)`).
+- **`S.Tip` (`ForeverStyle.lua`)**: nieuw `tipLink` (bv. "item:123", "quest:456") → tooltip van het spel, onze
+  `tipBody` eronder; kan de client hem niet tonen (0 regels) → onze eigen titel/tekst. Zonder titel: geen tooltip.
+- **Class quests-pagina**: naam = spell-tooltip van de beloning (+ de stap eronder); de stap-regel = quest-tooltip
+  (`quest:<id>`; ⚠️ of Forever quest-links toont is NIET gemeten — anders valt hij terug op onze tekst); een keten
+  zonder spell met een "use"-stap (paladin-boeken) krijgt het item-icoontje met item-tooltip.
+  `ns.ForeverClassQuestList` geeft nu `quest` en `item` mee.
+- **Verkopers**: de knoppen links in het losse venster (`ForeverVendors.lua`) en in de Find-tab van het overzicht tonen
+  bij een gereedschap de item-tooltip (`ForeverVendorFindCats` geeft `item` mee). Rijen zijn npc's: geen tooltip mogelijk.
+- **Wapentrainers**: de wapenknoppen in `ForeverWeapons.lua` en de wapenregels in de Find-tab tonen de spell-tooltip
+  van de wapenvaardigheid (in Find met de "past bij je richting"-regel eronder).
+- Gecontroleerd: syntax OK en lint 0 HARD (GEMETEN, vlak voor de commit). NIET in het spel gezien.
+
 ## ▶ 19 nov — Bouwchat 19-11: tooltips stap 2 — Forever "Do this now" + trainer GEBOUWD
 
 Rob via sparring, letterlijk: *"Doe maar"* op Forever 1 (Do this now) en 2 (Trainer). Na 1+2 melden; de sparring vraagt

@@ -238,6 +238,26 @@ local function Build()
 			selected = self.cat
 			Fill()
 		end)
+		-- 19 Nov 2026 (Rob: tooltips "overal waar een tooltip bestaat in de game"): a category that is an item (the
+		-- tools) shows the item's own tooltip. Bank, inn and the like have no item: no tooltip.
+		b:SetScript("OnEnter", function(self)
+			local id = self.cat and self.cat.item
+			if not (id and GameTooltip) then
+				return
+			end
+			GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+			local ok = pcall(GameTooltip.SetHyperlink, GameTooltip, "item:" .. id)
+			if ok then
+				GameTooltip:Show()
+			else
+				GameTooltip:Hide()
+			end
+		end)
+		b:SetScript("OnLeave", function()
+			if GameTooltip then
+				GameTooltip:Hide()
+			end
+		end)
 		f.catBtns[i] = b
 	end
 	local rx = 20 + LEFT_W + 16
@@ -360,7 +380,8 @@ end
 function ns.ForeverVendorFindCats()
 	local out = {}
 	for _, c in ipairs(CATS) do
-		out[#out + 1] = { key = c.key, name = CatName(c), goods = c.kind ~= nil, svc = c.svc, travel = c.travel }
+		out[#out + 1] = { key = c.key, name = CatName(c), goods = c.kind ~= nil, svc = c.svc, travel = c.travel,
+			item = c.item } -- item: the tool's id, for its own tooltip in the Find tab (19 Nov 2026)
 	end
 	return out
 end

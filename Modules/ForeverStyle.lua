@@ -149,16 +149,30 @@ function S.Text(parent, role, size, color)
 	return fs
 end
 
---- Tooltip on any frame. The text lives on the frame (tipTitle/tipBody/tipSpell), so a fill can change it later.
+--- Tooltip on any frame. The text lives on the frame (tipTitle/tipBody/tipSpell/tipLink), so a fill can change it
+--- later. Order: tipLink (a game link), then tipSpell, then our own title and body.
 function S.Tip(frame, title, body)
 	frame.tipTitle, frame.tipBody = title, body
 	frame:EnableMouse(true)
 	frame:HookScript("OnEnter", function(self)
-		if not (self.tipTitle or self.tipSpell) then
+		if not (self.tipTitle or self.tipSpell or self.tipLink) then
 			return
 		end
 		GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
-		if self.tipSpell then
+		-- tipLink (19 Nov 2026): any game link ("item:123", "quest:456") → the game's own tooltip, our body under it.
+		-- A link the client cannot show (an empty tooltip) falls back to our own title and body.
+		local linked = false
+		if self.tipLink then
+			local ok = pcall(GameTooltip.SetHyperlink, GameTooltip, self.tipLink)
+			linked = ok and (GameTooltip:NumLines() or 0) > 0
+			if linked and self.tipBody and self.tipBody ~= "" then
+				GameTooltip:AddLine(" ")
+				GameTooltip:AddLine(self.tipBody, 0.6, 0.8, 1, true)
+			end
+		end
+		if linked then
+			-- done
+		elseif self.tipSpell then
 			-- The game's own spell tooltip; our own line (tipBody) under it when there is one (19 Nov 2026, trainer page:
 			-- "which key" stays, the spell text comes first. Rob: "overal waar een tooltip bestaat in de game").
 			GameTooltip:SetSpellByID(self.tipSpell)
@@ -166,11 +180,14 @@ function S.Tip(frame, title, body)
 				GameTooltip:AddLine(" ")
 				GameTooltip:AddLine(self.tipBody, 0.6, 0.8, 1, true)
 			end
-		else
+		elseif self.tipTitle then
 			GameTooltip:SetText(self.tipTitle, 1, 0.82, 0, 1, true)
 			if self.tipBody and self.tipBody ~= "" then
 				GameTooltip:AddLine(self.tipBody, 1, 1, 1, true)
 			end
+		else
+			GameTooltip:Hide() -- only a link, and the client could not show it
+			return
 		end
 		GameTooltip:Show()
 	end)

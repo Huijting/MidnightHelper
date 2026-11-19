@@ -2871,6 +2871,10 @@ function ns.ForeverClassQuestList()
 		if e.state == "now" then
 			p = s.place
 			e.kind = s.kind
+			-- 19 Nov 2026 (tooltips, Rob: "Op beide vragen ja"): the quest of this step and the item a "use" step names, so
+			-- the page can show the game's own tooltips for them.
+			e.quest = s.q
+			e.item = s.kind == "use" and s.item or nil
 			if s.kind == "do" or s.kind == "wait" then
 				e.what = s.text or ns:L(s.textKey)
 			elseif s.kind == "use" then
@@ -2882,6 +2886,7 @@ function ns.ForeverClassQuestList()
 			end
 		elseif e.state == "later" then
 			p = c.quests[1] and c.quests[1].from
+			e.quest = c.quests[1] and c.quests[1].q
 			if p then
 				e.kind = "get"
 				local line = ("%s: %s"):format(e.chain, ns:L("FCQ_ST_LATER_FMT"):format(NpcName(p), ZoneName(p.m)))
