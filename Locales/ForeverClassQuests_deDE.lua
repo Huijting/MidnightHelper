@@ -505,6 +505,10 @@ for k, v in pairs({
 	FRANK_CHOOSE_TITLE = "Wähle, welche Zauber einen neuen Rang bekommen",
 	FRANK_CHOOSE_DESC = "Öffnet ein Fenster: hak an, welche Knöpfe und Leisten MH auf deinen höchsten Rang setzen darf und welche nie. Dasselbe wie Umschalt-Klick auf den Knopf beim Lehrer oder /mh ranks choose.",
 	FRANK_CHOOSE_KEYS = "rang ränge zauber leisten knöpfe verbessern rank",
+	-- 19 Nov 2026: a buff that runs out soon. Our own translation.
+	MBUFF_TXT_EXPIRING = "LÄUFT AB",
+	MBUFF_TXT_EXPIRING_SAY = "%s läuft bald ab.",
+	MBUFF_LEFT_FMT = "noch %d Min.",
 	-- 19 Nov 2026: the macro rest. "Strg" = the client's CTRL_KEY_TEXT (GEMETEN, ForeverMacros.lua). Our own translation.
 	FMAC_CHIP_MADE = "Erstellt",
 	FMAC_CHIP_READY = "Bereit",

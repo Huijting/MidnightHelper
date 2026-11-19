@@ -521,6 +521,10 @@ for k, v in pairs({
 	FRANK_CHOOSE_TITLE = "Выбрать, какие заклинания получат новый уровень",
 	FRANK_CHOOSE_DESC = "Открывает окно: отметьте, какие кнопки и панели MH может перевести на ваш высший уровень заклинания, а какие не трогать никогда. То же, что Shift+щелчок по кнопке у наставника или /mh ranks choose.",
 	FRANK_CHOOSE_KEYS = "уровень уровни заклинания панели кнопки ранг rank",
+	-- 19 Nov 2026: a buff that runs out soon. Our own translation.
+	MBUFF_TXT_EXPIRING = "СКОРО КОНЕЦ",
+	MBUFF_TXT_EXPIRING_SAY = "%s скоро закончится.",
+	MBUFF_LEFT_FMT = "осталось %d мин",
 	-- 19 Nov 2026: the macro rest. Our own translation.
 	FMAC_CHIP_MADE = "Создан",
 	FMAC_CHIP_READY = "Готов",

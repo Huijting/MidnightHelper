@@ -414,8 +414,11 @@ function Collect()
 		local ok, list = pcall(ns.GetForeverMissingBuffs)
 		if ok and type(list) == "table" then
 			for _, e in ipairs(list) do
-				out.now[#out.now + 1] = ns.MissingBuffSentence(e, false)
-				item(out.now[#out.now], "buff")
+				-- A buff that only runs out soon (19 Nov 2026) is the buff icon's job, not a to-do that opens this window.
+				if not e.expiring then
+					out.now[#out.now + 1] = ns.MissingBuffSentence(e, false)
+					item(out.now[#out.now], "buff")
+				end
 			end
 		end
 	end

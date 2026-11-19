@@ -708,6 +708,10 @@ for k, v in pairs({
 	FRANK_CHOOSE_TITLE = "Escolha quais feitiços recebem um grau novo",
 	FRANK_CHOOSE_DESC = "Abre uma janela: marque quais botões e barras o MH pode colocar no seu grau mais alto, e quais ele nunca deve tocar. O mesmo que Shift-clique no botão do instrutor, ou /mh ranks choose.",
 	FRANK_CHOOSE_KEYS = "grau graus feitiços barras botões melhorar rank",
+	-- 19 Nov 2026: a buff that runs out soon. Our own translation.
+	MBUFF_TXT_EXPIRING = "ACABANDO",
+	MBUFF_TXT_EXPIRING_SAY = "%s acaba em breve.",
+	MBUFF_LEFT_FMT = "faltam %d min",
 	-- 19 Nov 2026: the macro rest. Our own translation.
 	FMAC_CHIP_MADE = "Criada",
 	FMAC_CHIP_READY = "Pronta",

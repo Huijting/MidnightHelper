@@ -754,6 +754,10 @@ for k, v in pairs({
 	FRANK_CHOOSE_TITLE = "Elige qué hechizos reciben un rango nuevo",
 	FRANK_CHOOSE_DESC = "Abre una ventana: marca qué botones y barras puede poner MH en tu rango más alto, y cuáles no debe tocar nunca. Lo mismo que Mayús-clic en el botón del instructor, o /mh ranks choose.",
 	FRANK_CHOOSE_KEYS = "rango rangos hechizos barras botones mejorar rank",
+	-- 19 Nov 2026: a buff that runs out soon. Our own translation.
+	MBUFF_TXT_EXPIRING = "SE ACABA",
+	MBUFF_TXT_EXPIRING_SAY = "%s se acaba pronto.",
+	MBUFF_LEFT_FMT = "quedan %d min",
 	-- 19 Nov 2026: the macro rest. Our own translation.
 	FMAC_CHIP_MADE = "Creada",
 	FMAC_CHIP_READY = "Lista",

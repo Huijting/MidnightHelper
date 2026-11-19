@@ -1,5 +1,23 @@
 # Midnight Helper — waar we staan
 
+## ▶ 19 nov — "Buff bijna afgelopen" GEBOUWD (buiten een gevecht) + voordeur VAST
+
+- **Voordeur**: Rob, rechtstreeks in de bouwchat: *"De voordeur blijft, pas je regel aan."* → CLAUDE.md-kop nu "VAST
+  sinds do 19 nov 2026", de proef-regel ("na 19 nov beslist Rob") is weg. Geheugen `one-front-door-trial.md` bijgewerkt.
+- **Meting** (Rob, Forever mage, `/mh buffs time`, 2 screenshots, via sparring) GEMETEN: buiten een gevecht geeft elke
+  buff `duration` + `expirationTime` (GetTime-schaal; bv. Arcane Intellect 3600, nog 647 s; ook buffs van anderen,
+  bron nil); IN een gevecht weigert de scan (0 buffs, auras not trusted). Wapen: main hand `hasEnchant=false` (regel
+  stond 2× — de client gaf voor slot 0 twee items; AFGELEID, niet erg), off hand leeg.
+- **Gebouwd** (`ForeverBuffs.lua` `ExpiringLeft`): een buff van je eigen lijst die OP je staat maar bijna afloopt komt
+  na de ontbrekende in de buff-melding: "RUNS OUT" / "<naam> (4 min left) runs out soon. Click the icon …". Bijna = <5
+  min bij buffs van ≥20 min, <1 min bij 5-20 min; korter nooit. Alleen buiten een gevecht én als `ns.Aura` betrouwbaar
+  is — bewust GEEN momentopname van vóór het gevecht (een buff die je in het gevecht ververst zou een verkeerde tijd
+  geven; onleesbaar ≠ bijna op). Bij een keuze (armor) de buff die echt op je staat; bij een grotere versie van iemand
+  anders (covers) je eigen kleine. Ververst elke 15 s buiten een gevecht (er komt geen event als de tijd wegtikt).
+  "Do this now" neemt ze NIET op (`e.expiring`): anders sprong dat venster elk uur open. `/mh buffs` zegt per buff de
+  resterende tijd. Teksten 7 talen. NIET in het spel gezien.
+- (2) "je mist iets vóór een gevecht": wacht op de paladin-meting (seal).
+
 ## ▶ 19 nov — Tooltips Midnight (punt 7): achievements, rares, reisplanner nagelopen
 
 Rob (via sparring): de volgorde met "7. De tooltips in Midnight" kreeg *"volg het maar en doe het maar"*.

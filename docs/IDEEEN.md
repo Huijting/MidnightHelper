@@ -839,6 +839,9 @@ Stand 15 nov avond: 1 gebouwd (1f521e5), 2 gemeten, 3 rapport + A/B gebouwd (zie
 - Werk:          middel
 - Site:          ja, als het uit is
 - Rob zegt:      ja (later; via de sparring-chat, door Rob bevestigd in de bouwchat 11 nov)
+                 **GEMETEN + GEBOUWD 19 nov** (volgorde: *"we gaan akkoord met het voorstel van het bouwadvies"*): Robs
+                 meting zegt buiten een gevecht leesbaar, in een gevecht niet → gebouwd voor buiten een gevecht: "<buff>
+                 (4 min left) runs out soon." in de buff-melding. Wacht op Robs test.
 
 ### Forever: venstertje "Doe dit nu / Alles bij / Komt eraan"
 - Voor wie:      vooral nieuweling

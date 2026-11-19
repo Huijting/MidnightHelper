@@ -507,6 +507,10 @@ for k, v in pairs({
 	FRANK_CHOOSE_TITLE = "Choisir quels sorts passent à un nouveau rang",
 	FRANK_CHOOSE_DESC = "Ouvre une fenêtre : coche les boutons et les barres que MH peut mettre à ton rang le plus élevé, et ceux qu'il ne doit jamais toucher. Pareil que Maj-clic sur le bouton chez le maître, ou /mh ranks choose.",
 	FRANK_CHOOSE_KEYS = "rang rangs sorts barres boutons améliorer rank",
+	-- 19 Nov 2026: a buff that runs out soon. Our own translation.
+	MBUFF_TXT_EXPIRING = "BIENTÔT FINI",
+	MBUFF_TXT_EXPIRING_SAY = "%s se termine bientôt.",
+	MBUFF_LEFT_FMT = "encore %d min",
 	-- 19 Nov 2026: the macro rest. Our own translation.
 	FMAC_CHIP_MADE = "Créée",
 	FMAC_CHIP_READY = "Prête",

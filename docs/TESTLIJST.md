@@ -46,8 +46,19 @@ achternaam, "Step aside"-instelling, Your path, Set focus). Daarna vond Rob nog:
       hoofdstad met de mount-run of de reisplanner). Muis op het icoontje → de tooltip van het spel (van de Hearthstone,
       de toy of de mage-teleport). Klikken werkt nog net als eerst.
 
+## ⏳ 19 nov — Forever: buff-melding "runs out soon"
+
+`/reload` is genoeg. Buiten een gevecht.
+- [ ] Wacht tot een eigen buff (bv. Arcane Intellect of Frost Armor) minder dan 5 minuten over heeft: het buff-icoontje
+      verschijnt met "Arcane Intellect (4 min left) runs out soon." Klik → hij wordt ververst en het icoontje gaat weg.
+- [ ] In een gevecht komt die melding NIET (de tijd is daar niet leesbaar).
+- [ ] Het venster "Do this now" springt er NIET voor open.
+- [ ] `/mh buffs` zegt per buff hoeveel seconden hij nog heeft.
+
 ## 🔴 19 nov — METING (5 minuten): hoe lang je buffs nog duren + of MH een seal ziet
 
+✅ Mage gedaan (Rob, 19 nov, 2 screenshots): buiten een gevecht alles leesbaar, in een gevecht niets. Nog open: de
+paladin met seal en een wapen met poison/olie/steen.
 Voor twee ideeën met jouw ja: "buff bijna afgelopen, met de tijd erbij" en "vlak voor een gevecht: je mist iets (bv.
 geen seal)". Eerst meten, dan bouwen. `/reload` is genoeg.
 - [ ] **Paladin** met een seal op (bv. Seal of Righteousness), buiten een gevecht: typ `/mh buffs time`, screenshot.

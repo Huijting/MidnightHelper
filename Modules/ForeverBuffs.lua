@@ -444,6 +444,69 @@ local function WeaponItemEntry(out, d, invSlot)
 		macroTarget = false }
 end
 
+--------------------------------------------------------------------------------
+-- "A buff almost over, with the time" (IDEEEN, Rob 11 Nov: "ja (later)"; built 19 Nov 2026 after Rob's measurement).
+-- GEMETEN by Rob (Forever mage, /mh buffs time, 19 Nov): out of combat every buff gives duration and expirationTime
+-- (GetTime scale), e.g. Arcane Intellect 3600 / 647 s left; IN combat the scan is refused (0 buffs, auras not trusted).
+-- So only out of combat, and only when ns.Aura is trusted: a buff of your own list that is on you but runs out soon
+-- comes after the missing ones, with the minutes left in its name. Never in combat (no snapshot from before the fight:
+-- a buff refreshed in the fight would show a wrong time, and unreadable is not "running out").
+-- Soon = under 5 minutes for buffs of 20 minutes or more, under 1 minute for buffs of 5-20 minutes; shorter ones never.
+--------------------------------------------------------------------------------
+local function SoonFor(duration)
+	if duration >= 1200 then
+		return 300
+	elseif duration >= 300 then
+		return 60
+	end
+	return 0
+end
+
+--- For a def that is ON you: the seconds left of the one that runs out first, if that is "soon"; else nil.
+local function ExpiringLeft(d)
+	if d.imbue or (InCombatLockdown and InCombatLockdown()) then
+		return nil
+	end
+	if not (ns.Aura and ns.Aura.Trusted and ns.Aura.Trusted() and ns.Aura.GetPlayerAura) then
+		return nil
+	end
+	local now = GetTime and GetTime() or 0
+	local best
+	local names = {}
+	for _, n in ipairs(d.choice or { d.buff }) do
+		names[#names + 1] = n
+	end
+	for _, n in ipairs(d.covers or {}) do
+		names[#names + 1] = n
+	end
+	for _, name in ipairs(names) do
+		for _, id in ipairs(IDS[name] or {}) do
+			local a = ns.Aura.GetPlayerAura(id)
+			local exp, dur = a and a.expirationTime, a and a.duration
+			if type(exp) == "number" and type(dur) == "number" and exp > 0 and dur > 0
+				and not (issecretvalue and (issecretvalue(exp) or issecretvalue(dur))) then
+				local left = exp - now
+				-- A bigger version (covers) on you lasts long: the one that holds longest decides.
+				if left > 0 and (not best or left > best.left) then
+					best = { left = left, dur = dur, name = name }
+				end
+			end
+		end
+	end
+	if best and best.left < SoonFor(best.dur) then
+		-- Second value: what to cast again. The one that is on you; for a bigger version (covers, e.g. a group buff from
+		-- someone else) your own single buff.
+		local cover = false
+		for _, n in ipairs(d.covers or {}) do
+			if n == best.name then
+				cover = true
+			end
+		end
+		return best.left, cover and d.buff or best.name
+	end
+	return nil
+end
+
 --- Called by MissingBuff.lua's ns.GetMissingBuffs on Forever. Same entry shape as there.
 function ns.GetForeverMissingBuffs()
 	local out = {}
@@ -474,6 +537,20 @@ function ns.GetForeverMissingBuffs()
 			WeaponItemEntry(out, d2, 17)
 		end
 	end
+	-- Buffs that run out soon (19 Nov 2026): after the missing ones, out of combat only, with the minutes left.
+	for _, d in ipairs(DEFS[token] or {}) do
+		local name, why, pick = Evaluate(d)
+		if not name and why == "on you" then
+			local left, cast = ExpiringLeft(d)
+			local id = cast and BestRank(cast)
+			if id then
+				Entry(out, id, "MBUFF_TXT_EXPIRING", nil, pick, d.choice, cast)
+				local e = out[#out]
+				e.expiring = math.floor(left)
+				e.name = e.name .. " (" .. ns:L("MBUFF_LEFT_FMT"):format(math.max(1, math.ceil(left / 60))) .. ")"
+			end
+		end
+	end
 	-- Pets: a hunter or warlock who can call one and has none (not while mounted: the pet is gone then anyway).
 	if not Mounted() then
 		local hasPet = UnitExists("pet")
@@ -492,6 +569,18 @@ function ns.GetForeverMissingBuffs()
 		end
 	end
 	return out
+end
+
+-- A buff ticking down crosses "soon" without any event: refresh the buff icon every 15 s, out of combat only.
+if C_Timer and C_Timer.NewTicker then
+	C_Timer.NewTicker(15, function()
+		if InCombatLockdown and InCombatLockdown() then
+			return
+		end
+		if ns.UpdateMissingBuff then
+			pcall(ns.UpdateMissingBuff)
+		end
+	end)
 end
 
 -- Remember the choice the player made: any rank of a choice spell cast by you becomes that choice's default.
@@ -601,6 +690,12 @@ function ns.ForeverBuffsSlash(arg)
 	end
 	for _, d in ipairs(defs) do
 		local name, why, pick = Evaluate(d)
+		if not name and why == "on you" then
+			-- 19 Nov 2026: and whether it runs out soon (out of combat only; see ExpiringLeft).
+			local left, cast = ExpiringLeft(d)
+			why = why .. (left and ("; runs out in %d s -> offers %s"):format(math.floor(left), tostring(cast))
+				or "; not running out soon (or unreadable / in combat)")
+		end
 		local label = d.buff or table.concat(d.choice or d.imbue, " / ")
 		print(("  %s: %s%s%s"):format(label, why, name and (" -> button casts " .. name .. " (" .. SpellName(BestRank(name)) ..
 			", id " .. tostring(BestRank(name)) .. ")") or "",
