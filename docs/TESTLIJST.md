@@ -46,11 +46,18 @@ achternaam, "Step aside"-instelling, Your path, Set focus). Daarna vond Rob nog:
       hoofdstad met de mount-run of de reisplanner). Muis op het icoontje → de tooltip van het spel (van de Hearthstone,
       de toy of de mage-teleport). Klikken werkt nog net als eerst.
 
+## 🌀 19 nov — Forever: Windshaper-shaman en The Tempest's Weapons
+
+- [ ] Een Windshaper (Skyborne, Horde) shaman op level 30 met Call of Air gedaan: "Your class" / "Do this now" noemt
+      nu The Tempest's Weapons. Kan hij een stap NIET aannemen in het spel? Zeg welke — dan haal ik Skyborne weer weg.
+
 ## ⏳ 19 nov — Forever: buff-melding "runs out soon"
 
 `/reload` is genoeg. Buiten een gevecht.
-- [ ] Wacht tot een eigen buff (bv. Arcane Intellect of Frost Armor) minder dan 5 minuten over heeft: het buff-icoontje
+- [x] Wacht tot een eigen buff (bv. Arcane Intellect of Frost Armor) minder dan 5 minuten over heeft: het buff-icoontje
       verschijnt met "Arcane Intellect (4 min left) runs out soon." Klik → hij wordt ververst en het icoontje gaat weg.
+      (Rob, 19 nov, screenshot: *"En dit werkt ook. Juppie."* Het "( 1 min" op de screenshot is geen spatie in de tekst —
+      GEMETEN in de code — maar AFGELEID de ruimte die het lettertype links van een "1" laat.)
 - [ ] In een gevecht komt die melding NIET (de tijd is daar niet leesbaar).
 - [ ] Het venster "Do this now" springt er NIET voor open.
 - [ ] `/mh buffs` zegt per buff hoeveel seconden hij nog heeft.

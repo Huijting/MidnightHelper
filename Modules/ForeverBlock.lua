@@ -512,6 +512,10 @@ function ns.ForeverBlockUnlisted()
 		return out
 	end
 	local bank = Enum and Enum.SpellBookSpellBank and Enum.SpellBookSpellBank.Player
+	-- 19 Nov 2026 (Rob via sparring: "Ja, die mogen door"; the idea from looking at another addon, not its code): a spellbook
+	-- item of type FutureSpell is a spell you do NOT know yet (shown greyed for a later level). It must not count as a
+	-- known spell here. Whether Forever's spellbook shows future spells is not measured; without the enum this is a no-op.
+	local FUTURE = Enum and Enum.SpellBookItemType and Enum.SpellBookItemType.FutureSpell
 	local okN, n = pcall(SB.GetNumSpellBookSkillLines)
 	for i = 1, (okN and tonumber(n) or 0) do
 		local okL, line = pcall(SB.GetSpellBookSkillLineInfo, i)
@@ -519,6 +523,9 @@ function ns.ForeverBlockUnlisted()
 			local first = (tonumber(line.itemIndexOffset) or 0) + 1
 			for slot = first, first + (tonumber(line.numSpellBookItems) or 0) - 1 do
 				local okI, it = pcall(SB.GetSpellBookItemInfo, slot, bank)
+				if okI and type(it) == "table" and FUTURE and it.itemType == FUTURE then
+					it = nil -- a spell for later: not yours yet
+				end
 				local name = okI and type(it) == "table" and it.name
 				local sid = it and it.spellID
 				local byId = type(sid) == "number" and not (issecretvalue and issecretvalue(sid)) and listedIds[sid]

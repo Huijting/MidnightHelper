@@ -83,6 +83,11 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
   Whirlwind, Verigan's Fist, Wolfsbane, Blade of Cunning, Mage's Wand, de level-50-ronde. Onderzoek:
   `docs/forever/WAPENQUESTS_ONDERZOEK_2026-11-18.md`. Melding bij level-up: niet apart gebouwd (Do this now ververst al
   bij PLAYER_LEVEL_UP, AFGELEID); voorstel `weapon = true` + kaartregel + schakelaar ligt open.
+- ❌ **NEE: geen aparte level-up-melding** (Rob 19 nov via sparring, letterlijk: *"Ja, die mogen door"*, op het advies
+  om hem niet te bouwen). Reden: "Do this now" toont de wapenquest al zodra je het level hebt en ververst bij een
+  level-up; een tweede melding zegt hetzelfde nog eens. Niet opnieuw voorstellen.
+- ✅ **Windshaper (Skyborne) shaman ziet nu ook The Tempest's Weapons** (Rob, zelfde ja; bronnen oneens: lfcarry ja,
+  QF/FQL noemen alleen Orc/Tauren/Troll). GEBOUWD 19 nov: Skyborne in de rassen van de Horde-keten. Wacht op een test.
 - (Oorspronkelijke notitie hieronder.)
 - Bron: Rob 17 nov (via Sparring 17-11): idee *"Elk class krijgt op een bepaald level een quest ... voor een bepaald
   wapen"*. Onderzocht (sparring, alleen gelezen): 8/9 classes hebben wapenquests; de level-52 Sunken Temple-ronde geeft
@@ -841,7 +846,7 @@ Stand 15 nov avond: 1 gebouwd (1f521e5), 2 gemeten, 3 rapport + A/B gebouwd (zie
 - Rob zegt:      ja (later; via de sparring-chat, door Rob bevestigd in de bouwchat 11 nov)
                  **GEMETEN + GEBOUWD 19 nov** (volgorde: *"we gaan akkoord met het voorstel van het bouwadvies"*): Robs
                  meting zegt buiten een gevecht leesbaar, in een gevecht niet → gebouwd voor buiten een gevecht: "<buff>
-                 (4 min left) runs out soon." in de buff-melding. Wacht op Robs test.
+                 (4 min left) runs out soon." in de buff-melding. ✅ Rob 19 nov: *"En dit werkt ook. Juppie."* → Af.
 
 ### Forever: venstertje "Doe dit nu / Alles bij / Komt eraan"
 - Voor wie:      vooral nieuweling

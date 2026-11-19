@@ -1853,9 +1853,8 @@ table.insert(CHAINS.WARLOCK, WlImpRequest("Horde", UD, W.kaal))
 --   NOT settled. 79365 With Wind Beneath Your Wings (Bath'rah → Rau, FQL; not in the Wowhead series) is left out.
 --   → TESTLIJST: a Horde shaman must check every "hand in to" of this chain in game.
 -- Races, Horde: QF and FQL list only Orc, Tauren, Troll on 79361 and 79442 (lfcarry says Windshapers do the chain too):
---   Skyborne NOT built (silence beats a wrong trip, as with WL_ORC); a Windshaper with one of these quests in the log
---   gets NOTHING here, also with one of these quests in the log: MyChains only swaps a foreign route in for an own
---   route with the same key (second check, 18 Nov 2026, GEMETEN in MyChains). Making it show = a MyChains change, open.
+--   Skyborne was first NOT built (silence beats a wrong trip, as with WL_ORC). 19 Nov 2026: Rob chose to show it —
+--   Skyborne is now in the Horde chain's races below (no MyChains change needed).
 -- Prequest: Call of Air (Alliance 94789 = needs; Horde has three ids 1531/1532/96136, so no `needs`: the Air chain
 --   stands earlier in the table at the same level and is shown first). That Call of Air is required: Wowhead comment
 --   (beta) + 3 guides; AFGELEID for the live game.
@@ -1882,8 +1881,12 @@ table.insert(CHAINS.SHAMAN, { key = "tempest", nameKey = "FCQ_CHAIN_SH_TEMPEST",
 		{ q = 96135, from = S.veyric, objs = { O(Q.steamPools, "FCQ_OBJ_SH_TEMPEST_RITUAL", 1) }, to = S.veyric }, -- QF + FQL start/end Veyric (2)
 		{ q = 96016, from = S.veyric, to = R.bathrah }, -- QF end 6176; WH-F "Deliver the Eye of the Tempest to Bath'rah"; guides (3). Giver Veyric: guides (QF has no starter)
 	} })
+-- 19 Nov 2026 (Rob via sparring, letterlijk: "Ja, die mogen door" on the advice to let the Windshaper see it): Skyborne
+-- added (lfcarry: Windshapers do this chain; QF/FQL list only Orc/Tauren/Troll on 79361/79442 — a source conflict, Rob
+-- chose to show it). RaceToken() folds both Skyborne races into "Skyborne"; faction = "Horde" keeps High Order out.
+-- If a Windshaper cannot take a step in game: TESTLIJST, and back out "Skyborne" here.
 table.insert(CHAINS.SHAMAN, { key = "tempest", nameKey = "FCQ_CHAIN_SH_TEMPEST", level = 30, faction = "Horde",
-	races = { Orc = true, Tauren = true, Troll = true }, quests = {
+	races = { Orc = true, Tauren = true, Troll = true, Skyborne = true }, quests = {
 		{ q = 79360, from = S.prate, objs = { O(Q.rfk, "FCQ_OBJ_SH_TATTERED_NOTE", 1) }, to = Q.rau }, -- giver: QF 4722 + 5905, Wowhead comment "same person as Call of Air"; hand-in Rau (FQL, wiki) or Bath'rah (QF, lfcarry): NOT settled
 		{ q = 79364, from = Q.rau, to = S.prate }, -- WH-F "Speak with Prate Cloudseer"; FQL start Rau, end Prate; QF also lists Bath'rah (2)
 		{ q = 79361, from = S.prate, objs = SH_TWISTED, to = S.prate }, -- WH-F "… for Prate Cloudseer in Thousand Needles"; FQL start/end Prate; QF says Bath'rah (2 vs 1)

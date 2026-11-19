@@ -1,5 +1,17 @@
 # Midnight Helper — waar we staan
 
+## ▶ 19 nov — Robs lijst van vier (*"Ja, die mogen door. En dat comprehensive kaartje."*): stap 1 + 4 GEBOUWD
+
+- **1. FutureSpell** (`ForeverBlock.lua` `ForeverBlockUnlisted`): een spellbook-item van type
+  `Enum.SpellBookItemType.FutureSpell` (een spell voor later) telt niet meer als "jouw spell". Het enige Forever-bestand
+  dat het spellbook zo leest (GEMETEN met grep). Of Forever zulke items toont: NIET gemeten; zonder enum doet het niets.
+- **4a. Windshaper-shaman**: Skyborne in de rassen van de Horde-keten The Tempest's Weapons (`ForeverClassQuests.lua`).
+  `MyChains` vergelijkt `c.races[race]` en `RaceToken()` geeft "Skyborne" (GEMETEN) → geen MyChains-wijziging nodig.
+- **4b.** Geen aparte level-up-melding voor wapenquests: in IDEEEN als NEE, met de reden.
+- Nog te doen van de vier: 2 (Comprehension-kaartje + Do this now-regel) en 3 (slimme zegen-knop).
+- Open en los hiervan: Scroll of Protection — GEMETEN: Enchanting-recept "Tenets of the Silver Hand" (1248754) gebruikt
+  5× item 3013; de regel klopt. Voorstel "noem het recept" ligt bij Rob.
+
 ## ▶ 19 nov — "Buff bijna afgelopen" GEBOUWD (buiten een gevecht) + voordeur VAST
 
 - **Voordeur**: Rob, rechtstreeks in de bouwchat: *"De voordeur blijft, pas je regel aan."* → CLAUDE.md-kop nu "VAST
@@ -304,8 +316,8 @@ volgorde (1 optie A, 2 wapenquests, 3 slaapzak, 4 optie B nog NIET; zijn /dump-m
   36.8,39.2 GEMETEN WHT 216474; Orahil "gebruik de steen als hij bijna dood is" GEMETEN WHT 4962/4963; Windshaper-
   commentaar) + Orahil-risico (steen-stappen nu `pre` met `unlessDone`, nieuw in `PreStep`) verwerkt. Offline: 5
   Orahil-gevallen OK, 109.424 runs 0 fouten. Teksten: 30 sleutels × 7 talen + esMX 18 (namen GEMETEN), deDE
-  Charlga = Klingenflanke (regel B-bijstelling). Open: Horde-Tempest gevers/inleveraars (TESTLIJST), Windshaper-shaman
-  (MyChains-wijziging nodig), Agamand-rek-id's bijl/zwaard, aparte level-up-melding (`weapon = true`) niet gebouwd,
+  Charlga = Klingenflanke (regel B-bijstelling). Open: Horde-Tempest gevers/inleveraars (TESTLIJST), ~~Windshaper-shaman~~
+  (✅ 19 nov: Skyborne in de rassen), Agamand-rek-id's bijl/zwaard, ~~aparte level-up-melding~~ (❌ 19 nov: Rob = nee),
   "eerst Felcloth" pas zichtbaar na de Inferno-keten, een lichter ogre-kamp voor Twisted Fire (1 gids).
 
 ## ▶ 18 nov (nacht) — Bouwchat addons-12: Fable-nakijkronde (punt 1 van Robs ja) GEDAAN
