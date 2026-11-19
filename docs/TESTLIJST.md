@@ -80,8 +80,9 @@ achternaam, "Step aside"-instelling, Your path, Set focus). Daarna vond Rob nog:
 ## 🔴 EERST, thuis (2 minuten): meting voor "Beter dan wat je draagt" (optie B)
 
 Rob via sparring: *"Ja"* (optie A nu, B later in stappen; deze meting beslist hoe B gebouwd wordt). Forever, in de stad.
-Typ in de chat `/dump C_Item.GetItemStats(` , **shift-klik** het item in je tas (dan staat de link in de chat), typ `)`
-en druk op Enter. Doe dat voor 4 items en maak een screenshot van elk antwoord:
+Typ in de chat `/dump C_Item.GetItemStats("` (mét het aanhalingsteken), **shift-klik** het item in je tas (dan staat
+de link in de chat), typ `")` (weer mét aanhalingsteken) en druk op Enter. Zonder de aanhalingstekens krijg je
+"unexpected symbol near '|'" (Rob, 19 nov — de instructie hier was fout). Doe dat voor 4 items en maak een screenshot van elk antwoord:
 - [ ] (a) een item met alleen gewone stats (Strength/Agility/Stamina…).
 - [ ] (b) een caster-item met een groene "Equip: Increases damage and healing…"-regel.
 - [ ] (c) een wapen (staat er iets over schade per seconde in het antwoord?).
