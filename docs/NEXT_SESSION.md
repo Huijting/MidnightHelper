@@ -38,6 +38,13 @@
   `C_Spell.GetSpellName` (taal van de client); `/mh usedfor` toont ook die regel of waarom niet. Offline GEMETEN:
   524/524 Forever-items hebben recept-id's; Linen Cloth → "Bolt of Linen Cloth, SAF-T Dynamite (+10 more)"; 3013 →
   "Tenets of the Silver Hand". Teksten 7 talen. NIET in het spel gezien.
+- ✅ Rob, Midnight-check na alle wijzigingen: *"Ik krijg geen fouten in WoW Midnight. Dus dat gaat goed."* (geen go).
+- 📣 **Forever-melding in Midnight** (Rob: *"alleen 5.0 dat klopt natuurlijk niet meer. Die melding kunnen we wel houden.
+  En misschien dat we het een soort splash moeten maken als mensen opnieuw inloggen. … Eén keer wegklikken en daarna
+  nooit meer geven."*): kop `HOME_FOREVER_AD_HEADER` zonder "5.0" in 7 talen (esMX heeft geen eigen regel, GEMETEN);
+  nieuw kaartje `foreverad` in `NewChoices.lua` (het enige login-venster; account-breed, één keer; niet als
+  `foreverAnnounceSeen` al waar is; "Got it" zet die vlag en ververst This Week). De body-tekst (start page, key block)
+  is ongewijzigd — oud maar niet onwaar. In de 5.6.0-tekst. NIET in het spel gezien.
 - 🪟 **Klein class-quest-venster GEBOUWD** (Rob via sparring: *"Kunnen we misschien de optie maken dat we een extra
   venstertje krijgen wat we los kunnen plaatsen. Al dan niet met een aan- en uitknop in onze settings."* → *"Doe het nu
   maar."*). In `ForeverClassQuests.lua` (onderaan; bestaand bestand, /reload genoeg): `MidnightHelperForeverClassQuestWindow`

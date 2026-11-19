@@ -44,6 +44,16 @@ achternaam, "Step aside"-instelling, Your path, Set focus). Daarna vond Rob nog:
 rank-lijstje: werkt (screenshot: "You just learned", Conjure Water rank 1 -> 2 en Frost Armor rank 1 -> 2, met de knoppen
 Upgrade / Not now / Never). Afgevinkt met "(Rob, 19 nov)". De hulpregels ("typ /mh … als het niet werkt") blijven open.
 
+## 📣 19 nov — Midnight: "MH werkt ook in WoW Forever" één keer bij de login
+
+`/reload` is genoeg. Retail (Midnight).
+- [ ] This Week: de kop zegt nu "New: Midnight Helper now works in WoW Forever too" (geen "5.0" meer).
+- [ ] Heb je die melding nog NIET weggeklikt? Na `/reload` (of bij de volgende login) komt het venster "New in this
+      version" met een kaartje over WoW Forever, en de knop "Got it, hide this". Klik → het kaartje en de melding in This
+      Week zijn weg, ook na een volgende login.
+- [ ] Had je hem al weggeklikt in This Week? Dan komt het kaartje niet.
+- [ ] Snel opnieuw zien: `/mh new` toont alle kaartjes die gelden.
+
 ## 🪟 19 nov — Forever: klein venster met je class-quest-stap
 
 `/reload` is genoeg. Met je mage, midden in de class quest.

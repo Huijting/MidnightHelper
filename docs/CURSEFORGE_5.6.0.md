@@ -76,6 +76,7 @@ shops in *Find* have tooltips too, and so do the items in the boss guide.
 
 ## Midnight
 
+- Did you know Midnight Helper works in WoW Forever too? One small card at login tells you, once.
 - **Used for … now names the recipe** in the tooltip, like in Forever.
 - The travel button on a route (Hearthstone, toy or teleport) shows the game's tooltip.
 - Reminders that check another player's buffs (a missing buff, the group buff count, the ready check for consumables)

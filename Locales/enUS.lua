@@ -4141,7 +4141,7 @@ ns._mhLocales.enUS = {
 	CHANGELOG_560_4 = "Forever: after the trainer a short list \"You just learned\" (Upgrade, On my bar, Not now, Never), and you choose which buttons get a new rank.",
 	CHANGELOG_560_5 = "Forever: a small window you can move with only your class quest step, class quests say what you need before the trip, weapon class quests for warriors, warlocks and shamans, a fair weapon comparison with damage per second, and whether a weapon fits your direction.",
 	CHANGELOG_560_6 = "Forever: buffs that run out soon, your gold in Do this now, macro labels and a Copy button, a Comprehension card for mages, a smart blessing button for paladins, the Cozy Sleeping Bag, disenchant hints, an open-box button and a Reputation & currency page.",
-	CHANGELOG_560_7 = "Both games: \"Used for\" in the tooltip now names the first two recipes. Midnight: the travel button shows its tooltip, and buff reminders for other players work again.",
+	CHANGELOG_560_7 = "Both games: \"Used for\" in the tooltip now names the first two recipes. Midnight: the travel button shows its tooltip, buff reminders for other players work again, and one card at login says MH works in WoW Forever too.",
 	CHANGELOG_550_1 ="Forever: /mh, Alt+M and the minimap button open the new overview with seven tabs: Now, Your class, Find, Professions, Dungeons & group, Keys & macros and Characters. The old window and the Dock button are gone; the gear button holds Quiet helpers, Tools and All commands.",
 	CHANGELOG_550_2 = "Forever: Find shows trainers, weapon masters and shops, and now also the bank, the auction house, mailboxes and inns, nearest first with the arrow. Neutral auction houses are marked.",
 	CHANGELOG_550_3 = "Forever: class quests step by step for all nine classes, and How you play per role with what you get every 10 levels and three beginner mistakes.",
@@ -5038,7 +5038,7 @@ ns._mhLocales.enUS = {
 	HOME_FOREVER_TRAINER_NOW_FMT = "%d new to learn now (%s).",
 	HOME_FOREVER_TRAINER_NEXT_FMT = "Nothing new yet. Next at level %d: %d spells.",
 	-- 7 Nov 2026: MH 5.0, told to retail players (Home card + one chat line).
-	HOME_FOREVER_AD_HEADER = "New in 5.0: Midnight Helper now works in WoW Forever too",
+	HOME_FOREVER_AD_HEADER = "New: Midnight Helper now works in WoW Forever too",
 	HOME_FOREVER_AD_BODY = "Playing WoW Forever? Turn MH on there as well. You get your own start page, what you can learn at your trainer with an arrow to get there, how your class plays, a key block for all nine classes, and a hint on which quest reward to take. It is the same addon: install it for WoW Forever too (in the CurseForge app, switch World of Warcraft from Retail to Forever).",
 	HOME_FOREVER_AD_HIDE = "Got it, hide this",
 	-- 8 Nov 2026: the line that stays at the bottom of the Midnight home page after the banner is hidden (a click shows it again).

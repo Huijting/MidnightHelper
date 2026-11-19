@@ -253,6 +253,13 @@ lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met d
   maakt. Voorstel "only when a talent makes it free" ligt bij Rob; niet gebouwd.
 - ✅ Rob koos 19 nov (via sparring), letterlijk: *"a"* = de mage-zin blijft zonder Arcane Missiles. Niets te bouwen.
 
+### Midnight: "MH werkt ook in WoW Forever" zonder "5.0", één keer extra opvallend bij de login — ✅ JA + GEBOUWD 19 nov
+- Bron: Rob 19 nov (via Sparring 19-11), letterlijk: *"Op zich is dat goed, alleen 5.0 dat klopt natuurlijk niet meer.
+  Die melding kunnen we wel houden. En misschien dat we het een soort splashkey moeten maken als mensen opnieuw inloggen.
+  Zodat het extra opvalt. Eén keer wegklikken en daarna nooit meer geven."* (Willow: "splashkey" = splash). Spel: M.
+- Gebouwd: kop zonder versienummer (7 talen); een kaartje in het "New in this version"-venster (geen tweede popup),
+  één keer per account; wie de melding al wegklikte, krijgt het niet. Wacht op Robs test.
+
 ### Forever: klein los venster met je class-quest-stap — ✅ JA + GEBOUWD 19 nov
 - Bron: Rob 19 nov (via Sparring 19-11), letterlijk: *"ik moet heel goed lezen in Do This Now wat ik precies moet doen.
   En, ja, het valt een beetje weg. Kunnen we misschien de optie maken dat we een extra venstertje krijgen wat we los

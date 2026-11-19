@@ -112,6 +112,34 @@ local CARDS = {
 			}
 		end,
 	},
+	-- Midnight: "MH works in WoW Forever too" (Rob, 19 Nov 2026, via sparring, verbatim: "Die melding kunnen we wel houden.
+	-- En misschien dat we het een soort splash moeten maken als mensen opnieuw inloggen. Zodat het extra opvalt. Eén keer
+	-- wegklikken en daarna nooit meer geven."). The same text as the This Week banner (HomeDashboard.lua); account-wide,
+	-- once. Whoever already hid that banner does not get the card; "Got it" here hides the banner too.
+	{
+		id = "foreverad",
+		head = "HOME_FOREVER_AD_HEADER",
+		body = "HOME_FOREVER_AD_BODY",
+		avail = function()
+			return not ns.IS_FOREVER and not (ns.db and ns.db.foreverAnnounceSeen)
+		end,
+		buttons = function()
+			return {
+				{
+					text = ns:L("HOME_FOREVER_AD_HIDE"),
+					closes = true,
+					click = function()
+						if ns.db then
+							ns.db.foreverAnnounceSeen = true
+						end
+						if ns.RefreshHomePanel then
+							ns.RefreshHomePanel()
+						end
+					end,
+				},
+			}
+		end,
+	},
 	{
 		id = "donow",
 		again = "2", -- shown once more with the screens (13 Nov 2026)
