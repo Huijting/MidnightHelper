@@ -46,6 +46,16 @@ achternaam, "Step aside"-instelling, Your path, Set focus). Daarna vond Rob nog:
       hoofdstad met de mount-run of de reisplanner). Muis op het icoontje → de tooltip van het spel (van de Hearthstone,
       de toy of de mage-teleport). Klikken werkt nog net als eerst.
 
+## 🙏 19 nov — Forever (paladin): slimme zegen-knop
+
+`/reload` is genoeg. Met je paladin, buiten een gevecht.
+- [ ] Overzicht → tandwiel → Quiet helpers → "Button: smart blessing on the player under your mouse" aan. In de chat:
+      "smart blessing ON …" en het macrovenster gaat open. Sleep de macro **MH Smart Bless** naar een balk.
+- [ ] Ga met je muis over een vriendelijke speler (bv. een warrior) en druk op die macro: hij krijgt de zegen die de
+      tooltip-tip noemt (warrior = Might, mage = Wisdom, enz.).
+- [ ] Werkt de knop niet? Typ `/mh blesstip` en maak een screenshot: de regel "smart button" zegt wat erop staat.
+- [ ] Uit in Quiet helpers → de macro doet niets meer.
+
 ## 📜 19 nov — Forever (mage): Comprehension uitgelegd + regel in "Do this now"
 
 `/reload` is genoeg. Met je mage.

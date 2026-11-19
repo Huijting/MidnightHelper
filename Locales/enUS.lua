@@ -5806,7 +5806,13 @@ ns._mhLocales.enUS = {
 	FBLESS_SET_USAGE = "Use: /mh blesstip set <class> might|wisdom|kings (for example: /mh blesstip set hunter might).",
 	FBLESS_SET_FMT = "%s now gets %s.",
 	FBLESS_RESET = "Back to Midnight Helper's own choice for every class.",
-	FBLESS_HELP = "/mh blesstip on | off | set <class> might|wisdom|kings | reset",
+	FBLESS_HELP = "/mh blesstip on | off | button on | button off | set <class> might|wisdom|kings | reset",
+	-- 19 Nov 2026: the smart blessing button (ForeverBlessTip.lua, step 2). FBLESS_BTN_ON_FMT: %s = the macro name.
+	FBLESS_BTN_SW = "Button: smart blessing on the player under your mouse",
+	FBLESS_BTN_SW_DESC = "One key for every blessing: it blesses the friendly player under your mouse with the blessing the tip above picks (your own table counts). Turning it on makes a macro to drag onto a bar. In a fight the last choice stays.",
+	FBLESS_BTN_ON_FMT = "smart blessing ON. Drag the macro \"%s\" from the macro window onto a bar, then hover a player and press it.",
+	FBLESS_BTN_NOMACRO = "smart blessing ON, but MH could not make the macro now (in a fight, or no room). Turn it off and on again later.",
+	FBLESS_BTN_OFF = "smart blessing off. The macro stays; it does nothing until you turn it on again.",
 	-- 17 Nov 2026 (Rob: "B"): a modifier + key that belongs to another binding.
 	FMAC_KEY_TAKEN_FMT = "%s is taken by %s: the %s part of this macro only works with the mouse.",
 	FMAC_BTN_FREE = "Free key",

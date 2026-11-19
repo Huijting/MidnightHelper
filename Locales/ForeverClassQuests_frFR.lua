@@ -431,7 +431,13 @@ for k, v in pairs({
 	FBLESS_SET_USAGE = "Utilisation : /mh blesstip set <class> might|wisdom|kings (par exemple : /mh blesstip set hunter might).",
 	FBLESS_SET_FMT = "%s reçoit maintenant %s.",
 	FBLESS_RESET = "Retour au choix de Midnight Helper pour chaque classe.",
-	FBLESS_HELP = "/mh blesstip on | off | set <class> might|wisdom|kings | reset",
+	FBLESS_HELP = "/mh blesstip on | off | button on | button off | set <class> might|wisdom|kings | reset",
+	-- 19 Nov 2026: the smart blessing button. Our own translation.
+	FBLESS_BTN_SW = "Bouton : bénédiction intelligente sur le joueur sous ta souris",
+	FBLESS_BTN_SW_DESC = "Une seule touche pour toutes les bénédictions : elle donne au joueur ami sous ta souris la bénédiction que choisit le conseil ci-dessus (ta propre table compte). L'activer crée une macro à glisser sur une barre. En combat, le dernier choix reste.",
+	FBLESS_BTN_ON_FMT = "bénédiction intelligente ACTIVÉE. Glisse la macro « %s » de la fenêtre des macros vers une barre, puis survole un joueur et appuie dessus.",
+	FBLESS_BTN_NOMACRO = "bénédiction intelligente ACTIVÉE, mais MH n'a pas pu créer la macro maintenant (en combat, ou plus de place). Désactive-la puis réactive-la plus tard.",
+	FBLESS_BTN_OFF = "bénédiction intelligente désactivée. La macro reste ; elle ne fait rien tant que tu ne la réactives pas.",
 	SET_BLESSTIP_TITLE = "Paladin : conseil de bénédiction dans l'infobulle",
 	SET_BLESSTIP_DESC = "WoW Forever : survole un joueur ami et l'infobulle indique quelle bénédiction convient à sa classe. Comme /mh blesstip on.",
 	-- 17 Nov 2026 (late): overview front door, Now list, trainer page

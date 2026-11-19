@@ -420,7 +420,13 @@ for k, v in pairs({
 	FBLESS_SET_USAGE = "Uso: /mh blesstip set <classe> might|wisdom|kings (por exemplo: /mh blesstip set hunter might).",
 	FBLESS_SET_FMT = "%s agora recebe %s.",
 	FBLESS_RESET = "De volta à escolha do próprio Midnight Helper para cada classe.",
-	FBLESS_HELP = "/mh blesstip on | off | set <classe> might|wisdom|kings | reset",
+	FBLESS_HELP = "/mh blesstip on | off | button on | button off | set <classe> might|wisdom|kings | reset",
+	-- 19 Nov 2026: the smart blessing button. Our own translation.
+	FBLESS_BTN_SW = "Botão: bênção inteligente no jogador sob o seu mouse",
+	FBLESS_BTN_SW_DESC = "Uma tecla para todas as bênçãos: ela dá ao jogador aliado sob o seu mouse a bênção que a dica acima escolhe (a sua própria tabela conta). Ligar cria uma macro para arrastar para uma barra. Em combate, a última escolha fica.",
+	FBLESS_BTN_ON_FMT = "bênção inteligente LIGADA. Arraste a macro \"%s\" da janela de macros para uma barra, depois passe o mouse num jogador e aperte.",
+	FBLESS_BTN_NOMACRO = "bênção inteligente LIGADA, mas o MH não conseguiu criar a macro agora (em combate ou sem espaço). Desligue e ligue de novo mais tarde.",
+	FBLESS_BTN_OFF = "bênção inteligente desligada. A macro fica; ela não faz nada até você ligar de novo.",
 	SET_BLESSTIP_TITLE = "Paladino: dica de bênção na dica de tela",
 	SET_BLESSTIP_DESC = "WoW Forever: passe o mouse num jogador aliado e a dica de tela diz qual bênção combina com a classe dele. O mesmo que /mh blesstip on.",
 	-- 17 Nov 2026 (late): overview front door, Now list, trainer page

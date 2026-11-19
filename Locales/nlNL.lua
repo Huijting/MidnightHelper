@@ -4884,7 +4884,12 @@ ns._mhLocales.nlNL = {
 	FBLESS_SET_USAGE = "Gebruik: /mh blesstip set <class> might|wisdom|kings (bijvoorbeeld: /mh blesstip set hunter might).",
 	FBLESS_SET_FMT = "%s krijgt nu %s.",
 	FBLESS_RESET = "Terug naar de eigen keuze van Midnight Helper voor elke class.",
-	FBLESS_HELP = "/mh blesstip on | off | set <class> might|wisdom|kings | reset",
+	FBLESS_HELP = "/mh blesstip on | off | button on | button off | set <class> might|wisdom|kings | reset",
+	FBLESS_BTN_SW = "Knop: slimme zegen op de speler onder je muis",
+	FBLESS_BTN_SW_DESC = "Eén toets voor elke zegen: hij geeft de vriendelijke speler onder je muis de zegen die de tip hierboven kiest (je eigen tabel telt). Aanzetten maakt een macro om op een balk te slepen. In een gevecht blijft de laatste keuze staan.",
+	FBLESS_BTN_ON_FMT = "slimme zegen AAN. Sleep de macro \"%s\" uit het macrovenster naar een balk, ga met je muis over een speler en druk erop.",
+	FBLESS_BTN_NOMACRO = "slimme zegen AAN, maar MH kon de macro nu niet maken (in een gevecht, of geen plek). Zet hem later uit en weer aan.",
+	FBLESS_BTN_OFF = "slimme zegen uit. De macro blijft staan; hij doet niets tot je hem weer aanzet.",
 	-- 17 nov 2026 (Rob: "B"): een modifier + toets die al van een andere binding is.
 	FMAC_KEY_TAKEN_FMT = "%s is bezet door %s: het %s-deel van deze macro werkt alleen met de muis.",
 	FMAC_BTN_FREE = "Toets vrij",

@@ -415,7 +415,13 @@ for k, v in pairs({
 	FBLESS_SET_USAGE = "Benutzung: /mh blesstip set <class> might|wisdom|kings (zum Beispiel: /mh blesstip set hunter might).",
 	FBLESS_SET_FMT = "%s bekommt jetzt %s.",
 	FBLESS_RESET = "Wieder die eigene Wahl von Midnight Helper für jede Klasse.",
-	FBLESS_HELP = "/mh blesstip on | off | set <class> might|wisdom|kings | reset",
+	FBLESS_HELP = "/mh blesstip on | off | button on | button off | set <class> might|wisdom|kings | reset",
+	-- 19 Nov 2026: the smart blessing button. Our own translation.
+	FBLESS_BTN_SW = "Knopf: schlauer Segen auf den Spieler unter deiner Maus",
+	FBLESS_BTN_SW_DESC = "Eine Taste für jeden Segen: Sie gibt dem freundlichen Spieler unter deiner Maus den Segen, den der Tipp oben wählt (deine eigene Tabelle zählt). Einschalten erstellt ein Makro, das du auf eine Leiste ziehst. Im Kampf bleibt die letzte Wahl.",
+	FBLESS_BTN_ON_FMT = "schlauer Segen AN. Zieh das Makro \"%s\" aus dem Makrofenster auf eine Leiste, fahr dann mit der Maus über einen Spieler und drück es.",
+	FBLESS_BTN_NOMACRO = "schlauer Segen AN, aber MH konnte das Makro jetzt nicht erstellen (im Kampf oder kein Platz). Schalte ihn später aus und wieder ein.",
+	FBLESS_BTN_OFF = "schlauer Segen aus. Das Makro bleibt; es tut nichts, bis du ihn wieder einschaltest.",
 	SET_BLESSTIP_TITLE = "Paladin: Segen-Tipp im Tooltip",
 	SET_BLESSTIP_DESC = "WoW Forever: Fahr mit der Maus über einen freundlichen Spieler, und der Tooltip sagt, welcher Segen zu seiner Klasse passt. Wie /mh blesstip on.",
 	-- 17 Nov 2026 (late): overview front door, Now list, trainer page

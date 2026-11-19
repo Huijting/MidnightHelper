@@ -144,6 +144,109 @@ local function Hook()
 	end
 end
 
+--------------------------------------------------------------------------------
+-- (2) The smart blessing button (19 Nov 2026; Rob via sparring, letterlijk: "Ja, die mogen door" on step 2 of
+-- "slimme zegen", plan in docs/IDEEEN.md). ONE key that blesses the friendly player under your mouse with the blessing
+-- Pick() chooses (the same choice as the tooltip line, and your own table).
+-- How (the plan's rules): a hidden SecureActionButton "MidnightHelperSmartBless" (type spell, unit mouseover); a
+-- SEPARATE event frame sets its "spell" attribute out of combat on UPDATE_MOUSEOVER_UNIT; in combat the last choice
+-- stays (attributes cannot change then); no script on the secure button itself (lesson ForeverPartyPanel.lua:12-13).
+-- Click phase pinned like ForeverDisenchant.lua (useOnKeyDown false, LeftButtonUp). You press it through a macro
+-- "MH Smart Bless" (/click MidnightHelperSmartBless), made when you switch it on, out of combat; drag it to a bar.
+-- Off by default (players choose): ns.db.foreverSmartBless == true. /mh blesstip says the button's state and spell.
+-- NOT measured: that /click reaches a secure button in Forever, and UPDATE_MOUSEOVER_UNIT on unit frames.
+--------------------------------------------------------------------------------
+local SMART_NAME, SMART_MACRO = "MidnightHelperSmartBless", "MH Smart Bless"
+local smart, smartWhy, smartSpell = nil, "not built (switched off, or not a paladin)", nil
+
+local function SmartOn()
+	return ns.db and ns.db.foreverSmartBless == true
+end
+
+local function BuildSmart()
+	if smart or (InCombatLockdown and InCombatLockdown()) then
+		return smart
+	end
+	smart = CreateFrame("Button", SMART_NAME, UIParent, "SecureActionButtonTemplate")
+	smart:SetSize(1, 1)
+	smart:SetPoint("TOPLEFT", UIParent, "TOPLEFT", -50, 50) -- off screen: only the macro clicks it
+	smart:RegisterForClicks("LeftButtonUp")
+	smart:SetAttribute("useOnKeyDown", false)
+	smart:SetAttribute("type", "spell")
+	smart:SetAttribute("unit", "mouseover")
+	return smart
+end
+
+local function SmartUpdate()
+	if not (SmartOn() and IsPaladin()) then
+		smartWhy = "switched off (or not a paladin)"
+		return
+	end
+	if InCombatLockdown and InCombatLockdown() then
+		smartWhy = "in combat: the last choice stays"
+		return
+	end
+	local b = BuildSmart()
+	if not b then
+		return
+	end
+	local kind, id, _, why = Pick("mouseover")
+	if kind and id then
+		b:SetAttribute("spell", id)
+		smartSpell = id
+		smartWhy = why
+	else
+		smartWhy = "mouseover: " .. tostring(id) .. " (the button keeps its last spell)"
+	end
+end
+
+--- Make the macro once (out of combat); true when it exists afterwards.
+local function SmartMacro()
+	if not (GetMacroIndexByName and CreateMacro) or (InCombatLockdown and InCombatLockdown()) then
+		return false
+	end
+	local ok, idx = pcall(GetMacroIndexByName, SMART_MACRO)
+	if ok and type(idx) == "number" and idx > 0 then
+		return true
+	end
+	local okC = pcall(CreateMacro, SMART_MACRO, 134400, "/click " .. SMART_NAME, true)
+	return okC
+end
+
+function ns.IsForeverSmartBlessOn()
+	return SmartOn()
+end
+
+function ns.SetForeverSmartBless(on)
+	ns.db = ns.db or {}
+	if on then
+		ns.db.foreverSmartBless = true
+		BuildSmart()
+		SmartUpdate()
+		if SmartMacro() then
+			print(PREFIX .. ns:L("FBLESS_BTN_ON_FMT"):format(SMART_MACRO))
+			if ShowMacroFrame then
+				pcall(ShowMacroFrame) -- to drag it onto a bar (AFGELEID that Forever has it, as ForeverMacros.lua says)
+			end
+		else
+			print(PREFIX .. ns:L("FBLESS_BTN_NOMACRO"))
+		end
+	else
+		ns.db.foreverSmartBless = nil
+		print(PREFIX .. ns:L("FBLESS_BTN_OFF"))
+	end
+end
+
+local sev = CreateFrame("Frame")
+pcall(sev.RegisterEvent, sev, "UPDATE_MOUSEOVER_UNIT")
+pcall(sev.RegisterEvent, sev, "PLAYER_REGEN_ENABLED")
+pcall(sev.RegisterEvent, sev, "PLAYER_ENTERING_WORLD")
+sev:SetScript("OnEvent", function()
+	if SmartOn() then
+		SmartUpdate()
+	end
+end)
+
 -- Hook once, at login (the tooltip exists by then); cheap when the switch is off (one counter, one return).
 local ev = CreateFrame("Frame")
 ev:RegisterEvent("PLAYER_LOGIN")
@@ -161,6 +264,10 @@ function ns.ForeverBlessTipSlash(arg)
 	if arg == "on" or arg == "off" then
 		ns.db.foreverBlessTip = (arg == "on") or nil
 		print(PREFIX .. ns:L(arg == "on" and "FBLESS_ON" or "FBLESS_OFF"))
+		return
+	end
+	if arg == "button on" or arg == "button off" then
+		ns.SetForeverSmartBless(arg == "button on")
 		return
 	end
 	local cls, kind = arg:match("^set%s+(%a+)%s+(%a+)$")
@@ -188,6 +295,14 @@ function ns.ForeverBlessTipSlash(arg)
 	print(PREFIX .. ("blessing tip: %s, paladin %s, hook %s, fired %d time(s)"):format(Enabled() and "ON" or "off",
 		tostring(IsPaladin()), state.hook, state.fired))
 	print("  mouseover: " .. (kind and (("%s (%s) — %s"):format(SpellName(id) or kind, tostring(id), why)) or tostring(id)))
+	-- The smart button (19 Nov 2026): on/off, built, the spell on it now, the last decision, and the macro.
+	local mOk, mIdx = false, 0
+	if GetMacroIndexByName then
+		mOk, mIdx = pcall(GetMacroIndexByName, SMART_MACRO)
+	end
+	print(("  smart button: %s, built %s, spell on it %s, last: %s; macro \"%s\" %s (/mh blesstip button on|off)"):format(
+		SmartOn() and "ON" or "off", tostring(smart ~= nil), smartSpell and (SpellName(smartSpell) or tostring(smartSpell))
+		or "none", smartWhy, SMART_MACRO, (mOk and type(mIdx) == "number" and mIdx > 0) and "exists" or "missing"))
 	local t = {}
 	for c, d in pairs(DEFAULT) do
 		local own = ns.db.foreverBlessTable and ns.db.foreverBlessTable[c]

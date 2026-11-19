@@ -1207,6 +1207,11 @@ local QUIET = {
 	PROF_SWITCHES[1], -- Used for / never usable / quest item
 	Q("FOV_Q_GEARTIP", "FOV_Q_GEARTIP_DESC", DbFlag("foreverGearTip", true)),
 	Q("SET_BLESSTIP_TITLE", "SET_BLESSTIP_DESC", DbFlag("foreverBlessTip", false)),
+	-- 19 Nov 2026 (Rob: "Ja, die mogen door"): the smart blessing button (ForeverBlessTip.lua). Off by default; turning it
+	-- on also makes the macro to drag onto a bar.
+	Q("FBLESS_BTN_SW", "FBLESS_BTN_SW_DESC", {
+		get = function() return ns.IsForeverSmartBlessOn and ns.IsForeverSmartBlessOn() end,
+		set = function(on) if ns.SetForeverSmartBless then ns.SetForeverSmartBless(on) end end }),
 	-- 18 Nov 2026 (Rob: disenchant, "ja"): tooltip line + bag icons (on), and the "Disenchant next" button (off).
 	Q("FOV_Q_DISENCHANT", "FOV_Q_DISENCHANT_DESC", (function()
 		local f = DbFlag("foreverDisenchant", true)

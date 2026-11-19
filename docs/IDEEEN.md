@@ -258,7 +258,7 @@ lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met d
   gevonden. Maar dit verrast mij. En ik heb het ook nergens bij ons in onze add-on gezien."* Spel: F. Voor wie: N.
 - Gebouwd: regel + kaartje "Comprehension" op de Professions-pagina (alleen mage); "Do this now" bij een onvertaalde
   scroll in je tas. Alleen gemeten feiten. Wacht op Robs test.
-- Ook uit dezelfde ja: FutureSpell-filter (ForeverBlock) gebouwd; slimme zegen-knop deel 2: volgt.
+- Ook uit dezelfde ja: FutureSpell-filter (ForeverBlock) gebouwd; slimme zegen-knop deel 2 gebouwd (zie daar).
 
 ### Forever: namen met een tooltip in een eigen kleur + je goud in "Do this now" — ✅ JA + GEBOUWD 19 nov
 - Bron: Rob 19 nov (via Sparring 19-11), letterlijk: *"dat we bijvoorbeeld Conjugal Water of Conjugal Food een ander
@@ -348,6 +348,8 @@ lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met d
   SetAttribute vanuit het event-frame + binding/klik, de speler-tooltip-hook. Kandidaten (NIET kopiëren): PallyMe (ARR),
   PaladinPlan (GPL-3.0).
 - 17 nov avond: (1) tooltip-tip GEBOUWD (`ForeverBlessTip.lua`, `/mh blesstip`, standaard uit, met meting). (2) nog niet.
+- 19 nov (Rob via sparring: *"Ja, die mogen door"*): (2) slimme knop GEBOUWD — macro "MH Smart Bless", schakelaar in
+  Quiet helpers (standaard uit), `/mh blesstip button on|off`. Wacht op Robs test (paladin).
 
 ### Forever: tien nieuwe handige macro's (ideeën uit de Forever-gidsen, zelf geschreven)
 - Bron: Rob 17 nov (via Sparring 17-11), letterlijk: *"Ja, die 10 macro-ideeën zijn een goed idee. Werk maar uit."*

@@ -445,7 +445,13 @@ for k, v in pairs({
 	FBLESS_SET_USAGE = "Ввод: /mh blesstip set <class> might|wisdom|kings (класс по-английски, например: /mh blesstip set hunter might).",
 	FBLESS_SET_FMT = "%s теперь получает %s.",
 	FBLESS_RESET = "Снова собственный выбор Midnight Helper для каждого класса.",
-	FBLESS_HELP = "/mh blesstip on | off | set <class> might|wisdom|kings | reset",
+	FBLESS_HELP = "/mh blesstip on | off | button on | button off | set <class> might|wisdom|kings | reset",
+	-- 19 Nov 2026: the smart blessing button. Our own translation.
+	FBLESS_BTN_SW = "Кнопка: умное благословение на игрока под курсором",
+	FBLESS_BTN_SW_DESC = "Одна клавиша для всех благословений: она дает дружественному игроку под курсором благословение, которое выбирает подсказка выше (ваша таблица учитывается). При включении создается макрос, который нужно перетащить на панель. В бою остается последний выбор.",
+	FBLESS_BTN_ON_FMT = "умное благословение ВКЛ. Перетащите макрос «%s» из окна макросов на панель, наведите курсор на игрока и нажмите.",
+	FBLESS_BTN_NOMACRO = "умное благословение ВКЛ., но MH не смог создать макрос сейчас (в бою или нет места). Выключите и включите позже.",
+	FBLESS_BTN_OFF = "умное благословение выкл. Макрос остается; он ничего не делает, пока вы снова не включите.",
 	SET_BLESSTIP_TITLE = "Паладин: подсказка о благословении",
 	SET_BLESSTIP_DESC = "WoW Forever: наведите курсор на дружественного игрока, и подсказка покажет, какое благословение подходит его классу. То же, что /mh blesstip on.",
 	-- 17 Nov 2026 (late): overview front door, Now list, trainer page

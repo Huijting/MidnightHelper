@@ -20,7 +20,17 @@
   213543-213547, 281015-281018), Comprehend Scroll-id's (ForeverSpellIds), Light Feather 17056, voorbeeld 211780.
   NIET gezegd (niet gemeten/oneens): wat een scroll doet, de ontcijfertijd (DB2 cast-index 1), hoe snel de skill stijgt,
   welke stad een bibliotheek heeft. Item- en spellnamen komen uit de client. Teksten 7 talen. NIET in het spel gezien.
-- Nog te doen van de vier: 3 (slimme zegen-knop). Daarna: receptnaam in "Used for" (Rob: *"ja graag"*).
+- **3. Slimme zegen-knop GEBOUWD** (`ForeverBlessTip.lua`, deel 2 van het plan in IDEEEN): verborgen
+  SecureActionButton `MidnightHelperSmartBless` (type spell, unit mouseover; klikfase vast zoals ForeverDisenchant:
+  `useOnKeyDown` false, LeftButtonUp). Een APART event-frame (UPDATE_MOUSEOVER_UNIT, PLAYER_REGEN_ENABLED,
+  PLAYER_ENTERING_WORLD) zet buiten een gevecht `spell` = de keuze van `Pick()` (dezelfde als de tooltip-tip, je eigen
+  tabel telt); in een gevecht blijft de laatste keuze; geen script op de secure knop. Aanzetten (Quiet helpers
+  "Button: smart blessing …" of `/mh blesstip button on|off`) maakt de macro "MH Smart Bless" (`/click
+  MidnightHelperSmartBless`, per character) en opent het macrovenster om hem op een balk te slepen. Standaard UIT.
+  `/mh blesstip` print aan/uit, gebouwd, de spell erop, de laatste beslissing en of de macro bestaat. Teksten 7 talen.
+  NIET gemeten: of `/click` in Forever een secure knop bereikt, en UPDATE_MOUSEOVER_UNIT boven unit frames.
+  Greater Blessings: niet (plan: alleen op echte groepsleden, eerst de [group]-meting).
+- Alle vier klaar. Volgende: receptnaam in "Used for" (Rob: *"ja graag"*).
 - Open en los hiervan: Scroll of Protection — GEMETEN: Enchanting-recept "Tenets of the Silver Hand" (1248754) gebruikt
   5× item 3013; de regel klopt. Voorstel "noem het recept" ligt bij Rob.
 
