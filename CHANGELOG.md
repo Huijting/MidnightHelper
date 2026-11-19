@@ -4,8 +4,9 @@ All notable changes to this project are documented in this file.
 
 ## 5.6.0
 
-📌 **KLAARGEZET 19 nov 2026, wacht op Robs go (geen tag).** Rob via sparring, letterlijk: *"Ja, de bouwchat mag alles
-klaarzetten."* Eerst doet hij een Midnight-/reload-check. In-game: CHANGELOG_560_1 t/m _7. `RELEASE_NOTES.md` =
+📌 **2026-11-19, RELEASE (Rob via sparring, letterlijk: "Go voor release."; geen beta).** Klaargezet op *"Ja, de
+bouwchat mag alles klaarzetten."*; Midnight-check: *"Ik krijg geen fouten in WoW Midnight."* Later toegevoegd en mee:
+het class-quest-venster, het Forever-kaartje in Midnight, "na elkaar" (toetsenblok/lijstje). In-game: CHANGELOG_560_1 t/m _7. `RELEASE_NOTES.md` =
 `docs/CURSEFORGE_5.6.0.md` (uit het concept `docs/CURSEFORGE_DRAFT_volgende.md` + alles van 18 nov nacht en 19 nov).
 Commits v5.5.0..HEAD (18 en 19 nov). Getest door Rob: zie TESTLIJST 18 en 19 nov (o.a. trainer-pijl, Comprehension-rij,
 Recipes-regel, rares, blauwe namen + goud, "You just learned", loot-tooltips, baasmodel, lange namen).

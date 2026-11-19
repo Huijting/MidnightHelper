@@ -28,11 +28,12 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
-## 19 nov 2026 — release 5.6.0 klaargezet (nog GEEN tag)
-- Tag + commit:   geen tag (komt pas na Robs letterlijke go); commit = de commit die deze regel toevoegt
-- Status:         alleen op main
-- Mag op de site: nee, nog niet. Rob via sparring: *"Ja, de bouwchat mag alles klaarzetten."* Eerst zijn
-                  Midnight-/reload-check, dan zijn go.
+## 19 nov 2026 — release 5.6.0 (getagd)
+- Tag + commit:   v5.6.0 / de commit die deze regel bijwerkt (zie `git rev-list -n 1 v5.6.0`)
+- Status:         getagd (de upload loopt; "staat op CurseForge" pas als de CF-API beide bestanden toont)
+- Mag op de site: ja zodra het op CurseForge staat. Rob via sparring, letterlijk: *"Go voor release."* Zijn
+                  Midnight-check: *"Ik krijg geen fouten in WoW Midnight."* CURSEFORGE_DESCRIPTION.md bijgewerkt
+                  (Rob plakt die zelf).
 - Afspraak:       🔴 bij DEZE release zet de site-chat de **screenshots-draft v2** live (afspraak van 18 nov, hieronder).
 - Speler ziet:    zie `RELEASE_NOTES.md` (= `docs/CURSEFORGE_5.6.0.md`): bazengids 28 dungeons (met 3D-model en klein
                   baaskaartje), zoekbalk, Travel, rares (je eigen gebied eerst), de juiste class trainer, tooltips overal
