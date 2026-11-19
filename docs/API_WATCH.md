@@ -10958,3 +10958,181 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
     `abb3007` *"Nachtcontrole 18 nov: 0 nakijken C1/C2; snapshot forever loopt achter (70938 -> 70959)"*
     — de nachtcontrole zag dezelfde nieuwe Forever-build en noemt hem bij hetzelfde nummer, wat een
     onafhankelijke derde bevestiging is van `70959`.
+- [2026-11-19] 🔴 **Nul [MOET GEFIKST] — en de [MOET GEFIKST] van gisteren is DICHT in de code. Verder de
+  grootste echte API-dag in twee weken: de API-documentatie van de nieuwe LIVE-build `12.1.5.70961` is
+  gepubliceerd (en bevat vrijwel niets), er staat een nieuwe PTR-build `12.1.7.70986` met 16 gewijzigde
+  API-documentatiebestanden, en 12.1.7 heeft nu een livedatum: 1 december. Géén nieuwe Forever-build, géén
+  nieuwe blue post over API, géén SimC-release, geen enkele API-changes-wikipagina bewerkt.**
+  - ✅ **DICHT — de [MOET GEFIKST] van 18 nov (`Modules/ForeverChars.lua`) is gerepareerd, en strakker dan
+    mijn eigen voorbeeld.** GEMETEN eerstehands in de werkmap: `Modules/ForeverChars.lua:96-106` plakt naam
+    en surname niet meer met een hardgecodeerde spatie maar met
+    `Constants.CharacterNameSeparatorConsts.CHARACTERNAME_SURNAME_SEPARATOR`, achter `Readable()`
+    (`:33-35` = `v ~= nil and not (issecretvalue and issecretvalue(v))`) én achter een
+    `if type(sep) ~= "string" then sep = " " end` — dus een secret of ontbrekende constante valt terug op een
+    spatie in plaats van de regel te breken. `EditModeBackup.lua:849` doet het al. Treffers op de
+    constante: **2** (gisteren 1). Commit `e0c16c9` *"Forever chars: join name + surname with Blizzard's
+    separator"*, **18 nov 07:04 +0100**. Niets van mij aangeraakt.
+  - ✅ **[RAAKT ONS NIET] — de nieuwe LIVE-build `12.1.5.70961` is API-loos, en dat is nu GEMETEN in plaats van
+    afgewacht. Hiermee is het open punt van gisteren dicht.** Gethe publiceerde hem op **18 nov 23:46 UTC**
+    (commit `ab5cb850` *"12.1.5 (70961)"*, tevens `refs/heads/live` en `refs/tags/12.1.5` — beide SHA's zijn
+    dus veranderd t.o.v. `297d7aaa` van gisteren). De volledige diff `70783` → `70961`, gemaakt met een eigen
+    partiële clone, is **2 bestanden**: `version.txt`, en **één toegevoegde regel** in
+    `EncodingUtilConstantsDocumentation.lua`:
+    `{ Name = "EncodingDeserializeSizeLimit", Type = "size", Value = 104857600 }` naast de bestaande
+    `EncodingDecompressSizeLimit`. MH: `C_EncodingUtil` → **0** bestanden,
+    `EncodingDecompressSizeLimit` → **0**, `EncodingDeserializeSizeLimit` → **0**. 📌 Het grotere punt:
+    live stond **15 dagen** stil (70783 van 4 nov) en de API-beweging die de spelers daarmee krijgen is
+    letterlijk één nieuwe constante die wij niet gebruiken.
+  - 🆕 **NIEUWE PTR-BUILD `12.1.7.70986`, en dit is de inhoudelijke dag.** wago.tools: branch `wowt`, build
+    **70986**, *detected* **18 nov 23:44:03**; Gethe-commit `ea64ca56` *"12.1.7 (70986)"*, **18 nov 23:46 UTC**
+    (= `refs/heads/ptr` = `refs/tags/12.1.7`; gisteren `a750208e`). Diff `70892` → `70986`: **106 bestanden,
+    2634 inserties, 528 deleties**, waarvan **16 bestanden** in `Blizzard_APIDocumentationGenerated`. Alles
+    getoetst aan de addon (scope: `Modules Locales Libs Core.lua UI.lua Config.lua`, `.lua`/`.xml`/`.toc`;
+    positieve controle in dezelfde run en dezelfde scope: `C_TooltipInfo` → 11 bestanden, `C_Timer` → 136,
+    `C_Map` → 61, `issecretvalue` → 99, `SecureActionButtonTemplate` → 14, `BackdropTemplate` → 88).
+    - ✅ **[RAAKT ONS NIET] — alle nieuwe functies, en het zijn er tien.** `C_MawBuffs.GetMawBuff` en
+      `C_MawBuffs.HasAnyMawBuffs` (nieuwe namespace), `C_TooltipInfo.GetMawBuff`, `C_TradeSkillUI.HasNoReagentCost`,
+      `C_MailInfo.IsCODEnabled`, `C_BattleNet.IsGameAccountOnSameRealm`, `C_VoiceChat.IsPartyLeaderInVoiceChat`,
+      en in `C_LegacySystem` (nieuw) `GetCurrentLegacyPoints`, `GetLegacyRewardTrackData`,
+      `GetLegacyRewardTrackLevels`, `GetLegacyRewardTrackRewardsForLevel`; plus in `C_WoWHackCharacterStats`
+      (nieuw) `AddPendingStatPointsFromConfig`, `ClearPendingStatPoints` en het event
+      `WOW_HACK_STAT_POINTS_CHANGED`. MH: `C_MawBuffs`, `GetMawBuff`, `HasAnyMawBuffs`, `C_LegacySystem`,
+      `GetCurrentLegacyPoints`, `GetLegacyRewardTrack`, `C_WoWHackCharacterStats`,
+      `WOW_HACK_STAT_POINTS_CHANGED`, `HasNoReagentCost`, `C_MailInfo`, `IsCODEnabled`,
+      `IsGameAccountOnSameRealm`, `IsPartyLeaderInVoiceChat` → **alle 0**. Nieuwe functies breken niets; ze
+      staan hier omdat ze volgend jaar wél iets kunnen betekenen.
+    - ⚠️ **[RAAKT ONS NIET] — de ENIGE verwijdering in de hele API-diff: `Enum.ChatChannelType.DiscordGuild`
+      is weg, en `DiscordSolo` schuift van 7 naar 6.** `NumValues` 8 → 7, `MaxValue` 7 → 6. Dat is precies het
+      soort stille hernummering waar positionele of hardgecodeerde code op breekt. MH: `ChatChannelType` →
+      **0**, `DiscordGuild` → **0**, `DiscordSolo` → **0**. (Gemeten in de diff: dit zijn de enige twee
+      `- Name = "..."`-regels in alle 16 bestanden.)
+    - ⚠️ **[AL AFGEDEKT, en wel langs de koude weg] — taint-VERSCHERPING op 33 functies: `SecretArguments` gaat
+      van `AllowedWhenTainted` naar `AllowedWhenUntainted`.** GEMETEN per bestand: **18×** in
+      `IntlDocumentation.lua` (namespace `C_Intl`) en **15×** in `LuaLocaleContextAPIDocumentation.lua`
+      (`Type = "ScriptObject"`, géén `Namespace`-veld — dus methodes op een locale-contextobject, niet een
+      globale `C_`-tabel). Een addon is per definitie tainted, dus voor ons betekent dit: deze functies mogen
+      vanaf 12.1.7 geen secret values meer als argument krijgen uit onze hand. MH: `C_Intl` komt **precies
+      één keer** voor en dan als STRING in de probe-lijst `Modules/PtrProbe.lua:129`
+      (`"C_Weather", "C_Intl", "CreateFrameWithOptions", "TimedSignalMap",`); we roepen niets uit die namespace
+      aan. `LuaLocaleContext` → **0**, `CreateLocaleContext` → **0**. 📌 Dit is de belangrijkste regel van
+      vandaag om te onthouden: Blizzard verscherpt `SecretArguments` nu ook op bestaande functies, niet alleen
+      op nieuwe. Een `AllowedWhenTainted` die we vandaag opschrijven kan morgen `Untainted` zijn.
+    - ✅ **[AL AFGEDEKT] — de vier bestaande namespaces die wél treffers hebben.** `C_TradeSkillUI` (11
+      bestanden): de diff is puur additief (15 inserties, 0 deleties). `C_BattleNet`:
+      `Modules/FriendMarks.lua:143` staat achter
+      `if not (BNGetNumFriends and C_BattleNet and C_BattleNet.GetFriendAccountInfo) then return` en elke
+      aanroep daarna is `pcall` (`:148`, `:153`). `C_VoiceChat`: `Modules/InterruptScore.lua:70`,
+      `Modules/ActionPrompt.lua:332`, `Modules/CombatSafety.lua:697` en `:844` testen alle vier
+      `C_VoiceChat and C_VoiceChat.SpeakText` en roepen via `pcall` aan. `C_AuctionHouse`:
+      `Modules/RaidShoppingList.lua:203`/`:205`/`:216` doen `if hooksecurefunc and C_AuctionHouse` en
+      `type(C_AuctionHouse[fn]) == "function"`.
+    - ✅ **[RAAKT ONS NIET] — `Enum.AuctionHouseError.SelfFound` = 27 (`NumValues` 27 → 28).** De waarde is
+      ACHTERAAN toegevoegd, dus niets hernummert. `AuctionHouseError` komt in MH één keer voor en dan in een
+      COMMENT: `Modules/RaidShoppingList.lua:505` legt uit dat `ERR_AUCTION_DATABASE_ERROR` =
+      `Enum.AuctionHouseError.DatabaseError` (10) is. Dat getal is ongewijzigd. Idem de nieuwe constante
+      `COMMODITY_PRICE_UNAVAILABLE_SELF_FOUND` → **0**.
+    - ✅ **[RAAKT ONS NIET] — de zeven Blizzard-templates die in deze build veranderden of nieuw zijn.**
+      Gewijzigd: `SearchBoxTemplate`, `IconSelectorPopupFrameTemplate`, `SpellTypeIconOverlayTemplate`,
+      `SendMailCODButton`, `CharacterSelectListTemplate`; nieuw: `ChatConfigTextBoxTemplate`,
+      `ChatConfigTextBoxTemplateWithButton`, `GamepadTabStripTemplate`. MH erft er **geen enkele** van (alle
+      **0**, mét de positieve controle hierboven: `SecureActionButtonTemplate` 14 en `BackdropTemplate` 88 in
+      dezelfde scope). ⚠️ Dit was de meting die ik vooraf níét durfde te voorspellen: MH doet 618×
+      `CreateFrame` en bouwt op Forever een eigen zoekbalk, maar die is dus eigen werk en geen
+      `SearchBoxTemplate`. Idem `HelpTip`, `TooltipDataHandler`, `UnitPopupSharedUtils`, `ContainerFrameUtil`
+      en `BankFrameTemplates` (ook alle **0**), terwijl die vijf in deze build wél gewijzigd zijn.
+    - 📌 **KANS, GEEN BREUK — `C_LegacySystem` tegenover ons eigen `Modules/ForeverLegacy.lua`.** Dat bestand
+      (nieuw, 17 nov) leest Legacy Points zoals Blizzards eigen Legacy-venster het op build 70938 deed:
+      `C_Traits.GetConfigIDByTreeID(1187)` → `C_Traits.GetTreeCurrencyInfo(configID, 1187, false)[1]` +
+      `C_MajorFactions.GetCurrentRenownLevel(2802)`, alles `pcall`'d, `nil` = onleesbaar (`:43-90`). Op de
+      12.1.7-PTR bestaat daar nu een eigen namespace voor, mét `GetCurrentLegacyPoints` en een
+      reward-track-API, plus constanten `LEGACY_REWARD_MAX_LEGACY_POINTS = 90`,
+      `LEGACY_REWARD_TEXTURE_KIT_ID = 5578`, `LEGACY_REWARD_GLOBAL_COLOR_ID = 296` en
+      `Enum.LegacyRewardFlags` (Milestone 1, Capstone 2, Hidden 4). 🔴 **AFGELEID, NIET GEMETEN** of dit
+      dezelfde Legacy-track is als die van Forever, en al helemaal niet of `C_LegacySystem` op de
+      Forever-client (Interface 16001) bestaat — dat is alleen ín de client te meten en ik verzin er geen
+      migratie bij. ⚠️ Pas op met de naamgelijkenis: onze drie treffers op `LEGACY_REWARD_` zijn
+      GlobalStrings-sleutels (`LEGACY_REWARD_TRACK_POINTS` in `Modules/ForeverLegacy.lua:105` en
+      `LEGACY_REWARD_TRACK_FACTION_ID` op `:36`, die laatste met `or 2802` als terugval), niet de nieuwe
+      constanten. Niets te fiksen; wel iets om te meten vóór 1 dec.
+  - 📅 **12.1.7 gaat LIVE op 1 december — en dat zet voor het eerst een datum op onze twee bekende
+    12.1.7-risico's.** GEMETEN, Blizzards eigen nieuwsoverzicht vandaag gelezen:
+    *"Midnight: Echoes of the Worldcore Arrives on December 1"* (AFGELEID, maar stevig: "Echoes of the
+    Worldcore" is de naam van 12.1.7 — zo heet ook de PTR-notitie van 15 okt, zie `docs/API_WATCH.md:6132`).
+    Over de GUID-obfuscatie: build 70986 bevat **geen enkel** GUID-gerelateerd bestand in de diff, en de zin
+    *"This change will be available for testing in a future build of 12.1.7"* staat er **nog steeds** — hij is
+    dus nog altijd niet te testen, met nu twaalf dagen op de klok. De TOC-variabelenregel heb ik vandaag
+    opnieuw aan onze eigen twee TOC's gehouden: `[Game]` → **0** en `[Family]` → **0** in beide; wat er staat
+    is `## AllowLoadGameType: standard` (`MidnightHelper.toc:3`) en `## AllowLoadGameType: camelot`
+    (`MidnightHelper_Camelot.toc:2`), en díe voorwaardelijke vorm blijft volgens dezelfde wikiregel werken.
+    Positieve controle: `## Title`/`## Version` vindt het patroon in beide bestanden. ⚠️ Terzijde, nuttig bij
+    elke toc-grep: `MidnightHelper.toc` regel 1 begint met een BOM (`od -c`: `357 273 277` vóór `## Interface:
+    120007, 120100, 120105, 120107`), waardoor een `^##`-patroon juist die regel mist.
+  - 🧩 **Forever: de client bewoog NIET, en dat is gemeten en niet aangenomen.** `refs/heads/forever` =
+    **`3d8abb1da73acd38e412e24fb3f99454a6392346`** = `refs/tags/1.60.1`, en `version.txt` op die SHA geeft
+    letterlijk **`1.60.1.70959`** — exact de SHA en het buildnummer van gisteren, terwijl `live` en `ptr` in
+    dezelfde meting bewogen (dat is tegelijk de positieve controle op deze meting). wago.tools: de bovenste
+    `wowf`-regel is nog steeds **1.60.1 build 70959**, *detected* **17 nov 15:19:07**. Dus geen nieuwe
+    Forever-build en geen nieuwe Forever-API.
+    - 🆕 **Forever: nieuwe spelersdraad — Questie laadt niet meer, en dat is NIET de client.** Draad `2421408`
+      *"Is questie now showing up in game addons or in ui for anyone else?"* (**18 nov 20:00**, zelf gelezen):
+      *"its downloaded in my curseforge but its not showing up at all in addons or ingame"*, *"Only QuestieTrace
+      is showing now"*, *"Downgrading the addon fixed it. Restart your game as well."* AFGELEID (niet GEMETEN,
+      want ik heb Questie's eigen release niet gelezen): dit is Questie's eigen packaging of TOC, niet een
+      clientwijziging — de Forever-client staat sinds 17 nov stil en een downgrade herstelt het. Getoetst aan
+      ons: beide TOC's hebben een geldige `## Interface`-regel (`16001` resp. `120007, 120100, 120105, 120107`)
+      en geen variabelen; **[RAAKT ONS NIET]**. 📌 Wel precies het soort fout dat onze eigen regel beschrijft:
+      een addon die stil uit de AddOn-lijst verdwijnt is van buiten niet te onderscheiden van kapot.
+    - De Forever-hotfix van 17 nov (UI: ignore-lijsten die niet bewaard bleven, de UI-bug bij Master
+      Swordsmith/Axesmith/Hammersmith) stond al in mijn regel van 18 nov en komt hier niet opnieuw als nieuws.
+  - 🧰 **SimC-addon: geen nieuwe release sinds `12.1.5-04`.** Tweemaal gemeten: `git ls-remote --tags --refs`
+    geeft **258** tags (ongewijzigd, achtste dag), en de releases-pagina (mét `?nocache=20261119`) noemt
+    bovenaan `12.1.5-04`, **05 nov 22:38**, `83fdb00`, enige regel *"Handle Forever surname"*. Dat is **14
+    dagen** oud en valt buiten de 7-dagenregel. Niets te toetsen aan `ItemString` of `ns.BuildSimcProfile` in
+    `Modules/SimcExport.lua`.
+  - 📡 **Wat ik gelezen heb, mét `?nocache=20261119` achter elke Exa-URL — en vandaag voor het eerst de
+    REVISIEHISTORIE in plaats van alleen de paginatekst.** Dat is sterker bewijs: de pagina zelf kan uit een
+    cache komen, een revisielijst niet. `Patch_12.1.5/API_changes`: laatste bewerking **16 okt 22:38** (Ketho).
+    `Patch_1.60.1/API_changes`: laatste bewerking **16 okt 22:38** (Ketho). `Patch_12.1.7/API_changes`: laatste
+    bewerking **16 okt 22:38** (Ketho); de pagina is in totaal **vier** keer bewerkt, alle vier op 16 okt. Alle
+    drie dus **34 dagen** oud → buiten de 7-dagenregel, en er is deze week geen enkele API-changes-pagina
+    aangeraakt. Verder gelezen: het "UI and Macro"-forum (categorielijst én op `created` gesorteerd),
+    `wago.tools/builds`, `github.com/simulationcraft/simc-addon/releases`,
+    `worldofwarcraft.blizzard.com/en-us/news` en `bluetracker.gg/wow`. Op Blue Tracker staat in de laatste 7
+    dagen géén API- of UI-blue post: de nieuwste items zijn de Forever-hotfix van 17 nov, *"Actions For
+    Blackmaw Hold Abuse"*, de December-1-aankondiging, *"Player-Level Dungeon XP Adjustment"* (14/15 nov),
+    *"Lost Training Purchase Refunds"* (13 nov) en *"Raid Encounter Design in Season 3"* — allemaal content,
+    geen code. Het nieuwste RETAIL-hotfixartikel is nog steeds *"Hotfixes: November 6, 2026"* (13 dagen oud,
+    buiten de regel); er is dus géén hotfixtekst bij de nieuwe live-build 70961 verschenen.
+  - 🚧 **Wat ik NIET kon lezen.** `Special:RecentChanges` met tagfilter op de wiki geeft `CRAWL_NOT_FOUND`
+    (Special-namespace), dus de "welke API-pagina's zijn deze week bewerkt"-vraag heb ik per pagina moeten
+    doen in plaats van in één keer. `Patch_1.60.2/API_changes` en `Patch_12.2.0/API_changes` geven nog steeds
+    `CRAWL_NOT_FOUND` — vermoedelijk niet aangemaakt, maar vastgesteld is dat NIET; de positieve controle is
+    dat `Patch_12.1.7/API_changes` in dezelfde run wél doorkwam. De twee gloednieuwe forumdraden van vandaag
+    (*"Can't See My Damage Anymore!"* en *"How can I make party member dots on the minimap appear above all
+    other icons?"*, beide **19 nov**, 0 reacties, 3 resp. 4 weergaven) heb ik **niet** gelezen: ik ken hun
+    topic-id niet en ik gok er geen. Ze staan hier zodat morgen te zien is dat ze bestonden. `curl` op
+    `us.forums.blizzard.com` en `wago.tools` blijft geweigerd door de egress-proxy (CONNECT 403), dus die twee
+    zijn via Exa gelezen — mét cache-buster, en MEASURED (de pagina zelf, niet een samenvatting). De
+    build-diffs, de `version.txt`-lezingen en alle code- en TOC-metingen zijn eerstehands: eigen partiële clone
+    van `Gethe/wow-ui-source` en greps in de werkmap.
+  - ⏳ **Nog open uit eerdere runs — ongewijzigd, NIET opnieuw gemeten vandaag; één punt is vandaag DICHT.**
+    ✅ Dicht: *"de API-documentatie van live-build `12.1.5.70961` zodra Gethe hem publiceert"* (hierboven
+    gemeten) en de [MOET GEFIKST] van 18 nov. Nog open: de dode `PickupItem`-takken in
+    `Modules/KeyBlock.lua:1135`/`:1227`/`:1380` en `Modules/ApplyLayout.lua:1311`/`:1345`/`:1605`; de vijf
+    decoratieve `GetItemInfo`-terugvaltakken; de verouderde namespace-lijst in `docs/WATCHER_API_PROMPT.md`
+    (18 aug, noemt 57 namespaces en kent de twee TOC's niet); de client-test voor `/mh raidbots`;
+    `GetTimerDuration` toevoegen aan `Modules/ApiProbe.lua:377`; de `FrameStrata`-secret-vraag op
+    `Modules/PartyTargets.lua:517`; de drie `WOW_PROJECT_MAINLINE`-takken in `Libs/LibDBIcon-1.0.lua:533`/
+    `:572`/`:607` die op Forever omslaan; de ongemeten BETEKENIS van *"Edit Mode layouts are now saved
+    separately for each UI type"* voor `Modules/ForeverLayoutCarry.lua`; de shift-klik-taintvraag op
+    `Modules/Achievements.lua:1561`/`:1910`; en de in-game-test van `ns.SelfCastMacroWarning`
+    (`Core.lua:4318`). **Nieuw op deze lijst:** of `C_LegacySystem` op de Forever-client bestaat en of het
+    dezelfde Legacy-track is als die van `Modules/ForeverLegacy.lua` (alleen ín de client te meten), en of de
+    `AllowedWhenUntainted`-verscherping van `C_Intl`/`LuaLocaleContextAPI` een voorbode is voor namespaces die
+    wij wél gebruiken. 🔴 Niets aangeraakt.
+  - 🔧 **Repo-staat: alleen `docs/API_WATCH.md` aangeraakt.** GEMETEN vóór het schrijven:
+    `git status --short` **leeg**; `HEAD` stond **opnieuw losgeslagen** (zesde keer deze week) en is met
+    `git checkout main` weer op `refs/heads/main` gezet, waarna `git pull --rebase origin main` wél nieuw werk
+    binnenhaalde (o.a. `docs/forever/WAPENQUESTS_ONDERZOEK_2026-11-18.md`,
+    `docs/forever/ZOEKBALK_EN_VALUTA_2026-11-18.md`). Laatste commit vóór de mijne: `aebcc6c`
+    *"Nachtcontrole 2026-11-19: C1 0, C2 0 nakijken; snapshot loopt achter"*.
