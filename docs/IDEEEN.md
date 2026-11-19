@@ -112,11 +112,11 @@ NIET GEMETEN.
 
 | # | idee | voor wie | spel | bron | stand in de code | werk |
 |---|---|---|---|---|---|---|
-| O1 | **Toetsen ook op Dominos en EllesmereUI.** | V | M | oude lijst A2 | GEMETEN: half af. `LiveKeys.lua:9-11` leest sinds 10 okt Bartender4 en ElvUI; Dominos en EllesmereUI nog niet. | middel |
+| O1 | ⏸️ **LATER** (Rob 19 nov via sparring, geen ja; advies: pas als een speler erom vraagt). **Toetsen ook op Dominos en EllesmereUI.** | V | M | oude lijst A2 | GEMETEN: half af. `LiveKeys.lua:9-11` leest sinds 10 okt Bartender4 en ElvUI; Dominos en EllesmereUI nog niet. | middel |
 | O2 | **Groeps-kickscore na de run** (wie kickte wat). Werkt alleen als iedereen MH heeft. | V | M | oude lijst A4 | GEMETEN: niet gebouwd (`Comms.lua` kent geen kick; `InterruptScore.lua` zegt "Phase 2"). | groot |
 | O3 | **Schat-tussenstappen apart afvinken.** | N + V | M | oude lijst A5 | NIET GEMETEN | middel |
 | O4 | **Trading Post: 3D-model en vastzetten.** | V | M | oude lijst A6 | GEMETEN: "heb je al" voor transmog is gebouwd (10 okt, `TradingPost.lua:213`). 3D-model en vastzetten: NIET GEMETEN. | middel |
-| O5 | **Extra healer-cooldowns** (Rapture, Spirit Shell, Symbol of Hope, Flourish, Grove Guardians). | V | M | oude lijst A7 | GEMETEN: niet gebouwd (0 treffers in `HealerCooldowns.lua`; Tranquility wel). | klein |
+| O5 | ❌ **NIETS TE BOUWEN** (Rob 19 nov *"1 en 2 ja"*; nagemeten die dag). GEMETEN 12.1.5.70961: Rapture 47536, Spirit Shell 109964, Symbol of Hope 64901 en de oude Grove Guardians 102693 zijn geen talent meer (TraitDefinition: 0; tegencontrole Tranquility 740: wel); Flourish 197721 is een talent zonder cooldown (SpellCooldowns: geen rij; Tranquility: 180 s) = passief. Zelfde uitkomst als `docs/HEALER_CDS_FACTS_2026-10-09.md`. **Extra healer-cooldowns** (Rapture, Spirit Shell, Symbol of Hope, Flourish, Grove Guardians). | V | M | oude lijst A7 | GEMETEN: niet gebouwd (0 treffers in `HealerCooldowns.lua`; Tranquility wel). | klein |
 | O6 | **Snelle chatregels** naar je groep. | V | M | oude lijst A9 | GEMETEN: niet gebouwd. Of chat in 12.x dit toelaat is onbekend. | middel |
 | O7 | **Keybind-opties** (volgorde op gebruik, "lastige toets", tweede kick). | V | M | oude lijst A10 | GEMETEN: niet gebouwd. Het toetsenblok vervangt dit mogelijk (AFGELEID). | middel |
 | O8 | **Rustig overstappen**: een paar toetsen per week. | N | M | oude lijst A11 | NIET GEMETEN | middel |
@@ -125,7 +125,7 @@ NIET GEMETEN.
 | O11 | **Buff-herinnering noemen op CurseForge.** Geen code. | — | M | oude lijst A15 | GEMETEN: "buff" komt 1× voor in `CURSEFORGE_DESCRIPTION.md`. | klein |
 | O12 | **FastMark via de nieuwere techniek.** De speler merkt niets. | — | M | oude lijst A17 | GEMETEN: gebruikt nog `/tm`. | klein |
 | O13 | **Teller wekelijkse Knowledge-drops** ("1 van 2 deze week"). | V | M | oude lijst D1 (Rob 13 sep: "voor later") | GEMETEN: niet gebouwd (item 259197 komt 0× voor). | middel |
-| O14 | **Renown en reputatie in het alt-overzicht.** | V | M | oude lijst D2 | GEMETEN: niet gebouwd (0 treffers in `AltOverview.lua`). | middel |
+| O14 | ✅ **JA (Rob 19 nov: *"1 en 2 ja"*), NOG NIET GEBOUWD — keuze terug bij Rob.** GEMETEN 19 nov (Faction DB2 12.1.5.70961): elke renown-factie (TWW 2590/2600, Midnight 2710) heeft Flags-bit 4, de oude per-character factie Stormwind (72) niet. AFGELEID: bit 4 = account-breed (warband), dus een renown-kolom per character toont overal hetzelfde getal. Voorstel: één regel "Renown (hele account)" bovenaan het overzicht, plus per character alleen facties zónder dat bit. Eerst Robs keuze. **Renown en reputatie in het alt-overzicht.** | V | M | oude lijst D2 | GEMETEN: niet gebouwd (0 treffers in `AltOverview.lua`). | middel |
 | O15 | **Flask, eten en olie met één knop.** | V | M | oude lijst D4 | NIET GEMETEN | middel |
 | O16 | **Kadertje bij een gekozen rare** met portret en afstand. | N + V | M | oude lijst D5 | NIET GEMETEN | middel |
 | O17 | **Meer wekelijkse klussen** (prey, Soirée, Haranir, Stormarion, World Tour, "waarom groen"). | V | M | oude lijst D6 | NIET GEMETEN. Darkmoon Faire staat alleen in Forever (`ForeverWeek.lua`). | groot |
