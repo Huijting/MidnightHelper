@@ -44,6 +44,14 @@ achternaam, "Step aside"-instelling, Your path, Set focus). Daarna vond Rob nog:
 rank-lijstje: werkt (screenshot: "You just learned", Conjure Water rank 1 -> 2 en Frost Armor rank 1 -> 2, met de knoppen
 Upgrade / Not now / Never). Afgevinkt met "(Rob, 19 nov)". De hulpregels ("typ /mh … als het niet werkt") blijven open.
 
+## 🔀 19 nov — Forever: toetsenblok-vraag en "You just learned" na elkaar
+
+`/reload` is genoeg. Bij de trainer, met een nieuwe spell die op je toetsenblok hoort én een nieuwe rank.
+- [ ] Eerst komt alleen "New for your key block" (Place it / Later). Pas als je die wegklikt, komt (binnen een seconde)
+      het lijstje "You just learned".
+- [ ] Nooit allebei tegelijk op je scherm.
+- [ ] Twijfel? Typ `/mh ranks`: de regel "just-learned list" zegt waarom het lijstje wacht of kwam.
+
 ## 📣 19 nov — Midnight: "MH werkt ook in WoW Forever" één keer bij de login
 
 `/reload` is genoeg. Retail (Midnight).

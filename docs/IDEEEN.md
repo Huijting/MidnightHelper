@@ -253,6 +253,11 @@ lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met d
   maakt. Voorstel "only when a talent makes it free" ligt bij Rob; niet gebouwd.
 - ✅ Rob koos 19 nov (via sparring), letterlijk: *"a"* = de mage-zin blijft zonder Arcane Missiles. Niets te bouwen.
 
+### Forever: toetsenblok-vraag en "You just learned" na elkaar — ✅ JA + GEBOUWD 19 nov
+- Bron: Rob 19 nov (via Sparring 19-11), letterlijk: *"Ja, ik volg jullie advies, dus het is een kleine wijziging, ja."*
+  Spel: F. Voor wie: N.
+- Gebouwd: het lijstje wacht tot de vraag van het toetsenblok dicht is. Wacht op Robs test.
+
 ### Midnight: "MH werkt ook in WoW Forever" zonder "5.0", één keer extra opvallend bij de login — ✅ JA + GEBOUWD 19 nov
 - Bron: Rob 19 nov (via Sparring 19-11), letterlijk: *"Op zich is dat goed, alleen 5.0 dat klopt natuurlijk niet meer.
   Die melding kunnen we wel houden. En misschien dat we het een soort splashkey moeten maken als mensen opnieuw inloggen.

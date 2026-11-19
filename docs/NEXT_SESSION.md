@@ -60,10 +60,12 @@
   Wacht op: Robs Midnight-/reload-check, dan zijn letterlijke go → `git tag -a v5.6.0` + push van de tag.
   Gelezen tegen de 11-nov-regel: geen /mh-diagnose in de spelerstekst. Eén regel nagemeten: het 3D-portret staat
   standaard UIT (het concept zei dat al goed).
-- Open, uitgezocht, keuze voor Rob: het "New for your key block"-venster en het lijstje "You just learned" kwamen
-  tegelijk (Conjure Water in allebei). GEMETEN: ze doen verschillende dingen (het blok zet een macro op zijn eigen toets,
-  het lijstje zet je bestaande rank-1-knop omhoog); Frost Nova staat bewust niet in het lijstje als het toetsenblok
-  staat (`ForeverDoNow.lua:181-184`). Advies: na elkaar (het lijstje wacht tot het blok-venster dicht is). Niet gebouwd.
+- 🔀 **Toetsenblok-vraag en "You just learned" na elkaar GEBOUWD** (Rob: *"Ja, ik volg jullie advies, dus het is een
+  kleine wijziging, ja."*). Ze kwamen tegelijk (Conjure Water in allebei; GEMETEN: ze doen iets anders — het blok zet een
+  macro op zijn eigen toets, het lijstje zet je rank-1-knop omhoog). `ForeverRanks.lua`: `ShowLearnList` wacht zolang
+  `StaticPopup_Visible("MH_KEYBLOCK_NEW")`, met een ticker van 1 s; komt de vraag terwijl het lijstje open is
+  (hooksecurefunc StaticPopup_Show), dan stapt het lijstje opzij en komt daarna terug. `listWhy` zegt het. NIET in het
+  spel gezien. Rob: de slimme zegen-knop blijft in de release (*"De slimme zegenknop laten we erin zitten."*).
 - **Bug "breng me naar de trainer" GEREPAREERD** (Rob, Troll mage 10: *"Hij brengt me naar de dichtstbijzijnde trainer,
   maar ik kan helemaal niks leren. Help"*). GEMETEN (mh-research, 5 bronnen + Robs screenshots; verslag
   `docs/forever/STARTER_TRAINERS_2026-11-19.md`): de 43 trainers in de startgebieden leren tot level 6, voor elke class.

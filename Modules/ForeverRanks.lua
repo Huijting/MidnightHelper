@@ -1249,6 +1249,49 @@ FillLearn = function()
 	return #rows
 end
 
+-- One window after the other (Rob, 19 Nov 2026, via sparring: "Ja, ik volg jullie advies"): while the key block's
+-- "New for your key block" question (StaticPopup MH_KEYBLOCK_NEW, KeyBlock.lua) is on screen, this list waits, and it
+-- comes once that question is closed. If the question appears while the list is open, the list steps aside and returns.
+local function BlockAsking()
+	return StaticPopup_Visible and StaticPopup_Visible("MH_KEYBLOCK_NEW") and true or false
+end
+local waitTicker -- C_Timer ticker while we wait for the key block question
+local reshow = false -- the list was open and stepped aside: show it again as it was
+
+local function WaitForBlock()
+	if waitTicker or not (C_Timer and C_Timer.NewTicker) then
+		return
+	end
+	waitTicker = C_Timer.NewTicker(1, function()
+		if BlockAsking() then
+			return
+		end
+		waitTicker:Cancel()
+		waitTicker = nil
+		if reshow then
+			reshow = false
+			if lwin and not (InCombatLockdown and InCombatLockdown()) then
+				lwin:Show()
+				FillLearn()
+				listWhy = "back after the key block question"
+			end
+		else
+			ShowLearnList()
+		end
+	end)
+end
+
+if hooksecurefunc and StaticPopup_Show then
+	hooksecurefunc("StaticPopup_Show", function(which)
+		if which == "MH_KEYBLOCK_NEW" and lwin and lwin:IsShown() then
+			lwin:Hide()
+			reshow = true
+			listWhy = "stepped aside for the key block question"
+			WaitForBlock()
+		end
+	end)
+end
+
 --- Show the list when there is something new to ask about. Returns true when it shows.
 ShowLearnList = function()
 	if not ns.IsForeverLearnListOn() then
@@ -1257,6 +1300,11 @@ ShowLearnList = function()
 	end
 	if InCombatLockdown and InCombatLockdown() then
 		listWhy = "in combat (comes after the fight)"
+		return false
+	end
+	if BlockAsking() then
+		listWhy = "waits for the key block question (comes after it)"
+		WaitForBlock()
 		return false
 	end
 	local rows = LearnRows()
