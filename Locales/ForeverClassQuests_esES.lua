@@ -751,6 +751,9 @@ for k, v in pairs({
 	FRANK_CHOOSE_TITLE = "Elige qué hechizos reciben un rango nuevo",
 	FRANK_CHOOSE_DESC = "Abre una ventana: marca qué botones y barras puede poner MH en tu rango más alto, y cuáles no debe tocar nunca. Lo mismo que Mayús-clic en el botón del instructor, o /mh ranks choose.",
 	FRANK_CHOOSE_KEYS = "rango rangos hechizos barras botones mejorar rank",
+	-- 19 Nov 2026: weapon kind against your direction ("camino" as FDIRB_HEAD_FMT). Our own translation.
+	FDIRFIT_YES_FMT = "Encaja con tu camino (%s).",
+	FDIRFIT_NO_FMT = "Tu camino (%s) no usa este tipo de arma (guías de jugadores).",
 	-- 19 Nov 2026: the "just learned" list. "Rango" = the client's spell subtext. Our own translation.
 	FRANK_LIST_TITLE = "Acabas de aprender",
 	FRANK_LIST_HINT = "Por hechizo: en tus barras ahora, luego o nunca. Solo fuera de combate. /mh ranks list lo abre otra vez.",

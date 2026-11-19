@@ -39,6 +39,16 @@ zoekbalk, de reputaties, de rares, de muntjes, de Now-kaart, het ronde plaatje e
 achternaam, "Step aside"-instelling, Your path, Set focus). Daarna vond Rob nog: "scroll for more" over de tekst
 (gerepareerd, zie Travel) en het boek bij de mage-quest "Study" (in bouw).
 
+## 🧭 19 nov — Forever: tooltip zegt of een wapen bij je richting past
+
+`/reload` is genoeg. Je moet een richting gekozen hebben (`/mh direction`).
+- [ ] Muis op een wapen dat je richting gebruikt (bv. een tweehander bij Arms): lichtgroene regel "MH: Fits your
+      direction (…)".
+- [ ] Muis op een wapen dat je richting niet gebruikt: oranje regel "MH: Your direction (…) does not use this kind of
+      weapon (player guides)."
+- [ ] Bij een questbeloning waar MH "neem deze" zegt en het is een wapen: dezelfde zin staat erachter.
+- [ ] Een wand, een vishengel of een niet-wapen: géén richting-regel.
+
 ## 📋 19 nov — Forever: lijstje "You just learned" na de trainer + meting "met de hand neergezet"
 
 `/reload` is genoeg. Bij je class trainer, met een spell die je al op een balk hebt (zodat je een nieuwe rank leert),

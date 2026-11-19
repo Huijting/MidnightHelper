@@ -5066,6 +5066,9 @@ ns._mhLocales.enUS = {
 	-- 12 Nov 2026: the block for your direction on top of "How you play" + the line in /mh weapons (ForeverDirection.lua).
 	-- Armor and "only works with" = Blizzard data; the weapon line = player guides (never "best" or "must").
 	FDIRB_HEAD_FMT = "Your direction: %s",
+	-- 19 Nov 2026, "Which way do I go?" step 3: a weapon's kind against your direction (tooltip + quest-reward hint).
+	FDIRFIT_YES_FMT = "Fits your direction (%s).",
+	FDIRFIT_NO_FMT = "Your direction (%s) does not use this kind of weapon (player guides).",
 	FDIRB_ARMOR_FMT = "Heaviest armor you can wear: %s.",
 	FDIRB_FROM_LEVEL_FMT = "%s from level %d",
 	FDIRB_WEAPON_FMT = "Weapon, according to player guides: %s",

@@ -518,6 +518,9 @@ for k, v in pairs({
 	FRANK_CHOOSE_TITLE = "Выбрать, какие заклинания получат новый уровень",
 	FRANK_CHOOSE_DESC = "Открывает окно: отметьте, какие кнопки и панели MH может перевести на ваш высший уровень заклинания, а какие не трогать никогда. То же, что Shift+щелчок по кнопке у наставника или /mh ranks choose.",
 	FRANK_CHOOSE_KEYS = "уровень уровни заклинания панели кнопки ранг rank",
+	-- 19 Nov 2026: weapon kind against your direction ("направление" as FDIRB_HEAD_FMT). Our own translation.
+	FDIRFIT_YES_FMT = "Подходит вашему направлению (%s).",
+	FDIRFIT_NO_FMT = "Ваше направление (%s) не использует этот тип оружия (гайды игроков).",
 	-- 19 Nov 2026: the "just learned" list. "Уровень" = the client's spell subtext. Our own translation.
 	FRANK_LIST_TITLE = "Вы только что изучили",
 	FRANK_LIST_HINT = "Для каждого заклинания: на панели сейчас, позже или никогда. Только вне боя. /mh ranks list открывает это снова.",

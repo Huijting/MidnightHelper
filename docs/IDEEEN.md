@@ -947,6 +947,10 @@ Stand 15 nov avond: 1 gebouwd (1f521e5), 2 gemeten, 3 rapport + A/B gebouwd (zie
                  letterlijk: *"1 en 2, de wapens er meteen bij"*): blok "Your direction" bovenaan How you play (pantser en
                  "werkt alleen met" GEMETEN; wapen = gids) en een groen + in `/mh weapons`. Stap 3 (tooltip en
                  upgrade-melding wegen mee) NIET gebouwd: de stats tijdens het levelen zijn niet gemeten.
+                 **Stap 3 GEBOUWD 19 nov** (Rob via sparring: *"we gaan akkoord met het voorstel van het bouwadvies"*):
+                 de stats volgden de richting al (`ns.ForeverStatDef`, 16 nov); nu zegt ook het WAPENTYPE het: tooltip
+                 "MH: Fits your direction (…)" (lichtgroen) of "Your direction (…) does not use this kind of weapon"
+                 (oranje), en de questbeloning-melding zegt hetzelfde. Wacht op Robs test.
 
 ### Spelnamen in de zes talen zoals die client ze toont (C4)
 - Voor wie:      allebei, in de/fr/es/pt/it/ru (Engels en Nederlands veranderen niet)

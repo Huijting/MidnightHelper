@@ -1,5 +1,19 @@
 # Midnight Helper — waar we staan
 
+## ▶ 19 nov — "Welke kant ga ik op?" stap 3 GEBOUWD (wapentype tegen je richting)
+
+Volgorde van Rob (via sparring): *"we gaan akkoord met het voorstel van het bouwadvies"* → dit is punt (4).
+- GEMETEN vooraf: de stats in de tooltip en de beloningsmelding volgden je richting al (`ns.ForeverStatDef` leest
+  `GetForeverDirection`, ForeverMainStats.lua:99-108). Wat ontbrak: het wapentype.
+- `ForeverQuestHint.lua` `ns.ForeverDirectionFitText(link)`: wapen-subclass → sleutel (`WEAPON_KEY`, GEMETEN in Forever
+  DB2 ItemSubClass ClassID=2: 0/1 Axe, 2 Bow, 3 Gun, 4/5 Mace, 6 Polearm, 7/8 Sword, 10 Staff, 13 Fist, 15 Dagger, 16
+  Thrown, 18 Crossbow) tegen `fit` van je richting (`ForeverDirectionWeaponFit`, uit spelersgidsen); schild (4/6) alleen
+  "past" als de richting een schild noemt. Tooltip: "MH: Fits your direction (tree)." lichtgroen of "MH: Your direction
+  (tree) does not use this kind of weapon (player guides)." oranje — los van de "beter dan"-regel. Questbeloning-melding:
+  dezelfde zin achter de "neem deze"-tekst. Geen richting, wand/vishengel/onbekend, of de gids noemt geen wapens = stil.
+  `/mh geartip` zegt ook de richting-beslissing. NIET veranderd: welke beloning MH aanraadt (stats beslissen nog).
+  Teksten 7 talen (richtingwoord zoals FDIRB_HEAD_FMT). NIET in het spel gezien.
+
 ## ▶ 19 nov — Ranks A (lijstje na de trainer) GEBOUWD; B (met de hand neergezet) = eerst meten
 
 Rob via sparring, letterlijk: *"Ik denk dat hij bedoelde allebei. Dat wanneer hij eenmaal met de hand iets ergens

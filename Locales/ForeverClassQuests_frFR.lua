@@ -504,6 +504,9 @@ for k, v in pairs({
 	FRANK_CHOOSE_TITLE = "Choisir quels sorts passent à un nouveau rang",
 	FRANK_CHOOSE_DESC = "Ouvre une fenêtre : coche les boutons et les barres que MH peut mettre à ton rang le plus élevé, et ceux qu'il ne doit jamais toucher. Pareil que Maj-clic sur le bouton chez le maître, ou /mh ranks choose.",
 	FRANK_CHOOSE_KEYS = "rang rangs sorts barres boutons améliorer rank",
+	-- 19 Nov 2026: weapon kind against your direction ("voie" as FDIRB_HEAD_FMT). Our own translation.
+	FDIRFIT_YES_FMT = "Convient à ta voie (%s).",
+	FDIRFIT_NO_FMT = "Ta voie (%s) n'utilise pas ce type d'arme (guides de joueurs).",
 	-- 19 Nov 2026: the "just learned" list. "Rang" = the client's spell subtext. Our own translation.
 	FRANK_LIST_TITLE = "Tu viens d'apprendre",
 	FRANK_LIST_HINT = "Par sort : sur tes barres maintenant, plus tard ou jamais. Seulement hors combat. /mh ranks list le rouvre.",

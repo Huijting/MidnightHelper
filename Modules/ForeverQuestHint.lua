@@ -495,12 +495,15 @@ local function Decide()
 	last.rows = rows
 	if best then
 		local parts, why = Explain(best, main, stamTie, token)
+		-- Step 3 of "Which way do I go?" (19 Nov 2026): the hint also says whether your direction uses this weapon kind.
+		local fit = ns.ForeverDirectionFitText and ns.ForeverDirectionFitText(best.link)
+		local tail = fit and (" " .. fit) or ""
 		if not best.worn or not best.worn.link then
 			return { index = best.i, kind = "upgrade", text = ns:L("FQH_TAKE_EMPTY_FMT")
-				:format(best.link, table.concat(parts, ", "), why) }
+				:format(best.link, table.concat(parts, ", "), why) .. tail }
 		end
 		return { index = best.i, kind = "upgrade", text = ns:L("FQH_TAKE_FMT")
-			:format(best.link, table.concat(parts, ", "), why) }
+			:format(best.link, table.concat(parts, ", "), why) .. tail }
 	end
 	if not main then
 		return { index = bestMoney.i, kind = "money", text = ns:L("FQH_NO_LIST_FMT"):format(bestMoney.link) }
@@ -659,6 +662,57 @@ end
 
 local tipLast = "none yet" -- for /mh geartip
 
+--------------------------------------------------------------------------------
+-- "Which way do I go?" step 3 (19 Nov 2026; Rob via sparring: "we gaan akkoord met het voorstel van het bouwadvies").
+-- The stats already follow your direction (ns.ForeverStatDef reads it, ForeverMainStats.lua). What was missing: the
+-- weapon TYPE. A weapon (or shield) now says in its tooltip whether your direction uses that kind, and the quest-reward
+-- hint says it too. Kinds from the player guides (ForeverDirection.lua GUIDE `fit` / `shield`); a direction whose guides
+-- name no weapons stays silent. Weapon subclass ids GEMETEN in Forever DB2 ItemSubClass ClassID=2 (1.60.1.70959):
+-- 0/1 Axe, 2 Bow, 3 Gun, 4/5 Mace, 6 Polearm, 7/8 Sword, 10 Staff, 13 Fist Weapon, 15 Dagger, 16 Thrown, 18 Crossbow.
+-- One-hand ids are the even ones of each pair (0 axe, 4 mace, 7 sword) as ForeverWeapons' keys (axe / axe2 …).
+--------------------------------------------------------------------------------
+local WEAPON_KEY = { [0] = "axe", [1] = "axe2", [2] = "bow", [3] = "gun", [4] = "mace", [5] = "mace2", [6] = "polearm",
+	[7] = "sword", [8] = "sword2", [10] = "staff", [13] = "fist", [15] = "dagger", [16] = "thrown", [18] = "crossbow" }
+
+--- "fits your direction" / "your direction does not use this weapon type", or nil plus why not.
+function ns.ForeverDirectionFitText(link)
+	if not ns.ForeverDirectionWeaponFit then
+		return nil, "no direction module"
+	end
+	local band, tree, fit, shieldName = ns.ForeverDirectionWeaponFit()
+	if not band then
+		return nil, "no direction chosen"
+	end
+	local info = (C_Item and C_Item.GetItemInfoInstant) or GetItemInfoInstant
+	if not (info and link) then
+		return nil, "no item info"
+	end
+	local ok, _, _, _, _, _, classID, subID = pcall(info, link)
+	if not ok then
+		return nil, "item info failed"
+	end
+	if classID == 4 and subID == 6 then -- Armor / Shield
+		if shieldName then
+			return ns:L("FDIRFIT_YES_FMT"):format(tree), "yes"
+		end
+		return nil, "the guides do not say a shield for this direction"
+	end
+	if classID ~= 2 then
+		return nil, "not a weapon"
+	end
+	local key = WEAPON_KEY[subID]
+	if not key then
+		return nil, "a weapon kind the guides do not rank (" .. tostring(subID) .. ")"
+	end
+	if type(fit) ~= "table" then
+		return nil, "the guides name no weapons for this direction"
+	end
+	if fit[key] then
+		return ns:L("FDIRFIT_YES_FMT"):format(tree), "yes"
+	end
+	return ns:L("FDIRFIT_NO_FMT"):format(tree), "no"
+end
+
 --- The line for this item link, or nil plus why not.
 function ns.ForeverGearTipText(link)
 	local name, _, equipLoc = ItemInfo(link)
@@ -721,6 +775,18 @@ if TooltipDataProcessor and TooltipDataProcessor.AddTooltipPostCall and Enum and
 			tipLast = text and ("shown: " .. text) or why
 			if text then
 				tooltip:AddLine(text, 0.37, 1, 0.33, true)
+			end
+			-- Your direction and this weapon kind (step 3, 19 Nov 2026): light green = fits, orange = not used.
+			local fitText, fitWhy = ns.ForeverDirectionFitText(link)
+			if fitText then
+				if fitWhy == "yes" then
+					tooltip:AddLine("MH: " .. fitText, 0.6, 0.9, 0.6, true)
+				else
+					tooltip:AddLine("MH: " .. fitText, 1, 0.6, 0.25, true)
+				end
+			end
+			tipLast = tipLast .. "; direction: " .. tostring(fitText or fitWhy)
+			if text or fitText then
 				tooltip:Show()
 			end
 		end)

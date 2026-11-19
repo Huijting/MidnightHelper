@@ -705,6 +705,9 @@ for k, v in pairs({
 	FRANK_CHOOSE_TITLE = "Escolha quais feitiços recebem um grau novo",
 	FRANK_CHOOSE_DESC = "Abre uma janela: marque quais botões e barras o MH pode colocar no seu grau mais alto, e quais ele nunca deve tocar. O mesmo que Shift-clique no botão do instrutor, ou /mh ranks choose.",
 	FRANK_CHOOSE_KEYS = "grau graus feitiços barras botões melhorar rank",
+	-- 19 Nov 2026: weapon kind against your direction ("caminho" as FDIRB_HEAD_FMT). Our own translation.
+	FDIRFIT_YES_FMT = "Combina com seu caminho (%s).",
+	FDIRFIT_NO_FMT = "Seu caminho (%s) não usa este tipo de arma (guias de jogadores).",
 	-- 19 Nov 2026: the "just learned" list. "Grau" = the client's spell subtext. Our own translation.
 	FRANK_LIST_TITLE = "Você acabou de aprender",
 	FRANK_LIST_HINT = "Por feitiço: nas suas barras agora, depois ou nunca. Só fora de combate. /mh ranks list abre isto de novo.",

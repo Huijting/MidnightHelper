@@ -502,6 +502,9 @@ for k, v in pairs({
 	FRANK_CHOOSE_TITLE = "Wähle, welche Zauber einen neuen Rang bekommen",
 	FRANK_CHOOSE_DESC = "Öffnet ein Fenster: hak an, welche Knöpfe und Leisten MH auf deinen höchsten Rang setzen darf und welche nie. Dasselbe wie Umschalt-Klick auf den Knopf beim Lehrer oder /mh ranks choose.",
 	FRANK_CHOOSE_KEYS = "rang ränge zauber leisten knöpfe verbessern rank",
+	-- 19 Nov 2026: weapon kind against your direction ("Richtung" as FDIRB_HEAD_FMT). Our own translation.
+	FDIRFIT_YES_FMT = "Passt zu deiner Richtung (%s).",
+	FDIRFIT_NO_FMT = "Deine Richtung (%s) nutzt diese Waffenart nicht (Spielerguides).",
 	-- 19 Nov 2026: the "just learned" list. "Rang" = the client's spell subtext. Our own translation.
 	FRANK_LIST_TITLE = "Gerade gelernt",
 	FRANK_LIST_HINT = "Pro Zauber: jetzt auf deine Leisten, später oder nie. Nur außerhalb des Kampfes. /mh ranks list öffnet das wieder.",
