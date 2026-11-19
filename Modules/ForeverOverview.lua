@@ -1191,6 +1191,11 @@ local QUIET = {
 		get = function() return ns.IsForeverDirectionAskOn and ns.IsForeverDirectionAskOn() end,
 		set = function(on) if ns.SetForeverDirectionAsk then ns.SetForeverDirectionAsk(on) end end }),
 	KEY_SWITCHES[3], -- offer the MH bar layout
+	-- 19 Nov 2026 (Rob: a smaller screen when he targets a boss, "Ja, dat klopt uiteindelijk wel."): the small boss card
+	-- (ForeverDungeonGuide.lua). On by default; players choose.
+	Q("FDG_CARD_SW", "FDG_CARD_SW_DESC", {
+		get = function() return ns.IsForeverBossCardOn and ns.IsForeverBossCardOn() end,
+		set = function(on) if ns.SetForeverBossCard then ns.SetForeverBossCard(on) end end }),
 	{ head = "FOV_Q_HEAD_TOOLTIPS" },
 	PROF_SWITCHES[1], -- Used for / never usable / quest item
 	Q("FOV_Q_GEARTIP", "FOV_Q_GEARTIP_DESC", DbFlag("foreverGearTip", true)),

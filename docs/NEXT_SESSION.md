@@ -8,6 +8,14 @@ dungeon (schakelaar), 3 luxe: 3D-model bij muis op een baasnaam.
 - **Stap 1** (`ForeverDungeonGuide.lua`, Build): een dungeonnaam breder dan zijn knop (Rob: "Excavation Site:
   Wetlands") krijgt de kleine letter en zo nodig 2 regels. Gemeten per knop met `GetStringWidth`, dus elke taal en
   elke naam vanzelf. Voor alle drie de knopstanden (de gekozen dungeon is een uitgeschakelde knop). NIET in het spel.
+- **Stap 2 GEBOUWD** (`ForeverDungeonGuide.lua`, blok "Small boss card"): in een dungeon (`IsInInstance`) een baas
+  van de gids targeten → klein kaartje `MidnightHelperForeverBossCard` (300 px): naam (+ rare), wat hij doet, de tip
+  (`BossLines`, dezelfde regels als in de gids), en een knop met de naam van de gids die de grote gids op die dungeon
+  opent. Ander target → weg. Niet als de grote gids open is. Verschuifbaar (plek in `ns.db.foreverBossCardPos`),
+  Shift+scroll + Escape via `RegisterMidnightDialogPopup`, Forever-stijl via `S.SkinOnShow`. Schakelaar in Quiet
+  helpers ("Small boss card when you target a boss", standaard aan; `ns.db.foreverBossCard == false` = uit).
+  `/mh bosses check` zegt of het kaartje aan staat en waarom het (niet) kwam (stilte-regel). Teksten `FDG_CARD_SW/_DESC`
+  in 7 talen + esMX ("calabozo"); eigen vertaling. NIET in het spel gezien.
 - ⚠️ Correctie op mijn eerdere regel "bazenregels hebben geen spell- of npc-id": de bazen hebben WEL `b.npc`
   (`ForeverDungeonGuideData.lua`, GEMETEN door de sparring); alleen spell-id's ontbreken.
 

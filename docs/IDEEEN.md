@@ -245,8 +245,8 @@ lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met d
   makkelijker scherm ... dit vult best wel weer veel beeld"*; *"wanneer ik bijvoorbeeld op Captain Greenskin ga staan,
   dat we ook plaatjes krijgen ... dat moet geen apart groot scherm worden ... puur luxe extra"*. Op "ja op alle 3?":
   *"Ja, dat klopt uiteindelijk wel."* Spel: F. Voor wie: N + V.
-- 1 lange namen passend: GEBOUWD 19 nov. 2 klein baaskaartje bij targeten (met schakelaar): open. 3 model bij muis op
-  een baasnaam: open.
+- 1 lange namen passend: GEBOUWD 19 nov. 2 klein baaskaartje bij targeten (met schakelaar): GEBOUWD 19 nov. 3 model
+  bij muis op een baasnaam: open.
 
 ### Forever: het rank-keuzevenster vindbaar maken — ✅ JA + GEBOUWD 19 nov (wacht op Robs test)
 - Bron: Rob 19 nov (via Sparring 19-11), letterlijk: *"Op beide vragen ja"* op: een knop in de instellingen van Forever

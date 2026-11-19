@@ -5859,6 +5859,9 @@ ns._mhLocales.enUS = {
 	FDG_FROM_FMT = "from %s",
 	FDG_LOOT_NOTE = "A few items from player guides and Wowhead (Forever), not the whole list, and no drop chances.",
 	FDG_HINT = "Inside a dungeon this opens on that dungeon. Target a boss: MH marks him. /mh bosses opens it.",
+	-- 19 Nov 2026: the small boss card (ForeverDungeonGuide.lua) and its switch in Quiet helpers.
+	FDG_CARD_SW = "Small boss card when you target a boss",
+	FDG_CARD_SW_DESC = "Inside a dungeon: target a boss and a small card shows what he does, with one tip. Another target hides it. The button on the card opens the whole boss guide.",
 	FTRAVEL_FORGOTTEN_COAST = "the Forgotten Coast",
 	FDG_STRAT_6_D3 = "In Classic the Scarlet Bastion door needs The Scarlet Key from the Scarlet Monastery Library, or a rogue's Lockpicking; bring one to be safe.",
 	FDG_ST_1_D1 = "Optional: he only rises in the pool of the Pit of Refuse after you click the six shrines around it in the right order: south, north, southwest, southeast, northwest, northeast.",

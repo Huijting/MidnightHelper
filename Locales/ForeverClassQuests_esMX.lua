@@ -155,6 +155,7 @@ for k, v in pairs({
 	-- Boss guide (18 Nov 2026): esMX says "calabozo" where esES says "mazmorra" (CLAUDE.md, esMX overlay).
 	FDG_NONE = "MH aún no tiene guía de jefes para este calabozo.",
 	FDG_HINT = "Dentro de un calabozo se abre en ese calabozo. Pon a un jefe como objetivo: MH lo marca. /mh bosses lo abre.",
+	FDG_CARD_SW_DESC = "Dentro de un calabozo: pon a un jefe como objetivo y una tarjeta pequeña muestra lo que hace, con un consejo. Otro objetivo la oculta. El botón de la tarjeta abre toda la guía de jefes.",
 	FCQ_OBJ_WR_DEADTOOTH_KEY = "derrota a Jack Dentomuerto en su campamento para conseguir la Llave de Dentomuerto",
 	FCQ_OBJ_WR_HAGGARD_BADGE = "abre la Caja fuerte de Dentomuerto en el campamento para conseguir el Distintivo del mariscal Haggard",
 	FCQ_OBJ_WR_UMBRAL_ORE = "abre la Caja fuerte de Vetaferro en el Complejo Vetaferro para conseguir la Mena umbría",

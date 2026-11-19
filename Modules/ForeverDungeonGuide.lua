@@ -551,6 +551,148 @@ local function NpcOf(unit)
 	return nil
 end
 
+--------------------------------------------------------------------------------
+-- Small boss card (19 Nov 2026). Rob via sparring: "als ik zo meteen een baas aanklik in een dungeon, krijg ik dan
+-- hetzelfde scherm te zien? Of ... een kleiner, wat makkelijker scherm ... dit vult best wel weer veel beeld"; "Ja, dat
+-- klopt uiteindelijk wel." Inside a dungeon, targeting a boss of this guide shows ONE small card: his name, what he
+-- does, the tip. Another target (not a boss of the guide) hides it again. Not while the big guide is open (that one
+-- already marks him). A switch in Quiet helpers (players choose; on by default): ns.db.foreverBossCard ~= false.
+-- Silence rule: /mh bosses check says whether the card is on and why it did (not) show.
+--------------------------------------------------------------------------------
+local CARD_W = 300
+local card
+local cardWhy = "no boss targeted yet"
+
+function ns.IsForeverBossCardOn()
+	return not (type(ns.db) == "table" and ns.db.foreverBossCard == false)
+end
+
+function ns.SetForeverBossCard(on)
+	if type(ns.db) ~= "table" then
+		return
+	end
+	-- Not `(not on) and false or nil`: that is always nil in Lua (lint [29]; the Moving portrait trap of 18 Nov).
+	if on then
+		ns.db.foreverBossCard = nil
+	else
+		ns.db.foreverBossCard = false
+		if card then
+			card:Hide()
+		end
+	end
+end
+
+--- The lines for one boss, the same as on his part of the big guide.
+local function BossLines(b)
+	local out = {}
+	for _, k in ipairs(b.does or {}) do
+		out[#out + 1] = ns:L(k)
+	end
+	if b.tip then
+		out[#out + 1] = "|cffeeb055" .. ns:L("FDG_TIP") .. "|r " .. ns:L(b.tip)
+	end
+	if b.one then
+		out[#out + 1] = "|cff9d9d9d" .. ns:L("FDG_ONE_SOURCE") .. "|r"
+	end
+	return out
+end
+
+local function BuildCard()
+	if card then
+		return card
+	end
+	local f = CreateFrame("Frame", "MidnightHelperForeverBossCard", UIParent, "BackdropTemplate")
+	f:SetSize(CARD_W, 120)
+	f:SetFrameStrata("MEDIUM")
+	f:SetBackdrop({ bgFile = "Interface\\Buttons\\WHITE8X8", edgeFile = "Interface\\Buttons\\WHITE8X8", edgeSize = 1 })
+	local pos = type(ns.db) == "table" and ns.db.foreverBossCardPos
+	if type(pos) == "table" and pos[1] then
+		f:SetPoint(pos[1], UIParent, pos[2] or pos[1], pos[3] or 0, pos[4] or 0)
+	else
+		f:SetPoint("TOPRIGHT", UIParent, "TOPRIGHT", -260, -180)
+	end
+	f:EnableMouse(true)
+	f:SetMovable(true)
+	f:RegisterForDrag("LeftButton")
+	f:SetScript("OnDragStart", f.StartMoving)
+	f:SetScript("OnDragStop", function(self)
+		self:StopMovingOrSizing()
+		if type(ns.db) == "table" then
+			local p, _, rp, x, y = self:GetPoint(1)
+			ns.db.foreverBossCardPos = { p, rp, x, y }
+		end
+	end)
+	f.title = f:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+	f.title:SetPoint("TOPLEFT", 12, -10)
+	f.title:SetPoint("RIGHT", f, "RIGHT", -28, 0)
+	f.title:SetJustifyH("LEFT")
+	local close = CreateFrame("Button", nil, f, "UIPanelCloseButton")
+	close:SetPoint("TOPRIGHT", 2, 2)
+	close:SetScale(0.8)
+	f.body = f:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	f.body:SetPoint("TOPLEFT", f.title, "BOTTOMLEFT", 0, -6)
+	f.body:SetWidth(CARD_W - 24)
+	f.body:SetJustifyH("LEFT")
+	f.body:SetJustifyV("TOP")
+	if f.body.SetSpacing then
+		f.body:SetSpacing(2)
+	end
+	f.open = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
+	f.open:SetSize(120, 20)
+	f.open:SetPoint("BOTTOMRIGHT", -10, 8)
+	f.open:SetScript("OnClick", function(self)
+		f:Hide()
+		ns.ShowForeverDungeonGuide(self.map)
+	end)
+	if S and S.SkinOnShow then
+		S.SkinOnShow(f)
+	end
+	if ns.RegisterMidnightDialogPopup then
+		ns.RegisterMidnightDialogPopup(f) -- Shift+scroll = size (the rule for every MH window), Escape closes
+	end
+	f:Hide()
+	card = f
+	return f
+end
+
+--- Show the card for boss `b` of dungeon `map` (nil = hide it).
+local function ShowCard(map, b)
+	if not b then
+		if card then
+			card:Hide()
+		end
+		return
+	end
+	local f = BuildCard()
+	local head = BossName(b)
+	if b.rare then
+		head = head .. "  |cff9d9d9d" .. ns:L("FDG_RARE") .. "|r"
+	end
+	f.title:SetText(head)
+	f.body:SetText(table.concat(BossLines(b), "\n"))
+	f.open:SetText(ns:L("FDG_TITLE")) -- the guide's own name: this button opens it
+	f.open.map = map
+	f:SetHeight(10 + (f.title:GetStringHeight() or 14) + 6 + (f.body:GetStringHeight() or 14) + 10 + 20 + 10)
+	f:Show()
+end
+
+local function CardDecision(map, b)
+	if not ns.IsForeverBossCardOn() then
+		return false, "switched off (Quiet helpers)"
+	end
+	if not b then
+		return false, "target is not a boss of the guide"
+	end
+	local inInst = IsInInstance and select(1, IsInInstance())
+	if not inInst then
+		return false, "not inside a dungeon"
+	end
+	if win and win:IsShown() then
+		return false, "the big guide is open (it marks him there)"
+	end
+	return true, "boss of the guide targeted inside a dungeon"
+end
+
 local ev = CreateFrame("Frame")
 ev:RegisterEvent("PLAYER_TARGET_CHANGED")
 ev:RegisterEvent("PLAYER_ENTERING_WORLD")
@@ -558,11 +700,11 @@ ev:RegisterEvent("GET_ITEM_INFO_RECEIVED")
 ev:SetScript("OnEvent", function(_, event)
 	if event == "PLAYER_TARGET_CHANGED" then
 		local id = NpcOf("target")
-		local found
+		local found, boss
 		for map, g in pairs(Data()) do
 			for _, b in ipairs(g.bosses or {}) do
 				if IsBoss(b, id) then
-					found = map
+					found, boss = map, b
 				end
 			end
 		end
@@ -570,6 +712,10 @@ ev:SetScript("OnEvent", function(_, event)
 		if found then
 			selected = found
 		end
+		-- The small boss card (19 Nov 2026): shown or hidden, and why (for /mh bosses check).
+		local show, why = CardDecision(found, boss)
+		cardWhy = why
+		ShowCard(found, show and boss or nil)
 	elseif event == "PLAYER_ENTERING_WORLD" then
 		local here = ns.ForeverCurrentDungeonMap and ns.ForeverCurrentDungeonMap()
 		if here and Data()[here] then
@@ -593,6 +739,7 @@ function ns.ForeverDungeonGuideSlash(arg)
 		end
 		print(P .. ("boss guide: %d dungeons, %d bosses, %d items; you are in map %s; target npc %s"):format(#Order(), nB,
 			nL, tostring(ns.ForeverCurrentDungeonMap and ns.ForeverCurrentDungeonMap()), tostring(NpcOf("target"))))
+		print(("  small boss card: %s; last decision: %s"):format(ns.IsForeverBossCardOn() and "on" or "off", cardWhy))
 		return
 	end
 	ns.ShowForeverDungeonGuide()

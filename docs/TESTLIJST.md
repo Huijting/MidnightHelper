@@ -39,6 +39,16 @@ zoekbalk, de reputaties, de rares, de muntjes, de Now-kaart, het ronde plaatje e
 achternaam, "Step aside"-instelling, Your path, Set focus). Daarna vond Rob nog: "scroll for more" over de tekst
 (gerepareerd, zie Travel) en het boek bij de mage-quest "Study" (in bouw).
 
+## 🃏 19 nov — Forever: klein baaskaartje als je een baas target
+
+`/reload` is genoeg. In een dungeon, met de grote bazengids DICHT.
+- [ ] Target een baas (bv. Captain Greenskin in Deadmines): er komt een klein kaartje met zijn naam, wat hij doet en de
+      tip. Target iets anders (geen baas): het kaartje gaat weg.
+- [ ] De knop op het kaartje opent de grote bazengids op die dungeon.
+- [ ] Verslepen kan; Shift+scroll maakt het groter/kleiner; Escape sluit het.
+- [ ] Overzicht → tandwiel → Quiet helpers: "Small boss card when you target a boss" uit → geen kaartje meer.
+- [ ] Komt er niets? Typ `/mh bosses check` en maak een screenshot: de laatste regel zegt waarom.
+
 ## 🗺️ 19 nov — Forever bazengids: lange namen in de lijst
 
 `/reload` is genoeg.

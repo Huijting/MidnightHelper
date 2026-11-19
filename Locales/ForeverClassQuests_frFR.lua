@@ -518,6 +518,9 @@ for k, v in pairs({
 	FDG_FROM_FMT = "de %s",
 	FDG_LOOT_NOTE = "Quelques objets tirés de guides de joueurs et de Wowhead (Forever), pas toute la liste, et sans chances de butin.",
 	FDG_HINT = "Dans un donjon, cela s'ouvre sur ce donjon. Cible un boss : MH le marque. /mh bosses l'ouvre.",
+	-- 19 Nov 2026: the small boss card. Our own translation.
+	FDG_CARD_SW = "Petite carte de boss quand tu cibles un boss",
+	FDG_CARD_SW_DESC = "Dans un donjon : cible un boss et une petite carte montre ce qu'il fait, avec un conseil. Une autre cible la cache. Le bouton de la carte ouvre tout le guide des boss.",
 	FCQ_CHAIN_WR_FIRSTWEAPON = "Ta première arme de guerrier (une hache, une épée, un marteau ou une dague)",
 	FCQ_OBJ_WR_DEADTOOTH_KEY = "vaincs Jack Dent-Morte à son camp pour la Clé de Dent-Morte",
 	FCQ_OBJ_WR_HAGGARD_BADGE = "ouvre le Coffre de Dent-Morte dans le camp pour la Plaque du maréchal Haggard",

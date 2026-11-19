@@ -717,6 +717,9 @@ for k, v in pairs({
 	FDG_FROM_FMT = "de %s",
 	FDG_LOOT_NOTE = "Alguns itens de guias de jogadores e do Wowhead (Forever), não a lista toda, e sem chances de saque.",
 	FDG_HINT = "Dentro de uma masmorra, abre nessa masmorra. Selecione um chefe como alvo: o MH o marca. /mh bosses abre.",
+	-- 19 Nov 2026: the small boss card. Our own translation.
+	FDG_CARD_SW = "Cartão pequeno de chefe ao selecionar um chefe",
+	FDG_CARD_SW_DESC = "Dentro de uma masmorra: selecione um chefe como alvo e um cartão pequeno mostra o que ele faz, com uma dica. Outro alvo o esconde. O botão do cartão abre o guia de chefes inteiro.",
 	FCQ_CHAIN_WR_FIRSTWEAPON = "Sua primeira arma de guerreiro (um machado, uma espada, um martelo ou uma adaga)",
 	FCQ_OBJ_WR_DEADTOOTH_KEY = "derrote Diogo Dente-Podre no acampamento dele para pegar a Chave do Dente-podre",
 	FCQ_OBJ_WR_HAGGARD_BADGE = "abra a Caixa-forte do Dente-podre no acampamento para pegar o Distintivo do Delegado Fadigas",

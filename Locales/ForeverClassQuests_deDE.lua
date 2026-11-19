@@ -516,6 +516,9 @@ for k, v in pairs({
 	FDG_FROM_FMT = "von %s",
 	FDG_LOOT_NOTE = "Ein paar Gegenstände aus Spielerleitfäden und Wowhead (Forever), nicht die ganze Liste und keine Dropchancen.",
 	FDG_HINT = "In einem Dungeon öffnet sich das bei diesem Dungeon. Nimm einen Boss ins Ziel: MH markiert ihn. /mh bosses öffnet es.",
+	-- 19 Nov 2026: the small boss card. Our own translation.
+	FDG_CARD_SW = "Kleine Boss-Karte, wenn du einen Boss ins Ziel nimmst",
+	FDG_CARD_SW_DESC = "In einem Dungeon: Nimm einen Boss ins Ziel, und eine kleine Karte zeigt, was er tut, mit einem Tipp. Ein anderes Ziel blendet sie aus. Der Knopf auf der Karte öffnet den ganzen Bossführer.",
 	FCQ_CHAIN_WR_FIRSTWEAPON = "Deine erste Kriegerwaffe (eine Axt, ein Schwert, ein Hammer oder ein Dolch)",
 	FCQ_OBJ_WR_DEADTOOTH_KEY = "besiege Stumpfzahn Jack in seinem Lager für Stumpfzahns Schlüssel",
 	FCQ_OBJ_WR_HAGGARD_BADGE = "öffne Stumpfzahns Geldkassette im Lager für Marshal Haggards Abzeichen",

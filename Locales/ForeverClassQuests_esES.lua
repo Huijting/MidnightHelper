@@ -763,6 +763,9 @@ for k, v in pairs({
 	FDG_FROM_FMT = "de %s",
 	FDG_LOOT_NOTE = "Algunos objetos de guías de jugadores y de Wowhead (Forever), no la lista completa y sin probabilidades de botín.",
 	FDG_HINT = "Dentro de una mazmorra se abre en esa mazmorra. Pon a un jefe como objetivo: MH lo marca. /mh bosses lo abre.",
+	-- 19 Nov 2026: the small boss card. Our own translation.
+	FDG_CARD_SW = "Tarjeta pequeña de jefe al poner a un jefe como objetivo",
+	FDG_CARD_SW_DESC = "Dentro de una mazmorra: pon a un jefe como objetivo y una tarjeta pequeña muestra lo que hace, con un consejo. Otro objetivo la oculta. El botón de la tarjeta abre toda la guía de jefes.",
 	FCQ_CHAIN_WR_FIRSTWEAPON = "Tu primera arma de guerrero (un hacha, una espada, un martillo o una daga)",
 	FCQ_OBJ_WR_DEADTOOTH_KEY = "derrota a Jack Dentomuerto en su campamento para conseguir la Llave de diente de muerto",
 	FCQ_OBJ_WR_HAGGARD_BADGE = "abre la Caja fuerte de Dentomuerto en el campamento para conseguir la Placa del alguacil Haggard",
