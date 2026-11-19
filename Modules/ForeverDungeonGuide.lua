@@ -157,7 +157,11 @@ local function ItemColor(id)
 end
 
 --- The whole text for one dungeon (one font string: simple, and it wraps).
-function ns.ForeverDungeonGuideText(map)
+--- With `split`, the loot is left out of the text and comes back as a second value: a list of { item = id, text = line }
+--- plus the note line as a third. The window draws those as rows of their own, so each item gets the game's tooltip
+--- (Rob, 19 Nov 2026: "overal waar een tooltip bestaat in de game wil ik ook in de addon zien"). Links inside a font
+--- string do not answer the mouse inside a ScrollFrame (PlayCardWindow.lua:99, DelveTipMarkup.lua:483), so: rows.
+function ns.ForeverDungeonGuideText(map, split)
 	local g = Data()[map]
 	if not g then
 		return ns:L("FDG_NONE")
@@ -210,18 +214,88 @@ function ns.ForeverDungeonGuideText(map)
 		end
 		parts[#parts + 1] = " "
 	end
+	local rows, note
 	if g.loot and #g.loot > 0 then
 		parts[#parts + 1] = "|cffdbb56b" .. ns:L("FDG_LOOT_HEAD") .. "|r"
+		rows = {}
 		for _, l in ipairs(g.loot) do
 			local name = ItemName(l.item)
 			local boss = byNpc[l.boss]
-			parts[#parts + 1] = ("   %s%s%s|r  %s"):format(l.part and ("|cff9d9d9d" .. PartName(l.part) .. ":|r ") or "",
+			local line = ("   %s%s%s|r  %s"):format(l.part and ("|cff9d9d9d" .. PartName(l.part) .. ":|r ") or "",
 				ItemColor(l.item), name or ("#" .. l.item), ns:L(l.role))
 				.. (boss and ("  |cff9d9d9d" .. ns:L("FDG_FROM_FMT"):format(BossName(boss)) .. "|r") or "")
+			rows[#rows + 1] = { item = l.item, text = line }
+			if not split then
+				parts[#parts + 1] = line
+			end
 		end
-		parts[#parts + 1] = "|cff9d9d9d" .. ns:L("FDG_LOOT_NOTE") .. "|r"
+		note = "|cff9d9d9d" .. ns:L("FDG_LOOT_NOTE") .. "|r"
+		if not split then
+			parts[#parts + 1] = note
+		end
+	end
+	if split then
+		return table.concat(parts, "\n"), rows or {}, note
 	end
 	return table.concat(parts, "\n")
+end
+
+-- The game's own item tooltip on a loot row; shift-click puts the link in chat, as on any item in the game.
+local function LootEnter(self)
+	if not (GameTooltip and self.item) then
+		return
+	end
+	GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+	pcall(GameTooltip.SetHyperlink, GameTooltip, "item:" .. self.item)
+	GameTooltip:Show()
+end
+
+local function LootLeave()
+	if GameTooltip then
+		GameTooltip:Hide()
+	end
+end
+
+-- The game's own handler, like RaidShoppingList.lua:520 (shift = chat link, ctrl = dressing room); ChatEdit_InsertLink
+-- only as a fallback (a deprecation alias in 12.1, same note there).
+local function LootClick(self)
+	if not (self.item and IsModifierKeyDown and IsModifierKeyDown()) then
+		return
+	end
+	local info = (C_Item and C_Item.GetItemInfo) or GetItemInfo
+	local ok, _, link = pcall(info, self.item)
+	if not (ok and type(link) == "string") then
+		return
+	end
+	if HandleModifiedItemClick and HandleModifiedItemClick(link) then
+		return
+	end
+	if IsModifiedClick and IsModifiedClick("CHATLINK") and ChatEdit_InsertLink then
+		pcall(ChatEdit_InsertLink, link)
+	end
+end
+
+--- One reusable row per loot line, under the body text (so the mouse finds it inside the ScrollFrame).
+local function LootRow(f, i)
+	f.lootRows = f.lootRows or {}
+	local r = f.lootRows[i]
+	if r then
+		return r
+	end
+	r = CreateFrame("Button", nil, f.child)
+	r.text = r:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+	r.text:SetPoint("TOPLEFT", 0, 0)
+	r.text:SetJustifyH("LEFT")
+	r.text:SetJustifyV("TOP")
+	local hl = r:CreateTexture(nil, "HIGHLIGHT")
+	hl:SetAllPoints()
+	hl:SetColorTexture(1, 1, 1, 0.08)
+	r.hl = hl
+	r:SetScript("OnEnter", LootEnter)
+	r:SetScript("OnLeave", LootLeave)
+	r:SetScript("OnClick", LootClick)
+	f.lootRows[i] = r
+	return r
 end
 
 local Fill
@@ -350,8 +424,49 @@ Fill = function()
 		f.shownMap = selected
 		f.scroll:SetVerticalScroll(0)
 	end
-	f.body:SetText(selected and ns.ForeverDungeonGuideText(selected) or ns:L("FDG_NONE"))
-	f.child:SetHeight(math.max(10, (f.body:GetStringHeight() or 0) + 10))
+	local text, rows, note = ns:L("FDG_NONE"), {}, nil
+	if selected then
+		text, rows, note = ns.ForeverDungeonGuideText(selected, true)
+	end
+	f.body:SetText(text)
+	-- Loot rows under the text: one Button each, so the item's own tooltip shows on hover (19 Nov 2026).
+	local width = f.body:GetWidth() or (W - 200)
+	local y = (f.body:GetStringHeight() or 0) + 3
+	local n = 0
+	for _, l in ipairs(rows or {}) do
+		n = n + 1
+		local r = LootRow(f, n)
+		r.item = l.item
+		r:EnableMouse(true)
+		r.hl:Show()
+		r.text:SetWidth(width)
+		r.text:SetText(l.text)
+		local h = math.max(14, r.text:GetStringHeight() or 14)
+		r:ClearAllPoints()
+		r:SetPoint("TOPLEFT", f.child, "TOPLEFT", 0, -y)
+		r:SetSize(width, h)
+		r:Show()
+		y = y + h + 3
+	end
+	if note then
+		n = n + 1
+		local r = LootRow(f, n)
+		r.item = nil
+		r:EnableMouse(false) -- the note is text, not an item: no hover, no highlight
+		r.hl:Hide()
+		r.text:SetWidth(width)
+		r.text:SetText(note)
+		local h = math.max(14, r.text:GetStringHeight() or 14)
+		r:ClearAllPoints()
+		r:SetPoint("TOPLEFT", f.child, "TOPLEFT", 0, -y)
+		r:SetSize(width, h)
+		r:Show()
+		y = y + h + 3
+	end
+	for i = n + 1, #(f.lootRows or {}) do
+		f.lootRows[i]:Hide()
+	end
+	f.child:SetHeight(math.max(10, y + 10))
 	-- An item name was not loaded yet: try again every 0.5 s, at most 10 times, while the window is open.
 	if missingItem and not f.nameTicker and C_Timer and C_Timer.NewTicker then
 		local tries, ticker = 0, nil

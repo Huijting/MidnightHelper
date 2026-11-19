@@ -239,6 +239,15 @@ gebruiken."* Uitslag (bouwchat 15-11, alleen op main, NIET in het spel gezien):
 Hier komt wat Rob goedkeurt, ook wat hij rechtstreeks in de bouwchat vraagt (Rob, 10 nov: *"ja we willen het op 1
 lijst"*). Gebouwd maar nog niet door Rob in het spel gezien = blijft hier, met de commit erbij. Na zijn test naar **Af**.
 
+### Tooltips van het spel overal waar MH een item, spell, quest, npc of munt toont (Midnight én Forever)
+- Bron: Rob 19 nov (via Sparring 19-11), letterlijk: *"Wel viel me op dat ik tooltips miste bij oa de loot in dungeons
+  overal waar wen tooltip bestaat in de game wil ik ook in de addon zien :)"*; op "hele addon of eerst Forever?":
+  *"Tooltip over beide"*. Spel: M + F. Voor wie: N + V.
+- Stap 1 GEBOUWD 19 nov: de loot in de Forever-bazengids (`ForeverDungeonGuide.lua`): elke loot-regel is een eigen rij
+  met de tooltip van het spel; shift-klik = link in de chat, ctrl-klik = paskamer (de handler van het spel). Niet in het
+  spel gezien. De bazenregels hebben geen spell- of npc-id in de data, dus daar kan nog geen tooltip.
+- Daarna: de inventaris van de rest (welke schermen nog geen tooltip hebben) gaat naar de sparring met een volgorde.
+
 ### Forever: het overzicht wordt hét MH voor Forever (7 tabs + tandwiel)
 - Bron: Rob 17 nov (via Sparring 17-11), letterlijk: *"hoe gaan we de rest van onze Midnight helpen, in ieder geval voor
   Forever al, hierin verwerken?"*, *"Je moet gewoon één mooi product maken."* Op het voorstel: *"ja doe maar"*.

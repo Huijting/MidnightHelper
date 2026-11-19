@@ -39,6 +39,14 @@ zoekbalk, de reputaties, de rares, de muntjes, de Now-kaart, het ronde plaatje e
 achternaam, "Step aside"-instelling, Your path, Set focus). Daarna vond Rob nog: "scroll for more" over de tekst
 (gerepareerd, zie Travel) en het boek bij de mage-quest "Study" (in bouw).
 
+## 🖱️ 19 nov — Forever: tooltip op de loot in de bazengids
+
+`/reload` is genoeg. Open de bazengids van een dungeon (bv. Deadmines) en scroll naar de loot onderaan.
+- [ ] Muis op een item: de gewone tooltip van het spel verschijnt (zoals in je tas), en de regel licht een beetje op.
+- [ ] Shift-klik op een item: de link staat in je chat. Ctrl-klik: de paskamer opent.
+- [ ] De grijze regel onderaan (de opmerking over de loot) licht NIET op en heeft geen tooltip.
+- [ ] Wissel een paar keer van dungeon: de loot-rijen staan steeds netjes onder de tekst, niet erdoorheen.
+
 ## 🔴 EERST, thuis (2 minuten): meting voor "Beter dan wat je draagt" (optie B)
 
 Rob via sparring: *"Ja"* (optie A nu, B later in stappen; deze meting beslist hoe B gebouwd wordt). Forever, in de stad.

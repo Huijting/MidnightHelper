@@ -1,5 +1,19 @@
 # Midnight Helper — waar we staan
 
+## ▶ 19 nov — Bouwchat 19-11: tooltips van het spel, stap 1 (loot in de bazengids) GEBOUWD
+
+Rob via sparring, letterlijk: *"overal waar wen tooltip bestaat in de game wil ik ook in de addon zien :)"* en *"Tooltip
+over beide"* (Midnight + Forever). In `docs/IDEEEN.md` onder "Ja".
+- `ForeverDungeonGuide.lua`: `ns.ForeverDungeonGuideText(map, split)` geeft met `split` de loot apart terug; `Fill` zet
+  elke loot-regel als eigen Button-rij onder de tekst (`LootRow`, hergebruikt) met `GameTooltip:SetHyperlink("item:<id>")`
+  en een klik met modifier via `HandleModifiedItemClick` (zoals `RaidShoppingList.lua:520`). Reden voor rijen i.p.v.
+  `|Hitem|h`-links: links in een FontString in een ScrollFrame reageren niet op de muis (`PlayCardWindow.lua:99`,
+  `DelveTipMarkup.lua:483`). Zonder `split` geeft de functie de oude volle tekst (slash/tests).
+- Gecontroleerd: Lua-syntax hele repo OK (GEMETEN). NIET in het spel gezien; niet offline in een stub gedraaid.
+- Open: inventaris van alle andere plekken zonder tooltip (helper mh-sweep loopt) → lijst + volgorde naar de sparring.
+  Bazenregels hebben geen spell/npc-id in de data → geen tooltip mogelijk zonder nieuwe data.
+- NIET meegenomen (geen ja): een vindbare plek voor `/mh ranks choose`.
+
 ## ▶ 18 nov (avond) — `/mh disenchant` gemeten door Rob
 
 Rob (via sparring, screenshot, Ima Magieman na herstart): Enchanting learned true, spell 13262 known true, Baganator
