@@ -238,7 +238,10 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
                  Kruiden/erts: Rob *"ja graag"* (20 nov via sparring) op "eerst uitzoeken, dan meet jij, dan bouwen".
                  UITGEZOCHT (mh-research): GEEN glinster-CVar voor nodes in Blizzards Forever-UI-code; node-addons zetten
                  soft-targeting aan (de game kiest één object bij je, "softinteract") en tekenen zelf. Meting gebouwd:
-                 `/mh sparkle nodes` (30 s, daarna alles terug) → `MidnightHelperDB.nodeProbe`. Wacht op Robs meting.
+                 `/mh sparkle nodes` (30 s, daarna alles terug) → `MidnightHelperDB.nodeProbe`.
+                 Rob mat het (houweel boven een Copper Vein) en zei: *"ik wil beide met idd de schakelaars"*. GEBOUWD 20 nov:
+                 `FNODE_ICON_SW` (icoon van de game) en `FNODE_GLOW_SW` (gloed van MH), allebei standaard uit.
+                 Wacht op Robs test.
 
 ### Forever: Layer Swap — zien op welke layer je zit en wisselen (idee van Rob, 20 nov — nog niet beoordeeld)
 - Voor wie:      veteraan en nieuweling (AFGELEID)

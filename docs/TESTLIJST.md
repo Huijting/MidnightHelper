@@ -217,7 +217,22 @@ Nieuw bestand → **WoW helemaal herstarten** (niet alleen /reload). Forever, ee
 - [ ] De titels staan netjes: links of in het midden, vóór het kruisje, zonder over iets heen te lopen.
 - [ ] Midnight: daar staat "Dock to window" er nog wel (bv. in de bazengids of Keys). Klikken werkt als vroeger.
 
+## ⛏️ 20 nov — Forever: erts en kruiden, twee schakelaars
+
+`/reload` is genoeg. Een karakter met Mining of Herbalism, waarop **Lueur UIT staat**.
+- [ ] Overzicht → tandwiel → Quiet helpers: twee nieuwe regels, "Ore and herbs: the game's icon above the nearest one"
+      en "Ore and herbs glow (drawn by MH)". Beide staan uit.
+- [ ] Zet de eerste aan. Loop naar een ertsader of kruid: komt er een houweel of kruidje boven? Screenshot.
+- [ ] Zet de tweede aan. Gloeit de ader (goud) of het kruid (groen)? Staat de gloed OP de ader, of zweeft hij erboven of
+      ernaast? Screenshot. (De plek is een gok van mij; jouw screenshot beslist.)
+- [ ] Loop een stukje weg: wordt de gloed grijs? Te ver weg: verdwijnt hij?
+- [ ] Zet allebei uit: in de chat "ore and herbs: off. Your old settings are back." Het icoon is weg.
+- [ ] Twijfel? Typ `/mh sparkle`: onderaan per instelling de waarde nu, die van MH en die van vroeger, plus wat MH ziet.
+- [ ] Op een karakter MET Lueur: zet een schakelaar aan. Dan zegt MH dat Lueur dit al doet, en verandert hij niets.
+
 ## ⛏️ 20 nov — Forever: meting voor kruiden en erts (`/mh sparkle nodes`)
+
+✅ Gedaan door Rob (20 nov, "Ima", Copper Vein): houweel boven de ader. Uitslag gelezen; zie NEXT_SESSION.
 
 `/reload` is genoeg. Neem een karakter waarop **Lueur UIT staat** (bv. Midnight-Helper of Ima-Pallie), met Mining of
 Herbalism.

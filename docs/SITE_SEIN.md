@@ -112,6 +112,17 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 - Commando's:     /mh rest [go]
 - Spel:           Forever
 
+## 20 nov 2026 — Forever: erts en kruiden (icoon van de game + gloed van MH)
+- Tag + commit:   geen tag (commit: zie git log, "Forever: erts en kruiden")
+- Status:         alleen op main
+- Mag op de site: nee (nog niet getest, niet uit)
+- Speler ziet:    twee schakelaars in Quiet helpers. 1: de game toont een houweel of kruidje boven de dichtstbijzijnde
+                  ertsader of het kruid (tot ~15 m, één tegelijk). 2: MH tekent er een gloed op (goud = erts, groen =
+                  kruid, grijs = nog niet te verzamelen). Standaard uit; uitzetten zet je oude instellingen terug.
+- Knoplabels:     `FNODE_ICON_SW`, `FNODE_GLOW_SW`
+- Commando's:     /mh sparkle icon on|off, /mh sparkle glow on|off
+- Spel:           Forever
+
 ## 20 nov 2026 — Forever: questitems glinsteren in plaats van een rand
 - Tag + commit:   geen tag (commit: zie git log, "Forever: Loot Sparkles")
 - Status:         alleen op main

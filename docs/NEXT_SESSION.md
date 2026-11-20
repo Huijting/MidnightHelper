@@ -2,6 +2,21 @@
 
 ## ▶▶ VOLGENDE BOUWCHAT: Forever-overzicht "D" — stap 1 en 3 gebouwd; stap 2 wacht op Robs screenshots (20 nov, avond)
 
+⛏️ **Erts en kruiden: twee schakelaars GEBOUWD (20 nov, laat)** — Rob na zijn meting: *"reload gedaan, en ik wil beide met
+idd de schakelaars"*. Uitslag (GEMETEN, Forever-SV `nodeProbe`, "Ima", Lueur uit, 22:07): vóór geen softinteract; na de
+waarden "Copper Vein", UnitIsGameObject true, nameplate ja (getoond, niet forbidden), cursor "Cursor Crosshair_Mine_64"
+(in bereik) / "Cursor Crosshair_UnableMine_64" (buiten bereik); UnitExists("softinteract") = FALSE. Terugzetten exact
+(1/0/10/0/1/1). SoftTargetInteract en -Range zijn "secure" (GetCVarInfo). Console: 1879 commando's, o.a.
+SoftTargetNameplateInteract "Always show nameplates for soft interact target". Rob zag een houweel boven de ader, en een
+gele gloed links (onbekend wat; AFGELEID misschien de loot-glinstering: outlineModeShowLootEffectWhenDisabled stond op 1).
+Gebouwd in `ForeverLootSparkle.lua`: `FNODE_ICON_SW` (A: NODE_SET aan) en `FNODE_GLOW_SW` (B: star4-gloed, ADD, op de
+nameplate van softinteract, offset −40 = AFGELEID; goud erts, groen kruid ("herb" in de cursornaam = AFGELEID), grijs bij
+"Unable"). B heeft dezelfde CVars nodig, dus het icoon komt mee. Beide standaard UIT, nooit in combat, eerst alle oude
+waarden lezen, terugzetten als beide uit staan; CVAR_UPDATE en laadscherm zetten ze 1 s later opnieuw. Lueur geladen →
+MH doet niets (FNODE_LUEUR). `/mh sparkle` toont alles; `/mh sparkle icon|glow on|off`. 7 talen. Offline GEMETEN
+(nodeswitch_test.lua: aan/uit, grijs, kruid, verbergen, preset, geen lus op "15.000000", uitzetten in combat → na combat
+terug, Lueur). NIET in het spel gezien.
+
 ⛏️ **Kruiden en erts laten glinsteren: MEETFASE (20 nov)** — Rob: *"ja graag"* op "eerst uitzoeken, dan meet jij, dan
 bouwen". Onderzoek (mh-research, GEMETEN in de Forever-UI-bron): GEEN glinster-CVar voor nodes. Node-addons (Lueur: idee,
 MIT volgens zijn CF-pagina, geen code genomen) zetten soft-targeting aan (SoftTargetInteract 3, Arc 2, Range 15,

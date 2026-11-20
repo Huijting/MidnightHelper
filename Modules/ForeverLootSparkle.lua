@@ -431,11 +431,345 @@ local function NodeProbe(force)
 	end)
 end
 
---- /mh sparkle [on|off|nodes]
+--[[ Ore and herbs, two switches. Rob, 20 Nov 2026 (via sparring), verbatim: "reload gedaan, en ik wil beide met idd de
+	schakelaars" = A (the game's own icon) and B (MH draws a glow), each its own switch, off by default.
+	GEMETEN in Rob's /mh sparkle nodes (Forever, "Ima", Lueur off, a Copper Vein in a cave, 20 Nov 22:07):
+	  before: no soft-interact object. After setting NODE_SET: softinteract = "Copper Vein", UnitIsGameObject true,
+	  GUID GameObject-…-1731-…, a nameplate (shown, not forbidden), cursor texture "Cursor Crosshair_Mine_64" in range and
+	  "Cursor Crosshair_UnableMine_64" out of range; UnitExists("softinteract") = FALSE for it (so never test that).
+	  Rob's screenshot: a pickaxe icon above the vein. Restore put back exactly the old values (1/0/10/0/1/1).
+	  SoftTargetInteract and -Range are "secure" CVars (GetCVarInfo): only ever set out of combat.
+	A = NODE_SET on. B = MH puts a glow on the nameplate of "softinteract" when its cursor says Mine or (AFGELEID, the
+	herb cursor is GatherHerbs in the client art) Herb. B needs the same CVars (no nameplate without them), so the icon
+	comes along with B. Both stand down when Lueur is loaded: it flips these CVars itself every 0.12 s. ]]
+local nodeState = { last = "nothing yet", pending = false, kind = nil, name = nil, unable = false, shown = false,
+	lueur = nil, reapplied = 0 }
+
+local function NodeDb()
+	if not ns.db then
+		return nil
+	end
+	ns.db.nodeSparkle = type(ns.db.nodeSparkle) == "table" and ns.db.nodeSparkle or {}
+	return ns.db.nodeSparkle
+end
+
+local function LueurOn()
+	if nodeState.lueur == nil and C_AddOns and C_AddOns.IsAddOnLoaded then
+		local ok, v = pcall(C_AddOns.IsAddOnLoaded, "Lueur")
+		nodeState.lueur = ok and v and true or false
+	end
+	return nodeState.lueur == true
+end
+
+function ns.IsNodeIconOn()
+	local d = ns.db and ns.db.nodeSparkle
+	return d and d.icon == true or false
+end
+
+function ns.IsNodeGlowOn()
+	local d = ns.db and ns.db.nodeSparkle
+	return d and d.glow == true or false
+end
+
+local function NodeNeedsCVars()
+	return (ns.IsNodeIconOn() or ns.IsNodeGlowOn()) and not LueurOn()
+end
+
+local function NodeNote(s)
+	nodeState.last = s
+	local d = NodeDb()
+	if d then
+		d.last = s
+	end
+end
+
+local NODE_OURS = {}
+for _, r in ipairs(NODE_SET) do
+	NODE_OURS[r[1]] = r[2]
+end
+
+--- Set the soft-target values; keep the old ones first (all read before any is set).
+local function NodeApply(why)
+	if not NodeNeedsCVars() then
+		return 0
+	end
+	if InCombatLockdown() then
+		nodeState.pending = true
+		NodeNote(why .. ": waiting for the end of combat")
+		return 0
+	end
+	nodeState.pending = false
+	local d = NodeDb()
+	d.saved = d.saved or {}
+	local before = {}
+	for _, r in ipairs(NODE_SET) do
+		before[r[1]] = Get(r[1])
+		if before[r[1]] ~= nil and d.saved[r[1]] == nil then
+			d.saved[r[1]] = before[r[1]]
+		end
+	end
+	local changed, failed = 0, 0
+	for _, r in ipairs(NODE_SET) do
+		local cur = before[r[1]]
+		-- Range comes back as "15.000000": compare as numbers.
+		if cur ~= nil and tonumber(cur) ~= tonumber(r[2]) then
+			if Set(r[1], r[2]) then
+				changed = changed + 1
+			else
+				failed = failed + 1
+			end
+		end
+	end
+	NodeNote(("%s: %d set, %d failed"):format(why, changed, failed))
+	return changed
+end
+
+local function NodeRestoreSaved(why)
+	local d = NodeDb()
+	local n = 0
+	if InCombatLockdown() then
+		nodeState.pending = true
+		NodeNote(why .. ": putting back waits for the end of combat")
+		return 0
+	end
+	if d and d.saved then
+		for name, old in pairs(d.saved) do
+			if Set(name, old) then
+				n = n + 1
+			end
+		end
+		d.saved = nil
+	end
+	nodeState.pending = false
+	NodeNote(("%s: %d setting(s) put back"):format(why, n))
+	return n
+end
+
+-- The glow (B). One frame, moved onto the soft-interact nameplate; star4 is the game's own sparkle texture
+-- (Blizzard_HeirloomCollection.xml uses interface\cooldown\star4 with ADD in the Forever UI source).
+local GLOW_TEX = "Interface\\Cooldown\\star4"
+local GLOW_OFFSET_Y = -40 -- AFGELEID: the plate sits above the object; Rob's screenshot settles the spot.
+local glow
+local function BuildGlow()
+	if glow then
+		return glow
+	end
+	glow = CreateFrame("Frame", nil, UIParent)
+	glow:SetSize(90, 90)
+	glow:Hide()
+	local function Layer(size, secs, dir)
+		local t = glow:CreateTexture(nil, "OVERLAY")
+		t:SetTexture(GLOW_TEX)
+		t:SetBlendMode("ADD")
+		t:SetSize(size, size)
+		t:SetPoint("CENTER")
+		local ag = t:CreateAnimationGroup()
+		local rot = ag:CreateAnimation("Rotation")
+		rot:SetDegrees(360 * dir)
+		rot:SetDuration(secs)
+		ag:SetLooping("REPEAT")
+		ag:Play()
+		return t
+	end
+	glow.a = Layer(90, 6, 1)
+	glow.b = Layer(60, 4, -1)
+	local pulse = glow:CreateAnimationGroup()
+	local fade = pulse:CreateAnimation("Alpha")
+	fade:SetFromAlpha(1)
+	fade:SetToAlpha(0.45)
+	fade:SetDuration(0.8)
+	pulse:SetLooping("BOUNCE")
+	pulse:Play()
+	return glow
+end
+
+local function HideGlow()
+	if glow and glow:IsShown() then
+		glow:Hide()
+		glow:ClearAllPoints()
+		glow:SetParent(UIParent)
+	end
+	nodeState.shown = false
+end
+
+local nodeTex
+local function SoftKind()
+	local okG, isGO = pcall(UnitIsGameObject, "softinteract")
+	if not okG or not isGO or (issecretvalue and issecretvalue(isGO)) then
+		return nil
+	end
+	if not SetUnitCursorTexture then
+		return nil
+	end
+	if not nodeTex then
+		local holder = CreateFrame("Frame")
+		holder:Hide()
+		nodeTex = holder:CreateTexture()
+	end
+	nodeTex:SetTexture(nil)
+	if not pcall(SetUnitCursorTexture, nodeTex, "softinteract") then
+		return nil
+	end
+	local okT, tex = pcall(nodeTex.GetTexture, nodeTex)
+	if not okT or tex == nil or (issecretvalue and issecretvalue(tex)) then
+		return nil
+	end
+	local low = tostring(tex):lower()
+	local unable = low:find("unable", 1, true) ~= nil
+	if low:find("mine", 1, true) then
+		return "ore", unable
+	elseif low:find("herb", 1, true) then
+		return "herb", unable
+	end
+	return nil
+end
+
+local function UpdateGlow()
+	if not ns.IsNodeGlowOn() or LueurOn() then
+		HideGlow()
+		return
+	end
+	local kind, unable = SoftKind()
+	nodeState.kind, nodeState.unable = kind, unable and true or false
+	local okN, name = pcall(UnitName, "softinteract")
+	nodeState.name = okN and not (issecretvalue and issecretvalue(name)) and name or nil
+	if not kind then
+		HideGlow()
+		return
+	end
+	if not (C_NamePlate and C_NamePlate.GetNamePlateForUnit) then
+		HideGlow()
+		return
+	end
+	local okP, np = pcall(C_NamePlate.GetNamePlateForUnit, "softinteract")
+	if not okP or not np or (np.IsForbidden and np:IsForbidden()) then
+		HideGlow()
+		return
+	end
+	local g = BuildGlow()
+	if unable then
+		g.a:SetVertexColor(0.6, 0.6, 0.6)
+		g.b:SetVertexColor(0.6, 0.6, 0.6)
+	elseif kind == "herb" then
+		g.a:SetVertexColor(0.55, 1, 0.45)
+		g.b:SetVertexColor(0.8, 1, 0.6)
+	else
+		g.a:SetVertexColor(1, 0.8, 0.3)
+		g.b:SetVertexColor(1, 0.95, 0.6)
+	end
+	g:SetParent(np)
+	g:ClearAllPoints()
+	g:SetPoint("CENTER", np, "CENTER", 0, GLOW_OFFSET_Y)
+	g:Show()
+	nodeState.shown = true
+end
+
+local function NodeSwitch(key, on)
+	local d = NodeDb()
+	if not d then
+		return
+	end
+	d[key] = on and true or nil
+	if LueurOn() then
+		HideGlow()
+		print(PREFIX .. ns:L("FNODE_LUEUR"))
+		return
+	end
+	if NodeNeedsCVars() then
+		local changed = NodeApply(on and "switched on" or "one switch off, the other still on")
+		if on then
+			print(PREFIX .. ns:L("FNODE_ON"):format(changed))
+		else
+			print(PREFIX .. ns:L("FNODE_PART_OFF"))
+		end
+	else
+		NodeRestoreSaved("switched off")
+		print(PREFIX .. ns:L("FNODE_OFF"))
+	end
+	UpdateGlow()
+end
+
+function ns.SetNodeIcon(on)
+	NodeSwitch("icon", on)
+end
+
+function ns.SetNodeGlow(on)
+	NodeSwitch("glow", on)
+end
+
+local nodeEv = CreateFrame("Frame")
+nodeEv:RegisterEvent("PLAYER_ENTERING_WORLD")
+nodeEv:RegisterEvent("PLAYER_REGEN_ENABLED")
+pcall(nodeEv.RegisterEvent, nodeEv, "PLAYER_SOFT_INTERACT_CHANGED")
+pcall(nodeEv.RegisterEvent, nodeEv, "NAME_PLATE_UNIT_ADDED")
+pcall(nodeEv.RegisterEvent, nodeEv, "NAME_PLATE_UNIT_REMOVED")
+pcall(nodeEv.RegisterEvent, nodeEv, "CVAR_UPDATE")
+nodeEv:SetScript("OnEvent", function(_, event, name, value)
+	-- Switched off during a fight: the putting back still has to happen after it, with both switches off.
+	if not (ns.IsNodeIconOn() or ns.IsNodeGlowOn()) and not (event == "PLAYER_REGEN_ENABLED" and nodeState.pending) then
+		return
+	end
+	if event == "PLAYER_ENTERING_WORLD" then
+		-- Lueur's notes say the client sets SoftTargetIconGameObject back to 0 after this event: set ours a second later.
+		C_Timer.After(1, function()
+			NodeApply("login/loading screen")
+		end)
+	elseif event == "PLAYER_REGEN_ENABLED" then
+		if nodeState.pending then
+			if NodeNeedsCVars() then
+				NodeApply("after combat")
+			else
+				NodeRestoreSaved("after combat")
+			end
+		end
+	elseif event == "CVAR_UPDATE" then
+		if type(name) == "string" and NODE_OURS[name] and tonumber(value) ~= tonumber(NODE_OURS[name])
+			and NodeNeedsCVars() then
+			nodeState.reapplied = nodeState.reapplied + 1
+			C_Timer.After(1, function()
+				NodeApply(name .. " changed by the game")
+			end)
+		end
+	else
+		UpdateGlow()
+		if event == "PLAYER_SOFT_INTERACT_CHANGED" then
+			-- GEMETEN: the nameplate came a moment after the change event; look once more.
+			C_Timer.After(0.15, UpdateGlow)
+		end
+	end
+end)
+
+local function NodeStatus()
+	local d = NodeDb() or {}
+	print(PREFIX .. ("ore and herbs: game icon %s, MH glow %s, Lueur loaded: %s (then MH stands down)."):format(
+		ns.IsNodeIconOn() and "on" or "off", ns.IsNodeGlowOn() and "on" or "off", LueurOn() and "yes" or "no"))
+	for _, r in ipairs(NODE_SET) do
+		local cur = Get(r[1])
+		print(("  %s: now %s, MH sets %s, kept from before %s"):format(r[1], cur == nil and "MISSING" or tostring(cur),
+			r[2], d.saved and d.saved[r[1]] ~= nil and tostring(d.saved[r[1]]) or "-"))
+	end
+	local fid = GetFileIDFromPath and select(2, pcall(GetFileIDFromPath, GLOW_TEX)) or "?"
+	print(("  soft target now: %s, kind %s%s, glow shown: %s, glow texture file id: %s"):format(
+		tostring(nodeState.name or "-"), tostring(nodeState.kind or "-"), nodeState.unable and " (cannot gather yet)" or "",
+		nodeState.shown and "yes" or "no", tostring(fid)))
+	print(("  preset changes seen %d, waiting for combat end: %s, last: %s"):format(nodeState.reapplied,
+		nodeState.pending and "yes" or "no", tostring(nodeState.last)))
+end
+
+--- /mh sparkle [on|off|nodes|icon on|off|glow on|off]
 function ns.ForeverLootSparkleSlash(arg)
 	arg = (arg or ""):lower()
 	if arg == "nodes" or arg == "nodes force" then
 		NodeProbe(arg == "nodes force")
+		return
+	end
+	local which, onoff = arg:match("^(%a+)%s+(%a+)$")
+	if (which == "icon" or which == "glow") and (onoff == "on" or onoff == "off") then
+		if which == "icon" then
+			ns.SetNodeIcon(onoff == "on")
+		else
+			ns.SetNodeGlow(onoff == "on")
+		end
 		return
 	end
 	if arg == "on" or arg == "off" then
@@ -454,5 +788,6 @@ function ns.ForeverLootSparkleSlash(arg)
 	print(("  applied %d time(s), preset changes seen %d, waiting for combat end: %s"):format(state.applied,
 		state.reapplied, state.pending and "yes" or "no"))
 	print("  last decision: " .. tostring(state.last))
-	print("  /mh sparkle nodes = a 30-second measurement for herbs and ore (result in MidnightHelperDB.nodeProbe).")
+	NodeStatus()
+	print("  /mh sparkle icon on|off, /mh sparkle glow on|off; /mh sparkle nodes = the 30-second measurement.")
 end

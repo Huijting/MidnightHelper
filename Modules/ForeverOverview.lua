@@ -1315,6 +1315,13 @@ local QUIET = {
 	Q("FLS_SW", "FLS_SW_DESC", {
 		get = function() return ns.IsLootSparkleOn and ns.IsLootSparkleOn() end,
 		set = function(on) if ns.SetLootSparkle then ns.SetLootSparkle(on) end end }),
+	-- 20 Nov 2026 (Rob: "ik wil beide met idd de schakelaars"): ore and herbs, the game's icon (A) and MH's glow (B).
+	Q("FNODE_ICON_SW", "FNODE_ICON_SW_DESC", {
+		get = function() return ns.IsNodeIconOn and ns.IsNodeIconOn() end,
+		set = function(on) if ns.SetNodeIcon then ns.SetNodeIcon(on) end end }),
+	Q("FNODE_GLOW_SW", "FNODE_GLOW_SW_DESC", {
+		get = function() return ns.IsNodeGlowOn and ns.IsNodeGlowOn() end,
+		set = function(on) if ns.SetNodeGlow then ns.SetNodeGlow(on) end end }),
 	Q("FBLESS_BTN_SW", "FBLESS_BTN_SW_DESC", {
 		get = function() return ns.IsForeverSmartBlessOn and ns.IsForeverSmartBlessOn() end,
 		set = function(on) if ns.SetForeverSmartBless then ns.SetForeverSmartBless(on) end end }),
