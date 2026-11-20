@@ -469,7 +469,7 @@ for k, v in pairs({
 	FCITY_SUB_BANK = "Les banquiers dans les villes de ton côté et dans les villes neutres. Le plus proche d'abord.",
 	FCITY_SUB_AUCTION = "Les hôtels des ventes de ton côté et les neutres. Le plus proche d'abord. Un hôtel des ventes neutre (Gadgetzan, Baie-du-Butin, Long-Guet) commerce aussi avec l'autre côté, mais garde 15% de la vente au lieu de 5%, et demande un dépôt plus élevé.",
 	FCITY_SUB_MAIL = "Les boîtes aux lettres dans les villes de ton côté et dans les villes neutres. La plus proche d'abord.",
-	FCITY_SUB_INN = "Les aubergistes dans les villes de ton côté et dans les villes neutres. Parle à l'un d'eux pour y lier ta Pierre de foyer. Le plus proche d'abord.",
+	FCITY_SUB_INN = "Les aubergistes de ton côté et des lieux neutres, en ville comme au village. Parle à l'un d'eux pour y lier ta Pierre de foyer. Le plus proche d'abord.",
 	FCITY_NEUTRAL_TAG = "neutre",
 	FCITY_EMPTY = "MH ne connaît aucun endroit de ce genre de ton côté.",
 	FCITY_HINT = "Endroits tirés des données WoW: Forever de Wowhead et de Zygor (17 nov. 2026). Il en manque un ? /mh vendor check montre ce que MH connaît.",

@@ -15,7 +15,7 @@ local _, ns = ...
 	  - Events PLAYER_CAMPING, PLAYER_UPDATE_RESTING, UPDATE_EXHAUSTION, LOGOUT_CANCEL exist in Forever (snapshot, GEMETEN);
 	    IsResting/GetXPExhaustion/GetRestState are called by Blizzard's Forever UI (GEMETEN), working here: AFGELEID.
 
-	Where to go: the inns MH knows (ForeverCitySpots via ns.ForeverVendorFindRows("inn"), cities only) plus every place
+	Where to go: the inns MH knows (ForeverCitySpots via ns.ForeverVendorFindRows("inn"); since 20 Nov 2026 the village inns too) plus every place
 	where IsResting() said yes for one of your characters (ns.db.foreverRestSpots, one per map + subzone) — so village
 	inns are learned by being there once. Friendly side only.
 	Seen without a command: (1) a small window when you start logging out outside a rest area (switch FREST_SW, on by

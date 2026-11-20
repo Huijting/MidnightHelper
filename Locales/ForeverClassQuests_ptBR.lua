@@ -682,7 +682,7 @@ for k, v in pairs({
 	FCITY_SUB_BANK = "Os banqueiros nas cidades da sua facção e nas cidades neutras. O mais próximo primeiro.",
 	FCITY_SUB_AUCTION = "As Casas de leilões da sua facção e as neutras. A mais próxima primeiro. Uma neutra (Geringontzan, Angra do Butim, Visteterna) também negocia com a outra facção, mas fica com 15% da venda em vez de 5% e pede um depósito maior.",
 	FCITY_SUB_MAIL = "Caixas de correio nas cidades da sua facção e nas cidades neutras. A mais próxima primeiro.",
-	FCITY_SUB_INN = "Os estalajadeiros nas cidades da sua facção e nas cidades neutras. Fale com um para que a sua Pedra de Regresso leve você para lá. O mais próximo primeiro.",
+	FCITY_SUB_INN = "Os estalajadeiros da sua facção e dos lugares neutros, em cidades e vilarejos. Fale com um para que a sua Pedra de Regresso leve você para lá. O mais próximo primeiro.",
 	FCITY_NEUTRAL_TAG = "neutro",
 	FCITY_EMPTY = "O MH não conhece nenhum lugar assim do seu lado.",
 	FCITY_HINT = "Lugares dos dados de WoW: Forever do Wowhead e do Zygor (17 nov 2026). Falta algum? /mh vendor check mostra o que o MH sabe.",

@@ -417,28 +417,22 @@ end
 -- (GEMETEN data); a city's services are the bank / auction / mail / inn / flight / transport rows near its inn, plus
 -- your class trainer. Mockup: Temp\claude\find_mockups\D_find.png.
 --------------------------------------------------------------------------------
--- The six capitals are city maps of their own; the other towns sit on a zone map, so their name comes from the client's
--- AreaTable (IDs GEMETEN in Forever DB2 AreaTable 1.60.1.70959: Booty Bay 35, Dalaran 279, Gadgetzan 976, Everlook
--- 2255, Valanaar 16638). The English name is only the fallback when C_Map.GetAreaInfo gives nothing.
+-- The six capitals are city maps of their own; every other town sits on a zone map, so its inn row carries `area` (the
+-- AreaTable id, GEMETEN in Forever DB2 1.60.1.70959) for the client's own name, and `town` as the English fallback when
+-- C_Map.GetAreaInfo gives nothing. One entry per town (Dalaran has two inns), several towns per zone map.
 local CAPITAL = { [1453] = true, [1454] = true, [1455] = true, [1456] = true, [1457] = true, [1458] = true }
-local TOWN_AREA = { [1434] = { 35, "Booty Bay" }, [1416] = { 279, "Dalaran" }, [1446] = { 976, "Gadgetzan" },
-	[1452] = { 2255, "Everlook" }, [2521] = { 16638, "Valanaar" } }
--- A city's services lie within this many yards of its inn (AFGELEID: Orgrimmar's zeppelin towers and Stormwind's
--- harbour are a few hundred yards from the inn; the next town is thousands away).
-local CITY_RADIUS = 700
+-- A town's services lie within this many yards of its inn (AFGELEID: Orgrimmar's zeppelin towers and Stormwind's
+-- harbour are a few hundred yards from the inn; a village is small, and The Barrens has three inns on one map).
+local CITY_RADIUS, TOWN_RADIUS = 700, 300
 
-local function CityName(map)
-	local t = TOWN_AREA[map]
-	if t then
-		if C_Map and C_Map.GetAreaInfo then
-			local ok, n = pcall(C_Map.GetAreaInfo, t[1])
-			if ok and type(n) == "string" and n ~= "" and not (issecretvalue and issecretvalue(n)) then
-				return n
-			end
+local function CityName(v)
+	if v.area and C_Map and C_Map.GetAreaInfo then
+		local ok, n = pcall(C_Map.GetAreaInfo, v.area)
+		if ok and type(n) == "string" and n ~= "" and not (issecretvalue and issecretvalue(n)) then
+			return n
 		end
-		return t[2]
 	end
-	return ZoneName(map)
+	return v.town or ZoneName(v.map)
 end
 
 local function Bind()
@@ -459,15 +453,16 @@ function ns.ForeverFindCities()
 	local bind = Bind()
 	local out, seen = {}, {}
 	for _, v in ipairs(ns.FOREVER_CITY_SPOTS or {}) do
-		if v.kind == "inn" and v.map and v.x and v.y and not seen[v.map] and (v.side == "both" or (side and v.side == side)) then
-			seen[v.map] = true
-			local name = CityName(v.map)
+		local key = v.area and ("a" .. v.area) or v.map -- a string for a town, so it never meets a map number
+		if v.kind == "inn" and v.map and v.x and v.y and not seen[key] and (v.side == "both" or (side and v.side == side)) then
+			seen[key] = true
+			local name = CityName(v)
 			local vc, vx, vy = World(v.map, v.x, v.y)
 			local dist
 			if pc and vc and pc == vc then
 				dist = math.sqrt((vx - px) ^ 2 + (vy - py) ^ 2)
 			end
-			out[#out + 1] = { key = v.map, map = v.map, x = v.x, y = v.y, inn = v, name = name,
+			out[#out + 1] = { key = key, map = v.map, x = v.x, y = v.y, inn = v, name = name,
 				zone = (not CAPITAL[v.map]) and ZoneName(v.map) or nil, capital = CAPITAL[v.map] == true, dist = dist,
 				hearth = bind ~= nil and bind == name, order = #out }
 			-- The Hearthstone's own name from the client (item 6948, as Rest XP does): a game name, never ours.
@@ -492,8 +487,8 @@ function ns.ForeverFindCities()
 	return out, pc ~= nil
 end
 
---- The services of one city (key = its map): rows { name, info, why, map, x, y, go }. One row per service (the one
---- nearest to you, else the one nearest to the inn); every boat / zeppelin / tram / portal stop gets its own row.
+--- The services of one town (key from ns.ForeverFindCities): rows { name, info, why, map, x, y, go }. One row per
+--- service (the one nearest to the inn); every boat / zeppelin / tram / portal stop gets its own row.
 function ns.ForeverCityServiceRows(key)
 	local city
 	for _, c in ipairs((ns.ForeverFindCities())) do
@@ -516,7 +511,7 @@ function ns.ForeverCityServiceRows(key)
 			return nil
 		end
 		local d = math.sqrt((vx - cx) ^ 2 + (vy - cy) ^ 2)
-		if d > CITY_RADIUS then
+		if d > (city.capital and CITY_RADIUS or TOWN_RADIUS) then
 			return nil
 		end
 		local mine = here and math.sqrt((vx - px) ^ 2 + (vy - py) ^ 2) or nil
@@ -536,7 +531,9 @@ function ns.ForeverCityServiceRows(key)
 				if k == "transport" then
 					rows[#rows + 1] = { e = e2, what = what, svc = c.svc, name = e.v.name or what, why = e.v.note }
 				else
-					local score = mine or d
+					-- The one nearest to THIS town's inn (not to you: in The Barrens the Crossroads flight master is nearer to
+				-- you than Ratchet's, and it is not Ratchet's).
+				local score = d
 					if not bestScore or score < bestScore then
 						best, bestScore = e2, score
 					end

@@ -727,7 +727,7 @@ for k, v in pairs({
 	FCITY_SUB_BANK = "Los banqueros de las ciudades de tu bando y de los pueblos neutrales. El más cercano primero.",
 	FCITY_SUB_AUCTION = "Las casas de subastas de tu bando y las neutrales. La más cercana primero. Una neutral (Gadgetzan, Bahía del Botín, Vista Eterna) también comercia con el otro bando, pero se queda el 15% de la venta en vez del 5%, y pide un depósito más alto.",
 	FCITY_SUB_MAIL = "Los buzones de las ciudades de tu bando y de los pueblos neutrales. El más cercano primero.",
-	FCITY_SUB_INN = "Los posaderos de las ciudades de tu bando y de los pueblos neutrales. Habla con uno para vincular allí tu Piedra de hogar. El más cercano primero.",
+	FCITY_SUB_INN = "Los posaderos de tu bando y de los lugares neutrales, en ciudades y pueblos. Habla con uno para vincular allí tu Piedra de hogar. El más cercano primero.",
 	FCITY_NEUTRAL_TAG = "neutral",
 	FCITY_EMPTY = "MH no conoce ningún lugar así en tu bando.",
 	FCITY_HINT = "Lugares de los datos de WoW: Forever de Wowhead y Zygor (17 nov 2026). ¿Falta alguno? /mh vendor check muestra lo que sabe MH.",

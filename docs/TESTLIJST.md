@@ -44,6 +44,19 @@ achternaam, "Step aside"-instelling, Your path, Set focus). Daarna vond Rob nog:
 rank-lijstje: werkt (screenshot: "You just learned", Conjure Water rank 1 -> 2 en Frost Armor rank 1 -> 2, met de knoppen
 Upgrade / Not now / Never). Afgevinkt met "(Rob, 19 nov)". De hulpregels ("typ /mh … als het niet werkt") blijven open.
 
+## 🛏️ 20 nov — Forever: alle herbergen (ook Ratchet en de dorpen)
+
+`/reload` is genoeg. Forever.
+- [ ] Find → "Which city?" → onder "OTHER TOWNS" staan nu ook dorpen, bv. Ratchet, en als Horde Razor Hill en
+      The Crossroads (Alliance: Goldshire, Lakeshire …). Dichtstbijzijnde bovenaan. Klik Ratchet: rechts Inn
+      (Innkeeper Wiley) en wat er verder in Ratchet staat, niet dat van The Crossroads.
+- [ ] Find → "What am I looking for?" → Inn: ook de dorpsherbergen, dichtstbijzijnde eerst.
+- [ ] Hearthstone in een dorp gezet (bv. Razor Hill)? Dan staat achter dat dorp "Hearthstone", en de route-regel
+      ("The way there: …") rekent met je Hearthstone naar dat dorp.
+- [ ] Rested XP-venster bij uitloggen buiten een rustplek: noemt nu ook een dorpsherberg als die het dichtst is.
+- [ ] Staat een herberg op een verkeerde plek? Zeg welke; Rog'Mar, Powderfuse Port en Farholde Keep (Riverglades)
+      zijn het minst zeker.
+
 ## 🏙️ 20 nov — Forever: Find, stap 3 ("Which city?")
 
 `/reload` is genoeg. Forever, `/mh` → tab Find.

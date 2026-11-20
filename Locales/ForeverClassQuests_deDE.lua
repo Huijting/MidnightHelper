@@ -466,7 +466,7 @@ for k, v in pairs({
 	FCITY_SUB_BANK = "Die Bankiers in den Städten deiner Seite und in den neutralen Orten. Der nächste zuerst.",
 	FCITY_SUB_AUCTION = "Die Auktionshäuser deiner Seite und die neutralen. Das nächste zuerst. Ein neutrales (Gadgetzan, Booty Bay, Everlook) handelt auch mit der anderen Seite, behält aber 15% vom Verkauf statt 5% und verlangt eine höhere Anzahlung.",
 	FCITY_SUB_MAIL = "Briefkästen in den Städten deiner Seite und in den neutralen Orten. Der nächste zuerst.",
-	FCITY_SUB_INN = "Die Gastwirte in den Städten deiner Seite und in den neutralen Orten. Sprich mit einem, um deinen Ruhestein dort zu binden. Der nächste zuerst.",
+	FCITY_SUB_INN = "Die Gastwirte deiner Seite und der neutralen Orte, in Städten und Dörfern. Sprich mit einem, um deinen Ruhestein dort zu binden. Der nächste zuerst.",
 	FCITY_NEUTRAL_TAG = "neutral",
 	FCITY_EMPTY = "MH kennt keinen solchen Ort auf deiner Seite.",
 	FCITY_HINT = "Orte aus den WoW: Forever-Daten von Wowhead und Zygor (17. Nov. 2026). Fehlt einer? /mh vendor check zeigt, was MH weiß.",

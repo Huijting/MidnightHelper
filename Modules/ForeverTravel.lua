@@ -210,7 +210,15 @@ local function BindDest()
 	end
 	-- An inn or a learned rest place with the same name (ForeverCitySpots / ForeverRestXP).
 	for _, s in ipairs(ns.FOREVER_CITY_SPOTS or {}) do
-		if s.kind == "inn" and (s.map and MapName(s.map) == bind) then
+		-- 20 Nov 2026: the village inns carry their town (area id + English name), so "bound to Ratchet" finds one too.
+		local town = s.town
+		if s.area and C_Map and C_Map.GetAreaInfo then
+			local okA, n = pcall(C_Map.GetAreaInfo, s.area)
+			if okA and type(n) == "string" and n ~= "" and not (issecretvalue and issecretvalue(n)) then
+				town = n
+			end
+		end
+		if s.kind == "inn" and s.map and (MapName(s.map) == bind or (town and town == bind)) then
 			return { s.map, s.x, s.y, "inn of " .. bind }
 		end
 	end

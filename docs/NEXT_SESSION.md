@@ -2,6 +2,20 @@
 
 ## ▶▶ VOLGENDE BOUWCHAT: Forever-overzicht "D" — stap 1 en 3 gebouwd; stap 2 wacht op Robs screenshots (20 nov, avond)
 
+🛏️ **Alle herbergen in de data (20 nov, Bouwchat 20-11 (2))** — Rob via sparring: *"Zoek online uit waar dan overal
+herbergen zijn, onder andere ook voor Richard."* (= Ratchet). `ForeverCitySpots.lua`: 40 nieuwe `kind = "inn"`-regels
+(nu 52 herbergiers, 51 plaatsen; Dalaran heeft er 2. ⚠️ Er stonden er 12, niet 14 zoals hieronder staat: GEMETEN met
+grep op `kind = "inn"`). Bron per regel: Zygor Forever `LibRover-1.0/data_inns.lua`
+(waarde) + Wowhead Forever npc-tooltip (naam, "Innkeeper", spawns), allebei GEMETEN 20 nov, alle binnen 0,4 (Aerie
+Peak 0,35). HandyNotes_WoWForever heeft GEEN herbergen (0 treffers, positieve controle 417 andere NPC-regels).
+Zygor-fout: Hammerfall had npcid 7731 → 9501 Innkeeper Adegwa (Wowhead bevestigt). Nieuwe velden `area` (AreaTable,
+GEMETEN DB2 1.60.1.70959) en `town` (Engelse terugval); UiMap-ID's GEMETEN (Riverglades 2548). Rog'Mar: geen
+AreaTable-rij onder die naam → Engelse naam. Minst zeker: Rog'Mar 58,45 en Powderfuse Port 78,8,54 (Zygor: "GET MORE
+ACCURATE COORDS LATER", Wowhead dezelfde ronde waarden). Code: `ForeverFindCities` één regel per plaats (sleutel
+"a<area>" of map), naam uit area; `ForeverCityServiceRows` kiest per soort de plek het dichtst bij DEZE herberg, straal
+700 yd hoofdstad / 300 yd dorp (AFGELEID); `ForeverTravel` BindDest vindt de herberg nu ook op dorpsnaam
+(Hearthstone-route naar een dorp). `FCITY_SUB_INN` in 7 talen: "in steden en dorpen". NIET in het spel gezien.
+
 🏙️ **Stap 3 GEBOUWD (Bouwchat 20-11 (2))** — Find kreeg "What am I looking for? | Which city?" + zoekveld. NIET in het spel
 gezien; TESTLIJST "Find, stap 3".
 - `ForeverVendors.lua`: `ns.ForeverFindCities()` = elke plaats met een herberg in ForeverCitySpots aan jouw kant (één
@@ -16,8 +30,7 @@ gezien; TESTLIJST "Find, stap 3".
   nu op 86 i.p.v. 34); `FillCityPage`; keuze in `ns.db.foreverFindMode` ("city"/nil) en `ns.db.foreverFindCity` (map);
   `ShowForeverFind(kind)` zet terug naar "what". Zoekveld filtert in beide standen (naam bevat tekst).
 - Teksten `FOV_FIND_MODE_*`, `FOV_FIND_CITY_*`, `FOV_FIND_SEARCH`: enUS, nlNL, de/fr/es/pt/ru (ForeverClassQuests_*).
-- Open: **Ratchet** staat niet in onze herbergen-data (area 392 bestaat, GEMETEN) → eerst de herberg meten, dan komt hij
-  vanzelf in de lijst. Werkt ook in de oude lay-out (schakelaar).
+- ✅ Ratchet zit er nu in (zie "Alle herbergen" hierboven). Werkt ook in de oude lay-out (schakelaar).
 
 **Robs woorden (via sparring, 20 nov):** idee: *"…ik wil naar Ogrimai. Als ik hoorde ben uiteraard. Terwijl ik helemaal
 op het andere werelddeel zit."* · Find: *"Want het is nu één lange lijst geworden, wat niet echt meer overzichtelijk
