@@ -11136,3 +11136,118 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
     binnenhaalde (o.a. `docs/forever/WAPENQUESTS_ONDERZOEK_2026-11-18.md`,
     `docs/forever/ZOEKBALK_EN_VALUTA_2026-11-18.md`). Laatste commit vóór de mijne: `aebcc6c`
     *"Nachtcontrole 2026-11-19: C1 0, C2 0 nakijken; snapshot loopt achter"*.
+- [2026-11-20] ✅ **Nul [MOET GEFIKST], en vandaag is het een echt STILLE dag: géén nieuwe build op retail, PTR
+  én Forever (alle drie eerstehands gemeten, dezelfde SHA's als gisteren), géén bewerkte API-changes-wikipagina,
+  géén nieuwe PTR-dev-notes, géén SimC-release. De enige nieuwe bron is de Forever-hotfix van 19 nov, en die
+  bevat nul UI-, addon- of API-regels. Drie forumdraden gelezen die gisteren nog open stonden; geen van de drie
+  is een API-wijziging.**
+  - 🛑 **[RAAKT ONS NIET] — er is NIETS te diffen, en dat is gemeten en niet aangenomen.** `git ls-remote` op
+    `Gethe/wow-ui-source` plus een eigen `--depth 1`-fetch per branch, met `version.txt` ernaast gelezen:
+    `refs/heads/live` = **`ab5cb850`** = `12.1.5.70961` (commit **18 nov 23:46:07 UTC**), `refs/heads/ptr` =
+    **`ea64ca56`** = `12.1.7.70986` (**18 nov 23:46:16 UTC**), `refs/heads/forever` = **`3d8abb1d`** =
+    `refs/tags/1.60.1` = **`1.60.1.70959`** (**17 nov 15:31:28 UTC**). Alle drie **exact** de SHA's en
+    buildnummers van mijn regel van gisteren; `beta` = `078d0cf7` (oud) en `ptr2` = `12380f8c` (12.1.5 70340,
+    12 okt) staan er ook nog onveranderd. Positieve controle op de meting zelf: dezelfde twee commando's zagen
+    gisteren `live` en `ptr` wél verspringen (`297d7aaa` → `ab5cb850`, `a750208e` → `ea64ca56`), en de
+    `version.txt`-lezing komt uit de objecten zelf, niet uit een pagina.
+  - 🆕 **[RAAKT ONS NIET] — de enige nieuwe build op wago.tools is `5.5.4` build **71060**, branch
+    `wow_classic`, *detected* **19 nov 22:21:03**.** Dat is MoP Classic, niet Forever en niet retail: buiten
+    ons bereik (onze twee TOC's laden `standard` resp. `camelot`). De drie branches die ons wél aangaan staan
+    stil: `wow` = 70961 (17 nov), `wowt` = 70986 (18 nov), `wowf` = 70959 (17 nov) — exact wat Gethe zegt, dus
+    de twee bronnen bevestigen elkaar. Mét cache-buster `?nocache=20261120`.
+  - 📚 **[RAAKT ONS NIET] — géén van de API-changes-wikipagina's is deze week aangeraakt.** Revisiehistorie
+    per pagina opgehaald (mét cache-buster): `Patch_12.1.7/API_changes` laatst bewerkt **16 okt 2026 22:38**
+    (Ketho), `Patch_12.1.5/API_changes` ook **16 okt 22:38**, `Patch_1.60.1/API_changes` ook **16 okt 22:38**.
+    Dat is **35 dagen** en valt ruim buiten de 7-dagenregel. De inhoud van de 12.1.7-samenvatting is
+    woordelijk dezelfde als gisteren: de GUID-obfuscatie (nog altijd *"This change will be available for
+    testing in a future build of 12.1.7"*) en de TOC-variabelenregel. `Patch_12.2.0/API_changes` geeft nog
+    steeds `CRAWL_NOT_FOUND` — vermoedelijk nog niet aangemaakt, maar dat is NIET vastgesteld; de positieve
+    controle is dat de drie andere historiepagina's in dezelfde run wél doorkwamen met echte revisieregels.
+  - 📰 **[RAAKT ONS NIET] — geen nieuwe officiële API- of PTR-notes.** De nieuwste *Midnight 12.1.7 PTR
+    Development Notes* zijn nog die van **28 okt 2026** (23 dagen, buiten de regel); de nieuwste
+    RETAIL-hotfixpagina is nog steeds *"Hotfixes: November 6, 2026"* (**14 dagen**). Blizzards eigen
+    nieuwsoverzicht en Blue Tracker bevatten in de laatste 7 dagen géén enkele API- of UI-blue post: wat er
+    staat is de Forever-hotfix van 19 nov, *"Macabre Rewards Await in Talebound"*, de Forever-podcast aflevering
+    8, *"Midnight: Echoes of the Worldcore Arrives on December 1"* (al gemeld 19 nov) en het
+    22e-verjaardagsbericht — alles content. 📅 12.1.7 blijft dus op **1 december** staan, met de GUID-obfuscatie
+    nog altijd niet testbaar: elf dagen op de klok.
+  - 💬 **[RAAKT ONS NIET] — de drie forumdraden die gisteren nog ONGELEZEN in mijn regel stonden, zijn nu
+    gelezen, en geen van de drie is een wijziging.** Zelf gelezen, mét cache-buster:
+    - `2421975` *"Can't See My Damage Anymore!"* (**19 nov 03:58**, inmiddels 6 posts): een rogue die zijn
+      floating combat text kwijt is na een scrolling-combat-text-addon, met een `SetCVar`-lijstje in post 1.
+      Het antwoord is *"Grab AdvancedInterfaceOptions it gives you a UI to configure them"* en *"Double click
+      to put it in edit mode, type, hit enter to save"* — spelersconfiguratie, geen API. Getoetst aan ons
+      (scope `Modules Locales Libs Core.lua UI.lua Config.lua`): `floatingCombatText` → **0** bestanden,
+      `enableFloatingCombatText` → **0**. `SetCVar` komt in **4** bestanden voor en élke aanroep staat achter
+      een guard én een `pcall`: `Modules/KeyBlock.lua:1128`/`:1332-1333` (`if snap.autoPush ~= nil and C_CVar
+      and C_CVar.SetCVar then`), `Modules/ForeverTrainer.lua:1591-1592` (`if C_CVar and C_CVar.SetCVar then`),
+      `Modules/CameraZoom.lua:64-67` (`if v == nil or not (C_CVar and C_CVar.SetCVar) then`) en
+      `Modules/DevShots.lua:393`/`:432` (`if SetCVar then` + `pcall`). Positieve controle in dezelfde scope:
+      `C_Timer` → 136 bestanden, `issecretvalue` → 100.
+    - `2421924` *"How can I make party member dots on the minimap appear above all other icons?"* (**19 nov
+      02:47**, 1 reactie). Het antwoord van Elvenbane-3250: *"Nope. The minimap is really locked down. Addons
+      can put things on top of it but nothing can mess with the layers or the map itself."* ⚠️ Dat is een
+      SPELER, geen blue post, en geen wijziging — maar het is wel precies het soort bewering die een idee kan
+      sneuvelen. Getoetst: MH noemt `Minimap` in **16** bestanden (o.a. `Libs/LibDBIcon-1.0.lua` met 36
+      treffers, `Modules/Rares.lua`, `Modules/Broker.lua`, `Core.lua`) maar op **géén enkele** regel staat
+      `Minimap` samen met `SetFrameLevel` of `SetFrameStrata`. Positieve controle: dat patroon vindt in
+      dezelfde scope **199** regels elders, dus het patroon werkt — we raken de minimap-lagen gewoon nergens
+      aan. **[RAAKT ONS NIET]**, en voorlopig ook geen bouwoptie.
+    - `2422822` *"Personal resource display"* (**19 nov 22:20**, 0 reacties, nieuw vandaag in de lijst): een
+      speler meldt dat de Personal Resource Display op **Forever** aan te zetten is in het Combat-tabblad,
+      maar in Edit Mode niet te verplaatsen of te vergroten. Dezelfde speler plaatste het dezelfde dag ook in
+      Technical Support (`2422305`). Geen blue reactie, dus **AFGELEID en niet GEMETEN** of dit een clientbug
+      of bedoeld gedrag is. Getoetst aan ons: `PersonalResource`, `NamePlateSelf` en `nameplateSelf` → **0**
+      treffers in `Modules`, `Core.lua` en `UI.lua`; onze negen layout-bestanden
+      (`ApplyLayout.lua`, `EditModeBackup.lua`, `ForeverLayoutCarry.lua`, `KeybindLayoutSlug.lua`,
+      `KeyboardLayoutPrototype.lua`, `LayoutConsumables.lua`, `LayoutExtras.lua`, `LayoutGrowth.lua`,
+      `LayoutWizard.lua`) raken de PRD nergens aan. **[RAAKT ONS NIET]** — maar het staat hier omdat het
+      raakt aan de open vraag wat *"Edit Mode layouts are now saved separately for each UI type"* voor
+      `Modules/ForeverLayoutCarry.lua` betekent: Edit Mode gedraagt zich op Forever hoorbaar anders dan op
+      retail, en dat is nog steeds alleen ín de client te meten.
+  - 🧩 **Forever: de hotfix van 19 nov is er, en hij bevat NUL UI-, addon- of API-regels.** Het artikel
+    *"WoW: Forever Hotfixes - November 19, 2026"* (Kaivax, post van **20 nov 04:02 UTC**, bij mijn eerste
+    lezing ~40 minuten oud) in zijn geheel gelezen: Camping (Seed Hybridizer weer aan, met kans op falen;
+    Scarce Herb Seeds niet meer bruikbaar), Paladin Retribution (Two-Handed Weapon Specialization verhoogt nu
+    álle Holy Damage met een tweehander), City of Dalaran (Shade of the Archmage despawnt niet meer), The
+    Shaper's Terrace (Vitrix' Poison Shock minder schade), twee NPC-fixes, *"Motes of Unstable Magic are now
+    soulbound"*, *"Squall-breaker's Potion can now be deleted"*, drie questfixes en Races (Skyborne
+    gold-discount op riding, Tauren Cultivation betrouwbaarder, ook op Purple Lotus). Géén `Interface`- of
+    `User Interface`-sectie, géén macro- of addonregel. ⚠️ Daarmee is dit CONTENT-werk: de klassen-,
+    prijs- en questregels horen bij `docs/CONTENT_WATCH.md` en `docs/PTR_12.0.7_DATA.md`, niet bij mij, en ik
+    doe ze hier niet over. Voor de API-kant: **[RAAKT ONS NIET]**. De Forever-client zelf staat sinds **17 nov**
+    stil (zie de buildmeting hierboven), dus er is ook geen nieuwe Forever-API om te lezen.
+  - 🧰 **SimC-addon: geen nieuwe release sinds `12.1.5-04`.** Tweemaal gemeten: `git ls-remote --tags --refs`
+    geeft **258** tags (ongewijzigd, negende dag op rij), en de releases-pagina (mét `?nocache=20261120`) heeft
+    bovenaan nog steeds `12.1.5-04`, **05 nov 22:38**, `83fdb00`, enige regel *"Handle Forever surname"*. Dat
+    is **15 dagen** oud en valt buiten de 7-dagenregel. Niets te toetsen aan `ItemString` of
+    `ns.BuildSimcProfile` in `Modules/SimcExport.lua`.
+  - 🚧 **Wat ik NIET kon lezen.** `curl` op `us.forums.blizzard.com`, `wago.tools`, `warcraft.wiki.gg` en
+    `news.blizzard.com` blijft geweigerd door de egress-proxy, dus die vier zijn via Exa gelezen — mét
+    cache-buster en als de pagina zélf, niet als samenvatting. De Forever-hotfixtekst is MEASURED via Blue
+    Tracker (`bluetracker.gg/wow/topic/eu-en/639885-…`) in plaats van via Blizzards eigen artikelpagina; de
+    tekst is daar woordelijk overgenomen en het bericht van **20 nov 04:02** staat er volledig in, maar het is
+    wel een spiegel. `Special:RecentChanges` met tagfilter op de wiki geeft nog altijd `CRAWL_NOT_FOUND`
+    (Special-namespace), dus de "welke API-pagina is deze week bewerkt"-vraag heb ik opnieuw per pagina moeten
+    doen in plaats van in één keer; ik heb daarom alleen de drie pagina's gecontroleerd die ons aangaan
+    (12.1.7, 12.1.5, 1.60.1) en kan NIET zeggen dat er nergens op de wiki een API-pagina bewerkt is.
+  - ⏳ **Nog open uit eerdere runs — ongewijzigd, NIET opnieuw gemeten vandaag.** De dode `PickupItem`-takken in
+    `Modules/KeyBlock.lua:1135`/`:1227`/`:1380` en `Modules/ApplyLayout.lua:1311`/`:1345`/`:1605`; de vijf
+    decoratieve `GetItemInfo`-terugvaltakken; de verouderde namespace-lijst in `docs/WATCHER_API_PROMPT.md`
+    (18 aug, noemt 57 namespaces en kent de twee TOC's niet); de client-test voor `/mh raidbots`;
+    `GetTimerDuration` toevoegen aan `Modules/ApiProbe.lua:377`; de `FrameStrata`-secret-vraag op
+    `Modules/PartyTargets.lua:517`; de drie `WOW_PROJECT_MAINLINE`-takken in `Libs/LibDBIcon-1.0.lua:533`/
+    `:572`/`:607` die op Forever omslaan; de ongemeten BETEKENIS van *"Edit Mode layouts are now saved
+    separately for each UI type"* voor `Modules/ForeverLayoutCarry.lua` (vandaag indirect geraakt door draad
+    `2422822`, zie hierboven); de shift-klik-taintvraag op `Modules/Achievements.lua:1561`/`:1910`; de
+    in-game-test van `ns.SelfCastMacroWarning` (`Core.lua:4318`); of `C_LegacySystem` op de Forever-client
+    bestaat en of het dezelfde Legacy-track is als die van `Modules/ForeverLegacy.lua`; en of de
+    `AllowedWhenUntainted`-verscherping van `C_Intl`/`LuaLocaleContextAPI` een voorbode is voor namespaces die
+    wij wél gebruiken. 🔴 Niets aangeraakt.
+  - 🔧 **Repo-staat: alleen `docs/API_WATCH.md` aangeraakt.** GEMETEN vóór het schrijven: `git status --short`
+    **leeg**; `HEAD` stond **opnieuw losgeslagen** (zevende keer deze week) en is met `git checkout main` weer
+    op `refs/heads/main` gezet. `git pull --rebase origin main` meldde daarbij
+    `+ abb3007...577480d main -> origin/main (forced update)` — origin/main is dus sinds gisteren
+    HERSCHREVEN, niet alleen aangevuld. ⚠️ Dat is nieuw en het is niet mijn werk; het staat hier zodat Rob het
+    ziet. Laatste commit vóór de mijne: `577480d` *"Nachtcontrole 2026-11-20: C1 0 / C2 0 nakijken, snapshot
+    repo loopt achter"* (**20 nov 03:22 UTC**).
