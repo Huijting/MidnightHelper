@@ -2164,7 +2164,72 @@ function ns:MhAccountEntryDundunIncomplete(e)
 	return EntryDundunIncomplete(e)
 end
 
+--- O14, 20 Nov 2026 (Rob via sparring: "1" on "Renown in je alt-overzicht … één regel 'Renown (hele account)'
+--- bovenaan"): renown is account-wide (warband) — GEMETEN 19 Nov in Faction DB2 12.1.5.70961: the renown factions TWW
+--- 2590/2600 and Midnight 2710 carry Flags bit 4, the per-character faction Stormwind (72) does not. So one line for the
+--- whole account, no column per character. The factions come from the client (C_MajorFactions.GetMajorFactionIDs: this
+--- expansion's renown tracks), their names in the client's language; that the others carry bit 4 too is AFGELEID.
+--- The word "Renown" is the client's own (LANDING_PAGE_RENOWN_LABEL, GEMETEN in GlobalStrings 12.1.5.70961).
+--- Returns the line and a list { name, text } for the tooltip, where `text` also says why a faction is left out.
+local function RenownSummary()
+	local parts, tip = {}, {}
+	if not (C_MajorFactions and C_MajorFactions.GetMajorFactionIDs and C_MajorFactions.GetMajorFactionData) then
+		tip[1] = { name = "?", text = ns:L("ALT_RENOWN_NODATA") }
+		return nil, tip
+	end
+	local ok, ids = pcall(C_MajorFactions.GetMajorFactionIDs)
+	if not ok or type(ids) ~= "table" or #ids == 0 then
+		tip[1] = { name = "?", text = ns:L("ALT_RENOWN_NODATA") }
+		return nil, tip
+	end
+	local rows = {}
+	for _, id in ipairs(ids) do
+		local okD, d = pcall(C_MajorFactions.GetMajorFactionData, id)
+		local name = okD and type(d) == "table" and type(d.name) == "string"
+			and (not ns.CanAccessText or ns.CanAccessText(d.name)) and d.name or ("#" .. tostring(id))
+		if not (okD and type(d) == "table") then
+			tip[#tip + 1] = { name = name, text = ns:L("ALT_RENOWN_NODATA") }
+		elseif d.isUnlocked == false then
+			tip[#tip + 1] = { name = name, text = ns:L("ALT_RENOWN_LOCKED") }
+		else
+			local lvl = tonumber(d.renownLevel)
+			if not lvl then
+				tip[#tip + 1] = { name = name, text = ns:L("ALT_RENOWN_NODATA") }
+			else
+				local maxed = false
+				if C_MajorFactions.HasMaximumRenown then
+					local okM, m = pcall(C_MajorFactions.HasMaximumRenown, id)
+					maxed = okM and m == true
+				end
+				local short = ("%s %d%s"):format(name, lvl, maxed and (" " .. ns:L("ALT_RENOWN_MAX")) or "")
+				rows[#rows + 1] = { name = name, short = short }
+				local earned = tonumber(d.renownReputationEarned)
+				local need = tonumber(d.renownLevelThreshold)
+				tip[#tip + 1] = { name = name, text = maxed and ("%d %s"):format(lvl, ns:L("ALT_RENOWN_MAX"))
+					or (earned and need and need > 0) and ("%d  (%d / %d)"):format(lvl, earned, need) or tostring(lvl) }
+			end
+		end
+	end
+	table.sort(rows, function(a, b)
+		return a.name < b.name
+	end)
+	for _, r in ipairs(rows) do
+		parts[#parts + 1] = r.short
+	end
+	local word = (type(LANDING_PAGE_RENOWN_LABEL) == "string" and LANDING_PAGE_RENOWN_LABEL ~= "") and LANDING_PAGE_RENOWN_LABEL
+		or "Renown"
+	if #parts == 0 then
+		return ns:L("ALT_RENOWN_LINE_FMT"):format(word, ns:L("ALT_RENOWN_NONE")), tip
+	end
+	return ns:L("ALT_RENOWN_LINE_FMT"):format(word, table.concat(parts, "  ·  ")), tip
+end
+
 function ns:_mhAltOverviewRefreshTexts()
+	if ui.renown then
+		local okR, line, tip = pcall(RenownSummary)
+		ui.renown:SetText(okR and line or "")
+		ui.renownTip = okR and tip or nil
+	end
 	if ui.hint then
 		ui.hint:SetText(ns:L("ALT_OVERVIEW_HINT"))
 	end
@@ -2192,10 +2257,33 @@ local function BuildAccountSnapshotHost(host)
 	ui.pageTitle:SetPoint("TOPRIGHT", host, "TOPRIGHT", -10, -10)
 	ui.pageTitle:SetJustifyH("LEFT")
 
+	-- O14 (20 Nov 2026): one line "Renown (whole account): …" right under the title; its tooltip lists every renown
+	-- faction and why one is left out (not unlocked yet / the game gave no data).
+	ui.renown = host:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+	ui.renown:SetFontObject(ns.MHScalableFont("GameFontNormal"))
+	ui.renown:SetPoint("TOPLEFT", ui.pageTitle, "BOTTOMLEFT", 0, -6)
+	ui.renown:SetPoint("TOPRIGHT", ui.pageTitle, "BOTTOMRIGHT", 0, -6)
+	ui.renown:SetJustifyH("LEFT")
+	ui.renownHit = CreateFrame("Frame", nil, host)
+	ui.renownHit:SetAllPoints(ui.renown)
+	ui.renownHit:EnableMouse(true)
+	ui.renownHit:SetScript("OnEnter", function(self)
+		GameTooltip:SetOwner(self, "ANCHOR_BOTTOMLEFT")
+		GameTooltip:SetText(ns:L("ALT_RENOWN_TIP_TITLE"), 1, 0.82, 0)
+		GameTooltip:AddLine(ns:L("ALT_RENOWN_TIP"), 1, 1, 1, true)
+		for _, t in ipairs(ui.renownTip or {}) do
+			GameTooltip:AddDoubleLine(t.name, t.text, 0.9, 0.9, 0.9, 1, 1, 1)
+		end
+		GameTooltip:Show()
+	end)
+	ui.renownHit:SetScript("OnLeave", function()
+		GameTooltip:Hide()
+	end)
+
 	ui.hint = host:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
 	ui.hint:SetFontObject(ns.MHScalableFont("GameFontDisableSmall"))
-	ui.hint:SetPoint("TOPLEFT", ui.pageTitle, "BOTTOMLEFT", 0, -6)
-	ui.hint:SetPoint("TOPRIGHT", ui.pageTitle, "BOTTOMRIGHT", 0, -6)
+	ui.hint:SetPoint("TOPLEFT", ui.renown, "BOTTOMLEFT", 0, -6)
+	ui.hint:SetPoint("TOPRIGHT", ui.renown, "BOTTOMRIGHT", 0, -6)
 	ui.hint:SetJustifyH("LEFT")
 
 	local function AnchorToolbarBelowWeekly()

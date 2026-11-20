@@ -2,6 +2,15 @@
 
 ## ▶▶ VOLGENDE BOUWCHAT: Forever-overzicht "D" — stap 1 en 3 gebouwd; stap 2 wacht op Robs screenshots (20 nov, avond)
 
+🏅 **O14 Renown in het alt-overzicht GEBOUWD (20 nov, Midnight)** — Rob via sparring: *"1"* (één regel "Renown (hele
+account)" bovenaan). `AltOverview.lua`: `RenownSummary()` uit `C_MajorFactions.GetMajorFactionIDs()` + `GetMajorFactionData`
+(+ HasMaximumRenown), namen van de client; regel `ui.renown` tussen titel en hint, tooltip (`ui.renownHit`) met elke factie
+en de reden als hij ontbreekt ("not unlocked yet" / "the game gave no data"). Woord "Renown" = client-global
+LANDING_PAGE_RENOWN_LABEL; GEMETEN per taal (GlobalStrings 12.1.5.70961): de Ruhm, fr Renom, es Renombre, esMX
+Reconocimiento (wissel in esMX.lua), pt Renome, it Fama, ru Известность. Geen kolom per character (renown = account-breed,
+bit 4 GEMETEN 19 nov voor 2590/2600/2710; voor de rest AFGELEID). Welke facties GetMajorFactionIDs zonder argument geeft
+(alleen deze uitbreiding, ook Journeys?) is NIET gemeten → Robs screenshot. NIET in het spel gezien.
+
 🎒 **Tas vol, MIDDEL stap 1 GEBOUWD (20 nov)** — Rob: *"Beide ja"* (Middel in twee stappen). `Modules/ForeverBagFull.lua`
 (beide toc's, stopt buiten Forever; WoW herstarten). Trigger: UI_ERROR_MESSAGE met ERR_INV_FULL (wat Blizzards LootFrame
 gebruikt, GEMETEN in de Forever-UI-bron), max 1×/20 s. Venster `MidnightHelperForeverBagFull` (RegisterMidnightDialogPopup):

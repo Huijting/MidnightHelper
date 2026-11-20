@@ -28,6 +28,16 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 20 nov 2026 — Midnight: Renown in het alt-overzicht
+- Tag + commit:   geen tag (commit: zie git log, "Midnight: Renown in het alt-overzicht")
+- Status:         alleen op main
+- Mag op de site: nee (in bouw, niet getest)
+- Speler ziet:    bovenaan het alt-overzicht één regel met je renown voor de hele account (elke Midnight-factie en je
+                  rang), met een tooltip per factie.
+- Knoplabels:     geen (regel `ALT_RENOWN_LINE_FMT`)
+- Commando's:     geen nieuwe
+- Spel:           Midnight
+
 ## 20 nov 2026 — Forever: Tas vol (stap 1)
 - Tag + commit:   geen tag (commit: zie git log, "Forever: Tas vol stap 1")
 - Status:         alleen op main

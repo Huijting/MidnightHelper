@@ -25144,3 +25144,53 @@ if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	FHOWTO_ROLES_ALL = "Funções",
 	FHOWTO_ROLES_FOLDED_FMT = "%s. Aperte \"Ver funções\" lá em cima para ler. O seu caminho decide qual vem primeiro.",
 }) end
+
+--========================================================================
+-- O14, 20 Nov 2026: the renown line in the alt overview (AltOverview.lua). The word Renown per client, GEMETEN in
+-- GlobalStrings LANDING_PAGE_RENOWN_LABEL (wago 12.1.5.70961): de Ruhm, fr Renom, es Renombre (esMX Reconocimiento,
+-- swapped in esMX.lua), pt Renome, it Fama. The line's first %s is that client word itself.
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
+	ALT_RENOWN_LINE_FMT = "%s (ganzer Account): %s",
+	ALT_RENOWN_NONE = "noch keine Ruhm-Fraktion freigeschaltet",
+	ALT_RENOWN_MAX = "(max.)",
+	ALT_RENOWN_TIP_TITLE = "Ruhm für deinen ganzen Account",
+	ALT_RENOWN_TIP = "Ruhm teilen alle deine Charaktere, darum steht er hier einmal und nicht pro Charakter. Jede Ruhm-Fraktion dieser Erweiterung:",
+	ALT_RENOWN_LOCKED = "noch nicht freigeschaltet",
+	ALT_RENOWN_NODATA = "das Spiel gab keine Daten",
+}) end
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
+	ALT_RENOWN_LINE_FMT = "%s (tout le compte) : %s",
+	ALT_RENOWN_NONE = "aucune faction de renom débloquée pour l'instant",
+	ALT_RENOWN_MAX = "(max)",
+	ALT_RENOWN_TIP_TITLE = "Renom pour tout ton compte",
+	ALT_RENOWN_TIP = "Le renom est partagé par tous tes personnages, il est donc affiché une seule fois ici et pas par personnage. Chaque faction de renom de cette extension :",
+	ALT_RENOWN_LOCKED = "pas encore débloquée",
+	ALT_RENOWN_NODATA = "le jeu n'a donné aucune donnée",
+}) end
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
+	ALT_RENOWN_LINE_FMT = "%s (toda la cuenta): %s",
+	ALT_RENOWN_NONE = "aún no hay ninguna facción de renombre desbloqueada",
+	ALT_RENOWN_MAX = "(máx.)",
+	ALT_RENOWN_TIP_TITLE = "Renombre para toda tu cuenta",
+	ALT_RENOWN_TIP = "El renombre lo comparten todos tus personajes, así que aparece aquí una vez y no por personaje. Cada facción de renombre de esta expansión:",
+	ALT_RENOWN_LOCKED = "aún no desbloqueada",
+	ALT_RENOWN_NODATA = "el juego no dio datos",
+}) end
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
+	ALT_RENOWN_LINE_FMT = "%s (conta inteira): %s",
+	ALT_RENOWN_NONE = "nenhuma facção de renome desbloqueada ainda",
+	ALT_RENOWN_MAX = "(máx.)",
+	ALT_RENOWN_TIP_TITLE = "Renome para a sua conta inteira",
+	ALT_RENOWN_TIP = "O renome é compartilhado por todos os seus personagens, então aparece aqui uma vez e não por personagem. Cada facção de renome desta expansão:",
+	ALT_RENOWN_LOCKED = "ainda não desbloqueada",
+	ALT_RENOWN_NODATA = "o jogo não deu dados",
+}) end
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
+	ALT_RENOWN_LINE_FMT = "%s (tutto l'account): %s",
+	ALT_RENOWN_NONE = "nessuna fazione con fama ancora sbloccata",
+	ALT_RENOWN_MAX = "(max)",
+	ALT_RENOWN_TIP_TITLE = "Fama per tutto il tuo account",
+	ALT_RENOWN_TIP = "La fama è condivisa da tutti i tuoi personaggi, quindi appare qui una volta sola e non per personaggio. Ogni fazione con fama di questa espansione:",
+	ALT_RENOWN_LOCKED = "non ancora sbloccata",
+	ALT_RENOWN_NODATA = "il gioco non ha dato dati",
+}) end

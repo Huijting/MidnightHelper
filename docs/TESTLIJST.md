@@ -48,6 +48,15 @@ achternaam, "Step aside"-instelling, Your path, Set focus). Daarna vond Rob nog:
 rank-lijstje: werkt (screenshot: "You just learned", Conjure Water rank 1 -> 2 en Frost Armor rank 1 -> 2, met de knoppen
 Upgrade / Not now / Never). Afgevinkt met "(Rob, 19 nov)". De hulpregels ("typ /mh … als het niet werkt") blijven open.
 
+## 🏅 20 nov — Midnight: Renown in je alt-overzicht (O14)
+
+`/reload` is genoeg. Midnight (retail), het alt-overzicht (Account snapshot).
+- [ ] Bovenaan, onder de titel: één regel "Renown (whole account): <factie> <rang> · …" met de renown-facties van
+      Midnight en je rang (een volle track krijgt "(max)"). Kloppen de rangen met je Renown-venster in het spel?
+- [ ] Muis op die regel: tooltip met elke factie, rang en voortgang; een factie die je nog niet hebt staat er met
+      "not unlocked yet". Screenshot.
+- [ ] Er is GEEN renown-kolom per character bijgekomen (renown is voor je hele account).
+
 ## 🎒 20 nov — Forever: Tas vol, stap 1 (idee 1)
 
 Nieuw bestand → **WoW helemaal herstarten**. Forever.

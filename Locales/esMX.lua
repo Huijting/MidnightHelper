@@ -1127,3 +1127,11 @@ for k, v in pairs(es) do
 		es[k] = (v:gsub("Mítica%+", "Mítico+"))
 	end
 end
+-- 20 Nov 2026 (O14, the renown line in the alt overview): Renown is "Reconocimiento" on esMX and "Renombre" on esES
+-- (GlobalStrings LANDING_PAGE_RENOWN_LABEL, wago 12.1.5.70961, both GEMETEN). The line's own first word comes from the
+-- client already; this swaps the word in MH's other renown texts.
+for _, k in ipairs({ "ALT_RENOWN_NONE", "ALT_RENOWN_TIP_TITLE", "ALT_RENOWN_TIP" }) do
+	if type(es[k]) == "string" then
+		es[k] = es[k]:gsub("Renombre", "Reconocimiento"):gsub("renombre", "reconocimiento")
+	end
+end

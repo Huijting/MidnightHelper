@@ -6797,6 +6797,13 @@ ns._mhLocales.nlNL = {
 
 	ALT_OVERVIEW_TITLE = "Account-snapshot",
 	ALT_OVERVIEW_HINT = "Per character opgeslagen bij login / valuta-updates.",
+	ALT_RENOWN_LINE_FMT = "%s (hele account): %s",
+	ALT_RENOWN_NONE = "nog geen renown-factie vrijgespeeld",
+	ALT_RENOWN_MAX = "(max)",
+	ALT_RENOWN_TIP_TITLE = "Renown voor je hele account",
+	ALT_RENOWN_TIP = "Renown delen al je characters, dus het staat hier één keer en niet per character. Elke renown-factie van deze uitbreiding:",
+	ALT_RENOWN_LOCKED = "nog niet vrijgespeeld",
+	ALT_RENOWN_NODATA = "het spel gaf geen gegevens",
 	ALT_OVERVIEW_EMPTY = "Nog geen characters opgeslagen — log in op elke alt met deze addon aan.",
 	ALT_OVERVIEW_YOU = "(jij)",
 	ALT_OVERVIEW_TOGGLE_HINT = "Klik om de tabel te tonen of te verbergen.",

@@ -7720,6 +7720,14 @@ ns._mhLocales.enUS = {
 	-- Account snapshot tab
 	ALT_OVERVIEW_TITLE = "Account snapshot",
 	ALT_OVERVIEW_HINT = "Saved per character on login / currency updates.",
+	-- O14, 20 Nov 2026: one renown line for the whole account. %s 1 = the client's own word "Renown".
+	ALT_RENOWN_LINE_FMT = "%s (whole account): %s",
+	ALT_RENOWN_NONE = "no renown faction unlocked yet",
+	ALT_RENOWN_MAX = "(max)",
+	ALT_RENOWN_TIP_TITLE = "Renown for your whole account",
+	ALT_RENOWN_TIP = "Renown is shared by all your characters, so it is shown once here and not per character. Every renown faction of this expansion:",
+	ALT_RENOWN_LOCKED = "not unlocked yet",
+	ALT_RENOWN_NODATA = "the game gave no data",
 	ALT_OVERVIEW_EMPTY = "No saved characters yet — log in on each alt while this addon is enabled.",
 	ALT_OVERVIEW_YOU = "(you)",
 	ALT_OVERVIEW_TOGGLE_HINT = "Click to show or hide the full table.",
