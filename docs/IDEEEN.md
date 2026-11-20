@@ -26,6 +26,30 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 
 ## Open — wacht op Rob
 
+### Tas vol: wat kan weg, wat verkopen, wat vernietigen of looten (idee van Rob, 20 nov — nog niet beoordeeld)
+- Voor wie:      allebei (AFGELEID)
+- Moment:        wanneer je tas vol zit (of bijna). AFGELEID: "inventory full"-moment of BAG_UPDATE_DELAYED; nog niet bepaald.
+- Spel:          nog niet gezegd (Midnight en Forever kunnen allebei een volle tas hebben)
+- Bron:          Rob 20 nov 2026, letterlijk (dictaat): *"Voor de ideeënlijst in mijn Midnight Helpen. Destroy and loot.
+                 Wanneer je tas vol zit, kijken wat is dan het goedkoopste. Wat is trash of wat we sowieso weg zouden
+                 gooien of verkopen. En of wat je kan looten dat beter is of meer waarde heeft."* Voorbeeld van Rob:
+                 de addon **All for One**, *"die overigens vreselijk veel opties heeft. Misschien moeten we nog eens een
+                 keertje nakijken."*
+- Wat Rob bedoelt: bij een volle tas een voorstel doen. (1) Wat is het goedkoopste om kwijt te raken? (2) Wat is trash,
+                 of wat gooien/verkopen we sowieso? (3) Als je iets kunt looten (of vernietigen), is dat dan beter of
+                 meer waard dan wat er nu in je tas ligt?
+- Bouwt op:      mogelijk `Modules/Openables.lua` (dingen openen), `BagUpgrade.lua` / `LootUpgrade.lua` (tas-blik),
+                 en voor Forever het idee H9 "kan ik dit disenchanten?" (`docs/forever/DISENCHANT_2026-11-18.md`).
+                 NIET GEMETEN of een deel hiervan al bestaat; dat meten we vóór we iets bouwen.
+- Data:          nog te meten. Verkoopprijs per item staat in het spel; wat "meer waard" is bij looten niet zonder
+                 meer (AFGELEID). Nooit zelf iets weggooien: alleen voorstellen, de speler beslist.
+- Vindbaar:      op het moment dat de tas vol raakt, niet alleen via een commando (toets 6).
+- Werk:          middel (AFGELEID)
+- Site:          nee
+- ⏳ Eerst uitzoeken: wat doet **All for One** precies, en welke van die opties zijn nuttig voor ons? (Rob: "nog eens
+                 nakijken"; niet gedaan, NIET GEMETEN. Licentie checken vóór we iets overnemen, alleen het idee, eigen code.)
+- Rob zegt:      nog niet beoordeeld (ja / nee / later)
+
 ### Midnight: de eerste blik bij openen, zoals het Forever-overzicht (GEPAUZEERD tot na za 21 nov 10:00)
 - Bron: Rob 18 nov (via Sparring 18-11), letterlijk: *"Ik denk dat we het nooit zo mooi kunnen krijgen als de forever
   versie omdat we al zoveel hebben in midnight, we pauzeren dit tot na de Claude Code reset 🙂 , wat ik juist mooi vond
