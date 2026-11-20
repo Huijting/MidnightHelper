@@ -2,6 +2,11 @@
 
 ## ▶ 20 nov — drie testpunten goedgekeurd (Rob grieperig: één stap tegelijk)
 
+⏸️ **GEPARKEERD** (Rob via sparring: *"oke, ik moet werken dus dit parkeren we, zo onderweg gaan we kijken wat we verder
+gaan doen"*). Niets nieuws beginnen. Open: (a) MH-sparkle-test met Lueur UIT; (b) Robs keuze Lueur of MH-sparkle;
+(c) ideeën 1, 2, 3, 5 en 6 van 20 nov in IDEEEN (bij 6 moet Rob zeggen welke addon hij bedoelt). Keuzes komen via de
+sparring.
+
 Rob via sparring, letterlijk: *"deze 3 zijn goed gekeurd : * het venstertje met je class-quest-stap * het lijstje "You
 just learned" na de toetsenblok-vraag * in Midnight: het kaartje "MH werkt ook in WoW Forever""*. Afgevinkt in TESTLIJST
 met "(Rob, 20 nov)". Open gelaten: de hulpregels (`/mh ranks`, `/mh new`, `/mh classquest`) en "Had je hem al
