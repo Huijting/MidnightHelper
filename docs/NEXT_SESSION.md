@@ -40,6 +40,11 @@
   `/mh travel`: per teleport waarom wel/niet, per stap de tijd, totaal + "rough". Spell/item-namen uit de client.
   NIET in het spel gezien. Eigen Hearthstone-check (WaitMin) i.p.v. die van Rest XP: die keek alleen "klaar ja/nee".
   ⏸️ 3, 4, 5 en loopkaarten niet nu (IDEEEN).
+  🔧 **Reparatie (sparring zag het, zelfde dag):** het teleport-advies stond alleen op ons pijl-label, en Rob draait
+  TomTom in Forever (GEMETEN door sparring) → nooit gezien (de 19-aug-fout). Nu ook een chatregel, één keer per doel,
+  op ELK continent: `FTRAVEL_CHAT_FIRST_FMT` "Way to X: first use your Hearthstone (about N min)." in
+  NativeArrow `AnnounceUnreachable`, dat vóór het opzij gaan voor TomTom draait (GEMETEN in de tick). En de
+  routezin in Find/Dungeons/Weapons (naast de knop) noemt de cast + tijd al.
 
 ⏸️ **(eerder) GEPARKEERD** (Rob via sparring: *"oke, ik moet werken dus dit parkeren we, zo onderweg gaan we kijken wat we verder
 gaan doen"*). Niets nieuws beginnen. Open: (a) MH-sparkle-test met Lueur UIT; (b) Robs keuze Lueur of MH-sparkle;

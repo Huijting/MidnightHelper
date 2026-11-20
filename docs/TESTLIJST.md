@@ -48,8 +48,8 @@ Upgrade / Not now / Never). Afgevinkt met "(Rob, 19 nov)". De hulpregels ("typ /
 
 `/reload` is genoeg (geen nieuw bestand).
 - [ ] Zet een pijl naar iets ver weg (bv. een trainer in een andere hoofdstad, via Find). Is je Hearthstone klaar en
-      ligt je herberg dichtbij het doel? Dan zegt het label "use your Hearthstone (about N min)", zonder richting.
-      Screenshot.
+      ligt je herberg dichtbij het doel? Dan staat in de CHAT één keer "Way to <doel>: first use your Hearthstone (about
+      N min)." — ook met TomTom aan. (Zonder TomTom zegt ook het label van onze pijl het.) Screenshot.
 - [ ] Mage/shaman/druid met een teleport (en een Rune of Teleportation voor de mage): het label zegt "cast Teleport: …"
       als dat sneller is. De spellnaam staat in jouw taal.
 - [ ] Na de teleport wijst de pijl vanaf waar je geland bent verder.

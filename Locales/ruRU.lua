@@ -6487,6 +6487,7 @@ ns._mhLocales.ruRU = {
 	FTRAVEL_CAST_FMT = "примените «%s»",
 	FTRAVEL_USE_FMT = "используйте «%s»",
 	FTRAVEL_ABOUT_FMT = "(около %d мин.)",
+	FTRAVEL_CHAT_FIRST_FMT = "Путь к цели «%s»: сначала %s.",
 	FTRAVEL_DALARAN = "Даларан",
 	FTRAVEL_RUTTHERAN = "Деревня Рут'теран",
 	FARROW_NEAR_NPC = "Вы на месте: осмотритесь, цель совсем рядом.",

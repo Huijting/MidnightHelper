@@ -5253,6 +5253,7 @@ ns._mhLocales.enUS = {
 	FTRAVEL_CAST_FMT = "cast %s",
 	FTRAVEL_USE_FMT = "use your %s",
 	FTRAVEL_ABOUT_FMT = "(about %d min)",
+	FTRAVEL_CHAT_FIRST_FMT = "Way to %s: first %s.",
 	FTRAVEL_DALARAN = "Dalaran",
 	FTRAVEL_RUTTHERAN = "Rut'theran Village",
 	FARROW_NEAR_NPC = "You're there: look around, they stand right here.",

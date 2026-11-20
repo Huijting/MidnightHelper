@@ -877,6 +877,27 @@ local function AnnounceUnreachable(t)
 		return
 	end
 
+	--- 🔴 Forever teleport first (20 Nov 2026): say it in chat, ON ANY CONTINENT. The sparring caught it the same day:
+	--- "use your Hearthstone" lived on our arrow's label, and Rob runs TomTom in Forever (GEMETEN: the addon is there),
+	--- so he would never have seen it — the rare-hint mistake of 19 Aug again. This function runs before we stand down
+	--- for TomTom (see the call below), so the line reaches him. Once per target, like the line below.
+	if ns.IS_FOREVER and ns.BuildTravelPlan then
+		local okP, steps = pcall(ns.BuildTravelPlan, t.mapID, t.x, t.y, t.name)
+		local first = okP and type(steps) == "table" and steps[1] or nil
+		if first and first.cast and first.label then
+			announcedUnreachableKey = key
+			local about = steps.totalMin and (" " .. (ns:L("FTRAVEL_ABOUT_FMT")):format(
+				math.max(1, math.floor(steps.totalMin + 0.5)))) or ""
+			local msg = (ns:L("FTRAVEL_CHAT_FIRST_FMT")):format(t.name or "?", first.label .. about)
+			if ns.PrintChat then
+				ns:PrintChat(msg)
+			else
+				print(("|cffffcc00%s|r %s"):format((ns.L and ns:L("PRINT_PREFIX")) or "MH", msg))
+			end
+			return
+		end
+	end
+
 	local pmap = C_Map and C_Map.GetBestMapForUnit and C_Map.GetBestMapForUnit("player")
 	local pc, tc = MapContinent(pmap), MapContinent(t.mapID)
 	if not (pmap and pc and tc and pc ~= tc) then
