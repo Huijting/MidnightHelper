@@ -34,6 +34,19 @@ weggeklikt" (het andere pad, niet getest). Geen nieuw werk zonder ja.
   titel en `Fit()` rekent de titelhoogte mee → schuift omlaag, overlapt niet (AFGELEID uit de code, niet in het spel
   gezien). Testregel in TESTLIJST. ⚠️ Rob zei 17 nov dat de dock-knop in Forever "nergens meer nodig" is; die is hier
   bewust NIET weggehaald (de sparring vroeg om de titel te begrenzen) — kan later.
+- ⚠️ **Loot Sparkles: nog NIET bewezen.** Rob eerst *"we hebben sparkles"* (screenshot boek), daarna *"o wacht sparkle
+  stond nog uit ?!?"* → de glinstering kwam niet van MH. TESTLIJST-regel weer open. Waarschijnlijke bron: de addon
+  **Lueur** v2.0.0 in Robs Forever-AddOns (gevonden door sparring). GEMETEN in zijn code: `Lueur/CVars.lua` beheert
+  SoftTargetInteract, SoftTargetNameplateInteract, -Range, -Arc, -OnlyInRange, -RangeIsHard, SoftTargetIconInteract,
+  SoftTargetIconGameObject, nameplateGameObjectMaxDistance (bewaart en zet terug); hij raakt GEEN outline-CVar (grep,
+  positieve controle 37 treffers) → geen CVar-botsing met MH. De cvp2-waarden zijn dus waarschijnlijk die van Lueur
+  (AFGELEID). Lueur hangt een gloed + naam + icoon aan de nameplate van het soft-target-object (`Glow.lua` ShowLabel);
+  Robs `LueurDB.showName = true` (GEMETEN in zijn SV). → Robs vraag "naam van het object erboven" doet Lueur al; MH
+  hoeft dat niet te bouwen (advies, wacht op Rob). Licentie Lueur niet gezien: alleen lezen.
+  cvp3 (Rob *"ik kreeg ok3 :)"*, gelezen door sparring): SoftTargetNameplateInteract "0", SoftTargetTooltipInteract "0",
+  SoftTargetNameplateSize "19" — bestaan alle drie; UnitName("softinteract") = nil (misschien keek hij er niet naar).
+  ⚠️ Lueur zet SoftTargetNameplateInteract zelf aan/uit (`SetGate`, exclusieve stand) → een handmatige 1 kan door
+  Lueur worden overschreven (AFGELEID uit zijn code).
 - 🧹 **"Dock to window" weg uit ALLE Forever-vensters** (Rob via sparring: *"ja haal ze maar uit alle forerver
   vensters"*). Centraal: `DialogPopup.lua` `RegisterMidnightDialogPopup` roept `AttachDockButton` alleen aan als
   `not ns.IS_FOREVER` (GEMETEN: de enige plek die de knop maakt). Midnight ongewijzigd. Titels die aan `_mhDockBtn`

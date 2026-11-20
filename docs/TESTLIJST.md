@@ -57,7 +57,9 @@ Upgrade / Not now / Never). Afgevinkt met "(Rob, 19 nov)". De hulpregels ("typ /
 ⚠️ **Nieuw bestand: sluit WoW helemaal af en start opnieuw** (`/reload` is niet genoeg).
 - [ ] Zet het aan: Overzicht → tandwiel → Quiet helpers → "Quest items sparkle instead of an outline" (of `/mh sparkle
       on`). In de chat: "quest items sparkle: on … (N setting(s) changed)".
-- [ ] Loop naar een questitem dat je kunt looten: het glinstert, zonder rand. Screenshot.
+- [ ] Loop naar een questitem dat je kunt looten: het glinstert, zonder rand. Screenshot. (Rob, 20 nov: eerst *"we
+      hebben sparkles"*, daarna *"o wacht sparkle stond nog uit ?!?"* — die glinstering kwam NIET van MH, waarschijnlijk
+      van de addon Lueur. Opnieuw testen met MH-sparkle AAN.)
 - [ ] Ook kruiden en erts? Die doet MH (nog) NIET. Zeg wel wat je ziet.
 - [ ] Kies in de grafische instellingen een andere preset: na ongeveer een seconde is de rand weer weg.
 - [ ] Zet het uit: in de chat "your old settings are back". Komt de rand terug? Zo niet: WoW herstarten, en dan wel?
