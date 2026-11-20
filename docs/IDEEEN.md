@@ -26,6 +26,19 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 
 ## Open — wacht op Rob
 
+### Forever een eigen CurseForge-project (optie B) (vraag van Rob, 20 nov) — ⏸️ LATER / NEE VOOR NU
+- Bron: Rob 20 nov via sparring, letterlijk: *"Even een vraag... word het niet tijd on de addon te splitsen in addons ??
+  Hij lijkt me zo erg groot te worden... en midnight helper zal voor veel mensen nog als een midnight addon zien... of
+  heb jij een beter / slimmer idee ?"* → opties A (zo laten) / B (tweede CF-project, één repo) / C (opknippen); B
+  uitgezocht. Besluit, letterlijk: *"We houden het nog zoals nu"*. Niets veranderd aan release.yml of de toc's.
+- Onderzoek (20 nov): GEMETEN in packager@v2 release.sh: `-p <curse-id>` (ander CF-project), `-a <wago-id>` / `-a 0`,
+  `-m <pkgmeta>`. release.yml heeft al twee stappen (`-g retail`, `-g forever`), allebei naar 1528577. B = de
+  Forever-stap `-p <nieuw ID>`, een tijd ook nog naar het oude project (bestaande installs volgen het oude project,
+  AFGELEID; CF heeft geen verhuisknop), melding in het spel. Rob: CF-project aanmaken (goedkeuring CF, AFGELEID).
+  Map MOET MidnightHelper blijven (GEMETEN: toc-namen, SavedVariables MidnightHelperDB, 12 paden in 7 bestanden).
+  Titel in de addonlijst is al "Midnight Helper Forever" (GEMETEN). Site: Forever-knop naar het nieuwe adres.
+- Spel: F. Site: nee.
+
 ### Forever: Find overzichtelijker + een lijst "Steden" (één klik = route) (idee van Rob, 20 nov) — ✅ JA (ontwerp)
 - Bron: Rob 20 nov via sparring, letterlijk: *"Stel je voor, ik zit in het ene gebied en ik wil helemaal naar het andere
   gebied. Kan ik dan gewoon een knop indrukken en zetten, oké, ik wil naar Ogrimai. Als ik hoorde ben uiteraard. Terwijl
