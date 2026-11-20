@@ -5090,3 +5090,76 @@ kop, per bevinding MEASURED/INFERRED en [RAAKT ONS]/[RAAKT ONS NIET], met bestan
   https://news.blizzard.com/en-us/article/24315281/wow-forever-hotfixes-november-17-2026?nocache=20261119c
   (alle rechtstreeks via Exa gelezen, laatste ook via web_search_exa als onafhankelijke controle).
   Vandaag is donderdag, geen maandag: de kaarten- en consumables-secties zijn opzettelijk weggelaten.
+
+- [2026-11-20] 💬 **CurseForge: geen open reacties (3 draadjes, 8 totaal, identiek aan [2026-11-19]).**
+  `curseforge.com/api/v1/mods/1528577/comments?pageIndex=0&pageSize=20&nocache=20261120a` (en `/b`), twee
+  fetches via Exa, volledig gelezen (JSON, `pagination.totalCount: 8`). Dezelfde drie draadjes als
+  gisteren, allemaal beantwoord (nieuwste bericht in elke keten van `twelveinchy`): esES/esMX-locale-fix
+  `8509224` → reply `8510682`; MrsBoojiePanda's debug-printregel `8414729` → reply `8483898`;
+  gadrinonturalyon's coffer-key-shards/3D-boss-model-verzoek `8090710` → reply-keten tot
+  `8095337`/`8092133` — alle ids en timestamps byte-identiek aan [2026-11-19]. MEASURED. **[RAAKT ONS
+  NIET]** — geen actiepunt, geen concept-antwoord nodig.
+
+  — bron: https://www.curseforge.com/api/v1/mods/1528577/comments?pageIndex=0&pageSize=20&nocache=20261120a/b,
+  zelf gelezen via Exa.
+
+- [2026-11-20] 🆕 **Midnight blijft stil (15e dag, nog steeds "November 6, 2026"); Forever heeft een
+  nieuwe sectie (17 nov → 19 nov) maar niets daarin raakt wat onze Forever-modules beweren.**
+
+  **Midnight, geen nieuwe sectie.** MEASURED, zelf gelezen via Exa (`?nocache=20261120a`):
+  `news.blizzard.com/en-us/article/24307310/hotfixes-november-6-2026` toont nog steeds alleen de secties
+  van 6 en 5 nov (Vashnik/Ula'tek-tuning resp. Tortollan-naam + Shadowguard Point + Venomous
+  Abyss-tuning), allebei al verwerkt op [2026-11-06]/[2026-11-07], inclusief het nog openstaande
+  [RAAKT ONS]-punt daar (Iku/Nama → Epu/Nema in `Locales/RaidTips.lua` e.a. — niet opnieuw als nieuwe
+  bevinding geteld). **Positieve controle, zelfde run:** `worldofwarcraft.blizzard.com/en-us/content-update-notes`
+  (zelfde cache-buster) zegt nu **"13 days ago"** bij die Nov 6-sectie — gepubliceerd 7 nov, dus 7+13=20,
+  precies vandaag; geen verstikte cache. Geen nieuwe Delves-, Professions-, Quests- of Items-regel sinds
+  [2026-11-06]/[2026-11-07].
+
+  **Forever: nieuwe sectie "November 19, 2026".** MEASURED, zelf gelezen via Exa
+  (`news.blizzard.com/en-us/article/24315281/wow-forever-hotfixes-november-19-2026?nocache=20261120d`, en
+  onafhankelijk via `web_search_exa` + het forumbericht van Kaivax dat dezelfde tekst citeert — geen
+  verstikte cache, dit is strikt nieuwer dan de "November 17, 2026"-sectie uit [2026-11-18]/[2026-11-19]).
+  Per item tegen de code gezet (grep over heel `Modules/` en `Locales/`, niet alleen de voor-de-hand-liggende
+  bestanden):
+  - Camping/Seed Hybridizer, Items/Motes of Unstable Magic + Squall-breaker's Potion, Enemies and
+    NPCs/Silithid Hive Drone, Quests/Rix Xizzix + Ensorcelled Parchment + Hunting for Ectoplasm: **0
+    treffers** in `Modules/` of `Locales/` — niets van ons noemt deze dingen. Positieve controle in
+    dezelfde run: hetzelfde patroon vindt wél "Mosh" (zie hieronder) en "Zephras" (vendor-NPC's in
+    `ForeverVendorSpots.lua`), dus het zoekpatroon treft waar iets wél staat.
+  - **Dungeons/City of Dalaran — Shade of the Archmage** (despawnt niet meer meteen bij combat):
+    `Modules/ForeverDungeonGuideData.lua:497-499` heeft deze boss (npc 246020, encounter 3303) met tips
+    `FDG_DAL_8_D1/D2/D3` + `FDG_DAL_8_T` over portaal/bol/mana-cyclus/spreiden/afstand/reset — geen
+    daarvan beweert iets over despawnen bij combat-entry. MEASURED: geen tegenspraak.
+  - **Dungeons/The Shaper's Terrace — Vitrix's Poison Shock** (minder schade): `Modules/ForeverDungeonGuideData.lua:1656-1661`
+    (npc 272561, encounter 3600) + `Locales/enUS.lua:6224-6226`: onze tip zegt al generiek "its poison
+    hurts melee players" (`FDG_SHAPER_10_D2`), zonder getal. Een schade-tuning op een mechaniek die we
+    al zonder cijfer beschrijven is geen tegenspraak — de waarschuwing blijft waar. MEASURED, [RAAKT ONS
+    NIET].
+  - **Classes/Paladin Retribution — Two-Handed Weapon Specialization** (werkt nu correct op alle Holy
+    damage): `Modules/ForeverHowToPlay.lua:1038` noemt alleen dat dit talent op level 25 komt, zonder te
+    zeggen wat het doet. Geen tegenspraak. MEASURED.
+  - **Enemies and NPCs/Riverglades — Mosh'gra droppet weer rare loot**: `Modules/ForeverRaresAll.lua:414`
+    heeft deze rare (npc 259801, map 2548, level 41) als locatie-entry, geen lootbewering. Geen
+    tegenspraak; bevestigt wel dat we de juiste rare al hebben. MEASURED.
+  - **Races/Skyborne — Honored-korting op Riding bij Genn Fairweather, Zephras Isle**: 0 treffers op
+    "Genn Fairweather" of een riding-trainerlijst in `Modules/`/`Locales/` — we hebben geen
+    riding-trainerdata, dus geen tegenspraak mogelijk. MEASURED (afwezigheid bevestigd met dezelfde
+    positieve controle als hierboven: "Zephras" vindt wél de bestaande vendor-entries op dat eiland in
+    `ForeverVendorSpots.lua`, dus het patroon mist deze NPC niet door een zoekfout).
+  - **Races/Tauren — Cultivation werkt nu betrouwbaarder (ook met Purple Lotus)**: dit is de Herbalism-
+    vaardigheid, niet de gelijknamige Shaman-HoT-talent in `ForeverBlock_Shaman.lua:59` (zelfde naam,
+    ander spel-object — expliciet uit elkaar gehouden om geen valse match te melden). Onze Herbalism-
+    data (`Modules/ForeverProfTrainerSpots.lua`, trainers) noemt Cultivation zelf nergens; geen
+    tegenspraak. MEASURED.
+
+  **[RAAKT ONS NIET]** voor alle bovenstaande — geen actiepunt, een mens beslist als hij het toch anders
+  wil.
+
+  — bron: https://news.blizzard.com/en-us/article/24307310/hotfixes-november-6-2026?nocache=20261120a ·
+  https://worldofwarcraft.blizzard.com/en-us/content-update-notes?nocache=20261120a ·
+  https://news.blizzard.com/en-us/feed/world-of-warcraft?nocache=20261120a ·
+  https://news.blizzard.com/en-us/article/24315281/wow-forever-hotfixes-november-19-2026?nocache=20261120d
+  (alle rechtstreeks via Exa gelezen, laatste ook via web_search_exa en het forum-citaat als
+  onafhankelijke controle). Vandaag is vrijdag, geen maandag: de kaarten- en consumables-secties zijn
+  opzettelijk weggelaten.
