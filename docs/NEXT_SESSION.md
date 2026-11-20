@@ -16,6 +16,11 @@ ingrediënt (beste recept nu). Venster `MidnightHelperForeverSkillup` (RegisterM
 skillup_test.lua, stubs): stap/lijst/tooltips kloppen. NIET in het spel gezien. **Eerst Robs `/mh skillup probe`**:
 geeft de client zelf de receptkleur, dan kan MH die tonen i.p.v. uitrekenen. Teksten 7 talen (de/fr/es/pt/ru zelf
 vertaald, niet nagekeken). GROOT (geld, Auctionator, route tot 300) = later (IDEEEN).
+✏️ **Vertaalfixes Skill up (zelfde dag)** — nagekeken door een mh-research-helper van de sparring (Forever GlobalStrings
+1.60.1.70959). ptBR: "habilidade" → "perícia" (client SKILL = Perícia, zelf nagemeten) in FSKILL_* + 4 oudere
+beroeps-regels (FOV_TIP_CARD_FIND, FOV_TIP_TAB_PROFS, FOV_TIP_CARD_PROFS, FOV_PROF_SKILL_UNKNOWN), "profissão de
+criação", "dicas de tela". frFR "ne donne plus", "infobulles", %d%%. ruRU «namen», "с %d до %d", TIP_YOU/REAGENT
+herschreven. deDE "Handwerksberuf", "das Fenster für %s", kleuren met hoofdletter. es/nl kleine stijlpunten.
 
 🛏️ **Alle herbergen in de data (20 nov, Bouwchat 20-11 (2))** — Rob via sparring: *"Zoek online uit waar dan overal
 herbergen zijn, onder andere ook voor Richard."* (= Ratchet). `ForeverCitySpots.lua`: 40 nieuwe `kind = "inn"`-regels
