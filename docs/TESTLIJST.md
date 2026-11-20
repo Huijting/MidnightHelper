@@ -52,7 +52,7 @@ Upgrade / Not now / Never). Afgevinkt met "(Rob, 19 nov)". De hulpregels ("typ /
 - [ ] Staat Thanks for the Buff aan? Dan doet MH niets (anders bedank je dubbel). Zet TFTB voor deze test even uit.
 - [x] **Meting 1:** target een vriendelijke speler en typ `/mh thanks test`. In de chat staat "You thank <naam>." Screenshot.
       (Rob, 20 nov: *"thaanks test werkt ook"*)
-- [ ] **Meting 2:** laat je door een vreemde buffen (buiten je groep, buiten een gevecht, buiten een dungeon). Er komt
+- [x] (Rob, 20 nov: *"dit was een echte speler 🙂"* / *"en ja ik kreeg de buff van een echte speler zelf"*) **Meting 2:** laat je door een vreemde buffen (buiten je groep, buiten een gevecht, buiten een dungeon). Er komt
       "You thank <naam>." Typ daarna `/mh thanks`: de regel "last decision" zegt wat MH zag. Screenshot.
 - [ ] Dezelfde speler buft je nog eens binnen 5 minuten: geen tweede bedankje. Na 5 minuten wel weer (sinds 20 nov;
       was 1 uur). `/mh thanks` zegt dan "already thanked <naam> N min ago".

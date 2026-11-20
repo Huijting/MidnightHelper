@@ -12,6 +12,10 @@ weggeklikt" (het andere pad, niet getest). Geen nieuw werk zonder ja.
 - **ThanksBuff-pauze 1 uur → 5 minuten** (Rob via sparring: *"zet die uur maar naar 5 minuten"*): `COOLDOWN = 300`
   in `ThanksBuff.lua`; `SET_THANKS_DESC` in 7 talen + ruRU ("once every 5 minutes"); TESTLIJST-regel mee. De extra
   TFTB-functies (wave e.d.) legt de sparring Rob eerst voor: NIET aan begonnen.
+- **ThanksBuff meting 2 GOED** (Rob: *"dit was een echte speler 🙂"*, *"en ja ik kreeg de buff van een echte speler
+  zelf"*): de gever van een vreemde buff is leesbaar en de emote komt aan. Pauze blijft 5 minuten (*"nee 5 minuten"*).
+  Extra TFTB-functies NEE (*"nah, vergeet die thanks verder maar, we houden het zo, sorry"*; in IDEEEN). Open: geen
+  tweede bedankje binnen de pauze, TFTB-regel, "kwam er niets?".
 
 ## 🔴 Fable-afspraak — vanaf za 21 nov (na de reset) één week proef
 

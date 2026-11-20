@@ -217,6 +217,9 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 - Gebouwd: `Modules/ThanksBuff.lua` (beide spellen, NIEUW bestand → spel helemaal herstarten). Schakelaar standaard UIT
   (Midnight-instellingen `mh_thanksBuff` + Quiet helpers in Forever), `/mh thanks on|off|test`. Zwijgt als TFTB geladen
   is. TFTB-licentie: GEMETEN geen LICENSE-bestand en niets in de README → alleen het idee/de API-aanpak, eigen code.
+- 20 nov: pauze per speler 1 uur → 5 minuten (Rob via sparring: *"zet die uur maar naar 5 minuten"*; 339bc8e).
+- ❌ **Extra TFTB-functies NEE** (zwaaien, fluisteren, knop, Good News). Rob 20 nov via sparring, letterlijk: *"nah,
+  vergeet die thanks verder maar, we houden het zo, sorry"*. Niet opnieuw voorstellen.
 - Hieronder het onderzoek van 17 nov (ongewijzigd).
 - Bron: Rob 17 nov (via Sparring 17-11), letterlijk: *"Wat me opvalt is, als ik sommige mensen een buff geef tijdens het
   passeren, dan bedanken ze me direct. Is dat een auto-reply of een iets? ... Kan je dat voor mij nakijken? Dat ik dat
