@@ -95,6 +95,66 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 - Site:          nee
 - Rob zegt:      nog niet beoordeeld (ja / nee / later)
 
+### Forever: Loot Sparkles — questitems, kruiden en erts laten glinsteren (idee van Rob, 20 nov — Rob vindt dit interessant)
+- Voor wie:      allebei (AFGELEID: nieuwelingen missen questitems, veteranen kunnen er hinder van hebben)
+- Moment:        bij het inloggen en na een wissel van grafische instelling (zie "Hoe de addon het doet")
+- Spel:          Forever
+- Bron:          Rob 20 nov 2026, letterlijk (dictaat): *"Forever Loot Sparkle is er nog een. ... Zoek allebei ook maar uit
+                 wat het precies is. Vooral die Sparkle die vind ik wel interessant."*
+- UITGEZOCHT (20 nov, web, NIET in het spel gecontroleerd): de addon heet **Forever Loot Sparkles** (auteur conoar,
+                 GPLv3, voor Forever 1.60.1, bijgewerkt 21 okt 2026, ~60.000 downloads):
+                 https://www.curseforge.com/wow/addons/forever-loot-sparkles
+                 Icy Veins schreef erover: https://www.icy-veins.com/wow-forever/news/cant-find-that-quest-item-this-addon-puts-the-sparkle-back-in-wow-forever/
+- Wat hij doet:  Forever toont lootbare questitems door een uitlijning (outline mode) in plaats van de glinstering. De addon
+                 zet de glinstering weer aan. Een grafische preset zet de uitlijning terug aan, dus de addon merkt dat en
+                 zet het ongeveer een seconde later weer goed. Hij wacht tot na een gevecht. Optioneel: kruiden en
+                 ertsaders laten glinsteren met het verzamelicoon erboven, en questobjecten (die laatste standaard uit).
+                 Alles aan en uit te zetten onder Esc > Opties > AddOns.
+- Hoe hij het doet: via CVars. Volgens de pagina: `outlineModeShowLootEffectWhenDisabled` = 1 plus `graphicsOutlineMode`,
+                 `OutlineEngineMode`, `raidGraphicsOutlineMode` en `RAIDOutlineEngineMode` = 0; voor kruiden en erts
+                 meerdere `SoftTargetInteract*` en `SoftTargetIcon*`. De addon bewaart de oude waarden en zet ze terug.
+                 ⚠️ Uitzetten vraagt een volledige herstart van het spel, en de addon uitzetten zet de CVars niet terug
+                 (staat op de pagina). Deze namen komen van de addon-pagina: KANDIDATEN, geen bewijs. Meten in de client.
+- Wat er al is: GEMETEN in de code (20 nov): `Modules/FpsPanel.lua:50` kent al `graphicsOutlineMode` en
+                 `raidGraphicsOutlineMode` (uitlijning als FPS-instelling). Geen glinstering-functie gevonden. Dit botst of
+                 werkt samen met het FPS-paneel, dat moet eerst nagekeken worden. Elders zetten we al CVars
+                 (`KeyBlock.lua`, `ForeverTrainer.lua`), dus het patroon bestaat, mét bewaren en terugzetten.
+- Licentie:      GPLv3, wij zijn MIT: dus alleen het idee en het meten van de CVars, geen code kopiëren.
+- Bouwt op:      `FpsPanel.lua` en het instellingenvenster; zelfde bewaren/terugzetten als `KeyBlock.lua`
+- Data:          nog te meten in Forever: bestaan de CVars echt, en wat doet elk? Niets raden.
+- Vindbaar:      één schakelaar in de instellingen, en liefst een tip bij een nieuw Forever-karakter (toets 6)
+- Werk:          klein tot middel (AFGELEID), vooral meten
+- Site:          misschien (nieuwe functie), `docs/SITE_SEIN.md`
+- Rob zegt:      nog niet beoordeeld (ja / nee / later)
+
+### Forever: Layer Swap — zien op welke layer je zit en wisselen (idee van Rob, 20 nov — nog niet beoordeeld)
+- Voor wie:      veteraan en nieuweling (AFGELEID)
+- Moment:        als een zone druk is of je met vrienden op dezelfde layer wilt
+- Spel:          Forever (de addon werkt ook op Classic Era en TBC Anniversary)
+- Bron:          Rob 20 nov 2026, letterlijk: *"En Layer Swap. Zoek allebei ook maar uit wat het precies is."* Rob noemt
+                 geen schrijver. AFGELEID dat hij **Layer-Swap** (Adam5288) bedoelt; er zijn meer addons met bijna dezelfde
+                 naam, zie "Andere addons".
+- UITGEZOCHT (20 nov, web, NIET in het spel gecontroleerd): **Layer-Swap** v2.5.6, All Rights Reserved, bijgewerkt
+                 21 okt 2026, ~43.300 downloads: https://www.curseforge.com/wow/addons/layer
+- Wat hij doet: toont op welke layer (server-kopie van de wereld) je zit, onthoudt layers waar je was, en laat je met één
+                 klik een wissel vragen. Je kunt ook zelf wisselingen hosten voor anderen.
+- Hoe hij het doet: de layer wordt afgelezen uit NPC's bij je in de buurt (aanwijzen of selecteren). Je vraag gaat naar het
+                 kanaal `layer` met je zone en layer. Een host op een andere layer nodigt je uit; als je accepteert zit je
+                 in zijn groep en op zijn layer. Doet de host het niet, dan verlaat de addon de groep en kun je opnieuw
+                 vragen. Hosten nodigt alleen uit als je alleen bent of een eigen groep leidt.
+- Andere addons: Abatti's Layer Swap, Forever Layer Hop (laat je zien welke layers een host hebben), GuildLayers (via gilde).
+- Licentie:      All Rights Reserved: NIETS overnemen, alleen het idee.
+- Hoort het bij MH? Twijfel (AFGELEID, geen meting): dit is een andere soort addon dan wegwijzers en planning. Het werkt alleen
+                 als er anderen met een host-addon zijn, en het raakt chat en uitnodigingen (net als O6 "snelle chatregels",
+                 waar de vraag was of chat in 12.x/Forever het toelaat). Er is al een aparte addon voor, met veel downloads.
+                 Wel mogelijk: alleen "op welke layer zit ik" als kleine regel, zonder swap. NIET onderzocht.
+- Bouwt op:      niets dat we al hebben (GEMETEN: niets over layers in `Modules/`)
+- Data:          nog te meten (hoe Forever layers aan NPC-GUID's koppelt)
+- Vindbaar:      nog niet bepaald
+- Werk:          groot als swap, klein als alleen weergave (AFGELEID)
+- Site:          nee
+- Rob zegt:      nog niet beoordeeld (ja / nee / later)
+
 ### Midnight: de eerste blik bij openen, zoals het Forever-overzicht (GEPAUZEERD tot na za 21 nov 10:00)
 - Bron: Rob 18 nov (via Sparring 18-11), letterlijk: *"Ik denk dat we het nooit zo mooi kunnen krijgen als de forever
   versie omdat we al zoveel hebben in midnight, we pauzeren dit tot na de Claude Code reset 🙂 , wat ik juist mooi vond
