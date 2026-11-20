@@ -2,7 +2,31 @@
 
 ## ▶ 20 nov — drie testpunten goedgekeurd (Rob grieperig: één stap tegelijk)
 
-⏸️ **GEPARKEERD** (Rob via sparring: *"oke, ik moet werken dus dit parkeren we, zo onderweg gaan we kijken wat we verder
+▶ **Rob onderweg: *"Laten we doorgaan met REST XP, shortest path. En dan kijken we wel weer verder."***
+- 😴 **Rest XP GEBOUWD** (`Modules/ForeverRestXP.lua`, NIEUW, beide toc's, alleen Forever → WoW herstarten). Feiten uit
+  twee onafhankelijke mh-research-runs (Fable uit), het eens over de kern:
+  rustplekken = herbergen + hoofdsteden (Blizzard GlobalStrings NEWBIE_TOOLTIP_XPBAR "logging out at an inn or city",
+  GEMETEN); AreaTable Flags_0 0x20 op de zes hoofdsteden (+ Gallows' End Tavern, Hall of Legends, Champions' Hall,
+  Stormwind Harbor), GEMETEN DB2 1.60.1.70959; herbergen zitten NIET in clientdata (server-areatriggers) → `IsResting()`
+  is de waarheid. 5%/8 u, max 150% (gidsen); buiten een rustplek langzamer (alleen kleinere gidsen: "een kwart") →
+  tekst zegt "more slowly". In een rustplek log je direct uit, daarbuiten 20 s (gidsen) → `PLAYER_CAMPING` = "uitloggen
+  buiten een rustplek". Events PLAYER_CAMPING/PLAYER_UPDATE_RESTING/UPDATE_EXHAUSTION/LOGOUT_CANCEL in de
+  Forever-snapshot (GEMETEN); IsResting/GetXPExhaustion/GetRestState in Blizzards Forever-UI (GEMETEN), werking AFGELEID.
+  Gebouwd: venster "Rested XP" bij PLAYER_CAMPING als je niet rust en niet max bent (nee-rust-zin, Hearthstone-zin als
+  hij klaar is + `GetBindLocation`, dichtstbijzijnde plek + Show the way); weg bij LOGOUT_CANCEL of als je gaat rusten.
+  Plekken = de 14 stadsherbergen (`ns.ForeverVendorFindRows("inn")`) + elke plek waar `IsResting()` ja zei
+  (`ns.db.foreverRestSpots`, per map+subzone, met factie). Regel in de XP-tooltip van het overzicht. `/mh rest [go]`.
+  Schakelaar `FREST_SW` (Quiet helpers), standaard AAN. Woorden per taal GEMETEN uit dezelfde GlobalStrings (de
+  Gasthaus/Stadt/erholt, fr auberge/ville/reposé, es posada/ciudad/descansado, pt estalagem/cidade, ru таверна/город/
+  бодр; it locanda/capitale uit retail — Forever geeft voor itIT Engels). Hearthstone-naam komt uit de client;
+  ItemSparse 6948 GEMETEN: Ruhestein / Pierre de foyer / Piedra de hogar / Pedra de Regresso / Камень возвращения.
+  Licenties: Fennick Rest PolyForm (geen open source), RestedAlts MIT → alleen het idee. NIET in het spel gezien.
+  Niet gedaan: dorpsherbergen als vaste data (MH leert ze), sleeping bag/tent (bronnen oneens).
+- 🗺️ **Shortest Path uitgezocht** (advies naar sparring): in Forever laadt alleen `ForeverTravel.lua` (GEMETEN in de
+  toc's) — geen vluchten, Hearthstone of class-teleports in de route. Advies: 1 Hearthstone + class-teleports (middel),
+  2 tijd per stap, 3 gevaar-straf, 4 vluchten (groot), 5 boottijden; geen collision maps. Wacht op Robs keuze.
+
+⏸️ **(eerder) GEPARKEERD** (Rob via sparring: *"oke, ik moet werken dus dit parkeren we, zo onderweg gaan we kijken wat we verder
 gaan doen"*). Niets nieuws beginnen. Open: (a) MH-sparkle-test met Lueur UIT; (b) Robs keuze Lueur of MH-sparkle;
 (c) ideeën 1, 2, 3, 5 en 6 van 20 nov in IDEEEN (bij 6 moet Rob zeggen welke addon hij bedoelt). Keuzes komen via de
 sparring.

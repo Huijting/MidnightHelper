@@ -217,6 +217,8 @@ Modules\CameraZoom.lua
 Modules\ThanksBuff.lua
 # Quest items sparkle again instead of an outline (Rob, 20 Nov 2026, via sparring: "en begin met 4, loot sparkles :)").
 Modules\ForeverLootSparkle.lua
+# Log out where rested XP builds: nearest inn + Hearthstone tip (Rob, 20 Nov 2026, via sparring: "doorgaan met REST XP").
+Modules\ForeverRestXP.lua
 # Tooltip lines "never for your class" + "needed for a quest in your log" (Rob, 16 Nov 2026, via sparring: "allemaal").
 Modules\ForeverItemTips.lua
 # Class quests step by step, first the Druid's Bear Form (Rob, 16 Nov 2026, via sparring).

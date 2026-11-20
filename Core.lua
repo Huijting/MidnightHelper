@@ -1538,6 +1538,16 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh rest [go] — Forever: where rested XP builds, the nearest inn (ForeverRestXP.lua, 20 Nov 2026).
+	if msg == "rest" or msg == "rest go" then
+		if ns.ForeverRestSlash then
+			ns.ForeverRestSlash(msg:match("^rest%s+(%a+)$"))
+		else
+			print("|cffffcc00Midnight Helper:|r the rested XP tip is for WoW Forever only.")
+		end
+		return
+	end
+
 	-- /mh sparkle [on|off] — Forever: quest items sparkle instead of an outline (ForeverLootSparkle.lua, 20 Nov 2026).
 	local sparkleArg = msg:match("^sparkle%s*(.*)$")
 	if sparkleArg then

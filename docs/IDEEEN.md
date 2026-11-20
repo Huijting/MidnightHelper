@@ -88,7 +88,8 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 - Vindbaar:      al zo: `/mh plan`, de pijl en het wapenvenster; of het genoeg gevonden wordt is NIET GEMETEN
 - Werk:          eerst klein (uitzoeken), daarna pas een inschatting
 - Site:          nee
-- Rob zegt:      nog niet beoordeeld (ja / nee / later)
+- Rob zegt:      ✅ JA, uitzoeken (20 nov via sparring, letterlijk: *"Laten we doorgaan met REST XP, shortest path. En
+                 dan kijken we wel weer verder."*). Eerst alleen uitzoeken + advies; bouwen pas na Robs keuze.
 
 ### Rest XP: waar kan ik makkelijk uitloggen en toch rested XP krijgen (idee van Rob, 20 nov — nog niet beoordeeld)
 - Voor wie:      nieuweling (AFGELEID: rested XP is vooral iets van levelen)
@@ -118,7 +119,11 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 - Vindbaar:      zou vanzelf moeten, bv. een melding als je bijna wilt stoppen of in een stad bent. NIET uitgewerkt.
 - Werk:          middel (AFGELEID)
 - Site:          nee
-- Rob zegt:      nog niet beoordeeld (ja / nee / later)
+- Rob zegt:      ✅ JA (20 nov via sparring, letterlijk: *"Laten we doorgaan met REST XP, shortest path. En dan kijken
+                 we wel weer verder."*). GEBOUWD 20 nov: `Modules/ForeverRestXP.lua` (venster bij uitloggen buiten
+                 een rustplek, regel in de XP-tooltip, `/mh rest [go]`, schakelaar `FREST_SW` standaard aan). Leert
+                 dorpsherbergen door `IsResting()`. Fennick Rest = PolyForm (geen open source), RestedAlts = MIT:
+                 alleen het idee. Wacht op Robs test.
 
 ### Forever: Loot Sparkles — questitems, kruiden en erts laten glinsteren (idee van Rob, 20 nov — Rob vindt dit interessant)
 - Voor wie:      allebei (AFGELEID: nieuwelingen missen questitems, veteranen kunnen er hinder van hebben)

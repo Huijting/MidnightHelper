@@ -289,6 +289,7 @@ Modules\ForeverSurvey.lua
 Modules\CameraZoom.lua
 Modules\ThanksBuff.lua
 Modules\ForeverLootSparkle.lua
+Modules\ForeverRestXP.lua
 Modules\MaxLevelWelcome.lua
 Modules\ForeverItemTips.lua
 Modules\ForeverClassQuests.lua

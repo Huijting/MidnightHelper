@@ -44,6 +44,21 @@ achternaam, "Step aside"-instelling, Your path, Set focus). Daarna vond Rob nog:
 rank-lijstje: werkt (screenshot: "You just learned", Conjure Water rank 1 -> 2 en Frost Armor rank 1 -> 2, met de knoppen
 Upgrade / Not now / Never). Afgevinkt met "(Rob, 19 nov)". De hulpregels ("typ /mh … als het niet werkt") blijven open.
 
+## 😴 20 nov — Forever: rested XP, uitloggen op de goede plek
+
+⚠️ **Nieuw bestand: sluit WoW helemaal af en start opnieuw.** Met een character dat nog geen max level is.
+- [ ] Ga ergens buiten een herberg of stad staan en log uit (Esc → Log Out). Tijdens de 20 seconden komt een klein
+      venster "Rested XP": je bent niet in een inn of stad, de dichtstbijzijnde plek om uit te rusten, en de knop
+      **Show the way**. Screenshot.
+- [ ] Is je Hearthstone klaar? Dan staat er ook: "Your Hearthstone is ready: use it to go to <je herberg> …".
+- [ ] **Show the way**: de pijl wijst naar die plek. Annuleer het uitloggen: het venster gaat weg.
+- [ ] In een herberg of hoofdstad uitloggen: GEEN venster (je logt meteen uit).
+- [ ] Overzicht → muis op de XP-balk: onderaan staat "You are resting here …" of "Not resting here. Nearest place …".
+- [ ] Ben je in een dorpsherberg geweest (bv. Goldshire, Razor Hill)? Dan kent MH die daarna ook.
+- [ ] Quiet helpers → "Rested XP tip when you log out" uit → geen venster meer.
+- [ ] Twijfel? Typ `/mh rest`: rust je nu, rested XP, Hearthstone, de 3 dichtstbijzijnde plekken en "last decision".
+      Screenshot.
+
 ## 🧹 20 nov — Forever: geen "Dock to window" meer
 
 `/reload` is genoeg.

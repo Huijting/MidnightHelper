@@ -1221,6 +1221,10 @@ local QUIET = {
 		set = function(on) if ns.SetThanksBuff then ns.SetThanksBuff(on) end end }),
 	-- 20 Nov 2026 (Rob: "en begin met 4, loot sparkles :)"): quest items sparkle instead of an outline
 	-- (ForeverLootSparkle.lua). Off by default; switching off puts the old graphics settings back.
+	-- 20 Nov 2026 (Rob: "doorgaan met REST XP"): the window when you log out outside an inn or a city (ForeverRestXP.lua).
+	Q("FREST_SW", "FREST_SW_DESC", {
+		get = function() return ns.IsForeverRestTipOn and ns.IsForeverRestTipOn() end,
+		set = function(on) if ns.SetForeverRestTip then ns.SetForeverRestTip(on) end end }),
 	Q("FLS_SW", "FLS_SW_DESC", {
 		get = function() return ns.IsLootSparkleOn and ns.IsLootSparkleOn() end,
 		set = function(on) if ns.SetLootSparkle then ns.SetLootSparkle(on) end end }),
@@ -2254,6 +2258,11 @@ local function FillLeft(f, level)
 		f.xpText:SetText(ns:L("FOV_XP_FMT"):format(pct) .. (restPct > 0 and ("  ·  " .. ns:L("FOV_RESTED_FMT"):format(restPct)) or ""))
 		f.xpTip.tipTitle = ns:L("FOV_XP_FMT"):format(pct)
 		f.xpTip.tipBody = ns:L("FOV_TIP_XP_FMT"):format(cur, max, max - cur) .. (restPct > 0 and ("\n" .. ns:L("FOV_TIP_RESTED")) or "")
+		-- 20 Nov 2026: resting here or not, and the nearest place to rest (ForeverRestXP.lua).
+		local restLine = ns.ForeverRestTipLine and ns.ForeverRestTipLine()
+		if restLine then
+			f.xpTip.tipBody = f.xpTip.tipBody .. "\n\n" .. restLine
+		end
 		for _, t in ipairs({ f.xpBg, f.xpFill, f.xpText }) do
 			t:Show()
 		end

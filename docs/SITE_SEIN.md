@@ -28,6 +28,16 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 20 nov 2026 — Forever: rested XP, uitloggen op de goede plek
+- Tag + commit:   geen tag (commit: zie git log, "Forever: Rest XP")
+- Status:         alleen op main
+- Mag op de site: nee (nog niet getest, niet uit)
+- Speler ziet:    log je uit buiten een herberg of stad, dan toont MH de dichtstbijzijnde plek om uit te rusten
+                  (met een pijl) en zegt of je Hearthstone klaar is. Ook een regel in de XP-tooltip van het overzicht.
+- Knoplabels:     `FREST_SW`, `FCQ_BTN`
+- Commando's:     /mh rest [go]
+- Spel:           Forever
+
 ## 20 nov 2026 — Forever: questitems glinsteren in plaats van een rand
 - Tag + commit:   geen tag (commit: zie git log, "Forever: Loot Sparkles")
 - Status:         alleen op main
