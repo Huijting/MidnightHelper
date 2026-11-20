@@ -72,6 +72,29 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 - Site:          nee
 - Rob zegt:      nog niet beoordeeld (ja / nee / later)
 
+### Rest XP: waar kan ik makkelijk uitloggen en toch rested XP krijgen (idee van Rob, 20 nov — nog niet beoordeeld)
+- Voor wie:      nieuweling (AFGELEID: rested XP is vooral iets van levelen)
+- Moment:        als je klaar bent en wilt uitloggen. Nog niet bepaald hoe de speler het ziet.
+- Spel:          nog niet gezegd
+- Bron:          Rob 20 nov 2026, letterlijk (dictaat): *"En dan hebben we REST XP, een add-on, die zoekt waar je makkelijk
+                 kan uitloggen op een plek waar je toch REST XP krijgt en stuurt je daar naartoe."* Rob noemt de addon
+                 alleen "REST XP"; de volledige naam is NIET GEMETEN.
+- Wat Rob bedoelt: de addon wijst de dichtstbijzijnde plek waar je rested XP opbouwt tijdens het uitloggen (AFGELEID: een
+                 herberg of hoofdstad) en stuurt je er met een pijl heen.
+- Wat er al is: GEMETEN in de code (20 nov): Forever heeft al de herberg als "In town"-plek (`ForeverVendors.lua`,
+                 `ForeverCitySpots.lua`, "Show the way"), en rested XP wordt al getoond (`ForeverOverview.lua`,
+                 `AltBoardView.lua`). Niet gevonden: iets dat zegt "hier log je uit voor rested XP" of daar op eigen
+                 initiatief heen stuurt. Voor Midnight: NIET GEMETEN.
+- Bouwt op:      de herberg-plekken in Forever (`ForeverCitySpots.lua`) en de pijl (`NativeArrow.lua`)
+- Data:          nog te meten. Welke plekken rested XP geven (herberg, stad, tent) staat niet in onze data (NIET GEMETEN).
+                 Eerst uitzoeken, niet raden.
+- Uitzoeken:     wat doet de addon precies, en hoe weet die welke plekken rested XP geven? Alleen het idee, geen code
+                 (licentie eerst checken).
+- Vindbaar:      zou vanzelf moeten, bv. een melding als je bijna wilt stoppen of in een stad bent. NIET uitgewerkt.
+- Werk:          middel (AFGELEID)
+- Site:          nee
+- Rob zegt:      nog niet beoordeeld (ja / nee / later)
+
 ### Midnight: de eerste blik bij openen, zoals het Forever-overzicht (GEPAUZEERD tot na za 21 nov 10:00)
 - Bron: Rob 18 nov (via Sparring 18-11), letterlijk: *"Ik denk dat we het nooit zo mooi kunnen krijgen als de forever
   versie omdat we al zoveel hebben in midnight, we pauzeren dit tot na de Claude Code reset 🙂 , wat ik juist mooi vond
