@@ -952,9 +952,15 @@ local function BuildProfsPage(f, x0, rightW)
 	card.trainers:SetPoint("TOPRIGHT", -12, -8)
 	card.trainers:SetLabel(ns:L("FOV_PROF_TRAINERS"))
 	Tip(card.trainers, ns:L("FOV_PROF_TRAINERS"), ns:L("FOV_TIP_PROF_TRAINERS"))
+	-- 20 Nov 2026 (idea 6, Rob: "Ja, begin daar dan mee"): the Skill up window (ForeverSkillup.lua) for this profession.
+	card.skillup = Button(card, 100)
+	card.skillup:SetHeight(22)
+	card.skillup:SetPoint("RIGHT", card.trainers, "LEFT", -6, 0)
+	card.skillup:SetLabel(ns:L("FSKILL_BTN"))
+	Tip(card.skillup, ns:L("FSKILL_BTN"), ns:L("FSKILL_TIP_BTN"))
 	card.buy = Button(card, 120)
 	card.buy:SetHeight(22)
-	card.buy:SetPoint("RIGHT", card.trainers, "LEFT", -6, 0)
+	card.buy:SetPoint("RIGHT", card.skillup, "LEFT", -6, 0)
 	card.buy:SetLabel(ns:L("FPROFG_BUY"))
 	Tip(card.buy, ns:L("FPROFG_BUY"), ns:L("FOV_TIP_FIND_BUY"))
 	-- Skill bar (yours only).
@@ -3819,6 +3825,25 @@ local function FillProfsPage(f, refresh)
 		if ok then
 			text, toolKey = t, k
 		end
+	end
+	-- Skill up (20 Nov 2026): the next step on top of the card, and the button, for a crafting profession you have.
+	local skillLine
+	if not comp and ns.ForeverSkillupSummary then
+		local ok, s = pcall(ns.ForeverSkillupSummary, sel)
+		skillLine = ok and s or nil
+	end
+	local canSkill = not comp and m ~= nil and ns.ShowForeverSkillup ~= nil and ns.REAGENT_LINES ~= nil
+		and ns.REAGENT_LINES[sel] ~= nil
+	if canSkill then
+		card.skillup:SetScript("OnClick", function()
+			ns.ShowForeverSkillup(sel)
+		end)
+		card.skillup:Show()
+	else
+		card.skillup:Hide()
+	end
+	if skillLine then
+		text = "|cff66ccff" .. skillLine .. "|r\n\n" .. (text or "")
 	end
 	card.text:SetText(text and S.Format(text) or "")
 	card.child:SetHeight(math.max(10, (card.text:GetStringHeight() or 0) + 12))

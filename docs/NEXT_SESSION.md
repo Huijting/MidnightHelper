@@ -2,6 +2,21 @@
 
 ## ▶▶ VOLGENDE BOUWCHAT: Forever-overzicht "D" — stap 1 en 3 gebouwd; stap 2 wacht op Robs screenshots (20 nov, avond)
 
+🔨 **Skill up voor beroepen (idee 6, MIDDEL) GEBOUWD (20 nov, Bouwchat 20-11 (2))** — Rob via sparring: *"Ja, begin
+daar dan mee. Het geld kunnen we inderdaad later bekijken."* Nieuw: `tools/forever_skillup.py` → `Modules/
+ForeverSkillupData.lua` (2119 recepten, 1605 receptitems, 120 KB; controles 2660 = Blacksmithing 15/55 Rough Stone en
+item 2881 → 2667 OK, GEMETEN DB2 1.60.1.70959) en `Modules/ForeverSkillup.lua` (in beide toc's, zoals ForeverReagentData; buiten Forever stoppen ze meteen. De 120 KB
+wordt in Midnight wel ingelezen (Lua compileert het hele bestand), net als ForeverReagentData. → WoW herstarten).
+Geel/grijs GEMETEN; groen = midden en kans (grijs−skill)/(grijs−geel) AFGELEID, overal "estimate". Bekende recepten:
+uit het beroepsvenster (C_TradeSkillUI of oude GetTradeSkillInfo, wat Forever heeft is NIET gemeten) per character in
+`ns.db.foreverKnownRecipes` + IsPlayerSpell. Volgende stap = zekerste bekende recept, max 10 punten per stap
+(`STEP_MAX`), aantal = som 1/kans. Tooltip: product/receptitem (grenzen + jouw kleur, of "ken je nog niet") en
+ingrediënt (beste recept nu). Venster `MidnightHelperForeverSkillup` (RegisterMidnightDialogPopup), `/mh skillup
+[probe|on|off]`, knop op Overzicht → Professions + blauwe regel bovenaan de kaart. Offline getest (scratch
+skillup_test.lua, stubs): stap/lijst/tooltips kloppen. NIET in het spel gezien. **Eerst Robs `/mh skillup probe`**:
+geeft de client zelf de receptkleur, dan kan MH die tonen i.p.v. uitrekenen. Teksten 7 talen (de/fr/es/pt/ru zelf
+vertaald, niet nagekeken). GROOT (geld, Auctionator, route tot 300) = later (IDEEEN).
+
 🛏️ **Alle herbergen in de data (20 nov, Bouwchat 20-11 (2))** — Rob via sparring: *"Zoek online uit waar dan overal
 herbergen zijn, onder andere ook voor Richard."* (= Ratchet). `ForeverCitySpots.lua`: 40 nieuwe `kind = "inn"`-regels
 (nu 52 herbergiers, 51 plaatsen; Dalaran heeft er 2. ⚠️ Er stonden er 12, niet 14 zoals hieronder staat: GEMETEN met

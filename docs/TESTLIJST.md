@@ -44,6 +44,23 @@ achternaam, "Step aside"-instelling, Your path, Set focus). Daarna vond Rob nog:
 rank-lijstje: werkt (screenshot: "You just learned", Conjure Water rank 1 -> 2 en Frost Armor rank 1 -> 2, met de knoppen
 Upgrade / Not now / Never). Afgevinkt met "(Rob, 19 nov)". De hulpregels ("typ /mh … als het niet werkt") blijven open.
 
+## 🔨 20 nov — Forever: Skill up voor je beroepen (idee 6)
+
+Nieuw bestand → **WoW helemaal herstarten** (niet alleen /reload). Forever, een character met een maakberoep.
+- [ ] **Eerst de meting:** open je beroepsvenster (bv. Cooking of Blacksmithing), sluit het, typ `/mh skillup probe`.
+      Screenshot van de chat. (Zegt welke API Forever heeft en of de client zelf een receptkleur geeft.)
+- [ ] `/mh skillup` (of Overzicht → Professions → knop **Skill up**): links je beroepen, rechts "Next step: make about
+      Nx … (skill A to B)", "Then: …", drie "Surest points now" met kleur en %, en "What you need" (tas + bank
+      tegen wat je nodig hebt; groen = genoeg, rood = "N more"). Klopt het recept met wat jij zou maken? Screenshot.
+- [ ] Knop "Show the way to your trainer" zet de pijl naar je beroepstrainer.
+- [ ] Overzicht → Professions → jouw beroep: bovenaan de kaart een blauwe regel "Skill up: next, make about …".
+- [ ] Tooltip van iets dat je maakt (bv. Rough Sharpening Stone): "MH: Blacksmithing - yellow 15, green 35, grey 55" en
+      "Your skill N: <kleur>, about N% chance of a point (estimate)". Klopt de kleur met de kleur in je beroepsvenster?
+- [ ] Tooltip van een Plans:/Pattern:-item dat je nog niet kent: de grenzen + "You do not know this recipe (yet)."
+- [ ] Tooltip van een ingrediënt (bv. Rough Stone): "MH: a skill point now with … (about N%)".
+- [ ] Nog nooit een beroepsvenster open gehad op dit character? Dan zegt het venster "Open your … window once".
+- [ ] `/mh skillup off` haalt de tooltip-regels weg, `/mh skillup on` zet ze terug.
+
 ## 🛏️ 20 nov — Forever: alle herbergen (ook Ratchet en de dorpen)
 
 `/reload` is genoeg. Forever.

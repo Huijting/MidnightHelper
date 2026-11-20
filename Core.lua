@@ -2782,6 +2782,18 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh skillup [probe | on | off] — WoW Forever: what to make for a skill point (ForeverSkillup.lua; Rob, 20 Nov
+	-- 2026: "Ja, begin daar dan mee. Het geld kunnen we inderdaad later bekijken.").
+	local skillArg = msg:lower() == "skillup" and "" or msg:lower():match("^skillup%s+(.+)$")
+	if skillArg then
+		if ns.ForeverSkillupSlash then
+			ns.ForeverSkillupSlash(skillArg)
+		else
+			print("|cffffcc00Midnight Helper:|r /mh skillup is for WoW: Forever (a new file: restart the game once).")
+		end
+		return
+	end
+
 	-- /mh partytest [clear] — WoW Forever: measure what a party panel would need (ForeverPartyProbe.lua; Rob, 11 Nov
 	-- 2026: "maak die meting maar"). Diagnosis only, writes ns.db.partyProbe.
 	local partyArg = msg:lower() == "partytest" and "" or msg:lower():match("^partytest%s+(.+)$")

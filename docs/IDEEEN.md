@@ -260,7 +260,10 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
                  route tot 300. Eerst in het spel meten of de Forever-client zelf de receptkleur geeft.
 - Werk:          klein / middel / groot (AFGELEID)
 - Site:          nee
-- Rob zegt:      "We gaan voor idee 6 om mee te beginnen" (20 nov, via sparring); optie nog niet gekozen
+- Rob zegt:      "We gaan voor idee 6 om mee te beginnen" (20 nov, via sparring); daarna op MIDDEL: *"Ja, begin daar
+                 dan mee. Het geld kunnen we inderdaad later bekijken."* → ✅ JA, MIDDEL GEBOUWD 20 nov (wacht op Robs
+                 test, TESTLIJST "Skill up"). ⏸️ GROOT (kosten per punt via Auctionator/verkoperprijzen, route tot 300,
+                 goedkoopst/snelst) = LATER.
 
 ### Midnight: de eerste blik bij openen, zoals het Forever-overzicht (GEPAUZEERD tot na za 21 nov 10:00)
 - Bron: Rob 18 nov (via Sparring 18-11), letterlijk: *"Ik denk dat we het nooit zo mooi kunnen krijgen als de forever

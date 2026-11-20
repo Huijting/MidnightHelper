@@ -28,6 +28,17 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 20 nov 2026 — Forever: Skill up voor je beroepen
+- Tag + commit:   geen tag (commit: zie git log, "Forever: Skill up")
+- Status:         alleen op main
+- Mag op de site: nee (in bouw, niet getest)
+- Speler ziet:    per maakberoep wat je nu maakt voor een skillpunt ("make about 10x …"), de drie zekerste recepten met
+                  kleur en geschatte kans, wat je ervoor nodig hebt (tas + bank) en de weg naar je trainer. In tooltips
+                  de kleurgrenzen van een recept en je kans. Geen geldbedragen.
+- Knoplabels:     `FSKILL_BTN`, `FSKILL_GO_TRAINER`
+- Commando's:     /mh skillup [probe | on | off]
+- Spel:           Forever
+
 ## 20 nov 2026 — Forever: Find "Which city?", stap 3 van 4
 - Tag + commit:   geen tag (commit: zie git log, "Forever: Find stap 3")
 - Status:         alleen op main
