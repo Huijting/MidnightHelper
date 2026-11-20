@@ -102,7 +102,17 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 - Site:          nee
 - ⏳ Eerst uitzoeken: wat doet **All for One** precies, en welke van die opties zijn nuttig voor ons? (Rob: "nog eens
                  nakijken"; niet gedaan, NIET GEMETEN. Licentie checken vóór we iets overnemen, alleen het idee, eigen code.)
-- Rob zegt:      nog niet beoordeeld (ja / nee / later)
+- Rob zegt:      nog niet beoordeeld (ja / nee / later). 20 nov: Rob koos "3" = eerst uitzoeken (bouwchat).
+- UITGEZOCHT 20 nov (mh-research + zelf nagekeken):
+                 Blizzards Forever-code (Gethe/wow-ui-source `forever`, 1.60.1.70959) GEMETEN: UseContainerItem zonder
+                 HasRestrictions (maar retail blokkeerde MH met dezelfde docs → test), C_MerchantFrame.SellAllJunkItems +
+                 knop bestaan (aan in Forever? test), DeleteCursorItem HasRestrictions = true (AFGELEID: alleen op klik),
+                 Rare+ = DELETE typen, loot-"tas vol" = UI_ERROR_MESSAGE ERR_INV_FULL bij open lootvenster.
+                 Addons (alleen idee): Improved Forever: Junk (MIT), OAP Lazy Stuff (MIT), OneForAll (GPL), Forever Loot
+                 Bag / LazyBags / LootOptimizer / Loot Pocket (ARR). Rob heeft er geen (GEMETEN).
+                 MH heeft al: ForeverWarnings (tas bijna vol + grijs), ToolGuard, ReagentUse, ItemTips, QuestHint.
+                 Opties naar Sparring 20-11 (2): KLEIN (3 goedkoopste + waarom, MH doet niets zelf), MIDDEL (advies: +
+                 Destroy-knop op klik en "Sell MH junk", eerst `/mh bagfull test`), GROOT (eigen junklijst, auto-verkoop).
 
 ### Shortest Path: de kortste weg naar een plek — uitzoeken wat die addon meer doet (idee van Rob, 20 nov — nog niet beoordeeld)
 - Voor wie:      allebei (AFGELEID)
