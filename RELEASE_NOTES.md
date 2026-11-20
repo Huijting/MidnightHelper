@@ -1,86 +1,64 @@
-# Midnight Helper 5.6.0: a boss guide for every Forever dungeon, a search bar, and the right trainer
+# Midnight Helper 5.7.0: which city, skill up, and what to do when your bags are full
 
 Want new things sooner and help test them? We put out betas regularly: set the release type of Midnight Helper in the
 CurseForge app to **Beta**. Found something odd, or does everything just work? Tell us: `/mh report` in game, a comment
 here on CurseForge, or the feedback form on midnighthelper.com.
 
-## WoW Forever: a boss guide for all 28 dungeons
+## WoW Forever: a new overview
 
-WoW Forever has no Dungeon Journal, so Midnight Helper now explains every dungeon from Ragefire Chasm to Stratholme:
-who the bosses are, what they do, one tip per boss, and two or three items worth knowing. Press **Bosses** on a dungeon
-in the overview (*Dungeons & group*). Inside a dungeon it opens on that dungeon, and targeting a boss marks him in the
-list. Dungeons with wings (Scarlet Monastery, Maraudon, Dire Maul, Blackrock Spire, Stratholme) are one page with a
-header per wing, and it says what you need to get in, like a key. The dungeons that are new in Forever say on top that
-their lines will be checked again later. Boss names are the names your game shows above their heads, in your language.
+The overview is larger and the tabs are now tall buttons on the right, with the page name on top. *Now* and *Your
+class* look the same inside. Prefer the old layout with the tabs on top? Switch off *New layout: tabs on the right* in *Quiet
+helpers* and type `/reload`.
 
-- Hover a boss name to see the boss in 3D. Hover an item to see its tooltip; Shift-click links it in chat.
-- Target a boss in a dungeon and a **small boss card** shows what he does and the tip, with a button for the full
-  guide. Don't want it? Switch it off in *Quiet helpers*.
+## WoW Forever: Which city?
 
-## WoW Forever: find anything, and get there
+*Find* has two buttons now: **What am I looking for?** (the list you know) and **Which city?**. Pick a city and you see
+what is there: the inn, the bank, the auction house, a mailbox, the flight master, the boats and zeppelins, and your
+class trainer, each with *Show the way*. On top it says how you get there, and **Route to …** sets the arrow to the inn.
+A search field above the list filters both.
 
-- **Search bar** at the top of the overview: type a trainer, a shop, a dungeon, a class quest, a macro, a setting or a
-  place, and click the line. Every place has *Show the way*, nearest first. "ah" finds the Auction House.
-- **Travel** in *Find*: zeppelins, boats, the tram, portals and all flight masters of your side, each with *Show the
-  way*. At the zeppelin towers outside Orgrimmar and Undercity a line tells you where to walk.
-- **Rares** in *Find*: a short list of rares worth the trip, and every rare per zone, with a red arrow to its spot. The
-  zone you are in comes first.
-- **The right class trainer.** The trainers in the starting areas only teach spells up to level 6. The way to your
-  trainer now skips a trainer who has nothing new for you, and if you talk to one anyway, the chat tells you where to go.
-- **Collapsible headings** in *Find*: click a heading to open or close it.
+- **Every inn**, also in the villages: Ratchet, Razor Hill, Goldshire, The Crossroads, Lakeshire and many more. They
+  show up in *Which city?* and in the inn list.
+- **Hearthstone and teleports in the route.** The way there now counts your Hearthstone and your class teleports, with
+  the minutes it takes: "first use your Hearthstone (about 4 min)". The chat says it too, so you see it with TomTom.
 
-## WoW Forever: tooltips everywhere
+## WoW Forever: skill up your professions
 
-Spell names in *Do this now*, on the trainer page, under "Coming up" and in your class quests now show the game's own
-tooltip, just like your spellbook. Names with a tooltip are light blue, like a spell link in chat. Tools, weapons and
-shops in *Find* have tooltips too, and so do the items in the boss guide.
+Open **Skill up** on a profession in *Professions* (or type `/mh skillup`):
 
-## WoW Forever: more help while you level
+- what to make now for a skill point, and about how many times;
+- the three recipes that give a point most surely, with their colour and chance;
+- what you need for it: what is in your bags and bank against what you need;
+- *Show the way to your trainer*.
 
-- **After the trainer, a short list "You just learned"**: per spell, *Upgrade* puts the new rank on your buttons, *On
-  my bar* puts a new spell on a free button, *Not now* or *Never* leaves it. You can switch the list off in *Quiet
-  helpers*.
-- **Choose which buttons get a new rank.** Keep a whole bar or single buttons out of the rank upgrade. Open it from
-  *Quiet helpers*, *Keys & macros*, the search bar ("rank"), or Shift-click the trainer button.
-- **Class quests: what you need before the trip.** *Do this now* tells you first when a quest needs something you do
-  not have yet, like a library book for the mage quest, gold, a potion or a higher spell rank. Class quest rows no
-  longer run into each other.
-- **A small window with your class quest step**: only the step you are on, in larger letters, with *Show the way*.
-  Move it where you like; it follows the step by itself. Don't want it? Switch it off in *Quiet helpers*.
-- **Weapon class quests**: the warrior's first weapon at level 10, the warlock's Soran'ruk, Orahil and An Imp's Request,
-  and the shaman's The Tempest's Weapons at 30, step by step.
-- **Weapons**: the tooltip compares a weapon with what you wear in a fair way, with its damage per second, and says
-  whether this kind of weapon fits the direction you chose.
-- **Used for … now names the recipe**: under "Used for Cooking" a grey line names the first two recipes that use the
-  item, in your language.
-- **Buffs that run out soon**: the buff icon shows up when one of your own buffs has less than 5 minutes left. Click it
-  to cast it again.
-- **Your gold** at the bottom right of *Do this now*.
-- **Macros** in *Keys & macros* have a small label (made, ready, or at which level), a *Copy* button, and after the
-  trainer one chat line tells you about a new macro you can make.
-- **How you play**: the simple order says which spells you have not learned yet, and at which level.
-- **Mages**: *Professions* has a Comprehension card (what the scrolls are and where Comprehend Scroll is), and *Do this
-  now* tells you when you carry a scroll you can read.
-- **Paladins**: a button that casts the right blessing on the player under your mouse. Switch it on in *Quiet helpers*
-  and drag the macro "MH Smart Bless" onto a bar.
-- **Cozy Sleeping Bag**: *Do this now* tells you to lie down in it until you have all three stacks of rest.
-- **Can I disenchant this?** For enchanters: the tooltip says whether an item can be disenchanted, and a small icon
-  marks those items in your bags (also in Baganator). A *Disenchant next button* can be switched on in *Quiet helpers*.
-- **Open-box button**: picked up a clam, a bag or a box? A button with its icon appears; each click opens one. Locked
-  boxes are skipped. It hides in combat.
-- **Reputation & currency**: a page in the overview with your reputations and currencies.
-- **Money** always shows as gold, silver and copper, and your total gold says how many characters it counts.
-- **Moving portrait**: your character in 3D at the top left of the overview, if you switch it on (*Quiet helpers*).
-- Smaller fixes: the *Now* card no longer puts text on top of text, and switches that were on by default (like *Step
-  aside for the Forever Leveling Guide*) can be turned off again.
+The tooltip of something you craft shows where the recipe turns yellow, green and grey, and your chance of a point. An
+ingredient says which recipe gives you a point with it now. The chance is an estimate: it is the rule players use,
+Blizzard does not publish it. No gold amounts yet.
+
+## WoW Forever: bags full
+
+When something does not fit in your bags, a small window shows the three cheapest things you carry, what they are
+worth and why they can go. When you are looting, it also says whether the loot is worth more than your cheapest item.
+Quest items, your tools, ingredients for your own professions, upgrades and items of quality Rare or better are never
+suggested. Midnight Helper throws nothing away: you decide. `/mh bagfull off` switches the window off.
+
+## WoW Forever: more
+
+- **Rested XP**: log out outside an inn or a city and a small window shows the nearest place to rest, with a button for
+  the arrow, and whether your Hearthstone is ready. Switch: *Rested XP tip when you log out*.
+- **Quest items sparkle**: a switch in *Quiet helpers* brings back the old sparkle on quest items you can loot, instead
+  of the outline. Off by default.
+- The *Dock to window* button is gone from the Forever windows, and long window titles no longer run under it.
+
+## Both games
+
+- **Thank strangers for a buff**: when a player outside your group gives you a buff, you thank them with the game's own
+  emote. Never in combat or in a dungeon, and once every 5 minutes per player. Off by default; switch it on in the
+  settings.
 
 ## Midnight
 
-- Did you know Midnight Helper works in WoW Forever too? One small card at login tells you, once.
-- **Used for … now names the recipe** in the tooltip, like in Forever.
-- The travel button on a route (Hearthstone, toy or teleport) shows the game's tooltip.
-- Reminders that check another player's buffs (a missing buff, the group buff count, the ready check for consumables)
-  could stay silent. They work again.
-- The switch *Fill in the amount when buying* (Auction House) can be turned off again.
+- **Renown in your alt overview**: one line on top with your renown for the whole account, every Midnight faction and
+  your rank. Hover it for the progress per faction.
 
 Have fun!

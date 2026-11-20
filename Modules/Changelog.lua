@@ -4,6 +4,19 @@ local changelogFrame
 
 local CHANGELOG_ENTRIES = {
 	{
+		version = "5.7.0",
+		lines = {
+			-- 20 Nov 2026 (written on Rob's "Ja dat mag erna"; proposed number, no .toc bump and no tag until his go).
+			"CHANGELOG_570_1",
+			"CHANGELOG_570_2",
+			"CHANGELOG_570_3",
+			"CHANGELOG_570_4",
+			"CHANGELOG_570_5",
+			"CHANGELOG_570_6",
+			"CHANGELOG_570_7",
+		},
+	},
+	{
 		version = "5.6.0",
 		lines = {
 			-- 19 Nov 2026 (prepared on Rob's "Ja, de bouwchat mag alles klaarzetten"; no tag until his go).

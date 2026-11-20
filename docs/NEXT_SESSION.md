@@ -2,6 +2,14 @@
 
 ## ▶▶ VOLGENDE BOUWCHAT: Forever-overzicht "D" — stap 1 en 3 gebouwd; stap 2 wacht op Robs screenshots (20 nov, avond)
 
+📝 **Release-tekst 5.7.0 GESCHREVEN, NIET uitgebracht (20 nov)** — Rob via sparring: *"Ja dat mag erna"*. Voorgesteld
+nummer 5.7.0 (nieuwe functies). `RELEASE_NOTES.md` = `docs/CURSEFORGE_5.7.0.md` (identiek), `CHANGELOG_570_1..7` (enUS) +
+entry in `Changelog.lua`. GEEN .toc-bump (nog 5.6.0), geen tag, geen package. Het changelog-venster springt alleen open
+als de .toc-versie verandert (GEMETEN, `ShowChangelogWindow`), dus Rob ziet nu niets. Inhoud sinds v5.6.0: Forever nieuw
+overzicht, Which city? + alle herbergen, Hearthstone/teleports in de route, Skill up, Tas vol, Rested XP, Loot Sparkles,
+geen Dock to window; beide spellen ThanksBuff (door Rob getest); Midnight Renown-regel. Alles behalve ThanksBuff is
+NIET door Rob getest → schrappen als zijn test faalt. Bij Robs go: .toc's naar 5.7.0, dan pas tag.
+
 🏅 **O14 Renown in het alt-overzicht GEBOUWD (20 nov, Midnight)** — Rob via sparring: *"1"* (één regel "Renown (hele
 account)" bovenaan). `AltOverview.lua`: `RenownSummary()` uit `C_MajorFactions.GetMajorFactionIDs()` + `GetMajorFactionData`
 (+ HasMaximumRenown), namen van de client; regel `ui.renown` tussen titel en hint, tooltip (`ui.renownHit`) met elke factie
