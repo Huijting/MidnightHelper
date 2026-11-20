@@ -11247,7 +11247,19 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
   - 🔧 **Repo-staat: alleen `docs/API_WATCH.md` aangeraakt.** GEMETEN vóór het schrijven: `git status --short`
     **leeg**; `HEAD` stond **opnieuw losgeslagen** (zevende keer deze week) en is met `git checkout main` weer
     op `refs/heads/main` gezet. `git pull --rebase origin main` meldde daarbij
-    `+ abb3007...577480d main -> origin/main (forced update)` — origin/main is dus sinds gisteren
-    HERSCHREVEN, niet alleen aangevuld. ⚠️ Dat is nieuw en het is niet mijn werk; het staat hier zodat Rob het
-    ziet. Laatste commit vóór de mijne: `577480d` *"Nachtcontrole 2026-11-20: C1 0 / C2 0 nakijken, snapshot
+    `+ abb3007...577480d main -> origin/main (forced update)`.
+    🔴 **CORRECTIE OP MIJN EIGEN EERSTE VERSIE VAN DEZE REGEL, een half uur oud en al gepusht (commit
+    `34c5ea0`): ik schreef dat `origin/main` HERSCHREVEN was. Dat was fout, en het is exact de fout die dit
+    bestand op 8 nov (`docs/API_WATCH.md:9370`) al had rechtgezet en die ik op 17 en 18 nov (`:10647`,
+    `:10773`) óók al had herhaald.** Nagemeten in dezelfde run:
+    `git rev-parse --is-shallow-repository` → **`true`**, dus `(forced update)` is de kloondiepte en niet Rob.
+    De sluitende meting: `main` heeft **52** commits en het oude venster (`abb3007`) **50** — twee
+    graft-vensters, geen gemeenschappelijke voorouder (`git merge-base --is-ancestor abb3007 main` → **NO**),
+    en er is níéts verloren: `main` staat op `## Version: 5.6.0` (`MidnightHelper.toc`) en bevat
+    `cf06c1e` *"Release 5.6.0: Rob's go"*, dus **nieuwer** dan de 5.5.0-commits die alleen in het oude venster
+    zitten. 📌 Voor morgen, en dit is nu de vierde keer dat het opgeschreven wordt: `(forced update)`, een lege
+    merge-base en "50 tegen 50" zijn in deze sessie normaal. Meet `--is-shallow-repository` **vóór** je er een
+    woord over schrijft. ⚠️ En de les erachter is niet de git-les: ik had de verklaring in mijn eigen bestand
+    staan, had hem niet gezocht, en heb de alarmregel eerst gepusht en pas daarna gemeten.
+    Laatste commit vóór de mijne: `577480d` *"Nachtcontrole 2026-11-20: C1 0 / C2 0 nakijken, snapshot
     repo loopt achter"* (**20 nov 03:22 UTC**).
