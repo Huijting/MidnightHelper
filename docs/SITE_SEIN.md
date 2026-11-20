@@ -28,6 +28,16 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 20 nov 2026 — Forever: Tas vol (stap 1)
+- Tag + commit:   geen tag (commit: zie git log, "Forever: Tas vol stap 1")
+- Status:         alleen op main
+- Mag op de site: nee (in bouw, niet getest)
+- Speler ziet:    als je tas vol is (iets past niet), een venstertje met de drie goedkoopste dingen in je tas en waarom
+                  ze weg kunnen, plus of de loot meer waard is. MH gooit zelf niets weg.
+- Knoplabels:     `FBAG_TITLE`
+- Commando's:     /mh bagfull [show | test | on | off]
+- Spel:           Forever
+
 ## 20 nov 2026 — Forever: Skill up voor je beroepen
 - Tag + commit:   geen tag (commit: zie git log, "Forever: Skill up")
 - Status:         alleen op main

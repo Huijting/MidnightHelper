@@ -54,6 +54,11 @@ local TOOLS = {
 }
 local HOW_KEY = { buy = "TOOLG_HOW_BUY", craft = "TOOLG_HOW_CRAFT", quest = "TOOLG_HOW_QUEST" }
 
+--- Is this item a profession tool? (20 Nov 2026: "Bags full" never suggests a tool, ForeverBagFull.lua.)
+function ns.ForeverIsTool(id)
+	return id ~= nil and TOOLS[id] ~= nil
+end
+
 local function Settings()
 	if not ns.db then
 		return { on = true }

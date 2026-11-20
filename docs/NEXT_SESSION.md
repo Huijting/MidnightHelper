@@ -2,6 +2,18 @@
 
 ## ▶▶ VOLGENDE BOUWCHAT: Forever-overzicht "D" — stap 1 en 3 gebouwd; stap 2 wacht op Robs screenshots (20 nov, avond)
 
+🎒 **Tas vol, MIDDEL stap 1 GEBOUWD (20 nov)** — Rob: *"Beide ja"* (Middel in twee stappen). `Modules/ForeverBagFull.lua`
+(beide toc's, stopt buiten Forever; WoW herstarten). Trigger: UI_ERROR_MESSAGE met ERR_INV_FULL (wat Blizzards LootFrame
+gebruikt, GEMETEN in de Forever-UI-bron), max 1×/20 s. Venster `MidnightHelperForeverBagFull` (RegisterMidnightDialogPopup):
+3 goedkoopste (verkoopprijs × stapel, normale tassen) + waarom (grijs / gear niet beter / goedkoopst) + loot-vergelijking
+als het lootvenster open is. Nooit: questitems (GetContainerItemQuestInfo), gereedschap (nieuw `ns.ForeverIsTool` in
+ToolGuard), ingrediënt voor je beroep (ReagentUseText groen), upgrade (ForeverGearTipText), quality ≥ 3, geen waarde.
+MH doet NIETS met items. `/mh bagfull [show|test|on|off]`; `test` roept DeleteCursorItem (lege cursor) en
+UseContainerItem (leeg vak) aan vanuit een klik en een timer en vangt ADDON_ACTION_BLOCKED/FORBIDDEN → beslist stap 2.
+Offline getest (scratch bagfull_test.lua): selectie en uitsluitingen kloppen. NIET in het spel gezien. Woord "Rare" in
+de/fr/es/pt/ru als bijvoeglijk naamwoord, NIET tegen de client-kwaliteitsnaam gemeten. Stap 2 (Destroy-knop + loot,
+"Sell MH junk") pas na Robs test.
+
 ⏹️ **TESTLIJST opgeruimd (20 nov)** — Rob: *"Beide ja"* (oude punten naar archief "vervallen, niet getest"). Script
 (scratch testlist_split.py, per `## `-kop, eerste datum in de kop): 316 secties met kopdatum vóór 10 nov → bovenaan
 `TESTLIJST_ARCHIEF.md` onder "Derde verhuizing", open punten als `[vervallen, niet getest]`. GEMETEN: vóór 1765 open /

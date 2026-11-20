@@ -48,6 +48,20 @@ achternaam, "Step aside"-instelling, Your path, Set focus). Daarna vond Rob nog:
 rank-lijstje: werkt (screenshot: "You just learned", Conjure Water rank 1 -> 2 en Frost Armor rank 1 -> 2, met de knoppen
 Upgrade / Not now / Never). Afgevinkt met "(Rob, 19 nov)". De hulpregels ("typ /mh … als het niet werkt") blijven open.
 
+## 🎒 20 nov — Forever: Tas vol, stap 1 (idee 1)
+
+Nieuw bestand → **WoW helemaal herstarten**. Forever.
+- [ ] **Eerst de test voor stap 2:** typ `/mh bagfull test`, klik de knop midden in beeld één keer. Er gaat GEEN item weg
+      (hij probeert vernietigen en verkopen op een lege cursor en een leeg tasvak). Screenshot van de chat-uitslag, ook als
+      er een rode melding "blocked" van het spel komt. Liefst één keer bij een verkoper en één keer ergens anders.
+- [ ] `/mh bagfull show`: venster "Bags full" met de drie goedkoopste dingen, hun waarde en waarom ze weg kunnen. Klopt
+      het? Staat er iets in dat je zeker wilt houden? Screenshot.
+- [ ] Echt: loop met een volle tas en loot iets dat niet past. Het venster komt vanzelf, met onderaan "Loot: … is worth
+      …, your cheapest item …" en of ruilen loont.
+- [ ] Nooit in de lijst: questitems, je gereedschap, spullen voor je eigen beroepen, gear die beter is dan wat je draagt,
+      Rare en beter, je Hearthstone.
+- [ ] `/mh bagfull` (zonder iets) zegt wat MH zag en wat hij wegliet. `/mh bagfull off` zet het automatische venster uit.
+
 ## 🔨 20 nov — Forever: Skill up voor je beroepen (idee 6)
 
 Nieuw bestand → **WoW helemaal herstarten** (niet alleen /reload). Forever, een character met een maakberoep.

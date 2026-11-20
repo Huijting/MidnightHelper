@@ -2782,6 +2782,18 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh bagfull [show | test | on | off] — WoW Forever: the three cheapest things when your bags are full
+	-- (ForeverBagFull.lua; Rob, 20 Nov 2026: "Beide ja").
+	local bagArg = msg:lower() == "bagfull" and "" or msg:lower():match("^bagfull%s+(.+)$")
+	if bagArg then
+		if ns.ForeverBagFullSlash then
+			ns.ForeverBagFullSlash(bagArg)
+		else
+			print("|cffffcc00Midnight Helper:|r /mh bagfull is for WoW: Forever (a new file: restart the game once).")
+		end
+		return
+	end
+
 	-- /mh skillup [probe | on | off] — WoW Forever: what to make for a skill point (ForeverSkillup.lua; Rob, 20 Nov
 	-- 2026: "Ja, begin daar dan mee. Het geld kunnen we inderdaad later bekijken.").
 	local skillArg = msg:lower() == "skillup" and "" or msg:lower():match("^skillup%s+(.+)$")

@@ -113,6 +113,8 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
                  MH heeft al: ForeverWarnings (tas bijna vol + grijs), ToolGuard, ReagentUse, ItemTips, QuestHint.
                  Opties naar Sparring 20-11 (2): KLEIN (3 goedkoopste + waarom, MH doet niets zelf), MIDDEL (advies: +
                  Destroy-knop op klik en "Sell MH junk", eerst `/mh bagfull test`), GROOT (eigen junklijst, auto-verkoop).
+- ✅ JA MIDDEL in twee stappen (Rob via sparring: *"Beide ja"*). Stap 1 GEBOUWD 20 nov (ForeverBagFull.lua, wacht op Robs
+                 test + `/mh bagfull test`). Stap 2 wacht op die test. GROOT = niet gekozen.
 
 ### Shortest Path: de kortste weg naar een plek — uitzoeken wat die addon meer doet (idee van Rob, 20 nov — nog niet beoordeeld)
 - Voor wie:      allebei (AFGELEID)

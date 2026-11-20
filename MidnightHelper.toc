@@ -279,6 +279,7 @@ Modules\ReagentUse.lua
 # Forever only (each returns at once outside Forever): Skill up for your professions (Rob, 20 Nov 2026).
 Modules\ForeverSkillupData.lua
 Modules\ForeverSkillup.lua
+Modules\ForeverBagFull.lua
 Modules\ForeverPartyProbe.lua
 Modules\ForeverPartyPanel.lua
 Modules\ForeverDoNow.lua
