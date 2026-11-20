@@ -10,8 +10,9 @@ als het lootvenster open is. Nooit: questitems (GetContainerItemQuestInfo), gere
 ToolGuard), ingrediënt voor je beroep (ReagentUseText groen), upgrade (ForeverGearTipText), quality ≥ 3, geen waarde.
 MH doet NIETS met items. `/mh bagfull [show|test|on|off]`; `test` roept DeleteCursorItem (lege cursor) en
 UseContainerItem (leeg vak) aan vanuit een klik en een timer en vangt ADDON_ACTION_BLOCKED/FORBIDDEN → beslist stap 2.
-Offline getest (scratch bagfull_test.lua): selectie en uitsluitingen kloppen. NIET in het spel gezien. Woord "Rare" in
-de/fr/es/pt/ru als bijvoeglijk naamwoord, NIET tegen de client-kwaliteitsnaam gemeten. Stap 2 (Destroy-knop + loot,
+Offline getest (scratch bagfull_test.lua): selectie en uitsluitingen kloppen. NIET in het spel gezien. Kwaliteitsnamen
+nagezet naar de client (GEMETEN Forever GlobalStrings ITEM_QUALITY0/3_DESC): de Schlecht/Rar, fr Mauvais/Rare, es
+Pobre/Raro, pt Inferior/Raro, ru Низкое/Редкое; en/nl Poor/Rare. Stap 2 (Destroy-knop + loot,
 "Sell MH junk") pas na Robs test.
 
 ⏹️ **TESTLIJST opgeruimd (20 nov)** — Rob: *"Beide ja"* (oude punten naar archief "vervallen, niet getest"). Script

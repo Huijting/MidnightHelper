@@ -5691,8 +5691,8 @@ ns._mhLocales.enUS = {
 	-- 20 Nov 2026, idea 1 step 1 (ForeverBagFull.lua): bags full.
 	FBAG_TITLE = "Bags full",
 	FBAG_SUB = "The three cheapest things in your bags, and why they can go:",
-	FBAG_NONE = "MH found nothing that can safely go. Quest items, tools, ingredients for your professions, upgrades and Rare items are never suggested.",
-	FBAG_WHY_GREY = "Grey: junk, only worth its vendor price.",
+	FBAG_NONE = "MH found nothing that can safely go. Quest items, tools, ingredients for your professions, upgrades and items of quality Rare or better are never suggested.",
+	FBAG_WHY_GREY = "Poor (grey): junk, only worth its vendor price.",
 	FBAG_WHY_GEAR = "Gear that is not better than what you wear.",
 	FBAG_WHY_CHEAP = "The cheapest at a vendor; not needed for a quest or your professions.",
 	FBAG_LOOT_MORE_FMT = "Loot: %s is worth %s, your cheapest item %s. Swapping is worth it.",
