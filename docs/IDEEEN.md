@@ -29,7 +29,7 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 ### Tas vol: wat kan weg, wat verkopen, wat vernietigen of looten (idee van Rob, 20 nov — nog niet beoordeeld)
 - Voor wie:      allebei (AFGELEID)
 - Moment:        wanneer je tas vol zit (of bijna). AFGELEID: "inventory full"-moment of BAG_UPDATE_DELAYED; nog niet bepaald.
-- Spel:          nog niet gezegd (Midnight en Forever kunnen allebei een volle tas hebben)
+- Spel:          Forever (Rob 20 nov 07:07: *"Alles gaat over forever en de namen zijn addons"*)
 - Bron:          Rob 20 nov 2026, letterlijk (dictaat): *"Voor de ideeënlijst in mijn Midnight Helpen. Destroy and loot.
                  Wanneer je tas vol zit, kijken wat is dan het goedkoopste. Wat is trash of wat we sowieso weg zouden
                  gooien of verkopen. En of wat je kan looten dat beter is of meer waarde heeft."* Voorbeeld van Rob:
@@ -38,6 +38,18 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 - Wat Rob bedoelt: bij een volle tas een voorstel doen. (1) Wat is het goedkoopste om kwijt te raken? (2) Wat is trash,
                  of wat gooien/verkopen we sowieso? (3) Als je iets kunt looten (of vernietigen), is dat dan beter of
                  meer waard dan wat er nu in je tas ligt?
+- UITGEZOCHT (20 nov, web, NIET in het spel gecontroleerd). Rob zegt dat de namen addons zijn. Dit zijn de beste raadpogingen
+                 (AFGELEID, Rob bevestigt of corrigeert):
+                 * "Destroy and loot" past op **Improved Forever: Junk** (vroeger "Improved Forever: Destroy"): vindt wat je tas niet
+                   meer nodig heeft, verkoopt het bij de verkoper, en als de tas vol is vanuit het lootvenster vernietigt het
+                   junk en loot het in de plaats. https://www.curseforge.com/wow/addons/improved-forever-junk
+                 * **OAP Lazy Stuff**: lijst met te vernietigen items, gesorteerd op verkoopwaarde (goedkoopste eerst), en
+                   markeert bij quest-beloningen de hoogste verkoopwaarde. https://www.curseforge.com/wow/addons/oap-lazy-stuff
+                 * **Forever Loot Bag** en **LazyBags** verkopen een aangewezen tas, met bescherming van questitems en
+                   beroepsmaterialen. https://www.curseforge.com/wow/addons/forever-loot-bag
+                 * "All for One" past op **OneForAll - Forever**: een alles-in-één addon (dungeons, quests, loot, boeken,
+                   beroepen, kaarten, talentcalculator), dus "vreselijk veel opties". https://www.curseforge.com/wow/addons/oneforall-forever
+                 Licenties niet bekeken: eerst checken, alleen het idee overnemen.
 - Bouwt op:      mogelijk `Modules/Openables.lua` (dingen openen), `BagUpgrade.lua` / `LootUpgrade.lua` (tas-blik),
                  en voor Forever het idee H9 "kan ik dit disenchanten?" (`docs/forever/DISENCHANT_2026-11-18.md`).
                  NIET GEMETEN of een deel hiervan al bestaat; dat meten we vóór we iets bouwen.
@@ -53,7 +65,7 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 ### Shortest Path: de kortste weg naar een plek — uitzoeken wat die addon meer doet (idee van Rob, 20 nov — nog niet beoordeeld)
 - Voor wie:      allebei (AFGELEID)
 - Moment:        als je ergens heen wilt en wilt weten wat de snelste route is. Nog niet bepaald.
-- Spel:          nog niet gezegd
+- Spel:          Forever (Rob 20 nov 07:07: *"Alles gaat over forever en de namen zijn addons"*)
 - Bron:          Rob 20 nov 2026, letterlijk (dictaat): *"Shortest path. Een add-on die kijkt hoe je de kortste weg naar
                  ergens kan doen. Dus die wordt er ook even bij. Moet ook uitzoeken."* Rob noemt geen volledige naam.
                  AFGELEID dat hij **Shortest Path Forever** bedoelt: daar las Rob al op 18 okt over (zie hieronder).
@@ -75,7 +87,7 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 ### Rest XP: waar kan ik makkelijk uitloggen en toch rested XP krijgen (idee van Rob, 20 nov — nog niet beoordeeld)
 - Voor wie:      nieuweling (AFGELEID: rested XP is vooral iets van levelen)
 - Moment:        als je klaar bent en wilt uitloggen. Nog niet bepaald hoe de speler het ziet.
-- Spel:          nog niet gezegd
+- Spel:          Forever (Rob 20 nov 07:07: *"Alles gaat over forever en de namen zijn addons"*)
 - Bron:          Rob 20 nov 2026, letterlijk (dictaat): *"En dan hebben we REST XP, een add-on, die zoekt waar je makkelijk
                  kan uitloggen op een plek waar je toch REST XP krijgt en stuurt je daar naartoe."* Rob noemt de addon
                  alleen "REST XP"; de volledige naam is NIET GEMETEN.
@@ -85,6 +97,13 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
                  `ForeverCitySpots.lua`, "Show the way"), en rested XP wordt al getoond (`ForeverOverview.lua`,
                  `AltBoardView.lua`). Niet gevonden: iets dat zegt "hier log je uit voor rested XP" of daar op eigen
                  initiatief heen stuurt. Voor Midnight: NIET GEMETEN.
+- UITGEZOCHT (20 nov, web, NIET in het spel gecontroleerd): wat Rob beschrijft is **Fennick Rest**: toont je rested XP en
+                 hoe lang tot vol, wijst de beste herberg of hoofdstad om uit te loggen, en zegt "Hearth to your inn and log
+                 out" als je Hearthstone klaar is. Een pijl wijst naar de herberg. Adviseert alleen vriendelijke herbergen en
+                 steden. https://www.curseforge.com/wow/addons/fennick-rest
+                 Ook: **RestedAlts** (rested XP van al je alts, waarschuwt bij uitloggen buiten een herberg of stad;
+                 daar bouwt rest ongeveer vier keer langzamer) https://www.curseforge.com/wow/addons/restedalts
+                 en **XP Ledger** (rested XP en een XP-balk). Licenties niet bekeken.
 - Bouwt op:      de herberg-plekken in Forever (`ForeverCitySpots.lua`) en de pijl (`NativeArrow.lua`)
 - Data:          nog te meten. Welke plekken rested XP geven (herberg, stad, tent) staat niet in onze data (NIET GEMETEN).
                  Eerst uitzoeken, niet raden.
@@ -158,13 +177,21 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 ### Skill up voor je beroepen (idee van Rob, 20 nov — nog erg kort, nog niet beoordeeld)
 - Voor wie:      nieuweling (AFGELEID)
 - Moment:        nog niet bepaald
-- Spel:          nog niet gezegd
+- Spel:          Forever (Rob 20 nov 07:07: *"Alles gaat over forever en de namen zijn addons"*)
 - Bron:          Rob 20 nov 2026, letterlijk (dictaat): *"Skill up voor je professions."* Verder niets gezegd: of het een
                  addon is, hoe die heet, en voor welk spel (Midnight of Forever) is NIET bekend. Niet ingevuld, niet geraden.
 - Wat er al is: GEMETEN in de code (20 nov): veel rond beroepen. `ProfessionNextStep.lua`, `ProfessionGuided.lua`,
                  `ProfessionsHub.lua`, `ProfessionAcademy.lua`, `ForeverProfGuide.lua` (Forever-gids), `ForeverProfTrainers.lua`.
                  NIET GEMETEN of daar al een "wat moet ik maken om te skillen / wat is het goedkoopst" in zit.
-- Eerst vragen/uitzoeken: welke addon bedoelt Rob, en wat doet die? Dan pas vergelijken met wat we hebben.
+- UITGEZOCHT (20 nov, web, NIET in het spel gecontroleerd): de naam "Skill up" past het best op **SkillUp Forever**: toont
+                 per recept de vereiste skill, kleurgrenzen en kans op een skill-up, plus kosten per skill-up, met een
+                 levelroute en boodschappenlijst in een zijpaneel. https://www.curseforge.com/wow/addons/skillup-forever
+                 Er zijn meer addons met hetzelfde doel (Rob kan er een andere bedoelen): **Skillwright** (goedkoopste of
+                 snelste route), **CraftForge** (route van je skill tot 300), **ProfessionsTracker** (goedkoopste skill-up),
+                 **Forever Profession Master**, **Mastercraft**, **My Forever Profession** (meldt zodra je een rang kunt leren).
+- Wat wij al hebben, GEMETEN: `ForeverProfGuide.lua` geeft per beroep een korte kaart (wat het doet, rangen 75/150/225/300),
+                 maar GEEN skill-up-route, geen kans op een skill-up en geen kosten (kosten staan er bewust niet in omdat ze
+                 niet gemeten waren). Dus dit is een echt gat. Eerst Rob vragen welke addon hij bedoelt.
 - Bouwt op:      mogelijk `ProfessionNextStep.lua` / `ForeverProfGuide.lua`
 - Data:          nog te meten
 - Werk:          nog niet in te schatten
