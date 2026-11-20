@@ -2,6 +2,16 @@
 
 ## ▶▶ VOLGENDE BOUWCHAT: Forever-overzicht "D" — stap 1 en 3 gebouwd; stap 2 wacht op Robs screenshots (20 nov, avond)
 
+🛡️ **Duurzaamheidswaarschuwing in Forever GEBOUWD (20 nov)** — Rob: *"ja doe maar"* op "zijn je spullen onder de 25%, dan
+zegt MH het en toont hij de knop 'Repair & sell' erbij". `Modules/ForeverDurability.lua` (beide toc's, stopt buiten
+Forever): UPDATE_INVENTORY_DURABILITY + na laadscherm (3 s) → laagste item < 25% → venster
+`MidnightHelperForeverDurability` (RegisterMidnightDialogPopup) met DURABILITY_WARN_FMT + DURABILITY_WORST_FMT (bestaande
+vertalingen, 7 talen) + "Repair & sell: naam, zone, afstand" + knop (ns.ForeverRepairGoNearest) + chatregel + raid-warning-
+geluid. Eén keer per daling (`armed`), opnieuw na reparatie boven de grens; in combat wacht hij op PLAYER_REGEN_ENABLED.
+Schakelaar `FDUR_SW` (Quiet helpers), standaard AAN (advies: hij komt zelden). `/mh durability [test]` in Forever = deze
+module (ns.DurabilityCommand; DurabilityWarn.lua laadt alleen in Midnight). Drempel `ns.db.foreverDurability.at` (25).
+NIET in het spel gezien.
+
 🔧 **Repair & sell GEBOUWD (20 nov, Forever)** — Rob: *"Hebben we al iets in onze helper staan waarbij ik aan kan klikken
 om zo snel mogelijk naar iemand of iets te gaan waarbij ik mijn spullen kan repareren en zeker verkopen?"* → *"ja doe
 maar"*. Data: `tools/forever_repair.py` → `Modules/ForeverRepairData.lua` (beide toc's): Zygor Forever NPCData ["Repair"]

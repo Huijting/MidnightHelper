@@ -67,6 +67,15 @@ Nieuwe addon → **WoW helemaal herstarten** (in retail én in Forever). In de a
       "not unlocked yet". Screenshot.
 - [ ] Er is GEEN renown-kolom per character bijgekomen (renown is voor je hele account).
 
+## 🛡️ 20 nov — Forever: waarschuwing versleten uitrusting
+
+Nieuw bestand → **WoW helemaal herstarten**. Forever.
+- [ ] `/mh durability test`: een klein rood venster "Your gear is at N% - repair before you pull!", je meest versleten item,
+      en "Repair & sell: <naam>, <zone>, <afstand>" met een knop. Zet de knop de pijl? Screenshot.
+- [ ] Echt: speel tot je meest versleten item onder 25% zakt (of sterf een paar keer). Het venster komt één keer, niet in
+      een gevecht (dan erna). Na repareren en weer zakken komt hij opnieuw.
+- [ ] Quiet helpers → "Warn when your gear is worn" uit = geen venster meer. `/mh durability` zegt wat MH zag.
+
 ## 🔧 20 nov — Forever: Repair & sell
 
 Nieuw databestand → **WoW helemaal herstarten**. Forever.

@@ -31,7 +31,8 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
   snel mogelijk naar iemand of iets te gaan waarbij ik mijn spullen kan repareren en zeker verkopen?"* → op het voorstel:
   *"ja doe maar"*.
 - Gebouwd: Find (In town + Which city?) en het Tas vol-venster; 359 reparateurs (Zygor + Wowhead Forever), MH leert bij
-  elk verkoopvenster. Niet gebouwd: knop bij een duurzaamheidswaarschuwing, want MH heeft die in Forever niet.
+  elk verkoopvenster. Daarna (Rob: *"ja doe maar"*) ook een duurzaamheidswaarschuwing in Forever (onder 25%) met
+  dezelfde knop: GEBOUWD 20 nov (ForeverDurability.lua, schakelaar standaard aan).
 - Spel: F. Site: in SITE_SEIN, nog niet op de site (in bouw, niet getest).
 
 ### De testlijst in het spel, alleen voor Rob (verzoek van Rob, 20 nov) — ✅ JA + GEBOUWD 20 nov (wacht op Robs test)

@@ -1673,6 +1673,8 @@ for k, v in pairs({
 	FCITY_SUB_REPAIR = "Händler, die deine Ausrüstung reparieren, auf deiner Seite, der nächste zuerst. Jeder Händler kauft deine Sachen. MH lernt bei jedem Händlerfenster, wer repariert.",
 	FCITY_REPAIR_NONE = "MH kennt auf diesem Kontinent keinen Händler deiner Seite, der repariert.",
 	FBAG_REPAIR_NEAR_FMT = "Reparieren & verkaufen: %s, %s, %s",
+	FDUR_SW = "Warnen, wenn deine Ausrüstung abgenutzt ist",
+	FDUR_SW_DESC = "Fällt dein am stärksten abgenutzter Gegenstand unter 25 %, sagt es ein kleines Fenster, mit dem Gegenstand und dem nächsten Händler, der repariert, und einem Knopf für den Pfeil. Einmal; wieder nach einer Reparatur. Nie im Kampf.",
 	FBAG_ON = "das Fenster „Taschen voll“ ist an.",
 	FBAG_OFF = "das Fenster „Taschen voll“ ist aus. /mh bagfull on holt es zurück.",
 	FBAG_TEST_BTN = "MH-Test: einmal klicken",

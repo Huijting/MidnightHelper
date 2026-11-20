@@ -1308,6 +1308,10 @@ local QUIET = {
 	Q("FREST_SW", "FREST_SW_DESC", {
 		get = function() return ns.IsForeverRestTipOn and ns.IsForeverRestTipOn() end,
 		set = function(on) if ns.SetForeverRestTip then ns.SetForeverRestTip(on) end end }),
+	-- 20 Nov 2026 (Rob: "ja doe maar"): worn gear, with the way to the nearest repairer (ForeverDurability.lua).
+	Q("FDUR_SW", "FDUR_SW_DESC", {
+		get = function() return ns.IsForeverDurabilityOn and ns.IsForeverDurabilityOn() end,
+		set = function(on) if ns.SetForeverDurability then ns.SetForeverDurability(on) end end }),
 	Q("FLS_SW", "FLS_SW_DESC", {
 		get = function() return ns.IsLootSparkleOn and ns.IsLootSparkleOn() end,
 		set = function(on) if ns.SetLootSparkle then ns.SetLootSparkle(on) end end }),

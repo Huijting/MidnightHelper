@@ -529,6 +529,8 @@ for k, v in pairs({
 	FCITY_SUB_REPAIR = "Vendedores que reparam o seu equipamento, da sua facção, o mais próximo primeiro. Qualquer vendedor compra os seus itens. O MH aprende em cada janela de vendedor quem repara.",
 	FCITY_REPAIR_NONE = "O MH não conhece nenhum vendedor da sua facção que repare neste continente.",
 	FBAG_REPAIR_NEAR_FMT = "Reparar e vender: %s, %s, %s",
+	FDUR_SW = "Avisar quando o seu equipamento está gasto",
+	FDUR_SW_DESC = "Quando o seu item mais gasto fica abaixo de 25%, uma janela pequena avisa, com o item e o vendedor mais próximo que repara, e um botão para a seta. Uma vez; de novo após um reparo. Nunca em combate.",
 	FBAG_ON = "a janela de bolsas cheias está ligada.",
 	FBAG_OFF = "a janela de bolsas cheias está desligada. /mh bagfull on traz ela de volta.",
 	FBAG_TEST_BTN = "Teste do MH: clique uma vez",

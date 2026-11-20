@@ -34,6 +34,8 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 - Mag op de site: nee (in bouw, niet getest)
 - Speler ziet:    in Find (In town en Which city?) de verkopers die repareren, dichtstbijzijnde eerst, met Show the way;
                   in het Tas vol-venster de dichtstbijzijnde met een knop. MH leert bij elk verkoopvenster wie repareert.
+                  Plus: zakt je meest versleten item onder 25%, dan een klein venster met dezelfde knop (schakelaar
+                  `FDUR_SW`, standaard aan; `/mh durability [test]`).
 - Knoplabels:     `FCITY_CAT_REPAIR`
 - Commando's:     geen nieuwe (`/mh vendor check` telt ze)
 - Spel:           Forever

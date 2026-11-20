@@ -1675,6 +1675,8 @@ for k, v in pairs({
 	FCITY_SUB_REPAIR = "Les marchands qui réparent ton équipement, dans ta faction, le plus proche d'abord. Tout marchand achète tes objets. MH apprend à chaque fenêtre de marchand qui répare.",
 	FCITY_REPAIR_NONE = "MH ne connaît aucun marchand de ta faction qui répare sur ce continent.",
 	FBAG_REPAIR_NEAR_FMT = "Réparer et vendre : %s, %s, %s",
+	FDUR_SW = "Prévenir quand ton équipement est usé",
+	FDUR_SW_DESC = "Quand ton objet le plus usé passe sous 25 %, une petite fenêtre le dit, avec l'objet et le marchand le plus proche qui répare, et un bouton pour la flèche. Une fois ; à nouveau après une réparation. Jamais en combat.",
 	FBAG_ON = "la fenêtre « sacs pleins » est activée.",
 	FBAG_OFF = "la fenêtre « sacs pleins » est désactivée. /mh bagfull on la réactive.",
 	FBAG_TEST_BTN = "Test MH : clique une fois",

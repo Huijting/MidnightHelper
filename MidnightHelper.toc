@@ -281,6 +281,7 @@ Modules\ReagentUse.lua
 Modules\ForeverSkillupData.lua
 Modules\ForeverSkillup.lua
 Modules\ForeverBagFull.lua
+Modules\ForeverDurability.lua
 Modules\ForeverPartyProbe.lua
 Modules\ForeverPartyPanel.lua
 Modules\ForeverDoNow.lua
