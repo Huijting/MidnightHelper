@@ -5,7 +5,15 @@
 🎨 **Find + Steden: ONTWERP gestuurd, niet gebouwd** (IDEEEN, ✅ JA ontwerp). Opties A tegels / B zoekveld + kop Steden /
 C "Wat zoek ik? | Welke stad?". Advies C + zoekveld; geen schakelaar (MH onthoudt de laatste keuze).
 → Rob koos **D: het hele Forever-overzicht in CharacterScape-stijl** (*"Ik ga toch voor d"*; Now/Class houden). Schetsen
-D_now/D_class/D_find + plan in 4 stappen naar sparring (IDEEEN). NIET gebouwd; wacht op Robs ja op het plan.
+D_now/D_class/D_find + plan in 4 stappen naar sparring (IDEEEN). Rob: *"Ja"* (met schakelaar oud/nieuw).
+- 🖼️ **D stap 1 GEBOUWD** (`ForeverOverview.lua`): `NEW_LAYOUT` uit `ns.IsForeverNewLayout()` (db `foreverOldLayout`,
+  standaard nieuw; schakelaar `FOV_LAYOUT_SW` in Quiet helpers, werkt na /reload). Nieuw: W,H = 1100,600;
+  `RIGHT_PAD` = 188 (16 + tabkolom 160 + 12) — alle 13 pagina-ankers "BOTTOMRIGHT -16" gebruiken nu `RIGHT_PAD`, en
+  `rightW = W - x0 - RIGHT_PAD` = 708 (oud 700); `SUB_TOP = TOP_Y` (geen subrij). `RelayoutTabs`: tabs 160×40 rechts
+  (stap 46), subtabs van de open groep ingesprongen (18 px, 26 hoog), gear-groep onderaan de kolom; `f.pageName`
+  gecentreerd op de oude tabrij. OnShow: schaal omlaag tot het venster past (Shift+scroll-schaal van het oude venster).
+  Oud = ongewijzigde code-pad. Midnight niet geraakt. NIET in het spel gezien. Volgende: stap 2 (pagina's nalopen),
+  stap 3 (Find "Which city?"), stap 4 (afwerken; oud weg na Robs ja, ~1 week).
 
 ▶ **Rob onderweg: *"Laten we doorgaan met REST XP, shortest path. En dan kijken we wel weer verder."***
 - 😴 **Rest XP GEBOUWD** (`Modules/ForeverRestXP.lua`, NIEUW, beide toc's, alleen Forever → WoW herstarten). Feiten uit

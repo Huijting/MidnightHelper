@@ -44,6 +44,31 @@ local W, H = 920, 520
 -- Header: title row, then a row of tabs (room for 7: plan step 1), then the line and the content.
 local TAB_Y, LINE_Y, TOP_Y, TAB_SLOTS = -50, -82, -96, 7
 local LEFT_W = 176
+-- 20 Nov 2026, layout D (Rob via sparring: "Ik ga toch voor d", then "Ja" to the plan with an old/new switch): the tabs
+-- as a column of tall buttons on the RIGHT (idea from CharacterScape; no code of it: no licence found), the window
+-- 1100x600 so the content keeps its width (708 instead of 700) and gains 80 px. Every page ends RIGHT_PAD from the
+-- right edge: 16 in the old layout, 16 + the tab column + 12 in the new one. Set in Build() from the switch, so a
+-- change needs a /reload (the window is built once). Mockups: Temp\claude\find_mockups\D_*.png.
+local NEW_LAYOUT, RIGHT_PAD = false, 16
+local VTAB_W, VTAB_H, VTAB_STEP, VSUB_H, VSUB_STEP, VSUB_IN = 160, 40, 46, 26, 30, 18
+
+--- Layout D on (default) or the old tabs-on-top layout (Quiet helpers; takes effect after /reload).
+function ns.IsForeverNewLayout()
+	return not (type(ns.db) == "table" and ns.db.foreverOldLayout == true)
+end
+
+function ns.SetForeverNewLayout(on)
+	if type(ns.db) ~= "table" then
+		return
+	end
+	-- plain branches (lint [29])
+	if on then
+		ns.db.foreverOldLayout = nil
+	else
+		ns.db.foreverOldLayout = true
+	end
+	print("|cffffcc00Midnight Helper:|r " .. ns:L("FOV_LAYOUT_RELOAD"))
+end
 
 local win
 
@@ -240,7 +265,7 @@ local function BuildClassQuestPage(f, x0, rightW)
 	local page = f.pages.cq
 	local card = Card(page)
 	card:SetPoint("TOPLEFT", f, "TOPLEFT", x0, SUB_TOP)
-	card:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -16, 16)
+	card:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -RIGHT_PAD, 16)
 	card.label = Label(card, ns:L("FOV_LABEL_CQ_LIST"), "FOV_TIP_CARD_CQ")
 	card.count = Text(card, "head2", 12, A.dim)
 	card.count:SetPoint("TOPRIGHT", -16, -12)
@@ -353,7 +378,7 @@ local function BuildInfoPage(f, key, x0, rightW, labelKey, tipKey, howKey)
 	st.why:SetPoint("RIGHT", -14, 0)
 	local how = Card(page)
 	how:SetPoint("TOPLEFT", st, "TOPRIGHT", 12, 0)
-	how:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -16, 16)
+	how:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -RIGHT_PAD, 16)
 	how.label = Label(how, ns:L(howKey), "FOV_TIP_CARD_HOW")
 	how.sf, how.child = S.Scroll(how, 34, 10, 40)
 	how.text = Text(how.child, "text", 14)
@@ -421,7 +446,7 @@ local function BuildTrainerPage(f, x0, rightW)
 	local page = f.pages.trainer
 	local card = Card(page)
 	card:SetPoint("TOPLEFT", f, "TOPLEFT", x0, TOP_Y)
-	card:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -16, 16)
+	card:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -RIGHT_PAD, 16)
 	card.label = Label(card, ns:L("FOV_LABEL_TRAINER"), "FOV_TIP_CARD_TRAINER")
 	card.go = Button(card, 130)
 	card.go:SetHeight(22)
@@ -511,7 +536,7 @@ local function BuildFindPage(f, x0, rightW)
 	cat.items = {}
 	local list = Card(page)
 	list:SetPoint("TOPLEFT", cat, "TOPRIGHT", 12, 0)
-	list:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -16, 16)
+	list:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -RIGHT_PAD, 16)
 	list.label = Label(list, "", "FOV_TIP_CARD_FIND_LIST")
 	list.act = Button(list, 130)
 	list.act:SetHeight(22)
@@ -736,7 +761,7 @@ local function BuildKeysPage(f, x0, rightW)
 	end
 	local list = Card(page)
 	list:SetPoint("TOPLEFT", left, "TOPRIGHT", 12, 0)
-	list:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -16, 16)
+	list:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -RIGHT_PAD, 16)
 	list.label = Label(list, ns:L("FMAC_TITLE"):upper(), "FOV_TIP_CARD_MACROS")
 	list.sub = Text(list, "text", 12, A.dim)
 	list.sub:SetPoint("TOPLEFT", 14, -32)
@@ -872,7 +897,7 @@ local function BuildProfsPage(f, x0, rightW)
 	end
 	local card = Card(page)
 	card:SetPoint("TOPLEFT", left, "TOPRIGHT", 12, 0)
-	card:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -16, 16)
+	card:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -RIGHT_PAD, 16)
 	card.label = Label(card, "", "FOV_TIP_CARD_PROF")
 	card.trainers = Button(card, 120)
 	card.trainers:SetHeight(22)
@@ -983,7 +1008,7 @@ local function BuildDungeonsPage(f, x0, rightW)
 	end
 	local grp = Card(page)
 	grp:SetPoint("TOPLEFT", raids, "BOTTOMLEFT", 0, -12)
-	grp:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -16, 16)
+	grp:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -RIGHT_PAD, 16)
 	grp.label = Label(grp, ns:L("FOV_LABEL_GROUP"), "FOV_TIP_CARD_GROUP")
 	grp.top = Text(grp, "textB", 13)
 	grp.top:SetPoint("TOPLEFT", 14, -34)
@@ -1049,7 +1074,7 @@ local function BuildCharsPage(f, x0, rightW)
 	local page = f.pages.chars
 	local card = Card(page)
 	card:SetPoint("TOPLEFT", f, "TOPLEFT", x0, SUB_TOP)
-	card:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -16, 16)
+	card:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -RIGHT_PAD, 16)
 	card.label = Label(card, ns:L("FCHARS_TITLE"):upper(), "FOV_TIP_SUB_CHARS")
 	card.total = Text(card, "head2", 14, A.gold)
 	card.total:SetPoint("TOPRIGHT", -16, -12)
@@ -1110,7 +1135,7 @@ local function BuildWeekPage(f, x0, rightW)
 	local page = f.pages.week
 	local card = Card(page)
 	card:SetPoint("TOPLEFT", f, "TOPLEFT", x0, SUB_TOP)
-	card:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -16, 16)
+	card:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -RIGHT_PAD, 16)
 	card.label = Label(card, ns:L("FOV_LABEL_WEEK"), "FOV_TIP_CARD_WEEK")
 	card.sf, card.child = S.Scroll(card, 36, 10, 40)
 	card.text = Text(card.child, "text", 15)
@@ -1128,7 +1153,7 @@ local function BuildRepPage(f, x0, rightW)
 	local page = f.pages.rep
 	local card = Card(page)
 	card:SetPoint("TOPLEFT", f, "TOPLEFT", x0, SUB_TOP)
-	card:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -16, 16)
+	card:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -RIGHT_PAD, 16)
 	card.label = Label(card, ns:L("FOV_SUB_REP"):upper(), "FOV_TIP_SUB_REP")
 	card.sf, card.child = S.Scroll(card, 36, 10, 40)
 	card.text = Text(card.child, "text", 14)
@@ -1221,6 +1246,10 @@ local QUIET = {
 		set = function(on) if ns.SetThanksBuff then ns.SetThanksBuff(on) end end }),
 	-- 20 Nov 2026 (Rob: "en begin met 4, loot sparkles :)"): quest items sparkle instead of an outline
 	-- (ForeverLootSparkle.lua). Off by default; switching off puts the old graphics settings back.
+	-- 20 Nov 2026 (Rob: "Ja" to layout D with an old/new switch): tabs on the right (new, default) or on top (old).
+	Q("FOV_LAYOUT_SW", "FOV_LAYOUT_SW_DESC", {
+		get = function() return ns.IsForeverNewLayout and ns.IsForeverNewLayout() end,
+		set = function(on) if ns.SetForeverNewLayout then ns.SetForeverNewLayout(on) end end }),
 	-- 20 Nov 2026 (Rob: "doorgaan met REST XP"): the window when you log out outside an inn or a city (ForeverRestXP.lua).
 	Q("FREST_SW", "FREST_SW_DESC", {
 		get = function() return ns.IsForeverRestTipOn and ns.IsForeverRestTipOn() end,
@@ -1286,7 +1315,7 @@ local function BuildQuietPage(f, x0, rightW)
 	local page = f.pages.quiet
 	local card = Card(page)
 	card:SetPoint("TOPLEFT", f, "TOPLEFT", x0, SUB_TOP)
-	card:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -16, 16)
+	card:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -RIGHT_PAD, 16)
 	card.label = Label(card, ns:L("FOV_LABEL_QUIET"), "FOV_TIP_CARD_QUIET")
 	card.all = Button(card, 150)
 	card.all:SetHeight(22)
@@ -1358,7 +1387,7 @@ local function BuildListPage(f, key, x0, rightW, labelKey, tipKey)
 	local page = f.pages[key]
 	local card = Card(page)
 	card:SetPoint("TOPLEFT", f, "TOPLEFT", x0, SUB_TOP)
-	card:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -16, 16)
+	card:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -RIGHT_PAD, 16)
 	card.label = Label(card, ns:L(labelKey):upper(), tipKey)
 	card.sf, card.child = S.Scroll(card, 36, 8, 50)
 	card.rowW = rightW - 22 - 8
@@ -1491,7 +1520,7 @@ local function BuildPlayPage(f, x0, rightW)
 	Tip(toc.roles, ns:L("FOV_ROLES_BTN_TIP_TITLE"), ns:L("FOV_TIP_ROLES_BTN"))
 	local body = Card(page)
 	body:SetPoint("TOPLEFT", toc, "TOPRIGHT", 12, 0)
-	body:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -16, 16)
+	body:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -RIGHT_PAD, 16)
 	body.label = Label(body, "", "FOV_TIP_TAB_PLAY")
 	body.sf, body.child = S.Scroll(body, 34, 10, 60)
 	body.textW = (rightW - tocW - 12) - 22 - 12
@@ -1522,6 +1551,13 @@ local function Build()
 		return win
 	end
 	A = S.T()
+	-- Layout D (20 Nov 2026): decided once, here, before any page reads W / RIGHT_PAD / SUB_TOP.
+	NEW_LAYOUT = ns.IsForeverNewLayout()
+	if NEW_LAYOUT then
+		W, H = 1100, 600
+		RIGHT_PAD = 16 + VTAB_W + 12
+		SUB_TOP = TOP_Y -- no switch row on top: the sub-tabs sit in the right column
+	end
 	local f = CreateFrame("Frame", "MidnightHelperForeverOverview", UIParent, "BackdropTemplate")
 	f:SetSize(W, H)
 	f:SetPoint("CENTER", 0, 60)
@@ -1553,6 +1589,18 @@ local function Build()
 	f:RegisterForDrag("LeftButton")
 	f:SetScript("OnDragStart", f.StartMoving)
 	f:SetScript("OnDragStop", f.StopMovingOrSizing)
+	-- Layout D is bigger: a Shift+scroll size saved for the old 920x520 window could push it off a small screen. On every
+	-- opening the scale is lowered (never raised) until the whole window fits; clamping keeps it on screen.
+	f:HookScript("OnShow", function(self)
+		local sw, sh = UIParent:GetWidth(), UIParent:GetHeight()
+		local s = self:GetScale() or 1
+		if sw and sh and sw > 0 and sh > 0 then
+			local fit = math.min((sw - 20) / W, (sh - 20) / H)
+			if s > fit and fit > 0.3 then
+				self:SetScale(fit)
+			end
+		end
+	end)
 
 	-- Header: title, tabs, close.
 	f.title = Text(f, "head", 22, A.gold)
@@ -1670,12 +1718,25 @@ local function Build()
 	end
 	-- Tabs on their own row under the title (plan step 1: 7 tabs and long German words did not fit next to the title).
 	-- TAB_SLOTS equal widths, so the row stays put when a tab is added.
+	-- Layout D: the same buttons as a column on the right (placed in RelayoutTabs, because a group's sub-tabs open
+	-- under its tab), and the open page's name centred where the tab row was.
 	f.tabs = {}
-	local tabW = math.floor((W - 32 - (TAB_SLOTS - 1) * 6) / TAB_SLOTS)
+	local tabW = NEW_LAYOUT and VTAB_W or math.floor((W - 32 - (TAB_SLOTS - 1) * 6) / TAB_SLOTS)
+	if NEW_LAYOUT then
+		f.pageName = Text(f, "head", 20, A.gold)
+		f.pageName:SetPoint("TOP", 0, TAB_Y - 2)
+		f.pageName:SetWidth(W - 2 * (16 + LEFT_W))
+		f.pageName:SetJustifyH("CENTER")
+		f.pageName:SetWordWrap(false)
+	end
 	for i = 1, #TABS do
 		local t = TABS[i]
 		local b = Button(f, tabW)
-		b:SetPoint("TOPLEFT", 16 + (i - 1) * (tabW + 6), TAB_Y)
+		if NEW_LAYOUT then
+			b:SetHeight(VTAB_H)
+		else
+			b:SetPoint("TOPLEFT", 16 + (i - 1) * (tabW + 6), TAB_Y)
+		end
 		b:SetLabel(ns:L(t.key))
 		b:SetScript("OnClick", function()
 			if t.group then
@@ -1688,7 +1749,7 @@ local function Build()
 				t.fn()
 			end
 		end)
-		b.page, b.group = t.page, t.group
+		b.page, b.group, b.labelKey = t.page, t.group, t.key
 		Tip(b, ns:L(t.key), ns:L(t.tip))
 		f.tabs[i] = b
 	end
@@ -1711,16 +1772,19 @@ local function Build()
 		row:SetPoint("TOPLEFT", x0s, TOP_Y)
 		row.btns = {}
 		for i, p in ipairs(list) do
-			local b = Button(row, 160)
-			b:SetHeight(22)
-			b:SetPoint("TOPLEFT", (i - 1) * 166, 0)
+			-- Layout D: the row's buttons become small indented tabs in the right column (RelayoutTabs places them).
+			local b = Button(NEW_LAYOUT and f or row, NEW_LAYOUT and (VTAB_W - VSUB_IN) or 160)
+			b:SetHeight(NEW_LAYOUT and VSUB_H or 22)
+			if not NEW_LAYOUT then
+				b:SetPoint("TOPLEFT", (i - 1) * 166, 0)
+			end
 			b:SetLabel(ns:L(p.key))
 			Tip(b, ns:L(p.key), ns:L(p.tip))
 			b:SetScript("OnClick", function()
 				f.page = p.page
 				ns.ForeverOverviewFill()
 			end)
-			b.page = p.page
+			b.page, b.labelKey = p.page, p.key
 			row.btns[i] = b
 		end
 		row:Hide()
@@ -1828,7 +1892,7 @@ local function Build()
 	f.sealLevel:SetJustifyH("CENTER")
 
 	local x0 = 16 + LEFT_W + 12
-	local rightW = W - x0 - 16
+	local rightW = W - x0 - RIGHT_PAD
 	-- Row 1: Do this now (wide), Coming up, Class quest.
 	-- Widths: the class quest card got wider in round 3 (sparring saw "Wolfsbane: the Kor G…" cut off).
 	-- Round 4: Coming up wider again (its spell names were cut off), Do this now gives some of its room.
@@ -1932,7 +1996,7 @@ local function Build()
 	-- Row 2: your path (level now → +6), in equal columns that stay inside the card (Rob's screenshot: the last ran out).
 	f.path = Card(f.pages.now)
 	f.path:SetPoint("TOPLEFT", f.now, "BOTTOMLEFT", 0, -12)
-	f.path:SetPoint("BOTTOMRIGHT", -16, 16)
+	f.path:SetPoint("BOTTOMRIGHT", -RIGHT_PAD, 16)
 	f.path.label = Label(f.path, "", "FOV_TIP_CARD_PATH")
 	local pathW = rightW
 	local colW = math.floor((pathW - 28) / PATH_NODES)
@@ -4229,6 +4293,57 @@ function ns.ForeverOverviewRefresh()
 	end
 end
 
+--- Layout D: the tab column on the right. Each tab in order; the open group's sub-tabs indented under its tab; the gear
+--- group (Quiet helpers, Tools, Commands) at the bottom of the column while it is open. The centred page name says
+--- where you are (the sub-tab's name inside a group).
+local function RelayoutTabs(f, group)
+	local x = W - 16 - VTAB_W
+	local y = TOP_Y
+	local name
+	local function place(b, inset, h, step)
+		b:ClearAllPoints()
+		b:SetPoint("TOPLEFT", f, "TOPLEFT", x + inset, y)
+		b:Show()
+		y = y - step
+		return b
+	end
+	for _, b in ipairs(f.tabs) do
+		place(b, 0, VTAB_H, VTAB_STEP)
+		local active = b.page == f.page or (b.group ~= nil and b.group == group)
+		b:SetActive(active)
+		if active then
+			name = ns:L(b.labelKey)
+		end
+		local row = b.group and f.subRows[b.group]
+		for _, sb in ipairs(row and row.btns or {}) do
+			if b.group == group then
+				place(sb, VSUB_IN, VSUB_H, VSUB_STEP)
+				sb:SetActive(sb.page == f.page)
+				if sb.page == f.page then
+					name = ns:L(sb.labelKey)
+				end
+			else
+				sb:Hide()
+			end
+		end
+	end
+	local gearRow = f.subRows.gear
+	for _, sb in ipairs(gearRow and gearRow.btns or {}) do
+		if group == "gear" then
+			place(sb, VSUB_IN, VSUB_H, VSUB_STEP)
+			sb:SetActive(sb.page == f.page)
+			if sb.page == f.page then
+				name = ns:L(sb.labelKey)
+			end
+		else
+			sb:Hide()
+		end
+	end
+	if f.pageName then
+		f.pageName:SetText(name and name:upper() or "")
+	end
+end
+
 function ns.ForeverOverviewFill(refresh)
 	local f = Build()
 	local r, g, b = Accent()
@@ -4244,15 +4359,22 @@ function ns.ForeverOverviewFill(refresh)
 	if group then
 		f.lastInGroup[group] = f.page
 	end
-	for _, b in ipairs(f.tabs) do
-		if b.page or b.group then
-			b:SetActive(b.page == f.page or (b.group ~= nil and b.group == group))
+	if NEW_LAYOUT then
+		RelayoutTabs(f, group)
+		for _, row in pairs(f.subRows) do
+			row:Hide() -- its buttons live in the column now
 		end
-	end
-	for g, row in pairs(f.subRows) do
-		row:SetShown(g == group)
-		for _, b in ipairs(row.btns) do
-			b:SetActive(b.page == f.page)
+	else
+		for _, b in ipairs(f.tabs) do
+			if b.page or b.group then
+				b:SetActive(b.page == f.page or (b.group ~= nil and b.group == group))
+			end
+		end
+		for g, row in pairs(f.subRows) do
+			row:SetShown(g == group)
+			for _, b in ipairs(row.btns) do
+				b:SetActive(b.page == f.page)
+			end
 		end
 	end
 	f.gear:SetActive(group == "gear")

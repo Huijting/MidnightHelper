@@ -44,6 +44,20 @@ achternaam, "Step aside"-instelling, Your path, Set focus). Daarna vond Rob nog:
 rank-lijstje: werkt (screenshot: "You just learned", Conjure Water rank 1 -> 2 en Frost Armor rank 1 -> 2, met de knoppen
 Upgrade / Not now / Never). Afgevinkt met "(Rob, 19 nov)". De hulpregels ("typ /mh … als het niet werkt") blijven open.
 
+## 🖼️ 20 nov — Forever: nieuw overzicht, stap 1 (tabbladen rechts)
+
+`/reload` is genoeg. Forever, `/mh` of Alt+M.
+- [ ] Het overzicht is groter (1100×600) en de tabbladen staan als hoge knoppen RECHTS. Bovenaan, in het midden, staat
+      de naam van de open pagina. Screenshot.
+- [ ] Now en Class zien er van binnen hetzelfde uit als eerst (kaarten even breed, niets afgekapt).
+- [ ] Class: onder "Class" staan How you play / Class quests / Camping als kleine tabjes. Characters: zijn 4 tabjes.
+- [ ] Tandwiel: Quiet helpers / Tools / Commands staan onderaan de kolom.
+- [ ] Shift+scroll maakt het groter/kleiner; het venster blijft op je scherm. Slepen werkt. Escape sluit.
+- [ ] Knoppen elders die een pagina openen (bv. "Find" bij de trainer, "Show all" in Find) komen op de goede pagina.
+- [ ] Quiet helpers → "New layout: tabs on the right" uit → chat zegt "/reload" → na /reload het oude overzicht
+      (tabbladen bovenaan). Weer aan + /reload = nieuw.
+- [ ] Loop alle pagina's even langs: is er tekst afgekapt of ligt iets over de tabkolom? Screenshot van wat niet klopt.
+
 ## 🧙 20 nov — Forever: Hearthstone en teleports in de route, met tijd
 
 `/reload` is genoeg (geen nieuw bestand).

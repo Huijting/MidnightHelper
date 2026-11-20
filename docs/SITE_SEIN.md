@@ -28,6 +28,16 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 20 nov 2026 — Forever: nieuw overzicht (tabbladen rechts), stap 1 van 4
+- Tag + commit:   geen tag (commit: zie git log, "Forever: nieuw overzicht stap 1")
+- Status:         alleen op main
+- Mag op de site: nee (in bouw, niet getest)
+- Speler ziet:    een groter Forever-overzicht met de tabbladen als hoge knoppen rechts; de oude indeling blijft te
+                  kiezen in Quiet helpers.
+- Knoplabels:     `FOV_LAYOUT_SW`
+- Commando's:     geen nieuwe
+- Spel:           Forever
+
 ## 20 nov 2026 — Forever: Hearthstone en teleports in de route
 - Tag + commit:   geen tag (commit: zie git log, "Forever: teleports in de route")
 - Status:         alleen op main
