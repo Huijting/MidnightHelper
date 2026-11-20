@@ -37,6 +37,15 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
   Reizen 2, Rares 2 + één per zone met rares); rechts per regel NPC-/plaatsnaam, "zone · afstand", routezin, knop.
   Stadsdiensten: 181 regels in ForeverCitySpots. Herbergen: 14 (geen Ratchet).
 - Ontwerp: 3 opties (A tegels, B zoekveld + Steden-kop, C "Wat / Waar"-schakelaar) naar sparring. Wacht op Robs keuze.
+- Optie D op Robs vraag (CharacterScape-stijl, map `_forever_\Interface\AddOns\CharacterForever`, v0.16.25, Amir Ahmadi;
+  GEMETEN geen licentie, alleen OFL.txt voor het font → alleen het idee): venster 1040×618, middenpaneel, rechts hoge
+  tabbladen 160×44.
+- ✅ **Rob kiest D voor het HELE Forever-overzicht** (via sparring, letterlijk: *"Ik ga toch voor d"* en *"Dat klopt zo.
+  Vooral de eerste paar die we nu standaard hebben, vind ik super gaaf. Dat moet ik zeker houden."*). Eerst schetsen +
+  plan, dan zijn ja, dan stap voor stap. Schetsen (20 nov): `Temp\claude\find_mockups\` A/B/C/D + D_now/D_class/D_find.
+  Voorstel: 1100×600 (niet 1040: dan wordt het middenstuk smaller dan nu en Now krapper), portret links blijft,
+  inhoud 708 breed (nu 700), tabbladen rechts, subtabbladen (How you play/Class quests/Camping, Characters-groep)
+  ingesprongen onder hun tab. Midnight ongewijzigd. Lay-out: geen Fable.
 
 ### Forever: "Dock to window" uit alle vensters (verzoek van Rob, 20 nov) — ✅ JA + GEBOUWD 20 nov (wacht op Robs test)
 - Bron: Rob 20 nov via sparring, letterlijk: *"ja haal ze maar uit alle forerver vensters"* (aanleiding: de titel van

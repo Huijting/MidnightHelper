@@ -3,7 +3,9 @@
 ## ▶ 20 nov — drie testpunten goedgekeurd (Rob grieperig: één stap tegelijk)
 
 🎨 **Find + Steden: ONTWERP gestuurd, niet gebouwd** (IDEEEN, ✅ JA ontwerp). Opties A tegels / B zoekveld + kop Steden /
-C "Wat zoek ik? | Welke stad?". Advies C + zoekveld; geen schakelaar (MH onthoudt de laatste keuze). Wacht op Rob.
+C "Wat zoek ik? | Welke stad?". Advies C + zoekveld; geen schakelaar (MH onthoudt de laatste keuze).
+→ Rob koos **D: het hele Forever-overzicht in CharacterScape-stijl** (*"Ik ga toch voor d"*; Now/Class houden). Schetsen
+D_now/D_class/D_find + plan in 4 stappen naar sparring (IDEEEN). NIET gebouwd; wacht op Robs ja op het plan.
 
 ▶ **Rob onderweg: *"Laten we doorgaan met REST XP, shortest path. En dan kijken we wel weer verder."***
 - 😴 **Rest XP GEBOUWD** (`Modules/ForeverRestXP.lua`, NIEUW, beide toc's, alleen Forever → WoW herstarten). Feiten uit
