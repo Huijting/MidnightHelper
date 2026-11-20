@@ -2,6 +2,12 @@
 
 ## ▶▶ VOLGENDE BOUWCHAT: Forever-overzicht "D" — stap 1 en 3 gebouwd; stap 2 wacht op Robs screenshots (20 nov, avond)
 
+⏹️ **TESTLIJST opgeruimd (20 nov)** — Rob: *"Beide ja"* (oude punten naar archief "vervallen, niet getest"). Script
+(scratch testlist_split.py, per `## `-kop, eerste datum in de kop): 316 secties met kopdatum vóór 10 nov → bovenaan
+`TESTLIJST_ARCHIEF.md` onder "Derde verhuizing", open punten als `[vervallen, niet getest]`. GEMETEN: vóór 1765 open /
+599 [x]; na 697 open / 140 [x] in TESTLIJST, 1068 vervallen in het archief. Blijven staan: "9 nov — Deze week in
+Forever" en de kop zonder datum (19 nov). De telefoonpagina (testlist_page) is NIET opnieuw gebouwd.
+
 🔨 **Skill up voor beroepen (idee 6, MIDDEL) GEBOUWD (20 nov, Bouwchat 20-11 (2))** — Rob via sparring: *"Ja, begin
 daar dan mee. Het geld kunnen we inderdaad later bekijken."* Nieuw: `tools/forever_skillup.py` → `Modules/
 ForeverSkillupData.lua` (2119 recepten, 1605 receptitems, 120 KB; controles 2660 = Blacksmithing 15/55 Rough Stone en
