@@ -5,7 +5,10 @@
 Rob via sparring, letterlijk: *"deze 3 zijn goed gekeurd : * het venstertje met je class-quest-stap * het lijstje "You
 just learned" na de toetsenblok-vraag * in Midnight: het kaartje "MH werkt ook in WoW Forever""*. Afgevinkt in TESTLIJST
 met "(Rob, 20 nov)". Open gelaten: de hulpregels (`/mh ranks`, `/mh new`, `/mh classquest`) en "Had je hem al
-weggeklikt" (het andere pad, niet getest). ThanksBuff test hij nu. Geen nieuw werk zonder ja.
+weggeklikt" (het andere pad, niet getest). Geen nieuw werk zonder ja.
+- **ThanksBuff, meting 1 GOED** (Rob via sparring: *"thaanks test werkt ook"*): `/mh thanks test` + "zet het aan"
+  afgevinkt. Open: meting 2 (echte buff van een vreemde — de onbewezen kern: is de gever leesbaar), geen tweede
+  bedankje binnen een uur, TFTB-regel.
 
 ## 🔴 Fable-afspraak — vanaf za 21 nov (na de reset) één week proef
 

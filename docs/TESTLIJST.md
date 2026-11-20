@@ -47,10 +47,11 @@ Upgrade / Not now / Never). Afgevinkt met "(Rob, 19 nov)". De hulpregels ("typ /
 ## 🙏 19 nov — vreemden bedanken voor een buff (Forever + Midnight)
 
 ⚠️ **Nieuw bestand: sluit WoW helemaal af en start opnieuw** (`/reload` is niet genoeg).
-- [ ] Zet het aan: Forever → Overzicht → tandwiel → Quiet helpers → "Thank strangers for a buff". (Midnight: in de
-      instellingen van MH, onder Screen.) Of typ `/mh thanks on`.
+- [x] Zet het aan: Forever → Overzicht → tandwiel → Quiet helpers → "Thank strangers for a buff". (Midnight: in de
+      instellingen van MH, onder Screen.) Of typ `/mh thanks on`. (Rob, 20 nov)
 - [ ] Staat Thanks for the Buff aan? Dan doet MH niets (anders bedank je dubbel). Zet TFTB voor deze test even uit.
-- [ ] **Meting 1:** target een vriendelijke speler en typ `/mh thanks test`. In de chat staat "You thank <naam>." Screenshot.
+- [x] **Meting 1:** target een vriendelijke speler en typ `/mh thanks test`. In de chat staat "You thank <naam>." Screenshot.
+      (Rob, 20 nov: *"thaanks test werkt ook"*)
 - [ ] **Meting 2:** laat je door een vreemde buffen (buiten je groep, buiten een gevecht, buiten een dungeon). Er komt
       "You thank <naam>." Typ daarna `/mh thanks`: de regel "last decision" zegt wat MH zag. Screenshot.
 - [ ] Dezelfde speler buft je nog eens binnen een uur: geen tweede bedankje.
