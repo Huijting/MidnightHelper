@@ -50,6 +50,28 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
                  nakijken"; niet gedaan, NIET GEMETEN. Licentie checken vóór we iets overnemen, alleen het idee, eigen code.)
 - Rob zegt:      nog niet beoordeeld (ja / nee / later)
 
+### Shortest Path: de kortste weg naar een plek — uitzoeken wat die addon meer doet (idee van Rob, 20 nov — nog niet beoordeeld)
+- Voor wie:      allebei (AFGELEID)
+- Moment:        als je ergens heen wilt en wilt weten wat de snelste route is. Nog niet bepaald.
+- Spel:          nog niet gezegd
+- Bron:          Rob 20 nov 2026, letterlijk (dictaat): *"Shortest path. Een add-on die kijkt hoe je de kortste weg naar
+                 ergens kan doen. Dus die wordt er ook even bij. Moet ook uitzoeken."* Rob noemt geen volledige naam.
+                 AFGELEID dat hij **Shortest Path Forever** bedoelt: daar las Rob al op 18 okt over (zie hieronder).
+- Wat er al is: GEMETEN in de code (20 nov): `Modules/Travel/TravelGraph.lua` is al een routezoeker (Dijkstra, goedkoopste
+                 totale tijd eerst), gemaakt na Robs lezen van hoe Shortest Path Forever plant. Daarnaast `TravelPlanner.lua`
+                 (weg naar huis), `TravelPlan.lua` (`/mh plan`) en `ForeverTravel.lua`. Alleen de code van die addon
+                 is niet gebruikt (zijn licentie is GPL-3, die van ons MIT, zie de kop van `TravelGraph.lua`).
+                 Kosten in `TravelGraph.lua` zijn AFGELEID (gekozen, niet gemeten) en dienen alleen om routes goed te ordenen.
+- Wat nog moet:  UITZOEKEN (NIET GEMETEN, niet gedaan): wat die addon nu nog meer kan dan wij? Waar is onze route
+                 slechter of ontbreekt hij? Bv. Midnight-doelen blijven bij `WayHome` (zo bewust gekozen op 18 okt).
+                 Alleen kijken en het idee overnemen, geen code (GPL-3).
+- Bouwt op:      `Modules/Travel/TravelGraph.lua` en `TravelPlan.lua`
+- Data:          nog te meten
+- Vindbaar:      al zo: `/mh plan`, de pijl en het wapenvenster; of het genoeg gevonden wordt is NIET GEMETEN
+- Werk:          eerst klein (uitzoeken), daarna pas een inschatting
+- Site:          nee
+- Rob zegt:      nog niet beoordeeld (ja / nee / later)
+
 ### Midnight: de eerste blik bij openen, zoals het Forever-overzicht (GEPAUZEERD tot na za 21 nov 10:00)
 - Bron: Rob 18 nov (via Sparring 18-11), letterlijk: *"Ik denk dat we het nooit zo mooi kunnen krijgen als de forever
   versie omdat we al zoveel hebben in midnight, we pauzeren dit tot na de Claude Code reset 🙂 , wat ik juist mooi vond
