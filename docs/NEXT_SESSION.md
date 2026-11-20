@@ -34,6 +34,16 @@ weggeklikt" (het andere pad, niet getest). Geen nieuw werk zonder ja.
   titel en `Fit()` rekent de titelhoogte mee → schuift omlaag, overlapt niet (AFGELEID uit de code, niet in het spel
   gezien). Testregel in TESTLIJST. ⚠️ Rob zei 17 nov dat de dock-knop in Forever "nergens meer nodig" is; die is hier
   bewust NIET weggehaald (de sparring vroeg om de titel te begrenzen) — kan later.
+- 🧹 **"Dock to window" weg uit ALLE Forever-vensters** (Rob via sparring: *"ja haal ze maar uit alle forerver
+  vensters"*). Centraal: `DialogPopup.lua` `RegisterMidnightDialogPopup` roept `AttachDockButton` alleen aan als
+  `not ns.IS_FOREVER` (GEMETEN: de enige plek die de knop maakt). Midnight ongewijzigd. Titels die aan `_mhDockBtn`
+  vastzaten krijgen in Forever een eigen rechtergrens van -36 (vóór het kruisje): `NewChoices.lua` (was -140) en
+  `ForeverDirection.lua` (was gecentreerd zonder breedte). `ForeverClassQuests.lua` valt terug op zijn eigen -28.
+  Geraakte bestanden in de Forever-toc (GEMETEN, 25): DelvePartyShare, KeyPresses, NameplateColors, ForeverMacros,
+  ForeverVendors, ForeverWeapons, EditModeBackup, KeyBlock, ForeverHowToPlay, ForeverDirection, ForeverTrainer,
+  ForeverProfTrainers, ForeverRanks, ForeverToolGuard, ForeverOverview (had hem al verborgen), ForeverDungeons,
+  ForeverDungeonGuide, NewChoices, ForeverChars, ForeverLayoutCarry, LayoutGrowth, BarPlanCard, FpsPanel,
+  ForeverClassQuests, KeysHub. Een eerder gedockt venster wordt in Forever niet meer vastgezet. NIET in het spel gezien.
 
 ## 🔴 Fable-afspraak — vanaf za 21 nov (na de reset) één week proef
 

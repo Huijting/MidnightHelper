@@ -518,6 +518,11 @@ local function Build()
 		f.title:ClearAllPoints()
 		f.title:SetPoint("TOPLEFT", PAD + 4, -18)
 		f.title:SetPoint("RIGHT", f._mhDockBtn, "LEFT", -8, 0)
+	else
+		-- Forever has no dock button (20 Nov 2026): the title may run up to just before the close button.
+		f.title:ClearAllPoints()
+		f.title:SetPoint("TOPLEFT", PAD + 4, -18)
+		f.title:SetPoint("RIGHT", f, "RIGHT", -36, 0)
 	end
 	return f
 end

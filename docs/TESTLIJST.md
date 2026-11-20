@@ -44,6 +44,14 @@ achternaam, "Step aside"-instelling, Your path, Set focus). Daarna vond Rob nog:
 rank-lijstje: werkt (screenshot: "You just learned", Conjure Water rank 1 -> 2 en Frost Armor rank 1 -> 2, met de knoppen
 Upgrade / Not now / Never). Afgevinkt met "(Rob, 19 nov)". De hulpregels ("typ /mh … als het niet werkt") blijven open.
 
+## 🧹 20 nov — Forever: geen "Dock to window" meer
+
+`/reload` is genoeg.
+- [ ] Forever: open een paar MH-vensters (class-quest-venster, "New in this version", de richting-vraag, trainer,
+      dungeons, macro's, How you play). Nergens staat nog "Dock to window" rechtsboven.
+- [ ] De titels staan netjes: links of in het midden, vóór het kruisje, zonder over iets heen te lopen.
+- [ ] Midnight: daar staat "Dock to window" er nog wel (bv. in de bazengids of Keys). Klikken werkt als vroeger.
+
 ## ✨ 20 nov — Forever: questitems glinsteren in plaats van een rand
 
 ⚠️ **Nieuw bestand: sluit WoW helemaal af en start opnieuw** (`/reload` is niet genoeg).

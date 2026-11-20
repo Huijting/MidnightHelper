@@ -425,6 +425,13 @@ local function Build()
 		f.title:SetPoint("RIGHT", f._mhDockBtn, "LEFT", -8, 0)
 		f.title:SetJustifyH("CENTER")
 		f.title:SetWordWrap(true)
+	else
+		-- No dock button in Forever (20 Nov 2026): centred between the left edge and the close button, wraps if long.
+		f.title:ClearAllPoints()
+		f.title:SetPoint("TOPLEFT", 20, -20)
+		f.title:SetPoint("RIGHT", f, "RIGHT", -36, 0)
+		f.title:SetJustifyH("CENTER")
+		f.title:SetWordWrap(true)
 	end
 	f:Hide()
 	-- 17 Nov 2026: style A, like the overview (ForeverStyle.lua S.SkinWindow).

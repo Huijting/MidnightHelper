@@ -26,6 +26,12 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 
 ## Open — wacht op Rob
 
+### Forever: "Dock to window" uit alle vensters (verzoek van Rob, 20 nov) — ✅ JA + GEBOUWD 20 nov (wacht op Robs test)
+- Bron: Rob 20 nov via sparring, letterlijk: *"ja haal ze maar uit alle forerver vensters"* (aanleiding: de titel van
+  het class-quest-venster liep eronder; eerder, 17 nov: *"het knopje dock en undock is eigenlijk nergens meer nodig"*).
+- Gebouwd: `DialogPopup.lua` maakt de knop niet meer in Forever; Midnight houdt hem. Titels in NewChoices en
+  ForeverDirection krijgen in Forever een eigen rechtergrens. Spel: F. Site: nee.
+
 ### Tas vol: wat kan weg, wat verkopen, wat vernietigen of looten (idee van Rob, 20 nov — nog niet beoordeeld)
 - Voor wie:      allebei (AFGELEID)
 - Moment:        wanneer je tas vol zit (of bijna). AFGELEID: "inventory full"-moment of BAG_UPDATE_DELAYED; nog niet bepaald.

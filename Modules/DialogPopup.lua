@@ -515,7 +515,12 @@ function ns.RegisterMidnightDialogPopup(frame)
 	-- Scaling needs a name to remember it by; an anonymous dialog simply does not get it.
 	if name then
 		AttachScaling(frame, name)
-		AttachDockButton(frame, name)
+		-- No dock button in WoW Forever. Rob, 20 Nov 2026 (via sparring, verbatim): "ja haal ze maar uit alle forerver
+		-- vensters" (after 17 Nov: "het knopje dock en undock is eigenlijk nergens meer nodig"). The overview IS the main
+		-- window there. Retail keeps it. Windows that anchor their title to frame._mhDockBtn fall back when it is nil.
+		if not ns.IS_FOREVER then
+			AttachDockButton(frame, name)
+		end
 	end
 	if not name or type(UISpecialFrames) ~= "table" then
 		return
