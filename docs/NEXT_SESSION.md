@@ -2,6 +2,20 @@
 
 ## ▶▶ VOLGENDE BOUWCHAT: Forever-overzicht "D" — stap 1 en 3 gebouwd; stap 2 wacht op Robs screenshots (20 nov, avond)
 
+⛏️ **Kruiden en erts laten glinsteren: MEETFASE (20 nov)** — Rob: *"ja graag"* op "eerst uitzoeken, dan meet jij, dan
+bouwen". Onderzoek (mh-research, GEMETEN in de Forever-UI-bron): GEEN glinster-CVar voor nodes. Node-addons (Lueur: idee,
+MIT volgens zijn CF-pagina, geen code genomen) zetten soft-targeting aan (SoftTargetInteract 3, Arc 2, Range 15,
+IconGameObject 1, NameplateInteract 1) en hangen zelf een gloed aan de nameplate van "softinteract"; één node tegelijk,
+~15 m. Robs cvp2/cvp3 waren Lueurs waarden (GEMETEN: gelijk aan Lueur's gate; echte waarden in LueurDB.savedCVars).
+Lueur staat aan op 5 karakters (AddOns.txt), uit op o.a. Midnight-Helper en Ima-Pallie. Meting gebouwd in
+`ForeverLootSparkle.lua`: `/mh sparkle nodes` → CVar-info (19 namen), ConsoleGetAllCommands-treffers, softinteract
+vóór/na (naam, GUID, gameobject, plate, cursor-icoon), wijzigingen 30 s lang, dan exact terugzetten (ook bij reload/logout/
+laadscherm) → `MidnightHelperDB.nodeProbe`. Weigert als Lueur geladen is (`force` om toch). Offline GEMETEN
+(nodeprobe_test.lua): zetten, terugzetten, vangnet, weigering. NIET in het spel gezien. VOLGENDE: Robs uitslag lezen → stap A
+(alleen CVars, icoon van de game) of stap B (MH tekent een gloed op die nameplate). Bijvangst: Loot Sparkles bewaarde
+OutlineEngineMode "0" terwijl cvp1 "2" mat (AFGELEID: graphicsOutlineMode trok hem mee) → nu eerst álle oude waarden
+lezen, dan zetten. Robs huidige `lootSparkle.saved` heeft nog de 0 (bij uitzetten: rand terug via graphicsOutlineMode 2).
+
 🛡️ **Duurzaamheidswaarschuwing in Forever GEBOUWD (20 nov)** — Rob: *"ja doe maar"* op "zijn je spullen onder de 25%, dan
 zegt MH het en toont hij de knop 'Repair & sell' erbij". `Modules/ForeverDurability.lua` (beide toc's, stopt buiten
 Forever): UPDATE_INVENTORY_DURABILITY + na laadscherm (3 s) → laagste item < 25% → venster

@@ -235,6 +235,10 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
                  `Modules/ForeverLootSparkle.lua`, schakelaar `FLS_SW` (standaard uit), `/mh sparkle [on|off]`.
                  GEMETEN in Robs client (probe cvp1/cvp2): alle vijf outline-CVars en vijf SoftTarget-CVars bestaan.
                  Kruiden/erts NIET gebouwd (welke waarden: niet gemeten). Wacht op Robs test.
+                 Kruiden/erts: Rob *"ja graag"* (20 nov via sparring) op "eerst uitzoeken, dan meet jij, dan bouwen".
+                 UITGEZOCHT (mh-research): GEEN glinster-CVar voor nodes in Blizzards Forever-UI-code; node-addons zetten
+                 soft-targeting aan (de game kiest één object bij je, "softinteract") en tekenen zelf. Meting gebouwd:
+                 `/mh sparkle nodes` (30 s, daarna alles terug) → `MidnightHelperDB.nodeProbe`. Wacht op Robs meting.
 
 ### Forever: Layer Swap — zien op welke layer je zit en wisselen (idee van Rob, 20 nov — nog niet beoordeeld)
 - Voor wie:      veteraan en nieuweling (AFGELEID)

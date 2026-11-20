@@ -217,6 +217,17 @@ Nieuw bestand → **WoW helemaal herstarten** (niet alleen /reload). Forever, ee
 - [ ] De titels staan netjes: links of in het midden, vóór het kruisje, zonder over iets heen te lopen.
 - [ ] Midnight: daar staat "Dock to window" er nog wel (bv. in de bazengids of Keys). Klikken werkt als vroeger.
 
+## ⛏️ 20 nov — Forever: meting voor kruiden en erts (`/mh sparkle nodes`)
+
+`/reload` is genoeg. Neem een karakter waarop **Lueur UIT staat** (bv. Midnight-Helper of Ima-Pallie), met Mining of
+Herbalism.
+- [ ] Ga op een paar meter van een ertsader of kruid staan (binnen ongeveer 10 meter), niet in een gevecht.
+- [ ] Typ `/mh sparkle nodes`. In de chat: "node probe: soft-target values set …".
+- [ ] Kijk 30 seconden naar de ader of het kruid: verschijnt er een icoontje (houweel of kruidje) boven? Ja of nee.
+      Loop er gerust even omheen. Screenshot als er iets verschijnt.
+- [ ] Na 30 seconden in de chat: "… 6 setting(s) put back". Alles staat dan weer zoals het was.
+- [ ] Doe daarna `/reload`. De uitslag staat dan in de SavedVariables; de bouwchat leest hem.
+
 ## ✨ 20 nov — Forever: questitems glinsteren in plaats van een rand
 
 ⚠️ **Nieuw bestand: sluit WoW helemaal af en start opnieuw** (`/reload` is niet genoeg).

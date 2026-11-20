@@ -12,7 +12,7 @@ local _, ns = ...
 	All five exist. What MH sets: the loot effect 1, the four outline CVars 0 (as the addon page describes).
 	NOT measured: that this really makes quest items sparkle on screen (Rob tests), and the page's claim that the
 	outline only comes back after a full restart (so the off-text says "if it does not return, restart").
-	NOT built: herbs and ore (the SoftTarget* CVars exist, cvp2, but which values the addon sets is not measured).
+	NOT built yet: herbs and ore. 20 Nov 2026: first a measurement, /mh sparkle nodes (see NodeProbe below).
 
 	Same keep-and-put-back as KeyBlock.lua: the value before MH touched it is kept in ns.db.lootSparkle.saved and
 	switching off puts exactly that back. Off by default. Never in combat (waits for PLAYER_REGEN_ENABLED). A graphics
@@ -95,15 +95,21 @@ local function Apply(why)
 	local d = Db()
 	d.saved = d.saved or {}
 	local changed, right, missing, failed = 0, 0, 0, 0
+	-- 20 Nov 2026: keep EVERY old value first, then set. Rob's SV kept OutlineEngineMode "0" although cvp1 measured "2":
+	-- setting graphicsOutlineMode to 0 first moved the engine CVars along (AFGELEID), so they were read after the change.
+	local before = {}
+	for _, r in ipairs(SET) do
+		before[r[1]] = Get(r[1])
+		if before[r[1]] ~= nil and d.saved[r[1]] == nil then
+			d.saved[r[1]] = before[r[1]]
+		end
+	end
 	for _, r in ipairs(SET) do
 		local name, want = r[1], r[2]
-		local cur = Get(name)
+		local cur = before[name]
 		if cur == nil then
 			missing = missing + 1
 		else
-			if d.saved[name] == nil then
-				d.saved[name] = cur
-			end
 			if cur == want then
 				right = right + 1
 			elseif Set(name, want) then
@@ -176,9 +182,262 @@ ev:SetScript("OnEvent", function(_, event, name, value)
 	end
 end)
 
---- /mh sparkle [on|off]
+--[[ /mh sparkle nodes — MEASUREMENT for herbs and ore (Rob, 20 Nov 2026 via sparring: "ja graag" on "wil je dat erts en
+	kruiden ook gaan glinsteren? Dan zoekt de bouwchat eerst uit hoe dat moet. Daarna doe jij een kleine meting").
+	Research (mh-research, 20 Nov): the UI source has NO sparkle CVar for nodes. Node addons (idea: Lueur, MIT on its CF
+	page; NO code taken) switch soft-targeting on so the game picks ONE object near you ("softinteract") and shows its
+	icon/nameplate, then draw on that. This probe measures, on Rob's client, before and after MH sets those values:
+	which CVars exist (C_CVar.GetCVarInfo), which console commands match (ConsoleGetAllCommands), and what the game says
+	about "softinteract". The values stay on for 30 seconds so Rob can look at the vein, then MH puts back exactly what
+	was there. Result: MidnightHelperDB.nodeProbe (after /reload or logout). ]]
+local NODE_SET = {
+	{ "SoftTargetInteract", "3" },
+	{ "SoftTargetInteractArc", "2" },
+	{ "SoftTargetInteractRange", "15" },
+	{ "SoftTargetIconGameObject", "1" },
+	{ "SoftTargetIconInteract", "1" },
+	{ "SoftTargetNameplateInteract", "1" },
+}
+local NODE_INFO = {
+	"SoftTargetInteract", "SoftTargetInteractArc", "SoftTargetInteractRange", "SoftTargetInteractOnlyInRange",
+	"SoftTargetInteractRangeIsHard", "SoftTargetIconGameObject", "SoftTargetIconInteract", "SoftTargetIconEnemy",
+	"SoftTargetLowPriorityIcons", "SoftTargetNameplateInteract", "SoftTargetNameplateSize", "SoftTargetTooltipInteract",
+	"SoftTargetWorldtextSize", "nameplateGameObjectMaxDistance", "nameplateMaxDistance", "Outline", "graphicsOutlineMode",
+	"OutlineEngineMode", "outlineModeShowLootEffectWhenDisabled",
+}
+local NODE_WORDS = { "softtarget", "outline", "loot", "gather", "highlight", "sparkle", "glow", "worldtext",
+	"gameobject", "interact" }
+-- The three that are installed in Rob's Forever AddOns folder and touch soft-targeting (folder names GEMETEN 20 Nov).
+local NODE_ADDONS = { "Lueur", "BetterFishing", "MFNameplates" }
+local NODE_HOLD = 30
+
+local probe = { running = false }
+
+local function Str(v)
+	if v ~= nil and issecretvalue and issecretvalue(v) then
+		return "SECRET"
+	end
+	return tostring(v)
+end
+
+local cursorTex
+local function SoftInteract(label)
+	local r = { label = label, t = GetTime and math.floor(GetTime()) or 0 }
+	local function Call(key, fn, ...)
+		if type(fn) ~= "function" then
+			r[key] = "no API"
+			return nil
+		end
+		local ok, v = pcall(fn, ...)
+		r[key] = ok and Str(v) or ("error: " .. tostring(v))
+		return ok and v or nil
+	end
+	Call("exists", UnitExists, "softinteract")
+	Call("isGameObject", UnitIsGameObject, "softinteract")
+	Call("name", UnitName, "softinteract")
+	Call("guid", UnitGUID, "softinteract")
+	Call("inRange", UnitIsInInteractRange, "softinteract")
+	if C_NamePlate and C_NamePlate.GetNamePlateForUnit then
+		local ok, plate = pcall(C_NamePlate.GetNamePlateForUnit, "softinteract")
+		if ok and plate then
+			r.plate = "yes"
+			local okF, forb = pcall(plate.IsForbidden, plate)
+			r.plateForbidden = okF and Str(forb) or "?"
+			if not (okF and forb) then
+				local okS, shown = pcall(plate.IsShown, plate)
+				r.plateShown = okS and Str(shown) or "?"
+			end
+		else
+			r.plate = ok and "no" or ("error: " .. tostring(plate))
+		end
+	else
+		r.plate = "no API"
+	end
+	if SetUnitCursorTexture then
+		if not cursorTex then
+			local holder = CreateFrame("Frame")
+			holder:Hide()
+			cursorTex = holder:CreateTexture()
+		end
+		cursorTex:SetTexture(nil)
+		local ok, res = pcall(SetUnitCursorTexture, cursorTex, "softinteract")
+		r.cursorSet = ok and Str(res) or ("error: " .. tostring(res))
+		local okT, tex = pcall(cursorTex.GetTexture, cursorTex)
+		r.cursorTexture = okT and Str(tex) or "?"
+		local okA, atlas = pcall(cursorTex.GetAtlas, cursorTex)
+		r.cursorAtlas = okA and Str(atlas) or "?"
+	else
+		r.cursorSet = "no API"
+	end
+	return r
+end
+
+local function NodeRestore(why)
+	local p = ns.db and ns.db.nodeProbe
+	if not (p and p.saved) then
+		return 0
+	end
+	if InCombatLockdown() then
+		probe.restoreAfterCombat = true
+		p.restoreNote = why .. ": in combat, waits for the fight to end"
+		return 0
+	end
+	local n = 0
+	for name, old in pairs(p.saved) do
+		if Set(name, old) then
+			n = n + 1
+		end
+	end
+	p.restored = {}
+	for name in pairs(p.saved) do
+		p.restored[name] = Get(name)
+	end
+	p.saved = nil
+	p.restoreNote = ("%s: %d setting(s) put back"):format(why, n)
+	probe.running = false
+	print(PREFIX .. "node probe: " .. p.restoreNote .. ". /reload, then the result is in MidnightHelperDB.nodeProbe.")
+	return n
+end
+
+local probeEv = CreateFrame("Frame")
+probeEv:RegisterEvent("PLAYER_LOGOUT")
+probeEv:RegisterEvent("PLAYER_ENTERING_WORLD")
+probeEv:RegisterEvent("PLAYER_REGEN_ENABLED")
+pcall(probeEv.RegisterEvent, probeEv, "PLAYER_SOFT_INTERACT_CHANGED")
+probeEv:SetScript("OnEvent", function(_, event)
+	local p = ns.db and ns.db.nodeProbe
+	if not p then
+		return
+	end
+	if event == "PLAYER_SOFT_INTERACT_CHANGED" then
+		if probe.running then
+			p.changes = p.changes or {}
+			if #p.changes < 12 then
+				p.changes[#p.changes + 1] = SoftInteract("soft interact changed")
+			end
+		end
+	elseif event == "PLAYER_REGEN_ENABLED" then
+		if probe.restoreAfterCombat then
+			probe.restoreAfterCombat = false
+			NodeRestore("after the fight")
+		end
+	elseif p.saved then
+		-- Safety net: a /reload or logout during the 30 seconds must never leave our values behind.
+		NodeRestore(event == "PLAYER_LOGOUT" and "logout during the probe" or "loading screen during the probe")
+	end
+end)
+
+local function NodeProbe(force)
+	if probe.running then
+		print(PREFIX .. "node probe is already running; MH puts everything back by itself.")
+		return
+	end
+	if InCombatLockdown() then
+		print(PREFIX .. "node probe: not in combat. Try again after the fight.")
+		return
+	end
+	if not ns.db then
+		return
+	end
+	local p = { at = date and date("%Y-%m-%d %H:%M:%S") or "?", char = Str(UnitName("player")), addons = {}, cvars = {},
+		console = {}, saved = {}, set = {} }
+	local blocker
+	for _, a in ipairs(NODE_ADDONS) do
+		local loaded = false
+		if C_AddOns and C_AddOns.IsAddOnLoaded then
+			local ok, v = pcall(C_AddOns.IsAddOnLoaded, a)
+			loaded = ok and v and true or false
+		end
+		p.addons[a] = loaded
+		if loaded and a == "Lueur" then
+			blocker = a
+		end
+	end
+	if blocker and not force then
+		print(PREFIX .. ("node probe: %s is on for this character, so the probe would measure %s, not the game. Switch it off "
+			.. "(AddOns list) and /reload, or type /mh sparkle nodes force."):format(blocker, blocker))
+		return
+	end
+	for _, name in ipairs(NODE_INFO) do
+		local row
+		if C_CVar and C_CVar.GetCVarInfo then
+			local ok, v, def, acc, chr, locked, secure, ro = pcall(C_CVar.GetCVarInfo, name)
+			if ok and v ~= nil then
+				row = { value = Str(v), default = Str(def), account = Str(acc), character = Str(chr), locked = Str(locked),
+					secure = Str(secure), readOnly = Str(ro) }
+			end
+		end
+		p.cvars[name] = row or "MISSING"
+	end
+	if ConsoleGetAllCommands then
+		local ok, list = pcall(ConsoleGetAllCommands)
+		if ok and type(list) == "table" then
+			p.consoleTotal = #list
+			for _, c in ipairs(list) do
+				local cmd = type(c) == "table" and type(c.command) == "string" and c.command or nil
+				if cmd then
+					local low = cmd:lower()
+					for _, w in ipairs(NODE_WORDS) do
+						if low:find(w, 1, true) then
+							p.console[#p.console + 1] = { command = cmd, help = Str(c.help), commandType = Str(c.commandType),
+								category = Str(c.category) }
+							break
+						end
+					end
+				end
+			end
+		else
+			p.consoleTotal = "error: " .. tostring(list)
+		end
+	else
+		p.consoleTotal = "no API"
+	end
+	p.before = SoftInteract("before")
+	ns.db.nodeProbe = p
+	for _, r in ipairs(NODE_SET) do
+		local cur = Get(r[1])
+		if cur ~= nil then
+			p.saved[r[1]] = cur
+		end
+	end
+	for _, r in ipairs(NODE_SET) do
+		if p.saved[r[1]] ~= nil then
+			p.set[r[1]] = Set(r[1], r[2]) and r[2] or "FAILED"
+		else
+			p.set[r[1]] = "MISSING"
+		end
+	end
+	probe.running = true
+	print(PREFIX .. ("node probe: soft-target values set. Stand at an ore vein or herb and look: an icon above it? "
+		.. "In %d seconds MH puts your old values back by itself."):format(NODE_HOLD))
+	C_Timer.After(1.5, function()
+		if ns.db.nodeProbe == p then
+			p.after = SoftInteract("after 1.5 s")
+			p.afterValues = {}
+			for _, r in ipairs(NODE_SET) do
+				p.afterValues[r[1]] = Str(Get(r[1]))
+			end
+		end
+	end)
+	C_Timer.After(NODE_HOLD - 2, function()
+		if ns.db.nodeProbe == p and p.saved then
+			p.late = SoftInteract("after 28 s")
+		end
+	end)
+	C_Timer.After(NODE_HOLD, function()
+		if ns.db.nodeProbe == p then
+			NodeRestore("30 seconds over")
+		end
+	end)
+end
+
+--- /mh sparkle [on|off|nodes]
 function ns.ForeverLootSparkleSlash(arg)
 	arg = (arg or ""):lower()
+	if arg == "nodes" or arg == "nodes force" then
+		NodeProbe(arg == "nodes force")
+		return
+	end
 	if arg == "on" or arg == "off" then
 		ns.SetLootSparkle(arg == "on")
 		return
@@ -195,4 +454,5 @@ function ns.ForeverLootSparkleSlash(arg)
 	print(("  applied %d time(s), preset changes seen %d, waiting for combat end: %s"):format(state.applied,
 		state.reapplied, state.pending and "yes" or "no"))
 	print("  last decision: " .. tostring(state.last))
+	print("  /mh sparkle nodes = a 30-second measurement for herbs and ore (result in MidnightHelperDB.nodeProbe).")
 end
