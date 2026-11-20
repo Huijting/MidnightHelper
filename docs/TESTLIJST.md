@@ -99,6 +99,9 @@ Upgrade / Not now / Never). Afgevinkt met "(Rob, 19 nov)". De hulpregels ("typ /
 - [x] Kruisje: weg tot de volgende stap. Escape: weg tot de volgende quest-update (dan komt het terug). (Rob, 20 nov)
 - [x] Quiet helpers → "Small window with your class quest step" uit → het venster is weg. (Rob, 20 nov)
 - [ ] Komt er niets? Typ `/mh classquest` en maak een screenshot: de laatste regel zegt waarom.
+- [ ] **(20 nov, gerepareerd)** Een lange titel (bv. "Study (scrolls from the library, once an hour)") loopt NIET meer
+      onder "Dock to window": hij stopt ervoor en gaat zo nodig naar een tweede regel. De tekst eronder schuift mee
+      omlaag en het venster wordt hoger; niets valt over elkaar. Screenshot. (`/reload` is genoeg.)
 
 ## 🧳 19 nov — Midnight: tooltip op de reisknop
 

@@ -28,6 +28,12 @@ weggeklikt" (het andere pad, niet getest). Geen nieuw werk zonder ja.
   GPLv3-addon: geen code overgenomen. Teksten 7 talen + ru; de woorden "outline"/"glinstering" NIET tegen de
   client-strings gemeten (game-term-regel: nalopen). NIET gemeten: dat het in beeld glinstert; dat uitzetten een
   herstart vraagt (tekst zegt "anders herstarten"). Kruiden/erts NIET gebouwd. SITE_SEIN-regel "alleen op main".
+- 🐞 **Class-quest-venster: titel liep onder "Dock to window" GEREPAREERD** (Rob, screenshot: *"de tekst loopt over de
+  dock to window"*). `ForeverClassQuests.lua` CQWBuild: titel nu rechts vast aan de linkerkant van `f._mhDockBtn`
+  (-8), met woordafbreking; zelfde aanpak als ForeverDirection.lua:422 en NewChoices.lua:517. Body hangt onder de
+  titel en `Fit()` rekent de titelhoogte mee → schuift omlaag, overlapt niet (AFGELEID uit de code, niet in het spel
+  gezien). Testregel in TESTLIJST. ⚠️ Rob zei 17 nov dat de dock-knop in Forever "nergens meer nodig" is; die is hier
+  bewust NIET weggehaald (de sparring vroeg om de titel te begrenzen) — kan later.
 
 ## 🔴 Fable-afspraak — vanaf za 21 nov (na de reset) één week proef
 

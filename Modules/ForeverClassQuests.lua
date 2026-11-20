@@ -3038,6 +3038,16 @@ local function CQWBuild()
 	if ns.RegisterMidnightDialogPopup then
 		ns.RegisterMidnightDialogPopup(f) -- Shift+scroll = size (every MH window), Escape closes
 	end
+	-- Rob, 20 Nov 2026 (screenshot): "de tekst loopt over de dock to window". The title's right edge was at -28, under the
+	-- "Dock to window" button that RegisterMidnightDialogPopup adds. Same fix as ForeverDirection.lua / NewChoices.lua:
+	-- the title ends left of that button and wraps; the body hangs under the title and Fit() takes its height, so a
+	-- two-line title pushes the body down instead of over it.
+	if f._mhDockBtn then
+		f.title:ClearAllPoints()
+		f.title:SetPoint("TOPLEFT", 12, -10)
+		f.title:SetPoint("RIGHT", f._mhDockBtn, "LEFT", -8, 0)
+		f.title:SetWordWrap(true)
+	end
 	-- Only the cross keeps it away for this step. Escape (which closes every MH window at once, also when you only
 	-- wanted to close the map) hides it until the next quest update brings it back.
 	f:Hide()
