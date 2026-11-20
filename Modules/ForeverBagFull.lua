@@ -13,10 +13,10 @@ local _, ns = ...
 	Never suggested: quest items, profession tools (ns.ForeverIsTool, ForeverToolGuard.lua), ingredients for a profession
 	you have (ns.ReagentUseText green), gear better than what you wear (ns.ForeverGearTipText), Rare and better (Forever
 	asks you to type DELETE for those), items without a vendor value, special bags.
-	Step 2 (NOT built, after Rob's test): a Destroy button (your click + "sure?") that then loots, and "Sell MH junk" at a
-	vendor. /mh bagfull test measures whether Forever lets an addon button do that: it calls the two functions on NOTHING
-	(DeleteCursorItem with an empty cursor, UseContainerItem on an empty slot) from a click and from a timer, and records
-	whether the game blocked them (ADDON_ACTION_BLOCKED / ADDON_ACTION_FORBIDDEN). No item can be lost by the test.
+	Step 2 (built 20 Nov 2026 after Rob's test, see the Step 2 block below): Destroy per row (with a "sure?"), Pick up the
+	loot, and "Sell MH junk" at a vendor — only ever from a click. /mh bagfull test calls DeleteCursorItem (empty cursor)
+	and UseContainerItem (empty slot) from a click and records whether the game blocked them, and whether you stood at a
+	vendor. No item can be lost by the test.
 	/mh bagfull           what MH saw last and why it showed or stayed quiet; /mh bagfull show = the window now (same door)
 	/mh bagfull on|off    the automatic window (default on)
 ]]
@@ -82,6 +82,34 @@ local function IsQuestItem(bag, slot)
 	return false
 end
 
+--- Is it a profession tool, in the widest sense? 20 Nov 2026, Rob's own test (screenshot): the window offered his
+--- [Fishing Pole] as "Gear that is not better than what you wear" — "Hij wil mijn fishing pole weggooien. Maar mijn fishing
+--- pole die wil ik niet weggooien, want die heb ik nodig om te vissen." ForeverToolGuard's list has no rods, so:
+---   1. ForeverToolGuard's tools (pick, knife, hammer, spanner, runed rods, philosopher's stone …);
+---   2. every fishing pole by kind (weapon subclass Fishing Pole), whatever its id;
+---   3. the fishing poles MH knows by id (ForeverVendors.lua, the fishing category's "have" list);
+---   4. item class Profession (19), in case Forever has profession gear.
+--- Whether you have the profession does not matter: a tool is never suggested.
+local FISHING_POLES = { [6256] = true, [6365] = true, [6366] = true, [6367] = true, [12225] = true, [19022] = true,
+	[19970] = true }
+local POLE_SUBCLASS = (Enum and Enum.ItemWeaponSubclass and Enum.ItemWeaponSubclass.Fishingpole) or 20
+local function IsTool(id)
+	if ns.ForeverIsTool and ns.ForeverIsTool(id) then
+		return true
+	end
+	if FISHING_POLES[id] then
+		return true
+	end
+	local f = (C_Item and C_Item.GetItemInfoInstant) or GetItemInfoInstant
+	if f then
+		local ok, _, _, _, _, _, classID, subclassID = pcall(f, id)
+		if ok and ((classID == 2 and subclassID == POLE_SUBCLASS) or classID == 19) then
+			return true
+		end
+	end
+	return false
+end
+
 --- Is it an ingredient for a profession you have? (ReagentUse.lua colours that line green.)
 local function ForMyProfession(id)
 	if not ns.ReagentUseText then
@@ -123,7 +151,7 @@ local function Candidates()
 					skip("Rare or better")
 				elseif IsQuestItem(bag, slot) then
 					skip("quest item")
-				elseif ns.ForeverIsTool and ns.ForeverIsTool(id) then
+				elseif IsTool(id) then
 					skip("profession tool")
 				elseif ForMyProfession(id) then
 					skip("ingredient for your profession")
@@ -174,7 +202,7 @@ local function LootBest()
 			if price then
 				local v = price * ((okI and tonumber(qty)) or 1)
 				if not best or v > best.value then
-					best = { link = link, n = (okI and tonumber(qty)) or 1, value = v }
+					best = { link = link, n = (okI and tonumber(qty)) or 1, value = v, slot = i }
 				end
 			end
 		end
@@ -185,8 +213,9 @@ end
 --------------------------------------------------------------------------------
 -- Window
 --------------------------------------------------------------------------------
-local W, H, ROWS = 460, 300, 3
+local W, H, ROWS = 480, 330, 3
 local win
+local AskDestroy, LootIt -- step 2, defined below (both only ever run from a click)
 
 local function Build()
 	if win then
@@ -228,15 +257,35 @@ local function Build()
 		r.icon:SetPoint("LEFT", 0, 0)
 		r.name = r:CreateFontString(nil, "OVERLAY", "GameFontNormal")
 		r.name:SetPoint("TOPLEFT", r.icon, "TOPRIGHT", 8, -1)
-		r.name:SetPoint("RIGHT", r, "RIGHT", -110, 0)
+		r.name:SetPoint("RIGHT", r, "RIGHT", -190, 0)
 		r.name:SetJustifyH("LEFT")
 		r.name:SetWordWrap(false)
+		-- Step 2 (Rob, 20 Nov 2026: "toch wil ik graag die knop erbij per stuk. Dat we dat kunnen destroyen."): Destroy,
+		-- with a "sure?" first. Only from this click (his test: from a timer the game blocks it).
+		r.del = CreateFrame("Button", nil, r, "UIPanelButtonTemplate")
+		r.del:SetSize(96, 22)
+		r.del:SetPoint("RIGHT", r, "RIGHT", 0, 0)
+		r.del:SetText(ns:L("FBAG_DESTROY"))
+		r.del:SetScript("OnClick", function(self)
+			if self.entry and AskDestroy then
+				AskDestroy(self.entry)
+			end
+		end)
+		r.del:SetScript("OnEnter", function(self)
+			GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+			GameTooltip:SetText(ns:L("FBAG_DESTROY"), 1, 0.82, 0)
+			GameTooltip:AddLine(ns:L("FBAG_DESTROY_TIP"), 1, 1, 1, true)
+			GameTooltip:Show()
+		end)
+		r.del:SetScript("OnLeave", function()
+			GameTooltip:Hide()
+		end)
 		r.value = r:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
-		r.value:SetPoint("TOPRIGHT", r, "TOPRIGHT", 0, -1)
+		r.value:SetPoint("TOPRIGHT", r.del, "TOPLEFT", -8, 0)
 		r.value:SetJustifyH("RIGHT")
 		r.why = r:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
 		r.why:SetPoint("TOPLEFT", r.name, "BOTTOMLEFT", 0, -3)
-		r.why:SetPoint("RIGHT", r, "RIGHT", 0, 0)
+		r.why:SetPoint("RIGHT", r.del, "LEFT", -8, 0)
 		r.why:SetJustifyH("LEFT")
 		r.why:SetTextColor(0.7, 0.7, 0.7)
 		r:SetScript("OnEnter", function(self)
@@ -255,6 +304,18 @@ local function Build()
 	f.loot:SetPoint("TOPLEFT", 22, -66 - ROWS * 46 - 6)
 	f.loot:SetPoint("RIGHT", f, "RIGHT", -22, 0)
 	f.loot:SetJustifyH("LEFT")
+	-- Picking up the loot is its own click: the server frees the bag slot only after the destroy, so the same click
+	-- cannot loot yet (AFGELEID; Rob's test decides).
+	f.lootBtn = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
+	f.lootBtn:SetSize(160, 22)
+	f.lootBtn:SetPoint("TOPLEFT", f.loot, "BOTTOMLEFT", 0, -6)
+	f.lootBtn:SetText(ns:L("FBAG_LOOT_BTN"))
+	f.lootBtn:SetScript("OnClick", function(self)
+		if self.slot and LootIt then
+			LootIt(self.slot)
+		end
+	end)
+	f.lootBtn:Hide()
 	f.hint = f:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
 	f.hint:SetPoint("BOTTOMLEFT", 22, 18)
 	f.hint:SetPoint("RIGHT", f, "RIGHT", -22, 0)
@@ -281,11 +342,20 @@ local function Fill(list, loot)
 			r.name:SetText((e.link or e.name or "?") .. (e.n > 1 and (" x" .. e.n) or ""))
 			r.value:SetText(Money(e.value))
 			r.why:SetText(ns:L(e.why))
+			r.del.entry = e
 			r:Show()
 		else
 			r.bag = nil
+			r.del.entry = nil
 			r:Hide()
 		end
+	end
+	if loot and loot.slot then
+		f.lootBtn.slot = loot.slot
+		f.lootBtn:Show()
+	else
+		f.lootBtn.slot = nil
+		f.lootBtn:Hide()
 	end
 	local cheapest = list[1]
 	if loot and cheapest then
@@ -316,6 +386,189 @@ local function Show(why)
 	Fill(list, loot)
 	Build():Show()
 end
+
+--------------------------------------------------------------------------------
+-- Step 2 (Rob, 20 Nov 2026: "toch wil ik graag die knop erbij per stuk. Dat we dat kunnen destroyen."): Destroy,
+-- Pick up the loot, and Sell MH junk at a vendor. GEMETEN in Rob's /mh bagfull test (Forever, empty cursor / empty
+-- slot): from a click DeleteCursorItem and UseContainerItem were not blocked; from a timer UseContainerItem was
+-- (ADDON_ACTION_BLOCKED). So all three run ONLY inside a click (a button, or the "sure?" popup's Yes), never from a timer
+-- or an event. If the game blocks one anyway (a real item may be stricter than an empty cursor), MH puts the item back,
+-- says so in chat, and for selling hides its button for good (db.sellBlocked).
+--------------------------------------------------------------------------------
+local watch -- { kind = "delete"/"sell"/"loot", at = GetTime(), name } while one of our clicks is running
+local blockEv = CreateFrame("Frame")
+blockEv:RegisterEvent("ADDON_ACTION_BLOCKED")
+blockEv:RegisterEvent("ADDON_ACTION_FORBIDDEN")
+blockEv:SetScript("OnEvent", function(_, event, addon)
+	if not watch or addon ~= "MidnightHelper" or (GetTime() - watch.at) > 2 then
+		return
+	end
+	local s = Settings()
+	s.blocked = s.blocked or {}
+	s.blocked[watch.kind] = event
+	if watch.kind == "delete" then
+		pcall(ClearCursor)
+		print(PREFIX .. ns:L("FBAG_DESTROY_BLOCKED"))
+	elseif watch.kind == "sell" then
+		s.sellBlocked = true
+		print(PREFIX .. ns:L("FBAG_SELL_BLOCKED"))
+	end
+	watch = nil
+end)
+
+local function RefreshSoon()
+	-- display only: re-reading the bags after the server answered
+	C_Timer.After(0.6, function()
+		if win and win:IsShown() then
+			pcall(Show, "after your click")
+		end
+	end)
+end
+
+local function SameItem(e)
+	local ok, info = pcall(C.GetContainerItemInfo, e.bag, e.slot)
+	return ok and type(info) == "table" and info.itemID == e.id and info
+end
+
+--- The "sure?" popup's Yes: a click, so the destroy runs inside it.
+local function DoDestroy(e)
+	local info = SameItem(e)
+	if not info or IsTool(e.id) or (tonumber(info.quality) or 0) >= 3 then
+		print(PREFIX .. ns:L("FBAG_DESTROY_GONE"))
+		RefreshSoon()
+		return
+	end
+	watch = { kind = "delete", at = GetTime(), name = e.name }
+	pcall(ClearCursor)
+	pcall(C.PickupContainerItem, e.bag, e.slot)
+	local okC, kind, cid = pcall(GetCursorInfo)
+	if not (okC and kind == "item" and cid == e.id) then
+		pcall(ClearCursor)
+		print(PREFIX .. ns:L("FBAG_DESTROY_GONE"))
+		RefreshSoon()
+		return
+	end
+	pcall(DeleteCursorItem)
+	if CursorHasItem and CursorHasItem() then
+		-- still on the cursor: the game did not take it; put it back where it was
+		pcall(ClearCursor)
+		print(PREFIX .. ns:L("FBAG_DESTROY_BLOCKED"))
+	else
+		print(PREFIX .. ns:L("FBAG_DESTROY_DONE_FMT"):format(e.link or e.name or "?"))
+	end
+	RefreshSoon()
+end
+
+-- Only a key of our own is added; the global table itself is never assigned (that would taint it).
+local DESTROY_POPUP = {
+	text = "%s",
+	button1 = YES,
+	button2 = NO,
+	OnAccept = function(_, data)
+		if data then
+			DoDestroy(data)
+		end
+	end,
+	timeout = 0,
+	whileDead = true,
+	hideOnEscape = true,
+	showAlert = true,
+	preferredIndex = 3,
+}
+if StaticPopupDialogs then
+	StaticPopupDialogs.MH_BAGFULL_DESTROY = DESTROY_POPUP
+end
+
+AskDestroy = function(e)
+	if not SameItem(e) then
+		print(PREFIX .. ns:L("FBAG_DESTROY_GONE"))
+		RefreshSoon()
+		return
+	end
+	local label = (e.link or e.name or "?") .. ((e.n or 1) > 1 and (" x" .. e.n) or "")
+	if StaticPopup_Show and StaticPopupDialogs and StaticPopupDialogs.MH_BAGFULL_DESTROY then
+		StaticPopup_Show("MH_BAGFULL_DESTROY", ns:L("FBAG_DESTROY_CONFIRM_FMT"):format(label), nil, e)
+	end
+end
+
+LootIt = function(slot)
+	watch = { kind = "loot", at = GetTime() }
+	if LootSlot then
+		pcall(LootSlot, slot)
+	end
+	RefreshSoon()
+end
+
+--- Sell MH junk: grey items only (the same never-list as the window), at most 12 per click (the buyback tab holds 12,
+--- Blizzard's MerchantFrame.lua BUYBACK_ITEMS_PER_PAGE, GEMETEN in the Forever UI source).
+local sellBtn
+local function Greys()
+	local out = {}
+	for _, e in ipairs((Candidates())) do
+		if e.why == "FBAG_WHY_GREY" then
+			out[#out + 1] = e
+		end
+	end
+	return out
+end
+
+local function UpdateSellButton()
+	if not sellBtn then
+		return
+	end
+	local s = Settings()
+	local n = #Greys()
+	if s.sellBlocked or not (MerchantFrame and MerchantFrame:IsShown()) or n == 0 then
+		sellBtn:Hide()
+		return
+	end
+	sellBtn:SetText(ns:L("FBAG_SELL_BTN_FMT"):format(n))
+	sellBtn:Show()
+end
+
+local function SellJunk()
+	if not (MerchantFrame and MerchantFrame:IsShown()) then
+		return
+	end
+	watch = { kind = "sell", at = GetTime() }
+	local sold, copper = 0, 0
+	for _, e in ipairs(Greys()) do
+		if sold >= 12 or Settings().sellBlocked then
+			break
+		end
+		if SameItem(e) and pcall(C.UseContainerItem, e.bag, e.slot) then
+			sold = sold + 1
+			copper = copper + (e.value or 0)
+		end
+	end
+	if sold > 0 and not Settings().sellBlocked then
+		print(PREFIX .. ns:L("FBAG_SELL_DONE_FMT"):format(sold, Money(copper)))
+	end
+	C_Timer.After(0.8, UpdateSellButton) -- display only
+end
+
+local merchantEv = CreateFrame("Frame")
+merchantEv:RegisterEvent("MERCHANT_SHOW")
+merchantEv:RegisterEvent("MERCHANT_CLOSED")
+merchantEv:RegisterEvent("BAG_UPDATE_DELAYED")
+merchantEv:SetScript("OnEvent", function(_, event)
+	if event == "MERCHANT_SHOW" and not sellBtn and MerchantFrame then
+		sellBtn = CreateFrame("Button", nil, MerchantFrame, "UIPanelButtonTemplate")
+		sellBtn:SetSize(170, 24)
+		sellBtn:SetPoint("TOPLEFT", MerchantFrame, "BOTTOMLEFT", 0, -4)
+		sellBtn:SetScript("OnClick", SellJunk)
+		sellBtn:SetScript("OnEnter", function(self)
+			GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+			GameTooltip:SetText(self:GetText() or "", 1, 0.82, 0)
+			GameTooltip:AddLine(ns:L("FBAG_SELL_TIP"), 1, 1, 1, true)
+			GameTooltip:Show()
+		end)
+		sellBtn:SetScript("OnLeave", function()
+			GameTooltip:Hide()
+		end)
+	end
+	pcall(UpdateSellButton)
+end)
 
 --------------------------------------------------------------------------------
 -- The trigger: the game says "Inventory is full"
@@ -392,11 +645,10 @@ local function PrintTest()
 	testLog.phase = nil
 	db.test = testLog
 	print(PREFIX .. "bagfull test (stored in MidnightHelperDB.foreverBagFull.test after /reload):")
-	for _, how in ipairs({ "click", "timer" }) do
-		local r = testLog[how] or {}
-		print(("  from a %s: DeleteCursorItem %s, blocked: %s; UseContainerItem %s, blocked: %s"):format(how,
-			tostring(r.delete), tostring(r.deleteBlocked or "no"), tostring(r.use), tostring(r.useBlocked or "no")))
-	end
+	local r = testLog.click or {}
+	print(("  from a click%s: DeleteCursorItem %s, blocked: %s; UseContainerItem %s, blocked: %s"):format(
+		testLog.atVendor and " at a vendor" or " (not at a vendor)", tostring(r.delete), tostring(r.deleteBlocked or "no"),
+		tostring(r.use), tostring(r.useBlocked or "no")))
 	local junk = "?"
 	if C_MerchantFrame and C_MerchantFrame.IsSellAllJunkEnabled then
 		local ok, v = pcall(C_MerchantFrame.IsSellAllJunkEnabled)
@@ -427,13 +679,13 @@ local function StartTest()
 	b:SetPoint("CENTER", 0, 200)
 	b:SetFrameStrata("DIALOG")
 	b:SetText(ns:L("FBAG_TEST_BTN"))
+	-- 20 Nov 2026, Rob's test: from a timer UseContainerItem was ADDON_ACTION_BLOCKED (BugGrabber showed it in red). So the
+	-- test only tries from the click now; MH never calls these from a timer or an event.
 	b:SetScript("OnClick", function(self)
+		testLog.atVendor = (MerchantFrame and MerchantFrame:IsShown()) and true or false
 		RunTest("click")
 		self:Hide()
-		C_Timer.After(0.5, function()
-			RunTest("timer")
-			C_Timer.After(0.5, PrintTest)
-		end)
+		C_Timer.After(0.5, PrintTest) -- printing only
 	end)
 	b:Show()
 	print(PREFIX .. ns:L("FBAG_TEST_START"))

@@ -39,8 +39,10 @@ Blizzard does not publish it. No gold amounts yet.
 
 When something does not fit in your bags, a small window shows the three cheapest things you carry, what they are
 worth and why they can go. When you are looting, it also says whether the loot is worth more than your cheapest item.
-Quest items, your tools, ingredients for your own professions, upgrades and items of quality Rare or better are never
-suggested. Midnight Helper throws nothing away: you decide. `/mh bagfull off` switches the window off.
+Quest items, your tools (also your fishing pole), ingredients for your own professions, upgrades and items of quality
+Rare or better are never suggested. Each item has a *Destroy* button that asks first, and *Pick up the loot* takes the
+loot once there is room. At a vendor, a button under the vendor window sells your grey items. Midnight Helper never throws anything away
+by itself. `/mh bagfull off` switches the window off.
 
 ## WoW Forever: more
 

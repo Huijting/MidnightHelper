@@ -2,6 +2,29 @@
 
 ## ▶▶ VOLGENDE BOUWCHAT: Forever-overzicht "D" — stap 1 en 3 gebouwd; stap 2 wacht op Robs screenshots (20 nov, avond)
 
+🗑️ **Tas vol STAP 2 GEBOUWD (20 nov)** — Rob via sparring: *"Nu geeft het me 3 opties die ik eruit kan gooien, maar toch
+wil ik graag die knop erbij per stuk. Dat we dat kunnen destroyen."* Zijn `/mh bagfull test` (Forever, niet bij een
+verkoper, GEMETEN): vanuit een klik Delete/Use niet geblokkeerd; vanuit een timer UseContainerItem ADDON_ACTION_BLOCKED;
+Sell All Junk enabled = false. Dus alles ALLEEN vanuit een klik. Gebouwd in ForeverBagFull.lua:
+Destroy per regel → StaticPopup "MH_BAGFULL_DESTROY" (Ja = klik) → `DoDestroy`: zelfde itemID op die plek, geen tool, geen
+quality ≥ 3, ClearCursor + PickupContainerItem + check GetCursorInfo + DeleteCursorItem; ligt het nog op de cursor →
+ClearCursor + "not allowed". "Pick up the loot"-knop (LootSlot, eigen klik; in dezelfde klik kan niet, de server moet het
+vak eerst vrijgeven, AFGELEID). "MH: sell junk (N)" onder het MerchantFrame: alleen grijs uit dezelfde lijst, max 12 per
+klik (BUYBACK_ITEMS_PER_PAGE 12). ADDON_ACTION_BLOCKED/FORBIDDEN binnen 2 s na onze klik → melden; verkopen daarna nooit
+meer (`ns.db.foreverBagFull.sellBlocked`). Test zonder timer-fase (geen rode fout meer), noteert "bij een verkoper".
+`StaticPopupDialogs` alleen een eigen sleutel (nooit de global zelf toewijzen). FBAG_HINT + release-tekst/CHANGELOG_570_5
+bijgewerkt (MH gooit niet meer "niets" weg, wel alleen op je klik). Offline GEMETEN (bagfull_test2.lua): vernietigt het
+juiste item, weigert bij ander item en bij de hengel, verkoopt alleen grijs. NIET in het spel gezien; of vernietigen met
+een ECHT item mag, weet alleen Robs test.
+
+🐞 **Tas vol: Fishing Pole in de lijst GEREPAREERD (20 nov)** — Rob testte zelf (screenshot): *"Hij wil mijn fishing pole
+weggooien. Maar mijn fishing pole die wil ik niet weggooien, want die heb ik nodig om te vissen."* Oorzaak (GEMETEN in de
+code): ForeverToolGuard's TOOLS heeft geen hengels, dus de hengel viel door naar "gear". Nu `IsTool` in ForeverBagFull:
+ToolGuard-lijst + elke hengel op soort (wapen-subklasse Fishing Pole, `Enum.ItemWeaponSubclass.Fishingpole`, terugval 20,
+AFGELEID dat Forever die enum heeft) + hengel-id's uit ForeverVendors (6256 6365 6366 6367 12225 19022 19970) + itemklasse 19.
+Ongeacht of je het beroep hebt. Offline GEMETEN: Fishing Pole (id) en een onbekende hengel (soort) eruit, gewoon zwaard
+blijft. Verder werkte Robs test: venster + loot-vergelijking (Tough Jerky 1c, Slimy Bone 13c, Cracked Bill 28c).
+
 📋 **De testlijst in het spel GEBOUWD (20 nov, alleen voor Rob)** — Rob via sparring: *"Kunnen wij niet een soort
 zijstapje maken in onze add-on die alleen voor mij is? …"* (zin in IDEEEN). Aparte addon `MidnightHelper_Testlist`
 (bron `tools/testlist_addon/MidnightHelper_Testlist/`: 2 toc's zoals MH, `Testlist.lua`; `.pkgmeta` negeert tools/ →

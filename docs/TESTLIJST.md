@@ -67,6 +67,18 @@ Nieuwe addon → **WoW helemaal herstarten** (in retail én in Forever). In de a
       "not unlocked yet". Screenshot.
 - [ ] Er is GEEN renown-kolom per character bijgekomen (renown is voor je hele account).
 
+## 🗑️ 20 nov — Forever: Tas vol, stap 2 (Destroy, loot, verkopen)
+
+`/reload` is genoeg (geen nieuw bestand). Forever.
+- [ ] `/mh bagfull show`: elke regel heeft een knop **Destroy**. Klik: een venster vraagt "Destroy <item>? It is gone for
+      good." Ja = het item is weg, de chat zegt "destroyed …" en de lijst ververst. Probeer het op iets grijs.
+- [ ] Zegt de chat "the game did not allow this"? Dan ligt het item weer in je tas. Screenshot (dan weten we dat het spel
+      vernietigen met een echt item strenger behandelt dan de test).
+- [ ] Met een volle tas looten: Destroy, dan de knop **Pick up the loot** onder het lootregeltje. Komt de loot in je tas?
+- [ ] Bij een verkoper met grijze spullen: onder het verkoopvenster een knop **MH: sell junk (N)**. Klik: alleen grijze
+      items worden verkocht (max 12), de chat noemt het bedrag. Je hengel, questitems en niet-grijze spullen blijven.
+- [ ] `/mh bagfull test` nog één keer, nu BIJ een verkoper (er gaat niets weg). Komt er geen rode BugGrabber-fout meer?
+
 ## 🎒 20 nov — Forever: Tas vol, stap 1 (idee 1)
 
 Nieuw bestand → **WoW helemaal herstarten**. Forever.
@@ -79,6 +91,9 @@ Nieuw bestand → **WoW helemaal herstarten**. Forever.
       …, your cheapest item …" en of ruilen loont.
 - [ ] Nooit in de lijst: questitems, je gereedschap, spullen voor je eigen beroepen, gear die beter is dan wat je draagt,
       Rare en beter, je Hearthstone.
+- [ ] **Gerepareerd na Robs test (20 nov):** je Fishing Pole (en elke andere hengel, Mining Pick, Skinning Knife,
+      Blacksmith Hammer, runed rods …) staat er NIET meer in, ook als je dat beroep niet hebt. `/mh bagfull show`
+      met de hengel in je tas: staat hij er niet in? `/mh bagfull` zegt dan "profession tool" bij "left out".
 - [ ] `/mh bagfull` (zonder iets) zegt wat MH zag en wat hij wegliet. `/mh bagfull off` zet het automatische venster uit.
 
 ## 🔨 20 nov — Forever: Skill up voor je beroepen (idee 6)
