@@ -26,6 +26,18 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 
 ## Open — wacht op Rob
 
+### Forever: Find overzichtelijker + een lijst "Steden" (één klik = route) (idee van Rob, 20 nov) — ✅ JA (ontwerp)
+- Bron: Rob 20 nov via sparring, letterlijk: *"Stel je voor, ik zit in het ene gebied en ik wil helemaal naar het andere
+  gebied. Kan ik dan gewoon een knop indrukken en zetten, oké, ik wil naar Ogrimai. Als ik hoorde ben uiteraard. Terwijl
+  ik helemaal op het andere werelddeel zit."* (Willow: Orgrimmar, Horde) en op het voorstel: *"Ja, dit kunnen we nu best
+  wel gaan bedenken, denk ik. Maar dan moeten we ook iets gaan vinden op ons standblad Find. Want het is nu één lange
+  lijst geworden, wat niet echt meer overzichtelijk wordt. Dus laat iemand bedenken hoe we dat grafisch beter kunnen
+  vormgeven in onze model en de layout die we nu hebben in Forever."*
+- GEMETEN (20 nov, code): links 6-7 inklapbare koppen (Class 1, Beroepen 12, Wapens per class, Winkels 9, In de stad 4,
+  Reizen 2, Rares 2 + één per zone met rares); rechts per regel NPC-/plaatsnaam, "zone · afstand", routezin, knop.
+  Stadsdiensten: 181 regels in ForeverCitySpots. Herbergen: 14 (geen Ratchet).
+- Ontwerp: 3 opties (A tegels, B zoekveld + Steden-kop, C "Wat / Waar"-schakelaar) naar sparring. Wacht op Robs keuze.
+
 ### Forever: "Dock to window" uit alle vensters (verzoek van Rob, 20 nov) — ✅ JA + GEBOUWD 20 nov (wacht op Robs test)
 - Bron: Rob 20 nov via sparring, letterlijk: *"ja haal ze maar uit alle forerver vensters"* (aanleiding: de titel van
   het class-quest-venster liep eronder; eerder, 17 nov: *"het knopje dock en undock is eigenlijk nergens meer nodig"*).

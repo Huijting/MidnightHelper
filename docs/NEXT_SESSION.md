@@ -2,6 +2,9 @@
 
 ## ▶ 20 nov — drie testpunten goedgekeurd (Rob grieperig: één stap tegelijk)
 
+🎨 **Find + Steden: ONTWERP gestuurd, niet gebouwd** (IDEEEN, ✅ JA ontwerp). Opties A tegels / B zoekveld + kop Steden /
+C "Wat zoek ik? | Welke stad?". Advies C + zoekveld; geen schakelaar (MH onthoudt de laatste keuze). Wacht op Rob.
+
 ▶ **Rob onderweg: *"Laten we doorgaan met REST XP, shortest path. En dan kijken we wel weer verder."***
 - 😴 **Rest XP GEBOUWD** (`Modules/ForeverRestXP.lua`, NIEUW, beide toc's, alleen Forever → WoW herstarten). Feiten uit
   twee onafhankelijke mh-research-runs (Fable uit), het eens over de kern:
