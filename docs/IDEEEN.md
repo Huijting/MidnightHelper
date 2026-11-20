@@ -26,6 +26,18 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 
 ## Open — wacht op Rob
 
+### De testlijst in het spel, alleen voor Rob (verzoek van Rob, 20 nov) — ✅ JA + GEBOUWD 20 nov (wacht op Robs test)
+- Bron: Rob 20 nov via sparring, letterlijk: *"Kunnen wij niet een soort zijstapje maken in onze add-on die alleen voor
+  mij is? Die dus niet mee gepusht wordt naar de users. Waarbij we het afvinklijstje als één mooi opdrachtenlijst kunnen
+  krijgen met een leuke layout in World of Warcraft zelf. Waarbij ik daar vinkjes kan zetten. Waarbij ik eventueel
+  opmerkingen kan toevoegen. Waarbij eventueel commando's die ik moet gebruiken daar alvast te kopiëren zijn. In games
+  dat ik niet elke keer naar een andere browser moet. En dat ik aan het einde reload kan doen. Dat jij hem kan uitlezen
+  om te kijken wat er allemaal gebeurd is, goedgekeurd is. Enzovoort enzovoort. Ik vind dit een mooi project voor nu.
+  Kijk maar of het gaat lukken."*
+- Gebouwd: aparte addon `MidnightHelper_Testlist` (bron `tools/testlist_addon/`, nooit in de zip), `/mhtest`;
+  `run testlist_ingame` bouwt + installeert (retail én Forever), `run testlist_ingame read [--write]` leest terug.
+- Spel: M + F (Rob-only). Site: nee.
+
 ### Forever een eigen CurseForge-project (optie B) (vraag van Rob, 20 nov) — ⏸️ LATER / NEE VOOR NU
 - Bron: Rob 20 nov via sparring, letterlijk: *"Even een vraag... word het niet tijd on de addon te splitsen in addons ??
   Hij lijkt me zo erg groot te worden... en midnight helper zal voor veel mensen nog als een midnight addon zien... of

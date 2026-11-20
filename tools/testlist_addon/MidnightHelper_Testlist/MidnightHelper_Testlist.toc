@@ -1,0 +1,10 @@
+## Interface: 120007, 120100, 120105, 120107
+## AllowLoadGameType: standard
+## Title: MH Testlist (Rob only)
+## Notes: Rob's test list for Midnight Helper, in the game. Not part of Midnight Helper and never in its download.
+## Author: TwelveInchy
+## Version: dev
+## SavedVariables: MHTestlistDB
+
+Data.lua
+Testlist.lua

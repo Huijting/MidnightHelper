@@ -48,6 +48,16 @@ achternaam, "Step aside"-instelling, Your path, Set focus). Daarna vond Rob nog:
 rank-lijstje: werkt (screenshot: "You just learned", Conjure Water rank 1 -> 2 en Frost Armor rank 1 -> 2, met de knoppen
 Upgrade / Not now / Never). Afgevinkt met "(Rob, 19 nov)". De hulpregels ("typ /mh … als het niet werkt") blijven open.
 
+## 📋 20 nov — De testlijst in het spel (alleen voor Rob)
+
+Nieuwe addon → **WoW helemaal herstarten** (in retail én in Forever). In de addonlijst staat "MH Testlist (Rob only)".
+- [ ] Na het inloggen zegt de chat "MH Testlist: … testpunten. Typ /mhtest". Typ `/mhtest`: een venster met links de
+      testrondes (de nieuwste) en rechts de punten als kaartjes. Screenshot.
+- [ ] Per punt: Goed / Fout / Overslaan (nog een keer klikken = weg), een opmerkingenveld, en een knop per commando die
+      het in je chatregel zet (dan Enter). De tellers bovenaan en links lopen mee.
+- [ ] "Nieuwste" / "Alles" bovenaan, Shift + muiswiel = groter/kleiner, slepen aan de titelbalk, Escape sluit.
+- [ ] Klaar: knop "Reload". Zeg het dan tegen de sparring; Claude leest je vinkjes en opmerkingen uit en zet ze hier.
+
 ## 🏅 20 nov — Midnight: Renown in je alt-overzicht (O14)
 
 `/reload` is genoeg. Midnight (retail), het alt-overzicht (Account snapshot).

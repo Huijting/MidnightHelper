@@ -103,11 +103,20 @@ def _store(section, item):
     if not text:
         return
     key = (section["title"] + "|" + text).encode("utf-8")
+    # 20 Nov 2026 (the in-game test list, tools/testlist_ingame.py): every `/command` in backticks, so the game window
+    # can put it in the chat line. The id stays the same hash, so the phone page's ticks do not move.
+    raw = " ".join(item["parts"])
+    cmds = []
+    for c in re.findall(r"`(/[^`]+)`", raw):
+        c = c.strip()
+        if c and c not in cmds:
+            cmds.append(c)
     section["items"].append({
         "id": hashlib.sha1(key).hexdigest()[:10],
         "text": text,
         "indent": item["indent"],
         "line": item["line"],
+        "cmds": cmds,
     })
 
 

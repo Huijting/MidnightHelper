@@ -2,6 +2,19 @@
 
 ## ▶▶ VOLGENDE BOUWCHAT: Forever-overzicht "D" — stap 1 en 3 gebouwd; stap 2 wacht op Robs screenshots (20 nov, avond)
 
+📋 **De testlijst in het spel GEBOUWD (20 nov, alleen voor Rob)** — Rob via sparring: *"Kunnen wij niet een soort
+zijstapje maken in onze add-on die alleen voor mij is? …"* (zin in IDEEEN). Aparte addon `MidnightHelper_Testlist`
+(bron `tools/testlist_addon/MidnightHelper_Testlist/`: 2 toc's zoals MH, `Testlist.lua`; `.pkgmeta` negeert tools/ →
+nooit in de zip, GEMETEN). `run testlist_ingame` = Data.lua uit TESTLIJST.md (parser + id's van testlist_page.py, nu
+ook `cmds` uit `/backticks`, emoji eruit) + kopie naar `_retail_\Interface\AddOns\` én `_forever_\Interface\AddOns\`
+(GEMETEN geïnstalleerd, 705 punten). In het spel `/mhtest`: secties links (Nieuwste/Alles), kaartjes rechts met Goed/
+Fout/Overslaan, opmerking, commando-knop → chatregel, Reload-knop, Shift+wiel schaal. Opslag `MHTestlistDB.results[id]`
+= {s, n, t, sec, text}. Terug: `run testlist_ingame read` (proefrun) / `read --write`: leest beide WTF-mappen
+(`*\WTF\Account\*\SavedVariables\MidnightHelper_Testlist.lua`), nieuwste per id; Goed → `[x] ✅ (Rob in het spel, datum)`,
+Fout → blijft open + `❌ … : opmerking`, opmerking → `📝`. Offline GEMETEN: luac OK (4 bestanden), venster/klikken/
+opmerking/commando met stubs, teruglezen op een nep-SV in de kladmap (Robs WTF niet aangeraakt). NIET in het spel gezien.
+Na elke wijziging aan TESTLIJST.md: `run testlist_ingame` opnieuw (en /reload). Data.lua staat alleen in de installaties.
+
 📝 **Release-tekst 5.7.0 GESCHREVEN, NIET uitgebracht (20 nov)** — Rob via sparring: *"Ja dat mag erna"*. Voorgesteld
 nummer 5.7.0 (nieuwe functies). `RELEASE_NOTES.md` = `docs/CURSEFORGE_5.7.0.md` (identiek), `CHANGELOG_570_1..7` (enUS) +
 entry in `Changelog.lua`. GEEN .toc-bump (nog 5.6.0), geen tag, geen package. Het changelog-venster springt alleen open
