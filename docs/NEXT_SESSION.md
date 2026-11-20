@@ -16,6 +16,18 @@ weggeklikt" (het andere pad, niet getest). Geen nieuw werk zonder ja.
   zelf"*): de gever van een vreemde buff is leesbaar en de emote komt aan. Pauze blijft 5 minuten (*"nee 5 minuten"*).
   Extra TFTB-functies NEE (*"nah, vergeet die thanks verder maar, we houden het zo, sorry"*; in IDEEEN). Open: geen
   tweede bedankje binnen de pauze, TFTB-regel, "kwam er niets?".
+- ✨ **Forever: Loot Sparkles GEBOUWD** (Rob via sparring: *"en begin met 4, loot sparkles :)"*). Nieuw bestand
+  `Modules/ForeverLootSparkle.lua` (beide toc's, alleen Forever → WoW herstarten). GEMETEN in Robs Forever-client
+  (/run-probe → `MidnightHelperDB.cvp1/cvp2`, controle graphicsOutlineMode "2" = Config.wtf): outlineModeShowLootEffect-
+  WhenDisabled 0, graphicsOutlineMode 2, raidGraphicsOutlineMode 2, OutlineEngineMode 2, RAIDOutlineEngineMode 2;
+  SoftTargetInteract 3, -Arc 2, -Range 15, SoftTargetIconGameObject 1, SoftTargetIconInteract 0. (C_Console bestaat
+  NIET in Forever — eerste probe faalde.) Aan = loot-effect 1, de vier outline-CVars 0; oude waarden in
+  `ns.db.lootSparkle.saved`, uit = terugzetten (patroon KeyBlock). Nooit in combat (wacht op REGEN_ENABLED);
+  CVAR_UPDATE (pcall) zet het na een preset 1 s later opnieuw. Schakelaar `FLS_SW` in Quiet helpers, standaard UIT.
+  `/mh sparkle` print per CVar nu/MH/bewaard + laatste beslissing. FpsPanel leest alleen → geen botsing (GEMETEN).
+  GPLv3-addon: geen code overgenomen. Teksten 7 talen + ru; de woorden "outline"/"glinstering" NIET tegen de
+  client-strings gemeten (game-term-regel: nalopen). NIET gemeten: dat het in beeld glinstert; dat uitzetten een
+  herstart vraagt (tekst zegt "anders herstarten"). Kruiden/erts NIET gebouwd. SITE_SEIN-regel "alleen op main".
 
 ## 🔴 Fable-afspraak — vanaf za 21 nov (na de reset) één week proef
 

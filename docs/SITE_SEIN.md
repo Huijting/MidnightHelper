@@ -28,6 +28,16 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 20 nov 2026 — Forever: questitems glinsteren in plaats van een rand
+- Tag + commit:   geen tag (commit: zie git log, "Forever: Loot Sparkles")
+- Status:         alleen op main
+- Mag op de site: nee (nog niet getest, niet uit)
+- Speler ziet:    een schakelaar in Quiet helpers: questitems die je kunt looten glinsteren weer, in plaats van een
+                  rand. Standaard uit; uitzetten zet je oude grafische instellingen terug.
+- Knoplabels:     `FLS_SW`
+- Commando's:     /mh sparkle [on|off]
+- Spel:           Forever
+
 ## 19 nov 2026 — release 5.6.0 (staat op CurseForge)
 - Tag + commit:   v5.6.0 / cf06c1e. Release-run GitHub 44520447351: geslaagd; log: CurseForge, Wago en GitHub
                   "Success!" voor beide zips. CurseForge-API (GEMETEN): 9699302 `MidnightHelper-v5.6.0.zip`

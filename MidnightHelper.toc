@@ -288,6 +288,7 @@ Modules\ForeverDungeonGuide.lua
 Modules\ForeverSurvey.lua
 Modules\CameraZoom.lua
 Modules\ThanksBuff.lua
+Modules\ForeverLootSparkle.lua
 Modules\MaxLevelWelcome.lua
 Modules\ForeverItemTips.lua
 Modules\ForeverClassQuests.lua

@@ -1538,6 +1538,17 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh sparkle [on|off] — Forever: quest items sparkle instead of an outline (ForeverLootSparkle.lua, 20 Nov 2026).
+	local sparkleArg = msg:match("^sparkle%s*(.*)$")
+	if sparkleArg then
+		if ns.ForeverLootSparkleSlash then
+			ns.ForeverLootSparkleSlash(sparkleArg)
+		else
+			print("|cffffcc00Midnight Helper:|r loot sparkles are for WoW Forever only.")
+		end
+		return
+	end
+
 	-- /mh overview — Forever: the new overview window, rough version of style A (ForeverOverview.lua, 17 Nov 2026).
 	-- /mh blesstip [on|off|set <class> <kind>|reset] — Forever paladin: blessing tip in the player tooltip (ForeverBlessTip.lua).
 	local blessArg = msg:match("^blesstip%s*(.*)$")

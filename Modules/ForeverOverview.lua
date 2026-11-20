@@ -1219,6 +1219,11 @@ local QUIET = {
 	Q("SET_THANKS_TITLE", "SET_THANKS_DESC", {
 		get = function() return ns.IsThanksBuffOn and ns.IsThanksBuffOn() end,
 		set = function(on) if ns.SetThanksBuff then ns.SetThanksBuff(on) end end }),
+	-- 20 Nov 2026 (Rob: "en begin met 4, loot sparkles :)"): quest items sparkle instead of an outline
+	-- (ForeverLootSparkle.lua). Off by default; switching off puts the old graphics settings back.
+	Q("FLS_SW", "FLS_SW_DESC", {
+		get = function() return ns.IsLootSparkleOn and ns.IsLootSparkleOn() end,
+		set = function(on) if ns.SetLootSparkle then ns.SetLootSparkle(on) end end }),
 	Q("FBLESS_BTN_SW", "FBLESS_BTN_SW_DESC", {
 		get = function() return ns.IsForeverSmartBlessOn and ns.IsForeverSmartBlessOn() end,
 		set = function(on) if ns.SetForeverSmartBless then ns.SetForeverSmartBless(on) end end }),

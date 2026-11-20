@@ -44,6 +44,18 @@ achternaam, "Step aside"-instelling, Your path, Set focus). Daarna vond Rob nog:
 rank-lijstje: werkt (screenshot: "You just learned", Conjure Water rank 1 -> 2 en Frost Armor rank 1 -> 2, met de knoppen
 Upgrade / Not now / Never). Afgevinkt met "(Rob, 19 nov)". De hulpregels ("typ /mh … als het niet werkt") blijven open.
 
+## ✨ 20 nov — Forever: questitems glinsteren in plaats van een rand
+
+⚠️ **Nieuw bestand: sluit WoW helemaal af en start opnieuw** (`/reload` is niet genoeg).
+- [ ] Zet het aan: Overzicht → tandwiel → Quiet helpers → "Quest items sparkle instead of an outline" (of `/mh sparkle
+      on`). In de chat: "quest items sparkle: on … (N setting(s) changed)".
+- [ ] Loop naar een questitem dat je kunt looten: het glinstert, zonder rand. Screenshot.
+- [ ] Ook kruiden en erts? Die doet MH (nog) NIET. Zeg wel wat je ziet.
+- [ ] Kies in de grafische instellingen een andere preset: na ongeveer een seconde is de rand weer weg.
+- [ ] Zet het uit: in de chat "your old settings are back". Komt de rand terug? Zo niet: WoW herstarten, en dan wel?
+- [ ] Twijfel? Typ `/mh sparkle`: per instelling de waarde nu, die van MH en die van vroeger, plus "last decision".
+      Screenshot.
+
 ## 🙏 19 nov — vreemden bedanken voor een buff (Forever + Midnight)
 
 ⚠️ **Nieuw bestand: sluit WoW helemaal af en start opnieuw** (`/reload` is niet genoeg).

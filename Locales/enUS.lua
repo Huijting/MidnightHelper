@@ -5153,6 +5153,10 @@ ns._mhLocales.enUS = {
 	THANKS_OFF = "thanking strangers for a buff: off. /mh thanks on brings it back.",
 	THANKS_TEST_NOTARGET = "target a friendly player first, then type /mh thanks test.",
 	CMDLIST_THANKS = "Thank a stranger for a buff with the game's emote (on, off, test).",
+	FLS_SW = "Quest items sparkle instead of an outline",
+	FLS_SW_DESC = "Forever gives quest items you can loot an outline instead of the old sparkle. This brings the sparkle back: MH turns the outline setting off and the loot sparkle on. The outline then goes off for everything, not only for quest items. Your old settings are kept, and switching this off puts them back. Never in combat. If a graphics preset turns the outline back on, MH sets it again a second later.",
+	FLS_ON = "quest items sparkle: on. Outline off, loot sparkle on (%d setting(s) changed). /mh sparkle shows them.",
+	FLS_OFF = "quest items sparkle: off. Your old settings are back. If the outline does not return, restart the game.",
 	FQH_NO_LIST_FMT = "No stat list for your class yet. %s sells for the most.",
 	FQH_SELL_FMT = "None of these is better for you than what you wear. %s sells for the most (%s).",
 	-- 7 Nov 2026: the trainer window (ForeverTrainer.lua), translatable from today.
