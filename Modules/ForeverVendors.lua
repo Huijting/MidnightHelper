@@ -42,6 +42,10 @@ local CATS = {
 	{ key = "auction", svc = "auction", label = "FCITY_CAT_AUCTION" },
 	{ key = "mail", svc = "mail", label = "FCITY_CAT_MAIL" },
 	{ key = "inn", svc = "inn", label = "FCITY_CAT_INN" },
+	-- 20 Nov 2026 (Rob: "… waarbij ik mijn spullen kan repareren en zeker verkopen?" → "ja doe maar"): vendors who repair
+	-- (every vendor buys). Data: ForeverRepairData.lua (Zygor Forever + Wowhead Forever) plus what MH learns at every
+	-- vendor window (CanMerchantRepair), see RepairSpots below.
+	{ key = "repair", svc = "repair", label = "FCITY_CAT_REPAIR" },
 	-- 18 Nov 2026 (Rob: "ik ben nu op zoek naar de zeppelins in ogrimar … net zoals flight masters … HELP !!!" → "ja"):
 	-- travel. transport = every boat/zeppelin/tram/portal stop (ForeverTravel.lua ns.ForeverTravelTransportSpots);
 	-- flight = the flight masters (kind "flight" in ForeverCitySpots.lua). Their own heading "Travel" in Find.
@@ -129,11 +133,39 @@ local function Distance(yards)
 	return ("%d yd"):format(math.floor(yards + 0.5))
 end
 
+--- Vendors who repair: the data rows, minus any NPC MH saw NOT repair, plus every NPC MH saw repair that the data lacks
+--- (with the client's own name and the place where you talked to him). Learned at MERCHANT_SHOW (below).
+local function RepairSpots()
+	local db = type(ns.db) == "table" and ns.db or {}
+	local no = type(db.foreverNotRepair) == "table" and db.foreverNotRepair or {}
+	local seen = type(db.foreverRepairSeen) == "table" and db.foreverRepairSeen or {}
+	local out, have = {}, {}
+	for _, v in ipairs(ns.FOREVER_REPAIR_SPOTS or {}) do
+		if not no[v.npc] then
+			local s = seen[v.npc]
+			if s and s.name then
+				-- the name your client showed beats Wowhead's English one (CLAUDE.md: the client name wins)
+				v = { kind = v.kind, npc = v.npc, name = s.name, tag = v.tag, side = v.side, map = v.map, x = v.x, y = v.y }
+			end
+			out[#out + 1] = v
+			have[v.npc] = true
+		end
+	end
+	for npc, s in pairs(seen) do
+		if not have[npc] and s.map and s.x and s.y then
+			out[#out + 1] = { kind = "repair", npc = npc, name = s.name, side = s.side or "both", map = s.map, x = s.x,
+				y = s.y, learned = true }
+		end
+	end
+	return out
+end
+
 --- The vendors of a category on your side with a usable point, nearest first. Each: { v = row, dist = yards or nil }.
 --- @return list, positionKnown
 local function List(c)
 	local side = Side()
 	local rows = (c.svc == "transport" and ns.ForeverTravelTransportSpots and ns.ForeverTravelTransportSpots())
+		or (c.svc == "repair" and RepairSpots())
 		or (c.svc and ns.FOREVER_CITY_SPOTS) or (c.kind and ns.FOREVER_GOODS_VENDORS) or ns.FOREVER_TOOL_VENDORS
 	local pc, px, py = PlayerWorld()
 	local out = {}
@@ -398,7 +430,10 @@ function ns.ForeverVendorFindRows(key)
 	local rows = {}
 	for _, e in ipairs(list) do
 		local tag = (english and e.v.tag and e.v.tag ~= "") and e.v.tag or nil
-		if c.svc then
+		if c.svc == "repair" then
+			-- Wowhead's English subtitle (Armorer, Weaponsmith …): only on an English client, like the shops above.
+			tag = (english and e.v.tag and e.v.tag ~= "") and e.v.tag or nil
+		elseif c.svc then
 			-- Our own word, so every language: "neutral" on a Blackwater (neutral) auction house (ForeverCitySpots.lua).
 			tag = e.v.neutral and ns:L("FCITY_NEUTRAL_TAG") or nil
 		end
@@ -519,7 +554,7 @@ function ns.ForeverCityServiceRows(key)
 		return d, mine
 	end
 	local rows = {}
-	local ORDER = { "inn", "bank", "auction", "mail", "flight", "transport" }
+	local ORDER = { "inn", "bank", "auction", "mail", "repair", "flight", "transport" }
 	for _, k in ipairs(ORDER) do
 		local c = CAT_BY_KEY[k]
 		local what = CatName(c)
@@ -596,6 +631,89 @@ function ns.ForeverCityGo(key)
 	end
 	return false
 end
+
+--------------------------------------------------------------------------------
+-- Repair & sell (20 Nov 2026, Rob: "ja doe maar"): the nearest vendor who repairs, and learning which vendors do.
+--------------------------------------------------------------------------------
+local repairWhy = "not asked yet"
+
+--- The nearest vendor who repairs on your continent and side: row { name, zone, dist, go, … } or nil + why.
+function ns.ForeverRepairNearest()
+	local rows, posOk = ns.ForeverVendorFindRows("repair")
+	if not posOk then
+		repairWhy = "your position cannot be read here"
+		return nil, repairWhy
+	end
+	for _, r in ipairs(rows or {}) do
+		if r.dist then
+			repairWhy = ("nearest: %s, %d yd"):format(tostring(r.name), math.floor(r.dist + 0.5))
+			return r
+		end
+	end
+	repairWhy = ("none on this continent for your side (%d known in all)"):format(#(rows or {}))
+	return nil, repairWhy
+end
+
+function ns.ForeverRepairWhy()
+	return "last search: " .. repairWhy
+end
+
+--- Set the arrow to the nearest vendor who repairs; says so in chat when there is none (and why).
+function ns.ForeverRepairGoNearest()
+	local r = ns.ForeverRepairNearest()
+	if r and r.go then
+		return r.go()
+	end
+	print(PREFIX .. ns:L("FCITY_REPAIR_NONE"))
+	return false
+end
+
+-- Learn at every vendor window: CanMerchantRepair says whether THIS vendor repairs. A repairer the data lacks is added
+-- with the name your client shows and the place where you stand; a data row whose vendor does not repair is dropped.
+local learn = CreateFrame("Frame")
+learn:RegisterEvent("MERCHANT_SHOW")
+learn:SetScript("OnEvent", function()
+	pcall(function()
+		if not (CanMerchantRepair and UnitGUID) then
+			return
+		end
+		local guid = UnitGUID("npc")
+		if type(guid) ~= "string" or (issecretvalue and issecretvalue(guid)) then
+			return
+		end
+		local npc = tonumber(guid:match("^Creature%-%d+%-%d+%-%d+%-%d+%-(%d+)"))
+		if not npc then
+			return
+		end
+		ns.db = ns.db or {}
+		ns.db.foreverRepairSeen = type(ns.db.foreverRepairSeen) == "table" and ns.db.foreverRepairSeen or {}
+		ns.db.foreverNotRepair = type(ns.db.foreverNotRepair) == "table" and ns.db.foreverNotRepair or {}
+		if CanMerchantRepair() then
+			ns.db.foreverNotRepair[npc] = nil
+			local map = C_Map and C_Map.GetBestMapForUnit and C_Map.GetBestMapForUnit("player")
+			local x, y
+			if map and C_Map.GetPlayerMapPosition then
+				local pos = C_Map.GetPlayerMapPosition(map, "player")
+				if pos then
+					x, y = pos:GetXY()
+				end
+			end
+			local name = UnitName("npc")
+			if name and (issecretvalue and issecretvalue(name)) then
+				name = nil
+			end
+			ns.db.foreverRepairSeen[npc] = { name = name, map = map, x = x and math.floor(x * 10000 + 0.5) / 100,
+				y = y and math.floor(y * 10000 + 0.5) / 100, side = Side() }
+		else
+			ns.db.foreverRepairSeen[npc] = nil
+			for _, v in ipairs(ns.FOREVER_REPAIR_SPOTS or {}) do
+				if v.npc == npc then
+					ns.db.foreverNotRepair[npc] = true
+				end
+			end
+		end
+	end)
+end)
 
 function ns.ShowForeverVendors(key)
 	-- Product plan step 4: every way into this window lands on the overview's Find tab (this window is the fallback).
@@ -984,6 +1102,17 @@ function ns.ForeverVendorSlash(arg)
 			#(ns.FOREVER_TOOL_VENDORS or {}), #(ns.FOREVER_GOODS_VENDORS or {}), #(ns.FOREVER_CITY_SPOTS or {}),
 			tostring(Side()),
 			posOk and "readable" or "NOT readable"))
+		do
+			local nSeen, nNo = 0, 0
+			for _ in pairs((ns.db and ns.db.foreverRepairSeen) or {}) do
+				nSeen = nSeen + 1
+			end
+			for _ in pairs((ns.db and ns.db.foreverNotRepair) or {}) do
+				nNo = nNo + 1
+			end
+			print(("  repair: %d data rows, %d learned at a vendor window, %d dropped (that vendor did not repair). %s"):format(
+				#(ns.FOREVER_REPAIR_SPOTS or {}), nSeen, nNo, ns.ForeverRepairWhy and ns.ForeverRepairWhy() or ""))
+		end
 		for _, c in ipairs(CATS) do
 			local list = List(c)
 			local b = list[1]

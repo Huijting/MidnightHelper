@@ -46,6 +46,9 @@ by itself. `/mh bagfull off` switches the window off.
 
 ## WoW Forever: more
 
+- **Repair & sell** in *Find* (under In town and in *Which city?*): every vendor who repairs your gear, nearest first,
+  with *Show the way*. The *Bags full* window names the nearest one, with a button. Midnight Helper learns at every
+  vendor window who repairs.
 - **Rested XP**: log out outside an inn or a city and a small window shows the nearest place to rest, with a button for
   the arrow, and whether your Hearthstone is ready. Switch: *Rested XP tip when you log out*.
 - **Quest items sparkle**: a switch in *Quiet helpers* brings back the old sparkle on quest items you can loot, instead

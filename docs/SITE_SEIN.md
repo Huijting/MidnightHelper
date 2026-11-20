@@ -28,6 +28,16 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 20 nov 2026 — Forever: Repair & sell
+- Tag + commit:   geen tag (commit: zie git log, "Forever: Repair & sell")
+- Status:         alleen op main
+- Mag op de site: nee (in bouw, niet getest)
+- Speler ziet:    in Find (In town en Which city?) de verkopers die repareren, dichtstbijzijnde eerst, met Show the way;
+                  in het Tas vol-venster de dichtstbijzijnde met een knop. MH leert bij elk verkoopvenster wie repareert.
+- Knoplabels:     `FCITY_CAT_REPAIR`
+- Commando's:     geen nieuwe (`/mh vendor check` telt ze)
+- Spel:           Forever
+
 ## 20 nov 2026 — Midnight: Renown in het alt-overzicht
 - Tag + commit:   geen tag (commit: zie git log, "Midnight: Renown in het alt-overzicht")
 - Status:         alleen op main

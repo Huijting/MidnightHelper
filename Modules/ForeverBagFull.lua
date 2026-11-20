@@ -213,7 +213,7 @@ end
 --------------------------------------------------------------------------------
 -- Window
 --------------------------------------------------------------------------------
-local W, H, ROWS = 480, 330, 3
+local W, H, ROWS = 480, 360, 3
 local win
 local AskDestroy, LootIt -- step 2, defined below (both only ever run from a click)
 
@@ -316,6 +316,21 @@ local function Build()
 		end
 	end)
 	f.lootBtn:Hide()
+	-- 20 Nov 2026 (Rob: "… waarbij ik mijn spullen kan repareren en zeker verkopen?" → "ja doe maar"): the way to the
+	-- nearest vendor who repairs (every vendor buys), named in the window itself (TomTom users never see our arrow label).
+	f.repBtn = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
+	f.repBtn:SetSize(150, 22)
+	f.repBtn:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -22, 40)
+	f.repBtn:SetText(ns:L("FCITY_CAT_REPAIR"))
+	f.repBtn:SetScript("OnClick", function()
+		if ns.ForeverRepairGoNearest then
+			ns.ForeverRepairGoNearest()
+		end
+	end)
+	f.repInfo = f:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	f.repInfo:SetPoint("RIGHT", f.repBtn, "LEFT", -10, 0)
+	f.repInfo:SetPoint("LEFT", f, "LEFT", 22, 0)
+	f.repInfo:SetJustifyH("LEFT")
 	f.hint = f:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
 	f.hint:SetPoint("BOTTOMLEFT", 22, 18)
 	f.hint:SetPoint("RIGHT", f, "RIGHT", -22, 0)
@@ -367,6 +382,20 @@ local function Fill(list, loot)
 		f.loot:SetText("")
 	end
 	f.hint:SetText(ns:L("FBAG_HINT"))
+	local near
+	if ns.ForeverRepairNearest then
+		local ok, r = pcall(ns.ForeverRepairNearest)
+		near = ok and r or nil
+	end
+	if near then
+		local dist = ns.ForeverTrainerDistance and near.dist and ns.ForeverTrainerDistance(math.floor(near.dist + 0.5))
+			or (near.dist and ("%d yd"):format(math.floor(near.dist + 0.5))) or ""
+		f.repInfo:SetText(ns:L("FBAG_REPAIR_NEAR_FMT"):format(tostring(near.name), tostring(near.zone), dist))
+		f.repBtn:Enable()
+	else
+		f.repInfo:SetText(ns:L("FCITY_REPAIR_NONE"))
+		f.repBtn:Disable()
+	end
 end
 
 --- Open the window now. `why` goes to /mh bagfull. The automatic trigger and /mh bagfull show both come here.

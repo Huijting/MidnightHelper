@@ -26,6 +26,14 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 
 ## Open — wacht op Rob
 
+### Forever: Repair & sell — snel naar iemand die repareert (vraag van Rob, 20 nov) — ✅ JA + GEBOUWD 20 nov
+- Bron: Rob 20 nov via sparring, letterlijk: *"Hebben we al iets in onze helper staan waarbij ik aan kan klikken om zo
+  snel mogelijk naar iemand of iets te gaan waarbij ik mijn spullen kan repareren en zeker verkopen?"* → op het voorstel:
+  *"ja doe maar"*.
+- Gebouwd: Find (In town + Which city?) en het Tas vol-venster; 359 reparateurs (Zygor + Wowhead Forever), MH leert bij
+  elk verkoopvenster. Niet gebouwd: knop bij een duurzaamheidswaarschuwing, want MH heeft die in Forever niet.
+- Spel: F. Site: in SITE_SEIN, nog niet op de site (in bouw, niet getest).
+
 ### De testlijst in het spel, alleen voor Rob (verzoek van Rob, 20 nov) — ✅ JA + GEBOUWD 20 nov (wacht op Robs test)
 - Bron: Rob 20 nov via sparring, letterlijk: *"Kunnen wij niet een soort zijstapje maken in onze add-on die alleen voor
   mij is? Die dus niet mee gepusht wordt naar de users. Waarbij we het afvinklijstje als één mooi opdrachtenlijst kunnen

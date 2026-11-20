@@ -67,6 +67,17 @@ Nieuwe addon → **WoW helemaal herstarten** (in retail én in Forever). In de a
       "not unlocked yet". Screenshot.
 - [ ] Er is GEEN renown-kolom per character bijgekomen (renown is voor je hele account).
 
+## 🔧 20 nov — Forever: Repair & sell
+
+Nieuw databestand → **WoW helemaal herstarten**. Forever.
+- [ ] Find → "What am I looking for?" → onder "In town" staat **Repair & sell**: verkopers die repareren, dichtstbijzijnde
+      eerst (op een Engelse client met hun ondertitel, bv. <Armorer>), elk met Show the way. Klopt de eerste?
+- [ ] Find → "Which city?" → een stad: ook een regel "Repair & sell" met de dichtstbijzijnde daar.
+- [ ] Tas vol-venster (`/mh bagfull show`): onderaan "Repair & sell: <naam>, <zone>, <afstand>" en een knop die de pijl
+      zet. Werkt de pijl?
+- [ ] Praat met een verkoper die repareert die NIET in de lijst stond, en met een verkoper die niet repareert. Daarna
+      `/mh vendor check`: "repair: … learned …, … dropped" telt mee.
+
 ## 🗑️ 20 nov — Forever: Tas vol, stap 2 (Destroy, loot, verkopen)
 
 `/reload` is genoeg (geen nieuw bestand). Forever.

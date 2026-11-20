@@ -2,6 +2,19 @@
 
 ## ▶▶ VOLGENDE BOUWCHAT: Forever-overzicht "D" — stap 1 en 3 gebouwd; stap 2 wacht op Robs screenshots (20 nov, avond)
 
+🔧 **Repair & sell GEBOUWD (20 nov, Forever)** — Rob: *"Hebben we al iets in onze helper staan waarbij ik aan kan klikken
+om zo snel mogelijk naar iemand of iets te gaan waarbij ik mijn spullen kan repareren en zeker verkopen?"* → *"ja doe
+maar"*. Data: `tools/forever_repair.py` → `Modules/ForeverRepairData.lua` (beide toc's): Zygor Forever NPCData ["Repair"]
+(waarde) + per NPC de Wowhead Forever-tooltip (naam, ondertitel, spawns): 359 rijen, 358 binnen 1,0 van Wowhead (GEMETEN);
+1 verschil = Craftsman Wilhelm EPL (Wowhead heeft daar alleen Classic-frame-punten). Redridge-rijen x −5,15 (oude frame),
+alleen NPC-id < 200000 (Forever-eigen NPC's staan al goed, GEMETEN op 256730). Alterac Valley (1459) weggelaten.
+ForeverVendors: categorie `repair` (In town + Which city?), `RepairSpots()` = data − `db.foreverNotRepair` + `db.foreverRepairSeen`
+(geleerd bij MERCHANT_SHOW via CanMerchantRepair + UnitGUID("npc"); clientnaam + plek), `ns.ForeverRepairNearest/GoNearest`,
+`/mh vendor check` telt repair. Tas vol-venster: regel "Repair & sell: naam, zone, afstand" + knop. Ondertitel alleen op een
+Engelse client (zoals de winkels); namen Engels tot MH de NPC zag (dan de clientnaam). Offline GEMETEN (repair_test.lua):
+Goldshire → Andrew Krighton / Corina Steele, leren werkt. Geen Forever-duurzaamheidswaarschuwing in MH (DurabilityWarn.lua
+alleen in de Midnight-toc, GEMETEN) → daar dus geen knop; voorstel aan de sparring. NIET in het spel gezien.
+
 🗑️ **Tas vol STAP 2 GEBOUWD (20 nov)** — Rob via sparring: *"Nu geeft het me 3 opties die ik eruit kan gooien, maar toch
 wil ik graag die knop erbij per stuk. Dat we dat kunnen destroyen."* Zijn `/mh bagfull test` (Forever, niet bij een
 verkoper, GEMETEN): vanuit een klik Delete/Use niet geblokkeerd; vanuit een timer UseContainerItem ADDON_ACTION_BLOCKED;
