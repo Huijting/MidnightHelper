@@ -1,5 +1,39 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ VOLGENDE BOUWCHAT: Forever-overzicht "D" — stap 1 gebouwd, stap 3 is de volgende (20 nov, avond)
+
+**Robs woorden (via sparring, 20 nov):** idee: *"…ik wil naar Ogrimai. Als ik hoorde ben uiteraard. Terwijl ik helemaal
+op het andere werelddeel zit."* · Find: *"Want het is nu één lange lijst geworden, wat niet echt meer overzichtelijk
+wordt."* · na opties A/B/C de vierde: CharacterScape (*"Well, character forever"*) · keuze: *"Ik ga toch voor d"* ·
+*"Vooral de eerste paar die we nu standaard hebben, vind ik super gaaf. Dat moet ik zeker houden."* · op het plan
+met schakelaar: *"Ja"*.
+**Wat D is:** het HELE Forever-overzicht in CharacterScape-stijl (alleen het idee; CharacterScape = map
+`_forever_\Interface\AddOns\CharacterForever`, v0.16.25, Amir Ahmadi, GEMETEN geen licentie → geen code). Tabbladen als
+hoge knoppen RECHTS, paginanaam gecentreerd bovenaan, portret links blijft, inhoud van Now/Class ongewijzigd.
+Midnight NIET aanraken. Schetsen: `C:\Users\RobHu\AppData\Local\Temp\claude\find_mockups\` (A/B/C/D, D_now, D_class,
+D_find; Rob zag D_* in zijn Drive). Lay-out: geen Fable.
+**Maten (GEMETEN in code):** oud 920×520, inhoud 700. Nieuw 1100×600 (niet CharacterScape's 1040: dan zou het
+middenstuk smaller worden), `RIGHT_PAD` 188, inhoud 708, tab 160×40 stap 46, subtab 142×26 stap 30 ingesprongen 18.
+**Plan (4 stappen, commit + push per stap, lint als laatste, TESTLIJST/NEXT_SESSION/SITE_SEIN mee):**
+1. ✅ GEBOUWD 0ff9d9d — venster + tabkolom + subtabs + gear-groep onderaan + paginanaam + schaal-past-bij-openen +
+   schakelaar. NIET in het spel gezien; Rob test thuis (TESTLIJST "nieuw overzicht, stap 1").
+2. Pagina's nalopen op afgekapte tekst / overlap (12 pagina's; de 7 met een oude subrij kregen 30 px). PAS met Robs
+   screenshots van stap 1.
+3. **VOLGENDE:** Find "What am I looking for? | Which city?" (zie D_find.png / C.png): links eigen hoofdsteden +
+   neutrale steden (Booty Bay, Gadgetzan, Everlook, Valanaar, Dalaran alleen A; Ratchet ontbreekt in onze data →
+   eerst meten), doel = de herberg uit `ForeverCitySpots` (14 herbergen, GEMETEN), rechts de diensten van die stad
+   (filter `ns.FOREVER_CITY_SPOTS` op map: inn/bank/auction/mail/flight + transport + je class-trainer), knop
+   "Route to X" + routezin (`ns.ForeverTravelSentence`, kent nu Hearthstone/teleports + "(about N min)"), plus een
+   zoekveld. MH onthoudt de laatst gekozen knop (geen schakelaar nodig). Find-code: `ForeverOverview.lua`
+   `FindCatalog`/`FillFindPage`/`FindPlaces`, data via `ns.ForeverVendorFindRows`.
+4. Afwerken: TESTLIJST, SITE_SEIN, en ~1 week na Robs ja het oude pad weghalen.
+**Schakelaar:** `FOV_LAYOUT_SW` in Quiet helpers, db `ns.db.foreverOldLayout` (nil = nieuw, standaard), werkt na
+/reload (`ns.IsForeverNewLayout`, `ns.SetForeverNewLayout`). Code: `NEW_LAYOUT`/`RIGHT_PAD`/`VTAB_*` bovenaan
+`ForeverOverview.lua`, `RelayoutTabs` vóór `ns.ForeverOverviewFill`.
+**Risico's om na te lopen:** Shift+scroll-schaal (DialogPopup AttachScaling vs. onze OnShow-verlaging: volgorde niet
+gemeten), opgeslagen positie, kleine schermen (UI-hoogte 768), Characters met 4 subtabs (~442 px in ~490), knoppen
+elders die `ns.ShowForeverFind` e.d. aanroepen.
+
 ## ▶ 20 nov — drie testpunten goedgekeurd (Rob grieperig: één stap tegelijk)
 
 🎨 **Find + Steden: ONTWERP gestuurd, niet gebouwd** (IDEEEN, ✅ JA ontwerp). Opties A tegels / B zoekveld + kop Steden /
