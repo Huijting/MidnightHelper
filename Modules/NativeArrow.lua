@@ -157,6 +157,29 @@ local function OneContainsTheOther(a, b)
 	return false
 end
 
+--- The sentence when you stand ON a travel step. 20 Nov 2026, Rob (via sparring), after Carola's zeppelin on a class
+--- training route: "Dat is natuurlijk technisch niet correct, want je loopt niet door de Zeppelin heen. Je neemt de
+--- Zeppelin." So a ride (boat, zeppelin, tram, skycutter) says wait and get on; a portal or door keeps "go through".
+--- Forever steps carry linkKind (ForeverTravel.lua LINKS); Midnight route-search steps come from MOUNTRUN_HUBS and
+--- their label is already a whole sentence ("Take the zeppelin to Grom'gol.").
+local RIDE_KINDS = { boat = true, zeppelin = true, tram = true, sky = true, loop = true }
+function ns.ArrowAtStepText(step, name)
+	local kind = step and step.linkKind
+	local sentence = false
+	local hubKey = step and type(step.source) == "string" and step.source:match("^MOUNTRUN_HUBS%.(.+)$")
+	if hubKey then
+		local hub = ns.MOUNTRUN_HUBS and ns.MOUNTRUN_HUBS[hubKey]
+		kind = hub and hub.kind
+		sentence = true
+	end
+	-- Midnight's boats are captains you talk to (MOUNTRUN_STEP_BOAT says so); only zeppelin and tram are a wait there.
+	local ride = kind and RIDE_KINDS[kind] and not (sentence and kind == "boat")
+	if sentence then
+		return (ns:L(ride and "ARROW_AT_RIDE_SENTENCE" or "ARROW_AT_SENTENCE")):format(name)
+	end
+	return (ns:L(ride and "ARROW_AT_RIDE" or "ARROW_AT_STEP")):format(name)
+end
+
 local function PlayerWorld()
 	if not (C_Map and C_Map.GetBestMapForUnit) then
 		return nil
@@ -437,7 +460,7 @@ local function UpdateArrow()
 	--- the first step that IS on this map and steer to that. The arrow behaves
 	--- normally — rotates, counts down the metres, advances when he arrives — and the
 	--- black label is left for the case where genuinely nothing here helps.
-	local standingOnStep, standingCast
+	local standingOnStep, standingCast, standingStep
 	if unreachable and ns.BuildTravelPlan then
 		local okP, steps = pcall(ns.BuildTravelPlan, t.mapID, t.x, t.y, t.name)
 		if okP and type(steps) == "table" then
@@ -485,6 +508,7 @@ local function UpdateArrow()
 					if onMine and px and ((s.x - px) ^ 2 + (s.y - py) ^ 2) < 4 then
 						standingOnStep = ns.TravelStepName and ns.TravelStepName(s, s.label)
 							or (s.localized and ns:L(s.label) or s.label)
+						standingStep = s
 						break
 					end
 					t = {
@@ -592,8 +616,7 @@ local function UpdateArrow()
 			f.label:SetText(("%s  |cffffd100%s|r"):format(t.name or "", standingCast))
 		elseif standingOnStep then
 			-- You are on it. One instruction, no direction, no distance.
-			f.label:SetText(("|cffffd100%s|r"):format(
-				(ns:L("ARROW_AT_STEP")):format(standingOnStep)))
+			f.label:SetText(("|cffffd100%s|r"):format(ns.ArrowAtStepText(standingStep, standingOnStep)))
 		elseif hearthLine then
 			f.label:SetText(("%s  %s  |cff8fd3ff%s|r"):format(t.name or "", other, hearthLine))
 		elseif aim then

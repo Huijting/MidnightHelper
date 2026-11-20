@@ -2,6 +2,14 @@
 
 ## ▶▶ VOLGENDE BOUWCHAT: Forever-overzicht "D" — stap 1 en 3 gebouwd; stap 2 wacht op Robs screenshots (20 nov, avond)
 
+🚢 **Pijl-zin bij een zeppelin/boot/tram GEREPAREERD (20 nov, laat)** — Rob: *"je loopt niet door de Zeppelin heen. Je
+neemt de Zeppelin."* (Carola, class-training-route). Enige bron (GEMETEN, grep op "other side"/"go through"/"andere kant"
+in de locales): `ARROW_AT_STEP` in NativeArrow (je staat óp een reisstap). Nu `ns.ArrowAtStepText(step, name)`: Forever-
+stappen dragen `linkKind` (boat/zeppelin/tram/sky/loop → ARROW_AT_RIDE "wait here and get on…"; portal → ARROW_AT_STEP
+zoals vroeger). Midnight-zoekstappen (source `MOUNTRUN_HUBS.<key>`) hebben al een hele zin als label ("Take the zeppelin
+to X.") → ARROW_AT_RIDE_SENTENCE (zeppelin/tram) of ARROW_AT_SENTENCE (portaal, boot = kapitein aanspreken, deur). Dat
+repareert meteen "You are at Take the portal to X. — go through" (AFGELEID uit de code; niet in het spel gezien). 7 talen.
+
 ⛏️ **Erts en kruiden: twee schakelaars GEBOUWD (20 nov, laat)** — Rob na zijn meting: *"reload gedaan, en ik wil beide met
 idd de schakelaars"*. Uitslag (GEMETEN, Forever-SV `nodeProbe`, "Ima", Lueur uit, 22:07): vóór geen softinteract; na de
 waarden "Copper Vein", UnitIsGameObject true, nameplate ja (getoond, niet forbidden), cursor "Cursor Crosshair_Mine_64"

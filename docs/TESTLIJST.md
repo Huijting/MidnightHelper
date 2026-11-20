@@ -217,6 +217,17 @@ Nieuw bestand → **WoW helemaal herstarten** (niet alleen /reload). Forever, ee
 - [ ] De titels staan netjes: links of in het midden, vóór het kruisje, zonder over iets heen te lopen.
 - [ ] Midnight: daar staat "Dock to window" er nog wel (bv. in de bazengids of Keys). Klikken werkt als vroeger.
 
+## 🚢 20 nov — Pijl bij een zeppelin, boot of tram
+
+`/reload` is genoeg. Forever (Carola's geval) en Midnight.
+- [ ] Forever: zet een route over het water (bv. een trainer of class-quest aan de overkant) en loop naar de
+      zeppelintoren of de boot. Staat je pijl erop, dan zegt hij: "You are at the zeppelin to … Wait here and get on
+      when it arrives; the arrow carries on where you get off." Niet meer "go through". Screenshot.
+- [ ] Forever: bij het roze portaal in Rut'theran zegt hij nog wel "go through" (dat klopt daar).
+- [ ] Midnight: een route met een zeppelin of de Deeprun Tram (bv. naar een oude dungeon): op de stap zegt hij
+      "Take the zeppelin to … Wait here and get on when it arrives …". Bij een portaal: "Take the portal to … The arrow
+      carries on where you come out."
+
 ## ⛏️ 20 nov — Forever: erts en kruiden, twee schakelaars
 
 `/reload` is genoeg. Een karakter met Mining of Herbalism, waarop **Lueur UIT staat**.

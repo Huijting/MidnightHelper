@@ -4046,6 +4046,9 @@ ns._mhLocales.enUS = {
 	ARROW_LEAVE_INSTANCE_FIRST = "(leave here first)",
 	ARROW_FLY_TO = "head for %s",
 	ARROW_AT_STEP = "You are at %s — go through, the arrow picks up on the other side.",
+	ARROW_AT_RIDE = "You are at %s. Wait here and get on when it arrives; the arrow carries on where you get off.",
+	ARROW_AT_RIDE_SENTENCE = "%s Wait here and get on when it arrives; the arrow carries on where you get off.",
+	ARROW_AT_SENTENCE = "%s The arrow carries on where you come out.",
 	-- Short on purpose: it sits on the arrow label beside a name and a distance.
 	ARROW_TARGET_ROAMS = "|cffffd100(roams — look around)|r",
 	RARE_SPAWN_FROM_CHEST = "|cffffd100(open the chest to summon him)|r",

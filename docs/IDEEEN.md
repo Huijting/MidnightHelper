@@ -243,6 +243,12 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
                  `FNODE_ICON_SW` (icoon van de game) en `FNODE_GLOW_SW` (gloed van MH), allebei standaard uit.
                  Wacht op Robs test.
 
+### Pijl-zin bij een zeppelin, boot of tram: "wacht en stap in" i.p.v. "loop erdoor" (Rob, 20 nov — fout gemeld)
+- Rob zegt:      *"Dat is natuurlijk technisch niet correct, want je loopt niet door de Zeppelin heen. Je neemt de
+                 Zeppelin. Je komt er nergens anders uit. Dus dat moet nagekeken worden en eventueel opgelost worden."*
+                 (Carola zag het op een class-training-route.) GEBOUWD 20 nov: `ns.ArrowAtStepText` in NativeArrow.lua,
+                 nieuwe zinnen ARROW_AT_RIDE / _RIDE_SENTENCE / ARROW_AT_SENTENCE (7 talen). Wacht op Robs/Carola's test.
+
 ### Forever: Layer Swap — zien op welke layer je zit en wisselen (idee van Rob, 20 nov — nog niet beoordeeld)
 - Voor wie:      veteraan en nieuweling (AFGELEID)
 - Moment:        als een zone druk is of je met vrienden op dezelfde layer wilt
