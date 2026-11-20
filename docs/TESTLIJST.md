@@ -59,31 +59,31 @@ Upgrade / Not now / Never). Afgevinkt met "(Rob, 19 nov)". De hulpregels ("typ /
 ## 🔀 19 nov — Forever: toetsenblok-vraag en "You just learned" na elkaar
 
 `/reload` is genoeg. Bij de trainer, met een nieuwe spell die op je toetsenblok hoort én een nieuwe rank.
-- [ ] Eerst komt alleen "New for your key block" (Place it / Later). Pas als je die wegklikt, komt (binnen een seconde)
-      het lijstje "You just learned".
-- [ ] Nooit allebei tegelijk op je scherm.
+- [x] Eerst komt alleen "New for your key block" (Place it / Later). Pas als je die wegklikt, komt (binnen een seconde)
+      het lijstje "You just learned". (Rob, 20 nov)
+- [x] Nooit allebei tegelijk op je scherm. (Rob, 20 nov)
 - [ ] Twijfel? Typ `/mh ranks`: de regel "just-learned list" zegt waarom het lijstje wacht of kwam.
 
 ## 📣 19 nov — Midnight: "MH werkt ook in WoW Forever" één keer bij de login
 
 `/reload` is genoeg. Retail (Midnight).
-- [ ] This Week: de kop zegt nu "New: Midnight Helper now works in WoW Forever too" (geen "5.0" meer).
-- [ ] Heb je die melding nog NIET weggeklikt? Na `/reload` (of bij de volgende login) komt het venster "New in this
+- [x] This Week: de kop zegt nu "New: Midnight Helper now works in WoW Forever too" (geen "5.0" meer). (Rob, 20 nov)
+- [x] Heb je die melding nog NIET weggeklikt? Na `/reload` (of bij de volgende login) komt het venster "New in this
       version" met een kaartje over WoW Forever, en de knop "Got it, hide this". Klik → het kaartje en de melding in This
-      Week zijn weg, ook na een volgende login.
+      Week zijn weg, ook na een volgende login. (Rob, 20 nov)
 - [ ] Had je hem al weggeklikt in This Week? Dan komt het kaartje niet.
 - [ ] Snel opnieuw zien: `/mh new` toont alle kaartjes die gelden.
 
 ## 🪟 19 nov — Forever: klein venster met je class-quest-stap
 
 `/reload` is genoeg. Met je mage, midden in de class quest.
-- [ ] Er staat een klein venster (links op je scherm) met de naam van de quest en alleen de stap waar je bent, in
-      grotere letters. Dezelfde zin als in **Do this now**.
-- [ ] Sleep het waar je wilt. Na `/reload` staat het nog daar. Shift+scroll maakt het groter of kleiner.
-- [ ] **Show the way** zet de pijl naar de plek van de stap.
-- [ ] Doe de stap (bv. de Ju-Ju Heaps): het venster gaat vanzelf naar de volgende stap.
-- [ ] Kruisje: weg tot de volgende stap. Escape: weg tot de volgende quest-update (dan komt het terug).
-- [ ] Quiet helpers → "Small window with your class quest step" uit → het venster is weg.
+- [x] Er staat een klein venster (links op je scherm) met de naam van de quest en alleen de stap waar je bent, in
+      grotere letters. Dezelfde zin als in **Do this now**. (Rob, 20 nov)
+- [x] Sleep het waar je wilt. Na `/reload` staat het nog daar. Shift+scroll maakt het groter of kleiner. (Rob, 20 nov)
+- [x] **Show the way** zet de pijl naar de plek van de stap. (Rob, 20 nov)
+- [x] Doe de stap (bv. de Ju-Ju Heaps): het venster gaat vanzelf naar de volgende stap. (Rob, 20 nov)
+- [x] Kruisje: weg tot de volgende stap. Escape: weg tot de volgende quest-update (dan komt het terug). (Rob, 20 nov)
+- [x] Quiet helpers → "Small window with your class quest step" uit → het venster is weg. (Rob, 20 nov)
 - [ ] Komt er niets? Typ `/mh classquest` en maak een screenshot: de laatste regel zegt waarom.
 
 ## 🧳 19 nov — Midnight: tooltip op de reisknop

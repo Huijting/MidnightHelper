@@ -1,5 +1,12 @@
 # Midnight Helper — waar we staan
 
+## ▶ 20 nov — drie testpunten goedgekeurd (Rob grieperig: één stap tegelijk)
+
+Rob via sparring, letterlijk: *"deze 3 zijn goed gekeurd : * het venstertje met je class-quest-stap * het lijstje "You
+just learned" na de toetsenblok-vraag * in Midnight: het kaartje "MH werkt ook in WoW Forever""*. Afgevinkt in TESTLIJST
+met "(Rob, 20 nov)". Open gelaten: de hulpregels (`/mh ranks`, `/mh new`, `/mh classquest`) en "Had je hem al
+weggeklikt" (het andere pad, niet getest). ThanksBuff test hij nu. Geen nieuw werk zonder ja.
+
 ## 🔴 Fable-afspraak — vanaf za 21 nov (na de reset) één week proef
 
 Rob via sparring, letterlijk: *"Laten we dat vanaf zaterdag wanneer de reset is geweest eens een week proberen."*
