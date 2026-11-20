@@ -247,11 +247,20 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 - Wat wij al hebben, GEMETEN: `ForeverProfGuide.lua` geeft per beroep een korte kaart (wat het doet, rangen 75/150/225/300),
                  maar GEEN skill-up-route, geen kans op een skill-up en geen kosten (kosten staan er bewust niet in omdat ze
                  niet gemeten waren). Dus dit is een echt gat. Eerst Rob vragen welke addon hij bedoelt.
-- Bouwt op:      mogelijk `ProfessionNextStep.lua` / `ForeverProfGuide.lua`
-- Data:          nog te meten
-- Werk:          nog niet in te schatten
+- Bouwt op:      `ForeverProfGuide.lua` + de DB2-pijplijn van `tools/forever_reagents.py` (ReagentUse). ProfessionNextStep
+                 en CraftShoppingList laden NIET in Forever (GEMETEN in MidnightHelper_Camelot.toc).
+- Data:          GEMETEN Forever-DB2 1.60.1.70959: SkillLineAbility.TrivialSkillLineRankLow = geel, ..High = grijs
+                 (Rough Sharpening Stone 2660: 15/55); SpellReagents; ItemSparse.SellPrice. Geen groen-kolom (groen =
+                 midden, AFGELEID). MinSkillLineRank ≠ leer-skill (2665: Min 75, grijs 55). Forever ≠ Classic-waarden.
+                 Kans (grijs − skill)/(grijs − geel) = community-formule (Wowpedia), AFGELEID. Niet in clientdata: AH-prijs,
+                 welke verkoper wat verkoopt, trainerkosten, leer-skill.
+- Andere addons: SkillUp Forever (GPL), Skillwright / CraftForge / ProfessionsTracker (MIT) — alleen het idee.
+- Opties (20 nov naar Sparring 20-11 (2)): KLEIN kleuren + kans in tooltip; MIDDEL (advies) + kaart "Volgende stap"
+                 per beroep met boodschappenlijst en route naar de trainer, zonder geld; GROOT + kosten via Auctionator,
+                 route tot 300. Eerst in het spel meten of de Forever-client zelf de receptkleur geeft.
+- Werk:          klein / middel / groot (AFGELEID)
 - Site:          nee
-- Rob zegt:      nog niet beoordeeld (ja / nee / later)
+- Rob zegt:      "We gaan voor idee 6 om mee te beginnen" (20 nov, via sparring); optie nog niet gekozen
 
 ### Midnight: de eerste blik bij openen, zoals het Forever-overzicht (GEPAUZEERD tot na za 21 nov 10:00)
 - Bron: Rob 18 nov (via Sparring 18-11), letterlijk: *"Ik denk dat we het nooit zo mooi kunnen krijgen als de forever
