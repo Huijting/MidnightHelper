@@ -10,7 +10,11 @@ vertalingen, 7 talen) + "Repair & sell: naam, zone, afstand" + knop (ns.ForeverR
 geluid. Eén keer per daling (`armed`), opnieuw na reparatie boven de grens; in combat wacht hij op PLAYER_REGEN_ENABLED.
 Schakelaar `FDUR_SW` (Quiet helpers), standaard AAN (advies: hij komt zelden). `/mh durability [test]` in Forever = deze
 module (ns.DurabilityCommand; DurabilityWarn.lua laadt alleen in Midnight). Drempel `ns.db.foreverDurability.at` (25).
-NIET in het spel gezien.
+✅ Rob zag het venster (screenshot via sparring, na /reload): "Your gear is at 98%…", "Lowest: [Copper Shortsword].",
+"Repair & sell: Nadia Vernon, Silverpine Forest, 634 meters" + knop. Rob: *"kan de tekst ed gecentreerd worden ?"* →
+tekst en knop nu gecentreerd. 98% boven de 25%: in de code GEMETEN dat alleen `/mh durability test` het venster boven de
+grens toont (Check stopt bij `low >= at`; niets anders roept Warn aan). Rob bevestigde: *"ik had het getikt"*. Daarom
+zegt de test nu "(test)" achter de zin en schrijft hij geen chatregel.
 
 🔧 **Repair & sell GEBOUWD (20 nov, Forever)** — Rob: *"Hebben we al iets in onze helper staan waarbij ik aan kan klikken
 om zo snel mogelijk naar iemand of iets te gaan waarbij ik mijn spullen kan repareren en zeker verkopen?"* → *"ja doe

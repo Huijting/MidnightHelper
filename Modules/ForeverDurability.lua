@@ -99,22 +99,23 @@ local function Build()
 	f:SetScript("OnDragStop", f.StopMovingOrSizing)
 	local close = CreateFrame("Button", nil, f, "UIPanelCloseButton")
 	close:SetPoint("TOPRIGHT", -6, -6)
+	-- 20 Nov 2026, Rob (screenshot): "kan de tekst ed gecentreerd worden ?" -> every line and the button centred.
 	f.big = f:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
-	f.big:SetPoint("TOPLEFT", 22, -20)
-	f.big:SetPoint("RIGHT", f, "RIGHT", -36, 0)
-	f.big:SetJustifyH("LEFT")
+	f.big:SetPoint("TOPLEFT", 36, -20)
+	f.big:SetPoint("TOPRIGHT", -36, -20)
+	f.big:SetJustifyH("CENTER")
 	f.big:SetTextColor(1, 0.3, 0.2)
 	f.item = f:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
 	f.item:SetPoint("TOPLEFT", f.big, "BOTTOMLEFT", 0, -8)
-	f.item:SetPoint("RIGHT", f, "RIGHT", -22, 0)
-	f.item:SetJustifyH("LEFT")
+	f.item:SetPoint("TOPRIGHT", f.big, "BOTTOMRIGHT", 0, -8)
+	f.item:SetJustifyH("CENTER")
 	f.where = f:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
 	f.where:SetPoint("TOPLEFT", f.item, "BOTTOMLEFT", 0, -8)
-	f.where:SetPoint("RIGHT", f, "RIGHT", -22, 0)
-	f.where:SetJustifyH("LEFT")
+	f.where:SetPoint("TOPRIGHT", f.item, "BOTTOMRIGHT", 0, -8)
+	f.where:SetJustifyH("CENTER")
 	f.btn = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
 	f.btn:SetSize(170, 24)
-	f.btn:SetPoint("BOTTOMLEFT", 22, 18)
+	f.btn:SetPoint("BOTTOM", f, "BOTTOM", 0, 18)
 	f.btn:SetText(ns:L("FCITY_CAT_REPAIR"))
 	f.btn:SetScript("OnClick", function()
 		if ns.ForeverRepairGoNearest then
@@ -132,10 +133,11 @@ local function Build()
 end
 
 --- The window and the chat line. Same door for the real trigger and /mh durability test.
-local function Warn(low, slot)
+local function Warn(low, slot, isTest)
 	local f = Build()
 	local big = ns:L("DURABILITY_WARN_FMT"):format(math.floor(low + 0.5))
-	f.big:SetText(big)
+	-- 20 Nov 2026 (sparring, after Rob's test at 98%): the test says it is a test, so 98% does not read as a fault.
+	f.big:SetText(isTest and (big .. " (test)") or big)
 	local link = SlotLink(slot)
 	f.item:SetText(link and ns:L("DURABILITY_WORST_FMT"):format(link) or "")
 	local near
@@ -156,7 +158,9 @@ local function Warn(low, slot)
 	if PlaySound and SOUNDKIT and SOUNDKIT.RAID_WARNING then
 		pcall(PlaySound, SOUNDKIT.RAID_WARNING, "Master")
 	end
-	print(PREFIX .. big .. (link and (" " .. ns:L("DURABILITY_WORST_FMT"):format(link)) or ""))
+	if not isTest then
+		print(PREFIX .. big .. (link and (" " .. ns:L("DURABILITY_WORST_FMT"):format(link)) or ""))
+	end
 end
 
 local pendingCombat = false
@@ -217,7 +221,7 @@ function ns.DurabilityCommand(arg)
 			print(PREFIX .. "durability test: no durability could be read (no gear with durability equipped?)")
 			return
 		end
-		Warn(low, slot)
+		Warn(low, slot, true)
 		return
 	end
 	local low, slot = Lowest()
