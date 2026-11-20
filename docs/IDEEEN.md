@@ -155,6 +155,22 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 - Site:          nee
 - Rob zegt:      nog niet beoordeeld (ja / nee / later)
 
+### Skill up voor je beroepen (idee van Rob, 20 nov — nog erg kort, nog niet beoordeeld)
+- Voor wie:      nieuweling (AFGELEID)
+- Moment:        nog niet bepaald
+- Spel:          nog niet gezegd
+- Bron:          Rob 20 nov 2026, letterlijk (dictaat): *"Skill up voor je professions."* Verder niets gezegd: of het een
+                 addon is, hoe die heet, en voor welk spel (Midnight of Forever) is NIET bekend. Niet ingevuld, niet geraden.
+- Wat er al is: GEMETEN in de code (20 nov): veel rond beroepen. `ProfessionNextStep.lua`, `ProfessionGuided.lua`,
+                 `ProfessionsHub.lua`, `ProfessionAcademy.lua`, `ForeverProfGuide.lua` (Forever-gids), `ForeverProfTrainers.lua`.
+                 NIET GEMETEN of daar al een "wat moet ik maken om te skillen / wat is het goedkoopst" in zit.
+- Eerst vragen/uitzoeken: welke addon bedoelt Rob, en wat doet die? Dan pas vergelijken met wat we hebben.
+- Bouwt op:      mogelijk `ProfessionNextStep.lua` / `ForeverProfGuide.lua`
+- Data:          nog te meten
+- Werk:          nog niet in te schatten
+- Site:          nee
+- Rob zegt:      nog niet beoordeeld (ja / nee / later)
+
 ### Midnight: de eerste blik bij openen, zoals het Forever-overzicht (GEPAUZEERD tot na za 21 nov 10:00)
 - Bron: Rob 18 nov (via Sparring 18-11), letterlijk: *"Ik denk dat we het nooit zo mooi kunnen krijgen als de forever
   versie omdat we al zoveel hebben in midnight, we pauzeren dit tot na de Claude Code reset 🙂 , wat ik juist mooi vond
