@@ -1,6 +1,23 @@
 # Midnight Helper — waar we staan
 
-## ▶▶ VOLGENDE BOUWCHAT: Forever-overzicht "D" — stap 1 gebouwd, stap 3 is de volgende (20 nov, avond)
+## ▶▶ VOLGENDE BOUWCHAT: Forever-overzicht "D" — stap 1 en 3 gebouwd; stap 2 wacht op Robs screenshots (20 nov, avond)
+
+🏙️ **Stap 3 GEBOUWD (Bouwchat 20-11 (2))** — Find kreeg "What am I looking for? | Which city?" + zoekveld. NIET in het spel
+gezien; TESTLIJST "Find, stap 3".
+- `ForeverVendors.lua`: `ns.ForeverFindCities()` = elke plaats met een herberg in ForeverCitySpots aan jouw kant (één
+  per map; hoofdsteden eerst, dan andere plaatsen op afstand), `ns.ForeverCityServiceRows(map)` = per soort (inn, bank,
+  auction, mail, flight) de dichtstbijzijnde binnen `CITY_RADIUS` = 700 yd van de herberg (AFGELEID getal) + elke
+  transportstop + je class trainer (`ForeverProfTrainerList(nil)`), `ns.ForeverCityGo(map)` = pijl naar de herberg.
+  Stadsnaam: hoofdsteden = `C_Map.GetMapInfo`; andere plaatsen = `C_Map.GetAreaInfo(area)` met area-ID's GEMETEN in
+  Forever-DB2 AreaTable 1.60.1.70959 (Booty Bay 35, Dalaran 279, Gadgetzan 976, Everlook 2255, Valanaar 16638), Engels
+  als terugval. Of `C_Map.GetAreaInfo` in Forever bestaat: NIET gemeten (pcall + terugval). Hearthstone-label =
+  `GetBindLocation() == stadsnaam` (AFGELEID dat die gelijk zijn) met de itemnaam 6948 uit de client.
+- `ForeverOverview.lua`: knoppen `cat.modeWhat`/`cat.modeCity` + zoekveld `cat.search` in `BuildFindPage` (lijst begint
+  nu op 86 i.p.v. 34); `FillCityPage`; keuze in `ns.db.foreverFindMode` ("city"/nil) en `ns.db.foreverFindCity` (map);
+  `ShowForeverFind(kind)` zet terug naar "what". Zoekveld filtert in beide standen (naam bevat tekst).
+- Teksten `FOV_FIND_MODE_*`, `FOV_FIND_CITY_*`, `FOV_FIND_SEARCH`: enUS, nlNL, de/fr/es/pt/ru (ForeverClassQuests_*).
+- Open: **Ratchet** staat niet in onze herbergen-data (area 392 bestaat, GEMETEN) → eerst de herberg meten, dan komt hij
+  vanzelf in de lijst. Werkt ook in de oude lay-out (schakelaar).
 
 **Robs woorden (via sparring, 20 nov):** idee: *"…ik wil naar Ogrimai. Als ik hoorde ben uiteraard. Terwijl ik helemaal
 op het andere werelddeel zit."* · Find: *"Want het is nu één lange lijst geworden, wat niet echt meer overzichtelijk
@@ -19,7 +36,7 @@ middenstuk smaller worden), `RIGHT_PAD` 188, inhoud 708, tab 160×40 stap 46, su
    schakelaar. NIET in het spel gezien; Rob test thuis (TESTLIJST "nieuw overzicht, stap 1").
 2. Pagina's nalopen op afgekapte tekst / overlap (12 pagina's; de 7 met een oude subrij kregen 30 px). PAS met Robs
    screenshots van stap 1.
-3. **VOLGENDE:** Find "What am I looking for? | Which city?" (zie D_find.png / C.png): links eigen hoofdsteden +
+3. ✅ GEBOUWD (zie hierboven). Was: Find "What am I looking for? | Which city?" (zie D_find.png / C.png): links eigen hoofdsteden +
    neutrale steden (Booty Bay, Gadgetzan, Everlook, Valanaar, Dalaran alleen A; Ratchet ontbreekt in onze data →
    eerst meten), doel = de herberg uit `ForeverCitySpots` (14 herbergen, GEMETEN), rechts de diensten van die stad
    (filter `ns.FOREVER_CITY_SPOTS` op map: inn/bank/auction/mail/flight + transport + je class-trainer), knop

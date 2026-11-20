@@ -28,6 +28,17 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 20 nov 2026 — Forever: Find "Which city?", stap 3 van 4
+- Tag + commit:   geen tag (commit: zie git log, "Forever: Find stap 3")
+- Status:         alleen op main
+- Mag op de site: nee (in bouw, niet getest)
+- Speler ziet:    in Find twee knoppen: "What am I looking for?" (de oude lijst) en "Which city?": kies een stad en zie
+                  daar de herberg, bank, veilinghuis, brievenbus, flight master, boten/zeppelins en je class trainer,
+                  plus hoe je er komt en "Route to <stad>". Met een zoekveld.
+- Knoplabels:     `FOV_FIND_MODE_WHAT`, `FOV_FIND_MODE_CITY`, `FOV_FIND_CITY_ROUTE_FMT`, `FOV_FIND_SEARCH`
+- Commando's:     geen nieuwe
+- Spel:           Forever
+
 ## 20 nov 2026 — Forever: nieuw overzicht (tabbladen rechts), stap 1 van 4
 - Tag + commit:   geen tag (commit: zie git log, "Forever: nieuw overzicht stap 1")
 - Status:         alleen op main

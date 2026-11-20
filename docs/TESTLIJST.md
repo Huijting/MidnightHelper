@@ -44,6 +44,22 @@ achternaam, "Step aside"-instelling, Your path, Set focus). Daarna vond Rob nog:
 rank-lijstje: werkt (screenshot: "You just learned", Conjure Water rank 1 -> 2 en Frost Armor rank 1 -> 2, met de knoppen
 Upgrade / Not now / Never). Afgevinkt met "(Rob, 19 nov)". De hulpregels ("typ /mh … als het niet werkt") blijven open.
 
+## 🏙️ 20 nov — Forever: Find, stap 3 ("Which city?")
+
+`/reload` is genoeg. Forever, `/mh` → tab Find.
+- [ ] Bovenaan de linkerkaart twee knoppen: "What am I looking for?" en "Which city?", daaronder een zoekveld
+      ("search..."). Staat de tekst op de knoppen er helemaal op? Screenshot.
+- [ ] "What am I looking for?" = de oude lijst. Typ in het zoekveld bv. "bank": alleen Bank blijft over, onder zijn kopje.
+- [ ] "Which city?": links "YOUR CITIES" (je eigen hoofdsteden) en "OTHER TOWNS" (Booty Bay, Gadgetzan, Everlook,
+      Valanaar; als Alliance ook Dalaran). Achter de stad waar je Hearthstone staat: het woord Hearthstone.
+- [ ] Klik Orgrimmar (Horde) of Stormwind (Alliance): rechts Inn, je class trainer, Bank, Auction House, Mailbox,
+      Flight master en de boten/zeppelins, elk met "Show the way". Bovenaan een blauwe regel "The way there: …"
+      (bv. Hearthstone + "about N min"), of "You are here." als je in de stad staat.
+- [ ] Knop rechtsboven "Route to <stad>" zet de pijl naar de herberg.
+- [ ] Sluit en open het overzicht: MH weet nog welke knop en welke stad je koos.
+- [ ] Een knop elders (bv. "Find" op de trainerpagina) springt terug naar "What am I looking for?" met het goede ding.
+- [ ] Mist er iets in een stad, of staat er iets van ver buiten de stad? Zeg welke stad.
+
 ## 🖼️ 20 nov — Forever: nieuw overzicht, stap 1 (tabbladen rechts)
 
 `/reload` is genoeg. Forever, `/mh` of Alt+M.

@@ -411,6 +411,194 @@ function ns.ForeverVendorFindRows(key)
 	return rows, posOk
 end
 
+--------------------------------------------------------------------------------
+-- Which city? (20 Nov 2026, overview layout D step 3; Rob via sparring: "…ik wil naar Ogrimai … Terwijl ik helemaal op
+-- het andere werelddeel zit", and on the plan: "Ja"). The cities are the towns with an inn in ForeverCitySpots.lua
+-- (GEMETEN data); a city's services are the bank / auction / mail / inn / flight / transport rows near its inn, plus
+-- your class trainer. Mockup: Temp\claude\find_mockups\D_find.png.
+--------------------------------------------------------------------------------
+-- The six capitals are city maps of their own; the other towns sit on a zone map, so their name comes from the client's
+-- AreaTable (IDs GEMETEN in Forever DB2 AreaTable 1.60.1.70959: Booty Bay 35, Dalaran 279, Gadgetzan 976, Everlook
+-- 2255, Valanaar 16638). The English name is only the fallback when C_Map.GetAreaInfo gives nothing.
+local CAPITAL = { [1453] = true, [1454] = true, [1455] = true, [1456] = true, [1457] = true, [1458] = true }
+local TOWN_AREA = { [1434] = { 35, "Booty Bay" }, [1416] = { 279, "Dalaran" }, [1446] = { 976, "Gadgetzan" },
+	[1452] = { 2255, "Everlook" }, [2521] = { 16638, "Valanaar" } }
+-- A city's services lie within this many yards of its inn (AFGELEID: Orgrimmar's zeppelin towers and Stormwind's
+-- harbour are a few hundred yards from the inn; the next town is thousands away).
+local CITY_RADIUS = 700
+
+local function CityName(map)
+	local t = TOWN_AREA[map]
+	if t then
+		if C_Map and C_Map.GetAreaInfo then
+			local ok, n = pcall(C_Map.GetAreaInfo, t[1])
+			if ok and type(n) == "string" and n ~= "" and not (issecretvalue and issecretvalue(n)) then
+				return n
+			end
+		end
+		return t[2]
+	end
+	return ZoneName(map)
+end
+
+local function Bind()
+	if GetBindLocation then
+		local ok, b = pcall(GetBindLocation)
+		if ok and type(b) == "string" and b ~= "" and not (issecretvalue and issecretvalue(b)) then
+			return b
+		end
+	end
+	return nil
+end
+
+--- Every town with an inn on your side: { key = map, map, x, y (the inn), name, zone, capital, dist, hearth }.
+--- Capitals first (data order), then the other towns, nearest first.
+function ns.ForeverFindCities()
+	local side = Side()
+	local pc, px, py = PlayerWorld()
+	local bind = Bind()
+	local out, seen = {}, {}
+	for _, v in ipairs(ns.FOREVER_CITY_SPOTS or {}) do
+		if v.kind == "inn" and v.map and v.x and v.y and not seen[v.map] and (v.side == "both" or (side and v.side == side)) then
+			seen[v.map] = true
+			local name = CityName(v.map)
+			local vc, vx, vy = World(v.map, v.x, v.y)
+			local dist
+			if pc and vc and pc == vc then
+				dist = math.sqrt((vx - px) ^ 2 + (vy - py) ^ 2)
+			end
+			out[#out + 1] = { key = v.map, map = v.map, x = v.x, y = v.y, inn = v, name = name,
+				zone = (not CAPITAL[v.map]) and ZoneName(v.map) or nil, capital = CAPITAL[v.map] == true, dist = dist,
+				hearth = bind ~= nil and bind == name, order = #out }
+			-- The Hearthstone's own name from the client (item 6948, as Rest XP does): a game name, never ours.
+			out[#out].hearthName = out[#out].hearth and ItemName(6948) or nil
+		end
+	end
+	table.sort(out, function(a, b)
+		if a.capital ~= b.capital then
+			return a.capital
+		end
+		if a.capital then
+			return a.order < b.order
+		end
+		if a.dist and b.dist then
+			return a.dist < b.dist
+		end
+		if a.dist or b.dist then
+			return a.dist ~= nil
+		end
+		return a.name < b.name
+	end)
+	return out, pc ~= nil
+end
+
+--- The services of one city (key = its map): rows { name, info, why, map, x, y, go }. One row per service (the one
+--- nearest to you, else the one nearest to the inn); every boat / zeppelin / tram / portal stop gets its own row.
+function ns.ForeverCityServiceRows(key)
+	local city
+	for _, c in ipairs((ns.ForeverFindCities())) do
+		if c.key == key then
+			city = c
+		end
+	end
+	if not city then
+		return {}, nil
+	end
+	local cc, cx, cy = World(city.map, city.x, city.y)
+	if not cc then
+		return {}, city
+	end
+	local pc, px, py = PlayerWorld()
+	local here = pc == cc
+	local function Near(map, x, y)
+		local vc, vx, vy = World(map, x, y)
+		if vc ~= cc then
+			return nil
+		end
+		local d = math.sqrt((vx - cx) ^ 2 + (vy - cy) ^ 2)
+		if d > CITY_RADIUS then
+			return nil
+		end
+		local mine = here and math.sqrt((vx - px) ^ 2 + (vy - py) ^ 2) or nil
+		return d, mine
+	end
+	local rows = {}
+	local ORDER = { "inn", "bank", "auction", "mail", "flight", "transport" }
+	for _, k in ipairs(ORDER) do
+		local c = CAT_BY_KEY[k]
+		local what = CatName(c)
+		local list = List(c)
+		local best, bestScore
+		for _, e in ipairs(list) do
+			local d, mine = Near(e.v.map, e.v.x, e.v.y)
+			if d then
+				local e2 = { v = e.v, dist = mine }
+				if k == "transport" then
+					rows[#rows + 1] = { e = e2, what = what, svc = c.svc, name = e.v.name or what, why = e.v.note }
+				else
+					local score = mine or d
+					if not bestScore or score < bestScore then
+						best, bestScore = e2, score
+					end
+				end
+			end
+		end
+		if best then
+			rows[#rows + 1] = { e = best, what = what, svc = c.svc, name = what,
+				who = best.v.name, neutral = best.v.neutral }
+		end
+	end
+	local out = {}
+	for _, r in ipairs(rows) do
+		local e = r.e
+		local info = r.who or ZoneName(e.v.map)
+		if r.neutral then
+			info = info .. "  |cff999999" .. ns:L("FCITY_NEUTRAL_TAG") .. "|r"
+		end
+		if e.dist then
+			info = info .. " · " .. Distance(e.dist)
+		end
+		out[#out + 1] = { name = r.name, info = info, why = r.why, map = e.v.map, x = e.v.x, y = e.v.y,
+			go = function()
+				return GoTo(e, r.what, r.svc)
+			end }
+	end
+	-- Your class trainer in this city (ForeverTrainer.lua's own list; the nearest one there).
+	if ns.ForeverProfTrainerList then
+		local ok, list = pcall(ns.ForeverProfTrainerList, nil)
+		if ok and type(list) == "table" then
+			for _, t in ipairs(list) do
+				local c = t.c
+				if c and c.map and c.x and c.y and Near(c.map, c.x, c.y) then
+					local _, token = UnitClass("player")
+					local cname = (ns.ForeverClassName and token and ns.ForeverClassName(token)) or UnitClass("player") or "?"
+					local info = c.name or ZoneName(c.map)
+					if here and t.dist then
+						info = info .. " · " .. Distance(t.dist)
+					end
+					table.insert(out, math.min(2, #out + 1), { name = ns:L("FOV_FIND_CLASS_FMT"):format(cname), info = info,
+						map = c.map, x = c.x, y = c.y,
+						go = function()
+							return ns.ForeverTrainerGoTo and ns.ForeverTrainerGoTo(c, t.dist, nil, nil)
+						end })
+					break
+				end
+			end
+		end
+	end
+	return out, city
+end
+
+--- Arrow to a city's inn ("Route to <city>").
+function ns.ForeverCityGo(key)
+	for _, c in ipairs((ns.ForeverFindCities())) do
+		if c.key == key then
+			return GoTo({ v = c.inn, dist = c.dist }, c.name, "inn")
+		end
+	end
+	return false
+end
+
 function ns.ShowForeverVendors(key)
 	-- Product plan step 4: every way into this window lands on the overview's Find tab (this window is the fallback).
 	if ns.ShowForeverFind then

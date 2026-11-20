@@ -46,6 +46,8 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
   Voorstel: 1100×600 (niet 1040: dan wordt het middenstuk smaller dan nu en Now krapper), portret links blijft,
   inhoud 708 breed (nu 700), tabbladen rechts, subtabbladen (How you play/Class quests/Camping, Characters-groep)
   ingesprongen onder hun tab. Midnight ongewijzigd. Lay-out: geen Fable.
+- Stap 1 gebouwd (0ff9d9d). Stap 3 gebouwd 20 nov: Find "What am I looking for? | Which city?" + zoekveld (wacht op
+  Robs test). Stap 2 wacht op zijn screenshots. Ratchet ontbreekt nog (geen herberg in onze data).
 
 ### Forever: "Dock to window" uit alle vensters (verzoek van Rob, 20 nov) — ✅ JA + GEBOUWD 20 nov (wacht op Robs test)
 - Bron: Rob 20 nov via sparring, letterlijk: *"ja haal ze maar uit alle forerver vensters"* (aanleiding: de titel van

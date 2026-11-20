@@ -531,7 +531,55 @@ local function BuildFindPage(f, x0, rightW)
 	cat:SetPoint("BOTTOMLEFT", f, "BOTTOMLEFT", x0, 16)
 	cat:SetWidth(catW)
 	cat.label = Label(cat, ns:L("FOV_LABEL_FIND"), "FOV_TIP_CARD_FIND")
-	cat.sf, cat.child = S.Scroll(cat, 34, 8, FIND_ITEM_H * 3)
+	-- 20 Nov 2026 (layout D step 3, mockup D_find.png): "What am I looking for? | Which city?" and a search field above
+	-- the list. MH remembers the last choice (ns.db.foreverFindMode), so no switch in Quiet helpers.
+	local half = math.floor((catW - 28) / 2)
+	cat.modeWhat = Button(cat, half)
+	cat.modeWhat:SetHeight(22)
+	cat.modeWhat:SetPoint("TOPLEFT", 12, -30)
+	cat.modeWhat:SetLabel(ns:L("FOV_FIND_MODE_WHAT"))
+	Tip(cat.modeWhat, ns:L("FOV_FIND_MODE_WHAT"), ns:L("FOV_TIP_FIND_MODE_WHAT"))
+	cat.modeCity = Button(cat, half)
+	cat.modeCity:SetHeight(22)
+	cat.modeCity:SetPoint("LEFT", cat.modeWhat, "RIGHT", 4, 0)
+	cat.modeCity:SetLabel(ns:L("FOV_FIND_MODE_CITY"))
+	Tip(cat.modeCity, ns:L("FOV_FIND_MODE_CITY"), ns:L("FOV_TIP_FIND_MODE_CITY"))
+	local function SetMode(m)
+		ns.db = ns.db or {}
+		ns.db.foreverFindMode = m
+		f.findScrolled = nil
+		ns.ForeverOverviewFill()
+	end
+	cat.modeWhat:SetScript("OnClick", function()
+		SetMode(nil)
+	end)
+	cat.modeCity:SetScript("OnClick", function()
+		SetMode("city")
+	end)
+	local box = CreateFrame("EditBox", nil, cat, "InputBoxTemplate")
+	box:SetHeight(20)
+	box:SetPoint("TOPLEFT", 20, -58)
+	box:SetPoint("RIGHT", cat, "RIGHT", -14, 0)
+	box:SetAutoFocus(false)
+	box:SetScript("OnTextChanged", function()
+		ns.ForeverOverviewFill(true)
+	end)
+	box:SetScript("OnEscapePressed", function(self)
+		self:ClearFocus()
+	end)
+	box.ph = Text(box, "text", 12, A.later)
+	box.ph:SetPoint("LEFT", 2, 0)
+	box.ph:SetText(ns:L("FOV_FIND_SEARCH"))
+	box:SetScript("OnEditFocusGained", function(self)
+		self.ph:Hide()
+	end)
+	box:SetScript("OnEditFocusLost", function(self)
+		if (self:GetText() or "") == "" then
+			self.ph:Show()
+		end
+	end)
+	cat.search = box
+	cat.sf, cat.child = S.Scroll(cat, 86, 8, FIND_ITEM_H * 3)
 	cat.child:SetWidth(catW - 22)
 	cat.items = {}
 	local list = Card(page)
@@ -3190,9 +3238,179 @@ end
 
 local FIND_ROUTES = 8 -- the way there is worked out for the nearest few places only (ForeverTravel plans a route each)
 
+--- The two mode buttons and the search field (20 Nov 2026, layout D step 3). Returns the search text, lower case.
+local function FindModeHead(cat, city)
+	cat.label:SetText(ns:L("FOV_TAB_FIND"):upper())
+	cat.modeWhat:SetActive(not city)
+	cat.modeCity:SetActive(city)
+	local q = (cat.search:GetText() or ""):lower()
+	if q == "" and not cat.search:HasFocus() then
+		cat.search.ph:Show()
+	else
+		cat.search.ph:Hide()
+	end
+	return q
+end
+
+--- "Which city?": left your cities and the other towns (ns.ForeverFindCities), right the chosen city's services
+--- (ns.ForeverCityServiceRows) with "Route to <city>" and the way there once at the top.
+local function FillCityPage(f, refresh)
+	local page = f.pages.find
+	local cat, list = page.cat, page.list
+	local q = FindModeHead(cat, true)
+	local cities = {}
+	if ns.ForeverFindCities then
+		local ok, c = pcall(ns.ForeverFindCities)
+		cities = ok and type(c) == "table" and c or {}
+	end
+	ns.db = ns.db or {}
+	local selKey = ns.db.foreverFindCity
+	local sel
+	for _, c in ipairs(cities) do
+		if c.key == selKey then
+			sel = c
+		end
+	end
+	-- Nothing chosen yet: the town where your Hearthstone is set, else the first capital.
+	if not sel then
+		for _, c in ipairs(cities) do
+			if c.hearth and not sel then
+				sel = c
+			end
+		end
+		sel = sel or cities[1]
+	end
+	local shown = {}
+	local lastCap
+	for _, c in ipairs(cities) do
+		local hit = q == "" or (c.name or ""):lower():find(q, 1, true) or (c.zone or ""):lower():find(q, 1, true)
+		if hit then
+			if lastCap ~= c.capital then
+				shown[#shown + 1] = { head = ns:L(c.capital and "FOV_FIND_CITY_YOURS" or "FOV_FIND_CITY_TOWNS") }
+				lastCap = c.capital
+			end
+			shown[#shown + 1] = c
+		end
+	end
+	local r, g, b = Accent()
+	for i, e in ipairs(shown) do
+		local btn = FindItem(cat, i)
+		btn.tipLink = nil
+		btn:SetScript("OnClick", nil)
+		if e.head then
+			btn.sel = false
+			btn.t:SetText(e.head:upper())
+			S.Font(btn.t, A.fonts.head2, 12, A.fallback.head2)
+			btn.col = A.label
+			btn.tipTitle, btn.tipBody = nil, nil
+			btn.bg:SetColorTexture(0, 0, 0, 0)
+		else
+			btn.sel = (e == sel)
+			S.Font(btn.t, A.fonts.textB, 13, A.fallback.textB)
+			btn.col = A.text
+			local tag = e.hearthName or (e.dist and FindDistance(e.dist)) or nil
+			btn.t:SetText((e.name or "?") .. (tag and ("  |cffa89a85" .. tag .. "|r") or ""))
+			btn.tipTitle, btn.tipBody = e.name, e.zone
+			btn:SetScript("OnClick", function()
+				ns.db.foreverFindCity = e.key
+				ns.ForeverOverviewFill()
+			end)
+			btn.bg:SetColorTexture(r, g, b, btn.sel and 0.22 or 0)
+		end
+		btn.t:SetTextColor(btn.col[1], btn.col[2], btn.col[3])
+		btn:Show()
+	end
+	for i = #shown + 1, #cat.items do
+		cat.items[i]:Hide()
+	end
+	cat.child:SetHeight(math.max(10, #shown * FIND_ITEM_H))
+	if refresh then
+		cat.sf.UpdateThumb()
+	elseif not f.findScrolled then
+		cat.sf.Reset()
+		f.findScrolled = true
+	end
+	if not sel then
+		list.label:SetText("")
+		list.head:SetText("")
+		list.sub:SetText(ns:L("FCITY_EMPTY"))
+		list.hint:SetText("")
+		list.act:Hide()
+		for i = 1, #list.rows do
+			list.rows[i]:Hide()
+		end
+		return
+	end
+	local rows = {}
+	if ns.ForeverCityServiceRows then
+		local ok, l = pcall(ns.ForeverCityServiceRows, sel.key)
+		rows = ok and type(l) == "table" and l or {}
+	end
+	list.label:SetText((sel.name or ""):upper())
+	list.head:SetText(sel.zone and (sel.name .. " · " .. sel.zone) or sel.name)
+	-- The way there, once for the whole city (ForeverTravel.lua: Hearthstone / teleports / boats + "(about N min)").
+	local sub
+	if ns.ForeverTravelSentence then
+		local ok, s, walk = pcall(ns.ForeverTravelSentence, sel.map, sel.x, sel.y)
+		if ok and type(s) == "string" and s ~= "" then
+			sub = "|cff71d5ff" .. ns:L("FWEAP_ROUTE_LABEL") .. " " .. s .. "|r"
+		elseif ok and walk then
+			sub = ns:L(sel.dist and sel.dist < 250 and "FOV_FIND_CITY_HERE" or "FOV_FIND_CITY_WALK")
+		end
+	end
+	list.sub:SetText(sub or "")
+	list.hint:SetText(ns:L("FOV_FIND_CITY_HINT"))
+	local label = ns:L("FOV_FIND_CITY_ROUTE_FMT"):format(sel.name or "?")
+	list.act:SetLabel(label)
+	list.act.tipTitle, list.act.tipBody = label, ns:L("FOV_TIP_FIND_CITY_ROUTE")
+	list.act:SetScript("OnClick", function()
+		if ns.ForeverCityGo then
+			ns.ForeverCityGo(sel.key)
+		end
+	end)
+	list.act:Show()
+	local y = 0
+	for i, e in ipairs(rows) do
+		local row = FindRow(list, i)
+		row:ClearAllPoints()
+		row:SetPoint("TOPLEFT", list.child, "TOPLEFT", 0, -y)
+		row.name:SetText(e.name)
+		row.info:SetText(e.info or "")
+		row.hover.tipTitle = e.name
+		row.hover.tipBody = e.info
+		if e.why and e.why ~= "" then
+			row.route:SetText(e.why)
+			row.route:Show()
+		else
+			row.route:SetText("")
+			row.route:Hide()
+		end
+		local h = 44 + (row.route:IsShown() and ((row.route:GetStringHeight() or 12) + 4) or 0)
+		row:SetHeight(h)
+		row:SetAlpha(1)
+		SetGo(row.go, e.go)
+		row:Show()
+		y = y + h + 4
+	end
+	for i = #rows + 1, #list.rows do
+		list.rows[i]:Hide()
+	end
+	list.child:SetHeight(math.max(10, y))
+	if refresh then
+		list.sf.UpdateThumb()
+	else
+		list.sf.Reset()
+	end
+end
+
 local function FillFindPage(f, refresh)
 	local page = f.pages.find
 	local cat, list = page.cat, page.list
+	if type(ns.db) == "table" and ns.db.foreverFindMode == "city" then
+		FillCityPage(f, refresh)
+		return
+	end
+	local q = FindModeHead(cat, false)
 	local items, dirText = FindCatalog()
 	local it = PickFind(f, items, (f.find and f.find.kind) or "class", f.find and f.find.key)
 	f.find = it and { kind = it.kind, key = it.key } or nil
@@ -3214,7 +3432,24 @@ local function FillFindPage(f, refresh)
 		return it ~= nil and it.sec == sec
 	end
 	local shown, hiddenIn = {}, {}
-	for _, e in ipairs(items) do
+	if q ~= "" then
+		-- Searching: every hit, under its own heading, whether that heading is open or not.
+		local hitIn = {}
+		for _, e in ipairs(items) do
+			if not e.head and (e.name or ""):lower():find(q, 1, true) then
+				hitIn[e.sec] = true
+			end
+		end
+		for _, e in ipairs(items) do
+			if (e.head and hitIn[e.sec]) or (not e.head and (e.name or ""):lower():find(q, 1, true)) then
+				shown[#shown + 1] = e
+			end
+		end
+		IsOpen = function()
+			return true
+		end
+	end
+	for _, e in ipairs(q ~= "" and {} or items) do
 		if e.head or IsOpen(e.sec) then
 			shown[#shown + 1] = e
 		else
@@ -4045,6 +4280,10 @@ function ns.ShowForeverFind(kind, key)
 		return
 	end
 	if kind then
+		-- A button elsewhere asks for one thing: show it in "What am I looking for?" (20 Nov 2026, layout D step 3).
+		if type(ns.db) == "table" then
+			ns.db.foreverFindMode = nil
+		end
 		local items = FindCatalog()
 		local it = PickFind(f, items, kind, key)
 		f.find = it and { kind = it.kind, key = it.key } or f.find
