@@ -90,6 +90,11 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 - Site:          nee
 - Rob zegt:      ✅ JA, uitzoeken (20 nov via sparring, letterlijk: *"Laten we doorgaan met REST XP, shortest path. En
                  dan kijken we wel weer verder."*). Eerst alleen uitzoeken + advies; bouwen pas na Robs keuze.
+- Advies (20 nov): 1 Hearthstone + class-teleports, 2 tijd per stap, 3 gevaar-straf, 4 vluchten, 5 boottijden; geen
+                 loopkaarten. Rob (via sparring): *"Oké. Ik volg voorlopig eerst je advies. Dus doe inderdaad dan maar je
+                 advies, als those teleports. Dan gaan we zo meteen wel kijken wat we eventueel verder doen."*
+                 ✅ 1 + 2 GEBOUWD 20 nov in `ForeverTravel.lua` (wacht op Robs test).
+                 ⏸️ 3, 4, 5 en loopkaarten: NIET nu (zelfde zin: "zo meteen wel kijken wat we eventueel verder doen").
 
 ### Rest XP: waar kan ik makkelijk uitloggen en toch rested XP krijgen (idee van Rob, 20 nov — nog niet beoordeeld)
 - Voor wie:      nieuweling (AFGELEID: rested XP is vooral iets van levelen)

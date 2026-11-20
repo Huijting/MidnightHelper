@@ -437,7 +437,7 @@ local function UpdateArrow()
 	--- the first step that IS on this map and steer to that. The arrow behaves
 	--- normally — rotates, counts down the metres, advances when he arrives — and the
 	--- black label is left for the case where genuinely nothing here helps.
-	local standingOnStep
+	local standingOnStep, standingCast
 	if unreachable and ns.BuildTravelPlan then
 		local okP, steps = pcall(ns.BuildTravelPlan, t.mapID, t.x, t.y, t.name)
 		if okP and type(steps) == "table" then
@@ -472,6 +472,16 @@ local function UpdateArrow()
 					--- There is nothing further to point at either: the next step is on
 					--- a map he is not on. So say the true thing — you are at it, walk
 					--- through — instead of drawing a direction to nowhere.
+					--- Forever teleport (ForeverTravel.lua, 20 Nov 2026): a cast happens where you stand, so this
+					--- step is always "here". Its label is a whole instruction ("cast Teleport: Stormwind").
+					if s.cast then
+						standingCast = s.label
+						if steps.totalMin then
+							standingCast = standingCast .. " " .. (ns:L("FTRAVEL_ABOUT_FMT")):format(
+								math.max(1, math.floor(steps.totalMin + 0.5)))
+						end
+						break
+					end
 					if onMine and px and ((s.x - px) ^ 2 + (s.y - py) ^ 2) < 4 then
 						standingOnStep = ns.TravelStepName and ns.TravelStepName(s, s.label)
 							or (s.localized and ns:L(s.label) or s.label)
@@ -577,7 +587,10 @@ local function UpdateArrow()
 				aim = fp
 			end
 		end
-		if standingOnStep then
+		if standingCast then
+			-- Forever: the first step is a teleport you cast here. One instruction, no direction.
+			f.label:SetText(("%s  |cffffd100%s|r"):format(t.name or "", standingCast))
+		elseif standingOnStep then
 			-- You are on it. One instruction, no direction, no distance.
 			f.label:SetText(("|cffffd100%s|r"):format(
 				(ns:L("ARROW_AT_STEP")):format(standingOnStep)))
@@ -881,6 +894,11 @@ local function AnnounceUnreachable(t)
 		local okP, steps = pcall(ns.BuildTravelPlan, t.mapID, t.x, t.y, t.name)
 		if okP and type(steps) == "table" then
 			for _, s in ipairs(steps) do
+				-- Forever teleport first (20 Nov 2026): say the cast once in chat, as a whole instruction.
+				if s.cast and s.label then
+					aim, aimIsSentence = s.label, true
+					break
+				end
 				-- The first step is on (or around) this map: the arrow already points at it, and "not on this
 				-- continent" would be false — a point inside the Labyrinth seen from Silvermoon (Rob, 17 Oct 2026).
 				if s.kind ~= "arrive" and s.mapID and s.x

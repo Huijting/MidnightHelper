@@ -44,6 +44,22 @@ achternaam, "Step aside"-instelling, Your path, Set focus). Daarna vond Rob nog:
 rank-lijstje: werkt (screenshot: "You just learned", Conjure Water rank 1 -> 2 en Frost Armor rank 1 -> 2, met de knoppen
 Upgrade / Not now / Never). Afgevinkt met "(Rob, 19 nov)". De hulpregels ("typ /mh … als het niet werkt") blijven open.
 
+## 🧙 20 nov — Forever: Hearthstone en teleports in de route, met tijd
+
+`/reload` is genoeg (geen nieuw bestand).
+- [ ] Zet een pijl naar iets ver weg (bv. een trainer in een andere hoofdstad, via Find). Is je Hearthstone klaar en
+      ligt je herberg dichtbij het doel? Dan zegt het label "use your Hearthstone (about N min)", zonder richting.
+      Screenshot.
+- [ ] Mage/shaman/druid met een teleport (en een Rune of Teleportation voor de mage): het label zegt "cast Teleport: …"
+      als dat sneller is. De spellnaam staat in jouw taal.
+- [ ] Na de teleport wijst de pijl vanaf waar je geland bent verder.
+- [ ] In Find / Dungeons / Weapons staat achter de route "(about N min)". Die tijd is een ruwe schatting.
+- [ ] Een korte wandeling krijgt GEEN teleport-advies.
+- [ ] Twijfel? Typ `/mh travel` (met een pijl aan): per teleport waarom wel/niet (spell niet bekend, cooldown, geen
+      rune, bindplek onbekend), en per stap de tijd. Screenshot.
+- [ ] Eerste keer: gebruik je Hearthstone één keer. Daarna weet MH waar je bindplek ligt (`/mh travel`: "landed here
+      before").
+
 ## 😴 20 nov — Forever: rested XP, uitloggen op de goede plek
 
 ⚠️ **Nieuw bestand: sluit WoW helemaal af en start opnieuw.** Met een character dat nog geen max level is.

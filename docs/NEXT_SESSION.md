@@ -25,6 +25,21 @@
 - 🗺️ **Shortest Path uitgezocht** (advies naar sparring): in Forever laadt alleen `ForeverTravel.lua` (GEMETEN in de
   toc's) — geen vluchten, Hearthstone of class-teleports in de route. Advies: 1 Hearthstone + class-teleports (middel),
   2 tijd per stap, 3 gevaar-straf, 4 vluchten (groot), 5 boottijden; geen collision maps. Wacht op Robs keuze.
+- 🧙 **Shortest Path 1 + 2 GEBOUWD** (Rob: *"Ik volg voorlopig eerst je advies. Dus doe inderdaad dan maar je advies,
+  als those teleports."*). `ForeverTravel.lua`: TELEPORTS = Hearthstone (item 6948/spell 8690, 60 min), Astral Recall
+  556 (15 min, shaman 30), mage 3561/3562/3565/1297659 (A) en 3567/3566/3563 (H) met Rune 17031, Moonglade 18960
+  (druid 10). Feiten GEMETEN in Forever-DB2 1.60.1.70959 door twee onafhankelijke mh-research-runs (eens). Landing:
+  server-side (SpellEffect target 17 / 9 = bind), niet in clientdata. Zygor (ARR) en emulator-db's (fan, Darnassus
+  oneens) NIET gebruikt: bestemming = de herberg van die stad uit ForeverCitySpots (AFGELEID "ergens in de stad"),
+  en MH leert de echte landing (`ns.db.foreverLandings`, UNIT_SPELLCAST_SUCCEEDED + volgend laadscherm). Hearthstone /
+  Astral Recall: eigen landing per character, anders herberg/rustplek met de naam van `GetBindLocation()`. Moonglade
+  pas na een eerste landing. Alleen bekende spells (IsPlayerSpell/IsSpellKnown), rune in de tas, cooldown = wachttijd.
+  Kosten: 0,5 cast + 1,5 drempel + wachttijd (AFGELEID). Plan: teleport-lijn van je eigen plek naar de landing.
+  Tijd: elke stap `min`, `steps.totalMin`; zin in Find/Dungeons/Weapons krijgt "(about N min)"; pijl-label bij een
+  cast-stap = de zin + tijd (NativeArrow `standingCast`); chatmelding over een ander continent noemt de cast.
+  `/mh travel`: per teleport waarom wel/niet, per stap de tijd, totaal + "rough". Spell/item-namen uit de client.
+  NIET in het spel gezien. Eigen Hearthstone-check (WaitMin) i.p.v. die van Rest XP: die keek alleen "klaar ja/nee".
+  ⏸️ 3, 4, 5 en loopkaarten niet nu (IDEEEN).
 
 ⏸️ **(eerder) GEPARKEERD** (Rob via sparring: *"oke, ik moet werken dus dit parkeren we, zo onderweg gaan we kijken wat we verder
 gaan doen"*). Niets nieuws beginnen. Open: (a) MH-sparkle-test met Lueur UIT; (b) Robs keuze Lueur of MH-sparkle;

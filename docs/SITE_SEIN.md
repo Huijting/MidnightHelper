@@ -28,6 +28,16 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 20 nov 2026 — Forever: Hearthstone en teleports in de route
+- Tag + commit:   geen tag (commit: zie git log, "Forever: teleports in de route")
+- Status:         alleen op main
+- Mag op de site: nee (nog niet getest, niet uit)
+- Speler ziet:    de route-pijl stelt je Hearthstone of je class-teleport voor als dat sneller is, en zegt ongeveer
+                  hoe lang de reis duurt.
+- Knoplabels:     geen nieuwe
+- Commando's:     /mh travel
+- Spel:           Forever
+
 ## 20 nov 2026 — Forever: rested XP, uitloggen op de goede plek
 - Tag + commit:   geen tag (commit: zie git log, "Forever: Rest XP")
 - Status:         alleen op main

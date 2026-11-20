@@ -93,6 +93,235 @@ local function NoHearthForTrip(steps)
 	end
 	return crosses and HearthCount() == 0
 end
+--------------------------------------------------------------------------------
+-- Teleports as a first step (20 Nov 2026, Rob via sparring: "Ik volg voorlopig eerst je advies. Dus doe inderdaad dan
+-- maar je advies, als those teleports."). Idea from Shortest Path Forever (GPL-3): no code taken.
+-- Spell ids, cast 10 s, cooldowns, reagent and levels: GEMETEN in the Forever DB2 1.60.1.70959 (SpellMisc, SpellCastTimes,
+-- SpellCooldowns, SpellReagents, SkillLineAbility; mh-research, 20 Nov 2026). Hearthstone 8690: 60 min. Astral Recall 556:
+-- 15 min, shaman 30. City teleports: no cooldown, 1 Rune of Teleportation (17031), mage 20 (Darnassus/Thunder Bluff 30).
+-- Moonglade 18960: no cooldown, druid 10. Dalaran 1297659: Alliance mage 50.
+-- WHERE they land is decided by the server (SpellEffect target 17/9), so not in client data. We do NOT use another
+-- addon's landing table (Zygor's is All Rights Reserved). Until MH has seen you land, the destination is that city's
+-- innkeeper from our own list (ForeverCitySpots, GEMETEN) — AFGELEID as "somewhere in the city", good enough to choose;
+-- after the teleport the arrow plans again from where you really are. Every landing is learned: ns.db.foreverLandings.
+-- Hearthstone and Astral Recall go to your bind point: learned from your own landing (per character), else the inn or
+-- learned rest place whose name is GetBindLocation().
+local MapName, Side, PlayerPos -- defined below; declared here so the teleport code can use them (lint [6])
+local TELEPORTS = {
+	{ id = "hs", item = HEARTHSTONE, spell = 8690, bind = true },
+	{ id = "astral", spell = 556, bind = true },
+	{ id = "tp_sw", spell = 3561, side = "A", reagent = 17031, dest = { MAP.STORMWIND, 60.38, 75.27 } },
+	{ id = "tp_if", spell = 3562, side = "A", reagent = 17031, dest = { MAP.IRONFORGE, 18.15, 51.44 } },
+	{ id = "tp_dar", spell = 3565, side = "A", reagent = 17031, dest = { MAP.DARNASSUS, 67.42, 15.64 } },
+	{ id = "tp_dal", spell = 1297659, side = "A", reagent = 17031, dest = { MAP.ALTERAC, 12.20, 66.50 } },
+	{ id = "tp_org", spell = 3567, side = "H", reagent = 17031, dest = { 1454, 54.09, 68.40 } },
+	{ id = "tp_tb", spell = 3566, side = "H", reagent = 17031, dest = { 1456, 45.81, 64.71 } },
+	{ id = "tp_uc", spell = 3563, side = "H", reagent = 17031, dest = { 1458, 67.73, 37.89 } },
+	-- Moonglade (uiMap 1450) has no inn in our list: offered only after MH has seen you land there once.
+	{ id = "moonglade", spell = 18960 },
+}
+-- Costs in the planner's own "minutes-ish" units (AFGELEID): 10 s cast + a loading screen ≈ 0.5, plus the cooldown still
+-- to wait, plus TP_MIN so a teleport only wins when it clearly saves time (Shortest Path Forever's idea of a floor).
+local TP_CAST, TP_MIN = 0.5, 1.5
+local tpWhy = {} -- id -> why it was (not) offered, for /mh travel
+
+local function Known(spell)
+	if IsPlayerSpell then
+		local ok, v = pcall(IsPlayerSpell, spell)
+		if ok and v then
+			return true
+		end
+	end
+	if IsSpellKnown then
+		local ok, v = pcall(IsSpellKnown, spell)
+		if ok and v then
+			return true
+		end
+	end
+	return false
+end
+
+local function ItemCount(item)
+	local fn = (C_Item and C_Item.GetItemCount) or GetItemCount
+	if not fn then
+		return nil
+	end
+	local ok, n = pcall(fn, item)
+	return ok and tonumber(n) or nil
+end
+
+--- Minutes still to wait before this can be used (0 = ready), or nil when unreadable.
+local function WaitMin(t)
+	local start, dur
+	if t.item then
+		local fn = (C_Container and C_Container.GetItemCooldown) or (C_Item and C_Item.GetItemCooldown) or GetItemCooldown
+		if not fn then
+			return nil
+		end
+		local ok, a, b = pcall(fn, t.item)
+		if not ok then
+			return nil
+		end
+		start, dur = a, b
+	else
+		if C_Spell and C_Spell.GetSpellCooldown then
+			local ok, info = pcall(C_Spell.GetSpellCooldown, t.spell)
+			if ok and type(info) == "table" then
+				start, dur = info.startTime, info.duration
+			end
+		elseif GetSpellCooldown then
+			local ok, a, b = pcall(GetSpellCooldown, t.spell)
+			if ok then
+				start, dur = a, b
+			end
+		end
+	end
+	start, dur = tonumber(start) or 0, tonumber(dur) or 0
+	if start <= 0 or dur <= 2 then -- 0, or only the global cooldown
+		return 0
+	end
+	local left = start + dur - GetTime()
+	return left > 0 and left / 60 or 0
+end
+
+local function CharKey()
+	local n, r = UnitName and UnitName("player"), GetRealmName and GetRealmName()
+	return tostring(n) .. "-" .. tostring(r)
+end
+
+local function Bind()
+	if not GetBindLocation then
+		return nil
+	end
+	local ok, b = pcall(GetBindLocation)
+	return (ok and type(b) == "string" and b ~= "") and b or nil
+end
+
+--- Where your bind point is: { map, x, y, how } or nil + why.
+local function BindDest()
+	local bind = Bind()
+	if not bind then
+		return nil, "bind location unreadable"
+	end
+	local db = type(ns.db) == "table" and ns.db.foreverLandings
+	local own = db and db.bind and db.bind[CharKey()]
+	if own and own.name == bind and own.map then
+		return { own.map, own.x, own.y, "landed here before" }
+	end
+	-- An inn or a learned rest place with the same name (ForeverCitySpots / ForeverRestXP).
+	for _, s in ipairs(ns.FOREVER_CITY_SPOTS or {}) do
+		if s.kind == "inn" and (s.map and MapName(s.map) == bind) then
+			return { s.map, s.x, s.y, "inn of " .. bind }
+		end
+	end
+	for _, s in pairs((type(ns.db) == "table" and ns.db.foreverRestSpots) or {}) do
+		if s.name == bind then
+			return { s.map, s.x, s.y, "rested there before" }
+		end
+	end
+	return nil, ("bound to %s, but MH does not know where that is yet (use your Hearthstone once)"):format(bind)
+end
+
+--- The teleports you can use right now: { t, dest = {map,x,y}, cost, waitMin, label }.
+local function Teleports()
+	local side, out = Side(), {}
+	for _, t in ipairs(TELEPORTS) do
+		local why
+		if t.side and t.side ~= side then
+			why = "other faction"
+		elseif t.item and (ItemCount(t.item) or 0) < 1 then
+			why = "not in your bags"
+		elseif not t.item and not Known(t.spell) then
+			why = "spell not known"
+		elseif t.reagent and (ItemCount(t.reagent) or 0) < 1 then
+			why = "no Rune of Teleportation"
+		end
+		local dest, how
+		if not why then
+			if t.bind then
+				local d, w = BindDest()
+				if d then
+					dest, how = d, d[4]
+				else
+					why = w
+				end
+			else
+				local db = type(ns.db) == "table" and ns.db.foreverLandings
+				local seen = db and db.spell and db.spell[t.spell]
+				if seen then
+					dest, how = { seen.map, seen.x, seen.y }, "landed here before"
+				elseif t.dest then
+					dest, how = t.dest, "the city's inn (until MH sees where you land)"
+				else
+					why = "landing place not known yet (cast it once)"
+				end
+			end
+		end
+		local wait = not why and WaitMin(t) or nil
+		if not why and wait == nil then
+			why = "cooldown unreadable"
+		end
+		if why then
+			tpWhy[t.id] = why
+		else
+			tpWhy[t.id] = ("offered: %s, wait %d min"):format(how or "?", math.ceil(wait))
+			local name
+			if t.item then
+				local getName = (C_Item and C_Item.GetItemNameByID) or GetItemInfo
+				local ok, n = pcall(getName or function() return nil end, t.item)
+				name = ok and n or nil
+			else
+				local getName = (C_Spell and C_Spell.GetSpellName) or GetSpellInfo
+				local ok, n = pcall(getName or function() return nil end, t.spell)
+				name = ok and n or nil
+			end
+			name = (type(name) == "string" and name ~= "") and name or ("spell " .. tostring(t.spell))
+			out[#out + 1] = { t = t, dest = dest, waitMin = wait, cost = TP_CAST + TP_MIN + wait,
+				label = ns:L(t.item and "FTRAVEL_USE_FMT" or "FTRAVEL_CAST_FMT"):format(name) }
+		end
+	end
+	return out
+end
+
+-- Learn where a teleport really lands: the spell is cast, the next loading screen ends, we read the position.
+local pendingLand
+do
+	local lev = CreateFrame("Frame")
+	pcall(lev.RegisterUnitEvent, lev, "UNIT_SPELLCAST_SUCCEEDED", "player")
+	lev:RegisterEvent("PLAYER_ENTERING_WORLD")
+	pcall(lev.RegisterEvent, lev, "ZONE_CHANGED_NEW_AREA")
+	lev:SetScript("OnEvent", function(_, event, _, _, spellID)
+		if event == "UNIT_SPELLCAST_SUCCEEDED" then
+			for _, t in ipairs(TELEPORTS) do
+				if t.spell == spellID then
+					pendingLand = { t = t, at = GetTime(), bind = Bind() }
+				end
+			end
+			return
+		end
+		if not pendingLand or GetTime() - pendingLand.at > 60 or type(ns.db) ~= "table" then
+			return
+		end
+		local p = pendingLand
+		C_Timer.After(1, function()
+			local map, x, y = PlayerPos()
+			if not (map and x) then
+				return
+			end
+			ns.db.foreverLandings = ns.db.foreverLandings or {}
+			local db = ns.db.foreverLandings
+			if p.t.bind then
+				db.bind = db.bind or {}
+				db.bind[CharKey()] = { name = p.bind, map = map, x = x, y = y }
+			else
+				db.spell = db.spell or {}
+				db.spell[p.t.spell] = { map = map, x = x, y = y }
+			end
+		end)
+		pendingLand = nil
+	end)
+end
+
 local LABEL = { boat = "FTRAVEL_BOAT_FMT", zeppelin = "FTRAVEL_ZEPPELIN_FMT", tram = "FTRAVEL_TRAM_FMT",
 	portal = "FTRAVEL_PORTAL_FMT", sky = "FTRAVEL_SKY_FMT", loop = "FTRAVEL_LOOP_FMT" }
 -- Stormwind and Ironforge are one walk apart on paper, but the walk is long and dangerous: a penalty makes the tram win.
@@ -120,7 +349,7 @@ local function ParentMap(map)
 	return ok and info and info.parentMapID or nil
 end
 
-local function MapName(map)
+function MapName(map) -- the local declared above the teleport code
 	local ok, info = pcall(C_Map.GetMapInfo, map)
 	return ok and info and info.name or ("map " .. tostring(map))
 end
@@ -148,12 +377,12 @@ local function Group(map, x, y)
 	return (cont == 0 and "EK") or (cont == 1 and "KAL") or nil
 end
 
-local function Side()
+function Side() -- the local declared above the teleport code
 	local f = UnitFactionGroup and UnitFactionGroup("player")
 	return (f == "Alliance" and "A") or (f == "Horde" and "H") or nil
 end
 
-local function PlayerPos()
+function PlayerPos() -- the local declared above the teleport code
 	local map = C_Map and C_Map.GetBestMapForUnit and C_Map.GetBestMapForUnit("player")
 	if not map or not C_Map.GetPlayerMapPosition then
 		return map
@@ -279,9 +508,9 @@ local function Plan(tmap, tx, ty)
 	nodes[#nodes + 1] = target
 	local it = #nodes
 	local edges = {} -- from index -> list of { to, cost, link, toEnd }
-	local function add(from, to, cost, link, toEnd)
+	local function add(from, to, cost, link, toEnd, tp)
 		edges[from] = edges[from] or {}
-		edges[from][#edges[from] + 1] = { to = to, cost = cost, link = link, toEnd = toEnd }
+		edges[from][#edges[from] + 1] = { to = to, cost = cost, link = link, toEnd = toEnd, tp = tp }
 	end
 	for _, e in ipairs(static.edges) do -- link rides and walks between link ends: computed once per side
 		add(e.from + 1, e.to + 1, e.cost, e.link, e.toEnd)
@@ -297,6 +526,25 @@ local function Plan(tmap, tx, ty)
 			local c = WalkCost(nodes[j], target)
 			if c then
 				add(j, it, c, nil)
+			end
+		end
+	end
+	-- Teleports (20 Nov 2026): from where you stand to their landing place, then walking from there to the target or to
+	-- any link end. Added after the target, so `it` stays the target.
+	local okT, tps = pcall(Teleports)
+	for _, tp in ipairs(okT and tps or {}) do
+		local p = Point(tp.dest[1], tp.dest[2], tp.dest[3])
+		nodes[#nodes + 1] = p
+		local ip = #nodes
+		add(1, ip, tp.cost, nil, nil, tp)
+		local c = WalkCost(p, target)
+		if c then
+			add(ip, it, c, nil)
+		end
+		for j = 2, it - 1 do
+			local cj = WalkCost(p, nodes[j])
+			if cj then
+				add(ip, j, cj, nil)
 			end
 		end
 	end
@@ -328,16 +576,28 @@ local function Plan(tmap, tx, ty)
 			table.insert(chain, 1, prev[i])
 			i = prev[i].from
 		end
+		-- Time per step (20 Nov 2026): the walk to the step plus the ride, in the planner's own units, which are rough
+		-- minutes (AFGELEID: chosen to order routes, not measured). Shown as "about N min".
+		local lastAt = 0
 		for _, c in ipairs(chain) do
-			if c.edge.link then
+			if c.edge.link or c.edge.tp then
 				local from = nodes[c.from]
 				steps = steps or {}
-				steps[#steps + 1] = { kind = "travel", forever = true, mapID = from.map, x = from.x, y = from.y,
-					label = Label(c.edge.link, c.edge.toEnd), link = c.edge.link.id, linkKind = c.edge.link.kind }
+				local min = (dist[c.from] or 0) - lastAt + c.edge.cost
+				lastAt = (dist[c.from] or 0) + c.edge.cost
+				if c.edge.tp then
+					steps[#steps + 1] = { kind = "travel", forever = true, cast = true, mapID = from.map, x = from.x,
+						y = from.y, label = c.edge.tp.label, link = c.edge.tp.t.id, linkKind = "teleport", min = min }
+				else
+					steps[#steps + 1] = { kind = "travel", forever = true, mapID = from.map, x = from.x, y = from.y,
+						label = Label(c.edge.link, c.edge.toEnd), link = c.edge.link.id, linkKind = c.edge.link.kind,
+						min = min }
+				end
 			end
 		end
 		if steps then
-			steps[#steps + 1] = { kind = "arrive", mapID = tmap, x = tx, y = ty }
+			steps[#steps + 1] = { kind = "arrive", mapID = tmap, x = tx, y = ty, min = dist[it] - lastAt }
+			steps.totalMin = dist[it]
 		else
 			why = "same land: walk"
 		end
@@ -379,11 +639,16 @@ function ns.ForeverTravelSentence(mapID, x, y)
 	end
 	local parts = {}
 	for _, s in ipairs(steps) do
-		if s.kind == "travel" then
+		if s.kind == "travel" and s.cast then
+			parts[#parts + 1] = s.label -- "cast Teleport: Stormwind" happens where you stand: no "in <zone>"
+		elseif s.kind == "travel" then
 			parts[#parts + 1] = ns:L("FTRAVEL_IN_FMT"):format(s.label, MapName(s.mapID))
 		end
 	end
 	local sentence = table.concat(parts, ns:L("FTRAVEL_THEN")) .. "."
+	if steps.totalMin then
+		sentence = sentence .. " " .. ns:L("FTRAVEL_ABOUT_FMT"):format(math.max(1, math.floor(steps.totalMin + 0.5)))
+	end
 	if NoHearthForTrip(steps) then
 		sentence = sentence .. " " .. ns:L("FTRAVEL_NO_HEARTH")
 	end
@@ -397,7 +662,15 @@ function ns.ForeverTravelSlash()
 	print(P .. ("travel: you are on %s (%s) %s, land %s, side %s"):format(MapName(pmap or 0), tostring(pmap),
 		px and ("%.1f,%.1f"):format(px, py) or "?", tostring(pmap and Group(pmap, px, py)), tostring(Side())))
 	local hs = HearthCount()
-	print(("  hearthstone (item %d): %s"):format(HEARTHSTONE, hs == nil and "count unreadable" or tostring(hs)))
+	print(("  hearthstone (item %d): %s; bound to %s"):format(HEARTHSTONE, hs == nil and "count unreadable" or tostring(hs),
+		tostring(Bind() or "?")))
+	-- Teleports: which ones the planner may use now, and why the others are left out (20 Nov 2026).
+	pcall(Teleports)
+	for _, t in ipairs(TELEPORTS) do
+		if tpWhy[t.id] and tpWhy[t.id] ~= "other faction" then
+			print(("  teleport %s (%s %d): %s"):format(t.id, t.item and "item" or "spell", t.item or t.spell, tpWhy[t.id]))
+		end
+	end
 	if ns.ForeverSeenCount then
 		print(("  NPC places learned by talking to them (trainers, vendors): %d"):format(ns.ForeverSeenCount()))
 	end
@@ -415,9 +688,13 @@ function ns.ForeverTravelSlash()
 	end
 	for i, s in ipairs(steps) do
 		if s.kind == "travel" then
-			print(("  %d. %s — %s %.1f,%.1f (%s)"):format(i, s.label, MapName(s.mapID), s.x, s.y, s.link))
+			print(("  %d. %s — %s %.1f,%.1f (%s), about %.1f min"):format(i, s.label, MapName(s.mapID), s.x, s.y, s.link,
+				s.min or 0))
+		elseif s.kind == "arrive" then
+			print(("  then walk to the target, about %.1f min"):format(s.min or 0))
 		end
 	end
+	print(("  total: about %.1f min (rough: the planner's units are chosen, not measured)"):format(steps.totalMin or 0))
 	print("  no-hearthstone warning: " .. (NoHearthForTrip(steps) and "YES (crosses the water, none in your bags)"
 		or "no (you have one, the count is unreadable, or the route does not cross the water)"))
 end
