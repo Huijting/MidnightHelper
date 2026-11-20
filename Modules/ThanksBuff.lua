@@ -17,7 +17,7 @@ local _, ns = ...
 	forbids registering the combat log, so this never does (neither does retail MH: CLEU taint).
 
 	Never: in combat, inside an instance/battleground/arena, while auras read as secret (12.x), for your own buffs or a
-	pet's, for a group member or someone on your ignore list, twice for the same player within an hour, or in the first
+	pet's, for a group member or someone on your ignore list, twice for the same player within 5 minutes, or in the first
 	10 seconds after a loading screen (the buffs you carry through a portal are "added" again). Thanks for the Buff
 	loaded: MH stays silent (it would thank twice) and /mh thanks says so.
 
@@ -27,7 +27,7 @@ local _, ns = ...
 ]]
 
 local PREFIX = "|cffffcc00Midnight Helper:|r "
-local COOLDOWN = 3600 -- seconds per player
+local COOLDOWN = 300 -- seconds per player (Rob, 20 nov 2026: "zet die uur maar naar 5 minuten")
 local PAUSE = 10 -- seconds after a loading screen
 local EMOTE = "THANK"
 

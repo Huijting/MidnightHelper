@@ -8,7 +8,10 @@ met "(Rob, 20 nov)". Open gelaten: de hulpregels (`/mh ranks`, `/mh new`, `/mh c
 weggeklikt" (het andere pad, niet getest). Geen nieuw werk zonder ja.
 - **ThanksBuff, meting 1 GOED** (Rob via sparring: *"thaanks test werkt ook"*): `/mh thanks test` + "zet het aan"
   afgevinkt. Open: meting 2 (echte buff van een vreemde — de onbewezen kern: is de gever leesbaar), geen tweede
-  bedankje binnen een uur, TFTB-regel.
+  bedankje binnen 5 minuten, TFTB-regel.
+- **ThanksBuff-pauze 1 uur → 5 minuten** (Rob via sparring: *"zet die uur maar naar 5 minuten"*): `COOLDOWN = 300`
+  in `ThanksBuff.lua`; `SET_THANKS_DESC` in 7 talen + ruRU ("once every 5 minutes"); TESTLIJST-regel mee. De extra
+  TFTB-functies (wave e.d.) legt de sparring Rob eerst voor: NIET aan begonnen.
 
 ## 🔴 Fable-afspraak — vanaf za 21 nov (na de reset) één week proef
 

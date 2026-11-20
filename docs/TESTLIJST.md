@@ -54,7 +54,8 @@ Upgrade / Not now / Never). Afgevinkt met "(Rob, 19 nov)". De hulpregels ("typ /
       (Rob, 20 nov: *"thaanks test werkt ook"*)
 - [ ] **Meting 2:** laat je door een vreemde buffen (buiten je groep, buiten een gevecht, buiten een dungeon). Er komt
       "You thank <naam>." Typ daarna `/mh thanks`: de regel "last decision" zegt wat MH zag. Screenshot.
-- [ ] Dezelfde speler buft je nog eens binnen een uur: geen tweede bedankje.
+- [ ] Dezelfde speler buft je nog eens binnen 5 minuten: geen tweede bedankje. Na 5 minuten wel weer (sinds 20 nov;
+      was 1 uur). `/mh thanks` zegt dan "already thanked <naam> N min ago".
 - [ ] Kwam er niets? Ook dan `/mh thanks` + screenshot: de reden staat erin.
 
 ## 🔀 19 nov — Forever: toetsenblok-vraag en "You just learned" na elkaar
