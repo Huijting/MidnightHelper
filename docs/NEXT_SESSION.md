@@ -15,6 +15,14 @@ ACCURATE COORDS LATER", Wowhead dezelfde ronde waarden). Code: `ForeverFindCitie
 "a<area>" of map), naam uit area; `ForeverCityServiceRows` kiest per soort de plek het dichtst bij DEZE herberg, straal
 700 yd hoofdstad / 300 yd dorp (AFGELEID); `ForeverTravel` BindDest vindt de herberg nu ook op dorpsnaam
 (Hearthstone-route naar een dorp). `FCITY_SUB_INN` in 7 talen: "in steden en dorpen". NIET in het spel gezien.
+**Ronde 2 (zelfde dag, na mh-research):** +5 herbergiers die Zygor's data_inns mist (Sebelia/Summit of Eternity,
+Caitir Flinthew en Ortak Lomgok in West-Hyjal, Adarien in Shen'dralas, Berdun Cliffbrew/Talrendis Point), elk zelf
+nagemeten in de Wowhead Forever-tooltip → nu 57 herbergiers. 2 coördinaten GEREPAREERD: Zygor + Wowhead staan in
+Redridge en Eastern Plaguelands in het oude Classic-kaartformaat (GEMETEN via onze flight-master-regels met DB2-
+wereldcoördinaten): Brianna/Lakeshire 27,0 → 21,8 (Wowhead heeft ook die Forever-spawn), Jessica Chambers/Light's Hope
+81,6,58,1 → 71,8,48,5 (omgerekend, = wowfdb). Mulgore (Kauth) klopt WEL (vendors 9 nov). Andere zones: flight masters
+binnen 0,4 → zelfde formaat. NIET opgenomen: Markus Hearthfire (New Avalon) — of je daar kunt binden is onbekend.
+Sleutel zonder area = "n<npc>" (West-Hyjal en Shen'dralas tonen de zonenaam).
 
 🏙️ **Stap 3 GEBOUWD (Bouwchat 20-11 (2))** — Find kreeg "What am I looking for? | Which city?" + zoekveld. NIET in het spel
 gezien; TESTLIJST "Find, stap 3".

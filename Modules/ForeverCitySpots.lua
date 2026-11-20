@@ -180,7 +180,7 @@ ns.FOREVER_CITY_SPOTS = {
 	{ kind = "inn", npc = 6737, name = "Innkeeper Shaussiy", side = "A", map = 1439, x = 37.04, y = 44.13, area = 442, town = "Auberdine" }, -- Darkshore; Wowhead 37,44
 	{ kind = "inn", npc = 6734, name = "Innkeeper Hearthstove", side = "A", map = 1432, x = 35.53, y = 48.40, area = 144, town = "Thelsamar" }, -- Loch Modan (Stoutlager Inn); Wowhead 35.4,48.4
 	{ kind = "inn", npc = 8931, name = "Innkeeper Heather", side = "A", map = 1436, x = 52.86, y = 53.72, area = 108, town = "Sentinel Hill" }, -- Westfall; Wowhead 52.8,53.6
-	{ kind = "inn", npc = 6727, name = "Innkeeper Brianna", side = "A", map = 1433, x = 27.01, y = 44.82, area = 69, town = "Lakeshire" }, -- Redridge Mountains; Wowhead 26.8,44.8 (3 spawns)
+	{ kind = "inn", npc = 6727, name = "Innkeeper Brianna", side = "A", map = 1433, x = 21.8, y = 44.8, area = 69, town = "Lakeshire" }, -- Redridge Mountains; Wowhead spawn 21.8,44.8 = Forever frame. Zygor 27.01,44.82 and Wowhead 26.8,44.x are the Classic frame: Redridge's Forever map is shifted 5.1 (the Lakeshire flight master row below, DB2 25.34 vs Classic 30.5). Fixed 20 Nov 2026
 	{ kind = "inn", npc = 1464, name = "Innkeeper Helbrek", side = "A", map = 1437, x = 10.70, y = 60.95, area = 150, town = "Menethil Harbor" }, -- Wetlands (Deepwater Tavern); Wowhead 10.6,60.8
 	{ kind = "inn", npc = 6790, name = "Innkeeper Trelayne", side = "A", map = 1431, x = 73.87, y = 44.41, area = 42, town = "Darkshire" }, -- Duskwood; Wowhead 73.8,44.4
 	{ kind = "inn", npc = 6738, name = "Innkeeper Kimlya", side = "A", map = 1440, x = 36.99, y = 49.22, area = 415, town = "Astranaar" }, -- Ashenvale; Wowhead 37,49.2
@@ -209,13 +209,22 @@ ns.FOREVER_CITY_SPOTS = {
 	{ kind = "inn", npc = 7744, name = "Innkeeper Thulfram", side = "A", map = 1425, x = 14.15, y = 41.57, area = 348, town = "Aerie Peak" }, -- The Hinterlands (Wildhammer Keep); Wowhead 13.4,41.8 + 13.8,41.6 (0.35 off)
 	{ kind = "inn", npc = 14731, name = "Lard", side = "H", map = 1425, x = 78.14, y = 81.38, area = 3317, town = "Revantusk Village" }, -- The Hinterlands; Wowhead 78.2,81.2
 	{ kind = "inn", npc = 15174, name = "Calandrath", side = "both", map = 1451, x = 51.89, y = 39.16, area = 3425, town = "Cenarion Hold" }, -- Silithus; Wowhead 51.8,39
-	{ kind = "inn", npc = 16256, name = "Jessica Chambers", side = "both", map = 1423, x = 81.62, y = 58.07, area = 2268, town = "Light's Hope Chapel" }, -- Eastern Plaguelands; Wowhead 81.6,58
+	{ kind = "inn", npc = 16256, name = "Jessica Chambers", side = "both", map = 1423, x = 71.8, y = 48.5, area = 2268, town = "Light's Hope Chapel" }, -- Eastern Plaguelands; Zygor 81.62,58.07 and Wowhead 81.6,58 are the Classic frame (as for both Light's Hope flight masters below, DB2 node in the Forever frame ~10 lower). Converted with those two points: 71.79,48.51 (AFGELEID); wowfdb 71.8,48.5 (GEMETEN by mh-research). Fixed 20 Nov 2026; check in game
 	{ kind = "inn", npc = 254089, name = "Coriella Calmbreeze", side = "both", map = 2521, x = 43.02, y = 43.24, area = 16624, town = "Shen'dar Village" }, -- Zephras Isle; Wowhead 43,43.2
 	{ kind = "inn", npc = 257595, name = "Barracks Master Harlan", side = "A", map = 2548, x = 64.59, y = 84.18, area = 16724, town = "Farholde Keep" }, -- Riverglades; Wowhead 64.6,84
 	-- Zygor marks the next two "GET MORE ACCURATE COORDS LATER"; Wowhead gives the same round values (one spawn each).
 	-- Rog'Mar: no AreaTable row under that name (GEMETEN, 0 hits), so the English name is shown.
 	{ kind = "inn", npc = 256675, name = "Innkeeper Toka", side = "H", map = 2548, x = 58.0, y = 45.0, town = "Rog'Mar" }, -- Riverglades; Wowhead 58,45
 	{ kind = "inn", npc = 255894, name = "Innkeeper Zizplink", side = "both", map = 2548, x = 78.8, y = 54.0, area = 16727, town = "Powderfuse Port" }, -- Riverglades; Wowhead 78.8,54
+	-- Five more that Zygor's data_inns.lua lacks (mh-research 20 Nov 2026: bindonforever.com per zone, foreverquestlog.com
+	-- innkeeper list, Zygor NPCData.lua; each re-checked here in the Wowhead Forever tooltip: subtitle Innkeeper + spawns,
+	-- GEMETEN). New Forever NPCs → Forever frame (AFGELEID). No area: the town has no measured subzone, the zone name shows.
+	{ kind = "inn", npc = 243815, name = "Sebelia", side = "A", map = 2482, x = 70.8, y = 51.4, area = 16849, town = "Summit of Eternity" }, -- Mount Hyjal; Wowhead 70.8,51.4 + 70.8,51.6, Zygor NPCData 70.8,51.4 sA, wowfdb "Alliance"; Horde use NOT measured
+	{ kind = "inn", npc = 258380, name = "Caitir Flinthew", side = "A", map = 2482, x = 15.6, y = 50.4 }, -- Mount Hyjal (west); Wowhead 15.6,50.4 + 15.6,50.6, Zygor 15.6,50.4 sA; faction line Ironforge
+	{ kind = "inn", npc = 244512, name = "Ortak Lomgok", side = "H", map = 2482, x = 13.0, y = 52.8 }, -- Mount Hyjal (west); Wowhead 13,52.8, Zygor 12.9,52.59 (commented out there); faction line Orgrimmar → H AFGELEID
+	{ kind = "inn", npc = 252691, name = "Adarien", side = "both", map = 2652, x = 42.4, y = 69.8 }, -- Shen'dralas; Wowhead 42.4,69.8 + 42.6,70; faction line Shen'dralar; "both" AFGELEID (one secondary source)
+	{ kind = "inn", npc = 240482, name = "Berdun Cliffbrew", side = "A", map = 1447, x = 12.4, y = 77.2, area = 3137, town = "Talrendis Point" }, -- Azshara; Wowhead 12.4,77.2 + 12.6,77.2, Zygor guide 12.61,77.37; faction line Ironforge
+	-- NOT taken: 241659 Markus Hearthfire (New Avalon, Eastern Plaguelands): whether he binds a Hearthstone in Forever is unknown.
 	-- Flight masters (kind "flight"), Rob 18 Nov 2026: "net zoals flight masters.... kortom ... HELP !!!" -> "ja".
 	-- Source: scratchpad forever_travel_data.lua (mh-research 18 Nov 2026), summary in docs/forever/REIZEN_2026-11-18.md.
 	-- side GEMETEN in DB2 TaxiNodes 1.60.1.70959 (mount columns); x,y = mean of the Wowhead Forever spawns near the DB2

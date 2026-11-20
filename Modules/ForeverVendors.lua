@@ -453,7 +453,8 @@ function ns.ForeverFindCities()
 	local bind = Bind()
 	local out, seen = {}, {}
 	for _, v in ipairs(ns.FOREVER_CITY_SPOTS or {}) do
-		local key = v.area and ("a" .. v.area) or v.map -- a string for a town, so it never meets a map number
+		-- A string for a town, so it never meets a map number; an inn without a measured town is its own entry.
+		local key = (v.area and ("a" .. v.area)) or (CAPITAL[v.map] and v.map) or ("n" .. tostring(v.npc or v.map))
 		if v.kind == "inn" and v.map and v.x and v.y and not seen[key] and (v.side == "both" or (side and v.side == side)) then
 			seen[key] = true
 			local name = CityName(v)

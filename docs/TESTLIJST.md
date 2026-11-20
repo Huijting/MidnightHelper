@@ -55,7 +55,9 @@ Upgrade / Not now / Never). Afgevinkt met "(Rob, 19 nov)". De hulpregels ("typ /
       ("The way there: …") rekent met je Hearthstone naar dat dorp.
 - [ ] Rested XP-venster bij uitloggen buiten een rustplek: noemt nu ook een dorpsherberg als die het dichtst is.
 - [ ] Staat een herberg op een verkeerde plek? Zeg welke; Rog'Mar, Powderfuse Port en Farholde Keep (Riverglades)
-      zijn het minst zeker.
+      zijn het minst zeker, en Light's Hope Chapel (omgerekend) en Lakeshire (verschoven).
+- [ ] Mount Hyjal: Summit of Eternity (Alliance), en in het westen een Alliance- en een Horde-herberg (die heten in de
+      lijst "Mount Hyjal"). Kun je als Horde ook bij Sebelia (Summit of Eternity) binden? Dat weten we niet.
 
 ## 🏙️ 20 nov — Forever: Find, stap 3 ("Which city?")
 
