@@ -76,6 +76,17 @@ Upgrade / Not now / Never). Afgevinkt met "(Rob, 19 nov)". De hulpregels ("typ /
 - [ ] Geen doelwit en niemand onder de muis: chatregel "MH Smart Bless: no friendly player …".
 - [ ] `/mh blesstip`: regel "macro "MH Smart Bless" now: #showtooltip | /cast …".
 
+## 🛩️ 21 nov — Forever: welke zeppelin bij een toren met twee platforms
+
+`/reload` is genoeg. Forever, Horde, bij de toren buiten Orgrimmar (Durotar).
+- [x] ✅ (Rob in het spel, 21 nov: nam het ZUIDELIJKE platform en kwam goed aan in Tirisfal) Tirisfal = zuidelijk platform.
+- [ ] Route naar Tirisfal Glades: de pijl wijst naar Frezza, en de zin zegt "the zeppelin to Tirisfal Glades (the
+      south platform, with Frezza)". Naar Stranglethorn/Grom'gol: "(the north platform, with Snurk Bucksquick)".
+- [ ] "You are at …" komt pas als je vlak bij DIE meester staat, niet bij het andere platform.
+- [ ] Find → Travel: beide zeppelins in Durotar staan er met de naam van hun meester. Show the way wijst naar hem.
+- [ ] Ook in Undercity (Zapetta naar Orgrimmar, Hin Denburg naar Grom'gol) en Grom'gol (Nez'raz naar Orgrimmar, Squibby
+      Overspeck naar Undercity).
+
 ## 🔑 21 nov — Forever: elk character zijn eigen opslag (twee Ima's)
 
 Nieuw bestand → **WoW helemaal herstarten**. Forever. Je oude gegevens worden alleen gekopieerd, nooit gewist.
@@ -190,10 +201,12 @@ Nieuw bestand → **WoW helemaal herstarten** (niet alleen /reload). Forever, ee
       Thread groen) `/mh skillup` (of Overzicht → Professions → knop **Skill up**): links je beroepen, rechts "Next step:
       make about Nx … (skill A to B)", "Then: …", drie "Surest points now" met kleur en %, en "What you need".
 - [ ] Klopt het recept met wat jij zou maken? (niet genoemd)
-- [ ] (21 nov) Na `/reload`: in Skill up zijn alle recept- en itemnamen gekleurd zoals in het spel (wit/groen …); muis erop
-      = de tooltip van het spel. Scrollen met het muiswiel werkt nog, Shift + wiel maakt het venster groter/kleiner.
-- [ ] (21 nov) Onder een tekort dat je zelf kunt maken met een recept dat je kent: "you can make it: make 9 Bolt of Linen
-      Cloth first (needs 18 Linen Cloth, you have …)". Klopt het aantal?
+- [x] ✅ (Rob in het spel, Forever, 21 nov, screenshot) In Skill up zijn alle recept- en itemnamen gekleurde [links].
+- [ ] Muis op een naam = de tooltip van het spel. Scrollen met het muiswiel werkt nog, Shift + wiel maakt het venster
+      groter/kleiner. (niet genoemd)
+- [x] ✅ (Rob in het spel, Forever, 21 nov, screenshot: "make 9 [Bolt of Linen Cloth] first (needs 18 [Linen Cloth], you
+      have 3)") Onder een tekort dat je zelf kunt maken met een recept dat je kent: "make … first".
+- [ ] (21 nov, later) "needs …" staat nu op een eigen, ingesprongen regel onder "make … first".
 - [ ] (21 nov) Tooltip op de naam ook in: het venster versleten uitrusting ("Lowest: …"), het krat-venster, en de
       loot-regel van Tas vol.
 - [ ] Knop "Show the way to your trainer" zet de pijl naar je beroepstrainer.

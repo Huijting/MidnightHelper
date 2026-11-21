@@ -579,7 +579,9 @@ local function MakeFirst(key, item, missing)
 	for _, rg in ipairs(r.r) do
 		parts[#parts + 1] = ns:L("FSKILL_MAKE_PART_FMT"):format(rg[2] * crafts, ItemLink(rg[1]), Count(rg[1]))
 	end
-	return ns:L("FSKILL_MAKE_FIRST_FMT"):format(crafts, ItemLink(item), table.concat(parts, "; "))
+	-- Two lines (21 Nov 2026, Rob's screenshot: the needs wrapped onto a second line without an indent).
+	return ns:L("FSKILL_MAKE_FIRST_FMT"):format(crafts, ItemLink(item)),
+		ns:L("FSKILL_MAKE_NEEDS_FMT"):format(table.concat(parts, "; "))
 end
 ns.ForeverSkillupMakeFirst = MakeFirst -- for the offline check
 
@@ -634,17 +636,18 @@ local function PlanText(key, mine)
 		for _, rg in ipairs(step.r.r) do
 			local need, have = rg[2] * step.crafts, Count(rg[1])
 			local line = ns:L("FSKILL_SHOP_ROW_FMT"):format(ItemLink(rg[1]), need, have)
-			local first
+			local first, needs
 			if have < need then
 				all = false
 				line = line .. "  |cffff7f7f" .. ns:L("FSKILL_SHOP_MORE_FMT"):format(need - have) .. "|r"
-				first = MakeFirst(key, rg[1], need - have)
+				first, needs = MakeFirst(key, rg[1], need - have)
 			else
 				line = line .. "  |cff40ff40" .. ns:L("FSKILL_SHOP_OK") .. "|r"
 			end
 			add("  " .. line)
 			if first then
 				add("     |cff66ccff" .. first .. "|r")
+				add("          " .. needs)
 			end
 		end
 		if all then

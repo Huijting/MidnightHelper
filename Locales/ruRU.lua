@@ -6499,6 +6499,9 @@ ns._mhLocales.ruRU = {
 	-- Case-free on purpose (10 Nov 2026): the client fills in the nominative, "в %s" would need other cases.
 	FTRAVEL_BOAT_FMT = "корабль (куда: %s)",
 	FTRAVEL_ZEPPELIN_FMT = "дирижабль (куда: %s)",
+	FTRAVEL_PLATFORM_FMT = "(платформа, где стоит %s)",
+	FTRAVEL_PLATFORM_SOUTH_FMT = "(южная платформа, где стоит %s)",
+	FTRAVEL_PLATFORM_NORTH_FMT = "(северная платформа, где стоит %s)",
 	FTRAVEL_TRAM_FMT = "Подземный поезд (куда: %s)",
 	FTRAVEL_PORTAL_FMT = "розовый портал (куда: %s)",
 	FTRAVEL_SKY_FMT = "неборез (куда: %s)",

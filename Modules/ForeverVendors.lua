@@ -227,7 +227,8 @@ local function GoTo(e, what, svc)
 	ns.lastTarget = { mapID = v.map, x = vx, y = vy,
 		name = vname .. ((what and v.name) and (" (" .. what .. ")") or ""),
 		-- A transport stop is the ship's or zeppelin's centre (DB2), 10-20 yd off the dock: arrive within 25 yd there.
-		via = "/mh vendor", arriveYards = (v.kind == "transport") and 25 or 5, vendorNpc = v.npc,
+		-- 21 Nov 2026: a platform with a zeppelin master is his spot, so 8 yd (Orgrimmar's two platforms are ~40 yd apart).
+		via = "/mh vendor", arriveYards = (v.kind == "transport") and (v.master and 8 or 25) or 5, vendorNpc = v.npc or v.master,
 		nearKey = "FARROW_NEAR_NPC", nearYards = 20 }
 	ns._mhRouteOwner = "waypoint"
 	print(PREFIX .. ns:L(svc and "FCITY_ARROW_SET_FMT" or "FVEND_ARROW_SET_FMT"):format(vname, ZoneName(v.map),

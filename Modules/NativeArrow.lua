@@ -505,7 +505,10 @@ local function UpdateArrow()
 						end
 						break
 					end
-					if onMine and px and ((s.x - px) ^ 2 + (s.y - py) ^ 2) < 4 then
+					-- 21 Nov 2026 (Rob at Orgrimmar's tower: two zeppelins 1.3 map-% apart): a Forever stop carries its own
+					-- radius (half the way to the nearest other stop, ForeverTravel.lua ns.ForeverStopRadius); else 2.
+					local rad = s.atRadius or 2
+					if onMine and px and ((s.x - px) ^ 2 + (s.y - py) ^ 2) < rad * rad then
 						standingOnStep = ns.TravelStepName and ns.TravelStepName(s, s.label)
 							or (s.localized and ns:L(s.label) or s.label)
 						standingStep = s

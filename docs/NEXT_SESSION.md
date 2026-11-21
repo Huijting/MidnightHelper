@@ -5,6 +5,23 @@
 ✅ **Charkey GESLAAGD op twee Ima's (Rob in het spel, 21 nov)** — Ima 2 = Player-6944-0120ED18 (Ima 1 = …0118CB4F), eigen
 kopieën, "copies so far 9". Joey en KeyBlock nog niet getest.
 
+🧭 **Zuid/noord (21 nov, later)** — GEMETEN door Rob: hij nam het ZUIDELIJKE platform van de Orgrimmar-toren en kwam in Tirisfal
+aan. MASTERS H1a dir SOUTH, H2a dir NORTH (de andere van twee; de kaart klopt: Frezza y 13,5 > Snurk 12,8) →
+FTRAVEL_PLATFORM_SOUTH/NORTH_FMT "(the south platform, with Frezza)", 7 talen. Andere torens: geen richting (niet gemeten).
+Skill up: Rob zag kleur + "make first" (afgevinkt); "needs …" nu op een eigen, ingesprongen regel (FSKILL_MAKE_NEEDS_FMT).
+
+🛩️ **Zeppelin-platform ondubbelzinnig GEBOUWD (21 nov)** — Rob bij de toren buiten Orgrimmar: *"Maar er zijn er twee hier. Hoe
+weet ik nu precies welke ik moet hebben? Kunnen we het nauwkeuriger maken?"* ForeverTravel.lua `MASTERS` (Wowhead Forever
+NPC-tooltips, GEMETEN; HandyNotes en Zygor hebben ze niet, grep met controle): H1a Frezza 9564 (50.8,13.5 → Tirisfal), H2a
+Snurk Bucksquick 12136 (50.6,12.8 → STV), H1b Zapetta 9566 (Tirisfal 60.8,58.8 → Orgrimmar), X1b Hin Denburg 3150 (61.8,59.0
+→ Grom'gol), H2b Nez'raz 3149 (STV 31.4,29.8 → Orgrimmar), X1a Squibby Overspeck 12137 (31.5,29.4 → Undercity); elk staat naast
+de DB2-stop van zijn eigen lijn. Namen per client GEMETEN (es Esnur Ciervoveloz / Petardo Porsiacaso, esMX Snurk Oroveloz, pt
+Odete Cobrafrete / Squibby Talotado, ru …). Routestap: punt = de meester, zin + FTRAVEL_PLATFORM_FMT "(the platform with X)"
+(7 talen); Find → Travel idem, pijl stopt op 8 yd. "You are at": straal per stop = de helft van de afstand tot de
+dichtstbijzijnde andere stop op die kaart, max 2 (was overal 2): Orgrimmar 0,36, Grom'gol 0,21, Auberdine 1,49, Menethil 2
+(offline GEMETEN, travel_test.lua). Boten (Auberdine 3 steigers, Menethil 2) hebben geen meester: geen naam, wel de kleinere
+straal. Routeplanner zelf NIET offline getest (alleen de straal en Find); NIET in het spel gezien.
+
 🔗 **Tooltips in Skill up + "maak eerst" GEBOUWD (21 nov)** — Rob: *"Wat ik wel mis zie, zijn onze tooltips die we overal zouden
 inbouwen."* en op "maak eerst 9 Bolt of Linen Cloth (18 Linen Cloth nodig)": *"Ja, doe dat ook maar"*. Gedeelde helpers in
 ForeverItemTips.lua: `ns.ForeverItemLinkText(id)` (echte item-link, kwaliteitskleur), `ns.ForeverSpellLinkText`,

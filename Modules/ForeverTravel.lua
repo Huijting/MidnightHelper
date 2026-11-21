@@ -64,6 +64,37 @@ local LINKS = {
 }
 local COST = { boat = 4, zeppelin = 4, sky = 4, loop = 7, tram = 1, portal = 0.5 }
 
+-- 21 Nov 2026 (Rob at the tower outside Orgrimmar: "Maar er zijn er twee hier. Hoe weet ik nu precies welke ik moet
+-- hebben? Kunnen we het nauwkeuriger maken?"). A tower with two zeppelins: the step points at the zeppelin master of
+-- THAT platform and names him. Masters, spots and names per client: Wowhead Forever NPC tooltips, 21 Nov 2026
+-- (GEMETEN; neither HandyNotes_WoWForever nor Zygor Forever has them, grep with a positive control). Each master stands
+-- next to the DB2 stop of his own crossing (H1a 50.98,13.91 ↔ Frezza 50.8,13.5; H2a 50.47,12.69 ↔ Snurk 50.6,12.8; …).
+-- [link id .. boarding end] = { npc, x, y, names }. The map is the link's own end.
+local MASTERS = {
+	-- dir: GEMETEN by Rob in the game, 21 Nov 2026: he took the SOUTH platform of the Orgrimmar tower and arrived in
+	-- Tirisfal Glades. The other one is then the north platform (two platforms; the map agrees: Frezza y 13.5 > Snurk 12.8).
+	H1a = { npc = 9564, x = 50.8, y = 13.5, en = "Frezza", ruRU = "Фрезза", dir = "SOUTH" },
+	H2a = { npc = 12136, x = 50.6, y = 12.8, dir = "NORTH", en = "Snurk Bucksquick", esES = "Esnur Ciervoveloz", esMX = "Snurk Oroveloz",
+		ptBR = "Odete Cobrafrete", ruRU = "Снорк Следопутка" },
+	H1b = { npc = 9566, x = 60.8, y = 58.8, en = "Zapetta", ruRU = "Запота" },
+	X1b = { npc = 3150, x = 61.8, y = 59.0, en = "Hin Denburg", ruRU = "Гин Денбург" },
+	H2b = { npc = 3149, x = 31.4, y = 29.8, en = "Nez'raz", ruRU = "Нез'раз" },
+	X1a = { npc = 12137, x = 31.5, y = 29.4, en = "Squibby Overspeck", esES = "Petardo Porsiacaso",
+		esMX = "Petardo Porsiacaso", ptBR = "Squibby Talotado", ruRU = "Сквибби Сверхпятнист" },
+}
+local function MasterName(m)
+	local loc = GetLocale and GetLocale() or "enUS"
+	return m[loc] or m.en
+end
+
+--- "(the south platform, with Frezza)" where the side is known, else "(the platform with Frezza)".
+local function PlatformText(m)
+	if m.dir then
+		return ns:L("FTRAVEL_PLATFORM_" .. m.dir .. "_FMT"):format(MasterName(m))
+	end
+	return ns:L("FTRAVEL_PLATFORM_FMT"):format(MasterName(m))
+end
+
 -- No Hearthstone + a route over the water = a long way back (Rob, 11 Nov 2026, on a Paladin who had sold his to make room:
 -- "bouw het stukje maar van, je hebt geen hearthstone, zeker in het begin"). Item 6948 "Hearthstone" in the Forever DB2
 -- ItemSparse, 1.60.1.70888 (GEMETEN). The tram and the portal are short hops, so only these kinds count.
@@ -599,9 +630,20 @@ local function Plan(tmap, tx, ty)
 					steps[#steps + 1] = { kind = "travel", forever = true, cast = true, mapID = from.map, x = from.x,
 						y = from.y, label = c.edge.tp.label, link = c.edge.tp.t.id, linkKind = "teleport", min = min }
 				else
-					steps[#steps + 1] = { kind = "travel", forever = true, mapID = from.map, x = from.x, y = from.y,
+					local st = { kind = "travel", forever = true, mapID = from.map, x = from.x, y = from.y,
 						label = Label(c.edge.link, c.edge.toEnd), link = c.edge.link.id, linkKind = c.edge.link.kind,
 						min = min }
+					-- 21 Nov 2026: the platform's master (two zeppelins at one tower), and how close counts as "you are
+					-- at it" (half the way to the nearest other stop on that map, at most 2 map-%).
+					local fromEnd = (c.edge.toEnd == "b") and "a" or "b"
+					local m = MASTERS[(c.edge.link.id or "") .. fromEnd]
+					if m then
+						st.x, st.y = m.x, m.y
+						st.label = st.label .. " " .. PlatformText(m)
+						st.master, st.masterNpc = MasterName(m), m.npc
+					end
+					st.atRadius = ns.ForeverStopRadius and ns.ForeverStopRadius(st.mapID, st.x, st.y) or nil
+					steps[#steps + 1] = st
 				end
 			end
 		end
@@ -743,6 +785,37 @@ local function TitleCase(s)
 	return (s:gsub("^%l", string.upper))
 end
 
+--- 21 Nov 2026: the board point of a stop (the master when the platform has one) and how near counts as "there".
+local function BoardPoint(link, endKey)
+	local m = MASTERS[(link.id or "") .. endKey]
+	local e = link[endKey]
+	if m then
+		return e[1], m.x, m.y, m
+	end
+	return e[1], e[2], e[3], nil
+end
+
+--- Radius in map-% within which you stand AT a stop: half the way to the nearest other stop on the same map, at most
+--- 2 (the old fixed value). At Orgrimmar's tower the two platforms are 1.3 apart (GEMETEN in the DB2 stops), at
+--- Grom'gol the masters 0.4; at Auberdine three piers 3.0-4.4 apart.
+function ns.ForeverStopRadius(map, x, y)
+	local best
+	for _, list in ipairs({ LINKS, TRAVEL_EXTRA }) do
+		for _, link in ipairs(list) do
+			for _, k in ipairs({ "a", "b" }) do
+				local m, px, py = BoardPoint(link, k)
+				if m == map then
+					local d = math.sqrt((px - x) ^ 2 + (py - y) ^ 2)
+					if d > 0.05 and (not best or d < best) then
+						best = d
+					end
+				end
+			end
+		end
+	end
+	return best and math.min(2, best / 2) or 2
+end
+
 --- { kind = "transport", name, side ("A"/"H"/"both"), map, x, y, note } for every stop of every crossing, both ends
 --- unless the crossing runs one way.
 function ns.ForeverTravelTransportSpots()
@@ -758,8 +831,12 @@ function ns.ForeverTravelTransportSpots()
 		end
 		local side = (link.side == "A" or link.side == "H") and link.side or "both"
 		local noteKey = STOP_NOTE[(link.id or "") .. endKey]
-		out[#out + 1] = { kind = "transport", name = TitleCase(name), side = side, map = from[1], x = from[2], y = from[3],
-			note = noteKey and ns:L(noteKey) or nil, linkKind = link.kind }
+		local map, x, y, m = BoardPoint(link, endKey)
+		if m then
+			name = name .. " " .. PlatformText(m)
+		end
+		out[#out + 1] = { kind = "transport", name = TitleCase(name), side = side, map = map, x = x, y = y,
+			note = noteKey and ns:L(noteKey) or nil, linkKind = link.kind, master = m and m.npc or nil }
 	end
 	for _, list in ipairs({ LINKS, TRAVEL_EXTRA }) do
 		for _, link in ipairs(list) do
