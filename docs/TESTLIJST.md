@@ -53,9 +53,9 @@ Upgrade / Not now / Never). Afgevinkt met "(Rob, 19 nov)". De hulpregels ("typ /
 `/reload` is genoeg. Forever, gloed-schakelaar aan.
 - [x] ✅ (Rob in het spel, 21 nov, 2 screenshots) Loop naar een Peacebloom: ver weg grijze ster + grijs bloem-icoon,
       dichtbij GROENE ster + gekleurd icoon. → Rob koos daarna optie C (hieronder).
-- [ ] Optie C, na `/reload`: met Herbalism blijft de ster bij een Peacebloom GROEN, ook van ver. Een kruid of ader die je
+- [x] ✅ (Rob in het spel, Forever, 21 nov, via /mhtest; hij meldde ook "de ster was groen") Optie C, na `/reload`: met Herbalism blijft de ster bij een Peacebloom GROEN, ook van ver. Een kruid of ader die je
       niet kunt (geen beroep, of je skill te laag, bv. Mageroyal 50 met Herbalism onder 50): ROOD.
-- [ ] Sta bij een kruid en typ `/mh sparkle`: regel "last node: Peacebloom (object 1618), kind herb, colour green, reason:
+- [x] ✅ (Rob in het spel, Forever, 21 nov, via /mhtest) Sta bij een kruid en typ `/mh sparkle`: regel "last node: Peacebloom (object 1618), kind herb, colour green, reason:
       …". Screenshot.
 
 ## ✨ 21 nov — Forever: slimme zegen ook op je doelwit
@@ -112,11 +112,13 @@ Nieuwe bestanden → **WoW helemaal herstarten**. Forever, een character van lev
 Nieuwe addon → **WoW helemaal herstarten** (in retail én in Forever). In de addonlijst staat "MH Testlist (Rob only)".
 - [x] ✅ (Rob in het spel, Forever, 21 nov: *"Hij komt inderdaad in te staan in de chat."*) Na het inloggen zegt de chat
       "MH Testlist: … testpunten. Typ /mhtest".
-- [ ] Typ `/mhtest`: een venster met links de testrondes (de nieuwste) en rechts de punten als kaartjes. Screenshot.
-- [ ] Per punt: Goed / Fout / Overslaan (nog een keer klikken = weg), een opmerkingenveld, en een knop per commando die
+- [x] ✅ (Rob in het spel, Forever, 21 nov: *"het fancy dat werkt"*) Typ `/mhtest`: een venster met links de testrondes (de nieuwste) en rechts de punten als kaartjes. Screenshot.
+- [x] ✅ (Rob in het spel, Forever, 21 nov: 3 antwoorden + een opmerking gezet; commando-knop en tellers niet apart genoemd)
+      Per punt: Goed / Fout / Overslaan (nog een keer klikken = weg), een opmerkingenveld, en een knop per commando die
       het in je chatregel zet (dan Enter). De tellers bovenaan en links lopen mee.
 - [ ] "Nieuwste" / "Alles" bovenaan, Shift + muiswiel = groter/kleiner, slepen aan de titelbalk, Escape sluit.
-- [ ] Klaar: knop "Reload". Zeg het dan tegen de sparring; Claude leest je vinkjes en opmerkingen uit en zet ze hier.
+- [x] ✅ (Rob in het spel, Forever, 21 nov; GEMETEN: `run testlist_ingame read` las 3 resultaten uit de Forever-SV)
+      Klaar: knop "Reload". Zeg het dan tegen de sparring; Claude leest je vinkjes en opmerkingen uit en zet ze hier.
 
 ## 🏅 20 nov — Midnight: Renown in je alt-overzicht (O14)
 

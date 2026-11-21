@@ -5,6 +5,12 @@
 ✅ **Charkey GESLAAGD op twee Ima's (Rob in het spel, 21 nov)** — Ima 2 = Player-6944-0120ED18 (Ima 1 = …0118CB4F), eigen
 kopieën, "copies so far 9". Joey en KeyBlock nog niet getest.
 
+📋 **Testlijst in het spel: eerste echte ronde (21 nov)** — Rob gebruikte `/mhtest` in Forever (*"het fancy dat werkt"*), 3× Goed
++ 1 opmerking ("dit is een test"), Reload. `run testlist_ingame read` (proefrun) las ze GEMETEN. Met de hand weggeschreven
+(de tool kan geen punt overslaan): optie C groen + `/mh sparkle` last node. NIET weggeschreven: "slimme zegen ook op je
+doelwit" — Goed aangeklikt, maar Smart Bless werkte aantoonbaar niet (sparring vraagt Rob; waarschijnlijk misklik). De
+testopmerking is weggelaten. Bij de volgende `read --write` komt dat Goed-vinkje opnieuw voorbij: dan eerst Robs antwoord.
+
 🐞 **Smart Bless reparatie 2: MH schrijft de macro zelf (21 nov)** — GEMETEN door Rob na 5213ee8: "presses that reached the
 button: 1 · last: 13:05:37, LeftButton up, line: /cast [@mouseover,help,nodead] Blessing of Wisdom; [@target,help,nodead]
 Blessing of Wisdom · ActionButtonUseKeyDown = 1" en *"Nee, er gebeurt helemaal niks … Purify kwam wel aan met mijn
