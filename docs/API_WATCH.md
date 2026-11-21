@@ -11263,3 +11263,204 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
     staan, had hem niet gezocht, en heb de alarmregel eerst gepusht en pas daarna gemeten.
     Laatste commit vóór de mijne: `577480d` *"Nachtcontrole 2026-11-20: C1 0 / C2 0 nakijken, snapshot
     repo loopt achter"* (**20 nov 03:22 UTC**).
+- [2026-11-21] 🔴 **TWEE [MOET GEFIKST], beide op Forever, beide uit één en dezelfde Blizzard-ingreep: de
+  layer-jacht is dichtgezet. Sinds de hotfix van **20 nov** zijn (a) de server- en spawn-velden in creature-,
+  vehicle-, pet- en gameobject-GUID's **geobfusceerd** en (b) de realm-API's op Forever **leeg** —
+  `GetRealmName()` geeft `""`. Dat raakt ons op twee plekken: één GUID-patroon dat nog op `%d+` matcht, en de
+  per-character SavedVariables-sleutels van zeven Forever-modules. Verder: nieuwe PTR-build `12.1.7.71087`,
+  nieuwe Forever-build `1.60.1.71037`, en de eerste SimC-addon-release in vijftien dagen — en die release
+  bestaat vrijwel vólledig uit het repareren van precies deze twee dingen.**
+  - 🧰 **DE TRIGGER, en hij is eerstehands: SimC-addon release `12.1.5-05`, commit `d0f2255`, **20 nov 15:26
+    PST** (= 20 nov 23:26 UTC), titel letterlijk *"Handle the API changes Blizz made to stop layer jumping
+    forever addons"*.** GEMETEN met een eigen clone (`git ls-remote --tags --refs` geeft nu **259** tags,
+    gisteren 258; `refs/heads/master` = `refs/tags/12.1.5-05` = `d0f2255`). De diff `12.1.5-04` → `12.1.5-05`
+    is **3 bestanden, 18 inserties**: `Simulationcraft.toc`, `core.lua`, `forever/pet.lua`. Twee van de drie
+    gaan over de hotfix van hieronder, met hun eigen commentaarregels als bron:
+    - `forever/pet.lua`: `UnitGUID('pet'):match('^Pet%-%d+%-%d+%-%d+%-%d+%-(%d+)%-')` is vervangen door
+      `strsplit('-', guid)` met het commentaar *"Split, don't pattern-match: server/spawn fields get
+      obfuscated in 1.60.1"*.
+    - `core.lua` in `GetSimcProfile`: `LibRealmInfo:GetRealmInfoByUnit('player')` staat nu in een `pcall` met
+      *"pcall: Forever 1.60.1 blanks GetRealmName(), which makes LibRealmInfo assert"*, en de regel `server=`
+      wordt **weggelaten** als de realm leeg is (`playerServerStr = Tokenize(playerRealm) ~= '' and ... or nil`).
+  - 🧩 **Forever: 🔴 [MOET GEFIKST] #1 — `Modules/ForeverVendors.lua:684` is het ENIGE strikte `%d+`-GUID-patroon
+    dat de addon nog heeft, en het staat in een module die de Forever-TOC laadt.** De regel is
+    `local npc = tonumber(guid:match("^Creature%-%d+%-%d+%-%d+%-%d+%-(%d+)"))`, in de `MERCHANT_SHOW`-handler
+    die leert wélke vendor repareert. GEMETEN over de hele scope (`Modules Locales Libs Core.lua UI.lua
+    Config.lua`): het patroon `%-%d+%-%d+` geeft **precies één** treffer, deze. Positieve controle in dezelfde
+    run: de losse variant `[^%-]+` vindt **11** bestanden, dus het patroon zoekt wél. En
+    `MidnightHelper_Camelot.toc:103` laadt `Modules\ForeverVendors.lua`, dus dit loopt op de Forever-client.
+    📌 **Wat eraan moet is geen gok: dertien andere plekken in deze addon doen het al goed**, met `strsplit`
+    (o.a. `Modules/Rares.lua:876`/`:1037`, `Modules/QuestDiff.lua:133`, `Core.lua:3779`) of met het losse
+    patroon — inclusief **regel 1162 van ditzelfde bestand**:
+    `guid:match("^Creature%-[^%-]+%-[^%-]+%-[^%-]+%-[^%-]+%-(%d+)")`. `Modules/SpotLog.lua:246` heeft er zelfs al
+    het commentaar *"fields 2-5 loose: 12.1.7 obfuscates the server id"* bij staan. Regel 684 is één plek die
+    bij die verbouwing is overgeslagen.
+    ⚠️ **Eerlijk over wat ik NIET weet:** dat deze regel vandaag al faalt is **AFGELEID**, niet GEMETEN. Ik kan
+    van hieruit niet zien uit welke tekens een geobfusceerd veld bestaat; blijken het cijfers te zijn, dan houdt
+    `%d+` het. De aanwijzingen dat het misgaat zijn stevig (SimC verbouwde exact dit patroon één dag na de
+    hotfix; Blizzard zegt zelf *"replaced with obfuscated values"*), en de reparatie is risicoloos en al elders
+    in hetzelfde bestand in gebruik. Faalt het patroon, dan is `npc` nil en doet de handler een stille `return`:
+    het leren van reparerende vendors stopt zonder foutmelding. Precies de vorm die `CLAUDE.md` *"bouw je iets
+    dat kan zwijgen"* noemt.
+  - 🧩 **Forever: 🔴 [MOET GEFIKST] #2 — `GetRealmName()` is leeg op Forever, en daarmee veranderen de
+    per-character SavedVariables-sleutels van zeven modules van vorm. Niets crasht; de data van vóór 20 nov
+    wordt onbereikbaar.** Elke `CharKey()` hieronder valt terug op `GetRealmName()`, en een lege string is in
+    Lua **truthy** — dus `or "?"` en `or ""` vangen hem niet af en de sleutel wordt `"Naam-"` in plaats van
+    `"Naam-Realm"`. GEMETEN, per bestand, allemaal in `MidnightHelper_Camelot.toc`:
+    - `Modules/ForeverSkillup.lua:147-148` — `(n or "?") .. "-" .. (r or "?")`, sleutel van
+      `ns.db.foreverKnownRecipes`: welke recepten je kent. Nieuwe sleutel = lege lijst, dus alles leest als
+      opnieuw nieuw.
+    - `Modules/ForeverTravel.lua:187-188` — `tostring(n) .. "-" .. tostring(r)`.
+    - `Modules/ForeverRanks.lua:84-85` — `(realm or (GetRealmName and GetRealmName()) or "?")`, sleutel van
+      `s.top[k]`: je eigen records.
+    - `Modules/ForeverVendors.lua:847-848` en `Modules/ForeverWarnings.lua:412-413` — `(r or GetRealmName() or "")`.
+      ⚠️ In beide staat `GetRealmName()` hier **kaal**, zonder `and`-guard; vandaag bestaat de functie, dus dat
+      is latent en niet acuut.
+    - `Modules/KeyBlock.lua:2412` — `((GetRealmName and GetRealmName()) or "?")`.
+    - `Modules/SlotOwnership.lua:42` — `((GetRealmName and GetRealmName()) or "")`; die schreef al `""`, dus
+      alleen de realm-collisie blijft over.
+    - Twee bijwerkingen die bij álle zeven horen: twee characters met dezelfde naam op verschillende realms
+      krijgen nu **één** sleutel, en spelers die MH op Forever al vóór 20 nov gebruikten vinden hun oude
+      gegevens niet terug.
+    ✅ **[AL AFGEDEKT] — en precies één module doet het goed: `Modules/ForeverChars.lua:109-110`** doet
+    `if Readable(realm) and realm ~= "" then rec.realm = realm end` (met `Readable()` op `:33-35`), dus een lege
+    realm wordt als **afwezig** behandeld in plaats van als waarde. `Modules/DialogPopup.lua:51-52` guardt
+    ook expliciet op `realm == ""`. Dat is de vorm die de andere zeven missen.
+    🔴 **Ik verzin GEEN migratie, en dit is het punt waarop Rob moet beslissen.** Ik weet niet wat de nieuwe
+    sleutel moet zijn: `GetRealmID()` is volgens dezelfde meldingen óók op 0 gezet, en of er op Forever
+    überhaupt nog iets is dat twee realms onderscheidt, kan ik van hieruit niet vaststellen. Andere addons
+    kozen volgens hun eigen issues voor "vergelijk de ruleset" (de wiki geeft daar
+    `C_GameRules.IsGameRuleActive(Enum.GameRule.HardcoreRuleset/RPRuleset/PvPRuleset)` als voorbeeld) — of dat
+    voor ONZE sleutels genoeg onderscheid geeft, is een open vraag, geen advies.
+    📌 **En er is al een diagnose-hook om de eerste vraag in één `/reload` te beantwoorden:**
+    `Modules/ForeverOverview.lua:2234-2236` schrijft `probe.realm` en `probe.normRealm` weg, en `:2253` zet dat
+    in `ns.db.foreverNameProbe`. Rob hoeft alleen op een Forever-character te herladen en in `MidnightHelperDB`
+    naar `foreverNameProbe.realm` te kijken: staat daar `""`, dan is de bovenstaande AFLEIDING een METING.
+  - 📚 **De woorden van Blizzard zelf, zodat niemand dit op mijn parafrase hoeft te geloven.** Uit
+    `Patch_1.60.1/API_changes`, sectie *Blue posts*, item **2026-10-16** (*Forever 1.60.1 Beta Changes 5, build
+    70425*), kop *Addon Security*, letterlijk: *"The server ID and spawn ID portions of creature, vehicle, pet
+    and game object GUIDs have been replaced with obfuscated values to prevent comparison to determine layer.
+    They remain stable and unique within your own session, and the GUID string format is otherwise unchanged."*
+    📌 Die aankondiging is van 16 okt en dus zelf ouder dan zeven dagen; wat ín het venster valt is dat hij op
+    **20 nov** live is gegaan. ⚠️ **En dat laatste heb ik NIET in een Blizzard-artikel kunnen vinden** — een
+    "WoW: Forever Hotfixes - November 20"-artikel is via twee zoekopdrachten niet gevonden (nieuwste gevonden
+    artikel: 19 nov, gisteren al gelezen). De datum **20 nov** komt uit (1) de SimC-commit hierboven, (2) een
+    reeks issues/PR's van addonmakers die allemaal *"since the 2026-11-20 hotfix"* in hun titel zetten
+    (o.a. `Spotnick2/GlassPanel#167` *"GetRealmName() returns \"\" since the 2026-11-20 hotfix"*,
+    `Spotnick2/TitanLayer#7`, `Spotnick2/GuildSpy#104`, `Spotnick2/AltStable#412`) en (3) mijn eigen
+    eerstehandse meting hieronder. Het is dus **MEASURED (via search, de bronpagina's zelf niet gelezen)** voor
+    de datum, en eerstehands voor het gedrag van Blizzards eigen code. Over de realm-API's zegt de
+    samenvatting bovendien dat dit **alleen WoW: Forever** betreft, niet retail.
+  - 🆕 **[RAAKT ONS NIET, maar dit is de eerstehandse bevestiging] — de nieuwe Forever-build `1.60.1.71037`
+    laat Blizzard z'n eigen UI van `realmName` áf stappen.** GEMETEN met eigen clones:
+    `refs/heads/forever` = `734f0653` = `refs/tags/1.60.1` = `1.60.1.71037`, commit **20 nov 18:31:10 UTC**
+    (gisteren `3d8abb1d`/`70959`; de tag is dus meeverhuisd). De diff `70959` → `71037` is **8 bestanden, 63
+    inserties**, en drie ervan zeggen hetzelfde:
+    - `Blizzard_UnitPopupShared/UnitPopupSharedUtils.lua`: `IsSameServer` deed
+      `return realmName == GetRealmName()` en doet nu
+      `return C_BattleNet.IsGameAccountOnSameRealm(accountInfo.gameAccountInfo.gameAccountID)`.
+    - `Blizzard_FriendsFrame/Camelot/FriendsFrame.lua`: de variabele `playerRealmName` **en** haar enige
+      vulling `playerRealmName = GetRealmName()` zijn **verwijderd**, en vier `realmID == 0` / `realmID ~= 0`-
+      checks zijn `gameAccountInfo.hasRealmInfo` geworden.
+    - `BattleNetDocumentation.lua`: `GetFriendGameAccountInfo`'s struct krijgt een nieuw veld
+      `hasRealmInfo` (`bool`, `Nilable = false`), en `C_BattleNet.IsGameAccountOnSameRealm(id)` komt erbij.
+    📌 Blizzard vervangt dus precies de twee technieken waarmee een addon een realm kon aflezen door een
+    ja/nee-vraag aan de server. Dat is de ingreep zélf, in hun code te zien.
+  - 🔧 **[AL AFGEDEKT] — ons eigen gebruik van díé struct houdt het, maar de aanname eronder is nu zichtbaar
+    verouderd.** `Modules/FriendMarks.lua` (route B: BattleTag → marker) is de enige plek met `C_BattleNet`
+    (8 treffers; positieve controle in dezelfde scope: `C_Map` → 59 bestanden). `:158-159` roept
+    `GetFriendGameAccountInfo` in een `pcall`, `:162` eist `g.characterName`, en `Key(name, realm)` op `:36-41`
+    vangt een lege realm al af met *"if not realm or realm == '' then realm = GetNormalizedRealmName()"*. Dus:
+    geen fout, en de sleutel degradeert netjes. ⚠️ **Maar het kopcommentaar op `:15-16` zegt letterlijk
+    *"AFGELEID, not measured: that C_BattleNet.GetFriendGameAccountInfo still gives characterName/realmName to
+    an addon in 12.1"* — en dat is nu niet langer een open vraag maar een risico met een datum:** Blizzard
+    leest `realmName` zelf niet meer en heeft `hasRealmInfo` toegevoegd omdat realm-informatie kan ontbreken.
+    De terugval in `Key()` gebruikt bovendien de realm van de speler zélf, die op Forever óók `""` is, dus daar
+    worden alle sleutels `"naam-"`. Geen [MOET GEFIKST] (geen crash, bewuste terugval), wél een regel die
+    bijgewerkt hoort te worden zodra Rob in de client meet wat die struct nog teruggeeft.
+  - 🆕 **[RAAKT ONS NIET] — nieuwe PTR-build `12.1.7.71087`, en de API-documentatie erin is mager.** GEMETEN:
+    `refs/heads/ptr` = `fbb18ce1`, commit **20 nov 23:31:00 UTC** (gisteren `ea64ca56`/`70986`). Diff
+    `70986` → `71087`: **130 bestanden, 4153 inserties, 1474 deleties**, waarvan slechts **twee** in
+    `Blizzard_APIDocumentationGenerated`: `Enum.ProductPriceFilterReason` is nieuw in
+    `CatalogShopConstantsDocumentation.lua` (4 waarden), en `Enum.UnitMaximumHealthMode` krijgt een derde waarde
+    `ExpandToFitAbsorbs` (`NumValues` 2 → 3, `MaxValue` 1 → 2). MH: `ProductPriceFilterReason`,
+    `CatalogShop`, `UnitMaximumHealthMode`, `ExpandToFitAbsorbs` → **alle 0** treffers. Positieve controle in
+    dezelfde scope en run: `C_Timer` → 136 bestanden, `issecretvalue` → 100, `C_Map` → 59.
+    - ⚠️ **CORRECTIE/VERSCHERPING OP MIJN EIGEN REGEL VAN 19 NOV (`docs/API_WATCH.md:11061`).** Ik meldde
+      `C_BattleNet.IsGameAccountOnSameRealm` toen als nieuwe functie in build 70986 en zette er
+      **[RAAKT ONS NIET]** bij omdat MH hem nul keer aanroept. Dat was waar en het blijft waar, maar het was de
+      hélft: ik had de documentatie gelezen en niet wat Blizzard met de functie *doet*. GEMETEN vandaag met
+      `git log -S`: `IsGameAccountOnSameRealm` en `hasRealmInfo` kwamen op de PTR-branch inderdaad in
+      `ea64ca5` (**70986, 18 nov**) binnen — dus de functie was twee dagen oud toen ik hem afvinkte, en de
+      bijbehorende *vervanging* van `realmName`/`realmID` in Blizzards eigen frames stond er toen al bij. 📌 De
+      les: een nieuwe functie in `Blizzard_APIDocumentationGenerated` afvinken op "wij roepen hem niet aan" mist
+      het geval waarin de functie bestaat omdat de OUDE weg wordt afgesloten. Vanaf nu bij een nieuwe functie
+      ook kijken welke regels in de UI-diff erdoor zijn vervangen.
+    - ✅ **[RAAKT ONS NIET] — `NameMaskingUtil.lua` is nieuw op de PTR (57 regels, `Blizzard_SharedXML`).** Hij
+      maskeert namen op het scherm (`MaskName` houdt de eerste 3 tekens, UTF-8-bewust; valt op `"*****"` terug
+      bij `|`-markup) onder de cvars `streamerMode`, `streamerNameMasking`, `realIDNameMasking`,
+      `battleTagNameMasking` en `playerBattleTagNameMasking`. Dit is een UI-helper die Blizzards eigen frames
+      aanroepen vóór het tékenen; het verandert niet wat een API teruggeeft. MH: `NameMaskingUtil`, `MaskName`,
+      `streamerNameMasking`, `battleTagNameMasking` → **alle 0**. 📌 Genoteerd omdat het de kant op gaat van
+      minder leesbare spelersnamen, en MH's eigen naam-sleutels daarop leunen.
+    - ✅ **[RAAKT ONS NIET] — `Blizzard_LegacySystem.lua` (64 regels) is puur gamepad-verhuizing.** De
+      callback-registraties voor `TalentButtonReleased`/`TalentButtonAcquired`/`TalentFrameBase.ButtonsUpdated`/
+      `Legacy.RefreshChallenges` gaan van `OnShow`/`OnHide` naar `FocusGamepad`/`UnfocusGamepad`, zodat ze alleen
+      nog bij gamepad-UI leven. Geen API-wijziging. 📌 Raakt de open vraag over `C_LegacySystem` **niet**: die
+      blijft wat hij was (bestaat die namespace op de Forever-client, en is het dezelfde Legacy-track als die van
+      `Modules/ForeverLegacy.lua`), en is vandaag niet opnieuw gemeten.
+  - 🧰 **SimC-addon: en wat er NIET door geraakt wordt, ook gemeten.** De derde wijziging in `12.1.5-05` —
+    `forever/pet.lua`'s `GetPetCreatureID` — raakt ons niet: `Modules/SimcExport.lua` bevat **0** treffers op
+    `pet`/`Pet`, wij exporteren geen pet. En de `core.lua`-wijziging rond de realm raakt `ns.BuildSimcProfile`
+    (`Modules/SimcExport.lua:428`) **niet op Forever**, want GEMETEN: `SimcExport.lua` staat in
+    `MidnightHelper.toc:143` en **niet** in `MidnightHelper_Camelot.toc` — `/mh raidbots` bestaat op de
+    Forever-client dus niet. ⚠️ Wel een **afwijking van upstream** om te noteren: upstream láát de regel
+    `server=` nu weg bij een lege realm, wij schrijven hem altijd (`:513` `add("server=" .. Tokenize(realm))`,
+    met `:439` `GetRealmName and GetRealmName() or "?"` dat een lege string doorlaat). Op retail is dat
+    voorlopig theorie, maar het is exact dezelfde fout die we op **3 okt** voor de region al hebben moeten
+    repareren (`:443` `if regionName == "" then regionName = nil end`) — één `== ""`-regel, dezelfde vorm, twee
+    velden. `ItemString` (`:235`) is niet veranderd in deze release.
+  - 📚 **[RAAKT ONS NIET] — géén van de API-changes-wikipagina's is deze week bewerkt.** Revisiehistorie per
+    pagina opgehaald mét cache-buster `?nocache=20261121`: `Patch_12.1.7/API_changes`, `Patch_12.1.5/API_changes`
+    én `Patch_1.60.1/API_changes` staan alle drie nog op **16 okt 2026 22:38** (Ketho) — **36 dagen**, ruim
+    buiten de 7-dagenregel. Positieve controle: alle drie de historiepagina's kwamen in deze run door met echte
+    revisieregels, en de 1.60.1-pagina gaf bovendien de letterlijke blue-posttekst die hierboven staat.
+  - 💬 **[RAAKT ONS NIET] — het UI-and-Macro-forum: één nieuwe draad sinds gisteren, en die is geen API.** De
+    lijst opgehaald mét cache-buster. Nieuw t.o.v. mijn regel van gisteren: *"Would like a separate window option
+    for dual monitors"* (**21 nov**, 12 reacties, 552 views) — een wens voor een losstaand venster op een tweede
+    monitor, geen wijziging en geen blue post. *"Can't See My Damage Anymore!"* staat nu op 5 reacties en
+    **20 nov**; inhoudelijk gisteren al afgehandeld, niets nieuws. De drie draden die gisteren nieuw waren
+    (`2421975`, `2421924`, `2422822`) zijn ongewijzigd. ⚠️ **Niet gelezen:** de sticky *"UI Add-On Development
+    Policy"* is op **20 nov** gebumpt (18 reacties) — dat kán een beleidsreactie zijn, maar ik heb de juiste
+    draad-URL niet gevonden (mijn eerste gok leverde een ongerelateerde gilderecruteringsdraad op) en meld hem
+    daarom als ONGELEZEN in plaats van als leeg.
+  - 🚧 **Wat ik NIET kon lezen.** `news.blizzard.com`, `us.forums.blizzard.com`, `warcraft.wiki.gg` en
+    `wago.tools` blijven geweigerd door de egress-proxy; die zijn via Exa gelezen, mét cache-buster. Er is
+    vandaag **geen** eerstehandse Blizzard-artikelpagina voor de 20-nov-hotfix gevonden (zie hierboven), en
+    `wowhead.com/blue-tracker` gaf `CRAWL_EMPTY_CONTENT`. Een wago.tools-build-lezing heb ik vandaag **niet**
+    gedaan; de drie build-nummers hierboven komen eerstehands uit Gethes objecten (`version.txt` in een eigen
+    clone per branch), dus de tweede bron van gisteren ontbreekt. `refs/heads/live` = `ab5cb850` =
+    **12.1.5.70961** is **onveranderd** (retail stond dus stil), evenals `beta` = `078d0cf7` en `ptr2` =
+    `12380f8c`. In `live1/Interface` komen `IsGameAccountOnSameRealm` en `hasRealmInfo` **0×** voor en staat
+    `return realmName == GetRealmName()` er nog gewoon (`UnitPopupSharedUtils.lua:73`) — de live retail-client
+    is dus nog niet mee, en 12.1.7 brengt dat op **1 december**.
+  - ⏳ **Nog open uit eerdere runs — ongewijzigd, NIET opnieuw gemeten vandaag.** De dode `PickupItem`-takken in
+    `Modules/KeyBlock.lua:1135`/`:1227`/`:1380` en `Modules/ApplyLayout.lua:1311`/`:1345`/`:1605`; de vijf
+    decoratieve `GetItemInfo`-terugvaltakken; de verouderde namespace-lijst in `docs/WATCHER_API_PROMPT.md`
+    (18 aug, noemt 57 namespaces en kent de twee TOC's niet); de client-test voor `/mh raidbots`;
+    `GetTimerDuration` toevoegen aan `Modules/ApiProbe.lua:377`; de `FrameStrata`-secret-vraag op
+    `Modules/PartyTargets.lua:517`; de drie `WOW_PROJECT_MAINLINE`-takken in `Libs/LibDBIcon-1.0.lua:533`/
+    `:572`/`:607` die op Forever omslaan; de ongemeten BETEKENIS van *"Edit Mode layouts are now saved
+    separately for each UI type"* voor `Modules/ForeverLayoutCarry.lua`; de shift-klik-taintvraag op
+    `Modules/Achievements.lua:1561`/`:1910`; de in-game-test van `ns.SelfCastMacroWarning` (`Core.lua:4318`);
+    of `C_LegacySystem` op de Forever-client bestaat en of het dezelfde Legacy-track is als die van
+    `Modules/ForeverLegacy.lua`; en of de `AllowedWhenUntainted`-verscherping van `C_Intl`/`LuaLocaleContextAPI`
+    een voorbode is voor namespaces die wij wél gebruiken. 🔴 Niets aangeraakt.
+  - 🔧 **Repo-staat: alleen `docs/API_WATCH.md` aangeraakt.** GEMETEN vóór het schrijven: `git status --short`
+    **leeg**; `HEAD` stond **opnieuw losgeslagen** (achtste keer) en is met `git checkout main` weer op
+    `refs/heads/main` gezet. `git rev-parse --is-shallow-repository` → **`true`**, dus een
+    `(forced update)`-regel bij de pull is de kloondiepte en niet Rob — dit is de vijfde dag dat dat hier staat,
+    en de regel blijft: meet `--is-shallow-repository` **vóór** je er een woord over schrijft. Laatste commit
+    vóór de mijne: `2c7c095` *"PTR-wacht 21 nov: nieuwe builds wowt 71087 en wowf 71037, nog geen 12.2-PTR
+    (70 dagen)"* (**21 nov 04:44 UTC**). 📌 Die wachter meet dezelfde twee buildnummers als ik, onafhankelijk —
+    een gratis kruiscontrole op `71087` en `71037`.
