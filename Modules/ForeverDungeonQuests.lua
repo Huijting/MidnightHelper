@@ -74,8 +74,10 @@ local function NpcName(e)
 	if loc == "esMX" then
 		loc = "esES"
 	end
-	local t = ns.FOREVER_DUNGEON_QUEST_NPCS and ns.FOREVER_DUNGEON_QUEST_NPCS[loc]
-	return (t and e.npcId and t[e.npcId]) or e.npc
+	-- npc = the creature id; names are Blizzard's (Wowhead Forever tooltips), English when this language has no own one.
+	local all = ns.FOREVER_DUNGEON_QUEST_NPCS or {}
+	local t, en = all[loc], all.enUS
+	return e.npc and ((t and t[e.npc]) or (en and en[e.npc])) or nil
 end
 
 local function ZoneName(id)
@@ -139,7 +141,7 @@ local function Collect(key)
 	local taken = {} -- English title → done or in the log (one of the "|or" variants)
 	for _, e in ipairs(list) do
 		if ForMe(e, side, class) and (Done(e.q) or InLog(e.q)) then
-			taken[e.name] = true
+			taken[e.en or e.q] = true
 		end
 	end
 	for _, e in ipairs(list) do
@@ -149,7 +151,7 @@ local function Collect(key)
 				st, why = "done", "IsQuestFlaggedCompleted"
 			elseif InLog(e.q) then
 				st, why = "log", "in the quest log"
-			elseif taken[e.name] then
+			elseif taken[e.en or e.q] then
 				st, why = nil, "a variant with the same title is done or in the log"
 			elseif e.inside then
 				st, why = "inside", "picked up inside the dungeon"
@@ -190,7 +192,7 @@ local function GoTo(e)
 	local who = NpcName(e) or ZoneName(e.m)
 	ns.lastTarget = { mapID = e.m, x = e.x, y = e.y, name = who, via = "/mh dungeons quests", arriveYards = 15 }
 	ns._mhRouteOwner = "waypoint"
-	print(PREFIX .. ns:L("FDQ_ARROW_FMT"):format(who, ZoneName(e.m), Title(e.q, e.name)))
+	print(PREFIX .. ns:L("FDQ_ARROW_FMT"):format(who, ZoneName(e.m), Title(e.q, e.en)))
 	return true
 end
 
@@ -201,27 +203,27 @@ local function Where(it)
 		local p
 		for _, x in ipairs(Data()[it.key] or {}) do
 			if x.q == e.prev then
-				p = x.name
+				p = x.en
 			end
 		end
 		return ns:L("FDQ_AFTER_FMT"):format(Title(e.prev, p))
 	end
+	local who = NpcName(e)
 	if e.inside then
-		return e.npc and ns:L("FDQ_INSIDE_FMT"):format(NpcName(e)) or ns:L("FDQ_SEC_INSIDE")
+		return who and ns:L("FDQ_INSIDE_FMT"):format(who) or ns:L("FDQ_SEC_INSIDE")
 	end
+	local first
 	if e.item then
-		return ns:L("FDQ_FROM_ITEM_FMT"):format(ItemName(e.item))
+		first = ns:L("FDQ_FROM_ITEM_FMT"):format(ItemName(e.item))
+	elseif e.object then
+		first = ns:L("FDQ_FROM_OBJECT")
+	else
+		first = who
 	end
-	if e.object then
-		return ns:L("FDQ_FROM_OBJECT_FMT"):format(e.object)
+	if e.m then
+		return first and ("%s · %s"):format(first, ZoneName(e.m)) or ZoneName(e.m)
 	end
-	if e.npc and e.m then
-		return ("%s · %s"):format(NpcName(e), ZoneName(e.m))
-	end
-	if e.npc then
-		return NpcName(e) .. " · " .. ns:L("FDQ_NO_PLACE")
-	end
-	return ns:L("FDQ_NO_PLACE")
+	return first and (first .. " · " .. ns:L("FDQ_NO_PLACE")) or ns:L("FDQ_NO_PLACE")
 end
 
 --------------------------------------------------------------------------------
@@ -263,7 +265,7 @@ local function Row(f, i)
 			return
 		end
 		GameTooltip:SetOwner(self, "ANCHOR_LEFT")
-		GameTooltip:SetText(Title(e.q, e.name))
+		GameTooltip:SetText(Title(e.q, e.en))
 		GameTooltip:AddLine(("%s, %.1f, %.1f"):format(ZoneName(e.m), e.x, e.y), 1, 1, 1)
 		if ns.ForeverTravelSentence then
 			local ok, s = pcall(ns.ForeverTravelSentence, e.m, e.x, e.y)
@@ -379,7 +381,7 @@ Fill = function()
 						r.text:SetWidth(textW)
 						r.sub:SetWidth(textW)
 						local tag = e.classes and (" |cff9d9d9d(" .. ns:L("FDQ_CLASS") .. ")|r") or ""
-						r.text:SetText((COLORS[st] or "") .. Title(e.q, e.name) .. "|r" .. tag)
+						r.text:SetText((COLORS[st] or "") .. Title(e.q, e.en) .. "|r" .. tag)
 						r.sub:SetText(Where(it))
 						if st == "now" and e.m then
 							r.go.e = e
@@ -502,7 +504,7 @@ function ns.ForeverDungeonQuestsSlash(arg)
 			n.done))
 	for _, it in ipairs(list) do
 		local e = it.e
-		print(("  %s %d %s: %s%s"):format(it.st or "skip", e.q, Title(e.q, e.name), it.why,
+		print(("  %s %d %s: %s%s"):format(it.st or "skip", e.q, Title(e.q, e.en), it.why,
 			e.m and (" · map %d %.1f,%.1f"):format(e.m, e.x, e.y) or ""))
 	end
 end

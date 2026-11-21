@@ -602,7 +602,7 @@ for k, v in pairs({
 	FDQ_AFTER_FMT = "После: %s",
 	FDQ_INSIDE_FMT = "Внутри: %s",
 	FDQ_FROM_ITEM_FMT = "Начинается с предмета: %s",
-	FDQ_FROM_OBJECT_FMT = "Начало: %s",
+	FDQ_FROM_OBJECT = "Начинается с объекта в мире, на который нужно нажать",
 	FDQ_NO_PLACE = "наш источник не указывает место для этого задания",
 	FDQ_CLASS = "классовое задание",
 	FDQ_ARROW_FMT = "стрелка на %s (%s) для «%s».",

@@ -911,7 +911,7 @@ for k, v in pairs({
 	FDQ_AFTER_FMT = "Depois de: %s",
 	FDQ_INSIDE_FMT = "Dentro: %s",
 	FDQ_FROM_ITEM_FMT = "Começa com um item: %s",
-	FDQ_FROM_OBJECT_FMT = "Começa em: %s",
+	FDQ_FROM_OBJECT = "Começa em algo que você clica no mundo",
 	FDQ_NO_PLACE = "nossa fonte não indica lugar para esta",
 	FDQ_CLASS = "missão de classe",
 	FDQ_ARROW_FMT = "seta posta em %s (%s) para \"%s\".",

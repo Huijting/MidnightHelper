@@ -6,10 +6,13 @@ the quest giver, Show the way, and whether you already did it / have it in your 
 
 Sources (own, not Polestar = GPLv3, not FlowUp = all rights reserved):
   - Zygor Forever, Guides-Forever/Dungeons/ZygorDungeon{Alliance,Horde}CLASSIC.lua, the "Dungeon Guides\\Dungeon
-    Quests\\..." guides: quest id, English title, the NPC you talk to (id + name), the |goto on the accept line, and
-    whether the step says "_Inside the ... Dungeon:_". Zygor is Rob's trusted local source (memory: zygor-guide-data-source).
+    Quests\\..." guides: FACTS ONLY - quest id, NPC id, the |goto on the accept line, the order, and whether the step says
+    "_Inside the ... Dungeon:_". No Zygor text (titles, names, tips) goes into MH (sparring 21 Nov: "neem alleen feiten
+    mee ... geen Zygor-zinnen of -notities in MH's bestanden").
   - Spoken_Quests/Data/Compendium.lua (Rob, 16 Nov: Spoken counts as a source for givers and chains): `prev` (the quest
-    before it), used only to say "after <quest>" and to cross-check.
+    before it) and the English quest title, used only as the fallback when the client has no title yet.
+  - Wowhead Forever tooltips (tools/gamedata.py's fetch + cache): NPC names per language (Blizzard's names), and the
+    English title of a quest Spoken does not have.
 Zone names -> UiMap ids: wago UiMap, Forever build (ZONES below, GEMETEN with `run gamedata db2 UiMap`).
 
 Output: Modules/ForeverDungeonQuestsData.lua (atomic write). Report on stdout: per dungeon how many quests, which zone
@@ -104,8 +107,32 @@ def spoken_prev():
         q, rest = int(m.group(1)), m.group(3)
         pm = re.search(r"prev = (\d+)", rest)
         dm = re.search(r"dungeon = (\d+)", rest)
-        out[q] = {"prev": int(pm.group(1)) if pm else None, "dungeon": int(dm.group(1)) if dm else None}
+        out[q] = {"prev": int(pm.group(1)) if pm else None, "dungeon": int(dm.group(1)) if dm else None,
+                  "title": m.group(2).replace('\\"', '"')}
     return out
+
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import gamedata  # noqa: E402  (fetch + cache of the Wowhead tooltips)
+import json  # noqa: E402
+import urllib.parse  # noqa: E402
+
+
+def wh_name(kind, i, loc="enUS"):
+    """Blizzard's name of an npc/quest from the Wowhead Forever tooltip, or None."""
+    url = "https://nether.wowhead.com/forever/tooltip/%s/%d" % (kind, i)
+    if loc != "enUS":
+        url += "?" + urllib.parse.urlencode({"locale": loc})
+    cpath = os.path.join(gamedata.CACHE, "tooltip", "forever", kind, "%d.%s.json" % (i, loc))
+    data, _ = gamedata.fetch(url, cpath, 30 * 86400, soft404=True)
+    if not data:
+        return None
+    try:
+        j = json.loads(data.decode("utf-8"))
+    except Exception:
+        return None
+    n = j and j.get("name")
+    return n.strip() if isinstance(n, str) and n.strip() else None
 
 
 def parse(path, side):
@@ -173,16 +200,7 @@ def parse(path, side):
     return guides
 
 
-NPC_LOCALES = (("deDE", "deDE"), ("frFR", "frFR"), ("esES", "esES"), ("ptBR", "ptbr"), ("itIT", "itIT"),
-               ("ruRU", "ruRU"))
-
-
-def npc_names(code):
-    p = os.path.join(FOREVER, "ZygorGuidesViewerForever", "Localization-Forever", "NPCs_%s.lua" % code)
-    out = {}
-    for m in re.finditer(r'^\s*\[(\d+)\] = "((?:[^"\\]|\\.)*)",', read(p), re.M):
-        out[int(m.group(1))] = m.group(2).replace('\\"', '"')
-    return out
+NPC_LOCALES = ("deDE", "frFR", "esES", "ptBR", "ruRU")
 
 
 def lua_str(s):
@@ -205,6 +223,8 @@ def main():
                 lst.append(e)
 
     missing_zones, no_coords, total = {}, [], 0
+    title_src = {"spoken": 0, "wowhead": 0, "none": 0}
+    npcs = set()
     lines = []
     for key in sorted(by_key):
         entries = by_key[key]
@@ -222,15 +242,22 @@ def main():
         for q in order:
             e = merged[q]
             total += 1
-            parts = ["q = %d" % q, "name = %s" % lua_str(e["name"])]
+            # The English title is only the fallback while the client has none: Spoken's, else Wowhead's (never Zygor's).
+            title = prev.get(q, {}).get("title") or wh_name("quest", q)
+            if title:
+                title_src["spoken" if prev.get(q, {}).get("title") else "wowhead"] += 1
+            else:
+                title_src["none"] += 1
+            parts = ["q = %d" % q] + (["en = %s" % lua_str(title)] if title else [])
             if e["side"]:
                 parts.append('side = "%s"' % e["side"])
             if e.get("npcId"):
-                parts.append("npc = %s, npcId = %d" % (lua_str(e["npc"]), e["npcId"]))
+                parts.append("npc = %d" % e["npcId"])
+                npcs.add(e["npcId"])
             elif e.get("itemId"):
                 parts.append("item = %d" % e["itemId"])
             elif e.get("object"):
-                parts.append("object = %s" % lua_str(e["object"]))
+                parts.append("object = true")
             if e.get("zone") in INSTANCE_ZONES:
                 e["inside"] = True
             elif e.get("zone"):
@@ -240,7 +267,7 @@ def main():
                 else:
                     parts.append("m = %d, x = %.2f, y = %.2f" % (m, e["x"], e["y"]))
             elif not e["inside"]:
-                no_coords.append("%s %d %s" % (key, q, e["name"]))
+                no_coords.append("%s %d" % (key, q))
             if e["inside"]:
                 parts.append("inside = true")
             if e["classes"]:
@@ -262,17 +289,16 @@ def main():
         print("outside the dungeon but no coordinates (%d):" % len(no_coords))
         for s in no_coords:
             print("   " + s)
-    # NPC names per client language (Zygor's own locale tables; English = the guide's name, used when one is missing).
-    used = {}
-    for entries in by_key.values():
-        for e in entries:
-            if e.get("npcId"):
-                used[e["npcId"]] = e["npc"]
+    print("English fallback titles: %(spoken)d Spoken, %(wowhead)d Wowhead, %(none)d none" % title_src)
+    # NPC names per client language: Blizzard's names from the Wowhead Forever tooltips (enUS always; another language
+    # only where it differs). An npc Wowhead does not know gets no name: the row then shows the zone only.
+    en = {i: wh_name("npc", i) for i in sorted(npcs)}
+    print("NPC names enUS: %d of %d" % (sum(1 for v in en.values() if v), len(en)))
     nl = ["ns.FOREVER_DUNGEON_QUEST_NPCS = {"]
-    for loc, code in NPC_LOCALES:
-        names = npc_names(code)
-        hits = [(i, names[i]) for i in sorted(used) if i in names and names[i] != used[i]]
-        print("NPC names %s: %d of %d translated" % (loc, len(hits), len(used)))
+    for loc in ("enUS",) + NPC_LOCALES:
+        names = en if loc == "enUS" else {i: wh_name("npc", i, loc) for i in sorted(npcs)}
+        hits = [(i, n) for i, n in sorted(names.items()) if n and (loc == "enUS" or n != en.get(i))]
+        print("NPC names %s: %d own" % (loc, len(hits)))
         nl.append("\t%s = {" % loc)
         for i, n in hits:
             nl.append("\t\t[%d] = %s," % (i, lua_str(n)))

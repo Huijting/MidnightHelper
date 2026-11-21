@@ -8,7 +8,12 @@
   `_forever_\...\ZygorGuidesViewerForever\Guides-Forever\Dungeons\ZygorDungeon{Alliance,Horde}CLASSIC.lua` (GEMETEN:
   32 van onze 35 dungeons, 519 quests; geen gids voor Alcaz, Blackmaw, Shaper's Terrace). `prev` uit Spoken
   Compendium.lua (CC BY 4.0-deel van Efficient Games, vermeld in de kop). Zone → UiMap GEMETEN (wago UiMap
-  1.60.1.71037, 42 zones). NPC-namen per taal uit Zygors eigen locale-tabellen (AFGELEID dat die = de client).
+  1.60.1.71037, 42 zones).
+  🔁 Ombouw dezelfde avond (sparring: *"neem alleen feiten mee ... geen Zygor-zinnen of -notities in MH's bestanden"*):
+  uit Zygor alleen id's, coördinaten en volgorde. Questnaam = client (GetTitleForQuestID); Engelse terugval `en` uit
+  Spoken (486) of de Wowhead Forever-tooltip (33), 0 zonder. NPC-namen = Blizzard-namen uit de Wowhead Forever-tooltips
+  per taal (enUS 240 van 242; eigen naam de 100, fr 119, es 169, pt 199, ru 240). Objecten zonder naam
+  (FDQ_FROM_OBJECT, 7 talen, zelf vertaald). Spoken corrigeert zelfs een titel: 886 "The Barrens Oases".
 - `Modules/ForeverDungeonQuests.lua`: per quest done / in log / inside / later (prev niet af) / now; "|or"-varianten met
   dezelfde titel tellen als één. Overzicht → Dungeons: knop "Quests N" (N = nu op te halen) onder Way/Bosses; venster met
   "Way ›" per op te halen quest. `/mh dungeons quests [key]`, `/mh dungeons quests check [key]`.

@@ -586,7 +586,7 @@ for k, v in pairs({
 	FDQ_AFTER_FMT = "Nach: %s",
 	FDQ_INSIDE_FMT = "Drinnen: %s",
 	FDQ_FROM_ITEM_FMT = "Beginnt mit einem Gegenstand: %s",
-	FDQ_FROM_OBJECT_FMT = "Beginnt bei: %s",
+	FDQ_FROM_OBJECT = "Beginnt bei etwas, das du in der Welt anklickst",
 	FDQ_NO_PLACE = "unsere Quelle nennt hierfür keinen Ort",
 	FDQ_CLASS = "Klassenquest",
 	FDQ_ARROW_FMT = "Pfeil gesetzt zu %s (%s) für \"%s\".",

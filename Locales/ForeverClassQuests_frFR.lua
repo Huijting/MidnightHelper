@@ -588,7 +588,7 @@ for k, v in pairs({
 	FDQ_AFTER_FMT = "Après : %s",
 	FDQ_INSIDE_FMT = "À l'intérieur : %s",
 	FDQ_FROM_ITEM_FMT = "Commence avec un objet : %s",
-	FDQ_FROM_OBJECT_FMT = "Commence à : %s",
+	FDQ_FROM_OBJECT = "Commence par un objet à cliquer dans le monde",
 	FDQ_NO_PLACE = "notre source n'indique aucun endroit pour celle-ci",
 	FDQ_CLASS = "quête de classe",
 	FDQ_ARROW_FMT = "flèche placée sur %s (%s) pour \"%s\".",

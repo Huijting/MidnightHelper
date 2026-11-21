@@ -955,7 +955,7 @@ for k, v in pairs({
 	FDQ_AFTER_FMT = "Después de: %s",
 	FDQ_INSIDE_FMT = "Dentro: %s",
 	FDQ_FROM_ITEM_FMT = "Empieza con un objeto: %s",
-	FDQ_FROM_OBJECT_FMT = "Empieza en: %s",
+	FDQ_FROM_OBJECT = "Empieza en algo que pulsas en el mundo",
 	FDQ_NO_PLACE = "nuestra fuente no da ningún lugar para esta",
 	FDQ_CLASS = "misión de clase",
 	FDQ_ARROW_FMT = "flecha puesta en %s (%s) para \"%s\".",
