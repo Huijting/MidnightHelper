@@ -68,8 +68,11 @@ Upgrade / Not now / Never). Afgevinkt met "(Rob, 19 nov)". De hulpregels ("typ /
 - [ ] `/mh blesstip`: regels "target now: …" en "the key runs: /cast [@mouseover,help,nodead] …; [@target,help,nodead] …".
       Typ het met een speler geselecteerd. Screenshot.
 - [ ] In een gevecht: de knop werkt met de laatste keuze van vóór het gevecht (MH kan hem dan niet bijwerken).
-- [ ] (Reparatie 21 nov) Na `/reload` en ZONDER eerst iets in de chat te typen: selecteer iemand en druk F5 (de toets, niet
-      de muis). Werkt het meteen? Daarna `/mh blesstip`: "presses that reached the button: 1 (of meer) · last: …, down …".
+- [ ] ❌ (Rob, 21 nov, na 5213ee8: druk kwam aan als "up", regel klopte, maar er werd niets gecast en geen melding.)
+      Reparatie 2 (21 nov): MH schrijft de /cast-regel nu IN de macro "MH Smart Bless" zelf. Na `/reload`: selecteer
+      iemand, druk je toets/muisknop met de macro: hij krijgt de zegen. Geen doelwit: chatregel "MH Smart Bless: no friendly
+      player …". `/mh blesstip`: regel "macro "MH Smart Bless" now: #showtooltip | /cast …". Open ook je macrovenster: de
+      macro toont die regel.
 
 ## 🔑 21 nov — Forever: elk character zijn eigen opslag (twee Ima's)
 
@@ -107,8 +110,9 @@ Nieuwe bestanden → **WoW helemaal herstarten**. Forever, een character van lev
 ## 📋 20 nov — De testlijst in het spel (alleen voor Rob)
 
 Nieuwe addon → **WoW helemaal herstarten** (in retail én in Forever). In de addonlijst staat "MH Testlist (Rob only)".
-- [ ] Na het inloggen zegt de chat "MH Testlist: … testpunten. Typ /mhtest". Typ `/mhtest`: een venster met links de
-      testrondes (de nieuwste) en rechts de punten als kaartjes. Screenshot.
+- [x] ✅ (Rob in het spel, Forever, 21 nov: *"Hij komt inderdaad in te staan in de chat."*) Na het inloggen zegt de chat
+      "MH Testlist: … testpunten. Typ /mhtest".
+- [ ] Typ `/mhtest`: een venster met links de testrondes (de nieuwste) en rechts de punten als kaartjes. Screenshot.
 - [ ] Per punt: Goed / Fout / Overslaan (nog een keer klikken = weg), een opmerkingenveld, en een knop per commando die
       het in je chatregel zet (dan Enter). De tellers bovenaan en links lopen mee.
 - [ ] "Nieuwste" / "Alles" bovenaan, Shift + muiswiel = groter/kleiner, slepen aan de titelbalk, Escape sluit.

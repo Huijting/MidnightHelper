@@ -217,6 +217,42 @@ local function BuildSmart()
 	return smart
 end
 
+local macroBody, macroWhy = nil, "not written yet"
+
+--- Write the line into the macro the player presses. nil line = a /run line that says why nothing happens.
+local function WriteMacro(line)
+	if not (GetMacroIndexByName and EditMacro) or (InCombatLockdown and InCombatLockdown()) then
+		macroWhy = "cannot edit macros now (in combat or no API)"
+		return
+	end
+	local body
+	if line then
+		body = "#showtooltip\n" .. line
+	else
+		local msg = ns:L("FBLESS_NONE"):gsub("[\"\\]", "")
+		body = "#showtooltip\n/run print(\"" .. msg .. "\")"
+	end
+	if #body > 255 then
+		macroWhy = ("line too long for a macro (%d characters)"):format(#body)
+		return
+	end
+	if body == macroBody then
+		return
+	end
+	local ok, idx = pcall(GetMacroIndexByName, SMART_MACRO)
+	if not (ok and type(idx) == "number" and idx > 0) then
+		macroWhy = "the macro \"" .. SMART_MACRO .. "\" does not exist (/mh blesstip button on makes it)"
+		return
+	end
+	local okE, err = pcall(EditMacro, idx, SMART_MACRO, 134400, body)
+	if okE then
+		macroBody = body
+		macroWhy = "written " .. (date and date("%H:%M:%S") or "")
+	else
+		macroWhy = "EditMacro error: " .. tostring(err)
+	end
+end
+
 --- The /cast line for the current mouseover and target (out of combat only).
 local function SmartUpdate(event)
 	if not (SmartOn() and IsPaladin()) then
@@ -268,6 +304,13 @@ local function SmartUpdate(event)
 		smartLine = line
 	end
 	smartSpell = mouseSpell or targetSpell
+	-- 21 Nov 2026 (Rob, after 5213ee8: "Nee, er gebeurt helemaal niks", while /mh blesstip showed the press reached the
+	-- button as "up" with the right line, and ActionButtonUseKeyDown = 1; his Purify macro on the same kind of mouse
+	-- button works): the /click → secure macro button road casts nothing in Forever (GEMETEN by Rob; WHY is not known).
+	-- Sparring's proposal: MH writes the /cast line into the macro "MH Smart Bless" itself (EditMacro, out of combat,
+	-- only when the line changes), so the key runs a plain macro like his Purify. The hidden button stays only for the
+	-- diagnosis.
+	WriteMacro(line)
 end
 
 --- Make the macro once (out of combat); true when it exists afterwards.
@@ -279,7 +322,11 @@ local function SmartMacro()
 	if ok and type(idx) == "number" and idx > 0 then
 		return true
 	end
-	local okC = pcall(CreateMacro, SMART_MACRO, 134400, "/click " .. SMART_NAME, true)
+	local okC = pcall(CreateMacro, SMART_MACRO, 134400, "#showtooltip\n/run print(\"MH\")", true)
+	if okC then
+		macroBody = nil
+		WriteMacro(smartLine)
+	end
 	return okC
 end
 
@@ -381,8 +428,18 @@ function ns.ForeverBlessTipSlash(arg)
 	print("  the key runs: " .. (smartLine or "nothing (no friendly player under the mouse or as target yet)")
 		.. ((InCombatLockdown and InCombatLockdown()) and "  — in combat: this stays until the fight ends" or ""))
 	local kd = C_CVar and C_CVar.GetCVar and C_CVar.GetCVar("ActionButtonUseKeyDown")
-	print(("  presses that reached the button: %d · last: %s · ActionButtonUseKeyDown = %s"):format(smartClicks,
+	print(("  presses that reached the hidden button (old road, no longer used by the macro): %d · last: %s · ActionButtonUseKeyDown = %s"):format(smartClicks,
 		smartLastClick, tostring(kd)))
+	-- 21 Nov 2026: the macro itself now carries the line.
+	local okB, mBody = false, nil
+	if GetMacroIndexByName and GetMacroBody then
+		local okI, idx = pcall(GetMacroIndexByName, SMART_MACRO)
+		if okI and type(idx) == "number" and idx > 0 then
+			okB, mBody = pcall(GetMacroBody, idx)
+		end
+	end
+	print("  macro \"" .. SMART_MACRO .. "\" now: " .. ((okB and type(mBody) == "string") and mBody:gsub("\n", " | ") or "?")
+		.. " · last write: " .. macroWhy)
 	print("  (typing this in chat: your mouse is on the chat, so \"mouseover\" above reads nothing — that is normal)")
 	local t = {}
 	for c, d in pairs(DEFAULT) do

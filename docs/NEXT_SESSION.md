@@ -5,6 +5,17 @@
 ✅ **Charkey GESLAAGD op twee Ima's (Rob in het spel, 21 nov)** — Ima 2 = Player-6944-0120ED18 (Ima 1 = …0118CB4F), eigen
 kopieën, "copies so far 9". Joey en KeyBlock nog niet getest.
 
+🐞 **Smart Bless reparatie 2: MH schrijft de macro zelf (21 nov)** — GEMETEN door Rob na 5213ee8: "presses that reached the
+button: 1 · last: 13:05:37, LeftButton up, line: /cast [@mouseover,help,nodead] Blessing of Wisdom; [@target,help,nodead]
+Blessing of Wisdom · ActionButtonUseKeyDown = 1" en *"Nee, er gebeurt helemaal niks … Purify kwam wel aan met mijn
+muisknop"*, geen foutmelding. Dus: klik bereikt de verborgen knop, regel klopt, maar de route /click → secure macro-knop
+cast niets in Forever (WAAROM is NIET gemeten; AFGELEID mogelijk: /click kwam als "up" terwijl de knop met de CVar op 1 op
+"down" handelt). Op voorstel van de sparring: `WriteMacro()` zet de regel met EditMacro (buiten combat, alleen bij een
+andere regel) als body van "MH Smart Bless": `#showtooltip` + de /cast-regel; geen speler = `/run print("<FBLESS_NONE>")`
+(7 talen). Rob drukt nu een gewone macro, zoals zijn Purify. In combat blijft de laatste tekst. `/mh blesstip` toont de
+macro-body en "last write". De verborgen knop blijft alleen voor de diagnose. Offline GEMETEN (bless_test.lua, 22 controles).
+NIET in het spel gezien.
+
 🐞 **Smart Bless werkte niet met F5 GEREPAREERD (21 nov)** — Rob: *"Ik heb niks gedaan, maar het werkt niet."* De knop
 luisterde alleen naar LeftButtonUp (useOnKeyDown false, overgenomen van de Disenchant-knop, die met de muis geklikt wordt).
 Een `/click` vanaf een TOETS komt binnen als key-down als ActionButtonUseKeyDown aan staat; die CVar staat niet in Robs
