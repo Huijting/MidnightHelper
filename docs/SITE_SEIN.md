@@ -28,14 +28,14 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
-## 21 nov 2026 — release 5.7.0 (getagd)
+## 21 nov 2026 — release 5.7.0 (staat op CurseForge)
 - Tag + commit:   v5.7.0 / e215cc8. Release-run GitHub 44915363010: geslaagd (3m34s); log: CurseForge, Wago en GitHub
-                  "Success!" voor beide zips (MidnightHelper-v5.7.0.zip 12.0.7-12.1.7, MidnightHelper-v5.7.0-forever.zip
-                  1.60.1). CurseForge-API om 14:50 (GEMETEN): nog NIET zichtbaar (nieuwste = v5.6.0) → CurseForge keurt nog
-                  goed; status blijft "getagd" tot de API ze toont.
-- Status:         getagd
-- Mag op de site: ja zodra het op CurseForge staat. Rob via sparring, letterlijk: *"reload gedaan, tekst staat goed, go
-                  voor 5.7.0"*. Wat de site als "nieuw" noemt = de releasetekst: Waylaid Crates en de mage Study-tip zitten
+                  "Success!" voor beide zips. CurseForge-API (GEMETEN, na Robs "Beide zijn approved"): 9734057
+                  `MidnightHelper-v5.7.0.zip` (12.0.7-12.1.7) en 9734079 `MidnightHelper-v5.7.0-forever.zip` (1.60.1),
+                  beide releaseType 1, status 4.
+- Status:         staat op CurseForge
+- Mag op de site: ja. Rob, letterlijk: *"reload gedaan, tekst staat goed, go voor 5.7.0"* en in de bouwchat: *"Beide zijn
+                  approved en ik zal in de sidechat de go geven."* (de go voor de site geeft Rob zelf in de site-chat). Wat de site als "nieuw" noemt = de releasetekst: Waylaid Crates en de mage Study-tip zitten
                   wel in de zip, maar staan NIET in de tekst (nog niet door Rob getest) → nog niet op de site.
 - Speler ziet:    zie `RELEASE_NOTES.md` (= `docs/CURSEFORGE_5.7.0.md`): nieuw Forever-overzicht (tabs rechts), Which
                   city?, volgend talentpunt in Do this now (Paladin), level-en-tank-plan + Dual Spec, Smart Buff (Mage,
@@ -50,7 +50,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ## 21 nov 2026 — Forever: volgend talentpunt in Do this now
 - Tag + commit:   v5.7.0 (commit: zie git log, "next talent")
-- Status:         getagd
+- Status:         staat op CurseForge
 - Mag op de site: nee (in bouw, niet getest)
 - Speler ziet:    met een vrij talentpunt zegt Do this now in welk talent het moet, met de tooltip; MH leest je talenten
                   en slaat over wat je al hebt. Nu voor Paladins (Retribution en Protection), andere classes volgen.
@@ -60,7 +60,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ## 21 nov 2026 — Forever: Smart Buff (Mage, Priest, Druid)
 - Tag + commit:   v5.7.0 (commit: zie git log, "Smart Buff")
-- Status:         getagd
+- Status:         staat op CurseForge
 - Mag op de site: nee (in bouw, niet getest)
 - Speler ziet:    macro "MH Smart Buff" zet Arcane Intellect / Power Word: Fortitude / Mark of the Wild op de speler onder
                   je muis, anders op je doelwit. Standaard uit.
@@ -70,7 +70,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ## 21 nov 2026 — Forever: level en tank, respec en Dual Spec, Wolfsbane
 - Tag + commit:   v5.7.0 (commit: zie git log, "level and tank plans")
-- Status:         getagd
+- Status:         staat op CurseForge
 - Mag op de site: nee (in bouw, niet getest)
 - Speler ziet:    How you play begint met een plan om te levelen en tanken (Paladin, Warrior, Druid) en legt voor elke
                   class talenten resetten en Dual Spec uit; Undead Paladins horen eerst Two-Handed Swords te leren voor
@@ -81,7 +81,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ## 21 nov 2026 — Forever: zoeken springt naar de schakelaar + "for WoW Forever"
 - Tag + commit:   v5.7.0 (commit edb8bc3)
-- Status:         getagd
+- Status:         staat op CurseForge
 - Mag op de site: nee (nog niet uit) *(getest door Rob)*
 - Speler ziet:    klik op een schakelaar in de zoekresultaten: Quiet helpers gaat open en die schakelaar licht op.
                   Onder de naam van het overzicht staat "for WoW Forever".
@@ -91,7 +91,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ## 21 nov 2026 — Forever: Waylaid Crates
 - Tag + commit:   v5.7.0 (commit: zie git log, "Forever: Waylaid Crates")
-- Status:         getagd
+- Status:         staat op CurseForge
 - Mag op de site: nee (in bouw, niet getest)
 - Speler ziet:    in de tooltip van een krat elke bundel die erin mag en hoeveel je hebt (tassen + bank); een verzegelde
                   krat of Shipping Label zegt bij wie je inlevert (Marcy Baker / Dokimi); komt er een in je tas, dan een
@@ -102,7 +102,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ## 20 nov 2026 — Forever: Repair & sell
 - Tag + commit:   v5.7.0 (commit: zie git log, "Forever: Repair & sell")
-- Status:         getagd
+- Status:         staat op CurseForge
 - Mag op de site: nee (in bouw, niet getest)
 - Speler ziet:    in Find (In town en Which city?) de verkopers die repareren, dichtstbijzijnde eerst, met Show the way;
                   in het Tas vol-venster de dichtstbijzijnde met een knop. MH leert bij elk verkoopvenster wie repareert.
@@ -114,7 +114,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ## 20 nov 2026 — Midnight: Renown in het alt-overzicht
 - Tag + commit:   v5.7.0 (commit: zie git log, "Midnight: Renown in het alt-overzicht")
-- Status:         getagd
+- Status:         staat op CurseForge
 - Mag op de site: nee (in bouw, niet getest)
 - Speler ziet:    bovenaan het alt-overzicht één regel met je renown voor de hele account (elke Midnight-factie en je
                   rang), met een tooltip per factie.
@@ -124,7 +124,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ## 20 nov 2026 — Forever: Tas vol (stap 1)
 - Tag + commit:   v5.7.0 (commit: zie git log, "Forever: Tas vol stap 1")
-- Status:         getagd
+- Status:         staat op CurseForge
 - Mag op de site: nee (in bouw, niet getest)
 - Speler ziet:    als je tas vol is (iets past niet), een venstertje met de drie goedkoopste dingen in je tas en waarom
                   ze weg kunnen, plus of de loot meer waard is. MH gooit zelf niets weg.
@@ -134,7 +134,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ## 20 nov 2026 — Forever: Skill up voor je beroepen
 - Tag + commit:   v5.7.0 (commit: zie git log, "Forever: Skill up")
-- Status:         getagd
+- Status:         staat op CurseForge
 - Mag op de site: nee (in bouw, niet getest)
 - Speler ziet:    per maakberoep wat je nu maakt voor een skillpunt ("make about 10x …"), de drie zekerste recepten met
                   kleur en geschatte kans, wat je ervoor nodig hebt (tas + bank) en de weg naar je trainer. In tooltips
@@ -145,7 +145,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ## 20 nov 2026 — Forever: Find "Which city?", stap 3 van 4
 - Tag + commit:   v5.7.0 (commit: zie git log, "Forever: Find stap 3")
-- Status:         getagd
+- Status:         staat op CurseForge
 - Mag op de site: nee (in bouw, niet getest)
 - Speler ziet:    in Find twee knoppen: "What am I looking for?" (de oude lijst) en "Which city?": kies een stad en zie
                   daar de herberg, bank, veilinghuis, brievenbus, flight master, boten/zeppelins en je class trainer,
@@ -156,7 +156,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ## 20 nov 2026 — Forever: nieuw overzicht (tabbladen rechts), stap 1 van 4
 - Tag + commit:   v5.7.0 (commit: zie git log, "Forever: nieuw overzicht stap 1")
-- Status:         getagd
+- Status:         staat op CurseForge
 - Mag op de site: nee (in bouw, niet getest)
 - Speler ziet:    een groter Forever-overzicht met de tabbladen als hoge knoppen rechts; de oude indeling blijft te
                   kiezen in Quiet helpers.
@@ -166,7 +166,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ## 20 nov 2026 — Forever: Hearthstone en teleports in de route
 - Tag + commit:   v5.7.0 (commit: zie git log, "Forever: teleports in de route")
-- Status:         getagd
+- Status:         staat op CurseForge
 - Mag op de site: nee (nog niet getest, niet uit)
 - Speler ziet:    de route-pijl stelt je Hearthstone of je class-teleport voor als dat sneller is, en zegt ongeveer
                   hoe lang de reis duurt.
@@ -176,7 +176,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ## 20 nov 2026 — Forever: rested XP, uitloggen op de goede plek
 - Tag + commit:   v5.7.0 (commit: zie git log, "Forever: Rest XP")
-- Status:         getagd
+- Status:         staat op CurseForge
 - Mag op de site: nee (nog niet getest, niet uit)
 - Speler ziet:    log je uit buiten een herberg of stad, dan toont MH de dichtstbijzijnde plek om uit te rusten
                   (met een pijl) en zegt of je Hearthstone klaar is. Ook een regel in de XP-tooltip van het overzicht.
@@ -186,7 +186,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ## 20 nov 2026 — Forever: erts en kruiden (icoon van de game + gloed van MH)
 - Tag + commit:   v5.7.0 (commit: zie git log, "Forever: erts en kruiden")
-- Status:         getagd
+- Status:         staat op CurseForge
 - Mag op de site: nee (nog niet getest, niet uit)
 - Speler ziet:    twee schakelaars in Quiet helpers. 1: de game toont een houweel of kruidje boven de dichtstbijzijnde
                   ertsader of het kruid (tot ~15 m, één tegelijk). 2: MH tekent er een gloed op (goud = erts, groen =
@@ -197,7 +197,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ## 20 nov 2026 — Forever: questitems glinsteren in plaats van een rand
 - Tag + commit:   v5.7.0 (commit: zie git log, "Forever: Loot Sparkles")
-- Status:         getagd
+- Status:         staat op CurseForge
 - Mag op de site: nee (nog niet getest, niet uit)
 - Speler ziet:    een schakelaar in Quiet helpers: questitems die je kunt looten glinsteren weer, in plaats van een
                   rand. Standaard uit; uitzetten zet je oude grafische instellingen terug.
