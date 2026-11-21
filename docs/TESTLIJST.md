@@ -102,6 +102,8 @@ Upgrade / Not now / Never). Afgevinkt met "(Rob, 19 nov)". De hulpregels ("typ /
       points. Next: Thundering Strikes (1/5)." (of het eerste talent uit de Enhancement-volgorde dat je nog niet hebt).
       Geen richting gekozen: "(You chose no direction …)" erachter. Op level 25-39: biedt MH Stormstrike aan, en kun je hem
       echt kiezen? Zo niet: zegt MH dan het volgende talent? `/mh talent` toont het.
+- [ ] (21 nov) Hunter met een vrij talentpunt: MH volgt Beast Mastery (eerste talent: Deadly Aspects). Rogue: Combat
+      (eerste talent: Remorseless Attacks, dan Efficient Strikes).
 - [ ] (21 nov) Warrior met een vrij talentpunt: zonder richting volgt MH Protection (eerste talent: Shield
       Specialization); met richting Arms: Improved Rend. Druid: zonder richting Feral (eerste: Ferocity); met richting
       Restoration: Heart of the Wild. `/mh talent` noemt de bron en waar de gidsen het oneens zijn ("about this order").

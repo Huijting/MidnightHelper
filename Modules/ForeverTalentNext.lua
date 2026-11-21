@@ -264,6 +264,72 @@ local ORDERS = {
 			S(104915, 24968, "Tranquil Spirit", 5),
 		} },
 	},
+	-- Hunter, tree 1091 (mh-research 21 Nov 2026, DB2 71037; tab 1 Beast Mastery, 2 Marksmanship, 3 Survival; edges
+	-- and row gates checked; bouwchat re-checked 129621→104960, 129622→104961). No second order: no clear advice for
+	-- another spec in groups.
+	HUNTER = {
+		-- Beast Mastery (band 1): Mobalytics "Hunter Leveling Guide" by Feor (18 Nov 2026), 31/20/0.
+		[1] = { source = "Mobalytics, Hunter levelling guide by Feor (18 Nov 2026)",
+			note = "The guides level as Beast Mastery (Icy Veins, Wowhead, Mobalytics, Maxroll); Wowhead adds that all "
+				.. "three trees work.", steps = {
+			S(104960, 19552, "Deadly Aspects", 5),
+			S(104975, 1223755, "Focused Fire", 2),
+			S(104972, 24443, "Improved Revive Pet", 2),
+			S(104976, 19583, "Endurance Training", 1),
+			S(104973, 19559, "Pathfinding", 2),
+			S(104970, 19596, "Bestial Swiftness", 1),
+			S(104969, 19616, "Unleashed Fury", 2),
+			S(104966, 1293241, "Summon Hawk", 1),
+			S(104969, 19616, "Unleashed Fury", 4),
+			S(104967, 19598, "Ferocity", 2),
+			S(104964, 19577, "Intimidation", 1),
+			S(104963, 19590, "Bestial Discipline", 2),
+			S(104967, 19598, "Ferocity", 5),
+			S(104962, 19621, "Frenzy", 4),
+			S(104961, 19574, "Bestial Wrath", 1),
+			S(105011, 19426, "Lethal Attacks", 5),
+			S(105008, 1223984, "Careful Aim", 5),
+			S(105005, 415405, "Rapid Killing", 2),
+			S(105013, 19498, "Hawk Eye", 3),
+			S(105004, 1299346, "Trueshot Aura", 1),
+			S(105002, 19485, "Mortal Shots", 4),
+		} },
+	},
+	-- Rogue, tree 1111 (mh-research 21 Nov 2026, DB2 71037; tab 1 Assassination, 2 Combat, 3 Subtlety; edges and row
+	-- gates checked; bouwchat re-checked 130470→105741, 130453→105724). No second order (no clear group advice).
+	ROGUE = {
+		-- Combat (band 2): Mobalytics "Rogue Leveling Guide" by Djexde (12 Nov 2026), 16/35/0; his Combat guide of
+		-- 5 Nov gives the same order.
+		[2] = { source = "Mobalytics, Rogue levelling guide by Djexde (12 Nov 2026)",
+			note = "The guides level as Combat (Icy Veins, Mobalytics, Method, Fextralife). Method takes Flawless "
+				.. "Execution earlier and Flash of Steel later.", steps = {
+			S(105723, 14144, "Remorseless Attacks", 2),
+			S(105741, 13732, "Efficient Strikes", 2),
+			S(105708, 14162, "Coup de Grace", 3),
+			S(105738, 13713, "Deflection", 3),
+			S(105737, 13705, "Precision", 2),
+			S(105735, 14251, "Riposte", 1),
+			S(105737, 13705, "Precision", 3),
+			S(105736, 13742, "Endurance", 2),
+			S(113398, 13712, "Lightning Reflexes", 1),
+			S(105726, 30919, "Weapon Expertise", 2),
+			S(105730, 18427, "Aggression", 3),
+			S(105728, 13877, "Blade Flurry", 1),
+			S(113635, 13715, "Dual Wield Specialization", 2),
+			S(105727, 13960, "Hack and Slash", 2),
+			S(105740, 1329284, "Flash of Steel", 5),
+			S(105724, 13750, "Adrenaline Rush", 1),
+			S(105727, 13960, "Hack and Slash", 5),
+			S(105722, 14138, "Malice", 3),
+			S(105739, 14165, "Improved Slice and Dice", 3),
+			S(105722, 14138, "Malice", 5),
+			S(105720, 14983, "Vigor", 2),
+			S(105718, 1329256, "Blood Splatter", 1),
+			S(105716, 14128, "Lethality", 2),
+			S(105715, 14177, "Cold Blood", 1),
+			S(108100, 1310711, "Flawless Execution", 1),
+		} },
+	},
 }
 ns.FOREVER_TALENT_ORDERS = ORDERS -- the offline check reads it
 
