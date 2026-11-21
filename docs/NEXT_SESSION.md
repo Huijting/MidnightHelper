@@ -8,8 +8,10 @@ kopieën, "copies so far 9". Joey en KeyBlock nog niet getest.
 ✅ **Smart Bless WERKT (Rob in het spel, 21 nov, na 71521af)** — *"Ja, hij kreeg werkelijk wat ik gaf. Zowel iemand die niet
 getarget was, als iemand die wel getarget was."* + *"Oh, dat is dynamisch. Dat is tof zeg."* Macrovenster: "#showtooltip /
 /cast [@mouseover,help,nodead] Blessing of Wisdom" (62/255). Afgevinkt; open: chatregel zonder doelwit, `/mh blesstip`-regel.
-Release-concept 5.7.0 bijgewerkt (RELEASE_NOTES = CURSEFORGE_5.7.0, CHANGELOG_570_8 + Changelog.lua). ⚠️ Nog NIET in de
-release-tekst: Waylaid Crates, charkey, erts/kruiden-schakelaars (alle nog niet of deels getest) — sparring/Rob beslist.
+Release-concept 5.7.0 bijgewerkt (RELEASE_NOTES = CURSEFORGE_5.7.0, CHANGELOG_570_8 + Changelog.lua). Daarna (sparring: charkey
+en optie C zijn door Rob gezien) ook erin: erts/kruiden in de Loot Sparkles-regel (zonder "rood": niet getest) en een
+bugfix-regel "every character keeps its own settings" (CHANGELOG_570_9). ⚠️ Waylaid Crates staat er NIET in (pas na Robs
+test) maar zit bij een tag wél in de zip (alles op main gaat mee). Release blijft Robs go.
 
 📋 **Testlijst in het spel: eerste echte ronde (21 nov)** — Rob gebruikte `/mhtest` in Forever (*"het fancy dat werkt"*), 3× Goed
 + 1 opmerking ("dit is een test"), Reload. `run testlist_ingame read` (proefrun) las ze GEMETEN. Met de hand weggeschreven

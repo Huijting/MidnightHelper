@@ -54,7 +54,12 @@ by itself. `/mh bagfull off` switches the window off.
 - **Rested XP**: log out outside an inn or a city and a small window shows the nearest place to rest, with a button for
   the arrow, and whether your Hearthstone is ready. Switch: *Rested XP tip when you log out*.
 - **Quest items sparkle**: a switch in *Quiet helpers* brings back the old sparkle on quest items you can loot, instead
-  of the outline. Off by default.
+  of the outline. Off by default. Two more switches there do the same for **ore and herbs**: *Ore and herbs: the game's
+  icon above the nearest one*, and *Ore and herbs glow (drawn by MH)*, green on a herb and gold on ore, also from a
+  distance when you can gather it. Both off by default.
+- **Fixed**: every character now keeps its own Midnight Helper settings (key presses, rank choices, known recipes and
+  more). Characters with the same first name shared them, and Blizzard's update of 20 November made them hard to find.
+  What you had is copied over, nothing is lost.
 - **Paladins, smart blessing**: the macro "MH Smart Bless" now blesses the friendly player under your mouse, or else your
   friendly target, with the blessing that fits their class. Midnight Helper keeps the macro up to date by itself, so it
   works from any key or mouse button.
