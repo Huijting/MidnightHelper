@@ -5,6 +5,16 @@
 ✅ **Charkey GESLAAGD op twee Ima's (Rob in het spel, 21 nov)** — Ima 2 = Player-6944-0120ED18 (Ima 1 = …0118CB4F), eigen
 kopieën, "copies so far 9". Joey en KeyBlock nog niet getest.
 
+⛏️ **Gloed alleen bij wat je kunt verzamelen (21 nov)** — Rob (Paladin, Mining + Blacksmithing, geen Herbalism), letterlijk:
+*"eigenlijk zouden we die dingen alleen maar moeten kunnen zien op het moment dat we het ook echt hebben."* GEMETEN in zijn
+screenshot: rode ster bij geen Herbalism (optie C werkte). Nu: geen beroep → HideGlow, `/mh sparkle` "skipped: no
+Herbalism/Mining"; beroep maar skill te laag → rood blijft (Rob bevestigde, letterlijk: *"Van heb je beroep wel mijn skill
+te laag, dan blijft hij rood. En zo hoort het ook."*).
+FNODE_GLOW_SW_DESC 7 talen + esMX. ⚠️ Het game-icoon (schakelaar A, CVar SoftTargetIconGameObject) is één aan/uit voor
+ALLE objecten; per soort beperken kan met die CVar niet (AFGELEID uit de CVar-lijst; geen per-type CVar gezien in de
+meting van 20 nov). Wie het icoon bij kruiden zonder Herbalism niet wil zien: schakelaar A uit, B (gloed) aan. Offline
+GEMETEN (nodeswitch_test.lua). Overzicht D afgevinkt (Rob: *"dat zag er goed uit"*).
+
 📚 **Study: waar de bibliotheek is GEBOUWD (21 nov)** — Rob: *"Ja, graag"*. mh-research (GEMETEN): Study 1302508 vraagt spell
 focus 2309 "Library" (geen gebied, geen factie), 1 Light Feather 17056, 1 uur (SpellCooldowns 3600000). De focus-objecten staan
 op de server, niet in DB2. Plekken met spelersmeldingen: Stormwind Mage Tower bij Garion Wendell 211033 (1453 48.9,86.5) en

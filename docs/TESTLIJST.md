@@ -33,8 +33,8 @@ bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt o
 - [x] ✅ (Rob in het spel, Midnight, 21 nov: *"Zo is het goed."* — "7 of 10 at max · lowest: Preyhunter's Journey 1") Alt-overzicht: één korte regel "Renown (whole account): N of 11 at max · lowest: … — point here
       for all"; muis erop = alleen de Midnight-facties, eerst die nog niet op max staan. Direct na inloggen eventueel even
       "the game is still loading this", daarna vanzelf de echte regel.
-- [ ] Forever: `/mh overview` — de tabbladen rechts openen allemaal. (deels ✅ Rob in het spel, 21 nov: Now-tab, *"Dat
-      ziet er goed uit qua layout, dus daar ben ik best wel tevreden over."* — andere tabbladen niet genoemd)
+- [x] ✅ (Rob in het spel, 21 nov: *"Ik heb gekeken naar het overzicht voor Forever. En dat zag er goed uit"*; eerder de
+      Now-tab) Forever: `/mh overview` — de tabbladen rechts openen allemaal.
 - [x] ✅ (Rob in het spel, 21 nov: *"reload gedaan, melding is weg"*) Mage: "Do this now" zegt niets meer over "Comprehend Scroll Rank …". Andere spells met echte rangen
       (bv. Frostbolt) worden nog wel gemeld als er een oude rang op een knop staat.
 - [x] ✅ (Rob in het spel, Forever/Undercity, 21 nov, screenshot "Destroy [Tough Jerky]? It is gone for good. Yes/No": *"En
@@ -83,6 +83,11 @@ Upgrade / Not now / Never). Afgevinkt met "(Rob, 19 nov)". De hulpregels ("typ /
       dichtbij GROENE ster + gekleurd icoon. → Rob koos daarna optie C (hieronder).
 - [x] ✅ (Rob in het spel, Forever, 21 nov, via /mhtest; hij meldde ook "de ster was groen") Optie C, na `/reload`: met Herbalism blijft de ster bij een Peacebloom GROEN, ook van ver. Een kruid of ader die je
       niet kunt (geen beroep, of je skill te laag, bv. Mageroyal 50 met Herbalism onder 50): ROOD.
+- [x] ✅ (Rob in het spel, 21 nov, Paladin zonder Herbalism, screenshot: rode ster) Zonder beroep: rood. → Rob daarna:
+      *"eigenlijk zouden we die dingen alleen maar moeten kunnen zien op het moment dat we het ook echt hebben"*, en
+      *"Van heb je beroep wel mijn skill te laag, dan blijft hij rood. En zo hoort het ook."*
+- [ ] (21 nov, na Robs wens) Zonder het beroep: GEEN gloed van MH meer (ook geen rode). Met het beroep maar skill te laag
+      (bv. Tin met Mining onder 65): rood. `/mh sparkle`: "reason: skipped: no Herbalism".
 - [x] ✅ (Rob in het spel, Forever, 21 nov, via /mhtest) Sta bij een kruid en typ `/mh sparkle`: regel "last node: Peacebloom (object 1618), kind herb, colour green, reason:
       …". Screenshot.
 

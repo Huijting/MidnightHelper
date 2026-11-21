@@ -680,7 +680,18 @@ local function UpdateGlow()
 		nodeState.entry = entry
 	end
 	local rank = prof and tonumber(prof.rank)
-	local cannot = unable and (not prof or (need and rank and rank < need))
+	-- 21 Nov 2026 (Rob, letterlijk: "eigenlijk zouden we die dingen alleen maar moeten kunnen zien op het moment dat we het
+	-- ook echt hebben"): no profession → no glow at all (not even red). Skill too low stays red ("not yet").
+	if not prof then
+		HideGlow()
+		nodeState.colour = "none"
+		nodeState.reason = ("skipped: no %s"):format(profName)
+		nodeState.lastNode = ("%s (object %s), kind %s, colour none, reason: %s, cursor %s"):format(
+			tostring(nodeState.name or "?"), tostring(nodeState.entry or "?"), tostring(kind), nodeState.reason,
+			tostring(nodeState.cursor or "?"))
+		return
+	end
+	local cannot = unable and need and rank and rank < need
 	nodeState.need = need
 	if cannot then
 		g.a:SetVertexColor(1, 0.2, 0.15)
