@@ -5,7 +5,8 @@
 ✅ **Charkey GESLAAGD op twee Ima's (Rob in het spel, 21 nov)** — Ima 2 = Player-6944-0120ED18 (Ima 1 = …0118CB4F), eigen
 kopieën, "copies so far 9". Joey en KeyBlock nog niet getest.
 
-🚦 **Afspraak 21 nov (sparring): Rob is ziek. Bouw NIETS nieuws zonder zijn vraag, alleen bugfixes op zijn meldingen.**
+🚦 **Afspraak 21 nov: Rob is ziek en test weinig. Bouwen mag gewoon op zijn vragen** (Rob, letterlijk via sparring: *"Nou,
+bouwen mogen we natuurlijk altijd wel doen."* — dat vervangt een eerdere "bouwstop" van de sparring).
 Minimale test vóór 5.7.0 staat bovenaan TESTLIJST (4 punten). Release-concept bijgewerkt met zeppelin-platforms en Skill
 up-tooltips/make-first (CHANGELOG_570_10). Release/tag blijft Robs letterlijke go.
 
