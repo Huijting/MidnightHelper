@@ -98,6 +98,10 @@ Upgrade / Not now / Never). Afgevinkt met "(Rob, 19 nov)". De hulpregels ("typ /
       chat "MH Smart Buff: put your mouse on a friendly player …". `/mh smartbuff` toont de macrotekst.
 - [ ] (21 nov) Warrior, Rogue, Hunter, Warlock of Shaman: dezelfde schakelaar aan → de melding "Your class has no long
       buff for other players …", en de schakelaar blijft uit.
+- [ ] (21 nov) Shaman met ongebruikte talentpunten (Rob: level 11, 2 punten): Do this now zegt "You have 2 unused talent
+      points. Next: Thundering Strikes (1/5)." (of het eerste talent uit de Enhancement-volgorde dat je nog niet hebt).
+      Geen richting gekozen: "(You chose no direction …)" erachter. Op level 25-39: biedt MH Stormstrike aan, en kun je hem
+      echt kiezen? Zo niet: zegt MH dan het volgende talent? `/mh talent` toont het.
 - [ ] (21 nov) Paladin met een ongebruikt talentpunt: Do this now zegt "Talent point: put it in <talent> (n/max)". Met
       de muis op de naam zie je de tooltip van het talent. Zonder gekozen richting volgt MH Retribution (eerste talent:
       Deflection) en staat er "(You chose no direction …)" achter. Zet het punt: de regel verdwijnt. Typ `/mh talent`:

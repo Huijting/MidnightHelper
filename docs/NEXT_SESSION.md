@@ -17,6 +17,18 @@ Daarbij gerepareerd: esES Wolfsbane = "Aterralobos" (Wowhead Forever); Archibald
 "Арчибальд" (in de Wolfsbane-regel; de Find-rij van de wapenmeester toont nog overal "Archibald"). ⚠️ esES SpellName
 202 zegt "Mazas de dos manos" (Blizzard-fout?); de teksten gebruiken "Espadas de dos manos" (SkillLine 55, esMX).
 
+🎯 **Volgend talentpunt: ALLE classes, per class (21 nov, bezig)** — Rob via sparring, letterlijk: *"het puntensysteem,
+waar ga ik welk punt in stoppen, moet natuurlijk wel uitgebreid worden. Ik zit nu bijvoorbeeld op mijn shamaan, die is
+level 11. Ik mag 2 punten indelen ... Ga ermee aan de slag"*. Fable pas aan het eind, één controleronde over alle
+volgordes (Rob: *"misschien dat we die gewoon aan het einde even overheen gooien"*); eerst melden bij sparring.
+- ✅ **Shaman** (tree 1082): Enhancement = Mobalytics/Tiqqle 13 nov (22 stappen, 6 van 7 gidsen Enhancement);
+  Restoration = stillsixty 2 nov (18 stappen, Riptide stap 13). Ids GEMETEN (mh-research), 3 nagemeten.
+  ⚠️ Stormstrike: gidsen op 25, client-SpellLevels zegt 40 (niet verlaagd, i.t.t. Mana Tide 40→1). Nu: een stap die de
+  client weigert (`canPurchaseRank == false`, AFGELEID dat Forever dat veld vult) wordt overgeslagen, de volgende komt;
+  `/mh talent` zegt het. NIET gemeten wat het spel doet.
+- Standaardrichting zonder keuze = de levelboom uit How you play voor elke class (`DEFAULT`).
+- 🔜 Warrior + Druid (mh-research bezig), daarna Hunter/Rogue, Priest/Mage/Warlock.
+
 🚀 **RELEASE 5.7.0 (21 nov)** — Rob via sparring, letterlijk: *"reload gedaan, tekst staat goed, go voor 5.7.0"*. Geen
 beta. Beide .toc 5.7.0, CHANGELOG_570_1-13, RELEASE_NOTES = CURSEFORGE_5.7.0 (diff leeg), CHANGELOG.md, SITE_SEIN (alle
 regels sinds 5.6.0 → getagd). Waylaid Crates + mage Study-tip zitten in de zip, NIET in de tekst. Run + CF-bestanden:

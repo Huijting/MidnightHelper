@@ -33,7 +33,10 @@ local TREE = { WARRIOR = 1117, PALADIN = 1100, HUNTER = 1091, ROGUE = 1111, PRIE
 local TALENT_CURRENCY = 3820
 
 -- The tree a class levels with when no direction is chosen (band numbers as ForeverDirection / the role texts).
-local DEFAULT = { PALADIN = 3 }
+-- 21 Nov 2026: the same tree How you play names for levelling (ForeverHowToPlay.lua role texts, GEMETEN by grep):
+-- Paladin Retribution 3, Shaman Enhancement 2, Druid Feral (cat) 2, Mage Frost 3, Priest Shadow 3, Rogue Combat 2,
+-- Hunter Beast Mastery 1, Warlock Affliction 1, Warrior Protection 3 ("most say"; the guides disagree).
+local DEFAULT = { PALADIN = 3, SHAMAN = 2, DRUID = 2, MAGE = 3, PRIEST = 3, ROGUE = 2, HUNTER = 1, WARLOCK = 1, WARRIOR = 3 }
 
 --[[ ORDERS[class][band] = { source = "...", steps = { { node = id, spell = id, name = "English", to = ranks }, ... } }
 	`to` = the rank this step brings the talent to (a talent of 5 ranks in one go = one step with to = 5). ]]
@@ -92,6 +95,61 @@ local ORDERS = {
 			S(105706, 20101, "Benediction", 5),
 			S(105705, 25956, "Improved Judgement", 2),
 			S(105703, 20117, "Conviction", 2),
+		} },
+	},
+	-- Shaman, tree 1082 (mh-research 21 Nov 2026, DB2 71037; nodes 104724-104773, tab 1 Elemental, 2 Enhancement,
+	-- 3 Restoration; every edge and row gate checked; bouwchat re-checked 129403→104743, 129384→104724, 129413→104753).
+	SHAMAN = {
+		-- Enhancement (band 2): Mobalytics "WoW Forever Shaman Leveling Guide" by Tiqqle, "1-60 Enhance / Water Shield
+		-- First", 13 Nov 2026 (4/36/11). Spec: 6 of 7 guides level as Enhancement (timesaver.gg alone: Elemental).
+		[2] = { source = "Mobalytics, Shaman levelling guide by Tiqqle (13 Nov 2026)",
+			note = "6 of 7 guides level as Enhancement. Levels 10-24 agree everywhere; after that stillsixty takes Flurry "
+				.. "first and Stormstrike only at 40 (the game's own data still says 40 for Stormstrike: if the game "
+				.. "refuses it, MH names the next talent).", steps = {
+			S(104753, 16255, "Thundering Strikes", 5),
+			S(104755, 415140, "Mental Dexterity", 3),
+			S(104756, 17485, "Ancestral Knowledge", 2),
+			S(104749, 1223030, "Shamanistic Focus", 1),
+			S(104750, 16266, "Elemental Weapons", 3),
+			S(104756, 17485, "Ancestral Knowledge", 3),
+			S(104743, 17364, "Stormstrike", 1),
+			S(104752, 16262, "Improved Ghost Wolf", 2),
+			S(104747, 16256, "Flurry", 2),
+			S(104742, 1223031, "Improved Stormstrike", 2),
+			S(104729, 16179, "Tidal Focus", 5),
+			S(104734, 1223033, "Mindfulness", 3),
+			S(104735, 16173, "Totemic Focus", 2),
+			S(104732, 408510, "Water Shield", 1),
+			S(104744, 30812, "Mental Quickness", 2),
+			S(104747, 16256, "Flurry", 3),
+			S(104741, 408498, "Maelstrom Weapon", 5),
+			S(104740, 425336, "Rage of the Farseer", 1),
+			S(104745, 16268, "Spirit Weapons", 1),
+			S(104747, 16256, "Flurry", 5),
+			S(104756, 17485, "Ancestral Knowledge", 5),
+			S(104772, 16035, "Concussion", 4),
+		} },
+		-- Restoration (band 3), for a healer second set (Dual Spec, 40): stillsixty.com "Restoration Shaman Guide",
+		-- tab "Leveling 1-60" (0/10/41), 2 Nov 2026 (sources checked 19 Nov). Riptide (the 31-point talent) = step 13.
+		[3] = { source = "stillsixty.com, Restoration Shaman guide (2 Nov 2026)", steps = {
+			S(104739, 16182, "Improved Healing Wave", 5),
+			S(104734, 1223033, "Mindfulness", 3),
+			S(104729, 16179, "Tidal Focus", 2),
+			S(104732, 408510, "Water Shield", 1),
+			S(104729, 16179, "Tidal Focus", 5),
+			S(104733, 16181, "Healing Focus", 1),
+			S(104728, 16190, "Mana Tide Totem", 1),
+			S(104733, 16181, "Healing Focus", 3),
+			S(104738, 16194, "Tidal Mastery", 5),
+			S(104727, 29206, "Healing Way", 3),
+			S(104726, 16188, "Nature's Swiftness", 1),
+			S(104725, 16178, "Purification", 3),
+			S(104724, 408521, "Riptide", 1),
+			S(104725, 16178, "Purification", 5),
+			S(104730, 16187, "Restorative Totems", 5),
+			S(104731, 16176, "Ancestral Healing", 3),
+			S(104753, 16255, "Thundering Strikes", 5),
+			S(104756, 17485, "Ancestral Knowledge", 5),
 		} },
 	},
 }
@@ -183,7 +241,13 @@ local function Ranks(cfg, node)
 	if not (ok and type(info) == "table") then
 		return nil, nil
 	end
-	return num(info.ranksPurchased) or num(info.currentRank), num(info.maxRanks)
+	-- Third value: false only when the client SAYS it cannot be bought now (canPurchaseRank, a boolean in the node info;
+	-- AFGELEID from Blizzard's talent UI, not measured in Forever). nil = the client did not say: treat as buyable.
+	local can = info.canPurchaseRank
+	if issecretvalue and issecretvalue(can) then
+		can = nil
+	end
+	return num(info.ranksPurchased) or num(info.currentRank), num(info.maxRanks), can
 end
 
 local function SpellName(id, fallback)
@@ -242,18 +306,35 @@ function ns.ForeverTalentNextState()
 		st.why = "no unused talent point"
 		return st
 	end
+	-- 21 Nov 2026 (Shaman: the guides take Stormstrike at 25, the client's SpellLevels still says 40 — GEMETEN by
+	-- mh-research; which one the game follows is not measured): the FIRST step that is not done and that the client does
+	-- not refuse. A refused step is skipped and named in the reason; if every open step is refused, the first one is named.
+	local firstOpen, skipped
 	for i, s in ipairs(order.steps) do
-		local have, max = Ranks(cfg, s.node)
+		local have, max, can = Ranks(cfg, s.node)
 		if have == nil then
 			st.why = ("node %d (%s) not readable"):format(s.node, s.name)
 			return st
 		end
 		if have < s.to then
-			st.step, st.index, st.cur, st.max = s, i, have, max or s.to
-			st.name = SpellName(s.spell, s.name)
-			st.why = ("step %d of %d: %s has %d, the order wants %d"):format(i, #order.steps, s.name, have, s.to)
-			return st
+			firstOpen = firstOpen or { s = s, i = i, have = have, max = max }
+			if can == false then
+				skipped = skipped or s.name
+			else
+				st.step, st.index, st.cur, st.max = s, i, have, max or s.to
+				st.name = SpellName(s.spell, s.name)
+				st.why = ("step %d of %d: %s has %d, the order wants %d"):format(i, #order.steps, s.name, have, s.to)
+					.. (skipped and (" (skipped " .. skipped .. ": the game says it cannot be bought yet)") or "")
+				return st
+			end
 		end
+	end
+	if firstOpen then
+		local s = firstOpen.s
+		st.step, st.index, st.cur, st.max = s, firstOpen.i, firstOpen.have, firstOpen.max or s.to
+		st.name = SpellName(s.spell, s.name)
+		st.why = ("step %d: %s — the game says no open step can be bought now; named anyway"):format(firstOpen.i, s.name)
+		return st
 	end
 	st.why = "every step of the order is done"
 	return st
@@ -309,6 +390,10 @@ function ns.ForeverTalentSlash()
 	print(PREFIX .. "next talent: " .. (ns.IsForeverTalentNextOn() and "on" or "off") .. " (Quiet helpers).")
 	print(("  class %s, tree band %s (%s), order: %s"):format(tostring(st.class), tostring(st.band), tostring(st.src),
 		st.order and (st.order.source .. ", " .. #st.order.steps .. " steps") or "none"))
+	-- `note` (optional, per order): where the guides disagree and why this order was picked.
+	if st.order and st.order.note then
+		print("  about this order: " .. st.order.note)
+	end
 	print(("  talent config %s, unused points %s (currency %s)"):format(tostring(st.config), tostring(st.free),
 		tostring(st.currency)))
 	if st.order and st.config then
