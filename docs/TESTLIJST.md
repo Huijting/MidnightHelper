@@ -30,7 +30,7 @@ bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt o
 - [x] ✅ (Rob in het spel, Midnight, 21 nov: geen foutmeldingen) Midnight (retail): inloggen en `/reload` zonder foutmelding.
 - [ ] ❌ (Rob, 21 nov: alleen "The Labyrinth of Kindo'jan 0", tooltip ~30 facties uit alle uitbreidingen, allemaal "not unlocked
       yet") in het alt-overzicht de regel "Renown (whole account)" met de Midnight-facties. Meting gedaan (21 nov).
-- [ ] (21 nov, reparatie) Alt-overzicht: één korte regel "Renown (whole account): N of 11 at max · lowest: … — point here
+- [x] ✅ (Rob in het spel, Midnight, 21 nov: *"Zo is het goed."* — "7 of 10 at max · lowest: Preyhunter's Journey 1") Alt-overzicht: één korte regel "Renown (whole account): N of 11 at max · lowest: … — point here
       for all"; muis erop = alleen de Midnight-facties, eerst die nog niet op max staan. Direct na inloggen eventueel even
       "the game is still loading this", daarna vanzelf de echte regel.
 - [ ] Forever: `/mh overview` — de tabbladen rechts openen allemaal. (deels ✅ Rob in het spel, 21 nov: Now-tab, *"Dat
@@ -153,10 +153,10 @@ Nieuwe addon → **WoW helemaal herstarten** (in retail én in Forever). In de a
 ## 🏅 20 nov — Midnight: Renown in je alt-overzicht (O14)
 
 `/reload` is genoeg. Midnight (retail), het alt-overzicht (Account snapshot).
-- [ ] Bovenaan, onder de titel: één regel "Renown (whole account): <factie> <rang> · …" met de renown-facties van
-      Midnight en je rang (een volle track krijgt "(max)"). Kloppen de rangen met je Renown-venster in het spel?
-- [ ] Muis op die regel: tooltip met elke factie, rang en voortgang; een factie die je nog niet hebt staat er met
-      "not unlocked yet". Screenshot.
+- [x] ✅ (Rob in het spel, Midnight, 21 nov, na de reparatie: *"Zo is het goed."*, screenshot) Bovenaan, onder de titel:
+      één regel "Renown (whole account): …" met de renown-facties van Midnight.
+- [x] ✅ (Rob, 21 nov, screenshot: 11 regels, niet-max eerst) Muis op die regel: tooltip met elke factie, rang en voortgang.
+      (Sindsdien: een track die je nog niet hebt valt weg zolang de rest leesbaar is.)
 - [ ] Er is GEEN renown-kolom per character bijgekomen (renown is voor je hele account).
 
 ## 🛡️ 20 nov — Forever: waarschuwing versleten uitrusting

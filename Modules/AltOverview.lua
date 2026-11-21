@@ -2236,6 +2236,17 @@ local function RenownSummary()
 			end
 		end
 	end
+	-- 21 Nov 2026 (sparring, after Rob's "Zo is het goed."): a track you have not unlocked adds nothing once the others
+	-- read; keep those rows only while nothing is readable (then they show why the line is empty).
+	if readable > 0 then
+		local kept = {}
+		for _, t in ipairs(tip) do
+			if t.order ~= 2 then
+				kept[#kept + 1] = t
+			end
+		end
+		tip = kept
+	end
 	-- Not maxed first (with progress), then maxed, then locked, then unreadable; by name inside each group.
 	table.sort(tip, function(a, b)
 		if (a.order or 9) ~= (b.order or 9) then
