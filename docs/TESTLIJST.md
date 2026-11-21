@@ -90,6 +90,8 @@ Upgrade / Not now / Never). Afgevinkt met "(Rob, 19 nov)". De hulpregels ("typ /
       no Herbalism".
 - [x] ✅ GEMETEN (Rob in het spel, Forever, 21 nov, Paladin met lage Mining, ertsader, waarschijnlijk Tin): MH-ster ROOD +
       houweel-icoon, en het spel zelf zegt in rood "Requires Mining 65". Klopt met de tabel (Tin 65).
+- [ ] (21 nov) Forever-overzicht → Dungeons: de regel "The way there: …" (bv. bij Ragefire Chasm, Wailing Caverns,
+      Deadmines, Ruins of Lordaeron) breekt af vóór de knoppen "Way ›" en "Bosses" en loopt er niet meer onder door.
 - [ ] (21 nov) Mage, Priest of Druid: Quiet helpers → "Smart Buff macro" aan. Het macrovenster gaat open met de macro
       "MH Smart Buff"; sleep hem naar een balk. Muis op een vriendelijke speler, druk: hij krijgt Arcane Intellect /
       Power Word: Fortitude / Mark of the Wild. Geen muis op iemand, wel een doelwit: het doelwit krijgt hem. Niemand: in

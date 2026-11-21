@@ -1113,7 +1113,11 @@ local function DungeonRow(list, i)
 	r.info:SetWordWrap(false)
 	r.route = Text(r, "text", 12, A.gold)
 	r.route:SetPoint("TOPLEFT", r.info, "BOTTOMLEFT", 0, -2)
-	r.route:SetWidth(list.rowW - 80)
+	-- 21 Nov 2026 (Rob's screenshot: "Er loopt tekst door elkaar heen" — the way there ran under "Way ›" and "Bosses"):
+	-- the line starts 70 px in (chip 2 + 58, gap 10) and must end 8 px before the button column (70 + 2 from the right).
+	-- The old width (row - 80) forgot the 70 px on the left. A fixed width, not an anchor: the row height is measured
+	-- with GetStringHeight right after SetText, before any layout pass.
+	r.route:SetWidth(list.rowW - 70 - 80)
 	r.hover = HoverOver(r, r.name)
 	list.rows[i] = r
 	return r

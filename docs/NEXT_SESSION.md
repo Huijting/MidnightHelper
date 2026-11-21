@@ -17,6 +17,12 @@ Daarbij gerepareerd: esES Wolfsbane = "Aterralobos" (Wowhead Forever); Archibald
 "Арчибальд" (in de Wolfsbane-regel; de Find-rij van de wapenmeester toont nog overal "Archibald"). ⚠️ esES SpellName
 202 zegt "Mazas de dos manos" (Blizzard-fout?); de teksten gebruiken "Espadas de dos manos" (SkillLine 55, esMX).
 
+🐞 **Dungeons-lijst: routetekst liep onder Way/Bosses (21 nov)** — Rob, screenshot: *"Er loopt tekst door elkaar heen."*
+GEMETEN in de code: `DungeonRow` route begint 70 px in (chip 2+58, gat 10) maar had breedte rowW-80 → eindigde 70 px te ver
+rechts, onder de knoppenkolom (70 breed, 2 van rechts). Nu rowW-150 (vaste breedte, want de rijhoogte wordt direct na
+SetText gemeten). Nagelopen, zelfde opbouw: FindRow (route onder de knop, die één rij hoog is: geen overlap), macro-rijen
+(rowW-112 bij knoppen 96: vrij). NIET in het spel gezien.
+
 ✨ **Smart Buff-macro voor Mage, Priest, Druid (21 nov)** — Rob via sparring: *"Kunnen wij ook een soort mouse-over macro
 maken voor de andere buffs, voor alle andere classes."* GO letterlijk: *"Ja, wou het maar."* `Modules/ForeverSmartBuff.lua`:
 macro "MH Smart Buff" = `#showtooltip` + `/cast [@mouseover,help,nodead][@target,help,nodead] <clientnaam>` + een
