@@ -423,7 +423,7 @@ for k, v in pairs({
 	FCQ_WIN_TITLE = "Klassenquest",
 	FBLESS_BTN_SW_DESC = "Eine Taste für jeden Segen: Sie gibt dem freundlichen Spieler unter deiner Maus, sonst deinem freundlichen Ziel, den Segen, den der Tipp oben wählt (deine eigene Tabelle zählt). Einschalten erstellt ein Makro, das du auf eine Leiste ziehst. Im Kampf bleibt die letzte Wahl.",
 	FBLESS_NONE = "MH schlauer Segen: kein freundlicher Spieler unter deiner Maus oder als dein Ziel.",
-	FBLESS_BTN_ON_FMT ="schlauer Segen AN. Zieh das Makro \"%s\" aus dem Makrofenster auf eine Leiste, fahr dann mit der Maus über einen Spieler und drück es.",
+	FBLESS_BTN_ON_FMT = "schlauer Segen AN. Zieh das Makro \"%s\" aus dem Makrofenster auf eine Leiste, fahr dann mit der Maus über einen Spieler und drück es.",
 	FBLESS_BTN_NOMACRO = "schlauer Segen AN, aber MH konnte das Makro jetzt nicht erstellen (im Kampf oder kein Platz). Schalte ihn später aus und wieder ein.",
 	FBLESS_BTN_OFF = "schlauer Segen aus. Das Makro bleibt; es tut nichts, bis du ihn wieder einschaltest.",
 	SET_BLESSTIP_TITLE = "Paladin: Segen-Tipp im Tooltip",

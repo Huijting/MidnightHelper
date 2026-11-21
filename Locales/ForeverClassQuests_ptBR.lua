@@ -428,7 +428,7 @@ for k, v in pairs({
 	FCQ_WIN_TITLE = "Missão de classe",
 	FBLESS_BTN_SW_DESC = "Uma tecla para todas as bênçãos: ela dá ao jogador aliado sob o seu mouse, ou senão ao seu alvo aliado, a bênção que a dica acima escolhe (a sua própria tabela conta). Ligar cria uma macro para arrastar para uma barra. Em combate, a última escolha fica.",
 	FBLESS_NONE = "MH bênção inteligente: nenhum jogador aliado sob o seu mouse nem como alvo.",
-	FBLESS_BTN_ON_FMT ="bênção inteligente LIGADA. Arraste a macro \"%s\" da janela de macros para uma barra, depois passe o mouse num jogador e aperte.",
+	FBLESS_BTN_ON_FMT = "bênção inteligente LIGADA. Arraste a macro \"%s\" da janela de macros para uma barra, depois passe o mouse num jogador e aperte.",
 	FBLESS_BTN_NOMACRO = "bênção inteligente LIGADA, mas o MH não conseguiu criar a macro agora (em combate ou sem espaço). Desligue e ligue de novo mais tarde.",
 	FBLESS_BTN_OFF = "bênção inteligente desligada. A macro fica; ela não faz nada até você ligar de novo.",
 	SET_BLESSTIP_TITLE = "Paladino: dica de bênção na dica de tela",

@@ -465,7 +465,7 @@ for k, v in pairs({
 	FCQ_WIN_TITLE = "Misión de clase",
 	FBLESS_BTN_SW_DESC = "Una sola tecla para todas las bendiciones: da al jugador amistoso bajo tu ratón, o si no a tu objetivo amistoso, la bendición que elige el consejo de arriba (tu propia tabla cuenta). Al activarlo se crea una macro para arrastrar a una barra. En combate se queda la última elección.",
 	FBLESS_NONE = "MH bendición inteligente: ningún jugador amistoso bajo tu ratón ni como objetivo.",
-	FBLESS_BTN_ON_FMT ="bendición inteligente ACTIVADA. Arrastra la macro «%s» de la ventana de macros a una barra; luego pasa el ratón por un jugador y púlsala.",
+	FBLESS_BTN_ON_FMT = "bendición inteligente ACTIVADA. Arrastra la macro «%s» de la ventana de macros a una barra; luego pasa el ratón por un jugador y púlsala.",
 	FBLESS_BTN_NOMACRO = "bendición inteligente ACTIVADA, pero MH no pudo crear la macro ahora (en combate o sin espacio). Desactívala y vuelve a activarla más tarde.",
 	FBLESS_BTN_OFF = "bendición inteligente desactivada. La macro se queda; no hace nada hasta que la vuelvas a activar.",
 	SET_BLESSTIP_TITLE = "Paladín: consejo de bendición al pasar el ratón",

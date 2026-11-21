@@ -25,6 +25,13 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 🚦 Minimaal vóór 5.7.0 (21 nov; Rob is ziek, alleen dit)
+
+- [ ] Midnight (retail): inloggen en `/reload` zonder foutmelding; in het alt-overzicht de regel "Renown (whole account)".
+- [ ] Forever: `/mh overview` — de tabbladen rechts openen allemaal.
+- [ ] Forever: Tas vol (`/mh bagfull test`) → *Destroy* op een grijs item: eerst "weet je het zeker?", daarna is het weg.
+- [ ] Forever: muis op een Waylaid Crate: de regels van MH in de tooltip (bundels, of waar je inlevert).
+
 ✅ **Rob, 17 nov (nacht), via sparring, letterlijk: *"Midnight zelf werkt helemaal goed."*** Retail (Midnight) nagelopen na
 alle wijzigingen van vandaag aan gedeelde bestanden (KeysHub, FastMark, instellingen, Core): `/mh`, Alt+M, minimapknop,
 snelbalk, instellingen — geen foutmeldingen. Forever wordt nu getest (uitslagen via sparring).

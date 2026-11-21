@@ -439,7 +439,7 @@ for k, v in pairs({
 	FCQ_WIN_TITLE = "Quête de classe",
 	FBLESS_BTN_SW_DESC = "Une seule touche pour toutes les bénédictions : elle donne au joueur ami sous ta souris, sinon à ta cible amie, la bénédiction que choisit le conseil ci-dessus (ta propre table compte). L'activer crée une macro à glisser sur une barre. En combat, le dernier choix reste.",
 	FBLESS_NONE = "MH bénédiction intelligente : aucun joueur ami sous ta souris ni en cible.",
-	FBLESS_BTN_ON_FMT ="bénédiction intelligente ACTIVÉE. Glisse la macro « %s » de la fenêtre des macros vers une barre, puis survole un joueur et appuie dessus.",
+	FBLESS_BTN_ON_FMT = "bénédiction intelligente ACTIVÉE. Glisse la macro « %s » de la fenêtre des macros vers une barre, puis survole un joueur et appuie dessus.",
 	FBLESS_BTN_NOMACRO = "bénédiction intelligente ACTIVÉE, mais MH n'a pas pu créer la macro maintenant (en combat, ou plus de place). Désactive-la puis réactive-la plus tard.",
 	FBLESS_BTN_OFF = "bénédiction intelligente désactivée. La macro reste ; elle ne fait rien tant que tu ne la réactives pas.",
 	SET_BLESSTIP_TITLE = "Paladin : conseil de bénédiction dans l'infobulle",

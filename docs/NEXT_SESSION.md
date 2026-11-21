@@ -5,6 +5,10 @@
 ✅ **Charkey GESLAAGD op twee Ima's (Rob in het spel, 21 nov)** — Ima 2 = Player-6944-0120ED18 (Ima 1 = …0118CB4F), eigen
 kopieën, "copies so far 9". Joey en KeyBlock nog niet getest.
 
+🚦 **Afspraak 21 nov (sparring): Rob is ziek. Bouw NIETS nieuws zonder zijn vraag, alleen bugfixes op zijn meldingen.**
+Minimale test vóór 5.7.0 staat bovenaan TESTLIJST (4 punten). Release-concept bijgewerkt met zeppelin-platforms en Skill
+up-tooltips/make-first (CHANGELOG_570_10). Release/tag blijft Robs letterlijke go.
+
 🧭 **Zuid/noord (21 nov, later)** — GEMETEN door Rob: hij nam het ZUIDELIJKE platform van de Orgrimmar-toren en kwam in Tirisfal
 aan. MASTERS H1a dir SOUTH, H2a dir NORTH (de andere van twee; de kaart klopt: Frezza y 13,5 > Snurk 12,8) →
 FTRAVEL_PLATFORM_SOUTH/NORTH_FMT "(the south platform, with Frezza)", 7 talen. Andere torens: geen richting (niet gemeten).

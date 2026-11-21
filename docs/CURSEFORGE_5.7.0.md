@@ -60,6 +60,10 @@ by itself. `/mh bagfull off` switches the window off.
 - **Fixed**: every character now keeps its own Midnight Helper settings (key presses, rank choices, known recipes and
   more). Characters with the same first name shared them, and Blizzard's update of 20 November made them hard to find.
   What you had is copied over, nothing is lost.
+- **Which zeppelin?** At a tower with two zeppelins, the route names the zeppelin master of the right platform and the
+  arrow points at him: "the zeppelin to Tirisfal Glades (the south platform, with Frezza)".
+- **Skill up** shows recipes and ingredients in their item colour, with the game's tooltip when you point at them. Short
+  of an ingredient you can make yourself? It says how many to make first and what that needs.
 - **Paladins, smart blessing**: the macro "MH Smart Bless" now blesses the friendly player under your mouse, or else your
   friendly target, with the blessing that fits their class. Midnight Helper keeps the macro up to date by itself, so it
   works from any key or mouse button.
