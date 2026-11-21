@@ -29,7 +29,10 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 ---
 
 ## 21 nov 2026 — release 5.7.0 (getagd)
-- Tag + commit:   v5.7.0 / (de commit "Release 5.7.0"; run en CurseForge-bestanden volgen hier zodra gemeten)
+- Tag + commit:   v5.7.0 / e215cc8. Release-run GitHub 44915363010: geslaagd (3m34s); log: CurseForge, Wago en GitHub
+                  "Success!" voor beide zips (MidnightHelper-v5.7.0.zip 12.0.7-12.1.7, MidnightHelper-v5.7.0-forever.zip
+                  1.60.1). CurseForge-API om 14:50 (GEMETEN): nog NIET zichtbaar (nieuwste = v5.6.0) → CurseForge keurt nog
+                  goed; status blijft "getagd" tot de API ze toont.
 - Status:         getagd
 - Mag op de site: ja zodra het op CurseForge staat. Rob via sparring, letterlijk: *"reload gedaan, tekst staat goed, go
                   voor 5.7.0"*. Wat de site als "nieuw" noemt = de releasetekst: Waylaid Crates en de mage Study-tip zitten
