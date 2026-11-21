@@ -48,6 +48,17 @@ achternaam, "Step aside"-instelling, Your path, Set focus). Daarna vond Rob nog:
 rank-lijstje: werkt (screenshot: "You just learned", Conjure Water rank 1 -> 2 en Frost Armor rank 1 -> 2, met de knoppen
 Upgrade / Not now / Never). Afgevinkt met "(Rob, 19 nov)". De hulpregels ("typ /mh … als het niet werkt") blijven open.
 
+## ✨ 21 nov — Forever: slimme zegen ook op je doelwit
+
+`/reload` is genoeg. Forever, je paladin, slimme zegen-knop aan (`/mh blesstip button on`), macro "MH Smart Bless" op een balk.
+- [ ] Selecteer een vriendelijke speler (klik erop), haal je muis weg en druk de knop: hij krijgt de zegen voor zijn klasse.
+      Ook als hij wegloopt, zolang hij binnen bereik is.
+- [ ] Muis op een ándere vriendelijke speler terwijl je iemand geselecteerd hebt: de knop zegent die onder de muis (muis gaat voor).
+- [ ] Niemand onder de muis en geen vriendelijk doelwit: de knop doet niets (geen zegen op jezelf).
+- [ ] `/mh blesstip`: regels "target now: …" en "the key runs: /cast [@mouseover,help,nodead] …; [@target,help,nodead] …".
+      Typ het met een speler geselecteerd. Screenshot.
+- [ ] In een gevecht: de knop werkt met de laatste keuze van vóór het gevecht (MH kan hem dan niet bijwerken).
+
 ## 🔑 21 nov — Forever: elk character zijn eigen opslag (twee Ima's)
 
 Nieuw bestand → **WoW helemaal herstarten**. Forever. Je oude gegevens worden alleen gekopieerd, nooit gewist.

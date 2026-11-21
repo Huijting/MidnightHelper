@@ -2,6 +2,20 @@
 
 ## ▶▶ VOLGENDE BOUWCHAT: Forever-overzicht "D" — stap 1 en 3 gebouwd; stap 2 wacht op Robs screenshots (20 nov, avond)
 
+✨ **Slimme zegen ook op je doelwit GEBOUWD (21 nov)** — Rob via sparring: *"Als ik iemand geselecteerd heb en die hard
+doorloopt, dat ik daarna op F5 druk"* → op "Eerst de muis, anders je doelwit": *"Ja, doe maar."* `ForeverBlessTip.lua`: de
+knop is nu type macro met één regel `/cast [@mouseover,help,nodead] <zegen>; [@target,help,nodead] <zegen>` (de game kiest
+bij het indrukken; MH schrijft de regel buiten combat bij UPDATE_MOUSEOVER_UNIT en PLAYER_TARGET_CHANGED; deel alleen als
+Pick() een vriendelijke SPELER vond). Geen van beide = geen regel, de toets doet niets (keuze: GEEN zelf-cast, niet
+gevraagd; gemeld aan sparring). Spellnaam uit de client (C_Spell.GetSpellName), /cast zonder rang = hoogste (AFGELEID, net
+als ForeverBlock). `/mh blesstip` toont nu "target now", "target on the button" en "the key runs: …"; probe slaat target +
+regel op. Pick splitst nu de reden: "no mouseover" / "UnitIsPlayer secret|nil|error" / "not a player" (zelfde voor
+UnitCanAssist) — Robs probe van vandaag zei alleen "not a player (or unreadable)", dus of UnitIsPlayer na de hotfix secret
+is, is NIET gemeten; de volgende `/mh blesstip` meet het. AFGELEID uit de oude code waarom het "eerst niet, later wel"
+werkte: de spell werd pas gezet bij de eerste muis-over op een speler. Typ je `/mh blesstip` in chat, dan staat je muis op
+de chat → "mouseover" leest niets; dat zegt de diagnose nu ook. Uitleg FBLESS_BTN_SW_DESC in 7 talen bijgewerkt. Offline
+GEMETEN (bless_test.lua, 12 controles). NIET in het spel gezien.
+
 🔑 **Charkey: eerste test van Rob (21 nov, middag)** — Ima 1 `/mh charkey`: poleGear/toolTip/ranks.top "already there",
 "copies made so far: 4". GEMETEN in de Forever-SV: `charKeyMigrated` heeft 4 kopieën voor Player-6944-0118CB4F (pole,
 ranks.top, toolTip: uit "Ima-CAMWOW EU4 Realm 10 RP" + "Ima-"; recepten: uit "Ima-"), en `foreverToolTipSeen[GUID]` =

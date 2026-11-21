@@ -64,13 +64,29 @@ local function Pick(unit)
 	if not unit then
 		return nil, "no unit"
 	end
+	-- 21 Nov 2026 (sparring: does UnitIsPlayer give nil/secret since the 20 Nov hotfix?): the reasons are split, so a
+	-- secret or an error can be told from a plain "no" in /mh blesstip and foreverBlessTipProbe. Not measured yet.
+	local okE, exists = pcall(UnitExists, unit)
+	if okE and exists == false then
+		return nil, "no " .. unit
+	end
 	local okP, isPlayer = pcall(UnitIsPlayer, unit)
-	if not (okP and Clean(isPlayer)) then
-		return nil, "not a player (or unreadable)"
+	if not okP then
+		return nil, "UnitIsPlayer error"
+	elseif issecretvalue and issecretvalue(isPlayer) then
+		return nil, "UnitIsPlayer secret"
+	elseif isPlayer == nil then
+		return nil, "UnitIsPlayer nil"
+	elseif not isPlayer then
+		return nil, "not a player"
 	end
 	local okA, assist = pcall(UnitCanAssist, "player", unit)
-	if not (okA and Clean(assist)) then
-		return nil, "not friendly (or unreadable)"
+	if not okA then
+		return nil, "UnitCanAssist error"
+	elseif issecretvalue and issecretvalue(assist) then
+		return nil, "UnitCanAssist secret"
+	elseif not assist then
+		return nil, "not friendly"
 	end
 	local okC, _, token = pcall(UnitClass, unit)
 	token = okC and Clean(token) or nil
@@ -148,16 +164,29 @@ end
 -- (2) The smart blessing button (19 Nov 2026; Rob via sparring, letterlijk: "Ja, die mogen door" on step 2 of
 -- "slimme zegen", plan in docs/IDEEEN.md). ONE key that blesses the friendly player under your mouse with the blessing
 -- Pick() chooses (the same choice as the tooltip line, and your own table).
--- How (the plan's rules): a hidden SecureActionButton "MidnightHelperSmartBless" (type spell, unit mouseover); a
--- SEPARATE event frame sets its "spell" attribute out of combat on UPDATE_MOUSEOVER_UNIT; in combat the last choice
--- stays (attributes cannot change then); no script on the secure button itself (lesson ForeverPartyPanel.lua:12-13).
+-- How (the plan's rules): a hidden SecureActionButton "MidnightHelperSmartBless"; a SEPARATE event frame sets its
+-- attributes out of combat (since 21 Nov 2026: type macro + one /cast line for mouseover, then target, see below); in
+-- combat the last choice stays (attributes cannot change then); no script on the secure button itself (lesson
+-- ForeverPartyPanel.lua:12-13).
 -- Click phase pinned like ForeverDisenchant.lua (useOnKeyDown false, LeftButtonUp). You press it through a macro
 -- "MH Smart Bless" (/click MidnightHelperSmartBless), made when you switch it on, out of combat; drag it to a bar.
 -- Off by default (players choose): ns.db.foreverSmartBless == true. /mh blesstip says the button's state and spell.
 -- NOT measured: that /click reaches a secure button in Forever, and UPDATE_MOUSEOVER_UNIT on unit frames.
 --------------------------------------------------------------------------------
+-- 21 Nov 2026 (Rob via sparring: "Als ik iemand geselecteerd heb en die hard doorloopt, dat ik daarna op F5 druk" → on
+-- "Eerst de muis, anders je doelwit": "Ja, doe maar."): the button is now type "macro" with one /cast line,
+-- "/cast [@mouseover,help,nodead] <spell for the mouseover>; [@target,help,nodead] <spell for the target>". The game
+-- picks the clause at the moment you press (secure conditions, the same [@mouseover,help,nodead] that ForeverBlock.lua
+-- already uses in Forever); MH only rewrites the line out of combat, on UPDATE_MOUSEOVER_UNIT and PLAYER_TARGET_CHANGED.
+-- A clause is only there when Pick() found a friendly PLAYER for it. Neither = no line: the key does nothing (no
+-- self-cast; Rob asked for mouse or target, and a blessing on yourself by accident costs mana — sparring was told).
+-- In combat the last line stays: the clause order still works, but the spells are those of the last choice.
+-- AFGELEID from the old code why it "first did not work, later did" (Rob, 21 Nov): the spell attribute was only set on
+-- UPDATE_MOUSEOVER_UNIT with a player under the mouse, so before the first hover the button had no spell at all.
 local SMART_NAME, SMART_MACRO = "MidnightHelperSmartBless", "MH Smart Bless"
 local smart, smartWhy, smartSpell = nil, "not built (switched off, or not a paladin)", nil
+local smartLine, targetWhy = nil, "not checked yet"
+local mouseSpell, targetSpell -- the spell ids in the current line (nil = no clause)
 
 local function SmartOn()
 	return ns.db and ns.db.foreverSmartBless == true
@@ -172,12 +201,12 @@ local function BuildSmart()
 	smart:SetPoint("TOPLEFT", UIParent, "TOPLEFT", -50, 50) -- off screen: only the macro clicks it
 	smart:RegisterForClicks("LeftButtonUp")
 	smart:SetAttribute("useOnKeyDown", false)
-	smart:SetAttribute("type", "spell")
-	smart:SetAttribute("unit", "mouseover")
+	smart:SetAttribute("type", "macro")
 	return smart
 end
 
-local function SmartUpdate()
+--- The /cast line for the current mouseover and target (out of combat only).
+local function SmartUpdate(event)
 	if not (SmartOn() and IsPaladin()) then
 		smartWhy = "switched off (or not a paladin)"
 		return
@@ -190,14 +219,43 @@ local function SmartUpdate()
 	if not b then
 		return
 	end
-	local kind, id, _, why = Pick("mouseover")
-	if kind and id then
-		b:SetAttribute("spell", id)
-		smartSpell = id
-		smartWhy = why
-	else
-		smartWhy = "mouseover: " .. tostring(id) .. " (the button keeps its last spell)"
+	if smartWhy == "in combat: the last choice stays" then
+		smartWhy = "updated after the fight"
 	end
+	-- The mouseover clause is only rewritten when the mouse is over a unit (UPDATE_MOUSEOVER_UNIT): typing in chat or
+	-- leaving a player does not fire it, and the [@mouseover] condition handles "nobody under the mouse" at the press.
+	local mKind, mId, _, mWhy
+	if event == "UPDATE_MOUSEOVER_UNIT" or mouseSpell == nil then
+		mKind, mId, _, mWhy = Pick("mouseover")
+		if mKind and mId then
+			mouseSpell = mId
+			smartWhy = "mouseover: " .. mWhy
+		elseif event == "UPDATE_MOUSEOVER_UNIT" then
+			mouseSpell = nil
+			smartWhy = "mouseover: " .. tostring(mId) .. " (no mouseover part)"
+		end
+	end
+	local tKind, tId, _, tWhy = Pick("target")
+	if tKind and tId then
+		targetSpell = tId
+		targetWhy = tWhy
+	else
+		targetSpell = nil
+		targetWhy = tostring(tId) .. " (no target part)"
+	end
+	local parts = {}
+	if mouseSpell then
+		parts[#parts + 1] = "[@mouseover,help,nodead] " .. (SpellName(mouseSpell) or tostring(mouseSpell))
+	end
+	if targetSpell then
+		parts[#parts + 1] = "[@target,help,nodead] " .. (SpellName(targetSpell) or tostring(targetSpell))
+	end
+	local line = #parts > 0 and ("/cast " .. table.concat(parts, "; ")) or nil
+	if line ~= smartLine then
+		b:SetAttribute("macrotext", line)
+		smartLine = line
+	end
+	smartSpell = mouseSpell or targetSpell
 end
 
 --- Make the macro once (out of combat); true when it exists afterwards.
@@ -239,11 +297,12 @@ end
 
 local sev = CreateFrame("Frame")
 pcall(sev.RegisterEvent, sev, "UPDATE_MOUSEOVER_UNIT")
+pcall(sev.RegisterEvent, sev, "PLAYER_TARGET_CHANGED")
 pcall(sev.RegisterEvent, sev, "PLAYER_REGEN_ENABLED")
 pcall(sev.RegisterEvent, sev, "PLAYER_ENTERING_WORLD")
-sev:SetScript("OnEvent", function()
+sev:SetScript("OnEvent", function(_, event)
 	if SmartOn() then
-		SmartUpdate()
+		SmartUpdate(event)
 	end
 end)
 
@@ -300,9 +359,16 @@ function ns.ForeverBlessTipSlash(arg)
 	if GetMacroIndexByName then
 		mOk, mIdx = pcall(GetMacroIndexByName, SMART_MACRO)
 	end
-	print(("  smart button: %s, built %s, spell on it %s, last: %s; macro \"%s\" %s (/mh blesstip button on|off)"):format(
-		SmartOn() and "ON" or "off", tostring(smart ~= nil), smartSpell and (SpellName(smartSpell) or tostring(smartSpell))
-		or "none", smartWhy, SMART_MACRO, (mOk and type(mIdx) == "number" and mIdx > 0) and "exists" or "missing"))
+	print(("  smart button: %s, built %s, last: %s; macro \"%s\" %s (/mh blesstip button on|off)"):format(
+		SmartOn() and "ON" or "off", tostring(smart ~= nil), smartWhy, SMART_MACRO,
+		(mOk and type(mIdx) == "number" and mIdx > 0) and "exists" or "missing"))
+	-- 21 Nov 2026: the target part, and the exact line the key runs (mouse first, then target).
+	local tk, tid, _, twhy = Pick("target")
+	print("  target now: " .. (tk and (("%s (%s) — %s"):format(SpellName(tid) or tk, tostring(tid), twhy)) or tostring(tid)))
+	print("  target on the button: " .. targetWhy)
+	print("  the key runs: " .. (smartLine or "nothing (no friendly player under the mouse or as target yet)")
+		.. ((InCombatLockdown and InCombatLockdown()) and "  — in combat: this stays until the fight ends" or ""))
+	print("  (typing this in chat: your mouse is on the chat, so \"mouseover\" above reads nothing — that is normal)")
 	local t = {}
 	for c, d in pairs(DEFAULT) do
 		local own = ns.db.foreverBlessTable and ns.db.foreverBlessTable[c]
@@ -314,6 +380,7 @@ function ns.ForeverBlessTipSlash(arg)
 	ns.db.foreverBlessTipProbe = {
 		at = time and time() or 0, enabled = Enabled(), hook = state.hook, fired = state.fired,
 		mouseover = { pick = kind, id = id, class = token, why = kind and why or id }, last = state.last,
+		target = { pick = tk, id = tid, why = tk and twhy or tid }, line = smartLine, smartWhy = smartWhy,
 	}
 	print("  saved in SavedVariables (foreverBlessTipProbe) — /reload writes it to disk.")
 end

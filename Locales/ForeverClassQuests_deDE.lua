@@ -421,7 +421,7 @@ for k, v in pairs({
 	FCQWIN_SW = "Kleines Fenster mit deinem Klassenquest-Schritt",
 	FCQWIN_SW_DESC = "Ein kleines Fenster, das du verschieben kannst, mit nur dem Klassenquest-Schritt, an dem du bist, in größerer Schrift, und einem Knopf für den Weg. Es folgt dem Schritt von selbst und verschwindet, wenn es keinen gibt. Schließt du es, kommt es beim nächsten Schritt zurück.",
 	FCQ_WIN_TITLE = "Klassenquest",
-	FBLESS_BTN_SW_DESC = "Eine Taste für jeden Segen: Sie gibt dem freundlichen Spieler unter deiner Maus den Segen, den der Tipp oben wählt (deine eigene Tabelle zählt). Einschalten erstellt ein Makro, das du auf eine Leiste ziehst. Im Kampf bleibt die letzte Wahl.",
+	FBLESS_BTN_SW_DESC = "Eine Taste für jeden Segen: Sie gibt dem freundlichen Spieler unter deiner Maus, sonst deinem freundlichen Ziel, den Segen, den der Tipp oben wählt (deine eigene Tabelle zählt). Einschalten erstellt ein Makro, das du auf eine Leiste ziehst. Im Kampf bleibt die letzte Wahl.",
 	FBLESS_BTN_ON_FMT = "schlauer Segen AN. Zieh das Makro \"%s\" aus dem Makrofenster auf eine Leiste, fahr dann mit der Maus über einen Spieler und drück es.",
 	FBLESS_BTN_NOMACRO = "schlauer Segen AN, aber MH konnte das Makro jetzt nicht erstellen (im Kampf oder kein Platz). Schalte ihn später aus und wieder ein.",
 	FBLESS_BTN_OFF = "schlauer Segen aus. Das Makro bleibt; es tut nichts, bis du ihn wieder einschaltest.",

@@ -463,7 +463,7 @@ for k, v in pairs({
 	FCQWIN_SW = "Ventana pequeña con tu paso de misión de clase",
 	FCQWIN_SW_DESC = "Una ventana pequeña que puedes mover, solo con el paso de misión de clase en el que estás, con letra más grande, y un botón para el camino. Sigue el paso sola y se oculta cuando no hay ninguno. Si la cierras, vuelve con el paso siguiente.",
 	FCQ_WIN_TITLE = "Misión de clase",
-	FBLESS_BTN_SW_DESC = "Una sola tecla para todas las bendiciones: da al jugador amistoso bajo tu ratón la bendición que elige el consejo de arriba (tu propia tabla cuenta). Al activarlo se crea una macro para arrastrar a una barra. En combate se queda la última elección.",
+	FBLESS_BTN_SW_DESC = "Una sola tecla para todas las bendiciones: da al jugador amistoso bajo tu ratón, o si no a tu objetivo amistoso, la bendición que elige el consejo de arriba (tu propia tabla cuenta). Al activarlo se crea una macro para arrastrar a una barra. En combate se queda la última elección.",
 	FBLESS_BTN_ON_FMT = "bendición inteligente ACTIVADA. Arrastra la macro «%s» de la ventana de macros a una barra; luego pasa el ratón por un jugador y púlsala.",
 	FBLESS_BTN_NOMACRO = "bendición inteligente ACTIVADA, pero MH no pudo crear la macro ahora (en combate o sin espacio). Desactívala y vuelve a activarla más tarde.",
 	FBLESS_BTN_OFF = "bendición inteligente desactivada. La macro se queda; no hace nada hasta que la vuelvas a activar.",
