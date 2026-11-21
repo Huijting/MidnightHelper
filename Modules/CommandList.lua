@@ -102,6 +102,8 @@ ns.MH_UNLISTED_ON_PURPOSE = {
 	"renown",
 	-- 21 Nov 2026: next talent point diagnosis (ForeverTalentNext.lua, Forever only).
 	"talent",
+	-- 21 Nov 2026: Smart Buff diagnosis (ForeverSmartBuff.lua, Forever only).
+	"smartbuff", "smartbuff on", "smartbuff off",
 	-- 12 Nov 2026 (Rob: "Ja, haal hem weg"): our own number check, out of the player list.
 	"selftest",
 	-- 12 Nov 2026: Forever group panel diagnosis (ForeverPartyPanel.lua).

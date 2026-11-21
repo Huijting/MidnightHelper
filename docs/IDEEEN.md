@@ -26,6 +26,22 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 
 ## Open — wacht op Rob
 
+### Forever: mouseover-buffmacro voor de andere classes, zoals Smart Bless (vraag van Rob, 21 nov) — ✅ JA + GEBOUWD 21 nov (wacht op Robs test)
+- Bron: Rob 21 nov via sparring: *"Kunnen wij ook een soort mouse-over macro maken voor de andere buffs, voor alle andere
+  classes. Zodat ik die standaard op eenzelfde plek kan zetten, terwijl als mensen langslopen, dat ik gauw op hun een buff
+  kan geven."* GO, letterlijk: *"Ja, wou het maar."*
+- Gebouwd: macro "MH Smart Buff" voor Mage (Arcane Intellect), Priest (Power Word: Fortitude), Druid (Mark of the Wild);
+  eerst muis, anders doelwit. Andere classes hebben geen lange buff voor een ander (Paladin: Smart Bless).
+- Spel: F. Site: nog niet (in bouw, niet getest).
+
+### Forever: Do this now zegt welk talent je nu kiest (voorstel sparring, Rob 21 nov) — ✅ JA + GEBOUWD 21 nov voor Paladin (wacht op Robs test)
+- Bron: Rob 21 nov via sparring, letterlijk: *"Ja, doe dat maar"* op "'Do this now' zegt bij elk nieuw level welk talent
+  je nu moet kiezen ... Dan hoef je die hele lijst nooit te lezen." Aanleiding: How you play is "weer heel veel tekst".
+- Gebouwd: `ForeverTalentNext.lua` (leest je echte talenten, noemt het volgende uit de volgorde van je richting),
+  schakelaar in Quiet helpers, `/mh talent`. Paladin: Retribution (guided.news) en Protection (stillsixty).
+- Nog te doen: de volgordes voor de andere 8 classes (per class onderzoek).
+- Spel: F. Site: nog niet (in bouw, niet getest).
+
 ### Forever: level als X, tank als Y; respec en Dual Spec voor elke class (vraag van Rob, 21 nov) — ✅ JA + GEBOUWD 21 nov (wacht op Robs test)
 - Bron: Rob 21 nov via sparring: *"Ik ben nu een paladin aan het levelen ... als tank ... Heb ik een two-handed sword
   nodig? ... een one-handed en een shield? ... welke talentpunten ... ook bij andere ... zoals een druid"*. GO, letterlijk:

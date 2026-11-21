@@ -23948,6 +23948,25 @@ if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	FNODE_ICON_SW_DESC = "MH attiva l'impostazione di bersaglio morbido del gioco per gli oggetti. Il gioco mostra allora un piccone o un'erba sopra il filone o l'erba più vicina a te: uno alla volta, fino a circa 15 metri. Anche i PNG vicini possono avere un'icona. Le tue vecchie impostazioni vengono conservate, e disattivare questo le rimette. Mai in combattimento.",
 	FNODE_GLOW_SW = "Minerali ed erbe brillano (disegnato da MH)",
 	FOV_SUBTITLE = "per WoW Forever",
+	-- 21 Nov 2026 (mh-writer): next talent point. The Forever itIT client is English (GlobalStrings TALENTS itIT Forever
+	-- 1.60.1.71037 = "Talents"), and this pack has no itIT Do this now / Your class, so those names and Protection stay English.
+	FTALENT_NEXT_FMT = "Punto talento: mettilo in %s (%d/%d).",
+	FTALENT_NEXT_MANY_FMT = "Hai %d punti talento non usati. Il prossimo: %s (%d/%d).",
+	FTALENT_NO_DIR = "(Non hai scelto una direzione, quindi MH segue l'ordine per salire di livello.)",
+	FTALENT_BTN = "Talents",
+	FTALENT_PROT_SECOND = "Paladin: rendi il secondo set Protection, per fare il tank. Mentre lo usi, scegli la direzione Protection (Your class), e MH nomina i talenti Protection.",
+	FTALENT_SW = "Prossimo punto talento in Do this now",
+	FTALENT_SW_DESC = "Quando hai un punto talento non usato, Do this now nomina il talento in cui metterlo, da un ordine per salire di livello per la direzione che hai scelto. MH legge i tuoi talenti, quindi salta quello che hai già. Disattivo: nessuna riga sui talenti.",
+	-- 21 Nov 2026 (mh-writer): Smart Buff macro. Forever itIT client is English, so class and spell names stay English;
+	-- this pack has no itIT Smart Bless, so it stays English. blocco tasti / mouseover as in this pack. "MH Smart Buff" = macro name.
+	FSBUFF_SW = "Macro Smart Buff (prima il mouse, poi il bersaglio)",
+	FSBUFF_SW_DESC = "Per un Mage, Priest o Druid: MH crea una macro, \"MH Smart Buff\", con il buff della tua classe (Arcane Intellect, Power Word: Fortitude o Mark of the Wild). Dà il buff al giocatore amico sotto il tuo mouse, altrimenti al tuo bersaglio. Mettila su qualsiasi barra. MH la tiene aggiornata, fuori dal combattimento. I Paladin hanno Smart Bless per questo. La modalità mouseover del blocco tasti fa lo stesso sui suoi tasti.",
+	FSBUFF_ON_FMT = "Macro \"%s\" creata con %s: trascinala su una barra. Dà il buff al giocatore sotto il tuo mouse, altrimenti al tuo bersaglio.",
+	FSBUFF_OFF = "Smart Buff è disattivo. La macro resta; puoi eliminarla tu.",
+	FSBUFF_NOCLASS = "La tua classe non ha un buff lungo per gli altri giocatori, quindi non c'è una macro Smart Buff. Mage, Priest e Druid ne hanno uno; i Paladin usano Smart Bless.",
+	FSBUFF_NOMACRO = "Non è stato possibile creare la macro ora (in combattimento, o la tua lista di macro è piena). Riprova fuori dal combattimento.",
+	FSBUFF_NONE = "MH Smart Buff: metti il mouse su un amico, o selezionalo.",
+	FSBUFF_NOTYET_FMT = "MH Smart Buff: non conosci ancora %s.",
 	FNODE_GLOW_SW_DESC = "MH disegna un bagliore sul filone (oro) o sull'erba (verde) che il gioco sceglie per te: il più vicino, fino a circa 15 metri, uno alla volta. Solo per ciò che puoi raccogliere: niente bagliore senza Herbalism o Mining. Rosso: la tua abilità è troppo bassa per quello. Troppo lontano mantiene il colore. Serve la stessa impostazione del gioco dell'icona, quindi l'icona arriva insieme. Le tue vecchie impostazioni vengono conservate, e disattivare questo le rimette. Mai in combattimento. Se l'addon Lueur è attivo, MH lascia fare a Lueur.",
 	FNODE_ON = "minerali ed erbe: attivo (%d impostazione/i cambiata/e). /mh sparkle le mostra.",
 	FNODE_OFF = "minerali ed erbe: disattivo. Le tue vecchie impostazioni sono tornate.",

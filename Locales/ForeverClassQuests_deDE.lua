@@ -1690,6 +1690,25 @@ for k, v in pairs({
 	-- 21 Nov 2026 (mh-writer): Zweihandschwerter = SpellName 202, Zweite Talentspezialisierung = spell 63624 (DB2 deDE 1.60.1.71037).
 	FDONOW_WOLFSBANE_FMT = "%s gibt dir ein Zweihandschwert, aber du kannst noch keins benutzen. Lern zuerst Zweihandschwerter, bei %s in %s.",
 	FDONOW_DUALSPEC = "Zweite Talentspezialisierung: Ab Stufe 40 verkauft dein Klassenlehrer einen zweiten Satz Talente, zum Beispiel einen zum Leveln und einen zum Tanken. Spieler sagen, sie kostet etwa 50 Gold. Wechseln dauert 5 Sekunden, außerhalb eines Kampfes.",
+	-- 21 Nov 2026 (mh-writer): next talent point. Talente = GlobalStrings TALENTS (deDE Forever 1.60.1.71037); Schutz as in
+	-- ForeverHowToPlay_deDE; Mach das jetzt / Deine Klasse / Richtung as in this pack. Not checked by a native speaker.
+	FTALENT_NEXT_FMT = "Talentpunkt: Setz ihn in %s (%d/%d).",
+	FTALENT_NEXT_MANY_FMT = "Du hast %d freie Talentpunkte. Als Nächstes: %s (%d/%d).",
+	FTALENT_NO_DIR = "(Du hast keine Richtung gewählt, also folgt MH der Reihenfolge zum Leveln.)",
+	FTALENT_BTN = "Talente",
+	FTALENT_PROT_SECOND = "Paladin: Mach den zweiten Satz zu Schutz, zum Tanken. Solange du ihn nutzt, wähl die Richtung Schutz (Deine Klasse), dann nennt MH die Schutz-Talente.",
+	FTALENT_SW = "Nächster Talentpunkt in Mach das jetzt",
+	FTALENT_SW_DESC = "Hast du einen freien Talentpunkt, sagt Mach das jetzt, in welches Talent er gehört, aus einer Reihenfolge zum Leveln für die Richtung, die du gewählt hast. MH liest deine Talente, also überspringt es, was du schon hast. Aus: keine Talentzeile.",
+	-- 21 Nov 2026 (mh-writer): Smart Buff macro. Klassen = ChrClasses deDE Forever 1.60.1.71037; spells as in
+	-- ForeverHowToPlay_deDE; schlauer Segen / Tastenblock / Mouseover as in this pack. "MH Smart Buff" = macro name, kept.
+	FSBUFF_SW = "Smart Buff-Makro (erst Maus, sonst Ziel)",
+	FSBUFF_SW_DESC = "Für Magier, Priester oder Druiden: MH erstellt ein Makro, \"MH Smart Buff\", mit deinem Klassen-Buff (Arkane Intelligenz, Machtwort: Seelenstärke oder Mal der Wildnis). Es bufft den freundlichen Spieler unter deiner Maus, sonst dein Ziel. Leg es auf jede Leiste, die du willst. MH hält es aktuell, außerhalb eines Kampfes. Paladine haben dafür den schlauen Segen. Der Mouseover-Modus des Tastenblocks macht dasselbe auf seinen eigenen Tasten.",
+	FSBUFF_ON_FMT = "Makro \"%s\" mit %s erstellt: Zieh es auf eine Leiste. Es bufft den Spieler unter deiner Maus, sonst dein Ziel.",
+	FSBUFF_OFF = "Smart Buff ist aus. Das Makro bleibt; du kannst es selbst löschen.",
+	FSBUFF_NOCLASS = "Deine Klasse hat keinen langen Buff für andere Spieler, also gibt es kein Smart Buff-Makro. Magier, Priester und Druiden haben einen; Paladine nutzen den schlauen Segen.",
+	FSBUFF_NOMACRO = "Konnte das Makro jetzt nicht erstellen (im Kampf, oder deine Makroliste ist voll). Versuch es außerhalb eines Kampfes noch mal.",
+	FSBUFF_NONE = "MH Smart Buff: Maus auf einen Freund, oder ihn anvisieren.",
+	FSBUFF_NOTYET_FMT = "MH Smart Buff: Du kennst %s noch nicht.",
 	FCITY_SUB_CRATES = "Versiegelte Kisten und Versandetiketten gibst du beim Handelsvertreter deiner Seite ab.",
 	FCRATE_SW = "Hilfe bei Abgefangenen Kisten",
 	FCRATE_SW_DESC = "Im Tooltip einer Kiste: jedes Bündel, das hineinpasst, und wie viele du hast (Taschen und Bank). Eine versiegelte Kiste oder ein Versandetikett sagt, wo du es abgibst, und landet eins in deinen Taschen, zeigt ein kleines Fenster den Weg. Nie im Kampf.",

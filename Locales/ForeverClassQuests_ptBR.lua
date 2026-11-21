@@ -547,6 +547,26 @@ for k, v in pairs({
 	-- (DB2 ptBR 1.60.1.71037).
 	FDONOW_WOLFSBANE_FMT = "%s dá uma espada de duas mãos, mas você ainda não pode usá-la. Aprenda Espadas de Duas Mãos primeiro, com %s em %s.",
 	FDONOW_DUALSPEC = "Segunda Especialização de Talentos: a partir do nível 40, o treinador da sua classe vende um segundo conjunto de talentos, por exemplo um para subir de nível e outro para tanquear. Os jogadores dizem que custa cerca de 50 de ouro. Trocar leva 5 segundos, fora de combate.",
+	-- 21 Nov 2026 (mh-writer): next talent point. Talentos = GlobalStrings TALENTS (ptBR Forever 1.60.1.71037); Proteção as
+	-- in ForeverHowToPlay_ptBR; Faça isto agora / Sua classe / caminho as in this pack. Not checked by a native speaker.
+	FTALENT_NEXT_FMT = "Ponto de talento: coloque em %s (%d/%d).",
+	FTALENT_NEXT_MANY_FMT = "Você tem %d pontos de talento não usados. Próximo: %s (%d/%d).",
+	FTALENT_NO_DIR = "(Você não escolheu nenhum caminho, então o MH segue a ordem para subir de nível.)",
+	FTALENT_BTN = "Talentos",
+	FTALENT_PROT_SECOND = "Paladino: faça do segundo conjunto um de Proteção, para tanquear. Enquanto usar esse, escolha o caminho Proteção (Sua classe), e o MH indica os talentos de Proteção.",
+	FTALENT_SW = "Próximo ponto de talento em Faça isto agora",
+	FTALENT_SW_DESC = "Quando você tem um ponto de talento não usado, Faça isto agora indica o talento onde colocá-lo, a partir de uma ordem para subir de nível no caminho que você escolheu. O MH lê os seus talentos, então pula o que você já tem. Desligado: sem linha de talento.",
+	-- 21 Nov 2026 (mh-writer): Smart Buff macro. Classes = ChrClasses ptBR Forever 1.60.1.71037; spells as in
+	-- ForeverHowToPlay_ptBR (Arcane Intellect: SpellName 1459 = Inteligência Arcana, ranks 2+ = Intelecto Arcano; the
+	-- later name is used here); bênção inteligente / bloco de teclas / mouseover as in this pack. "MH Smart Buff" = macro name, kept.
+	FSBUFF_SW = "Macro Smart Buff (primeiro o mouse, senão o alvo)",
+	FSBUFF_SW_DESC = "Para um Mago, Sacerdote ou Druida: o MH cria uma macro, \"MH Smart Buff\", com o seu buff de classe (Intelecto Arcano, Palavra de Poder: Fortitude ou Marca do Indomado). Ela dá o buff ao jogador aliado sob o seu mouse, ou senão ao seu alvo. Coloque-a na barra que quiser. O MH a mantém atualizada, fora de combate. Os Paladinos têm a bênção inteligente para isso. O modo mouseover do bloco de teclas faz o mesmo nas próprias teclas.",
+	FSBUFF_ON_FMT = "Macro \"%s\" criada com %s: arraste-a para uma barra. Ela dá o buff ao jogador sob o seu mouse, ou senão ao seu alvo.",
+	FSBUFF_OFF = "O Smart Buff está desligado. A macro fica; você pode apagá-la.",
+	FSBUFF_NOCLASS = "A sua classe não tem um buff longo para outros jogadores, então não há macro Smart Buff. Mago, Sacerdote e Druida têm um; os Paladinos usam a bênção inteligente.",
+	FSBUFF_NOMACRO = "Não foi possível criar a macro agora (em combate, ou a sua lista de macros está cheia). Tente de novo fora de combate.",
+	FSBUFF_NONE = "MH Smart Buff: passe o mouse num aliado, ou selecione um.",
+	FSBUFF_NOTYET_FMT = "MH Smart Buff: você ainda não conhece %s.",
 	FCITY_SUB_CRATES = "Caixotes lacrados e Etiquetas de Envio são entregues ao representante comercial da sua facção.",
 	FCRATE_SW = "Ajuda com Caixotes Extraviados",
 	FCRATE_SW_DESC = "Na dica de um caixote: cada lote que ele aceita e quantos você tem (bolsas e banco). Um caixote lacrado ou uma Etiqueta de Envio diz onde entregar, e quando um chega às suas bolsas, uma janela pequena mostra o caminho. Nunca em combate.",

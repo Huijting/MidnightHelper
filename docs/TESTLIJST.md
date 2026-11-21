@@ -90,6 +90,17 @@ Upgrade / Not now / Never). Afgevinkt met "(Rob, 19 nov)". De hulpregels ("typ /
       no Herbalism".
 - [x] ✅ GEMETEN (Rob in het spel, Forever, 21 nov, Paladin met lage Mining, ertsader, waarschijnlijk Tin): MH-ster ROOD +
       houweel-icoon, en het spel zelf zegt in rood "Requires Mining 65". Klopt met de tabel (Tin 65).
+- [ ] (21 nov) Mage, Priest of Druid: Quiet helpers → "Smart Buff macro" aan. Het macrovenster gaat open met de macro
+      "MH Smart Buff"; sleep hem naar een balk. Muis op een vriendelijke speler, druk: hij krijgt Arcane Intellect /
+      Power Word: Fortitude / Mark of the Wild. Geen muis op iemand, wel een doelwit: het doelwit krijgt hem. Niemand: in
+      chat "MH Smart Buff: put your mouse on a friendly player …". `/mh smartbuff` toont de macrotekst.
+- [ ] (21 nov) Warrior, Rogue, Hunter, Warlock of Shaman: dezelfde schakelaar aan → de melding "Your class has no long
+      buff for other players …", en de schakelaar blijft uit.
+- [ ] (21 nov) Paladin met een ongebruikt talentpunt: Do this now zegt "Talent point: put it in <talent> (n/max)". Met
+      de muis op de naam zie je de tooltip van het talent. Zonder gekozen richting volgt MH Retribution (eerste talent:
+      Deflection) en staat er "(You chose no direction …)" achter. Zet het punt: de regel verdwijnt. Typ `/mh talent`:
+      je ziet hoeveel vrije punten MH leest, de hele volgorde met jouw punten, en "<- next".
+- [ ] (21 nov) Quiet helpers → schakelaar "Next talent point in Do this now" uit: de talentregel is weg.
 - [ ] (21 nov) Paladin, Warrior of Druid: open How you play (tab Your class). Bovenaan staat een blok "Level as
       Retribution, tank as Protection" (Paladin) of "Level and tank as a …", altijd helemaal open. Onderaan staat het
       stuk "Talents: reset and Dual Spec".
@@ -99,10 +110,10 @@ Upgrade / Not now / Never). Afgevinkt met "(Rob, 19 nov)". De hulpregels ("typ /
 - [ ] (21 nov) Een character op level 40 of hoger zonder Dual Spec: tip "Dual Spec: from level 40 …". Na het kopen moet de
       tip weg zijn. Blijft hij staan? `/mh donow check` → regel "Dual Spec switch (63644) known:" — zeg wat er staat.
 - [ ] (21 nov) Paladin met de richting Protection: de stat-regel zegt nu "Stamina, then Intellect" (was Strength).
-- [ ] (21 nov) Zoekbalk in het Forever-overzicht: typ `spar`, klik "Quest items sparkle …". De pagina Quiet helpers gaat
+- [x] ✅ (Rob in het spel, Forever, 21 nov: *"zoeken naar de schakelaar is ook gelukt"*) Zoekbalk in het Forever-overzicht: typ `spar`, klik "Quest items sparkle …". De pagina Quiet helpers gaat
       open, de schakelaar staat in beeld en licht 2 seconden goud op. Typ ook `ore`, `herb` en `glow`: je ziet de twee
       erts/kruiden-schakelaars (het icoon van het spel en de gloed van MH).
-- [ ] (21 nov) Onder "MIDNIGHT HELPER" linksboven staat klein "for WoW Forever". Ook in de oude layout (tabs bovenaan):
+- [x] ✅ (Rob in het spel, Forever, 21 nov: *"staat er ook in. Dus dat is ook goedgekeurd"*) Onder "MIDNIGHT HELPER" linksboven staat klein "for WoW Forever". Ook in de oude layout (tabs bovenaan):
       de tekst raakt de tabs niet.
 - [x] ✅ GEMETEN (Rob in het spel, Forever, 21 nov, Paladin met Mining, ertsader, 2 screenshots) Schakelaar "the game's
       icon" UIT, gloed AAN: geen game-icoon én geen MH-ster. Beide AAN: houweel-icoon + gouden MH-ster. De gloed heeft het

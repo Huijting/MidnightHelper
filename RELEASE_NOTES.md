@@ -1,4 +1,4 @@
-# Midnight Helper 5.7.0: which city, skill up, and what to do when your bags are full
+# Midnight Helper 5.7.0: which city, which talent, skill up, and what to do when your bags are full
 
 Want new things sooner and help test them? We put out betas regularly: set the release type of Midnight Helper in the
 CurseForge app to **Beta**. Found something odd, or does everything just work? Tell us: `/mh report` in game, a comment
@@ -21,6 +21,21 @@ A search field above the list filters both.
   show up in *Which city?* and in the inn list.
 - **Hearthstone and teleports in the route.** The way there now counts your Hearthstone and your class teleports, with
   the minutes it takes: "first use your Hearthstone (about 4 min)". The chat says it too, so you see it with TomTom.
+
+## WoW Forever: which talent, and how to tank
+
+- **Your next talent point**: when you have a talent point left, *Do this now* names the talent to put it in, with its
+  tooltip. Midnight Helper reads your talents, so it skips what you already have. For Paladins now, for Retribution and
+  for Protection; more classes follow. Switch: *Next talent point in Do this now*.
+- **Level and tank**: *How you play* starts with a short plan for Paladin, Warrior and Druid: what to level with, what to
+  keep in your bags for tanking, and from which level tanking works. A new part for every class explains how to reset
+  your talents and what Dual Spec is (from level 40).
+- **Wolfsbane** (Undead Paladins): *Do this now* tells you to learn Two-Handed Swords first, with *Show the way* to the
+  weapon master.
+- **Smart Buff for Mage, Priest and Druid**: the macro "MH Smart Buff" puts Arcane Intellect, Power Word: Fortitude or
+  Mark of the Wild on the friendly player under your mouse, or else on your target. Off by default: switch it on in
+  *Quiet helpers* and drag the macro onto a bar.
+- Paladins who tank now see Stamina, then Intellect as their best stats.
 
 ## WoW Forever: skill up your professions
 
@@ -56,7 +71,10 @@ by itself. `/mh bagfull off` switches the window off.
 - **Quest items sparkle**: a switch in *Quiet helpers* brings back the old sparkle on quest items you can loot, instead
   of the outline. Off by default. Two more switches there do the same for **ore and herbs**: *Ore and herbs: the game's
   icon above the nearest one*, and *Ore and herbs glow (drawn by MH)*, green on a herb and gold on ore, also from a
-  distance when you can gather it. Both off by default.
+  distance when you can gather it, red when your skill is still too low. No profession, no glow. Both off by default.
+- **Search in the overview**: click a switch in the results and *Quiet helpers* opens with that switch lit up. Typing
+  `ore`, `herb` or `glow` finds the ore and herb switches. Under its name the overview now says *for WoW Forever*.
+- **Fixed**: the rank reminder no longer asks you to train a higher rank of Comprehend Scroll; it has no ranks.
 - **Fixed**: every character now keeps its own Midnight Helper settings (key presses, rank choices, known recipes and
   more). Characters with the same first name shared them, and Blizzard's update of 20 November made them hard to find.
   What you had is copied over, nothing is lost.

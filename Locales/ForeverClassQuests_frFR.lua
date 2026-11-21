@@ -1693,6 +1693,25 @@ for k, v in pairs({
 	-- 1.60.1.71037), Maître d'armes = npc 11870 subtitle (Wowhead Forever frFR). Order kept: chain, NPC, city.
 	FDONOW_WOLFSBANE_FMT = "%s te donne une épée à deux mains, mais tu ne peux pas encore t'en servir. Apprends d'abord Epées à deux mains : maître d'armes %s, à %s.",
 	FDONOW_DUALSPEC = "Seconde spécialisation des talents : dès le niveau 40, ton maître de classe vend un deuxième jeu de talents, par exemple un pour monter de niveau et un pour tanker. Les joueurs disent que ça coûte environ 50 pièces d'or. Changer prend 5 secondes, hors combat.",
+	-- 21 Nov 2026 (mh-writer): next talent point. Talents = GlobalStrings TALENTS (frFR Forever 1.60.1.71037); Protection as
+	-- in ForeverHowToPlay_frFR; Fais ça maintenant / Ta classe / voie as in this pack. Not checked by a native speaker.
+	FTALENT_NEXT_FMT = "Point de talent : mets-le dans %s (%d/%d).",
+	FTALENT_NEXT_MANY_FMT = "Tu as %d points de talent non dépensés. Ensuite : %s (%d/%d).",
+	FTALENT_NO_DIR = "(Tu n'as choisi aucune voie, donc MH suit l'ordre pour monter de niveau.)",
+	FTALENT_BTN = "Talents",
+	FTALENT_PROT_SECOND = "Paladin : fais du deuxième jeu un jeu Protection, pour tanker. Tant que tu l'utilises, choisis la voie Protection (Ta classe), et MH nomme les talents Protection.",
+	FTALENT_SW = "Prochain point de talent dans « Fais ça maintenant »",
+	FTALENT_SW_DESC = "Quand tu as un point de talent non dépensé, « Fais ça maintenant » nomme le talent où le mettre, d'après un ordre pour monter de niveau dans la voie que tu as choisie. MH lit tes talents, donc il saute ce que tu as déjà. Désactivé : pas de ligne de talent.",
+	-- 21 Nov 2026 (mh-writer): Smart Buff macro. Classes = ChrClasses frFR Forever 1.60.1.71037; spells as in
+	-- ForeverHowToPlay_frFR; bénédiction intelligente / bloc de touches / mouseover as in this pack. "MH Smart Buff" = macro name, kept.
+	FSBUFF_SW = "Macro Smart Buff (souris d'abord, sinon cible)",
+	FSBUFF_SW_DESC = "Pour un Mage, un Prêtre ou un Druide : MH crée une macro, « MH Smart Buff », avec ton buff de classe (Intelligence des arcanes, Mot de pouvoir : Robustesse ou Marque du fauve). Elle buffe le joueur ami sous ta souris, sinon ta cible. Mets-la sur la barre que tu veux. MH la tient à jour, hors combat. Les Paladins ont pour cela la bénédiction intelligente. Le mode mouseover du bloc de touches fait la même chose sur ses propres touches.",
+	FSBUFF_ON_FMT = "Macro « %s » créée avec %s : glisse-la sur une barre. Elle buffe le joueur sous ta souris, sinon ta cible.",
+	FSBUFF_OFF = "Smart Buff est désactivé. La macro reste ; tu peux la supprimer toi-même.",
+	FSBUFF_NOCLASS = "Ta classe n'a pas de buff long pour les autres joueurs, donc pas de macro Smart Buff. Les Mages, Prêtres et Druides en ont un ; les Paladins utilisent la bénédiction intelligente.",
+	FSBUFF_NOMACRO = "Impossible de créer la macro maintenant (en combat, ou ta liste de macros est pleine). Réessaie hors combat.",
+	FSBUFF_NONE = "MH Smart Buff : survole un joueur ami, ou cible-le.",
+	FSBUFF_NOTYET_FMT = "MH Smart Buff : tu ne connais pas encore %s.",
 	FCITY_SUB_CRATES = "Les caisses scellées et les étiquettes d’envoi se livrent au représentant commercial de ta faction.",
 	FCRATE_SW = "Aide pour les Caisses détournées",
 	FCRATE_SW_DESC = "Dans l'infobulle d'une caisse : chaque lot accepté et combien tu en as (sacs et banque). Une caisse scellée ou une étiquette d’envoi dit où la livrer, et quand il en arrive une dans tes sacs, une petite fenêtre montre le chemin. Jamais en combat.",

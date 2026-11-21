@@ -585,6 +585,25 @@ for k, v in pairs({
 	-- segunda especialización de talento = spell 63624 (DB2 esES 1.60.1.71037).
 	FDONOW_WOLFSBANE_FMT = "%s te da una espada de dos manos, pero todavía no puedes usarla. Aprende primero Espadas de dos manos, con %s en %s.",
 	FDONOW_DUALSPEC = "Segunda especialización de talento: desde el nivel 40, tu instructor de clase vende un segundo juego de talentos, por ejemplo uno para subir de nivel y otro para tanquear. Los jugadores dicen que cuesta unos 50 de oro. Cambiar tarda 5 segundos, fuera de combate.",
+	-- 21 Nov 2026 (mh-writer): next talent point. Talentos = GlobalStrings TALENTS (esES Forever 1.60.1.71037); Protección as
+	-- in ForeverHowToPlay_esES; Haz esto ahora / Tu clase / camino as in this pack. Not checked by a native speaker.
+	FTALENT_NEXT_FMT = "Punto de talento: ponlo en %s (%d/%d).",
+	FTALENT_NEXT_MANY_FMT = "Tienes %d puntos de talento sin usar. Siguiente: %s (%d/%d).",
+	FTALENT_NO_DIR = "(No elegiste ningún camino, así que MH sigue el orden para subir de nivel.)",
+	FTALENT_BTN = "Talentos",
+	FTALENT_PROT_SECOND = "Paladín: haz que el segundo juego sea Protección, para tanquear. Mientras lo uses, elige el camino Protección (Tu clase), y MH nombra los talentos de Protección.",
+	FTALENT_SW = "Siguiente punto de talento en Haz esto ahora",
+	FTALENT_SW_DESC = "Cuando tienes un punto de talento sin usar, Haz esto ahora nombra el talento donde ponerlo, según un orden para subir de nivel del camino que elegiste. MH lee tus talentos, así que se salta lo que ya tienes. Desactivado: sin línea de talento.",
+	-- 21 Nov 2026 (mh-writer): Smart Buff macro. Clases = ChrClasses esES Forever 1.60.1.71037; spells as in
+	-- ForeverHowToPlay_esES; bendición inteligente / bloque de teclas / mouseover as in this pack. "MH Smart Buff" = macro name, kept.
+	FSBUFF_SW = "Macro Smart Buff (primero el ratón, si no el objetivo)",
+	FSBUFF_SW_DESC = "Para un Mago, Sacerdote o Druida: MH crea una macro, «MH Smart Buff», con tu buff de clase (Intelecto Arcano, Palabra de poder: entereza o Marca de lo salvaje). Da el buff al jugador amistoso bajo tu ratón o, si no, a tu objetivo. Ponla en la barra que quieras. MH la mantiene al día, fuera de combate. Los Paladines tienen para esto la bendición inteligente. El modo mouseover del bloque de teclas hace lo mismo en sus propias teclas.",
+	FSBUFF_ON_FMT = "Macro «%s» creada con %s: arrástrala a una barra. Da el buff al jugador bajo tu ratón o, si no, a tu objetivo.",
+	FSBUFF_OFF = "Smart Buff está desactivado. La macro se queda; puedes borrarla tú.",
+	FSBUFF_NOCLASS = "Tu clase no tiene un buff largo para otros jugadores, así que no hay macro Smart Buff. Los Magos, Sacerdotes y Druidas tienen uno; los Paladines usan la bendición inteligente.",
+	FSBUFF_NOMACRO = "No se pudo crear la macro ahora (en combate, o tu lista de macros está llena). Inténtalo de nuevo fuera de combate.",
+	FSBUFF_NONE = "MH Smart Buff: pon el ratón sobre un aliado, o selecciónalo.",
+	FSBUFF_NOTYET_FMT = "MH Smart Buff: aún no conoces %s.",
 	FCITY_SUB_CRATES = "Los cajones sellados y las etiquetas de envíos se entregan al representante comercial de tu bando.",
 	FCRATE_SW = "Ayuda con los Cajones saqueados",
 	FCRATE_SW_DESC = "En la descripción de un cajón: cada lote que acepta y cuántos tienes (bolsas y banco). Un cajón sellado o una etiqueta de envíos dice dónde entregarlo, y cuando llega uno a tus bolsas, una ventana pequeña muestra el camino. Nunca en combate.",

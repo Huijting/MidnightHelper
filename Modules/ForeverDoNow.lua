@@ -475,8 +475,21 @@ function Collect()
 	-- 21 Nov 2026 (Rob via sparring: "Heb ik een two-handed sword nodig?"; GO "Ja, voeg dat maar toe"): the Wolfsbane class
 	-- quest (Undead Paladin, item 267369 = a two-handed sword, GEMETEN by sparring's research) is no use without the skill.
 	-- From 18 (its first quest can be taken then) a tip, from 20 a to-do: learn Two-Handed Swords (spell 202) first.
-	if select(2, UnitClass("player")) == "PALADIN" and level >= 18 and ns.ForeverClassQuestList and IsPlayerSpell
-		and select(2, pcall(IsPlayerSpell, 202)) ~= true then
+	-- Known = C_SpellBook.IsSpellKnown, then IsPlayerSpell / IsSpellKnown (IsPlayerSpell is only a deprecation fallback
+	-- in Forever, GEMETEN in ForeverBlock.lua KnownId, 18 Nov 2026).
+	local function Knows(id)
+		for _, fn in ipairs({ C_SpellBook and C_SpellBook.IsSpellKnown or false, IsPlayerSpell or false,
+			IsSpellKnown or false }) do
+			if fn then
+				local okK, v = pcall(fn, id)
+				if okK and v == true then
+					return true
+				end
+			end
+		end
+		return false
+	end
+	if select(2, UnitClass("player")) == "PALADIN" and level >= 18 and ns.ForeverClassQuestList and not Knows(202) then
 		local okW, list = pcall(ns.ForeverClassQuestList)
 		local wolfName = ns:L("FCQ_CHAIN_PA_WOLFSBANE")
 		for _, e in ipairs(okW and type(list) == "table" and list or {}) do
@@ -500,8 +513,14 @@ function Collect()
 	-- 21 Nov 2026 (same GO): Dual Spec from level 40 (Blizzard). Known = the switch spell 63644 (Activate Secondary Spec;
 	-- the id is GEMETEN in DB2 by sparring's research, that the client reports it as known after learning = AFGELEID; /mh
 	-- donow check prints it). A tip: it never opens the window by itself.
-	if level >= 40 and IsPlayerSpell and select(2, pcall(IsPlayerSpell, 63644)) ~= true then
-		out.tips[#out.tips + 1] = ns:L("FDONOW_DUALSPEC")
+	if level >= 40 and not Knows(63644) then
+		-- Paladin (sparring 21 Nov: "vanaf 40 tip: tweede spec = Prot"): the second set as Protection; MH follows the
+		-- Protection order when the direction is Protection (ForeverTalentNext.lua).
+		local ds = ns:L("FDONOW_DUALSPEC")
+		if select(2, UnitClass("player")) == "PALADIN" then
+			ds = ds .. " " .. ns:L("FTALENT_PROT_SECOND")
+		end
+		out.tips[#out.tips + 1] = ds
 		-- Its own kind: the overview folds every "trainer" line into its one trainer row, which would drop this one.
 		item(out.tips[#out.tips], "dualspec", true)
 	end
@@ -994,7 +1013,12 @@ function ns.ForeverDoNowSlash(arg)
 		end
 		-- 21 Nov 2026: the two spells the Wolfsbane and Dual Spec lines look at.
 		local function knows(id)
-			return IsPlayerSpell and tostring(select(2, pcall(IsPlayerSpell, id))) or "no IsPlayerSpell"
+			local parts = {}
+			for _, p in ipairs({ { "SpellBook", C_SpellBook and C_SpellBook.IsSpellKnown }, { "IsPlayerSpell", IsPlayerSpell },
+				{ "IsSpellKnown", IsSpellKnown } }) do
+				parts[#parts + 1] = p[1] .. "=" .. (p[2] and tostring(select(2, pcall(p[2], id))) or "none")
+			end
+			return table.concat(parts, " ")
 		end
 		print(("  Two-Handed Swords (202) known: %s · Dual Spec switch (63644) known: %s"):format(knows(202), knows(63644)))
 		-- New spell on no bar (16 Nov 2026): the decision and why.

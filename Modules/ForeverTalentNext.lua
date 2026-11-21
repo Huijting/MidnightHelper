@@ -37,7 +37,64 @@ local DEFAULT = { PALADIN = 3 }
 
 --[[ ORDERS[class][band] = { source = "...", steps = { { node = id, spell = id, name = "English", to = ranks }, ... } }
 	`to` = the rank this step brings the talent to (a talent of 5 ranks in one go = one step with to = 5). ]]
-local ORDERS = {}
+-- Node and spell ids GEMETEN 21 Nov 2026 (mh-research, wago DB2 Forever 1.60.1.71037: SpellName → TraitDefinition →
+-- TraitNodeEntry → TraitNodeXTraitNodeEntry → TraitNode in tree 1100; MaxRanks match every step; the bouwchat re-checked
+-- 3 entries → nodes: 130436→105707, 137873→110875, 130352→105628). The order itself = the named guide (AFGELEID).
+local function S(node, spell, name, to)
+	return { node = node, spell = spell, name = name, to = to }
+end
+local ORDERS = {
+	PALADIN = {
+		-- Retribution (band 3): guided.news "WoW Forever: Dein Vergelter-Paladin Easy Leveln von 1 bis 60", Sascha
+		-- Asendorf, 21 Nov 2026 (12 Holy / 8 Protection / 31 Retribution at 60).
+		[3] = { source = "guided.news, Retribution levelling guide (21 Nov 2026)", steps = {
+			S(105707, 20060, "Deflection", 5),
+			S(105703, 20117, "Conviction", 3),
+			S(105705, 25956, "Improved Judgement", 2),
+			S(105699, 26022, "Pursuit of Justice", 2),
+			S(105696, 20375, "Seal of Command", 1),
+			S(105701, 1311074, "Sanctified Judgement", 2),
+			S(105697, 20111, "Two-Handed Weapon Specialization", 3),
+			S(105700, 1311087, "Sacred Arbiter", 1),
+			S(105701, 1311074, "Sanctified Judgement", 3),
+			S(105693, 20049, "Vengeance", 3),
+			S(105694, 20066, "Repentance", 1),
+			S(105706, 20101, "Benediction", 1),
+			S(110882, 1311084, "Champion of the Light", 5),
+			S(105692, 1310735, "Unsealed Wrath", 1),
+			S(113630, 20262, "Divine Strength", 5),
+			S(110871, 1310899, "Reverence", 2),
+			S(105334, 20224, "Improved Seals", 5),
+			S(105332, 20257, "Divine Intellect", 5),
+			S(105638, 20189, "Precision", 3),
+		} },
+		-- Protection (band 2): stillsixty.com "Protection Paladin Guide", updated 17 Nov 2026 (0 / 42 / 9 at 60). Steps 1-14
+		-- reach Shieldsworn at 40 (its gate: 30 points in the Protection tab, TraitCond 50987, GEMETEN); the rest is the
+		-- guide's table after 40.
+		[2] = { source = "stillsixty.com, Protection Paladin guide (17 Nov 2026)", steps = {
+			S(105626, 20127, "Redoubt", 5),
+			S(105638, 20189, "Precision", 3),
+			S(105632, 1224697, "Sacred Duty", 2),
+			S(105625, 1311015, "Templar's Bulwark", 1),
+			S(110874, 20150, "Shield Specialization", 2),
+			S(105630, 20143, "Toughness", 2),
+			S(105634, 20468, "Improved Righteous Fury", 3),
+			S(110878, 1310994, "Swift Judgement", 1),
+			S(105630, 20143, "Toughness", 3),
+			S(105628, 20925, "Holy Shield", 1),
+			S(105627, 20177, "Reckoning", 5),
+			S(110879, 1311034, "Iron Creed", 3),
+			S(105630, 20143, "Toughness", 4),
+			S(110875, 1328544, "Shieldsworn", 1),
+			S(105630, 20143, "Toughness", 5),
+			S(105636, 20096, "Anticipation", 5),
+			S(105332, 20257, "Divine Intellect", 5),
+			S(105706, 20101, "Benediction", 5),
+			S(105705, 25956, "Improved Judgement", 2),
+			S(105703, 20117, "Conviction", 2),
+		} },
+	},
+}
 ns.FOREVER_TALENT_ORDERS = ORDERS -- the offline check reads it
 
 function ns.IsForeverTalentNextOn()

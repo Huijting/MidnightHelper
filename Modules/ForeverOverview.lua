@@ -1330,6 +1330,10 @@ local QUIET = {
 	Q("FTALENT_SW", "FTALENT_SW_DESC", {
 		get = function() return ns.IsForeverTalentNextOn and ns.IsForeverTalentNextOn() end,
 		set = function(on) if ns.SetForeverTalentNext then ns.SetForeverTalentNext(on) end end }),
+	-- 21 Nov 2026 (Rob via sparring: "Ja, wou het maar."): Smart Buff for Mage, Priest and Druid (ForeverSmartBuff.lua).
+	Q("FSBUFF_SW", "FSBUFF_SW_DESC", {
+		get = function() return ns.IsForeverSmartBuffOn and ns.IsForeverSmartBuffOn() end,
+		set = function(on) if ns.SetForeverSmartBuff then ns.SetForeverSmartBuff(on) end end }),
 	Q("FBLESS_BTN_SW", "FBLESS_BTN_SW_DESC", {
 		get = function() return ns.IsForeverSmartBlessOn and ns.IsForeverSmartBlessOn() end,
 		set = function(on) if ns.SetForeverSmartBless then ns.SetForeverSmartBless(on) end end }),

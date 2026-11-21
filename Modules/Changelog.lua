@@ -17,6 +17,10 @@ local CHANGELOG_ENTRIES = {
 			"CHANGELOG_570_8",
 			"CHANGELOG_570_9",
 			"CHANGELOG_570_10",
+			-- 21 Nov 2026: next talent, level and tank, Smart Buff (Rob: release after "De talententip ... en de MI Smart Buff").
+			"CHANGELOG_570_11",
+			"CHANGELOG_570_12",
+			"CHANGELOG_570_13",
 		},
 	},
 	{

@@ -28,6 +28,47 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 21 nov 2026 — Forever: volgend talentpunt in Do this now
+- Tag + commit:   geen tag (commit: zie git log, "next talent")
+- Status:         alleen op main
+- Mag op de site: nee (in bouw, niet getest)
+- Speler ziet:    met een vrij talentpunt zegt Do this now in welk talent het moet, met de tooltip; MH leest je talenten
+                  en slaat over wat je al hebt. Nu voor Paladins (Retribution en Protection), andere classes volgen.
+- Knoplabels:     `FTALENT_SW`, `FTALENT_BTN`
+- Commando's:     `/mh talent`
+- Spel:           Forever
+
+## 21 nov 2026 — Forever: Smart Buff (Mage, Priest, Druid)
+- Tag + commit:   geen tag (commit: zie git log, "Smart Buff")
+- Status:         alleen op main
+- Mag op de site: nee (in bouw, niet getest)
+- Speler ziet:    macro "MH Smart Buff" zet Arcane Intellect / Power Word: Fortitude / Mark of the Wild op de speler onder
+                  je muis, anders op je doelwit. Standaard uit.
+- Knoplabels:     `FSBUFF_SW`
+- Commando's:     `/mh smartbuff [on|off]`
+- Spel:           Forever
+
+## 21 nov 2026 — Forever: level en tank, respec en Dual Spec, Wolfsbane
+- Tag + commit:   geen tag (commit: zie git log, "level and tank plans")
+- Status:         alleen op main
+- Mag op de site: nee (in bouw, niet getest)
+- Speler ziet:    How you play begint met een plan om te levelen en tanken (Paladin, Warrior, Druid) en legt voor elke
+                  class talenten resetten en Dual Spec uit; Undead Paladins horen eerst Two-Handed Swords te leren voor
+                  Wolfsbane. Tankstats Paladin: Stamina, dan Intellect.
+- Knoplabels:     `FDONOW_WOLFSBANE_FMT`, `FDONOW_DUALSPEC`
+- Commando's:     —
+- Spel:           Forever
+
+## 21 nov 2026 — Forever: zoeken springt naar de schakelaar + "for WoW Forever"
+- Tag + commit:   geen tag (commit edb8bc3)
+- Status:         alleen op main
+- Mag op de site: nee (nog niet uit) *(getest door Rob)*
+- Speler ziet:    klik op een schakelaar in de zoekresultaten: Quiet helpers gaat open en die schakelaar licht op.
+                  Onder de naam van het overzicht staat "for WoW Forever".
+- Knoplabels:     `FOV_SUBTITLE`
+- Commando's:     —
+- Spel:           Forever
+
 ## 21 nov 2026 — Forever: Waylaid Crates
 - Tag + commit:   geen tag (commit: zie git log, "Forever: Waylaid Crates")
 - Status:         alleen op main

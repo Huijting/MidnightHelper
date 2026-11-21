@@ -17,11 +17,28 @@ Daarbij gerepareerd: esES Wolfsbane = "Aterralobos" (Wowhead Forever); Archibald
 "Арчибальд" (in de Wolfsbane-regel; de Find-rij van de wapenmeester toont nog overal "Archibald"). ⚠️ esES SpellName
 202 zegt "Mazas de dos manos" (Blizzard-fout?); de teksten gebruiken "Espadas de dos manos" (SkillLine 55, esMX).
 
-🎯 **Volgend talentpunt in Do this now (21 nov, IN BOUW)** — Rob via sparring, letterlijk: *"Ja, doe dat maar"* op
+✨ **Smart Buff-macro voor Mage, Priest, Druid (21 nov)** — Rob via sparring: *"Kunnen wij ook een soort mouse-over macro
+maken voor de andere buffs, voor alle andere classes."* GO letterlijk: *"Ja, wou het maar."* `Modules/ForeverSmartBuff.lua`:
+macro "MH Smart Buff" = `#showtooltip` + `/cast [@mouseover,help,nodead][@target,help,nodead] <clientnaam>` + een
+/run-hintregel als niemand vriendelijk onder de muis/doelwit is (valt weg als de macro > 255 tekens wordt). EditMacro
+buiten combat (PLAYER_ENTERING_WORLD, PLAYER_REGEN_ENABLED, SPELLS_CHANGED). Buffs GEMETEN in ns.FOREVER_SPELL_IDS:
+Arcane Intellect, Power Word: Fortitude, Mark of the Wild. Warlock/Shaman (alleen water-spells), Warrior/Rogue/Hunter:
+geen macro, de schakelaar zegt het. Paladin = Smart Bless. Overlap: ForeverBlock MO_HELP (mouseover-stand van het
+toetsenblok) heeft deze buffs al op zijn eigen toetsen. Schakelaar FSBUFF_SW (standaard uit), `/mh smartbuff [on|off]`.
+Offline test GESLAAGD. NIET gemeten: één spell na twee voorwaarden in Forever (AFGELEID, zelfde syntax).
+🔧 Daarbij: Wolfsbane/Dual Spec-check gebruikt nu C_SpellBook.IsSpellKnown eerst (IsPlayerSpell is in Forever alleen
+een deprecation-fallback, ForeverBlock.lua KnownId); `/mh donow check` toont alle drie.
+
+🎯 **Volgend talentpunt in Do this now (21 nov, GEBOUWD voor Paladin)** — Rob via sparring, letterlijk: *"Ja, doe dat maar"* op
 "'Do this now' zegt bij elk nieuw level welk talent je nu moet kiezen". `Modules/ForeverTalentNext.lua`: alleen bij een
 vrij punt (GetTreeCurrencyInfo tree 1100, valuta 3820), richting → volgorde, eerste stap die nog niet af is
 (GetNodeInfo.ranksPurchased). Schakelaar FTALENT_SW, `/mh talent`, knop opent het talentvenster (AFGELEID). Offline test
-GESLAAGD met een nepvolgorde. ORDERS nog LEEG (mh-research zoekt de Paladin-volgordes) → nu stil.
+GESLAAGD (nepvolgorde + controle op de echte data). ORDERS Paladin: Ret (band 3) = guided.news 21 nov, 19 stappen tot 60;
+Prot (band 2) = stillsixty.com 17 nov, 20 stappen (Shieldsworn = stap 14, op 40). Node/spell-ids GEMETEN door
+mh-research in DB2 71037, 3 entries→nodes door de bouwchat nagemeten. Geen richting = Ret + zin "(You chose no
+direction …)". Holy = geen volgorde → stil. Dual Spec-tip zegt bij Paladin: tweede set Protection + richting
+Protection kiezen. 🔜 Andere classes: zelfde vorm, per class mh-research (nog NIET gedaan). NIET gemeten in het spel:
+of GetTreeCurrencyInfo(cfg, 1100) de vrije punten geeft (anders stil; `/mh talent` zegt waarom).
 
 🔎 **Zoeken springt naar de schakelaar + "for WoW Forever" (21 nov)** — Rob via sparring, letterlijk: *"Wat ik dan krijg
 is het lange overzicht. Dan moet ik eerst gaan scrollen naar beneden en kijken waar staat hij ook weer. ... Dat moet

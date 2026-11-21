@@ -164,6 +164,8 @@ Modules\ForeverCamp.lua
 Modules\ForeverLegacy.lua
 # Next talent point (Rob, 21 Nov 2026: "Ja, doe dat maar"): Do this now names the next talent of your order.
 Modules\ForeverTalentNext.lua
+# Smart Buff (Rob, 21 Nov 2026: "Ja, wou het maar."): one mouse-first macro for the class buff (Mage, Priest, Druid).
+Modules\ForeverSmartBuff.lua
 Modules\MissingBuff.lua
 # Which quest reward to take, and why (Rob, 7 Nov 2026: "doe de quest beloning tip maar ook").
 Modules\ForeverMainStats.lua
