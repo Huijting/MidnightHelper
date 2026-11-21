@@ -54,7 +54,8 @@ ns.FOREVER_MAIN_STATS = {
 local BY_TREE = {
 	PALADIN = {
 		[1] = { role = "heal", main = { "INTELLECT", "SPIRIT" }, stamTie = true },
-		[2] = { role = "tank", main = { "STAMINA", "STRENGTH" }, stamTie = false },
+		-- Prot: see TANK.PALADIN below (21 Nov 2026: Stamina, then Intellect).
+		[2] = { role = "tank", main = { "STAMINA", "INTELLECT" }, stamTie = false },
 		-- Ret: Icy Veins Int > Str, SixtySim Str first, Blizzard silent → equal.
 		[3] = { role = "melee", main = { "STRENGTH", "INTELLECT" }, stamTie = true, equal = true },
 	},
@@ -91,7 +92,13 @@ local BY_TREE = {
 -- Second line in "Do this now": when you tank.
 local TANK = {
 	WARRIOR = { main = { "STAMINA", "STRENGTH" }, equal = true }, -- guides disagree (Icy Veins leveling: Str first)
-	PALADIN = { main = { "STAMINA", "STRENGTH" } },
+	-- 21 Nov 2026 (Rob via sparring: "welke talentpunten" / tanking a Paladin; GO "Ja, voeg dat maar toe"): was Stamina,
+	-- then Strength (16 Nov research, no guide named for that row). Read today: wowforeverbuilder.com Protection page
+	-- (talent snapshot 3 Nov, client 1.60.1.70753) "Defense to 440, Stamina, Spell power, Intellect, Block value, Armor",
+	-- no Strength, and "Spell power raises Consecration and Holy Shield threat; it is a tank stat for you". Mobalytics Prot
+	-- (8 Nov, per sparring's mh-research report; 403 for our fetch): from 20 Spell Power, Stamina, Intellect, Strength.
+	-- Icy Veins: 403, not read. So: Stamina, then Intellect (MH has no Spell Power / Defense stat in this table).
+	PALADIN = { main = { "STAMINA", "INTELLECT" } },
 	DRUID = { main = { "STAMINA", "AGILITY" } },
 }
 

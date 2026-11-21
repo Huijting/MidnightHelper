@@ -2,6 +2,17 @@
 
 ## ▶▶ VOLGENDE BOUWCHAT: Forever-overzicht "D" — stap 1 en 3 gebouwd; stap 2 wacht op Robs screenshots (20 nov, avond)
 
+🛡️ **Level als X, tank als Y + respec/Dual Spec + Wolfsbane + tankstats (21 nov)** — Rob via sparring, GO letterlijk:
+*"Ja, voeg dat maar toe en laat het maar uitvoeren ook. Ik vind dat wel iets belangrijks eigenlijk."* Bronnen + G/A per
+regel: `docs/forever/TANK_LEVELEN_2026-11-21.md`. Gebouwd: `PLANS` in ForeverHowToPlay.lua (Paladin/Warrior/Druid, altijd
+open bovenaan How you play, ook op de overzichtspagina als kind "role"); COMMON-sectie 4 "Talents: reset and Dual Spec"
+(COMMON valt nu PER SECTIE terug op Engels, zodat een nieuwe sectie ook zonder vertaling verschijnt). Do this now:
+`FDONOW_WOLFSBANE_FMT` (Paladin, Wolfsbane-keten niet klaar, spell 202 niet bekend; tip 18-19, to-do vanaf 20; knop =
+Find op Two-Handed Swords + pijl naar de dichtste wapenmeester) en `FDONOW_DUALSPEC` (tip vanaf 40 zolang 63644 niet
+bekend; knop naar de class-trainer). `/mh donow check` print 202 en 63644. Tankstats Paladin: Stamina > Intellect (was
+> Strength). GEMETEN: wissel 63644/63645 = 5 s (SpellCastTimes 6). NIET gemeten: of IsPlayerSpell(63644) na het kopen
+true geeft; of de druid-klassequest Growl ook geeft. Vertalingen: mh-writer bezig (bouwchat 21-11).
+
 🔎 **Zoeken springt naar de schakelaar + "for WoW Forever" (21 nov)** — Rob via sparring, letterlijk: *"Wat ik dan krijg
 is het lange overzicht. Dan moet ik eerst gaan scrollen naar beneden en kijken waar staat hij ook weer. ... Dat moet
 volgens mij beter kunnen."* en *"waarom staat er niet onder Forever versie ... Iets dat duidelijk maakt dat het echt voor

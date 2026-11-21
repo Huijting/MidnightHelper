@@ -86,8 +86,19 @@ Upgrade / Not now / Never). Afgevinkt met "(Rob, 19 nov)". De hulpregels ("typ /
 - [x] ✅ (Rob in het spel, 21 nov, Paladin zonder Herbalism, screenshot: rode ster) Zonder beroep: rood. → Rob daarna:
       *"eigenlijk zouden we die dingen alleen maar moeten kunnen zien op het moment dat we het ook echt hebben"*, en
       *"Van heb je beroep wel mijn skill te laag, dan blijft hij rood. En zo hoort het ook."*
-- [ ] (21 nov, na Robs wens) Zonder het beroep: GEEN gloed van MH meer (ook geen rode). Met het beroep maar skill te laag
-      (bv. Tin met Mining onder 65): rood. `/mh sparkle`: "reason: skipped: no Herbalism".
+- [ ] (21 nov, na Robs wens) Zonder het beroep: GEEN gloed van MH meer (ook geen rode). `/mh sparkle`: "reason: skipped:
+      no Herbalism".
+- [x] ✅ GEMETEN (Rob in het spel, Forever, 21 nov, Paladin met lage Mining, ertsader, waarschijnlijk Tin): MH-ster ROOD +
+      houweel-icoon, en het spel zelf zegt in rood "Requires Mining 65". Klopt met de tabel (Tin 65).
+- [ ] (21 nov) Paladin, Warrior of Druid: open How you play (tab Your class). Bovenaan staat een blok "Level as
+      Retribution, tank as Protection" (Paladin) of "Level and tank as a …", altijd helemaal open. Onderaan staat het
+      stuk "Talents: reset and Dual Spec".
+- [ ] (21 nov) Paladin (Undead), level 18-19, Two-Handed Swords nog niet geleerd: Do this now heeft een tip "Wolfsbane …
+      Learn Two-Handed Swords first, from Archibald in Undercity". Vanaf 20 staat hij bij de taken. De knop "Show the way"
+      opent Find op Two-Handed Swords en zet de pijl.
+- [ ] (21 nov) Een character op level 40 of hoger zonder Dual Spec: tip "Dual Spec: from level 40 …". Na het kopen moet de
+      tip weg zijn. Blijft hij staan? `/mh donow check` → regel "Dual Spec switch (63644) known:" — zeg wat er staat.
+- [ ] (21 nov) Paladin met de richting Protection: de stat-regel zegt nu "Stamina, then Intellect" (was Strength).
 - [ ] (21 nov) Zoekbalk in het Forever-overzicht: typ `spar`, klik "Quest items sparkle …". De pagina Quiet helpers gaat
       open, de schakelaar staat in beeld en licht 2 seconden goud op. Typ ook `ore`, `herb` en `glow`: je ziet de twee
       erts/kruiden-schakelaars (het icoon van het spel en de gloed van MH).

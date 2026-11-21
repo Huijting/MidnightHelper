@@ -307,7 +307,19 @@ local ACTS = {
 	end, label = "FPROF_TITLE" },
 	dungeons = { fn = function() if ns.ShowForeverDungeons then ns.ShowForeverDungeons() end end, label = "FDUNG_BTN" },
 	legacy = { page = "legacy", label = "FOV_TAB_LEGACY" },
+	-- 21 Nov 2026 (Wolfsbane): Find on Two-Handed Swords (spell 202) with the arrow to the nearest weapon master.
+	twohand = { fn = function()
+		if ns.ShowForeverFind then
+			ns.ShowForeverFind("weapon", 202)
+		end
+		local rows = ns.ForeverWeaponFindRows and ns.ForeverWeaponFindRows(202)
+		if type(rows) == "table" and rows[1] and rows[1].go then
+			rows[1].go()
+		end
+	end, label = "FCQ_BTN" },
 	camp = { page = "camp", label = "FOV_TAB_CAMP" },
+	-- 21 Nov 2026: Dual Spec is bought from your class trainer.
+	dualspec = { fn = function() if ns.ForeverTrainerGo then ns.ForeverTrainerGo() end end, label = "HOME_FOREVER_BTN_GO" },
 }
 ns.FOREVER_DONOW_ACTS = ACTS
 
@@ -448,6 +460,36 @@ function Collect()
 		out.now[#out.now + 1] = s
 		item(s, "weapons")
 		out.actions.weapons = true
+	end
+	-- 21 Nov 2026 (Rob via sparring: "Heb ik een two-handed sword nodig?"; GO "Ja, voeg dat maar toe"): the Wolfsbane class
+	-- quest (Undead Paladin, item 267369 = a two-handed sword, GEMETEN by sparring's research) is no use without the skill.
+	-- From 18 (its first quest can be taken then) a tip, from 20 a to-do: learn Two-Handed Swords (spell 202) first.
+	if select(2, UnitClass("player")) == "PALADIN" and level >= 18 and ns.ForeverClassQuestList and IsPlayerSpell
+		and select(2, pcall(IsPlayerSpell, 202)) ~= true then
+		local okW, list = pcall(ns.ForeverClassQuestList)
+		local wolfName = ns:L("FCQ_CHAIN_PA_WOLFSBANE")
+		for _, e in ipairs(okW and type(list) == "table" and list or {}) do
+			if e.chain == wolfName and e.state ~= "done" then
+				-- Archibald (npc 11870) teaches it in Undercity (map 1458, ForeverWeapons.lua); the client names the city.
+				local info = C_Map and C_Map.GetMapInfo and C_Map.GetMapInfo(1458)
+				local s = ns:L("FDONOW_WOLFSBANE_FMT"):format(e.chain, "Archibald", info and info.name or "Undercity")
+				if level >= 20 then
+					out.now[#out.now + 1] = s
+					item(s, "twohand")
+				else
+					out.tips[#out.tips + 1] = s
+					item(s, "twohand", true)
+				end
+			end
+		end
+	end
+	-- 21 Nov 2026 (same GO): Dual Spec from level 40 (Blizzard). Known = the switch spell 63644 (Activate Secondary Spec;
+	-- the id is GEMETEN in DB2 by sparring's research, that the client reports it as known after learning = AFGELEID; /mh
+	-- donow check prints it). A tip: it never opens the window by itself.
+	if level >= 40 and IsPlayerSpell and select(2, pcall(IsPlayerSpell, 63644)) ~= true then
+		out.tips[#out.tips + 1] = ns:L("FDONOW_DUALSPEC")
+		-- Its own kind: the overview folds every "trainer" line into its one trainer row, which would drop this one.
+		item(out.tips[#out.tips], "dualspec", true)
 	end
 	if ns.GetForeverMissingBuffs and ns.MissingBuffSentence then
 		local ok, list = pcall(ns.GetForeverMissingBuffs)
@@ -936,6 +978,11 @@ function ns.ForeverDoNowSlash(arg)
 			local tank = ns.ForeverTankStatDef and ns.ForeverTankStatDef(token)
 			print("  tank line: " .. (tank and table.concat(tank.main, " > ") or "none (this class cannot tank)"))
 		end
+		-- 21 Nov 2026: the two spells the Wolfsbane and Dual Spec lines look at.
+		local function knows(id)
+			return IsPlayerSpell and tostring(select(2, pcall(IsPlayerSpell, id))) or "no IsPlayerSpell"
+		end
+		print(("  Two-Handed Swords (202) known: %s · Dual Spec switch (63644) known: %s"):format(knows(202), knows(63644)))
 		-- New spell on no bar (16 Nov 2026): the decision and why.
 		local noBar = NoBarSpells()
 		print(("  new spells on no bar: %s; key block placed: %s (then MH stays silent: the block asks itself)"):format(

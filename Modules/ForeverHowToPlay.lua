@@ -64,6 +64,15 @@ local COMMON = {
 - **Example, professions:** **Working Overtime** (more skill-ups) and **Bountiful Harvest** (Scarce materials more often from Mining, Herbalism and Skinning).
 - **Dedicated Study** is a button, not a passive perk: a 25-second cast, then 23 hours wait. It raises your lowest tradeskill by 1.
 - **/mh legacy** shows how many points MH can read.]] },
+	-- 21 Nov 2026 (Rob: "welke talentpunten ... ook bij andere"; GO "Ja, voeg dat maar toe"). Blizzard: Dual Spec at 40 and
+	-- "the price climbs quickly and only decreases once per week". GEMETEN DB2 1.60.1.71037: spells 63624/63644/63645,
+	-- GlobalStrings TALENT_SPEC_SECONDARY "Secondary Talents", switch cast 5 s (SpellMisc → SpellCastTimes 6 = 5000 ms).
+	-- Players: 50 gold (Wowhead news 11 Nov), respec 1, 5, 10 gold (timesaver.gg 16 Nov, realmfirst.net 17 Nov).
+	{ "Talents: reset and Dual Spec", [[
+- **Reset your talents** at your class trainer: talk to them and pick the talent option. Then spend your points again. Players say it costs 1 gold the first time, then 5, then 10, and more after that. Blizzard says the price climbs quickly and goes down once a week.
+- **Dual Spec:** from level 40 your class trainer sells a second set of talents. In the game it is called **Secondary Talents**. Players say it costs 50 gold; Blizzard gave no price.
+- **Switching** between your two sets takes 5 seconds and does not work in a fight.
+- **Why:** level with one set and tank or heal with the other. A Paladin levels as Retribution and tanks as Protection, a Druid levels as a cat and heals as Restoration.]] },
 }
 
 local CLASSES = {
@@ -1048,6 +1057,38 @@ From level 1 (Seal of Righteousness); Judgement comes at 4, Holy Strike at 6. Th
 }
 ns.FOREVER_HOWTOPLAY_ROLES = ROLES -- the offline check reads it
 
+--[[
+	21 Nov 2026 — "Level as X, tank as Y" (Rob via sparring: "Ik ben nu een paladin aan het levelen ... als tank ... Heb ik
+	een two-handed sword nodig? ... een one-handed en een shield? ... welke talentpunten ... ook bij andere ... zoals een
+	druid"; GO: "Ja, voeg dat maar toe en laat het maar uitvoeren ook. Ik vind dat wel iets belangrijks eigenlijk.").
+	Only for the three classes that can tank (ChrClasses.RolesMask, GEMETEN 16 Nov). Always shown in full, whatever the
+	direction: it is the answer to "which one do I level with". Levels of spells and talents = the role texts above
+	(GEMETEN in DB2 when those were written); which dungeon at which level and "the guides say" = AFGELEID (guides).
+	Translations: ns.FOREVER_HOWTOPLAY_L[code].PLANS[class] = { title, body }; missing = English.
+]]
+local PLANS = {
+	PALADIN = { title = "Level as Retribution, tank as Protection", body = [[
+- **Levelling:** the guides call Retribution the fastest way to level alone: one slow **two-handed weapon** and Seal of Righteousness, later Seal of Command (20, a talent). Spend your talent points in Retribution.
+- **Tanking a dungeon** works from your first one, without a respec: Ragefire Chasm for the Horde (from level 13), the Hall of Thanes for the Alliance (about 13): Righteous Fury and Seal of Fury both come at 10. Keep a **one-handed weapon and a shield in your bags**. Before the dungeon: swap to them, put Righteous Fury on (block D) and Seal of Fury (**F**). After it: back to the two-hander, and Righteous Fury off (right-click it at the top right). With Righteous Fury on you pull the enemies away from your group.
+- **When it gets easy:** at 30 with Holy Shield (a Protection talent), and properly at 40 with Shieldsworn. If you want to do that, you need Protection talents: **Dual Spec** (from 40) gives you a second set, so you can level as Retribution and tank as Protection. See "Talents: reset and Dual Spec" below.
+- **Stats for tanking:** Stamina first. The guides do not agree on what comes next: wowforeverbuilder says Defense, Stamina, spell power, Intellect (no Strength), another guide puts spell power and Intellect above Strength. Spell power makes Consecration and Holy Shield hold enemies better.
+- **Two-handed sword from Wolfsbane** (the Undead class quest at 20): learn Two-Handed Swords first, from Archibald in Undercity. MH tells you in Do this now.]] },
+	WARRIOR = { title = "Level and tank as a Warrior", body = [[
+- **Levelling:** the guides disagree. Most say Protection levels fastest: a two-handed weapon until Revenge at 14, then a **one-handed weapon and a shield**. One guide finds Protection slower alone. Arms or Fury work too; then keep a one-handed weapon and a shield in your bags for tanking.
+- **Tanking a dungeon** works from your first one: Ragefire Chasm (Horde) from level 13, the Hall of Thanes (Alliance) from about 13, the Deadmines from 16, Wailing Caverns from 17. The class quest at 10 gives you Defensive Stance, Taunt and Sunder Armor. In Forever, Defensive Stance makes a lot more threat than in the old game, so enemies stay on you.
+- **When it gets easy:** at 14-16 with Revenge and Shield Block, and properly at 40 with Shield Slam (a talent) and Plate Mail.
+- **Talents:** with Protection talents you level and tank with one set. Did you level as Arms or Fury? Then **Dual Spec** (from 40) gives you a second set for tanking. See "Talents: reset and Dual Spec" below.
+- **Stats for tanking:** Stamina first. The guides disagree on the rest: one puts Defense last, another wants Defense up to 440 early. For threat: hit and expertise.]] },
+	DRUID = { title = "Level and tank as a Druid", body = [[
+- **Levelling:** the guides pick Feral: the bear from level 10, the cat from 20. Feral talents work for both, so you level as a cat and tank as a bear with the same talents. You need no shield and no second weapon.
+- **Your weapon counts in a form.** Blizzard: in Bear and Cat Form your normal hits do the damage of the weapon you hold. So keep the best two-handed staff or mace, also for tanking.
+- **Tanking a dungeon** works from your first one: Ragefire Chasm for the Horde (from level 13), the Hall of Thanes for the Alliance (about 13). Bear Form comes from the class quest at 10, with Growl and Maul (one guide says only Maul: check your spells). In Forever, Bear Form makes a lot more threat than in the old game.
+- **When it gets easy:** Swipe at 16 (more enemies at once), Lacerate at 25 (a talent), and properly at 40 with Dire Bear Form and Primal Bite (a talent).
+- **Healing in a group?** That needs Restoration talents and Intellect gear: **Dual Spec** (from 40) gives you a second set. See "Talents: reset and Dual Spec" below.
+- **Stats for tanking:** the guides disagree. For surviving: armor, then Defense up to 440, then Stamina, then Agility. For threat: weapon damage, then Agility, then Strength. Another guide says weapon damage, Strength, Agility while you level.]] },
+}
+ns.FOREVER_HOWTOPLAY_PLANS = PLANS -- the offline check reads it
+
 local GOLD, HEAD = "|cffffd100", "|cffffcc66"
 local GREY_NOTE = "|cffb0b0b0"
 
@@ -1181,12 +1222,25 @@ local function TextFor(token)
 	else
 		parts[#parts + 1] = ns:L("FHOWTO_NOT_WRITTEN_FMT"):format(ClassName(token))
 	end
-	for _, sec in ipairs((tr and tr.COMMON) or COMMON) do
+	-- Per section, English when a language does not have it yet (21 Nov 2026: "Talents: reset and Dual Spec" is new).
+	for i, en in ipairs(COMMON) do
+		local sec = (tr and tr.COMMON and tr.COMMON[i]) or en
 		parts[#parts + 1] = HEAD .. sec[1] .. "|r\n" .. Format(sec[2])
 	end
 	return table.concat(parts, "\n\n")
 end
 ns.ForeverHowToPlayText = TextFor
+
+--- 21 Nov 2026: the "level as X, tank as Y" block for this class in this client's language, or nil (classes that cannot
+--- tank). Returns title, body (raw).
+local function PlanFor(token)
+	local tr = Translated()
+	local p = (tr and tr.PLANS and tr.PLANS[token]) or PLANS[token]
+	if not p then
+		return nil
+	end
+	return p.title, p.body
+end
 
 --- 17 Nov 2026 (overview pages Camping and Legacy, ForeverOverview.lua): one shared section in this client's language,
 --- by its English title ("Camping", "Legacy Points"). Returns title, body (raw: **bold** marks, "- " lines) or nil.
@@ -1258,6 +1312,10 @@ function ns.ForeverHowToSections(token, allRoles)
 		local first, rest = block:match("^([^\n]*)\n?(.*)$")
 		out[#out + 1] = { title = (first:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", "")), body = rest, kind = "dir" }
 	end
+	local planTitle, planBody = PlanFor(token)
+	if planTitle then
+		out[#out + 1] = { title = planTitle, body = planBody, kind = "role" }
+	end
 	local tr = Translated()
 	local list = (tr and tr.ROLES and tr.ROLES[token]) or ROLES[token] or {}
 	local band = ns.GetForeverDirection and ns.GetForeverDirection()
@@ -1299,9 +1357,9 @@ function ns.ForeverHowToSections(token, allRoles)
 	else
 		out[#out + 1] = { title = ClassName(token), body = ns:L("FHOWTO_NOT_WRITTEN_FMT"):format(ClassName(token)), kind = "class" }
 	end
-	local common = (tr and tr.COMMON) or COMMON
-	for i, sec in ipairs(common) do
-		local en = COMMON[i] and COMMON[i][1]
+	for i, enSec in ipairs(COMMON) do
+		local sec = (tr and tr.COMMON and tr.COMMON[i]) or enSec
+		local en = enSec[1]
 		if en ~= "Camping" and en ~= "Legacy Points" then
 			out[#out + 1] = { title = sec[1], body = sec[2], kind = "common" }
 		end
@@ -1340,8 +1398,10 @@ local function Body(token)
 		local hasDir = ns.GetForeverDirection and ns.GetForeverDirection()
 		win.roles:SetText(ns:L(not showAllRoles and "FHOWTO_ROLES_SHOW" or (hasDir and "FHOWTO_ROLES_HIDE" or "FHOWTO_ROLES_FOLD")))
 	end
-	return (block and (block .. "\n\n") or "") .. (roles and (roles .. "\n\n") or "") .. (cq and (cq .. "\n\n") or "")
-		.. TextFor(token)
+	local planTitle, planBody = PlanFor(token)
+	local plan = planTitle and (HEAD .. planTitle .. "|r\n" .. Format(planBody)) or nil
+	return (block and (block .. "\n\n") or "") .. (plan and (plan .. "\n\n") or "") .. (roles and (roles .. "\n\n") or "")
+		.. (cq and (cq .. "\n\n") or "") .. TextFor(token)
 end
 
 local function Show(token)

@@ -26,6 +26,15 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 
 ## Open — wacht op Rob
 
+### Forever: level als X, tank als Y; respec en Dual Spec voor elke class (vraag van Rob, 21 nov) — ✅ JA + GEBOUWD 21 nov (wacht op Robs test)
+- Bron: Rob 21 nov via sparring: *"Ik ben nu een paladin aan het levelen ... als tank ... Heb ik een two-handed sword
+  nodig? ... een one-handed en een shield? ... welke talentpunten ... ook bij andere ... zoals een druid"*. GO, letterlijk:
+  *"Ja, voeg dat maar toe en laat het maar uitvoeren ook. Ik vind dat wel iets belangrijks eigenlijk."*
+- Gebouwd: blok "level en tank" voor Paladin, Warrior, Druid in How you play; sectie "Talents: reset and Dual Spec" voor
+  elke class; Do this now-tips Wolfsbane (eerst Two-Handed Swords bij Archibald) en Dual Spec (vanaf 40); tankstats Paladin
+  nu Stamina > Intellect. Bronnen: `docs/forever/TANK_LEVELEN_2026-11-21.md`.
+- Spel: F. Site: nog niet (in bouw, niet getest).
+
 ### Forever-overzicht: zoektreffer springt naar de schakelaar + ondertitel "for WoW Forever" (wens van Rob, 21 nov) — ✅ JA + GEBOUWD 21 nov (wacht op Robs test)
 - Bron: Rob 21 nov via sparring (GO), letterlijk: *"Dan moet ik eerst gaan scrollen naar beneden en kijken waar staat hij
   ook weer. ... Dat moet volgens mij beter kunnen."* en *"Iets dat duidelijk maakt dat het echt voor Forever is."*
