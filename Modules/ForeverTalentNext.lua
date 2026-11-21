@@ -152,6 +152,118 @@ local ORDERS = {
 			S(104756, 17485, "Ancestral Knowledge", 5),
 		} },
 	},
+	-- Warrior, tree 1117 (mh-research 21 Nov 2026, DB2 71037; tab 1 Arms, 2 Fury, 3 Protection; edges and row gates
+	-- checked; no talent before its SpellLevels; bouwchat re-checked 130706→105976, 130671→105941).
+	WARRIOR = {
+		-- Protection (band 3): timesaver.gg Protection calculator, order from Maxroll (4 Nov 2026), checked on the live
+		-- trees 13 Nov (10/10/31).
+		[3] = { source = "timesaver.gg / Maxroll, Protection levelling (4 Nov 2026)",
+			note = "Most guides say Protection levels fastest (Icy Veins, Mobalytics, Wowhead, Conquest Capped); "
+				.. "SixtySim says Arms is faster, so Arms has its own order (choose the direction Arms).", steps = {
+			S(105976, 12298, "Shield Specialization", 5),
+			S(105969, 12797, "Improved Revenge", 3),
+			S(105972, 12287, "Improved Thunder Clap", 2),
+			S(105971, 1310316, "Master of Defense", 2),
+			S(105972, 12287, "Improved Thunder Clap", 3),
+			S(105970, 12975, "Last Stand", 1),
+			S(105974, 12301, "Improved Bloodrage", 1),
+			S(105966, 1310317, "Vanguard", 1),
+			S(105974, 12301, "Improved Bloodrage", 2),
+			S(105975, 12297, "Anticipation", 3),
+			S(105965, 12809, "Concussion Blow", 1),
+			S(105961, 29787, "Focused Rage", 3),
+			S(105975, 12297, "Anticipation", 4),
+			S(105962, 16538, "Bastion", 5),
+			S(105959, 23922, "Shield Slam", 1),
+			S(105956, 12286, "Improved Rend", 3),
+			S(105957, 16462, "Deflection", 5),
+			S(105939, 12320, "Cruelty", 5),
+			S(105955, 12285, "Improved Charge", 2),
+			S(105937, 12322, "Unbridled Wrath", 5),
+		} },
+		-- Arms (band 1): Mobalytics "Warrior Leveling Guide", Arms 1-60 by Ahlaundoh (19 Nov 2026), 32/19/0.
+		[1] = { source = "Mobalytics, Arms levelling guide by Ahlaundoh (19 Nov 2026)",
+			note = "Every list takes Mortal Strike at 40; Wowhead and Method also take Improved Tactical Mastery and "
+				.. "Anger Management, this order skips them.", steps = {
+			S(105956, 12286, "Improved Rend", 3),
+			S(105957, 16462, "Deflection", 2),
+			S(105952, 12290, "Improved Overpower", 2),
+			S(105955, 12285, "Improved Charge", 2),
+			S(105957, 16462, "Deflection", 3),
+			S(105950, 12834, "Deep Wounds", 3),
+			S(105957, 16462, "Deflection", 5),
+			S(105949, 1310222, "Spearing Strike", 1),
+			S(105948, 12163, "Two-Handed Weapon Specialization", 3),
+			S(105947, 16493, "Impale", 1),
+			S(105945, 12292, "Sweeping Strikes", 1),
+			S(110524, 1289682, "Bloodthrill", 2),
+			S(105947, 16493, "Impale", 2),
+			S(105944, 1290261, "Weaponmaster", 1),
+			S(110858, 12862, "Improved Slam", 1),
+			S(105944, 1290261, "Weaponmaster", 5),
+			S(105941, 12294, "Mortal Strike", 1),
+			S(110858, 12862, "Improved Slam", 2),
+			S(105939, 12320, "Cruelty", 5),
+			S(105937, 12322, "Unbridled Wrath", 5),
+			S(105931, 12317, "Enrage", 5),
+			S(105935, 12323, "Piercing Howl", 1),
+			S(113636, 1329555, "Reckless Swings", 1),
+			S(110857, 1323964, "Lingering Rage", 2),
+		} },
+	},
+	-- Druid, tree 1089 (mh-research 21 Nov 2026, DB2 71037; tab 1 Balance, 2 Feral, 3 Restoration; edges and row
+	-- gates checked; bouwchat re-checked 129598→104938, 129570→104910).
+	DRUID = {
+		-- Feral, cat (band 2): Mobalytics "Druid Leveling Guide" (Feral) by yumytv (14 Nov 2026), 9/31/11.
+		[2] = { source = "Mobalytics, Feral levelling guide by yumytv (14 Nov 2026)",
+			note = "Cat Feral is the levelling pick of most guides. Some guides take Feral Instinct instead of Furor "
+				.. "and add Lacerate and Primal Bite (better for a bear tank).", steps = {
+			S(104938, 16934, "Ferocity", 3),
+			S(104939, 17056, "Furor", 5),
+			S(104943, 17002, "Feral Swiftness", 2),
+			S(104946, 16942, "Sharpened Claws", 2),
+			S(104948, 16998, "Savage Fury", 2),
+			S(104944, 1238122, "Feral Charge", 1),
+			S(104951, 1328613, "Predatory Discipline", 1),
+			S(104947, 16958, "Blood Frenzy", 2),
+			S(104952, 16972, "Predatory Strikes", 2),
+			S(104955, 17007, "Leader of the Pack", 1),
+			S(104950, 1223242, "Natural Instinct", 2),
+			S(104952, 16972, "Predatory Strikes", 3),
+			S(104938, 16934, "Ferocity", 4),
+			S(104953, 1223246, "Rend and Tear", 5),
+			S(113563, 1322605, "Shifting Power", 1),
+			S(104924, 1223081, "Genesis", 5),
+			S(104927, 1223082, "Nature's Majesty", 2),
+			S(104929, 16819, "Nature's Reach", 2),
+			S(104958, 17003, "Heart of the Wild", 5),
+			S(104922, 17069, "Naturalist", 5),
+			S(104919, 16833, "Natural Shapeshifter", 1),
+		} },
+		-- Restoration (band 3), healer second set (Dual Spec, 40): timesaver.gg Restoration, order from Maxroll
+		-- (3 Nov 2026), checked on the live trees 13 Nov. Wild Growth (the 31-point talent) = step 12.
+		[3] = { source = "timesaver.gg / Maxroll, Restoration (3 Nov 2026)", steps = {
+			S(104958, 17003, "Heart of the Wild", 5),
+			S(104922, 17069, "Naturalist", 5),
+			S(104918, 1328621, "Bloom", 1),
+			S(104916, 17104, "Gift of Nature", 4),
+			S(104912, 18562, "Swiftmend", 1),
+			S(104914, 17111, "Improved Rejuvenation", 3),
+			S(104916, 17104, "Gift of Nature", 5),
+			S(104911, 1309631, "Living Spirit", 3),
+			S(104921, 17116, "Nature's Swiftness", 1),
+			S(104920, 17106, "Reflection", 3),
+			S(104913, 17074, "Improved Regrowth", 3),
+			S(104910, 408120, "Wild Growth", 1),
+			S(104924, 1223081, "Genesis", 5),
+			S(104927, 1223082, "Nature's Majesty", 2),
+			S(104925, 16845, "Moonglow", 3),
+			S(104928, 1223083, "Nature's Splendor", 1),
+			S(104913, 17074, "Improved Regrowth", 5),
+			S(104909, 17123, "Improved Tranquility", 2),
+			S(104915, 24968, "Tranquil Spirit", 5),
+		} },
+	},
 }
 ns.FOREVER_TALENT_ORDERS = ORDERS -- the offline check reads it
 

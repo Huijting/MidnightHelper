@@ -27,7 +27,12 @@ volgordes (Rob: *"misschien dat we die gewoon aan het einde even overheen gooien
   client weigert (`canPurchaseRank == false`, AFGELEID dat Forever dat veld vult) wordt overgeslagen, de volgende komt;
   `/mh talent` zegt het. NIET gemeten wat het spel doet.
 - Standaardrichting zonder keuze = de levelboom uit How you play voor elke class (`DEFAULT`).
-- 🔜 Warrior + Druid (mh-research bezig), daarna Hunter/Rogue, Priest/Mage/Warlock.
+- ✅ **Warrior** (tree 1117): Protection = timesaver.gg/Maxroll 4 nov (20 stappen; meeste gidsen: Prot levelt het
+  snelst, SixtySim: Arms); Arms = Mobalytics/Ahlaundoh 19 nov (24 stappen, Mortal Strike op 40).
+- ✅ **Druid** (tree 1089): Feral (kat) = Mobalytics/yumytv 14 nov (21 stappen, Shifting Power op 40); Restoration =
+  timesaver.gg/Maxroll 3 nov (19 stappen, Wild Growth stap 12). Geen talent vóór zijn SpellLevels (GEMETEN door
+  mh-research). ⚠️ Open: wat Talented (Legacy) met SpellLevels doet (rij 7 op 35 i.p.v. 40?) — niet gemeten.
+- 🔜 Hunter + Rogue (mh-research bezig), daarna Priest/Mage/Warlock.
 
 🚀 **RELEASE 5.7.0 (21 nov)** — Rob via sparring, letterlijk: *"reload gedaan, tekst staat goed, go voor 5.7.0"*. Geen
 beta. Beide .toc 5.7.0, CHANGELOG_570_1-13, RELEASE_NOTES = CURSEFORGE_5.7.0 (diff leeg), CHANGELOG.md, SITE_SEIN (alle

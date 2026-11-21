@@ -102,6 +102,9 @@ Upgrade / Not now / Never). Afgevinkt met "(Rob, 19 nov)". De hulpregels ("typ /
       points. Next: Thundering Strikes (1/5)." (of het eerste talent uit de Enhancement-volgorde dat je nog niet hebt).
       Geen richting gekozen: "(You chose no direction …)" erachter. Op level 25-39: biedt MH Stormstrike aan, en kun je hem
       echt kiezen? Zo niet: zegt MH dan het volgende talent? `/mh talent` toont het.
+- [ ] (21 nov) Warrior met een vrij talentpunt: zonder richting volgt MH Protection (eerste talent: Shield
+      Specialization); met richting Arms: Improved Rend. Druid: zonder richting Feral (eerste: Ferocity); met richting
+      Restoration: Heart of the Wild. `/mh talent` noemt de bron en waar de gidsen het oneens zijn ("about this order").
 - [ ] (21 nov) Paladin met een ongebruikt talentpunt: Do this now zegt "Talent point: put it in <talent> (n/max)". Met
       de muis op de naam zie je de tooltip van het talent. Zonder gekozen richting volgt MH Retribution (eerste talent:
       Deflection) en staat er "(You chose no direction …)" achter. Zet het punt: de regel verdwijnt. Typ `/mh talent`:
