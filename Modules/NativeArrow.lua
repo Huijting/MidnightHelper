@@ -1465,8 +1465,14 @@ function ns.PrintArrowStatus()
 	-- it is ours. We do not yield to it and never have.
 	local zygor = false
 	if C_AddOns and C_AddOns.IsAddOnLoaded then
-		local ok, loaded = pcall(C_AddOns.IsAddOnLoaded, "ZygorGuidesViewer")
-		zygor = ok and loaded and true or false
+		-- 21 Nov 2026: in WoW Forever the addon is "ZygorGuidesViewerForever" (GEMETEN: its .toc in the Forever AddOns
+		-- folder); check both names.
+		for _, name in ipairs({ "ZygorGuidesViewer", "ZygorGuidesViewerForever" }) do
+			local ok, loaded = pcall(C_AddOns.IsAddOnLoaded, name)
+			if ok and loaded then
+				zygor = true
+			end
+		end
 	end
 	print(("  Zygor geladen: %s |cff9d9d9d(wij wijken hier NIET voor)|r"):format(yn(zygor)))
 

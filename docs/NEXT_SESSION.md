@@ -17,6 +17,10 @@ Daarbij gerepareerd: esES Wolfsbane = "Aterralobos" (Wowhead Forever); Archibald
 "Арчибальд" (in de Wolfsbane-regel; de Find-rij van de wapenmeester toont nog overal "Archibald"). ⚠️ esES SpellName
 202 zegt "Mazas de dos manos" (Blizzard-fout?); de teksten gebruiken "Espadas de dos manos" (SkillLine 55, esMX).
 
+🐞 **`/mh arrow` "Zygor geladen" in Forever (21 nov)** — bijvangst mh-research via sparring: NativeArrow.lua vroeg alleen
+"ZygorGuidesViewer"; in Forever heet hij "ZygorGuidesViewerForever" (GEMETEN: de .toc in `_forever_\Interface\AddOns`).
+Nu beide namen. Alleen de diagnoseregel; MH wijkt niet voor Zygor. NIET in het spel gezien.
+
 🎯 **Volgend talentpunt: ALLE classes, per class (21 nov, bezig)** — Rob via sparring, letterlijk: *"het puntensysteem,
 waar ga ik welk punt in stoppen, moet natuurlijk wel uitgebreid worden. Ik zit nu bijvoorbeeld op mijn shamaan, die is
 level 11. Ik mag 2 punten indelen ... Ga ermee aan de slag"*. Fable pas aan het eind, één controleronde over alle
