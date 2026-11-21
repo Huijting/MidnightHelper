@@ -181,6 +181,9 @@ Modules\ForeverSkillup.lua
 Modules\ForeverBagFull.lua
 # Worn gear warning with the nearest repairer (Rob, 20 Nov 2026: "ja doe maar").
 Modules\ForeverDurability.lua
+# Waylaid Crates: bundles, where to deliver, Find (Rob, 21 Nov 2026: "Ja doe maar").
+Modules\ForeverCratesData.lua
+Modules\ForeverCrates.lua
 # Measurement only: what a party panel would need in Forever (Rob, 11 Nov 2026: "maak die meting maar").
 Modules\ForeverPartyProbe.lua
 # Small group panel: rows, click = target, right-click = your dispel, Blizzard's red edge (Rob, 12 Nov 2026: "A, eerst klein").

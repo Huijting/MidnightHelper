@@ -1312,6 +1312,10 @@ local QUIET = {
 	Q("FDUR_SW", "FDUR_SW_DESC", {
 		get = function() return ns.IsForeverDurabilityOn and ns.IsForeverDurabilityOn() end,
 		set = function(on) if ns.SetForeverDurability then ns.SetForeverDurability(on) end end }),
+	-- 21 Nov 2026 (Rob: "Ja doe maar"): Waylaid Crates — bundle list, where to deliver, the window (ForeverCrates.lua).
+	Q("FCRATE_SW", "FCRATE_SW_DESC", {
+		get = function() return ns.IsForeverCratesOn and ns.IsForeverCratesOn() end,
+		set = function(on) if ns.SetForeverCrates then ns.SetForeverCrates(on) end end }),
 	Q("FLS_SW", "FLS_SW_DESC", {
 		get = function() return ns.IsLootSparkleOn and ns.IsLootSparkleOn() end,
 		set = function(on) if ns.SetLootSparkle then ns.SetLootSparkle(on) end end }),
@@ -3225,6 +3229,13 @@ local function FindPlaces(it, dirText)
 			end
 		end
 		sub = ns:L((it.svc and ("FCITY_SUB_" .. it.svc:upper())) or (it.goods and "FVEND_SUB_GOODS") or "FOV_FIND_SUB_TOOL")
+		-- 21 Nov 2026 (Waylaid Crates): your Merchant's Favor and trade rank on top of "Deliver crates".
+		if it.svc == "crates" and ns.ForeverCrateFindSub then
+			local ok, extra = pcall(ns.ForeverCrateFindSub)
+			if ok and type(extra) == "string" and extra ~= "" then
+				sub = sub .. "  " .. extra
+			end
+		end
 		if #rows == 0 then
 			sub = sub .. "  " .. ns:L(it.svc and "FCITY_EMPTY" or "FVEND_EMPTY")
 		end
@@ -4345,6 +4356,8 @@ local CITY_WORDS = {
 	-- 18 Nov 2026 (travel): the words players type for a crossing or a flight.
 	transport = "travel zeppelin zep boat ship ferry tram portal skycutter dock tower",
 	flight = "travel flight master fp taxi gryphon wind rider hippogryph bat fly",
+	-- 21 Nov 2026 (Waylaid Crates).
+	crates = "crate crates waylaid sealed shipping label favor merchant deliver trade",
 }
 local SEARCH_TTL = 15 -- seconds: NavSearch asks on every keystroke; the lists change only with level, bags or a zone
 

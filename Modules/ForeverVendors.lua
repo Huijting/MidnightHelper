@@ -46,6 +46,9 @@ local CATS = {
 	-- (every vendor buys). Data: ForeverRepairData.lua (Zygor Forever + Wowhead Forever) plus what MH learns at every
 	-- vendor window (CanMerchantRepair), see RepairSpots below.
 	{ key = "repair", svc = "repair", label = "FCITY_CAT_REPAIR" },
+	-- 21 Nov 2026 (Rob on Waylaid Crates: "Ja doe maar"): where you deliver a sealed crate or a Shipping Label — your
+	-- side's trade representative (ForeverCrates.lua ns.FOREVER_CRATE_SPOTS). item = the empty crate, for its tooltip.
+	{ key = "crates", svc = "crates", item = 248549, label = "FCITY_CAT_CRATES" },
 	-- 18 Nov 2026 (Rob: "ik ben nu op zoek naar de zeppelins in ogrimar … net zoals flight masters … HELP !!!" → "ja"):
 	-- travel. transport = every boat/zeppelin/tram/portal stop (ForeverTravel.lua ns.ForeverTravelTransportSpots);
 	-- flight = the flight masters (kind "flight" in ForeverCitySpots.lua). Their own heading "Travel" in Find.
@@ -166,6 +169,7 @@ local function List(c)
 	local side = Side()
 	local rows = (c.svc == "transport" and ns.ForeverTravelTransportSpots and ns.ForeverTravelTransportSpots())
 		or (c.svc == "repair" and RepairSpots())
+		or (c.svc == "crates" and ns.FOREVER_CRATE_SPOTS)
 		or (c.svc and ns.FOREVER_CITY_SPOTS) or (c.kind and ns.FOREVER_GOODS_VENDORS) or ns.FOREVER_TOOL_VENDORS
 	local pc, px, py = PlayerWorld()
 	local out = {}
@@ -433,6 +437,8 @@ function ns.ForeverVendorFindRows(key)
 		if c.svc == "repair" then
 			-- Wowhead's English subtitle (Armorer, Weaponsmith …): only on an English client, like the shops above.
 			tag = (english and e.v.tag and e.v.tag ~= "") and e.v.tag or nil
+		elseif c.svc == "crates" then
+			tag = e.v.tag -- already the client's word (measured per language, ForeverCrates.lua)
 		elseif c.svc then
 			-- Our own word, so every language: "neutral" on a Blackwater (neutral) auction house (ForeverCitySpots.lua).
 			tag = e.v.neutral and ns:L("FCITY_NEUTRAL_TAG") or nil

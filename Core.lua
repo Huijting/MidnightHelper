@@ -4408,6 +4408,16 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- 21 Nov 2026: Waylaid Crates (Forever only, ForeverCrates.lua).
+	if msg:lower() == "crates" or msg:lower():match("^crates%s") then
+		if ns.ForeverCratesSlash then
+			ns.ForeverCratesSlash(msg:lower():match("^crates%s+(%S+)"))
+		else
+			print("|cffffcc00Midnight Helper:|r /mh crates is for WoW Forever.")
+		end
+		return
+	end
+
 	if msg == "lust" or msg == "lust test" or msg == "brez" or msg == "brez test" then
 		if ns.RezLustCommand then
 			ns.RezLustCommand(msg:find(" test$") and "test" or nil)

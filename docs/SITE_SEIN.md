@@ -28,6 +28,17 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 21 nov 2026 — Forever: Waylaid Crates
+- Tag + commit:   geen tag (commit: zie git log, "Forever: Waylaid Crates")
+- Status:         alleen op main
+- Mag op de site: nee (in bouw, niet getest)
+- Speler ziet:    in de tooltip van een krat elke bundel die erin mag en hoeveel je hebt (tassen + bank); een verzegelde
+                  krat of Shipping Label zegt bij wie je inlevert (Marcy Baker / Dokimi); komt er een in je tas, dan een
+                  klein venster met Show the way. In Find -> In town: "Deliver crates", met je Merchant's Favor en rang.
+- Knoplabels:     `FCITY_CAT_CRATES`, `FCRATE_SW`, `FVEND_TIP_WAY`
+- Commando's:     `/mh crates [test|on|off]`
+- Spel:           Forever
+
 ## 20 nov 2026 — Forever: Repair & sell
 - Tag + commit:   geen tag (commit: zie git log, "Forever: Repair & sell")
 - Status:         alleen op main

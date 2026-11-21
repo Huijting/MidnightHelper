@@ -2,6 +2,26 @@
 
 ## ▶▶ VOLGENDE BOUWCHAT: Forever-overzicht "D" — stap 1 en 3 gebouwd; stap 2 wacht op Robs screenshots (20 nov, avond)
 
+📦 **Waylaid Crates GEBOUWD (21 nov, Forever, optie Middel)** — Rob via sparring: *"Waylaid crates zijn het ... wat zijn
+dat? En ik denk dat wij er ook iets mee moeten."* → *"Ja doe maar"*. `tools/forever_crates.py` → `Modules/ForeverCratesData.lua`
+(GEMETEN, DB2 wowf 1.60.1.71037 ItemSparse + Item, en de Wowhead Forever-tooltips van elke krat): 30 getypeerde kratten
+(248682–248699 ruw q1, 248702–248713 gemaakt q2), elk met hun bundels als {aantal, item-id} (namen → id via ItemSparse,
+bij dubbele naam de trade good; 1 geval: Dark Iron Ore 11099), 15 verzegelde (248765–248779, q1/q2/q3). Positieve controle:
+248682 = 10 Earthroot (2449). Inleveren (Wowhead Forever NPC-tooltips, GEMETEN): Marcy Baker 256390 Redridge 1433 9.6,71 /
+Dokimi 256386 Barrens 1413 50,29.2; HandyNotes en Zygor hebben ze NIET (grep, Zygor-controle 214101 vond wel). Namen per
+taal GEMETEN (fr Marcy Fournier, pt Márcia Barreto, ru Марси Бейкер/Докими; ondertitel per taal). `Modules/ForeverCrates.lua`
+(beide toc's): tooltip (bundels + GetItemCount met bank, vinkje/kruisje; groen = gemaakt "double Favor"; lege krat:
+"right-click to read the label" + level 20/35; verzegeld/label: bij wie, zone, afstand, "Find -> Deliver crates";
+eerste-label-tip zolang quest 98247/98248 niet gedaan), venster bij aankomst van een verzegelde krat/label in je tas
+(BAG_UPDATE_DELAYED, eerste meting = basis; in combat wachten), Find-categorie `crates` in ForeverVendors (In town) met
+Favor (3402, via ns.ForeverCurrencyViews) + rang (2586/2587, via ns.ForeverRepViews) bovenaan. Schakelaar `FCRATE_SW`
+(standaard aan), `/mh crates [test|on|off]` schrijft de tooltipregels van elke krat in je tas naar
+`MidnightHelperDB.crateProbe` (om de vul-voortgang te meten). 7 talen + esMX (Cajón arrebatado / Etiqueta de envío, GEMETEN).
+AFGELEID/niet door MH gemeten: "groen = dubbel Favor" en "eerste label = 50 Favor + 2000 rep + XP" (uit het mh-research-
+rapport van de sparring, Wowhead + conquestcapped); of GetItemCount(id, true) in Forever de bank meetelt. Offline GEMETEN
+(crates_test.lua, 24 controles: tooltips, schakelaar, venster, combat, knop, Find-regel, probe, frFR-naam). NIET in het spel
+gezien. ForeverLevelingGuide (krat-module, ARR) niet gebruikt.
+
 🚢 **Pijl-zin bij een zeppelin/boot/tram GEREPAREERD (20 nov, laat)** — Rob: *"je loopt niet door de Zeppelin heen. Je
 neemt de Zeppelin."* (Carola, class-training-route). Enige bron (GEMETEN, grep op "other side"/"go through"/"andere kant"
 in de locales): `ARROW_AT_STEP` in NativeArrow (je staat óp een reisstap). Nu `ns.ArrowAtStepText(step, name)`: Forever-

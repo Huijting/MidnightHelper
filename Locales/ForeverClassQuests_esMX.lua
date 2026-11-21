@@ -14,6 +14,13 @@ for k, v in pairs({
 	-- Measured: ItemSparse/SpellName/GlobalStrings esMX (1.60.1.70938) and Wowhead Forever tooltips with locale=esMX (=
 	-- locale 11). There is no AreaTable.esMX.csv, so place names stay as esES. A name Wowhead shows [bracketed] in esMX
 	-- is not measured: the esES name stays in the line.
+	-- 21 Nov 2026, Waylaid Crates: esMX client says Cajón arrebatado / Etiqueta de envío (DB2 esMX 1.60.1.71037).
+	FCITY_SUB_CRATES = "Los cajones sellados y las etiquetas de envío se entregan al representante comercial de tu bando.",
+	FCRATE_SW = "Ayuda con los Cajones arrebatados",
+	FCRATE_SW_DESC = "En la descripción de un cajón: cada lote que acepta y cuántos tienes (bolsas y banco). Un cajón sellado o una etiqueta de envío dice dónde entregarlo, y cuando llega uno a tus bolsas, una ventana pequeña muestra el camino. Nunca en combate.",
+	FCRATE_FIRST_FMT = "Tu primera etiqueta de envío da una sola vez: 50 de %s, 2000 de reputación y PE.",
+	FCRATE_ON = "la ayuda con los Cajones arrebatados está activada.",
+	FCRATE_OFF = "la ayuda con los Cajones arrebatados está desactivada. /mh crates on la vuelve a activar.",
 	-- Warlock
 	FCQ_OBJ_WL_POWERSVOID = "toma Poderes del Vacío de los Libros robados de aquí",
 	FCQ_OBJ_WL_FAMILIARHEAD = "derrota a Familiares viles para conseguir 6 Cabeza de familiar vil",

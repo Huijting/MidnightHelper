@@ -48,6 +48,24 @@ achternaam, "Step aside"-instelling, Your path, Set focus). Daarna vond Rob nog:
 rank-lijstje: werkt (screenshot: "You just learned", Conjure Water rank 1 -> 2 en Frost Armor rank 1 -> 2, met de knoppen
 Upgrade / Not now / Never). Afgevinkt met "(Rob, 19 nov)". De hulpregels ("typ /mh … als het niet werkt") blijven open.
 
+## 📦 21 nov — Forever: Waylaid Crates
+
+Nieuwe bestanden → **WoW helemaal herstarten**. Forever, een character van level 10 of hoger.
+- [ ] `/mh crates`: de chat noemt je Merchant's Favor, je rang bij Azeroth Commerce Authority (Alliance) of Durotar Supply
+      and Logistics (Horde), of je eerste Shipping Label al gedaan is, en bij wie je inlevert. Daarna `/reload` en zeg het
+      tegen de sparring: Claude leest dan wat de game in de tooltip van je kratten zet.
+- [ ] Muis op een krat met een soort erachter (bv. "Waylaid Crate: Apprentice Herbs"): een gele regel "fill it with ONE of
+      these bundles", dan elke bundel met "you have N" en een groen vinkje als je genoeg hebt, rood kruisje als niet.
+      Kloppen de aantallen met je tassen (en bank)? Screenshot.
+- [ ] Muis op een lege "Waylaid Crate": "Right-click to read the label …".
+- [ ] Muis op een verzegelde krat of een Shipping Label: "Deliver it to Marcy Baker / Dokimi (zone, afstand)". Bij een
+      Shipping Label, als je de eerste nog niet deed: een blauwe regel "Your first shipping label gives once …".
+- [ ] Krijg je een verzegelde krat of Shipping Label in je tas: een klein venster "…: ready to deliver" met
+      "Show the way". Zet de knop de pijl naar Marcy Baker (Redridge) of Dokimi (The Barrens)? Klopt de plek? Test zonder
+      krat: `/mh crates test`.
+- [ ] Find -> In town -> "Deliver crates": één regel (jouw kant), bovenaan je Favor en rang. Show the way werkt.
+- [ ] Quiet helpers → "Help with Waylaid Crates" uit = geen regels en geen venster meer.
+
 ## 📋 20 nov — De testlijst in het spel (alleen voor Rob)
 
 Nieuwe addon → **WoW helemaal herstarten** (in retail én in Forever). In de addonlijst staat "MH Testlist (Rob only)".

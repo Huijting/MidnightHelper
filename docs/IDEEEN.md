@@ -26,6 +26,14 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 
 ## Open — wacht op Rob
 
+### Forever: Waylaid Crates — wat zijn het, en help ermee (vraag van Rob, 21 nov) — ✅ JA + GEBOUWD 21 nov (wacht op Robs test)
+- Bron: Rob 21 nov via sparring, letterlijk: *"Waylaid crates zijn het ... wat zijn dat? En ik denk dat wij er ook iets
+  mee moeten."* → op de opties (advies: Middel): *"Ja doe maar"*.
+- Gebouwd (Middel): tooltip met de bundels + wat je hebt, waar je inlevert, een venster als er een verzegelde krat of
+  Shipping Label in je tas komt, de eerste-label-tip, en "Deliver crates" in Find met Favor + rang. ForeverCrates.lua,
+  schakelaar `FCRATE_SW` (standaard aan), `/mh crates`.
+- Spel: F. Site: in SITE_SEIN, nog niet op de site (in bouw, niet getest).
+
 ### Forever: Repair & sell — snel naar iemand die repareert (vraag van Rob, 20 nov) — ✅ JA + GEBOUWD 20 nov
 - Bron: Rob 20 nov via sparring, letterlijk: *"Hebben we al iets in onze helper staan waarbij ik aan kan klikken om zo
   snel mogelijk naar iemand of iets te gaan waarbij ik mijn spullen kan repareren en zeker verkopen?"* → op het voorstel:

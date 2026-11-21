@@ -94,6 +94,8 @@ ns.MH_UNLISTED_ON_PURPOSE = {
 	"toast", "twins", "unlearned", "vignettes", "wb", "whatis", "wiki", "worldboss",
 	-- 5 Nov 2026: measuring the WoW Forever spellbook for the key block (SpellbookDump.lua).
 	"spellbook",
+	-- 21 Nov 2026: Waylaid Crates diagnosis (ForeverCrates.lua, Forever only).
+	"crates", "crates test", "crates on", "crates off",
 	-- 12 Nov 2026 (Rob: "Ja, haal hem weg"): our own number check, out of the player list.
 	"selftest",
 	-- 12 Nov 2026: Forever group panel diagnosis (ForeverPartyPanel.lua).

@@ -282,6 +282,8 @@ Modules\ForeverSkillupData.lua
 Modules\ForeverSkillup.lua
 Modules\ForeverBagFull.lua
 Modules\ForeverDurability.lua
+Modules\ForeverCratesData.lua
+Modules\ForeverCrates.lua
 Modules\ForeverPartyProbe.lua
 Modules\ForeverPartyPanel.lua
 Modules\ForeverDoNow.lua
