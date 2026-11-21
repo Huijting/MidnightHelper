@@ -1689,6 +1689,10 @@ for k, v in pairs({
 	FPROFG_STUDY_LIB_FMT = "Bibliothèque pour Étudier : %s, %s, %s (Trouver -> Bibliothèque place la flèche).",
 	FPROFG_STUDY_FEATHER_FMT = "%s : tu en as %d. Aucun marchand n'en vend : elle tombe sur les oiseaux et les harpies.",
 	FDONOW_STUDY_READY_FMT = "%s est prêt. %s %s",
+	-- 21 Nov 2026 (mh-writer): Epées à deux mains = SpellName 202, seconde spécialisation des talents = spell 63624 (DB2 frFR
+	-- 1.60.1.71037), Maître d'armes = npc 11870 subtitle (Wowhead Forever frFR). Order kept: chain, NPC, city.
+	FDONOW_WOLFSBANE_FMT = "%s te donne une épée à deux mains, mais tu ne peux pas encore t'en servir. Apprends d'abord Epées à deux mains : maître d'armes %s, à %s.",
+	FDONOW_DUALSPEC = "Seconde spécialisation des talents : dès le niveau 40, ton maître de classe vend un deuxième jeu de talents, par exemple un pour monter de niveau et un pour tanker. Les joueurs disent que ça coûte environ 50 pièces d'or. Changer prend 5 secondes, hors combat.",
 	FCITY_SUB_CRATES = "Les caisses scellées et les étiquettes d’envoi se livrent au représentant commercial de ta faction.",
 	FCRATE_SW = "Aide pour les Caisses détournées",
 	FCRATE_SW_DESC = "Dans l'infobulle d'une caisse : chaque lot accepté et combien tu en as (sacs et banque). Une caisse scellée ou une étiquette d’envoi dit où la livrer, et quand il en arrive une dans tes sacs, une petite fenêtre montre le chemin. Jamais en combat.",

@@ -53,6 +53,37 @@ ns.FOREVER_HOWTOPLAY_L.deDE = {
 - **Beispiel, Berufe:** **Überstunden machen** (mehr Fertigkeitsaufstiege) und **Reiche Ernte** (Scarce-Materialien öfter aus Bergbau, Kräuterkunde und Kürschnerei).
 - **Engagiertes Studium** ist ein Knopf, kein passiver Perk: 25 Sekunden Zauberzeit, dann 23 Stunden warten. Es erhöht deinen niedrigsten Beruf um 1.
 - **/mh legacy** zeigt, wie viele Punkte MH lesen kann.]] },
+		-- 21 Nov 2026: new 4th section (mh-writer). Measured DB2 deDE 1.60.1.71037: TALENT_SPEC_SECONDARY "Sekundäre Talente",
+		-- spell 63624 "Zweite Talentspezialisierung erlernen" (no separate "Dual Spec" word in the client), TalentTab.
+		-- TalentTab 282 reads "Wiederherst" (cut short in DB2); the full word Wiederherstellung is used, as elsewhere in this file.
+		{ "Talente: zurücksetzen und zweite Spezialisierung", [[
+- **Talente zurücksetzen** geht bei deinem Klassenlehrer: Sprich ihn an und wähl die Talent-Option. Dann verteilst du deine Punkte neu. Spieler sagen, es kostet beim ersten Mal 1 Gold, dann 5, dann 10 und danach mehr. Blizzard sagt, der Preis steigt schnell und sinkt einmal pro Woche.
+- **Zweite Talentspezialisierung:** Ab Stufe 40 verkauft dein Klassenlehrer einen zweiten Satz Talente. Im Spiel heißt er **Sekundäre Talente**. Spieler sagen, sie kostet 50 Gold; Blizzard hat keinen Preis genannt.
+- **Wechseln** zwischen deinen zwei Sätzen dauert 5 Sekunden und geht nicht im Kampf.
+- **Wozu:** Mit einem Satz levelst du, mit dem anderen tankst oder heilst du. Ein Paladin levelt als Vergeltung und tankt als Schutz, ein Druide levelt als Katze und heilt als Wiederherstellung.]] },
+	},
+	-- 21 Nov 2026: "Level as X, tank as Y" (mh-writer, from ForeverHowToPlay.lua PLANS). Names measured DB2 deDE
+	-- 1.60.1.71037 (SpellName, TalentTab, Map, GlobalStrings); Wolfsbann and Archibald from Wowhead Forever deDE.
+	PLANS = {
+		PALADIN = { title = "Als Vergeltung leveln, als Schutz tanken", body = [[
+- **Leveln:** Die Guides nennen Vergeltung den schnellsten Weg, allein zu leveln: eine langsame **Zweihandwaffe** und Siegel der Rechtschaffenheit, später Siegel des Befehls (20, ein Talent). Gib deine Talentpunkte in Vergeltung aus.
+- **Einen Dungeon tanken** geht ab deinem ersten, ohne die Talente neu zu verteilen: Ragefireabgrund für die Horde (ab Stufe 13), die Halle der Thanen für die Allianz (etwa 13). Zorn der Gerechtigkeit und Siegel des Furors kommen beide mit 10. Behalte eine **Einhandwaffe und einen Schild in deinen Taschen**. Vor dem Dungeon: Wechsle zu ihnen, schalte Zorn der Gerechtigkeit an (Block D) und leg Siegel des Furors an (**F**). Danach: zurück zur Zweihandwaffe, und Zorn der Gerechtigkeit aus (Rechtsklick darauf, oben rechts). Mit Zorn der Gerechtigkeit ziehst du die Gegner von deiner Gruppe weg.
+- **Wann es leicht wird:** mit 30 durch Heiliger Schild (ein Schutz-Talent), und richtig mit 40 durch Schildgeschworen. Willst du das, brauchst du Schutz-Talente: Die **Zweite Talentspezialisierung** (ab 40) gibt dir einen zweiten Satz, so levelst du als Vergeltung und tankst als Schutz. Siehe „Talente: zurücksetzen und zweite Spezialisierung“ unten.
+- **Werte zum Tanken:** zuerst Ausdauer. Die Guides sind sich uneinig, was danach kommt: wowforeverbuilder sagt Verteidigung, Ausdauer, Zaubermacht, Intelligenz (keine Stärke), ein anderer Guide stellt Zaubermacht und Intelligenz über Stärke. Mit Zaubermacht halten Weihe und Heiliger Schild die Gegner besser.
+- **Zweihandschwert aus Wolfsbann** (die Klassenquest der Untoten mit 20): Lern zuerst Zweihandschwerter, bei Archibald in Undercity. MH sagt es dir in Mach das jetzt.]] },
+		WARRIOR = { title = "Als Krieger leveln und tanken", body = [[
+- **Leveln:** Die Guides sind sich uneinig. Die meisten sagen, Schutz levelt am schnellsten: eine Zweihandwaffe bis Rache mit 14, dann eine **Einhandwaffe und einen Schild**. Ein Guide findet Schutz allein langsamer. Waffen oder Furor gehen auch; dann behalte eine Einhandwaffe und einen Schild zum Tanken in deinen Taschen.
+- **Einen Dungeon tanken** geht ab deinem ersten: Ragefireabgrund (Horde) ab Stufe 13, die Halle der Thanen (Allianz) ab etwa 13, die Todesminen ab 16, die Höhlen des Wehklagens ab 17. Die Klassenquest mit 10 gibt dir Verteidigungshaltung, Spott und Rüstung zerreißen. In Forever macht Verteidigungshaltung viel mehr Bedrohung als im alten Spiel, also bleiben die Gegner bei dir.
+- **Wann es leicht wird:** mit 14-16 durch Rache und Schildblock, und richtig mit 40 durch Schildschlag (ein Talent) und Plattenpanzer.
+- **Talente:** Mit Schutz-Talenten levelst und tankst du mit einem Satz. Hast du als Waffen oder Furor gelevelt? Dann gibt dir die **Zweite Talentspezialisierung** (ab 40) einen zweiten Satz zum Tanken. Siehe „Talente: zurücksetzen und zweite Spezialisierung“ unten.
+- **Werte zum Tanken:** zuerst Ausdauer. Beim Rest sind sich die Guides uneinig: Einer stellt Verteidigung ans Ende, ein anderer will Verteidigung früh auf 440. Für Bedrohung: Trefferwert und Waffenkunde.]] },
+		DRUID = { title = "Als Druide leveln und tanken", body = [[
+- **Leveln:** Die Guides nehmen Wilder Kampf: den Bären ab Stufe 10, die Katze ab 20. Talente in Wilder Kampf wirken für beide, also levelst du als Katze und tankst als Bär mit denselben Talenten. Du brauchst keinen Schild und keine zweite Waffe.
+- **Deine Waffe zählt in einer Gestalt.** Blizzard: In Bärengestalt und Katzengestalt machen deine normalen Treffer den Schaden der Waffe, die du hältst. Behalte also den besten zweihändigen Stab oder Streitkolben, auch zum Tanken.
+- **Einen Dungeon tanken** geht ab deinem ersten: Ragefireabgrund für die Horde (ab Stufe 13), die Halle der Thanen für die Allianz (etwa 13). Bärengestalt kommt aus der Klassenquest mit 10, mit Knurren und Zermalmen (ein Guide sagt nur Zermalmen: Prüf deine Zauber). In Forever macht Bärengestalt viel mehr Bedrohung als im alten Spiel.
+- **Wann es leicht wird:** Prankenhieb mit 16 (mehr Gegner auf einmal), Aufschlitzen mit 25 (ein Talent), und richtig mit 40 durch Terrorbärengestalt und Urtümlicher Biss (ein Talent).
+- **Heilen in einer Gruppe?** Dafür brauchst du Wiederherstellungs-Talente und Ausrüstung mit Intelligenz: Die **Zweite Talentspezialisierung** (ab 40) gibt dir einen zweiten Satz. Siehe „Talente: zurücksetzen und zweite Spezialisierung“ unten.
+- **Werte zum Tanken:** Die Guides sind sich uneinig. Zum Überleben: Rüstung, dann Verteidigung bis 440, dann Ausdauer, dann Beweglichkeit. Für Bedrohung: Waffenschaden, dann Beweglichkeit, dann Stärke. Ein anderer Guide sagt beim Leveln: Waffenschaden, Stärke, Beweglichkeit.]] },
 	},
 	DRUID = {
 		{ "Was er kann", [[

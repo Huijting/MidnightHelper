@@ -55,6 +55,36 @@ ns.FOREVER_HOWTOPLAY_L.frFR = {
 - **Exemple, métiers :** **Heures supplémentaires** (plus de points de compétence gagnés) et **Récolte généreuse** (des matériaux Scarce plus souvent avec le Minage, l'Herboristerie et le Dépeçage).
 - **Étude assidue** est un bouton, pas un avantage passif : 25 secondes d'incantation, puis 23 heures d'attente. Elle augmente de 1 ton métier le plus bas.
 - **/mh legacy** montre combien de points MH peut lire.]] },
+		-- 21 Nov 2026: new 4th section (mh-writer). Measured DB2 frFR 1.60.1.71037: TALENT_SPEC_SECONDARY "Talents secondaires",
+		-- spell 63624 "Apprendre une seconde spécialisation des talents" (no separate "Dual Spec" word in the client).
+		{ "Talents : réinitialiser et seconde spécialisation", [[
+- **Réinitialise tes talents** chez ton maître de classe : parle-lui et choisis l'option des talents. Ensuite, redépense tes points. Les joueurs disent que ça coûte 1 pièce d'or la première fois, puis 5, puis 10, et plus ensuite. Blizzard dit que le prix monte vite et baisse une fois par semaine.
+- **Seconde spécialisation des talents :** dès le niveau 40, ton maître de classe vend un deuxième jeu de talents. Dans le jeu, ça s'appelle **Talents secondaires**. Les joueurs disent que ça coûte 50 pièces d'or ; Blizzard n'a pas donné de prix.
+- **Passer** d'un jeu à l'autre prend 5 secondes et ne marche pas en combat.
+- **Pourquoi :** tu montes de niveau avec un jeu, et tu tankes ou tu soignes avec l'autre. Un Paladin monte en Vindicte et tanke en Protection, un Druide monte en félin et soigne en Restauration.]] },
+	},
+	-- 21 Nov 2026: "Level as X, tank as Y" (mh-writer, from ForeverHowToPlay.lua PLANS). Names measured DB2 frFR
+	-- 1.60.1.71037 (SpellName, TalentTab, Map, GlobalStrings); Aconit and Archibald from Wowhead Forever frFR.
+	PLANS = {
+		PALADIN = { title = "Monter en Vindicte, tanker en Protection", body = [[
+- **Monter de niveau :** les guides disent que Vindicte est le moyen le plus rapide de monter seul : une **arme à deux mains** lente et Sceau de piété, plus tard Sceau d'autorité (20, un talent). Dépense tes points de talent en Vindicte.
+- **Tanker un donjon** marche dès ton premier, sans changer de talents : Gouffre de Ragefeu pour la Horde (dès le niveau 13), la salle des Thanes pour l'Alliance (vers 13). Fureur vertueuse et Sceau de fureur arrivent tous les deux au 10. Garde une **arme à une main et un bouclier dans tes sacs**. Avant le donjon : équipe-les, active Fureur vertueuse (bloc D) et Sceau de fureur (**F**). Après : reprends l'arme à deux mains, et coupe Fureur vertueuse (clic droit dessus, en haut à droite). Avec Fureur vertueuse active, tu éloignes les ennemis de ton groupe.
+- **Quand ça devient facile :** au 30 avec Bouclier sacré (un talent Protection), et vraiment au 40 avec Serment du bouclier. Pour ça, il te faut des talents Protection : la **seconde spécialisation des talents** (dès 40) te donne un deuxième jeu, pour monter en Vindicte et tanker en Protection. Voir « Talents : réinitialiser et seconde spécialisation » plus bas.
+- **Caractéristiques pour tanker :** d'abord Endurance. Les guides ne sont pas d'accord sur la suite : wowforeverbuilder dit Défense, Endurance, Puissance des sorts, Intelligence (pas de Force), un autre guide met Puissance des sorts et Intelligence au-dessus de Force. Avec la Puissance des sorts, Consécration et Bouclier sacré retiennent mieux les ennemis.
+- **Épée à deux mains d'Aconit** (la quête de classe Mort-vivant du 20) : apprends d'abord Epées à deux mains, auprès d'Archibald à Fossoyeuse. MH te le dit dans Fais ça maintenant.]] },
+		WARRIOR = { title = "Monter de niveau et tanker en Guerrier", body = [[
+- **Monter de niveau :** les guides ne sont pas d'accord. La plupart disent que Protection monte le plus vite : une arme à deux mains jusqu'à Vengeance au 14, puis une **arme à une main et un bouclier**. Un guide trouve Protection plus lente en solo. Armes ou Fureur marchent aussi ; garde alors une arme à une main et un bouclier dans tes sacs pour tanker.
+- **Tanker un donjon** marche dès ton premier : Gouffre de Ragefeu (Horde) dès le niveau 13, la salle des Thanes (Alliance) vers 13, les Mortemines dès 16, les Cavernes des Lamentations dès 17. La quête de classe du 10 te donne Posture défensive, Provocation et Fracasser armure. Dans Forever, Posture défensive crée beaucoup plus de menace que dans l'ancien jeu, donc les ennemis restent sur toi.
+- **Quand ça devient facile :** au 14-16 avec Vengeance et Maîtrise du blocage, et vraiment au 40 avec Heurt de bouclier (un talent) et Armure en plaques.
+- **Talents :** avec des talents Protection, tu montes et tu tankes avec un seul jeu. Tu as monté en Armes ou en Fureur ? Alors la **seconde spécialisation des talents** (dès 40) te donne un deuxième jeu pour tanker. Voir « Talents : réinitialiser et seconde spécialisation » plus bas.
+- **Caractéristiques pour tanker :** d'abord Endurance. Les guides ne sont pas d'accord sur le reste : l'un met Défense en dernier, un autre veut Défense à 440 tôt. Pour la menace : Toucher et Expertise.]] },
+		DRUID = { title = "Monter de niveau et tanker en Druide", body = [[
+- **Monter de niveau :** les guides choisissent Combat farouche : l'ours dès le niveau 10, le félin dès 20. Les talents Combat farouche servent aux deux, donc tu montes en félin et tu tankes en ours avec les mêmes talents. Il ne te faut ni bouclier ni deuxième arme.
+- **Ton arme compte en forme.** Blizzard : en Forme d’ours et en Forme de félin, tes coups normaux font les dégâts de l'arme que tu tiens. Garde donc le meilleur bâton ou la meilleure masse à deux mains, aussi pour tanker.
+- **Tanker un donjon** marche dès ton premier : Gouffre de Ragefeu pour la Horde (dès le niveau 13), la salle des Thanes pour l'Alliance (vers 13). Forme d’ours vient de la quête de classe du 10, avec Grondement et Mutiler (un guide dit seulement Mutiler : vérifie tes sorts). Dans Forever, Forme d’ours crée beaucoup plus de menace que dans l'ancien jeu.
+- **Quand ça devient facile :** Balayage au 16 (plus d'ennemis à la fois), Lacérer au 25 (un talent), et vraiment au 40 avec Forme d’ours redoutable et Morsure primordiale (un talent).
+- **Soigner en groupe ?** Il te faut des talents Restauration et de l'équipement avec de l'Intelligence : la **seconde spécialisation des talents** (dès 40) te donne un deuxième jeu. Voir « Talents : réinitialiser et seconde spécialisation » plus bas.
+- **Caractéristiques pour tanker :** les guides ne sont pas d'accord. Pour survivre : Armure, puis Défense jusqu'à 440, puis Endurance, puis Agilité. Pour la menace : dégâts de l'arme, puis Agilité, puis Force. Un autre guide dit dégâts de l'arme, Force, Agilité pendant que tu montes.]] },
 	},
 	DRUID = {
 		{ "Ce qu'il fait", [[

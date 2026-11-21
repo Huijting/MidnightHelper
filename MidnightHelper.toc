@@ -260,6 +260,7 @@ Modules\ForeverToolGuard.lua
 Modules\ForeverBuffs.lua
 Modules\ForeverCamp.lua
 Modules\ForeverLegacy.lua
+Modules\ForeverTalentNext.lua
 Modules\ForeverWarnings.lua
 Modules\ForeverWeek.lua
 Modules\ForeverMacros.lua

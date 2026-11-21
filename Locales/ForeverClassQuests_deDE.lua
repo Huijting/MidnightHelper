@@ -1687,6 +1687,9 @@ for k, v in pairs({
 	FPROFG_STUDY_LIB_FMT = "Bibliothek zum Studieren: %s, %s, %s (Finden -> Bibliothek setzt den Pfeil).",
 	FPROFG_STUDY_FEATHER_FMT = "%s: du hast %d. Kein Händler verkauft sie: sie fällt bei Vögeln und Harpyien.",
 	FDONOW_STUDY_READY_FMT = "%s ist bereit. %s %s",
+	-- 21 Nov 2026 (mh-writer): Zweihandschwerter = SpellName 202, Zweite Talentspezialisierung = spell 63624 (DB2 deDE 1.60.1.71037).
+	FDONOW_WOLFSBANE_FMT = "%s gibt dir ein Zweihandschwert, aber du kannst noch keins benutzen. Lern zuerst Zweihandschwerter, bei %s in %s.",
+	FDONOW_DUALSPEC = "Zweite Talentspezialisierung: Ab Stufe 40 verkauft dein Klassenlehrer einen zweiten Satz Talente, zum Beispiel einen zum Leveln und einen zum Tanken. Spieler sagen, sie kostet etwa 50 Gold. Wechseln dauert 5 Sekunden, außerhalb eines Kampfes.",
 	FCITY_SUB_CRATES = "Versiegelte Kisten und Versandetiketten gibst du beim Handelsvertreter deiner Seite ab.",
 	FCRATE_SW = "Hilfe bei Abgefangenen Kisten",
 	FCRATE_SW_DESC = "Im Tooltip einer Kiste: jedes Bündel, das hineinpasst, und wie viele du hast (Taschen und Bank). Eine versiegelte Kiste oder ein Versandetikett sagt, wo du es abgibst, und landet eins in deinen Taschen, zeigt ein kleines Fenster den Weg. Nie im Kampf.",

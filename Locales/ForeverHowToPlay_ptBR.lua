@@ -53,6 +53,36 @@ ns.FOREVER_HOWTOPLAY_L.ptBR = {
 - **Exemplo, profissões:** **Hora Extra** (mais pontos de perícia) e **Colheita Farta** (materiais escassos com mais frequência de Mineração, Herborismo e Esfolamento).
 - **Estudo Dedicado** é um botão, não uma vantagem passiva: 25 segundos lançando, depois 23 horas de espera. Ele aumenta em 1 a sua perícia de profissão mais baixa.
 - **/mh legacy** mostra quantos pontos o MH consegue ler.]] },
+		-- 21 Nov 2026: new 4th section (mh-writer). Measured DB2 ptBR 1.60.1.71037: TALENT_SPEC_SECONDARY "Talentos secundários",
+		-- spell 63624 "Aprender Segunda Especialização de Talentos" (no separate "Dual Spec" word in the client).
+		{ "Talentos: redefinir e segunda especialização", [[
+- **Redefina seus talentos** com o treinador da sua classe: fale com ele e escolha a opção de talentos. Depois distribua seus pontos de novo. Os jogadores dizem que custa 1 de ouro na primeira vez, depois 5, depois 10, e mais depois disso. A Blizzard diz que o preço sobe rápido e baixa uma vez por semana.
+- **Segunda Especialização de Talentos:** a partir do nível 40, o treinador da sua classe vende um segundo conjunto de talentos. No jogo, ele se chama **Talentos secundários**. Os jogadores dizem que custa 50 de ouro; a Blizzard não deu preço.
+- **Trocar** entre os seus dois conjuntos leva 5 segundos e não funciona em combate.
+- **Para quê:** suba de nível com um conjunto e tanque ou cure com o outro. Um Paladino sobe de nível como Retribuição e tanqueia como Proteção, um Druida sobe de nível como felino e cura como Restauração.]] },
+	},
+	-- 21 Nov 2026: "Level as X, tank as Y" (mh-writer, from ForeverHowToPlay.lua PLANS). Names measured DB2 ptBR
+	-- 1.60.1.71037 (SpellName, TalentTab, Map, GlobalStrings); Acônito and Arquibaldo from Wowhead Forever ptBR.
+	PLANS = {
+		PALADIN = { title = "Suba de nível como Retribuição, tanqueie como Proteção", body = [[
+- **Subir de nível:** os guias chamam Retribuição de jeito mais rápido de subir de nível sozinho: uma **arma de duas mãos** lenta e Selo da Retidão, depois Selo de Comando (20, um talento). Gaste seus pontos de talento em Retribuição.
+- **Tanquear uma masmorra** funciona desde a primeira, sem trocar os talentos: Cavernas Ígneas para a Horda (a partir do nível 13), Salão dos Thanes para a Aliança (por volta do 13). Fúria Íntegra e Selo da Fúria chegam os dois no 10. Guarde uma **arma de uma mão e um escudo nas bolsas**. Antes da masmorra: equipe os dois, ligue Fúria Íntegra (bloco D) e Selo da Fúria (**F**). Depois: volte para a arma de duas mãos e desligue Fúria Íntegra (clique com o botão direito nela, no canto superior direito). Com Fúria Íntegra ligada, você puxa os inimigos para longe do seu grupo.
+- **Quando fica fácil:** no 30 com Escudo Sagrado (um talento de Proteção), e de verdade no 40 com Juramentado do Escudo. Para isso você precisa de talentos de Proteção: a **Segunda Especialização de Talentos** (a partir do 40) lhe dáum segundo conjunto, então você sobe de nível como Retribuição e tanqueia como Proteção. Veja "Talentos: redefinir e segunda especialização" abaixo.
+- **Atributos para tanquear:** Vigor primeiro. Os guias não concordam sobre o que vem depois: wowforeverbuilder diz Defesa, Vigor, Poder mágico, Intelecto (nada de Força), outro guia coloca Poder mágico e Intelecto acima de Força. Com Poder mágico, Consagração e Escudo Sagrado seguram melhor os inimigos.
+- **Espada de duas mãos de Acônito** (a missão de classe de Morto-vivo no 20): aprenda Espadas de Duas Mãos primeiro, com Arquibaldo na Cidade Baixa. O MH avisa você em Faça isto agora.]] },
+		WARRIOR = { title = "Suba de nível e tanqueie como Guerreiro", body = [[
+- **Subir de nível:** os guias não concordam. A maioria diz que Proteção sobe de nível mais rápido: uma arma de duas mãos até Revanche no 14, depois uma **arma de uma mão e um escudo**. Um guia acha Proteção mais lenta sozinho. Armas ou Fúria também funcionam; aí guarde uma arma de uma mão e um escudo nas bolsas para tanquear.
+- **Tanquear uma masmorra** funciona desde a primeira: Cavernas Ígneas (Horda) a partir do nível 13, Salão dos Thanes (Aliança) a partir do 13 mais ou menos, Minas Mortas a partir do 16, Caverna Ululante a partir do 17. A missão de classe do 10 lhe dáPostura de Defesa, Provocar e Fender Armadura. No Forever, Postura de Defesa gera muito mais ameaça do que no jogo antigo, então os inimigos ficam em você.
+- **Quando fica fácil:** no 14-16 com Revanche e Levantar Escudo, e de verdade no 40 com Escudada (um talento) e Armadura de Placa.
+- **Talentos:** com talentos de Proteção você sobe de nível e tanqueia com um conjunto só. Subiu de nível como Armas ou Fúria? Então a **Segunda Especialização de Talentos** (a partir do 40) lhe dáum segundo conjunto para tanquear. Veja "Talentos: redefinir e segunda especialização" abaixo.
+- **Atributos para tanquear:** Vigor primeiro. Os guias não concordam sobre o resto: um coloca Defesa por último, outro quer Defesa até 440 cedo. Para ameaça: Acerto e Aptidão.]] },
+		DRUID = { title = "Suba de nível e tanqueie como Druida", body = [[
+- **Subir de nível:** os guias escolhem Combate Feral: o urso a partir do nível 10, o felino a partir do 20. Talentos de Combate Feral servem para os dois, então você sobe de nível como felino e tanqueia como urso com os mesmos talentos. Você não precisa de escudo nem de uma segunda arma.
+- **Sua arma conta numa forma.** Blizzard: em Forma de Urso e Forma de Felino, seus golpes normais causam o dano da arma que você segura. Então fique com o melhor cajado ou maça de duas mãos, também para tanquear.
+- **Tanquear uma masmorra** funciona desde a primeira: Cavernas Ígneas para a Horda (a partir do nível 13), Salão dos Thanes para a Aliança (por volta do 13). Forma de Urso vem da missão de classe do 10, com Rosnar e Malho (um guia diz só Malho: confira seus feitiços). No Forever, Forma de Urso gera muito mais ameaça do que no jogo antigo.
+- **Quando fica fácil:** Patada no 16 (mais inimigos de uma vez), Lacerar no 25 (um talento), e de verdade no 40 com Forma de Urso Hediondo e Mordida Primeva (um talento).
+- **Curar em grupo?** Isso precisa de talentos de Restauração e equipamento com Intelecto: a **Segunda Especialização de Talentos** (a partir do 40) lhe dáum segundo conjunto. Veja "Talentos: redefinir e segunda especialização" abaixo.
+- **Atributos para tanquear:** os guias não concordam. Para sobreviver: Armadura, depois Defesa até 440, depois Vigor, depois Agilidade. Para ameaça: dano da arma, depois Agilidade, depois Força. Outro guia diz dano da arma, Força, Agilidade enquanto você sobe de nível.]] },
 	},
 	DRUID = {
 		{ "O que ele faz", [[

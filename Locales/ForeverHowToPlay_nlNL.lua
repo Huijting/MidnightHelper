@@ -48,6 +48,34 @@ ns.FOREVER_HOWTOPLAY_L.nlNL = {
 - **Voorbeeld, beroepen:** **Working Overtime** (vaker een skill-up) en **Bountiful Harvest** (vaker Scarce materials uit Mining, Herbalism en Skinning).
 - **Dedicated Study** is een knop, geen passieve perk: 25 seconden casten, daarna 23 uur wachten. Hij verhoogt je laagste beroep met 1.
 - **/mh legacy** laat zien hoeveel punten MH kan lezen.]] },
+		-- 21 Nov 2026: new 4th section (mh-writer, from ForeverHowToPlay.lua). nlNL keeps the English game names.
+		{ "Talenten: resetten en Dual Spec", [[
+- **Je talenten resetten** doe je bij je class-trainer: praat met hem en kies de talent-optie. Daarna verdeel je je punten opnieuw. Spelers zeggen dat het de eerste keer 1 goud kost, dan 5, dan 10, en daarna meer. Blizzard zegt dat de prijs snel stijgt en één keer per week omlaag gaat.
+- **Dual Spec:** vanaf level 40 verkoopt je class-trainer een tweede set talenten. In het spel heet dat **Secondary Talents**. Spelers zeggen dat het 50 goud kost; Blizzard noemde geen prijs.
+- **Wisselen** tussen je twee sets duurt 5 seconden en werkt niet in een gevecht.
+- **Waarom:** level met de ene set en tank of heal met de andere. Een Paladin levelt als Retribution en tankt als Protection, een Druid levelt als kat en healt als Restoration.]] },
+	},
+	-- 21 Nov 2026: "Level as X, tank as Y" (mh-writer, from ForeverHowToPlay.lua PLANS).
+	PLANS = {
+		PALADIN = { title = "Level als Retribution, tank als Protection", body = [[
+- **Levelen:** de gidsen noemen Retribution de snelste manier om alleen te levelen: één traag **tweehandig wapen** en Seal of Righteousness, later Seal of Command (20, een talent). Zet je talentpunten in Retribution.
+- **Een dungeon tanken** gaat vanaf je eerste, zonder respec: Ragefire Chasm voor de Horde (vanaf level 13), de Hall of Thanes voor de Alliance (rond 13). Righteous Fury en Seal of Fury komen allebei op 10. Houd een **eenhandig wapen en een schild in je tassen**. Vóór de dungeon: wissel naar die twee, zet Righteous Fury aan (blok D) en Seal of Fury (**F**). Erna: terug naar het tweehandige wapen, en Righteous Fury uit (rechtsklik erop, rechtsboven in beeld). Met Righteous Fury aan trek je de vijanden weg van je groep.
+- **Wanneer het makkelijk wordt:** op 30 met Holy Shield (een Protection-talent), en echt op 40 met Shieldsworn. Wil je dat, dan heb je Protection-talenten nodig: **Dual Spec** (vanaf 40) geeft je een tweede set, zodat je als Retribution levelt en als Protection tankt. Zie "Talenten: resetten en Dual Spec" hieronder.
+- **Stats om te tanken:** eerst Stamina. De gidsen zijn het oneens over wat daarna komt: wowforeverbuilder zegt Defense, Stamina, spell power, Intellect (geen Strength), een andere gids zet spell power en Intellect boven Strength. Met spell power houden Consecration en Holy Shield vijanden beter vast.
+- **Tweehandig zwaard uit Wolfsbane** (de Undead class-quest op 20): leer eerst Two-Handed Swords, bij Archibald in Undercity. MH zegt het je in Doe dit nu.]] },
+		WARRIOR = { title = "Levelen en tanken als Warrior", body = [[
+- **Levelen:** de gidsen zijn het oneens. De meeste zeggen dat Protection het snelst levelt: een tweehandig wapen tot Revenge op 14, daarna een **eenhandig wapen en een schild**. Eén gids vindt Protection alleen trager. Arms of Fury werkt ook; houd dan een eenhandig wapen en een schild in je tassen om te tanken.
+- **Een dungeon tanken** gaat vanaf je eerste: Ragefire Chasm (Horde) vanaf level 13, de Hall of Thanes (Alliance) vanaf ongeveer 13, de Deadmines vanaf 16, Wailing Caverns vanaf 17. De class-quest op 10 geeft je Defensive Stance, Taunt en Sunder Armor. In Forever maakt Defensive Stance veel meer threat dan in het oude spel, dus vijanden blijven bij jou.
+- **Wanneer het makkelijk wordt:** op 14-16 met Revenge en Shield Block, en echt op 40 met Shield Slam (een talent) en Plate Mail.
+- **Talenten:** met Protection-talenten level en tank je met één set. Levelde je als Arms of Fury? Dan geeft **Dual Spec** (vanaf 40) je een tweede set om te tanken. Zie "Talenten: resetten en Dual Spec" hieronder.
+- **Stats om te tanken:** eerst Stamina. Over de rest zijn de gidsen het oneens: de ene zet Defense als laatste, een andere wil Defense vroeg tot 440. Voor threat: hit en expertise.]] },
+		DRUID = { title = "Levelen en tanken als Druid", body = [[
+- **Levelen:** de gidsen kiezen Feral: de beer vanaf level 10, de kat vanaf 20. Feral-talenten werken voor allebei, dus je levelt als kat en tankt als beer met dezelfde talenten. Je hebt geen schild en geen tweede wapen nodig.
+- **Je wapen telt in een form.** Blizzard: in Bear Form en Cat Form doen je gewone klappen de schade van het wapen dat je vasthoudt. Houd dus de beste tweehandige staf of mace, ook om te tanken.
+- **Een dungeon tanken** gaat vanaf je eerste: Ragefire Chasm voor de Horde (vanaf level 13), de Hall of Thanes voor de Alliance (rond 13). Bear Form komt uit de class-quest op 10, met Growl en Maul (één gids zegt alleen Maul: kijk je spells na). In Forever maakt Bear Form veel meer threat dan in het oude spel.
+- **Wanneer het makkelijk wordt:** Swipe op 16 (meer vijanden tegelijk), Lacerate op 25 (een talent), en echt op 40 met Dire Bear Form en Primal Bite (een talent).
+- **Healen in een groep?** Daarvoor heb je Restoration-talenten en Intellect-gear nodig: **Dual Spec** (vanaf 40) geeft je een tweede set. Zie "Talenten: resetten en Dual Spec" hieronder.
+- **Stats om te tanken:** de gidsen zijn het oneens. Om te overleven: armor, dan Defense tot 440, dan Stamina, dan Agility. Voor threat: wapenschade, dan Agility, dan Strength. Een andere gids zegt wapenschade, Strength, Agility terwijl je levelt.]] },
 	},
 	DRUID = {
 		{ "Wat hij doet", [[

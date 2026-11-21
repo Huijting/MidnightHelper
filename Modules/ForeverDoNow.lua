@@ -318,6 +318,8 @@ local ACTS = {
 		end
 	end, label = "FCQ_BTN" },
 	camp = { page = "camp", label = "FOV_TAB_CAMP" },
+	-- 21 Nov 2026: the game's talent window (ForeverTalentNext.lua).
+	talent = { fn = function() if ns.ForeverOpenTalents then ns.ForeverOpenTalents() end end, label = "FTALENT_BTN" },
 	-- 21 Nov 2026: Dual Spec is bought from your class trainer.
 	dualspec = { fn = function() if ns.ForeverTrainerGo then ns.ForeverTrainerGo() end end, label = "HOME_FOREVER_BTN_GO" },
 }
@@ -461,6 +463,15 @@ function Collect()
 		item(s, "weapons")
 		out.actions.weapons = true
 	end
+	-- 21 Nov 2026 (Rob via sparring: "Ja, doe dat maar"): an unused talent point → the next talent of your order
+	-- (ForeverTalentNext.lua). A to-do: a free point is something to do now.
+	if ns.ForeverTalentNextLine then
+		local okT, line, spell = pcall(ns.ForeverTalentNextLine)
+		if okT and line then
+			out.now[#out.now + 1] = line
+			item(line, "talent", nil, nil, spell and { spell } or nil)
+		end
+	end
 	-- 21 Nov 2026 (Rob via sparring: "Heb ik een two-handed sword nodig?"; GO "Ja, voeg dat maar toe"): the Wolfsbane class
 	-- quest (Undead Paladin, item 267369 = a two-handed sword, GEMETEN by sparring's research) is no use without the skill.
 	-- From 18 (its first quest can be taken then) a tip, from 20 a to-do: learn Two-Handed Swords (spell 202) first.
@@ -472,7 +483,10 @@ function Collect()
 			if e.chain == wolfName and e.state ~= "done" then
 				-- Archibald (npc 11870) teaches it in Undercity (map 1458, ForeverWeapons.lua); the client names the city.
 				local info = C_Map and C_Map.GetMapInfo and C_Map.GetMapInfo(1458)
-				local s = ns:L("FDONOW_WOLFSBANE_FMT"):format(e.chain, "Archibald", info and info.name or "Undercity")
+				-- His client name: "Archibald" except ptBR and ruRU (Wowhead Forever npc 11870 per locale, mh-writer 21 Nov).
+				local loc = GetLocale and GetLocale() or "enUS"
+				local npc = (loc == "ptBR" and "Arquibaldo") or (loc == "ruRU" and "Арчибальд") or "Archibald"
+				local s = ns:L("FDONOW_WOLFSBANE_FMT"):format(e.chain, npc, info and info.name or "Undercity")
 				if level >= 20 then
 					out.now[#out.now + 1] = s
 					item(s, "twohand")

@@ -1326,6 +1326,10 @@ local QUIET = {
 	Q("FNODE_GLOW_SW", "FNODE_GLOW_SW_DESC", {
 		get = function() return ns.IsNodeGlowOn and ns.IsNodeGlowOn() end,
 		set = function(on) if ns.SetNodeGlow then ns.SetNodeGlow(on) end end }),
+	-- 21 Nov 2026 (Rob via sparring: "Ja, doe dat maar"): Do this now names the next talent (ForeverTalentNext.lua).
+	Q("FTALENT_SW", "FTALENT_SW_DESC", {
+		get = function() return ns.IsForeverTalentNextOn and ns.IsForeverTalentNextOn() end,
+		set = function(on) if ns.SetForeverTalentNext then ns.SetForeverTalentNext(on) end end }),
 	Q("FBLESS_BTN_SW", "FBLESS_BTN_SW_DESC", {
 		get = function() return ns.IsForeverSmartBlessOn and ns.IsForeverSmartBlessOn() end,
 		set = function(on) if ns.SetForeverSmartBless then ns.SetForeverSmartBless(on) end end }),

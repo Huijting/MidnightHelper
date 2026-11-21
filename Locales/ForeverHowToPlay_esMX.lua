@@ -55,6 +55,36 @@ ns.FOREVER_HOWTOPLAY_L.esMX = {
 - **Ejemplo, profesiones:** **Horas extra** (más subidas de habilidad) y **Cosecha abundante** (materiales Scarce más a menudo con Minería, Herboristería y Desuello).
 - **Estudio dedicado** es un botón, no una ventaja pasiva: un lanzamiento de 25 segundos y luego 23 horas de espera. Sube en 1 tu habilidad comercial más baja.
 - **/mh legacy** muestra cuántos puntos puede leer MH.]] },
+		-- 21 Nov 2026: new 4th section (mh-writer). Measured DB2 esMX 1.60.1.71037: TALENT_SPEC_SECONDARY "Talentos secundarios",
+		-- spell 63624 "Aprender segunda especialización de talentos" (no separate "Dual Spec" word in the client).
+		{ "Talentos: reiniciar y segunda especialización", [[
+- **Reinicia tus talentos** con tu instructor de clase: habla con él y elige la opción de talentos. Luego gasta tus puntos otra vez. Los jugadores dicen que cuesta 1 de oro la primera vez, luego 5, luego 10, y más después. Blizzard dice que el precio sube rápido y baja una vez por semana.
+- **Segunda especialización de talentos:** desde el nivel 40, tu instructor de clase vende un segundo juego de talentos. En el juego se llama **Talentos secundarios**. Los jugadores dicen que cuesta 50 de oro; Blizzard no dio precio.
+- **Cambiar** entre tus dos juegos tarda 5 segundos y no funciona en combate.
+- **Para qué:** sube de nivel con un juego y tanquea o cura con el otro. Un Paladín sube de nivel como Reprensión y tanquea como Protección, un Druida sube de nivel como felino y cura como Restauración.]] },
+	},
+	-- 21 Nov 2026: "Level as X, tank as Y" (mh-writer, from ForeverHowToPlay.lua PLANS). Names measured DB2 esMX
+	-- 1.60.1.71037 (SpellName, TalentTab, Map, GlobalStrings); Aterralobos (item 267369) and Archibald from Wowhead Forever esMX.
+	PLANS = {
+		PALADIN = { title = "Sube de nivel como Reprensión, tanquea como Protección", body = [[
+- **Subir de nivel:** las guías dicen que Reprensión es la forma más rápida de subir de nivel en solitario: un **arma de dos manos** lenta y Sello de rectitud, más tarde Sello de orden (20, un talento). Gasta tus puntos de talento en Reprensión.
+- **Tanquear un calabozo** funciona desde el primero, sin cambiar de talentos: Sima Ígnea para la Horda (desde el nivel 13), el Salón de Señores Feudales para la Alianza (hacia el 13). Furia recta y Sello de furia llegan los dos en el 10. Lleva un **arma de una mano y un escudo en tus bolsas**. Antes del calabozo: equípatelos, activa Furia recta (bloque D) y Sello de furia (**F**). Después: vuelve al arma de dos manos y quita Furia recta (clic derecho sobre ella, arriba a la derecha). Con Furia recta activa, apartas a los enemigos de tu grupo.
+- **Cuándo se vuelve fácil:** en el 30 con Escudo Sagrado (un talento de Protección), y de verdad en el 40 con Escudo juramentado. Para eso necesitas talentos de Protección: la **segunda especialización de talentos** (desde el 40) te da un segundo juego, así subes de nivel como Reprensión y tanqueas como Protección. Mira "Talentos: reiniciar y segunda especialización" más abajo.
+- **Estadísticas para tanquear:** primero Aguante. Las guías no se ponen de acuerdo en lo que sigue: wowforeverbuilder dice Defensa, Aguante, Poder con hechizos, Intelecto (nada de Fuerza), otra guía pone Poder con hechizos e Intelecto por encima de Fuerza. Con Poder con hechizos, Consagración y Escudo Sagrado retienen mejor a los enemigos.
+- **Espada de dos manos de Aterralobos** (la misión de clase de los No-muertos del 20): aprende primero Espadas de dos manos, con Archibald en Entrañas. MH te lo dice en Haz esto ahora.]] },
+		WARRIOR = { title = "Sube de nivel y tanquea como Guerrero", body = [[
+- **Subir de nivel:** las guías no se ponen de acuerdo. La mayoría dice que Protección sube de nivel más rápido: un arma de dos manos hasta Revancha en el 14, luego un **arma de una mano y un escudo**. Una guía ve Protección más lenta en solitario. Armas o Furia también funcionan; entonces lleva un arma de una mano y un escudo en tus bolsas para tanquear.
+- **Tanquear un calabozo** funciona desde el primero: Sima Ígnea (Horda) desde el nivel 13, el Salón de Señores Feudales (Alianza) desde el 13 más o menos, Minas de la Muerte desde el 16, Cuevas de los Lamentos desde el 17. La misión de clase del 10 te da Actitud defensiva, Provocar y Hender armadura. En Forever, Actitud defensiva genera mucha más amenaza que en el juego antiguo, así que los enemigos se quedan contigo.
+- **Cuándo se vuelve fácil:** en el 14-16 con Revancha y Bloqueo con escudo, y de verdad en el 40 con Embate con escudo (un talento) y Malla de placas.
+- **Talentos:** con talentos de Protección subes de nivel y tanqueas con un solo juego. ¿Subiste de nivel como Armas o Furia? Entonces la **segunda especialización de talentos** (desde el 40) te da un segundo juego para tanquear. Mira "Talentos: reiniciar y segunda especialización" más abajo.
+- **Estadísticas para tanquear:** primero Aguante. En el resto las guías no se ponen de acuerdo: una pone Defensa al final, otra quiere Defensa hasta 440 pronto. Para la amenaza: Golpe y Pericia.]] },
+		DRUID = { title = "Sube de nivel y tanquea como Druida", body = [[
+- **Subir de nivel:** las guías eligen Combate feral: el oso desde el nivel 10, el felino desde el 20. Los talentos de Combate feral sirven para los dos, así que subes de nivel como felino y tanqueas como oso con los mismos talentos. No necesitas escudo ni una segunda arma.
+- **Tu arma cuenta en una forma.** Blizzard: en Forma de oso y Forma felina, tus golpes normales hacen el daño del arma que llevas. Así que quédate con el mejor bastón o maza de dos manos, también para tanquear.
+- **Tanquear un calabozo** funciona desde el primero: Sima Ígnea para la Horda (desde el nivel 13), el Salón de Señores Feudales para la Alianza (hacia el 13). Forma de oso llega con la misión de clase del 10, con Bramido y Magullar (una guía dice que solo Magullar: revisa tus hechizos). En Forever, Forma de oso genera mucha más amenaza que en el juego antiguo.
+- **Cuándo se vuelve fácil:** Flagelo en el 16 (más enemigos a la vez), Lacerar en el 25 (un talento), y de verdad en el 40 con Forma de oso temible y Mordedura primigenia (un talento).
+- **¿Curar en grupo?** Para eso necesitas talentos de Restauración y equipo con Intelecto: la **segunda especialización de talentos** (desde el 40) te da un segundo juego. Mira "Talentos: reiniciar y segunda especialización" más abajo.
+- **Estadísticas para tanquear:** las guías no se ponen de acuerdo. Para sobrevivir: Armadura, luego Defensa hasta 440, luego Aguante, luego Agilidad. Para la amenaza: daño del arma, luego Agilidad, luego Fuerza. Otra guía dice daño del arma, Fuerza, Agilidad mientras subes de nivel.]] },
 	},
 	DRUID = {
 		{ "Qué hace", [[

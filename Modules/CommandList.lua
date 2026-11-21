@@ -100,6 +100,8 @@ ns.MH_UNLISTED_ON_PURPOSE = {
 	"charkey",
 	-- 21 Nov 2026: renown measurement (AltOverview.lua).
 	"renown",
+	-- 21 Nov 2026: next talent point diagnosis (ForeverTalentNext.lua, Forever only).
+	"talent",
 	-- 12 Nov 2026 (Rob: "Ja, haal hem weg"): our own number check, out of the player list.
 	"selftest",
 	-- 12 Nov 2026: Forever group panel diagnosis (ForeverPartyPanel.lua).

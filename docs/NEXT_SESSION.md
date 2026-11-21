@@ -11,7 +11,17 @@ open bovenaan How you play, ook op de overzichtspagina als kind "role"); COMMON-
 Find op Two-Handed Swords + pijl naar de dichtste wapenmeester) en `FDONOW_DUALSPEC` (tip vanaf 40 zolang 63644 niet
 bekend; knop naar de class-trainer). `/mh donow check` print 202 en 63644. Tankstats Paladin: Stamina > Intellect (was
 > Strength). GEMETEN: wissel 63644/63645 = 5 s (SpellCastTimes 6). NIET gemeten: of IsPlayerSpell(63644) na het kopen
-true geeft; of de druid-klassequest Growl ook geeft. Vertalingen: mh-writer bezig (bouwchat 21-11).
+true geeft; of de druid-klassequest Growl ook geeft. Vertalingen KLAAR (mh-writer, 7 talen + esMX, niet door een
+moedertaalspreker nagekeken): ForeverHowToPlay_<code> (PLANS + COMMON[4]) en ForeverClassQuests_<code> (2 FDONOW-keys).
+Daarbij gerepareerd: esES Wolfsbane = "Aterralobos" (Wowhead Forever); Archibald heet in ptBR "Arquibaldo", ruRU
+"Арчибальд" (in de Wolfsbane-regel; de Find-rij van de wapenmeester toont nog overal "Archibald"). ⚠️ esES SpellName
+202 zegt "Mazas de dos manos" (Blizzard-fout?); de teksten gebruiken "Espadas de dos manos" (SkillLine 55, esMX).
+
+🎯 **Volgend talentpunt in Do this now (21 nov, IN BOUW)** — Rob via sparring, letterlijk: *"Ja, doe dat maar"* op
+"'Do this now' zegt bij elk nieuw level welk talent je nu moet kiezen". `Modules/ForeverTalentNext.lua`: alleen bij een
+vrij punt (GetTreeCurrencyInfo tree 1100, valuta 3820), richting → volgorde, eerste stap die nog niet af is
+(GetNodeInfo.ranksPurchased). Schakelaar FTALENT_SW, `/mh talent`, knop opent het talentvenster (AFGELEID). Offline test
+GESLAAGD met een nepvolgorde. ORDERS nog LEEG (mh-research zoekt de Paladin-volgordes) → nu stil.
 
 🔎 **Zoeken springt naar de schakelaar + "for WoW Forever" (21 nov)** — Rob via sparring, letterlijk: *"Wat ik dan krijg
 is het lange overzicht. Dan moet ik eerst gaan scrollen naar beneden en kijken waar staat hij ook weer. ... Dat moet

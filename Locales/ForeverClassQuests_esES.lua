@@ -200,10 +200,9 @@ for k, v in pairs({
 	FCQ_CHAIN_PA_VERIGAN_GEM = "Puño de Verigan: la Gema kor",
 	FCQ_CHAIN_PA_MIGHTSTONE = "Las misiones del Comandante Ashlam Puñovalor (objetos como recompensa)",
 	FCQ_CHAIN_PA_KEEP = "Las misiones del Castillo Bandarion (una maza y un escudo)",
-	-- not measured: Wolfsbane (item 267369 is not in the local ItemSparse)
-	FCQ_CHAIN_PA_WOLFSBANE = "Wolfsbane (una espada de dos manos)",
-	-- not measured: Wolfsbane
-	FCQ_CHAIN_PA_WOLFSBANE_GEM = "Wolfsbane: la Gema kor",
+	-- 21 Nov 2026: item 267369 = "Aterralobos" on Wowhead Forever esES and esMX (mh-writer, bouwchat 21-11).
+	FCQ_CHAIN_PA_WOLFSBANE = "Aterralobos (una espada de dos manos)",
+	FCQ_CHAIN_PA_WOLFSBANE_GEM = "Aterralobos: la Gema kor",
 	FCQ_OBJ_PA_LINEN = "trae 10 Paño de lino (cae de humanoides, o cómpralo en la Casa de subastas)",
 	FCQ_OBJ_PA_RESURRECT = "usa el Símbolo de Vida de tus bolsas en el cuerpo de aquí",
 	FCQ_OBJ_PA_DEFIAS_SCRIPT = "derrota a Zahoríes bribones Defias para conseguir el Pergamino Defias",
@@ -582,6 +581,10 @@ for k, v in pairs({
 	FPROFG_STUDY_LIB_FMT = "Biblioteca para Estudiar: %s, %s, %s (Buscar -> Biblioteca pone la flecha).",
 	FPROFG_STUDY_FEATHER_FMT = "%s: tienes %d. Ningún vendedor la vende: cae de pájaros y arpías.",
 	FDONOW_STUDY_READY_FMT = "%s está listo. %s %s",
+	-- 21 Nov 2026 (mh-writer): Espadas de dos manos = SkillLine 55 (SpellName 202 esES says "Mazas de dos manos"),
+	-- segunda especialización de talento = spell 63624 (DB2 esES 1.60.1.71037).
+	FDONOW_WOLFSBANE_FMT = "%s te da una espada de dos manos, pero todavía no puedes usarla. Aprende primero Espadas de dos manos, con %s en %s.",
+	FDONOW_DUALSPEC = "Segunda especialización de talento: desde el nivel 40, tu instructor de clase vende un segundo juego de talentos, por ejemplo uno para subir de nivel y otro para tanquear. Los jugadores dicen que cuesta unos 50 de oro. Cambiar tarda 5 segundos, fuera de combate.",
 	FCITY_SUB_CRATES = "Los cajones sellados y las etiquetas de envíos se entregan al representante comercial de tu bando.",
 	FCRATE_SW = "Ayuda con los Cajones saqueados",
 	FCRATE_SW_DESC = "En la descripción de un cajón: cada lote que acepta y cuántos tienes (bolsas y banco). Un cajón sellado o una etiqueta de envíos dice dónde entregarlo, y cuando llega uno a tus bolsas, una ventana pequeña muestra el camino. Nunca en combate.",

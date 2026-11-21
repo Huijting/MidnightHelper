@@ -543,6 +543,10 @@ for k, v in pairs({
 	FPROFG_STUDY_LIB_FMT = "Biblioteca para Estudar: %s, %s, %s (Encontrar -> Biblioteca coloca a seta).",
 	FPROFG_STUDY_FEATHER_FMT = "%s: você tem %d. Nenhum vendedor vende: ela cai de pássaros e harpias.",
 	FDONOW_STUDY_READY_FMT = "%s está pronto. %s %s",
+	-- 21 Nov 2026 (mh-writer): Espadas de Duas Mãos = SpellName 202, Segunda Especialização de Talentos = spell 63624
+	-- (DB2 ptBR 1.60.1.71037).
+	FDONOW_WOLFSBANE_FMT = "%s dá uma espada de duas mãos, mas você ainda não pode usá-la. Aprenda Espadas de Duas Mãos primeiro, com %s em %s.",
+	FDONOW_DUALSPEC = "Segunda Especialização de Talentos: a partir do nível 40, o treinador da sua classe vende um segundo conjunto de talentos, por exemplo um para subir de nível e outro para tanquear. Os jogadores dizem que custa cerca de 50 de ouro. Trocar leva 5 segundos, fora de combate.",
 	FCITY_SUB_CRATES = "Caixotes lacrados e Etiquetas de Envio são entregues ao representante comercial da sua facção.",
 	FCRATE_SW = "Ajuda com Caixotes Extraviados",
 	FCRATE_SW_DESC = "Na dica de um caixote: cada lote que ele aceita e quantos você tem (bolsas e banco). Um caixote lacrado ou uma Etiqueta de Envio diz onde entregar, e quando um chega às suas bolsas, uma janela pequena mostra o caminho. Nunca em combate.",

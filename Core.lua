@@ -4426,6 +4426,16 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- 21 Nov 2026: the next talent point (Forever only, ForeverTalentNext.lua).
+	if msg:lower() == "talent" then
+		if ns.ForeverTalentSlash then
+			ns.ForeverTalentSlash()
+		else
+			print("|cffffcc00Midnight Helper:|r /mh talent is for WoW Forever.")
+		end
+		return
+	end
+
 	-- 21 Nov 2026: Waylaid Crates (Forever only, ForeverCrates.lua).
 	if msg:lower() == "crates" or msg:lower():match("^crates%s") then
 		if ns.ForeverCratesSlash then
