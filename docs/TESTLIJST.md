@@ -88,6 +88,11 @@ Upgrade / Not now / Never). Afgevinkt met "(Rob, 19 nov)". De hulpregels ("typ /
       *"Van heb je beroep wel mijn skill te laag, dan blijft hij rood. En zo hoort het ook."*
 - [ ] (21 nov, na Robs wens) Zonder het beroep: GEEN gloed van MH meer (ook geen rode). Met het beroep maar skill te laag
       (bv. Tin met Mining onder 65): rood. `/mh sparkle`: "reason: skipped: no Herbalism".
+- [ ] (21 nov) Zoekbalk in het Forever-overzicht: typ `spar`, klik "Quest items sparkle …". De pagina Quiet helpers gaat
+      open, de schakelaar staat in beeld en licht 2 seconden goud op. Typ ook `ore`, `herb` en `glow`: je ziet de twee
+      erts/kruiden-schakelaars (het icoon van het spel en de gloed van MH).
+- [ ] (21 nov) Onder "MIDNIGHT HELPER" linksboven staat klein "for WoW Forever". Ook in de oude layout (tabs bovenaan):
+      de tekst raakt de tabs niet.
 - [ ] (21 nov) Schakelaar "the game's icon" UIT, gloed AAN: geen bloem-/houweel-icoon van het spel meer, wel de MH-gloed bij
       een ader die je kunt mijnen. Zie je dan géén gloed meer ("glow shown: no" in `/mh sparkle`)? Zeg het: dan heeft de
       gloed het icoon van het spel nodig.

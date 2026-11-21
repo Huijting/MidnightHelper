@@ -26,6 +26,13 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 
 ## Open — wacht op Rob
 
+### Forever-overzicht: zoektreffer springt naar de schakelaar + ondertitel "for WoW Forever" (wens van Rob, 21 nov) — ✅ JA + GEBOUWD 21 nov (wacht op Robs test)
+- Bron: Rob 21 nov via sparring (GO), letterlijk: *"Dan moet ik eerst gaan scrollen naar beneden en kijken waar staat hij
+  ook weer. ... Dat moet volgens mij beter kunnen."* en *"Iets dat duidelijk maakt dat het echt voor Forever is."*
+- Gebouwd: klik op een Quiet helpers-treffer → pagina open, regel in beeld, 2 s goud oplichten; "spar/ore/herb/glow"
+  vinden de schakelaars; "for WoW Forever" onder de titel (7 talen).
+- Spel: F. Site: nog niet (in bouw, niet getest).
+
 ### Forever, mage: waar kan ik Study doen + waar haal ik Light Feathers (vraag van Rob, 21 nov) — ✅ JA + GEBOUWD 21 nov
 - Bron: Rob 21 nov via sparring, letterlijk: *"Ja, graag"* (uitzoeken + bouwen).
 - Gebouwd: bibliotheek in Stormwind (Garion Wendell) / Undercity (Owen Thadd) op het Comprehension-kaartje, in de Study-

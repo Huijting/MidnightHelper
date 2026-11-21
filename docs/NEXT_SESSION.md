@@ -2,6 +2,17 @@
 
 ## ▶▶ VOLGENDE BOUWCHAT: Forever-overzicht "D" — stap 1 en 3 gebouwd; stap 2 wacht op Robs screenshots (20 nov, avond)
 
+🔎 **Zoeken springt naar de schakelaar + "for WoW Forever" (21 nov)** — Rob via sparring, letterlijk: *"Wat ik dan krijg
+is het lange overzicht. Dan moet ik eerst gaan scrollen naar beneden en kijken waar staat hij ook weer. ... Dat moet
+volgens mij beter kunnen."* en *"waarom staat er niet onder Forever versie ... Iets dat duidelijk maakt dat het echt voor
+Forever is."* Gebouwd in `ForeverOverview.lua`: een zoektreffer op een Quiet helpers-schakelaar → `FocusQuietRow(i)`:
+opent de pagina, scrollt de regel naar een derde van boven en laat hem 2 s goud oplichten (vlak + streep links,
+`FlashQuietRow`). Elke rij onthoudt `_y/_h` in FillQuietPage. Extra zoekwoorden `QUIET_WORDS` (spar/ore/herb/glow/node/
+mining/herbalism) voor FLS_SW, FNODE_ICON_SW, FNODE_GLOW_SW. Ondertitel `FOV_SUBTITLE` onder "MIDNIGHT HELPER" (beide
+layouts, zelfde titelregel), 7 talen. Andere zoektreffers (tabs, Find, Tools) springen nog alleen naar de pagina.
+NIET gemeten in het spel: of de ondertitel in de oude layout vrij van de tabs blijft (11 px tussen -37 en -50), en of het
+scrollen meteen raak is (tweede poging na 0,05 s als het scrollbereik nog 0 is).
+
 ✅ **Charkey GESLAAGD op twee Ima's (Rob in het spel, 21 nov)** — Ima 2 = Player-6944-0120ED18 (Ima 1 = …0118CB4F), eigen
 kopieën, "copies so far 9". Joey en KeyBlock nog niet getest.
 

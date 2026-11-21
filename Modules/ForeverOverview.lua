@@ -1379,6 +1379,18 @@ local QUIET = {
 		get = function() return ns.IsCameraFarOn and ns.IsCameraFarOn() end,
 		set = function(on) if ns.SetCameraFar then ns.SetCameraFar(on, true) end end }),
 }
+-- 21 Nov 2026 (Rob via sparring: "spar"/"ore"/"herb"/"glow" must find the sparkle and the ore and herb switches): extra
+-- search words, English like the other search words; the switch's own title and text are searched in every language.
+local QUIET_WORDS = {
+	FLS_SW = "sparkle sparkles loot quest item glow outline",
+	FNODE_ICON_SW = "ore ores herb herbs node nodes vein mining herbalism gather icon sparkle",
+	FNODE_GLOW_SW = "ore ores herb herbs node nodes vein mining herbalism gather glow sparkle",
+}
+for _, q in ipairs(QUIET) do
+	if q.title and QUIET_WORDS[q.title] then
+		q.words = QUIET_WORDS[q.title]
+	end
+end
 
 local function BuildQuietPage(f, x0, rightW)
 	local page = f.pages.quiet
@@ -1675,6 +1687,11 @@ local function Build()
 	f.title = Text(f, "head", 22, A.gold)
 	f.title:SetPoint("TOPLEFT", 22, -14)
 	f.title:SetText("MIDNIGHT HELPER")
+	-- 21 Nov 2026 (Rob via sparring: "waarom staat er niet onder Forever versie ... Iets dat duidelijk maakt dat het echt
+	-- voor Forever is"): "for WoW Forever" under the name, in both layouts (the title row is the same in both).
+	f.subtitle = Text(f, "textB", 11, A.dim)
+	f.subtitle:SetPoint("TOPLEFT", f.title, "BOTTOMLEFT", 1, -1)
+	f.subtitle:SetText(ns:L("FOV_SUBTITLE"))
 	-- No Dock button here. Rob, 17 Nov 2026 (via sparring, verbatim): "het knopje dock en undock is eigenlijk nergens
 	-- meer nodig. Want waar gaan we het in godsnaam aan vastplakken?" - the overview IS the main window in Forever. A
 	-- window that was docked before is undocked once.
@@ -4177,6 +4194,7 @@ local function FillQuietPage(f, refresh)
 	local card = f.pages.quiet.card
 	local y = 2
 	for _, it in ipairs(card.items) do
+		local y0 = y
 		if it.head then
 			it.head:ClearAllPoints()
 			it.head:SetPoint("TOPLEFT", card.child, "TOPLEFT", 4, -(y + 6))
@@ -4199,12 +4217,85 @@ local function FillQuietPage(f, refresh)
 			it.desc:SetPoint("TOPLEFT", it.text, "BOTTOMLEFT", 0, -2)
 			y = y + math.max(h, (it.text:GetStringHeight() or 16) + 4 + (it.desc:GetStringHeight() or 14) + 10)
 		end
+		-- Where this row sits in the list: the search jumps here (FocusQuietRow).
+		it._y, it._h = y0, y - y0
 	end
 	card.child:SetHeight(math.max(10, y))
 	if refresh then
 		card.sf.UpdateThumb()
 	else
 		card.sf.Reset()
+	end
+end
+
+--- 21 Nov 2026 (Rob via sparring: a search hit on a switch opened the long list, "Dan moet ik eerst gaan scrollen naar
+--- beneden en kijken waar staat hij ook weer"): open Quiet helpers, scroll row `i` of QUIET into view and let it light
+--- up for two seconds. Next frame: the page is filled (and its scroll range known) only after Show.
+local FLASH_TIME = 2
+local function FlashQuietRow(card, it)
+	if not card.flash then
+		card.flash = card.child:CreateTexture(nil, "BACKGROUND")
+		card.flash:SetColorTexture(A.gold[1], A.gold[2], A.gold[3], 1)
+		card.flashEdge = card.child:CreateTexture(nil, "BORDER")
+		card.flashEdge:SetColorTexture(A.gold[1], A.gold[2], A.gold[3], 1)
+		card.flashEdge:SetWidth(3)
+		card.flashTimer = CreateFrame("Frame", nil, card)
+		card.flashTimer:Hide()
+		card.flashTimer:SetScript("OnUpdate", function(self, elapsed)
+			self.left = (self.left or 0) - (elapsed or 0)
+			if self.left <= 0 then
+				card.flash:Hide()
+				card.flashEdge:Hide()
+				self:Hide()
+				return
+			end
+			local a = math.min(1, self.left / 0.8) -- full for the first 1.2 s, then fades out
+			card.flash:SetAlpha(0.22 * a)
+			card.flashEdge:SetAlpha(0.9 * a)
+		end)
+	end
+	for _, t in ipairs({ card.flash, card.flashEdge }) do
+		t:ClearAllPoints()
+		t:SetPoint("TOPLEFT", card.child, "TOPLEFT", 0, -(it._y - 2))
+		t:SetHeight(math.max(20, (it._h or 30) - 4))
+	end
+	card.flash:SetPoint("RIGHT", card.child, "RIGHT", 0, 0)
+	card.flash:SetAlpha(0.22)
+	card.flashEdge:SetAlpha(0.9)
+	card.flash:Show()
+	card.flashEdge:Show()
+	card.flashTimer.left = FLASH_TIME
+	card.flashTimer:Show()
+end
+
+local function FocusQuietRow(i)
+	ns.ShowForeverOverviewPage("quiet")
+	local tries = 0
+	local function go()
+		local f = Build()
+		local card = f.pages.quiet and f.pages.quiet.card
+		local it = card and card.items[i]
+		if not (it and it._y and f.page == "quiet") then
+			return
+		end
+		local sf = card.sf
+		local max = sf:GetVerticalScrollRange() or 0
+		local view = sf:GetHeight() or 0
+		-- The scroll range can still read 0 one frame after Show: look once more a moment later.
+		if max < 1 and it._y > view / 3 and tries < 1 and C_Timer and C_Timer.After then
+			tries = tries + 1
+			C_Timer.After(0.05, go)
+			return
+		end
+		-- The row a third from the top, so the heading above it shows too.
+		sf:SetVerticalScroll(math.min(max, math.max(0, it._y - math.floor(view / 3))))
+		sf.UpdateThumb()
+		FlashQuietRow(card, it)
+	end
+	if C_Timer and C_Timer.After then
+		C_Timer.After(0, go)
+	else
+		go()
 	end
 end
 
@@ -4515,15 +4606,18 @@ local function SearchRows()
 	end
 
 	-- Quiet helpers (the gear): every switch by its own name.
-	for _, q in ipairs(QUIET) do
+	for i, q in ipairs(QUIET) do
 		if q.action then
 			-- A door (the rank choice window): the search opens the window itself. Its search words hold the client's
 			-- rank word and "rank" in every language (FRANK_CHOOSE_KEYS).
 			row(ns:L(q.title), "setting window open " .. (q.keys and ns:L(q.keys) or "") .. " " .. ns:L(q.tip), q.fn,
 				"nav", ns:L("FOV_SUB_QUIET"), "setting")
 		elseif q.title then
-			row(ns:L(q.title), "setting switch on off " .. (q.tip and ns:L(q.tip) or ""), page("quiet"), "nav",
-				ns:L("FOV_SUB_QUIET"), "setting")
+			-- 21 Nov 2026: a hit scrolls to the switch itself and lights it up (FocusQuietRow).
+			row(ns:L(q.title), "setting switch on off " .. (q.words or "") .. " " .. (q.tip and ns:L(q.tip) or ""),
+				function()
+					FocusQuietRow(i)
+				end, "nav", ns:L("FOV_SUB_QUIET"), "setting")
 		end
 	end
 

@@ -4343,6 +4343,7 @@ ns._mhLocales.nlNL = {
 	FNODE_ICON_SW = "Erts en kruiden: het icoon van de game boven de dichtstbijzijnde",
 	FNODE_ICON_SW_DESC = "MH zet de eigen soft-target-instelling van de game aan voor objecten. Dan toont de game een houweel of kruidje boven de ertsader of het kruid dat het dichtst bij je is: één tegelijk, tot ongeveer 15 meter. NPC's bij je kunnen ook een icoontje krijgen. Je oude instellingen worden bewaard, en dit uitzetten zet ze terug. Nooit in een gevecht.",
 	FNODE_GLOW_SW = "Erts en kruiden gloeien (getekend door MH)",
+	FOV_SUBTITLE = "voor WoW Forever",
 	FNODE_GLOW_SW_DESC = "MH tekent een gloed op de ertsader (goud) of het kruid (groen) dat de game voor je kiest: de dichtstbijzijnde, tot ongeveer 15 meter, één tegelijk. Alleen voor wat je kunt verzamelen: geen gloed zonder Herbalism of Mining. Rood: je skill is er te laag voor. Te ver weg houdt zijn kleur. Het icoon van het spel zie je alleen als zijn eigen schakelaar ook aan staat. Je oude instellingen worden bewaard, en dit uitzetten zet ze terug. Nooit in een gevecht. Staat de addon Lueur aan, dan laat MH dit aan Lueur over.",
 	FNODE_ON = "erts en kruiden: aan (%d instelling(en) veranderd). /mh sparkle toont ze.",
 	FNODE_OFF = "erts en kruiden: uit. Je oude instellingen zijn terug.",
