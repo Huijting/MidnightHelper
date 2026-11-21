@@ -5163,3 +5163,65 @@ kop, per bevinding MEASURED/INFERRED en [RAAKT ONS]/[RAAKT ONS NIET], met bestan
   (alle rechtstreeks via Exa gelezen, laatste ook via web_search_exa en het forum-citaat als
   onafhankelijke controle). Vandaag is vrijdag, geen maandag: de kaarten- en consumables-secties zijn
   opzettelijk weggelaten.
+
+- [2026-11-21] 🆕 **Midnight nog steeds stil (16e dag op "November 6, 2026"); Forever heeft een
+  nieuwe sectie (20 nov) maar geen van de tien punten daarin raakt een bewering in onze code.**
+
+  💬 **CurseForge:** MEASURED, zelf gelezen via Exa
+  (`curesforge.com/api/v1/mods/1528577/comments?pageIndex=0&pageSize=20&nocache=20261121c`,
+  3 keer met andere `nocache`-waarde opgehaald, zelfde inhoud elke keer — geen tekenen van een
+  verstikte cache): **geen open reacties (3 draadjes, 8 berichten in totaal gelezen).** Alle drie zijn
+  beantwoord door `twelveinchy` (Rob) als laatste bericht, inclusief een nieuw draadje van vóór
+  gisteren (esES laadt niet op een esMX-client — Rob antwoordde dat de fix al in de volgende update
+  zit) dat al afgehandeld was voordat deze ronde liep.
+
+  **Midnight, geen nieuwe sectie.** MEASURED, zelf gelezen via Exa (`?nocache=20261121a`):
+  `news.blizzard.com/en-us/article/24307310/hotfixes-november-6-2026` toont nog steeds alleen de
+  secties van 6 en 5 nov, allebei al verwerkt op [2026-11-06]/[2026-11-07]. **Positieve controle,
+  zelfde run:** `worldofwarcraft.blizzard.com/en-us/content-update-notes` (zelfde cache-buster) zegt nu
+  **"14 days ago"** bij die sectie — gepubliceerd 7 nov, dus 7+14=21, precies vandaag; geen verstikte
+  cache. Geen nieuwe Delves-, Professions-, Quests- of Items-regel. Zijspoor gezien in
+  `news.blizzard.com/en-us/feed/world-of-warcraft`: een "WoW Weekly"-stuk noemt *Midnight: Echoes of
+  the Worldcore* (1 dec) en Mythic 2/6-gear in de Labyrinth van Kino'jan — dat is aankomend/nieuws,
+  geen hotfix op iets dat al leeft, en dus niet het werk van deze wacht (PTR-wacht/roadmap-wacht);
+  niet verder uitgezocht.
+
+  **Forever: nieuwe sectie "November 20, 2026".** MEASURED, zelf gelezen via Exa
+  (`news.blizzard.com/en-us/article/24315281/wow-forever-hotfixes-november-20-2026?nocache=20261121e`,
+  en onafhankelijk via `web_search_exa` — dezelfde tekst, strikt nieuwer dan de "November 19"-sectie
+  uit [2026-11-20]). Per item tegen de code gezet (grep over heel `Modules/` en `Locales/`):
+  - **Classes/Rogue Combat — Blade Flurry raakt nu ook Shank's schade op een extra doel:**
+    `Modules/ForeverBlock_Rogue.lua:35,37` bindt "Blade Flurry" (SHIFT-1) en "Shank" (SHIFT-3) allebei
+    als losse macro-toetsen — geen bewering over hun onderlinge interactie. Geen tegenspraak. MEASURED.
+  - **Classes/Warlock Demonology — Demonic Aegis kon via Demon Armor/Demon Skin gesnapshot blijven na
+    untalenten (nu gefixt):** `Modules/ForeverBlock_Warlock.lua:52` bindt alleen "Demon Armor"/"Demon
+    Skin" (SHIFT-Z) als spec-macro — geen bewering over snapshotting. Geen tegenspraak. MEASURED.
+  - **Dungeons — reset-cap 10→5 per uur, Blackrock Spire-rebel-pilaar, Enemies and NPCs/Orgrimmar —
+    Mayhoa Skyhoof-ogen, Items/Stormshroud Armor-setbonus:** **0 treffers** op "Stormshroud", "Mayhoa"
+    of een regel over een reset-cap per uur in `Modules/` of `Locales/` — niets van ons noemt deze
+    dingen (de reset-cap staat al, als FEIT zonder moduleclaim, in `docs/PTR_12.0.7_DATA.md` van de
+    blue-wacht van vandaag; dat is haar werk, niet het onze). Positieve controle in dezelfde run: het
+    patroon vindt wél "Toron Rockhoof" en "Summit of Eternity" hieronder, dus het mist deze namen niet
+    door een zoekfout.
+  - **Professions — Toron Rockhoof's smidse en aambeeld in Summit of Eternity werken weer:**
+    `Modules/ForeverVendorSpots.lua:142` heeft Toron Rockhoof als `<Blacksmithing Supplies>`-verkoper
+    op die plek (npc 243855) — een bewering over wat hij verkoopt, niet over de smidse/het aambeeld
+    zelf. Geen tegenspraak. MEASURED.
+  - **Quests — Witch Doctor Ti'ik (The Hinterlands), Perfect Yeti Hide (Feralas), Gor'marok/The
+    Dunemaul Compound (Tanaris), Dunston Willis/"Dunston Checks Out" (Riverglades):** **0 treffers** op
+    alle vier de namen in `Modules/` of `Locales/` — we hebben geen questdata over deze vier, dus geen
+    tegenspraak mogelijk. MEASURED.
+  - **User Interface — minder groepen zichtbaar bij Looking for Group:** Blizzards eigen LFG-tool, geen
+    content-bewering van ons; dit is bovendien de UI/API-sectie die deze wacht overslaat.
+
+  **[RAAKT ONS NIET]** voor alle bovenstaande.
+
+  Vandaag is zaterdag, geen maandag: de kaarten- en consumables-secties zijn opzettelijk weggelaten.
+
+  — bron: https://news.blizzard.com/en-us/article/24307310/hotfixes-november-6-2026?nocache=20261121a ·
+  https://worldofwarcraft.blizzard.com/en-us/content-update-notes?nocache=20261121a ·
+  https://news.blizzard.com/en-us/feed/world-of-warcraft?nocache=20261121a ·
+  https://news.blizzard.com/en-us/article/24315281/wow-forever-hotfixes-november-20-2026?nocache=20261121e ·
+  https://www.curseforge.com/api/v1/mods/1528577/comments?pageIndex=0&pageSize=20&nocache=20261121c
+  (alle rechtstreeks via Exa gelezen, Forever-sectie ook via web_search_exa als onafhankelijke
+  controle).
