@@ -5,6 +5,16 @@
 ✅ **Charkey GESLAAGD op twee Ima's (Rob in het spel, 21 nov)** — Ima 2 = Player-6944-0120ED18 (Ima 1 = …0118CB4F), eigen
 kopieën, "copies so far 9". Joey en KeyBlock nog niet getest.
 
+🏅 **O14 Renown-regel GEREPAREERD (21 nov)** — GEMETEN in Robs Midnight-SV (`renownProbe`, 13:58): GetMajorFactionIDs() zonder
+argument = 30 facties van alle uitbreidingen; met LE_EXPANSION_LEVEL_CURRENT (11 = LE_EXPANSION_MIDNIGHT) precies 11:
+2696,2699,2704,2710,2742,2764,2772,2792,2796,2808,2836. Na /reload alle velden echt (Amani/Singularity/Hara'ti/Silvermoon 20 max,
+Labyrinth 9 max, Preyhunter's Journey 1, Prey 5, Zul'jarra 15 …; 2742 "Delves: Season 1" isUnlocked false). Eerste keer = data
+nog niet geladen (AFGELEID uit eerste screenshot vs. meting). Rob: *"Ik vind het geen gezicht."* Nu: alleen de huidige
+uitbreiding, dubbele naam eruit, één regel "N of M at max · lowest: X n — point here for all", tooltip gesorteerd (niet-max met
+voortgang, dan max, dan locked, dan onleesbaar). Alles "locked" en niets leesbaar = "the game is still loading this" (niet
+"not unlocked"); MAJOR_FACTION_RENOWN_LEVEL_CHANGED / MAJOR_FACTION_UNLOCKED / UPDATE_FACTION / PLAYER_ENTERING_WORLD tekenen
+de regel 2 s later opnieuw als hij zichtbaar is. 3 nieuwe teksten, 7 talen. NIET in het spel gezien.
+
 🐞 **Tas vol: "Repair & sell"-regel liep door rij 3 GEREPAREERD (21 nov)** — Robs screenshot (Undercity). Oorzaak GEMETEN in de
 code: `repInfo` had als tweede anker `LEFT` van het venster = verticaal midden (y −180, rij 3). Nu `LEFT` aan `BOTTOMLEFT` +51
 (hoogte van de knop). Hoogte nagerekend (AFGELEID): rijen tot −198, loot + knop tot ~−266, Repair −298..−320, past in 360. ⚠️ Lint [25]: de

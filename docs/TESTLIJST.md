@@ -29,8 +29,10 @@ bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt o
 
 - [x] ✅ (Rob in het spel, Midnight, 21 nov: geen foutmeldingen) Midnight (retail): inloggen en `/reload` zonder foutmelding.
 - [ ] ❌ (Rob, 21 nov: alleen "The Labyrinth of Kindo'jan 0", tooltip ~30 facties uit alle uitbreidingen, allemaal "not unlocked
-      yet") in het alt-overzicht de regel "Renown (whole account)" met de Midnight-facties. Meting: typ `/mh renown`, dan
-      `/reload`, zeg het tegen de sparring.
+      yet") in het alt-overzicht de regel "Renown (whole account)" met de Midnight-facties. Meting gedaan (21 nov).
+- [ ] (21 nov, reparatie) Alt-overzicht: één korte regel "Renown (whole account): N of 11 at max · lowest: … — point here
+      for all"; muis erop = alleen de Midnight-facties, eerst die nog niet op max staan. Direct na inloggen eventueel even
+      "the game is still loading this", daarna vanzelf de echte regel.
 - [ ] Forever: `/mh overview` — de tabbladen rechts openen allemaal. (deels ✅ Rob in het spel, 21 nov: Now-tab, *"Dat
       ziet er goed uit qua layout, dus daar ben ik best wel tevreden over."* — andere tabbladen niet genoemd)
 - [x] ✅ (Rob in het spel, 21 nov: *"reload gedaan, melding is weg"*) Mage: "Do this now" zegt niets meer over "Comprehend Scroll Rank …". Andere spells met echte rangen

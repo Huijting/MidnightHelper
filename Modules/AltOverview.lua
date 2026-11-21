@@ -2177,51 +2177,114 @@ local function RenownSummary()
 		tip[1] = { name = "?", text = ns:L("ALT_RENOWN_NODATA") }
 		return nil, tip
 	end
-	local ok, ids = pcall(C_MajorFactions.GetMajorFactionIDs)
+	-- 21 Nov 2026 (Rob's /mh renown, GEMETEN in his SV): without an argument the client lists 30 factions of every
+	-- expansion; with LE_EXPANSION_LEVEL_CURRENT (11) exactly Midnight's 11. And right after login the data was not
+	-- there yet (everything read "not unlocked"); after a /reload all 11 had real ranks. Rob: "Ik vind het geen gezicht."
+	-- → this expansion only, one short line, everything else in the tooltip.
+	local cur = rawget(_G, "LE_EXPANSION_LEVEL_CURRENT")
+	local ok, ids
+	if type(cur) == "number" then
+		ok, ids = pcall(C_MajorFactions.GetMajorFactionIDs, cur)
+	end
+	if not ok or type(ids) ~= "table" or #ids == 0 then
+		ok, ids = pcall(C_MajorFactions.GetMajorFactionIDs)
+	end
 	if not ok or type(ids) ~= "table" or #ids == 0 then
 		tip[1] = { name = "?", text = ns:L("ALT_RENOWN_NODATA") }
 		return nil, tip
 	end
-	local rows = {}
+	local rows, seenName, lockedCount, readable = {}, {}, 0, 0
+	local lowest, maxedCount, open = nil, 0, {}
 	for _, id in ipairs(ids) do
 		local okD, d = pcall(C_MajorFactions.GetMajorFactionData, id)
 		local name = okD and type(d) == "table" and type(d.name) == "string"
 			and (not ns.CanAccessText or ns.CanAccessText(d.name)) and d.name or ("#" .. tostring(id))
-		if not (okD and type(d) == "table") then
-			tip[#tip + 1] = { name = name, text = ns:L("ALT_RENOWN_NODATA") }
+		if seenName[name] then
+			-- the same name twice (Rob's list had "Delves: Season 2" twice): keep the first
+		elseif not (okD and type(d) == "table") then
+			seenName[name] = true
+			tip[#tip + 1] = { name = name, text = ns:L("ALT_RENOWN_NODATA"), order = 3 }
 		elseif d.isUnlocked == false then
-			tip[#tip + 1] = { name = name, text = ns:L("ALT_RENOWN_LOCKED") }
+			seenName[name] = true
+			lockedCount = lockedCount + 1
+			tip[#tip + 1] = { name = name, text = ns:L("ALT_RENOWN_LOCKED"), order = 2 }
 		else
+			seenName[name] = true
 			local lvl = tonumber(d.renownLevel)
 			if not lvl then
-				tip[#tip + 1] = { name = name, text = ns:L("ALT_RENOWN_NODATA") }
+				tip[#tip + 1] = { name = name, text = ns:L("ALT_RENOWN_NODATA"), order = 3 }
 			else
+				readable = readable + 1
 				local maxed = false
 				if C_MajorFactions.HasMaximumRenown then
 					local okM, m = pcall(C_MajorFactions.HasMaximumRenown, id)
 					maxed = okM and m == true
 				end
-				local short = ("%s %d%s"):format(name, lvl, maxed and (" " .. ns:L("ALT_RENOWN_MAX")) or "")
-				rows[#rows + 1] = { name = name, short = short }
+				rows[#rows + 1] = { name = name, lvl = lvl, maxed = maxed }
+				if maxed then
+					maxedCount = maxedCount + 1
+				else
+					open[#open + 1] = name
+					if not lowest or lvl < lowest.lvl then
+						lowest = { name = name, lvl = lvl }
+					end
+				end
 				local earned = tonumber(d.renownReputationEarned)
 				local need = tonumber(d.renownLevelThreshold)
-				tip[#tip + 1] = { name = name, text = maxed and ("%d %s"):format(lvl, ns:L("ALT_RENOWN_MAX"))
+				tip[#tip + 1] = { name = name, order = maxed and 1 or 0, text = maxed and ("%d %s"):format(lvl, ns:L("ALT_RENOWN_MAX"))
 					or (earned and need and need > 0) and ("%d  (%d / %d)"):format(lvl, earned, need) or tostring(lvl) }
 			end
 		end
 	end
-	table.sort(rows, function(a, b)
+	-- Not maxed first (with progress), then maxed, then locked, then unreadable; by name inside each group.
+	table.sort(tip, function(a, b)
+		if (a.order or 9) ~= (b.order or 9) then
+			return (a.order or 9) < (b.order or 9)
+		end
 		return a.name < b.name
 	end)
-	for _, r in ipairs(rows) do
-		parts[#parts + 1] = r.short
-	end
 	local word = (type(LANDING_PAGE_RENOWN_LABEL) == "string" and LANDING_PAGE_RENOWN_LABEL ~= "") and LANDING_PAGE_RENOWN_LABEL
 		or "Renown"
-	if #parts == 0 then
+	-- Everything "locked" and nothing readable = the data is not there yet (Rob's first screenshot), not a fact.
+	if readable == 0 and lockedCount > 0 then
+		return ns:L("ALT_RENOWN_LINE_FMT"):format(word, ns:L("ALT_RENOWN_LOADING")), tip, true
+	end
+	if readable == 0 then
 		return ns:L("ALT_RENOWN_LINE_FMT"):format(word, ns:L("ALT_RENOWN_NONE")), tip
 	end
-	return ns:L("ALT_RENOWN_LINE_FMT"):format(word, table.concat(parts, "  ·  ")), tip
+	local text
+	if lowest then
+		text = ns:L("ALT_RENOWN_SUMMARY_FMT"):format(maxedCount, readable, lowest.name, lowest.lvl)
+	else
+		text = ns:L("ALT_RENOWN_ALLMAX_FMT"):format(readable)
+	end
+	return ns:L("ALT_RENOWN_LINE_FMT"):format(word, text), tip
+end
+
+-- Draw the line again when the client's renown data arrives or changes (21 Nov 2026: right after login it was not there).
+do
+	local rev = CreateFrame("Frame")
+	for _, e in ipairs({ "MAJOR_FACTION_RENOWN_LEVEL_CHANGED", "MAJOR_FACTION_UNLOCKED", "UPDATE_FACTION",
+		"PLAYER_ENTERING_WORLD" }) do
+		pcall(rev.RegisterEvent, rev, e)
+	end
+	local pending = false
+	rev:SetScript("OnEvent", function()
+		if pending or not (C_Timer and C_Timer.After) then
+			return
+		end
+		pending = true
+		C_Timer.After(2, function()
+			pending = false
+			if ui.renown and ui.renown.IsVisible and ui.renown:IsVisible() then
+				local okR, line, tip = pcall(RenownSummary)
+				if okR then
+					ui.renown:SetText(line or "")
+					ui.renownTip = tip
+				end
+			end
+		end)
+	end)
 end
 
 --- /mh renown — MEASUREMENT (21 Nov 2026, Rob's screenshot: ~30 factions, all "not unlocked yet", only the Labyrinth

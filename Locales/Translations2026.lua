@@ -25224,6 +25224,9 @@ if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	ALT_RENOWN_TIP = "Ruhm teilen alle deine Charaktere, darum steht er hier einmal und nicht pro Charakter. Jede Ruhm-Fraktion dieser Erweiterung:",
 	ALT_RENOWN_LOCKED = "noch nicht freigeschaltet",
 	ALT_RENOWN_NODATA = "das Spiel gab keine Daten",
+	ALT_RENOWN_SUMMARY_FMT = "%d von %d auf Maximum · niedrigste: %s %d — hier zeigen für alle",
+	ALT_RENOWN_ALLMAX_FMT = "alle %d auf Maximum — hier zeigen für alle",
+	ALT_RENOWN_LOADING = "das Spiel lädt das noch, einen Moment",
 }) end
 if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	ALT_RENOWN_LINE_FMT = "%s (tout le compte) : %s",
@@ -25233,6 +25236,9 @@ if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	ALT_RENOWN_TIP = "Le renom est partagé par tous tes personnages, il est donc affiché une seule fois ici et pas par personnage. Chaque faction de renom de cette extension :",
 	ALT_RENOWN_LOCKED = "pas encore débloquée",
 	ALT_RENOWN_NODATA = "le jeu n'a donné aucune donnée",
+	ALT_RENOWN_SUMMARY_FMT = "%d sur %d au max · le plus bas : %s %d — survole pour tout voir",
+	ALT_RENOWN_ALLMAX_FMT = "les %d au max — survole pour tout voir",
+	ALT_RENOWN_LOADING = "le jeu charge encore ces données, un instant",
 }) end
 if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	ALT_RENOWN_LINE_FMT = "%s (toda la cuenta): %s",
@@ -25242,6 +25248,9 @@ if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	ALT_RENOWN_TIP = "El renombre lo comparten todos tus personajes, así que aparece aquí una vez y no por personaje. Cada facción de renombre de esta expansión:",
 	ALT_RENOWN_LOCKED = "aún no desbloqueada",
 	ALT_RENOWN_NODATA = "el juego no dio datos",
+	ALT_RENOWN_SUMMARY_FMT = "%d de %d al máximo · la más baja: %s %d — pasa el ratón para ver todas",
+	ALT_RENOWN_ALLMAX_FMT = "las %d al máximo — pasa el ratón para ver todas",
+	ALT_RENOWN_LOADING = "el juego aún está cargando esto, un momento",
 }) end
 if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	ALT_RENOWN_LINE_FMT = "%s (conta inteira): %s",
@@ -25251,6 +25260,9 @@ if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	ALT_RENOWN_TIP = "O renome é compartilhado por todos os seus personagens, então aparece aqui uma vez e não por personagem. Cada facção de renome desta expansão:",
 	ALT_RENOWN_LOCKED = "ainda não desbloqueada",
 	ALT_RENOWN_NODATA = "o jogo não deu dados",
+	ALT_RENOWN_SUMMARY_FMT = "%d de %d no máximo · a mais baixa: %s %d — passe o mouse para ver todas",
+	ALT_RENOWN_ALLMAX_FMT = "as %d no máximo — passe o mouse para ver todas",
+	ALT_RENOWN_LOADING = "o jogo ainda está carregando isto, um momento",
 }) end
 if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	ALT_RENOWN_LINE_FMT = "%s (tutto l'account): %s",
@@ -25260,4 +25272,7 @@ if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	ALT_RENOWN_TIP = "La fama è condivisa da tutti i tuoi personaggi, quindi appare qui una volta sola e non per personaggio. Ogni fazione con fama di questa espansione:",
 	ALT_RENOWN_LOCKED = "non ancora sbloccata",
 	ALT_RENOWN_NODATA = "il gioco non ha dato dati",
+	ALT_RENOWN_SUMMARY_FMT = "%d su %d al massimo · la più bassa: %s %d — passa il mouse per vederle tutte",
+	ALT_RENOWN_ALLMAX_FMT = "tutte le %d al massimo — passa il mouse per vederle tutte",
+	ALT_RENOWN_LOADING = "il gioco sta ancora caricando questi dati, un momento",
 }) end
