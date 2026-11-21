@@ -5,6 +5,17 @@
 ✅ **Charkey GESLAAGD op twee Ima's (Rob in het spel, 21 nov)** — Ima 2 = Player-6944-0120ED18 (Ima 1 = …0118CB4F), eigen
 kopieën, "copies so far 9". Joey en KeyBlock nog niet getest.
 
+🔗 **Tooltips in Skill up + "maak eerst" GEBOUWD (21 nov)** — Rob: *"Wat ik wel mis zie, zijn onze tooltips die we overal zouden
+inbouwen."* en op "maak eerst 9 Bolt of Linen Cloth (18 Linen Cloth nodig)": *"Ja, doe dat ook maar"*. Gedeelde helpers in
+ForeverItemTips.lua: `ns.ForeverItemLinkText(id)` (echte item-link, kwaliteitskleur), `ns.ForeverSpellLinkText`,
+`ns.ForeverHookLinks(frame)` (hover = spel-tooltip, shift-klik = chat). Skill up: recepten = link van het gemaakte item (anders
+de spell), ingrediënten = item-links, "enough" groen erachter; tekst niet meer in een ScrollFrame (links werken daar niet,
+PlayCardWindow-notitie, NIET hermeten) maar in een clip-frame met muiswiel-scroll, Shift+wiel = schalen. `MakeFirst`: tekort +
+recept van HETZELFDE beroep dat je KENT (Knows) → "make N X first (needs …, you have …)", 1 niveau diep, aantal = ceil(tekort /
+opbrengst). Offline GEMETEN (skillup_test.lua: Bolt of Linen Cloth 9 → 18 Linen Cloth, onbekend recept / ander beroep = niets;
+vond een echte fout: Parse() ontbrak). Ook links/hover in: duurzaamheid-venster, krat-venster, Tas vol loot-regel (rijen hadden
+al een tooltip). NIET gedaan: Repair-NPC's en "Deliver crates" — NPC-namen hebben geen spel-link/tooltip. NIET in het spel gezien.
+
 ✅ **Smart Bless WERKT (Rob in het spel, 21 nov, na 71521af)** — *"Ja, hij kreeg werkelijk wat ik gaf. Zowel iemand die niet
 getarget was, als iemand die wel getarget was."* + *"Oh, dat is dynamisch. Dat is tof zeg."* Macrovenster: "#showtooltip /
 /cast [@mouseover,help,nodead] Blessing of Wisdom" (62/255). Afgevinkt; open: chatregel zonder doelwit, `/mh blesstip`-regel.

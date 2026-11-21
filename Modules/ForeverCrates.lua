@@ -317,6 +317,10 @@ local function Build()
 	f.btn:SetScript("OnClick", function()
 		ns.ForeverCratesGo()
 	end)
+	-- 21 Nov 2026: the crate's name is the game's link (tooltip on hover), as everywhere in Forever.
+	if ns.ForeverHookLinks then
+		ns.ForeverHookLinks(f)
+	end
 	if ns.RegisterMidnightDialogPopup then
 		ns.RegisterMidnightDialogPopup(f)
 	else
@@ -329,7 +333,7 @@ end
 
 local function Show(id, isTest)
 	local f = Build()
-	local name = ItemName(id) or ("item " .. id)
+	local name = (ns.ForeverItemLinkText and ns.ForeverItemLinkText(id)) or ItemName(id) or ("item " .. id)
 	local big = ns:L("FCRATE_WIN_FMT"):format(name)
 	f.big:SetText(isTest and (big .. " (test)") or big)
 	local r = Nearest()

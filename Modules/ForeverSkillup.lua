@@ -467,18 +467,55 @@ local function Build()
 		f.profBtns[i] = b
 	end
 	local rx = 20 + LEFT_W + 16
-	local scroll = CreateFrame("ScrollFrame", nil, f, "UIPanelScrollFrameTemplate")
-	scroll:SetPoint("TOPLEFT", rx, -50)
-	scroll:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -40, 50)
-	local child = CreateFrame("Frame", nil, scroll)
-	child:SetSize(W - rx - 44, 10)
-	scroll:SetScrollChild(child)
+	-- 21 Nov 2026 (Rob: "Wat ik wel mis zie, zijn onze tooltips die we overal zouden inbouwen."): recipe and item names
+	-- are the game's own links now (quality colour, the game's tooltip on hover). Links in a ScrollFrame do not answer
+	-- (PlayCardWindow.lua's note), so the text slides inside a plain frame that clips it; the mouse wheel scrolls it,
+	-- Shift + wheel still scales the window.
+	local clip = CreateFrame("Frame", nil, f)
+	clip:SetPoint("TOPLEFT", rx, -50)
+	clip:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -24, 50)
+	if clip.SetClipsChildren then
+		clip:SetClipsChildren(true)
+	end
+	local child = CreateFrame("Frame", nil, clip)
+	child:SetPoint("TOPLEFT", 0, 0)
+	child:SetSize(W - rx - 28, 10)
 	f.text = child:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
 	f.text:SetPoint("TOPLEFT", 0, 0)
-	f.text:SetWidth(W - rx - 48)
+	f.text:SetWidth(W - rx - 32)
 	f.text:SetJustifyH("LEFT")
 	f.text:SetSpacing(3)
-	f.scroll, f.child = scroll, child
+	f.offset = 0
+	f.ApplyScroll = function()
+		local room = clip:GetHeight() or 0
+		local maxOff = math.max(0, (child:GetHeight() or 0) - room)
+		f.offset = math.max(0, math.min(f.offset or 0, maxOff))
+		child:ClearAllPoints()
+		child:SetPoint("TOPLEFT", clip, "TOPLEFT", 0, f.offset)
+	end
+	clip:EnableMouseWheel(true)
+	clip:SetScript("OnMouseWheel", function(_, delta)
+		if IsShiftKeyDown and IsShiftKeyDown() then
+			local scale = f:GetScript("OnMouseWheel")
+			if scale then
+				scale(f, delta)
+			end
+			return
+		end
+		f.offset = (f.offset or 0) - delta * 40
+		f.ApplyScroll()
+	end)
+	if ns.ForeverHookLinks then
+		ns.ForeverHookLinks(child)
+	end
+	child:RegisterForDrag("LeftButton")
+	child:SetScript("OnDragStart", function()
+		f:StartMoving()
+	end)
+	child:SetScript("OnDragStop", function()
+		f:StopMovingOrSizing()
+	end)
+	f.scroll, f.child = clip, child
 	f.go = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
 	f.go:SetSize(220, 24)
 	f.go:SetPoint("BOTTOMLEFT", rx, 18)
@@ -513,6 +550,39 @@ local function Build()
 	return f
 end
 
+--- 21 Nov 2026: a recipe as the game's link: the item it makes (quality colour, item tooltip), else the spell.
+local function RecipeLink(r)
+	if r.made and ns.ForeverItemLinkText then
+		return ns.ForeverItemLinkText(r.made)
+	end
+	if ns.ForeverSpellLinkText then
+		return ns.ForeverSpellLinkText(r.spell, SpellName(r.spell))
+	end
+	return SpellName(r.spell)
+end
+
+local function ItemLink(id)
+	return ns.ForeverItemLinkText and ns.ForeverItemLinkText(id) or ItemName(id)
+end
+
+--- 21 Nov 2026 (Rob: "Ja, doe dat ook maar"): a missing ingredient you can make yourself with a recipe you KNOW, in the
+--- same profession, one level deep: "make 9 Bolt of Linen Cloth first (needs 18 Linen Cloth, you have 3)".
+local function MakeFirst(key, item, missing)
+	Parse()
+	local s = MADE[item]
+	local r = s and REC[s]
+	if not (r and ProfKey(r) == key and Knows(s)) then
+		return nil
+	end
+	local crafts = math.ceil(missing / (r.madeN or 1))
+	local parts = {}
+	for _, rg in ipairs(r.r) do
+		parts[#parts + 1] = ns:L("FSKILL_MAKE_PART_FMT"):format(rg[2] * crafts, ItemLink(rg[1]), Count(rg[1]))
+	end
+	return ns:L("FSKILL_MAKE_FIRST_FMT"):format(crafts, ItemLink(item), table.concat(parts, "; "))
+end
+ns.ForeverSkillupMakeFirst = MakeFirst -- for the offline check
+
 --- The text for one profession.
 local function PlanText(key, mine)
 	local m = mine[key]
@@ -543,9 +613,10 @@ local function PlanText(key, mine)
 	end
 	if not maxed then
 		add(" ")
-		add("|cff66ccff" .. ns:L("FSKILL_NEXT_FMT"):format(step.crafts, SpellName(step.r.spell), step.from, step.to) .. "|r")
+		add("|cff66ccff" .. ns:L("FSKILL_NEXT_FMT"):format(step.crafts, RecipeLink(step.r) .. "|cff66ccff", step.from, step.to)
+			.. "|r")
 		if step.nextR then
-			add(ns:L("FSKILL_THEN_FMT"):format(SpellName(step.nextR.spell)))
+			add(ns:L("FSKILL_THEN_FMT"):format(RecipeLink(step.nextR)))
 		end
 	end
 	add(" ")
@@ -554,7 +625,7 @@ local function PlanText(key, mine)
 		local e = list[i]
 		local col = COLOUR[e.colour]
 		add(("|cff%02x%02x%02x%d.|r "):format(math.floor(col[1] * 255), math.floor(col[2] * 255), math.floor(col[3] * 255), i)
-			.. ns:L("FSKILL_ROW_FMT"):format(SpellName(e.r.spell), ColourWord(e.colour), math.floor(e.chance * 100 + 0.5)))
+			.. ns:L("FSKILL_ROW_FMT"):format(RecipeLink(e.r), ColourWord(e.colour), math.floor(e.chance * 100 + 0.5)))
 	end
 	if not maxed then
 		add(" ")
@@ -562,14 +633,19 @@ local function PlanText(key, mine)
 		local all = true
 		for _, rg in ipairs(step.r.r) do
 			local need, have = rg[2] * step.crafts, Count(rg[1])
-			local line = ns:L("FSKILL_SHOP_ROW_FMT"):format(ItemName(rg[1]), need, have)
+			local line = ns:L("FSKILL_SHOP_ROW_FMT"):format(ItemLink(rg[1]), need, have)
+			local first
 			if have < need then
 				all = false
 				line = line .. "  |cffff7f7f" .. ns:L("FSKILL_SHOP_MORE_FMT"):format(need - have) .. "|r"
+				first = MakeFirst(key, rg[1], need - have)
 			else
-				line = "|cff40ff40" .. line .. "|r"
+				line = line .. "  |cff40ff40" .. ns:L("FSKILL_SHOP_OK") .. "|r"
 			end
 			add("  " .. line)
+			if first then
+				add("     |cff66ccff" .. first .. "|r")
+			end
 		end
 		if all then
 			add("  " .. ns:L("FSKILL_SHOP_DONE"))
@@ -625,6 +701,10 @@ Fill = function()
 		f.go:Show()
 	end
 	f.child:SetHeight(math.max(10, (f.text:GetStringHeight() or 0) + 8))
+	if f.lastSelected ~= selected then
+		f.offset, f.lastSelected = 0, selected
+	end
+	f.ApplyScroll()
 end
 
 --- Open the window, optionally on one profession key (the Professions page passes its own).

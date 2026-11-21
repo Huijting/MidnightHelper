@@ -185,9 +185,17 @@ Nieuw bestand → **WoW helemaal herstarten**. Forever.
 Nieuw bestand → **WoW helemaal herstarten** (niet alleen /reload). Forever, een character met een maakberoep.
 - [ ] **Eerst de meting:** open je beroepsvenster (bv. Cooking of Blacksmithing), sluit het, typ `/mh skillup probe`.
       Screenshot van de chat. (Zegt welke API Forever heeft en of de client zelf een receptkleur geeft.)
-- [ ] `/mh skillup` (of Overzicht → Professions → knop **Skill up**): links je beroepen, rechts "Next step: make about
-      Nx … (skill A to B)", "Then: …", drie "Surest points now" met kleur en %, en "What you need" (tas + bank
-      tegen wat je nodig hebt; groen = genoeg, rood = "N more"). Klopt het recept met wat jij zou maken? Screenshot.
+- [x] ✅ (Rob in het spel, Forever, 21 nov, Tailoring 32/75, screenshot: "make about 12x Linen Cloak (skill 32 to 42)",
+      "Then: Simple Linen Pants", 3 zekerste oranje ~100%, "Bolt of Linen Cloth: need 12, you have 3 · 9 more", Coarse
+      Thread groen) `/mh skillup` (of Overzicht → Professions → knop **Skill up**): links je beroepen, rechts "Next step:
+      make about Nx … (skill A to B)", "Then: …", drie "Surest points now" met kleur en %, en "What you need".
+- [ ] Klopt het recept met wat jij zou maken? (niet genoemd)
+- [ ] (21 nov) Na `/reload`: in Skill up zijn alle recept- en itemnamen gekleurd zoals in het spel (wit/groen …); muis erop
+      = de tooltip van het spel. Scrollen met het muiswiel werkt nog, Shift + wiel maakt het venster groter/kleiner.
+- [ ] (21 nov) Onder een tekort dat je zelf kunt maken met een recept dat je kent: "you can make it: make 9 Bolt of Linen
+      Cloth first (needs 18 Linen Cloth, you have …)". Klopt het aantal?
+- [ ] (21 nov) Tooltip op de naam ook in: het venster versleten uitrusting ("Lowest: …"), het krat-venster, en de
+      loot-regel van Tas vol.
 - [ ] Knop "Show the way to your trainer" zet de pijl naar je beroepstrainer.
 - [ ] Overzicht → Professions → jouw beroep: bovenaan de kaart een blauwe regel "Skill up: next, make about …".
 - [ ] Tooltip van iets dat je maakt (bv. Rough Sharpening Stone): "MH: Blacksmithing - yellow 15, green 35, grey 55" en

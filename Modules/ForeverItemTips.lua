@@ -181,6 +181,73 @@ else
 	last = "this client has no TooltipDataProcessor: the lines cannot be added"
 end
 
+--------------------------------------------------------------------------------
+-- 21 Nov 2026 (Rob on the Skill up window: "Wat ik wel mis zie, zijn onze tooltips die we overal zouden inbouwen."):
+-- shared helpers for text windows. An item name becomes the game's own link (quality colour, the game's tooltip on
+-- hover); a spell name the game's spell link. A frame gets the hover through ns.ForeverHookLinks. Font strings in a
+-- ScrollFrame do not fire hyperlink events (DelveTipMarkup.lua / PlayCardWindow.lua, AFGELEID there, not re-measured),
+-- so the windows that use this keep their text on a plain frame.
+--------------------------------------------------------------------------------
+
+--- The game's item link for an id (with its quality colour), or the plain name while the client loads it.
+function ns.ForeverItemLinkText(id)
+	if type(id) ~= "number" then
+		return tostring(id)
+	end
+	local info = (C_Item and C_Item.GetItemInfo) or GetItemInfo
+	if info then
+		local ok, name, link = pcall(info, id)
+		if ok and type(link) == "string" and link ~= "" and not (issecretvalue and issecretvalue(link)) then
+			return link
+		end
+		if ok and type(name) == "string" and name ~= "" then
+			return name
+		end
+	end
+	if C_Item and C_Item.RequestLoadItemDataByID then
+		pcall(C_Item.RequestLoadItemDataByID, id)
+	end
+	return ItemName(id) or ns:L("FVEND_ITEM_LOADING")
+end
+
+--- The game's spell link for an id (link blue, the spell tooltip on hover).
+function ns.ForeverSpellLinkText(id, name)
+	if C_Spell and C_Spell.GetSpellLink then
+		local ok, link = pcall(C_Spell.GetSpellLink, id)
+		if ok and type(link) == "string" and link ~= "" and not (issecretvalue and issecretvalue(link)) then
+			return link
+		end
+	end
+	return ("|cff71d5ff|Hspell:%d|h[%s]|h|r"):format(id, tostring(name or id))
+end
+
+--- Hover a link in any font string of `frame` = the game's own tooltip; shift-click puts it in chat.
+function ns.ForeverHookLinks(frame)
+	if not frame or frame._mhLinks or not frame.SetHyperlinksEnabled then
+		return
+	end
+	frame._mhLinks = true
+	frame:SetHyperlinksEnabled(true)
+	frame:SetScript("OnHyperlinkEnter", function(self, link)
+		if not (GameTooltip and link) then
+			return
+		end
+		GameTooltip:SetOwner(self, "ANCHOR_CURSOR")
+		pcall(GameTooltip.SetHyperlink, GameTooltip, link)
+		GameTooltip:Show()
+	end)
+	frame:SetScript("OnHyperlinkLeave", function()
+		if GameTooltip then
+			GameTooltip:Hide()
+		end
+	end)
+	frame:SetScript("OnHyperlinkClick", function(_, link, text)
+		if IsModifiedClick and IsModifiedClick("CHATLINK") and ChatEdit_InsertLink then
+			pcall(ChatEdit_InsertLink, text)
+		end
+	end)
+end
+
 --- For `/mh usedfor` (ReagentUse.lua): the last decision of these two lines.
 function ns.ForeverItemTipsLast()
 	return last

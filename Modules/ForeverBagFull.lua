@@ -243,6 +243,10 @@ local function Build()
 	f.title:SetJustifyH("LEFT")
 	local close = CreateFrame("Button", nil, f, "UIPanelCloseButton")
 	close:SetPoint("TOPRIGHT", -6, -6)
+	-- 21 Nov 2026: the loot line's item link shows the game's tooltip (the rows already show the bag item's tooltip).
+	if ns.ForeverHookLinks then
+		ns.ForeverHookLinks(f)
+	end
 	f.sub = f:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
 	f.sub:SetPoint("TOPLEFT", 22, -44)
 	f.sub:SetPoint("RIGHT", f, "RIGHT", -22, 0)

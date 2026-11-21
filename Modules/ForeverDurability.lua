@@ -122,6 +122,10 @@ local function Build()
 			ns.ForeverRepairGoNearest()
 		end
 	end)
+	-- 21 Nov 2026 (Rob: "onze tooltips die we overal zouden inbouwen"): the "Lowest: [item]" link shows the game's tooltip.
+	if ns.ForeverHookLinks then
+		ns.ForeverHookLinks(f)
+	end
 	if ns.RegisterMidnightDialogPopup then
 		ns.RegisterMidnightDialogPopup(f)
 	else
