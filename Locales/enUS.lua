@@ -5748,6 +5748,11 @@ ns._mhLocales.enUS = {
 	FDUR_SW_DESC = "When your most worn item drops under 25%, a small window says so, names the item and the nearest vendor who repairs, with a button for the arrow. Once; again after a repair. Never in combat.",
 	-- 21 Nov 2026: Waylaid Crates (ForeverCrates.lua). Item, NPC, currency and reputation names come from the client.
 	FCITY_CAT_CRATES = "Deliver crates",
+	FCITY_CAT_LIBRARY = "Library (Study)",
+	FCITY_SUB_LIBRARY = "Where a mage can cast Study: stand near the librarian. Players found these two; maybe there are more.",
+	FPROFG_STUDY_LIB_FMT = "Library for Study: %s, %s, %s (Find -> Library sets the arrow).",
+	FPROFG_STUDY_FEATHER_FMT = "%s: you have %d. Not sold by vendors: it drops from birds and harpies.",
+	FDONOW_STUDY_READY_FMT = "%s is ready. %s %s",
 	FCITY_SUB_CRATES = "Sealed crates and shipping labels go to the trade representative of your side.",
 	FCRATE_SW = "Help with Waylaid Crates",
 	FCRATE_SW_DESC = "On a crate's tooltip: every bundle it takes and how many you have (bags and bank). A sealed crate or a shipping label says where to deliver it, and when one lands in your bags a small window shows the way. Never in combat.",

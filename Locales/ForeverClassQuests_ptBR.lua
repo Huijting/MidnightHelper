@@ -538,6 +538,11 @@ for k, v in pairs({
 	FDUR_SW_DESC = "Quando o seu item mais gasto fica abaixo de 25%, uma janela pequena avisa, com o item e o vendedor mais próximo que repara, e um botão para a seta. Uma vez; de novo após um reparo. Nunca em combate.",
 	-- 21 Nov 2026: Waylaid Crates (ForeverCrates.lua). Client names GEMETEN (DB2 ptBR): Caixote Extraviado, Etiqueta de Envio.
 	FCITY_CAT_CRATES = "Entregar caixotes",
+	FCITY_CAT_LIBRARY = "Biblioteca (Estudar)",
+	FCITY_SUB_LIBRARY = "Onde um mago pode lançar Estudar: fique perto do bibliotecário. Jogadores encontraram estas duas; talvez haja mais.",
+	FPROFG_STUDY_LIB_FMT = "Biblioteca para Estudar: %s, %s, %s (Encontrar -> Biblioteca coloca a seta).",
+	FPROFG_STUDY_FEATHER_FMT = "%s: você tem %d. Nenhum vendedor vende: ela cai de pássaros e harpias.",
+	FDONOW_STUDY_READY_FMT = "%s está pronto. %s %s",
 	FCITY_SUB_CRATES = "Caixotes lacrados e Etiquetas de Envio são entregues ao representante comercial da sua facção.",
 	FCRATE_SW = "Ajuda com Caixotes Extraviados",
 	FCRATE_SW_DESC = "Na dica de um caixote: cada lote que ele aceita e quantos você tem (bolsas e banco). Um caixote lacrado ou uma Etiqueta de Envio diz onde entregar, e quando um chega às suas bolsas, uma janela pequena mostra o caminho. Nunca em combate.",

@@ -90,6 +90,73 @@ ns.FOREVER_COMP_SCROLLS = { 211780, 211785, 211786, 211787, 211784, 211853, 2118
 	213546, 213547, 281015, 281016, 281017, 281018 }
 ns.FOREVER_COMP_SPELLS = { 1296017, 1309965, 1309973, 1310029, 1310030 } -- Comprehend Scroll, every id (ForeverSpellIds)
 
+-- 21 Nov 2026 (Rob via sparring: "Ja, graag" — show WHERE a suitable library is for Study, and where Light Feathers are).
+-- mh-research, GEMETEN: Study 1302508 needs spell focus 2309 "Library" (SpellCastingRequirements; no area, no faction
+-- rule), 1 Light Feather (17056), 1 h cooldown (SpellCooldowns 3600000). The focus objects are server-side, so not in
+-- DB2. Places with player reports: Stormwind Mage Tower at Garion Wendell (npc 211033) and Undercity Magic Quarter inner
+-- ring at Owen Thadd (npc 211022) — Wowhead Forever comments + 4 guides (Nov 2026). Coordinates = the librarians'
+-- Wowhead Forever spawns (no HandyNotes/Zygor entry, grep with a positive control). Names per client: Wowhead tooltips.
+-- Left out (one source only): the Royal Library in Stormwind Keep, Dalaran. Light Feather: NO vendor found (two guides
+-- say so; Wowhead's "Sold by" could not be read): it drops from birds and harpies.
+local LIB_NAMES = {
+	[211033] = { en = "Garion Wendell", ruRU = "Гэрион Уэнделл" },
+	[211022] = { en = "Owen Thadd", ptBR = "Adélio Tadeu", ruRU = "Оуэн Тадд" },
+}
+do
+	local loc = GetLocale and GetLocale() or "enUS"
+	local function N(id)
+		return LIB_NAMES[id][loc] or LIB_NAMES[id].en
+	end
+	ns.FOREVER_LIBRARY_SPOTS = {
+		{ kind = "library", npc = 211033, name = N(211033), side = "A", map = 1453, x = 48.9, y = 86.5 },
+		{ kind = "library", npc = 211022, name = N(211022), side = "H", map = 1458, x = 73.6, y = 33.0 },
+	}
+end
+ns.FOREVER_STUDY_SPELL, ns.FOREVER_LIGHT_FEATHER = 1302508, 17056
+
+--- The library line for the card, Do this now and the Study tooltip: "Library: Garion Wendell, Stormwind City, 340 yd".
+function ns.ForeverStudyLibraryLine()
+	local rows = ns.ForeverVendorFindRows and ns.ForeverVendorFindRows("library") or {}
+	local r = rows[1]
+	if not r then
+		return nil
+	end
+	local dist = r.dist and ((ns.ForeverTrainerDistance and ns.ForeverTrainerDistance(math.floor(r.dist + 0.5)))
+		or ("%d yd"):format(math.floor(r.dist + 0.5))) or ns:L("FVEND_OTHER_CONT")
+	return ns:L("FPROFG_STUDY_LIB_FMT"):format(tostring(r.name), tostring(r.zone), dist), r
+end
+
+--- "Light Feather: you have N. Not sold by vendors: it drops from birds and harpies."
+function ns.ForeverStudyFeatherLine()
+	local fn = (C_Item and C_Item.GetItemCount) or GetItemCount
+	local n = 0
+	if fn then
+		local ok, c = pcall(fn, 17056, true)
+		n = ok and tonumber(c) or 0
+	end
+	local name = (ns.ForeverItemLinkText and ns.ForeverItemLinkText(17056))
+		or (C_Item and C_Item.GetItemNameByID and C_Item.GetItemNameByID(17056)) or "Light Feather"
+	return ns:L("FPROFG_STUDY_FEATHER_FMT"):format(name, n), n
+end
+
+-- The Study spell's own tooltip gets the same two lines (TooltipDataProcessor, like the other Forever item lines).
+if TooltipDataProcessor and TooltipDataProcessor.AddTooltipPostCall and Enum and Enum.TooltipDataType
+	and Enum.TooltipDataType.Spell then
+	TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Spell, function(tooltip, data)
+		if tooltip ~= GameTooltip or type(data) ~= "table" or data.id ~= 1302508 then
+			return
+		end
+		pcall(function()
+			local lib = ns.ForeverStudyLibraryLine()
+			if lib then
+				tooltip:AddLine(lib, 1, 0.82, 0, true)
+			end
+			tooltip:AddLine((ns.ForeverStudyFeatherLine()), 0.8, 0.8, 0.8, true)
+			tooltip:Show()
+		end)
+	end)
+end
+
 function ns.ForeverKnowsComprehend()
 	for _, id in ipairs(ns.FOREVER_COMP_SPELLS) do
 		if IsPlayerSpell and select(2, pcall(IsPlayerSpell, id)) == true then
@@ -159,6 +226,12 @@ local function CompCard()
 	-- Light Feather = item 17056 (GEMETEN ItemSparse); its name from the client, English until it is cached.
 	local feather = (C_Item and C_Item.GetItemNameByID and C_Item.GetItemNameByID(17056)) or "Light Feather"
 	L[#L + 1] = ns:L("FPROFG_COMP_STUDY_FMT"):format(study, feather)
+	-- 21 Nov 2026: where the library is and how you get feathers (Find → In town → Library sets the arrow).
+	local lib = ns.ForeverStudyLibraryLine()
+	if lib then
+		L[#L + 1] = lib
+	end
+	L[#L + 1] = (ns.ForeverStudyFeatherLine())
 	local n = ns.ForeverCompScrollsCarried()
 	if n > 0 then
 		L[#L + 1] = "|cff8fd47a" .. ns:L("FPROFG_COMP_CARRY_FMT"):format(n) .. "|r"

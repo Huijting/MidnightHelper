@@ -5,6 +5,18 @@
 ✅ **Charkey GESLAAGD op twee Ima's (Rob in het spel, 21 nov)** — Ima 2 = Player-6944-0120ED18 (Ima 1 = …0118CB4F), eigen
 kopieën, "copies so far 9". Joey en KeyBlock nog niet getest.
 
+📚 **Study: waar de bibliotheek is GEBOUWD (21 nov)** — Rob: *"Ja, graag"*. mh-research (GEMETEN): Study 1302508 vraagt spell
+focus 2309 "Library" (geen gebied, geen factie), 1 Light Feather 17056, 1 uur (SpellCooldowns 3600000). De focus-objecten staan
+op de server, niet in DB2. Plekken met spelersmeldingen: Stormwind Mage Tower bij Garion Wendell 211033 (1453 48.9,86.5) en
+Undercity Magic Quarter bij Owen Thadd 211022 (1458 73.6,33.0); spawns Wowhead Forever, namen per taal GEMETEN (pt Adélio
+Tadeu, ru …). Weggelaten (één bron): Royal Library, Dalaran. Light Feather: GEEN verkoper gevonden (2 gidsen; Wowhead
+"Sold by" niet leesbaar) → tekst "drops from birds and harpies". Gebouwd: ForeverProfGuide `FOREVER_LIBRARY_SPOTS`,
+`ForeverStudyLibraryLine/FeatherLine`, Comprehension-kaartje +2 regels, Study-spelltooltip (TooltipDataProcessor Spell),
+Find-categorie `library` (alleen mages; FindCats filtert op `mage`), Do this now-tip "Study is ready …" als Study gekend is
+en geen cooldown heeft. Spellnaam per taal GEMETEN (SpellName DB2: de Studieren, fr Étudier, es/esMX Estudiar, pt Estudar, it
+Study, ru Изучение; controle Fireball 133). NIET in het spel gezien; of Study echt werkt bij die bibliothecaris = Robs test.
+✅ Ook vandaag: Renown-regel door Rob goedgekeurd (*"Zo is het goed."*); niet-vrijgespeelde tracks nu uit de tooltip.
+
 🏅 **O14 Renown-regel GEREPAREERD (21 nov)** — GEMETEN in Robs Midnight-SV (`renownProbe`, 13:58): GetMajorFactionIDs() zonder
 argument = 30 facties van alle uitbreidingen; met LE_EXPANSION_LEVEL_CURRENT (11 = LE_EXPANSION_MIDNIGHT) precies 11:
 2696,2699,2704,2710,2742,2764,2772,2792,2796,2808,2836. Na /reload alle velden echt (Amani/Singularity/Hara'ti/Silvermoon 20 max,

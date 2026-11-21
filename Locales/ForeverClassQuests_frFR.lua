@@ -1684,6 +1684,11 @@ for k, v in pairs({
 	FDUR_SW_DESC = "Quand ton objet le plus usé passe sous 25 %, une petite fenêtre le dit, avec l'objet et le marchand le plus proche qui répare, et un bouton pour la flèche. Une fois ; à nouveau après une réparation. Jamais en combat.",
 	-- 21 Nov 2026: Waylaid Crates (ForeverCrates.lua). Client names GEMETEN (DB2 frFR): Caisse détournée, Étiquette d’envoi.
 	FCITY_CAT_CRATES = "Livrer les caisses",
+	FCITY_CAT_LIBRARY = "Bibliothèque (Étudier)",
+	FCITY_SUB_LIBRARY = "Où un mage peut lancer Étudier : place-toi près du bibliothécaire. Des joueurs ont trouvé ces deux-là ; il y en a peut-être d'autres.",
+	FPROFG_STUDY_LIB_FMT = "Bibliothèque pour Étudier : %s, %s, %s (Trouver -> Bibliothèque place la flèche).",
+	FPROFG_STUDY_FEATHER_FMT = "%s : tu en as %d. Aucun marchand n'en vend : elle tombe sur les oiseaux et les harpies.",
+	FDONOW_STUDY_READY_FMT = "%s est prêt. %s %s",
 	FCITY_SUB_CRATES = "Les caisses scellées et les étiquettes d’envoi se livrent au représentant commercial de ta faction.",
 	FCRATE_SW = "Aide pour les Caisses détournées",
 	FCRATE_SW_DESC = "Dans l'infobulle d'une caisse : chaque lot accepté et combien tu en as (sacs et banque). Une caisse scellée ou une étiquette d’envoi dit où la livrer, et quand il en arrive une dans tes sacs, une petite fenêtre montre le chemin. Jamais en combat.",

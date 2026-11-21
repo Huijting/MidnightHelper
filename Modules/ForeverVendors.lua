@@ -49,6 +49,8 @@ local CATS = {
 	-- 21 Nov 2026 (Rob on Waylaid Crates: "Ja doe maar"): where you deliver a sealed crate or a Shipping Label — your
 	-- side's trade representative (ForeverCrates.lua ns.FOREVER_CRATE_SPOTS). item = the empty crate, for its tooltip.
 	{ key = "crates", svc = "crates", item = 248549, label = "FCITY_CAT_CRATES" },
+	-- 21 Nov 2026 (Rob: "Ja, graag"): the library where a mage can cast Study (ForeverProfGuide.lua FOREVER_LIBRARY_SPOTS).
+	{ key = "library", svc = "library", mage = true, label = "FCITY_CAT_LIBRARY" },
 	-- 18 Nov 2026 (Rob: "ik ben nu op zoek naar de zeppelins in ogrimar … net zoals flight masters … HELP !!!" → "ja"):
 	-- travel. transport = every boat/zeppelin/tram/portal stop (ForeverTravel.lua ns.ForeverTravelTransportSpots);
 	-- flight = the flight masters (kind "flight" in ForeverCitySpots.lua). Their own heading "Travel" in Find.
@@ -170,6 +172,7 @@ local function List(c)
 	local rows = (c.svc == "transport" and ns.ForeverTravelTransportSpots and ns.ForeverTravelTransportSpots())
 		or (c.svc == "repair" and RepairSpots())
 		or (c.svc == "crates" and ns.FOREVER_CRATE_SPOTS)
+		or (c.svc == "library" and ns.FOREVER_LIBRARY_SPOTS)
 		or (c.svc and ns.FOREVER_CITY_SPOTS) or (c.kind and ns.FOREVER_GOODS_VENDORS) or ns.FOREVER_TOOL_VENDORS
 	local pc, px, py = PlayerWorld()
 	local out = {}
@@ -416,9 +419,12 @@ end
 --- dist, map, x, y, go }; the tag only on an English client (Wowhead's English subtitles, see Fill above).
 function ns.ForeverVendorFindCats()
 	local out = {}
+	local _, token = UnitClass("player")
 	for _, c in ipairs(CATS) do
-		out[#out + 1] = { key = c.key, name = CatName(c), goods = c.kind ~= nil, svc = c.svc, travel = c.travel,
-			item = c.item } -- item: the tool's id, for its own tooltip in the Find tab (19 Nov 2026)
+		if not c.mage or token == "MAGE" then -- 21 Nov 2026: the library only for mages
+			out[#out + 1] = { key = c.key, name = CatName(c), goods = c.kind ~= nil, svc = c.svc, travel = c.travel,
+				item = c.item } -- item: the tool's id, for its own tooltip in the Find tab (19 Nov 2026)
+		end
 	end
 	return out
 end

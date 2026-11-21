@@ -4806,6 +4806,11 @@ ns._mhLocales.nlNL = {
 	FDUR_SW_DESC = "Zakt je meest versleten item onder 25%, dan zegt een klein venster het, met het item en de dichtstbijzijnde verkoper die repareert, en een knop voor de pijl. Eén keer; opnieuw na een reparatie. Nooit in een gevecht.",
 	-- 21 Nov 2026: Waylaid Crates (ForeverCrates.lua).
 	FCITY_CAT_CRATES = "Kratten inleveren",
+	FCITY_CAT_LIBRARY = "Bibliotheek (Study)",
+	FCITY_SUB_LIBRARY = "Waar een mage Study kan casten: ga bij de bibliothecaris staan. Spelers vonden deze twee; misschien zijn er meer.",
+	FPROFG_STUDY_LIB_FMT = "Bibliotheek voor Study: %s, %s, %s (Vinden -> Bibliotheek zet de pijl).",
+	FPROFG_STUDY_FEATHER_FMT = "%s: je hebt er %d. Niet te koop: hij valt bij vogels en harpijen.",
+	FDONOW_STUDY_READY_FMT = "%s is klaar. %s %s",
 	FCITY_SUB_CRATES = "Verzegelde kratten en Shipping Labels lever je in bij de handelsvertegenwoordiger van jouw kant.",
 	FCRATE_SW = "Hulp bij Waylaid Crates",
 	FCRATE_SW_DESC = "In de tooltip van een krat: elke bundel die erin mag en hoeveel je hebt (tassen en bank). Een verzegelde krat of een Shipping Label zegt waar je hem inlevert, en komt er een in je tas, dan wijst een klein venster de weg. Nooit in een gevecht.",

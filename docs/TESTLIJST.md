@@ -65,6 +65,17 @@ achternaam, "Step aside"-instelling, Your path, Set focus). Daarna vond Rob nog:
 rank-lijstje: werkt (screenshot: "You just learned", Conjure Water rank 1 -> 2 en Frost Armor rank 1 -> 2, met de knoppen
 Upgrade / Not now / Never). Afgevinkt met "(Rob, 19 nov)". De hulpregels ("typ /mh … als het niet werkt") blijven open.
 
+## 📚 21 nov — Forever, mage: waar je Study kunt doen
+
+`/reload` is genoeg. Forever, mage met Study.
+- [ ] Overzicht → Professions → Comprehension-kaartje: regel "Library for Study: Garion Wendell, Stormwind City, …"
+      (Alliance) of "Owen Thadd, Undercity, …" (Horde), en "Light Feather: you have N. Not sold by vendors …".
+- [ ] Find → In town → "Library (Study)": één regel voor jouw kant, Show the way zet de pijl naar de bibliothecaris.
+      (Andere klassen zien deze regel niet.)
+- [ ] Muis op Study in je spellbook: dezelfde twee regels onder de tooltip van het spel.
+- [ ] Is Study klaar (geen cooldown): in Do this now bij de tips "Study is ready. Library for Study: …". Klopt de plek:
+      werkt Study als je bij die bibliothecaris staat?
+
 ## ⛏️ 21 nov — Forever: de ster bij kruiden en erts kleurt mee als je dichterbij loopt
 
 `/reload` is genoeg. Forever, gloed-schakelaar aan.

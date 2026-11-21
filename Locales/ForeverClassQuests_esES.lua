@@ -577,6 +577,11 @@ for k, v in pairs({
 	FDUR_SW_DESC = "Cuando tu objeto más gastado baja del 25 %, una ventana pequeña lo dice, con el objeto y el vendedor más cercano que repara, y un botón para la flecha. Una vez; otra vez tras una reparación. Nunca en combate.",
 	-- 21 Nov 2026: Waylaid Crates (ForeverCrates.lua). Client names GEMETEN (DB2 esES): Cajón saqueado, Etiqueta de envíos.
 	FCITY_CAT_CRATES = "Entregar cajones",
+	FCITY_CAT_LIBRARY = "Biblioteca (Estudiar)",
+	FCITY_SUB_LIBRARY = "Donde un mago puede lanzar Estudiar: ponte junto al bibliotecario. Los jugadores encontraron estas dos; quizá haya más.",
+	FPROFG_STUDY_LIB_FMT = "Biblioteca para Estudiar: %s, %s, %s (Buscar -> Biblioteca pone la flecha).",
+	FPROFG_STUDY_FEATHER_FMT = "%s: tienes %d. Ningún vendedor la vende: cae de pájaros y arpías.",
+	FDONOW_STUDY_READY_FMT = "%s está listo. %s %s",
 	FCITY_SUB_CRATES = "Los cajones sellados y las etiquetas de envíos se entregan al representante comercial de tu bando.",
 	FCRATE_SW = "Ayuda con los Cajones saqueados",
 	FCRATE_SW_DESC = "En la descripción de un cajón: cada lote que acepta y cuántos tienes (bolsas y banco). Un cajón sellado o una etiqueta de envíos dice dónde entregarlo, y cuando llega uno a tus bolsas, una ventana pequeña muestra el camino. Nunca en combate.",

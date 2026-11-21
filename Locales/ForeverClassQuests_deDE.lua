@@ -1682,6 +1682,11 @@ for k, v in pairs({
 	FDUR_SW_DESC = "Fällt dein am stärksten abgenutzter Gegenstand unter 25 %, sagt es ein kleines Fenster, mit dem Gegenstand und dem nächsten Händler, der repariert, und einem Knopf für den Pfeil. Einmal; wieder nach einer Reparatur. Nie im Kampf.",
 	-- 21 Nov 2026: Waylaid Crates (ForeverCrates.lua). Client names GEMETEN (DB2 deDE): Abgefangene Kiste, Versandetikett.
 	FCITY_CAT_CRATES = "Kisten abgeben",
+	FCITY_CAT_LIBRARY = "Bibliothek (Studieren)",
+	FCITY_SUB_LIBRARY = "Wo ein Magier Studieren wirken kann: stell dich zum Bibliothekar. Spieler fanden diese zwei; vielleicht gibt es mehr.",
+	FPROFG_STUDY_LIB_FMT = "Bibliothek zum Studieren: %s, %s, %s (Finden -> Bibliothek setzt den Pfeil).",
+	FPROFG_STUDY_FEATHER_FMT = "%s: du hast %d. Kein Händler verkauft sie: sie fällt bei Vögeln und Harpyien.",
+	FDONOW_STUDY_READY_FMT = "%s ist bereit. %s %s",
 	FCITY_SUB_CRATES = "Versiegelte Kisten und Versandetiketten gibst du beim Handelsvertreter deiner Seite ab.",
 	FCRATE_SW = "Hilfe bei Abgefangenen Kisten",
 	FCRATE_SW_DESC = "Im Tooltip einer Kiste: jedes Bündel, das hineinpasst, und wie viele du hast (Taschen und Bank). Eine versiegelte Kiste oder ein Versandetikett sagt, wo du es abgibst, und landet eins in deinen Taschen, zeigt ein kleines Fenster den Weg. Nie im Kampf.",

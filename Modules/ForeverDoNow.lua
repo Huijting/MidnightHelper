@@ -407,6 +407,26 @@ function Collect()
 			end
 		end
 	end
+	-- 21 Nov 2026 (Rob: "Ja, graag"): Study known and off cooldown → a tip with the library and your feathers. A tip, not a
+	-- to-do (Study is low priority, Rob 18 Nov: "lager zetten"). Cooldown from C_Spell.GetSpellCooldown (1 h, DB2).
+	if select(2, UnitClass("player")) == "MAGE" and ns.ForeverStudyLibraryLine and IsPlayerSpell
+		and select(2, pcall(IsPlayerSpell, 1302508)) == true then
+		local ready = true
+		if C_Spell and C_Spell.GetSpellCooldown then
+			local okC, cd = pcall(C_Spell.GetSpellCooldown, 1302508)
+			if okC and type(cd) == "table" and type(cd.duration) == "number" and not (issecretvalue and issecretvalue(cd.duration))
+				and cd.duration > 2 then
+				ready = false
+			end
+		end
+		local lib = ns.ForeverStudyLibraryLine()
+		if ready and lib then
+			local feather = ns.ForeverStudyFeatherLine()
+			out.tips[#out.tips + 1] = ns:L("FDONOW_STUDY_READY_FMT"):format(SpellLink(1302508,
+				(C_Spell and C_Spell.GetSpellName and C_Spell.GetSpellName(1302508)) or "Study"), lib, feather)
+			item(out.tips[#out.tips], "study", true, nil, { 1302508 })
+		end
+	end
 	-- 12 Nov 2026 (Rob via sparring: "Ja, alle drie"): one/more as two sentences, and with a direction how many fit
 	-- (the same player-guide fit as the green + in /mh weapons). The start page uses the same one/more sentences (without the direction part).
 	local learn = ns.ForeverWeaponsLearnable and ns.ForeverWeaponsLearnable() or {}

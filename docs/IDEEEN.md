@@ -26,6 +26,13 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 
 ## Open — wacht op Rob
 
+### Forever, mage: waar kan ik Study doen + waar haal ik Light Feathers (vraag van Rob, 21 nov) — ✅ JA + GEBOUWD 21 nov
+- Bron: Rob 21 nov via sparring, letterlijk: *"Ja, graag"* (uitzoeken + bouwen).
+- Gebouwd: bibliotheek in Stormwind (Garion Wendell) / Undercity (Owen Thadd) op het Comprehension-kaartje, in de Study-
+  tooltip, in Find (alleen mages) en als tip in Do this now. Light Feathers: geen verkoper gevonden, ze vallen bij vogels en
+  harpijen (zo gezegd in de tekst).
+- Spel: F. Site: nog niet (in bouw, niet getest).
+
 ### Forever: Waylaid Crates — wat zijn het, en help ermee (vraag van Rob, 21 nov) — ✅ JA + GEBOUWD 21 nov (wacht op Robs test)
 - Bron: Rob 21 nov via sparring, letterlijk: *"Waylaid crates zijn het ... wat zijn dat? En ik denk dat wij er ook iets
   mee moeten."* → op de opties (advies: Middel): *"Ja doe maar"*.
