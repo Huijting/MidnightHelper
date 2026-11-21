@@ -2,6 +2,14 @@
 
 ## ▶▶ VOLGENDE BOUWCHAT: Forever-overzicht "D" — stap 1 en 3 gebouwd; stap 2 wacht op Robs screenshots (20 nov, avond)
 
+🔧 **API-wachter [MOET GEFIKST] #1 GEREPAREERD (21 nov)** — sparring: bugfix, geen keuze nodig. `ForeverVendors.lua` (het
+leren van reparateurs bij MERCHANT_SHOW) gebruikte als enige plek nog `^Creature%-%d+%-%d+%-%d+%-%d+%-(%d+)`; sinds de
+Forever-hotfix van 20 nov zijn veld 3-4 geobfusceerd. Nu velden 2-5 los (`[^%-]+`, zoals regel ~1170 en 5 andere
+bestanden). GEMETEN: grep over alle .lua op het strikte patroon = 1 treffer (deze), losse variant = 6 treffers in 5
+bestanden (controle). Offline GEMETEN (guid_test.lua): oud formaat, letters in veld 3/5, nullen, Player-GUID → juiste npc
+of nil. Mislukt het toch, dan zegt `/mh vendor check` nu "learning: … did not give an npc id" (zweeg eerst). #2 (lege
+realm) = onderzoek naar de sparring, Rob kiest.
+
 📦 **Waylaid Crates GEBOUWD (21 nov, Forever, optie Middel)** — Rob via sparring: *"Waylaid crates zijn het ... wat zijn
 dat? En ik denk dat wij er ook iets mee moeten."* → *"Ja doe maar"*. `tools/forever_crates.py` → `Modules/ForeverCratesData.lua`
 (GEMETEN, DB2 wowf 1.60.1.71037 ItemSparse + Item, en de Wowhead Forever-tooltips van elke krat): 30 getypeerde kratten

@@ -687,10 +687,15 @@ learn:SetScript("OnEvent", function()
 		if type(guid) ~= "string" or (issecretvalue and issecretvalue(guid)) then
 			return
 		end
-		local npc = tonumber(guid:match("^Creature%-%d+%-%d+%-%d+%-%d+%-(%d+)"))
+		-- 21 Nov 2026 (API watch, [MOET GEFIKST] #1): fields 2-5 loose. Since the Forever hotfix of 20 Nov the server and
+		-- spawn fields are obfuscated (Blizzard, Patch 1.60.1 API changes: "replaced with obfuscated values"); the strict
+		-- %d+ pattern could then miss and the learning would stop without a word. Same pattern as line ~1170 below.
+		local npc = tonumber(guid:match("^Creature%-[^%-]+%-[^%-]+%-[^%-]+%-[^%-]+%-(%d+)"))
 		if not npc then
+			ns._mhRepairLearnWhy = "the vendor's GUID did not give an npc id: " .. guid:sub(1, 40)
 			return
 		end
+		ns._mhRepairLearnWhy = ("last vendor window: npc %d"):format(npc)
 		ns.db = ns.db or {}
 		ns.db.foreverRepairSeen = type(ns.db.foreverRepairSeen) == "table" and ns.db.foreverRepairSeen or {}
 		ns.db.foreverNotRepair = type(ns.db.foreverNotRepair) == "table" and ns.db.foreverNotRepair or {}
@@ -1118,6 +1123,7 @@ function ns.ForeverVendorSlash(arg)
 			end
 			print(("  repair: %d data rows, %d learned at a vendor window, %d dropped (that vendor did not repair). %s"):format(
 				#(ns.FOREVER_REPAIR_SPOTS or {}), nSeen, nNo, ns.ForeverRepairWhy and ns.ForeverRepairWhy() or ""))
+			print("  learning: " .. (ns._mhRepairLearnWhy or "no vendor window seen this session"))
 		end
 		for _, c in ipairs(CATS) do
 			local list = List(c)
