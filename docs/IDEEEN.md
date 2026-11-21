@@ -39,7 +39,10 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
   je nu moet kiezen ... Dan hoef je die hele lijst nooit te lezen." Aanleiding: How you play is "weer heel veel tekst".
 - Gebouwd: `ForeverTalentNext.lua` (leest je echte talenten, noemt het volgende uit de volgorde van je richting),
   schakelaar in Quiet helpers, `/mh talent`. Paladin: Retribution (guided.news) en Protection (stillsixty).
-- Nog te doen: de volgordes voor de andere 8 classes (per class onderzoek).
+- 21 nov uitgebreid naar ALLE classes. Rob via sparring, letterlijk: *"het puntensysteem, waar ga ik welk punt in
+  stoppen, moet natuurlijk wel uitgebreid worden. Ik zit nu bijvoorbeeld op mijn shamaan ... Ga ermee aan de slag"*.
+  Gebouwd: Shaman, Warrior, Druid, Hunter, Rogue, Priest, Mage, Warlock (levelvolgorde + waar zinnig een tweede).
+  Nog: één Fable-controleronde over alle volgordes.
 - Spel: F. Site: nog niet (in bouw, niet getest).
 
 ### Forever: level als X, tank als Y; respec en Dual Spec voor elke class (vraag van Rob, 21 nov) — ✅ JA + GEBOUWD 21 nov (wacht op Robs test)

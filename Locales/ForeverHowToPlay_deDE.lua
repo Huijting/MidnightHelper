@@ -763,7 +763,7 @@ Ab Stufe 1 (Finsterer Stoß und Verstohlenheit). Dieser Baum kämpft aus der Ver
 		},
 		HUNTER = {
 			{ band = 1, title = "Tierherrschaft: Schaden mit deinem Begleiter", body = [[
-Ab Stufe 10 (dein Begleiter, aus den Klassenquests). Dein Begleiter macht die meiste Arbeit: Er beschäftigt den Gegner, während du aus der Ferne schießt. Jeder Guide, den wir gelesen haben, nimmt Tierherrschaft zum Leveln: Sie nennen sie die leichteste und die schnellste. Neu in Forever: Falke beschwören (ein Talent, frühestens 25) schickt zusätzliche Vögel auf dein Ziel. Schwachpunkt: Gruppen von Gegnern. Dein Begleiter kann nur einen halten.
+Ab Stufe 10 (dein Begleiter, aus den Klassenquests). Dein Begleiter macht die meiste Arbeit: Er beschäftigt den Gegner, während du aus der Ferne schießt. Die meisten Guides nehmen Tierherrschaft zum Leveln: Sie nennen sie die leichteste und die schnellste. Wowhead fügt hinzu, dass alle drei Bäume funktionieren. Neu in Forever: Falke beschwören (ein Talent, frühestens 25) schickt zusätzliche Vögel auf dein Ziel. Schwachpunkt: Gruppen von Gegnern. Dein Begleiter kann nur einen halten.
 **Einfache Reihenfolge:**
 Bevor du anfängst: Aspekt des Falken an (**Shift-R**). Das Talent Tödliche Aspekte wirkt nur dann.
 1. Mal des Jägers (**Shift-Z**).

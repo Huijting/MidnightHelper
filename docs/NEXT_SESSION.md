@@ -34,9 +34,18 @@ volgordes (Rob: *"misschien dat we die gewoon aan het einde even overheen gooien
   mh-research). ⚠️ Open: wat Talented (Legacy) met SpellLevels doet (rij 7 op 35 i.p.v. 40?) — niet gemeten.
 - ✅ **Hunter** (tree 1091): Beast Mastery = Mobalytics/Feor 18 nov (21 stappen, Bestial Wrath op 40). Geen tweede
   volgorde (geen duidelijk groepsadvies). ⚠️ How you play zegt "Every guide we read picks Beast Mastery": mh-research
-  vindt dat te sterk (Wowhead: alle drie doen goed mee) — tekst niet aangepast (7 talen), wel in de note van /mh talent.
+  vindt dat te sterk (Wowhead: alle drie doen goed mee). GEREPAREERD (sparring: feitencorrectie): "Most guides pick
+  Beast Mastery … Wowhead adds that all three trees work.", in het Engels + 7 talen (8/8 GEMETEN met grep, oude zin 0×).
 - ✅ **Rogue** (tree 1111): Combat = Mobalytics/Djexde 12 nov (25 stappen, Adrenaline Rush op 42). Geen tweede volgorde.
-- 🔜 Priest/Mage/Warlock (mh-research bezig). Daarna: melden bij sparring vóór de Fable-ronde.
+- ✅ **Priest** (tree 1114): Shadow = MMOJUGG 13 nov (21 stappen, Shadowform op 42); Holy = warcraftmaps 17 nov
+  (21 stappen, Prayer of Mending stap 14; 4:2 Holy boven Disc voor dungeons). ⚠️ Vampiric Embrace op 27, SpellLevels 30
+  (overslaan-logica vangt het op als het spel weigert).
+- ✅ **Mage** (tree 1112): Frost = GrindClassic 20 nov (24 stappen, Ice Barrier op 40). Geen tweede (geen eensgezind
+  groepsadvies).
+- ✅ **Warlock** (tree 1116): Affliction = Mobalytics/Crix 21 nov (20 stappen, Wrack op 40); Destruction (alleen bij die
+  richting) = wofwforever 9 nov (19 stappen, Incinerate stap 13).
+- 🔜 Alle 9 classes hebben nu een volgorde. Volgende stap: ÉÉN Fable-controleronde over alle volgordes — eerst melden
+  bij sparring (Rob: *"misschien dat we die gewoon aan het einde even overheen gooien"*).
 
 🚀 **RELEASE 5.7.0 (21 nov)** — Rob via sparring, letterlijk: *"reload gedaan, tekst staat goed, go voor 5.7.0"*. Geen
 beta. Beide .toc 5.7.0, CHANGELOG_570_1-13, RELEASE_NOTES = CURSEFORGE_5.7.0 (diff leeg), CHANGELOG.md, SITE_SEIN (alle

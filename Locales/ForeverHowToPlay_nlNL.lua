@@ -755,7 +755,7 @@ Vanaf level 1 (Sinister Strike en Stealth). Deze boom vecht vanuit Stealth: een 
 		-- Hunter (17 nov 2026), zelfde band en volgorde als in Modules/ForeverHowToPlay.lua.
 		HUNTER = {
 			{ band = 1, title = "Beast Mastery: schade met je pet", body = [[
-Vanaf level 10 (je pet, uit de class-quests). Je pet doet het meeste werk: hij houdt de vijand bezig terwijl jij van een afstand schiet. Elke gids die we lazen kiest Beast Mastery om te levelen: ze noemen hem de makkelijkste en de snelste. Nieuw in Forever: Summon Hawk (een talent, op z'n vroegst 25) stuurt extra vogels op je doel. Zwak punt: groepen vijanden. Je pet kan er maar één vasthouden.
+Vanaf level 10 (je pet, uit de class-quests). Je pet doet het meeste werk: hij houdt de vijand bezig terwijl jij van een afstand schiet. De meeste gidsen kiezen Beast Mastery om te levelen: ze noemen hem de makkelijkste en de snelste. Wowhead zegt erbij dat alle drie de bomen werken. Nieuw in Forever: Summon Hawk (een talent, op z'n vroegst 25) stuurt extra vogels op je doel. Zwak punt: groepen vijanden. Je pet kan er maar één vasthouden.
 **Simpele volgorde:**
 Vooraf: Aspect of the Hawk aan (**Shift-R**). Het talent Deadly Aspects werkt alleen dan.
 1. Hunter's Mark (**Shift-Z**).

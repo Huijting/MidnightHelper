@@ -763,7 +763,7 @@ Dès le niveau 1 (Attaque pernicieuse et Camouflage). Cet arbre se bat depuis le
 		},
 		HUNTER = {
 			{ band = 1, title = "Maîtrise des bêtes : dégâts avec ton familier", body = [[
-Dès le niveau 10 (ton familier, via les quêtes de classe). Ton familier fait la plus grande partie du travail : il occupe l'ennemi pendant que tu tires de loin. Chaque guide que nous avons lu choisit Maîtrise des bêtes pour monter de niveau : ils la disent la plus facile et la plus rapide. Nouveau dans Forever : Invocation de faucon (un talent, au plus tôt au niveau 25) envoie des oiseaux en plus sur ta cible. Point faible : les groupes d'ennemis. Ton familier ne peut en tenir qu'un.
+Dès le niveau 10 (ton familier, via les quêtes de classe). Ton familier fait la plus grande partie du travail : il occupe l'ennemi pendant que tu tires de loin. La plupart des guides choisissent Maîtrise des bêtes pour monter de niveau : ils la disent la plus facile et la plus rapide. Wowhead ajoute que les trois arbres fonctionnent. Nouveau dans Forever : Invocation de faucon (un talent, au plus tôt au niveau 25) envoie des oiseaux en plus sur ta cible. Point faible : les groupes d'ennemis. Ton familier ne peut en tenir qu'un.
 **Ordre simple :**
 Avant de commencer : Aspect du faucon actif (**Shift-R**). Le talent Aspects mortels ne marche qu'avec lui.
 1. Marque du chasseur (**Shift-Z**).

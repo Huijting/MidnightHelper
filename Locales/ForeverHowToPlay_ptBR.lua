@@ -762,7 +762,7 @@ A partir do nível 1 (Golpe Sinistro e Furtividade). Esta árvore luta a partir 
 		},
 		HUNTER = {
 			{ band = 1, title = "Domínio das Feras: dano com seu ajudante", body = [[
-A partir do nível 10 (seu ajudante, das missões de classe). Seu ajudante faz a maior parte do trabalho: ele mantém o inimigo ocupado enquanto você atira de longe. Todo guia que lemos escolhe Domínio das Feras para subir de nível: eles dizem que é o mais fácil e o mais rápido. Novo no Forever: Evocar Falcão (um talento, no mínimo nível 25) manda pássaros extras no seu alvo. Ponto fraco: grupos de inimigos. Seu ajudante só consegue segurar um.
+A partir do nível 10 (seu ajudante, das missões de classe). Seu ajudante faz a maior parte do trabalho: ele mantém o inimigo ocupado enquanto você atira de longe. A maioria dos guias escolhe Domínio das Feras para subir de nível: eles dizem que é o mais fácil e o mais rápido. O Wowhead acrescenta que as três árvores funcionam. Novo no Forever: Evocar Falcão (um talento, no mínimo nível 25) manda pássaros extras no seu alvo. Ponto fraco: grupos de inimigos. Seu ajudante só consegue segurar um.
 **Ordem simples:**
 Antes de começar: Aspecto do Falcão ligado (**Shift-R**). O talento Aspectos Mortais só funciona assim.
 1. Marca do Caçador (**Shift-Z**).

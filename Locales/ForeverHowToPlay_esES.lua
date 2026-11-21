@@ -766,7 +766,7 @@ Desde el nivel 1 (Golpe siniestro y Sigilo). Este árbol lucha desde Sigilo: un 
 		},
 		HUNTER = {
 			{ band = 1, title = "Dominio de bestias: daño con tu mascota", body = [[
-Desde el nivel 10 (tu mascota, de las misiones de clase). Tu mascota hace la mayor parte del trabajo: mantiene ocupado al enemigo mientras tú disparas desde lejos. Todas las guías que leímos eligen Dominio de bestias para subir de nivel: dicen que es el más fácil y el más rápido. Nuevo en Forever: Invocar halcón (un talento, como pronto en el 25) manda pájaros extra contra tu objetivo. Punto débil: grupos de enemigos. Tu mascota solo puede retener a uno.
+Desde el nivel 10 (tu mascota, de las misiones de clase). Tu mascota hace la mayor parte del trabajo: mantiene ocupado al enemigo mientras tú disparas desde lejos. La mayoría de las guías eligen Dominio de bestias para subir de nivel: dicen que es el más fácil y el más rápido. Wowhead añade que los tres árboles funcionan. Nuevo en Forever: Invocar halcón (un talento, como pronto en el 25) manda pájaros extra contra tu objetivo. Punto débil: grupos de enemigos. Tu mascota solo puede retener a uno.
 **Orden sencillo:**
 Antes de empezar: activa Aspecto del halcón (**Shift-R**). El talento Aspectos letales solo funciona entonces.
 1. Marca del cazador (**Shift-Z**).

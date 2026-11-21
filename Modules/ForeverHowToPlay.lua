@@ -764,7 +764,7 @@ From level 1 (Sinister Strike and Stealth). This tree fights from Stealth: a str
 	-- Hunter: written 17 Nov 2026 by mh-writer from docs/forever/HUNTER_ROLES_2026-11-17.md (DB2 1.60.1.70938 + guides).
 	HUNTER = {
 		{ band = 1, title = "Beast Mastery: damage with your pet", body = [[
-From level 10 (your pet, from the class quests). Your pet does most of the work: it keeps the enemy busy while you shoot from a distance. Every guide we read picks Beast Mastery for levelling: they call it the easiest and the fastest. New in Forever: Summon Hawk (a talent, 25 at the earliest) sends extra birds at your target. Weak spot: groups of enemies. Your pet can hold only one.
+From level 10 (your pet, from the class quests). Your pet does most of the work: it keeps the enemy busy while you shoot from a distance. Most guides pick Beast Mastery for levelling: they call it the easiest and the fastest. Wowhead adds that all three trees work. New in Forever: Summon Hawk (a talent, 25 at the earliest) sends extra birds at your target. Weak spot: groups of enemies. Your pet can hold only one.
 **Simple order:**
 Before you start: Aspect of the Hawk on (**Shift-R**). The Deadly Aspects talent only works then.
 1. Hunter's Mark (**Shift-Z**).
