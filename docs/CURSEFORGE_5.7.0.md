@@ -55,6 +55,9 @@ by itself. `/mh bagfull off` switches the window off.
   the arrow, and whether your Hearthstone is ready. Switch: *Rested XP tip when you log out*.
 - **Quest items sparkle**: a switch in *Quiet helpers* brings back the old sparkle on quest items you can loot, instead
   of the outline. Off by default.
+- **Paladins, smart blessing**: the macro "MH Smart Bless" now blesses the friendly player under your mouse, or else your
+  friendly target, with the blessing that fits their class. Midnight Helper keeps the macro up to date by itself, so it
+  works from any key or mouse button.
 - The *Dock to window* button is gone from the Forever windows, and long window titles no longer run under it.
 
 ## Both games

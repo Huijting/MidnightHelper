@@ -5,6 +5,12 @@
 ✅ **Charkey GESLAAGD op twee Ima's (Rob in het spel, 21 nov)** — Ima 2 = Player-6944-0120ED18 (Ima 1 = …0118CB4F), eigen
 kopieën, "copies so far 9". Joey en KeyBlock nog niet getest.
 
+✅ **Smart Bless WERKT (Rob in het spel, 21 nov, na 71521af)** — *"Ja, hij kreeg werkelijk wat ik gaf. Zowel iemand die niet
+getarget was, als iemand die wel getarget was."* + *"Oh, dat is dynamisch. Dat is tof zeg."* Macrovenster: "#showtooltip /
+/cast [@mouseover,help,nodead] Blessing of Wisdom" (62/255). Afgevinkt; open: chatregel zonder doelwit, `/mh blesstip`-regel.
+Release-concept 5.7.0 bijgewerkt (RELEASE_NOTES = CURSEFORGE_5.7.0, CHANGELOG_570_8 + Changelog.lua). ⚠️ Nog NIET in de
+release-tekst: Waylaid Crates, charkey, erts/kruiden-schakelaars (alle nog niet of deels getest) — sparring/Rob beslist.
+
 📋 **Testlijst in het spel: eerste echte ronde (21 nov)** — Rob gebruikte `/mhtest` in Forever (*"het fancy dat werkt"*), 3× Goed
 + 1 opmerking ("dit is een test"), Reload. `run testlist_ingame read` (proefrun) las ze GEMETEN. Met de hand weggeschreven
 (de tool kan geen punt overslaan): optie C groen + `/mh sparkle` last node. NIET weggeschreven: "slimme zegen ook op je
