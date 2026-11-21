@@ -5,6 +5,28 @@
 ✅ **Charkey GESLAAGD op twee Ima's (Rob in het spel, 21 nov)** — Ima 2 = Player-6944-0120ED18 (Ima 1 = …0118CB4F), eigen
 kopieën, "copies so far 9". Joey en KeyBlock nog niet getest.
 
+🔴 **Erts/kruiden optie C GEBOUWD (21 nov)** — GEMETEN door Rob (2 screenshots): ver = grijze ster + grijs bloem-icoon,
+dichtbij = groene ster + gekleurd icoon; de grijze kleur kwam dus van afstand. Rob: *"c dus haha"* op "MH kijkt ook naar je
+eigen skill … alleen als je het echt niet kunt … wordt hij rood". `tools/forever_nodes.py` → `Modules/ForeverNodeSkillData.lua`
+(beide toc's): 74 nodes (41 kruid, 33 erts) met vereiste skill uit Wowhead Forever object-tooltips ("Requires Herbalism
+(N)"), GEMETEN; controle 1618 Peacebloom = 1, 1620 Mageroyal = 50. DB2 GameObjects heeft ze niet (GEMETEN). Object-id =
+GUID-veld 6 (los patroon). Kleur: cursor "Unable" + geen beroep, of skill < nodig → ROOD; "Unable" maar je kunt het →
+normale kleur ("too far away … you can"); onbekende node → beroep geleerd = normale kleur. `/mh sparkle`: "last node: <naam>
+(object id), kind, colour, reason, cursor". Uitleg FNODE_GLOW_SW_DESC in 7 talen; beroepsnamen per client GEMETEN (SkillLine
+DB2: de Kräuterkunde/Bergbau, fr Herboristerie/Minage, es Botánica/Minería, esMX Herboristería (eigen regel in
+Locales/esMX.lua), pt Herborismo/Mineração, it Herbalism/Mining, ru Травничество/Горное дело). Offline GEMETEN
+(nodeswitch_test.lua: ver+kan → goud, Tin 65 met Mining 5 → rood, geen Mining → rood, onbekend → goud, dichterbij zonder event).
+NIET in het spel gezien.
+
+⛏️ **Witte ster GEREPAREERD (21 nov, later)** — Rob: *"Deze IMA heeft wel herbalism."* Oorzaak (GEMETEN in de code,
+AFGELEID dat het Robs geval is): de kleur werd alleen gekozen bij PLAYER_SOFT_INTERACT_CHANGED / NAME_PLATE_UNIT_ADDED, dus
+op het moment dat de plant tot 15 m ver werd opgepikt. Daar zegt de cursor "Unable" (te ver; GEMETEN op erts 20 nov) →
+grijs, en dat bleef zo terwijl je dichterbij liep. Nu kijkt de gloed 5× per seconde opnieuw zolang hij zichtbaar is
+(OnUpdate op het eigen, niet-secure gloed-frame). `/mh sparkle` heeft "last node: <naam>, kind …, colour …, reason …, cursor
+…" (reden: "game says Unable: too far away, or skill too low (yours x/y)" / "you have no Herbalism" / "you can pick it")
+en schrijft `MidnightHelperDB.foreverNodeLast`. Offline GEMETEN (nodeswitch_test.lua + nieuwe stap: grijs → dichterbij zonder
+event → goud). NIET in het spel gezien.
+
 ⛏️ **Erts/kruiden-gloed: Rob zag een WITTE ster op Peacebloom (21 nov)** — werkt (bloem-icoon + MH-ster); Lueur is weg
 (sparring GEMETEN: map bestaat niet meer). Code (GEMETEN): kleur komt alléén uit de cursor-naam van de game: "unable" erin
 → grijs (0.6, met ADD-blend AFGELEID wit-ogend), anders herb → groen, mine → goud. Of die ster grijs of groen was en waarom,

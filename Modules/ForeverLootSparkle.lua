@@ -648,16 +648,71 @@ local function UpdateGlow()
 		return
 	end
 	local g = BuildGlow()
-	if unable then
-		g.a:SetVertexColor(0.6, 0.6, 0.6)
-		g.b:SetVertexColor(0.6, 0.6, 0.6)
+	-- 21 Nov 2026 (Rob: a WHITE star on Peacebloom, "Deze IMA heeft wel herbalism"): the colour was chosen only when the
+	-- node was picked up, up to 15 yd away (SoftTargetInteractRange). Out of gathering range the game's cursor says
+	-- "Unable" (GEMETEN on ore 20 Nov: Crosshair_UnableMine_64 out of range), so the star went grey and stayed grey while
+	-- you walked up. Now it is looked at again 5 times a second while it shows (AFGELEID that this was the cause).
+	if not g.ticking then
+		g.ticking = true
+		local acc = 0
+		g:SetScript("OnUpdate", function(_, elapsed)
+			acc = acc + (elapsed or 0)
+			if acc >= 0.2 then
+				acc = 0
+				pcall(UpdateGlow)
+			end
+		end)
+	end
+	local mine = ns.ForeverMyProfessions and ns.ForeverMyProfessions() or {}
+	local profName = kind == "herb" and "Herbalism" or "Mining"
+	local prof = mine[kind == "herb" and "HERBALISM" or "MINING"]
+	local skill = prof and ((prof.rank and prof.maxRank) and ("%d/%d"):format(prof.rank, prof.maxRank) or "learned")
+		or "not learned"
+	-- 21 Nov 2026, option C (Rob: "c dus haha"): MH also looks at your own skill. The game's "Unable" means too far away
+	-- OR not able (GEMETEN by Rob that day: far = grey, close = green on the same herb). So: can you gather it (the
+	-- profession, and the skill this node needs from ForeverNodeSkillData.lua, entry id = GUID field 6) → its normal
+	-- colour even from far away; really cannot (no profession, or skill below what it needs) → RED.
+	local need
+	local okG, guid = pcall(UnitGUID, "softinteract")
+	if okG and type(guid) == "string" and not (issecretvalue and issecretvalue(guid)) then
+		local entry = tonumber(guid:match("^GameObject%-[^%-]+%-[^%-]+%-[^%-]+%-[^%-]+%-(%d+)"))
+		need = entry and ns.FOREVER_NODE_SKILL and ns.FOREVER_NODE_SKILL[entry] or nil
+		nodeState.entry = entry
+	end
+	local rank = prof and tonumber(prof.rank)
+	local cannot = unable and (not prof or (need and rank and rank < need))
+	nodeState.need = need
+	if cannot then
+		g.a:SetVertexColor(1, 0.2, 0.15)
+		g.b:SetVertexColor(1, 0.4, 0.3)
+		nodeState.colour = "red"
+		nodeState.reason = not prof and ("you have no %s"):format(profName)
+			or ("%s too low: yours %s, this one needs %d"):format(profName, skill, need)
+	elseif unable then
+		-- Unable but you CAN gather it: too far away (or a reason the game knows and MH does not). Normal colour.
+		if kind == "herb" then
+			g.a:SetVertexColor(0.55, 1, 0.45)
+			g.b:SetVertexColor(0.8, 1, 0.6)
+			nodeState.colour = "green"
+		else
+			g.a:SetVertexColor(1, 0.8, 0.3)
+			g.b:SetVertexColor(1, 0.95, 0.6)
+			nodeState.colour = "gold"
+		end
+		nodeState.reason = ("too far away to gather yet; you can (%s %s%s)"):format(profName, skill,
+			need and (", needs " .. need) or ", what this one needs is not in MH's list")
 	elseif kind == "herb" then
 		g.a:SetVertexColor(0.55, 1, 0.45)
 		g.b:SetVertexColor(0.8, 1, 0.6)
+		nodeState.colour, nodeState.reason = "green", "you can pick it (Herbalism " .. skill .. ")"
 	else
 		g.a:SetVertexColor(1, 0.8, 0.3)
 		g.b:SetVertexColor(1, 0.95, 0.6)
+		nodeState.colour, nodeState.reason = "gold", "you can mine it (Mining " .. skill .. ")"
 	end
+	nodeState.lastNode = ("%s (object %s), kind %s, colour %s, reason: %s, cursor %s"):format(
+		tostring(nodeState.name or "?"), tostring(nodeState.entry or "?"), tostring(kind), nodeState.colour,
+		nodeState.reason, tostring(nodeState.cursor or "?"))
 	g:SetParent(np)
 	g:ClearAllPoints()
 	g:SetPoint("CENTER", np, "CENTER", 0, GLOW_OFFSET_Y)
@@ -751,14 +806,17 @@ local function NodeStatus()
 	end
 	local fid = GetFileIDFromPath and select(2, pcall(GetFileIDFromPath, GLOW_TEX)) or "?"
 	print(("  soft target now: %s, kind %s%s, glow shown: %s, glow texture file id: %s"):format(
-		tostring(nodeState.name or "-"), tostring(nodeState.kind or "-"), nodeState.unable and " (cannot gather yet)" or "",
+		tostring(nodeState.name or "-"), tostring(nodeState.kind or "-"), nodeState.unable and " (game cursor says Unable)" or "",
 		nodeState.shown and "yes" or "no", tostring(fid)))
 	-- 21 Nov 2026 (Rob: the star on a Peacebloom was WHITE): the colour and where it comes from. Grey = the game's own
 	-- cursor for that node says "Unable" (no Herbalism / Mining, or the skill is too low, or out of range); green = herb
 	-- you can gather; gold = ore you can mine. MH reads only the cursor; your profession below is a second look.
-	local colour = (not nodeState.kind and "-") or (nodeState.unable and "grey (cannot gather)")
-		or (nodeState.kind == "herb" and "green (herb)") or "gold (ore)"
-	print(("  colour: %s · game cursor: %s"):format(colour, tostring(nodeState.cursor or "-")))
+	print(("  colour now: %s · game cursor: %s"):format(nodeState.shown and tostring(nodeState.colour) or "-",
+		tostring(nodeState.cursor or "-")))
+	print("  last node: " .. tostring(nodeState.lastNode or "none seen yet this session"))
+	if ns.db then
+		ns.db.foreverNodeLast = { at = time and time() or 0, line = nodeState.lastNode, cursor = nodeState.cursor }
+	end
 	local mine = ns.ForeverMyProfessions and ns.ForeverMyProfessions() or {}
 	local function P(key)
 		local p = mine[key]

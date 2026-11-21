@@ -48,6 +48,16 @@ achternaam, "Step aside"-instelling, Your path, Set focus). Daarna vond Rob nog:
 rank-lijstje: werkt (screenshot: "You just learned", Conjure Water rank 1 -> 2 en Frost Armor rank 1 -> 2, met de knoppen
 Upgrade / Not now / Never). Afgevinkt met "(Rob, 19 nov)". De hulpregels ("typ /mh … als het niet werkt") blijven open.
 
+## ⛏️ 21 nov — Forever: de ster bij kruiden en erts kleurt mee als je dichterbij loopt
+
+`/reload` is genoeg. Forever, gloed-schakelaar aan.
+- [x] ✅ (Rob in het spel, 21 nov, 2 screenshots) Loop naar een Peacebloom: ver weg grijze ster + grijs bloem-icoon,
+      dichtbij GROENE ster + gekleurd icoon. → Rob koos daarna optie C (hieronder).
+- [ ] Optie C, na `/reload`: met Herbalism blijft de ster bij een Peacebloom GROEN, ook van ver. Een kruid of ader die je
+      niet kunt (geen beroep, of je skill te laag, bv. Mageroyal 50 met Herbalism onder 50): ROOD.
+- [ ] Sta bij een kruid en typ `/mh sparkle`: regel "last node: Peacebloom (object 1618), kind herb, colour green, reason:
+      …". Screenshot.
+
 ## ✨ 21 nov — Forever: slimme zegen ook op je doelwit
 
 `/reload` is genoeg. Forever, je paladin, slimme zegen-knop aan (`/mh blesstip button on`), macro "MH Smart Bless" op een balk.
