@@ -31,6 +31,7 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
   leren / verbeteren"* → *"2 en 1, doe maar, daarna 3 en 4 :)"*.
 - Volgorde: (2) dungeon-quests, (1) waar haal ik dit vandaan, (3) boot/zeppelin-wachttijd, (4) XP per uur.
   Alleen het idee: Polestar is GPLv3, FlowUp-routes ARR. Plan en stand: `docs/NEXT_SESSION.md` bovenaan.
+- (2) Dungeon-quests: GEBOUWD 21 nov (Bouwchat 21-11 (2)), wacht op Robs test. (1), (3), (4): nog niet.
 - Spel: F. Site: nog niet.
 
 ### Forever: mouseover-buffmacro voor de andere classes, zoals Smart Bless (vraag van Rob, 21 nov) — ✅ JA + GEBOUWD 21 nov (wacht op Robs test)

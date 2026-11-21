@@ -28,6 +28,18 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 21 nov 2026 — Forever: dungeon-quests per dungeon
+- Tag + commit:   geen tag (commit: zie git log, "Forever dungeon quests")
+- Status:         alleen op main
+- Mag op de site: nee (nog niet door Rob getest, geen release)
+- Speler ziet:    In het overzicht, tab Dungeons, heeft elke dungeon een knop "Quests N": een venster met de quests die
+                  je eerst ophaalt (questgever + zone, knop "Way ›" zet de pijl), wat al in je log staat, wat je in de
+                  dungeon krijgt, wat later in een reeks komt, en hoeveel je al gedaan hebt. 32 dungeons, uit Zygors
+                  eigen dungeonquest-gidsen.
+- Knoplabels:     FDQ_BTN_FMT, FDQ_TITLE_FMT, FOV_GO_SHORT
+- Commando's:     /mh dungeons quests [key], /mh dungeons quests check [key]
+- Spel:           Forever
+
 ## 21 nov 2026 — release 5.7.0 (staat op CurseForge)
 - Tag + commit:   v5.7.0 / e215cc8. Release-run GitHub 44915363010: geslaagd (3m34s); log: CurseForge, Wago en GitHub
                   "Success!" voor beide zips. CurseForge-API (GEMETEN, na Robs "Beide zijn approved"): 9734057

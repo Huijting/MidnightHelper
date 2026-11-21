@@ -1103,6 +1103,12 @@ local function DungeonRow(list, i)
 	r.boss:SetLabel(ns:L("FDG_BTN"))
 	Tip(r.boss, ns:L("FDG_TITLE"), ns:L("FDG_TIP_BTN"))
 	r.boss:Hide()
+	-- 21 Nov 2026 (Rob via sparring: "2 en 1, doe maar", point 2): "Quests" opens the quests to pick up first.
+	-- 76 wide (the others 70): "Задания 12" in ruRU; the way-there line ends 80 px from the right, so it stays free.
+	r.quest = Button(r, 76)
+	r.quest:SetHeight(20)
+	Tip(r.quest, ns:L("FDQ_BTN_FMT"):format(0), "")
+	r.quest:Hide()
 	r.name = Text(r, "textB", 14)
 	r.name:SetPoint("TOPLEFT", r.chip, "TOPRIGHT", 10, 1)
 	r.name:SetPoint("RIGHT", r.go, "LEFT", -8, 0)
@@ -4022,6 +4028,24 @@ local function FillDungeonsPage(f, refresh)
 			h = math.max(h, 52)
 		else
 			row.boss:Hide()
+		end
+		local qn = ns.ForeverDungeonQuestCounts and ns.ForeverDungeonQuestCounts(d.key)
+		if qn then
+			local key = d.key
+			row.quest:ClearAllPoints()
+			row.quest:SetPoint("TOPRIGHT", hasGuide and row.boss or row.go, "BOTTOMRIGHT", 0, -3)
+			row.quest:SetLabel(ns:L("FDQ_BTN_FMT"):format(qn.now))
+			row.quest.tipTitle = ns:L("FDQ_TITLE_FMT"):format(d.name)
+			row.quest.tipBody = ns:L("FDQ_TIP_BTN_FMT"):format(qn.now, qn.log, qn.inside, qn.later, qn.done, qn.total)
+			row.quest:SetScript("OnClick", function()
+				if ns.ShowForeverDungeonQuests then
+					ns.ShowForeverDungeonQuests(key)
+				end
+			end)
+			row.quest:Show()
+			h = math.max(h, hasGuide and 76 or 52)
+		else
+			row.quest:Hide()
 		end
 		row:SetHeight(h)
 		SetGo(row.go, (not d.sideLocked) and d.go or nil)

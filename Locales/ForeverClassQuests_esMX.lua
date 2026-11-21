@@ -162,6 +162,11 @@ for k, v in pairs({
 	-- Boss guide (18 Nov 2026): esMX says "calabozo" where esES says "mazmorra" (CLAUDE.md, esMX overlay).
 	FDG_NONE = "MH aún no tiene guía de jefes para este calabozo.",
 	FDG_HINT = "Dentro de un calabozo se abre en ese calabozo. Pon a un jefe como objetivo: MH lo marca. /mh bosses lo abre.",
+	-- Dungeon quests (21 Nov 2026): same "calabozo" swap; the other FDQ_* lines come from esES unchanged.
+	FDQ_TIP_BTN_FMT = "Las misiones que debes recoger antes de entrar, quién las da y dónde.\nRecoger ahora: %d · en tu registro de misiones: %d · dentro del calabozo: %d · más tarde en una cadena: %d · hechas: %d (de %d).",
+	FDQ_SEC_INSIDE = "Estas las consigues dentro del calabozo",
+	FDQ_NONE = "Nuestra fuente (las guías de misiones de calabozo de Zygor) no tiene misiones para este calabozo.",
+	FDQ_NOTE = "De las guías de misiones de calabozo de Zygor; los lugares aún no se han comprobado en el juego. Los niveles de las misiones no están en nuestros datos.",
 	FDG_CARD_SW_DESC = "Dentro de un calabozo: pon a un jefe como objetivo y una tarjeta pequeña muestra lo que hace, con un consejo. Otro objetivo la oculta. El botón de la tarjeta abre toda la guía de jefes.",
 	FCQ_OBJ_WR_DEADTOOTH_KEY = "derrota a Jack Dentomuerto en su campamento para conseguir la Llave de Dentomuerto",
 	FCQ_OBJ_WR_HAGGARD_BADGE = "abre la Caja fuerte de Dentomuerto en el campamento para conseguir el Distintivo del mariscal Haggard",
