@@ -2,6 +2,25 @@
 
 ## ▶▶ VOLGENDE BOUWCHAT: Forever-overzicht "D" — stap 1 en 3 gebouwd; stap 2 wacht op Robs screenshots (20 nov, avond)
 
+🔑 **API-wachter #2: één sleutel per character in Forever GEBOUWD (21 nov)** — Rob via sparring, letterlijk: *"A"* (speler-GUID
+via één gedeelde functie; unieke voornamen nemen oude data mee; elke Ima krijgt een kopie; /mh toont per module de
+sleutel). GEMETEN in Robs Forever-SV (20 nov 22:23, na de hotfix): `realm = ""`, `normRealm = ""`, `UnitFullName` 2e waarde
+= achternaam ("Pallie"); oude sleutels "Naam-CAMWOW EU4 Realm 10 RP" (één realm), en al vóór de hotfix deelden álle "Ima"'s
+één sleutel. Nieuw `Modules/ForeverCharKey.lua` (beide toc's, stopt buiten Forever): `ns.ForeverCharKey(label, legacy, tbl,
+opts)` → UnitGUID("player"); kopieert eenmalig per tabel+character "Naam-<realm>" + "Naam-" (tabellen recursief, getallen
+max, anders de nieuwe; `whole` = de nieuwe in één stuk; twee realms voor één naam = oude niet, log zegt het). Oude sleutels
+blijven staan (vangnet; 🗓️ op z'n vroegst na 28 nov opruimen). Omgezet: ForeverSkillup (foreverKnownRecipes), ForeverRanks
+(top + except), ForeverVendors (foreverToolTipSeen), ForeverWarnings (foreverPoleGear, whole), ForeverTravel (bind, whole),
+KeyPresses (chars). ⚠️ Afwijking van het plan, met reden: KeyBlock (keyBlockCodes) en SlotOwnership (managedSlotsByChar)
+krijgen de nieuwe sleutel maar GEEN kopie — KeyBlock bouwt zijn codes bij elke login opnieuw uit je balken (een oude
+Ima-code beschrijft de balken van een andere Ima), en SlotOwnership zegt in zijn eigen commentaar dat een record bij het
+verkeerde character de fout zelf is. Retail ongewijzigd (functie bestaat daar niet → oude sleutel). `/mh charkey` toont per
+module sleutel, oude sleutel en wat er gekopieerd is; `MidnightHelperDB.charKeyMigrated` houdt de kopieën bij. Offline
+GEMETEN (charkey_test.lua, 17 controles: kopie, diep, oud blijft, max-merge, whole, al aanwezig, dubbelzinnig, geen kopie,
+tweede Ima eigen kopie, Joey eigen data, "Imani" niet als "Ima", geen GUID). AFGELEID: speler-GUID blijft gelijk. NIET in
+het spel gezien. Correctie: "achternaam pas vanaf level 10" was een web-API-spelerspost (API_WATCH ~9920), NIET gemeten —
+daar nu rechtgezet (Rob: je kiest voor- en achternaam bij het maken).
+
 🔧 **API-wachter [MOET GEFIKST] #1 GEREPAREERD (21 nov)** — sparring: bugfix, geen keuze nodig. `ForeverVendors.lua` (het
 leren van reparateurs bij MERCHANT_SHOW) gebruikte als enige plek nog `^Creature%-%d+%-%d+%-%d+%-%d+%-(%d+)`; sinds de
 Forever-hotfix van 20 nov zijn veld 3-4 geobfusceerd. Nu velden 2-5 los (`[^%-]+`, zoals regel ~1170 en 5 andere

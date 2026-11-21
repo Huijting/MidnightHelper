@@ -48,6 +48,19 @@ achternaam, "Step aside"-instelling, Your path, Set focus). Daarna vond Rob nog:
 rank-lijstje: werkt (screenshot: "You just learned", Conjure Water rank 1 -> 2 en Frost Armor rank 1 -> 2, met de knoppen
 Upgrade / Not now / Never). Afgevinkt met "(Rob, 19 nov)". De hulpregels ("typ /mh … als het niet werkt") blijven open.
 
+## 🔑 21 nov — Forever: elk character zijn eigen opslag (twee Ima's)
+
+Nieuw bestand → **WoW helemaal herstarten**. Forever. Je oude gegevens worden alleen gekopieerd, nooit gewist.
+- [ ] Log in op een eerste Ima (bv. Ima Pallie). Typ `/mh charkey`: per onderdeel staat "key Player-…" en "copied from …"
+      (of "already there"). Screenshot.
+- [ ] Doe iets dat per character onthouden wordt: zet in Ranks (je spell-ranks) een balk of knop op "never touch". Log uit.
+- [ ] Log in op een tweede Ima (bv. Ima Lockie). `/mh charkey`: een ANDER "Player-…"-nummer. De keuze van de eerste Ima
+      staat hier ook (dat is de kopie van de oude gedeelde data), maar verander je hem hier, dan blijft hij bij de eerste
+      Ima zoals hij was. Log terug op de eerste Ima en kijk.
+- [ ] Een character met een unieke naam (Joey, Inchy, …): `/mh charkey` zegt "copied from "Joey-…"", en zijn oude
+      dingen (bv. Ranks-keuzes, de vis-uitrusting die MH onthield) zijn er nog.
+- [ ] Speltoets-indeling (key block): op elke Ima eigen codes na het inloggen (die maakt MH zelf opnieuw).
+
 ## 📦 21 nov — Forever: Waylaid Crates
 
 Nieuwe bestanden → **WoW helemaal herstarten**. Forever, een character van level 10 of hoger.

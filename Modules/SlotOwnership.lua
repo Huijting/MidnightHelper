@@ -48,7 +48,14 @@ local function CharKey()
 		local ok, s = pcall(ns.GetSpecialization)
 		spec = (ok and tonumber(s)) or 0
 	end
-	return ("%s-%s-%d"):format(name, realm, spec)
+	local legacy = ("%s-%s-%d"):format(name, realm, spec)
+	-- 21 Nov 2026 (Rob: "A"): in Forever the player GUID + spec (ForeverCharKey.lua, Forever toc only). No copy on
+	-- purpose, for the reason in the comment above Slots(): a record handed to the wrong character is the fault itself.
+	if ns.ForeverCharKey then
+		local k = ns.ForeverCharKey("slot records (managedSlotsByChar)", legacy, nil, { copy = false })
+		return k == legacy and legacy or (k .. "-" .. spec)
+	end
+	return legacy
 end
 
 local function Slots()

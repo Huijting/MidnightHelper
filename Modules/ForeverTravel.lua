@@ -184,9 +184,11 @@ local function WaitMin(t)
 	return left > 0 and left / 60 or 0
 end
 
-local function CharKey()
+-- 21 Nov 2026 (Rob: "A"): the player GUID through ForeverCharKey.lua. whole: a Hearthstone place is never mixed.
+local function CharKey(tbl)
 	local n, r = UnitName and UnitName("player"), GetRealmName and GetRealmName()
-	return tostring(n) .. "-" .. tostring(r)
+	local legacy = tostring(n) .. "-" .. tostring(r)
+	return ns.ForeverCharKey and ns.ForeverCharKey("hearthstone place (bind)", legacy, tbl, { whole = true }) or legacy
 end
 
 local function Bind()
@@ -204,7 +206,7 @@ local function BindDest()
 		return nil, "bind location unreadable"
 	end
 	local db = type(ns.db) == "table" and ns.db.foreverLandings
-	local own = db and db.bind and db.bind[CharKey()]
+	local own = db and db.bind and db.bind[CharKey(db.bind)]
 	if own and own.name == bind and own.map then
 		return { own.map, own.x, own.y, "landed here before" }
 	end
@@ -320,7 +322,7 @@ do
 			local db = ns.db.foreverLandings
 			if p.t.bind then
 				db.bind = db.bind or {}
-				db.bind[CharKey()] = { name = p.bind, map = map, x = x, y = y }
+				db.bind[CharKey(db.bind)] = { name = p.bind, map = map, x = x, y = y }
 			else
 				db.spell = db.spell or {}
 				db.spell[p.t.spell] = { map = map, x = x, y = y }

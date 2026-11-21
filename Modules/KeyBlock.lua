@@ -2409,7 +2409,13 @@ local function CharKey()
 	if not name or (issecretvalue and issecretvalue(name)) then
 		return nil, nil
 	end
-	return name .. "-" .. ((GetRealmName and GetRealmName()) or "?"), name
+	local legacy = name .. "-" .. ((GetRealmName and GetRealmName()) or "?")
+	-- 21 Nov 2026 (Rob: "A"): in Forever the player GUID (ForeverCharKey.lua, Forever toc only). No copy on purpose: the
+	-- codes are rebuilt from your bars at every login, and an old "Ima" code describes another Ima's bars.
+	if ns.ForeverCharKey then
+		return ns.ForeverCharKey("key block codes (keyBlockCodes)", legacy, nil, { copy = false }), name
+	end
+	return legacy, name
 end
 
 local function CodeStore()

@@ -77,6 +77,8 @@ Modules\KeybindAnchors.lua
 Modules\KeybindAutoMap.lua
 Modules\KeyboardLayoutPrototype.lua
 Modules\LiveKeys.lua
+# One key per character (the player GUID; the realm is empty since 20 Nov 2026). Rob, 21 Nov 2026: "A".
+Modules\ForeverCharKey.lua
 Modules\KeyPresses.lua
 UI.lua
 Modules\DialogPopup.lua

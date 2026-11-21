@@ -144,15 +144,17 @@ end
 --------------------------------------------------------------------------------
 -- Which recipes you know (per character)
 --------------------------------------------------------------------------------
-local function CharKey()
+-- 21 Nov 2026 (Rob: "A"): the player GUID through ForeverCharKey.lua; this was "Name-Realm", and the realm is "" now.
+local function CharKey(tbl)
 	local n, r = UnitName and UnitName("player"), GetRealmName and GetRealmName()
-	return (n or "?") .. "-" .. (r or "?")
+	local legacy = (n or "?") .. "-" .. (r or "?")
+	return ns.ForeverCharKey and ns.ForeverCharKey("recipes (foreverKnownRecipes)", legacy, tbl) or legacy
 end
 
 local function KnownTable()
 	ns.db = ns.db or {}
 	ns.db.foreverKnownRecipes = type(ns.db.foreverKnownRecipes) == "table" and ns.db.foreverKnownRecipes or {}
-	local k = CharKey()
+	local k = CharKey(ns.db.foreverKnownRecipes)
 	ns.db.foreverKnownRecipes[k] = type(ns.db.foreverKnownRecipes[k]) == "table" and ns.db.foreverKnownRecipes[k] or {}
 	return ns.db.foreverKnownRecipes[k]
 end

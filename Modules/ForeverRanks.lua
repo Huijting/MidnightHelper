@@ -80,14 +80,16 @@ local function Settings()
 	return s
 end
 
-local function CharKey()
+-- 21 Nov 2026 (Rob: "A"): the player GUID through ForeverCharKey.lua (the realm is "" since Blizzard's 20 Nov hotfix).
+local function CharKey(label, tbl)
 	local name, realm = UnitFullName and UnitFullName("player")
-	return (name or "?") .. "-" .. (realm or (GetRealmName and GetRealmName()) or "?")
+	local legacy = (name or "?") .. "-" .. (realm or (GetRealmName and GetRealmName()) or "?")
+	return ns.ForeverCharKey and ns.ForeverCharKey(label, legacy, tbl) or legacy
 end
 
 local function CharTops()
 	local s = Settings()
-	local k = CharKey()
+	local k = CharKey("ranks (foreverRanks.top)", s.top)
 	s.top[k] = s.top[k] or {}
 	return s.top[k]
 end
@@ -126,7 +128,7 @@ end
 local function Except()
 	local s = Settings()
 	s.except = s.except or {}
-	local k = CharKey()
+	local k = CharKey("ranks choices (foreverRanks.except)", s.except)
 	s.except[k] = s.except[k] or {}
 	local e = s.except[k]
 	e.bars = e.bars or {}

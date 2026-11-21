@@ -855,17 +855,26 @@ function ns.ForeverMissingTools()
 	return out
 end
 
-local function CharKey()
+-- 21 Nov 2026 (Rob: "A"): the player GUID through ForeverCharKey.lua (the realm is "" since Blizzard's 20 Nov hotfix).
+local function CharKey(tbl)
 	local n, r = UnitFullName and UnitFullName("player")
-	return n and (n .. "-" .. (r or GetRealmName() or "")) or nil
+	local legacy = n and (n .. "-" .. (r or (GetRealmName and GetRealmName()) or "")) or nil
+	if legacy and ns.ForeverCharKey then
+		return ns.ForeverCharKey("tool tip (foreverToolTipSeen)", legacy, tbl)
+	end
+	return legacy
 end
 
 local function Seen()
-	local d, key = ns.db, CharKey()
-	if not (d and key) then
+	local d = ns.db
+	if not d then
 		return nil
 	end
 	d.foreverToolTipSeen = d.foreverToolTipSeen or {}
+	local key = CharKey(d.foreverToolTipSeen)
+	if not key then
+		return nil
+	end
 	d.foreverToolTipSeen[key] = d.foreverToolTipSeen[key] or {}
 	return d.foreverToolTipSeen[key]
 end

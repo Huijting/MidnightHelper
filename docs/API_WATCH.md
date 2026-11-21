@@ -9921,6 +9921,11 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
     uitloggen) en veilinghuizen die op 6 nov live gingen. Nuttig voor een website, niet voor ons: MH is
     een Lua-addon en doet geen enkele HTTP-aanroep. 📌 Wel een naam om te onthouden voor de site-kant
     van het project.
+    ⚠️ **Correctie 21 nov 2026 (bouwchat):** "pas vanaf level 10" gaat over wat die spelerspost in de WEB-API zag, en
+    is NIET in het spel gemeten. Rob: *"Maar ik heb toch al een voor en een achternaam bij het maken van een character
+    ???"* — je kiest voor- en achternaam bij het maken. De bouwchat citeerde deze regel op 21 nov ten onrechte als
+    "gemeten 17 nov"; dat was fout. Wat MH wél mat (Robs SV, `foreverNameProbe`): `UnitFullName` geeft de achternaam
+    als tweede waarde ("Pallie").
   - 📌 **Rulesets: Forever heeft ze, MH kijkt er niet naar.** De 1.60.1-pagina geeft het recept
     (`C_GameRules.IsGameRuleActive(Enum.GameRule.HardcoreRuleset / RPRuleset / PvPRuleset)`) en de
     Added-lijst noemt onder meer `C_GameRules.IsHardcoreActive`, `IsSelfFoundAllowed` en

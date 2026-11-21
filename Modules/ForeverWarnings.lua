@@ -408,17 +408,27 @@ end
 
 --- Remember main hand + off-hand (the shield too) while they are NOT a pole, per character, so the warning can say
 --- what to put back. Saved in the character's own entry, so an alt never gets another character's weapons.
-local function CharKey()
+-- 21 Nov 2026 (Rob: "A"): the player GUID through ForeverCharKey.lua (the realm is "" since Blizzard's 20 Nov hotfix).
+-- whole: a gear set is never mixed from two old entries.
+local function CharKey(tbl)
 	local n, r = UnitFullName and UnitFullName("player")
-	return n and (n .. "-" .. (r or GetRealmName() or "")) or nil
+	local legacy = n and (n .. "-" .. (r or (GetRealmName and GetRealmName()) or "")) or nil
+	if legacy and ns.ForeverCharKey then
+		return ns.ForeverCharKey("fishing pole gear (foreverPoleGear)", legacy, tbl, { whole = true })
+	end
+	return legacy
 end
 
 local function RememberGear()
-	local d, key = ns.db, CharKey()
-	if not (d and key) or PoleInHand() then
+	local d = ns.db
+	if not d or PoleInHand() then
 		return
 	end
 	d.foreverPoleGear = d.foreverPoleGear or {}
+	local key = CharKey(d.foreverPoleGear)
+	if not key then
+		return
+	end
 	d.foreverPoleGear[key] = {
 		main = GetInventoryItemLink("player", 16),
 		off = GetInventoryItemLink("player", 17),
@@ -426,7 +436,8 @@ local function RememberGear()
 end
 
 local function SavedGear()
-	local d, key = ns.db, CharKey()
+	local d = ns.db
+	local key = d and CharKey(d.foreverPoleGear)
 	local g = d and key and d.foreverPoleGear and d.foreverPoleGear[key]
 	if type(g) ~= "table" then
 		return nil

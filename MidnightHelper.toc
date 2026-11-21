@@ -117,6 +117,7 @@ Modules\TankToolkit.lua
 Modules\DpsToolkit.lua
 Modules\PlayCards.lua
 Modules\LiveKeys.lua
+Modules\ForeverCharKey.lua
 Modules\KeyPresses.lua
 Modules\AuctionShopButton.lua
 Modules\HealerSolo.lua

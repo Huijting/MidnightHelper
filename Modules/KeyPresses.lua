@@ -71,7 +71,13 @@ local function CharKey()
 	if not name or (issecretvalue and issecretvalue(name)) then
 		return nil
 	end
-	return name .. "-" .. (realm or "?")
+	local legacy = name .. "-" .. (realm or "?")
+	-- 21 Nov 2026 (Rob: "A"): in Forever the player GUID (ForeverCharKey.lua, Forever toc only); retail keeps Name-Realm.
+	if ns.ForeverCharKey then
+		local st = Store()
+		return ns.ForeverCharKey("key presses (keyPresses.chars)", legacy, st and st.chars)
+	end
+	return legacy
 end
 
 local function SpecID()
