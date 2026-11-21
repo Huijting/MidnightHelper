@@ -28,7 +28,10 @@ bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt o
 ## 🚦 Minimaal vóór 5.7.0 (21 nov; Rob is ziek, alleen dit)
 
 - [ ] Midnight (retail): inloggen en `/reload` zonder foutmelding; in het alt-overzicht de regel "Renown (whole account)".
-- [ ] Forever: `/mh overview` — de tabbladen rechts openen allemaal.
+- [ ] Forever: `/mh overview` — de tabbladen rechts openen allemaal. (deels ✅ Rob in het spel, 21 nov: Now-tab, *"Dat
+      ziet er goed uit qua layout, dus daar ben ik best wel tevreden over."* — andere tabbladen niet genoemd)
+- [ ] (21 nov, reparatie) Mage: "Do this now" zegt niets meer over "Comprehend Scroll Rank …". Andere spells met echte rangen
+      (bv. Frostbolt) worden nog wel gemeld als er een oude rang op een knop staat.
 - [ ] Forever: Tas vol (`/mh bagfull test`) → *Destroy* op een grijs item: eerst "weet je het zeker?", daarna is het weg.
 - [ ] Forever: muis op een Waylaid Crate: de regels van MH in de tooltip (bundels, of waar je inlevert).
 

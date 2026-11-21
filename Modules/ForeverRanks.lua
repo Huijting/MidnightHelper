@@ -36,9 +36,21 @@ local function Info()
 		return INFO
 	end
 	INFO = {}
-	for name, list in pairs(ns.FOREVER_SPELL_IDS or {}) do
-		for i, id in ipairs(list) do
-			INFO[id] = { name = name, idx = i, list = list }
+	-- 21 Nov 2026 (Rob: "Comprehend Scroll Rank 1; you know Rank 5" stayed after the fix button): only ids whose DB2
+	-- subtext is "Rank N" count (ForeverRanksData.lua, tools/forever_rank_filter.py). Comprehend Scroll's five ids,
+	-- Polymorph Turtle/Pig, Swipe (Cat), talent copies … are not ranks; a spell with fewer than two real ranks drops out.
+	local notRank = ns.FOREVER_NOT_A_RANK or {}
+	for name, all in pairs(ns.FOREVER_SPELL_IDS or {}) do
+		local list = {}
+		for _, id in ipairs(all) do
+			if not notRank[id] then
+				list[#list + 1] = id
+			end
+		end
+		if #list >= 2 then
+			for i, id in ipairs(list) do
+				INFO[id] = { name = name, idx = i, list = list }
+			end
 		end
 	end
 	return INFO

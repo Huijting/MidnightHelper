@@ -5,6 +5,16 @@
 ✅ **Charkey GESLAAGD op twee Ima's (Rob in het spel, 21 nov)** — Ima 2 = Player-6944-0120ED18 (Ima 1 = …0118CB4F), eigen
 kopieën, "copies so far 9". Joey en KeyBlock nog niet getest.
 
+🐞 **Ranks: "Comprehend Scroll Rank 1; you know Rank 5" GEREPAREERD (21 nov)** — Rob (Troll Frost Mage lvl 10): *"Ik klik hem
+aan … Maar hij blijft wel staan. Hoort dat zo?"* GEMETEN (Forever DB2 Spell.NameSubtext_lang): de 5 Comprehend Scroll-ids zijn
+geen rangen (1296017 "Comprehension", instant; 4 andere zonder ondertitel, 5 s cast). Zelfde check: 19 van 279 spells met
+meerdere ids hebben ids die geen "Rank N" zijn (Polymorph Turtle/Pig, Swipe Cat, talent-kopieën van Execute/Flash of Light/
+Holy Light, Cure Poison, Tame Beast …), 52 ids in totaal. `tools/forever_rank_filter.py` → `Modules/ForeverRanksData.lua`
+(`ns.FOREVER_NOT_A_RANK`, controle 133 blijft / 1310030 eruit); ForeverRanks.lua Info() telt alleen echte rangen (spell met
+< 2 rangen valt weg). ForeverSpellIds zelf ongewijzigd (KeyBlock gebruikt hem om de castbare rang te vinden). Do this now
+ververst al bij ACTIONBAR_SLOT_CHANGED (GEMETEN in de code); de melding bleef staan omdat de "nieuwe rang" geen rang was
+(AFGELEID: de game laat op de knop de basis-spell zien). NIET in het spel gezien.
+
 🚦 **Afspraak 21 nov: Rob is ziek en test weinig. Bouwen mag gewoon op zijn vragen** (Rob, letterlijk via sparring: *"Nou,
 bouwen mogen we natuurlijk altijd wel doen."* — dat vervangt een eerdere "bouwstop" van de sparring).
 Minimale test vóór 5.7.0 staat bovenaan TESTLIJST (4 punten). Release-concept bijgewerkt met zeppelin-platforms en Skill
