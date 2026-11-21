@@ -38,6 +38,7 @@ bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt o
 - [x] ✅ (Rob in het spel, Forever/Undercity, 21 nov, screenshot "Destroy [Tough Jerky]? It is gone for good. Yes/No": *"En
       ook dit werkt."*) Forever: Tas vol (`/mh bagfull test`) → *Destroy* op een grijs item: eerst "weet je het zeker?".
 - [ ] Forever: muis op een Waylaid Crate: de regels van MH in de tooltip (bundels, of waar je inlevert).
+- [ ] (21 nov, reparatie) Tas vol: de regel "Repair & sell: …" staat onderaan naast de knop, niet meer door de derde rij heen.
 
 ✅ **Rob, 17 nov (nacht), via sparring, letterlijk: *"Midnight zelf werkt helemaal goed."*** Retail (Midnight) nagelopen na
 alle wijzigingen van vandaag aan gedeelde bestanden (KeysHub, FastMark, instellingen, Core): `/mh`, Alt+M, minimapknop,

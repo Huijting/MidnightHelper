@@ -333,7 +333,7 @@ local function Build()
 	end)
 	f.repInfo = f:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
 	f.repInfo:SetPoint("RIGHT", f.repBtn, "LEFT", -10, 0)
-	f.repInfo:SetPoint("LEFT", f, "LEFT", 22, 0)
+	f.repInfo:SetPoint("LEFT", f, "BOTTOMLEFT", 22, 51) -- 21 Nov 2026 (Rob): was f "LEFT" = mid-height, through row 3
 	f.repInfo:SetJustifyH("LEFT")
 	f.hint = f:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
 	f.hint:SetPoint("BOTTOMLEFT", 22, 18)

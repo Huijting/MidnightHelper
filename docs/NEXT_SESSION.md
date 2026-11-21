@@ -5,6 +5,14 @@
 ✅ **Charkey GESLAAGD op twee Ima's (Rob in het spel, 21 nov)** — Ima 2 = Player-6944-0120ED18 (Ima 1 = …0118CB4F), eigen
 kopieën, "copies so far 9". Joey en KeyBlock nog niet getest.
 
+🐞 **Tas vol: "Repair & sell"-regel liep door rij 3 GEREPAREERD (21 nov)** — Robs screenshot (Undercity). Oorzaak GEMETEN in de
+code: `repInfo` had als tweede anker `LEFT` van het venster = verticaal midden (y −180, rij 3). Nu `LEFT` aan `BOTTOMLEFT` +51
+(hoogte van de knop). Hoogte nagerekend (AFGELEID): rijen tot −198, loot + knop tot ~−266, Repair −298..−320, past in 360. ⚠️ Lint [25]: de
+registratie (RegisterMidnightDialogPopup) staat nu precies 120 regels na CreateFrame (window_check LOOKAHEAD = 120); één
+regel meer in Build() = HARD. Volgende keer: registratie hoger zetten.
+Ook GEMETEN goed door Rob vandaag: Comprehend-melding weg, Tas vol Destroy, Midnight login/reload. Renown O14 ❌ → meting
+`/mh renown` (renownProbe, ruwe velden per factie + uitbreiding) staat klaar, wacht op Rob.
+
 🐞 **Ranks: "Comprehend Scroll Rank 1; you know Rank 5" GEREPAREERD (21 nov)** — Rob (Troll Frost Mage lvl 10): *"Ik klik hem
 aan … Maar hij blijft wel staan. Hoort dat zo?"* GEMETEN (Forever DB2 Spell.NameSubtext_lang): de 5 Comprehend Scroll-ids zijn
 geen rangen (1296017 "Comprehension", instant; 4 andere zonder ondertitel, 5 s cast). Zelfde check: 19 van 279 spells met
