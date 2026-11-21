@@ -488,14 +488,11 @@ for _, r in ipairs(NODE_SET) do
 	NODE_OURS[r[1]] = r[2]
 end
 
---- 21 Nov 2026 (sparring: "als B de soft-target-CVar zelf aanzet, verschijnt het game-icoon dan tóch?" — yes, GEMETEN in
---- this file: NODE_SET set SoftTargetIconGameObject 1 for the glow too). Now the game's icon only when switch A is on;
---- glow only = icon 0. NOT measured: whether the soft-interact nameplate (where the glow sits) still comes without the
---- icon; SoftTargetNameplateInteract stays 1. /mh sparkle says "glow shown: no" if it does not.
+--- What MH sets each CVar to while A or B is on. 21 Nov 2026: for a moment B left SoftTargetIconGameObject at 0 when A
+--- was off. Rob MEASURED it in the game the same day (Paladin, Mining, a vein, with screenshots): A off + B on = no
+--- game icon AND no MH glow; A on + B on = both. The glow needs the game's icon setting, so B sets it again, and the
+--- switch text says the icon comes with it.
 local function Wanted(name)
-	if name == "SoftTargetIconGameObject" and not ns.IsNodeIconOn() then
-		return "0"
-	end
 	return NODE_OURS[name]
 end
 

@@ -23,11 +23,12 @@ Herbalism/Mining"; beroep maar skill te laag → rood blijft (Rob bevestigde, le
 te laag, dan blijft hij rood. En zo hoort het ook."*).
 FNODE_GLOW_SW_DESC 7 talen + esMX. ⚠️ Het game-icoon (schakelaar A, CVar SoftTargetIconGameObject) is één aan/uit voor
 ALLE objecten; per soort beperken kan met die CVar niet (AFGELEID uit de CVar-lijst; geen per-type CVar gezien in de
-meting van 20 nov). 🔧 Sparring zag een tegenspraak, terecht: B zette SoftTargetIconGameObject OOK op 1 (GEMETEN in
-NODE_SET), dus "A uit, B aan" gaf het icoon tóch. Nu `Wanted()`: icoon 1 alleen als A aan staat; alleen B = icoon 0
-(SoftTargetNameplateInteract blijft 1). NIET gemeten: of het softinteract-naamplaatje (waar de gloed op zit) er zonder
-icoon nog komt — `/mh sparkle` "glow shown: no" bij een kruid = nee, dan A weer aan. CVAR_UPDATE vergelijkt met Wanted
-(geen lus). Uitleg FNODE_GLOW_SW_DESC aangepast (7 talen + esMX). Offline
+meting van 20 nov). 🔧 Even (0c6aea4) liet B het icoon op 0 als A uit stond. Rob MAT het dezelfde dag in het spel
+(Paladin, Mining, ertsader, 2 screenshots): A uit + B aan = GEEN game-icoon én GEEN MH-ster; A aan + B aan = beide.
+GEMETEN dus: de gloed heeft SoftTargetIconGameObject nodig. Teruggedraaid: B zet het icoon weer zelf aan, uitleg weer
+"so the icon comes along" (7 talen + esMX). Een CVar die alleen het icoon verbergt: niet gevonden. Kandidaat (AFGELEID, uit
+MFNameplates SoftIcon.lua, geen bewijs): `SoftTargetNameplateSize` = grootte van het soft-target-icoon; 0 zou het icoon
+kunnen verbergen, maar misschien ook het naamplaatje waar de gloed op zit. Alleen bouwen na een meting door Rob. Offline
 GEMETEN (nodeswitch_test.lua). Overzicht D afgevinkt (Rob: *"dat zag er goed uit"*).
 
 📚 **Study: waar de bibliotheek is GEBOUWD (21 nov)** — Rob: *"Ja, graag"*. mh-research (GEMETEN): Study 1302508 vraagt spell

@@ -93,9 +93,11 @@ Upgrade / Not now / Never). Afgevinkt met "(Rob, 19 nov)". De hulpregels ("typ /
       erts/kruiden-schakelaars (het icoon van het spel en de gloed van MH).
 - [ ] (21 nov) Onder "MIDNIGHT HELPER" linksboven staat klein "for WoW Forever". Ook in de oude layout (tabs bovenaan):
       de tekst raakt de tabs niet.
-- [ ] (21 nov) Schakelaar "the game's icon" UIT, gloed AAN: geen bloem-/houweel-icoon van het spel meer, wel de MH-gloed bij
-      een ader die je kunt mijnen. Zie je dan géén gloed meer ("glow shown: no" in `/mh sparkle`)? Zeg het: dan heeft de
-      gloed het icoon van het spel nodig.
+- [x] ✅ GEMETEN (Rob in het spel, Forever, 21 nov, Paladin met Mining, ertsader, 2 screenshots) Schakelaar "the game's
+      icon" UIT, gloed AAN: geen game-icoon én geen MH-ster. Beide AAN: houweel-icoon + gouden MH-ster. De gloed heeft het
+      icoon van het spel dus nodig; teruggedraaid (gloed zet het icoon weer zelf aan).
+- [ ] (21 nov, na de terugdraai) Schakelaar "the game's icon" UIT, gloed AAN, bij een ader die je kunt mijnen: je ziet
+      weer het houweel-icoon van het spel én de gouden MH-ster. De uitleg bij de gloed zegt dat het icoon meekomt.
 - [x] ✅ (Rob in het spel, Forever, 21 nov, via /mhtest) Sta bij een kruid en typ `/mh sparkle`: regel "last node: Peacebloom (object 1618), kind herb, colour green, reason:
       …". Screenshot.
 
