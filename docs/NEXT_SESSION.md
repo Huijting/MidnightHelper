@@ -2,6 +2,16 @@
 
 ## ▶▶ VOLGENDE BOUWCHAT: Forever-overzicht "D" — stap 1 en 3 gebouwd; stap 2 wacht op Robs screenshots (20 nov, avond)
 
+✅ **Charkey GESLAAGD op twee Ima's (Rob in het spel, 21 nov)** — Ima 2 = Player-6944-0120ED18 (Ima 1 = …0118CB4F), eigen
+kopieën, "copies so far 9". Joey en KeyBlock nog niet getest.
+
+⛏️ **Erts/kruiden-gloed: Rob zag een WITTE ster op Peacebloom (21 nov)** — werkt (bloem-icoon + MH-ster); Lueur is weg
+(sparring GEMETEN: map bestaat niet meer). Code (GEMETEN): kleur komt alléén uit de cursor-naam van de game: "unable" erin
+→ grijs (0.6, met ADD-blend AFGELEID wit-ogend), anders herb → groen, mine → goud. Of die ster grijs of groen was en waarom,
+is NIET gemeten. `/mh sparkle` toont nu ook "colour: …", de cursor-naam van de game, en je Herbalism/Mining (rang of "not
+learned"). Volgende stap: Rob staat bij een kruid en typt `/mh sparkle`. Voorstel aan sparring: "kan niet" rood maken i.p.v.
+grijs (grijs leest als wit).
+
 ✨ **Slimme zegen ook op je doelwit GEBOUWD (21 nov)** — Rob via sparring: *"Als ik iemand geselecteerd heb en die hard
 doorloopt, dat ik daarna op F5 druk"* → op "Eerst de muis, anders je doelwit": *"Ja, doe maar."* `ForeverBlessTip.lua`: de
 knop is nu type macro met één regel `/cast [@mouseover,help,nodead] <zegen>; [@target,help,nodead] <zegen>` (de game kiest

@@ -62,10 +62,12 @@ Upgrade / Not now / Never). Afgevinkt met "(Rob, 19 nov)". De hulpregels ("typ /
 ## 🔑 21 nov — Forever: elk character zijn eigen opslag (twee Ima's)
 
 Nieuw bestand → **WoW helemaal herstarten**. Forever. Je oude gegevens worden alleen gekopieerd, nooit gewist.
-- [ ] Log in op een eerste Ima (bv. Ima Pallie). Typ `/mh charkey`: per onderdeel staat "key Player-…" en "copied from …"
-      (of "already there"). Screenshot.
+- [x] ✅ (Rob in het spel, 21 nov) Log in op een eerste Ima (bv. Ima Pallie). Typ `/mh charkey`: per onderdeel staat "key Player-…" en "copied from …"
+      (of "already there"). Screenshot. — Ima 1 = Player-6944-0118CB4F; kopie GEMETEN in de SV.
 - [ ] Doe iets dat per character onthouden wordt: zet in Ranks (je spell-ranks) een balk of knop op "never touch". Log uit.
-- [ ] Log in op een tweede Ima (bv. Ima Lockie). `/mh charkey`: een ANDER "Player-…"-nummer. De keuze van de eerste Ima
+- [x] ✅ (Rob in het spel, 21 nov; Ranks-deel overgeslagen: dat character heeft niets met ranks) — Ima 2 = Player-6944-0120ED18,
+      poleGear "copied from Ima-", toolTip + ranks "copied from Ima-CAMWOW EU4 Realm 10 RP + Ima-", copies so far 9.
+      Log in op een tweede Ima (bv. Ima Lockie). `/mh charkey`: een ANDER "Player-…"-nummer. De keuze van de eerste Ima
       staat hier ook (dat is de kopie van de oude gedeelde data), maar verander je hem hier, dan blijft hij bij de eerste
       Ima zoals hij was. Log terug op de eerste Ima en kijk.
 - [ ] Een character met een unieke naam (Joey, Inchy, …): `/mh charkey` zegt "copied from "Joey-…"", en zijn oude

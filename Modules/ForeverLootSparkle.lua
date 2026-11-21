@@ -615,6 +615,7 @@ local function SoftKind()
 		return nil
 	end
 	local low = tostring(tex):lower()
+	nodeState.cursor = tostring(tex) -- 21 Nov 2026: shown in /mh sparkle, the source of the colour
 	local unable = low:find("unable", 1, true) ~= nil
 	if low:find("mine", 1, true) then
 		return "ore", unable
@@ -752,6 +753,21 @@ local function NodeStatus()
 	print(("  soft target now: %s, kind %s%s, glow shown: %s, glow texture file id: %s"):format(
 		tostring(nodeState.name or "-"), tostring(nodeState.kind or "-"), nodeState.unable and " (cannot gather yet)" or "",
 		nodeState.shown and "yes" or "no", tostring(fid)))
+	-- 21 Nov 2026 (Rob: the star on a Peacebloom was WHITE): the colour and where it comes from. Grey = the game's own
+	-- cursor for that node says "Unable" (no Herbalism / Mining, or the skill is too low, or out of range); green = herb
+	-- you can gather; gold = ore you can mine. MH reads only the cursor; your profession below is a second look.
+	local colour = (not nodeState.kind and "-") or (nodeState.unable and "grey (cannot gather)")
+		or (nodeState.kind == "herb" and "green (herb)") or "gold (ore)"
+	print(("  colour: %s · game cursor: %s"):format(colour, tostring(nodeState.cursor or "-")))
+	local mine = ns.ForeverMyProfessions and ns.ForeverMyProfessions() or {}
+	local function P(key)
+		local p = mine[key]
+		if not p then
+			return "not learned"
+		end
+		return (p.rank and p.maxRank) and ("%d/%d"):format(p.rank, p.maxRank) or "learned"
+	end
+	print(("  your Herbalism: %s · your Mining: %s"):format(P("HERBALISM"), P("MINING")))
 	print(("  preset changes seen %d, waiting for combat end: %s, last: %s"):format(nodeState.reapplied,
 		nodeState.pending and "yes" or "no", tostring(nodeState.last)))
 end
