@@ -17,6 +17,11 @@ Daarbij gerepareerd: esES Wolfsbane = "Aterralobos" (Wowhead Forever); Archibald
 "Арчибальд" (in de Wolfsbane-regel; de Find-rij van de wapenmeester toont nog overal "Archibald"). ⚠️ esES SpellName
 202 zegt "Mazas de dos manos" (Blizzard-fout?); de teksten gebruiken "Espadas de dos manos" (SkillLine 55, esMX).
 
+🚀 **RELEASE 5.7.0 (21 nov)** — Rob via sparring, letterlijk: *"reload gedaan, tekst staat goed, go voor 5.7.0"*. Geen
+beta. Beide .toc 5.7.0, CHANGELOG_570_1-13, RELEASE_NOTES = CURSEFORGE_5.7.0 (diff leeg), CHANGELOG.md, SITE_SEIN (alle
+regels sinds 5.6.0 → getagd). Waylaid Crates + mage Study-tip zitten in de zip, NIET in de tekst. Run + CF-bestanden:
+zie SITE_SEIN zodra gemeten.
+
 🐞 **Dungeons-lijst: routetekst liep onder Way/Bosses (21 nov)** — Rob, screenshot: *"Er loopt tekst door elkaar heen."*
 GEMETEN in de code: `DungeonRow` route begint 70 px in (chip 2+58, gat 10) maar had breedte rowW-80 → eindigde 70 px te ver
 rechts, onder de knoppenkolom (70 breed, 2 van rechts). Nu rowW-150 (vaste breedte, want de rijhoogte wordt direct na

@@ -6,7 +6,7 @@ local CHANGELOG_ENTRIES = {
 	{
 		version = "5.7.0",
 		lines = {
-			-- 20 Nov 2026 (written on Rob's "Ja dat mag erna"; proposed number, no .toc bump and no tag until his go).
+			-- 20 Nov 2026 (written on Rob's "Ja dat mag erna"); released 21 Nov 2026 on "go voor 5.7.0".
 			"CHANGELOG_570_1",
 			"CHANGELOG_570_2",
 			"CHANGELOG_570_3",

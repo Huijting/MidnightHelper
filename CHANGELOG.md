@@ -2,6 +2,28 @@
 
 All notable changes to this project are documented in this file.
 
+## 5.7.0
+
+📌 **2026-11-21, RELEASE (Rob via sparring, letterlijk: "reload gedaan, tekst staat goed, go voor 5.7.0"; geen beta).**
+Releaseplan Rob: *"De talententip in Do This Now en de MI Smart Buff. Als die gebouwd zijn, dan gaan we releasen."*
+In-game: CHANGELOG_570_1 t/m _13. `RELEASE_NOTES.md` = `docs/CURSEFORGE_5.7.0.md`. Commits v5.6.0..HEAD (20 en 21 nov).
+Getest door Rob: zie TESTLIJST 20 en 21 nov (o.a. Which city?, Skill up, Bags full + Destroy, charkey, erts/kruiden-gloed
+rood bij te lage skill, Comprehend-melding weg, zoek-sprong, ondertitel).
+
+- **Forever, overzicht:** layout D (tabs rechts, schakelaar terug), Which city?, alle herbergen, Hearthstone/teleports in
+  de route, zeppelin-platform per meester, zoektreffer springt naar de schakelaar, ondertitel "for WoW Forever",
+  Dungeons-routetekst niet meer onder de knoppen.
+- **Forever, talenten en tanken:** volgend talentpunt in Do this now (`ForeverTalentNext.lua`, Paladin Ret + Prot),
+  level-en-tank-plan Paladin/Warrior/Druid + "Talents: reset and Dual Spec" in How you play, Wolfsbane-tip, Dual Spec-tip,
+  tankstats Paladin Stamina > Intellect.
+- **Forever, verder:** Skill up (+ itemkleuren, eerst-maken), Bags full (Destroy, Pick up the loot, sell junk), Repair &
+  sell, worn gear, Rested XP, questitems glinsteren, erts/kruiden (icoon + gloed), Smart Bless op muis/doelwit via
+  EditMacro, Smart Buff (Mage/Priest/Druid), eigen instellingen per character (`ForeverCharKey.lua`), Comprehend-rangfix.
+- **In de zip maar niet in de spelerstekst (nog niet door Rob getest):** Waylaid Crates, mage Study-tip.
+- **Beide spellen:** buff-bedankje voor vreemden. **Midnight:** renown-regel in het alt-overzicht.
+- **Alleen voor ons (niet in de spelerstekst):** `/mh talent`, `/mh smartbuff`, `/mh charkey`, `/mh renown`,
+  `/mh crates test`, `/mh sparkle` (node-diagnose), `/mh donow check` (202/63644).
+
 ## 5.6.0
 
 📌 **2026-11-19, RELEASE (Rob via sparring, letterlijk: "Go voor release."; geen beta).** Klaargezet op *"Ja, de
