@@ -40,6 +40,11 @@ local DEFAULT = { PALADIN = 3, SHAMAN = 2, DRUID = 2, MAGE = 3, PRIEST = 3, ROGU
 
 --[[ ORDERS[class][band] = { source = "...", steps = { { node = id, spell = id, name = "English", to = ranks }, ... } }
 	`to` = the rank this step brings the talent to (a talent of 5 ranks in one go = one step with to = 5). ]]
+-- 21 Nov 2026, Fable check (one read-only round over all 15 orders, 314 steps, Rob: "om het 1 keer goed na te laten
+-- kijken"): every id, rank, band, source sequence, row gate and prerequisite OK (GEMETEN, two checkers + negative
+-- controls). Open, not settled by data: Stormstrike 17364 (SpellLevels 40, untouched from Classic Era; guides 25) and
+-- Vampiric Embrace 15286 (SpellLevels 30, raised from Era 1; guides 25-27). Hunter Counterattack 19306 has the same
+-- pattern (30 on row 4) but is in no order. RequiredLevel is 0 in all 171 TraitCond rows.
 -- Node and spell ids GEMETEN 21 Nov 2026 (mh-research, wago DB2 Forever 1.60.1.71037: SpellName → TraitDefinition →
 -- TraitNodeEntry → TraitNodeXTraitNodeEntry → TraitNode in tree 1100; MaxRanks match every step; the bouwchat re-checked
 -- 3 entries → nodes: 130436→105707, 137873→110875, 130352→105628). The order itself = the named guide (AFGELEID).
@@ -717,10 +722,12 @@ function ns.ForeverTalentSlash()
 		tostring(st.currency)))
 	if st.order and st.config then
 		for i, s in ipairs(st.order.steps) do
-			local have, max = Ranks(st.config, s.node)
+			local have, max, can = Ranks(st.config, s.node)
 			if i <= 40 then
-				print(("    %2d. %s %s/%s (want %d)%s"):format(i, s.name, tostring(have), tostring(max), s.to,
-					st.index == i and "  <- next" or ""))
+				-- 21 Nov 2026 (Fable check): "can buy" = what the client says (canPurchaseRank). Rob's test of
+				-- Stormstrike (25 vs 40) and Vampiric Embrace (27 vs 30) reads it here.
+				print(("    %2d. %s %s/%s (want %d), can buy: %s%s"):format(i, s.name, tostring(have), tostring(max),
+					s.to, tostring(can), st.index == i and "  <- next" or ""))
 			end
 		end
 	end

@@ -44,8 +44,12 @@ volgordes (Rob: *"misschien dat we die gewoon aan het einde even overheen gooien
   groepsadvies).
 - ✅ **Warlock** (tree 1116): Affliction = Mobalytics/Crix 21 nov (20 stappen, Wrack op 40); Destruction (alleen bij die
   richting) = wofwforever 9 nov (19 stappen, Incinerate stap 13).
-- 🔜 Alle 9 classes hebben nu een volgorde. Volgende stap: ÉÉN Fable-controleronde over alle volgordes — eerst melden
-  bij sparring (Rob: *"misschien dat we die gewoon aan het einde even overheen gooien"*).
+- ✅ **Fable-controle (21 nov, sparring: "Ja, de Fable-ronde mag nu")**: alle 15 volgordes, 314 stappen, 765 punten —
+  ids, rangen, banden, volgorde t.o.v. de bronpagina (gelezen), rijgrenzen en voorgangers: allemaal OK (GEMETEN, twee
+  checkers + negatieve controles). Niets aan ORDERS veranderd. Open blijft (data beslist het niet): Stormstrike
+  SpellLevels 40 (onveranderd uit Classic Era; meerdere gidsen na launch: 25) en Vampiric Embrace 30 (in Forever
+  verhoogd van 1; gidsen 25-27). AFGELEID: beide waarschijnlijk kiesbaar. Risico zit in de terugval: die werkt alleen als
+  de client `canPurchaseRank = false` meldt. Daarom toont `/mh talent` nu per stap "can buy: …" — Robs test beslist het.
 
 🚀 **RELEASE 5.7.0 (21 nov)** — Rob via sparring, letterlijk: *"reload gedaan, tekst staat goed, go voor 5.7.0"*. Geen
 beta. Beide .toc 5.7.0, CHANGELOG_570_1-13, RELEASE_NOTES = CURSEFORGE_5.7.0 (diff leeg), CHANGELOG.md, SITE_SEIN (alle
