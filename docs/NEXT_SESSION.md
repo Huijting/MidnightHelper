@@ -1,5 +1,25 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ VOLGENDE BOUWCHAT (21 nov, avond): nieuwe Forever-reeks "leren van Polestar/FlowUp" — NOG NIET BEGONNEN
+
+Bouwchat 21-11 stopt hier (context vol). Alles hieronder is gepusht t/m 738de2c; `git status` was schoon. 5.7.0 staat op
+CurseForge (9734057 / 9734079) en op de site.
+Rob via sparring, letterlijk: *"ik blijf bij Zygor, Polestar probeer ik later. maar kunnen wij er iets van leren /
+verbeteren"* → op sparrings 5 voorstellen: *"2 en 1, doe maar, daarna 3 en 4 :)"*. ⚠️ Polestar = GPLv3: alleen het IDEE,
+geen code/tekst/data. FlowUp-routes = ARR: niets overnemen. Per punt: eerst kort uitzoeken → echte keuze = opties naar
+sparring; anders bouwen. Lint, 7 talen, IDEEEN (Robs zin staat er), TESTLIJST, push mag, geen tag. Meld per punt kort.
+1. **(punt 2) Dungeon-quests** — per dungeon in de dungeon-gids/Dungeons-lijst "haal eerst deze quests op": quest,
+   level, questgever + plek met Show the way, en of je hem al hebt/gedaan hebt. GEMETEN 21 nov: ForeverDungeons.lua en
+   ForeverDungeonGuide.lua hebben GEEN dungeon-quests (grep "quest": alleen UI-texturen); ForeverDungeonGuideData.lua noemt
+   quests alleen in baas-opmerkingen (`-- src:`-regels, bv. regel 960 Sergeant Bly). Dus nieuwe data: DB2 QuestV2 /
+   Wowhead Forever-tooltips (`run gamedata`) / Zygor lokaal / HandyNotes; coördinatenregel uit het geheugen.
+2. **(punt 1) "Waar haal ik dit vandaan?"** bij item/recept/mount/pet (zoekbalk + tooltip): verkoper, drop, quest, beroep,
+   trainer, met Show the way. Midnight heeft het voor recepten (`CraftShoppingList.lua`, CRAFTSHOP_UNLEARNED,
+   CHANGELOG_474_3) — hergebruik waar het kan. Klein beginnen (recepten + reagents + mounts?) en zeggen wat de data toelaat.
+3. **(punt 3) Boot/zeppelin-wachttijd** "komt over ~N s": eerst uitzoeken of het meetbaar is (transport-objecten, vaste
+   cyclustijd per route); anders eerlijk "niet te meten".
+4. **(punt 4) XP per uur + tijd tot volgend level** (overzicht/Do this now), met een schakelaar.
+
 ## ▶▶ VOLGENDE BOUWCHAT: Forever-overzicht "D" — stap 1 en 3 gebouwd; stap 2 wacht op Robs screenshots (20 nov, avond)
 
 🛡️ **Level als X, tank als Y + respec/Dual Spec + Wolfsbane + tankstats (21 nov)** — Rob via sparring, GO letterlijk:

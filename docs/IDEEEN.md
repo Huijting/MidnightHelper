@@ -26,6 +26,13 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 
 ## Open — wacht op Rob
 
+### Forever: leren van Polestar/FlowUp — dungeon-quests, "waar haal ik dit vandaan?", bootwachttijd, XP per uur (wens van Rob, 21 nov) — ✅ JA, nog niet gebouwd
+- Bron: Rob 21 nov via sparring, letterlijk: *"ik blijf bij Zygor, Polestar probeer ik later. maar kunnen wij er iets van
+  leren / verbeteren"* → *"2 en 1, doe maar, daarna 3 en 4 :)"*.
+- Volgorde: (2) dungeon-quests, (1) waar haal ik dit vandaan, (3) boot/zeppelin-wachttijd, (4) XP per uur.
+  Alleen het idee: Polestar is GPLv3, FlowUp-routes ARR. Plan en stand: `docs/NEXT_SESSION.md` bovenaan.
+- Spel: F. Site: nog niet.
+
 ### Forever: mouseover-buffmacro voor de andere classes, zoals Smart Bless (vraag van Rob, 21 nov) — ✅ JA + GEBOUWD 21 nov (wacht op Robs test)
 - Bron: Rob 21 nov via sparring: *"Kunnen wij ook een soort mouse-over macro maken voor de andere buffs, voor alle andere
   classes. Zodat ik die standaard op eenzelfde plek kan zetten, terwijl als mensen langslopen, dat ik gauw op hun een buff
