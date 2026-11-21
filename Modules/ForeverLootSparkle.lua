@@ -488,6 +488,17 @@ for _, r in ipairs(NODE_SET) do
 	NODE_OURS[r[1]] = r[2]
 end
 
+--- 21 Nov 2026 (sparring: "als B de soft-target-CVar zelf aanzet, verschijnt het game-icoon dan tóch?" — yes, GEMETEN in
+--- this file: NODE_SET set SoftTargetIconGameObject 1 for the glow too). Now the game's icon only when switch A is on;
+--- glow only = icon 0. NOT measured: whether the soft-interact nameplate (where the glow sits) still comes without the
+--- icon; SoftTargetNameplateInteract stays 1. /mh sparkle says "glow shown: no" if it does not.
+local function Wanted(name)
+	if name == "SoftTargetIconGameObject" and not ns.IsNodeIconOn() then
+		return "0"
+	end
+	return NODE_OURS[name]
+end
+
 --- Set the soft-target values; keep the old ones first (all read before any is set).
 local function NodeApply(why)
 	if not NodeNeedsCVars() then
@@ -511,9 +522,10 @@ local function NodeApply(why)
 	local changed, failed = 0, 0
 	for _, r in ipairs(NODE_SET) do
 		local cur = before[r[1]]
+		local want = Wanted(r[1])
 		-- Range comes back as "15.000000": compare as numbers.
-		if cur ~= nil and tonumber(cur) ~= tonumber(r[2]) then
-			if Set(r[1], r[2]) then
+		if cur ~= nil and tonumber(cur) ~= tonumber(want) then
+			if Set(r[1], want) then
 				changed = changed + 1
 			else
 				failed = failed + 1
@@ -790,7 +802,7 @@ nodeEv:SetScript("OnEvent", function(_, event, name, value)
 			end
 		end
 	elseif event == "CVAR_UPDATE" then
-		if type(name) == "string" and NODE_OURS[name] and tonumber(value) ~= tonumber(NODE_OURS[name])
+		if type(name) == "string" and NODE_OURS[name] and tonumber(value) ~= tonumber(Wanted(name))
 			and NodeNeedsCVars() then
 			nodeState.reapplied = nodeState.reapplied + 1
 			C_Timer.After(1, function()
@@ -813,7 +825,7 @@ local function NodeStatus()
 	for _, r in ipairs(NODE_SET) do
 		local cur = Get(r[1])
 		print(("  %s: now %s, MH sets %s, kept from before %s"):format(r[1], cur == nil and "MISSING" or tostring(cur),
-			r[2], d.saved and d.saved[r[1]] ~= nil and tostring(d.saved[r[1]]) or "-"))
+			tostring(Wanted(r[1])), d.saved and d.saved[r[1]] ~= nil and tostring(d.saved[r[1]]) or "-"))
 	end
 	local fid = GetFileIDFromPath and select(2, pcall(GetFileIDFromPath, GLOW_TEX)) or "?"
 	print(("  soft target now: %s, kind %s%s, glow shown: %s, glow texture file id: %s"):format(

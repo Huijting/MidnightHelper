@@ -12,7 +12,11 @@ Herbalism/Mining"; beroep maar skill te laag → rood blijft (Rob bevestigde, le
 te laag, dan blijft hij rood. En zo hoort het ook."*).
 FNODE_GLOW_SW_DESC 7 talen + esMX. ⚠️ Het game-icoon (schakelaar A, CVar SoftTargetIconGameObject) is één aan/uit voor
 ALLE objecten; per soort beperken kan met die CVar niet (AFGELEID uit de CVar-lijst; geen per-type CVar gezien in de
-meting van 20 nov). Wie het icoon bij kruiden zonder Herbalism niet wil zien: schakelaar A uit, B (gloed) aan. Offline
+meting van 20 nov). 🔧 Sparring zag een tegenspraak, terecht: B zette SoftTargetIconGameObject OOK op 1 (GEMETEN in
+NODE_SET), dus "A uit, B aan" gaf het icoon tóch. Nu `Wanted()`: icoon 1 alleen als A aan staat; alleen B = icoon 0
+(SoftTargetNameplateInteract blijft 1). NIET gemeten: of het softinteract-naamplaatje (waar de gloed op zit) er zonder
+icoon nog komt — `/mh sparkle` "glow shown: no" bij een kruid = nee, dan A weer aan. CVAR_UPDATE vergelijkt met Wanted
+(geen lus). Uitleg FNODE_GLOW_SW_DESC aangepast (7 talen + esMX). Offline
 GEMETEN (nodeswitch_test.lua). Overzicht D afgevinkt (Rob: *"dat zag er goed uit"*).
 
 📚 **Study: waar de bibliotheek is GEBOUWD (21 nov)** — Rob: *"Ja, graag"*. mh-research (GEMETEN): Study 1302508 vraagt spell
