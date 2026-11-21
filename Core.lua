@@ -4408,6 +4408,14 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- 21 Nov 2026: measurement of the renown line in the alt overview (AltOverview.lua).
+	if msg:lower() == "renown" then
+		if ns.RenownProbeSlash then
+			ns.RenownProbeSlash()
+		end
+		return
+	end
+
 	-- 21 Nov 2026: which key each module saves this character under (Forever only, ForeverCharKey.lua).
 	if msg:lower() == "charkey" then
 		if ns.ForeverCharKeySlash then

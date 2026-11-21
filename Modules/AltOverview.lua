@@ -2224,6 +2224,74 @@ local function RenownSummary()
 	return ns:L("ALT_RENOWN_LINE_FMT"):format(word, table.concat(parts, "  ·  ")), tip
 end
 
+--- /mh renown — MEASUREMENT (21 Nov 2026, Rob's screenshot: ~30 factions, all "not unlocked yet", only the Labyrinth
+--- read; Dragonflight and TWW in the list). Writes every raw field the client gives per faction, the expansion values
+--- and the list with an expansion argument to MidnightHelperDB.renownProbe, so we can see which field is wrong.
+function ns.RenownProbeSlash()
+	local P = { at = date and date("%Y-%m-%d %H:%M:%S") or "?", factions = {} }
+	local function safe(v)
+		if type(v) == "table" or type(v) == "function" or type(v) == "userdata" then
+			return "<" .. type(v) .. ">"
+		end
+		if ns.IsSecretValue and ns.IsSecretValue(v) then
+			return "<secret>"
+		end
+		return v
+	end
+	P.expansionLevel = GetExpansionLevel and safe(select(2, pcall(GetExpansionLevel))) or "no GetExpansionLevel"
+	P.serverExpansionLevel = GetServerExpansionLevel and safe(select(2, pcall(GetServerExpansionLevel))) or "missing"
+	P.LE_EXPANSION_LEVEL_CURRENT = safe(rawget(_G, "LE_EXPANSION_LEVEL_CURRENT"))
+	P.LE_EXPANSION_MIDNIGHT = safe(rawget(_G, "LE_EXPANSION_MIDNIGHT"))
+	P.LE_EXPANSION_WAR_WITHIN = safe(rawget(_G, "LE_EXPANSION_WAR_WITHIN"))
+	if not (C_MajorFactions and C_MajorFactions.GetMajorFactionIDs) then
+		P.err = "no C_MajorFactions.GetMajorFactionIDs"
+	else
+		local ok, ids = pcall(C_MajorFactions.GetMajorFactionIDs)
+		P.idsNoArg = ok and type(ids) == "table" and #ids or ("error/none: " .. tostring(ids))
+		local cur = rawget(_G, "LE_EXPANSION_LEVEL_CURRENT")
+		if type(cur) == "number" then
+			local okC, idsC = pcall(C_MajorFactions.GetMajorFactionIDs, cur)
+			P.idsCurrent = okC and type(idsC) == "table" and table.concat(idsC, ",") or ("error/none: " .. tostring(idsC))
+		end
+		for _, id in ipairs(ok and type(ids) == "table" and ids or {}) do
+			local e = { id = id }
+			local okD, d = pcall(C_MajorFactions.GetMajorFactionData, id)
+			if okD and type(d) == "table" then
+				for k, v in pairs(d) do
+					e[k] = safe(v)
+				end
+			else
+				e.err = tostring(d)
+			end
+			if C_MajorFactions.GetCurrentRenownLevel then
+				local okL, l = pcall(C_MajorFactions.GetCurrentRenownLevel, id)
+				e.currentRenownLevel = okL and safe(l) or "error"
+			end
+			if C_MajorFactions.HasMaximumRenown then
+				local okM, m = pcall(C_MajorFactions.HasMaximumRenown, id)
+				e.hasMax = okM and safe(m) or "error"
+			end
+			if C_Reputation and C_Reputation.IsMajorFaction then
+				local okI, v = pcall(C_Reputation.IsMajorFaction, id)
+				e.isMajorFaction = okI and safe(v) or "error"
+			end
+			P.factions[#P.factions + 1] = e
+		end
+	end
+	ns.db = ns.db or {}
+	ns.db.renownProbe = P
+	print(("|cffffcc00Midnight Helper:|r renown probe: %s factions (no argument), current expansion %s / list %s. Saved (renownProbe): /reload writes it."):format(
+		tostring(P.idsNoArg), tostring(P.LE_EXPANSION_LEVEL_CURRENT), tostring(P.idsCurrent or "-")))
+	local shown = 0
+	for _, e in ipairs(P.factions) do
+		if shown < 8 then
+			print(("   %s: unlocked %s, level %s, expansion %s"):format(tostring(e.name or e.id), tostring(e.isUnlocked),
+				tostring(e.renownLevel), tostring(e.expansionID)))
+			shown = shown + 1
+		end
+	end
+end
+
 function ns:_mhAltOverviewRefreshTexts()
 	if ui.renown then
 		local okR, line, tip = pcall(RenownSummary)

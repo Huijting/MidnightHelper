@@ -27,12 +27,16 @@ bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt o
 
 ## 🚦 Minimaal vóór 5.7.0 (21 nov; Rob is ziek, alleen dit)
 
-- [ ] Midnight (retail): inloggen en `/reload` zonder foutmelding; in het alt-overzicht de regel "Renown (whole account)".
+- [x] ✅ (Rob in het spel, Midnight, 21 nov: geen foutmeldingen) Midnight (retail): inloggen en `/reload` zonder foutmelding.
+- [ ] ❌ (Rob, 21 nov: alleen "The Labyrinth of Kindo'jan 0", tooltip ~30 facties uit alle uitbreidingen, allemaal "not unlocked
+      yet") in het alt-overzicht de regel "Renown (whole account)" met de Midnight-facties. Meting: typ `/mh renown`, dan
+      `/reload`, zeg het tegen de sparring.
 - [ ] Forever: `/mh overview` — de tabbladen rechts openen allemaal. (deels ✅ Rob in het spel, 21 nov: Now-tab, *"Dat
       ziet er goed uit qua layout, dus daar ben ik best wel tevreden over."* — andere tabbladen niet genoemd)
-- [ ] (21 nov, reparatie) Mage: "Do this now" zegt niets meer over "Comprehend Scroll Rank …". Andere spells met echte rangen
+- [x] ✅ (Rob in het spel, 21 nov: *"reload gedaan, melding is weg"*) Mage: "Do this now" zegt niets meer over "Comprehend Scroll Rank …". Andere spells met echte rangen
       (bv. Frostbolt) worden nog wel gemeld als er een oude rang op een knop staat.
-- [ ] Forever: Tas vol (`/mh bagfull test`) → *Destroy* op een grijs item: eerst "weet je het zeker?", daarna is het weg.
+- [x] ✅ (Rob in het spel, Forever/Undercity, 21 nov, screenshot "Destroy [Tough Jerky]? It is gone for good. Yes/No": *"En
+      ook dit werkt."*) Forever: Tas vol (`/mh bagfull test`) → *Destroy* op een grijs item: eerst "weet je het zeker?".
 - [ ] Forever: muis op een Waylaid Crate: de regels van MH in de tooltip (bundels, of waar je inlevert).
 
 ✅ **Rob, 17 nov (nacht), via sparring, letterlijk: *"Midnight zelf werkt helemaal goed."*** Retail (Midnight) nagelopen na
