@@ -67,7 +67,20 @@ local function Migrate(label, t, key, name, whole)
 	end
 	checked[tag] = true
 	if t[key] ~= nil then
-		return
+		-- 21 Nov 2026 (Rob's test via sparring: "already there" read as "nothing copied"): say WHEN it was copied.
+		local m = ns.db and type(ns.db.charKeyMigrated) == "table" and ns.db.charKeyMigrated[label .. "|" .. key]
+		if type(m) == "table" then
+			local when = (date and m.at and m.at > 0) and date("%d %b %H:%M", m.at) or "?"
+			local src = {}
+			if m.from then
+				src[#src + 1] = '"' .. m.from .. '"'
+			end
+			if m.fromNew then
+				src[#src + 1] = '"' .. m.fromNew .. '"'
+			end
+			return ("copied earlier (%s) from %s"):format(when, table.concat(src, " + "))
+		end
+		return "already there (made by this character, nothing to copy)"
 	end
 	local prefix = name .. "-"
 	local olds, newer = {}, nil

@@ -2,6 +2,13 @@
 
 ## ▶▶ VOLGENDE BOUWCHAT: Forever-overzicht "D" — stap 1 en 3 gebouwd; stap 2 wacht op Robs screenshots (20 nov, avond)
 
+🔑 **Charkey: eerste test van Rob (21 nov, middag)** — Ima 1 `/mh charkey`: poleGear/toolTip/ranks.top "already there",
+"copies made so far: 4". GEMETEN in de Forever-SV: `charKeyMigrated` heeft 4 kopieën voor Player-6944-0118CB4F (pole,
+ranks.top, toolTip: uit "Ima-CAMWOW EU4 Realm 10 RP" + "Ima-"; recepten: uit "Ima-"), en `foreverToolTipSeen[GUID]` =
+dezelfde 4 vakken als de oude sleutel. Dus wél gekopieerd, bij een eerdere login/reload; "already there" was verwarrend →
+zegt nu "copied earlier (datum) from …" of "already there (made by this character…)". Ranks-stap kon niet (dat character
+heeft geen spells met meerdere ranks, AFGELEID) — niet nodig, de SV-vergelijking bewijst de kopie.
+
 🔑 **API-wachter #2: één sleutel per character in Forever GEBOUWD (21 nov)** — Rob via sparring, letterlijk: *"A"* (speler-GUID
 via één gedeelde functie; unieke voornamen nemen oude data mee; elke Ima krijgt een kopie; /mh toont per module de
 sleutel). GEMETEN in Robs Forever-SV (20 nov 22:23, na de hotfix): `realm = ""`, `normRealm = ""`, `UnitFullName` 2e waarde
