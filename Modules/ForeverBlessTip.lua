@@ -168,7 +168,7 @@ end
 -- attributes out of combat (since 21 Nov 2026: type macro + one /cast line for mouseover, then target, see below); in
 -- combat the last choice stays (attributes cannot change then); no script on the secure button itself (lesson
 -- ForeverPartyPanel.lua:12-13).
--- Click phase pinned like ForeverDisenchant.lua (useOnKeyDown false, LeftButtonUp). You press it through a macro
+-- Clicks: up AND down since 21 Nov 2026 (see BuildSmart: a key press is a down-click). You press it through a macro
 -- "MH Smart Bless" (/click MidnightHelperSmartBless), made when you switch it on, out of combat; drag it to a bar.
 -- Off by default (players choose): ns.db.foreverSmartBless == true. /mh blesstip says the button's state and spell.
 -- NOT measured: that /click reaches a secure button in Forever, and UPDATE_MOUSEOVER_UNIT on unit frames.
@@ -186,6 +186,7 @@ end
 local SMART_NAME, SMART_MACRO = "MidnightHelperSmartBless", "MH Smart Bless"
 local smart, smartWhy, smartSpell = nil, "not built (switched off, or not a paladin)", nil
 local smartLine, targetWhy = nil, "not checked yet"
+local smartClicks, smartLastClick = 0, "never this session"
 local mouseSpell, targetSpell -- the spell ids in the current line (nil = no clause)
 
 local function SmartOn()
@@ -199,9 +200,20 @@ local function BuildSmart()
 	smart = CreateFrame("Button", SMART_NAME, UIParent, "SecureActionButtonTemplate")
 	smart:SetSize(1, 1)
 	smart:SetPoint("TOPLEFT", UIParent, "TOPLEFT", -50, 50) -- off screen: only the macro clicks it
-	smart:RegisterForClicks("LeftButtonUp")
-	smart:SetAttribute("useOnKeyDown", false)
+	-- 21 Nov 2026 (Rob: "Ik heb niks gedaan, maar het werkt niet", pressing F5): it listened to LeftButtonUp only, with
+	-- useOnKeyDown false. A /click from a KEY comes in as a key-down when ActionButtonUseKeyDown is on, and that CVar is
+	-- not in Rob's Forever Config.wtf / config-cache.wtf (GEMETEN: absent, so the client default; that the default is 1
+	-- in Forever is AFGELEID from retail). So a key press never reached it, a mouse click on the macro icon did — "first
+	-- not, then yes". Now both, and the template picks the one that matches the CVar (no double cast).
+	smart:RegisterForClicks("AnyUp", "AnyDown")
 	smart:SetAttribute("type", "macro")
+	-- A click counter for /mh blesstip (a post-hook; it changes nothing about the secure click itself).
+	smart:HookScript("OnClick", function(self, button, down)
+		smartClicks = smartClicks + 1
+		local ok, txt = pcall(self.GetAttribute, self, "macrotext")
+		smartLastClick = ("%s, %s %s, line: %s"):format(date and date("%H:%M:%S") or "?", tostring(button),
+			down and "down" or "up", (ok and txt) or "none")
+	end)
 	return smart
 end
 
@@ -368,6 +380,9 @@ function ns.ForeverBlessTipSlash(arg)
 	print("  target on the button: " .. targetWhy)
 	print("  the key runs: " .. (smartLine or "nothing (no friendly player under the mouse or as target yet)")
 		.. ((InCombatLockdown and InCombatLockdown()) and "  — in combat: this stays until the fight ends" or ""))
+	local kd = C_CVar and C_CVar.GetCVar and C_CVar.GetCVar("ActionButtonUseKeyDown")
+	print(("  presses that reached the button: %d · last: %s · ActionButtonUseKeyDown = %s"):format(smartClicks,
+		smartLastClick, tostring(kd)))
 	print("  (typing this in chat: your mouse is on the chat, so \"mouseover\" above reads nothing — that is normal)")
 	local t = {}
 	for c, d in pairs(DEFAULT) do
@@ -381,6 +396,7 @@ function ns.ForeverBlessTipSlash(arg)
 		at = time and time() or 0, enabled = Enabled(), hook = state.hook, fired = state.fired,
 		mouseover = { pick = kind, id = id, class = token, why = kind and why or id }, last = state.last,
 		target = { pick = tk, id = tid, why = tk and twhy or tid }, line = smartLine, smartWhy = smartWhy,
+		clicks = smartClicks, lastClick = smartLastClick, keyDownCVar = kd,
 	}
 	print("  saved in SavedVariables (foreverBlessTipProbe) — /reload writes it to disk.")
 end

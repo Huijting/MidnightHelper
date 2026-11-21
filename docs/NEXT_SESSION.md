@@ -5,6 +5,15 @@
 ✅ **Charkey GESLAAGD op twee Ima's (Rob in het spel, 21 nov)** — Ima 2 = Player-6944-0120ED18 (Ima 1 = …0118CB4F), eigen
 kopieën, "copies so far 9". Joey en KeyBlock nog niet getest.
 
+🐞 **Smart Bless werkte niet met F5 GEREPAREERD (21 nov)** — Rob: *"Ik heb niks gedaan, maar het werkt niet."* De knop
+luisterde alleen naar LeftButtonUp (useOnKeyDown false, overgenomen van de Disenchant-knop, die met de muis geklikt wordt).
+Een `/click` vanaf een TOETS komt binnen als key-down als ActionButtonUseKeyDown aan staat; die CVar staat niet in Robs
+Forever Config.wtf/config-cache.wtf (GEMETEN: afwezig = standaard; standaard 1 in Forever = AFGELEID van retail). Dus een
+toets bereikte de knop nooit, een muisklik op het macro-icoon wel → "eerst niet, toen wel" (AFGELEID). Nu
+RegisterForClicks("AnyUp","AnyDown") zonder useOnKeyDown-pin (zoals ForeverPartyPanel). Klikteller (HookScript OnClick):
+`/mh blesstip` toont "presses that reached the button: N · last: tijd, knop down/up, line: … · ActionButtonUseKeyDown = …".
+Offline GEMETEN (bless_test.lua, 16 controles). NIET in het spel gezien.
+
 🔴 **Erts/kruiden optie C GEBOUWD (21 nov)** — GEMETEN door Rob (2 screenshots): ver = grijze ster + grijs bloem-icoon,
 dichtbij = groene ster + gekleurd icoon; de grijze kleur kwam dus van afstand. Rob: *"c dus haha"* op "MH kijkt ook naar je
 eigen skill … alleen als je het echt niet kunt … wordt hij rood". `tools/forever_nodes.py` → `Modules/ForeverNodeSkillData.lua`

@@ -68,6 +68,8 @@ Upgrade / Not now / Never). Afgevinkt met "(Rob, 19 nov)". De hulpregels ("typ /
 - [ ] `/mh blesstip`: regels "target now: …" en "the key runs: /cast [@mouseover,help,nodead] …; [@target,help,nodead] …".
       Typ het met een speler geselecteerd. Screenshot.
 - [ ] In een gevecht: de knop werkt met de laatste keuze van vóór het gevecht (MH kan hem dan niet bijwerken).
+- [ ] (Reparatie 21 nov) Na `/reload` en ZONDER eerst iets in de chat te typen: selecteer iemand en druk F5 (de toets, niet
+      de muis). Werkt het meteen? Daarna `/mh blesstip`: "presses that reached the button: 1 (of meer) · last: …, down …".
 
 ## 🔑 21 nov — Forever: elk character zijn eigen opslag (twee Ima's)
 
