@@ -216,8 +216,8 @@ oude kaartruimte. WowSeer toont voor Shaw de oude set: niet gebruiken voor Storm
 | keryn | Keryn Sylvius (917) | 1429 | 43.87 | 65.94 | HN; Z-AL r. 975 gelijk |
 | shaw | Master Mathias Shaw (332) | 1453 | 78.31 | 70.75 | Z-AC r. 22526; WH-T 78.4,70.6 |
 | dockmaster | — (Defias Dockmaster 6846) | 1429 | 48.0 | 87.0 | WH-T spawnpunt; PS 48.1,87 |
-| hogral | Hogral Bakkan (1234) | 1426 | 47.72 | 52.62 | HN; Zygor 47.56,52.61 |
-| hulfdan | Hulfdan Blackbeard (5165) | 1455 | 51.96 | 14.84 | HN; Zygor 51.94,14.82 |
+| hogral | Hogral Bakkan (1234) | 1426 | [stond in HandyNotes] | [stond in HandyNotes] | HN; Zygor 47.56,52.61 |
+| hulfdan | Hulfdan Blackbeard (5165) | 1455 | [stond in HandyNotes] | [stond in HandyNotes] | HN; Zygor 51.94,14.82 |
 | onin | Onin MacHammar (6886) | 1426 | 25.16 | 44.45 | Z-AC r. 22484; WH-T 25.2,44.4 |
 | jannok | Jannok Breezesong (3599) | 1438 | 56.38 | 60.14 | HN = Z-AL r. 3968 |
 | syurna | Syurna (4163) | 1457 | 36.99 | 21.91 | HN = Z-AL r. 3993 |
@@ -229,12 +229,12 @@ oude kaartruimte. WowSeer toont voor Shaw de oude set: niet gebruiken voor Storm
 | towerKey | — (Malformed Defias Drone) | 1436 | 71.63 | 73.91 | Z-AC r. 22543 |
 | duskChest | — (Duskwood Chest, boven in de toren) | 1436 | 70.41 | 73.93 | Z-AC r. 22556 |
 | doc | Doc Mixilpixil (7207) | 1453 | 80.06 | 69.91 | Z-AC r. 22570 |
-| romano | Lord Tony Romano (13283) | 1453 | 80.28 | 68.58 | HN; Zygor 80.28,68.57 |
-| kaplak | Kaplak (3170) | 1411 | 51.92 | 43.83 | HN; Zygor 51.98,43.69 |
+| romano | Lord Tony Romano (13283) | 1453 | [stond in HandyNotes] | [stond in HandyNotes] | HN; Zygor 80.28,68.57 |
+| kaplak | Kaplak (3170) | 1411 | [stond in HandyNotes] | [stond in HandyNotes] | HN; Zygor 51.98,43.69 |
 | therzok | Therzok (6446) | 1454 | 42.74 | 53.54 | Z-HL r. 4192 |
 | tazan | — (Tazan 6494, loopt rond) | 1413 | 62.92 | 44.07 | Z-HL r. 4996 |
 | gamon | — (Gamon, in de herberg) | 1454 | 54.00 | 68.03 | Z-HL r. 5278 |
-| marion | Marion Call (2130) | 1420 | 61.85 | 51.89 | HN; Zygor 61.75,52.00 |
+| marion | Marion Call (2130) | 1420 | [stond in HandyNotes] | [stond in HandyNotes] | HN; Zygor 61.75,52.00 |
 | mennet | Mennet Carkad (6467) | 1458 | 83.51 | 69.11 | Z-HL r. 977; UGT 83.2,69 |
 | astor | — (Astor Hadren 6497, loopt de weg Brill ↔ Sepulcher) | 1421 | 47.50 | 39.80 | Z-HL r. 1521 ("spawns near The Sepulcher"); WH-T geeft alleen een pad in Tirisfal |
 | andron | Andron Gant (6522) | 1458 | 54.82 | 76.30 | Z-HL r. 4768 |
@@ -372,8 +372,8 @@ Plek: ná het warrior-blok (dan bestaan `DWGN`, `NELF`, `UD`, `O`, `P.sunken`). 
 local RO_P = {
 	keryn = { npc = "Keryn Sylvius", id = 917, m = 1429, x = 43.87, y = 65.94 },
 	shaw = { npc = "Master Mathias Shaw", id = 332, m = 1453, x = 78.31, y = 70.75 },
-	hogral = { npc = "Hogral Bakkan", id = 1234, m = 1426, x = 47.72, y = 52.62 },
-	hulfdan = { npc = "Hulfdan Blackbeard", id = 5165, m = 1455, x = 51.96, y = 14.84 },
+	hogral = { npc = "Hogral Bakkan", id = 1234, m = 1426, xy = "stond in HandyNotes" },
+	hulfdan = { npc = "Hulfdan Blackbeard", id = 5165, m = 1455, xy = "stond in HandyNotes" },
 	onin = { npc = "Onin MacHammar", id = 6886, m = 1426, x = 25.16, y = 44.45 },
 	jannok = { npc = "Jannok Breezesong", id = 3599, m = 1438, x = 56.38, y = 60.14 },
 	syurna = { npc = "Syurna", id = 4163, m = 1457, x = 36.99, y = 21.91 },
@@ -381,10 +381,10 @@ local RO_P = {
 	lucius = { npc = "Lucius", id = 6966, m = 1433, x = 22.97, y = 52.04 },
 	kearnen = { npc = "Agent Kearnen", id = 7024, m = 1436, x = 68.49, y = 70.08 },
 	doc = { npc = "Doc Mixilpixil", id = 7207, m = 1453, x = 80.06, y = 69.91 },
-	romano = { npc = "Lord Tony Romano", id = 13283, m = 1453, x = 80.28, y = 68.58 },
-	kaplak = { npc = "Kaplak", id = 3170, m = 1411, x = 51.92, y = 43.83 },
+	romano = { npc = "Lord Tony Romano", id = 13283, m = 1453, xy = "stond in HandyNotes" },
+	kaplak = { npc = "Kaplak", id = 3170, m = 1411, xy = "stond in HandyNotes" },
 	therzok = { npc = "Therzok", id = 6446, m = 1454, x = 42.74, y = 53.54 },
-	marion = { npc = "Marion Call", id = 2130, m = 1420, x = 61.85, y = 51.89 },
+	marion = { npc = "Marion Call", id = 2130, m = 1420, xy = "stond in HandyNotes" },
 	mennet = { npc = "Mennet Carkad", id = 6467, m = 1458, x = 83.51, y = 69.11 },
 	andron = { npc = "Andron Gant", id = 6522, m = 1458, x = 54.82, y = 76.30 },
 	varimathras = { npc = "Varimathras", id = 2425, m = 1458, x = 56.24, y = 92.22 },

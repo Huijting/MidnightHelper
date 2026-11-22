@@ -1107,7 +1107,7 @@ ns.ForeverTrainerCandidates = Candidates -- the offline check calls it
 --- The nearest trainer on the player's continent: the candidate, its distance (yards), and how many were looked at.
 --- One place per trainer (the coordinate rule: a place measured in game > HandyNotes > a guide; one value per place).
 --- Rob, 8 Nov 2026: standing next to Dark Cleric Duesten, the arrow said "12 m" and pointed into the wall. Nearest-wins
---- had picked the HandyNotes point (31.34, 65.85) over MH's own (31.11, 66.07, measured by Rob) because it was a few
+--- had picked the HandyNotes point ([was in HandyNotes]) over MH's own (31.11, 66.07, measured by Rob) because it was a few
 --- yards closer from where he typed /mh trainer go. Same NPC id = same trainer: keep only the best source.
 --- seen (0): the place MH stored when you talked to this NPC (ForeverSeenPlaces.lua) beats everything (Rob, 11 Nov 2026).
 local SRC_RANK = { seen = 0, yours = 1, measured = 2, HandyNotes = 3, ["MH list"] = 4 }

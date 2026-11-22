@@ -243,29 +243,29 @@ Regel: trainers uit HandyNotes (net als `WR_P.lyria` = HN `[41106563]`), de rest
 
 | Sleutel | NPC (id) | UiMap | x | y | Bron (gekozen) | Andere bronnen |
 |---|---|---|---|---|---|---|
-| dazalar | Dazalar (3601) | 1438 | 56.66 | 59.40 | HN r.237 | Zygor 56.68, 59.49; WH-T 56.6, 59.4 |
+| dazalar | Dazalar (3601) | 1438 | [stond in HandyNotes] | [stond in HandyNotes] | HN r.237 | Zygor 56.68, 59.49; WH-T 56.6, 59.4 |
 | jocaste | Jocaste (4146) | 1457 | 40.38 | 8.55 | HN r.30 | Zygor 40.38, 8.56; WH-T 40.2, 8.4 |
 | grif | Grif Wildheart (1231) | 1426 | 45.81 | 53.04 | HN r.49 | Zygor 45.81, 53.04; WH-T 45.8, 53.0 |
 | belia | Belia Thundergranite (10090) | 1455 | 70.86 | 85.83 | HN r.126 | Zygor 70.87, 85.80; WH-T 70.8, 85.4 |
-| josephine | Josephine Carson (251507) | 1429 | 41.36 | 66.28 | HN r.94 | Zygor 41.15, 66.23; WH-T 41.2, 66.2; WW 41.1, 66.2 |
-| isaac | Isaac Chan (258930) | 1429 | 41.84 | 66.41 | HN r.96 | Zygor 41.79, 66.37; WH-T 41.8, 66.4 |
-| thotar | Thotar (3171) | 1411 | 51.66 | 43.40 | HN r.70 | Zygor 51.85, 43.49; WH-T 51.8, 43.4 |
-| ormak | Ormak Grimshot (3352) | 1454 | 66.05 | 18.53 | HN r.170 | Zygor 66.05, 18.54; WH-T 66.2, 18.2 |
-| yaw | Yaw Sharpmane (3065) | 1412 | 47.11 | 59.57 | HN r.157 | Zygor 46.92, 59.69; WH-T 46.8, 59.4 |
-| holt | Holt Thunderhorn (3039) | 1456 | 57.33 | 89.82 | HN r.256 | Zygor 57.31, 89.76; WH-T 57.2, 89.6 |
-| quelana | Quel'ana Quickgale (252389) | 2521 | 59.33 | 72.63 | HN r.316 | Zygor 59.57, 72.64; WH-T 59.6, 72.6 |
-| queldora | Quel'dora Quickgale (254411) | 2521 | 59.69 | 72.11 | HN r.318 | Zygor 59.60, 72.53; WH-T 59.6, 72.4 |
-| dorion | Dorion (4205) | 1457 | 42.21 | 7.27 | HN r.28 | Zygor 42.21, 7.26; WH-T 42.0, 7.4 |
-| olmin | Olmin Burningbeard (5116) | 1455 | 70.89 | 83.61 | HN r.124 | - |
-| ulfir | Ulfir Ironbeard (5516) | 1453 | 67.57 | 35.77 | HN r.201 | - (Stormwind-kaart is in Forever groter, HN-kop) |
+| josephine | Josephine Carson (251507) | 1429 | [stond in HandyNotes] | [stond in HandyNotes] | HN r.94 | Zygor 41.15, 66.23; WH-T 41.2, 66.2; WW 41.1, 66.2 |
+| isaac | Isaac Chan (258930) | 1429 | [stond in HandyNotes] | [stond in HandyNotes] | HN r.96 | Zygor 41.79, 66.37; WH-T 41.8, 66.4 |
+| thotar | Thotar (3171) | 1411 | [stond in HandyNotes] | [stond in HandyNotes] | HN r.70 | Zygor 51.85, 43.49; WH-T 51.8, 43.4 |
+| ormak | Ormak Grimshot (3352) | 1454 | [stond in HandyNotes] | [stond in HandyNotes] | HN r.170 | Zygor 66.05, 18.54; WH-T 66.2, 18.2 |
+| yaw | Yaw Sharpmane (3065) | 1412 | [stond in HandyNotes] | [stond in HandyNotes] | HN r.157 | Zygor 46.92, 59.69; WH-T 46.8, 59.4 |
+| holt | Holt Thunderhorn (3039) | 1456 | [stond in HandyNotes] | [stond in HandyNotes] | HN r.256 | Zygor 57.31, 89.76; WH-T 57.2, 89.6 |
+| quelana | Quel'ana Quickgale (252389) | 2521 | [stond in HandyNotes] | [stond in HandyNotes] | HN r.316 | Zygor 59.57, 72.64; WH-T 59.6, 72.6 |
+| queldora | Quel'dora Quickgale (254411) | 2521 | [stond in HandyNotes] | [stond in HandyNotes] | HN r.318 | Zygor 59.60, 72.53; WH-T 59.6, 72.4 |
+| dorion | Dorion (4205) | 1457 | [stond in HandyNotes] | [stond in HandyNotes] | HN r.28 | Zygor 42.21, 7.26; WH-T 42.0, 7.4 |
+| olmin | Olmin Burningbeard (5116) | 1455 | [stond in HandyNotes] | [stond in HandyNotes] | HN r.124 | - |
+| ulfir | Ulfir Ironbeard (5516) | 1453 | [stond in HandyNotes] | [stond in HandyNotes] | HN r.201 | - (Stormwind-kaart is in Forever groter, HN-kop) |
 | ogtinc | Ogtinc (8405) | 1447 | 42.40 | 42.62 | Zygor Z-A r.22257 | WH-T 42.4, 42.6 |
 | (vartrus) | Vartrus the Ancient (14524) | 1448 | 48.99 | 24.44 | Zygor Z-A r.22346 | WH-T 48.8, 24.2 |
 | (stoma) | Stoma the Ancient (14525) | 1448 | 48.31 | 24.43 | Zygor Z-A r.22353 | WH-T 48.6, 23.2 (wijkt af, zie §10) |
 | (hastat) | Hastat the Ancient (14526) | 1448 | 48.2 | 24.4 | WH-T (48.2, 24.2 en 48.2, 24.6) | niet in Zygor |
-| (elayaa) | Elayaa Easewind (254084) | 2521 | 45.45 | 44.19 | HN r.315 | WH-T 45.2, 44.2 |
+| (elayaa) | Elayaa Easewind (254084) | 2521 | [stond in HandyNotes] | [stond in HandyNotes] | HN r.315 | WH-T 45.2, 44.2 |
 
 Namen en id's: GEMETEN in WH-T (Engelse tooltip, naam komt overeen) voor alle rijen. Mulgore: de Forever-kaart is groter
-(HN-kop); Zygor (46.92, 59.69) en HN (47.11, 59.57) zitten in dezelfde nieuwe kaartruimte, Wowhead toont ook nog het oude
+(HN-kop); Zygor (46.92, 59.69) en HN ([stond in HandyNotes]) zitten in dezelfde nieuwe kaartruimte, Wowhead toont ook nog het oude
 punt 47.8, 55.6. GEMETEN.
 
 ### 5.2 Tem-plekken en doelen (geen NPC)
@@ -405,21 +405,21 @@ is nog vrij in het bestand (GEMETEN met grep; dezelfde grep vond `local W = WL_P
 	Not built: the breadcrumb The Hunter's Path (optional), and the level 60 chain The Ancient Leaf (starts from an item).
 	Zygor mistakes not copied: |q 8425 in the Horde hunter guide (= 8232), "Vartus". Trainers: HandyNotes; the rest: Zygor. ]]
 local HU_P = {
-	dazalar = { npc = "Dazalar", id = 3601, m = 1438, x = 56.66, y = 59.40 },
+	dazalar = { npc = "Dazalar", id = 3601, m = 1438, xy = "stond in HandyNotes" },
 	jocaste = { npc = "Jocaste", id = 4146, m = 1457, x = 40.38, y = 8.55 },
 	grif = { npc = "Grif Wildheart", id = 1231, m = 1426, x = 45.81, y = 53.04 },
 	belia = { npc = "Belia Thundergranite", id = 10090, m = 1455, x = 70.86, y = 85.83 },
-	josephine = { npc = "Josephine Carson", id = 251507, m = 1429, x = 41.36, y = 66.28 },
-	isaac = { npc = "Isaac Chan", id = 258930, m = 1429, x = 41.84, y = 66.41 },
-	thotar = { npc = "Thotar", id = 3171, m = 1411, x = 51.66, y = 43.40 },
-	ormak = { npc = "Ormak Grimshot", id = 3352, m = 1454, x = 66.05, y = 18.53 },
-	yaw = { npc = "Yaw Sharpmane", id = 3065, m = 1412, x = 47.11, y = 59.57 },
-	holt = { npc = "Holt Thunderhorn", id = 3039, m = 1456, x = 57.33, y = 89.82 },
-	quelana = { npc = "Quel'ana Quickgale", id = 252389, m = 2521, x = 59.33, y = 72.63 },
-	queldora = { npc = "Quel'dora Quickgale", id = 254411, m = 2521, x = 59.69, y = 72.11 },
-	dorion = { npc = "Dorion", id = 4205, m = 1457, x = 42.21, y = 7.27 },
-	olmin = { npc = "Olmin Burningbeard", id = 5116, m = 1455, x = 70.89, y = 83.61 },
-	ulfir = { npc = "Ulfir Ironbeard", id = 5516, m = 1453, x = 67.57, y = 35.77 },
+	josephine = { npc = "Josephine Carson", id = 251507, m = 1429, xy = "stond in HandyNotes" },
+	isaac = { npc = "Isaac Chan", id = 258930, m = 1429, xy = "stond in HandyNotes" },
+	thotar = { npc = "Thotar", id = 3171, m = 1411, xy = "stond in HandyNotes" },
+	ormak = { npc = "Ormak Grimshot", id = 3352, m = 1454, xy = "stond in HandyNotes" },
+	yaw = { npc = "Yaw Sharpmane", id = 3065, m = 1412, xy = "stond in HandyNotes" },
+	holt = { npc = "Holt Thunderhorn", id = 3039, m = 1456, xy = "stond in HandyNotes" },
+	quelana = { npc = "Quel'ana Quickgale", id = 252389, m = 2521, xy = "stond in HandyNotes" },
+	queldora = { npc = "Quel'dora Quickgale", id = 254411, m = 2521, xy = "stond in HandyNotes" },
+	dorion = { npc = "Dorion", id = 4205, m = 1457, xy = "stond in HandyNotes" },
+	olmin = { npc = "Olmin Burningbeard", id = 5116, m = 1455, xy = "stond in HandyNotes" },
+	ulfir = { npc = "Ulfir Ironbeard", id = 5516, m = 1453, xy = "stond in HandyNotes" },
 	ogtinc = { npc = "Ogtinc", id = 8405, m = 1447, x = 42.40, y = 42.62 },
 	-- Where to tame (no NPC), Zygor. Azshara = UiMap 1447 (DB2).
 	webwood = { m = 1438, x = 59.81, y = 59.06 },

@@ -253,25 +253,25 @@ Regel: HandyNotes > Zygor > gids. Stormwind is groter in Forever: Wowhead geeft 
 
 | Sleutel | NPC (id) | Map | x, y | Bron |
 |---|---|---|---|---|
-| zaldimar | Zaldimar Wefhellt (328) | 1429 | 43.25, 66.20 | HN :102 (Zygor 43.25, 66.19) |
-| jennea | Jennea Cannon (5497) | 1453 | 49.56, 85.80 | HN :210 (Zygor 49.50, 85.84) |
-| magis | Magis Sparkmantle (1228) | 1426 | 47.53, 52.16 | HN :59 |
-| bink | Bink (5144) | 1455 | 27.28, 8.20 | HN :136 |
-| dink | Dink (7312) | 1455 | 27.13, 8.67 | HN :137 (Zygor 27.18, 8.58) |
+| zaldimar | Zaldimar Wefhellt (328) | 1429 | [stond in HandyNotes] | HN :102 (Zygor 43.25, 66.19) |
+| jennea | Jennea Cannon (5497) | 1453 | [stond in HandyNotes] | HN :210 (Zygor 49.50, 85.84) |
+| magis | Magis Sparkmantle (1228) | 1426 | [stond in HandyNotes] | HN :59 |
+| bink | Bink (5144) | 1455 | [stond in HandyNotes] | HN :136 |
+| dink | Dink (7312) | 1455 | [stond in HandyNotes] | HN :137 (Zygor 27.18, 8.58) |
 | anathamaas | Anathamaas Aetherwind (252373) | 2521 | 65.80, 80.50 | HN :325 (Zygor 65.91, 80.57) |
 | belann | Belann Windwood (256507) | 2521 | 62.90, 77.44 | Zygor-C:1138 (WH 62.8, 77.4) |
 | wynne | Wynne Larson (1309) | 1453 | 51.84, 83.51 | Zygor-A:22800 (WH 52, 83.4) |
 | andromath | High Sorcerer Andromath (5694) | 1453 | 48.71, 87.61 | Zygor-A:22813 |
-| maginor | Maginor Dumas (331) | 1453 | 49.25, 87.77 | HN :211 (Zygor-D 49.24, 87.78) |
+| maginor | Maginor Dumas (331) | 1453 | [stond in HandyNotes] | HN :211 (Zygor-D 49.24, 87.78) |
 | garion | Garion Wendell (211033) | 1453 | 48.9, 86.5 | WH-tooltip 48.8-49.0, 86.4-86.6; AW; Codex |
 | uthelnay | Uthel'nay (7311) | 1454 | 39.16, 86.27 | HN :186 (= Zygor) |
 | unthuwa | Un'Thuwa (5880) | 1411 | 56.31, 75.11 | HN :79 (= Zygor) |
-| cain | Cain Firesong (2128) | 1420 | 62.22, 52.33 | HN :284 (Zygor 61.97, 52.47; WH 61.8, 52.4) |
+| cain | Cain Firesong (2128) | 1420 | [stond in HandyNotes] | HN :284 (Zygor 61.97, 52.47; WH 61.8, 52.4) |
 | anastasia | Anastasia Hartwell (4568) | 1458 | 85.14, 10.03 | HN :302 (= Zygor hoofdgids) |
 | josef | Josef Gregorian (4576) | 1458 | 70.75, 30.69 | Zygor-H:23956 |
-| deino | Deino (5885) | 1454 | 38.45, 86.13 | HN :183 |
+| deino | Deino (5885) | 1454 | [stond in HandyNotes] | HN :183 |
 | kilhala | Kil'hala (3484) | 1413 | 52.20, 31.70 | Zygor-H:23989 (WH 52.2, 31.6) |
-| pierce | Pierce Shackleton (4567) | 1458 | 85.45, 13.51 | HN :304 |
+| pierce | Pierce Shackleton (4567) | 1458 | [stond in HandyNotes] | HN :304 |
 | owen | Owen Thadd (211022) | 1458 | 73.4, 33.0 | WH-tooltip 73.4-73.8, 32.2-33.0; AW |
 | tabetha | Tabetha (6546) | 1445 | 46.06, 57.09 | Zygor-A:22854 (WH 46, 57) |
 | tirth | Magus Tirth (6548) | 1441 | 78.29, 75.70 | Zygor-A:22860 |
@@ -421,25 +421,25 @@ De engine kan geen twee quests naast elkaar aan. Daarom staat Items of Power (19
 	letters (experience only). Destroy Morphaz probably pays experience only (its Classic items are not in ItemSparse).
 	Zygor mistakes not copied: ding 15 before the level 10 quest, |q 18299 (= 7463), Return to the Marsh at 40 (= 35). ]]
 local MA_P = {
-	zaldimar = { npc = "Zaldimar Wefhellt", id = 328, m = 1429, x = 43.25, y = 66.20 },
-	jennea = { npc = "Jennea Cannon", id = 5497, m = 1453, x = 49.56, y = 85.80 },
-	magis = { npc = "Magis Sparkmantle", id = 1228, m = 1426, x = 47.53, y = 52.16 },
-	bink = { npc = "Bink", id = 5144, m = 1455, x = 27.28, y = 8.20 },
-	dink = { npc = "Dink", id = 7312, m = 1455, x = 27.13, y = 8.67 },
+	zaldimar = { npc = "Zaldimar Wefhellt", id = 328, m = 1429, xy = "stond in HandyNotes" },
+	jennea = { npc = "Jennea Cannon", id = 5497, m = 1453, xy = "stond in HandyNotes" },
+	magis = { npc = "Magis Sparkmantle", id = 1228, m = 1426, xy = "stond in HandyNotes" },
+	bink = { npc = "Bink", id = 5144, m = 1455, xy = "stond in HandyNotes" },
+	dink = { npc = "Dink", id = 7312, m = 1455, xy = "stond in HandyNotes" },
 	anathamaas = { npc = "Anathamaas Aetherwind", id = 252373, m = 2521, x = 65.80, y = 80.50 },
 	belann = { npc = "Belann Windwood", id = 256507, m = 2521, x = 62.90, y = 77.44 },
 	wynne = { npc = "Wynne Larson", id = 1309, m = 1453, x = 51.84, y = 83.51 },
 	andromath = { npc = "High Sorcerer Andromath", id = 5694, m = 1453, x = 48.71, y = 87.61 },
-	maginor = { npc = "Maginor Dumas", id = 331, m = 1453, x = 49.25, y = 87.77 },
+	maginor = { npc = "Maginor Dumas", id = 331, m = 1453, xy = "stond in HandyNotes" },
 	garion = { npc = "Garion Wendell", id = 211033, m = 1453, x = 48.9, y = 86.5 },
 	uthelnay = { npc = "Uthel'nay", id = 7311, m = 1454, x = 39.16, y = 86.27 },
 	unthuwa = { npc = "Un'Thuwa", id = 5880, m = 1411, x = 56.31, y = 75.11 },
-	cain = { npc = "Cain Firesong", id = 2128, m = 1420, x = 62.22, y = 52.33 },
+	cain = { npc = "Cain Firesong", id = 2128, m = 1420, xy = "stond in HandyNotes" },
 	anastasia = { npc = "Anastasia Hartwell", id = 4568, m = 1458, x = 85.14, y = 10.03 },
 	josef = { npc = "Josef Gregorian", id = 4576, m = 1458, x = 70.75, y = 30.69 },
-	deino = { npc = "Deino", id = 5885, m = 1454, x = 38.45, y = 86.13 },
+	deino = { npc = "Deino", id = 5885, m = 1454, xy = "stond in HandyNotes" },
 	kilhala = { npc = "Kil'hala", id = 3484, m = 1413, x = 52.20, y = 31.70 },
-	pierce = { npc = "Pierce Shackleton", id = 4567, m = 1458, x = 85.45, y = 13.51 },
+	pierce = { npc = "Pierce Shackleton", id = 4567, m = 1458, xy = "stond in HandyNotes" },
 	owen = { npc = "Owen Thadd", id = 211022, m = 1458, x = 73.4, y = 33.0 },
 	tabetha = { npc = "Tabetha", id = 6546, m = 1445, x = 46.06, y = 57.09 },
 	tirth = { npc = "Magus Tirth", id = 6548, m = 1441, x = 78.29, y = 75.70 },
@@ -739,7 +739,7 @@ Spelnamen in deze teksten (items, NPC's, plekken) moeten in de/fr/es/esMX/pt/ru 
 10. **Witherbark Totem Sticks:** één stick in je tas telt al als "klaar" (de engine telt niet).
 11. **Lydros staat in Dire Maul:** de pijl wijst naar de deur van West; die coördinaat is overgenomen van het warlock-blok.
 12. **Bink's Toolbox 27.7, 36.4:** Classic-data (QuestieDB via wowhelm).
-13. **Cain Firesong:** HandyNotes 62.22, 52.33 wijkt 0,4 af van Zygor en Wowhead.
+13. **Cain Firesong:** HandyNotes [stond in HandyNotes] wijkt 0,4 af van Zygor en Wowhead.
 14. **Spellfire Robes:** Josef Gregorian of Rhiannon Davis als gever (ze staan naast elkaar).
 15. **Tijden** bij The Exorcism en Mana Surges: alleen Polestar.
 16. **esMX-namen** van 252373 en 8395 ontbreken; 14368 esMX komt alleen uit Spoken.

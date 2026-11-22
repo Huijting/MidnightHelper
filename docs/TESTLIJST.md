@@ -2655,7 +2655,7 @@ Eerst `/reload`. Op je paladin in Forever, zonder blessing:
 ## 🆕 11 nov — Forever: de pijl naar trainers en verkopers klopt beter
 
 - [x] Undead Paladin, pijl naar **Aramis Hammerhand** (Deathknell): klopte pas nadat je hem had aangesproken (Rob, 11 nov).
-      De eerste keer won de HandyNotes-plek (30.97, 66.77) het nog van jouw meting; gerepareerd, zie hieronder.
+      De eerste keer won de HandyNotes-plek ([stond in HandyNotes]) het nog van jouw meting; gerepareerd, zie hieronder.
 - [ ] **Hertest (11 nov, ronde 2):** "Take me to my trainer" → de pijl wijst naar Aramis. ⚠️ Dat de reparatie zelf werkt, is
       bij Aramis niet meer te zien: zijn plek is al geleerd (voor het hele account) en die wint toch. Offline getest.
       Echt bewijs = een ándere trainer die je nog nooit sprak en die ook in HandyNotes staat: wijst de pijl goed?

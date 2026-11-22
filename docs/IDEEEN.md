@@ -66,6 +66,8 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 - Bron: Rob 22 nov via sparring, letterlijk: *"Plekken b"*. B = overgenomen HandyNotes-plekken (All Rights Reserved)
   vervangen door die van Zygor; wie HandyNotes: Class Trainers heeft krijgt live die precieze plek (zijn keuze van 7 nov).
 - Vervalt: "niet aanraken tot zijn ja", alleen voor ForeverClassQuests.lua.
+- Daarna de kladjes: Rob 22 nov via sparring, letterlijk: *"kladjes ja"* = de overgenomen cijfers uit 11 docs en 2
+  commentaarregels, "stond in HandyNotes" ervoor in de plaats. ✅ Gedaan; in oude git-versies blijven ze.
 - Spel: F. Site: nog niet.
 
 ### Forever: Skill up-venster repareren (22 nov) — ✅ getest (Rob: "Venster is goed"); klik en scroll nog open

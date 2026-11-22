@@ -33,7 +33,7 @@ Bronnen (allemaal 18 nov 2026 geraadpleegd):
 | R9 | RISICO | `ForeverCitySpots.lua:175-239` | Vluchtmeesters staan met hun Engelse naam, ook op een Russische/Spaanse client (zelfde patroon als de bankiers van 17 nov). |
 | R10 | RISICO (code) | `ForeverVendors.lua:205,236` | Het oude reserve-venster is te laag voor 15 knoppen (de onderste twee vallen over de hint). Wordt alleen getoond als de Find-tab ontbreekt. |
 | R11 | RISICO | `ForeverDisenchant.lua` PickNext 276-291 | De knop pakt ook paarse (epic) items. Eén verkeerde klik is een item kwijt. Voorstel: schakelaar. |
-| R12 | RISICO (klein) | `ForeverClassQuests.lua:1106` en `:1221` | High Priest Rohan staat op twee plekken (24.73,8.16 en 26.98,7.30). |
+| R12 | RISICO (klein) | `ForeverClassQuests.lua:1106` en `:1221` | High Priest Rohan staat op twee plekken ([stond in HandyNotes] en 26.98,7.30). |
 
 Alles wat hieronder niet als FOUT of RISICO staat, is nagemeten en klopt.
 
@@ -147,10 +147,10 @@ Daarna zijn alle `at`-plekken personen. Dan leest "you pay it at %s" in het Enge
 
 ### R12 — RISICO (klein): Rohan op twee plekken
 
-`PR_P.rohan` = 24.73, 8.16 (regel 1106) en `PA_P.rohan` = 26.98, 7.30 (regel 1221), zelfde npc 11406. Wowhead Forever
+`PR_P.rohan` = [stond in HandyNotes] (regel 1106) en `PA_P.rohan` = 26.98, 7.30 (regel 1221), zelfde npc 11406. Wowhead Forever
 geeft negen punten tussen 23.4,7.0 en 26.8,7.6 (hij loopt, of is verplaatst). Het verschil is ruim 2 kaartpunten in
 Ironforge (dezelfde hal): je ziet hem vanaf beide plekken (AFGELEID). Eén waarde gebruiken is netter (regel in de repo: trainers uit HandyNotes =
-24.73, 8.16).
+[stond in HandyNotes]).
 
 ### Code nagelopen, geen fout gevonden
 `BookStep` (2262-2282), `NearestBook` (2238-2258), `PreStep` (2311-2356): nil-veilig (pcall rond de API's, `list[1]`

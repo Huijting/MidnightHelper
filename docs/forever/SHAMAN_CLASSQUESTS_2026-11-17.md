@@ -257,15 +257,15 @@ AFGELEID (Zygor en Wowhead liggen bij alle vergeleken NPC's binnen 0,2: Boro, Ol
 | bristleback | — | 1412 | 60.30 | 80.23 | Z-H 24516 (ook 59.92,75.65) |
 | earthMulgore | Minor Manifestation of Earth (5891) | 1412 | 51.97 | 80.41 | Z-H 24527 |
 | sten | Sten Stoutarm (658) | 1426 | 29.93 | 71.20 | Z-A 1595 |
-| teo | Teo Hammerstorm (257446) | 1426 | 28.67 | 65.64 | HN r. 58 (Zygor 28.79,66.19 "Upstairs") |
+| teo | Teo Hammerstorm (257446) | 1426 | [stond in HandyNotes] | [stond in HandyNotes] | HN r. 58 (Zygor 28.79,66.19 "Upstairs") |
 | whelps | — | 1426 | 26.80 | 79.86 | Z-A 1855 |
 | earthDunMorogh | Minor Manifestation of Earth (5891) | 1426 | 24.89 | 61.86 | Z-A 1894 (pad omhoog 26.56,67.54, r. 1890) |
 | rorian | Rorian the Dayseeker (251361) | 2521 | 42.06 | 23.48 | Z-C 90 |
-| boro | Windshaper Boro (251374) | 2521 | 42.84 | 23.49 | HN r. 324 |
+| boro | Windshaper Boro (251374) | 2521 | [stond in HandyNotes] | [stond in HandyNotes] | HN r. 324 |
 | converts | — | 2521 | 46.72 | 19.83 | Z-C 199 |
 | earthZephras | Minor Manifestation of Earth (251166) | 2521 | 49.67 | 23.83 | Z-C 242 (pad 48.11,25.78) |
-| swart | Swart (3173) | 1411 | 54.55 | 42.61 | HN r. 77 |
-| narm | Narm Skychaser (3066) | 1412 | 47.39 | 62.50 | HN r. 160 |
+| swart | Swart (3173) | 1411 | [stond in HandyNotes] | [stond in HandyNotes] | HN r. 77 |
+| narm | Narm Skychaser (3066) | 1412 | [stond in HandyNotes] | [stond in HandyNotes] | HN r. 160 |
 | kranal | Kranal Fiss (5907) | 1413 | 56.03 | 19.89 | Z-H 24586 |
 | telf | Telf Joolam (5900) | 1411 | 38.55 | 58.96 | Z-H 24599 (bovenop de berg, pad vanaf 36.59,57.07) |
 | razormane | — | 1413 | 54.15 | 25.01 | Z-H 24607 |
@@ -279,7 +279,7 @@ AFGELEID (Zygor en Wowhead liggen bij alle vergeleken NPC's binnen 0,2: Boro, Ol
 | kuramaa | — | 2521 | 42.39 | 68.89 | Z-C 1049 |
 | ritual | — | 2521 | 51.20 | 86.01 | Z-C 1088 |
 | brazierEternal | — (Wowhead: npc 268679) | 2521 | 58.35 | 78.83 | Z-C 1094 |
-| ingrid | Ingrid Dunwald (258113) | 1426 | 47.30 | 51.71 | HN r. 57 |
+| ingrid | Ingrid Dunwald (258113) | 1426 | [stond in HandyNotes] | [stond in HandyNotes] | HN r. 57 |
 | bruegs | Bruegs Kindleborn (257597) | 1426 | 87.56 | 43.65 | Z-A 2595 (pad omhoog 86.90,46.97; kleine grot) |
 | braldir | Braldir Ashmantle (257808) | 1432 | 32.16 | 65.99 | Z-A 2637 (pad 32.10,58.53) |
 | silverStream | — | 1432 | 35.48 | 18.86 | Z-A 5342 (in de mijn) |
@@ -306,8 +306,8 @@ AFGELEID (Zygor en Wowhead liggen bij alle vergeleken NPC's binnen 0,2: Boro, Ol
 | prate | Prate Cloudseer (5905) | 1441 | 53.54 | 42.65 | Z-H 24749 |
 | veyric | Veyric Thunderhame (259023) | 1417 | 59.8 | 27.4 | Wowhead-spawn (2e 59.8,27.6); pad omhoog vanaf 60.5,35.2 → 60.5,31.5 (warcrafttavern) |
 | alaana | Alaana Stormwalker (259119) | 1412 | 33.35 | 22.54 | Z-C 1631 (alleen ter info) |
-| beram | Beram Skychaser (3032) | 1456 | 21.99 | 18.80 | HN r. 263 (Zygor 22.80,19.40) |
-| sagorne | Sagorne Creststrider (13417) | 1454 | 38.66 | 35.91 | HN r. 181 (alleen ter info) |
+| beram | Beram Skychaser (3032) | 1456 | [stond in HandyNotes] | [stond in HandyNotes] | HN r. 263 (Zygor 22.80,19.40) |
+| sagorne | Sagorne Creststrider (13417) | 1454 | [stond in HandyNotes] | [stond in HandyNotes] | HN r. 181 (alleen ter info) |
 | bathrah | = `WR_P.bathrah` (6176) | 1416 | 80.50 | 66.92 | al in de code |
 | spiders | — | 1422 | 33.60 | 60.40 | Z-H 24786 (ook 58.40,53.60) |
 | sunken | = `P.sunken` | 1435 | 69.36 | 56.89 | al in de code |
@@ -447,18 +447,18 @@ local SH_P = {
 	ravenfeather = { npc = "Seer Ravenfeather", id = 5888, m = 1412, x = 44.35, y = 76.76 },
 	earthMulgore = { npc = "Minor Manifestation of Earth", id = 5891, m = 1412, x = 51.97, y = 80.41 },
 	sten = { npc = "Sten Stoutarm", id = 658, m = 1426, x = 29.93, y = 71.20 },
-	teo = { npc = "Teo Hammerstorm", id = 257446, m = 1426, x = 28.67, y = 65.64 },
+	teo = { npc = "Teo Hammerstorm", id = 257446, m = 1426, xy = "stond in HandyNotes" },
 	earthDunMorogh = { npc = "Minor Manifestation of Earth", id = 5891, m = 1426, x = 24.89, y = 61.86 },
 	rorian = { npc = "Rorian the Dayseeker", id = 251361, m = 2521, x = 42.06, y = 23.48 },
-	boro = { npc = "Windshaper Boro", id = 251374, m = 2521, x = 42.84, y = 23.49 },
+	boro = { npc = "Windshaper Boro", id = 251374, m = 2521, xy = "stond in HandyNotes" },
 	earthZephras = { npc = "Minor Manifestation of Earth", id = 251166, m = 2521, x = 49.67, y = 23.83 },
 	-- Fire
-	swart = { npc = "Swart", id = 3173, m = 1411, x = 54.55, y = 42.61 },
-	narm = { npc = "Narm Skychaser", id = 3066, m = 1412, x = 47.39, y = 62.50 },
+	swart = { npc = "Swart", id = 3173, m = 1411, xy = "stond in HandyNotes" },
+	narm = { npc = "Narm Skychaser", id = 3066, m = 1412, xy = "stond in HandyNotes" },
 	kranal = { npc = "Kranal Fiss", id = 5907, m = 1413, x = 56.03, y = 19.89 },
 	telf = { npc = "Telf Joolam", id = 5900, m = 1411, x = 38.55, y = 58.96 },
 	brazierDurotar = { npc = "Brazier of the Dormant Flame", obj = 61934, m = 1411, x = 38.95, y = 58.22 },
-	ingrid = { npc = "Ingrid Dunwald", id = 258113, m = 1426, x = 47.30, y = 51.71 },
+	ingrid = { npc = "Ingrid Dunwald", id = 258113, m = 1426, xy = "stond in HandyNotes" },
 	bruegs = { npc = "Bruegs Kindleborn", id = 257597, m = 1426, x = 87.56, y = 43.65 },
 	braldir = { npc = "Braldir Ashmantle", id = 257808, m = 1432, x = 32.16, y = 65.99 },
 	brazierLoch = { npc = "Brazier of the Dormant Flame", obj = 61934, m = 1432, x = 31.79, y = 64.52 },
@@ -478,7 +478,7 @@ local SH_P = {
 	-- Air, Elemental Mastery
 	prate = { npc = "Prate Cloudseer", id = 5905, m = 1441, x = 53.54, y = 42.65 },
 	veyric = { npc = "Veyric Thunderhame", id = 259023, m = 1417, x = 59.8, y = 27.4 },
-	beram = { npc = "Beram Skychaser", id = 3032, m = 1456, x = 21.99, y = 18.80 },
+	beram = { npc = "Beram Skychaser", id = 3032, m = 1456, xy = "stond in HandyNotes" },
 	-- Objective places (no NPC). Zygor, except the three Alliance waterskins (guide only, gitm.gg 15 Nov 2026).
 	felstalkers = { m = 1411, x = 44.82, y = 54.59 },
 	bristleback = { m = 1412, x = 60.30, y = 80.23 },

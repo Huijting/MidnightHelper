@@ -335,23 +335,23 @@ Regel: Rob gemeten > HandyNotes > Zygor > gids. Niets hiervan is in het spel gez
 
 | Sleutel | NPC (id) | UiMap | x, y | Bron van de waarde | Andere bronnen |
 |---|---|---|---|---|---|
-| `laurena` | High Priestess Laurena (376) | 1453 | 49.53, 44.60 | HN `Data.lua:207` | Zygor 49.53, 44.57 (Z-A:21867); WH-T 49.4-49.6, 44.4-44.8. De WH-T-set 38.4-38.8, 26.2-26.6 is de oude kaartruimte: niet gebruiken. |
-| `rohan` | High Priest Rohan (11406) | 1455 | 24.73, 8.16 | HN :131 | Zygor 24.72, 8.14; WH-T 23.4-26.8, 7.0-9.0 (hij loopt rond) |
+| `laurena` | High Priestess Laurena (376) | 1453 | [stond in HandyNotes] | HN `Data.lua:207` | Zygor 49.53, 44.57 (Z-A:21867); WH-T 49.4-49.6, 44.4-44.8. De WH-T-set 38.4-38.8, 26.2-26.6 is de oude kaartruimte: niet gebruiken. |
+| `rohan` | High Priest Rohan (11406) | 1455 | [stond in HandyNotes] | HN :131 | Zygor 24.72, 8.14; WH-T 23.4-26.8, 7.0-9.0 (hij loopt rond) |
 | `mims` | High Priestess Mims (258785) | 1455 | 24.80, 9.70 | HN :132 | WH-T 24.8, 9.4 / 24.8, 10 / 25.6, 9.4 / 25.6, 10.4; IV-DB 24.8, 9.4 en 24.9, 10.0 |
-| `alathea` | Priestess Alathea (11401) | 1457 | 39.52, 81.20 | HN :38 | Zygor 39.53, 81.18; WH-T 38.8-40.2, 80.4-81.6 |
-| `urkyo` | Ur'kyo (6018) | 1454 | 35.56, 87.83 | HN :177 | Zygor 35.59, 87.83; WH-T 35.4-35.6, 87.4-87.6 |
+| `alathea` | Priestess Alathea (11401) | 1457 | [stond in HandyNotes] | HN :38 | Zygor 39.53, 81.18; WH-T 38.8-40.2, 80.4-81.6 |
+| `urkyo` | Ur'kyo (6018) | 1454 | [stond in HandyNotes] | HN :177 | Zygor 35.59, 87.83; WH-T 35.4-35.6, 87.4-87.6 |
 | `aelthalyste` | Aelthalyste (4606) | 1458 | 49.26, 17.12 | HN :299 | Zygor 49.27, 17.11; WH-T 48.2-49.6, 17.0-19.2 |
-| `anetta` | Priestess Anetta (375) | 1429 | 49.95, 39.57 | HN :99 | Zygor 49.81, 39.49; WH-T 49.8, 39.4-39.6 |
-| `josetta` | Priestess Josetta (377) | 1429 | 43.28, 65.71 | HN :100 | Zygor 43.28, 65.72; WH-T 43.4, 65.6 |
-| `branstock` | Branstock Khalder (837) | 1426 | 28.45, 66.68 | HN :55 | Zygor 28.60, 66.39; WH-T 28.6, 66.4-66.6 |
-| `maxan` | Maxan Anvol (1226) | 1426 | 47.06, 52.32 | HN :56 | Zygor 47.34, 52.19; WH-T 47.2, 52.2; IV-DB ook 46.7, 53.8 |
+| `anetta` | Priestess Anetta (375) | 1429 | [stond in HandyNotes] | HN :99 | Zygor 49.81, 39.49; WH-T 49.8, 39.4-39.6 |
+| `josetta` | Priestess Josetta (377) | 1429 | [stond in HandyNotes] | HN :100 | Zygor 43.28, 65.72; WH-T 43.4, 65.6 |
+| `branstock` | Branstock Khalder (837) | 1426 | [stond in HandyNotes] | HN :55 | Zygor 28.60, 66.39; WH-T 28.6, 66.4-66.6 |
+| `maxan` | Maxan Anvol (1226) | 1426 | [stond in HandyNotes] | HN :56 | Zygor 47.34, 52.19; WH-T 47.2, 52.2; IV-DB ook 46.7, 53.8 |
 | `shanda` | Shanda (3595) | 1438 | 59.17, 40.44 | HN :242 | Zygor gelijk |
 | `laurna` | Laurna Morninglight (3600) | 1438 | 55.56, 56.75 | HN :241 | Zygor gelijk |
-| `kenjai` | Ken'jai (3707) | 1411 | 42.33, 68.50 | HN :74 | Zygor 42.36, 68.81 en WH-T 42.4, 68.8 (0,3 verschil in y) |
-| `taijin` | Tai'jin (3706) | 1411 | 54.23, 42.99 | HN :75 | Zygor 54.26, 42.93; WH-T 54.2, 42.8 |
-| `duesten` | Dark Cleric Duesten (2123) | 1420 | 31.34, 65.85 | HN :283 | Zygor 31.11, 66.03; WH-T 31, 66 |
-| `beryl` | Dark Cleric Beryl (2129) | 1420 | 61.31, 52.10 | HN :282 | Zygor 61.57, 52.19; WH-T 61.6, 52.2 |
-| `joshua` | Brother Joshua (5489) | 1453 | 49.50, 45.21 | HN :206 | Zygor 49.70, 44.86 (Z-D:8108); IV-DB 49.6, 45.1 |
+| `kenjai` | Ken'jai (3707) | 1411 | [stond in HandyNotes] | HN :74 | Zygor 42.36, 68.81 en WH-T 42.4, 68.8 (0,3 verschil in y) |
+| `taijin` | Tai'jin (3706) | 1411 | [stond in HandyNotes] | HN :75 | Zygor 54.26, 42.93; WH-T 54.2, 42.8 |
+| `duesten` | Dark Cleric Duesten (2123) | 1420 | [stond in HandyNotes] | HN :283 | Zygor 31.11, 66.03; WH-T 31, 66 |
+| `beryl` | Dark Cleric Beryl (2129) | 1420 | [stond in HandyNotes] | HN :282 | Zygor 61.57, 52.19; WH-T 61.6, 52.2 |
+| `joshua` | Brother Joshua (5489) | 1453 | [stond in HandyNotes] | HN :206 | Zygor 49.70, 44.86 (Z-D:8108); IV-DB 49.6, 45.1 |
 | `greta` | Greta Mosshoof (10922) | 1448 | 51.20, 82.20 | Zygor (Z-H:23241) | WH-T 51.2, 82.2 |
 | (`H.ogtinc`, bestaat) | Ogtinc (8405) | 1447 | 42.40, 42.62 | staat al in `HU_P` | Zygor 42.40, 42.60; WH-T 42.4, 42.6 |
 | `roberts` | — (Guard Roberts 12423) | 1429 | 48.15, 68.05 | Zygor (Z-A:524) | WH-T 48, 67.6 |
@@ -497,23 +497,23 @@ kan daar niet). Inspringen met tabs, zoals de rest van het bestand.
 	Trainers: HandyNotes; the guards and the level 50 places: Zygor. ]]
 local PR_P = {
 	-- The race's high priest: gives and takes the spell quest at 10 and at 20.
-	laurena = { npc = "High Priestess Laurena", id = 376, m = 1453, x = 49.53, y = 44.60 },
-	rohan = { npc = "High Priest Rohan", id = 11406, m = 1455, x = 24.73, y = 8.16 },
+	laurena = { npc = "High Priestess Laurena", id = 376, m = 1453, xy = "stond in HandyNotes" },
+	rohan = { npc = "High Priest Rohan", id = 11406, m = 1455, xy = "stond in HandyNotes" },
 	mims = { npc = "High Priestess Mims", id = 258785, m = 1455, x = 24.80, y = 9.70 },
-	alathea = { npc = "Priestess Alathea", id = 11401, m = 1457, x = 39.52, y = 81.20 },
-	urkyo = { npc = "Ur'kyo", id = 6018, m = 1454, x = 35.56, y = 87.83 },
+	alathea = { npc = "Priestess Alathea", id = 11401, m = 1457, xy = "stond in HandyNotes" },
+	urkyo = { npc = "Ur'kyo", id = 6018, m = 1454, xy = "stond in HandyNotes" },
 	aelthalyste = { npc = "Aelthalyste", id = 4606, m = 1458, x = 49.26, y = 17.12 },
 	-- First robe (level 5): the trainer of the starting area, then the trainer of the first village.
-	anetta = { npc = "Priestess Anetta", id = 375, m = 1429, x = 49.95, y = 39.57 },
-	josetta = { npc = "Priestess Josetta", id = 377, m = 1429, x = 43.28, y = 65.71 },
-	branstock = { npc = "Branstock Khalder", id = 837, m = 1426, x = 28.45, y = 66.68 },
-	maxan = { npc = "Maxan Anvol", id = 1226, m = 1426, x = 47.06, y = 52.32 },
+	anetta = { npc = "Priestess Anetta", id = 375, m = 1429, xy = "stond in HandyNotes" },
+	josetta = { npc = "Priestess Josetta", id = 377, m = 1429, xy = "stond in HandyNotes" },
+	branstock = { npc = "Branstock Khalder", id = 837, m = 1426, xy = "stond in HandyNotes" },
+	maxan = { npc = "Maxan Anvol", id = 1226, m = 1426, xy = "stond in HandyNotes" },
 	shanda = { npc = "Shanda", id = 3595, m = 1438, x = 59.17, y = 40.44 },
 	laurna = { npc = "Laurna Morninglight", id = 3600, m = 1438, x = 55.56, y = 56.75 },
-	kenjai = { npc = "Ken'jai", id = 3707, m = 1411, x = 42.33, y = 68.50 },
-	taijin = { npc = "Tai'jin", id = 3706, m = 1411, x = 54.23, y = 42.99 },
-	duesten = { npc = "Dark Cleric Duesten", id = 2123, m = 1420, x = 31.34, y = 65.85 },
-	beryl = { npc = "Dark Cleric Beryl", id = 2129, m = 1420, x = 61.31, y = 52.10 },
+	kenjai = { npc = "Ken'jai", id = 3707, m = 1411, xy = "stond in HandyNotes" },
+	taijin = { npc = "Tai'jin", id = 3706, m = 1411, xy = "stond in HandyNotes" },
+	duesten = { npc = "Dark Cleric Duesten", id = 2123, m = 1420, xy = "stond in HandyNotes" },
+	beryl = { npc = "Dark Cleric Beryl", id = 2129, m = 1420, xy = "stond in HandyNotes" },
 	-- Whom to heal (no NPC name here: the text names them), Zygor.
 	roberts = { m = 1429, x = 48.15, y = 68.05 },
 	dolf = { m = 1426, x = 45.81, y = 54.57 },
@@ -521,7 +521,7 @@ local PR_P = {
 	korja = { m = 1411, x = 53.10, y = 46.46 },
 	kel = { m = 1420, x = 59.18, y = 46.50 },
 	-- Cenarion Aid (level 50). Ogtinc and the coursers are the hunter's places (H); Winterspring = UiMap 1452 (DB2).
-	joshua = { npc = "Brother Joshua", id = 5489, m = 1453, x = 49.50, y = 45.21 },
+	joshua = { npc = "Brother Joshua", id = 5489, m = 1453, xy = "stond in HandyNotes" },
 	greta = { npc = "Greta Mosshoof", id = 10922, m = 1448, x = 51.20, y = 82.20 },
 	highborne = { m = 1452, x = 52.59, y = 40.68 },
 }

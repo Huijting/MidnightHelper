@@ -1990,7 +1990,7 @@ toegevoegd. Nieuwe regels horen bovenaan dit bestand.
 - (correctie: het bestand staat in BEIDE toc's met IS_FOREVER-guard; anders zag de linter [2]/[9] HARD.)
 - ▶ Later: geleerde plekken uit Robs SavedVariables (`foreverSeenAt`) in de spots-bestanden zetten.
 - **Ronde 2 (Rob test, "Ja, repareer allebei"):** GEMETEN in zijn SV: Aramis geleerd op 31.11, 66.35 (nieuwe code draaide),
-  maar de eerste pijl stond tóch 12 m ernaast. Oorzaak GEMETEN: `HandyNotes_ClassTrainers` heeft Aramis op 30.97, 66.77, en
+  maar de eerste pijl stond tóch 12 m ernaast. Oorzaak GEMETEN: `HandyNotes_ClassTrainers` heeft Aramis op [stond in HandyNotes], en
   in `OnePerTrainer` (8 nov, Duesten) wint HandyNotes (3) van een MH-rij zonder `measured` (4). → Aramis `measured = true`,
   en `seen` = rang 0. Tweede fout: `/mh travel` bleef in Forever stil — Core.lua's retail-tak (`ns.Travel.PrintStatus`)
   ving het commando en deed `return` zonder iets; nu alleen als `ns.Travel.PrintStatus` bestaat. Offline getest
@@ -2604,7 +2604,7 @@ Rest = alleen offline/linter getest → bovenaan `docs/TESTLIJST.md`.
   itIT World boss, Battle pet in alle talen (geen pack had het), itIT "barre dei nomi", Rare in fr/es/pt/it/ru. Na te
   meten in wago GlobalStrings.
 - Trainer-pijl wees verkeerd (Rob GEMETEN, screenshot: naast Dark Cleric Duesten "12 m" de muur in). Oorzaak
-  AFGELEID uit de afstand: nearest-wins koos het HandyNotes-punt 31.34, 65.85 i.p.v. MH's 31.11, 66.07 (Rob gemeten).
+  AFGELEID uit de afstand: nearest-wins koos het HandyNotes-punt [stond in HandyNotes] i.p.v. MH's 31.11, 66.07 (Rob gemeten).
   Nu `OnePerTrainer`: zelfde NPC-id = één plek, op bron-volgorde (zelf opgeslagen > `measured = true` in
   ForeverTrainerSpots > HandyNotes > MH-lijst), daarna pas dichtstbij. Niet opnieuw in de client getest.
 - Pijl: `ns.lastTarget.arriveYards` (nieuw, NativeArrow): de trainer-route laat los op 5 yd i.p.v. 20 yd

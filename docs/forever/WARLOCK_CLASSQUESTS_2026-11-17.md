@@ -305,8 +305,8 @@ UiMap-id's G (DB2 UiMap 1.60.1.70938): 1411 Durotar, 1413 The Barrens, 1419 Blas
 
 | P-sleutel (voorstel) | npc (id) | m | x, y | bron |
 |---|---|---|---|---|
-| drusilla | Drusilla La Salle (459) | 1429 | 49.69, 42.65 | HN r. 103 (ZA 49.87,42.65) |
-| alamar | Alamar Grimm (460) | 1426 | 28.38, 66.18 | HN r. 61 (ZA 28.59,66.23, boven in Anvilmar) |
+| drusilla | Drusilla La Salle (459) | 1429 | [stond in HandyNotes] | HN r. 103 (ZA 49.87,42.65) |
+| alamar | Alamar Grimm (460) | 1426 | [stond in HandyNotes] | HN r. 61 (ZA 28.59,66.23, boven in Anvilmar) |
 | ruzan | Ruzan (5765) | 1411 | 42.59, 69.00 | ZH 24848 |
 | venya | Venya Marthand (5667) | 1420 | 30.98, 66.41 | ZH 24867 |
 | remen | Remen Marcot (6121) | 1429 | 44.49, 66.27 | ZA 23869 |
@@ -334,10 +334,10 @@ UiMap-id's G (DB2 UiMap 1.60.1.70938): 1411 Durotar, 1413 The Barrens, 1419 Blas
 | jorah | Jorah Annison (6293) | 1458 | 75.91, 37.87 | ZH 25054 |
 | demisette | Demisette Cloyce (461) | 1453 | 39.24, 84.96 | HN r. 213 |
 | briarthorn | Briarthorn (5172) | 1455 | 50.35, 5.66 | HN r. 142 |
-| zevrost | Zevrost (3326) | 1454 | 48.47, 45.43 | HN r. 190 |
+| zevrost | Zevrost (3326) | 1454 | [stond in HandyNotes] | HN r. 190 |
 | kaal | Kaal Soulreaper (4563) | 1458 | 86.21, 15.93 | HN r. 306 |
 | spackle | Spackle Thornberry (5520) | 1453 | 39.53, 84.53 | HN r. 216 |
-| jubahl | Jubahl Corpseseeker (6382) | 1455 | 52.70, 6.08 | HN r. 144 |
+| jubahl | Jubahl Corpseseeker (6382) | 1455 | [stond in HandyNotes] | HN r. 144 |
 | kurgul | Kurgul (5815) | 1454 | 47.52, 46.72 | HN r. 191 |
 | martha | Martha Strain (5753) | 1458 | 85.70, 16.08 | HN r. 309 |
 | niby | Niby the Almighty (14469) | 1448 | 41.38, 44.86 | ZA 24085 |

@@ -215,7 +215,7 @@ Regel: HandyNotes > Zygor > gids. Stormwind en Eastern Plaguelands hebben in For
 
 | Sleutel | NPC (id) | Map | x, y | Bron |
 |---|---|---|---|---|
-| wilhelm | Brother Wilhelm (927) | Elwynn 1429 | 40.90, 66.09 | HN |
+| wilhelm | Brother Wilhelm (927) | Elwynn 1429 | [stond in HandyNotes] | HN |
 | duthorian | Duthorian Rall (6171) | Stormwind 1453 | 50.48, 47.49 | Z-A (WH nieuwe set 50.4-50.6, 47.2-47.6) |
 | stephanie | Stephanie Turner (6174) | 1453 | 63.84, 72.21 | Z-A |
 | gazin | Gazin Tenorm (6173) | 1453 | 49.51, 44.90 | Z-A |
@@ -234,7 +234,7 @@ Regel: HandyNotes > Zygor > gids. Stormwind en Eastern Plaguelands hebben in For
 | thundris | Thundris Windweaver (3649) | Darkshore 1439 | 37.40, 40.13 | Z-A |
 | deadmines | – (ingang huis Moonbrook) | 1436 | 42.57, 71.83 | Z-A 23371 |
 | bfd | – (water in bij Blackfathom) | Ashenvale 1440 | 14.12, 13.88 | Zygor dungeon-gids r. 371 |
-| arthur | Arthur the Faithful (5491) | 1453 | 49.61, 49.84 | HN |
+| arthur | Arthur the Faithful (5491) | 1453 | [stond in HandyNotes] | HN |
 | grayson | Lord Grayson Shadowbreaker (928) | 1453 | 48.43, 50.22 | HN |
 | ashlam | Commander Ashlam Valorfist (10838) | W. Plaguelands 1422 | 42.70, 84.03 | Z-A |
 | scourgestones | – | 1422 | 40.65, 70.27 | Z-A |
@@ -247,7 +247,7 @@ Regel: HandyNotes > Zygor > gids. Stormwind en Eastern Plaguelands hebben in For
 | equineSpirit | Ancient Equine Spirit (14566) | Feralas 1444 | 60.32, 30.16 | Z-A: deur Dire Maul West (A: de geest staat binnen) |
 | fallenCharger | Darkreaver's Fallen Charger (14568) | 1422 | 69.94, 74.03 | Zygor Events-gids r. 1277: trap bij Scholomance (A) |
 | sarvis | Shadow Priest Sarvis (1569) | Tirisfal 1420 | 30.84, 66.20 | Z-H |
-| aramis | Aramis Hammerhand (244808) | 1420 | 30.97, 66.77 | HN (Z-H 31.09, 66.40; WH 31.0, 66.2) |
+| aramis | Aramis Hammerhand (244808) | 1420 | [stond in HandyNotes] | HN (Z-H 31.09, 66.40; WH 31.0, 66.2) |
 | deathguards | – | 1420 | 31.98, 64.72 | Z-H |
 | shari | Shari Stilwell (246152) | 1420 | 60.20, 52.50 | HN |
 | breton | Breton Samuels (246349) | 1420 | 21.85, 45.21 | Z-H |
@@ -366,7 +366,7 @@ Twee dingen die de module nu niet kent:
 	(= 8418), Lost Soul as 7647/1. Trainers: HandyNotes; the rest: Zygor; Undead level 12+: azeroth.wiki / Wowhead. ]]
 local PA_P = {
 	-- Alliance
-	wilhelm = { npc = "Brother Wilhelm", id = 927, m = 1429, x = 40.90, y = 66.09 },
+	wilhelm = { npc = "Brother Wilhelm", id = 927, m = 1429, xy = "stond in HandyNotes" },
 	duthorian = { npc = "Duthorian Rall", id = 6171, m = 1453, x = 50.48, y = 47.49 },
 	stephanie = { npc = "Stephanie Turner", id = 6174, m = 1453, x = 63.84, y = 72.21 },
 	gazin = { npc = "Gazin Tenorm", id = 6173, m = 1453, x = 49.51, y = 44.90 },
@@ -380,7 +380,7 @@ local PA_P = {
 	jordan = { npc = "Jordan Stilwell", id = 6181, m = 1426, x = 52.48, y = 36.92 },
 	bailor = { npc = "Bailor Stonehand", id = 6241, m = 1432, x = 35.96, y = 44.92 },
 	thundris = { npc = "Thundris Windweaver", id = 3649, m = 1439, x = 37.40, y = 40.13 },
-	arthur = { npc = "Arthur the Faithful", id = 5491, m = 1453, x = 49.61, y = 49.84 },
+	arthur = { npc = "Arthur the Faithful", id = 5491, m = 1453, xy = "stond in HandyNotes" },
 	grayson = { npc = "Lord Grayson Shadowbreaker", id = 928, m = 1453, x = 48.43, y = 50.22 },
 	ashlam = { npc = "Commander Ashlam Valorfist", id = 10838, m = 1422, x = 42.70, y = 84.03 },
 	theldanis = { npc = "High Priest Thel'danis", id = 1854, m = 1422, x = 52.09, y = 83.35 },
@@ -392,7 +392,7 @@ local PA_P = {
 	fallenCharger = { npc = "Darkreaver's Fallen Charger", id = 14568, m = 1422, x = 69.94, y = 74.03 },
 	-- Horde (Undead)
 	sarvis = { npc = "Shadow Priest Sarvis", id = 1569, m = 1420, x = 30.84, y = 66.20 },
-	aramis = { npc = "Aramis Hammerhand", id = 244808, m = 1420, x = 30.97, y = 66.77 },
+	aramis = { npc = "Aramis Hammerhand", id = 244808, m = 1420, xy = "stond in HandyNotes" },
 	shari = { npc = "Shari Stilwell", id = 246152, m = 1420, x = 60.20, y = 52.50 },
 	breton = { npc = "Breton Samuels", id = 246349, m = 1420, x = 21.85, y = 45.21 },
 	jorin = { npc = "Jorin Croge", id = 246393, m = 1420, x = 22.70, y = 44.68 },

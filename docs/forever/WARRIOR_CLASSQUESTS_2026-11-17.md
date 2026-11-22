@@ -249,37 +249,37 @@ Redridge Mountains 1433, Hillsbrad 1424, Wetlands 1437, Stonetalon 1442.
 
 Regel: trainers uit H, anders Z, anders WT-spawn. WT-spawns staan in Wowhead's zone-ruimte; dat die gelijk is aan UiMap
 is AFGELEID (bij Lyria, Kyra, Muren, Seena, Klannoc enz. valt WT samen met H of Z). Stormwind en Redridge hebben in WT
-TWEE sets spawns: de set die met Z/H klopt is gebruikt (Stormwind: Wu Shen 80.6,59.6 ≈ H 80.70,59.95; Grimand Elmore WT
+TWEE sets spawns: de set die met Z/H klopt is gebruikt (Stormwind: Wu Shen 80.6,59.6 ≈ H [stond in HandyNotes]; Grimand Elmore WT
 59.6,34 ≈ Z 59.72,33.78; Redridge: Magistrate Solomon WT 24.6-24.8 ≈ Z 24.90,44.45, dus Yorus 21.4,44.7).
 
 | Sleutel | NPC (id) | m | x | y | Bron |
 |---|---|---|---|---|---|
-| lyria | Lyria Du Lac (913) | 1429 | 41.10 | 65.63 | H (Z 41.09,65.77; WT 41,65.8) |
-| ilsa | Ilsa Corbin (5480) | 1453 | 80.26 | 59.72 | H |
+| lyria | Lyria Du Lac (913) | 1429 | [stond in HandyNotes] | [stond in HandyNotes] | H (Z 41.09,65.77; WT 41,65.8) |
+| ilsa | Ilsa Corbin (5480) | 1453 | [stond in HandyNotes] | [stond in HandyNotes] | H |
 | harry | Harry Burlguard (6089) | 1453 | 77.13 | 53.27 | Z (WT 77,53.2) |
 | bartleby | Bartleby (6090) | 1453 | 76.80 | 53.20 | Z, loopt rond (WT 76.5,52.6) |
 | haggard | Marshal Haggard (294) | 1429 | 84.6 | 69.4 | WT (CX 84.6,69.4) |
-| granis | Granis Swiftaxe (1229) | 1426 | 47.24 | 52.78 | H (Z 47.36,52.65) |
+| granis | Granis Swiftaxe (1229) | 1426 | [stond in HandyNotes] | [stond in HandyNotes] | H (Z 47.36,52.65) |
 | muren | Muren Stormpike (6114) | 1455 | 70.78 | 90.27 | Z |
 | tormus | Tormus Deepforge (6031) | 1455 | 48.6 | 43.0 | WT (CX 48.6,42.5) |
-| kyra | Kyra Windblade (3598) | 1438 | 56.21 | 59.19 | H (Z 56.22,59.19) |
+| kyra | Kyra Windblade (3598) | 1438 | [stond in HandyNotes] | [stond in HandyNotes] | H (Z 56.22,59.19) |
 | elanaria | Elanaria (4088) | 1457 | 57.29 | 34.61 | Z |
 | mathiel | Mathiel (6142) | 1457 | 59.2 | 45.5 | WT (CX 59.5,45.4) |
-| tarshaw | Tarshaw Jaggedscar (3169) | 1411 | 54.09 | 42.39 | H (Z 54.19,42.46) |
+| tarshaw | Tarshaw Jaggedscar (3169) | 1411 | [stond in HandyNotes] | [stond in HandyNotes] | H (Z 54.19,42.46) |
 | krang | Krang Stonehoof (3063) | 1412 | 48.35 | 63.74 | H (Z 48.34,63.76) |
 | uzzek | Uzzek (5810) | 1413 | 61.38 | 21.11 | Z |
 | thungrim | Thun'grim Firegaze (5878) | 1413 | 57.23 | 30.34 | Z |
-| austil | Austil de Mon (2131) | 1420 | 61.87 | 52.85 | H (Z 61.85,52.54) |
+| austil | Austil de Mon (2131) | 1420 | [stond in HandyNotes] | [stond in HandyNotes] | H (Z 61.85,52.54) |
 | dillinger | Deathguard Dillinger (1496) | 1420 | 58.20 | 51.45 | Z |
 | coleman | Coleman Farthing (1500) | 1420 | 61.72 | 52.29 | Z |
-| seena | Seena Skybreaker (252377) | 2521 | 59.91 | 73.08 | H (Z 59.89,72.86) |
-| wushen | Wu Shen (5479) | 1453 | 80.70 | 59.95 | H (Z 80.55,59.87) |
+| seena | Seena Skybreaker (252377) | 2521 | [stond in HandyNotes] | [stond in HandyNotes] | H (Z 59.89,72.86) |
+| wushen | Wu Shen (5479) | 1453 | [stond in HandyNotes] | [stond in HandyNotes] | H (Z 80.55,59.87) |
 | sorek | Sorek (3354) | 1454 | 80.39 | 32.38 | H (Z 80.38,32.38) |
-| kelv | Kelv Sternhammer (5113) | 1455 | 70.34 | 90.65 | H |
-| darnath | Darnath Bladesinger (7315) | 1457 | 58.94 | 35.35 | H |
+| kelv | Kelv Sternhammer (5113) | 1455 | [stond in HandyNotes] | [stond in HandyNotes] | H |
+| darnath | Darnath Bladesinger (7315) | 1457 | [stond in HandyNotes] | [stond in HandyNotes] | H |
 | torm | Torm Ragetotem (3041) | 1456 | 57.24 | 87.37 | H |
 | baltus | Baltus Fowler (4595) | 1458 | 47.40 | 17.29 | H |
-| christoph | Christoph Walker (4593) | 1458 | 46.93 | 15.23 | H |
+| christoph | Christoph Walker (4593) | 1458 | [stond in HandyNotes] | [stond in HandyNotes] | H |
 | klannoc | Klannoc Macleod (6236) | 1413 | 68.62 | 49.17 | Z (WT 68.6,49) |
 | bathrah | Bath'rah the Windwatcher (6176) | 1416 | 80.50 | 66.92 | Z (WT 80.4,66.8) |
 | fallenHero | Fallen Hero of the Horde (7572) | 1435 | 34.29 | 66.15 | Z (WT 34.2,65.4-66) |
@@ -435,20 +435,20 @@ ook (warlock-blok). Nieuwe textKeys `FCQ_OBJ_WR_*` en `FCQ_CHAIN_WR_*` moeten in
 	Skyborne 94003 = Defensive Stance GEMETEN, Taunt/Sunder for Skyborne NOT measured. 1719 has no idx on purpose
 	(Wowhead and Zygor disagree). ]]
 local WR_P = {
-	lyria = { npc = "Lyria Du Lac", id = 913, m = 1429, x = 41.10, y = 65.63 },
+	lyria = { npc = "Lyria Du Lac", id = 913, m = 1429, xy = "stond in HandyNotes" },
 	harry = { npc = "Harry Burlguard", id = 6089, m = 1453, x = 77.13, y = 53.27 },
 	bartleby = { npc = "Bartleby", id = 6090, m = 1453, x = 76.80, y = 53.20 },
-	granis = { npc = "Granis Swiftaxe", id = 1229, m = 1426, x = 47.24, y = 52.78 },
+	granis = { npc = "Granis Swiftaxe", id = 1229, m = 1426, xy = "stond in HandyNotes" },
 	muren = { npc = "Muren Stormpike", id = 6114, m = 1455, x = 70.78, y = 90.27 },
-	kyra = { npc = "Kyra Windblade", id = 3598, m = 1438, x = 56.21, y = 59.19 },
+	kyra = { npc = "Kyra Windblade", id = 3598, m = 1438, xy = "stond in HandyNotes" },
 	elanaria = { npc = "Elanaria", id = 4088, m = 1457, x = 57.29, y = 34.61 },
-	tarshaw = { npc = "Tarshaw Jaggedscar", id = 3169, m = 1411, x = 54.09, y = 42.39 },
+	tarshaw = { npc = "Tarshaw Jaggedscar", id = 3169, m = 1411, xy = "stond in HandyNotes" },
 	krang = { npc = "Krang Stonehoof", id = 3063, m = 1412, x = 48.35, y = 63.74 },
 	uzzek = { npc = "Uzzek", id = 5810, m = 1413, x = 61.38, y = 21.11 },
-	austil = { npc = "Austil de Mon", id = 2131, m = 1420, x = 61.87, y = 52.85 },
+	austil = { npc = "Austil de Mon", id = 2131, m = 1420, xy = "stond in HandyNotes" },
 	dillinger = { npc = "Deathguard Dillinger", id = 1496, m = 1420, x = 58.20, y = 51.45 },
-	seena = { npc = "Seena Skybreaker", id = 252377, m = 2521, x = 59.91, y = 73.08 },
-	wushen = { npc = "Wu Shen", id = 5479, m = 1453, x = 80.70, y = 59.95 },
+	seena = { npc = "Seena Skybreaker", id = 252377, m = 2521, xy = "stond in HandyNotes" },
+	wushen = { npc = "Wu Shen", id = 5479, m = 1453, xy = "stond in HandyNotes" },
 	sorek = { npc = "Sorek", id = 3354, m = 1454, x = 80.39, y = 32.38 },
 	klannoc = { npc = "Klannoc Macleod", id = 6236, m = 1413, x = 68.62, y = 49.17 },
 	bathrah = { npc = "Bath'rah the Windwatcher", id = 6176, m = 1416, x = 80.50, y = 66.92 },

@@ -23,8 +23,10 @@ pas na de quest ervoor, tot en met level 5 (AFGELEID), nooit vóór een spell-ke
 ✅ **PLEKKEN B (Rob 22 nov via sparring, letterlijk: *"Plekken b"*), GEBOUWD, wacht op test:** 59 uit HandyNotes: Class Trainers
 overgenomen plekken in ForeverClassQuests nu van Zygor (mediaan 0,11, grootste 1,01 kaartpunt: Beram 3032); wie die addon heeft
 krijgt zijn plek live (`LivePlace`; Robs meting > gezien > /mh trainer here > HandyNotes > lijst; niets opgeslagen).
-⏸️ Alleen gemeld, niet aanpassen zonder Robs woorden: dezelfde cijfers staan nog in 8 `docs/forever/*_CLASSQUESTS_2026-11-17.md`
-(65 paren), 3 andere docs (4) en 2 commentaarregels (ForeverTrainer, ForeverTrainerSpots); ook in de git-geschiedenis.
+✅ **KLADJES A (Rob 22 nov via sparring, letterlijk: *"kladjes ja"*), gedaan:** die cijfers uit 11 docs en 2 commentaarregels
+(71 paren, 131 vindplaatsen → 0; code-waarden en git-geschiedenis ongemoeid). ⏸️ Buiten de lijst, alleen gemeld, niet aanpassen
+zonder Robs woorden: HUNTER-doc r.240 (Lyria, samengeplakte schrijfwijze) + 4 regels met ronde getallen (Garen in het PALADIN-doc,
+Mims in het PRIEST-doc). Andere HandyNotes-addons zijn niet nagelopen.
 
 ▶ **ROBS KEUZES 22 nov, rond het ontbijt (via Sparring 22-11), letterlijk:** *"overnemen, ja"* (1. Zygor kijken of
 overnemen; 2. mag het vrije deel van Polestar uitgezocht worden) · *"knop weg, en polestar heeft ook iets om je volle tassen
