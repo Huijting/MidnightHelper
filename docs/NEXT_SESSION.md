@@ -17,6 +17,16 @@ ForeverRestXP.lua definieerde `ns.ForeverRestSlash` opnieuw en laadt na ForeverW
 kale `/mh rest` print beide diagnoses. GEREPAREERD op main, NIET in het spel gezien; of er een release komt beslist Rob.
 In de Camelot-toc is dit de enige dubbele `function ns.X` (GEMETEN 22 nov, nu 0).
 
+☀️ **Ochtendronde 22 nov gedaan (Bouwchat 22-11).** GEMETEN: CurseForge 0 wachtend, GitHub 0 open, site-mail 0 (3 dagen),
+BOUW_VRAAG 0 open, wachters 0 MOET GEFIKST, HandyNotes 173 zonder zone-wijziging, Zygor: ingangen Drowned City/Krol'dok
+kloppen al in MH, dungeon-quests blijft 519. Notion-inbak: 4 regels "Nieuw" van 12 nov. SITE_SEIN 5.7.0: 14 blokken op
+"ja" (staan in de releasetekst), Waylaid Crates blijft "nee". Open uit de ronde:
+- [ ] Verlopen tekst "Fabled, only until the week of 27 October" (site-chat 22 nov): DELVE_TIP_LABYRINTH_BOSS +
+      CODEX_LABYRINTH_BODY, met alle taalpacks en esMX; dan check_drift.
+- [ ] Nachtcontrole C2 blinde vlek 24 -> 290 -> 774: uitzoeken. Draaiboek 12.1.7 zegt nog "testdata" (release 1/2 dec).
+- [ ] Ideeënbus: 2 voorstellen van 15 nov + wat vandaag 08:06 komt, maandag 23 nov aan Rob voorleggen.
+- [ ] Commentaar ForeverCharKey.lua zegt "Forever toc only", staat in beide tocs (gedrag goed).
+
 ✂️ **Dit bestand is over de 1500 regels, op 22 nov nog NIET gesplitst**: de oudste sectie is van 18 nov (4 dagen, de regel
 zegt "ongeveer een week") en "Bouwchat 18-11" heeft open punten die niet in de kop staan, dus uit de index zouden vallen.
 Voorgelegd aan Sparring 22-11; anders knippen op 25 nov bij "## ▶ 18 nov — Bouwchat 18-11", eerst die punten nalopen.

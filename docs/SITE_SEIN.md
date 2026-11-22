@@ -82,7 +82,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 ## 21 nov 2026 — Forever: volgend talentpunt in Do this now
 - Tag + commit:   v5.7.0 (commit: zie git log, "next talent")
 - Status:         staat op CurseForge
-- Mag op de site: nee (in bouw, niet getest)
+- Mag op de site: ja (staat in de releasetekst van 5.7.0; Robs go staat in dat blok)
 - Speler ziet:    met een vrij talentpunt zegt Do this now in welk talent het moet, met de tooltip; MH leest je talenten
                   en slaat over wat je al hebt. Nu voor Paladins (Retribution en Protection), andere classes volgen.
 - Knoplabels:     `FTALENT_SW`, `FTALENT_BTN`
@@ -92,7 +92,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 ## 21 nov 2026 — Forever: Smart Buff (Mage, Priest, Druid)
 - Tag + commit:   v5.7.0 (commit: zie git log, "Smart Buff")
 - Status:         staat op CurseForge
-- Mag op de site: nee (in bouw, niet getest)
+- Mag op de site: ja (staat in de releasetekst van 5.7.0; Robs go staat in dat blok)
 - Speler ziet:    macro "MH Smart Buff" zet Arcane Intellect / Power Word: Fortitude / Mark of the Wild op de speler onder
                   je muis, anders op je doelwit. Standaard uit.
 - Knoplabels:     `FSBUFF_SW`
@@ -102,7 +102,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 ## 21 nov 2026 — Forever: level en tank, respec en Dual Spec, Wolfsbane
 - Tag + commit:   v5.7.0 (commit: zie git log, "level and tank plans")
 - Status:         staat op CurseForge
-- Mag op de site: nee (in bouw, niet getest)
+- Mag op de site: ja (staat in de releasetekst van 5.7.0; Robs go staat in dat blok)
 - Speler ziet:    How you play begint met een plan om te levelen en tanken (Paladin, Warrior, Druid) en legt voor elke
                   class talenten resetten en Dual Spec uit; Undead Paladins horen eerst Two-Handed Swords te leren voor
                   Wolfsbane. Tankstats Paladin: Stamina, dan Intellect.
@@ -113,7 +113,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 ## 21 nov 2026 — Forever: zoeken springt naar de schakelaar + "for WoW Forever"
 - Tag + commit:   v5.7.0 (commit edb8bc3)
 - Status:         staat op CurseForge
-- Mag op de site: nee (nog niet uit) *(getest door Rob)*
+- Mag op de site: ja (staat in de releasetekst van 5.7.0; Robs go staat in dat blok) *(getest door Rob)*
 - Speler ziet:    klik op een schakelaar in de zoekresultaten: Quiet helpers gaat open en die schakelaar licht op.
                   Onder de naam van het overzicht staat "for WoW Forever".
 - Knoplabels:     `FOV_SUBTITLE`
@@ -134,7 +134,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 ## 20 nov 2026 — Forever: Repair & sell
 - Tag + commit:   v5.7.0 (commit: zie git log, "Forever: Repair & sell")
 - Status:         staat op CurseForge
-- Mag op de site: nee (in bouw, niet getest)
+- Mag op de site: ja (staat in de releasetekst van 5.7.0; Robs go staat in dat blok)
 - Speler ziet:    in Find (In town en Which city?) de verkopers die repareren, dichtstbijzijnde eerst, met Show the way;
                   in het Tas vol-venster de dichtstbijzijnde met een knop. MH leert bij elk verkoopvenster wie repareert.
                   Plus: zakt je meest versleten item onder 25%, dan een klein venster met dezelfde knop (schakelaar
@@ -146,7 +146,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 ## 20 nov 2026 — Midnight: Renown in het alt-overzicht
 - Tag + commit:   v5.7.0 (commit: zie git log, "Midnight: Renown in het alt-overzicht")
 - Status:         staat op CurseForge
-- Mag op de site: nee (in bouw, niet getest)
+- Mag op de site: ja (staat in de releasetekst van 5.7.0; Robs go staat in dat blok)
 - Speler ziet:    bovenaan het alt-overzicht één regel met je renown voor de hele account (elke Midnight-factie en je
                   rang), met een tooltip per factie.
 - Knoplabels:     geen (regel `ALT_RENOWN_LINE_FMT`)
@@ -156,7 +156,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 ## 20 nov 2026 — Forever: Tas vol (stap 1)
 - Tag + commit:   v5.7.0 (commit: zie git log, "Forever: Tas vol stap 1")
 - Status:         staat op CurseForge
-- Mag op de site: nee (in bouw, niet getest)
+- Mag op de site: ja (staat in de releasetekst van 5.7.0; Robs go staat in dat blok)
 - Speler ziet:    als je tas vol is (iets past niet), een venstertje met de drie goedkoopste dingen in je tas en waarom
                   ze weg kunnen, plus of de loot meer waard is. MH gooit zelf niets weg.
 - Knoplabels:     `FBAG_TITLE`
@@ -166,7 +166,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 ## 20 nov 2026 — Forever: Skill up voor je beroepen
 - Tag + commit:   v5.7.0 (commit: zie git log, "Forever: Skill up")
 - Status:         staat op CurseForge
-- Mag op de site: nee (in bouw, niet getest)
+- Mag op de site: ja (staat in de releasetekst van 5.7.0; Robs go staat in dat blok)
 - Speler ziet:    per maakberoep wat je nu maakt voor een skillpunt ("make about 10x …"), de drie zekerste recepten met
                   kleur en geschatte kans, wat je ervoor nodig hebt (tas + bank) en de weg naar je trainer. In tooltips
                   de kleurgrenzen van een recept en je kans. Geen geldbedragen.
@@ -177,7 +177,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 ## 20 nov 2026 — Forever: Find "Which city?", stap 3 van 4
 - Tag + commit:   v5.7.0 (commit: zie git log, "Forever: Find stap 3")
 - Status:         staat op CurseForge
-- Mag op de site: nee (in bouw, niet getest)
+- Mag op de site: ja (staat in de releasetekst van 5.7.0; Robs go staat in dat blok)
 - Speler ziet:    in Find twee knoppen: "What am I looking for?" (de oude lijst) en "Which city?": kies een stad en zie
                   daar de herberg, bank, veilinghuis, brievenbus, flight master, boten/zeppelins en je class trainer,
                   plus hoe je er komt en "Route to <stad>". Met een zoekveld.
@@ -188,7 +188,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 ## 20 nov 2026 — Forever: nieuw overzicht (tabbladen rechts), stap 1 van 4
 - Tag + commit:   v5.7.0 (commit: zie git log, "Forever: nieuw overzicht stap 1")
 - Status:         staat op CurseForge
-- Mag op de site: nee (in bouw, niet getest)
+- Mag op de site: ja (staat in de releasetekst van 5.7.0; Robs go staat in dat blok)
 - Speler ziet:    een groter Forever-overzicht met de tabbladen als hoge knoppen rechts; de oude indeling blijft te
                   kiezen in Quiet helpers.
 - Knoplabels:     `FOV_LAYOUT_SW`
@@ -198,7 +198,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 ## 20 nov 2026 — Forever: Hearthstone en teleports in de route
 - Tag + commit:   v5.7.0 (commit: zie git log, "Forever: teleports in de route")
 - Status:         staat op CurseForge
-- Mag op de site: nee (nog niet getest, niet uit)
+- Mag op de site: ja (staat in de releasetekst van 5.7.0; Robs go staat in dat blok)
 - Speler ziet:    de route-pijl stelt je Hearthstone of je class-teleport voor als dat sneller is, en zegt ongeveer
                   hoe lang de reis duurt.
 - Knoplabels:     geen nieuwe
@@ -208,7 +208,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 ## 20 nov 2026 — Forever: rested XP, uitloggen op de goede plek
 - Tag + commit:   v5.7.0 (commit: zie git log, "Forever: Rest XP")
 - Status:         staat op CurseForge
-- Mag op de site: nee (nog niet getest, niet uit)
+- Mag op de site: ja (staat in de releasetekst van 5.7.0; Robs go staat in dat blok)
 - Speler ziet:    log je uit buiten een herberg of stad, dan toont MH de dichtstbijzijnde plek om uit te rusten
                   (met een pijl) en zegt of je Hearthstone klaar is. Ook een regel in de XP-tooltip van het overzicht.
 - Knoplabels:     `FREST_SW`, `FCQ_BTN`
@@ -218,7 +218,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 ## 20 nov 2026 — Forever: erts en kruiden (icoon van de game + gloed van MH)
 - Tag + commit:   v5.7.0 (commit: zie git log, "Forever: erts en kruiden")
 - Status:         staat op CurseForge
-- Mag op de site: nee (nog niet getest, niet uit)
+- Mag op de site: ja (staat in de releasetekst van 5.7.0; Robs go staat in dat blok)
 - Speler ziet:    twee schakelaars in Quiet helpers. 1: de game toont een houweel of kruidje boven de dichtstbijzijnde
                   ertsader of het kruid (tot ~15 m, één tegelijk). 2: MH tekent er een gloed op (goud = erts, groen =
                   kruid, grijs = nog niet te verzamelen). Standaard uit; uitzetten zet je oude instellingen terug.
@@ -229,7 +229,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 ## 20 nov 2026 — Forever: questitems glinsteren in plaats van een rand
 - Tag + commit:   v5.7.0 (commit: zie git log, "Forever: Loot Sparkles")
 - Status:         staat op CurseForge
-- Mag op de site: nee (nog niet getest, niet uit)
+- Mag op de site: ja (staat in de releasetekst van 5.7.0; Robs go staat in dat blok)
 - Speler ziet:    een schakelaar in Quiet helpers: questitems die je kunt looten glinsteren weer, in plaats van een
                   rand. Standaard uit; uitzetten zet je oude grafische instellingen terug.
 - Knoplabels:     `FLS_SW`
