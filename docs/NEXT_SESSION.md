@@ -9,6 +9,10 @@ best wel goed erop zijn. Dus wat dat betreft blijven we die gewoon houden."*
 - Tot zijn volgende antwoord (betekent "informatiepunt" ook overnemen?): niets terugzetten, niets nieuws overnemen.
   7e3d3a4 (dungeon-quests van main) blijft dus zolang staan. Het receptenonderzoek zonder Zygor mag aflopen.
 
+📜 **Recepten onderzocht (22 nov), niets gebouwd:** `docs/forever/RECEPTEN_2026-11-22.md`. Wacht op Robs Zygor-antwoord
+(zelfde vraag voor Craft Ladder, GPL, de tweede bron bij 301) en op: 🐞 **bekende recepten per character kloppen niet**
+(GEMETEN in Robs SV: 32 gekopieerde recepten op 4 characters); reparatie wist opgeslagen regels, dus eerst zijn ja.
+
 🐞 **EERST: "action blocked" MultiBarBottomRight:SetPointBase, op naam van MH (sessie 335).** Onderzocht, knop nog NIET
 veranderd: `docs/forever/TALENTKNOP_TAINT_2026-11-22.md`. De Talents-knop kan het veroorzaken (ook in v5.7.0 via het
 overzicht); Rob kiest A/B/C via sparring. 🔴 Geen release tot dit duidelijk is. "talent goed" is half open.

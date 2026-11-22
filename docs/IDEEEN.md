@@ -43,6 +43,8 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
   Plek (Rob 22 nov: *"plek ja"*): tooltip + Skill up-venster; Blizzards beroepenvenster alleen als extra.
 - (3) Bootwachttijd: ONDERZOCHT 22 nov, nu niet eerlijk te meten, niets gebouwd (`docs/forever/BOOT_ZEPPELIN_2026-11-22.md`).
   ⏹️ Rob 22 nov via sparring, letterlijk: *"Boot Rust"* = laten rusten; niet opnieuw voorstellen.
+- Recepten (1) onderzocht 22 nov (`docs/forever/RECEPTEN_2026-11-22.md`): 486 van 2119 kan; wacht op Rob (bronkeuze + eerst
+  "bekende recepten" repareren).
 - Meting (1) gedaan 22 nov (*"meting gedaan"*): Forever geeft bij Cooking geen bron (0 van 132), dus eigen data per recept.
 - Spel: F. Site: nog niet.
 
