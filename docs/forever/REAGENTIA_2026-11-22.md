@@ -1,16 +1,15 @@
 # Reagentia: waar haal ik het? (Forever 1.60.1.71037, 22 nov 2026)
 
 Hoort bij punt 1, optie B (Rob 22 nov via sparring: *"1 b"*). Onderzoek: mh-research. Nageteld door Bouwchat 22-11.
-**Rob 22 nov via sparring, letterlijk: *"Zygor b"* → de 87 zonder Zygor als bron, AllTheThings met MIT-tekst. GEBOUWD 22 nov.**
+**Rob 22 nov via sparring, letterlijk: *"overnemen, ja"* = uit Zygor mogen plekken en nummers (id's, coördinaten,
+volgorde), geen teksten, notities of code. "Zygor b" van eerder die dag vervalt. GEBOUWD 22 nov: 172.**
 
-**Wat de 87 zijn** (GEMETEN: opnieuw gerekend met elk Zygor-veld vooraf gewist): 30 Herbalism, 31 Mining, 26 te koop bij
-10 verkopers (183 paren, alleen uit AllTheThings; naam per taal en punt van Wowhead). ⚠️ **Geen enkele "valt van monsters"
-(107) en geen Skinning (36): die hebben zonder Zygor één bron en zwijgen dus.** Black, Gray, Yellow, Purple, Green Dye en
-Heavy Silken Thread hebben geen bekende Alliance-verkoper: daar zwijgt MH voor Alliance.
+**Wat de 172 zijn** (GEMETEN, hertelling): 30 Herbalism, 31 Mining, 7 Skinning, 26 te koop bij 17 verkopers (193 paren met
+een bekend punt; naam en punt van Wowhead), 78 "valt van monsters" zonder plek. Wat één bron heeft zwijgt.
 
 Per item: `reagent_sources.csv` + `reagent_sources.md` in
 `C:\Users\RobHu\AppData\Local\Temp\claude\e1c44003d48d72c2\1d618a73-6d9c-5dbf-b8f1-c063472d06aa\scratchpad`
-(524 rijen; niet in de repo: er zit Zygor-bewijs in. De gekozen 87 = `nz_select.py` + `nz_emit.py` daarnaast).
+(524 rijen; niet in de repo: er zit Zygor-bewijs in. De gekozen 172 = `r172_build.py` + `r172_install.py` daarnaast).
 
 ## Uitslag (GEMETEN door de bouwchat: hertelling van de csv)
 
@@ -35,15 +34,8 @@ onbeperkt" uit Robs eigen Auctionator-cache.
   "Хозяйственные припасы". deDE wisselt (5 van 21 "Handwerksbedarf"). In een client nameten.
 - Item 23567 "DEPRECATED ITEM" staat in MH's reagentialijst (mh-research).
 
-## Open: de licentie van Zygor
+## De licentie van Zygor (beslist door Rob, 22 nov)
 
-- GEMETEN door de bouwchat: beide Zygor-toc's (Forever 1.6, retail 9.6) zeggen `X-License: GPL`. Een GPL-tekst vond ik
-  niet in de Forever-map (gezocht op "General Public License" en licentie-bestandsnamen). `Licence.lua` niet gelezen:
-  kan Robs persoonlijke sleutel zijn.
-- Polestar is om GPLv3 "alleen het idee". Voor Zygor geldt tot nu toe "alleen feiten: id's, plekken, volgorde"
-  (sparring 21 nov). Die twee regels lopen uiteen.
-- Onze eigen notities spreken elkaar tegen: ForeverTravel.lua en ForeverCitySpots.lua noemen Zygor All Rights Reserved,
-  docs van 6 okt en 18 nov zeggen GPL.
-- Raakt: deze reagentia; de dungeon-quests van 21 nov (id's, gevers, volgorde en coördinaten uit Zygor; alleen op main,
-  niet in 5.7.0); en mogelijk ouder werk dat al uit is. Welke bestanden echt Zygor-waarden dragen is NIET gemeten: een
-  vermelding van Zygor is vaak juist "niet gebruikt" of "alleen vergeleken".
+- GEMETEN door de bouwchat: beide Zygor-toc's zeggen `X-License: GPL`, het About-scherm zegt "All Rights Reserved"
+  (Core_enUS.lua:840). `Licence.lua` niet gelezen: kan Robs persoonlijke sleutel zijn.
+- Robs besluit daarna: *"overnemen, ja"*, grens zoals bovenaan. AllTheThings = MIT, met de tekst erbij.

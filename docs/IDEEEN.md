@@ -38,8 +38,8 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 - (1) Waar haal ik dit vandaan: ✅ JA, optie B. Rob 22 nov via sparring, letterlijk: *"1 b"* (op "1. A, B of C?"). B = onbekende
   recepten "Waar haal je dit" (venster + tooltip, trainer met pijl) + reagentia in de tooltip (verkoper met pijl /
   verzamelberoep / monsters zonder plek); weet MH het niet, dan zwijgen. Eerst Robs meting `/mh skillup source`.
-  Reagentia onderzocht 22 nov (`docs/forever/REAGENTIA_2026-11-22.md`), keuze = Zygor B (niets overnemen, alleen nakijken).
-  Reagentia GEBOUWD 22 nov zonder Zygor (87 items: Herbalism, Mining, te koop; wacht op Robs test). Recepten: nog niet.
+  Reagentia onderzocht 22 nov (`docs/forever/REAGENTIA_2026-11-22.md`), keuze nu: *"overnemen, ja"* (Zygor: plekken en nummers).
+  Reagentia GEBOUWD 22 nov (172 items: verzameld, te koop, valt van monsters; wacht op Robs test). Recepten: nog niet.
   Plek (Rob 22 nov: *"plek ja"*): tooltip + Skill up-venster; Blizzards beroepenvenster alleen als extra.
 - (3) Bootwachttijd: ONDERZOCHT 22 nov, nu niet eerlijk te meten, niets gebouwd (`docs/forever/BOOT_ZEPPELIN_2026-11-22.md`).
   ⏹️ Rob 22 nov via sparring, letterlijk: *"Boot Rust"* = laten rusten; niet opnieuw voorstellen.

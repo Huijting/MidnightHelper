@@ -4832,6 +4832,7 @@ ns._mhLocales.nlNL = {
 	-- 22 Nov 2026: where you get a reagent (ForeverReagentSource.lua). Seller, zone + distance; profession; seller.
 	FSRC_BUY_FMT = "MH: Te koop bij %s (%s)",
 	FSRC_GATHER_FMT = "MH: Te verzamelen met %s",
+	FSRC_DROP = "MH: Valt van monsters",
 	FSRC_GO_FMT = "De weg naar %s",
 	FSBUFF_SW = "Smart Buff-macro (eerst muis, anders doelwit)",
 	FSBUFF_SW_DESC = "Voor een Mage, Priest of Druid: MH maakt één macro, \"MH Smart Buff\", met je class-buff (Arcane Intellect, Power Word: Fortitude of Mark of the Wild). Die buft de vriendelijke speler onder je muis, anders je doelwit. Zet hem op elke balk die je wilt. MH houdt hem bij, buiten een gevecht. Paladins hebben hiervoor Smart Bless. De mouseover-stand van het toetsenblok doet hetzelfde op zijn eigen toetsen.",

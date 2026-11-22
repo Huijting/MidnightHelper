@@ -1746,6 +1746,7 @@ for k, v in pairs({
 	-- 22 Nov 2026: where you get a reagent (ForeverReagentSource.lua). Seller, zone + distance; profession; seller. Our own translation, not reviewed by a native speaker.
 	FSRC_BUY_FMT = "MH: Продает %s (%s)",
 	FSRC_GATHER_FMT = "MH: Добывается профессией «%s»",
+	FSRC_DROP = "MH: Добывается с монстров",
 	FSRC_GO_FMT = "Путь: %s",
 	FTALENT_PROT_SECOND = "Паладин: сделайте второй набор «Защита», для танкования. Пока вы его используете, выберите направление «Защита» («Ваш класс»), и MH назовет таланты Защиты.",
 	FTALENT_SW = "Следующее очко таланта в «Сделайте сейчас»",

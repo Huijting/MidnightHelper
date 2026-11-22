@@ -5779,6 +5779,7 @@ ns._mhLocales.enUS = {
 	-- 22 Nov 2026: where you get a reagent (ForeverReagentSource.lua). Seller, zone + distance; profession; seller.
 	FSRC_BUY_FMT = "MH: Sold by %s (%s)",
 	FSRC_GATHER_FMT = "MH: Gathered with %s",
+	FSRC_DROP = "MH: Dropped by monsters",
 	FSRC_GO_FMT = "The way to %s",
 	FSBUFF_SW = "Smart Buff macro (mouse first, then target)",
 	FSBUFF_SW_DESC = "For a Mage, Priest or Druid: MH makes one macro, \"MH Smart Buff\", with your class buff (Arcane Intellect, Power Word: Fortitude or Mark of the Wild). It buffs the friendly player under your mouse, otherwise your target. Put it on any bar. MH keeps it up to date, outside a fight. Paladins have Smart Bless for this. The key block's mouseover mode does the same on its own keys.",

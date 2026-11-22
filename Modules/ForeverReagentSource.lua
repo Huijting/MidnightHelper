@@ -4,10 +4,12 @@ local _, ns = ...
 	ForeverReagentSource.lua — WoW Forever: "where do I get this?" for a crafting reagent.
 
 	Rob, 22 Nov 2026 via sparring, verbatim: "1 b" (option B), "plek ja" (the tooltip is the main place, plus MH's own
-	Skill up window) and "Zygor b" (nothing from Zygor). Data + rule: ForeverReagentSourceData.lua.
+	Skill up window) and later that day "overnemen, ja" (places and numbers from Zygor; no texts, notes or code).
+	Data + rule: ForeverReagentSourceData.lua.
 
 	One line:
 	  "MH: Gathered with Mining"
+	  "MH: Dropped by monsters"                  no place on purpose
 	  "MH: Sold by Felika (Orgrimmar, 120 yd)"   the nearest seller MH KNOWS on your side (not every seller is known,
 	                                              so the text never says "nearest")
 	Silent when the item is not in the data, or when no seller of your side is known: not knowing is not a place.
@@ -66,6 +68,10 @@ function ns.ForeverReagentSourceText(id)
 		end
 		last = ("item %d: silent, %s"):format(id, tostring(why))
 		return nil
+	end
+	if id and ns.REAGENT_DROPS and ns.REAGENT_DROPS[id] then
+		last = ("item %d: monsters drop it (no place)"):format(id)
+		return ns:L("FSRC_DROP")
 	end
 	last = ("item %s: silent, not among the items with two sources"):format(tostring(id))
 	return nil

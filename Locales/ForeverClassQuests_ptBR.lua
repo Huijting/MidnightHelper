@@ -559,6 +559,7 @@ for k, v in pairs({
 	-- 22 Nov 2026: where you get a reagent (ForeverReagentSource.lua). Seller, zone + distance; profession; seller. Our own translation, not reviewed by a native speaker.
 	FSRC_BUY_FMT = "MH: Vendido por %s (%s)",
 	FSRC_GATHER_FMT = "MH: Coletado com %s",
+	FSRC_DROP = "MH: Deixado por monstros",
 	FSRC_GO_FMT = "O caminho até %s",
 	FTALENT_PROT_SECOND = "Paladino: faça do segundo conjunto um de Proteção, para tanquear. Enquanto usar esse, escolha o caminho Proteção (Sua classe), e o MH indica os talentos de Proteção.",
 	FTALENT_SW = "Próximo ponto de talento em Faça isto agora",

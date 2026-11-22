@@ -7,9 +7,9 @@ overnemen; 2. mag het vrije deel van Polestar uitgezocht worden) · *"knop weg, 
 onderweg leger te maken, check dat ook, tijd voor koffie en ontbijt dus ga door szo lang je kan en ik terug ben"* ·
 *"Ik ben nog niet terug maar kan wel via telefoon reageren 😇 tas 1 2 3"*. Werklijst, in deze volgorde:
 - [x] 1. Talents-knop weg, regel noemt zijn eigen toets. Wacht op test.
-- [ ] 2. **ZYGOR = OVERNEMEN: id's, coördinaten, volgorde. Geen teksten, notities of code.** "Zygor b" en de pauze vervallen.
+- [x] 2. **ZYGOR = OVERNEMEN: id's, coördinaten, volgorde. Geen teksten, notities of code.** "Zygor b" en de pauze vervallen.
       ✅ Dungeon-quests terug (wacht op test, herstart nodig; nieuw: y=100.38 bij Dark Iron Legacy = geen pijl).
-      Nog open: reagentia 87 → 172 (één bron blijft stil).
+      ✅ Reagentia 87 → 172 (+78 valt van monsters, +7 Skinning, 17 verkopers; één bron blijft stil). Wacht op test.
 - [ ] 3. Tassen, eigen code (Polestar = GPL, alleen het idee): eerst nameten of eten, drinken, munitie, class-reagentia als
       weggooien kunnen verschijnen; dan reservetas, hulp bij bijna vol, grijs zonder verkoopwaarde. (4) markeren koos hij niet.
 - [ ] 4. Recepten: Zygor mag als bron. Craft Ladder alleen nakijken als tweede bron, geen waarden: dat is de uitleg van
@@ -35,8 +35,8 @@ screenshot van Do this now, *"kunnen we de talent point meer laten opvallen"* �
   beroepenvenster" moet dus ook zonder dat frame werken. De meting kijkt nu naar TRADE_SKILL_SHOW/CLOSE.
 - **Smart Buff goed** (mage; Priest/Druid niet getest). **Boot = laten rusten**, niet opnieuw vragen.
 - **Robs antwoorden, letterlijk: *"talent goed / plek ja / Zygor b"*.** Talent B getest (niet: in gevecht).
-- **d, reagentia GEBOUWD, wacht op test (herstart nodig):** `ForeverReagentSource(Data).lua`, 87 items zonder Zygor, regel
-  in de tooltip + Skill up (daar de pijlknop). ⚠️ In die 87 zit geen "valt van monsters" en geen Skinning (één bron).
+- **d, reagentia GEBOUWD, wacht op test (herstart nodig):** `ForeverReagentSource(Data).lua`, nu 172 items, regel
+  in de tooltip + Skill up (daar de pijlknop). Wat één bron heeft zwijgt.
   Nog van d: recepten. c en e: niet meer nodig, zie bovenaan.
 - **Plek:** tooltip = hoofdplek + MH's Skill up-venster; Blizzards beroepenvenster alleen als extra.
 - ⏹️ **(VERVALLEN, zie bovenaan: Zygor = overnemen)** **ZYGOR B (vervangt "alleen feiten" van 21 nov): niets meer overnemen uit Zygor, geen id's, plekken, volgorde of
