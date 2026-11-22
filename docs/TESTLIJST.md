@@ -25,6 +25,12 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 22 nov (ochtend) — Forever: meting "Waar haal ik dit vandaan?" (Rob: "1 b")
+
+- [ ] Forever: typ `/reload`. Open een beroep waarin je nog niet alles kent (bv. Cooking) en laat het venster open.
+      Typ `/mh skillup source`. In chat: "recipe source test: window open, N recipes listed" en daaronder twee regels met aantallen.
+- [ ] Sluit het venster, typ het nog eens: "window closed". Typ daarna `/reload` (dan staat de uitslag in het bestand).
+
 ## 22 nov (ochtend) — Forever: `/mh rest off` werkt weer
 
 - [ ] Forever: typ `/mh rest off`. In chat: "no more message about low mana or health…". `/mh rest on` zet hem terug.

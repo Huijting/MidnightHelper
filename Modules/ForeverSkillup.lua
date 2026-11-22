@@ -748,7 +748,125 @@ ev:SetScript("OnEvent", function(self)
 end)
 
 --------------------------------------------------------------------------------
--- /mh skillup [probe | on | off]
+-- /mh skillup source: does Forever itself know where a recipe comes from?
+--------------------------------------------------------------------------------
+-- 22 Nov 2026 (Rob via sparring, verbatim: "1 b" = "Where do I get this?", option B): measure before building.
+-- Typed once with the profession window open and once with it closed. Each run is kept in ns.db.recipeSourceProbe:
+-- how many recipes the client lists, learned or not, and what GetRecipeSourceText answers for each (the first 150
+-- of both kinds, raw). An empty answer, an error and a secret value are counted apart.
+local SOURCE_RUNS, SOURCE_ROWS = 10, 150
+
+local function AskSource(id)
+	local f = C_TradeSkillUI and C_TradeSkillUI.GetRecipeSourceText
+	if type(f) ~= "function" then
+		return "no api"
+	end
+	local ok, v = pcall(f, id)
+	if not ok then
+		return "error", tostring(v)
+	end
+	if issecretvalue and issecretvalue(v) then
+		return "secret"
+	end
+	if type(v) ~= "string" or v == "" then
+		return "empty"
+	end
+	return "text", v
+end
+
+local function SourceProbe()
+	ns.db = ns.db or {}
+	local runs = type(ns.db.recipeSourceProbe) == "table" and ns.db.recipeSourceProbe or {}
+	ns.db.recipeSourceProbe = runs
+	local T = C_TradeSkillUI or {}
+	local open = false
+	for _, name in ipairs({ "ProfessionsFrame", "TradeSkillFrame" }) do
+		local f = _G[name]
+		if f and f.IsShown and f:IsShown() then
+			open = true
+		end
+	end
+	local run = { at = time and time() or 0, open = open, build = GetBuildInfo and select(2, GetBuildInfo()),
+		locale = GetLocale and GetLocale(), rows = {}, count = { learned = {}, unlearned = {}, unknown = {} } }
+	if T.GetBaseProfessionInfo then
+		local ok, p = pcall(T.GetBaseProfessionInfo)
+		if ok and type(p) == "table" and Readable(p.professionID) then
+			run.prof = p.professionID
+		end
+	end
+	local ids
+	if T.GetAllRecipeIDs then
+		local ok, list = pcall(T.GetAllRecipeIDs)
+		if ok and type(list) == "table" and #list > 0 then
+			ids = list
+		end
+	end
+	run.listed = ids and #ids or 0
+	if not ids then
+		-- Window closed and no list any more: ask again for the recipes of the last run that had a list.
+		for i = #runs, 1, -1 do
+			if (runs[i].listed or 0) > 0 then
+				ids = {}
+				for _, row in ipairs(runs[i].rows or {}) do
+					ids[#ids + 1] = row.id
+				end
+				run.fromEarlier = true
+				break
+			end
+		end
+	end
+	local kept = {}
+	for _, id in ipairs(ids or {}) do
+		if Readable(id) then
+			local kind, name = "unknown", nil
+			if T.GetRecipeInfo then
+				local ok, info = pcall(T.GetRecipeInfo, id)
+				if ok and type(info) == "table" then
+					if Readable(info.learned) then
+						kind = info.learned and "learned" or "unlearned"
+					end
+					name = Readable(info.name) and info.name or nil
+				end
+			end
+			local answer, text = AskSource(id)
+			local c = run.count[kind]
+			c.total = (c.total or 0) + 1
+			c[answer] = (c[answer] or 0) + 1
+			kept[kind] = (kept[kind] or 0) + 1
+			if kept[kind] <= SOURCE_ROWS then
+				run.rows[#run.rows + 1] = { id = id, kind = kind, name = name, answer = answer, text = text }
+			end
+		end
+	end
+	runs[#runs + 1] = run
+	while #runs > SOURCE_RUNS do
+		table.remove(runs, 1)
+	end
+
+	print(PREFIX .. ("recipe source test: window %s, %d recipes listed%s."):format(open and "open" or "closed",
+		run.listed, run.fromEarlier and " (asked again for the last list)" or ""))
+	if not ids then
+		print("  nothing to ask: open a profession window (Cooking, Tailoring ...) and type /mh skillup source again.")
+		return
+	end
+	for _, kind in ipairs({ "learned", "unlearned", "unknown" }) do
+		local c = run.count[kind]
+		if kind ~= "unknown" or c.total then
+			print(("  %s: %d, of which %d with a source, %d empty, %d secret, %d error, %d no api"):format(kind,
+				c.total or 0, c.text or 0, c.empty or 0, c.secret or 0, c.error or 0, c["no api"] or 0))
+		end
+	end
+	for _, row in ipairs(run.rows) do
+		if row.kind == "unlearned" and row.answer == "text" then
+			print(("  example: %s = %s"):format(tostring(row.name or row.id), (row.text:gsub("|n", " "):gsub("\n", " "))))
+			break
+		end
+	end
+	print("  Done. /reload writes it to MidnightHelperDB.recipeSourceProbe.")
+end
+
+--------------------------------------------------------------------------------
+-- /mh skillup [probe | source | on | off]
 --------------------------------------------------------------------------------
 function ns.ForeverSkillupSlash(arg)
 	arg = (arg or ""):lower()
@@ -756,6 +874,10 @@ function ns.ForeverSkillupSlash(arg)
 		ns.db = ns.db or {}
 		ns.db.skillupTip = (arg == "on")
 		print(PREFIX .. ns:L(arg == "on" and "FSKILL_TIP_ON" or "FSKILL_TIP_OFF"))
+		return
+	end
+	if arg == "source" then
+		SourceProbe()
 		return
 	end
 	if arg == "probe" then

@@ -1,6 +1,14 @@
 # Midnight Helper — waar we staan
 
-## ▶▶ VOLGENDE BOUWCHAT (21 nov, avond): nieuwe Forever-reeks "leren van Polestar/FlowUp" — punt 2 en 4 GEBOUWD, 1 wacht op Rob, 3 onderzocht (niet te meten)
+## ▶▶ VOLGENDE BOUWCHAT (21 nov, avond): nieuwe Forever-reeks "leren van Polestar/FlowUp" — punt 2 en 4 GEBOUWD, 1 = B (meting staat klaar), 3 onderzocht (niet te meten)
+
+🗳️ **Robs keuzes 22 nov (via Sparring 22-11, letterlijk: *"1 b"* en *"reparatie A, briefjes laten"*):**
+- **Punt 1 = B:** onbekende recepten "Waar haal je dit" (beroepenvenster + tooltip; trainer = pijl, verkoop na onderzoek
+  per recept) + reagentia in de tooltip (Trade Supplies met pijl / verzamelberoep / monsters zonder plek). Weet MH het
+  niet: zwijgen. Meting klaar: `/mh skillup source` → `ns.db.recipeSourceProbe` (offline getest, wacht op Rob).
+  Reagentia hangt niet van die meting af: mag gebouwd worden.
+- **/mh rest-reparatie = A:** mee met de volgende gewone release (geen 5.7.1, geen go voor een release).
+- **Notion-briefjes 12 nov:** blijven staan, niet opnieuw vragen. Boot/zeppelin A/B en de ideeën: nog open.
 
 ⛴️ **Punt 3 boot/zeppelin ONDERZOCHT (22 nov): nu niet eerlijk te meten, niets gebouwd.**
 `docs/forever/BOOT_ZEPPELIN_2026-11-22.md`. Rondetijd is af te leiden; waar het schip NU is niet (geen API gevonden).
@@ -68,7 +76,7 @@ sparring; anders bouwen. Lint, 7 talen, IDEEEN (Robs zin staat er), TESTLIJST, p
    ForeverDungeonGuide.lua hebben GEEN dungeon-quests (grep "quest": alleen UI-texturen); ForeverDungeonGuideData.lua noemt
    quests alleen in baas-opmerkingen (`-- src:`-regels, bv. regel 960 Sergeant Bly). Dus nieuwe data: DB2 QuestV2 /
    Wowhead Forever-tooltips (`run gamedata`) / Zygor lokaal / HandyNotes; coördinatenregel uit het geheugen.
-2. **(punt 1) ⏸️ NIET bouwen: Rob kiest nog A/B/C (advies B). "Waar haal ik dit vandaan?"** bij item/recept/mount/pet (zoekbalk + tooltip): verkoper, drop, quest, beroep,
+2. **(punt 1) ✅ Rob 22 nov: *"1 b"*, zie boven. "Waar haal ik dit vandaan?"** bij item/recept/mount/pet (zoekbalk + tooltip): verkoper, drop, quest, beroep,
    trainer, met Show the way. Midnight heeft het voor recepten (`CraftShoppingList.lua`, CRAFTSHOP_UNLEARNED,
    CHANGELOG_474_3) — hergebruik waar het kan. Klein beginnen (recepten + reagents + mounts?) en zeggen wat de data toelaat.
 3. **(punt 3) Boot/zeppelin-wachttijd** "komt over ~N s": eerst uitzoeken of het meetbaar is (transport-objecten, vaste
