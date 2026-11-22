@@ -10,6 +10,8 @@ gevecht, andere characters. **OPEN: ronde 2** (ingrediënten, recept-pijl, dunge
 gedaan"*); de live pagina zag niemand van ons.
 💡 Midnight, LATER (Rob 22 nov: *"alle 3 maar niet voor nu, straks slapen"*): patchdag-kaartje 12.1.7, "eerste blik",
 december-events in de weekplanning. Alleen in IDEEEN; niets gebouwd. PTR-map heeft MH van 16 okt: niet kopiëren zonder Robs ja.
+🧪 **PTR = MORGEN (23 nov), mét Rob** (via sparring, letterlijk: *"morgen wel kijken"*): `tools/copy_to_ptr.bat` (eigen call) pas
+als hij zegt dat hij klaar zit, daarna `docs/PATCH_12_1_7_DRAAIBOEK.md` §3. Vannacht niets kopiëren.
 
 🔧 **SKILL UP-VENSTER GEREPAREERD (22 nov via sparring, letterlijk: *"venster ja"*), getest: *"Venster is goed"* (klik en scroll open):** stijl A (dicht),
 "MH doesn't know which trainer/vendor yet", knop noemt het beroep. Ronde 2 uit zijn screenshots: XP-regel, Linen Cloth,
