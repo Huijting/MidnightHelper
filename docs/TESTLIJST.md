@@ -36,15 +36,15 @@ bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt o
       "The way to <naam>". Klik: de pijl gaat naar die verkoper.
 - [ ] `/mh usedfor off`: alle regels weg; `/mh usedfor` zegt waarom de laatste regel er wel of niet stond.
 
-## 22 nov — Forever: talentpunt valt op in Do this now (Rob: "talent b")
+## 22 nov — Forever: talentpunt valt op in Do this now (Rob: "talent b", later "knop weg")
 
-- [x] ✅ (Rob 22 nov via sparring: *"talent goed"*) Forever, character met een vrij talentpunt: typ `/reload`. In "Do this now" staat de talentregel bovenaan: goud,
-      met een gele ster, en een witregel eronder. De talentnaam blijft blauw; muis erop = de tooltip van het spel.
-- [ ] ◐ HALF OPEN (Rob 22 nov: *"talent goed"*; daarna in gevecht "action blocked" op MultiBarBottomRight, niet opgelost:
-      `docs/forever/TALENTKNOP_TAINT_2026-11-22.md`) De eerste knop onderin is "Talents". Klik: het talentvenster van het spel gaat open, zonder rode fout en zonder
-      "action blocked". Zet het punt en druk Apply: dat werkt. Cast daarna een spell uit je spreukenboek: ook goed.
-- [x] ✅ (Rob 22 nov via sparring: *"talent goed"*) Geen vrij punt meer: de regel en de knop zijn weg.
-- [ ] In gevecht: `/mh overview`, klik Talents bij de regel: in rood "You can't do that while in combat", geen venster.
+- [x] ✅ (Rob 22 nov via sparring: *"talent goed"*) De regel staat bovenaan: goud, ster, witregel, blauwe naam met tooltip.
+- [x] ✅ (Rob 22 nov via sparring: *"talent goed"*) Geen vrij punt meer: de regel is weg.
+- [vervallen] De knop Talents en zijn gevecht-punt: de knop is weg (*"knop weg"*, na "action blocked").
+- [ ] Typ `/reload`. Met een vrij punt eindigt de gouden regel op "Open Talents with <jouw toets>." en er is geen knop
+      Talents meer, ook niet bij die regel in `/mh overview`.
+- [ ] Druk je eigen toets, zet het punt, Apply. **Daarna een gevecht**, liefst eentje waarin je pet komt of gaat: geen
+      "action blocked" op naam van MidnightHelper.
 
 ## 22 nov (ochtend) — Forever: meting "Waar haal ik dit vandaan?" (Rob: "1 b")
 

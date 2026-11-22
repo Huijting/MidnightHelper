@@ -325,8 +325,8 @@ local ACTS = {
 		end
 	end, label = "FCQ_BTN" },
 	camp = { page = "camp", label = "FOV_TAB_CAMP" },
-	-- 21 Nov 2026: the game's talent window (ForeverTalentNext.lua).
-	talent = { fn = function() if ns.ForeverOpenTalents then ns.ForeverOpenTalents() end end, label = "FTALENT_BTN" },
+	-- No "talent" action, on purpose (Rob, 22 Nov 2026: "knop weg"): an addon that opens the talent window taints the
+	-- action bars (docs/forever/TALENTKNOP_TAINT_2026-11-22.md). The line names the player's own key instead.
 	-- 21 Nov 2026: Dual Spec is bought from your class trainer.
 	dualspec = { fn = function() if ns.ForeverTrainerGo then ns.ForeverTrainerGo() end end, label = "HOME_FOREVER_BTN_GO" },
 }
@@ -478,9 +478,8 @@ function Collect()
 			out.now[#out.now + 1] = line
 			item(line, "talent", nil, nil, spell and { spell } or nil)
 			-- 22 Nov 2026 (Rob via sparring: "kunnen we de talent point meer laten opvallen", then "talent b"): the window
-			-- shows this line on top, in gold, and has a Talents button for it (Render).
+			-- shows this line on top, in gold (Render). Its button went the same day (Rob: "knop weg", see ACTS).
 			out.talent = line
-			out.actions.talent = true
 		end
 	end
 	-- 21 Nov 2026 (Rob via sparring: "Heb ik een two-handed sword nodig?"; GO "Ja, voeg dat maar toe"): the Wolfsbane class
@@ -830,9 +829,6 @@ local function Build()
 			end
 		end)
 	end
-	f.btnTalent = Btn(f, 10, function()
-		ACTS.talent.fn()
-	end)
 	f.btnTrainer = Btn(f, 10, function()
 		if ns.ForeverTrainerGo then
 			ns.ForeverTrainerGo()
@@ -907,7 +903,6 @@ local function Render(info)
 		lines[#lines + 1] = "- " .. s
 	end
 	f.body:SetText(table.concat(lines, "\n"))
-	f.btnTalent:SetText(ns:L(ACTS.talent.label))
 	f.btnTrainer:SetText(ns:L("HOME_FOREVER_BTN_GO"))
 	f.btnRanks:SetText(ns:L("FRANK_HOME_BTN"))
 	f.btnWeapons:SetText(ns:L("FWEAP_TITLE"))
@@ -918,7 +913,7 @@ local function Render(info)
 	-- Buttons only for what is on the list; they close up from the left. Each as wide as its own text (Rob's 21.png,
 	-- 12 Nov 2026: "Weapon trainers" stuck out of a fixed 90 px button), and a new row when the next one does not fit.
 	local shown = {}
-	for _, pair in ipairs({ { f.btnTalent, info.actions.talent }, { f.btnClassQuest, info.actions.classquest },
+	for _, pair in ipairs({ { f.btnClassQuest, info.actions.classquest },
 		{ f.btnTrainer, info.actions.trainer }, { f.btnRanks, info.actions.ranks },
 		{ f.btnWeapons, info.actions.weapons }, { f.btnProfs, info.actions.profs },
 		{ f.btnDungeons, info.actions.dungeons }, { f.btnOverview, ns.ShowForeverOverviewPage ~= nil } }) do
@@ -1059,7 +1054,7 @@ end
 local ev = CreateFrame("Frame")
 for _, e in ipairs({ "PLAYER_ENTERING_WORLD", "PLAYER_LEVEL_UP", "SPELLS_CHANGED", "PLAYER_REGEN_ENABLED",
 	"PLAYER_REGEN_DISABLED", "BAG_UPDATE_DELAYED", "ACTIONBAR_SLOT_CHANGED", "SKILL_LINES_CHANGED", "PLAYER_MONEY",
-	"UNIT_PET", "QUEST_LOG_UPDATE" }) do -- QUEST_LOG_UPDATE: class-quest steps (16 Nov 2026; exists in Forever, snapshot)
+	"UNIT_PET", "UPDATE_BINDINGS", "QUEST_LOG_UPDATE" }) do -- QUEST_LOG_UPDATE: class-quest steps (16 Nov 2026; exists in Forever, snapshot)
 	pcall(ev.RegisterEvent, ev, e)
 end
 pcall(ev.RegisterUnitEvent, ev, "UNIT_AURA", "player")

@@ -34,7 +34,7 @@ verandering bewijst niets.
 - v5.7.0 (GEMETEN, git grep op de tag): dezelfde functie, via de knop bij de talentregel in het overzicht.
 - main sinds c4223dc: ook de knop in Do this now, dus vaker geklikt.
 
-## Opties (Rob kiest via sparring; nog niets veranderd)
+## Opties — Rob koos A (22 nov, via sparring, letterlijk: *"knop weg"*); gebouwd, wacht op test
 
 - **A (advies nu):** knop weg op beide plekken; de gouden regel blijft en zegt met welke toets Talents opengaat
   (`GetBindingKey("TOGGLETALENTS")`). MH raakt het venster dan niet meer aan. Klein; nieuwe tekst in 7 talen.

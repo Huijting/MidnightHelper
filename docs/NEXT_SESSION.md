@@ -1,26 +1,33 @@
 # Midnight Helper — waar we staan
 
-## ▶▶ VOLGENDE BOUWCHAT (21 nov, avond): nieuwe Forever-reeks "leren van Polestar/FlowUp" — punt 4 GEBOUWD, 2 herbouwen zonder Zygor, 1 = B, 3 rust
+## ▶▶ VOLGENDE BOUWCHAT (21 nov, avond): nieuwe Forever-reeks "leren van Polestar/FlowUp" — punt 4 GEBOUWD, 2 komt terug, 1 = B, 3 rust
 
-⏸️ **ZYGOR B GEPAUZEERD (22 nov, via sparring), Rob letterlijk (gedicteerd, "Zijgor" = Zygor):** *"Nee, wij blijven Zijgor
-als een informatiepunt houden. Dat hebben we al wat langer geleden besloten. Dat de jongens vrij fanatiek daarin zijn en
-best wel goed erop zijn. Dus wat dat betreft blijven we die gewoon houden."*
-- Punt c (lijst) en e (herbouw) GESTOPT. Niets weghalen vanwege Zygor, ook docs niet. 89dfb1e blijft.
-- Tot zijn volgende antwoord (betekent "informatiepunt" ook overnemen?): niets terugzetten, niets nieuws overnemen.
-  7e3d3a4 (dungeon-quests van main) blijft dus zolang staan. Het receptenonderzoek zonder Zygor mag aflopen.
+▶ **ROBS KEUZES 22 nov, rond het ontbijt (via Sparring 22-11), letterlijk:** *"overnemen, ja"* (1. Zygor kijken of
+overnemen; 2. mag het vrije deel van Polestar uitgezocht worden) · *"knop weg, en polestar heeft ook iets om je volle tassen
+onderweg leger te maken, check dat ook, tijd voor koffie en ontbijt dus ga door szo lang je kan en ik terug ben"* ·
+*"Ik ben nog niet terug maar kan wel via telefoon reageren 😇 tas 1 2 3"*. Werklijst, in deze volgorde:
+- [x] 1. Talents-knop weg, regel noemt zijn eigen toets. Wacht op test.
+- [ ] 2. **ZYGOR = OVERNEMEN: id's, coördinaten, volgorde. Geen teksten, notities of code.** "Zygor b" en de pauze vervallen.
+      Dungeon-quests terug zoals e4ccea3 (later werk intact); reagentia 87 → 172 (één bron blijft stil).
+- [ ] 3. Tassen, eigen code (Polestar = GPL, alleen het idee): eerst nameten of eten, drinken, munitie, class-reagentia als
+      weggooien kunnen verschijnen; dan reservetas, hulp bij bijna vol, grijs zonder verkoopwaarde. (4) markeren koos hij niet.
+- [ ] 4. Recepten: Zygor mag als bron. Craft Ladder alleen nakijken als tweede bron, geen waarden: dat is de uitleg van
+      sparring (regel 7 nov), GEEN woord van Rob; hij kan het intrekken. Pijl nooit naar zomaar een trainer.
+- [ ] 5. Polestar: is het CC BY 4.0-deel los te krijgen, wat dekt het? Alleen melden, niets overnemen.
+- ⛔ Geen ja: "bekende recepten" repareren. Niet wijzigen tot sparring zijn woorden stuurt. Geen tag of release.
 
-📜 **Recepten onderzocht (22 nov), niets gebouwd:** `docs/forever/RECEPTEN_2026-11-22.md`. Wacht op Robs Zygor-antwoord
-(zelfde vraag voor Craft Ladder, GPL, de tweede bron bij 301) en op: 🐞 **bekende recepten per character kloppen niet**
+📜 **Recepten onderzocht (22 nov), niets gebouwd:** `docs/forever/RECEPTEN_2026-11-22.md` (nog van vóór "overnemen":
+bronnen = werklijst punt 4). Wacht nog op: 🐞 **bekende recepten per character kloppen niet**
 (GEMETEN in Robs SV: 32 gekopieerde recepten op 4 characters); reparatie wist opgeslagen regels, dus eerst zijn ja.
 
-🐞 **EERST: "action blocked" MultiBarBottomRight:SetPointBase, op naam van MH (sessie 335).** Onderzocht, knop nog NIET
-veranderd: `docs/forever/TALENTKNOP_TAINT_2026-11-22.md`. De Talents-knop kan het veroorzaken (ook in v5.7.0 via het
-overzicht); Rob kiest A/B/C via sparring. 🔴 Geen release tot dit duidelijk is. "talent goed" is half open.
+🐞 **"action blocked" MultiBarBottomRight:SetPointBase (sessie 335): aanleiding weggehaald, wacht op test.** Rob: *"knop
+weg"*. `docs/forever/TALENTKNOP_TAINT_2026-11-22.md`. 🔴 MH opent het talentvenster NOOIT meer zelf. In v5.7.0 zit de knop
+nog (overzicht). Dat dit de oorzaak bij Rob was blijft AFGELEID: komt de fout terug, dan verder zoeken.
 
 🗳️ **Robs woorden 22 nov, later (via sparring, letterlijk: *"smart buff goed\nBoot Rust\nmeting gedaan"* en, bij een
 screenshot van Do this now, *"kunnen we de talent point meer laten opvallen"* → *"talent b"*):**
-- **Talent B GEBOUWD, half getest (regel en knop werken; de fout erna is open, zie bovenaan):** talentregel bovenaan in goud met ster + witregel, knop Talents vooraan. Alleen het
-  venster Do this now. Niet gemeten: opent de knop zonder blocked-fout (code: zelfde PlayerSpellsUtil als Forevers toets).
+- **Talent B GEBOUWD, regel getest:** talentregel bovenaan in goud met ster + witregel. Alleen het venster Do this now.
+  De knop die erbij kwam is weg, zie bovenaan.
 - **Meting:** Cooking 132 recepten, GetRecipeSourceText leeg bij alle 132, 2 runs (GEMETEN in de SV). Niet op die API
   bouwen; per recept eigen data nodig. "window closed" bij een open venster: oorzaak GEMETEN = CharacterForever toont
   een eigen receptenvenster, ProfessionsFrame komt dan nooit in beeld (zijn recipeLog). ⚠️ De regel "in het
@@ -29,9 +36,9 @@ screenshot van Do this now, *"kunnen we de talent point meer laten opvallen"* �
 - **Robs antwoorden, letterlijk: *"talent goed / plek ja / Zygor b"*.** Talent B getest (niet: in gevecht).
 - **d, reagentia GEBOUWD, wacht op test (herstart nodig):** `ForeverReagentSource(Data).lua`, 87 items zonder Zygor, regel
   in de tooltip + Skill up (daar de pijlknop). ⚠️ In die 87 zit geen "valt van monsters" en geen Skinning (één bron).
-  Nog van d: recepten (onderzoek zonder Zygor loopt). c en e: gestopt, zie bovenaan.
+  Nog van d: recepten. c en e: niet meer nodig, zie bovenaan.
 - **Plek:** tooltip = hoofdplek + MH's Skill up-venster; Blizzards beroepenvenster alleen als extra.
-- ⏸️ **(GEPAUZEERD, zie bovenaan; c en e niet uitvoeren)** **ZYGOR B (vervangt "alleen feiten" van 21 nov): niets meer overnemen uit Zygor, geen id's, plekken, volgorde of
+- ⏹️ **(VERVALLEN, zie bovenaan: Zygor = overnemen)** **ZYGOR B (vervangt "alleen feiten" van 21 nov): niets meer overnemen uit Zygor, geen id's, plekken, volgorde of
   namen; alleen ermee nakijken.** Volgorde: b) dungeon-quests van main → d) reagentia (87, AllTheThings met MIT-tekst) +
   recepten zonder Zygor → c) ALLEEN een lijst van ouder Zygor-werk, niets wijzigen zonder apart ja → e) dungeon-quests
   herbouwen of met aantallen melden. Optie D (meelezen) niet gekozen: niet bouwen.

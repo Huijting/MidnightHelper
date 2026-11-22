@@ -5773,6 +5773,9 @@ ns._mhLocales.enUS = {
 	FTALENT_NEXT_MANY_FMT = "You have %d unused talent points. Next: %s (%d/%d).",
 	FTALENT_NO_DIR = "(You chose no direction, so MH follows the levelling order.)",
 	FTALENT_BTN = "Talents",
+	-- 22 Nov 2026: added to the talent line (no button any more); %s = the player's own key.
+	FTALENT_KEY_FMT = "Open Talents with %s.",
+	FTALENT_KEY_NONE = "No key opens Talents: set one, or use the game's own Talents button.",
 	-- 22 Nov 2026: where you get a reagent (ForeverReagentSource.lua). Seller, zone + distance; profession; seller.
 	FSRC_BUY_FMT = "MH: Sold by %s (%s)",
 	FSRC_GATHER_FMT = "MH: Gathered with %s",

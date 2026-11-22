@@ -39,13 +39,13 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 - Commando's:     /mh usedfor [on|off], /mh skillup
 - Spel:           Forever
 
-## 22 nov 2026 — Forever: talentpunt valt op in Do this now
-- Tag + commit:   geen tag (commit: zie git log, "talent point on top")
+## 22 nov 2026 — Forever: talentpunt valt op in Do this now, zonder knop
+- Tag + commit:   geen tag (commit: zie git log, "talent window")
 - Status:         alleen op main
-- Mag op de site: nee (geen release; de knop kan "action blocked" geven, wordt uitgezocht). Regel getest door Rob.
-- Speler ziet:    met een vrij talentpunt staat die regel bovenaan in Do this now, in goud met een ster, met een knop
-                  die het talentvenster van het spel opent.
-- Knoplabels:     FTALENT_BTN
+- Mag op de site: nee (geen release). Regel getest door Rob; de versie zonder knop nog niet.
+- Speler ziet:    met een vrij talentpunt staat die regel bovenaan in Do this now, in goud met een ster, en noemt de toets
+                  waarmee je zelf Talents opent. MH opent dat venster niet meer (dat kon "action blocked" geven).
+- Knoplabels:     geen
 - Commando's:     geen nieuwe
 - Spel:           Forever
 

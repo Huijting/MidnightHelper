@@ -664,6 +664,27 @@ function ns.ForeverTalentNextState()
 	return st
 end
 
+--- "Open Talents with N." = the player's own key for the game's TOGGLETALENTS binding, or that there is none.
+local function KeySentence()
+	local key
+	if GetBindingKey then
+		local ok, k = pcall(GetBindingKey, "TOGGLETALENTS")
+		if ok and type(k) == "string" and k ~= "" then
+			key = k
+		end
+	end
+	if not key then
+		return ns:L("FTALENT_KEY_NONE")
+	end
+	if GetBindingText then
+		local ok, t = pcall(GetBindingText, key)
+		if ok and type(t) == "string" and t ~= "" then
+			key = t
+		end
+	end
+	return ns:L("FTALENT_KEY_FMT"):format(key)
+end
+
 --- The Do this now line, or nil. Second value: the spell id (for the tooltip).
 function ns.ForeverTalentNextLine()
 	if InCombatLockdown and InCombatLockdown() then
@@ -689,29 +710,12 @@ function ns.ForeverTalentNextLine()
 	if st.src ~= "your direction" then
 		s = s .. " " .. ns:L("FTALENT_NO_DIR")
 	end
-	return s, st.step.spell
+	return s .. " " .. KeySentence(), st.step.spell
 end
 
---- Open the game's talent window. GEMETEN 22 Nov 2026 in Blizzard's Forever UI source (1.60.1.71037): the TOGGLETALENTS
---- key calls PlayerSpellsUtil (Bindings_Camelot.xml). That it opens from an addon's button without a blocked-action
---- error is NOT measured (Rob's test). In a fight it says why nothing opens, where you look (the overview's button).
-function ns.ForeverOpenTalents()
-	if InCombatLockdown and InCombatLockdown() then
-		if UIErrorsFrame and ERR_NOT_IN_COMBAT then
-			UIErrorsFrame:AddMessage(ERR_NOT_IN_COMBAT, 1, 0.1, 0.1)
-		end
-		return
-	end
-	for _, fn in ipairs({
-		function() return PlayerSpellsUtil and PlayerSpellsUtil.ToggleClassTalentFrame and PlayerSpellsUtil.ToggleClassTalentFrame() end,
-		function() return ToggleTalentFrame and ToggleTalentFrame() end,
-	}) do
-		local ok = pcall(fn)
-		if ok and ((PlayerSpellsUtil and PlayerSpellsUtil.ToggleClassTalentFrame) or ToggleTalentFrame) then
-			return
-		end
-	end
-end
+-- 🔴 NEVER open the talent window from this addon (PlayerSpellsUtil, ShowUIPanel on PlayerSpellsFrame): its OnShow
+-- re-anchors every action bar, tainted, and the next re-anchor in a fight is blocked (Rob's error of 22 Nov 2026,
+-- "MultiBarBottomRight:SetPointBase()"; docs/forever/TALENTKNOP_TAINT_2026-11-22.md). Rob: "knop weg".
 
 --- /mh talent: what MH reads, which order, and why this talent (or why nothing).
 function ns.ForeverTalentSlash()

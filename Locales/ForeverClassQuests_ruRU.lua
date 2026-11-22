@@ -1722,6 +1722,9 @@ for k, v in pairs({
 	FTALENT_NEXT_MANY_FMT = "У вас %d неиспользованных очков талантов. Следующее: %s (%d/%d).",
 	FTALENT_NO_DIR = "(Вы не выбрали направление, поэтому MH следует порядку для прокачки.)",
 	FTALENT_BTN = "Таланты",
+	-- 22 Nov 2026: added to the talent line (no button any more); %s = the player's own key.
+	FTALENT_KEY_FMT = "Таланты открываются клавишей %s.",
+	FTALENT_KEY_NONE = "Для талантов не назначена клавиша: назначьте ее или нажмите кнопку талантов в игре.",
 	-- 22 Nov 2026: where you get a reagent (ForeverReagentSource.lua). Seller, zone + distance; profession; seller. Our own translation, not reviewed by a native speaker.
 	FSRC_BUY_FMT = "MH: Продает %s (%s)",
 	FSRC_GATHER_FMT = "MH: Добывается профессией «%s»",

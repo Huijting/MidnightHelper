@@ -1706,6 +1706,9 @@ for k, v in pairs({
 	FTALENT_NEXT_MANY_FMT = "Du hast %d freie Talentpunkte. Als Nächstes: %s (%d/%d).",
 	FTALENT_NO_DIR = "(Du hast keine Richtung gewählt, also folgt MH der Reihenfolge zum Leveln.)",
 	FTALENT_BTN = "Talente",
+	-- 22 Nov 2026: added to the talent line (no button any more); %s = the player's own key.
+	FTALENT_KEY_FMT = "Talente öffnest du mit %s.",
+	FTALENT_KEY_NONE = "Keine Taste öffnet die Talente: leg eine fest oder nimm die Talente-Schaltfläche des Spiels.",
 	-- 22 Nov 2026: where you get a reagent (ForeverReagentSource.lua). Seller, zone + distance; profession; seller. Our own translation, not reviewed by a native speaker.
 	FSRC_BUY_FMT = "MH: Verkauft von %s (%s)",
 	FSRC_GATHER_FMT = "MH: Gesammelt mit %s",

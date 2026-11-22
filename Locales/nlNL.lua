@@ -4826,6 +4826,9 @@ ns._mhLocales.nlNL = {
 	FTALENT_NEXT_MANY_FMT = "Je hebt %d ongebruikte talentpunten. Volgende: %s (%d/%d).",
 	FTALENT_NO_DIR = "(Je koos geen richting, dus MH volgt de levelvolgorde.)",
 	FTALENT_BTN = "Talenten",
+	-- 22 Nov 2026: added to the talent line (no button any more); %s = the player's own key.
+	FTALENT_KEY_FMT = "Open Talents met %s.",
+	FTALENT_KEY_NONE = "Geen toets opent Talents: stel er een in, of gebruik de Talents-knop van het spel.",
 	-- 22 Nov 2026: where you get a reagent (ForeverReagentSource.lua). Seller, zone + distance; profession; seller.
 	FSRC_BUY_FMT = "MH: Te koop bij %s (%s)",
 	FSRC_GATHER_FMT = "MH: Te verzamelen met %s",
