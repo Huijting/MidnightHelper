@@ -36,6 +36,7 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 - (1) Waar haal ik dit vandaan: ✅ JA, optie B. Rob 22 nov via sparring, letterlijk: *"1 b"* (op "1. A, B of C?"). B = onbekende
   recepten "Waar haal je dit" (venster + tooltip, trainer met pijl) + reagentia in de tooltip (verkoper met pijl /
   verzamelberoep / monsters zonder plek); weet MH het niet, dan zwijgen. Eerst Robs meting `/mh skillup source`.
+  Reagentia onderzocht 22 nov (`docs/forever/REAGENTIA_2026-11-22.md`), wacht op Robs keuze over Zygors GPL-licentie.
 - (3) Bootwachttijd: ONDERZOCHT 22 nov, nu niet eerlijk te meten, niets gebouwd (`docs/forever/BOOT_ZEPPELIN_2026-11-22.md`).
   Rob kiest: laten rusten (advies) of 12 minuten meten in het spel.
 - Spel: F. Site: nog niet.

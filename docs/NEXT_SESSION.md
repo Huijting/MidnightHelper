@@ -6,7 +6,9 @@
 - **Punt 1 = B:** onbekende recepten "Waar haal je dit" (beroepenvenster + tooltip; trainer = pijl, verkoop na onderzoek
   per recept) + reagentia in de tooltip (Trade Supplies met pijl / verzamelberoep / monsters zonder plek). Weet MH het
   niet: zwijgen. Meting klaar: `/mh skillup source` → `ns.db.recipeSourceProbe` (offline getest, wacht op Rob).
-  Reagentia hangt niet van die meting af: mag gebouwd worden.
+  Reagentia hangt niet van die meting af, maar 🔴 WACHT op Robs licentiekeuze: Zygors toc zegt `X-License: GPL`
+  (GEMETEN 22 nov). Onderzoek + keuze: `docs/forever/REAGENTIA_2026-11-22.md`. Die keuze raakt ook de dungeon-quests
+  van 21 nov: vóór de volgende release beslist hebben.
 - **/mh rest-reparatie = A:** mee met de volgende gewone release (geen 5.7.1, geen go voor een release).
 - **Notion-briefjes 12 nov:** blijven staan, niet opnieuw vragen. Boot/zeppelin A/B en de ideeën: nog open.
 
