@@ -11,7 +11,7 @@ Wat Rob testte en wat niet: TESTLIJST 21 en 22 nov.
 
 - **Class quests:** kaartje, briefjes van level 1 (56 combinaties), `gate` op de Earth Totem-ketens, plekken van Zygor
   met HandyNotes: Class Trainers live (`LivePlace`).
-- **Dungeons:** quests per dungeon (519 rijen, 470 id's, 32 dungeons/vleugels).
+- **Dungeons:** quests per dungeon (520 rijen, 471 id's, 32 dungeons/vleugels).
 - **Beroepen:** herkomst van 1102 recepten (206 met pijl, 247 "Classic data") en 194 ingrediënten; bekende recepten per
   character gerepareerd (met kopie).
 - **Talenten:** 15 richtingen over 9 classes; geen Talents-knop meer (taint).

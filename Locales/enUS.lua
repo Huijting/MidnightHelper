@@ -4140,13 +4140,13 @@ ns._mhLocales.enUS = {
 	CHANGELOG_4112_4 = "Many more game names match your game client in German, French, Spanish, Portuguese, Italian, Russian and Mexican Spanish (Lay on Hands, Divine Shield, the Catalyst, Silvermoon, the Venomstones and more).",
 	-- 5.8.0, prepared 22 Nov 2026 (Rob via sparring: "Zerlt klaar"); no tag until his go.
 	CHANGELOG_580_1 = "Forever: your class quest step is a card in your class colour, and the level 1 quest that sends you to your trainer is in for all 56 class and race combinations.",
-	CHANGELOG_580_2 = "Forever: Dungeons & group has a Quests button per dungeon: what to pick up first and from whom, what is in your log and what you have done (470 quests, places from Zygor's guides, not all checked in the game).",
+	CHANGELOG_580_2 = "Forever: Dungeons & group has a Quests button per dungeon: what to pick up first and from whom, what is in your log and what you have done (471 quests, places from Zygor's guides, not all checked in the game).",
 	CHANGELOG_580_3 = "Forever: for 1,102 recipes the tooltip and Skill up say where you get them, for 194 ingredients too. It says when an answer may be old Classic data, or when it doesn't know who.",
 	CHANGELOG_580_4 = "Forever: your next talent in Do this now for all nine classes, in the directions we have an order for. The line names your key; the Talents button is gone, because it could cause \"action blocked\".",
-	CHANGELOG_580_5 = "Forever: Bags full no longer suggests food, drink, ammunition, reagents, potions, recipes, pets, mounts and more. It also helps when your bags are almost full and offers a spare bag first.",
+	CHANGELOG_580_5 = "Forever: Bags full no longer suggests food, drink, ammunition, class reagents, potions, recipes, pets, mounts and more. It also helps when your bags are almost full and offers a spare bag first.",
 	CHANGELOG_580_6 = "Forever: XP per hour and the time to your next level, under the XP bar of the overview.",
 	CHANGELOG_580_7 = "Forever, fixed: /mh rest on, off, mana and health; the Earth Totem quest of Dwarf and Windshaper shamans; each character's known recipes; see-through windows.",
-	CHANGELOG_580_8 = "Forever: trainer places in class quests come from Zygor's guides, or live from HandyNotes: Class Trainers when you have it. Credits: Polestar Recorder sessions (CC BY 4.0), AllTheThings (MIT), Spoken and Efficient Games (CC BY 4.0).",
+	CHANGELOG_580_8 = "Forever: many trainer places in class quests now come from Zygor's guides, or live from HandyNotes: Class Trainers when you have it. Credits: Polestar Recorder sessions (CC BY 4.0), AllTheThings (MIT), Spoken and Efficient Games (CC BY 4.0).",
 	-- 5.7.0 (proposed number), written 20 Nov 2026 on Rob's "Ja dat mag erna"; no tag until his go.
 	CHANGELOG_570_1 = "Forever: a larger overview with the tabs as tall buttons on the right (the old layout is a switch in Quiet helpers).",
 	CHANGELOG_570_2 = "Forever: Find has \"Which city?\": pick a city and see its inn, bank, auction house, mailbox, flight master, boats and your class trainer, with the way there and Route to. Every inn is in, also the villages like Ratchet.",

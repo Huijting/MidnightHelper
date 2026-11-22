@@ -32,8 +32,8 @@ Retail to **Forever** and install it there as well. You get help made for levell
   so when the answer may be old Classic data. *Skill up* also shows what to make for your next skill point.
 - **Your next talent point**: for all nine classes, in the directions it has an order for, *Do this now* names the
   talent to take.
-- **Bags full?** A small window shows what can go and keeps what you need out of that list. *Destroy* always asks
-  first.
+- **Bags full?** A small window shows what can go, and never suggests your food, ammunition, class reagents, potions,
+  recipes, pets or mounts. *Destroy* always asks first.
 - **XP per hour** and the time to your next level, under the XP bar of the overview.
 - **The game's own tooltips everywhere**: hover a spell, item, tool or boss loot in MH for the same tooltip as in your
   bags or spellbook.

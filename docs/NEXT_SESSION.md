@@ -17,7 +17,10 @@ vensters zijn goed. Dat kan je goedkeuren."*; details open in TESTLIJST, o.a. pr
 🚦 **5.8.0 KLAARGEZET, NIET UITBRENGEN.** Rob 22 nov avond via sparring, letterlijk: *"Zerlt klaar , ik log straks nog in"* (op
 "zet 5.8.0 klaar"). Alleen het klaarzetten mag: versie, tekst, Fable-ronde, naamsvermelding. Zijn *"We doen nog geen
 release. Dan kom je wat anders tegen."* blijft gelden voor uitbrengen: geen tag, gh release of upload zonder zijn woorden.
-Fable-ronde: loopt. Rob test nog: Midnight-inlog, dungeon-quest Way, /mh rest off/on, prijsregel in Bags full.
+Fable-ronde GEDAAN: 1 echte fout gerepareerd (Scholomance 5803 = alleen Alliance, Horde = 5804; `QUEST_FIX` in de generator)
++ 4 kleine tekstverbeteringen. Voor Rob via sparring: Waylaid Crates + mage Study-tip wel of niet in de tekst. NIET door Fable:
+vensters, spel, vertalingen, de keuze van de gidsen.
+ Rob test nog: Midnight-inlog, dungeon-quest Way, /mh rest off/on, prijsregel in Bags full.
 ▶ **NU: KAART B (Rob 22 nov via sparring, letterlijk: *"b"*):** level 1-briefjes voor alle classes/rassen + elk class-queststapje
 als opvallend kaartje (ForeverCQWindow). GEBOUWD, kaartje GOEDGEKEURD op een Tauren hunter (Rob 22 nov: *"kaartje goed,
 hebben we dit voor meerdere classes ?"*; andere classes, latere quests en knoppen open in TESTLIJST): 56 combinaties, 0 zonder briefje (Skyborne op level 2);

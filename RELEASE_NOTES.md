@@ -21,9 +21,9 @@ The small class quest window is now a card in your class colour: the quest, who 
 ## Which quests before a dungeon
 
 In *Dungeons & group*, a dungeon with quests has a **Quests** button: what to pick up first and from whom, what is
-already in your log, what you get inside, what comes later in a chain, and what you have done. It knows 470 quests in
+already in your log, what you get inside, what comes later in a chain, and what you have done. It knows 471 quests in
 32 dungeons and wings. Where it knows the place, a button sets the arrow. The numbers and places come from Zygor's
-dungeon quest guides and have not all been checked in the game. A few quests have no place.
+dungeon quest guides and have not all been checked in the game. Some quests have no place.
 
 ## Where do I get this?
 

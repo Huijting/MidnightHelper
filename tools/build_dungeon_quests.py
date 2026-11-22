@@ -81,6 +81,11 @@ ZONES = {
     "Un'Goro Crater": 1449, "Moonglade": 1450, "Winterspring": 1452, "Stormwind City": 1453, "Orgrimmar": 1454,
     "Ironforge": 1455, "Thunder Bluff": 1456, "Darnassus": 1457, "Undercity": 1458, "Riverglades": 2548,
 }
+# Zygor's own slips, corrected where the other sources agree: (side, guide key, the id Zygor writes) -> the real id.
+# 22 Nov 2026 (the 5.8.0 Fable round, checked by the build chat): Zygor's Horde Scholomance guide accepts ##5803 at
+# Apothecary Dithers. 5803 is the Alliance quest; the Horde's is 5804 (GEMETEN: Spoken races + prev 5802, and the
+# Wowhead Forever tooltips: 5804 goes back to Dithers at the Bulwark, 5803 to Arbington at Chillwind Point).
+QUEST_FIX = {("Horde", "SCHOLO", 5803): 5804}
 # A |goto on an instance map (no UiMap of type zone): the quest is picked up inside.
 INSTANCE_ZONES = {"Zul'Farrak"}
 
@@ -220,6 +225,7 @@ def main():
                 continue
             lst = by_key.setdefault(key, [])
             for e in entries:
+                e["q"] = QUEST_FIX.get((side, key, e["q"]), e["q"])
                 lst.append(e)
 
     missing_zones, no_coords, total = {}, [], 0
