@@ -6,7 +6,7 @@
 character, Bags full (niets wat hij wil houden, grijs + Destroy), gevecht zonder "action blocked". Voorwaardelijk, dus niet
 zeker: Equip, vrij talentpunt, pet. Niet los getest: per soort, bijna vol + schakelaar, grijs zonder waarde, link, Equip in
 gevecht, andere characters. **OPEN: ronde 2** (ingrediënten, recept-pijl, dungeon-quests, XP per uur). Midnight-inlog: GEDAAN.
-Geen tag of release; 5.8.0 staat alleen klaar, zie hieronder.
+5.8.0 is getagd (22 nov, Robs go), zie hieronder.
 
 🔧 **SKILL UP-VENSTER GEREPAREERD (22 nov via sparring, letterlijk: *"venster ja"*), getest: *"Venster is goed"* (klik en scroll open):** stijl A (dicht),
 "MH doesn't know which trainer/vendor yet", knop noemt het beroep. Ronde 2 uit zijn screenshots: XP-regel, Linen Cloth,
@@ -26,15 +26,15 @@ nakijken."*): 55 feiten = 36 bevestigd, 3 tegengesproken (rogue-keten 2x, Cantat
 `docs/forever/POLESTAR_NAKIJK_2026-11-22.md`. Repareren wacht op Robs keuze via sparring; 5.8.0 blijft zoals het staat.
 Licentie: niets wijzigen tot sparring zijn keuze stuurt.
 
-🚦 **5.8.0 KLAARGEZET, NIET UITBRENGEN.** Rob 22 nov avond via sparring, letterlijk: *"Zerlt klaar , ik log straks nog in"* (op
-"zet 5.8.0 klaar"). Alleen het klaarzetten mag: versie, tekst, Fable-ronde, naamsvermelding. Zijn *"We doen nog geen
-release. Dan kom je wat anders tegen."* blijft gelden voor uitbrengen: geen tag, gh release of upload zonder zijn woorden.
+🚦 **5.8.0 GETAGD (gewone release).** Rob 22 nov avond via sparring, letterlijk: *"crates zwijgen en go voor 5.8.0"*.
+Daarmee vervalt *"We doen nog geen release"* voor 5.8.0. Weetjes, libraries en HandyNotes gingen niet mee.
+Run + CurseForge-bestanden: zie SITE_SEIN.
 Fable-ronde GEDAAN: 1 echte fout gerepareerd (Scholomance 5803 = alleen Alliance, Horde = 5804; `QUEST_FIX` in de generator)
-+ 4 kleine tekstverbeteringen. Voor Rob via sparring: Waylaid Crates + mage Study-tip wel of niet in de tekst. NIET door Fable:
++ 4 kleine tekstverbeteringen. Waylaid Crates + mage Study-tip: Rob koos zwijgen. NIET door Fable:
 vensters, spel, vertalingen, de keuze van de gidsen.
  Midnight + releasetekst GOEDGEKEURD op fac9074 (Rob: *"midnight goed tekst goed"*; ingrediënt-tooltip niet los afgevinkt).
  3 Forever-tests GEDAAN (Rob: *"de drie testjes zie screens"*): Way (alleen de chatregel gezien, aankomen open), rest off/on,
- prijs bij grijs. OPEN vóór een go: crates-keuze. Een go is er niet.
+ prijs bij grijs.
 ▶ **NU: KAART B (Rob 22 nov via sparring, letterlijk: *"b"*):** level 1-briefjes voor alle classes/rassen + elk class-queststapje
 als opvallend kaartje (ForeverCQWindow). GEBOUWD, kaartje GOEDGEKEURD op een Tauren hunter (Rob 22 nov: *"kaartje goed,
 hebben we dit voor meerdere classes ?"*; andere classes, latere quests en knoppen open in TESTLIJST): 56 combinaties, 0 zonder briefje (Skyborne op level 2);

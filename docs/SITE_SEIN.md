@@ -28,11 +28,12 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
-## 22 nov 2026 — 5.8.0 klaargezet (NIET uitgebracht)
-- Tag + commit:   geen tag
-- Status:         alleen op main
-- Mag op de site: nee (Rob: "Zerlt klaar" = alleen klaarzetten; "We doen nog geen release." geldt voor uitbrengen)
-- Speler ziet:    nog niets. De tekst staat klaar in `RELEASE_NOTES.md` (= `docs/CURSEFORGE_5.8.0.md`).
+## 22 nov 2026 — release 5.8.0 (getagd)
+- Tag + commit:   v5.8.0 / de commit "Release 5.8.0"
+- Status:         getagd
+- Mag op de site: nog niet, pas als CurseForge het toont. Robs go, letterlijk: *"crates zwijgen en go voor 5.8.0"*
+                  Waylaid Crates en de mage Study-tip niet noemen.
+- Speler ziet:    de tekst in `RELEASE_NOTES.md` (= `docs/CURSEFORGE_5.8.0.md`).
 - Vervalt:        bij de release is de Platynator-pagina (Midnight, tab Addons) weg: haal haar dan van de site als ze
                   daar genoemd wordt.
 - Naamsvermelding: staat nu in de releasetekst en de CurseForge-beschrijving (Polestar, AllTheThings, Spoken / Efficient
@@ -42,9 +43,9 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 - Spel:           Forever + Midnight (alleen Platynator-pagina weg)
 
 ## 22 nov 2026 — Forever: class quest als kaartje, ook het briefje van level 1
-- Tag + commit:   geen tag (commit: zie git log, "class quest card")
-- Status:         alleen op main
-- Mag op de site: nee (Rob: "We doen nog geen release.")
+- Tag + commit:   v5.8.0 (commit: zie git log, "class quest card")
+- Status:         getagd
+- Mag op de site: nog niet, pas als CurseForge het toont (release 5.8.0)
 - Speler ziet:    *(getest door Rob op een Tauren hunter)* een opvallend kaartje met je class-queststap (quest, bij wie, waar), nu ook het briefje dat een nieuw
                   character naar de trainer stuurt, voor alle 56 combinaties van class en ras. Heb je HandyNotes: Class
                   Trainers, dan gebruikt de pijl bij class quests de plek uit die addon.
@@ -53,19 +54,19 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 - Spel:           Forever
 
 ## 22 nov 2026 — Forever: meer vensters dicht in de stijl van het overzicht
-- Tag + commit:   geen tag (commit: zie git log, "windows in style A")
-- Status:         alleen op main
-- Mag op de site: nee (geen release)
-- Speler ziet:    Bags full, Crates, Durability en How to play zijn dicht, in de stijl van het overzicht *(getest door Rob)*. (Zeven oude
+- Tag + commit:   v5.8.0 (commit: zie git log, "windows in style A")
+- Status:         getagd
+- Mag op de site: nog niet, pas als CurseForge het toont (release 5.8.0)
+- Speler ziet:    Bags full, Durability en How to play zijn dicht, in de stijl van het overzicht *(getest door Rob)*. (Zeven oude
                   reservevensters ook, die opent een speler niet meer: niet noemen.)
 - Knoplabels:     geen
 - Commando's:     /mh bagfull show, /mh play
 - Spel:           Forever
 
 ## 22 nov 2026 — Forever: Skill up-venster leesbaar, knop noemt het beroep
-- Tag + commit:   geen tag (commit: zie git log, "Skill up window")
-- Status:         alleen op main
-- Mag op de site: nee (getest door Rob: "Venster is goed", niet de klik; geen release)
+- Tag + commit:   v5.8.0 (commit: zie git log, "Skill up window")
+- Status:         getagd
+- Mag op de site: nog niet, pas als CurseForge het toont (release 5.8.0)
 - Speler ziet:    het Skill up-venster is dicht (stijl van het overzicht), zegt erbij als MH nog niet weet welke trainer of
                   verkoper, en de knop onderin noemt het beroep.
 - Knoplabels:     FSKILL_GO_TRAINER_FMT (het label van 5.7.0 was FSKILL_GO_TRAINER)
@@ -73,9 +74,9 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 - Spel:           Forever
 
 ## 22 nov 2026 — Forever: waar haal ik dit recept?
-- Tag + commit:   geen tag (commit: zie git log, "where you get a recipe")
-- Status:         alleen op main
-- Mag op de site: nee (nog niet door Rob getest, geen release)
+- Tag + commit:   v5.8.0 (commit: zie git log, "where you get a recipe")
+- Status:         getagd
+- Mag op de site: nog niet, pas als CurseForge het toont (release 5.8.0)
 - Speler ziet:    bij een recept dat je nog niet kent: waar je het haalt (trainer, verkoper, monsters, quest), wat je
                   ervoor nodig hebt, en bij 206 recepten een pijl. Waar het oude kennis kan zijn staat "Classic data, not
                   yet seen in Forever". 1102 van de 2119 recepten.
@@ -87,9 +88,9 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 - Spel:           Forever
 
 ## 22 nov 2026 — Forever: bekende recepten kloppen per character
-- Tag + commit:   geen tag (commit: zie git log, "known recipes")
-- Status:         alleen op main
-- Mag op de site: nee (deels getest door Rob, geen release)
+- Tag + commit:   v5.8.0 (commit: zie git log, "known recipes")
+- Status:         getagd
+- Mag op de site: nog niet, pas als CurseForge het toont (release 5.8.0)
 - Speler ziet:    Skill up onthoudt per character alleen de recepten uit je eigen beroepenvenster; het beroep van iemand
                   anders (een link) telt niet mee. *(getest door Rob: eigen beroepen op één character; niet de link)*
 - Knoplabels:     geen
@@ -97,9 +98,9 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 - Spel:           Forever
 
 ## 22 nov 2026 — Forever: Bags full helpt al bij bijna vol
-- Tag + commit:   geen tag (commit: zie git log, "almost full")
-- Status:         alleen op main
-- Mag op de site: nee (nog niet door Rob getest, geen release)
+- Tag + commit:   v5.8.0 (commit: zie git log, "almost full")
+- Status:         getagd
+- Mag op de site: nog niet, pas als CurseForge het toont (release 5.8.0)
 - Speler ziet:    Bags full opent al bij bijna vol (standaard 2 plekken vrij), met schakelaar. Grijze dingen zonder
                   verkoopwaarde kunnen ook weg; Destroy vraagt altijd eerst.
 - Knoplabels:     FBAG_EARLY_SW, FBAG_TITLE_NEAR
@@ -107,9 +108,9 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 - Spel:           Forever
 
 ## 22 nov 2026 — Forever: Bags full, eerst je reservetas
-- Tag + commit:   geen tag (commit: zie git log, "spare bag")
-- Status:         alleen op main
-- Mag op de site: nee (nog niet door Rob getest, geen release)
+- Tag + commit:   v5.8.0 (commit: zie git log, "spare bag")
+- Status:         getagd
+- Mag op de site: nog niet, pas als CurseForge het toont (release 5.8.0)
 - Speler ziet:    heb je een leeg tasvakje en een losse gewone tas, dan biedt Bags full eerst aan die aan te trekken
                   (één klik, er gaat niets weg).
 - Knoplabels:     geen eigen sleutel (de knop toont het woord van het spel, Engels: Equip)
@@ -117,9 +118,9 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 - Spel:           Forever
 
 ## 22 nov 2026 — Forever: Bags full beschermt je voorraad
-- Tag + commit:   geen tag (commit: zie git log, "never suggest food")
-- Status:         alleen op main
-- Mag op de site: nee (deels getest door Rob, geen release)
+- Tag + commit:   v5.8.0 (commit: zie git log, "never suggest food")
+- Status:         getagd
+- Mag op de site: nog niet, pas als CurseForge het toont (release 5.8.0)
 - Speler ziet:    Bags full stelt eten, drinken, munitie, class-reagentia en quest-items nooit meer voor als weggooien, en
                   ook geen gif, drankjes, elixers, flasks, verband, scrolls, sleutels, tassen, recepten of leerboeken,
                   en geen huisdieren, rijdieren of andere dingen waar je iets van leert.
@@ -130,9 +131,9 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 - Spel:           Forever
 
 ## 22 nov 2026 — Forever: waar haal ik dit ingrediënt?
-- Tag + commit:   geen tag (commit: zie git log, "where you get a reagent")
-- Status:         alleen op main
-- Mag op de site: nee (nog niet door Rob getest, geen release)
+- Tag + commit:   v5.8.0 (commit: zie git log, "where you get a reagent")
+- Status:         getagd
+- Mag op de site: nog niet, pas als CurseForge het toont (release 5.8.0)
 - Speler ziet:    bij 194 ingrediënten in de tooltip en in Skill up: dat het van monsters valt (geen plek), met welk beroep je het verzamelt (Herbalism, Mining, Skinning)
                   of wie het verkoopt. Skill up heeft een knop met de pijl naar die verkoper. Bron: AllTheThings (MIT) +
                   Wowhead + Zygor (alleen nummers) + de client + Polestar-opnames (CC BY 4.0).
@@ -142,10 +143,9 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 - Spel:           Forever
 
 ## 22 nov 2026 — Forever: talentpunt valt op in Do this now, zonder knop
-- Tag + commit:   geen tag (commit: zie git log, "talent window")
-- Status:         alleen op main
-- Mag op de site: nee (geen release). Regel getest door Rob; de versie zonder knop alleen voorwaardelijk (ronde 1: vrij punt,
-                  pet). Het gevecht erna was zonder "action blocked".
+- Tag + commit:   v5.8.0 (commit: zie git log, "talent window")
+- Status:         getagd
+- Mag op de site: nog niet, pas als CurseForge het toont (release 5.8.0)
 - Speler ziet:    met een vrij talentpunt staat die regel bovenaan in Do this now, in goud met een ster, en noemt de toets
                   waarmee je zelf Talents opent. MH opent dat venster niet meer (dat kon "action blocked" geven).
 - Knoplabels:     geen
@@ -153,18 +153,18 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 - Spel:           Forever
 
 ## 22 nov 2026 — Forever: /mh rest off|on|test gerepareerd
-- Tag + commit:   geen tag (commit: zie git log, "Forever XP per hour")
-- Status:         alleen op main
-- Mag op de site: nee (reparatie, niet in het spel gezien, geen release; in 5.7.0 is het nog kapot)
+- Tag + commit:   v5.8.0 (commit: zie git log, "Forever XP per hour")
+- Status:         getagd
+- Mag op de site: nog niet, pas als CurseForge het toont (release 5.8.0)
 - Speler ziet:    /mh rest off zet de waarschuwing voor weinig mana of health weer uit; /mh rest on zet hem terug.
 - Knoplabels:     geen nieuwe
 - Commando's:     /mh rest on|off|test|mana <n>|health <n>
 - Spel:           Forever
 
 ## 21 nov 2026 — Forever: XP per uur en tijd tot je volgende level
-- Tag + commit:   geen tag (commit: zie git log, "Forever XP per hour")
-- Status:         alleen op main
-- Mag op de site: nee (nog niet door Rob getest, geen release)
+- Tag + commit:   v5.8.0 (commit: zie git log, "Forever XP per hour")
+- Status:         getagd
+- Mag op de site: nog niet, pas als CurseForge het toont (release 5.8.0)
 - Speler ziet:    Onder de XP-balk van het Forever-overzicht: "level N in X h Y min", in het tempo van je laatste uur
                   spelen; de tooltip geeft je XP per uur. Alleen ingelogde tijd telt. Schakelaar in Quiet helpers.
 - Knoplabels:     FXPRATE_SW
@@ -172,9 +172,9 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 - Spel:           Forever
 
 ## 21 nov 2026 — Forever: dungeon-quests per dungeon (22 nov terug op main)
-- Tag + commit:   geen tag (commit: zie git log, "dungeon quests back")
-- Status:         alleen op main
-- Mag op de site: nee (nog niet door Rob getest, geen release)
+- Tag + commit:   v5.8.0 (commit: zie git log, "dungeon quests back")
+- Status:         getagd
+- Mag op de site: nog niet, pas als CurseForge het toont (release 5.8.0)
 - Speler ziet:    In het overzicht, tab Dungeons, heeft een dungeon met quests een knop "Quests N": een venster met de
                   quests die je eerst ophaalt (questgever + zone, knop "Way ›" zet de pijl), wat al in je log staat, wat je
                   in de dungeon krijgt, wat later in een reeks komt, en hoeveel je al gedaan hebt. 32 dungeons; nummers en

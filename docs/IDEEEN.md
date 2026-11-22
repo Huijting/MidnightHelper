@@ -43,9 +43,9 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 - Uitkomst: `docs/forever/POLESTAR_NAKIJK_2026-11-22.md`. 5.8.0 blijft zoals het staat.
 - Spel: F. Site: niets.
 
-### Release 5.8.0 klaarzetten (22 nov) — ✅ JA voor klaarzetten, GEEN go voor uitbrengen
+### Release 5.8.0 (22 nov) — ✅ klaargezet + GO voor uitbrengen
 - Bron: Rob 22 nov via sparring, op "zet 5.8.0 klaar", letterlijk: *"Zerlt klaar , ik log straks nog in"*.
-- Vervalt: "geen bump, releasetekst of Fable-ronde". Blijft voor het uitbrengen: *"We doen nog geen release."*
+- Vervalt: "geen bump, releasetekst of Fable-ronde". Daarna, letterlijk: *"crates zwijgen en go voor 5.8.0"*; daarmee vervalt ook *"We doen nog geen release."*
 - Spel: F (Midnight: niets nieuws). Site: pas na de upload.
 
 ### Forever: leren van Polestar/FlowUp — dungeon-quests, "waar haal ik dit vandaan?", bootwachttijd, XP per uur (wens van Rob, 21 nov) — ✅ JA, 4, 2 en 1 (B) GEBOUWD, wacht op ronde 2, 3 rust

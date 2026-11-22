@@ -38,8 +38,8 @@ Sluit het spel eerst helemaal af: het versienummer en de nieuwe bestanden laden 
 - [x] ✅ (zelfde melding; sparrings stap met "als nog niet gedaan") Midnight: de pijl bij rares.
 - [x] ✅ (zelfde melding; sparrings stap met "als nog niet gedaan") Midnight: één gevecht zonder "action blocked".
 - [ ] Midnight: tooltip op een ingrediënt. (Mocht hij overslaan zonder ingrediënt: niet als gezien gemeld.)
-- [x] ✅ (zelfde melding: *"tekst goed"*) De releasetekst van 5.8.0 zoals op fac9074, met de Platynator-regel. De keuze over
-      Waylaid Crates staat daar los van en is open.
+- [x] ✅ (zelfde melding: *"tekst goed"*) De releasetekst van 5.8.0 zoals op fac9074, met de Platynator-regel. Waylaid Crates
+      blijft eruit (Rob: *"crates zwijgen en go voor 5.8.0"*).
 - [x] ✅ (Rob 22 nov via sparring: *"de drie testjes zie screens"*; screenshot nagelezen) Forever: Quests bij een dungeon →
       Way › meldt "arrow set to Rahauro (Thunder Bluff) for "Testing an Enemy's Strength"", gelijk aan de data (q 5723, npc
       11833); die regel komt pas als de waypoint gezet is (code).

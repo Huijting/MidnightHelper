@@ -4,8 +4,8 @@ All notable changes to this project are documented in this file.
 
 ## 5.8.0
 
-📌 **KLAARGEZET 2026-11-22, NIET uitgebracht (geen tag).** Rob via sparring, letterlijk: *"Zerlt klaar , ik log straks nog
-in"* (op "zet 5.8.0 klaar"). Uitbrengen wacht op zijn go; *"We doen nog geen release"* geldt daarvoor nog.
+📌 **2026-11-22, RELEASE (Rob via sparring, letterlijk: "crates zwijgen en go voor 5.8.0"; geen beta).** Waylaid Crates en
+de mage Study-tip blijven uit de spelerstekst.
 In-game: CHANGELOG_580_1 t/m _9. `RELEASE_NOTES.md` = `docs/CURSEFORGE_5.8.0.md`. Commits v5.7.0..main (21 en 22 nov).
 Wat Rob testte en wat niet: TESTLIJST 21 en 22 nov.
 
