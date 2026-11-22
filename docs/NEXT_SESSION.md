@@ -6,15 +6,17 @@
 character, Bags full (niets wat hij wil houden, grijs + Destroy), gevecht zonder "action blocked". Voorwaardelijk, dus niet
 zeker: Equip, vrij talentpunt, pet. Niet los getest: per soort, bijna vol + schakelaar, grijs zonder waarde, link, Equip in
 gevecht, andere characters. **OPEN: ronde 2** (ingrediënten, recept-pijl, dungeon-quests, XP per uur) **+ Midnight-inlog.**
-Niets nieuws bouwen, geen tag of release.
+Geen tag of release; wat nu gebouwd wordt: zie NU hieronder.
 
 🔧 **SKILL UP-VENSTER GEREPAREERD (22 nov via sparring, letterlijk: *"venster ja"*), getest: *"Venster is goed"* (klik en scroll open):** stijl A (dicht),
 "MH doesn't know which trainer/vendor yet", knop noemt het beroep. Ronde 2 uit zijn screenshots: XP-regel, Linen Cloth,
 Light Leather, recepten in Skill up gezien; pijl, persoon en dungeon-quests niet. ▶ Robs *"Doe maar vensters A"*: alle 11
 andere GEBOUWD (`S.SkinPanel` in ForeverStyle.lua), wacht op test: BagFull, Crates, Durability, HowToPlay. De andere 7
 (Chars, Dungeons, Macros, ProfTrainers, Trainer, Vendors, Weapons) openen niet meer: reserve achter het overzicht.
-🚦 Robs *"dan weer een mooie … voor release, denk je niet?"* was een VRAAG aan sparring, geen go: geen bump, releasetekst,
-Fable-ronde, tag of release tot zijn woorden er zijn.
+🚦 **GEEN RELEASE (Rob 22 nov via sparring, letterlijk: *"We doen nog geen release. Dan kom je wat anders tegen."*):** geen bump,
+releasetekst, Fable-ronde of tag, en niet opnieuw voorstellen tot Rob erover begint.
+▶ **NU: KAART B (Rob 22 nov via sparring, letterlijk: *"b"*):** level 1-briefjes voor alle classes/rassen + elk class-queststapje
+als opvallend kaartje (ForeverCQWindow). Onderzoek loopt, nog niets gebouwd.
 
 ▶ **ROBS KEUZES 22 nov, rond het ontbijt (via Sparring 22-11), letterlijk:** *"overnemen, ja"* (1. Zygor kijken of
 overnemen; 2. mag het vrije deel van Polestar uitgezocht worden) · *"knop weg, en polestar heeft ook iets om je volle tassen

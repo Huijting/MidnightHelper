@@ -49,6 +49,17 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 - Meting (1) gedaan 22 nov (*"meting gedaan"*): Forever geeft bij Cooking geen bron (0 van 132), dus eigen data per recept.
 - Spel: F. Site: nog niet.
 
+### Forever: class-queststap als opvallend kaartje + de level 1-briefjes (wens van Rob, 22 nov) — ✅ JA (kaart B), onderzoek loopt
+- Bron: Rob 22 nov via sparring, met een screenshot van Polestar, letterlijk: *"We doen nog geen release. Dan kom je wat
+  anders tegen. Kijk, dit plaatje. Ik vind dat gaaf. Dit valt duidelijk op dat ik als Hunter dit nog kan doen als class
+  step blijkbaar. Of iets. Wat is het? Ja, het is een class quest part of your route. Dus ja, kijk maar eventjes."* →
+  op de opties A/B/C: *"b"*.
+- B = de briefjes van level 1 voor alle classes en rassen (pas tonen als je ze kunt aannemen, nooit vóór een spell-keten,
+  niet eeuwig) + elke class-queststap in het bestaande losse venstertje als kaartje in stijl A, rand in de classkleur.
+- Vervalt hiermee: "level 1-briefjes bewust weggelaten" en de ene lange zin in het venstertje.
+- Polestar alleen als idee (GPL): geen code, opmaak, plaatjes of zinnen.
+- Spel: F. Voor wie: N (AFGELEID). Site: nog niet.
+
 ### Forever: Skill up-venster repareren (22 nov) — ✅ getest (Rob: "Venster is goed"); klik en scroll nog open
 - Bron: Rob 22 nov via sparring, met screenshot, letterlijk: *"venster ja"* (dicht in stijl A; "MH weet nog niet welke
   trainer/verkoper"; de knop noemt het beroep).
