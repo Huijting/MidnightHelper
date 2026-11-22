@@ -24,9 +24,10 @@ pas na de quest ervoor, tot en met level 5 (AFGELEID), nooit vóór een spell-ke
 overgenomen plekken in ForeverClassQuests nu van Zygor (mediaan 0,11, grootste 1,01 kaartpunt: Beram 3032); wie die addon heeft
 krijgt zijn plek live (`LivePlace`; Robs meting > gezien > /mh trainer here > HandyNotes > lijst; niets opgeslagen).
 ✅ **KLADJES A (Rob 22 nov via sparring, letterlijk: *"kladjes ja"*), gedaan:** die cijfers uit 11 docs en 2 commentaarregels
-(71 paren, 131 vindplaatsen → 0; code-waarden en git-geschiedenis ongemoeid). ⏸️ Buiten de lijst, alleen gemeld, niet aanpassen
-zonder Robs woorden: HUNTER-doc r.240 (Lyria, samengeplakte schrijfwijze) + 4 regels met ronde getallen (Garen in het PALADIN-doc,
-Mims in het PRIEST-doc). Andere HandyNotes-addons zijn niet nagelopen.
+(71 paren, 131 vindplaatsen → 0; code-waarden en git-geschiedenis ongemoeid). Daarna nog 5 regels in 3 van die docs (HUNTER r.240,
+PALADIN r.271 + 411, PRIEST r.340 + 502) → 0. ⚠️ Dat die 5 onder "kladjes ja" vallen is **uitleg van sparring, geen tweede ja van
+Rob**; sparring meldde het hem en hij kan het intrekken met "die 5 laten" (dan die 5 terug zoals in 79343f6).
+Buiten die 11 docs niets aanpassen. Andere HandyNotes-addons zijn niet nagelopen.
 
 ▶ **ROBS KEUZES 22 nov, rond het ontbijt (via Sparring 22-11), letterlijk:** *"overnemen, ja"* (1. Zygor kijken of
 overnemen; 2. mag het vrije deel van Polestar uitgezocht worden) · *"knop weg, en polestar heeft ook iets om je volle tassen

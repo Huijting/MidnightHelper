@@ -237,7 +237,7 @@ een speler die al naast de level 10-trainer staat eerst naar een andere trainer.
 UiMap-id's: GEMETEN in DB2 `UiMap` 1.60.1.70938: Teldrassil 1438, Dun Morogh 1426, Durotar 1411, Mulgore 1412, Elwynn Forest 1429,
 Zephras Isle 2521, Felwood 1448, **Azshara 1447 (nieuw voor dit bestand)**, Silithus 1451. Uit de bestaande P/WL_P/WR_P en HN-koppen:
 Darnassus 1457, Ironforge 1455, Stormwind City 1453, Orgrimmar 1454, Thunder Bluff 1456, Swamp of Sorrows 1435.
-Regel: trainers uit HandyNotes (net als `WR_P.lyria` = HN `[41106563]`), de rest uit Zygor. Niets in het spel gezien.
+Regel: trainers uit HandyNotes (net als `WR_P.lyria` = HN [stond in HandyNotes]), de rest uit Zygor. Niets in het spel gezien.
 
 ### 5.1 NPC's
 

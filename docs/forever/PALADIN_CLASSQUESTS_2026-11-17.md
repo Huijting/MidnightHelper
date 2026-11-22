@@ -268,7 +268,7 @@ Regel: HandyNotes > Zygor > gids. Stormwind en Eastern Plaguelands hebben in For
 | ulric | Ulric Frostveil (259649) | Ashenvale 1440 | 11.8, 34.5 | AW, WH |
 | ott | Ott (3539) | Hillsbrad 1424 | 60.4, 26.2 | AW, WH |
 | oldFireEye | – (Old Fire-Eye 259897 zwerft) | 1421 | 49.4, 86.8 | chaosboost; ligt in de WH-spawnwolk 43-51, 79-89 |
-| garen | Garen Largo (260093) | 1458 | 47.50, 14.90 | HN |
+| garen | Garen Largo (260093) | 1458 | [stond in HandyNotes] | HN |
 | alodan | Alodan the Hopeful (246344) | Thunder Bluff 1456 | 25.40, 14.60 | HN |
 | zayus | Zayus (5994) | Orgrimmar 1454 | 35.7, 86.9 | pullcall / classic-wow.com (Classic-data) |
 
@@ -408,7 +408,7 @@ local PA_P = {
 	luminaSepulcher = { npc = "Lumina Windsinger", id = 259620, m = 1421, x = 43.3, y = 41.0 },
 	ulric = { npc = "Ulric Frostveil", id = 259649, m = 1440, x = 11.8, y = 34.5 },
 	ott = { npc = "Ott", id = 3539, m = 1424, x = 60.4, y = 26.2 },
-	garen = { npc = "Garen Largo", id = 260093, m = 1458, x = 47.50, y = 14.90 },
+	garen = { npc = "Garen Largo", id = 260093, m = 1458, xy = "stond in HandyNotes" },
 	alodan = { npc = "Alodan the Hopeful", id = 246344, m = 1456, x = 25.40, y = 14.60 },
 	zayus = { npc = "Zayus", id = 5994, m = 1454, x = 35.7, y = 86.9 },
 	-- Objective places (no NPC)

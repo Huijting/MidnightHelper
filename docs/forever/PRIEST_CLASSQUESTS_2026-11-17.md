@@ -337,7 +337,7 @@ Regel: Rob gemeten > HandyNotes > Zygor > gids. Niets hiervan is in het spel gez
 |---|---|---|---|---|---|
 | `laurena` | High Priestess Laurena (376) | 1453 | [stond in HandyNotes] | HN `Data.lua:207` | Zygor 49.53, 44.57 (Z-A:21867); WH-T 49.4-49.6, 44.4-44.8. De WH-T-set 38.4-38.8, 26.2-26.6 is de oude kaartruimte: niet gebruiken. |
 | `rohan` | High Priest Rohan (11406) | 1455 | [stond in HandyNotes] | HN :131 | Zygor 24.72, 8.14; WH-T 23.4-26.8, 7.0-9.0 (hij loopt rond) |
-| `mims` | High Priestess Mims (258785) | 1455 | 24.80, 9.70 | HN :132 | WH-T 24.8, 9.4 / 24.8, 10 / 25.6, 9.4 / 25.6, 10.4; IV-DB 24.8, 9.4 en 24.9, 10.0 |
+| `mims` | High Priestess Mims (258785) | 1455 | [stond in HandyNotes] | HN :132 | WH-T 24.8, 9.4 / 24.8, 10 / 25.6, 9.4 / 25.6, 10.4; IV-DB 24.8, 9.4 en 24.9, 10.0 |
 | `alathea` | Priestess Alathea (11401) | 1457 | [stond in HandyNotes] | HN :38 | Zygor 39.53, 81.18; WH-T 38.8-40.2, 80.4-81.6 |
 | `urkyo` | Ur'kyo (6018) | 1454 | [stond in HandyNotes] | HN :177 | Zygor 35.59, 87.83; WH-T 35.4-35.6, 87.4-87.6 |
 | `aelthalyste` | Aelthalyste (4606) | 1458 | 49.26, 17.12 | HN :299 | Zygor 49.27, 17.11; WH-T 48.2-49.6, 17.0-19.2 |
@@ -499,7 +499,7 @@ local PR_P = {
 	-- The race's high priest: gives and takes the spell quest at 10 and at 20.
 	laurena = { npc = "High Priestess Laurena", id = 376, m = 1453, xy = "stond in HandyNotes" },
 	rohan = { npc = "High Priest Rohan", id = 11406, m = 1455, xy = "stond in HandyNotes" },
-	mims = { npc = "High Priestess Mims", id = 258785, m = 1455, x = 24.80, y = 9.70 },
+	mims = { npc = "High Priestess Mims", id = 258785, m = 1455, xy = "stond in HandyNotes" },
 	alathea = { npc = "Priestess Alathea", id = 11401, m = 1457, xy = "stond in HandyNotes" },
 	urkyo = { npc = "Ur'kyo", id = 6018, m = 1454, xy = "stond in HandyNotes" },
 	aelthalyste = { npc = "Aelthalyste", id = 4606, m = 1458, x = 49.26, y = 17.12 },

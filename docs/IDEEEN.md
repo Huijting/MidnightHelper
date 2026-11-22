@@ -68,6 +68,7 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 - Vervalt: "niet aanraken tot zijn ja", alleen voor ForeverClassQuests.lua.
 - Daarna de kladjes: Rob 22 nov via sparring, letterlijk: *"kladjes ja"* = de overgenomen cijfers uit 11 docs en 2
   commentaarregels, "stond in HandyNotes" ervoor in de plaats. ✅ Gedaan; in oude git-versies blijven ze.
+  Ook 5 achtergebleven regels in 3 van die docs: uitleg van sparring van dat ja, geen nieuw woord van Rob ("die 5 laten" trekt het in).
 - Spel: F. Site: nog niet.
 
 ### Forever: Skill up-venster repareren (22 nov) — ✅ getest (Rob: "Venster is goed"); klik en scroll nog open
