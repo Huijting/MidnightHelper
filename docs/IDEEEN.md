@@ -48,7 +48,7 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 - Meting (1) gedaan 22 nov (*"meting gedaan"*): Forever geeft bij Cooking geen bron (0 van 132), dus eigen data per recept.
 - Spel: F. Site: nog niet.
 
-### Forever: volle tassen onderweg leger maken (wens van Rob, 22 nov) — ✅ JA op 1, 2 en 3, nog te bouwen
+### Forever: volle tassen onderweg leger maken (wens van Rob, 22 nov) — ✅ JA op 1, 2 en 3; eerst bescherming GEBOUWD, 1-3 nog te bouwen
 - Bron: Rob 22 nov via sparring: *"polestar heeft ook iets om je volle tassen onderweg leger te maken, check dat ook"* →
   op vier ideeën: *"tas 1 2 3"*.
 - (1) reservetas + leeg tasvakje: eerst aanbieden om aan te trekken. (2) De hulp komt al bij bijna vol, met schakelaar.

@@ -12,6 +12,9 @@ onderweg leger te maken, check dat ook, tijd voor koffie en ontbijt dus ga door 
       ✅ Reagentia 87 → 172 (+78 valt van monsters, +7 Skinning, 17 verkopers; één bron blijft stil). Wacht op test.
 - [ ] 3. Tassen, eigen code (Polestar = GPL, alleen het idee): eerst nameten of eten, drinken, munitie, class-reagentia als
       weggooien kunnen verschijnen; dan reservetas, hulp bij bijna vol, grijs zonder verkoopwaarde. (4) markeren koos hij niet.
+      ✅ a GEMETEN + GEBOUWD (wacht op test): ze konden alle vier verschijnen (286 soorten eten/drinken, 14 munitie, class-
+      reagentia), nu nooit meer, ook niet via de Yes van Destroy. Nog open: b, c, d. Vraag bij Rob (via sparring): ook gif,
+      drankjes, verband, scrolls, recepten, tassen, sleutels beschermen? Die kunnen nog als weggooien verschijnen.
 - [ ] 4. Recepten: Zygor mag als bron. Craft Ladder alleen nakijken als tweede bron, geen waarden: dat is de uitleg van
       sparring (regel 7 nov), GEEN woord van Rob; hij kan het intrekken. Pijl nooit naar zomaar een trainer.
 - [ ] 5. Polestar: is het CC BY 4.0-deel los te krijgen, wat dekt het? Alleen melden, niets overnemen.

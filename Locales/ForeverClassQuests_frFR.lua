@@ -1685,7 +1685,7 @@ for k, v in pairs({
 	FSKILL_TIP_OFF = "lignes de progression dans les infobulles désactivées. /mh skillup on les réactive.",
 	FBAG_TITLE = "Sacs pleins",
 	FBAG_SUB = "Les trois objets les moins chers de tes sacs, et pourquoi ils peuvent partir :",
-	FBAG_NONE = "MH n'a rien trouvé qui peut partir sans risque. Objets de quête, outils, composants pour tes métiers, améliorations et objets de qualité « Rare » ou mieux ne sont jamais proposés.",
+	FBAG_NONE = "MH n'a rien trouvé qui peut partir sans risque. Objets de quête, outils, nourriture et boissons, munitions, composants de classe, composants pour tes métiers, améliorations et objets de qualité « Rare » ou mieux ne sont jamais proposés.",
 	FBAG_WHY_GREY = "« Mauvais » (gris) : camelote, ne vaut que son prix chez le marchand.",
 	FBAG_WHY_GEAR = "Équipement qui n'est pas meilleur que le tien.",
 	FBAG_WHY_CHEAP = "Le moins cher chez un marchand ; pas utile pour une quête ou tes métiers.",

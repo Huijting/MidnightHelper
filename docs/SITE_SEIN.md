@@ -28,6 +28,16 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 22 nov 2026 — Forever: Bags full beschermt je voorraad
+- Tag + commit:   geen tag (commit: zie git log, "never suggest food")
+- Status:         alleen op main
+- Mag op de site: nee (nog niet door Rob getest, geen release)
+- Speler ziet:    Bags full stelt eten, drinken, munitie, class-reagentia en quest-items nooit meer voor als weggooien.
+                  In 5.7.0 kan dat bij eten, drinken, munitie en class-reagentia nog wel.
+- Knoplabels:     geen
+- Commando's:     /mh bagfull
+- Spel:           Forever
+
 ## 22 nov 2026 — Forever: waar haal ik dit ingrediënt?
 - Tag + commit:   geen tag (commit: zie git log, "where you get a reagent")
 - Status:         alleen op main

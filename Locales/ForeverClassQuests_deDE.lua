@@ -1683,7 +1683,7 @@ for k, v in pairs({
 	FSKILL_TIP_OFF = "Skill-up-Zeilen in Tooltips aus. /mh skillup on holt sie zurück.",
 	FBAG_TITLE = "Taschen voll",
 	FBAG_SUB = "Die drei billigsten Dinge in deinen Taschen, und warum sie wegkönnen:",
-	FBAG_NONE = "MH hat nichts gefunden, das sicher wegkann. Questgegenstände, Werkzeuge, Zutaten für deine Berufe, Verbesserungen und Gegenstände ab Qualität „Rar“ schlägt MH nie vor.",
+	FBAG_NONE = "MH hat nichts gefunden, das sicher wegkann. Questgegenstände, Werkzeuge, Essen und Trinken, Munition, Klassenreagenzien, Zutaten für deine Berufe, Verbesserungen und Gegenstände ab Qualität „Rar“ schlägt MH nie vor.",
 	FBAG_WHY_GREY = "„Schlecht“ (grau): Plunder, nur den Händlerpreis wert.",
 	FBAG_WHY_GEAR = "Ausrüstung, die nicht besser ist als deine.",
 	FBAG_WHY_CHEAP = "Beim Händler am billigsten; nicht für eine Quest oder deine Berufe nötig.",

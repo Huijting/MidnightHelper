@@ -25,6 +25,14 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 22 nov — Forever: Bags full gooit geen voorraad weg (tassen, punt a)
+
+- [ ] Typ `/reload`, dan `/mh bagfull show`. Eten, drinken, pijlen, kogels en class-reagentia (bv. Rune of Teleportation,
+      Ankh, Symbol of Kings) staan er NIET in.
+- [ ] `/mh bagfull`: bij "left out" staat "food or drink", "ammunition" of "class reagent" met het aantal.
+- [ ] Een gewoon grijs ding staat er nog wel in. Destroy vraagt eerst. Klik Yes. **Daarna een gevecht**: geen "action
+      blocked" op naam van MidnightHelper.
+
 ## 22 nov — Forever: waar haal ik dit ingrediënt? (Rob: "1 b", "plek ja", "overnemen, ja")
 
 - [ ] Sluit Forever helemaal af en start opnieuw (nieuwe bestanden), geen foutmelding.

@@ -10,7 +10,8 @@ local _, ns = ...
 	ERR_INV_FULL — what Blizzard's own LootFrame listens for, GEMETEN in the Forever UI source 1.60.1.70959), a small window
 	lists the three cheapest items (vendor value x stack) with the reason, and, while a loot window is open, compares the
 	loot with your cheapest item. You throw away or sell yourself.
-	Never suggested: quest items, profession tools (ns.ForeverIsTool, ForeverToolGuard.lua), ingredients for a profession
+	Never suggested: quest items, profession tools (ns.ForeverIsTool, ForeverToolGuard.lua), food, drink, ammunition and
+	class reagents (KeepKind, 22 Nov 2026), ingredients for a profession
 	you have (ns.ReagentUseText green), gear better than what you wear (ns.ForeverGearTipText), Rare and better (Forever
 	asks you to type DELETE for those), items without a vendor value, special bags.
 	Step 2 (built 20 Nov 2026 after Rob's test, see the Step 2 block below): Destroy per row (with a "sure?"), Pick up the
@@ -110,6 +111,45 @@ local function IsTool(id)
 	return false
 end
 
+--- What you carry to use: food, drink, ammunition, the reagents of class spells, and quest items by their item class.
+--- 22 Nov 2026 (bags, point a): GEMETEN in DB2 1.60.1.71037, all of these passed the filter before: 286 sellable kinds of
+--- food and drink, 14 of ammunition, the class reagents (Rune of Teleportation, Ankh, Symbol of Kings ...).
+---   FOOD_ELSEWHERE = a Food or Drink spell, but not item class 0/5 (raw fish, holiday food, a few new Forever dishes).
+---   class reagents = item class 5 and 15/1; Blinding Powder is the one that a class spell uses and is filed as Junk.
+local FOOD_ELSEWHERE = { [4603] = true, [5845] = true, [6289] = true, [6291] = true, [6303] = true, [6308] = true,
+	[6317] = true, [6361] = true, [6362] = true, [6458] = true, [8365] = true, [8959] = true, [13754] = true,
+	[13756] = true, [13758] = true, [13759] = true, [13760] = true, [13888] = true, [13889] = true, [17405] = true,
+	[19997] = true, [20388] = true, [20389] = true, [20390] = true, [21071] = true, [21153] = true, [21241] = true,
+	[23161] = true, [206177] = true, [232436] = true, [232438] = true, [238637] = true, [238639] = true,
+	[240945] = true, [251917] = true, [275893] = true }
+local BLINDING_POWDER = 5530
+--- The reason this item is never suggested or destroyed by MH, or nil.
+local function KeepKind(id)
+	if FOOD_ELSEWHERE[id] then
+		return "food or drink"
+	elseif id == BLINDING_POWDER then
+		return "class reagent"
+	end
+	local f = (C_Item and C_Item.GetItemInfoInstant) or GetItemInfoInstant
+	if not f then
+		return "item kind not readable"
+	end
+	local ok, _, _, _, _, _, class, sub = pcall(f, id)
+	if not ok or type(class) ~= "number" then
+		return "item kind not readable" -- not knowing is never a reason to throw away
+	end
+	if class == 0 and sub == 5 then
+		return "food or drink"
+	elseif class == 6 then
+		return "ammunition"
+	elseif class == 5 or (class == 15 and sub == 1) then
+		return "class reagent"
+	elseif class == 12 then
+		return "quest item"
+	end
+	return nil
+end
+
 --- Is it an ingredient for a profession you have? (ReagentUse.lua colours that line green.)
 local function ForMyProfession(id)
 	if not ns.ReagentUseText then
@@ -153,6 +193,8 @@ local function Candidates()
 					skip("quest item")
 				elseif IsTool(id) then
 					skip("profession tool")
+				elseif KeepKind(id) then
+					skip(KeepKind(id))
 				elseif ForMyProfession(id) then
 					skip("ingredient for your profession")
 				else
@@ -466,7 +508,7 @@ end
 --- The "sure?" popup's Yes: a click, so the destroy runs inside it.
 local function DoDestroy(e)
 	local info = SameItem(e)
-	if not info or IsTool(e.id) or (tonumber(info.quality) or 0) >= 3 then
+	if not info or IsTool(e.id) or KeepKind(e.id) or IsQuestItem(e.bag, e.slot) or (tonumber(info.quality) or 0) >= 3 then
 		print(PREFIX .. ns:L("FBAG_DESTROY_GONE"))
 		RefreshSoon()
 		return
