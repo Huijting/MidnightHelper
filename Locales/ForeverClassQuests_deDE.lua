@@ -1706,6 +1706,10 @@ for k, v in pairs({
 	FTALENT_NEXT_MANY_FMT = "Du hast %d freie Talentpunkte. Als Nächstes: %s (%d/%d).",
 	FTALENT_NO_DIR = "(Du hast keine Richtung gewählt, also folgt MH der Reihenfolge zum Leveln.)",
 	FTALENT_BTN = "Talente",
+	-- 22 Nov 2026: where you get a reagent (ForeverReagentSource.lua). Seller, zone + distance; profession; seller. Our own translation, not reviewed by a native speaker.
+	FSRC_BUY_FMT = "MH: Verkauft von %s (%s)",
+	FSRC_GATHER_FMT = "MH: Gesammelt mit %s",
+	FSRC_GO_FMT = "Der Weg zu %s",
 	FTALENT_PROT_SECOND = "Paladin: Mach den zweiten Satz zu Schutz, zum Tanken. Solange du ihn nutzt, wähl die Richtung Schutz (Deine Klasse), dann nennt MH die Schutz-Talente.",
 	FTALENT_SW = "Nächster Talentpunkt in Mach das jetzt",
 	FTALENT_SW_DESC = "Hast du einen freien Talentpunkt, sagt Mach das jetzt, in welches Talent er gehört, aus einer Reihenfolge zum Leveln für die Richtung, die du gewählt hast. MH liest deine Talente, also überspringt es, was du schon hast. Aus: keine Talentzeile.",

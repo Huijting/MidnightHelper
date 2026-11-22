@@ -25,6 +25,17 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 22 nov — Forever: waar haal ik dit ingrediënt? + dungeon-quests weg (Rob: "1 b", "plek ja", "Zygor b")
+
+- [ ] Sluit Forever helemaal af en start opnieuw (nieuwe bestanden). `/mh overview` → tab Dungeons: geen knop "Quests N" meer
+      en geen foutmelding.
+- [ ] Muis op Copper Ore: onder "MH: Used for …" staat "MH: Gathered with Mining". Op Silverleaf: "… with Herbalism".
+- [ ] Muis op Coarse Thread of Empty Vial: "MH: Sold by <naam> (<zone>, afstand)". Klopt die verkoper, en verkoopt hij het?
+- [ ] Muis op Linen Cloth of Light Leather: géén "waar"-regel (één bron, dus MH zwijgt).
+- [ ] `/mh skillup`, een beroep waar je een te kopen ingrediënt tekortkomt: de regel staat eronder en onderin een knop
+      "The way to <naam>". Klik: de pijl gaat naar die verkoper.
+- [ ] `/mh usedfor off`: alle regels weg; `/mh usedfor` zegt waarom de laatste regel er wel of niet stond.
+
 ## 22 nov — Forever: talentpunt valt op in Do this now (Rob: "talent b")
 
 - [x] ✅ (Rob 22 nov via sparring: *"talent goed"*) Forever, character met een vrij talentpunt: typ `/reload`. In "Do this now" staat de talentregel bovenaan: goud,

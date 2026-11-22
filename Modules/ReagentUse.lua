@@ -195,6 +195,13 @@ if TooltipDataProcessor and TooltipDataProcessor.AddTooltipPostCall and Enum and
 			if rt then
 				tooltip:AddLine(rt, 0.6, 0.6, 0.6, true)
 			end
+			-- Forever, 22 Nov 2026 (Rob: "1 b", "plek ja"): where you get it (ForeverReagentSource.lua).
+			if ns.ForeverReagentSourceText then
+				local from = ns.ForeverReagentSourceText(id)
+				if from then
+					tooltip:AddLine(from, 0.6, 0.8, 1, true)
+				end
+			end
 			last = ("item %d: shown \"%s\"; recipes: %s"):format(id, text, rt and ("\"" .. rt .. "\"") or tostring(why))
 			tooltip:Show()
 		end)
@@ -231,6 +238,9 @@ function ns.UsedForSlash(arg)
 		ns.IS_FOREVER and "Forever" or "Midnight", tostring(ns.REAGENT_BUILD),
 		#have > 0 and table.concat(have, ", ") or "none"))
 	print("  last item you hovered: " .. last)
+	if ns.ForeverReagentSourceLast then
+		print("  where you get it: " .. ns.ForeverReagentSourceLast())
+	end
 	-- Forever: the "never for your class" and "needed for a quest" lines (ForeverItemTips.lua, 16 Nov 2026).
 	if ns.ForeverItemTipsLast then
 		print("  class/quest lines: " .. ns.ForeverItemTipsLast())

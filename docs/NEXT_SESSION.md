@@ -12,6 +12,9 @@ screenshot van Do this now, *"kunnen we de talent point meer laten opvallen"* �
   beroepenvenster" moet dus ook zonder dat frame werken. De meting kijkt nu naar TRADE_SKILL_SHOW/CLOSE.
 - **Smart Buff goed** (mage; Priest/Druid niet getest). **Boot = laten rusten**, niet opnieuw vragen.
 - **Robs antwoorden, letterlijk: *"talent goed / plek ja / Zygor b"*.** Talent B getest (niet: in gevecht).
+- **d, reagentia GEBOUWD, wacht op test (herstart nodig):** `ForeverReagentSource(Data).lua`, 87 items zonder Zygor, regel
+  in de tooltip + Skill up (daar de pijlknop). ⚠️ In die 87 zit geen "valt van monsters" en geen Skinning (één bron).
+  Nog van d: recepten (eigen data, zonder Zygor). Daarna c, dan e.
 - **Plek:** tooltip = hoofdplek + MH's Skill up-venster; Blizzards beroepenvenster alleen als extra.
 - 🔴 **ZYGOR B (vervangt "alleen feiten" van 21 nov): niets meer overnemen uit Zygor, geen id's, plekken, volgorde of
   namen; alleen ermee nakijken.** Volgorde: b) dungeon-quests van main → d) reagentia (87, AllTheThings met MIT-tekst) +

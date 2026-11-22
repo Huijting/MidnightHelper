@@ -414,6 +414,28 @@ Fill = function()
 	return f
 end
 
+--- 22 Nov 2026 ("where do I get this?", ForeverReagentSource.lua): the nearest of THESE trade sellers on your side.
+--- Not the whole trade category: trade sellers do not all stock the same. npcs = set of npc ids, names = [npc] = the
+--- name in the client's language. Row { npc, name, zone, dist = text or nil, go } or nil.
+function ns.ForeverVendorSoldBy(item, npcs, names)
+	for _, e in ipairs((List(CAT_BY_KEY.trade))) do
+		local v = e.v
+		if v.npc and npcs[v.npc] then
+			local row = {}
+			for k, x in pairs(v) do
+				row[k] = x
+			end
+			row.name = names[v.npc] or v.name
+			local entry = { v = row, dist = e.dist }
+			return { npc = v.npc, name = row.name, zone = ZoneName(v.map), dist = e.dist and Distance(e.dist) or nil,
+				go = function()
+					return GoTo(entry, ItemName(item))
+				end }
+		end
+	end
+	return nil
+end
+
 --- 17 Nov 2026, product plan step 4 (the overview's Find tab, Rob: "ja ga maar door met 4 tot en met 9"): the
 --- categories and their sellers, the same list as this window. Cats: { key, name, goods }. Rows: { name, tag, zone,
 --- dist, map, x, y, go }; the tag only on an English client (Wowhead's English subtitles, see Fill above).

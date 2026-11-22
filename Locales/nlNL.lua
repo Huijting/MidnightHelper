@@ -4826,6 +4826,10 @@ ns._mhLocales.nlNL = {
 	FTALENT_NEXT_MANY_FMT = "Je hebt %d ongebruikte talentpunten. Volgende: %s (%d/%d).",
 	FTALENT_NO_DIR = "(Je koos geen richting, dus MH volgt de levelvolgorde.)",
 	FTALENT_BTN = "Talenten",
+	-- 22 Nov 2026: where you get a reagent (ForeverReagentSource.lua). Seller, zone + distance; profession; seller.
+	FSRC_BUY_FMT = "MH: Te koop bij %s (%s)",
+	FSRC_GATHER_FMT = "MH: Te verzamelen met %s",
+	FSRC_GO_FMT = "De weg naar %s",
 	FSBUFF_SW = "Smart Buff-macro (eerst muis, anders doelwit)",
 	FSBUFF_SW_DESC = "Voor een Mage, Priest of Druid: MH maakt één macro, \"MH Smart Buff\", met je class-buff (Arcane Intellect, Power Word: Fortitude of Mark of the Wild). Die buft de vriendelijke speler onder je muis, anders je doelwit. Zet hem op elke balk die je wilt. MH houdt hem bij, buiten een gevecht. Paladins hebben hiervoor Smart Bless. De mouseover-stand van het toetsenblok doet hetzelfde op zijn eigen toetsen.",
 	FSBUFF_ON_FMT = "Macro \"%s\" gemaakt met %s: sleep hem naar een balk. Hij buft de speler onder je muis, anders je doelwit.",

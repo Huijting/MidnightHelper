@@ -524,6 +524,16 @@ local function Build()
 			ns.ForeverTrainerGo(selected)
 		end
 	end)
+	-- The seller's button sits on a row of its own above the trainer's: the name can be long.
+	f.buy = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
+	f.buy:SetSize(W - rx - 28, 24)
+	f.buy:SetPoint("BOTTOMLEFT", rx, 46)
+	f.buy:SetScript("OnClick", function(self)
+		if self.go then
+			self.go()
+		end
+	end)
+	f.buy:Hide()
 	f:SetScript("OnShow", function()
 		Fill()
 	end)
@@ -586,7 +596,9 @@ end
 ns.ForeverSkillupMakeFirst = MakeFirst -- for the offline check
 
 --- The text for one profession.
+local planSeller -- the seller of the first ingredient you are short of (the window's arrow button), or nil
 local function PlanText(key, mine)
+	planSeller = nil
 	local m = mine[key]
 	local name = ProfName(key, mine)
 	local L = {}
@@ -649,6 +661,14 @@ local function PlanText(key, mine)
 				add("     |cff66ccff" .. first .. "|r")
 				add("          " .. needs)
 			end
+			-- 22 Nov 2026 (Rob: "plek ja"): short of it → where you get it, and the arrow button below.
+			if have < need and ns.ForeverReagentSourceText then
+				local from, seller = ns.ForeverReagentSourceText(rg[1])
+				if from then
+					add("     |cff99ccff" .. from .. "|r")
+					planSeller = planSeller or seller
+				end
+			end
 		end
 		if all then
 			add("  " .. ns:L("FSKILL_SHOP_DONE"))
@@ -703,6 +723,15 @@ Fill = function()
 		f.go:SetText(ns:L("FSKILL_GO_TRAINER"))
 		f.go:Show()
 	end
+	local seller = selected and planSeller
+	if seller then
+		f.buy.go = seller.go
+		f.buy:SetText(ns:L("FSRC_GO_FMT"):format(seller.name))
+		f.buy:Show()
+	else
+		f.buy:Hide()
+	end
+	f.scroll:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -24, seller and 78 or 50)
 	f.child:SetHeight(math.max(10, (f.text:GetStringHeight() or 0) + 8))
 	if f.lastSelected ~= selected then
 		f.offset, f.lastSelected = 0, selected

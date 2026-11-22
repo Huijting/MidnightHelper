@@ -1709,6 +1709,10 @@ for k, v in pairs({
 	FTALENT_NEXT_MANY_FMT = "Tu as %d points de talent non dépensés. Ensuite : %s (%d/%d).",
 	FTALENT_NO_DIR = "(Tu n'as choisi aucune voie, donc MH suit l'ordre pour monter de niveau.)",
 	FTALENT_BTN = "Talents",
+	-- 22 Nov 2026: where you get a reagent (ForeverReagentSource.lua). Seller, zone + distance; profession; seller. Our own translation, not reviewed by a native speaker.
+	FSRC_BUY_FMT = "MH : Vendu par %s (%s)",
+	FSRC_GATHER_FMT = "MH : Se récolte avec %s",
+	FSRC_GO_FMT = "Le chemin vers %s",
 	FTALENT_PROT_SECOND = "Paladin : fais du deuxième jeu un jeu Protection, pour tanker. Tant que tu l'utilises, choisis la voie Protection (Ta classe), et MH nomme les talents Protection.",
 	FTALENT_SW = "Prochain point de talent dans « Fais ça maintenant »",
 	FTALENT_SW_DESC = "Quand tu as un point de talent non dépensé, « Fais ça maintenant » nomme le talent où le mettre, d'après un ordre pour monter de niveau dans la voie que tu as choisie. MH lit tes talents, donc il saute ce que tu as déjà. Désactivé : pas de ligne de talent.",
