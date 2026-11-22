@@ -15,18 +15,24 @@ onderweg leger te maken, check dat ook, tijd voor koffie en ontbijt dus ga door 
       ✅ a GEMETEN + GEBOUWD (wacht op test): ze konden alle vier verschijnen (286 soorten eten/drinken, 14 munitie, class-
       reagentia), nu nooit meer, ook niet via de Yes van Destroy. b reservetas GEBOUWD (wacht op test, klik + gevecht).
       c (bijna vol + schakelaar) en d (grijs zonder waarde) GEBOUWD.
-      Vraag bij Rob (via sparring): ook gif,
-      drankjes, verband, scrolls, recepten, tassen, sleutels beschermen? Die kunnen nog als weggooien verschijnen.
+      ▶ Beantwoord: Rob via sparring, letterlijk *"alles advies"* = bewaren B (recepten en leerboeken erbij), GEBOUWD,
+      wacht op test: ook gif, drankjes, elixers, flasks, verband, scrolls, sleutels en tassen.
 - [ ] 4. Recepten: Zygor mag als bron. Craft Ladder alleen nakijken als tweede bron, geen waarden: dat is de uitleg van
       sparring (regel 7 nov), GEEN woord van Rob; hij kan het intrekken. Pijl nooit naar zomaar een trainer.
 - [x] 5. Polestar UITGEZOCHT, niets overgenomen: `docs/forever/POLESTAR_DATA_2026-11-22.md`. recorded.json kan los (CC BY
-      4.0); geeft 549 recepten een tweede bron. **Wacht op Robs A/B/C**; overnemen is een nieuwe ja.
+      4.0); geeft 549 recepten een tweede bron. Rob koos A (*"alles advies"*): bouwen = 8 en 9.
+- ▶ **Robs *"alles advies"* (22 nov via sparring, letterlijk), in deze volgorde:**
+      [x] 7. Tassen bewaren B.
+      [ ] 8. Recepten bouwen: Classic A (553 + 116 pijlen, zonder Zygors losse receptenlijst, geen Zygor-skillgetallen,
+          "Classic-data, nog niet in Forever gezien") samen met Polestar A (alleen recorded.json, trusted, tweede bron of
+          controle; naam, bron, licentie, bewerking in het databestand + zichtbare plek noteren voor de release).
+      [ ] 9. Ingrediënten aanvullen uit recorded.json, zelfde regels. Komt een getal anders uit dan voorgelegd: melden.
 - [x] 6. "Bekende recepten" GEREPAREERD (Rob via sparring, letterlijk: *"Recepten ja"*): kopie, eigen venster vervangt,
       beroepen die hij niet heeft weg, linked overslaan, leeg wist niets. Wacht op test (per character elk beroep openen).
       De kopie-regel van 21 nov ("A") staat nog. Geen tag of release.
 
-📜 **Recepten met Zygor onderzocht (22 nov), niets gebouwd:** `docs/forever/RECEPTEN_2026-11-22.md`. Wacht op Rob:
-telt Classic-data als tweede bron? (A/B/C daar). Niet bouwen tot hij kiest.
+📜 **Recepten met Zygor onderzocht (22 nov), niets gebouwd:** `docs/forever/RECEPTEN_2026-11-22.md`. Rob koos A
+(*"alles advies"*): bouwen = punt 8 hierboven, samen met Polestar A.
 
 🐞 **"action blocked" MultiBarBottomRight:SetPointBase (sessie 335): aanleiding weggehaald, wacht op test.** Rob: *"knop
 weg"*. `docs/forever/TALENTKNOP_TAINT_2026-11-22.md`. 🔴 MH opent het talentvenster NOOIT meer zelf. In v5.7.0 zit de knop

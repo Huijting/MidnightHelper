@@ -11,7 +11,8 @@ local _, ns = ...
 	lists the three cheapest items (vendor value x stack) with the reason, and, while a loot window is open, compares the
 	loot with your cheapest item. You throw away or sell yourself.
 	Never suggested: quest items, profession tools (ns.ForeverIsTool, ForeverToolGuard.lua), food, drink, ammunition and
-	class reagents (KeepKind, 22 Nov 2026), ingredients for a profession
+	class reagents, poisons, potions, elixirs, flasks, bandages, scrolls, keys, bags, recipes and books you learn from
+	(KeepKind, 22 Nov 2026), ingredients for a profession
 	you have (ns.ReagentUseText green), gear better than what you wear (ns.ForeverGearTipText), Rare and better (Forever
 	asks you to type DELETE for those), items without a vendor value unless they are grey, special bags.
 	Step 2 (built 20 Nov 2026 after Rob's test, see the Step 2 block below): Destroy per row (with a "sure?"), Pick up the
@@ -129,6 +130,24 @@ local FOOD_ELSEWHERE = { [4603] = true, [5845] = true, [6289] = true, [6291] = t
 	[19997] = true, [20388] = true, [20389] = true, [20390] = true, [21071] = true, [21153] = true, [21241] = true,
 	[23161] = true, [206177] = true, [232436] = true, [232438] = true, [238637] = true, [238639] = true,
 	[240945] = true, [251917] = true, [275893] = true }
+-- 22 Nov 2026 (Rob via sparring: "alles advies" = option B). Most have their own item class (see KeepKind); these are
+-- the ones DB2 1.60.1.71037 files under Other, Junk or Trade Goods (GEMETEN, item by item).
+local CARRY_ELSEWHERE = {}
+for kind, ids in pairs({
+	poison = "2892 2893 3775 3776 5237 6947 6949 6950 6951 8926 8927 8928 8984 8985 9186 10918 10920 10921 10922 20844 "
+		.. "217345 217346 217347 226374 234444",
+	["potion or elixir"] = "18839 18841 210708 223912 223913 223914 241655 241656",
+	["bandage or anti-venom"] = "6452 6453 19440 232433 255715",
+	scroll = "211800 211953 211954 211955 211956 211957 213549 213550 213551 216879 216880 220792 223171 229897 277484 "
+		.. "277491",
+	key = "15869 15870 15871 15872 282285",
+}) do
+	for id in ids:gmatch("%d+") do
+		CARRY_ELSEWHERE[tonumber(id)] = kind
+	end
+end
+local CONSUMABLE = { [1] = "potion or elixir", [2] = "potion or elixir", [3] = "flask", [4] = "scroll",
+	[7] = "bandage or anti-venom" }
 local BLINDING_POWDER = 5530
 local WRAPPED_GIFT = 13367 -- grey and worth nothing (DB2), but there is a present in it
 --- The reason this item is never suggested or destroyed by MH, or nil.
@@ -137,6 +156,8 @@ local function KeepKind(id)
 		return "food or drink"
 	elseif id == WRAPPED_GIFT then
 		return "a wrapped gift"
+	elseif CARRY_ELSEWHERE[id] then
+		return CARRY_ELSEWHERE[id]
 	elseif id == BLINDING_POWDER then
 		return "class reagent"
 	end
@@ -156,6 +177,14 @@ local function KeepKind(id)
 		return "class reagent"
 	elseif class == 12 then
 		return "quest item"
+	elseif class == 0 and CONSUMABLE[sub] then
+		return CONSUMABLE[sub]
+	elseif class == 1 or class == 11 then
+		return "bag"
+	elseif class == 9 then
+		return "recipe or book"
+	elseif class == 13 then
+		return "key"
 	end
 	return nil
 end
@@ -249,7 +278,6 @@ local function Candidates()
 	if not (C and C.GetContainerNumSlots and C.GetContainerItemInfo) then
 		return out, { ["no C_Container"] = 1 }
 	end
-	local spare = SpareBag()
 	for bag = 0, LAST_BAG do
 		local family = 0
 		if C.GetContainerNumFreeSlots then
@@ -277,8 +305,6 @@ local function Candidates()
 					skip("profession tool")
 				elseif KeepKind(id) then
 					skip(KeepKind(id))
-				elseif spare and IsNormalBag(id) then
-					skip("spare bag: a bag slot is empty")
 				elseif ForMyProfession(id) then
 					skip("ingredient for your profession")
 				else

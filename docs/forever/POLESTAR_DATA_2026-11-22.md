@@ -1,7 +1,8 @@
 # Polestar: is het vrije deel los te krijgen, en wat dekt het? (22 nov 2026) — alleen onderzoek, niets overgenomen
 
 Rob 22 nov via sparring, letterlijk: *"overnemen, ja"* (2. mag het vrije deel van Polestar uitgezocht worden).
-Uitzoeken mag; overnemen is een nieuwe ja.
+Uitzoeken mag; overnemen is een nieuwe ja. ▶ Die kwam (22 nov via sparring, letterlijk: *"alles advies"* = A):
+alleen recorded.json, alleen trusted, tweede bron of controle, met naam, bron, licentie en bewerking in het databestand.
 
 ## Licentie (GEMETEN in github.com/fitzforge/polestar, branch next)
 
@@ -40,7 +41,7 @@ Er zit GEEN plek, naam, prijs of trainerlijst in: alleen id's, stemmen en soms e
 - Of de opnames eerlijk en compleet zijn, en hoe "trusted" precies rekent (minstens 3 spelers volgens hun meta).
 - Niets in het spel gezien. Geen juridisch advies.
 
-## Keuze voor Rob
+## De keuze (Rob koos A)
 
 - **A (advies):** recorded.json als bron, met naamsvermelding, alleen trusted en alleen als tweede bron of controle.
 - **B:** alleen nakijken, geen waarden eruit.

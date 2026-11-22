@@ -25,6 +25,13 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 22 nov — Forever: Bags full bewaart nog meer (Rob: "alles advies", tassen B)
+
+- [ ] Typ `/reload`, dan `/mh bagfull show`: gif, drankjes, elixers, flasks, verband, scrolls, sleutels, tassen, recepten
+      en leerboeken staan er NIET in. `/mh bagfull` noemt ze bij "left out".
+- [ ] Leeg tasvakje + losse gewone tas: de Equip-regel staat er nog en werkt.
+- [ ] Een gewoon grijs ding staat er nog wel in, en Destroy vraagt eerst.
+
 ## 22 nov — Forever: "bekende recepten" gerepareerd (Rob: "Recepten ja")
 
 - [ ] Typ `/reload`, wacht 15 seconden, typ `/mh skillup probe`: "copy of the lists … kept" en bij "professions you do not

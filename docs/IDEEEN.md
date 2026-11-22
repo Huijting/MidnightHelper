@@ -31,7 +31,7 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
   leren / verbeteren"* → *"2 en 1, doe maar, daarna 3 en 4 :)"*.
 - Volgorde: (2) dungeon-quests, (1) waar haal ik dit vandaan, (3) boot/zeppelin-wachttijd, (4) XP per uur.
   Alleen het idee: Polestar is GPLv3, FlowUp-routes ARR. Plan en stand: `docs/NEXT_SESSION.md` bovenaan.
-  22 nov: het vrije datadeel van Polestar uitgezocht (`docs/forever/POLESTAR_DATA_2026-11-22.md`), wacht op Robs keuze.
+  22 nov: het vrije datadeel van Polestar uitgezocht (`docs/forever/POLESTAR_DATA_2026-11-22.md`); Rob: *"alles advies"* = A, nog bouwen.
 - (2) Dungeon-quests: gebouwd 21 nov uit Zygor, 22 nov van main gehaald (Rob 22 nov via sparring, letterlijk: *"Zygor b"*).
   ⏸️ Herbouw gestopt 22 nov (Rob: *"wij blijven Zijgor als een informatiepunt houden"*). ▶ Rob daarna, letterlijk: *"overnemen, ja"* = plekken en nummers uit Zygor mogen
   (geen teksten, notities of code): de dungeon-quests zijn 22 nov terug op main, wacht op Robs test.
@@ -44,8 +44,8 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
   Plek (Rob 22 nov: *"plek ja"*): tooltip + Skill up-venster; Blizzards beroepenvenster alleen als extra.
 - (3) Bootwachttijd: ONDERZOCHT 22 nov, nu niet eerlijk te meten, niets gebouwd (`docs/forever/BOOT_ZEPPELIN_2026-11-22.md`).
   ⏹️ Rob 22 nov via sparring, letterlijk: *"Boot Rust"* = laten rusten; niet opnieuw voorstellen.
-- Recepten (1) onderzocht 22 nov (`docs/forever/RECEPTEN_2026-11-22.md`): met Zygor tot 805 van 2119; wacht op Robs
-  keuze: telt Classic-data als tweede bron?
+- Recepten (1) onderzocht 22 nov (`docs/forever/RECEPTEN_2026-11-22.md`): Rob: *"alles advies"* = Classic A, nog bouwen. De
+  vraag was: telt Classic-data als tweede bron?
 - Meting (1) gedaan 22 nov (*"meting gedaan"*): Forever geeft bij Cooking geen bron (0 van 132), dus eigen data per recept.
 - Spel: F. Site: nog niet.
 
@@ -59,6 +59,8 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
   op vier ideeën: *"tas 1 2 3"*.
 - (1) reservetas + leeg tasvakje: eerst aanbieden om aan te trekken. (2) De hulp komt al bij bijna vol, met schakelaar.
   (3) Grijs zonder verkoopwaarde mag erbij; Destroy vraagt altijd. (4) markeren: niet gekozen.
+- Bewaren: Rob 22 nov via sparring, letterlijk *"alles advies"* = B (ook gif, drankjes, elixers, flasks, verband,
+  scrolls, sleutels, tassen, recepten, leerboeken): GEBOUWD, wacht op test.
 - Eigen code; Polestar is GPL: alleen het idee.
 - Spel: F. Site: nog niet.
 
