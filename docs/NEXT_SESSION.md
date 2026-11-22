@@ -6,7 +6,7 @@
 character, Bags full (niets wat hij wil houden, grijs + Destroy), gevecht zonder "action blocked". Voorwaardelijk, dus niet
 zeker: Equip, vrij talentpunt, pet. Niet los getest: per soort, bijna vol + schakelaar, grijs zonder waarde, link, Equip in
 gevecht, andere characters. **OPEN: ronde 2** (ingrediënten, recept-pijl, dungeon-quests, XP per uur) **+ Midnight-inlog.**
-Geen tag of release; wat nu gebouwd wordt: zie NU hieronder.
+Geen tag of release; 5.8.0 staat alleen klaar, zie hieronder.
 
 🔧 **SKILL UP-VENSTER GEREPAREERD (22 nov via sparring, letterlijk: *"venster ja"*), getest: *"Venster is goed"* (klik en scroll open):** stijl A (dicht),
 "MH doesn't know which trainer/vendor yet", knop noemt het beroep. Ronde 2 uit zijn screenshots: XP-regel, Linen Cloth,
@@ -14,8 +14,10 @@ Light Leather, recepten in Skill up gezien; pijl, persoon en dungeon-quests niet
 andere GEBOUWD (`S.SkinPanel` in ForeverStyle.lua). BagFull, Crates, Durability, HowToPlay GOEDGEKEURD (Rob 22 nov: *"Dus de
 vensters zijn goed. Dat kan je goedkeuren."*; details open in TESTLIJST, o.a. prijs door tekst in Bags full: pas na zijn antwoord). De andere 7
 (Chars, Dungeons, Macros, ProfTrainers, Trainer, Vendors, Weapons) openen niet meer: reserve achter het overzicht.
-🚦 **GEEN RELEASE (Rob 22 nov via sparring, letterlijk: *"We doen nog geen release. Dan kom je wat anders tegen."*):** geen bump,
-releasetekst, Fable-ronde of tag, en niet opnieuw voorstellen tot Rob erover begint.
+🚦 **5.8.0 KLAARGEZET, NIET UITBRENGEN.** Rob 22 nov avond via sparring, letterlijk: *"Zerlt klaar , ik log straks nog in"* (op
+"zet 5.8.0 klaar"). Alleen het klaarzetten mag: versie, tekst, Fable-ronde, naamsvermelding. Zijn *"We doen nog geen
+release. Dan kom je wat anders tegen."* blijft gelden voor uitbrengen: geen tag, gh release of upload zonder zijn woorden.
+Fable-ronde: loopt. Rob test nog: Midnight-inlog, dungeon-quest Way, /mh rest off/on, prijsregel in Bags full.
 ▶ **NU: KAART B (Rob 22 nov via sparring, letterlijk: *"b"*):** level 1-briefjes voor alle classes/rassen + elk class-queststapje
 als opvallend kaartje (ForeverCQWindow). GEBOUWD, kaartje GOEDGEKEURD op een Tauren hunter (Rob 22 nov: *"kaartje goed,
 hebben we dit voor meerdere classes ?"*; andere classes, latere quests en knoppen open in TESTLIJST): 56 combinaties, 0 zonder briefje (Skyborne op level 2);

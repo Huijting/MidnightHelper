@@ -26,6 +26,11 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 
 ## Open — wacht op Rob
 
+### Release 5.8.0 klaarzetten (22 nov) — ✅ JA voor klaarzetten, GEEN go voor uitbrengen
+- Bron: Rob 22 nov via sparring, op "zet 5.8.0 klaar", letterlijk: *"Zerlt klaar , ik log straks nog in"*.
+- Vervalt: "geen bump, releasetekst of Fable-ronde". Blijft voor het uitbrengen: *"We doen nog geen release."*
+- Spel: F (Midnight: niets nieuws). Site: pas na de upload.
+
 ### Forever: leren van Polestar/FlowUp — dungeon-quests, "waar haal ik dit vandaan?", bootwachttijd, XP per uur (wens van Rob, 21 nov) — ✅ JA, 4, 2 en 1 (B) GEBOUWD, wacht op ronde 2, 3 rust
 - Bron: Rob 21 nov via sparring, letterlijk: *"ik blijf bij Zygor, Polestar probeer ik later. maar kunnen wij er iets van
   leren / verbeteren"* → *"2 en 1, doe maar, daarna 3 en 4 :)"*.

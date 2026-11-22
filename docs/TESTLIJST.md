@@ -25,6 +25,15 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 22 nov — vóór een go voor 5.8.0 (Rob: "Zerlt klaar , ik log straks nog in")
+
+Sluit het spel eerst helemaal af: het versienummer en de nieuwe bestanden laden pas na een herstart.
+
+- [ ] Midnight: inloggen geeft geen Lua-fout.
+- [ ] Forever: Dungeons & group → Quests bij een dungeon → Way › zet de pijl naar de questgever.
+- [ ] Forever: `/mh rest off` → de chat zegt dat de waarschuwing uit is; `/mh rest on` → weer aan.
+- [ ] Forever: `/mh bagfull show` → zeg "prijs goed" of "prijs door tekst".
+
 ## 22 nov — Forever: trainerplekken in de class quests, Zygor + HandyNotes live (Rob: "Plekken b")
 
 Typ eerst `/reload`. Het handigst met een character dat een briefje moet inleveren (bv. een Night Elf hunter). De

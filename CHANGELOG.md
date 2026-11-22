@@ -2,6 +2,26 @@
 
 All notable changes to this project are documented in this file.
 
+## 5.8.0
+
+📌 **KLAARGEZET 2026-11-22, NIET uitgebracht (geen tag).** Rob via sparring, letterlijk: *"Zerlt klaar , ik log straks nog
+in"* (op "zet 5.8.0 klaar"). Uitbrengen wacht op zijn go; *"We doen nog geen release"* geldt daarvoor nog.
+In-game: CHANGELOG_580_1 t/m _8. `RELEASE_NOTES.md` = `docs/CURSEFORGE_5.8.0.md`. Commits v5.7.0..main (21 en 22 nov).
+Wat Rob testte en wat niet: TESTLIJST 21 en 22 nov.
+
+- **Class quests:** kaartje, briefjes van level 1 (56 combinaties), `gate` op de Earth Totem-ketens, plekken van Zygor
+  met HandyNotes: Class Trainers live (`LivePlace`).
+- **Dungeons:** quests per dungeon (519 rijen, 470 id's, 32 dungeons/vleugels).
+- **Beroepen:** herkomst van 1102 recepten (206 met pijl, 247 "Classic data") en 194 ingrediënten; bekende recepten per
+  character gerepareerd (met kopie).
+- **Talenten:** 15 richtingen over 9 classes; geen Talents-knop meer (taint).
+- **Tassen:** bewaarlijst, bijna vol, reservetas, grijs zonder waarde.
+- **Verder:** XP per uur; /mh rest gerepareerd; vensters in stijl A.
+- **Alleen voor ons (niet in de spelerstekst):** /mh arrow ziet Zygor in Forever, /mh classquest noemt de bron van de
+  plek, /mh skillup probe, /mh rest xp, /mh dungeons quests check, /mh talent.
+- **Bronnen:** Polestar Recorder sessions (CC BY 4.0), AllTheThings (MIT), Spoken / Efficient Games (CC BY 4.0), Zygor
+  (id's, plekken, volgorde), Wowhead Forever, DB2.
+
 ## 5.7.0
 
 📌 **2026-11-21, RELEASE (Rob via sparring, letterlijk: "reload gedaan, tekst staat goed, go voor 5.7.0"; geen beta).**

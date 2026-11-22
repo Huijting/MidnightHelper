@@ -4,6 +4,20 @@ local changelogFrame
 
 local CHANGELOG_ENTRIES = {
 	{
+		version = "5.8.0",
+		lines = {
+			-- Prepared 22 Nov 2026 on Rob's "Zerlt klaar" (= zet klaar, via sparring); no tag until his go.
+			"CHANGELOG_580_1",
+			"CHANGELOG_580_2",
+			"CHANGELOG_580_3",
+			"CHANGELOG_580_4",
+			"CHANGELOG_580_5",
+			"CHANGELOG_580_6",
+			"CHANGELOG_580_7",
+			"CHANGELOG_580_8",
+		},
+	},
+	{
 		version = "5.7.0",
 		lines = {
 			-- 20 Nov 2026 (written on Rob's "Ja dat mag erna"); released 21 Nov 2026 on "go voor 5.7.0".

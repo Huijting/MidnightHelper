@@ -23,9 +23,18 @@ Retail to **Forever** and install it there as well. You get help made for levell
 - **Search and Find**: type a trainer, shop, dungeon, class quest or place in the search bar. *Find* lists trainers,
   weapon masters, shops, the bank, the auction house, mailboxes, inns, zeppelins, boats, flight masters and the rares
   worth the trip. Nearest first, with the way there and the arrow.
-- **Class quests for all nine classes**, step by step with the arrow: druid forms, warlock demons, shaman totems,
-  hunter pets, weapon quests and more. *Do this now* tells you what to bring before the trip, and a small window you
-  can move shows just the step you are on.
+- **Class quests for all nine classes**, step by step with the arrow: from the level 1 note that sends you to your
+  trainer to druid forms, warlock demons, shaman totems, hunter pets, weapon quests and more. *Do this now* tells you
+  what to bring before the trip, and a card you can move shows the step you are on, in your class colour.
+- **Which quests before a dungeon?** A *Quests* button per dungeon lists what to pick up first and from whom, with the
+  arrow where the place is known.
+- **Where do I get this recipe or ingredient?** The tooltip and *Skill up* say it where Midnight Helper knows, and say
+  so when the answer may be old Classic data. *Skill up* also shows what to make for your next skill point.
+- **Your next talent point**: for all nine classes, in the directions it has an order for, *Do this now* names the
+  talent to take.
+- **Bags full?** A small window shows what can go and keeps what you need out of that list. *Destroy* always asks
+  first.
+- **XP per hour** and the time to your next level, under the XP bar of the overview.
 - **The game's own tooltips everywhere**: hover a spell, item, tool or boss loot in MH for the same tooltip as in your
   bags or spellbook.
 - **Do this now**: a small window with what you can do right now (new spells at your trainer, an old rank on your
@@ -140,6 +149,20 @@ your own client.
 A one-person project, tested in the live game by the maker. Found a bug? Type `/mh report` in game, then
 come to [Discord](https://discord.gg/kBHaHcsASQ) or use the [feedback form](https://midnighthelper.com/feedback/).
 Want new things sooner? Set Midnight Helper to **Beta** in the CurseForge app.
+
+**Credits**
+
+- Includes data from "Polestar Recorder sessions" by the Polestar authors
+  ([github.com/fitzforge/polestar](https://github.com/fitzforge/polestar)),
+  [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), filtered and reduced. The Polestar authors do not endorse
+  Midnight Helper.
+- Includes data from [AllTheThings](https://github.com/ATTWoWAddon/AllTheThings) (MIT),
+  [What's Training?](https://github.com/fusionpit/WhatsTraining) by Fusionpit (MIT) and
+  HandyNotes_DungeonRaidLocations-Forever by Pirson (MIT). The licence texts are in the addon.
+- Quest names and quest order include data from the Spoken addon, partly from
+  [Efficient Games](https://efficient.games), [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), reduced.
+- Some macro texts: [classicwowforever.com](https://classicwowforever.com),
+  [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
 
 *The screen icons were generated locally with an open image model (Z-Image Turbo); the logo was made with Google
 Gemini. No Blizzard artwork was used as input.*

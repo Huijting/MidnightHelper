@@ -1,101 +1,91 @@
-# Midnight Helper 5.7.0: which city, which talent, skill up, and what to do when your bags are full
+# Midnight Helper 5.8.0: class quests on a card, dungeon quests, and where you get that recipe
 
 Want new things sooner and help test them? We put out betas regularly: set the release type of Midnight Helper in the
 CurseForge app to **Beta**. Found something odd, or does everything just work? Tell us: `/mh report` in game, a comment
 here on CurseForge, or the feedback form on midnighthelper.com.
 
-## WoW Forever: a new overview
+Everything in this release is for **WoW Forever**.
 
-The overview is larger and the tabs are now tall buttons on the right, with the page name on top. *Now* and *Your
-class* look the same inside. Prefer the old layout with the tabs on top? Switch off *New layout: tabs on the right* in *Quiet
-helpers* and type `/reload`.
+## Your class quest, on a card
 
-## WoW Forever: Which city?
+The small class quest window is now a card in your class colour: the quest, who to see, where, what it is for, and
+*Show the way*.
 
-*Find* has two buttons now: **What am I looking for?** (the list you know) and **Which city?**. Pick a city and you see
-what is there: the inn, the bank, the auction house, a mailbox, the flight master, the boats and zeppelins, and your
-class trainer, each with *Show the way*. On top it says how you get there, and **Route to …** sets the arrow to the inn.
-A search field above the list filters both.
+- **The level 1 class quest**: the note that sends a new character to the class trainer, for all 56 combinations of
+  class and race (Skyborne get theirs at level 2). It appears once you have handed in the quest before it. Skipped it?
+  It is shown up to level 5. A class quest for a spell always comes first.
+- **Trainer places**: many places in the class quests now come from Zygor's guides. If you have HandyNotes: Class
+  Trainers, the arrow uses that addon's place while you play, unless Midnight Helper has a measured place or you
+  talked to that trainer before.
 
-- **Every inn**, also in the villages: Ratchet, Razor Hill, Goldshire, The Crossroads, Lakeshire and many more. They
-  show up in *Which city?* and in the inn list.
-- **Hearthstone and teleports in the route.** The way there now counts your Hearthstone and your class teleports, with
-  the minutes it takes: "first use your Hearthstone (about 4 min)". The chat says it too, so you see it with TomTom.
+## Which quests before a dungeon
 
-## WoW Forever: which talent, and how to tank
+In *Dungeons & group*, a dungeon with quests has a **Quests** button: what to pick up first and from whom, what is
+already in your log, what you get inside, what comes later in a chain, and what you have done. It knows 470 quests in
+32 dungeons and wings. Where it knows the place, a button sets the arrow. The numbers and places come from Zygor's
+dungeon quest guides and have not all been checked in the game. A few quests have no place.
 
-- **Your next talent point**: when you have a talent point left, *Do this now* names the talent to put it in, with its
-  tooltip. Midnight Helper reads your talents, so it skips what you already have. For Paladins now, for Retribution and
-  for Protection; more classes follow. Switch: *Next talent point in Do this now*.
-- **Level and tank**: *How you play* starts with a short plan for Paladin, Warrior and Druid: what to level with, what to
-  keep in your bags for tanking, and from which level tanking works. A new part for every class explains how to reset
-  your talents and what Dual Spec is (from level 40).
-- **Wolfsbane** (Undead Paladins): *Do this now* tells you to learn Two-Handed Swords first, with *Show the way* to the
-  weapon master.
-- **Smart Buff for Mage, Priest and Druid**: the macro "MH Smart Buff" puts Arcane Intellect, Power Word: Fortitude or
-  Mark of the Wild on the friendly player under your mouse, or else on your target. Off by default: switch it on in
-  *Quiet helpers* and drag the macro onto a bar.
-- Paladins who tank now see Stamina, then Intellect as their best stats.
+## Where do I get this?
 
-## WoW Forever: skill up your professions
+- **Recipes you don't know yet**: the tooltip and *Skill up* say where you get them: a trainer, a vendor, monsters, a
+  quest or with the profession, and what it needs. That is 1,102 of the 2,119 recipes we know of; 206 of those can
+  have an arrow to a person. When the answer may be old, it says *Classic data, not yet seen in Forever*. When it
+  doesn't know which trainer or vendor, it says so.
+- **Ingredients**: for 194 of them the tooltip and *Skill up* say whether monsters drop it, which profession gathers it
+  or who sells it. Monsters have no place. For a known vendor, *Skill up* has a button for the arrow.
 
-Open **Skill up** on a profession in *Professions* (or type `/mh skillup`):
+## Your next talent, for all nine classes
 
-- what to make now for a skill point, and about how many times;
-- the three recipes that give a point most surely, with their colour and chance;
-- what you need for it: what is in your bags and bank against what you need;
-- *Show the way to your trainer*.
+5.7.0 had this for Paladins. *Do this now* can now name your next talent for every class, in these directions:
 
-The tooltip of something you craft shows where the recipe turns yellow, green and grey, and your chance of a point. An
-ingredient says which recipe gives you a point with it now. The chance is an estimate: it is the rule players use,
-Blizzard does not publish it. No gold amounts yet.
+- Warrior: Arms, Protection
+- Paladin: Retribution, Protection
+- Hunter: Beast Mastery
+- Rogue: Combat
+- Priest: Shadow, Holy
+- Shaman: Enhancement, Restoration
+- Mage: Frost
+- Warlock: Affliction, Destruction
+- Druid: Feral, Restoration
 
-## WoW Forever: bags full
+Each order follows one public guide. Other directions get no talent line. The line is now on top, in gold, and names
+your own key for Talents. The Talents button is gone: opening that window from an addon could cause "action blocked".
 
-When something does not fit in your bags, a small window shows the three cheapest things you carry, what they are
-worth and why they can go. When you are looting, it also says whether the loot is worth more than your cheapest item.
-Quest items, your tools (also your fishing pole), ingredients for your own professions, upgrades and items of quality
-Rare or better are never suggested. Each item has a *Destroy* button that asks first, and *Pick up the loot* takes the
-loot once there is room. At a vendor, a button under the vendor window sells your grey items. Midnight Helper never throws anything away
-by itself. `/mh bagfull off` switches the window off.
+## Bags full
 
-## WoW Forever: more
+- **Protected from Destroy**: food and drink, ammunition, class reagents, poisons, potions, elixirs, flasks, bandages,
+  scrolls, keys, bags, recipes and books, and pets, mounts and other things you learn from are no longer suggested.
+  In 5.7.0 some of these could be.
+- **Earlier help**: the window also opens when your bags are almost full (2 free slots; `/mh bags <0-10>` changes
+  that). Switch: *Help when your bags are almost full*.
+- **A spare bag first**: with an empty bag slot and a spare bag, the window offers to put that bag on.
+- Grey items that are worth nothing at a vendor can be suggested too. *Destroy* still asks first.
 
-- **Repair & sell** in *Find* (under In town and in *Which city?*): every vendor who repairs your gear, nearest first,
-  with *Show the way*. The *Bags full* window names the nearest one, with a button. Midnight Helper learns at every
-  vendor window who repairs.
-- **Worn gear**: when your most worn item drops under 25%, a small window says so and names the nearest vendor who
-  repairs, with a button for the arrow. Switch: *Warn when your gear is worn*.
-- **Rested XP**: log out outside an inn or a city and a small window shows the nearest place to rest, with a button for
-  the arrow, and whether your Hearthstone is ready. Switch: *Rested XP tip when you log out*.
-- **Quest items sparkle**: a switch in *Quiet helpers* brings back the old sparkle on quest items you can loot, instead
-  of the outline. Off by default. Two more switches there do the same for **ore and herbs**: *Ore and herbs: the game's
-  icon above the nearest one*, and *Ore and herbs glow (drawn by MH)*, green on a herb and gold on ore, also from a
-  distance when you can gather it, red when your skill is still too low. No profession, no glow. Both off by default.
-- **Search in the overview**: click a switch in the results and *Quiet helpers* opens with that switch lit up. Typing
-  `ore`, `herb` or `glow` finds the ore and herb switches. Under its name the overview now says *for WoW Forever*.
-- **Fixed**: the rank reminder no longer asks you to train a higher rank of Comprehend Scroll; it has no ranks.
-- **Fixed**: every character now keeps its own Midnight Helper settings (key presses, rank choices, known recipes and
-  more). Characters with the same first name shared them, and Blizzard's update of 20 November made them hard to find.
-  What you had is copied over, nothing is lost.
-- **Which zeppelin?** At a tower with two zeppelins, the route names the zeppelin master of the right platform and the
-  arrow points at him: "the zeppelin to Tirisfal Glades (the south platform, with Frezza)".
-- **Skill up** shows recipes and ingredients in their item colour, with the game's tooltip when you point at them. Short
-  of an ingredient you can make yourself? It says how many to make first and what that needs.
-- **Paladins, smart blessing**: the macro "MH Smart Bless" now blesses the friendly player under your mouse, or else your
-  friendly target, with the blessing that fits their class. Midnight Helper keeps the macro up to date by itself, so it
-  works from any key or mouse button.
-- The *Dock to window* button is gone from the Forever windows, and long window titles no longer run under it.
+## XP per hour
 
-## Both games
+Under the XP bar of the overview you see how long your next level takes at the pace of your last hour of play. The
+tooltip has your XP per hour. Switch: *XP per hour and time to the next level*.
 
-- **Thank strangers for a buff**: when a player outside your group gives you a buff, you thank them with the game's own
-  emote. Never in combat or in a dungeon, and once every 5 minutes per player. Off by default; switch it on in the
-  settings.
+## Fixed
 
-## Midnight
+- `/mh rest on`, `off`, `mana` and `health`, for the low mana and health warning, were broken in 5.7.0 and are repaired.
+- The Earth Totem quest of Dwarf and Windshaper shamans no longer sends you to the giver of its first quest before
+  that quest is open.
+- *Skill up* now keeps each character's known recipes from that character's own profession windows; somebody else's
+  linked profession no longer counts.
+- The *Skill up*, *Bags full*, worn gear and *How you play* windows now have a solid background. The trainer button
+  in *Skill up* names the profession.
+- The Hunter text in *How you play* now says that most guides pick Beast Mastery for levelling, not every guide.
 
-- **Renown in your alt overview**: one line on top with your renown for the whole account, every Midnight faction and
-  your rank. Hover it for the progress per faction.
+## Credits
+
+- Includes data from "Polestar Recorder sessions" by the Polestar authors
+  ([github.com/fitzforge/polestar](https://github.com/fitzforge/polestar)),
+  [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), filtered and reduced. The Polestar authors do not
+  endorse Midnight Helper.
+- Includes data from [AllTheThings](https://github.com/ATTWoWAddon/AllTheThings), MIT licence (the licence text is in
+  the addon).
+- Quest names and quest order include data from the Spoken addon, partly from
+  [Efficient Games](https://efficient.games), [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), reduced.
 
 Have fun!
