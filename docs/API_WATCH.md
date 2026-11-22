@@ -11469,3 +11469,126 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
     vóór de mijne: `2c7c095` *"PTR-wacht 21 nov: nieuwe builds wowt 71087 en wowf 71037, nog geen 12.2-PTR
     (70 dagen)"* (**21 nov 04:44 UTC**). 📌 Die wachter meet dezelfde twee buildnummers als ik, onafhankelijk —
     een gratis kruiscontrole op `71087` en `71037`.
+- [2026-11-22] ✅ **Nul nieuwe [MOET GEFIKST] — en BEIDE [MOET GEFIKST] van gisteren zijn DICHT in de code,
+  gemeten en niet geciteerd. Verder een echt stille dag: geen nieuwe build op retail, PTR of Forever sinds
+  20 nov, geen nieuwe SimC-release, geen bewerkte API-changes-wikipagina en geen nieuwe forumdraad. Eén
+  openstaand punt van gisteren is half opgelost (de draad-URL is gevonden, de nieuwe reactie zelf niet
+  gelezen), en één eerlijke nuance op mijn eigen regel van gisteren: de hotfix-notes van 20 nov noemen de
+  GUID-obfuscatie en de realm-API's NIET.**
+  - ✅ **[AL AFGEDEKT] — [MOET GEFIKST] #1 van 21 nov (strikt `%d+`-GUID-patroon) is dicht.** Rob heeft het
+    op 21 nov gerepareerd in commit `4dacbce` / `bcb99a2`-reeks: `Modules/ForeverVendors.lua:700` doet nu
+    `guid:match("^Creature%-[^%-]+%-[^%-]+%-[^%-]+%-[^%-]+%-(%d+)")`, met daarboven op `:696-698` een
+    comment dat de hotfix van 20 nov en deze wachter bij naam noemt. GEMETEN over dezelfde scope als
+    gisteren (`Modules Locales Libs Core.lua UI.lua Config.lua`): de vaste string `%-%d+%-%d+` geeft nu
+    **0** treffers. 🔴 **Twee positieve controles in dezelfde run, want een nul bewijst niets:** de vaste
+    string `%d+` raakt **51** bestanden onder `Modules/` (dus `grep -F` met `%` en `+` zoekt wél op deze
+    scope), en `Creature%-[^%-]` geeft **7** treffers (`ForeverWeapons.lua:648`, `ForeverVendors.lua:700`
+    en `:1190`, `ResetRoutine.lua:663`, `ForeverTrainer.lua:1374` en `:1459`, `ForeverSeenPlaces.lua:36`).
+    ⚠️ En een correctie op mijn eigen meting van gisteren: mijn eerste grep van vandaag gaf óók 0 treffers
+    op de positieve controle — mijn patroon was als regex geschreven, waarin `+` een quantifier is. Pas met
+    `grep -F` meet je dit. Zonder die controle had hier "dicht" gestaan op een grep die niets kón vinden.
+  - ✅ **[AL AFGEDEKT] — [MOET GEFIKST] #2 van 21 nov (lege `GetRealmName()` in de SavedVariables-sleutels)
+    is dicht, en breder dan ik vroeg.** Nieuw bestand `Modules/ForeverCharKey.lua` (commit `4dacbce`
+    *"Forever: one saved-data key per character, the player GUID (API watch #2)"*, 6383 bytes), GEMETEN:
+    - De sleutel is nu `UnitGUID("player")`, achter een guard op `issecretvalue` én `^Player%-`; is die niet
+      leesbaar, dan valt hij terug op de oude sleutel (`ns.ForeverCharKey`, regel ~128-150).
+    - Alle acht de data-modules gebruiken hem: `ForeverSkillup.lua:149-151`, `ForeverTravel.lua:220`,
+      `ForeverRanks.lua:98`, `ForeverVendors.lua:868`, `ForeverWarnings.lua:415`, `KeyBlock.lua:2412`,
+      `KeyPresses.lua`, `SlotOwnership.lua:42-56`. `GetRealmName()` staat in al die regels nu alleen nog in
+      de `legacy`-variabele, dus in het migratiepad en niet meer in de sleutel zelf. De kale aanroepen
+      zonder `and`-guard die ik gisteren in `ForeverVendors` en `ForeverWarnings` meldde, zijn onderweg
+      `(GetRealmName and GetRealmName())` geworden.
+    - Oude data wordt **gekopieerd, niet verplaatst** (de oude sleutels blijven staan; het bestand zegt zelf
+      "remove them after 28 Nov 2026 at the earliest"), en de dubbele-voornaam-collisie die ik gisteren als
+      bijwerking noemde is meegenomen: meerdere oude realms voor één naam = *"ambiguous, old data not
+      copied"*.
+    - En er is een diagnose, zoals `CLAUDE.md` eist voor iets dat kan zwijgen: **`/mh charkey`**
+      (`Core.lua:4420`, in de lijst op `Modules/CommandList.lua:100`) print per module de sleutel, de oude
+      sleutel en wat er gekopieerd is — en zegt óók *"no module asked for its key yet this session"* in
+      plaats van niets.
+    - Laadorde klopt: `MidnightHelper_Camelot.toc:81` staat vóór `SlotOwnership.lua` (`:125`),
+      `KeyBlock.lua` (`:127`) en `ForeverSkillup.lua` (`:186`).
+    📌 **Mijn eigen open vraag van gisteren is daarmee door Rob beantwoord, niet door mij:** ik schreef dat
+    ik niet wist wat de nieuwe sleutel moest zijn en noemde `C_GameRules` als mogelijkheid van anderen. Het
+    antwoord is de player-GUID geworden, en het bestand is eerlijk over wat daaraan AFGELEID is: dat de
+    player-GUID zelf niet geobfusceerd wordt, want Blizzards melding noemt alleen creature-, vehicle-, pet-
+    en gameobject-GUID's. Die aanname blijft ongemeten tot iemand het op de client ziet.
+  - ⚠️ **Eén nit, geen actiepunt, en expliciet géén [MOET GEFIKST]: de kopregel van `ForeverCharKey.lua`
+    zegt *"Retail: this file does not load (Forever toc only)"*, maar het bestand staat in BEIDE TOC's** —
+    `MidnightHelper_Camelot.toc:81` én `MidnightHelper.toc:120`. Het GEDRAG is goed: `:28-30` doet
+    `if not ns.IS_FOREVER then return end`, en `ns.IS_FOREVER` wordt op `Core.lua:58` gezet uit het
+    TOC-nummer (`>= 16000 and < 20000`). Dus de code klopt en het comment niet. Dat is precies de vorm
+    "een aantekening is een claim mét een datum" uit `CLAUDE.md`; één woord in een comment, Rob beslist.
+  - 📚 **[RAAKT ONS NIET] — géén van de API-changes-wikipagina's is bewerkt.** Revisiehistorie opgehaald mét
+    cache-buster `?nocache=20261122`: `Patch_12.1.7/API_changes` en `Patch_1.60.1/API_changes` staan beide
+    nog op **16 okt 2026 22:38** (Ketho) — **37 dagen**, ruim buiten de 7-dagenregel. Positieve controle in
+    dezelfde run: beide historiepagina's kwamen door met echte revisieregels (12.1.7 met vier revisies vanaf
+    de aanmaak op 16 okt 17:01 door Meorawr, 1.60.1 met de reeks terug tot 26 sep).
+  - 💬 **[RAAKT ONS NIET] — het UI-and-Macro-forum: geen enkele nieuwe draad sinds mijn regel van gisteren.**
+    Lijst opgehaald mét cache-buster. Nieuwste activiteit is nog steeds **21 nov**: *"Would like a separate
+    window option for dual monitors"* staat op dezelfde **12** reacties als gisteren (alleen de views liepen
+    op, 552 → 563), dus geen nieuwe reactie. Daarna 20 nov, 19 nov (*"Personal resource display"*,
+    *"party member dots on the minimap"*, beide 0-1 reacties, geen API) en ouder. Niets van vandaag.
+  - 🧾 **HALF OPGELOST uit gisteren — de sticky *"UI Add-On Development Policy"*: de URL is nu bekend,
+    de nieuwe reactie zelf niet gelezen.** Het is
+    `us.forums.blizzard.com/en/wow/t/ui-add-on-development-policy/24534`, de post van Kaivax uit **19 nov
+    2018** met het beleid van 2009 — dus **niet** een API-draad, en mijn gok van gisteren dat het "een
+    beleidsreactie kán zijn" was op de verkeerde soort draad gericht. GEMETEN: de reacties die ik wél kon
+    lezen (#6 t/m #17, **20 t/m 26 okt 2026**) gaan allemaal over betaalde addons (Journey, RestedXP, Zygor,
+    NaowhUI) en over het ontbreken van een meldpunt; het antwoord van Blizzard is elke keer dezelfde
+    doorverwijzing naar `WoWUI@blizzard.com`. ⚠️ **Wat ik NIET heb gelezen:** de reactie van **20 nov** die
+    de draad bovenaan zette (#18 van 18). Exa gaf alleen de openingspost terug, afgekapt halverwege regel 5
+    van het beleid. Dus: de draad is geïdentificeerd en vrijwel zeker geen API-nieuws, maar de nieuwste
+    reactie blijft ONGELEZEN en ik meld hem zo in plaats van als leeg.
+  - 🧰 **SimC-addon: geen nieuwe release sinds `12.1.5-05`.** GEMETEN eerstehands met `git ls-remote`:
+    `refs/heads/master` = **`d0f2255`**, identiek aan gisteren, en **259** tags, ook identiek. 📌 Wel iets
+    om één keer vast te leggen zodat een volgende run er niet in trapt: er staat een branch
+    `refs/heads/fix-region-and-ru` (`8aa71e8`) die op het eerste gezicht over onze regio-/realm-velden lijkt
+    te gaan, maar GEMETEN (eigen clone, `git log`): zijn nieuwste commit is van **26 jan 2018**
+    (*"Fix dumb typo"*) en de diff t.o.v. de huidige master is -2407 regels, inclusief het verwijderen van
+    heel `forever/`. Het is een acht jaar oude restbranch, geen nieuw werk.
+  - 🔢 **[RAAKT ONS NIET] — geen nieuwe build, en vandaag met een tweede bron.** `wago.tools/builds`
+    opgehaald mét cache-buster (gisteren ontbrak die lezing): nieuwste `wowt` = **12.1.7.71087** (gezien
+    2026-11-20 23:25), nieuwste `wowf` = **1.60.1.71037** (2026-11-20 18:22), retail live `wow` =
+    **12.1.5.70961** (2026-11-17 20:16). Dat zijn exact de twee nummers die ik gisteren uit Gethes objecten
+    las, nu onafhankelijk bevestigd — en er is in de **24 uur** sinds gisteren geen build bijgekomen op
+    welke tak ook. Gethes branch-tips zijn ook ongewijzigd: `live` = `ab5cb850`, `beta` = `078d0cf7`,
+    `ptr2` = `12380f8c`, `ptr` = `fbb18ce1`, en — nieuw vastgelegd als nulpunt voor morgen —
+    `forever` = **`734f0653`**. 12.1.7 gaat op **1 december** live (*"Midnight: Echoes of the Worldcore
+    Arrives on 1 December"*, 17 nov).
+  - 🩹 **[RAAKT ONS NIET] — hotfixes, en hier staat een NUANCE op mijn eigen regel van gisteren.** Het
+    Forever-hotfixartikel van **20 nov** (news.blizzard.com/en-us/article/24315281, gepubliceerd 21 nov
+    00:18) heb ik vandaag wél volledig gelezen, mét cache-buster. 🔴 **De `User Interface`-sectie bevat
+    precies één regel — *"Resolved an issue that caused some players to see fewer groups than intended when
+    looking for a group"* — en nergens in dat artikel staat iets over GUID-obfuscatie of over de
+    realm-API's.** Mijn twee [MOET GEFIKST] van gisteren rustten dus niet op de hotfix-notes, maar op de
+    SimC-commit van 20 nov plus de 1.60.1-API-changes-wikipagina (geschreven 16 okt, dus vóór de uitrol).
+    Dat verandert de conclusie niet — Rob heeft inmiddels in zijn eigen SavedVariables GEMETEN dat
+    `GetRealmName()` leeg is, zie het bestandscommentaar — maar het verandert wel wat de BRON is, en dat
+    hoort hier te staan. Op retail is het nieuwste hotfixartikel nog steeds **6 nov** (16 dagen), bevestigd
+    door twee onafhankelijke trackers; er is geen hotfix van 21 of 22 nov, op geen van beide clients.
+  - 🚧 **Wat ik NIET kon lezen.** `news.blizzard.com`, `us.forums.blizzard.com`, `warcraft.wiki.gg` en
+    `wago.tools` blijven geweigerd door de egress-proxy op WebFetch; alle vier zijn via Exa gelezen, elk mét
+    `?nocache=20261122`. Niet gelezen: reactie #18 van de beleidssticky (zie hierboven). Geen enkele bron
+    gaf vandaag een item dat ouder was dan wat mijn logboek gisteren al noemde, dus geen cache-signaal.
+  - ⏳ **Nog open uit eerdere runs — ongewijzigd, NIET opnieuw gemeten vandaag** (de twee van gisteren zijn
+    van deze lijst af, want dicht). De dode `PickupItem`-takken in `Modules/KeyBlock.lua:1135`/`:1227`/
+    `:1380` en `Modules/ApplyLayout.lua:1311`/`:1345`/`:1605`; de vijf decoratieve
+    `GetItemInfo`-terugvaltakken; de verouderde namespace-lijst in `docs/WATCHER_API_PROMPT.md` (18 aug,
+    noemt 57 namespaces en kent de twee TOC's niet); de client-test voor `/mh raidbots`; `GetTimerDuration`
+    toevoegen aan `Modules/ApiProbe.lua:377`; de `FrameStrata`-secret-vraag op
+    `Modules/PartyTargets.lua:517`; de drie `WOW_PROJECT_MAINLINE`-takken in `Libs/LibDBIcon-1.0.lua:533`/
+    `:572`/`:607` die op Forever omslaan; de ongemeten BETEKENIS van *"Edit Mode layouts are now saved
+    separately for each UI type"* voor `Modules/ForeverLayoutCarry.lua`; de shift-klik-taintvraag op
+    `Modules/Achievements.lua:1561`/`:1910`; de in-game-test van `ns.SelfCastMacroWarning`
+    (`Core.lua:4318`); of `C_LegacySystem` op de Forever-client bestaat en of het dezelfde Legacy-track is
+    als die van `Modules/ForeverLegacy.lua`; de `AllowedWhenUntainted`-verscherping van `C_Intl`/
+    `LuaLocaleContextAPI` als mogelijke voorbode; en nieuw sinds vandaag: of de player-GUID op Forever
+    inderdaad ongemoeid blijft (AFGELEID in `ForeverCharKey.lua`, nog niet op de client gezien) en de
+    opruiming van de oude sleutels na 28 nov. 🔴 Niets aangeraakt.
+  - 🔧 **Repo-staat: alleen `docs/API_WATCH.md` aangeraakt.** GEMETEN vóór het schrijven: `git status
+    --short` **leeg**; `HEAD` stond **opnieuw losgeslagen** (negende keer) en is met `git checkout main`
+    weer op `refs/heads/main` gezet. `git rev-parse --is-shallow-repository` → **`true`**, dus de
+    `(forced update)`-regel bij de pull is de kloondiepte en niet Rob — zesde dag dat dat hier staat. Laatste
+    commit vóór de mijne: `6846b49` *"Nachtcontrole 22 nov: 0 nakijken C1/C2, snapshot loopt achter, blinde
+    vlek C2 774"*.
