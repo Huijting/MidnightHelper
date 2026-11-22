@@ -6,7 +6,7 @@
 character, Bags full (niets wat hij wil houden, grijs + Destroy), gevecht zonder "action blocked". Voorwaardelijk, dus niet
 zeker: Equip, vrij talentpunt, pet. Niet los getest: per soort, bijna vol + schakelaar, grijs zonder waarde, link, Equip in
 gevecht, andere characters. **OPEN: ronde 2** (ingrediënten, recept-pijl, dungeon-quests, XP per uur). Midnight-inlog: GEDAAN.
-5.8.0 is getagd (22 nov, Robs go), zie hieronder.
+5.8.0 staat op CurseForge (22 nov). Rob plakt CURSEFORGE_DESCRIPTION.md zelf.
 
 🔧 **SKILL UP-VENSTER GEREPAREERD (22 nov via sparring, letterlijk: *"venster ja"*), getest: *"Venster is goed"* (klik en scroll open):** stijl A (dicht),
 "MH doesn't know which trainer/vendor yet", knop noemt het beroep. Ronde 2 uit zijn screenshots: XP-regel, Linen Cloth,
@@ -26,7 +26,7 @@ nakijken."*): 55 feiten = 36 bevestigd, 3 tegengesproken (rogue-keten 2x, Cantat
 `docs/forever/POLESTAR_NAKIJK_2026-11-22.md`. Repareren wacht op Robs keuze via sparring; 5.8.0 blijft zoals het staat.
 Licentie: niets wijzigen tot sparring zijn keuze stuurt.
 
-🚦 **5.8.0 GETAGD (gewone release).** Rob 22 nov avond via sparring, letterlijk: *"crates zwijgen en go voor 5.8.0"*.
+🚦 **5.8.0 STAAT OP CURSEFORGE (gewone release, 899a225).** Rob 22 nov avond via sparring, letterlijk: *"crates zwijgen en go voor 5.8.0"*.
 Daarmee vervalt *"We doen nog geen release"* voor 5.8.0. Weetjes, libraries en HandyNotes gingen niet mee.
 Run + CurseForge-bestanden: zie SITE_SEIN.
 Fable-ronde GEDAAN: 1 echte fout gerepareerd (Scholomance 5803 = alleen Alliance, Horde = 5804; `QUEST_FIX` in de generator)
