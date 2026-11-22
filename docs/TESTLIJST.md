@@ -68,10 +68,20 @@ bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt o
 - [ ] Quiet helpers → "XP per hour and time to the next level" uit: de regel en de tooltipregel zijn weg.
 - [ ] `/mh rest xp` print het getal en waarom (of waarom nog niet).
 
-## 21 nov (avond) — Forever: dungeon-quests — VERVALLEN 22 nov
+## 21-22 nov — Forever: dungeon-quests (terug op 22 nov, Rob: "overnemen, ja")
 
-- [vervallen, niet getest] De knop "Quests N" en zijn venster zijn van main gehaald (Rob 22 nov via sparring, letterlijk: *"Zygor b"*).
-      Er komt een nieuwe test als ze uit andere bronnen herbouwd zijn.
+- [ ] **Sluit het spel helemaal en start het opnieuw** (nieuwe bestanden; `/reload` is niet genoeg).
+- [ ] Forever: `/mh overview` → tab Dungeons. Bij een dungeon voor je level staat onder "Way ›" (en "Bosses") een knop
+      "Quests N". Muis erop: hoeveel nu op te halen, in je log, in de dungeon, later, gedaan.
+- [ ] Klik "Quests N": een venster "Quests for <dungeon>". Groen bovenaan = "Pick these up first" met questgever en zone;
+      "Way ›" zet de pijl naar de questgever en zegt het in chat. Klopt de plek (Zygors coördinaten, nog nooit gezien)?
+- [ ] Een quest die je al hebt staat geel onder "Already in your quest log"; een gedane quest telt mee in "Done already".
+      Pak er één op terwijl het venster open is: hij springt vanzelf naar "in je log".
+- [ ] Questnamen in je eigen taal (de client); staat er toch Engels, dan wist de client de quest nog niet. Even sluiten en
+      opnieuw openen hoort dat op te lossen.
+- [ ] Shift+scroll maakt het venster groter/kleiner, Escape sluit het.
+- [ ] Daarna een gevecht: geen "action blocked" op naam van MidnightHelper.
+- [ ] `/mh dungeons quests check` print per quest wat MH besloot en waarom.
 
 ## 🚦 Minimaal vóór 5.7.0 (21 nov; Rob is ziek, alleen dit)
 

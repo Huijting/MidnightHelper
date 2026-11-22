@@ -1,6 +1,6 @@
 # Midnight Helper — waar we staan
 
-## ▶▶ VOLGENDE BOUWCHAT (21 nov, avond): nieuwe Forever-reeks "leren van Polestar/FlowUp" — punt 4 GEBOUWD, 2 komt terug, 1 = B, 3 rust
+## ▶▶ VOLGENDE BOUWCHAT (21 nov, avond): nieuwe Forever-reeks "leren van Polestar/FlowUp" — punt 4 en 2 GEBOUWD, 1 = B, 3 rust
 
 ▶ **ROBS KEUZES 22 nov, rond het ontbijt (via Sparring 22-11), letterlijk:** *"overnemen, ja"* (1. Zygor kijken of
 overnemen; 2. mag het vrije deel van Polestar uitgezocht worden) · *"knop weg, en polestar heeft ook iets om je volle tassen
@@ -8,7 +8,8 @@ onderweg leger te maken, check dat ook, tijd voor koffie en ontbijt dus ga door 
 *"Ik ben nog niet terug maar kan wel via telefoon reageren 😇 tas 1 2 3"*. Werklijst, in deze volgorde:
 - [x] 1. Talents-knop weg, regel noemt zijn eigen toets. Wacht op test.
 - [ ] 2. **ZYGOR = OVERNEMEN: id's, coördinaten, volgorde. Geen teksten, notities of code.** "Zygor b" en de pauze vervallen.
-      Dungeon-quests terug zoals e4ccea3 (later werk intact); reagentia 87 → 172 (één bron blijft stil).
+      ✅ Dungeon-quests terug (wacht op test, herstart nodig; nieuw: y=100.38 bij Dark Iron Legacy = geen pijl).
+      Nog open: reagentia 87 → 172 (één bron blijft stil).
 - [ ] 3. Tassen, eigen code (Polestar = GPL, alleen het idee): eerst nameten of eten, drinken, munitie, class-reagentia als
       weggooien kunnen verschijnen; dan reservetas, hulp bij bijna vol, grijs zonder verkoopwaarde. (4) markeren koos hij niet.
 - [ ] 4. Recepten: Zygor mag als bron. Craft Ladder alleen nakijken als tweede bron, geen waarden: dat is de uitleg van

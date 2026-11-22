@@ -33,7 +33,7 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
   Alleen het idee: Polestar is GPLv3, FlowUp-routes ARR. Plan en stand: `docs/NEXT_SESSION.md` bovenaan.
 - (2) Dungeon-quests: gebouwd 21 nov uit Zygor, 22 nov van main gehaald (Rob 22 nov via sparring, letterlijk: *"Zygor b"*).
   ⏸️ Herbouw gestopt 22 nov (Rob: *"wij blijven Zijgor als een informatiepunt houden"*). ▶ Rob daarna, letterlijk: *"overnemen, ja"* = plekken en nummers uit Zygor mogen
-  (geen teksten, notities of code): de dungeon-quests komen terug.
+  (geen teksten, notities of code): de dungeon-quests zijn 22 nov terug op main, wacht op Robs test.
 - (4) XP per uur + tijd tot level: GEBOUWD 21 nov (nacht), schakelaar FXPRATE_SW, wacht op Robs test.
 - (1) Waar haal ik dit vandaan: ✅ JA, optie B. Rob 22 nov via sparring, letterlijk: *"1 b"* (op "1. A, B of C?"). B = onbekende
   recepten "Waar haal je dit" (venster + tooltip, trainer met pijl) + reagentia in de tooltip (verkoper met pijl /

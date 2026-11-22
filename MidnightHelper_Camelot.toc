@@ -209,6 +209,9 @@ Modules\ForeverDungeons.lua
 # Boss guide step 1: bosses, what they do, a tip, a few items (Rob, 18 Nov 2026: "Ja bouw maar").
 Modules\ForeverDungeonGuideData.lua
 Modules\ForeverDungeonGuide.lua
+# Dungeon quests: pick these up first, who gives them, Show the way (Rob, 21 Nov 2026, via sparring: "2 en 1, doe maar").
+Modules\ForeverDungeonQuestsData.lua
+Modules\ForeverDungeonQuests.lua
 # "New in this version: your choice" instead of the changelog when there is something to choose (Rob, 12 Nov 2026, via sparring: "Ja, bouw het (Recommended)").
 Modules\NewChoices.lua
 # "Your characters": every character of this account on one row (Rob, 12 Nov 2026, via sparring: "De vijf van het advies, bouwen (Recommended)").

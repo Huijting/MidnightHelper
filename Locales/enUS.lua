@@ -6097,6 +6097,26 @@ ns._mhLocales.enUS = {
 	FDG_FROM_FMT = "from %s",
 	FDG_LOOT_NOTE = "A few items from player guides and Wowhead (Forever), not the whole list, and no drop chances.",
 	FDG_HINT = "Inside a dungeon this opens on that dungeon. Target a boss: MH marks him. /mh bosses opens it.",
+	-- 21 Nov 2026: dungeon quests (ForeverDungeonQuests.lua). FDQ_BTN_FMT: %d = quests to pick up now.
+	-- FDQ_TIP_BTN_FMT: %d now, %d in your log, %d inside, %d later in a chain, %d done, %d in all.
+	-- FDQ_ARROW_FMT: %s = the quest giver, %s = the zone, %s = the quest title.
+	FDQ_BTN_FMT = "Quests %d",
+	FDQ_TITLE_FMT = "Quests for %s",
+	FDQ_TIP_BTN_FMT = "The quests to pick up before you go in, who gives them and where.\nPick up now: %d · in your log: %d · inside the dungeon: %d · later in a chain: %d · done: %d (of %d).",
+	FDQ_SEC_NOW = "Pick these up first",
+	FDQ_SEC_LOG = "Already in your quest log",
+	FDQ_SEC_INSIDE = "You get these inside the dungeon",
+	FDQ_SEC_LATER = "Later in a chain (do the quest before it first)",
+	FDQ_DONE_FMT = "Done already: %d of %d. Green = go and get it, \"Way ›\" sets the arrow to the quest giver.",
+	FDQ_NONE = "Our source (Zygor's dungeon quest guides) has no quests for this dungeon.",
+	FDQ_AFTER_FMT = "After: %s",
+	FDQ_INSIDE_FMT = "Inside: %s",
+	FDQ_FROM_ITEM_FMT = "Starts from an item: %s",
+	FDQ_FROM_OBJECT = "Starts at something you click in the world",
+	FDQ_NO_PLACE = "our source gives no place for this one",
+	FDQ_CLASS = "class quest",
+	FDQ_ARROW_FMT = "arrow set to %s (%s) for \"%s\".",
+	FDQ_NOTE = "From Zygor's dungeon quest guides; places not yet checked in the game. Quest levels are not in our data.",
 	-- 19 Nov 2026: the small boss card (ForeverDungeonGuide.lua) and its switch in Quiet helpers.
 	FDG_CARD_SW = "Small boss card when you target a boss",
 	FDG_CARD_SW_DESC = "Inside a dungeon: target a boss and a small card shows what he does, with one tip. Another target hides it. The button on the card opens the whole boss guide.",

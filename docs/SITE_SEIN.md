@@ -68,13 +68,16 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 - Commando's:     /mh rest xp
 - Spel:           Forever
 
-## 21 nov 2026 — Forever: dungeon-quests per dungeon — INGETROKKEN 22 nov
-- Tag + commit:   geen tag (nooit uitgebracht; weggehaald 22 nov, zie git log "dungeon quests off main")
-- Status:         alleen op main (inmiddels verwijderd)
-- Mag op de site: nee, niet noemen. Rob 22 nov via sparring, letterlijk: *"Zygor b"*
-- Speler ziet:    niets; komt pas terug als het uit andere bronnen dan Zygor herbouwd is.
-- Knoplabels:     geen
-- Commando's:     geen
+## 21 nov 2026 — Forever: dungeon-quests per dungeon (22 nov terug op main)
+- Tag + commit:   geen tag (commit: zie git log, "dungeon quests back")
+- Status:         alleen op main
+- Mag op de site: nee (nog niet door Rob getest, geen release)
+- Speler ziet:    In het overzicht, tab Dungeons, heeft een dungeon met quests een knop "Quests N": een venster met de
+                  quests die je eerst ophaalt (questgever + zone, knop "Way ›" zet de pijl), wat al in je log staat, wat je
+                  in de dungeon krijgt, wat later in een reeks komt, en hoeveel je al gedaan hebt. 32 dungeons; nummers en
+                  plekken uit Zygor.
+- Knoplabels:     FDQ_BTN_FMT, FDQ_TITLE_FMT, FOV_GO_SHORT
+- Commando's:     /mh dungeons quests [key], /mh dungeons quests check [key]
 - Spel:           Forever
 
 ## 21 nov 2026 — release 5.7.0 (staat op CurseForge)
