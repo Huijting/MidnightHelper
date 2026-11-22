@@ -18,6 +18,8 @@ local _, ns = ...
 	loot, and "Sell MH junk" at a vendor — only ever from a click. /mh bagfull test calls DeleteCursorItem (empty cursor)
 	and UseContainerItem (empty slot) from a click and records whether the game blocked them, and whether you stood at a
 	vendor. No item can be lost by the test.
+	22 Nov 2026 (Rob via sparring: "tas 1 2 3", 1): a spare normal bag + an empty bag slot = first row, one click to put
+	it on (SpareBag, EquipSpare). Nothing leaves your bags that way.
 	/mh bagfull           what MH saw last and why it showed or stayed quiet; /mh bagfull show = the window now (same door)
 	/mh bagfull on|off    the automatic window (default on)
 ]]
@@ -159,6 +161,76 @@ local function ForMyProfession(id)
 	return ok and text ~= nil and r == 0.37
 end
 
+-- Slots per normal bag (DB2 ItemSparse.ContainerSlots, item class 1/0, 1.60.1.71037): the biggest spare bag goes first.
+local BAG_SLOTS = {}
+for n, ids in pairs({
+	[6] = "805 828 2115 4238 4496 4930 4957 5081 5571 5572 6756 11845 256935 277200 277977 279936 279939 280088 282015",
+	[8] = "855 856 965 1537 2082 2657 3233 3298 3343 3568 4240 4498 5573 5574 5603 5762 6754 277332 282016 287971",
+	[10] = "804 857 918 930 931 933 1470 1724 1729 3352 4241 4245 4497 5575 5576 5763 270017 282017",
+	[12] = "1623 1652 1725 3762 4499 4981 5764 5765 10050 16057 221498 276891",
+	[14] = "1685 3914 9587 10051 11324 14046 19291 269504",
+	[16] = "4500 4501 10683 10959 20400 22233",
+	[18] = "13330 14155 17966 19914 22679 227844 260307 262801",
+	[20] = "1977 14156",
+	[24] = "239147",
+	[30] = "239148",
+	[40] = "277845",
+}) do
+	for id in ids:gmatch("%d+") do
+		BAG_SLOTS[tonumber(id)] = n
+	end
+end
+
+local function IsNormalBag(id)
+	local f = (C_Item and C_Item.GetItemInfoInstant) or GetItemInfoInstant
+	if not f then
+		return false
+	end
+	local ok, _, _, _, _, _, class, sub = pcall(f, id)
+	return ok and class == 1 and sub == 0
+end
+
+--- A normal bag lying in your bags while a bag slot is empty: { bag, slot, id, link, icon, name, n, slots, inv }, or
+--- nil and why not. inv = the inventory slot of that empty bag slot.
+local function SpareBag()
+	if not (C and C.ContainerIDToInventoryID and C.GetContainerNumSlots and GetInventoryItemID) then
+		return nil, "bag slots not readable"
+	end
+	local inv
+	for bag = 1, LAST_BAG do
+		local okI, i = pcall(C.ContainerIDToInventoryID, bag)
+		local okN, n = pcall(C.GetContainerNumSlots, bag)
+		if okI and type(i) == "number" and okN and n == 0 then
+			local okW, worn = pcall(GetInventoryItemID, "player", i)
+			if okW and worn == nil then
+				inv = i
+				break
+			end
+		end
+	end
+	if not inv then
+		return nil, "no empty bag slot"
+	end
+	local best
+	for bag = 0, LAST_BAG do
+		local okN, count = pcall(C.GetContainerNumSlots, bag)
+		for slot = 1, (okN and count) or 0 do
+			local ok, info = pcall(C.GetContainerItemInfo, bag, slot)
+			if ok and type(info) == "table" and Readable(info.itemID) and not info.isLocked and IsNormalBag(info.itemID) then
+				local size = BAG_SLOTS[info.itemID] or 0
+				if not best or size > best.slots then
+					best = { bag = bag, slot = slot, id = info.itemID, link = info.hyperlink, icon = info.iconFileID,
+						name = info.itemName, n = info.stackCount or 1, slots = size, inv = inv }
+				end
+			end
+		end
+	end
+	if not best then
+		return nil, "an empty bag slot, but no spare normal bag"
+	end
+	return best
+end
+
 --- Every item that may go, cheapest first: { bag, slot, id, link, name, icon, n, value, why }; plus counts of what was
 --- left out and why (for /mh bagfull).
 local function Candidates()
@@ -169,6 +241,7 @@ local function Candidates()
 	if not (C and C.GetContainerNumSlots and C.GetContainerItemInfo) then
 		return out, { ["no C_Container"] = 1 }
 	end
+	local spare = SpareBag()
 	for bag = 0, LAST_BAG do
 		local family = 0
 		if C.GetContainerNumFreeSlots then
@@ -195,6 +268,8 @@ local function Candidates()
 					skip("profession tool")
 				elseif KeepKind(id) then
 					skip(KeepKind(id))
+				elseif spare and IsNormalBag(id) then
+					skip("spare bag: a bag slot is empty")
 				elseif ForMyProfession(id) then
 					skip("ingredient for your profession")
 				else
@@ -257,7 +332,7 @@ end
 --------------------------------------------------------------------------------
 local W, H, ROWS = 480, 360, 3
 local win
-local AskDestroy, LootIt -- step 2, defined below (both only ever run from a click)
+local AskDestroy, LootIt, EquipSpare -- step 2, defined below (both only ever run from a click)
 
 local function Build()
 	if win then
@@ -279,6 +354,11 @@ local function Build()
 	f:RegisterForDrag("LeftButton")
 	f:SetScript("OnDragStart", f.StartMoving)
 	f:SetScript("OnDragStop", f.StopMovingOrSizing)
+	if ns.RegisterMidnightDialogPopup then -- Shift+scroll and Escape
+		ns.RegisterMidnightDialogPopup(f)
+	else
+		tinsert(UISpecialFrames, f:GetName())
+	end
 	f.title = f:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
 	f.title:SetPoint("TOPLEFT", 22, -18)
 	f.title:SetPoint("RIGHT", f, "RIGHT", -36, 0)
@@ -313,14 +393,20 @@ local function Build()
 		r.del:SetPoint("RIGHT", r, "RIGHT", 0, 0)
 		r.del:SetText(ns:L("FBAG_DESTROY"))
 		r.del:SetScript("OnClick", function(self)
-			if self.entry and AskDestroy then
-				AskDestroy(self.entry)
+			local e = self.entry
+			if e and e.inv then -- the spare bag: put it on, never the destroy path
+				if EquipSpare then
+					EquipSpare(e)
+				end
+			elseif e and AskDestroy then
+				AskDestroy(e)
 			end
 		end)
 		r.del:SetScript("OnEnter", function(self)
+			local spare = self.entry and self.entry.inv
 			GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
-			GameTooltip:SetText(ns:L("FBAG_DESTROY"), 1, 0.82, 0)
-			GameTooltip:AddLine(ns:L("FBAG_DESTROY_TIP"), 1, 1, 1, true)
+			GameTooltip:SetText(self:GetText() or "", 1, 0.82, 0)
+			GameTooltip:AddLine(ns:L(spare and "FBAG_EQUIP_TIP" or "FBAG_DESTROY_TIP"), 1, 1, 1, true)
 			GameTooltip:Show()
 		end)
 		r.del:SetScript("OnLeave", function()
@@ -381,28 +467,32 @@ local function Build()
 	f.hint:SetPoint("BOTTOMLEFT", 22, 18)
 	f.hint:SetPoint("RIGHT", f, "RIGHT", -22, 0)
 	f.hint:SetJustifyH("LEFT")
-	if ns.RegisterMidnightDialogPopup then
-		ns.RegisterMidnightDialogPopup(f)
-	else
-		tinsert(UISpecialFrames, f:GetName())
-	end
 	f:Hide()
 	win = f
 	return f
 end
 
-local function Fill(list, loot)
+local function Fill(list, loot, spare)
 	local f = Build()
 	f.title:SetText(ns:L("FBAG_TITLE"))
-	f.sub:SetText(ns:L(#list > 0 and "FBAG_SUB" or "FBAG_NONE"))
+	f.sub:SetText(ns:L((spare and "FBAG_SUB_SPARE") or (#list > 0 and "FBAG_SUB") or "FBAG_NONE"))
 	for i, r in ipairs(f.rows) do
-		local e = list[i]
+		local e
+		if not spare then
+			e = list[i]
+		elseif i == 1 then
+			e = spare
+		else
+			e = list[i - 1]
+		end
 		if e then
 			r.bag, r.slot = e.bag, e.slot
 			r.icon:SetTexture(e.icon or 134400)
 			r.name:SetText((e.link or e.name or "?") .. (e.n > 1 and (" x" .. e.n) or ""))
-			r.value:SetText(Money(e.value))
-			r.why:SetText(ns:L(e.why))
+			r.value:SetText(e.inv and "" or Money(e.value))
+			r.why:SetText(ns:L(e.inv and "FBAG_WHY_SPARE" or e.why))
+			-- EQUIPSET_EQUIP = the client's own "Equip", in its language (GEMETEN, GlobalStrings 20051).
+			r.del:SetText(e.inv and EQUIPSET_EQUIP or ns:L("FBAG_DESTROY"))
 			r.del.entry = e
 			r:Show()
 		else
@@ -448,6 +538,7 @@ end
 local function Show(why)
 	local list, skipped = Candidates()
 	local loot = (LootFrame and LootFrame:IsShown()) and LootBest() or nil
+	local spare, noSpare = SpareBag()
 	last.why = ("%s: %d candidates, cheapest %s; left out: %s"):format(why, #list,
 		list[1] and ("%s (%d copper)"):format(tostring(list[1].name), list[1].value) or "none",
 		(function()
@@ -457,8 +548,9 @@ local function Show(why)
 			end
 			return #t > 0 and table.concat(t, ", ") or "nothing"
 		end)())
+	last.why = last.why .. "; spare bag: " .. (spare and tostring(spare.name) or noSpare)
 	last.at = GetTime and GetTime() or 0
-	Fill(list, loot)
+	Fill(list, loot, spare)
 	Build():Show()
 end
 
@@ -481,7 +573,10 @@ blockEv:SetScript("OnEvent", function(_, event, addon)
 	local s = Settings()
 	s.blocked = s.blocked or {}
 	s.blocked[watch.kind] = event
-	if watch.kind == "delete" then
+	if watch.kind == "equip" then
+		pcall(ClearCursor)
+		print(PREFIX .. ns:L("FBAG_EQUIP_FAILED"))
+	elseif watch.kind == "delete" then
 		pcall(ClearCursor)
 		print(PREFIX .. ns:L("FBAG_DESTROY_BLOCKED"))
 	elseif watch.kind == "sell" then
@@ -564,6 +659,35 @@ AskDestroy = function(e)
 	if StaticPopup_Show and StaticPopupDialogs and StaticPopupDialogs.MH_BAGFULL_DESTROY then
 		StaticPopup_Show("MH_BAGFULL_DESTROY", ns:L("FBAG_DESTROY_CONFIRM_FMT"):format(label), nil, e)
 	end
+end
+
+--- Put the spare bag in the empty bag slot: what dragging it onto that slot does (Blizzard's bag buttons call PutItemInBag,
+--- GEMETEN in the Forever UI source). Only inside the click, never in a fight; checked again right before.
+EquipSpare = function(e)
+	if InCombatLockdown and InCombatLockdown() then
+		if UIErrorsFrame and ERR_NOT_IN_COMBAT then
+			UIErrorsFrame:AddMessage(ERR_NOT_IN_COMBAT, 1, 0.1, 0.1)
+		end
+		return
+	end
+	local okW, worn = pcall(GetInventoryItemID, "player", e.inv)
+	if not SameItem(e) or not okW or worn ~= nil or not PutItemInBag then
+		print(PREFIX .. ns:L("FBAG_EQUIP_FAILED"))
+		RefreshSoon()
+		return
+	end
+	watch = { kind = "equip", at = GetTime() }
+	pcall(ClearCursor)
+	pcall(C.PickupContainerItem, e.bag, e.slot)
+	local okC, kind, cid = pcall(GetCursorInfo)
+	if okC and kind == "item" and cid == e.id then
+		pcall(PutItemInBag, e.inv)
+	end
+	if not (okC and kind == "item" and cid == e.id) or (CursorHasItem and CursorHasItem()) then
+		pcall(ClearCursor) -- back where it was
+		print(PREFIX .. ns:L("FBAG_EQUIP_FAILED"))
+	end
+	RefreshSoon()
 end
 
 LootIt = function(slot)
@@ -794,5 +918,7 @@ function ns.ForeverBagFullSlash(arg)
 		t[#t + 1] = k .. " " .. n
 	end
 	print("  left out: " .. (#t > 0 and table.concat(t, ", ") or "nothing"))
+	local spare, noSpare = SpareBag()
+	print("  spare bag: " .. (spare and ("%s, %d slots: offered to put on"):format(tostring(spare.name), spare.slots) or noSpare))
 	print("  /mh bagfull show = the window now, /mh bagfull test = may an addon button destroy/sell here (step 2)")
 end

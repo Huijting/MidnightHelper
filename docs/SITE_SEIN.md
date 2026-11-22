@@ -28,6 +28,16 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 22 nov 2026 — Forever: Bags full, eerst je reservetas
+- Tag + commit:   geen tag (commit: zie git log, "spare bag")
+- Status:         alleen op main
+- Mag op de site: nee (nog niet door Rob getest, geen release)
+- Speler ziet:    heb je een leeg tasvakje en een losse gewone tas, dan biedt Bags full eerst aan die aan te trekken
+                  (één klik, er gaat niets weg).
+- Knoplabels:     geen eigen sleutel (de knop toont het woord van het spel, Engels: Equip)
+- Commando's:     /mh bagfull
+- Spel:           Forever
+
 ## 22 nov 2026 — Forever: Bags full beschermt je voorraad
 - Tag + commit:   geen tag (commit: zie git log, "never suggest food")
 - Status:         alleen op main

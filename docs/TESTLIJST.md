@@ -25,6 +25,15 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 22 nov — Forever: reservetas eerst aantrekken (tassen, punt b)
+
+- [ ] Typ `/reload`. Zorg voor een leeg tasvakje en een losse gewone tas in je tas. `/mh bagfull show`: de bovenste regel is
+      die tas, met de knop "Equip" (het woord van het spel). Bij meer tassen staat de grootste eerst.
+- [ ] Klik Equip: de tas zit in het vakje, er is niets weg, en het venster werkt zichzelf bij.
+- [ ] In gevecht op Equip klikken: rood "You can't do that while in combat", er verandert niets.
+- [ ] **Na het aantrekken een gevecht**: geen "action blocked" op naam van MidnightHelper.
+- [ ] Geen leeg tasvakje: geen Equip-regel. `/mh bagfull` zegt bij "spare bag" waarom.
+
 ## 22 nov — Forever: Bags full gooit geen voorraad weg (tassen, punt a)
 
 - [ ] Typ `/reload`, dan `/mh bagfull show`. Eten, drinken, pijlen, kogels en class-reagentia (bv. Rune of Teleportation,
