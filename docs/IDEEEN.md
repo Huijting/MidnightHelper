@@ -26,6 +26,11 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 
 ## Open — wacht op Rob
 
+### Bronnenlijst met licentieteksten in de zip (22 nov) — ✅ JA + GEBOUWD; gevonden licentiepunten wachten op Rob
+- Bron: Rob 22 nov via sparring, op het voorstel "MIT blijft, één bronnenbestand, één zin erbij", letterlijk: *"Bronnenlijst, ja."*
+- `THIRD_PARTY.txt` in de root + README. Vervalt: "niets voor de licentie wijzigen", alleen voor deze lijst en die zin.
+- Spel: M + F (in het spel verandert niets). Site: niets.
+
 ### Forever: oude Polestar-weetjes in de class-quests nakijken (22 nov) — ✅ JA voor nakijken, GEDAAN; repareren = open
 - Bron: Rob 22 nov via sparring, letterlijk: *"Misschien is dat wel slim, ouderwetjes nakijken. En een vraag aan mijn kant.
   Moeten wij ook iets met die licentie? Moeten wij onze licentie aanpassen? Of vind je dat zoals wij het nu hebben best wel

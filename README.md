@@ -69,6 +69,13 @@ See `CURSEFORGE_DESCRIPTION.md` for the full feature list.
   prompts, then picked and cropped by us; the logo was made with Google Gemini. No Blizzard artwork
   was used as input for the icons.
 
+## License
+
+The MIT licence in [LICENSE](LICENSE) covers Midnight Helper's own work only. The parts and data of others listed in THIRD_PARTY.txt
+keep their own terms.
+
+Every third-party part, its source and its licence: [THIRD_PARTY.txt](THIRD_PARTY.txt).
+
 ## Disclaimer
 
 Midnight Helper is a fan-made addon and is not affiliated with, endorsed, sponsored, or specifically approved by Blizzard Entertainment, Inc.

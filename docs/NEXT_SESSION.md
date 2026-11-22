@@ -14,6 +14,11 @@ Light Leather, recepten in Skill up gezien; pijl, persoon en dungeon-quests niet
 andere GEBOUWD (`S.SkinPanel` in ForeverStyle.lua). BagFull, Crates, Durability, HowToPlay GOEDGEKEURD (Rob 22 nov: *"Dus de
 vensters zijn goed. Dat kan je goedkeuren."*; details open in TESTLIJST, o.a. prijs door tekst in Bags full: pas na zijn antwoord). De andere 7
 (Chars, Dungeons, Macros, ProfTrainers, Trainer, Vendors, Weapons) openen niet meer: reserve achter het overzicht.
+📜 **BRONNENLIJST GEBOUWD** (Rob 22 nov via sparring, letterlijk: *"Bronnenlijst, ja."*): `THIRD_PARTY.txt` (gaat mee in de zips)
++ de MIT-zin in README; LICENSE, code en data ongewijzigd. Licentie van ons werk blijft MIT. ⏸️ Alleen gemeld, wacht op Robs keuzes
+via sparring: LibDBIcon (tegenstrijdig), LibDataBroker (geen licentie), Platynator-pagina (profiel + plaatje van MarcelianOnline,
+geen toestemming in de repo), plekken gelijk aan HandyNotes: Midnight (All Rights Reserved). Niets daarvan zelf weghalen of vervangen.
+
 🔎 **POLESTAR-WEETJES NAGEKEKEN, niets gewijzigd** (Rob 22 nov via sparring: *"Misschien is dat wel slim, ouderwetjes
 nakijken."*): 55 feiten = 36 bevestigd, 3 tegengesproken (rogue-keten 2x, Cantation), 1 betwist, 15 zonder andere bron.
 `docs/forever/POLESTAR_NAKIJK_2026-11-22.md`. Repareren wacht op Robs keuze via sparring; 5.8.0 blijft zoals het staat.

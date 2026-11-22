@@ -1,0 +1,366 @@
+MIDNIGHT HELPER - THIRD-PARTY PARTS AND SOURCES
+Last checked: 22 November 2026
+
+The MIT licence in LICENSE covers Midnight Helper's own work only. The parts and data of others listed in THIRD_PARTY.txt
+keep their own terms.
+
+A = parts and data that come with a licence (full texts in E where they must travel along)
+B = shipped parts whose licence is not clear
+C = data and facts looked up in sources without a free licence, or with a licence of another kind
+D = sources used to read or check facts
+E = licence texts
+
+Naming a source below claims no licence, permission or endorsement from it. This list was made from the comments in our
+files and from comparing them with the sources we could read; tell us if something is missing:
+https://github.com/Huijting/MidnightHelper/issues
+
+
+====================================================================================================
+A. PARTS AND DATA WITH A LICENCE
+====================================================================================================
+
+A1. CallbackHandler-1.0, minor 8, revision 26
+    Where:    Libs/CallbackHandler-1.0.lua
+    Source:   Ace3, https://github.com/WoWUIDev/Ace3 ; https://repos.wowace.com/wow/callbackhandler/
+    Author:   Ace3 Development Team
+    Licence:  BSD-style licence of Ace3 (the library's own toc says BSD-2.0). Text: E1.
+    Changed:  no (only the expanded version-control line at the top differs).
+
+A2. LibStub, revision 76
+    Where:    Libs/LibStub.lua
+    Source:   https://repos.wowace.com/wow/libstub/
+    Credits:  Kaelten, Cladhaire, ckknight, Mikk, Ammo, Nevcairiel, joshborke
+    Licence:  public domain (stated in the file).
+    Changed:  no (header lines aside).
+
+A3. Alegreya Sans (Regular, Medium)
+    Where:    Media/Fonts/AlegreyaSans-*.ttf
+    Source:   https://github.com/huertatipografica/Alegreya-Sans, through https://github.com/google/fonts
+    Copyright 2013 The Alegreya Sans Project Authors
+    Licence:  SIL Open Font License 1.1. Full text: Media/Fonts/OFL-AlegreyaSans.txt.
+    Changed:  no.
+
+A4. Cormorant SC (SemiBold, Bold)
+    Where:    Media/Fonts/CormorantSC-*.ttf
+    Source:   https://github.com/CatharsisFonts/Cormorant, through https://github.com/google/fonts
+    Copyright 2015 the Cormorant Project Authors
+    Licence:  SIL Open Font License 1.1. Full text: Media/Fonts/OFL-CormorantSC.txt.
+    Changed:  no.
+
+A5. Everything Delves, by Wheelbarrel00 (version of May 2026)
+    Where:    Modules/DelveHistory.lua (code), Modules/DelveWeeklyTrackers.lua (a quest table)
+    Source:   https://github.com/wheelbarrel00/EverythingDelves
+    Licence:  MIT. Text: E2.
+    Changed:  yes: adapted, shortened and extended.
+
+A6. What's Training?, by Fusionpit, commit 0654674ef735
+    Where:    Modules/ForeverTrainerData.lua
+    Source:   https://github.com/fusionpit/WhatsTraining
+    Licence:  MIT. Text: E3 (the copyright line names no holder in the original either).
+    Changed:  yes: class trainer spells, levels and prices converted to our format.
+
+A7. AllTheThings, commit 3b009971c7cb9287d3f1291b04c9cd59187cdeaa
+    Where:    Modules/ForeverReagentSourceData.lua, Modules/ForeverRecipeSourceData.lua
+    Source:   https://github.com/ATTWoWAddon/AllTheThings
+    Licence:  MIT. Text: E4.
+    Changed:  yes: reduced to item, recipe and NPC numbers, filtered with a second source.
+
+A8. HandyNotes: Dungeon & Raid Locations (Forever), by Pirson, version 1.02
+    Where:    Modules/ForeverDungeons.lua (entrance places)
+    Source:   https://github.com/Pirson-s-Addons/HandyNotes_DungeonRaidLocations-Forever
+    Licence:  MIT. Text: E5.
+    Changed:  yes: converted to our format, combined with game data.
+
+A9. SimulationCraft addon, 12.1.0-04 and 12.1.0-alpha-06
+    Where:    Modules/SimcExport.lua (tables and export format)
+    Source:   https://github.com/simulationcraft/simc-addon
+    Licence:  The Unlicense (public domain). Text: E6.
+    Changed:  yes: adapted, reduced.
+
+A10. "Polestar Recorder sessions", by the Polestar authors
+    Where:    Modules/ForeverReagentSourceData.lua, Modules/ForeverRecipeSourceData.lua
+    Source:   https://github.com/fitzforge/polestar/blob/7ea56b6897f4d1006bad769317e78f9c85f7545a/data/codex/recorded.json
+    Licence:  Creative Commons Attribution 4.0 International,
+              https://creativecommons.org/licenses/by/4.0/legalcode
+    Changed:  yes: only rows marked trusted were read, used as a second source, reduced to numbers; votes and chances
+              left out. The Polestar authors do not endorse Midnight Helper. This entry is only about those recordings:
+              Polestar's addon itself is GPL-3.0.
+
+A11. Efficient Games quest data, as included in the Spoken addon (its data commit 2ae2154)
+    Where:    Modules/ForeverDungeonQuestsData.lua (English quest titles, quest order); checked in
+              Modules/ForeverClassQuests.lua
+    Source:   https://efficient.games, through Spoken's Spoken_Quests/Data/Compendium.lua
+    Licence:  Creative Commons Attribution 4.0 International, as stated in that Spoken file,
+              https://creativecommons.org/licenses/by/4.0/legalcode
+    Changed:  yes: reduced to titles and "previous quest". For Spoken's own share of that data we found no licence
+              statement (see C).
+
+A12. classicwowforever.com, by Classic WoW Forever
+    Where:    some macro texts in Modules/ForeverMacros.lua and Locales/
+    Source:   https://classicwowforever.com
+    Licence:  Creative Commons Attribution 4.0 International, https://creativecommons.org/licenses/by/4.0/legalcode
+    Changed:  yes: shortened, adapted and translated. No endorsement.
+
+A13. Mythic Mentor (BossHelper), by testtoast & QuteBytes, Burning Toast Studio
+    Where:    Modules/DungeonRosterData.lua (dungeon and encounter numbers); read as a cross-check for
+              Modules/DungeonTipsData.lua (the tips are our own words)
+    Source:   https://www.curseforge.com/wow/addons/mythic-mentor
+    Licence:  MIT according to its CurseForge page. The download we read holds no licence text or copyright line, so
+              none is repeated here.
+    Changed:  yes: numbers only.
+
+
+====================================================================================================
+B. SHIPPED PARTS WHOSE LICENCE IS NOT CLEAR
+====================================================================================================
+
+B1. LibDBIcon-1.0, minor 56, by Funkeh (credits: Rabbit, copystring)
+    Where:    Libs/LibDBIcon-1.0.lua
+    Source:   https://www.wowace.com/projects/libdbicon-1-0
+    Licence:  the official statements differ. The project pages on WowAce and CurseForge say "Ace3 Style BSD"; the toc
+              in the official repository says "All Rights Reserved"; older copies of that toc said "GPLv2 or later".
+    Changed:  not changed on purpose.
+
+B2. LibDataBroker-1.1, by Tekkub
+    Where:    Libs/LibDataBroker-1.1.lua
+    Source:   https://github.com/tekkub/libdatabroker-1-1
+    Licence:  none found in the official repository, its readme or its wiki.
+    Changed:  no (the same as the official file).
+
+B3. Platynator profile page: "MF Platynator 12.1", by MarcelianOnline
+    Where:    Addons/Platynator.lua (link to the profile), Media/Platy2.tga (picture with the maker's Patreon line);
+              Media/Platy1.tga, Media/Platy3.tga and Addons/PlatynatorData.lua belong to the same page, their origin
+              is not recorded.
+    Source:   https://wago.io/q1ijhrt1U
+    Licence:  none found.
+
+
+====================================================================================================
+C. FACTS AND DATA FROM SOURCES WITHOUT A FREE LICENCE, OR WITH A LICENCE OF ANOTHER KIND
+====================================================================================================
+
+We claim no licence or permission from these. The header of each file says more.
+
+Zygor Guides (quest, NPC and item numbers, places, order, flight and route facts)
+    Modules/ForeverClassQuests.lua, ForeverDungeonQuestsData.lua, ForeverReagentSourceData.lua,
+    ForeverRecipeSourceData.lua, FlightPointsData.lua, FlightNetworkData.lua, MountRunData.lua, AchievementsData.lua
+    and other route data.
+
+HandyNotes: Midnight, by Zarillion (All Rights Reserved) (places and numbers)
+    Modules/AchievementsData.lua, Rares.lua, DelveChestData.lua, MidnightCodexData.lua, EventScheduler.lua,
+    Profession.lua, RitualSites.lua, TravelPlan.lua and UI.lua.
+
+HandyNotes: MapNotes, by BadBoyBarny (All Rights Reserved) (places, checks)
+    Modules/MountRunData.lua; compared in Modules/ForeverCitySpots.lua.
+
+HandyNotes: WoW Forever, by Kemayo (no licence found) (which rares exist, checks)
+    Modules/ForeverRares.lua, ForeverRaresAll.lua.
+
+HandyNotes: Class Trainers (All Rights Reserved)
+    Read from the player's own installation while playing (Modules/ForeverTrainer.lua, ForeverClassQuests.lua).
+
+JustAC, by wealdly (GPL-3.0-or-later) (spell numbers, cooldowns, spell categories)
+    Modules/KeybindRoles_*.lua, HealerCooldowns.lua, TankToolkit.lua, DpsToolkit.lua, DispelHelper.lua,
+    GroupRezLust.lua, SurvivalPlan.lua.
+
+Deadly Boss Mods (All Rights Reserved) (spell and encounter numbers, checks)
+    Modules with boss, dungeon, raid and delve data.
+
+DungeonHelper (no licence found) (dungeon names, checks)
+    Modules/DungeonRosterData.lua, DungeonTipsData.lua.
+
+Spoken (no licence statement found for its quest data) (quest titles, givers, order)
+    Modules/ForeverDungeonQuestsData.lua, ForeverClassQuests.lua.
+
+Questie (GPL) (map pins and quest order as Classic reference)
+    Modules/ForeverClassQuests.lua.
+
+Polestar, apart from the recordings in A10 (GPL-3.0) (single class quest facts of 17 November 2026)
+    Modules/ForeverClassQuests.lua.
+
+
+====================================================================================================
+D. SOURCES USED TO READ OR CHECK FACTS
+====================================================================================================
+
+Blizzard Entertainment's game and client data, read in the game and through wago.tools. Wowhead, including its WoW
+Forever database. Icy Veins, Method, Archon, Murlok, warcraft.wiki.gg, azeroth.wiki, wowfdb.com. The levelling guides
+named per talent order in Modules/ForeverTalentNext.lua. Addons named in our comments as "idea only" or "compared
+only" gave no code or text.
+
+The screen icons were generated locally with Z-Image Turbo; the logo was made with Google Gemini.
+
+World of Warcraft and Blizzard Entertainment are trademarks or registered trademarks of Blizzard Entertainment, Inc.
+Midnight Helper is not affiliated with or endorsed by Blizzard Entertainment or by any source named here.
+
+
+====================================================================================================
+E. LICENCE TEXTS
+====================================================================================================
+
+
+E1. Ace3, including CallbackHandler-1.0
+---------------------------------------
+
+Copyright (c) 2007, Ace3 Development Team 
+
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without 
+modification, are permitted provided that the following conditions are met:
+
+    * Redistributions of source code must retain the above copyright notice, 
+      this list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above copyright notice, 
+      this list of conditions and the following disclaimer in the documentation 
+      and/or other materials provided with the distribution.
+    * Redistribution of a stand alone version is strictly prohibited without 
+      prior written authorization from the Lead of the Ace3 Development Team. 
+    * Neither the name of the Ace3 Development Team nor the names of its contributors 
+      may be used to endorse or promote products derived from this software without 
+      specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+"AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+
+E2. Everything Delves
+---------------------
+
+MIT License
+
+Copyright (c) 2026 Wheelbarrel00
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+
+E3. What's Training?
+--------------------
+
+MIT License
+
+Copyright (c) 2019
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+
+E4. AllTheThings
+----------------
+
+MIT License
+
+Copyright (c) 2026 AllTheThings WoW Addon
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+
+E5. HandyNotes: Dungeon & Raid Locations (Forever)
+--------------------------------------------------
+
+MIT License
+
+Copyright (c) 2025-2026 Pirson
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+
+E6. SimulationCraft addon
+-------------------------
+
+This is free and unencumbered software released into the public domain.
+
+Anyone is free to copy, modify, publish, use, compile, sell, or
+distribute this software, either in source code form or as a compiled
+binary, for any purpose, commercial or non-commercial, and by any
+means.
+
+In jurisdictions that recognize copyright laws, the author or authors
+of this software dedicate any and all copyright interest in the
+software to the public domain. We make this dedication for the benefit
+of the public at large and to the detriment of our heirs and
+successors. We intend this dedication to be an overt act of
+relinquishment in perpetuity of all present and future rights to this
+software under copyright law.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR
+OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+OTHER DEALINGS IN THE SOFTWARE.
+
+For more information, please refer to <https://unlicense.org>
