@@ -26,7 +26,7 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 
 ## Open — wacht op Rob
 
-### Forever: leren van Polestar/FlowUp — dungeon-quests, "waar haal ik dit vandaan?", bootwachttijd, XP per uur (wens van Rob, 21 nov) — ✅ JA, 4 gebouwd, 2 herbouwen, 1 = B, 3 rust
+### Forever: leren van Polestar/FlowUp — dungeon-quests, "waar haal ik dit vandaan?", bootwachttijd, XP per uur (wens van Rob, 21 nov) — ✅ JA, 4, 2 en 1 (B) GEBOUWD, wacht op ronde 2, 3 rust
 - Bron: Rob 21 nov via sparring, letterlijk: *"ik blijf bij Zygor, Polestar probeer ik later. maar kunnen wij er iets van
   leren / verbeteren"* → *"2 en 1, doe maar, daarna 3 en 4 :)"*.
 - Volgorde: (2) dungeon-quests, (1) waar haal ik dit vandaan, (3) boot/zeppelin-wachttijd, (4) XP per uur.
@@ -40,7 +40,7 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
   recepten "Waar haal je dit" (venster + tooltip, trainer met pijl) + reagentia in de tooltip (verkoper met pijl /
   verzamelberoep / monsters zonder plek); weet MH het niet, dan zwijgen. Eerst Robs meting `/mh skillup source`.
   Reagentia onderzocht 22 nov (`docs/forever/REAGENTIA_2026-11-22.md`), keuze nu: *"overnemen, ja"* (Zygor: plekken en nummers).
-  Reagentia GEBOUWD 22 nov (194 items, met Polestar A: verzameld, te koop, valt van monsters; wacht op Robs test). Recepten: nog niet.
+  Reagentia GEBOUWD 22 nov (194 items, met Polestar A: verzameld, te koop, valt van monsters; wacht op Robs test). Recepten: GEBOUWD, wacht op test.
   Plek (Rob 22 nov: *"plek ja"*): tooltip + Skill up-venster; Blizzards beroepenvenster alleen als extra.
 - (3) Bootwachttijd: ONDERZOCHT 22 nov, nu niet eerlijk te meten, niets gebouwd (`docs/forever/BOOT_ZEPPELIN_2026-11-22.md`).
   ⏹️ Rob 22 nov via sparring, letterlijk: *"Boot Rust"* = laten rusten; niet opnieuw voorstellen.
@@ -49,12 +49,12 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 - Meting (1) gedaan 22 nov (*"meting gedaan"*): Forever geeft bij Cooking geen bron (0 van 132), dus eigen data per recept.
 - Spel: F. Site: nog niet.
 
-### Forever: "bekende recepten" repareren (22 nov) — ✅ JA + GEBOUWD, wacht op Robs test
+### Forever: "bekende recepten" repareren (22 nov) — ◐ JA + GEBOUWD, getest op één character (Rob: "ronde 1 klopt")
 - Bron: Rob 22 nov via sparring, letterlijk: *"Recepten ja"* (kopie eerst, eigen venster vervangt, beroepen die het character
   niet heeft weg, gelinkte vensters overslaan, zijn recepten in het spel veranderen niet).
 - Spel: F. Site: nog niet.
 
-### Forever: volle tassen onderweg leger maken (wens van Rob, 22 nov) — ✅ JA op 1, 2 en 3; bescherming + 1, 2, 3 GEBOUWD, wacht op Robs test
+### Forever: volle tassen onderweg leger maken (wens van Rob, 22 nov) — ✅ JA op 1, 2 en 3; bescherming + 1, 2, 3 GEBOUWD; ◐ "ronde 1 klopt" (lijst + grijs met Destroy), 1-3 nog testen
 - Bron: Rob 22 nov via sparring: *"polestar heeft ook iets om je volle tassen onderweg leger te maken, check dat ook"* →
   op vier ideeën: *"tas 1 2 3"*.
 - (1) reservetas + leeg tasvakje: eerst aanbieden om aan te trekken. (2) De hulp komt al bij bijna vol, met schakelaar.
@@ -66,7 +66,7 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 - Eigen code; Polestar is GPL: alleen het idee.
 - Spel: F. Site: nog niet.
 
-### Forever: talentpunt opvallender in Do this now (wens van Rob, 22 nov) — ◐ regel goed, knop weg (Rob: "knop weg", na "action blocked"); wacht op test
+### Forever: talentpunt opvallender in Do this now (wens van Rob, 22 nov) — ◐ regel goed, knop weg (Rob: "knop weg", na "action blocked"); ◐ "ronde 1 klopt" (gevecht goed; vrij punt + pet onzeker)
 - Bron: Rob 22 nov via sparring, met screenshot: *"kunnen we de talent point meer laten opvallen"* → op opties A/B/C:
   *"talent b"*.
 - B: de talentregel bovenaan, goud, met een ster en een witregel; knop Talents vooraan. Geen gloed of animatie. Geen vrij

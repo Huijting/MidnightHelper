@@ -25,15 +25,27 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 22 nov — ronde 1 gedaan, dit staat nog open (Rob via sparring, letterlijk: *"ronde 1 klopt"*)
+
+Ronde 1 was: herstart zonder rode fout; elk eigen beroep open met een kloppend aantal (alleen het character waar hij op
+zat); in Bags full niets wat hij wil houden + één grijs ding met Destroy; voorwaardelijk Equip, vrij talentpunt en pet;
+daarna een gevecht zonder "action blocked". Niet los getest: elke soort bewaard item, bijna vol + schakelaar, grijs zonder
+waarde, gelinkt venster, Equip in gevecht, andere characters. Ronde 2 = ingrediënten, recept-pijl, dungeon-quests, XP per
+uur: open, in de secties hieronder.
+
+- [ ] Midnight: inloggen, geen rode foutmelding.
+
 ## 22 nov — Forever: huisdieren en rijdieren nooit weggooien (Rob: "dieren ja")
 
 - [ ] Typ `/reload`, dan `/mh bagfull show`: een huisdier (Cat Carrier, Parrot Cage …) of rijdier in je tas staat er niet in.
       `/mh bagfull` noemt het bij "left out".
-- [ ] Een gewoon grijs ding staat er nog wel in, en de Equip-regel voor een reservetas werkt nog.
+- [x] ✅ (Rob 22 nov via sparring: *"ronde 1 klopt"*) Een gewoon grijs ding staat er nog wel in.
+- [ ] ◐ (zat voorwaardelijk in ronde 1; Rob zei niet of het zich voordeed) De Equip-regel voor een reservetas werkt nog.
 
 ## 22 nov — Forever: waar haal ik dit recept? (Rob: "1 b", "plek ja", "alles advies")
 
-- [ ] **Sluit het spel helemaal af en start opnieuw** (nieuwe bestanden). Open eerst elk eigen beroep 3 seconden.
+- [x] ✅ (Rob 22 nov via sparring: *"ronde 1 klopt"*) **Sluit het spel helemaal af en start opnieuw** (nieuwe bestanden). Open eerst elk eigen beroep 3 seconden
+      (gedaan op één character).
 - [ ] Muis op een receptitem (Pattern:, Plans:, Recipe: …) of iets maakbaars dat je NIET kent: onder "You do not know this
       recipe" staat waar je het haalt. Ken je het wel: geen bronregel.
 - [ ] Bij sommige staat "Needs: …" (reputatie, munt, specialisatie) of "Classic data, not yet seen in Forever".
@@ -47,15 +59,16 @@ bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt o
 
 - [ ] Typ `/reload`, dan `/mh bagfull show`: gif, drankjes, elixers, flasks, verband, scrolls, sleutels, tassen, recepten
       en leerboeken staan er NIET in. `/mh bagfull` noemt ze bij "left out".
-- [ ] Leeg tasvakje + losse gewone tas: de Equip-regel staat er nog en werkt.
-- [ ] Een gewoon grijs ding staat er nog wel in, en Destroy vraagt eerst.
+- [ ] ◐ (zat voorwaardelijk in ronde 1; Rob zei niet of het zich voordeed) Leeg tasvakje + losse gewone tas: de Equip-regel staat er nog en werkt.
+- [x] ✅ (Rob 22 nov via sparring: *"ronde 1 klopt"*) Een gewoon grijs ding staat er nog wel in, met Destroy.
 
 ## 22 nov — Forever: "bekende recepten" gerepareerd (Rob: "Recepten ja")
 
 - [ ] Typ `/reload`, wacht 15 seconden, typ `/mh skillup probe`: "copy of the lists … kept" en bij "professions you do not
       have" hoeveel er weg zijn. Een character zonder Blacksmithing kent geen Blacksmithing-recepten meer.
-- [ ] Open je eigen beroep, laat het 3 seconden open, typ `/mh skillup probe`: "<BEROEP> replaced: … known". Dat aantal
-      klopt met wat je echt kent. Doe dit per character, per beroep.
+- [x] ✅ (Rob 22 nov via sparring: *"ronde 1 klopt"*) Open elk eigen beroep 3 seconden, typ `/mh skillup probe`: "<BEROEP> replaced: … known". Dat aantal
+      klopt met wat je echt kent. **Alleen het character waar hij op zat** (GEMETEN in de SV: 1 lijst 40 → 25, kopie aanwezig).
+- [ ] Hetzelfde op elk ander character, per beroep (hun lijsten staan nog zoals ze waren).
 - [ ] Muis op iets wat je NIET kunt maken in dat beroep: de tooltip zegt dat je het recept niet kent.
 - [ ] Klik een beroep-link van iemand anders: `/mh skillup probe` zegt "nothing written", je aantal blijft gelijk.
 - [ ] `/reload` en log opnieuw in: je echte recepten staan er nog.
@@ -75,9 +88,9 @@ bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt o
 
 - [ ] Typ `/reload`. Zorg voor een leeg tasvakje en een losse gewone tas in je tas. `/mh bagfull show`: de bovenste regel is
       die tas, met de knop "Equip" (het woord van het spel). Bij meer tassen staat de grootste eerst.
-- [ ] Klik Equip: de tas zit in het vakje, er is niets weg, en het venster werkt zichzelf bij.
+- [ ] ◐ (zat voorwaardelijk in ronde 1; Rob zei niet of het zich voordeed) Klik Equip: de tas zit in het vakje, er is niets weg, en het venster werkt zichzelf bij.
 - [ ] In gevecht op Equip klikken: rood "You can't do that while in combat", er verandert niets.
-- [ ] **Na het aantrekken een gevecht**: geen "action blocked" op naam van MidnightHelper.
+- [ ] ◐ (zat voorwaardelijk in ronde 1; Rob zei niet of het zich voordeed) **Na het aantrekken een gevecht**: geen "action blocked" op naam van MidnightHelper.
 - [ ] Geen leeg tasvakje: geen Equip-regel. `/mh bagfull` zegt bij "spare bag" waarom.
 
 ## 22 nov — Forever: Bags full gooit geen voorraad weg (tassen, punt a)
@@ -85,12 +98,13 @@ bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt o
 - [ ] Typ `/reload`, dan `/mh bagfull show`. Eten, drinken, pijlen, kogels en class-reagentia (bv. Rune of Teleportation,
       Ankh, Symbol of Kings) staan er NIET in.
 - [ ] `/mh bagfull`: bij "left out" staat "food or drink", "ammunition" of "class reagent" met het aantal.
-- [ ] Een gewoon grijs ding staat er nog wel in. Destroy vraagt eerst. Klik Yes. **Daarna een gevecht**: geen "action
-      blocked" op naam van MidnightHelper.
+- [x] ✅ (Rob 22 nov via sparring: *"ronde 1 klopt"*) Een gewoon grijs ding staat er nog wel in, met Destroy. **Daarna een gevecht**: geen "action
+      blocked" op naam van MidnightHelper (GEMETEN in BugGrabber, 12:22: sessie 338, nieuwste fout uit 335).
+- [ ] (niet apart bevestigd in ronde 1) Destroy vraagt eerst "weet je het zeker?"; klik Yes: het ding is weg.
 
 ## 22 nov — Forever: waar haal ik dit ingrediënt? (Rob: "1 b", "plek ja", "overnemen, ja")
 
-- [ ] Sluit Forever helemaal af en start opnieuw (nieuwe bestanden), geen foutmelding.
+- [x] ✅ (Rob 22 nov via sparring: *"ronde 1 klopt"*) Sluit Forever helemaal af en start opnieuw (nieuwe bestanden), geen foutmelding.
 - [ ] Muis op Copper Ore: onder "MH: Used for …" staat "MH: Gathered with Mining". Op Silverleaf: "… with Herbalism".
 - [ ] Muis op Coarse Thread of Empty Vial: "MH: Sold by <naam> (<zone>, afstand)". Klopt die verkoper, en verkoopt hij het?
 - [ ] Muis op Linen Cloth: "MH: Dropped by monsters". Op Light Leather: "MH: Gathered with Skinning".
@@ -106,10 +120,11 @@ bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt o
 - [x] ✅ (Rob 22 nov via sparring: *"talent goed"*) De regel staat bovenaan: goud, ster, witregel, blauwe naam met tooltip.
 - [x] ✅ (Rob 22 nov via sparring: *"talent goed"*) Geen vrij punt meer: de regel is weg.
 - [vervallen] De knop Talents en zijn gevecht-punt: de knop is weg (*"knop weg"*, na "action blocked").
-- [ ] Typ `/reload`. Met een vrij punt eindigt de gouden regel op "Open Talents with <jouw toets>." en er is geen knop
+- [ ] ◐ (zat voorwaardelijk in ronde 1; Rob zei niet of het zich voordeed) Typ `/reload`. Met een vrij punt eindigt de gouden regel op "Open Talents with <jouw toets>." en er is geen knop
       Talents meer, ook niet bij die regel in `/mh overview`.
-- [ ] Druk je eigen toets, zet het punt, Apply. **Daarna een gevecht**, liefst eentje waarin je pet komt of gaat: geen
-      "action blocked" op naam van MidnightHelper.
+- [ ] ◐ (zat voorwaardelijk in ronde 1; Rob zei niet of het zich voordeed) Druk je eigen toets, zet het punt, Apply.
+- [x] ✅ (Rob 22 nov via sparring: *"ronde 1 klopt"*) **Daarna een gevecht**: geen "action blocked" op naam van MidnightHelper.
+- [ ] ◐ (zat voorwaardelijk in ronde 1; Rob zei niet of het zich voordeed) Dat gevecht met een pet die komt of gaat: geen "action blocked".
 
 ## 22 nov (ochtend) — Forever: meting "Waar haal ik dit vandaan?" (Rob: "1 b")
 

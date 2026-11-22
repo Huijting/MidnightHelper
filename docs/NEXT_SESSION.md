@@ -2,11 +2,17 @@
 
 ## ▶▶ VOLGENDE BOUWCHAT (21 nov, avond): nieuwe Forever-reeks "leren van Polestar/FlowUp" — punt 4 en 2 GEBOUWD, 1 = B, 3 rust
 
+✅ **RONDE 1 GETEST (22 nov via sparring, letterlijk: *"ronde 1 klopt"*):** herstart zonder fout, bekende recepten op één
+character, Bags full (niets wat hij wil houden, grijs + Destroy), gevecht zonder "action blocked". Voorwaardelijk, dus niet
+zeker: Equip, vrij talentpunt, pet. Niet los getest: per soort, bijna vol + schakelaar, grijs zonder waarde, link, Equip in
+gevecht, andere characters. **OPEN: ronde 2** (ingrediënten, recept-pijl, dungeon-quests, XP per uur) **+ Midnight-inlog.**
+Niets nieuws bouwen, geen tag of release.
+
 ▶ **ROBS KEUZES 22 nov, rond het ontbijt (via Sparring 22-11), letterlijk:** *"overnemen, ja"* (1. Zygor kijken of
 overnemen; 2. mag het vrije deel van Polestar uitgezocht worden) · *"knop weg, en polestar heeft ook iets om je volle tassen
 onderweg leger te maken, check dat ook, tijd voor koffie en ontbijt dus ga door szo lang je kan en ik terug ben"* ·
 *"Ik ben nog niet terug maar kan wel via telefoon reageren 😇 tas 1 2 3"*. Werklijst, in deze volgorde:
-- [x] 1. Talents-knop weg, regel noemt zijn eigen toets. Wacht op test.
+- [x] 1. Talents-knop weg, regel noemt zijn eigen toets. ◐ Ronde 1: gevecht goed; vrij punt en pet onzeker.
 - [x] 2. **ZYGOR = OVERNEMEN: id's, coördinaten, volgorde. Geen teksten, notities of code.** "Zygor b" en de pauze vervallen.
       ✅ Dungeon-quests terug (wacht op test, herstart nodig; nieuw: y=100.38 bij Dark Iron Legacy = geen pijl).
       ✅ Reagentia 87 → 172 (+78 valt van monsters, +7 Skinning, 17 verkopers; één bron blijft stil). Wacht op test.
@@ -17,7 +23,7 @@ onderweg leger te maken, check dat ook, tijd voor koffie en ontbijt dus ga door 
       c (bijna vol + schakelaar) en d (grijs zonder waarde) GEBOUWD.
       ▶ Beantwoord: Rob via sparring, letterlijk *"alles advies"* = bewaren B (recepten en leerboeken erbij), GEBOUWD,
       wacht op test: ook gif, drankjes, elixers, flasks, verband, scrolls, sleutels en tassen.
-- [ ] 4. Recepten: Zygor mag als bron. Craft Ladder alleen nakijken als tweede bron, geen waarden: dat is de uitleg van
+- [x] 4. Recepten (gebouwd = 8): Zygor mag als bron. Craft Ladder alleen nakijken als tweede bron, geen waarden: dat is de uitleg van
       sparring (regel 7 nov), GEEN woord van Rob; hij kan het intrekken. Pijl nooit naar zomaar een trainer.
 - [x] 5. Polestar UITGEZOCHT, niets overgenomen: `docs/forever/POLESTAR_DATA_2026-11-22.md`. recorded.json kan los (CC BY
       4.0); geeft 549 recepten een tweede bron. Rob koos A (*"alles advies"*): bouwen = 8 en 9.
@@ -29,13 +35,13 @@ onderweg leger te maken, check dat ook, tijd voor koffie en ontbijt dus ga door 
           controle; naam, bron, licentie, bewerking in het databestand + zichtbare plek noteren voor de release).
       [x] 9. Ingrediënten 172 → 194 (GEBOUWD, wacht op test; zelfde naamsvermelding bij de release). Was: aanvullen uit recorded.json, zelfde regels. Komt een getal anders uit dan voorgelegd: melden.
 - [x] 6. "Bekende recepten" GEREPAREERD (Rob via sparring, letterlijk: *"Recepten ja"*): kopie, eigen venster vervangt,
-      beroepen die hij niet heeft weg, linked overslaan, leeg wist niets. Wacht op test (per character elk beroep openen).
+      beroepen die hij niet heeft weg, linked overslaan, leeg wist niets. ◐ Getest op één character (lijst 40 → 25, GEMETEN); de andere nog.
       De kopie-regel van 21 nov ("A") staat nog. Geen tag of release.
 
-📜 **Recepten met Zygor onderzocht (22 nov), niets gebouwd:** `docs/forever/RECEPTEN_2026-11-22.md`. Rob koos A
-(*"alles advies"*): bouwen = punt 8 hierboven, samen met Polestar A.
+📜 **Recepten met Zygor onderzocht + gebouwd (22 nov):** `docs/forever/RECEPTEN_2026-11-22.md`. Rob koos A
+(*"alles advies"*): gebouwd = punt 8 hierboven, samen met Polestar A.
 
-🐞 **"action blocked" MultiBarBottomRight:SetPointBase (sessie 335): aanleiding weggehaald, wacht op test.** Rob: *"knop
+🐞 **"action blocked" MultiBarBottomRight:SetPointBase (sessie 335): aanleiding weggehaald; gevecht in ronde 1 zonder fout (pet onzeker).** Rob: *"knop
 weg"*. `docs/forever/TALENTKNOP_TAINT_2026-11-22.md`. 🔴 MH opent het talentvenster NOOIT meer zelf. In v5.7.0 zit de knop
 nog (overzicht). Dat dit de oorzaak bij Rob was blijft AFGELEID: komt de fout terug, dan verder zoeken.
 
@@ -49,7 +55,7 @@ screenshot van Do this now, *"kunnen we de talent point meer laten opvallen"* �
   beroepenvenster" moet dus ook zonder dat frame werken. De meting kijkt nu naar TRADE_SKILL_SHOW/CLOSE.
 - **Smart Buff goed** (mage; Priest/Druid niet getest). **Boot = laten rusten**, niet opnieuw vragen.
 - **Robs antwoorden, letterlijk: *"talent goed / plek ja / Zygor b"*.** Talent B getest (niet: in gevecht).
-- **d, reagentia GEBOUWD, wacht op test (herstart nodig):** `ForeverReagentSource(Data).lua`, nu 172 items, regel
+- **d, reagentia GEBOUWD, wacht op test (herstart nodig):** `ForeverReagentSource(Data).lua`, nu 194 items, regel
   in de tooltip + Skill up (daar de pijlknop). Wat één bron heeft zwijgt.
   Nog van d: recepten. c en e: niet meer nodig, zie bovenaan.
 - **Plek:** tooltip = hoofdplek + MH's Skill up-venster; Blizzards beroepenvenster alleen als extra.

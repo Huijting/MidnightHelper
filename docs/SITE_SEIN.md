@@ -45,9 +45,9 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 ## 22 nov 2026 — Forever: bekende recepten kloppen per character
 - Tag + commit:   geen tag (commit: zie git log, "known recipes")
 - Status:         alleen op main
-- Mag op de site: nee (nog niet door Rob getest, geen release)
+- Mag op de site: nee (deels getest door Rob, geen release)
 - Speler ziet:    Skill up onthoudt per character alleen de recepten uit je eigen beroepenvenster; het beroep van iemand
-                  anders (een link) telt niet mee.
+                  anders (een link) telt niet mee. *(getest door Rob: eigen beroepen op één character; niet de link)*
 - Knoplabels:     geen
 - Commando's:     /mh skillup probe
 - Spel:           Forever
@@ -75,11 +75,12 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 ## 22 nov 2026 — Forever: Bags full beschermt je voorraad
 - Tag + commit:   geen tag (commit: zie git log, "never suggest food")
 - Status:         alleen op main
-- Mag op de site: nee (nog niet door Rob getest, geen release)
+- Mag op de site: nee (deels getest door Rob, geen release)
 - Speler ziet:    Bags full stelt eten, drinken, munitie, class-reagentia en quest-items nooit meer voor als weggooien, en
                   ook geen gif, drankjes, elixers, flasks, verband, scrolls, sleutels, tassen, recepten of leerboeken,
                   en geen huisdieren, rijdieren of andere dingen waar je iets van leert.
                   In 5.7.0 kan dat bij eten, drinken, munitie en class-reagentia nog wel.
+                  *(getest door Rob: niets wat hij wil houden in de lijst; niet per soort)*
 - Knoplabels:     geen
 - Commando's:     /mh bagfull
 - Spel:           Forever
@@ -99,7 +100,8 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 ## 22 nov 2026 — Forever: talentpunt valt op in Do this now, zonder knop
 - Tag + commit:   geen tag (commit: zie git log, "talent window")
 - Status:         alleen op main
-- Mag op de site: nee (geen release). Regel getest door Rob; de versie zonder knop nog niet.
+- Mag op de site: nee (geen release). Regel getest door Rob; de versie zonder knop alleen voorwaardelijk (ronde 1: vrij punt,
+                  pet). Het gevecht erna was zonder "action blocked".
 - Speler ziet:    met een vrij talentpunt staat die regel bovenaan in Do this now, in goud met een ster, en noemt de toets
                   waarmee je zelf Talents opent. MH opent dat venster niet meer (dat kon "action blocked" geven).
 - Knoplabels:     geen
