@@ -26,6 +26,19 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 
 ## Open — wacht op Rob
 
+### Midnight-spelers tevreden houden: drie ideeën (22 nov) — ✅ JA, LATER (niet nu bouwen)
+- Bron: Rob 22 nov via sparring: *"bedenk eens iets hoe we de midnight spelers ook tevreden kunen houden"*; op de drie
+  voorstellen hieronder, letterlijk: *"alle 3 maar niet voor nu, straks slapen"*.
+- 1. **Patchdag-kaartje 12.1.7**: één kaartje bij de eerste login op 12.1.7 met wat nieuw is: Turbulent Timeways per week,
+  Vyranoth (5000 Timewarped Badges, met jouw stand), de campagne The Coreway Advance met een knop voor de weg, Folio 7
+  stappen. Advies van sparring: bouwen op wo 25 nov (Midnight-dag). Feiten: `docs/PATCH_12_1_7_DRAAIBOEK.md` (patch
+  waarschijnlijk 1/2 dec, AFGELEID); vóór het bouwen opnieuw meten.
+- 2. **Midnight "eerste blik"** zoals het Forever-overzicht: hetzelfde idee als "Midnight: de eerste blik bij openen"
+  verderop (gepauzeerd 18 nov, proefplaatje 2d25d45). Staat nu ook op ja, later.
+- 3. **December-events in de weekplanning**: Delves Bonus Event wo 16 dec, Winter Veil vanaf 15 dec, Midnight Dungeon
+  Event wo 23 dec (draaiboek, punt 9 in de tabel; data uit de testdata, nog niet live gezien).
+- Spel: M. Voor wie: N + V (AFGELEID). Site: pas na bouw en release.
+
 ### Platynator-pagina weg vóór 5.8.0 (22 nov) — ✅ AF: gebouwd + getest (Rob: "midnight goed tekst goed")
 - Bron: Rob 22 nov via sparring, op "platy weg / platy link / platy blijft", letterlijk: *"En ja, platy die mag weg."*
 - Hele pagina weg, ook de link; Details! blijft. Vervalt: "releasetekst 5.8.0 ongewijzigd", alleen voor deze regel.
@@ -462,7 +475,7 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
                  test, TESTLIJST "Skill up"). ⏸️ GROOT (kosten per punt via Auctionator/verkoperprijzen, route tot 300,
                  goedkoopst/snelst) = LATER.
 
-### Midnight: de eerste blik bij openen, zoals het Forever-overzicht (GEPAUZEERD tot na za 21 nov 10:00)
+### Midnight: de eerste blik bij openen, zoals het Forever-overzicht (22 nov: ✅ JA, LATER, zie "drie ideeën" bovenaan)
 - Bron: Rob 18 nov (via Sparring 18-11), letterlijk: *"Ik denk dat we het nooit zo mooi kunnen krijgen als de forever
   versie omdat we al zoveel hebben in midnight, we pauzeren dit tot na de Claude Code reset 🙂 , wat ik juist mooi vond
   van onze forever versie is de eerste blik die je ziet als je MH opent :)"*
