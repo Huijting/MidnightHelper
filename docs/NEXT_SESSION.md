@@ -16,7 +16,10 @@ andere GEBOUWD (`S.SkinPanel` in ForeverStyle.lua), wacht op test: BagFull, Crat
 🚦 **GEEN RELEASE (Rob 22 nov via sparring, letterlijk: *"We doen nog geen release. Dan kom je wat anders tegen."*):** geen bump,
 releasetekst, Fable-ronde of tag, en niet opnieuw voorstellen tot Rob erover begint.
 ▶ **NU: KAART B (Rob 22 nov via sparring, letterlijk: *"b"*):** level 1-briefjes voor alle classes/rassen + elk class-queststapje
-als opvallend kaartje (ForeverCQWindow). Onderzoek loopt, nog niets gebouwd.
+als opvallend kaartje (ForeverCQWindow). GEBOUWD, wacht op Robs test: 56 combinaties, 0 zonder briefje (Skyborne op level 2);
+pas na de quest ervoor, tot en met level 5 (AFGELEID), nooit vóór een spell-keten. `docs/forever/CLASS_NOTES_2026-11-22.md`.
+❓ **Bij sparring voor Rob:** 7 trainerplekken die al in ForeverClassQuests stonden zijn gelijk aan HandyNotes_ClassTrainers
+(All Rights Reserved), niet aan Zygor (459, 460, 375, 837, 3707, 251374, 257446). Advies: naar Zygor. Niet aanraken tot zijn ja.
 
 ▶ **ROBS KEUZES 22 nov, rond het ontbijt (via Sparring 22-11), letterlijk:** *"overnemen, ja"* (1. Zygor kijken of
 overnemen; 2. mag het vrije deel van Polestar uitgezocht worden) · *"knop weg, en polestar heeft ook iets om je volle tassen

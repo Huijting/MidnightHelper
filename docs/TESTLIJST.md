@@ -25,6 +25,23 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 22 nov — Forever: class-queststap als kaartje + de briefjes van level 1 (Rob: "b")
+
+Typ eerst `/reload`. Het snelst: een nieuwe Night Elf hunter (1 quest, 11 monsters; AFGELEID).
+
+- [ ] Vóór de eerste quest is ingeleverd: geen kaartje over het briefje. Lever "The Balance of Nature" (deel 1) in bij
+      Conservator Ilthalaine → binnen een paar tellen een kaartje: class-icoon, "HUNTER · LEVEL 1", "Etched Sigil",
+      "Get it from Conservator Ilthalaine", "Teldrassil", "Only for your class · takes you to your trainer".
+      De rand is groen (de classkleur) en je kunt er niet doorheen kijken.
+- [ ] Show the way → de pijl naar hem. Neem het briefje aan → het kaartje zegt "Hand it in to Ayanna Everstride" en de
+      pijl gaat naar haar. Lever in → het kaartje is weg.
+- [ ] Een bestaand character boven level 5: geen briefje. Heb je een class-queststap open, dan is dat nu een kaartje met
+      de questnaam, bij wie, waar en waar het voor is ("teaches you …" of "for: …"). Geen stap = geen kaartje
+      (`/mh classquest` zegt waarom, onderste regel).
+- [ ] Kruisje → weg tot de volgende stap. Escape → weg tot de volgende quest-update. Slepen → na `/reload` op dezelfde
+      plek. Shift+scroll = groter en kleiner.
+- [ ] Doe daarna een gevecht: geen melding "action blocked".
+
 ## 22 nov — Forever: 11 vensters dicht in stijl A (Rob: "Doe maar vensters A")
 
 Typ eerst `/reload`. Ga bij nameplates staan. Vier vensters kun je openen:

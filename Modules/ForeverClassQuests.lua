@@ -1004,14 +1004,14 @@ CHAINS.SHAMAN = {
 	}),
 	-- Skyborne from level 3 (Polestar + Questie, Fable check 17 Nov); the others from 4.
 	ShEarth("Horde", SKYBORNE, {
-		{ q = 92484, from = S.rorian, to = S.boro },
+		{ q = 92484, gate = 92461, from = S.rorian, to = S.boro },
 		{ q = 92466, from = S.boro, objs = { O(S.converts, "FCQ_OBJ_SH_SIGNET", 1) }, to = S.boro },
 		{ q = 92467, from = S.boro, objs = { O(S.earthZephras, "FCQ_OBJ_SH_EARTHSAPTA") }, to = S.earthZephras },
 		{ q = 92468, from = S.earthZephras, to = S.boro },
 	}, 3),
 	-- 96243 ("Find Teo", from Eldrun or Ingrid) is the other way in (Spoken, Wowhead series).
 	ShEarth("Alliance", DWARF, {
-		{ q = 98581, alt = { 96243 }, from = S.sten, to = S.teo },
+		{ q = 98581, gate = 179, alt = { 96243 }, from = S.sten, to = S.teo },
 		{ q = 94373, from = S.teo, objs = { O(S.whelps, "FCQ_OBJ_SH_PENDANTS", 1) }, to = S.teo },
 		{ q = 94374, from = S.teo, objs = { O(S.earthDunMorogh, "FCQ_OBJ_SH_EARTHSAPTA") }, to = S.earthDunMorogh },
 		{ q = 94375, from = S.earthDunMorogh, to = S.teo },
@@ -1118,7 +1118,7 @@ local PR_P = {
 	laurna = { npc = "Laurna Morninglight", id = 3600, m = 1438, x = 55.56, y = 56.75 },
 	kenjai = { npc = "Ken'jai", id = 3707, m = 1411, x = 42.33, y = 68.50 },
 	taijin = { npc = "Tai'jin", id = 3706, m = 1411, x = 54.23, y = 42.99 },
-	duesten = { npc = "Dark Cleric Duesten", id = 2123, m = 1420, x = 31.34, y = 65.85 },
+	duesten = { npc = "Dark Cleric Duesten", id = 2123, m = 1420, x = 31.11, y = 66.07 }, -- Rob measured 8 Nov 2026 (ForeverTrainerSpots.lua)
 	beryl = { npc = "Dark Cleric Beryl", id = 2129, m = 1420, x = 61.31, y = 52.10 },
 	-- Whom to heal (no NPC name here: the text names them), Zygor.
 	roberts = { m = 1429, x = 48.15, y = 68.05 },
@@ -1227,7 +1227,7 @@ local PA_P = {
 	fallenCharger = { npc = "Darkreaver's Fallen Charger", id = 14568, m = 1422, x = 69.94, y = 74.03 },
 	-- Horde (Undead)
 	sarvis = { npc = "Shadow Priest Sarvis", id = 1569, m = 1420, x = 30.84, y = 66.20 },
-	aramis = { npc = "Aramis Hammerhand", id = 244808, m = 1420, x = 30.97, y = 66.77 },
+	aramis = { npc = "Aramis Hammerhand", id = 244808, m = 1420, x = 31.11, y = 66.38 }, -- Rob measured 11 Nov 2026 (ForeverTrainerSpots.lua)
 	shari = { npc = "Shari Stilwell", id = 246152, m = 1420, x = 60.20, y = 52.50 },
 	breton = { npc = "Breton Samuels", id = 246349, m = 1420, x = 21.85, y = 45.21 },
 	jorin = { npc = "Jorin Croge", id = 246393, m = 1420, x = 22.70, y = 44.68 },
@@ -1896,6 +1896,118 @@ table.insert(CHAINS.SHAMAN, { key = "tempest", nameKey = "FCQ_CHAIN_SH_TEMPEST",
 
 --
 
+--------------------------------------------------------------------------------
+-- The level 1 notes (Rob 22 Nov 2026 via sparring, verbatim: "b"): the quest that sends a new character to the class
+-- trainer. All 56 class/race combinations of CharBaseInfo 71037; Skyborne have theirs at level 2. A note opens once
+-- one quest of the same giver is handed in (needs): Zygor's order 52 of 52, Spoken prev 45 and 7 silent. It teaches
+-- no spell, so it never comes before a spell chain, and a skipped one is shown up to level 5 (AFGELEID: the valleys
+-- are 1-5, their trainers stop at 6). intro: the note is also the first step of a spell chain, so as a note it only
+-- shows until that chain starts. Not seen in game. Places: Rob measured > this module > Zygor; nothing new from
+-- HandyNotes_ClassTrainers (All Rights Reserved). Full table: docs/forever/CLASS_NOTES_2026-11-22.md.
+--------------------------------------------------------------------------------
+do -- a block of its own: Lua allows 200 locals in the main chunk
+	local LAST = 5
+	local N = {
+		[197] = { npc = "Marshal McBride", id = 197, m = 1429, x = 48.92, y = 41.61 },
+		[198] = { npc = "Khelden Bremen", id = 198, m = 1429, x = 49.66, y = 39.41 },
+		[895] = { npc = "Thorgas Grimson", id = 895, m = 1426, x = 29.18, y = 67.46 },
+		[911] = { npc = "Llane Beshere", id = 911, m = 1429, x = 50.24, y = 42.29 },
+		[912] = { npc = "Thran Khorman", id = 912, m = 1426, x = 28.83, y = 67.24 },
+		[915] = { npc = "Jorik Kerridan", id = 915, m = 1429, x = 50.31, y = 39.92 },
+		[916] = { npc = "Solm Hargrin", id = 916, m = 1426, x = 28.37, y = 67.51 },
+		[925] = { npc = "Brother Sammuel", id = 925, m = 1429, x = 50.43, y = 42.13 },
+		[926] = { npc = "Bromos Grummner", id = 926, m = 1426, x = 28.83, y = 68.33 },
+		[944] = { npc = "Marryk Nurribit", id = 944, m = 1426, x = 28.71, y = 66.36 },
+		[2079] = { npc = "Conservator Ilthalaine", id = 2079, m = 1438, x = 58.70, y = 44.27 },
+		[2119] = { npc = "Dannal Stern", id = 2119, m = 1420, x = 32.69, y = 65.56 },
+		[2122] = { npc = "David Trias", id = 2122, m = 1420, x = 32.53, y = 65.65 },
+		[2124] = { npc = "Isabella", id = 2124, m = 1420, x = 30.94, y = 66.06 },
+		[2126] = { npc = "Maximillion", id = 2126, m = 1420, x = 30.91, y = 66.34 },
+		[2980] = { npc = "Grull Hawkwind", id = 2980, m = 1412, x = 44.47, y = 77.51 },
+		[3059] = { npc = "Harutt Thunderhorn", id = 3059, m = 1412, x = 43.75, y = 76.72 },
+		[3060] = { npc = "Gart Mistrunner", id = 3060, m = 1412, x = 44.65, y = 76.56 },
+		[3061] = { npc = "Lanka Farshot", id = 3061, m = 1412, x = 43.96, y = 76.36 },
+		[3062] = { npc = "Meela Dawnstrider", id = 3062, m = 1412, x = 44.58, y = 76.56 },
+		[3143] = { npc = "Gornek", id = 3143, m = 1411, x = 42.06, y = 68.33 },
+		[3153] = { npc = "Frang", id = 3153, m = 1411, x = 42.89, y = 69.43 },
+		[3154] = { npc = "Jen'shan", id = 3154, m = 1411, x = 42.84, y = 69.32 },
+		[3155] = { npc = "Rwag", id = 3155, m = 1411, x = 41.28, y = 68.00 },
+		[3156] = { npc = "Nartok", id = 3156, m = 1411, x = 40.65, y = 68.51 },
+		[3157] = { npc = "Shikrik", id = 3157, m = 1411, x = 42.39, y = 69.00 },
+		[3593] = { npc = "Alyissia", id = 3593, m = 1438, x = 59.64, y = 38.44 },
+		[3594] = { npc = "Frahun Shadewhisper", id = 3594, m = 1438, x = 59.64, y = 38.66 },
+		[3596] = { npc = "Ayanna Everstride", id = 3596, m = 1438, x = 58.65, y = 40.45 },
+		[3597] = { npc = "Mardant Strongoak", id = 3597, m = 1438, x = 58.63, y = 40.29 },
+		[5884] = { npc = "Mai'ah", id = 5884, m = 1411, x = 42.51, y = 69.04 },
+		[248415] = { npc = "Tordrin Sternblade", id = 248415, m = 1429, x = 51.21, y = 40.81 },
+		[251373] = { npc = "Xyton Silverwind", id = 251373, m = 2521, x = 41.66, y = 23.33 },
+		[251376] = { npc = "Tai'ree Farsight", id = 251376, m = 2521, x = 42.47, y = 23.73 },
+		[251379] = { npc = "Dorii Brightwhisper", id = 251379, m = 2521, x = 41.54, y = 23.68 },
+		[251389] = { npc = "Akeri Duskblade", id = 251389, m = 2521, x = 43.75, y = 24.35 },
+		[251964] = { npc = "Blademaster Ren", id = 251964, m = 2521, x = 43.65, y = 24.13 },
+	}
+	local function note(class, faction, race, q, gate, level, from, to, before)
+		table.insert(CHAINS[class], { key = "note", note = true, intro = before ~= nil, last = before or LAST, needs = gate,
+			level = level, faction = faction, races = { [race] = true }, quests = { { q = q, from = from, to = to } } })
+	end
+	note("HUNTER", "Alliance", "Human", 92479, 7, 1, N[197], N[248415]) -- A Scribbled Letter
+	note("MAGE", "Alliance", "Human", 3104, 7, 1, N[197], N[198]) -- Glyphic Letter
+	note("PALADIN", "Alliance", "Human", 3101, 7, 1, N[197], N[925]) -- Consecrated Letter
+	note("PRIEST", "Alliance", "Human", 3103, 7, 1, N[197], PR_P.anetta) -- Hallowed Letter
+	note("ROGUE", "Alliance", "Human", 3102, 7, 1, N[197], N[915]) -- Encrypted Letter
+	note("WARLOCK", "Alliance", "Human", 3105, 7, 1, N[197], WL_P.drusilla) -- Tainted Letter
+	note("WARRIOR", "Alliance", "Human", 3100, 7, 1, N[197], N[911]) -- Simple Letter
+	note("HUNTER", "Alliance", "Dwarf", 3108, 179, 1, SH_P.sten, N[895]) -- Etched Rune
+	note("PALADIN", "Alliance", "Dwarf", 3107, 179, 1, SH_P.sten, N[926]) -- Consecrated Rune
+	note("PRIEST", "Alliance", "Dwarf", 3110, 179, 1, SH_P.sten, PR_P.branstock) -- Hallowed Rune
+	note("ROGUE", "Alliance", "Dwarf", 3109, 179, 1, SH_P.sten, N[916]) -- Encrypted Rune
+	note("SHAMAN", "Alliance", "Dwarf", 98581, 179, 1, SH_P.sten, SH_P.teo, 3) -- Archaic Rune
+	note("WARRIOR", "Alliance", "Dwarf", 3106, 179, 1, SH_P.sten, N[912]) -- Simple Rune
+	note("MAGE", "Alliance", "Gnome", 3114, 179, 1, SH_P.sten, N[944]) -- Glyphic Memorandum
+	note("PRIEST", "Alliance", "Gnome", 98574, 179, 1, SH_P.sten, PR_P.branstock) -- Hallowed Memorandum
+	note("ROGUE", "Alliance", "Gnome", 3113, 179, 1, SH_P.sten, N[916]) -- Encrypted Memorandum
+	note("WARLOCK", "Alliance", "Gnome", 3115, 179, 1, SH_P.sten, WL_P.alamar) -- Tainted Memorandum
+	note("WARRIOR", "Alliance", "Gnome", 3112, 179, 1, SH_P.sten, N[912]) -- Simple Memorandum
+	note("DRUID", "Alliance", "NightElf", 3120, 456, 1, N[2079], N[3597]) -- Verdant Sigil
+	note("HUNTER", "Alliance", "NightElf", 3117, 456, 1, N[2079], N[3596]) -- Etched Sigil
+	note("PRIEST", "Alliance", "NightElf", 3119, 456, 1, N[2079], PR_P.shanda) -- Hallowed Sigil
+	note("ROGUE", "Alliance", "NightElf", 3118, 456, 1, N[2079], N[3594]) -- Encrypted Sigil
+	note("WARRIOR", "Alliance", "NightElf", 3116, 456, 1, N[2079], N[3593]) -- Simple Sigil
+	note("HUNTER", "Horde", "Orc", 3087, 788, 1, N[3143], N[3154]) -- Etched Parchment
+	note("MAGE", "Horde", "Orc", 98576, 788, 1, N[3143], N[5884]) -- Glyphic Parchment
+	note("ROGUE", "Horde", "Orc", 3088, 788, 1, N[3143], N[3155]) -- Encrypted Parchment
+	note("SHAMAN", "Horde", "Orc", 3089, 788, 1, N[3143], N[3157]) -- Rune-Inscribed Parchment
+	note("WARLOCK", "Horde", "Orc", 3090, 788, 1, N[3143], N[3156]) -- Tainted Parchment
+	note("WARRIOR", "Horde", "Orc", 2383, 788, 1, N[3143], N[3153]) -- Simple Parchment
+	note("HUNTER", "Horde", "Troll", 3082, 788, 1, N[3143], N[3154]) -- Etched Tablet
+	note("MAGE", "Horde", "Troll", 3086, 788, 1, N[3143], N[5884]) -- Glyphic Tablet
+	note("PRIEST", "Horde", "Troll", 3085, 788, 1, N[3143], PR_P.kenjai) -- Hallowed Tablet
+	note("ROGUE", "Horde", "Troll", 3083, 788, 1, N[3143], N[3155]) -- Encrypted Tablet
+	note("SHAMAN", "Horde", "Troll", 3084, 788, 1, N[3143], N[3157]) -- Rune-Inscribed Tablet
+	note("WARLOCK", "Horde", "Troll", 98575, 788, 1, N[3143], N[3156]) -- Tainted Tablet
+	note("WARRIOR", "Horde", "Troll", 3065, 788, 1, N[3143], N[3153]) -- Simple Tablet
+	note("DRUID", "Horde", "Tauren", 3094, 747, 1, N[2980], N[3060]) -- Verdant Note
+	note("HUNTER", "Horde", "Tauren", 3092, 747, 1, N[2980], N[3061]) -- Etched Note
+	note("SHAMAN", "Horde", "Tauren", 3093, 747, 1, N[2980], N[3062]) -- Rune-Inscribed Note
+	note("WARRIOR", "Horde", "Tauren", 3091, 747, 1, N[2980], N[3059]) -- Simple Note
+	note("MAGE", "Horde", "Scourge", 3098, 364, 1, PA_P.sarvis, N[2124]) -- Glyphic Scroll
+	note("PALADIN", "Horde", "Scourge", 98601, 364, 1, PA_P.sarvis, PA_P.aramis, 1) -- A Difficult Path
+	note("PRIEST", "Horde", "Scourge", 3097, 364, 1, PA_P.sarvis, PR_P.duesten) -- Hallowed Scroll
+	note("ROGUE", "Horde", "Scourge", 3096, 364, 1, PA_P.sarvis, N[2122]) -- Encrypted Scroll
+	note("WARLOCK", "Horde", "Scourge", 3099, 364, 1, PA_P.sarvis, N[2126]) -- Tainted Scroll
+	note("WARRIOR", "Horde", "Scourge", 3095, 364, 1, PA_P.sarvis, N[2119]) -- Simple Scroll
+	note("DRUID", "Alliance", "Skyborne", 92485, 92461, 2, SH_P.rorian, N[251373]) -- A Student of Nature
+	note("HUNTER", "Alliance", "Skyborne", 92482, 92461, 2, SH_P.rorian, N[251376]) -- The Way of the Hunter
+	note("MAGE", "Alliance", "Skyborne", 92481, 92461, 2, SH_P.rorian, N[251379]) -- A Student of the Arcane
+	note("ROGUE", "Alliance", "Skyborne", 92483, 92461, 2, SH_P.rorian, N[251389]) -- At Home in the Shadows
+	note("WARRIOR", "Alliance", "Skyborne", 92532, 92461, 2, SH_P.rorian, N[251964]) -- The Warrior's Path
+	note("DRUID", "Horde", "Skyborne", 92485, 92461, 2, SH_P.rorian, N[251373]) -- A Student of Nature
+	note("HUNTER", "Horde", "Skyborne", 92482, 92461, 2, SH_P.rorian, N[251376]) -- The Way of the Hunter
+	note("ROGUE", "Horde", "Skyborne", 92483, 92461, 2, SH_P.rorian, N[251389]) -- At Home in the Shadows
+	note("SHAMAN", "Horde", "Skyborne", 92484, 92461, 2, SH_P.rorian, SH_P.boro, 2) -- Embracing the Elements
+	note("WARRIOR", "Horde", "Skyborne", 92532, 92461, 2, SH_P.rorian, N[251964]) -- The Warrior's Path
+end
+
 local MOONGLADE, TELEPORT_MOONGLADE = 1450, 18960
 
 local function Done(q)
@@ -2020,6 +2132,44 @@ end
 -- 233 "Bauer Saldean" in both). English-looking de/fr names came back without Wowhead's [brackets] = that client's name.
 -- 3064 esES: sources disagree (Runatótem vs Tótem de Runa), majority kept. 11799 esMX: not known, left out.
 local NPC_NAMES = {
+	-- the level 1 notes, 22 Nov 2026 (Wowhead Forever npc tooltips per language, checked again by the build chat)
+	[197] = { deDE = "Marshal McBride", frFR = "Maréchal McBride", esES = "Alguacil McBride", esMX = "Alguacil McBride", ptBR = "Major Belmonte", ruRU = "Маршал Макбрайд" },
+	[198] = { deDE = "Khelden Bremen", frFR = "Khelden Bremen", esES = "Khelden Bremen", esMX = "Khelden Bremen", ptBR = "Gaspar Melchior", ruRU = "Кельден Бремен" },
+	[895] = { deDE = "Thorgas Grimson", frFR = "Thorgas Grimson", esES = "Thorgas Grimson", esMX = "Thorgas Grimson", ptBR = "Thorgas Grimson", ruRU = "Торгас Мрачнон" },
+	[911] = { deDE = "Llane Beshere", frFR = "Llane Beshere", esES = "Llane Beshere", esMX = "Llane Beshere", ptBR = "Hipólito Valentim", ruRU = "Ллан Бишер" },
+	[912] = { deDE = "Thran Khorman", frFR = "Thran Khorman", esES = "Thran Khorman", esMX = "Thran Khorman", ptBR = "Thran Khorman", ruRU = "Тран Корман" },
+	[915] = { deDE = "Jorik Kerridan", frFR = "Jorik Kerridan", esES = "Jorik Kerridan", esMX = "Jorik Kerridan", ptBR = "Rufino Raposo", ruRU = "Джорик Керридан" },
+	[916] = { deDE = "Solm Hargrin", frFR = "Solm Hargrin", esES = "Solm Hargrin", esMX = "Solm Hargrin", ptBR = "Solm Hargrin", ruRU = "Сольм Харгрин" },
+	[925] = { deDE = "Bruder Sammuel", frFR = "Frère Sammuel", esES = "Hermano Sammuel", esMX = "Hermano Sammuel", ptBR = "Irmão Samuel", ruRU = "Брат Самуэль" },
+	[926] = { deDE = "Bromos Grummner", frFR = "Bromos Grummner", esES = "Bromos Grummner", esMX = "Bromos Grummner", ptBR = "Bromos Grummner", ruRU = "Бромос Груммнер" },
+	[944] = { deDE = "Marryk Nurribit", frFR = "Marryk Nurribit", esES = "Marryk Nurribit", esMX = "Marryk Nurribit", ptBR = "Marryk Nurribit", ruRU = "Маррик Нуррибит" },
+	[2079] = { deDE = "Konservator Ilthalaine", frFR = "Conservateur Ilthalaine", esES = "Conservador Ilthalaine", esMX = "Conservador Ilthalaine", ptBR = "Conservador Ilthalaine", ruRU = "Опекун Илталайн" },
+	[2119] = { deDE = "Dannal Stern", frFR = "Dannal Stern", esES = "Dannal Stern", esMX = "Dannal Stern", ptBR = "Dannal Stern", ruRU = "Даннал Штерн" },
+	[2122] = { deDE = "David Trias", frFR = "David Trias", esES = "David Trias", esMX = "David Trias", ptBR = "Davi Trias", ruRU = "Давид Триас" },
+	[2124] = { deDE = "Isabella", frFR = "Isabella", esES = "Isabella", esMX = "Isabella", ptBR = "Isabella", ruRU = "Изабелла" },
+	[2126] = { deDE = "Maximillion", frFR = "Maximillion", esES = "Maximillion", esMX = "Maximillion", ptBR = "Maximillion", ruRU = "Максимиллион" },
+	[2980] = { deDE = "Grull Hawkwind", frFR = "Grull Hawkwind", esES = "Grull Vientaguilar", esMX = "Grull Viento de Halcón", ptBR = "Grull Vento do Falcão", ruRU = "Грулл Соколиный Ветер" },
+	[3059] = { deDE = "Harutt Thunderhorn", frFR = "Harutt Thunderhorn", esES = "Harutt Tronacuerno", esMX = "Harutt Tronacuerno", ptBR = "Harutt Chifre Troante", ruRU = "Харутт Громовой Рог" },
+	[3060] = { deDE = "Gart Mistrunner", frFR = "Gart Mistrunner", esES = "Gart Correbruma", esMX = "Gart Correbruma", ptBR = "Gart Corre com a Névoa", ruRU = "Гарт Вестник Туманов" },
+	[3061] = { deDE = "Lanka Farshot", frFR = "Lanka Farshot", esES = "Lanka Tirolargo", esMX = "Lanka Tirolejano", ptBR = "Lanka Tiro Distante", ruRU = "Ланко Дальний Выстрел" },
+	[3062] = { deDE = "Meela Dawnstrider", frFR = "Meela Dawnstrider", esES = "Meela Caminalba", esMX = "Meela Caminalba", ptBR = "Meela Anda com a Aurora", ruRU = "Мила Рассветная Странница" },
+	[3143] = { deDE = "Gornek", frFR = "Gornek", esES = "Gornek", esMX = "Gornek", ptBR = "Gornek", ruRU = "Горнек" },
+	[3153] = { deDE = "Frang", frFR = "Frang", esES = "Frang", esMX = "Frang", ptBR = "Frang", ruRU = "Франг" },
+	[3154] = { deDE = "Jen'shan", frFR = "Jen'shan", esES = "Jen'shan", esMX = "Jen'shan", ptBR = "Jen'shan", ruRU = "Джен'шан" },
+	[3155] = { deDE = "Rwag", frFR = "Rwag", esES = "Rwag", esMX = "Rwag", ptBR = "Rwag", ruRU = "Руаг" },
+	[3156] = { deDE = "Nartok", frFR = "Nartok", esES = "Nartok", esMX = "Nartok", ptBR = "Nartok", ruRU = "Нарток" },
+	[3157] = { deDE = "Shikrik", frFR = "Shikrik", esES = "Shikrik", esMX = "Shikrik", ptBR = "Shikrik", ruRU = "Шикрик" },
+	[3593] = { deDE = "Alyissia", frFR = "Alyissia", esES = "Alyissia", esMX = "Alyissia", ptBR = "Alyissia", ruRU = "Алайссия" },
+	[3594] = { deDE = "Frahun Shadewhisper", frFR = "Frahun Shadewhisper", esES = "Frahun Sombrusurro", esMX = "Frahun Sombrusurro", ptBR = "Frahun Umbrurmúrio", ruRU = "Фрагун Шепот Тени" },
+	[3596] = { deDE = "Ayanna Everstride", frFR = "Ayanna Everstride", esES = "Ayanna Semprerguida", esMX = "Ayanna Semprerguida", ptBR = "Ayanna Perenanda", ruRU = "Аянна Вечнобродка" },
+	[3597] = { deDE = "Mardant Strongoak", frFR = "Mardant Strongoak", esES = "Mardant Cebaforte", esMX = "Mardant Fuerterroble", ptBR = "Mardant Carvalhaço", ruRU = "Мардант Крепкий Дуб" },
+	[5884] = { deDE = "Mai'ah", frFR = "Mai'ah", esES = "Mai'ah", esMX = "Mai'ah", ptBR = "Mai'ah", ruRU = "Май'ах" },
+	[248415] = { deDE = "Tordrin Sternblade", frFR = "Tordrin Durelame", esES = "Tordrin Hojadusta", esMX = "Tordrin Filosevero", ptBR = "Tordrin Caulâmina", ruRU = "Тордрин Мракоруб" },
+	[251373] = { deDE = "Xyton Silberwind", frFR = "Xyton Vent-argent", esES = "Xyton Ventargento", esMX = "Xyton Ventargento", ptBR = "Xyton Brisaprata", ruRU = "Зитон Среброветрый" },
+	[251376] = { deDE = "Tai'ree Farsight", frFR = "Tai'ree Doublevue", esES = "Tai'ree Vista Lejana", esMX = "Tai'ree Vistadista", ptBR = "Tai'ree Fitalonge", ruRU = "Тай'ри Дальний Взор" },
+	[251379] = { deDE = "Dorii Brightwhisper", frFR = "Dorii Murméclat", esES = "Dorii Susurro Brillante", esMX = "Dorii Susurro Alegre", ptBR = "Dorii Soproluz", ruRU = "Дорийя Громкий Шепот" },
+	[251389] = { deDE = "Akeri Duskblade", frFR = "Akeri Lamebrune", esES = "Akeri Hoja Umbría", esMX = "Akeri Hoja Umbría", ptBR = "Akeri Gumúmbrio", ruRU = "Акери Клинок Сумерек" },
+	[251964] = { deDE = "Klingenmeisterin Ren", frFR = "Maître-lame Ren", esES = "Maestra del acero Ren", esMX = "Maestra del acero Ren", ptBR = "Mestre de Espadas Ren", ruRU = "Мастер клинка Рен" },
 	-- weapon class quests, 18 Nov 2026 (mh-research: Wowhead Forever per locale + Spoken; [4722] ptBR 1 source)
 	[5878] = { deDE = "Thun'grim Firegaze", frFR = "Thun'grim Firegaze", esES = "Thun'grim Vistafuego", esMX = "Thun'grim Vistafuego", ptBR = "Thun'grim Olhafogo", ruRU = "Тун'грим Огневзор" },
 	[294] = { deDE = "Marshal Haggard", frFR = "Maréchal Haggard", esES = "Alguacil Haggard", esMX = "Mariscal Haggard", ptBR = "Delegado Fadigas", ruRU = "Маршал Хаггард" },
@@ -2369,7 +2519,37 @@ end
 --- Can this chain start now? Level reached, and its `needs` quest done (a chain that only opens after another one,
 --- e.g. the warrior Whirlwind weapon after The Affray 1719).
 local function Ready(c, level)
-	return level >= c.level and (not c.needs or Done(c.needs))
+	if level < c.level or (c.needs and not Done(c.needs)) then
+		return false
+	end
+	-- e.gate on the first quest (22 Nov 2026): its giver offers it only after that quest. A chain you are already in
+	-- (or came into by the other way) is not held back.
+	local gate = c.quests[1] and c.quests[1].gate
+	if gate and not Done(gate) then
+		for _, e in ipairs(c.quests) do
+			if AnyDone(e) or LogQuest(e) then
+				return true
+			end
+		end
+		return false
+	end
+	return true
+end
+
+--- Is this chain on the class quest lists? A note only while you can take it, carry it or once it is done (an intro
+--- never as done: its spell chain lists that quest). Everything else always.
+local function Listed(c, level)
+	if not c.note then
+		return true
+	end
+	local e = c.quests[1]
+	if c.intro and (level > c.last or AnyDone(e)) then
+		return false
+	end
+	if AnyDone(e) or LogQuest(e) then
+		return true
+	end
+	return Ready(c, level) and level <= c.last
 end
 
 --- Where you are in a chain: step = { kind = "get"/"do"/"turn", place (may be nil), textKey, q }, or nil + why.
@@ -2685,7 +2865,31 @@ local function Step(c)
 	return { kind = "turn", place = e.to, q = q }
 end
 
+-- The client's own title of a quest. It arrives late the first time: asked for once, and the card looks again on
+-- QUEST_DATA_LOAD_RESULT (as ForeverDungeonQuests.lua does).
+local titleAsked = {}
+local function QuestTitle(q)
+	if not (q and C_QuestLog) then
+		return nil
+	end
+	if C_QuestLog.GetTitleForQuestID then
+		local ok, v = pcall(C_QuestLog.GetTitleForQuestID, q)
+		if ok and type(v) == "string" and v ~= "" then
+			return v
+		end
+	end
+	if not titleAsked[q] and C_QuestLog.RequestLoadQuestByID then
+		titleAsked[q] = true
+		pcall(C_QuestLog.RequestLoadQuestByID, q)
+	end
+	return nil
+end
+
 local function ChainName(c)
+	-- A level 1 note is one quest: its own name, as the client says it.
+	if c.note then
+		return QuestTitle(c.quests[1].q) or ns:L("FCQ_CHAIN_NOTE")
+	end
 	if c.nameKey then
 		return ns:L(c.nameKey)
 	end
@@ -2742,7 +2946,11 @@ local function NowSkip(c, level)
 			break
 		end
 	end
-	if not c.spell and not c.always and level > c.level + ITEM_CHAIN_SPAN and not inLog then
+	if c.note then
+		if level > c.last and (c.intro or not inLog) then
+			return ("level 1 note, shown up to level %d"):format(c.last)
+		end
+	elseif not c.spell and not c.always and level > c.level + ITEM_CHAIN_SPAN and not inLog then
 		return ("item chain, you are more than %d levels past it"):format(ITEM_CHAIN_SPAN)
 	end
 	return nil
@@ -2751,11 +2959,12 @@ end
 local function NowPick()
 	local level = UnitLevel and UnitLevel("player") or 1
 	local chains = MyChains()
-	-- Pass 1: spell chains; pass 2: item chains; pass 3: the low ones (c.low, mage Study).
-	for pass = 1, 3 do
+	-- Pass 1: spell chains; 2: the level 1 notes (22 Nov 2026, never before a spell chain); 3: item chains; 4: the low
+	-- ones (c.low, mage Study).
+	for pass = 1, 4 do
 		for _, c in ipairs(chains) do
-			local want = (pass == 3 and c.low) or (pass < 3 and not c.low and (pass == 1) == (c.spell ~= nil))
-			if want and not NowSkip(c, level) then
+			local own = (c.low and 4) or (c.spell and 1) or (c.note and 2) or 3
+			if own == pass and not NowSkip(c, level) then
 				local s = Step(c)
 				if s then
 					return c, s
@@ -2795,6 +3004,47 @@ function ns.ForeverClassQuestNowParts()
 		out.what = StepWhat(s)
 	end
 	return out
+end
+
+--- The same step for the small card (22 Nov 2026, Rob: "b"): short lines.
+--- @return { id, level, title, who, place, note } or nil
+local function CardData()
+	local c, s = NowPick()
+	if not c then
+		return nil
+	end
+	local p, who = s.place, nil
+	if s.kind == "get" then
+		who = ns:L("FCQ_CARD_GET_FMT"):format(NpcName(p))
+	elseif s.kind == "turn" then
+		who = ns:L("FOV_CQ_TURN_FMT"):format(NpcName(p))
+	elseif s.kind == "use" then
+		who = StepWhat(s)
+	else
+		who = s.text or ns:L(s.textKey)
+	end
+	local where = p and ZoneName(p.m) or nil
+	if p and p.m == MOONGLADE and Known(TELEPORT_MOONGLADE) then
+		where = where .. ns:L("FCQ_MOONGLADE_TIP")
+	end
+	local note
+	if c.note then
+		note = ns:L("FCQ_CARD_NOTE")
+	elseif c.spell then
+		note = ns:L("FCQ_CARD_SPELL_FMT"):format(SpellName(c.spell))
+	else
+		note = ns:L("FCQ_CARD_FOR_FMT"):format(ChainName(c))
+	end
+	return {
+		-- Which step this is, whatever the words say (a name or an item that loads late is not a new step).
+		id = table.concat({ c.key, tostring(s.q), s.kind, tostring(s.textKey), p and tostring(p.m) or "-",
+			p and tostring(p.x) or "-", p and tostring(p.y) or "-" }, "|"),
+		level = c.level,
+		title = QuestTitle(s.q) or ChainName(c),
+		who = who,
+		place = where,
+		note = note,
+	}
 end
 
 --- Route to a place of a chain and say `line` in chat. Shared by "Do this now" and the overview page (17 Nov 2026).
@@ -2867,7 +3117,13 @@ end
 function ns.ForeverClassQuestList()
 	local out = {}
 	local level = UnitLevel and UnitLevel("player") or 1
+	local chains = {}
 	for _, c in ipairs(MyChains()) do
+		if Listed(c, level) then
+			chains[#chains + 1] = c
+		end
+	end
+	for _, c in ipairs(chains) do
 		local s = Step(c)
 		local e = { chain = ChainName(c), level = c.level, spell = c.spell,
 			state = (not s and "done") or (not Ready(c, level) and "later") or "now" }
@@ -2918,7 +3174,16 @@ function ns.ForeverClassQuestOverview()
 	end
 	local level = UnitLevel and UnitLevel("player") or 1
 	local lines = { ns:L("FCQ_HOWTO_INTRO") }
+	local listed = {}
 	for _, c in ipairs(chains) do
+		if Listed(c, level) then
+			listed[#listed + 1] = c
+		end
+	end
+	if #listed == 0 then
+		return nil
+	end
+	for _, c in ipairs(listed) do
 		local s = Step(c)
 		local state
 		if not s then
@@ -2939,15 +3204,16 @@ end
 -- A small window with only the class quest step you are on (Rob, 19 Nov 2026, doing the mage quest: "ik moet heel goed
 -- lezen in Do This Now wat ik precies moet doen. En, ja, het valt een beetje weg. Kunnen we misschien de optie maken
 -- dat we een extra venstertje krijgen wat we los kunnen plaatsen. Al dan niet met een aan- en uitknop in onze
--- settings." → "Doe het nu maar."). The same sentence as the class quest line in Do this now, larger, with Show the way.
+-- settings." → "Doe het nu maar."). Since 22 Nov 2026 a card (Rob via sparring: "b"): class icon and border in the
+-- class colour, the quest's own name, who, where, what the step is for, and Show the way.
 -- It follows the step by itself; no step = hidden. Movable (place remembered), Shift+scroll = size; the cross hides it
 -- until the step changes, Escape until the next quest update. Switch in Quiet helpers, on by default: ns.db.foreverCQWindow ~= false.
 -- Silence rule: /mh classquest prints whether it shows and why.
 --------------------------------------------------------------------------------
-local CQW_W = 340
+local CQW_W, CQW_ICON, CQW_LEFT = 340, 40, 62
 local cqw
 local cqwWhy = "not looked yet"
-local cqwClosedFor -- the step text the player closed the window on
+local cqwClosedFor -- the id of the step the player closed the window on
 
 function ns.IsForeverCQWindowOn()
 	return not (type(ns.db) == "table" and ns.db.foreverCQWindow == false)
@@ -2974,7 +3240,7 @@ local function CQWBuild()
 		return cqw
 	end
 	local f = CreateFrame("Frame", "MidnightHelperForeverClassQuestWindow", UIParent, "BackdropTemplate")
-	f:SetSize(CQW_W, 100)
+	f:SetSize(CQW_W, 130)
 	f:SetFrameStrata("MEDIUM")
 	f:SetBackdrop({ bgFile = "Interface\\Buttons\\WHITE8X8", edgeFile = "Interface\\Buttons\\WHITE8X8", edgeSize = 1 })
 	local pos = type(ns.db) == "table" and ns.db.foreverCQWindowPos
@@ -2995,58 +3261,73 @@ local function CQWBuild()
 			ns.db.foreverCQWindowPos = { p, rp, x, y }
 		end
 	end)
-	f.title = f:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-	f.title:SetPoint("TOPLEFT", 12, -10)
-	f.title:SetPoint("RIGHT", f, "RIGHT", -28, 0)
-	f.title:SetJustifyH("LEFT")
+	local Style = ns.ForeverStyle
+	local t = Style.T()
+	local r, g, b = Style.Accent()
+	local _, token = UnitClass("player")
+	f.icon = f:CreateTexture(nil, "ARTWORK")
+	f.icon:SetSize(CQW_ICON, CQW_ICON)
+	f.icon:SetPoint("TOPLEFT", 12, -12)
+	if token then
+		f.icon:SetTexture("Interface\\Icons\\ClassIcon_" .. token:sub(1, 1) .. token:sub(2):lower())
+	end
+	local width = CQW_W - CQW_LEFT - 12
+	local function line(role, size, color, w)
+		local fs = Style.Text(f, role, size, color)
+		fs._mhSkinned = true -- its own font and colour: the window skin leaves it alone
+		fs:SetJustifyV("TOP")
+		fs:SetWidth(w or width)
+		return fs
+	end
+	f.head = line("head2", 13, { r, g, b }, width - 20) -- free of the cross
+	f.title = line("head2", 19, t.gold)
+	f.who = line("text", 15, t.text)
+	f.where = line("text", 14, t.dim)
+	f.note = line("text", 13, t.label, CQW_W - 24)
 	local close = CreateFrame("Button", nil, f, "UIPanelCloseButton")
 	close:SetPoint("TOPRIGHT", 2, 2)
 	close:SetScale(0.8)
 	close:HookScript("OnClick", function()
-		cqwClosedFor = f.stepText -- back with the next step
+		cqwClosedFor = f.stepId -- back with the next step
 	end)
-	f.body = f:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
-	f.body:SetPoint("TOPLEFT", f.title, "BOTTOMLEFT", 0, -8)
-	f.body:SetWidth(CQW_W - 24)
-	f.body:SetJustifyH("LEFT")
-	f.body:SetJustifyV("TOP")
-	if f.body.SetSpacing then
-		f.body:SetSpacing(3)
-	end
 	f.go = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
 	f.go:SetSize(130, 22)
-	f.go:SetPoint("BOTTOMRIGHT", -10, 8)
+	f.go:SetPoint("BOTTOMRIGHT", -10, 10)
 	f.go:SetText(ns:L("FCQ_BTN"))
 	f.go:SetScript("OnClick", function()
 		ns.ForeverClassQuestGo()
 	end)
-	local Style = ns.ForeverStyle
-	if Style and Style.SkinOnShow then
-		Style.SkinOnShow(f)
-	end
-	-- Larger letters than Do this now (that was the point): after the skin, which sets the fonts when it shows.
-	f:HookScript("OnShow", function(self)
-		local font, _, flags = self.body:GetFont()
-		if font then
-			self.body:SetFont(font, 15, flags)
-		end
-		self:Fit()
-	end)
 	function f:Fit()
-		self:SetHeight(10 + (self.title:GetStringHeight() or 14) + 8 + (self.body:GetStringHeight() or 15) + 12 + 22 + 8)
+		local y = 12
+		for _, row in ipairs({ { self.head, 2 }, { self.title, 4 }, { self.who, 2 }, { self.where, 0 } }) do
+			local fs = row[1]
+			fs:ClearAllPoints()
+			fs:SetPoint("TOPLEFT", CQW_LEFT, -y)
+			if (fs:GetText() or "") ~= "" then
+				y = y + (fs:GetStringHeight() or 14) + row[2]
+			end
+		end
+		y = math.max(y, 12 + CQW_ICON) + 10
+		self.note:ClearAllPoints()
+		self.note:SetPoint("TOPLEFT", 12, -y)
+		y = y + (self.note:GetStringHeight() or 13) + 8
+		local label = self.go:GetFontString()
+		self.go:SetWidth(math.max(130, (label and label:GetStringWidth() or 0) + 24))
+		self:SetHeight(y + 22 + 10)
 	end
+	Style.SkinOnShow(f)
+	-- After the skin: its first pass draws a gold border, its late pass (0.1 s) sets the fonts again.
+	f:HookScript("OnShow", function(self)
+		self:SetBackdropBorderColor(r, g, b, 1)
+		self:Fit()
+		C_Timer.After(0.15, function()
+			if self:IsShown() then
+				self:Fit()
+			end
+		end)
+	end)
 	if ns.RegisterMidnightDialogPopup then
 		ns.RegisterMidnightDialogPopup(f) -- Shift+scroll = size (every MH window), Escape closes
-	end
-	-- Rob, 20 Nov 2026 (screenshot): "de tekst loopt over de dock to window". The title's right edge was at -28, under the
-	-- "Dock to window" button that RegisterMidnightDialogPopup adds. Same fix as ForeverDirection.lua / NewChoices.lua:
-	-- the title ends left of that button and wraps; the body hangs under the title and Fit() takes its height, so a
-	-- two-line title pushes the body down instead of over it.
-	if f._mhDockBtn then
-		f.title:ClearAllPoints()
-		f.title:SetPoint("TOPLEFT", 12, -10)
-		f.title:SetPoint("RIGHT", f._mhDockBtn, "LEFT", -8, 0)
-		f.title:SetWordWrap(true)
 	end
 	-- Only the cross keeps it away for this step. Escape (which closes every MH window at once, also when you only
 	-- wanted to close the map) hides it until the next quest update brings it back.
@@ -3066,23 +3347,30 @@ CQWUpdate = function()
 	if not ns.IsForeverCQWindowOn() then
 		return CQWHide("switched off (Quiet helpers)")
 	end
-	local ok, line = pcall(ns.ForeverClassQuestNow)
-	if not ok or not line then
-		return CQWHide(ok and "no class quest step right now" or ("error: " .. tostring(line)))
+	local ok, d = pcall(CardData)
+	if not ok or not d then
+		return CQWHide(ok and "no class quest step right now" or ("error: " .. tostring(d)))
 	end
-	if cqwClosedFor == line then
+	if cqwClosedFor == d.id then
 		return CQWHide("you closed it on this step; it comes back with the next one")
 	end
 	cqwClosedFor = nil
 	local f = CQWBuild()
-	local okP, parts = pcall(ns.ForeverClassQuestNowParts)
-	local title = okP and parts and parts.chain or ns:L("FCQ_WIN_TITLE")
-	f.title:SetText(title)
-	f.body:SetText(line)
-	f.stepText = line
+	-- The class name as the client says it; capitals only for plain ASCII (the small-caps font does the rest).
+	local head = ("%s · %s"):format((UnitClass("player")) or "", ns:L("FOV_LEVEL_FMT"):format(d.level))
+	if not head:gsub("·", ""):find("[\128-\255]") then
+		head = head:upper()
+	end
+	f.head:SetText(head)
+	f.title:SetText(d.title)
+	f.who:SetText(d.who)
+	f.where:SetText(d.place or "")
+	f.note:SetText(d.note)
+	f.go:SetShown(d.place ~= nil)
+	f.stepId = d.id
 	f:Fit()
 	f:Show()
-	cqwWhy = "shown: " .. title
+	cqwWhy = "shown: " .. d.title
 end
 
 do
@@ -3099,7 +3387,7 @@ do
 	end
 	local ev = CreateFrame("Frame")
 	for _, e in ipairs({ "PLAYER_ENTERING_WORLD", "QUEST_LOG_UPDATE", "QUEST_ACCEPTED", "QUEST_TURNED_IN",
-		"PLAYER_LEVEL_UP", "SPELLS_CHANGED", "BAG_UPDATE_DELAYED" }) do
+		"PLAYER_LEVEL_UP", "SPELLS_CHANGED", "BAG_UPDATE_DELAYED", "QUEST_DATA_LOAD_RESULT" }) do
 		pcall(ev.RegisterEvent, ev, e)
 	end
 	ev:SetScript("OnEvent", Soon)

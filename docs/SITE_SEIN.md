@@ -28,6 +28,16 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 22 nov 2026 — Forever: class quest als kaartje, ook het briefje van level 1
+- Tag + commit:   geen tag (commit: zie git log, "class quest card")
+- Status:         alleen op main
+- Mag op de site: nee (nog niet door Rob getest; Rob: "We doen nog geen release.")
+- Speler ziet:    een opvallend kaartje met je class-queststap (quest, bij wie, waar), nu ook het briefje dat een nieuw
+                  character naar de trainer stuurt, voor alle 56 combinaties van class en ras.
+- Knoplabels:     FCQ_BTN, FCQWIN_SW
+- Commando's:     /mh classquest
+- Spel:           Forever
+
 ## 22 nov 2026 — Forever: meer vensters dicht in de stijl van het overzicht
 - Tag + commit:   geen tag (commit: zie git log, "windows in style A")
 - Status:         alleen op main
