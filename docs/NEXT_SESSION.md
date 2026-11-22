@@ -17,7 +17,8 @@ vensters zijn goed. Dat kan je goedkeuren."*; details open in TESTLIJST, o.a. pr
 🚦 **GEEN RELEASE (Rob 22 nov via sparring, letterlijk: *"We doen nog geen release. Dan kom je wat anders tegen."*):** geen bump,
 releasetekst, Fable-ronde of tag, en niet opnieuw voorstellen tot Rob erover begint.
 ▶ **NU: KAART B (Rob 22 nov via sparring, letterlijk: *"b"*):** level 1-briefjes voor alle classes/rassen + elk class-queststapje
-als opvallend kaartje (ForeverCQWindow). GEBOUWD, wacht op Robs test: 56 combinaties, 0 zonder briefje (Skyborne op level 2);
+als opvallend kaartje (ForeverCQWindow). GEBOUWD, kaartje GOEDGEKEURD op een Tauren hunter (Rob 22 nov: *"kaartje goed,
+hebben we dit voor meerdere classes ?"*; andere classes, latere quests en knoppen open in TESTLIJST): 56 combinaties, 0 zonder briefje (Skyborne op level 2);
 pas na de quest ervoor, tot en met level 5 (AFGELEID), nooit vóór een spell-keten. `docs/forever/CLASS_NOTES_2026-11-22.md`.
 ✅ **PLEKKEN B (Rob 22 nov via sparring, letterlijk: *"Plekken b"*), GEBOUWD, wacht op test:** 59 uit HandyNotes: Class Trainers
 overgenomen plekken in ForeverClassQuests nu van Zygor (mediaan 0,11, grootste 1,01 kaartpunt: Beram 3032); wie die addon heeft

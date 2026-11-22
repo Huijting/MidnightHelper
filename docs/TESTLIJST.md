@@ -27,7 +27,8 @@ bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt o
 
 ## 22 nov — Forever: trainerplekken in de class quests, Zygor + HandyNotes live (Rob: "Plekken b")
 
-Typ eerst `/reload`. Het handigst tijdens de kaartjetest: de Night Elf hunter die het briefje moet inleveren.
+Typ eerst `/reload`. Het handigst met een character dat een briefje moet inleveren (bv. een Night Elf hunter). De
+kaartjetest van 22 nov ("kaartje goed") dekt dit niet: de bron van de plek zat niet in die stappen.
 
 - [ ] `/mh classquest` → onder de open stap staat "place of Ayanna Everstride from: …". Met HandyNotes: Class Trainers
       aan: "HandyNotes: Class Trainers (read live)". Sprak je die trainer al eens, dan "seen: …": die plek wint.
@@ -39,20 +40,25 @@ Typ eerst `/reload`. Het handigst tijdens de kaartjetest: de Night Elf hunter di
 
 ## 22 nov — Forever: class-queststap als kaartje + de briefjes van level 1 (Rob: "b")
 
-Typ eerst `/reload`. Het snelst: een nieuwe Night Elf hunter (1 quest, 11 monsters; AFGELEID).
+Afgevinkt = Rob 22 nov via sparring, verse Tauren hunter, met screenshot, letterlijk: *"kaartje goed, hebben we dit voor
+meerdere classes ?"* Alleen de 8 stappen van sparring.
 
-- [ ] Vóór de eerste quest is ingeleverd: geen kaartje over het briefje. Lever "The Balance of Nature" (deel 1) in bij
-      Conservator Ilthalaine → binnen een paar tellen een kaartje: class-icoon, "HUNTER · LEVEL 1", "Etched Sigil",
-      "Get it from Conservator Ilthalaine", "Teldrassil", "Only for your class · takes you to your trainer".
-      De rand is groen (de classkleur) en je kunt er niet doorheen kijken.
-- [ ] Show the way → de pijl naar hem. Neem het briefje aan → het kaartje zegt "Hand it in to Ayanna Everstride" en de
-      pijl gaat naar haar. Lever in → het kaartje is weg.
+- [x] ✅ (Rob 22 nov) `/reload`; vóór "The Hunt Begins" is ingeleverd: geen kaartje over het briefje.
+- [x] ✅ (Rob 22 nov) Ingeleverd → kaartje "Get it from Grull Hawkwind".
+- [x] ✅ (Rob 22 nov) Aangenomen → "Hand it in to Lanka Farshot". GEMETEN op zijn screenshot van die stap: icoon,
+      "HUNTER · LEVEL 1", "Etched Note", "Mulgore", de onderregel, groene rand, dicht, Show the way.
+- [x] ✅ (Rob 22 nov) Show the way → de pijl komt bij Lanka uit.
+- [x] ✅ (Rob 22 nov) Ingeleverd → het kaartje is weg.
+- [x] ✅ (Rob 22 nov) Een beestje verslaan → geen melding "action blocked".
+- [ ] Andere classes en rassen (alle 9 classes, 56 briefjes): bv. een Night Elf (1 quest, 11 monsters), een warlock (Imp
+      gaat vóór het briefje), een Skyborne (pas op level 2).
+- [ ] Show the way bij de stap "Get it from …" → de pijl naar wie het briefje geeft.
 - [ ] Een bestaand character boven level 5: geen briefje. Heb je een class-queststap open, dan is dat nu een kaartje met
       de questnaam, bij wie, waar en waar het voor is ("teaches you …" of "for: …"). Geen stap = geen kaartje
       (`/mh classquest` zegt waarom, onderste regel).
 - [ ] Kruisje → weg tot de volgende stap. Escape → weg tot de volgende quest-update. Slepen → na `/reload` op dezelfde
       plek. Shift+scroll = groter en kleiner.
-- [ ] Doe daarna een gevecht: geen melding "action blocked".
+- [ ] Quiet helpers → "Small window with your class quest step" uit → het kaartje is weg; aan → het is terug.
 
 ## 22 nov — Forever: 11 vensters dicht in stijl A (Rob: "Doe maar vensters A")
 

@@ -49,7 +49,9 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 - Meting (1) gedaan 22 nov (*"meting gedaan"*): Forever geeft bij Cooking geen bron (0 van 132), dus eigen data per recept.
 - Spel: F. Site: nog niet.
 
-### Forever: class-queststap als opvallend kaartje + de level 1-briefjes (wens van Rob, 22 nov) — ✅ JA (kaart B), GEBOUWD, wacht op Robs test
+### Forever: class-queststap als opvallend kaartje + de level 1-briefjes (wens van Rob, 22 nov) — ✅ JA (kaart B), GEBOUWD, ◐ goed op Tauren hunter
+- Getest: Rob 22 nov via sparring, letterlijk: *"kaartje goed, hebben we dit voor meerdere classes ?"* (ja: alle 9 classes,
+  56 briefjes; in het spel is alleen de Tauren hunter getest, de rest staat open in TESTLIJST).
 - Bron: Rob 22 nov via sparring, met een screenshot van Polestar, letterlijk: *"We doen nog geen release. Dan kom je wat
   anders tegen. Kijk, dit plaatje. Ik vind dat gaaf. Dit valt duidelijk op dat ik als Hunter dit nog kan doen als class
   step blijkbaar. Of iets. Wat is het? Ja, het is een class quest part of your route. Dus ja, kijk maar eventjes."* →
