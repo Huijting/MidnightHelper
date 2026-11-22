@@ -5225,3 +5225,47 @@ kop, per bevinding MEASURED/INFERRED en [RAAKT ONS]/[RAAKT ONS NIET], met bestan
   https://www.curseforge.com/api/v1/mods/1528577/comments?pageIndex=0&pageSize=20&nocache=20261121c
   (alle rechtstreeks via Exa gelezen, Forever-sectie ook via web_search_exa als onafhankelijke
   controle).
+
+- [2026-11-22] 💬🆕 **CurseForge: geen open reacties. Midnight en Forever allebei stil — geen nieuwe
+  hotfixsectie bij geen van beide sinds [2026-11-21].**
+
+  💬 **CurseForge:** MEASURED, zelf gelezen via Exa
+  (`curseforge.com/api/v1/mods/1528577/comments?pageIndex=0&pageSize=20&nocache=20261122x` en `/y`,
+  twee keer met andere `nocache`-waarde, identieke inhoud): **geen open reacties (3 draadjes, 8
+  berichten totaal — `pagination.totalCount: 8`, zelfde aantal als [2026-11-20]/[2026-11-21]).** Alle
+  drie dezelfde ketens als gisteren, elke keten eindigt op een bericht van `twelveinchy`: esES/esMX-
+  locale-fix `8509224` → reply `8510682`; MrsBoojiePanda's debug-printregel `8414729` → reply
+  `8483898`; gadrinonturalyon's coffer-key-shards/3D-boss-model-verzoek `8090710` → keten tot
+  `8095337`/`8092133` — alle ids en timestamps byte-identiek aan [2026-11-21]. Geen concept-antwoord
+  nodig.
+
+  **Midnight, geen nieuwe sectie.** MEASURED, zelf gelezen via Exa
+  (`news.blizzard.com/en-us/article/24307310/hotfixes-november-6-2026?nocache=20261122x`): toont nog
+  steeds alleen de secties van 6 en 5 nov (Vashnik/Ula'tek-tuning resp. Tortollan-naam + Shadowguard
+  Point + Venomous Abyss-tuning), allebei al verwerkt op [2026-11-06]/[2026-11-07] — geen nieuwe
+  Delves-, Professions-, Quests- of Items-regel. Onafhankelijk bevestigd door de blue-wacht van
+  vandaag (`docs/PTR_12.0.7_DATA.md`, [2026-11-22]): `content-update-notes` zegt "14 days ago" bij
+  diezelfde sectie en `us.forums.blizzard.com` toont wél tientallen nieuwe draadjes van vandaag —
+  dus geen verstikte cache, de stilstand is een echte meting. Geen nieuwe content-feiten gevonden die
+  tegen een bestaande tip in onze code staan.
+
+  **Forever: geen nieuwe sectie.** MEASURED, zelf gelezen via Exa
+  (`news.blizzard.com/en-us/article/24315281/wow-forever-hotfixes-november-20-2026?nocache=20261122x`):
+  laatste dag erin blijft **"November 20, 2026"**, al volledig per item tegen de code gezet op
+  [2026-11-21] (Blade Flurry/Shank, Demonic Aegis, reset-cap, Toron Rockhoof, de vier queests — allemaal
+  [RAAKT ONS NIET]). Geen "November 21" of "November 22"-sectie, dus niets nieuws te toetsen. De blue-
+  wacht van vandaag vond wel een los Wowhead/Icy-Veins-artikel over de Alcaz Prison-queestenketen
+  (6 queests) — dat is haar feiten-terrein (nieuw FACT, geen hotfix op een bestaande bewering), en de
+  dungeon zelf staat bij ons al als locatie/levelrange (`Modules/ForeverDungeons.lua:85`), niet als
+  questengids; geen tegenspraak, dus geen actie hier.
+
+  **[RAAKT ONS NIET]** voor alle bovenstaande — geen actiepunt.
+
+  Vandaag is zondag, geen maandag: de kaarten- en consumables-secties zijn opzettelijk weggelaten.
+
+  — bron: https://news.blizzard.com/en-us/article/24307310/hotfixes-november-6-2026?nocache=20261122x ·
+  https://news.blizzard.com/en-us/article/24315281/wow-forever-hotfixes-november-20-2026?nocache=20261122x ·
+  https://www.curseforge.com/api/v1/mods/1528577/comments?pageIndex=0&pageSize=20&nocache=20261122x/y ·
+  docs/PTR_12.0.7_DATA.md [2026-11-22] (zelfde dag, andere wacht, als onafhankelijke controle op de
+  cache)
+  (alle rechtstreeks via Exa gelezen).
