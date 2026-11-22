@@ -40,7 +40,8 @@ bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt o
 
 - [x] ✅ (Rob 22 nov via sparring: *"talent goed"*) Forever, character met een vrij talentpunt: typ `/reload`. In "Do this now" staat de talentregel bovenaan: goud,
       met een gele ster, en een witregel eronder. De talentnaam blijft blauw; muis erop = de tooltip van het spel.
-- [x] ✅ (Rob 22 nov via sparring: *"talent goed"*) De eerste knop onderin is "Talents". Klik: het talentvenster van het spel gaat open, zonder rode fout en zonder
+- [ ] ◐ HALF OPEN (Rob 22 nov: *"talent goed"*; daarna in gevecht "action blocked" op MultiBarBottomRight, niet opgelost:
+      `docs/forever/TALENTKNOP_TAINT_2026-11-22.md`) De eerste knop onderin is "Talents". Klik: het talentvenster van het spel gaat open, zonder rode fout en zonder
       "action blocked". Zet het punt en druk Apply: dat werkt. Cast daarna een spell uit je spreukenboek: ook goed.
 - [x] ✅ (Rob 22 nov via sparring: *"talent goed"*) Geen vrij punt meer: de regel en de knop zijn weg.
 - [ ] In gevecht: `/mh overview`, klik Talents bij de regel: in rood "You can't do that while in combat", geen venster.

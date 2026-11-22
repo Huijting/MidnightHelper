@@ -2,9 +2,20 @@
 
 ## ▶▶ VOLGENDE BOUWCHAT (21 nov, avond): nieuwe Forever-reeks "leren van Polestar/FlowUp" — punt 4 GEBOUWD, 2 herbouwen zonder Zygor, 1 = B, 3 rust
 
+⏸️ **ZYGOR B GEPAUZEERD (22 nov, via sparring), Rob letterlijk (gedicteerd, "Zijgor" = Zygor):** *"Nee, wij blijven Zijgor
+als een informatiepunt houden. Dat hebben we al wat langer geleden besloten. Dat de jongens vrij fanatiek daarin zijn en
+best wel goed erop zijn. Dus wat dat betreft blijven we die gewoon houden."*
+- Punt c (lijst) en e (herbouw) GESTOPT. Niets weghalen vanwege Zygor, ook docs niet. 89dfb1e blijft.
+- Tot zijn volgende antwoord (betekent "informatiepunt" ook overnemen?): niets terugzetten, niets nieuws overnemen.
+  7e3d3a4 (dungeon-quests van main) blijft dus zolang staan. Het receptenonderzoek zonder Zygor mag aflopen.
+
+🐞 **EERST: "action blocked" MultiBarBottomRight:SetPointBase, op naam van MH (sessie 335).** Onderzocht, knop nog NIET
+veranderd: `docs/forever/TALENTKNOP_TAINT_2026-11-22.md`. De Talents-knop kan het veroorzaken (ook in v5.7.0 via het
+overzicht); Rob kiest A/B/C via sparring. 🔴 Geen release tot dit duidelijk is. "talent goed" is half open.
+
 🗳️ **Robs woorden 22 nov, later (via sparring, letterlijk: *"smart buff goed\nBoot Rust\nmeting gedaan"* en, bij een
 screenshot van Do this now, *"kunnen we de talent point meer laten opvallen"* → *"talent b"*):**
-- **Talent B GEBOUWD + getest:** talentregel bovenaan in goud met ster + witregel, knop Talents vooraan. Alleen het
+- **Talent B GEBOUWD, half getest (regel en knop werken; de fout erna is open, zie bovenaan):** talentregel bovenaan in goud met ster + witregel, knop Talents vooraan. Alleen het
   venster Do this now. Niet gemeten: opent de knop zonder blocked-fout (code: zelfde PlayerSpellsUtil als Forevers toets).
 - **Meting:** Cooking 132 recepten, GetRecipeSourceText leeg bij alle 132, 2 runs (GEMETEN in de SV). Niet op die API
   bouwen; per recept eigen data nodig. "window closed" bij een open venster: oorzaak GEMETEN = CharacterForever toont
@@ -14,9 +25,9 @@ screenshot van Do this now, *"kunnen we de talent point meer laten opvallen"* �
 - **Robs antwoorden, letterlijk: *"talent goed / plek ja / Zygor b"*.** Talent B getest (niet: in gevecht).
 - **d, reagentia GEBOUWD, wacht op test (herstart nodig):** `ForeverReagentSource(Data).lua`, 87 items zonder Zygor, regel
   in de tooltip + Skill up (daar de pijlknop). ⚠️ In die 87 zit geen "valt van monsters" en geen Skinning (één bron).
-  Nog van d: recepten (eigen data, zonder Zygor). Daarna c, dan e.
+  Nog van d: recepten (onderzoek zonder Zygor loopt). c en e: gestopt, zie bovenaan.
 - **Plek:** tooltip = hoofdplek + MH's Skill up-venster; Blizzards beroepenvenster alleen als extra.
-- 🔴 **ZYGOR B (vervangt "alleen feiten" van 21 nov): niets meer overnemen uit Zygor, geen id's, plekken, volgorde of
+- ⏸️ **(GEPAUZEERD, zie bovenaan; c en e niet uitvoeren)** **ZYGOR B (vervangt "alleen feiten" van 21 nov): niets meer overnemen uit Zygor, geen id's, plekken, volgorde of
   namen; alleen ermee nakijken.** Volgorde: b) dungeon-quests van main → d) reagentia (87, AllTheThings met MIT-tekst) +
   recepten zonder Zygor → c) ALLEEN een lijst van ouder Zygor-werk, niets wijzigen zonder apart ja → e) dungeon-quests
   herbouwen of met aantallen melden. Optie D (meelezen) niet gekozen: niet bouwen.

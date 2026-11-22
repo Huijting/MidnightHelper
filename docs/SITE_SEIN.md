@@ -42,7 +42,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 ## 22 nov 2026 — Forever: talentpunt valt op in Do this now
 - Tag + commit:   geen tag (commit: zie git log, "talent point on top")
 - Status:         alleen op main
-- Mag op de site: nee (geen release) *(getest door Rob)*
+- Mag op de site: nee (geen release; de knop kan "action blocked" geven, wordt uitgezocht). Regel getest door Rob.
 - Speler ziet:    met een vrij talentpunt staat die regel bovenaan in Do this now, in goud met een ster, met een knop
                   die het talentvenster van het spel opent.
 - Knoplabels:     FTALENT_BTN

@@ -32,7 +32,8 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 - Volgorde: (2) dungeon-quests, (1) waar haal ik dit vandaan, (3) boot/zeppelin-wachttijd, (4) XP per uur.
   Alleen het idee: Polestar is GPLv3, FlowUp-routes ARR. Plan en stand: `docs/NEXT_SESSION.md` bovenaan.
 - (2) Dungeon-quests: gebouwd 21 nov uit Zygor, 22 nov van main gehaald (Rob 22 nov via sparring, letterlijk: *"Zygor b"*).
-  Herbouwen uit andere bronnen; kan dat niet goed, dan met aantallen aan Rob.
+  ⏸️ Herbouw gestopt 22 nov (Rob: *"wij blijven Zijgor als een informatiepunt houden"*). Wacht op zijn antwoord of dat ook
+  overnemen betekent; tot dan niets terugzetten, niets herbouwen, niets weghalen.
 - (4) XP per uur + tijd tot level: GEBOUWD 21 nov (nacht), schakelaar FXPRATE_SW, wacht op Robs test.
 - (1) Waar haal ik dit vandaan: ✅ JA, optie B. Rob 22 nov via sparring, letterlijk: *"1 b"* (op "1. A, B of C?"). B = onbekende
   recepten "Waar haal je dit" (venster + tooltip, trainer met pijl) + reagentia in de tooltip (verkoper met pijl /
@@ -45,7 +46,7 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 - Meting (1) gedaan 22 nov (*"meting gedaan"*): Forever geeft bij Cooking geen bron (0 van 132), dus eigen data per recept.
 - Spel: F. Site: nog niet.
 
-### Forever: talentpunt opvallender in Do this now (wens van Rob, 22 nov) — ✅ Af 22 nov (Rob: "talent goed")
+### Forever: talentpunt opvallender in Do this now (wens van Rob, 22 nov) — ◐ half open: "talent goed", daarna "action blocked" (zie `docs/forever/TALENTKNOP_TAINT_2026-11-22.md`)
 - Bron: Rob 22 nov via sparring, met screenshot: *"kunnen we de talent point meer laten opvallen"* → op opties A/B/C:
   *"talent b"*.
 - B: de talentregel bovenaan, goud, met een ster en een witregel; knop Talents vooraan. Geen gloed of animatie. Geen vrij
