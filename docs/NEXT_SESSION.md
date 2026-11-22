@@ -19,11 +19,12 @@ onderweg leger te maken, check dat ook, tijd voor koffie en ontbijt dus ga door 
       drankjes, verband, scrolls, recepten, tassen, sleutels beschermen? Die kunnen nog als weggooien verschijnen.
 - [ ] 4. Recepten: Zygor mag als bron. Craft Ladder alleen nakijken als tweede bron, geen waarden: dat is de uitleg van
       sparring (regel 7 nov), GEEN woord van Rob; hij kan het intrekken. Pijl nooit naar zomaar een trainer.
-- [ ] 5. Polestar: is het CC BY 4.0-deel los te krijgen, wat dekt het? Alleen melden, niets overnemen.
+- [x] 5. Polestar UITGEZOCHT, niets overgenomen: `docs/forever/POLESTAR_DATA_2026-11-22.md`. recorded.json kan los (CC BY
+      4.0); geeft 549 recepten een tweede bron. **Wacht op Robs A/B/C**; overnemen is een nieuwe ja.
 - ⛔ Geen ja: "bekende recepten" repareren. Niet wijzigen tot sparring zijn woorden stuurt. Geen tag of release.
 
-📜 **Recepten onderzocht (22 nov), niets gebouwd:** `docs/forever/RECEPTEN_2026-11-22.md` (nog van vóór "overnemen":
-bronnen = werklijst punt 4). Wacht nog op: 🐞 **bekende recepten per character kloppen niet**
+📜 **Recepten met Zygor onderzocht (22 nov), niets gebouwd:** `docs/forever/RECEPTEN_2026-11-22.md`. Wacht op Rob:
+(1) telt Classic-data als tweede bron? (A/B/C daar); (2) 🐞 **bekende recepten per character kloppen niet**
 (GEMETEN in Robs SV: 32 gekopieerde recepten op 4 characters); reparatie wist opgeslagen regels, dus eerst zijn ja.
 
 🐞 **"action blocked" MultiBarBottomRight:SetPointBase (sessie 335): aanleiding weggehaald, wacht op test.** Rob: *"knop
