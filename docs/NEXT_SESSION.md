@@ -20,7 +20,8 @@ In de Camelot-toc is dit de enige dubbele `function ns.X` (GEMETEN 22 nov, nu 0)
 ☀️ **Ochtendronde 22 nov gedaan (Bouwchat 22-11).** GEMETEN: CurseForge 0 wachtend, GitHub 0 open, site-mail 0 (3 dagen),
 BOUW_VRAAG 0 open, wachters 0 MOET GEFIKST, HandyNotes 173 zonder zone-wijziging, Zygor: ingangen Drowned City/Krol'dok
 kloppen al in MH, dungeon-quests blijft 519. Notion-inbak: 4 regels "Nieuw" van 12 nov. SITE_SEIN 5.7.0: 14 blokken op
-"ja" (staan in de releasetekst), Waylaid Crates blijft "nee". Open uit de ronde:
+"ja" (staan in de releasetekst), Waylaid Crates blijft "nee". Event-snapshot ververst (live 70961 / ptr 71087 / forever
+71037). Open uit de ronde:
 - [ ] Verlopen tekst "Fabled, only until the week of 27 October" (site-chat 22 nov): DELVE_TIP_LABYRINTH_BOSS +
       CODEX_LABYRINTH_BODY, met alle taalpacks en esMX; dan check_drift.
 - [ ] Nachtcontrole C2 blinde vlek 24 -> 290 -> 774: uitzoeken. Draaiboek 12.1.7 zegt nog "testdata" (release 1/2 dec).

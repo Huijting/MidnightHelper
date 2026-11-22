@@ -1,11 +1,11 @@
 {
  "source": "https://github.com/Gethe/wow-ui-source/tree/<branch>/Interface/AddOns/Blizzard_APIDocumentationGenerated",
- "fetched": "2026-11-13",
+ "fetched": "2026-11-22",
  "branches": {
   "live": {
-   "build": "12.1.5 (70783)",
-   "commit": "297d7aaaa736f346b3e036f38ee088eaf7f8c07f",
-   "commit_date": "2026-11-04T00:46:01Z",
+   "build": "12.1.5 (70961)",
+   "commit": "ab5cb850a3f65e742959e379c4689353a2f4549f",
+   "commit_date": "2026-11-18T23:46:07Z",
    "files": 622,
    "events": [
     "ACCOUNT_CHARACTER_CURRENCY_DATA_RECEIVED",
@@ -1795,10 +1795,10 @@
    ]
   },
   "ptr": {
-   "build": "12.1.7 (70892)",
-   "commit": "a750208e2382f24eb3d3a83939082a182420c44b",
-   "commit_date": "2026-11-12T22:24:09Z",
-   "files": 647,
+   "build": "12.1.7 (71087)",
+   "commit": "fbb18ce126862cedee284308dec404ff93fa27b1",
+   "commit_date": "2026-11-20T23:31:00Z",
+   "files": 649,
    "events": [
     "ACCOUNT_CHARACTER_CURRENCY_DATA_RECEIVED",
     "ACCOUNT_CVARS_LOADED",
@@ -2234,6 +2234,7 @@
     "COMMENTATOR_TEAMS_SWAPPED",
     "COMMENTATOR_TEAM_NAME_UPDATE",
     "COMMODITY_PRICE_UNAVAILABLE",
+    "COMMODITY_PRICE_UNAVAILABLE_SELF_FOUND",
     "COMMODITY_PRICE_UPDATED",
     "COMMODITY_PURCHASED",
     "COMMODITY_PURCHASE_FAILED",
@@ -3615,6 +3616,7 @@
     "WORLD_QUEST_COMPLETED_BY_SPELL",
     "WORLD_STATE_TIMER_START",
     "WORLD_STATE_TIMER_STOP",
+    "WOW_HACK_STAT_POINTS_CHANGED",
     "WOW_MOUSE_NOT_FOUND",
     "ZONE_CHANGED",
     "ZONE_CHANGED_INDOORS",
@@ -3622,9 +3624,9 @@
    ]
   },
   "forever": {
-   "build": "1.60.1 (70938)",
-   "commit": "bebcb6bf309cf41b41bd74f8ca651e6a105b2676",
-   "commit_date": "2026-11-13T01:46:40Z",
+   "build": "1.60.1 (71037)",
+   "commit": "734f065329cff4992835b01a84f210a297db91b6",
+   "commit_date": "2026-11-20T18:31:10Z",
    "files": 642,
    "events": [
     "ACCOUNT_CHARACTER_CURRENCY_DATA_RECEIVED",
