@@ -542,6 +542,11 @@ for k, v in pairs({
 	FSKILL_TIP_REAGENT_FMT = "MH: un punto de habilidad ahora con %s (aprox. %d%%)",
 	FSKILL_TIP_UNKNOWN = "(Aún) no conoces esta receta.",
 	FSKILL_GO_TRAINER = "Mostrar el camino a tu instructor",
+	-- 22 Nov 2026 ("venster ja"): the button names the profession; the key above is the 5.7.0 label (release text). Our own translation, not reviewed by a native speaker.
+	FSKILL_GO_TRAINER_FMT = "Mostrar el camino a un instructor de %s",
+	FSKILL_GO_TRAINER_AN_FMT = "Mostrar el camino a un instructor de %s",
+	FRSRC_NO_TRAINER = "MH aún no sabe qué instructor",
+	FRSRC_NO_VENDOR = "MH aún no sabe qué vendedor",
 	FSKILL_NOT_YOURS = "No tienes esta profesión.",
 	FSKILL_EMPTY = "Aún no tienes una profesión de fabricación.",
 	FSKILL_SUMMARY_FMT = "Skill up: fabrica ahora unas %dx %s.",

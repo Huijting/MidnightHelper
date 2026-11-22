@@ -28,6 +28,16 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 22 nov 2026 — Forever: Skill up-venster leesbaar, knop noemt het beroep
+- Tag + commit:   geen tag (commit: zie git log, "Skill up window")
+- Status:         alleen op main
+- Mag op de site: nee (nog niet door Rob getest, geen release)
+- Speler ziet:    het Skill up-venster is dicht (stijl van het overzicht), zegt erbij als MH nog niet weet welke trainer of
+                  verkoper, en de knop onderin noemt het beroep.
+- Knoplabels:     FSKILL_GO_TRAINER_FMT (het label van 5.7.0 was FSKILL_GO_TRAINER)
+- Commando's:     /mh skillup
+- Spel:           Forever
+
 ## 22 nov 2026 — Forever: waar haal ik dit recept?
 - Tag + commit:   geen tag (commit: zie git log, "where you get a recipe")
 - Status:         alleen op main

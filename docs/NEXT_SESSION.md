@@ -8,6 +8,12 @@ zeker: Equip, vrij talentpunt, pet. Niet los getest: per soort, bijna vol + scha
 gevecht, andere characters. **OPEN: ronde 2** (ingrediënten, recept-pijl, dungeon-quests, XP per uur) **+ Midnight-inlog.**
 Niets nieuws bouwen, geen tag of release.
 
+🔧 **SKILL UP-VENSTER GEREPAREERD (22 nov via sparring, letterlijk: *"venster ja"*), wacht op test:** stijl A (dicht),
+"MH doesn't know which trainer/vendor yet", knop noemt het beroep. Ronde 2 uit zijn screenshots: XP-regel, Linen Cloth,
+Light Leather, recepten in Skill up gezien; pijl, persoon en dungeon-quests niet. ❓ Nog 11 Forever-vensters zijn net zo
+doorzichtig (BagFull, Chars, Crates, Dungeons, Durability, HowToPlay, Macros, ProfTrainers, Trainer, Vendors, Weapons):
+gemeld, GEEN ja, niet bouwen.
+
 ▶ **ROBS KEUZES 22 nov, rond het ontbijt (via Sparring 22-11), letterlijk:** *"overnemen, ja"* (1. Zygor kijken of
 overnemen; 2. mag het vrije deel van Polestar uitgezocht worden) · *"knop weg, en polestar heeft ook iets om je volle tassen
 onderweg leger te maken, check dat ook, tijd voor koffie en ontbijt dus ga door szo lang je kan en ik terug ben"* ·

@@ -5727,6 +5727,11 @@ ns._mhLocales.enUS = {
 	FSKILL_TIP_REAGENT_FMT = "MH: a skill point now with %s (about %d%%)",
 	FSKILL_TIP_UNKNOWN = "You do not know this recipe (yet).",
 	FSKILL_GO_TRAINER = "Show the way to your trainer",
+	-- 22 Nov 2026 ("venster ja"): the button names the profession; the key above is the 5.7.0 label (release text).
+	FSKILL_GO_TRAINER_FMT = "Show the way to a %s trainer",
+	FSKILL_GO_TRAINER_AN_FMT = "Show the way to an %s trainer",
+	FRSRC_NO_TRAINER = "MH doesn't know which trainer yet",
+	FRSRC_NO_VENDOR = "MH doesn't know which vendor yet",
 	FSKILL_NOT_YOURS = "You do not have this profession.",
 	FSKILL_EMPTY = "You have no crafting profession yet.",
 	FSKILL_SUMMARY_FMT = "Skill up: next, make about %dx %s.",

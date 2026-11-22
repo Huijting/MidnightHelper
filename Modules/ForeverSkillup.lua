@@ -670,6 +670,12 @@ local function Build()
 			selected = self.key
 			Fill()
 		end)
+		-- The chosen profession: a mark of our own (style A hides the template's highlight that LockHighlight uses).
+		local mark = b:CreateTexture(nil, "ARTWORK")
+		mark:SetAllPoints()
+		mark:SetColorTexture(0.86, 0.71, 0.42, 0.30)
+		mark:Hide()
+		b.mark = mark
 		f.profBtns[i] = b
 	end
 	local rx = 20 + LEFT_W + 16
@@ -743,6 +749,23 @@ local function Build()
 	f:SetScript("OnShow", function()
 		Fill()
 	end)
+	if ns.RegisterMidnightDialogPopup then -- Shift+scroll and Escape; after the SetScript: it hooks OnShow too
+		ns.RegisterMidnightDialogPopup(f)
+	else
+		tinsert(UISpecialFrames, f:GetName())
+	end
+	-- 22 Nov 2026 (Rob via sparring: "venster ja"; nameplates ran through the text): style A, opaque. After the OnShow
+	-- above. The skin sets its fonts again 0.1 s later, so height and button width are measured once more after that.
+	if ns.ForeverStyle and ns.ForeverStyle.SkinOnShow then
+		ns.ForeverStyle.SkinOnShow(f)
+		f:HookScript("OnShow", function(self)
+			C_Timer.After(0.15, function()
+				if self:IsShown() then
+					Fill()
+				end
+			end)
+		end)
+	end
 	f:RegisterEvent("GET_ITEM_INFO_RECEIVED")
 	f:RegisterEvent("BAG_UPDATE_DELAYED")
 	f:SetScript("OnEvent", function(self)
@@ -756,11 +779,6 @@ local function Build()
 			end)
 		end
 	end)
-	if ns.RegisterMidnightDialogPopup then
-		ns.RegisterMidnightDialogPopup(f)
-	else
-		tinsert(UISpecialFrames, f:GetName())
-	end
 	f:Hide()
 	win = f
 	return f
@@ -946,6 +964,17 @@ end
 
 ns.ForeverSkillupPlanText = PlanText -- for the offline check (scratch test), like ns.ReagentUseText
 
+--- The trainer button as wide as its text: under the text column, growing to the left when that is too narrow.
+local function FitTrainerButton(f)
+	local fs = f.go:GetFontString()
+	local room = W - 24 - 20
+	f.go:SetWidth(room) -- measure the whole text, not one cut off by the last width
+	local w = math.min(room, math.max(220, math.ceil((fs and fs:GetStringWidth() or 0) + 28)))
+	f.go:SetWidth(w)
+	f.go:ClearAllPoints()
+	f.go:SetPoint("BOTTOMLEFT", math.min(20 + LEFT_W + 16, W - 24 - w), 18)
+end
+
 Fill = function()
 	local f = Build()
 	f.title:SetText(ns:L("FSKILL_TITLE"))
@@ -970,6 +999,7 @@ Fill = function()
 		if k then
 			b.key = k
 			b:SetText(ProfName(k, mine))
+			b.mark:SetShown(k == selected)
 			if k == selected then
 				b:LockHighlight()
 			else
@@ -985,7 +1015,12 @@ Fill = function()
 		f.go:Hide()
 	else
 		f.text:SetText(PlanText(selected, mine))
-		f.go:SetText(ns:L("FSKILL_GO_TRAINER"))
+		-- Not "your trainer": the button goes to the nearest trainer of this profession. "an" only matters in English; the
+		-- other packs carry the same text under both keys.
+		local prof = ProfName(selected, mine)
+		local fmt = prof:find("^[AEIOUaeiou]") and "FSKILL_GO_TRAINER_AN_FMT" or "FSKILL_GO_TRAINER_FMT"
+		f.go:SetText(ns:L(fmt):format(prof))
+		FitTrainerButton(f)
 		f.go:Show()
 	end
 	local seller = selected and planSeller

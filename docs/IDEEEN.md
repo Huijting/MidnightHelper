@@ -49,6 +49,12 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 - Meting (1) gedaan 22 nov (*"meting gedaan"*): Forever geeft bij Cooking geen bron (0 van 132), dus eigen data per recept.
 - Spel: F. Site: nog niet.
 
+### Forever: Skill up-venster repareren (22 nov) — ✅ JA + GEBOUWD, wacht op Robs test
+- Bron: Rob 22 nov via sparring, met screenshot, letterlijk: *"venster ja"* (dicht in stijl A; "MH weet nog niet welke
+  trainer/verkoper"; de knop noemt het beroep).
+- Gezien, niet gebouwd: nog 11 Forever-vensters met dezelfde doorzichtige achtergrond (vraag bij sparring).
+- Spel: F. Site: nog niet.
+
 ### Forever: "bekende recepten" repareren (22 nov) — ◐ JA + GEBOUWD, getest op één character (Rob: "ronde 1 klopt")
 - Bron: Rob 22 nov via sparring, letterlijk: *"Recepten ja"* (kopie eerst, eigen venster vervangt, beroepen die het character
   niet heeft weg, gelinkte vensters overslaan, zijn recepten in het spel veranderen niet).

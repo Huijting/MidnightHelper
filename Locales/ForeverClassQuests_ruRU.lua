@@ -1691,6 +1691,11 @@ for k, v in pairs({
 	FSKILL_TIP_REAGENT_FMT = "MH: сейчас очко навыка даст «%s» (примерно %d%%)",
 	FSKILL_TIP_UNKNOWN = "Вы (пока) не знаете этот рецепт.",
 	FSKILL_GO_TRAINER = "Показать путь к учителю",
+	-- 22 Nov 2026 ("venster ja"): the button names the profession; the key above is the 5.7.0 label (release text). Our own translation, not reviewed by a native speaker.
+	FSKILL_GO_TRAINER_FMT = "Показать путь к учителю: %s",
+	FSKILL_GO_TRAINER_AN_FMT = "Показать путь к учителю: %s",
+	FRSRC_NO_TRAINER = "MH пока не знает, какой учитель",
+	FRSRC_NO_VENDOR = "MH пока не знает, какой торговец",
 	FSKILL_NOT_YOURS = "У вас нет этой профессии.",
 	FSKILL_EMPTY = "У вас пока нет профессии по изготовлению предметов.",
 	FSKILL_SUMMARY_FMT = "Skill up: сейчас сделайте примерно %dx «%s».",

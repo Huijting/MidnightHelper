@@ -4782,6 +4782,11 @@ ns._mhLocales.nlNL = {
 	FSKILL_TIP_REAGENT_FMT = "MH: nu een skillpunt met %s (ongeveer %d%%)",
 	FSKILL_TIP_UNKNOWN = "Je kent dit recept (nog) niet.",
 	FSKILL_GO_TRAINER = "Wijs de weg naar je trainer",
+	-- 22 Nov 2026 ("venster ja"): the button names the profession; the key above is the 5.7.0 label (release text).
+	FSKILL_GO_TRAINER_FMT = "Wijs de weg naar een trainer voor %s",
+	FSKILL_GO_TRAINER_AN_FMT = "Wijs de weg naar een trainer voor %s",
+	FRSRC_NO_TRAINER = "MH weet nog niet welke trainer",
+	FRSRC_NO_VENDOR = "MH weet nog niet welke verkoper",
 	FSKILL_NOT_YOURS = "Je hebt dit beroep niet.",
 	FSKILL_EMPTY = "Je hebt nog geen maakberoep.",
 	FSKILL_SUMMARY_FMT = "Skill up: maak nu ongeveer %dx %s.",

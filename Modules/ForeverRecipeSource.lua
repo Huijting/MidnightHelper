@@ -9,6 +9,7 @@ local _, ns = ...
 
 	  "MH: The recipe is sold by Kendra (Stormwind City, 120 yd)"   an arrow only to an npc two sources name for THIS recipe
 	  "MH: A trainer teaches this recipe"                           two sources for the kind, none for which trainer
+	  "MH doesn't know which trainer yet"                           the line under it (also "which vendor"), never with an arrow
 	  "Needs: Nightclaw Druids (Friendly), Merchant's Favor"        reputation, payment, specialisation, class
 	  "Classic data, not yet seen in Forever"                       the sources may carry old data
 	Never "a trainer of that profession". Silent when not in the data or the recipe is the other side's.
@@ -95,6 +96,7 @@ end
 
 local PLAIN = { T = "FRSRC_TRAINER", S = "FRSRC_SOLD", D = "FRSRC_DROP", Q = "FRSRC_QUEST", K = "FRSRC_START" }
 local NAMED = { T = "FRSRC_TRAINER_FMT", S = "FRSRC_SOLD_FMT" }
+local NOBODY = { T = "FRSRC_NO_TRAINER", S = "FRSRC_NO_VENDOR" }
 
 --- The lines for this recipe and, with an arrow, the row { npc, name, zone, dist, go }; or nil.
 function ns.ForeverRecipeSourceLines(spell)
@@ -117,6 +119,9 @@ function ns.ForeverRecipeSourceLines(spell)
 		lines[1] = ns:L(NAMED[e.k]):format(row.name, row.zone .. (row.dist and (", " .. row.dist) or ""))
 	else
 		lines[1] = ns:L(PLAIN[e.k])
+		if NOBODY[e.k] then -- 22 Nov 2026 (Rob: "venster ja"): say that the person is what is missing
+			lines[2] = ns:L(NOBODY[e.k])
+		end
 	end
 	local needs = Needs(e, side)
 	if needs then

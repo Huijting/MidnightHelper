@@ -25,6 +25,16 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 22 nov — Forever: Skill up-venster gerepareerd (Rob: "venster ja")
+
+- [ ] Typ `/reload`, dan `/mh skillup`, met nameplates of mobs achter het venster: het is dicht, er loopt niets door de tekst.
+- [ ] Klik een ander beroep: je ziet welk beroep gekozen is.
+- [ ] De knop onderin noemt het beroep ("Show the way to a Leatherworking trainer", "… an Alchemy trainer") en de tekst
+      past erin. Klik: de pijl gaat naar een trainer van dat beroep.
+- [ ] Een recept zonder bekende persoon: "MH doesn't know which trainer yet" of "… which vendor yet", ook in de tooltip.
+- [ ] Muis op een itemnaam = de tooltip; scrollen schuift de tekst; Shift+scroll maakt het venster groter of kleiner;
+      Escape sluit het.
+
 ## 22 nov — ronde 1 gedaan, dit staat nog open (Rob via sparring, letterlijk: *"ronde 1 klopt"*)
 
 Ronde 1 was: herstart zonder rode fout; elk eigen beroep open met een kloppend aantal (alleen het character waar hij op
@@ -48,9 +58,11 @@ uur: open, in de secties hieronder.
       (gedaan op één character).
 - [ ] Muis op een receptitem (Pattern:, Plans:, Recipe: …) of iets maakbaars dat je NIET kent: onder "You do not know this
       recipe" staat waar je het haalt. Ken je het wel: geen bronregel.
-- [ ] Bij sommige staat "Needs: …" (reputatie, munt, specialisatie) of "Classic data, not yet seen in Forever".
-- [ ] `/mh skillup`: onderaan per beroep hooguit drie recepten die je nu kunt leren, met waar, en een knop "The way to
-      <naam>". Een ingrediënt dat je tekortkomt gaat op die knop voor.
+- [x] ✅ (Rob 22 nov via sparring, screenshot ronde 2) Bij sommige staat "Needs: …" (reputatie, munt, specialisatie) of "Classic data, not yet seen in
+      Forever" (gezien in Skill up: reputatie + de Classic-zin; munt en specialisatie niet).
+- [x] ✅ (Rob 22 nov via sparring, screenshot ronde 2) `/mh skillup`: onderaan per beroep hooguit drie recepten die je nu kunt leren, met waar.
+- [ ] Daar een knop "The way to <naam>" als er iemand bekend is (bij Robs drie niet, klopt met de data). Een ingrediënt
+      dat je tekortkomt gaat op die knop voor.
 - [ ] Klik de knop, loop erheen: staat die persoon daar, en heeft hij dat recept? Zo niet: welk recept en wie.
 - [ ] **Daarna een gevecht**: geen "action blocked" op naam van MidnightHelper.
 - [ ] `/mh skillup probe` zegt bij "where you get a recipe" waarom, en noemt Polestar met CC BY 4.0.
@@ -107,7 +119,8 @@ uur: open, in de secties hieronder.
 - [x] ✅ (Rob 22 nov via sparring: *"ronde 1 klopt"*) Sluit Forever helemaal af en start opnieuw (nieuwe bestanden), geen foutmelding.
 - [ ] Muis op Copper Ore: onder "MH: Used for …" staat "MH: Gathered with Mining". Op Silverleaf: "… with Herbalism".
 - [ ] Muis op Coarse Thread of Empty Vial: "MH: Sold by <naam> (<zone>, afstand)". Klopt die verkoper, en verkoopt hij het?
-- [ ] Muis op Linen Cloth: "MH: Dropped by monsters". Op Light Leather: "MH: Gathered with Skinning".
+- [x] ✅ (Rob 22 nov via sparring, screenshot ronde 2) Muis op Linen Cloth: "MH: Dropped by monsters".
+- [x] ✅ (Rob 22 nov via sparring, screenshot ronde 2) Light Leather: "MH: Gathered with Skinning" (gezien in Skill up, niet in de tooltip).
 - [ ] Muis op Light Hide: géén "waar"-regel (één bron, dus MH zwijgt).
 - [ ] (22 nov later, *"alles advies"*) Muis op Crisp Spider Meat: "MH: Dropped by monsters". Op Heavy Stock: een verkoper.
 - [ ] Alliance, muis op Green Dye: een verkoper met zone (die was er eerst niet).
@@ -141,8 +154,9 @@ uur: open, in de secties hieronder.
 
 ## 21 nov (nacht) — Forever: XP per uur + tijd tot je volgende level
 
-- [ ] Forever, niet op max level: speel ruim 5 minuten en haal wat XP (kill of quest). Open `/mh overview`: onder de
-      XP-balk staat nu een tweede regel "level N in X h Y min". Muis op de balk: "About … XP per hour".
+- [x] ✅ (Rob 22 nov via sparring, screenshot ronde 2) Forever, niet op max level: speel ruim 5 minuten en haal wat XP (kill of quest). Open `/mh overview`: onder de
+      XP-balk staat nu een tweede regel "level N in X h Y min" (gezien: "level 14 in 1 h 0 min").
+- [ ] Muis op die balk: "About … XP per hour".
 - [ ] Klopt het ongeveer? Na een tijdje spelen hoort de tijd te zakken als je doorspeelt, en te stijgen als je stilstaat.
 - [ ] `/reload` of uit- en inloggen: het getal blijft (MH telt alleen ingelogde tijd op dit character).
 - [ ] Quiet helpers → "XP per hour and time to the next level" uit: de regel en de tooltipregel zijn weg.
