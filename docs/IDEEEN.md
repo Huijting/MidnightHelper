@@ -60,6 +60,12 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 - Polestar alleen als idee (GPL): geen code, opmaak, plaatjes of zinnen.
 - Spel: F. Voor wie: N (AFGELEID). Site: nog niet.
 
+### Forever: trainerplekken in de class quests — Zygor + HandyNotes live (22 nov) — ✅ JA (B), GEBOUWD, wacht op Robs test
+- Bron: Rob 22 nov via sparring, letterlijk: *"Plekken b"*. B = overgenomen HandyNotes-plekken (All Rights Reserved)
+  vervangen door die van Zygor; wie HandyNotes: Class Trainers heeft krijgt live die precieze plek (zijn keuze van 7 nov).
+- Vervalt: "niet aanraken tot zijn ja", alleen voor ForeverClassQuests.lua.
+- Spel: F. Site: nog niet.
+
 ### Forever: Skill up-venster repareren (22 nov) — ✅ getest (Rob: "Venster is goed"); klik en scroll nog open
 - Bron: Rob 22 nov via sparring, met screenshot, letterlijk: *"venster ja"* (dicht in stijl A; "MH weet nog niet welke
   trainer/verkoper"; de knop noemt het beroep).

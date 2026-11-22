@@ -12,7 +12,7 @@ local _, ns = ...
 
 	Source: the Forever Zygor guide "Leveling Guides\Druid Class Quests" (GEMETEN 16 Nov 2026; after Zygor's 17 Nov update
 	the guide sits at ZygorLevelingAllianceCLASSIC.lua:21514-21814 and ZygorLevelingHordeCLASSIC.lua:22830-23140). Coordinates are Zygor's (rule:
-	Rob measured > HandyNotes > Zygor > guide), not yet seen in game. Map ids GEMETEN in wago UiMap 1.60.1.70938.
+	Rob measured > HandyNotes > Zygor > guide; HandyNotes: Class Trainers is only read live), not yet seen in game. Map ids GEMETEN in wago UiMap 1.60.1.70938.
 	Quest ids are unproven until the client ticks them off; `/mh classquest` prints what the client says per quest.
 
 	How the current step is found: the LAST quest of the chain that is done or in your log decides where you are, so a
@@ -35,8 +35,8 @@ local PREFIX = "|cffffcc00Midnight Helper:|r "
 -- Moonglade 1450, Darkshore 1439, Thunder Bluff 1456, The Barrens 1413, Silverpine Forest 1421, Westfall 1436,
 -- Un'Goro Crater 1449, Swamp of Sorrows 1435. All coordinates are Zygor's (Druid Class Quests, both factions).
 local P = {
-	denatharion = { npc = "Denatharion", id = 4218, m = 1457, x = 34.77, y = 7.36 },
-	mathrengyl = { npc = "Mathrengyl Bearwalker", id = 4217, m = 1457, x = 35.38, y = 8.41 },
+	denatharion = { npc = "Denatharion", id = 4218, m = 1457, x = 34.77, y = 7.36, z = true },
+	mathrengyl = { npc = "Mathrengyl Bearwalker", id = 4217, m = 1457, x = 35.38, y = 8.41, z = true },
 	dendrite = { npc = "Dendrite Starblaze", id = 11802, m = 1450, x = 56.21, y = 30.64 },
 	bearspirit = { npc = "Great Bear Spirit", id = 11956, m = 1450, x = 39.11, y = 27.51 },
 	lunaclawA = { m = 1439, x = 43.48, y = 45.96 },
@@ -239,11 +239,11 @@ table.insert(CHAINS.DRUID, Torwa("Horde", P.turak))
 	guides take 7623 early, then the arrow jumps to Banehollow while 7626-7628 are still open: still a valid place).
 	No Skyborne warlock (DB2 CharBaseInfo). CORRECTED 17 Nov 2026 (Fable check, Sparring 17-11): Inferno 1122 IS a quest
 	reward (7603, built below as WlInferno) and Ritual of Doom 18540 too (7583 "Suppression", after 7581/7582, Daio the
-	Decrepit: NOT built yet, givers and places not measured). Not built: An Imp's Request (8419-8422). Coordinates: HandyNotes for trainers,
-	else Zygor, else Wowhead/Questie pins; Stormwind uses the 39.x set (the 25.x Wowhead set is another map space). ]]
+	Decrepit: NOT built yet, givers and places not measured). Not built: An Imp's Request (8419-8422). Coordinates: Zygor (trainers too, since 22 Nov 2026),
+	else Wowhead/Questie pins; Stormwind uses the 39.x set (the 25.x Wowhead set is another map space). ]]
 local WL_P = {
-	drusilla = { npc = "Drusilla La Salle", id = 459, m = 1429, x = 49.69, y = 42.65 },
-	alamar = { npc = "Alamar Grimm", id = 460, m = 1426, x = 28.38, y = 66.18 },
+	drusilla = { npc = "Drusilla La Salle", id = 459, m = 1429, x = 49.87, y = 42.65, z = true },
+	alamar = { npc = "Alamar Grimm", id = 460, m = 1426, x = 28.59, y = 66.23, z = true },
 	ruzan = { npc = "Ruzan", id = 5765, m = 1411, x = 42.59, y = 69.00 },
 	venya = { npc = "Venya Marthand", id = 5667, m = 1420, x = 30.98, y = 66.41 },
 	remen = { npc = "Remen Marcot", id = 6121, m = 1429, x = 44.49, y = 66.27 },
@@ -265,14 +265,14 @@ local WL_P = {
 	strahad = { npc = "Strahad Farsan", id = 6251, m = 1413, x = 62.63, y = 35.50 },
 	krom = { npc = "Krom Stoutarm", id = 6294, m = 1455, x = 74.21, y = 9.42 },
 	jorah = { npc = "Jorah Annison", id = 6293, m = 1458, x = 75.91, y = 37.87 },
-	demisette = { npc = "Demisette Cloyce", id = 461, m = 1453, x = 39.24, y = 84.96 },
-	briarthorn = { npc = "Briarthorn", id = 5172, m = 1455, x = 50.35, y = 5.66 },
-	zevrost = { npc = "Zevrost", id = 3326, m = 1454, x = 48.47, y = 45.43 },
-	kaal = { npc = "Kaal Soulreaper", id = 4563, m = 1458, x = 86.21, y = 15.93 },
-	spackle = { npc = "Spackle Thornberry", id = 5520, m = 1453, x = 39.53, y = 84.53 },
-	jubahl = { npc = "Jubahl Corpseseeker", id = 6382, m = 1455, x = 52.70, y = 6.08 },
-	kurgul = { npc = "Kurgul", id = 5815, m = 1454, x = 47.52, y = 46.72 },
-	martha = { npc = "Martha Strain", id = 5753, m = 1458, x = 85.70, y = 16.08 },
+	demisette = { npc = "Demisette Cloyce", id = 461, m = 1453, x = 39.24, y = 84.96, z = true },
+	briarthorn = { npc = "Briarthorn", id = 5172, m = 1455, x = 50.35, y = 5.66, z = true },
+	zevrost = { npc = "Zevrost", id = 3326, m = 1454, x = 48.46, y = 45.40, z = true },
+	kaal = { npc = "Kaal Soulreaper", id = 4563, m = 1458, x = 86.21, y = 15.93, z = true },
+	spackle = { npc = "Spackle Thornberry", id = 5520, m = 1453, x = 39.53, y = 84.53, z = true },
+	jubahl = { npc = "Jubahl Corpseseeker", id = 6382, m = 1455, x = 52.69, y = 6.07, z = true },
+	kurgul = { npc = "Kurgul", id = 5815, m = 1454, x = 47.52, y = 46.72, z = true },
+	martha = { npc = "Martha Strain", id = 5753, m = 1458, x = 85.70, y = 16.08, z = true },
 	morzul = { npc = "Mor'zul Bloodbringer", id = 14436, m = 1428, x = 12.69, y = 31.64 },
 	gorzeeki = { npc = "Gorzeeki Wildeyes", id = 14437, m = 1428, x = 12.43, y = 31.63 },
 	banehollow = { npc = "Lord Banehollow", id = 9516, m = 1448, x = 35.93, y = 44.41 },
@@ -497,21 +497,21 @@ CHAINS.WARLOCK = {
 	Zygor mistakes not copied: 1821 sword /1 (not built), 1719 order, Sunken Temple |q 9053 in the Alliance guide (= 8425).
 	Not built yet: the level 10 weapon and level 20 armour follow-ups (places of most materials unknown). ]]
 local WR_P = {
-	lyria = { npc = "Lyria Du Lac", id = 913, m = 1429, x = 41.10, y = 65.63 },
+	lyria = { npc = "Lyria Du Lac", id = 913, m = 1429, x = 41.08, y = 65.77, z = true },
 	harry = { npc = "Harry Burlguard", id = 6089, m = 1453, x = 77.13, y = 53.27 },
 	bartleby = { npc = "Bartleby", id = 6090, m = 1453, x = 76.80, y = 53.20 },
-	granis = { npc = "Granis Swiftaxe", id = 1229, m = 1426, x = 47.24, y = 52.78 },
+	granis = { npc = "Granis Swiftaxe", id = 1229, m = 1426, x = 47.36, y = 52.65, z = true },
 	muren = { npc = "Muren Stormpike", id = 6114, m = 1455, x = 70.78, y = 90.27 },
-	kyra = { npc = "Kyra Windblade", id = 3598, m = 1438, x = 56.21, y = 59.19 },
+	kyra = { npc = "Kyra Windblade", id = 3598, m = 1438, x = 56.22, y = 59.20, z = true },
 	elanaria = { npc = "Elanaria", id = 4088, m = 1457, x = 57.29, y = 34.61 },
-	tarshaw = { npc = "Tarshaw Jaggedscar", id = 3169, m = 1411, x = 54.09, y = 42.39 },
-	krang = { npc = "Krang Stonehoof", id = 3063, m = 1412, x = 48.35, y = 63.74 },
+	tarshaw = { npc = "Tarshaw Jaggedscar", id = 3169, m = 1411, x = 54.19, y = 42.47, z = true },
+	krang = { npc = "Krang Stonehoof", id = 3063, m = 1412, x = 48.35, y = 63.74, z = true },
 	uzzek = { npc = "Uzzek", id = 5810, m = 1413, x = 61.38, y = 21.11 },
-	austil = { npc = "Austil de Mon", id = 2131, m = 1420, x = 61.87, y = 52.85 },
+	austil = { npc = "Austil de Mon", id = 2131, m = 1420, x = 61.86, y = 52.54, z = true },
 	dillinger = { npc = "Deathguard Dillinger", id = 1496, m = 1420, x = 58.20, y = 51.45 },
-	seena = { npc = "Seena Skybreaker", id = 252377, m = 2521, x = 59.91, y = 73.08 },
-	wushen = { npc = "Wu Shen", id = 5479, m = 1453, x = 80.70, y = 59.95 },
-	sorek = { npc = "Sorek", id = 3354, m = 1454, x = 80.39, y = 32.38 },
+	seena = { npc = "Seena Skybreaker", id = 252377, m = 2521, x = 59.89, y = 72.86, z = true },
+	wushen = { npc = "Wu Shen", id = 5479, m = 1453, x = 80.50, y = 59.86, z = true },
+	sorek = { npc = "Sorek", id = 3354, m = 1454, x = 80.39, y = 32.38, z = true },
 	klannoc = { npc = "Klannoc Macleod", id = 6236, m = 1413, x = 68.62, y = 49.17 },
 	bathrah = { npc = "Bath'rah the Windwatcher", id = 6176, m = 1416, x = 80.50, y = 66.92 },
 	fallenHero = { npc = "Fallen Hero of the Horde", id = 7572, m = 1435, x = 34.29, y = 66.15 },
@@ -619,23 +619,23 @@ end
 	teach the same six; the Elwynn chain is for Humans (Spoken: every Alliance race may take it); the objective index;
 	which trainer starts the level 50 chain per race (five trainers give 8151). No Gnome or Undead hunter (CharBaseInfo).
 	Not built: the breadcrumb The Hunter's Path (optional), and the level 60 chain The Ancient Leaf (starts from an item).
-	Zygor mistakes not copied: |q 8425 in the Horde hunter guide (= 8232), "Vartus". Trainers: HandyNotes; the rest: Zygor. ]]
+	Zygor mistakes not copied: |q 8425 in the Horde hunter guide (= 8232), "Vartus". Trainers and the rest: Zygor (22 Nov 2026). ]]
 local HU_P = {
-	dazalar = { npc = "Dazalar", id = 3601, m = 1438, x = 56.66, y = 59.40 },
-	jocaste = { npc = "Jocaste", id = 4146, m = 1457, x = 40.38, y = 8.55 },
-	grif = { npc = "Grif Wildheart", id = 1231, m = 1426, x = 45.81, y = 53.04 },
-	belia = { npc = "Belia Thundergranite", id = 10090, m = 1455, x = 70.86, y = 85.83 },
-	josephine = { npc = "Josephine Carson", id = 251507, m = 1429, x = 41.36, y = 66.28 },
-	isaac = { npc = "Isaac Chan", id = 258930, m = 1429, x = 41.84, y = 66.41 },
-	thotar = { npc = "Thotar", id = 3171, m = 1411, x = 51.66, y = 43.40 },
-	ormak = { npc = "Ormak Grimshot", id = 3352, m = 1454, x = 66.05, y = 18.53 },
-	yaw = { npc = "Yaw Sharpmane", id = 3065, m = 1412, x = 47.11, y = 59.57 },
-	holt = { npc = "Holt Thunderhorn", id = 3039, m = 1456, x = 57.33, y = 89.82 },
-	quelana = { npc = "Quel'ana Quickgale", id = 252389, m = 2521, x = 59.33, y = 72.63 },
-	queldora = { npc = "Quel'dora Quickgale", id = 254411, m = 2521, x = 59.69, y = 72.11 },
-	dorion = { npc = "Dorion", id = 4205, m = 1457, x = 42.21, y = 7.27 },
-	olmin = { npc = "Olmin Burningbeard", id = 5116, m = 1455, x = 70.89, y = 83.61 },
-	ulfir = { npc = "Ulfir Ironbeard", id = 5516, m = 1453, x = 67.57, y = 35.77 },
+	dazalar = { npc = "Dazalar", id = 3601, m = 1438, x = 56.68, y = 59.49, z = true },
+	jocaste = { npc = "Jocaste", id = 4146, m = 1457, x = 40.38, y = 8.55, z = true },
+	grif = { npc = "Grif Wildheart", id = 1231, m = 1426, x = 45.81, y = 53.04, z = true },
+	belia = { npc = "Belia Thundergranite", id = 10090, m = 1455, x = 70.86, y = 85.83, z = true },
+	josephine = { npc = "Josephine Carson", id = 251507, m = 1429, x = 41.15, y = 66.23, z = true },
+	isaac = { npc = "Isaac Chan", id = 258930, m = 1429, x = 41.79, y = 66.37, z = true },
+	thotar = { npc = "Thotar", id = 3171, m = 1411, x = 51.85, y = 43.49, z = true },
+	ormak = { npc = "Ormak Grimshot", id = 3352, m = 1454, x = 66.06, y = 18.54, z = true },
+	yaw = { npc = "Yaw Sharpmane", id = 3065, m = 1412, x = 46.93, y = 59.65, z = true },
+	holt = { npc = "Holt Thunderhorn", id = 3039, m = 1456, x = 57.31, y = 89.76, z = true },
+	quelana = { npc = "Quel'ana Quickgale", id = 252389, m = 2521, x = 59.57, y = 72.64, z = true },
+	queldora = { npc = "Quel'dora Quickgale", id = 254411, m = 2521, x = 59.60, y = 72.53, z = true },
+	dorion = { npc = "Dorion", id = 4205, m = 1457, x = 42.21, y = 7.26, z = true },
+	olmin = { npc = "Olmin Burningbeard", id = 5116, m = 1455, x = 70.88, y = 83.61, z = true },
+	ulfir = { npc = "Ulfir Ironbeard", id = 5516, m = 1453, x = 67.59, y = 35.75, z = true },
 	ogtinc = { npc = "Ogtinc", id = 8405, m = 1447, x = 42.40, y = 42.62 },
 	-- Where to tame (no NPC), Zygor. Azshara = UiMap 1447 (DB2).
 	webwood = { m = 1438, x = 59.81, y = 59.06 },
@@ -749,29 +749,29 @@ end
 	the line forever), the level 16 race pointers, Ravenholdt reputation quests.
 	Zygor mistakes not copied: Varimathras 59.75,84.64, the 1978 pickup at 65.53,79.73, |q 8232 / 8425 (= 8236). ]]
 local RO_P = {
-	keryn = { npc = "Keryn Sylvius", id = 917, m = 1429, x = 43.87, y = 65.94 },
+	keryn = { npc = "Keryn Sylvius", id = 917, m = 1429, x = 43.87, y = 65.94, z = true },
 	shaw = { npc = "Master Mathias Shaw", id = 332, m = 1453, x = 78.31, y = 70.75 },
-	hogral = { npc = "Hogral Bakkan", id = 1234, m = 1426, x = 47.72, y = 52.62 },
-	hulfdan = { npc = "Hulfdan Blackbeard", id = 5165, m = 1455, x = 51.96, y = 14.84 },
+	hogral = { npc = "Hogral Bakkan", id = 1234, m = 1426, x = 47.56, y = 52.61, z = true },
+	hulfdan = { npc = "Hulfdan Blackbeard", id = 5165, m = 1455, x = 51.94, y = 14.82, z = true },
 	onin = { npc = "Onin MacHammar", id = 6886, m = 1426, x = 25.16, y = 44.45 },
-	jannok = { npc = "Jannok Breezesong", id = 3599, m = 1438, x = 56.38, y = 60.14 },
-	syurna = { npc = "Syurna", id = 4163, m = 1457, x = 36.99, y = 21.91 },
+	jannok = { npc = "Jannok Breezesong", id = 3599, m = 1438, x = 56.38, y = 60.14, z = true },
+	syurna = { npc = "Syurna", id = 4163, m = 1457, x = 36.99, y = 21.91, z = true },
 	renzik = { npc = "Renzik \"The Shiv\"", id = 6946, m = 1453, x = 78.25, y = 71.13 },
 	lucius = { npc = "Lucius", id = 6966, m = 1433, x = 22.97, y = 52.04 },
 	kearnen = { npc = "Agent Kearnen", id = 7024, m = 1436, x = 68.49, y = 70.08 },
-	romano = { npc = "Lord Tony Romano", id = 13283, m = 1453, x = 80.28, y = 68.58 },
-	kaplak = { npc = "Kaplak", id = 3170, m = 1411, x = 51.92, y = 43.83 },
+	romano = { npc = "Lord Tony Romano", id = 13283, m = 1453, x = 80.28, y = 68.57, z = true },
+	kaplak = { npc = "Kaplak", id = 3170, m = 1411, x = 51.98, y = 43.69, z = true },
 	therzok = { npc = "Therzok", id = 6446, m = 1454, x = 42.74, y = 53.54 },
-	marion = { npc = "Marion Call", id = 2130, m = 1420, x = 61.85, y = 51.89 },
+	marion = { npc = "Marion Call", id = 2130, m = 1420, x = 61.75, y = 52.00, z = true },
 	mennet = { npc = "Mennet Carkad", id = 6467, m = 1458, x = 83.51, y = 69.11 },
 	andron = { npc = "Andron Gant", id = 6522, m = 1458, x = 54.82, y = 76.30 },
 	varimathras = { npc = "Varimathras", id = 2425, m = 1458, x = 56.24, y = 92.22 },
-	shenthul = { npc = "Shenthul", id = 3401, m = 1454, x = 43.05, y = 53.74 },
+	shenthul = { npc = "Shenthul", id = 3401, m = 1454, x = 43.05, y = 53.74, z = true },
 	zandozan = { npc = "Zando'zan", id = 3402, m = 1454, x = 42.73, y = 52.95 },
 	wrenix = { npc = "Wrenix the Wretched", id = 7161, m = 1413, x = 63.07, y = 36.32 },
 	fizzule = { npc = "Taskmaster Fizzule", id = 7233, m = 1413, x = 55.44, y = 5.56 },
 	hinott = { npc = "Serge Hinott", id = 2391, m = 1424, x = 61.63, y = 19.19 },
-	ormok = { npc = "Ormok", id = 3328, m = 1454, x = 43.90, y = 54.63 },
+	ormok = { npc = "Ormok", id = 3328, m = 1454, x = 43.90, y = 54.63, z = true },
 	jorach = { npc = "Lord Jorach Ravenholdt", id = 6768, m = 1416, x = 86.03, y = 78.88 },
 	xylem = { npc = "Archmage Xylem", id = 8379, m = 1447, x = 29.71, y = 40.52 },
 	-- The Dead Drop is a chest (object 410369), not an NPC: no id, so the English name shows in every language.
@@ -916,22 +916,22 @@ local SH_P = {
 	ravenfeather = { npc = "Seer Ravenfeather", id = 5888, m = 1412, x = 44.35, y = 76.76 },
 	earthMulgore = { npc = "Minor Manifestation of Earth", id = 5891, m = 1412, x = 51.97, y = 80.41 },
 	sten = { npc = "Sten Stoutarm", id = 658, m = 1426, x = 29.93, y = 71.20 },
-	teo = { npc = "Teo Hammerstorm", id = 257446, m = 1426, x = 28.67, y = 65.64 },
+	teo = { npc = "Teo Hammerstorm", id = 257446, m = 1426, x = 28.79, y = 66.19, z = true },
 	earthDunMorogh = { npc = "Minor Manifestation of Earth", id = 5891, m = 1426, x = 24.89, y = 61.86 },
 	rorian = { npc = "Rorian the Dayseeker", id = 251361, m = 2521, x = 42.06, y = 23.48 },
-	boro = { npc = "Windshaper Boro", id = 251374, m = 2521, x = 42.84, y = 23.49 },
+	boro = { npc = "Windshaper Boro", id = 251374, m = 2521, x = 42.79, y = 23.57, z = true },
 	earthZephras = { npc = "Minor Manifestation of Earth", id = 251166, m = 2521, x = 49.67, y = 23.83 },
 	-- Fire
-	swart = { npc = "Swart", id = 3173, m = 1411, x = 54.55, y = 42.61 },
-	narm = { npc = "Narm Skychaser", id = 3066, m = 1412, x = 47.39, y = 62.50 },
+	swart = { npc = "Swart", id = 3173, m = 1411, x = 54.42, y = 42.59, z = true },
+	narm = { npc = "Narm Skychaser", id = 3066, m = 1412, x = 47.40, y = 62.55, z = true },
 	kranal = { npc = "Kranal Fiss", id = 5907, m = 1413, x = 56.03, y = 19.89 },
 	telf = { npc = "Telf Joolam", id = 5900, m = 1411, x = 38.55, y = 58.96 },
 	brazierDurotar = { npc = "Brazier of the Dormant Flame", obj = 61934, m = 1411, x = 38.95, y = 58.22 },
-	ingrid = { npc = "Ingrid Dunwald", id = 258113, m = 1426, x = 47.30, y = 51.71 },
+	ingrid = { npc = "Ingrid Dunwald", id = 258113, m = 1426, x = 47.59, y = 51.95, z = true },
 	bruegs = { npc = "Bruegs Kindleborn", id = 257597, m = 1426, x = 87.56, y = 43.65 },
 	braldir = { npc = "Braldir Ashmantle", id = 257808, m = 1432, x = 32.16, y = 65.99 },
 	brazierLoch = { npc = "Brazier of the Dormant Flame", obj = 61934, m = 1432, x = 31.79, y = 64.52 },
-	sessaria = { npc = "Sessaria Skystride", id = 252382, m = 2521, x = 58.20, y = 78.50 },
+	sessaria = { npc = "Sessaria Skystride", id = 252382, m = 2521, x = 58.20, y = 78.50, z = true },
 	olariaan = { npc = "Olariaan Swiftburn", id = 268592, m = 2521, x = 51.24, y = 86.19 },
 	-- Water
 	searn = { npc = "Searn Firewarder", id = 5892, m = 1454, x = 37.96, y = 37.74 },
@@ -939,7 +939,7 @@ local SH_P = {
 	brine = { npc = "Brine", id = 5899, m = 1413, x = 43.42, y = 77.41 },
 	everfount = { npc = "Brazier of Everfount", obj = 113791, m = 1421, x = 38.28, y = 44.56 },
 	waterSilverpine = { npc = "Minor Manifestation of Water", id = 5895, m = 1421, x = 38.75, y = 44.62 },
-	eldrun = { npc = "Eldrun Stormbreaker", id = 258098, m = 1455, x = 47.40, y = 13.40 },
+	eldrun = { npc = "Eldrun Stormbreaker", id = 258098, m = 1455, x = 47.40, y = 13.40, w = true },
 	norric = { npc = "Norric Lochthane", id = 258043, m = 1432, x = 41.8, y = 19.0 },
 	hervdana = { npc = "Hervdana Saegrund", id = 258203, m = 1437, x = 65.6, y = 76.4 },
 	shrine = { npc = "Forgotten Shrine", obj = 619896, m = 1436, x = 45.4, y = 59.7 },
@@ -947,7 +947,7 @@ local SH_P = {
 	-- Air, Elemental Mastery
 	prate = { npc = "Prate Cloudseer", id = 5905, m = 1441, x = 53.54, y = 42.65 },
 	veyric = { npc = "Veyric Thunderhame", id = 259023, m = 1417, x = 59.8, y = 27.4 },
-	beram = { npc = "Beram Skychaser", id = 3032, m = 1456, x = 21.99, y = 18.80 },
+	beram = { npc = "Beram Skychaser", id = 3032, m = 1456, x = 22.80, y = 19.40, z = true },
 	-- Objective places (no NPC). Zygor, except the three Alliance waterskins (guide only, gitm.gg 15 Nov 2026).
 	felstalkers = { m = 1411, x = 44.82, y = 54.59 },
 	bristleback = { m = 1412, x = 60.30, y = 80.23 },
@@ -1100,26 +1100,26 @@ CHAINS.SHAMAN = {
 	AFGELEID: Touch of Weakness 5658 starts at Aelthalyste (Classic sources: Father Lankester, who stands next to her);
 	which trainer gives Cenarion Aid per faction (three are known); the objective index.
 	The first robe (level 5) is an item chain: since 17 Nov it comes after the spell chains and leaves "Do this now" at 15.
-	Not built: Benediction/Anathema (7621-7622: starts with a raid item). Trainers: HandyNotes; the rest: Zygor. ]]
+	Not built: Benediction/Anathema (7621-7622: starts with a raid item). Trainers and the rest: Zygor (22 Nov 2026). ]]
 local PR_P = {
 	-- The race's high priest: gives and takes the spell quest at 10 and at 20.
-	laurena = { npc = "High Priestess Laurena", id = 376, m = 1453, x = 49.53, y = 44.60 },
-	rohan = { npc = "High Priest Rohan", id = 11406, m = 1455, x = 24.73, y = 8.16 },
-	mims = { npc = "High Priestess Mims", id = 258785, m = 1455, x = 24.80, y = 9.70 },
-	alathea = { npc = "Priestess Alathea", id = 11401, m = 1457, x = 39.52, y = 81.20 },
-	urkyo = { npc = "Ur'kyo", id = 6018, m = 1454, x = 35.56, y = 87.83 },
-	aelthalyste = { npc = "Aelthalyste", id = 4606, m = 1458, x = 49.26, y = 17.12 },
+	laurena = { npc = "High Priestess Laurena", id = 376, m = 1453, x = 49.53, y = 44.57, z = true },
+	rohan = { npc = "High Priest Rohan", id = 11406, m = 1455, x = 24.72, y = 8.14, z = true },
+	mims = { npc = "High Priestess Mims", id = 258785, m = 1455, x = 24.80, y = 10.00, z = true },
+	alathea = { npc = "Priestess Alathea", id = 11401, m = 1457, x = 39.53, y = 81.18, z = true },
+	urkyo = { npc = "Ur'kyo", id = 6018, m = 1454, x = 35.59, y = 87.80, z = true },
+	aelthalyste = { npc = "Aelthalyste", id = 4606, m = 1458, x = 49.26, y = 17.12, z = true },
 	-- First robe (level 5): the trainer of the starting area, then the trainer of the first village.
-	anetta = { npc = "Priestess Anetta", id = 375, m = 1429, x = 49.95, y = 39.57 },
-	josetta = { npc = "Priestess Josetta", id = 377, m = 1429, x = 43.28, y = 65.71 },
-	branstock = { npc = "Branstock Khalder", id = 837, m = 1426, x = 28.45, y = 66.68 },
-	maxan = { npc = "Maxan Anvol", id = 1226, m = 1426, x = 47.06, y = 52.32 },
-	shanda = { npc = "Shanda", id = 3595, m = 1438, x = 59.17, y = 40.44 },
-	laurna = { npc = "Laurna Morninglight", id = 3600, m = 1438, x = 55.56, y = 56.75 },
-	kenjai = { npc = "Ken'jai", id = 3707, m = 1411, x = 42.33, y = 68.50 },
-	taijin = { npc = "Tai'jin", id = 3706, m = 1411, x = 54.23, y = 42.99 },
+	anetta = { npc = "Priestess Anetta", id = 375, m = 1429, x = 49.81, y = 39.49, z = true },
+	josetta = { npc = "Priestess Josetta", id = 377, m = 1429, x = 43.28, y = 65.72, z = true },
+	branstock = { npc = "Branstock Khalder", id = 837, m = 1426, x = 28.60, y = 66.39, z = true },
+	maxan = { npc = "Maxan Anvol", id = 1226, m = 1426, x = 47.34, y = 52.19, z = true },
+	shanda = { npc = "Shanda", id = 3595, m = 1438, x = 59.17, y = 40.44, z = true },
+	laurna = { npc = "Laurna Morninglight", id = 3600, m = 1438, x = 55.56, y = 56.75, z = true },
+	kenjai = { npc = "Ken'jai", id = 3707, m = 1411, x = 42.36, y = 68.82, z = true },
+	taijin = { npc = "Tai'jin", id = 3706, m = 1411, x = 54.26, y = 42.93, z = true },
 	duesten = { npc = "Dark Cleric Duesten", id = 2123, m = 1420, x = 31.11, y = 66.07 }, -- Rob measured 8 Nov 2026 (ForeverTrainerSpots.lua)
-	beryl = { npc = "Dark Cleric Beryl", id = 2129, m = 1420, x = 61.31, y = 52.10 },
+	beryl = { npc = "Dark Cleric Beryl", id = 2129, m = 1420, x = 61.57, y = 52.20, z = true },
 	-- Whom to heal (no NPC name here: the text names them), Zygor.
 	roberts = { m = 1429, x = 48.15, y = 68.05 },
 	dolf = { m = 1426, x = 45.81, y = 54.57 },
@@ -1127,7 +1127,7 @@ local PR_P = {
 	korja = { m = 1411, x = 53.10, y = 46.46 },
 	kel = { m = 1420, x = 59.18, y = 46.50 },
 	-- Cenarion Aid (level 50). Ogtinc and the coursers are the hunter's places (H); Winterspring = UiMap 1452 (DB2).
-	joshua = { npc = "Brother Joshua", id = 5489, m = 1453, x = 49.50, y = 45.21 },
+	joshua = { npc = "Brother Joshua", id = 5489, m = 1453, x = 49.47, y = 45.16, z = true },
 	greta = { npc = "Greta Mosshoof", id = 10922, m = 1448, x = 51.20, y = 82.20 },
 	highborne = { m = 1452, x = 52.59, y = 40.68 },
 }
@@ -1195,18 +1195,18 @@ CHAINS.PRIEST = {
 	1786/1783 have no objective index on purpose (Wowhead shows none): the step waits until the quest is complete.
 	`item` = the quest starts from that tome in your bags (step "use … in your bags").
 	Zygor mistakes not copied: 2997 at Brandur (= 2999), 1794 at Duthorian (= Tiza), |q 8232 at the Sunken Temple step
-	(= 8418), Lost Soul as 7647/1. Trainers: HandyNotes; the rest: Zygor; Undead level 12+: azeroth.wiki / Wowhead.
+	(= 8418), Lost Soul as 7647/1. Trainers and the rest: Zygor (22 Nov 2026); Undead level 12+: azeroth.wiki / Wowhead.
 	Not built (bouwchat choice, Rob may reverse): the Undead Forsaken Charger (97174-97185: most givers AFGELEID, a
 	player wrote that nothing followed after 97177: measure in game first); Cloak of the Divine Storm (starts at an
 	object), the Aeonas quests, The Reliquary of Tyr, The Errant Knight (found, not researched). ]]
 local PA_P = {
 	-- Alliance
-	wilhelm = { npc = "Brother Wilhelm", id = 927, m = 1429, x = 40.90, y = 66.09 },
+	wilhelm = { npc = "Brother Wilhelm", id = 927, m = 1429, x = 41.10, y = 66.04, z = true },
 	duthorian = { npc = "Duthorian Rall", id = 6171, m = 1453, x = 50.48, y = 47.49 },
 	stephanie = { npc = "Stephanie Turner", id = 6174, m = 1453, x = 63.84, y = 72.21 },
 	gazin = { npc = "Gazin Tenorm", id = 6173, m = 1453, x = 49.51, y = 44.90 },
 	henze = { npc = "Henze Faulk", id = 6172, m = 1429, x = 72.60, y = 51.41 },
-	brandur = { npc = "Brandur Ironhammer", id = 5149, m = 1455, x = 23.13, y = 6.14 },
+	brandur = { npc = "Brandur Ironhammer", id = 5149, m = 1455, x = 23.13, y = 6.14, z = true },
 	tiza = { npc = "Tiza Battleforge", id = 6179, m = 1455, x = 27.64, y = 12.19 },
 	johnTurner = { npc = "John Turner", id = 6175, m = 1455, x = 21.55, y = 50.80 },
 	muiredon = { npc = "Muiredon Battleforge", id = 6178, m = 1455, x = 23.53, y = 8.29 },
@@ -1215,8 +1215,8 @@ local PA_P = {
 	jordan = { npc = "Jordan Stilwell", id = 6181, m = 1426, x = 52.48, y = 36.92 },
 	bailor = { npc = "Bailor Stonehand", id = 6241, m = 1432, x = 35.96, y = 44.92 },
 	thundris = { npc = "Thundris Windweaver", id = 3649, m = 1439, x = 37.40, y = 40.13 },
-	arthur = { npc = "Arthur the Faithful", id = 5491, m = 1453, x = 49.61, y = 49.84 },
-	grayson = { npc = "Lord Grayson Shadowbreaker", id = 928, m = 1453, x = 48.43, y = 50.22 },
+	arthur = { npc = "Arthur the Faithful", id = 5491, m = 1453, x = 49.61, y = 49.91, z = true },
+	grayson = { npc = "Lord Grayson Shadowbreaker", id = 928, m = 1453, x = 48.43, y = 50.22, z = true },
 	ashlam = { npc = "Commander Ashlam Valorfist", id = 10838, m = 1422, x = 42.70, y = 84.03 },
 	theldanis = { npc = "High Priest Thel'danis", id = 1854, m = 1422, x = 52.09, y = 83.35 },
 	rohan = { npc = "High Priest Rohan", id = 11406, m = 1455, x = 26.98, y = 7.30 },
@@ -1228,7 +1228,7 @@ local PA_P = {
 	-- Horde (Undead)
 	sarvis = { npc = "Shadow Priest Sarvis", id = 1569, m = 1420, x = 30.84, y = 66.20 },
 	aramis = { npc = "Aramis Hammerhand", id = 244808, m = 1420, x = 31.11, y = 66.38 }, -- Rob measured 11 Nov 2026 (ForeverTrainerSpots.lua)
-	shari = { npc = "Shari Stilwell", id = 246152, m = 1420, x = 60.20, y = 52.50 },
+	shari = { npc = "Shari Stilwell", id = 246152, m = 1420, x = 60.20, y = 52.50, z = true },
 	breton = { npc = "Breton Samuels", id = 246349, m = 1420, x = 21.85, y = 45.21 },
 	jorin = { npc = "Jorin Croge", id = 246393, m = 1420, x = 22.70, y = 44.68 },
 	danitha = { npc = "Danitha Morr", id = 246378, m = 1420, x = 22.09, y = 44.66 },
@@ -1243,7 +1243,7 @@ local PA_P = {
 	luminaSepulcher = { npc = "Lumina Windsinger", id = 259620, m = 1421, x = 43.3, y = 41.0 },
 	ulric = { npc = "Ulric Frostveil", id = 259649, m = 1440, x = 11.8, y = 34.5 },
 	ott = { npc = "Ott", id = 3539, m = 1424, x = 60.4, y = 26.2 },
-	garen = { npc = "Garen Largo", id = 260093, m = 1458, x = 47.50, y = 14.90 },
+	garen = { npc = "Garen Largo", id = 260093, m = 1458, x = 47.39, y = 14.89, z = true },
 	-- Objective places (no NPC)
 	defiasWizards = { m = 1429, x = 74.07, y = 51.57 },
 	darkIronSpies = { m = 1426, x = 77.39, y = 61.27 },
@@ -1432,25 +1432,25 @@ CHAINS.PALADIN = {
 	20035 (Wowhead Forever, 17 Nov); that it is missing from the local ItemSparse 70938 proves nothing (hotfix items).
 	Zygor mistakes not copied: ding 15 before the level 10 quest, |q 18299 (= 7463), Return to the Marsh at 40 (= 35). ]]
 local MA_P = {
-	zaldimar = { npc = "Zaldimar Wefhellt", id = 328, m = 1429, x = 43.25, y = 66.20 },
-	jennea = { npc = "Jennea Cannon", id = 5497, m = 1453, x = 49.56, y = 85.80 },
-	magis = { npc = "Magis Sparkmantle", id = 1228, m = 1426, x = 47.53, y = 52.16 },
-	bink = { npc = "Bink", id = 5144, m = 1455, x = 27.28, y = 8.20 },
-	dink = { npc = "Dink", id = 7312, m = 1455, x = 27.13, y = 8.67 },
-	anathamaas = { npc = "Anathamaas Aetherwind", id = 252373, m = 2521, x = 65.80, y = 80.50 },
+	zaldimar = { npc = "Zaldimar Wefhellt", id = 328, m = 1429, x = 43.25, y = 66.19, z = true },
+	jennea = { npc = "Jennea Cannon", id = 5497, m = 1453, x = 49.50, y = 85.84, z = true },
+	magis = { npc = "Magis Sparkmantle", id = 1228, m = 1426, x = 47.50, y = 52.08, z = true },
+	bink = { npc = "Bink", id = 5144, m = 1455, x = 27.24, y = 8.29, z = true },
+	dink = { npc = "Dink", id = 7312, m = 1455, x = 27.16, y = 8.56, z = true },
+	anathamaas = { npc = "Anathamaas Aetherwind", id = 252373, m = 2521, x = 65.80, y = 80.50, z = true },
 	belann = { npc = "Belann Windwood", id = 256507, m = 2521, x = 62.90, y = 77.44 },
 	wynne = { npc = "Wynne Larson", id = 1309, m = 1453, x = 51.84, y = 83.51 },
 	andromath = { npc = "High Sorcerer Andromath", id = 5694, m = 1453, x = 48.71, y = 87.61 },
-	maginor = { npc = "Maginor Dumas", id = 331, m = 1453, x = 49.25, y = 87.77 },
+	maginor = { npc = "Maginor Dumas", id = 331, m = 1453, x = 49.24, y = 87.78, z = true },
 	garion = { npc = "Garion Wendell", id = 211033, m = 1453, x = 48.9, y = 86.5 },
-	uthelnay = { npc = "Uthel'nay", id = 7311, m = 1454, x = 39.16, y = 86.27 },
-	unthuwa = { npc = "Un'Thuwa", id = 5880, m = 1411, x = 56.31, y = 75.11 },
-	cain = { npc = "Cain Firesong", id = 2128, m = 1420, x = 62.22, y = 52.33 },
-	anastasia = { npc = "Anastasia Hartwell", id = 4568, m = 1458, x = 85.14, y = 10.03 },
+	uthelnay = { npc = "Uthel'nay", id = 7311, m = 1454, x = 39.16, y = 86.27, z = true },
+	unthuwa = { npc = "Un'Thuwa", id = 5880, m = 1411, x = 56.31, y = 75.11, z = true },
+	cain = { npc = "Cain Firesong", id = 2128, m = 1420, x = 61.97, y = 52.47, z = true },
+	anastasia = { npc = "Anastasia Hartwell", id = 4568, m = 1458, x = 85.14, y = 10.03, z = true },
 	josef = { npc = "Josef Gregorian", id = 4576, m = 1458, x = 70.75, y = 30.69 },
-	deino = { npc = "Deino", id = 5885, m = 1454, x = 38.45, y = 86.13 },
+	deino = { npc = "Deino", id = 5885, m = 1454, x = 38.45, y = 86.14, z = true },
 	kilhala = { npc = "Kil'hala", id = 3484, m = 1413, x = 52.20, y = 31.70 },
-	pierce = { npc = "Pierce Shackleton", id = 4567, m = 1458, x = 85.45, y = 13.51 },
+	pierce = { npc = "Pierce Shackleton", id = 4567, m = 1458, x = 85.44, y = 13.50, z = true },
 	owen = { npc = "Owen Thadd", id = 211022, m = 1458, x = 73.4, y = 33.0 },
 	tabetha = { npc = "Tabetha", id = 6546, m = 1445, x = 46.06, y = 57.09 },
 	tirth = { npc = "Magus Tirth", id = 6548, m = 1441, x = 78.29, y = 75.70 },
@@ -1946,6 +1946,9 @@ do -- a block of its own: Lua allows 200 locals in the main chunk
 		[251389] = { npc = "Akeri Duskblade", id = 251389, m = 2521, x = 43.75, y = 24.35 },
 		[251964] = { npc = "Blademaster Ren", id = 251964, m = 2521, x = 43.65, y = 24.13 },
 	}
+	for _, p in pairs(N) do
+		p.z = true -- every place in this table is Zygor's
+	end
 	local function note(class, faction, race, q, gate, level, from, to, before)
 		table.insert(CHAINS[class], { key = "note", note = true, intro = before ~= nil, last = before or LAST, needs = gate,
 			level = level, faction = faction, races = { [race] = true }, quests = { { q = q, from = from, to = to } } })
@@ -2801,7 +2804,7 @@ local function PreStep(e, q, atTurn)
 	return nil
 end
 
-local function Step(c)
+local function StepRaw(c)
 	if c.spell and Known(c.spell) then
 		return nil, "spell known"
 	end
@@ -2863,6 +2866,109 @@ local function Step(c)
 		return preTurn
 	end
 	return { kind = "turn", place = e.to, q = q }
+end
+
+--------------------------------------------------------------------------------
+-- Where a trainer stands (Rob 22 Nov 2026 via sparring, verbatim: "Plekken b"; his choice of 7 Nov for the trainer arrow).
+-- The places in this file hold no copy of HandyNotes: Class Trainers (All Rights Reserved). Rank, as in ForeverTrainer.lua:
+--   Rob's measurement (measured in FOREVER_TRAINER_SPOTS) > where you talked to that trainer > /mh trainer here >
+--   HandyNotes: Class Trainers, read while you play and stored nowhere > this file (p.z = Zygor, p.w = Wowhead).
+-- A place keeps p.static, so a better place is not a new step for the card. /mh classquest says the source.
+--------------------------------------------------------------------------------
+local LivePlace
+do
+	local function Spot(npc, map)
+		local known = false
+		for _, list in pairs(ns.FOREVER_TRAINER_SPOTS or {}) do
+			for _, s in ipairs(list) do
+				if s.npc == npc then
+					known = true
+					if s.measured and s.map == map then
+						return true, s.x, s.y
+					end
+				end
+			end
+		end
+		return known
+	end
+	local function Yours(npc, map)
+		local db = type(ns.db) == "table" and ns.db.foreverTrainerSpots
+		if type(db) ~= "table" then
+			return nil
+		end
+		for key, list in pairs(db) do
+			if type(list) == "table" and not tostring(key):find("^PROF_") then
+				for _, s in ipairs(list) do
+					if s.npc == npc and s.map == map and s.x and s.y then
+						return s.x, s.y
+					end
+				end
+			end
+		end
+		return nil
+	end
+	local function Best(p)
+		local known, x, y = Spot(p.id, p.m)
+		if x then
+			return x, y, "Rob measured"
+		end
+		local hx, hy, why
+		if ns.ForeverHandyNotesPlace then
+			local ok, a, b, c = pcall(ns.ForeverHandyNotesPlace, p.id, p.m)
+			if ok then
+				hx, hy, why = a, b, c
+			else
+				why = "unreadable"
+			end
+		end
+		local trainer = known or p.z or p.w or hx
+		if not trainer then
+			return nil
+		end
+		if ns.ForeverSeenPlace then
+			local sx, sy = ns.ForeverSeenPlace(p.id, p.m)
+			if sx then
+				return sx, sy, "seen: where you talked to this trainer"
+			end
+		end
+		local yx, yy = Yours(p.id, p.m)
+		if yx then
+			return yx, yy, "yours: /mh trainer here"
+		end
+		if hx then
+			return hx, hy, "HandyNotes: Class Trainers (read live)"
+		end
+		return nil, nil, why
+	end
+	--- @return the place to use: p itself, or a copy with a better x, y (src = where that came from).
+	LivePlace = function(p)
+		if not (p and p.id) then
+			return p
+		end
+		local ok, x, y, src = pcall(Best, p)
+		if not ok then
+			x, y, src = nil, nil, "reading failed"
+		end
+		local list = (p.z and "Zygor") or (p.w and "Wowhead") or "MH's own list"
+		local out = { static = p }
+		for k, v in pairs(p) do
+			out[k] = v
+		end
+		if x and y then
+			out.x, out.y, out.src = x, y, src
+		else
+			out.src = list .. (src and (" (HandyNotes: Class Trainers: " .. src .. ")") or "")
+		end
+		return out
+	end
+end
+
+local function Step(c)
+	local s, why = StepRaw(c)
+	if s and s.place then
+		s.place = LivePlace(s.place)
+	end
+	return s, why
 end
 
 -- The client's own title of a quest. It arrives late the first time: asked for once, and the card looks again on
@@ -3035,10 +3141,11 @@ local function CardData()
 	else
 		note = ns:L("FCQ_CARD_FOR_FMT"):format(ChainName(c))
 	end
+	local at = p and (p.static or p)
 	return {
 		-- Which step this is, whatever the words say (a name or an item that loads late is not a new step).
 		id = table.concat({ c.key, tostring(s.q), s.kind, tostring(s.textKey), p and tostring(p.m) or "-",
-			p and tostring(p.x) or "-", p and tostring(p.y) or "-" }, "|"),
+			at and tostring(at.x) or "-", at and tostring(at.y) or "-" }, "|"),
 		level = c.level,
 		title = QuestTitle(s.q) or ChainName(c),
 		who = who,
@@ -3092,6 +3199,9 @@ function ns.ForeverClassQuestSlash(arg)
 		print(("  %s (level %d, spell %s known: %s): %s%s"):format(ChainName(c), c.level, tostring(c.spell),
 			c.spell and tostring(Known(c.spell)) or "-", s and (s.kind .. " quest " .. s.q) or why,
 			skip and (" — not in Do this now: " .. skip) or ""))
+		if s and s.place and s.place.src then
+			print(("    place of %s from: %s"):format(NpcName(s.place), s.place.src))
+		end
 		for _, e in ipairs(c.quests) do
 			local q = LogQuest(e) or e.q
 			local objs = {}
@@ -3147,7 +3257,7 @@ function ns.ForeverClassQuestList()
 				return GoPlace(p, line)
 			end
 		elseif e.state == "later" then
-			p = c.quests[1] and c.quests[1].from
+			p = LivePlace(c.quests[1] and c.quests[1].from)
 			e.quest = c.quests[1] and c.quests[1].q
 			if p then
 				e.kind = "get"

@@ -33,7 +33,8 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 - Status:         alleen op main
 - Mag op de site: nee (nog niet door Rob getest; Rob: "We doen nog geen release.")
 - Speler ziet:    een opvallend kaartje met je class-queststap (quest, bij wie, waar), nu ook het briefje dat een nieuw
-                  character naar de trainer stuurt, voor alle 56 combinaties van class en ras.
+                  character naar de trainer stuurt, voor alle 56 combinaties van class en ras. Heb je HandyNotes: Class
+                  Trainers, dan gebruikt de pijl bij class quests de plek uit die addon.
 - Knoplabels:     FCQ_BTN, FCQWIN_SW
 - Commando's:     /mh classquest
 - Spel:           Forever

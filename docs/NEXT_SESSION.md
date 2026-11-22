@@ -19,8 +19,11 @@ releasetekst, Fable-ronde of tag, en niet opnieuw voorstellen tot Rob erover beg
 ▶ **NU: KAART B (Rob 22 nov via sparring, letterlijk: *"b"*):** level 1-briefjes voor alle classes/rassen + elk class-queststapje
 als opvallend kaartje (ForeverCQWindow). GEBOUWD, wacht op Robs test: 56 combinaties, 0 zonder briefje (Skyborne op level 2);
 pas na de quest ervoor, tot en met level 5 (AFGELEID), nooit vóór een spell-keten. `docs/forever/CLASS_NOTES_2026-11-22.md`.
-❓ **Bij sparring voor Rob:** 7 trainerplekken die al in ForeverClassQuests stonden zijn gelijk aan HandyNotes_ClassTrainers
-(All Rights Reserved), niet aan Zygor (459, 460, 375, 837, 3707, 251374, 257446). Advies: naar Zygor. Niet aanraken tot zijn ja.
+✅ **PLEKKEN B (Rob 22 nov via sparring, letterlijk: *"Plekken b"*), GEBOUWD, wacht op test:** 59 uit HandyNotes: Class Trainers
+overgenomen plekken in ForeverClassQuests nu van Zygor (mediaan 0,11, grootste 1,01 kaartpunt: Beram 3032); wie die addon heeft
+krijgt zijn plek live (`LivePlace`; Robs meting > gezien > /mh trainer here > HandyNotes > lijst; niets opgeslagen).
+⏸️ Alleen gemeld, niet aanpassen zonder Robs woorden: dezelfde cijfers staan nog in 8 `docs/forever/*_CLASSQUESTS_2026-11-17.md`
+(65 paren), 3 andere docs (4) en 2 commentaarregels (ForeverTrainer, ForeverTrainerSpots); ook in de git-geschiedenis.
 
 ▶ **ROBS KEUZES 22 nov, rond het ontbijt (via Sparring 22-11), letterlijk:** *"overnemen, ja"* (1. Zygor kijken of
 overnemen; 2. mag het vrije deel van Polestar uitgezocht worden) · *"knop weg, en polestar heeft ook iets om je volle tassen

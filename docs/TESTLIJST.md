@@ -25,6 +25,18 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 22 nov — Forever: trainerplekken in de class quests, Zygor + HandyNotes live (Rob: "Plekken b")
+
+Typ eerst `/reload`. Het handigst tijdens de kaartjetest: de Night Elf hunter die het briefje moet inleveren.
+
+- [ ] `/mh classquest` → onder de open stap staat "place of Ayanna Everstride from: …". Met HandyNotes: Class Trainers
+      aan: "HandyNotes: Class Trainers (read live)". Sprak je die trainer al eens, dan "seen: …": die plek wint.
+- [ ] Show the way → de pijl komt bij de trainer uit, niet in een muur ernaast.
+- [ ] Zet HandyNotes: Class Trainers uit + `/reload` → dezelfde regel zegt "Zygor (…not installed, switched off …)" en de
+      pijl werkt nog (tenzij "seen"). Zet de addon daarna weer aan.
+- [ ] Bij Dark Cleric Duesten of Aramis: altijd "Rob measured", ook met HandyNotes aan.
+- [ ] Doe daarna een gevecht: geen melding "action blocked".
+
 ## 22 nov — Forever: class-queststap als kaartje + de briefjes van level 1 (Rob: "b")
 
 Typ eerst `/reload`. Het snelst: een nieuwe Night Elf hunter (1 quest, 11 monsters; AFGELEID).

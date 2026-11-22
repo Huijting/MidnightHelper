@@ -8,8 +8,8 @@ equal to the Wowhead Forever tooltips (251374 ptBR left out); nine class icons i
 **Built differently from the research:** places are Rob's measurement > the constant the module had > Zygor. The
 HandyNotes_ClassTrainers points are All Rights Reserved, so they are not copied here or into the module.
 The earth chains of Dwarf and Windshaper got `gate` (179 / 92461). The stop level 5 is AFGELEID.
-**Open licence question:** seven trainer points that were already in the module equal HandyNotes_ClassTrainers and not
-Zygor (459, 460, 375, 837, 3707, 251374, 257446). Left as they are until Rob decides.
+**Licence question, settled the same day (Rob via sparring, verbatim: "Plekken b"):** the whole module was measured (478
+points): 59 that came from HandyNotes_ClassTrainers are Zygor's now; that addon is read live when the player has it.
 
 ## Short
 

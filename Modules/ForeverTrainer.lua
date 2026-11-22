@@ -912,6 +912,30 @@ local function HandyNotesTrainers()
 	return nil
 end
 
+--- One NPC's place in HandyNotes: Class Trainers, read now and never stored (ForeverClassQuests.lua; Rob 22 Nov 2026 via
+--- sparring: "Plekken b"): x, y (0-100), or nil, nil and why.
+function ns.ForeverHandyNotesPlace(npc, map)
+	local hn = HandyNotesTrainers()
+	if not hn then
+		return nil, nil, "not installed, switched off or unreadable"
+	end
+	local nodes = hn.points[map]
+	local x, y, n = nil, nil, 0
+	for coord, node in pairs(type(nodes) == "table" and nodes or {}) do
+		if type(coord) == "number" and type(node) == "table" and tonumber(node.npc) == npc then
+			n = n + 1
+			x, y = math.floor(coord / 10000) / 100, (coord % 10000) / 100
+		end
+	end
+	if n ~= 1 then
+		return nil, nil, n == 0 and "no place for this NPC" or "more than one place"
+	end
+	if x <= 0 or y <= 0 or x >= 100 or y >= 100 then
+		return nil, nil, "unreadable"
+	end
+	return x, y
+end
+
 --------------------------------------------------------------------------------
 -- Profession trainers (Rob, 8 Nov 2026: "ik heb al herbalism, ik wil alchemie leren. Dat ik daar gewoon de alchemie
 -- trainer kan vinden" → "Ja, zo bouwen"). Same arrow and cross as the class trainer; the places come from
