@@ -18624,13 +18624,13 @@
    "ruRU": "df1c9e017f677658"
   },
   "INFO_DRAWER_BODY_ADDONS": {
-   "deDE": "90e18d927878b7e2",
-   "esES": "90e18d927878b7e2",
-   "frFR": "90e18d927878b7e2",
-   "itIT": "90e18d927878b7e2",
-   "nlNL": "90e18d927878b7e2",
-   "ptBR": "90e18d927878b7e2",
-   "ruRU": "90e18d927878b7e2"
+   "deDE": "dcd6106da6af56e9",
+   "esES": "dcd6106da6af56e9",
+   "frFR": "dcd6106da6af56e9",
+   "itIT": "dcd6106da6af56e9",
+   "nlNL": "dcd6106da6af56e9",
+   "ptBR": "dcd6106da6af56e9",
+   "ruRU": "dcd6106da6af56e9"
   },
   "INFO_DRAWER_BODY_CODEX": {
    "deDE": "06ce5726375b868e",
@@ -35180,15 +35180,6 @@
    "ptBR": "445ad8f09514eaaa",
    "ruRU": "445ad8f09514eaaa"
   },
-  "SEARCH_CHAT_TAB_ADDONS_PLATY": {
-   "deDE": "727537bf44170e9c",
-   "esES": "727537bf44170e9c",
-   "frFR": "727537bf44170e9c",
-   "itIT": "727537bf44170e9c",
-   "nlNL": "727537bf44170e9c",
-   "ptBR": "727537bf44170e9c",
-   "ruRU": "727537bf44170e9c"
-  },
   "SEARCH_CHAT_TAB_CONSUMABLES": {
    "deDE": "0b1bebf5effcc4d8",
    "esES": "0b1bebf5effcc4d8",
@@ -35298,13 +35289,13 @@
    "ruRU": "249d007c9a0b2fdd"
   },
   "SEARCH_TOOLTIP_BODY": {
-   "deDE": "0aa8c97b6462e3fd",
-   "esES": "0aa8c97b6462e3fd",
-   "frFR": "0aa8c97b6462e3fd",
-   "itIT": "0aa8c97b6462e3fd",
-   "nlNL": "0aa8c97b6462e3fd",
-   "ptBR": "0aa8c97b6462e3fd",
-   "ruRU": "0aa8c97b6462e3fd"
+   "deDE": "11d9cc8783eea7c9",
+   "esES": "11d9cc8783eea7c9",
+   "frFR": "11d9cc8783eea7c9",
+   "itIT": "11d9cc8783eea7c9",
+   "nlNL": "11d9cc8783eea7c9",
+   "ptBR": "11d9cc8783eea7c9",
+   "ruRU": "11d9cc8783eea7c9"
   },
   "SEARCH_TOOLTIP_TITLE": {
    "deDE": "7fc544e4ffc41b9b",
@@ -40063,7 +40054,13 @@
    "ruRU": "b401a6d4a8eedcdb"
   },
   "TAB_TAGLINE_ADDONS": {
-   "ruRU": "9fb546297e0381cb"
+   "deDE": "423a09ea7543f380",
+   "esES": "423a09ea7543f380",
+   "frFR": "423a09ea7543f380",
+   "itIT": "423a09ea7543f380",
+   "nlNL": "423a09ea7543f380",
+   "ptBR": "423a09ea7543f380",
+   "ruRU": "423a09ea7543f380"
   },
   "TAB_TAGLINE_ALLSETTINGS": {
    "deDE": "40653b03c580ee99",

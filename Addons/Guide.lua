@@ -511,24 +511,12 @@ local function ApplyGuideSearchQuery(raw)
 		end
 	end
 
-	if q:find("addons", 1, true) and not q:find("platynator", 1, true) and not q:find("wago", 1, true) then
+	if q:find("addons", 1, true) then
 		if ns.ShowMainUI and ns.SelectTab then
 			ns:ShowMainUI()
 			ns.SelectTab("addons")
 		end
 		GuideChatMsg("SEARCH_CHAT_TAB_ADDONS")
-		return
-	end
-
-	if qHits({ "platynator", "wago", "visual guide" }) then
-		if ns.ShowMainUI and ns.SelectTab then
-			ns:ShowMainUI()
-			ns.SelectTab("addons")
-		end
-		if ns.SelectAddonSubTab and ns._mhAddonSubTabById and ns._mhAddonSubTabById.platynator then
-			ns.SelectAddonSubTab("platynator")
-		end
-		GuideChatMsg("SEARCH_CHAT_TAB_ADDONS_PLATY")
 		return
 	end
 

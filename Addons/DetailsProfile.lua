@@ -3,7 +3,7 @@ local addonName, ns = ...
 --[[
 	Midnight Helper — Details! damage meter profile (internal Addons sub-module).
 
-	Same shape as the Platynator page: a string you can copy, an explanation, and
+	A string you can copy, an explanation, and
 	nothing that reaches into somebody else's addon.
 
 	⚠️ IT COPIES, IT DOES NOT IMPORT. Details can almost certainly be handed a profile

@@ -67,7 +67,7 @@ local DISCORD_INVITE = "https://discord.gg/kBHaHcsASQ"
 
 -- A small movable dialog holding a pre-selected, read-only link.
 -- NOTE: MH now has several near-identical copy boxes (ConsumablesPanel,
--- PawnExport, Platynator). Worth folding into one ns.ShowCopyBox helper if a
+-- PawnExport). Worth folding into one ns.ShowCopyBox helper if a
 -- fourth shows up; not refactoring released modules for this one.
 local copyFrame
 

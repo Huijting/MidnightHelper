@@ -26,6 +26,11 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 
 ## Open — wacht op Rob
 
+### Platynator-pagina weg vóór 5.8.0 (22 nov) — ✅ JA + GEBOUWD (wacht op Robs test)
+- Bron: Rob 22 nov via sparring, op "platy weg / platy link / platy blijft", letterlijk: *"En ja, platy die mag weg."*
+- Hele pagina weg, ook de link; Details! blijft. Vervalt: "releasetekst 5.8.0 ongewijzigd", alleen voor deze regel.
+- Spel: M. Site: nakijken of de pagina daar genoemd wordt, pas bij de release.
+
 ### Bronnenlijst met licentieteksten in de zip (22 nov) — ✅ JA + GEBOUWD; gevonden licentiepunten wachten op Rob
 - Bron: Rob 22 nov via sparring, op het voorstel "MIT blijft, één bronnenbestand, één zin erbij", letterlijk: *"Bronnenlijst, ja."*
 - `THIRD_PARTY.txt` in de root + README. Vervalt: "niets voor de licentie wijzigen", alleen voor deze lijst en die zin.

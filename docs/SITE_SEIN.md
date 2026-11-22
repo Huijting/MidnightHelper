@@ -33,11 +33,13 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 - Status:         alleen op main
 - Mag op de site: nee (Rob: "Zerlt klaar" = alleen klaarzetten; "We doen nog geen release." geldt voor uitbrengen)
 - Speler ziet:    nog niets. De tekst staat klaar in `RELEASE_NOTES.md` (= `docs/CURSEFORGE_5.8.0.md`).
+- Vervalt:        bij de release is de Platynator-pagina (Midnight, tab Addons) weg: haal haar dan van de site als ze
+                  daar genoemd wordt.
 - Naamsvermelding: staat nu in de releasetekst en de CurseForge-beschrijving (Polestar, AllTheThings, Spoken / Efficient
                   Games). Bij de release ook op de site.
 - Knoplabels:     geen
 - Commando's:     geen
-- Spel:           Forever
+- Spel:           Forever + Midnight (alleen Platynator-pagina weg)
 
 ## 22 nov 2026 — Forever: class quest als kaartje, ook het briefje van level 1
 - Tag + commit:   geen tag (commit: zie git log, "class quest card")

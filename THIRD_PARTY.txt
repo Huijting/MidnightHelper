@@ -127,13 +127,6 @@ B2. LibDataBroker-1.1, by Tekkub
     Licence:  none found in the official repository, its readme or its wiki.
     Changed:  no (the same as the official file).
 
-B3. Platynator profile page: "MF Platynator 12.1", by MarcelianOnline
-    Where:    Addons/Platynator.lua (link to the profile), Media/Platy2.tga (picture with the maker's Patreon line);
-              Media/Platy1.tga, Media/Platy3.tga and Addons/PlatynatorData.lua belong to the same page, their origin
-              is not recorded.
-    Source:   https://wago.io/q1ijhrt1U
-    Licence:  none found.
-
 
 ====================================================================================================
 C. FACTS AND DATA FROM SOURCES WITHOUT A FREE LICENCE, OR WITH A LICENCE OF ANOTHER KIND

@@ -4,7 +4,8 @@ Want new things sooner and help test them? We put out betas regularly: set the r
 CurseForge app to **Beta**. Found something odd, or does everything just work? Tell us: `/mh report` in game, a comment
 here on CurseForge, or the feedback form on midnighthelper.com.
 
-Everything in this release is for **WoW Forever**.
+Everything in this release is for **WoW Forever**, with one change for **Midnight**: the Platynator page is gone
+from the *Addons* tab. The Details! page stays.
 
 ## Your class quest, on a card
 
