@@ -21,11 +21,12 @@ onderweg leger te maken, check dat ook, tijd voor koffie en ontbijt dus ga door 
       sparring (regel 7 nov), GEEN woord van Rob; hij kan het intrekken. Pijl nooit naar zomaar een trainer.
 - [x] 5. Polestar UITGEZOCHT, niets overgenomen: `docs/forever/POLESTAR_DATA_2026-11-22.md`. recorded.json kan los (CC BY
       4.0); geeft 549 recepten een tweede bron. **Wacht op Robs A/B/C**; overnemen is een nieuwe ja.
-- ⛔ Geen ja: "bekende recepten" repareren. Niet wijzigen tot sparring zijn woorden stuurt. Geen tag of release.
+- [x] 6. "Bekende recepten" GEREPAREERD (Rob via sparring, letterlijk: *"Recepten ja"*): kopie, eigen venster vervangt,
+      beroepen die hij niet heeft weg, linked overslaan, leeg wist niets. Wacht op test (per character elk beroep openen).
+      De kopie-regel van 21 nov ("A") staat nog. Geen tag of release.
 
 📜 **Recepten met Zygor onderzocht (22 nov), niets gebouwd:** `docs/forever/RECEPTEN_2026-11-22.md`. Wacht op Rob:
-(1) telt Classic-data als tweede bron? (A/B/C daar); (2) 🐞 **bekende recepten per character kloppen niet**
-(GEMETEN in Robs SV: 32 gekopieerde recepten op 4 characters); reparatie wist opgeslagen regels, dus eerst zijn ja.
+telt Classic-data als tweede bron? (A/B/C daar). Niet bouwen tot hij kiest.
 
 🐞 **"action blocked" MultiBarBottomRight:SetPointBase (sessie 335): aanleiding weggehaald, wacht op test.** Rob: *"knop
 weg"*. `docs/forever/TALENTKNOP_TAINT_2026-11-22.md`. 🔴 MH opent het talentvenster NOOIT meer zelf. In v5.7.0 zit de knop

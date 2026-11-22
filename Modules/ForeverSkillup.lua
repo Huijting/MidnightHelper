@@ -20,7 +20,10 @@ local _, ns = ...
 	  that shows a chance says "estimate". Orange (below yellow) = always a point, grey = never.
 	  Which recipes you KNOW: read when your profession window is open (C_TradeSkillUI, or the old GetTradeSkill API —
 	  which one Forever has is measured by /mh skillup probe), kept per character in ns.db.foreverKnownRecipes, plus
-	  IsPlayerSpell. At which skill a trainer teaches a recipe is NOT in the data, so MH never says "learn X at 50".
+	  IsPlayerSpell. 22 Nov 2026 (Rob via sparring, verbatim: "Recepten ja"): the stored lists are copied once to
+	  ns.db.foreverKnownRecipesBackup; your OWN profession window replaces that profession's list (a linked, guild, npc,
+	  closed or still loading window writes nothing); lists of professions this character does not have are removed.
+	  An empty or changing reading never removes anything. At which skill a trainer teaches a recipe is NOT in the data, so MH never says "learn X at 50".
 	NOT measured yet (Rob's test): whether the Forever client gives a recipe's own colour; /mh skillup probe stores what
 	the profession window's API returns in ns.db.skillupProbe.
 ]]
@@ -154,6 +157,20 @@ end
 local function KnownTable()
 	ns.db = ns.db or {}
 	ns.db.foreverKnownRecipes = type(ns.db.foreverKnownRecipes) == "table" and ns.db.foreverKnownRecipes or {}
+	-- Once, before the first change of this repair (CharKey below may already add a copy): the lists as they were.
+	if type(ns.db.foreverKnownRecipesBackup) ~= "table" then
+		local lists = {}
+		for key, t in pairs(ns.db.foreverKnownRecipes) do
+			if type(t) == "table" then
+				local c = {}
+				for id, v in pairs(t) do
+					c[id] = v
+				end
+				lists[key] = c
+			end
+		end
+		ns.db.foreverKnownRecipesBackup = { at = time and time() or 0, lists = lists }
+	end
 	local k = CharKey(ns.db.foreverKnownRecipes)
 	ns.db.foreverKnownRecipes[k] = type(ns.db.foreverKnownRecipes[k]) == "table" and ns.db.foreverKnownRecipes[k] or {}
 	return ns.db.foreverKnownRecipes[k]
@@ -172,62 +189,242 @@ local function Knows(spell)
 	return false
 end
 
---- Read the open profession window. Two APIs: C_TradeSkillUI (modern) and GetTradeSkillInfo (old). Which one Forever
---- answers is stored in ns.db.skillupProbe (the probe: also the fields a recipe gives, e.g. its own colour).
-local function ScanWindow()
+local scanWhy, pruneWhy = "no profession window read yet", "not checked yet" -- /mh skillup probe
+local RefreshWindow -- defined with the events below
+
+--- Without a GUID the key is the old shared name key: never write or remove there.
+local function OwnKey()
+	if not UnitGUID then
+		return false
+	end
+	local ok, g = pcall(UnitGUID, "player")
+	return ok and Readable(g) and type(g) == "string" and g:find("^Player%-") ~= nil
+end
+
+--- This character's profession keys, complete or nothing: nil + why. Empty is "not loaded", never "has none".
+local function ProfessionsSure()
+	if not (GetProfessions and GetProfessionInfo and ns.FOREVER_PROFS) then
+		return nil, "professions not readable"
+	end
+	local ok, a, b, c, d, e, f = pcall(GetProfessions)
+	if not ok then
+		return nil, "GetProfessions failed"
+	end
+	local idx, set, sig = { a, b, c, d, e, f }, {}, {}
+	for i = 1, 6 do
+		if idx[i] ~= nil then
+			local okI, _, _, rank, _, _, _, line = pcall(GetProfessionInfo, idx[i])
+			if not (okI and Readable(line) and Readable(rank) and type(line) == "number" and type(rank) == "number") then
+				return nil, "a profession is not loaded yet"
+			end
+			for _, p in ipairs(ns.FOREVER_PROFS) do
+				if p[2] == line then
+					set[p[1]] = true
+				end
+			end
+			sig[#sig + 1] = line
+		end
+	end
+	if #sig == 0 or next(set) == nil then
+		return nil, "no professions (none, or not loaded): nothing removed"
+	end
+	table.sort(sig)
+	return set, table.concat(sig, ",")
+end
+
+--- true / false, or nil when the game does not answer plainly.
+local function Flag(name)
+	local f = C_TradeSkillUI and C_TradeSkillUI[name]
+	if type(f) ~= "function" then
+		return nil
+	end
+	local ok, v = pcall(f)
+	if ok and Readable(v) and type(v) == "boolean" then
+		return v
+	end
+	return nil
+end
+
+--- The open window as a list that may replace yours: { key, learned = { [id] = bool }, n, count, sig }, or nil + why.
+--- GEMETEN in Rob's probe: a closed window still lists the last 132 recipes, with professionID 0.
+local function ReadWindow()
 	Parse()
-	local known, n, api = KnownTable(), 0, nil
-	local probe = { at = time and time() or 0, samples = {} }
 	local T = C_TradeSkillUI
-	if T and T.GetAllRecipeIDs and T.GetRecipeInfo then
-		local ok, ids = pcall(T.GetAllRecipeIDs)
-		if ok and type(ids) == "table" and #ids > 0 then
-			api = "C_TradeSkillUI"
-			for _, id in ipairs(ids) do
-				local okI, info = pcall(T.GetRecipeInfo, id)
-				if okI and type(info) == "table" and info.learned and Readable(id) then
-					if REC[id] and not known[id] then
-						n = n + 1
-					end
-					known[id] = true
-					if #probe.samples < 3 then
-						local s = { id = id }
-						for k, v in pairs(info) do
-							if type(v) ~= "table" and type(v) ~= "function" and Readable(v) then
-								s[k] = tostring(v)
-							end
-						end
-						probe.samples[#probe.samples + 1] = s
+	if not (T and T.GetAllRecipeIDs and T.GetRecipeInfo and T.GetBaseProfessionInfo) then
+		return nil, "the profession API is not here"
+	end
+	if not OwnKey() then
+		return nil, "no player GUID"
+	end
+	if Flag("IsTradeSkillLinked") ~= false then
+		return nil, "a linked window, or not known whose it is"
+	end
+	for _, name in ipairs({ "IsTradeSkillGuild", "IsTradeSkillGuildMember", "IsNPCCrafting" }) do
+		if T[name] and Flag(name) ~= false then
+			return nil, "not your own window (" .. name .. ")"
+		end
+	end
+	if Flag("IsTradeSkillReady") ~= true or (T.IsDataSourceChanging and Flag("IsDataSourceChanging") ~= false) then
+		return nil, "the window is still loading"
+	end
+	local okP, info = pcall(T.GetBaseProfessionInfo)
+	if not (okP and type(info) == "table" and Readable(info.professionID) and Readable(info.maxSkillLevel)) then
+		return nil, "the window's profession is not readable"
+	end
+	if info.professionID == 0 or info.maxSkillLevel == 0 then
+		return nil, "closed or not loaded (profession 0)"
+	end
+	local key
+	for _, p in ipairs(ns.FOREVER_PROFS or {}) do
+		if p[2] == info.professionID then
+			key = p[1]
+		end
+	end
+	local mine, why = ProfessionsSure()
+	if not mine then
+		return nil, why
+	end
+	if not (key and mine[key]) then
+		return nil, "not a profession of this character"
+	end
+	local okI, ids = pcall(T.GetAllRecipeIDs)
+	if not (okI and type(ids) == "table" and #ids > 0) then
+		return nil, "empty list"
+	end
+	local read = { key = key, learned = {}, n = #ids, count = 0, samples = {} }
+	local parts, ours = {}, 0
+	for _, id in ipairs(ids) do
+		if not Readable(id) then
+			return nil, "a recipe id is not readable"
+		end
+		local okR, r = pcall(T.GetRecipeInfo, id)
+		if not (okR and type(r) == "table" and Readable(r.learned) and type(r.learned) == "boolean") then
+			return nil, "not every recipe is loaded"
+		end
+		if REC[id] then
+			if ProfKey(REC[id]) ~= key then
+				return nil, "the list belongs to another profession"
+			end
+			ours = ours + 1
+		end
+		read.learned[id] = r.learned
+		parts[#parts + 1] = id .. (r.learned and "+" or "-")
+		if r.learned then
+			read.count = read.count + 1
+			if #read.samples < 3 then
+				local s = { id = id }
+				for k, v in pairs(r) do
+					if type(v) ~= "table" and type(v) ~= "function" and Readable(v) then
+						s[k] = tostring(v)
 					end
 				end
+				read.samples[#read.samples + 1] = s
 			end
 		end
 	end
-	if not api and GetNumTradeSkills and GetTradeSkillInfo and GetTradeSkillRecipeLink then
-		local ok, num = pcall(GetNumTradeSkills)
-		if ok and type(num) == "number" and num > 0 then
-			api = "GetTradeSkillInfo"
-			for i = 1, num do
-				local okI, name, kind = pcall(GetTradeSkillInfo, i)
-				if okI and kind and kind ~= "header" and kind ~= "subheader" then
-					local okL, link = pcall(GetTradeSkillRecipeLink, i)
-					local id = okL and type(link) == "string" and tonumber(link:match("enchant:(%d+)"))
-					if id then
-						if REC[id] and not known[id] then
-							n = n + 1
-						end
-						known[id] = true
-						if #probe.samples < 3 then
-							probe.samples[#probe.samples + 1] = { id = id, name = tostring(name), difficulty = tostring(kind) }
-						end
-					end
-				end
-			end
+	if ours == 0 or read.count == 0 then
+		return nil, "nothing learned in the list: not loaded is not 'knows none'"
+	end
+	table.sort(parts)
+	read.sig = key .. ":" .. table.concat(parts, ",")
+	return read
+end
+
+--- Make this profession's list exactly what the window says.
+local function Replace(read)
+	local known, drop, added = KnownTable(), {}, 0
+	for id in pairs(known) do
+		local here = read.learned[id]
+		-- listed and not learned, or of this profession and not listed at all (a learned recipe is always listed)
+		if here == false or (here == nil and REC[id] and ProfKey(REC[id]) == read.key) then
+			drop[#drop + 1] = id
 		end
 	end
-	probe.api = api or "none answered"
-	ns.db.skillupProbe = probe
-	last = ("profession window read via %s, %d new known recipes in our list"):format(probe.api, n)
+	for _, id in ipairs(drop) do
+		known[id] = nil
+	end
+	for id, yes in pairs(read.learned) do
+		if yes and not known[id] then
+			known[id] = true
+			added = added + 1
+		end
+	end
+	scanWhy = ("%s replaced: %d known of %d listed, %d added, %d removed"):format(read.key, read.count, read.n, added, #drop)
+	ns.db.skillupProbe = { at = time and time() or 0, api = "C_TradeSkillUI", samples = read.samples }
+end
+
+--- Two equal readings about a second apart, then replace: a list that is still filling up must never remove anything.
+local firstSig, firstAt
+local function ScanWindow()
+	local read, why = ReadWindow()
+	if not read then
+		firstSig, firstAt = nil, nil
+		scanWhy = "nothing written: " .. why
+		return
+	end
+	local now = GetTime()
+	if read.sig ~= firstSig then
+		firstSig, firstAt = read.sig, now
+		scanWhy = read.key .. ": first reading, waiting for the same one again"
+		C_Timer.After(1, function()
+			local ok, err = pcall(ScanWindow)
+			if not ok then
+				scanWhy = "scan error: " .. tostring(err)
+			end
+			if RefreshWindow then
+				RefreshWindow()
+			end
+		end)
+		return
+	end
+	if now - firstAt >= 0.9 then
+		Replace(read)
+	end
+end
+
+--- Remove the lists of professions this character does not have, after two equal, complete readings 5 s apart.
+local profSig, profAt
+local function PruneProfessions()
+	if not OwnKey() then
+		pruneWhy = "no player GUID: nothing removed"
+		return
+	end
+	local mine, sig = ProfessionsSure()
+	if not mine then
+		profSig, profAt = nil, nil
+		pruneWhy = sig
+		return
+	end
+	local now = GetTime()
+	if sig ~= profSig then
+		profSig, profAt = sig, now
+		pruneWhy = "first reading of the professions, checking again"
+		C_Timer.After(5, function()
+			local ok, err = pcall(PruneProfessions)
+			if not ok then
+				pruneWhy = "error: " .. tostring(err)
+			end
+			if RefreshWindow then
+				RefreshWindow()
+			end
+		end)
+		return
+	end
+	if now - profAt < 4.5 then
+		return
+	end
+	Parse()
+	local known, drop = KnownTable(), {}
+	for id in pairs(known) do
+		local key = ProfKey(REC[id])
+		if key and not mine[key] then
+			drop[#drop + 1] = id
+		end
+	end
+	for _, id in ipairs(drop) do
+		known[id] = nil
+	end
+	pruneWhy = ("checked: %d recipes of professions this character does not have removed"):format(#drop)
 end
 
 --------------------------------------------------------------------------------
@@ -755,6 +952,12 @@ end
 --------------------------------------------------------------------------------
 -- Events: read the profession window when it opens or changes
 --------------------------------------------------------------------------------
+RefreshWindow = function()
+	if win and win:IsShown() then
+		Fill()
+	end
+end
+
 local ev = CreateFrame("Frame")
 for _, e in ipairs({ "TRADE_SKILL_SHOW", "TRADE_SKILL_LIST_UPDATE", "NEW_RECIPE_LEARNED" }) do
 	pcall(ev.RegisterEvent, ev, e)
@@ -768,10 +971,26 @@ ev:SetScript("OnEvent", function(self)
 		self._pending = nil
 		local ok, err = pcall(ScanWindow)
 		if not ok then
-			last = "scan error: " .. tostring(err)
+			scanWhy = "scan error: " .. tostring(err)
 		end
-		if win and win:IsShown() then
-			Fill()
+		RefreshWindow()
+	end)
+end)
+
+local profEv = CreateFrame("Frame")
+for _, e in ipairs({ "PLAYER_ENTERING_WORLD", "SKILL_LINES_CHANGED" }) do
+	pcall(profEv.RegisterEvent, profEv, e)
+end
+profEv:SetScript("OnEvent", function(self)
+	if self._pending then
+		return
+	end
+	self._pending = true
+	C_Timer.After(5, function()
+		self._pending = nil
+		local ok, err = pcall(PruneProfessions)
+		if not ok then
+			pruneWhy = "error: " .. tostring(err)
 		end
 	end)
 end)
@@ -930,6 +1149,11 @@ function ns.ForeverSkillupSlash(arg)
 		print(PREFIX .. ("skillup: %d recipes in the list (build %s), tooltip hook %s, tooltips %s."):format(n,
 			tostring(ns.SKILLUP_BUILD), hooked and "yes" or "NO", Enabled() and "on" or "off"))
 		print(("  known recipes stored for this character: %d. Last: %s"):format(known, last))
+		print("  profession window: " .. scanWhy)
+		print("  professions you do not have: " .. pruneWhy)
+		local b = ns.db and ns.db.foreverKnownRecipesBackup
+		print("  copy of the lists from before the repair: " .. ((type(b) == "table" and b.at)
+			and ("kept (" .. (date and date("%d %b %H:%M", b.at) or b.at) .. ")") or "none"))
 		local p = ns.db and ns.db.skillupProbe
 		if type(p) ~= "table" then
 			print("  profession window not read yet: open one (e.g. Cooking) and type /mh skillup probe again.")

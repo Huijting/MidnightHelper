@@ -25,6 +25,16 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 22 nov — Forever: "bekende recepten" gerepareerd (Rob: "Recepten ja")
+
+- [ ] Typ `/reload`, wacht 15 seconden, typ `/mh skillup probe`: "copy of the lists … kept" en bij "professions you do not
+      have" hoeveel er weg zijn. Een character zonder Blacksmithing kent geen Blacksmithing-recepten meer.
+- [ ] Open je eigen beroep, laat het 3 seconden open, typ `/mh skillup probe`: "<BEROEP> replaced: … known". Dat aantal
+      klopt met wat je echt kent. Doe dit per character, per beroep.
+- [ ] Muis op iets wat je NIET kunt maken in dat beroep: de tooltip zegt dat je het recept niet kent.
+- [ ] Klik een beroep-link van iemand anders: `/mh skillup probe` zegt "nothing written", je aantal blijft gelijk.
+- [ ] `/reload` en log opnieuw in: je echte recepten staan er nog.
+
 ## 22 nov — Forever: hulp bij bijna vol + grijs zonder waarde (tassen, punt c en d)
 
 - [ ] Typ `/reload`. Vul je tassen tot 2 plekken vrij (of `/mh bags 8` om het sneller te zien): het venster opent vanzelf

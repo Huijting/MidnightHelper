@@ -28,6 +28,16 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 22 nov 2026 — Forever: bekende recepten kloppen per character
+- Tag + commit:   geen tag (commit: zie git log, "known recipes")
+- Status:         alleen op main
+- Mag op de site: nee (nog niet door Rob getest, geen release)
+- Speler ziet:    Skill up onthoudt per character alleen de recepten uit je eigen beroepenvenster; het beroep van iemand
+                  anders (een link) telt niet mee.
+- Knoplabels:     geen
+- Commando's:     /mh skillup probe
+- Spel:           Forever
+
 ## 22 nov 2026 — Forever: Bags full helpt al bij bijna vol
 - Tag + commit:   geen tag (commit: zie git log, "almost full")
 - Status:         alleen op main

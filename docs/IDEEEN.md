@@ -44,9 +44,14 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
   Plek (Rob 22 nov: *"plek ja"*): tooltip + Skill up-venster; Blizzards beroepenvenster alleen als extra.
 - (3) Bootwachttijd: ONDERZOCHT 22 nov, nu niet eerlijk te meten, niets gebouwd (`docs/forever/BOOT_ZEPPELIN_2026-11-22.md`).
   ⏹️ Rob 22 nov via sparring, letterlijk: *"Boot Rust"* = laten rusten; niet opnieuw voorstellen.
-- Recepten (1) onderzocht 22 nov (`docs/forever/RECEPTEN_2026-11-22.md`): 486 van 2119 kan; wacht op Rob (bronkeuze + eerst
-  "bekende recepten" repareren).
+- Recepten (1) onderzocht 22 nov (`docs/forever/RECEPTEN_2026-11-22.md`): met Zygor tot 805 van 2119; wacht op Robs
+  keuze: telt Classic-data als tweede bron?
 - Meting (1) gedaan 22 nov (*"meting gedaan"*): Forever geeft bij Cooking geen bron (0 van 132), dus eigen data per recept.
+- Spel: F. Site: nog niet.
+
+### Forever: "bekende recepten" repareren (22 nov) — ✅ JA + GEBOUWD, wacht op Robs test
+- Bron: Rob 22 nov via sparring, letterlijk: *"Recepten ja"* (kopie eerst, eigen venster vervangt, beroepen die het character
+  niet heeft weg, gelinkte vensters overslaan, zijn recepten in het spel veranderen niet).
 - Spel: F. Site: nog niet.
 
 ### Forever: volle tassen onderweg leger maken (wens van Rob, 22 nov) — ✅ JA op 1, 2 en 3; bescherming + 1, 2, 3 GEBOUWD, wacht op Robs test
