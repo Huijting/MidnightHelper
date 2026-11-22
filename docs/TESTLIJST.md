@@ -25,6 +25,17 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 22 nov — Forever: hulp bij bijna vol + grijs zonder waarde (tassen, punt c en d)
+
+- [ ] Typ `/reload`. Vul je tassen tot 2 plekken vrij (of `/mh bags 8` om het sneller te zien): het venster opent vanzelf
+      met de titel "Bags almost full". Niet in gevecht: dan komt het erna. Eén keer per keer vollopen, en nog eens bij 0.
+- [ ] Is er niets om aan te bieden, dan blijft het stil; `/mh bagfull` zegt bij "almost full" waarom.
+- [ ] Quiet helpers → "Help when your bags are almost full" uit (of `/mh bagfull early off`): het venster komt pas bij
+      echt vol.
+- [ ] Een grijs ding zonder verkoopwaarde staat bovenaan met "Grey and worth nothing at a vendor." Destroy vraagt eerst.
+      Wit zonder waarde, quest-items en gereedschap staan er niet in. "Sell MH junk" laat het staan.
+- [ ] **Daarna een gevecht**: geen "action blocked" op naam van MidnightHelper.
+
 ## 22 nov — Forever: reservetas eerst aantrekken (tassen, punt b)
 
 - [ ] Typ `/reload`. Zorg voor een leeg tasvakje en een losse gewone tas in je tas. `/mh bagfull show`: de bovenste regel is

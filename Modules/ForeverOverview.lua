@@ -1368,6 +1368,10 @@ local QUIET = {
 	end)()),
 	{ head = "FOV_Q_HEAD_WARN" },
 	Q("FOV_Q_BAGS", "FOV_Q_BAGS_DESC", Warn("bags")),
+	-- 22 Nov 2026 (Rob via sparring: "tas 1 2 3", 2): the Bags full window already at almost full (ForeverBagFull.lua).
+	Q("FBAG_EARLY_SW", "FBAG_EARLY_SW_DESC", {
+		get = function() return ns.IsForeverBagEarlyOn and ns.IsForeverBagEarlyOn() end,
+		set = function(on) if ns.SetForeverBagEarly then ns.SetForeverBagEarly(on) end end }),
 	Q("FOV_Q_REST", "FOV_Q_REST_DESC", Warn("rest")),
 	Q("FOV_Q_POLE", "FOV_Q_POLE_DESC", Warn("pole")),
 	PROF_SWITCHES[2], -- last tool

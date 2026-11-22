@@ -10,11 +10,12 @@ onderweg leger te maken, check dat ook, tijd voor koffie en ontbijt dus ga door 
 - [x] 2. **ZYGOR = OVERNEMEN: id's, coördinaten, volgorde. Geen teksten, notities of code.** "Zygor b" en de pauze vervallen.
       ✅ Dungeon-quests terug (wacht op test, herstart nodig; nieuw: y=100.38 bij Dark Iron Legacy = geen pijl).
       ✅ Reagentia 87 → 172 (+78 valt van monsters, +7 Skinning, 17 verkopers; één bron blijft stil). Wacht op test.
-- [ ] 3. Tassen, eigen code (Polestar = GPL, alleen het idee): eerst nameten of eten, drinken, munitie, class-reagentia als
+- [x] 3. Tassen, eigen code (Polestar = GPL, alleen het idee): eerst nameten of eten, drinken, munitie, class-reagentia als
       weggooien kunnen verschijnen; dan reservetas, hulp bij bijna vol, grijs zonder verkoopwaarde. (4) markeren koos hij niet.
       ✅ a GEMETEN + GEBOUWD (wacht op test): ze konden alle vier verschijnen (286 soorten eten/drinken, 14 munitie, class-
       reagentia), nu nooit meer, ook niet via de Yes van Destroy. b reservetas GEBOUWD (wacht op test, klik + gevecht).
-      Nog open: c, d. Vraag bij Rob (via sparring): ook gif,
+      c (bijna vol + schakelaar) en d (grijs zonder waarde) GEBOUWD.
+      Vraag bij Rob (via sparring): ook gif,
       drankjes, verband, scrolls, recepten, tassen, sleutels beschermen? Die kunnen nog als weggooien verschijnen.
 - [ ] 4. Recepten: Zygor mag als bron. Craft Ladder alleen nakijken als tweede bron, geen waarden: dat is de uitleg van
       sparring (regel 7 nov), GEEN woord van Rob; hij kan het intrekken. Pijl nooit naar zomaar een trainer.

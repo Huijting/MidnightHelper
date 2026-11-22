@@ -128,10 +128,6 @@ local function CheckBags()
 	local s = Settings()
 	local free = FreeSlots()
 	bagState.lastFree = free
-	if not s.bags then
-		bagState.lastWhy = "switched off (/mh bags on)"
-		return
-	end
 	if not free then
 		bagState.lastWhy = "bag slots cannot be read here"
 		return
@@ -154,7 +150,15 @@ local function CheckBags()
 	bagState.low = true
 	bagState.full = free == 0
 	bagState.pending = nil
-	BagMessage(free)
+	if s.bags then
+		BagMessage(free)
+	else
+		bagState.lastWhy = ("%d free: the message is switched off (/mh bags on)"):format(free)
+	end
+	-- 22 Nov 2026 (Rob via sparring: "tas 1 2 3", 2): the Bags full window helps at the same moment; its own switch.
+	if ns.ForeverBagAlmostFull then
+		ns.ForeverBagAlmostFull(free)
+	end
 end
 
 --------------------------------------------------------------------------------

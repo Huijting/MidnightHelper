@@ -13,7 +13,7 @@ local _, ns = ...
 	Never suggested: quest items, profession tools (ns.ForeverIsTool, ForeverToolGuard.lua), food, drink, ammunition and
 	class reagents (KeepKind, 22 Nov 2026), ingredients for a profession
 	you have (ns.ReagentUseText green), gear better than what you wear (ns.ForeverGearTipText), Rare and better (Forever
-	asks you to type DELETE for those), items without a vendor value, special bags.
+	asks you to type DELETE for those), items without a vendor value unless they are grey, special bags.
 	Step 2 (built 20 Nov 2026 after Rob's test, see the Step 2 block below): Destroy per row (with a "sure?"), Pick up the
 	loot, and "Sell MH junk" at a vendor — only ever from a click. /mh bagfull test calls DeleteCursorItem (empty cursor)
 	and UseContainerItem (empty slot) from a click and records whether the game blocked them, and whether you stood at a
@@ -22,6 +22,9 @@ local _, ns = ...
 	it on (SpareBag, EquipSpare). Nothing leaves your bags that way.
 	/mh bagfull           what MH saw last and why it showed or stayed quiet; /mh bagfull show = the window now (same door)
 	/mh bagfull on|off    the automatic window (default on)
+	22 Nov 2026 (Rob via sparring: "tas 1 2 3"): 2 = the window also opens when almost full (the limit of /mh bags, 2 free
+	by default; ForeverWarnings.lua calls ns.ForeverBagAlmostFull), switch /mh bagfull early on|off and Quiet helpers.
+	3 = grey without a vendor value may be offered too (only grey; Sell MH junk leaves it).
 ]]
 
 if not ns.IS_FOREVER then
@@ -37,7 +40,9 @@ local last = { why = "nothing seen yet", at = nil }
 local function Settings()
 	ns.db = ns.db or {}
 	ns.db.foreverBagFull = type(ns.db.foreverBagFull) == "table" and ns.db.foreverBagFull or { on = true }
-	return ns.db.foreverBagFull
+	local s = ns.db.foreverBagFull
+	if s.on == nil then s.on = true end
+	return s
 end
 
 local function Readable(v)
@@ -125,10 +130,13 @@ local FOOD_ELSEWHERE = { [4603] = true, [5845] = true, [6289] = true, [6291] = t
 	[23161] = true, [206177] = true, [232436] = true, [232438] = true, [238637] = true, [238639] = true,
 	[240945] = true, [251917] = true, [275893] = true }
 local BLINDING_POWDER = 5530
+local WRAPPED_GIFT = 13367 -- grey and worth nothing (DB2), but there is a present in it
 --- The reason this item is never suggested or destroyed by MH, or nil.
 local function KeepKind(id)
 	if FOOD_ELSEWHERE[id] then
 		return "food or drink"
+	elseif id == WRAPPED_GIFT then
+		return "a wrapped gift"
 	elseif id == BLINDING_POWDER then
 		return "class reagent"
 	end
@@ -254,12 +262,13 @@ local function Candidates()
 			if ok and type(info) == "table" and Readable(info.itemID) then
 				local id, q = info.itemID, info.quality
 				local price, equipLoc = SellPrice(info.hyperlink or id)
-				if info.hasNoValue then
-					skip("no vendor value")
-				elseif price == nil then
+				local noValue = info.hasNoValue or (price ~= nil and price <= 0)
+				if price == nil then
 					skip("item data not loaded yet")
-				elseif price <= 0 then
-					skip("no vendor value")
+				elseif noValue and q ~= 0 then
+					skip("no vendor value (only grey may go)")
+				elseif noValue and info.hasLoot then
+					skip("no vendor value, but there is loot in it")
 				elseif type(q) == "number" and q >= 3 then
 					skip("Rare or better")
 				elseif IsQuestItem(bag, slot) then
@@ -283,9 +292,10 @@ local function Candidates()
 					if upgrade then
 						skip("better than what you wear")
 					else
-						local why = (q == 0 and "FBAG_WHY_GREY") or (isGear and "FBAG_WHY_GEAR") or "FBAG_WHY_CHEAP"
+						local worth = noValue and 0 or price * (info.stackCount or 1)
+						local why = (noValue and "FBAG_WHY_GREY_NOVALUE") or (q == 0 and "FBAG_WHY_GREY") or (isGear and "FBAG_WHY_GEAR") or "FBAG_WHY_CHEAP"
 						out[#out + 1] = { bag = bag, slot = slot, id = id, link = info.hyperlink, icon = info.iconFileID,
-							name = info.itemName, n = info.stackCount or 1, value = price * (info.stackCount or 1), why = why,
+							name = info.itemName, n = info.stackCount or 1, value = worth, why = why,
 							q = q }
 					end
 				end
@@ -472,9 +482,10 @@ local function Build()
 	return f
 end
 
-local function Fill(list, loot, spare)
+local function Fill(list, loot, spare, near)
 	local f = Build()
-	f.title:SetText(ns:L("FBAG_TITLE"))
+	f.near = near or nil
+	f.title:SetText(ns:L(near and "FBAG_TITLE_NEAR" or "FBAG_TITLE"))
 	f.sub:SetText(ns:L((spare and "FBAG_SUB_SPARE") or (#list > 0 and "FBAG_SUB") or "FBAG_NONE"))
 	for i, r in ipairs(f.rows) do
 		local e
@@ -535,7 +546,7 @@ local function Fill(list, loot, spare)
 end
 
 --- Open the window now. `why` goes to /mh bagfull. The automatic trigger and /mh bagfull show both come here.
-local function Show(why)
+local function Show(why, near)
 	local list, skipped = Candidates()
 	local loot = (LootFrame and LootFrame:IsShown()) and LootBest() or nil
 	local spare, noSpare = SpareBag()
@@ -550,8 +561,32 @@ local function Show(why)
 		end)())
 	last.why = last.why .. "; spare bag: " .. (spare and tostring(spare.name) or noSpare)
 	last.at = GetTime and GetTime() or 0
-	Fill(list, loot, spare)
+	Fill(list, loot, spare, near)
 	Build():Show()
+end
+
+function ns.IsForeverBagEarlyOn()
+	return Settings().early ~= false
+end
+
+function ns.SetForeverBagEarly(on)
+	Settings().early = on and true or false
+end
+
+local earlyWhy = "not almost full yet"
+--- ForeverWarnings.lua: the free slots dropped to the limit of /mh bags, or to 0, and you are not in a fight. Only
+--- shows the window; every action stays a click.
+function ns.ForeverBagAlmostFull(free)
+	if not Settings().on then
+		earlyWhy = "the automatic window is off (/mh bagfull on)"
+	elseif not ns.IsForeverBagEarlyOn() then
+		earlyWhy = "switched off (/mh bagfull early on)"
+	elseif #(Candidates()) == 0 and not SpareBag() then
+		earlyWhy = ("%d free, but nothing to offer: stayed quiet"):format(free)
+	else
+		local ok, err = pcall(Show, ("%d free slots: almost full"):format(free), free > 0)
+		earlyWhy = ok and ("opened at %d free"):format(free) or ("error: " .. tostring(err))
+	end
 end
 
 --------------------------------------------------------------------------------
@@ -590,7 +625,7 @@ local function RefreshSoon()
 	-- display only: re-reading the bags after the server answered
 	C_Timer.After(0.6, function()
 		if win and win:IsShown() then
-			pcall(Show, "after your click")
+			pcall(Show, "after your click", win.near)
 		end
 	end)
 end
@@ -901,6 +936,11 @@ function ns.ForeverBagFullSlash(arg)
 		print(PREFIX .. ns:L(s.on and "FBAG_ON" or "FBAG_OFF"))
 		return
 	end
+	if arg == "early on" or arg == "early off" then
+		ns.SetForeverBagEarly(arg == "early on")
+		print(PREFIX .. ns:L(arg == "early on" and "FBAG_EARLY_ON" or "FBAG_EARLY_OFF"))
+		return
+	end
 	if arg == "show" then
 		Show("/mh bagfull show")
 		return
@@ -918,6 +958,8 @@ function ns.ForeverBagFullSlash(arg)
 		t[#t + 1] = k .. " " .. n
 	end
 	print("  left out: " .. (#t > 0 and table.concat(t, ", ") or "nothing"))
+	print(("  almost full: %s. Last: %s (the limit: /mh bags)"):format(
+		ns.IsForeverBagEarlyOn() and "on" or "off (/mh bagfull early on)", earlyWhy))
 	local spare, noSpare = SpareBag()
 	print("  spare bag: " .. (spare and ("%s, %d slots: offered to put on"):format(tostring(spare.name), spare.slots) or noSpare))
 	print("  /mh bagfull show = the window now, /mh bagfull test = may an addon button destroy/sell here (step 2)")

@@ -5734,6 +5734,12 @@ ns._mhLocales.enUS = {
 	FSKILL_TIP_OFF = "skill-up lines in tooltips off. /mh skillup on brings them back.",
 	-- 20 Nov 2026, idea 1 step 1 (ForeverBagFull.lua): bags full.
 	FBAG_TITLE = "Bags full",
+	FBAG_TITLE_NEAR = "Bags almost full",
+	FBAG_EARLY_SW = "Help when your bags are almost full",
+	FBAG_EARLY_SW_DESC = "Opens the Bags full window when your free slots drop to the limit (2, change it with /mh bags <0-10>). Not in a fight, and only when there is something to offer.",
+	FBAG_EARLY_ON = "the help at almost full is on.",
+	FBAG_EARLY_OFF = "the help at almost full is off. /mh bagfull early on brings it back.",
+	FBAG_WHY_GREY_NOVALUE = "Grey and worth nothing at a vendor.",
 	FBAG_SUB = "The three cheapest things in your bags, and why they can go:",
 	FBAG_NONE = "MH found nothing that can safely go. Quest items, tools, food and drink, ammunition, class reagents, ingredients for your professions, upgrades and items of quality Rare or better are never suggested.",
 	FBAG_WHY_GREY = "Poor (grey): junk, only worth its vendor price.",

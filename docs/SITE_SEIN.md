@@ -28,6 +28,16 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 22 nov 2026 — Forever: Bags full helpt al bij bijna vol
+- Tag + commit:   geen tag (commit: zie git log, "almost full")
+- Status:         alleen op main
+- Mag op de site: nee (nog niet door Rob getest, geen release)
+- Speler ziet:    Bags full opent al bij bijna vol (standaard 2 plekken vrij), met schakelaar. Grijze dingen zonder
+                  verkoopwaarde kunnen ook weg; Destroy vraagt altijd eerst.
+- Knoplabels:     FBAG_EARLY_SW, FBAG_TITLE_NEAR
+- Commando's:     /mh bagfull, /mh bags
+- Spel:           Forever
+
 ## 22 nov 2026 — Forever: Bags full, eerst je reservetas
 - Tag + commit:   geen tag (commit: zie git log, "spare bag")
 - Status:         alleen op main
