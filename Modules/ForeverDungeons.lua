@@ -618,12 +618,6 @@ end
 --- /mh dungeons · /mh dungeons check
 function ns.ForeverDungeonsSlash(arg)
 	arg = (arg or ""):lower()
-	-- 21 Nov 2026: /mh dungeons quests [check] [key] (ForeverDungeonQuests.lua).
-	local qArg = arg == "quests" and "" or arg:match("^quests%s+(.+)$")
-	if qArg and ns.ForeverDungeonQuestsSlash then
-		ns.ForeverDungeonQuestsSlash(qArg)
-		return
-	end
 	if arg == "check" or arg == "why" then
 		local level = UnitLevel and UnitLevel("player") or 1
 		local fits, web = Fits(level), 0

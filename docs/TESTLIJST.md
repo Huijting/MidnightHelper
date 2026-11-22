@@ -27,11 +27,11 @@ bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt o
 
 ## 22 nov — Forever: talentpunt valt op in Do this now (Rob: "talent b")
 
-- [ ] Forever, character met een vrij talentpunt: typ `/reload`. In "Do this now" staat de talentregel bovenaan: goud,
+- [x] ✅ (Rob 22 nov via sparring: *"talent goed"*) Forever, character met een vrij talentpunt: typ `/reload`. In "Do this now" staat de talentregel bovenaan: goud,
       met een gele ster, en een witregel eronder. De talentnaam blijft blauw; muis erop = de tooltip van het spel.
-- [ ] De eerste knop onderin is "Talents". Klik: het talentvenster van het spel gaat open, zonder rode fout en zonder
+- [x] ✅ (Rob 22 nov via sparring: *"talent goed"*) De eerste knop onderin is "Talents". Klik: het talentvenster van het spel gaat open, zonder rode fout en zonder
       "action blocked". Zet het punt en druk Apply: dat werkt. Cast daarna een spell uit je spreukenboek: ook goed.
-- [ ] Geen vrij punt meer: de regel en de knop zijn weg.
+- [x] ✅ (Rob 22 nov via sparring: *"talent goed"*) Geen vrij punt meer: de regel en de knop zijn weg.
 - [ ] In gevecht: `/mh overview`, klik Talents bij de regel: in rood "You can't do that while in combat", geen venster.
 
 ## 22 nov (ochtend) — Forever: meting "Waar haal ik dit vandaan?" (Rob: "1 b")
@@ -56,18 +56,10 @@ bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt o
 - [ ] Quiet helpers → "XP per hour and time to the next level" uit: de regel en de tooltipregel zijn weg.
 - [ ] `/mh rest xp` print het getal en waarom (of waarom nog niet).
 
-## 21 nov (avond) — Forever: dungeon-quests
+## 21 nov (avond) — Forever: dungeon-quests — VERVALLEN 22 nov
 
-- [ ] Forever: `/mh overview` → tab Dungeons. Bij een dungeon voor je level staat onder "Way ›" (en "Bosses") een knop
-      "Quests N". Muis erop: hoeveel nu op te halen, in je log, in de dungeon, later, gedaan.
-- [ ] Klik "Quests N": een venster "Quests for <dungeon>". Groen bovenaan = "Pick these up first" met questgever en zone;
-      "Way ›" zet de pijl naar de questgever en zegt het in chat. Klopt de plek (Zygors coördinaten, nog nooit gezien)?
-- [ ] Een quest die je al hebt staat geel onder "Already in your quest log"; een gedane quest telt mee in "Done already".
-      Pak er één op terwijl het venster open is: hij springt vanzelf naar "in je log".
-- [ ] Questnamen in je eigen taal (de client); staat er toch Engels, dan wist de client de quest nog niet. Even sluiten en
-      opnieuw openen hoort dat op te lossen.
-- [ ] Shift+scroll maakt het venster groter/kleiner, Escape sluit het.
-- [ ] `/mh dungeons quests check` print per quest wat MH besloot en waarom.
+- [vervallen, niet getest] De knop "Quests N" en zijn venster zijn van main gehaald (Rob 22 nov via sparring, letterlijk: *"Zygor b"*).
+      Er komt een nieuwe test als ze uit andere bronnen herbouwd zijn.
 
 ## 🚦 Minimaal vóór 5.7.0 (21 nov; Rob is ziek, alleen dit)
 

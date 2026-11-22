@@ -26,23 +26,25 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 
 ## Open — wacht op Rob
 
-### Forever: leren van Polestar/FlowUp — dungeon-quests, "waar haal ik dit vandaan?", bootwachttijd, XP per uur (wens van Rob, 21 nov) — ✅ JA, 2 en 4 gebouwd, 1 = B (gemeten), 3 rust
+### Forever: leren van Polestar/FlowUp — dungeon-quests, "waar haal ik dit vandaan?", bootwachttijd, XP per uur (wens van Rob, 21 nov) — ✅ JA, 4 gebouwd, 2 herbouwen, 1 = B, 3 rust
 - Bron: Rob 21 nov via sparring, letterlijk: *"ik blijf bij Zygor, Polestar probeer ik later. maar kunnen wij er iets van
   leren / verbeteren"* → *"2 en 1, doe maar, daarna 3 en 4 :)"*.
 - Volgorde: (2) dungeon-quests, (1) waar haal ik dit vandaan, (3) boot/zeppelin-wachttijd, (4) XP per uur.
   Alleen het idee: Polestar is GPLv3, FlowUp-routes ARR. Plan en stand: `docs/NEXT_SESSION.md` bovenaan.
-- (2) Dungeon-quests: GEBOUWD 21 nov (Bouwchat 21-11 (2)), wacht op Robs test.
+- (2) Dungeon-quests: gebouwd 21 nov uit Zygor, 22 nov van main gehaald (Rob 22 nov via sparring, letterlijk: *"Zygor b"*).
+  Herbouwen uit andere bronnen; kan dat niet goed, dan met aantallen aan Rob.
 - (4) XP per uur + tijd tot level: GEBOUWD 21 nov (nacht), schakelaar FXPRATE_SW, wacht op Robs test.
 - (1) Waar haal ik dit vandaan: ✅ JA, optie B. Rob 22 nov via sparring, letterlijk: *"1 b"* (op "1. A, B of C?"). B = onbekende
   recepten "Waar haal je dit" (venster + tooltip, trainer met pijl) + reagentia in de tooltip (verkoper met pijl /
   verzamelberoep / monsters zonder plek); weet MH het niet, dan zwijgen. Eerst Robs meting `/mh skillup source`.
-  Reagentia onderzocht 22 nov (`docs/forever/REAGENTIA_2026-11-22.md`), wacht op Robs keuze over Zygors GPL-licentie.
+  Reagentia onderzocht 22 nov (`docs/forever/REAGENTIA_2026-11-22.md`), keuze = Zygor B (niets overnemen, alleen nakijken).
+  Plek (Rob 22 nov: *"plek ja"*): tooltip + Skill up-venster; Blizzards beroepenvenster alleen als extra.
 - (3) Bootwachttijd: ONDERZOCHT 22 nov, nu niet eerlijk te meten, niets gebouwd (`docs/forever/BOOT_ZEPPELIN_2026-11-22.md`).
   ⏹️ Rob 22 nov via sparring, letterlijk: *"Boot Rust"* = laten rusten; niet opnieuw voorstellen.
 - Meting (1) gedaan 22 nov (*"meting gedaan"*): Forever geeft bij Cooking geen bron (0 van 132), dus eigen data per recept.
 - Spel: F. Site: nog niet.
 
-### Forever: talentpunt opvallender in Do this now (wens van Rob, 22 nov) — ✅ JA + GEBOUWD 22 nov (wacht op Robs test)
+### Forever: talentpunt opvallender in Do this now (wens van Rob, 22 nov) — ✅ Af 22 nov (Rob: "talent goed")
 - Bron: Rob 22 nov via sparring, met screenshot: *"kunnen we de talent point meer laten opvallen"* → op opties A/B/C:
   *"talent b"*.
 - B: de talentregel bovenaan, goud, met een ster en een witregel; knop Talents vooraan. Geen gloed of animatie. Geen vrij

@@ -1,25 +1,29 @@
 # Midnight Helper — waar we staan
 
-## ▶▶ VOLGENDE BOUWCHAT (21 nov, avond): nieuwe Forever-reeks "leren van Polestar/FlowUp" — punt 2 en 4 GEBOUWD, 1 = B (gemeten), 3 rust
+## ▶▶ VOLGENDE BOUWCHAT (21 nov, avond): nieuwe Forever-reeks "leren van Polestar/FlowUp" — punt 4 GEBOUWD, 2 herbouwen zonder Zygor, 1 = B, 3 rust
 
 🗳️ **Robs woorden 22 nov, later (via sparring, letterlijk: *"smart buff goed\nBoot Rust\nmeting gedaan"* en, bij een
 screenshot van Do this now, *"kunnen we de talent point meer laten opvallen"* → *"talent b"*):**
-- **Talent B GEBOUWD, wacht op test:** talentregel bovenaan in goud met ster + witregel, knop Talents vooraan. Alleen het
+- **Talent B GEBOUWD + getest:** talentregel bovenaan in goud met ster + witregel, knop Talents vooraan. Alleen het
   venster Do this now. Niet gemeten: opent de knop zonder blocked-fout (code: zelfde PlayerSpellsUtil als Forevers toets).
 - **Meting:** Cooking 132 recepten, GetRecipeSourceText leeg bij alle 132, 2 runs (GEMETEN in de SV). Niet op die API
   bouwen; per recept eigen data nodig. "window closed" bij een open venster: oorzaak GEMETEN = CharacterForever toont
   een eigen receptenvenster, ProfessionsFrame komt dan nooit in beeld (zijn recipeLog). ⚠️ De regel "in het
   beroepenvenster" moet dus ook zonder dat frame werken. De meting kijkt nu naar TRADE_SKILL_SHOW/CLOSE.
 - **Smart Buff goed** (mage; Priest/Druid niet getest). **Boot = laten rusten**, niet opnieuw vragen.
-- **Zygor: NOG GEEN ANTWOORD.** Niets nieuws overnemen, niets weghalen, geen reagentia-data in de repo. Van sparring:
-  Zygors Over-scherm zegt "All Rights Reserved" naast GPL in de toc; de repo is publiek; v5.7.0 bevat al Zygor-werk
-  (ForeverRepairData, ForeverClassQuests-coördinaten). Opties A/B/C + D (= B + runtime lezen bij wie Zygor zelf heeft).
+- **Robs antwoorden, letterlijk: *"talent goed / plek ja / Zygor b"*.** Talent B getest (niet: in gevecht).
+- **Plek:** tooltip = hoofdplek + MH's Skill up-venster; Blizzards beroepenvenster alleen als extra.
+- 🔴 **ZYGOR B (vervangt "alleen feiten" van 21 nov): niets meer overnemen uit Zygor, geen id's, plekken, volgorde of
+  namen; alleen ermee nakijken.** Volgorde: b) dungeon-quests van main → d) reagentia (87, AllTheThings met MIT-tekst) +
+  recepten zonder Zygor → c) ALLEEN een lijst van ouder Zygor-werk, niets wijzigen zonder apart ja → e) dungeon-quests
+  herbouwen of met aantallen melden. Optie D (meelezen) niet gekozen: niet bouwen.
+  Voor c: ForeverRepairData, ForeverClassQuests, en `docs/forever/DUNGEONS_2026-11-14.md` (Zygor-quest-id's, publiek).
 
 🗳️ **Robs keuzes 22 nov (via Sparring 22-11, letterlijk: *"1 b"* en *"reparatie A, briefjes laten"*):**
 - **Punt 1 = B:** onbekende recepten "Waar haal je dit" (beroepenvenster + tooltip; trainer = pijl, verkoop na onderzoek
   per recept) + reagentia in de tooltip (Trade Supplies met pijl / verzamelberoep / monsters zonder plek). Weet MH het
   niet: zwijgen. Meting `/mh skillup source` → `ns.db.recipeSourceProbe`: gedaan, uitslag hierboven.
-  Reagentia hangt niet van die meting af, maar 🔴 WACHT op Robs licentiekeuze: Zygors toc zegt `X-License: GPL`
+  Reagentia hangt niet van die meting af, de licentiekeuze is gemaakt (Zygor B, hierboven): Zygors toc zegt `X-License: GPL`
   (GEMETEN 22 nov). Onderzoek + keuze: `docs/forever/REAGENTIA_2026-11-22.md`. Die keuze raakt ook de dungeon-quests
   van 21 nov: vóór de volgende release beslist hebben.
 - **/mh rest-reparatie = A:** mee met de volgende gewone release (geen 5.7.1, geen go voor een release).
@@ -60,25 +64,10 @@ kloppen al in MH, dungeon-quests blijft 519. Notion-inbak: 4 regels "Nieuw" van 
 zegt "ongeveer een week") en "Bouwchat 18-11" heeft open punten die niet in de kop staan, dus uit de index zouden vallen.
 Voorgelegd aan Sparring 22-11; anders knippen op 25 nov bij "## ▶ 18 nov — Bouwchat 18-11", eerst die punten nalopen.
 
-🗺️ **Punt 2 dungeon-quests GEBOUWD (Bouwchat 21-11 (2), 21 nov avond)** — wacht op Robs test (TESTLIJST "21 nov (avond)").
-- Data: `tools/build_dungeon_quests.py` (`run build_dungeon_quests [--write]`) → `Modules/ForeverDungeonQuestsData.lua`
-  (gegenereerd, niet met de hand bewerken). Bron: Zygors eigen "Dungeon Guides\Dungeon Quests\..."-gidsen in
-  `_forever_\...\ZygorGuidesViewerForever\Guides-Forever\Dungeons\ZygorDungeon{Alliance,Horde}CLASSIC.lua` (GEMETEN:
-  32 van onze 35 dungeons, 519 quests; geen gids voor Alcaz, Blackmaw, Shaper's Terrace). `prev` uit Spoken
-  Compendium.lua (CC BY 4.0-deel van Efficient Games, vermeld in de kop). Zone → UiMap GEMETEN (wago UiMap
-  1.60.1.71037, 42 zones).
-  🔁 Ombouw dezelfde avond (sparring: *"neem alleen feiten mee ... geen Zygor-zinnen of -notities in MH's bestanden"*):
-  uit Zygor alleen id's, coördinaten en volgorde. Questnaam = client (GetTitleForQuestID); Engelse terugval `en` uit
-  Spoken (486) of de Wowhead Forever-tooltip (33), 0 zonder. NPC-namen = Blizzard-namen uit de Wowhead Forever-tooltips
-  per taal (enUS 240 van 242; eigen naam de 100, fr 119, es 169, pt 199, ru 240). Objecten zonder naam
-  (FDQ_FROM_OBJECT, 7 talen, zelf vertaald). Spoken corrigeert zelfs een titel: 886 "The Barrens Oases".
-- `Modules/ForeverDungeonQuests.lua`: per quest done / in log / inside / later (prev niet af) / now; "|or"-varianten met
-  dezelfde titel tellen als één. Overzicht → Dungeons: knop "Quests N" (N = nu op te halen) onder Way/Bosses; venster met
-  "Way ›" per op te halen quest. `/mh dungeons quests [key]`, `/mh dungeons quests check [key]`.
-- Offline test GESLAAGD (nep-questlog: prev-keten, |or-variant, kant-filter, geen-lijst = nil). NIET gemeten: Zygors
-  coördinaten in het spel, of elke Spoken-`prev` klopt, of GetTitleForQuestID in Forever de clientnaam geeft.
-  Questlevels zitten niet in de data (staat in de voetregel van het venster).
-- Klasse-filter (`classes`) zit in het script, maar geen enkele dungeon-quest in Zygor heeft er een (alleen de raid-gidsen).
+🗺️ **Punt 2 dungeon-quests: 22 nov VAN MAIN gehaald** (Rob 22 nov via sparring, letterlijk: *"Zygor b"*). Gebouwd 21 nov uit Zygor;
+nooit uitgebracht. Weg: data, module, knop, toc-regels, FDQ_-teksten, `build_dungeon_quests`. Geschiedenis niet herschreven.
+Herbouw uit andere bronnen = stap e; het venster zonder data staat in git (`c4223dc:Modules/ForeverDungeonQuests.lua`).
+Nooit de data, `inside` of volgorde uit die commit terugzetten.
 
 Bouwchat 21-11 stopt hier (context vol). Alles hieronder is gepusht t/m 738de2c; `git status` was schoon. 5.7.0 staat op
 CurseForge (9734057 / 9734079) en op de site.

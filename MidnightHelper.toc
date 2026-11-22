@@ -297,8 +297,6 @@ Modules\ForeverBlessTip.lua
 Modules\ForeverDungeons.lua
 Modules\ForeverDungeonGuideData.lua
 Modules\ForeverDungeonGuide.lua
-Modules\ForeverDungeonQuestsData.lua
-Modules\ForeverDungeonQuests.lua
 Modules\ForeverSurvey.lua
 Modules\CameraZoom.lua
 Modules\ThanksBuff.lua

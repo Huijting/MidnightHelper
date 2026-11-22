@@ -31,7 +31,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 ## 22 nov 2026 — Forever: talentpunt valt op in Do this now
 - Tag + commit:   geen tag (commit: zie git log, "talent point on top")
 - Status:         alleen op main
-- Mag op de site: nee (nog niet door Rob getest, geen release)
+- Mag op de site: nee (geen release) *(getest door Rob)*
 - Speler ziet:    met een vrij talentpunt staat die regel bovenaan in Do this now, in goud met een ster, met een knop
                   die het talentvenster van het spel opent.
 - Knoplabels:     FTALENT_BTN
@@ -57,16 +57,13 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 - Commando's:     /mh rest xp
 - Spel:           Forever
 
-## 21 nov 2026 — Forever: dungeon-quests per dungeon
-- Tag + commit:   geen tag (commit: zie git log, "Forever dungeon quests")
-- Status:         alleen op main
-- Mag op de site: nee (nog niet door Rob getest, geen release)
-- Speler ziet:    In het overzicht, tab Dungeons, heeft elke dungeon een knop "Quests N": een venster met de quests die
-                  je eerst ophaalt (questgever + zone, knop "Way ›" zet de pijl), wat al in je log staat, wat je in de
-                  dungeon krijgt, wat later in een reeks komt, en hoeveel je al gedaan hebt. 32 dungeons, uit Zygors
-                  eigen dungeonquest-gidsen.
-- Knoplabels:     FDQ_BTN_FMT, FDQ_TITLE_FMT, FOV_GO_SHORT
-- Commando's:     /mh dungeons quests [key], /mh dungeons quests check [key]
+## 21 nov 2026 — Forever: dungeon-quests per dungeon — INGETROKKEN 22 nov
+- Tag + commit:   geen tag (nooit uitgebracht; weggehaald 22 nov, zie git log "dungeon quests off main")
+- Status:         alleen op main (inmiddels verwijderd)
+- Mag op de site: nee, niet noemen. Rob 22 nov via sparring, letterlijk: *"Zygor b"*
+- Speler ziet:    niets; komt pas terug als het uit andere bronnen dan Zygor herbouwd is.
+- Knoplabels:     geen
+- Commando's:     geen
 - Spel:           Forever
 
 ## 21 nov 2026 — release 5.7.0 (staat op CurseForge)

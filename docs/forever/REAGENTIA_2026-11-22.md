@@ -1,7 +1,7 @@
 # Reagentia: waar haal ik het? (Forever 1.60.1.71037, 22 nov 2026)
 
 Hoort bij punt 1, optie B (Rob 22 nov via sparring: *"1 b"*). Onderzoek: mh-research. Nageteld door Bouwchat 22-11.
-**Nog niet gebouwd: wacht op Robs keuze over Zygor (hieronder).**
+**Rob 22 nov via sparring, letterlijk: *"Zygor b"* → de 87 zonder Zygor als bron, AllTheThings met MIT-tekst. Nog niet gebouwd.**
 
 Per item: `reagent_sources.csv` + `reagent_sources.md` in
 `C:\Users\RobHu\AppData\Local\Temp\claude\e1c44003d48d72c2\1d618a73-6d9c-5dbf-b8f1-c063472d06aa\scratchpad`
