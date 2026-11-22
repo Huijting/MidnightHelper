@@ -1,6 +1,11 @@
 # Midnight Helper — waar we staan
 
-## ▶▶ VOLGENDE BOUWCHAT (21 nov, avond): nieuwe Forever-reeks "leren van Polestar/FlowUp" — punt 2 en 4 GEBOUWD, 1 wacht op Rob, 3 in onderzoek
+## ▶▶ VOLGENDE BOUWCHAT (21 nov, avond): nieuwe Forever-reeks "leren van Polestar/FlowUp" — punt 2 en 4 GEBOUWD, 1 wacht op Rob, 3 onderzocht (niet te meten)
+
+⛴️ **Punt 3 boot/zeppelin ONDERZOCHT (22 nov): nu niet eerlijk te meten, niets gebouwd.**
+`docs/forever/BOOT_ZEPPELIN_2026-11-22.md`. Rondetijd is af te leiden; waar het schip NU is niet (geen API gevonden).
+Misschien aftellen na één waargenomen aankomst: hangt aan een meting van 12 minuten in het spel (macro in dat bestand).
+Keuze ligt bij Rob via sparring: A) laten rusten (advies) of B) die meting doen. Niet bouwen vóór zijn keuze.
 
 ⏱️ **Punt 4 XP per uur GEBOUWD (Bouwchat 21-11 (2)), nagekeken en gerepareerd (Bouwchat 22-11, 22 nov ochtend)** — wacht
 op Robs test (TESTLIJST "21 nov (nacht)"). De pc ging 21 nov 23:22 uit vóór lint en commit; 22 nov nagelopen.
@@ -67,8 +72,8 @@ sparring; anders bouwen. Lint, 7 talen, IDEEEN (Robs zin staat er), TESTLIJST, p
    trainer, met Show the way. Midnight heeft het voor recepten (`CraftShoppingList.lua`, CRAFTSHOP_UNLEARNED,
    CHANGELOG_474_3) — hergebruik waar het kan. Klein beginnen (recepten + reagents + mounts?) en zeggen wat de data toelaat.
 3. **(punt 3) Boot/zeppelin-wachttijd** "komt over ~N s": eerst uitzoeken of het meetbaar is (transport-objecten, vaste
-   cyclustijd per route); anders eerlijk "niet te meten". BEZIG: helper afgebroken 21 nov 23:22 zonder rapport (logboek
-   `agent-ac9a6ea0a8c5edd99.jsonl` in sessie 9f7816b1); Bouwchat 22-11 rondt het af.
+   cyclustijd per route); anders eerlijk "niet te meten". ✅ ONDERZOCHT 22 nov: niet te meten zonder meting in het spel,
+   zie boven.
 4. **(punt 4) XP per uur + tijd tot volgend level** (overzicht, met een schakelaar): ✅ GEBOUWD, zie boven.
 
 ## ▶▶ VOLGENDE BOUWCHAT: Forever-overzicht "D" — stap 1 en 3 gebouwd; stap 2 wacht op Robs screenshots (20 nov, avond)

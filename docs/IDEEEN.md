@@ -26,14 +26,16 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 
 ## Open — wacht op Rob
 
-### Forever: leren van Polestar/FlowUp — dungeon-quests, "waar haal ik dit vandaan?", bootwachttijd, XP per uur (wens van Rob, 21 nov) — ✅ JA, nog niet gebouwd
+### Forever: leren van Polestar/FlowUp — dungeon-quests, "waar haal ik dit vandaan?", bootwachttijd, XP per uur (wens van Rob, 21 nov) — ✅ JA, 2 en 4 gebouwd, 1 en 3 wachten op Rob
 - Bron: Rob 21 nov via sparring, letterlijk: *"ik blijf bij Zygor, Polestar probeer ik later. maar kunnen wij er iets van
   leren / verbeteren"* → *"2 en 1, doe maar, daarna 3 en 4 :)"*.
 - Volgorde: (2) dungeon-quests, (1) waar haal ik dit vandaan, (3) boot/zeppelin-wachttijd, (4) XP per uur.
   Alleen het idee: Polestar is GPLv3, FlowUp-routes ARR. Plan en stand: `docs/NEXT_SESSION.md` bovenaan.
 - (2) Dungeon-quests: GEBOUWD 21 nov (Bouwchat 21-11 (2)), wacht op Robs test.
 - (4) XP per uur + tijd tot level: GEBOUWD 21 nov (nacht), schakelaar FXPRATE_SW, wacht op Robs test.
-- (1) Waar haal ik dit vandaan: keuze A/B/C ligt bij Rob (advies B), nog niet bouwen. (3) bootwachttijd: zie NEXT_SESSION.
+- (1) Waar haal ik dit vandaan: keuze A/B/C ligt bij Rob (advies B), nog niet bouwen.
+- (3) Bootwachttijd: ONDERZOCHT 22 nov, nu niet eerlijk te meten, niets gebouwd (`docs/forever/BOOT_ZEPPELIN_2026-11-22.md`).
+  Rob kiest: laten rusten (advies) of 12 minuten meten in het spel.
 - Spel: F. Site: nog niet.
 
 ### Forever: mouseover-buffmacro voor de andere classes, zoals Smart Bless (vraag van Rob, 21 nov) — ✅ JA + GEBOUWD 21 nov (wacht op Robs test)
