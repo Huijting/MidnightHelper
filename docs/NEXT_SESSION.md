@@ -11,7 +11,8 @@ Geen tag of release; wat nu gebouwd wordt: zie NU hieronder.
 🔧 **SKILL UP-VENSTER GEREPAREERD (22 nov via sparring, letterlijk: *"venster ja"*), getest: *"Venster is goed"* (klik en scroll open):** stijl A (dicht),
 "MH doesn't know which trainer/vendor yet", knop noemt het beroep. Ronde 2 uit zijn screenshots: XP-regel, Linen Cloth,
 Light Leather, recepten in Skill up gezien; pijl, persoon en dungeon-quests niet. ▶ Robs *"Doe maar vensters A"*: alle 11
-andere GEBOUWD (`S.SkinPanel` in ForeverStyle.lua), wacht op test: BagFull, Crates, Durability, HowToPlay. De andere 7
+andere GEBOUWD (`S.SkinPanel` in ForeverStyle.lua). BagFull, Crates, Durability, HowToPlay GOEDGEKEURD (Rob 22 nov: *"Dus de
+vensters zijn goed. Dat kan je goedkeuren."*; details open in TESTLIJST, o.a. prijs door tekst in Bags full: pas na zijn antwoord). De andere 7
 (Chars, Dungeons, Macros, ProfTrainers, Trainer, Vendors, Weapons) openen niet meer: reserve achter het overzicht.
 🚦 **GEEN RELEASE (Rob 22 nov via sparring, letterlijk: *"We doen nog geen release. Dan kom je wat anders tegen."*):** geen bump,
 releasetekst, Fable-ronde of tag, en niet opnieuw voorstellen tot Rob erover begint.

@@ -45,12 +45,23 @@ Typ eerst `/reload`. Het snelst: een nieuwe Night Elf hunter (1 quest, 11 monste
 ## 22 nov — Forever: 11 vensters dicht in stijl A (Rob: "Doe maar vensters A")
 
 Typ eerst `/reload`. Ga bij nameplates staan. Vier vensters kun je openen:
-- [ ] `/mh bagfull show` (Bags full): dicht, tekst past, Destroy vraagt eerst, Equip werkt (als die er staat).
-- [ ] `/mh crates test` (Crates): dicht, muis op de naam = tooltip, knop past.
-- [ ] `/mh durability test` (Durability): dicht, rode kop blijft rood, muis op het item = tooltip.
-- [ ] `/mh play` (How to play): dicht, scrollen tot onderaan, niets valt weg.
-- [ ] In elk van de vier: een knop die uit staat is vaag, Shift+scroll maakt groter of kleiner, Escape sluit.
-- [ ] Daarna een gevecht: geen "action blocked" op naam van MidnightHelper.
+Afgevinkt = Rob 22 nov via sparring, letterlijk: *"Nee, dit was mijn fout. Ik was vergeten nog te reloaden. Dus de vensters
+zijn goed. Dat kan je goedkeuren."* Alleen wat in de stappen van sparring stond.
+- [x] ✅ (Rob 22 nov) `/mh bagfull show` (Bags full): dicht, tekst past.
+- [x] ✅ (Rob 22 nov) `/mh crates test` (Crates): dicht, tekst en knop passen.
+- [x] ✅ (Rob 22 nov) `/mh durability test` (Durability): dicht, tekst past.
+- [x] ✅ (Rob 22 nov) `/mh play` (How to play): dicht, tekst past.
+- [x] ✅ (Rob 22 nov) In elk van de vier: Escape sluit.
+- [x] ✅ (Rob 22 nov) Daarna een gevecht: geen "action blocked" op naam van MidnightHelper.
+- [ ] Bags full: Destroy vraagt eerst, Equip werkt (als die er staat).
+- [ ] Crates: muis op de naam = tooltip. Durability: muis op het item = tooltip.
+- [ ] Durability: de rode kop blijft rood.
+- [ ] How to play: scrollen tot onderaan, niets valt weg.
+- [ ] In elk van de vier: een knop die uit staat is vaag, Shift+scroll maakt groter of kleiner.
+- [ ] ❓ Bags full, controlepunt (nog niet repareren): loopt de prijs door de regel "Poor (grey): junk, only worth its vendor
+      price."? Zeg "prijs goed" of "prijs door tekst". GEMETEN: op Robs screenshot van vóór de `/reload` raakt hij die regel,
+      en in de code loopt de regel (`r.why`) door tot onder de prijs (`r.value`); c2763a4 veranderde die ankers niet.
+      Dat het in het nieuwe venster nog zo is, is AFGELEID.
 - [niet te testen] Characters, Dungeons, Macros, Profession trainers, Trainer, Vendors en Weapons zijn ook aangepast, maar
       openen niet meer: elk commando en elke knop gaat naar het overzicht (GEMETEN in de code). Alleen buiten het spel getest.
 

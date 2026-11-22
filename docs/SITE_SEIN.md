@@ -41,8 +41,8 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 ## 22 nov 2026 — Forever: meer vensters dicht in de stijl van het overzicht
 - Tag + commit:   geen tag (commit: zie git log, "windows in style A")
 - Status:         alleen op main
-- Mag op de site: nee (nog niet door Rob getest, geen release)
-- Speler ziet:    Bags full, Crates, Durability en How to play zijn dicht, in de stijl van het overzicht. (Zeven oude
+- Mag op de site: nee (geen release)
+- Speler ziet:    Bags full, Crates, Durability en How to play zijn dicht, in de stijl van het overzicht *(getest door Rob)*. (Zeven oude
                   reservevensters ook, die opent een speler niet meer: niet noemen.)
 - Knoplabels:     geen
 - Commando's:     /mh bagfull show, /mh play
