@@ -38,7 +38,8 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 - Speler ziet:    de tekst in `RELEASE_NOTES.md` (= `docs/CURSEFORGE_5.8.0.md`).
 - Vervalt:        bij de release is de Platynator-pagina (Midnight, tab Addons) weg: haal haar dan van de site als ze
                   daar genoemd wordt.
-- Naamsvermelding: staat in de releasetekst en in CURSEFORGE_DESCRIPTION.md (Rob plakt die) (Polestar, AllTheThings, Spoken / Efficient
+- Naamsvermelding: staat in de releasetekst en in CURSEFORGE_DESCRIPTION.md (door Rob geplakt, 22 nov:
+                  "aan mijn kant alles gedaan"; live pagina niet door ons gezien) (Polestar, AllTheThings, Spoken / Efficient
                   Games). Bij de release ook op de site.
 - Knoplabels:     geen
 - Commando's:     geen

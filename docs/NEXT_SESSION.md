@@ -6,7 +6,8 @@
 character, Bags full (niets wat hij wil houden, grijs + Destroy), gevecht zonder "action blocked". Voorwaardelijk, dus niet
 zeker: Equip, vrij talentpunt, pet. Niet los getest: per soort, bijna vol + schakelaar, grijs zonder waarde, link, Equip in
 gevecht, andere characters. **OPEN: ronde 2** (ingrediënten, recept-pijl, dungeon-quests, XP per uur). Midnight-inlog: GEDAAN.
-5.8.0 staat op CurseForge (22 nov). Rob plakt CURSEFORGE_DESCRIPTION.md zelf.
+5.8.0 staat op CurseForge (22 nov). CURSEFORGE_DESCRIPTION.md geplakt door Rob (via sparring: *"aan mijn kant alles
+gedaan"*); de live pagina zag niemand van ons.
 
 🔧 **SKILL UP-VENSTER GEREPAREERD (22 nov via sparring, letterlijk: *"venster ja"*), getest: *"Venster is goed"* (klik en scroll open):** stijl A (dicht),
 "MH doesn't know which trainer/vendor yet", knop noemt het beroep. Ronde 2 uit zijn screenshots: XP-regel, Linen Cloth,
