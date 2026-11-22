@@ -12,7 +12,7 @@ Geen tag of release; 5.8.0 staat alleen klaar, zie hieronder.
 "MH doesn't know which trainer/vendor yet", knop noemt het beroep. Ronde 2 uit zijn screenshots: XP-regel, Linen Cloth,
 Light Leather, recepten in Skill up gezien; pijl, persoon en dungeon-quests niet. ▶ Robs *"Doe maar vensters A"*: alle 11
 andere GEBOUWD (`S.SkinPanel` in ForeverStyle.lua). BagFull, Crates, Durability, HowToPlay GOEDGEKEURD (Rob 22 nov: *"Dus de
-vensters zijn goed. Dat kan je goedkeuren."*; details open in TESTLIJST, o.a. prijs door tekst in Bags full: pas na zijn antwoord). De andere 7
+vensters zijn goed. Dat kan je goedkeuren."*; details open in TESTLIJST, prijs in Bags full: grijze regel goed, langere regel = controlepunt, niet repareren). De andere 7
 (Chars, Dungeons, Macros, ProfTrainers, Trainer, Vendors, Weapons) openen niet meer: reserve achter het overzicht.
 📜 **BRONNENLIJST GEBOUWD** (Rob 22 nov via sparring, letterlijk: *"Bronnenlijst, ja."*): `THIRD_PARTY.txt` (gaat mee in de zips)
 + de MIT-zin in README; LICENSE, code en data ongewijzigd. Licentie van ons werk blijft MIT. ⏸️ Alleen gemeld, wacht op Robs keuzes
@@ -33,7 +33,8 @@ Fable-ronde GEDAAN: 1 echte fout gerepareerd (Scholomance 5803 = alleen Alliance
 + 4 kleine tekstverbeteringen. Voor Rob via sparring: Waylaid Crates + mage Study-tip wel of niet in de tekst. NIET door Fable:
 vensters, spel, vertalingen, de keuze van de gidsen.
  Midnight + releasetekst GOEDGEKEURD op fac9074 (Rob: *"midnight goed tekst goed"*; ingrediënt-tooltip niet los afgevinkt).
- OPEN vóór een go: dungeon-quest Way, /mh rest off/on, prijsregel in Bags full, crates-keuze. Een go is er niet.
+ 3 Forever-tests GEDAAN (Rob: *"de drie testjes zie screens"*): Way (alleen de chatregel gezien, aankomen open), rest off/on,
+ prijs bij grijs. OPEN vóór een go: crates-keuze. Een go is er niet.
 ▶ **NU: KAART B (Rob 22 nov via sparring, letterlijk: *"b"*):** level 1-briefjes voor alle classes/rassen + elk class-queststapje
 als opvallend kaartje (ForeverCQWindow). GEBOUWD, kaartje GOEDGEKEURD op een Tauren hunter (Rob 22 nov: *"kaartje goed,
 hebben we dit voor meerdere classes ?"*; andere classes, latere quests en knoppen open in TESTLIJST): 56 combinaties, 0 zonder briefje (Skyborne op level 2);

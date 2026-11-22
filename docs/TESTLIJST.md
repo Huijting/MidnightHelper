@@ -40,9 +40,13 @@ Sluit het spel eerst helemaal af: het versienummer en de nieuwe bestanden laden 
 - [ ] Midnight: tooltip op een ingrediënt. (Mocht hij overslaan zonder ingrediënt: niet als gezien gemeld.)
 - [x] ✅ (zelfde melding: *"tekst goed"*) De releasetekst van 5.8.0 zoals op fac9074, met de Platynator-regel. De keuze over
       Waylaid Crates staat daar los van en is open.
-- [ ] Forever: Dungeons & group → Quests bij een dungeon → Way › zet de pijl naar de questgever.
-- [ ] Forever: `/mh rest off` → de chat zegt dat de waarschuwing uit is; `/mh rest on` → weer aan.
-- [ ] Forever: `/mh bagfull show` → zeg "prijs goed" of "prijs door tekst".
+- [x] ✅ (Rob 22 nov via sparring: *"de drie testjes zie screens"*; screenshot nagelezen) Forever: Quests bij een dungeon →
+      Way › meldt "arrow set to Rahauro (Thunder Bluff) for "Testing an Enemy's Strength"", gelijk aan de data (q 5723, npc
+      11833); die regel komt pas als de waypoint gezet is (code).
+- [ ] Vervolg: de pijl zelf zien en bij die questgever aankomen. (Stond niet op het beeld.)
+- [x] ✅ (zelfde melding, screenshot) Forever: `/mh rest off` → de chat zegt dat de waarschuwing uit is; `/mh rest on` → weer
+      aan. Beide regels gelijk aan enUS.
+- [x] ✅ (zelfde melding, screenshot) Forever: `/mh bagfull show` → bij drie grijze dingen staat de prijs los van de tekst.
 
 ## 22 nov — Forever: trainerplekken in de class quests, Zygor + HandyNotes live (Rob: "Plekken b")
 
@@ -95,10 +99,10 @@ zijn goed. Dat kan je goedkeuren."* Alleen wat in de stappen van sparring stond.
 - [ ] Durability: de rode kop blijft rood.
 - [ ] How to play: scrollen tot onderaan, niets valt weg.
 - [ ] In elk van de vier: een knop die uit staat is vaag, Shift+scroll maakt groter of kleiner.
-- [ ] ❓ Bags full, controlepunt (nog niet repareren): loopt de prijs door de regel "Poor (grey): junk, only worth its vendor
-      price."? Zeg "prijs goed" of "prijs door tekst". GEMETEN: op Robs screenshot van vóór de `/reload` raakt hij die regel,
-      en in de code loopt de regel (`r.why`) door tot onder de prijs (`r.value`); c2763a4 veranderde die ankers niet.
-      Dat het in het nieuwe venster nog zo is, is AFGELEID.
+- [x] ✅ (Rob 22 nov: *"de drie testjes zie screens"*) Bags full: de prijs loopt niet door "Poor (grey): junk, only worth its
+      vendor price." (GEMETEN op zijn screenshot: drie rijen, los van elkaar).
+- [ ] ❓ Controlepunt (niet repareren): dezelfde rij met een langere uitlegregel, of in een andere taal. GEMETEN in de code:
+      `r.why` loopt tot aan de knop, dus tot onder de prijs (`r.value`). Dat het dan botst, is AFGELEID.
 - [niet te testen] Characters, Dungeons, Macros, Profession trainers, Trainer, Vendors en Weapons zijn ook aangepast, maar
       openen niet meer: elk commando en elke knop gaat naar het overzicht (GEMETEN in de code). Alleen buiten het spel getest.
 
@@ -226,7 +230,7 @@ uur: open, in de secties hieronder.
 
 ## 22 nov (ochtend) — Forever: `/mh rest off` werkt weer
 
-- [ ] Forever: typ `/mh rest off`. In chat: "no more message about low mana or health…". `/mh rest on` zet hem terug.
+- [x] ✅ (Rob 22 nov via sparring: *"de drie testjes zie screens"*) Forever: typ `/mh rest off`. In chat: "no more message about low mana or health…". `/mh rest on` zet hem terug.
 - [ ] `/mh rest test show`: twee regels op je scherm (mana en health; een class zonder mana krijgt alleen health).
 - [ ] `/mh rest` print twee blokjes: "rested XP tip…" en "rest warning…". `/mh rest go` zet nog steeds de pijl naar de inn.
 
