@@ -14,6 +14,11 @@ Light Leather, recepten in Skill up gezien; pijl, persoon en dungeon-quests niet
 andere GEBOUWD (`S.SkinPanel` in ForeverStyle.lua). BagFull, Crates, Durability, HowToPlay GOEDGEKEURD (Rob 22 nov: *"Dus de
 vensters zijn goed. Dat kan je goedkeuren."*; details open in TESTLIJST, o.a. prijs door tekst in Bags full: pas na zijn antwoord). De andere 7
 (Chars, Dungeons, Macros, ProfTrainers, Trainer, Vendors, Weapons) openen niet meer: reserve achter het overzicht.
+🔎 **POLESTAR-WEETJES NAGEKEKEN, niets gewijzigd** (Rob 22 nov via sparring: *"Misschien is dat wel slim, ouderwetjes
+nakijken."*): 55 feiten = 36 bevestigd, 3 tegengesproken (rogue-keten 2x, Cantation), 1 betwist, 15 zonder andere bron.
+`docs/forever/POLESTAR_NAKIJK_2026-11-22.md`. Repareren wacht op Robs keuze via sparring; 5.8.0 blijft zoals het staat.
+Licentie: niets wijzigen tot sparring zijn keuze stuurt.
+
 🚦 **5.8.0 KLAARGEZET, NIET UITBRENGEN.** Rob 22 nov avond via sparring, letterlijk: *"Zerlt klaar , ik log straks nog in"* (op
 "zet 5.8.0 klaar"). Alleen het klaarzetten mag: versie, tekst, Fable-ronde, naamsvermelding. Zijn *"We doen nog geen
 release. Dan kom je wat anders tegen."* blijft gelden voor uitbrengen: geen tag, gh release of upload zonder zijn woorden.

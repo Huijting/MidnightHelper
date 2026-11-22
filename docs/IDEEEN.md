@@ -26,6 +26,13 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 
 ## Open — wacht op Rob
 
+### Forever: oude Polestar-weetjes in de class-quests nakijken (22 nov) — ✅ JA voor nakijken, GEDAAN; repareren = open
+- Bron: Rob 22 nov via sparring, letterlijk: *"Misschien is dat wel slim, ouderwetjes nakijken. En een vraag aan mijn kant.
+  Moeten wij ook iets met die licentie? Moeten wij onze licentie aanpassen? Of vind je dat zoals wij het nu hebben best wel
+  goed is?"* De licentievraag beantwoordt sparring; daar niets voor gewijzigd.
+- Uitkomst: `docs/forever/POLESTAR_NAKIJK_2026-11-22.md`. 5.8.0 blijft zoals het staat.
+- Spel: F. Site: niets.
+
 ### Release 5.8.0 klaarzetten (22 nov) — ✅ JA voor klaarzetten, GEEN go voor uitbrengen
 - Bron: Rob 22 nov via sparring, op "zet 5.8.0 klaar", letterlijk: *"Zerlt klaar , ik log straks nog in"*.
 - Vervalt: "geen bump, releasetekst of Fable-ronde". Blijft voor het uitbrengen: *"We doen nog geen release."*
