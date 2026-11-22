@@ -5,7 +5,7 @@
 ✅ **RONDE 1 GETEST (22 nov via sparring, letterlijk: *"ronde 1 klopt"*):** herstart zonder fout, bekende recepten op één
 character, Bags full (niets wat hij wil houden, grijs + Destroy), gevecht zonder "action blocked". Voorwaardelijk, dus niet
 zeker: Equip, vrij talentpunt, pet. Niet los getest: per soort, bijna vol + schakelaar, grijs zonder waarde, link, Equip in
-gevecht, andere characters. **OPEN: ronde 2** (ingrediënten, recept-pijl, dungeon-quests, XP per uur) **+ Midnight-inlog.**
+gevecht, andere characters. **OPEN: ronde 2** (ingrediënten, recept-pijl, dungeon-quests, XP per uur). Midnight-inlog: GEDAAN.
 Geen tag of release; 5.8.0 staat alleen klaar, zie hieronder.
 
 🔧 **SKILL UP-VENSTER GEREPAREERD (22 nov via sparring, letterlijk: *"venster ja"*), getest: *"Venster is goed"* (klik en scroll open):** stijl A (dicht),
@@ -19,7 +19,7 @@ vensters zijn goed. Dat kan je goedkeuren."*; details open in TESTLIJST, o.a. pr
 via sparring: LibDBIcon (tegenstrijdig), LibDataBroker (geen licentie), plekken gelijk aan HandyNotes: Midnight (All Rights
 Reserved). Niets daarvan zelf weghalen of vervangen.
 🗑️ **PLATYNATOR-PAGINA WEG, vóór 5.8.0** (Rob 22 nov via sparring, letterlijk: *"En ja, platy die mag weg."*): pagina, profiel,
-link, plaatjes, tool en verwijzingen; releasetekst + in-game regel 9 erbij. Details! blijft. Wacht op hertest (TESTLIJST).
+link, plaatjes, tool en verwijzingen; releasetekst + in-game regel 9 erbij. Details! blijft. fac9074, GETEST: *"midnight goed tekst goed"* (Rob 22 nov).
 
 🔎 **POLESTAR-WEETJES NAGEKEKEN, niets gewijzigd** (Rob 22 nov via sparring: *"Misschien is dat wel slim, ouderwetjes
 nakijken."*): 55 feiten = 36 bevestigd, 3 tegengesproken (rogue-keten 2x, Cantation), 1 betwist, 15 zonder andere bron.
@@ -32,7 +32,8 @@ release. Dan kom je wat anders tegen."* blijft gelden voor uitbrengen: geen tag,
 Fable-ronde GEDAAN: 1 echte fout gerepareerd (Scholomance 5803 = alleen Alliance, Horde = 5804; `QUEST_FIX` in de generator)
 + 4 kleine tekstverbeteringen. Voor Rob via sparring: Waylaid Crates + mage Study-tip wel of niet in de tekst. NIET door Fable:
 vensters, spel, vertalingen, de keuze van de gidsen.
- Rob test nog: Midnight na Platynator weg, dungeon-quest Way, /mh rest off/on, prijsregel in Bags full.
+ Midnight + releasetekst GOEDGEKEURD op fac9074 (Rob: *"midnight goed tekst goed"*; ingrediënt-tooltip niet los afgevinkt).
+ OPEN vóór een go: dungeon-quest Way, /mh rest off/on, prijsregel in Bags full, crates-keuze. Een go is er niet.
 ▶ **NU: KAART B (Rob 22 nov via sparring, letterlijk: *"b"*):** level 1-briefjes voor alle classes/rassen + elk class-queststapje
 als opvallend kaartje (ForeverCQWindow). GEBOUWD, kaartje GOEDGEKEURD op een Tauren hunter (Rob 22 nov: *"kaartje goed,
 hebben we dit voor meerdere classes ?"*; andere classes, latere quests en knoppen open in TESTLIJST): 56 combinaties, 0 zonder briefje (Skyborne op level 2);

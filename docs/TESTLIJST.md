@@ -32,8 +32,14 @@ Sluit het spel eerst helemaal af: het versienummer en de nieuwe bestanden laden 
 - [x] ✅ (Rob 22 nov via sparring, stand VÓÓR het weghalen van Platynator, letterlijk: *"Ik zit nu in World of Warcraft
       Midnight. Daar staat alles op. Ik kan Midnight helpen openen. En ik zie geen foutmeldingen komen."*) Midnight:
       inloggen geeft geen Lua-fout. (Pijl en gevecht niet gemeld.)
-- [ ] Midnight, NA "platy weg": spel helemaal afsluiten en starten → MH openen, tab Addons: alleen de knop Details!, die
-      pagina staat open en er komt geen Lua-fout.
+- [x] ✅ (Rob 22 nov via sparring, op fac9074, letterlijk: *"midnight goed tekst goed"*) Midnight, NA "platy weg": spel
+      helemaal afsluiten en starten → MH openen, tab Addons: alleen de knop Details!, die pagina staat open en er komt geen
+      Lua-fout.
+- [x] ✅ (zelfde melding; sparrings stap met "als nog niet gedaan") Midnight: de pijl bij rares.
+- [x] ✅ (zelfde melding; sparrings stap met "als nog niet gedaan") Midnight: één gevecht zonder "action blocked".
+- [ ] Midnight: tooltip op een ingrediënt. (Mocht hij overslaan zonder ingrediënt: niet als gezien gemeld.)
+- [x] ✅ (zelfde melding: *"tekst goed"*) De releasetekst van 5.8.0 zoals op fac9074, met de Platynator-regel. De keuze over
+      Waylaid Crates staat daar los van en is open.
 - [ ] Forever: Dungeons & group → Quests bij een dungeon → Way › zet de pijl naar de questgever.
 - [ ] Forever: `/mh rest off` → de chat zegt dat de waarschuwing uit is; `/mh rest on` → weer aan.
 - [ ] Forever: `/mh bagfull show` → zeg "prijs goed" of "prijs door tekst".
@@ -115,7 +121,7 @@ daarna een gevecht zonder "action blocked". Niet los getest: elke soort bewaard 
 waarde, gelinkt venster, Equip in gevecht, andere characters. Ronde 2 = ingrediënten, recept-pijl, dungeon-quests, XP per
 uur: open, in de secties hieronder.
 
-- [ ] Midnight: inloggen, geen rode foutmelding.
+- [x] ✅ (Rob 22 nov via sparring, op fac9074: *"midnight goed tekst goed"*) Midnight: inloggen, geen rode foutmelding.
 
 ## 22 nov — Forever: huisdieren en rijdieren nooit weggooien (Rob: "dieren ja")
 
