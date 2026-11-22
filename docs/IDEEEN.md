@@ -1636,3 +1636,71 @@ in de vaste vorm. De bouwchat verplaatst ze naar Open, of naar Nee met reden. Ni
                  (het toetsenblok). grep `not on your bars`: alleen `CARD_SOLO_NOKEY` (enUS:841, een kaarttekst). Uitkomst:
                  bestaat alleen voor gebruikers van het toetsenblok.
 - Rob zegt:      (open)
+
+- [2026-11-22] 💡 **Ideeënbus** — 3 voorstellen; gelezen: CurseForge-reacties (API via Exa, nieuwste 6-7 okt: niets
+  binnen 14 dagen), GitHub-issues Huijting/MidnightHelper (0 sinds 8 nov), Wowhead Blue Tracker (Forever-hotfixes
+  10-20 nov, Midnight-hotfixes 5-6 nov), Blizzard-forum Forever (US 6 en 9 nov, EU 10 nov), SenseOS-FAQ (15 nov).
+  Geen Reddit-pagina zelf geopend; de zoekronde gaf alleen forum- en gidspagina's.
+
+### Forever: "nog 3 van de 5 dungeon-resets dit uur"
+- Voor wie:      veteraan (wie een dungeon farmt of steeds reset)
+- Moment:        bij het betreden van een dungeon, en als je groep reset (de vijfde keer binnen een uur)
+- Spel:          Forever
+- Bron:          Blizzard, WoW: Forever Hotfixes 20 nov 2026, https://www.wowhead.com/forever/blue-tracker/news/us/wow-forever-hotfixes-november-20-2026-world-of-warcraft-blizzard-news-24315281
+                 (20 nov 2026): "Players can now reset and enter each dungeon a maximum of 5 times per hour (was 10)."
+- Bouwt op:      `Modules/ForeverDungeons.lua` (dungeonvenster, "Do this now"-dungeonregel)
+- Data:          regel GEMETEN (Blizzards tekst). Nog te meten: welke foutmelding de client geeft bij nummer 6
+                 (GlobalString, per taal), en of de telling per dungeon of over alle dungeons gaat; MH kan alleen eigen
+                 binnenkomsten tellen (die van een ander character op het account niet)
+- Vindbaar:      vanzelf: één regel bij binnenkomst ("4e binnenkomst dit uur, de 6e lukt pas om 14:32"), alleen vanaf
+                 de 4e keer; `/mh dungeons resets` print de telling en waarom
+- Werk:          klein
+- Site:          ja, als het uit is
+- Bestaat al?:   grep `per hour|instances? per|RESET_INSTANCES|ResetInstances|INSTANCE_RESET|TOO_MANY_INSTANCES|ERR_INSTANCE`
+                 in `Modules/`, `Locales/enUS.lua`, `docs/IDEEEN.md`: alleen "once per hour" (Camp Tent, `ForeverHowToPlay.lua:51`)
+                 en twee Midnight-teksten, niets over resets. Positieve controle zelfde ronde: `GroupFinderActivity` wél
+                 gevonden in `ForeverDungeons.lua:13`. Uitkomst: bestaat niet.
+- Rob zegt:      (open)
+
+### Forever: tooltip op een wapen dat je class wél kan leren, maar jij nog niet kent
+- Voor wie:      vooral nieuweling (komt van retail, weet niet dat wapens een skill nodig hebben)
+- Moment:        als je over een wapen in je tas, bij een verkoper of in de buit hovert dat je nog niet kunt dragen
+- Spel:          Forever
+- Bron:          Blizzard-forum EU, "Completly New to Classic/Forever ..coming from Retail",
+                 https://eu.forums.blizzard.com/en/wow/t/completly-new-to-classicforever-coming-from-retail/641222
+                 (10 nov 2026): een level 13 hunter vraagt waarom hij geen two-handed axes en geen guns kan gebruiken,
+                 en "if yes, from where and who?"
+- Bouwt op:      `Modules/ForeverItemTips.lua` (zegt al "your class can never use this") + `Modules/ForeverWeapons.lua`
+                 (weapon masters per wapen, dichtstbijzijnde eerst, met pijl)
+- Data:          GEMETEN voor de classmaskers en weapon masters (staat in beide bestanden, wago wowf 1.60.1.70938);
+                 de koppeling wapen-subclass → skill is AFGELEID (op naam, `ForeverItemTips.lua:12`)
+- Vindbaar:      vanzelf, in de tooltip: "Learn Two-Handed Axes at a weapon master: Sayoc, Orgrimmar (Find → Weapons)"
+- Werk:          klein
+- Site:          nee
+- Bestaat al?:   grep `weapon ?master` in `Modules/Forever*.lua`: `ForeverWeapons.lua` (Find + pijl) en de telling in
+                 `ForeverDoNow.lua:310` = positieve controle, gevonden. grep `weapon skill|IsUsableItem|ITEM_REQ_SKILL|proficien`
+                 in `Modules/Forever*.lua`: geen tooltipregel op het item zelf; `ForeverItemTips.lua:12` zegt alleen
+                 "never", een "not yet" laat hij aan Blizzards rode regel. Uitkomst: de hulp bestaat, maar niet op het
+                 moment dat je het wapen ziet — dit is dus "vindbaarheid van weapon skills".
+- Rob zegt:      (open)
+
+### Forever, hunter: pet-XP en waar je pet een nieuwe vaardigheid leert
+- Voor wie:      nieuweling (hunter)
+- Moment:        als je pet een level stijgt of je het Beast Training-venster opent
+- Spel:          Forever
+- Bron:          zelfde EU-forumtopic (10 nov 2026), vraag 3 ("How do i teach it dash, charge, swipe … the trainer only
+                 has endurance and health") en post 9 ("Is there a way to check pet EXP … Maybe an addon?")
+- Bouwt op:      `Modules/ForeverClassQuests.lua` (hunter-tamingquests, r. 616-725) en "Do this now" (`ForeverDoNow.lua`)
+- Data:          nog te meten: of `GetPetExperience` in Forever werkt, en hoe pets in Forever vaardigheden leren (de
+                 forumantwoorden zeggen "by taming, at least in classic" — dat is spelers-geheugen, geen Forever-meting;
+                 eerst DB2/Beast Training nakijken)
+- Vindbaar:      vanzelf: "Your pet: level 14, 320/1200 XP" in "Do this now" bij een hunter met pet; uitleg in de Codex
+                 alleen als de leerregel gemeten is
+- Werk:          middel
+- Site:          ja, als het uit is
+- Bestaat al?:   grep `tame|beast training|pet training|petlevel|UnitLevel("pet")` in `Modules/Forever*.lua`,
+                 `Locales/enUS.lua`, `docs/IDEEEN.md`: alleen de tamingquests (`ForeverClassQuests.lua`) en spellnamen in
+                 `ForeverBlock_Hunter.lua:70`. grep `GetPetExperience|pet xp|pet experience` in `Modules/` en enUS: niets.
+                 Positieve controle zelfde ronde: `UnitLevel("player")` gevonden in `ForeverDungeons.lua:149`. Uitkomst:
+                 bestaat niet.
+- Rob zegt:      (open)
