@@ -26,7 +26,7 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 
 ## Open — wacht op Rob
 
-### Forever: leren van Polestar/FlowUp — dungeon-quests, "waar haal ik dit vandaan?", bootwachttijd, XP per uur (wens van Rob, 21 nov) — ✅ JA, 2 en 4 gebouwd, 1 = B (meting), 3 wacht op Rob
+### Forever: leren van Polestar/FlowUp — dungeon-quests, "waar haal ik dit vandaan?", bootwachttijd, XP per uur (wens van Rob, 21 nov) — ✅ JA, 2 en 4 gebouwd, 1 = B (gemeten), 3 rust
 - Bron: Rob 21 nov via sparring, letterlijk: *"ik blijf bij Zygor, Polestar probeer ik later. maar kunnen wij er iets van
   leren / verbeteren"* → *"2 en 1, doe maar, daarna 3 en 4 :)"*.
 - Volgorde: (2) dungeon-quests, (1) waar haal ik dit vandaan, (3) boot/zeppelin-wachttijd, (4) XP per uur.
@@ -38,10 +38,18 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
   verzamelberoep / monsters zonder plek); weet MH het niet, dan zwijgen. Eerst Robs meting `/mh skillup source`.
   Reagentia onderzocht 22 nov (`docs/forever/REAGENTIA_2026-11-22.md`), wacht op Robs keuze over Zygors GPL-licentie.
 - (3) Bootwachttijd: ONDERZOCHT 22 nov, nu niet eerlijk te meten, niets gebouwd (`docs/forever/BOOT_ZEPPELIN_2026-11-22.md`).
-  Rob kiest: laten rusten (advies) of 12 minuten meten in het spel.
+  ⏹️ Rob 22 nov via sparring, letterlijk: *"Boot Rust"* = laten rusten; niet opnieuw voorstellen.
+- Meting (1) gedaan 22 nov (*"meting gedaan"*): Forever geeft bij Cooking geen bron (0 van 132), dus eigen data per recept.
 - Spel: F. Site: nog niet.
 
-### Forever: mouseover-buffmacro voor de andere classes, zoals Smart Bless (vraag van Rob, 21 nov) — ✅ JA + GEBOUWD 21 nov (wacht op Robs test)
+### Forever: talentpunt opvallender in Do this now (wens van Rob, 22 nov) — ✅ JA + GEBOUWD 22 nov (wacht op Robs test)
+- Bron: Rob 22 nov via sparring, met screenshot: *"kunnen we de talent point meer laten opvallen"* → op opties A/B/C:
+  *"talent b"*.
+- B: de talentregel bovenaan, goud, met een ster en een witregel; knop Talents vooraan. Geen gloed of animatie. Geen vrij
+  punt = geen regel en geen knop.
+- Spel: F. Site: nog niet.
+
+### Forever: mouseover-buffmacro voor de andere classes, zoals Smart Bless (vraag van Rob, 21 nov) — ✅ JA + GEBOUWD 21 nov (Rob 22 nov: "smart buff goed", mage)
 - Bron: Rob 21 nov via sparring: *"Kunnen wij ook een soort mouse-over macro maken voor de andere buffs, voor alle andere
   classes. Zodat ik die standaard op eenzelfde plek kan zetten, terwijl als mensen langslopen, dat ik gauw op hun een buff
   kan geven."* GO, letterlijk: *"Ja, wou het maar."*

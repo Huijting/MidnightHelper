@@ -28,6 +28,16 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 22 nov 2026 — Forever: talentpunt valt op in Do this now
+- Tag + commit:   geen tag (commit: zie git log, "talent point on top")
+- Status:         alleen op main
+- Mag op de site: nee (nog niet door Rob getest, geen release)
+- Speler ziet:    met een vrij talentpunt staat die regel bovenaan in Do this now, in goud met een ster, met een knop
+                  die het talentvenster van het spel opent.
+- Knoplabels:     FTALENT_BTN
+- Commando's:     geen nieuwe
+- Spel:           Forever
+
 ## 22 nov 2026 — Forever: /mh rest off|on|test gerepareerd
 - Tag + commit:   geen tag (commit: zie git log, "Forever XP per hour")
 - Status:         alleen op main
@@ -94,7 +104,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 - Status:         staat op CurseForge
 - Mag op de site: ja (staat in de releasetekst van 5.7.0; Robs go staat in dat blok)
 - Speler ziet:    macro "MH Smart Buff" zet Arcane Intellect / Power Word: Fortitude / Mark of the Wild op de speler onder
-                  je muis, anders op je doelwit. Standaard uit.
+                  je muis, anders op je doelwit. Standaard uit. *(getest door Rob: mage)*
 - Knoplabels:     `FSBUFF_SW`
 - Commando's:     `/mh smartbuff [on|off]`
 - Spel:           Forever

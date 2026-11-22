@@ -33,7 +33,14 @@ end
 
 local PREFIX = "|cffffcc00Midnight Helper:|r "
 local HEAD, GREY, GOOD = "|cffffcc66", "|cff9d9d9d", "|cff7fff7f"
+local GOLD, STAR = "|cffffd100", "|TInterface\\TargetingFrame\\UI-RaidTargetingIcon_1:14:14|t"
 local W = 300
+
+--- Gold around a line, but not over what has a colour of its own (the spell link stays blue). Every colour is closed
+--- again, so nothing runs on into the next line.
+local function Golden(s)
+	return GOLD .. s:gsub("(|c.-|r)", "|r%1" .. GOLD) .. "|r"
+end
 
 local win
 local forced = nil -- /mh donow shows (true) or hides (false) it for this session, whatever the mode says
@@ -470,6 +477,10 @@ function Collect()
 		if okT and line then
 			out.now[#out.now + 1] = line
 			item(line, "talent", nil, nil, spell and { spell } or nil)
+			-- 22 Nov 2026 (Rob via sparring: "kunnen we de talent point meer laten opvallen", then "talent b"): the window
+			-- shows this line on top, in gold, and has a Talents button for it (Render).
+			out.talent = line
+			out.actions.talent = true
 		end
 	end
 	-- 21 Nov 2026 (Rob via sparring: "Heb ik een two-handed sword nodig?"; GO "Ja, voeg dat maar toe"): the Wolfsbane class
@@ -819,6 +830,9 @@ local function Build()
 			end
 		end)
 	end
+	f.btnTalent = Btn(f, 10, function()
+		ACTS.talent.fn()
+	end)
 	f.btnTrainer = Btn(f, 10, function()
 		if ns.ForeverTrainerGo then
 			ns.ForeverTrainerGo()
@@ -868,9 +882,18 @@ local function Render(info)
 	f.title:SetText(ns:L("FDONOW_TITLE"))
 	local lines = {}
 	if #info.now > 0 then
+		-- 22 Nov 2026 (Rob: "talent b"): the talent line first, gold with a star and an empty line under it. No glow.
+		if info.talent then
+			lines[1] = STAR .. " " .. Golden(info.talent)
+			if #info.now > 1 or #(info.tips or {}) > 0 then -- else the empty line above "Coming up" already does it
+				lines[2] = " "
+			end
+		end
 		-- No "Do this now" heading under the "Do this now" title (Rob via sparring: "Ja, alle drie").
 		for _, s in ipairs(info.now) do
-			lines[#lines + 1] = "- " .. s
+			if s ~= info.talent then
+				lines[#lines + 1] = "- " .. s
+			end
 		end
 	else
 		lines[#lines + 1] = GOOD .. ns:L("FDONOW_HEAD_DONE") .. "|r"
@@ -884,6 +907,7 @@ local function Render(info)
 		lines[#lines + 1] = "- " .. s
 	end
 	f.body:SetText(table.concat(lines, "\n"))
+	f.btnTalent:SetText(ns:L(ACTS.talent.label))
 	f.btnTrainer:SetText(ns:L("HOME_FOREVER_BTN_GO"))
 	f.btnRanks:SetText(ns:L("FRANK_HOME_BTN"))
 	f.btnWeapons:SetText(ns:L("FWEAP_TITLE"))
@@ -894,7 +918,7 @@ local function Render(info)
 	-- Buttons only for what is on the list; they close up from the left. Each as wide as its own text (Rob's 21.png,
 	-- 12 Nov 2026: "Weapon trainers" stuck out of a fixed 90 px button), and a new row when the next one does not fit.
 	local shown = {}
-	for _, pair in ipairs({ { f.btnClassQuest, info.actions.classquest },
+	for _, pair in ipairs({ { f.btnTalent, info.actions.talent }, { f.btnClassQuest, info.actions.classquest },
 		{ f.btnTrainer, info.actions.trainer }, { f.btnRanks, info.actions.ranks },
 		{ f.btnWeapons, info.actions.weapons }, { f.btnProfs, info.actions.profs },
 		{ f.btnDungeons, info.actions.dungeons }, { f.btnOverview, ns.ShowForeverOverviewPage ~= nil } }) do

@@ -25,11 +25,21 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 22 nov — Forever: talentpunt valt op in Do this now (Rob: "talent b")
+
+- [ ] Forever, character met een vrij talentpunt: typ `/reload`. In "Do this now" staat de talentregel bovenaan: goud,
+      met een gele ster, en een witregel eronder. De talentnaam blijft blauw; muis erop = de tooltip van het spel.
+- [ ] De eerste knop onderin is "Talents". Klik: het talentvenster van het spel gaat open, zonder rode fout en zonder
+      "action blocked". Zet het punt en druk Apply: dat werkt. Cast daarna een spell uit je spreukenboek: ook goed.
+- [ ] Geen vrij punt meer: de regel en de knop zijn weg.
+- [ ] In gevecht: `/mh overview`, klik Talents bij de regel: in rood "You can't do that while in combat", geen venster.
+
 ## 22 nov (ochtend) — Forever: meting "Waar haal ik dit vandaan?" (Rob: "1 b")
 
-- [ ] Forever: typ `/reload`. Open een beroep waarin je nog niet alles kent (bv. Cooking) en laat het venster open.
+- [x] ✅ (Rob 22 nov via sparring: *"meting gedaan"*; uitslag: 0 van 132 Cooking-recepten met een bron. De chat zei twee keer
+      "closed" door CharacterForever; gerepareerd, niet opnieuw nodig) Forever: typ `/reload`. Open een beroep waarin je nog niet alles kent (bv. Cooking) en laat het venster open.
       Typ `/mh skillup source`. In chat: "recipe source test: window open, N recipes listed" en daaronder twee regels met aantallen.
-- [ ] Sluit het venster, typ het nog eens: "window closed". Typ daarna `/reload` (dan staat de uitslag in het bestand).
+- [x] ✅ (Rob 22 nov: *"meting gedaan"*) Sluit het venster, typ het nog eens: "window closed". Typ daarna `/reload` (dan staat de uitslag in het bestand).
 
 ## 22 nov (ochtend) — Forever: `/mh rest off` werkt weer
 
@@ -126,7 +136,8 @@ Upgrade / Not now / Never). Afgevinkt met "(Rob, 19 nov)". De hulpregels ("typ /
       houweel-icoon, en het spel zelf zegt in rood "Requires Mining 65". Klopt met de tabel (Tin 65).
 - [ ] (21 nov) Forever-overzicht → Dungeons: de regel "The way there: …" (bv. bij Ragefire Chasm, Wailing Caverns,
       Deadmines, Ruins of Lordaeron) breekt af vóór de knoppen "Way ›" en "Bosses" en loopt er niet meer onder door.
-- [ ] (21 nov) Mage, Priest of Druid: Quiet helpers → "Smart Buff macro" aan. Het macrovenster gaat open met de macro
+- [ ] (21 nov) Smart Buff op een Priest en een Druid: zelfde stappen als hieronder (alleen de mage is getest).
+- [x] ✅ (Rob 22 nov via sparring, Forever, mage: *"smart buff goed"*) (21 nov) Mage, Priest of Druid: Quiet helpers → "Smart Buff macro" aan. Het macrovenster gaat open met de macro
       "MH Smart Buff"; sleep hem naar een balk. Muis op een vriendelijke speler, druk: hij krijgt Arcane Intellect /
       Power Word: Fortitude / Mark of the Wild. Geen muis op iemand, wel een doelwit: het doelwit krijgt hem. Niemand: in
       chat "MH Smart Buff: put your mouse on a friendly player …". `/mh smartbuff` toont de macrotekst.

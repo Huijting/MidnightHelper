@@ -756,6 +756,18 @@ end)
 -- of both kinds, raw). An empty answer, an error and a secret value are counted apart.
 local SOURCE_RUNS, SOURCE_ROWS = 10, 150
 
+-- 22 Nov 2026: Rob's two runs both said "closed". GEMETEN: the frame name is right (Blizzard's Forever source), but the
+-- addon CharacterForever shows its own recipe window and then never shows ProfessionsFrame (its recipeLog in Rob's
+-- SavedVariables: active true, shownBefore false). So "open" = the game's own show / close events, not that frame.
+local sessionOpen = false
+local sessionEv = CreateFrame("Frame")
+for _, e in ipairs({ "TRADE_SKILL_SHOW", "TRADE_SKILL_CLOSE" }) do
+	pcall(sessionEv.RegisterEvent, sessionEv, e)
+end
+sessionEv:SetScript("OnEvent", function(_, event)
+	sessionOpen = event == "TRADE_SKILL_SHOW"
+end)
+
 local function AskSource(id)
 	local f = C_TradeSkillUI and C_TradeSkillUI.GetRecipeSourceText
 	if type(f) ~= "function" then
@@ -779,14 +791,10 @@ local function SourceProbe()
 	local runs = type(ns.db.recipeSourceProbe) == "table" and ns.db.recipeSourceProbe or {}
 	ns.db.recipeSourceProbe = runs
 	local T = C_TradeSkillUI or {}
-	local open = false
-	for _, name in ipairs({ "ProfessionsFrame", "TradeSkillFrame" }) do
-		local f = _G[name]
-		if f and f.IsShown and f:IsShown() then
-			open = true
-		end
-	end
-	local run = { at = time and time() or 0, open = open, build = GetBuildInfo and select(2, GetBuildInfo()),
+	local pf = _G.ProfessionsFrame
+	local blizzard = pf ~= nil and pf:IsShown() == true
+	local open = sessionOpen or blizzard
+	local run = { at = time and time() or 0, open = open, blizzardWindow = blizzard, build =GetBuildInfo and select(2, GetBuildInfo()),
 		locale = GetLocale and GetLocale(), rows = {}, count = { learned = {}, unlearned = {}, unknown = {} } }
 	if T.GetBaseProfessionInfo then
 		local ok, p = pcall(T.GetBaseProfessionInfo)

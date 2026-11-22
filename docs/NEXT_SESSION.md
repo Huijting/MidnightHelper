@@ -1,21 +1,34 @@
 # Midnight Helper — waar we staan
 
-## ▶▶ VOLGENDE BOUWCHAT (21 nov, avond): nieuwe Forever-reeks "leren van Polestar/FlowUp" — punt 2 en 4 GEBOUWD, 1 = B (meting staat klaar), 3 onderzocht (niet te meten)
+## ▶▶ VOLGENDE BOUWCHAT (21 nov, avond): nieuwe Forever-reeks "leren van Polestar/FlowUp" — punt 2 en 4 GEBOUWD, 1 = B (gemeten), 3 rust
+
+🗳️ **Robs woorden 22 nov, later (via sparring, letterlijk: *"smart buff goed\nBoot Rust\nmeting gedaan"* en, bij een
+screenshot van Do this now, *"kunnen we de talent point meer laten opvallen"* → *"talent b"*):**
+- **Talent B GEBOUWD, wacht op test:** talentregel bovenaan in goud met ster + witregel, knop Talents vooraan. Alleen het
+  venster Do this now. Niet gemeten: opent de knop zonder blocked-fout (code: zelfde PlayerSpellsUtil als Forevers toets).
+- **Meting:** Cooking 132 recepten, GetRecipeSourceText leeg bij alle 132, 2 runs (GEMETEN in de SV). Niet op die API
+  bouwen; per recept eigen data nodig. "window closed" bij een open venster: oorzaak GEMETEN = CharacterForever toont
+  een eigen receptenvenster, ProfessionsFrame komt dan nooit in beeld (zijn recipeLog). ⚠️ De regel "in het
+  beroepenvenster" moet dus ook zonder dat frame werken. De meting kijkt nu naar TRADE_SKILL_SHOW/CLOSE.
+- **Smart Buff goed** (mage; Priest/Druid niet getest). **Boot = laten rusten**, niet opnieuw vragen.
+- **Zygor: NOG GEEN ANTWOORD.** Niets nieuws overnemen, niets weghalen, geen reagentia-data in de repo. Van sparring:
+  Zygors Over-scherm zegt "All Rights Reserved" naast GPL in de toc; de repo is publiek; v5.7.0 bevat al Zygor-werk
+  (ForeverRepairData, ForeverClassQuests-coördinaten). Opties A/B/C + D (= B + runtime lezen bij wie Zygor zelf heeft).
 
 🗳️ **Robs keuzes 22 nov (via Sparring 22-11, letterlijk: *"1 b"* en *"reparatie A, briefjes laten"*):**
 - **Punt 1 = B:** onbekende recepten "Waar haal je dit" (beroepenvenster + tooltip; trainer = pijl, verkoop na onderzoek
   per recept) + reagentia in de tooltip (Trade Supplies met pijl / verzamelberoep / monsters zonder plek). Weet MH het
-  niet: zwijgen. Meting klaar: `/mh skillup source` → `ns.db.recipeSourceProbe` (offline getest, wacht op Rob).
+  niet: zwijgen. Meting `/mh skillup source` → `ns.db.recipeSourceProbe`: gedaan, uitslag hierboven.
   Reagentia hangt niet van die meting af, maar 🔴 WACHT op Robs licentiekeuze: Zygors toc zegt `X-License: GPL`
   (GEMETEN 22 nov). Onderzoek + keuze: `docs/forever/REAGENTIA_2026-11-22.md`. Die keuze raakt ook de dungeon-quests
   van 21 nov: vóór de volgende release beslist hebben.
 - **/mh rest-reparatie = A:** mee met de volgende gewone release (geen 5.7.1, geen go voor een release).
-- **Notion-briefjes 12 nov:** blijven staan, niet opnieuw vragen. Boot/zeppelin A/B en de ideeën: nog open.
+- **Notion-briefjes 12 nov:** blijven staan, niet opnieuw vragen. De ideeën: maandag via sparring.
 
 ⛴️ **Punt 3 boot/zeppelin ONDERZOCHT (22 nov): nu niet eerlijk te meten, niets gebouwd.**
 `docs/forever/BOOT_ZEPPELIN_2026-11-22.md`. Rondetijd is af te leiden; waar het schip NU is niet (geen API gevonden).
 Misschien aftellen na één waargenomen aankomst: hangt aan een meting van 12 minuten in het spel (macro in dat bestand).
-Keuze ligt bij Rob via sparring: A) laten rusten (advies) of B) die meting doen. Niet bouwen vóór zijn keuze.
+✅ Rob 22 nov via sparring: *"Boot Rust"* = laten rusten. Niets bouwen, niet opnieuw vragen.
 
 ⏱️ **Punt 4 XP per uur GEBOUWD (Bouwchat 21-11 (2)), nagekeken en gerepareerd (Bouwchat 22-11, 22 nov ochtend)** — wacht
 op Robs test (TESTLIJST "21 nov (nacht)"). De pc ging 21 nov 23:22 uit vóór lint en commit; 22 nov nagelopen.

@@ -692,9 +692,14 @@ function ns.ForeverTalentNextLine()
 	return s, st.step.spell
 end
 
---- Open the game's talent window (AFGELEID: the names exist in this client family; pcall'd).
+--- Open the game's talent window. GEMETEN 22 Nov 2026 in Blizzard's Forever UI source (1.60.1.71037): the TOGGLETALENTS
+--- key calls PlayerSpellsUtil (Bindings_Camelot.xml). That it opens from an addon's button without a blocked-action
+--- error is NOT measured (Rob's test). In a fight it says why nothing opens, where you look (the overview's button).
 function ns.ForeverOpenTalents()
 	if InCombatLockdown and InCombatLockdown() then
+		if UIErrorsFrame and ERR_NOT_IN_COMBAT then
+			UIErrorsFrame:AddMessage(ERR_NOT_IN_COMBAT, 1, 0.1, 0.1)
+		end
 		return
 	end
 	for _, fn in ipairs({
