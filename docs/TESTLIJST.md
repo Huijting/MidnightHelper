@@ -25,6 +25,12 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 22 nov — Forever: huisdieren en rijdieren nooit weggooien (Rob: "dieren ja")
+
+- [ ] Typ `/reload`, dan `/mh bagfull show`: een huisdier (Cat Carrier, Parrot Cage …) of rijdier in je tas staat er niet in.
+      `/mh bagfull` noemt het bij "left out".
+- [ ] Een gewoon grijs ding staat er nog wel in, en de Equip-regel voor een reservetas werkt nog.
+
 ## 22 nov — Forever: waar haal ik dit recept? (Rob: "1 b", "plek ja", "alles advies")
 
 - [ ] **Sluit het spel helemaal af en start opnieuw** (nieuwe bestanden). Open eerst elk eigen beroep 3 seconden.

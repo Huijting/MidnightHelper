@@ -22,7 +22,7 @@ onderweg leger te maken, check dat ook, tijd voor koffie en ontbijt dus ga door 
 - [x] 5. Polestar UITGEZOCHT, niets overgenomen: `docs/forever/POLESTAR_DATA_2026-11-22.md`. recorded.json kan los (CC BY
       4.0); geeft 549 recepten een tweede bron. Rob koos A (*"alles advies"*): bouwen = 8 en 9.
 - ▶ **Robs *"alles advies"* (22 nov via sparring, letterlijk), in deze volgorde:**
-      [x] 7. Tassen bewaren B.
+      [x] 7. Tassen bewaren B. + *"dieren ja"* (22 nov via sparring, letterlijk): de 63 leer-dingen ook, wacht op test.
       [x] 8. Recepten GEBOUWD (1102 antwoorden, 206 pijlen: 90 meer dan voorgelegd, gemeld; herstart, wacht op test).
           🔴 Bij de release: Polestar-naam in RELEASE_NOTES, CF-beschrijving en site (tekst in SITE_SEIN). Was: Classic A (553 + 116 pijlen, zonder Zygors losse receptenlijst, geen Zygor-skillgetallen,
           "Classic-data, nog niet in Forever gezien") samen met Polestar A (alleen recorded.json, trusted, tweede bron of

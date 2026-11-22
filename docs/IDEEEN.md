@@ -61,6 +61,8 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
   (3) Grijs zonder verkoopwaarde mag erbij; Destroy vraagt altijd. (4) markeren: niet gekozen.
 - Bewaren: Rob 22 nov via sparring, letterlijk *"alles advies"* = B (ook gif, drankjes, elixers, flasks, verband,
   scrolls, sleutels, tassen, recepten, leerboeken): GEBOUWD, wacht op test.
+- Ook huisdieren, rijdieren en alles waar je iets van leert (63): Rob 22 nov via sparring, letterlijk *"dieren ja"*:
+  GEBOUWD, wacht op test.
 - Eigen code; Polestar is GPL: alleen het idee.
 - Spel: F. Site: nog niet.
 

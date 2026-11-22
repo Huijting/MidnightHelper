@@ -517,7 +517,7 @@ for k, v in pairs({
 	FBAG_EARLY_OFF = "a ajuda com bolsas quase cheias está desligada. /mh bagfull early on traz ela de volta.",
 	FBAG_WHY_GREY_NOVALUE = "Cinza e sem valor para um vendedor.",
 	FBAG_SUB = "As três coisas mais baratas nas suas bolsas, e por que podem sair:",
-	FBAG_NONE = "O MH não encontrou nada que possa sair com segurança. Itens de missão, ferramentas, comida e bebida, munição, reagentes de classe, venenos, poções, elixires, frascos, bandagens, pergaminhos, chaves, bolsas, receitas e livros, reagentes para as suas profissões, melhorias e itens de qualidade \"Raro\" ou melhor nunca são sugeridos.",
+	FBAG_NONE = "O MH não encontrou nada que possa sair com segurança. Itens de missão, ferramentas, comida e bebida, munição, reagentes de classe, venenos, poções, elixires, frascos, bandagens, pergaminhos, chaves, bolsas, receitas e livros, mascotes, montarias e outros itens de aprendizado, reagentes para as suas profissões, melhorias e itens de qualidade \"Raro\" ou melhor nunca são sugeridos.",
 	FBAG_WHY_GREY = "\"Inferior\" (cinza): sucata, só vale o preço de venda.",
 	FBAG_WHY_GEAR = "Equipamento que não é melhor do que o seu.",
 	FBAG_WHY_CHEAP = "O mais barato num vendedor; não é preciso para uma missão nem para as suas profissões.",

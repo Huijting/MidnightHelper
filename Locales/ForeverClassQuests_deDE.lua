@@ -1689,7 +1689,7 @@ for k, v in pairs({
 	FBAG_EARLY_OFF = "die Hilfe bei fast vollen Taschen ist aus. /mh bagfull early on holt sie zurück.",
 	FBAG_WHY_GREY_NOVALUE = "Grau und beim Händler nichts wert.",
 	FBAG_SUB = "Die drei billigsten Dinge in deinen Taschen, und warum sie wegkönnen:",
-	FBAG_NONE = "MH hat nichts gefunden, das sicher wegkann. Questgegenstände, Werkzeuge, Essen und Trinken, Munition, Klassenreagenzien, Gifte, Tränke, Elixiere, Fläschchen, Verbände, Schriftrollen, Schlüssel, Behälter, Rezepte und Bücher, Zutaten für deine Berufe, Verbesserungen und Gegenstände ab Qualität „Rar“ schlägt MH nie vor.",
+	FBAG_NONE = "MH hat nichts gefunden, das sicher wegkann. Questgegenstände, Werkzeuge, Essen und Trinken, Munition, Klassenreagenzien, Gifte, Tränke, Elixiere, Fläschchen, Verbände, Schriftrollen, Schlüssel, Behälter, Rezepte und Bücher, Haustiere, Reittiere und anderes zum Erlernen, Zutaten für deine Berufe, Verbesserungen und Gegenstände ab Qualität „Rar“ schlägt MH nie vor.",
 	FBAG_WHY_GREY = "„Schlecht“ (grau): Plunder, nur den Händlerpreis wert.",
 	FBAG_WHY_GEAR = "Ausrüstung, die nicht besser ist als deine.",
 	FBAG_WHY_CHEAP = "Beim Händler am billigsten; nicht für eine Quest oder deine Berufe nötig.",
