@@ -4,7 +4,10 @@ Hoort bij punt 1, optie B (Rob 22 nov via sparring: *"1 b"*). Onderzoek: mh-rese
 **Rob 22 nov via sparring, letterlijk: *"overnemen, ja"* = uit Zygor mogen plekken en nummers (id's, coördinaten,
 volgorde), geen teksten, notities of code. "Zygor b" van eerder die dag vervalt. GEBOUWD 22 nov: 172.**
 
-**Wat de 172 zijn** (GEMETEN, hertelling): 30 Herbalism, 31 Mining, 7 Skinning, 26 te koop bij 17 verkopers (193 paren met
+**Later op 22 nov (Rob: *"alles advies"*, Polestar A): 194.** 21 keer "valt van monsters" en Heavy Stock te koop
+(6 verkopers) kregen hun tweede bron uit Polestars opnames (CC BY 4.0). Generator: scratchpad `r_fill_build.py`.
+
+**Wat de eerste 172 zijn** (GEMETEN, hertelling): 30 Herbalism, 31 Mining, 7 Skinning, 26 te koop bij 17 verkopers (193 paren met
 een bekend punt; naam en punt van Wowhead), 78 "valt van monsters" zonder plek. Wat één bron heeft zwijgt.
 
 Per item: `reagent_sources.csv` + `reagent_sources.md` in

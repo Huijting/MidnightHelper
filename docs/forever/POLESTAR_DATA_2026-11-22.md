@@ -1,4 +1,4 @@
-# Polestar: is het vrije deel los te krijgen, en wat dekt het? (22 nov 2026) — onderzoek; na Robs ja gebruikt voor de recepten (commit 7ea56b68 van hun bron)
+# Polestar: is het vrije deel los te krijgen, en wat dekt het? (22 nov 2026) — onderzoek; na Robs ja gebruikt voor recepten en ingrediënten (commit 7ea56b68 van hun bron)
 
 Rob 22 nov via sparring, letterlijk: *"overnemen, ja"* (2. mag het vrije deel van Polestar uitgezocht worden).
 Uitzoeken mag; overnemen is een nieuwe ja. ▶ Die kwam (22 nov via sparring, letterlijk: *"alles advies"* = A):

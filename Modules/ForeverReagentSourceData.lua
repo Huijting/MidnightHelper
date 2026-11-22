@@ -1,15 +1,23 @@
 local _, ns = ...
 
 --[[
-	ForeverReagentSourceData.lua - WoW Forever 1.60.1.71037: where you get a crafting reagent (172 items, 22 Nov 2026).
+	ForeverReagentSourceData.lua - WoW Forever 1.60.1.71037: where you get a crafting reagent (194 items, 22 Nov 2026).
 	Rob via sparring 22 Nov 2026, verbatim: "1 b", "plek ja", "overnemen, ja" (places and numbers from Zygor: ids,
-	coordinates, order; no texts, notes or code). Nothing from Polestar or FlowUp.
+	coordinates, order; no texts, notes or code) and "alles advies" (Polestar's CC BY recordings as a second source).
+	Nothing else from Polestar, nothing from FlowUp.
 	An item is in here only with two sources that agree, or with Rob's own client:
 	  gathered = AllTheThings' Forever database + the Wowhead Forever tooltip of the node; Skinning: + Zygor
 	  sold     = AllTheThings' seller lists + Rob's client (Auctionator's vendor price cache) or the Wowhead Forever
 	             item page. Sellers = AllTheThings' and Zygor's npc ids, only those MH already has a point for
 	             (ForeverVendorSpots.lua, Wowhead Forever).
 	drops    = AllTheThings + Zygor's farm steps (item ids only). No place: which monsters is not in this file.
+	22 items (21 drops, Heavy Stock sold) have Polestar's recordings as the second source.
+	Contains data from "Polestar Recorder sessions" by the Polestar authors,
+	  source  https://github.com/fitzforge/polestar/blob/7ea56b6897f4d1006bad769317e78f9c85f7545a/data/codex/recorded.json
+	  licence Creative Commons Attribution 4.0 (CC BY 4.0), https://creativecommons.org/licenses/by/4.0/
+	  changed by Midnight Helper: only rows marked trusted were read; used to confirm, as a second source, that an
+	          item drops or is sold (and by which npc); reduced to the item and npc ids below; votes, chances and
+	          everything else left out. The Polestar authors do not endorse Midnight Helper.
 	Seller names per language: Wowhead Forever tooltips. Profession names: DB2 SkillLine.
 	AllTheThings database: commit 3b009971c7cb9287d3f1291b04c9cd59187cdeaa, under this licence:
 
@@ -133,6 +141,7 @@ ns.REAGENT_SOLD_BY = {
 	[4341] = { 3367, 4561, 5817, 8363 }, -- Yellow Dye
 	[4342] = { 3367, 4561, 5817, 8363 }, -- Purple Dye
 	[4399] = { 2381, 3367, 4561, 4775, 5817, 8363 }, -- Wooden Stock
+	[4400] = { 2381, 3367, 4561, 4775, 5817, 8363 }, -- Heavy Stock
 	[4536] = { 66, 1250, 2118, 2381, 3081, 3367, 4561, 4775, 5817, 8363 }, -- Shiny Red Apple
 	[6217] = { 66, 1250, 2118, 2381, 3081, 3367, 4561, 4775, 5817, 8363 }, -- Copper Rod
 	[6260] = { 66, 1250, 2118, 3081, 3367, 4561, 4775, 5817, 8363 }, -- Blue Dye
@@ -150,6 +159,8 @@ ns.REAGENT_DROPS = {
 	[814] = true, -- Flask of Oil
 	[1015] = true, -- Lean Wolf Flank
 	[1080] = true, -- Tough Condor Meat
+	[1081] = true, -- Crisp Spider Meat
+	[1288] = true, -- Large Venom Sac
 	[1468] = true, -- Murloc Fin
 	[1475] = true, -- Small Venom Sac
 	[2251] = true, -- Gooey Spider Leg
@@ -175,8 +186,11 @@ ns.REAGENT_DROPS = {
 	[4306] = true, -- Silk Cloth
 	[4337] = true, -- Thick Spider's Silk
 	[4338] = true, -- Mageweave Cloth
+	[4402] = true, -- Small Flame Sac
 	[4461] = true, -- Raptor Hide
 	[4589] = true, -- Long Elegant Feather
+	[5051] = true, -- Dig Rat
+	[5116] = true, -- Long Tail Feather
 	[5465] = true, -- Small Spider Leg
 	[5466] = true, -- Scorpid Stinger
 	[5467] = true, -- Kodo Meat
@@ -185,6 +199,7 @@ ns.REAGENT_DROPS = {
 	[5470] = true, -- Thunder Lizard Tail
 	[5471] = true, -- Stag Meat
 	[5635] = true, -- Sharp Claw
+	[5637] = true, -- Large Fang
 	[5784] = true, -- Slimy Murloc Scale
 	[5785] = true, -- Thick Murloc Scale
 	[6889] = true, -- Small Egg
@@ -192,6 +207,7 @@ ns.REAGENT_DROPS = {
 	[7068] = true, -- Elemental Fire
 	[7069] = true, -- Elemental Air
 	[7070] = true, -- Elemental Water
+	[7072] = true, -- Naga Scale
 	[7075] = true, -- Core of Earth
 	[7076] = true, -- Essence of Earth
 	[7077] = true, -- Heart of Fire
@@ -201,13 +217,22 @@ ns.REAGENT_DROPS = {
 	[7081] = true, -- Breath of Wind
 	[7082] = true, -- Essence of Air
 	[7972] = true, -- Ichor of Undeath
+	[8150] = true, -- Deeprock Salt
+	[8152] = true, -- Flask of Big Mojo
+	[8168] = true, -- Jet Black Feather
+	[9260] = true, -- Volatile Rum
 	[10285] = true, -- Shadow Silk
 	[10286] = true, -- Heart of the Wild
+	[11754] = true, -- Black Diamond
 	[12037] = true, -- Mystery Meat
 	[12184] = true, -- Raptor Flesh
 	[12202] = true, -- Tiger Meat
 	[12203] = true, -- Red Wolf Meat
+	[12204] = true, -- Heavy Kodo Meat
+	[12205] = true, -- White Spider Meat
+	[12206] = true, -- Tender Crab Meat
 	[12207] = true, -- Giant Egg
+	[12208] = true, -- Tender Wolf Meat
 	[12223] = true, -- Meaty Bat Wing
 	[12662] = true, -- Demonic Rune
 	[12803] = true, -- Living Essence
@@ -217,9 +242,14 @@ ns.REAGENT_DROPS = {
 	[14047] = true, -- Runecloth
 	[14227] = true, -- Ironweb Spider Silk
 	[14256] = true, -- Felcloth
+	[17056] = true, -- Light Feather
+	[18512] = true, -- Larval Acid
 	[19441] = true, -- Huge Venom Sac
+	[20424] = true, -- Sandworm Meat
 	[21024] = true, -- Chimaerok Tenderloin
 	[255007] = true, -- Golem Isospring
+	[273125] = true, -- Lich's Index Finger
+	[273127] = true, -- Golem Heart
 }
 ns.REAGENT_GATHER_NAMES = {
 	enUS = { H = "Herbalism", M = "Mining", S = "Skinning" },

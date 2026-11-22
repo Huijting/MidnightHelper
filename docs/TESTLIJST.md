@@ -88,7 +88,8 @@ bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt o
 - [ ] Muis op Copper Ore: onder "MH: Used for …" staat "MH: Gathered with Mining". Op Silverleaf: "… with Herbalism".
 - [ ] Muis op Coarse Thread of Empty Vial: "MH: Sold by <naam> (<zone>, afstand)". Klopt die verkoper, en verkoopt hij het?
 - [ ] Muis op Linen Cloth: "MH: Dropped by monsters". Op Light Leather: "MH: Gathered with Skinning".
-- [ ] Muis op Light Hide of Crisp Spider Meat: géén "waar"-regel (één bron, dus MH zwijgt).
+- [ ] Muis op Light Hide: géén "waar"-regel (één bron, dus MH zwijgt).
+- [ ] (22 nov later, *"alles advies"*) Muis op Crisp Spider Meat: "MH: Dropped by monsters". Op Heavy Stock: een verkoper.
 - [ ] Alliance, muis op Green Dye: een verkoper met zone (die was er eerst niet).
 - [ ] `/mh skillup`, een beroep waar je een te kopen ingrediënt tekortkomt: de regel staat eronder en onderin een knop
       "The way to <naam>". Klik: de pijl gaat naar die verkoper.

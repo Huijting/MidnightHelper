@@ -27,7 +27,7 @@ onderweg leger te maken, check dat ook, tijd voor koffie en ontbijt dus ga door 
           🔴 Bij de release: Polestar-naam in RELEASE_NOTES, CF-beschrijving en site (tekst in SITE_SEIN). Was: Classic A (553 + 116 pijlen, zonder Zygors losse receptenlijst, geen Zygor-skillgetallen,
           "Classic-data, nog niet in Forever gezien") samen met Polestar A (alleen recorded.json, trusted, tweede bron of
           controle; naam, bron, licentie, bewerking in het databestand + zichtbare plek noteren voor de release).
-      [ ] 9. Ingrediënten aanvullen uit recorded.json, zelfde regels. Komt een getal anders uit dan voorgelegd: melden.
+      [x] 9. Ingrediënten 172 → 194 (GEBOUWD, wacht op test; zelfde naamsvermelding bij de release). Was: aanvullen uit recorded.json, zelfde regels. Komt een getal anders uit dan voorgelegd: melden.
 - [x] 6. "Bekende recepten" GEREPAREERD (Rob via sparring, letterlijk: *"Recepten ja"*): kopie, eigen venster vervangt,
       beroepen die hij niet heeft weg, linked overslaan, leeg wist niets. Wacht op test (per character elk beroep openen).
       De kopie-regel van 21 nov ("A") staat nog. Geen tag of release.

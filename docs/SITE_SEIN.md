@@ -87,9 +87,10 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 - Tag + commit:   geen tag (commit: zie git log, "where you get a reagent")
 - Status:         alleen op main
 - Mag op de site: nee (nog niet door Rob getest, geen release)
-- Speler ziet:    bij 172 ingrediënten in de tooltip en in Skill up: dat het van monsters valt (geen plek), met welk beroep je het verzamelt (Herbalism, Mining, Skinning)
+- Speler ziet:    bij 194 ingrediënten in de tooltip en in Skill up: dat het van monsters valt (geen plek), met welk beroep je het verzamelt (Herbalism, Mining, Skinning)
                   of wie het verkoopt. Skill up heeft een knop met de pijl naar die verkoper. Bron: AllTheThings (MIT) +
-                  Wowhead + Zygor (alleen nummers) + de client.
+                  Wowhead + Zygor (alleen nummers) + de client + Polestar-opnames (CC BY 4.0).
+- Naamsvermelding: VERPLICHT bij de release, zelfde drie plekken en tekst als bij "waar haal ik dit recept?".
 - Knoplabels:     FSRC_GO_FMT
 - Commando's:     /mh usedfor [on|off], /mh skillup
 - Spel:           Forever
