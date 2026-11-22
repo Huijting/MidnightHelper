@@ -25,6 +25,18 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 22 nov — Forever: waar haal ik dit recept? (Rob: "1 b", "plek ja", "alles advies")
+
+- [ ] **Sluit het spel helemaal af en start opnieuw** (nieuwe bestanden). Open eerst elk eigen beroep 3 seconden.
+- [ ] Muis op een receptitem (Pattern:, Plans:, Recipe: …) of iets maakbaars dat je NIET kent: onder "You do not know this
+      recipe" staat waar je het haalt. Ken je het wel: geen bronregel.
+- [ ] Bij sommige staat "Needs: …" (reputatie, munt, specialisatie) of "Classic data, not yet seen in Forever".
+- [ ] `/mh skillup`: onderaan per beroep hooguit drie recepten die je nu kunt leren, met waar, en een knop "The way to
+      <naam>". Een ingrediënt dat je tekortkomt gaat op die knop voor.
+- [ ] Klik de knop, loop erheen: staat die persoon daar, en heeft hij dat recept? Zo niet: welk recept en wie.
+- [ ] **Daarna een gevecht**: geen "action blocked" op naam van MidnightHelper.
+- [ ] `/mh skillup probe` zegt bij "where you get a recipe" waarom, en noemt Polestar met CC BY 4.0.
+
 ## 22 nov — Forever: Bags full bewaart nog meer (Rob: "alles advies", tassen B)
 
 - [ ] Typ `/reload`, dan `/mh bagfull show`: gif, drankjes, elixers, flasks, verband, scrolls, sleutels, tassen, recepten

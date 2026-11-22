@@ -286,6 +286,8 @@ Modules\ForeverSkillupData.lua
 Modules\ForeverSkillup.lua
 Modules\ForeverReagentSourceData.lua
 Modules\ForeverReagentSource.lua
+Modules\ForeverRecipeSourceData.lua
+Modules\ForeverRecipeSource.lua
 Modules\ForeverBagFull.lua
 Modules\ForeverDurability.lua
 Modules\ForeverCratesData.lua

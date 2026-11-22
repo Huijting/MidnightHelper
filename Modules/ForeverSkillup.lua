@@ -567,6 +567,15 @@ local function TipLines(tooltip, id)
 		-- skill a trainer teaches it at is not in the data (offline test 20 Nov 2026: Runed Copper Breastplate at 40).
 		if m and m.rank and not Knows(spell) then
 			tooltip:AddLine(ns:L("FSKILL_TIP_UNKNOWN"), 0.6, 0.6, 0.6, true)
+			-- 22 Nov 2026 (Rob: "1 b", "plek ja", "alles advies"): where you get the recipe (ForeverRecipeSource.lua).
+			local from = ns.ForeverRecipeSourceLines and ns.ForeverRecipeSourceLines(spell)
+			for i, s in ipairs(from or {}) do
+				if i == 1 then
+					tooltip:AddLine(s, 0.6, 0.8, 1, true)
+				else
+					tooltip:AddLine(s, 0.6, 0.6, 0.6, true)
+				end
+			end
 		elseif m and m.rank then
 			local c, ch = Colour(r, m.rank)
 			local col = COLOUR[c]
@@ -792,6 +801,56 @@ local function MakeFirst(key, item, missing)
 end
 ns.ForeverSkillupMakeFirst = MakeFirst -- for the offline check
 
+--- Up to three recipes you do not know, can learn at this skill and that still give a point, with where you get them.
+--- Returns the lines and the first arrow row. At what skill you learn one is never shown, only used to choose.
+local function LearnLines(key, skill)
+	local out, pickList = {}, {}
+	if not (ns.RECIPE_SOURCE and ns.ForeverRecipeSourceLines) then
+		return out
+	end
+	for s, src in pairs(ns.RECIPE_SOURCE) do
+		local r = REC[s]
+		if r and src.k ~= "K" and src.at and src.at <= skill and ProfKey(r) == key and not Knows(s) then
+			local _, ch = Colour(r, skill)
+			if ch > 0 then
+				pickList[#pickList + 1] = { r = r, ch = ch, go = ns.ForeverRecipeHasArrow(s) }
+			end
+		end
+	end
+	table.sort(pickList, function(a, b)
+		if a.go ~= b.go then
+			return a.go
+		end
+		if math.abs(a.ch - b.ch) > 0.001 then
+			return a.ch > b.ch
+		end
+		if a.r.g ~= b.r.g then
+			return a.r.g > b.r.g
+		end
+		return a.r.spell < b.r.spell
+	end)
+	local first, n = nil, 0
+	for _, e in ipairs(pickList) do
+		local lines, row = ns.ForeverRecipeSourceLines(e.r.spell)
+		if lines then
+			if n == 0 then
+				out[1] = " "
+				out[2] = "|cffffcc66" .. ns:L("FRSRC_HEAD") .. "|r"
+			end
+			out[#out + 1] = "  " .. RecipeLink(e.r)
+			for i, s in ipairs(lines) do
+				out[#out + 1] = "     " .. (i == 1 and "|cff99ccff" or "|cff9d9d9d") .. s .. "|r"
+			end
+			first = first or row
+			n = n + 1
+			if n == 3 then
+				break
+			end
+		end
+	end
+	return out, first
+end
+
 --- The text for one profession.
 local planSeller -- the seller of the first ingredient you are short of (the window's arrow button), or nil
 local function PlanText(key, mine)
@@ -816,10 +875,15 @@ local function PlanText(key, mine)
 		add(ns:L("FSKILL_MAXED_FMT"):format(m.maxRank))
 	end
 	local step, list = NextStep(key, m.rank, m.maxRank)
+	local learn, learnRow = LearnLines(key, m.rank)
 	if not step then
 		if not maxed then
 			add(ns:L("FSKILL_NONE"))
 		end
+		for _, s in ipairs(learn) do
+			add(s)
+		end
+		planSeller = learnRow
 		return table.concat(L, "\n")
 	end
 	if not maxed then
@@ -871,6 +935,10 @@ local function PlanText(key, mine)
 			add("  " .. ns:L("FSKILL_SHOP_DONE"))
 		end
 	end
+	for _, s in ipairs(learn) do
+		add(s)
+	end
+	planSeller = planSeller or learnRow -- the ingredient you are short of comes first
 	add(" ")
 	add("|cff9d9d9d" .. ns:L("FSKILL_ESTIMATE") .. "|r")
 	return table.concat(L, "\n")
@@ -1149,6 +1217,11 @@ function ns.ForeverSkillupSlash(arg)
 		print(PREFIX .. ("skillup: %d recipes in the list (build %s), tooltip hook %s, tooltips %s."):format(n,
 			tostring(ns.SKILLUP_BUILD), hooked and "yes" or "NO", Enabled() and "on" or "off"))
 		print(("  known recipes stored for this character: %d. Last: %s"):format(known, last))
+		if ns.ForeverRecipeSourceLast then
+			local why, credit = ns.ForeverRecipeSourceLast()
+			print("  where you get a recipe: " .. why)
+			print("  that data " .. credit)
+		end
 		print("  profession window: " .. scanWhy)
 		print("  professions you do not have: " .. pruneWhy)
 		local b = ns.db and ns.db.foreverKnownRecipesBackup

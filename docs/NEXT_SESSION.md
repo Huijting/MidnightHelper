@@ -23,7 +23,8 @@ onderweg leger te maken, check dat ook, tijd voor koffie en ontbijt dus ga door 
       4.0); geeft 549 recepten een tweede bron. Rob koos A (*"alles advies"*): bouwen = 8 en 9.
 - ▶ **Robs *"alles advies"* (22 nov via sparring, letterlijk), in deze volgorde:**
       [x] 7. Tassen bewaren B.
-      [ ] 8. Recepten bouwen: Classic A (553 + 116 pijlen, zonder Zygors losse receptenlijst, geen Zygor-skillgetallen,
+      [x] 8. Recepten GEBOUWD (1102 antwoorden, 206 pijlen: 90 meer dan voorgelegd, gemeld; herstart, wacht op test).
+          🔴 Bij de release: Polestar-naam in RELEASE_NOTES, CF-beschrijving en site (tekst in SITE_SEIN). Was: Classic A (553 + 116 pijlen, zonder Zygors losse receptenlijst, geen Zygor-skillgetallen,
           "Classic-data, nog niet in Forever gezien") samen met Polestar A (alleen recorded.json, trusted, tweede bron of
           controle; naam, bron, licentie, bewerking in het databestand + zichtbare plek noteren voor de release).
       [ ] 9. Ingrediënten aanvullen uit recorded.json, zelfde regels. Komt een getal anders uit dan voorgelegd: melden.

@@ -187,6 +187,9 @@ Modules\ForeverSkillup.lua
 # Where you get a reagent: gathered or sold by whom (Rob, 22 Nov 2026, via sparring: "1 b").
 Modules\ForeverReagentSourceData.lua
 Modules\ForeverReagentSource.lua
+# Where you get a recipe (Rob, 22 Nov 2026, via sparring: "alles advies").
+Modules\ForeverRecipeSourceData.lua
+Modules\ForeverRecipeSource.lua
 # Bags full: the three cheapest things and why they can go (Rob, 20 Nov 2026: "Beide ja", step 1 of MIDDEL).
 Modules\ForeverBagFull.lua
 # Worn gear warning with the nearest repairer (Rob, 20 Nov 2026: "ja doe maar").

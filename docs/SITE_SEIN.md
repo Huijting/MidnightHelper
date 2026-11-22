@@ -28,6 +28,20 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 22 nov 2026 — Forever: waar haal ik dit recept?
+- Tag + commit:   geen tag (commit: zie git log, "where you get a recipe")
+- Status:         alleen op main
+- Mag op de site: nee (nog niet door Rob getest, geen release)
+- Speler ziet:    bij een recept dat je nog niet kent: waar je het haalt (trainer, verkoper, monsters, quest), wat je
+                  ervoor nodig hebt, en bij 206 recepten een pijl. Waar het oude kennis kan zijn staat "Classic data, not
+                  yet seen in Forever". 1102 van de 2119 recepten.
+- Naamsvermelding: VERPLICHT bij de release, zichtbaar op drie plekken: RELEASE_NOTES.md, CURSEFORGE_DESCRIPTION.md
+                  (credits) en de site bij deze functie: "Includes data from Polestar Recorder sessions by the Polestar
+                  authors (github.com/fitzforge/polestar), CC BY 4.0, filtered and reduced." Staat al in het databestand.
+- Knoplabels:     FSRC_GO_FMT
+- Commando's:     /mh skillup, /mh skillup probe
+- Spel:           Forever
+
 ## 22 nov 2026 — Forever: bekende recepten kloppen per character
 - Tag + commit:   geen tag (commit: zie git log, "known recipes")
 - Status:         alleen op main

@@ -169,7 +169,7 @@ end
 --- @return list, positionKnown
 local function List(c)
 	local side = Side()
-	local rows = (c.svc == "transport" and ns.ForeverTravelTransportSpots and ns.ForeverTravelTransportSpots())
+	local rows = c.rows or (c.svc == "transport" and ns.ForeverTravelTransportSpots and ns.ForeverTravelTransportSpots())
 		or (c.svc == "repair" and RepairSpots())
 		or (c.svc == "crates" and ns.FOREVER_CRATE_SPOTS)
 		or (c.svc == "library" and ns.FOREVER_LIBRARY_SPOTS)
@@ -178,7 +178,9 @@ local function List(c)
 	local out = {}
 	for _, v in ipairs(rows or {}) do
 		local sells
-		if c.svc then
+		if c.rows then -- the caller's own npcs (recipe sources)
+			sells = true
+		elseif c.svc then
 			sells = v.kind == c.svc
 		elseif c.kind then
 			sells = v.kind == c.kind
@@ -412,6 +414,20 @@ Fill = function()
 	f.scroll:SetVerticalScroll(0)
 	f.hint:SetText(ns:L("FVEND_HINT"))
 	return f
+end
+
+--- 22 Nov 2026 (ForeverRecipeSource.lua): the nearest of exactly these npcs on your side. rows = { npc, name, map, x, y,
+--- side, old }. trainer = true: the chat line must not say "goes away when you open that seller's shop".
+function ns.ForeverVendorNearestOf(rows, trainer)
+	local e = List({ rows = rows })[1]
+	if not e then
+		return nil
+	end
+	local v = e.v
+	return { npc = v.npc, name = v.name or "?", zone = ZoneName(v.map), old = v.old, dist = e.dist and Distance(e.dist) or nil,
+		go = function()
+			return GoTo(e, nil, trainer)
+		end }
 end
 
 --- 22 Nov 2026 ("where do I get this?", ForeverReagentSource.lua): the nearest of THESE trade sellers on your side.
