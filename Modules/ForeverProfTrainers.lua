@@ -131,6 +131,12 @@ local function Build()
 	else
 		tinsert(UISpecialFrames, f:GetName())
 	end
+	f.buy._mhAutoWidth = true -- sized from its text
+	if ns.ForeverStyle and ns.ForeverStyle.SkinPanel then -- style A, opaque (Rob, 22 Nov 2026: "Doe maar vensters A")
+		ns.ForeverStyle.SkinPanel(f, function()
+			Fill()
+		end)
+	end
 	f:Hide()
 	win = f
 	return f
@@ -162,6 +168,9 @@ local function Row(f, i)
 			ns.ForeverTrainerGoTo(e.c, e.dist, nil, self.prof)
 		end
 	end)
+	if ns.ForeverStyle and ns.ForeverStyle.SkinPart then
+		ns.ForeverStyle.SkinPart(r)
+	end
 	f.rows[i] = r
 	return r
 end
@@ -188,6 +197,9 @@ Fill = function()
 				text = "|cffffd100" .. text .. "|r"
 			end
 			b:SetText(text)
+			if ns.ForeverStyle and ns.ForeverStyle.SetMarked then
+				ns.ForeverStyle.SetMarked(b, key == selected)
+			end
 			if key == selected then
 				b:LockHighlight()
 			else

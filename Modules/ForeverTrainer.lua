@@ -626,6 +626,9 @@ local function Build()
 	else
 		tinsert(UISpecialFrames, f:GetName())
 	end
+	if ns.ForeverStyle and ns.ForeverStyle.SkinPanel then -- style A, opaque (Rob, 22 Nov 2026: "Doe maar vensters A")
+		ns.ForeverStyle.SkinPanel(f)
+	end
 	f:Hide()
 	win = f
 	return f
@@ -702,6 +705,9 @@ local function Fill(level, force)
 			fs = f.child:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
 			fs:SetWidth(480)
 			fs:SetJustifyH("LEFT")
+			if ns.ForeverStyle and ns.ForeverStyle.SkinPart then
+				ns.ForeverStyle.SkinPart(fs)
+			end
 			f.rows[i] = fs
 		end
 		fs:ClearAllPoints()

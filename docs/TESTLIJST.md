@@ -25,13 +25,26 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 22 nov — Forever: 11 vensters dicht in stijl A (Rob: "Doe maar vensters A")
+
+Typ eerst `/reload`. Ga bij nameplates staan. Vier vensters kun je openen:
+- [ ] `/mh bagfull show` (Bags full): dicht, tekst past, Destroy vraagt eerst, Equip werkt (als die er staat).
+- [ ] `/mh crates test` (Crates): dicht, muis op de naam = tooltip, knop past.
+- [ ] `/mh durability test` (Durability): dicht, rode kop blijft rood, muis op het item = tooltip.
+- [ ] `/mh play` (How to play): dicht, scrollen tot onderaan, niets valt weg.
+- [ ] In elk van de vier: een knop die uit staat is vaag, Shift+scroll maakt groter of kleiner, Escape sluit.
+- [ ] Daarna een gevecht: geen "action blocked" op naam van MidnightHelper.
+- [niet te testen] Characters, Dungeons, Macros, Profession trainers, Trainer, Vendors en Weapons zijn ook aangepast, maar
+      openen niet meer: elk commando en elke knop gaat naar het overzicht (GEMETEN in de code). Alleen buiten het spel getest.
+
 ## 22 nov — Forever: Skill up-venster gerepareerd (Rob: "venster ja")
 
-- [ ] Typ `/reload`, dan `/mh skillup`, met nameplates of mobs achter het venster: het is dicht, er loopt niets door de tekst.
-- [ ] Klik een ander beroep: je ziet welk beroep gekozen is.
-- [ ] De knop onderin noemt het beroep ("Show the way to a Leatherworking trainer", "… an Alchemy trainer") en de tekst
-      past erin. Klik: de pijl gaat naar een trainer van dat beroep.
-- [ ] Een recept zonder bekende persoon: "MH doesn't know which trainer yet" of "… which vendor yet", ook in de tooltip.
+- [x] ✅ (Rob 22 nov via sparring: *"Venster is goed"*) Typ `/reload`, dan `/mh skillup`, met nameplates of mobs achter het venster: het is dicht, er loopt niets door de tekst.
+- [x] ✅ (Rob 22 nov via sparring: *"Venster is goed"*) Klik een ander beroep: je ziet welk beroep gekozen is.
+- [x] ✅ (Rob 22 nov via sparring: *"Venster is goed"*) De knop onderin noemt het beroep ("Show the way to a Leatherworking trainer").
+- [ ] De tekst past erin, ook "… an Alchemy trainer". Klik: de pijl gaat naar een trainer van dat beroep.
+- [x] ✅ (Rob 22 nov via sparring: *"Venster is goed"*) Een recept zonder bekende persoon: "MH doesn't know which trainer yet" of "… which vendor yet".
+- [ ] Diezelfde zin in de tooltip.
 - [ ] Muis op een itemnaam = de tooltip; scrollen schuift de tekst; Shift+scroll maakt het venster groter of kleiner;
       Escape sluit het.
 

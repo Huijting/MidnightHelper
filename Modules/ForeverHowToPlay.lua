@@ -1497,6 +1497,11 @@ local function Build()
 	else
 		tinsert(UISpecialFrames, f:GetName())
 	end
+	if ns.ForeverStyle and ns.ForeverStyle.SkinPanel then -- style A, opaque (Rob, 22 Nov 2026: "Doe maar vensters A")
+		ns.ForeverStyle.SkinPanel(f, function()
+			f.child:SetHeight(f.body:GetStringHeight() + 20)
+		end)
+	end
 	f:Hide()
 	win = f
 	return f

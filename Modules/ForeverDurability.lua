@@ -131,6 +131,9 @@ local function Build()
 	else
 		tinsert(UISpecialFrames, f:GetName())
 	end
+	if ns.ForeverStyle and ns.ForeverStyle.SkinPanel then -- style A, opaque (Rob, 22 Nov 2026: "Doe maar vensters A")
+		ns.ForeverStyle.SkinPanel(f)
+	end
 	f:Hide()
 	win = f
 	return f

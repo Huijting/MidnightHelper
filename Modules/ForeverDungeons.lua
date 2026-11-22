@@ -311,6 +311,9 @@ local function HeadRow(i)
 			Refresh()
 		end
 	end)
+	if ns.ForeverStyle and ns.ForeverStyle.SkinPart then
+		ns.ForeverStyle.SkinPart(h)
+	end
 	heads[i] = h
 	return h
 end
@@ -366,6 +369,10 @@ local function Row(i)
 			GameTooltip:Hide()
 		end
 	end)
+	r.route._mhAutoWidth = true -- sized from its text
+	if ns.ForeverStyle and ns.ForeverStyle.SkinPart then
+		ns.ForeverStyle.SkinPart(r)
+	end
 	rows[i] = r
 	return r
 end
@@ -435,6 +442,9 @@ local function Build()
 	f.note:SetWidth(W - 44)
 	f.note:SetJustifyH("LEFT")
 
+	if ns.ForeverStyle and ns.ForeverStyle.SkinPanel then -- style A, opaque (Rob, 22 Nov 2026: "Doe maar vensters A")
+		ns.ForeverStyle.SkinPanel(f)
+	end
 	f:Hide()
 	win = f
 	tinsert(UISpecialFrames, "MidnightHelperForeverDungeons")

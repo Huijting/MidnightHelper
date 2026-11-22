@@ -600,6 +600,108 @@ function S.SkinOnShow(f)
 	end
 end
 
+--------------------------------------------------------------------------------
+-- A list window in style A (22 Nov 2026, Rob via sparring: "Doe maar vensters A"): what SkinWindow alone gets wrong.
+--   a button text shrinks until it fits (the skin's font is larger) · a disabled button is dimmed (the skin hides the
+--   template's grey look) · the chosen row gets a mark of its own (the skin hides what LockHighlight draws) · rows made
+--   by a later fill are skinned when they are made, so the fill measures the right font.
+--------------------------------------------------------------------------------
+local DIM, LABEL_SMALLEST = 0.45, 8
+
+local function FitButton(b)
+	local fs = b.GetFontString and b:GetFontString()
+	local t = fs and fs:GetText()
+	if not t or t == "" or b._mhAutoWidth then
+		return
+	end
+	local room = (b:GetWidth() or 0) - 8
+	if room <= 0 then
+		return
+	end
+	local file, size, flags = fs:GetFont()
+	if not file then
+		return
+	end
+	b._mhLabelBase = b._mhLabelBase or math.floor((size or 12) + 0.5)
+	local th = S.T()
+	local want = b._mhLabelBase
+	local measure = fs.GetUnboundedStringWidth or fs.GetStringWidth
+	S.Font(fs, th.fonts.head2, want, th.fallback.head2, flags)
+	while want > LABEL_SMALLEST and (measure(fs) or 0) > room do
+		want = want - 1
+		S.Font(fs, th.fonts.head2, want, th.fallback.head2, flags)
+	end
+end
+
+local function Dim(b)
+	if b.IsEnabled then
+		b:SetAlpha(b:IsEnabled() and 1 or DIM)
+	end
+end
+
+local function PanelButtons(obj, depth)
+	if depth > 8 or not obj.GetChildren then
+		return
+	end
+	for _, child in ipairs({ obj:GetChildren() }) do
+		if child._mhSkinned and child.Left and child.GetFontString then
+			if not child._mhPanelButton then
+				child._mhPanelButton = true
+				if hooksecurefunc then -- after the button's own method; never on OnClick
+					hooksecurefunc(child, "SetText", FitButton)
+					for _, method in ipairs({ "Enable", "Disable", "SetEnabled" }) do
+						hooksecurefunc(child, method, Dim)
+					end
+				end
+			end
+			FitButton(child)
+			Dim(child)
+		end
+		PanelButtons(child, depth + 1)
+	end
+end
+
+--- A row or font string a fill just made: style it now, before the fill measures it.
+function S.SkinPart(obj)
+	if obj.GetObjectType and obj:GetObjectType() == "FontString" then
+		SkinFont(obj)
+		return
+	end
+	Walk(obj, nil, 0)
+	PanelButtons(obj, 0)
+end
+
+--- Style a window that has buttons or a list. At the END of its Build (after its own SetScript("OnShow")). refill: the
+--- window's own re-measure, run once more after the skin's late font pass.
+function S.SkinPanel(f, refill)
+	S.SkinOnShow(f)
+	PanelButtons(f, 0)
+	f:HookScript("OnShow", function(self)
+		PanelButtons(self, 0)
+		if C_Timer and C_Timer.After then
+			C_Timer.After(0.15, function()
+				if self:IsShown() then
+					if refill then
+						refill(self)
+					end
+					PanelButtons(self, 0)
+				end
+			end)
+		end
+	end)
+end
+
+--- The chosen button of a list.
+function S.SetMarked(b, on)
+	if not b._mhMark then
+		local g = S.T().gold
+		b._mhMark = b:CreateTexture(nil, "ARTWORK")
+		b._mhMark:SetAllPoints()
+		b._mhMark:SetColorTexture(g[1], g[2], g[3], 0.30)
+	end
+	b._mhMark:SetShown(on and true or false)
+end
+
 --- Money as gold, silver AND copper, each with its coin, also when a part is 0 ("0g 3s 14c" with coins). Rob, 18 Nov
 --- 2026 (via sparring): "kunnen we niet ook wanneer we 0 goud hebben we dat ook laten zien dmv een 0m en een goud
 --- symbooltje net zoals de zilver en copper ?" → "ja laat alle 3 zien". GetCoinTextureString leaves zero parts out, so

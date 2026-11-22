@@ -344,6 +344,9 @@ local function Row(i)
 		end
 		Refresh()
 	end)
+	if ns.ForeverStyle and ns.ForeverStyle.SkinPart then
+		ns.ForeverStyle.SkinPart(r)
+	end
 	rows[i] = r
 	return r
 end
@@ -413,6 +416,9 @@ local function Build()
 	f.note:SetWidth(W - 44)
 	f.note:SetJustifyH("LEFT")
 
+	if ns.ForeverStyle and ns.ForeverStyle.SkinPanel then -- style A, opaque (Rob, 22 Nov 2026: "Doe maar vensters A")
+		ns.ForeverStyle.SkinPanel(f)
+	end
 	f:Hide()
 	win = f
 	tinsert(UISpecialFrames, "MidnightHelperForeverChars")

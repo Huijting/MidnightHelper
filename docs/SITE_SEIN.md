@@ -28,10 +28,20 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 22 nov 2026 — Forever: meer vensters dicht in de stijl van het overzicht
+- Tag + commit:   geen tag (commit: zie git log, "windows in style A")
+- Status:         alleen op main
+- Mag op de site: nee (nog niet door Rob getest, geen release)
+- Speler ziet:    Bags full, Crates, Durability en How to play zijn dicht, in de stijl van het overzicht. (Zeven oude
+                  reservevensters ook, die opent een speler niet meer: niet noemen.)
+- Knoplabels:     geen
+- Commando's:     /mh bagfull show, /mh play
+- Spel:           Forever
+
 ## 22 nov 2026 — Forever: Skill up-venster leesbaar, knop noemt het beroep
 - Tag + commit:   geen tag (commit: zie git log, "Skill up window")
 - Status:         alleen op main
-- Mag op de site: nee (nog niet door Rob getest, geen release)
+- Mag op de site: nee (getest door Rob: "Venster is goed", niet de klik; geen release)
 - Speler ziet:    het Skill up-venster is dicht (stijl van het overzicht), zegt erbij als MH nog niet weet welke trainer of
                   verkoper, en de knop onderin noemt het beroep.
 - Knoplabels:     FSKILL_GO_TRAINER_FMT (het label van 5.7.0 was FSKILL_GO_TRAINER)
