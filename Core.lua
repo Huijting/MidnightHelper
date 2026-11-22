@@ -1538,10 +1538,14 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
-	-- /mh rest [go] — Forever: where rested XP builds, the nearest inn (ForeverRestXP.lua, 20 Nov 2026).
-	if msg == "rest" or msg == "rest go" then
-		if ns.ForeverRestSlash then
-			ns.ForeverRestSlash(msg:match("^rest%s+(%a+)$"))
+	-- /mh rest [go|xp] — Forever: where rested XP builds, the nearest inn (ForeverRestXP.lua, 20 Nov 2026), and XP per
+	-- hour. Bare /mh rest prints the low mana/health warning's diagnosis too; its on|off|test|mana|health are further down.
+	if msg == "rest" or msg == "rest go" or msg == "rest xp" then
+		if ns.ForeverRestXPSlash then
+			ns.ForeverRestXPSlash(msg:match("^rest%s+(%a+)$"))
+			if msg == "rest" and ns.ForeverRestSlash then
+				ns.ForeverRestSlash("")
+			end
 		else
 			print("|cffffcc00Midnight Helper:|r the rested XP tip is for WoW Forever only.")
 		end

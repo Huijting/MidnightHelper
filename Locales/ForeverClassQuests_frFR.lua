@@ -593,6 +593,16 @@ for k, v in pairs({
 	FDQ_CLASS = "quête de classe",
 	FDQ_ARROW_FMT = "flèche placée sur %s (%s) pour \"%s\".",
 	FDQ_NOTE = "Tiré des guides de quêtes de donjon de Zygor ; les endroits ne sont pas encore vérifiés en jeu. Les niveaux des quêtes ne sont pas dans nos données.",
+	-- 21 Nov 2026: XP per hour (ForeverXPRate.lua), FXPRATE_* (mh-writer, not reviewed by a native speaker).
+	FXPRATE_SW = "XP par heure et temps jusqu'au prochain niveau",
+	FXPRATE_SW_DESC = "Sous la barre d'XP de cet aperçu : combien de temps avant ton prochain niveau au rythme de ta dernière heure de jeu, et dans son infobulle ton XP par heure. Compté seulement quand tu es connecté sur ce personnage, donc une nuit hors ligne ne le fait pas baisser. Pas au niveau maximum.",
+	FXPRATE_SHORT_FMT = "niveau %d dans %s",
+	FXPRATE_TIP_FMT = "Environ %s XP par heure (ta dernière heure de jeu sur ce personnage).",
+	FXPRATE_TIP_LEVEL_FMT = "À ce rythme : niveau %d dans %s.",
+	FXPRATE_MEASURING = "XP par heure : MH mesure encore. Un nombre apparaît après quelques minutes de jeu avec un peu d'XP.",
+	FXPRATE_HM_FMT = "%d h %d min",
+	FXPRATE_MIN_FMT = "%d min",
+	FXPRATE_LT_MIN = "moins d'une minute",
 	-- 19 Nov 2026: the small boss card. Our own translation.
 	FDG_CARD_SW = "Petite carte de boss quand tu cibles un boss",
 	FDG_CARD_SW_DESC = "Dans un donjon : cible un boss et une petite carte montre ce qu'il fait, avec un conseil. Une autre cible la cache. Le bouton de la carte ouvre tout le guide des boss.",

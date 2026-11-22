@@ -243,6 +243,8 @@ Modules\ForeverNodeSkillData.lua
 Modules\ForeverLootSparkle.lua
 # Log out where rested XP builds: nearest inn + Hearthstone tip (Rob, 20 Nov 2026, via sparring: "doorgaan met REST XP").
 Modules\ForeverRestXP.lua
+# XP per hour + time to level under the XP bar (Rob, 21 Nov 2026, via sparring: "daarna 3 en 4").
+Modules\ForeverXPRate.lua
 # Tooltip lines "never for your class" + "needed for a quest in your log" (Rob, 16 Nov 2026, via sparring: "allemaal").
 Modules\ForeverItemTips.lua
 # Class quests step by step, first the Druid's Bear Form (Rob, 16 Nov 2026, via sparring).

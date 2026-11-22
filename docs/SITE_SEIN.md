@@ -28,6 +28,25 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 22 nov 2026 — Forever: /mh rest off|on|test gerepareerd
+- Tag + commit:   geen tag (commit: zie git log, "Forever XP per hour")
+- Status:         alleen op main
+- Mag op de site: nee (reparatie, niet in het spel gezien, geen release; in 5.7.0 is het nog kapot)
+- Speler ziet:    /mh rest off zet de waarschuwing voor weinig mana of health weer uit; /mh rest on zet hem terug.
+- Knoplabels:     geen nieuwe
+- Commando's:     /mh rest on|off|test|mana <n>|health <n>
+- Spel:           Forever
+
+## 21 nov 2026 — Forever: XP per uur en tijd tot je volgende level
+- Tag + commit:   geen tag (commit: zie git log, "Forever XP per hour")
+- Status:         alleen op main
+- Mag op de site: nee (nog niet door Rob getest, geen release)
+- Speler ziet:    Onder de XP-balk van het Forever-overzicht: "level N in X h Y min", in het tempo van je laatste uur
+                  spelen; de tooltip geeft je XP per uur. Alleen ingelogde tijd telt. Schakelaar in Quiet helpers.
+- Knoplabels:     FXPRATE_SW
+- Commando's:     /mh rest xp
+- Spel:           Forever
+
 ## 21 nov 2026 — Forever: dungeon-quests per dungeon
 - Tag + commit:   geen tag (commit: zie git log, "Forever dungeon quests")
 - Status:         alleen op main

@@ -960,6 +960,16 @@ for k, v in pairs({
 	FDQ_CLASS = "misión de clase",
 	FDQ_ARROW_FMT = "flecha puesta en %s (%s) para \"%s\".",
 	FDQ_NOTE = "De las guías de misiones de mazmorra de Zygor; los lugares aún no se han comprobado en el juego. Los niveles de las misiones no están en nuestros datos.",
+	-- 21 Nov 2026: XP per hour (ForeverXPRate.lua), FXPRATE_* (mh-writer, not reviewed by a native speaker).
+	FXPRATE_SW = "XP por hora y tiempo hasta el siguiente nivel",
+	FXPRATE_SW_DESC = "Debajo de la barra de XP de este resumen: cuánto falta para tu siguiente nivel al ritmo de tu última hora de juego y, en su descripción emergente, tu XP por hora. Solo cuenta mientras estás conectado con este personaje, así que una noche desconectado no lo baja. No en el nivel máximo.",
+	FXPRATE_SHORT_FMT = "nivel %d en %s",
+	FXPRATE_TIP_FMT = "Unos %s XP por hora (tu última hora de juego con este personaje).",
+	FXPRATE_TIP_LEVEL_FMT = "A este ritmo: nivel %d en %s.",
+	FXPRATE_MEASURING = "XP por hora: MH aún está midiendo. Aparece un número tras unos minutos de juego con algo de XP.",
+	FXPRATE_HM_FMT = "%d h %d min",
+	FXPRATE_MIN_FMT = "%d min",
+	FXPRATE_LT_MIN = "menos de un minuto",
 	-- 19 Nov 2026: the small boss card. Our own translation.
 	FDG_CARD_SW = "Tarjeta pequeña de jefe al poner a un jefe como objetivo",
 	FDG_CARD_SW_DESC = "Dentro de una mazmorra: pon a un jefe como objetivo y una tarjeta pequeña muestra lo que hace, con un consejo. Otro objetivo la oculta. El botón de la tarjeta abre toda la guía de jefes.",

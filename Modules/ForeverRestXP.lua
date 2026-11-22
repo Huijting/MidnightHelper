@@ -366,11 +366,17 @@ ev:SetScript("OnEvent", function(_, event)
 	end
 end)
 
---- /mh rest [go]
-function ns.ForeverRestSlash(arg)
+--- /mh rest [go|xp]. NOT ForeverRestSlash: that is the low mana/health warning (ForeverWarnings.lua). From 20 to
+--- 22 Nov 2026 this one had that name too, loaded later, and /mh rest off|on|test|mana|health did nothing.
+function ns.ForeverRestXPSlash(arg)
 	arg = (arg or ""):lower()
 	if arg == "go" then
 		ns.ForeverRestGo()
+		return
+	end
+	-- 21 Nov 2026: XP per hour + time to level (ForeverXPRate.lua).
+	if arg == "xp" and ns.ForeverXPRateSlash then
+		ns.ForeverXPRateSlash()
 		return
 	end
 	local r = Resting()

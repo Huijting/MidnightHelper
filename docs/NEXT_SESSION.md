@@ -1,6 +1,25 @@
 # Midnight Helper — waar we staan
 
-## ▶▶ VOLGENDE BOUWCHAT (21 nov, avond): nieuwe Forever-reeks "leren van Polestar/FlowUp" — punt 2 GEBOUWD, 1/3/4 open
+## ▶▶ VOLGENDE BOUWCHAT (21 nov, avond): nieuwe Forever-reeks "leren van Polestar/FlowUp" — punt 2 en 4 GEBOUWD, 1 wacht op Rob, 3 in onderzoek
+
+⏱️ **Punt 4 XP per uur GEBOUWD (Bouwchat 21-11 (2)), nagekeken en gerepareerd (Bouwchat 22-11, 22 nov ochtend)** — wacht
+op Robs test (TESTLIJST "21 nov (nacht)"). De pc ging 21 nov 23:22 uit vóór lint en commit; 22 nov nagelopen.
+- `Modules/ForeverXPRate.lua`: regel onder de XP-balk + tooltip, schakelaar FXPRATE_SW, `/mh rest xp`.
+- Bij het nakijken gevonden met een offline test (nep-client; 6 van 15 gevallen faalden, nu 15 van 15 goed):
+  (a) het venster werd langer dan een uur na stilstand (3 uur stil + 30 min XP gaf 2857 i.p.v. 9999 per uur),
+  (b) level-up: liep UnitLevel of UnitXPMax een update achter, dan telde hij een balk te weinig of te veel,
+  (c) max 0 bij inloggen telde de hele balk als winst. NIET gemeten: de echte volgorde van die waarden in Forever.
+- Vertalingen GEMETEN: 9 van 9 keys laden en formatteren in de/fr/es/pt/ru. ⚠️ `locale_probe.lua` zegt "still English"
+  voor deze keys: hij laadt de Forever-packs niet.
+
+🐞 **`/mh rest off|on|test|mana|health` was kapot sinds edb0f37 (20 nov), zit in v5.7.0 (GEMETEN: tag --contains)** —
+ForeverRestXP.lua definieerde `ns.ForeverRestSlash` opnieuw en laadt na ForeverWarnings.lua. Nu `ns.ForeverRestXPSlash`;
+kale `/mh rest` print beide diagnoses. GEREPAREERD op main, NIET in het spel gezien; of er een release komt beslist Rob.
+In de Camelot-toc is dit de enige dubbele `function ns.X` (GEMETEN 22 nov, nu 0).
+
+✂️ **Dit bestand is over de 1500 regels, op 22 nov nog NIET gesplitst**: de oudste sectie is van 18 nov (4 dagen, de regel
+zegt "ongeveer een week") en "Bouwchat 18-11" heeft open punten die niet in de kop staan, dus uit de index zouden vallen.
+Voorgelegd aan Sparring 22-11; anders knippen op 25 nov bij "## ▶ 18 nov — Bouwchat 18-11", eerst die punten nalopen.
 
 🗺️ **Punt 2 dungeon-quests GEBOUWD (Bouwchat 21-11 (2), 21 nov avond)** — wacht op Robs test (TESTLIJST "21 nov (avond)").
 - Data: `tools/build_dungeon_quests.py` (`run build_dungeon_quests [--write]`) → `Modules/ForeverDungeonQuestsData.lua`
@@ -33,12 +52,13 @@ sparring; anders bouwen. Lint, 7 talen, IDEEEN (Robs zin staat er), TESTLIJST, p
    ForeverDungeonGuide.lua hebben GEEN dungeon-quests (grep "quest": alleen UI-texturen); ForeverDungeonGuideData.lua noemt
    quests alleen in baas-opmerkingen (`-- src:`-regels, bv. regel 960 Sergeant Bly). Dus nieuwe data: DB2 QuestV2 /
    Wowhead Forever-tooltips (`run gamedata`) / Zygor lokaal / HandyNotes; coördinatenregel uit het geheugen.
-2. **(punt 1) "Waar haal ik dit vandaan?"** bij item/recept/mount/pet (zoekbalk + tooltip): verkoper, drop, quest, beroep,
+2. **(punt 1) ⏸️ NIET bouwen: Rob kiest nog A/B/C (advies B). "Waar haal ik dit vandaan?"** bij item/recept/mount/pet (zoekbalk + tooltip): verkoper, drop, quest, beroep,
    trainer, met Show the way. Midnight heeft het voor recepten (`CraftShoppingList.lua`, CRAFTSHOP_UNLEARNED,
    CHANGELOG_474_3) — hergebruik waar het kan. Klein beginnen (recepten + reagents + mounts?) en zeggen wat de data toelaat.
 3. **(punt 3) Boot/zeppelin-wachttijd** "komt over ~N s": eerst uitzoeken of het meetbaar is (transport-objecten, vaste
-   cyclustijd per route); anders eerlijk "niet te meten".
-4. **(punt 4) XP per uur + tijd tot volgend level** (overzicht/Do this now), met een schakelaar.
+   cyclustijd per route); anders eerlijk "niet te meten". BEZIG: helper afgebroken 21 nov 23:22 zonder rapport (logboek
+   `agent-ac9a6ea0a8c5edd99.jsonl` in sessie 9f7816b1); Bouwchat 22-11 rondt het af.
+4. **(punt 4) XP per uur + tijd tot volgend level** (overzicht, met een schakelaar): ✅ GEBOUWD, zie boven.
 
 ## ▶▶ VOLGENDE BOUWCHAT: Forever-overzicht "D" — stap 1 en 3 gebouwd; stap 2 wacht op Robs screenshots (20 nov, avond)
 

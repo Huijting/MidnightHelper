@@ -591,6 +591,16 @@ for k, v in pairs({
 	FDQ_CLASS = "Klassenquest",
 	FDQ_ARROW_FMT = "Pfeil gesetzt zu %s (%s) für \"%s\".",
 	FDQ_NOTE = "Aus den Dungeonquest-Leitfäden von Zygor; die Orte sind noch nicht im Spiel geprüft. Questlevel stehen nicht in unseren Daten.",
+	-- 21 Nov 2026: XP per hour (ForeverXPRate.lua), FXPRATE_* (mh-writer, not reviewed by a native speaker).
+	FXPRATE_SW = "EP pro Stunde und Zeit bis zur nächsten Stufe",
+	FXPRATE_SW_DESC = "Unter dem EP-Balken dieser Übersicht: wie lange es bis zu deiner nächsten Stufe noch dauert, im Tempo deiner letzten Spielstunde, und im Tooltip deine EP pro Stunde. Gezählt wird nur, solange du mit diesem Charakter eingeloggt bist, eine Nacht offline senkt den Wert also nicht. Nicht auf Höchststufe.",
+	FXPRATE_SHORT_FMT = "Stufe %d in %s",
+	FXPRATE_TIP_FMT = "Etwa %s EP pro Stunde (deine letzte Spielstunde mit diesem Charakter).",
+	FXPRATE_TIP_LEVEL_FMT = "In diesem Tempo: Stufe %d in %s.",
+	FXPRATE_MEASURING = "EP pro Stunde: MH misst noch. Nach ein paar Minuten Spielen mit etwas EP erscheint eine Zahl.",
+	FXPRATE_HM_FMT = "%d Std. %d Min.",
+	FXPRATE_MIN_FMT = "%d Min.",
+	FXPRATE_LT_MIN = "unter einer Minute",
 	-- 19 Nov 2026: the small boss card. Our own translation.
 	FDG_CARD_SW = "Kleine Boss-Karte, wenn du einen Boss ins Ziel nimmst",
 	FDG_CARD_SW_DESC = "In einem Dungeon: Nimm einen Boss ins Ziel, und eine kleine Karte zeigt, was er tut, mit einem Tipp. Ein anderes Ziel blendet sie aus. Der Knopf auf der Karte öffnet den ganzen Bossführer.",

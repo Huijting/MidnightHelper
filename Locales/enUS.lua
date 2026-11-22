@@ -5173,6 +5173,17 @@ ns._mhLocales.enUS = {
 	FOV_LAYOUT_SW = "New layout: tabs on the right",
 	FOV_LAYOUT_SW_DESC = "A larger overview with the tabs as tall buttons on the right. Switch it off for the old layout with the tabs on top. Takes effect after /reload.",
 	FOV_LAYOUT_RELOAD = "the overview layout changes after /reload.",
+	-- 21 Nov 2026: XP per hour (ForeverXPRate.lua). FXPRATE_SHORT_FMT and FXPRATE_TIP_LEVEL_FMT: %d = the next level, %s =
+	-- a duration (FXPRATE_HM_FMT / FXPRATE_MIN_FMT / FXPRATE_LT_MIN). FXPRATE_TIP_FMT: %s = XP per hour (with separators).
+	FXPRATE_SW = "XP per hour and time to the next level",
+	FXPRATE_SW_DESC = "Under the XP bar of this overview: how long until your next level at the pace of your last hour of play, and in its tooltip your XP per hour. Counted only while you are logged in on this character, so a night offline does not lower it. Not at max level.",
+	FXPRATE_SHORT_FMT = "level %d in %s",
+	FXPRATE_TIP_FMT = "About %s XP per hour (your last hour of play on this character).",
+	FXPRATE_TIP_LEVEL_FMT = "At this pace: level %d in %s.",
+	FXPRATE_MEASURING = "XP per hour: MH is still measuring. A number comes after a few minutes of play with some XP.",
+	FXPRATE_HM_FMT = "%d h %d min",
+	FXPRATE_MIN_FMT = "%d min",
+	FXPRATE_LT_MIN = "under a minute",
 	FREST_SW = "Rested XP tip when you log out",
 	FREST_SW_DESC = "When you log out outside an inn or a city, MH shows the nearest place to rest, with a button for the arrow, and tells you when your Hearthstone is ready. In an inn or a city your rested XP builds faster while you are offline. Not at max level. MH also remembers every place where you were resting.",
 	FREST_WIN_TITLE = "Rested XP",

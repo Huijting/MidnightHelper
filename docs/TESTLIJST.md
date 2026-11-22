@@ -25,6 +25,21 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 22 nov (ochtend) — Forever: `/mh rest off` werkt weer
+
+- [ ] Forever: typ `/mh rest off`. In chat: "no more message about low mana or health…". `/mh rest on` zet hem terug.
+- [ ] `/mh rest test show`: twee regels op je scherm (mana en health; een class zonder mana krijgt alleen health).
+- [ ] `/mh rest` print twee blokjes: "rested XP tip…" en "rest warning…". `/mh rest go` zet nog steeds de pijl naar de inn.
+
+## 21 nov (nacht) — Forever: XP per uur + tijd tot je volgende level
+
+- [ ] Forever, niet op max level: speel ruim 5 minuten en haal wat XP (kill of quest). Open `/mh overview`: onder de
+      XP-balk staat nu een tweede regel "level N in X h Y min". Muis op de balk: "About … XP per hour".
+- [ ] Klopt het ongeveer? Na een tijdje spelen hoort de tijd te zakken als je doorspeelt, en te stijgen als je stilstaat.
+- [ ] `/reload` of uit- en inloggen: het getal blijft (MH telt alleen ingelogde tijd op dit character).
+- [ ] Quiet helpers → "XP per hour and time to the next level" uit: de regel en de tooltipregel zijn weg.
+- [ ] `/mh rest xp` print het getal en waarom (of waarom nog niet).
+
 ## 21 nov (avond) — Forever: dungeon-quests
 
 - [ ] Forever: `/mh overview` → tab Dungeons. Bij een dungeon voor je level staat onder "Way ›" (en "Bosses") een knop

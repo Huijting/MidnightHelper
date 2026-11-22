@@ -1318,6 +1318,10 @@ local QUIET = {
 	Q("FREST_SW", "FREST_SW_DESC", {
 		get = function() return ns.IsForeverRestTipOn and ns.IsForeverRestTipOn() end,
 		set = function(on) if ns.SetForeverRestTip then ns.SetForeverRestTip(on) end end }),
+	-- 21 Nov 2026 (Rob via sparring: "daarna 3 en 4"): XP per hour + time to level under the XP bar (ForeverXPRate.lua).
+	Q("FXPRATE_SW", "FXPRATE_SW_DESC", {
+		get = function() return ns.IsForeverXPRateOn and ns.IsForeverXPRateOn() end,
+		set = function(on) if ns.SetForeverXPRate then ns.SetForeverXPRate(on) end end }),
 	-- 20 Nov 2026 (Rob: "ja doe maar"): worn gear, with the way to the nearest repairer (ForeverDurability.lua).
 	Q("FDUR_SW", "FDUR_SW_DESC", {
 		get = function() return ns.IsForeverDurabilityOn and ns.IsForeverDurabilityOn() end,
@@ -1973,6 +1977,8 @@ local function Build()
 	f.xpText = Text(left, "text", 12, A.dim)
 	f.xpText:SetPoint("TOP", f.xpBg, "BOTTOM", 0, -4)
 	f.xpText:SetJustifyH("CENTER")
+	-- 21 Nov 2026: a fixed width, so the second line (time to level, ForeverXPRate.lua) wraps instead of running out.
+	f.xpText:SetWidth(LEFT_W - 12)
 	f.xpTip = HoverOver(left, f.xpBg)
 	-- Gold (product plan step 2: "Deze week + geld").
 	f.gold = Text(left, "text", 13, A.text)
@@ -2423,9 +2429,19 @@ local function FillLeft(f, level)
 		f.xpFill:SetWidth(math.max(1, (LEFT_W - 36) * cur / max))
 		local rested = GetXPExhaustion and GetXPExhaustion() or nil
 		local restPct = rested and math.floor(rested / max * 100 + 0.5) or 0
-		f.xpText:SetText(ns:L("FOV_XP_FMT"):format(pct) .. (restPct > 0 and ("  ·  " .. ns:L("FOV_RESTED_FMT"):format(restPct)) or ""))
+		-- 21 Nov 2026 (Rob via sparring, point 4): XP per hour + time to level (ForeverXPRate.lua, switch FXPRATE_SW).
+		local rateShort, rateTip
+		if ns.ForeverXPRateLines then
+			local okR, a, b = pcall(ns.ForeverXPRateLines)
+			if okR then
+				rateShort, rateTip = a, b
+			end
+		end
+		f.xpText:SetText(ns:L("FOV_XP_FMT"):format(pct) .. (restPct > 0 and ("  ·  " .. ns:L("FOV_RESTED_FMT"):format(restPct)) or "")
+			.. (rateShort and ("\n" .. rateShort) or ""))
 		f.xpTip.tipTitle = ns:L("FOV_XP_FMT"):format(pct)
 		f.xpTip.tipBody = ns:L("FOV_TIP_XP_FMT"):format(cur, max, max - cur) .. (restPct > 0 and ("\n" .. ns:L("FOV_TIP_RESTED")) or "")
+			.. (rateTip and ("\n\n" .. rateTip) or "")
 		-- 20 Nov 2026: resting here or not, and the nearest place to rest (ForeverRestXP.lua).
 		local restLine = ns.ForeverRestTipLine and ns.ForeverRestTipLine()
 		if restLine then

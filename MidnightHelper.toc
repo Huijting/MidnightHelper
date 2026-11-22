@@ -305,6 +305,7 @@ Modules\ThanksBuff.lua
 Modules\ForeverNodeSkillData.lua
 Modules\ForeverLootSparkle.lua
 Modules\ForeverRestXP.lua
+Modules\ForeverXPRate.lua
 Modules\MaxLevelWelcome.lua
 Modules\ForeverItemTips.lua
 Modules\ForeverClassQuests.lua
