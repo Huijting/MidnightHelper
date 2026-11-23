@@ -10,10 +10,10 @@ leest dit eerst en werkt het aan het eind bij. Plan: `docs/PLAN_WERKWIJZE_2026-1
 
 ## 0. Laatste verslag
 
-- [2026-11-22] 🎬 **Regie** (cloud-ronde, ochtend) — Raakt Rob: niets nieuws. 5.7.0 staat op CurseForge (tag `v5.7.0` = `.toc` 5.7.0, `SITE_SEIN.md` 21 nov; site-repo toont 5.7.0 sinds 21 nov 16:17). Beide [MOET GEFIKST] van 21 nov (Forever) zijn dicht in de code (GEMETEN: `ForeverVendors.lua:700` los GUID-patroon, `ForeverCharKey.lua` 6383 bytes, in `.toc`). 12.1.7 krijgt 1/2 dec (PTR-wachter, zelf niet in Blizzards bron).
-  Scheef (geen nieuwe punten): (a) `NEXT_SESSION.md` 1553 regels (grens 1500; gisteren 2163, dus al gesplitst maar nog 53 te veel); (b) site-briefje 266 (grens 200; gisteren 315). Blijft: draaiboek 12.1.7 zegt nog "testdata"; event-snapshot achter (live 70783 -> 70961, ptr 70892 -> 71087, forever 70938 -> 71037); C2 blinde vlek nu 774 (24 -> 290 -> 774, niet uitgezocht); 2 ideeën-voorstellen (15 nov) staan nog onder "Voorstellen van de wachter". Nachtcontrole 22 nov: 0 nakijken. Ideeënbus: vandaag zo 22 nov, nog geen regel om 08:15 (laatste 15 nov).
-  Wachters: alle vijf dagelijkse hebben een regel van 22 nov (commits 03:21-05:03 UTC). Site-repo: laatste echte push 21 nov 16:43 (+0100), daarna alleen #now (22 nov 05:32 UTC); `BOUW_VRAAG.md` onder "## Open": "(geen)". Wacht op Rob: 4 punten.
-  Niet gelezen: de pc (lokale commits, helpers, recepten), CurseForge zelf, mail, de tak `claude/werkwijze-notitie` en `next-forever` (site), de wachters inhoudelijk op "overgeslagen" (stap 3: alleen de koppen), Self Cast-regel niet in het spel gezien.
+- [2026-11-23] 🎬 **Regie** (cloud-ronde, ochtend) — Raakt Rob: niets nieuws. 5.8.0 staat op CurseForge (tag `v5.8.0` = `.toc` 5.8.0; `SITE_SEIN.md` 22 nov: beide zips, status 4; site-repo toont 5.8.0 sinds 22 nov 23:11 +0100). Twee punten van gisteren zijn dicht (GEMETEN): site-briefje 266 -> 146 regels, event-snapshot weer actueel (`66fcebbb`, 22 nov; builds 70961/71087/71037 in het json). 12.1.7 komt 1/2 dec (PTR-wachter, zelf niet in Blizzards bron).
+  Scheef: NIEUW (a) Holy Paladin: Method.gg noemt Eternal Flame als hoofdbesteding, onze kaart (`PLAYCARD_65_S3/_EASY/_W3`) Word of Glory; content-wachter 23 nov, bronnen spreken elkaar tegen, in het spel checken. Blijft: (b) `NEXT_SESSION.md` 1692 regels (grens 1500; gisteren 1553, dus weer 139 gegroeid na de splitsing van 22 nov); (c) draaiboek 12.1.7 zegt nog "testdata"; (d) C2 blinde vlek 775 (24 -> 290 -> 774 -> 775, niet uitgezocht); (e) 5 ideeën-voorstellen (2 van 15 nov, 3 van 22 nov) staan onder "Voorstellen van de wachter". Nachtcontrole 23 nov: 0 nakijken.
+  Wachters: alle vijf dagelijkse hebben een regel van 23 nov (commits 03:26-05:08 UTC); ideeënbus zondag 22 nov (3 voorstellen). Site-repo: laatste echte push 22 nov 23:11 (+0100); `BOUW_VRAAG.md` onder "## Open": "(geen)". Wacht op Rob: 4 punten.
+  Niet gelezen: de pc (lokale commits, helpers, recepten), CurseForge zelf, mail, de site-tak `claude/werkwijze-notitie` (bestaat niet meer op origin; alleen `cool-brown-5ytw4y` en `main`), de wachters inhoudelijk op "overgeslagen" (stap 3: alleen koppen en de 23 nov-regels), Self Cast-regel niet in het spel gezien.
 
 De regisseur vervangt dit blok elke ronde door het nieuwe verslag. Eén verslag, niet een logboek: de vorige staat in git.
 
@@ -72,13 +72,13 @@ sinds 11 nov **`regisseur`** (`/regisseur` of "doe de regie-ronde"; doet hoofdst
 
 ## 3. Stand van het plan
 
-| # | wat | stand (GEMETEN 20 nov op `main`) |
+| # | wat | stand (GEMETEN 23 nov op `main`) |
 |---|---|---|
 | 1 | Toets (6 vragen) en ideeënlijst | ✅ af |
 | 2 | Prikbord en drie vaste woorden | ✅ af (`docs/SITE_SEIN.md`) |
 | 3 | Controles C1, C3, C5 | C1 en C3 ✅ in de lint. C5 ✅ gebouwd (`c9d3e66`, in `/mh selftest`). |
 | 4 | Controles C2 en C4 | ✅ gebouwd (`tools/data_check.py`). C4: 65 → 3 namen over (commit `f08366b`, Robs ja). |
-| 5 | Nachtcontrole en ideeënbus | ✅ draaien. Nachtcontrole 22 nov: C1 en C2 0 nakijken (snapshot loopt achter). Ideeënbus liep zo 15 nov (`87ed12b`); 22 nov nog niet bij het schrijven. |
+| 5 | Nachtcontrole en ideeënbus | ✅ draaien. Nachtcontrole 23 nov: C1 en C2 0 nakijken (snapshot actueel). Ideeënbus liep zo 22 nov (3 voorstellen). |
 | 5b | **De regisseur** (deel 8) | ✅ gebouwd 11 nov (`f34b15f`): routine en recept. Proefrun `c24bbe4` vond de drie testpunten. |
 | 6 | Recepten | niet begonnen |
 | 7 | `/mh selftest` + vensterlijst | ✅ gebouwd (`c9d3e66`); Robs selftest in Midnight schoon (`41675dd`). Forever-kant niet gemeten. |
@@ -90,21 +90,21 @@ sinds 11 nov **`regisseur`** (`/regisseur` of "doe de regie-ronde"; doet hoofdst
 1. **Testen in Forever en retail:** de gele Self Cast Key-regel bij een macro met modifier + mouseover (met de Self Cast Key gezet), "Your characters" (O21), de oranje rand bij oude ranks (O24), de reisplanner, de "loading"-fix bij de hengel-tip, de Enhancement-Shaman-tip en de dungeons-lijst (staat in `TESTLIJST.md`).
 2. **De laatste 3 namen** (controle C4, was 65): de bouwchat heeft er 62 gedaan; nakijken wat blijft.
 3. **De ideeënlijst:** ja, nee of later per regel.
-4. **Drie voorstellen voor de site-kant** (staan in de privé site-repo, tak `claude/werkwijze-notitie`).
+4. **Drie voorstellen voor de site-kant** (stonden in de privé site-repo, tak `claude/werkwijze-notitie`; die tak is op 23 nov niet meer zichtbaar, dus lees ze bij de site-chat).
 
 ## 5. Loopt scheef
 
 | wat | gemeten | wie moet iets doen |
 |---|---|---|
-| 2 voorstellen van de ideeënbus (15 nov) staan nog onder "Voorstellen van de wachter" in `docs/IDEEEN.md` (kop r. 1581, voorstellen r. 1592 en 1616) | 22 nov, GEMETEN: koptekst r. 1581 aanwezig; voorstelkoppen "Forever: in deze groep…" en "Do this now…" gezien | bouwchat: naar Open of Nee met reden |
-| Self Cast-waarschuwing: dicht in code (`a73bfb5`), maar **niet in het spel gezien** (zie lijst 4, punt 1) | 22 nov, niet opnieuw in het spel gezien; 18 nov, GEMETEN: `Core.lua:4431` (functie), `MACROS_WARN_SELFCAST_FMT` in enUS r. 3408; in het spel niet getest | Rob of Cisca test; daarna gaat de rij weg |
-| 🔴 **`docs/NEXT_SESSION.md` is 1553 regels, grens 1500** (21 nov: 2163; 20 nov: 1815) | 22 nov, GEMETEN met `wc -l`; grens uit `CLAUDE.md` | bouwchat: nog 53 regels eraf, via `split_handoff --resplit` (proefrun) |
-| `CLAUDE.md` is 324 regels (gisteren 324), lint [24] grens 350 | 22 nov, GEMETEN met `wc -l` en `claude_limit = 350` (`tools/lint_addon.py:1707`) | niemand; blijf meten |
-| 🔴 **Overdrachtsbriefje site (`drafts/SITE_HANDOFF.md`) is 266 regels, grens 200** (21 nov: 315; 20 nov: 233) | 22 nov, GEMETEN met `wc -l` op `origin/main` (site-`CLAUDE.md`: boven 200 -> oudste blokken naar `SITE_HISTORY.md`) | site-chat: nog 66 regels wegzetten |
-| **Blinde vlek:** de site-chat pusht alleen met Robs ja; de cloud ziet de site-repo zoals bij de laatste push (laatste echte push 21 nov 16:43 +0100; daarna alleen #now, 22 nov 05:32 UTC). `drafts/BOUW_VRAAG.md` onder "## Open": "(geen)". Wat lokaal nog niet gepusht is, zie ik niet. | 22 nov, GEMETEN op `origin/main` van de site-repo | niemand; alleen het pc-recept ziet lokale commits |
-| Event-snapshot loopt achter: live 70783 -> 70961, PTR 70892 -> 71087, Forever 70938 -> 71037 (Forever al sinds 18 nov) | 22 nov, nachtcontrole `NACHTCONTROLE.md` r. 48 | bouwchat: `run event_snapshot --write` |
-| Nachtcontrole: C2 blinde vlek sprong 24 -> 290 (19 nov) -> 774 (22 nov), item 25 -> 141 -> 161, nog niet uitgezocht; wijst op gewijzigde checker of nieuwe code | 22 nov, overgenomen uit `NACHTCONTROLE.md` r. 48-49, zelf niet gemeten | bouwchat: uitzoeken |
-| 12.1.7 krijgt datum 1 dec (VS) / 2 dec (EU); draaiboek r. 15 zegt nog "testdata" (laatste draaiboek-commit 21 nov, `466bc65`) | 22 nov, GEMETEN in draaiboek; datum overgenomen uit `PTR_12.1_WATCH.md`, zelf niet in Blizzards bron | bouwchat: draaiboek bijwerken; Rob beslist over de release |
+| 5 voorstellen van de ideeënbus (2 van 15 nov, 3 van 22 nov) staan nog onder "Voorstellen van de wachter" in `docs/IDEEEN.md` (kop r. 1685; voorstelkoppen r. 1696, 1720, 1747, 1767, 1789) | 23 nov, GEMETEN: koppen gezien met grep | bouwchat: naar Open of Nee met reden |
+| Self Cast-waarschuwing: dicht in code (`a73bfb5`), maar **niet in het spel gezien** (zie lijst 4, punt 1; `TESTLIJST.md` r. 1962 staat nog open) | 23 nov, GEMETEN: `TESTLIJST.md` r. 1927-1962 gelezen; in het spel niet gezien; 18 nov: `Core.lua:4431`, `MACROS_WARN_SELFCAST_FMT` | Rob of Cisca test; daarna gaat de rij weg |
+| 🔴 **`docs/NEXT_SESSION.md` is 1692 regels, grens 1500** (22 nov: 1553; 21 nov: 2163) | 23 nov, GEMETEN met `wc -l`; grens uit `CLAUDE.md`; archief laatst geraakt 22 nov (`79343f67`) | bouwchat: 192 regels eraf, via `split_handoff --resplit` (proefrun) |
+| `CLAUDE.md` is 324 regels (gisteren 324), lint [24] grens 350 | 23 nov, GEMETEN met `wc -l` en `claude_limit = 350` (`tools/lint_addon.py:1707`) | niemand; blijf meten |
+| Overdrachtsbriefje site (`drafts/SITE_HANDOFF.md`) is 146 regels, grens 200: **opgelost** (22 nov: 266) | 23 nov, GEMETEN met `wc -l` op `origin/main` | niemand; blijf meten |
+| **Blinde vlek:** de site-chat pusht alleen met Robs ja; de cloud ziet de site-repo zoals bij de laatste push (laatste echte push 22 nov 23:11 +0100, `684b760`, release 5.8.0 op de site). `drafts/BOUW_VRAAG.md` onder "## Open": "(geen)". Wat lokaal nog niet gepusht is, zie ik niet. | 23 nov, GEMETEN op `origin/main` van de site-repo | niemand; alleen het pc-recept ziet lokale commits |
+| Holy Paladin: Method.gg (13 okt) zegt Eternal Flame als hoofdbesteding, onze kaart `PLAYCARD_65_S3/_EASY/_W3` zegt Word of Glory (`enUS.lua:1883-1894`); Icy Veins zegt "of" | 23 nov, `CONTENT_WATCH.md` r. 5323; kaartregels in `enUS.lua` niet zelf opnieuw gelezen | Rob/Cisca in het spel; bouwchat past de kaart aan als dat klopt |
+| Nachtcontrole: C2 blinde vlek 24 -> 290 (19 nov) -> 774 (22 nov) -> 775 (23 nov), item 25 -> 141 -> 161, nog niet uitgezocht; wijst op gewijzigde checker of nieuwe code | 23 nov, overgenomen uit `NACHTCONTROLE.md` r. 51, zelf niet gemeten | bouwchat: uitzoeken |
+| 12.1.7 krijgt datum 1 dec (VS) / 2 dec (EU); draaiboek r. 15 zegt nog "testdata" (laatste draaiboek-commit 16 nov, `96f8b8fc`) | 23 nov, GEMETEN in draaiboek en `git log`; datum overgenomen uit `PTR_12.1_WATCH.md`, zelf niet in Blizzards bron | bouwchat: draaiboek bijwerken; Rob beslist over de release |
 | Geen vaste controle op de handgeschreven site-teksten | 10 nov, volgens de site-chat | voorstel ligt bij Rob |
 
 ## 6. De ronde — wat de regisseur elke keer doet
