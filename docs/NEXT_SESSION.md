@@ -12,6 +12,16 @@ gedaan"*); de live pagina zag niemand van ons.
 december-events in de weekplanning. Alleen in IDEEEN; niets gebouwd. PTR-map heeft MH van 16 okt: niet kopiëren zonder Robs ja.
 ◐ **RONDE 2, 23 nov:** dungeon-quests: Rob via sparring, letterlijk *"een test : een dungeon-quest , werkt"* (welke quest:
 nog niet bekend). Recept-pijl en Copper Ore (ingrediënt) blijven open; XP per uur niet gemeld.
+🧪 **WEAR B GEBOUWD, wacht op test** (Rob via sparring, letterlijk: *"Ja, doe maar OR-B. Maar dan moet je wel opvallen dat
+hij erin staat. En als er meerdere zijn in je tas, dan moet het ook blijven staan."*): `Modules/ForeverWear.lua` (nieuw
+bestand = herstart). Per upgrade een groene regel met ↑ bovenaan Do this now (onder de talentregel) met klikbare [Wear it] /
+[Not this one] (|H-links in de tekst, geen nieuw venster); knop "Wear it" in het overzicht. Oordeel = ns.ForeverGearTipText
+(nu met 5e return: het vak). EquipItemByName(link, vak), alleen buiten gevecht; BoE-vraag van het spel blijft.
+Schakelaar "Show upgrades in Do this now" (aan). `/mh wear why|reset`. Alleen Forever (daar zit het oordeel en Do this
+now). Offline getest (nep-tas, 8 gevallen goed). Rob koos A (via sparring, letterlijk: *"Opvallen A."*): een upgrade
+opent het venster vanzelf (`WEAR_TODO = true`), nooit in gevecht. Mijn keuze bij het kruisje: dicht blijft dicht tot er
+een NIEUWE upgrade in je tas komt (`closedWear`). Vertalingen de/fr/es/pt/ru door mh-writer (niet nagekeken door een
+moedertaalspreker; let op: "Mejora/Melhoria/Amélioration" staat in FBAG_NONE ook voor iets anders).
 ◐ **QUEST B getest 1-3** (Rob: *"1 tot en met 3 is goed."*); 4 ❌ op SM_GY (Vorrel's Revenge bleef "no place"). GEMETEN in
 de QuestieDB-toc: Vorrel (3981) staat er alleen als (-1,-1) = "in een instance"; van 10 gaten zijn er 6 zo, 3 hebben een
 echte plek (allemaal Alliance of level 55+). 🔧 Zo'n quest gaat nu naar "inside the dungeon" met "(QuestieDB)"

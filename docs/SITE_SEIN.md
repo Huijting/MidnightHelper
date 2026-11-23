@@ -28,6 +28,16 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 23 nov 2026 — Forever: upgrade aantrekken vanuit "Do this now"
+- Tag + commit:   geen tag (commit: deze regel)
+- Status:         alleen op main
+- Mag op de site: nee, nog niet (geen release; Rob test eerst).
+- Speler ziet:    Elk stuk uitrusting in je tas dat beter is dan wat je draagt, krijgt een groene regel bovenaan "Do this
+                  now": "Upgrade: [item] · vak · wat beter is" met [Wear it] en [Not this one]. Niet in gevecht.
+- Knoplabels:     FWEAR_BTN, FWEAR_SKIP, SET_FOREVER_WEAR_TITLE
+- Commando's:     /mh wear reset (overgeslagen items terug); /mh wear why is voor ons
+- Spel:           Forever
+
 ## 23 nov 2026 — Forever: MH leest QuestieDB als je het hebt
 - Tag + commit:   geen tag (commit: deze regel)
 - Status:         alleen op main

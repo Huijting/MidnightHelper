@@ -618,6 +618,17 @@ for k, v in pairs({
 	FQDB_BTN_TURNIN = "Сдать",
 	FQDB_ARROW_FMT = "стрелка на %s (%s), чтобы сдать «%s» (QuestieDB).",
 	FQDB_NO_TURNIN = "в вашем журнале нет заданий, которые можно сдать в месте, известном QuestieDB.",
+	-- 23 Nov 2026: upgrades in Do this now (ForeverWear.lua), FWEAR_* (mh-writer, not reviewed by a native speaker).
+	FWEAR_LINE_FMT = "Улучшение: %s · %s · %s",
+	FWEAR_BTN = "Надеть",
+	FWEAR_SKIP = "Не этот",
+	FWEAR_SKIP_TIP = "MH больше не будет предлагать этот предмет. /mh wear reset вернёт все предметы.",
+	FWEAR_COMBAT = "после боя",
+	FWEAR_GONE = "этого предмета больше нет в ваших сумках.",
+	FWEAR_DONE_FMT = "надеваем %s.",
+	FWEAR_FAILED_FMT = "игра не надела предмет: %s",
+	FWEAR_SKIPPED_FMT = "%s больше не будет предлагаться.",
+	FWEAR_RESET = "все предметы, которые вы пропустили, снова будут предлагаться.",
 	-- 21 Nov 2026: XP per hour (ForeverXPRate.lua), FXPRATE_* (mh-writer, not reviewed by a native speaker).
 	FXPRATE_SW = "Опыт в час и время до следующего уровня",
 	FXPRATE_SW_DESC = "Под полосой опыта в этом обзоре: сколько осталось до следующего уровня в темпе вашего последнего часа игры, а в подсказке — ваш опыт в час. Считается только время, пока вы в игре этим персонажем, поэтому ночь офлайн его не снижает. Не на максимальном уровне.",

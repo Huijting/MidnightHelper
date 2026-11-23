@@ -579,6 +579,13 @@ local function Build()
 		end, false)
 		-- 12 Nov 2026 (Rob, via sparring: "Ja, laat hem dat uitzoeken en bouwen"): the game says a tool is missing →
 		-- the nearest seller with "Show the way" (ForeverVendors.lua). On by default; /mh vendor tip on|off.
+		-- 23 Nov 2026 (Rob, via sparring: "Ja, doe maar OR-B."): upgrades in your bags in Do this now, with Wear it
+		-- (ForeverWear.lua). On by default.
+		Toggle("mh_foreverWear", "SET_FOREVER_WEAR_TITLE", "SET_FOREVER_WEAR_DESC", function()
+			return ns.IsForeverWearOn and ns.IsForeverWearOn()
+		end, function(v)
+			if ns.SetForeverWear then ns.SetForeverWear(v) end
+		end, true)
 		-- 23 Nov 2026 (Rob, via sparring: "Ik volg jullie advies weer."): read QuestieDB live, only where MH has no place
 		-- (ForeverQuestieDB.lua). On by default: without QuestieDB it does nothing.
 		Toggle("mh_foreverQuestieDb", "SET_FOREVER_QDB_TITLE", "SET_FOREVER_QDB_DESC", function()

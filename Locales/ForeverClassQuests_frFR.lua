@@ -604,6 +604,17 @@ for k, v in pairs({
 	FQDB_BTN_TURNIN = "Rendre",
 	FQDB_ARROW_FMT = "flèche placée sur %s (%s) pour rendre \"%s\" (QuestieDB).",
 	FQDB_NO_TURNIN = "aucune quête de ton journal n'est prête à rendre à un endroit que QuestieDB connaît.",
+	-- 23 Nov 2026: upgrades in Do this now (ForeverWear.lua), FWEAR_* (mh-writer, not reviewed by a native speaker).
+	FWEAR_LINE_FMT = "Amélioration : %s · %s · %s",
+	FWEAR_BTN = "Équiper",
+	FWEAR_SKIP = "Pas celui-ci",
+	FWEAR_SKIP_TIP = "MH ne proposera plus cet objet. /mh wear reset ramène tous les objets.",
+	FWEAR_COMBAT = "après le combat",
+	FWEAR_GONE = "cet objet n'est plus dans tes sacs.",
+	FWEAR_DONE_FMT = "%s va être équipé.",
+	FWEAR_FAILED_FMT = "le jeu ne l'a pas équipé : %s",
+	FWEAR_SKIPPED_FMT = "%s ne sera plus proposé.",
+	FWEAR_RESET = "tous les objets que tu as ignorés seront de nouveau proposés.",
 	-- 21 Nov 2026: XP per hour (ForeverXPRate.lua), FXPRATE_* (mh-writer, not reviewed by a native speaker).
 	FXPRATE_SW = "XP par heure et temps jusqu'au prochain niveau",
 	FXPRATE_SW_DESC = "Sous la barre d'XP de cet aperçu : combien de temps avant ton prochain niveau au rythme de ta dernière heure de jeu, et dans son infobulle ton XP par heure. Compté seulement quand tu es connecté sur ce personnage, donc une nuit hors ligne ne le fait pas baisser. Pas au niveau maximum.",

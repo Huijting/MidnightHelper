@@ -26,6 +26,16 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 
 ## Open — wacht op Rob
 
+### Forever: upgrade aantrekken vanuit "Do this now", "wear B" (23 nov) — ✅ JA, GEBOUWD (opvallen A), wacht op Robs test
+- Bron: Rob 23 nov via Sparring 23-11, letterlijk: *"Ja, doe maar OR-B. Maar dan moet je wel opvallen dat hij erin staat.
+  En als er meerdere zijn in je tas, dan moet het ook blijven staan."* Aanleiding: Polestar's upgrade-melding (GPL: alleen
+  het idee, eigen code).
+- Gebouwd: `Modules/ForeverWear.lua` + regels bovenaan Do this now met [Wear it] / [Not this one], knop in het overzicht,
+  schakelaar, `/mh wear why|reset`. Oordeel = `ns.ForeverGearTipText` (de groene tooltipregel). Alleen Forever.
+- Rob koos A (letterlijk: *"Opvallen A."*): een upgrade opent het venster vanzelf, niet in gevecht; kruisje = dicht tot
+  er een nieuwe upgrade komt.
+- Spel: F. Voor wie: N + V (AFGELEID). Site: pas na test en release.
+
 ### Forever: QuestieDB live lezen, "quest A" (23 nov) — ✅ JA, A gemeten (goed), B GEBOUWD + GETEST (Rob: "Stap 6, gevecht gedaan en geen errors gekregen.")
 - Bron: Rob 23 nov via Sparring 23-11, letterlijk: *"quest a"* (onderzoek), daarna *"Ik volg jullie advies."* (= eerst
   meten A, dan pas gaten vullen B; de Questie-regels in ForeverClassQuests laten tot het GPL-besluit). GPL: *"gpl is niet

@@ -100,6 +100,14 @@ local function NowItems()
 	end
 	local ACTS = ns.FOREVER_DONOW_ACTS or {}
 	local function Act(kind, key)
+		-- 23 Nov 2026: an upgrade in your bags (ForeverWear.lua): the card's button is "Wear it" for that line.
+		if kind == "wear" and key then
+			return function()
+				if ns.ForeverWearGo then
+					ns.ForeverWearGo(key)
+				end
+			end, "FWEAR_BTN"
+		end
 		if kind == "tool" and key then
 			return function()
 				if SlashCmdList and SlashCmdList["MIDNIGHTHELPER"] then

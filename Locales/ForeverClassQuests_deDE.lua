@@ -602,6 +602,17 @@ for k, v in pairs({
 	FQDB_BTN_TURNIN = "Abgeben",
 	FQDB_ARROW_FMT = "Pfeil gesetzt zu %s (%s), um \"%s\" abzugeben (QuestieDB).",
 	FQDB_NO_TURNIN = "keine Quest in deinem Questlog ist an einem Ort abgabebereit, den QuestieDB kennt.",
+	-- 23 Nov 2026: upgrades in Do this now (ForeverWear.lua), FWEAR_* (mh-writer, not reviewed by a native speaker).
+	FWEAR_LINE_FMT = "Upgrade: %s · %s · %s",
+	FWEAR_BTN = "Anlegen",
+	FWEAR_SKIP = "Diesen nicht",
+	FWEAR_SKIP_TIP = "MH bietet diesen Gegenstand nicht mehr an. /mh wear reset holt alle Gegenstände zurück.",
+	FWEAR_COMBAT = "nach dem Kampf",
+	FWEAR_GONE = "dieser Gegenstand ist nicht mehr in deinen Taschen.",
+	FWEAR_DONE_FMT = "%s wird angelegt.",
+	FWEAR_FAILED_FMT = "das Spiel hat den Gegenstand nicht angelegt: %s",
+	FWEAR_SKIPPED_FMT = "%s wird nicht mehr angeboten.",
+	FWEAR_RESET = "alle Gegenstände, die du übersprungen hast, werden wieder angeboten.",
 	-- 21 Nov 2026: XP per hour (ForeverXPRate.lua), FXPRATE_* (mh-writer, not reviewed by a native speaker).
 	FXPRATE_SW = "EP pro Stunde und Zeit bis zur nächsten Stufe",
 	FXPRATE_SW_DESC = "Unter dem EP-Balken dieser Übersicht: wie lange es bis zu deiner nächsten Stufe noch dauert, im Tempo deiner letzten Spielstunde, und im Tooltip deine EP pro Stunde. Gezählt wird nur, solange du mit diesem Charakter eingeloggt bist, eine Nacht offline senkt den Wert also nicht. Nicht auf Höchststufe.",

@@ -750,8 +750,9 @@ function ns.ForeverGearTipText(link)
 	end
 	local parts, why = Explain(row, main, stamTie, token)
 	local gains = table.concat(parts, ", ")
-	-- 3rd/4th return: the pieces, for the pickup notice (PickupUpgrade.lua) that words it its own way.
-	return ns:L("FGEAR_TIP_FMT"):format(gains, why), nil, gains, why
+	-- 3rd/4th return: the pieces, for the pickup notice (PickupUpgrade.lua) that words it its own way. 5th (23 Nov 2026,
+	-- ForeverWear.lua): the inventory slot it would replace (the weaker ring, the empty off-hand ...), for "Wear it".
+	return ns:L("FGEAR_TIP_FMT"):format(gains, why), nil, gains, why, row.worn and row.worn.slot
 end
 
 if TooltipDataProcessor and TooltipDataProcessor.AddTooltipPostCall and Enum and Enum.TooltipDataType

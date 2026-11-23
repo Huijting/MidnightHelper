@@ -33,6 +33,12 @@ end
 
 local PREFIX = "|cffffcc00Midnight Helper:|r "
 local HEAD, GREY, GOOD = "|cffffcc66", "|cff9d9d9d", "|cff7fff7f"
+-- 23 Nov 2026: true = an upgrade in your bags counts as something to do (the window opens by itself in "auto"); false =
+-- a tip (it shows when the window is up anyway). Rob via sparring, verbatim: "Opvallen A." = true.
+-- Closing the window without choosing keeps it closed (as the cross always did) until a NEW upgrade comes into your
+-- bags: closedWear holds the upgrades that were there when you closed it. Never in combat (Decision), back after it.
+local WEAR_TODO = true
+local closedWear
 local GOLD, STAR = "|cffffd100", "|TInterface\\TargetingFrame\\UI-RaidTargetingIcon_1:14:14|t"
 local W = 300
 
@@ -577,6 +583,22 @@ function Collect()
 			end
 		end
 	end
+	-- 23 Nov 2026 (Rob via sparring: "Ja, doe maar OR-B. Maar dan moet je wel opvallen dat hij erin staat. En als er
+	-- meerdere zijn in je tas, dan moet het ook blijven staan."): every upgrade in your bags, one line each, shown at the
+	-- top (Render), green with an arrow, with [Wear it] and [Not this one] (ForeverWear.lua). out.wear = those lines.
+	-- WEAR_TODO decides whether they open the window by themselves (Rob's choice A/B, see Decision).
+	out.wear = {}
+	if ns.ForeverWearLines then
+		local okW, lines = pcall(ns.ForeverWearLines)
+		if okW and type(lines) == "table" then
+			out.wearLinks = {}
+			for _, w in ipairs(lines) do
+				out.wear[#out.wear + 1] = w.text
+				out.wearLinks[#out.wearLinks + 1] = w.link
+				item(w.plain, "wear", not WEAR_TODO, w.n)
+			end
+		end
+	end
 	-- 23 Nov 2026: a finished quest and who takes it (QuestieDB, only when the player has it). A tip, not a to-do: it
 	-- does not make the window appear by itself.
 	if ns.ForeverQuestieTurnInLine then
@@ -657,6 +679,9 @@ local function Decision(info)
 	if #info.now > 0 then
 		return true, ("mode: only when there is something to do; %d thing(s) to do"):format(#info.now)
 	end
+	if WEAR_TODO and #(info.wear or {}) > 0 then
+		return true, ("mode: only when there is something to do; %d upgrade(s) in your bags"):format(#info.wear)
+	end
 	return false, "mode: only when there is something to do; nothing to do now"
 end
 
@@ -729,6 +754,11 @@ local function Build()
 	close:SetScale(0.8)
 	close:SetScript("OnClick", function()
 		forced = false
+		closedWear = {}
+		local okC, info = pcall(Collect)
+		for _, l in ipairs(okC and info.wearLinks or {}) do
+			closedWear[l] = true
+		end
 		f:Hide()
 		print(PREFIX .. ns:L("FDONOW_CLOSED"))
 	end)
@@ -819,6 +849,10 @@ local function Build()
 			if not (GameTooltip and link) then
 				return
 			end
+			-- 23 Nov 2026: our own [Wear it] / [Not this one] links (ForeverWear.lua).
+			if ns.ForeverWearLinkEnter and ns.ForeverWearLinkEnter(self, link) then
+				return
+			end
 			GameTooltip:SetOwner(self, "ANCHOR_CURSOR")
 			pcall(GameTooltip.SetHyperlink, GameTooltip, link)
 			GameTooltip:Show()
@@ -829,6 +863,9 @@ local function Build()
 			end
 		end)
 		f:SetScript("OnHyperlinkClick", function(_, link)
+			if ns.ForeverWearLinkClick and ns.ForeverWearLinkClick(link) then
+				return
+			end
 			local id = type(link) == "string" and tonumber(link:match("^spell:(%d+)"))
 			if not (id and IsModifiedClick and IsModifiedClick("CHATLINK")) then
 				return
@@ -893,13 +930,21 @@ local function Render(info)
 	local f = Build()
 	f.title:SetText(ns:L("FDONOW_TITLE"))
 	local lines = {}
-	if #info.now > 0 then
+	local wear = info.wear or {}
+	if #info.now > 0 or #wear > 0 then
 		-- 22 Nov 2026 (Rob: "talent b"): the talent line first, gold with a star and an empty line under it. No glow.
 		if info.talent then
 			lines[1] = STAR .. " " .. Golden(info.talent)
-			if #info.now > 1 or #(info.tips or {}) > 0 then -- else the empty line above "Coming up" already does it
+			if #info.now > 1 or #(info.tips or {}) > 0 or #wear > 0 then -- else the empty line above "Coming up" does it
 				lines[2] = " "
 			end
+		end
+		-- 23 Nov 2026 (Rob: "opvallen"): the upgrades right under the talent line, above everything else.
+		for _, s in ipairs(wear) do
+			lines[#lines + 1] = s
+		end
+		if #wear > 0 and #info.now > (info.talent and 1 or 0) then
+			lines[#lines + 1] = " "
 		end
 		-- No "Do this now" heading under the "Do this now" title (Rob via sparring: "Ja, alle drie").
 		for _, s in ipairs(info.now) do
@@ -995,6 +1040,15 @@ local function Update()
 			win:Hide()
 		end
 		return
+	end
+	-- A new upgrade after you closed the window: it may open again (WEAR_TODO, see closedWear at the top).
+	if WEAR_TODO and forced == false and closedWear then
+		for _, l in ipairs(info.wearLinks or {}) do
+			if not closedWear[l] then
+				forced, closedWear = nil, nil
+				break
+			end
+		end
 	end
 	local show, why = Decision(info)
 	lastWhy = why

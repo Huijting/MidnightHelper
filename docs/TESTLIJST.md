@@ -25,6 +25,26 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 23 nov — FOREVER: upgrades aantrekken vanuit "Do this now" (Rob: "Ja, doe maar OR-B.")
+
+Nieuw bestand: sluit het spel eerst helemaal af en start opnieuw (`/reload` is hier niet genoeg).
+- [ ] Geen rode fout bij inloggen.
+- [ ] Leg een stuk uitrusting in je tas dat beter is (de tooltip heeft de groene regel "MH: …"). "Do this now" gaat
+      **vanzelf open** (Rob: *"Opvallen A."*; in de stand "alleen als er iets is"). Bovenaan, onder een eventuele
+      talentregel, staat in groen met een pijltje omhoog: "Upgrade: [item] · <vak> · <wat beter is>  [Wear it]  [Not this
+      one]". Muis op [Wear it]: de tooltip van het item.
+- [ ] Klik het kruisje zonder te kiezen: het venster blijft dicht. Het gaat pas weer vanzelf open als er een NIEUWE upgrade
+      in je tas komt.
+- [ ] Pak een upgrade op in een gevecht: het venster komt pas na het gevecht.
+- [ ] Twee upgrades in je tas: twee regels. Klik [Wear it] bij één: hij gaat aan (bij een Bind on Equip-item vraagt het spel
+      eerst zelf of het mag). De andere regel blijft staan, tenzij hij nu geen upgrade meer is.
+- [ ] Klik [Not this one]: die regel verdwijnt en komt niet terug. `/mh wear reset` haalt hem terug.
+- [ ] In een gevecht staat er "after the fight" in plaats van [Wear it]. (Het venster verdwijnt in een gevecht; dit zie je
+      alleen als je het opnieuw opent met `/mh donow`.)
+- [ ] Overzicht (`/mh overview`, tab Now): dezelfde upgrade staat er met een knop "Wear it".
+- [ ] Instellingen → AddOns → Midnight Helper → "On-screen buttons": "Show upgrades in "Do this now"" uit → de regels weg; aan → terug.
+- `/mh wear why` = per stuk uitrusting in je tassen MH's oordeel en waarom (voor ons).
+
 ## 23 nov — FOREVER: QuestieDB stap B (Rob: "Ik volg jullie advies weer.") — wat MH ermee doet
 
 Nieuwe en gewijzigde bestanden: sluit het spel eerst helemaal af. QuestieDB moet aan staan (dat deed je al).

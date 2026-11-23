@@ -100,6 +100,8 @@ ns.MH_UNLISTED_ON_PURPOSE = {
 	"charkey",
 	-- 23 Nov 2026: QuestieDB measurement (ForeverQuestieDB.lua, Forever only; Rob: "quest a").
 	"questiedb", "questiedb here", "questiedb why",
+	-- 23 Nov 2026: upgrades in Do this now (ForeverWear.lua, Forever only; Rob: "Ja, doe maar OR-B.").
+	"wear", "wear why", "wear reset",
 	-- 21 Nov 2026: renown measurement (AltOverview.lua).
 	"renown",
 	-- 21 Nov 2026: next talent point diagnosis (ForeverTalentNext.lua, Forever only).

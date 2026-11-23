@@ -2810,6 +2810,18 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh wear [why | reset] — WoW Forever: upgrades in Do this now (ForeverWear.lua; Rob, 23 Nov 2026 via sparring:
+	-- "Ja, doe maar OR-B."). why = MH's verdict per piece of gear in your bags; reset = forget every "Not this one".
+	local wearArg = msg:lower() == "wear" and "" or msg:lower():match("^wear%s+(.+)$")
+	if wearArg then
+		if ns.ForeverWearSlash then
+			ns.ForeverWearSlash(wearArg)
+		else
+			print("|cffffcc00Midnight Helper:|r /mh wear is for WoW: Forever (a new file: restart the game once).")
+		end
+		return
+	end
+
 	-- /mh questiedb [here] — WoW Forever: measure whether MH can read QuestieDB live (ForeverQuestieDB.lua; Rob, 23 Nov
 	-- 2026 via sparring: "quest a", "Ik volg jullie advies."). Diagnosis only, writes ns.db.questieDbProbe.
 	local qdbArg = msg:lower() == "questiedb" and "" or msg:lower():match("^questiedb%s+(.+)$")

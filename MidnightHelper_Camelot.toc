@@ -201,6 +201,8 @@ Modules\ForeverCrates.lua
 Modules\ForeverPartyProbe.lua
 # Measurement only: can MH read QuestieDB while you play (Rob, 23 Nov 2026: "quest a", "Ik volg jullie advies.").
 Modules\ForeverQuestieDB.lua
+# Upgrades in Do this now with Wear it / Not this one (Rob, 23 Nov 2026: "Ja, doe maar OR-B.").
+Modules\ForeverWear.lua
 # Small group panel: rows, click = target, right-click = your dispel, Blizzard's red edge (Rob, 12 Nov 2026: "A, eerst klein").
 Modules\ForeverPartyPanel.lua
 # "Do this now / All caught up / Coming up" (Rob, 12 Nov 2026, via sparring: "Venster 'Doe dit nu'").

@@ -961,6 +961,17 @@ for k, v in pairs({
 	FQDB_BTN_TURNIN = "Entregar",
 	FQDB_ARROW_FMT = "seta posta em %s (%s) para entregar \"%s\" (QuestieDB).",
 	FQDB_NO_TURNIN = "nenhuma missão do seu registro está pronta para entregar em um lugar que o QuestieDB conheça.",
+	-- 23 Nov 2026: upgrades in Do this now (ForeverWear.lua), FWEAR_* (mh-writer, not reviewed by a native speaker).
+	FWEAR_LINE_FMT = "Melhoria: %s · %s · %s",
+	FWEAR_BTN = "Equipar",
+	FWEAR_SKIP = "Este não",
+	FWEAR_SKIP_TIP = "O MH não vai oferecer este item de novo. /mh wear reset traz todos os itens de volta.",
+	FWEAR_COMBAT = "depois do combate",
+	FWEAR_GONE = "esse item não está mais nas suas bolsas.",
+	FWEAR_DONE_FMT = "equipando %s.",
+	FWEAR_FAILED_FMT = "o jogo não o equipou: %s",
+	FWEAR_SKIPPED_FMT = "%s não será mais oferecido.",
+	FWEAR_RESET = "todos os itens que você pulou serão oferecidos de novo.",
 	-- 21 Nov 2026: XP per hour (ForeverXPRate.lua), FXPRATE_* (mh-writer, not reviewed by a native speaker).
 	FXPRATE_SW = "EXP por hora e tempo até o próximo nível",
 	FXPRATE_SW_DESC = "Abaixo da barra de EXP desta visão geral: quanto falta para o seu próximo nível no ritmo da sua última hora de jogo e, na dica, a sua EXP por hora. Só conta enquanto você está conectado neste personagem, então uma noite offline não diminui o valor. Não no nível máximo.",
