@@ -5269,3 +5269,103 @@ kop, per bevinding MEASURED/INFERRED en [RAAKT ONS]/[RAAKT ONS NIET], met bestan
   docs/PTR_12.0.7_DATA.md [2026-11-22] (zelfde dag, andere wacht, als onafhankelijke controle op de
   cache)
   (alle rechtstreeks via Exa gelezen).
+
+- [2026-11-23] 🃏 **Niets nieuws bij Midnight of Forever, geen open CurseForge-reacties; de
+  wekelijkse kaarten-check vindt wél een echte afwijking: Method.gg noemt nu Eternal Flame als
+  hoofd-besteding voor Holy Paladin, wij nog Word of Glory.**
+
+  💬 **CurseForge:** MEASURED, zelf gelezen via Exa
+  (`curseforge.com/api/v1/mods/1528577/comments?pageIndex=0&pageSize=20&nocache=20261123a` en `/b`,
+  twee fetches met andere `nocache`-waarde, byte-identiek). `pagination.totalCount: 8`. **Geen open
+  reacties (3 draadjes, identiek aan [2026-11-22]):** esES/esMX-locale-fix `8509224` → reply
+  `8510682`; MrsBoojiePanda's debug-printregel `8414729` → reply `8483898`; gadrinonturalyon's
+  coffer-key-shards/3D-boss-model-verzoek `8090710` → keten tot `8095337`/`8092133` — alle ids en
+  timestamps identiek aan gisteren. Geen concept-antwoord nodig.
+
+  **Midnight, geen nieuwe sectie.** MEASURED, zelf gelezen via Exa (`?nocache=20261123a`):
+  `news.blizzard.com/en-us/article/24307310/hotfixes-november-6-2026` toont nog steeds alleen de
+  secties van 6 en 5 nov (Vashnik/Ula'tek-tuning resp. Tortollan-naam + Shadowguard Point +
+  Venomous Abyss-tuning), allebei al verwerkt op [2026-11-06]/[2026-11-07], inclusief het nog
+  openstaande [RAAKT ONS]-punt daar (Iku/Nama → Epu/Nema in `Locales/RaidTips.lua` — niet opnieuw
+  als nieuwe bevinding geteld). **Positieve controle, zelfde run:**
+  `worldofwarcraft.blizzard.com/en-us/content-update-notes` (zelfde cache-buster) zegt nu **"16 days
+  ago"** bij die Nov 6-sectie — gepubliceerd 7 nov, dus 7+16=23, precies vandaag; geen verstikte
+  cache. Zijspoor (niet deze wacht): `news.blizzard.com/en-us/feed/world-of-warcraft` noemt een "WoW
+  Weekly"-stuk met *Midnight: Echoes of the Worldcore* (1 dec) — aankomend nieuws, PTR-/roadmap-wacht
+  terrein, niet verder uitgezocht.
+
+  **Forever, geen nieuwe sectie.** MEASURED, zelf gelezen via Exa
+  (`news.blizzard.com/en-us/article/24315281/wow-forever-hotfixes-november-20-2026?nocache=20261123c`)
+  én onafhankelijk via `web_search_exa`: nieuwste blijft "November 20, 2026" (gepubliceerd 21 nov,
+  "2 dagen geleden" bij vandaag → 21+2=23, klopt, geen verstikte cache), al volledig verwerkt op
+  [2026-11-21]. Niets nieuws te toetsen.
+
+  **[RAAKT ONS NIET]** voor de drie bovenstaande — geen actiepunt.
+
+  🃏 **Kaarten:** Alle 40 kaarten opnieuw gelezen uit `Modules/PlayCards.lua` (niet het vorige
+  rapport vertrouwd). 18 hebben een Icy Veins-bron ouder dan 12 okt; tien daarvan opnieuw gefetcht
+  (cache-buster `?nocache=20261123a/c`) plus twee als steekproef uit de "al 12 okt"-groep — alle
+  twaalf tonen nog steeds exact "Last Updated: Oct 12, 2026 – 4:30 PM" (nu "1mo ago"): **geen nieuwe
+  site-brede herstempeling, MEASURED.** Inhoud vergeleken (structuurniveau) voor Shadow Priest,
+  Blood DK, Protection Warrior, Arms/Fury Warrior en Restoration Shaman: "guide updated, card still
+  right", geen tegenspraak.
+
+  **Echte afwijking gevonden, spell-ID nu bevestigd (was gisteren nog ambigu bij de onderzoeker).**
+  Method.gg (`method.gg/guides/holy-paladin/playstyle-and-rotation`, "Last Updated: 13th Oct, 2026" —
+  nieuwer dan onze bron "Method 27 Aug 2026") zegt nu letterlijk *"Holy Power should mostly be spent
+  on Eternal Flame (both in Raid and M+), unless ... overheal"* — als vaste standaardkeuze, niet als
+  hero-talent-variant. MEASURED via Wowhead (`wowhead.com/spell=85673/word-of-glory`, via
+  `web_search_exa`): `{SPELL:85673}` = **Word of Glory**. Onze kaart (`PLAYCARD_65_S3`/`_EASY`/`_W3`,
+  `Locales/enUS.lua:1883,1886,1894`) noemt precies dat `{SPELL:85673}` als standaardbesteding, met
+  Eternal Flame (`{SPELL:156322}`) alleen genoemd als wat die knop wordt onder Herald of the Sun
+  (`PLAYCARD_65_HERO1`, `Locales/enUS.lua:1890`). Icy Veins zelf zegt (zelfde dag, nog steeds 12 okt)
+  nog "Word of Glory (or Eternal Flame)" als gelijkwaardige optie — de twee gidsen zijn het nu niet
+  met elkaar eens. **PLAYCARD_65_S3/_EASY/_W3: Method.gg (13 okt) zegt nu Eternal Flame als
+  hoofd-spender voor Holy Paladin; Icy Veins (12 okt) zegt nog "om het even welke".** Niet zelf
+  opgelost — twee bronnen die elkaar tegenspreken is iets voor Rob/Cisca om in-game te checken, geen
+  aanleiding om de kaart hier aan te passen.
+
+  Wowhead's eigen rotatiepagina's niet bereikt (`CRAWL_NOT_FOUND`/`CRAWL_EMPTY_CONTENT`). Geen 12.x
+  class-hotfix gevonden die HOE een Midnight-retailspec gespeeld wordt verandert (het Nov 6-artikel
+  heeft geen Classes-sectie; Forever's recente Rogue/Warlock-hotfixes raken een andere client/specs,
+  niet retail).
+
+  **Niet gecontroleerd:** de overige 30 specs; Wowhead voor alle specs; regel-voor-regel-inhoud
+  (alleen structuurniveau gedaan) voor Arms/Fury/Protection Warrior en Restoration Shaman.
+
+  🧪 **Consumables:** `python tools/check_consumables.py` faalde opnieuw op alle 39 specs
+  (egress-proxy: "Tunnel connection failed: 403 Forbidden" via urllib) — uitgeweken naar Exa, 13
+  pagina's gelezen (`?nocache=20261123a/b`): Enhancement Shaman, Blood/Unholy Death Knight,
+  Protection Paladin, Outlaw Rogue (bekende afwijkingen opnieuw gecontroleerd) plus de zeven
+  mana-potion-specs. Alle tonen nog steeds exact "Last Updated: Oct 12, 2026 – 4:30 PM": niets
+  gewijzigd sinds [2026-11-16]. **Bekende afwijkingen (12 okt met 3 bronnen nagekeken): 3,
+  ongewijzigd** (Unholy DK-, Protection Paladin-flask, Outlaw Rogue-combat-potion — Outlaw Rogue's
+  pagina brak dit keer af vóór de potion-tekst, dus niet opnieuw vergeleken, wel niet weersproken).
+  Mana potions voor alle zeven specs reconfirmed: klopt met onze keuze (Holy Paladin/Preservation
+  Evoker/Mistweaver Monk/Restoration Druid wél, Discipline/Holy Priest/Restoration Shaman bewust
+  niet). **Nieuwe pagina ontdekt:** Icy Veins heeft nu een Devourer Demon Hunter-gids
+  (`devourer-demon-hunter-pve-dps-gems-enchants-consumables`, bestond niet eerder) — flask, combat
+  potion, healing potion, weapon oil en augment rune komen allemaal overeen met
+  `data/consumables_wowhead.json`; alleen de food-naam wijkt (Feast of Knowledge/Champion's Bento vs.
+  onze Silvermoon Parade/Royal Roast) — ruis, telt niet als afwijking. Enhancement Shaman's
+  potion-sectie brak weer af vóór de tekst — nog steeds niet vergeleken. Geen hotfix van de afgelopen
+  week gevonden die een consumable toevoegt of verandert.
+
+  **Niet gecontroleerd:** de overige 26 specs (alleen datum bevestigd; inhoudelijk al 39× vorige week
+  gecheckt).
+
+  **[RAAKT ONS NIET]** voor Midnight/Forever/CurseForge/Consumables. **Holy Paladin
+  (PLAYCARD_65) is het enige punt deze week dat een mens zou willen bekijken** — geen harde
+  tegenspraak, wel twee gidsen die nu uit elkaar lopen.
+
+  — bron: curseforge.com API (`?nocache=20261123a/b`, via Exa) ·
+  news.blizzard.com/en-us/article/24307310/hotfixes-november-6-2026,
+  worldofwarcraft.blizzard.com/en-us/content-update-notes,
+  news.blizzard.com/en-us/feed/world-of-warcraft (alle `?nocache=20261123a`, via Exa) ·
+  news.blizzard.com/en-us/article/24315281/wow-forever-hotfixes-november-20-2026?nocache=20261123c
+  (via Exa) + web_search_exa · 12× icy-veins.com-rotatiepagina's (`?nocache=20261123a/c`) ·
+  method.gg/guides/holy-paladin/playstyle-and-rotation (via web_search_exa) ·
+  wowhead.com/spell=85673/word-of-glory (via web_search_exa) · 13× icy-veins.com-consumables-pagina's
+  (`?nocache=20261123a/b`) · `Modules/PlayCards.lua`, `Locales/enUS.lua`,
+  `data/consumables_wowhead.json`, `data/vault_stat_catalog.json` (alle rechtstreeks via Exa of
+  direct in de repo gelezen).
