@@ -36,7 +36,9 @@ Wailing Caverns: daar heeft geen gever een gat, dus terecht geen "(QuestieDB)" (
       ziet een regel "Ready to turn in: "<quest>" at <NPC>, <zone> (QuestieDB)." en een knop **Turn in**.
 - [x] Klik **Turn in**: de pijl wijst naar die NPC en de chat zegt "arrow set to … (QuestieDB)". Klopt de plek?
 - [ ] Lever de quest in: de regel verdwijnt (binnen een seconde).
-- [ ] ❌→🔧 (Rob 23 nov, screenshot SM_GY: "Vorrel's Revenge" bleef "our source gives no place", geen (QuestieDB)). GEMETEN:
+- [x] ✅ na 5c8233d (Rob 23 nov via sparring, letterlijk: *"ennuh, een reload was genoeg, zoals zo vaak :)"* + screenshot:
+      "Inside: Vorrel Sengutz (QuestieDB)" onder "You get these inside the dungeon"; RFD niet apart getest). Was ❌
+      (Rob 23 nov, screenshot SM_GY: "Vorrel's Revenge" bleef "our source gives no place", geen (QuestieDB)). GEMETEN:
       QuestieDB heeft Vorrel alleen als "in een instance" (-1,-1), geen plek voor een pijl; zo ook 6 van 10 nagekeken
       gevers. Gerepareerd: zo'n quest staat nu onder **"You get these inside the dungeon"** met "Inside: Vorrel Sengutz
       (QuestieDB)". Opnieuw: herstart, `/mh dungeons quests SM_GY` → staat Vorrel's Revenge daar zo?
