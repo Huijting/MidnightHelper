@@ -78,5 +78,19 @@ is een aparte keuze voor Rob.
 Stormwind 1453 zijn twee van de vier zones met een Era→Forever-omrekening), en met Robs twee gemeten plekken in Tirisfal.
 Punt 5 blijft staan tot het GPL-besluit.
 
+### Uitslag A (Rob 23 nov, letterlijk: *"klaar"*; GEMETEN in `MidnightHelperDB.questieDbProbe`, build 71037)
+
+- QuestieDB 1.1.4 geladen, contract 4, mode baked. 6080 quests, 15564 NPC's. 0 fouten bij het lezen.
+- Tijd: 150 quest-vragen 1,04 ms (eerste keer) / 0,25 ms (tweede keer); 100 NPC-vragen 0,77 / 0,27 ms.
+- Geheugen van QuestieDB: 7721 KB. Laadtijd bij het inloggen: NIET GEMETEN (Rob meldde niets, ook niet "trager").
+- Plekken: alle 218 trainerplekken van MH gevonden, op 14 kaarten. Mediaan-afstand 0,11-0,49 kaartpunt (onder de 1,0).
+  **Na de Era→Forever-omrekening werd het slechter**: Stormwind 1453 0,22 → 14,77, Mulgore 1412 0,13 → 2,89. Dus de
+  plekken in QuestieDB zijn al Forever: **die omrekening NOOIT toepassen** in B.
+- Robs twee gemeten plekken (Tirisfal 1420): 0,04 (Dark Cleric Duesten) en 0,17 (Aramis Hammerhand, een NPC die alleen in
+  Forever bestaat).
+- `here` gedaan: NPC 5817 in Orgrimmar (1454), 0,21 van Rob af.
+- BugGrabber: geen fout na de meting (laatste melding ~27 uur ervoor).
+- Oordeel: **A is goed**; B kan, zonder omrekening. Alleen de laadtijd is nog een open vraag.
+
 **Advies: A, dan B.** A is klein en vertelt of de plekken kloppen. B geeft de meeste winst zonder dat MH iets meelevert.
 C niet: dat doen andere addons al. Los daarvan kiest Rob wat er met punt 5 gebeurt (nalopen en vervangen, of laten).

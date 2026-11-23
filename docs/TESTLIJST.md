@@ -29,12 +29,12 @@ bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt o
 
 Alleen een meting: spelers zien niets en er verandert niets in het spel. Het is een nieuw bestand, dus sluit het spel
 eerst helemaal af.
-- [ ] Characterscherm → knop **AddOns** → vink **QuestieDB** aan (het staat nu bij geen enkel character aan) → spel starten.
-      Laden voelt het merkbaar trager dan anders? Meld het.
-- [ ] Typ `/mh questiedb`. Je ziet 5 of meer regels in de chat (versie, tijd van de vragen, geheugen, trainerplekken).
-      Daarna `/reload`, zodat het in het SavedVariables-bestand komt. Rode fout? Meld hem.
-- [ ] Optioneel, de sterkste test: ga naast een NPC staan, bijvoorbeeld een trainer, en klik hem aan (target).
-      Typ `/mh questiedb here`. Een getal onder 1.0 = QuestieDB zet hem op de goede plek. Daarna `/reload`.
+- [x] ✅ (Rob 23 nov via sparring: *"klaar"*; GEMETEN in de SV: geladen) Characterscherm → knop **AddOns** → vink
+      **QuestieDB** aan → spel starten. ◐ Laadtijd: Rob zei niets, ook niet "trager".
+- [x] ✅ (GEMETEN in de SV + BugGrabber: 0 leesfouten, geen rode fout) Typ `/mh questiedb`. Je ziet 5 of meer regels in
+      de chat (versie, tijd van de vragen, geheugen, trainerplekken). Daarna `/reload`.
+- [x] ✅ (GEMETEN: NPC 5817, Orgrimmar, 0,21) Optioneel, de sterkste test: ga naast een NPC staan, bijvoorbeeld een
+      trainer, en klik hem aan (target). Typ `/mh questiedb here`. Een getal onder 1.0 = goede plek. Daarna `/reload`.
 - Daarna zegt Rob "klaar" via sparring; de bouwchat leest `MidnightHelperDB.questieDbProbe` en zegt of B kan.
 
 ## 23 nov — PTR 12.1.7 (draaiboek §3, `_ptr_` = 12.1.7.71087, MH 5.8.0)

@@ -12,7 +12,10 @@ gedaan"*); de live pagina zag niemand van ons.
 december-events in de weekplanning. Alleen in IDEEEN; niets gebouwd. PTR-map heeft MH van 16 okt: niet kopiëren zonder Robs ja.
 ◐ **RONDE 2, 23 nov:** dungeon-quests: Rob via sparring, letterlijk *"een test : een dungeon-quest , werkt"* (welke quest:
 nog niet bekend). Recept-pijl en Copper Ore (ingrediënt) blijven open; XP per uur niet gemeld.
-🧪 **QUEST A: METING GEBOUWD, wacht op Rob** (Rob via Sparring 23-11, letterlijk: *"Ik volg jullie advies."* = eerst A meten,
+✅ **QUEST A GEMETEN, goed** (Rob: *"klaar"*): 0 fouten, ~1 ms per 150 vragen, 7,7 MB, 218/218 trainerplekken binnen
+0,11-0,49 kaartpunt; Robs gemeten plekken 0,04 en 0,17; `here` 0,21. QuestieDB-plekken zijn al Forever: Era→Forever-
+omrekening NOOIT gebruiken (maakte Stormwind 14,77). Laadtijd niet gemeten. ▶ B wacht op Robs ja via sparring.
+🧪 **QUEST A: METING GEBOUWD** (Rob via Sparring 23-11, letterlijk: *"Ik volg jullie advies."* = eerst A meten,
 B pas na zijn meting; is A slecht: melden, niet door naar B). `Modules/ForeverQuestieDB.lua`, `/mh questiedb [here]` →
 `ns.db.questieDbProbe` (alleen tellingen, ms, KB en afstanden; geen QuestieDB-data). Offline getest met een nep-
 LibQuestieDB (5 gevallen goed), NIET in het spel. Teststappen: TESTLIJST 23 nov. ⏸️ Questie-regels in ForeverClassQuests
