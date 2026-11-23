@@ -46,10 +46,14 @@ Wailing Caverns: daar heeft geen gever een gat, dus terecht geen "(QuestieDB)" (
       ""Do this now" window" en "Small group panel": schakelaar **"Use QuestieDB if you have it"** staat aan. Zet hem uit: de "Ready to turn in"-regel en de (QuestieDB)-plekken verdwijnen. Weer aan: ze komen terug.
 - [ ] Een gevecht: geen "action blocked" op naam van MidnightHelper.
 - `/mh questiedb why` = wat MH besloot en waarom (voor ons).
-- [ ] 🆕 **Eén Glowing Shard** (Rob: *"En glowing, ja,"*): `/reload` → `/mh dungeons quests WC` → onder "You get these
-      inside the dungeon" staat "The Glowing Shard" nog maar één keer.
-- [ ] 🆕 Bijvangst: een keten met één naam blijft nu zichtbaar. Ragefire Chasm (`/mh dungeons quests RFC`): heb je
-      "Hidden Enemies" stap 1 gedaan, dan staat de volgende stap onder "Pick these up first" (voorheen verdween hij).
+- [x] ✅ (Rob 23 nov via sparring, screenshot: WC "Done already: 1 of 15", één "The Glowing Shard · Inside: Disciple of
+      Naralex") **Eén Glowing Shard**: `/reload` → `/mh dungeons quests WC`.
+- [ ] ⏸️ Niet te testen op dit character (Rob 23 nov: RFC "Done already: 9 of 10", de Hidden Enemies-keten al af) — keten
+      met één naam blijft zichtbaar: alleen offline gecontroleerd.
+- [ ] 🆕 (Rob: *"En nightmares, ja,"*) "In Nightmares" (WC) komt nu ook vrij na de ándere Glowing Shard. Alleen te zien
+      nadat je The Glowing Shard hebt ingeleverd: dan staat In Nightmares onder "Pick these up first". Offline getest.
+- [x] ✅ (Rob 23 nov via sparring, letterlijk: *"Stap 6, gevecht gedaan en geen errors gekregen."*) Stap 6: gevecht zonder
+      fout. **Stap B is daarmee helemaal getest.**
 
 ## 23 nov — FOREVER: meting "quest A" (kan MH QuestieDB lezen?) — `/mh questiedb`
 

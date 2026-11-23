@@ -183,6 +183,31 @@ local function Collect(key)
 			taken[PairKey(e)] = true
 		end
 	end
+	-- 23 Nov 2026 (Rob via sparring: "En nightmares, ja,"): the quest before it counts as done when its "or" variant is
+	-- done. In Nightmares (3369) names 6981 as prev; a player who did The Glowing Shard 3366 waited for ever. Code, not
+	-- data: ForeverDungeonQuestsData.lua is generated.
+	local function PrevDone(pq)
+		if Done(pq) then
+			return true
+		end
+		local pe
+		for _, x in ipairs(list) do
+			if x.q == pq then
+				pe = x
+				break
+			end
+		end
+		if not pe then
+			return false
+		end
+		local k = PairKey(pe)
+		for _, x in ipairs(list) do
+			if x.q ~= pq and PairKey(x) == k and Done(x.q) then
+				return true
+			end
+		end
+		return false
+	end
 	local shown = {} -- pair → the quest already listed
 	for _, e in ipairs(list) do
 		if ForMe(e, side, class) then
@@ -200,7 +225,7 @@ local function Collect(key)
 				st, why = "inside", "picked up inside the dungeon"
 			elseif QuestieInside(e) then
 				st, why = "inside", "QuestieDB: the giver stands inside an instance"
-			elseif e.prev and not Done(e.prev) then
+			elseif e.prev and not PrevDone(e.prev) then
 				st, why = "later", ("prev %d not done"):format(e.prev)
 			else
 				st, why = "now", e.prev and ("prev %d done"):format(e.prev) or "no quest before it"
