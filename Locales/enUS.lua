@@ -8017,6 +8017,7 @@ ns._mhLocales.enUS = {
 	ACCOUNT_WEEKLY_SHOW_ALL_FMT = "Show all %d characters (clear filter)",
 	ACCOUNT_WEEKLY_NO_SNAPSHOTS = "No saved characters yet — log in on each alt to build this list.",
 	ACCOUNT_WEEKLY_FOLIO_FMT = "Omnium Folio: do this week's Mote (%d/5 rows unlocked)",
+	ACCOUNT_WEEKLY_FOLIO_FMT_1217 = "Omnium Folio: do this week's Mote (%d/7 steps done)",
 	ACCOUNT_WEEKLY_FOLIO_TT_TITLE = "Omnium Folio — weekly Mote",
 	ACCOUNT_WEEKLY_FOLIO_TT_BODY = "Account-wide: do the weekly Folio quest at Magisters' Terrace (Grand Magister Rommath) to unlock the next rune row. One per character is enough; this line disappears once you reach 5/5.",
 	ACCOUNT_WEEKLY_VAULT_READY_FMT = "Great Vault ready to claim: %d (%s)",

@@ -688,6 +688,7 @@ local OVERRIDES = {
 	ACCOUNT_WEEKLY_SHOW_ALL_FMT = "Mostrar los %d personajes (quitar filtro)",
 	ACCOUNT_WEEKLY_NO_SNAPSHOTS = "Aún no hay personajes guardados — entra con cada alt para crear esta lista.",
 	ACCOUNT_WEEKLY_FOLIO_FMT = "Omnium Folio: haz el Mote de esta semana (%d/5 filas desbloqueadas)",
+	ACCOUNT_WEEKLY_FOLIO_FMT_1217 = "Omnium Folio: haz el Mote de esta semana (%d/7 pasos completados)",
 	ACCOUNT_WEEKLY_FOLIO_TT_TITLE = "Omnium Folio — Mote semanal",
 	ACCOUNT_WEEKLY_FOLIO_TT_BODY = "Por cuenta: haz la misión semanal del Folio en el Bancal del Magister (Gran Magíster Rommath) para desbloquear la siguiente fila de runas. Basta una vez por cuenta; esta línea desaparece al llegar a 5/5.",
 

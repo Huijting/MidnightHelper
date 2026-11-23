@@ -791,6 +791,7 @@ ns._mhLocales.itIT = {
 	ACCOUNT_WEEKLY_SHOW_ALL_FMT = "Mostra tutti i %d personaggi (azzera filtro)",
 	ACCOUNT_WEEKLY_NO_SNAPSHOTS = "Ancora nessun personaggio salvato — accedi con ogni alt per costruire questa lista.",
 	ACCOUNT_WEEKLY_FOLIO_FMT = "Omnium Folio: fai il Mote di questa settimana (%d/5 righe sbloccate)",
+	ACCOUNT_WEEKLY_FOLIO_FMT_1217 = "Omnium Folio: fai il Mote di questa settimana (%d/7 passi completati)",
 	ACCOUNT_WEEKLY_FOLIO_TT_TITLE = "Omnium Folio — Mote settimanale",
 	ACCOUNT_WEEKLY_FOLIO_TT_BODY = "Per account: fai la quest Folio settimanale alla Terrazza dei Magistri (Grand Magister Rommath) per sbloccare la prossima riga di rune. Basta uno per personaggio; questa riga sparisce quando raggiungi 5/5.",
 	ACCOUNT_WEEKLY_VAULT_READY_FMT = "Gran Banca pronta da riscattare: %d (%s)",

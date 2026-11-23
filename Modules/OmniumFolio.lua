@@ -225,7 +225,8 @@ function ns.GetOmniumFolioWeeklyStatus()
 		return nil
 	end
 	local unlocked = UnlockedRows()
-	if unlocked >= 5 then
+	-- 23 Nov 2026: the real number of steps (5 now, 7 on a 12.1.7 client; OmniumFolioData.lua), not a fixed 5.
+	if unlocked >= #(ns.OMNIUM_FOLIO.unlockQuests or {}) then
 		return { unlocked = unlocked, pending = false, done = true }
 	end
 

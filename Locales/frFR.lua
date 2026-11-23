@@ -684,6 +684,7 @@ local OVERRIDES = {
 	ACCOUNT_WEEKLY_SHOW_ALL_FMT = "Afficher les %d personnages (effacer le filtre)",
 	ACCOUNT_WEEKLY_NO_SNAPSHOTS = "Aucun personnage enregistré — connecte-toi sur chaque reroll pour remplir cette liste.",
 	ACCOUNT_WEEKLY_FOLIO_FMT = "Omnium Folio : fais la Mote de cette semaine (%d/5 rangées débloquées)",
+	ACCOUNT_WEEKLY_FOLIO_FMT_1217 = "Omnium Folio : fais la Mote de cette semaine (%d/7 étapes terminées)",
 	ACCOUNT_WEEKLY_FOLIO_TT_TITLE = "Omnium Folio — Mote hebdomadaire",
 	ACCOUNT_WEEKLY_FOLIO_TT_BODY = "Lié au compte : fais la quête Folio hebdomadaire à la Terrasse des Magistères (Grand magister Rommath) pour débloquer la rangée de runes suivante. Une fois par compte suffit ; cette ligne disparaît à 5/5.",
 

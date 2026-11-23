@@ -99,7 +99,12 @@ niet gebruikt.
 - [ ] Mounts-pagina: Markeet of the Infinite (Timeways) en Spawn of Vyranoth kloppen.
 - [ ] Oude Edit Mode-back-up terugzetten: oranje regel "made on another game version", er verandert niets.
 - [ ] Toetsenblok: neerzetten en terug werkt op de nieuwe versie.
-- [ ] Omnium Folio: 7 rijen?
+- [ ] Omnium Folio: 7 rijen? KLAARGEZET 23 nov (alleen op 12.1.7): de keten telt 7 quests (GEMETEN QuestLineXQuest 6307:
+      … 96444, 99509, 99508), tellers "/7 steps", weekdoel stap 6 (99509, Wowhead-PTR-tekst), en "Otherworldly Magic" als
+      nieuwe naam van 96444 in het 12.1.7-artikel (live "Off-World Magic", PTR "Otherworldly Magic", beide Wowhead GEMETEN).
+      Op patchdag nameten: naam en weekdoel van 99508 (Wowhead 404; via Talebound?), welke rij(en) de 2 nieuwe runen
+      krijgen (Rune of Empowerment, Rune of Critical Mass: keuze of niet, spell-id's, advies), de elite op de Coiled Isle
+      voor stap 5, en OMNIUM_INTRO ("Five rows … All five quests") een _1217-versie geven.
 - [ ] Weekplanning noemt Timeways.
 - [ ] Het kaartje "New in patch 12.1.7" (één keer bij het inloggen) klopt nog. Nakijken (Fable-controle 23 nov): verkoopt een
       BfA-Timewalking-verkoper (Boralus/Dazar'alor) Spawn of Vyranoth; Aqir-verkoper Estelia: nog zonder reputatie, hogere

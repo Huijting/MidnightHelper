@@ -43,6 +43,11 @@ ns.OMNIUM_FOLIO = {
 		"OMNIUM_WK_OBJ_4",
 		"OMNIUM_WK_OBJ_5",
 	},
+	-- 12.1.7 (23 Nov 2026, Rob via sparring: "Ja, 1, 2 en 3" = patch 12.1.7 ready): the chain grows to 7 quests. GEMETEN:
+	-- QuestLineXQuest 6307 on PTR 12.1.7.71087 = 96410, 96441-96444, 99509 (index 5), 99508 (index 6); live has 5.
+	-- Added below only on a 12.1.7 client. The new runes and their rows are NOT built: which row, choice or not, and the
+	-- recommendations are not measurable before patch day (docs/PATCH_12_1_7_DRAAIBOEK.md §4).
+	unlockQuests1217 = { 99509, 99508 },
 
 	rows = {
 		{
@@ -110,3 +115,17 @@ ns.OMNIUM_FOLIO = {
 		world = { core = "orbs", def = "selfmend", ling = "lingering", stat = "vers", cap = "overload" },
 	},
 }
+
+-- On a 12.1.7 client (same test as Locale.lua's _1217 keys): the two new quests, and the objective of step 6 (99509:
+-- "Assist the Coreway expedition and recover a Coreway Rune Fragment", Wowhead PTR tooltip 23 Nov 2026). Step 7 (99508)
+-- has no text anywhere yet (Wowhead 404): no objective line for it until patch day.
+do
+	local iface = GetBuildInfo and select(4, GetBuildInfo())
+	if type(iface) == "number" and iface >= 120107 then
+		local f = ns.OMNIUM_FOLIO
+		for _, q in ipairs(f.unlockQuests1217) do
+			f.unlockQuests[#f.unlockQuests + 1] = q
+		end
+		f.weeklyObjectiveKeys[6] = "OMNIUM_WK_OBJ_6"
+	end
+end

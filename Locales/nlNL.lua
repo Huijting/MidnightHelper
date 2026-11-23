@@ -7055,6 +7055,7 @@ ns._mhLocales.nlNL = {
 	ACCOUNT_WEEKLY_SHOW_ALL_FMT = "Toon alle %d characters (filter uit)",
 	ACCOUNT_WEEKLY_NO_SNAPSHOTS = "Nog geen opgeslagen characters — log in op elke alt om deze lijst te vullen.",
 	ACCOUNT_WEEKLY_FOLIO_FMT = "Omnium Folio: doe deze week's Mote (%d/5 rijen ontgrendeld)",
+	ACCOUNT_WEEKLY_FOLIO_FMT_1217 = "Omnium Folio: doe deze week's Mote (%d/7 stappen gedaan)",
 	ACCOUNT_WEEKLY_FOLIO_TT_TITLE = "Omnium Folio — wekelijkse Mote",
 	ACCOUNT_WEEKLY_FOLIO_TT_BODY = "Account-breed: doe de wekelijkse Folio-quest op Magisters' Terrace (Grand Magister Rommath) om de volgende rune-rij te openen. Eén keer per account volstaat; deze regel verdwijnt zodra je 5/5 hebt.",
 	ACCOUNT_WEEKLY_VAULT_READY_FMT = "Great Vault klaar om te claimen: %d (%s)",

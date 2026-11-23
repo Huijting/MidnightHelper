@@ -734,6 +734,7 @@ local OVERRIDES = {
 	ACCOUNT_WEEKLY_SHOW_ALL_FMT = "Alle %d Charaktere anzeigen (Filter löschen)",
 	ACCOUNT_WEEKLY_NO_SNAPSHOTS = "Noch keine gespeicherten Charaktere — logg jeden Twink ein, um die Liste zu füllen.",
 	ACCOUNT_WEEKLY_FOLIO_FMT = "Omnium Folio: mach die Mote dieser Woche (%d/5 Reihen frei)",
+	ACCOUNT_WEEKLY_FOLIO_FMT_1217 = "Omnium Folio: mach die Mote dieser Woche (%d/7 Schritte erledigt)",
 	ACCOUNT_WEEKLY_FOLIO_TT_TITLE = "Omnium Folio — wöchentliche Mote",
 	ACCOUNT_WEEKLY_FOLIO_TT_BODY = "Accountweit: mach die wöchentliche Folio-Quest auf der Terrasse der Magister (Großmagister Rommath), um die nächste Runenreihe freizuschalten. Einmal pro Account genügt; diese Zeile verschwindet bei 5/5.",
 

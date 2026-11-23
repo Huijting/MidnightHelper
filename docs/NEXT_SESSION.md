@@ -21,13 +21,21 @@ kunnen swappen."*):
   weg R10/M21/W3, commentaar M1/S6; 7 talen. `tools/fcq_check.lua` faalde sinds 5a37dde (CreateFrame bij laden): stub
   erbij, nu 989101 gevallen, 0 fouten. Wacht op test (TESTLIJST).
 - 🧪 Teller in het class-questkaartje GEBOUWD (Rob: *"… met hoeveel ik op dat moment heb?"*): `ObjProgress` → kaartje,
-  Do this now, overzicht. Offline getest (4/6 → tekst; 6/6 → "lever in"). Wacht op test.
+  Do this now, overzicht. Offline getest (4/6 → tekst; 6/6 → "lever in"). NIET in het spel gezien (Rob: quest al af,
+  *"we gaan er van uit dat het werkt"*): eerstvolgende class-quest met teller.
+- Layer-meting 23 nov (SV 16:37, GEMETEN): alleen een /reload + /mh layer in Durotar (2 spelers, 9 NPC's, 0 getagd); geen
+  zonewissel, geen verplaatsing, geen uitnodiging (Rob: *"Nee, ik ben niet uitgenodigd of naar andere legen gegaan."*).
+  Meting 1 + 2 OPEN → melding "je bent verplaatst" NIET bouwen. Login-regel ontbrak in het log (oorzaak onbekend).
 - 3 Layer: Rob koos A + D (*"Ik ga uiteraard weer voor jullie advies."*). Metingen teruggebracht tot 3 (verplaatsing-signaal,
   "uitnodiging van andere layer", drukte tellen); eerst een stille meter + /mh layer, meldingen pas na meting 1.
   🧪 GEBOUWD: `Modules/ForeverLayer.lua` (nieuw, beide toc's) → `ns.db.layerProbe` (log van 40: SHARD_TRANSFER*,
   PARTY_INVITE_REQUEST 6e waarde, UnitPhaseReason per groepslid, zonewissel; geen namen) + `/mh layer [clear]` (drukte:
   speler-naamplaatjes, getagde NPC's). Offline getest. Spelers zien niets. D = nu alleen een zin; knop als Rob een
   wissel-addon installeert.
+- 🔧 Folio 12.1.7 KLAARGEZET (Fable-bijvangst, onder Robs ja op "idee patch"): op een 12.1.7-client 7 quests
+  (OmniumFolioData `unlockQuests1217` = 99509, 99508; GEMETEN QuestLineXQuest 6307 PTR 71087), "klaar" bij het echte aantal
+  (was hard 5), tellers `_1217` "/7 steps", OMNIUM_WK_OBJ_6. 96444 heet live "Off-World Magic" en op 12.1.7 "Otherworldly
+  Magic" (Wowhead live/PTR GEMETEN): alleen CODEX_FOLIO_BODY_1217 aangepast (9 regels). Runen-rijen en 99508: patchdag.
 - 🔧 Patchkaartje: Fable-controle verwerkt (niets fout; 6 formuleringen eerlijker); patchdag-punten in draaiboek §4.
   Vertalingen loopt (mh-writer). Fable meldde ook: CODEX_FOLIO_BODY_1217 "Off-World Magic" vs Wowhead "Otherworldly
   Magic" (96444), en OmniumFolioData `unlockQuests` kent alleen de 5 oude quests: nog niet bekeken.

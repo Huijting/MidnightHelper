@@ -28,6 +28,10 @@ bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt o
 ## 23 nov — FOREVER: layer-meting (Rob: "Ik ga uiteraard weer voor jullie advies." = A + D), de 3 metingen
 
 Nieuw bestand: sluit het spel eerst helemaal af en start opnieuw. MH laat nog NIETS zien; het schrijft alleen op.
+◐ 23 nov, Rob: *"ook de layer test gedaan en reload gedaan"* en *"Nee, ik ben niet uitgenodigd of naar andere legen gegaan."*
+GEMETEN in `layerProbe` (SV 16:37): één `/reload` in Durotar (1411), 23 s later `/mh layer` = 2 spelers, 9 NPC's, 0 getagd.
+Geen zonewissel, geen verplaatsing, geen uitnodiging in het log. Meting 3 dus één keer gedaan (in een rustig gebied);
+meting 1 + 2 open. BugGrabber: niets van MH.
 - [ ] Meting 3 (drukte): ga in een druk gebied staan en typ `/mh layer`. De eerste regel telt spelers en "already tagged"
       monsters om je heen. Klopt dat ongeveer met wat je ziet? (Zie je "Friendly player nameplates are OFF", dan telt hij
       alleen spelers van de andere factie; dat is een spelinstelling.)
@@ -38,6 +42,8 @@ Nieuw bestand: sluit het spel eerst helemaal af en start opnieuw. MH laat nog NI
 ## 23 nov — FOREVER: teller in het class-questkaartje (Rob: "kunnen we dat daar ook niet gewoon in hetzelfde schermpje erbij plaatsen met hoeveel ik op dat moment heb?")
 
 Alleen bestaande bestanden gewijzigd: `/reload` is genoeg.
+⏸️ 23 nov, Rob: *"ik had de quest al afgemaakt dus we gaan er van uit dat het werkt"*: NIET in het spel gezien. Alleen de
+offline-test is gemeten. Bij de eerstvolgende class-quest met een teller kijken.
 - [ ] Een class-quest in je log met iets te verzamelen (bv. Vile Familiars, warlock): het kaartje toont onder de opdracht in
       groen de stand uit het spel, bijvoorbeeld "Vile Familiar Head: 4/6".
 - [ ] Verzamel er nog één: binnen een seconde staat er 5/6, zonder dat je iets doet.
