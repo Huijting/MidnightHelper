@@ -10,8 +10,10 @@ gevecht, andere characters. **OPEN: ronde 2** (ingrediënten, recept-pijl, dunge
 gedaan"*); de live pagina zag niemand van ons.
 💡 Midnight, LATER (Rob 22 nov: *"alle 3 maar niet voor nu, straks slapen"*): patchdag-kaartje 12.1.7, "eerste blik",
 december-events in de weekplanning. Alleen in IDEEEN; niets gebouwd. PTR-map heeft MH van 16 okt: niet kopiëren zonder Robs ja.
-🧪 **PTR = MORGEN (23 nov), mét Rob** (via sparring, letterlijk: *"morgen wel kijken"*): `tools/copy_to_ptr.bat` (eigen call) pas
-als hij zegt dat hij klaar zit, daarna `docs/PATCH_12_1_7_DRAAIBOEK.md` §3. Vannacht niets kopiëren.
+🧪 **PTR GEDAAN 23 nov** (Rob via Sparring 23-11, letterlijk: *"ja kopieer maar"*, daarna *"Alle 5 tests gaat goed. Ik heb
+geen tailbound character, dus daar kan ik niet zoveel mee."*): `copy_to_ptr.bat` → `_ptr_` en `_xptr_` toc 5.8.0 (GEMETEN; was
+4.7.7). `_ptr_` = 12.1.7.71087, `_xptr_` = 12.1.5.70340 (ouder dan retail 70961). Draaiboek §3 punt 1-5 ✅, punt 6
+(Talebound laadt MH niet) OPEN: geen Talebound-character. Vervolg: §4 op patchdag (2 dec).
 
 🔧 **SKILL UP-VENSTER GEREPAREERD (22 nov via sparring, letterlijk: *"venster ja"*), getest: *"Venster is goed"* (klik en scroll open):** stijl A (dicht),
 "MH doesn't know which trainer/vendor yet", knop noemt het beroep. Ronde 2 uit zijn screenshots: XP-regel, Linen Cloth,

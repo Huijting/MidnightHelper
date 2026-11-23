@@ -78,13 +78,18 @@ midnight helper zijnde"* = Talebound als bron noemen)
 
 Optioneel; elk punt kost een paar minuten. Character kopiëren naar de PTR geeft een bekende Lua-fout van Blizzard (niet
 van MH).
-- [ ] MH laadt zonder rode fout (BugSack aan).
-- [ ] Toetsenblok neerzetten en weer weghalen ("Your key block" → terug): komt je oude indeling terug? (punt 2b-1)
-- [ ] `/mh apply` → dry run → go → undo → relog: staan je toetsen weer zoals eerst? (Blizzard ontkoppelt toetsen nu
+✅ **Getest 23 nov op `_ptr_` = 12.1.7.71087, MH 5.8.0** (via Sparring 23-11, Rob letterlijk: *"Alle 5 tests gaat
+goed. Ik heb geen tailbound character, dus daar kan ik niet zoveel mee."*). `_xptr_` = 12.1.5.70340 (ouder dan retail),
+niet gebruikt.
+- [x] MH laadt zonder rode fout (BugSack aan).
+- [x] Toetsenblok neerzetten en weer weghalen ("Your key block" → terug): komt je oude indeling terug? (punt 2b-1)
+- [x] `/mh apply` → dry run → go → undo → relog: staan je toetsen weer zoals eerst? (Blizzard ontkoppelt toetsen nu
       anders, AFGELEID risico laag-midden.)
-- [ ] Options → Keybindings: staat er "Simple Keybinds"? Zo ja: zet hem NIET aan en meld het.
-- [ ] Liggen de balken van het toetsenblok nog op hun plek (Blizzard herschreef de onderste balken)?
-- [ ] Een Talebound-personage: typ `/mh` → MH hoort daar NIET te laden.
+- [x] Options → Keybindings: staat er "Simple Keybinds"? Zo ja: zet hem NIET aan en meld het. (Gemeld als "goed";
+      of de optie er stond, zei Rob niet.)
+- [x] Liggen de balken van het toetsenblok nog op hun plek (Blizzard herschreef de onderste balken)?
+- [ ] Een Talebound-personage: typ `/mh` → MH hoort daar NIET te laden. **Open: niet getest, Rob heeft geen
+      Talebound-character** (23 nov).
 
 ## 4. Patchdag-afvinklijst (wo 2 dec, voor Rob)
 
