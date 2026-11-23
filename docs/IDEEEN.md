@@ -28,7 +28,10 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 
 ### Forever: consumable-venster voor de party, zoals in Midnight (wens van Rob, 23 nov) — ✅ Rob zegt: JA, morgen (nog niets gebouwd)
 - Bron: Rob 23 nov via sparring, letterlijk: *"oke, we gaan nu slapen, voor morgen, een consumable venster voor de party in
-  forever zoals in midnight, maar nu weltrusten"*.
+  forever zoals in midnight, maar nu weltrusten"*, en daarna: *"en de buffs natuurlijk, slaap lekker"*.
+- 🔴 De buffs van de groep horen er nadrukkelijk bij: per groepslid welke class-buff hij mist (Arcane Intellect, Fortitude,
+  Mark of the Wild, Blessings …, id's nog meten) en wie in de groep hem kan geven. Alleen vóór het gevecht (in een gevecht
+  weigert het spel aura's van groepsleden te lezen, GEMETEN met /mh partytest).
 - Welk Midnight-venster (GEMETEN in de code): de **Consumable Ready Check** = `ConsumableReadyCheck.lua` + `ConsumableReadyBoard.lua`
   (icoonbord: per groepslid flask/rune/weapon/combat potion/health potion/food/healthstone + raid/class-buffs, klikbaar met
   secure knoppen) + `ConsumableReadyComms.lua` (MH-spelers delen hun eigen tas-tellingen via addon-bericht "MHCons"; buffs
