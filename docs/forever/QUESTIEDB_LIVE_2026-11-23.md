@@ -3,6 +3,8 @@
 Opdracht: Rob via Sparring 23-11, letterlijk *"quest a"*. MH leest QuestieDB alleen tijdens het spelen, als de speler het
 heeft. Wij leveren niets mee: geen QuestieDB-data in MH-bestanden, ook niet in docs of kladjes. Dit bestand beschrijft
 alleen hoe de API werkt, geen inhoud. Nog niets gebouwd.
+MH blijft voorlopig MIT. **GPLv3 = later mogelijk**, eerst toestemming van mede-auteur AndyMM22 (Rob via sparring,
+letterlijk: *"gpl is niet defenitief van tafel :)"*).
 
 ## 1. Hoe QuestieDB zijn data aanbiedt (GEMETEN in de bestanden, `_forever_\Interface\AddOns\QuestieDB`)
 
