@@ -6158,6 +6158,16 @@ ns._mhLocales.enUS = {
 	FDQ_CLASS = "class quest",
 	FDQ_ARROW_FMT = "arrow set to %s (%s) for \"%s\".",
 	FDQ_NOTE = "From Zygor's dungeon quest guides; places not yet checked in the game. Quest levels are not in our data.",
+	-- 23 Nov 2026: QuestieDB read live, only where MH has no place of its own (ForeverQuestieDB.lua; Rob: "Ik volg jullie
+	-- advies weer."). FQDB_TURNIN_FMT: %s = quest title, %s = NPC, %s = zone. FQDB_TURNIN_MORE_FMT: %d = how many, then
+	-- the same three. FQDB_ARROW_FMT: %s = NPC, %s = zone, %s = quest title. "QuestieDB" is an addon name: never translate.
+	FQDB_TURNIN_FMT = "Ready to turn in: \"%s\" at %s, %s (QuestieDB).",
+	FQDB_TURNIN_MORE_FMT = "%d quests ready to turn in. Nearest: \"%s\" at %s, %s (QuestieDB).",
+	FQDB_BTN_TURNIN = "Turn in",
+	FQDB_ARROW_FMT = "arrow set to %s (%s) to turn in \"%s\" (QuestieDB).",
+	FQDB_NO_TURNIN = "no quest in your log is ready to turn in at a place QuestieDB knows.",
+	SET_FOREVER_QDB_TITLE = "Use QuestieDB if you have it",
+	SET_FOREVER_QDB_DESC = "WoW Forever: when the addon QuestieDB is installed and on, MH reads it while you play, only where MH itself has no place: who to turn a finished quest in to (with \"Show the way\"), and quest givers in the dungeon quest list. Those lines say (QuestieDB). MH ships none of its data. /mh questiedb shows what it finds.",
 	-- 19 Nov 2026: the small boss card (ForeverDungeonGuide.lua) and its switch in Quiet helpers.
 	FDG_CARD_SW = "Small boss card when you target a boss",
 	FDG_CARD_SW_DESC = "Inside a dungeon: target a boss and a small card shows what he does, with one tip. Another target hides it. The button on the card opens the whole boss guide.",

@@ -598,6 +598,12 @@ for k, v in pairs({
 	FDQ_CLASS = "quête de classe",
 	FDQ_ARROW_FMT = "flèche placée sur %s (%s) pour \"%s\".",
 	FDQ_NOTE = "Tiré des guides de quêtes de donjon de Zygor ; les endroits ne sont pas encore vérifiés en jeu. Les niveaux des quêtes ne sont pas dans nos données.",
+	-- 23 Nov 2026: QuestieDB turn-in (ForeverQuestieDB.lua), FQDB_* (mh-writer, not reviewed by a native speaker).
+	FQDB_TURNIN_FMT = "Quête prête à rendre : \"%s\" auprès de %s, %s (QuestieDB).",
+	FQDB_TURNIN_MORE_FMT = "%d quêtes prêtes à rendre. La plus proche : \"%s\" auprès de %s, %s (QuestieDB).",
+	FQDB_BTN_TURNIN = "Rendre",
+	FQDB_ARROW_FMT = "flèche placée sur %s (%s) pour rendre \"%s\" (QuestieDB).",
+	FQDB_NO_TURNIN = "aucune quête de ton journal n'est prête à rendre à un endroit que QuestieDB connaît.",
 	-- 21 Nov 2026: XP per hour (ForeverXPRate.lua), FXPRATE_* (mh-writer, not reviewed by a native speaker).
 	FXPRATE_SW = "XP par heure et temps jusqu'au prochain niveau",
 	FXPRATE_SW_DESC = "Sous la barre d'XP de cet aperçu : combien de temps avant ton prochain niveau au rythme de ta dernière heure de jeu, et dans son infobulle ton XP par heure. Compté seulement quand tu es connecté sur ce personnage, donc une nuit hors ligne ne le fait pas baisser. Pas au niveau maximum.",

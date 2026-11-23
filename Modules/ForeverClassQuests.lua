@@ -2956,6 +2956,15 @@ do
 		end
 		if x and y then
 			out.x, out.y, out.src = x, y, src
+		elseif not (p.x and p.y) and ns.ForeverQuestieNpcPlace then
+			-- 23 Nov 2026 (Rob via sparring: "Ik volg jullie advies weer."): the very last step, only when this file has no
+			-- place at all: QuestieDB read live (ForeverQuestieDB.lua). Today every place here has x, y (268 of 268).
+			local okQ, qm, qx, qy = pcall(ns.ForeverQuestieNpcPlace, p.id, p.m)
+			if okQ and qm then
+				out.m, out.x, out.y, out.src = qm, qx, qy, "QuestieDB (read live)"
+			else
+				out.src = list
+			end
 		else
 			out.src = list .. (src and (" (HandyNotes: Class Trainers: " .. src .. ")") or "")
 		end

@@ -5,7 +5,8 @@ local _, ns = ...
 	Rob, 23 Nov 2026 via Sparring 23-11, verbatim: "quest a", then "Ik volg jullie advies." (= measure A first, fill gaps
 	B only after this measurement; docs/forever/QUESTIEDB_LIVE_2026-11-23.md).
 
-	It changes nothing in the game and draws nothing. Players are not told about it (lint [16]/[27]: unlisted, dev only).
+	Part A (this probe) changes nothing in the game and draws nothing; its commands are ours (lint [16]/[27]: unlisted,
+	dev only). Part B (below, "B: read it while you play") is what players see: lines that say (QuestieDB).
 	🔴 MH ships NO QuestieDB data: nothing from it is written to an MH file. It is read in the game, only when the player
 	has QuestieDB enabled. What this probe keeps in ns.db.questieDbProbe is ours: counts, milliseconds, kilobytes, and
 	DISTANCES between QuestieDB's spawn points and MH's own trainer places. Never its coordinates, names or quest data.
@@ -15,6 +16,7 @@ local _, ns = ...
 	                      Distances raw and after LibQuestieDB.EraToForever: that tells whether its points are Era or
 	                      Forever map space (the open question in the research doc).
 	/mh questiedb here  = target an NPC and stand next to it: the distance from you to that NPC's nearest QuestieDB spawn.
+	/mh questiedb why   = part B: on or off, its last decision and why, and the finished quests it sees with a place.
 	Silent on purpose in combat, and says why whenever it reads nothing.
 ]]
 
@@ -338,14 +340,245 @@ local function Here()
 	print(("  Close = under %.1f. /reload writes it to MidnightHelperDB.questieDbProbe."):format(CLOSE))
 end
 
---- /mh questiedb [here]
+--------------------------------------------------------------------------------
+-- B: read it while you play (Rob, 23 Nov 2026 via sparring: "Ik volg jullie advies weer. En het voelde niet trager bij
+-- het inloggen, dus dat scheelt."). Measured in A: its spawns already sit in Forever map space (Era->Forever made
+-- Stormwind 0.22 -> 14.77), so NOTHING here converts. MH's own data always wins; this only fills gaps:
+--   1. who to turn a finished quest in to (Do this now + overview, "Turn in" button = the arrow);
+--   2. a giver's place in the dungeon quest list when MH's data has none (ForeverDungeonQuests.lua);
+--   3. the last step of the trainer row in the class quests (ForeverClassQuests.lua LivePlace).
+-- Switch: Settings "Use QuestieDB if you have it" (mh_foreverQuestieDb), on by default; it does nothing without
+-- QuestieDB. Every read in pcall; nothing in combat. What it decided last: /mh questiedb why.
+--------------------------------------------------------------------------------
+local lastWhy = "not asked yet"
+local areaCache
+
+function ns.IsForeverQuestieDBOn()
+	return not (type(ns.db) == "table" and ns.db.foreverQuestieDb == false)
+end
+
+function ns.SetForeverQuestieDB(v)
+	ns.db = ns.db or {}
+	if v then
+		ns.db.foreverQuestieDb = nil -- on = the default
+	else
+		ns.db.foreverQuestieDb = false
+	end
+	if ns.ForeverDoNowUpdate then
+		pcall(ns.ForeverDoNowUpdate)
+	end
+end
+
+--- LibQuestieDB when it may be read now, else nil (and lastWhy says why).
+local function Live()
+	if not ns.IsForeverQuestieDBOn() then
+		lastWhy = "switched off in the settings"
+		return nil
+	end
+	if InCombatLockdown and InCombatLockdown() then
+		lastWhy = "in combat"
+		return nil
+	end
+	local L, why = Lib()
+	if not L then
+		lastWhy = why
+		return nil
+	end
+	if not areaCache then
+		areaCache = AreaToUiMap(L)
+	end
+	return L
+end
+
+local function PlayerPos()
+	local map = C_Map and C_Map.GetBestMapForUnit and C_Map.GetBestMapForUnit("player")
+	local pos = map and C_Map.GetPlayerMapPosition and C_Map.GetPlayerMapPosition(map, "player")
+	if not pos then
+		return map
+	end
+	local x, y = pos:GetXY()
+	return map, x * 100, y * 100
+end
+
+--- MH's own place for an NPC, if it has one (trainer spots, dungeon quest givers): that one wins.
+local function OwnPlace(npc)
+	for _, list in pairs(ns.FOREVER_TRAINER_SPOTS or {}) do
+		for _, s in ipairs(list) do
+			if s.npc == npc and s.map and s.x and s.y then
+				return s.map, s.x, s.y
+			end
+		end
+	end
+	for _, list in pairs(ns.FOREVER_DUNGEON_QUESTS or {}) do
+		for _, e in ipairs(list) do
+			if e.npc == npc and e.m and e.x and e.y and e.x > 0 and e.x < 100 and e.y > 0 and e.y < 100 then
+				return e.m, e.x, e.y
+			end
+		end
+	end
+end
+
+--- Where QuestieDB puts an NPC: on `prefer` map first, then the map you stand on (nearest spawn), then any map.
+local function NpcSpot(L, npc, prefer)
+	local ok, spawns = pcall(L.Npc.Get, npc, "spawns")
+	if not ok or type(spawns) ~= "table" then
+		return nil
+	end
+	local pmap, px, py = PlayerPos()
+	local best, bestScore
+	for area, points in pairs(spawns) do
+		local m = areaCache and areaCache[area]
+		if m and type(points) == "table" then
+			for _, pt in ipairs(points) do
+				local x, y = pt[1], pt[2]
+				if type(x) == "number" and type(y) == "number" and x > 0 and x < 100 and y > 0 and y < 100 then
+					local score = 3
+					if prefer and m == prefer then
+						score = 0
+					elseif m == pmap then
+						score = 1 + (px and math.sqrt((x - px) ^ 2 + (y - py) ^ 2) / 1000 or 0)
+					end
+					if not bestScore or score < bestScore then
+						best, bestScore = { m = m, x = x, y = y }, score
+					end
+				end
+			end
+		end
+	end
+	return best
+end
+
+local function NpcNameOf(L, npc)
+	local ok, nm = pcall(L.Npc.Get, npc, "name")
+	return ok and type(nm) == "string" and nm ~= "" and nm or ("#" .. tostring(npc))
+end
+
+--- A place for an NPC MH has none for: m, x, y, name, "QuestieDB". nil when MH has its own, or QuestieDB has none.
+function ns.ForeverQuestieNpcPlace(npc, prefer)
+	if type(npc) ~= "number" then
+		return nil
+	end
+	if OwnPlace(npc) then
+		lastWhy = ("NPC %d: MH has its own place"):format(npc)
+		return nil
+	end
+	local L = Live()
+	if not L then
+		return nil
+	end
+	local s = NpcSpot(L, npc, prefer)
+	if not s then
+		lastWhy = ("NPC %d: no place in QuestieDB on a known map"):format(npc)
+		return nil
+	end
+	lastWhy = ("NPC %d: QuestieDB map %d"):format(npc, s.m)
+	return s.m, s.x, s.y, NpcNameOf(L, npc), "QuestieDB"
+end
+
+local function ZoneName(id)
+	if C_Map and C_Map.GetMapInfo then
+		local ok, info = pcall(C_Map.GetMapInfo, id)
+		if ok and info and info.name then
+			return info.name
+		end
+	end
+	return "#" .. tostring(id)
+end
+
+--- Finished quests in your log, with who takes them (MH's own place for that NPC first). Nearest first.
+local function TurnIns()
+	local L = Live()
+	local Q = C_QuestLog
+	if not (L and Q and Q.GetNumQuestLogEntries and Q.GetInfo and Q.IsComplete) then
+		return {}
+	end
+	local pmap, px, py = PlayerPos()
+	local out = {}
+	local okN, n = pcall(Q.GetNumQuestLogEntries)
+	for i = 1, (okN and n or 0) do
+		local okI, info = pcall(Q.GetInfo, i)
+		local q = okI and type(info) == "table" and not info.isHeader and info.questID
+		if q and q > 0 then
+			local okC, done = pcall(Q.IsComplete, q)
+			if okC and done then
+				local okF, fin = pcall(L.Quest.Get, q, "finishedBy")
+				for _, npc in ipairs(okF and type(fin) == "table" and type(fin[1]) == "table" and fin[1] or {}) do
+					local m, x, y = OwnPlace(npc)
+					local src = "MH"
+					if not m then
+						local s = NpcSpot(L, npc)
+						if s then
+							m, x, y, src = s.m, s.x, s.y, "QuestieDB"
+						end
+					end
+					if m then
+						local d = (m == pmap and px) and math.sqrt((x - px) ^ 2 + (y - py) ^ 2) or (1000 + #out)
+						out[#out + 1] = { q = q, title = info.title or ("#" .. q), npc = npc, who = NpcNameOf(L, npc),
+							m = m, x = x, y = y, src = src, d = d }
+						break
+					end
+				end
+			end
+		end
+	end
+	table.sort(out, function(a, b) return a.d < b.d end)
+	lastWhy = ("%d finished quest(s) with a place to turn in"):format(#out)
+	return out
+end
+
+--- One line for Do this now / the overview, or nil.
+function ns.ForeverQuestieTurnInLine()
+	local list = TurnIns()
+	local t = list[1]
+	if not t then
+		return nil
+	end
+	if #list == 1 then
+		return ns:L("FQDB_TURNIN_FMT"):format(t.title, t.who, ZoneName(t.m))
+	end
+	return ns:L("FQDB_TURNIN_MORE_FMT"):format(#list, t.title, t.who, ZoneName(t.m))
+end
+
+--- The "Turn in" button: the arrow to the nearest NPC that takes a finished quest.
+function ns.ForeverQuestieGoTurnIn()
+	local t = TurnIns()[1]
+	if not t then
+		print(PREFIX .. ns:L("FQDB_NO_TURNIN"))
+		return false
+	end
+	if not (ns.SetBlizzardUserWaypoint and ns.SetBlizzardUserWaypoint(t.m, t.x, t.y)) then
+		if not ns._mhWaypointYielded then
+			print(PREFIX .. ns:L("FVEND_NO_WAYPOINT"))
+		end
+		return false
+	end
+	ns.lastTarget = { mapID = t.m, x = t.x, y = t.y, name = t.who, via = "QuestieDB turn in", arriveYards = 15 }
+	ns._mhRouteOwner = "waypoint"
+	print(PREFIX .. ns:L("FQDB_ARROW_FMT"):format(t.who, ZoneName(t.m), t.title))
+	return true
+end
+
+--- /mh questiedb why: what B decided last, and the turn-ins it sees now.
+local function Why()
+	print(PREFIX .. ("QuestieDB use: %s; last decision: %s."):format(ns.IsForeverQuestieDBOn() and "on" or "off", lastWhy))
+	local list = TurnIns()
+	print(("  now: %s. %d finished quest(s) with a place:"):format(lastWhy, #list))
+	for i, t in ipairs(list) do
+		if i > 8 then
+			break
+		end
+		print(("  %d %s -> NPC %d %s, map %d %.1f,%.1f (%s)"):format(t.q, t.title, t.npc, t.who, t.m, t.x, t.y, t.src))
+	end
+end
+
+--- /mh questiedb [here | why]
 function ns.ForeverQuestieDBSlash(arg)
 	if InCombatLockdown and InCombatLockdown() then
 		print(PREFIX .. "QuestieDB test: not in combat (MH reads nothing then). Try again after the fight.")
 		return
 	end
 	arg = (arg or ""):lower()
-	local ok, err = pcall(arg == "here" and Here or Probe)
+	local ok, err = pcall((arg == "here" and Here) or (arg == "why" and Why) or Probe)
 	if not ok then
 		print(PREFIX .. "QuestieDB test stopped: " .. tostring(err))
 	end

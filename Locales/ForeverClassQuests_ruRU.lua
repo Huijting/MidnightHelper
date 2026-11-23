@@ -612,6 +612,12 @@ for k, v in pairs({
 	FDQ_CLASS = "классовое задание",
 	FDQ_ARROW_FMT = "стрелка на %s (%s) для «%s».",
 	FDQ_NOTE = "Из руководств Zygor по заданиям подземелий; места еще не проверены в игре. Уровней заданий в наших данных нет.",
+	-- 23 Nov 2026: QuestieDB turn-in (ForeverQuestieDB.lua), FQDB_* (mh-writer, not reviewed by a native speaker).
+	FQDB_TURNIN_FMT = "Можно сдать: «%s» у %s, %s (QuestieDB).",
+	FQDB_TURNIN_MORE_FMT = "Заданий, которые можно сдать: %d. Ближайшее: «%s» у %s, %s (QuestieDB).",
+	FQDB_BTN_TURNIN = "Сдать",
+	FQDB_ARROW_FMT = "стрелка на %s (%s), чтобы сдать «%s» (QuestieDB).",
+	FQDB_NO_TURNIN = "в вашем журнале нет заданий, которые можно сдать в месте, известном QuestieDB.",
 	-- 21 Nov 2026: XP per hour (ForeverXPRate.lua), FXPRATE_* (mh-writer, not reviewed by a native speaker).
 	FXPRATE_SW = "Опыт в час и время до следующего уровня",
 	FXPRATE_SW_DESC = "Под полосой опыта в этом обзоре: сколько осталось до следующего уровня в темпе вашего последнего часа игры, а в подсказке — ваш опыт в час. Считается только время, пока вы в игре этим персонажем, поэтому ночь офлайн его не снижает. Не на максимальном уровне.",

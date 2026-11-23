@@ -28,6 +28,17 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 23 nov 2026 — Forever: MH leest QuestieDB als je het hebt
+- Tag + commit:   geen tag (commit: deze regel)
+- Status:         alleen op main
+- Mag op de site: nee, nog niet (geen release; Rob test eerst).
+- Speler ziet:    Met de addon QuestieDB aan: "Ready to turn in" met een knop die de pijl naar de NPC zet, en plekken
+                  voor dungeon-questgevers waar MH er zelf geen had. Die regels zeggen "(QuestieDB)". MH levert niets van
+                  QuestieDB mee. Gebruik de naam/het logo van Questie niet; wel "Uses QuestieDB if you have it installed".
+- Knoplabels:     FQDB_BTN_TURNIN, SET_FOREVER_QDB_TITLE
+- Commando's:     geen voor spelers (/mh questiedb is voor ons)
+- Spel:           Forever
+
 ## 23 nov 2026 — Forever: meting QuestieDB (alleen voor ons)
 - Tag + commit:   geen tag (commit: deze regel)
 - Status:         alleen op main

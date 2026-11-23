@@ -596,6 +596,12 @@ for k, v in pairs({
 	FDQ_CLASS = "Klassenquest",
 	FDQ_ARROW_FMT = "Pfeil gesetzt zu %s (%s) für \"%s\".",
 	FDQ_NOTE = "Aus den Dungeonquest-Leitfäden von Zygor; die Orte sind noch nicht im Spiel geprüft. Questlevel stehen nicht in unseren Daten.",
+	-- 23 Nov 2026: QuestieDB turn-in (ForeverQuestieDB.lua), FQDB_* (mh-writer, not reviewed by a native speaker).
+	FQDB_TURNIN_FMT = "Bereit zum Abgeben: \"%s\" bei %s, %s (QuestieDB).",
+	FQDB_TURNIN_MORE_FMT = "%d Quests bereit zum Abgeben. Am nächsten: \"%s\" bei %s, %s (QuestieDB).",
+	FQDB_BTN_TURNIN = "Abgeben",
+	FQDB_ARROW_FMT = "Pfeil gesetzt zu %s (%s), um \"%s\" abzugeben (QuestieDB).",
+	FQDB_NO_TURNIN = "keine Quest in deinem Questlog ist an einem Ort abgabebereit, den QuestieDB kennt.",
 	-- 21 Nov 2026: XP per hour (ForeverXPRate.lua), FXPRATE_* (mh-writer, not reviewed by a native speaker).
 	FXPRATE_SW = "EP pro Stunde und Zeit bis zur nächsten Stufe",
 	FXPRATE_SW_DESC = "Unter dem EP-Balken dieser Übersicht: wie lange es bis zu deiner nächsten Stufe noch dauert, im Tempo deiner letzten Spielstunde, und im Tooltip deine EP pro Stunde. Gezählt wird nur, solange du mit diesem Charakter eingeloggt bist, eine Nacht offline senkt den Wert also nicht. Nicht auf Höchststufe.",

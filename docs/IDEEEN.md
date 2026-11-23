@@ -26,7 +26,7 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 
 ## Open — wacht op Rob
 
-### Forever: QuestieDB live lezen, "quest A" (23 nov) — ✅ JA, stap A (meting) GEBOUWD, wacht op Robs meting; B pas daarna
+### Forever: QuestieDB live lezen, "quest A" (23 nov) — ✅ JA, A gemeten (goed), B GEBOUWD (Rob: "Ik volg jullie advies weer."), wacht op Robs test
 - Bron: Rob 23 nov via Sparring 23-11, letterlijk: *"quest a"* (onderzoek), daarna *"Ik volg jullie advies."* (= eerst
   meten A, dan pas gaten vullen B; de Questie-regels in ForeverClassQuests laten tot het GPL-besluit). GPL: *"gpl is niet
   defenitief van tafel :)"*.

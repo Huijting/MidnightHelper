@@ -955,6 +955,12 @@ for k, v in pairs({
 	FDQ_CLASS = "missão de classe",
 	FDQ_ARROW_FMT = "seta posta em %s (%s) para \"%s\".",
 	FDQ_NOTE = "Dos guias de missões de masmorra do Zygor; os lugares ainda não foram conferidos no jogo. Os níveis das missões não estão nos nossos dados.",
+	-- 23 Nov 2026: QuestieDB turn-in (ForeverQuestieDB.lua), FQDB_* (mh-writer, not reviewed by a native speaker).
+	FQDB_TURNIN_FMT = "Missão pronta para entregar: \"%s\" para %s, %s (QuestieDB).",
+	FQDB_TURNIN_MORE_FMT = "%d missões prontas para entregar. A mais próxima: \"%s\" para %s, %s (QuestieDB).",
+	FQDB_BTN_TURNIN = "Entregar",
+	FQDB_ARROW_FMT = "seta posta em %s (%s) para entregar \"%s\" (QuestieDB).",
+	FQDB_NO_TURNIN = "nenhuma missão do seu registro está pronta para entregar em um lugar que o QuestieDB conheça.",
 	-- 21 Nov 2026: XP per hour (ForeverXPRate.lua), FXPRATE_* (mh-writer, not reviewed by a native speaker).
 	FXPRATE_SW = "EXP por hora e tempo até o próximo nível",
 	FXPRATE_SW_DESC = "Abaixo da barra de EXP desta visão geral: quanto falta para o seu próximo nível no ritmo da sua última hora de jogo e, na dica, a sua EXP por hora. Só conta enquanto você está conectado neste personagem, então uma noite offline não diminui o valor. Não no nível máximo.",

@@ -24307,6 +24307,8 @@ if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	FVEND_NEED_OFF = "Werkzeug-Tipp: aus. /mh vendor tip on schaltet ihn wieder ein.",
 	SET_FOREVER_TOOLNEED_TITLE = "Zeigen, wo man fehlendes Werkzeug kauft",
 	SET_FOREVER_TOOLNEED_DESC = "WoW Forever: Sagt das Spiel, dass dir ein Werkzeug für deinen Beruf fehlt (Messer, Spitzhacke, Hammer, Angelrute), zeigt MH den nächsten Händler mit einem Knopf \"Zeig mir den Weg\". Höchstens einmal pro Werkzeug alle 10 Minuten.",
+	SET_FOREVER_QDB_TITLE = "QuestieDB nutzen, wenn du es hast",
+	SET_FOREVER_QDB_DESC = "WoW Forever: Ist das Addon QuestieDB installiert und an, liest MH es beim Spielen, nur dort, wo MH selbst keinen Ort hat: bei wem du eine fertige Quest abgibst (mit \"Zeig mir den Weg\") und Questgeber in der Liste der Dungeonquests. Diese Zeilen sagen (QuestieDB). MH liefert nichts von diesen Daten mit. /mh questiedb zeigt, was es findet.",
 }) end
 
 -- 12 Nov 2026: tool-missing tip (ForeverVendors.lua); our own translation (mh-writer), not native-checked.
@@ -24317,6 +24319,8 @@ if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	FVEND_NEED_OFF = "astuce outil : désactivée. /mh vendor tip on la réactive.",
 	SET_FOREVER_TOOLNEED_TITLE = "Montrer où acheter un outil manquant",
 	SET_FOREVER_TOOLNEED_DESC = "WoW Forever : quand le jeu dit qu'il te manque un outil pour ton métier (couteau, pioche, marteau, canne à pêche), MH montre le vendeur le plus proche avec un bouton \"Montrer le chemin\". Au plus une fois par outil toutes les 10 minutes.",
+	SET_FOREVER_QDB_TITLE = "Utiliser QuestieDB si tu l'as",
+	SET_FOREVER_QDB_DESC = "WoW Forever : quand l'addon QuestieDB est installé et activé, MH le lit pendant que tu joues, seulement là où MH n'a pas d'endroit à lui : à qui rendre une quête terminée (avec \"Montrer le chemin\"), et les donneurs de quêtes dans la liste des quêtes de donjon. Ces lignes indiquent (QuestieDB). MH n'inclut aucune de ses données. /mh questiedb montre ce qu'il trouve.",
 }) end
 
 -- 12 Nov 2026: tool-missing tip (ForeverVendors.lua); our own translation (mh-writer), not native-checked.
@@ -24327,6 +24331,8 @@ if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	FVEND_NEED_OFF = "aviso de herramienta: desactivado. /mh vendor tip on lo vuelve a activar.",
 	SET_FOREVER_TOOLNEED_TITLE = "Mostrar dónde comprar una herramienta que falta",
 	SET_FOREVER_TOOLNEED_DESC = "WoW Forever: cuando el juego dice que te falta una herramienta para tu profesión (cuchillo, pico, martillo, caña de pescar), MH muestra el vendedor más cercano con un botón \"Muéstrame el camino\". Como mucho una vez por herramienta cada 10 minutos.",
+	SET_FOREVER_QDB_TITLE = "Usar QuestieDB si lo tienes",
+	SET_FOREVER_QDB_DESC = "WoW Forever: cuando el addon QuestieDB está instalado y activado, MH lo lee mientras juegas, solo donde MH no tiene un lugar propio: a quién entregar una misión terminada (con \"Muéstrame el camino\"), y quién da las misiones en la lista de misiones de mazmorra. Esas líneas dicen (QuestieDB). MH no incluye nada de sus datos. /mh questiedb muestra lo que encuentra.",
 }) end
 
 -- 12 Nov 2026: tool-missing tip (ForeverVendors.lua); our own translation (mh-writer), not native-checked.
@@ -24337,6 +24343,8 @@ if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	FVEND_NEED_OFF = "dica de ferramenta: desligada. /mh vendor tip on liga de novo.",
 	SET_FOREVER_TOOLNEED_TITLE = "Mostrar onde comprar uma ferramenta que falta",
 	SET_FOREVER_TOOLNEED_DESC = "WoW Forever: quando o jogo diz que falta uma ferramenta para a sua profissão (faca, picareta, martelo, vara de pescar), o MH mostra o vendedor mais próximo com um botão \"Mostrar o caminho\". No máximo uma vez por ferramenta a cada 10 minutos.",
+	SET_FOREVER_QDB_TITLE = "Usar o QuestieDB se você o tiver",
+	SET_FOREVER_QDB_DESC = "WoW Forever: quando o addon QuestieDB está instalado e ligado, o MH o lê enquanto você joga, só onde o próprio MH não tem um lugar: para quem entregar uma missão concluída (com \"Mostrar o caminho\"), e quem dá as missões na lista de missões de masmorra. Essas linhas dizem (QuestieDB). O MH não traz nenhum desses dados. /mh questiedb mostra o que ele encontra.",
 }) end
 
 -- 12 Nov 2026: Forever group panel (ForeverPartyPanel.lua); our own translation (mh-writer), not native-checked.

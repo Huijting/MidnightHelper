@@ -12,6 +12,15 @@ gedaan"*); de live pagina zag niemand van ons.
 december-events in de weekplanning. Alleen in IDEEEN; niets gebouwd. PTR-map heeft MH van 16 okt: niet kopiëren zonder Robs ja.
 ◐ **RONDE 2, 23 nov:** dungeon-quests: Rob via sparring, letterlijk *"een test : een dungeon-quest , werkt"* (welke quest:
 nog niet bekend). Recept-pijl en Copper Ore (ingrediënt) blijven open; XP per uur niet gemeld.
+🧪 **QUEST B GEBOUWD, wacht op Robs test** (Rob via sparring, letterlijk: *"Ik volg jullie advies weer. En het voelde niet
+trager bij het inloggen, dus dat scheelt."* → laadtijd afgevinkt). MH's eigen data wint altijd; QuestieDB vult alleen
+gaten, nooit omrekenen, pcall, niet in gevecht. (1) "Ready to turn in … (QuestieDB)" + knop Turn in in Do this now en het
+overzicht (tip, opent het venster niet zelf); (2) dungeon-quests: ~40 rijen met een gever zonder plek krijgen er een
+(QuestieDB); (3) LivePlace class-quests: laatste stap, nu 0 gaten (268/268 plekken hebben x,y; GEMETEN met grep).
+Schakelaar "Use QuestieDB if you have it" (`mh_foreverQuestieDb`), standaard aan. `/mh questiedb why`. Vertalingen
+de/fr/es/pt/ru door mh-writer (niet nagekeken door een moedertaalspreker), esMX "calabozo"; itIT geen (Forever-client
+Engels). THIRD_PARTY: "Uses QuestieDB if you have it installed". Offline getest (nep-LibQuestieDB): 1 fout gevonden en
+gerepareerd (schakelaar uit werkte niet: `and false or`). Teststappen: TESTLIJST 23 nov "stap B".
 ✅ **QUEST A GEMETEN, goed** (Rob: *"klaar"*): 0 fouten, ~1 ms per 150 vragen, 7,7 MB, 218/218 trainerplekken binnen
 0,11-0,49 kaartpunt; Robs gemeten plekken 0,04 en 0,17; `here` 0,21. QuestieDB-plekken zijn al Forever: Era→Forever-
 omrekening NOOIT gebruiken (maakte Stormwind 14,77). Laadtijd niet gemeten. ▶ B wacht op Robs ja via sparring.

@@ -329,6 +329,9 @@ local ACTS = {
 	-- action bars (docs/forever/TALENTKNOP_TAINT_2026-11-22.md). The line names the player's own key instead.
 	-- 21 Nov 2026: Dual Spec is bought from your class trainer.
 	dualspec = { fn = function() if ns.ForeverTrainerGo then ns.ForeverTrainerGo() end end, label = "HOME_FOREVER_BTN_GO" },
+	-- 23 Nov 2026 (Rob via sparring: "Ik volg jullie advies weer."): the arrow to whoever takes a finished quest, read
+	-- live from QuestieDB when the player has it (ForeverQuestieDB.lua).
+	turnin = { fn = function() if ns.ForeverQuestieGoTurnIn then ns.ForeverQuestieGoTurnIn() end end, label = "FQDB_BTN_TURNIN" },
 }
 ns.FOREVER_DONOW_ACTS = ACTS
 
@@ -572,6 +575,16 @@ function Collect()
 				item(out.now[#out.now], "tool", false, t.key)
 				out.actions.tool = out.actions.tool or t.key
 			end
+		end
+	end
+	-- 23 Nov 2026: a finished quest and who takes it (QuestieDB, only when the player has it). A tip, not a to-do: it
+	-- does not make the window appear by itself.
+	if ns.ForeverQuestieTurnInLine then
+		local okT, line = pcall(ns.ForeverQuestieTurnInLine)
+		if okT and type(line) == "string" then
+			out.tips[#out.tips + 1] = line
+			item(line, "turnin", true)
+			out.actions.turnin = true
 		end
 	end
 	-- Coming up: trainer spells above your level, up to 3 levels on
@@ -857,6 +870,9 @@ local function Build()
 			ns.ShowForeverDungeons()
 		end
 	end)
+	f.btnTurnIn = Btn(f, 10, function()
+		ACTS.turnin.fn()
+	end)
 	-- 17 Nov 2026 (product plan step 2): the same list, bigger, with a button per line.
 	f.btnOverview = Btn(f, 10, function()
 		if ns.ShowForeverOverviewPage then
@@ -909,6 +925,7 @@ local function Render(info)
 	f.btnProfs:SetText(ns:L("FPROF_TITLE"))
 	f.btnDungeons:SetText(ns:L("FDUNG_BTN"))
 	f.btnClassQuest:SetText(ns:L("FCQ_BTN"))
+	f.btnTurnIn:SetText(ns:L("FQDB_BTN_TURNIN"))
 	f.btnOverview:SetText(ns:L("FDONOW_OPEN_OVERVIEW"))
 	-- Buttons only for what is on the list; they close up from the left. Each as wide as its own text (Rob's 21.png,
 	-- 12 Nov 2026: "Weapon trainers" stuck out of a fixed 90 px button), and a new row when the next one does not fit.
@@ -916,7 +933,8 @@ local function Render(info)
 	for _, pair in ipairs({ { f.btnClassQuest, info.actions.classquest },
 		{ f.btnTrainer, info.actions.trainer }, { f.btnRanks, info.actions.ranks },
 		{ f.btnWeapons, info.actions.weapons }, { f.btnProfs, info.actions.profs },
-		{ f.btnDungeons, info.actions.dungeons }, { f.btnOverview, ns.ShowForeverOverviewPage ~= nil } }) do
+		{ f.btnDungeons, info.actions.dungeons }, { f.btnTurnIn, info.actions.turnin },
+		{ f.btnOverview, ns.ShowForeverOverviewPage ~= nil } }) do
 		local b, on = pair[1], pair[2]
 		if on then
 			local fs = b:GetFontString()

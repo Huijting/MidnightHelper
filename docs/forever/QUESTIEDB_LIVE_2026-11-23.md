@@ -92,5 +92,13 @@ Punt 5 blijft staan tot het GPL-besluit.
 - BugGrabber: geen fout na de meting (laatste melding ~27 uur ervoor).
 - Oordeel: **A is goed**; B kan, zonder omrekening. Alleen de laadtijd is nog een open vraag.
 
+### B gebouwd (Rob 23 nov, letterlijk: *"Ik volg jullie advies weer. En het voelde niet trager bij het inloggen"*)
+
+Alle drie in `Modules/ForeverQuestieDB.lua` (deel B) + kleine haakjes in ForeverDoNow, ForeverDungeonQuests,
+ForeverClassQuests en SettingsDefs. MH's eigen plek wint altijd (ook in de inlever-regel: trainerplekken en dungeon-
+gevers van MH eerst). Nooit omrekenen. GEMETEN met grep: in de class-quests hebben alle 268 plekken al x,y, dus stap 3
+vult vandaag niets; in de dungeon-quests hebben ~40 rijen een gever zonder plek (sommige staan ín de dungeon: dan noemt
+de regel de dungeon, en kan de pijl weigeren).
+
 **Advies: A, dan B.** A is klein en vertelt of de plekken kloppen. B geeft de meeste winst zonder dat MH iets meelevert.
 C niet: dat doen andere addons al. Los daarvan kiest Rob wat er met punt 5 gebeurt (nalopen en vervangen, of laten).

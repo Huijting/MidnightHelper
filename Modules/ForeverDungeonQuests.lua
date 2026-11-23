@@ -86,6 +86,21 @@ local function HasPlace(e)
 	return e.m ~= nil and e.x > 0 and e.x < 100 and e.y > 0 and e.y < 100
 end
 
+--- MH's own place wins; else, for a giver picked up outside the dungeon, QuestieDB read live (ForeverQuestieDB.lua;
+--- Rob, 23 Nov 2026 via sparring: "Ik volg jullie advies weer."). @return m, x, y, fromQuestie, questieName
+local function Place(e)
+	if HasPlace(e) then
+		return e.m, e.x, e.y, false
+	end
+	if e.npc and not (e.inside or e.item or e.object) and ns.ForeverQuestieNpcPlace then
+		local ok, m, x, y, nm = pcall(ns.ForeverQuestieNpcPlace, e.npc)
+		if ok and m then
+			return m, x, y, true, nm
+		end
+	end
+	return nil
+end
+
 local function ZoneName(id)
 	if C_Map and C_Map.GetMapInfo then
 		local ok, info = pcall(C_Map.GetMapInfo, id)
@@ -186,19 +201,20 @@ function ns.ForeverDungeonQuestCounts(key)
 end
 
 local function GoTo(e)
-	if not HasPlace(e) then
+	local m, x, y, qdb, qname = Place(e)
+	if not m then
 		return false
 	end
-	if not (ns.SetBlizzardUserWaypoint and ns.SetBlizzardUserWaypoint(e.m, e.x, e.y)) then
+	if not (ns.SetBlizzardUserWaypoint and ns.SetBlizzardUserWaypoint(m, x, y)) then
 		if not ns._mhWaypointYielded then -- the Forever Leveling Guide steers: Core already said why
 			print(PREFIX .. ns:L("FVEND_NO_WAYPOINT"))
 		end
 		return false
 	end
-	local who = NpcName(e) or ZoneName(e.m)
-	ns.lastTarget = { mapID = e.m, x = e.x, y = e.y, name = who, via = "/mh dungeons quests", arriveYards = 15 }
+	local who = NpcName(e) or qname or ZoneName(m)
+	ns.lastTarget = { mapID = m, x = x, y = y, name = who, via = "/mh dungeons quests", arriveYards = 15 }
 	ns._mhRouteOwner = "waypoint"
-	print(PREFIX .. ns:L("FDQ_ARROW_FMT"):format(who, ZoneName(e.m), Title(e.q, e.en)))
+	print(PREFIX .. ns:L("FDQ_ARROW_FMT"):format(who, ZoneName(m), Title(e.q, e.en)) .. (qdb and " (QuestieDB)" or ""))
 	return true
 end
 
@@ -226,8 +242,11 @@ local function Where(it)
 	else
 		first = who
 	end
-	if HasPlace(e) then
-		return first and ("%s · %s"):format(first, ZoneName(e.m)) or ZoneName(e.m)
+	local m, _, _, qdb, qname = Place(e)
+	if m then
+		first = first or qname
+		local zone = ZoneName(m) .. (qdb and " (QuestieDB)" or "")
+		return first and ("%s · %s"):format(first, zone) or zone
 	end
 	return first and (first .. " · " .. ns:L("FDQ_NO_PLACE")) or ns:L("FDQ_NO_PLACE")
 end
@@ -267,14 +286,18 @@ local function Row(f, i)
 	end)
 	r.go:SetScript("OnEnter", function(self)
 		local e = self.e
-		if not (e and e.m and GameTooltip) then
+		local m, x, y, qdb = nil, nil, nil, false
+		if e then
+			m, x, y, qdb = Place(e)
+		end
+		if not (m and GameTooltip) then
 			return
 		end
 		GameTooltip:SetOwner(self, "ANCHOR_LEFT")
 		GameTooltip:SetText(Title(e.q, e.en))
-		GameTooltip:AddLine(("%s, %.1f, %.1f"):format(ZoneName(e.m), e.x, e.y), 1, 1, 1)
+		GameTooltip:AddLine(("%s, %.1f, %.1f%s"):format(ZoneName(m), x, y, qdb and " (QuestieDB)" or ""), 1, 1, 1)
 		if ns.ForeverTravelSentence then
-			local ok, s = pcall(ns.ForeverTravelSentence, e.m, e.x, e.y)
+			local ok, s = pcall(ns.ForeverTravelSentence, m, x, y)
 			if ok and type(s) == "string" and s ~= "" then
 				GameTooltip:AddLine(s, 0.8, 0.8, 0.8, true)
 			end
@@ -389,7 +412,7 @@ Fill = function()
 						local tag = e.classes and (" |cff9d9d9d(" .. ns:L("FDQ_CLASS") .. ")|r") or ""
 						r.text:SetText((COLORS[st] or "") .. Title(e.q, e.en) .. "|r" .. tag)
 						r.sub:SetText(Where(it))
-						if st == "now" and HasPlace(e) then
+						if st == "now" and Place(e) then
 							r.go.e = e
 							r.go:SetText(ns:L("FOV_GO_SHORT"))
 							r.go:Show()

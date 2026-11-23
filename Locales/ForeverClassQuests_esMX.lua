@@ -14,6 +14,8 @@ for k, v in pairs({
 	-- Measured: ItemSparse/SpellName/GlobalStrings esMX (1.60.1.70938) and Wowhead Forever tooltips with locale=esMX (=
 	-- locale 11). There is no AreaTable.esMX.csv, so place names stay as esES. A name Wowhead shows [bracketed] in esMX
 	-- is not measured: the esES name stays in the line.
+	-- 23 Nov 2026, QuestieDB switch: dungeon = "calabozo" on esMX (esES: "mazmorra"), same measurement as this file's header.
+	SET_FOREVER_QDB_DESC = "WoW Forever: cuando el addon QuestieDB está instalado y activado, MH lo lee mientras juegas, solo donde MH no tiene un lugar propio: a quién entregar una misión terminada (con \"Muéstrame el camino\"), y quién da las misiones en la lista de misiones de calabozo. Esas líneas dicen (QuestieDB). MH no incluye nada de sus datos. /mh questiedb muestra lo que encuentra.",
 	-- 21 Nov 2026, Waylaid Crates: esMX client says Cajón arrebatado / Etiqueta de envío (DB2 esMX 1.60.1.71037).
 	FCITY_SUB_CRATES = "Los cajones sellados y las etiquetas de envío se entregan al representante comercial de tu bando.",
 	FCRATE_SW = "Ayuda con los Cajones arrebatados",

@@ -5409,6 +5409,8 @@ ns._mhLocales.ruRU = {
 	-- 12 Nov 2026: tool-missing tip (ForeverVendors.lua); our own translation (mh-writer), not native-checked.
 	SET_FOREVER_TOOLNEED_TITLE = "Показывать, где купить недостающий инструмент",
 	SET_FOREVER_TOOLNEED_DESC = "WoW Forever: когда игра сообщает, что вам не хватает инструмента для профессии (нож, кирка, молот, удочка), MH показывает ближайшего продавца с кнопкой \"Показать путь\". Не чаще одного раза на инструмент в 10 минут.",
+	SET_FOREVER_QDB_TITLE = "Использовать QuestieDB, если он есть",
+	SET_FOREVER_QDB_DESC = "WoW Forever: если аддон QuestieDB установлен и включен, MH читает его во время игры, только там, где у самого MH нет места: кому сдать выполненное задание (с кнопкой \"Показать путь\") и кто выдает задания в списке заданий подземелий. Такие строки помечены (QuestieDB). MH не содержит никаких его данных. /mh questiedb показывает, что он находит.",
 	-- 12 Nov 2026: Forever group panel (ForeverPartyPanel.lua); our own translation (mh-writer), not native-checked.
 	SET_FOREVER_PARTY_TITLE = "Панель группы",
 	SET_FOREVER_PARTY_DESC = "WoW Forever: небольшая панель с вашей группой. Щелкните левой кнопкой мыши по строке, чтобы выбрать этого игрока целью, правой кнопкой – чтобы применить к нему ваше развеивание (Shift+щелчок правой кнопкой: ваше второе развеивание). Игра рисует красную рамку, когда на игроке есть то, что вы можете снять. То же самое, что /mh partytargets.",

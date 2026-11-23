@@ -152,6 +152,10 @@ HandyNotes: WoW Forever, by Kemayo (no licence found) (which rares exist, checks
 HandyNotes: Class Trainers (All Rights Reserved)
     Read from the player's own installation while playing (Modules/ForeverTrainer.lua, ForeverClassQuests.lua).
 
+QuestieDB (GPL-3.0 for its consenting contributors, otherwise all rights reserved)
+    Uses QuestieDB if you have it installed: read from the player's own installation while playing, only where Midnight
+    Helper has no place of its own (Modules/ForeverQuestieDB.lua). None of its data ships with Midnight Helper.
+
 JustAC, by wealdly (GPL-3.0-or-later) (spell numbers, cooldowns, spell categories)
     Modules/KeybindRoles_*.lua, HealerCooldowns.lua, TankToolkit.lua, DpsToolkit.lua, DispelHelper.lua,
     GroupRezLust.lua, SurvivalPlan.lua.

@@ -25,6 +25,22 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 23 nov — FOREVER: QuestieDB stap B (Rob: "Ik volg jullie advies weer.") — wat MH ermee doet
+
+Nieuwe en gewijzigde bestanden: sluit het spel eerst helemaal af. QuestieDB moet aan staan (dat deed je al).
+- [ ] Geen rode fout bij inloggen en na `/reload`.
+- [ ] Maak een quest af, maar lever hem nog NIET in. Open "Do this now" (`/mh donow`) of het overzicht, tab Now. Je
+      ziet een regel "Ready to turn in: "<quest>" at <NPC>, <zone> (QuestieDB)." en een knop **Turn in**.
+- [ ] Klik **Turn in**: de pijl wijst naar die NPC en de chat zegt "arrow set to … (QuestieDB)". Klopt de plek?
+- [ ] Lever de quest in: de regel verdwijnt (binnen een seconde).
+- [ ] `/mh overview` → tab Dungeons → een dungeon voor je level → knop "Quests N". Een questgever die eerst "our source
+      gives no place" had, heeft nu een zone met "(QuestieDB)" en een knop **Way ›**, bijvoorbeeld in Blackrock Depths.
+      Klopt de pijl?
+- [ ] Instellingen (Esc → Options → AddOns → Midnight Helper), zoek "QuestieDB": schakelaar **"Use QuestieDB if you have
+      it"** staat aan. Zet hem uit: de "Ready to turn in"-regel en de (QuestieDB)-plekken verdwijnen. Weer aan: ze komen terug.
+- [ ] Een gevecht: geen "action blocked" op naam van MidnightHelper.
+- `/mh questiedb why` = wat MH besloot en waarom (voor ons).
+
 ## 23 nov — FOREVER: meting "quest A" (kan MH QuestieDB lezen?) — `/mh questiedb`
 
 Alleen een meting: spelers zien niets en er verandert niets in het spel. Het is een nieuw bestand, dus sluit het spel
