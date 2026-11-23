@@ -28,10 +28,13 @@ bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt o
 ## 23 nov — FOREVER: QuestieDB stap B (Rob: "Ik volg jullie advies weer.") — wat MH ermee doet
 
 Nieuwe en gewijzigde bestanden: sluit het spel eerst helemaal af. QuestieDB moet aan staan (dat deed je al).
-- [ ] Geen rode fout bij inloggen en na `/reload`.
-- [ ] Maak een quest af, maar lever hem nog NIET in. Open "Do this now" (`/mh donow`) of het overzicht, tab Now. Je
+✅ Punt 1-3: Rob 23 nov via sparring, letterlijk: *"1 tot en met 3 is goed."* Bij 4 stuurde hij een screenshot van
+Wailing Caverns: daar heeft geen gever een gat, dus terecht geen "(QuestieDB)" (GEMETEN in de data). Opnieuw met
+`/mh dungeons quests SM_GY` ("Vorrel's Revenge") of `/mh dungeons quests RFD` ("Scourge of the Downs").
+- [x] Geen rode fout bij inloggen en na `/reload`.
+- [x] Maak een quest af, maar lever hem nog NIET in. Open "Do this now" (`/mh donow`) of het overzicht, tab Now. Je
       ziet een regel "Ready to turn in: "<quest>" at <NPC>, <zone> (QuestieDB)." en een knop **Turn in**.
-- [ ] Klik **Turn in**: de pijl wijst naar die NPC en de chat zegt "arrow set to … (QuestieDB)". Klopt de plek?
+- [x] Klik **Turn in**: de pijl wijst naar die NPC en de chat zegt "arrow set to … (QuestieDB)". Klopt de plek?
 - [ ] Lever de quest in: de regel verdwijnt (binnen een seconde).
 - [ ] `/mh overview` → tab Dungeons → een dungeon voor je level → knop "Quests N". Een questgever die eerst "our source
       gives no place" had, heeft nu een zone met "(QuestieDB)" en een knop **Way ›**, bijvoorbeeld in Blackrock Depths.

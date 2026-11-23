@@ -12,7 +12,10 @@ gedaan"*); de live pagina zag niemand van ons.
 december-events in de weekplanning. Alleen in IDEEEN; niets gebouwd. PTR-map heeft MH van 16 okt: niet kopiëren zonder Robs ja.
 ◐ **RONDE 2, 23 nov:** dungeon-quests: Rob via sparring, letterlijk *"een test : een dungeon-quest , werkt"* (welke quest:
 nog niet bekend). Recept-pijl en Copper Ore (ingrediënt) blijven open; XP per uur niet gemeld.
-🧪 **QUEST B GEBOUWD, wacht op Robs test** (Rob via sparring, letterlijk: *"Ik volg jullie advies weer. En het voelde niet
+◐ **QUEST B getest 1-3** (Rob: *"1 tot en met 3 is goed."*); 4 opnieuw met SM_GY/RFD (WC heeft geen gaten), 5-6 open.
+💡 Voorgesteld, wacht op ja: "The Glowing Shard" staat 2× in WC (3366 + 6981, twee echte quests; GEMETEN Wowhead
+Forever) → altijd één regel tonen.
+🧪 **QUEST B GEBOUWD** (Rob via sparring, letterlijk: *"Ik volg jullie advies weer. En het voelde niet
 trager bij het inloggen, dus dat scheelt."* → laadtijd afgevinkt). MH's eigen data wint altijd; QuestieDB vult alleen
 gaten, nooit omrekenen, pcall, niet in gevecht. (1) "Ready to turn in … (QuestieDB)" + knop Turn in in Do this now en het
 overzicht (tip, opent het venster niet zelf); (2) dungeon-quests: ~40 rijen met een gever zonder plek krijgen er een
