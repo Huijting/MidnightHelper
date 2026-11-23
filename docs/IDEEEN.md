@@ -440,7 +440,7 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
                  (Carola zag het op een class-training-route.) GEBOUWD 20 nov: `ns.ArrowAtStepText` in NativeArrow.lua,
                  nieuwe zinnen ARROW_AT_RIDE / _RIDE_SENTENCE / ARROW_AT_SENTENCE (7 talen). Wacht op Robs/Carola's test.
 
-### Forever: Layer Swap — zien op welke layer je zit en wisselen (idee van Rob, 20 nov) — ✅ JA voor onderzoek (23 nov: "Ja, 1, 2 en 3, maar juist ook 3. … We moeten ook zelf kunnen swappen."); onderzoek GEDAAN, opties A-D wachten op Rob
+### Forever: Layer Swap — zien op welke layer je zit en wisselen (idee van Rob, 20 nov) — ✅ JA voor onderzoek (23 nov: "Ja, 1, 2 en 3, maar juist ook 3. … We moeten ook zelf kunnen swappen."); onderzoek GEDAAN; Rob koos A + D ("Ik ga uiteraard weer voor jullie advies."); stap 1 (stille meter, /mh layer) GEBOUWD, wacht op Robs 3 metingen
 - 23 nov: `docs/forever/LAYER_SWAP_ONDERZOEK_2026-11-23.md`. Kern: het layernummer is in Forever niet meer te lezen (Blizzard
   versleutelt de GUID-velden sinds 16 okt/20 nov; GEMETEN ook in Robs eigen RFC-run van 23 nov: elk monster een ander
   veld 3 en 5). Wisselen naar "een andere" layer kan nog (uitnodiging van iemand op een andere layer), een layer kiezen niet.

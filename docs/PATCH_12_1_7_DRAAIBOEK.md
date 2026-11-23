@@ -101,6 +101,10 @@ niet gebruikt.
 - [ ] Toetsenblok: neerzetten en terug werkt op de nieuwe versie.
 - [ ] Omnium Folio: 7 rijen?
 - [ ] Weekplanning noemt Timeways.
+- [ ] Het kaartje "New in patch 12.1.7" (één keer bij het inloggen) klopt nog. Nakijken (Fable-controle 23 nov): verkoopt een
+      BfA-Timewalking-verkoper (Boralus/Dazar'alor) Spawn of Vyranoth; Aqir-verkoper Estelia: nog zonder reputatie, hogere
+      prijzen; Glass Cannon (Fire Mage PvP) 20% of 25%; naam + start van de 7e Folio-quest (99508); Blizzards notes: toch
+      class-wijzigingen?
 - [ ] Options → Keybindings: staat "Simple Keybinds" er nu wel? (Op de PTR 71087 niet, 23 nov.) Zo ja: NIET aanzetten, melden.
 
 ## 5. Elke week opnieuw meten tot 2 dec

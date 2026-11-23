@@ -203,6 +203,8 @@ Modules\ForeverPartyProbe.lua
 Modules\ForeverQuestieDB.lua
 # Upgrades in Do this now with Wear it / Not this one (Rob, 23 Nov 2026: "Ja, doe maar OR-B.").
 Modules\ForeverWear.lua
+# Measurement only: what the game says about layers + how busy it is (Rob, 23 Nov 2026: "Ik ga uiteraard weer voor jullie advies.").
+Modules\ForeverLayer.lua
 # Small group panel: rows, click = target, right-click = your dispel, Blizzard's red edge (Rob, 12 Nov 2026: "A, eerst klein").
 Modules\ForeverPartyPanel.lua
 # "Do this now / All caught up / Coming up" (Rob, 12 Nov 2026, via sparring: "Venster 'Doe dit nu'").

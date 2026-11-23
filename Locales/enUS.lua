@@ -5070,8 +5070,8 @@ ns._mhLocales.enUS = {
 	-- 23 Nov 2026: the patch 12.1.7 card (NewChoices.lua, only on a 12.1.7 client). Facts: docs/PATCH_12_1_7_DRAAIBOEK.md §1.
 	-- NEWC_PATCH1217_BADGES_FMT: %d = the player's Timewarped Badges.
 	NEWC_PATCH1217_HEAD = "New in patch 12.1.7",
-	NEWC_PATCH1217_BODY = "- Turbulent Timeways VI: 8 weeks of Timewalking, one older expansion each week. The mount achievement asks for 4 of those weeks.\n- Spawn of Vyranoth: a mount for 5,000 Timewarped Badges at every Timewalking vendor.\n- A new campaign: The Coreway Advance.\n- The Omnium Folio now has 7 steps.\n- The Aqir Invasions are gone. Their rewards stay, without a reputation requirement.\n- Season 2 goes on: Mythic+, raids, delves and the Great Vault stay the same, and no class spell changes.\n\nMidnight Helper knows all of this. The Codex has the Timewalking schedule week by week.",
-	NEWC_PATCH1217_BADGES_FMT = "You have %d Timewarped Badges.",
+	NEWC_PATCH1217_BODY = "- Turbulent Timeways VI: 8 weeks of Timewalking, one older expansion each week. The mount achievement asks for 4 of those weeks.\n- Spawn of Vyranoth: a mount for 5,000 Timewarped Badges at any Timewalking vendor.\n- A new campaign: The Coreway Advance (Blizzard's news calls it \"The Return to Dornogal\").\n- The Omnium Folio grows: 7 steps instead of 5, and 2 new runes.\n- The Aqir Invasions are over. Their rewards stay for sale; on the test realm they needed no reputation any more but cost more Voidlight Marl.\n- Season 2 goes on: Mythic+, raids, delves and the Great Vault stay the same, and Blizzard has announced no class changes.\n\nMidnight Helper knows all of this. The Codex has the Timewalking schedule week by week.",
+	NEWC_PATCH1217_BADGES_FMT = "Timewarped Badges on this character: %d",
 	NEWC_PATCH1217_READ = "Timewalking schedule",
 	-- 8 Nov 2026: the line that stays at the bottom of the Midnight home page after the banner is hidden (a click shows it again).
 	HOME_FOREVER_ALSO = "Also playing WoW Forever? Midnight Helper works there too. Click here to see how to install it.",

@@ -295,6 +295,7 @@ Modules\ForeverCrates.lua
 Modules\ForeverPartyProbe.lua
 Modules\ForeverQuestieDB.lua
 Modules\ForeverWear.lua
+Modules\ForeverLayer.lua
 Modules\ForeverPartyPanel.lua
 Modules\ForeverDoNow.lua
 Modules\ForeverStyle.lua

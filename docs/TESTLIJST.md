@@ -25,6 +25,16 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 23 nov — FOREVER: layer-meting (Rob: "Ik ga uiteraard weer voor jullie advies." = A + D), de 3 metingen
+
+Nieuw bestand: sluit het spel eerst helemaal af en start opnieuw. MH laat nog NIETS zien; het schrijft alleen op.
+- [ ] Meting 3 (drukte): ga in een druk gebied staan en typ `/mh layer`. De eerste regel telt spelers en "already tagged"
+      monsters om je heen. Klopt dat ongeveer met wat je ziet? (Zie je "Friendly player nameplates are OFF", dan telt hij
+      alleen spelers van de andere factie; dat is een spelinstelling.)
+- [ ] Meting 1 + 2 (wisselen): laat je één keer uitnodigen door iemand op een andere layer (een vriend, of met een
+      wissel-addon zoals LayerSwap aan) en accepteer. Wissel ook één keer gewoon van zone. Daarna `/mh layer` en `/reload`.
+      De bouwchat leest `MidnightHelperDB.layerProbe` en ziet dan of "je wordt verplaatst" alleen bij het wisselen komt.
+
 ## 23 nov — FOREVER: teller in het class-questkaartje (Rob: "kunnen we dat daar ook niet gewoon in hetzelfde schermpje erbij plaatsen met hoeveel ik op dat moment heb?")
 
 Alleen bestaande bestanden gewijzigd: `/reload` is genoeg.

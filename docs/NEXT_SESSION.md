@@ -24,6 +24,13 @@ kunnen swappen."*):
   Do this now, overzicht. Offline getest (4/6 → tekst; 6/6 → "lever in"). Wacht op test.
 - 3 Layer: Rob koos A + D (*"Ik ga uiteraard weer voor jullie advies."*). Metingen teruggebracht tot 3 (verplaatsing-signaal,
   "uitnodiging van andere layer", drukte tellen); eerst een stille meter + /mh layer, meldingen pas na meting 1.
+  🧪 GEBOUWD: `Modules/ForeverLayer.lua` (nieuw, beide toc's) → `ns.db.layerProbe` (log van 40: SHARD_TRANSFER*,
+  PARTY_INVITE_REQUEST 6e waarde, UnitPhaseReason per groepslid, zonewissel; geen namen) + `/mh layer [clear]` (drukte:
+  speler-naamplaatjes, getagde NPC's). Offline getest. Spelers zien niets. D = nu alleen een zin; knop als Rob een
+  wissel-addon installeert.
+- 🔧 Patchkaartje: Fable-controle verwerkt (niets fout; 6 formuleringen eerlijker); patchdag-punten in draaiboek §4.
+  Vertalingen loopt (mh-writer). Fable meldde ook: CODEX_FOLIO_BODY_1217 "Off-World Magic" vs Wowhead "Otherworldly
+  Magic" (96444), en OmniumFolioData `unlockQuests` kent alleen de 5 oude quests: nog niet bekeken.
 - 3 Layer swap: ONDERZOEK GEDAAN → `docs/forever/LAYER_SWAP_ONDERZOEK_2026-11-23.md`; layernummer onleesbaar (GEMETEN ook in
   Robs RFC-SV van 23 nov). Opties A-D bij sparring, advies A + D. Niets gebouwd.
 ✅ **WEAR B GOEDGEKEURD** (Rob via sparring, letterlijk: *"ORB is goedgekeurd. Alles doet hij wat hij moet doen."*; een

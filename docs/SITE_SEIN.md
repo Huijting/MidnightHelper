@@ -28,6 +28,15 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 23 nov 2026 — Forever: layer-meting (alleen voor ons) + teller in het class-questkaartje
+- Tag + commit:   geen tag (commit: deze regel)
+- Status:         alleen op main
+- Mag op de site: nee, nog niet (geen release; Rob test eerst).
+- Speler ziet:    Het class-questkaartje toont hoeveel je al hebt ("Vile Familiar Head: 4/6"). De layer-meting ziet niemand.
+- Knoplabels:     geen nieuwe
+- Commando's:     /mh layer is voor ons (niet op de site)
+- Spel:           Forever
+
 ## 23 nov 2026 — Forever: upgrade aantrekken vanuit "Do this now"
 - Tag + commit:   geen tag (commit: deze regel)
 - Status:         alleen op main

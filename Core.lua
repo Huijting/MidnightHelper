@@ -2810,6 +2810,18 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh layer [clear] — WoW Forever: what the game says about layers + how busy it is (ForeverLayer.lua; Rob, 23 Nov 2026
+	-- via sparring: "Ik ga uiteraard weer voor jullie advies." = layer option A + D). Diagnosis only for now.
+	local layerArg = msg:lower() == "layer" and "" or msg:lower():match("^layer%s+(.+)$")
+	if layerArg then
+		if ns.ForeverLayerSlash then
+			ns.ForeverLayerSlash(layerArg)
+		else
+			print("|cffffcc00Midnight Helper:|r /mh layer is for WoW: Forever (a new file: restart the game once).")
+		end
+		return
+	end
+
 	-- /mh wear [why | reset] — WoW Forever: upgrades in Do this now (ForeverWear.lua; Rob, 23 Nov 2026 via sparring:
 	-- "Ja, doe maar OR-B."). why = MH's verdict per piece of gear in your bags; reset = forget every "Not this one".
 	local wearArg = msg:lower() == "wear" and "" or msg:lower():match("^wear%s+(.+)$")
