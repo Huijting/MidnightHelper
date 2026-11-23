@@ -12,7 +12,10 @@ gedaan"*); de live pagina zag niemand van ons.
 december-events in de weekplanning. Alleen in IDEEEN; niets gebouwd. PTR-map heeft MH van 16 okt: niet kopiëren zonder Robs ja.
 ◐ **RONDE 2, 23 nov:** dungeon-quests: Rob via sparring, letterlijk *"een test : een dungeon-quest , werkt"* (welke quest:
 nog niet bekend). Recept-pijl en Copper Ore (ingrediënt) blijven open; XP per uur niet gemeld.
-◐ **QUEST B getest 1-3** (Rob: *"1 tot en met 3 is goed."*); 4 opnieuw met SM_GY/RFD (WC heeft geen gaten), 5-6 open.
+◐ **QUEST B getest 1-3** (Rob: *"1 tot en met 3 is goed."*); 4 ❌ op SM_GY (Vorrel's Revenge bleef "no place"). GEMETEN in
+de QuestieDB-toc: Vorrel (3981) staat er alleen als (-1,-1) = "in een instance"; van 10 gaten zijn er 6 zo, 3 hebben een
+echte plek (allemaal Alliance of level 55+). 🔧 Zo'n quest gaat nu naar "inside the dungeon" met "(QuestieDB)"
+(`ns.ForeverQuestieNpcInside`), wacht op hertest. 5-6 open. Schakelaar staat onder "On-screen buttons".
 💡 Voorgesteld, wacht op ja: "The Glowing Shard" staat 2× in WC (3366 + 6981, twee echte quests; GEMETEN Wowhead
 Forever) → altijd één regel tonen.
 🧪 **QUEST B GEBOUWD** (Rob via sparring, letterlijk: *"Ik volg jullie advies weer. En het voelde niet

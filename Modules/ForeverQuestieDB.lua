@@ -475,6 +475,36 @@ function ns.ForeverQuestieNpcPlace(npc, prefer)
 	return s.m, s.x, s.y, NpcNameOf(L, npc), "QuestieDB"
 end
 
+--- True when QuestieDB knows this NPC only inside an instance: every spawn is its (-1, -1) "inside" mark. GEMETEN 23 Nov
+--- 2026 on Vorrel Sengutz (3981, Scarlet Monastery): that is how it stores a giver who stands in the dungeon, so there is
+--- no place for an arrow, but the row can say "inside". nil when MH has its own place or QuestieDB cannot be read.
+function ns.ForeverQuestieNpcInside(npc)
+	if type(npc) ~= "number" or OwnPlace(npc) then
+		return nil
+	end
+	local L = Live()
+	if not L then
+		return nil
+	end
+	local ok, spawns = pcall(L.Npc.Get, npc, "spawns")
+	if not ok or type(spawns) ~= "table" then
+		return nil
+	end
+	local seen = false
+	for _, points in pairs(spawns) do
+		for _, pt in ipairs(type(points) == "table" and points or {}) do
+			if pt[1] ~= -1 or pt[2] ~= -1 then
+				return nil
+			end
+			seen = true
+		end
+	end
+	if seen then
+		lastWhy = ("NPC %d: QuestieDB has him only inside an instance"):format(npc)
+	end
+	return seen or nil
+end
+
 local function ZoneName(id)
 	if C_Map and C_Map.GetMapInfo then
 		local ok, info = pcall(C_Map.GetMapInfo, id)

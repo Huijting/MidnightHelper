@@ -36,11 +36,12 @@ Wailing Caverns: daar heeft geen gever een gat, dus terecht geen "(QuestieDB)" (
       ziet een regel "Ready to turn in: "<quest>" at <NPC>, <zone> (QuestieDB)." en een knop **Turn in**.
 - [x] Klik **Turn in**: de pijl wijst naar die NPC en de chat zegt "arrow set to … (QuestieDB)". Klopt de plek?
 - [ ] Lever de quest in: de regel verdwijnt (binnen een seconde).
-- [ ] `/mh overview` → tab Dungeons → een dungeon voor je level → knop "Quests N". Een questgever die eerst "our source
-      gives no place" had, heeft nu een zone met "(QuestieDB)" en een knop **Way ›**, bijvoorbeeld in Blackrock Depths.
-      Klopt de pijl?
-- [ ] Instellingen (Esc → Options → AddOns → Midnight Helper), zoek "QuestieDB": schakelaar **"Use QuestieDB if you have
-      it"** staat aan. Zet hem uit: de "Ready to turn in"-regel en de (QuestieDB)-plekken verdwijnen. Weer aan: ze komen terug.
+- [ ] ❌→🔧 (Rob 23 nov, screenshot SM_GY: "Vorrel's Revenge" bleef "our source gives no place", geen (QuestieDB)). GEMETEN:
+      QuestieDB heeft Vorrel alleen als "in een instance" (-1,-1), geen plek voor een pijl; zo ook 6 van 10 nagekeken
+      gevers. Gerepareerd: zo'n quest staat nu onder **"You get these inside the dungeon"** met "Inside: Vorrel Sengutz
+      (QuestieDB)". Opnieuw: herstart, `/mh dungeons quests SM_GY` → staat Vorrel's Revenge daar zo?
+- [ ] Instellingen: Esc → Options → tab **AddOns** → **Midnight Helper** → kopje **"On-screen buttons"**, onder
+      ""Do this now" window" en "Small group panel": schakelaar **"Use QuestieDB if you have it"** staat aan. Zet hem uit: de "Ready to turn in"-regel en de (QuestieDB)-plekken verdwijnen. Weer aan: ze komen terug.
 - [ ] Een gevecht: geen "action blocked" op naam van MidnightHelper.
 - `/mh questiedb why` = wat MH besloot en waarom (voor ons).
 

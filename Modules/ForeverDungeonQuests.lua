@@ -101,6 +101,16 @@ local function Place(e)
 	return nil
 end
 
+--- No place of MH's own, and QuestieDB has the giver only inside an instance (23 Nov 2026, Vorrel's Revenge in Rob's
+--- screenshot): then the row belongs under "You get these inside the dungeon", not "no place".
+local function QuestieInside(e)
+	if HasPlace(e) or e.inside or e.item or e.object or not e.npc or not ns.ForeverQuestieNpcInside then
+		return false
+	end
+	local ok, v = pcall(ns.ForeverQuestieNpcInside, e.npc)
+	return ok and v == true
+end
+
 local function ZoneName(id)
 	if C_Map and C_Map.GetMapInfo then
 		local ok, info = pcall(C_Map.GetMapInfo, id)
@@ -176,6 +186,8 @@ local function Collect(key)
 				st, why = nil, "a variant with the same title is done or in the log"
 			elseif e.inside then
 				st, why = "inside", "picked up inside the dungeon"
+			elseif QuestieInside(e) then
+				st, why = "inside", "QuestieDB: the giver stands inside an instance"
 			elseif e.prev and not Done(e.prev) then
 				st, why = "later", ("prev %d not done"):format(e.prev)
 			else
@@ -233,6 +245,9 @@ local function Where(it)
 	local who = NpcName(e)
 	if e.inside then
 		return who and ns:L("FDQ_INSIDE_FMT"):format(who) or ns:L("FDQ_SEC_INSIDE")
+	end
+	if it.st == "inside" then -- inside according to QuestieDB (Collect)
+		return (who and ns:L("FDQ_INSIDE_FMT"):format(who) or ns:L("FDQ_SEC_INSIDE")) .. " (QuestieDB)"
 	end
 	local first
 	if e.item then
