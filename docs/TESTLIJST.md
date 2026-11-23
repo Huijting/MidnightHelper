@@ -268,6 +268,9 @@ uur: open, in de secties hieronder.
 
 ## 21-22 nov — Forever: dungeon-quests (terug op 22 nov, Rob: "overnemen, ja")
 
+- [x] ✅ (Rob 23 nov via sparring, ronde 2, letterlijk: *"een test : een dungeon-quest , werkt"*) Eén dungeon-quest werkt.
+      Welke quest en welke stappen hieronder hij zag: nog niet bekend (sparring vroeg het). De losse punten blijven open.
+
 - [ ] **Sluit het spel helemaal en start het opnieuw** (nieuwe bestanden; `/reload` is niet genoeg).
 - [ ] Forever: `/mh overview` → tab Dungeons. Bij een dungeon voor je level staat onder "Way ›" (en "Bosses") een knop
       "Quests N". Muis erop: hoeveel nu op te halen, in je log, in de dungeon, later, gedaan.

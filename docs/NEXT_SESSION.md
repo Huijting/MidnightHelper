@@ -10,6 +10,8 @@ gevecht, andere characters. **OPEN: ronde 2** (ingrediënten, recept-pijl, dunge
 gedaan"*); de live pagina zag niemand van ons.
 💡 Midnight, LATER (Rob 22 nov: *"alle 3 maar niet voor nu, straks slapen"*): patchdag-kaartje 12.1.7, "eerste blik",
 december-events in de weekplanning. Alleen in IDEEEN; niets gebouwd. PTR-map heeft MH van 16 okt: niet kopiëren zonder Robs ja.
+◐ **RONDE 2, 23 nov:** dungeon-quests: Rob via sparring, letterlijk *"een test : een dungeon-quest , werkt"* (welke quest:
+nog niet bekend). Recept-pijl en Copper Ore (ingrediënt) blijven open; XP per uur niet gemeld.
 🧪 **QUEST A: METING GEBOUWD, wacht op Rob** (Rob via Sparring 23-11, letterlijk: *"Ik volg jullie advies."* = eerst A meten,
 B pas na zijn meting; is A slecht: melden, niet door naar B). `Modules/ForeverQuestieDB.lua`, `/mh questiedb [here]` →
 `ns.db.questieDbProbe` (alleen tellingen, ms, KB en afstanden; geen QuestieDB-data). Offline getest met een nep-
