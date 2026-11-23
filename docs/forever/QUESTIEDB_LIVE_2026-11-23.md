@@ -73,5 +73,10 @@ is een aparte keuze voor Rob.
 - **C. Groot**: een eigen questzoeker (welke quests zijn er bij jou in de buurt). Dat is wat Questie en WalkMap al doen.
 - **D. Niet doen.**
 
+➡️ **Rob koos 23 nov het advies** (via sparring, letterlijk: *"Ik volg jullie advies."*). A GEBOUWD:
+`Modules/ForeverQuestieDB.lua`. Het vergelijkt QuestieDB-spawns met MH's eigen trainerplekken per kaart (Mulgore 1412 en
+Stormwind 1453 zijn twee van de vier zones met een Era→Forever-omrekening), en met Robs twee gemeten plekken in Tirisfal.
+Punt 5 blijft staan tot het GPL-besluit.
+
 **Advies: A, dan B.** A is klein en vertelt of de plekken kloppen. B geeft de meeste winst zonder dat MH iets meelevert.
 C niet: dat doen andere addons al. Los daarvan kiest Rob wat er met punt 5 gebeurt (nalopen en vervangen, of laten).

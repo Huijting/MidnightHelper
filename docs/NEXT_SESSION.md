@@ -10,7 +10,12 @@ gevecht, andere characters. **OPEN: ronde 2** (ingrediënten, recept-pijl, dunge
 gedaan"*); de live pagina zag niemand van ons.
 💡 Midnight, LATER (Rob 22 nov: *"alle 3 maar niet voor nu, straks slapen"*): patchdag-kaartje 12.1.7, "eerste blik",
 december-events in de weekplanning. Alleen in IDEEEN; niets gebouwd. PTR-map heeft MH van 16 okt: niet kopiëren zonder Robs ja.
-🔎 **QUEST A ONDERZOCHT, niets gebouwd** (Rob via Sparring 23-11, letterlijk: *"quest a"*): QuestieDB alleen live lezen,
+🧪 **QUEST A: METING GEBOUWD, wacht op Rob** (Rob via Sparring 23-11, letterlijk: *"Ik volg jullie advies."* = eerst A meten,
+B pas na zijn meting; is A slecht: melden, niet door naar B). `Modules/ForeverQuestieDB.lua`, `/mh questiedb [here]` →
+`ns.db.questieDbProbe` (alleen tellingen, ms, KB en afstanden; geen QuestieDB-data). Offline getest met een nep-
+LibQuestieDB (5 gevallen goed), NIET in het spel. Teststappen: TESTLIJST 23 nov. ⏸️ Questie-regels in ForeverClassQuests
+(r.243/362/1005/1070): **LATEN tot het GPL-besluit**, niets aanraken.
+🔎 **QUEST A ONDERZOCHT** (Rob via Sparring 23-11, letterlijk: *"quest a"*): QuestieDB alleen live lezen,
 niets meeleveren; GPLv3 = later mogelijk, eerst toestemming mede-auteur AndyMM22 (Rob: *"gpl is niet defenitief van
 tafel :)"*). Voorstel A-D in `docs/forever/QUESTIEDB_LIVE_2026-11-23.md` (advies A dan B),
 wacht op Robs keuze. Gevonden: ForeverClassQuests noemt al Questie-plekken (r.243) en Questie-volgorde (r.362).

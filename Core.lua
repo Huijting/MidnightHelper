@@ -2810,6 +2810,18 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh questiedb [here] — WoW Forever: measure whether MH can read QuestieDB live (ForeverQuestieDB.lua; Rob, 23 Nov
+	-- 2026 via sparring: "quest a", "Ik volg jullie advies."). Diagnosis only, writes ns.db.questieDbProbe.
+	local qdbArg = msg:lower() == "questiedb" and "" or msg:lower():match("^questiedb%s+(.+)$")
+	if qdbArg then
+		if ns.ForeverQuestieDBSlash then
+			ns.ForeverQuestieDBSlash(qdbArg)
+		else
+			print("|cffffcc00Midnight Helper:|r /mh questiedb is for WoW: Forever (a new file: restart the game once).")
+		end
+		return
+	end
+
 	-- /mh partytest [clear] — WoW Forever: measure what a party panel would need (ForeverPartyProbe.lua; Rob, 11 Nov
 	-- 2026: "maak die meting maar"). Diagnosis only, writes ns.db.partyProbe.
 	local partyArg = msg:lower() == "partytest" and "" or msg:lower():match("^partytest%s+(.+)$")

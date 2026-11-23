@@ -28,6 +28,15 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 23 nov 2026 — Forever: meting QuestieDB (alleen voor ons)
+- Tag + commit:   geen tag (commit: deze regel)
+- Status:         alleen op main
+- Mag op de site: nee. `/mh questiedb` is een meetknop voor ons, geen spelersfunctie.
+- Speler ziet:    niets.
+- Knoplabels:     geen
+- Commando's:     /mh questiedb, /mh questiedb here (niet op de site)
+- Spel:           Forever
+
 ## 22 nov 2026 — release 5.8.0 (staat op CurseForge)
 - Tag + commit:   v5.8.0 / 899a225. Release-run GitHub 45073286641: geslaagd; log: CurseForge, Wago en GitHub
                   voor beide zips. CurseForge-API (GEMETEN): 9761148 `MidnightHelper-v5.8.0.zip` (12.0.7-12.1.7)

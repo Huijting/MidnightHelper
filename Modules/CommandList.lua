@@ -98,6 +98,8 @@ ns.MH_UNLISTED_ON_PURPOSE = {
 	"crates", "crates test", "crates on", "crates off",
 	-- 21 Nov 2026: per-character keys (ForeverCharKey.lua, Forever only).
 	"charkey",
+	-- 23 Nov 2026: QuestieDB measurement (ForeverQuestieDB.lua, Forever only; Rob: "quest a").
+	"questiedb", "questiedb here",
 	-- 21 Nov 2026: renown measurement (AltOverview.lua).
 	"renown",
 	-- 21 Nov 2026: next talent point diagnosis (ForeverTalentNext.lua, Forever only).

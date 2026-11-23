@@ -26,6 +26,14 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 
 ## Open — wacht op Rob
 
+### Forever: QuestieDB live lezen, "quest A" (23 nov) — ✅ JA, stap A (meting) GEBOUWD, wacht op Robs meting; B pas daarna
+- Bron: Rob 23 nov via Sparring 23-11, letterlijk: *"quest a"* (onderzoek), daarna *"Ik volg jullie advies."* (= eerst
+  meten A, dan pas gaten vullen B; de Questie-regels in ForeverClassQuests laten tot het GPL-besluit). GPL: *"gpl is niet
+  defenitief van tafel :)"*.
+- Onderzoek + opties: `docs/forever/QUESTIEDB_LIVE_2026-11-23.md`. Gebouwd: `Modules/ForeverQuestieDB.lua`,
+  `/mh questiedb [here]`, alleen meten, spelers zien niets. MH levert geen QuestieDB-data mee.
+- Spel: F. Voor wie: N + V (AFGELEID). Site: pas na B, bouw en release.
+
 ### Midnight-spelers tevreden houden: drie ideeën (22 nov) — ✅ JA, LATER (niet nu bouwen)
 - Bron: Rob 22 nov via sparring: *"bedenk eens iets hoe we de midnight spelers ook tevreden kunen houden"*; op de drie
   voorstellen hieronder, letterlijk: *"alle 3 maar niet voor nu, straks slapen"*.

@@ -293,6 +293,7 @@ Modules\ForeverDurability.lua
 Modules\ForeverCratesData.lua
 Modules\ForeverCrates.lua
 Modules\ForeverPartyProbe.lua
+Modules\ForeverQuestieDB.lua
 Modules\ForeverPartyPanel.lua
 Modules\ForeverDoNow.lua
 Modules\ForeverStyle.lua

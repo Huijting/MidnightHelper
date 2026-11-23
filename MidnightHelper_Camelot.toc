@@ -199,6 +199,8 @@ Modules\ForeverCratesData.lua
 Modules\ForeverCrates.lua
 # Measurement only: what a party panel would need in Forever (Rob, 11 Nov 2026: "maak die meting maar").
 Modules\ForeverPartyProbe.lua
+# Measurement only: can MH read QuestieDB while you play (Rob, 23 Nov 2026: "quest a", "Ik volg jullie advies.").
+Modules\ForeverQuestieDB.lua
 # Small group panel: rows, click = target, right-click = your dispel, Blizzard's red edge (Rob, 12 Nov 2026: "A, eerst klein").
 Modules\ForeverPartyPanel.lua
 # "Do this now / All caught up / Coming up" (Rob, 12 Nov 2026, via sparring: "Venster 'Doe dit nu'").

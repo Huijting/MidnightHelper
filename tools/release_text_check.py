@@ -144,6 +144,7 @@ DEV_ONLY = (
     "tierscan", "rarescan", "questscan", "delvescan", "crestscan", "curscan", "questsnap",
     "chunklog", "hexmasks", "curiodebug", "resetdebug", "ritualspy", "profids",
     "raretest", "readytest", "shardtest",
+    "questiedb",
 )
 
 # The 5.1.0 lines that started this (commit eb3e22a removed them): the proof that the check catches the real fault.
