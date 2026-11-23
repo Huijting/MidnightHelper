@@ -744,7 +744,10 @@ end
 	NEW in Forever, not in Zygor: The Horn of Xelthos (78261-78307) and The Eye of Bhossca (78676-78699); the hand-in
 	quests come after a letter from C, so their step says to wait (e.wait). No Tauren rogue (CharBaseInfo).
 	AFGELEID: Troll starts at 1963; Skyborne (Alliance) walks the Human route; 2379 without its pointer quest;
-	level 23/30 and needs = 78261 for the two Dead Drop chains; what 8236 pays in Forever is NOT measured.
+	level 23/30 for the two Dead Drop chains; what 8236 pays in Forever is NOT measured.
+	CORRECTED 23 Nov 2026 (Rob via sparring: "Ja, 1, 2 en 3" = weetjes A; docs/forever/POLESTAR_NAKIJK_2026-11-22.md):
+	the Eye waits for 78307 (R12, AllTheThings + MailTemplate 614), and both chains start after a letter from C (78261:
+	MailTemplate 612, R11; 78676: at 30 in a capital city, R14), so their first step says to wait for it too.
 	Not built (bouwchat choice, Rob may reverse): the Touch of Zanzil cure (a player who cures it another way would keep
 	the line forever), the level 16 race pointers, Ravenholdt reputation quests.
 	Zygor mistakes not copied: Varimathras 59.75,84.64, the 1978 pickup at 65.53,79.73, |q 8232 / 8425 (= 8236). ]]
@@ -877,15 +880,15 @@ for _, faction in ipairs({ "Alliance", "Horde" }) do
 	-- NEW in Forever. 78270 Goblin Lockpicks (Veenix) is a side quest inside 78261, not a step (missing from QuestV2).
 	-- 78307 and 78699 are hand-ins only, offered after a letter from C (minutes to hours later): e.wait.
 	table.insert(CHAINS.ROGUE, { key = "xelthos", nameKey = "FCQ_CHAIN_RO_XELTHOS", level = 23, faction = faction, quests = {
-		{ q = 78261, from = RO.deadDrop, objs = {
+		{ q = 78261, from = RO.deadDrop, wait = "FCQ_WAIT_RO_INVITE", objs = {
 			O(RO.veenix, "FCQ_OBJ_RO_VEENIX", 2),
 			O(RO.sfk, "FCQ_OBJ_RO_HORN", 1),
 		}, to = RO.deadDrop },
 		{ q = 78307, from = RO.deadDrop, wait = "FCQ_WAIT_RO_LETTER", to = RO.deadDrop },
 	} })
-	table.insert(CHAINS.ROGUE, { key = "bhossca", nameKey = "FCQ_CHAIN_RO_BHOSSCA", level = 30, needs = 78261,
+	table.insert(CHAINS.ROGUE, { key = "bhossca", nameKey = "FCQ_CHAIN_RO_BHOSSCA", level = 30, needs = 78307,
 		faction = faction, quests = {
-			{ q = 78676, from = RO.deadDrop, objs = { O(RO.sm, "FCQ_OBJ_RO_EYE", 1) }, to = RO.deadDrop },
+			{ q = 78676, from = RO.deadDrop, wait = "FCQ_WAIT_RO_EYE", objs = { O(RO.sm, "FCQ_OBJ_RO_EYE", 1) }, to = RO.deadDrop },
 			{ q = 78699, from = RO.deadDrop, wait = "FCQ_WAIT_RO_LETTER", to = RO.deadDrop },
 		} })
 	-- The Azure Key (50). What 8236 pays in Forever is not measured (the Classic item choice may be gone).
@@ -1048,7 +1051,8 @@ CHAINS.SHAMAN = {
 		{ q = 100, from = S.everfount, to = S.waterSilverpine },
 		{ q = 96, from = S.waterSilverpine, to = S.islen },
 	} },
-	-- 94502 ends at the Forgotten Shrine, not at Norric (Spoken, Polestar); the spirit appears after a while.
+	-- 94502 ends at the Forgotten Shrine, not at Norric (Spoken, Polestar; confirmed by Zygor + the quest text, S3).
+	-- The ritual calls the spirit (quest text); how long that takes is not measured (S6, 23 Nov 2026).
 	{ key = "water", spell = 5394, level = 20, faction = "Alliance", races = DWARF, quests = {
 		{ q = 94494, from = S.eldrun, to = S.norric },
 		{ q = 94495, from = S.norric, to = S.hervdana },
@@ -1543,7 +1547,8 @@ CHAINS.MAGE = {
 		{ q = 1880, alt = { 1861 }, from = MA.bink, objs = { O(MA.toolbox, "FCQ_OBJ_MA_GIZMONITOR", 1) }, to = MA.bink },
 	}),
 	-- Skyborne: NEW in Forever. The wand on Zephras Isle first (table order), Mirror Lake once they reach Stormwind
-	-- (1860 is for Human and Gnome only; Jennea gives 1861 without it: Polestar, not seen in game).
+	-- (1860 is an optional Alliance pointer, not a gate: AllTheThings marks it a breadcrumb, M1 corrected 23 Nov 2026;
+	-- Jennea gives 1861 without it: Polestar + AllTheThings, not seen in game).
 	{ key = "windbough", nameKey = "FCQ_CHAIN_MA_WINDBOUGH", level = 10, faction = "Alliance", races = SKYBORNE, quests = {
 		{ q = 93791, from = MA.anathamaas, to = MA.belann },
 		{ q = 93797, from = MA.belann, objs = { O(MA.bough, "FCQ_OBJ_MA_BOUGH", 1) }, to = MA.belann },

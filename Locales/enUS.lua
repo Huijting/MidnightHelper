@@ -5067,6 +5067,12 @@ ns._mhLocales.enUS = {
 	HOME_FOREVER_AD_HEADER = "New: Midnight Helper now works in WoW Forever too",
 	HOME_FOREVER_AD_BODY = "Playing WoW Forever? Turn MH on there as well. You get your own start page, what you can learn at your trainer with an arrow to get there, how your class plays, a key block for all nine classes, and a hint on which quest reward to take. It is the same addon: install it for WoW Forever too (in the CurseForge app, switch World of Warcraft from Retail to Forever).",
 	HOME_FOREVER_AD_HIDE = "Got it, hide this",
+	-- 23 Nov 2026: the patch 12.1.7 card (NewChoices.lua, only on a 12.1.7 client). Facts: docs/PATCH_12_1_7_DRAAIBOEK.md §1.
+	-- NEWC_PATCH1217_BADGES_FMT: %d = the player's Timewarped Badges.
+	NEWC_PATCH1217_HEAD = "New in patch 12.1.7",
+	NEWC_PATCH1217_BODY = "- Turbulent Timeways VI: 8 weeks of Timewalking, one older expansion each week. The mount achievement asks for 4 of those weeks.\n- Spawn of Vyranoth: a mount for 5,000 Timewarped Badges at every Timewalking vendor.\n- A new campaign: The Coreway Advance.\n- The Omnium Folio now has 7 steps.\n- The Aqir Invasions are gone. Their rewards stay, without a reputation requirement.\n- Season 2 goes on: Mythic+, raids, delves and the Great Vault stay the same, and no class spell changes.\n\nMidnight Helper knows all of this. The Codex has the Timewalking schedule week by week.",
+	NEWC_PATCH1217_BADGES_FMT = "You have %d Timewarped Badges.",
+	NEWC_PATCH1217_READ = "Timewalking schedule",
 	-- 8 Nov 2026: the line that stays at the bottom of the Midnight home page after the banner is hidden (a click shows it again).
 	HOME_FOREVER_ALSO = "Also playing WoW Forever? Midnight Helper works there too. Click here to see how to install it.",
 	FOREVER_AD_CHAT = "new in 5.0: MH now works in WoW Forever too. Trainer, How you play, key block and quest reward hint. Install it for your Forever game too; your Midnight features are unchanged.",
@@ -7294,7 +7300,7 @@ ns._mhLocales.enUS = {
 	FCQ_OBJ_WL_ESS_JAEDENAR = "defeat Jaedenar Legionnaires for the Flawless Fel Essence (Jaedenar)",
 	FCQ_OBJ_WL_ESS_PORTAL = "defeat Felguard Sentries for the Flawless Fel Essence (Dark Portal)",
 	FCQ_OBJ_WL_KROSHIUS = "use the Fel Fire from your bags here to wake Kroshius, then defeat him for Kroshius' Infernal Core",
-	FCQ_OBJ_WL_SCARF = "defeat Shadethicket enemies around Fallen Sky Lake until a Withered Scarf drops (about 1 in 20)",
+	FCQ_OBJ_WL_SCARF = "defeat Shadethicket enemies around Fallen Sky Lake until a Withered Scarf drops",
 	FCQ_OBJ_WL_DALIN = "defeat Dalin Forgewright for Dalin's Heart",
 	FCQ_OBJ_WL_CORMA = "defeat Corma Villard for Corma's Heart",
 	FCQ_OBJ_WL_AVELINA = "get Avelina's Heart here",
@@ -7392,7 +7398,11 @@ ns._mhLocales.enUS = {
 	FCQ_OBJ_RO_AZUREBAG = "get the Sealed Azure Bag from a Timbermaw Shaman",
 	FCQ_OBJ_RO_FRAGMENTS = "get 10 Encoded Fragments from Forest Oozes",
 	FCQ_OBJ_RO_AZUREKEY = "in the dungeon Sunken Temple (you need a group), get the Azure Key from Morphaz",
-	FCQ_WAIT_RO_LETTER = "wait for a letter from C in your mailbox (a quarter of an hour up to two hours), then go back to the Dead Drop",
+	FCQ_WAIT_RO_LETTER = "wait for a letter from C in your mailbox, then go back to the Dead Drop",
+	-- 23 Nov 2026 (weetjes A, docs/forever/POLESTAR_NAKIJK_2026-11-22.md R11 + R14): the first quest of each Dead Drop
+	-- chain also comes after a letter from C. When it comes is only measured for the Eye (level 30, a capital city).
+	FCQ_WAIT_RO_INVITE = "wait for a letter from C in your mailbox, then go to the Dead Drop",
+	FCQ_WAIT_RO_EYE = "wait for a letter from C: it comes once you are level 30 and visit a capital city. Read it, then go to the Dead Drop",
 	-- Shaman class quests (17 Nov 2026; facts docs/forever/SHAMAN_CLASSQUESTS_2026-11-17.md). Game names as above.
 	FCQ_CHAIN_SH_AIR = "The Air Totem (your air totems need it)",
 	FCQ_CHAIN_SH_MASTERY = "Bath'rah's quests (item rewards)",
@@ -7537,8 +7547,8 @@ ns._mhLocales.enUS = {
 	FCQ_OBJ_MA_SNAPDRAGONS = "pick the Balnir Snapdragons in the garden of the farm (they look like bushes; no Herbalism needed)",
 	FCQ_OBJ_MA_COFFERCHEST = "take the Chest of Containment Coffers: it stands right behind the trainer",
 	FCQ_OBJ_MA_CANTATION = "take the Cantation of Manifestation: the scroll right behind the trainer",
-	FCQ_OBJ_MA_COFFERS_A = "in the Blue Recluse (the tavern, best in the cellar) use the Cantation of Manifestation, beat a Rift Spawn until it sits stunned, use the Chest of Containment Coffers on it and click the Filled Containment Coffer on the floor. You need 3; the Cantation works once every 5 minutes",
-	FCQ_OBJ_MA_COFFERS_H = "on the bridge in front of the alchemist shop use the Cantation of Manifestation, beat a Rift Spawn until it sits stunned, use the Chest of Containment Coffers on it and click the Filled Containment Coffer on the floor. You need 3; the Cantation works once every 5 minutes",
+	FCQ_OBJ_MA_COFFERS_A = "in the Blue Recluse (the tavern, best in the cellar) use the Cantation of Manifestation, beat a Rift Spawn until it sits stunned, use the Chest of Containment Coffers on it and click the Filled Containment Coffer on the floor. You need 3",
+	FCQ_OBJ_MA_COFFERS_H = "on the bridge in front of the alchemist shop use the Cantation of Manifestation, beat a Rift Spawn until it sits stunned, use the Chest of Containment Coffers on it and click the Filled Containment Coffer on the floor. You need 3",
 	FCQ_OBJ_MA_RIFTGEMS = "in the Silver Stream Mine, open the tall stacks of Miners' League Crates for 6 Charged Rift Gems",
 	FCQ_OBJ_MA_MANAGEMS = "defeat Dalaran mages around Ambermill for 6 Dalaran Mana Gems",
 	FCQ_OBJ_MA_LINEN = "you also need 10 Linen Cloth (humanoids drop it, or buy it at the Auction House)",

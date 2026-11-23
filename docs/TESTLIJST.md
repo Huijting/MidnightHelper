@@ -25,6 +25,15 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 23 nov — FOREVER: oude weetjes in de class-quests gerepareerd (Rob: "Ja, 1, 2 en 3")
+
+Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Alleen te zien met de juiste class; heb je die niet, sla over.
+- [ ] Rogue, level 23 of hoger, Dead Drop-ketens nog niet gedaan: de class-questregel zegt eerst "wait for a letter from C in
+      your mailbox, then go to the Dead Drop" (en niet meer "get the quest").
+- [ ] Rogue, level 30, The Horn al ingeleverd: de Eye-regel zegt "wait for a letter from C: it comes once you are level 30 and
+      visit a capital city …". Hij verschijnt pas als de betaling (78307) gedaan is, niet al na de eerste Horn-quest.
+- [ ] Mage, de coffers-stap: de zin eindigt op "You need 3" (de "5 minutes" is weg). Warlock, de sjaal: geen "1 in 20" meer.
+
 ## 23 nov — FOREVER: upgrades aantrekken vanuit "Do this now" (Rob: "Ja, doe maar OR-B.")
 
 ✅ **GOEDGEKEURD** (Rob 23 nov via sparring, letterlijk: *"ORB is goedgekeurd. Alles doet hij wat hij moet doen."*;

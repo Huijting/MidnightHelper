@@ -34,6 +34,12 @@ UnitFactionGroup = function() return CUR.faction end
 UnitRace = function() return "x", CUR.race, CUR.raceId end
 UnitLevel = function() return CUR.level end
 GetLocale = function() return CUR.locale or "enUS" end
+-- 23 Nov 2026: the module builds an event frame at load since 5a37dde (22 Nov); without these stubs the check stopped
+-- at load and reported FAIL before walking anything.
+CreateFrame = CreateFrame or function()
+	return setmetatable({}, { __index = function() return function() end end })
+end
+C_Timer = C_Timer or { After = function() end }
 local out = {}
 print = function(...) out[#out + 1] = table.concat({ ... }, " ") end
 

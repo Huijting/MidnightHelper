@@ -67,7 +67,10 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 - `THIRD_PARTY.txt` in de root + README. Vervalt: "niets voor de licentie wijzigen", alleen voor deze lijst en die zin.
 - Spel: M + F (in het spel verandert niets). Site: niets.
 
-### Forever: oude Polestar-weetjes in de class-quests nakijken (22 nov) — ✅ JA voor nakijken, GEDAAN; repareren = open
+### Forever: oude Polestar-weetjes in de class-quests nakijken (22 nov) — ✅ JA voor nakijken, GEDAAN; repareren GEBOUWD 23 nov (Rob: "Ja, 1, 2 en 3"), wacht op test
+- 23 nov, weetjes A volgens het rapport: R12 (Eye wacht op 78307), wachtzin bij 78261 (R11) en 78676 (R14, level 30 +
+  hoofdstad), getallen weg bij R10 (brieftijd), M21 (Cantation 5 min) en W3 (1 op 20), commentaar M1 en S6. Laten staan om te
+  testen (rapport-advies): rasroutes R2, M5, M10, M11, M12, M14, W7 en tips M19, M20, M23, W2.
 - Bron: Rob 22 nov via sparring, letterlijk: *"Misschien is dat wel slim, ouderwetjes nakijken. En een vraag aan mijn kant.
   Moeten wij ook iets met die licentie? Moeten wij onze licentie aanpassen? Of vind je dat zoals wij het nu hebben best wel
   goed is?"* De licentievraag beantwoordt sparring; daar niets voor gewijzigd.

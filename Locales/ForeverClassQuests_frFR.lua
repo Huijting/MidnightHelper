@@ -34,7 +34,7 @@ for k, v in pairs({
 	FCQ_OBJ_WL_ESS_JAEDENAR = "vaincs des Légionnaires de Jaedenar pour la Gangressence parfaite (Jaedenar)",
 	FCQ_OBJ_WL_ESS_PORTAL = "vaincs des Gangregardes sentinelles pour la Gangressence parfaite (Porte des ténèbres)",
 	FCQ_OBJ_WL_KROSHIUS = "utilise le Gangrefeu de tes sacs ici pour réveiller Kroshius, puis vaincs-le pour le Noyau infernal de Kroshius",
-	FCQ_OBJ_WL_SCARF = "vaincs des ennemis Sombretaillis autour du Lac Tombeciel jusqu'à ce qu'une Écharpe flétrie tombe (environ 1 sur 20)",
+	FCQ_OBJ_WL_SCARF = "vaincs des ennemis Sombretaillis autour du Lac Tombeciel jusqu'à ce qu'une Écharpe flétrie tombe",
 	FCQ_OBJ_WL_DALIN = "vaincs Dalin Forgewright pour le Coeur de Dalin",
 	FCQ_OBJ_WL_CORMA = "vaincs Corma Villard pour le Cœur de Corma",
 	FCQ_OBJ_WL_AVELINA = "obtiens le Cœur d’Avelina ici",
@@ -138,7 +138,9 @@ for k, v in pairs({
 	FCQ_OBJ_RO_AZUREBAG = "obtiens le Sac azur scellé sur un Chaman Grumegueule",
 	FCQ_OBJ_RO_FRAGMENTS = "obtiens 10 Fragment codé sur des Limons forestiers",
 	FCQ_OBJ_RO_AZUREKEY = "dans le donjon Temple englouti (il te faut un groupe), obtiens la Clé azur sur Morphaz",
-	FCQ_WAIT_RO_LETTER = "attends une lettre de C dans ta boîte aux lettres (d'un quart d'heure à deux heures), puis retourne au Piquet boîte morte",
+	FCQ_WAIT_RO_LETTER = "attends une lettre de C dans ta boîte aux lettres, puis retourne au Piquet boîte morte",
+	FCQ_WAIT_RO_INVITE = "attends une lettre de C dans ta boîte aux lettres, puis va au Piquet boîte morte",
+	FCQ_WAIT_RO_EYE = "attends une lettre de C : elle arrive quand tu es niveau 30 et que tu visites une capitale. Lis-la, puis va au Piquet boîte morte",
 	-- Shaman
 	FCQ_CHAIN_SH_AIR = "Le Totem d'air (tes totems d'air en ont besoin)",
 	FCQ_CHAIN_SH_MASTERY = "Les quêtes de Bath'rah (des objets en récompense)",
@@ -263,8 +265,8 @@ for k, v in pairs({
 	FCQ_OBJ_MA_COFFERCHEST = "prends la Caisse de coffres de stockage : elle est juste derrière le maître",
 	FCQ_OBJ_MA_CANTATION = "prends les Chants de manifestation : le parchemin juste derrière le maître",
 	-- not measured: The Blue Recluse
-	FCQ_OBJ_MA_COFFERS_A = "dans The Blue Recluse (la taverne, de préférence dans la cave), utilise les Chants de manifestation, frappe un Rejeton de la faille jusqu'à ce qu'il soit étourdi, utilise la Caisse de coffres de stockage sur lui et clique sur le Coffre de stockage rempli au sol. Il t'en faut 3 ; les Chants marchent une fois toutes les 5 minutes",
-	FCQ_OBJ_MA_COFFERS_H = "sur le pont devant la boutique de l'alchimiste, utilise les Chants de manifestation, frappe un Rejeton de la faille jusqu'à ce qu'il soit étourdi, utilise la Caisse de coffres de stockage sur lui et clique sur le Coffre de stockage rempli au sol. Il t'en faut 3 ; les Chants marchent une fois toutes les 5 minutes",
+	FCQ_OBJ_MA_COFFERS_A = "dans The Blue Recluse (la taverne, de préférence dans la cave), utilise les Chants de manifestation, frappe un Rejeton de la faille jusqu'à ce qu'il soit étourdi, utilise la Caisse de coffres de stockage sur lui et clique sur le Coffre de stockage rempli au sol. Il t'en faut 3",
+	FCQ_OBJ_MA_COFFERS_H = "sur le pont devant la boutique de l'alchimiste, utilise les Chants de manifestation, frappe un Rejeton de la faille jusqu'à ce qu'il soit étourdi, utilise la Caisse de coffres de stockage sur lui et clique sur le Coffre de stockage rempli au sol. Il t'en faut 3",
 	-- not measured: Miners' League Crates
 	FCQ_OBJ_MA_RIFTGEMS = "dans la Mine du Ru d'argent, ouvre les hautes piles de Miners' League Crates pour 6 Gemme chargée de la faille",
 	FCQ_OBJ_MA_MANAGEMS = "vaincs des mages de Dalaran autour de Moulin-de-l'Ambre pour 6 Gemme de mana de Dalaran",

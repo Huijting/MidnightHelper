@@ -36,7 +36,7 @@ for k, v in pairs({
 	FCQ_OBJ_WL_ESS_PORTAL = "derrota a Argos guardia maldito para conseguir la Esencia vil impecable (Portal oscuro)",
 	FCQ_OBJ_WL_KROSHIUS = "usa aquí el Fuego vil de tus bolsas para despertar a Kroshius y luego derrótalo para conseguir el Núcleo infernal de Kroshius",
 	-- not measured esMX: Shadethicket, Fallen Sky Lake (esES words kept)
-	FCQ_OBJ_WL_SCARF = "derrota a enemigos Sombramatorral alrededor del Lago Cielo Estrellado hasta que caiga una Bufanda desgastada (más o menos 1 de cada 20)",
+	FCQ_OBJ_WL_SCARF = "derrota a enemigos Sombramatorral alrededor del Lago Cielo Estrellado hasta que caiga una Bufanda desgastada",
 	FCQ_OBJ_WL_CORMA = "derrota a Comar Villardo para conseguir el Corazón de Comar",
 	FCQ_OBJ_WL_RODS = "derrota a Guardahuesos Faucedraco y Depositarios de sombras Faucedraco para conseguir 3 Vara de mediación",
 	FCQ_OBJ_WL_IRONORE = "trae 25 Mena de hierro negro",
@@ -91,7 +91,9 @@ for k, v in pairs({
 	-- not measured esMX: Forest Ooze (esES name kept)
 	FCQ_OBJ_RO_FRAGMENTS = "consigue 10 Trozo codificado de Mocos del bosque",
 	FCQ_OBJ_RO_AZUREKEY = "en el calabozo Templo Sumergido (necesitas un grupo), consigue la Llave azur de Morphaz",
-	FCQ_WAIT_RO_LETTER = "espera una carta de C en tu buzón (de un cuarto de hora a dos horas) y luego vuelve al Punto de entrega",
+	FCQ_WAIT_RO_LETTER = "espera una carta de C en tu buzón y luego vuelve al Punto de entrega",
+	FCQ_WAIT_RO_INVITE = "espera una carta de C en tu buzón y luego ve al Punto de entrega",
+	FCQ_WAIT_RO_EYE = "espera una carta de C: llega cuando eres de nivel 30 y visitas una capital. Léela y luego ve al Punto de entrega",
 	-- Shaman
 	FCQ_OBJ_SH_HOOVES = "derrota a Acechadores viles dentro y alrededor de la cueva para conseguir 2 Pezuña de acechador vil",
 	FCQ_OBJ_SH_SALVE = "derrota a Chamanes Erizapúas para conseguir 2 Ungüento de ritual",
@@ -152,8 +154,8 @@ for k, v in pairs({
 	FCQ_OBJ_MA_BOUGH = "recoge del suelo una Rama infundida con el viento junto al santuario del viento (no brilla)",
 	FCQ_OBJ_MA_CANTATION = "toma el Canto de manifestación: el pergamino que está justo detrás del instructor",
 	-- not measured: The Blue Recluse
-	FCQ_OBJ_MA_COFFERS_A = "en The Blue Recluse (la taberna, mejor en el sótano) usa el Canto de manifestación, golpea a un Engendro de falla hasta que se quede aturdido, usa en él el Cofre de arcas de contención y haz clic en el Arca de contención llena del suelo. Necesitas 3; el Canto funciona una vez cada 5 minutos",
-	FCQ_OBJ_MA_COFFERS_H = "en el puente delante de la tienda del alquimista usa el Canto de manifestación, golpea a un Engendro de falla hasta que se quede aturdido, usa en él el Cofre de arcas de contención y haz clic en el Arca de contención llena del suelo. Necesitas 3; el Canto funciona una vez cada 5 minutos",
+	FCQ_OBJ_MA_COFFERS_A = "en The Blue Recluse (la taberna, mejor en el sótano) usa el Canto de manifestación, golpea a un Engendro de falla hasta que se quede aturdido, usa en él el Cofre de arcas de contención y haz clic en el Arca de contención llena del suelo. Necesitas 3",
+	FCQ_OBJ_MA_COFFERS_H = "en el puente delante de la tienda del alquimista usa el Canto de manifestación, golpea a un Engendro de falla hasta que se quede aturdido, usa en él el Cofre de arcas de contención y haz clic en el Arca de contención llena del suelo. Necesitas 3",
 	FCQ_OBJ_MA_MANAGEMS = "derrota a magos de Dalaran alrededor de Molino Ámbar para conseguir 6 Gema de maná de Dalaran",
 	-- not measured esMX: Carrion Recluse (esES name kept)
 	FCQ_OBJ_MA_SILK = "derrota a arañas en el Cementerio del Cerro del Cuervo para conseguir 8 Seda prístina de araña (los Ermitaños carroñeros son los que más la sueltan)",

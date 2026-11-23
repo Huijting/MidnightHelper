@@ -140,6 +140,46 @@ local CARDS = {
 			}
 		end,
 	},
+	-- Midnight: "new in patch 12.1.7" (Rob, 22 Nov 2026 via sparring: "alle 3 maar niet voor nu"; 23 Nov 2026: "Ja, 1, 2
+	-- en 3"). Only on a 12.1.7 client (same trick as the _1217 keys, Locale.lua), account-wide, once. Facts from
+	-- docs/PATCH_12_1_7_DRAAIBOEK.md §1 (measured in the PTR data); recheck on patch day (§2c). Currency 1166 = Timewarped
+	-- Badge (GEMETEN, CurrencyTypes 12.1.7.71087).
+	{
+		id = "patch1217",
+		head = "NEWC_PATCH1217_HEAD",
+		bodyFn = function()
+			local body = ns:L("NEWC_PATCH1217_BODY")
+			local f = C_CurrencyInfo and C_CurrencyInfo.GetCurrencyInfo
+			if f then
+				local ok, info = pcall(f, 1166)
+				local n = ok and type(info) == "table" and info.quantity
+				if type(n) == "number" and not (issecretvalue and issecretvalue(n)) then
+					body = body .. "\n\n" .. ns:L("NEWC_PATCH1217_BADGES_FMT"):format(n)
+				end
+			end
+			return body
+		end,
+		avail = function()
+			if ns.IS_FOREVER or not GetBuildInfo then
+				return false
+			end
+			local iface = select(4, GetBuildInfo())
+			return type(iface) == "number" and iface >= 120107
+		end,
+		buttons = function()
+			return {
+				{
+					text = ns:L("NEWC_PATCH1217_READ"),
+					closes = true,
+					click = function()
+						if ns.OpenMidnightCodex and ns.OpenMidnightCodex("weekly") and ns.MH_ScrollCodexToArticle then
+							ns.MH_ScrollCodexToArticle("timeways6")
+						end
+					end,
+				},
+			}
+		end,
+	},
 	{
 		id = "donow",
 		again = "2", -- shown once more with the screens (13 Nov 2026)

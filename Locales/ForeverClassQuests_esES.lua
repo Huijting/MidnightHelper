@@ -39,7 +39,7 @@ for k, v in pairs({
 	FCQ_OBJ_WL_ESS_JAEDENAR = "derrota a Legionarios Jaedenar para conseguir la Esencia de inferi impecable (Jaedenar)",
 	FCQ_OBJ_WL_ESS_PORTAL = "derrota a Argos guardia maldito para conseguir la Esencia de inferi impecable (Portal oscuro)",
 	FCQ_OBJ_WL_KROSHIUS = "usa aquí el Fuego inferi de tus bolsas para despertar a Kroshius y luego derrótalo para conseguir el Núcleo infernal de Kroshius",
-	FCQ_OBJ_WL_SCARF = "derrota a enemigos Sombramatorral alrededor del Lago Cielo Estrellado hasta que caiga un Pañuelo deshilachado (más o menos 1 de cada 20)",
+	FCQ_OBJ_WL_SCARF = "derrota a enemigos Sombramatorral alrededor del Lago Cielo Estrellado hasta que caiga un Pañuelo deshilachado",
 	FCQ_OBJ_WL_DALIN = "derrota a Dalin Forjador para conseguir el Corazón de Dalin",
 	FCQ_OBJ_WL_CORMA = "derrota a Corma Villardo para conseguir el Corazón de Corma",
 	FCQ_OBJ_WL_AVELINA = "consigue aquí el Corazón de Avelina",
@@ -146,7 +146,9 @@ for k, v in pairs({
 	FCQ_OBJ_RO_AZUREBAG = "consigue la Bolsa azur sellada de un Chamán Fauces de Madera",
 	FCQ_OBJ_RO_FRAGMENTS = "consigue 10 Fragmento codificado de Mocos del bosque",
 	FCQ_OBJ_RO_AZUREKEY = "en la mazmorra Templo Sumergido (necesitas un grupo), consigue la Llave azur de Morphaz",
-	FCQ_WAIT_RO_LETTER = "espera una carta de C en tu buzón (de un cuarto de hora a dos horas) y luego vuelve al Escondite secreto",
+	FCQ_WAIT_RO_LETTER = "espera una carta de C en tu buzón y luego vuelve al Escondite secreto",
+	FCQ_WAIT_RO_INVITE = "espera una carta de C en tu buzón y luego ve al Escondite secreto",
+	FCQ_WAIT_RO_EYE = "espera una carta de C: llega cuando eres de nivel 30 y visitas una capital. Léela y luego ve al Escondite secreto",
 	-- Shaman (chamán)
 	FCQ_CHAIN_SH_AIR = "El Tótem de aire (tus tótems de aire lo necesitan)",
 	FCQ_CHAIN_SH_MASTERY = "Las misiones de Bath'rah (objetos como recompensa)",
@@ -279,8 +281,8 @@ for k, v in pairs({
 	FCQ_OBJ_MA_COFFERCHEST = "toma el Cofre de arcas de contención: está justo detrás del instructor",
 	FCQ_OBJ_MA_CANTATION = "toma el Canto de Manifestación: el pergamino que está justo detrás del instructor",
 	-- not measured: The Blue Recluse
-	FCQ_OBJ_MA_COFFERS_A = "en The Blue Recluse (la taberna, mejor en el sótano) usa el Canto de Manifestación, golpea a una Cría del risco hasta que se quede aturdida, usa en ella el Cofre de arcas de contención y haz clic en el Arca de contención llena del suelo. Necesitas 3; el Canto funciona una vez cada 5 minutos",
-	FCQ_OBJ_MA_COFFERS_H = "en el puente delante de la tienda del alquimista usa el Canto de Manifestación, golpea a una Cría del risco hasta que se quede aturdida, usa en ella el Cofre de arcas de contención y haz clic en el Arca de contención llena del suelo. Necesitas 3; el Canto funciona una vez cada 5 minutos",
+	FCQ_OBJ_MA_COFFERS_A = "en The Blue Recluse (la taberna, mejor en el sótano) usa el Canto de Manifestación, golpea a una Cría del risco hasta que se quede aturdida, usa en ella el Cofre de arcas de contención y haz clic en el Arca de contención llena del suelo. Necesitas 3",
+	FCQ_OBJ_MA_COFFERS_H = "en el puente delante de la tienda del alquimista usa el Canto de Manifestación, golpea a una Cría del risco hasta que se quede aturdida, usa en ella el Cofre de arcas de contención y haz clic en el Arca de contención llena del suelo. Necesitas 3",
 	-- not measured: Miners' League Crates
 	FCQ_OBJ_MA_RIFTGEMS = "en la Mina de Fuenteplata, abre las pilas altas de Miners' League Crates para conseguir 6 Gema cargada de la falla",
 	FCQ_OBJ_MA_MANAGEMS = "derrota a magos de Dalaran alrededor de Molino Ámbar para conseguir 6 Gema de maná Dalaran",

@@ -12,6 +12,15 @@ gedaan"*); de live pagina zag niemand van ons.
 december-events in de weekplanning. Alleen in IDEEEN; niets gebouwd. PTR-map heeft MH van 16 okt: niet kopiëren zonder Robs ja.
 ◐ **RONDE 2, 23 nov:** dungeon-quests: Rob via sparring, letterlijk *"een test : een dungeon-quest , werkt"* (welke quest:
 nog niet bekend). Recept-pijl en Copper Ore (ingrediënt) blijven open; XP per uur niet gemeld.
+▶ **ROBS DRIE OPDRACHTEN 23 nov** (via Sparring 23-11, letterlijk: *"Ja, 1, 2 en 3, maar juist ook 3. … We moeten ook zelf
+kunnen swappen."*):
+- 1 Patch 12.1.7-kaartje (Midnight): GEBOUWD in `NewChoices.lua` (kaart `patch1217`, alleen op een 12.1.7-client, één keer;
+  knop naar het Timewalking-schema in de Codex; badges = valuta 1166, GEMETEN). Feitencontrole door Fable loopt; vertalingen
+  daarna. Test kan pas op de PTR of op patchdag.
+- 2 Weetjes A GEBOUWD (rapport `docs/forever/POLESTAR_NAKIJK_2026-11-22.md`): R12 needs 78307, wachtzinnen R11/R14, getallen
+  weg R10/M21/W3, commentaar M1/S6; 7 talen. `tools/fcq_check.lua` faalde sinds 5a37dde (CreateFrame bij laden): stub
+  erbij, nu 989101 gevallen, 0 fouten. Wacht op test (TESTLIJST).
+- 3 Layer swap: ALLEEN ONDERZOEK (mh-research loopt) → `docs/forever/LAYER_SWAP_ONDERZOEK_2026-11-23.md`, voorstel via sparring.
 ✅ **WEAR B GOEDGEKEURD** (Rob via sparring, letterlijk: *"ORB is goedgekeurd. Alles doet hij wat hij moet doen."*; een
 goedkeuring voor het geheel). Wat er gebouwd is (Rob via sparring, letterlijk: *"Ja, doe maar OR-B. Maar dan moet je wel opvallen dat
 hij erin staat. En als er meerdere zijn in je tas, dan moet het ook blijven staan."*): `Modules/ForeverWear.lua` (nieuw
