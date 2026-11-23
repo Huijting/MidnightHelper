@@ -432,7 +432,12 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
                  (Carola zag het op een class-training-route.) GEBOUWD 20 nov: `ns.ArrowAtStepText` in NativeArrow.lua,
                  nieuwe zinnen ARROW_AT_RIDE / _RIDE_SENTENCE / ARROW_AT_SENTENCE (7 talen). Wacht op Robs/Carola's test.
 
-### Forever: Layer Swap — zien op welke layer je zit en wisselen (idee van Rob, 20 nov — nog niet beoordeeld)
+### Forever: Layer Swap — zien op welke layer je zit en wisselen (idee van Rob, 20 nov) — ✅ JA voor onderzoek (23 nov: "Ja, 1, 2 en 3, maar juist ook 3. … We moeten ook zelf kunnen swappen."); onderzoek GEDAAN, opties A-D wachten op Rob
+- 23 nov: `docs/forever/LAYER_SWAP_ONDERZOEK_2026-11-23.md`. Kern: het layernummer is in Forever niet meer te lezen (Blizzard
+  versleutelt de GUID-velden sinds 16 okt/20 nov; GEMETEN ook in Robs eigen RFC-run van 23 nov: elk monster een ander
+  veld 3 en 5). Wisselen naar "een andere" layer kan nog (uitnodiging van iemand op een andere layer), een layer kiezen niet.
+  Advies: A (melden dát je verplaatst bent + drukte-meter) + D (knop naar een wissel-addon als die er is); B (zelf vragen
+  via bestaande hosts) pas later en alleen met toestemming; C (eigen MH-netwerk) niet.
 - Voor wie:      veteraan en nieuweling (AFGELEID)
 - Moment:        als een zone druk is of je met vrienden op dezelfde layer wilt
 - Spel:          Forever (de addon werkt ook op Classic Era en TBC Anniversary)
