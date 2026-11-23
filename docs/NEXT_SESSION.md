@@ -12,7 +12,8 @@ gedaan"*); de live pagina zag niemand van ons.
 december-events in de weekplanning. Alleen in IDEEEN; niets gebouwd. PTR-map heeft MH van 16 okt: niet kopiëren zonder Robs ja.
 🧪 **PTR GEDAAN 23 nov** (Rob via Sparring 23-11, letterlijk: *"ja kopieer maar"*, daarna *"Alle 5 tests gaat goed. Ik heb
 geen tailbound character, dus daar kan ik niet zoveel mee."*): `copy_to_ptr.bat` → `_ptr_` en `_xptr_` toc 5.8.0 (GEMETEN; was
-4.7.7). `_ptr_` = 12.1.7.71087, `_xptr_` = 12.1.5.70340 (ouder dan retail 70961). Draaiboek §3 punt 1-5 ✅, punt 6
+4.7.7). `_ptr_` = 12.1.7.71087, `_xptr_` = 12.1.5.70340 (ouder dan retail 70961). Draaiboek §3 punt 1-5 ✅ ("Simple Keybinds" stond er NIET, Rob: *"nee, stond er niet simple keybinds"*;
+op patchdag opnieuw kijken), punt 6
 (Talebound laadt MH niet) OPEN: geen Talebound-character. Vervolg: §4 op patchdag (2 dec).
 
 🔧 **SKILL UP-VENSTER GEREPAREERD (22 nov via sparring, letterlijk: *"venster ja"*), getest: *"Venster is goed"* (klik en scroll open):** stijl A (dicht),

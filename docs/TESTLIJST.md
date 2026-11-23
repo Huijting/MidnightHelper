@@ -28,7 +28,10 @@ bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt o
 ## 23 nov — PTR 12.1.7 (draaiboek §3, `_ptr_` = 12.1.7.71087, MH 5.8.0)
 
 - [x] ✅ (Rob 23 nov via sparring, letterlijk: *"Alle 5 tests gaat goed."*) Laden zonder rode fout, toetsenblok neer en
-      terug, `/mh apply` dry run → go → undo, Options → Keybindings (Simple Keybinds), balken op hun plek.
+      terug, `/mh apply` dry run → go → undo, Options → Keybindings, balken op hun plek. "Simple Keybinds" stond er NIET op 12.1.7.71087 (Rob, letterlijk:
+      *"nee, stond er niet simple keybinds"*).
+- [ ] Patchdag (2 dec): Options → Keybindings nog eens kijken of "Simple Keybinds" er nu wel staat. Zo ja: NIET aanzetten,
+      melden.
 - [ ] Een Talebound-character: `/mh` → MH hoort daar NIET te laden. Niet getest: Rob heeft geen Talebound-character
       (*"Ik heb geen tailbound character, dus daar kan ik niet zoveel mee."*).
 

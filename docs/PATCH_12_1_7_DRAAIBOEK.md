@@ -85,8 +85,9 @@ niet gebruikt.
 - [x] Toetsenblok neerzetten en weer weghalen ("Your key block" → terug): komt je oude indeling terug? (punt 2b-1)
 - [x] `/mh apply` → dry run → go → undo → relog: staan je toetsen weer zoals eerst? (Blizzard ontkoppelt toetsen nu
       anders, AFGELEID risico laag-midden.)
-- [x] Options → Keybindings: staat er "Simple Keybinds"? Zo ja: zet hem NIET aan en meld het. (Gemeld als "goed";
-      of de optie er stond, zei Rob niet.)
+- [x] Options → Keybindings: staat er "Simple Keybinds"? Zo ja: zet hem NIET aan en meld het. **Niet aanwezig op
+      12.1.7.71087** (Rob 23 nov via sparring, letterlijk: *"nee, stond er niet simple keybinds"*). Op patchdag nog eens
+      kijken: de optie kan later alsnog komen.
 - [x] Liggen de balken van het toetsenblok nog op hun plek (Blizzard herschreef de onderste balken)?
 - [ ] Een Talebound-personage: typ `/mh` → MH hoort daar NIET te laden. **Open: niet getest, Rob heeft geen
       Talebound-character** (23 nov).
@@ -100,6 +101,7 @@ niet gebruikt.
 - [ ] Toetsenblok: neerzetten en terug werkt op de nieuwe versie.
 - [ ] Omnium Folio: 7 rijen?
 - [ ] Weekplanning noemt Timeways.
+- [ ] Options → Keybindings: staat "Simple Keybinds" er nu wel? (Op de PTR 71087 niet, 23 nov.) Zo ja: NIET aanzetten, melden.
 
 ## 5. Elke week opnieuw meten tot 2 dec
 
