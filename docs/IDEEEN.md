@@ -26,6 +26,25 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 
 ## Open — wacht op Rob
 
+### Forever: consumable-venster voor de party, zoals in Midnight (wens van Rob, 23 nov) — ✅ Rob zegt: JA, morgen (nog niets gebouwd)
+- Bron: Rob 23 nov via sparring, letterlijk: *"oke, we gaan nu slapen, voor morgen, een consumable venster voor de party in
+  forever zoals in midnight, maar nu weltrusten"*.
+- Welk Midnight-venster (GEMETEN in de code): de **Consumable Ready Check** = `ConsumableReadyCheck.lua` + `ConsumableReadyBoard.lua`
+  (icoonbord: per groepslid flask/rune/weapon/combat potion/health potion/food/healthstone + raid/class-buffs, klikbaar met
+  secure knoppen) + `ConsumableReadyComms.lua` (MH-spelers delen hun eigen tas-tellingen via addon-bericht "MHCons"; buffs
+  komen uit aura's). Alleen in `MidnightHelper.toc` (r.152-154), NIET in de Forever-toc (GEMETEN).
+- Wat in Forever anders is:
+  - andere spullen: Classic-elixers en flasks (Battle/Guardian, AFGELEID), eten met "Well Fed", geen combat-runes zoals in
+    Midnight; class-buffs als Arcane Intellect, Fortitude, Mark of the Wild, Blessings. Alle id's nog te meten (gamedata).
+  - aura's van groepsleden: buiten een gevecht leesbaar, IN een gevecht geweigerd ("Auras cannot be accessed when secret
+    while tainted by 'MidnightHelper'"; GEMETEN met /mh partytest, `docs/NEXT_SESSION_ARCHIVE.md` r.1522). Dus: alleen vóór
+    het gevecht (ready check / bij binnenkomst), net als in Midnight.
+  - tassen van anderen: alleen via addon-berichten van andere MH-spelers; trial-accounts mogen in Forever geen addon-berichten
+    sturen (GEMETEN, Patch 1.60.1 API changes, zie `docs/forever/LAYER_SWAP_ONDERZOEK_2026-11-23.md` §5.3).
+- Bruikbaar: de Midnight-opbouw (bord + ready check + comms) als basis, met een Forever-lijst van consumables en buffs;
+  `ForeverPartyPanel.lua` (de kleine groepsrij) en `MissingBuff.lua` (al in de Forever-toc) zijn de aanknopingspunten.
+- Spel: F. Voor wie: N + V (AFGELEID). Site: pas na bouw en release.
+
 ### Forever: teller in het class-questkaartje (vraag van Rob, 23 nov) — ✅ JA, GEBOUWD, wacht op test
 - Bron: Rob 23 nov via sparring, letterlijk: *"Zie deze quest. Ik moet 6 familiar heads hebben. Ik heb er toevallig al 4
   gehaald. Maar kunnen we dat daar ook niet gewoon in hetzelfde schermpje erbij plaatsen met hoeveel ik op dat moment

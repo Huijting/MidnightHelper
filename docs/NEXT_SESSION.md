@@ -12,6 +12,10 @@ gedaan"*); de live pagina zag niemand van ons.
 december-events in de weekplanning. Alleen in IDEEEN; niets gebouwd. PTR-map heeft MH van 16 okt: niet kopiëren zonder Robs ja.
 ◐ **RONDE 2, 23 nov:** dungeon-quests: Rob via sparring, letterlijk *"een test : een dungeon-quest , werkt"* (welke quest:
 nog niet bekend). Recept-pijl en Copper Ore (ingrediënt) blijven open; XP per uur niet gemeld.
+▶▶ **MORGEN (24 nov) EERST:** Robs wens, letterlijk via sparring: *"voor morgen, een consumable venster voor de party in forever
+zoals in midnight"*. Rob zegt JA, nog niets gebouwd. Wat bedoeld is, wat anders is in Forever en wat bruikbaar is: IDEEEN,
+"Forever: consumable-venster voor de party". Eerst een kort plan via sparring (welke consumables/buffs, alleen vóór het gevecht).
+Nog open van 23 nov: layer-meting 1 + 2, de teller in het spel zien, testen van weetjes A en de QuestieDB-inleverregel.
 ▶ **ROBS DRIE OPDRACHTEN 23 nov** (via Sparring 23-11, letterlijk: *"Ja, 1, 2 en 3, maar juist ook 3. … We moeten ook zelf
 kunnen swappen."*):
 - 1 Patch 12.1.7-kaartje (Midnight): GEBOUWD in `NewChoices.lua` (kaart `patch1217`, alleen op een 12.1.7-client, één keer;
