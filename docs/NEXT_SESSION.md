@@ -10,6 +10,9 @@ gevecht, andere characters. **OPEN: ronde 2** (ingrediënten, recept-pijl, dunge
 gedaan"*); de live pagina zag niemand van ons.
 💡 Midnight, LATER (Rob 22 nov: *"alle 3 maar niet voor nu, straks slapen"*): patchdag-kaartje 12.1.7, "eerste blik",
 december-events in de weekplanning. Alleen in IDEEEN; niets gebouwd. PTR-map heeft MH van 16 okt: niet kopiëren zonder Robs ja.
+🔎 **QUEST A ONDERZOCHT, niets gebouwd** (Rob via Sparring 23-11, letterlijk: *"quest a"*): QuestieDB alleen live lezen,
+niets meeleveren; GPLv3 afgewezen voor nu. Voorstel A-D in `docs/forever/QUESTIEDB_LIVE_2026-11-23.md` (advies A dan B),
+wacht op Robs keuze. Gevonden: ForeverClassQuests noemt al Questie-plekken (r.243) en Questie-volgorde (r.362).
 🧪 **PTR GEDAAN 23 nov** (Rob via Sparring 23-11, letterlijk: *"ja kopieer maar"*, daarna *"Alle 5 tests gaat goed. Ik heb
 geen tailbound character, dus daar kan ik niet zoveel mee."*): `copy_to_ptr.bat` → `_ptr_` en `_xptr_` toc 5.8.0 (GEMETEN; was
 4.7.7). `_ptr_` = 12.1.7.71087, `_xptr_` = 12.1.5.70340 (ouder dan retail 70961). Draaiboek §3 punt 1-5 ✅ ("Simple Keybinds" stond er NIET, Rob: *"nee, stond er niet simple keybinds"*;
