@@ -12,7 +12,8 @@ gedaan"*); de live pagina zag niemand van ons.
 december-events in de weekplanning. Alleen in IDEEEN; niets gebouwd. PTR-map heeft MH van 16 okt: niet kopiëren zonder Robs ja.
 ◐ **RONDE 2, 23 nov:** dungeon-quests: Rob via sparring, letterlijk *"een test : een dungeon-quest , werkt"* (welke quest:
 nog niet bekend). Recept-pijl en Copper Ore (ingrediënt) blijven open; XP per uur niet gemeld.
-🧪 **WEAR B GEBOUWD, wacht op test** (Rob via sparring, letterlijk: *"Ja, doe maar OR-B. Maar dan moet je wel opvallen dat
+✅ **WEAR B GOEDGEKEURD** (Rob via sparring, letterlijk: *"ORB is goedgekeurd. Alles doet hij wat hij moet doen."*; een
+goedkeuring voor het geheel). Wat er gebouwd is (Rob via sparring, letterlijk: *"Ja, doe maar OR-B. Maar dan moet je wel opvallen dat
 hij erin staat. En als er meerdere zijn in je tas, dan moet het ook blijven staan."*): `Modules/ForeverWear.lua` (nieuw
 bestand = herstart). Per upgrade een groene regel met ↑ bovenaan Do this now (onder de talentregel) met klikbare [Wear it] /
 [Not this one] (|H-links in de tekst, geen nieuw venster); knop "Wear it" in het overzicht. Oordeel = ns.ForeverGearTipText

@@ -26,7 +26,7 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 
 ## Open — wacht op Rob
 
-### Forever: upgrade aantrekken vanuit "Do this now", "wear B" (23 nov) — ✅ JA, GEBOUWD (opvallen A), wacht op Robs test
+### Forever: upgrade aantrekken vanuit "Do this now", "wear B" (23 nov) — ✅ AF: gebouwd (opvallen A) + getest (Rob: "ORB is goedgekeurd. Alles doet hij wat hij moet doen.")
 - Bron: Rob 23 nov via Sparring 23-11, letterlijk: *"Ja, doe maar OR-B. Maar dan moet je wel opvallen dat hij erin staat.
   En als er meerdere zijn in je tas, dan moet het ook blijven staan."* Aanleiding: Polestar's upgrade-melding (GPL: alleen
   het idee, eigen code).
