@@ -26,6 +26,14 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 
 ## Open — wacht op Rob
 
+### Forever: teller in het class-questkaartje (vraag van Rob, 23 nov) — ✅ JA, GEBOUWD, wacht op test
+- Bron: Rob 23 nov via sparring, letterlijk: *"Zie deze quest. Ik moet 6 familiar heads hebben. Ik heb er toevallig al 4
+  gehaald. Maar kunnen we dat daar ook niet gewoon in hetzelfde schermpje erbij plaatsen met hoeveel ik op dat moment
+  heb? Zodat ik weet hoeveel ik heb."*
+- Gebouwd: `ObjProgress` in ForeverClassQuests.lua: de stand in de woorden van het spel ("Vile Familiar Head: 4/6") in het
+  kaartje (groen, eigen regel), in Do this now en in het overzicht. Ververst op QUEST_LOG_UPDATE / BAG_UPDATE_DELAYED.
+- Spel: F. Voor wie: N + V (AFGELEID). Site: pas na test en release.
+
 ### Forever: upgrade aantrekken vanuit "Do this now", "wear B" (23 nov) — ✅ AF: gebouwd (opvallen A) + getest (Rob: "ORB is goedgekeurd. Alles doet hij wat hij moet doen.")
 - Bron: Rob 23 nov via Sparring 23-11, letterlijk: *"Ja, doe maar OR-B. Maar dan moet je wel opvallen dat hij erin staat.
   En als er meerdere zijn in je tas, dan moet het ook blijven staan."* Aanleiding: Polestar's upgrade-melding (GPL: alleen

@@ -25,6 +25,15 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 23 nov — FOREVER: teller in het class-questkaartje (Rob: "kunnen we dat daar ook niet gewoon in hetzelfde schermpje erbij plaatsen met hoeveel ik op dat moment heb?")
+
+Alleen bestaande bestanden gewijzigd: `/reload` is genoeg.
+- [ ] Een class-quest in je log met iets te verzamelen (bv. Vile Familiars, warlock): het kaartje toont onder de opdracht in
+      groen de stand uit het spel, bijvoorbeeld "Vile Familiar Head: 4/6".
+- [ ] Verzamel er nog één: binnen een seconde staat er 5/6, zonder dat je iets doet.
+- [ ] Alles verzameld: het kaartje zegt "lever in bij <NPC>" (zoals altijd al).
+- [ ] Dezelfde stand staat ook in "Do this now" en in het overzicht (tab Now), tussen haakjes achter de opdracht.
+
 ## 23 nov — FOREVER: oude weetjes in de class-quests gerepareerd (Rob: "Ja, 1, 2 en 3")
 
 Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Alleen te zien met de juiste class; heb je die niet, sla over.

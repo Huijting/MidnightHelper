@@ -20,6 +20,10 @@ kunnen swappen."*):
 - 2 Weetjes A GEBOUWD (rapport `docs/forever/POLESTAR_NAKIJK_2026-11-22.md`): R12 needs 78307, wachtzinnen R11/R14, getallen
   weg R10/M21/W3, commentaar M1/S6; 7 talen. `tools/fcq_check.lua` faalde sinds 5a37dde (CreateFrame bij laden): stub
   erbij, nu 989101 gevallen, 0 fouten. Wacht op test (TESTLIJST).
+- 🧪 Teller in het class-questkaartje GEBOUWD (Rob: *"… met hoeveel ik op dat moment heb?"*): `ObjProgress` → kaartje,
+  Do this now, overzicht. Offline getest (4/6 → tekst; 6/6 → "lever in"). Wacht op test.
+- 3 Layer: Rob koos A + D (*"Ik ga uiteraard weer voor jullie advies."*). Metingen teruggebracht tot 3 (verplaatsing-signaal,
+  "uitnodiging van andere layer", drukte tellen); eerst een stille meter + /mh layer, meldingen pas na meting 1.
 - 3 Layer swap: ONDERZOEK GEDAAN → `docs/forever/LAYER_SWAP_ONDERZOEK_2026-11-23.md`; layernummer onleesbaar (GEMETEN ook in
   Robs RFC-SV van 23 nov). Opties A-D bij sparring, advies A + D. Niets gebouwd.
 ✅ **WEAR B GOEDGEKEURD** (Rob via sparring, letterlijk: *"ORB is goedgekeurd. Alles doet hij wat hij moet doen."*; een

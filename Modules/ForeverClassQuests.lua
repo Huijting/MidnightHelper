@@ -2112,6 +2112,40 @@ local function ObjFinished(q, o)
 	return false
 end
 
+--- 23 Nov 2026 (Rob via sparring: "kunnen we dat daar ook niet gewoon in hetzelfde schermpje erbij plaatsen met hoeveel ik
+--- op dat moment heb?"): how far you are with this step, in the client's own words ("Vile Familiar Head: 4/6"), or nil.
+--- An item step with a count reads your bags; otherwise the quest's own objective (o.idx), or every objective of it.
+local function ObjProgress(q, o)
+	if not q then
+		return nil
+	end
+	if o and o.items and o.count then
+		local id = o.items[1]
+		local name
+		if C_Item and C_Item.GetItemNameByID then
+			local ok, n = pcall(C_Item.GetItemNameByID, id)
+			name = ok and type(n) == "string" and n or nil
+		end
+		return ("%s: %d/%d"):format(name or ("#" .. tostring(id)), math.min(ItemCount(id), o.count), o.count)
+	end
+	if not (C_QuestLog and C_QuestLog.GetQuestObjectives) then
+		return nil
+	end
+	local ok, list = pcall(C_QuestLog.GetQuestObjectives, q)
+	if not ok or type(list) ~= "table" then
+		return nil
+	end
+	local rows = (o and o.idx and list[o.idx]) and { list[o.idx] } or list
+	local out = {}
+	for _, r in ipairs(rows) do
+		local t = type(r) == "table" and r.text
+		if type(t) == "string" and t ~= "" and not (issecretvalue and issecretvalue(t)) then
+			out[#out + 1] = t
+		end
+	end
+	return #out > 0 and table.concat(out, " · ") or nil
+end
+
 local function Known(id)
 	for _, fn in ipairs({ IsPlayerSpell, IsSpellKnown }) do
 		if fn then
@@ -2862,7 +2896,7 @@ local function StepRaw(c)
 	if e.objs and not ObjDone(q) then
 		for _, o in ipairs(e.objs) do
 			if not ObjFinished(q, o) then
-				return { kind = "do", place = o.place, textKey = o.textKey, q = q }
+				return { kind = "do", place = o.place, textKey = o.textKey, q = q, progress = ObjProgress(q, o) }
 			end
 		end
 	end
@@ -3038,7 +3072,8 @@ local function StepWhat(s)
 		end
 		return ns:L("FCQ_USE_ITEM_FMT"):format(name or ("#" .. tostring(s.item)))
 	elseif s.kind == "do" or s.kind == "wait" then
-		return (s.text or ns:L(s.textKey)) .. (p and (" — " .. Where(p)) or "")
+		return (s.text or ns:L(s.textKey)) .. (s.progress and (" (" .. s.progress .. ")") or "")
+			.. (p and (" — " .. Where(p)) or "")
 	end
 	return ns:L("FCQ_TURN_FMT"):format(NpcName(p), Where(p))
 end
@@ -3119,7 +3154,7 @@ function ns.ForeverClassQuestNowParts()
 		out.zone, out.x, out.y = ZoneName(p.m), p.x, p.y
 	end
 	if s.kind == "do" or s.kind == "wait" then
-		out.what = s.text or ns:L(s.textKey)
+		out.what = (s.text or ns:L(s.textKey)) .. (s.progress and (" (" .. s.progress .. ")") or "")
 	elseif s.kind == "use" then
 		out.what = StepWhat(s)
 	end
@@ -3142,6 +3177,10 @@ local function CardData()
 		who = StepWhat(s)
 	else
 		who = s.text or ns:L(s.textKey)
+		-- 23 Nov 2026: how far you are, on its own line in green ("Vile Familiar Head: 4/6"), live from the quest log.
+		if s.progress then
+			who = who .. "\n|cff7fff7f" .. s.progress .. "|r"
+		end
 	end
 	local where = p and ZoneName(p.m) or nil
 	if p and p.m == MOONGLADE and Known(TELEPORT_MOONGLADE) then
