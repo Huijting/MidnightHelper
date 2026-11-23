@@ -169,21 +169,33 @@ local function Collect(key)
 	if not list then
 		return out, n, false
 	end
-	local taken = {} -- English title → done or in the log (one of the "|or" variants)
+	-- 23 Nov 2026 (Rob via sparring: "En glowing, ja,"): an "or" pair = same title, same giver, same quest before it (The
+	-- Glowing Shard 3366/6981). It shows ONE row, also before you have either. A chain with one title (Hidden Enemies,
+	-- The Defias Brotherhood: each step has the one before as `prev`) is not a pair and keeps every row. GEMETEN on the
+	-- data that day: 2 such pairs (WC The Glowing Shard, BRD A Taste of Flame). `taken` used to key on the title alone,
+	-- which hid the later steps of such a chain once its first step was done; it keys on the pair now.
+	local function PairKey(e)
+		return (e.en or tostring(e.q)) .. "|" .. tostring(e.npc) .. "|" .. tostring(e.prev)
+	end
+	local taken = {} -- pair → done or in the log (one of the "|or" variants)
 	for _, e in ipairs(list) do
 		if ForMe(e, side, class) and (Done(e.q) or InLog(e.q)) then
-			taken[e.en or e.q] = true
+			taken[PairKey(e)] = true
 		end
 	end
+	local shown = {} -- pair → the quest already listed
 	for _, e in ipairs(list) do
 		if ForMe(e, side, class) then
 			local st, why
-			if Done(e.q) then
+			local pairKey = PairKey(e)
+			if shown[pairKey] and not taken[pairKey] then
+				st, why = nil, ("same title, giver and quest before it as %d: shown once"):format(shown[pairKey])
+			elseif Done(e.q) then
 				st, why = "done", "IsQuestFlaggedCompleted"
 			elseif InLog(e.q) then
 				st, why = "log", "in the quest log"
-			elseif taken[e.en or e.q] then
-				st, why = nil, "a variant with the same title is done or in the log"
+			elseif taken[pairKey] then
+				st, why = nil, "a variant (same title, giver and quest before it) is done or in the log"
 			elseif e.inside then
 				st, why = "inside", "picked up inside the dungeon"
 			elseif QuestieInside(e) then
@@ -196,6 +208,7 @@ local function Collect(key)
 			if st then
 				n[st] = n[st] + 1
 				n.total = n.total + 1
+				shown[pairKey] = shown[pairKey] or e.q
 			end
 			out[#out + 1] = { e = e, st = st, why = why }
 		end

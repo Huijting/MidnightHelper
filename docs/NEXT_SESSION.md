@@ -15,8 +15,12 @@ nog niet bekend). Recept-pijl en Copper Ore (ingrediënt) blijven open; XP per u
 ◐ **QUEST B getest 1-3** (Rob: *"1 tot en met 3 is goed."*); 4 ❌ op SM_GY (Vorrel's Revenge bleef "no place"). GEMETEN in
 de QuestieDB-toc: Vorrel (3981) staat er alleen als (-1,-1) = "in een instance"; van 10 gaten zijn er 6 zo, 3 hebben een
 echte plek (allemaal Alliance of level 55+). 🔧 Zo'n quest gaat nu naar "inside the dungeon" met "(QuestieDB)"
-(`ns.ForeverQuestieNpcInside`): hertest ✅ (Rob: *"ennuh, een reload was genoeg, zoals zo vaak :)"*). 5-6 open;
-"Glowing Shard 1 regel" wacht op Robs ja/laten. Schakelaar staat onder "On-screen buttons".
+(`ns.ForeverQuestieNpcInside`): hertest ✅ (Rob: *"ennuh, een reload was genoeg, zoals zo vaak :)"*). 5 ✅ (*"Stap 5 uit
+en aan, die werkte."*), 6 open.
+🧪 **"Of"-paren één regel GEBOUWD** (Rob: *"En glowing, ja,"*): paar = zelfde titel + gever + voorganger; GEMETEN 2 paren
+(WC The Glowing Shard 3366/6981, BRD A Taste of Flame 4022/4024). Bijvangst gerepareerd: `taken` keek alleen naar de titel
+en verborg zo de latere stappen van een keten met één naam (RFC Hidden Enemies, DM Defias; AFGELEID uit de code, offline
+getest). Gemeld, niet gerepareerd: "In Nightmares" (3369) wacht op 6981; wie 3366 deed, ziet hem op "later". Schakelaar staat onder "On-screen buttons".
 💡 Voorgesteld, wacht op ja: "The Glowing Shard" staat 2× in WC (3366 + 6981, twee echte quests; GEMETEN Wowhead
 Forever) → altijd één regel tonen.
 🧪 **QUEST B GEBOUWD** (Rob via sparring, letterlijk: *"Ik volg jullie advies weer. En het voelde niet

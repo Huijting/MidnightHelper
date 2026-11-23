@@ -42,10 +42,14 @@ Wailing Caverns: daar heeft geen gever een gat, dus terecht geen "(QuestieDB)" (
       QuestieDB heeft Vorrel alleen als "in een instance" (-1,-1), geen plek voor een pijl; zo ook 6 van 10 nagekeken
       gevers. Gerepareerd: zo'n quest staat nu onder **"You get these inside the dungeon"** met "Inside: Vorrel Sengutz
       (QuestieDB)". Opnieuw: herstart, `/mh dungeons quests SM_GY` → staat Vorrel's Revenge daar zo?
-- [ ] Instellingen: Esc → Options → tab **AddOns** → **Midnight Helper** → kopje **"On-screen buttons"**, onder
+- [x] ✅ (Rob 23 nov via sparring, letterlijk: *"Stap 5 uit en aan, die werkte."*) Instellingen: Esc → Options → tab **AddOns** → **Midnight Helper** → kopje **"On-screen buttons"**, onder
       ""Do this now" window" en "Small group panel": schakelaar **"Use QuestieDB if you have it"** staat aan. Zet hem uit: de "Ready to turn in"-regel en de (QuestieDB)-plekken verdwijnen. Weer aan: ze komen terug.
 - [ ] Een gevecht: geen "action blocked" op naam van MidnightHelper.
 - `/mh questiedb why` = wat MH besloot en waarom (voor ons).
+- [ ] 🆕 **Eén Glowing Shard** (Rob: *"En glowing, ja,"*): `/reload` → `/mh dungeons quests WC` → onder "You get these
+      inside the dungeon" staat "The Glowing Shard" nog maar één keer.
+- [ ] 🆕 Bijvangst: een keten met één naam blijft nu zichtbaar. Ragefire Chasm (`/mh dungeons quests RFC`): heb je
+      "Hidden Enemies" stap 1 gedaan, dan staat de volgende stap onder "Pick these up first" (voorheen verdween hij).
 
 ## 23 nov — FOREVER: meting "quest A" (kan MH QuestieDB lezen?) — `/mh questiedb`
 
