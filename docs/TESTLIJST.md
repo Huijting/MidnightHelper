@@ -25,6 +25,16 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 24 nov (avond, 4) — FOREVER: trainerpijl stuurt niet meer weg bij je eigen trainer (Rob: "hij stuurt me een heel andere kant op")
+
+Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest met jouw eigen opgeslagen trainerdata (10
+gevallen goed), NIET in het spel.
+- [ ] Warlock in Razor Hill, bij Dhugru Gorelust: `/reload`, dan de trainerpijl (knop of `/mh trainer go`). De pijl wijst
+      naar Dhugru Gorelust (vlakbij), niet meer naar Mirket in Orgrimmar.
+- [ ] `/mh trainer check`: de regel "short lists" noemt nu bij "arrow skipped" welke trainer en waarom (cap, bron). Dhugru
+      staat daar niet meer tussen.
+- [ ] Een beginnerstrainer (bijv. Nartok, cap 6) blijft overgeslagen zodra je spells boven level 6 kunt leren.
+
 ## 24 nov (avond, 3) — FOREVER: terugval zonder dubbele + "Later" onthoudt het (Rob: "Beetje verwarrend.")
 
 Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (16 gevallen per class/level goed), NIET in het spel.

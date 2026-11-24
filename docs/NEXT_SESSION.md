@@ -1,5 +1,16 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 24 nov avond (Bouwchat 24-11): trainerpijl naar Mirket i.p.v. Dhugru GEREPAREERD — wacht op test
+
+Rob (Horde Warlock, Razor Hill), letterlijk: *"Ik sta op dit moment bij mijn warlock trainer, maar hij stuurt me een heel
+andere kant op."* en *"ja die naam staat er"* (Dhugru Gorelust). Oorzaak GEMETEN in zijn SV: `foreverTrainerCap[3172] =
+{ cap = 6, seen = 6 }`; ook Kardris 14/14, Narm 12/12, Sian'tsu 16/16, Nartok 4/4: de trainerlijst toonde alleen spells
+tot zijn eigen level, dus "hoogste level in de lijst" = zijn level, geen trainer-cap. Reparatie (`ForeverTrainer.lua`
+TrainerCap): een gemeten cap telt alleen als hij lager is dan het level waarop hij gemeten is (Mai'ah 6 op 10 = echt),
+en nooit lager dan de vaste cap uit ForeverTrainerSpots (Lanka 1 op 2). `/mh trainer check` noemt nu welke trainers
+overgeslagen zijn, met cap en bron. Offline 10 gevallen (scratch `trainercap_test.lua`, Robs eigen SV-waarden).
+Open: waarom Un'Thuwa wél 60 gaf op level 10 (de lijst toonde toen hogere spells) is niet uitgezocht; de regel is er veilig voor.
+
 ## ▶▶ 24 nov avond (Bouwchat 24-11): terugval zonder dubbele + "Later"-geheugen — wacht op test
 
 Rob (via Sparring 24-11), letterlijk: *"Waarom krijg ik deze, terwijl die ook al op 3 gezet wordt? En als ik hem daar

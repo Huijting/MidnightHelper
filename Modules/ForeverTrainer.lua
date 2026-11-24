@@ -1155,13 +1155,34 @@ local function StaticCap(npc)
 	return nil
 end
 
+--- 24 Nov 2026 (Rob, Horde warlock in Durotar: "Ik sta op dit moment bij mijn warlock trainer, maar hij stuurt me een heel
+--- andere kant op." — the arrow said Mirket in Orgrimmar, 1421 m). GEMETEN in his SavedVariables: Dhugru Gorelust (Razor
+--- Hill) cap 6 seen 6, and the same "cap = your level" for Kardris 14/14, Narm 12/12, Sian'tsu 16/16, Nartok 4/4 — town
+--- trainers that teach to 60. The trainer list showed only spells up to the player's own level, so "the highest level in
+--- the list" was his level, not the trainer's. A measured cap therefore only counts when it is BELOW the level it was
+--- seen at (the trainer had less than you could already learn: Mai'ah, cap 6 at level 10), and it never lowers the
+--- measured static cap of the list (Lanka Farshot read 1 at level 2: hunters have no level-2 spell).
+--- @return cap (or nil), source ("measured" / "list" / why it was not used)
 local function TrainerCap(npc)
 	if type(npc) ~= "number" then
 		return nil
 	end
+	local static = StaticCap(npc)
 	local seen = ns.db and ns.db.foreverTrainerCap and ns.db.foreverTrainerCap[npc]
-	return (type(seen) == "table" and seen.cap) or StaticCap(npc)
+	if type(seen) == "table" and type(seen.cap) == "number" then
+		local at = tonumber(seen.seen)
+		if at and seen.cap < at then
+			if static and static > seen.cap then
+				return static, "list"
+			end
+			return seen.cap, "measured"
+		end
+		-- cap >= the level it was seen at: the list may just have stopped at your level. Not proof; the list decides.
+		return static, static and "list" or ("measured " .. seen.cap .. " at level " .. tostring(at) .. ": not proof")
+	end
+	return static, static and "list" or nil
 end
+ns.ForeverTrainerCap = TrainerCap -- the offline check calls it
 
 --- The level a trainer must teach up to for you: the highest spell you can learn right now (nil = nothing to learn).
 local function NeedLevel(token)
@@ -1188,11 +1209,12 @@ local function Nearest(token, prof)
 	if not prof then
 		local need = NeedLevel(token)
 		if need then
-			local keep, skipped = {}, 0
+			local keep, skipped, names = {}, 0, {}
 			for _, c in ipairs(all) do
-				local cap = TrainerCap(c.npc)
+				local cap, src = TrainerCap(c.npc)
 				if cap and cap < need then
 					skipped = skipped + 1
+					names[#names + 1] = ("%s (cap %d, %s)"):format(tostring(c.name), cap, tostring(src))
 				else
 					keep[#keep + 1] = c
 				end
@@ -1202,6 +1224,7 @@ local function Nearest(token, prof)
 			end
 			capState.skipped = skipped
 			capState.need = need
+			capState.skippedNames = names -- /mh trainer check (24 Nov 2026)
 		end
 	end
 	local map, px, py = PlayerPlace()
@@ -1790,8 +1813,10 @@ function ns.ForeverTrainerCapLine()
 	for _ in pairs(ns.db and ns.db.foreverTrainerCap or {}) do
 		n = n + 1
 	end
-	return ("short lists: %d trainers measured; last: %s; arrow skipped %s trainer(s) for a level-%s spell"):format(
-		n, capState.last, tostring(capState.skipped or 0), tostring(capState.need or "-"))
+	local skippedTxt = (capState.skippedNames and #capState.skippedNames > 0)
+		and (": " .. table.concat(capState.skippedNames, ", ")) or ""
+	return ("short lists: %d trainers measured; last: %s; arrow skipped %s trainer(s) for a level-%s spell%s"):format(
+		n, capState.last, tostring(capState.skipped or 0), tostring(capState.need or "-"), skippedTxt)
 end
 
 local function Check()
