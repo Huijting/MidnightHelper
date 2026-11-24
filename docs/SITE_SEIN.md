@@ -28,9 +28,11 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
-## 24 nov 2026 — release 5.9.0 (getagd)
-- Tag + commit:   v5.9.0 / de commit "Release 5.9.0" op main
-- Status:         getagd (de CurseForge-upload loopt; deze regel wordt "staat op CurseForge" zodra de CF-API het bestand toont)
+## 24 nov 2026 — release 5.9.0 (staat op CurseForge)
+- Tag + commit:   v5.9.0 / 1bdc468. Release-run GitHub 45451928608: geslaagd (Retail + Forever + verify). CF-API 24 nov
+                  17:53 UTC: MidnightHelper-v5.9.0.zip (id 9795543, 12.0.7-12.1.7) en MidnightHelper-v5.9.0-forever.zip
+                  (id 9795583, 1.60.1), allebei releaseType 1, status 4. GitHub-release: beide zips.
+- Status:         staat op CurseForge
 - Mag op de site: ja, zodra het op CurseForge staat (Rob via Sparring 24-11, letterlijk: "release 5.9.0")
 - Speler ziet:    Forever: toetsenblok 12 × 4 (schakelaar, oud blok blijft standaard) met "Why these keys?", 5 = interact
                   en Shift+Spatie = mount, How you play met je eigen toetsen, Do this now (upgrades, How you play-knop,
@@ -41,7 +43,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ## 24 nov 2026 — 12 × 4: extra toetsen (5 = interact, Shift+Spatie = mount)
 - Tag + commit:   v5.9.0 (commit "Forever 12x4 extra keys", 4fa1da0)
-- Status:         getagd
+- Status:         staat op CurseForge
 - Mag op de site: nee (nog niet in het spel getest)
 - Speler ziet:    Met de indeling 12 × 4 vraagt MH één keer of 5 "Interact With Target" mag worden (een toets die je er
                   al voor had blijft werken) en Shift+Spatie je snelste mount. Altijd terug te draaien.
@@ -51,7 +53,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ## 24 nov 2026 — "Do this now": knop How you play + vrije tasplekken
 - Tag + commit:   v5.9.0 (99770bc)
-- Status:         getagd
+- Status:         staat op CurseForge
 - Mag op de site: nee (niet uit)
 - Speler ziet:    Onderaan "Do this now" een knop naar How you play, en links van je goud hoeveel tasplekken je nog vrij
                   hebt (oranje als het bijna vol is, rood als het vol is). *(getest door Rob)*
@@ -61,7 +63,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ## 24 nov 2026 — Forever: uitlegblad "Why these keys?" bij het 12 × 4-blok
 - Tag + commit:   v5.9.0 (commit: deze regel)
-- Status:         getagd
+- Status:         staat op CurseForge
 - Mag op de site: nee, nog niet. Rob wil het blad later óók als site-pagina (via de site-chat); de tekst per toets staat
                   in `docs/forever/KEYBLOCK12_TAKEN.md` (gemeten) en in Locales KEYGUIDE_* (7 talen).
 - Speler ziet:    In het toetsenblok (Forever, 12 × 4) een knop "Why these keys?": per toets de vaste taak en waarom, zonder
@@ -72,7 +74,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ## 24 nov 2026 — Forever: toetsenblok "12 × 4" (keuze naast het oude blok)
 - Tag + commit:   v5.9.0 (commit: deze regel)
-- Status:         getagd
+- Status:         staat op CurseForge
 - Mag op de site: nee, nog niet (geen release; Rob test eerst).
 - Speler ziet:    Een tweede indeling van het toetsenblok: dezelfde 12 toetsen (1-4, Q E R F, Z X C V) zonder modifier, met
                   Shift, met Ctrl en met Alt. Per class gekozen; potions, healthstone, bandage en trinket op de Ctrl-balk.
@@ -83,7 +85,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ## 24 nov 2026 — Forever: groepsbord met buffs en consumables (zoals Midnight's ready check)
 - Tag + commit:   v5.9.0 (commit: deze regel)
-- Status:         getagd
+- Status:         staat op CurseForge
 - Mag op de site: nee, nog niet (geen release; Rob test eerst).
 - Speler ziet:    Bij een ready check (of met /mh readyboard) een bord met een rij per groepslid: jouw elixer/flask, eten,
                   wapen, potions en healthstone, en van iedereen de class-buffs (wie mist hem, wie kan hem geven). Je eigen
@@ -94,7 +96,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ## 24 nov 2026 — Forever: Warrior toets 3 en Priest-gids (na Blizzards hotfix van 23 nov)
 - Tag + commit:   v5.9.0 (a84ac30)
-- Status:         getagd
+- Status:         staat op CurseForge
 - Mag op de site: nee, nog niet (geen release).
 - Speler ziet:    Toets 3 van een Warrior zonder het talent Mortal Strike doet weer Bloodthirst of Shield Slam. De Priest-gids
                   zegt niet meer dat Chastise niet werkt in Shadowform.
@@ -104,7 +106,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ## 23 nov 2026 — Forever: layer-meting (alleen voor ons) + teller in het class-questkaartje
 - Tag + commit:   v5.9.0 (commit: deze regel)
-- Status:         getagd
+- Status:         staat op CurseForge
 - Mag op de site: nee, nog niet (geen release; Rob test eerst).
 - Speler ziet:    Het class-questkaartje toont hoeveel je al hebt ("Vile Familiar Head: 4/6"). De layer-meting ziet niemand.
 - Knoplabels:     geen nieuwe
@@ -113,7 +115,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ## 23 nov 2026 — Forever: upgrade aantrekken vanuit "Do this now"
 - Tag + commit:   v5.9.0 (commit: deze regel)
-- Status:         getagd
+- Status:         staat op CurseForge
 - Mag op de site: nee, nog niet (geen release; Rob test eerst).
 - Speler ziet:    Elk stuk uitrusting in je tas dat beter is dan wat je draagt, krijgt een groene regel bovenaan "Do this
                   now": "Upgrade: [item] · vak · wat beter is" met [Wear it] en [Not this one]. Niet in gevecht.
@@ -123,7 +125,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ## 23 nov 2026 — Forever: MH leest QuestieDB als je het hebt
 - Tag + commit:   v5.9.0 (commit: deze regel)
-- Status:         getagd
+- Status:         staat op CurseForge
 - Mag op de site: nee, nog niet (geen release; Rob test eerst).
 - Speler ziet:    Met de addon QuestieDB aan: "Ready to turn in" met een knop die de pijl naar de NPC zet, en plekken
                   voor dungeon-questgevers waar MH er zelf geen had. Die regels zeggen "(QuestieDB)". MH levert niets van
@@ -134,7 +136,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ## 23 nov 2026 — Forever: meting QuestieDB (alleen voor ons)
 - Tag + commit:   v5.9.0 (commit: deze regel)
-- Status:         getagd
+- Status:         staat op CurseForge
 - Mag op de site: nee. `/mh questiedb` is een meetknop voor ons, geen spelersfunctie.
 - Speler ziet:    niets.
 - Knoplabels:     geen

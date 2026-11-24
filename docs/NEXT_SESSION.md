@@ -6,9 +6,13 @@ Geen beta. Versie 5.9.0 in beide toc's; CHANGELOG_590_1 t/m _8 (enUS) + Changelo
 `docs/CURSEFORGE_5.9.0.md` (5476 bytes, LF, GEMETEN met een scratch-vergelijking); CHANGELOG.md; SITE_SEIN: de regels
 van 23-24 nov op "getagd" + een release-regel. Alleen Forever in de spelerstekst; de Midnight-voorbereiding op 12.1.7
 werkt pas op een 12.1.7-client en staat er dus niet in (Sparring: alleen noemen als spelers er nu iets aan hebben).
-🔴 Open na de tag: (1) de release-run nakijken (twee zips: gewoon + -forever, CurseForge, Wago, GitHub); (2) SITE_SEIN
-op "staat op CurseForge" zodra de CF-API beide bestanden toont; (3) `CURSEFORGE_DESCRIPTION.md` noemt 12 × 4, het
-groepsbord en QuestieDB nog niet: bijwerken en Rob laten plakken (de packager doet dat niet).
+✅ Tag v5.9.0 op 1bdc468. Release-run 45451928608 geslaagd (Retail, Forever, verify). GEMETEN in de CF-API (24 nov 17:53
+UTC): v5.9.0 (id 9795543, 12.0.7-12.1.7) en v5.9.0-forever (id 9795583, 1.60.1), allebei Release, status 4; de
+GitHub-release heeft beide zips. Wago NIET apart nagemeten (de run meldt Retail en Forever geslaagd). SITE_SEIN op
+"staat op CurseForge".
+🔴 Nog open: `CURSEFORGE_DESCRIPTION.md` noemt 12 × 4, het groepsbord en QuestieDB nog niet: bijwerken en Rob laten
+plakken (de packager doet dat niet). En op CurseForge kijken of de changelog netjes rendert (Files → het bestand →
+Changelog).
 
 ## ▶▶ 24 nov avond (Bouwchat 24-11): Lua-fout KeyBlock.lua:1527 (Druid, na harde uitval) GEREPAREERD — wacht op test
 
