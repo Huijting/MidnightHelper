@@ -235,8 +235,10 @@ local CATEGORY12 = {
 	racial = { "SHIFT-E" },
 	taunt = { "F" },
 }
-local OVERFLOW12 = { "CTRL-1", "CTRL-2", "CTRL-3", "CTRL-4", "CTRL-Q", "CTRL-E", "CTRL-R", "SHIFT-V", "SHIFT-Z",
-	"SHIFT-X", "SHIFT-C", "SHIFT-3", "SHIFT-E" }
+-- No SHIFT-E (the race spell's key) and no CTRL-R (recovery / resurrect): leftovers never land on a key whose job they
+-- are not (all four reviewers of 24 Nov 2026 saw overflow there); what does not fit goes to block D.
+local OVERFLOW12 = { "CTRL-1", "CTRL-2", "CTRL-3", "CTRL-4", "CTRL-Q", "CTRL-E", "SHIFT-V", "SHIFT-Z",
+	"SHIFT-X", "SHIFT-C", "SHIFT-3" }
 -- The seven healer specs (Holy Paladin, Resto Druid, Disc, Holy Priest, Resto Shaman, Mistweaver, Preservation).
 local HEALER_SPECS = { [65] = true, [105] = true, [256] = true, [257] = true, [264] = true, [270] = true, [1468] = true }
 
@@ -343,6 +345,24 @@ function ns.KeyBlockAllocate(spells, specID)
 		end
 	end
 	table.sort(list, ByPriority)
+
+	-- 0. 12 x 4 in Midnight: the reviewed exceptions per spec (KeyBlock12Exceptions.lua, ns.KEYBLOCK12_MN_EXCEPT):
+	-- [specID][spell id] = a key, or "D" for block D; the English name is only a fallback, because in the game s.name is
+	-- the client's LOCALISED spellbook name (KeybindAutoMap.lua). Before every other step, so the table never loses.
+	local except = (LayoutName() == "12x4" and not ns.IS_FOREVER and specID and ns.KEYBLOCK12_MN_EXCEPT)
+		and ns.KEYBLOCK12_MN_EXCEPT[specID]
+	if except then
+		for _, s in ipairs(list) do
+			local want = (s.id and except[s.id]) or (s.name and except[s.name])
+			if want == "D" then
+				s._done = true
+				onlyD[#onlyD + 1] = { id = s.id, name = s.name, role = s.role, category = s.category, priority = s.priority }
+				trace[#trace + 1] = { id = s.id, why = "12x4 exception: block D" }
+			elseif want and not s._done then
+				try(s, { want }, "12x4 exception")
+			end
+		end
+	end
 
 	-- 1. Druid forms: their own three places, Ctrl-1/2/3 (KeybindRoles_Druid.lua blockForm).
 	for _, s in ipairs(list) do
@@ -2827,12 +2847,13 @@ function ns.ShowKeyBlockWhy()
 		end
 		parts[#parts + 1] = { fs = fs, gap = gap }
 	end
-	add(ns:L("KEYGUIDE_INTRO"), "GameFontHighlight", 16)
+	-- Midnight: its own healer rule (C = emergency heal, heals stay on 1-3; Rob "a ja", 24 Nov 2026).
+	add(ns:L(ns.IS_FOREVER and "KEYGUIDE_INTRO" or "KEYGUIDE_INTRO_MN"), "GameFontHighlight", 16)
 	-- 24 Nov 2026: EXTRA = 5 interact + Shift-Space mount (ForeverKeyExtras.lua; Rob: "Je trekt op 5 en dat punt blijft").
 	for _, part in ipairs({ "A", "SHIFT", "CTRL", "ALT", "EXTRA" }) do
 		add(ns:L("KEYGUIDE_HEAD_" .. part), "GameFontNormal", 6, 1, 0.82, 0.2)
 		-- Midnight's Ctrl row holds other things, and its mount is a random favourite (24 Nov 2026, Rob "A A A").
-		local suffix = (not ns.IS_FOREVER and (part == "CTRL" or part == "EXTRA")) and "_MN" or ""
+		local suffix = (not ns.IS_FOREVER and part ~= "ALT") and "_MN" or ""
 		add(ns:L("KEYGUIDE_BAR_" .. part .. suffix), "GameFontHighlightSmall", 16, 0.9, 0.9, 0.9)
 	end
 	-- Positions from the measured heights, again after the Forever style changed the font (it does that on show).

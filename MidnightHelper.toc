@@ -232,6 +232,7 @@ Modules\EditModeBackup.lua
 Modules\BarPreset.lua
 Modules\SlotOwnership.lua
 Modules\ApplyLayout.lua
+Modules\KeyBlock12Exceptions.lua
 Modules\KeyBlock.lua
 Modules\SpellbookDump.lua
 Modules\ForeverBlock_Druid.lua
