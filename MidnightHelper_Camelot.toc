@@ -210,6 +210,9 @@ Modules\ForeverPartyPanel.lua
 # Group consumable board like Midnight's, with the class buffs (Rob, 24 Nov 2026 via sparring: "Ja maak maar", option A).
 Modules\ForeverReadyBoardData.lua
 Modules\ForeverReadyBoard.lua
+# 12 x 4 extra keys: 5 = interact, Shift-Space = your mount (Rob, 24 Nov 2026 via sparring: "Ja, ik volg advies dus A").
+Modules\ForeverMountData.lua
+Modules\ForeverKeyExtras.lua
 # "Do this now / All caught up / Coming up" (Rob, 12 Nov 2026, via sparring: "Venster 'Doe dit nu'").
 Modules\ForeverDoNow.lua
 # New overview, rough style A (Rob, 17 Nov 2026, via sparring: "eerst een ruwe versie van A om te bekijken"). /mh overview

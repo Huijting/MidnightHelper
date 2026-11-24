@@ -2619,7 +2619,8 @@ function ns.ShowKeyBlockWhy()
 		parts[#parts + 1] = { fs = fs, gap = gap }
 	end
 	add(ns:L("KEYGUIDE_INTRO"), "GameFontHighlight", 16)
-	for _, part in ipairs({ "A", "SHIFT", "CTRL", "ALT" }) do
+	-- 24 Nov 2026: EXTRA = 5 interact + Shift-Space mount (ForeverKeyExtras.lua; Rob: "Je trekt op 5 en dat punt blijft").
+	for _, part in ipairs({ "A", "SHIFT", "CTRL", "ALT", "EXTRA" }) do
 		add(ns:L("KEYGUIDE_HEAD_" .. part), "GameFontNormal", 6, 1, 0.82, 0.2)
 		add(ns:L("KEYGUIDE_BAR_" .. part), "GameFontHighlightSmall", 16, 0.9, 0.9, 0.9)
 	end

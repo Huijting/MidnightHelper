@@ -299,6 +299,8 @@ Modules\ForeverLayer.lua
 Modules\ForeverPartyPanel.lua
 Modules\ForeverReadyBoardData.lua
 Modules\ForeverReadyBoard.lua
+Modules\ForeverMountData.lua
+Modules\ForeverKeyExtras.lua
 Modules\ForeverDoNow.lua
 Modules\ForeverStyle.lua
 Modules\ForeverOverview.lua

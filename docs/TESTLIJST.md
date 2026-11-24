@@ -25,16 +25,33 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 24 nov (avond, 7) — FOREVER: 12 × 4 extra toetsen: 5 = interact, Shift+Spatie = je mount (Rob: "Ja, ik volg advies dus A")
+
+🔴 Nieuwe bestanden: sluit het spel eerst helemaal af en start opnieuw (een `/reload` is niet genoeg).
+Offline getest (26 controles goed), NIET in het spel. Alleen in Forever, alleen met 12 × 4.
+- [ ] Een character met 12 × 4 neergezet: ongeveer 12 seconden na het inloggen vraagt MH "Two extra keys for 12 x 4?".
+      In het venster staat ook wat 5 en Shift+Spatie NU doen. Druk "Set them".
+- [ ] Ga voor een NPC staan, target hem en druk **5**: je praat met hem (of je loot / pakt op wat je target). Je
+      numpad-punt doet nog steeds hetzelfde.
+- [ ] Heb je een mount: druk **Shift+Spatie**, je stijgt op. Nog eens: je stijgt af. In de chat staat welke mount MH
+      koos (de snelste die je hebt). Spatie springt nog gewoon.
+- [ ] Een character zonder mount: in de chat "This character has no mount yet …". Shift+Spatie doet niets nieuws.
+      Leer je een mount, dan zet MH hem vanzelf op Shift+Spatie (zonder /reload).
+- [ ] `/mh block extras`: wat MH ziet (5 nu, Shift+Spatie nu, je snelste mount) en waarom.
+- [ ] `/mh block extras off`: 5 en Shift+Spatie doen weer wat ze eerst deden. `/mh block extras on`: terug.
+- [ ] Open "Why these keys?" (in `/mh block`): onderaan een stuk "Two extra keys", over 5 en Shift+Spatie.
+- [ ] Druk je bij de vraag "No thanks": MH vraagt het niet meer. Later toch: `/mh block extras on`.
+
 ## 24 nov (avond, 6) — FOREVER: "Do this now" krijgt een knop How you play en je vrije tasplekken — ✅ GETEST
 
-Rob via Sparring, letterlijk: *"Ja, beide zijn helemaal goed."* (de knop en de tasplekken). De twee punten daaronder
-(verversen, kleuren) heeft hij niet apart genoemd.
+Rob via Sparring, letterlijk: *"Ja, beide zijn helemaal goed."* (de knop en de tasplekken), en later: *"En de tas werkt
+inderdaad ook zoals de melding erop. Gaat ook helemaal goed. En zo speel ik knop, ben ik ook blij mee."*
 - [x] Open "Do this now". Onderaan, achter "Open overzicht": een knop **How you play**. Klik: de speelkaart van dit
       character gaat open.
 - [x] Onderste regel, links van je goud: een tas-icoon met "**N vrij**". Klopt N met de lege plekken in je gewone tassen?
       Een pijlkoker of soul bag telt niet mee.
-- [ ] Raap iets op of verkoop iets: het getal verandert meteen.
-- [ ] 5 of minder vrij: het getal is **oranje**. 0 vrij: **rood**. Anders wit.
+- [x] Raap iets op of verkoop iets: het getal verandert meteen.
+- [x] 5 of minder vrij: het getal is **oranje**. 0 vrij: **rood**. Anders wit.
 
 ## 24 nov (avond, 5) — FOREVER: How you play noemt de toetsen van JOUW indeling (Rob: "de oude keyblock staan er nog in") — ✅ GETEST
 
@@ -88,10 +105,12 @@ Waarom: je toetsen gelden voor al je Forever-characters (GEMETEN: één bindings
 knoppen staat is per character. Een character dat nog het oude blok heeft, drukt nu op verkeerde knoppen.
 - [ ] Warlock: `/reload`. Als MH vraagt "New for your key block … -> 3" of je drukt "Update (add new spells)": toets 3 =
       Immolate (zolang je geen Agony hebt).
-- [ ] Log in op een ander Forever-character dat het oude blok heeft. Na ongeveer 8 seconden: een rode regel in de chat
+✅ "Fix it now" GETEST op een Druid (Rob via Sparring, letterlijk: *"Mijn andere forever karakter. Ik heb net een druid
+verder gedaan en fixit werkte. Dus dat is ook goed."*). De andere punten van deze sectie heeft hij niet apart genoemd.
+- [x] Log in op een ander Forever-character dat het oude blok heeft. Na ongeveer 8 seconden: een rode regel in de chat
       en een venster "Your key block on this character is placed as the old block, but your keys now follow 12 x 4 …"
       met de knoppen "Fix it now" en "Later".
-- [ ] Druk "Fix it now": MH haalt het blok eraf en zet het opnieuw neer als 12 × 4. Op de knoppen alleen nog 1-4 Q E R F
+- [x] Druk "Fix it now": MH haalt het blok eraf en zet het opnieuw neer als 12 × 4. Op de knoppen alleen nog 1-4 Q E R F
       Z X C V (met s- en c-). Daarna komt het venster niet meer terug op dat character.
 - [ ] Drukte je "Later": typ `/mh block fix` wanneer je wilt; dat doet hetzelfde. `/mh block why` zegt
       "placed on this character: old — the other layout: /mh block fix".
@@ -135,36 +154,40 @@ het spel. Het oude blok blijft de standaard: zonder het commando hieronder veran
 - [ ] Terug: `/mh block undo`, dan `/mh block style old`, dan opnieuw neerzetten: alles staat weer zoals vroeger.
 - [ ] Ook in het oude blok (vanaf vandaag): T = health potion en Shift-T = healthstone gebruiken nu Forever-items.
 
-## 24 nov — FOREVER: groepsbord met buffs en consumables (Rob: "Ja maak maar", optie A)
+## 24 nov — FOREVER: groepsbord met buffs en consumables (Rob: "Ja maak maar", optie A) — ⏸️ LATER TESTEN, op een hoger level
 
+⏸️ Van de lijst af, NIET getest (Rob via Sparring, letterlijk: *"De groepsport gaan we later testen als ik een hogere level
+heb. Dus die mag van de lijst af."*; "groepsport" = groepsbord). De punten staan als `[later]` tot hij het oppakt.
 🔴 Nieuw bestand: sluit het spel eerst helemaal af en start opnieuw (een `/reload` is niet genoeg).
 Offline getest (43 van 43 gevallen goed), NIET in het spel. Alles in Forever.
-- [ ] Alleen, buiten een gevecht: typ `/mh readyboard`. Er komt een venster "Group check: buffs and consumables" met
+- [later] Alleen, buiten een gevecht: typ `/mh readyboard`. Er komt een venster "Group check: buffs and consumables" met
       één rij (jij). Bovenaan staan kleine icoontjes per kolom; ga erop staan voor de naam.
-- [ ] Jouw rij: een vinkje (groen) bij wat je hebt of op je hebt, oranje bij wat alleen in je tas zit, een rood kruis
+- [later] Jouw rij: een vinkje (groen) bij wat je hebt of op je hebt, oranje bij wat alleen in je tas zit, een rood kruis
       bij wat ontbreekt. Ga op een icoontje staan: de tooltip zegt wat het is en waarom. Klopt dat met je tas?
-- [ ] Eet iets met een buff (Well Fed) of drink een elixer: binnen een seconde wordt die kolom groen.
-- [ ] Ben je een Mage, Priest, Druid of Paladin: rechts staat je eigen buff. Klik erop: je cast hem op jezelf.
-- [ ] Shift+scroll op het venster maakt het groter/kleiner; slepen verplaatst het. Klik daarna nog eens op je buff:
+- [later] Eet iets met een buff (Well Fed) of drink een elixer: binnen een seconde wordt die kolom groen.
+- [later] Ben je een Mage, Priest, Druid of Paladin: rechts staat je eigen buff. Klik erop: je cast hem op jezelf.
+- [later] Shift+scroll op het venster maakt het groter/kleiner; slepen verplaatst het. Klik daarna nog eens op je buff:
       de klik zit nog op de goede plek.
-- [ ] In een groep: elke speler een rij. Bij de anderen staat alleen een vraagteken bij de spullen (ga erop staan:
+- [later] In een groep: elke speler een rij. Bij de anderen staat alleen een vraagteken bij de spullen (ga erop staan:
       "MH kan niet in hun tas kijken") en hun buffs: groen = heeft hem, rood = mist hem. Ga op een buff staan: je ziet
       wie hem kan geven.
-- [ ] Als jij de buff geeft: klik op de buff bij een groepslid → je cast hem op die speler.
-- [ ] Iemand start een ready check: het venster gaat vanzelf open. `/mh readyboard auto off` → niet meer;
+- [later] Als jij de buff geeft: klik op de buff bij een groepslid → je cast hem op die speler.
+- [later] Iemand start een ready check: het venster gaat vanzelf open. `/mh readyboard auto off` → niet meer;
       `/mh readyboard auto on` → weer wel.
-- [ ] Begin een gevecht: het venster gaat dicht. In een gevecht zegt `/mh readyboard` dat het nu niet kan.
-- [ ] Na de test: `/mh readycheck` en `/reload`. Dan leest de bouwchat `foreverReadyProbe` uit je SavedVariables.
+- [later] Begin een gevecht: het venster gaat dicht. In een gevecht zegt `/mh readyboard` dat het nu niet kan.
+- [later] Na de test: `/mh readycheck` en `/reload`. Dan leest de bouwchat `foreverReadyProbe` uit je SavedVariables.
 
-## 24 nov — FOREVER: twee kleine fixes na de hotfix van 23 nov (Sparring 24-11: "ga door met de kleine dingen")
+## 24 nov — FOREVER: twee kleine fixes na de hotfix van 23 nov (Sparring 24-11: "ga door met de kleine dingen") — GEACCEPTEERD, niet apart getest
 
+✔️ Rob via Sparring, letterlijk: *"Toets 3 van de warrior en de priestgids, die volg jouw advies."* (de rest van de Warrior
+blijft zoals hij is). Geaccepteerd, NIET apart in het spel getest: de punten staan als `[geaccepteerd]`.
 Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (toets 3: 9 van 9 gevallen goed), NIET in het spel.
-- [ ] Warrior zónder het talent Mortal Strike (bijvoorbeeld Fury or Protection, of een lage Warrior): toets **3** in je
+- [geaccepteerd] Warrior zónder het talent Mortal Strike (bijvoorbeeld Fury or Protection, of een lage Warrior): toets **3** in je
       toetsenblok doet Bloodthirst of Shield Slam, niet Mortal Strike. Typ `/mh block why`: staat Mortal Strike in je
       spellbook, dan zie je onderaan een grijze regel "Mortal Strike: talent not bought: skipped".
-- [ ] Warrior mét het talent Mortal Strike (Arms): toets 3 doet gewoon Mortal Strike, zoals altijd.
-- [ ] (Wie het kan) Koop of reset het talent Mortal Strike buiten een gevecht: binnen een paar seconden wisselt toets 3 mee.
-- [ ] Priest, venster "How you play", sectie met beginnersfouten, regel "Healing in Shadowform": er staat nu alleen
+- [geaccepteerd] Warrior mét het talent Mortal Strike (Arms): toets 3 doet gewoon Mortal Strike, zoals altijd.
+- [geaccepteerd] (Wie het kan) Koop of reset het talent Mortal Strike buiten een gevecht: binnen een paar seconden wisselt toets 3 mee.
+- [geaccepteerd] Priest, venster "How you play", sectie met beginnersfouten, regel "Healing in Shadowform": er staat nu alleen
       "Fear Ward does not work in it either". Chastise (de Dwarf-spell) staat er niet meer in, want die werkt sinds de
       hotfix wél in Shadowform. Andere taal: dezelfde regel, ook zonder Chastise.
 

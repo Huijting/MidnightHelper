@@ -1,5 +1,27 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 24 nov avond (Bouwchat 24-11): 12 × 4 extra toetsen (5 = interact, Shift+Spatie = mount) — wacht op test
+
+Rob via Sparring: *"En shift spatie is op zich wel een goed idee voor de mount. En de interact toets, nou, doe maar een
+voorstel."* → voorstel → *"Ja, ik volg advies dus A. Je trekt op 5 en dat punt blijft ook werken."*
+GEMETEN vooraf: `INTERACTTARGET` bestaat in Forever (GlobalStrings 1.60.1.71091; ook INTERACTMOUSEOVER); Robs
+`_forever_/WTF/Account/JOEYWHATEVER/bindings-cache.wtf`: `NUMPADDECIMAL INTERACTTARGET`, `5 NONE`, `` ` TOGGLECHARACTER0``
+(niet door MH gezet: 0 treffers, tegencontrole 7); Spatie/Shift+Spatie niet in het bestand = spelstandaard (niet leesbaar
+uit dat bestand; de module vraagt het live met GetBindingAction).
+Gebouwd: `Modules/ForeverKeyExtras.lua` (nieuw, beide toc's): één vraag (StaticPopup na het neerzetten van 12 × 4 of
+bij inloggen, met wat 5 en Shift+Spatie nu doen), `/mh block extras [on|off]` + diagnose. 5 = INTERACTTARGET als extra
+toets; Shift+Spatie = `MACRO MH Mount`, een macro PER CHARACTER (`/dismount [mounted]` + `/cast [nomounted] <mount>`),
+alleen als het character een mount kent (anders blijft Shift+Spatie staan tot SPELLS_CHANGED er een brengt). Undo zet
+per toets terug wat er stond (`ns.db.keyExtras.prev`) en wist de macro; terug naar het oude blok = automatisch undo
+(hook op KeyBlockSetStyle); na een blok-undo pakt 5 interact terug (de undo gaf 5 aan de oude blokknop).
+Snelste mount: `Modules/ForeverMountData.lua` (GEGENEREERD uit Mount → MountTypeXCapability → MountCapability, 140
+mounts; 4 AQ-tanks eruit, alleen in AQ40): snelheid 2/1 + nodige spell (racial riding). NIET gemeten: of Forever die
+racial riding als bekende spell toont → valt terug op "negeer de eis" als je wel een mount kent maar er geen door de
+check komt; of C_MountJournal bestaat (bewaakt; favoriet telt mee als het er is); of een binding `MACRO <naam>` een
+per-character macro vindt (AFGELEID: binding op naam). Uitlegblad: deel EXTRA (KEYGUIDE_HEAD/BAR_EXTRA). Teksten 7 talen.
+Offline: 26 controles (scratch `keyextras_test.lua`). Ook afgevinkt deze ronde: Fix it now (Druid), tas-getal + kleuren,
+How you play-knop; groepsbord → later testen op hoger level; Warrior toets 3 + Priest-gids geaccepteerd (niet apart getest).
+
 ## ▶▶ 24 nov avond (Bouwchat 24-11): "Do this now" — knop How you play + vrije tasplekken — ✅ GETEST (Rob: *"Ja, beide zijn helemaal goed."*)
 
 Rob via Sparring, letterlijk: *"kunnen we hier onder ook een knop how to play toevoegen en in het rijtje van gold aan de

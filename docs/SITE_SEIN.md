@@ -28,6 +28,26 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 24 nov 2026 — 12 × 4: extra toetsen (5 = interact, Shift+Spatie = mount)
+- Tag + commit:   geen tag / zie de commit "Forever 12x4 extra keys" op main
+- Status:         alleen op main
+- Mag op de site: nee (nog niet getest, niet uit)
+- Speler ziet:    Met de indeling 12 × 4 vraagt MH één keer of 5 "Interact With Target" mag worden (een toets die je er
+                  al voor had blijft werken) en Shift+Spatie je snelste mount. Altijd terug te draaien.
+- Knoplabels:     KEYEXTRA_YES, KEYEXTRA_NO; uitlegblad KEYGUIDE_HEAD_EXTRA
+- Commando's:     /mh block extras, /mh block extras on|off
+- Spel:           Forever
+
+## 24 nov 2026 — "Do this now": knop How you play + vrije tasplekken
+- Tag + commit:   geen tag / 99770bc
+- Status:         alleen op main
+- Mag op de site: nee (niet uit)
+- Speler ziet:    Onderaan "Do this now" een knop naar How you play, en links van je goud hoeveel tasplekken je nog vrij
+                  hebt (oranje als het bijna vol is, rood als het vol is). *(getest door Rob)*
+- Knoplabels:     FOV_TAB_PLAY, FDONOW_BAGS_FREE_FMT
+- Commando's:     geen
+- Spel:           Forever
+
 ## 24 nov 2026 — Forever: uitlegblad "Why these keys?" bij het 12 × 4-blok
 - Tag + commit:   geen tag (commit: deze regel)
 - Status:         alleen op main

@@ -30,7 +30,8 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 - Bron: Rob via Sparring 24-11, letterlijk: *"kunnen we hier onder ook een knop how to play toevoegen en in het rijtje van
   gold aan de linkerzijde het aantal open tas plaatsen :)"*; op de samenvatting van Sparring: *"ja"*.
 - Gebouwd (`ForeverDoNow.lua`): knop "How you play" achter "Open overzicht", opent de speelkaart van dit character. Links
-  van het goud: tas-icoon + "12 vrij". Oranje vanaf 5 vrij (of je eigen tas-waarschuwing als die hoger staat, `/mh bags
+  van het goud: tas-icoon + "12 vrij" (later ook: *"En de tas werkt inderdaad ook zoals de melding erop. Gaat ook helemaal
+  goed. En zo speel ik knop, ben ik ook blij mee."*). Oranje vanaf 5 vrij (of je eigen tas-waarschuwing als die hoger staat, `/mh bags
   <n>`), rood bij 0. Telt alleen gewone tassen (zelfde telling als de tas-waarschuwing: geen pijlkoker, ammo- of soul bag).
 - Spel: F. Voor wie: N + V (AFGELEID).
 
@@ -47,13 +48,18 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
   uitleggen waarom we welke knop waar gezet hebben"*, verduidelijkt *"… dat is altijd hetzelfde op welke class je ook
   speelt"*, op de samenvatting *"Ja"*; heal = C/Shift-C: *"a"*). Knop in het toetsenblok-venster (Forever, 12×4); taak per
   toets uit `docs/forever/KEYBLOCK12_TAKEN.md`. Site-pagina: later via de site-chat.
-- Later (stap 2, Sparring: *"akkoord"*): mount op Shift+Spatie, een interact-toets; sit/sheathe/character alleen na een
-  vraag, met undo. Downranks per toets kan de motor niet.
+- Stap 2, deel 1 ✅ JA, GEBOUWD 24 nov, wacht op test: mount op Shift+Spatie (Rob: *"En shift spatie is op zich wel een
+  goed idee voor de mount."*) en interact op 5 als tweede toets (Rob: *"Ja, ik volg advies dus A. Je trekt op 5 en dat
+  punt blijft ook werken."*). `ForeverKeyExtras.lua` + `ForeverMountData.lua`: één vraag, undo `/mh block extras off`.
+- Nog later: sit/sheathe/character alleen na een vraag, met undo. Downranks per toets kan de motor niet.
+- ✅ 24 nov: "Fix it now" GETEST op een Druid (Rob: *"Ik heb net een druid verder gedaan en fixit werkte."*).
 - ✅ 24 nov: How you play noemt de toetsen van de gekozen indeling (d5380df) — GETEST (Rob via Sparring, letterlijk:
   *"en in how to play staat get nu goed"*).
 - Spel: F. Voor wie: N + V (AFGELEID). Site: pas na test en release.
 
-### Forever: consumable-venster voor de party, zoals in Midnight (wens van Rob, 23 nov) — ✅ JA (optie A), GEBOUWD 24 nov, wacht op test
+### Forever: consumable-venster voor de party, zoals in Midnight (wens van Rob, 23 nov) — ✅ JA (optie A), GEBOUWD 24 nov, ⏸️ LATER TESTEN op een hoger level
+- ⏸️ Rob, letterlijk: *"De groepsport gaan we later testen als ik een hogere level heb. Dus die mag van de lijst af."*
+  NIET getest.
 - 24 nov: Rob via Sparring 24-11, letterlijk: *"Ja maak maar"*, en op *"Bedoel je doe jouw advies (A)?"*: *"ja"*.
   Gebouwd: `Modules/ForeverReadyBoard.lua` + `ForeverReadyBoardData.lua` (nieuw, beide toc's, alleen actief in Forever).
   Eigen spullen (elixer/flask, Well Fed, iets op je wapen, health/mana potion, healthstone bij een Warlock) + class-buffs

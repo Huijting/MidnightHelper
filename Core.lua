@@ -1437,6 +1437,16 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		end
 		return
 	end
+	-- /mh block extras [on|off] — 12 x 4: 5 = interact, Shift-Space = mount (ForeverKeyExtras.lua, 24 Nov 2026).
+	local blockExtras = msg:match("^block extras%s*(.*)$")
+	if blockExtras then
+		if ns.ForeverKeyExtrasCommand then
+			ns.ForeverKeyExtrasCommand(blockExtras)
+		else
+			print("|cffffcc00Midnight Helper:|r " .. ns:L("KEYBLOCK_STYLE_FOREVER_ONLY"))
+		end
+		return
+	end
 	local blockStyle = msg:match("^block style%s*(.*)$")
 	if blockStyle and ns.KeyBlockSetStyle then
 		ns.KeyBlockSetStyle(blockStyle)
