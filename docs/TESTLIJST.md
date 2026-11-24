@@ -25,6 +25,17 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 24 nov (avond, 3) — FOREVER: terugval zonder dubbele + "Later" onthoudt het (Rob: "Beetje verwarrend.")
+
+Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (16 gevallen per class/level goed), NIET in het spel.
+- [ ] Warlock zonder Agony: na `/reload` vraagt MH NIET meer "Immolate -> Shift 2". Toets 3 = Immolate. Staat er nog een
+      oude Immolate op Shift-2 (van eerder neergezet)? Sleep hem eraf; MH vraagt er niet meer om.
+- [ ] Leer Agony bij de trainer: toets 3 wordt Agony, en MH vraagt één keer "Immolate -> Shift 2". Druk "Place it".
+- [ ] Druk je bij zo'n vraag "Later": dezelfde vraag komt op dit character niet terug, ook niet als je iets anders van je
+      balk sleept. Een echt nieuwe spell vraagt wel weer. De knop "Update (add new spells)" zet alles alsnog neer.
+- [ ] Combat-Rogue: toets 3 = Shank, Shift-3 leeg. Paladin 24-43: toets 4 = Exorcism, Shift-4 leeg; zonder Repentance
+      V = Turn Undead en Shift-F leeg.
+
 ## 24 nov (avond, 2) — FOREVER: uitlegblad "Why these keys?" voor 12 × 4 (Rob: "Dat gewoon voor iedereen weet …")
 
 Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (het venster bouwt en klapt open/dicht).

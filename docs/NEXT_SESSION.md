@@ -1,5 +1,16 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 24 nov avond (Bouwchat 24-11): terugval zonder dubbele + "Later"-geheugen — wacht op test
+
+Rob (via Sparring 24-11), letterlijk: *"Waarom krijg ik deze, terwijl die ook al op 3 gezet wordt? En als ik hem daar
+weghaal, even later krijg ik weer terug dat hij weer daarheen moet. Beetje verwarrend."* Gebouwd:
+- `ForeverBlock.lua` `FallbackHeld`/`FirstFor`: een spell die een toets als terugval houdt (latere naam in de lijst)
+  komt niet ook op zijn eigen toets; is de eerste naam geleerd, dan schuift hij terug. Geldt alleen voor de 4 terugvallen
+  (GEMETEN: Warlock 3/Shift-2, Rogue 3/Shift-3, Paladin 4/Shift-4 en V/Shift-F); het oude blok heeft er geen.
+- `KeyBlock.lua`: "Later" (OnCancel) onthoudt per character elk paar toets + spell (`ns.db.keyBlockDeclined`, macro's
+  met de spellnaam, zodat een nieuwe rang niet opnieuw vraagt maar een nieuwe spell wel). Update wist dat geheugen.
+- Offline: 16 gevallen (scratch `fallback_test.lua`), keys12 2252, stale/login 27. NIET in het spel.
+
 ## ▶▶ 24 nov avond (Bouwchat 24-11): uitlegblad "Why these keys?" (12 × 4) GEBOUWD — ✅ GETEST (Rob: *"JA ZIET ER GOED UIT"*; Shift+scroll/dichtklikken niet genoemd, open)
 
 Rob via Sparring 24-11, letterlijk: *"kunnen we ook een soort blad even maken, waarbij we de users uitleggen waarom we welke

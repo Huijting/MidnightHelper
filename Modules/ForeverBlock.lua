@@ -295,10 +295,11 @@ end
 --- The first spell of a name (or list of names) this character has: the CLIENT's name for it (what /cast needs), its id.
 local function First(v)
 	if type(v) == "table" then
-		for _, name in ipairs(v) do
+		for i, name in ipairs(v) do
 			local id = Known(name)
 			if id then
-				return ClientName(id, name), id, name
+				-- 4th value (24 Nov 2026): the place in the list; > 1 = a fallback (e.g. Immolate on the Warlock's 3).
+				return ClientName(id, name), id, name, i
 			end
 		end
 		return nil
@@ -371,6 +372,55 @@ local function WithMouseover(cond, english)
 	return ("[@mouseover,%s,nodead][] "):format(kind)
 end
 
+--- 24 Nov 2026 (Rob's Warlock: Immolate on 3 as the fallback, and still "New for your key block: Immolate -> Shift 2";
+--- Rob: "Waarom krijg ik deze, terwijl die ook al op 3 gezet wordt?"). A spell that a key holds as a FALLBACK (a later
+--- entry of its list, because the first is not learned yet) is not put on its own key too. Once the real one is learned
+--- (Agony), the fallback key takes that and the spell goes back to its own key. Which spells are held this way, per key.
+local heldCache = { stamp = nil, cls = nil, map = nil }
+local FALLBACK_FIELDS = { "all", "base" }
+local function FallbackHeld(cls)
+	local now = GetTime and GetTime() or nil
+	if now and heldCache.stamp == now and heldCache.cls == cls then
+		return heldCache.map
+	end
+	local held = {}
+	for key, def in pairs(cls and cls.keys or {}) do
+		local fields = {}
+		for _, f in ipairs(FALLBACK_FIELDS) do
+			fields[#fields + 1] = f
+		end
+		for _, st in ipairs(cls.states or {}) do
+			fields[#fields + 1] = st.name
+		end
+		for _, f in ipairs(fields) do
+			local v = def[f]
+			if type(v) == "table" then
+				local _, _, en, idx = First(v)
+				if en and idx and idx > 1 then
+					held[en] = key
+				end
+			end
+		end
+	end
+	heldCache.stamp, heldCache.cls, heldCache.map = now, cls, held
+	return held
+end
+ns.ForeverBlockFallbackHeld = function()
+	return FallbackHeld((ClassTable()))
+end
+
+--- First() for one key: skips a spell another key holds as its fallback (unless it is this key's own fallback).
+local function FirstFor(cls, key, v)
+	local name, id, en, idx = First(v)
+	if en and not (idx and idx > 1) then
+		local holder = FallbackHeld(cls)[en]
+		if holder and holder ~= key then
+			return nil
+		end
+	end
+	return name, id, en, idx
+end
+
 local BodyRaw
 --- The macro body for one key, the spell ids it uses, and the spell to show on the picture. nil when nothing is known.
 --- A macro may hold 255 characters (GEMETEN: client string MACROFRAME_CHAR_LIMIT "%d/255", Forever 70862). When the
@@ -429,13 +479,13 @@ BodyRaw = function(cls, key)
 		end
 		return "#showtooltip\n/cast " .. table.concat(parts, "; "), ids, show
 	end
-	local allName, allId, allEn = First(def.all)
+	local allName, allId, allEn = FirstFor(cls, key, def.all)
 	if allName then
 		return "#showtooltip\n/cast " .. WithMouseover("", allEn) .. use(allName, allId), ids, show
 	end
 	local clauses, guarded = {}, false
 	for _, st in ipairs(cls.states or {}) do
-		local name, id, en = First(def[st.name])
+		local name, id, en = FirstFor(cls, key, def[st.name])
 		if name then
 			clauses[#clauses + 1] = WithMouseover(st.cond .. " ", en) .. use(name, id)
 			if st.guards then
@@ -443,7 +493,7 @@ BodyRaw = function(cls, key)
 			end
 		end
 	end
-	local base, baseId, baseEn = First(def.base)
+	local base, baseId, baseEn = FirstFor(cls, key, def.base)
 	if base then
 		local guard = (guarded and not def.open and cls.baseGuard) and (cls.baseGuard .. " ") or ""
 		clauses[#clauses + 1] = WithMouseover(guard, baseEn) .. use(base, baseId)

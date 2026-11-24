@@ -1699,6 +1699,10 @@ function ns.KeyBlockUpdate()
 	end
 	ns.db.keyBlockAsked = ns.db.keyBlockAsked or {}
 	ns.db.keyBlockAsked[MyKey()] = nil
+	-- An explicit Update (the button, or "Place it" in the question) also forgets the "Later" pairs (24 Nov 2026).
+	if ns.db.keyBlockDeclined then
+		ns.db.keyBlockDeclined[MyKey()] = nil
+	end
 	if added == 0 then
 		print(p .. "key block: nothing new to add.")
 	else
@@ -1737,6 +1741,33 @@ local function AskKey(list)
 	return table.concat(ids, ",")
 end
 
+--- 24 Nov 2026 (Rob: "En als ik hem daar weghaal, even later krijg ik weer terug dat hij weer daarheen moet."): "Later"
+--- now remembers each pair (key + spell) per character, not only the whole set. A set that changes (a key emptied by hand,
+--- a new rank) used to ask again for everything; now only a pair that was never asked about comes back. The Update
+--- button still adds everything (an explicit press), and clears this memory.
+local lastAsked = {}
+local function PairKey(m)
+	local w = m.row.want
+	-- A Forever macro keeps its name ("MH 3") when its spell changes (Immolate -> Agony): the spell NAME is part of the
+	-- pair, so a new spell on the same key asks again; a new rank (same name, new id) does not.
+	local what = w.kind .. ":" .. tostring(w.id)
+	if w.kind == "macro" and w.label then
+		what = what .. ":" .. tostring(w.label)
+	end
+	return tostring(m.target and m.target.key) .. "=" .. what
+end
+local function Declined()
+	ns.db = ns.db or {}
+	ns.db.keyBlockDeclined = ns.db.keyBlockDeclined or {}
+	local mine = ns.db.keyBlockDeclined[MyKey()]
+	if not mine then
+		mine = {}
+		ns.db.keyBlockDeclined[MyKey()] = mine
+	end
+	return mine
+end
+ns.KeyBlockDeclined = Declined -- /mh block why and the offline check
+
 if StaticPopupDialogs then
 	StaticPopupDialogs["MH_KEYBLOCK_NEW"] = {
 		text = "%s",
@@ -1744,6 +1775,13 @@ if StaticPopupDialogs then
 		button2 = CANCEL,
 		OnAccept = function()
 			ns.KeyBlockUpdate()
+		end,
+		OnCancel = function(_, _, reason)
+			-- "Later" (and Escape): these pairs are not asked again on this character.
+			local d = Declined()
+			for _, k in ipairs(lastAsked) do
+				d[k] = true
+			end
 		end,
 		timeout = 0,
 		whileDead = true,
@@ -1770,13 +1808,18 @@ local function CheckNew()
 		return
 	end
 	local list = {}
+	local declined = Declined()
 	for _, m in ipairs(MissingRows()) do
-		if m.target then
+		if m.target and not declined[PairKey(m)] then
 			list[#list + 1] = m
 		end
 	end
 	if #list == 0 then
 		return
+	end
+	lastAsked = {}
+	for _, m in ipairs(list) do
+		lastAsked[#lastAsked + 1] = PairKey(m)
 	end
 	if mode == "auto" then
 		ns.KeyBlockUpdate()
