@@ -11712,3 +11712,181 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
     de ondiepe kloon: `git rev-parse --is-shallow-repository` → **`true`**, en de `(forced update)`-regel
     bij de pull is daarvan het gevolg en niet van Rob — zevende dag dat dit hier staat. Laatste commit
     vóór de mijne: `f53fda4` *"Nachtcontrole 2026-11-23: 0 nakijken C1, 0 C2"*.
+- [2026-11-24] 🔴 **1 [MOET GEFIKST], en een CORRECTIE op mijn eigen regel van gisteren: er waren wél twee
+  officiële addon-notities van 20 nov, en ik had ze gemist. Blizzard publiceert addon-notes nu éérst in de
+  WoWUIDev Discord (Daniel "Meorawr" Yates); de wiki-API_changes-pagina's lopen daar dagen achter, en de
+  forumdraad die ze citeert staat niet in UI-and-Macro maar in *Forever General Discussion*. Gisteren schreef ik
+  "de nieuwste officiële addon-gerichte post is nog steeds die van 16 okt" — onwaar, en precies door die twee
+  blinde hoeken. Beide notitiesets zijn vandaag integraal getoetst aan de code: de grote (lege realm-namen op
+  Forever) blijkt al afgedekt door werk van 21 nov, en de enige nieuwe breuk komt niet uit die notes maar uit de
+  Forever-hotfix van 23 nov.**
+  - 🔴 **[MOET GEFIKST] — Forever-hotfix 23 nov: een spell die in het spellbook STAAT maar niet meer
+    gecast mag worden. `Modules/ForeverBlock_Warrior.lua:30` + `Modules/ForeverBlock.lua:45-54`/`:101-139`.**
+    Blizzards tekst, letterlijk (`worldofwarcraft.blizzard.com/en-us/news/24315281/wow-forever-hotfixes-november-23-2026`,
+    gepubliceerd 24 nov 02:06, blok **23 november**, kop *Classes → Warrior*): *"Fixed an issue where players could
+    have and use Mortal Strike from their spellbook, even without the Mortal Strike talent. **This does not remove it
+    from their spellbook** but prevents it from being used without the talent point spent."*
+    - **Waarom dat ons raakt.** De Forever-keyblock kiest per toets de eerste spell die de character "kent", en
+      "kennen" is bij ons **aanwezigheid in het spellbook**: `KnownId` (`ForeverBlock.lua:101-113`, via
+      `C_SpellBook.IsSpellKnown` → `IsPlayerSpell` → `IsSpellKnown`) plus `InSpellBook`
+      (`ForeverBlock.lua:45-54`, via `C_SpellBook.FindSpellBookSlotForSpell`). Toets **3** van de Warrior is
+      `{ all = { "Mortal Strike", "Bloodthirst", "Shield Slam" } }` en `First()` (`:155-170`) pakt de eerste
+      treffer. Een Warrior die door deze bug Mortal Strike in zijn boek heeft zonder het talent, krijgt dus
+      `/cast Mortal Strike` op toets 3 — die de server nu weigert — én verliest daarmee de Bloodthirst of
+      Shield Slam die daar hoorde te staan. Een dode toets, zonder foutmelding.
+    - 🔴 **GEMETEN: er is geen afdekking.** Geen talent-controle in `ForeverBlock*.lua`; de enige talent-API in
+      de hele addon zit in `Modules/ForeverTalentNext.lua:506-560` (`C_Traits.GetNodeInfo` /
+      `C_ClassTalents.GetActiveConfigID`) en in `Modules/ForeverMacros.lua:884-896`. Positieve controle in
+      dezelfde run: hetzelfde grep-patroon vond die vier regels wél, en `GetTalentInfo` komt nergens voor.
+    - ⚠️ **AFGELEID, niet GEMETEN: dat `IsSpellKnown`/`FindSpellBookSlotForSpell` voor zo'n entry nog `true`
+      geeft.** Blizzard zegt alleen dat de spell in het spellbook blíjft staan, niet wat de API erover zegt.
+      Dat is op een 1.60.1-client te zien en niet van hier.
+    - ❓ **Ik weet niet waarnaar dit moet veranderen en gok er niet over.** De machinerie om "is het talentpunt
+      besteed" te vragen bestaat (`ForeverTalentNext.lua:209` heeft Mortal Strike al als
+      `S(105941, 12294, "Mortal Strike", 1)`), maar of dát de juiste controle is — en of Blizzard de boeken
+      later zelf opruimt, waarmee het probleem verdampt — is Robs beslissing. **Scope is klein**: alleen
+      Warriors die deze bug hadden.
+    - 📌 Tweede, zachtere treffer van hetzelfde: `Modules/ForeverHowToPlay.lua:1133-1142` (`KnownAny`) beslist op
+      dezelfde manier of de grijze regel *"Not learned yet: …"* onder een sectie komt. Gevolg is daar alleen een
+      ontbrekende hint-regel, geen dode toets. Geen apart actiepunt.
+  - ✅ **[AL AFGEDEKT] — *Forever 1.60.1 Live Update 2*: realm-namen en -id's zijn nu leeg. Dit is de grootste
+    van de twee notities en hij was al opgelost vóórdat ik hem las.** Blizzard, letterlijk: *"APIs that return
+    realm names or IDs now instead return an empty string or zero in-place of those values. This includes – but is
+    not limited to – `GetRealmName`, `GetRealmID`, and C_BattleNet APIs whose game account returns would include
+    realm information. This change only applies to WoW Forever."*
+    🔎 **MEASURED (via search, niet zelf op een Blizzard-kanaal gelezen)** — de notes staan in de WoWUIDev Discord;
+    ik heb ze in vier onafhankelijke weergaven gezien die woordelijk gelijk zijn: Wowhead (20 nov 19:00,
+    `wowhead.com/forever/news/…-383943`), Warcraft Tavern (20 nov 16:21), de forumdraad
+    `us.forums.blizzard.com/en/wow/t/…/2423386` (20 nov 08:37, een speler die de Discord citeert) en een
+    GitHub-issue van 20 nov 20:58 (`Eliote/BrokerAnything#6`) waarin een echte addon er op stukloopt
+    (`LibRealmInfo.lua:122` assert op een lege naam). Alle vier mét `?nocache=20261124`.
+    - ✅ **MH heeft dit op 20 nov zelf GEMETEN en op 21 nov opgelost**, dus onafhankelijk van deze notitie:
+      `Modules/ForeverCharKey.lua:9-12` schrijft het op (*"GetRealmName() and GetNormalizedRealmName() return ""
+      … so every "Name-Realm" key became "Name-"*, gemeten in Robs eigen SavedVariables van 20 nov 22:23) en
+      `ns.ForeverCharKey` draait nu **elf** modules op de player-GUID: `KeyBlock.lua:2415`, `KeyPresses.lua:76`,
+      `ForeverVendors.lua:916`, `ForeverSkillup.lua:154`, `ForeverWarnings.lua:420`, `ForeverTravel.lua:222`,
+      `ForeverRanks.lua:99`, `ForeverXPRate.lua:57`, `SlotOwnership.lua:54`, plus `CommandList.lua:99` en
+      `Core.lua:4459-4462` (`/mh charkey`).
+    - ✅ **[RAAKT ONS NIET] — `GetRealmID`: 0 treffers** over `Modules Locales Libs Core.lua UI.lua Config.lua`.
+      Positieve controle in dezelfde run, zelfde scope: `GetRealmName` geeft **45** treffers.
+    - ✅ **[AL AFGEDEKT] — de C_BattleNet-kant.** `C_BattleNet` komt maar in één bestand voor,
+      `Modules/FriendMarks.lua` (8 regels, `:143-162`), dat op Forever **wél** laadt (gemeten in
+      `MidnightHelper_Camelot.toc`). `Key()` (`FriendMarks.lua:33-41`) vangt een lege realm al op: `if not realm
+      or realm == "" then realm = GetNormalizedRealmName() or "" end`, en de groepskant krijgt op dezelfde client
+      net zo'n lege realm, dus beide zijden matchen op de naam alleen. ⚠️ Eerlijke rest: twee vrienden met
+      dezelfde voornaam zijn op Forever niet meer te onderscheiden. Dat is Blizzards keuze, niet onze bug, maar
+      het kan één markering op de verkeerde speler zetten. `FriendMarks.lua:15` had dit al als AFGELEID staan;
+      die regel is nu te scherpen, want Blizzard noemt C_BattleNet nu expliciet.
+    - 📌 **Twee gemeten restjes op de Forever-client, géén [MOET GEFIKST], wel het soort stille terugval waar
+      `CLAUDE.md` tegen waarschuwt:**
+      - `Modules/DialogPopup.lua:49-51` — `CharKey()` geeft **nil** zodra de realm `""` is, en `:77`/`:94`
+        vallen dan terug op de gedeelde set. Gevolg: de optie *vensters per character* (Rob, 30 okt) kan op
+        Forever **nooit** aangaan, en niets zegt dat tegen de speler. Het bestand laadt op Forever (gemeten in
+        `MidnightHelper_Camelot.toc`). Crasht niet; doet alleen stil niets.
+      - `Modules/Rares.lua:739` — het label in de diagnose-dump `ns.db.rareQuestProbe.character` wordt op
+        Forever `"Ima-"`. Alleen een leeslabel voor Rob, geen sleutel, maar bij meerdere "Ima"-characters niet
+        meer te onderscheiden. `Rares.lua` laadt op Forever.
+  - ✅ **[AL AFGEDEKT] — *Midnight 12.1.7 PTR Changes 6*: nu óók de realm-ID in GUID's. Dit is een UITBREIDING
+    van het item dat ik 22 en 23 nov al mat, en de uitbreiding verandert de conclusie niet.** Letterlijk:
+    *"The realm ID in creature, vehicle, pet and game object GUIDs is now obfuscated along with the server ID and
+    spawn ID. This will also apply to Forever in an upcoming 1.60.1 hotfix."* Heette dus eerst "server ID and
+    spawn ID" (wikipagina, nog steeds alleen die twee — zie onderaan), is nu "realm ID **and** server ID and
+    spawn ID". ⚠️ Niet gedateerd door Blizzard; de "24 nov"-datum in de forumdraad is de gok van de poster, en
+    de Forever-hotfixlijst van 23 nov noemt het nog niet.
+    - 🔴 **GEMETEN over alle 28 plekken waar wij een GUID parsen: élke plek leest alleen veld 6 (het npc/object-id)
+      en laat velden 2 t/m 5 los.** Twee vormen, beide positioneel: `guid:match("^Creature%-[^%-]+%-[^%-]+%-[^%-]+%-[^%-]+%-(%d+)")`
+      en `select(6, strsplit("-", guid))`. Gemeten plekken o.a. `Rares.lua:876`/`:1037`, `VignetteCapture.lua:53`,
+      `ResetRoutine.lua:654-663`, `SpotLog.lua:246`, `DelveChestData.lua:241`, `DelveBossShowcase.lua:592`,
+      `RaidCoachData.lua:388`, `RitualBossCoach.lua:317`, `TideboundGrottoCoach.lua:148`, `DaggerspineCoach.lua:108`,
+      en aan de Forever-kant `ForeverWeapons.lua:659`, `ForeverVendors.lua:747`/`:1237`, `ForeverTrainer.lua:1404`/`:1489`,
+      `ForeverLootSparkle.lua:687`, `ForeverQuestieDB.lua:319`. `SpotLog.lua:246` schrijft de migratie zelfs in het
+      commentaar: *"fields 2-5 loose: 12.1.7 obfuscates the server id"*. Dat een veld méér geobfusceerd wordt,
+      raakt een losse `[^%-]+` niet. Positieve controle in dezelfde run: `strsplit` geeft 22 treffers onder
+      `Modules/`, dus het patroon zoekt.
+    - ⏳ **Eén ding blijft open en is vandaag NIET veranderd:** of de **player**-GUID ongemoeid blijft. Blizzards
+      opsomming noemt nog steeds alleen creature, vehicle, pet en game object — niet player — en daar hangen
+      `TimePlan.lua:66-67`, `MidnightCodexData.lua:942-946`, `RitualLog.lua:38-45` én de elf
+      ForeverCharKey-modules aan. `ForeverCharKey.lua:14-16` schrijft die aanname zelf als AFGELEID op. Alleen op
+      een client te meten.
+  - ✅ **[RAAKT ONS NIET] — de C_Intl-verscherping, en daarmee is een openstaand punt uit mijn eigen lijst DICHT.**
+    Letterlijk: *"Most `C_Intl` APIs, such as `CompareStrings`, `IsNormalized` and `GetDisplayName`, no longer
+    accept secret values from tainted code"*, met *"`ToUpper`, `ToLower`, `ToTitle`, `FoldCase`, `Normalize`,
+    `FormatNumber` and `Transliterate` still accept secret values."* GEMETEN: `C_Intl` komt in de hele addon
+    **één** keer voor, en dan als **naam in een lijst**: `Modules/PtrProbe.lua:129`, in `ADDED_GLOBALS` — de
+    probe die alleen vastlegt wat 12.1.5 toevoegde ("None are in use", `:127`). Wij roepen geen enkele
+    C_Intl-functie aan: `CompareStrings`, `IsNormalized`, `GetDisplayName`, `Transliterate`, `FoldCase` en
+    `LuaLocaleContextAPI` geven **0** treffers in dezelfde scope, met `C_Intl` zelf als positieve controle. 📌 Dat
+    sluit het punt *"de `AllowedWhenUntainted`-verscherping van `C_Intl`/`LuaLocaleContextAPI`"* dat sinds begin
+    november in mijn open lijst stond: hij is nu gepubliceerd, begrensd, en raakt ons niet.
+  - ✅ **[RAAKT ONS NIET] — de drie overige items uit 12.1.7 PTR 6.** Alle drie gemeten in dezelfde scope, met
+    `C_Intl` (1 treffer) als positieve controle dat de grep daar zoekt: *community- en guild-finder-links in
+    chat moeten het standaardformaat met de echte club/guild-naam gebruiken* → `C_Club`, `ClubFinder`,
+    `clubFinder`, `GuildFinder` en `|Hclub` geven **0** treffers; wij sturen die links niet (ter controle: andere
+    `|H`-links hebben wij wél, in o.a. `ForeverDoNow.lua`, `ValeeraProgress.lua`, `DelveTipMarkup.lua`). Het
+    geheugenplafond voor `C_EncodingUtil`-JSON/CBOR → **0** treffers. De nieuwe `C_MawBuffs`-API's (bedoeld om
+    taint-fouten met Maw-buffs te omzeilen) → **0** treffers; niets te migreren, alleen vastgelegd dat ze
+    bestaan.
+  - 🧭 **Forever: de hotfix van 23 nov volledig gelezen, geen `User Interface`-sectie.** Nieuwste artikel is
+    *"WoW: Forever Hotfixes - November 23, 2026"* (`worldofwarcraft.blizzard.com/en-us/news/24315281/…`,
+    gepubliceerd 24 nov 02:06, dus nieuwer dan het blok van 20 nov dat ik gisteren las). Het 23-nov-blok heeft
+    Classes, Dungeons, Items, Professions, Quests, Races en Spells — en **geen** UI- of addon-sectie. Het enige
+    item dat de API-kant raakt is de Mortal Strike-regel bovenaan. ⚠️ *"Fixed an issue where World Buffs would
+    fall off when changing areas"* en de herindeling van kook-recepten onder *"Stamina Food"* zijn
+    inhoudelijk — die horen bij `docs/CONTENT_WATCH.md`, niet bij mij; ik heb er niets aan getoetst.
+  - 🧰 **SimC-addon: geen nieuwe release sinds `12.1.5-05`.** GEMETEN eerstehands met `git ls-remote`: **259**
+    echte tags (identiek aan 21, 22 en 23 nov) en `refs/heads/master` = **`d0f2255`**, nog steeds gelijk aan
+    `refs/tags/12.1.5-05` van 20 nov. Niets te toetsen aan `ItemString`/`ns.BuildSimcProfile` in
+    `Modules/SimcExport.lua`. 📌 Werknoot voor morgen: `git ls-remote --tags | wc -l` geeft **292** omdat
+    annotated tags ook een `^{}`-regel krijgen; 259 is het aantal zonder die regels. Dezelfde maat als de vorige
+    dagen, dus geen verandering — alleen een valkuil om niet in te stappen.
+  - 🏗️ **Eén nieuwe build, en die laadt ons niet: `wow_classic` 5.5.4.71089 (24 nov 01:09).** GEMETEN op
+    `wago.tools/builds?nocache=20261124`. Op de takken die ons aangaan is er sinds 20 nov niets nieuws: `wowt`
+    **12.1.7.71087** (20 nov 23:25), `wowf` **1.60.1.71037** (20 nov 18:22), `wow` **12.1.5.70961** (17 nov) —
+    vier dagen stil. ✅ **[RAAKT ONS NIET], gemeten en niet aangenomen:** onze TOC's noemen alleen
+    `## AllowLoadGameType: standard` (`MidnightHelper.toc:3`) en `## AllowLoadGameType: camelot`
+    (`MidnightHelper_Camelot.toc:2`) — `classic` staat er in geen van beide. Positieve controle: dezelfde grep
+    vindt 20 respectievelijk 14 `##`-regels in die bestanden. Gethes vijf branch-tips zijn ook onveranderd:
+    `live` = `ab5cb850`, `beta` = `078d0cf7`, `ptr2` = `12380f8c`, `ptr` = `fbb18ce1`, `forever` = `734f0653`.
+  - 📄 **Wikipagina's: onveranderd, en dát is nu zélf het nieuws.** Alle drie mét `?nocache=20261124`:
+    `Patch_12.1.7/API_changes` heeft nog precies dezelfde twee Summary-items (server ID + spawn ID, géén realm
+    ID) en nog steeds geen Consolidated-changes-sectie; `Patch_12.1.5/API_changes` heeft blue posts t/m **29 sep**;
+    `Patch_1.60.1/API_changes` t/m **16 okt**. `Patch_12.2.0/API_changes` bestaat nog niet (CRAWL_NOT_FOUND),
+    terwijl de 12.1.7-pagina hem al als volgende patch noemt. 🔴 **Les voor deze wachter: de wiki is niet langer
+    de snelste bron.** Vier dagen na de notes van 20 nov staat de realm-ID-uitbreiding daar nog niet. Voeg de
+    WoWUIDev-Discord-weergaven (Wowhead `/forever/news`, Warcraft Tavern, en een zoekopdracht op
+    *"Coming in 12.1.7 PTR"*) toe aan de vaste ronde in plaats van alleen de wiki + UI-and-Macro.
+  - 💬 **[RAAKT ONS NIET] — UI-and-Macro-forum: twee nieuwe draden, beide spelersvragen, geen blue post.**
+    Lijst mét cache-buster: *"Removing My OWN HP Bar?"* staat nu op **24 nov** met 5 reacties (gisteren 22 nov,
+    0 reacties) en *"This is a very silly question: Is there a way to turn off the UI, but show my HP bar and the
+    enemy HP bar?"* is nieuw van **23 nov** (0 reacties, 10 views). Beide gaan over het verbergen van Blizzards
+    eigen frames, niet over API-gedrag. De `PlaySoundFile`-verzoekdraad staat nog op 15 nov (al op 14 en 15 nov
+    afgedekt, `Modules/DispelSound.lua:126-127`).
+  - 🚧 **Wat ik NIET kon lezen.** `warcraft.wiki.gg`, `news.blizzard.com`, `us.forums.blizzard.com`,
+    `worldofwarcraft.blizzard.com` en `wago.tools` blijven geweigerd door de egress-proxy op WebFetch; alles via
+    Exa, elk mét `?nocache=20261124`. `news.blizzard.com/en-us/article/24315281` gaf **CRAWL_REDIRECT** en
+    `wowhead.com/blue-tracker` **CRAWL_EMPTY_CONTENT**; de hotfixtekst is daarom van
+    `worldofwarcraft.blizzard.com/en-us/news/24315281/…` gelezen, wat dezelfde Blizzard-bron is. De WoWUIDev
+    Discord zelf kan ik niet bereiken — vandaar het label MEASURED (via search) op die twee notitiesets, met vier
+    woordelijk overeenstemmende weergaven als onderbouwing. 🔴 Eén cache-signaal gezien en afgevangen: een
+    WebSearch op de Forever-hotfixes gaf als nieuwste `article/24315281` met de titel *"November 5, 2026"* — ouder
+    dan wat mijn logboek gisteren al noemde (20 nov). Niet als "niets nieuws" geteld; opnieuw opgehaald via de
+    `worldofwarcraft.blizzard.com`-URL, en daar stond 23 nov.
+  - ⏳ **Nog open uit eerdere runs — ongewijzigd, NIET opnieuw gemeten vandaag.** Van de lijst van gisteren is
+    één punt af (de `C_Intl`-verscherping, hierboven) en één is gescherpt in plaats van gemeten (de
+    C_BattleNet-aanname op `FriendMarks.lua:15`). De rest staat ongewijzigd: de dode `PickupItem`-takken in
+    `Modules/KeyBlock.lua:1135`/`:1227`/`:1380` en `Modules/ApplyLayout.lua:1311`/`:1345`/`:1605`; de vijf
+    decoratieve `GetItemInfo`-terugvaltakken; de verouderde namespace-lijst in `docs/WATCHER_API_PROMPT.md`
+    (18 aug, noemt 57 namespaces en kent de twee TOC's niet); de client-test voor `/mh raidbots`;
+    `GetTimerDuration` toevoegen aan `Modules/ApiProbe.lua:377`; de `FrameStrata`-secret-vraag op
+    `Modules/PartyTargets.lua:517`; de drie `WOW_PROJECT_MAINLINE`-takken in `Libs/LibDBIcon-1.0.lua:533`/`:572`/
+    `:607` die op Forever omslaan; de ongemeten BETEKENIS van *"Edit Mode layouts are now saved separately for
+    each UI type"* voor `Modules/ForeverLayoutCarry.lua`; de shift-klik-taintvraag op
+    `Modules/Achievements.lua:1561`/`:1910`; de in-game-test van `ns.SelfCastMacroWarning` (`Core.lua:4318`); of
+    `C_LegacySystem` op de Forever-client bestaat en of het dezelfde Legacy-track is als die van
+    `Modules/ForeverLegacy.lua`; of de player-GUID ongemoeid blijft; en de opruiming van de oude
+    SavedVariables-sleutels na 28 nov. 🔴 Niets aangeraakt.
+  - 🔧 **Repo-staat: alleen `docs/API_WATCH.md` aangeraakt.** GEMETEN vóór het schrijven: `git status --short`
+    **leeg**, `HEAD` stond deze keer **wél** op `main` — niet losgeslagen, voor het eerst sinds dit in het logboek staat — en de top was
+    `189ffd0` *"Nachtcontrole 2026-11-24: C1 0 / C2 0 nakijken, snapshot actueel"*. De kloon is nog steeds ondiep
+    (`git rev-parse --is-shallow-repository` → **`true`**), dus een `(forced update)`-regel bij de pull komt
+    daarvan en niet van Rob — achtste dag dat dit hier staat.
