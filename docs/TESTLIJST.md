@@ -41,6 +41,9 @@ Offline getest (26 controles goed), NIET in het spel. Alleen in Forever, alleen 
 - [ ] `/mh block extras off`: 5 en Shift+Spatie doen weer wat ze eerst deden. `/mh block extras on`: terug.
 - [ ] Open "Why these keys?" (in `/mh block`): onderaan een stuk "Two extra keys", over 5 en Shift+Spatie.
 - [ ] Druk je bij de vraag "No thanks": MH vraagt het niet meer. Later toch: `/mh block extras on`.
+- [ ] (na de fix van 24 nov laat, `/reload` genoeg) Rob zag: *"het is nederlands (dat klopt) met engelse set them en no
+      thanks eronder"*. Nu: de knoppen zijn **Zet ze** / **Nee, dank je**. Ook "Fix it now"/"Later" bij inloggen heet nu
+      **Nu rechtzetten** / **Later**, en het venster "Your layout is set" (`/mh mylayout`) is nu Nederlands.
 
 ## 24 nov (avond, 6) — FOREVER: "Do this now" krijgt een knop How you play en je vrije tasplekken — ✅ GETEST
 

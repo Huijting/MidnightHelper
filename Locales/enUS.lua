@@ -5133,6 +5133,7 @@ ns._mhLocales.enUS = {
 	FBAR_FAILED_FMT = "bar layout: %s",
 	FBAR_NOT_NOW_CHAT = "bar layout: not on this character. The key block (/mh block, step 2) does it any time.",
 	FBAR_NEVER_CHAT_FMT = "bar layout: MH will not ask again. Turn it back on in Options -> AddOns -> Midnight Helper (\"%s\").",
+	FMYLAYOUT_RELOAD_TEXT = "Your layout is set. Reload now to finish?",
 	FBAR_RELOAD_TEXT = "Your MH bar layout is set. Reload now? The key block opens afterwards for step 1: your spells on the keys.",
 	FBAR_RELOAD_CHAT = "bar layout: type /reload to finish, then /mh block for step 1.",
 	FBAR_RELOAD_LATER_CHAT = "bar layout: type /reload when you are ready, then /mh block for step 1.",

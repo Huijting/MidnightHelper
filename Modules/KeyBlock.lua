@@ -2709,6 +2709,13 @@ local function CheckLayoutAtLogin()
 	end
 	local msg = ns:L("KEYBLOCK_MISMATCH_FMT"):format(LayoutWord(placed), LayoutWord(LayoutName()))
 	print("|cffffcc00Midnight Helper:|r |cffff8080" .. msg .. "|r " .. ns:L("KEYBLOCK_MISMATCH_CMD"))
+	-- Button texts at show time (the chosen language is not active yet when this file loads; Rob saw English buttons
+	-- under Dutch text on the extras question, 24 Nov 2026 -- same build-time lookup here).
+	local dlg = StaticPopupDialogs and StaticPopupDialogs["MH_KEYBLOCK_LAYOUT_MISMATCH"]
+	if dlg then
+		dlg.button1 = ns:L("KEYBLOCK_MISMATCH_FIX")
+		dlg.button2 = ns:L("KEYBLOCK_MISMATCH_LATER")
+	end
 	if StaticPopup_Show then
 		StaticPopup_Show("MH_KEYBLOCK_LAYOUT_MISMATCH", msg)
 	end

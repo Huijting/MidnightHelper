@@ -215,9 +215,6 @@ function ns.ForeverMyLayoutAskReload()
 		return
 	end
 	StaticPopupDialogs["MH_FOREVER_MYLAYOUT_RELOAD"] = StaticPopupDialogs["MH_FOREVER_MYLAYOUT_RELOAD"] or {
-		text = "Your layout is set. Reload now to finish?",
-		button1 = "Reload now",
-		button2 = "Later",
 		OnAccept = function()
 			if C_UI and C_UI.Reload then
 				C_UI.Reload()
@@ -233,6 +230,11 @@ function ns.ForeverMyLayoutAskReload()
 		hideOnEscape = true,
 		preferredIndex = 3,
 	}
+	-- Texts at show time, in the player's language (24 Nov 2026: these were fixed English strings).
+	local dlg = StaticPopupDialogs["MH_FOREVER_MYLAYOUT_RELOAD"]
+	dlg.text = ns:L("FMYLAYOUT_RELOAD_TEXT")
+	dlg.button1 = ns:L("KEYBLOCK_BTN_RELOAD")
+	dlg.button2 = ns:L("KEYBLOCK_NEW_LATER")
 	local pop = StaticPopup_Show("MH_FOREVER_MYLAYOUT_RELOAD")
 	if pop and pop.SetFrameStrata then
 		pop:SetFrameStrata("FULLSCREEN_DIALOG")

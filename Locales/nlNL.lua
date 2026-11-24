@@ -4283,6 +4283,7 @@ ns._mhLocales.nlNL = {
 	FBAR_FAILED_FMT = "balkenindeling: %s",
 	FBAR_NOT_NOW_CHAT = "balkenindeling: niet op dit character. Het toetsenblok (/mh block, stap 2) doet het altijd nog.",
 	FBAR_NEVER_CHAT_FMT = "balkenindeling: MH vraagt het niet meer. Zet het weer aan in Options -> AddOns -> Midnight Helper (\"%s\").",
+	FMYLAYOUT_RELOAD_TEXT = "Je indeling staat. Nu herladen om af te ronden?",
 	FBAR_RELOAD_TEXT = "Je MH-balkenindeling staat. Nu herladen? Daarna gaat het toetsenblok open voor stap 1: je spells op de toetsen.",
 	FBAR_RELOAD_CHAT = "balkenindeling: typ /reload om af te maken, daarna /mh block voor stap 1.",
 	FBAR_RELOAD_LATER_CHAT = "balkenindeling: typ /reload als je zover bent, daarna /mh block voor stap 1.",

@@ -2,6 +2,14 @@
 
 ## ▶▶ 24 nov avond (Bouwchat 24-11): 12 × 4 extra toetsen (5 = interact, Shift+Spatie = mount) — wacht op test
 
+📌 Fix daarna (Rob: *"het is nederlands (dat klopt) met engelse set them en no thanks eronder"*): de knoppen van een
+StaticPopup die bij het LADEN met `ns:L` gevuld worden, zijn Engels, want het gekozen pack (nlNL is handmatig) is dan nog
+niet actief. GEMETEN met grep op `button1 = ns:L(` (alle vensters): de vaste vorm is "teksten bij het tonen zetten"
+(FirstRun, Survey, MaxLevelWelcome, KEYBLOCK_NEW). Afwijkend waren MH_KEYEXTRA_ASK en MH_KEYBLOCK_LAYOUT_MISMATCH
+(beide vandaag) → nu bij het tonen. Ook MH_FOREVER_MYLAYOUT_RELOAD (7 nov) had vaste Engelse tekst + knoppen → nieuwe key
+FMYLAYOUT_RELOAD_TEXT (7 talen) + bestaande KEYBLOCK_BTN_RELOAD/KEYBLOCK_NEW_LATER. Ter info: Shift-Spatie stond bij Rob
+op Toggle Score Screen; de vraag liet dat zien. Test: 28 controles (ook: knoppen volgen een taal die na het laden komt).
+
 Rob via Sparring: *"En shift spatie is op zich wel een goed idee voor de mount. En de interact toets, nou, doe maar een
 voorstel."* → voorstel → *"Ja, ik volg advies dus A. Je trekt op 5 en dat punt blijft ook werken."*
 GEMETEN vooraf: `INTERACTTARGET` bestaat in Forever (GlobalStrings 1.60.1.71091; ook INTERACTMOUSEOVER); Robs

@@ -303,6 +303,13 @@ local function Ask()
 		return _G["BINDING_NAME_" .. a] or a
 	end
 	local msg = ns:L("KEYEXTRA_ASK_FMT"):format(InteractName(), Now(KEY_INTERACT), Now(KEY_MOUNT))
+	-- Button texts at show time, not at load: the chosen language pack (nlNL is manual) is not active yet when this
+	-- file loads. Rob, 24 Nov 2026: Dutch text with English "Set them" / "No thanks" under it.
+	local dlg = StaticPopupDialogs and StaticPopupDialogs["MH_KEYEXTRA_ASK"]
+	if dlg then
+		dlg.button1 = ns:L("KEYEXTRA_YES")
+		dlg.button2 = ns:L("KEYEXTRA_NO")
+	end
 	if StaticPopup_Show then
 		StaticPopup_Show("MH_KEYEXTRA_ASK", msg)
 	end
