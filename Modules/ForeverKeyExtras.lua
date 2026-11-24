@@ -20,9 +20,8 @@ local _, ns = ...
 	per character because the mounts are. /mh block extras = what MH sees now and why (a module that is quiet needs it).
 ]]
 
-if not ns.IS_FOREVER then
-	return
-end
+-- 24 Nov 2026: Midnight too, with 12 x 4 there (Rob via Sparring: "A A A"; 3a = Blizzard's random favourite mount on
+-- Shift-Space: C_MountJournal.SummonByID(0), the same call as the journal's own "Summon Random Favorite Mount" button).
 
 local PREFIX = "|cffffcc00Midnight Helper:|r "
 local KEY_INTERACT = "5"
@@ -150,15 +149,44 @@ local function MacroBody(id)
 	return "#showtooltip\n/dismount [mounted]\n/cast [nomounted] " .. name, name
 end
 
+--- Midnight: does this character have any mount it can use? (The random favourite needs at least one.)
+local function HasAnyMount()
+	local J = C_MountJournal
+	if not (J and J.GetMountIDs and J.GetMountInfoByID) then
+		return false
+	end
+	local ok, ids = pcall(J.GetMountIDs)
+	for _, mid in ipairs((ok and type(ids) == "table") and ids or {}) do
+		local okI, _, _, _, _, isUsable, _, _, _, _, hide, isCollected = pcall(J.GetMountInfoByID, mid)
+		if okI and isCollected and not hide and isUsable ~= false then
+			return true
+		end
+	end
+	return false
+end
+
+-- Midnight: Blizzard's random favourite. /dismount only on the ground (never drop a flying player), then summon when
+-- not mounted. SummonByID is not protected (the journal's own button calls it).
+local MN_BODY = "#showtooltip\n/dismount [mounted,noflying]\n/run if not IsMounted() then C_MountJournal.SummonByID(0) end"
+
 --- Make or update this character's macro. @return mount name, or nil + why
 local function EnsureMacro()
-	local id = BestMount()
-	if not id then
-		return nil, "this character knows no mount yet"
-	end
-	local body, name = MacroBody(id)
-	if not body then
-		return nil, "mount spell " .. id .. " has no name yet (not cached)"
+	local body, name
+	if ns.IS_FOREVER then
+		local id = BestMount()
+		if not id then
+			return nil, "this character knows no mount yet"
+		end
+		body, name = MacroBody(id)
+		if not body then
+			return nil, "mount spell " .. id .. " has no name yet (not cached)"
+		end
+		DB().mountSpell = id
+	else
+		if not HasAnyMount() then
+			return nil, "this character has no mount yet"
+		end
+		body, name = MN_BODY, ns:L("KEYEXTRA_MOUNT_RANDOM")
 	end
 	if not (GetMacroIndexByName and CreateMacro and EditMacro) then
 		return nil, "no macro functions in this client"
@@ -178,7 +206,6 @@ local function EnsureMacro()
 			return nil, "no room for a character macro (CreateMacro failed)"
 		end
 	end
-	DB().mountSpell = id
 	return name
 end
 
@@ -302,7 +329,8 @@ local function Ask()
 		end
 		return _G["BINDING_NAME_" .. a] or a
 	end
-	local msg = ns:L("KEYEXTRA_ASK_FMT"):format(InteractName(), Now(KEY_INTERACT), Now(KEY_MOUNT))
+	local msg = ns:L(ns.IS_FOREVER and "KEYEXTRA_ASK_FMT" or "KEYEXTRA_ASK_MN_FMT"):format(InteractName(),
+		Now(KEY_INTERACT), Now(KEY_MOUNT))
 	-- Button texts at show time, not at load: the chosen language pack (nlNL is manual) is not active yet when this
 	-- file loads. Rob, 24 Nov 2026: Dutch text with English "Set them" / "No thanks" under it.
 	local dlg = StaticPopupDialogs and StaticPopupDialogs["MH_KEYEXTRA_ASK"]
@@ -360,9 +388,14 @@ function ns.ForeverKeyExtrasCommand(arg)
 		Is12() and "12x4" or "old", tostring(ns.KeyBlockIsPlaced and ns.KeyBlockIsPlaced() or false)))
 	print(("  5 now: %s · Shift-Space now: %s"):format(Action(KEY_INTERACT) ~= "" and Action(KEY_INTERACT) or "-",
 		Action(KEY_MOUNT) ~= "" and Action(KEY_MOUNT) or "-"))
-	print(("  fastest mount you know: %s · mount journal in this client: %s"):format(
-		best and ((SpellName(best) or "?") .. " (" .. best .. ")") or "none",
-		tostring(C_MountJournal ~= nil and C_MountJournal.GetMountIDs ~= nil)))
+	if ns.IS_FOREVER then
+		print(("  fastest mount you know: %s · mount journal in this client: %s"):format(
+			best and ((SpellName(best) or "?") .. " (" .. best .. ")") or "none",
+			tostring(C_MountJournal ~= nil and C_MountJournal.GetMountIDs ~= nil)))
+	else
+		print(("  Midnight: Shift-Space = Blizzard's random favourite mount · a usable mount collected: %s"):format(
+			tostring(HasAnyMount())))
+	end
 	print("  last decision: " .. lastWhy)
 	print("  " .. ns:L("KEYEXTRA_USAGE"))
 end
@@ -398,6 +431,9 @@ local ev = CreateFrame("Frame")
 ev:RegisterEvent("PLAYER_ENTERING_WORLD")
 ev:RegisterEvent("SPELLS_CHANGED")
 ev:RegisterEvent("PLAYER_REGEN_ENABLED")
+if not ns.IS_FOREVER then
+	pcall(ev.RegisterEvent, ev, "NEW_MOUNT_ADDED") -- Midnight: your first mount gets Shift-Space right away
+end
 local pending, loginDone = false, false
 ev:SetScript("OnEvent", function(_, event)
 	if InFight() then

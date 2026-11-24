@@ -1,5 +1,25 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 24 nov avond (Bouwchat 24-11): 12 × 4 voor MIDNIGHT (stap A2) — tabel gebouwd, controle per spec loopt
+
+Rob via Sparring, letterlijk: *"A A A"* = 1a (rol-naar-toets-tabel uit de bestaande KeybindRoles, daarna mh-research per
+spec + tweede Opus-controle, uitzonderingen per spec), 2a (Ctrl-F combat potion, Ctrl-Z health potion, Ctrl-X trinket 2,
+Ctrl-C healthstone, Ctrl-V trinket 1), 3a (Blizzards willekeurige favoriete mount). Keuze 1a "alleen Forever" VERVALT.
+Gebouwd (`KeyBlock.lua`): LayoutName zonder Forever-poort; BLOCK_12R (Ctrl-rij Midnight); ANCHOR12/CATEGORY12/OVERFLOW12
++ ANCHOR_ORDER12_HEAL (healers: heals vóór de defensives, C = grote heal); KeyBlockAllocate schaduwt de tabellen bij 12x4
+in Midnight; `free()` eist nu dat de toets in de indeling BESTAAT (bindKey "5"/"Shift+F1" lekte anders naar een
+niet-bestaande toets; oud blok GEMETEN ongewijzigd: 1165 geplaatst / 71 over, voor en na); FixedWant `combatpotion`
+(ConsumablesWowhead combatPotion) en `trinket2`; geen tweede-trinket-overflow als Ctrl-X vast is; login-waarschuwing,
+`/mh block style`, knop Layout en "Why these keys?" nu ook in Midnight (KEYGUIDE_BAR_CTRL_MN / _EXTRA_MN).
+`ForeverKeyExtras.lua` ook in Midnight: Shift+Spatie = macro `/dismount [mounted,noflying]` + `/run if not IsMounted()
+then C_MountJournal.SummonByID(0) end` (nooit afstijgen in de lucht), alleen als je een bruikbare mount hebt;
+NEW_MOUNT_ADDED; eigen vraagtekst KEYEXTRA_ASK_MN_FMT. Offline: scratch `keys12_mn_test.lua` 40 specs × 2 indelingen,
+2734 controles 0 fout (geen spell op een oude-alleen-toets of vaste plek, interrupt op E, healer-C = heal waar
+heal_sustain bestaat); totaal 12×4 1150 geplaatst / 86 naar blok D. Dump per spec: scratch `keys12_mn_dump.txt`.
+GEZIEN in de dump, voor de controle: Holy Paladin C = Blessing of Protection (zijn heals zijn main_rotation, geen
+heal_sustain); Lay on Hands op Ctrl-R (heal_ooc). Open: controle per spec (mh-research + tweede Opus), uitzonderingen,
+itIT-vertalingen (alle 12×4-teksten missen itIT: Forever had geen it-client), TESTLIJST/IDEEEN/SITE_SEIN.
+
 ## ▶▶ 24 nov avond (Bouwchat 24-11): buff-knop cast op jezelf (stap B) — wacht op test
 
 Rob (Druid, Thorns): *"Elke keer als die in beeld komt, moet ik eerst mezelf aanklikken en dan pas kan ik op het knopje

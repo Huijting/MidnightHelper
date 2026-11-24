@@ -96,12 +96,31 @@ local BLOCK_12 = {
 	} },
 }
 
+-- 12 x 4 in MIDNIGHT (24 Nov 2026, Rob "A A A" = 2a): A, B and D as above; the Ctrl row's fixed items are the ones
+-- Midnight players use: Ctrl-F combat potion, Ctrl-Z health potion, Ctrl-X second trinket, Ctrl-C healthstone,
+-- Ctrl-V first trinket (bandages and mana potions are hardly used there).
+local BLOCK_12R = {
+	BLOCK_12[1], BLOCK_12[2], BLOCK_12[3],
+	{ id = "C", slots = {
+		{ key = "CTRL-1", task = "KEYBLOCK_T_FORM1" }, { key = "CTRL-2", task = "KEYBLOCK_T_FORM2" },
+		{ key = "CTRL-3", task = "KEYBLOCK_T_FORM3" }, { key = "CTRL-4", task = "KEYBLOCK_T_FORM4" },
+		{ key = "CTRL-Q", task = "KEYBLOCK_T_CD2B" }, { key = "CTRL-E", task = "KEYBLOCK_T_CD4" },
+		{ key = "CTRL-R", task = "KEYBLOCK_T_RECUP" },
+		{ key = "CTRL-F", task = "KEYBLOCK_T_COMBATPOT", fixed = "combatpotion" },
+		{ key = "CTRL-Z", task = "KEYBLOCK_T_POTION", fixed = "potion" },
+		{ key = "CTRL-X", task = "KEYBLOCK_T_TRINKET2", fixed = "trinket2" },
+		{ key = "CTRL-C", task = "KEYBLOCK_T_STONE", fixed = "healthstone" },
+		{ key = "CTRL-V", task = "KEYBLOCK_T_TRINKET", fixed = "trinket" },
+	} },
+}
+
 local BLOCK = {}
 
 --- "12x4" only in WoW Forever and only when the player chose it; everything else gets the old block.
 local function LayoutName()
 	local kb = ns.db and ns.db.keyBlock
-	if ns.IS_FOREVER and type(kb) == "table" and kb.style == "12x4" then
+	-- 24 Nov 2026: Midnight too (Rob: "En ja, ik zou dit ook graag in Midnight willen."). Before: Forever only.
+	if type(kb) == "table" and kb.style == "12x4" then
 		return "12x4"
 	end
 	return "old"
@@ -115,7 +134,7 @@ local function SyncLayout()
 	if syncedTo == name then
 		return
 	end
-	local src = name == "12x4" and BLOCK_12 or BLOCK_OLD
+	local src = (name == "12x4" and (ns.IS_FOREVER and BLOCK_12 or BLOCK_12R)) or BLOCK_OLD
 	for i = #BLOCK, 1, -1 do
 		BLOCK[i] = nil
 	end
@@ -183,6 +202,44 @@ local FAMILY_ORDER = { rotation = 1, interrupt = 2, defensive = 3, heal = 4, coo
 local OVERFLOW = { "CTRL-1", "CTRL-2", "CTRL-3", "SHIFT-V", "SHIFT-C", "SHIFT-X", "SHIFT-Z", "SHIFT-F1",
 	"SHIFT-4", "F3", "SHIFT-E" }
 
+-- 24 Nov 2026: "12 x 4" in MIDNIGHT (Rob via Sparring 24-11: "A A A" = 1a: the same roles, a second role-to-key table).
+-- The same job per key as the "Why these keys?" sheet: 1-3 rotation, 4 spender, Q big cooldown, E interrupt, R
+-- movement, F a helper/taunt, Z X C defensives (C the big one, or the big heal for a healer), V crowd control; Shift the
+-- second of the same kind (Shift-C the quick heal); Ctrl forms, helpers and the fixed items. Only the old block's own
+-- keys (5, T, G, F1-F4, Shift-T, Shift-F1) needed a new home. Forever has its own per-class tables (ForeverBlock_*.lua).
+local ANCHOR12 = {
+	interrupt = { "E" },
+	cooldown_bar = { "Q", "SHIFT-Q", "SHIFT-3", "CTRL-Q", "CTRL-E", "CTRL-4" },
+	defensive_1 = { "Z", "X", "SHIFT-Z", "SHIFT-X", "C", "SHIFT-C" },
+	defensive_2 = { "X", "Z", "SHIFT-X", "SHIFT-Z", "C", "SHIFT-C" },
+	defensive_3 = { "C", "Z", "X", "SHIFT-Z", "SHIFT-X", "SHIFT-C" },
+	defensive_4 = { "C", "Z", "X", "SHIFT-Z", "SHIFT-X", "SHIFT-C" },
+	heal_quick = { "SHIFT-C", "CTRL-R" },
+	heal_sustain = { "C", "SHIFT-C" },
+	heal_ooc = { "CTRL-R", "SHIFT-C" },
+	mobility = { "R", "SHIFT-R" },
+	utility_primary = { "R", "SHIFT-R" },
+	utility_secondary = { "F", "SHIFT-R", "CTRL-4" },
+}
+-- A healer's heals come before the defensives, so C is the big heal and Shift-C the quick one (the sheet's rule).
+local ANCHOR_ORDER12_HEAL = { "interrupt", "taunt", "cooldown_bar", "heal_sustain", "heal_quick", "defensive_1",
+	"defensive_2", "defensive_3", "defensive_4", "heal_ooc", "mobility", "utility_primary", "utility_secondary" }
+local CATEGORY12 = {
+	main_rotation = { "1", "2", "3", "SHIFT-1", "SHIFT-2", "SHIFT-3" },
+	raid_heal = { "1", "2", "3", "SHIFT-1", "SHIFT-2", "SHIFT-3" },
+	spender = { "4", "SHIFT-4", "SHIFT-3" },
+	defensive = { "Z", "X", "C", "SHIFT-Z", "SHIFT-X", "SHIFT-C" },
+	cooldown = { "Q", "SHIFT-Q", "SHIFT-3", "CTRL-Q", "CTRL-E", "CTRL-4" },
+	dispel_cc = { "V", "SHIFT-F", "SHIFT-V", "CTRL-E" },
+	utility = { "F", "SHIFT-R", "CTRL-4" },
+	racial = { "SHIFT-E" },
+	taunt = { "F" },
+}
+local OVERFLOW12 = { "CTRL-1", "CTRL-2", "CTRL-3", "CTRL-4", "CTRL-Q", "CTRL-E", "CTRL-R", "SHIFT-V", "SHIFT-Z",
+	"SHIFT-X", "SHIFT-C", "SHIFT-3", "SHIFT-E" }
+-- The seven healer specs (Holy Paladin, Resto Druid, Disc, Holy Priest, Resto Shaman, Mistweaver, Preservation).
+local HEALER_SPECS = { [65] = true, [105] = true, [256] = true, [257] = true, [264] = true, [270] = true, [1468] = true }
+
 local function Family(s)
 	if s.role == "interrupt" then return "interrupt" end
 	if s.category == "taunt" then return "taunt" end
@@ -229,16 +286,27 @@ end
 --- @return table left  spells with no place, in family order
 --- @return table trace one line per decision, for /mh block why
 function ns.KeyBlockAllocate(spells, specID)
-	local occ, trace, fixed = {}, {}, {}
+	-- 12 x 4 in Midnight: the same steps, the 12 x 4 tables (these locals shadow the old block's for this call only).
+	local ANCHOR, CATEGORY, ANCHOR_ORDER, OVERFLOW = ANCHOR, CATEGORY, ANCHOR_ORDER, OVERFLOW
+	if LayoutName() == "12x4" and not ns.IS_FOREVER then
+		ANCHOR, CATEGORY, OVERFLOW = ANCHOR12, CATEGORY12, OVERFLOW12
+		if specID and HEALER_SPECS[specID] then
+			ANCHOR_ORDER = ANCHOR_ORDER12_HEAL
+		end
+	end
+	local occ, trace, fixed, exists = {}, {}, {}, {}
 	for _, bar in ipairs(BLOCK) do
 		for _, slot in ipairs(bar.slots) do
+			exists[slot.key] = true
 			if slot.fixed then
 				fixed[slot.key] = true
 			end
 		end
 	end
+	-- A key the data asks for must exist in THIS layout (24 Nov 2026: with 12 x 4 in Midnight, bindKey "5" or
+	-- "Shift+F1" put a spell on a key the 12 x 4 block does not have; the old block always had them).
 	local function free(k)
-		return not occ[k] and not fixed[k]
+		return exists[k] and not occ[k] and not fixed[k]
 	end
 	local function try(s, keys, why)
 		for _, k in ipairs(keys) do
@@ -617,12 +685,12 @@ local function InBags(itemID)
 	return ok and type(n) == "number" and n > 0
 end
 
---- The healing potion this spec's consumables data names, first one you carry.
-local function PotionInBags()
+--- The healing potion (or another category: combatPotion) this spec's consumables data names, first one you carry.
+local function PotionInBags(category)
 	local _, token = UnitClass("player")
 	local idx = ns.GetSpecialization and ns.GetSpecialization()
 	local spec = token and idx and ns.ConsumablesWowheadByClassSpec and ns.ConsumablesWowheadByClassSpec[token]
-	local cat = spec and spec[idx] and spec[idx].healingPotion
+	local cat = spec and spec[idx] and spec[idx][category or "healingPotion"]
 	if not cat then
 		return nil
 	end
@@ -667,6 +735,21 @@ local function FixedWant(fixed)
 			return { kind = "item", id = id }
 		end
 		return nil, "no trinket with a Use: effect equipped"
+	end
+	-- 24 Nov 2026 (Midnight 12 x 4, Ctrl-X): the second trinket you can press.
+	if fixed == "trinket2" then
+		local id = UsableTrinkets()[2]
+		if id then
+			return { kind = "item", id = id }
+		end
+		return nil, "no second trinket with a Use: effect equipped"
+	end
+	if fixed == "combatpotion" then
+		local id = PotionInBags("combatPotion")
+		if id then
+			return { kind = "item", id = id }
+		end
+		return nil, "no combat potion for this spec in your bags"
 	end
 	-- WoW Forever (24 Nov 2026): its own measured item lists (ForeverReadyBoardData.lua, wowf 71037), best first,
 	-- only what your level can use. Mana potion and bandage exist only in the 12 x 4 block.
@@ -821,7 +904,16 @@ local function PlacePlan()
 	-- A second trinket you can press: the first free place of bar C, in overflow order (Rob, 5 Oct 2026:
 	-- "normaal hebben we twee trinkets, worden die ook allebei neergezet?"). Classes with forms keep Ctrl.
 	local trinkets = UsableTrinkets()
-	if trinkets[2] then
+	-- Midnight 12 x 4 has its own fixed place for the second trinket (Ctrl-X): no second copy on an overflow place.
+	local fixedTrinket2 = false
+	for _, bar in ipairs(BLOCK) do
+		for _, s in ipairs(bar.slots) do
+			if s.fixed == "trinket2" then
+				fixedTrinket2 = true
+			end
+		end
+	end
+	if trinkets[2] and not fixedTrinket2 then
 		local hasForms = false
 		for _, o in pairs(res.occ) do
 			if type(o.why) == "string" and o.why:find("^form") then
@@ -1600,7 +1692,8 @@ local function MissingRows()
 				-- "free" because Place lifts loose copies off D first; Update does not, so it waits for Place.
 				target = nil
 			else
-				for _, k in ipairs(OVERFLOW) do
+				local overflow = (LayoutName() == "12x4" and not ns.IS_FOREVER) and OVERFLOW12 or OVERFLOW
+				for _, k in ipairs(overflow) do
 					if empty[k] and byKey[k] and not reserved[k] and not (hasForms and k:find("^CTRL%-")) then
 						target = byKey[k]
 						break
@@ -2407,7 +2500,7 @@ Refresh = function(f)
 	local _, layoutOn, oldHidden, onPreset = ns.MH_EditModeKeyBlockState()
 	f.layoutBtn:SetText(ns:L(onPreset and "KEYBLOCK_BTN_OWN_LAYOUT" or "KEYBLOCK_BTN_LAYOUT"))
 	if f.whyBtn then
-		f.whyBtn:SetShown(ns.IS_FOREVER and LayoutName() == "12x4" or false)
+		f.whyBtn:SetShown(LayoutName() == "12x4")
 	end
 	if f.styleBtn then
 		local can = ns.KeyBlockCanUse12 and ns.KeyBlockCanUse12()
@@ -2465,8 +2558,8 @@ Refresh = function(f)
 				else
 					b:SetBackdropBorderColor(0.55, 0.45, 0.15, 1)
 				end
-			elseif slot.fixed == "trinket" then
-				local tex = GetInventoryItemTexture and GetInventoryItemTexture("player", 13)
+			elseif slot.fixed == "trinket" or slot.fixed == "trinket2" then
+				local tex = GetInventoryItemTexture and GetInventoryItemTexture("player", slot.fixed == "trinket2" and 14 or 13)
 				b.icon:SetTexture(tex)
 				b.task:SetText(ns:L(slot.task))
 				b.task:SetTextColor(0.85, 0.85, 0.85)
@@ -2581,10 +2674,7 @@ function ns.KeyBlockSetStyle(arg)
 		print(p .. ns:L("KEYBLOCK_STYLE_NOW_FMT"):format(ns:L(LayoutName() == "12x4" and "KEYBLOCK_STYLE_12" or "KEYBLOCK_STYLE_OLD")))
 		return
 	end
-	if not ns.IS_FOREVER then
-		print(p .. ns:L("KEYBLOCK_STYLE_FOREVER_ONLY"))
-		return
-	end
+	-- 24 Nov 2026: Midnight has 12 x 4 too (its own role-to-key table, ANCHOR12/CATEGORY12 above).
 	if arg ~= "old" and arg ~= "12x4" then
 		print(p .. ns:L("KEYBLOCK_STYLE_USAGE"))
 		return
@@ -2597,7 +2687,7 @@ function ns.KeyBlockSetStyle(arg)
 		print(p .. ns:L("KEYBLOCK_STYLE_UNDO_FIRST"))
 		return
 	end
-	if arg == "12x4" then
+	if arg == "12x4" and ns.IS_FOREVER then
 		local _, token = UnitClass("player")
 		local cls = token and ns.FOREVER_BLOCK_CLASSES and ns.FOREVER_BLOCK_CLASSES[token]
 		if not (cls and cls.keys12) then
@@ -2620,10 +2710,10 @@ function ns.KeyBlockSetStyle(arg)
 	print("   " .. ns:L("KEYBLOCK_STYLE_ALLCHARS"))
 end
 
---- Can this character use 12 x 4? (Forever: its class table has keys12.) Midnight gets its own tables later.
+--- Can this character use 12 x 4? Forever: its class table has keys12. Midnight: always (one table for all specs).
 function ns.KeyBlockCanUse12()
 	if not ns.IS_FOREVER then
-		return false
+		return true
 	end
 	local _, token = UnitClass("player")
 	local cls = token and ns.FOREVER_BLOCK_CLASSES and ns.FOREVER_BLOCK_CLASSES[token]
@@ -2741,7 +2831,9 @@ function ns.ShowKeyBlockWhy()
 	-- 24 Nov 2026: EXTRA = 5 interact + Shift-Space mount (ForeverKeyExtras.lua; Rob: "Je trekt op 5 en dat punt blijft").
 	for _, part in ipairs({ "A", "SHIFT", "CTRL", "ALT", "EXTRA" }) do
 		add(ns:L("KEYGUIDE_HEAD_" .. part), "GameFontNormal", 6, 1, 0.82, 0.2)
-		add(ns:L("KEYGUIDE_BAR_" .. part), "GameFontHighlightSmall", 16, 0.9, 0.9, 0.9)
+		-- Midnight's Ctrl row holds other things, and its mount is a random favourite (24 Nov 2026, Rob "A A A").
+		local suffix = (not ns.IS_FOREVER and (part == "CTRL" or part == "EXTRA")) and "_MN" or ""
+		add(ns:L("KEYGUIDE_BAR_" .. part .. suffix), "GameFontHighlightSmall", 16, 0.9, 0.9, 0.9)
 	end
 	-- Positions from the measured heights, again after the Forever style changed the font (it does that on show).
 	local function Layout()
@@ -2814,14 +2906,13 @@ if StaticPopupDialogs then
 	}
 end
 
---- Login check (Forever only): this character's bars hold the other layout than the account's keys follow.
+--- Login check: this character's bars hold the other layout than the account's keys follow. Forever since 24 Nov;
+--- Midnight too since Midnight got 12 x 4 the same day (its keys are account-wide as well: Rob's account
+--- bindings-cache.wtf is from 14 Nov, every per-character file from 5-11 Oct; AFGELEID from those dates).
 local function LayoutWord(name)
 	return ns:L(name == "12x4" and "KEYBLOCK_STYLE_12_SHORT" or "KEYBLOCK_STYLE_OLD_SHORT")
 end
 local function CheckLayoutAtLogin()
-	if not ns.IS_FOREVER then
-		return
-	end
 	local placed = PlacedLayout()
 	if not placed or placed == LayoutName() then
 		return
