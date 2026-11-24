@@ -2021,7 +2021,7 @@ local function Ensure()
 	close:SetPoint("TOPRIGHT", -4, -4)
 	f.intro = f:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
 	f.intro:SetPoint("TOPLEFT", 22, -42)
-	f.intro:SetPoint("RIGHT", -22, 0)
+	f.intro:SetPoint("RIGHT", -470, 0) -- room for the layout switch on the right (styleBtn, -150 / 300 wide)
 	f.intro:SetJustifyH("LEFT")
 
 	local barW = 4 * SLOT_W + 3 * GAP
@@ -2109,6 +2109,17 @@ local function Ensure()
 		NextMode()
 		Refresh(f)
 	end)
+	-- 24 Nov 2026 (Rob via Sparring 24-11: "Ja, er moet een knop komen, want dit was wel lastig. En anderen weten
+	-- inderdaad de commando's ook niet zo"): the layout switch, one click after a question. Under the New spells button:
+	-- the top row is full (guide 260-460, Why these keys? 475-675, old bars from ~698), and the intro makes room on the
+	-- right (see f.intro). Shown only where 12 x 4 exists for this character (Refresh).
+	f.styleBtn = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
+	f.styleBtn:SetSize(300, 20)
+	f.styleBtn:SetPoint("TOPRIGHT", -150, -40)
+	f.styleBtn:SetScript("OnClick", function()
+		ns.KeyBlockAskSwitchStyle()
+	end)
+	f.styleBtn:Hide()
 	-- Bars 2 and 3 back on screen, or hidden again (only while the block layout is on).
 	f.oldBarsBtn = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
 	f.oldBarsBtn:SetSize(240, 20)
@@ -2398,6 +2409,12 @@ Refresh = function(f)
 	if f.whyBtn then
 		f.whyBtn:SetShown(ns.IS_FOREVER and LayoutName() == "12x4" or false)
 	end
+	if f.styleBtn then
+		local can = ns.KeyBlockCanUse12 and ns.KeyBlockCanUse12()
+		f.styleBtn:SetShown(can or LayoutName() == "12x4")
+		f.styleBtn:SetText(ns:L("KEYBLOCK_STYLE_BTN_FMT"):format(ns:L(LayoutName() == "12x4" and "KEYBLOCK_STYLE_12_SHORT"
+			or "KEYBLOCK_STYLE_OLD_SHORT")))
+	end
 	if layoutOn then
 		f.oldBarsBtn:SetText(ns:L(oldHidden and "KEYBLOCK_BTN_OLDBARS_SHOW" or "KEYBLOCK_BTN_OLDBARS_HIDE"))
 		f.oldBarsBtn:Show()
@@ -2601,6 +2618,75 @@ function ns.KeyBlockSetStyle(arg)
 	-- 24 Nov 2026 (Rob: "advies a"): keys are account-wide (GEMETEN: one bindings-cache.wtf for the Forever account),
 	-- bars are per character. Say so here, and the login check below catches the characters that still hold the other.
 	print("   " .. ns:L("KEYBLOCK_STYLE_ALLCHARS"))
+end
+
+--- Can this character use 12 x 4? (Forever: its class table has keys12.) Midnight gets its own tables later.
+function ns.KeyBlockCanUse12()
+	if not ns.IS_FOREVER then
+		return false
+	end
+	local _, token = UnitClass("player")
+	local cls = token and ns.FOREVER_BLOCK_CLASSES and ns.FOREVER_BLOCK_CLASSES[token]
+	return (cls and cls.keys12) and true or false
+end
+
+--- The layout button (24 Nov 2026, Rob: "Ja, er moet een knop komen"): undo if placed, switch, place again if it was
+--- placed. Nothing on the bars changes for a block that was not placed: only the picture follows. Never in combat.
+--- @return boolean done
+function ns.KeyBlockSwitchStyle(target)
+	local p = "|cffffcc00Midnight Helper:|r "
+	if InCombatLockdown and InCombatLockdown() then
+		print(p .. ns:L("KEYBLOCK_LAYOUT_COMBAT"))
+		return false
+	end
+	target = target or (LayoutName() == "12x4" and "old" or "12x4")
+	if target == LayoutName() then
+		return true
+	end
+	local wasPlaced = GetSnap() ~= nil
+	if wasPlaced and not ns.KeyBlockUndo() then
+		return false
+	end
+	ns.KeyBlockSetStyle(target)
+	if LayoutName() ~= target then
+		return false -- SetStyle said why (no table for this class, ...)
+	end
+	if wasPlaced then
+		ns.KeyBlockPlace()
+	end
+	local f = _G.MidnightHelperKeyBlock
+	if f and f:IsShown() then
+		Refresh(f)
+	end
+	return true
+end
+
+--- The question first ("are you sure?"), with what will happen; texts set at show time (the player's language).
+function ns.KeyBlockAskSwitchStyle()
+	local target = LayoutName() == "12x4" and "old" or "12x4"
+	local word = ns:L(target == "12x4" and "KEYBLOCK_STYLE_12_SHORT" or "KEYBLOCK_STYLE_OLD_SHORT")
+	local msg = ns:L(GetSnap() and "KEYBLOCK_SWITCH_ASK_PLACED_FMT" or "KEYBLOCK_SWITCH_ASK_FMT"):format(word)
+	if not (StaticPopupDialogs and StaticPopup_Show) then
+		ns.KeyBlockSwitchStyle(target)
+		return
+	end
+	StaticPopupDialogs["MH_KEYBLOCK_SWITCH"] = StaticPopupDialogs["MH_KEYBLOCK_SWITCH"] or {
+		text = "%s",
+		timeout = 0,
+		whileDead = true,
+		hideOnEscape = true,
+		preferredIndex = 3,
+	}
+	local d = StaticPopupDialogs["MH_KEYBLOCK_SWITCH"]
+	d.button1 = ns:L("KEYBLOCK_SWITCH_YES")
+	d.button2 = CANCEL or ns:L("KEYEXTRA_NO")
+	d.OnAccept = function()
+		ns.KeyBlockSwitchStyle(target)
+	end
+	local pop = StaticPopup_Show("MH_KEYBLOCK_SWITCH", msg)
+	if pop and pop.SetFrameStrata then
+		pop:SetFrameStrata("FULLSCREEN_DIALOG") -- above the key block window
+	end
 end
 
 --- "Why these keys?" (24 Nov 2026; Rob via Sparring 24-11: "Dat gewoon voor iedereen weet dat een heal altijd op die knop

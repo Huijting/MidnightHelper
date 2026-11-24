@@ -28,6 +28,16 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 24 nov 2026 — toetsenblok: knop "Layout" om te wisselen tussen oud en 12 × 4
+- Tag + commit:   geen tag (commit: deze regel)
+- Status:         alleen op main
+- Mag op de site: nee (niet uit, niet getest)
+- Speler ziet:    In het toetsenblok-venster een knop "Layout: …": één klik (na een vraag) wisselt tussen het oude blok
+                  en 12 × 4 en zet het blok meteen opnieuw neer. Nog eens klikken = terug. Eerst alleen Forever.
+- Knoplabels:     KEYBLOCK_STYLE_BTN_FMT, KEYBLOCK_SWITCH_YES
+- Commando's:     geen nieuwe (/mh block style blijft)
+- Spel:           Forever (Midnight volgt met 12 × 4 voor Midnight)
+
 ## 24 nov 2026 — release 5.9.0 (staat op CurseForge)
 - Tag + commit:   v5.9.0 / 1bdc468. Release-run GitHub 45451928608: geslaagd (Retail + Forever + verify). CF-API 24 nov
                   17:53 UTC: MidnightHelper-v5.9.0.zip (id 9795543, 12.0.7-12.1.7) en MidnightHelper-v5.9.0-forever.zip

@@ -26,6 +26,16 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 
 ## Open — wacht op Rob
 
+### Toetsenblok: knop voor de indeling + 12 × 4 ook in Midnight (wens van Rob, 24 nov) — ✅ JA; stap 1 GEBOUWD, stap 2 open
+- Bron: Rob via Sparring 24-11, letterlijk: *"Ja, er moet een knop komen, want dit was wel lastig. En anderen weten
+  inderdaad de commando's ook niet zo, als ze het niet gelezen hebben. En ja, ik zou dit ook graag in Midnight
+  willen."*; op de samenvatting: *"Ja, dit klopt."* Daarmee VERVALT keuze 1a (12 × 4 alleen Forever).
+- Stap 1 ✅ gebouwd 24 nov, wacht op test: knop "Layout: …" in `/mh block` (onder "New spells"); één klik na een vraag =
+  undo + wisselen + opnieuw neerzetten (alleen als het blok stond); nog eens klikken = terug. Commando's blijven.
+- Stap 2 open: 12 × 4 voor Midnight (40 specs, mh-research + tweede controle, zelfde taak per toets, 5/Shift+Spatie als
+  aanbod, speelkaarten volgen de indeling, oud blok standaard; account-brede binds in retail meten).
+- Spel: M + F. Voor wie: N + V (AFGELEID).
+
 ### Forever: "Do this now" — knop How you play + vrije tasplekken naast je goud (wens van Rob, 24 nov) — ✅ AF: GEBOUWD 24 nov (99770bc) en GETEST (Rob via Sparring, letterlijk: *"Ja, beide zijn helemaal goed."*)
 - Bron: Rob via Sparring 24-11, letterlijk: *"kunnen we hier onder ook een knop how to play toevoegen en in het rijtje van
   gold aan de linkerzijde het aantal open tas plaatsen :)"*; op de samenvatting van Sparring: *"ja"*.

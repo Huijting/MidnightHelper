@@ -1,5 +1,15 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 24 nov avond (Bouwchat 24-11): knop "Layout" in het toetsenblok (stap A1) — wacht op test
+
+Rob via Sparring (letterlijk in IDEEEN). `KeyBlock.lua`: `f.styleBtn` (TOPRIGHT -150,-40, 300 px, onder New spells; de
+bovenste rij zit vol, de intro maakt rechts 470 px vrij), `ns.KeyBlockCanUse12` (nu: Forever + keys12),
+`ns.KeyBlockAskSwitchStyle` (StaticPopup MH_KEYBLOCK_SWITCH, teksten bij het tonen, twee teksten: geplaatst / niet
+geplaatst) en `ns.KeyBlockSwitchStyle` (undo als het blok stond → KeyBlockSetStyle → Place als het stond; nooit in een
+gevecht; weigert SetStyle, dan wordt er niets neergezet). Hooks van ForeverKeyExtras werken mee (Place = de extras-vraag,
+naar oud = extras weg). Teksten 7 talen (KEYBLOCK_STYLE_BTN_FMT, KEYBLOCK_SWITCH_*). Offline: scratch `switch_test.lua`
+16/16. Midnight: knop verborgen tot stap A2 (12 × 4 voor Midnight). Daarna B (Thorns-knop), dan A2.
+
 📌 Na 5.9.0 (site-chat, bijvangst): nlNL noemde het venster in 4 regels "Do this now" i.p.v. de nl-titel "Doe dit nu"
 (SET_FOREVER_WEAR_TITLE/_DESC, FTALENT_SW/_DESC) → nu "Doe dit nu". GEMETEN: daarna 0 keer "Do this now" in nlNL.lua.
 Gaat mee in de volgende release.

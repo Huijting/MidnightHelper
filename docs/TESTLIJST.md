@@ -25,6 +25,19 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 24 nov (avond, 10) — FOREVER: knop "Layout" in het toetsenblok (Rob: "Ja, er moet een knop komen")
+
+Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (16 controles), NIET in het spel.
+- [ ] Open `/mh block`. Rechtsboven, onder "New spells: …", staat een knop **Layout: the old block (switch)**
+      (of "Indeling: het oude blok (wisselen)" in het Nederlands). Staat er geen tekst over elkaar met de uitleg links?
+- [ ] Klik erop: er komt eerst een vraag "Switch your key block to 12 x 4?" met uitleg. Druk **Cancel**: er gebeurt niets.
+- [ ] Klik nog eens en druk **Switch**: MH haalt het blok van je balken, wisselt naar 12 × 4 en zet het meteen weer neer.
+      De knop zegt nu "Layout: 12 x 4". (Daarna kan de vraag over de extra toetsen komen.)
+- [ ] Nog eens klikken + Switch: terug naar het oude blok, weer neergezet.
+- [ ] Een character waar het blok NIET staat: de vraag zegt dat alleen het plaatje verandert; je balken blijven zoals ze zijn.
+- [ ] In een gevecht: de knop doet niets en zegt waarom.
+- Midnight: de knop is er nog niet, want 12 × 4 bestaat daar nog niet (dat komt in de volgende stap).
+
 ## 24 nov (avond, 9) — FOREVER: Lua-fout KeyBlock.lua:1527 bij inloggen (Druid, na een harde uitval van de pc)
 
 Alleen een bestaand bestand gewijzigd: `/reload` is genoeg. Offline getest met Robs geval (6 controles), NIET in het spel.

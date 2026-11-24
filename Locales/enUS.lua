@@ -855,6 +855,11 @@ ns._mhLocales.enUS = {
 	KEYBLOCK_STYLE_ALLCHARS ="Your keys count for all your characters. On each other character: /mh block undo, then place the block again (or press \"Fix it now\" when MH asks at login).",
 	KEYBLOCK_STYLE_12_SHORT = "12 x 4",
 	KEYBLOCK_STYLE_OLD_SHORT = "the old block",
+	-- 24 Nov 2026: the layout switch in the key block window (Rob: "Ja, er moet een knop komen").
+	KEYBLOCK_STYLE_BTN_FMT = "Layout: %s (switch)",
+	KEYBLOCK_SWITCH_ASK_FMT = "Switch your key block to %s?\n\nThe picture changes; nothing on your bars changes until you place it. Your keys count for all your characters.",
+	KEYBLOCK_SWITCH_ASK_PLACED_FMT = "Switch your key block to %s?\n\nMidnight Helper takes the block off your bars, switches, and places it again, in one go. Your keys count for all your characters; on another character MH asks at login.\n\nWant it back? Press this button again.",
+	KEYBLOCK_SWITCH_YES = "Switch",
 	KEYBLOCK_MISMATCH_FMT = "Your key block on this character is placed as %s, but your keys now follow %s (keys count for all your characters). Some keys press the wrong button here.",
 	KEYBLOCK_MISMATCH_CMD = "Type /mh block fix to take it off and place it again.",
 	KEYBLOCK_MISMATCH_FIX = "Fix it now",
