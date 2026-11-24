@@ -1,5 +1,15 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 24 nov avond (Bouwchat 24-11): buff-knop cast op jezelf (stap B) — wacht op test
+
+Rob (Druid, Thorns): *"Elke keer als die in beeld komt, moet ik eerst mezelf aanklikken en dan pas kan ik op het knopje
+drukken."* Oorzaak GEMETEN in de code: `MissingBuff.lua` ApplySecureCast zette bij een spell alleen type + spell, geen
+`unit`; dan cast het spel een helpful spell op je target, en wacht op een klik als dat een vijand is. Fix: de entries
+van de Forever-buffs (`ForeverBuffs.lua`: ontbrekend + "runs out soon") krijgen `self = true`, en de knop zet dan
+`unit = "player"`; `unit` wordt op elk pad eerst gewist. Pet-spells (Call/Revive Pet, demonen) en het ally-macropad
+blijven zoals ze waren. Midnight (retail-entries) onveranderd. Groepsbord: de eigen rij zet al `unit = row.unit`
+(= player), GEMETEN in `ForeverReadyBoard.lua` (CastButton unit). Offline: scratch `selfbuff_test.lua` 9/9.
+
 ## ▶▶ 24 nov avond (Bouwchat 24-11): knop "Layout" in het toetsenblok (stap A1) — wacht op test
 
 Rob via Sparring (letterlijk in IDEEEN). `KeyBlock.lua`: `f.styleBtn` (TOPRIGHT -150,-40, 300 px, onder New spells; de

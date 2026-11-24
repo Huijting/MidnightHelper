@@ -877,6 +877,7 @@ local function ApplySecureCast(entry)
 	-- Item attributes are cleared on every path; only the item branch sets them (16 Nov 2026).
 	b:SetAttribute("item", nil)
 	b:SetAttribute("target-slot", nil)
+	b:SetAttribute("unit", nil)
 	if entry and entry.item then
 		-- Forever weapon item (stone/oil/poison, ForeverBuffs.lua): use the item and target the weapon slot in one
 		-- secure click. SecureTemplates.lua (forever branch, GEMETEN by mh-research): after the action, when the
@@ -898,6 +899,11 @@ local function ApplySecureCast(entry)
 		b:SetAttribute("type", "spell")
 		b:SetAttribute("spell", entry.spell)
 		b:SetAttribute("macrotext", nil)
+		-- 24 Nov 2026 (Forever, Rob's Druid with Thorns): without a unit the game casts a helpful spell on your target,
+		-- or waits for you to click someone when that target is an enemy. A buff of yours (entry.self) goes on you.
+		if entry.self then
+			b:SetAttribute("unit", "player")
+		end
 	else
 		b:SetAttribute("type", nil)
 		b:SetAttribute("spell", nil)

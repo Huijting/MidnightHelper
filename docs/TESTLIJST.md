@@ -25,6 +25,14 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 24 nov (avond, 11) — FOREVER: de buff-knop cast op JEZELF (Rob, Thorns: "moet ik eerst mezelf aanklikken")
+
+Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (9 controles), NIET in het spel.
+- [ ] Druid: target een vijand (of een ander), wacht tot "Thorns runs out soon" in beeld komt, en klik op het icoon:
+      Thorns komt meteen op JOU. Je hoeft jezelf niet eerst aan te klikken.
+- [ ] Hetzelfde met een buff die je mist (Mark of the Wild, Arcane Intellect, Demon Skin …): één klik = op jezelf.
+- [ ] Hunter met een dode pet: Revive Pet werkt zoals vroeger.
+
 ## 24 nov (avond, 10) — FOREVER: knop "Layout" in het toetsenblok (Rob: "Ja, er moet een knop komen")
 
 Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (16 controles), NIET in het spel.

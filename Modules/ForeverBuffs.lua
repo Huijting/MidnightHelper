@@ -518,6 +518,9 @@ function ns.GetForeverMissingBuffs()
 		local name, _, pick = Evaluate(d)
 		if name then
 			Entry(out, BestRank(name), d.textKey, nil, pick, d.choice or d.imbue, name)
+			-- 24 Nov 2026 (Rob's Druid, Thorns: "Elke keer … moet ik eerst mezelf aanklikken en dan pas kan ik op het
+			-- knopje drukken"): a buff of yours is cast on YOU, whatever you target (MissingBuff.lua sets unit=player).
+			out[#out].self = true
 			if d.imbue then
 				shamanImbueOffered = true
 			end
@@ -548,6 +551,7 @@ function ns.GetForeverMissingBuffs()
 			if id then
 				Entry(out, id, "MBUFF_TXT_EXPIRING", nil, pick, d.choice, cast)
 				local e = out[#out]
+				e.self = true -- on you, also with an enemy or a friend targeted (see above)
 				e.expiring = math.floor(left)
 				e.name = e.name .. " (" .. ns:L("MBUFF_LEFT_FMT"):format(math.max(1, math.ceil(left / 60))) .. ")"
 			end
