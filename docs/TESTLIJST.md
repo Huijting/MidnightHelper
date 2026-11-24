@@ -25,6 +25,14 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 25 nov (nacht) — MIDNIGHT Prot Paladin 12 × 4: nog te doen vóór 5.9.1
+
+Gemeten in je SavedVariables: alles staat goed, behalve toets 1 (daar staat waarschijnlijk Blizzards "Single-Button
+Assistant", die MH nooit bedekt).
+- [ ] Sleep de knop van toets 1 (de Single-Button Assistant: hij toont steeds een ander icoon) weg, bv. naar een Alt-plek.
+      Dan `/mh block` → **Update (add new spells)**: Judgment komt op toets 1.
+- [ ] Ga in `/mh block` op Ctrl-V / Ctrl-X staan: de tooltip noemt je trinket. Zeg welke het is (heeft hij een Use:?).
+
 ## 25 nov (nacht) — toetsenblok: trinket-plekken eerlijk op het plaatje (Rob's Prot Paladin: Ctrl-X/Ctrl-V leeg)
 
 Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. NIET in het spel getest.

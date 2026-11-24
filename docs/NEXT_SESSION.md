@@ -1,6 +1,25 @@
 # Midnight Helper — waar we staan
 
-## ▶▶ 25 nov nacht (Bouwchat 24-11): Midnight 12 × 4 op Robs Prot Paladin — balken ≠ plaatje, ONDERZOEK LOOPT
+## ▶▶ 25 nov nacht (Bouwchat 24-11): Midnight 12 × 4 op Robs Prot Paladin — UITKOMST (vóór 5.9.1 nog testen)
+
+GEMETEN in keyBlockProbe (retail-SV 25 nov 00:07, spec 66, layout 12x4, slot voor slot): ALLES staat zoals het plan, op
+één toets na. 2 Avenger's Shield · 3 Blessed Hammer (vervangt Hammer of the Righteous, zelfde knop) · 4 Shield of the
+Righteous · Q Sentinel (vervangt Avenging Wrath) · E Rebuke · R Divine Steed · F Hand of Reckoning · Z Ardent Defender ·
+X Divine Shield · C Guardian of Ancient Kings · V Cleanse Toxins · Shift-1 Consecration · Shift-3 Blessing of Sacrifice ·
+Shift-Q Divine Toll · Shift-E Arcane Torrent · Shift-R Rite of Sanctification · Shift-F Hammer of Justice · Shift-Z
+Blessing of Protection · Shift-X Holy Bulwark · **Shift-C Word of Glory (85673: NIET leeg)** · Shift-V Blinding Light ·
+Ctrl-1/2/3 Devotion / Crusader / Concentration Aura (dus: de aura's bestaan en zijn knoppen in Midnight, GEMETEN) ·
+Ctrl-4 Intercession · Ctrl-E Blessing of Freedom · Ctrl-R Redemption · Ctrl-F combat potion (241308) · Ctrl-Z health
+potion (271884). Leeg: Shift-2, Shift-4, Ctrl-Q (niets voor in het plan), Ctrl-X/Ctrl-C/Ctrl-V (geen bruikbare trinket /
+geen Healthstone). Alt: Spellwarding, Recuperate, een eigen macro, Flash of Light, Lay on Hands.
+De afwijking: **toets 1 = "refuse", met spell 375576 (Divine Toll), dat ook op Shift-Q staat**. In de code kan dat
+alleen de Single-Button Assistant van Blizzard zijn (IsAssist, KeyBlock.lua; die meldt zich als de spell die hij
+voorstelt). MH bedekt of verplaatst die bewust nooit (een addon kan hem niet terugzetten). AFGELEID, niet op Robs scherm
+gezien. Dus Judgment staat niet op 1. Wat Rob doet: de Single-Button Assistant van toets 1 slepen (bv. naar een Alt-plek),
+dan `/mh block` → "Update (add new spells)": Judgment komt op 1. Geen code-fout. Rob: *"het ziet er nu wel goed uit"*.
+Idee voor later (NIET gebouwd): de vraag/Update zegt het met naam als een plek de Single-Button Assistant houdt.
+
+## ▶▶ 25 nov nacht (Bouwchat 24-11): Midnight 12 × 4 op Robs Prot Paladin — balken ≠ plaatje (eerdere stand)
 
 Rob: *"volgens mij zet hij ze niety in mijn keyblock , ook niet na update"*, daarna *"het gaat niet om het block dat MH
 laat zien maar mijn layout in game , onder dat block, dat komt niet overeen"*. Sparring zag op een klein screenshot
