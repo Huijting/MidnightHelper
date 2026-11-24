@@ -347,6 +347,8 @@ local WEAPON_ITEMS = {
 	{ id = 23122, lvl = 50, fit = W_OIL }, { id = 23123, lvl = 50, fit = W_OIL },
 }
 
+ns.FOREVER_WEAPON_ITEMS = WEAPON_ITEMS -- the group board (ForeverReadyBoard.lua) asks "a stone/oil in your bags?" too
+
 local function ItemCount(id)
 	local fn = (C_Item and C_Item.GetItemCount) or GetItemCount
 	if not fn then

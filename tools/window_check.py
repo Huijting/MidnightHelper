@@ -41,6 +41,8 @@ EXEMPT = {
     "MidnightHelperPartyTargets": "own size: a resize grip (PartyTargets.lua:1146 SetResizable / StartSizing)",
     "MidnightHelperForeverParty": "own Shift+scroll (ForeverPartyPanel.lua Build, OnMouseWheel)",
     "MidnightHelperForeverDoNow": "own Shift+scroll (ForeverDoNow.lua Build, OnMouseWheel)",
+    "MidnightHelperForeverReadyBoard": "own Shift+scroll (ForeverReadyBoard.lua Build, OnMouseWheel): its secure click "
+                                       "buttons must be re-placed after a resize, which the DialogPopup sweep cannot do",
     # Not a window: does not take the mouse, or is a secure/protected frame, a menu, a test pad or no frame to see.
     "MidnightHelperEventFrame": "event frame, nothing to see",
     "MidnightHelperRolesetTest": "debug probe (ApiProbe.lua), not for players",

@@ -26,7 +26,14 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 
 ## Open — wacht op Rob
 
-### Forever: consumable-venster voor de party, zoals in Midnight (wens van Rob, 23 nov) — ✅ Rob zegt: JA, morgen (nog niets gebouwd)
+### Forever: consumable-venster voor de party, zoals in Midnight (wens van Rob, 23 nov) — ✅ JA (optie A), GEBOUWD 24 nov, wacht op test
+- 24 nov: Rob via Sparring 24-11, letterlijk: *"Ja maak maar"*, en op *"Bedoel je doe jouw advies (A)?"*: *"ja"*.
+  Gebouwd: `Modules/ForeverReadyBoard.lua` + `ForeverReadyBoardData.lua` (nieuw, beide toc's, alleen actief in Forever).
+  Eigen spullen (elixer/flask, Well Fed, iets op je wapen, health/mana potion, healthstone bij een Warlock) + class-buffs
+  van iedereen (Arcane Intellect, Fortitude, Mark of the Wild, een Blessing), wie hem kan geven, eigen buff klikbaar.
+  Opent bij een ready check (`/mh readyboard auto on|off`) en met `/mh readyboard`; diagnose `/mh readycheck`.
+  Id's GEMETEN door mh-research (`docs/forever/CONSUMABLES_FOREVER_2026-11-24.md`); Battle/Guardian-elixers niet in
+  de data → één kolom. Andermans tassen = optie B, NIET gebouwd. Offline getest (43/43), NIET in het spel.
 - Bron: Rob 23 nov via sparring, letterlijk: *"oke, we gaan nu slapen, voor morgen, een consumable venster voor de party in
   forever zoals in midnight, maar nu weltrusten"*, en daarna: *"en de buffs natuurlijk, slaap lekker"*.
 - 🔴 De buffs van de groep horen er nadrukkelijk bij: per groepslid welke class-buff hij mist (Arcane Intellect, Fortitude,

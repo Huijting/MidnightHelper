@@ -28,6 +28,27 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 24 nov 2026 — Forever: groepsbord met buffs en consumables (zoals Midnight's ready check)
+- Tag + commit:   geen tag (commit: deze regel)
+- Status:         alleen op main
+- Mag op de site: nee, nog niet (geen release; Rob test eerst).
+- Speler ziet:    Bij een ready check (of met /mh readyboard) een bord met een rij per groepslid: jouw elixer/flask, eten,
+                  wapen, potions en healthstone, en van iedereen de class-buffs (wie mist hem, wie kan hem geven). Je eigen
+                  buff klik je aan om hem te casten. Andermans tassen ziet MH niet.
+- Knoplabels:     FCONS_TITLE
+- Commando's:     /mh readyboard, /mh readyboard auto on|off (/mh readycheck is voor ons)
+- Spel:           Forever
+
+## 24 nov 2026 — Forever: Warrior toets 3 en Priest-gids (na Blizzards hotfix van 23 nov)
+- Tag + commit:   geen tag (a84ac30)
+- Status:         alleen op main
+- Mag op de site: nee, nog niet (geen release).
+- Speler ziet:    Toets 3 van een Warrior zonder het talent Mortal Strike doet weer Bloodthirst of Shield Slam. De Priest-gids
+                  zegt niet meer dat Chastise niet werkt in Shadowform.
+- Knoplabels:     geen nieuwe
+- Commando's:     geen nieuwe
+- Spel:           Forever
+
 ## 23 nov 2026 — Forever: layer-meting (alleen voor ons) + teller in het class-questkaartje
 - Tag + commit:   geen tag (commit: deze regel)
 - Status:         alleen op main

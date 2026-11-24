@@ -25,6 +25,27 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 24 nov — FOREVER: groepsbord met buffs en consumables (Rob: "Ja maak maar", optie A)
+
+🔴 Nieuw bestand: sluit het spel eerst helemaal af en start opnieuw (een `/reload` is niet genoeg).
+Offline getest (43 van 43 gevallen goed), NIET in het spel. Alles in Forever.
+- [ ] Alleen, buiten een gevecht: typ `/mh readyboard`. Er komt een venster "Group check: buffs and consumables" met
+      één rij (jij). Bovenaan staan kleine icoontjes per kolom; ga erop staan voor de naam.
+- [ ] Jouw rij: een vinkje (groen) bij wat je hebt of op je hebt, oranje bij wat alleen in je tas zit, een rood kruis
+      bij wat ontbreekt. Ga op een icoontje staan: de tooltip zegt wat het is en waarom. Klopt dat met je tas?
+- [ ] Eet iets met een buff (Well Fed) of drink een elixer: binnen een seconde wordt die kolom groen.
+- [ ] Ben je een Mage, Priest, Druid of Paladin: rechts staat je eigen buff. Klik erop: je cast hem op jezelf.
+- [ ] Shift+scroll op het venster maakt het groter/kleiner; slepen verplaatst het. Klik daarna nog eens op je buff:
+      de klik zit nog op de goede plek.
+- [ ] In een groep: elke speler een rij. Bij de anderen staat alleen een vraagteken bij de spullen (ga erop staan:
+      "MH kan niet in hun tas kijken") en hun buffs: groen = heeft hem, rood = mist hem. Ga op een buff staan: je ziet
+      wie hem kan geven.
+- [ ] Als jij de buff geeft: klik op de buff bij een groepslid → je cast hem op die speler.
+- [ ] Iemand start een ready check: het venster gaat vanzelf open. `/mh readyboard auto off` → niet meer;
+      `/mh readyboard auto on` → weer wel.
+- [ ] Begin een gevecht: het venster gaat dicht. In een gevecht zegt `/mh readyboard` dat het nu niet kan.
+- [ ] Na de test: `/mh readycheck` en `/reload`. Dan leest de bouwchat `foreverReadyProbe` uit je SavedVariables.
+
 ## 24 nov — FOREVER: twee kleine fixes na de hotfix van 23 nov (Sparring 24-11: "ga door met de kleine dingen")
 
 Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (toets 3: 9 van 9 gevallen goed), NIET in het spel.

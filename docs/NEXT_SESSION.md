@@ -1,5 +1,27 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 24 nov (Bouwchat 24-11): Forever-groepsbord GEBOUWD (optie A) — wacht op Robs test
+
+Rob via Sparring 24-11, letterlijk: *"Ja maak maar"* en op *"Bedoel je doe jouw advies (A)?"*: *"ja"*.
+- 🧪 `Modules/ForeverReadyBoard.lua` + `ForeverReadyBoardData.lua` (NIEUW, beide toc's; alleen actief in Forever = herstart).
+  Neemt in Forever de namen `ns.ShowConsumableBoard` (`/mh readyboard`, `/mh board`, NavSearch, Launchpad) en
+  `ns.PrintConsumableReadyCheck` (`/mh readycheck` = diagnose → `ns.db.foreverReadyProbe`) over; Midnight-bestanden
+  staan niet in de Forever-toc, dus geen botsing (GEMETEN met grep). Nieuw: `/mh readyboard auto on|off` (Core.lua).
+- Eigen kolommen: elixer/flask (75), eten (Well Fed + 5 andere namen; vissen/kruiden/snelheid tellen NIET), wapen
+  (`ns.ForeverTempEnchant` + `ns.FOREVER_WEAPON_ITEMS`, nieuw export in ForeverBuffs.lua), hpot, mpot (mana-classes),
+  hs (alleen met Warlock). Buffs: int (alleen mana-classes), fort, motw, bless (elke blessing telt; klik = laatst
+  gecaste, anders de eerste die je kent). Een kolom alleen als die class in de groep zit.
+- Andermans auras: één scan per speler; te ver weg / offline / geheime id / in gevecht = vraagteken, nooit rood.
+  Gaat dicht bij PLAYER_REGEN_DISABLED. Klikknoppen op UIParent, met de hand geplaatst, sluiten mee (lessen
+  ConsumableReadyBoard). Eigen Shift+scroll → `tools/window_check.py` EXEMPT (reden: knoppen moeten mee).
+- Id's: mh-research, `docs/forever/CONSUMABLES_FOREVER_2026-11-24.md` (wowf 71037). NIET meetbaar: Battle/Guardian-
+  elixers (niet in de clientdata → één kolom), welke healthstone de server maakt, of de SoD-potions bestaan.
+- Offline 43/43 (scratch `readyboard_test.lua`), NIET in het spel. Vertalingen de/fr/es/pt/ru: mh-writer (niet
+  nagekeken door een moedertaalspreker). GEMETEN (SpellName wowf 71037): Well Fed 1248406 = Satt / Bien nourri / Bien
+  alimentado / Bem Alimentado / Сытость; flask (17626) = Fläschchen / Flacon / Frasco / Frasco / Склянка (ru was
+  "настой", gerepareerd). Uit de packs, niet gemeten: Healthstone, Warlock, potions, ready check, "Paladin-blessing". Teststappen: TESTLIJST "24 nov — FOREVER: groepsbord".
+- Niet gebouwd (optie B, later): andermans tassen via addon-berichten. Divine Spirit/Shadow Protection niet op het bord.
+
 ## ▶▶ 24 nov (Bouwchat 24-11): twee wachter-fixes na de Forever-hotfix van 23 nov + handoff gesplitst
 
 Opdracht Sparring 24-11, letterlijk: *"ga door met de kleine dingen. (1) Splits NEXT_SESSION.md eerst. (2) Fix Forever

@@ -4524,6 +4524,12 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh readyboard auto [on|off] — WoW Forever: open the group board at a ready check (ForeverReadyBoard.lua, 24 Nov 2026).
+	local readyAuto = msg:match("^readyboard auto%s*(%a*)$")
+	if readyAuto and ns.ForeverReadyBoardAuto then
+		ns.ForeverReadyBoardAuto(readyAuto)
+		return
+	end
 	if msg == "readyboard" or msg == "board" then
 		if ns.ShowConsumableBoard then
 			ns.ShowConsumableBoard()
