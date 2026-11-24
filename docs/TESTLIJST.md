@@ -25,6 +25,18 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 24 nov — FOREVER: twee kleine fixes na de hotfix van 23 nov (Sparring 24-11: "ga door met de kleine dingen")
+
+Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (toets 3: 9 van 9 gevallen goed), NIET in het spel.
+- [ ] Warrior zónder het talent Mortal Strike (bijvoorbeeld Fury or Protection, of een lage Warrior): toets **3** in je
+      toetsenblok doet Bloodthirst of Shield Slam, niet Mortal Strike. Typ `/mh block why`: staat Mortal Strike in je
+      spellbook, dan zie je onderaan een grijze regel "Mortal Strike: talent not bought: skipped".
+- [ ] Warrior mét het talent Mortal Strike (Arms): toets 3 doet gewoon Mortal Strike, zoals altijd.
+- [ ] (Wie het kan) Koop of reset het talent Mortal Strike buiten een gevecht: binnen een paar seconden wisselt toets 3 mee.
+- [ ] Priest, venster "How you play", sectie met beginnersfouten, regel "Healing in Shadowform": er staat nu alleen
+      "Fear Ward does not work in it either". Chastise (de Dwarf-spell) staat er niet meer in, want die werkt sinds de
+      hotfix wél in Shadowform. Andere taal: dezelfde regel, ook zonder Chastise.
+
 ## 23 nov — FOREVER: layer-meting (Rob: "Ik ga uiteraard weer voor jullie advies." = A + D), de 3 metingen
 
 Nieuw bestand: sluit het spel eerst helemaal af en start opnieuw. MH laat nog NIETS zien; het schrijft alleen op.

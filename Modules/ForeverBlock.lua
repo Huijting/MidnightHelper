@@ -114,8 +114,75 @@ local function KnownId(id)
 	return false
 end
 
+--- 🔧 24 Nov 2026 (API watcher [MOET GEFIKST], Sparring 24-11: "Fix Forever Warrior toets 3"). Blizzard's Forever hotfix of
+--- 23 Nov 2026, Warrior: "Fixed an issue where players could have and use Mortal Strike from their spellbook, even
+--- without the Mortal Strike talent. This does not remove it from their spellbook but prevents it from being used
+--- without the talent point spent." The spellbook test below then still says "known", and key 3 became a dead
+--- "/cast Mortal Strike" instead of Bloodthirst or Shield Slam. Spells listed here also need their talent node bought.
+--- Node 105941 / tree 1117 = ForeverTalentNext.lua's S(105941, 12294, "Mortal Strike") (DB2, re-checked there).
+--- When the talent cannot be read (no C_Traits, no config, an error) the old spellbook answer stands: never a worse
+--- key than before. AFGELEID, not measured on a client that had the bug.
+local TALENT_GATED = {
+	["Mortal Strike"] = { tree = 1117, node = 105941 },
+}
+local lastGate = {} -- name -> "bought" / "not bought: skipped" / why unreadable; /mh block why prints it
+
+--- false only when the client SAYS the talent is not bought; true or nil (unreadable) otherwise.
+local function TalentBought(gate)
+	if not (C_Traits and C_Traits.GetNodeInfo) then
+		return nil, "no C_Traits"
+	end
+	local ok, ranks = pcall(function()
+		local cfg = C_ClassTalents and C_ClassTalents.GetActiveConfigID and C_ClassTalents.GetActiveConfigID()
+		local info = cfg and C_Traits.GetConfigInfo and C_Traits.GetConfigInfo(cfg)
+		local has = false
+		for _, t in ipairs(type(info) == "table" and info.treeIDs or {}) do
+			if t == gate.tree then
+				has = true
+			end
+		end
+		if not has and C_Traits.GetConfigIDByTreeID then
+			cfg = C_Traits.GetConfigIDByTreeID(gate.tree)
+		end
+		if not cfg then
+			return nil
+		end
+		local n = C_Traits.GetNodeInfo(cfg, gate.node)
+		if type(n) ~= "table" then
+			return nil
+		end
+		local r = n.ranksPurchased
+		if type(r) ~= "number" or (issecretvalue and issecretvalue(r)) then
+			return nil
+		end
+		return r
+	end)
+	if not ok then
+		return nil, "error: " .. tostring(ranks)
+	end
+	if ranks == nil then
+		return nil, "talent not readable"
+	end
+	return ranks > 0, nil
+end
+
 --- The spell id this character has under this English name (highest rank), or nil when it does not have it.
+local KnownRaw
 local function Known(name)
+	local id = KnownRaw(name)
+	local gate = id and TALENT_GATED[name]
+	if gate then
+		local bought, why = TalentBought(gate)
+		lastGate[name] = (bought == true and "bought") or (bought == false and "not bought: skipped") or why
+		if bought == false then
+			return nil
+		end
+	end
+	return id
+end
+ns.ForeverBlockTalentGate = lastGate
+
+KnownRaw = function(name)
 	if not (C_Spell and C_Spell.GetSpellInfo) then
 		return nil
 	end
@@ -138,7 +205,9 @@ local function Known(name)
 	end
 	return nil
 end
-ns.ForeverKnownSpell = Known
+-- The other modules (trainer, Do this now, quest hints, smart buff) keep the plain spellbook answer: the talent gate above
+-- is only for which spell a key casts (24 Nov 2026), so nothing else changes behaviour.
+ns.ForeverKnownSpell = KnownRaw
 
 --- The name THIS client uses for a spell id (falls back to the English table name).
 local function ClientName(id, english)
@@ -451,6 +520,10 @@ function ns.ForeverKeyBlockBuild()
 			trace[#trace + 1] = { key = key, id = show, why = "Forever macro: " .. body:gsub("\n", " ") }
 		end
 	end
+	-- /mh block why: what the talent gate decided this build (24 Nov 2026), so a skipped Mortal Strike is visible.
+	for name, said in pairs(lastGate) do
+		trace[#trace + 1] = { key = "talent", why = ("%s: talent %s"):format(name, tostring(said)) }
+	end
 	local unplaced = {}
 	for _, name in ipairs(cls.toBlockD or {}) do
 		local id = Known(name)
@@ -549,6 +622,9 @@ local ev = CreateFrame("Frame")
 ev:RegisterEvent("LEARNED_SPELL_IN_SKILL_LINE")
 ev:RegisterEvent("PLAYER_REGEN_ENABLED")
 ev:RegisterEvent("PLAYER_ENTERING_WORLD")
+-- 24 Nov 2026: a talent point (Mortal Strike) changes what key 3 casts. pcall, as in ForeverMacros.lua: an event the
+-- client does not know would throw.
+pcall(ev.RegisterEvent, ev, "TRAIT_CONFIG_UPDATED")
 ev:SetScript("OnEvent", function(_, event)
 	if event == "PLAYER_REGEN_ENABLED" and not pending then
 		return

@@ -2553,6 +2553,12 @@ function ns.PrintKeyBlockTrace()
 		print(("  |cffff8080no room|r %s (%s) %s/%s"):format((SpellView(s.id)), tostring(s.id), tostring(s.role), tostring(s.category)))
 		dump.unplaced[#dump.unplaced + 1] = { id = s.id, role = s.role, category = s.category }
 	end
+	-- Forever, 24 Nov 2026: a spell that is in the spellbook but needs its talent (Mortal Strike, hotfix 23 Nov).
+	for _, t in ipairs(res.trace or {}) do
+		if t.key == "talent" then
+			print("  |cff9d9d9d" .. tostring(t.why) .. "|r")
+		end
+	end
 	-- The live bars too (12 Oct 2026, Rob levelling a Demon Hunter: a new spell offered "-> 4" showed up on a
 	-- button far left, and on his screenshot keys 1, 4, Q, E, R, F and F4 had no label on their block button).
 	-- The picture above is the PLAN; this is what each key really presses and what stands there, plus bar 1,
