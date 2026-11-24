@@ -35,6 +35,10 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 - Gebouwd: `KeyBlock.lua` BLOCK_12 + `/mh block style old|12x4`; `keys12` in de 9 `ForeverBlock_<Class>.lua`
   (onderzoek `docs/forever/KEYBLOCK12_<CLASS>.md` + tweede controle `KEYBLOCK12_REVIEW.md`); Ctrl-balk met vaste items
   (bandage, health/mana potion, healthstone, trinket; id's gemeten). Alt-balk = block D (Alt-G i.p.v. Alt-Z).
+- ✅ 24 nov: uitlegblad "Why these keys?" GEBOUWD (Rob: *"kunnen we ook een soort blad even maken, waarbij we de users
+  uitleggen waarom we welke knop waar gezet hebben"*, verduidelijkt *"… dat is altijd hetzelfde op welke class je ook
+  speelt"*, op de samenvatting *"Ja"*; heal = C/Shift-C: *"a"*). Knop in het toetsenblok-venster (Forever, 12×4); taak per
+  toets uit `docs/forever/KEYBLOCK12_TAKEN.md`. Site-pagina: later via de site-chat.
 - Later (stap 2, Sparring: *"akkoord"*): mount op Shift+Spatie, een interact-toets; sit/sheathe/character alleen na een
   vraag, met undo. Ook later: de How you play-teksten noemen nog de oude toetsen; downranks per toets kan de motor niet.
 - Spel: F. Voor wie: N + V (AFGELEID). Site: pas na test en release.

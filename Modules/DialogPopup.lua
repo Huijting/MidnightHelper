@@ -286,6 +286,8 @@ local SCALABLE_WINDOWS = {
 	-- 11 Nov 2026: found by the new window check (tools/window_check.py, C5): the interrupt/dispel prompt can be
 	-- dragged (EnableMouse + SetMovable) but had no way to resize. A display frame, not secure, so the sweep may scale it.
 	"MidnightHelperActionPrompt",
+	-- 24 Nov 2026: the key block's "Why these keys?" sheet (KeyBlock.lua ns.ShowKeyBlockWhy); text only, not secure.
+	"MidnightHelperKeyBlockWhy",
 }
 
 local function SweepScalableWindows()

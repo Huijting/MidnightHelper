@@ -1,5 +1,16 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 24 nov avond (Bouwchat 24-11): uitlegblad "Why these keys?" (12 × 4) GEBOUWD — wacht op test
+
+Rob via Sparring 24-11, letterlijk: *"kunnen we ook een soort blad even maken, waarbij we de users uitleggen waarom we welke
+knop waar gezet hebben"* + *"… Dat gewoon voor iedereen weet dat een heal altijd op die knop staat …"*; heal-keuze *"a"*
+(C = grote heal of grote defensive, Shift-C = snelle heal; niets verschoven). Eerlijk bij de toetsen die per class
+verschillen ("vaste hulp-plek van je class": F, Shift-3/R/Z/X, Ctrl-4/Q/E). Gemeten per toets over 9 classes:
+`docs/forever/KEYBLOCK12_TAKEN.md`. Gebouwd: `ns.ShowKeyBlockWhy` (KeyBlock.lua), venster `MidnightHelperKeyBlockWhy`
+(in SCALABLE_WINDOWS), knop `f.whyBtn` bovenin het toetsenblok-venster (x 475; alleen Forever + 12×4), teksten
+KEYGUIDE_* (en/nl zelf, de/fr/es/pt/ru mh-writer). Layout meet de hoogtes opnieuw na de Forever-stijl. Offline: venster
+bouwt en klapt. Site-pagina: later via de site-chat (SITE_SEIN).
+
 ## ▶▶ 24 nov avond (Bouwchat 24-11): één indeling voor alle Forever-characters (Rob: *"advies a"*) — wacht op test
 
 GEMETEN: Forever-toetsen gelden voor het hele account (één `bindings-cache.wtf`; `bindingSet = 1` in Robs SV; `style` ook

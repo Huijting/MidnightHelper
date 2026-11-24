@@ -25,6 +25,18 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 24 nov (avond, 2) — FOREVER: uitlegblad "Why these keys?" voor 12 × 4 (Rob: "Dat gewoon voor iedereen weet …")
+
+Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (het venster bouwt en klapt open/dicht), NIET
+in het spel.
+- [ ] Forever, met 12 × 4 gekozen: open `/mh block`. Bovenin, rechts van "Hide the steps", staat een knop
+      "Why these keys?". (Met het oude blok is die knop er niet.)
+- [ ] Klik erop: een venster "Why these keys? (12 x 4)". Bovenaan waarom dezelfde 12 toetsen en waarom elke class
+      dezelfde toets voor dezelfde taak heeft (ook: C = grote heal, Shift-C = snelle heal). Daaronder vier stukken:
+      zonder modifier, Shift, Ctrl, Alt. Geen spellnamen, wel per toets de taak.
+- [ ] Lees de tekst: staat er iets over elkaar of valt er tekst weg? Scroll naar beneden: komt het stuk "With Alt" helemaal?
+- [ ] Shift+scroll op het venster: groter en kleiner. Slepen verplaatst het. Klik nog eens op de knop: het gaat dicht.
+
 ## 24 nov (avond) — FOREVER: één indeling voor al je characters (Rob: "advies a")
 
 Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest, NIET in het spel.

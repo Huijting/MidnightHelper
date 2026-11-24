@@ -28,6 +28,17 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 24 nov 2026 — Forever: uitlegblad "Why these keys?" bij het 12 × 4-blok
+- Tag + commit:   geen tag (commit: deze regel)
+- Status:         alleen op main
+- Mag op de site: nee, nog niet. Rob wil het blad later óók als site-pagina (via de site-chat); de tekst per toets staat
+                  in `docs/forever/KEYBLOCK12_TAKEN.md` (gemeten) en in Locales KEYGUIDE_* (7 talen).
+- Speler ziet:    In het toetsenblok (Forever, 12 × 4) een knop "Why these keys?": per toets de vaste taak en waarom, zonder
+                  spellnamen. Heal = C (groot) en Shift-C (snel).
+- Knoplabels:     KEYGUIDE_BTN
+- Commando's:     geen nieuwe (via /mh block)
+- Spel:           Forever
+
 ## 24 nov 2026 — Forever: toetsenblok "12 × 4" (keuze naast het oude blok)
 - Tag + commit:   geen tag (commit: deze regel)
 - Status:         alleen op main

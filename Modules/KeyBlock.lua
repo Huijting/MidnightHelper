@@ -2134,6 +2134,18 @@ local function Ensure()
 	-- weet eigenlijk niet zo goed waar ik moet beginnen. Kan er een scherm komen die we aan of uit kunnen
 	-- zetten met de stappen?"). A panel above the window in large type: each step, a tick once it is done,
 	-- and a button that does exactly what the window's own button does.
+	-- 24 Nov 2026: "Why these keys?" (12 x 4, Forever). Between the guide button (ends at 460) and the old-bars button
+	-- (starts near 698 when shown): 200 px fits. Shown only with the 12 x 4 layout (Refresh).
+	f.whyBtn = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
+	f.whyBtn:SetSize(200, 20)
+	f.whyBtn:SetPoint("TOPLEFT", 475, -16)
+	f.whyBtn:SetText(ns:L("KEYGUIDE_BTN"))
+	f.whyBtn:SetScript("OnClick", function()
+		if ns.ShowKeyBlockWhy then
+			ns.ShowKeyBlockWhy()
+		end
+	end)
+	f.whyBtn:Hide()
 	f.guideBtn = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
 	f.guideBtn:SetSize(200, 20)
 	f.guideBtn:SetPoint("TOPLEFT", 260, -16)
@@ -2307,6 +2319,9 @@ Refresh = function(f)
 	f.modeBtn:SetText(ns:L("KEYBLOCK_MODE_FMT"):format(ns:L("KEYBLOCK_MODE_" .. ns.KeyBlockNewMode():upper())))
 	local _, layoutOn, oldHidden, onPreset = ns.MH_EditModeKeyBlockState()
 	f.layoutBtn:SetText(ns:L(onPreset and "KEYBLOCK_BTN_OWN_LAYOUT" or "KEYBLOCK_BTN_LAYOUT"))
+	if f.whyBtn then
+		f.whyBtn:SetShown(ns.IS_FOREVER and LayoutName() == "12x4" or false)
+	end
 	if layoutOn then
 		f.oldBarsBtn:SetText(ns:L(oldHidden and "KEYBLOCK_BTN_OLDBARS_SHOW" or "KEYBLOCK_BTN_OLDBARS_HIDE"))
 		f.oldBarsBtn:Show()
@@ -2510,6 +2525,87 @@ function ns.KeyBlockSetStyle(arg)
 	-- 24 Nov 2026 (Rob: "advies a"): keys are account-wide (GEMETEN: one bindings-cache.wtf for the Forever account),
 	-- bars are per character. Say so here, and the login check below catches the characters that still hold the other.
 	print("   " .. ns:L("KEYBLOCK_STYLE_ALLCHARS"))
+end
+
+--- "Why these keys?" (24 Nov 2026; Rob via Sparring 24-11: "Dat gewoon voor iedereen weet dat een heal altijd op die knop
+--- staat. Of een belangrijke attack altijd op die staat. … dat is altijd hetzelfde op welke class je ook speelt.").
+--- The job per key of 12 x 4, no spell names; the facts per key are measured in docs/forever/KEYBLOCK12_TAKEN.md.
+--- Heal = C (big) / Shift-C (quick): Rob "a". Its own window; Shift+scroll via DialogPopup.lua SCALABLE_WINDOWS.
+local whyWin
+function ns.ShowKeyBlockWhy()
+	if whyWin then
+		whyWin:SetShown(not whyWin:IsShown())
+		return
+	end
+	local f = CreateFrame("Frame", "MidnightHelperKeyBlockWhy", UIParent, "BackdropTemplate")
+	f:SetSize(600, 560)
+	f:SetPoint("CENTER")
+	f:SetFrameStrata("DIALOG")
+	f:SetClampedToScreen(true)
+	f:EnableMouse(true)
+	f:SetMovable(true)
+	f:RegisterForDrag("LeftButton")
+	f:SetScript("OnDragStart", f.StartMoving)
+	f:SetScript("OnDragStop", f.StopMovingOrSizing)
+	if f.SetBackdrop then
+		f:SetBackdrop({ bgFile = "Interface\\DialogFrame\\UI-DialogBox-Background-Dark",
+			edgeFile = "Interface\\DialogFrame\\UI-DialogBox-Gold-Border", tile = true, tileSize = 32, edgeSize = 24,
+			insets = { left = 8, right = 8, top = 8, bottom = 8 } })
+	end
+	f.title = f:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
+	f.title:SetPoint("TOPLEFT", 20, -18)
+	f.title:SetText(ns:L("KEYGUIDE_TITLE"))
+	local close = CreateFrame("Button", nil, f, "UIPanelCloseButton")
+	close:SetPoint("TOPRIGHT", -4, -4)
+	local sf = CreateFrame("ScrollFrame", nil, f, "UIPanelScrollFrameTemplate")
+	sf:SetPoint("TOPLEFT", 20, -48)
+	sf:SetPoint("BOTTOMRIGHT", -36, 18)
+	local child = CreateFrame("Frame", nil, sf)
+	child:SetSize(540, 10)
+	sf:SetScrollChild(child)
+	local parts = {}
+	local function add(text, font, gap, r, g, b)
+		local fs = child:CreateFontString(nil, "OVERLAY", font)
+		fs:SetWidth(540)
+		fs:SetJustifyH("LEFT")
+		fs:SetSpacing(3)
+		fs:SetText(text)
+		if r then
+			fs:SetTextColor(r, g, b)
+		end
+		parts[#parts + 1] = { fs = fs, gap = gap }
+	end
+	add(ns:L("KEYGUIDE_INTRO"), "GameFontHighlight", 16)
+	for _, part in ipairs({ "A", "SHIFT", "CTRL", "ALT" }) do
+		add(ns:L("KEYGUIDE_HEAD_" .. part), "GameFontNormal", 6, 1, 0.82, 0.2)
+		add(ns:L("KEYGUIDE_BAR_" .. part), "GameFontHighlightSmall", 16, 0.9, 0.9, 0.9)
+	end
+	-- Positions from the measured heights, again after the Forever style changed the font (it does that on show).
+	local function Layout()
+		local y = 0
+		for _, p in ipairs(parts) do
+			p.fs:ClearAllPoints()
+			p.fs:SetPoint("TOPLEFT", 0, -y)
+			y = y + math.max(14, p.fs:GetStringHeight() or 14) + p.gap
+		end
+		child:SetHeight(y + 10)
+	end
+	Layout()
+	f:HookScript("OnShow", function()
+		Layout()
+		if C_Timer and C_Timer.After then
+			C_Timer.After(0.3, function()
+				if f:IsShown() then
+					Layout()
+				end
+			end)
+		end
+	end)
+	if ns.IS_FOREVER and ns.ForeverStyle and ns.ForeverStyle.SkinOnShow then
+		ns.ForeverStyle.SkinOnShow(f)
+	end
+	whyWin = f
+	f:Show()
 end
 
 --- Which layout THIS character's bars were placed with (nil = not placed here). Old snapshots = the old block.
