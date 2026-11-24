@@ -1,5 +1,19 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 24 nov (Bouwchat 24-11): 12 × 4 GEREPAREERD na Robs Warlock-test — wacht op hertest
+
+Rob testte 12×4 op zijn Warlock (screenshots via Sparring 24-11). Fout 1: op balk 5/6/7 stonden nog de oude toetsen
+(5, T, G, F1-F4, Shift-T, Shift-F1). Oorzaak (GEMETEN in de code, AFGELEID voor Robs account): neerzetten bindt alleen
+de toetsen van de gekozen indeling; oude toetsen die nog naar een blokknop wijzen (account-bindingen van een eerder
+neerzetten, misschien op een ander character, dus niet in de undo van de Warlock) bleven staan, en een knop toont zijn
+eerste toets. Reparatie: `StaleBlockKeys()` in KeyBlock.lua; neerzetten maakt ze los en zet ze in de snapshot (undo
+zet ze terug); `/mh block why` noemt ze (ook in de SV: `dump.staleKeys`). Offline: de 9 toetsen van de screenshots
+gevonden, F2→kaart blijft.
+Fout 2: Summon Imp 4× → pet-commando's tonen nu hun label + icoon (`spell.label/iconTex`, ook in de tooltip); de 4e
+(Alt, block D) is bewust. Klein: "Summon Demon" (vermoedelijk een flyout, AFGELEID) telt niet meer als onbekend
+(flyouts overgeslagen + naam in Warlock `listed`). Vraag 3 (Immolate op Shift-2, toets 3 leeg tot Agony op level 8):
+voorgelegd aan Sparring, niets veranderd. Teststappen: TESTLIJST "24 nov (later)".
+
 ## ▶▶ 24 nov (Bouwchat 24-11): `data/keyblock_specs.json` opnieuw gemaakt — ✅ AF (open punt NEXT_SESSION_ARCHIVE r.7171)
 
 Sparring 24-11, letterlijk: *"Ja: run keyblock_specs, commit en push"*. Het bestand was van 6 okt; 6 specs schoven door

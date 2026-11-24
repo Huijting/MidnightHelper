@@ -1172,6 +1172,52 @@ function ns.KeyBlockIsPlaced()
 	return GetSnap() ~= nil
 end
 
+--- Keys of the OTHER layout that still press a block bar's button. 24 Nov 2026, Rob's Warlock after "/mh block style
+--- 12x4" + place: the block bars still showed 5, T, G, F1-F4, Shift-T and Shift-F1 (Sparring 24-11, two screenshots).
+--- Placing only bound the chosen layout's keys; the old block's keys (account-wide bindings, set by an earlier place,
+--- maybe on another character, so this character's undo never had them) kept pointing at the same buttons, and a
+--- button shows the first key bound to it. Place now frees these (and records them, so undo puts them back).
+--- @return list of { key, was }
+local function StaleBlockKeys()
+	SyncLayout()
+	local mine = {}
+	for _, bar in ipairs(BLOCK) do
+		for _, s in ipairs(bar.slots) do
+			mine[s.key] = true
+		end
+	end
+	local prefixes = {}
+	local bars = ns.KeyBlockBars()
+	for _, id in ipairs({ "A", "B", "C", "D" }) do
+		local info = BarInfo(bars[id])
+		if info and info.prefix then
+			prefixes[#prefixes + 1] = info.prefix
+		end
+	end
+	local out, seen = {}, {}
+	for _, layout in ipairs({ BLOCK_OLD, BLOCK_12 }) do
+		for _, bar in ipairs(layout) do
+			for _, s in ipairs(bar.slots) do
+				local k = s.key
+				if not mine[k] and not seen[k] then
+					seen[k] = true
+					local cmd = GetBindingAction and GetBindingAction(k)
+					if type(cmd) == "string" and cmd ~= "" then
+						for _, pre in ipairs(prefixes) do
+							if cmd:sub(1, #pre) == pre then
+								out[#out + 1] = { key = k, was = cmd }
+								break
+							end
+						end
+					end
+				end
+			end
+		end
+	end
+	return out
+end
+ns.KeyBlockStaleKeys = StaleBlockKeys -- /mh block why and the offline check
+
 --- Do it. Snapshot first; one undo puts back every slot and key we touched.
 function ns.KeyBlockPlace()
 	local p = "|cffffcc00Midnight Helper:|r "
@@ -1204,6 +1250,13 @@ function ns.KeyBlockPlace()
 	end
 	-- Which game functions lose their key (shown in the window while placed, and once in chat below).
 	snap.gameKeys = GameKeysTaken(rows)
+	-- 24 Nov 2026: keys of the other layout that still press a block button are freed, and recorded like every other
+	-- key, so undo binds them back exactly as they were.
+	local stale = StaleBlockKeys()
+	for _, s in ipairs(stale) do
+		snap.binds[#snap.binds + 1] = { key = s.key, was = s.was }
+	end
+	snap.staleFreed = #stale
 	SetSnap(snap)
 
 	-- Rob, 5 Oct 2026 ("ik volg het advies"): with the block placed, Blizzard stops pushing new spells onto
@@ -1329,10 +1382,24 @@ function ns.KeyBlockPlace()
 			end
 		end
 	end
+	-- The other layout's keys that pressed a block button: now free (recorded in snap.binds above).
+	local freed = 0
+	for _, s in ipairs(stale) do
+		if SetBinding(s.key) then
+			freed = freed + 1
+		end
+	end
 	if SaveBindings and GetCurrentBindingSet then
 		pcall(SaveBindings, GetCurrentBindingSet())
 	end
 	print(p .. ("key block placed: %d buttons, %d keys, %d moved aside (block D first), %d doubles off bar 1 and block D. |cffffffff/mh block undo|r puts everything back."):format(placed, bound, moved, doubles))
+	if freed > 0 then
+		local names = {}
+		for _, s in ipairs(stale) do
+			names[#names + 1] = KeyLabel(s.key)
+		end
+		print("   " .. ns:L("KEYBLOCK_STALE_FREED_FMT"):format(freed, table.concat(names, ", ")))
+	end
 	if #failed > 0 then
 		print("   |cffff8080did not land:|r " .. table.concat(failed, ", "))
 	end
@@ -1787,11 +1854,13 @@ local function SlotTooltip(btn)
 	if d.spellID then
 		GameTooltip:SetSpellByID(d.spellID)
 		GameTooltip:AddLine(" ")
+	elseif d.cmdLabel then
+		GameTooltip:AddLine(d.cmdLabel, 1, 1, 1) -- a Forever pet command (24 Nov 2026)
 	end
 	GameTooltip:AddLine(KeyLabel(d.key) .. " · " .. ns:L(d.task), 1, 0.82, 0)
 	if d.fixed then
 		GameTooltip:AddLine(ns:L("KEYBLOCK_FIXED_HINT"), 0.8, 0.8, 0.8, true)
-	elseif not d.spellID then
+	elseif not d.spellID and not d.cmdLabel then
 		GameTooltip:AddLine(ns:L("KEYBLOCK_FREE_HINT"), 0.8, 0.8, 0.8, true)
 	end
 	local r = d.plan
@@ -2270,6 +2339,11 @@ Refresh = function(f)
 			elseif hit then
 				local name, icon, shown = SpellView(hit.spell.id)
 				data.spellID = shown
+				-- A Forever pet command: its own label and icon, not the summon spell it needs (24 Nov 2026).
+				if hit.spell.label then
+					name, icon = hit.spell.label, hit.spell.iconTex or icon
+					data.spellID, data.cmdLabel = nil, hit.spell.label
+				end
 				b.icon:SetTexture(icon or 134400)
 				b.task:SetText(name)
 				b.task:SetTextColor(1, 1, 1)
@@ -2679,6 +2753,18 @@ function ns.PrintKeyBlockTrace()
 	-- 24 Nov 2026: which layout, and for 12 x 4 whether this class has its own table (else the old keys stand).
 	print(("  layout: %s%s (/mh block style old||12x4)"):format(LayoutName(),
 		(LayoutName() == "12x4" and res.layout ~= "12x4") and " — but this class has no 12x4 table: old keys" or ""))
+	-- Keys of the other layout still pressing a block button (Rob's Warlock, 24 Nov 2026). Place frees them.
+	local stale = StaleBlockKeys()
+	if #stale > 0 then
+		local t = {}
+		for _, s in ipairs(stale) do
+			t[#t + 1] = KeyLabel(s.key) .. " -> " .. s.was
+		end
+		print("  |cffff8080keys of the other layout still bound to block buttons:|r " .. table.concat(t, ", ")
+			.. " — /mh block undo, then place again, frees them")
+	else
+		print("  keys of the other layout on block buttons: none")
+	end
 	local dump = { specID = res.specID, places = {}, unplaced = {} }
 	for _, bar in ipairs(BLOCK) do
 		for _, slot in ipairs(bar.slots) do
@@ -2748,6 +2834,7 @@ function ns.PrintKeyBlockTrace()
 		or mode == "never" and "never ask (nothing happens on its own; the switch is top right in the key block window)"
 		or "ask me", GetSnap() and (#waiting > 0 and table.concat(waiting, ", ") or "none") or "block not placed on this character"))
 	dump.newMode, dump.waiting = mode, waiting
+	dump.layout, dump.staleKeys = LayoutName(), stale -- 24 Nov 2026: read from SavedVariables after Rob's /reload
 end
 
 --------------------------------------------------------------------------------

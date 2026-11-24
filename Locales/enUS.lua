@@ -825,6 +825,7 @@ ns._mhLocales.enUS = {
 	KEYBLOCK_STYLE_NO_TABLE = "there is no 12 x 4 layout for this class yet. The old block stays.",
 	KEYBLOCK_STYLE_SET_12 = "key block layout: 12 x 4. Open /mh block to see it, then press \"Place it on bars 5, 6 and 7\".",
 	KEYBLOCK_STYLE_SET_OLD = "key block layout: the old block again. Open /mh block to see it, then press \"Place it on bars 5, 6 and 7\".",
+	KEYBLOCK_STALE_FREED_FMT = "%d keys of the other layout still pressed block buttons and are free now: %s. /mh block undo binds them back.",
 	KEYBLOCK_T_CD4 = "cooldown 4",
 	KEYBLOCK_T_RACIAL = "racial",
 	KEYBLOCK_T_AOESPEND = "AoE spender",

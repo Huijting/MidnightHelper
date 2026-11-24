@@ -586,7 +586,11 @@ function ns.ForeverKeyBlockBuild()
 				okN, nm = true, def.cmd.label
 			end
 			occ[key] = {
-				spell = { id = show, name = okN and nm or nil, macroName = MacroName(key), macroKey = key, spellIds = ids },
+				-- label/iconTex (24 Nov 2026, Rob's Warlock): a pet command shows "Pet: Attack" with its own icon on the
+				-- picture, not the summon spell it needs (that made Summon Imp appear on Ctrl-1, Ctrl-2 and Ctrl-3).
+				spell = { id = show, name = okN and nm or nil, macroName = MacroName(key), macroKey = key, spellIds = ids,
+					label = def.cmd and def.cmd.label or nil,
+					iconTex = def.cmd and def.cmd.icon and ("Interface\\Icons\\" .. def.cmd.icon) or nil },
 				-- 12 x 4 (24 Nov 2026): the research's own reason per key, shown by /mh block why.
 				why = (cls.twelve and type(def.why) == "string") and ("12x4: " .. def.why) or "Forever macro",
 			}
@@ -663,6 +667,7 @@ function ns.ForeverBlockUnlisted()
 	-- item of type FutureSpell is a spell you do NOT know yet (shown greyed for a later level). It must not count as a
 	-- known spell here. Whether Forever's spellbook shows future spells is not measured; without the enum this is a no-op.
 	local FUTURE = Enum and Enum.SpellBookItemType and Enum.SpellBookItemType.FutureSpell
+	local FLYOUT = Enum and Enum.SpellBookItemType and Enum.SpellBookItemType.Flyout
 	local okN, n = pcall(SB.GetNumSpellBookSkillLines)
 	for i = 1, (okN and tonumber(n) or 0) do
 		local okL, line = pcall(SB.GetSpellBookSkillLineInfo, i)
@@ -672,6 +677,12 @@ function ns.ForeverBlockUnlisted()
 				local okI, it = pcall(SB.GetSpellBookItemInfo, slot, bank)
 				if okI and type(it) == "table" and FUTURE and it.itemType == FUTURE then
 					it = nil -- a spell for later: not yours yet
+				end
+				-- 24 Nov 2026 (Rob's Warlock: "Not in MH's list: Summon Demon"): a flyout is a folder of spells, not a spell;
+				-- the spells in it are what the block places (the summons go to block D). AFGELEID that "Summon Demon" is a
+				-- flyout in Forever; its English name is in the Warlock's `listed` as well, in case it is not.
+				if okI and type(it) == "table" and FLYOUT and it.itemType == FLYOUT then
+					it = nil
 				end
 				local name = okI and type(it) == "table" and it.name
 				local sid = it and it.spellID

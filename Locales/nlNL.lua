@@ -797,6 +797,7 @@ ns._mhLocales.nlNL = {
 	KEYBLOCK_STYLE_NO_TABLE = "voor deze class is er nog geen 12 x 4-indeling. Het oude blok blijft.",
 	KEYBLOCK_STYLE_SET_12 = "indeling van het toetsenblok: 12 x 4. Open /mh block om het te zien en druk dan op \"Zet het op balk 5, 6 en 7\".",
 	KEYBLOCK_STYLE_SET_OLD = "indeling van het toetsenblok: weer het oude blok. Open /mh block om het te zien en druk dan op \"Zet het op balk 5, 6 en 7\".",
+	KEYBLOCK_STALE_FREED_FMT = "%d toetsen van de andere indeling drukten nog op blokknoppen en zijn nu vrij: %s. /mh block undo zet ze terug.",
 	KEYBLOCK_T_CD4 = "cooldown 4",
 	KEYBLOCK_T_RACIAL = "racial",
 	KEYBLOCK_T_AOESPEND = "AoE-spender",

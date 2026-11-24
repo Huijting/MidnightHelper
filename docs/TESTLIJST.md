@@ -25,6 +25,23 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 24 nov (later) — FOREVER: 12 × 4 reparatie na Robs Warlock-test (oude toetsen bleven op de knoppen)
+
+Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (de 9 toetsen van Robs screenshots worden
+gevonden en losgemaakt; een toets die iets anders doet blijft), NIET in het spel.
+Zo krijg je je balken goed (de oude toetsen 5, T, G, F1-F4, Shift-T en Shift-F1 raak je hiermee kwijt):
+- [ ] `/reload`. Typ `/mh block why`: bovenaan "layout: 12x4" en een rode regel "keys of the other layout still bound to
+      block buttons: 5 -> …, T -> …" (dat zijn de oude toetsen).
+- [ ] `/mh block undo`, dan opnieuw `/mh block` en "Zet het op balk 5, 6 en 7". In de chat staat nu ook
+      "9 keys of the other layout … are free now: 5, T, G, F1, …".
+- [ ] Kijk naar de knoppen van balk 5, 6 en 7: alleen nog 1-4 Q E R F Z X C V, met Shift (s-) en Ctrl (c-). Geen 5, T,
+      G of F1-F4 meer. `/mh block why` zegt nu "keys of the other layout on block buttons: none".
+- [ ] Warlock: Ctrl-1/2/3 heten op het plaatje "Pet: Attack / Follow / Stay" met hun eigen icoon (niet meer 3× Summon
+      Imp). Summon Imp staat nog één keer, op block D (Alt).
+- [ ] De rode regel "Not in MH's list: Summon Demon" is weg.
+- [ ] Ga je terug naar het oude blok (`undo`, `/mh block style old`, neerzetten): dan worden de 12×4-toetsen (zoals
+      Ctrl-Q, Ctrl-4) op dezelfde manier losgemaakt.
+
 ## 24 nov — FOREVER: toetsenblok "12 × 4" (Rob: "laat een agent uitzoeken welke spells logisch zijn per class")
 
 Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (alle 9 classes, 2247 controles goed), NIET in

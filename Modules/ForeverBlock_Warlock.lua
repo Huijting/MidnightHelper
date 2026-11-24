@@ -66,7 +66,9 @@ ns.FOREVER_BLOCK_CLASSES.WARLOCK = {
 		"Perception", "Shatter Curse", "Cannibalize", "Eureka!", "Rapid Regeneration" },
 	listed = { "Shoot", "Create Soulstone", "Curse of Tongues", "Ritual of Summoning", "Create Spellstone",
 		"Create Firestone", "Drain Mana", "Subjugate Demon", "Eye of Kilrogg", "Sense Demons", "Detect Invisibility",
-		"Ritual of Doom", "Portal of Summoning" },
+		"Ritual of Doom", "Portal of Summoning",
+		-- 24 Nov 2026: the spellbook's "Summon Demon" (a folder of the summons; they themselves go to block D).
+		"Summon Demon" },
 	-- 12 x 4 (Forever, 24 Nov 2026; /mh block style 12x4). From docs/forever/KEYBLOCK12_WARLOCK.md (mh-research,
 	-- checked by a second helper). Rob via Sparring 24-11: "laat een agent uitzoeken welke spells logisch zijn per class".
 	keys12 = {
