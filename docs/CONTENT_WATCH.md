@@ -5369,3 +5369,74 @@ kop, per bevinding MEASURED/INFERRED en [RAAKT ONS]/[RAAKT ONS NIET], met bestan
   (`?nocache=20261123a/b`) · `Modules/PlayCards.lua`, `Locales/enUS.lua`,
   `data/consumables_wowhead.json`, `data/vault_stat_catalog.json` (alle rechtstreeks via Exa of
   direct in de repo gelezen).
+
+- [2026-11-24] 💬🔴 **Geen open CurseForge-reacties, Midnight stil (19e dag op "November 6, 2026");
+  Forever's officiële hotfix van 23 nov levert één echte tegenspraak: onze Priest-gids zegt dat
+  Chastise niet werkt in Shadowform, Blizzard heeft dat vandaag juist als bug gefikst.** Geen
+  weekly-secties vandaag (dinsdag).
+
+  💬 **CurseForge:** MEASURED, zelf gelezen via Exa
+  (`curseforge.com/api/v1/mods/1528577/comments?pageIndex=0&pageSize=20&nocache=20261124a` en `/b`,
+  twee fetches met andere `nocache`-waarde, inhoudelijk identiek). `pagination.totalCount: 8`. **Geen
+  open reacties (3 draadjes, identiek aan [2026-11-23]):** esES/esMX-locale-fix `8509224` → reply
+  `8510682`; MrsBoojiePanda's debug-printregel `8414729` → reply `8483898`; gadrinonturalyon's
+  coffer-key-shards/3D-boss-model-verzoek `8090710` → keten tot `8095337`/`8092133` — alle ids en
+  timestamps identiek. Geen concept-antwoord nodig.
+
+  **Midnight, geen nieuwe sectie.** MEASURED, zelf gelezen via Exa
+  (`news.blizzard.com/en-us/article/24307310/hotfixes-november-6-2026?nocache=20261124e`): nog
+  steeds alleen de secties van 6 en 5 nov, allebei al verwerkt t/m [2026-11-07]. **Positieve
+  controle tegen cache:** `worldofwarcraft.blizzard.com/en-us/content-update-notes?nocache=20261124e`
+  zegt nu **"17 days ago"** bij die Nov 6-sectie (gepubliceerd 7 nov → 7+17=24, precies vandaag) —
+  geen verstikte cache, een echte meting van stilstand. **[RAAKT ONS NIET]**
+
+  **Forever, hotfix "November 23, 2026" (gepubliceerd 24 nov).** MEASURED, zelf gelezen via Exa
+  (`news.blizzard.com/en-us/article/24315281/wow-forever-hotfixes-november-23-2026?nocache=20261124d`).
+  De blue post/data-wacht las dezelfde hotfix vandaag al voor haar eigen feiten (Obsidian Sentinel,
+  world buffs, Mortal Strike-API-bug) — dit log toetst 'm apart tegen onze content-claims, niet tegen
+  haar aantekening. Classes-sectie, woord voor woord, tegen `Modules/Forever*.lua`/`Locales/`:
+  - **Chastise** ("Fixed an issue where Chastise was not usable in Shadowform") → **[RAAKT ONS].**
+    `Modules/ForeverHowToPlay.lua:315` (en `Locales/ForeverHowToPlay_nlNL.lua:316`), Priest-sectie
+    "Beginner mistakes": *"Fear Ward and the Dwarf race spell (Chastise) do not work in it
+    \[Shadowform\] either."* De hotfixtekst zegt het tegenovergestelde van na vandaag: Chastise kon
+    tot nu toe (bug) niet in Shadowform gecast worden en kan dat sinds vandaag wél. Onze regel was
+    tot vandaag feitelijk juist (en is dat nu niet meer) — Fear Ward wordt in de hotfix niet genoemd,
+    dus die helft van de zin blijft kloppen. MEASURED op de hotfixtekst zelf; niet zelf in-game
+    getest (kan hier ook niet). Mens moet de zin herschrijven of splitsen.
+  - **Mind Vision** ("should no longer proc effects") → geen enkele tip beschrijft proc-gedrag;
+    alleen aanwezig als spell-ID/trainer-data (`Modules/ForeverSpellIds.lua:286`,
+    `ForeverTrainerData.lua:709,798`, exclusielijst `ForeverBlock_Priest.lua:58`). **[RAAKT ONS
+    NIET]**
+  - **Warrior/Mortal Strike** ("prevents it from being used without the talent point spent") → is
+    vandaag al gemeld door de API-wacht als [MOET GEFIKST] (dode toets op `ForeverBlock_Warrior.lua`)
+    — addon-logica, niet een tekstclaim; geen apart content-punt. `ForeverMacros.lua:595` heeft het
+    talent-vereiste overigens al correct gemarkeerd (`talent = true`).
+  - **Dark Inspiration** (correcte %Spirit bij Mind Flay-activatie) en **Intensity** (werkt nu op
+    Incinerate) staan alleen in dev-researchbestanden (`docs/forever/PRIEST_ROLES_2026-11-17.md:149`,
+    `WARLOCK_ROLES_2026-11-17.md:147`), niet in een geshipte tip — geen speler-claim om te toetsen.
+    **[RAAKT ONS NIET]**
+  - **Druid/Feralheart**: 0 treffers repo-breed. **Positieve controle, zelfde run:** dezelfde
+    grep-aanpak vond "Obsidian Sentinel" wél (`ForeverDungeonGuideData.lua:875`,
+    `Locales/enUS.lua:7579`), dus het nulresultaat is gemeten afwezigheid. **[RAAKT ONS NIET]**
+
+  Dungeons/Professions/Quests/Items van dezelfde hotfix onafhankelijk zelf gegrept (niet de
+  aantekening van de data-wacht overgenomen): Filcher's Cowl, Dunston Willis, "For Further Study",
+  "Uncovering the Past", "Gleaning Our Future", Renewal Gift, "Mortar: Reloaded", Centaur
+  Hoofwarmers — 0 treffers op elke naam. Clam-namen (Boiled Clams/Clam Chowder/Clam Linguine) komen
+  wél voor, maar alleen als neutrale food-ID's in macro-tabellen (`docs/forever/MACRO_IDEAS_2026-11-17.md`)
+  en in een ongerelateerd Midnight-achievement (`ACH_STEP_CLAM`, Bubbling Clam) — geen claim over
+  Well Fed-bonus of recept-categorie die de hotfix zou tegenspreken. **[RAAKT ONS NIET]** voor dit
+  hele blok.
+
+  **Niet gecontroleerd:** of `IsSpellKnown`/trainer-aanwezigheid voor de Mortal Strike-bug
+  daadwerkelijk `true` blijft geven (API-wacht-terrein, niet hier opnieuw gemeten); Wowhead/DBM voor
+  de overige Classes-items (niet nodig gebleken, de hotfixtekst zelf was al expliciet genoeg).
+
+  — bron: curseforge.com API (`?nocache=20261124a/b`, via Exa) ·
+  news.blizzard.com/en-us/article/24307310/hotfixes-november-6-2026?nocache=20261124e ·
+  worldofwarcraft.blizzard.com/en-us/content-update-notes?nocache=20261124e (via Exa) ·
+  news.blizzard.com/en-us/article/24315281/wow-forever-hotfixes-november-23-2026?nocache=20261124d
+  (via Exa) · `Modules/ForeverHowToPlay.lua`, `Locales/ForeverHowToPlay_nlNL.lua`,
+  `Modules/ForeverBlock_Priest.lua`, `Modules/ForeverBlock_Warrior.lua`, `Modules/ForeverMacros.lua`,
+  `Modules/ForeverSpellIds.lua`, `Modules/ForeverTrainerData.lua`, `Modules/ForeverDungeonGuideData.lua`,
+  `Locales/enUS.lua`, `docs/forever/` (alle rechtstreeks in de repo gelezen).
