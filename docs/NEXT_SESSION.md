@@ -1,5 +1,15 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 24 nov avond (Bouwchat 24-11): RELEASE 5.9.0 getagd (Rob via Sparring, letterlijk: "release 5.9.0")
+
+Geen beta. Versie 5.9.0 in beide toc's; CHANGELOG_590_1 t/m _8 (enUS) + Changelog.lua; `RELEASE_NOTES.md` byte-gelijk aan
+`docs/CURSEFORGE_5.9.0.md` (5476 bytes, LF, GEMETEN met een scratch-vergelijking); CHANGELOG.md; SITE_SEIN: de regels
+van 23-24 nov op "getagd" + een release-regel. Alleen Forever in de spelerstekst; de Midnight-voorbereiding op 12.1.7
+werkt pas op een 12.1.7-client en staat er dus niet in (Sparring: alleen noemen als spelers er nu iets aan hebben).
+🔴 Open na de tag: (1) de release-run nakijken (twee zips: gewoon + -forever, CurseForge, Wago, GitHub); (2) SITE_SEIN
+op "staat op CurseForge" zodra de CF-API beide bestanden toont; (3) `CURSEFORGE_DESCRIPTION.md` noemt 12 × 4, het
+groepsbord en QuestieDB nog niet: bijwerken en Rob laten plakken (de packager doet dat niet).
+
 ## ▶▶ 24 nov avond (Bouwchat 24-11): Lua-fout KeyBlock.lua:1527 (Druid, na harde uitval) GEREPAREERD — wacht op test
 
 Rob, Forever Druid, bij inloggen na een onverwachte herstart (de kat zette de pc uit): `KeyBlock.lua:1527: bad argument

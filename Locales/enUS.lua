@@ -4195,6 +4195,15 @@ ns._mhLocales.enUS = {
 	CHANGELOG_580_7 = "Forever, fixed: /mh rest on, off, mana and health; the Earth Totem quest of Dwarf and Windshaper shamans; each character's known recipes; see-through windows.",
 	CHANGELOG_580_8 = "Forever: many trainer places in class quests now come from Zygor's guides, or live from HandyNotes: Class Trainers when you have it. Credits: Polestar Recorder sessions (CC BY 4.0), AllTheThings (MIT), Spoken and Efficient Games (CC BY 4.0).",
 	CHANGELOG_580_9 = "Midnight: the Platynator page is gone from the Addons tab. The Details! page stays.",
+	-- 5.9.0, 24 Nov 2026 (Rob via Sparring 24-11: "release 5.9.0").
+	CHANGELOG_590_1 = "Forever: a second key block layout, 12 x 4: the same 12 keys 1-4, Q E R F, Z X C V on every bar (then Shift, Ctrl, Alt), and the same job on the same key for every class. The old block stays the default: /mh block style 12x4 to switch.",
+	CHANGELOG_590_2 = "Forever, 12 x 4: Ctrl holds your bandage, potions, healthstone and trinket; \"Why these keys?\" explains every key; one layout for all your characters, with \"Fix it now\" at login when a character still has the other one.",
+	CHANGELOG_590_3 = "Forever, 12 x 4: if you want them, 5 = Interact With Target and Shift-Space = your fastest mount. Midnight Helper asks once; /mh block extras off undoes it.",
+	CHANGELOG_590_4 = "Forever: How you play names the keys of the layout you chose.",
+	CHANGELOG_590_5 = "Forever: Do this now shows upgrades in your bags first (Wear it / Not this one), has a How you play button, your free bag slots next to your money, and how far your class quest is (\"4/6\").",
+	CHANGELOG_590_6 = "Forever: a group check for buffs and consumables, like Midnight's ready check window. It opens at a ready check and with /mh readyboard.",
+	CHANGELOG_590_7 = "Forever: with the QuestieDB addon installed, dungeon quests and Do this now use its places where Midnight Helper has none.",
+	CHANGELOG_590_8 = "Forever, fixed: the trainer arrow picks the trainer next to you; Warrior key 3 without Mortal Strike; Priest guide on Chastise; buttons in your own language; no error after a lost macro.",
 	-- 5.7.0 (proposed number), written 20 Nov 2026 on Rob's "Ja dat mag erna"; no tag until his go.
 	CHANGELOG_570_1 = "Forever: a larger overview with the tabs as tall buttons on the right (the old layout is a switch in Quiet helpers).",
 	CHANGELOG_570_2 = "Forever: Find has \"Which city?\": pick a city and see its inn, bank, auction house, mailbox, flight master, boats and your class trainer, with the way there and Route to. Every inn is in, also the villages like Ratchet.",

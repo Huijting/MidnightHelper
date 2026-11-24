@@ -2,6 +2,28 @@
 
 All notable changes to this project are documented in this file.
 
+## 5.9.0
+
+📌 **2026-11-24, RELEASE (Rob via Sparring 24-11, letterlijk: "release 5.9.0"; geen beta).** Na de checks Midnight-/reload
+zonder rode fout en Forever Druid na 1b8a696.
+In-game: CHANGELOG_590_1 t/m _8. `RELEASE_NOTES.md` = `docs/CURSEFORGE_5.9.0.md`. Commits v5.8.0..main (23 en 24 nov).
+Wat Rob testte en wat niet: TESTLIJST 23 en 24 nov (groepsbord in een groep: later, op een hoger level).
+
+- **Toetsenblok 12 × 4** (Forever, schakelaar, oud blok standaard): keys12 per class (onderzoek + tweede controle),
+  Ctrl-balk met vaste items, uitlegblad "Why these keys?", één indeling per account met login-waarschuwing en Fix it now,
+  oude toetsen losmaken, pet-commando's met eigen label, terugval bij lage levels, "Later" per toets + spell.
+- **Extra toetsen**: 5 = Interact With Target, Shift+Spatie = snelste mount (ForeverKeyExtras + ForeverMountData uit DB2).
+- **How you play** toont de toetsen van de gekozen indeling.
+- **Do this now**: upgrades bovenaan (Wear it / Not this one), knop How you play, vrije tasplekken, voortgang class quest.
+- **Groepsbord** (buffs + consumables), opent bij een ready check.
+- **QuestieDB** live waar MH geen plek heeft; "or"-paren één rij; "inside"-gevers.
+- **Fixes**: trainerpijl (cap = eigen level is geen bewijs), Warrior toets 3 zonder Mortal Strike, Priest-gids Chastise,
+  popup-knoppen in de taal van de speler, wees-macro na harde uitval, gereserveerde toetsen bij Update, groepsbord-titel.
+- **Alleen voor ons (niet in de spelerstekst):** /mh layer + stille layer-meting, /mh questiedb, /mh wear why, /mh block
+  extras (diagnose), /mh readycheck.
+- **Midnight:** voorbereiding 12.1.7 (patchkaart, Omnium Folio 7 stappen) werkt pas op een 12.1.7-client; niet in de
+  spelerstekst.
+
 ## 5.8.0
 
 📌 **2026-11-22, RELEASE (Rob via sparring, letterlijk: "crates zwijgen en go voor 5.8.0"; geen beta).** Waylaid Crates en
