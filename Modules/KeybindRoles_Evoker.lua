@@ -79,7 +79,8 @@ ns.KeybindRoleClassifier.EVOKER = {
 	["Zephyr"] = { id = 374227, role = "defensive_3", priority = 1, survival = "big", survivalOrder = 2, survivalNote = "SURVIVAL_NOTE_AOE" }, -- C (grote def, groeps-damage-reductie, baseline); card: big (2 min cd), alleen tegen AoE
 	-- Dispel / CC (V-cluster)
 	["Sleep Walk"] = { id = 360806, category = "dispel_cc", priority = 1 },           -- V (incapacitate CC, baseline)
-	["Expunge"] = { id = 365585, category = "dispel_cc", priority = 2 },              -- Shift+V (poison-dispel, baseline)
+	-- 24 Nov 2026: not Preservation, whose Naturalize replaces it (SpecializationSpells 6636, DB2 12.1.5.70961).
+	["Expunge"] = { id = 365585, category = "dispel_cc", priority = 2, specs = { 1467, 1473 } }, -- Shift+V (poison-dispel)
 	["Cauterizing Flame"] = { id = 374251, category = "dispel_cc", priority = 3 },    -- Ctrl+V (bleed/poison/curse/disease-dispel, overflow)
 	["Landslide"] = { id = 358385, category = "dispel_cc", priority = 4 },            -- T (root-CC, baseline; draft: Interrupt_CCAndCD_Tracker)
 	-- Self-heals (heal-ankers)

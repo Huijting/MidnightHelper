@@ -216,5 +216,5 @@ ns.KeybindRoleClassifier.MONK = {
     ["Summon Jade Serpent Statue"] = { id = 115313, category = "utility", priority = 5, specs = { 270 } }, -- gap round 5 Oct 2026 (mh-research, wago 69933): DB2 choice node 101164 (270). IV MW.
     ["Black Ox Brew"] = { id = 115399, category = "defensive", priority = 3, specs = { 268 } }, -- gap round 5 Oct 2026 (mh-research, wago 69933): DB2 choice node 101190. IV BrM, Wowhead (2 min).
     ["Restoral"] = { id = 388615, role = "cooldown_bar", priority = 1, specs = { 270 } }, -- gap round 5 Oct 2026 (mh-research, wago 69933): DB2 choice node 101131. IV MW, Wowhead.
-    ["Resuscitate"] = { id = 115178, category = "utility", priority = 8, specs = { 268, 269 } }, -- gap round 5 Oct 2026 (mh-research, wago 69933): Baseline rez, out of combat. Same as Druid Revive / Paladin Redemption.
+    ["Resuscitate"] = { id = 115178, category = "utility", priority = 8, specs = { 268, 269, 270 } }, -- 24 Nov 2026: +270 (SkillLineAbility 35886: class-wide, ClassMask 512) -- gap round 5 Oct 2026 (mh-research, wago 69933): Baseline rez, out of combat. Same as Druid Revive / Paladin Redemption.
 }

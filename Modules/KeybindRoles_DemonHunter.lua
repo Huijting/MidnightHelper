@@ -71,7 +71,8 @@ ns.KeybindRoleClassifier.DEMONHUNTER = {
 	["Infernal Strike"]    = { id = 189110, role = "utility_primary", priority = 1, specs = { 581 }, survival = "escape", survivalOrder = 1 }, -- Vengeance kern-movement/gap-closer (GAP_CLOSER DEMONHUNTER_2 = 189110; ontbrak, toegevoegd)
 
 	-- Grote CD / cooldown_bar F1 (SpellDB THE_HUNT DEMONHUNTER_1/2 = {370965})
-	["The Hunt"]           = { id = 370965, role = "cooldown_bar", priority = 2, bindKey = "Shift+F1", specs = { 577 } }, -- 10 Oct 2026 (spec audit, DB2): Havoc only; Devourer has its own 1246167, Vengeance none
+	-- 24 Nov 2026: + Devourer (its own The Hunt 1246167 is a Devourer talent, DB2; matched by name, so English clients).
+	["The Hunt"]           = { id = 370965, role = "cooldown_bar", priority = 2, bindKey = "Shift+F1", specs = { 577, 1480 } }, -- 10 Oct 2026 (spec audit, DB2): Havoc only; Devourer has its own 1246167, Vengeance none
 
 	-- CC / dispel_cc (InterruptAbilities 179057/211881; SpellCategories CROWD_CONTROL)
 	-- Chaos Nova is Havoc/Vengeance only since 21 Sep 2026: Devourer gets Void Nova instead

@@ -32,8 +32,11 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
   willen."*; op de samenvatting: *"Ja, dit klopt."* Daarmee VERVALT keuze 1a (12 × 4 alleen Forever).
 - Stap 1 ✅ gebouwd 24 nov, wacht op test: knop "Layout: …" in `/mh block` (onder "New spells"); één klik na een vraag =
   undo + wisselen + opnieuw neerzetten (alleen als het blok stond); nog eens klikken = terug. Commando's blijven.
-- Stap 2 open: 12 × 4 voor Midnight (40 specs, mh-research + tweede controle, zelfde taak per toets, 5/Shift+Spatie als
-  aanbod, speelkaarten volgen de indeling, oud blok standaard; account-brede binds in retail meten).
+- Stap 2 ✅ GEBOUWD 24 nov, wacht op test (Rob: *"A A A"*, healers *"a ja"*): 12 × 4 voor Midnight uit de rollen +
+  rol-naar-toets-tabel; 4 mh-research-controles + tweede Opus-controle → 76 uitzonderingen + 10 healer-regels (op
+  spell-id); Ctrl-rij Midnight (combat potion, health potion, 2 trinkets, healthstone); 5 = interact en Shift+Spatie =
+  willekeurige favoriete mount; uitlegblad met Midnight-tekst; gaten in de rol-data gedicht (resurrects, stances,
+  aura's, Steady Shot/Expunge per spec, The Hunt voor Devourer). Speelkaarten volgen vanzelf (lezen echte balken).
 - Spel: M + F. Voor wie: N + V (AFGELEID).
 
 ### Forever: "Do this now" — knop How you play + vrije tasplekken naast je goud (wens van Rob, 24 nov) — ✅ AF: GEBOUWD 24 nov (99770bc) en GETEST (Rob via Sparring, letterlijk: *"Ja, beide zijn helemaal goed."*)

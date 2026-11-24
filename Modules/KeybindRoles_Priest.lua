@@ -99,6 +99,9 @@ ns.KeybindRoleClassifier.PRIEST = {
 	["Power Infusion"] = { id = 10060, role = "cooldown_bar", priority = 2 },                -- F1-familie: haste-burst-CD (self/ally)
 	["Mind Control"] = { id = 605, role = "utility_secondary", priority = 2 },             -- E-utility (Disc/Holy hebben geen interrupt)
 	["Levitate"] = { id = 1706, category = "utility", priority = 6 },                       -- out-of-combat mobility-utility
+	-- 24 Nov 2026 (12 x 4 review gap; SkillLineAbility 35882: SkillLine 804, ClassMask 16 = every Priest, DB2 12.1.5.70961):
+	-- the out-of-combat resurrect, like Redemption / Revive / Resuscitate. On Ctrl-R in 12 x 4 (KeyBlock12Exceptions.lua).
+	["Resurrection"] = { id = 2006, category = "utility", priority = 8 },
 	-- Shadowfiend removed 17 Sep: passive now for Disc and Shadow, gone for Holy (audit, BRON Icy Veins Shadow/Disc/Holy 12.1).
 
 	-- -----------------------------------------------------------------

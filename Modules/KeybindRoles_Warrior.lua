@@ -66,6 +66,13 @@ ns.KeybindRoleClassifier.WARRIOR = {
 
 	-- Utility (SpellCategories UTILITY_SPELLS + guide.lua)
 	["Battle Shout"]       = { id = 6673, role = "utility_secondary", priority = 1 }, -- raid-buff (Arms/Fury op F, Prot op R)
+	-- 24 Nov 2026 (Rob via Sparring: "a ja", stances on Ctrl-1/2/3): the three stances as key block forms. Ids GEMETEN in
+	-- SpellName (DB2 12.1.5.70961: 386164 / 386208 / 386196, the talent versions); that each is a castable button in
+	-- Midnight, and for which spec, is AFGELEID: a stance this character does not have is not in its spellbook, so it
+	-- is never placed. blockForm only (the old /mh apply ignores it).
+	["Battle Stance"]      = { id = 386164, category = "utility", priority = 9, blockForm = 1 },
+	["Defensive Stance"]   = { id = 386208, category = "utility", priority = 9, blockForm = 2 },
+	["Berserker Stance"]   = { id = 386196, category = "utility", priority = 9, blockForm = 3 },
 	["Rallying Cry"]       = { id = 97462, category = "defensive", priority = 4, survival = "big", survivalOrder = 2, survivalNote = "SURVIVAL_NOTE_GROUP" }, -- groeps-defensive CD (+15% max HP; DEFENSIVE_SPELLS 97462) -> functioneel defensive; 3 min (W-CD)
 	["Intervene"]          = { id = 3411, category = "defensive", priority = 5 },      -- baseline gap-closer + damage-intercept op ally (JustAC SpellCooldowns 3411=30s); NOT on the card: ally only
 	["Heroic Throw"]       = { id = 57755, category = "utility", priority = 5 },        -- baseline ranged pull/threat (JustAC SpellArchetypes 57755); vooral Prot

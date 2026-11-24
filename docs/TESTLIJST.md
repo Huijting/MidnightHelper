@@ -25,6 +25,28 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 24 nov (avond, 12) — MIDNIGHT: toetsenblok "12 × 4" (Rob: "En ja, ik zou dit ook graag in Midnight willen", "A A A", "a ja")
+
+🔴 Nieuw bestand: sluit het spel eerst helemaal af en start opnieuw. Offline getest (40 specs × 2 indelingen, 2688
+controles), NIET in het spel. Het oude blok blijft de standaard. Op je Prot Paladin:
+- [ ] `/mh block`: rechtsboven de knop **Layout: the old block (switch)**. Klik, **Switch**: het blok gaat eraf, wordt
+      12 × 4 en gaat weer op je balken. (Daarna kan de vraag over de extra toetsen komen.)
+- [ ] Op de knoppen: **1** Judgment, **2** Avenger's Shield, **3** Hammer of the Righteous, **4** Shield of the
+      Righteous, **Q** Avenging Wrath, **E** Rebuke, **R** Divine Steed, **F** Hand of Reckoning, **Z** Ardent Defender,
+      **X** Divine Shield, **C** Guardian of Ancient Kings, **V** Cleanse Toxins. Met Shift o.a. Blessed Hammer of
+      Consecration (Shift-1/2), Divine Toll (Shift-Q), Word of Glory (Shift-C). **Ctrl-R** Redemption. Ctrl-1/2/3 = je
+      aura's (als je ze hebt). Lay on Hands en een paar andere staan op blok D (Alt).
+- [ ] Ctrl-F combat potion, Ctrl-Z health potion, Ctrl-C healthstone, Ctrl-V trinket, Ctrl-X tweede trinket: staat er
+      een icoontje als je het in je tas of om hebt?
+- [ ] Geen 5, T, G of F1-F4 meer op je blokknoppen.
+- [ ] "Why these keys?" in `/mh block`: de Midnight-tekst (healers: noodheal op C, gewone heals op 1/2/3; de Ctrl-rij
+      met combat potion en twee trinkets; Shift+Spatie = willekeurige favoriete mount).
+- [ ] Extra toetsen: 5 = interact (tweede toets), Shift+Spatie = Blizzards willekeurige favoriete mount. Nog eens drukken
+      = afstijgen, maar NIET in de lucht.
+- [ ] How you play / speelkaart: de toetsen volgen nu je nieuwe blok (die lezen je echte balken).
+- [ ] Een ander character (zelfde account): bij inloggen de vraag "Fix it now" (je toetsen gelden voor het hele account).
+- [ ] Terug: knop Layout → Switch: weer het oude blok.
+
 ## 24 nov (avond, 11) — FOREVER: de buff-knop cast op JEZELF (Rob, Thorns: "moet ik eerst mezelf aanklikken")
 
 Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (9 controles), NIET in het spel.

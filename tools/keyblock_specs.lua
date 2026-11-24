@@ -21,6 +21,10 @@ UIParent = dummy
 StaticPopupDialogs = {}
 
 local ns = {}
+-- KeyBlock.lua reads texts at load since 24 Nov 2026 (the layout-mismatch dialog's buttons): the key is enough here.
+function ns:L(k)
+	return k
+end
 for _, f in ipairs({ "Warrior", "Racials", "Paladin", "Hunter", "Rogue", "Priest", "DeathKnight", "Shaman",
 	"Mage", "Warlock", "Monk", "Druid", "DemonHunter", "Evoker" }) do
 	assert(loadfile(MOD .. "KeybindRoles_" .. f .. ".lua"))("MidnightHelper", ns)

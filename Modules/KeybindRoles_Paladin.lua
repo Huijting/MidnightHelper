@@ -94,6 +94,11 @@ ns.KeybindRoleClassifier.PALADIN = {
 
 	-- Utility (Blessings / rez / etc.). Blessing of Freedom staat al bij dispel_cc.
 	["Redemption"] = { id = 7328, category = "utility", priority = 8 }, -- UTILITY [7328] (out-of-combat rez)
+	-- 24 Nov 2026 (Rob via Sparring: "a ja", auras on Ctrl-1/2/3): ids GEMETEN in SpellName (DB2 12.1.5.70961); that they
+	-- are castable buttons in Midnight is AFGELEID: an aura not in this character's spellbook is never placed.
+	["Devotion Aura"]      = { id = 465, category = "utility", priority = 9, blockForm = 1 },
+	["Crusader Aura"]      = { id = 32223, category = "utility", priority = 9, blockForm = 2 },
+	["Concentration Aura"] = { id = 317920, category = "utility", priority = 9, blockForm = 3 },
 	["Intercession"] = { id = 391054, category = "utility", priority = 9 }, -- UTILITY [391054] (battle-rez, talent)
 
 	--==============================================================================

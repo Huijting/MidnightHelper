@@ -1,6 +1,27 @@
 # Midnight Helper — waar we staan
 
-## ▶▶ 24 nov avond (Bouwchat 24-11): 12 × 4 voor MIDNIGHT (stap A2) — tabel gebouwd, controle per spec loopt
+## ▶▶ 24 nov avond (Bouwchat 24-11): 12 × 4 voor MIDNIGHT (stap A2) — AF, wacht op test
+
+Controle: 4× mh-research (scratch `review12_g1..g4.md`) + tweede Opus (`review12_final.md`, met eigen simulatie van
+KeyBlockAllocate): 76 ACCEPT + HEALER A (Rob: *"a ja"*) in `Modules/KeyBlock12Exceptions.lua`, op spell-id (+ basis-id
+bij vervangende talenten: het spellbook meldt die onder het id van de spell die ze vervangen). AFGEWEZEN o.a. Steady
+Shot→D en Expunge→D (op id zou dat BM's Barbed Shot / Pres' Naturalize naar D sturen) → in de rol-data opgelost.
+Rol-data (ook voor het oude blok, Rob: *"a ja"*): Steady Shot specs {254,255}; Expunge {1467,1473}; Resuscitate +270;
+Ancestral Spirit alle Shamans; Resurrection (Priest, 2006) en Conjure Refreshment (Mage, 190336) nieuw; The Hunt +1480;
+Warrior-stances (386164/386208/386196) en Paladin-aura's (465/32223/317920) als blockForm 1/2/3 (ids GEMETEN in
+SpellName; castbaar in Midnight AFGELEID — zonder spellbook-treffer worden ze nooit geplaatst). Uitlegblad Midnight:
+KEYGUIDE_INTRO/BAR_A/BAR_SHIFT_MN (8 talen). Offline: `keys12_mn_test.lua` 2688 controles 0 fout, plus vaste
+steekproeven (Prot Paladin 4 = SotR, Z Ardent Defender, X Divine Shield, Ctrl-R Redemption; Holy C = Lay on Hands; MW
+C = Life Cocoon; Pres C = Rewind; Blood Z = AMS; Enh 4 = Lightning Bolt; Disc Ctrl-R = Resurrection; Arcane Ctrl-R =
+Conjure Refreshment). Oude blok verschuift alleen door de nieuwe rol-data: 1165/71 → 1171/91 (stances/aura's houden
+Ctrl-1/2/3 vrij bij Warrior/Paladin, overloop gaat dan naar D).
+NIET gemeten / open (review12_final.md DATA): welk id het spellbook meldt bij een spec-vervanging (Healing Wave/8004,
+Mind Flay/585 …; één spellbook-dump op een Resto Shaman of Shadow Priest beslist het); ids alleen in survivalId zijn
+onzichtbaar voor de id-lookup (Holy Divine Protection 498, Blink …) → op een niet-Engelse client ongeclassificeerd;
+Whirlwind Arms 1680 / Templar's Verdict 85256-ids; Eternal Flame blockAs[65]; Naturalize bindKey V; Raze / Red Moon /
+Rushing Wind Kick vallen waarschijnlijk via het basis-id goed (AFGELEID).
+
+## ▶▶ 24 nov avond (Bouwchat 24-11): 12 × 4 voor MIDNIGHT (stap A2) — tabel gebouwd (eerdere stand)
 
 Rob via Sparring, letterlijk: *"A A A"* = 1a (rol-naar-toets-tabel uit de bestaande KeybindRoles, daarna mh-research per
 spec + tweede Opus-controle, uitzonderingen per spec), 2a (Ctrl-F combat potion, Ctrl-Z health potion, Ctrl-X trinket 2,

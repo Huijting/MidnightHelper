@@ -28,6 +28,22 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 24 nov 2026 — Midnight: toetsenblok "12 × 4" (net als in Forever)
+- Tag + commit:   geen tag (commit: deze regel)
+- Status:         alleen op main
+- Mag op de site: nee (niet uit, niet getest)
+- Speler ziet:    Ook in Midnight een tweede indeling voor het toetsenblok: dezelfde 12 toetsen 1-4, Q E R F, Z X C V op
+                  elke balk, met per toets dezelfde taak voor elke spec. Healers: noodheal op C, gewone heals op 1/2/3.
+                  Ctrl: combat potion, health potion, healthstone, twee trinkets. Wisselen met de knop Layout; extra:
+                  5 = interact, Shift+Spatie = willekeurige favoriete mount. Het oude blok blijft de standaard.
+                  ⚠️ De site-pagina #keys12 ("Why these keys?") beschrijft de Forever-versie; Midnight heeft een eigen
+                  Ctrl-rij en healer-regel (KEYGUIDE_*_MN).
+                  📌 `data/keyblock_specs.json` (het STANDAARD/oude blok per spec) is opnieuw gemaakt: de rol-data kreeg
+                  resurrects, Warrior-stances en Paladin-aura's (op Ctrl-1/2/3) en een paar spec-correcties.
+- Knoplabels:     KEYBLOCK_STYLE_BTN_FMT, KEYGUIDE_BTN, KEYEXTRA_YES
+- Commando's:     /mh block style 12x4|old, /mh block extras on|off
+- Spel:           Midnight (Forever had het al)
+
 ## 24 nov 2026 — toetsenblok: knop "Layout" om te wisselen tussen oud en 12 × 4
 - Tag + commit:   geen tag (commit: deze regel)
 - Status:         alleen op main

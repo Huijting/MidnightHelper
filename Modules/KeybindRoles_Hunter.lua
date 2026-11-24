@@ -131,7 +131,9 @@ ns.KeybindRoleClassifier.HUNTER = {
 	--==================================================================================
 	-- BUILDERS (main_rotation)
 	--==================================================================================
-	["Steady Shot"] = { id = 56641, category = "main_rotation", priority = 1 }, -- baseline generieke builder
+	-- 24 Nov 2026 (12 x 4 second check, DB2 12.1.5.70961: Barbed Shot replaces Steady Shot for BM, TraitDefinition
+	-- 131266): MM and Survival only, so BM's real 2 is Barbed Shot. Rob via Sparring: "a ja" (gaps in the role data: now).
+	["Steady Shot"] = { id = 56641, category = "main_rotation", priority = 1, specs = { 254, 255 } }, -- baseline builder
 	-- Beast Mastery
 	["Barbed Shot"] = { id = 217200, category = "main_rotation", priority = 2, specs = { 253 } }, -- BM builder (Frenzy)
 	["Cobra Shot"] = { id = 193455, category = "main_rotation", priority = 3, specs = { 253 } }, -- BM builder/dump

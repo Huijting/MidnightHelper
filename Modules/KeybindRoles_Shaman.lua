@@ -135,7 +135,8 @@ ns.KeybindRoleClassifier.SHAMAN = {
 	-- Class talent for all three specs (IV-Ele, IV-Enh); `specs` stays { 264 } for the keys, the card widens.
 	-- Card: a heal you drop often, after the first heal.
 	["Healing Stream Totem"] = { id = 5394, category = "main_rotation", priority = 1, bindKey = "3", specs = { 264 }, survivalSpecs = { 262, 263, 264 }, survival = "heal", survivalOrder = 2, survivalNote = "SURVIVAL_NOTE_PARTY_HEAL" }, -- card: heals one injured party member per tick (simc 5394), solo that is you (audit 21 Oct 2026). Resto F (passieve group-heal; JustAC SpellCategories 5394)
-	["Ancestral Spirit"] = { id = 2008, category = "utility", priority = 3, specs = { 264 } }, -- Resto T (out-of-combat rez; JustAC SpellCategories 2008)
+	-- 24 Nov 2026: every Shaman (SkillLineAbility 35885: SkillLine 924, ClassMask 64 = class-wide; DB2 12.1.5.70961).
+	["Ancestral Spirit"] = { id = 2008, category = "utility", priority = 3, specs = { 262, 263, 264 } }, -- Resto T (out-of-combat rez; JustAC SpellCategories 2008)
 
     -- Gap round 5 Oct 2026 (Rob: "ja doe maar"): castable 12.1 spells that had no entry.
     ["Earth Shock"] = { id = 8042, category = "spender", priority = 1, specs = { 262 } }, -- gap round 5 Oct 2026 (mh-research, wago 69933): Ele choice node 80984 (DB2). SBA 262 step 16. IV Ele lists Earth Shock and Elemental Blast

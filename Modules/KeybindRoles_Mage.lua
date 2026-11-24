@@ -124,6 +124,9 @@ ns.KeybindRoleClassifier.MAGE = {
 	["Time Warp"] = { id = 80353, category = "utility", priority = 2 }, -- UTILITY [80353]; raid-haste (baseline)
 	-- Card: off since 17 Sep (was escape). You fade after 3 s, too slow to get away in a fight (audit TWIJFEL).
 	["Invisibility"] = { id = 66, category = "utility", priority = 4 }, -- UTILITY [66]; OOC-utility/threatdrop (baseline)
+	-- 24 Nov 2026 (12 x 4 review gap; SkillLineAbility 25259: SkillLine 904, ClassMask 128, baseline, DB2 12.1.5.70961):
+	-- food and water out of a fight. On Ctrl-R (recovery) in 12 x 4 (KeyBlock12Exceptions.lua).
+	["Conjure Refreshment"] = { id = 190336, category = "utility", priority = 9 },
 	["Slow Fall"] = { id = 130, category = "utility", priority = 9 }, -- UTILITY [130]; val-utility, bewust laatste prioriteit (buiten combat)
 
 	--==============================================================================
