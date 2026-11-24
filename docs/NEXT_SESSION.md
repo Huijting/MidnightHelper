@@ -31,7 +31,7 @@ regel op het plaatje (FixedWant), met een tooltip die de gedragen trinket noemt 
 Of Robs trinkets echt passief zijn is NIET gemeten (de tooltip laat het zien). Open: de vergelijking slot voor slot.
 ⚠️ KEYBLOCK_FIXED_HINT ("you put this one on the key yourself") is verouderd: MH zet items zelf neer. Nog aanpassen.
 
-## ▶▶ 24 nov avond (Bouwchat 24-11): Forever — macro-icoon volgde de vorm niet — GEREPAREERD, wacht op test
+## ▶▶ 24 nov avond (Bouwchat 24-11): Forever — macro-icoon volgde de vorm niet — ✅ GETEST (Rob: *"forever test ook gelukt met de druid, en nu weltrusten"*)
 
 Rob: *"o wacht, het word wel maul en die andere maar de icoontjes zijn hetzelfde als die van niet in beer vorm !!"*
 GEMETEN in `_forever_/WTF/.../93/Ima-Druiddude/macros-cache.txt` (23:41): de teksten kloppen ("MH 1" = `[bonusbar:3]

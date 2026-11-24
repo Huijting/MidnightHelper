@@ -41,10 +41,11 @@ Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. NIET in het spel gete
       Staat er wel een icoon, dan zet "Place it"/Update die trinket echt op de knop.
 - [ ] Noem de trinket uit die tooltip aan de bouwchat: dan kijken we of hij echt geen Use:-effect heeft.
 
-## 24 nov (avond, 13) — FOREVER: het icoon volgt je vorm (Rob: "de icoontjes zijn hetzelfde als die van niet in beer vorm")
+## 24 nov (avond, 13) — FOREVER: het icoon volgt je vorm (Rob: "de icoontjes zijn hetzelfde als die van niet in beer vorm") — ✅ GETEST
 
-Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (11 controles), NIET in het spel.
-- [ ] `/reload` op de Druid. Ga in beervorm (Ctrl-1): op toets **1** staat nu het icoon van **Maul**, op **F** dat van
+Rob via Sparring, letterlijk: *"forever test ook gelukt met de druid, en nu weltrusten"* (de beervorm-iconen). De andere
+punten hieronder heeft hij niet apart genoemd.
+- [x] `/reload` op de Druid. Ga in beervorm (Ctrl-1): op toets **1** staat nu het icoon van **Maul**, op **F** dat van
       **Growl**, op **2** Lacerate (als je die hebt). Uit beervorm: weer Wrath, Rejuvenation, Moonfire.
 - [ ] Ook bij kattenvorm, en op andere characters met states (Warrior-stances, Rogue Stealth): het icoon toont wat de
       toets NU doet. (Elk character repareert zijn knoppen één keer bij de eerste keer bijwerken na de update.)
