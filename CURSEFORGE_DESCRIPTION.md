@@ -27,7 +27,8 @@ Retail to **Forever** and install it there as well. You get help made for levell
   trainer to druid forms, warlock demons, shaman totems, hunter pets, weapon quests and more. *Do this now* tells you
   what to bring before the trip, and a card you can move shows the step you are on, in your class colour.
 - **Which quests before a dungeon?** A *Quests* button per dungeon lists what to pick up first and from whom, with the
-  arrow where the place is known.
+  arrow where the place is known. Have the QuestieDB addon? Midnight Helper then uses its places where it has none of
+  its own, and tells you in *Do this now* when a quest is ready to turn in.
 - **Where do I get this recipe or ingredient?** The tooltip and *Skill up* say it where Midnight Helper knows, and say
   so when the answer may be old Classic data. *Skill up* also shows what to make for your next skill point.
 - **Your next talent point**: for all nine classes, in the directions it has an order for, *Do this now* names the
@@ -38,7 +39,9 @@ Retail to **Forever** and install it there as well. You get help made for levell
 - **The game's own tooltips everywhere**: hover a spell, item, tool or boss loot in MH for the same tooltip as in your
   bags or spellbook.
 - **Do this now**: a small window with what you can do right now (new spells at your trainer, an old rank on your
-  bars, a weapon to learn, a missing tool) and the trainer spells of your next 3 levels.
+  bars, a weapon to learn, a missing tool) and the trainer spells of your next 3 levels. Upgrades in your bags come
+  first, with *Wear it* and *Not this one*. Next to your money you see your free bag slots, and a button opens *How you
+  play*.
 - **Which way do you want to go?** Pick one of your class's three talent trees, each in one plain sentence. *How you
   play* then tells you what that way needs: your armour, the weapon guides name, and which spells need a shield.
 - **Your characters**: all your characters in one window, with level, gold (and the total), professions, and how many
@@ -54,9 +57,14 @@ Retail to **Forever** and install it there as well. You get help made for levell
 - **New at your trainer**: when you level up, a window shows every new spell with its rank, its price and the key it
   lands on. Hover a spell for its tooltip; your nearest trainer stands beside the list as a turning 3D figure.
 - **How you play, for all nine classes**: what your class does, your buttons for levels 1 to 10, a simple order to
-  press them, what comes later, and the mistakes beginners make.
+  press them, what comes later, and the mistakes beginners make. It names the keys of your own key block.
 - **A key block for every class**: the same task on the same key on every character. A new character gets your bar
-  layout with one click.
+  layout with one click. Choose the old block, or **12 x 4**: the same 12 keys 1-4, Q E R F, Z X C V on every bar
+  (then with Shift, Ctrl and Alt), where E is always your interrupt and Ctrl holds your bandage, potions, healthstone
+  and trinket. *Why these keys?* explains every key. If you want, 5 becomes *Interact With Target* and Shift-Space
+  calls your fastest mount.
+- **Group check**: at a ready check a window shows who misses a class buff (and who can give it), plus your own
+  elixir, food, weapon buff, potions and healthstone. Click a buff you can give to cast it.
 - **Which quest reward to take**: MH marks the reward that is best for your class, or the one that sells for the most.
   Hover any piece of gear and a green line tells you why it beats what you wear: *+3 Strength (main stats for a
   Paladin)*.
@@ -163,6 +171,7 @@ Want new things sooner? Set Midnight Helper to **Beta** in the CurseForge app.
   [Efficient Games](https://efficient.games), [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), reduced.
 - Some macro texts: [classicwowforever.com](https://classicwowforever.com),
   [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+- Uses QuestieDB's quest data if you have QuestieDB installed; none of it is included in Midnight Helper.
 
 *The screen icons were generated locally with an open image model (Z-Image Turbo); the logo was made with Google
 Gemini. No Blizzard artwork was used as input.*

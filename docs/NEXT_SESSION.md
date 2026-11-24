@@ -10,9 +10,10 @@ werkt pas op een 12.1.7-client en staat er dus niet in (Sparring: alleen noemen 
 UTC): v5.9.0 (id 9795543, 12.0.7-12.1.7) en v5.9.0-forever (id 9795583, 1.60.1), allebei Release, status 4; de
 GitHub-release heeft beide zips. Wago NIET apart nagemeten (de run meldt Retail en Forever geslaagd). SITE_SEIN op
 "staat op CurseForge".
-🔴 Nog open: `CURSEFORGE_DESCRIPTION.md` noemt 12 × 4, het groepsbord en QuestieDB nog niet: bijwerken en Rob laten
-plakken (de packager doet dat niet). En op CurseForge kijken of de changelog netjes rendert (Files → het bestand →
-Changelog).
+✅ `CURSEFORGE_DESCRIPTION.md` bijgewerkt (Forever: 12 × 4 + Why these keys? + 5/Shift-Space, groepscheck, QuestieDB,
+Do this now: upgrades, tasplekken, How you play-knop; How you play noemt je toetsen; credit-regel QuestieDB).
+🔴 Nog open: Rob plakt de beschrijving op de CF-projectpagina (de packager doet dat niet), en kijkt of de changelog op
+CurseForge netjes rendert (Files → het bestand → Changelog).
 
 ## ▶▶ 24 nov avond (Bouwchat 24-11): Lua-fout KeyBlock.lua:1527 (Druid, na harde uitval) GEREPAREERD — wacht op test
 
