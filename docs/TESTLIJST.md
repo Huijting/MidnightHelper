@@ -25,6 +25,14 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 24 nov (avond, 9) — FOREVER: Lua-fout KeyBlock.lua:1527 bij inloggen (Druid, na een harde uitval van de pc)
+
+Alleen een bestaand bestand gewijzigd: `/reload` is genoeg. Offline getest met Robs geval (6 controles), NIET in het spel.
+- [ ] Log in op de Druid (of `/reload`): GEEN foutmelding meer van KeyBlock.lua.
+- [ ] MH vraagt "New for your key block … -> Shift Z" (of druk "Update (add new spells)" in `/mh block`): druk "Place it".
+      Daarna staat er weer een werkende knop op Shift-Z. (Die macro "MH SHIFT-Z" was weg door de uitval.)
+- [ ] `/mh block why`: geen regel meer met een lege of kapotte macro op Shift-Z.
+
 ## 24 nov (avond, 8) — FOREVER: groepsbord, de titel loopt niet meer onder het sluitkruisje (Rob: "Het afsluitknopje loopt door de tekst heen.")
 
 Alleen een bestaand bestand gewijzigd: `/reload` is genoeg. Offline getest (44 controles), NIET in het spel.

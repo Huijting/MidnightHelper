@@ -1,5 +1,22 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 24 nov avond (Bouwchat 24-11): Lua-fout KeyBlock.lua:1527 (Druid, na harde uitval) GEREPAREERD — wacht op test
+
+Rob, Forever Druid, bij inloggen na een onverwachte herstart (de kat zette de pc uit): `KeyBlock.lua:1527: bad argument
+#1 to 'tostring' (value expected)`, via 1812 (de nieuwe-spell-vraag) → MissingRows. Oorzaak GEMETEN in de locals: slot
+145 (SHIFT-Z, bar B) = ("macro", 0), en `GetActionText` gaf GEEN waarde terug (geen nil: tostring() zonder argument
+gooit "value expected"). De knop wil "MH SHIFT-Z" (offline, Druid 12×4); GEMETEN: die macro staat NIET in
+`_forever_/WTF/.../93/Ima-Druiddude/macros-cache.txt` (17:18) noch in `.old` (17:00), wel de andere MH-macro's (MH 1, 2, C,
+F, SHIFT-E, SHIFT-X). AFGELEID: die macro werd die sessie gemaakt en ging verloren bij de uitval (macro's worden pas bij
+uitloggen weggeschreven); de knop wees daarna naar niets. Fix: `pcall(GetActionText)` + alleen een echte naam telt, en
+een macro-knop met id 0 zonder naam telt als LEEG, zodat de nieuwe-spell-vraag/Update de goede macro terugzet
+(PlaceAction wisselt de kapotte eraf). Een macro met naam maar id 0 (bv. FishFry) blijft "bezet". GEMETEN ook: dit is
+de enige plek waar GetActionText in tostring() ging (de andere 8 vergelijken of geven door). Locals ook: macro's melden
+in Forever de spell-id van #showtooltip als id ("macro:5185" = Healing Touch). OVERFLOW = de lijst van het oude blok, ook
+bij 12×4: sleutels die 12×4 niet heeft (F3, SHIFT-F1) worden overgeslagen (byKey nil), de rest bestaat in beide; maar
+MissingRows filtert de CTRL-vormtoetsen niet zoals PlacePlan (hasForms) → kan bij een Druid zonder vorm een nieuwe
+spell op Ctrl-1..3 voorstellen. NIET gerepareerd (los punt). Offline: scratch `orphan_test.lua` 6/6.
+
 ## ▶▶ 24 nov avond (Bouwchat 24-11): groepsbord — titel onder het sluitkruisje GEREPAREERD — wacht op test
 
 Rob (nl, solo op zijn Druid): *"Het afsluitknopje loopt door de tekst heen."* Oorzaak: de breedte kwam alleen uit de

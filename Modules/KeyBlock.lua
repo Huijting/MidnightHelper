@@ -1520,11 +1520,25 @@ local function MissingRows()
 	for _, r in ipairs(rows) do
 		byKey[r.key] = r
 		local kind, id = Occupant(r.slot)
+		if kind == "macro" and (id == 0 or id == nil) then
+			-- An orphan macro button (its macro is gone: no name, id 0) holds nothing usable: count it as empty, so
+			-- the right thing goes back on it (PlaceAction swaps it off).
+			local okT, txt = pcall(GetActionText, r.slot)
+			if not (okT and type(txt) == "string" and txt ~= "") then
+				kind, id = nil, nil
+			end
+		end
 		if kind and id then
 			present[kind .. ":" .. tostring(id)] = true
 			-- A macro is known by name (the Forever Druid block's wants), its index shifts.
+			-- 🔴 24 Nov 2026 (Rob's Forever Druid at login, after a hard power-off): a macro button whose macro is gone
+			-- reads ("macro", 0) and GetActionText returns NOTHING, not nil, so tostring() itself raised "value expected".
+			-- An orphan macro counts as no name: the want is then simply missing and Update/the question offers it again.
 			if kind == "macro" then
-				present["macro:" .. tostring(GetActionText(r.slot))] = true
+				local okT, txt = pcall(GetActionText, r.slot)
+				if okT and type(txt) == "string" and txt ~= "" then
+					present["macro:" .. txt] = true
+				end
 			end
 			-- What this button turns into counts as present too. Rob, 6 Oct 2026 (Hunter): every pet swap asked
 			-- "New for your key block: Primal Rage -> F1". The button holds Command Pet 272651; with a Ferocity pet
