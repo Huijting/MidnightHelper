@@ -1,5 +1,9 @@
 # Midnight Helper — waar we staan
 
+📌 Na 5.9.0 (site-chat, bijvangst): nlNL noemde het venster in 4 regels "Do this now" i.p.v. de nl-titel "Doe dit nu"
+(SET_FOREVER_WEAR_TITLE/_DESC, FTALENT_SW/_DESC) → nu "Doe dit nu". GEMETEN: daarna 0 keer "Do this now" in nlNL.lua.
+Gaat mee in de volgende release.
+
 ## ▶▶ 24 nov avond (Bouwchat 24-11): RELEASE 5.9.0 getagd (Rob via Sparring, letterlijk: "release 5.9.0")
 
 Geen beta. Versie 5.9.0 in beide toc's; CHANGELOG_590_1 t/m _8 (enUS) + Changelog.lua; `RELEASE_NOTES.md` byte-gelijk aan
