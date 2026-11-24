@@ -1512,9 +1512,28 @@ local Refresh -- forward: the window's buttons redraw after placing, undoing or 
 --- What the plan wants that is on no block button yet, with where it would go.
 --- @return table list of { row = planRow, target = planRow } (target = the place it lands on)
 local function MissingRows()
-	local rows = PlacePlan()
+	local rows, res = PlacePlan()
 	if not rows then
 		return {}
+	end
+	-- Overflow keeps the same reserved keys as placing does (24 Nov 2026, found with Rob's Druid error): a class with
+	-- forms keeps Ctrl-1/2/3 for its forms, also the one it does not know yet (PlacePlan step 7 and the second trinket).
+	-- In Forever the class table names what each key is for (Druid Ctrl-1/2/3 = Bear/Cat/Moonkin, Warlock = pet
+	-- commands): a key it defines is never lent to another spell, so an unknown form's key stays empty, not wrong.
+	local reserved = {}
+	local hasForms = false
+	for _, o in pairs((type(res) == "table" and res.occ) or {}) do
+		if type(o) == "table" and type(o.why) == "string" and o.why:find("^form") then
+			hasForms = true
+		end
+	end
+	if ns.IS_FOREVER and ns.ForeverBlockClassTable then
+		local okC, cls = pcall(ns.ForeverBlockClassTable)
+		if okC and type(cls) == "table" and type(cls.keys) == "table" then
+			for k in pairs(cls.keys) do
+				reserved[k] = true
+			end
+		end
 	end
 	local present, empty, byKey = {}, {}, {}
 	for _, r in ipairs(rows) do
@@ -1582,7 +1601,7 @@ local function MissingRows()
 				target = nil
 			else
 				for _, k in ipairs(OVERFLOW) do
-					if empty[k] and byKey[k] then
+					if empty[k] and byKey[k] and not reserved[k] and not (hasForms and k:find("^CTRL%-")) then
 						target = byKey[k]
 						break
 					end

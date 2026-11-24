@@ -32,6 +32,9 @@ Alleen een bestaand bestand gewijzigd: `/reload` is genoeg. Offline getest met R
 - [ ] MH vraagt "New for your key block … -> Shift Z" (of druk "Update (add new spells)" in `/mh block`): druk "Place it".
       Daarna staat er weer een werkende knop op Shift-Z. (Die macro "MH SHIFT-Z" was weg door de uitval.)
 - [ ] `/mh block why`: geen regel meer met een lege of kapotte macro op Shift-Z.
+- [ ] (ook in deze ronde) Druid zonder Cat Form of Moonkin Form: MH stelt een nieuwe spell NOOIT voor op Ctrl-1, Ctrl-2
+      of Ctrl-3. Die blijven leeg tot je de vorm leert. Staat de eigen toets van een spell vol met iets van jezelf, dan
+      wacht hij (geen "-> Ctrl 1" meer).
 
 ## 24 nov (avond, 8) — FOREVER: groepsbord, de titel loopt niet meer onder het sluitkruisje (Rob: "Het afsluitknopje loopt door de tekst heen.")
 

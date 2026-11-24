@@ -15,7 +15,12 @@ de enige plek waar GetActionText in tostring() ging (de andere 8 vergelijken of 
 in Forever de spell-id van #showtooltip als id ("macro:5185" = Healing Touch). OVERFLOW = de lijst van het oude blok, ook
 bij 12×4: sleutels die 12×4 niet heeft (F3, SHIFT-F1) worden overgeslagen (byKey nil), de rest bestaat in beide; maar
 MissingRows filtert de CTRL-vormtoetsen niet zoals PlacePlan (hasForms) → kan bij een Druid zonder vorm een nieuwe
-spell op Ctrl-1..3 voorstellen. NIET gerepareerd (los punt). Offline: scratch `orphan_test.lua` 6/6.
+spell op Ctrl-1..3 voorstellen. → ✅ DAARNA OOK GEREPAREERD (Sparring: *"neem het mee nu, vóór de release"*):
+MissingRows slaat nu dezelfde toetsen over als het neerzetten (hasForms uit res.occ, zoals de tweede trinket) én, in
+Forever, elke toets die de class-tabel (ClassTable().keys, huidige indeling) voor iets bedoelt; zo blijft de toets van een
+onbekende vorm leeg en niet fout. Gevolg in Forever: staat de eigen toets van een nieuwe spell vol met iets van de
+speler, dan wacht de spell (geen plek) in plaats van op een andere vaste toets te landen. Offline: scratch
+`orphan_test.lua` 12/12, met tegencontrole (zonder de fix landt hij op CTRL-1).
 
 ## ▶▶ 24 nov avond (Bouwchat 24-11): groepsbord — titel onder het sluitkruisje GEREPAREERD — wacht op test
 
