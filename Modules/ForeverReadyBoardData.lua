@@ -304,4 +304,24 @@ ns.FOREVER_CONSUMABLES = {
 		{ item = 19005, lvl = 1, heal = 120 },   -- Minor Healthstone (talent copy)
 		{ item = 19004, lvl = 1, heal = 110 },   -- Minor Healthstone (talent copy)
 	},
+
+	-- Bandages that work everywhere (24 Nov 2026, second measurement by mh-research, wowf 1.60.1.71037: ItemSparse +
+	-- ItemXItemEffect -> ItemEffect, SpellCategory 150; heal per tick x duration = the tooltip for all of them;
+	-- docs/forever/BANDAGES_FOREVER_2026-11-24.md). Most heal first. skill = First Aid rank (SkillLine 2942); the
+	-- key block's Ctrl-F does not check it (the game says no when your rank is too low). Battleground-only bandages
+	-- are left out on purpose: they do nothing outside their battleground.
+	bandage = {
+		{ item = 232433, lvl = 50, skill = 300 }, -- Dense Runecloth Bandage, 3400 / 8 s
+		{ item = 23684, lvl = 0, skill = 225 },   -- Crystal Infused Bandage, 2500 / 10 s
+		{ item = 14530, lvl = 0, skill = 225 },   -- Heavy Runecloth Bandage, 2000 / 8 s
+		{ item = 14529, lvl = 0, skill = 200 },   -- Runecloth Bandage, 1360 / 8 s
+		{ item = 8545, lvl = 0, skill = 175 },    -- Heavy Mageweave Bandage, 1104 / 8 s
+		{ item = 8544, lvl = 0, skill = 150 },    -- Mageweave Bandage, 800 / 8 s
+		{ item = 6451, lvl = 0, skill = 125 },    -- Heavy Silk Bandage, 640 / 8 s
+		{ item = 6450, lvl = 0, skill = 100 },    -- Silk Bandage, 400 / 8 s
+		{ item = 3531, lvl = 0, skill = 75 },     -- Heavy Wool Bandage, 301 / 7 s
+		{ item = 3530, lvl = 0, skill = 50 },     -- Wool Bandage, 161 / 7 s
+		{ item = 2581, lvl = 0, skill = 20 },     -- Heavy Linen Bandage, 114 / 6 s
+		{ item = 1251, lvl = 0, skill = 1 },      -- Linen Bandage, 66 / 6 s
+	},
 }

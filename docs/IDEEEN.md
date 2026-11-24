@@ -26,6 +26,19 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 
 ## Open — wacht op Rob
 
+### Forever: toetsenblok "12 × 4" zoals in de Bellular-video (wens van Rob, 24 nov) — ✅ JA (1a + 2b), GEBOUWD 24 nov, wacht op test
+- Bron: Rob via Sparring 24-11, letterlijk: *"ik vind namelijk zijn uitleg goed en wil onze versie ook zo hebben van
+  keybinds qua knoppen"*, *"maak een voorstel, in jip en janneke"*, en op het voorstel: *"uiteraard volg ik je advies e laat
+  een agent uitzoeken welke spells logisch zijn per class zodat dat automatisch kan worden toegepast ipv dat ik ga gokken
+  met dingen die ik nooit gespeeld heb"*. Gekozen: alleen Forever (1a), een schakelaar met het oude blok als standaard (2b).
+  Daarmee vervalt de regel dat Rob elke klasse-tabel eerst goedkeurt: het onderzoek bepaalt, Rob test.
+- Gebouwd: `KeyBlock.lua` BLOCK_12 + `/mh block style old|12x4`; `keys12` in de 9 `ForeverBlock_<Class>.lua`
+  (onderzoek `docs/forever/KEYBLOCK12_<CLASS>.md` + tweede controle `KEYBLOCK12_REVIEW.md`); Ctrl-balk met vaste items
+  (bandage, health/mana potion, healthstone, trinket; id's gemeten). Alt-balk = block D (Alt-G i.p.v. Alt-Z).
+- Later (stap 2, Sparring: *"akkoord"*): mount op Shift+Spatie, een interact-toets; sit/sheathe/character alleen na een
+  vraag, met undo. Ook later: de How you play-teksten noemen nog de oude toetsen; downranks per toets kan de motor niet.
+- Spel: F. Voor wie: N + V (AFGELEID). Site: pas na test en release.
+
 ### Forever: consumable-venster voor de party, zoals in Midnight (wens van Rob, 23 nov) — ✅ JA (optie A), GEBOUWD 24 nov, wacht op test
 - 24 nov: Rob via Sparring 24-11, letterlijk: *"Ja maak maar"*, en op *"Bedoel je doe jouw advies (A)?"*: *"ja"*.
   Gebouwd: `Modules/ForeverReadyBoard.lua` + `ForeverReadyBoardData.lua` (nieuw, beide toc's, alleen actief in Forever).

@@ -25449,3 +25449,63 @@ if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	FCONS_AUTO_ON = "o quadro do grupo abre a cada verificação de prontidão (/mh readyboard auto off para parar).",
 	FCONS_AUTO_OFF = "o quadro do grupo não abre mais numa verificação de prontidão (/mh readyboard auto on traz ele de volta).",
 }) end
+
+-- 24 Nov 2026, KeyBlock.lua 12 x 4: switch between the old key block and the 12 x 4 layout (WoW Forever), so no
+-- itIT block. Our own translation (mh-writer), not native-checked. Button name = each pack's KEYBLOCK_BTN_PLACE;
+-- Mana potion / Bandage as FCONS_COL_MPOT and FMAC_BANDAGE_TITLE; modifier keys as CLICK_MOD_*.
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
+	KEYBLOCK_T_FORM4 = "Form 4 / Extra",
+	KEYBLOCK_T_MANAPOT = "Manatrank",
+	KEYBLOCK_T_BANDAGE = "Verband",
+	KEYBLOCK_STYLE_OLD = "der alte Block (mit 5, T, G und F1-F4)",
+	KEYBLOCK_STYLE_12 = "12 x 4 (dieselben 12 Tasten 1-4, Q E R F, Z X C V; dann Umschalt, Strg und Alt)",
+	KEYBLOCK_STYLE_NOW_FMT = "Aufteilung des Tastenblocks: %s. Wechseln: /mh block style 12x4 oder /mh block style old.",
+	KEYBLOCK_STYLE_FOREVER_ONLY = "der 12 x 4-Block ist nur für WoW Forever.",
+	KEYBLOCK_STYLE_USAGE = "tippe /mh block style old oder /mh block style 12x4.",
+	KEYBLOCK_STYLE_UNDO_FIRST = "dein Tastenblock ist platziert. Tippe zuerst /mh block undo, wechsle dann und platziere ihn danach neu.",
+	KEYBLOCK_STYLE_NO_TABLE = "für diese Klasse gibt es noch keine 12 x 4-Aufteilung. Der alte Block bleibt.",
+	KEYBLOCK_STYLE_SET_12 = "Aufteilung des Tastenblocks: 12 x 4. Öffne /mh block, um ihn zu sehen, und drück dann \"Auf Leisten 5, 6 und 7 setzen\".",
+	KEYBLOCK_STYLE_SET_OLD = "Aufteilung des Tastenblocks: wieder der alte Block. Öffne /mh block, um ihn zu sehen, und drück dann \"Auf Leisten 5, 6 und 7 setzen\".",
+}) end
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
+	KEYBLOCK_T_FORM4 = "forme 4 / extra",
+	KEYBLOCK_T_MANAPOT = "Potion de mana",
+	KEYBLOCK_T_BANDAGE = "Bandage",
+	KEYBLOCK_STYLE_OLD = "l'ancien bloc (avec 5, T, G et F1-F4)",
+	KEYBLOCK_STYLE_12 = "12 x 4 (les mêmes 12 touches 1-4, Q E R F, Z X C V ; puis Maj, Ctrl et Alt)",
+	KEYBLOCK_STYLE_NOW_FMT = "disposition du bloc de touches : %s. Pour changer : /mh block style 12x4 ou /mh block style old.",
+	KEYBLOCK_STYLE_FOREVER_ONLY = "le bloc 12 x 4 est seulement pour WoW Forever.",
+	KEYBLOCK_STYLE_USAGE = "tape /mh block style old ou /mh block style 12x4.",
+	KEYBLOCK_STYLE_UNDO_FIRST = "ton bloc de touches est placé. Tape d'abord /mh block undo, change ensuite, puis place-le à nouveau.",
+	KEYBLOCK_STYLE_NO_TABLE = "il n'y a pas encore de disposition 12 x 4 pour cette classe. L'ancien bloc reste.",
+	KEYBLOCK_STYLE_SET_12 = "disposition du bloc de touches : 12 x 4. Ouvre /mh block pour le voir, puis appuie sur \"Placer sur les barres 5, 6 et 7\".",
+	KEYBLOCK_STYLE_SET_OLD = "disposition du bloc de touches : de nouveau l'ancien bloc. Ouvre /mh block pour le voir, puis appuie sur \"Placer sur les barres 5, 6 et 7\".",
+}) end
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
+	KEYBLOCK_T_FORM4 = "forma 4 / extra",
+	KEYBLOCK_T_MANAPOT = "Poción de maná",
+	KEYBLOCK_T_BANDAGE = "Venda",
+	KEYBLOCK_STYLE_OLD = "el bloque antiguo (con 5, T, G y F1-F4)",
+	KEYBLOCK_STYLE_12 = "12 x 4 (las mismas 12 teclas 1-4, Q E R F, Z X C V; luego Mayús, Ctrl y Alt)",
+	KEYBLOCK_STYLE_NOW_FMT = "distribución del bloque de teclas: %s. Para cambiar: /mh block style 12x4 o /mh block style old.",
+	KEYBLOCK_STYLE_FOREVER_ONLY = "el bloque 12 x 4 es solo para WoW Forever.",
+	KEYBLOCK_STYLE_USAGE = "escribe /mh block style old o /mh block style 12x4.",
+	KEYBLOCK_STYLE_UNDO_FIRST = "tu bloque de teclas está colocado. Escribe primero /mh block undo, cambia después y luego vuelve a colocarlo.",
+	KEYBLOCK_STYLE_NO_TABLE = "aún no hay distribución 12 x 4 para esta clase. Se queda el bloque antiguo.",
+	KEYBLOCK_STYLE_SET_12 = "distribución del bloque de teclas: 12 x 4. Abre /mh block para verlo y luego pulsa \"Ponerlo en las barras 5, 6 y 7\".",
+	KEYBLOCK_STYLE_SET_OLD = "distribución del bloque de teclas: otra vez el bloque antiguo. Abre /mh block para verlo y luego pulsa \"Ponerlo en las barras 5, 6 y 7\".",
+}) end
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
+	KEYBLOCK_T_FORM4 = "forma 4 / extra",
+	KEYBLOCK_T_MANAPOT = "Poção de Mana",
+	KEYBLOCK_T_BANDAGE = "Bandagem",
+	KEYBLOCK_STYLE_OLD = "o bloco antigo (com 5, T, G e F1-F4)",
+	KEYBLOCK_STYLE_12 = "12 x 4 (as mesmas 12 teclas 1-4, Q E R F, Z X C V; depois Shift, Ctrl e Alt)",
+	KEYBLOCK_STYLE_NOW_FMT = "disposição do bloco de teclas: %s. Para trocar: /mh block style 12x4 ou /mh block style old.",
+	KEYBLOCK_STYLE_FOREVER_ONLY = "o bloco 12 x 4 é só para o WoW Forever.",
+	KEYBLOCK_STYLE_USAGE = "digite /mh block style old ou /mh block style 12x4.",
+	KEYBLOCK_STYLE_UNDO_FIRST = "seu bloco de teclas está colocado. Digite primeiro /mh block undo, depois troque e então coloque-o de novo.",
+	KEYBLOCK_STYLE_NO_TABLE = "ainda não há disposição 12 x 4 para esta classe. O bloco antigo continua.",
+	KEYBLOCK_STYLE_SET_12 = "disposição do bloco de teclas: 12 x 4. Abra /mh block para ver e depois clique em \"Colocar nas barras 5, 6 e 7\".",
+	KEYBLOCK_STYLE_SET_OLD = "disposição do bloco de teclas: de novo o bloco antigo. Abra /mh block para ver e depois clique em \"Colocar nas barras 5, 6 e 7\".",
+}) end

@@ -25,6 +25,22 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 24 nov — FOREVER: toetsenblok "12 × 4" (Rob: "laat een agent uitzoeken welke spells logisch zijn per class")
+
+Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (alle 9 classes, 2247 controles goed), NIET in
+het spel. Het oude blok blijft de standaard: zonder het commando hieronder verandert er niets.
+- [ ] Is je toetsenblok neergezet? Typ eerst `/mh block undo`. Typ dan `/mh block style 12x4`. In de chat staat
+      "key block layout: 12 x 4". (Zonder undo zegt MH dat je eerst undo moet doen.)
+- [ ] Open `/mh block`. Je ziet vier blokken met steeds dezelfde 12 toetsen: 1 2 3 4, Q E R F, Z X C V. Blok A zonder
+      modifier, B met Shift, C met Ctrl, D met Alt (je eigen balk). Geen 5, T, G of F1-F4 meer.
+- [ ] Blok C (Ctrl): Ctrl-Z health potion, Ctrl-X mana potion, Ctrl-C healthstone, Ctrl-V trinket en Ctrl-F bandage.
+      Heb je zo'n item in je tas, dan staat het icoontje er.
+- [ ] Druk op "Zet het op balk 5, 6 en 7". Probeer daarna in een gevecht: 1 = je hoofdknop, E = je interrupt (als je
+      class er een heeft), R = beweging (Charge, Sprint, Blink …), Z/X/C = defensives, V = crowd control.
+- [ ] Typ `/mh block why`: bovenaan "layout: 12x4", en bij elke toets een korte reden ("12x4: …").
+- [ ] Terug: `/mh block undo`, dan `/mh block style old`, dan opnieuw neerzetten: alles staat weer zoals vroeger.
+- [ ] Ook in het oude blok (vanaf vandaag): T = health potion en Shift-T = healthstone gebruiken nu Forever-items.
+
 ## 24 nov — FOREVER: groepsbord met buffs en consumables (Rob: "Ja maak maar", optie A)
 
 🔴 Nieuw bestand: sluit het spel eerst helemaal af en start opnieuw (een `/reload` is niet genoeg).

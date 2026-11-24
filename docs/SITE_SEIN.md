@@ -28,6 +28,17 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 24 nov 2026 — Forever: toetsenblok "12 × 4" (keuze naast het oude blok)
+- Tag + commit:   geen tag (commit: deze regel)
+- Status:         alleen op main
+- Mag op de site: nee, nog niet (geen release; Rob test eerst).
+- Speler ziet:    Een tweede indeling van het toetsenblok: dezelfde 12 toetsen (1-4, Q E R F, Z X C V) zonder modifier, met
+                  Shift, met Ctrl en met Alt. Per class gekozen; potions, healthstone, bandage en trinket op de Ctrl-balk.
+                  Het oude blok blijft de standaard.
+- Knoplabels:     KEYBLOCK_BTN_PLACE (ongewijzigd)
+- Commando's:     /mh block style old, /mh block style 12x4
+- Spel:           Forever
+
 ## 24 nov 2026 — Forever: groepsbord met buffs en consumables (zoals Midnight's ready check)
 - Tag + commit:   geen tag (commit: deze regel)
 - Status:         alleen op main

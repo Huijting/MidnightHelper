@@ -37,10 +37,82 @@ ns.FOREVER_BLOCK_CLASSES = ns.FOREVER_BLOCK_CLASSES or {}
 local MACRO_PREFIX = "MH "
 local MACRO_ICON = "INV_MISC_QUESTIONMARK"
 
+--- 24 Nov 2026: with the "12 x 4" block chosen (KeyBlock.lua, /mh block style 12x4) a class table's keys12 is used
+--- instead of its keys; everything else (states, baseGuard, toBlockD, listed) stays the class's own. A class without
+--- keys12 keeps its old keys (the switch refuses 12x4 for it, so this is only a safety net).
+--- Every spell name a keys table names, in a stable order (fields that are not spells are skipped).
+local SKIP_FIELD = { open = true, bang = true, why = true, cmd = true, pair = true }
+local function KeyNames(keys)
+	local list, seen = {}, {}
+	local function add(v)
+		if type(v) == "table" then
+			for _, n in ipairs(v) do
+				add(n)
+			end
+		elseif type(v) == "string" and not seen[v] then
+			seen[v] = true
+			list[#list + 1] = v
+		end
+	end
+	local order = {}
+	for k in pairs(keys or {}) do
+		order[#order + 1] = k
+	end
+	table.sort(order)
+	for _, k in ipairs(order) do
+		local def = keys[k]
+		for field, v in pairs(def) do
+			if field == "pair" then
+				add(v.first)
+				add(v.second)
+			elseif field == "cmd" then
+				add(v.needs)
+			elseif not SKIP_FIELD[field] then
+				add(v)
+			end
+		end
+	end
+	return list, seen
+end
+ns.ForeverBlockKeyNames = KeyNames -- the offline check calls it
+
+local views = {}
 local function ClassTable()
 	local _, token = UnitClass("player")
-	return token and ns.FOREVER_BLOCK_CLASSES[token], token
+	local cls = token and ns.FOREVER_BLOCK_CLASSES[token]
+	if cls and cls.keys12 and ns.KeyBlockLayoutName and ns.KeyBlockLayoutName() == "12x4" then
+		local v = views[token]
+		if not v or v._src ~= cls then
+			-- A spell of the old block that has no place in 12 x 4 (31 places instead of 33-36) goes to block D, so
+			-- it is never lost and never in the red "not in MH's list" line (helper reports, 24 Nov 2026).
+			-- These come FIRST, before the class's own toBlockD (ranged attacks, racials, professions): the second check
+			-- counted ~14 for 12 places on a level-60 Mage/Warlock, and then the armor buffs were the ones left off.
+			local _, in12 = KeyNames(cls.keys12)
+			local toD, seenD = {}, {}
+			local inOrigD = {}
+			for _, n in ipairs(cls.toBlockD or {}) do
+				inOrigD[n] = true
+			end
+			for _, n in ipairs((KeyNames(cls.keys))) do
+				if not in12[n] and not seenD[n] and not inOrigD[n] then
+					toD[#toD + 1] = n
+					seenD[n] = true
+				end
+			end
+			for _, n in ipairs(cls.toBlockD or {}) do
+				if not seenD[n] then
+					toD[#toD + 1] = n
+					seenD[n] = true
+				end
+			end
+			v = setmetatable({ keys = cls.keys12, toBlockD = toD, _src = cls, twelve = true }, { __index = cls })
+			views[token] = v
+		end
+		return v, token
+	end
+	return cls, token
 end
+ns.ForeverBlockClassTable = ClassTable
 
 local function InSpellBook(id)
 	-- Name lookups should only find spells you have; the spellbook check makes sure (AFGELEID that it is needed).
@@ -515,7 +587,8 @@ function ns.ForeverKeyBlockBuild()
 			end
 			occ[key] = {
 				spell = { id = show, name = okN and nm or nil, macroName = MacroName(key), macroKey = key, spellIds = ids },
-				why = "Forever macro",
+				-- 12 x 4 (24 Nov 2026): the research's own reason per key, shown by /mh block why.
+				why = (cls.twelve and type(def.why) == "string") and ("12x4: " .. def.why) or "Forever macro",
 			}
 			trace[#trace + 1] = { key = key, id = show, why = "Forever macro: " .. body:gsub("\n", " ") }
 		end
@@ -536,7 +609,8 @@ function ns.ForeverKeyBlockBuild()
 		local okS, id = pcall(ns.GetSpecializationInfo, ns.GetSpecialization())
 		specID = okS and id or nil
 	end
-	return { occ = occ, unplaced = unplaced, trace = trace, specID = specID, class = token, unknown = 0, forever = true }
+	return { occ = occ, unplaced = unplaced, trace = trace, specID = specID, class = token, unknown = 0, forever = true,
+		layout = cls.twelve and "12x4" or "old" }
 end
 
 --- Active spells in this character's spellbook that the class table does not name. The key block window's red "not in
@@ -564,7 +638,7 @@ function ns.ForeverBlockUnlisted()
 				add(v.second)
 			elseif field == "cmd" then
 				add(v.needs)
-			elseif field ~= "open" and field ~= "bang" then
+			elseif field ~= "open" and field ~= "bang" and field ~= "why" then -- why = the 12x4 reason text, no spell
 				add(v)
 			end
 		end

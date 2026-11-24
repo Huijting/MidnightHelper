@@ -1,5 +1,30 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 24 nov (Bouwchat 24-11): Forever-toetsenblok "12 × 4" GEBOUWD (1a + 2b) — wacht op Robs test
+
+Rob via Sparring 24-11, letterlijk: *"ik vind namelijk zijn uitleg goed en wil onze versie ook zo hebben van keybinds qua
+knoppen"* (Bellular-video) en *"uiteraard volg ik je advies e laat een agent uitzoeken welke spells logisch zijn per class
+zodat dat automatisch kan worden toegepast"*. 1a = alleen Forever, 2b = schakelaar, oud blok standaard. VERVALT: Rob keurt
+niet meer elke klasse-tabel goed; het onderzoek bepaalt, Rob test.
+- 🧪 `KeyBlock.lua`: BLOCK_OLD + BLOCK_12, `BLOCK` wordt in place gevuld door `SyncLayout()` (in Build, Ensure, ArmBar1);
+  het plaatje vindt knoppen nu op plek (`f.slotAt`), niet op toetsnaam. `/mh block style old|12x4` (`ns.KeyBlockSetStyle`;
+  weigert als het blok geplaatst is, in gevecht, of zonder keys12 voor de class). `ns.db.keyBlock.style` (account-breed).
+  `/mh block why` toont "layout: …" en per toets "12x4: <reden>".
+- 12×4: A = 1-4 Q E R F Z X C V, B = Shift, C = Ctrl (1-4, Q, E, R + vaste items Ctrl-F bandage, Ctrl-Z health potion,
+  Ctrl-X mana potion, Ctrl-C healthstone, Ctrl-V trinket), D = Alt (= block D, Alt-G i.p.v. Alt-Z; Sparring: *"akkoord"*).
+  `FixedWant`: in Forever nu de gemeten lijsten (ForeverReadyBoardData hpot/mpot/hs/bandage) — geldt ook voor T/Shift-T
+  van het OUDE blok (daar vond hij in Forever niets: retail-data).
+- `ForeverBlock.lua`: ClassTable geeft in 12×4 een view met `keys12`; oude spells zonder 12×4-plek gaan VOOR toBlockD naar
+  block D (tweede controle: anders vallen de armor-buffs eraf op 60). `why` telt niet als spellnaam.
+- 9 tabellen `keys12` (onderzoek 3× mh-research, `docs/forever/KEYBLOCK12_<CLASS>.md`; tweede controle mh-research
+  `KEYBLOCK12_REVIEW.md` → 3 wijzigingen doorgevoerd: Mage 4 = Fire Blast / Shift-3 = Pyroblast, Priest wand `bang`,
+  Warlock 3 = Agony / Shift-2 = Immolate). Bandage-id's: `docs/forever/BANDAGES_FOREVER_2026-11-24.md` (12 algemeen;
+  16 battleground-bandages bewust NIET).
+- Offline 2248 controles goed (scratch `keys12_test.lua`: toetsen, namen, dubbelen, 255 tekens, niets kwijt), NIET in het spel.
+- Open: How you play noemt nog de oude toetsen (5, F2, T/Shift-T/G; review r.33/153/176/311/381). Stap 2 (Sparring
+  *"akkoord"*): mount Shift+Spatie, interact-toets, sit/sheathe/character na een vraag. Geen knop in het venster (geen
+  ruimte bovenin): alleen het commando. Battle Shout-duur niet gemeten; Hammer of the Righteous: bron onbekend.
+
 ## ▶▶ 24 nov (Bouwchat 24-11): Forever-groepsbord GEBOUWD (optie A) — wacht op Robs test
 
 Rob via Sparring 24-11, letterlijk: *"Ja maak maar"* en op *"Bedoel je doe jouw advies (A)?"*: *"ja"*.

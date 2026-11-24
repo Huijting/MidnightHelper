@@ -19,7 +19,11 @@ local _, ns = ...
 ]]
 
 -- WoW binding notation, so step two can hand these straight to SetBinding.
-local BLOCK = {
+-- 24 Nov 2026: two layouts. BLOCK_OLD is the block below (5/T/G/F1-F4). BLOCK_12 is "12 x 4" for WoW Forever only
+-- (Rob via Sparring 24-11, after Bellular's Forever keybind video: "wil onze versie ook zo hebben van keybinds qua
+-- knoppen"; choice 1a + 2b = Forever only, a switch, the old block stays the default). BLOCK is the live table: the
+-- rest of this file reads it, and SyncLayout() refills it in place from the chosen one.
+local BLOCK_OLD = {
 	-- Block D (5 Oct 2026, Rob: "extra blok D, aan, links van A, vaste toetsen bedenken"): the player's OWN
 	-- place on action bar 4 — toys, hearthstone, macros, whatever the block pushed aside. MH binds the keys
 	-- and never fills or clears it. Alt + the same pattern as A, except Alt-Z: Blizzard's default for
@@ -57,6 +61,70 @@ local BLOCK = {
 		{ key = "SHIFT-C", task = "KEYBLOCK_T_DEF_BIG2" }, { key = "SHIFT-V", task = "KEYBLOCK_T_CC" },
 	} },
 }
+
+-- "12 x 4" (Forever only): the same 12 keys 1 2 3 4 / Q E R F / Z X C V on every bar; A = no modifier, B = Shift,
+-- C = Ctrl, D = Alt (the player's own bar, identical to block D above, Alt-G instead of Alt-Z; Sparring 24-11:
+-- "akkoord"). The tasks follow the old block (E kick, Z/X/C defensives, V crowd control, R movement); Ctrl holds forms
+-- and the fixed items. Which spell goes where comes from the class tables' keys12 (docs/forever/KEYBLOCK12_*.md).
+local BLOCK_12 = {
+	BLOCK_OLD[1], -- block D, unchanged
+	{ id = "A", slots = {
+		{ key = "1", task = "KEYBLOCK_T_MAIN" }, { key = "2", task = "KEYBLOCK_T_ROT" },
+		{ key = "3", task = "KEYBLOCK_T_ROT" }, { key = "4", task = "KEYBLOCK_T_SPENDER" },
+		{ key = "Q", task = "KEYBLOCK_T_BIGCD" }, { key = "E", task = "KEYBLOCK_T_KICK" },
+		{ key = "R", task = "KEYBLOCK_T_MOVE" }, { key = "F", task = "KEYBLOCK_T_TAUNT" },
+		{ key = "Z", task = "KEYBLOCK_T_DEF_SMALL" }, { key = "X", task = "KEYBLOCK_T_DEF2" },
+		{ key = "C", task = "KEYBLOCK_T_DEF_BIG" }, { key = "V", task = "KEYBLOCK_T_CC" },
+	} },
+	{ id = "B", slots = {
+		{ key = "SHIFT-1", task = "KEYBLOCK_T_AOE" }, { key = "SHIFT-2", task = "KEYBLOCK_T_AOE" },
+		{ key = "SHIFT-3", task = "KEYBLOCK_T_CD3" }, { key = "SHIFT-4", task = "KEYBLOCK_T_AOESPEND" },
+		{ key = "SHIFT-Q", task = "KEYBLOCK_T_CD2" }, { key = "SHIFT-E", task = "KEYBLOCK_T_RACIAL" },
+		{ key = "SHIFT-R", task = "KEYBLOCK_T_MOVE2" }, { key = "SHIFT-F", task = "KEYBLOCK_T_CC" },
+		{ key = "SHIFT-Z", task = "KEYBLOCK_T_DEF_SMALL2" }, { key = "SHIFT-X", task = "KEYBLOCK_T_DEF2B" },
+		{ key = "SHIFT-C", task = "KEYBLOCK_T_DEF_BIG2" }, { key = "SHIFT-V", task = "KEYBLOCK_T_CC" },
+	} },
+	{ id = "C", slots = {
+		{ key = "CTRL-1", task = "KEYBLOCK_T_FORM1" }, { key = "CTRL-2", task = "KEYBLOCK_T_FORM2" },
+		{ key = "CTRL-3", task = "KEYBLOCK_T_FORM3" }, { key = "CTRL-4", task = "KEYBLOCK_T_FORM4" },
+		{ key = "CTRL-Q", task = "KEYBLOCK_T_CD2B" }, { key = "CTRL-E", task = "KEYBLOCK_T_CD4" },
+		{ key = "CTRL-R", task = "KEYBLOCK_T_RECUP" }, { key = "CTRL-F", task = "KEYBLOCK_T_BANDAGE", fixed = "bandage" },
+		{ key = "CTRL-Z", task = "KEYBLOCK_T_POTION", fixed = "potion" },
+		{ key = "CTRL-X", task = "KEYBLOCK_T_MANAPOT", fixed = "manapotion" },
+		{ key = "CTRL-C", task = "KEYBLOCK_T_STONE", fixed = "healthstone" },
+		{ key = "CTRL-V", task = "KEYBLOCK_T_TRINKET", fixed = "trinket" },
+	} },
+}
+
+local BLOCK = {}
+
+--- "12x4" only in WoW Forever and only when the player chose it; everything else gets the old block.
+local function LayoutName()
+	local kb = ns.db and ns.db.keyBlock
+	if ns.IS_FOREVER and type(kb) == "table" and kb.style == "12x4" then
+		return "12x4"
+	end
+	return "old"
+end
+ns.KeyBlockLayoutName = LayoutName
+
+local syncedTo
+--- Fill BLOCK in place with the chosen layout (cheap; called before every read that matters).
+local function SyncLayout()
+	local name = LayoutName()
+	if syncedTo == name then
+		return
+	end
+	local src = name == "12x4" and BLOCK_12 or BLOCK_OLD
+	for i = #BLOCK, 1, -1 do
+		BLOCK[i] = nil
+	end
+	for i, bar in ipairs(src) do
+		BLOCK[i] = bar
+	end
+	syncedTo = name
+end
+SyncLayout()
 ns.KEYBLOCK_LAYOUT = BLOCK
 
 --- Which action bar each block bar goes on. Default 5, 6, 7 (4 Oct 2026, Rob: "geen idee welke
@@ -408,6 +476,7 @@ local function GameKeysLine(localeKey, list)
 end
 
 local function Build()
+	SyncLayout() -- 24 Nov 2026: old block or 12 x 4 (Forever), before anything reads BLOCK
 	-- WoW Forever: one macro per key from the class's approved table (ForeverBlock.lua, 5 Nov 2026). nil anywhere else.
 	if ns.ForeverKeyBlockBuild then
 		local okF, fr = pcall(ns.ForeverKeyBlockBuild)
@@ -598,7 +667,26 @@ local function FixedWant(fixed)
 			return { kind = "item", id = id }
 		end
 		return nil, "no trinket with a Use: effect equipped"
-	elseif fixed == "potion" then
+	end
+	-- WoW Forever (24 Nov 2026): its own measured item lists (ForeverReadyBoardData.lua, wowf 71037), best first,
+	-- only what your level can use. Mana potion and bandage exist only in the 12 x 4 block.
+	if ns.IS_FOREVER and ns.FOREVER_CONSUMABLES then
+		local listKey = ({ potion = "hpot", manapotion = "mpot", healthstone = "hs", bandage = "bandage" })[fixed]
+		local list = listKey and ns.FOREVER_CONSUMABLES[listKey]
+		if listKey then
+			local lvl = (UnitLevel and UnitLevel("player")) or 1
+			for _, e in ipairs(list or {}) do
+				if e.item and lvl >= (e.lvl or 1) and InBags(e.item) then
+					return { kind = "item", id = e.item }
+				end
+			end
+			if not list or #list == 0 then
+				return nil, "no measured " .. fixed .. " ids for Forever yet"
+			end
+			return nil, "no " .. fixed .. " in your bags that your level can use"
+		end
+	end
+	if fixed == "potion" then
 		local id = PotionInBags()
 		if id then
 			return { kind = "item", id = id }
@@ -1789,6 +1877,7 @@ local function Ensure()
 	f.intro:SetJustifyH("LEFT")
 
 	local barW = 4 * SLOT_W + 3 * GAP
+	SyncLayout()
 	f.bars, f.slots = {}, {}
 	for i, bar in ipairs(BLOCK) do
 		local col = CreateFrame("Frame", nil, f)
@@ -1802,6 +1891,10 @@ local function Ensure()
 			local r, c = math.floor((n - 1) / 4), (n - 1) % 4
 			b:SetPoint("TOPLEFT", c * (SLOT_W + GAP), -18 - r * (SLOT_H + GAP))
 			f.slots[slot.key] = b
+			-- 24 Nov 2026: also by place, so the same buttons show the old block or 12 x 4 (other key names).
+			f.slotAt = f.slotAt or {}
+			f.slotAt[bar.id] = f.slotAt[bar.id] or {}
+			f.slotAt[bar.id][n] = b
 		end
 	end
 	f:SetSize(22 * 2 + #BLOCK * barW + (#BLOCK - 1) * 22, 86 + 3 * SLOT_H + 2 * GAP + 18 + 170)
@@ -2152,7 +2245,7 @@ Refresh = function(f)
 	for _, bar in ipairs(BLOCK) do
 		f.bars[bar.id].head:SetText(ns:L("KEYBLOCK_BAR_FMT"):format(bar.id, bars[bar.id]))
 		for n, slot in ipairs(bar.slots) do
-			local b = f.slots[slot.key]
+			local b = (f.slotAt and f.slotAt[bar.id] and f.slotAt[bar.id][n]) or f.slots[slot.key]
 			local hit = res and res.occ[slot.key]
 			local data = { key = slot.key, task = slot.task, fixed = slot.fixed }
 			b.key:SetText(KeyLabel(slot.key))
@@ -2288,6 +2381,55 @@ function ns.ShowKeyBlock()
 	end
 	Refresh(f)
 	f:Show()
+end
+
+--- /mh block style [old|12x4] (24 Nov 2026, Forever only): the switch between the old block and "12 x 4". Never while
+--- the block is placed (its keys and buttons are the old layout's: undo first, so nothing is left bound to a key that
+--- no longer exists), never in combat, and 12x4 only for a class whose table has keys12.
+function ns.KeyBlockSetStyle(arg)
+	local p = "|cffffcc00Midnight Helper:|r "
+	arg = (arg or ""):lower():gsub("%s", "")
+	if arg == "12" or arg == "12*4" or arg == "new" then
+		arg = "12x4"
+	end
+	if arg == "" then
+		print(p .. ns:L("KEYBLOCK_STYLE_NOW_FMT"):format(ns:L(LayoutName() == "12x4" and "KEYBLOCK_STYLE_12" or "KEYBLOCK_STYLE_OLD")))
+		return
+	end
+	if not ns.IS_FOREVER then
+		print(p .. ns:L("KEYBLOCK_STYLE_FOREVER_ONLY"))
+		return
+	end
+	if arg ~= "old" and arg ~= "12x4" then
+		print(p .. ns:L("KEYBLOCK_STYLE_USAGE"))
+		return
+	end
+	if InCombatLockdown and InCombatLockdown() then
+		print(p .. ns:L("KEYBLOCK_LAYOUT_COMBAT"))
+		return
+	end
+	if GetSnap() then
+		print(p .. ns:L("KEYBLOCK_STYLE_UNDO_FIRST"))
+		return
+	end
+	if arg == "12x4" then
+		local _, token = UnitClass("player")
+		local cls = token and ns.FOREVER_BLOCK_CLASSES and ns.FOREVER_BLOCK_CLASSES[token]
+		if not (cls and cls.keys12) then
+			print(p .. ns:L("KEYBLOCK_STYLE_NO_TABLE"))
+			return
+		end
+	end
+	ns.db = ns.db or {}
+	ns.db.keyBlock = ns.db.keyBlock or {}
+	ns.db.keyBlock.style = (arg == "12x4") and "12x4" or nil
+	SyncLayout()
+	pcall(ns.KeyBlockArmBar1)
+	local f = _G.MidnightHelperKeyBlock
+	if f and f:IsShown() then
+		Refresh(f)
+	end
+	print(p .. ns:L(arg == "12x4" and "KEYBLOCK_STYLE_SET_12" or "KEYBLOCK_STYLE_SET_OLD"))
 end
 
 --- `/mh block why` — every place and why, in chat and in SavedVariables (Spec 30: a picture that
@@ -2534,6 +2676,9 @@ function ns.PrintKeyBlockTrace()
 		return
 	end
 	print(p .. ("key block, spec %s:"):format(tostring(res.specID)))
+	-- 24 Nov 2026: which layout, and for 12 x 4 whether this class has its own table (else the old keys stand).
+	print(("  layout: %s%s (/mh block style old||12x4)"):format(LayoutName(),
+		(LayoutName() == "12x4" and res.layout ~= "12x4") and " — but this class has no 12x4 table: old keys" or ""))
 	local dump = { specID = res.specID, places = {}, unplaced = {} }
 	for _, bar in ipairs(BLOCK) do
 		for _, slot in ipairs(bar.slots) do
@@ -2652,6 +2797,7 @@ function ns.KeyBlockArmBar1()
 	if InCombatLockdown and InCombatLockdown() then
 		return false -- attributes and drivers cannot change in combat; PLAYER_REGEN_ENABLED retries
 	end
+	SyncLayout()
 	local pairs_ = {}
 	-- Always Blizzard's order: digit n presses bar 1 button n. Rob, 5 Oct 2026, skyriding on his Hunter:
 	-- the buttons came out of order, because the first version gave each key back what it did BEFORE the

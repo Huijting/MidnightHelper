@@ -1429,6 +1429,12 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		end
 		return
 	end
+	-- /mh block style [old|12x4] — WoW Forever: the old key block or "12 x 4" (KeyBlock.lua, 24 Nov 2026).
+	local blockStyle = msg:match("^block style%s*(.*)$")
+	if blockStyle and ns.KeyBlockSetStyle then
+		ns.KeyBlockSetStyle(blockStyle)
+		return
+	end
 	if msg == "block why" then
 		if ns.PrintKeyBlockTrace then
 			ns.PrintKeyBlockTrace()
