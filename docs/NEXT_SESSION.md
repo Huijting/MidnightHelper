@@ -1,6 +1,6 @@
 # Midnight Helper — waar we staan
 
-## ▶▶ 24 nov avond (Bouwchat 24-11): uitlegblad "Why these keys?" (12 × 4) GEBOUWD — wacht op test
+## ▶▶ 24 nov avond (Bouwchat 24-11): uitlegblad "Why these keys?" (12 × 4) GEBOUWD — ✅ GETEST (Rob: *"JA ZIET ER GOED UIT"*; Shift+scroll/dichtklikken niet genoemd, open)
 
 Rob via Sparring 24-11, letterlijk: *"kunnen we ook een soort blad even maken, waarbij we de users uitleggen waarom we welke
 knop waar gezet hebben"* + *"… Dat gewoon voor iedereen weet dat een heal altijd op die knop staat …"*; heal-keuze *"a"*

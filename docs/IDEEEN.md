@@ -35,7 +35,7 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 - Gebouwd: `KeyBlock.lua` BLOCK_12 + `/mh block style old|12x4`; `keys12` in de 9 `ForeverBlock_<Class>.lua`
   (onderzoek `docs/forever/KEYBLOCK12_<CLASS>.md` + tweede controle `KEYBLOCK12_REVIEW.md`); Ctrl-balk met vaste items
   (bandage, health/mana potion, healthstone, trinket; id's gemeten). Alt-balk = block D (Alt-G i.p.v. Alt-Z).
-- ✅ 24 nov: uitlegblad "Why these keys?" GEBOUWD (Rob: *"kunnen we ook een soort blad even maken, waarbij we de users
+- ✅ 24 nov: uitlegblad "Why these keys?" GEBOUWD en GETEST (Rob via Sparring, letterlijk: *"JA ZIET ER GOED UIT"*) (Rob: *"kunnen we ook een soort blad even maken, waarbij we de users
   uitleggen waarom we welke knop waar gezet hebben"*, verduidelijkt *"… dat is altijd hetzelfde op welke class je ook
   speelt"*, op de samenvatting *"Ja"*; heal = C/Shift-C: *"a"*). Knop in het toetsenblok-venster (Forever, 12×4); taak per
   toets uit `docs/forever/KEYBLOCK12_TAKEN.md`. Site-pagina: later via de site-chat.
