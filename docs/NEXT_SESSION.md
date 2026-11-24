@@ -1,6 +1,17 @@
 # Midnight Helper — waar we staan
 
-## ▶▶ 24 nov avond (Bouwchat 24-11): trainerpijl naar Mirket i.p.v. Dhugru GEREPAREERD — wacht op test
+## ▶▶ 24 nov avond (Bouwchat 24-11): How you play volgt de gekozen indeling — wacht op test
+
+Rob, letterlijk: *"ik zie een fout in how to play , de oude keyblock staan er nog in"* (open punt 1 van vanochtend; trainer:
+*"trainer gaat goed"*). Gebouwd (`ForeverHowToPlay.lua` `LiveKeys`/`KeyMap`): bij 12 × 4 worden bij het TONEN alle
+blok-toetsen in de teksten (8 talen ongewijzigd) vervangen: oude toets → zijn spells in `keys` → waar die in `keys12`
+staan (terugval nu = die toets; geen plek = "blok D" in de taal van de tekst); T/Shift-T/G → Ctrl-Z/Ctrl-C/Ctrl-V.
+Vormen die gelezen worden: `**K**` overal, `(K)` en `(K, …)` alleen in "Simple order" (elders is "(4)" een level),
+"<op> K" met het voorzetsel per taal (een kaal cijfer alleen voor een leesteken/haakje). Oud blok = tekst onveranderd.
+Venster + overzichtspagina (ForeverHowToSections). Andere schermen: GEMETEN 0 vaste blok-toetsen in de schermteksten
+(tegencontrole 116 in HowToPlay). Offline: 151 controles (scratch `howto_keys_test.lua`).
+
+## ▶▶ 24 nov avond (Bouwchat 24-11): trainerpijl naar Mirket i.p.v. Dhugru GEREPAREERD — ✅ GETEST (Rob: *"trainer gaat goed"*)
 
 Rob (Horde Warlock, Razor Hill), letterlijk: *"Ik sta op dit moment bij mijn warlock trainer, maar hij stuurt me een heel
 andere kant op."* en *"ja die naam staat er"* (Dhugru Gorelust). Oorzaak GEMETEN in zijn SV: `foreverTrainerCap[3172] =

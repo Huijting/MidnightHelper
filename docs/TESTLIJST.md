@@ -25,6 +25,17 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 24 nov (avond, 5) — FOREVER: How you play noemt de toetsen van JOUW indeling (Rob: "de oude keyblock staan er nog in")
+
+Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest: 9 classes × 8 talen × oud/12×4, 151 controles,
+NIET in het spel.
+- [ ] Warlock met 12 × 4: open How you play. Bij "Simpele volgorde": Bane of Agony (**3**), Immolate (**Shift-2**), Health
+      Funnel (**Ctrl-R**), Life Tap (**F**), Soul Fire (**Q**). Geen 5, F2, F3 of F4 meer. Searing Pain blijft "(blok D)".
+- [ ] "Voor je begint": de vaste toetsen zijn nu **Ctrl-Z** = potion, **Ctrl-C** = healthstone, **Ctrl-V** = trinket.
+- [ ] "Wat komt later": ook daar de nieuwe toetsen ("Health Funnel op Ctrl-R", "Inferno op Ctrl-E").
+- [ ] Een character met het oude blok: How you play is precies zoals vroeger (5, F2, T …).
+- [ ] Zelfde in het overzicht (tab How you play).
+
 ## 24 nov (avond, 4) — FOREVER: trainerpijl stuurt niet meer weg bij je eigen trainer (Rob: "hij stuurt me een heel andere kant op")
 
 Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest met jouw eigen opgeslagen trainerdata (10

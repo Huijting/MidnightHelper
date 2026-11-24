@@ -1120,6 +1120,148 @@ local function Translated()
 end
 
 --------------------------------------------------------------------------------
+-- 24 Nov 2026 (Rob, Warlock with 12 x 4: "ik zie een fout in how to play , de oude keyblock staan er nog in"). The texts
+-- (8 languages) were written for the old block: "Bane of Agony (**5**)", "Health Funnel (**F2**)". With 12 x 4 chosen,
+-- every key named in them is now translated when the text is shown, from the SAME class tables the block uses (old
+-- keys -> the spells on it -> where those spells are in keys12), so the two can never drift apart again. A spell with no
+-- 12 x 4 key reads "block D". Which forms are read (GEMETEN in the 8 files: keys are written the same in every language,
+-- "Shift-"/"Ctrl-", never translated):
+--   **K** (bold, everywhere) · (K) in the "Simple order" sections (plain parentheses; elsewhere "(4)" is a LEVEL) ·
+--   "<on> K" in the class sections, with the word for "on" of that language ("Regrowth on F2").
+-- With the old block the text is left exactly as it is.
+--------------------------------------------------------------------------------
+local OLD_FIXED = { T = "CTRL-Z", ["SHIFT-T"] = "CTRL-C", G = "CTRL-V" }
+local PREP = { enUS = "on", enGB = "on", nlNL = "op", deDE = "auf", frFR = "sur", esES = "en", esMX = "en",
+	ptBR = "no", ruRU = "на" }
+local BLOCKD = { enUS = "block D", enGB = "block D", nlNL = "blok D", deDE = "Block D", frFR = "bloc D", esES = "bloque D",
+	esMX = "bloque D", ptBR = "bloco D", ruRU = "блок D" } -- the words the texts themselves use (GEMETEN, 50-57 times each)
+
+--- "Shift-2" -> "SHIFT-2", "F2" -> "F2", "5" -> "5"; nil when it is no key of the old block.
+local function KeyCode(tok)
+	local m, k = tok:match("^(%a+)%-(%w+)$")
+	if m then
+		m = m:upper()
+		if m == "SHIFT" or m == "CTRL" or m == "ALT" then
+			return m .. "-" .. k:upper()
+		end
+		return nil
+	end
+	if tok:match("^[1-5]$") or tok:match("^F[1-4]$") or tok:match("^[QERFTGZXCV]$") then
+		return tok
+	end
+	return nil
+end
+
+--- "SHIFT-2" -> "Shift-2" (the way the texts write it).
+local function KeyText(code)
+	local m, k = code:match("^(%u+)%-(.+)$")
+	if m then
+		return m:sub(1, 1) .. m:sub(2):lower() .. "-" .. k
+	end
+	return code
+end
+
+--- Old key -> 12 x 4 key for this class ("D" = block D), built from the class tables; cached per class.
+local keyMapCache = {}
+local function KeyMap(token)
+	local cls = ns.FOREVER_BLOCK_CLASSES and ns.FOREVER_BLOCK_CLASSES[token]
+	if not (cls and cls.keys and cls.keys12 and ns.ForeverBlockKeyNames) then
+		return nil
+	end
+	local held = ns.ForeverBlockFallbackHeld and ns.ForeverBlockFallbackHeld() or {}
+	local primary, any = {}, {}
+	for k12, def in pairs(cls.keys12) do
+		for i, n in ipairs((ns.ForeverBlockKeyNames({ [k12] = def }))) do
+			any[n] = any[n] or k12
+			local v = def.all or def.base
+			local isFallback = type(v) == "table" and v[1] ~= n and (function()
+				for j = 2, #v do
+					if v[j] == n then
+						return true
+					end
+				end
+				return false
+			end)()
+			if not isFallback then
+				primary[n] = primary[n] or k12
+			end
+		end
+	end
+	local map = {}
+	for kOld, def in pairs(cls.keys) do
+		if def.cmd then
+			for k12, d12 in pairs(cls.keys12) do
+				if d12.cmd and d12.cmd.text == def.cmd.text then
+					map[kOld] = k12
+				end
+			end
+		else
+			local names = ns.ForeverBlockKeyNames({ [kOld] = def })
+			local first = names[1]
+			if first then
+				-- Right now on a fallback key (Immolate on the Warlock's 3 until Agony)? Then that key.
+				map[kOld] = held[first] or primary[first] or any[first] or "D"
+			end
+		end
+	end
+	for k, v in pairs(OLD_FIXED) do
+		map[k] = map[k] or v
+	end
+	return map
+end
+ns.ForeverHowToKeyMap = KeyMap -- the offline check calls it
+
+--- The text with its block keys in the layout this character uses. Unchanged with the old block.
+local function LiveKeys(token, text, simpleOrder)
+	if type(text) ~= "string" or not (ns.KeyBlockLayoutName and ns.KeyBlockLayoutName() == "12x4") then
+		return text
+	end
+	local map = KeyMap(token)
+	if not map then
+		return text
+	end
+	local loc = (ns.GetEffectiveLocaleCode and ns:GetEffectiveLocaleCode()) or "enUS"
+	local function new(tok)
+		local code = KeyCode(tok)
+		local to = code and map[code]
+		if not to then
+			return nil
+		end
+		return to == "D" and (BLOCKD[loc] or BLOCKD.enUS) or KeyText(to)
+	end
+	text = text:gsub("%*%*([^*\n]+)%*%*", function(inner)
+		local n = new(inner)
+		return n and ("**" .. n .. "**") or nil
+	end)
+	if simpleOrder then
+		text = text:gsub("%(([^()\n]+)%)", function(inner)
+			local n = new(inner)
+			return n and ("(" .. n .. ")") or nil
+		end)
+		-- "(C, from 14)": a key first, then more words.
+		text = text:gsub("%(([%w%-]+)(, [^()\n]*)%)", function(tok, rest)
+			local n = new(tok)
+			return n and ("(" .. n .. rest .. ")") or nil
+		end)
+	end
+	local prep = PREP[loc] or PREP.enUS
+	local src = text
+	text = src:gsub("(%f[%w%z\128-\255]" .. prep .. " )([%w%-]+)()", function(p, tok, after)
+		-- A bare digit only when a mark, a bracket or the end follows ("on 5 (works", "on 5."), never "en 5 segundos".
+		if tok:match("^%d$") then
+			local nxt = src:sub(after, after + 1)
+			if not (nxt == "" or nxt:match("^[%.,;:%)\n]") or nxt:match("^ %(")) then
+				return nil
+			end
+		end
+		local n = new(tok)
+		return n and (p .. n) or nil
+	end)
+	return text
+end
+ns.ForeverHowToLiveKeys = LiveKeys -- the offline check calls it
+
+--------------------------------------------------------------------------------
 -- 19 Nov 2026 (Rob's screenshot, mage level 9: "Enemy close to you? Frost Nova (V)" — "dat krijg ik pas als ik level 54
 -- ben", via sparring). GEMETEN that day: Frost Nova rank 1 = level 10 (Forever DB2 SpellLevels 122 BaseLevel 10, and
 -- MH's trainer data ForeverTrainerData.lua; rank 4 is level 54 — AFGELEID that the other addon showed the top rank).
@@ -1211,7 +1353,8 @@ local function TextFor(token)
 		for i, sec in ipairs(cls) do
 			local en = CLASSES[token] and CLASSES[token][i]
 			local note = en and NotYetLine(token, OrderPart(en[1], en[2]))
-			parts[#parts + 1] = HEAD .. sec[1] .. "|r\n" .. Format(sec[2]) .. (note and ("\n" .. note) or "")
+			local simple = en and OrderPart(en[1], en[2]) ~= nil
+			parts[#parts + 1] = HEAD .. sec[1] .. "|r\n" .. Format(LiveKeys(token, sec[2], simple)) .. (note and ("\n" .. note) or "")
 		end
 		-- 17 Nov 2026 (Rob via Sparring 17-11: the Talented gap is a bug): the talent levels in the texts count the first
 		-- point at 10. The Legacy perk Talented gives points up to 5 levels sooner; one line says so, with your rank if MH
@@ -1225,7 +1368,7 @@ local function TextFor(token)
 	-- Per section, English when a language does not have it yet (21 Nov 2026: "Talents: reset and Dual Spec" is new).
 	for i, en in ipairs(COMMON) do
 		local sec = (tr and tr.COMMON and tr.COMMON[i]) or en
-		parts[#parts + 1] = HEAD .. sec[1] .. "|r\n" .. Format(sec[2])
+		parts[#parts + 1] = HEAD .. sec[1] .. "|r\n" .. Format(LiveKeys(token, sec[2]))
 	end
 	return table.concat(parts, "\n\n")
 end
@@ -1282,12 +1425,12 @@ local function RolesText(token)
 	end
 	local parts = {}
 	for _, r in ipairs(mine) do
-		parts[#parts + 1] = HEAD .. r.title .. "|r\n" .. Format(RoleBody(token, list, r))
+		parts[#parts + 1] = HEAD .. r.title .. "|r\n" .. Format(LiveKeys(token, RoleBody(token, list, r)))
 	end
 	if #others > 0 then
 		if showAllRoles then
 			for _, r in ipairs(others) do
-				parts[#parts + 1] = HEAD .. r.title .. "|r\n" .. Format(RoleBody(token, list, r))
+				parts[#parts + 1] = HEAD .. r.title .. "|r\n" .. Format(LiveKeys(token, RoleBody(token, list, r)))
 			end
 		else
 			local names = {}
@@ -1314,7 +1457,7 @@ function ns.ForeverHowToSections(token, allRoles)
 	end
 	local planTitle, planBody = PlanFor(token)
 	if planTitle then
-		out[#out + 1] = { title = planTitle, body = planBody, kind = "role" }
+		out[#out + 1] = { title = planTitle, body = LiveKeys(token, planBody), kind = "role" }
 	end
 	local tr = Translated()
 	local list = (tr and tr.ROLES and tr.ROLES[token]) or ROLES[token] or {}
@@ -1328,12 +1471,12 @@ function ns.ForeverHowToSections(token, allRoles)
 		end
 	end
 	for _, r in ipairs(mine) do
-		out[#out + 1] = { title = r.title, body = RoleBody(token, list, r), kind = "role" }
+		out[#out + 1] = { title = r.title, body = LiveKeys(token, RoleBody(token, list, r)), kind = "role" }
 	end
 	if #others > 0 then
 		if allRoles then
 			for _, r in ipairs(others) do
-				out[#out + 1] = { title = r.title, body = RoleBody(token, list, r), kind = "role" }
+				out[#out + 1] = { title = r.title, body = LiveKeys(token, RoleBody(token, list, r)), kind = "role" }
 			end
 		else
 			local names = {}
@@ -1349,7 +1492,9 @@ function ns.ForeverHowToSections(token, allRoles)
 		for i, sec in ipairs(cls) do
 			local en = CLASSES[token] and CLASSES[token][i]
 			local note = en and NotYetLine(token, OrderPart(en[1], en[2]))
-			out[#out + 1] = { title = sec[1], body = sec[2] .. (note and ("\n" .. note) or ""), kind = "class" }
+			local simple = en and OrderPart(en[1], en[2]) ~= nil
+			out[#out + 1] = { title = sec[1], body = LiveKeys(token, sec[2], simple) .. (note and ("\n" .. note) or ""),
+				kind = "class" }
 		end
 		local r = ns.ForeverTalentedRank and ns.ForeverTalentedRank()
 		out[#out + 1] = { body = type(r) == "number" and ns:L("FHOWTO_TALENTED_RANK_FMT"):format(r)
@@ -1361,7 +1506,7 @@ function ns.ForeverHowToSections(token, allRoles)
 		local sec = (tr and tr.COMMON and tr.COMMON[i]) or enSec
 		local en = enSec[1]
 		if en ~= "Camping" and en ~= "Legacy Points" then
-			out[#out + 1] = { title = sec[1], body = sec[2], kind = "common" }
+			out[#out + 1] = { title = sec[1], body = LiveKeys(token, sec[2]), kind = "common" }
 		end
 	end
 	return out, #others > 0, #mine > 0
@@ -1399,7 +1544,7 @@ local function Body(token)
 		win.roles:SetText(ns:L(not showAllRoles and "FHOWTO_ROLES_SHOW" or (hasDir and "FHOWTO_ROLES_HIDE" or "FHOWTO_ROLES_FOLD")))
 	end
 	local planTitle, planBody = PlanFor(token)
-	local plan = planTitle and (HEAD .. planTitle .. "|r\n" .. Format(planBody)) or nil
+	local plan = planTitle and (HEAD .. planTitle .. "|r\n" .. Format(LiveKeys(token, planBody))) or nil
 	return (block and (block .. "\n\n") or "") .. (plan and (plan .. "\n\n") or "") .. (roles and (roles .. "\n\n") or "")
 		.. (cq and (cq .. "\n\n") or "") .. TextFor(token)
 end
