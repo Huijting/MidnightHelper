@@ -26,7 +26,7 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 
 ## Open — wacht op Rob
 
-### Forever: "Do this now" — knop How you play + vrije tasplekken naast je goud (wens van Rob, 24 nov) — ✅ JA, GEBOUWD 24 nov, wacht op test
+### Forever: "Do this now" — knop How you play + vrije tasplekken naast je goud (wens van Rob, 24 nov) — ✅ AF: GEBOUWD 24 nov (99770bc) en GETEST (Rob via Sparring, letterlijk: *"Ja, beide zijn helemaal goed."*)
 - Bron: Rob via Sparring 24-11, letterlijk: *"kunnen we hier onder ook een knop how to play toevoegen en in het rijtje van
   gold aan de linkerzijde het aantal open tas plaatsen :)"*; op de samenvatting van Sparring: *"ja"*.
 - Gebouwd (`ForeverDoNow.lua`): knop "How you play" achter "Open overzicht", opent de speelkaart van dit character. Links

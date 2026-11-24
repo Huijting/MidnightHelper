@@ -25,13 +25,13 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
-## 24 nov (avond, 6) — FOREVER: "Do this now" krijgt een knop How you play en je vrije tasplekken
+## 24 nov (avond, 6) — FOREVER: "Do this now" krijgt een knop How you play en je vrije tasplekken — ✅ GETEST
 
-Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest: de telling (pijlkoker telt niet mee), NIET in
-het spel.
-- [ ] Open "Do this now". Onderaan, achter "Open overzicht": een knop **How you play**. Klik: de speelkaart van dit
+Rob via Sparring, letterlijk: *"Ja, beide zijn helemaal goed."* (de knop en de tasplekken). De twee punten daaronder
+(verversen, kleuren) heeft hij niet apart genoemd.
+- [x] Open "Do this now". Onderaan, achter "Open overzicht": een knop **How you play**. Klik: de speelkaart van dit
       character gaat open.
-- [ ] Onderste regel, links van je goud: een tas-icoon met "**N vrij**". Klopt N met de lege plekken in je gewone tassen?
+- [x] Onderste regel, links van je goud: een tas-icoon met "**N vrij**". Klopt N met de lege plekken in je gewone tassen?
       Een pijlkoker of soul bag telt niet mee.
 - [ ] Raap iets op of verkoop iets: het getal verandert meteen.
 - [ ] 5 of minder vrij: het getal is **oranje**. 0 vrij: **rood**. Anders wit.

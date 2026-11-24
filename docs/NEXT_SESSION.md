@@ -1,6 +1,6 @@
 # Midnight Helper — waar we staan
 
-## ▶▶ 24 nov avond (Bouwchat 24-11): "Do this now" — knop How you play + vrije tasplekken — wacht op test
+## ▶▶ 24 nov avond (Bouwchat 24-11): "Do this now" — knop How you play + vrije tasplekken — ✅ GETEST (Rob: *"Ja, beide zijn helemaal goed."*)
 
 Rob via Sparring, letterlijk: *"kunnen we hier onder ook een knop how to play toevoegen en in het rijtje van gold aan de
 linkerzijde het aantal open tas plaatsen :)"*, op de samenvatting *"ja"*. Gebouwd in `ForeverDoNow.lua`: `f.btnPlay`
