@@ -1,5 +1,17 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 24 nov avond (Bouwchat 24-11): groepsbord — titel onder het sluitkruisje GEREPAREERD — wacht op test
+
+Rob (nl, solo op zijn Druid): *"Het afsluitknopje loopt door de tekst heen."* Oorzaak: de breedte kwam alleen uit de
+kolommen (min. 300 px), en de Forever-stijl zet een groter lettertype NA de eerste Render. Fix (`ForeverReadyBoard.lua`):
+breedte ≥ titelbreedte + 54 px (gemeten met GetStringWidth); 0,25 s na het tonen nog eens meten en zo nodig opnieuw
+Render (het bord hangt aan zijn midden, dus breder = alle cellen schuiven; Render zet de klikknoppen opnieuw).
+Langste titel per tekens: de "Gruppencheck: Buffs und Verbrauchsgüter" (39); de meting dekt elke taal. Offline 44
+controles (scratch readyboard_test.lua; de stub-HookScript verving het oude script, nu rijgt hij zoals het spel).
+Punt 2/3 van Sparring vervielen (Rob zat op de Druid; *"bij die andere had ik inderdaad ook nog geen Hearthstone
+geleerd"*). Regel healthstone-kolom: alleen met een Warlock in de groep (jij telt mee). GEMETEN in Syndicator-SV: de
+Minor Healing Potion (118, 2 stuks) zat in de tas van een Mage, niet van de Warlocks.
+
 ## ▶▶ 24 nov avond (Bouwchat 24-11): 12 × 4 extra toetsen (5 = interact, Shift+Spatie = mount) — wacht op test
 
 📌 Fix daarna (Rob: *"het is nederlands (dat klopt) met engelse set them en no thanks eronder"*): de knoppen van een

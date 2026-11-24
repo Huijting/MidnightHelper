@@ -25,6 +25,16 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 24 nov (avond, 8) — FOREVER: groepsbord, de titel loopt niet meer onder het sluitkruisje (Rob: "Het afsluitknopje loopt door de tekst heen.")
+
+Alleen een bestaand bestand gewijzigd: `/reload` is genoeg. Offline getest (44 controles), NIET in het spel.
+- [ ] `/mh readyboard` (alleen, buiten een gevecht): de titel "Groepscheck: buffs en consumables" staat helemaal links
+      van het kruisje. Het venster is zo breed als nodig. Het venster meet de titel zelf, dus het werkt in elke taal.
+- [ ] Klik daarna op je eigen buff (Mark of the Wild bij de Druid): de klik zit nog op de goede plek.
+- Ter info, geen fout: solo op de Druid is er geen healthstone-kolom. Die kolom komt alleen als er een Warlock in de
+  groep zit, ook als jij dat zelf bent. Op de Warlock blijft hij rood tot je Create Healthstone geleerd hebt en een steen
+  in je tas hebt.
+
 ## 24 nov (avond, 7) — FOREVER: 12 × 4 extra toetsen: 5 = interact, Shift+Spatie = je mount (Rob: "Ja, ik volg advies dus A")
 
 🔴 Nieuwe bestanden: sluit het spel eerst helemaal af en start opnieuw (een `/reload` is niet genoeg).

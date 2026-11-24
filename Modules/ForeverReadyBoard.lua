@@ -693,6 +693,12 @@ local function Render()
 		x = x + COL_STEP
 	end
 	local width = math.max(x + 10, 300)
+	-- 24 Nov 2026 (Rob, nl, solo Druid: "Het afsluitknopje loopt door de tekst heen."): the title needs its own width
+	-- plus the close button (32 px at -4) on its right, in every language; measured from the font, not guessed.
+	local tw = f.title and f.title.GetStringWidth and f.title:GetStringWidth()
+	if type(tw) == "number" and tw > 0 then
+		width = math.max(width, math.ceil(tw) + 14 + 40)
+	end
 	-- Rows.
 	local myCast = {}
 	for ri, row in ipairs(r.rows) do
@@ -879,6 +885,22 @@ local function Build()
 	if ns.ForeverStyle and ns.ForeverStyle.SkinOnShow then
 		ns.ForeverStyle.SkinOnShow(f)
 	end
+	-- The style sets its larger font after the first Render (on show and again 0.1 s later), so the title measured
+	-- there is too small. Measure again once the style is done; too narrow = Render again (which also puts the click
+	-- buttons back in place: the board is anchored on its centre, so a wider board moves every cell).
+	f:HookScript("OnShow", function(self)
+		if C_Timer and C_Timer.After then
+			C_Timer.After(0.25, function()
+				if not self:IsShown() or InCombat() then
+					return
+				end
+				local tw = self.title and self.title:GetStringWidth()
+				if type(tw) == "number" and math.ceil(tw) + 14 + 40 > (self:GetWidth() or 0) then
+					Render()
+				end
+			end)
+		end
+	end)
 	f:Hide()
 	board = f
 	return f
