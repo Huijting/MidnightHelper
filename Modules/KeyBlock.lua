@@ -1257,6 +1257,9 @@ function ns.KeyBlockPlace()
 		snap.binds[#snap.binds + 1] = { key = s.key, was = s.was }
 	end
 	snap.staleFreed = #stale
+	-- 24 Nov 2026 (Rob: "advies a"): which layout this character's bars now hold. Keys are account-wide, bars are not;
+	-- a character placed with the other layout gets a warning at login. A snapshot without this field is the old block.
+	snap.layout = LayoutName()
 	SetSnap(snap)
 
 	-- Rob, 5 Oct 2026 ("ik volg het advies"): with the block placed, Blizzard stops pushing new spells onto
@@ -2504,6 +2507,100 @@ function ns.KeyBlockSetStyle(arg)
 		Refresh(f)
 	end
 	print(p .. ns:L(arg == "12x4" and "KEYBLOCK_STYLE_SET_12" or "KEYBLOCK_STYLE_SET_OLD"))
+	-- 24 Nov 2026 (Rob: "advies a"): keys are account-wide (GEMETEN: one bindings-cache.wtf for the Forever account),
+	-- bars are per character. Say so here, and the login check below catches the characters that still hold the other.
+	print("   " .. ns:L("KEYBLOCK_STYLE_ALLCHARS"))
+end
+
+--- Which layout THIS character's bars were placed with (nil = not placed here). Old snapshots = the old block.
+local function PlacedLayout()
+	local snap = GetSnap()
+	if not snap then
+		return nil
+	end
+	return snap.layout or "old"
+end
+ns.KeyBlockPlacedLayout = PlacedLayout
+
+--- Undo this character's block and place it again with the chosen layout (one click from the login warning).
+local function FixLayout()
+	local p = "|cffffcc00Midnight Helper:|r "
+	if InCombatLockdown and InCombatLockdown() then
+		print(p .. ns:L("KEYBLOCK_LAYOUT_COMBAT"))
+		return false
+	end
+	if ns.KeyBlockUndo() and ns.KeyBlockPlace() then
+		local f = _G.MidnightHelperKeyBlock
+		if f and f:IsShown() then
+			Refresh(f)
+		end
+		return true
+	end
+	return false
+end
+ns.KeyBlockFixLayout = FixLayout
+
+if StaticPopupDialogs then
+	StaticPopupDialogs["MH_KEYBLOCK_LAYOUT_MISMATCH"] = {
+		text = "%s",
+		button1 = ns:L("KEYBLOCK_MISMATCH_FIX"),
+		button2 = ns:L("KEYBLOCK_MISMATCH_LATER"),
+		OnAccept = function()
+			FixLayout()
+		end,
+		timeout = 0,
+		whileDead = true,
+		hideOnEscape = true,
+		preferredIndex = 3,
+	}
+end
+
+--- Login check (Forever only): this character's bars hold the other layout than the account's keys follow.
+local function LayoutWord(name)
+	return ns:L(name == "12x4" and "KEYBLOCK_STYLE_12_SHORT" or "KEYBLOCK_STYLE_OLD_SHORT")
+end
+local function CheckLayoutAtLogin()
+	if not ns.IS_FOREVER then
+		return
+	end
+	local placed = PlacedLayout()
+	if not placed or placed == LayoutName() then
+		return
+	end
+	local msg = ns:L("KEYBLOCK_MISMATCH_FMT"):format(LayoutWord(placed), LayoutWord(LayoutName()))
+	print("|cffffcc00Midnight Helper:|r |cffff8080" .. msg .. "|r " .. ns:L("KEYBLOCK_MISMATCH_CMD"))
+	if StaticPopup_Show then
+		StaticPopup_Show("MH_KEYBLOCK_LAYOUT_MISMATCH", msg)
+	end
+end
+ns.KeyBlockCheckLayoutAtLogin = CheckLayoutAtLogin -- the offline check calls it
+
+do
+	local loginEv = CreateFrame("Frame")
+	local done = false
+	loginEv:RegisterEvent("PLAYER_ENTERING_WORLD")
+	loginEv:SetScript("OnEvent", function(self, event)
+		if done then
+			return
+		end
+		if event == "PLAYER_REGEN_ENABLED" then
+			self:UnregisterEvent("PLAYER_REGEN_ENABLED")
+		end
+		if InCombatLockdown and InCombatLockdown() then
+			self:RegisterEvent("PLAYER_REGEN_ENABLED")
+			return
+		end
+		done = true
+		if C_Timer and C_Timer.After then
+			C_Timer.After(8, function()
+				if not (InCombatLockdown and InCombatLockdown()) then
+					CheckLayoutAtLogin()
+				end
+			end)
+		else
+			CheckLayoutAtLogin()
+		end
+	end)
 end
 
 --- `/mh block why` — every place and why, in chat and in SavedVariables (Spec 30: a picture that
@@ -2753,6 +2850,10 @@ function ns.PrintKeyBlockTrace()
 	-- 24 Nov 2026: which layout, and for 12 x 4 whether this class has its own table (else the old keys stand).
 	print(("  layout: %s%s (/mh block style old||12x4)"):format(LayoutName(),
 		(LayoutName() == "12x4" and res.layout ~= "12x4") and " — but this class has no 12x4 table: old keys" or ""))
+	-- Which layout this character's bars were placed with (keys account-wide, bars per character; Rob: "advies a").
+	local placedL = ns.KeyBlockPlacedLayout and ns.KeyBlockPlacedLayout()
+	print(("  placed on this character: %s%s"):format(tostring(placedL or "not placed"),
+		(placedL and placedL ~= LayoutName()) and " |cffff8080— the other layout: /mh block fix|r" or ""))
 	-- Keys of the other layout still pressing a block button (Rob's Warlock, 24 Nov 2026). Place frees them.
 	local stale = StaleBlockKeys()
 	if #stale > 0 then

@@ -1430,6 +1430,13 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 	-- /mh block style [old|12x4] — WoW Forever: the old key block or "12 x 4" (KeyBlock.lua, 24 Nov 2026).
+	-- /mh block fix — this character's bars hold the other layout: undo and place again (KeyBlock.lua, 24 Nov 2026).
+	if msg == "block fix" then
+		if ns.KeyBlockFixLayout then
+			ns.KeyBlockFixLayout()
+		end
+		return
+	end
 	local blockStyle = msg:match("^block style%s*(.*)$")
 	if blockStyle and ns.KeyBlockSetStyle then
 		ns.KeyBlockSetStyle(blockStyle)

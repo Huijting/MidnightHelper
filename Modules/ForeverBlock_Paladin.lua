@@ -75,7 +75,10 @@ ns.FOREVER_BLOCK_CLASSES.PALADIN = {
 		["Z"] = { base = { "Divine Shield", "Divine Protection" }, why = "your shield: one key, they share a cooldown" },
 		["X"] = { base = "Templar's Bulwark", why = "second defensive: absorbs damage for 8 seconds" },
 		["C"] = { base = "Holy Light", why = "big heal: your big defensive when you are alone" },
-		["V"] = { base = "Repentance", why = "crowd control: takes one Humanoid out" },
+		-- 24 Nov 2026 (gap check, Sparring 24-11: "zoek het uit en los het op als het zeker is"): Repentance is a deep
+		-- Retribution talent, so V stayed empty for most paladins all game. Turn Undead (trainer, 24) is crowd control too:
+		-- the fallback, also on Shift-F until you have Repentance. Hammer of Justice stays on E (the paladin's kick).
+		["V"] = { base = { "Repentance", "Turn Undead" }, why = "crowd control: Repentance (talent), else Turn Undead" },
 		["SHIFT-1"] = { base = "Consecration", why = "AoE: two or more enemies" },
 		["SHIFT-2"] = { base = "Swift Judgement", why = "a second Judgement with its own cooldown" },
 		["SHIFT-3"] = { base = "Divine Favor", why = "cooldown: your next heal is a sure crit" },

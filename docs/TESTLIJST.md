@@ -25,6 +25,23 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 24 nov (avond) — FOREVER: één indeling voor al je characters (Rob: "advies a")
+
+Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest, NIET in het spel.
+Waarom: je toetsen gelden voor al je Forever-characters (GEMETEN: één bindingsbestand voor het account), maar wat op de
+knoppen staat is per character. Een character dat nog het oude blok heeft, drukt nu op verkeerde knoppen.
+- [ ] Warlock: `/reload`. Als MH vraagt "New for your key block … -> 3" of je drukt "Update (add new spells)": toets 3 =
+      Immolate (zolang je geen Agony hebt).
+- [ ] Log in op een ander Forever-character dat het oude blok heeft. Na ongeveer 8 seconden: een rode regel in de chat
+      en een venster "Your key block on this character is placed as the old block, but your keys now follow 12 x 4 …"
+      met de knoppen "Fix it now" en "Later".
+- [ ] Druk "Fix it now": MH haalt het blok eraf en zet het opnieuw neer als 12 × 4. Op de knoppen alleen nog 1-4 Q E R F
+      Z X C V (met s- en c-). Daarna komt het venster niet meer terug op dat character.
+- [ ] Drukte je "Later": typ `/mh block fix` wanneer je wilt; dat doet hetzelfde. `/mh block why` zegt
+      "placed on this character: old — the other layout: /mh block fix".
+- [ ] `/mh block style 12x4` (of `old`) zegt nu ook: "Your keys count for all your characters …".
+- [ ] Paladin zonder Repentance, vanaf level 24: toets **V** = Turn Undead (crowd control).
+
 ## 24 nov (later) — FOREVER: 12 × 4 reparatie na Robs Warlock-test (oude toetsen bleven op de knoppen)
 
 Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (de 9 toetsen van Robs screenshots worden

@@ -25466,6 +25466,13 @@ if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	KEYBLOCK_STYLE_NO_TABLE = "für diese Klasse gibt es noch keine 12 x 4-Aufteilung. Der alte Block bleibt.",
 	KEYBLOCK_STYLE_SET_12 = "Aufteilung des Tastenblocks: 12 x 4. Öffne /mh block, um ihn zu sehen, und drück dann \"Auf Leisten 5, 6 und 7 setzen\".",
 	KEYBLOCK_STYLE_SET_OLD = "Aufteilung des Tastenblocks: wieder der alte Block. Öffne /mh block, um ihn zu sehen, und drück dann \"Auf Leisten 5, 6 und 7 setzen\".",
+	KEYBLOCK_STYLE_ALLCHARS = "Deine Tasten gelten für alle deine Charaktere. Auf jedem anderen Charakter: /mh block undo, dann den Block wieder setzen (oder \"Jetzt richten\" drücken, wenn MH beim Einloggen fragt).",
+	KEYBLOCK_STYLE_12_SHORT = "12 x 4",
+	KEYBLOCK_STYLE_OLD_SHORT = "der alte Block",
+	KEYBLOCK_MISMATCH_FMT = "Dein Tastenblock ist auf diesem Charakter als %s gesetzt, aber deine Tasten folgen jetzt %s (Tasten gelten für alle deine Charaktere). Manche Tasten drücken hier den falschen Knopf.",
+	KEYBLOCK_MISMATCH_CMD = "Gib /mh block fix ein, um ihn abzunehmen und neu zu setzen.",
+	KEYBLOCK_MISMATCH_FIX = "Jetzt richten",
+	KEYBLOCK_MISMATCH_LATER = "Später",
 	KEYBLOCK_STALE_FREED_FMT = "%d Tasten der anderen Aufteilung drückten noch Block-Knöpfe und sind jetzt frei: %s. /mh block undo legt sie wieder zurück.",
 }) end
 if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
@@ -25481,6 +25488,13 @@ if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	KEYBLOCK_STYLE_NO_TABLE = "il n'y a pas encore de disposition 12 x 4 pour cette classe. L'ancien bloc reste.",
 	KEYBLOCK_STYLE_SET_12 = "disposition du bloc de touches : 12 x 4. Ouvre /mh block pour le voir, puis appuie sur \"Placer sur les barres 5, 6 et 7\".",
 	KEYBLOCK_STYLE_SET_OLD = "disposition du bloc de touches : de nouveau l'ancien bloc. Ouvre /mh block pour le voir, puis appuie sur \"Placer sur les barres 5, 6 et 7\".",
+	KEYBLOCK_STYLE_ALLCHARS = "Tes touches valent pour tous tes personnages. Sur chaque autre personnage : /mh block undo, puis replace le bloc (ou appuie sur \"Corriger maintenant\" quand MH le demande à la connexion).",
+	KEYBLOCK_STYLE_12_SHORT = "12 x 4",
+	KEYBLOCK_STYLE_OLD_SHORT = "l'ancien bloc",
+	KEYBLOCK_MISMATCH_FMT = "Ton bloc de touches sur ce personnage est placé en %s, mais tes touches suivent maintenant %s (les touches valent pour tous tes personnages). Certaines touches appuient ici sur le mauvais bouton.",
+	KEYBLOCK_MISMATCH_CMD = "Tape /mh block fix pour l'enlever et le replacer.",
+	KEYBLOCK_MISMATCH_FIX = "Corriger maintenant",
+	KEYBLOCK_MISMATCH_LATER = "Plus tard",
 	KEYBLOCK_STALE_FREED_FMT = "%d touches de l'autre disposition appuyaient encore sur des boutons du bloc et sont maintenant libres : %s. /mh block undo les remet.",
 }) end
 if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
@@ -25496,6 +25510,13 @@ if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	KEYBLOCK_STYLE_NO_TABLE = "aún no hay distribución 12 x 4 para esta clase. Se queda el bloque antiguo.",
 	KEYBLOCK_STYLE_SET_12 = "distribución del bloque de teclas: 12 x 4. Abre /mh block para verlo y luego pulsa \"Ponerlo en las barras 5, 6 y 7\".",
 	KEYBLOCK_STYLE_SET_OLD = "distribución del bloque de teclas: otra vez el bloque antiguo. Abre /mh block para verlo y luego pulsa \"Ponerlo en las barras 5, 6 y 7\".",
+	KEYBLOCK_STYLE_ALLCHARS = "Tus teclas valen para todos tus personajes. En cada otro personaje: /mh block undo y luego vuelve a poner el bloque (o pulsa \"Arreglar ahora\" cuando MH lo pregunte al entrar).",
+	KEYBLOCK_STYLE_12_SHORT = "12 x 4",
+	KEYBLOCK_STYLE_OLD_SHORT = "el bloque antiguo",
+	KEYBLOCK_MISMATCH_FMT = "Tu bloque de teclas en este personaje está puesto como %s, pero tus teclas ahora siguen %s (las teclas valen para todos tus personajes). Algunas teclas pulsan aquí el botón equivocado.",
+	KEYBLOCK_MISMATCH_CMD = "Escribe /mh block fix para quitarlo y volver a ponerlo.",
+	KEYBLOCK_MISMATCH_FIX = "Arreglar ahora",
+	KEYBLOCK_MISMATCH_LATER = "Más tarde",
 	KEYBLOCK_STALE_FREED_FMT = "%d teclas de la otra distribución aún pulsaban botones del bloque y ahora están libres: %s. /mh block undo las vuelve a poner.",
 }) end
 if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
@@ -25511,5 +25532,12 @@ if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	KEYBLOCK_STYLE_NO_TABLE = "ainda não há disposição 12 x 4 para esta classe. O bloco antigo continua.",
 	KEYBLOCK_STYLE_SET_12 = "disposição do bloco de teclas: 12 x 4. Abra /mh block para ver e depois clique em \"Colocar nas barras 5, 6 e 7\".",
 	KEYBLOCK_STYLE_SET_OLD = "disposição do bloco de teclas: de novo o bloco antigo. Abra /mh block para ver e depois clique em \"Colocar nas barras 5, 6 e 7\".",
+	KEYBLOCK_STYLE_ALLCHARS = "Suas teclas valem para todos os seus personagens. Em cada outro personagem: /mh block undo e depois coloque o bloco de novo (ou clique em \"Corrigir agora\" quando o MH perguntar ao entrar).",
+	KEYBLOCK_STYLE_12_SHORT = "12 x 4",
+	KEYBLOCK_STYLE_OLD_SHORT = "o bloco antigo",
+	KEYBLOCK_MISMATCH_FMT = "Seu bloco de teclas neste personagem está colocado como %s, mas suas teclas agora seguem %s (as teclas valem para todos os seus personagens). Algumas teclas apertam aqui o botão errado.",
+	KEYBLOCK_MISMATCH_CMD = "Digite /mh block fix para tirá-lo e colocá-lo de novo.",
+	KEYBLOCK_MISMATCH_FIX = "Corrigir agora",
+	KEYBLOCK_MISMATCH_LATER = "Mais tarde",
 	KEYBLOCK_STALE_FREED_FMT = "%d teclas da outra disposição ainda apertavam botões do bloco e agora estão livres: %s. /mh block undo as coloca de volta.",
 }) end

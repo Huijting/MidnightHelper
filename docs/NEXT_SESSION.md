@@ -1,5 +1,17 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 24 nov avond (Bouwchat 24-11): één indeling voor alle Forever-characters (Rob: *"advies a"*) — wacht op test
+
+GEMETEN: Forever-toetsen gelden voor het hele account (één `bindings-cache.wtf`; `bindingSet = 1` in Robs SV; `style` ook
+account-breed in MidnightHelperDB), de balken per character. Gebouwd (KeyBlock.lua): het neerzetten bewaart
+`snap.layout`; bij het inloggen (Forever, 8 s, niet in gevecht, één keer) een chatregel + StaticPopup
+`MH_KEYBLOCK_LAYOUT_MISMATCH` als dit character met de andere indeling staat ("Fix it now" = undo + neerzetten;
+`/mh block fix` doet hetzelfde). `/mh block style` zegt erbij dat toetsen voor alle characters gelden. `/mh block why`
+noemt "placed on this character". Oude snapshots zonder `layout` = het oude blok. Paladin V = Repentance, anders Turn
+Undead (24); level 8-23 heeft hij geen andere CC (Hammer of Justice staat bewust op E). Offline getest (login-check:
+4 gevallen, keys12 2252), NIET in het spel. Bevestigd uit de code (AFGELEID): na `/reload` zet "Update" of de
+nieuwe-spell-vraag Immolate op toets 3 (lege plek met een macro-wens). Teststappen: TESTLIJST "24 nov (avond)".
+
 ## ▶▶ 24 nov (Bouwchat 24-11): 12 × 4 GEREPAREERD na Robs Warlock-test — wacht op hertest
 
 Rob testte 12×4 op zijn Warlock (screenshots via Sparring 24-11). Fout 1: op balk 5/6/7 stonden nog de oude toetsen
