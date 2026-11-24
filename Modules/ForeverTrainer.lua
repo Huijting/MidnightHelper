@@ -112,9 +112,34 @@ local function Money(c)
 	return tostring(c) .. "c"
 end
 
---- Where a spell goes on the key block: "Q", "block D", or nil (not on the block).
+-- A key that holds the spell only in a form or stance says which one, in the client's own spell name (24 Nov 2026,
+-- Rob's Druid: Maul is on 1 only in Bear Form; outside it 1 is Wrath). Weapon states (gun/bow) are no form: not shown.
+local STATE_SPELL = { bear = "Bear Form", cat = "Cat Form", stealth = "Stealth", battle = "Battle Stance",
+	defensive = "Defensive Stance", berserker = "Berserker Stance" }
+
+local function StateName(state)
+	local en = STATE_SPELL[state]
+	local ids = en and ns.FOREVER_SPELL_IDS and ns.FOREVER_SPELL_IDS[en]
+	if ids and ids[1] and C_Spell and C_Spell.GetSpellName then
+		local ok, n = pcall(C_Spell.GetSpellName, ids[1])
+		if ok and type(n) == "string" and n ~= "" then
+			return n
+		end
+	end
+	return en
+end
+
+--- Where a spell goes on the key block: "Q", "1 (Bear Form)", "block D", or nil (not on the block).
+--- 24 Nov 2026: the layout this character uses (ForeverBlockClassTable: 12 x 4 or the old block); before, always the
+--- old block's keys, so with 12 x 4 the window named keys the block no longer has (F2 instead of Shift-C).
 local function KeyFor(token, name)
 	local cls = ns.FOREVER_BLOCK_CLASSES and ns.FOREVER_BLOCK_CLASSES[token]
+	if ns.ForeverBlockClassTable then
+		local okV, view, vt = pcall(ns.ForeverBlockClassTable)
+		if okV and view and vt == token then
+			cls = view
+		end
+	end
 	if not cls then
 		return nil
 	end
@@ -132,14 +157,26 @@ local function KeyFor(token, name)
 	end
 	local label = ns.KeyBlockKeyLabel or function(k) return k end
 	for key, def in pairs(cls.keys or {}) do
+		local forms, plain = {}, false
 		for field, v in pairs(def) do
 			if field == "pair" then
 				if has(v.first) or has(v.second) then
-					return label(key)
+					plain = true
 				end
-			elseif field ~= "cmd" and field ~= "open" and field ~= "bang" and has(v) then
-				return label(key)
+			elseif field ~= "cmd" and field ~= "open" and field ~= "bang" and field ~= "why" and has(v) then
+				if STATE_SPELL[field] then
+					forms[#forms + 1] = StateName(field)
+				else
+					plain = true -- base, all, or a weapon state
+				end
 			end
+		end
+		if plain then
+			return label(key)
+		elseif #forms > 0 then
+			table.sort(forms)
+			-- second value: the bare key, for the overview's narrow chip (the full text goes in its tooltip)
+			return ("%s (%s)"):format(label(key), table.concat(forms, ", ")), label(key)
 		end
 	end
 	if has(cls.toBlockD) then
@@ -477,15 +514,17 @@ end
 function ns.ForeverTrainerPageData(level)
 	local r = Compute(level or (UnitLevel and UnitLevel("player")) or 1)
 	local function Row(e)
-		local key = KeyFor(r.token, e.n)
-		local where
+		local full, bare = KeyFor(r.token, e.n)
+		-- The chip shows the bare key ("1"); "1 (Bear Form)" would not fit it. The form goes in `where` (tooltip text).
+		local key = bare or full
+		local where = bare and full or nil
 		if not key then
 			local passive = false
 			if C_Spell and C_Spell.IsSpellPassive then
 				local okP, p = pcall(C_Spell.IsSpellPassive, e.id)
 				passive = okP and p == true
 			end
-			where = passive and ns:L("FTRAIN_PASSIVE") or key == false and ns:L("FTRAIN_ON_PURPOSE") or ns:L("FTRAIN_OWN_BAR")
+			where = passive and ns:L("FTRAIN_PASSIVE") or full == false and ns:L("FTRAIN_ON_PURPOSE") or ns:L("FTRAIN_OWN_BAR")
 		end
 		return { id = e.id, name = SpellName(e), rank = RankText(e.id), cost = Money(e.c), key = key or nil, where = where,
 			note = TotemNote(r.token, e.id), level = e.l }

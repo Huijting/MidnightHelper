@@ -25,6 +25,24 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 24 nov (avond, 13) — FOREVER: het icoon volgt je vorm (Rob: "de icoontjes zijn hetzelfde als die van niet in beer vorm")
+
+Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (11 controles), NIET in het spel.
+- [ ] `/reload` op de Druid. Ga in beervorm (Ctrl-1): op toets **1** staat nu het icoon van **Maul**, op **F** dat van
+      **Growl**, op **2** Lacerate (als je die hebt). Uit beervorm: weer Wrath, Rejuvenation, Moonfire.
+- [ ] Ook bij kattenvorm, en op andere characters met states (Warrior-stances, Rogue Stealth): het icoon toont wat de
+      toets NU doet. (Elk character repareert zijn knoppen één keer bij de eerste keer bijwerken na de update.)
+- [ ] Trainervenster ("New at your trainer"): bij een spell die alleen in een vorm op een toets zit staat de vorm erbij,
+      bv. "Maul -> 1 (Bear Form)". Met 12 × 4 noemt het venster de toetsen van 12 × 4 (Regrowth = Shift-C, niet F2).
+- Oude melding (vervalt, was hetzelfde): "krijg deze spells niet op mijn keys". De spells werkten wel; alleen het icoon niet.
+⚠️ Op versie 5.9.0 (zonder de fix van de Lua-fout KeyBlock.lua:1527) liep de vraag "New for your key block" op deze Druid
+vast. Test dit dus met de versie van main.
+- [ ] Druid die net Bear Form (met Growl en Maul) leerde: binnen een paar seconden vraagt MH "New for your key block …
+      Bear Form -> Ctrl 1". Druk **Place it**. Komt de vraag niet: `/mh block` → "Update (add new spells)".
+- [ ] Druk **Ctrl-1**: je wordt beer. In beervorm: **1** = Maul, **F** = Growl. Uit beervorm: weer Wrath op 1,
+      Rejuvenation op F.
+- [ ] Ook zonder inloggen: leer een nieuwe spell, en de knop klopt meteen (geen /reload nodig).
+
 ## 24 nov (avond, 12) — MIDNIGHT: toetsenblok "12 × 4" (Rob: "En ja, ik zou dit ook graag in Midnight willen", "A A A", "a ja")
 
 🔴 Nieuw bestand: sluit het spel eerst helemaal af en start opnieuw. Offline getest (40 specs × 2 indelingen, 2688

@@ -1130,9 +1130,11 @@ local function Make(d)
 	local name = MacroName(d)
 	local idx = Exists(d)
 	if idx then
-		local _, icon, old = GetMacroInfo(idx)
+		local _, _, old = GetMacroInfo(idx)
 		if old ~= body then
-			pcall(EditMacro, idx, name, icon or ICON, body)
+			-- The question mark, never GetMacroInfo's icon: that is the icon shown NOW and would freeze #showtooltip
+			-- (24 Nov 2026, measured on Rob's Druid; same fix as ForeverBlock.lua ForeverEnsureMacro).
+			pcall(EditMacro, idx, name, ICON, body)
 		end
 		return true
 	end

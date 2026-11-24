@@ -524,10 +524,18 @@ function ns.ForeverEnsureMacro(key)
 	end
 	local name = MacroName(key)
 	local idx = GetMacroIndexByName and GetMacroIndexByName(name) or 0
+	-- 🔴 24 Nov 2026 (Rob's Druid in Bear Form: "de icoontjes zijn hetzelfde als die van niet in beer vorm"): rewrite with
+	-- the icon we WANT, never the one GetMacroInfo returns. For a question-mark macro that is the icon shown at that
+	-- moment (MEASURED in his macros-cache.txt: every rewritten "MH" macro had a fixed file id such as 136006 = Wrath,
+	-- the never-rewritten ones still INV_MISC_QUESTIONMARK), and passing it back froze the icon: #showtooltip then no
+	-- longer followed the form. The question mark lets the game show the spell the key casts NOW.
+	local cls0 = ClassTable()
+	local def0 = cls0 and cls0.keys and cls0.keys[key]
+	local wantIcon = (def0 and def0.cmd and def0.cmd.icon) or MACRO_ICON
 	if idx and idx > 0 then
-		local _, icon, old = GetMacroInfo(idx)
-		if old ~= body then
-			pcall(EditMacro, idx, name, icon, body)
+		local _, _, old = GetMacroInfo(idx)
+		if old ~= body or ns.ForeverMacroIconFix then
+			pcall(EditMacro, idx, name, wantIcon, body)
 		end
 		return GetMacroIndexByName(name)
 	end
@@ -565,11 +573,22 @@ local function RefreshExisting()
 	if not cls or (InCombatLockdown and InCombatLockdown()) then
 		return
 	end
+	-- Once per character (24 Nov 2026): rewrite every block macro with the question-mark icon, also when its text did
+	-- not change, so icons frozen by the old rewrite (see ForeverEnsureMacro) follow the form again.
+	local me = UnitGUID and UnitGUID("player")
+	ns.db = ns.db or {}
+	ns.db.foreverMacroIconFixed = ns.db.foreverMacroIconFixed or {}
+	local fix = me and not ns.db.foreverMacroIconFixed[me]
+	ns.ForeverMacroIconFix = fix and true or nil
 	for key in pairs(cls.keys) do
 		local idx = GetMacroIndexByName and GetMacroIndexByName(MacroName(key))
 		if idx and idx > 0 then
 			ns.ForeverEnsureMacro(key)
 		end
+	end
+	ns.ForeverMacroIconFix = nil
+	if fix then
+		ns.db.foreverMacroIconFixed[me] = true
 	end
 end
 
@@ -760,6 +779,12 @@ ev:RegisterEvent("PLAYER_ENTERING_WORLD")
 -- 24 Nov 2026: a talent point (Mortal Strike) changes what key 3 casts. pcall, as in ForeverMacros.lua: an event the
 -- client does not know would throw.
 pcall(ev.RegisterEvent, ev, "TRAIT_CONFIG_UPDATED")
+-- 24 Nov 2026 (Rob's Druid got Bear Form from its class quest: "ik heb net mijn beer vorm gehaald maar krijg deze spells
+-- niet op mijn keys"): also on SPELLS_CHANGED, the event the key block's own "new for your block" question uses. Whether
+-- LEARNED_SPELL_IN_SKILL_LINE fires for a spell a QUEST teaches is not measured; SPELLS_CHANGED fires for every change.
+-- It comes in bursts, so one rewrite a second after the burst (EditMacro only runs when a body really changed).
+ev:RegisterEvent("SPELLS_CHANGED")
+local queued = false
 ev:SetScript("OnEvent", function(_, event)
 	if event == "PLAYER_REGEN_ENABLED" and not pending then
 		return
@@ -769,8 +794,19 @@ ev:SetScript("OnEvent", function(_, event)
 		return
 	end
 	pending = false
+	if queued then
+		return
+	end
 	if C_Timer and C_Timer.After then
-		C_Timer.After(1, RefreshExisting)
+		queued = true
+		C_Timer.After(1, function()
+			queued = false
+			if InCombatLockdown and InCombatLockdown() then
+				pending = true -- a fight began in that second: PLAYER_REGEN_ENABLED does it after
+				return
+			end
+			RefreshExisting()
+		end)
 	else
 		RefreshExisting()
 	end

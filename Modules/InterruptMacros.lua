@@ -751,8 +751,9 @@ function ns.BuildInterruptMacrosPanel(panel)
 		local name = ("MH+ " .. tostring(makeName or entryName or "Macro")):sub(1, 16)
 		local idx = GetMacroIndexByName and GetMacroIndexByName(name) or 0
 		if idx and idx > 0 then
-			local _, icon = GetMacroInfo(idx)
-			pcall(EditMacro, idx, name, icon or "INV_MISC_QUESTIONMARK", body)
+			-- The question mark, never GetMacroInfo's icon (the icon shown now; passing it back freezes #showtooltip;
+			-- measured 24 Nov 2026 on Rob's Forever Druid, same code pattern).
+			pcall(EditMacro, idx, name, "INV_MISC_QUESTIONMARK", body)
 		else
 			local _, perChar = GetNumMacros()
 			if (perChar or 0) >= (MAX_CHARACTER_MACROS or 18) then

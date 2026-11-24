@@ -1,5 +1,33 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 24 nov avond (Bouwchat 24-11): Forever — macro-icoon volgde de vorm niet — GEREPAREERD, wacht op test
+
+Rob: *"o wacht, het word wel maul en die andere maar de icoontjes zijn hetzelfde als die van niet in beer vorm !!"*
+GEMETEN in `_forever_/WTF/.../93/Ima-Druiddude/macros-cache.txt` (23:41): de teksten kloppen ("MH 1" = `[bonusbar:3]
+Maul; [nobonusbar:1/2/3] Wrath`, "MH F" Growl, "MH CTRL-1" Bear Form), maar elke herschreven MH-macro had een vast
+icoon-nummer (136006 = Wrath …), de nooit herschreven nog INV_MISC_QUESTIONMARK. Oorzaak: ForeverEnsureMacro gaf bij
+EditMacro het icoon van GetMacroInfo terug, en dat is bij een vraagteken-macro het icoon dat NU getoond wordt
+(AFGELEID uit dat patroon) → #showtooltip bevroor. Sinds de eerste herschrijving van een blokmacro (Druid-blok 5 nov;
+AFGELEID). Fix: EditMacro altijd met het gewenste icoon (cmd.icon of het vraagteken); eenmalige reparatie per character
+(`ns.db.foreverMacroIconFixed[guid]`) in RefreshExisting; zelfde patroon gerepareerd in ForeverMacros.lua (handige
+macro's) en InterruptMacros.lua (Midnight "MH+"-macro's). Trainervenster: KeyFor gebruikt nu de tabel van de gekozen
+indeling (was altijd het oude blok → F2 i.p.v. Shift-C bij 12 × 4) en zegt "1 (Bear Form)" bij een vorm-toets (chip in
+het overzicht: alleen "1", de vorm in de tooltip); dat deel is NIET offline getest. Offline: `bear_test.lua` 11/11.
+De eerdere melding "krijg ze niet op mijn keys" vervalt (Sparring: was dit). De extra SPELLS_CHANGED-herschrijving blijft
+(onschadelijk, vangt een spell uit een quest).
+
+## ▶▶ 24 nov avond (Bouwchat 24-11): Forever Druid, Bear Form geleerd, toetsen volgden niet — gerepareerd, wacht op test
+
+Rob: *"maar ik heb net mijn beer vorm gehaald maar krijg deze spells niet op mijn keys ?"* (Forever Druid ~10, 12 × 4).
+Uitgezocht in de code: (1) een NIEUWE toets (Ctrl-1 = Bear Form) krijgt zijn macro alleen via de vraag "New for your
+key block" (KeyBlock.lua CheckNew op SPELLS_CHANGED → MissingRows) of Update. Op 5.9.0 crashte MissingRows op deze
+Druid (fout 1527, wees-macro Shift-Z; aa781a1 staat nog niet in een release), dus daar kwam géén vraag (AFGELEID; of Rob
+op 5.9.0 speelde vraagt Sparring na). (2) Bestaande "MH <toets>"-macro's (1, F …) werden alleen herschreven op
+LEARNED_SPELL_IN_SKILL_LINE / inloggen / na een gevecht; of dat event vuurt voor een spell uit een QUEST is niet gemeten.
+Fix: ForeverBlock.lua herschrijft ook op SPELLS_CHANGED (één keer per golf, na 1 s; begint er een gevecht, dan erna).
+(3) De gereserveerde Ctrl-1 (1b8a696) houdt alleen ANDERE spells weg; Bear Form zelf krijgt Ctrl-1 als eigen toets.
+Offline: scratch `bear_test.lua` 6/6 (MH 1 = "[bonusbar:3] Maul; [nobonusbar:1/2/3] Wrath", MH F = Growl/Rejuvenation).
+
 ## ▶▶ 24 nov avond (Bouwchat 24-11): 12 × 4 voor MIDNIGHT (stap A2) — AF, wacht op test
 
 Controle: 4× mh-research (scratch `review12_g1..g4.md`) + tweede Opus (`review12_final.md`, met eigen simulatie van
