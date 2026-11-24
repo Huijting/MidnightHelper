@@ -788,6 +788,9 @@ ns._mhLocales.enUS = {
 	KEYBLOCK_UNPLACED_NONE = "Every spell Midnight Helper knows for this spec has a place.",
 	KEYBLOCK_UNKNOWN_FMT = "|cffff8080Not in Midnight Helper's list yet (%d):|r %s. They go on a free Alt key in block D. Tell us with /mh report.",
 	KEYBLOCK_FIXED_HINT = "An item, not a spell: you put this one on the key yourself.",
+	-- 24 Nov 2026 (Rob's Prot Paladin: trinket places empty on the bars): why a trinket place stays empty.
+	KEYBLOCK_TRINKET_PASSIVE_FMT = "You wear %s here, but it has no effect you can use: pressing it would do nothing. So MH leaves this key empty. A trinket you can use lands here by itself.",
+	KEYBLOCK_TRINKET_NONE = "No trinket you can use is worn here. A trinket with an effect you can use lands here by itself.",
 	KEYBLOCK_FREE_HINT = "Free on this character. Another class or spec uses this place for this task.",
 	KEYBLOCK_T_MAIN = "main button",
 	KEYBLOCK_T_ROT = "rotation",

@@ -1,5 +1,17 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 25 nov nacht (Bouwchat 24-11): Midnight 12 × 4 op Robs Prot Paladin — balken ≠ plaatje, ONDERZOEK LOOPT
+
+Rob: *"volgens mij zet hij ze niety in mijn keyblock , ook niet na update"*, daarna *"het gaat niet om het block dat MH
+laat zien maar mijn layout in game , onder dat block, dat komt niet overeen"*. Sparring zag op een klein screenshot
+(NIET betrouwbaar): Shift-C (Word of Glory) leeg, Ctrl-X/Ctrl-V leeg. Robs retail-SV is van 24 nov 17:50, dus van vóór
+de test: keyBlockProbe moet na zijn /reload nog gelezen worden (live knop per slot ↔ plan).
+Al gerepareerd (GEMETEN in de code): het plaatje toonde bij de trinket-plekken altijd het icoon van de trinket die je
+DRAAGT (slot 13/14), maar neerzetten zet alleen een trinket met een Use:-effect (UsableTrinkets, 5 okt). Nu dezelfde
+regel op het plaatje (FixedWant), met een tooltip die de gedragen trinket noemt (KEYBLOCK_TRINKET_PASSIVE_FMT, 8 talen).
+Of Robs trinkets echt passief zijn is NIET gemeten (de tooltip laat het zien). Open: de vergelijking slot voor slot.
+⚠️ KEYBLOCK_FIXED_HINT ("you put this one on the key yourself") is verouderd: MH zet items zelf neer. Nog aanpassen.
+
 ## ▶▶ 24 nov avond (Bouwchat 24-11): Forever — macro-icoon volgde de vorm niet — GEREPAREERD, wacht op test
 
 Rob: *"o wacht, het word wel maul en die andere maar de icoontjes zijn hetzelfde als die van niet in beer vorm !!"*

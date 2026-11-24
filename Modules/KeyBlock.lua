@@ -2052,6 +2052,12 @@ local function SlotTooltip(btn)
 	GameTooltip:AddLine(KeyLabel(d.key) .. " · " .. ns:L(d.task), 1, 0.82, 0)
 	if d.fixed then
 		GameTooltip:AddLine(ns:L("KEYBLOCK_FIXED_HINT"), 0.8, 0.8, 0.8, true)
+		if d.fixedWhy and (d.fixed == "trinket" or d.fixed == "trinket2") then
+			-- 24 Nov 2026: why this place stays empty, with the trinket you wear in that slot (if any).
+			local link = GetInventoryItemLink and GetInventoryItemLink("player", d.fixed == "trinket2" and 14 or 13)
+			GameTooltip:AddLine(link and ns:L("KEYBLOCK_TRINKET_PASSIVE_FMT"):format(link) or ns:L("KEYBLOCK_TRINKET_NONE"),
+				1, 0.6, 0.2, true)
+		end
 	elseif not d.spellID and not d.cmdLabel then
 		GameTooltip:AddLine(ns:L("KEYBLOCK_FREE_HINT"), 0.8, 0.8, 0.8, true)
 	end
@@ -2579,8 +2585,15 @@ Refresh = function(f)
 					b:SetBackdropBorderColor(0.55, 0.45, 0.15, 1)
 				end
 			elseif slot.fixed == "trinket" or slot.fixed == "trinket2" then
-				local tex = GetInventoryItemTexture and GetInventoryItemTexture("player", slot.fixed == "trinket2" and 14 or 13)
+				-- 24 Nov 2026 (Rob's Prot Paladin, Midnight 12 x 4: Ctrl-X and Ctrl-V empty on the bars while the picture
+				-- showed a trinket): the picture showed whatever trinket you WEAR (slot 13/14), but placing only puts one
+				-- you can PRESS (UsableTrinkets: a Use: effect, 5 Oct 2026). Same rule here, so the picture does not
+				-- promise a button that "Place it" will not make. A passive trinket: no icon, the reason in the tooltip.
+				local want, why = FixedWant(slot.fixed)
+				local tex = want and want.id and ((C_Item and C_Item.GetItemIconByID and C_Item.GetItemIconByID(want.id))
+					or (GetItemIcon and GetItemIcon(want.id)))
 				b.icon:SetTexture(tex)
+				data.fixedWhy = (not want) and why or nil
 				b.task:SetText(ns:L(slot.task))
 				b.task:SetTextColor(0.85, 0.85, 0.85)
 				b:SetBackdropBorderColor(0.35, 0.55, 0.45, 1)
