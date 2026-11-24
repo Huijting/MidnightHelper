@@ -1,5 +1,13 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 24 nov (Bouwchat 24-11): `data/keyblock_specs.json` opnieuw gemaakt — ✅ AF (open punt NEXT_SESSION_ARCHIVE r.7171)
+
+Sparring 24-11, letterlijk: *"Ja: run keyblock_specs, commit en push"*. Het bestand was van 6 okt; 6 specs schoven door
+bewuste datawijzigingen uit oktober (GEMETEN, vergeleken met de oude versie): Holy Paladin (Avenging Crusader F1, Divine
+Toll Shift-3, Holy Prism Shift-F1; Redemption en Intercession nu zonder plek door de Rites van 22 okt), Prot Paladin,
+Assassination, Shadow (Halo → Halo (Shadow)), Vengeance en Devourer (The Hunt niet meer in hun lijst). De indeling zelf
+(`layout`) is ongewijzigd. Gebruikt door de site-spiekbrief (branch "keyblock"); Sparring seint de site-chat.
+
 ## ▶▶ 24 nov (Bouwchat 24-11): Forever-toetsenblok "12 × 4" GEBOUWD (1a + 2b) — wacht op Robs test
 
 Rob via Sparring 24-11, letterlijk: *"ik vind namelijk zijn uitleg goed en wil onze versie ook zo hebben van keybinds qua
