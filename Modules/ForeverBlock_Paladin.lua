@@ -65,7 +65,9 @@ ns.FOREVER_BLOCK_CLASSES.PALADIN = {
 		["1"] = { base = "Holy Strike", why = "main hit: press it whenever it is ready" },
 		["2"] = { base = "Judgement", why = "rotation: Judgement whenever ready; it keeps your seal" },
 		["3"] = { base = { "Seal of Command", "Seal of Righteousness" }, why = "your seal: Command once you have it, else Righteousness" },
-		["4"] = { base = "Hammer of Wrath", why = "execute: only at 20% health or less" },
+		-- 24 Nov 2026 (same fallback as the Warlock's key 3, Sparring 24-11): Hammer of Wrath comes at 44, Exorcism at 20, so
+		-- key 4 was empty from 20 to 43 while Exorcism sat on Shift-4. Exorcism here until you have Hammer of Wrath.
+		["4"] = { base = { "Hammer of Wrath", "Exorcism" }, why = "execute at 20% health; Exorcism until Hammer of Wrath (44)" },
 		["Q"] = { base = "Lay on Hands", why = "big cooldown and emergency: full heal, all your mana" },
 		["E"] = { base = "Hammer of Justice", why = "no interrupt: this stun stops a cast" },
 		["R"] = { base = "Blessing of Freedom", why = "movement: nothing can slow you for a while" },

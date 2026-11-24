@@ -65,7 +65,9 @@ ns.FOREVER_BLOCK_CLASSES.ROGUE = {
 		-- Bar A (no modifier)
 		["1"] = { stealth = "Garrote", base = "Sinister Strike", why = "main hit; Garrote from Stealth" },
 		["2"] = { stealth = "Ambush", base = "Backstab", why = "Backstab from behind; Ambush from Stealth" },
-		["3"] = { all = { "Mutilate", "Hemorrhage" }, why = "talent builder: Mutilate or Hemorrhage" },
+		-- 24 Nov 2026 (same fallback as the Warlock's key 3, Sparring 24-11): without Mutilate or Hemorrhage (Combat, the
+		-- default tree) key 3 stayed empty all game while Shank (trainer, level 24) sat on Shift-3. Now Shank is the fallback.
+		["3"] = { all = { "Mutilate", "Hemorrhage", "Shank" }, why = "talent builder: Mutilate or Hemorrhage; Shank without them" },
 		["4"] = { all = "Eviscerate", why = "main finisher: Eviscerate" },
 		["Q"] = { all = { "Adrenaline Rush", "Death Mark" }, why = "your level-40 talent: Adrenaline Rush or Death Mark" },
 		["E"] = { all = "Kick", why = "your interrupt: E is the kick key for every class" },

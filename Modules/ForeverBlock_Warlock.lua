@@ -76,7 +76,10 @@ ns.FOREVER_BLOCK_CLASSES.WARLOCK = {
 		["2"] = { base = "Corruption", why = "your first damage over time" },
 		-- 3 <-> SHIFT-2 after the second check (KEYBLOCK12_REVIEW.md): Affliction is the default tree; there Agony is
 		-- step 2 of every pull and Immolate "only on a tough enemy" (ForeverHowToPlay.lua).
-		["3"] = { base = "Bane of Agony", why = "your second DoT, every pull, after Corruption on 2" },
+		-- 24 Nov 2026 (Rob's Warlock test; Sparring 24-11: "ja, doe jouw advies"): Agony comes at level 8, Immolate at 1, so
+		-- until 8 this key was empty while Immolate sat on Shift-2. Fallback: Immolate here until you have Agony (it is then
+		-- on two keys until level 8, on purpose).
+		["3"] = { base = { "Bane of Agony", "Immolate" }, why = "your second DoT after Corruption on 2; Immolate until Agony (8)" },
 		["4"] = { base = "Drain Soul", why = "finisher: kill with it and you get a Soul Shard" },
 		["Q"] = { base = "Soul Fire", why = "big cooldown: your biggest hit (48, costs a Soul Shard)" },
 		-- E stays empty on purpose: no interrupt of its own (Spell Lock belongs to the Felhunter, on Blizzard's pet bar).

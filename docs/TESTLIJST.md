@@ -41,6 +41,10 @@ Zo krijg je je balken goed (de oude toetsen 5, T, G, F1-F4, Shift-T en Shift-F1 
 - [ ] De rode regel "Not in MH's list: Summon Demon" is weg.
 - [ ] Ga je terug naar het oude blok (`undo`, `/mh block style old`, neerzetten): dan worden de 12×4-toetsen (zoals
       Ctrl-Q, Ctrl-4) op dezelfde manier losgemaakt.
+- [ ] Warlock onder level 8 (nog geen Agony): toets **3** = Immolate (ook nog op Shift-2). Vanaf Agony: 3 = Agony.
+- [ ] Rogue zonder Mutilate of Hemorrhage (Combat), vanaf level 24: toets **3** = Shank.
+- [ ] Paladin level 20-43: toets **4** = Exorcism; vanaf 44 (Hammer of Wrath) wordt 4 Hammer of Wrath.
+      (Na het leren van een nieuwe spell: `/mh block update` of de vraag van MH, zodat de knop meeschuift.)
 
 ## 24 nov — FOREVER: toetsenblok "12 × 4" (Rob: "laat een agent uitzoeken welke spells logisch zijn per class")
 

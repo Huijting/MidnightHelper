@@ -13,6 +13,15 @@ Fout 2: Summon Imp 4× → pet-commando's tonen nu hun label + icoon (`spell.lab
 (Alt, block D) is bewust. Klein: "Summon Demon" (vermoedelijk een flyout, AFGELEID) telt niet meer als onbekend
 (flyouts overgeslagen + naam in Warlock `listed`). Vraag 3 (Immolate op Shift-2, toets 3 leeg tot Agony op level 8):
 voorgelegd aan Sparring, niets veranderd. Teststappen: TESTLIJST "24 nov (later)".
+- 🔧 Vervolg (Sparring: *"ja, doe jouw advies … Kijk ook of hetzelfde gat … bij andere klassen voorkomt"*): terugval op
+  rotatietoetsen waar de spell pas later bij de trainer komt: Warlock 3 = Agony, anders Immolate; Rogue 3 = Mutilate/
+  Hemorrhage, anders Shank (24); Paladin 4 = Hammer of Wrath (44), anders Exorcism (20). Gemeten met scratch `gap_test.lua`
+  (per level 1-60, alleen trainerlevels; begin-spells en talenten tellen daar als "niet geleerd", dus een deel van de
+  overige meldingen is nep). Niet aangepast: Warrior 4 (4 levels, per stance), Shaman 4 (Fire Nova vraagt een fire totem,
+  pas op 20), Druid 4 (4 levels, cat), en alle vaste-taaktoetsen (E R Z X C V). Te bekijken: Paladin V leeg 8-60 terwijl
+  Purify op Shift-V staat (welke CC staat op V?).
+- 📏 Bindingen GEMETEN: Forever heeft één `bindings-cache.wtf` op accountniveau, geen per character (25 character-mappen,
+  tegencontrole: daar staan wel macros/config). Gevolg en advies: zie bericht aan Sparring; nog niets aan veranderd.
 
 ## ▶▶ 24 nov (Bouwchat 24-11): `data/keyblock_specs.json` opnieuw gemaakt — ✅ AF (open punt NEXT_SESSION_ARCHIVE r.7171)
 
