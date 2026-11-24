@@ -1,6 +1,15 @@
 # Midnight Helper — waar we staan
 
-## ▶▶ 24 nov avond (Bouwchat 24-11): How you play volgt de gekozen indeling — wacht op test
+## ▶▶ 24 nov avond (Bouwchat 24-11): "Do this now" — knop How you play + vrije tasplekken — wacht op test
+
+Rob via Sparring, letterlijk: *"kunnen we hier onder ook een knop how to play toevoegen en in het rijtje van gold aan de
+linkerzijde het aantal open tas plaatsen :)"*, op de samenvatting *"ja"*. Gebouwd in `ForeverDoNow.lua`: `f.btnPlay`
+(tekst `FOV_TAB_PLAY`, opent `ns.ShowPlayCardWindow`) als laatste knop in de rij; `BagText` links van `f.money`, ververst
+op `BAG_UPDATE_DELAYED` (zelfde event-frame als PLAYER_MONEY). Telling = `ns.ForeverFreeBagSlots` (de FreeSlots van
+`ForeverWarnings.lua`, bag family 0); oranje bij ≤ max(5, `ns.ForeverBagWarnAt()`), rood bij 0; niet leesbaar = leeg.
+Nieuwe key `FDONOW_BAGS_FREE_FMT` (en, nl, de, fr, es, pt, ru). Offline: telling 15 bij 4 gewone tassen + een pijlkoker.
+
+## ▶▶ 24 nov avond (Bouwchat 24-11): How you play volgt de gekozen indeling — ✅ GETEST (Rob: *"en in how to play staat get nu goed"*)
 
 Rob, letterlijk: *"ik zie een fout in how to play , de oude keyblock staan er nog in"* (open punt 1 van vanochtend; trainer:
 *"trainer gaat goed"*). Gebouwd (`ForeverHowToPlay.lua` `LiveKeys`/`KeyMap`): bij 12 × 4 worden bij het TONEN alle

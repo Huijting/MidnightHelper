@@ -73,6 +73,11 @@ local function FreeSlots()
 	end
 	return free, read
 end
+-- 24 Nov 2026: the bag count in the corner of "Do this now" (ForeverDoNow.lua) reads the same numbers.
+ns.ForeverFreeBagSlots = FreeSlots
+ns.ForeverBagWarnAt = function()
+	return Settings().bagsAt
+end
 
 --- Grey items in the bags: how many stacks and what a vendor pays (copper; 0 when the price is not cached yet).
 local function Greys()

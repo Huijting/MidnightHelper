@@ -26,6 +26,14 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 
 ## Open — wacht op Rob
 
+### Forever: "Do this now" — knop How you play + vrije tasplekken naast je goud (wens van Rob, 24 nov) — ✅ JA, GEBOUWD 24 nov, wacht op test
+- Bron: Rob via Sparring 24-11, letterlijk: *"kunnen we hier onder ook een knop how to play toevoegen en in het rijtje van
+  gold aan de linkerzijde het aantal open tas plaatsen :)"*; op de samenvatting van Sparring: *"ja"*.
+- Gebouwd (`ForeverDoNow.lua`): knop "How you play" achter "Open overzicht", opent de speelkaart van dit character. Links
+  van het goud: tas-icoon + "12 vrij". Oranje vanaf 5 vrij (of je eigen tas-waarschuwing als die hoger staat, `/mh bags
+  <n>`), rood bij 0. Telt alleen gewone tassen (zelfde telling als de tas-waarschuwing: geen pijlkoker, ammo- of soul bag).
+- Spel: F. Voor wie: N + V (AFGELEID).
+
 ### Forever: toetsenblok "12 × 4" zoals in de Bellular-video (wens van Rob, 24 nov) — ✅ JA (1a + 2b), GEBOUWD 24 nov, wacht op test
 - Bron: Rob via Sparring 24-11, letterlijk: *"ik vind namelijk zijn uitleg goed en wil onze versie ook zo hebben van
   keybinds qua knoppen"*, *"maak een voorstel, in jip en janneke"*, en op het voorstel: *"uiteraard volg ik je advies e laat
@@ -40,7 +48,9 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
   speelt"*, op de samenvatting *"Ja"*; heal = C/Shift-C: *"a"*). Knop in het toetsenblok-venster (Forever, 12×4); taak per
   toets uit `docs/forever/KEYBLOCK12_TAKEN.md`. Site-pagina: later via de site-chat.
 - Later (stap 2, Sparring: *"akkoord"*): mount op Shift+Spatie, een interact-toets; sit/sheathe/character alleen na een
-  vraag, met undo. Ook later: de How you play-teksten noemen nog de oude toetsen; downranks per toets kan de motor niet.
+  vraag, met undo. Downranks per toets kan de motor niet.
+- ✅ 24 nov: How you play noemt de toetsen van de gekozen indeling (d5380df) — GETEST (Rob via Sparring, letterlijk:
+  *"en in how to play staat get nu goed"*).
 - Spel: F. Voor wie: N + V (AFGELEID). Site: pas na test en release.
 
 ### Forever: consumable-venster voor de party, zoals in Midnight (wens van Rob, 23 nov) — ✅ JA (optie A), GEBOUWD 24 nov, wacht op test

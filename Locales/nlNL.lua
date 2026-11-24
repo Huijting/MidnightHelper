@@ -4753,6 +4753,7 @@ ns._mhLocales.nlNL = {
 	FOV_TIP_ROLES_BTN = "Toon of vouw de rollen die niet jouw richting zijn.",
 	FOV_OLDWIN_BTN = "Alle tools",
 	FDONOW_OPEN_OVERVIEW = "Open overzicht",
+	FDONOW_BAGS_FREE_FMT = "%d vrij",
 	FOV_DETAILS = "Details",
 	FOV_LABEL_TRAINER = "BIJ JE CLASS-TRAINER",
 	FOV_TIP_CARD_TRAINER = "Wat je class-trainer je nu leert, wat het kost, en welke toets elke spell krijgt op het toetsenblok van Midnight Helper. Hetzelfde als het trainervenster (/mh trainer).",

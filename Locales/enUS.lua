@@ -5709,6 +5709,7 @@ ns._mhLocales.enUS = {
 	FOV_TIP_ROLES_BTN = "Show or fold the roles that are not your direction.",
 	FOV_OLDWIN_BTN = "All tools",
 	FDONOW_OPEN_OVERVIEW = "Open overview",
+	FDONOW_BAGS_FREE_FMT = "%d free",
 	FOV_DETAILS = "Details",
 	FOV_LABEL_TRAINER = "AT YOUR CLASS TRAINER",
 	FOV_TIP_CARD_TRAINER = "What your class trainer teaches you now, what it costs, and which key each spell gets on Midnight Helper's key block. The same as the trainer window (/mh trainer).",

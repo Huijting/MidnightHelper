@@ -447,6 +447,7 @@ for k, v in pairs({
 	FOV_OLDWIN_BTN = "Tudo",
 	FOV_TIP_OLDWIN = "A janela clássica do Midnight Helper, com tudo o que ainda não tem uma aba aqui.",
 	FDONOW_OPEN_OVERVIEW = "Visão geral",
+	FDONOW_BAGS_FREE_FMT = "%d livre(s)",
 	FOV_LABEL_WEEK = "ESTA SEMANA",
 	FOV_TIP_CARD_WEEK = "Reinícios, os eventos de hoje e os seus bloqueios de raide (o mesmo que /mh week).",
 	FOV_GOLD_FMT = "Ouro: %s",

@@ -25,11 +25,22 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
-## 24 nov (avond, 5) — FOREVER: How you play noemt de toetsen van JOUW indeling (Rob: "de oude keyblock staan er nog in")
+## 24 nov (avond, 6) — FOREVER: "Do this now" krijgt een knop How you play en je vrije tasplekken
 
-Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest: 9 classes × 8 talen × oud/12×4, 151 controles,
-NIET in het spel.
-- [ ] Warlock met 12 × 4: open How you play. Bij "Simpele volgorde": Bane of Agony (**3**), Immolate (**Shift-2**), Health
+Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest: de telling (pijlkoker telt niet mee), NIET in
+het spel.
+- [ ] Open "Do this now". Onderaan, achter "Open overzicht": een knop **How you play**. Klik: de speelkaart van dit
+      character gaat open.
+- [ ] Onderste regel, links van je goud: een tas-icoon met "**N vrij**". Klopt N met de lege plekken in je gewone tassen?
+      Een pijlkoker of soul bag telt niet mee.
+- [ ] Raap iets op of verkoop iets: het getal verandert meteen.
+- [ ] 5 of minder vrij: het getal is **oranje**. 0 vrij: **rood**. Anders wit.
+
+## 24 nov (avond, 5) — FOREVER: How you play noemt de toetsen van JOUW indeling (Rob: "de oude keyblock staan er nog in") — ✅ GETEST
+
+Rob via Sparring, letterlijk: *"en in how to play staat get nu goed"*. De punten hieronder heeft hij niet apart genoemd:
+mag meegenomen worden als je er toch langskomt.
+- [x] Warlock met 12 × 4: open How you play. Bij "Simpele volgorde": Bane of Agony (**3**), Immolate (**Shift-2**), Health
       Funnel (**Ctrl-R**), Life Tap (**F**), Soul Fire (**Q**). Geen 5, F2, F3 of F4 meer. Searing Pain blijft "(blok D)".
 - [ ] "Voor je begint": de vaste toetsen zijn nu **Ctrl-Z** = potion, **Ctrl-C** = healthstone, **Ctrl-V** = trinket.
 - [ ] "Wat komt later": ook daar de nieuwe toetsen ("Health Funnel op Ctrl-R", "Inferno op Ctrl-E").

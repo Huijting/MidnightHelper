@@ -916,6 +916,12 @@ local function Build()
 			ns.ShowForeverOverviewPage("now")
 		end
 	end)
+	-- 24 Nov 2026 (Rob: "kunnen we hier onder ook een knop how to play toevoegen"): this character's play card.
+	f.btnPlay = Btn(f, 10, function()
+		if ns.ShowPlayCardWindow then
+			ns.ShowPlayCardWindow()
+		end
+	end)
 	f:Hide()
 	-- 17 Nov 2026: style A, like the overview (ForeverStyle.lua S.SkinWindow; Rob: "alle andere vensters ... in
 	-- dezelfde stijl").
@@ -924,6 +930,32 @@ local function Build()
 	end
 	win = f
 	return f
+end
+
+-- 24 Nov 2026 (Rob: "in het rijtje van gold aan de linkerzijde het aantal open tas plaatsen"): free bag slots left of
+-- your money. Only normal bags count (ForeverWarnings FreeSlots: bag family 0, so no quiver, ammo pouch or soul bag:
+-- those hold one kind of thing, and a free arrow slot is no room for loot). Orange from 5 free (or your own bag-warning
+-- limit when that is higher), red at 0. Nothing is shown when the bags cannot be read.
+local BAG_ICON = "|TInterface\\Buttons\\Button-Backpack-Up:14:14|t "
+local BAG_LOW = 5
+
+local function BagText(f)
+	if not (f and f.money) then
+		return
+	end
+	if not f.bags then
+		f.bags = f:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+		f.bags:SetPoint("RIGHT", f.money, "LEFT", -12, 0)
+		f.bags:SetJustifyH("RIGHT")
+	end
+	local free = ns.ForeverFreeBagSlots and ns.ForeverFreeBagSlots()
+	if type(free) ~= "number" then
+		f.bags:SetText("")
+		return
+	end
+	local low = math.max(BAG_LOW, (ns.ForeverBagWarnAt and ns.ForeverBagWarnAt()) or 0)
+	local color = (free == 0 and "|cffff4040") or (free <= low and "|cffff9933") or "|cffffffff"
+	f.bags:SetText(BAG_ICON .. color .. ns:L("FDONOW_BAGS_FREE_FMT"):format(free) .. "|r")
 end
 
 local function Render(info)
@@ -972,6 +1004,7 @@ local function Render(info)
 	f.btnClassQuest:SetText(ns:L("FCQ_BTN"))
 	f.btnTurnIn:SetText(ns:L("FQDB_BTN_TURNIN"))
 	f.btnOverview:SetText(ns:L("FDONOW_OPEN_OVERVIEW"))
+	f.btnPlay:SetText(ns:L("FOV_TAB_PLAY"))
 	-- Buttons only for what is on the list; they close up from the left. Each as wide as its own text (Rob's 21.png,
 	-- 12 Nov 2026: "Weapon trainers" stuck out of a fixed 90 px button), and a new row when the next one does not fit.
 	local shown = {}
@@ -979,7 +1012,7 @@ local function Render(info)
 		{ f.btnTrainer, info.actions.trainer }, { f.btnRanks, info.actions.ranks },
 		{ f.btnWeapons, info.actions.weapons }, { f.btnProfs, info.actions.profs },
 		{ f.btnDungeons, info.actions.dungeons }, { f.btnTurnIn, info.actions.turnin },
-		{ f.btnOverview, ns.ShowForeverOverviewPage ~= nil } }) do
+		{ f.btnOverview, ns.ShowForeverOverviewPage ~= nil }, { f.btnPlay, ns.ShowPlayCardWindow ~= nil } }) do
 		local b, on = pair[1], pair[2]
 		if on then
 			local fs = b:GetFontString()
@@ -1017,6 +1050,7 @@ local function Render(info)
 		f.money:SetJustifyH("RIGHT")
 	end
 	f.money:SetText(Money(GetMoney and GetMoney() or 0))
+	BagText(f)
 	local btnH = (#rows > 0) and (#rows * 24 + 6) or 0
 	f:SetHeight(26 + f.body:GetStringHeight() + 12 + btnH + MONEY_H)
 end
@@ -1024,8 +1058,13 @@ end
 -- Your money in the corner follows every change (looting, buying, the trainer), without refilling the whole list.
 local moneyEv = CreateFrame("Frame")
 moneyEv:RegisterEvent("PLAYER_MONEY")
-moneyEv:SetScript("OnEvent", function()
-	if win and win.money then
+moneyEv:RegisterEvent("BAG_UPDATE_DELAYED")
+moneyEv:SetScript("OnEvent", function(_, event)
+	if event == "BAG_UPDATE_DELAYED" then
+		if win then
+			BagText(win)
+		end
+	elseif win and win.money then
 		win.money:SetText(Money(GetMoney and GetMoney() or 0))
 	end
 end)

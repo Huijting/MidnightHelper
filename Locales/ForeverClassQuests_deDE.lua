@@ -442,6 +442,7 @@ for k, v in pairs({
 	FOV_OLDWIN_BTN = "Werkzeuge",
 	FOV_TIP_OLDWIN = "Das klassische Fenster von Midnight Helper, mit allem, was hier noch keinen Reiter hat.",
 	FDONOW_OPEN_OVERVIEW = "Übersicht öffnen",
+	FDONOW_BAGS_FREE_FMT = "%d frei",
 	FOV_LABEL_WEEK = "DIESE WOCHE",
 	FOV_TIP_CARD_WEEK = "Wann etwas zurückgesetzt wird, die Ereignisse von heute und für welche Schlachtzüge du gespeichert bist (wie /mh week).",
 	FOV_GOLD_FMT = "Gold: %s",

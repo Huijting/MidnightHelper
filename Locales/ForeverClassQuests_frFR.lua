@@ -1839,6 +1839,7 @@ for k, v in pairs({
 	FOV_TIP_FREE_KEY = "Un autre raccourci prend la partie Shift/Ctrl/Alt de la touche de cette macro. Ce bouton libère ce raccourci ; Rendre touches le remet.",
 	FOV_TIP_UNDO_KEYS = "Remet chaque raccourci que Libérer a enlevé.",
 	FDONOW_OPEN_OVERVIEW = "Vue d'ensemble",
+	FDONOW_BAGS_FREE_FMT = "%d libre(s)",
 	FOV_LABEL_WEEK = "CETTE SEMAINE",
 	-- not measured: the client's word for raid lockouts; written as plain French ("raids verrouillés")
 	FOV_TIP_CARD_WEEK = "Réinitialisations, évènements du jour et tes raids verrouillés (comme /mh week).",
