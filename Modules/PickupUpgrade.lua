@@ -130,11 +130,11 @@ local function Verdict(link)
 		if not ns.ForeverGearTipText then
 			return nil, "Forever gear check not loaded"
 		end
-		local text, why, gains, reason = ns.ForeverGearTipText(link)
+		local text, why, gains, reason, _, lose = ns.ForeverGearTipText(link)
 		if not text then
 			return nil, why
 		end
-		return ns:L("PICKUP_FMT"):format(link, ns:L("PICKUP_DETAIL_FMT"):format(gains, reason))
+		return ns:L("PICKUP_FMT"):format(link, ns:L("PICKUP_DETAIL_FMT"):format(gains, reason) .. (lose or ""))
 	end
 	if not ns.GetLootUpgradeInfo then
 		return nil, "Midnight gear check not loaded"

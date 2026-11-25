@@ -1,5 +1,30 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 25 nov (Bouwchat 25-11): enchant telt mee in "beter dan wat je draagt" + alt-regel alleen naar wie je kunt mailen — GEREPAREERD, wacht op test (`/reload`)
+
+Robs screenshot (Druid): Nomadic Gloves 21 armor + Light Armor Kit (enchant 15) aan, grijze Worn Leather Gloves 22 armor
+in de tas → "MH: +1 Armor over what you wear". GEMETEN op die screenshot: de item-armor (GetItemStats/tooltipregel) laat
+de kit weg. Rob: *"Ja, op 1 en 2."*
+1. `ForeverEnchantData.lua` krijgt `FOREVER_ENCH_STATS` (280 id's; 83 helemaal te wegen, 197 met een deel dat MH niet kan
+   wegen = x). GEMETEN in DB2 SpellItemEnchantment: Effect 4 arg 0 = armor, Effect 5 = stat (3 agi, 4 str, 5 int, 6 spi,
+   7 sta); Effect 3 = equip spell → SpellEffect aura 29 (stat; misc 3 = Int GEMETEN op 13825 "Intellect +7") of aura 22
+   misc 1 (armor). Enchant 15 = Armor 8 + Stamina 1. `ForeverQuestHint.lua` Stats(): enchant (veld 2 van de link) telt
+   mee; Lost()/LoseText(): " You lose the enchant on what you wear: …"; IsBetter: een verloren x-enchant = geen "beter".
+   Eén functie (ns.ForeverGearTipText) voedt tooltip, oppak-melding (6e return), quest-tip, ForeverWear en ForeverBagFull:
+   allemaal mee. Midnight PickupUpgrade = item level + score, andere code, niet aangeraakt. Alt-gear-regel (item level
+   x → y) zegt alleen item level; enchant van het alt niet meegeteld (melding aan Sparring).
+2. Geen alt-gear-regel bij grijs (quality 0); wit blijft (Robs Nomadic Gloves zijn wit, |cnIQ1 in zijn SV).
+3. "(empty slot)" bij Banklady/Hunterdude/Roquedude: GEMETEN in Robs Forever-SV (met Lua geladen): gear opgeslagen,
+   handen-vakje echt leeg (level 1-2). Klopt; niets veranderd.
+4. Mailen (Rob: *"kan ik überhaupt wel sturen?"*). GEMETEN in de SV: één realm (CAMWOW EU4 Realm 10 RP); Alliance =
+   Ima Bankgirl, Ima Tinyroque, Inchy Shootalot, Joey Whatever; zonder factie = Ima Lockie, Ima Magymage, Ima Warman; 2
+   zonder realm (GUID-server 6944 beslist). AltProfTip Reach(): andere realm = weg; andere factie = apart achteraan
+   "· other faction, mail probably not possible" (cross-faction mail in Forever NIET gemeten; in Classic niet mogelijk);
+   factie onbekend = "(faction ?)". Recept, materiaal en gear. Midnight niet gefilterd (Warband bank, AFGELEID).
+   Soulbound/BoP-check bestond al (ITEM_SOULBOUND-regel; een gedragen BoE toont "Soulbound", AFGELEID).
+Nieuwe sleutels (8 talen): FGEAR_LOSE_FMT, FALT_FACQ_FMT, FALT_OTHERFAC_FMT. Offline: gearench_test 14/14,
+altprof_test 48/48, ench_test 24/24. Volgende: bank-characters markeren (Rob: *"… ga ik mee met je advies. A."*).
+
 ## ▶▶ 25 nov (Bouwchat 25-11): taint van de knop Character GEREPAREERD + armor kits hebben een naam — ✅ GETEST (a178459)
 
 ✅ Rob via Sparring: *"Ja, test is goed gegaan."* + screenshot: Hands/Feet "Armor +8, Stamina +1" (groen), Back/Chest/

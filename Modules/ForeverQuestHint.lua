@@ -187,6 +187,21 @@ local function Stats(link, equipLoc)
 	end
 	out.ARMOR = Armor(link, t)
 	out.DPS = WEAPON_LOC[equipLoc] and Dps(link, t) or nil
+	-- 🔴 25 Nov 2026 (Rob via Sparring: "Ja, op 1 en 2"). The ENCHANT counts too. Rob's Druid wore Nomadic Gloves (21
+	-- armor) with a Light Armor Kit (enchant 15 = Armor +8, Stamina +1); grey Worn Leather Gloves (22 armor) in his bag
+	-- were called "+1 Armor over what you wear" - swapping loses the kit: really -7 Armor, -1 Stamina. GEMETEN on that
+	-- screenshot: the item's own armor (GetItemStats / the "%s Armor" line) leaves the kit out. Enchant = field 2 of the
+	-- link; what it adds = ns.FOREVER_ENCH_STATS (ForeverEnchantData.lua, from DB2). x = a part MH cannot weigh.
+	local e = tonumber(link:match("item:%-?%d+:(%d*)") or "")
+	if e and e > 0 then
+		local es = ns.FOREVER_ENCH_STATS and ns.FOREVER_ENCH_STATS[e]
+		out.ench = { id = e, x = (not es) or es.x == 1 }
+		for k, v in pairs(es or {}) do
+			if k ~= "x" and type(v) == "number" then
+				out[k] = (out[k] or 0) + v
+			end
+		end
+	end
 	return out
 end
 
@@ -236,7 +251,7 @@ local function WornSlot(slot, main, stamTie)
 	local stats = link and Stats(link, loc) or {}
 	local s, sta = Score(stats, main, stamTie)
 	return { s = s, sta = sta, arm = stats.ARMOR or 0, dps = stats.DPS, stats = stats, link = link, slot = slot,
-		equipLoc = loc }
+		equipLoc = loc, enchs = { stats.ench } }
 end
 
 -- Option A (Rob via sparring: "Ja", 18 Nov 2026). The old rule compared a one-hand weapon with the WEAKER of both hands,
@@ -286,8 +301,14 @@ local function Sum(a, b)
 	elseif a.dps then
 		dps = a.dps + (b.dps or 0)
 	end
+	local enchs = {}
+	for _, x in ipairs({ a, b }) do
+		for _, en in ipairs(x.enchs or {}) do
+			enchs[#enchs + 1] = en
+		end
+	end
 	return { s = a.s + b.s, sta = a.sta + b.sta, arm = a.arm + b.arm, dps = dps, stats = stats,
-		link = a.link or b.link, slot = a.slot, equipLoc = a.equipLoc }
+		link = a.link or b.link, slot = a.slot, equipLoc = a.equipLoc, enchs = enchs }
 end
 
 --- What a new item of this equipLoc would replace: main score, stamina, armor, stats, link, slot. nil = no fair
@@ -408,7 +429,36 @@ end
 --- Better = more main stats; equal → more Stamina (where it counts); still equal → more armor.
 --- Weapons for Strength/Agility players (option A, 18 Nov 2026): never "better" with LESS damage per second; with equal
 --- stats, more DPS is better. Stats up and DPS down = mixed: MH stays silent (saying "mixed" is option B).
+--- The enchants on what you wear that you would lose (the new item does not carry the same one).
+local function Lost(row)
+	local out, newE = {}, row.stats and row.stats.ench and row.stats.ench.id
+	for _, en in ipairs((row.worn and row.worn.enchs) or {}) do
+		if en.id ~= newE then
+			out[#out + 1] = en
+		end
+	end
+	return out
+end
+
+--- " You lose the enchant on what you wear: Armor +8, Stamina +1." or "".
+local function LoseText(row)
+	local names = {}
+	for _, en in ipairs(Lost(row)) do
+		names[#names + 1] = (ns.ForeverEnchantName and ns.ForeverEnchantName(en.id)) or ("#" .. en.id)
+	end
+	if #names == 0 then
+		return ""
+	end
+	return " " .. ns:L("FGEAR_LOSE_FMT"):format(table.concat(names, ", "))
+end
+
 local function IsBetter(row)
+	-- An enchant you would lose that MH cannot weigh (a proc, weapon damage, spell power ...): no verdict, like "mixed".
+	for _, en in ipairs(Lost(row)) do
+		if en.x then
+			return false
+		end
+	end
 	local dd = row.ddps
 	if dd and math.abs(dd) < 0.05 then
 		dd = 0
@@ -497,7 +547,7 @@ local function Decide()
 		local parts, why = Explain(best, main, stamTie, token)
 		-- Step 3 of "Which way do I go?" (19 Nov 2026): the hint also says whether your direction uses this weapon kind.
 		local fit = ns.ForeverDirectionFitText and ns.ForeverDirectionFitText(best.link)
-		local tail = fit and (" " .. fit) or ""
+		local tail = LoseText(best) .. (fit and (" " .. fit) or "")
 		if not best.worn or not best.worn.link then
 			return { index = best.i, kind = "upgrade", text = ns:L("FQH_TAKE_EMPTY_FMT")
 				:format(best.link, table.concat(parts, ", "), why) .. tail }
@@ -745,14 +795,21 @@ function ns.ForeverGearTipText(link)
 		darm = (stats.ARMOR or 0) - worn.arm }
 	row.ddps = DeltaDps(stats, worn, main)
 	if not IsBetter(row) then
-		return nil, ("not better (main %+g, stamina %+g, armor %+d, dps %s)"):format(row.ds, row.dsta, row.darm,
-			row.ddps and ("%+.1f"):format(row.ddps) or "n/a")
+		local lost = {}
+		for _, en in ipairs(Lost(row)) do
+			lost[#lost + 1] = en.id .. (en.x and " (cannot weigh it)" or "")
+		end
+		return nil, ("not better (main %+g, stamina %+g, armor %+d, dps %s; enchant(s) you would lose: %s)"):format(
+			row.ds, row.dsta, row.darm, row.ddps and ("%+.1f"):format(row.ddps) or "n/a",
+			#lost > 0 and table.concat(lost, ", ") or "none")
 	end
 	local parts, why = Explain(row, main, stamTie, token)
 	local gains = table.concat(parts, ", ")
+	local lose = LoseText(row)
 	-- 3rd/4th return: the pieces, for the pickup notice (PickupUpgrade.lua) that words it its own way. 5th (23 Nov 2026,
 	-- ForeverWear.lua): the inventory slot it would replace (the weaker ring, the empty off-hand ...), for "Wear it".
-	return ns:L("FGEAR_TIP_FMT"):format(gains, why), nil, gains, why, row.worn and row.worn.slot
+	-- 6th (25 Nov 2026): " You lose the enchant …" or "", for the pickup notice.
+	return ns:L("FGEAR_TIP_FMT"):format(gains, why) .. lose, nil, gains, why, row.worn and row.worn.slot, lose
 end
 
 if TooltipDataProcessor and TooltipDataProcessor.AddTooltipPostCall and Enum and Enum.TooltipDataType

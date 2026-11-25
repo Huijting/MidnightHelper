@@ -70,7 +70,70 @@ local function KeyLine(key)
 	return KEY_LINE[key]
 end
 
---- Your OTHER characters: { guid, name, profs = { [skill line] = { name, rank, max } } }.
+--[[ Who can you MAIL it to? (25 Nov 2026, Rob via Sparring on a War Torn Cape: "hier staat dat ik op heel veel
+	karakters zou kunnen gebruiken. Maar kan ik überhaupt wel sturen?")
+	Forever: mail only reaches a character on the same realm (GlobalStrings ERR_MAIL_CANT_SEND_REALM "You can't send mail
+	to that realm.", GEMETEN Forever 71091) -> another realm is left out. Another faction: in classic WoW mail does not
+	cross factions; for Forever NOT measured (no string says it either way) -> those names go apart at the end, "probably
+	not". No realm saved: the server number in the GUID decides. A character whose faction MH has not saved yet keeps its
+	place with "(faction ?)". Rob's SV, GEMETEN 25 Nov: one realm; 10 Horde, 4 Alliance (Ima Bankgirl, Ima Tinyroque, Inchy
+	Shootalot, Joey Whatever), 3 without a faction (Ima Lockie, Ima Magymage, Ima Warman). /mh alttip lists the verdict.
+	Midnight: not filtered. Non-bound items and reagents go to every character of your Warband through the Warband bank
+	(AFGELEID from the retail Warband feature, not measured here), whatever the realm or faction. ]]
+local function ServerID(guid)
+	return type(guid) == "string" and guid:match("^Player%-(%d+)%-") or nil
+end
+
+local function Reach(rec, guid)
+	if not ns.IS_FOREVER then
+		return "ok", "Midnight: Warband bank"
+	end
+	local myRealm = GetRealmName and GetRealmName()
+	local okF, myFac = pcall(function()
+		return UnitFactionGroup and UnitFactionGroup("player")
+	end)
+	myFac = okF and myFac or nil
+	if Readable(myRealm) and type(rec.realm) == "string" and rec.realm ~= myRealm then
+		return "realm", "another realm (" .. rec.realm .. "): no mail"
+	end
+	-- No realm saved (2 of Rob's 17 in his SV, 25 Nov): the server number in the GUID ("Player-6944-...") says it.
+	local mine, theirs = ServerID(MyGUID()), ServerID(guid)
+	if type(rec.realm) ~= "string" and mine and theirs and mine ~= theirs then
+		return "realm", "another server (" .. theirs .. "): no mail"
+	end
+	if not (Readable(myFac) and type(rec.faction) == "string" and rec.faction ~= "") then
+		return "unknown", "faction not saved yet (log in on it once)"
+	end
+	if rec.faction ~= myFac then
+		return "faction", "other faction (" .. rec.faction .. "): mail probably not possible"
+	end
+	return "ok", "same realm and faction"
+end
+
+--- The name as the line shows it: "(faction ?)" when MH does not know yet whether you can mail it.
+local function Shown(c)
+	return c.reach == "unknown" and ns:L("FALT_FACQ_FMT"):format(c.name) or c.name
+end
+
+--- " · other faction (mail probably not possible): A, B" for the names in `list`, or "".
+local function FactionTail(list)
+	if #list == 0 then
+		return ""
+	end
+	table.sort(list)
+	local shown = {}
+	for i = 1, math.min(3, #list) do
+		shown[i] = list[i]
+	end
+	local s = table.concat(shown, ", ")
+	if #list > 3 then
+		s = s .. ns:L("FALT_MORE_FMT"):format(#list - 3)
+	end
+	return ns:L("FALT_OTHERFAC_FMT"):format(s)
+end
+
+--- Your OTHER characters: { guid, name, reach, profs = { [skill line] = { name, rank, max } } }. Another realm (Forever) is
+--- left out here already.
 local function Others()
 	local out, me = {}, MyGUID()
 	local store = ns.db and (ns.IS_FOREVER and ns.db.foreverChars or ns.db.charCurrencies)
@@ -78,7 +141,9 @@ local function Others()
 		return out
 	end
 	for guid, rec in pairs(store) do
-		if guid ~= me and type(rec) == "table" and type(rec.name) == "string" and type(rec.profs) == "table" then
+		local reach = type(rec) == "table" and Reach(rec, guid) or nil
+		if guid ~= me and type(rec) == "table" and type(rec.name) == "string" and type(rec.profs) == "table"
+			and reach ~= "realm" then
 			local profs = {}
 			for _, p in ipairs(rec.profs) do
 				if type(p) == "table" then
@@ -92,7 +157,7 @@ local function Others()
 					end
 				end
 			end
-			out[#out + 1] = { guid = guid, name = rec.name, profs = profs }
+			out[#out + 1] = { guid = guid, name = rec.name, profs = profs, reach = reach }
 		end
 	end
 	table.sort(out, function(a, b)
@@ -168,10 +233,12 @@ local function RecipeLine(id, data, sub)
 	end
 	local need = NeedSkill(data)
 	local spell = ns.IS_FOREVER and ns.ForeverRecipeTeaches and ns.ForeverRecipeTeaches(id) or nil
-	local parts, profName = {}, nil
+	local parts, profName, apart = {}, nil, {}
 	for _, c in ipairs(Others()) do
 		local p = c.profs[line]
-		if p then
+		if p and c.reach == "faction" then
+			apart[#apart + 1] = c.name
+		elseif p then
 			profName = profName or p.name
 			local bits = {}
 			if p.rank then
@@ -187,14 +254,16 @@ local function RecipeLine(id, data, sub)
 					bits[#bits + 1] = ns:L("FALT_CAN")
 				end
 			end
-			parts[#parts + 1] = #bits > 0 and ("%s (%s)"):format(c.name, table.concat(bits, ", ")) or c.name
+			parts[#parts + 1] = #bits > 0 and ("%s (%s)"):format(Shown(c), table.concat(bits, ", ")) or Shown(c)
 		end
 	end
 	if #parts == 0 then
-		return nil, ("no other character with skill line %d"):format(line)
+		return nil, ("no other character with skill line %d you can mail to (%d of the other faction)"):format(line,
+			#apart)
 	end
-	return ns:L("FALT_RECIPE_FMT"):format(profName or "?", table.concat(parts, ", ")),
-		("recipe, skill line %d, needs %s, %d character(s)"):format(line, tostring(need), #parts)
+	return ns:L("FALT_RECIPE_FMT"):format(profName or "?", table.concat(parts, ", ")) .. FactionTail(apart),
+		("recipe, skill line %d, needs %s, %d character(s), %d other faction"):format(line, tostring(need), #parts,
+			#apart)
 end
 
 --- The ingredient line, or nil + why.
@@ -204,15 +273,20 @@ local function IngredientLine(id)
 		return nil, "not an ingredient in our list"
 	end
 	local others = Others()
-	local groups = {}
+	local groups, apart, seenApart = {}, {}, {}
 	for _, key in ipairs(keys) do
 		local line = KeyLine(key)
 		local names, profName = {}, nil
 		for _, c in ipairs(others) do
 			local p = line and c.profs[line]
-			if p then
+			if p and c.reach == "faction" then
+				if not seenApart[c.name] then
+					seenApart[c.name] = true
+					apart[#apart + 1] = c.name
+				end
+			elseif p then
 				profName = profName or p.name
-				names[#names + 1] = c.name
+				names[#names + 1] = Shown(c)
 			end
 		end
 		if #names > 0 then
@@ -220,9 +294,11 @@ local function IngredientLine(id)
 		end
 	end
 	if #groups == 0 then
-		return nil, "no other character has a profession that uses it"
+		return nil, ("no other character you can mail to has a profession that uses it (%d of the other faction)")
+			:format(#apart)
 	end
-	return ns:L("FALT_MAT_FMT"):format(table.concat(groups, " · ")), ("ingredient, %d profession(s)"):format(#groups)
+	return ns:L("FALT_MAT_FMT"):format(table.concat(groups, " · ")) .. FactionTail(apart),
+		("ingredient, %d profession(s), %d other faction"):format(#groups, #apart)
 end
 
 --------------------------------------------------------------------------------
@@ -295,9 +371,11 @@ local function OthersGear()
 		return out
 	end
 	for guid, rec in pairs(store) do
-		if guid ~= me and type(rec) == "table" and type(rec.name) == "string" and CLASS_ID[rec.class or ""] then
+		local reach = type(rec) == "table" and Reach(rec, guid) or nil
+		if guid ~= me and type(rec) == "table" and type(rec.name) == "string" and CLASS_ID[rec.class or ""]
+			and reach ~= "realm" then
 			out[#out + 1] = { name = rec.name, classID = CLASS_ID[rec.class], level = tonumber(rec.level),
-				gear = type(rec.gear) == "table" and rec.gear or nil }
+				gear = type(rec.gear) == "table" and rec.gear or nil, reach = reach }
 		end
 	end
 	return out
@@ -322,15 +400,17 @@ local function GearLine(id, link, classID, subID, equipLoc, minLevel)
 		return nil, ("item class %s subclass %s: not judged"):format(tostring(classID), tostring(subID))
 	end
 	local ilvl = link and ItemLevel(link)
-	local rows = {}
+	local rows, apart = {}, {}
 	for _, c in ipairs(OthersGear()) do
 		local can, from = HasBit(mask, c.classID), nil
 		if not can and at40 and HasBit(at40, c.classID) then
 			can, from = true, 40
 		end
-		if can then
+		if can and c.reach == "faction" then
+			apart[#apart + 1] = c.name
+		elseif can then
 			from = math.max(from or 0, needLevel or 0, tonumber(minLevel) or 0)
-			local row = { name = c.name, gain = -1 }
+			local row = { name = Shown(c), gain = -1 }
 			if c.level and from > c.level then
 				row.from = from
 			elseif ilvl and c.gear then
@@ -354,7 +434,7 @@ local function GearLine(id, link, classID, subID, equipLoc, minLevel)
 		end
 	end
 	if #rows == 0 then
-		return nil, "none of your other characters can wear it"
+		return nil, ("none of your other characters you can mail to can wear it (%d of the other faction)"):format(#apart)
 	end
 	table.sort(rows, function(a, b)
 		if a.gain ~= b.gain then
@@ -379,7 +459,8 @@ local function GearLine(id, link, classID, subID, equipLoc, minLevel)
 	if #rows > 3 then
 		text = text .. ns:L("FALT_MORE_FMT"):format(#rows - 3)
 	end
-	return ns:L("FALT_GEAR_FMT"):format(text), ("gear, %d character(s), item level %s"):format(#rows, tostring(ilvl))
+	return ns:L("FALT_GEAR_FMT"):format(text) .. FactionTail(apart),
+		("gear, %d character(s), %d other faction, item level %s"):format(#rows, #apart, tostring(ilvl))
 end
 
 if TooltipDataProcessor and TooltipDataProcessor.AddTooltipPostCall and Enum and Enum.TooltipDataType
@@ -416,13 +497,20 @@ if TooltipDataProcessor and TooltipDataProcessor.AddTooltipPostCall and Enum and
 					local _, l = tooltip:GetItem()
 					link = l
 				end
-				local minLevel
+				local minLevel, quality
 				local info = (C_Item and C_Item.GetItemInfo) or GetItemInfo
 				if info then
-					local okM, _, _, _, _, ml = pcall(info, id)
+					local okM, _, _, q, _, ml = pcall(info, link or id)
 					minLevel = okM and ml or nil
+					quality = okM and q or nil
 				end
-				text, reason = GearLine(id, link, classID, subID, equipLoc, minLevel)
+				-- 25 Nov 2026 (Rob via Sparring: "Ja, op 1 en 2"): no gear line for a grey (Poor) item: nobody mails junk.
+				-- White stays: at low level white gear is real gear (Rob's Nomadic Gloves are white, |cnIQ1 in his SV).
+				if quality == 0 then
+					text, reason = nil, "a grey (Poor) item: no gear line"
+				else
+					text, reason = GearLine(id, link, classID, subID, equipLoc, minLevel)
+				end
 			else
 				text, reason = IngredientLine(id)
 			end
@@ -461,7 +549,23 @@ function ns.AltProfTipSlash(arg)
 	print(PREFIX .. ("other characters in tooltips: %s (/mh alttip on|off). Saved other characters: %d, with a profession: %d.")
 		:format(On() and "on" or "off", #others, withProf))
 	print("  last item: " .. last)
+	-- who counts as someone you can mail to, and why (25 Nov 2026)
+	local store = ns.db and (ns.IS_FOREVER and ns.db.foreverChars or ns.db.charCurrencies)
+	local rowsOut, me = {}, MyGUID()
+	for guid, rec in pairs(type(store) == "table" and store or {}) do
+		if guid ~= me and type(rec) == "table" and type(rec.name) == "string" then
+			local r, why = Reach(rec, guid)
+			local word = (r == "ok" and "counts") or (r == "unknown" and "counts, marked (faction ?)")
+				or (r == "faction" and "apart at the end") or "left out"
+			rowsOut[#rowsOut + 1] = ("  %s: %s (%s)"):format(rec.name, word, why)
+		end
+	end
+	table.sort(rowsOut)
+	for _, l in ipairs(rowsOut) do
+		print(l)
+	end
 end
+ns.AltProfTipReach = Reach -- the offline check calls it
 
 --- For the settings switch.
 function ns.IsAltProfTipOn()

@@ -72,6 +72,12 @@ local function ShortName(spell)
 	return tail or n
 end
 
+--- The enchant's name for an enchant id (the gear tooltip uses it for "you lose the enchant"), or nil.
+function ns.ForeverEnchantName(enchantID)
+	local spell = ns.FOREVER_ENCH_BY_ID and ns.FOREVER_ENCH_BY_ID[enchantID]
+	return spell and ShortName(spell) or nil
+end
+
 local function Enchanter()
 	local ok, mine = pcall(function()
 		return ns.ForeverMyProfessions and ns.ForeverMyProfessions()

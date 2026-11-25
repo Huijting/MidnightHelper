@@ -25,6 +25,24 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 25 nov — FOREVER: de enchant op wat je draagt telt mee + de alt-regel noemt alleen wie je kunt mailen (Rob: "Ja, op 1 en 2." / "kan ik überhaupt wel sturen?")
+
+Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (14 + 48 + 24 controles), NIET in het spel.
+- [ ] Druid met de Nomadic Gloves (Light Armor Kit) aan: ga op de grijze **Worn Leather Gloves** in je tas staan. Geen groene
+      regel "MH: +1 Armor over what you wear" meer (wisselen kost je de kit: −7 Armor, −1 Stamina). Geen alt-regel
+      "your other characters who can wear this" (grijs item). `/mh geartip` zegt "not better (… armor -7 … lose: 15)".
+- [ ] Een item dat écht beter is dan je handschoenen mét kit: de groene regel eindigt op **"You lose the enchant on what
+      you wear: Armor +8, Stamina +1."** Ook in de melding "You picked up an upgrade" als je zo'n item oppakt.
+- [ ] Draag je een wapen met een enchant die MH niet kan wegen (bv. Fiery Weapon): MH noemt een ander wapen niet "beter".
+- [ ] Een wit item (bv. andere handschoenen): de alt-regel staat er nog wel.
+- [ ] War Torn Cape (of een ander item om te versturen): **Ima Bankgirl** (Alliance) staat niet meer tussen de namen,
+      maar achteraan: "· other faction, mail probably not possible: Ima Bankgirl …". Ima Lockie, Ima Magymage en Ima
+      Warman (factie nog niet opgeslagen) staan erin met "(faction ?)" — log één keer op ze in, dan verdwijnt dat.
+- [ ] Zelfde bij een recept en een materiaal (bv. Peacebloom).
+- [ ] `/mh alttip`: onderaan per character "counts", "apart at the end" of "left out", met de reden.
+- ❓ Kun je in Forever naar de andere factie mailen? MH zegt "probably not" (in Classic kan het niet; voor Forever niet
+  gemeten). Lukt een mail van een Horde-character naar Ima Bankgirl wél, meld het: dan haal ik die splitsing weg.
+
 ## 25 nov — FOREVER: Gear check: enchants naast je character-venster (Rob: "ik zie helemaal niet of ik al iets enchant heb")
 
 🔴 Nieuwe bestanden: sluit het spel helemaal af en start opnieuw (een `/reload` is niet genoeg). Offline getest (24

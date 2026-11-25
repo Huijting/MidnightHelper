@@ -25872,6 +25872,9 @@ if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	FENCH_TITLE = "Ausrüstungscheck: Verzauberungen",
 	FENCH_NONE = "keine Verzauberung",
+	FGEAR_LOSE_FMT = "Du verlierst die Verzauberung auf dem, was du trägst: %s.",
+	FALT_FACQ_FMT = "%s (Fraktion ?)",
+	FALT_OTHERFAC_FMT = " · andere Fraktion, Post geht wahrscheinlich nicht: %s",
 	FENCH_SOME = "verzaubert",
 	FENCH_CAN_FMT = "kannst du selbst machen: %s",
 	FENCH_NOTHING = "Du trägst nichts, das eine Verzauberung bekommen kann.",
@@ -25884,6 +25887,9 @@ if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	FENCH_TITLE = "Vérif. de l'équipement : enchantements",
 	FENCH_NONE = "aucun enchantement",
+	FGEAR_LOSE_FMT = "Tu perds l'enchantement de ce que tu portes : %s.",
+	FALT_FACQ_FMT = "%s (faction ?)",
+	FALT_OTHERFAC_FMT = " · autre faction, courrier sans doute impossible : %s",
 	FENCH_SOME = "enchanté",
 	FENCH_CAN_FMT = "tu peux le faire toi-même : %s",
 	FENCH_NOTHING = "Tu ne portes rien qui puisse être enchanté.",
@@ -25896,6 +25902,9 @@ if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	FENCH_TITLE = "Revisión del equipo: encantamientos",
 	FENCH_NONE = "sin encantamiento",
+	FGEAR_LOSE_FMT = "Pierdes el encantamiento de lo que llevas puesto: %s.",
+	FALT_FACQ_FMT = "%s (¿facción?)",
+	FALT_OTHERFAC_FMT = " · otra facción, seguramente no se puede enviar correo: %s",
 	FENCH_SOME = "encantado",
 	FENCH_CAN_FMT = "puedes hacerlo tú: %s",
 	FENCH_NOTHING = "No llevas nada que pueda encantarse.",
@@ -25908,6 +25917,9 @@ if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	FENCH_TITLE = "Verificação do equipamento: encantamentos",
 	FENCH_NONE = "sem encantamento",
+	FGEAR_LOSE_FMT = "Você perde o encantamento do que está usando: %s.",
+	FALT_FACQ_FMT = "%s (facção ?)",
+	FALT_OTHERFAC_FMT = " · outra facção, provavelmente não dá para enviar correio: %s",
 	FENCH_SOME = "encantado",
 	FENCH_CAN_FMT = "você mesmo pode fazer: %s",
 	FENCH_NOTHING = "Você não usa nada que possa ser encantado.",
@@ -25920,6 +25932,9 @@ if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	FENCH_TITLE = "Controllo equipaggiamento: incantamenti",
 	FENCH_NONE = "nessun incantamento",
+	FGEAR_LOSE_FMT = "Perdi l'incantamento su ciò che indossi: %s.",
+	FALT_FACQ_FMT = "%s (fazione ?)",
+	FALT_OTHERFAC_FMT = " · altra fazione, probabilmente non puoi spedire posta: %s",
 	FENCH_SOME = "incantato",
 	FENCH_CAN_FMT = "puoi farlo tu: %s",
 	FENCH_NOTHING = "Non indossi niente che possa essere incantato.",

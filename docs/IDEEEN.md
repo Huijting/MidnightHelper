@@ -53,6 +53,18 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
   bind-on-pickup / quest-items. Schakelaar + `/mh alttip`.
 - 25 nov: materiaal-tooltip GETEST (Rob: *"MH: on your other characters: Blacksmithing: Ima Pallie · …"*). Recept en gear
   nog niet apart gemeld.
+- 25 nov, GEREPAREERD, wacht op test (Rob: *"Ja, op 1 en 2."*; *"Maar kan ik überhaupt wel sturen?"*): geen gear-regel
+  bij grijze items (wit blijft); Forever: alleen characters op je realm; andere factie apart achteraan ("probably not");
+  factie onbekend = "(faction ?)". `/mh alttip` zegt per character waarom. Midnight: niet gefilterd (Warband bank).
+- Volgende (Rob: *"Wat betreft de bankkarakters ga ik mee met je advies. A."*): bank-characters markeren en weglaten
+  bij gear. Nog te bouwen.
+
+### Forever: de enchant op wat je draagt telt mee in "beter dan wat je draagt" (Robs screenshot, 25 nov) — ✅ JA, GEREPAREERD 25 nov, wacht op test
+- Bron: Rob via Sparring, letterlijk: *"Ja, op 1 en 2."* (1 = enchant meetellen, 2 = geen alt-regel bij grijs).
+- Gerepareerd: de enchant (en armor kit) van wat je draagt telt mee; gaat er een verloren, dan zegt de regel dat erbij;
+  een enchant die MH niet kan wegen (proc, wapenschade) = geen "beter". Geldt voor tooltip, quest-tip, oppak-melding,
+  "Wear it" en de volle-tas-lijst (één functie). Midnight: andere code (item level), niet aangeraakt.
+- Spel: F. Voor wie: N + V (AFGELEID).
 - Stap 2 GEBOUWD 25 nov, wacht op test (Rob op het advies "eerst 'kan dragen + hoger item level'. Forever gaat dan ook de
   gear onthouden": *"Zeg je ja? JA"*): bij BoE gear wie het kan dragen (class, harnas, wapen, level) en of het item
   level hoger is dan wat dat character in dat vakje draagt. Geen "beter" op stats. Later, als Rob het wil: echte
