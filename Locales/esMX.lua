@@ -18,6 +18,16 @@ if not es then
 end
 
 for k, v in pairs({
+	-- 25 Nov 2026, Forever "Which weapon?": esMX says "mano derecha" (esES "mano principal", as MBUFF_TXT_WEAPONITEM
+	-- above) and "calabozo" (esES "mazmorra"). Same texts as the esES lines in Translations2026.lua otherwise.
+	FWADV_ROG_2 = "Desde el nivel 10 (<S:674>) puedes llevar un arma en cada mano. <S:53> y <S:8676> golpean con tu mano derecha; <S:1329283> (desde el nivel 24) golpea con la otra mano, no falla y da <G:ENERGY|Energy>.",
+	FWADV_ROG_3 = "Toma el arma con más **<G:ITEM_MOD_DAMAGE_PER_SECOND_SHORT|damage per second>**. ¿Más o menos igual? Una lenta en la mano derecha, una rápida en la otra mano.",
+	FWADV_ROG_4 = "<S:53> y <S:8676> necesitan una daga en la mano derecha y solo funcionan por la espalda; <S:8676> solo desde <S:1784>. <S:399956> (un talento, como pronto en el nivel 40) necesita una daga en cada mano.",
+	FWADV_ROG_5 = "**<T:1>:** dagas. **<T:3>:** mejor con una daga en la mano derecha (<S:16511> y <S:14278> pegan más fuerte con ella), pero sirve cualquier arma de una mano. **<T:2>:** cualquier arma de una mano. <S:13960> (un talento): hacha o espada = probabilidad de un ataque extra, daga o arma de puño = más crítico, maza = ignora algo de armadura.",
+	FWADV_PAL_7 = "**¿Hacerlo todo?** Guarda tus otras armas en las bolsas y cambia antes del calabozo; cambia también tu sello. <S:20111> baja tu amenaza con un arma de dos manos (amenaza = cuántas ganas tienen los enemigos de atacarte; un tanque necesita mucha), así que no tanquees con ella.",
+	FWADV_WAR_3 = "**<T:2>:** aprende **<S:674>** con tu instructor de clase desde el nivel 20. Luego un arma en cada mano, la más lenta en la mano derecha. Antes del 20, un arma de dos manos.",
+	FWADV_ALL_FMT = "**¿Hacerlo todo?** Usa el arma de dos manos con más %s y guarda un arma de sanación en la bolsa para cuando sanes un calabozo.",
+	FDONOW_STAT_MHDPS_FMT = "%s del arma de la mano derecha",
 	-- 23 Nov 2026: patch 12.1.7 card. esMX words: Cronoviaje, divisas cronoanómalas, Portales del tiempo turbulentos,
 	-- Marga vacioluz, Mítico+, abismos, Gran bóveda (reused from MOUNTPROG_VYRANOTH_HOWTO_1217, CODEX_TT6_*, CODEX_AQIR_BODY).
 	NEWC_PATCH1217_BODY = "- Portales del tiempo turbulentos VI: 8 semanas de Cronoviaje, una expansión antigua cada semana. El logro de la montura pide 4 de esas semanas.\n- Engendro de Vyranoth: una montura por 5.000 divisas cronoanómalas en cualquier vendedor de Cronoviaje.\n- Una nueva campaña: The Coreway Advance (las noticias de Blizzard la llaman \"The Return to Dornogal\").\n- El Omnium Folio crece: 7 pasos en lugar de 5, y 2 runas nuevas.\n- Las Aqir Invasions terminaron. Sus recompensas siguen a la venta; en el reino de pruebas ya no pedían reputación, pero costaban más Marga vacioluz.\n- La Temporada 2 sigue: Mítico+, las bandas, los abismos y la Gran bóveda no cambian, y Blizzard no ha anunciado cambios de clase.\n\nMidnight Helper sabe todo esto. El Codex tiene el calendario de Cronoviaje semana a semana.",
