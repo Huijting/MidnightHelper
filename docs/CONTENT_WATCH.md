@@ -5440,3 +5440,91 @@ kop, per bevinding MEASURED/INFERRED en [RAAKT ONS]/[RAAKT ONS NIET], met bestan
   `Modules/ForeverBlock_Priest.lua`, `Modules/ForeverBlock_Warrior.lua`, `Modules/ForeverMacros.lua`,
   `Modules/ForeverSpellIds.lua`, `Modules/ForeverTrainerData.lua`, `Modules/ForeverDungeonGuideData.lua`,
   `Locales/enUS.lua`, `docs/forever/` (alle rechtstreeks in de repo gelezen).
+- [2026-11-25] 🔴 **CurseForge stil; Midnights eerste hotfix in 19 dagen (Venomstone-aantallen) raakt
+  onze tekst niet, maar een breed (zes bronnen), nog niet door Blizzard bevestigd Forever-rapport zegt
+  dat Sunder Armor/Faerie Fire/Expose Armor in dungeons amper pantser wegnemen — vier van onze
+  rotatie-tips raden die knoppen juist daarvoor aan.**
+
+  💬 **CurseForge:** MEASURED, zelf gelezen via Exa
+  (`curseforge.com/api/v1/mods/1528577/comments?pageIndex=0&pageSize=20&nocache=20261125a` en `/b`,
+  twee fetches met andere `nocache`-waarde, inhoudelijk identiek, `pagination.totalCount: 8`). **Geen
+  open reacties (3 draadjes, identiek aan [2026-11-24]):** esES/esMX-locale-fix `8509224` → reply
+  `8510682`; MrsBoojiePanda's debug-printregel `8414729` → reply `8483898`; gadrinonturalyon's
+  coffer-key-shards/3D-boss-model-verzoek `8090710` → keten tot `8095337`/`8092133` — alle ids en
+  timestamps identiek aan gisteren. Geen concept-antwoord nodig.
+
+  **Midnight, hotfix "November 24, 2026" (nieuwe sectie sinds [2026-11-24]).** MEASURED, zelf gelezen
+  op `worldofwarcraft.blizzard.com/en-us/news/24307310/hotfixes-november-24-2026?nocache=20261125c`
+  via Exa (dezelfde pagina als de blue-post/data-wachter van vanochtend las voor haar eigen cijfers —
+  hier onafhankelijk opnieuw gelezen voor de content-kant). Enige nieuwe sectie is **Items**:
+  Ascendant Venomstones droppen sinds vandaag een vast aantal per bron (Mythic raidboss 4, Heroic
+  raidboss 2, M+10/+14/+18 1/2/3, Tier-11-Bountiful-coffer 1, Nightmare Prey-kist 1); Blizzards eigen
+  tekst noemt het zelf nog "more details … in an upcoming article" (nog niet gepubliceerd). **Zelf
+  getoetst, niet de conclusie van de data-wachter overgenomen:** `Locales/Codex.lua:195` en `:197`
+  (`CODEX_VENOMSTONE_BODY_1217`/`CODEX_VENOMSTONE_BODY`, enUS) zeggen alleen WAAR de stenen droppen
+  ("every Heroic and Mythic raid boss, Mythic+ from +10, Tier 11 Bountiful Delves, and the Champion
+  gear chests of Nightmare Prey hunts") — geen aantal, dus geen tegenspraak. `Modules/TrackCeiling.lua:149-151`
+  kent alleen `VENOMSTONE_COST = 10` (kosten per upgrade) en de huidige stapel, geen bron-aantallen.
+  **[RAAKT ONS NIET]** — niets om te corrigeren; het cijfer ligt klaar voor een eventuele toekomstige
+  "snelste bron"-tip, geen bestaande claim die het weerspreekt. De rest van de pagina (6/5 nov
+  Vashnik/Ula'tek-tuning, Shadowguard Point, Entombed Sentinels, Coiled Altar, allemaal al verwerkt
+  t/m [2026-11-07]) woord-voor-woord gelijk aan eerder getoetst — geen nieuwe Delves-, Professions- of
+  Quests-content.
+
+  **Forever: geen nieuwe officiële hotfix** (laatste blijft "November 23, 2026", al verwerkt op
+  [2026-11-24]) — maar een rapport dat de blue-post/data-wachter vanochtend als "één laagwaardige
+  bron, niet gemeld onder de tuningregel" opzij legde, is bij eigen zoeken veel breder bevestigd dan
+  haar enkele `mmoexp.com`-bron. MEASURED, zelf gelezen (allemaal via Exa, los van de aantekening van
+  de data-wachter): Wowhead
+  (`wowhead.com/forever/news/players-reporting-that-sunder-armor-effects-dont-work-in-wow-forever-dungeons-383969`,
+  23 nov), PC Gamer (`pcgamer.com/.../sunder-armor-might-just-not-be-working/`, 24 nov),
+  `foreverdb.net/article/armor-reduction-debuffs-not-working-in-dungeons-player-reports` (24 nov,
+  met Warcraft Logs-cijfers), `icy-veins.com/wow-forever/news/sunder-armor-abilities-are-still-not-working-in-wow-forever-dungeons/`
+  (24 nov) en `warcraftmaps.com/news/armor-debuffs-not-working-in-dungeons-unconfirmed` (23 nov, zet
+  zelf "Unconfirmed" in de titel). Alle vijf citeren dezelfde bron: issue #555 op de community-run
+  WoW Forever bug tracker (GitHub, geopend 18 nov, label "CRITICAL"/"Seen", **geen Blizzard-reactie**).
+  De claim: Sunder Armor, Faerie Fire, Expose Armor en Curse of Recklessness verlagen het pantser van
+  een vijand wél zichtbaar in de combat log in dungeons (Blackrock Spire, Stratholme, Scholomance,
+  Dire Maul, Blackrock Depths, The Shaper's Terrace, Blackmaw Hold, Zul'Farrak), maar de schade van
+  speler- en pet-aanvallen daalt daardoor nauwelijks (±5% van de bedoelde vermindering komt door,
+  gemeten over ~4100 logs). NPC's (bv. Aurius bij Baron Rivendare) profiteren wél normaal. In de open
+  wereld werkt het debuff gewoon. Dreigingsopbouw (Sunder Armor als tank-knop) blijft volgens alle
+  bronnen intact — alleen de pantserreductie zelf niet. **Nog steeds géén Blizzard-bevestiging en géén
+  hotfix-regel** (ook niet in de hotfix van vandaag, hierboven gelezen) — dit blijft een
+  speler-/community-rapport, geen vaststaand feit.
+
+  **Eigen check tegen onze tips (niet overgenomen van de data-wachter, die dit bewust buiten haar
+  trackerregel liet omdat het om bestaand bedoeld gedrag gaat, geen nieuw ID of drempel):**
+  `Modules/ForeverHowToPlay.lua:505` (Protection Warrior, "Simple order" stap 6) — *"Sunder Armor
+  (**5**) on your main target; up to 5 stacks on a boss."* — staat zonder voorbehoud tussen
+  schade-knoppen, en diezelfde gids (regel 1078) zegt expliciet dat dit advies al vanaf je eerste
+  dungeon geldt (Ragefire Chasm/Hall of Thanes/Deadmines/Wailing Caverns), dus de aanbeveling bestrijkt
+  precies het soort content waar het rapport het probleem legt. Faerie Fire komt op dezelfde manier
+  terug bij Druid Feral (regels 421, 428, 441 — pull- en execute-knop) en Expose Armor bij Rogue
+  (regels 710, 731 — leveling-volgorde); Curse of Recklessness (regel 934) gaat over Fear-immuniteit,
+  niet over pantser, dus die regel raakt dit niet. **Dit is GEEN correctie** (de knop bestaat, doet
+  nog steeds threat, en is nog steeds bedoeld om pantser te verlagen — als het rapport klopt is het
+  een bug, geen ontwerp, en onze tekst beschrijft het bedoelde gedrag correct) — maar het is wel een
+  reëel risico dat een speler die onze tankgids volgt op dit moment minder schade-nut uit stap 6 haalt
+  dan de tekst suggereert. Zoals de regels in `CLAUDE.md` vragen: ambiguïteit melden, niet zelf
+  oplossen. **[RAAKT ONS]** — actiepunt voor een mens: overwegen of `ForeverHowToPlay.lua:505` (en de
+  Faerie Fire/Expose Armor-regels) een tijdelijke voetnoot verdienen zolang dit onbevestigd blijft, of
+  wachten tot Blizzard reageert. Dit is NIET hetzelfde liggende punt als de Iku/Nama-naamfout — nieuw
+  vandaag, eerste keer gelogd.
+
+  **Niet gecontroleerd:** of het probleem ook in raids optreedt (alle vijf bronnen noemen alleen
+  dungeons); of het al dan niet "sinds beta" bestaat zoals één bron speculeert (niet relevant voor de
+  tip zelf); DBM/community-RegisterAltSpellName-bestanden (niet nodig, dit gaat niet om een
+  spell-ID-vraag maar om een mitigatie-bug).
+
+  — bron: curseforge.com API (`?nocache=20261125a/b`, via Exa) ·
+  worldofwarcraft.blizzard.com/en-us/news/24307310/hotfixes-november-24-2026?nocache=20261125c (via
+  Exa) · wowhead.com/forever/news/players-reporting-that-sunder-armor-effects-dont-work-in-wow-forever-dungeons-383969
+  · pcgamer.com/games/world-of-warcraft/world-of-warcraft-forevers-been-chasing-bugs-and-gold-exploits-over-the-weekend-and-now-it-turns-out-sunder-armor-might-just-not-be-working/
+  · foreverdb.net/article/armor-reduction-debuffs-not-working-in-dungeons-player-reports ·
+  icy-veins.com/wow-forever/news/sunder-armor-abilities-are-still-not-working-in-wow-forever-dungeons/
+  · warcraftmaps.com/news/armor-debuffs-not-working-in-dungeons-unconfirmed (alle vijf via
+  web_search_exa, zelf gelezen) · `Locales/Codex.lua`, `Modules/TrackCeiling.lua`,
+  `Modules/ForeverHowToPlay.lua`, `Locales/ForeverHowToPlay_nlNL.lua` (rechtstreeks in de repo
+  gelezen). Vandaag is geen maandag, dus geen kaarten- of consumables-check (opzettelijk weggelaten,
+  niet vergeten).
