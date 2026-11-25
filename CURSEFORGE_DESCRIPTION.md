@@ -28,10 +28,14 @@ from Retail to **Forever** and install it there as well. You get help made for l
 
 #### Your class
 
-- **How you play, for all nine classes**: what your class does, your buttons for levels 1 to 10, a simple order to
-  press them, what comes later, and the mistakes beginners make, with the keys of your own key block. Pick one of your
-  three talent trees, each in one plain sentence: *How you play* then names your armour, your weapon and which spells
-  need a shield, and *Do this now* names your next talent point.
+- **How you play, for all nine classes**, in tabs (*Start*, *Your keys*, *Weapon & stats*, *Group*, *Levels*): what
+  your class does, your buttons for levels 1 to 10, a simple order to press them, what comes later, and the mistakes
+  beginners make, with the keys of your own key block. Pick one of your three talent trees, each in one plain
+  sentence: *How you play* then names your armour, your weapon and which spells need a shield, and *Do this now* names
+  your next talent point.
+- **Which weapon?** for every class: which weapon kinds suit you, which you can already use, and where you learn the
+  others, for your level and race. The stats line says what counts most for you first: weapon damage per second, or
+  spell damage and healing.
 - **Class quests for all nine classes**, step by step with the arrow: from the level 1 note that sends you to your
   trainer to druid forms, warlock demons, shaman totems, hunter pets, weapon quests and more. *Do this now* tells you
   what to bring before the trip, and a card you can move shows the step you are on, in your class colour.
@@ -58,7 +62,10 @@ from Retail to **Forever** and install it there as well. You get help made for l
 
 - **Which quest reward to take**: MH marks the reward that is best for your class, or the one that sells for the most.
   Hover any piece of gear and a green line tells you why it beats what you wear: *+3 Strength (main stats for a
-  Paladin)*. Other tooltip lines say when your class can never use an item, and when a quest of yours needs it.
+  Paladin)*. It counts spell damage and healing, and the enchant on what you wear. Other tooltip lines say when your
+  class can never use an item, and when a quest of yours needs it.
+- **Gear check for enchants**: next to your character window, the enchant on every slot, or *no enchant*. Enchanters
+  see which ones they can make themselves.
 - **Bags full?** A small window shows what can go, and never suggests your food, ammunition, class reagents, potions,
   recipes, pets or mounts. *Destroy* always asks first. At a vendor, *MH: sell junk* sells your grey items. MH also
   warns you in time: only 2 free bag slots left, low mana or health before you pull, worn gear (with the nearest
@@ -94,6 +101,9 @@ from Retail to **Forever** and install it there as well. You get help made for l
   same job on the same key for every class and spec. E is your interrupt (or the nearest thing your class has), Z X C
   your defensives, V crowd control. *Why these keys?* explains every key, and the *Layout* button switches between the
   old block and 12 x 4. If you want, 5 becomes *Interact With Target* and Shift-Space calls your mount.
+- **Your other characters in tooltips**: on a recipe, an ingredient or gear you can send, which of your other
+  characters can use it: who has the profession (with their skill), or who can wear it and whether it beats the item
+  level they wear. In Forever only characters you can mail to. Bank characters can be left out.
 - **You picked up an upgrade**: when gear that clearly beats what you wear lands in your bags, a short message on your
   screen says so.
 - **Top macros per class and spec**, ready to make with one click.

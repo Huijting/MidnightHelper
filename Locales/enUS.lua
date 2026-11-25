@@ -4218,7 +4218,14 @@ ns._mhLocales.enUS = {
 	CHANGELOG_580_9 = "Midnight: the Platynator page is gone from the Addons tab. The Details! page stays.",
 	-- 5.9.0, 24 Nov 2026 (Rob via Sparring 24-11: "release 5.9.0").
 	-- 5.9.1, 25 Nov 2026 (Rob via Sparring: "release 5.9.1"). Player things only.
-	CHANGELOG_591_1 = "Midnight: the 12 x 4 key block is here too: the same 12 keys 1-4, Q E R F, Z X C V on every bar, the same job on the same key for every spec, and a Ctrl row with your combat potion, health potion, healthstone and trinkets. The old block stays the default; switch with the Layout button in /mh block.",
+	CHANGELOG_5100_1 = "Both games: tooltips of recipes, ingredients and gear you can send name your other characters who can use them: who has the profession and their skill, or who can wear it and whether its item level is higher than what they wear. Mark a bank character to leave it out. Restart the game once after updating.",
+	CHANGELOG_5100_2 = "Forever: How you play has a Which weapon? block for every class: which weapon kinds suit you, which you can already use, and where you learn the others.",
+	CHANGELOG_5100_3 = "Forever: How you play is now in tabs: Start, Your keys, Weapon & stats, Group and Levels. It remembers the tab you used last.",
+	CHANGELOG_5100_4 = "Forever: a Gear check next to your character window shows the enchant on every slot, or no enchant. Do this now counts the slots without one.",
+	CHANGELOG_5100_5 = "Forever: \"better than what you wear\" counts the enchant on what you wear, and spell damage and healing for casters and healers. Warlocks: spell damage first, then Intellect and Spirit.",
+	CHANGELOG_5100_6 = "Forever: with /mh mouseover on, Growl, Taunt, Mocking Blow and Distracting Shot go to the enemy under your mouse.",
+	CHANGELOG_5100_7 = "Fixed: the key block window no longer says \"nothing changes\" once your block is on your bars.",
+	CHANGELOG_591_1 ="Midnight: the 12 x 4 key block is here too: the same 12 keys 1-4, Q E R F, Z X C V on every bar, the same job on the same key for every spec, and a Ctrl row with your combat potion, health potion, healthstone and trinkets. The old block stays the default; switch with the Layout button in /mh block.",
 	CHANGELOG_591_2 = "Key block: a Layout button switches between the old block and 12 x 4 and places it again for you. The trinket places only show a trinket with a Use: effect; the tooltip names the trinket you wear.",
 	CHANGELOG_591_3 = "Forever: hold Ctrl+Shift and click a weapon or armor in your bags to disenchant it (Blizzard's bags and Baganator, for enchanters, never in combat).",
 	CHANGELOG_591_4 = "Forever: the buff button casts your buff on you, whatever you target. No more \"runs out soon\" when someone else gave you a stronger version than you know: it waits until that one is gone.",

@@ -1,55 +1,62 @@
-# Midnight Helper 5.9.1: the 12 x 4 key block in Midnight, and Ctrl+Shift+click to disenchant in Forever
+# Midnight Helper 5.10.0: which weapon, How you play in tabs, and your other characters in tooltips
 
-Want new things sooner and help test them? We put out betas regularly: set the release type of Midnight Helper in the
-CurseForge app to **Beta**. Found something odd, or does everything just work? Tell us: `/mh report` in game, a comment
-here on CurseForge, or the feedback form on midnighthelper.com.
+Found something odd, or does everything just work? Tell us: `/mh report` in game, a comment here on CurseForge, or the
+feedback form on midnighthelper.com.
 
-## Midnight: the 12 x 4 key block
+This version adds new files: after updating, restart the game once (a `/reload` is not enough for new files).
 
-The second key block layout from Forever is now in Midnight too. The old block stays the default.
+## Both games: your other characters in tooltips
 
-- **The same 12 keys on every bar**: 1 2 3 4, Q E R F, Z X C V. First without a modifier, then with Shift, then with
-  Ctrl, then with Alt.
-- **The same job on the same key, for every spec**: E is your interrupt, R moves you, Z X C are your defensives, V is
-  crowd control. Healers: C is your big emergency heal, your normal heals are on 1, 2 and 3. Which spell goes where was
-  checked per spec.
-- **Ctrl holds your things**: Ctrl-F combat potion, Ctrl-Z health potion, Ctrl-C healthstone, Ctrl-V and Ctrl-X your
-  trinkets.
-- **Why these keys?** explains the job of every key.
-- **Two extra keys, if you want them**: 5 becomes *Interact With Target*, and Shift-Space calls Blizzard's random
-  favorite mount. Press it again to get off, but never in the air.
-- Does Blizzard's Single-Button Assistant sit on one of your keys? Midnight Helper never covers it. Drag it to another
-  place, then press *Update (add new spells)* in `/mh block`.
+- **Recipes**: which of your other characters have that profession, with their skill. In WoW Forever also "needs 50",
+  "can learn it" or "knows it".
+- **Ingredients**: which of your other characters have a profession that uses it.
+- **Weapons and armor you can send**: who can wear it, from which level, and whether its item level is higher than what
+  they wear in that slot now.
+- In WoW Forever only characters you can mail to: the same realm, and characters of the other faction are listed apart
+  ("other faction, can't mail").
+- A bank character? Mark it, and it is left out of "who can wear this": the **Bank** button on its row in Characters
+  (Forever), or `/mh alttip bank <name>`.
+- A character counts once you have logged in on it with this version. Don't want it? Switch off *Your other characters
+  in item tooltips*, or `/mh alttip off`.
 
-## Key block: switch with one button
+## Forever: which weapon?
 
-- A **Layout** button in the key block window (`/mh block`) switches between the old block and 12 x 4. Midnight Helper
-  takes the block off your bars, switches, and places it again. Click again to go back.
-- The trinket places only show a trinket with a *Use:* effect, because only that one can go on a key. The tooltip names
-  the trinket you wear.
+How you play has a new block for every class: **Which weapon?** It tells you which weapon kinds suit you, which ones you
+can already use, and where you learn the others (a trainer of your own faction, from which level). It changes with
+your level and your race. Druids: in Bear Form and Cat Form your attacks do your weapon's damage per second, so a
+two-hander almost always wins.
 
-## Forever: disenchant with Ctrl+Shift+click
+The stats sentence in Do this now starts with what counts most: weapon damage per second for fighters, spell damage or
+healing for casters and healers. Warlocks: spell damage first, then Intellect and Spirit, which count the same.
 
-For enchanters: hold **Ctrl+Shift** and click a weapon or armor in your bags, and Midnight Helper disenchants it. It
-works in Blizzard's bags and in Baganator. The tooltip tells you when an item can. Never in combat, and without Ctrl+Shift
-your bags work as always. Don't want it? Switch off *Ctrl+Shift+click disenchants* in the quiet helpers.
+## Forever: How you play in tabs
 
-## Forever: buffs
+No more one long page. How you play now has tabs on the left: **Start**, **Your keys**, **Weapon & stats**, **Group**
+and **Levels**, with the headings of the open tab under them. Click a heading to jump there. It remembers the tab you
+used last. The text is the same, only divided. Every way in (`/mh play`, the key block, Do this now) opens this page.
 
-- The buff button casts your buff **on you**, whatever you target. No more clicking yourself first.
-- No more *runs out soon* when someone else gave you a stronger version than you know (a higher rank, or a group buff
-  like Arcane Brilliance). Your own cast could not replace it anyway. When it is gone, Midnight Helper asks for yours.
+## Forever: Gear check for enchants
 
-## Forever: key block
+- A small window next to your character window shows the enchant on every slot that can have one, or *no enchant*.
+  Armor kits show their name.
+- Do this now says how many slots have no enchant.
+- Enchanters see which enchants they can make themselves.
+- Don't want it? Switch off *Gear check: enchants next to your character window*.
 
-- The buttons show the icon of what the key does **now**: in Bear Form you see Maul and Growl, not Wrath.
-- A spell you just learned, for example from a quest, is on its key right away.
-- The trainer window names the keys of the layout you use, with the form when a key only works in a form, for example
-  "Maul -> 1 (Bear Form)".
+## Forever: "better than what you wear" counts more
+
+- The enchant (or armor kit) on what you wear now counts. If you would lose one, the line says so.
+- Spell damage and healing on items count for casters and healers, and for Retribution and Protection Paladins.
+  One-school lines (for example Fire damage) count only when your direction casts that school.
+- This works the same in the tooltip, the quest reward hint, the pickup notice and the bags-full list.
+
+## Forever: taunts on the mouse
+
+With `/mh mouseover on`, Growl, Taunt, Mocking Blow and Distracting Shot go to the enemy under your mouse.
 
 ## Fixed
 
-- Dutch: the *Doe dit nu* window is called by its Dutch name everywhere.
+- The key block window no longer says "nothing changes" once your block is already on your bars.
 
 ## Credits
 

@@ -1,5 +1,15 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 25 nov (Bouwchat 25-11): RELEASE 5.10.0 (Rob via Sparring: *"breng 5.10.0 maar uit 🙂 , mee eens ?"*)
+
+Gewone release, geen beta, beide games. Inhoud v5.9.1..55ba32a (35 commits). Beide toc's 5.10.0; Changelog.lua +
+CHANGELOG_5100_1.._7 (enUS); `RELEASE_NOTES.md` = `docs/CURSEFORGE_5.10.0.md` (GEMETEN byte-gelijk, 73 regels, 4131
+bytes), zonder de beta-zin (geen betas sinds 4.14.0-beta2), met "restart the game once" (nieuwe bestanden AltProfTip.lua
++ ForeverEnchantCheck.lua; nieuw in de notes, geen eerdere gewoonte gevonden). CURSEFORGE_DESCRIPTION.md: tabs, Which
+weapon?, gear-regel met spell damage/enchant, Gear check enchants (Forever), andere characters in tooltips (beide) —
+🔵 Rob plakt hem. SITE_SEIN: 7 regels → getagd. NIET in het spel getest: bank-vinkje gear-regel, "you can make this
+yourself", spell/healing-vergelijking, Warlock-stats (offline wel).
+
 ## ▶▶ 25 nov (Bouwchat 25-11): Warlock-stats = keuze (a) — GEBOUWD, wacht op test (`/reload`)
 
 Sparring (a): *"Voor alle drie de richtingen hetzelfde: spell damage eerst, dan Intellect en Spirit even belangrijk.

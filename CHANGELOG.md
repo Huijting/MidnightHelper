@@ -2,6 +2,23 @@
 
 All notable changes to this project are documented in this file.
 
+## 5.10.0
+
+📌 **2026-11-25, RELEASE (Rob via Sparring 25-11, letterlijk: "breng 5.10.0 maar uit 🙂 , mee eens ?"; geen beta).**
+In-game: CHANGELOG_5100_1 t/m _7. `RELEASE_NOTES.md` = `docs/CURSEFORGE_5.10.0.md` (zonder de beta-zin: geen betas meer
+sinds 4.14.0-beta2). Commits v5.9.1..55ba32a. Nieuwe bestanden (AltProfTip.lua, ForeverEnchantCheck.lua) → herstart.
+Getest door Rob: Which weapon? (Druid), How you play-tabbladen, recept- en materiaal-tooltip, post naar de andere factie,
+Gear check + armor kits, taunt-mouseover. NIET in het spel getest (offline wel): de gear-regel met het bank-vinkje,
+"you can make this yourself", de spell/healing-vergelijking en de Warlock-stats.
+
+- **Beide games:** andere characters in tooltips (recept, materiaal, gear met item level), bank-characters, Forever
+  alleen eigen realm + andere factie apart.
+- **Forever:** Which weapon? voor alle 9 classes (Fable-controle verwerkt), stats-zin met lead; How you play in
+  tabbladen; Gear check enchants; gear-vergelijking met gedragen enchant, spell power, healing, scholen, mp5;
+  Warlock-stats keuze (a); taunts op mouseover.
+- **Fix:** toetsenblok-intro als het blok al staat.
+- **Alleen voor ons (niet in de spelerstekst):** /mh howtotabs, /mh questhint check, /mh geartip, wachter-sectie wapenadvies.
+
 ## 5.9.1
 
 📌 **2026-11-25, RELEASE (Rob via Sparring 25-11, letterlijk: "release 5.9.1"; geen beta).**
