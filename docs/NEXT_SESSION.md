@@ -8,7 +8,11 @@ release-regel. Alleen spelersdingen in de tekst. Bewust NIET in de spelerstekst:
 "MH+"; die fout is daar nooit gezien, alleen afgeleid), /mh disenchant en /mh buffs als diagnose.
 NIET in het spel getest maar wel in de release (Sparring noemde het): de twee buff-fixes (offline 12/12 + 18/18) en het
 trainervenster met toetsen + vorm.
-Tag/run/CF: zie hieronder, na de tag bijgewerkt.
+✅ Tag v5.9.1 op f372713. Release-run 45578909374 geslaagd (Retail, Forever, verify). GEMETEN in de CF-API (25 nov
+~08:55 UTC): v5.9.1 (id 9807222, 12.0.7-12.1.7) en v5.9.1-forever (id 9807230, 1.60.1), allebei Release, status 4; de
+GitHub-release heeft beide zips. Wago: "Success!" in het run-log, niet apart nagemeten. SITE_SEIN op "staat op CurseForge".
+🔴 Nog open voor Rob: kijken of de changelog op CurseForge netjes rendert (Files → het bestand → Changelog).
+`CURSEFORGE_DESCRIPTION.md` NIET bijgewerkt in deze release (Midnight 12 × 4 en Disenchant-klik staan er nog niet in).
 
 ## ▶▶ 25 nov (Bouwchat 25-11): Forever-buffs — geen "runs out soon" bij een HOGERE rank van een ander — GEREPAREERD, wacht op test
 
