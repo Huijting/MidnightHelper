@@ -1,5 +1,10 @@
 # Midnight Helper — waar we staan
 
+✅ 25 nov: Forever-post naar de andere factie kan NIET — GEMETEN door Rob (Horde → Ima Bankgirl): *"target is unfriendly
+:)"* = ERR_PLAYER_WRONG_FACTION "Target is unfriendly." (GlobalStrings Forever 71091). FALT_OTHERFAC_FMT zegt nu "other
+faction, can't mail" in 8 talen (was "probably not possible"); Reach()-reden en commentaar in AltProfTip.lua bijgewerkt;
+splitsing ongewijzigd. altprof_test 55/55.
+
 ✅ 25 nov: recept-tooltip (95108e3) GETEST door Rob (screenshot via Sparring: "MH: your other characters with Alchemy:
 Ima Warlocky (18, needs 50)"). Nog open: "knows it"/"can learn it", de gear-regel na 7734a0d/3c08cb6, bank-knop.
 

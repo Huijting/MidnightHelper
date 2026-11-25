@@ -73,9 +73,10 @@ end
 --[[ Who can you MAIL it to? (25 Nov 2026, Rob via Sparring on a War Torn Cape: "hier staat dat ik op heel veel
 	karakters zou kunnen gebruiken. Maar kan ik überhaupt wel sturen?")
 	Forever: mail only reaches a character on the same realm (GlobalStrings ERR_MAIL_CANT_SEND_REALM "You can't send mail
-	to that realm.", GEMETEN Forever 71091) -> another realm is left out. Another faction: in classic WoW mail does not
-	cross factions; for Forever NOT measured (no string says it either way) -> those names go apart at the end, "probably
-	not". No realm saved: the server number in the GUID decides. A character whose faction MH has not saved yet keeps its
+	to that realm.", GEMETEN Forever 71091) -> another realm is left out. Another faction: GEMETEN by Rob in Forever, 25 Nov
+	2026 (Horde character -> Ima Bankgirl, Alliance): "target is unfriendly :)" = ERR_PLAYER_WRONG_FACTION "Target is
+	unfriendly." (GlobalStrings, Forever 71091) -> those names go apart at the end, "can't mail". No realm saved: the
+	server number in the GUID decides. A character whose faction MH has not saved yet keeps its
 	place with "(faction ?)". Rob's SV, GEMETEN 25 Nov: one realm; 10 Horde, 4 Alliance (Ima Bankgirl, Ima Tinyroque, Inchy
 	Shootalot, Joey Whatever), 3 without a faction (Ima Lockie, Ima Magymage, Ima Warman). /mh alttip lists the verdict.
 	Midnight: not filtered. Non-bound items and reagents go to every character of your Warband through the Warband bank
@@ -125,7 +126,7 @@ local function Reach(rec, guid)
 		return "unknown", "faction not saved yet (log in on it once)"
 	end
 	if rec.faction ~= myFac then
-		return "faction", "other faction (" .. rec.faction .. "): mail probably not possible"
+		return "faction", "other faction (" .. rec.faction .. "): can't mail (Target is unfriendly.)"
 	end
 	return "ok", "same realm and faction"
 end
@@ -135,7 +136,7 @@ local function Shown(c)
 	return c.reach == "unknown" and ns:L("FALT_FACQ_FMT"):format(c.name) or c.name
 end
 
---- " · other faction (mail probably not possible): A, B" for the names in `list`, or "".
+--- " · other faction, can't mail: A, B" for the names in `list`, or "".
 local function FactionTail(list)
 	if #list == 0 then
 		return ""

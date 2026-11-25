@@ -46,12 +46,13 @@ Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (14 + 
 - [ ] Draag je een wapen met een enchant die MH niet kan wegen (bv. Fiery Weapon): MH noemt een ander wapen niet "beter".
 - [ ] Een wit item (bv. andere handschoenen): de alt-regel staat er nog wel.
 - [ ] War Torn Cape (of een ander item om te versturen): **Ima Bankgirl** (Alliance) staat niet meer tussen de namen,
-      maar achteraan: "· other faction, mail probably not possible: Ima Bankgirl …". Ima Lockie, Ima Magymage en Ima
+      maar achteraan: "· other faction, can't mail: Ima Bankgirl …". Ima Lockie, Ima Magymage en Ima
       Warman (factie nog niet opgeslagen) staan erin met "(faction ?)" — log één keer op ze in, dan verdwijnt dat.
 - [ ] Zelfde bij een recept en een materiaal (bv. Peacebloom).
 - [ ] `/mh alttip`: onderaan per character "counts", "apart at the end" of "left out", met de reden.
-- ❓ Kun je in Forever naar de andere factie mailen? MH zegt "probably not" (in Classic kan het niet; voor Forever niet
-  gemeten). Lukt een mail van een Horde-character naar Ima Bankgirl wél, meld het: dan haal ik die splitsing weg.
+- [x] Kun je in Forever naar de andere factie mailen? ✅ GEMETEN door Rob 25 nov (via Sparring), letterlijk: *"Post naar
+      de andere kant (Ima Bankgirl) --. target is unfriendly :)"* = de client-melding ERR_PLAYER_WRONG_FACTION "Target is
+      unfriendly." Dus NEE. De regel zegt nu "other faction, can't mail" (was "probably not possible"); `/reload`.
 
 ## 25 nov — FOREVER: Gear check: enchants naast je character-venster (Rob: "ik zie helemaal niet of ik al iets enchant heb")
 
