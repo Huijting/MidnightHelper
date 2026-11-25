@@ -26,7 +26,7 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 
 ## Open — wacht op Rob
 
-### Forever: taunts op de muis in het toetsenblok (wens van Rob, 25 nov) — ✅ JA, GEBOUWD 25 nov, wacht op test
+### Forever: taunts op de muis in het toetsenblok (wens van Rob, 25 nov) — ✅ AF: GEBOUWD 25 nov (1769f5f) en GETEST (Rob via Sparring: *"De tangtesten is gelukt."*)
 - Bron: Rob via Sparring 25-11, letterlijk: *"We hebben dingen als Taunt en Growl. Ik zou graag ook een macro van willen
   hebben voor een mouse over."*; op het voorstel: *"ja graag"*.
 - Gebouwd: met `/mh mouseover on` gaan Growl, Taunt, Mocking Blow en Distracting Shot naar de vijand onder je muis.

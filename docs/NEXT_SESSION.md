@@ -1,6 +1,9 @@
 # Midnight Helper — waar we staan
 
-## ▶▶ 25 nov (Bouwchat 25-11): taunts op de muis + spiekbrief-code met de indeling — GEBOUWD, wacht op test
+## ▶▶ 25 nov (Bouwchat 25-11): taunts op de muis + spiekbrief-code met de indeling — GEBOUWD; taunts ✅ GETEST
+
+✅ Taunts: Rob via Sparring, letterlijk: *"De tangtesten is gelukt."* (class niet genoemd; de test was Druid in beervorm).
+Spiekbrief-code: nog niet getest. Buff-fixes (hogere rank / groepsbuff): nog niet getest (Rob kreeg nog geen sterkere buff).
 
 **Taunts** (Rob via Sparring: *"We hebben dingen als Taunt en Growl. Ik zou graag ook een macro van willen hebben voor een
 mouse over."* → *"ja graag"*): `ForeverBlock.lua` MO_HARM + Growl, Taunt, Mocking Blow, Distracting Shot (de taunts op één

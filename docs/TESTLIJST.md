@@ -25,11 +25,12 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
-## 25 nov — FOREVER: taunt op de muis (Rob: "Ik zou graag ook een macro van willen hebben voor een mouse over")
+## 25 nov — FOREVER: taunt op de muis (Rob: "Ik zou graag ook een macro van willen hebben voor een mouse over") — ✅ GETEST
 
-Alleen een bestaand bestand gewijzigd: `/reload` is genoeg. Offline getest (1128 toetsen, Engels en Russisch), NIET in
-het spel.
-- [ ] `/mh mouseover on`. Druid in beervorm: ga met je muis op een vijand staan (niet je target) en druk **F**: Growl gaat
+Alleen een bestaand bestand gewijzigd: `/reload` is genoeg. Offline getest (1128 toetsen, Engels en Russisch).
+✅ 25 nov, Rob via Sparring, letterlijk (ruw, Willow; "tang" = taunt): *"De tangtesten is gelukt."* Welke class noemde hij
+niet; de test hieronder was de Druid in beervorm. Warrior, Hunter en "mouseover off" niet apart genoemd.
+- [x] `/mh mouseover on`. Druid in beervorm: ga met je muis op een vijand staan (niet je target) en druk **F**: Growl gaat
       naar die vijand. Zonder muis op een vijand: naar je target, zoals eerst.
 - [ ] Warrior: hetzelfde met **F** (Taunt in Defensive Stance, Mocking Blow in Battle Stance).
 - [ ] Hunter: Distracting Shot (oude blok **F**, 12 × 4 **Ctrl-E**) gaat ook naar de vijand onder je muis.

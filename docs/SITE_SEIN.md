@@ -41,9 +41,9 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 - Spel:           allebei
 
 ## 25 nov 2026 — Forever: taunts op de muis (Growl, Taunt, Mocking Blow, Distracting Shot)
-- Tag + commit:   geen tag (commit: deze regel)
+- Tag + commit:   geen tag (commit: 1769f5f)
 - Status:         alleen op main
-- Mag op de site: nee (niet uit, niet getest)
+- Mag op de site: nee (niet uit; getest door Rob 25 nov: *"De tangtesten is gelukt."*)
 - Speler ziet:    Met `/mh mouseover on` gaat je taunt naar de vijand onder je muis, anders naar je target.
 - Knoplabels:     geen nieuwe
 - Commando's:     /mh mouseover on|off
