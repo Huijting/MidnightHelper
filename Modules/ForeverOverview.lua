@@ -1182,8 +1182,14 @@ local function CharRow(card, i)
 	r.forget:SetPoint("TOPRIGHT", -2, -4)
 	r.forget:SetLabel("x")
 	Tip(r.forget, ns:L("FCHARS_FORGET_TIP"))
+	-- 25 Nov 2026 (Rob via Sparring: "Wat betreft de bankkarakters ga ik mee met je advies. A."): mark a bank character;
+	-- the "who can wear this" tooltip line then leaves it out (AltProfTip.lua). Only what the player marks, never a guess.
+	r.bank = Button(r, 84)
+	r.bank:SetHeight(20)
+	r.bank:SetPoint("TOPRIGHT", r.forget, "TOPLEFT", -6, 0)
+	Tip(r.bank, ns:L("FCHARS_BANK_TIP"))
 	r.gold = Text(r, "textB", 14)
-	r.gold:SetPoint("TOPRIGHT", r.forget, "TOPLEFT", -12, -2)
+	r.gold:SetPoint("TOPRIGHT", r.bank, "TOPLEFT", -12, -2)
 	r.gold:SetJustifyH("RIGHT")
 	r.who = Text(r, "head2", 15)
 	r.who:SetPoint("TOPLEFT", 4, -4)
@@ -4161,6 +4167,13 @@ local function FillCharsPage(f, refresh)
 		row.line:SetText(("%s  ·  %s  ·  %s"):format(v.dir, v.seen, v.trainer))
 		row.profs:SetText(v.profs)
 		row.hover.tipTitle, row.hover.tipBody = ns:L("FOV_CHARS_PROFS"), v.profs
+		row.bank:SetLabel(ns:L(v.bank and "FCHARS_BANK_ON" or "FCHARS_BANK_OFF"))
+		row.bank:SetScript("OnClick", function()
+			if v.toggleBank then
+				v.toggleBank()
+			end
+			ns.ForeverOverviewFill(true)
+		end)
 		if v.forget then
 			row.forget:SetScript("OnClick", function()
 				v.forget()

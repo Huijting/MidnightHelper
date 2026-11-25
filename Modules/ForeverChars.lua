@@ -552,6 +552,13 @@ function ns.ForeverCharsViews()
 			seen = guid == me and ns:L("FCHARS_SEEN_NOW") or SeenText(rec.seen),
 			trainer = trainer,
 			profs = p,
+			-- 25 Nov 2026: bank character (AltProfTip.lua leaves it out of "who can wear this")
+			bank = ns.IsAltBankChar and ns.IsAltBankChar(guid) or false,
+			toggleBank = function()
+				if ns.SetAltBankChar and ns.IsAltBankChar then
+					ns.SetAltBankChar(guid, not ns.IsAltBankChar(guid))
+				end
+			end,
 			forget = guid ~= me and function()
 				local store = Store()
 				if store then

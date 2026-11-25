@@ -80,6 +80,26 @@ end
 	Shootalot, Joey Whatever), 3 without a faction (Ima Lockie, Ima Magymage, Ima Warman). /mh alttip lists the verdict.
 	Midnight: not filtered. Non-bound items and reagents go to every character of your Warband through the Warband bank
 	(AFGELEID from the retail Warband feature, not measured here), whatever the realm or faction. ]]
+--[[ Bank characters (25 Nov 2026, Rob via Sparring: "Wat betreft de bankkarakters ga ik mee met je advies. A." on:
+	"Bank-characters weglaten bij gear. Je markeert één keer een character als "bank" … Bij recepten en materialen kun je
+	ze nog wel zien als dat handig is."). Only what the player marks (Forever: the button in Characters; both games:
+	/mh alttip bank <name>), never a guess from the name. Kept in ns.db.altBankChars[guid] and not in the character record,
+	because Midnight's AltOverview.lua rebuilds that record on every snapshot. ]]
+local function IsBank(guid)
+	local t = ns.db and ns.db.altBankChars
+	return type(t) == "table" and t[guid] == true
+end
+ns.IsAltBankChar = IsBank
+
+function ns.SetAltBankChar(guid, on)
+	if type(guid) ~= "string" then
+		return
+	end
+	ns.db = ns.db or {}
+	ns.db.altBankChars = ns.db.altBankChars or {}
+	ns.db.altBankChars[guid] = on and true or nil
+end
+
 local function ServerID(guid)
 	return type(guid) == "string" and guid:match("^Player%-(%d+)%-") or nil
 end
@@ -373,7 +393,7 @@ local function OthersGear()
 	for guid, rec in pairs(store) do
 		local reach = type(rec) == "table" and Reach(rec, guid) or nil
 		if guid ~= me and type(rec) == "table" and type(rec.name) == "string" and CLASS_ID[rec.class or ""]
-			and reach ~= "realm" then
+			and reach ~= "realm" and not IsBank(guid) then
 			out[#out + 1] = { name = rec.name, classID = CLASS_ID[rec.class], level = tonumber(rec.level),
 				gear = type(rec.gear) == "table" and rec.gear or nil, reach = reach }
 		end
@@ -539,6 +559,24 @@ function ns.AltProfTipSlash(arg)
 	elseif arg == "off" then
 		ns.db.altProfTip = false
 	end
+	-- /mh alttip bank <name>: mark or unmark a bank character (both games; Forever also has the button in Characters)
+	local bankName = arg:match("^bank%s+(.+)$")
+	if bankName then
+		bankName = bankName:gsub("%s+$", "")
+		local store = ns.db and (ns.IS_FOREVER and ns.db.foreverChars or ns.db.charCurrencies)
+		local hit
+		for guid, rec in pairs(type(store) == "table" and store or {}) do
+			if type(rec) == "table" and type(rec.name) == "string" and rec.name:lower() == bankName then
+				hit = true
+				ns.SetAltBankChar(guid, not IsBank(guid))
+				print(PREFIX .. ns:L(IsBank(guid) and "FALT_BANK_SET_FMT" or "FALT_BANK_UNSET_FMT"):format(rec.name))
+			end
+		end
+		if not hit then
+			print(PREFIX .. ns:L("FALT_BANK_NONE_FMT"):format(bankName))
+		end
+		return
+	end
 	local others = Others()
 	local withProf = 0
 	for _, c in ipairs(others) do
@@ -557,7 +595,8 @@ function ns.AltProfTipSlash(arg)
 			local r, why = Reach(rec, guid)
 			local word = (r == "ok" and "counts") or (r == "unknown" and "counts, marked (faction ?)")
 				or (r == "faction" and "apart at the end") or "left out"
-			rowsOut[#rowsOut + 1] = ("  %s: %s (%s)"):format(rec.name, word, why)
+			local bank = (IsBank(guid) and r ~= "realm") and "; bank character, skipped for gear" or ""
+			rowsOut[#rowsOut + 1] = ("  %s: %s (%s%s)"):format(rec.name, word, why, bank)
 		end
 	end
 	table.sort(rowsOut)

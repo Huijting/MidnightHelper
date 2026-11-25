@@ -1,5 +1,17 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 25 nov (Bouwchat 25-11): bank-characters uit de gear-regel — GEBOUWD, wacht op test (`/reload`)
+
+Rob via Sparring: *"Wat betreft de bankkarakters ga ik mee met je advies. A."* (voorstel: één keer markeren, weg bij
+gear, wel bij recepten/materialen). Opslag `ns.db.altBankChars[guid] = true` (NIET in het character-record: Midnight's
+AltOverview.lua bouwt dat record bij elke snapshot opnieuw op, de vlag zou verdwijnen). AltProfTip: ns.IsAltBankChar /
+ns.SetAltBankChar; OthersGear slaat ze over; `/mh alttip bank <naam>` (naam hoofdletterongevoelig) wisselt; `/mh alttip`
+noemt "bank character, skipped for gear". Forever: knop "Bank: no/yes" (84 px, links van het kruisje) per rij in het
+overzicht → Characters (ForeverOverview CharRow, via ForeverCharsViews v.bank/v.toggleBank). Het oude losse venster
+(ForeverChars Row) heeft GEEN knop (iedereen landt op de overzicht-tab). Midnight: alleen het commando (keuze bouwchat).
+Nieuwe sleutels (8 talen): FCHARS_BANK_OFF/ON/TIP, FALT_BANK_SET/UNSET/NONE_FMT. altprof_test 55/55; de knop zelf niet
+offline getest.
+
 ## ▶▶ 25 nov (Bouwchat 25-11): enchant telt mee in "beter dan wat je draagt" + alt-regel alleen naar wie je kunt mailen — GEREPAREERD, wacht op test (`/reload`)
 
 Robs screenshot (Druid): Nomadic Gloves 21 armor + Light Armor Kit (enchant 15) aan, grijze Worn Leather Gloves 22 armor

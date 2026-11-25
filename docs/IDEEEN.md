@@ -56,8 +56,9 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 - 25 nov, GEREPAREERD, wacht op test (Rob: *"Ja, op 1 en 2."*; *"Maar kan ik überhaupt wel sturen?"*): geen gear-regel
   bij grijze items (wit blijft); Forever: alleen characters op je realm; andere factie apart achteraan ("probably not");
   factie onbekend = "(faction ?)". `/mh alttip` zegt per character waarom. Midnight: niet gefilterd (Warband bank).
-- Volgende (Rob: *"Wat betreft de bankkarakters ga ik mee met je advies. A."*): bank-characters markeren en weglaten
-  bij gear. Nog te bouwen.
+- Bank-characters (Rob: *"Wat betreft de bankkarakters ga ik mee met je advies. A."*) — GEBOUWD 25 nov, wacht op test:
+  Forever: knop "Bank: no/yes" per rij in Characters; beide games: `/mh alttip bank <naam>`. Gemarkeerd = niet in "who
+  can wear this", wel in recept/materiaal. Alleen wat de speler aanzet, nooit op naam geraden.
 
 ### Forever: de enchant op wat je draagt telt mee in "beter dan wat je draagt" (Robs screenshot, 25 nov) — ✅ JA, GEREPAREERD 25 nov, wacht op test
 - Bron: Rob via Sparring, letterlijk: *"Ja, op 1 en 2."* (1 = enchant meetellen, 2 = geen alt-regel bij grijs).

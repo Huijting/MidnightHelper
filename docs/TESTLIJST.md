@@ -25,6 +25,16 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 25 nov — BEIDE GAMES: bank-characters uit "who can wear this" (Rob: "Wat betreft de bankkarakters ga ik mee met je advies. A.")
+
+Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (55 controles; de knop zelf NIET offline).
+- [ ] Forever overzicht → **Characters**: elke rij heeft rechts een knopje **Bank: no**. Klik bij Ima Banklady: het wordt
+      **Bank: yes**. Klik nog eens: terug naar no.
+- [ ] Met Banklady op "yes": ga op een item staan dat zij kan dragen. Ze staat niet meer in "your other characters who
+      can wear this". Bij een recept of materiaal staat ze er nog wel (als ze dat beroep heeft).
+- [ ] `/mh alttip`: bij Ima Banklady staat "bank character, skipped for gear".
+- [ ] Midnight (geen knop): `/mh alttip bank <naam>` zet het aan en weer uit; chat zegt wat er gebeurde.
+
 ## 25 nov — FOREVER: de enchant op wat je draagt telt mee + de alt-regel noemt alleen wie je kunt mailen (Rob: "Ja, op 1 en 2." / "kan ik überhaupt wel sturen?")
 
 Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (14 + 48 + 24 controles), NIET in het spel.

@@ -50,8 +50,9 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
                   character draagt (geen "beter" op stats). Alleen voor items die je kunt versturen. Eigen schakelaar.
                   Sinds 25 nov (Forever): alleen characters op je eigen realm; de andere factie apart achteraan
                   ("mail probably not possible"); geen regel bij grijze gear. Materiaal-tooltip *(getest door Rob)*.
-- Knoplabels:     FALT_SW
-- Commando's:     /mh alttip, /mh alttip on|off
+                  Bank-characters: markeer ze (Forever: knop "Bank" in Characters) en ze vallen weg bij gear.
+- Knoplabels:     FALT_SW, FCHARS_BANK_OFF, FCHARS_BANK_ON
+- Commando's:     /mh alttip, /mh alttip on|off, /mh alttip bank <naam>
 - Spel:           allebei
 
 ## 25 nov 2026 — spiekbrief-code MH-KEYBLOCK: `layout=` en `game=` (afgesproken met de site-chat)
