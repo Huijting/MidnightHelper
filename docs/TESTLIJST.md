@@ -25,6 +25,17 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 25 nov — FOREVER: "Which weapon?" voor de Mage
+
+Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (79 controles), NIET in het spel.
+- [ ] Ima Magieman (level 10): How you play → **Which weapon? (Mage)**: je vecht met spells (wapen-DPS helpt niet); de
+      groene "Equip: … damage and healing … spells"-regel; staf of eenhandig + Held In Off-hand; wand (Shoot, stilstaan);
+      wand kiezen op DPS, Wand Specialization (Arcane); eerste wand via Enchanting; Mage-scrolls. Onderaan wat je kunt en
+      wat je nog kunt leren. Geen `<` of `#`.
+- [ ] Gekozen richting (elke Mage-boom): het blok bovenaan zegt "the kind matters little, look at what is on it …".
+      /mh weapons met een richting zonder wapensoort: "… the weapon kind matters little here; look at what is on it."
+- [ ] Do this now: "bonus damage and healing for spells first, then Intellect and Spirit count the same …".
+
 ## 25 nov — FOREVER: "Which weapon?" voor de Rogue
 
 Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (72 controles), NIET in het spel.

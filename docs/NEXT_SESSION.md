@@ -1,5 +1,15 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 25 nov (Bouwchat 25-11): "Which weapon?" — Mage GEBOUWD (+ gedeelde caster-regels), wacht op test. Volgende: Priest, Warlock
+
+Gedeeld FWADV_CAST_1..4 en _6, Mage FWADV_MAG_5/_7 (8 talen). GEMETEN (DB2 71091): Shoot 5019, Wand Specialization 6057,
+Wands 5009; items Novice's Practice Wand 247789 (lvl 1), Lesser Magic Wand 11287 (lvl 5); GlobalStrings INVTYPE_HOLDABLE
+"Held In Off-hand", ITEM_SPELL_TRIGGER_ONEQUIP "Equip:". De rest van de item-regel ("Increases damage and healing done by
+magical spells") is in de/fr/es/pt/it/ru door mij vertaald, NIET de exacte clienttekst (AFGELEID) — Fable-ronde. Bronnen in
+de code (Blizzard dev notes 24 sep/16 okt, DB2; Icy Veins Frost wijkt af en is niet gevolgd). Stats: MAGE lead "spell"
+(basis + 3 bomen). ForeverDirection MAGE = FDIRB_W_CASTER (game, geen fit); FWEAP_DIR_NONE_FMT nieuwe tekst ("the weapon
+kind matters little here; look at what is on it"). wadv_test 79/79, tokcheck 64 sleutels 0 fouten.
+
 ## ▶▶ 25 nov (Bouwchat 25-11): Druid "Which weapon?" — caster-staf-regel GEREPAREERD (`/reload`)
 
 🔴 FWADV_STAFF_FMT zei "a caster staff hits about as hard in a form" — FOUT (ook in de opdracht van toen). De DB2-tabellen

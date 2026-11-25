@@ -193,7 +193,11 @@ local GUIDE = {
 	-- silent on "fits your direction" (a one-handed mace is not wrong, only weaker).
 	DRUID = { { w = "FDIRB_W_DRUIDCAST", game = true }, { w = "FDIRB_W_DRUIDFORM", game = true },
 		{ w = "FDIRB_W_DRUIDCAST", game = true } },
-	PRIEST = { {}, {}, {} }, MAGE = { {}, {}, {} }, WARLOCK = { {}, {}, {} },
+	-- Casters, 25 Nov 2026 (Sparring's research: Blizzard dev notes + DB2): the kind matters little, look at what is on
+	-- it. No `fit` (the tooltip says nothing about "fits your direction"). Priest and Warlock follow in their own commits.
+	MAGE = { { w = "FDIRB_W_CASTER", game = true }, { w = "FDIRB_W_CASTER", game = true },
+		{ w = "FDIRB_W_CASTER", game = true } },
+	PRIEST = { {}, {}, {} }, WARLOCK = { {}, {}, {} },
 }
 
 local function NeedName(kind)

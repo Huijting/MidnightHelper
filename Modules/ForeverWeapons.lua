@@ -314,6 +314,18 @@ local CLASS_LINES = {
 	-- Slash 13960, Poisons 2842, Throw 2764. "Mutilate from 40" is the research text, not the (outdated) Talent table.
 	ROGUE = { lines = { "FWADV_ROG_1", "FWADV_ROG_2", "FWADV_ROG_3", "FWADV_ROG_4", "FWADV_ROG_5", "FWADV_ROG_6",
 		"FWADV_ROG_7", "FWADV_ROG_8" } },
+	-- Casters (Mage, Priest, Warlock): shared lines FWADV_CAST_1..4 and _6, the class's own 5 and 7. Sources: Blizzard
+	-- dev notes (Kaivax, thread 2360696) 24 Sep 2026 "Wands no longer gain any additional damage from the user's spell
+	-- damage" and 16 Oct "stand still for 0.5 seconds"; deep dives 30 Sep / 7 Oct; DB2 71091 (SkillRaceClassInfo; SpellLevels
+	-- 6366 = 28, 2362 = 36; trees 1112/1114/1116: Wand Specialization 2 ranks 13/25%, the Warlock tree has none); Wowhead
+	-- tooltips. Icy Veins Frost (17 Nov) says spell damage makes the wand stronger: against Blizzard + DB2 (coefficient
+	-- 0), so Blizzard is followed. Caster weapons have less weapon damage on purpose (~74% staves, ~66% daggers, see the
+	-- Druid note above). No price in silver (not measured). Ids GEMETEN (DB2 SpellName/ItemSparse 71091): Shoot 5019, Wand
+	-- Specialization 6057, Create Firestone 6366, Create Spellstone 2362, Life Tap 1454; items Novice's Practice Wand
+	-- 247789 (level 1), Lesser Magic Wand 11287 (level 5). GlobalStrings INVTYPE_HOLDABLE "Held In Off-hand",
+	-- ITEM_SPELL_TRIGGER_ONEQUIP "Equip:". The race line of the research = the "already use / still learn" lines.
+	MAGE = { lines = { "FWADV_CAST_1", "FWADV_CAST_2", "FWADV_CAST_3", "FWADV_CAST_4", "FWADV_MAG_5", "FWADV_CAST_6",
+		"FWADV_MAG_7" } },
 	SHAMAN = { lines = { "FWADV_SHA_1", "FWADV_SHA_2", "FWADV_SHA_3", "FWADV_SHA_4", "FWADV_SHA_5", "FWADV_SHA_6",
 		"FWADV_SHA_7", "FWADV_SHA_8" }, learn = { "staff", "mace2", "axe2" } },
 }

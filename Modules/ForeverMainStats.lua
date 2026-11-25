@@ -36,7 +36,7 @@ ns.FOREVER_MAIN_STATS = {
 	-- Power gear from now on") and the 10 Nov hotfix (Mental Dexterity back to 33/66/100% of Int) undid the reason for
 	-- it. Found by the content watch's Forever catch-up, 11 Nov (read via search on several mirrors, not in the client).
 	SHAMAN = { main = { "STRENGTH", "INTELLECT" }, stamTie = false, lead = "dps" },
-	MAGE = { main = { "INTELLECT", "SPIRIT" }, stamTie = true },
+	MAGE = { main = { "INTELLECT", "SPIRIT" }, stamTie = true, lead = "spell" },
 	WARLOCK = { main = { "INTELLECT", "STAMINA" }, stamTie = true },
 	DRUID = { main = { "AGILITY", "STRENGTH" }, stamTie = true, lead = "dps" },
 }
@@ -87,9 +87,9 @@ local BY_TREE = {
 	},
 	MAGE = {
 		-- Icy Veins Frost Spi > Int, Mobalytics Int > Spi → equal, every tree.
-		[1] = { role = "caster", main = { "INTELLECT", "SPIRIT" }, stamTie = true, equal = true },
-		[2] = { role = "caster", main = { "INTELLECT", "SPIRIT" }, stamTie = true, equal = true },
-		[3] = { role = "caster", main = { "INTELLECT", "SPIRIT" }, stamTie = true, equal = true },
+		[1] = { role = "caster", main = { "INTELLECT", "SPIRIT" }, stamTie = true, equal = true, lead = "spell" },
+		[2] = { role = "caster", main = { "INTELLECT", "SPIRIT" }, stamTie = true, equal = true, lead = "spell" },
+		[3] = { role = "caster", main = { "INTELLECT", "SPIRIT" }, stamTie = true, equal = true, lead = "spell" },
 	},
 	WARLOCK = {
 		[1] = { role = "caster", main = { "SPIRIT", "INTELLECT" }, stamTie = true }, -- Affliction: Life Tap uses Spirit
