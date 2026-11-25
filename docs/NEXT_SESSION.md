@@ -1,5 +1,16 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 25 nov (Bouwchat 25-11): spell-rekensom AF met Robs 4 dumps — healing, scholen, mp5 (`/reload`)
+
+GEMETEN door Rob (GetItemStats, 2e run; 1e run nil = item nog niet geladen): 7049 SPELL_HEALING_DONE 15 + SPELL_DAMAGE_DONE 5;
+19395 SPELL_HEALING_DONE 66 + MANA_REGENERATION 9; 2231 FIRE_DAMAGE_DONE 23; 2311 SPELL_POWER 2 (type 45 op leer = echt).
+Scholen-keys GEMETEN in GlobalStrings (HOLY/FIRE/NATURE/FROST/SHADOW/ARCANE/PHYSICAL_DAMAGE_DONE_SHORT).
+ForeverQuestHint: SpellValue = healers SPELL + HEAL + 0,5·MP5, damage-rollen SPELL + SDMG + de scholen van de spec;
+SpellUnweighable = onbekende key, een school die de spec niet cast, of een school-regel voor een healer → geen oordeel.
+Explain noemt het clientwoord ("Spell Healing" / "Spell Damage"). ForeverMainStats `schools` (AFGELEID): Mage Arcane/Fire/
+Frost per boom (zonder richting geen lijst = zwijgen), Warlock Shadow (+Fire Destruction), Priest Shadow+Holy / Shadow,
+Elemental Nature+Fire, Balance Nature+Arcane, Paladin Holy. gearench_test 25/25. Volgende: "How you play" in tabbladen.
+
 ## ▶▶ 25 nov (Bouwchat 25-11): spell damage telt mee in de gear-vergelijking — GEBOUWD, wacht op test (`/reload`)
 
 GEMETEN door Rob: `/dump C_Item.GetItemStats("item:9513")` (Ley Staff) = INTELLECT 1, SPELL_POWER 2, DPS 5.34, SPIRIT 1;

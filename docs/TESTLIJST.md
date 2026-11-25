@@ -34,9 +34,10 @@ Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (20 co
 - [ ] Prot Paladin: een item met 1 Stamina meer maar veel minder spell damage heet NIET meer "better".
 - [ ] `/mh questhint check` toont "spell damage weight" en per beloning "spell=…". `/mh geartip`: bij "not better" staat
       "spell damage +N x W".
-- [ ] Een item met een healing-only of een Fire-regel: voor een caster/healer zegt MH NIETS (die regel kan MH nog niet
-      wegen). `/mh geartip` noemt de key. 🔵 Graag een `/dump C_Item.GetItemStats("item:7049")` (Truefaith Gloves),
-      `"item:19395"` (Rejuvenating Gem), `"item:2231"` (Inferno Robe) en `"item:2311"` (White Leather Jerkin).
+- [ ] (bijgewerkt na Robs dumps) Healer: een item met "healing" (bv. Truefaith Gloves 7049) telt als "Spell Healing".
+      Damage-caster: alleen de damage-helft telt. Een school-regel (Inferno Robe 2231, Fire) telt alleen voor een spec die
+      die school cast (Fire Mage, Destruction, Elemental); anders zegt MH niets. `/mh questhint check` toont "spell weight
+      … (healing/damage; schools: …)".
 
 ## 25 nov — FOREVER: "Which weapon?" na de Fable-controle (alle 9)
 

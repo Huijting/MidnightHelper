@@ -193,15 +193,33 @@ local function Stats(link, equipLoc)
 	-- NOT known yet (no /dump of such an item): MH notes them as `spellUnknown` and then gives no verdict for a role that
 	-- weighs spell damage (IsBetter), rather than a wrong "better". DB2 note: Ley Staff has no spell power row in
 	-- ItemSparse (only Spirit and Intellect): the client makes it (the caster-weapon conversion, ~74% DPS).
-	local sp = t.ITEM_MOD_SPELL_POWER_SHORT
-	if type(sp) == "number" and not (issecretvalue and issecretvalue(sp)) then
-		out.SPELL = sp
+	-- Rob's four dumps (25 Nov 2026, GEMETEN): 7049 Truefaith Gloves SPELL_HEALING_DONE 15 + SPELL_DAMAGE_DONE 5;
+	-- 19395 Rejuvenating Gem SPELL_HEALING_DONE 66 + MANA_REGENERATION 9; 2231 Inferno Robe FIRE_DAMAGE_DONE 23; 2311
+	-- White Leather Jerkin SPELL_POWER 2 (stat type 45 on leather is real spell power). The other schools' keys are
+	-- GEMETEN in GlobalStrings 71091 (ITEM_MOD_<SCHOOL>_DAMAGE_DONE_SHORT), not yet seen on an item.
+	local function Num(key)
+		local v = t[key]
+		if type(v) == "number" and not (issecretvalue and issecretvalue(v)) then
+			return v
+		end
+		return nil
 	end
+	out.SPELL = Num("ITEM_MOD_SPELL_POWER_SHORT") -- damage and healing
+	out.HEAL = Num("ITEM_MOD_SPELL_HEALING_DONE_SHORT") -- healing only
+	out.SDMG = Num("ITEM_MOD_SPELL_DAMAGE_DONE_SHORT") -- damage only
+	out.MP5 = Num("ITEM_MOD_MANA_REGENERATION_SHORT")
+	local KNOWN = { ITEM_MOD_SPELL_POWER_SHORT = true, ITEM_MOD_SPELL_HEALING_DONE_SHORT = true,
+		ITEM_MOD_SPELL_DAMAGE_DONE_SHORT = true }
 	for key, v in pairs(t) do
-		if type(key) == "string" and key ~= "ITEM_MOD_SPELL_POWER_SHORT" and type(v) == "number"
-			and (key:find("SPELL", 1, true) or key:find("HEAL", 1, true)) then
-			out.spellUnknown = out.spellUnknown or {}
-			out.spellUnknown[#out.spellUnknown + 1] = key
+		if type(key) == "string" and type(v) == "number" then
+			local school = key:match("^ITEM_MOD_(%u+)_DAMAGE_DONE_SHORT$")
+			if school and school ~= "SPELL" then
+				out.school = out.school or {}
+				out.school[school] = v
+			elseif not KNOWN[key] and (key:find("SPELL", 1, true) or key:find("HEAL", 1, true)) then
+				out.spellUnknown = out.spellUnknown or {}
+				out.spellUnknown[#out.spellUnknown + 1] = key
+			end
 		end
 	end
 	-- 🔴 25 Nov 2026 (Rob via Sparring: "Ja, op 1 en 2"). The ENCHANT counts too. Rob's Druid wore Nomadic Gloves (21
@@ -229,10 +247,55 @@ local WEIGHT = { 1, 0.5 } -- first main stat counts fully, the second half (Fore
 -- healers: on these items 1 spell damage is worth at least 1 Intellect for the spells themselves — a cautious 1, not
 -- more), 0.5 = like a second stat (Retribution, Protection after Stamina). Not measured; the point is the direction.
 local curSpellW = 0
+local curHeal = false -- the role heals: Spell Healing counts, Spell Damage does not
+local curSchools = {} -- schools whose own damage line counts for this spec (ForeverMainStats.lua `schools`)
+
+--- The spell value of a stats table for the role in use: spell power (damage AND healing) plus, for a healer, the
+--- healing-only line and half the mana per 5 seconds (AFGELEID, "small"); for a damage role the damage-only line and
+--- the lines of the schools this spec casts.
+local function SpellValue(stats)
+	if not stats then
+		return 0
+	end
+	local v = stats.SPELL or 0
+	if curHeal then
+		v = v + (stats.HEAL or 0) + 0.5 * (stats.MP5 or 0)
+	else
+		v = v + (stats.SDMG or 0)
+		for school, n in pairs(stats.school or {}) do
+			if curSchools[school] then
+				v = v + n
+			end
+		end
+	end
+	return v
+end
+
+--- A spell line MH does not weigh for this role: an unknown key, or a school line this spec does not cast (a Fire line
+--- for a Frost Mage, any school line for a healer). Then: no verdict (rather silent than a wrong "better").
+local function SpellUnweighable(stats)
+	if not stats then
+		return nil
+	end
+	if stats.spellUnknown then
+		return table.concat(stats.spellUnknown, "/")
+	end
+	for school in pairs(stats.school or {}) do
+		if curHeal or not curSchools[school] then
+			return school .. " damage line (not your spec's school)"
+		end
+	end
+	return nil
+end
 
 --- This character's main stats: the `later` order once its talent is known (Mental Dexterity, Careful Aim, ...).
 local function MainFor(def)
 	curSpellW = (def and def.spellW) or 0
+	curHeal = (def and def.role == "heal") or false
+	curSchools = {}
+	for _, s in ipairs((def and def.schools) or {}) do
+		curSchools[s] = true
+	end
 	if not def then
 		return nil
 	end
@@ -266,7 +329,7 @@ local function Score(stats, main, stamTie)
 	end
 	local tie = (stamTie and not staInMain) and ((stats and stats.STAMINA) or 0) or 0
 	if curSpellW > 0 then
-		s = s + ((stats and stats.SPELL) or 0) * curSpellW
+		s = s + SpellValue(stats) * curSpellW
 	end
 	return s, tie
 end
@@ -335,6 +398,10 @@ local function Sum(a, b)
 		end
 		if x.stats and x.stats.spellUnknown then
 			stats.spellUnknown = x.stats.spellUnknown
+		end
+		for school, n in pairs((x.stats and x.stats.school) or {}) do
+			stats.school = stats.school or {}
+			stats.school[school] = (stats.school[school] or 0) + n
 		end
 	end
 	return { s = a.s + b.s, sta = a.sta + b.sta, arm = a.arm + b.arm, dps = dps, stats = stats,
@@ -412,9 +479,12 @@ local function Explain(row, main, stamTie, token)
 	end
 	-- 25 Nov 2026: spell damage, when this role weighs it; a minus here is the spell damage you would lose.
 	if curSpellW > 0 then
-		local sg = ((row.stats and row.stats.SPELL) or 0) - ((row.worn and row.worn.stats and row.worn.stats.SPELL) or 0)
-		if sg ~= 0 then
-			parts[#parts + 1] = ("%+d %s"):format(sg, ns:L("FDONOW_STAT_SPELLDMG"))
+		local sg = SpellValue(row.stats) - SpellValue(row.worn and row.worn.stats)
+		if math.abs(sg) >= 0.5 then
+			-- the client's own word: "Spell Healing" for a healer, "Spell Damage" otherwise (GlobalStrings, GEMETEN)
+			local w = _G[curHeal and "ITEM_MOD_SPELL_HEALING_DONE_SHORT" or "ITEM_MOD_SPELL_DAMAGE_DONE_SHORT"]
+			w = (type(w) == "string" and w ~= "") and w or ns:L("FDONOW_STAT_SPELLDMG")
+			parts[#parts + 1] = ("%+d %s"):format(math.floor(sg + (sg > 0 and 0.5 or -0.5)), w)
 		end
 	end
 	if row.darm and row.darm ~= 0 then
@@ -498,8 +568,7 @@ local function IsBetter(row)
 	end
 	-- A spell line MH cannot weigh yet (healing-only, one school) on either item, for a role that weighs spell damage:
 	-- no verdict (25 Nov 2026: rather silent than a wrong "better").
-	if curSpellW > 0 and ((row.stats and row.stats.spellUnknown)
-		or (row.worn and row.worn.stats and row.worn.stats.spellUnknown)) then
+	if curSpellW > 0 and (SpellUnweighable(row.stats) or SpellUnweighable(row.worn and row.worn.stats)) then
 		return false
 	end
 	local dd = row.ddps
@@ -715,16 +784,20 @@ function ns.ForeverQuestHintSlash(arg)
 		return
 	end
 	local main = MainFor(StatDef(Token()))
-	print(PREFIX .. ("quest hint: %s; main stats for %s: %s; spell damage weight %s; last decision: %s"):format(
+	local sch = {}
+	for s in pairs(curSchools) do
+		sch[#sch + 1] = s
+	end
+	print(PREFIX .. ("quest hint: %s; main stats for %s: %s; spell weight %s (%s; schools: %s); last decision: %s"):format(
 		Enabled() and "on" or "off", ClassName(Token()), main and table.concat(main, ", ") or "none", tostring(curSpellW),
-		last.verdict))
+		curHeal and "healing" or "damage", #sch > 0 and table.concat(sch, ", ") or "none", last.verdict))
 	for _, r in ipairs(last.rows or {}) do
 		print(("  %d %s usable=%s slot=%s main=%s stam=%s armor=%s spell=%s gain=%s/%s/%s dps=%s sells=%s%s%s"):format(r.i,
 			r.link or r.name, tostring(r.usable), tostring(r.equipLoc), tostring(r.s), tostring(r.sta),
-			tostring(r.stats and r.stats.ARMOR), tostring(r.stats and r.stats.SPELL), tostring(r.ds), tostring(r.dsta),
+			tostring(r.stats and r.stats.ARMOR), tostring(SpellValue(r.stats)), tostring(r.ds), tostring(r.dsta),
 			tostring(r.darm), r.ddps and ("%+.1f"):format(r.ddps) or "n/a", tostring(r.sell),
 			r.noCompare and " NO FAIR COMPARISON (two-hander worn / no dual wield)" or "",
-			(r.stats and r.stats.spellUnknown) and (" UNKNOWN SPELL STAT " .. table.concat(r.stats.spellUnknown, "/")) or ""))
+			SpellUnweighable(r.stats) and (" SPELL LINE NOT WEIGHED: " .. SpellUnweighable(r.stats)) or ""))
 	end
 end
 
@@ -844,12 +917,12 @@ function ns.ForeverGearTipText(link)
 		for _, en in ipairs(Lost(row)) do
 			lost[#lost + 1] = en.id .. (en.x and " (cannot weigh it)" or "")
 		end
-		local unk = (stats.spellUnknown or (worn.stats and worn.stats.spellUnknown))
-		return nil, ("not better (main %+g, stamina %+g, armor %+d, dps %s, spell damage %+g x %s; enchant(s) you would "
+		local unk = SpellUnweighable(stats) or SpellUnweighable(worn.stats)
+		return nil, ("not better (main %+g, stamina %+g, armor %+d, dps %s, spell %s %+g x %s; enchant(s) you would "
 			.. "lose: %s%s)"):format(row.ds, row.dsta, row.darm, row.ddps and ("%+.1f"):format(row.ddps) or "n/a",
-			(stats.SPELL or 0) - ((worn.stats and worn.stats.SPELL) or 0), tostring(curSpellW),
+			curHeal and "healing" or "damage", SpellValue(stats) - SpellValue(worn.stats), tostring(curSpellW),
 			#lost > 0 and table.concat(lost, ", ") or "none",
-			(unk and curSpellW > 0) and ("; spell stat MH cannot weigh yet: " .. table.concat(unk, "/")) or "")
+			(unk and curSpellW > 0) and ("; spell line MH does not weigh here: " .. unk) or "")
 	end
 	local parts, why = Explain(row, main, stamTie, token)
 	local gains = table.concat(parts, ", ")

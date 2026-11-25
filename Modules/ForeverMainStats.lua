@@ -23,21 +23,21 @@ end
 
 ns.FOREVER_MAIN_STATS = {
 	WARRIOR = { main = { "STRENGTH", "AGILITY" }, stamTie = true, lead = "dps" },
-	PALADIN = { main = { "STRENGTH", "INTELLECT" }, stamTie = true, lead = "dpsspell", spellW = 0.5,
+	PALADIN = { main = { "STRENGTH", "INTELLECT" }, stamTie = true, lead = "dpsspell", spellW = 0.5, schools = { "HOLY" },
 		later = { talent = "Champion of the Light", main = { "INTELLECT", "STRENGTH" } } },
 	-- 25 Nov 2026: text lead = the RANGED weapon's damage per second (Sparring's research; the second check kept Agility,
 	-- Spirit and the Careful Aim flip as they are).
 	HUNTER = { main = { "AGILITY", "SPIRIT" }, stamTie = false, lead = "rdps",
 		later = { talent = "Careful Aim", main = { "AGILITY", "INTELLECT" } } },
 	ROGUE = { main = { "AGILITY", "STRENGTH" }, stamTie = true, lead = "mhdps" }, -- 25 Nov 2026: main-hand weapon DPS first
-	PRIEST = { main = { "INTELLECT", "SPIRIT" }, stamTie = true, lead = "spell", spellW = 1 },
+	PRIEST = { main = { "INTELLECT", "SPIRIT" }, stamTie = true, lead = "spell", spellW = 1, schools = { "SHADOW", "HOLY" } },
 	-- Enhancement: Strength first, ALWAYS (Rob, 11 Nov 2026: "Ja, repareer"). The flip to Intellect at Mental Dexterity
 	-- is gone: Blizzard's blue post of 6 Nov ("Strength is always their strongest stat ... collect Strength and Attack
 	-- Power gear from now on") and the 10 Nov hotfix (Mental Dexterity back to 33/66/100% of Int) undid the reason for
 	-- it. Found by the content watch's Forever catch-up, 11 Nov (read via search on several mirrors, not in the client).
 	SHAMAN = { main = { "STRENGTH", "INTELLECT" }, stamTie = false, lead = "dps" },
 	MAGE = { main = { "INTELLECT", "SPIRIT" }, stamTie = true, lead = "spell", spellW = 1 },
-	WARLOCK = { main = { "INTELLECT", "STAMINA" }, stamTie = true, lead = "spell", spellW = 1 },
+	WARLOCK = { main = { "INTELLECT", "STAMINA" }, stamTie = true, lead = "spell", spellW = 1, schools = { "SHADOW" } },
 	-- 25 Nov 2026 (Fable check): was Agility, then Strength - wrong below 20: a Druid gets 2 attack power per Strength
 	-- and 0 per Agility (ChrClasses, GEMETEN); Agility gives attack power only in Cat Form (768, level 20). Now the same
 	-- as the Feral row: Strength and Agility count the same (`equal`: both weigh 1 in the tooltip math, was 1 / 0.5).
@@ -52,6 +52,11 @@ ns.FOREVER_MAIN_STATS = {
 -- Forever, GEMETEN): how much 1 point of spell damage counts in the tooltip / quest-hint math. 1 = casters and healers
 -- (like their first main stat), 0.5 = Retribution and Protection Paladin (spell damage after Strength / Stamina). The
 -- weights are AFGELEID (cautious). Absent = 0 (spell damage does not count). ForeverQuestHint.lua reads it.
+-- `schools` (25 Nov 2026, after Rob's dumps: ITEM_MOD_FIRE_DAMAGE_DONE_SHORT on Inferno Robe, GEMETEN; the other
+-- schools' keys GEMETEN in GlobalStrings): the one-school damage lines that count for this spec. A school line that is
+-- NOT in the list (or any school line for a healer) = no verdict. Which spec casts which school is AFGELEID (Frost Mage
+-- = Frost, Destruction = Shadow + Fire, Elemental = Nature + Fire, Balance = Nature + Arcane, Paladin = Holy, ...).
+-- A Mage without a direction has no list on purpose: it casts all three, so a one-school line gets no verdict.
 
 --[[ 16 Nov 2026 — stats per ROLE (Rob via sparring: "b , maar hou ook dps en heling in je achterhoofd" → on the four
 	choices "alle 4 ja"). Research: docs/forever/STATS_PER_ROL_2026-11-16.md (mh-research, sources per row).
@@ -78,11 +83,11 @@ local BY_TREE = {
 		-- Prot: Stamina, then spell damage (25 Nov 2026, Blizzard hotfix thread 2403040 post 12; see TANK.PALADIN). The
 		-- spell damage now also counts in the tooltip math (spellW 0.5), so a Stamina-only item no longer beats one with a
 		-- lot of spell damage by a single Stamina point.
-		[2] = { role = "tank", main = { "STAMINA" }, stamTie = false, spell = true, spellW = 0.5 },
+		[2] = { role = "tank", main = { "STAMINA" }, stamTie = false, spell = true, spellW = 0.5, schools = { "HOLY" } },
 		-- Ret: Icy Veins Int > Str, SixtySim Str first, Blizzard silent → equal.
 		-- 25 Nov 2026: lead = weapon DPS and spell damage (Holy Strike, seals and Judgement grow with spell damage).
 		[3] = { role = "melee", main = { "STRENGTH", "INTELLECT" }, stamTie = true, equal = true, lead = "dpsspell",
-			spellW = 0.5 },
+			spellW = 0.5, schools = { "HOLY" } },
 	},
 	PRIEST = {
 		-- Healing: Icy Veins Spi > Int, others Int > Spi → equal.
@@ -90,30 +95,39 @@ local BY_TREE = {
 		-- Shadow = spell damage.
 		[1] = { role = "heal", main = { "INTELLECT", "SPIRIT" }, stamTie = true, equal = true, lead = "heal", spellW = 1 },
 		[2] = { role = "heal", main = { "INTELLECT", "SPIRIT" }, stamTie = true, equal = true, lead = "heal", spellW = 1 },
-		[3] = { role = "caster", main = { "INTELLECT", "SPIRIT" }, stamTie = true, lead = "spell", spellW = 1 },
+		[3] = { role = "caster", main = { "INTELLECT", "SPIRIT" }, stamTie = true, lead = "spell", spellW = 1,
+			schools = { "SHADOW" } },
 	},
 	SHAMAN = {
-		[1] = { role = "caster", main = { "INTELLECT", "SPIRIT" }, stamTie = true, lead = "spell", spellW = 1 },
+		[1] = { role = "caster", main = { "INTELLECT", "SPIRIT" }, stamTie = true, lead = "spell", spellW = 1,
+			schools = { "NATURE", "FIRE" } },
 		[2] = { role = "melee", main = { "STRENGTH", "INTELLECT" }, stamTie = false, lead = "dps" }, -- Blizzard: Strength
 		-- Resto, 25 Nov 2026 (Sparring's research: 6 guides): Intellect above Spirit; was `equal`.
 		[3] = { role = "heal", main = { "INTELLECT", "SPIRIT" }, stamTie = true, lead = "heal", spellW = 1 },
 	},
 	MAGE = {
 		-- Icy Veins Frost Spi > Int, Mobalytics Int > Spi → equal, every tree.
-		[1] = { role = "caster", main = { "INTELLECT", "SPIRIT" }, stamTie = true, equal = true, lead = "spell", spellW = 1 },
-		[2] = { role = "caster", main = { "INTELLECT", "SPIRIT" }, stamTie = true, equal = true, lead = "spell", spellW = 1 },
-		[3] = { role = "caster", main = { "INTELLECT", "SPIRIT" }, stamTie = true, equal = true, lead = "spell", spellW = 1 },
+		[1] = { role = "caster", main = { "INTELLECT", "SPIRIT" }, stamTie = true, equal = true, lead = "spell", spellW = 1,
+			schools = { "ARCANE" } },
+		[2] = { role = "caster", main = { "INTELLECT", "SPIRIT" }, stamTie = true, equal = true, lead = "spell", spellW = 1,
+			schools = { "FIRE" } },
+		[3] = { role = "caster", main = { "INTELLECT", "SPIRIT" }, stamTie = true, equal = true, lead = "spell", spellW = 1,
+			schools = { "FROST" } },
 	},
 	WARLOCK = {
 		-- Affliction: Life Tap gives more mana with more Spirit, not with spell damage (GEMETEN per Sparring's research and
 		-- second check, 25 Nov 2026). Spirit vs Intellect: the guides differ → equal (25 Nov). The Stamina in [2]/[3] and
 		-- the class row is NOT changed: open point for Rob (NEXT_SESSION).
-		[1] = { role = "caster", main = { "SPIRIT", "INTELLECT" }, stamTie = true, equal = true, lead = "spell", spellW = 1 },
-		[2] = { role = "caster", main = { "INTELLECT", "STAMINA" }, stamTie = false, equal = true, lead = "spell", spellW = 1 },
-		[3] = { role = "caster", main = { "INTELLECT", "STAMINA" }, stamTie = false, equal = true, lead = "spell", spellW = 1 },
+		[1] = { role = "caster", main = { "SPIRIT", "INTELLECT" }, stamTie = true, equal = true, lead = "spell", spellW = 1,
+			schools = { "SHADOW" } },
+		[2] = { role = "caster", main = { "INTELLECT", "STAMINA" }, stamTie = false, equal = true, lead = "spell", spellW = 1,
+			schools = { "SHADOW" } },
+		[3] = { role = "caster", main = { "INTELLECT", "STAMINA" }, stamTie = false, equal = true, lead = "spell", spellW = 1,
+			schools = { "SHADOW", "FIRE" } },
 	},
 	DRUID = {
-		[1] = { role = "caster", main = { "INTELLECT", "SPIRIT" }, stamTie = true, lead = "spell", spellW = 1 },
+		[1] = { role = "caster", main = { "INTELLECT", "SPIRIT" }, stamTie = true, lead = "spell", spellW = 1,
+			schools = { "NATURE", "ARCANE" } },
 		-- Cat: Icy Veins Agi, Mobalytics/ForeverDB Str ≥ Agi → equal.
 		[2] = { role = "melee", main = { "AGILITY", "STRENGTH" }, stamTie = true, equal = true, lead = "dps" },
 		[3] = { role = "heal", main = { "INTELLECT", "SPIRIT" }, stamTie = true, lead = "heal", spellW = 1 },
