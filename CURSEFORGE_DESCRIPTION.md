@@ -61,8 +61,11 @@ Retail to **Forever** and install it there as well. You get help made for levell
 - **A key block for every class**: the same task on the same key on every character. A new character gets your bar
   layout with one click. Choose the old block, or **12 x 4**: the same 12 keys 1-4, Q E R F, Z X C V on every bar
   (then with Shift, Ctrl and Alt), where E is always your interrupt and Ctrl holds your bandage, potions, healthstone
-  and trinket. *Why these keys?* explains every key. If you want, 5 becomes *Interact With Target* and Shift-Space
-  calls your fastest mount.
+  and trinket. *Why these keys?* explains every key, and the *Layout* button switches between the two. If you want, 5
+  becomes *Interact With Target* and Shift-Space calls your fastest mount. The buttons show what the key does right
+  now, also in Bear Form or Cat Form.
+- **For enchanters**: a line in the tooltip and a small icon in your bags (Blizzard's bags and Baganator) on every item
+  you can disenchant. Hold **Ctrl+Shift** and click it to disenchant it, without looking for the spell first.
 - **Group check**: at a ready check a window shows who misses a class buff (and who can give it), plus your own
   elixir, food, weapon buff, potions and healthstone. Click a buff you can give to cast it.
 - **Which quest reward to take**: MH marks the reward that is best for your class, or the one that sells for the most.
@@ -72,8 +75,9 @@ Retail to **Forever** and install it there as well. You get help made for levell
   keeping your bags open.
 - **Train all** under the trainer window, a **cross above your trainer** when the arrow brings you there, and spells
   that come from a class quest marked as such. A button that still casts an old rank gets a calm orange edge.
-- **Missing buffs, in words**: *Blessing of Might is not on you. Click the icon to cast it.* One click casts it in your
-  highest rank, and small icons show the other buffs you miss.
+- **Missing buffs, in words**: *Blessing of Might is not on you. Click the icon to cast it.* One click casts it on you
+  in your highest rank, whatever you target, and small icons show the other buffs you miss. It also warns when a buff
+  runs out soon, but not while a stronger one from another player is still on you.
 - **A small group panel** (off until you turn it on): click a player to target them, right-click to cast your dispel
   on them.
 - **Warnings you would otherwise notice too late**: only 2 free bag slots left (with your grey items to sell), low mana
@@ -99,7 +103,9 @@ who just hit 90 or are coming back after a break:
   room, with Labyrinth splits. The **Delve Log** keeps your records per Tier and tells you after every delve how you did.
 - **Corrosive Codex**: which gifts to pick for bosses, packs or staying alive, lit up right in Blizzard's window.
 - **Your keys**: your key block (the same job on the same key on every character, with one Undo), which spells you
-  really press, and your whole keyboard, in one window.
+  really press, and your whole keyboard, in one window. Choose the old block or **12 x 4**: the same 12 keys 1-4,
+  Q E R F, Z X C V on every bar, the same job on the same key for every spec (healers have their big heal on C), and
+  Ctrl for your combat potion, health potion, healthstone and trinkets. The *Layout* button switches between the two.
 - **Professions, raid shopping lists and the Role Academy** for learning to tank or heal.
 - **What fits in 20 minutes?** (`/mh time`): the delves and rituals that fit the time you have, from your own runs.
 - **You picked up an upgrade**: when gear that clearly beats what you wear lands in your bags, a short message on your

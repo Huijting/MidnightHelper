@@ -12,7 +12,10 @@ trainervenster met toetsen + vorm.
 ~08:55 UTC): v5.9.1 (id 9807222, 12.0.7-12.1.7) en v5.9.1-forever (id 9807230, 1.60.1), allebei Release, status 4; de
 GitHub-release heeft beide zips. Wago: "Success!" in het run-log, niet apart nagemeten. SITE_SEIN op "staat op CurseForge".
 🔴 Nog open voor Rob: kijken of de changelog op CurseForge netjes rendert (Files → het bestand → Changelog).
-`CURSEFORGE_DESCRIPTION.md` NIET bijgewerkt in deze release (Midnight 12 × 4 en Disenchant-klik staan er nog niet in).
+✅ `CURSEFORGE_DESCRIPTION.md` daarna bijgewerkt (Rob via Sparring: *"ja doe maar"*): Midnight 12 × 4 bij "Your keys",
+Forever Layout-knop + iconen volgen de vorm, nieuwe regel "For enchanters" (tooltip, tas-icoon, Ctrl+Shift+klik), buffs
+op jezelf + geen "runs out soon" onder een sterkere buff. 5.9.0-punten nagelopen: stonden er al. 🔴 Rob plakt hem op de
+CF-projectpagina (de packager doet dat niet). Sparring laat daarna twee helpers beschrijving + site + screenshots nalopen.
 
 ## ▶▶ 25 nov (Bouwchat 25-11): Forever-buffs — geen "runs out soon" bij een HOGERE rank van een ander — GEREPAREERD, wacht op test
 
