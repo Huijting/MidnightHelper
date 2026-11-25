@@ -221,6 +221,106 @@ function ns.ForeverWeaponsLearnableCount()
 	return #ns.ForeverWeaponsLearnable()
 end
 
+--[[ "Which weapon?" for the Druid (25 Nov 2026). Rob via Sparring: "Ik ben met Druid aan het spelen. Ik wil eigenlijk
+	alles kunnen doen met hem … Maar ik ben nog steeds niet helemaal duidelijk uit wat voor wapen ik moet gebruiken. …
+	begin maar met de Druid" → on the plan (second check, then a short weapon text + better stats text): "Ja".
+	Facts (mh-research + an independent second check, 25 Nov; Blizzard's Forever Class Deep Dive Hunter & Druid, 30 Sep
+	2026, and DB2 1.60.1.71091):
+	  - in Bear/Cat/Dire Bear Form your auto attack does the damage per second of your weapon; the form sets the speed
+	    (SpellShapeshiftForm: Cat 1.0 s, Bear 2.5 s). Weapon enchants and procs work in a form too. (GEMETEN)
+	  - two-hand DPS is about 1.3x one-hand at the same item level and quality; caster tables are the same as the normal
+	    ones (ItemDamageTwoHand/OneHand), so a caster staff hits as hard in a form as another staff. (GEMETEN)
+	  - Druid: 2 attack power per Strength, 0 per Agility; Agility gives attack power only in Cat Form (ChrClasses,
+	    GlobalStrings DRUID_AGILITY_TOOLTIP). Bear Form +180% armor from items. (GEMETEN)
+	  - Bear Form 10, Cat Form 20. Form spells 5487 / 768 / 9634 (SpellName, GEMETEN 25 Nov).
+	What you can already use and where to learn a two-hander comes from the client (IsPlayerSpell on the weapon skill)
+	and the trainer table above, so it follows your race by itself (Tauren start with staves and one-handed maces, Night
+	Elves with daggers and staves). Game words are the client's own (spell names, item subclasses, stat globals). ]]
+local BEAR, CAT = 5487, 768
+local TWOHAND_KEYS = { "staff", "mace2", "polearm" }
+
+local function G(name, fallback)
+	local v = _G[name]
+	return (type(v) == "string" and v ~= "") and v or fallback
+end
+
+local function SubName(sub, fallback)
+	local fn = (C_Item and C_Item.GetItemSubClassInfo) or GetItemSubClassInfo
+	if fn then
+		local ok, n = pcall(fn, sub[1], sub[2])
+		if ok and type(n) == "string" and n ~= "" then
+			return n
+		end
+	end
+	return fallback
+end
+
+--- title, body (raw: "- " lines, **bold**) for this character, or nil when there is no text for this class.
+function ns.ForeverWeaponAdvice()
+	local _, token = UnitClass("player")
+	if token ~= "DRUID" then
+		return nil
+	end
+	local lvl = (UnitLevel and UnitLevel("player")) or 1
+	local dps = G("ITEM_MOD_DAMAGE_PER_SECOND_SHORT", "damage per second")
+	local ap = G("STAT_ATTACK_POWER", "Attack Power")
+	local str, agi = G("SPELL_STAT1_NAME", "Strength"), G("SPELL_STAT2_NAME", "Agility")
+	local int, spi = G("SPELL_STAT4_NAME", "Intellect"), G("SPELL_STAT5_NAME", "Spirit")
+	local bear, cat = SpellName(BEAR), SpellName(CAT)
+	local lines = {}
+	local function Add(s)
+		lines[#lines + 1] = "- " .. s
+	end
+	if lvl < 10 then
+		Add(ns:L("FWADV_PRE_FMT"):format("**" .. bear .. "**", "**" .. dps .. "**"))
+	else
+		local forms = lvl >= 20 and ns:L("FWADV_AND_FMT"):format(bear, cat) or bear
+		Add(ns:L("FWADV_FORM_FMT"):format("**" .. forms .. "**", "**" .. dps .. "**", ap, dps))
+	end
+	local kinds = { SubName({ 2, 10 }, "Staves"), SubName({ 2, 5 }, "Two-Handed Maces"),
+		ns:L("FWADV_FROMLVL_FMT"):format(SubName({ 2, 6 }, "Polearms"), 20) }
+	Add(ns:L("FWADV_TWOHAND_FMT"):format("**" .. dps .. "**", table.concat(kinds, ", ")))
+	if lvl >= 20 then
+		Add(ns:L("FWADV_STATS_FMT"):format(str, ap, agi, cat, ap, dps))
+	else
+		Add(ns:L("FWADV_STATS_LOW_FMT"):format(str, ap, agi, dps))
+	end
+	Add(ns:L("FWADV_BEAR_FMT"):format("**" .. bear .. "**", SubName({ 4, 2 }, "Leather"), G("ARMOR", "Armor")))
+	Add(ns:L("FWADV_CAST_FMT"):format(int, spi))
+	Add(ns:L("FWADV_STAFF_FMT"):format(str, agi))
+	Add(ns:L("FWADV_ALL_FMT"):format(dps))
+	-- what you can use now, and where to learn the two-handers you do not know yet (your side's trainers)
+	local known, learn, side = {}, {}, Side()
+	for _, e in ipairs(MyWeapons()) do
+		if e.known then
+			known[#known + 1] = e.name
+		else
+			for _, k in ipairs(TWOHAND_KEYS) do
+				if e.w.key == k then
+					local who = {}
+					for _, t in ipairs(TRAINERS) do
+						if t.side == side and Teaches(t, e.w.spell) then
+							who[#who + 1] = ("%s, %s"):format(t.name, ZoneName(t.map))
+						end
+					end
+					local s = #who > 0 and ("%s (%s)"):format(e.name, table.concat(who, "; ")) or e.name
+					if e.w.level and lvl < e.w.level then
+						s = ns:L("FWADV_FROMLVL_FMT"):format(s, e.w.level)
+					end
+					learn[#learn + 1] = s
+				end
+			end
+		end
+	end
+	if #known > 0 then
+		Add(ns:L("FWADV_KNOWN_FMT"):format(table.concat(known, ", ")))
+	end
+	if #learn > 0 then
+		Add(ns:L("FWADV_LEARN_FMT"):format(table.concat(learn, ", ")))
+	end
+	return ns:L("FWADV_TITLE"), table.concat(lines, "\n")
+end
+
 --- The way to a trainer's city when you are not there yet, or nil. sameCont: you are on the city's continent.
 local function Route(t, pcont)
 	local here = PlayerMap()

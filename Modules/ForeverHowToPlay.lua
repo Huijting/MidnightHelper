@@ -1374,6 +1374,18 @@ local function TextFor(token)
 end
 ns.ForeverHowToPlayText = TextFor
 
+--- 25 Nov 2026: "Which weapon?" title + raw body, or nil (only the Druid so far; ns.ForeverWeaponAdvice).
+local function WeaponAdvice()
+	if not ns.ForeverWeaponAdvice then
+		return nil
+	end
+	local ok, t, b = pcall(ns.ForeverWeaponAdvice)
+	if ok and t then
+		return t, b
+	end
+	return nil
+end
+
 --- 21 Nov 2026: the "level as X, tank as Y" block for this class in this client's language, or nil (classes that cannot
 --- tank). Returns title, body (raw).
 local function PlanFor(token)
@@ -1458,6 +1470,11 @@ function ns.ForeverHowToSections(token, allRoles)
 	local planTitle, planBody = PlanFor(token)
 	if planTitle then
 		out[#out + 1] = { title = planTitle, body = LiveKeys(token, planBody), kind = "role" }
+	end
+	-- 25 Nov 2026: "Which weapon?" (Druid; ForeverWeapons.lua), in every language through the locale keys.
+	local wt, wb = WeaponAdvice()
+	if wt then
+		out[#out + 1] = { title = wt, body = wb, kind = "role" }
 	end
 	local tr = Translated()
 	local list = (tr and tr.ROLES and tr.ROLES[token]) or ROLES[token] or {}
@@ -1545,6 +1562,10 @@ local function Body(token)
 	end
 	local planTitle, planBody = PlanFor(token)
 	local plan = planTitle and (HEAD .. planTitle .. "|r\n" .. Format(LiveKeys(token, planBody))) or nil
+	local wt, wb = WeaponAdvice()
+	if wt then
+		plan = (plan and (plan .. "\n\n") or "") .. HEAD .. wt .. "|r\n" .. Format(wb)
+	end
 	return (block and (block .. "\n\n") or "") .. (plan and (plan .. "\n\n") or "") .. (roles and (roles .. "\n\n") or "")
 		.. (cq and (cq .. "\n\n") or "") .. TextFor(token)
 end

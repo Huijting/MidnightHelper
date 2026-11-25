@@ -62,6 +62,18 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
   Forever: knop "Bank: no/yes" per rij in Characters; beide games: `/mh alttip bank <naam>`. Gemarkeerd = niet in "who
   can wear this", wel in recept/materiaal. Alleen wat de speler aanzet, nooit op naam geraden.
 
+### Forever: welk wapen? Eerst de Druid, daarna de andere classes één voor één (wens van Rob, 25 nov) — ✅ JA, Druid GEBOUWD 25 nov, wacht op test
+- Bron: Rob via Sparring, letterlijk: *"Ik ben met Druid aan het spelen. Ik wil eigenlijk alles kunnen doen met hem …
+  Maar ik ben nog steeds niet helemaal duidelijk uit wat voor wapen ik moet gebruiken. … Zoek het eens eventjes goed uit
+  en begin maar met de Druid inderdaad."*; op het voorstel (tweede check, dan wapenadvies + stats-tekst, daarna de andere
+  classes): *"Ja"*.
+- Gebouwd: blok "Which weapon? (Druid)" in How you play (level- en ras-afhankelijk, leraren van jouw kant), wapenregel in
+  het richting-blok, stats-zin in Do this now met "weapon damage per second" / spell damage/healing vooraan.
+- Niet gebouwd: een Do this now-hint "je draagt 1H, er is een 2H met meer DPS" (vraagt tas-DPS-vergelijking die MH niet
+  zeker meet). Fable-ronde vóór de volgende release (spelerstekst).
+- Volgende: de andere classes, één voor één.
+- Spel: F. Voor wie: N (AFGELEID).
+
 ### Forever: de enchant op wat je draagt telt mee in "beter dan wat je draagt" (Robs screenshot, 25 nov) — ✅ JA, GEREPAREERD 25 nov, wacht op test
 - Bron: Rob via Sparring, letterlijk: *"Ja, op 1 en 2."* (1 = enchant meetellen, 2 = geen alt-regel bij grijs).
 - Gerepareerd: de enchant (en armor kit) van wat je draagt telt mee; gaat er een verloren, dan zegt de regel dat erbij;

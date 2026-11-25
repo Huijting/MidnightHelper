@@ -1,5 +1,25 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 25 nov (Bouwchat 25-11): Forever "Which weapon?" voor de Druid + stats-zin — GEBOUWD, wacht op test (`/reload`)
+
+Rob via Sparring: *"… begin maar met de Druid inderdaad"* → *"Ja"*. Feiten van Sparring (mh-research + tweede check, 25 nov;
+Blizzard Forever Class Deep Dive Hunter & Druid 30 sep 2026 + DB2 1.60.1.71091), staan in de kop van het nieuwe stuk in
+`ForeverWeapons.lua`. Zelf GEMETEN vandaag: SpellName 5487 Bear Form / 768 Cat Form / 9634 Dire Bear Form; GlobalStrings
+STAT_ATTACK_POWER "Attack Power", ITEM_MOD_DAMAGE_PER_SECOND_SHORT "damage per second", ARMOR, STAT_DODGE.
+- `ns.ForeverWeaponAdvice()` (ForeverWeapons.lua): titel + regels, alleen DRUID. <10 "from level 10 (Bear Form)", 10-19
+  alleen Bear (geen Cat-tekst), 20+ Bear + Cat. Wat je al kunt (IsPlayerSpell op de wapenskill) en welke tweehanders je
+  nog kunt leren bij de leraren van JOUW kant (TRAINERS-tabel) → volgt het ras vanzelf. Spelwoorden uit de client
+  (spellnaam, item-subklasse, stat-globals) via %s; zinnen in 8 talen (FWADV_*).
+- How you play: blok na "Level and tank" (venster Body() én overzicht-pagina ForeverHowToSections), via de locale-keys,
+  NIET in de vertaalde lestabellen (die hebben vaste volgorde per taal).
+- ForeverDirection GUIDE.DRUID: wapenregel per richting (FDIRB_W_DRUIDFORM / _DRUIDCAST), `game = true` → "Weapon: …" en
+  bronregel FDIRB_SOURCE_GAME. GEEN `fit`: in een form telt het type niet, alleen DPS → tooltip zegt niets over "fits".
+- Stats (ForeverMainStats `lead`/`armor`, ForeverDoNow StatSentence): Feral/standaard "weapon damage per second first,
+  then …"; Bear-tank "… then Stamina, then Armor, then Agility"; Balance "bonus damage and healing for spells first";
+  Resto "bonus healing for spells first". De tooltip-rekensom (`main`) is NIET veranderd.
+- Niet gebouwd: Do this now-hint 1H→2H (niet zeker te meten). Fable-ronde vóór de volgende release.
+Offline: wadv_test 20/20; locale-probe OK in 8 talen.
+
 ✅ 25 nov: Forever-post naar de andere factie kan NIET — GEMETEN door Rob (Horde → Ima Bankgirl): *"target is unfriendly
 :)"* = ERR_PLAYER_WRONG_FACTION "Target is unfriendly." (GlobalStrings Forever 71091). FALT_OTHERFAC_FMT zegt nu "other
 faction, can't mail" in 8 talen (was "probably not possible"); Reach()-reden en commentaar in AltProfTip.lua bijgewerkt;

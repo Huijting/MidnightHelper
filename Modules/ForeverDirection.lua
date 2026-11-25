@@ -182,7 +182,13 @@ local GUIDE = {
 		{ w = "FDIRB_W_SLOWTWOHAND", fit = { mace2 = true, axe2 = true } },
 		{},
 	},
-	DRUID = { {}, {}, {} }, PRIEST = { {}, {}, {} }, MAGE = { {}, {}, {} }, WARLOCK = { {}, {}, {} },
+	-- 25 Nov 2026 (Rob via Sparring: "begin maar met de Druid" → "Ja"): NOT from player guides but from Blizzard's Forever
+	-- class article (30 Sep 2026) and DB2 (ForeverWeapons.lua "Which weapon?" has the facts). `game` = say so in the
+	-- source line. No `fit`: in a form the weapon type does not matter, only its damage per second, so the tooltip stays
+	-- silent on "fits your direction" (a one-handed mace is not wrong, only weaker).
+	DRUID = { { w = "FDIRB_W_DRUIDCAST", game = true }, { w = "FDIRB_W_DRUIDFORM", game = true },
+		{ w = "FDIRB_W_DRUIDCAST", game = true } },
+	PRIEST = { {}, {}, {} }, MAGE = { {}, {}, {} }, WARLOCK = { {}, {}, {} },
 }
 
 local function NeedName(kind)
@@ -213,7 +219,7 @@ function ns.ForeverDirectionBlock()
 		elseif g.wMainHand then
 			w = w:format(_G.INVTYPE_WEAPONMAINHAND or "Main Hand")
 		end
-		lines[#lines + 1] = "- " .. ns:L("FDIRB_WEAPON_FMT"):format(w)
+		lines[#lines + 1] = "- " .. ns:L(g.game and "FDIRB_WEAPON_GAME_FMT" or "FDIRB_WEAPON_FMT"):format(w)
 	else
 		lines[#lines + 1] = "- " .. ns:L("FDIRB_W_NONE")
 	end
@@ -225,7 +231,7 @@ function ns.ForeverDirectionBlock()
 		lines[#lines + 1] = "- " .. s .. "."
 	end
 	lines[#lines + 1] = "- " .. ns:L("FDIRB_FREE")
-	lines[#lines + 1] = GREY .. ns:L("FDIRB_SOURCE") .. "|r"
+	lines[#lines + 1] = GREY .. ns:L(g.game and "FDIRB_SOURCE_GAME" or "FDIRB_SOURCE") .. "|r"
 	return table.concat(lines, "\n")
 end
 

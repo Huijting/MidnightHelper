@@ -267,11 +267,27 @@ local function StatSentence(def, fmtKey)
 		return nil
 	end
 	local order
-	if main[2] then
+	if main[2] and def.armor then
+		-- Bear (25 Nov 2026): "Stamina, then Armor, then Agility"
+		local armor = (type(_G.ARMOR) == "string" and _G.ARMOR ~= "") and _G.ARMOR or "Armor"
+		order = ns:L("FDONOW_STATS_THEN_FMT"):format(StatName(main[1]),
+			ns:L("FDONOW_STATS_THEN_FMT"):format(armor, StatName(main[2])))
+	elseif main[2] then
 		order = (def.equal and ns:L("FDONOW_STATS_EQUAL_FMT") or ns:L("FDONOW_STATS_THEN_FMT")):format(StatName(main[1]),
 			StatName(main[2]))
 	else
 		order = StatName(main[1])
+	end
+	-- 25 Nov 2026 (Druid, ForeverMainStats.lua `lead`): what counts before the stats.
+	if def.lead then
+		local lead
+		if def.lead == "dps" then
+			local d = _G.ITEM_MOD_DAMAGE_PER_SECOND_SHORT
+			lead = ns:L("FDONOW_STAT_DPS_FMT"):format((type(d) == "string" and d ~= "") and d or "damage per second")
+		else
+			lead = ns:L(def.lead == "heal" and "FDONOW_STAT_HEAL" or "FDONOW_STAT_SPELL")
+		end
+		order = ns:L("FDONOW_STATS_LEAD_FMT"):format(lead, order)
 	end
 	local s = ns:L(fmtKey):format(order)
 	if def.stamTie then

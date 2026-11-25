@@ -28,6 +28,18 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 25 nov 2026 — Forever: "Which weapon?" voor de Druid
+- Tag + commit:   geen tag (commit: deze regel)
+- Status:         alleen op main
+- Mag op de site: nee (niet uit, niet getest; Fable-ronde vóór release)
+- Speler ziet:    In How you play een blok "Which weapon? (Druid)": in Bear en Cat Form telt de damage per second van je
+                  wapen; een tweehander wint bijna altijd; wat Strength en Agility doen; casten en healen; welke
+                  tweehanders je al kunt en waar je de rest leert (leraar van jouw kant). De stats-zin in Do this now
+                  noemt eerst weapon damage per second (Feral/Bear) of spell damage/healing (Balance/Restoration).
+- Knoplabels:     FWADV_TITLE
+- Commando's:     /mh play, /mh weapons
+- Spel:           Forever
+
 ## 25 nov 2026 — Forever: Gear check: enchants naast je character-venster
 - Tag + commit:   geen tag (commit: deze regel)
 - Status:         alleen op main

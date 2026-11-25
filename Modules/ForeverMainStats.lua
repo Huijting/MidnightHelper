@@ -36,8 +36,13 @@ ns.FOREVER_MAIN_STATS = {
 	SHAMAN = { main = { "STRENGTH", "INTELLECT" }, stamTie = false },
 	MAGE = { main = { "INTELLECT", "SPIRIT" }, stamTie = true },
 	WARLOCK = { main = { "INTELLECT", "STAMINA" }, stamTie = true },
-	DRUID = { main = { "AGILITY", "STRENGTH" }, stamTie = true },
+	DRUID = { main = { "AGILITY", "STRENGTH" }, stamTie = true, lead = "dps" },
 }
+-- `lead` (25 Nov 2026, Rob via Sparring: "begin maar met de Druid" → "Ja"): what comes BEFORE the stats in the "Do this
+-- now" sentence, for text only (the tooltip math reads `main`). dps = weapon damage per second (in a form your attacks
+-- do your weapon's DPS: Blizzard, Forever Class Deep Dive Druid 30 Sep 2026); spell / heal = the spell damage and
+-- healing line on items. `armor` = name Armor between the two stats (Bear Form: +180% armor from items, GEMETEN).
+-- See ForeverWeapons.lua "Which weapon?" for the sources.
 
 --[[ 16 Nov 2026 — stats per ROLE (Rob via sparring: "b , maar hou ook dps en heling in je achterhoofd" → on the four
 	choices "alle 4 ja"). Research: docs/forever/STATS_PER_ROL_2026-11-16.md (mh-research, sources per row).
@@ -82,10 +87,10 @@ local BY_TREE = {
 		[3] = { role = "caster", main = { "INTELLECT", "STAMINA" }, stamTie = false, equal = true },
 	},
 	DRUID = {
-		[1] = { role = "caster", main = { "INTELLECT", "SPIRIT" }, stamTie = true },
+		[1] = { role = "caster", main = { "INTELLECT", "SPIRIT" }, stamTie = true, lead = "spell" },
 		-- Cat: Icy Veins Agi, Mobalytics/ForeverDB Str ≥ Agi → equal.
-		[2] = { role = "melee", main = { "AGILITY", "STRENGTH" }, stamTie = true, equal = true },
-		[3] = { role = "heal", main = { "INTELLECT", "SPIRIT" }, stamTie = true },
+		[2] = { role = "melee", main = { "AGILITY", "STRENGTH" }, stamTie = true, equal = true, lead = "dps" },
+		[3] = { role = "heal", main = { "INTELLECT", "SPIRIT" }, stamTie = true, lead = "heal" },
 	},
 }
 
@@ -99,7 +104,8 @@ local TANK = {
 	-- (8 Nov, per sparring's mh-research report; 403 for our fetch): from 20 Spell Power, Stamina, Intellect, Strength.
 	-- Icy Veins: 403, not read. So: Stamina, then Intellect (MH has no Spell Power / Defense stat in this table).
 	PALADIN = { main = { "STAMINA", "INTELLECT" } },
-	DRUID = { main = { "STAMINA", "AGILITY" } },
+	-- Bear (25 Nov 2026): weapon damage per second first, then Stamina, Armor, Agility (text: lead + armor).
+	DRUID = { main = { "STAMINA", "AGILITY" }, lead = "dps", armor = true },
 }
 
 --- The stat def for this class and this character's direction: def, role, source ("direction N" or "class default").

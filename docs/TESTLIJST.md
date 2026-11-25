@@ -25,6 +25,24 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 25 nov — FOREVER: "Which weapon?" voor de Druid + betere stats-zin (Rob: "Zoek het eens eventjes goed uit en begin maar met de Druid")
+
+Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (20 controles), NIET in het spel.
+- [ ] Druid (level 11): overzicht → **How you play** (of `/mh play`). Onder "Level and tank as a Druid" staat een blok
+      **Which weapon? (Druid)**. Bij level 11: "In Bear Form your attacks do the damage per second of your weapon …",
+      nog niets over Cat Form. Onderaan wat je al kunt gebruiken en welke tweehanders je nog kunt leren, met de leraar
+      van jouw kant (Ima Druiddude is Horde, GEMETEN in je SV: Two-Handed Maces bij Ansekhwa in Thunder Bluff, Polearms
+      vanaf level 20 bij Archibald in Undercity — tenzij je ze al kent). Op een Alliance-Druid (Joey Whatever): Buliwyf
+      Stonehand (Ironforge) en Woo Ping (Stormwind).
+- [ ] Gekozen richting Feral: het blok bovenaan zegt "Weapon: the one with the most damage per second …" en de bronregel
+      noemt de gegevens van het spel en Blizzards artikel (niet "player guides"). Balance/Restoration: "the type does not
+      matter, only the stats on it".
+- [ ] **Do this now** → "Best stats for you now": bij Feral "weapon damage per second first, then Agility and Strength
+      count the same …"; "When you tank: weapon damage per second first, then Stamina, then Armor, then Agility."
+      Balance: "bonus damage and healing for spells first, then Intellect, then Spirit". Restoration: "bonus healing for
+      spells first, …".
+- [ ] Een ander class (bv. je Paladin): geen blok "Which weapon?".
+
 ## 25 nov — BEIDE GAMES: bank-characters uit "who can wear this" (Rob: "Wat betreft de bankkarakters ga ik mee met je advies. A.")
 
 Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (55 controles; de knop zelf NIET offline).
