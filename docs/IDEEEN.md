@@ -76,6 +76,13 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
   VERWERKT 25 nov (inhoud, vertalingen, code); daarna Hunter, Rogue, de casters. Fable-controle als alle 9 klaar zijn.
 - Spel: F. Voor wie: N (AFGELEID).
 
+### Forever: spell damage telt mee in "beter dan wat je draagt" (25 nov) — ✅ JA, GEBOUWD 25 nov, wacht op test
+- Bron: Sparring's voorstel aan Rob: "zie ik daar spell damage staan, dan laat ik het meetellen in de vergelijking"; Rob
+  deed de meting (`/dump C_Item.GetItemStats("item:9513")` → SPELL_POWER 2) = zijn ja.
+- Gebouwd: ITEM_MOD_SPELL_POWER_SHORT telt mee met `spellW` (casters/healers 1, Ret/Prot 0,5); een verloren of gewonnen
+  spell damage staat in de regel; healing-only en school-regels = nog onbekend → MH zwijgt. Volgende: Robs 4 dumps.
+- Spel: F. Voor wie: N + V (AFGELEID).
+
 ### Forever: de enchant op wat je draagt telt mee in "beter dan wat je draagt" (Robs screenshot, 25 nov) — ✅ JA, GEREPAREERD 25 nov, wacht op test
 - Bron: Rob via Sparring, letterlijk: *"Ja, op 1 en 2."* (1 = enchant meetellen, 2 = geen alt-regel bij grijs).
 - Gerepareerd: de enchant (en armor kit) van wat je draagt telt mee; gaat er een verloren, dan zegt de regel dat erbij;

@@ -24,6 +24,8 @@ spelersgidsen; 🟠 **BETWIST** / **NIET GEMETEN** = de wachter let hier extra o
 | Ras geeft geen wapenbonus meer | FWADV_WAR_7 | SpellName 20597 "Ruthless" (Human), 20574 "Savage" (Orc) | GEMETEN |
 | Leraren per kant en wat ze leren | TRAINERS (ForeverWeapons.lua) | Wowhead-pins + Zygor (plek), Warcraft Tavern + gossip (wat) | GIDS (wat ze leren); Sayoc + Staves BETWIST |
 | Twee-hand-DPS ≈ 1,3× één-hand bij gelijk ilvl | FWADV_TWOHAND_FMT | DB2 ItemDamageTwoHand/OneHand | GEMETEN |
+| C_Item.GetItemStats geeft spell power (ITEM_MOD_SPELL_POWER_SHORT); de kale GetItemStats is nil | ForeverQuestHint.lua Stats() → `SPELL`, gewicht `spellW` in ForeverMainStats.lua | GEMETEN door Rob 25 nov: `/dump C_Item.GetItemStats("item:9513")` (Ley Staff) = Intellect 1, Spirit 1, SPELL_POWER 2, DPS 5.34. DB2 ItemSparse heeft voor 9513 GEEN spell power-rij (de client maakt hem) | GEMETEN |
+| 🟠 Welke key een healing-only regel en een school-regel ("Fire spells") geven | Stats(): onbekende SPELL/HEAL-keys → `spellUnknown` → geen oordeel | nog NIET gemeten; dump nodig van 7049 Truefaith Gloves (stattype 41+42), 19395 Rejuvenating Gem (41), 2231 Inferno Robe (85), 2311 White Leather Jerkin (45 op leer) | NIET GEMETEN |
 | 🟠 Caster-wapens ~74% DPS (staven), ~66% (daggers) | FWADV_STAFF_FMT, FWADV_CAST_1 | ItemSparse Flags_4 0x100 + 120 staven/31 daggers op Wowhead; hotfix 17 nov (Kaivax, thread 2403040) "74 Spell Power from Weapon damage" | BRON + steekproef; DB2-tabel ItemDamage*Caster zegt iets anders → let op |
 
 ## Druid

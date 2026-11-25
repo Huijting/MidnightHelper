@@ -25,6 +25,19 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 25 nov — FOREVER: spell damage telt mee in "beter dan wat je draagt" (Robs /dump: GetItemStats geeft spell power)
+
+Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (20 controles), NIET in het spel.
+- [ ] Caster of healer (Mage, Priest, Warlock, of een Paladin/Druid/Shaman met een caster- of healrichting): ga op een item
+      met "Equip: Increases damage and healing done by magical spells" staan. Meer spell damage dan wat je draagt = de
+      groene regel noemt "+N spell damage". Minder = "-N spell damage" in de regel als het item toch beter is, of geen regel.
+- [ ] Prot Paladin: een item met 1 Stamina meer maar veel minder spell damage heet NIET meer "better".
+- [ ] `/mh questhint check` toont "spell damage weight" en per beloning "spell=…". `/mh geartip`: bij "not better" staat
+      "spell damage +N x W".
+- [ ] Een item met een healing-only of een Fire-regel: voor een caster/healer zegt MH NIETS (die regel kan MH nog niet
+      wegen). `/mh geartip` noemt de key. 🔵 Graag een `/dump C_Item.GetItemStats("item:7049")` (Truefaith Gloves),
+      `"item:19395"` (Rejuvenating Gem), `"item:2231"` (Inferno Robe) en `"item:2311"` (White Leather Jerkin).
+
 ## 25 nov — FOREVER: "Which weapon?" na de Fable-controle (alle 9)
 
 Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (104 controles), NIET in het spel.

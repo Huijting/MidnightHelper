@@ -1,5 +1,21 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 25 nov (Bouwchat 25-11): spell damage telt mee in de gear-vergelijking — GEBOUWD, wacht op test (`/reload`)
+
+GEMETEN door Rob: `/dump C_Item.GetItemStats("item:9513")` (Ley Staff) = INTELLECT 1, SPELL_POWER 2, DPS 5.34, SPIRIT 1;
+de kale GetItemStats is nil in Forever. GEMETEN in DB2: 9513 heeft in ItemSparse alleen Spirit/Intellect (de client maakt de
+spell power: caster-wapen). Stattypes in ItemSparse: 45 spell power (1078 items, ook op leer: 2311), 41 healing, 42 spell
+damage, 85/87/88… school.
+- ForeverQuestHint.lua: Stats() → `out.SPELL`; andere SPELL/HEAL-keys → `out.spellUnknown` (lijst); Score telt
+  `SPELL × curSpellW` (MainFor zet curSpellW uit def.spellW); IsBetter = false als een van beide items `spellUnknown` heeft
+  (liever zwijgen); Explain noemt "+/-N spell damage"; `/mh questhint check` en `/mh geartip` tonen de som. Sum() geeft
+  spellUnknown door.
+- ForeverMainStats.lua `spellW`: 1 voor Mage/Priest/Warlock (klasse + bomen), Holy Paladin, Resto/Elemental Shaman,
+  Balance/Resto Druid; 0,5 voor Paladin-klasse-rij, Ret, Prot. AFGELEID (voorzichtig).
+- 🔵 Nog te meten (Rob, /dump): 7049 Truefaith Gloves (41+42), 19395 Rejuvenating Gem (41), 2231 Inferno Robe (85), 2311
+  White Leather Jerkin (45 op leer). Tot dan: healing-only/school = geen oordeel.
+gearench_test 20/20.
+
 ✅ 25 nov: restjes clientnaam (Sparring: valt onder "clientnaam wint altijd"). GEMETEN: frFR ItemSubClass 2.3 DisplayName
 "Arme à feu" (VerboseName "Fusils") → fr WAR_8, ROG_7, HUN_1, PAL_5 "arme(s) à feu" (FDIRB_W_RANGED had het al; PLAYCARD_255
 "coups de fusil" = schoten, retail, gelaten); ptBR item 2862 "Pedra de Afiar Rústica" → FPROFG_DOES_BLACKSMITHING "pedras de

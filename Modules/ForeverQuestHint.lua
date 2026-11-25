@@ -187,6 +187,23 @@ local function Stats(link, equipLoc)
 	end
 	out.ARMOR = Armor(link, t)
 	out.DPS = WEAPON_LOC[equipLoc] and Dps(link, t) or nil
+	-- 25 Nov 2026 (Rob via Sparring, after his own /dump: Ley Staff 9513 gave ITEM_MOD_SPELL_POWER_SHORT = 2 next to
+	-- Intellect 1, Spirit 1 and DPS 5.34 — GEMETEN by Rob in Forever; the plain GetItemStats is nil there). SPELL = spell
+	-- damage ("damage and healing done by magical spells"). Other spell-ish keys (a healing-only or one-school line) are
+	-- NOT known yet (no /dump of such an item): MH notes them as `spellUnknown` and then gives no verdict for a role that
+	-- weighs spell damage (IsBetter), rather than a wrong "better". DB2 note: Ley Staff has no spell power row in
+	-- ItemSparse (only Spirit and Intellect): the client makes it (the caster-weapon conversion, ~74% DPS).
+	local sp = t.ITEM_MOD_SPELL_POWER_SHORT
+	if type(sp) == "number" and not (issecretvalue and issecretvalue(sp)) then
+		out.SPELL = sp
+	end
+	for key, v in pairs(t) do
+		if type(key) == "string" and key ~= "ITEM_MOD_SPELL_POWER_SHORT" and type(v) == "number"
+			and (key:find("SPELL", 1, true) or key:find("HEAL", 1, true)) then
+			out.spellUnknown = out.spellUnknown or {}
+			out.spellUnknown[#out.spellUnknown + 1] = key
+		end
+	end
 	-- 🔴 25 Nov 2026 (Rob via Sparring: "Ja, op 1 en 2"). The ENCHANT counts too. Rob's Druid wore Nomadic Gloves (21
 	-- armor) with a Light Armor Kit (enchant 15 = Armor +8, Stamina +1); grey Worn Leather Gloves (22 armor) in his bag
 	-- were called "+1 Armor over what you wear" - swapping loses the kit: really -7 Armor, -1 Stamina. GEMETEN on that
@@ -207,8 +224,15 @@ end
 
 local WEIGHT = { 1, 0.5 } -- first main stat counts fully, the second half (ForeverMainStats.lua header; AFGELEID)
 
+-- How much 1 point of spell damage counts in the score, for the def in use (ForeverMainStats.lua `spellW`; 0 = not at
+-- all). Set by MainFor, which every verdict calls first. AFGELEID weights: 1 = like your first main stat (casters and
+-- healers: on these items 1 spell damage is worth at least 1 Intellect for the spells themselves — a cautious 1, not
+-- more), 0.5 = like a second stat (Retribution, Protection after Stamina). Not measured; the point is the direction.
+local curSpellW = 0
+
 --- This character's main stats: the `later` order once its talent is known (Mental Dexterity, Careful Aim, ...).
 local function MainFor(def)
+	curSpellW = (def and def.spellW) or 0
 	if not def then
 		return nil
 	end
@@ -241,6 +265,9 @@ local function Score(stats, main, stamTie)
 		end
 	end
 	local tie = (stamTie and not staInMain) and ((stats and stats.STAMINA) or 0) or 0
+	if curSpellW > 0 then
+		s = s + ((stats and stats.SPELL) or 0) * curSpellW
+	end
 	return s, tie
 end
 
@@ -305,6 +332,9 @@ local function Sum(a, b)
 	for _, x in ipairs({ a, b }) do
 		for _, en in ipairs(x.enchs or {}) do
 			enchs[#enchs + 1] = en
+		end
+		if x.stats and x.stats.spellUnknown then
+			stats.spellUnknown = x.stats.spellUnknown
 		end
 	end
 	return { s = a.s + b.s, sta = a.sta + b.sta, arm = a.arm + b.arm, dps = dps, stats = stats,
@@ -378,6 +408,13 @@ local function Explain(row, main, stamTie, token)
 			if gain ~= 0 then
 				parts[#parts + 1] = ("%+d %s"):format(gain, StatName(k))
 			end
+		end
+	end
+	-- 25 Nov 2026: spell damage, when this role weighs it; a minus here is the spell damage you would lose.
+	if curSpellW > 0 then
+		local sg = ((row.stats and row.stats.SPELL) or 0) - ((row.worn and row.worn.stats and row.worn.stats.SPELL) or 0)
+		if sg ~= 0 then
+			parts[#parts + 1] = ("%+d %s"):format(sg, ns:L("FDONOW_STAT_SPELLDMG"))
 		end
 	end
 	if row.darm and row.darm ~= 0 then
@@ -458,6 +495,12 @@ local function IsBetter(row)
 		if en.x then
 			return false
 		end
+	end
+	-- A spell line MH cannot weigh yet (healing-only, one school) on either item, for a role that weighs spell damage:
+	-- no verdict (25 Nov 2026: rather silent than a wrong "better").
+	if curSpellW > 0 and ((row.stats and row.stats.spellUnknown)
+		or (row.worn and row.worn.stats and row.worn.stats.spellUnknown)) then
+		return false
 	end
 	local dd = row.ddps
 	if dd and math.abs(dd) < 0.05 then
@@ -672,14 +715,16 @@ function ns.ForeverQuestHintSlash(arg)
 		return
 	end
 	local main = MainFor(StatDef(Token()))
-	print(PREFIX .. ("quest hint: %s; main stats for %s: %s; last decision: %s"):format(Enabled() and "on" or "off",
-		ClassName(Token()), main and table.concat(main, ", ") or "none", last.verdict))
+	print(PREFIX .. ("quest hint: %s; main stats for %s: %s; spell damage weight %s; last decision: %s"):format(
+		Enabled() and "on" or "off", ClassName(Token()), main and table.concat(main, ", ") or "none", tostring(curSpellW),
+		last.verdict))
 	for _, r in ipairs(last.rows or {}) do
-		print(("  %d %s usable=%s slot=%s main=%s stam=%s armor=%s gain=%s/%s/%s dps=%s sells=%s%s"):format(r.i,
+		print(("  %d %s usable=%s slot=%s main=%s stam=%s armor=%s spell=%s gain=%s/%s/%s dps=%s sells=%s%s%s"):format(r.i,
 			r.link or r.name, tostring(r.usable), tostring(r.equipLoc), tostring(r.s), tostring(r.sta),
-			tostring(r.stats and r.stats.ARMOR), tostring(r.ds), tostring(r.dsta), tostring(r.darm),
-			r.ddps and ("%+.1f"):format(r.ddps) or "n/a", tostring(r.sell),
-			r.noCompare and " NO FAIR COMPARISON (two-hander worn / no dual wield)" or ""))
+			tostring(r.stats and r.stats.ARMOR), tostring(r.stats and r.stats.SPELL), tostring(r.ds), tostring(r.dsta),
+			tostring(r.darm), r.ddps and ("%+.1f"):format(r.ddps) or "n/a", tostring(r.sell),
+			r.noCompare and " NO FAIR COMPARISON (two-hander worn / no dual wield)" or "",
+			(r.stats and r.stats.spellUnknown) and (" UNKNOWN SPELL STAT " .. table.concat(r.stats.spellUnknown, "/")) or ""))
 	end
 end
 
@@ -799,9 +844,12 @@ function ns.ForeverGearTipText(link)
 		for _, en in ipairs(Lost(row)) do
 			lost[#lost + 1] = en.id .. (en.x and " (cannot weigh it)" or "")
 		end
-		return nil, ("not better (main %+g, stamina %+g, armor %+d, dps %s; enchant(s) you would lose: %s)"):format(
-			row.ds, row.dsta, row.darm, row.ddps and ("%+.1f"):format(row.ddps) or "n/a",
-			#lost > 0 and table.concat(lost, ", ") or "none")
+		local unk = (stats.spellUnknown or (worn.stats and worn.stats.spellUnknown))
+		return nil, ("not better (main %+g, stamina %+g, armor %+d, dps %s, spell damage %+g x %s; enchant(s) you would "
+			.. "lose: %s%s)"):format(row.ds, row.dsta, row.darm, row.ddps and ("%+.1f"):format(row.ddps) or "n/a",
+			(stats.SPELL or 0) - ((worn.stats and worn.stats.SPELL) or 0), tostring(curSpellW),
+			#lost > 0 and table.concat(lost, ", ") or "none",
+			(unk and curSpellW > 0) and ("; spell stat MH cannot weigh yet: " .. table.concat(unk, "/")) or "")
 	end
 	local parts, why = Explain(row, main, stamTie, token)
 	local gains = table.concat(parts, ", ")
