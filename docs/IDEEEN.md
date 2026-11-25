@@ -26,7 +26,7 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 
 ## Open — wacht op Rob
 
-### Forever: "How you play" in tabbladen (wens van Rob, 25 nov) — ✅ JA, GEBOUWD 25 nov, wacht op test
+### Forever: "How you play" in tabbladen (wens van Rob, 25 nov) — ✅ AF: GEBOUWD 25 nov (5d0f24e) en GETEST (Rob via Sparring: *"Verder ziet overigens how to play beter uit op deze manier. Wat minder druk voor mijn gevoel."*)
 - Bron: Rob via Sparring 25-11, letterlijk: *"En dan open ik het en het is zo'n lange lap tekst. Kunnen we dat venster niet
   beter indelen? Met tabbladen van mijn part of in ieder geval iets waarbij het overzichtelijker is."*; op het voorstel:
   *"Ja, je mag het zo sturen."*
@@ -35,6 +35,11 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
   toetsenblok stap 4, Do this now) openen nu deze pagina.
 - Niet gedaan: tekst ingekort. De blokken "Levels 1-10: your buttons" zijn 10-13 regels (meer dan ±5); ontdubbelen vond
   niets (offline `/mh howtotabs`: 0 dubbele lange regels per klas; alleen rollen onderling delen regels, en je ziet er één). Inkorten = herschrijven = aparte vraag aan Rob.
+  → BESLIST 25 nov, NIET inkorten. Rob: *"Hoewel het veel tekst is, denk ik niet dat we het veel korter kunnen maken,
+  want dan gaan we misschien weer heel veel informatie missen."*
+- Getest 25 nov (Druid 12 Feral, 2 screenshots): tabs + kopjes te zien, laatste tab blijft na `/reload`, `/mh howtotabs
+  mine` = 72/72, 0 double, nothing missing. Niet apart genoemd: alle tabs langs, kopje klikken, Your direction/All roles,
+  Shift+scroll, de andere ingangen.
 - Spel: F. Voor wie: N (AFGELEID).
 
 ### Forever: Gear check — per vakje zien of er een enchant op zit (wens van Rob, 25 nov) — ✅ JA, GEBOUWD 25 nov, wacht op test

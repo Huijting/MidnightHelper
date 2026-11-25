@@ -28,20 +28,27 @@ bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt o
 ## 25 nov — FOREVER: "How you play" in tabbladen (Rob: "zo'n lange lap tekst … Met tabbladen van mijn part")
 
 Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (153 controles: 9 klassen × 8 talen, regels
-vóór = na), NIET in het spel.
-- [ ] Open "How you play" (overzicht → Your class → How you play, of `/mh play`). Links staan nu tabbladen: **Start ·
+vóór = na). ✅ 25 nov GETEST door Rob (via Sparring, 2 screenshots, Druid 12 Feral): *"Ik heb reload gedaan en dan blijft
+hij staan. … Verder ziet overigens how to play beter uit op deze manier. Wat minder druk voor mijn gevoel."* Niet apart
+genoemd (dus open): alle tabs langsklikken, klikken op een kopje, de knoppen, Shift+scroll, de andere ingangen.
+- [x] Open "How you play" (overzicht → Your class → How you play, of `/mh play`). Links staan nu tabbladen: **Start ·
       Your keys · Weapon & stats · Group · Levels**. Rechts staat alleen de tekst van het gekozen tabblad.
+      *(Rob 25 nov, screenshot: tab Start open met Bear: tank / Cat: damage up close)*
 - [ ] Onder de tabbladen staan (iets ingesprongen) de kopjes van dat tabblad. Klik op een kopje = de tekst springt erheen.
+      *(kopjes te zien op Robs screenshot; het klikken niet genoemd)*
 - [ ] **Start**: de rol van je richting (uitleg, simpele volgorde, beginnersfouten) + "What it does" + de simpele
       volgorde en fouten van je klas. **Levels**: per 10 levels van je rol + "What comes later". **Weapon & stats**: je
       richting (armor, wapen), "Which weapon?" en "Which stats count". **Group**: tanken (Druid/Paladin/Warrior) en Dual
       Spec. Een klas zonder tank-plan heeft alleen Dual Spec in Group.
-- [ ] Een tabblad zonder tekst staat er niet. Kies een tabblad, sluit het venster, `/reload`: hij opent op hetzelfde tabblad.
+- [x] Een tabblad zonder tekst staat er niet. Kies een tabblad, sluit het venster, `/reload`: hij opent op hetzelfde tabblad.
+      *(Rob 25 nov: "Ik heb reload gedaan en dan blijft hij staan." Het onthouden = OK; een leeg tabblad kwam bij de
+      Druid niet voor, dat deel is dus niet gezien)*
 - [ ] De knoppen "Your direction" en "All roles" werken nog. Met "All roles" open staan de andere rollen ook in Start en Levels.
 - [ ] Shift+scroll maakt het venster groter/kleiner. Key block stap 4 en de knop in "Do this now" openen nu ook deze pagina
       (het oude losse venster is alleen nog reserve).
-- [ ] `/mh howtotabs` toont per klas welk blok in welk tabblad staat, en "role lines X/X" (moet gelijk zijn) en onderaan
+- [x] `/mh howtotabs` toont per klas welk blok in welk tabblad staat, en "role lines X/X" (moet gelijk zijn) en onderaan
       "nothing missing". 📸 Screenshot: het venster op tabblad Start, en de chat na `/mh howtotabs mine`.
+      *(Rob 25 nov, screenshot: "DRUID: OK, role lines 72/72, total 127 lines, 0 double … nothing missing")*
 
 ## 25 nov — FOREVER: spell damage telt mee in "beter dan wat je draagt" (Robs /dump: GetItemStats geeft spell power)
 

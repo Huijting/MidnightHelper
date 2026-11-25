@@ -1,6 +1,12 @@
 # Midnight Helper — waar we staan
 
-## ▶▶ 25 nov (Bouwchat 25-11): "How you play" in tabbladen — GEBOUWD, wacht op test (`/reload`)
+## ▶▶ 25 nov (Bouwchat 25-11): "How you play" in tabbladen — ✅ GETEST door Rob (5d0f24e)
+
+✅ Rob via Sparring (Druid 12 Feral, 2 screenshots): tabs + kopjes te zien, laatste tab blijft na `/reload`, `/mh howtotabs
+mine` = "DRUID: OK, role lines 72/72, total 127 lines, 0 double … nothing missing". *"Wat minder druk voor mijn gevoel."*
+Niet apart genoemd: alle tabs langs, kopje klikken, Your direction/All roles, Shift+scroll, andere ingangen.
+🔴 BESLIST: NIET inkorten (Rob: *"dan gaan we misschien weer heel veel informatie missen"*) — het open punt "blokken 10-13
+regels" hieronder is daarmee dicht.
 
 Rob via Sparring: *"zo'n lange lap tekst … Met tabbladen van mijn part"* → *"Ja, je mag het zo sturen."*
 - ForeverHowToPlay.lua: `ns.ForeverHowToSections` geeft elk blok een `tab` (start/keys/gear/group/levels, volgorde
