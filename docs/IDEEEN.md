@@ -59,6 +59,10 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 - 25 nov: a178459 GETEST (Rob: *"Ja, test is goed gegaan."*, screenshot Hands/Feet "Armor +8, Stamina +1"). Niet apart
   gemeld: de Now-regel met de toets, geen BugSack-fout meer, en "you can make this yourself" op de enchanter.
 - Later, apart (eerst onderzoek): advies welke enchant de beste is.
+- 26 nov, GEREPAREERD, wacht op test (Rob via Sparring: *"Ik mis hier volgens mij mijn [legs], die ik net wel geenchant
+  heb. En kan de [gear] check enchants ook dynamisch updaten?"*): Legs erbij (armor kits; GEMETEN 78 enchants in DB2),
+  Head/Shoulder/Waist/Ranged alleen als er iets op zit, en het venster werkt bij een enchant op een gedragen item vanzelf
+  bij (UNIT_INVENTORY_CHANGED; na een gevecht).
 - Spel: F. Voor wie: N + V (AFGELEID).
 
 ### Toetsenblok: de intro-zin klopt niet als het blok al geplaatst is (Robs screenshot, 25 nov) — ✅ JA, GEREPAREERD 25 nov, wacht op test

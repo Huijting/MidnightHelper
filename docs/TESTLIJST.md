@@ -25,6 +25,18 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 26 nov — FOREVER: Gear check: enchants — Legs erbij, en het venster werkt vanzelf bij (Rob: "Ik mis hier … mijn legs")
+
+Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (ench_test 30), NIET in het spel.
+- [ ] Open je character-venster. In "Gear check: enchants" staat nu ook **Legs**: met de naam van je armor kit, of
+      "no enchant".
+- [ ] Head, Shoulder, Waist en Ranged staan er alleen als er al iets op zit (die enchants komen pas laat).
+- [ ] Laat het character-venster open en zet een armor kit (of enchant) op je broek of een ander gedragen item: de regel
+      wordt binnen een seconde groen, zonder het venster dicht en weer open te doen.
+- [ ] Do this now telt het vakje Legs mee bij "N slots of your gear have no enchant".
+- [ ] `/mh enchant` noemt "last live refresh: UNIT_INVENTORY_CHANGED" (of PLAYER_EQUIPMENT_CHANGED) na die enchant.
+      Staat er "none" terwijl de regel wél bijwerkte? Meld het: dan vuurde een ander event.
+
 ## 25 nov — FOREVER: Warlock-stats: spell damage, dan Intellect en Spirit even belangrijk (Rob: "Ik volg jouw advies.")
 
 Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (wadv_test 107, gearench_test 25), NIET in het spel.

@@ -1,5 +1,20 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 26 nov (Bouwchat 25-11): Gear check enchants — Legs + live bijwerken — GEBOUWD, wacht op test (`/reload`)
+
+Rob via Sparring (screenshot Druid, geen Legs): *"Ik mis hier volgens mij mijn [legs] … kan de [gear] check enchants ook
+dynamisch updaten? Want nu moest ik hem eerst weer mijn karakter uitdoen en toen weer aandoen."*
+- GEMETEN (DB2 1.60.1.71091, elke ENCHANT_ITEM-spell × SpellEquippedItems): legs 78 (armor kits, ook chest/robe/hands/
+  feet; arcanums), head 52, shoulder 22, waist 3 (tinkers), wapens 76 (ook scopes). Geen enchant-spell zonder
+  SpellEquippedItems.
+- ForeverEnchantCheck SLOTS: + Legs (gewoon vakje, telt mee in Do this now) + Head/Shoulder/Waist/Ranged met `onlyOn`
+  (alleen als er iets op zit; "no enchant" daar = ruis voor de meeste spelers — keuze bouwchat, AFGELEID). Volgorde =
+  paperdoll.
+- Live: UNIT_INVENTORY_CHANGED("player") + PLAYER_EQUIPMENT_CHANGED → Fill nu en 0,5 s later; in een gevecht `pending`,
+  dan bij PLAYER_REGEN_ENABLED. Welk event in Forever vuurt bij een enchant op een gedragen item = AFGELEID (classic-API),
+  `/mh enchant` noemt het laatste ("last live refresh: …").
+- ench_test 30/30 (was 24). Mogelijk een 5.10.1 als Rob dat wil.
+
 ## ▶▶ 25 nov (Bouwchat 25-11): RELEASE 5.10.0 (Rob via Sparring: *"breng 5.10.0 maar uit 🙂 , mee eens ?"*)
 
 ✅ STAAT OP CURSEFORGE (GEMETEN, files-API): 9816083 `MidnightHelper-v5.10.0.zip` (12.0.7/12.1.0/12.1.5/12.1.7) en

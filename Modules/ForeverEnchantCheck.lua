@@ -11,6 +11,7 @@ local _, ns = ...
 
 	MEASURED (wago DB2 Forever 1.60.1.71091, see ForeverEnchantData.lua): Enchanting puts enchants on neck, chest/robe,
 	feet, wrist, hands, back, shield, held-in-off-hand items and weapons (no head, shoulder, legs, rings, trinkets, ranged).
+	Other permanent enchants (armor kits on legs, arcanums ...) also count since 26 Nov: see SLOTS.
 	The enchant on an item is the 2nd field of its link (item:ID:ENCHANT:...). Its name: the client's own name of the
 	Enchanting spell that puts it on ("Enchant Bracer - Greater Spirit" -> the part after the last " - "), so every
 	language gets its client's word. Since the same evening also armor kits and the like (every ENCHANT_ITEM spell; Rob's
@@ -29,15 +30,26 @@ end
 local PREFIX = "|cffffcc00Midnight Helper:|r "
 
 -- slot id -> its letter in FOREVER_ENCH_RECIPES and the client's own word for the slot (GlobalStrings).
+-- 26 Nov 2026 (Rob: "Ik mis hier volgens mij mijn [legs], die ik net wel geenchant heb"): the list came from Enchanting
+-- only. MEASURED in DB2 Forever 1.60.1.71091 (every ENCHANT_ITEM spell x SpellEquippedItems): legs take 78 permanent
+-- enchants (armor kits like 2831 Light Armor Kit, also chest/robe/hands/feet; arcanums), head 52 (arcanums), shoulder
+-- 22 (ZG/Naxx/Dawn), waist 3 (tinkers), ranged weapons (scopes). Legs = a normal slot ("no enchant" when empty: a kit
+-- is cheap and early). `onlyOn` = shown only when something IS on it: head, shoulder, waist and ranged enchants come late,
+-- so "no enchant" there would only be noise for most players (bouwchat's choice, AFGELEID).
 local SLOTS = {
+	{ id = 1, code = "HD", word = "INVTYPE_HEAD", onlyOn = true },
 	{ id = 2, code = "N", word = "INVTYPE_NECK" },
+	{ id = 3, code = "SH", word = "INVTYPE_SHOULDER", onlyOn = true },
 	{ id = 15, code = "B", word = "INVTYPE_CLOAK" },
 	{ id = 5, code = "C", word = "INVTYPE_CHEST" },
 	{ id = 9, code = "W", word = "INVTYPE_WRIST" },
 	{ id = 10, code = "H", word = "INVTYPE_HAND" },
+	{ id = 6, code = "WA", word = "INVTYPE_WAIST", onlyOn = true },
+	{ id = 7, code = "L", word = "INVTYPE_LEGS" },
 	{ id = 8, code = "F", word = "INVTYPE_FEET" },
 	{ id = 16, code = "MH", word = "INVTYPE_WEAPONMAINHAND" },
 	{ id = 17, code = "OH", word = "INVTYPE_WEAPONOFFHAND" },
+	{ id = 18, code = "R", word = "INVTYPE_RANGED", onlyOn = true },
 }
 
 local function On()
@@ -182,6 +194,8 @@ local function Read()
 					row.state = "on"
 					local spell = ns.FOREVER_ENCH_BY_ID and ns.FOREVER_ENCH_BY_ID[e]
 					row.name = spell and ShortName(spell) or nil
+				elseif slot.onlyOn then
+					row.state = "other" -- nothing on a late-enchant slot: not listed, not counted
 				else
 					row.state = "none"
 					row.make = CanMake(slot, row.itemID)
@@ -345,14 +359,52 @@ local function Hook()
 	CharacterFrame:HookScript("OnHide", HidePanel)
 end
 
+-- 26 Nov 2026 (Rob: "kan de [gear] check enchants ook dynamisch updaten? Want nu moest ik hem eerst weer mijn karakter
+-- uitdoen en toen weer aandoen"): an enchant or armor kit on a WORN item changes no equipment, so
+-- PLAYER_EQUIPMENT_CHANGED alone missed it. UNIT_INVENTORY_CHANGED ("player") fires when a worn item changes, the
+-- enchant included (AFGELEID from the classic API: not measured in Forever yet; /mh enchant names the last event that
+-- refreshed). The new link can come a moment after the event, so the panel fills now and once more 0.5 s later. In a
+-- fight nothing is redrawn; it waits for PLAYER_REGEN_ENABLED.
+local pending = false
+local lastEvent = "none"
+local function Refresh(event)
+	if not (panel and panel:IsShown()) then
+		return
+	end
+	if InFight() then
+		pending = true
+		return
+	end
+	pending = false
+	lastEvent = event
+	pcall(Fill)
+	if C_Timer and C_Timer.After then
+		C_Timer.After(0.5, function()
+			if panel and panel:IsShown() and not InFight() then
+				pcall(Fill)
+			end
+		end)
+	end
+end
+
 local ev = CreateFrame("Frame")
 ev:RegisterEvent("PLAYER_LOGIN")
 ev:RegisterEvent("PLAYER_EQUIPMENT_CHANGED")
-ev:SetScript("OnEvent", function(_, event)
+ev:RegisterEvent("UNIT_INVENTORY_CHANGED")
+ev:RegisterEvent("PLAYER_REGEN_ENABLED")
+ev:SetScript("OnEvent", function(_, event, unit)
 	if event == "PLAYER_LOGIN" then
 		Hook()
-	elseif panel and panel:IsShown() and not InFight() then
-		pcall(Fill)
+	elseif event == "UNIT_INVENTORY_CHANGED" then
+		if unit == "player" then
+			Refresh(event)
+		end
+	elseif event == "PLAYER_REGEN_ENABLED" then
+		if pending then
+			Refresh(event)
+		end
+	else
+		Refresh(event)
 	end
 end)
 
@@ -398,8 +450,8 @@ end
 
 --- /mh enchant in WoW Forever (Midnight has its own in GearEnchantCheck.lua, which does not load here).
 function ns.PrintGearEnchantCheck()
-	print(PREFIX .. ("enchant check: %s (Quiet helpers). Enchanting learned: %s. Panel: %s."):format(On() and "on" or "off",
-		tostring(Enchanter()), last))
+	print(PREFIX .. ("enchant check: %s (Quiet helpers). Enchanting learned: %s. Panel: %s (last live refresh: %s)."):format(
+		On() and "on" or "off", tostring(Enchanter()), last, lastEvent))
 	local ok, rows = pcall(Read)
 	if not ok then
 		print("  error: " .. tostring(rows))

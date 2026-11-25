@@ -28,6 +28,17 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 26 nov 2026 — Forever: Gear check enchants: Legs erbij en vanzelf bijwerken
+- Tag + commit:   geen tag (commit: deze regel)
+- Status:         alleen op main
+- Mag op de site: nee (niet uit, niet getest)
+- Speler ziet:    De Gear check naast het character-venster toont nu ook Legs (armor kits). Head, Shoulder, Waist en
+                  Ranged alleen als er iets op zit. Zet je een enchant of kit op wat je draagt, dan werkt het venster
+                  meteen bij.
+- Knoplabels:     FENCH_TITLE, FENCH_NONE
+- Commando's:     /mh enchant
+- Spel:           Forever
+
 ## 25 nov 2026 — RELEASE 5.10.0, staat op CurseForge (alle regels hieronder van 25 nov, ná 5.9.1)
 - Tag + commit:   v5.10.0 / 154e195
 - Status:         staat op CurseForge (bestanden 9816083 Midnight, 9816110 Forever; Release)
