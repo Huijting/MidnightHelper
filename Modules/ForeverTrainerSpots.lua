@@ -39,6 +39,13 @@ ns.FOREVER_TRAINER_SPOTS = {
 		{ npc = 251373, name = "Xyton Silverwind", side = "N", map = 2521, x = 41.60, y = 23.40, cap = 6 },
 		{ npc = 252359, name = "Lotheluum Starbreeze", side = "N", map = 2521, x = 64.00, y = 75.00 },
 		{ npc = 254081, name = "Naeluna Swiftmend", side = "N", map = 2521, x = 45.20, y = 44.20 },
+		-- 26 Nov 2026 (Rob in Orgrimmar: "nu wil die me naar 4493 meter verderop sturen"). Three Druid trainers this list
+		-- missed. Source: Wowhead Forever NPC tooltips (spawns, GEMETEN 26 Nov via tools/gamedata.py); HandyNotes_ClassTrainers
+		-- names the same three at the same places (only compared, nothing copied). uiMap 1450 Moonglade, 1444 Feralas, 1448
+		-- Felwood. Loganaar is Cenarion Circle: both factions. Teleport: Moonglade lands next to him (ForeverTravel.lua).
+		{ npc = 12042, name = "Loganaar", side = "N", map = 1450, x = 52.50, y = 40.50 },
+		{ npc = 8142, name = "Jannos Lighthoof", side = "H", map = 1444, x = 76.00, y = 42.20 },
+		{ npc = 9465, name = "Golhine the Hooded", side = "A", map = 1448, x = 61.80, y = 24.60 },
 	},
 	HUNTER = {
 		{ npc = 3154, name = "Jen'shan", side = "H", map = 1411, x = 42.80, y = 69.20, cap = 6 },
@@ -257,3 +264,40 @@ ns.FOREVER_TRAINER_SPOTS = {
 		{ npc = 254088, name = "Corsan Earthrazer", side = "N", map = 2521, x = 44.80, y = 45.20 },
 	},
 }
+
+-- 26 Nov 2026: field trainers this list missed (Sparring: "een diff van alle classes is goedkoop"). Found by comparing
+-- npc ids with HandyNotes_ClassTrainers (All Rights Reserved: only compared, nothing copied); every row below is from
+-- the Wowhead Forever NPC tooltip (subtitle "<Class> Trainer", zone, spawns; GEMETEN 26 Nov via tools/gamedata.py),
+-- the middle of its spawns. uiMaps GEMETEN in DB2 UiMap 71139. Left out: 5994 Zayus ("High Priest") and 6707 Fahrad
+-- ("Grand Master Rogue", Ravenholdt) - Wowhead does not call them trainers.
+local FIELD = {
+	HUNTER = {
+		{ npc = 987, name = "Ogromm", side = "H", map = 1435, x = 47.40, y = 53.20 },
+		{ npc = 1404, name = "Kragg", side = "H", map = 1434, x = 31.20, y = 28.50 },
+		{ npc = 3963, name = "Danlaar Nightstride", side = "A", map = 1440, x = 50.00, y = 67.80 },
+		{ npc = 5501, name = "Kaerbrus", side = "A", map = 1448, x = 61.80, y = 23.50 },
+		{ npc = 8308, name = "Alenndaar Lapidaar", side = "A", map = 1440, x = 18.00, y = 59.80 },
+		{ npc = 10930, name = "Dargh Trueaim", side = "A", map = 1432, x = 82.30, y = 62.50 },
+		{ npc = 270280, name = "Torin Treehame", side = "A", map = 1425, x = 14.50, y = 43.00 },
+	},
+	PALADIN = { { npc = 8140, name = "Brother Karman", side = "A", map = 1445, x = 67.40, y = 47.50 } },
+	ROGUE = { { npc = 1411, name = "Ian Strom", side = "N", map = 1434, x = 26.80, y = 77.20 } },
+	SHAMAN = {
+		{ npc = 986, name = "Haromm", side = "H", map = 1435, x = 47.90, y = 57.60 },
+		{ npc = 270263, name = "Farseer Maret Firetend", side = "A", map = 1425, x = 14.40, y = 42.60 },
+	},
+	WARLOCK = { { npc = 988, name = "Kartosh", side = "H", map = 1435, x = 48.50, y = 55.50 } },
+	WARRIOR = {
+		{ npc = 985, name = "Malosh", side = "H", map = 1435, x = 44.80, y = 57.50 },
+		{ npc = 8141, name = "Captain Evencane", side = "A", map = 1445, x = 67.90, y = 48.40 },
+		{ npc = 270278, name = "Bordolf Axegrim", side = "A", map = 1425, x = 14.50, y = 43.10 },
+	},
+}
+for cls, rows in pairs(FIELD) do
+	local t = ns.FOREVER_TRAINER_SPOTS[cls]
+	if t then
+		for _, r in ipairs(rows) do
+			t[#t + 1] = r
+		end
+	end
+end

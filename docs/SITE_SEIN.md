@@ -28,6 +28,17 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 26 nov 2026 — Forever: trainerpijl op reistijd (Teleport: Moonglade, boten, zeppelins)
+- Tag + commit:   geen tag (commit: deze regel)
+- Status:         alleen op main
+- Mag op de site: nee (niet uit, niet getest)
+- Speler ziet:    De pijl naar je trainer kiest de trainer die je het snelst bereikt en zegt de weg: "cast Teleport:
+                  Moonglade" voor een Druid, of de zeppelin/boot, met "about N min". Ook trainers op een ander continent.
+                  18 trainers erbij (o.a. Loganaar in Moonglade).
+- Knoplabels:     FTRAIN_MIN_FMT
+- Commando's:     /mh trainer go, /mh trainer check
+- Spel:           Forever
+
 ## 26 nov 2026 — Forever: "Your race" in How you play
 - Tag + commit:   geen tag (commit: deze regel)
 - Status:         alleen op main

@@ -839,9 +839,9 @@ function ns.ForeverProfTooltip(tt, prof)
 	elseif not m then
 		tt:AddLine(ns:L("FTRAIN_PROF_TIP_NEW"), 1, 1, 1)
 	end
-	local best, dist, _, why = ns.ForeverProfTrainerNearest(prof)
+	local best, dist, _, why, min = ns.ForeverProfTrainerNearest(prof)
 	if best then
-		tt:AddLine(ns:L("FTRAIN_PROF_TIP_NEAREST"):format(best.name or "?", ns.ForeverTrainerDistance(dist)), 0.6, 1, 0.6)
+		tt:AddLine(ns:L("FTRAIN_PROF_TIP_NEAREST"):format(best.name or "?", ns.ForeverTrainerHowFar(dist, min)), 0.6, 1, 0.6)
 		if best.max then
 			tt:AddLine(ns:L("FTRAIN_PROF_TIP_MAX"):format(best.max), 0.8, 0.8, 0.8)
 		end
@@ -1238,6 +1238,11 @@ local function NeedLevel(token)
 	return need
 end
 
+local lastChoice = "no trainer chosen yet this session" -- /mh trainer check: which trainer and why (26 Nov 2026)
+function ns.ForeverTrainerLastChoice()
+	return lastChoice
+end
+
 local function Nearest(token, prof)
 	local cands, dropped = Candidates(token, prof)
 	local all = OnePerTrainer(cands)
@@ -1274,6 +1279,34 @@ local function Nearest(token, prof)
 	if not cont then
 		return nil, nil, #all, "your position cannot be read here"
 	end
+	-- 26 Nov 2026 (Rob, Druid in Orgrimmar: "nu wil die me naar 4493 meter verderop sturen, dat moet beter kunnen"): pick
+	-- the trainer with the shortest TRAVEL TIME from the travel planner (ForeverTravel.lua: walking, boats, zeppelins,
+	-- your teleports such as Teleport: Moonglade), on every continent; the straight line below is only the fallback when
+	-- the planner cannot tell. 5th/6th return: minutes (planner units, AFGELEID) and "plan"/"walk".
+	if ns.ForeverTravelMinutes then
+		local best, bestMin, bestHow
+		for _, c in ipairs(all) do
+			if c.map and c.x and c.y then
+				local ok, m, how = pcall(ns.ForeverTravelMinutes, c.map, c.x, c.y)
+				if ok and m and (not bestMin or m < bestMin) then
+					best, bestMin, bestHow = c, m, how
+				end
+			end
+		end
+		if best then
+			local d
+			local cc, cx, cy = World(best.map, best.x, best.y)
+			if cc == cont then
+				d = math.floor(math.sqrt((cx - wx) ^ 2 + (cy - wy) ^ 2) + 0.5)
+			end
+			lastChoice = ("%s by travel time: about %.1f min (%s, %d places compared)"):format(tostring(best.name),
+				bestMin, bestHow, #all)
+			return best, d, #all, nil, bestMin, bestHow
+		end
+		lastChoice = "travel planner gave no time for any trainer: straight line on this continent"
+	else
+		lastChoice = "no travel planner: straight line on this continent"
+	end
 	local best, bestD
 	for _, c in ipairs(all) do
 		local cc, cx, cy = World(c.map, c.x, c.y)
@@ -1309,6 +1342,15 @@ local WHY_KEY = {
 }
 
 ns.ForeverTrainerDistance = Distance
+
+--- 26 Nov 2026: "about 3 min" when the travel planner chose (minutes), else the straight distance.
+local function HowFar(dist, min)
+	if min then
+		return ns:L("FTRAIN_MIN_FMT"):format(math.max(1, math.floor(min + 0.5)))
+	end
+	return dist and Distance(dist) or "?"
+end
+ns.ForeverTrainerHowFar = HowFar
 function ns.ForeverTrainerWhyText(why)
 	return WHY_KEY[why] and ns:L(WHY_KEY[why]) or why
 end
@@ -1318,9 +1360,9 @@ function ns.ForeverTrainerWindowHint(prof)
 	if not (win and win:IsShown()) then
 		return
 	end
-	local best, dist, _, why = Nearest(Token(), prof)
+	local best, dist, _, why, min = Nearest(Token(), prof)
 	if best then
-		win.goHint:SetText(ns:L("FTRAIN_PROF_ARROW_FMT"):format(ProfName(prof), best.name or "?", Distance(dist)))
+		win.goHint:SetText(ns:L("FTRAIN_PROF_ARROW_FMT"):format(ProfName(prof), best.name or "?", HowFar(dist, min)))
 	else
 		win.goHint:SetText(ns.ForeverTrainerWhyText(why))
 	end
@@ -1337,10 +1379,10 @@ end
 
 --- One line under the window's button: where it would take you, or what is missing.
 function ns.ForeverTrainerNearestText()
-	local best, dist, _, why = Nearest(Token())
+	local best, dist, _, why, min = Nearest(Token())
 	if best then
 		local src = SRC_KEY[best.src] and ns:L(SRC_KEY[best.src]) or best.src
-		return ns:L("FTRAIN_NEAREST_FMT"):format(best.name or ns:L("FTRAIN_YOUR_TRAINER"), Distance(dist), src)
+		return ns:L("FTRAIN_NEAREST_FMT"):format(best.name or ns:L("FTRAIN_YOUR_TRAINER"), HowFar(dist, min), src)
 	end
 	return ns:L("FTRAIN_WHY_FMT"):format(WHY_KEY[why] and ns:L(WHY_KEY[why]) or why)
 end
@@ -1400,7 +1442,7 @@ function ns.ForeverTrainerGo(prof)
 		prof = nil
 	end
 	local token = Token()
-	local best, dist, n, why = Nearest(token, prof)
+	local best, dist, n, why, min = Nearest(token, prof)
 	if not best then
 		if prof then
 			print(PREFIX .. ("trainer arrow (%s): %s. Stand next to the trainer and type /mh trainer here %s.")
@@ -1411,12 +1453,12 @@ function ns.ForeverTrainerGo(prof)
 		end
 		return false
 	end
-	return ns.ForeverTrainerGoTo(best, dist, n, prof)
+	return ns.ForeverTrainerGoTo(best, dist, n, prof, min)
 end
 
 --- Set the arrow and the cross to one trainer place (the nearest from ForeverTrainerGo, or the one the player picked in
 --- the Profession trainers window). `dist` may be nil (another continent).
-function ns.ForeverTrainerGoTo(best, dist, n, prof)
+function ns.ForeverTrainerGoTo(best, dist, n, prof, min)
 	if not (best and best.map and best.x and best.y) then
 		return false
 	end
@@ -1438,11 +1480,19 @@ function ns.ForeverTrainerGoTo(best, dist, n, prof)
 		trainerNpc = (type(best.npc) == "number" and best.npc > 0) and best.npc or nil, trainerName = best.name,
 		nearKey = "FARROW_NEAR_NPC", nearYards = 20 }
 	ns._mhRouteOwner = "waypoint"
-	if dist then
-		print(PREFIX .. ("arrow set to %s, about %s (%s, %d places known)."):format(label, Distance(dist), best.src,
+	if dist or min then
+		print(PREFIX .. ("arrow set to %s, about %s (%s, %d places known)."):format(label, HowFar(dist, min), best.src,
 			n or 0))
 	else
 		print(PREFIX .. ("arrow set to %s (%s)."):format(label, best.src))
+	end
+	-- 26 Nov 2026: the way there in words, the same sentence as Find and Dungeons ("cast Teleport: Moonglade. (about
+	-- 3 min)"); the arrow itself follows the same plan step by step (NativeArrow + ForeverTravel).
+	if ns.ForeverTravelSentence then
+		local okS, s = pcall(ns.ForeverTravelSentence, best.map, best.x, best.y)
+		if okS and type(s) == "string" and s ~= "" then
+			print(PREFIX .. ns:L("FWEAP_ROUTE_LABEL") .. " " .. s)
+		end
 	end
 	if ns.ForeverTrainerMark then
 		ns.ForeverTrainerMark(best)
@@ -1835,10 +1885,10 @@ do
 			capState.last = ("%s (npc %d): teaches up to level %d (%d rows, %d not learned yet); you need %s"):format(
 				tostring(name), npc, cap, rows, open, tostring(need))
 			if need and cap < need then
-				local best, dist = Nearest(Token())
+				local best, dist, _, _, min = Nearest(Token())
 				if best and best.npc ~= npc then
 					print(PREFIX .. ns:L("FTRAIN_CAP_GO_FMT"):format(tostring(name), cap, need, best.name or "?",
-						Distance(dist)))
+						HowFar(dist, min)))
 				else
 					print(PREFIX .. ns:L("FTRAIN_CAP_FMT"):format(tostring(name), cap, need))
 				end
@@ -1880,8 +1930,14 @@ local function Check()
 	end
 	print(("  trainer places: yours %d, HandyNotes %s, MH list %d"):format(yours,
 		HandyNotesTrainers() and tostring(hn) or "not installed", list))
-	local best, dist, _, why = Nearest(r.token)
-	print("  nearest: " .. (best and ("%s, %s (%s)"):format(best.name or "?", Distance(dist), best.src) or why))
+	local best, dist, _, why, min, how = Nearest(r.token)
+	print("  nearest: " .. (best and ("%s, %s (%s)"):format(best.name or "?", HowFar(dist, min), best.src) or why))
+	-- 26 Nov 2026: which trainer and why (travel time or straight line, teleport in the route).
+	print("  chosen: " .. tostring(ns.ForeverTrainerLastChoice and ns.ForeverTrainerLastChoice()))
+	if best and how == "plan" and ns.ForeverTravelSentence then
+		local okS, s = pcall(ns.ForeverTravelSentence, best.map, best.x, best.y)
+		print("  route: " .. tostring(okS and s or "?"))
+	end
 	print("  " .. ns.ForeverTrainerCapLine())
 	print(("  cross above the trainer: %s (/mh trainer mark shows why)"):format(MarkOn() and "on" or "off"))
 	-- Professions: what the client says you have, and what the arrow would pick per profession.

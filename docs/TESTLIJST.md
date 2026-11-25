@@ -25,6 +25,22 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 26 nov — FOREVER: trainerpijl kiest op reistijd, met Teleport: Moonglade (Rob: "4493 meter verderop … dat moet beter kunnen haha")
+
+Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (trainroute_test 6), NIET in het spel.
+- [ ] Druid (level 10+, kent Teleport: Moonglade) in Orgrimmar → "Show the way" / trainerpijl. Chat: "arrow set to
+      Loganaar (trainer), about N min" en "The way there: cast Teleport: Moonglade. (about N min)". De pijl zegt eerst de
+      teleport te casten; na het laden wijst hij naar Loganaar.
+- [ ] Na die eerste teleport onthoudt MH waar je landt (de volgende keer klopt de tijd beter).
+- [ ] Druid ZONDER Teleport: Moonglade (onder 10): de pijl kiest de trainer met de kortste reistijd (Thunder Bluff) en
+      zegt "about N min" in plaats van een rechte afstand.
+- [ ] Een andere class op een ander continent dan zijn trainers: de pijl geeft nu de route (zeppelin/boot) in plaats van
+      "no trainer known on this continent".
+- [ ] `/mh trainer check` toont "chosen: Loganaar by travel time: about … min (plan, … places compared)" en "route: …".
+- [ ] Nieuwe trainers in de lijst: Loganaar (Moonglade, beide facties), Jannos Lighthoof (Feralas, Horde), Golhine
+      (Felwood, Alliance) en 15 trainers in het veld (Swamp of Sorrows, Stranglethorn, Ashenvale, Loch Modan, Hinterlands,
+      Dustwallow) voor Hunter, Paladin, Rogue, Shaman, Warlock en Warrior.
+
 ## 26 nov — FOREVER: "Your race" in How you play (Rob: "ik zag bv ook dat deze druid ook Cultivation heeft :)")
 
 Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (race_test: elk ras × elke class × 8 talen),

@@ -26,6 +26,14 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 
 ## Open — wacht op Rob
 
+### Forever: trainerpijl met de echte weg, niet een rechte lijn (wens van Rob, 26 nov) — ✅ JA, GEBOUWD 26 nov, wacht op test
+- Bron: Rob via Sparring, letterlijk: *"OKE IK STA IN OGGRIMAR EN VRAAG OM MIJN TRAINER MAAR NU WIL DIE ME NAAR 4493 METER
+  VERDEROP STUREN, dat moet beter kunnen haha"*.
+- Gebouwd: de trainer met de kortste reistijd (planner: lopen, boten, zeppelins, teleports), op elk continent;
+  Teleport: Moonglade heeft nu een bestemming; Loganaar + 2 Druid-trainers + 15 veldtrainers erbij (Wowhead Forever).
+  `/mh trainer check` zegt welke en waarom.
+- Spel: F. Voor wie: N + V (AFGELEID).
+
 ### Forever: "Your race" in How you play — wat je ras je geeft, voor jouw class (wens van Rob, 26 nov) — ✅ JA, GEBOUWD 26 nov, wacht op test + Fable-ronde
 - Bron: Rob via Sparring, letterlijk: *"misschien is dat een goed idee om dat uit te leggen. Niet alleen bij de Druid
   natuurlijk, maar bij alle Taurens. … Misschien is het een goed idee die ook uit te zoeken en dat gewoon als extra info

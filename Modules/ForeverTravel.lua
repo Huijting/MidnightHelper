@@ -148,8 +148,10 @@ local TELEPORTS = {
 	{ id = "tp_org", spell = 3567, side = "H", reagent = 17031, dest = { 1454, 54.09, 68.40 } },
 	{ id = "tp_tb", spell = 3566, side = "H", reagent = 17031, dest = { 1456, 45.81, 64.71 } },
 	{ id = "tp_uc", spell = 3563, side = "H", reagent = 17031, dest = { 1458, 67.73, 37.89 } },
-	-- Moonglade (uiMap 1450) has no inn in our list: offered only after MH has seen you land there once.
-	{ id = "moonglade", spell = 18960 },
+	-- Moonglade (uiMap 1450) has no inn in our list. 26 Nov 2026 (Rob in Orgrimmar: the trainer arrow pointed 4493 m to
+	-- Thunder Bluff): until MH has seen you land, the destination is Loganaar, the Druid trainer of Moonglade (Wowhead
+	-- Forever npc 12042, 52.5,40.5, GEMETEN) — AFGELEID as "somewhere in Moonglade", the same rule as the city inns.
+	{ id = "moonglade", spell = 18960, dest = { 1450, 52.5, 40.5 } },
 }
 -- Costs in the planner's own "minutes-ish" units (AFGELEID): 10 s cast + a loading screen ≈ 0.5, plus the cooldown still
 -- to wait, plus TP_MIN so a teleport only wins when it clearly saves time (Shortest Path Forever's idea of a floor).
@@ -705,6 +707,29 @@ function ns.ForeverTravelSentence(mapID, x, y)
 		sentence = sentence .. " " .. ns:L("FTRAVEL_NO_HEARTH")
 	end
 	return sentence
+end
+
+--- 26 Nov 2026 (trainer arrow by travel time, not by straight line): the planner's minutes from where you stand to
+--- (map, x, y), and how ("plan" = boats/teleports, "walk" = same land). nil when unknown (position unreadable, no route).
+--- The minutes are the planner's own rough units (AFGELEID), good for choosing, shown as "about N min".
+function ns.ForeverTravelMinutes(mapID, x, y)
+	local ok, steps, why = pcall(Plan, mapID, x, y)
+	if not ok then
+		return nil
+	end
+	if steps and steps.totalMin then
+		return steps.totalMin, "plan"
+	end
+	if why == "same land: walk" then
+		local pmap, px, py = PlayerPos()
+		if pmap and px then
+			local c = WalkCost(Point(pmap, px, py), Point(mapID, x, y))
+			if c then
+				return c, "walk"
+			end
+		end
+	end
+	return nil
 end
 
 --- /mh travel: where MH thinks you are, and the plan to the arrow's current target.

@@ -5602,6 +5602,8 @@ ns._mhLocales.enUS = {
 	FTRAVEL_CAST_FMT = "cast %s",
 	FTRAVEL_USE_FMT = "use your %s",
 	FTRAVEL_ABOUT_FMT = "(about %d min)",
+	-- 26 Nov 2026: the trainer arrow by travel time ("Loganaar, about 3 min (MH list)").
+	FTRAIN_MIN_FMT = "%d min",
 	FTRAVEL_CHAT_FIRST_FMT = "Way to %s: first %s.",
 	FTRAVEL_DALARAN = "Dalaran",
 	FTRAVEL_RUTTHERAN = "Rut'theran Village",

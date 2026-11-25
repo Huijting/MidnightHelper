@@ -1,5 +1,20 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 26 nov (Bouwchat 25-11): trainerpijl op reistijd — GEBOUWD, wacht op test (`/reload`)
+
+Rob via Sparring (Druid in Orgrimmar): *"… 4493 METER VERDEROP STUREN, dat moet beter kunnen haha"*.
+- ForeverTrainer.lua Nearest(): eerst `ns.ForeverTravelMinutes` (nieuw, ForeverTravel.lua: plan-minuten of loopkosten) voor
+  elke kandidaat op elk continent, laagste wint; rechte lijn alleen als terugval. 5e/6e return min/how; HowFar() → "N min"
+  (FTRAIN_MIN_FMT, 8 talen) in venster, tooltip, cap-melding, chat; chat noemt ook de route (FWEAP_ROUTE_LABEL +
+  ForeverTravelSentence). `/mh trainer check`: "chosen: … by travel time …" + "route: …" (ns.ForeverTrainerLastChoice).
+  Distance(nil)-val op 3 plekken gedicht (andere continent = geen yards).
+- ForeverTravel TELEPORTS moonglade: dest = Loganaar 1450 52.5,40.5 (AFGELEID landing; geleerd na de eerste cast).
+- ForeverTrainerSpots: Loganaar 12042 (N), Jannos Lighthoof 8142 (H, Feralas), Golhine 9465 (A, Felwood) + FIELD-tabel 15
+  veldtrainers. Bron Wowhead Forever-tooltips (GEMETEN), HandyNotes_ClassTrainers alleen vergeleken (ARR, niets
+  gekopieerd); uiMaps GEMETEN. Weggelaten: Zayus 5994 ("High Priest"), Fahrad 6707 ("Grand Master Rogue").
+- Orgrimmar heeft geen Druid-trainer (HandyNotes r.166-192, Sparring) → Thunder Bluff was correct, alleen ver.
+- trainroute_test 6/6 (scratch). ⚠️ Plan() cachet 1 s per doel: Nearest rekent ~20 plannen bij een klik (geen OnUpdate).
+
 ## ▶▶ 26 nov (Bouwchat 25-11): Fable-controle "Your race" verwerkt — klaar voor 5.10.1 (NIET getagd)
 
 Rob op "Fable vóór 5.10.1": *"ja"*. 13 punten van Sparring/Fable; zelf GEMETEN: Rogue-Eureka breekt Stealth niet

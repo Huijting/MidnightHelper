@@ -4697,6 +4697,7 @@ ns._mhLocales.nlNL = {
 	FTRAVEL_CAST_FMT = "cast %s",
 	FTRAVEL_USE_FMT = "gebruik je %s",
 	FTRAVEL_ABOUT_FMT = "(ongeveer %d min)",
+	FTRAIN_MIN_FMT = "%d min",
 	FTRAVEL_CHAT_FIRST_FMT = "Weg naar %s: eerst %s.",
 	FTRAVEL_DALARAN = "Dalaran",
 	FTRAVEL_RUTTHERAN = "Rut'theran Village",
