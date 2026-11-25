@@ -738,7 +738,7 @@ A partir do nível 1 (Golpe Sinistro e Eviscerar). Você não precisa ficar atr�
 - Apertar Ripostar quando nada foi aparado. Só funciona logo depois de aparar.
 - Punhalada pelas Costas ou Emboscar com espada, machado ou maça. Os dois precisam de uma adaga na mão principal.]] },
 			{ band = 3, title = "Subterfúgio: atacar da Furtividade", body = [[
-A partir do nível 1 (Golpe Sinistro e Furtividade). Esta árvore luta a partir da Furtividade: um primeiro golpe forte, e muitos Pontos de Combo antes de a luta começar de verdade. **Furtividade** = andar escondido, para o inimigo não ver você. Os guias dizem que subir de nível sozinho é mais lento que com Combate. Hemorragia é um talento, no mínimo nível 30: barato, pela frente, com qualquer arma. Marca da Morte é um talento, no mínimo nível 40. Emboscar e Punhalada pelas Costas precisam de uma adaga na mão principal; Hemorragia e Golpe Fantasmagórico não.
+A partir do nível 1 (Golpe Sinistro e Furtividade). Esta árvore luta a partir da Furtividade: um primeiro golpe forte, e muitos Pontos de Combo antes de a luta começar de verdade. **Furtividade** = andar escondido, para o inimigo não ver você. Os guias dizem que subir de nível sozinho é mais lento que com Combate. Hemorragia é um talento, no mínimo nível 30: barato, pela frente, com qualquer arma, mas com uma adaga bate mais forte.Marca da Morte é um talento, no mínimo nível 40. Emboscar e Punhalada pelas Costas precisam de uma adaga na mão principal; Hemorragia e Golpe Fantasmagórico não.
 **Ordem simples:**
 1. Furtividade (**Shift-R**). Um segundo Humanoide por perto? Aturdir (**Shift-Q**). Aturdir não quebra a Furtividade.
 2. Premeditação (**Shift-C**, a partir do 20): 2 Pontos de Combo no inimigo. Depois seu primeiro golpe.

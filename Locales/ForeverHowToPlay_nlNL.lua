@@ -730,7 +730,7 @@ Vanaf level 1 (Sinister Strike en Eviscerate). Je hoeft niet achter de vijand te
 - Riposte indrukken als er niets gepareerd is. Hij werkt alleen vlak na een parry.
 - Backstab of Ambush met een zwaard, bijl of knots. Allebei hebben ze een dolk in je hoofdhand nodig.]] },
 			{ band = 3, title = "Subtlety: toeslaan uit Stealth", body = [[
-Vanaf level 1 (Sinister Strike en Stealth). Deze boom vecht vanuit Stealth: een sterke eerste klap, en veel combo points nog vóór het gevecht echt begint. **Stealth** = sluipen, zodat de vijand je niet ziet. De gidsen zeggen dat alleen levelen trager gaat dan met Combat. Hemorrhage is een talent, op z'n vroegst 30: goedkoop, van voren, met elk wapen. Death Mark is een talent, op z'n vroegst 40. Ambush en Backstab hebben een dolk in je hoofdhand nodig; Hemorrhage en Ghostly Strike niet.
+Vanaf level 1 (Sinister Strike en Stealth). Deze boom vecht vanuit Stealth: een sterke eerste klap, en veel combo points nog vóór het gevecht echt begint. **Stealth** = sluipen, zodat de vijand je niet ziet. De gidsen zeggen dat alleen levelen trager gaat dan met Combat. Hemorrhage is een talent, op z'n vroegst 30: goedkoop, van voren, met elk wapen, maar met een dolk slaat hij harder. Death Mark is een talent, op z'n vroegst 40. Ambush en Backstab hebben een dolk in je hoofdhand nodig; Hemorrhage en Ghostly Strike niet.
 **Simpele volgorde:**
 1. Stealth (**Shift-R**). Staat er een tweede Humanoid bij? Sap (**Shift-Q**). Sap breekt Stealth niet.
 2. Premeditation (**Shift-C**, vanaf 20): 2 combo points op de vijand. Daarna je eerste klap.

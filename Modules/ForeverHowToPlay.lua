@@ -739,7 +739,7 @@ From level 1 (Sinister Strike and Eviscerate). You do not need to stand behind t
 - Pressing Riposte when nothing was parried. It only works right after a parry.
 - Backstab or Ambush with a sword, axe or mace. Both need a dagger in your main hand.]] },
 		{ band = 3, title = "Subtlety: strike from Stealth", body = [[
-From level 1 (Sinister Strike and Stealth). This tree fights from Stealth: a strong first hit, and many combo points before the fight really starts. **Stealth** = sneak, so the enemy does not see you. The guides say levelling alone goes slower than with Combat. Hemorrhage is a talent, 30 at the earliest: cheap, from the front, with any weapon. Death Mark is a talent, 40 at the earliest. Ambush and Backstab need a dagger in your main hand; Hemorrhage and Ghostly Strike do not.
+From level 1 (Sinister Strike and Stealth). This tree fights from Stealth: a strong first hit, and many combo points before the fight really starts. **Stealth** = sneak, so the enemy does not see you. The guides say levelling alone goes slower than with Combat. Hemorrhage is a talent, 30 at the earliest: cheap, from the front, with any weapon, but with a dagger it hits harder. Death Mark is a talent, 40 at the earliest. Ambush and Backstab need a dagger in your main hand; Hemorrhage and Ghostly Strike do not.
 **Simple order:**
 1. Stealth (**Shift-R**). A second Humanoid nearby? Sap (**Shift-Q**). Sap does not break Stealth.
 2. Premeditation (**Shift-C**, from 20): 2 combo points on the enemy. Then your first hit.

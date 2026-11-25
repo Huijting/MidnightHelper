@@ -742,7 +742,7 @@ Desde el nivel 1 (Golpe siniestro y Eviscerar). No tienes que estar detrás del 
 - Pulsar Estocada cuando no has parado nada. Solo funciona justo después de parar.
 - Puñalada o Emboscada con una espada, un hacha o una maza. Las dos necesitan una daga en tu mano principal.]] },
 			{ band = 3, title = "Sutileza: golpear desde Sigilo", body = [[
-Desde el nivel 1 (Golpe siniestro y Sigilo). Este árbol lucha desde Sigilo: un primer golpe fuerte, y muchos puntos de combo antes de que el combate empiece de verdad. **Sigilo** = avanzar a escondidas, para que el enemigo no te vea. Las guías dicen que subir de nivel en solitario va más lento que con Combate. Hemorragia es un talento, como pronto en el 30: barato, de frente, con cualquier arma. Marca de muerte es un talento, como pronto en el 40. Emboscada y Puñalada necesitan una daga en tu mano principal; Hemorragia y Golpe fantasmal no.
+Desde el nivel 1 (Golpe siniestro y Sigilo). Este árbol lucha desde Sigilo: un primer golpe fuerte, y muchos puntos de combo antes de que el combate empiece de verdad. **Sigilo** = avanzar a escondidas, para que el enemigo no te vea. Las guías dicen que subir de nivel en solitario va más lento que con Combate. Hemorragia es un talento, como pronto en el 30: barato, de frente, con cualquier arma, pero con una daga pega más fuerte.Marca de muerte es un talento, como pronto en el 40. Emboscada y Puñalada necesitan una daga en tu mano principal; Hemorragia y Golpe fantasmal no.
 **Orden sencillo:**
 1. Sigilo (**Shift-R**). ¿Otro humanoide cerca? Zapar (**Shift-Q**). Zapar no rompe el Sigilo.
 2. Premeditación (**Shift-C**, desde el 20): 2 puntos de combo en el enemigo. Luego tu primer golpe.

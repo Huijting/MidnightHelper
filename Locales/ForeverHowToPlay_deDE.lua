@@ -739,7 +739,7 @@ Ab Stufe 1 (Finsterer Stoß und Ausweiden). Du musst nicht hinter dem Gegner ste
 - Riposte drücken, wenn nichts pariert wurde. Sie wirkt nur direkt nach einer Parade.
 - Meucheln oder Hinterhalt mit Schwert, Axt oder Streitkolben. Beide brauchen einen Dolch in deiner Haupthand.]] },
 			{ band = 3, title = "Täuschung: aus der Verstohlenheit zuschlagen", body = [[
-Ab Stufe 1 (Finsterer Stoß und Verstohlenheit). Dieser Baum kämpft aus der Verstohlenheit: ein starker erster Treffer und viele Combopunkte, bevor der Kampf richtig beginnt. **Verstohlenheit** = schleichen, damit der Gegner dich nicht sieht. Die Guides sagen, allein leveln geht langsamer als mit Kampf. Blutsturz ist ein Talent, frühestens 30: billig, von vorn, mit jeder Waffe. Todesmal ist ein Talent, frühestens 40. Hinterhalt und Meucheln brauchen einen Dolch in deiner Haupthand; Blutsturz und Geisterhafter Stoß nicht.
+Ab Stufe 1 (Finsterer Stoß und Verstohlenheit). Dieser Baum kämpft aus der Verstohlenheit: ein starker erster Treffer und viele Combopunkte, bevor der Kampf richtig beginnt. **Verstohlenheit** = schleichen, damit der Gegner dich nicht sieht. Die Guides sagen, allein leveln geht langsamer als mit Kampf. Blutsturz ist ein Talent, frühestens 30: billig, von vorn, mit jeder Waffe, aber mit einem Dolch trifft er härter.Todesmal ist ein Talent, frühestens 40. Hinterhalt und Meucheln brauchen einen Dolch in deiner Haupthand; Blutsturz und Geisterhafter Stoß nicht.
 **Einfache Reihenfolge:**
 1. Verstohlenheit (**Shift-R**). Ein zweiter Humanoid in der Nähe? Kopfnuss (**Shift-Q**). Kopfnuss bricht die Verstohlenheit nicht.
 2. Konzentration (**Shift-C**, ab 20): 2 Combopunkte auf dem Gegner. Dann dein erster Treffer.

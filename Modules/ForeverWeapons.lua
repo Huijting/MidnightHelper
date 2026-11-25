@@ -301,6 +301,14 @@ local CLASS_LINES = {
 	-- the research text (Sparring), not measured in the (outdated) Talent table.
 	HUNTER = { lines = { "FWADV_HUN_1", "FWADV_HUN_2", "FWADV_HUN_3", "FWADV_HUN_4", "FWADV_HUN_5", "FWADV_HUN_6",
 		"FWADV_HUN_7", "FWADV_HUN_8", "FWADV_HUN_9" } },
+	-- Rogue (races Human, Orc, Dwarf, Night Elf, Undead, Gnome, Troll, both Skyborne). Sources: Blizzard deep dive Rogue &
+	-- Warlock 7 Oct 2026 (axes, Mutilate with two daggers, poison charges), Beta Dev Notes 3 Nov (Shank at 24, Mutilate row
+	-- 7), DB2 71091 (Hack and Slash 13960, poison ProcChance, SpellLevels), Wowhead tooltips, warcraft.wiki Rogue (Forever)
+	-- 5 Nov (poison quest). Dual Wield at 10 for a Rogue: SkillRaceClassInfo (GEMETEN). Spells: Dual Wield 674, Backstab
+	-- 53, Ambush 8676, Shank 1329283, Stealth 1784, Mutilate 399956, Hemorrhage 16511, Ghostly Strike 14278, Hack and
+	-- Slash 13960, Poisons 2842, Throw 2764. "Mutilate from 40" is the research text, not the (outdated) Talent table.
+	ROGUE = { lines = { "FWADV_ROG_1", "FWADV_ROG_2", "FWADV_ROG_3", "FWADV_ROG_4", "FWADV_ROG_5", "FWADV_ROG_6",
+		"FWADV_ROG_7", "FWADV_ROG_8" } },
 	SHAMAN = { lines = { "FWADV_SHA_1", "FWADV_SHA_2", "FWADV_SHA_3", "FWADV_SHA_4", "FWADV_SHA_5", "FWADV_SHA_6",
 		"FWADV_SHA_7", "FWADV_SHA_8" }, learn = { "staff", "mace2", "axe2" } },
 }

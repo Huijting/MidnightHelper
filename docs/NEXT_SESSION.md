@@ -1,5 +1,15 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 25 nov (Bouwchat 25-11): "Which weapon?" — Rogue GEBOUWD, wacht op test (`/reload`). Volgende: Mage, Priest, Warlock
+
+FWADV_ROG_1..8 (8 talen), CLASS_LINES.ROGUE. GEMETEN (DB2 SpellName 71091): Backstab 53, Ambush 8676, Shank 1329283
+(spelersversie; 15248/15617 zijn NPC-id's, AFGELEID), Stealth 1784, Mutilate 399956 (zelfde id als ForeverDirection),
+Hemorrhage 16511, Ghostly Strike 14278, Hack and Slash 13960, Poisons 2842, Throw 2764. "Mutilate from 40" en "Shank from
+24" uit het onderzoek (Beta Dev Notes 3 nov), niet uit de Talent-tabel. Stats: ROGUE lead "mhdps" ("main-hand weapon damage
+per second first"), Agi/Str ongewijzigd. Bijvangst: How you play Subtlety-rol, Hemorrhage "… but with a dagger it hits
+harder" in en + 8 vertaalbestanden (nl de fr es esMX pt ru; it heeft geen eigen bestand). wadv_test 72/72, tokcheck 57
+sleutels 0 fouten.
+
 ## ▶▶ 25 nov (Bouwchat 25-11): "Which weapon?" — Hunter GEBOUWD, wacht op test (`/reload`). Volgende: Rogue, casters
 
 FWADV_HUN_1..9 (8 talen), CLASS_LINES.HUNTER. GEMETEN (DB2 SpellName 71091): Auto Shot 75, Arcane Shot 3044, Aimed Shot

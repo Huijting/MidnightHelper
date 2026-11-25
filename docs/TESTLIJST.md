@@ -25,6 +25,16 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 25 nov — FOREVER: "Which weapon?" voor de Rogue
+
+Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (72 controles), NIET in het spel.
+- [ ] Een Rogue (bv. Ima Roquedude of Ima Tinyroque): How you play → **Which weapon? (Rogue)**: alleen eenhandig (ook
+      axes); Dual Wield vanaf 10, Backstab/Ambush met de main hand, Shank geeft Energy; langzaam in de main hand;
+      Mutilate; Assassination/Subtlety/Combat en Hack and Slash; Poisons vanaf 20; ranged slot met Throw; stats. Onderaan
+      geen tweehanders om te leren. Geen `<` of `#`.
+- [ ] Do this now: "main-hand weapon damage per second first, then Agility, then Strength …".
+- [ ] How you play → rol Subtlety: bij Hemorrhage staat nu "… with any weapon, but with a dagger it hits harder."
+
 ## 25 nov — FOREVER: "Which weapon?" voor de Hunter
 
 Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (64 controles), NIET in het spel.

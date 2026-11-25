@@ -29,7 +29,7 @@ ns.FOREVER_MAIN_STATS = {
 	-- Spirit and the Careful Aim flip as they are).
 	HUNTER = { main = { "AGILITY", "SPIRIT" }, stamTie = false, lead = "rdps",
 		later = { talent = "Careful Aim", main = { "AGILITY", "INTELLECT" } } },
-	ROGUE = { main = { "AGILITY", "STRENGTH" }, stamTie = true },
+	ROGUE = { main = { "AGILITY", "STRENGTH" }, stamTie = true, lead = "mhdps" }, -- 25 Nov 2026: main-hand weapon DPS first
 	PRIEST = { main = { "INTELLECT", "SPIRIT" }, stamTie = true },
 	-- Enhancement: Strength first, ALWAYS (Rob, 11 Nov 2026: "Ja, repareer"). The flip to Intellect at Mental Dexterity
 	-- is gone: Blizzard's blue post of 6 Nov ("Strength is always their strongest stat ... collect Strength and Attack
