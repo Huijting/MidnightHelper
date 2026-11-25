@@ -136,8 +136,9 @@ GitHub-release heeft beide zips. Wago NIET apart nagemeten (de run meldt Retail 
 "staat op CurseForge".
 ✅ `CURSEFORGE_DESCRIPTION.md` bijgewerkt (Forever: 12 × 4 + Why these keys? + 5/Shift-Space, groepscheck, QuestieDB,
 Do this now: upgrades, tasplekken, How you play-knop; How you play noemt je toetsen; credit-regel QuestieDB).
-🔴 Nog open: Rob plakt de beschrijving op de CF-projectpagina (de packager doet dat niet), en kijkt of de changelog op
-CurseForge netjes rendert (Files → het bestand → Changelog).
+✅ 25 nov: Rob heeft de beschrijving op de CF-projectpagina geplakt (via Sparring, letterlijk: *"En cursewords had ik de
+nieuwe beschrijving geplakt."*). 🔴 Nog open: kijkt of de changelog op CurseForge netjes rendert (Files → het bestand →
+Changelog).
 
 ## ▶▶ 24 nov avond (Bouwchat 24-11): Lua-fout KeyBlock.lua:1527 (Druid, na harde uitval) GEREPAREERD — wacht op test
 

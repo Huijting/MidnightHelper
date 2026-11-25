@@ -31,15 +31,20 @@ Gemeten in je SavedVariables: alles staat goed, behalve toets 1 (daar staat waar
 Assistant", die MH nooit bedekt).
 - [ ] Sleep de knop van toets 1 (de Single-Button Assistant: hij toont steeds een ander icoon) weg, bv. naar een Alt-plek.
       Dan `/mh block` → **Update (add new spells)**: Judgment komt op toets 1.
-- [ ] Ga in `/mh block` op Ctrl-V / Ctrl-X staan: de tooltip noemt je trinket. Zeg welke het is (heeft hij een Use:?).
+- [x] Ga in `/mh block` op Ctrl-V / Ctrl-X staan: de tooltip noemt je trinket. Zeg welke het is (heeft hij een Use:?).
+      ✅ 25 nov, Rob via Sparring, letterlijk: *"ik heb geen trinkets met een use. Dus ja, die komen daar niet. Ik heb op
+      3 verschillende gekeken."* Leeg is dus juist.
+Toets 1 nog open. Rob (ruw, Willow): *"Toets 1 op Protection Paladin. We hadden weggehaald een compilaartjes met 1."*
+Of Judgment nu op 1 staat, vraagt Sparring na.
 
 ## 25 nov (nacht) — toetsenblok: trinket-plekken eerlijk op het plaatje (Rob's Prot Paladin: Ctrl-X/Ctrl-V leeg)
 
 Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. NIET in het spel getest.
-- [ ] `/mh block`: staat er op Ctrl-V / Ctrl-X (12 × 4) of G (oude blok) GEEN icoon, ga er dan met de muis op staan. De
+- [x] `/mh block`: staat er op Ctrl-V / Ctrl-X (12 × 4) of G (oude blok) GEEN icoon, ga er dan met de muis op staan. De
       tooltip noemt je trinket en zegt dat hij geen effect heeft dat je kunt gebruiken; daarom blijft de knop leeg.
       Staat er wel een icoon, dan zet "Place it"/Update die trinket echt op de knop.
-- [ ] Noem de trinket uit die tooltip aan de bouwchat: dan kijken we of hij echt geen Use:-effect heeft.
+- [x] Noem de trinket uit die tooltip aan de bouwchat: dan kijken we of hij echt geen Use:-effect heeft.
+      ✅ 25 nov (Rob, zie hierboven): geen trinket met een Use:, op 3 characters gekeken. Welke trinkets het waren: niet genoemd.
 
 ## 24 nov (avond, 13) — FOREVER: het icoon volgt je vorm (Rob: "de icoontjes zijn hetzelfde als die van niet in beer vorm") — ✅ GETEST
 
@@ -64,9 +69,13 @@ vast. Test dit dus met de versie van main.
 
 🔴 Nieuw bestand: sluit het spel eerst helemaal af en start opnieuw. Offline getest (40 specs × 2 indelingen, 2688
 controles), NIET in het spel. Het oude blok blijft de standaard. Op je Prot Paladin:
-- [ ] `/mh block`: rechtsboven de knop **Layout: the old block (switch)**. Klik, **Switch**: het blok gaat eraf, wordt
+✅ 25 nov, Rob via Sparring, letterlijk (ruw, Willow): *"Ik heb overigens daar ook, en het was in Midnight, alle key
+bindings gezet zoals de nieuwe versie doet. En dat werkt ook keurig. De wisselknop, die zat er netjes in."* Ook GEMETEN
+in zijn SV (keyBlockProbe 25 nov 00:07), zie NEXT_SESSION. Afgevinkt: de wisselknop en de knoppen. De rest heeft hij
+niet apart genoemd.
+- [x] `/mh block`: rechtsboven de knop **Layout: the old block (switch)**. Klik, **Switch**: het blok gaat eraf, wordt
       12 × 4 en gaat weer op je balken. (Daarna kan de vraag over de extra toetsen komen.)
-- [ ] Op de knoppen: **1** Judgment, **2** Avenger's Shield, **3** Hammer of the Righteous, **4** Shield of the
+- [x] Op de knoppen (behalve toets 1, zie bovenaan): **1** Judgment, **2** Avenger's Shield, **3** Hammer of the Righteous, **4** Shield of the
       Righteous, **Q** Avenging Wrath, **E** Rebuke, **R** Divine Steed, **F** Hand of Reckoning, **Z** Ardent Defender,
       **X** Divine Shield, **C** Guardian of Ancient Kings, **V** Cleanse Toxins. Met Shift o.a. Blessed Hammer of
       Consecration (Shift-1/2), Divine Toll (Shift-Q), Word of Glory (Shift-C). **Ctrl-R** Redemption. Ctrl-1/2/3 = je
@@ -85,7 +94,9 @@ controles), NIET in het spel. Het oude blok blijft de standaard. Op je Prot Pala
 ## 24 nov (avond, 11) — FOREVER: de buff-knop cast op JEZELF (Rob, Thorns: "moet ik eerst mezelf aanklikken")
 
 Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (9 controles), NIET in het spel.
-- [ ] Druid: target een vijand (of een ander), wacht tot "Thorns runs out soon" in beeld komt, en klik op het icoon:
+✅ 25 nov, Rob via Sparring, letterlijk (ruw, Willow): *"De toonsknop in Forever Druid, die werkt goed."* ("toonsknop" =
+Thorns-knop, lezing van Sparring.) De andere buffs en Revive Pet heeft hij niet apart genoemd.
+- [x] Druid: target een vijand (of een ander), wacht tot "Thorns runs out soon" in beeld komt, en klik op het icoon:
       Thorns komt meteen op JOU. Je hoeft jezelf niet eerst aan te klikken.
 - [ ] Hetzelfde met een buff die je mist (Mark of the Wild, Arcane Intellect, Demon Skin …): één klik = op jezelf.
 - [ ] Hunter met een dode pet: Revive Pet werkt zoals vroeger.
