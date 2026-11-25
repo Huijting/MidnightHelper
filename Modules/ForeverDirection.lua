@@ -161,7 +161,8 @@ local GUIDE = {
 			needs = { { 23922, "shield", 40 }, { 2565, "shield" }, { 72, "shield" } } },
 	},
 	PALADIN = {
-		{},
+		-- Holy, 25 Nov 2026 (Sparring's research: five guides): a one-hander with a shield or an off-hand item.
+		{ w = "FDIRB_W_ONEHAND_OFF", fit = { mace = true, axe = true, sword = true }, shield = true },
 		{ w = "FDIRB_W_SHIELD", fit = { mace = true, axe = true, sword = true }, shield = true,
 			needs = { { 20925, "shield", 30 } } },
 		{ w = "FDIRB_W_TWOHAND", fit = { mace2 = true, axe2 = true, sword2 = true, polearm = true } },

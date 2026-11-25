@@ -23,8 +23,8 @@ end
 
 ns.FOREVER_MAIN_STATS = {
 	WARRIOR = { main = { "STRENGTH", "AGILITY" }, stamTie = true, lead = "dps" },
-	PALADIN = { main = { "STRENGTH", "INTELLECT" }, stamTie = true,
-		later = { talent = "Champion of the Light", main = { "INTELLECT", "STRENGTH" } } },
+	PALADIN = { main = { "STRENGTH", "INTELLECT" }, stamTie = true, lead = "dpsspell",
+		later ={ talent = "Champion of the Light", main = { "INTELLECT", "STRENGTH" } } },
 	HUNTER = { main = { "AGILITY", "SPIRIT" }, stamTie = false,
 		later = { talent = "Careful Aim", main = { "AGILITY", "INTELLECT" } } },
 	ROGUE = { main = { "AGILITY", "STRENGTH" }, stamTie = true },
@@ -58,11 +58,13 @@ ns.FOREVER_MAIN_STATS = {
 ]]
 local BY_TREE = {
 	PALADIN = {
-		[1] = { role = "heal", main = { "INTELLECT", "SPIRIT" }, stamTie = true },
-		-- Prot: see TANK.PALADIN below (21 Nov 2026: Stamina, then Intellect).
+		[1] = { role = "heal", main = { "INTELLECT", "SPIRIT" }, stamTie = true, lead = "heal" },
+		-- Prot: see TANK.PALADIN below (21 Nov 2026: Stamina, then Intellect). 25 Nov 2026: Intellect as the second stat
+		-- is disputed (guides differ); left as it is, an open point for Rob (NEXT_SESSION).
 		[2] = { role = "tank", main = { "STAMINA", "INTELLECT" }, stamTie = false },
 		-- Ret: Icy Veins Int > Str, SixtySim Str first, Blizzard silent → equal.
-		[3] = { role = "melee", main = { "STRENGTH", "INTELLECT" }, stamTie = true, equal = true },
+		-- 25 Nov 2026: lead = weapon DPS and spell damage (Holy Strike, seals and Judgement grow with spell damage).
+		[3] = { role = "melee", main = { "STRENGTH", "INTELLECT" }, stamTie = true, equal = true, lead = "dpsspell" },
 	},
 	PRIEST = {
 		-- Healing: Icy Veins Spi > Int, others Int > Spi → equal.

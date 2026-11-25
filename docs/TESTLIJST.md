@@ -25,6 +25,17 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 25 nov — FOREVER: "Which weapon?" voor de Paladin
+
+Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (42 controles), NIET in het spel.
+- [ ] Ima Pallie (level 15): How you play → **Which weapon? (Paladin)**: Retribution met een tweehander; Seal of Command
+      en Holy Strike; tanken (Protection) met een Shield en Righteous Fury, Seal of Fury, Holy Shield, Judgement; healen
+      (Holy); stats; alles doen; Libram. Onderaan wat je kunt en welke wapens je nog kunt leren (geen staves of daggers:
+      die kan een Paladin niet). Geen `<` of `#` in de tekst.
+- [ ] Gekozen richting Holy: het blok bovenaan zegt "a one-handed weapon with a shield or an off-hand item".
+- [ ] Do this now: Retribution / geen richting: "weapon damage per second and spell damage first, then …"; Holy: "bonus
+      healing for spells first, …". Protection: ongewijzigd (Stamina, then Intellect).
+
 ## 25 nov — FOREVER: "Which weapon?" voor de Warrior (Rob: "Maak ze maar een voor een compleet af daarna de controle")
 
 Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (30 controles), NIET in het spel.

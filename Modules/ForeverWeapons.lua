@@ -274,6 +274,15 @@ local CLASS_LINES = {
 	-- Weaponmaster 12281, Two-Handed Weapon Specialization 12163.
 	WARRIOR = { lines = { "FWADV_WAR_1", "FWADV_WAR_2", "FWADV_WAR_3", "FWADV_WAR_4", "FWADV_WAR_5", "FWADV_WAR_6",
 		"FWADV_WAR_7", "FWADV_WAR_8" } },
+	-- Paladin (races Human, Dwarf, Undead). Sources: Blizzard Forever Class Deep Dive Paladin (7 Oct 2026: Seal of Fury,
+	-- Righteous Fury, Holy Strike), Icy Veins Retribution/Protection/Holy (Nov 2026), Warcraft Tavern stats; "Seal of
+	-- Command about 7 times a minute" = its proc rate as the guides give it. Can't use staves, daggers, fist weapons,
+	-- ranged or wands, no Dual Wield: SkillRaceClassInfo 71091 (GEMETEN, class bit 2 absent). Spells: Seal of Command
+	-- 20375, Holy Strike 678, Seal of Righteousness 20154, Righteous Fury 25780, Seal of Fury 20163, Holy Shield 20925,
+	-- Judgement 20271, Two-Handed Weapon Specialization 20111, Libram (skill) 27762, Shield 9116. The race line of the
+	-- research is the "You can already use / still learn" part (client + trainer table).
+	PALADIN = { lines = { "FWADV_PAL_1", "FWADV_PAL_2", "FWADV_PAL_3", "FWADV_PAL_4", "FWADV_PAL_5", "FWADV_PAL_6",
+		"FWADV_PAL_7", "FWADV_PAL_8" } },
 }
 ns.FOREVER_WEAPON_ADVICE_LINES = CLASS_LINES -- the offline check reads it
 

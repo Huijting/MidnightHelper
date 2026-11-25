@@ -1,5 +1,17 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 25 nov (Bouwchat 25-11): "Which weapon?" — Paladin GEBOUWD, wacht op test (`/reload`)
+
+FWADV_PAL_1..8 (8 talen), CLASS_LINES.PALADIN in ForeverWeapons.lua. Spell-id's GEMETEN (DB2 SpellName 71091): Seal of
+Command 20375, Holy Strike 678, Seal of Righteousness 20154, Righteous Fury 25780, Seal of Fury 20163, Holy Shield 20925,
+Judgement 20271, Two-Handed Weapon Specialization 20111, Libram 27762. De ras-regel van het onderzoek = de dynamische
+"You can already use / still learn" (client + leraren). Stats: standaard en Retribution lead = "dpsspell" ("weapon damage
+per second and spell damage first"), Holy lead = "heal". ForeverDirection GUIDE.PALADIN[1] (Holy) = FDIRB_W_ONEHAND_OFF,
+fit 1H, shield.
+🔵 OPEN VOOR ROB: Protection-stats staan op Stamina, dan Intellect (21 nov). Intellect als tweede is twijfelachtig (guides
+verschillen: wowforeverbuilder Spell power/Int, Mobalytics ook Strength). NIET veranderd; Rob beslist.
+wadv_test 42/42, tokcheck 32 sleutels 0 fouten.
+
 ## ▶▶ 25 nov (Bouwchat 25-11): "Which weapon?" — Warrior GEBOUWD (1 van 8 na de Druid), wacht op test (`/reload`)
 
 Rob via Sparring: *"Maak ze maar een voor een compleet af daarna de controle"*; volgorde Warrior → Paladin → Shaman →
