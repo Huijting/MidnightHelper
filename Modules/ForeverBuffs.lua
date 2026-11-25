@@ -474,14 +474,26 @@ local function RankIndex(name, id)
 	return nil
 end
 
+--- A group buff (covers) and the single rank it is exactly as strong as. GEMETEN 25 Nov 2026 in wago DB2 SpellEffect,
+--- Forever 1.60.1.71091 (EffectBasePointsF of the stat aura, every effect row equal): Arcane Brilliance 23028 = 31 Int =
+--- Arcane Intellect rank 5 (10157); Prayer of Fortitude 21562 / 21564 = 56 / 70 Stamina = Power Word: Fortitude rank 5 /
+--- 6 (10937 / 10938); Gift of the Wild 21849 / 21850 = Mark of the Wild rank 6 / 7 (9884 / 9885: armor, stats and the
+--- five resistances all the same). A group buff not in this table keeps the old behaviour (not measured = not guessed).
+local COVER_EQUIV = {
+	[23028] = 10157,
+	[21562] = 10937, [21564] = 10938,
+	[21849] = 9884, [21850] = 9885,
+}
+
 --- For a def that is ON you: the seconds left of the one that runs out first, if that is "soon"; else nil.
 --- Third value when it stays quiet on purpose: a reason for /mh buffs.
 --- 25 Nov 2026 (Rob, Forever Mage: "ik had van een andere mage al een hogere rank gekregen die dus nog 2 minuten actief
 --- is, en dan blijft dit irritant in beeld, dat moet natuurlijk niet"; on the proposal "ja"): when the buff on you is a
 --- HIGHER rank than the best one you know, your own cast cannot replace it (the game refuses a weaker version while a
 --- stronger one is active; AFGELEID, the classic rule, not measured in Forever). So no "runs out soon" then; once it is
---- gone, the normal "missing" line comes and your own rank works. Not for a bigger version (covers, e.g. Arcane
---- Brilliance): that branch is unchanged (see the bouwchat's note of 25 Nov in NEXT_SESSION).
+--- gone, the normal "missing" line comes and your own rank works. Same for a group buff of someone else (covers, Rob
+--- via sparring 25 Nov: "Ik volg uiteraard jouw advies" on (a)): quiet when your best single rank is weaker than the
+--- group buff (COVER_EQUIV); as strong or stronger = offered as before.
 local function ExpiringLeft(d)
 	if d.imbue or (InCombatLockdown and InCombatLockdown()) then
 		return nil
@@ -507,7 +519,7 @@ local function ExpiringLeft(d)
 				local left = exp - now
 				-- A bigger version (covers) on you lasts long: the one that holds longest decides.
 				if left > 0 and (not best or left > best.left) then
-					best = { left = left, dur = dur, name = name, idx = idx }
+					best = { left = left, dur = dur, name = name, idx = idx, id = id }
 				end
 			end
 		end
@@ -527,6 +539,15 @@ local function ExpiringLeft(d)
 			if myIdx and best.idx > myIdx then
 				return nil, nil, ("a higher rank from someone else is on you (rank %d, you know rank %d), %d s left: "
 					.. "wait until it is gone"):format(best.idx, myIdx, math.floor(best.left))
+			end
+		elseif d.buff then
+			local eq = COVER_EQUIV[best.id]
+			local eqIdx = eq and RankIndex(d.buff, eq)
+			local mine = BestRank(d.buff)
+			local myIdx = mine and RankIndex(d.buff, mine)
+			if eqIdx and myIdx and myIdx < eqIdx then
+				return nil, nil, ("a group buff from someone else is on you (%s, as strong as rank %d; you know rank %d), "
+					.. "%d s left: wait until it is gone"):format(best.name, eqIdx, myIdx, math.floor(best.left))
 			end
 		end
 		return best.left, cover and d.buff or best.name

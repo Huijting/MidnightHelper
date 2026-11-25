@@ -31,10 +31,11 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
   rank gekregen die dus nog 2 minuten actief is, en dan blijft dit irritant in beeld, dat moet natuurlijk niet"*; op het
   voorstel: *"ja"*.
 - Gerepareerd (`ForeverBuffs.lua` ExpiringLeft): hogere rank dan jij kent = stil tot hij op is, dan de gewone melding.
-  Alle Forever-buffs. `/mh buffs` zegt waarom. Open: dezelfde vraag bij een groepsbuff van een ander (covers-tak).
+  Alle Forever-buffs. `/mh buffs` zegt waarom. Ook bij een groepsbuff van een ander (Rob op (a): *"Ik volg uiteraard
+  jouw advies"*): stil als je eigen hoogste rank zwakker is (sterkte per groepsbuff GEMETEN in DB2).
 - Spel: F. Voor wie: N + V (AFGELEID).
 
-### Forever: Ctrl+Shift+klik op een tasitem = Disenchant (wens van Rob, 25 nov) — ✅ JA, GEBOUWD 25 nov, wacht op test
+### Forever: Ctrl+Shift+klik op een tasitem = Disenchant (wens van Rob, 25 nov) — ✅ AF: GEBOUWD 25 nov (2b4a94d) en GETEST (Rob via Sparring: *"Dat werkt ook. … Dus daar ben ik blij mee."*)
 - Bron: Rob via Sparring 25-11, letterlijk: *"Kunnen wij een knop in de tooltip bouwen als we een item kunnen
   disenchanten? Zodat ik niet eerst disenchant moet drukken, dan het ding wat ik wil disenchanten, maar dat we gewoon de
   tooltip daarvan kunnen gebruiken."*; op het voorstel: *"Ja, een chanter is een forever karakter. En we beginnen

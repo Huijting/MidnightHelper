@@ -34,14 +34,23 @@ Alleen een bestaand bestand gewijzigd: `/reload` is genoeg. Offline getest (12 c
       know rank …)".
 - [ ] Is zijn buff helemaal op: dan komt de gewone melding dat Arcane Intellect ontbreekt, en de knop zet jouw eigen rank.
 - [ ] Je eigen Arcane Intellect (of een even hoge/lagere van een ander) die bijna op is: "runs out soon" komt wél, zoals eerst.
+- [ ] (ook, Rob op (a): *"Ik volg uiteraard jouw advies"*) Een GROEPSBUFF van een ander (Arcane Brilliance, Prayer of
+      Fortitude, Gift of the Wild) die bijna op is, terwijl jij de losse buff alleen in een lagere rank kent: GEEN "runs
+      out soon". `/mh buffs` zegt "a group buff from someone else is on you (…, as strong as rank …; you know rank …)".
+      Is hij op: de gewone melding, en jouw eigen rank.
+- [ ] Ken je de losse buff in de hoogste rank (Arcane Intellect rank 5 tegen Arcane Brilliance): dan komt "runs out soon"
+      wél, en de knop zet je eigen Arcane Intellect.
 
-## 25 nov — FOREVER: Ctrl+Shift+klik op een item in je tas = Disenchant (Rob: "we beginnen inderdaad met digijant eerst")
+## 25 nov — FOREVER: Ctrl+Shift+klik op een item in je tas = Disenchant (Rob: "we beginnen inderdaad met digijant eerst") — ✅ GETEST
 
-Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (36 controles), NIET in het spel.
+Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (36 controles).
+✅ 25 nov, Rob via Sparring, letterlijk (ruw, Willow; "mates" = zijn Mage): *"Shift-Ctrl ingedrukt houden en dan klikken
+naar het disenchant en dan gooit het netjes in mijn tas. Dus daar ben ik blij mee."* Afgevinkt: het paarse vakje en de
+klik. Niet apart genoemd: de tooltipregel, welke tas (Blizzard of Baganator), gewone klik, gevecht, schakelaar.
 Op je enchanter, met een groen of blauw wapen of armor in je tas:
 - [ ] Ga met de muis op dat item staan (Blizzard-tas én Baganator). Onder "MH: Disenchantable" staat nu een regel
       **Ctrl+Shift+click: disenchant this item** (Nederlands: "Ctrl+Shift+klik: disenchant dit item").
-- [ ] Hou **Ctrl+Shift** ingedrukt: het vakje kleurt paars, met een klein Disenchant-icoon. Klik: je disenchant dát item.
+- [x] Hou **Ctrl+Shift** ingedrukt: het vakje kleurt paars, met een klein Disenchant-icoon. Klik: je disenchant dát item.
       Laat de toetsen los vóór de loot komt (anders kan Shift je auto-loot omdraaien; dat is niet gemeten).
 - [ ] Zonder Ctrl+Shift doet klikken op het vakje precies wat het altijd deed (oppakken, gebruiken, Shift-klik = link).
 - [ ] Een item dat niet kan (grijs, een tas, een quest-item): geen regel, en Ctrl+Shift+klik doet het gewone.

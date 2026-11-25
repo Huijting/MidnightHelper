@@ -13,11 +13,20 @@ gewone "ontbreekt"-melding met je eigen rank. Geldt voor alle Forever-buffs (buf
 gone". Offline: scratch `buff_rank_test.lua` 12/12 (hoger stil, eigen/lager/gelijk wel, lang geldig niets, op → missing,
 alle ranks gekend → wel).
 AFGELEID, niet gemeten in Forever: dat het spel je lagere rank weigert zolang een hogere actief is (klassieke regel).
-🔶 NIET veranderd, eerst aan Sparring gemeld: de covers-tak (groepsbuff van een ander loopt af, bv. Arcane Brilliance →
-de knop biedt je eigen Arcane Intellect). Daar kan hetzelfde spelen als jouw single buff zwakker is dan de groepsbuff
-(Arcane Brilliance rank 1 is even sterk als Arcane Intellect rank 5: AFGELEID, niet gemeten). Wacht op Robs keuze.
+✅ Daarna ook de covers-tak (groepsbuff van een ander), Rob via Sparring op (a): *"Ik volg uiteraard jouw advies"*. GEMETEN
+in wago DB2 SpellEffect (Forever 1.60.1.71091, EffectBasePointsF): Arcane Brilliance 23028 = 31 Int = Arcane Intellect
+rank 5; Prayer of Fortitude 21562/21564 = 56/70 = PW: Fortitude rank 5/6; Gift of the Wild 21849/21850 = Mark of the
+Wild rank 6/7 (armor, stats, alle vijf resistances gelijk). Tabel COVER_EQUIV: is je eigen hoogste single rank zwakker
+dan de groepsbuff, dan stil tot hij op is; even sterk of sterker = de knop biedt je single buff zoals eerst. Paladin
+Greater Blessings: die tak bood al nooit iets (geen `buff` in de def, GEMETEN in de code). Offline 18/18 (ook: elk id
+van de tabel staat in de spell-id-lijsten).
 
-## ▶▶ 25 nov (Bouwchat 25-11): Forever — Ctrl+Shift+klik in de tas = Disenchant GEBOUWD — wacht op test
+## ▶▶ 25 nov (Bouwchat 25-11): Forever — Ctrl+Shift+klik in de tas = Disenchant GEBOUWD — ✅ GETEST
+
+✅ Rob via Sparring, letterlijk (ruw, Willow; "mates" = zijn Mage): *"de disenchanten met mijn mates. Ik kon gelukkig wat
+zelf maken. Dat werkt ook. Shift-Ctrl ingedrukt houden en dan klikken naar het disenchant en dan gooit het netjes in mijn
+tas. Dus daar ben ik blij mee."* Niet apart genoemd: Baganator of Blizzard-tas, gewone klik zonder Ctrl+Shift, de
+schakelaar, gevecht, character zonder Enchanting.
 
 Rob via Sparring, letterlijk: *"Kunnen wij een knop in de tooltip bouwen als we een item kunnen disenchanten? Zodat ik
 niet eerst disenchant moet drukken, dan het ding wat ik wil disenchanten, maar dat we gewoon de tooltip daarvan kunnen

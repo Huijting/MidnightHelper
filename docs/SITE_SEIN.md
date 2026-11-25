@@ -31,7 +31,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 ## 25 nov 2026 — Forever: Ctrl+Shift+klik op een item in je tas = Disenchant
 - Tag + commit:   geen tag (commit: deze regel)
 - Status:         alleen op main
-- Mag op de site: nee (niet uit, niet getest)
+- Mag op de site: nee (niet uit; Rob testte het 25 nov: *"Dus daar ben ik blij mee."*)
 - Speler ziet:    Voor enchanters: hou Ctrl+Shift ingedrukt en klik op een wapen of armor in je tas (Blizzard-tassen of
                   Baganator): MH disenchant het. De tooltip zegt het als het kan. Nooit in een gevecht; zonder Ctrl+Shift
                   werkt je tas gewoon. Eigen schakelaar. Prospecting/Milling: later.
