@@ -24,6 +24,28 @@ part of your entry under its own sub-bullet starting with **Forever:** so Rob ca
 
 The nightly check (`docs/NACHTCONTROLE.md`, events C1 and numbers C2) already covers Forever. Do not redo that.
 
+## Weapon advice — every run (added 25 Nov 2026)
+
+Rob, 25 Nov 2026 (via the sparring chat, his words): *"Zorg er ook voor dat in onze controlerondes elke dag gecontroleerd
+wordt of er wijzigingen zijn die hier invloed op hebben."* and *"En dat bedoel ik natuurlijk bij patch notes en dat soort
+dingen allemaal."* "Hier" = the "Which weapon?" advice for all nine classes and the stats sentences. Every claim, its source,
+its measuring point and where it lives in the code is in **`docs/forever/WAPENADVIES_FEITEN.md`** — read it.
+
+- **Content watch** and **blue post / data watch**: read ALL Blizzard sources with changes since your newest entry — the
+  official Forever patch notes (news.blizzard.com, worldofwarcraft.blizzard.com), the "WoW: Forever Hotfixes" articles
+  and hotfix posts (thread 2403040), the dev/beta notes (Kaivax, thread 2360696), class deep dives, and "known issues" /
+  blue posts on the Forever forums — for the keywords at the bottom of that file. The content watch asks "does this
+  contradict a claim in the register", the data watch "is this a new fact for a row in it".
+- **API watch** (it already notes new `wowf` builds): when there is a NEW Forever client build, compare the DB2 rows the
+  register calls GEMETEN with the previous build (wago.tools DB2 on the `wowf` branch: SkillRaceClassInfo, SpellLevels,
+  SpellEquippedItems, ChrClasses, SpellShapeshiftForm, ItemDamageTwoHand/OneHand, the talent trees named there) and name
+  any row that moved.
+- Watch the rows marked 🟠 (BETWIST / NIET GEMETEN) extra: a Blizzard word on one of those is always worth a line.
+- **Output**: one line per hit, in your own file under your **Forever:** sub-bullet, starting with `⚔️ Wapenadvies:` —
+  the claim (as the register words it), the source with its date and URL, and the place in the code (key or file).
+  Nothing found = one line `⚔️ Wapenadvies: niets dat het register raakt (gelezen: …)`, naming what you read. **Change
+  nothing yourself**: the sparring chat puts it to Rob.
+
 ## Content watch (`docs/CONTENT_WATCH.md`)
 
 Read the Forever hotfix articles and Forever blue posts and test them against what the addon CLAIMS about Forever (files

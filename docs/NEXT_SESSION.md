@@ -1,5 +1,22 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 25 nov (Bouwchat 25-11): de ochtendwachters bewaken het wapenadvies (register + vaste stap)
+
+Rob via Sparring: *"Zorg er ook voor dat in onze controlerondes elke dag gecontroleerd wordt of er wijzigingen zijn die hier
+invloed op hebben."* + *"En dat bedoel ik natuurlijk bij patch notes en dat soort dingen allemaal."* (ook zijn ja voor
+WATCHER_FOREVER.md).
+- Nieuw: `docs/forever/WAPENADVIES_FEITEN.md` — per bewering bron, meetpunt, plek in de code (key/bestand) en status
+  (GEMETEN/BRON/GIDS/🟠 BETWIST of NIET GEMETEN), per class, plus de trefwoorden.
+- `docs/WATCHER_FOREVER.md` sectie "Weapon advice — every run": content- en datawachter lezen alle Blizzard-bronnen (patch
+  notes, hotfixes, dev/beta notes, deep dives, blue posts/known issues); de API-wachter legt bij een nieuwe `wowf`-build de
+  GEMETEN DB2-rijen naast de vorige; uitvoer = één regel `⚔️ Wapenadvies:` per treffer, niets zelf aanpassen.
+- GEMETEN (get_trigger, alleen gelezen): de content- en datawachter eindigen met "read docs/WATCHER_FOREVER.md and do the
+  section 'For all four' plus the section for YOUR file"; alle vier schrijven dagelijks een **Forever:**-regel (API_WATCH
+  25 nov meldde build 71091). Ze lezen het bestand dus al; geen prompt-wijziging nodig. ⚠️ De nieuwe sectie heet niet "For
+  all four" maar staat ernaast en noemt elke wachter bij naam — AFGELEID dat ze hem lezen (ze lezen het hele bestand); de
+  eerste run (26 nov) laat het zien: zoek `⚔️ Wapenadvies:`.
+- REGIE.md tabel 2 bijgewerkt.
+
 ## ▶▶ 25 nov (Bouwchat 25-11): "Which weapon?" — Warlock GEBOUWD: alle 9 classes klaar. Volgende: Fable-controle (Sparring) + wapenadvies-wacht
 
 FWADV_WLK_5/_7 (8 talen). GEMETEN: Create Firestone 6366 (lvl 28), Create Spellstone 2362 (lvl 36), Life Tap 1454.

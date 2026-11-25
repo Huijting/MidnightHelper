@@ -66,7 +66,8 @@ sinds 11 nov **`regisseur`** (`/regisseur` of "doe de regie-ronde"; doet hoofdst
 | `docs/forever/*.md` (onderzoek Forever, o.a. `KEYBLOCK12_*`, 24 nov) en `docs/CURSEFORGE_<ver>.md` | bouwchat | — |
 | `docs/TESTLIJST.md` | bouwchat | — |
 | de zes wachter-bestanden | elk zijn eigen wachter | — |
-| `docs/WATCHER_FOREVER.md` | bouwchat, alleen met Robs ja | — |
+| `docs/WATCHER_FOREVER.md` | bouwchat, alleen met Robs ja (25 nov: sectie "Weapon advice", Robs ja via Sparring) | — |
+| `docs/forever/WAPENADVIES_FEITEN.md` (register wapenadvies, 25 nov) | bouwchat; de wachters lezen het | — |
 | `CLAUDE.md` | bouwchat | 350 (lint [24], `tools/lint_addon.py:1707`) |
 | `docs/PLAN_WERKWIJZE_2026-11-10.md`, `docs/REGIE.md` | regisseur | 200 voor dit bestand (plan: —) |
 | site-repo: overdrachtsbriefje, `drafts/BOUW_VRAAG.md`, `CLAUDE.md` | site-chat | 200 (site-`CLAUDE.md`) |
