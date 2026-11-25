@@ -338,9 +338,10 @@ local ACTS = {
 	-- 23 Nov 2026 (Rob via sparring: "Ik volg jullie advies weer."): the arrow to whoever takes a finished quest, read
 	-- live from QuestieDB when the player has it (ForeverQuestieDB.lua).
 	turnin = { fn = function() if ns.ForeverQuestieGoTurnIn then ns.ForeverQuestieGoTurnIn() end end, label = "FQDB_BTN_TURNIN" },
-	-- 25 Nov 2026 (Rob via sparring: "het is goed zo met 1, 2 en 3"): open the character window, where the Gear check sits
-	-- (ForeverEnchantCheck.lua). Out of combat only.
-	enchant = { fn = function() if ns.ForeverOpenCharacter then ns.ForeverOpenCharacter() end end, label = "FENCH_BTN" },
+	-- No "enchant" action, on purpose (25 Nov 2026, Rob's BugSack: "TextStatusBar.lua:110: attempt to compare a secret
+	-- number value (execution tainted by 'MidnightHelper')" after ToggleCharacter from this button): opening the
+	-- character window from addon code taints the PlayerFrame bars, even inside a pcall. The line names the player's
+	-- own key instead (ForeverEnchantCheck.lua), like the talent line.
 }
 ns.FOREVER_DONOW_ACTS = ACTS
 
@@ -603,15 +604,18 @@ function Collect()
 		end
 	end
 	-- 25 Nov 2026 (Rob via sparring: "het is goed zo met 1, 2 en 3"): slots that can carry an enchant but have none
-	-- (ForeverEnchantCheck.lua). A tip: it does not make the window appear by itself; the button opens the character
-	-- window with the Gear check next to it.
+	-- (ForeverEnchantCheck.lua). A tip: it does not make the window appear by itself. No button (see ACTS): the line
+	-- names the key that opens the character window.
 	if ns.ForeverEnchantMissingCount then
 		local okE, nE = pcall(ns.ForeverEnchantMissingCount)
 		if okE and type(nE) == "number" and nE > 0 then
 			local s = (nE == 1) and ns:L("FENCH_DONOW_ONE") or ns:L("FENCH_DONOW_FMT"):format(nE)
+			local key = ns.ForeverCharacterKeyText and ns.ForeverCharacterKeyText()
+			if key then
+				s = s .. " " .. ns:L("FENCH_KEY_FMT"):format(key)
+			end
 			out.tips[#out.tips + 1] = s
 			item(s, "enchant", true)
-			out.actions.enchant = true
 		end
 	end
 	-- 23 Nov 2026: a finished quest and who takes it (QuestieDB, only when the player has it). A tip, not a to-do: it

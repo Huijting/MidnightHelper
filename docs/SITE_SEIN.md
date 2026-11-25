@@ -33,8 +33,9 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 - Status:         alleen op main
 - Mag op de site: nee (niet uit, niet getest)
 - Speler ziet:    Naast het character-venster per vakje dat een enchant kan krijgen de enchant, of "no enchant". Voor een
-                  enchanter ook "you can make this yourself". Onder Now: hoeveel vakjes geen enchant hebben, met een knop.
-- Knoplabels:     FENCH_TITLE, FENCH_BTN, FENCH_SW
+                  enchanter ook "you can make this yourself". Onder Now: hoeveel vakjes geen enchant hebben, en je toets
+                  voor het character-venster (geen knop: die gaf een taint-fout, 25 nov weggehaald). Venster getest door Rob.
+- Knoplabels:     FENCH_TITLE, FENCH_KEY_FMT, FENCH_SW
 - Commando's:     /mh enchant
 - Spel:           Forever
 

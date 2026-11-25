@@ -30,8 +30,10 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 - Bron: Rob via Sparring 25-11, letterlijk: *"ik heb ook enchanting, maar ik zie helemaal niet of ik al iets enchant heb, ja
   of nee, in mijn overzichtje. Kunnen wij dat maken?"*; op het voorstel 1-3: *"Ja, het gaat om forever. En het is goed zo
   met 1, 2 en 3."*
-- Gebouwd: (1) venster naast het character-venster, per vakje de enchant of "no enchant"; (2) een regel onder Now met de
-  knop Character; (3) voor een enchanter "you can make this yourself". Schakelaar + `/mh enchant`.
+- Gebouwd: (1) venster naast het character-venster, per vakje de enchant of "no enchant"; (2) een regel onder Now;
+  (3) voor een enchanter "you can make this yourself". Schakelaar + `/mh enchant`.
+- 25 nov: venster GETEST (Robs screenshots). De knop Character gaf een taint-fout → knop weg; de regel noemt nu je toets
+  ("Character window: C."). Armor kits tonen nu hun naam (enchant 15 = Light Armor Kit). Wacht op test na `/reload`.
 - Later, apart (eerst onderzoek): advies welke enchant de beste is.
 - Spel: F. Voor wie: N + V (AFGELEID).
 
@@ -47,6 +49,8 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 - Stap 1 gebouwd (`AltProfTip.lua`): recept = je andere characters met dat beroep + skill (Forever ook "needs N", "can
   learn it", "knows it"); materiaal = welke andere characters een beroep hebben dat het gebruikt. Niet bij soulbound /
   bind-on-pickup / quest-items. Schakelaar + `/mh alttip`.
+- 25 nov: materiaal-tooltip GETEST (Rob: *"MH: on your other characters: Blacksmithing: Ima Pallie · …"*). Recept en gear
+  nog niet apart gemeld.
 - Stap 2 GEBOUWD 25 nov, wacht op test (Rob op het advies "eerst 'kan dragen + hoger item level'. Forever gaat dan ook de
   gear onthouden": *"Zeg je ja? JA"*): bij BoE gear wie het kan dragen (class, harnas, wapen, level) en of het item
   level hoger is dan wat dat character in dat vakje draagt. Geen "beter" op stats. Later, als Rob het wil: echte

@@ -13,7 +13,9 @@ local _, ns = ...
 	feet, wrist, hands, back, shield, held-in-off-hand items and weapons (no head, shoulder, legs, rings, trinkets, ranged).
 	The enchant on an item is the 2nd field of its link (item:ID:ENCHANT:...). Its name: the client's own name of the
 	Enchanting spell that puts it on ("Enchant Bracer - Greater Spirit" -> the part after the last " - "), so every
-	language gets its client's word. An enchant MH has no spell for (a kit, a libram) shows as "enchanted".
+	language gets its client's word. Since the same evening also armor kits and the like (every ENCHANT_ITEM spell; Rob's
+	Druid showed "enchanted" on hands and feet: enchant 15 = spell 2831 "Armor +8, Stamina +1", a Light Armor Kit, MEASURED
+	in his SV + DB2). Only an id no spell in this build puts on shows "enchanted".
 	Rob plays with CharacterScape (CharacterForever): it keeps CharacterFrame and only post-hooks. This panel is its own
 	frame on UIParent, placed to the right of CharacterFrame each time it opens; it never touches CharacterFrame's
 	children, scripts or size, and it is not refreshed in combat. Shift+scroll scales it (RegisterMidnightDialogPopup).
@@ -366,15 +368,26 @@ function ns.SetForeverEnchantCheck(on)
 	end
 end
 
---- Do this now: open the character window (out of combat only).
-function ns.ForeverOpenCharacter()
-	if InFight() then
-		print(PREFIX .. ns:L("FENCH_COMBAT"))
-		return
+--- The key that opens the character window, as the game shows it ("C"), or nil when it is unbound.
+--- 25 Nov 2026: there used to be a button that called ToggleCharacter("PaperDollFrame"); Rob's BugSack the same day:
+--- "TextStatusBar.lua:110: attempt to compare a secret number value (execution tainted by 'MidnightHelper')" — the
+--- character window opened from addon code taints the PlayerFrame bars (secret values), even inside a pcall. MH never
+--- opens it; the player presses his own key.
+function ns.ForeverCharacterKeyText()
+	if not GetBindingKey then
+		return nil
 	end
-	if ToggleCharacter then
-		pcall(ToggleCharacter, "PaperDollFrame")
+	local ok, key = pcall(GetBindingKey, "TOGGLECHARACTER0")
+	if not (ok and type(key) == "string" and key ~= "") then
+		return nil
 	end
+	if GetBindingText then
+		local okT, t = pcall(GetBindingText, key)
+		if okT and type(t) == "string" and t ~= "" then
+			return t
+		end
+	end
+	return key
 end
 
 --- /mh enchant in WoW Forever (Midnight has its own in GearEnchantCheck.lua, which does not load here).

@@ -27,20 +27,24 @@ bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt o
 
 ## 25 nov — FOREVER: Gear check: enchants naast je character-venster (Rob: "ik zie helemaal niet of ik al iets enchant heb")
 
-🔴 Nieuwe bestanden: sluit het spel helemaal af en start opnieuw (een `/reload` is niet genoeg). Offline getest (19
-controles), NIET in het spel. Ook met CharacterScape aan.
-- [ ] Open je character-venster (C). Rechts ernaast staat een klein venster **Gear check: enchants**, met per vakje dat een
+🔴 Nieuwe bestanden: sluit het spel helemaal af en start opnieuw (een `/reload` is niet genoeg). Offline getest (24
+controles). Ook met CharacterScape aan.
+✅ Venster GETEST 25 nov (Robs screenshots via Sparring, Druid lvl 11 met CharacterScape): Back/Chest/Wrist "no enchant",
+Hands/Feet "enchanted", Main Hand "no enchant"; geen fout bij het openen.
+🐞 De knop **Character** onder Now gaf een taint-fout (TextStatusBar.lua:110 "secret number value … tainted by
+'MidnightHelper'"). GEREPAREERD (`/reload` genoeg): geen knop meer; de regel noemt nu je toets, bv. "Character window: C."
+- [x] Open je character-venster (C). Rechts ernaast staat een klein venster **Gear check: enchants**, met per vakje dat een
       enchant kan krijgen (nek, mantel, borst, pols, handen, voeten, wapen, off-hand) de naam in groen, of rood
       **no enchant**. Lege vakjes, ringen, trinkets, hoofd, schouders en benen staan er niet in (daar kan Enchanting niets op).
-- [ ] Een enchant die niet van Enchanting komt (bv. een armor kit): "enchanted".
+- [ ] Na de reparatie (`/reload`): je Druid toont op handen en voeten nu **Armor +8, Stamina +1** (een Light Armor Kit,
+      GEMETEN: enchant 15 = spell 2831) in plaats van "enchanted".
 - [ ] Op je enchanter: onder een vakje zonder enchant staat grijs "you can make this yourself: …" met de enchants die je
       kent en die daar passen. (MH kent je recepten zodra je één keer je beroepsvenster hebt geopend.)
 - [ ] Trek iets aan of uit: het venster past zich aan. Shift+scroll maakt het groter of kleiner; Escape sluit het.
-- [ ] Overzicht → **Now**: een regel "N slots of your gear have no enchant …" met de knop **Character**: die opent je
-      character-venster (niet in een gevecht).
+- [ ] Overzicht → **Now**: een regel "N slots of your gear have no enchant … Character window: C." (je eigen toets). Geen
+      knop meer. Daarna: geen BugSack-fout van TextStatusBar.
 - [ ] Stille helpers: **Gear check: enchants next to your character window**: uit = het venster en de regel zijn weg.
 - [ ] `/mh enchant`: per vakje wat MH ziet (enchant-id en naam).
-- ⚠️ Let op foutmeldingen ("action blocked") na het openen via de knop Character: openen vanuit een addon is nieuw in MH.
 
 ## 25 nov — toetsenblok: de zin bovenin klopt nu als het blok al op je balken staat
 
@@ -73,7 +77,9 @@ Forever (je Druid, met "Recipe: Elixir of Minor Agility" in je tas):
       **MH: your other characters with Alchemy: Ima (14, needs 50)**. Bij een character dat het recept al kent staat
       "knows it", bij een die het kan leren "can learn it" (dat weet MH pas als je op dat character één keer het
       beroepsvenster hebt geopend).
-- [ ] Ga op een materiaal staan (bijvoorbeeld Peacebloom): **MH: on your other characters: Alchemy: Ima**.
+- [x] Ga op een materiaal staan (bijvoorbeeld Peacebloom): **MH: on your other characters: Alchemy: Ima**.
+      ✅ GETEST 25 nov (Rob via Sparring): *"MH: on your other characters: Blacksmithing: Ima Pallie · Leatherworking:
+      Ima Shammydude · Tailoring: Ima Magieman"*. Recept- en gear-tooltip niet apart gemeld: nog open.
 - [ ] Een soulbound item, of een recept dat bindt als je het oppakt: geen regel (dat kun je niet versturen).
 Midnight:
 - [ ] Een recept: **MH: your other characters with Alchemy: Naam (22)**: alleen naam en skill, geen "can learn".

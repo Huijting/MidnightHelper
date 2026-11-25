@@ -1,5 +1,23 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 25 nov (Bouwchat 25-11): taint van de knop Character GEREPAREERD + armor kits hebben een naam — wacht op test (`/reload`)
+
+Robs BugSack (via Sparring): `TextStatusBar.lua:110: attempt to compare a secret number value (execution tainted by
+'MidnightHelper')`, stack ShowUIPanel ← CharacterFrame.lua:25 ← pcall ← ForeverEnchantCheck.lua:376 ForeverOpenCharacter ←
+ForeverDoNow.lua:343 ← ForeverOverview.lua:2278. Oorzaak (GEMETEN in de stack): ToggleCharacter vanuit onze knop opent het
+paneel tainted; de PlayerFrame-balken vergelijken dan secret values. pcall helpt niet. Mijn eerdere "AFGELEID dat het mag"
+(hieronder) was dus fout.
+Fix: geen knop meer. `ns.ForeverOpenCharacter` weg; nieuw `ns.ForeverCharacterKeyText()` (GetBindingKey TOGGLECHARACTER0
+→ GetBindingText); de Now-regel krijgt "Character window: C." (FENCH_KEY_FMT, 8 talen; FENCH_BTN/FENCH_COMBAT weg). MH
+opent CharacterFrame nergens meer. SecureActionButton type=click overwogen en NIET gedaan: secure knop in de overzichtskaart,
+offline niet te meten, meer risico.
+Elders in MH (GEMETEN, grep): `Achievements.lua:340` ShowUIPanel(AchievementFrame) en `Delves.lua:3842`
+ShowUIPanel(DelvesDashboardFrame), beide alleen Midnight, geen meldingen; niet aangeraakt. ToggleCharacter nergens meer.
+"enchanted" op handen/voeten van de Druid lvl 11: GEMETEN in Robs SV: enchant 15 = spell 2831 "Armor +8, Stamina +1"
+(Light Armor Kit; Druid heeft Leatherworking). `ForeverEnchantData.lua` mapt nu elke ENCHANT_ITEM-spell: 280 id's
+(Enchanting eerst). Scratch `ench_test.lua` 24/24. Materiaal-tooltip GETEST door Rob (TESTLIJST/IDEEEN afgevinkt);
+recept- en gear-tooltip nog open.
+
 ## ▶▶ 25 nov (Bouwchat 25-11): Forever Gear check: enchants naast het character-venster — GEBOUWD, wacht op test
 
 Rob via Sparring, letterlijk: *"ik heb ook enchanting, maar ik zie helemaal niet of ik al iets enchant heb, ja of nee, in
