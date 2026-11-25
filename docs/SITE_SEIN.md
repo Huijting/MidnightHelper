@@ -28,10 +28,22 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 25 nov 2026 — release 5.9.1 (getagd)
+- Tag + commit:   v5.9.1 / de commit "Release 5.9.1"
+- Status:         getagd
+- Mag op de site: ja, zodra het op CurseForge staat (Rob via Sparring, letterlijk: "release 5.9.1")
+- Speler ziet:    Midnight: het toetsenblok 12 × 4 (getest door Rob). Knop Layout om te wisselen (getest door Rob).
+                  Forever: Ctrl+Shift+klik = Disenchant (getest door Rob), buff-knop op jezelf (getest door Rob), geen
+                  "runs out soon" bij een sterkere buff van een ander, iconen volgen je vorm (getest door Rob).
+                  Tekst: `docs/CURSEFORGE_5.9.1.md`.
+- Knoplabels:     KEYBLOCK_STYLE_BTN_FMT, KEYGUIDE_BTN, FOV_Q_DISENCHANTCLICK, KEYBLOCK_BTN_UPDATE
+- Commando's:     /mh block
+- Spel:           allebei
+
 ## 25 nov 2026 — Forever: Ctrl+Shift+klik op een item in je tas = Disenchant
-- Tag + commit:   geen tag (commit: deze regel)
-- Status:         alleen op main
-- Mag op de site: nee (niet uit; Rob testte het 25 nov: *"Dus daar ben ik blij mee."*)
+- Tag + commit:   v5.9.1
+- Status:         getagd
+- Mag op de site: ja, zodra 5.9.1 op CurseForge staat (Rob testte het 25 nov: *"Dus daar ben ik blij mee."*)
 - Speler ziet:    Voor enchanters: hou Ctrl+Shift ingedrukt en klik op een wapen of armor in je tas (Blizzard-tassen of
                   Baganator): MH disenchant het. De tooltip zegt het als het kan. Nooit in een gevecht; zonder Ctrl+Shift
                   werkt je tas gewoon. Eigen schakelaar. Prospecting/Milling: later.
@@ -40,9 +52,9 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 - Spel:           Forever
 
 ## 24 nov 2026 — Midnight: toetsenblok "12 × 4" (net als in Forever)
-- Tag + commit:   geen tag (commit: deze regel)
-- Status:         alleen op main
-- Mag op de site: nee (niet uit; Rob testte het 25 nov op zijn Prot Paladin: *"werkt ook keurig"*)
+- Tag + commit:   v5.9.1
+- Status:         getagd
+- Mag op de site: ja, zodra 5.9.1 op CurseForge staat (Rob testte het 25 nov op zijn Prot Paladin: *"werkt ook keurig"*)
 - Speler ziet:    Ook in Midnight een tweede indeling voor het toetsenblok: dezelfde 12 toetsen 1-4, Q E R F, Z X C V op
                   elke balk, met per toets dezelfde taak voor elke spec. Healers: noodheal op C, gewone heals op 1/2/3.
                   Ctrl: combat potion, health potion, healthstone, twee trinkets. Wisselen met de knop Layout; extra:
@@ -56,9 +68,9 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 - Spel:           Midnight (Forever had het al)
 
 ## 24 nov 2026 — toetsenblok: knop "Layout" om te wisselen tussen oud en 12 × 4
-- Tag + commit:   geen tag (commit: deze regel)
-- Status:         alleen op main
-- Mag op de site: nee (niet uit, niet getest)
+- Tag + commit:   v5.9.1
+- Status:         getagd
+- Mag op de site: ja, zodra 5.9.1 op CurseForge staat (Rob testte de knop 25 nov, Midnight en Forever)
 - Speler ziet:    In het toetsenblok-venster een knop "Layout: …": één klik (na een vraag) wisselt tussen het oude blok
                   en 12 × 4 en zet het blok meteen opnieuw neer. Nog eens klikken = terug. Eerst alleen Forever.
 - Knoplabels:     KEYBLOCK_STYLE_BTN_FMT, KEYBLOCK_SWITCH_YES

@@ -4,6 +4,18 @@ local changelogFrame
 
 local CHANGELOG_ENTRIES = {
 	{
+		version = "5.9.1",
+		lines = {
+			-- 25 Nov 2026, released on Rob's "release 5.9.1" (via Sparring 25-11).
+			"CHANGELOG_591_1",
+			"CHANGELOG_591_2",
+			"CHANGELOG_591_3",
+			"CHANGELOG_591_4",
+			"CHANGELOG_591_5",
+			"CHANGELOG_591_6",
+		},
+	},
+	{
 		version = "5.9.0",
 		lines = {
 			-- 24 Nov 2026, released on Rob's "release 5.9.0" (via Sparring 24-11).

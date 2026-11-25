@@ -4215,7 +4215,14 @@ ns._mhLocales.enUS = {
 	CHANGELOG_580_8 = "Forever: many trainer places in class quests now come from Zygor's guides, or live from HandyNotes: Class Trainers when you have it. Credits: Polestar Recorder sessions (CC BY 4.0), AllTheThings (MIT), Spoken and Efficient Games (CC BY 4.0).",
 	CHANGELOG_580_9 = "Midnight: the Platynator page is gone from the Addons tab. The Details! page stays.",
 	-- 5.9.0, 24 Nov 2026 (Rob via Sparring 24-11: "release 5.9.0").
-	CHANGELOG_590_1 = "Forever: a second key block layout, 12 x 4: the same 12 keys 1-4, Q E R F, Z X C V on every bar (then Shift, Ctrl, Alt), and the same job on the same key for every class. The old block stays the default: /mh block style 12x4 to switch.",
+	-- 5.9.1, 25 Nov 2026 (Rob via Sparring: "release 5.9.1"). Player things only.
+	CHANGELOG_591_1 = "Midnight: the 12 x 4 key block is here too: the same 12 keys 1-4, Q E R F, Z X C V on every bar, the same job on the same key for every spec, and a Ctrl row with your combat potion, health potion, healthstone and trinkets. The old block stays the default; switch with the Layout button in /mh block.",
+	CHANGELOG_591_2 = "Key block: a Layout button switches between the old block and 12 x 4 and places it again for you. The trinket places only show a trinket with a Use: effect; the tooltip names the trinket you wear.",
+	CHANGELOG_591_3 = "Forever: hold Ctrl+Shift and click a weapon or armor in your bags to disenchant it (Blizzard's bags and Baganator, for enchanters, never in combat).",
+	CHANGELOG_591_4 = "Forever: the buff button casts your buff on you, whatever you target. No more \"runs out soon\" when someone else gave you a stronger version than you know: it waits until that one is gone.",
+	CHANGELOG_591_5 = "Forever: key block buttons show the icon of what the key does now, also in Bear Form or Cat Form, and a spell you just learned is on its key right away. The trainer window names the keys of your layout.",
+	CHANGELOG_591_6 = "Fixed: the Dutch texts call the Do this now window by its Dutch name.",
+	CHANGELOG_590_1 ="Forever: a second key block layout, 12 x 4: the same 12 keys 1-4, Q E R F, Z X C V on every bar (then Shift, Ctrl, Alt), and the same job on the same key for every class. The old block stays the default: /mh block style 12x4 to switch.",
 	CHANGELOG_590_2 = "Forever, 12 x 4: Ctrl holds your bandage, potions, healthstone and trinket; \"Why these keys?\" explains every key; one layout for all your characters, with \"Fix it now\" at login when a character still has the other one.",
 	CHANGELOG_590_3 = "Forever, 12 x 4: if you want them, 5 = Interact With Target and Shift-Space = your fastest mount. Midnight Helper asks once; /mh block extras off undoes it.",
 	CHANGELOG_590_4 = "Forever: How you play names the keys of the layout you chose.",

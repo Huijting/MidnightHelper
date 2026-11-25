@@ -2,6 +2,23 @@
 
 All notable changes to this project are documented in this file.
 
+## 5.9.1
+
+📌 **2026-11-25, RELEASE (Rob via Sparring 25-11, letterlijk: "release 5.9.1"; geen beta).**
+In-game: CHANGELOG_591_1 t/m _6. `RELEASE_NOTES.md` = `docs/CURSEFORGE_5.9.1.md`. Commits v5.9.0..main (24 en 25 nov).
+Wat Rob testte en wat niet: TESTLIJST 24 en 25 nov. NIET in het spel getest: de twee buff-fixes (hogere rank /
+sterkere groepsbuff van een ander; offline 12/12 en 18/18) en het trainervenster met toetsen + vorm.
+
+- **Midnight 12 × 4** (rol-naar-toets-tabel, 76 uitzonderingen + healer-regels, Ctrl-rij, 5/Shift+Spatie, uitlegblad).
+- **Knop Layout** in het toetsenblok (oud ⇄ 12 × 4, undo + opnieuw neerzetten).
+- **Trinket-plekken** tonen alleen een trinket met Use:, tooltip noemt de gedragen trinket.
+- **Forever:** Ctrl+Shift+klik = Disenchant (Blizzard-tassen + Baganator); buff-knop op jezelf; geen "runs out soon" bij
+  een hogere rank of sterkere groepsbuff van een ander (COVER_EQUIV gemeten in DB2); blokmacro-iconen volgen de vorm;
+  herschrijven op SPELLS_CHANGED; trainervenster met toetsen van de gekozen indeling.
+- **Fixes:** nlNL "Doe dit nu"; zelfde icoon-patroon in ForeverMacros en InterruptMacros ("MH+", Midnight; daar niet
+  gezien, alleen afgeleid, dus niet in de spelerstekst).
+- **Alleen voor ons (niet in de spelerstekst):** /mh disenchant (diagnose-regel), /mh buffs (reden), event-snapshot.
+
 ## 5.9.0
 
 📌 **2026-11-24, RELEASE (Rob via Sparring 24-11, letterlijk: "release 5.9.0"; geen beta).** Na de checks Midnight-/reload

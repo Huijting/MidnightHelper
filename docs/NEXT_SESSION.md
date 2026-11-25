@@ -1,5 +1,15 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 25 nov (Bouwchat 25-11): RELEASE 5.9.1 (Rob via Sparring, letterlijk: "release 5.9.1")
+
+Geen beta. Versie 5.9.1 in beide toc's; CHANGELOG_591_1 t/m _6 (enUS) + Changelog.lua; `RELEASE_NOTES.md` byte-gelijk aan
+`docs/CURSEFORGE_5.9.1.md` (cmp: gelijk); CHANGELOG.md; SITE_SEIN: de regels van 24-25 nov op "getagd" + een
+release-regel. Alleen spelersdingen in de tekst. Bewust NIET in de spelerstekst: de InterruptMacros-icoonfix (Midnight
+"MH+"; die fout is daar nooit gezien, alleen afgeleid), /mh disenchant en /mh buffs als diagnose.
+NIET in het spel getest maar wel in de release (Sparring noemde het): de twee buff-fixes (offline 12/12 + 18/18) en het
+trainervenster met toetsen + vorm.
+Tag/run/CF: zie hieronder, na de tag bijgewerkt.
+
 ## ▶▶ 25 nov (Bouwchat 25-11): Forever-buffs — geen "runs out soon" bij een HOGERE rank van een ander — GEREPAREERD, wacht op test
 
 Rob (Forever Mage, screenshot "Arcane Intellect (1 min left) runs out soon"), via Sparring letterlijk: *"ik had van een
