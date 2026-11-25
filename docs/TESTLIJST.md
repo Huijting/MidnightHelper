@@ -104,10 +104,13 @@ op elk character even in.
 🔴 Nieuw bestand: sluit het spel helemaal af en start opnieuw (een `/reload` is niet genoeg). Offline getest (27 controles),
 NIET in het spel. Een character telt pas mee als je er na deze update één keer op hebt ingelogd.
 Forever (je Druid, met "Recipe: Elixir of Minor Agility" in je tas):
-- [ ] Ga met je muis op het recept staan. Onder "MH: Alchemy - yellow …" staat nu bijvoorbeeld
+- [x] Ga met je muis op het recept staan. Onder "MH: Alchemy - yellow …" staat nu bijvoorbeeld
       **MH: your other characters with Alchemy: Ima (14, needs 50)**. Bij een character dat het recept al kent staat
       "knows it", bij een die het kan leren "can learn it" (dat weet MH pas als je op dat character één keer het
       beroepsvenster hebt geopend).
+      ✅ GETEST 25 nov (Robs screenshot via Sparring, zonder tekst): Druid, Recipe: Elixir of Minor Agility, "Requires
+      Alchemy (50)" → *"MH: your other characters with Alchemy: Ima Warlocky (18, needs 50)"*; klopt met Characters
+      (Alchemy 18/75). ⚠️ Niet getoond, nog open: "knows it" / "can learn it".
 - [x] Ga op een materiaal staan (bijvoorbeeld Peacebloom): **MH: on your other characters: Alchemy: Ima**.
       ✅ GETEST 25 nov (Rob via Sparring): *"MH: on your other characters: Blacksmithing: Ima Pallie · Leatherworking:
       Ima Shammydude · Tailoring: Ima Magieman"*. Recept- en gear-tooltip niet apart gemeld: nog open.

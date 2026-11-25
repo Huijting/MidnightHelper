@@ -1,5 +1,8 @@
 # Midnight Helper — waar we staan
 
+✅ 25 nov: recept-tooltip (95108e3) GETEST door Rob (screenshot via Sparring: "MH: your other characters with Alchemy:
+Ima Warlocky (18, needs 50)"). Nog open: "knows it"/"can learn it", de gear-regel na 7734a0d/3c08cb6, bank-knop.
+
 ## ▶▶ 25 nov (Bouwchat 25-11): bank-characters uit de gear-regel — GEBOUWD, wacht op test (`/reload`)
 
 Rob via Sparring: *"Wat betreft de bankkarakters ga ik mee met je advies. A."* (voorstel: één keer markeren, weg bij

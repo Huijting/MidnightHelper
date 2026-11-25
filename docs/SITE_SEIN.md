@@ -49,7 +49,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
                   BoE wapen of harnas: wie het kan dragen, vanaf welk level, en of het item level hoger is dan wat dat
                   character draagt (geen "beter" op stats). Alleen voor items die je kunt versturen. Eigen schakelaar.
                   Sinds 25 nov (Forever): alleen characters op je eigen realm; de andere factie apart achteraan
-                  ("mail probably not possible"); geen regel bij grijze gear. Materiaal-tooltip *(getest door Rob)*.
+                  ("mail probably not possible"); geen regel bij grijze gear. Materiaal- en recept-tooltip *(getest door Rob)*.
                   Bank-characters: markeer ze (Forever: knop "Bank" in Characters) en ze vallen weg bij gear.
 - Knoplabels:     FALT_SW, FCHARS_BANK_OFF, FCHARS_BANK_ON
 - Commando's:     /mh alttip, /mh alttip on|off, /mh alttip bank <naam>

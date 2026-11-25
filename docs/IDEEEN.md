@@ -53,6 +53,8 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
   bind-on-pickup / quest-items. Schakelaar + `/mh alttip`.
 - 25 nov: materiaal-tooltip GETEST (Rob: *"MH: on your other characters: Blacksmithing: Ima Pallie · …"*). Recept en gear
   nog niet apart gemeld.
+- 25 nov: recept-tooltip GETEST (screenshot: "Ima Warlocky (18, needs 50)"). Open: "knows it"/"can learn it" en de
+  gear-regel na 7734a0d/3c08cb6.
 - 25 nov, GEREPAREERD, wacht op test (Rob: *"Ja, op 1 en 2."*; *"Maar kan ik überhaupt wel sturen?"*): geen gear-regel
   bij grijze items (wit blijft); Forever: alleen characters op je realm; andere factie apart achteraan ("probably not");
   factie onbekend = "(faction ?)". `/mh alttip` zegt per character waarom. Midnight: niet gefilterd (Warband bank).
