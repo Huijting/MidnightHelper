@@ -1,5 +1,16 @@
 # Midnight Helper — waar we staan
 
+✅ 25 nov: restjes clientnaam (Sparring: valt onder "clientnaam wint altijd"). GEMETEN: frFR ItemSubClass 2.3 DisplayName
+"Arme à feu" (VerboseName "Fusils") → fr WAR_8, ROG_7, HUN_1, PAL_5 "arme(s) à feu" (FDIRB_W_RANGED had het al; PLAYCARD_255
+"coups de fusil" = schoten, retail, gelaten); ptBR item 2862 "Pedra de Afiar Rústica" → FPROFG_DOES_BLACKSMITHING "pedras de
+afiar"; esMX ItemSubClass 2.4 "Maza" = esES → geen overlay nodig.
+🔵 Gemeten voor Sparring (niets veranderd): Prot Paladin `BY_TREE.PALADIN[2]` = {Stamina} → de tooltip-rekensom weegt alleen
+Stamina. `Stats()` (ForeverQuestHint.lua:182) leest alleen STAT_KEY (5 hoofdstats) + armor + DPS; "SPELL_POWER" komt in dat
+bestand niet voor. Gevolg: een item met MINDER Stamina en veel spell damage krijgt geen regel (MH zegt nooit "worse", hij
+zwijgt); een item met iets MEER Stamina krijgt "better", ook als wat je draagt veel spell damage heeft → mogelijk verkeerd
+upgrade-advies. Dat gold vóór vandaag ook al (Intellect telde, spell damage nooit). Of GetItemStats op Forever spell power
+teruggeeft: NIET gemeten.
+
 ## ▶▶ 25 nov (Bouwchat 25-11): "Which weapon?" — Fable-controle VERWERKT (alle 9), wacht op test (`/reload`)
 
 Rob via Sparring: *"Maak ze maar een voor een compleet af daarna de controle"* — dit is die controle.
