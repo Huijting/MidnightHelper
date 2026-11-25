@@ -58,7 +58,8 @@ ns.FOREVER_BLOCK_CLASSES.DRUID = {
 		["F4"] = { base = "Rejuvenation" },
 		["SHIFT-Z"] = { base = "Thorns" },
 		["SHIFT-X"] = { base = { "Gift of the Wild", "Mark of the Wild" } },
-		["SHIFT-E"] = { all = { "Shadowmeld", "War Stomp" } },
+		-- 26 Nov 2026 (Fable check): + Walk on Air, so a Skyborne Druid gets a race spell here too.
+		["SHIFT-E"] = { all = { "Shadowmeld", "War Stomp", "Walk on Air" } },
 		["CTRL-1"] = { base = { "Dire Bear Form", "Bear Form" } },
 		["CTRL-2"] = { base = "Cat Form" },
 		["CTRL-3"] = { base = "Moonkin Form" },
@@ -84,7 +85,7 @@ ns.FOREVER_BLOCK_CLASSES.DRUID = {
 		["SHIFT-3"] = { base = "Nature's Swiftness", why = "cooldown: next nature spell is instant, then Healing Touch (C)" },
 		["SHIFT-4"] = { cat = "Ferocious Bite", base = "Swiftmend", why = "spenders: Ferocious Bite as cat, Swiftmend eats your HoT" },
 		["SHIFT-Q"] = { bear = "Challenging Roar", base = { "Abolish Poison", "Cure Poison" }, why = "bear: group taunt cooldown; caster: remove poison" },
-		["SHIFT-E"] = { all = { "Shadowmeld", "War Stomp" }, why = "your race spell" },
+		["SHIFT-E"] = { all = { "Shadowmeld", "War Stomp", "Walk on Air" }, why = "your race spell" },
 		["SHIFT-R"] = { cat = "Prowl", base = "Soothe Animal", why = "get past enemies: Prowl as cat, Soothe Animal on a beast" },
 		["SHIFT-F"] = { all = "Faerie Fire", why = "pull and weaken, next to Growl; works in almost every form" },
 		["SHIFT-Z"] = { base = "Thorns", why = "buff that hurts what hits you: second small defensive" },

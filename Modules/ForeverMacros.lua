@@ -70,7 +70,13 @@ local RACIALS = {
 	{ id = 20580, pre = "/stopattack\n/stopcasting" }, -- Shadowmeld (Night Elf)
 	{ id = 1259799 }, -- Elune's Light (Night Elf)
 	{ id = 20589, pre = "/stopcasting" }, -- Escape Artist (Gnome)
-	{ id = 1259823 }, -- Eureka! (Gnome)
+	-- Eureka! (Gnome): a different id per class (DB2 SpellName 71091, GEMETEN 26 Nov). Only 1259823 (Priest) was here, so
+	-- Gnome Warriors, Rogues, Mages and Warlocks got no Eureka! macro (Fable check 26 Nov).
+	{ id = 1259823 }, -- Priest
+	{ id = 1259812 }, -- Rogue
+	{ id = 1259813 }, -- Warrior
+	{ id = 1259817 }, -- Mage
+	{ id = 1259821 }, -- Warlock
 	{ id = 20572 }, -- Blood Fury (Orc)
 	{ id = 1299026, pre = "/stopcasting" }, -- Shatter Curse (Orc)
 	{ id = 7744 }, -- Will of the Forsaken (Undead)

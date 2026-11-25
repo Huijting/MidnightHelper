@@ -38,6 +38,12 @@ NIET in het spel.
 - [ ] Met het 12 × 4-blok: "Shift-E" in de eerste zin is de toets van je race spell in díe indeling.
 - [ ] Ander character (ander ras of class): alleen dat ras, en alleen de regels van die class. `/mh howtotabs mine`
       noemt "Your race: …" onder Start.
+- [ ] (na de Fable-controle) Gnome Rogue: druk Eureka! terwijl je in Stealth bent. Blijf je in Stealth? (DB2 zegt ja;
+      daarom staat "Not in Stealth" er niet meer.)
+- [ ] (Fable) High Order Skyborne: kun je Read Leyline casten terwijl je loopt? (DB2 zegt nee: de tekst zegt het niet
+      meer.) Windshaper: Skysight lopend casten moet wél kunnen.
+- [ ] (Fable) Skyborne Druid: in het toetsenblok staat Walk on Air nu op Shift-E. Gnome Warrior/Rogue/Mage/Warlock: de
+      Eureka!-macro staat nu bij de macro's.
 
 ## 26 nov — FOREVER: Gear check: enchants — Legs erbij, en het venster werkt vanzelf bij (Rob: "Ik mis hier … mijn legs")
 

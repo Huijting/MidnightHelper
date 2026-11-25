@@ -1,5 +1,15 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 26 nov (Bouwchat 25-11): Fable-controle "Your race" verwerkt — klaar voor 5.10.1 (NIET getagd)
+
+Rob op "Fable vóór 5.10.1": *"ja"*. 13 punten van Sparring/Fable; zelf GEMETEN: Rogue-Eureka breekt Stealth niet
+(Attributes_1 0x20), Skysight bewegend 14 / Read Leyline 15 (SpellInterrupts), Purification Potion level 47, Ghost Wolf en
+Travel Form +40%, Cheetah +30%, Herbalism esES Botánica / esMX Herboristería. Code: Walk on Air in Druid-Shift-E (beide
+indelingen), alle 5 Eureka!-id's in ForeverMacros RACIALS, 13462 in de item-preload. Tekst: 19 regels herschreven,
+SKY_C_HUN nieuw, GNO_C_RAGE/_ENERGY en UND_C_PAL weg (66 FRACE-sleutels). Details: `docs/forever/RAS_FEITEN.md`.
+🔵 Open: fr "Cooldown" → "recharge" pack-breed (nu alleen in het FRACE-blok). 5.10.1 = 133bfa6 + 6bc2d2d + deze commit;
+tag pas op Robs letterlijke zin.
+
 ## ▶▶ 26 nov (Bouwchat 25-11): "Your race" in How you play, tab Start — GEBOUWD, wacht op test + Fable (`/reload`)
 
 Rob via Sparring: *"… als extra info vermelden bij de klas"* → *"ja , ik zag bv ook dat deze druid ook Cultivation heeft :)"*.

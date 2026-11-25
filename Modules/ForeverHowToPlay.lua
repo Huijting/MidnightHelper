@@ -1525,8 +1525,6 @@ local RACE_INFO = {
 		{ "FRACE_NE_C_DRU", DRUID = true },
 		{ "FRACE_NE_C_DRU2", DRUID = true } } },
 	[7] = { base = { "FRACE_GNO_1", "FRACE_GNO_2", "FRACE_GNO_3", "FRACE_GNO_4" }, cls = {
-		{ "FRACE_GNO_C_RAGE", WARRIOR = true },
-		{ "FRACE_GNO_C_ENERGY", ROGUE = true },
 		{ "FRACE_GNO_C_ROG", ROGUE = true },
 		{ "FRACE_GNO_C_PRI", PRIEST = true },
 		{ "FRACE_GNO_C_WLK", WARLOCK = true } } },
@@ -1535,8 +1533,7 @@ local RACE_INFO = {
 		{ "FRACE_ORC_C_CMD_WLK", WARLOCK = true },
 		{ "FRACE_ORC_C_CURSE", WARRIOR = true, ROGUE = true, HUNTER = true, SHAMAN = true, WARLOCK = true } } },
 	[5] = { base = { "FRACE_UND_1", "FRACE_UND_2", "FRACE_UND_3", "FRACE_UND_4", "FRACE_UND_5" }, cls = {
-		{ "FRACE_UND_C_CAST", PRIEST = true, MAGE = true, WARLOCK = true },
-		{ "FRACE_UND_C_PAL", PALADIN = true } } },
+		{ "FRACE_UND_C_CAST", PRIEST = true, MAGE = true, WARLOCK = true } } },
 	[6] = { base = { "FRACE_TAU_1", "FRACE_TAU_2", "FRACE_TAU_3", "FRACE_TAU_4" }, cls = {
 		{ "FRACE_TAU_C_DRU", DRUID = true },
 		{ "FRACE_TAU_C_HUN", HUNTER = true },
@@ -1546,8 +1543,13 @@ local RACE_INFO = {
 	[95] = { base = { "FRACE_SKY_1", "FRACE_SKY_2", "FRACE_SKY_3", "FRACE_SKY_HO" } },
 	[96] = { base = { "FRACE_SKY_1", "FRACE_SKY_2", "FRACE_SKY_3", "FRACE_SKY_WS" }, cls = {
 		{ "FRACE_SKY_C_SHA", SHAMAN = true },
-		{ "FRACE_SKY_C_DRU", DRUID = true } } },
+		{ "FRACE_SKY_C_DRU", DRUID = true },
+		{ "FRACE_SKY_C_HUN", HUNTER = true } } },
 }
+-- 26 Nov 2026, Fable check (Sparring, DB2 71139 + Wowhead + dev notes; bouwchat measured what it could, RAS_FEITEN.md):
+-- Rogue Eureka! 1259812 keeps Stealth (Attributes_1 0x20, like Vanish/Sprint) -> "Not in Stealth" gone; Skysight can be
+-- cast while moving (SpellInterrupts 14), Read Leyline not (15); Purification Potion needs level 47; Ghost Wolf and
+-- Travel Form +40%, Cheetah +30% (SpellEffect aura 31); Gnome Rage/Energy lines merged into GNO_3; Undead Paladin line out.
 ns.FOREVER_RACE_INFO = RACE_INFO -- the offline check reads it
 local EUREKA = { WARRIOR = 1259813, ROGUE = 1259812, MAGE = 1259817, WARLOCK = 1259821, PRIEST = 1259823 }
 

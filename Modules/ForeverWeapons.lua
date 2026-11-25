@@ -411,7 +411,8 @@ end
 ns.ForeverWeaponAdviceTokens = Tokens
 
 -- Items the lines name: ask the client for them at load, so their name is there (else English the first time).
-for _, id in ipairs({ 247789, 11287, 263412, 274947, 20750, 5175, 5176, 5177, 5178 }) do
+-- 13462 Purification Potion: the Orc race line (ForeverHowToPlay.lua FRACE_ORC_C_CURSE, 26 Nov 2026).
+for _, id in ipairs({ 247789, 11287, 263412, 274947, 20750, 5175, 5176, 5177, 5178, 13462 }) do
 	if C_Item and C_Item.RequestLoadItemDataByID then
 		pcall(C_Item.RequestLoadItemDataByID, id)
 	end

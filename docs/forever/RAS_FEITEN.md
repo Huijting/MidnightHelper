@@ -56,6 +56,22 @@ de tweede check, niet door de bouwchat nagemeten. **WEGGELATEN** = bewust niet i
   spells" zegt in alle 8 talen "from a quest, not from the trainer" (gevonden door mh-writer, 26 nov). Nu: "two Priest
   spells of its own, from a quest" — de sectie wint, zij is eerder nagekeken.
 
+## Fable-controle (26 nov, verwerkt) — wat de bouwchat zelf nam
+
+| Punt | Meting | Status |
+|---|---|---|
+| Rogue-Eureka! 1259812 breekt Stealth niet → "Not in Stealth" weg | SpellMisc: Attributes_1 = 32 (0x20), net als Vanish 1856 en Sprint 11305; Warrior-Eureka 1259813 = 0 | GEMETEN |
+| Skysight mag bewegend, Read Leyline niet | SpellInterrupts 71139: 1259686 InterruptFlags 14, 1259705 = 15 | GEMETEN |
+| Purification Potion pas vanaf level 47 | ItemSparse 13462 RequiredLevel 47 | GEMETEN |
+| Ghost Wolf +40%, Travel Form +40% (passive 5419), Aspect of the Cheetah +30% → Skysight (+15%) voegt daar niets toe | SpellEffect aura 31 | GEMETEN |
+| Drain Life 689, Drain Soul 1120, Wrack 1316697 krijgen Eureka!, DoTs niet; Renew 139 niet | Fable (DB2-mask) | BRON (namen GEMETEN) |
+| Herbalism: esES "Botánica", esMX "Herboristería" | SkillLine 182 per locale | GEMETEN |
+| Shift-E: Druid-blok had geen Skyborne-spell → Walk on Air erbij (oud én 12 × 4) | ForeverBlock_Druid.lua | GEMETEN (code) |
+| Eureka!-macro: alleen het Priest-id stond in RACIALS → alle 5 | ForeverMacros.lua | GEMETEN (code) |
+| Priest-rasspells: eerste rank uit een quest, hogere ranks bij de trainer | Fable | BRON |
+| Gnome Rage/Energy samengevoegd in GNO_3; Undead-Paladin-trivia weg; Shadowmeld "Alone it does not always save you" (aura 103 = threat drop) | Fable | BRON |
+| fr "Cooldown" → "recharge" alleen in dit blok; 🔵 pack-breed nog niet gedaan (open punt) | — | open |
+
 ## Vertalingen (mh-writer, 26 nov) — woorden om na te kijken
 
 Zelf vertaald, niet door een moedertaalspreker. Token-check: 68 sleutels × 8 talen, 0 fouten. Twijfel (geen clientwoord
