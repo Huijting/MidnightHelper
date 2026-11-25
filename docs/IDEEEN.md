@@ -26,6 +26,14 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 
 ## Open — wacht op Rob
 
+### Forever: geen "runs out soon" als een ander je een hogere rank gaf (bug van Rob, 25 nov) — ✅ JA, GEREPAREERD 25 nov, wacht op test
+- Bron: Rob via Sparring 25-11 (Forever Mage, Arcane Intellect), letterlijk: *"ik had van een andere mage al een hogere
+  rank gekregen die dus nog 2 minuten actief is, en dan blijft dit irritant in beeld, dat moet natuurlijk niet"*; op het
+  voorstel: *"ja"*.
+- Gerepareerd (`ForeverBuffs.lua` ExpiringLeft): hogere rank dan jij kent = stil tot hij op is, dan de gewone melding.
+  Alle Forever-buffs. `/mh buffs` zegt waarom. Open: dezelfde vraag bij een groepsbuff van een ander (covers-tak).
+- Spel: F. Voor wie: N + V (AFGELEID).
+
 ### Forever: Ctrl+Shift+klik op een tasitem = Disenchant (wens van Rob, 25 nov) — ✅ JA, GEBOUWD 25 nov, wacht op test
 - Bron: Rob via Sparring 25-11, letterlijk: *"Kunnen wij een knop in de tooltip bouwen als we een item kunnen
   disenchanten? Zodat ik niet eerst disenchant moet drukken, dan het ding wat ik wil disenchanten, maar dat we gewoon de

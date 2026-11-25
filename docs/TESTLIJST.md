@@ -25,6 +25,16 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 25 nov — FOREVER: geen "runs out soon" als een ander je een HOGERE rank gaf (Rob: "dat moet natuurlijk niet")
+
+Alleen een bestaand bestand gewijzigd: `/reload` is genoeg. Offline getest (12 controles), NIET in het spel.
+- [ ] Laat een andere mage (met een hogere rank dan jij) Arcane Intellect op je zetten. Als hij bijna op is (laatste
+      5 minuten), komt er GEEN "Arcane Intellect … runs out soon" meer in beeld.
+- [ ] `/mh buffs`: bij Arcane Intellect staat "runs out soon, but a higher rank from someone else is on you (rank …, you
+      know rank …)".
+- [ ] Is zijn buff helemaal op: dan komt de gewone melding dat Arcane Intellect ontbreekt, en de knop zet jouw eigen rank.
+- [ ] Je eigen Arcane Intellect (of een even hoge/lagere van een ander) die bijna op is: "runs out soon" komt wél, zoals eerst.
+
 ## 25 nov — FOREVER: Ctrl+Shift+klik op een item in je tas = Disenchant (Rob: "we beginnen inderdaad met digijant eerst")
 
 Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (36 controles), NIET in het spel.

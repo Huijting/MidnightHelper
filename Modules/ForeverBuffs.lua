@@ -464,7 +464,24 @@ local function SoonFor(duration)
 	return 0
 end
 
+--- Position of `id` in IDS[name] (ranks low to high), or nil.
+local function RankIndex(name, id)
+	for i, v in ipairs(IDS[name] or {}) do
+		if v == id then
+			return i
+		end
+	end
+	return nil
+end
+
 --- For a def that is ON you: the seconds left of the one that runs out first, if that is "soon"; else nil.
+--- Third value when it stays quiet on purpose: a reason for /mh buffs.
+--- 25 Nov 2026 (Rob, Forever Mage: "ik had van een andere mage al een hogere rank gekregen die dus nog 2 minuten actief
+--- is, en dan blijft dit irritant in beeld, dat moet natuurlijk niet"; on the proposal "ja"): when the buff on you is a
+--- HIGHER rank than the best one you know, your own cast cannot replace it (the game refuses a weaker version while a
+--- stronger one is active; AFGELEID, the classic rule, not measured in Forever). So no "runs out soon" then; once it is
+--- gone, the normal "missing" line comes and your own rank works. Not for a bigger version (covers, e.g. Arcane
+--- Brilliance): that branch is unchanged (see the bouwchat's note of 25 Nov in NEXT_SESSION).
 local function ExpiringLeft(d)
 	if d.imbue or (InCombatLockdown and InCombatLockdown()) then
 		return nil
@@ -482,7 +499,7 @@ local function ExpiringLeft(d)
 		names[#names + 1] = n
 	end
 	for _, name in ipairs(names) do
-		for _, id in ipairs(IDS[name] or {}) do
+		for idx, id in ipairs(IDS[name] or {}) do
 			local a = ns.Aura.GetPlayerAura(id)
 			local exp, dur = a and a.expirationTime, a and a.duration
 			if type(exp) == "number" and type(dur) == "number" and exp > 0 and dur > 0
@@ -490,7 +507,7 @@ local function ExpiringLeft(d)
 				local left = exp - now
 				-- A bigger version (covers) on you lasts long: the one that holds longest decides.
 				if left > 0 and (not best or left > best.left) then
-					best = { left = left, dur = dur, name = name }
+					best = { left = left, dur = dur, name = name, idx = idx }
 				end
 			end
 		end
@@ -502,6 +519,14 @@ local function ExpiringLeft(d)
 		for _, n in ipairs(d.covers or {}) do
 			if n == best.name then
 				cover = true
+			end
+		end
+		if not cover then
+			local mine = BestRank(best.name)
+			local myIdx = mine and RankIndex(best.name, mine)
+			if myIdx and best.idx > myIdx then
+				return nil, nil, ("a higher rank from someone else is on you (rank %d, you know rank %d), %d s left: "
+					.. "wait until it is gone"):format(best.idx, myIdx, math.floor(best.left))
 			end
 		end
 		return best.left, cover and d.buff or best.name
@@ -698,8 +723,9 @@ function ns.ForeverBuffsSlash(arg)
 		local name, why, pick = Evaluate(d)
 		if not name and why == "on you" then
 			-- 19 Nov 2026: and whether it runs out soon (out of combat only; see ExpiringLeft).
-			local left, cast = ExpiringLeft(d)
+			local left, cast, quiet = ExpiringLeft(d)
 			why = why .. (left and ("; runs out in %d s -> offers %s"):format(math.floor(left), tostring(cast))
+				or quiet and ("; runs out soon, but " .. quiet)
 				or "; not running out soon (or unreadable / in combat)")
 		end
 		local label = d.buff or table.concat(d.choice or d.imbue, " / ")

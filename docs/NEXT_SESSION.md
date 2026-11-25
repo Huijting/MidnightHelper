@@ -1,5 +1,22 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 25 nov (Bouwchat 25-11): Forever-buffs — geen "runs out soon" bij een HOGERE rank van een ander — GEREPAREERD, wacht op test
+
+Rob (Forever Mage, screenshot "Arcane Intellect (1 min left) runs out soon"), via Sparring letterlijk: *"ik had van een
+andere mage al een hogere rank gekregen die dus nog 2 minuten actief is, en dan blijft dit irritant in beeld, dat moet
+natuurlijk niet"*; op het voorstel: *"ja"*. Voor 5.9.1.
+Oorzaak GEMETEN in de code: `ForeverBuffs.lua` ExpiringLeft keek alleen naar de tijd, niet naar de rank. Fix: zit de
+buff op je als rank hoger dan je eigen BestRank (positie in IDS[name], ranks van laag naar hoog: GEMETEN in
+ForeverSpellIds.lua, bv. Mark of the Wild 6756 vóór 5234 = rankvolgorde), dan geen "runs out soon"; is hij op, dan de
+gewone "ontbreekt"-melding met je eigen rank. Geldt voor alle Forever-buffs (buff en choice). `/mh buffs` zegt dan
+"runs out soon, but a higher rank from someone else is on you (rank X, you know rank Y), N s left: wait until it is
+gone". Offline: scratch `buff_rank_test.lua` 12/12 (hoger stil, eigen/lager/gelijk wel, lang geldig niets, op → missing,
+alle ranks gekend → wel).
+AFGELEID, niet gemeten in Forever: dat het spel je lagere rank weigert zolang een hogere actief is (klassieke regel).
+🔶 NIET veranderd, eerst aan Sparring gemeld: de covers-tak (groepsbuff van een ander loopt af, bv. Arcane Brilliance →
+de knop biedt je eigen Arcane Intellect). Daar kan hetzelfde spelen als jouw single buff zwakker is dan de groepsbuff
+(Arcane Brilliance rank 1 is even sterk als Arcane Intellect rank 5: AFGELEID, niet gemeten). Wacht op Robs keuze.
+
 ## ▶▶ 25 nov (Bouwchat 25-11): Forever — Ctrl+Shift+klik in de tas = Disenchant GEBOUWD — wacht op test
 
 Rob via Sparring, letterlijk: *"Kunnen wij een knop in de tooltip bouwen als we een item kunnen disenchanten? Zodat ik
