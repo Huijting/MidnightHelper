@@ -33,7 +33,9 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 - Gebouwd: (1) venster naast het character-venster, per vakje de enchant of "no enchant"; (2) een regel onder Now;
   (3) voor een enchanter "you can make this yourself". Schakelaar + `/mh enchant`.
 - 25 nov: venster GETEST (Robs screenshots). De knop Character gaf een taint-fout → knop weg; de regel noemt nu je toets
-  ("Character window: C."). Armor kits tonen nu hun naam (enchant 15 = Light Armor Kit). Wacht op test na `/reload`.
+  ("Character window: C."). Armor kits tonen nu hun naam (enchant 15 = Light Armor Kit).
+- 25 nov: a178459 GETEST (Rob: *"Ja, test is goed gegaan."*, screenshot Hands/Feet "Armor +8, Stamina +1"). Niet apart
+  gemeld: de Now-regel met de toets, geen BugSack-fout meer, en "you can make this yourself" op de enchanter.
 - Later, apart (eerst onderzoek): advies welke enchant de beste is.
 - Spel: F. Voor wie: N + V (AFGELEID).
 

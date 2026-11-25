@@ -36,13 +36,16 @@ Hands/Feet "enchanted", Main Hand "no enchant"; geen fout bij het openen.
 - [x] Open je character-venster (C). Rechts ernaast staat een klein venster **Gear check: enchants**, met per vakje dat een
       enchant kan krijgen (nek, mantel, borst, pols, handen, voeten, wapen, off-hand) de naam in groen, of rood
       **no enchant**. Lege vakjes, ringen, trinkets, hoofd, schouders en benen staan er niet in (daar kan Enchanting niets op).
-- [ ] Na de reparatie (`/reload`): je Druid toont op handen en voeten nu **Armor +8, Stamina +1** (een Light Armor Kit,
+- [x] Na de reparatie (`/reload`): je Druid toont op handen en voeten nu **Armor +8, Stamina +1** (een Light Armor Kit,
       GEMETEN: enchant 15 = spell 2831) in plaats van "enchanted".
+      ✅ GETEST 25 nov (a178459), Rob via Sparring: *"Ja, test is goed gegaan."* + screenshot: Back/Chest/Wrist/Main Hand
+      "no enchant", Hands en Feet "Armor +8, Stamina +1" (groen).
 - [ ] Op je enchanter: onder een vakje zonder enchant staat grijs "you can make this yourself: …" met de enchants die je
       kent en die daar passen. (MH kent je recepten zodra je één keer je beroepsvenster hebt geopend.)
 - [ ] Trek iets aan of uit: het venster past zich aan. Shift+scroll maakt het groter of kleiner; Escape sluit het.
 - [ ] Overzicht → **Now**: een regel "N slots of your gear have no enchant … Character window: C." (je eigen toets). Geen
       knop meer. Daarna: geen BugSack-fout van TextStatusBar.
+      ⚠️ Na a178459 niet apart gemeld: Rob noemde de Now-regel en het uitblijven van de BugSack-fout niet. Nog open.
 - [ ] Stille helpers: **Gear check: enchants next to your character window**: uit = het venster en de regel zijn weg.
 - [ ] `/mh enchant`: per vakje wat MH ziet (enchant-id en naam).
 

@@ -1,6 +1,10 @@
 # Midnight Helper — waar we staan
 
-## ▶▶ 25 nov (Bouwchat 25-11): taint van de knop Character GEREPAREERD + armor kits hebben een naam — wacht op test (`/reload`)
+## ▶▶ 25 nov (Bouwchat 25-11): taint van de knop Character GEREPAREERD + armor kits hebben een naam — ✅ GETEST (a178459)
+
+✅ Rob via Sparring: *"Ja, test is goed gegaan."* + screenshot: Hands/Feet "Armor +8, Stamina +1" (groen), Back/Chest/
+Wrist/Main Hand "no enchant". NIET apart gemeld: de Now-regel "Character window: C." en geen BugSack-fout meer. Nog open
+(niet getest): recept- en gear-tooltip, "you can make this yourself" op de enchanter, de buff-fixes.
 
 Robs BugSack (via Sparring): `TextStatusBar.lua:110: attempt to compare a secret number value (execution tainted by
 'MidnightHelper')`, stack ShowUIPanel ← CharacterFrame.lua:25 ← pcall ← ForeverEnchantCheck.lua:376 ForeverOpenCharacter ←
