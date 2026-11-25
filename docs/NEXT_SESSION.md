@@ -1,5 +1,11 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 25 nov (Bouwchat 25-11): "Which weapon?" — Priest GEBOUWD, wacht op test. Volgende: Warlock, dan de wapenadvies-wacht
+
+FWADV_PRI_5/_7 (8 talen) + de gedeelde CAST-regels. Stats: PRIEST lead "spell" (basis + Shadow), Holy "heal",
+Discipline "heal" (keuze bouwchat: de rij is al een healrol). ForeverDirection PRIEST = FDIRB_W_CASTER. wadv_test 87/87,
+tokcheck 66 sleutels 0 fouten.
+
 ## ▶▶ 25 nov (Bouwchat 25-11): "Which weapon?" — Mage GEBOUWD (+ gedeelde caster-regels), wacht op test. Volgende: Priest, Warlock
 
 Gedeeld FWADV_CAST_1..4 en _6, Mage FWADV_MAG_5/_7 (8 talen). GEMETEN (DB2 71091): Shoot 5019, Wand Specialization 6057,

@@ -197,7 +197,9 @@ local GUIDE = {
 	-- it. No `fit` (the tooltip says nothing about "fits your direction"). Priest and Warlock follow in their own commits.
 	MAGE = { { w = "FDIRB_W_CASTER", game = true }, { w = "FDIRB_W_CASTER", game = true },
 		{ w = "FDIRB_W_CASTER", game = true } },
-	PRIEST = { {}, {}, {} }, WARLOCK = { {}, {}, {} },
+	PRIEST = { { w = "FDIRB_W_CASTER", game = true }, { w = "FDIRB_W_CASTER", game = true },
+		{ w = "FDIRB_W_CASTER", game = true } },
+	WARLOCK = { {}, {}, {} },
 }
 
 local function NeedName(kind)

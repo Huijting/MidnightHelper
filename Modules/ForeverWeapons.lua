@@ -326,6 +326,10 @@ local CLASS_LINES = {
 	-- ITEM_SPELL_TRIGGER_ONEQUIP "Equip:". The race line of the research = the "already use / still learn" lines.
 	MAGE = { lines = { "FWADV_CAST_1", "FWADV_CAST_2", "FWADV_CAST_3", "FWADV_CAST_4", "FWADV_MAG_5", "FWADV_CAST_6",
 		"FWADV_MAG_7" } },
+	-- Priest: no swords, axes or two-handed maces (SkillRaceClassInfo 71091). Wand Specialization in Discipline (2 points,
+	-- +25%); "some levelling guides take it first". Healing line adds ~1/3 as much damage (the line shows both numbers).
+	PRIEST = { lines = { "FWADV_CAST_1", "FWADV_CAST_2", "FWADV_CAST_3", "FWADV_CAST_4", "FWADV_PRI_5", "FWADV_CAST_6",
+		"FWADV_PRI_7" } },
 	SHAMAN = { lines = { "FWADV_SHA_1", "FWADV_SHA_2", "FWADV_SHA_3", "FWADV_SHA_4", "FWADV_SHA_5", "FWADV_SHA_6",
 		"FWADV_SHA_7", "FWADV_SHA_8" }, learn = { "staff", "mace2", "axe2" } },
 }

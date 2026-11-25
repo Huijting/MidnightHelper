@@ -28,7 +28,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
-## 25 nov 2026 — Forever: "Which weapon?" per class (Druid, Warrior, Paladin, Shaman, Hunter, Rogue, Mage; Priest en Warlock volgen)
+## 25 nov 2026 — Forever: "Which weapon?" per class (Druid, Warrior, Paladin, Shaman, Hunter, Rogue, Mage, Priest; Warlock volgt)
 - Tag + commit:   geen tag (commit: deze regel)
 - Status:         alleen op main
 - Mag op de site: nee (niet uit, niet getest; Fable-ronde vóór release)

@@ -30,7 +30,7 @@ ns.FOREVER_MAIN_STATS = {
 	HUNTER = { main = { "AGILITY", "SPIRIT" }, stamTie = false, lead = "rdps",
 		later = { talent = "Careful Aim", main = { "AGILITY", "INTELLECT" } } },
 	ROGUE = { main = { "AGILITY", "STRENGTH" }, stamTie = true, lead = "mhdps" }, -- 25 Nov 2026: main-hand weapon DPS first
-	PRIEST = { main = { "INTELLECT", "SPIRIT" }, stamTie = true },
+	PRIEST = { main = { "INTELLECT", "SPIRIT" }, stamTie = true, lead = "spell" },
 	-- Enhancement: Strength first, ALWAYS (Rob, 11 Nov 2026: "Ja, repareer"). The flip to Intellect at Mental Dexterity
 	-- is gone: Blizzard's blue post of 6 Nov ("Strength is always their strongest stat ... collect Strength and Attack
 	-- Power gear from now on") and the 10 Nov hotfix (Mental Dexterity back to 33/66/100% of Int) undid the reason for
@@ -75,9 +75,11 @@ local BY_TREE = {
 	},
 	PRIEST = {
 		-- Healing: Icy Veins Spi > Int, others Int > Spi → equal.
-		[1] = { role = "heal", main = { "INTELLECT", "SPIRIT" }, stamTie = true, equal = true },
-		[2] = { role = "heal", main = { "INTELLECT", "SPIRIT" }, stamTie = true, equal = true },
-		[3] = { role = "caster", main = { "INTELLECT", "SPIRIT" }, stamTie = true },
+		-- 25 Nov 2026: Discipline lead = healing (bouwchat's choice: its row is a healing role already), Holy = healing,
+		-- Shadow = spell damage.
+		[1] = { role = "heal", main = { "INTELLECT", "SPIRIT" }, stamTie = true, equal = true, lead = "heal" },
+		[2] = { role = "heal", main = { "INTELLECT", "SPIRIT" }, stamTie = true, equal = true, lead = "heal" },
+		[3] = { role = "caster", main = { "INTELLECT", "SPIRIT" }, stamTie = true, lead = "spell" },
 	},
 	SHAMAN = {
 		[1] = { role = "caster", main = { "INTELLECT", "SPIRIT" }, stamTie = true, lead = "spell" },

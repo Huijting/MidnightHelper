@@ -25,6 +25,16 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 25 nov — FOREVER: "Which weapon?" voor de Priest
+
+Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (87 controles), NIET in het spel.
+- [ ] Ima Priesterman (level 6): How you play → **Which weapon? (Priest)**: de gedeelde caster-regels; wand kiezen op
+      DPS, Wand Specialization (Discipline); Shadow-stats en de healing-regel. Onderaan geen swords, axes of two-handed
+      maces om te leren. Geen `<` of `#`.
+- [ ] Richting (elke boom): "the kind matters little, look at what is on it …".
+- [ ] Do this now: geen richting / Shadow "bonus damage and healing for spells first …"; Holy en Discipline "bonus healing
+      for spells first …".
+
 ## 25 nov — FOREVER: "Which weapon?" voor de Mage
 
 Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (79 controles), NIET in het spel.
