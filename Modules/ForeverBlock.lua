@@ -347,6 +347,10 @@ local MO_HARM = {}
 for _, n in ipairs({
 	"Entangling Roots", "Hibernate", "Faerie Fire", "Polymorph", "Counterspell", "Fear", "Banish",
 	"Shackle Undead", "Hunter's Mark", "Earth Shock", "Purge",
+	-- 25 Nov 2026 (Rob via Sparring: "We hebben dingen als Taunt en Growl. Ik zou graag ook een macro van willen hebben
+	-- voor een mouse over." -> on the proposal "ja graag"): the single-target taunts of the nine block tables (Druid F,
+	-- Warrior F, Hunter F / Ctrl-E "taunt: Distracting Shot"). Not the group taunts (Challenging Roar/Shout).
+	"Growl", "Taunt", "Mocking Blow", "Distracting Shot",
 }) do
 	MO_HARM[n] = true
 end

@@ -28,6 +28,27 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 25 nov 2026 — spiekbrief-code MH-KEYBLOCK: `layout=` en `game=` (afgesproken met de site-chat)
+- Tag + commit:   geen tag (commit: deze regel)
+- Status:         alleen op main
+- Mag op de site: ja, het 12 × 4-raster mag live zodra het werkt: de site leest beide formaten (met en zonder `layout=`)
+- Speler ziet:    De spiekbrief op de site toont het toetsenblok zoals de speler het heeft, ook 12 × 4.
+                  Contract: regel 2 eindigt op `;layout=old|12x4;game=midnight|forever`; eerste regel blijft "MH-KEYBLOCK 1".
+                  Zonder `layout=`: 12x4 als er een A|Q/E/R/F-regel of een CTRL-key behalve CTRL-1/2/3 is (niet Z X C V
+                  op A: het oude blok heeft die ook). Uitleg in Modules/KeyBlock.lua boven BuildKeyBlockExport.
+- Knoplabels:     KEYBLOCK_T_FORM4, KEYBLOCK_T_BANDAGE, KEYBLOCK_T_MANAPOT, KEYBLOCK_T_COMBATPOT, KEYBLOCK_T_TRINKET2 (nieuwe taken in 12 × 4)
+- Commando's:     /mh block export
+- Spel:           allebei
+
+## 25 nov 2026 — Forever: taunts op de muis (Growl, Taunt, Mocking Blow, Distracting Shot)
+- Tag + commit:   geen tag (commit: deze regel)
+- Status:         alleen op main
+- Mag op de site: nee (niet uit, niet getest)
+- Speler ziet:    Met `/mh mouseover on` gaat je taunt naar de vijand onder je muis, anders naar je target.
+- Knoplabels:     geen nieuwe
+- Commando's:     /mh mouseover on|off
+- Spel:           Forever
+
 ## 25 nov 2026 — release 5.9.1 (staat op CurseForge)
 - Tag + commit:   v5.9.1 / f372713. Release-run GitHub 45578909374: geslaagd (Retail + Forever + verify). CF-API 25 nov
                   ~08:55 UTC: MidnightHelper-v5.9.1.zip (id 9807222, 12.0.7-12.1.7) en MidnightHelper-v5.9.1-forever.zip

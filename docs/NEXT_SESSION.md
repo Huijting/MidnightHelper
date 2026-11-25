@@ -1,5 +1,22 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 25 nov (Bouwchat 25-11): taunts op de muis + spiekbrief-code met de indeling — GEBOUWD, wacht op test
+
+**Taunts** (Rob via Sparring: *"We hebben dingen als Taunt en Growl. Ik zou graag ook een macro van willen hebben voor een
+mouse over."* → *"ja graag"*): `ForeverBlock.lua` MO_HARM + Growl, Taunt, Mocking Blow, Distracting Shot (de taunts op één
+doel in de 9 blokken, GEMETEN: Druid F, Warrior F, Hunter F / 12×4 Ctrl-E). Niet: Challenging Roar/Shout (groep). Geen
+Paladin- of Warlock-taunt in de blokken. Offline (scratch `taunt_mo_test.lua`): 9 classes × oud/12×4 × enUS/ruRU (ruRU-namen
+uit DB2 SpellName Forever), 1128 toetsen allemaal ≤ 255 bytes, langste 195 (ruRU Paladin Shift-Z); de taunt-toetsen
+krijgen `[@mouseover,harm,nodead,…]`; mouseover uit = zonder. Bijvangst (alleen gemeld): de Handy macro Growl staat alleen
+bij spec 2 (Feral), omdat de Handy macros per spec een top 3 zijn (ForeverMacros.lua "DX3 #2"); lijkt bewust.
+**Spiekbrief-code** (Rob via Sparring: *"ja op mijn advies bij 1 tot en met 4"*; contract met de site-chat, die akkoord
+gaf): `KeyBlock.lua` BuildKeyBlockExport zet achteraan regel 2 `;layout=old|12x4;game=midnight|forever` (eerste regel blijft
+"MH-KEYBLOCK 1"); SyncLayout() vóór de export. De rijen kwamen al uit de actieve indeling (GEMETEN in een echte
+Forever-12×4-code in Robs SV, Druid Ima: A|Q, C|CTRL-F|KEYBLOCK_T_BANDAGE …). Uitleg in KeyBlock.lua: codes van 5.9.x
+zonder `layout=` herkent de site aan A|Q/E/R/F of een CTRL-key behalve 1/2/3 (NIET aan Z X C V op A: die heeft het oude
+blok ook — correctie op het voorstel van de site-chat). Site-chat bouwt het 12×4-raster + deel-link en leest beide
+formaten, dus de site mag live vóór onze release. Een code mét layout= is offline niet gemaakt: komt na Robs /reload.
+
 ## ▶▶ 25 nov (Bouwchat 25-11): CURSEFORGE_DESCRIPTION.md herschreven na de Fable-review — Rob plakt hem op CF
 
 Rob via Sparring, letterlijk: *"Ik zeg ja op jouw advies."* (1 Beta-zin weg, 2 Forever onder 6 kopjes en dubbele regels

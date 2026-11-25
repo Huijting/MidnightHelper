@@ -3003,10 +3003,19 @@ end
 -- 🔴 THE FORMAT IS A CONTRACT WITH THE WEBSITE, like MH-EXPORT (GearExport.lua):
 --
 --     MH-KEYBLOCK 1
---     char=<name>;class=<CLASSFILE>;specid=<id>;spec=<spec name>;bars=<D>,<A>,<B>,<C>
+--     char=<name>;class=<CLASSFILE>;specid=<id>;spec=<spec name>;bars=<D>,<A>,<B>,<C>;layout=<old|12x4>;game=<midnight|forever>
 --     # block|key|task|kind|id|name
 --     A|1|KEYBLOCK_T_MAIN|spell|19434|Aimed Shot
 --
+--   layout, game  added 25 Nov 2026 (Rob via Sparring: "ja op mijn advies bij 1 tot en met 4"; contract proposed to the
+--                 site chat the same day). A code without `layout=` (every code from before) is the old block. With
+--                 12x4: A = no modifier, B = Shift, C = Ctrl (each 1 2 3 4 Q E R F Z X C V), D = Alt (own bar). The
+--                 Ctrl row differs per game (Forever bandage / mana potion, Midnight combat potion / trinket 2): the
+--                 task field says which. The first line stays "MH-KEYBLOCK 1" on purpose, so an older site still reads it.
+--                 ⚠️ Codes of 5.9.0 and 5.9.1 can already be 12x4 WITHOUT `layout=` (the site chat measured it in Rob's
+--                 SV). A reader may infer the layout from the rows then: an A row with key Q, E, R or F, or any CTRL- key
+--                 other than CTRL-1/2/3 (CTRL-4, -Q, -E, -R, -F, -Z, -X, -C, -V) = 12x4; a key 5, T, G or F1-F4 = old.
+--                 NOT Z X C V on A: the old block has those on A too (BLOCK_OLD bar A above).
 --   block  D A B C (picture order; D = the player's own, bar 4)
 --   key    WoW binding notation: 1, SHIFT-1, CTRL-1, ALT-Q, F1 ...
 --   task   the place's task as a locale KEY (KEYBLOCK_T_*), so the site can label it in any language
@@ -3019,6 +3028,7 @@ end
 --------------------------------------------------------------------------------
 
 function ns.BuildKeyBlockExport()
+	SyncLayout() -- the rows and their tasks must come from the layout the header names
 	local rows, res = PlacePlan()
 	if not rows then
 		return nil
@@ -3044,11 +3054,11 @@ function ns.BuildKeyBlockExport()
 	local bars = ns.KeyBlockBars()
 	local lines = {
 		"MH-KEYBLOCK 1",
-		("char=%s;class=%s;specid=%s;spec=%s;bars=%d,%d,%d,%d"):format(
+		("char=%s;class=%s;specid=%s;spec=%s;bars=%d,%d,%d,%d;layout=%s;game=%s"):format(
 			(tostring(UnitName and UnitName("player") or "?"):gsub("[;|=]", "")),
 			tostring(res and res.class or (UnitClass and select(2, UnitClass("player"))) or "?"),
 			tostring(res and res.specID or "?"), (specName:gsub("[;|=]", "")),
-			bars.D, bars.A, bars.B, bars.C),
+			bars.D, bars.A, bars.B, bars.C, LayoutName(), ns.IS_FOREVER and "forever" or "midnight"),
 		"# block|key|task|kind|id|name",
 	}
 	for _, r in ipairs(rows) do

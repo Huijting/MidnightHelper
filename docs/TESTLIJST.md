@@ -25,6 +25,23 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 25 nov — FOREVER: taunt op de muis (Rob: "Ik zou graag ook een macro van willen hebben voor een mouse over")
+
+Alleen een bestaand bestand gewijzigd: `/reload` is genoeg. Offline getest (1128 toetsen, Engels en Russisch), NIET in
+het spel.
+- [ ] `/mh mouseover on`. Druid in beervorm: ga met je muis op een vijand staan (niet je target) en druk **F**: Growl gaat
+      naar die vijand. Zonder muis op een vijand: naar je target, zoals eerst.
+- [ ] Warrior: hetzelfde met **F** (Taunt in Defensive Stance, Mocking Blow in Battle Stance).
+- [ ] Hunter: Distracting Shot (oude blok **F**, 12 × 4 **Ctrl-E**) gaat ook naar de vijand onder je muis.
+- [ ] `/mh mouseover off`: F gaat weer alleen naar je target.
+
+## 25 nov — spiekbrief-code weet nu welke indeling je hebt (voor de site)
+
+Alleen een bestaand bestand gewijzigd: `/reload` is genoeg. Niet in het spel getest.
+- [ ] `/mh block export` (of de knop in `/mh block`): op de tweede regel staat achteraan `;layout=12x4;game=forever`
+      (of `layout=old`, of `game=midnight` in Midnight). Plak hem op midnighthelper.com zodra de site-chat zegt dat het
+      12 × 4-raster live is.
+
 ## 25 nov — FOREVER: geen "runs out soon" als een ander je een HOGERE rank gaf (Rob: "dat moet natuurlijk niet")
 
 Alleen een bestaand bestand gewijzigd: `/reload` is genoeg. Offline getest (12 controles), NIET in het spel.

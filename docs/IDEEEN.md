@@ -26,6 +26,17 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 
 ## Open — wacht op Rob
 
+### Forever: taunts op de muis in het toetsenblok (wens van Rob, 25 nov) — ✅ JA, GEBOUWD 25 nov, wacht op test
+- Bron: Rob via Sparring 25-11, letterlijk: *"We hebben dingen als Taunt en Growl. Ik zou graag ook een macro van willen
+  hebben voor een mouse over."*; op het voorstel: *"ja graag"*.
+- Gebouwd: met `/mh mouseover on` gaan Growl, Taunt, Mocking Blow en Distracting Shot naar de vijand onder je muis.
+- Spel: F. Voor wie: V (tanks) (AFGELEID).
+
+### Spiekbrief op de site ook voor 12 × 4 (advies van Sparring, 25 nov) — ✅ JA, addon-kant GEBOUWD 25 nov; site-kant bij de site-chat
+- Bron: Rob via Sparring 25-11, letterlijk: *"ja op mijn advies bij 1 tot en met 4"*.
+- Addon: de code zegt welke indeling en welk spel (`layout=`, `game=`). Site: het 12 × 4-raster en de deel-link.
+- Spel: M + F. Voor wie: N + V (AFGELEID).
+
 ### Forever: geen "runs out soon" als een ander je een hogere rank gaf (bug van Rob, 25 nov) — ✅ JA, GEREPAREERD 25 nov, wacht op test
 - Bron: Rob via Sparring 25-11 (Forever Mage, Arcane Intellect), letterlijk: *"ik had van een andere mage al een hogere
   rank gekregen die dus nog 2 minuten actief is, en dan blijft dit irritant in beeld, dat moet natuurlijk niet"*; op het
