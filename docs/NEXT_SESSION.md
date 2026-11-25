@@ -1,5 +1,23 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 25 nov (Bouwchat 25-11): "How you play" in tabbladen — GEBOUWD, wacht op test (`/reload`)
+
+Rob via Sparring: *"zo'n lange lap tekst … Met tabbladen van mijn part"* → *"Ja, je mag het zo sturen."*
+- ForeverHowToPlay.lua: `ns.ForeverHowToSections` geeft elk blok een `tab` (start/keys/gear/group/levels, volgorde
+  `ns.FOREVER_HOWTO_TABS`) en sorteert erop. Klasse-blokken op hun ENGELSE titel (ClassTab); COMMON via COMMON_TAB.
+  Rol-teksten geknipt op hun 3 vette subkopjes (RoleChunks; GEMETEN 84 = 28 rollen × 3 in alle 8 bestanden): intro +
+  volgorde + fouten → Start, per 10 levels → Levels. Andere vorm = heel laten + `uncut` gemeld. Nieuwe kinds: `plan`
+  (Group), `weapon` en `stats` (Weapon & stats; stats = `ns.ForeverStatLines` uit ForeverDoNow). Dir-blok → Weapon & stats.
+- `ns.ShowPlayCardWindow`/`Toggle` openen nu de overzichtspagina "play" (oude losse venster = reserve zonder overzicht).
+- ForeverOverview.lua FillPlayPage: links eerst de tabs (gekozen = goud + balk `row.sel`), dan 8 px lager de kopjes van
+  dat tabblad (ingesprongen, klik = springen). `f.playTab` + `ns.db.foreverPlayTab` onthouden.
+- `/mh howtotabs [mine]` (Core.lua) → `ns.ForeverHowToTabsReport`: per klas per tab de blokken + regels, "role lines
+  X/Y" (moet gelijk), dubbele lange regels (rol-tegen-rol telt niet). Let op: weapon/stats/dir zijn van JOUW character,
+  ook in de regels van andere klassen.
+- tabs_test (scratch) 153/153: 9 klassen × 8 talen, rolregels vóór = na, elk blok een tab, gesorteerd.
+- Open: blokken "Levels 1-10" zijn 10-13 regels (spec zei ±5): inkorten = herschrijven = vraag aan Rob. Warlock Stamina
+  blijft open.
+
 ## ▶▶ 25 nov (Bouwchat 25-11): spell-rekensom AF met Robs 4 dumps — healing, scholen, mp5 (`/reload`)
 
 GEMETEN door Rob (GetItemStats, 2e run; 1e run nil = item nog niet geladen): 7049 SPELL_HEALING_DONE 15 + SPELL_DAMAGE_DONE 5;

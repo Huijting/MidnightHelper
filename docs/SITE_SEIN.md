@@ -28,6 +28,17 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 25 nov 2026 — Forever: "How you play" in tabbladen
+- Tag + commit:   geen tag (commit: deze regel)
+- Status:         alleen op main
+- Mag op de site: nee (niet uit, niet getest)
+- Speler ziet:    How you play is geen lange lap meer: links tabbladen Start, Your keys, Weapon & stats, Group en
+                  Levels, met de kopjes van het open tabblad eronder. Het onthoudt je laatste tabblad. Lege tabbladen
+                  staan er niet. De tekst zelf is niet veranderd, alleen verdeeld.
+- Knoplabels:     FHOWTO_TAB_START, FHOWTO_TAB_KEYS, FHOWTO_TAB_GEAR, FHOWTO_TAB_GROUP, FHOWTO_TAB_LEVELS, FHOWTO_STATS_HEAD
+- Commando's:     /mh play, /mh howtotabs
+- Spel:           Forever
+
 ## 25 nov 2026 — Forever: "Which weapon?" voor alle 9 classes (Fable-controle verwerkt 25 nov)
 - Tag + commit:   geen tag (commit: deze regel)
 - Status:         alleen op main

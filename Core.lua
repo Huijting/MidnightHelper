@@ -3013,6 +3013,20 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		end
 		return
 	end
+	-- 25 Nov 2026, WoW Forever: which How you play block is in which tab, and the line count (ForeverHowToPlay.lua).
+	local tabsArg = msg:lower() == "howtotabs" and "" or msg:lower():match("^howtotabs%s+(.+)$")
+	if tabsArg then
+		if ns.ForeverHowToTabsReport then
+			local lines, bad = ns.ForeverHowToTabsReport(tabsArg == "mine")
+			for _, l in ipairs(lines) do
+				print("|cffffcc00MH tabs:|r " .. l)
+			end
+			print(("|cffffcc00MH tabs:|r %s"):format(bad == 0 and "nothing missing" or (bad .. " class(es) MISMATCH")))
+		else
+			print("|cffffcc00Midnight Helper:|r /mh howtotabs is for WoW: Forever.")
+		end
+		return
+	end
 	local moArg = msg:lower() == "mouseover" and "" or msg:lower():match("^mouseover%s+(.+)$")
 	if moArg then
 		if ns.ForeverMouseoverSlash then

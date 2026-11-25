@@ -1632,6 +1632,12 @@ local function BuildPlayPage(f, x0, rightW)
 		b.t:SetPoint("LEFT")
 		b.t:SetPoint("RIGHT")
 		b.t:SetWordWrap(false)
+		-- 25 Nov 2026 (tabs): the chosen tab gets a soft bar behind it.
+		b.sel = b:CreateTexture(nil, "BACKGROUND")
+		b.sel:SetPoint("TOPLEFT", -6, 1)
+		b.sel:SetPoint("BOTTOMRIGHT", 4, -1)
+		b.sel:SetColorTexture(1, 1, 1, 0.10)
+		b.sel:Hide()
 		b:SetScript("OnEnter", function(self)
 			local r, g, bl = Accent()
 			self.t:SetTextColor(r, g, bl)
@@ -2936,8 +2942,35 @@ local function FillPlayPage(f)
 			secs, folded, hasMine = s, fo, mi
 		end
 	end
+	-- 25 Nov 2026 (Rob via Sparring 25-11: "zo'n lange lap tekst ... Met tabbladen"): the sections go into tabs
+	-- (ns.FOREVER_HOWTO_TABS, ForeverHowToPlay.lua); an empty tab is not shown; the last tab chosen is remembered.
+	local tabOf, tabs = {}, {}
+	for _, sec in ipairs(secs) do
+		local t = sec.tab or "start"
+		tabOf[t] = tabOf[t] or {}
+		tabOf[t][#tabOf[t] + 1] = sec
+	end
+	for _, t in ipairs(ns.FOREVER_HOWTO_TABS or {}) do
+		if tabOf[t.id] then
+			tabs[#tabs + 1] = t
+		end
+	end
+	local cur = f.playTab or (ns.db and ns.db.foreverPlayTab) or "start"
+	if not tabOf[cur] then
+		cur = tabs[1] and tabs[1].id
+	end
+	f.playTab = cur
+	local curLabel
+	for _, t in ipairs(tabs) do
+		if t.id == cur then
+			curLabel = ns:L(t.key)
+		end
+	end
+	if cur and tabOf[cur] then
+		secs = tabOf[cur]
+	end
 	local cname = ns.ForeverClassName and ns.ForeverClassName(token) or token
-	body.label:SetText(ns:L("FOV_LABEL_PLAY_FMT"):format(cname:upper()))
+	body.label:SetText(ns:L("FOV_LABEL_PLAY_FMT"):format(cname:upper()) .. (curLabel and ("  ·  " .. curLabel:upper()) or ""))
 	-- Lay the sections out one under the other; widths are fixed, so the heights are right at once.
 	local y = 4
 	local tocItems = {}
@@ -2967,13 +3000,36 @@ local function FillPlayPage(f)
 	end
 	body.child:SetHeight(math.max(10, y))
 	body.sf.Reset()
-	-- Contents: one line per heading; your direction's role in the class colour.
+	-- Left: first the tabs, then (indented, a little lower) the headings of the open tab; click = jump there.
+	-- Your direction's role in the class colour.
 	local r, g, b = Accent()
+	local nTabs = #tabs
 	for i, row in ipairs(toc.rows) do
-		local it = tocItems[i]
-		if it then
+		local tab = tabs[i]
+		local it = not tab and tocItems[i - nTabs]
+		row:ClearAllPoints()
+		row:SetPoint("TOPLEFT", 14, -32 - (i - 1) * TOC_STEP - (i > nTabs and 8 or 0))
+		row:SetPoint("RIGHT", -10, 0)
+		row.t:ClearAllPoints()
+		row.t:SetPoint("LEFT", tab and 0 or 12, 0)
+		row.t:SetPoint("RIGHT")
+		row.sel:SetShown(tab ~= nil and tab.id == cur)
+		if tab then
+			row.t:SetText(ns:L(tab.key))
+			row.col = tab.id == cur and A.gold or A.text
+			row.t:SetTextColor(row.col[1], row.col[2], row.col[3])
+			row:SetScript("OnClick", function()
+				f.playTab = tab.id
+				if ns.db then
+					ns.db.foreverPlayTab = tab.id
+				end
+				ns.ForeverOverviewFill()
+			end)
+			row:Show()
+		elseif it then
 			row.t:SetText(it.title)
-			row.col = (it.kind == "dir" or it.kind == "role") and { r, g, b } or (it.kind == "folded" and A.dim or A.text)
+			row.col = (it.kind == "dir" or it.kind == "role" or it.kind == "plan" or it.kind == "weapon") and { r, g, b }
+				or A.dim
 			row.t:SetTextColor(row.col[1], row.col[2], row.col[3])
 			row:SetScript("OnClick", function()
 				local max = body.sf:GetVerticalScrollRange() or 0

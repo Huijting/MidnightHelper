@@ -1459,22 +1459,82 @@ end
 --- 17 Nov 2026 (the overview's How you play page, ForeverOverview.lua): the same content as this window, as separate
 --- sections so the page can show headings and a table of contents. Class quests, Camping and Legacy Points are left
 --- out: they have their own tabs there. Bodies are raw (**bold**, "- " lines, colour codes from the direction block).
---- @return list of { title, body, kind = "dir"|"role"|"folded"|"class"|"note"|"common" }, hasFolded (other roles exist)
+--[[
+	25 Nov 2026 — tabs (Rob via Sparring 25-11: "zo'n lange lap tekst. Kunnen we dat venster niet beter indelen? Met
+	tabbladen van mijn part"; GO "Ja, je mag het zo sturen"). Start = your direction's role (intro, simple order,
+	mistakes) and the class basics; Your keys; Weapon & stats; Group (tank plan, Dual Spec); Levels. The text itself is
+	not changed, only divided. Class sections go by their ENGLISH title (the translations keep the same order).
+]]
+local TAB_INDEX = { start = 1, keys = 2, gear = 3, group = 4, levels = 5 }
+local COMMON_TAB = { ["Before you start"] = "keys", ["Talents: reset and Dual Spec"] = "group" }
+
+local function ClassTab(en)
+	if type(en) ~= "string" then
+		return "keys"
+	end
+	if en == "What it does" or en == "Beginner mistakes" or en:find("^Simple order") then
+		return "start"
+	end
+	if en == "What comes later" then
+		return "levels"
+	end
+	return "keys" -- "Levels 1-10: your buttons" and the class's own (Stances, Seals and auras, Your demon ...)
+end
+
+--- A role body cut at its bold sub-head lines ("**Simple order:**" ...): 1 = intro, 2 = order, 3 = per 10 levels,
+--- 4 = mistakes. Every role in every language has those three (GEMETEN 25 Nov: 84 = 28 roles x 3 in each file).
+local function RoleChunks(body)
+	local chunks, cur = {}, {}
+	for line in ((body or "") .. "\n"):gmatch("([^\n]*)\n") do
+		if line:find("^%*%*[^*]+%*%*%s*$") and #cur > 0 then
+			chunks[#chunks + 1] = table.concat(cur, "\n")
+			cur = {}
+		end
+		cur[#cur + 1] = line
+	end
+	if #cur > 0 then
+		chunks[#chunks + 1] = table.concat(cur, "\n")
+	end
+	return chunks
+end
+
+--- 25 Nov 2026: every section also has `tab` (see FOREVER_HOWTO_TABS below). Role texts come in two parts: "start"
+--- (intro, simple order, beginner mistakes) and "levels" (per 10 levels), cut at their bold sub-heads.
+--- @return list of { title, body, kind = "dir"|"role"|"folded"|"class"|"note"|"common"|"stats", tab }, hasFolded, hasMine
 function ns.ForeverHowToSections(token, allRoles)
 	local out = {}
 	local block = ns.ForeverDirectionBlock and ns.ForeverDirectionBlock()
 	if block then
 		local first, rest = block:match("^([^\n]*)\n?(.*)$")
-		out[#out + 1] = { title = (first:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", "")), body = rest, kind = "dir" }
+		out[#out + 1] = { title = (first:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", "")), body = rest, kind = "dir", tab = "gear" }
+	end
+	-- 25 Nov 2026: "Which weapon?" (ForeverWeapons.lua), in every language through the locale keys.
+	local wt, wb = WeaponAdvice()
+	if wt then
+		out[#out + 1] = { title = wt, body = wb, kind = "weapon", tab = "gear" }
+	end
+	-- 25 Nov 2026 (tabs): which stats count, the same sentences as "Do this now" (ForeverDoNow.lua).
+	if ns.ForeverStatLines then
+		local ok, lines = pcall(ns.ForeverStatLines)
+		if ok and type(lines) == "table" and #lines > 0 then
+			out[#out + 1] = { title = ns:L("FHOWTO_STATS_HEAD"), body = "- " .. table.concat(lines, "\n- "), kind = "stats",
+				tab = "gear" }
+		end
 	end
 	local planTitle, planBody = PlanFor(token)
 	if planTitle then
-		out[#out + 1] = { title = planTitle, body = LiveKeys(token, planBody), kind = "role" }
+		out[#out + 1] = { title = planTitle, body = LiveKeys(token, planBody), kind = "plan", tab = "group" }
 	end
-	-- 25 Nov 2026: "Which weapon?" (Druid; ForeverWeapons.lua), in every language through the locale keys.
-	local wt, wb = WeaponAdvice()
-	if wt then
-		out[#out + 1] = { title = wt, body = wb, kind = "role" }
+	local function AddRole(r, list)
+		local chunks = RoleChunks(RoleBody(token, list, r))
+		if #chunks == 4 then
+			out[#out + 1] = { title = r.title, body = LiveKeys(token, chunks[1] .. "\n" .. chunks[2] .. "\n" .. chunks[4]),
+				kind = "role", tab = "start" }
+			out[#out + 1] = { title = r.title, body = LiveKeys(token, chunks[3]), kind = "role", tab = "levels" }
+		else -- not the usual three sub-heads: keep it whole (/mh howtotabs reports it)
+			out[#out + 1] = { title = r.title, body = LiveKeys(token, RoleBody(token, list, r)), kind = "role", tab = "start",
+				uncut = #chunks }
+		end
 	end
 	local tr = Translated()
 	local list = (tr and tr.ROLES and tr.ROLES[token]) or ROLES[token] or {}
@@ -1488,12 +1548,12 @@ function ns.ForeverHowToSections(token, allRoles)
 		end
 	end
 	for _, r in ipairs(mine) do
-		out[#out + 1] = { title = r.title, body = LiveKeys(token, RoleBody(token, list, r)), kind = "role" }
+		AddRole(r, list)
 	end
 	if #others > 0 then
 		if allRoles then
 			for _, r in ipairs(others) do
-				out[#out + 1] = { title = r.title, body = LiveKeys(token, RoleBody(token, list, r)), kind = "role" }
+				AddRole(r, list)
 			end
 		else
 			local names = {}
@@ -1501,7 +1561,7 @@ function ns.ForeverHowToSections(token, allRoles)
 				names[#names + 1] = r.title
 			end
 			out[#out + 1] = { title = ns:L(#mine > 0 and "FHOWTO_ROLES_OTHER" or "FHOWTO_ROLES_ALL"),
-				body = ns:L("FHOWTO_ROLES_FOLDED_FMT"):format(table.concat(names, ", ")), kind = "folded" }
+				body = ns:L("FHOWTO_ROLES_FOLDED_FMT"):format(table.concat(names, ", ")), kind = "folded", tab = "start" }
 		end
 	end
 	local cls = (tr and tr[token]) or CLASSES[token]
@@ -1511,22 +1571,113 @@ function ns.ForeverHowToSections(token, allRoles)
 			local note = en and NotYetLine(token, OrderPart(en[1], en[2]))
 			local simple = en and OrderPart(en[1], en[2]) ~= nil
 			out[#out + 1] = { title = sec[1], body = LiveKeys(token, sec[2], simple) .. (note and ("\n" .. note) or ""),
-				kind = "class" }
+				kind = "class", tab = ClassTab(en and en[1]) }
 		end
 		local r = ns.ForeverTalentedRank and ns.ForeverTalentedRank()
 		out[#out + 1] = { body = type(r) == "number" and ns:L("FHOWTO_TALENTED_RANK_FMT"):format(r)
-			or ns:L("FHOWTO_TALENTED_NOTE"), kind = "note" }
+			or ns:L("FHOWTO_TALENTED_NOTE"), kind = "note", tab = "levels" }
 	else
-		out[#out + 1] = { title = ClassName(token), body = ns:L("FHOWTO_NOT_WRITTEN_FMT"):format(ClassName(token)), kind = "class" }
+		out[#out + 1] = { title = ClassName(token), body = ns:L("FHOWTO_NOT_WRITTEN_FMT"):format(ClassName(token)), kind = "class",
+			tab = "start" }
 	end
 	for i, enSec in ipairs(COMMON) do
 		local sec = (tr and tr.COMMON and tr.COMMON[i]) or enSec
 		local en = enSec[1]
 		if en ~= "Camping" and en ~= "Legacy Points" then
-			out[#out + 1] = { title = sec[1], body = LiveKeys(token, sec[2]), kind = "common" }
+			out[#out + 1] = { title = sec[1], body = LiveKeys(token, sec[2]), kind = "common", tab = COMMON_TAB[en] or "keys" }
 		end
 	end
+	-- Fixed order inside every tab: the order of HOWTO_ORDER, then the order above (stable).
+	for i, s in ipairs(out) do
+		s.n = i
+	end
+	table.sort(out, function(a, b)
+		local ta, tb = TAB_INDEX[a.tab] or 9, TAB_INDEX[b.tab] or 9
+		if ta ~= tb then
+			return ta < tb
+		end
+		return a.n < b.n
+	end)
 	return out, #others > 0, #mine > 0
+end
+
+--- 25 Nov 2026: the tabs of the How you play page, in order, with their label keys.
+ns.FOREVER_HOWTO_TABS = {
+	{ id = "start", key = "FHOWTO_TAB_START" },
+	{ id = "keys", key = "FHOWTO_TAB_KEYS" },
+	{ id = "gear", key = "FHOWTO_TAB_GEAR" },
+	{ id = "group", key = "FHOWTO_TAB_GROUP" },
+	{ id = "levels", key = "FHOWTO_TAB_LEVELS" },
+}
+
+--- Non-empty lines of a text, colour codes and **marks** left out (for the /mh howtotabs count).
+local function Lines(text)
+	local n = 0
+	for line in ((text or "") .. "\n"):gmatch("([^\n]*)\n") do
+		if line:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", ""):find("%S") then
+			n = n + 1
+		end
+	end
+	return n
+end
+
+--- /mh howtotabs [all]: for every class (or only yours), which block lands in which tab, and the line count of the
+--- old text (all sections whole) against the tabs. Nothing may go missing: "before" must equal "after".
+function ns.ForeverHowToTabsReport(onlyMine)
+	local _, mine = UnitClass("player")
+	local tokens = onlyMine and { mine } or { "WARRIOR", "PALADIN", "HUNTER", "ROGUE", "PRIEST", "SHAMAN", "MAGE", "WARLOCK", "DRUID" }
+	local out, bad = {}, 0
+	for _, token in ipairs(tokens) do
+		local secs = ns.ForeverHowToSections(token, true)
+		-- Before: the same content uncut (every role body whole, as the page showed it until today).
+		local before = 0
+		local tr = Translated()
+		local list = (tr and tr.ROLES and tr.ROLES[token]) or ROLES[token] or {}
+		for _, r in ipairs(list) do
+			before = before + Lines(r.body)
+		end
+		local after, roleLines, perTab, uncut = 0, 0, {}, 0
+		local seen, dupes = {}, {}
+		for _, s in ipairs(secs) do
+			local n = Lines(s.body)
+			after = after + n
+			if s.kind == "role" then
+				roleLines = roleLines + n
+			end
+			-- The same long line in two blocks = a double (reported, not removed: the text is not ours to cut here).
+			for line in ((s.body or "") .. "\n"):gmatch("([^\n]*)\n") do
+				local key = line:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", ""):gsub("^%s*%-?%s*", "")
+				if #key >= 30 then
+					-- two different roles may share a line ("60: stronger ranks again"): you only see your own
+					if seen[key] and seen[key] ~= s and not (seen[key].kind == "role" and s.kind == "role") then
+						dupes[#dupes + 1] = key:sub(1, 50)
+					end
+					seen[key] = seen[key] or s
+				end
+			end
+			if s.uncut then
+				uncut = uncut + 1
+			end
+			local t = perTab[s.tab] or {}
+			t[#t + 1] = (s.title or "(note)") .. " " .. n
+			perTab[s.tab] = t
+		end
+		local ok = roleLines == before and uncut == 0
+		if not ok then
+			bad = bad + 1
+		end
+		out[#out + 1] = ("%s: %s, role lines %d/%d, total %d lines, %d double%s"):format(token, ok and "OK" or "MISMATCH",
+			roleLines, before, after, #dupes, uncut > 0 and (", " .. uncut .. " role(s) not cut") or "")
+		for _, d in ipairs(dupes) do
+			out[#out + 1] = "  double: " .. d
+		end
+		for _, tab in ipairs(ns.FOREVER_HOWTO_TABS) do
+			if perTab[tab.id] then
+				out[#out + 1] = "  " .. ns:L(tab.key) .. ": " .. table.concat(perTab[tab.id], " · ")
+			end
+		end
+	end
+	return out, bad
 end
 ns.ForeverClassName = ClassName
 
@@ -1674,7 +1825,13 @@ local function Build()
 end
 
 --- Open on this character's class. (Retail passes a spec id; Forever has none, so it is ignored.)
+--- 25 Nov 2026 (tabs): every way in (key block step 4, /mh play, the dashboards) opens the overview's How you play page,
+--- which has the tabs; this old one-page window stays only as the fallback when the overview is not there.
 function ns.ShowPlayCardWindow()
+	if ns.ShowForeverOverviewPage then
+		ns.ShowForeverOverviewPage("play")
+		return
+	end
 	local f = Build()
 	local _, token = UnitClass("player")
 	Show(token or shown or "WARRIOR")
@@ -1682,6 +1839,10 @@ function ns.ShowPlayCardWindow()
 end
 
 function ns.TogglePlayCardWindow()
+	if ns.ShowForeverOverviewPage then
+		ns.ShowForeverOverviewPage("play", true)
+		return
+	end
 	if win and win:IsShown() then
 		win:Hide()
 	else

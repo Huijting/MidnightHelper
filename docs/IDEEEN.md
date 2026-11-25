@@ -26,6 +26,17 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 
 ## Open — wacht op Rob
 
+### Forever: "How you play" in tabbladen (wens van Rob, 25 nov) — ✅ JA, GEBOUWD 25 nov, wacht op test
+- Bron: Rob via Sparring 25-11, letterlijk: *"En dan open ik het en het is zo'n lange lap tekst. Kunnen we dat venster niet
+  beter indelen? Met tabbladen van mijn part of in ieder geval iets waarbij het overzichtelijker is."*; op het voorstel:
+  *"Ja, je mag het zo sturen."*
+- Gebouwd: tabbladen Start · Your keys · Weapon & stats · Group · Levels links op de pagina, kopjes van het open tabblad
+  eronder; lege tab = geen tab; laatste tab onthouden; 8 talen; `/mh howtotabs` telt de regels. Alle ingangen (`/mh play`,
+  toetsenblok stap 4, Do this now) openen nu deze pagina.
+- Niet gedaan: tekst ingekort. De blokken "Levels 1-10: your buttons" zijn 10-13 regels (meer dan ±5); ontdubbelen vond
+  niets (offline `/mh howtotabs`: 0 dubbele lange regels per klas; alleen rollen onderling delen regels, en je ziet er één). Inkorten = herschrijven = aparte vraag aan Rob.
+- Spel: F. Voor wie: N (AFGELEID).
+
 ### Forever: Gear check — per vakje zien of er een enchant op zit (wens van Rob, 25 nov) — ✅ JA, GEBOUWD 25 nov, wacht op test
 - Bron: Rob via Sparring 25-11, letterlijk: *"ik heb ook enchanting, maar ik zie helemaal niet of ik al iets enchant heb, ja
   of nee, in mijn overzichtje. Kunnen wij dat maken?"*; op het voorstel 1-3: *"Ja, het gaat om forever. En het is goed zo

@@ -332,6 +332,7 @@ local function StatLines()
 	end
 	return out
 end
+ns.ForeverStatLines = StatLines -- 25 Nov 2026: also the How you play tab "Weapon & stats" (ForeverHowToPlay.lua)
 
 --- What the window would say. @return { now = {lines}, actions = {kind = true}, soon = {lines} }
 --- One action per kind of line, shared by this window's buttons and the overview (ForeverOverview.lua). 17 Nov 2026,
