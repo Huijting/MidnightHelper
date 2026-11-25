@@ -452,7 +452,7 @@ for k, v in pairs({
 	SET_BLESSTIP_TITLE = "Paladin : conseil de bénédiction dans l'infobulle",
 	SET_BLESSTIP_DESC = "WoW Forever : survole un joueur ami et l'infobulle indique quelle bénédiction convient à sa classe. Comme /mh blesstip on.",
 	-- 17 Nov 2026 (late): overview front door, Now list, trainer page
-	CMDLIST_OVERVIEW = "WoW Forever : ouvre ou ferme la vue d'ensemble de Midnight Helper : quoi faire maintenant, comment jouer, quêtes de classe, campement et Héritage. /mh, Alt+M et le bouton de la minicarte l'ouvrent aussi.",
+	CMDLIST_OVERVIEW = "WoW Forever : ouvre ou ferme la vue d'ensemble de Midnight Helper, avec sept onglets : Maintenant, Ta classe, Trouver, Métiers, Donjons & groupe, Touches & macros et Personnages. /mh, Alt+M et le bouton de la minicarte l'ouvrent aussi.",
 	BROKER_TOOLTIP_HINT_FOREVER = "Clic gauche : ouvrir/fermer la vue d'ensemble. Clic droit : paramètres.",
 	BROKER_TOOLTIP_BOARD_FOREVER = "Clic du milieu : la fenêtre « Fais ça maintenant ».",
 	FOV_OLDWIN_BTN = "Tous les outils",

@@ -4015,7 +4015,13 @@
    "ruRU": "5dfa35e6a2f72797"
   },
   "CMDLIST_BLOCK": {
-   "ruRU": "ce9e611023608435"
+   "deDE": "64b60d3406dda0e3",
+   "esES": "64b60d3406dda0e3",
+   "frFR": "64b60d3406dda0e3",
+   "itIT": "64b60d3406dda0e3",
+   "nlNL": "64b60d3406dda0e3",
+   "ptBR": "64b60d3406dda0e3",
+   "ruRU": "64b60d3406dda0e3"
   },
   "CMDLIST_BOARD": {
    "deDE": "8aa48c4736e4c62d",
@@ -4374,13 +4380,13 @@
    "ruRU": "69d80b44ecbce349"
   },
   "CMDLIST_LANG": {
-   "deDE": "8271dfa94806d1b5",
-   "esES": "8271dfa94806d1b5",
-   "frFR": "8271dfa94806d1b5",
-   "itIT": "8271dfa94806d1b5",
-   "nlNL": "8271dfa94806d1b5",
-   "ptBR": "8271dfa94806d1b5",
-   "ruRU": "8271dfa94806d1b5"
+   "deDE": "147847550a592150",
+   "esES": "147847550a592150",
+   "frFR": "147847550a592150",
+   "itIT": "147847550a592150",
+   "nlNL": "147847550a592150",
+   "ptBR": "147847550a592150",
+   "ruRU": "147847550a592150"
   },
   "CMDLIST_LOOT": {
    "deDE": "c9e4e9988f0a2aa9",

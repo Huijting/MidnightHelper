@@ -441,7 +441,7 @@ for k, v in pairs({
 	SET_BLESSTIP_TITLE = "Paladino: dica de bênção na dica de tela",
 	SET_BLESSTIP_DESC = "WoW Forever: passe o mouse num jogador aliado e a dica de tela diz qual bênção combina com a classe dele. O mesmo que /mh blesstip on.",
 	-- 17 Nov 2026 (late): overview front door, Now list, trainer page
-	CMDLIST_OVERVIEW = "WoW Forever: abre ou fecha a visão geral do Midnight Helper: o que fazer agora, como jogar, missões de classe, acampamento e Legado. /mh, Alt+M e o botão do minimapa também a abrem.",
+	CMDLIST_OVERVIEW = "WoW Forever: abre ou fecha a visão geral do Midnight Helper, com sete abas: Agora, Sua classe, Encontrar, Profissões, Masmorras e grupo, Teclas e macros e Personagens. /mh, Alt+M e o botão do minimapa também a abrem.",
 	BROKER_TOOLTIP_HINT_FOREVER = "Clique com o botão esquerdo: abre/fecha a visão geral. Clique com o botão direito: configurações.",
 	BROKER_TOOLTIP_BOARD_FOREVER = "Clique do meio: a janela \"Faça isto agora\".",
 	FOV_OLDWIN_BTN = "Tudo",

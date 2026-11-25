@@ -296,7 +296,7 @@ for k, v in pairs({
 	FOV_TIP_LEG_AVAIL = "Puntos que este personaje aún puede gastar. Pulsa el botón Legado en la barra de menú.",
 	-- 17 Nov 2026 (late): overview front door, Now list, trainer page
 	-- Tab names on esMX: "Campamento" and "Legado" (see above).
-	CMDLIST_OVERVIEW = "WoW Forever: abre o cierra el resumen de Midnight Helper: qué hacer ahora, cómo jugar, misiones de clase, Campamento y Legado. /mh, Alt+M y el botón del minimapa también lo abren.",
+	CMDLIST_OVERVIEW = "WoW Forever: abre o cierra el resumen de Midnight Helper, con siete pestañas: Ahora, Tu clase, Buscar, Profesiones, Calabozos y grupo, Teclas y macros y Personajes. /mh, Alt+M y el botón del minimapa también lo abren.",
 	-- 17 Nov 2026, product plan steps 4-5 (Find, Your class, Keys & macros)
 	-- Tab name "Campamento" on esMX ("Acampando" on esES, see above).
 	FOV_TIP_TAB_CLASS = "Cómo se juega tu clase, todas tus misiones de clase y Campamento. Cambia arriba en la página.",

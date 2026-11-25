@@ -479,7 +479,7 @@ for k, v in pairs({
 	-- 17 Nov 2026 (late): overview front door, Now list, trainer page
 	-- Words as in the es pack: BROKER_TOOLTIP_HINT/BOARD (esES.lua), FDONOW_TITLE "Haz esto ahora", FTRAIN_* (instructor,
 	-- bloque de teclas), FWEEK_* (reinicio, bandas bloqueadas), "oro" as in the class-quest texts; tab names as above.
-	CMDLIST_OVERVIEW = "WoW Forever: abre o cierra el resumen de Midnight Helper: qué hacer ahora, cómo jugar, misiones de clase, Acampando y Banda antigua. /mh, Alt+M y el botón del minimapa también lo abren.",
+	CMDLIST_OVERVIEW = "WoW Forever: abre o cierra el resumen de Midnight Helper, con siete pestañas: Ahora, Tu clase, Buscar, Profesiones, Mazmorras y grupo, Teclas y macros y Personajes. /mh, Alt+M y el botón del minimapa también lo abren.",
 	BROKER_TOOLTIP_HINT_FOREVER = "Clic izquierdo: abrir/cerrar el resumen. Clic derecho: configuración.",
 	BROKER_TOOLTIP_BOARD_FOREVER = "Clic central: la ventana \"Haz esto ahora\".",
 	FOV_OLDWIN_BTN = "Todo",

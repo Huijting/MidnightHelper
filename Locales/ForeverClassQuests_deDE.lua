@@ -436,7 +436,7 @@ for k, v in pairs({
 	SET_BLESSTIP_TITLE = "Paladin: Segen-Tipp im Tooltip",
 	SET_BLESSTIP_DESC = "WoW Forever: Fahr mit der Maus über einen freundlichen Spieler, und der Tooltip sagt, welcher Segen zu seiner Klasse passt. Wie /mh blesstip on.",
 	-- 17 Nov 2026 (late): overview front door, Now list, trainer page
-	CMDLIST_OVERVIEW = "WoW Forever: die Übersicht von Midnight Helper öffnen oder schließen: was du jetzt tust, so spielst du, Klassenquests, Lager aufschlagen und Vermächtnis. /mh, Alt+M und der Knopf an der Minikarte öffnen sie auch.",
+	CMDLIST_OVERVIEW = "WoW Forever: die Übersicht von Midnight Helper öffnen oder schließen, mit sieben Reitern: Jetzt, Deine Klasse, Finden, Berufe, Dungeons & Gruppe, Tasten & Makros und Charaktere. /mh, Alt+M und der Knopf an der Minikarte öffnen sie auch.",
 	BROKER_TOOLTIP_HINT_FOREVER = "Linksklick: die Übersicht öffnen/schließen. Rechtsklick: Einstellungen.",
 	BROKER_TOOLTIP_BOARD_FOREVER = "Mittelklick: das Fenster \"Mach das jetzt\".",
 	FOV_OLDWIN_BTN = "Werkzeuge",

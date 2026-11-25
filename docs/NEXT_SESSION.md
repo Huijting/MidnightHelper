@@ -19,9 +19,15 @@ Midnight (ForeverKeyExtras.lua in de Midnight-toc, eigen Midnight-tak; Robs Midn
 `MidnightHelper_Camelot.toc` Notes bijgewerkt (was nog de 5.0.x-lijst; zichtbaar na een herstart in de addonlijst).
 📌 Voor de volgende release: RELEASE_NOTES.md regel 3 zegt "We put out betas regularly" (laatste beta 4.14.0-beta2,
 29 okt). In 5.9.1 bewust niet aangepast (al uitgebracht); in de volgende notitie anders zeggen of weglaten.
-🔶 Niet gedaan, gemeld aan Sparring (niet klein: 3 teksten × 8 talen): CMDLIST_LANG mist "ru" (`/mh lang ru` bestaat,
-Locale.lua:81), CMDLIST_OVERVIEW noemt 5 dingen i.p.v. 7 tabs, CMDLIST_BLOCK "A picture; nothing changes" klopt niet meer;
-ook KEYBLOCK_STYLE_FOREVER_ONLY is verouderd (alleen een terugval, komt nooit in beeld).
+✅ Daarna ook gedaan (Rob via Sparring: *"En ja op het opknappen van de 3 zinnetjes in de commandolijst."*): CMDLIST_LANG
++ "ru" (`/mh lang ru` bestaat, Locale.lua:81), CMDLIST_OVERVIEW noemt de 7 tabs met de tabnamen van elk pack (FOV_TAB_*;
+esMX "Calabozos y grupo"), CMDLIST_BLOCK "opent het venster: neerzetten, nieuwe spells, terugdraaien". enUS, nlNL,
+Translations2026 (de/fr/es/pt/it), ruRU.lua, ForeverClassQuests_de/fr/es/esMX/pt/ru. check_drift: CMDLIST_BLOCK +
+CMDLIST_LANG gemarkeerd (7 talen); GEARLADDER_FOOT en MBUFF_EUI_OVERLAP_HINT stonden al gedrift, niet aangeraakt.
+locale_probe: LANG en BLOCK in alle 8 talen OK. ⚠️ Blinde vlek van de probe: hij zet geen IS_FOREVER, dus de
+ForeverClassQuests_*-packs laden niet (controle: FOV_TAB_NOW geeft hetzelfde "still English"). CMDLIST_OVERVIEW is daar
+dus niet meetbaar, alleen syntax-gecontroleerd. Nog open: KEYBLOCK_STYLE_FOREVER_ONLY is verouderd (alleen een
+terugval, komt nooit in beeld).
 
 ## ▶▶ 25 nov (Bouwchat 25-11): RELEASE 5.9.1 (Rob via Sparring, letterlijk: "release 5.9.1")
 
