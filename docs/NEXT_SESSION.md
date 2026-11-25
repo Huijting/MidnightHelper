@@ -17,6 +17,8 @@ alleen de Single-Button Assistant van Blizzard zijn (IsAssist, KeyBlock.lua; die
 voorstelt). MH bedekt of verplaatst die bewust nooit (een addon kan hem niet terugzetten). AFGELEID, niet op Robs scherm
 gezien. Dus Judgment staat niet op 1. Wat Rob doet: de Single-Button Assistant van toets 1 slepen (bv. naar een Alt-plek),
 dan `/mh block` → "Update (add new spells)": Judgment komt op 1. Geen code-fout. Rob: *"het ziet er nu wel goed uit"*.
+✅ 25 nov GETEST (Rob via Sparring, letterlijk): *"Sorry, ja, toets 1 was ook gelukt. Judgment zit nu op toets 1."*
+Trinkets: *"ik heb geen trinkets met een use"* (3 characters) → leeg is juist. Alles gezet in Midnight: *"werkt ook keurig"*.
 Idee voor later (NIET gebouwd): de vraag/Update zegt het met naam als een plek de Single-Button Assistant houdt.
 
 ## ▶▶ 25 nov nacht (Bouwchat 24-11): Midnight 12 × 4 op Robs Prot Paladin — balken ≠ plaatje (eerdere stand)

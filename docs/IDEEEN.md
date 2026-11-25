@@ -26,10 +26,10 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 
 ## Open — wacht op Rob
 
-### Toetsenblok: knop voor de indeling + 12 × 4 ook in Midnight (wens van Rob, 24 nov) — ✅ JA; stap 1 + 2 GEBOUWD; in Midnight GETEST op de Prot Paladin (25 nov), toets 1 nog open
+### Toetsenblok: knop voor de indeling + 12 × 4 ook in Midnight (wens van Rob, 24 nov) — ✅ JA; stap 1 + 2 GEBOUWD; in Midnight GETEST op de Prot Paladin (25 nov)
 - ✅ 25 nov, Rob via Sparring, letterlijk (ruw, Willow): *"Ik heb overigens daar ook, en het was in Midnight, alle key
-  bindings gezet zoals de nieuwe versie doet. En dat werkt ook keurig. De wisselknop, die zat er netjes in."* Nog open:
-  toets 1 (Blizzards Single-Button Assistant weg → Judgment op 1?) en de wisselknop in Forever (niet apart genoemd).
+  bindings gezet zoals de nieuwe versie doet. En dat werkt ook keurig. De wisselknop, die zat er netjes in."* En:
+  *"Sorry, ja, toets 1 was ook gelukt. Judgment zit nu op toets 1."* Niet apart genoemd: de wisselknop in Forever.
 - Bron: Rob via Sparring 24-11, letterlijk: *"Ja, er moet een knop komen, want dit was wel lastig. En anderen weten
   inderdaad de commando's ook niet zo, als ze het niet gelezen hebben. En ja, ik zou dit ook graag in Midnight
   willen."*; op de samenvatting: *"Ja, dit klopt."* Daarmee VERVALT keuze 1a (12 × 4 alleen Forever).

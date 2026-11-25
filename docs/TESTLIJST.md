@@ -25,17 +25,16 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
-## 25 nov (nacht) — MIDNIGHT Prot Paladin 12 × 4: nog te doen vóór 5.9.1
+## 25 nov (nacht) — MIDNIGHT Prot Paladin 12 × 4: nog te doen vóór 5.9.1 — ✅ GETEST
 
 Gemeten in je SavedVariables: alles staat goed, behalve toets 1 (daar staat waarschijnlijk Blizzards "Single-Button
 Assistant", die MH nooit bedekt).
-- [ ] Sleep de knop van toets 1 (de Single-Button Assistant: hij toont steeds een ander icoon) weg, bv. naar een Alt-plek.
+- [x] Sleep de knop van toets 1 (de Single-Button Assistant: hij toont steeds een ander icoon) weg, bv. naar een Alt-plek.
       Dan `/mh block` → **Update (add new spells)**: Judgment komt op toets 1.
 - [x] Ga in `/mh block` op Ctrl-V / Ctrl-X staan: de tooltip noemt je trinket. Zeg welke het is (heeft hij een Use:?).
       ✅ 25 nov, Rob via Sparring, letterlijk: *"ik heb geen trinkets met een use. Dus ja, die komen daar niet. Ik heb op
       3 verschillende gekeken."* Leeg is dus juist.
-Toets 1 nog open. Rob (ruw, Willow): *"Toets 1 op Protection Paladin. We hadden weggehaald een compilaartjes met 1."*
-Of Judgment nu op 1 staat, vraagt Sparring na.
+✅ Toets 1, 25 nov, Rob via Sparring, letterlijk: *"Sorry, ja, toets 1 was ook gelukt. Judgment zit nu op toets 1."*
 
 ## 25 nov (nacht) — toetsenblok: trinket-plekken eerlijk op het plaatje (Rob's Prot Paladin: Ctrl-X/Ctrl-V leeg)
 
@@ -75,7 +74,7 @@ in zijn SV (keyBlockProbe 25 nov 00:07), zie NEXT_SESSION. Afgevinkt: de wisselk
 niet apart genoemd.
 - [x] `/mh block`: rechtsboven de knop **Layout: the old block (switch)**. Klik, **Switch**: het blok gaat eraf, wordt
       12 × 4 en gaat weer op je balken. (Daarna kan de vraag over de extra toetsen komen.)
-- [x] Op de knoppen (behalve toets 1, zie bovenaan): **1** Judgment, **2** Avenger's Shield, **3** Hammer of the Righteous, **4** Shield of the
+- [x] Op de knoppen (toets 1 na het wegslepen van de Single-Button Assistant, zie bovenaan): **1** Judgment, **2** Avenger's Shield, **3** Hammer of the Righteous, **4** Shield of the
       Righteous, **Q** Avenging Wrath, **E** Rebuke, **R** Divine Steed, **F** Hand of Reckoning, **Z** Ardent Defender,
       **X** Divine Shield, **C** Guardian of Ancient Kings, **V** Cleanse Toxins. Met Shift o.a. Blessed Hammer of
       Consecration (Shift-1/2), Divine Toll (Shift-Q), Word of Glory (Shift-C). **Ctrl-R** Redemption. Ctrl-1/2/3 = je
