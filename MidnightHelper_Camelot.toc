@@ -4,7 +4,7 @@
 ## Version: 5.9.1
 ## Author: TwelveInchy
 ## Category: User Interface
-## Notes: Midnight Helper for WoW Forever: what to learn at your trainer (Train all, an arrow and a cross), how your class plays, a key block for all nine classes, a missing-buff button, bag and mana warnings, and a quest reward hint.
+## Notes: Midnight Helper for WoW Forever: one overview with what to do now, your trainer and class quests with an arrow, how your class plays, a boss guide for every dungeon, a key block for all nine classes, buff and bag help, and gear advice.
 ## IconTexture: Interface\AddOns\MidnightHelper\Media\Addon_Icon
 ## SavedVariables: MidnightHelperDB
 ## AddonCompartmentFunc: MidnightHelper_OnAddonCompartmentClick

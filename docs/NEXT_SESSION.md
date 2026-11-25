@@ -1,5 +1,28 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 25 nov (Bouwchat 25-11): CURSEFORGE_DESCRIPTION.md herschreven na de Fable-review — Rob plakt hem op CF
+
+Rob via Sparring, letterlijk: *"Ik zeg ja op jouw advies."* (1 Beta-zin weg, 2 Forever onder 6 kopjes en dubbele regels
+samen, 3 ontbrekende functies invoegen zonder dat het langer wordt) en eerder *"indien nodig verbeteren"*.
+Elk punt eerst zelf nagemeten in de code. Verbeterd: de "turning 3D figure" bij de trainer is weg (ForeverTrainer.lua:854-860:
+het venster met model opent alleen nog met een level-argument, "none left in MH"; level-up opent de trainerpagina in het
+overzicht, ForeverOverview.lua:450-452); "about 70 more" → *All commands* (Midnight: Tools, Forever: tandwiel); Beta-zin weg;
+Midnight-healers: normale heals op 1-3, noodheal op C (enUS KEYGUIDE_INTRO_MN); E = interrupt "or the nearest thing";
+missing-buff Midnight eigen regel zonder "now"; "New:" weg; eerste keer "Midnight Helper (MH)"; zoekkop "Midnight: …";
+regel naar THIRD_PARTY.txt. Forever nu onder 6 kopjes (17 regels, was 29), plus een blok "In both games" (12 × 4,
+upgrade-melding, macro's). Ingevoegd, allemaal GEMETEN in enUS/de code: Forever no-XP-waarschuwing, You just learned,
+rested-XP-tip (standaard aan), worn gear + repairer (aan), MH: sell junk, tooltipregels class/quest, reputatie/valuta +
+deze week, uitleg Dungeons & group, smart buff/bless (standaard UIT: "can switch on"); Midnight groepshulp, /mh map,
+/mh export + /mh raidbots, account snapshot, /mh achlist, het level-90-venster, de play card-onderdelen. Waylaid Crates
+en de Mage Study-tip bewust weggelaten (Robs keuze). Midnight-extra's (5 / Shift+Spatie) GEMETEN in de code: werken in
+Midnight (ForeverKeyExtras.lua in de Midnight-toc, eigen Midnight-tak; Robs Midnight-SV keyExtras.on = true).
+`MidnightHelper_Camelot.toc` Notes bijgewerkt (was nog de 5.0.x-lijst; zichtbaar na een herstart in de addonlijst).
+📌 Voor de volgende release: RELEASE_NOTES.md regel 3 zegt "We put out betas regularly" (laatste beta 4.14.0-beta2,
+29 okt). In 5.9.1 bewust niet aangepast (al uitgebracht); in de volgende notitie anders zeggen of weglaten.
+🔶 Niet gedaan, gemeld aan Sparring (niet klein: 3 teksten × 8 talen): CMDLIST_LANG mist "ru" (`/mh lang ru` bestaat,
+Locale.lua:81), CMDLIST_OVERVIEW noemt 5 dingen i.p.v. 7 tabs, CMDLIST_BLOCK "A picture; nothing changes" klopt niet meer;
+ook KEYBLOCK_STYLE_FOREVER_ONLY is verouderd (alleen een terugval, komt nooit in beeld).
+
 ## ▶▶ 25 nov (Bouwchat 25-11): RELEASE 5.9.1 (Rob via Sparring, letterlijk: "release 5.9.1")
 
 Geen beta. Versie 5.9.1 in beide toc's; CHANGELOG_591_1 t/m _6 (enUS) + Changelog.lua; `RELEASE_NOTES.md` byte-gelijk aan
