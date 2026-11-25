@@ -1,6 +1,6 @@
 {
  "source": "https://github.com/Gethe/wow-ui-source/tree/<branch>/Interface/AddOns/Blizzard_APIDocumentationGenerated",
- "fetched": "2026-11-22",
+ "fetched": "2026-11-25",
  "branches": {
   "live": {
    "build": "12.1.5 (70961)",
@@ -3624,9 +3624,9 @@
    ]
   },
   "forever": {
-   "build": "1.60.1 (71037)",
-   "commit": "734f065329cff4992835b01a84f210a297db91b6",
-   "commit_date": "2026-11-20T18:31:10Z",
+   "build": "1.60.1 (71091)",
+   "commit": "c01a87b549bbc19e0f284c1616d18654c91297de",
+   "commit_date": "2026-11-24T15:31:13Z",
    "files": 642,
    "events": [
     "ACCOUNT_CHARACTER_CURRENCY_DATA_RECEIVED",
