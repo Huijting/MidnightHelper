@@ -25,6 +25,20 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 26 nov — FOREVER: "Your race" in How you play (Rob: "ik zag bv ook dat deze druid ook Cultivation heeft :)")
+
+Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (race_test: elk ras × elke class × 8 talen),
+NIET in het spel.
+- [ ] Tauren Druid: How you play → tab **Start** → onderaan het blok **Your race: Tauren**. Eerst de zin "Your race
+      abilities are free …", dan War Stomp, Plainsrunning, Endurance en Cultivation, met de spellnamen zoals jouw spel ze
+      schrijft.
+- [ ] Daaronder **For you as a Druid:** met de regel over Plainsrunning in Bear Form en Cat Form. Geen regels voor
+      Hunter of Shaman.
+- [ ] Links onder de tabbladen staat het kopje "Your race: Tauren"; klik erop = de tekst springt erheen.
+- [ ] Met het 12 × 4-blok: "Shift-E" in de eerste zin is de toets van je race spell in díe indeling.
+- [ ] Ander character (ander ras of class): alleen dat ras, en alleen de regels van die class. `/mh howtotabs mine`
+      noemt "Your race: …" onder Start.
+
 ## 26 nov — FOREVER: Gear check: enchants — Legs erbij, en het venster werkt vanzelf bij (Rob: "Ik mis hier … mijn legs")
 
 Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (ench_test 30), NIET in het spel.

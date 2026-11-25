@@ -1498,6 +1498,95 @@ local function RoleChunks(body)
 	return chunks
 end
 
+--[[
+	26 Nov 2026 — "Your race: <race>" in the Start tab (Rob via Sparring: "misschien is dat een goed idee om dat uit te
+	leggen. Niet alleen bij de Druid natuurlijk, maar bij alle Taurens … ook andere specs … als extra info vermelden bij
+	de klas"; on the proposal: "ja , ik zag bv ook dat deze druid ook Cultivation heeft :)"). Only your own race, and under
+	it only the lines for your own class. Facts: mh-research + an independent second check (Sparring, 25 Nov; DB2
+	1.60.1.71091/71139, Wowhead Forever tooltips, Kaivax dev notes 2360696 24 Sep - 2 Nov, hotfix thread 2403040 to 23
+	Nov); register: docs/forever/RAS_FEITEN.md. Every spell id GEMETEN in DB2 SpellName 71091 (26 Nov), race ids in
+	ChrRaces (95 High Order Skyborne = Alliance, 96 Windshaper Skyborne = Horde). Spell names through <S:id> tokens, so
+	every client says its own name. <S:EUREKA> = the Gnome's Eureka! of this class (a different id per class).
+	"Charged" (Windshaper) has three ids with different German names (Geladen / Aufgeladen), so its line describes it
+	instead of naming it.
+]]
+local RACE_INFO = {
+	[1] = { base = { "FRACE_HUM_1", "FRACE_HUM_2", "FRACE_HUM_3", "FRACE_HUM_4" }, cls = {
+		{ "FRACE_HUM_C_STUN", WARRIOR = true, ROGUE = true, HUNTER = true, PALADIN = true },
+		{ "FRACE_HUM_C_SPIRIT", PRIEST = true, MAGE = true, WARLOCK = true, PALADIN = true },
+		{ "FRACE_HUM_C_PERC", ROGUE = true, HUNTER = true } } },
+	[3] = { base = { "FRACE_DWA_1", "FRACE_DWA_2", "FRACE_DWA_3", "FRACE_DWA_4" }, cls = {
+		{ "FRACE_DWA_C_TANK", WARRIOR = true, PALADIN = true },
+		{ "FRACE_DWA_C_ROG", ROGUE = true },
+		{ "FRACE_DWA_C_HUN", HUNTER = true } } },
+	[4] = { base = { "FRACE_NE_1", "FRACE_NE_2", "FRACE_NE_3", "FRACE_NE_4" }, cls = {
+		{ "FRACE_NE_C_MELD", HUNTER = true, PRIEST = true },
+		{ "FRACE_NE_C_ROG", ROGUE = true },
+		{ "FRACE_NE_C_DRU", DRUID = true },
+		{ "FRACE_NE_C_DRU2", DRUID = true } } },
+	[7] = { base = { "FRACE_GNO_1", "FRACE_GNO_2", "FRACE_GNO_3", "FRACE_GNO_4" }, cls = {
+		{ "FRACE_GNO_C_RAGE", WARRIOR = true },
+		{ "FRACE_GNO_C_ENERGY", ROGUE = true },
+		{ "FRACE_GNO_C_ROG", ROGUE = true },
+		{ "FRACE_GNO_C_PRI", PRIEST = true },
+		{ "FRACE_GNO_C_WLK", WARLOCK = true } } },
+	[2] = { base = { "FRACE_ORC_1", "FRACE_ORC_2", "FRACE_ORC_3" }, cls = {
+		{ "FRACE_ORC_C_CMD_HUN", HUNTER = true },
+		{ "FRACE_ORC_C_CMD_WLK", WARLOCK = true },
+		{ "FRACE_ORC_C_CURSE", WARRIOR = true, ROGUE = true, HUNTER = true, SHAMAN = true, WARLOCK = true } } },
+	[5] = { base = { "FRACE_UND_1", "FRACE_UND_2", "FRACE_UND_3", "FRACE_UND_4", "FRACE_UND_5" }, cls = {
+		{ "FRACE_UND_C_CAST", PRIEST = true, MAGE = true, WARLOCK = true },
+		{ "FRACE_UND_C_PAL", PALADIN = true } } },
+	[6] = { base = { "FRACE_TAU_1", "FRACE_TAU_2", "FRACE_TAU_3", "FRACE_TAU_4" }, cls = {
+		{ "FRACE_TAU_C_DRU", DRUID = true },
+		{ "FRACE_TAU_C_HUN", HUNTER = true },
+		{ "FRACE_TAU_C_SHA", SHAMAN = true } } },
+	[8] = { base = { "FRACE_TRO_1", "FRACE_TRO_2", "FRACE_TRO_3", "FRACE_TRO_4", "FRACE_TRO_5" }, cls = {
+		{ "FRACE_TRO_C_HUN", HUNTER = true } } },
+	[95] = { base = { "FRACE_SKY_1", "FRACE_SKY_2", "FRACE_SKY_3", "FRACE_SKY_HO" } },
+	[96] = { base = { "FRACE_SKY_1", "FRACE_SKY_2", "FRACE_SKY_3", "FRACE_SKY_WS" }, cls = {
+		{ "FRACE_SKY_C_SHA", SHAMAN = true },
+		{ "FRACE_SKY_C_DRU", DRUID = true } } },
+}
+ns.FOREVER_RACE_INFO = RACE_INFO -- the offline check reads it
+local EUREKA = { WARRIOR = 1259813, ROGUE = 1259812, MAGE = 1259817, WARLOCK = 1259821, PRIEST = 1259823 }
+
+--- The "Your race" block for this character's race and the class `token`: title, raw body; or nil (race not written).
+local function RaceSection(token)
+	if not UnitRace then
+		return nil
+	end
+	local ok, name, _, rid = pcall(UnitRace, "player")
+	local r = ok and RACE_INFO[rid]
+	if not r then
+		return nil
+	end
+	local lines = { ns:L("FRACE_INTRO") }
+	for _, k in ipairs(r.base) do
+		lines[#lines + 1] = "- " .. ns:L(k)
+	end
+	local mine = {}
+	for _, c in ipairs(r.cls or {}) do
+		if c[token] then
+			mine[#mine + 1] = "- " .. ns:L(c[1])
+		end
+	end
+	if token == "PRIEST" then
+		mine[#mine + 1] = "- " .. ns:L("FRACE_PRI_OWN")
+	end
+	if #mine > 0 then
+		lines[#lines + 1] = "**" .. ns:L("FRACE_FORCLASS_FMT"):format(ClassName(token)) .. "**"
+		for _, l in ipairs(mine) do
+			lines[#lines + 1] = l
+		end
+	end
+	local body = table.concat(lines, "\n"):gsub("<S:EUREKA>", "<S:" .. (EUREKA[token] or EUREKA.WARRIOR) .. ">")
+	if ns.ForeverWeaponAdviceTokens then
+		body = ns.ForeverWeaponAdviceTokens(body)
+	end
+	return ns:L("FRACE_TITLE_FMT"):format(name or "?"), LiveKeys(token, body)
+end
+
 --- 25 Nov 2026: every section also has `tab` (see FOREVER_HOWTO_TABS below). Role texts come in two parts: "start"
 --- (intro, simple order, beginner mistakes) and "levels" (per 10 levels), cut at their bold sub-heads.
 --- @return list of { title, body, kind = "dir"|"role"|"folded"|"class"|"note"|"common"|"stats", tab }, hasFolded, hasMine
@@ -1579,6 +1668,11 @@ function ns.ForeverHowToSections(token, allRoles)
 	else
 		out[#out + 1] = { title = ClassName(token), body = ns:L("FHOWTO_NOT_WRITTEN_FMT"):format(ClassName(token)), kind = "class",
 			tab = "start" }
+	end
+	-- 26 Nov 2026: your race, at the end of Start (after the class basics).
+	local okR, rt, rb = pcall(RaceSection, token)
+	if okR and rt then
+		out[#out + 1] = { title = rt, body = rb, kind = "race", tab = "start" }
 	end
 	for i, enSec in ipairs(COMMON) do
 		local sec = (tr and tr.COMMON and tr.COMMON[i]) or enSec

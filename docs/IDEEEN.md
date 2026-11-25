@@ -26,6 +26,16 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 
 ## Open — wacht op Rob
 
+### Forever: "Your race" in How you play — wat je ras je geeft, voor jouw class (wens van Rob, 26 nov) — ✅ JA, GEBOUWD 26 nov, wacht op test + Fable-ronde
+- Bron: Rob via Sparring, letterlijk: *"misschien is dat een goed idee om dat uit te leggen. Niet alleen bij de Druid
+  natuurlijk, maar bij alle Taurens. … Misschien is het een goed idee die ook uit te zoeken en dat gewoon als extra info
+  vermelden bij de klas."*; op het voorstel (onderzoek, tweede check, blokje in Start, Fable vóór de release): *"ja , ik
+  zag bv ook dat deze druid ook Cultivation heeft :)"*.
+- Gebouwd: blok "Your race: <ras>" onderaan tab Start, alle 10 rassen (ook beide Skyborne), alleen jouw ras en alleen de
+  regels van jouw class. Spellnamen uit de client. 8 talen. Register: `docs/forever/RAS_FEITEN.md`.
+- Rob wil 5.10.1 pas met dit erin (samen met de Gear check-fix 133bfa6). Eerst de Fable-ronde (Sparring).
+- Spel: F. Voor wie: N + V (AFGELEID).
+
 ### Forever: Warlock-stats zonder Stamina als hoofdstat (keuze van Rob, 25 nov) — ✅ JA, GEBOUWD 25 nov, wacht op test
 - Bron: Sparring-voorstel (a), letterlijk: *"Voor alle drie de richtingen hetzelfde: spell damage eerst, dan Intellect en
   Spirit even belangrijk. Stamina noemen we niet meer als hoofd-stat."*; Rob: *"Ik volg jouw advies."*

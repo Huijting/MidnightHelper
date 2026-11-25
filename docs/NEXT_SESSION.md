@@ -1,5 +1,17 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 26 nov (Bouwchat 25-11): "Your race" in How you play, tab Start — GEBOUWD, wacht op test + Fable (`/reload`)
+
+Rob via Sparring: *"… als extra info vermelden bij de klas"* → *"ja , ik zag bv ook dat deze druid ook Cultivation heeft :)"*.
+Rob wil 5.10.1 = dit + 133bfa6 (Gear check), na Sparrings Fable-ronde.
+- ForeverHowToPlay.lua: RACE_INFO (raceID → base-sleutels + class-regels), RaceSection(token) via UnitRace; kind "race",
+  tab start, achteraan Start. Kop "**For you as a <class>:**" alleen als er class-regels zijn (Priest altijd:
+  FRACE_PRI_OWN verwijst naar "Your race's own spells"). `<S:EUREKA>` → Eureka! van die class. Tokens via
+  ns.ForeverWeaponAdviceTokens, toetsen via LiveKeys (Shift-E).
+- GEMETEN (DB2 71091): alle spell-id's, ras-id's 95/96, Plainsrunning 2/5/60, Travel Form 5419 aura 31 +40% (783 zelf
+  niets), Charged = 3 id's met andere Duitse namen → beschreven. Register `docs/forever/RAS_FEITEN.md`.
+- Vertalingen 7 talen door mh-writer (zie commit); race_test (scratch) controleert elk ras × class, sleutels en tokens per pack.
+
 ## ▶▶ 26 nov (Bouwchat 25-11): Gear check enchants — Legs + live bijwerken — GEBOUWD, wacht op test (`/reload`)
 
 Rob via Sparring (screenshot Druid, geen Legs): *"Ik mis hier volgens mij mijn [legs] … kan de [gear] check enchants ook

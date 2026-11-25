@@ -28,6 +28,16 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 26 nov 2026 — Forever: "Your race" in How you play
+- Tag + commit:   geen tag (commit: deze regel)
+- Status:         alleen op main
+- Mag op de site: nee (niet uit, niet getest; Fable-ronde vóór 5.10.1)
+- Speler ziet:    Onderaan tab Start van How you play een blok "Your race: Tauren" (of jouw ras): wat je race
+                  abilities doen, en daaronder alleen wat er voor jouw class bij komt. Alle 10 rassen, ook Skyborne.
+- Knoplabels:     FRACE_TITLE_FMT, FRACE_FORCLASS_FMT
+- Commando's:     /mh play
+- Spel:           Forever
+
 ## 26 nov 2026 — Forever: Gear check enchants: Legs erbij en vanzelf bijwerken
 - Tag + commit:   geen tag (commit: deze regel)
 - Status:         alleen op main
