@@ -1,5 +1,23 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 25 nov (Bouwchat 25-11): Forever Gear check: enchants naast het character-venster — GEBOUWD, wacht op test
+
+Rob via Sparring, letterlijk: *"ik heb ook enchanting, maar ik zie helemaal niet of ik al iets enchant heb, ja of nee, in
+mijn overzichtje."* → *"Ja, het gaat om forever. En het is goed zo met 1, 2 en 3."*
+Nieuw: `Modules/ForeverEnchantData.lua` (gegenereerd) + `Modules/ForeverEnchantCheck.lua`, in beide toc's (herstart).
+GEMETEN in wago DB2 Forever 1.60.1.71091: SkillLineAbility 333 = 273 spells, 180 met SpellEffect 53 (ENCHANT_ITEM);
+SpellEquippedItems → vakjes nek (5, nieuw in Forever), borst/robe, voeten, pols, handen, mantel, schild, off-hand-item,
+wapens (masker per subklasse; 2H apart). Geen hoofd/schouders/benen/ringen/trinkets/ranged. 147 enchant-id's →
+recept-spell. Naam = het deel na de laatste " - " van de client-spellnaam (deDE "Armschiene - Große Willenskraft", GEMETEN);
+een id zonder Enchanting-spell = "enchanted". Enchant = 2e veld van de itemlink.
+Venster: eigen frame op UIParent (naam MidnightHelperForeverEnchantPanel, RegisterMidnightDialogPopup = Shift+scroll +
+Escape), bij openen rechts naast CharacterFrame gezet via een HookScript OnShow/OnHide; raakt CharacterFrame zelf en
+CharacterScape niet aan; niet bijgewerkt in een gevecht. (2) Do this now: tip "N slots … no enchant" (soort "enchant"; het
+overzicht maakt de knop Character uit ACTS: ToggleCharacter("PaperDollFrame"), niet in een gevecht; of dat taint geeft is
+NIET te meten offline, AFGELEID dat het mag; in de TESTLIJST gezet). (3) enchanter: bekende recepten (foreverKnownRecipes
+of IsPlayerSpell) die op een leeg vakje passen. `/mh enchant` doet nu in Forever wat (was leeg: GearEnchantCheck laadt daar
+niet). Schakelaar foreverEnchantCheck (aan) in de stille helpers. Teksten 8 talen. Offline: scratch `ench_test.lua` 19/19.
+
 ## ▶▶ 25 nov (Bouwchat 25-11): toetsenblok-intro klopt nu als het blok geplaatst is — GEREPAREERD, wacht op test
 
 Robs screenshot (Midnight, 12 × 4, blok geplaatst): bovenin "This is a picture … Nothing on your bars changes until you

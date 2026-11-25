@@ -25,6 +25,23 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 25 nov — FOREVER: Gear check: enchants naast je character-venster (Rob: "ik zie helemaal niet of ik al iets enchant heb")
+
+🔴 Nieuwe bestanden: sluit het spel helemaal af en start opnieuw (een `/reload` is niet genoeg). Offline getest (19
+controles), NIET in het spel. Ook met CharacterScape aan.
+- [ ] Open je character-venster (C). Rechts ernaast staat een klein venster **Gear check: enchants**, met per vakje dat een
+      enchant kan krijgen (nek, mantel, borst, pols, handen, voeten, wapen, off-hand) de naam in groen, of rood
+      **no enchant**. Lege vakjes, ringen, trinkets, hoofd, schouders en benen staan er niet in (daar kan Enchanting niets op).
+- [ ] Een enchant die niet van Enchanting komt (bv. een armor kit): "enchanted".
+- [ ] Op je enchanter: onder een vakje zonder enchant staat grijs "you can make this yourself: …" met de enchants die je
+      kent en die daar passen. (MH kent je recepten zodra je één keer je beroepsvenster hebt geopend.)
+- [ ] Trek iets aan of uit: het venster past zich aan. Shift+scroll maakt het groter of kleiner; Escape sluit het.
+- [ ] Overzicht → **Now**: een regel "N slots of your gear have no enchant …" met de knop **Character**: die opent je
+      character-venster (niet in een gevecht).
+- [ ] Stille helpers: **Gear check: enchants next to your character window**: uit = het venster en de regel zijn weg.
+- [ ] `/mh enchant`: per vakje wat MH ziet (enchant-id en naam).
+- ⚠️ Let op foutmeldingen ("action blocked") na het openen via de knop Character: openen vanuit een addon is nieuw in MH.
+
 ## 25 nov — toetsenblok: de zin bovenin klopt nu als het blok al op je balken staat
 
 Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. NIET in het spel getest.

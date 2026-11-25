@@ -338,6 +338,9 @@ local ACTS = {
 	-- 23 Nov 2026 (Rob via sparring: "Ik volg jullie advies weer."): the arrow to whoever takes a finished quest, read
 	-- live from QuestieDB when the player has it (ForeverQuestieDB.lua).
 	turnin = { fn = function() if ns.ForeverQuestieGoTurnIn then ns.ForeverQuestieGoTurnIn() end end, label = "FQDB_BTN_TURNIN" },
+	-- 25 Nov 2026 (Rob via sparring: "het is goed zo met 1, 2 en 3"): open the character window, where the Gear check sits
+	-- (ForeverEnchantCheck.lua). Out of combat only.
+	enchant = { fn = function() if ns.ForeverOpenCharacter then ns.ForeverOpenCharacter() end end, label = "FENCH_BTN" },
 }
 ns.FOREVER_DONOW_ACTS = ACTS
 
@@ -597,6 +600,18 @@ function Collect()
 				out.wearLinks[#out.wearLinks + 1] = w.link
 				item(w.plain, "wear", not WEAR_TODO, w.n)
 			end
+		end
+	end
+	-- 25 Nov 2026 (Rob via sparring: "het is goed zo met 1, 2 en 3"): slots that can carry an enchant but have none
+	-- (ForeverEnchantCheck.lua). A tip: it does not make the window appear by itself; the button opens the character
+	-- window with the Gear check next to it.
+	if ns.ForeverEnchantMissingCount then
+		local okE, nE = pcall(ns.ForeverEnchantMissingCount)
+		if okE and type(nE) == "number" and nE > 0 then
+			local s = (nE == 1) and ns:L("FENCH_DONOW_ONE") or ns:L("FENCH_DONOW_FMT"):format(nE)
+			out.tips[#out.tips + 1] = s
+			item(s, "enchant", true)
+			out.actions.enchant = true
 		end
 	end
 	-- 23 Nov 2026: a finished quest and who takes it (QuestieDB, only when the player has it). A tip, not a to-do: it

@@ -1309,6 +1309,11 @@ local QUIET = {
 	Q("FALT_SW", "FALT_SW_DESC", {
 		get = function() return ns.IsAltProfTipOn and ns.IsAltProfTipOn() end,
 		set = function(on) if ns.SetAltProfTip then ns.SetAltProfTip(on) end end }),
+	-- 25 Nov 2026 (Rob via Sparring: "het is goed zo met 1, 2 en 3"): the Gear check next to the character window
+	-- (ForeverEnchantCheck.lua). On by default; players choose.
+	Q("FENCH_SW", "FENCH_SW_DESC", {
+		get = function() return ns.IsForeverEnchantCheckOn and ns.IsForeverEnchantCheckOn() end,
+		set = function(on) if ns.SetForeverEnchantCheck then ns.SetForeverEnchantCheck(on) end end }),
 	Q("FOV_Q_GEARTIP", "FOV_Q_GEARTIP_DESC", DbFlag("foreverGearTip", true)),
 	Q("SET_BLESSTIP_TITLE", "SET_BLESSTIP_DESC", DbFlag("foreverBlessTip", false)),
 	-- 19 Nov 2026 (Rob: "Ja, die mogen door"): the smart blessing button (ForeverBlessTip.lua). Off by default; turning it

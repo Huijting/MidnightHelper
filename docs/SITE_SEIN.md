@@ -28,6 +28,16 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 25 nov 2026 — Forever: Gear check: enchants naast je character-venster
+- Tag + commit:   geen tag (commit: deze regel)
+- Status:         alleen op main
+- Mag op de site: nee (niet uit, niet getest)
+- Speler ziet:    Naast het character-venster per vakje dat een enchant kan krijgen de enchant, of "no enchant". Voor een
+                  enchanter ook "you can make this yourself". Onder Now: hoeveel vakjes geen enchant hebben, met een knop.
+- Knoplabels:     FENCH_TITLE, FENCH_BTN, FENCH_SW
+- Commando's:     /mh enchant
+- Spel:           Forever
+
 ## 25 nov 2026 — tooltip: welke van je andere characters een recept of materiaal kan gebruiken
 - Tag + commit:   geen tag (commit: deze regel)
 - Status:         alleen op main

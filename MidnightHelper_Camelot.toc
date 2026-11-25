@@ -173,6 +173,8 @@ Modules\ForeverQuestHint.lua
 # Can this be disenchanted: tooltip line, bag icon (Blizzard + Baganator), "Disenchant next" (Rob, 18 Nov 2026: "ja").
 Modules\ForeverDisenchantData.lua
 Modules\ForeverDisenchant.lua
+Modules\ForeverEnchantData.lua
+Modules\ForeverEnchantCheck.lua
 # Boxes, pouches and clams: one button, one click opens one (Midnight's module; Rob, 18 Nov 2026: "3 … nu doen").
 Modules\Openables.lua
 # Tooltip: which profession an item is an ingredient for (Rob, 11 Nov 2026). Data files are generated; each loads in

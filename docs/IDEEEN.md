@@ -26,6 +26,15 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 
 ## Open — wacht op Rob
 
+### Forever: Gear check — per vakje zien of er een enchant op zit (wens van Rob, 25 nov) — ✅ JA, GEBOUWD 25 nov, wacht op test
+- Bron: Rob via Sparring 25-11, letterlijk: *"ik heb ook enchanting, maar ik zie helemaal niet of ik al iets enchant heb, ja
+  of nee, in mijn overzichtje. Kunnen wij dat maken?"*; op het voorstel 1-3: *"Ja, het gaat om forever. En het is goed zo
+  met 1, 2 en 3."*
+- Gebouwd: (1) venster naast het character-venster, per vakje de enchant of "no enchant"; (2) een regel onder Now met de
+  knop Character; (3) voor een enchanter "you can make this yourself". Schakelaar + `/mh enchant`.
+- Later, apart (eerst onderzoek): advies welke enchant de beste is.
+- Spel: F. Voor wie: N + V (AFGELEID).
+
 ### Toetsenblok: de intro-zin klopt niet als het blok al geplaatst is (Robs screenshot, 25 nov) — ✅ JA, GEREPAREERD 25 nov, wacht op test
 - Bron: Rob via Sparring 25-11, letterlijk: *"ja dat mag de bouwchat"*.
 - Gerepareerd: geplaatst = "This is the block as it is on your bars now."; niet geplaatst = de oude zin. 8 talen.

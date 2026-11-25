@@ -25866,3 +25866,71 @@ if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	FALT_MORE_FMT = " e altri %d",
 	FALT_GEAR_EMPTY_FMT = "%s (spazio vuoto)",
 }) end
+
+-- 25 Nov 2026: WoW Forever Gear check: enchants (ForeverEnchantCheck.lua). "Enchant" = each client's word. Written by
+-- the build chat, not reviewed by a native speaker.
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
+	FENCH_TITLE = "Ausrüstungscheck: Verzauberungen",
+	FENCH_NONE = "keine Verzauberung",
+	FENCH_SOME = "verzaubert",
+	FENCH_CAN_FMT = "kannst du selbst machen: %s",
+	FENCH_NOTHING = "Du trägst nichts, das eine Verzauberung bekommen kann.",
+	FENCH_COMBAT = "nicht im Kampf. Öffne dein Charakterfenster nach dem Kampf.",
+	FENCH_BTN = "Charakter",
+	FENCH_DONOW_ONE = "1 Platz deiner Ausrüstung hat keine Verzauberung. Der Ausrüstungscheck neben deinem Charakterfenster zeigt, welcher.",
+	FENCH_DONOW_FMT = "%d Plätze deiner Ausrüstung haben keine Verzauberung. Der Ausrüstungscheck neben deinem Charakterfenster zeigt, welche.",
+	FENCH_SW = "Ausrüstungscheck: Verzauberungen neben dem Charakterfenster",
+	FENCH_SW_DESC = "Neben deinem Charakterfenster jeder Platz, der eine Verzauberung bekommen kann: die Verzauberung oder „keine Verzauberung“. Mit Verzauberkunst auch, welche deiner eigenen Verzauberungen auf einen leeren Platz passen. Kein Rat, welche Verzauberung die beste ist. /mh enchant zeigt, was MH sieht.",
+}) end
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
+	FENCH_TITLE = "Vérif. de l'équipement : enchantements",
+	FENCH_NONE = "aucun enchantement",
+	FENCH_SOME = "enchanté",
+	FENCH_CAN_FMT = "tu peux le faire toi-même : %s",
+	FENCH_NOTHING = "Tu ne portes rien qui puisse être enchanté.",
+	FENCH_COMBAT = "pas pendant un combat. Ouvre ta fenêtre de personnage après le combat.",
+	FENCH_BTN = "Personnage",
+	FENCH_DONOW_ONE = "1 emplacement de ton équipement n'a pas d'enchantement. La vérif. à côté de ta fenêtre de personnage montre lequel.",
+	FENCH_DONOW_FMT = "%d emplacements de ton équipement n'ont pas d'enchantement. La vérif. à côté de ta fenêtre de personnage montre lesquels.",
+	FENCH_SW = "Vérif. de l'équipement : enchantements à côté de la fenêtre de personnage",
+	FENCH_SW_DESC = "À côté de ta fenêtre de personnage, chaque emplacement qui peut être enchanté : son enchantement, ou « aucun enchantement ». Avec Enchantement, aussi lesquels de tes propres enchantements vont sur un emplacement vide. Aucun conseil sur le meilleur enchantement. /mh enchant montre ce que MH voit.",
+}) end
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
+	FENCH_TITLE = "Revisión del equipo: encantamientos",
+	FENCH_NONE = "sin encantamiento",
+	FENCH_SOME = "encantado",
+	FENCH_CAN_FMT = "puedes hacerlo tú: %s",
+	FENCH_NOTHING = "No llevas nada que pueda encantarse.",
+	FENCH_COMBAT = "no durante un combate. Abre la ventana de personaje después del combate.",
+	FENCH_BTN = "Personaje",
+	FENCH_DONOW_ONE = "1 ranura de tu equipo no tiene encantamiento. La revisión junto a tu ventana de personaje muestra cuál.",
+	FENCH_DONOW_FMT = "%d ranuras de tu equipo no tienen encantamiento. La revisión junto a tu ventana de personaje muestra cuáles.",
+	FENCH_SW = "Revisión del equipo: encantamientos junto a la ventana de personaje",
+	FENCH_SW_DESC = "Junto a tu ventana de personaje, cada ranura que puede llevar un encantamiento: su encantamiento, o «sin encantamiento». Con Encantamiento, también cuáles de tus propios encantamientos caben en una ranura vacía. Ningún consejo sobre cuál es el mejor. /mh enchant muestra lo que ve MH.",
+}) end
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
+	FENCH_TITLE = "Verificação do equipamento: encantamentos",
+	FENCH_NONE = "sem encantamento",
+	FENCH_SOME = "encantado",
+	FENCH_CAN_FMT = "você mesmo pode fazer: %s",
+	FENCH_NOTHING = "Você não usa nada que possa ser encantado.",
+	FENCH_COMBAT = "não durante um combate. Abra a janela do personagem depois do combate.",
+	FENCH_BTN = "Personagem",
+	FENCH_DONOW_ONE = "1 espaço do seu equipamento não tem encantamento. A verificação ao lado da janela do personagem mostra qual.",
+	FENCH_DONOW_FMT = "%d espaços do seu equipamento não têm encantamento. A verificação ao lado da janela do personagem mostra quais.",
+	FENCH_SW = "Verificação do equipamento: encantamentos ao lado da janela do personagem",
+	FENCH_SW_DESC = "Ao lado da janela do personagem, cada espaço que pode ter encantamento: o encantamento, ou “sem encantamento”. Com Encantamento, também quais dos seus próprios encantamentos servem num espaço vazio. Nenhum conselho sobre o melhor encantamento. /mh enchant mostra o que o MH vê.",
+}) end
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
+	FENCH_TITLE = "Controllo equipaggiamento: incantamenti",
+	FENCH_NONE = "nessun incantamento",
+	FENCH_SOME = "incantato",
+	FENCH_CAN_FMT = "puoi farlo tu: %s",
+	FENCH_NOTHING = "Non indossi niente che possa essere incantato.",
+	FENCH_COMBAT = "non durante un combattimento. Apri la finestra del personaggio dopo il combattimento.",
+	FENCH_BTN = "Personaggio",
+	FENCH_DONOW_ONE = "1 spazio del tuo equipaggiamento non ha incantamento. Il controllo accanto alla finestra del personaggio mostra quale.",
+	FENCH_DONOW_FMT = "%d spazi del tuo equipaggiamento non hanno incantamento. Il controllo accanto alla finestra del personaggio mostra quali.",
+	FENCH_SW = "Controllo equipaggiamento: incantamenti accanto alla finestra del personaggio",
+	FENCH_SW_DESC = "Accanto alla finestra del personaggio, ogni spazio che può avere un incantamento: il suo incantamento, o «nessun incantamento». Con Incantamento, anche quali dei tuoi incantamenti vanno su uno spazio vuoto. Nessun consiglio su quale sia il migliore. /mh enchant mostra cosa vede MH.",
+}) end

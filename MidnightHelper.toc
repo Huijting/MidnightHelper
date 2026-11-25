@@ -279,6 +279,8 @@ Modules\ForeverMainStats.lua
 Modules\ForeverQuestHint.lua
 Modules\ForeverDisenchantData.lua
 Modules\ForeverDisenchant.lua
+Modules\ForeverEnchantData.lua
+Modules\ForeverEnchantCheck.lua
 Modules\ForeverReagentData.lua
 Modules\MidnightReagentData.lua
 Modules\ReagentUse.lua
