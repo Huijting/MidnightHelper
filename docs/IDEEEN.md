@@ -26,6 +26,12 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 
 ## Open — wacht op Rob
 
+### Forever: Warlock-stats zonder Stamina als hoofdstat (keuze van Rob, 25 nov) — ✅ JA, GEBOUWD 25 nov, wacht op test
+- Bron: Sparring-voorstel (a), letterlijk: *"Voor alle drie de richtingen hetzelfde: spell damage eerst, dan Intellect en
+  Spirit even belangrijk. Stamina noemen we niet meer als hoofd-stat."*; Rob: *"Ik volg jouw advies."*
+- Gebouwd: klasse-rij + 3 bomen gelijk; tooltip-rekensom volgt; zin in "Which weapon?" (8 talen).
+- Spel: F. Voor wie: N + V (AFGELEID).
+
 ### Forever: "How you play" in tabbladen (wens van Rob, 25 nov) — ✅ AF: GEBOUWD 25 nov (5d0f24e) en GETEST (Rob via Sparring: *"Verder ziet overigens how to play beter uit op deze manier. Wat minder druk voor mijn gevoel."*)
 - Bron: Rob via Sparring 25-11, letterlijk: *"En dan open ik het en het is zo'n lange lap tekst. Kunnen we dat venster niet
   beter indelen? Met tabbladen van mijn part of in ieder geval iets waarbij het overzichtelijker is."*; op het voorstel:

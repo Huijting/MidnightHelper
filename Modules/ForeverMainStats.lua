@@ -37,7 +37,9 @@ ns.FOREVER_MAIN_STATS = {
 	-- it. Found by the content watch's Forever catch-up, 11 Nov (read via search on several mirrors, not in the client).
 	SHAMAN = { main = { "STRENGTH", "INTELLECT" }, stamTie = false, lead = "dps" },
 	MAGE = { main = { "INTELLECT", "SPIRIT" }, stamTie = true, lead = "spell", spellW = 1 },
-	WARLOCK = { main = { "INTELLECT", "STAMINA" }, stamTie = true, lead = "spell", spellW = 1, schools = { "SHADOW" } },
+	-- Warlock, 25 Nov 2026: spell damage first, then Intellect and Spirit the same; Stamina is no main stat any more (see
+	-- BY_TREE.WARLOCK for the sources and Rob's choice).
+	WARLOCK = { main = { "INTELLECT", "SPIRIT" }, stamTie = true, equal = true, lead = "spell", spellW = 1, schools = { "SHADOW" } },
 	-- 25 Nov 2026 (Fable check): was Agility, then Strength - wrong below 20: a Druid gets 2 attack power per Strength
 	-- and 0 per Agility (ChrClasses, GEMETEN); Agility gives attack power only in Cat Form (768, level 20). Now the same
 	-- as the Feral row: Strength and Agility count the same (`equal`: both weigh 1 in the tooltip math, was 1 / 0.5).
@@ -115,14 +117,15 @@ local BY_TREE = {
 			schools = { "FROST" } },
 	},
 	WARLOCK = {
-		-- Affliction: Life Tap gives more mana with more Spirit, not with spell damage (GEMETEN per Sparring's research and
-		-- second check, 25 Nov 2026). Spirit vs Intellect: the guides differ → equal (25 Nov). The Stamina in [2]/[3] and
-		-- the class row is NOT changed: open point for Rob (NEXT_SESSION).
-		[1] = { role = "caster", main = { "SPIRIT", "INTELLECT" }, stamTie = true, equal = true, lead = "spell", spellW = 1,
+		-- 25 Nov 2026, choice (a) (Sparring: "Voor alle drie de richtingen hetzelfde: spell damage eerst, dan Intellect en
+		-- Spirit even belangrijk. Stamina noemen we niet meer als hoofd-stat." Rob: "Ik volg jouw advies."). Sources: the
+		-- Forever dev notes of 3 Nov (the demon gets 2 health per Stamina, was 7.5); Life Tap scales with Spirit (DB2 spell
+		-- 1454 + Blizzard posts 24 Sep / 7 Oct); every guide puts spell power first. Stamina stays only as the tie-break.
+		[1] = { role = "caster", main = { "INTELLECT", "SPIRIT" }, stamTie = true, equal = true, lead = "spell", spellW = 1,
 			schools = { "SHADOW" } },
-		[2] = { role = "caster", main = { "INTELLECT", "STAMINA" }, stamTie = false, equal = true, lead = "spell", spellW = 1,
+		[2] = { role = "caster", main = { "INTELLECT", "SPIRIT" }, stamTie = true, equal = true, lead = "spell", spellW = 1,
 			schools = { "SHADOW" } },
-		[3] = { role = "caster", main = { "INTELLECT", "STAMINA" }, stamTie = false, equal = true, lead = "spell", spellW = 1,
+		[3] = { role = "caster", main = { "INTELLECT", "SPIRIT" }, stamTie = true, equal = true, lead = "spell", spellW = 1,
 			schools = { "SHADOW", "FIRE" } },
 	},
 	DRUID = {

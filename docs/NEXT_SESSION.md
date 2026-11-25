@@ -1,5 +1,18 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 25 nov (Bouwchat 25-11): Warlock-stats = keuze (a) — GEBOUWD, wacht op test (`/reload`)
+
+Sparring (a): *"Voor alle drie de richtingen hetzelfde: spell damage eerst, dan Intellect en Spirit even belangrijk.
+Stamina noemen we niet meer als hoofd-stat."* Rob: *"Ik volg jouw advies."* → open punt Warlock-Stamina GESLOTEN.
+- ForeverMainStats WARLOCK klasse-rij + BY_TREE [1]/[2]/[3] = {INTELLECT, SPIRIT}, `equal`, lead "spell", spellW 1,
+  stamTie true. Bronnen in de comment: dev notes 3 nov (demon 2 HP per Stamina, was 7,5), Life Tap 1454 schaalt met Spirit
+  (DB2 + Blizzard 24 sep/7 okt), alle gidsen spell power eerst (BRON, niet door mij nagemeten).
+- Tooltip-rekensom (AFGELEID uit Score()): was klasse-rij Int 1 + Stamina 0,5, Demo/Destro Int 1 + Stamina 1, Affliction
+  Spi 1 + Int 1. Nu overal Int 1 + Spi 1 + spell damage ×1; Stamina telt alleen bij gelijke score. Gevolg: een
+  Stamina-item zonder Int/Spi/spell damage heet niet meer "better"; een Spirit-item kan dat nu wel.
+- FWADV_WLK_7 (8 talen): "Stamina … more health, but it only decides between two equal items: spell damage, Intellect and
+  Spirit come first." wadv_test 107/107, gearench_test 25/25.
+
 ## ▶▶ 25 nov (Bouwchat 25-11): "How you play" in tabbladen — ✅ GETEST door Rob (5d0f24e)
 
 ✅ Rob via Sparring (Druid 12 Feral, 2 screenshots): tabs + kopjes te zien, laatste tab blijft na `/reload`, `/mh howtotabs
@@ -21,8 +34,8 @@ Rob via Sparring: *"zo'n lange lap tekst … Met tabbladen van mijn part"* → *
   X/Y" (moet gelijk), dubbele lange regels (rol-tegen-rol telt niet). Let op: weapon/stats/dir zijn van JOUW character,
   ook in de regels van andere klassen.
 - tabs_test (scratch) 153/153: 9 klassen × 8 talen, rolregels vóór = na, elk blok een tab, gesorteerd.
-- Open: blokken "Levels 1-10" zijn 10-13 regels (spec zei ±5): inkorten = herschrijven = vraag aan Rob. Warlock Stamina
-  blijft open.
+- Open: blokken "Levels 1-10" zijn 10-13 regels (spec zei ±5): inkorten = herschrijven = vraag aan Rob. (Beslist: niet
+  inkorten, zie boven.)
 
 ## ▶▶ 25 nov (Bouwchat 25-11): spell-rekensom AF met Robs 4 dumps — healing, scholen, mp5 (`/reload`)
 
@@ -101,8 +114,8 @@ WATCHER_FOREVER.md).
 FWADV_WLK_5/_7 (8 talen). GEMETEN: Create Firestone 6366 (lvl 28), Create Spellstone 2362 (lvl 36), Life Tap 1454.
 Stats: WARLOCK lead "spell" (basis + 3 bomen); Affliction {SPIRIT, INTELLECT} nu `equal` (guides verschillen; ook de
 tooltip-rekensom). Life Tap-comment bijgewerkt. ForeverDirection WARLOCK = FDIRB_W_CASTER.
-🔵 OPEN VOOR ROB: Warlock-Stamina (klasse-rij {Intellect, Stamina}, Demonology/Destruction {Intellect, Stamina} equal) NIET
-veranderd. wadv_test 92/92, tokcheck 68 sleutels 0 fouten.
+✅ GESLOTEN 25 nov (zie bovenaan): Warlock-Stamina = keuze (a), Rob: *"Ik volg jouw advies."* (was: klasse-rij {Intellect,
+Stamina}, Demonology/Destruction {Intellect, Stamina} equal). wadv_test 92/92, tokcheck 68 sleutels 0 fouten.
 
 ## ▶▶ 25 nov (Bouwchat 25-11): "Which weapon?" — Priest GEBOUWD, wacht op test. Volgende: Warlock, dan de wapenadvies-wacht
 

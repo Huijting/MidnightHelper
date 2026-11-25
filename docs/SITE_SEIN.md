@@ -28,6 +28,17 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 25 nov 2026 — Forever: Warlock-stats: spell damage, dan Intellect en Spirit
+- Tag + commit:   geen tag (commit: deze regel)
+- Status:         alleen op main
+- Mag op de site: nee (niet uit, niet getest)
+- Speler ziet:    Voor een Warlock (elke richting) zegt MH: spell damage eerst, dan Intellect en Spirit even belangrijk.
+                  Stamina is geen hoofdstat meer; het beslist alleen tussen twee gelijke items. De groene
+                  "better"-regel rekent zo.
+- Knoplabels:     FWADV_WLK_7
+- Commando's:     /mh play
+- Spel:           Forever
+
 ## 25 nov 2026 — Forever: "How you play" in tabbladen
 - Tag + commit:   geen tag (commit: deze regel)
 - Status:         alleen op main

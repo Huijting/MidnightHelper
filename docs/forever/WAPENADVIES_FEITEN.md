@@ -106,7 +106,7 @@ spelersgidsen; 🟠 **BETWIST** / **NIET GEMETEN** = de wachter let hier extra o
 | Eerste wand via Enchanting: Novice's Practice Wand (1), Lesser Magic Wand (5) | FWADV_CAST_6 | ItemSparse 247789, 11287 | GEMETEN |
 | Create Firestone 28, Create Spellstone 36, op het wapen | FWADV_WLK_7 | SpellLevels 6366, 2362 | GEMETEN |
 | Life Tap schaalt met Spirit | FWADV_WLK_7; BY_TREE.WARLOCK[1] | onderzoek + tweede check | BRON |
-| 🟠 Warlock-Stamina in de stats | FOREVER_MAIN_STATS.WARLOCK, BY_TREE.WARLOCK[2]/[3] | gidsen | BETWIST (open voor Rob) |
+| ✅ Warlock: spell damage, dan Intellect = Spirit; Stamina geen hoofdstat (alleen bij gelijkspel) — keuze (a), Rob 25 nov: *"Ik volg jouw advies."* | FOREVER_MAIN_STATS.WARLOCK, BY_TREE.WARLOCK[1]/[2]/[3]; FWADV_WLK_7 | dev notes 3 nov (demon 2 HP per Stamina, was 7,5); Life Tap 1454 + Blizzard 24 sep/7 okt; gidsen spell power eerst | BRON + Robs keuze (gesloten) |
 | Groene regel in de eigen clienttekst (voorbeeldgetal 12) | FWADV_CAST_2 (token `<GF:TOOLTIP_ITEM_STAT_SPELL_POWER_INCREASE>`) | GlobalStrings 71091 (enUS + ruRU GEMETEN) | GEMETEN |
 | Mage-scrolls (imbue) 1 uur, meestal staf, soms dagger | FWADV_MAG_7 | ItemSparse 274947 Scroll of Imbue Lesser Flame (level 5) | GEMETEN (item) / BRON |
 | Druid zonder richting: Strength en Agility even zwaar | FOREVER_MAIN_STATS.DRUID | ChrClasses (2 AP per Str, 0 per Agi; Agi alleen AP in Cat Form, 20) | GEMETEN |

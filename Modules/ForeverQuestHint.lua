@@ -458,7 +458,8 @@ local last = { at = nil, rows = {}, verdict = "none yet" } -- for /mh questhint 
 
 --- "+3 Strength, +12 Armor" and the reason, for a row { stats, worn, ds, dsta, darm }. Shared by the quest hint and
 --- the gear tooltip line, so both say the same thing about the same item.
---- Names the main stats, then Stamina when it breaks ties; each stat once (Warlock has Stamina as a main stat).
+--- Names the main stats, then Stamina when it breaks ties; each stat once (Prot Paladin has Stamina as a main stat;
+--- the Warlock no longer since 25 Nov 2026).
 local function Explain(row, main, stamTie, token)
 	local parts, done, shown = {}, {}, {}
 	for _, k in ipairs(main) do

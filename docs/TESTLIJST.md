@@ -25,6 +25,16 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 25 nov — FOREVER: Warlock-stats: spell damage, dan Intellect en Spirit even belangrijk (Rob: "Ik volg jouw advies.")
+
+Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (wadv_test 107, gearench_test 25), NIET in het spel.
+- [ ] Op een Warlock: Do this now zegt bij de stats eerst spell damage, dan Intellect en Spirit (even belangrijk). Stamina
+      staat er niet meer als hoofdstat; alleen "Equal? Take the one with more Stamina."
+- [ ] How you play → Weapon & stats → "Which weapon? (Warlock)": de laatste zin zegt dat Stamina alleen beslist tussen twee
+      gelijke items.
+- [ ] Ga op een item met alleen Stamina staan: geen groene "better"-regel meer. Een item met meer Spirit (of Intellect)
+      dan wat je draagt: wél.
+
 ## 25 nov — FOREVER: "How you play" in tabbladen (Rob: "zo'n lange lap tekst … Met tabbladen van mijn part")
 
 Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (153 controles: 9 klassen × 8 talen, regels
