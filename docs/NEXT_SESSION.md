@@ -1,5 +1,28 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 25 nov (Bouwchat 25-11): tooltip noemt je ANDERE characters bij recept/materiaal (beide games) — GEBOUWD, wacht op test
+
+Rob via Sparring, letterlijk: *"Kunnen wij dat niet hier vermelden in de tooltip, zodat ik weet naar wie ik het moet gaan
+sturen?"* → *"Ja, dat klopt zo. Kun je het voor beide versies maken, Forever en Midnight?"*
+Nieuw `Modules/AltProfTip.lua` (beide toc's, na ReagentUse.lua: herstart nodig). GEMETEN vóór het bouwen:
+- Recept-item = class 9, subclass → beroep (wago DB2 ItemSubClass ClassID=9: Forever 71091 0-9, Midnight 70961 0-11;
+  0 = Book). Benodigde skill = de tooltipregel zelf via ITEM_MIN_SKILL (ook de vorm met positie %1$s, offline getest).
+- Andere characters: Forever `foreverChars[guid].profs` {key, name, rank, max}; Midnight `charCurrencies[guid].profs`
+  {n, r, m, s}; allebei gevuld in Robs SV (Midnight m = 100: de Midnight-skill). Bekende recepten alleen in Forever
+  (`foreverKnownRecipes[guid]`, sleutels = GUID, gezien in Robs SV) + de spell die het item leert (nieuw:
+  ns.ForeverRecipeTeaches in ForeverSkillup.lua). Materiaal: nieuw ns.ReagentUseKeys in ReagentUse.lua.
+- Niet versturen = geen regel: tooltipregel ITEM_SOULBOUND / ITEM_BIND_ON_PICKUP, of bindType 1 (BoP) / 4 (quest).
+  Account-/warbound mag (kan naar een eigen character). Midnight: alleen naam + skill, geen "can learn" (skill per
+  uitbreiding; het recept kan van een andere zijn).
+Schakelaar `altProfTip` (aan): Forever stille helpers, Midnight instellingen (SettingsDefs, alleen retail); `/mh alttip
+on|off`, kaal = de laatste beslissing. Teksten 8 talen. Lint-vondst van de site-chat verwerkt (`x and false or nil`).
+Offline: scratch `altprof_test.lua` 27/27 (Forever + Midnight: needs/can/knows, niet jezelf, soulbound/BoP/boek/niemand =
+geen regel, materiaal, schakelaar, slash). NIET in het spel.
+**Stap 2 (gear), alleen uitgezocht:** Forever bewaart per ander character class + level, GEEN gear (`foreverChars` heeft
+geen gear-veld); "kan dragen" (class/harnastype/level) is te bepalen, "beter dan wat hij draagt" niet zonder eerst gear op
+te slaan. Midnight bewaart per character class + `gear` (link + ilvl per slot, 19 records in Robs SV), maar geen spec;
+"hoger item level dan wat hij draagt" kan, "beter" met stat-weights pas als we ook de spec opslaan. Rob beslist.
+
 ## ▶▶ 25 nov (Bouwchat 25-11): taunts op de muis + spiekbrief-code met de indeling — GEBOUWD; taunts ✅ GETEST
 
 ✅ Taunts: Rob via Sparring, letterlijk: *"De tangtesten is gelukt."* (class niet genoemd; de test was Druid in beervorm).

@@ -1304,6 +1304,11 @@ local QUIET = {
 		set = function(on) if ns.SetForeverBossCard then ns.SetForeverBossCard(on) end end }),
 	{ head = "FOV_Q_HEAD_TOOLTIPS" },
 	PROF_SWITCHES[1], -- Used for / never usable / quest item
+	-- 25 Nov 2026 (Rob via Sparring: "Kun je het voor beide versies maken"): your other characters in recipe and
+	-- ingredient tooltips (AltProfTip.lua). On by default; players choose.
+	Q("FALT_SW", "FALT_SW_DESC", {
+		get = function() return ns.IsAltProfTipOn and ns.IsAltProfTipOn() end,
+		set = function(on) if ns.SetAltProfTip then ns.SetAltProfTip(on) end end }),
 	Q("FOV_Q_GEARTIP", "FOV_Q_GEARTIP_DESC", DbFlag("foreverGearTip", true)),
 	Q("SET_BLESSTIP_TITLE", "SET_BLESSTIP_DESC", DbFlag("foreverBlessTip", false)),
 	-- 19 Nov 2026 (Rob: "Ja, die mogen door"): the smart blessing button (ForeverBlessTip.lua). Off by default; turning it

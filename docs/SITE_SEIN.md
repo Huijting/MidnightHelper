@@ -28,6 +28,17 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 25 nov 2026 — tooltip: welke van je andere characters een recept of materiaal kan gebruiken
+- Tag + commit:   geen tag (commit: deze regel)
+- Status:         alleen op main
+- Mag op de site: nee (niet uit, niet getest)
+- Speler ziet:    Op een recept: je andere characters met dat beroep, met hun skill (Forever ook "needs 50", "can learn
+                  it", "knows it"). Op een materiaal: welke andere characters een beroep hebben dat het gebruikt. Alleen
+                  voor items die je kunt versturen. Eigen schakelaar.
+- Knoplabels:     FALT_SW
+- Commando's:     /mh alttip, /mh alttip on|off
+- Spel:           allebei
+
 ## 25 nov 2026 — spiekbrief-code MH-KEYBLOCK: `layout=` en `game=` (afgesproken met de site-chat)
 - Tag + commit:   geen tag (commit: deze regel)
 - Status:         alleen op main

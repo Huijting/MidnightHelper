@@ -205,6 +205,17 @@ local function Build()
 		ns.db = ns.db or {}
 		ns.db.lootUpgradeTips = v and true or false
 	end)
+	-- 25 Nov 2026 (Rob via Sparring): your other characters in recipe and ingredient tooltips (AltProfTip.lua). Midnight
+	-- only here: Forever has it in the overview's Quiet helpers.
+	if not ns.IS_FOREVER then
+		Toggle("mh_altProfTip", "FALT_SW", "FALT_SW_DESC", function()
+			return ns.IsAltProfTipOn and ns.IsAltProfTipOn()
+		end, function(v)
+			if ns.SetAltProfTip then
+				ns.SetAltProfTip(v)
+			end
+		end)
+	end
 	Toggle("mh_bagArrows", "SET_BAGARROWS_TITLE", "SET_BAGARROWS_DESC", function()
 		return not (ns.db and ns.db.bagUpgradeArrows == false)
 	end, function(v)

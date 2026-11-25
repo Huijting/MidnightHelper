@@ -2809,6 +2809,14 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 
+	-- /mh alttip [on | off] — Forever and Midnight: your other characters who can use a recipe or ingredient
+	-- (AltProfTip.lua; Rob via Sparring, 25 Nov 2026).
+	local altArg = msg:lower() == "alttip" and "" or msg:lower():match("^alttip%s+(.+)$")
+	if altArg and ns.AltProfTipSlash then
+		ns.AltProfTipSlash(altArg)
+		return
+	end
+
 	-- /mh bagfull [show | test | on | off] — WoW Forever: the three cheapest things when your bags are full
 	-- (ForeverBagFull.lua; Rob, 20 Nov 2026: "Beide ja").
 	local bagArg = msg:lower() == "bagfull" and "" or msg:lower():match("^bagfull%s+(.+)$")

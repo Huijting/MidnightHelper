@@ -26,6 +26,17 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 
 ## Open — wacht op Rob
 
+### Tooltip: welke van je andere characters een recept of materiaal kan gebruiken (wens van Rob, 25 nov) — ✅ JA, stap 1 GEBOUWD 25 nov, wacht op test; stap 2 (gear) = eerst uitzoeken
+- Bron: Rob via Sparring 25-11, letterlijk: *"Kunnen wij dat niet hier vermelden in de tooltip, zodat ik weet naar wie
+  ik het moet gaan sturen?"*, *"Eigenlijk wil ik het natuurlijk wel voor alles wat we eventueel kunnen versturen naar
+  anderen."*; op het voorstel: *"Ja, dat klopt zo. Kun je het voor beide versies maken, Forever en Midnight?"*
+- Stap 1 gebouwd (`AltProfTip.lua`): recept = je andere characters met dat beroep + skill (Forever ook "needs N", "can
+  learn it", "knows it"); materiaal = welke andere characters een beroep hebben dat het gebruikt. Niet bij soulbound /
+  bind-on-pickup / quest-items. Schakelaar + `/mh alttip`.
+- Stap 2 (gear: kan een ander character dit BoE-wapen/harnas dragen, en is het beter?): uitgezocht, niet gebouwd; zie
+  NEXT_SESSION 25 nov. Rob beslist.
+- Spel: M + F. Voor wie: V (alts) (AFGELEID).
+
 ### Forever: taunts op de muis in het toetsenblok (wens van Rob, 25 nov) — ✅ AF: GEBOUWD 25 nov (1769f5f) en GETEST (Rob via Sparring: *"De tangtesten is gelukt."*)
 - Bron: Rob via Sparring 25-11, letterlijk: *"We hebben dingen als Taunt en Growl. Ik zou graag ook een macro van willen
   hebben voor een mouse over."*; op het voorstel: *"ja graag"*.

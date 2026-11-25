@@ -25783,3 +25783,56 @@ if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	KEYEXTRA_NEED_12 = "i tasti extra sono solo per la disposizione 12 x 4 (/mh block style 12x4).",
 	KEYEXTRA_USAGE = "/mh block extras on|off: 5 = interagisci, Maiusc-Spazio = la tua cavalcatura (solo 12 x 4).",
 }) end
+
+-- 25 Nov 2026: your other characters in recipe / ingredient tooltips (AltProfTip.lua), both games. Profession names come
+-- from the client. Written by the build chat, not reviewed by a native speaker.
+if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
+	FALT_RECIPE_FMT = "MH: deine anderen Charaktere mit %s: %s",
+	FALT_MAT_FMT = "MH: auf deinen anderen Charakteren: %s",
+	FALT_KNOWS = "kennt es",
+	FALT_CAN = "kann es lernen",
+	FALT_NEEDS_FMT = "braucht %d",
+	FALT_SW = "Deine anderen Charaktere in Gegenstands-Tooltips",
+	FALT_SW_DESC = "Bei einem Rezept oder einer Zutat, die du verschicken kannst: welche deiner anderen Charaktere diesen Beruf haben, mit ihrer Fertigkeit (in WoW Forever auch, ob sie das Rezept lernen können). Ein Charakter zählt, sobald du dich mit dieser Version auf ihm eingeloggt hast. Dasselbe wie /mh alttip on|off.",
+	CMDLIST_ALTTIP = "Tooltips von Rezepten und Zutaten nennen deine anderen Charaktere, die sie benutzen können. /mh alttip on|off; ohne Zusatz siehst du, was MH entschieden hat.",
+}) end
+if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
+	FALT_RECIPE_FMT = "MH : tes autres personnages avec %s : %s",
+	FALT_MAT_FMT = "MH : sur tes autres personnages : %s",
+	FALT_KNOWS = "la connaît",
+	FALT_CAN = "peut l'apprendre",
+	FALT_NEEDS_FMT = "il faut %d",
+	FALT_SW = "Tes autres personnages dans les infobulles d'objets",
+	FALT_SW_DESC = "Sur une recette ou un composant que tu peux envoyer : lesquels de tes autres personnages ont ce métier, avec leur compétence (dans WoW Forever aussi s'ils peuvent apprendre la recette). Un personnage compte dès que tu t'y es connecté avec cette version. Comme /mh alttip on|off.",
+	CMDLIST_ALTTIP = "Les infobulles des recettes et des composants nomment tes autres personnages qui peuvent les utiliser. /mh alttip on|off ; seul, il montre ce que MH a décidé.",
+}) end
+if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
+	FALT_RECIPE_FMT = "MH: tus otros personajes con %s: %s",
+	FALT_MAT_FMT = "MH: en tus otros personajes: %s",
+	FALT_KNOWS = "ya la conoce",
+	FALT_CAN = "puede aprenderla",
+	FALT_NEEDS_FMT = "necesita %d",
+	FALT_SW = "Tus otros personajes en los tooltips de objetos",
+	FALT_SW_DESC = "En una receta o un componente que puedes enviar: cuáles de tus otros personajes tienen esa profesión, con su habilidad (en WoW Forever también si pueden aprender la receta). Un personaje cuenta en cuanto entras con él con esta versión. Lo mismo que /mh alttip on|off.",
+	CMDLIST_ALTTIP = "Los tooltips de recetas y componentes nombran a tus otros personajes que pueden usarlos. /mh alttip on|off; solo, muestra lo que decidió MH.",
+}) end
+if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
+	FALT_RECIPE_FMT = "MH: seus outros personagens com %s: %s",
+	FALT_MAT_FMT = "MH: nos seus outros personagens: %s",
+	FALT_KNOWS = "já conhece",
+	FALT_CAN = "pode aprender",
+	FALT_NEEDS_FMT = "precisa de %d",
+	FALT_SW = "Seus outros personagens nas dicas de itens",
+	FALT_SW_DESC = "Em uma receita ou reagente que você pode enviar: quais dos seus outros personagens têm essa profissão, com a perícia deles (no WoW Forever também se podem aprender a receita). Um personagem conta assim que você entrar nele com esta versão. O mesmo que /mh alttip on|off.",
+	CMDLIST_ALTTIP = "As dicas de receitas e reagentes mostram seus outros personagens que podem usá-los. /mh alttip on|off; sozinho, mostra o que o MH decidiu.",
+}) end
+if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
+	FALT_RECIPE_FMT = "MH: i tuoi altri personaggi con %s: %s",
+	FALT_MAT_FMT = "MH: sui tuoi altri personaggi: %s",
+	FALT_KNOWS = "la conosce già",
+	FALT_CAN = "può impararla",
+	FALT_NEEDS_FMT = "serve %d",
+	FALT_SW = "I tuoi altri personaggi nei tooltip degli oggetti",
+	FALT_SW_DESC = "Su una ricetta o un ingrediente che puoi spedire: quali dei tuoi altri personaggi hanno quella professione, con la loro abilità (in WoW Forever anche se possono imparare la ricetta). Un personaggio conta appena entri con lui con questa versione. Come /mh alttip on|off.",
+	CMDLIST_ALTTIP = "I tooltip di ricette e ingredienti nominano i tuoi altri personaggi che possono usarli. /mh alttip on|off; da solo mostra cosa ha deciso MH.",
+}) end

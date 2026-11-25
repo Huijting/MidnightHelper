@@ -25,6 +25,24 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 25 nov — BEIDE GAMES: de tooltip noemt je andere characters bij een recept of materiaal (Rob: "zodat ik weet naar wie ik het moet gaan sturen")
+
+🔴 Nieuw bestand: sluit het spel helemaal af en start opnieuw (een `/reload` is niet genoeg). Offline getest (27 controles),
+NIET in het spel. Een character telt pas mee als je er na deze update één keer op hebt ingelogd.
+Forever (je Druid, met "Recipe: Elixir of Minor Agility" in je tas):
+- [ ] Ga met je muis op het recept staan. Onder "MH: Alchemy - yellow …" staat nu bijvoorbeeld
+      **MH: your other characters with Alchemy: Ima (14, needs 50)**. Bij een character dat het recept al kent staat
+      "knows it", bij een die het kan leren "can learn it" (dat weet MH pas als je op dat character één keer het
+      beroepsvenster hebt geopend).
+- [ ] Ga op een materiaal staan (bijvoorbeeld Peacebloom): **MH: on your other characters: Alchemy: Ima**.
+- [ ] Een soulbound item, of een recept dat bindt als je het oppakt: geen regel (dat kun je niet versturen).
+Midnight:
+- [ ] Een recept: **MH: your other characters with Alchemy: Naam (22)**: alleen naam en skill, geen "can learn".
+- [ ] Een Midnight-materiaal: welke andere characters een beroep hebben dat het gebruikt.
+Beide:
+- [ ] Uitzetten: Forever overzicht → stille helpers "Your other characters in item tooltips"; Midnight: instellingen
+      (bij de tooltip-schakelaars); of `/mh alttip off`. `/mh alttip` toont wat MH bij het laatste item besliste.
+
 ## 25 nov — FOREVER: taunt op de muis (Rob: "Ik zou graag ook een macro van willen hebben voor een mouse over") — ✅ GETEST
 
 Alleen een bestaand bestand gewijzigd: `/reload` is genoeg. Offline getest (1128 toetsen, Engels en Russisch).

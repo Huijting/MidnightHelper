@@ -607,6 +607,12 @@ local function TipLines(tooltip, id)
 	return ("item %d: not in the skill-up list"):format(id)
 end
 
+--- The recipe spell a recipe item teaches, or nil (AltProfTip.lua asks, 25 Nov 2026).
+function ns.ForeverRecipeTeaches(id)
+	Parse()
+	return id and TEACH[id] or nil
+end
+
 local hooked = false
 if TooltipDataProcessor and TooltipDataProcessor.AddTooltipPostCall and Enum and Enum.TooltipDataType
 	and Enum.TooltipDataType.Item then

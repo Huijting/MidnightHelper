@@ -140,6 +140,21 @@ local function Name(key, mine)
 	return (loc and names[loc] and names[loc][key]) or (names.enUS and names.enUS[key]) or key
 end
 
+--- The profession keys (ns.REAGENT_ORDER) that use this item as an ingredient, or nil (AltProfTip.lua, 25 Nov 2026).
+function ns.ReagentUseKeys(id)
+	local bits = id and Use()[id]
+	if not bits then
+		return nil
+	end
+	local keys = {}
+	for i, key in ipairs(ns.REAGENT_ORDER or {}) do
+		if math.floor(bits / 2 ^ (i - 1)) % 2 == 1 then
+			keys[#keys + 1] = key
+		end
+	end
+	return #keys > 0 and keys or nil
+end
+
 --- The line for this item id: text, r, g, b — or nil plus why not. Exposed for the offline check.
 function ns.ReagentUseText(id, mine)
 	local bits = id and Use()[id]

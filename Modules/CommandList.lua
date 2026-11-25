@@ -199,6 +199,8 @@ ns.MH_COMMANDS = {
 		{ cmd = "/mh pickup", descKey = "CMDLIST_PICKUP" },
 		-- 1 Oct 2026: the two-minute survey on midnighthelper.com (SurveyInvite.lua).
 		{ cmd = "/mh survey", descKey = "CMDLIST_SURVEY" },
+		-- 25 Nov 2026: which of your other characters can use a recipe or ingredient, in its tooltip (AltProfTip.lua).
+		{ cmd = "/mh alttip", descKey = "CMDLIST_ALTTIP" },
 		-- 16 Nov 2026: "Camera further away" (CameraZoom.lua); on/off are listed in its description.
 		{ cmd = "/mh camera", descKey = "CMDLIST_CAMERA" },
 		-- 19 Nov 2026: thank a stranger for a buff with the game's emote (ThanksBuff.lua).

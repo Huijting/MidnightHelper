@@ -282,6 +282,7 @@ Modules\ForeverDisenchant.lua
 Modules\ForeverReagentData.lua
 Modules\MidnightReagentData.lua
 Modules\ReagentUse.lua
+Modules\AltProfTip.lua
 # Forever only (each returns at once outside Forever): Skill up for your professions (Rob, 20 Nov 2026).
 Modules\ForeverSkillupData.lua
 Modules\ForeverSkillup.lua

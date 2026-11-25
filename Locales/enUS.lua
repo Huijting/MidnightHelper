@@ -5262,6 +5262,17 @@ ns._mhLocales.enUS = {
 	FUSE_MORE_FMT = " (+%d more)",
 	FUSE_ON = "\"used for\" tooltip line on: hover an item to see which profession uses it.",
 	FUSE_OFF = "\"used for\" tooltip line off. /mh usedfor on brings it back.",
+	-- 25 Nov 2026: your other characters in recipe / ingredient tooltips (AltProfTip.lua), both games.
+	-- FALT_RECIPE_FMT: %s = the profession (client name), %s = "Name (skill, status), Name2 (skill)".
+	FALT_RECIPE_FMT = "MH: your other characters with %s: %s",
+	-- FALT_MAT_FMT: %s = "Alchemy: Ima · Cooking: Bob".
+	FALT_MAT_FMT = "MH: on your other characters: %s",
+	FALT_KNOWS = "knows it",
+	FALT_CAN = "can learn it",
+	FALT_NEEDS_FMT = "needs %d",
+	FALT_SW = "Your other characters in item tooltips",
+	FALT_SW_DESC = "On a recipe or an ingredient you can send: which of your other characters have that profession, with their skill (in WoW Forever also whether they can learn the recipe). A character counts once you have logged in on it with this version. Same as /mh alttip on|off.",
+	CMDLIST_ALTTIP = "Recipe and ingredient tooltips name your other characters who can use them. /mh alttip on|off; on its own it shows what MH decided.",
 	-- 19 Nov 2026: thank a stranger for a buff with the game's emote (ThanksBuff.lua), both games.
 	SET_THANKS_TITLE = "Thank strangers for a buff",
 	SET_THANKS_DESC = "When a player outside your group gives you a buff, you thank them with the game's own emote (\"You thank …\"). Never in combat or in a dungeon, and once every 5 minutes per player. No whisper. Stays silent when Thanks for the Buff is on.",
