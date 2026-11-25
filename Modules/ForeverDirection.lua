@@ -199,7 +199,8 @@ local GUIDE = {
 		{ w = "FDIRB_W_CASTER", game = true } },
 	PRIEST = { { w = "FDIRB_W_CASTER", game = true }, { w = "FDIRB_W_CASTER", game = true },
 		{ w = "FDIRB_W_CASTER", game = true } },
-	WARLOCK = { {}, {}, {} },
+	WARLOCK = { { w = "FDIRB_W_CASTER", game = true }, { w = "FDIRB_W_CASTER", game = true },
+		{ w = "FDIRB_W_CASTER", game = true } },
 }
 
 local function NeedName(kind)

@@ -330,6 +330,10 @@ local CLASS_LINES = {
 	-- +25%); "some levelling guides take it first". Healing line adds ~1/3 as much damage (the line shows both numbers).
 	PRIEST = { lines = { "FWADV_CAST_1", "FWADV_CAST_2", "FWADV_CAST_3", "FWADV_CAST_4", "FWADV_PRI_5", "FWADV_CAST_6",
 		"FWADV_PRI_7" } },
+	-- Warlock: no wand talent in tree 1116 (DB2). Create Firestone 6366 (level 28) and Create Spellstone 2362 (level 36)
+	-- put the stone on the weapon (SpellLevels, GEMETEN); Life Tap 1454 scales with Spirit, not spell damage (research).
+	WARLOCK = { lines = { "FWADV_CAST_1", "FWADV_CAST_2", "FWADV_CAST_3", "FWADV_CAST_4", "FWADV_WLK_5", "FWADV_CAST_6",
+		"FWADV_WLK_7" } },
 	SHAMAN = { lines = { "FWADV_SHA_1", "FWADV_SHA_2", "FWADV_SHA_3", "FWADV_SHA_4", "FWADV_SHA_5", "FWADV_SHA_6",
 		"FWADV_SHA_7", "FWADV_SHA_8" }, learn = { "staff", "mace2", "axe2" } },
 }

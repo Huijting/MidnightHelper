@@ -25,6 +25,16 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 25 nov — FOREVER: "Which weapon?" voor de Warlock (9 van 9)
+
+Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (92 controles), NIET in het spel.
+- [ ] Ima Warlocky (level 8): How you play → **Which weapon? (Warlock)**: de gedeelde caster-regels; geen wand-talent;
+      Create Firestone (28) / Create Spellstone (36) op je wapen; Life Tap en Spirit; Stamina voor jou en je demon.
+      Onderaan wat je kunt en wat je nog kunt leren (Staves, One-Handed Swords). Geen `<` of `#`.
+- [ ] Richting (elke boom): "the kind matters little, look at what is on it …".
+- [ ] Do this now: "bonus damage and healing for spells first, then …"; Affliction "… Spirit and Intellect count the
+      same".
+
 ## 25 nov — FOREVER: "Which weapon?" voor de Priest
 
 Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (87 controles), NIET in het spel.

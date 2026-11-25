@@ -37,7 +37,7 @@ ns.FOREVER_MAIN_STATS = {
 	-- it. Found by the content watch's Forever catch-up, 11 Nov (read via search on several mirrors, not in the client).
 	SHAMAN = { main = { "STRENGTH", "INTELLECT" }, stamTie = false, lead = "dps" },
 	MAGE = { main = { "INTELLECT", "SPIRIT" }, stamTie = true, lead = "spell" },
-	WARLOCK = { main = { "INTELLECT", "STAMINA" }, stamTie = true },
+	WARLOCK = { main = { "INTELLECT", "STAMINA" }, stamTie = true, lead = "spell" },
 	DRUID = { main = { "AGILITY", "STRENGTH" }, stamTie = true, lead = "dps" },
 }
 -- `lead` (25 Nov 2026, Rob via Sparring: "begin maar met de Druid" → "Ja"): what comes BEFORE the stats in the "Do this
@@ -94,9 +94,12 @@ local BY_TREE = {
 		[3] = { role = "caster", main = { "INTELLECT", "SPIRIT" }, stamTie = true, equal = true, lead = "spell" },
 	},
 	WARLOCK = {
-		[1] = { role = "caster", main = { "SPIRIT", "INTELLECT" }, stamTie = true }, -- Affliction: Life Tap uses Spirit
-		[2] = { role = "caster", main = { "INTELLECT", "STAMINA" }, stamTie = false, equal = true },
-		[3] = { role = "caster", main = { "INTELLECT", "STAMINA" }, stamTie = false, equal = true },
+		-- Affliction: Life Tap gives more mana with more Spirit, not with spell damage (GEMETEN per Sparring's research and
+		-- second check, 25 Nov 2026). Spirit vs Intellect: the guides differ → equal (25 Nov). The Stamina in [2]/[3] and
+		-- the class row is NOT changed: open point for Rob (NEXT_SESSION).
+		[1] = { role = "caster", main = { "SPIRIT", "INTELLECT" }, stamTie = true, equal = true, lead = "spell" },
+		[2] = { role = "caster", main = { "INTELLECT", "STAMINA" }, stamTie = false, equal = true, lead = "spell" },
+		[3] = { role = "caster", main = { "INTELLECT", "STAMINA" }, stamTie = false, equal = true, lead = "spell" },
 	},
 	DRUID = {
 		[1] = { role = "caster", main = { "INTELLECT", "SPIRIT" }, stamTie = true, lead = "spell" },

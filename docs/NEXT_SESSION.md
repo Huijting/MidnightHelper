@@ -1,5 +1,13 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 25 nov (Bouwchat 25-11): "Which weapon?" — Warlock GEBOUWD: alle 9 classes klaar. Volgende: Fable-controle (Sparring) + wapenadvies-wacht
+
+FWADV_WLK_5/_7 (8 talen). GEMETEN: Create Firestone 6366 (lvl 28), Create Spellstone 2362 (lvl 36), Life Tap 1454.
+Stats: WARLOCK lead "spell" (basis + 3 bomen); Affliction {SPIRIT, INTELLECT} nu `equal` (guides verschillen; ook de
+tooltip-rekensom). Life Tap-comment bijgewerkt. ForeverDirection WARLOCK = FDIRB_W_CASTER.
+🔵 OPEN VOOR ROB: Warlock-Stamina (klasse-rij {Intellect, Stamina}, Demonology/Destruction {Intellect, Stamina} equal) NIET
+veranderd. wadv_test 92/92, tokcheck 68 sleutels 0 fouten.
+
 ## ▶▶ 25 nov (Bouwchat 25-11): "Which weapon?" — Priest GEBOUWD, wacht op test. Volgende: Warlock, dan de wapenadvies-wacht
 
 FWADV_PRI_5/_7 (8 talen) + de gedeelde CAST-regels. Stats: PRIEST lead "spell" (basis + Shadow), Holy "heal",
