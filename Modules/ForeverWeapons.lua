@@ -283,6 +283,17 @@ local CLASS_LINES = {
 	-- research is the "You can already use / still learn" part (client + trainer table).
 	PALADIN = { lines = { "FWADV_PAL_1", "FWADV_PAL_2", "FWADV_PAL_3", "FWADV_PAL_4", "FWADV_PAL_5", "FWADV_PAL_6",
 		"FWADV_PAL_7", "FWADV_PAL_8" } },
+	-- Shaman (races Orc, Tauren, Troll, Dwarf (Alliance), Windshaper Skyborne). Sources: Blizzard Forever Class Deep Dive
+	-- Shaman (15 Oct 2026: Strength always first for Enhancement; Mental Dexterity), Icy Veins Enhancement/Elemental/
+	-- Restoration (Nov 2026, 6 guides put Intellect above Spirit for Resto), ConquestCapped 25 Nov. No Dual Wield for a
+	-- Shaman in Forever (SkillRaceClassInfo 71091). Where the talent 16269 "Two-Handed Axes and Maces" is given is NOT
+	-- measured; Sparring: in Forever two-handed axes and maces need no talent → the line says "if one shows red, visit
+	-- your class trainer and a weapon master". Weapon buff levels 1/10/20/30 from the research. Spells: Staves 227, Two-
+	-- Handed Axes 197, Two-Handed Maces 199, Stormstrike 17364, Windfury Weapon 8232, Flametongue Weapon 8024, Rockbiter
+	-- Weapon 8017, Frostbrand Weapon 8033, Mental Dexterity 415140, Shield 9116, Mail 8737, Totem 27763; item 263412 Totem
+	-- of Charged Flames (ItemSparse 71091). Windshaper Skyborne already know Two-Handed Maces: the "already use" line.
+	SHAMAN = { lines = { "FWADV_SHA_1", "FWADV_SHA_2", "FWADV_SHA_3", "FWADV_SHA_4", "FWADV_SHA_5", "FWADV_SHA_6",
+		"FWADV_SHA_7", "FWADV_SHA_8" }, learn = { "staff", "mace2", "axe2" } },
 }
 ns.FOREVER_WEAPON_ADVICE_LINES = CLASS_LINES -- the offline check reads it
 

@@ -33,7 +33,7 @@ ns.FOREVER_MAIN_STATS = {
 	-- is gone: Blizzard's blue post of 6 Nov ("Strength is always their strongest stat ... collect Strength and Attack
 	-- Power gear from now on") and the 10 Nov hotfix (Mental Dexterity back to 33/66/100% of Int) undid the reason for
 	-- it. Found by the content watch's Forever catch-up, 11 Nov (read via search on several mirrors, not in the client).
-	SHAMAN = { main = { "STRENGTH", "INTELLECT" }, stamTie = false },
+	SHAMAN = { main = { "STRENGTH", "INTELLECT" }, stamTie = false, lead = "dps" },
 	MAGE = { main = { "INTELLECT", "SPIRIT" }, stamTie = true },
 	WARLOCK = { main = { "INTELLECT", "STAMINA" }, stamTie = true },
 	DRUID = { main = { "AGILITY", "STRENGTH" }, stamTie = true, lead = "dps" },
@@ -73,9 +73,10 @@ local BY_TREE = {
 		[3] = { role = "caster", main = { "INTELLECT", "SPIRIT" }, stamTie = true },
 	},
 	SHAMAN = {
-		[1] = { role = "caster", main = { "INTELLECT", "SPIRIT" }, stamTie = true },
-		[2] = { role = "melee", main = { "STRENGTH", "INTELLECT" }, stamTie = false }, -- Blizzard: Strength
-		[3] = { role = "heal", main = { "INTELLECT", "SPIRIT" }, stamTie = true, equal = true },
+		[1] = { role = "caster", main = { "INTELLECT", "SPIRIT" }, stamTie = true, lead = "spell" },
+		[2] = { role = "melee", main = { "STRENGTH", "INTELLECT" }, stamTie = false, lead = "dps" }, -- Blizzard: Strength
+		-- Resto, 25 Nov 2026 (Sparring's research: 6 guides): Intellect above Spirit; was `equal`.
+		[3] = { role = "heal", main = { "INTELLECT", "SPIRIT" }, stamTie = true, lead = "heal" },
 	},
 	MAGE = {
 		-- Icy Veins Frost Spi > Int, Mobalytics Int > Spi → equal, every tree.

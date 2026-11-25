@@ -178,10 +178,11 @@ local GUIDE = {
 		-- %s = the client's own "Main Hand" (INVTYPE_WEAPONMAINHAND).
 		{ w = "FDIRB_W_DAGGERMAIN", wMainHand = true, fit = { dagger = true }, needs = { { 53, "dagger" }, { 8676, "dagger" } } },
 	},
+	-- Shaman [1]/[3], 25 Nov 2026 (Sparring's research): a one-hander and a shield; [2]: a staff counts as a two-hander.
 	SHAMAN = {
-		{},
-		{ w = "FDIRB_W_SLOWTWOHAND", fit = { mace2 = true, axe2 = true } },
-		{},
+		{ w = "FDIRB_W_SHIELD", fit = { mace = true, axe = true, dagger = true, fist = true }, shield = true },
+		{ w = "FDIRB_W_SLOWTWOHAND", fit = { mace2 = true, axe2 = true, staff = true } },
+		{ w = "FDIRB_W_SHIELD", fit = { mace = true, axe = true, dagger = true, fist = true }, shield = true },
 	},
 	-- 25 Nov 2026 (Rob via Sparring: "begin maar met de Druid" → "Ja"): NOT from player guides but from Blizzard's Forever
 	-- class article (30 Sep 2026) and DB2 (ForeverWeapons.lua "Which weapon?" has the facts). `game` = say so in the

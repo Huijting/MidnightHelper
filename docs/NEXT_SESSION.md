@@ -1,5 +1,17 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 25 nov (Bouwchat 25-11): "Which weapon?" — Shaman GEBOUWD, wacht op test (`/reload`). Volgende: Hunter, Rogue, casters
+
+FWADV_SHA_1..8 (8 talen), CLASS_LINES.SHAMAN (`learn` = staff/mace2/axe2: alleen tweehanders). GEMETEN (DB2 71091):
+Stormstrike 17364, Windfury Weapon 8232, Flametongue Weapon 8024, Rockbiter Weapon 8017, Frostbrand Weapon 8033, Mental
+Dexterity 415140, Mail 8737, Totem 27763, Staves 227 / 2H Axes 197 / 2H Maces 199; item 263412 Totem of Charged Flames
+(ItemSparse; naam via C_Item.GetItemNameByID, Engels zolang de client het item niet heeft). NIET gemeten: waar talent
+16269 "Two-Handed Axes and Maces" vandaan komt → de regel zegt "rood? ga naar je class trainer en een weapon master".
+Wapenbuff-levels 1/10/20/30 uit het onderzoek. Windshaper Skyborne-regel = de dynamische "already use".
+Stats: standaard + Enhancement lead dps, Elemental spell, Restoration heal én Intellect boven Spirit (`equal` weg — dit
+verandert ook de tooltip-rekensom voor Resto: Spirit telt nu half). ForeverDirection SHAMAN[1]/[3] = FDIRB_W_SHIELD (1H:
+mace/axe/dagger/fist + shield), [2] fit + staff. wadv_test 54/54, tokcheck 40 sleutels 0 fouten.
+
 ## ▶▶ 25 nov (Bouwchat 25-11): "Which weapon?" — Paladin GEBOUWD, wacht op test (`/reload`)
 
 FWADV_PAL_1..8 (8 talen), CLASS_LINES.PALADIN in ForeverWeapons.lua. Spell-id's GEMETEN (DB2 SpellName 71091): Seal of

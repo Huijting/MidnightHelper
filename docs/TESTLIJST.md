@@ -25,6 +25,18 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 25 nov — FOREVER: "Which weapon?" voor de Shaman
+
+Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (54 controles), NIET in het spel.
+- [ ] Ima Shammydude (level 17): How you play → **Which weapon? (Shaman)**: Enhancement met een tweehander (geen wapen
+      in elke hand); Staves, Two-Handed Axes en Maces; Stormstrike / Windfury Weapon / Flametongue Weapon; de wapenbuffs
+      met hun level; stats; casten en healen (Elemental / Restoration); rol wisselen; Mail vanaf 40 en een Totem (Totem
+      of Charged Flames). Onderaan alleen de tweehanders die je nog kunt leren. Geen `<` of `#` in de tekst.
+- [ ] Gekozen richting Elemental of Restoration: het blok bovenaan zegt "a one-handed weapon and a shield".
+- [ ] Do this now: Enhancement / geen richting "weapon damage per second first, then Strength, then Intellect";
+      Elemental "bonus damage and healing for spells first …"; Restoration "bonus healing for spells first, then Intellect,
+      then Spirit" (was: Intellect en Spirit even zwaar).
+
 ## 25 nov — FOREVER: "Which weapon?" voor de Paladin
 
 Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (42 controles), NIET in het spel.
