@@ -10,10 +10,10 @@ leest dit eerst en werkt het aan het eind bij. Plan: `docs/PLAN_WERKWIJZE_2026-1
 
 ## 0. Laatste verslag
 
-- [2026-11-24] 🎬 **Regie** (cloud-ronde, ochtend) — Raakt Rob: niets nieuws voor hem zelf; wel NIEUW voor de bouwchat (zie Scheef). 5.8.0 staat nog op CurseForge (tag `v5.8.0` = `.toc` 5.8.0; geen nieuwere tag). 12.1.7 komt 1/2 dec (AFGELEID, PTR-wachter). Site-repo: laatste echte push 23 nov 11:19 (+0100, `3b879039`; daarna alleen #now-bot 24 nov 05:32 UTC); `BOUW_VRAAG.md` "## Open": "(geen)".
-  Scheef: NIEUW (a) API-wachter 24 nov: 🔴 [MOET GEFIKST] Forever Warrior, toets 3: Mortal Strike staat in het spellbook maar mag niet meer gecast worden (Forever-hotfix 23 nov); (b) content-wachter 24 nov: dezelfde hotfix fixt Chastise in Shadowform, onze Priest-gids (`ForeverHowToPlay.lua:315`) zegt nog dat het niet werkt. Blijft: (c) `NEXT_SESSION.md` 1776 regels (grens 1500; gisteren 1692, dus +84); (d) Holy Paladin Eternal Flame/Word of Glory; (e) draaiboek 12.1.7 r. 15 zegt nog "testdata"; (f) C2 blinde vlek 775 (ongewijzigd); (g) 5 ideeënvoorstellen onder "Voorstellen van de wachter". Nachtcontrole 24 nov: C1 0 / C2 0 nakijken.
-  Wachters: alle vijf dagelijkse hebben een regel van 24 nov (commits 03:27-05:06 UTC); ideeënbus zondag 22 nov. Wacht op Rob: 4 punten.
-  Niet gelezen: de pc (lokale commits, helpers, recepten), CurseForge zelf, mail, de wachters inhoudelijk op "overgeslagen" (stap 3: alleen de 24 nov-koppen), `docs/forever/` (nieuwe onderzoeksmappen 23 nov, niet in tabel 2), Warrior-melding niet zelf in code getoetst, Self Cast-regel niet in het spel gezien.
+- [2026-11-25] 🎬 **Regie** (cloud-ronde, ochtend) — Raakt Rob: 5.9.0 staat sinds 24 nov op CurseForge (tag `v5.9.0` = `.toc` 5.9.0, `SITE_SEIN.md` r. 57; site-repo bouwt uit `v5.9.0`); testen staat bij lijst 4. 12.1.7 komt 1/2 dec (AFGELEID, PTR-wachter). Site-repo: laatste echte push 25 nov 00:08 (+0100, `ed05ea86`, Rob; daarna alleen #now-bot 25 nov 05:32 UTC); `BOUW_VRAAG.md` "## Open": "(geen)".
+  Scheef: AF sinds 24 nov: Warrior-Mortal-Strike en Priest-Chastise (commit `a84ac30`, in de code gezien). NIEUW (a) content-wachter 25 nov: breed maar onbevestigd Forever-rapport zegt dat Sunder Armor/Faerie Fire/Expose Armor in dungeons amper pantser wegnemen, vier van onze tips raden ze juist aan; (b) nachtcontrole 25 nov: repo-snapshot van Forever loopt achter (71037 -> 71091), nodig: `event_snapshot --write`. Blijft: `NEXT_SESSION.md` 1697 regels (grens 1500; gisteren 1776); Holy Paladin; draaiboek r. 15 "testdata"; C2 blinde vlek 776 (775); 5 ideeënvoorstellen. Nachtcontrole 25 nov: C1 0 / C2 0 nakijken.
+  Wachters: alle vijf dagelijkse hebben een regel van 25 nov (commits 03:22-05:05 UTC); ideeënbus zondag 22 nov. Nieuwe Forever-build 71091: API-wachter ziet geen API-wijziging. Wacht op Rob: 4 punten.
+  Niet gelezen: de pc (lokale commits, helpers, recepten), CurseForge zelf, mail, de wachters inhoudelijk op "overgeslagen" (stap 3: alleen de 25 nov-koppen), tabel 2 niet voor alle 317 `docs/*.md` bestanden naast elkaar gelegd, `docs/forever/` onderzoek niet inhoudelijk, Self Cast-regel niet in het spel gezien, Sunder Armor-rapport niet zelf getoetst.
 
 De regisseur vervangt dit blok elke ronde door het nieuwe verslag. Eén verslag, niet een logboek: de vorige staat in git.
 
@@ -63,6 +63,7 @@ sinds 11 nov **`regisseur`** (`/regisseur` of "doe de regie-ronde"; doet hoofdst
 | `docs/SITE_SEIN.md` (prikbord) | bouwchat | — |
 | `docs/PATCH_12_1_7_DRAAIBOEK.md` (draaiboek patch 12.1.7, 15 nov) | bouwchat | — |
 | `docs/IDEEEN.md` | bouwchat; de ideeënbus alleen het blok onderaan | — |
+| `docs/forever/*.md` (onderzoek Forever, o.a. `KEYBLOCK12_*`, 24 nov) en `docs/CURSEFORGE_<ver>.md` | bouwchat | — |
 | `docs/TESTLIJST.md` | bouwchat | — |
 | de zes wachter-bestanden | elk zijn eigen wachter | — |
 | `docs/WATCHER_FOREVER.md` | bouwchat, alleen met Robs ja | — |
@@ -72,13 +73,13 @@ sinds 11 nov **`regisseur`** (`/regisseur` of "doe de regie-ronde"; doet hoofdst
 
 ## 3. Stand van het plan
 
-| # | wat | stand (GEMETEN 23 nov op `main`) |
+| # | wat | stand (GEMETEN 23 nov op `main`; rij 5 25 nov) |
 |---|---|---|
 | 1 | Toets (6 vragen) en ideeënlijst | ✅ af |
 | 2 | Prikbord en drie vaste woorden | ✅ af (`docs/SITE_SEIN.md`) |
 | 3 | Controles C1, C3, C5 | C1 en C3 ✅ in de lint. C5 ✅ gebouwd (`c9d3e66`, in `/mh selftest`). |
 | 4 | Controles C2 en C4 | ✅ gebouwd (`tools/data_check.py`). C4: 65 → 3 namen over (commit `f08366b`, Robs ja). |
-| 5 | Nachtcontrole en ideeënbus | ✅ draaien. Nachtcontrole 24 nov: C1 en C2 0 nakijken (snapshot actueel). Ideeënbus liep zo 22 nov (3 voorstellen). |
+| 5 | Nachtcontrole en ideeënbus | ✅ draaien. Nachtcontrole 25 nov: C1 en C2 0 nakijken (Forever-snapshot loopt achter). Ideeënbus liep zo 22 nov (3 voorstellen). |
 | 5b | **De regisseur** (deel 8) | ✅ gebouwd 11 nov (`f34b15f`): routine en recept. Proefrun `c24bbe4` vond de drie testpunten. |
 | 6 | Recepten | niet begonnen |
 | 7 | `/mh selftest` + vensterlijst | ✅ gebouwd (`c9d3e66`); Robs selftest in Midnight schoon (`41675dd`). Forever-kant niet gemeten. |
@@ -96,17 +97,16 @@ sinds 11 nov **`regisseur`** (`/regisseur` of "doe de regie-ronde"; doet hoofdst
 
 | wat | gemeten | wie moet iets doen |
 |---|---|---|
-| 5 voorstellen van de ideeënbus (2 van 15 nov, 3 van 22 nov) staan nog onder "Voorstellen van de wachter" in `docs/IDEEEN.md` (kop r. 1741; voorstelkoppen r. 1752, 1776, 1803, 1823, 1845; de 2 van 15 nov niet opnieuw geteld) | 24 nov, GEMETEN: `grep -n "^### "` na r. 1741 | bouwchat: naar Open of Nee met reden |
-| Self Cast-waarschuwing: dicht in code (`a73bfb5`), maar **niet in het spel gezien** (zie lijst 4, punt 1; `TESTLIJST.md` r. 1962 staat nog open) | 23 nov, GEMETEN: `TESTLIJST.md` r. 1927-1962 gelezen; in het spel niet gezien; 18 nov: `Core.lua:4431`, `MACROS_WARN_SELFCAST_FMT` | Rob of Cisca test; daarna gaat de rij weg |
-| 🔴 **`docs/NEXT_SESSION.md` is 1776 regels, grens 1500** (23 nov: 1692; 22 nov: 1553) | 24 nov, GEMETEN met `wc -l`; grens uit `CLAUDE.md`; archief laatst geraakt 22 nov (`79343f67`) | bouwchat: 276 regels eraf, via `split_handoff --resplit` (proefrun) |
-| `CLAUDE.md` is 324 regels (gisteren 324), lint [24] grens 350 | 24 nov, GEMETEN met `wc -l` (324) en `claude_limit = 350` (`tools/lint_addon.py:1707`) | niemand; blijf meten |
-| Overdrachtsbriefje site (`drafts/SITE_HANDOFF.md`) is 146 regels, grens 200: **opgelost** (22 nov: 266) | 24 nov, GEMETEN met `wc -l` op `origin/main`: 158 (23 nov: 146), nog onder 200 | niemand; blijf meten |
-| **Blinde vlek:** de site-chat pusht alleen met Robs ja; de cloud ziet de site-repo zoals bij de laatste push (laatste echte push 23 nov 11:19 +0100, `3b879039`, overdracht; release 5.8.0 stond er al sinds 22 nov). `drafts/BOUW_VRAAG.md` onder "## Open": "(geen)". Wat lokaal nog niet gepusht is, zie ik niet. | 24 nov, GEMETEN op `origin/main` van de site-repo | niemand; alleen het pc-recept ziet lokale commits |
-| Holy Paladin: Method.gg (13 okt) zegt Eternal Flame als hoofdbesteding, onze kaart `PLAYCARD_65_S3/_EASY/_W3` zegt Word of Glory (`enUS.lua:1883-1894`); Icy Veins zegt "of" | 24 nov blijft staan; `CONTENT_WATCH.md` r. 5323; kaartregels in `enUS.lua` niet zelf opnieuw gelezen | Rob/Cisca in het spel; bouwchat past de kaart aan als dat klopt |
-| Nachtcontrole: C2 blinde vlek 24 -> 290 (19 nov) -> 774 (22 nov) -> 775 (23 nov), item 25 -> 141 -> 161, nog niet uitgezocht; wijst op gewijzigde checker of nieuwe code | 24 nov, `NACHTCONTROLE.md` r. 54: 775 "ongewijzigd sinds 23 nov"; overgenomen, zelf niet gemeten | bouwchat: uitzoeken |
-| 12.1.7 krijgt datum 1 dec (VS) / 2 dec (EU); draaiboek r. 15 zegt nog "testdata" (laatste draaiboek-commit 16 nov, `96f8b8fc`) | 24 nov, GEMETEN in draaiboek r. 15 ("testdata"); draaiboek wel 23 nov geraakt (`a987a4c`, `d20fd1f`) maar niet op dit punt; datum overgenomen uit `PTR_12.1_WATCH.md`, zelf niet in Blizzards bron | bouwchat: draaiboek bijwerken; Rob beslist over de release |
-| 🔴 Forever Warrior toets 3: Mortal Strike in het spellbook maar niet meer castbaar (Forever-hotfix 23 nov, `API_WATCH.md` r. 11715) | 24 nov, overgenomen uit `API_WATCH.md`, code niet zelf getoetst | bouwchat: nakijken |
-| Priest-gids `ForeverHowToPlay.lua:315` zegt "Chastise werkt niet in Shadowform"; Forever-hotfix 23 nov fixt dat (`CONTENT_WATCH.md` r. 5400) | 24 nov, GEMETEN: regel 315 gelezen | bouwchat: tekst aanpassen |
+| 5 voorstellen van de ideeënbus (2 van 15 nov, 3 van 22 nov) staan nog onder "Voorstellen van de wachter" in `docs/IDEEEN.md` (kop r. 1794; voorstelkoppen r. 1805, 1829, 1856, 1876, 1898) | 25 nov, GEMETEN: `grep -n "^### "` na r. 1794 (5 koppen) | bouwchat: naar Open of Nee met reden |
+| Self Cast-waarschuwing: dicht in code (`a73bfb5`), maar **niet in het spel gezien** (zie lijst 4, punt 1; `TESTLIJST.md` r. 2306-2341 staat nog open) | 25 nov, GEMETEN: `TESTLIJST.md` gegrept, `Core.lua:4642` `MACROS_WARN_SELFCAST_FMT` bestaat; in het spel niet gezien | Rob of Cisca test; daarna gaat de rij weg |
+| 🔴 **`docs/NEXT_SESSION.md` is 1697 regels, grens 1500** (24 nov: 1776; 23 nov: 1692) | 25 nov, GEMETEN met `wc -l`; grens uit `CLAUDE.md`; archief laatst geraakt 22 nov (`79343f67`) | bouwchat: 197 regels eraf, via `split_handoff --resplit` (proefrun) |
+| `CLAUDE.md` is 324 regels (gisteren 324), lint [24] grens 350 | 25 nov, GEMETEN met `wc -l` (324) en `claude_limit = 350` (`tools/lint_addon.py:1707`) | niemand; blijf meten |
+| Overdrachtsbriefje site (`drafts/SITE_HANDOFF.md`) is 167 regels, grens 200 (24 nov: 158) | 25 nov, GEMETEN met `wc -l` op `origin/main` van de site-repo | niemand; blijf meten |
+| **Blinde vlek:** de site-chat pusht alleen met Robs ja; de cloud ziet de site-repo zoals bij de laatste push (laatste echte push 25 nov 00:08 +0100, `ed05ea86`, overdracht; 5.9.0 staat op de site, `data/built_from.json` = `v5.9.0`). `drafts/BOUW_VRAAG.md` onder "## Open": "(geen)". Wat lokaal nog niet gepusht is, zie ik niet. | 25 nov, GEMETEN op `origin/main` van de site-repo | niemand; alleen het pc-recept ziet lokale commits |
+| Holy Paladin: Method.gg (13 okt) zegt Eternal Flame als hoofdbesteding, onze kaart `PLAYCARD_65_S3` zegt Word of Glory (`enUS.lua:1953`, spell 85673); Icy Veins zegt "of" | 25 nov GEMETEN: `enUS.lua:1953` gelezen; bron `CONTENT_WATCH.md` overgenomen | Rob/Cisca in het spel; bouwchat past de kaart aan als dat klopt |
+| 🆕 Onbevestigd Forever-rapport (6 bronnen, niet Blizzard): Sunder Armor/Faerie Fire/Expose Armor nemen in dungeons amper pantser weg. Onze tips raden ze aan: `ForeverBlock_Warrior.lua:41`, `ForeverHowToPlay.lua:505` (rest niet geteld) | 25 nov, `CONTENT_WATCH.md` r. 5443 overgenomen; Warrior-regels zelf gelezen, rapport niet getoetst | bouwchat: wachten op bevestiging of in het spel meten; nog niet aanpassen |
+| Nachtcontrole: C2 blinde vlek 24 -> 290 (19 nov) -> 774 (22 nov) -> 775 (23 nov) -> 776 (25 nov), nog niet uitgezocht; wijst op gewijzigde checker of nieuwe code. Snapshot Forever loopt achter (71037 -> 71091): `event_snapshot --write` | 25 nov, `NACHTCONTROLE.md` r. 57 overgenomen, zelf niet gemeten | bouwchat: uitzoeken, snapshot verversen |
+| 12.1.7 krijgt datum 1 dec (VS) / 2 dec (EU); draaiboek r. 15 zegt nog "testdata"  | 25 nov, GEMETEN in draaiboek r. 15 ("testdata"); laatste draaiboek-commit 23 nov (`a987a4ca`); datum overgenomen uit `PTR_12.1_WATCH.md`, zelf niet in Blizzards bron | bouwchat: draaiboek bijwerken; Rob beslist over de release |
 | Geen vaste controle op de handgeschreven site-teksten | 10 nov, volgens de site-chat | voorstel ligt bij Rob |
 
 ## 6. De ronde — wat de regisseur elke keer doet
