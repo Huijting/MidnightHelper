@@ -267,7 +267,10 @@ local function StatSentence(def, fmtKey)
 		return nil
 	end
 	local order
-	if main[2] and def.armor then
+	if def.spell and not main[2] then
+		-- Paladin tank (25 Nov 2026): "Stamina, then spell damage"
+		order = ns:L("FDONOW_STATS_THEN_FMT"):format(StatName(main[1]), ns:L("FDONOW_STAT_SPELLDMG"))
+	elseif main[2] and def.armor then
 		-- Bear (25 Nov 2026): "Stamina, then Armor, then Agility"
 		local armor = (type(_G.ARMOR) == "string" and _G.ARMOR ~= "") and _G.ARMOR or "Armor"
 		order = ns:L("FDONOW_STATS_THEN_FMT"):format(StatName(main[1]),
@@ -281,11 +284,21 @@ local function StatSentence(def, fmtKey)
 	-- 25 Nov 2026 (Druid, ForeverMainStats.lua `lead`): what counts before the stats.
 	if def.lead then
 		local lead
-		if def.lead == "dps" or def.lead == "dpsspell" or def.lead == "rdps" or def.lead == "mhdps" then
+		local leadKind = def.lead
+		if leadKind == "survival" then
+			-- Survival Hunter: the ranged weapon until 30, the melee weapon from 30 (Strider Kick)
+			leadKind = ((UnitLevel and UnitLevel("player")) or 1) < 30 and "rdps" or "dps"
+		end
+		if leadKind == "dps" or leadKind == "dpsspell" or leadKind == "rdps" or leadKind == "mhdps" then
 			local d = _G.ITEM_MOD_DAMAGE_PER_SECOND_SHORT
+			-- ruRU's client word is a tooltip fragment ("к урону в секунду"): a pack can give its own (FWADV_DPS_WORD)
+			local own = ns:L("FWADV_DPS_WORD")
+			if type(own) == "string" and own ~= "" and own ~= "FWADV_DPS_WORD" then
+				d = own
+			end
 			d = (type(d) == "string" and d ~= "") and d or "damage per second"
 			local key = ({ dpsspell = "FDONOW_STAT_DPSSPELL_FMT", rdps = "FDONOW_STAT_RDPS_FMT",
-				mhdps = "FDONOW_STAT_MHDPS_FMT" })[def.lead] or "FDONOW_STAT_DPS_FMT"
+				mhdps = "FDONOW_STAT_MHDPS_FMT" })[leadKind] or "FDONOW_STAT_DPS_FMT"
 			lead = ns:L(key):format(d)
 		else
 			lead = ns:L(def.lead == "heal" and "FDONOW_STAT_HEAL" or "FDONOW_STAT_SPELL")

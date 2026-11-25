@@ -25,6 +25,22 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 25 nov — FOREVER: "Which weapon?" na de Fable-controle (alle 9)
+
+Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (104 controles), NIET in het spel.
+- [ ] Titel op een vrouwelijk character in de/fr/es/ru: de vrouwelijke classnaam (UnitClass).
+- [ ] Caster: de groene regel staat er nu in de woorden van JOUW client ("Equip: Increases damage and healing done by
+      magical spells and effects by up to 12."), en "Players call this spell damage or spell power". Wands staat bij "You
+      can already use". Boven level 20 geen "First wand"-regel meer. Mage: de regel over scrolls noemt Scroll of Imbue
+      Lesser Flame.
+- [ ] Druid op level 40+: "Dire Bear Form" in plaats van Bear Form. Onder 10: geen armor-regel voor de beer.
+- [ ] Paladin tank (richting Protection of "When you tank"): "Stamina, then spell damage" (geen Intellect meer).
+- [ ] Do this now: tanks (Warrior, Druid) beginnen niet meer met "weapon damage per second first". Survival Hunter: onder
+      30 "ranged weapon damage per second", vanaf 30 "weapon damage per second". Druid zonder richting: Strength en Agility
+      even zwaar.
+- [ ] /mh weapons met richting Feral: "take the weapon with the most damage per second, whatever its kind …".
+- [ ] Shaman: Mail via de item-naam van je client; de Earth/Fire/Water/Air Totem-items apart uitgelegd.
+
 ## 25 nov — FOREVER: "Which weapon?" voor de Warlock (9 van 9)
 
 Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (92 controles), NIET in het spel.

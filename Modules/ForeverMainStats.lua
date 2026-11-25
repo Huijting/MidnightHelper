@@ -38,7 +38,10 @@ ns.FOREVER_MAIN_STATS = {
 	SHAMAN = { main = { "STRENGTH", "INTELLECT" }, stamTie = false, lead = "dps" },
 	MAGE = { main = { "INTELLECT", "SPIRIT" }, stamTie = true, lead = "spell" },
 	WARLOCK = { main = { "INTELLECT", "STAMINA" }, stamTie = true, lead = "spell" },
-	DRUID = { main = { "AGILITY", "STRENGTH" }, stamTie = true, lead = "dps" },
+	-- 25 Nov 2026 (Fable check): was Agility, then Strength - wrong below 20: a Druid gets 2 attack power per Strength
+	-- and 0 per Agility (ChrClasses, GEMETEN); Agility gives attack power only in Cat Form (768, level 20). Now the same
+	-- as the Feral row: Strength and Agility count the same (`equal`: both weigh 1 in the tooltip math, was 1 / 0.5).
+	DRUID = { main = { "STRENGTH", "AGILITY" }, stamTie = true, equal = true, lead = "dps" },
 }
 -- `lead` (25 Nov 2026, Rob via Sparring: "begin maar met de Druid" → "Ja"): what comes BEFORE the stats in the "Do this
 -- now" sentence, for text only (the tooltip math reads `main`). dps = weapon damage per second (in a form your attacks
@@ -62,13 +65,15 @@ local BY_TREE = {
 	-- Hunter: only Survival differs (25 Nov 2026, Sparring's research: melee build, Agility then Strength, melee weapon
 	-- DPS first). Beast Mastery and Marksmanship = the class row above (no row here = the class default).
 	HUNTER = {
-		[3] = { role = "melee", main = { "AGILITY", "STRENGTH" }, stamTie = true, lead = "dps" },
+		-- lead "survival" = ranged weapon DPS below 30, melee weapon DPS from 30 (Strider Kick 1317257 at 30, GEMETEN by
+		-- Sparring; Fable check 25 Nov)
+		[3] = { role = "melee", main = { "AGILITY", "STRENGTH" }, stamTie = true, lead = "survival" },
 	},
 	PALADIN = {
 		[1] = { role = "heal", main = { "INTELLECT", "SPIRIT" }, stamTie = true, lead = "heal" },
 		-- Prot: see TANK.PALADIN below (21 Nov 2026: Stamina, then Intellect). 25 Nov 2026: Intellect as the second stat
 		-- is disputed (guides differ); left as it is, an open point for Rob (NEXT_SESSION).
-		[2] = { role = "tank", main = { "STAMINA", "INTELLECT" }, stamTie = false },
+		[2] = { role = "tank", main = { "STAMINA" }, stamTie = false, spell = true }, -- 25 Nov: see TANK.PALADIN
 		-- Ret: Icy Veins Int > Str, SixtySim Str first, Blizzard silent → equal.
 		-- 25 Nov 2026: lead = weapon DPS and spell damage (Holy Strike, seals and Judgement grow with spell damage).
 		[3] = { role = "melee", main = { "STRENGTH", "INTELLECT" }, stamTie = true, equal = true, lead = "dpsspell" },
@@ -114,16 +119,21 @@ local TANK = {
 	-- 25 Nov 2026 (Sparring's research + second check): Stamina, then Armor, then Agility. Icy Veins Protection (4 Nov
 	-- 2026) and wowhandbook put Agility before Strength for a tank. The old note here ("Icy Veins leveling: Str first")
 	-- was about levelling, not tanking. Text only gets the weapon DPS lead and Armor (`lead`, `armor`).
-	WARRIOR = { main = { "STAMINA", "AGILITY" }, lead = "dps", armor = true },
+	-- 25 Nov 2026 (Fable check): no weapon-DPS lead for tanks any more: "weapon DPS first, then Stamina" clashed with the
+	-- "Tanking: Stamina first" in the weapon text. For a tank Stamina is first, in both places.
+	WARRIOR = { main = { "STAMINA", "AGILITY" }, armor = true },
 	-- 21 Nov 2026 (Rob via sparring: "welke talentpunten" / tanking a Paladin; GO "Ja, voeg dat maar toe"): was Stamina,
 	-- then Strength (16 Nov research, no guide named for that row). Read today: wowforeverbuilder.com Protection page
 	-- (talent snapshot 3 Nov, client 1.60.1.70753) "Defense to 440, Stamina, Spell power, Intellect, Block value, Armor",
 	-- no Strength, and "Spell power raises Consecration and Holy Shield threat; it is a tank stat for you". Mobalytics Prot
 	-- (8 Nov, per sparring's mh-research report; 403 for our fetch): from 20 Spell Power, Stamina, Intellect, Strength.
 	-- Icy Veins: 403, not read. So: Stamina, then Intellect (MH has no Spell Power / Defense stat in this table).
-	PALADIN = { main = { "STAMINA", "INTELLECT" } },
+	-- 25 Nov 2026: Stamina, then spell damage (`spell` = text only). Blizzard hotfix thread 2403040, post 12, 17 Nov 2026:
+	-- "We are leaning more into Paladin tanks favoring Spell Power as their primary stat for dealing damage". Intellect as
+	-- the second stat is gone (it was the open point "Prot Intellect").
+	PALADIN = { main = { "STAMINA" }, spell = true },
 	-- Bear (25 Nov 2026): weapon damage per second first, then Stamina, Armor, Agility (text: lead + armor).
-	DRUID = { main = { "STAMINA", "AGILITY" }, lead = "dps", armor = true },
+	DRUID = { main = { "STAMINA", "AGILITY" }, armor = true },
 }
 
 --- The stat def for this class and this character's direction: def, role, source ("direction N" or "class default").

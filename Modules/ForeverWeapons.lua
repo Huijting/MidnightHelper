@@ -188,6 +188,14 @@ local function Teaches(t, spell)
 	return false
 end
 
+--- "Your direction X: …" when the guides name no weapon kind. 25 Nov 2026 (Fable check): Feral Druid gets its own line
+--- (most damage per second, whatever the kind), the casters the "kind matters little" one.
+local function DirNoneText(tree)
+	local _, cls = UnitClass("player")
+	local band = ns.GetForeverDirection and ns.GetForeverDirection()
+	return ns:L((cls == "DRUID" and band == 2) and "FWEAP_DIR_FORM_FMT" or "FWEAP_DIR_NONE_FMT"):format(tree)
+end
+
 --- The weapons your class may learn, in list order. Each: { w = row, known = bool, name = client name }.
 local function MyWeapons()
 	local bit, out = ClassBit(), {}
@@ -245,6 +253,15 @@ local BEAR, CAT = 5487, 768
 local TWOHAND_KEYS = { "staff", "mace2", "polearm" }
 
 local function G(name, fallback)
+	-- 25 Nov 2026 (Fable check): ruRU's ITEM_MOD_DAMAGE_PER_SECOND_SHORT is "к урону в секунду" (GEMETEN, GlobalStrings
+	-- ruRU 71091), a tooltip fragment that breaks a sentence. A pack can give its own word (FWADV_DPS_WORD, empty = use
+	-- the client's).
+	if name == "ITEM_MOD_DAMAGE_PER_SECOND_SHORT" then
+		local own = ns:L("FWADV_DPS_WORD")
+		if type(own) == "string" and own ~= "" and own ~= "FWADV_DPS_WORD" then
+			return own
+		end
+	end
 	local v = _G[name]
 	return (type(v) == "string" and v ~= "") and v or fallback
 end
@@ -279,9 +296,11 @@ local CLASS_LINES = {
 	-- Weaponmaster 12281, Two-Handed Weapon Specialization 12163.
 	WARRIOR = { lines = { "FWADV_WAR_1", "FWADV_WAR_2", "FWADV_WAR_3", "FWADV_WAR_4", "FWADV_WAR_5", "FWADV_WAR_6",
 		"FWADV_WAR_7", "FWADV_WAR_8" } },
-	-- Paladin (races Human, Dwarf, Undead). Sources: Blizzard Forever Class Deep Dive Paladin (7 Oct 2026: Seal of Fury,
-	-- Righteous Fury, Holy Strike), Icy Veins Retribution/Protection/Holy (Nov 2026), Warcraft Tavern stats; "Seal of
-	-- Command about 7 times a minute" = its proc rate as the guides give it. Can't use staves, daggers, fist weapons,
+	-- Paladin (races Human, Dwarf, Undead). Sources: Blizzard Forever Class Deep Dive Paladin (15 Oct 2026: Seal of Fury,
+	-- Righteous Fury, Holy Strike), Icy Veins Retribution/Protection/Holy (Nov 2026), Warcraft Tavern stats. The "about 7
+	-- times a minute" for Seal of Command is gone (Fable check 25 Nov: in neither Blizzard nor DB2). Tanks: Blizzard hotfix
+	-- thread 2403040, post 12, 17 Nov 2026: "We are leaning more into Paladin tanks favoring Spell Power as their primary
+	-- stat for dealing damage". Champion of the Light 1311084 (Retribution talent: Intellect -> spell damage). Can't use staves, daggers, fist weapons,
 	-- ranged or wands, no Dual Wield: SkillRaceClassInfo 71091 (GEMETEN, class bit 2 absent). Spells: Seal of Command
 	-- 20375, Holy Strike 678, Seal of Righteousness 20154, Righteous Fury 25780, Seal of Fury 20163, Holy Shield 20925,
 	-- Judgement 20271, Two-Handed Weapon Specialization 20111, Libram (skill) 27762, Shield 9116. The race line of the
@@ -289,9 +308,11 @@ local CLASS_LINES = {
 	PALADIN = { lines = { "FWADV_PAL_1", "FWADV_PAL_2", "FWADV_PAL_3", "FWADV_PAL_4", "FWADV_PAL_5", "FWADV_PAL_6",
 		"FWADV_PAL_7", "FWADV_PAL_8" } },
 	-- Shaman (races Orc, Tauren, Troll, Dwarf (Alliance), Windshaper Skyborne). Sources: Blizzard Forever Class Deep Dive
-	-- Shaman (15 Oct 2026: Strength always first for Enhancement; Mental Dexterity), Icy Veins Enhancement/Elemental/
-	-- Restoration (Nov 2026, 6 guides put Intellect above Spirit for Resto), ConquestCapped 25 Nov. No Dual Wield for a
-	-- Shaman in Forever (SkillRaceClassInfo 71091). Where the talent 16269 "Two-Handed Axes and Maces" is given is NOT
+	-- Shaman (7 Oct 2026; Strength always first for Enhancement: blue post 6 Nov; Mental Dexterity), Icy Veins Enhancement/
+	-- Elemental/Restoration (Nov 2026, 6 guides put Intellect above Spirit for Resto), ConquestCapped 25 Nov. No Dual Wield
+	-- for a Shaman in Forever: corrected 25 Nov (Fable check) - SkillRaceClassInfo row 2455 (Dual Wield, Shaman) DOES
+	-- exist; it is a leftover (Era has it too). The real proof is the talent tree and the trainer list, which have no Dual
+	-- Wield for a Shaman. Where the talent 16269 "Two-Handed Axes and Maces" is given is NOT
 	-- measured; Sparring: in Forever two-handed axes and maces need no talent → the line says "if one shows red, visit
 	-- your class trainer and a weapon master". Weapon buff levels 1/10/20/30 from the research. Spells: Staves 227, Two-
 	-- Handed Axes 197, Two-Handed Maces 199, Stormstrike 17364, Windfury Weapon 8232, Flametongue Weapon 8024, Rockbiter
@@ -311,7 +332,10 @@ local CLASS_LINES = {
 	-- 7), DB2 71091 (Hack and Slash 13960, poison ProcChance, SpellLevels), Wowhead tooltips, warcraft.wiki Rogue (Forever)
 	-- 5 Nov (poison quest). Dual Wield at 10 for a Rogue: SkillRaceClassInfo (GEMETEN). Spells: Dual Wield 674, Backstab
 	-- 53, Ambush 8676, Shank 1329283, Stealth 1784, Mutilate 399956, Hemorrhage 16511, Ghostly Strike 14278, Hack and
-	-- Slash 13960, Poisons 2842, Throw 2764. "Mutilate from 40" is the research text, not the (outdated) Talent table.
+	-- Slash 13960, Poisons 2842, Throw 2764. Mutilate (and the Hunter's Strider Kick) say "a talent, level 40 / 30 at the
+	-- earliest": talent levels count the first point at 10 and the Legacy perk Talented makes them up to 5 levels sooner;
+	-- the DB2 Talent table is outdated, so the levels are the research's, not measured there.
+	-- Blizzard 7 Oct: "Combat and Subtlety have support for all weapon types" (ROG_5).
 	ROGUE = { lines = { "FWADV_ROG_1", "FWADV_ROG_2", "FWADV_ROG_3", "FWADV_ROG_4", "FWADV_ROG_5", "FWADV_ROG_6",
 		"FWADV_ROG_7", "FWADV_ROG_8" } },
 	-- Casters (Mage, Priest, Warlock): shared lines FWADV_CAST_1..4 and _6, the class's own 5 and 7. Sources: Blizzard
@@ -324,16 +348,17 @@ local CLASS_LINES = {
 	-- Specialization 6057, Create Firestone 6366, Create Spellstone 2362, Life Tap 1454; items Novice's Practice Wand
 	-- 247789 (level 1), Lesser Magic Wand 11287 (level 5). GlobalStrings INVTYPE_HOLDABLE "Held In Off-hand",
 	-- ITEM_SPELL_TRIGGER_ONEQUIP "Equip:". The race line of the research = the "already use / still learn" lines.
-	MAGE = { lines = { "FWADV_CAST_1", "FWADV_CAST_2", "FWADV_CAST_3", "FWADV_CAST_4", "FWADV_MAG_5", "FWADV_CAST_6",
-		"FWADV_MAG_7" } },
+	-- `{ key, maxLvl = n }` = only up to that level (the "first wand" line, Fable check 25 Nov). Items requested at load.
+	MAGE = { lines = { "FWADV_CAST_1", "FWADV_CAST_2", "FWADV_CAST_3", "FWADV_CAST_4", "FWADV_MAG_5",
+		{ "FWADV_CAST_6", maxLvl = 20 }, "FWADV_MAG_7" } },
 	-- Priest: no swords, axes or two-handed maces (SkillRaceClassInfo 71091). Wand Specialization in Discipline (2 points,
 	-- +25%); "some levelling guides take it first". Healing line adds ~1/3 as much damage (the line shows both numbers).
-	PRIEST = { lines = { "FWADV_CAST_1", "FWADV_CAST_2", "FWADV_CAST_3", "FWADV_CAST_4", "FWADV_PRI_5", "FWADV_CAST_6",
-		"FWADV_PRI_7" } },
+	PRIEST = { lines = { "FWADV_CAST_1", "FWADV_CAST_2", "FWADV_CAST_3", "FWADV_CAST_4", "FWADV_PRI_5",
+		{ "FWADV_CAST_6", maxLvl = 20 }, "FWADV_PRI_7" } },
 	-- Warlock: no wand talent in tree 1116 (DB2). Create Firestone 6366 (level 28) and Create Spellstone 2362 (level 36)
 	-- put the stone on the weapon (SpellLevels, GEMETEN); Life Tap 1454 scales with Spirit, not spell damage (research).
-	WARLOCK = { lines = { "FWADV_CAST_1", "FWADV_CAST_2", "FWADV_CAST_3", "FWADV_CAST_4", "FWADV_WLK_5", "FWADV_CAST_6",
-		"FWADV_WLK_7" } },
+	WARLOCK = { lines = { "FWADV_CAST_1", "FWADV_CAST_2", "FWADV_CAST_3", "FWADV_CAST_4", "FWADV_WLK_5",
+		{ "FWADV_CAST_6", maxLvl = 20 }, "FWADV_WLK_7" } },
 	SHAMAN = { lines = { "FWADV_SHA_1", "FWADV_SHA_2", "FWADV_SHA_3", "FWADV_SHA_4", "FWADV_SHA_5", "FWADV_SHA_6",
 		"FWADV_SHA_7", "FWADV_SHA_8" }, learn = { "staff", "mace2", "axe2" } },
 }
@@ -366,9 +391,35 @@ local function Tokens(s)
 		local _, cls = UnitClass("player")
 		return (ns.ForeverSpecName and ns.ForeverSpecName(cls, tonumber(band))) or ("#" .. band)
 	end)
+	-- <GF:NAME|n|en> = a client format string with an example number (25 Nov 2026, Fable check: the green item line in
+	-- the client's own words; TOOLTIP_ITEM_STAT_SPELL_POWER_INCREASE = "Equip: Increases damage and healing done by
+	-- magical spells and effects by up to %1$d.", GEMETEN). The number goes in by gsub, so %1$d and %d both work.
+	s = s:gsub("<GF:([%w_]+)|(%d+)|([^>]*)>", function(name, n, en)
+		local v = _G[name]
+		if type(v) ~= "string" or v == "" then
+			return en
+		end
+		local out = v:gsub("%%%d%$d", n):gsub("%%d", n):gsub("%%%d%$s", n):gsub("%%s", n)
+		return out
+	end)
+	-- <W:class.sub|en> = an item subclass name (Mail = 4.3, ...)
+	s = s:gsub("<W:(%d+)%.(%d+)|([^>]*)>", function(c, sub, en)
+		return SubName({ tonumber(c), tonumber(sub) }, en)
+	end)
 	return s
 end
 ns.ForeverWeaponAdviceTokens = Tokens
+
+-- Items the lines name: ask the client for them at load, so their name is there (else English the first time).
+for _, id in ipairs({ 247789, 11287, 263412, 274947, 20750, 5175, 5176, 5177, 5178 }) do
+	if C_Item and C_Item.RequestLoadItemDataByID then
+		pcall(C_Item.RequestLoadItemDataByID, id)
+	end
+end
+
+-- Wands (skill 5009) are not taught by a weapon master; only the "You can already use" line names them.
+local WANDS = 5009
+local WAND_CLASSES = { MAGE = true, PRIEST = true, WARLOCK = true }
 
 --- "You can already use: …" and "… you can still learn: …" (your side's trainers), as lines.
 local function KnownAndLearn(keys, learnFmt, lvl)
@@ -397,6 +448,10 @@ local function KnownAndLearn(keys, learnFmt, lvl)
 			learn[#learn + 1] = s
 		end
 	end
+	local _, cls = UnitClass("player")
+	if WAND_CLASSES[cls or ""] and Known(WANDS) then
+		known[#known + 1] = SpellName(WANDS)
+	end
 	local out = {}
 	if #known > 0 then
 		out[#out + 1] = ns:L("FWADV_KNOWN_FMT"):format(table.concat(known, ", "))
@@ -409,20 +464,31 @@ end
 
 --- title, body (raw: "- " lines, **bold**) for this character, or nil when there is no text for this class.
 function ns.ForeverWeaponAdvice()
-	local _, token = UnitClass("player")
-	local def = CLASS_LINES[token or ""]
+	local cname, token = UnitClass("player")
+	if not token then
+		return nil
+	end
+	-- 25 Nov 2026 (Fable check): the class name UnitClass gives THIS character (a female character's name in de/fr/es/ru),
+	-- not LOCALIZED_CLASS_NAMES_MALE.
+	cname = (type(cname) == "string" and cname ~= "") and cname or (token:sub(1, 1) .. token:sub(2):lower())
+	local title = ns:L("FWADV_TITLE_FMT"):format(cname)
+	local def = CLASS_LINES[token]
 	if def then
 		local lvl = (UnitLevel and UnitLevel("player")) or 1
 		local lines = {}
-		for _, key in ipairs(def.lines) do
-			lines[#lines + 1] = "- " .. Tokens(ns:L(key))
+		for _, entry in ipairs(def.lines) do
+			local key, maxLvl = entry, nil
+			if type(entry) == "table" then
+				key, maxLvl = entry[1], entry.maxLvl
+			end
+			if not maxLvl or lvl <= maxLvl then
+				lines[#lines + 1] = "- " .. Tokens(ns:L(key))
+			end
 		end
 		for _, s in ipairs(KnownAndLearn(def.learn, def.learn and "FWADV_LEARN_FMT" or "FWADV_LEARNANY_FMT", lvl)) do
 			lines[#lines + 1] = "- " .. s
 		end
-		local names = LOCALIZED_CLASS_NAMES_MALE
-		local cname = (names and names[token]) or (token:sub(1, 1) .. token:sub(2):lower())
-		return ns:L("FWADV_TITLE_FMT"):format(cname), table.concat(lines, "\n")
+		return title, table.concat(lines, "\n")
 	end
 	if token ~= "DRUID" then
 		return nil
@@ -432,7 +498,8 @@ function ns.ForeverWeaponAdvice()
 	local ap = G("STAT_ATTACK_POWER", "Attack Power")
 	local str, agi = G("SPELL_STAT1_NAME", "Strength"), G("SPELL_STAT2_NAME", "Agility")
 	local int, spi = G("SPELL_STAT4_NAME", "Intellect"), G("SPELL_STAT5_NAME", "Spirit")
-	local bear, cat = SpellName(BEAR), SpellName(CAT)
+	-- From level 40 the bear is Dire Bear Form (9634, GEMETEN; it replaces Bear Form, ForeverHowToPlay.lua).
+	local bear, cat = SpellName(lvl >= 40 and 9634 or BEAR), SpellName(CAT)
 	local lines = {}
 	local function Add(s)
 		lines[#lines + 1] = "- " .. s
@@ -451,40 +518,17 @@ function ns.ForeverWeaponAdvice()
 	else
 		Add(ns:L("FWADV_STATS_LOW_FMT"):format(str, ap, agi, dps))
 	end
-	Add(ns:L("FWADV_BEAR_FMT"):format("**" .. bear .. "**", SubName({ 4, 2 }, "Leather"), G("ARMOR", "Armor")))
+	if lvl >= 10 then -- no bear yet before 10 (Fable check 25 Nov)
+		Add(ns:L("FWADV_BEAR_FMT"):format("**" .. bear .. "**", SubName({ 4, 2 }, "Leather"), G("ARMOR", "Armor")))
+	end
 	Add(ns:L("FWADV_CAST_FMT"):format(int, spi))
 	Add(ns:L("FWADV_STAFF_FMT"):format(str, agi))
 	Add(ns:L("FWADV_ALL_FMT"):format(dps))
 	-- what you can use now, and where to learn the two-handers you do not know yet (your side's trainers)
-	local known, learn, side = {}, {}, Side()
-	for _, e in ipairs(MyWeapons()) do
-		if e.known then
-			known[#known + 1] = e.name
-		else
-			for _, k in ipairs(TWOHAND_KEYS) do
-				if e.w.key == k then
-					local who = {}
-					for _, t in ipairs(TRAINERS) do
-						if t.side == side and Teaches(t, e.w.spell) then
-							who[#who + 1] = ("%s, %s"):format(t.name, ZoneName(t.map))
-						end
-					end
-					local s = #who > 0 and ("%s (%s)"):format(e.name, table.concat(who, "; ")) or e.name
-					if e.w.level and lvl < e.w.level then
-						s = ns:L("FWADV_FROMLVL_FMT"):format(s, e.w.level)
-					end
-					learn[#learn + 1] = s
-				end
-			end
-		end
+	for _, s in ipairs(KnownAndLearn(TWOHAND_KEYS, "FWADV_LEARN_FMT", lvl)) do
+		Add(s)
 	end
-	if #known > 0 then
-		Add(ns:L("FWADV_KNOWN_FMT"):format(table.concat(known, ", ")))
-	end
-	if #learn > 0 then
-		Add(ns:L("FWADV_LEARN_FMT"):format(table.concat(learn, ", ")))
-	end
-	return ns:L("FWADV_TITLE"), table.concat(lines, "\n")
+	return title, table.concat(lines, "\n")
 end
 
 --- The way to a trainer's city when you are not there yet, or nil. sameCont: you are on the city's continent.
@@ -775,7 +819,7 @@ Fill = function()
 		end
 		f.dir:SetText(ns:L("FWEAP_DIR_FIT_FMT"):format(tree, table.concat(names, ", ")))
 	else
-		f.dir:SetText(ns:L("FWEAP_DIR_NONE_FMT"):format(tree))
+		f.dir:SetText(DirNoneText(tree))
 	end
 	if not cur then
 		f.head:SetText(ns:L("FWEAP_NONE"))
@@ -860,7 +904,7 @@ function ns.ForeverWeaponFindList()
 		end
 		dirText = ns:L("FWEAP_DIR_FIT_FMT"):format(tree, table.concat(names, ", "))
 	elseif band then
-		dirText = ns:L("FWEAP_DIR_NONE_FMT"):format(tree)
+		dirText = DirNoneText(tree)
 	end
 	return out, dirText
 end

@@ -45,25 +45,28 @@ spelersgidsen; 🟠 **BETWIST** / **NIET GEMETEN** = de wachter let hier extra o
 | Shield Bash/Block/Slam alleen met schild; Shield Slam schaalt met block value, Revenge met AP | FWADV_WAR_4 | SpellEquippedItems (72, 2565, 23922) | GEMETEN (schild-eis) / BRON (schaal) |
 | 🟠 Rage per wapensnelheid; crits extra | FWADV_WAR_5 | deep dive | BRON; percentage BETWIST (75% vs 100%) → niet genoemd |
 | Weaponmaster: axe/polearm crit, mace/staff armor, sword extra aanval | FWADV_WAR_7 | talent 12281 | BRON (Talent-tabel DB2 is verouderd) |
-| Tank-stats: Stamina, Armor, Agility | TANK.WARRIOR (ForeverMainStats.lua) | Icy Veins Prot 4 nov, wowhandbook | GIDS |
+| Tank-stats: Stamina, Armor, Agility (geen "weapon DPS first" meer voor tanks, Fable 25 nov) | TANK.WARRIOR (ForeverMainStats.lua) | Icy Veins Prot 4 nov, wowhandbook | GIDS |
 
 ## Paladin
 
 | bewering | waar | bron / meetpunt | status |
 |---|---|---|---|
-| Seal of Command ~7×/min → langzaam wapen | FWADV_PAL_2, _PAL_3 | gidsen (proc rate) | GIDS |
+| Seal of Command gaat af op sommige slagen met een deel van je wapenschade → langzaam wapen ("~7×/min" weg, 25 nov Fable: niet in Blizzard/DB2) | FWADV_PAL_2, _PAL_3 | gidsen | GIDS |
+| Tank-stats: Stamina, dan spell damage (vergroot Holy damage en dus threat) | FWADV_PAL_6; TANK.PALADIN, BY_TREE.PALADIN[2] (`spell`) | Blizzard hotfix-thread 2403040, post 12, 17 nov 2026: "We are leaning more into Paladin tanks favoring Spell Power as their primary stat for dealing damage" | BRON (lost "Prot Intellect" op) |
+| Ret: Champion of the Light maakt Intellect tot spell damage | FWADV_PAL_6 | talent 1311084 (SpellName GEMETEN) | BRON |
 | Seal of Fury (vanaf 10) voegt Holy damage per slag toe → snel wapen; schildbel en Holy Shield alleen met schild | FWADV_PAL_4 | deep dive 7 okt; SpellEquippedItems 20925 | BRON + GEMETEN (schild-eis) |
 | Geen staves/daggers/fist/ranged/wands, geen twee wapens | FWADV_PAL_5 | SkillRaceClassInfo | GEMETEN |
 | Two-Handed Weapon Specialization verlaagt threat met tweehander | FWADV_PAL_7 | gidsen / talent 20111 | GIDS |
 | Eerste libram vraagt level 20 | FWADV_PAL_8 | onderzoek (een item) | 🟠 NIET GEMETEN welke |
-| 🟠 Prot-stats Stamina, dan Intellect | TANK.PALADIN, BY_TREE.PALADIN[2] | gidsen verschillen | BETWIST (open voor Rob) |
 
 ## Shaman
 
 | bewering | waar | bron / meetpunt | status |
 |---|---|---|---|
 | Strength altijd eerst voor Enhancement | FWADV_SHA_5; BY_TREE.SHAMAN[2] | Blizzard blue post 6 nov; hotfix 10 nov (Mental Dexterity) | BRON |
-| 🟠 Two-Handed Axes/Maces zonder talent | FWADV_SHA_2 | onderzoek; waar talent 16269 komt NIET gemeten | NIET GEMETEN |
+| 🟠 Two-Handed Axes/Maces zonder talent: leer ze bij een weapon master | FWADV_SHA_2 | onderzoek; waar talent 16269 komt NIET gemeten | NIET GEMETEN |
+| Geen Dual Wield voor een Shaman | FWADV_SHA_1 | talentboom + trainerlijst; let op: SkillRaceClassInfo rij 2455 (Dual Wield, Shaman) bestaat WEL, een overblijfsel (ook in Era) | BRON (DB2-rij misleidend) |
+| Relic-Totem ≠ Earth/Fire/Water/Air Totem uit de class quests (die in de tas houden) | FWADV_SHA_8 | ItemSparse 5175-5178 | GEMETEN (items) |
 | Wapenbuffs Rockbiter 1, Flametongue 10, Frostbrand 20, Windfury 30; 60 min | FWADV_SHA_4 | onderzoek / SpellLevels | BRON (levels uit onderzoek) |
 | Resto: Intellect boven Spirit | BY_TREE.SHAMAN[3] | 6 gidsen | GIDS |
 | Totem of Charged Flames uit de Fire-quest op 10 | FWADV_SHA_8 | ItemSparse 263412 | GEMETEN (item) / BRON (quest) |
@@ -76,7 +79,7 @@ spelersgidsen; 🟠 **BETWIST** / **NIET GEMETEN** = de wachter let hier extra o
 | Geen maces | FWADV_HUN_6 | SkillRaceClassInfo | GEMETEN |
 | 🟠 Ammo wordt verbruikt; quiver/pouch +10% | FWADV_HUN_4 | Beta Dev Notes 24 sep ("not correctly consuming ammunition … corrected") en 16 okt; Wowhead-tooltips | BRON; ammo-gedrag was eerder kapot → let op |
 | Betere ammo op 10, 25, 40; schoten niet binnen 8 yards | FWADV_HUN_4, _HUN_5 | DB2 (ammo-levels), tooltips (8-35 yd) | GEMETEN / BRON |
-| Strider Kick vanaf 30 | FWADV_HUN_8 | onderzoek | 🟠 NIET GEMETEN (Talent-tabel verouderd) |
+| Strider Kick: talent, op z'n vroegst 30; Survival-lead: ranged-DPS onder 30, melee-DPS vanaf 30 | FWADV_HUN_8; BY_TREE.HUNTER[3] lead "survival" | GEMETEN door Sparring (Fable 25 nov) | GEMETEN |
 | Careful Aim maakt Intellect tot AP | FWADV_HUN_9; FOREVER_MAIN_STATS.HUNTER.later | talent 1223984 | BRON |
 
 ## Rogue
@@ -102,7 +105,9 @@ spelersgidsen; 🟠 **BETWIST** / **NIET GEMETEN** = de wachter let hier extra o
 | Create Firestone 28, Create Spellstone 36, op het wapen | FWADV_WLK_7 | SpellLevels 6366, 2362 | GEMETEN |
 | Life Tap schaalt met Spirit | FWADV_WLK_7; BY_TREE.WARLOCK[1] | onderzoek + tweede check | BRON |
 | 🟠 Warlock-Stamina in de stats | FOREVER_MAIN_STATS.WARLOCK, BY_TREE.WARLOCK[2]/[3] | gidsen | BETWIST (open voor Rob) |
-| Groene regel "Increases damage and healing done by magical spells" | FWADV_CAST_2 | Engelse itemtekst; vertalingen NIET de exacte clienttekst | 🟠 vertaling AFGELEID |
+| Groene regel in de eigen clienttekst (voorbeeldgetal 12) | FWADV_CAST_2 (token `<GF:TOOLTIP_ITEM_STAT_SPELL_POWER_INCREASE>`) | GlobalStrings 71091 (enUS + ruRU GEMETEN) | GEMETEN |
+| Mage-scrolls (imbue) 1 uur, meestal staf, soms dagger | FWADV_MAG_7 | ItemSparse 274947 Scroll of Imbue Lesser Flame (level 5) | GEMETEN (item) / BRON |
+| Druid zonder richting: Strength en Agility even zwaar | FOREVER_MAIN_STATS.DRUID | ChrClasses (2 AP per Str, 0 per Agi; Agi alleen AP in Cat Form, 20) | GEMETEN |
 
 ## Trefwoorden voor de wachter
 

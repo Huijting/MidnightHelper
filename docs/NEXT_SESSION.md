@@ -1,5 +1,22 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 25 nov (Bouwchat 25-11): "Which weapon?" — Fable-controle VERWERKT (alle 9), wacht op test (`/reload`)
+
+Rob via Sparring: *"Maak ze maar een voor een compleet af daarna de controle"* — dit is die controle.
+CODE (ForeverWeapons.lua): token `<GF:NAME|n|en>` (clientstring met voorbeeldgetal via gsub, dus %1$d werkt ook) en
+`<W:c.s|en>` (item-subklasse); ru-override FWADV_DPS_WORD (ruRU ITEM_MOD_DAMAGE_PER_SECOND_SHORT = "к урону в секунду",
+GEMETEN); Wands (5009) in "already use" voor casters; regels met `maxLvl` (First wand tot 20); titel via UnitClass (eerste
+waarde) voor alle 9; items 247789/11287/263412/274947/20750/5175-5178 bij het laden opgevraagd; Druid Dire Bear (9634) vanaf
+40, beer-armorregel pas vanaf 10; DirNoneText: Feral krijgt FWEAP_DIR_FORM_FMT. Comments: datums (Paladin 15 okt, Mage &
+Shaman 7 okt), Shaman Dual Wield rij 2455 bestaat wel (overblijfsel), talentlevels "at the earliest".
+STATS: Druid-klasse-rij {Strength, Agility} equal (was Agi 1 / Str 0,5 in de tooltip-rekensom; nu allebei 1); TANK.WARRIOR
+en TANK.DRUID zonder DPS-lead (A7: tanks = Stamina eerst, overal); Paladin tank (TANK + BY_TREE[2]) = {Stamina} + `spell`
+("Stamina, then spell damage"; Blizzard hotfix-thread 2403040 post 12, 17 nov) — Intellect weg, open punt "Prot Intellect"
+OPGELOST, en de tooltip-rekensom voor Prot weegt nu alleen Stamina; Survival lead "survival" (ranged <30, melee ≥30).
+TEKST (enUS): CAST_1/_2/_4, MAG_7 (Scroll of Imbue Lesser Flame 274947), WLK_7 (Wizard Oil 20750 als token), PAL_3/_4/_6/_7,
+WAR_5, ROG_4/_5/_8, HUN_6/_8/_9, SHA_2/_8 (Totem-items 5175-5178), FWEAP_DIR_NONE/FORM_FMT, FDONOW_STAT_SPELLDMG; vertalingen
+door mh-writer (zie de commit). wadv_test 104/104. Nog open voor Rob: Warlock-Stamina.
+
 ## ▶▶ 25 nov (Bouwchat 25-11): de ochtendwachters bewaken het wapenadvies (register + vaste stap)
 
 Rob via Sparring: *"Zorg er ook voor dat in onze controlerondes elke dag gecontroleerd wordt of er wijzigingen zijn die hier

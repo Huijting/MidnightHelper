@@ -28,7 +28,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
-## 25 nov 2026 — Forever: "Which weapon?" voor alle 9 classes
+## 25 nov 2026 — Forever: "Which weapon?" voor alle 9 classes (Fable-controle verwerkt 25 nov)
 - Tag + commit:   geen tag (commit: deze regel)
 - Status:         alleen op main
 - Mag op de site: nee (niet uit, niet getest; Fable-ronde vóór release)
