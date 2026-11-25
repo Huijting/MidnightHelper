@@ -28,10 +28,10 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
-## 25 nov 2026 — RELEASE 5.10.0 (alle regels hieronder van 25 nov, ná 5.9.1)
-- Tag + commit:   v5.10.0 / (de release-commit, zie git log)
-- Status:         getagd
-- Mag op de site: ja zodra "staat op CurseForge" (Rob via Sparring: "breng 5.10.0 maar uit 🙂 , mee eens ?")
+## 25 nov 2026 — RELEASE 5.10.0, staat op CurseForge (alle regels hieronder van 25 nov, ná 5.9.1)
+- Tag + commit:   v5.10.0 / 154e195
+- Status:         staat op CurseForge (bestanden 9816083 Midnight, 9816110 Forever; Release)
+- Mag op de site: ja (Rob via Sparring: "breng 5.10.0 maar uit 🙂 , mee eens ?")
 - Speler ziet:    Which weapon? (alle 9 classes), How you play in tabbladen, andere characters in tooltips (beide
                   games), Gear check enchants, betere "better than what you wear" (enchant, spell damage, healing),
                   Warlock-stats, taunts op de muis, toetsenblok-intro-fix. Tekst: docs/CURSEFORGE_5.10.0.md.
@@ -41,7 +41,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ## 25 nov 2026 — Forever: Warlock-stats: spell damage, dan Intellect en Spirit
 - Tag + commit:   v5.10.0
-- Status:         getagd (v5.10.0)
+- Status:         staat op CurseForge (v5.10.0)
 - Mag op de site: ja, zodra 5.10.0 op CurseForge staat (zie de release-regel bovenaan)
 - Speler ziet:    Voor een Warlock (elke richting) zegt MH: spell damage eerst, dan Intellect en Spirit even belangrijk.
                   Stamina is geen hoofdstat meer; het beslist alleen tussen twee gelijke items. De groene
@@ -52,7 +52,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ## 25 nov 2026 — Forever: "How you play" in tabbladen
 - Tag + commit:   v5.10.0
-- Status:         getagd (v5.10.0)
+- Status:         staat op CurseForge (v5.10.0)
 - Mag op de site: ja, zodra 5.10.0 op CurseForge staat (zie de release-regel bovenaan)
 - Speler ziet:    How you play is geen lange lap meer: links tabbladen Start, Your keys, Weapon & stats, Group en
                   Levels, met de kopjes van het open tabblad eronder. Het onthoudt je laatste tabblad. Lege tabbladen
@@ -63,7 +63,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ## 25 nov 2026 — Forever: "Which weapon?" voor alle 9 classes (Fable-controle verwerkt 25 nov)
 - Tag + commit:   v5.10.0
-- Status:         getagd (v5.10.0)
+- Status:         staat op CurseForge (v5.10.0)
 - Mag op de site: ja, zodra 5.10.0 op CurseForge staat (zie de release-regel bovenaan)
 - Speler ziet:    In How you play een blok "Which weapon? (Druid)": in Bear en Cat Form telt de damage per second van je
                   wapen; een tweehander wint bijna altijd; wat Strength en Agility doen; casten en healen; welke
@@ -75,7 +75,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ## 25 nov 2026 — Forever: Gear check: enchants naast je character-venster
 - Tag + commit:   v5.10.0
-- Status:         getagd (v5.10.0)
+- Status:         staat op CurseForge (v5.10.0)
 - Mag op de site: ja, zodra 5.10.0 op CurseForge staat (zie de release-regel bovenaan)
 - Speler ziet:    Naast het character-venster per vakje dat een enchant kan krijgen de enchant, of "no enchant". Voor een
                   enchanter ook "you can make this yourself". Onder Now: hoeveel vakjes geen enchant hebben, en je toets
@@ -87,7 +87,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ## 25 nov 2026 — tooltip: welke van je andere characters een recept of materiaal kan gebruiken
 - Tag + commit:   v5.10.0
-- Status:         getagd (v5.10.0)
+- Status:         staat op CurseForge (v5.10.0)
 - Mag op de site: ja, zodra 5.10.0 op CurseForge staat (zie de release-regel bovenaan)
 - Speler ziet:    Op een recept: je andere characters met dat beroep, met hun skill (Forever ook "needs 50", "can learn
                   it", "knows it"). Op een materiaal: welke andere characters een beroep hebben dat het gebruikt. Op een
@@ -102,7 +102,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ## 25 nov 2026 — spiekbrief-code MH-KEYBLOCK: `layout=` en `game=` (afgesproken met de site-chat)
 - Tag + commit:   v5.10.0
-- Status:         getagd (v5.10.0)
+- Status:         staat op CurseForge (v5.10.0)
 - Mag op de site: ja, het 12 × 4-raster mag live zodra het werkt: de site leest beide formaten (met en zonder `layout=`)
 - Speler ziet:    De spiekbrief op de site toont het toetsenblok zoals de speler het heeft, ook 12 × 4.
                   Contract: regel 2 eindigt op `;layout=old|12x4;game=midnight|forever`; eerste regel blijft "MH-KEYBLOCK 1".
@@ -114,7 +114,7 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ## 25 nov 2026 — Forever: taunts op de muis (Growl, Taunt, Mocking Blow, Distracting Shot)
 - Tag + commit:   geen tag (commit: 1769f5f)
-- Status:         getagd (v5.10.0)
+- Status:         staat op CurseForge (v5.10.0)
 - Mag op de site: ja, zodra 5.10.0 op CurseForge staat (zie de release-regel bovenaan)
 - Speler ziet:    Met `/mh mouseover on` gaat je taunt naar de vijand onder je muis, anders naar je target.
 - Knoplabels:     geen nieuwe

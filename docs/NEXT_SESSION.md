@@ -2,6 +2,10 @@
 
 ## ▶▶ 25 nov (Bouwchat 25-11): RELEASE 5.10.0 (Rob via Sparring: *"breng 5.10.0 maar uit 🙂 , mee eens ?"*)
 
+✅ STAAT OP CURSEFORGE (GEMETEN, files-API): 9816083 `MidnightHelper-v5.10.0.zip` (12.0.7/12.1.0/12.1.5/12.1.7) en
+9816110 `MidnightHelper-v5.10.0-forever.zip` (1.60.1), beide releaseType 1 (Release), status 4. Tag v5.10.0 = 154e195;
+run 45688975346 groen; GitHub-release 2 zips + release.json. SITE_SEIN op "staat op CurseForge".
+
 Gewone release, geen beta, beide games. Inhoud v5.9.1..55ba32a (35 commits). Beide toc's 5.10.0; Changelog.lua +
 CHANGELOG_5100_1.._7 (enUS); `RELEASE_NOTES.md` = `docs/CURSEFORGE_5.10.0.md` (GEMETEN byte-gelijk, 73 regels, 4131
 bytes), zonder de beta-zin (geen betas sinds 4.14.0-beta2), met "restart the game once" (nieuwe bestanden AltProfTip.lua
