@@ -255,9 +255,113 @@ local function SubName(sub, fallback)
 	return fallback
 end
 
+--[[ The other classes (25 Nov 2026, Rob via Sparring: "Maak ze maar een voor een compleet af daarna de controle"; one
+	commit per class, Fable check when all nine are done). Each text = mh-research + an independent second check (Sparring,
+	25 Nov). The lines are locale keys with tokens that the client fills in, so a game word is always what THAT client
+	shows and no translator has to guess it:
+	  <S:id>        spell name (C_Spell.GetSpellName; every id GEMETEN in DB2 SpellName 1.60.1.71091, 25 Nov)
+	  <G:NAME|en>   a Blizzard global string (GlobalStrings, GEMETEN), English if missing
+	  <I:id|en>     item name (C_Item.GetItemNameByID; may be nil until the client has the item: then English)
+	Shared facts (DB2 SkillRaceClassInfo 71091, GEMETEN): any weapon skill from level 1 (10 silver), Polearms from 20
+	(1 gold), Dual Wield Warrior/Hunter 20, Plate 40 (Warrior/Paladin), Mail 40 (Hunter/Shaman). Racial weapon bonuses are
+	gone: Human 20597 = "Ruthless", Orc 20574 = "Savage" (SpellName). The DB2 Talent table is out of date, so no line names
+	"from level X" for a talent. `learn` = the weapon keys the "still learn" line lists (nil = every weapon of the class). ]]
+local CLASS_LINES = {
+	-- Warrior. Sources: Blizzard Forever Class Deep Dive Warrior (Sep/Oct 2026: Mortal Strike/Overpower/Slam add a weapon
+	-- hit, rage from swing speed), Icy Veins Arms/Fury/Protection (Nov 2026), Warcraft Tavern stats. Rage %: Blizzard
+	-- said 75%, later sources 100% -> no number. Spells: Mortal Strike 12294, Overpower 7384, Slam 1464, Dual Wield 674,
+	-- Defensive Stance 71, Shield Bash 72, Shield Block 2565, Shield Slam 23922, Revenge 6572, Shield (skill) 9116,
+	-- Weaponmaster 12281, Two-Handed Weapon Specialization 12163.
+	WARRIOR = { lines = { "FWADV_WAR_1", "FWADV_WAR_2", "FWADV_WAR_3", "FWADV_WAR_4", "FWADV_WAR_5", "FWADV_WAR_6",
+		"FWADV_WAR_7", "FWADV_WAR_8" } },
+}
+ns.FOREVER_WEAPON_ADVICE_LINES = CLASS_LINES -- the offline check reads it
+
+local function ItemNameOf(id)
+	local fn = C_Item and C_Item.GetItemNameByID
+	if fn then
+		local ok, n = pcall(fn, id)
+		if ok and type(n) == "string" and n ~= "" then
+			return n
+		end
+	end
+	return nil
+end
+
+--- Fill the <S:..>, <G:..> and <I:..> tokens of a line.
+local function Tokens(s)
+	s = s:gsub("<S:(%d+)>", function(id)
+		return SpellName(tonumber(id))
+	end)
+	s = s:gsub("<G:([%w_]+)|([^>]*)>", function(name, en)
+		return G(name, en)
+	end)
+	s = s:gsub("<I:(%d+)|([^>]*)>", function(id, en)
+		return ItemNameOf(tonumber(id)) or en
+	end)
+	-- <T:n> = this class's talent tree n, by the client's own name (ns.ForeverSpecName, DB2 TalentTab, ForeverMacros.lua)
+	s = s:gsub("<T:(%d)>", function(band)
+		local _, cls = UnitClass("player")
+		return (ns.ForeverSpecName and ns.ForeverSpecName(cls, tonumber(band))) or ("#" .. band)
+	end)
+	return s
+end
+ns.ForeverWeaponAdviceTokens = Tokens
+
+--- "You can already use: …" and "… you can still learn: …" (your side's trainers), as lines.
+local function KnownAndLearn(keys, learnFmt, lvl)
+	local wanted
+	if keys then
+		wanted = {}
+		for _, k in ipairs(keys) do
+			wanted[k] = true
+		end
+	end
+	local known, learn, side = {}, {}, Side()
+	for _, e in ipairs(MyWeapons()) do
+		if e.known then
+			known[#known + 1] = e.name
+		elseif not wanted or wanted[e.w.key] then
+			local who = {}
+			for _, t in ipairs(TRAINERS) do
+				if t.side == side and Teaches(t, e.w.spell) then
+					who[#who + 1] = ("%s, %s"):format(t.name, ZoneName(t.map))
+				end
+			end
+			local s = #who > 0 and ("%s (%s)"):format(e.name, table.concat(who, "; ")) or e.name
+			if e.w.level and lvl < e.w.level then
+				s = ns:L("FWADV_FROMLVL_FMT"):format(s, e.w.level)
+			end
+			learn[#learn + 1] = s
+		end
+	end
+	local out = {}
+	if #known > 0 then
+		out[#out + 1] = ns:L("FWADV_KNOWN_FMT"):format(table.concat(known, ", "))
+	end
+	if #learn > 0 then
+		out[#out + 1] = ns:L(learnFmt):format(table.concat(learn, ", "))
+	end
+	return out
+end
+
 --- title, body (raw: "- " lines, **bold**) for this character, or nil when there is no text for this class.
 function ns.ForeverWeaponAdvice()
 	local _, token = UnitClass("player")
+	local def = CLASS_LINES[token or ""]
+	if def then
+		local lvl = (UnitLevel and UnitLevel("player")) or 1
+		local lines = {}
+		for _, key in ipairs(def.lines) do
+			lines[#lines + 1] = "- " .. Tokens(ns:L(key))
+		end
+		for _, s in ipairs(KnownAndLearn(def.learn, def.learn and "FWADV_LEARN_FMT" or "FWADV_LEARNANY_FMT", lvl)) do
+			lines[#lines + 1] = "- " .. s
+		end
+		local names = LOCALIZED_CLASS_NAMES_MALE
+		local cname = (names and names[token]) or (token:sub(1, 1) .. token:sub(2):lower())
+		return ns:L("FWADV_TITLE_FMT"):format(cname), table.concat(lines, "\n")
+	end
 	if token ~= "DRUID" then
 		return nil
 	end

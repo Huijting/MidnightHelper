@@ -1,5 +1,22 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 25 nov (Bouwchat 25-11): "Which weapon?" — Warrior GEBOUWD (1 van 8 na de Druid), wacht op test (`/reload`)
+
+Rob via Sparring: *"Maak ze maar een voor een compleet af daarna de controle"*; volgorde Warrior → Paladin → Shaman →
+Hunter → Rogue → casters, één commit per class, Fable-controle als alle 9 klaar zijn. Tekst = Sparring's verbeterde
+versie (mh-research + tweede check, 25 nov).
+- Algemene motor in `ForeverWeapons.lua`: CLASS_LINES[class].lines = locale-keys met tokens die de client invult:
+  `<S:id>` spellnaam, `<G:NAME|en>` Blizzard-global, `<I:id|en>` itemnaam, `<T:n>` talent-boom (ns.ForeverSpecName,
+  DB2 TalentTab). Daarna "You can already use" + "Weapons you can still learn" (FWADV_LEARNANY_FMT; `learn` = alleen
+  bepaalde soorten). Titel FWADV_TITLE_FMT met de client-classnaam. Druid blijft zijn eigen code.
+- Warrior: FWADV_WAR_1..8 (8 talen). Spell-id's GEMETEN in DB2 SpellName 71091: Mortal Strike 12294, Overpower 7384,
+  Slam 1464, Dual Wield 674, Defensive Stance 71, Shield Bash 72, Shield Block 2565, Shield Slam 23922, Revenge 6572,
+  Shield 9116, Weaponmaster 12281, Two-Handed Weapon Specialization 12163; RAGE, SPELL_STAT1..5 (GlobalStrings).
+- Stats: WARRIOR lead = dps; TANK.WARRIOR = Stamina, Armor, Agility (was Stamina = Strength "equal"; Icy Veins Prot 4 nov +
+  wowhandbook: Agi vóór Str). Tooltip-rekensom ongewijzigd (TANK wordt alleen als tekst gebruikt).
+- Scratch-controle `tokcheck.py`: elke FWADV-sleutel in 8 talen met dezelfde tokens en ** als het Engels (24 sleutels, 0
+  fouten). wadv_test 30/30.
+
 ## ▶▶ 25 nov (Bouwchat 25-11): Forever "Which weapon?" voor de Druid + stats-zin — GEBOUWD, wacht op test (`/reload`)
 
 Rob via Sparring: *"… begin maar met de Druid inderdaad"* → *"Ja"*. Feiten van Sparring (mh-research + tweede check, 25 nov;

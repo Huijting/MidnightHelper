@@ -25,6 +25,16 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 25 nov — FOREVER: "Which weapon?" voor de Warrior (Rob: "Maak ze maar een voor een compleet af daarna de controle")
+
+Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (30 controles), NIET in het spel.
+- [ ] Een Warrior: How you play → blok **Which weapon? (Warrior)**: damage per second; Arms (Mortal Strike, Overpower,
+      Slam); Fury met Dual Wield vanaf 20; tanken met Defensive Stance en een Shield; Rage; stats; Weaponmaster; ranged
+      slot. Onderaan wat je al kunt en welke wapens je nog kunt leren, met de leraar van jouw kant. Geen `<` of `#` in de
+      tekst (dan ontbreekt een naam).
+- [ ] Do this now: "Best stats for you now: weapon damage per second first, then Strength, then Agility …"; "When you
+      tank: weapon damage per second first, then Stamina, then Armor, then Agility."
+
 ## 25 nov — FOREVER: "Which weapon?" voor de Druid + betere stats-zin (Rob: "Zoek het eens eventjes goed uit en begin maar met de Druid")
 
 Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (20 controles), NIET in het spel.

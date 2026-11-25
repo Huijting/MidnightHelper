@@ -22,7 +22,7 @@ if not ns.IS_FOREVER then
 end
 
 ns.FOREVER_MAIN_STATS = {
-	WARRIOR = { main = { "STRENGTH", "AGILITY" }, stamTie = true },
+	WARRIOR = { main = { "STRENGTH", "AGILITY" }, stamTie = true, lead = "dps" },
 	PALADIN = { main = { "STRENGTH", "INTELLECT" }, stamTie = true,
 		later = { talent = "Champion of the Light", main = { "INTELLECT", "STRENGTH" } } },
 	HUNTER = { main = { "AGILITY", "SPIRIT" }, stamTie = false,
@@ -96,7 +96,10 @@ local BY_TREE = {
 
 -- Second line in "Do this now": when you tank.
 local TANK = {
-	WARRIOR = { main = { "STAMINA", "STRENGTH" }, equal = true }, -- guides disagree (Icy Veins leveling: Str first)
+	-- 25 Nov 2026 (Sparring's research + second check): Stamina, then Armor, then Agility. Icy Veins Protection (4 Nov
+	-- 2026) and wowhandbook put Agility before Strength for a tank. The old note here ("Icy Veins leveling: Str first")
+	-- was about levelling, not tanking. Text only gets the weapon DPS lead and Armor (`lead`, `armor`).
+	WARRIOR = { main = { "STAMINA", "AGILITY" }, lead = "dps", armor = true },
 	-- 21 Nov 2026 (Rob via sparring: "welke talentpunten" / tanking a Paladin; GO "Ja, voeg dat maar toe"): was Stamina,
 	-- then Strength (16 Nov research, no guide named for that row). Read today: wowforeverbuilder.com Protection page
 	-- (talent snapshot 3 Nov, client 1.60.1.70753) "Defense to 440, Stamina, Spell power, Intellect, Block value, Armor",
