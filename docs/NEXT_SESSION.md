@@ -1,5 +1,17 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 25 nov (Bouwchat 25-11): Druid "Which weapon?" — caster-staf-regel GEREPAREERD (`/reload`)
+
+🔴 FWADV_STAFF_FMT zei "a caster staff hits about as hard in a form" — FOUT (ook in de opdracht van toen). De DB2-tabellen
+ItemDamage*Caster zijn gelijk aan de gewone, maar echte caster-items (ItemSparse Flags_4 0x100) tonen ~74% DPS (staven) en
+~66% (daggers): Sparring mat 120 staven + 31 daggers op Wowhead Forever (Ley Staff 5.34 vs 7.14 ilvl 10, Icicle Rod 12.5 vs
+16.9, Staff of the Deeproar 33.48 vs 45.0); Blizzard hotfix 17 nov (Kaivax, thread 2403040). Nieuwe tekst in 8 talen; de
+"(GEMETEN)"-comment in ForeverWeapons.lua gecorrigeerd. Les: een DB2-tabel is geen bewijs van wat het item toont.
+Tooltip-check (alleen gelezen, niets veranderd): ForeverQuestHint `Stats()` leest alleen de 5 hoofdstats, armor en DPS
+(GetItemStats + tooltipregels "%s Armor" / DPS) — spell damage/healing van een wapen telt NIET mee in "beter dan wat je
+draagt" (AFGELEID uit de code; GetItemStats op Forever voor zo'n item niet gemeten). Tool-bug (Sparring): `run gamedata
+item` laat tooltipregels weg (Whiteout Staff 19101: "+25 Intellect", "Equip: … spell damage"); de ruwe JSON heeft ze.
+
 ## ▶▶ 25 nov (Bouwchat 25-11): "Which weapon?" — Rogue GEBOUWD, wacht op test (`/reload`). Volgende: Mage, Priest, Warlock
 
 FWADV_ROG_1..8 (8 talen), CLASS_LINES.ROGUE. GEMETEN (DB2 SpellName 71091): Backstab 53, Ambush 8676, Shank 1329283

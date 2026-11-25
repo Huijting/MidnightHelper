@@ -228,8 +228,13 @@ end
 	2026, and DB2 1.60.1.71091):
 	  - in Bear/Cat/Dire Bear Form your auto attack does the damage per second of your weapon; the form sets the speed
 	    (SpellShapeshiftForm: Cat 1.0 s, Bear 2.5 s). Weapon enchants and procs work in a form too. (GEMETEN)
-	  - two-hand DPS is about 1.3x one-hand at the same item level and quality; caster tables are the same as the normal
-	    ones (ItemDamageTwoHand/OneHand), so a caster staff hits as hard in a form as another staff. (GEMETEN)
+	  - two-hand DPS is about 1.3x one-hand at the same item level and quality (ItemDamageTwoHand/OneHand, GEMETEN).
+	    🔴 CORRECTED 25 Nov 2026 (Sparring's research): the DB2 caster tables (ItemDamage*Caster) are the same as the normal
+	    ones, but that table is NOT what the client uses for caster items. Real items with ItemSparse Flags_4 bit 0x100
+	    show ~74% of the DPS (staves) and ~66% (daggers): 120 staves + 31 daggers on Wowhead Forever, per pair per item
+	    level (Ley Staff 5.34 vs 7.14 at ilvl 10, Icicle Rod 12.5 vs 16.9, Staff of the Deeproar 33.48 vs 45.0); Blizzard
+	    hotfix 17 Nov (Kaivax, thread 2403040): "74 Spell Power from Weapon damage". So a caster staff hits SOFTER in a
+	    form. The earlier "(GEMETEN) hits as hard" here was a wrong conclusion from the DB2 table alone.
 	  - Druid: 2 attack power per Strength, 0 per Agility; Agility gives attack power only in Cat Form (ChrClasses,
 	    GlobalStrings DRUID_AGILITY_TOOLTIP). Bear Form +180% armor from items. (GEMETEN)
 	  - Bear Form 10, Cat Form 20. Form spells 5487 / 768 / 9634 (SpellName, GEMETEN 25 Nov).

@@ -97,6 +97,8 @@ Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (20 co
       Balance: "bonus damage and healing for spells first, then Intellect, then Spirit". Restoration: "bonus healing for
       spells first, …".
 - [ ] Een ander class (bv. je Paladin): geen blok "Which weapon?".
+- [ ] 🔧 25 nov gerepareerd: de regel over de caster-staf zegt nu "about a quarter less damage per second … hits softer in
+      a form … Compare the damage per second on the item." (was fout: "hits about as hard").
 
 ## 25 nov — BEIDE GAMES: bank-characters uit "who can wear this" (Rob: "Wat betreft de bankkarakters ga ik mee met je advies. A.")
 
