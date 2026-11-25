@@ -7263,6 +7263,11 @@ ns._mhLocales.enUS = {
 	FOV_Q_DISENCHANT_DESC = "For enchanters: a line on weapon and armor tooltips, and a small Disenchant icon on the items in your bags that can (Blizzard bags and Baganator). Same as /mh disenchant on|off.",
 	FOV_Q_DISENCHANTNEXT = "Disenchant next button",
 	FOV_Q_DISENCHANTNEXT_DESC = "A button with the next item in your bags that can be disenchanted. You click it yourself: one click is one Disenchant. Right-click skips an item. Same as /mh disenchant next on|off.",
+	-- 25 Nov 2026: Ctrl+Shift+click on a bag item disenchants it (ForeverDisenchant.lua, section 4).
+	FOV_Q_DISENCHANTCLICK = "Ctrl+Shift+click disenchants",
+	FOV_Q_DISENCHANTCLICK_DESC = "Hold Ctrl+Shift and click an item in your bags (Blizzard's bags or Baganator): MH disenchants it. Only items that can, only on a character with Enchanting, never in combat. Without Ctrl+Shift your bags work as always. Same as /mh disenchant click on|off.",
+	FDE_CLICK_HINT = "Ctrl+Shift+click: disenchant this item",
+	FDE_CLICK_ARMED = "Click now: Disenchant this item (one click is one Disenchant). Let go of Ctrl+Shift and your bag works as always.",
 	FOV_FIND_TIP_OPEN = "Click to open this heading. MH remembers it.",
 	FOV_FIND_TIP_CLOSE = "Click to fold this heading away. MH remembers it; the search bar still finds what is inside.",
 	FCITY_CAT_TRANSPORT = "Boats, zeppelins & portals",

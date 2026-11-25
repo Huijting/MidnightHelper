@@ -26,6 +26,23 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 
 ## Open — wacht op Rob
 
+### Forever: Ctrl+Shift+klik op een tasitem = Disenchant (wens van Rob, 25 nov) — ✅ JA, GEBOUWD 25 nov, wacht op test
+- Bron: Rob via Sparring 25-11, letterlijk: *"Kunnen wij een knop in de tooltip bouwen als we een item kunnen
+  disenchanten? Zodat ik niet eerst disenchant moet drukken, dan het ding wat ik wil disenchanten, maar dat we gewoon de
+  tooltip daarvan kunnen gebruiken."*; op het voorstel: *"Ja, een chanter is een forever karakter. En we beginnen
+  inderdaad met digijant eerst."* Gezien in ForeverForge Bags (licentie onbekend): niets overgenomen.
+- Gebouwd (`ForeverDisenchant.lua` deel 4): Ctrl+Shift+linksklik op een item dat kan (verdict "yes") in Blizzard-tassen of
+  Baganator = Disenchant op dát item. Alleen met Enchanting, nooit in een gevecht, zonder Ctrl+Shift werkt de tas gewoon.
+  Tooltipregel als het kan. Schakelaar (aan) in de stille helpers + `/mh disenchant click on|off`.
+- Spel: F. Voor wie: N + V (AFGELEID).
+
+### Forever: Prospecting en Milling met dezelfde Ctrl+Shift+klik (wens van Rob, 25 nov) — LATER
+- Bron: Rob via Sparring 25-11, letterlijk: *"En dan kunnen we prospecting en mailing later kijken. Want het hoort er wel
+  bij. Hoewel ik het niet heb, maar het hoort er wel bij."* (Willow: mailing = Milling.)
+- Idee: hetzelfde vakje-knopje, maar met de spell die bij het item past (erts → Prospecting, kruiden → Milling). Eerst
+  meten of Forever die beroepen/spells heeft en welke items het kunnen. Niets gebouwd.
+- Spel: F. Voor wie: N + V (AFGELEID).
+
 ### Toetsenblok: knop voor de indeling + 12 × 4 ook in Midnight (wens van Rob, 24 nov) — ✅ JA; stap 1 + 2 GEBOUWD; in Midnight GETEST op de Prot Paladin (25 nov)
 - ✅ 25 nov, Rob via Sparring, letterlijk (ruw, Willow): *"Ik heb overigens daar ook, en het was in Midnight, alle key
   bindings gezet zoals de nieuwe versie doet. En dat werkt ook keurig. De wisselknop, die zat er netjes in."* En:

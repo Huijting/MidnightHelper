@@ -865,6 +865,10 @@ for k, v in pairs({
 	FOV_Q_DISENCHANT_DESC = "Para encantadores: uma linha na dica de armas e armaduras, e um pequeno ícone de Desencantar nos itens das suas bolsas que podem (bolsas da Blizzard e Baganator). O mesmo que /mh disenchant on|off.",
 	FOV_Q_DISENCHANTNEXT = "Botão: desencantar o próximo",
 	FOV_Q_DISENCHANTNEXT_DESC = "Um botão com o próximo item das suas bolsas que pode ser desencantado. Você mesmo clica: um clique é um Desencantar. Clique direito pula um item. O mesmo que /mh disenchant next on|off.",
+	FOV_Q_DISENCHANTCLICK = "Ctrl+Shift+clique desencanta",
+	FOV_Q_DISENCHANTCLICK_DESC = "Segure Ctrl+Shift e clique num item das suas bolsas (bolsas da Blizzard ou Baganator): o MH o desencanta. Só itens que podem, só com Encantamento, nunca em combate. Sem Ctrl+Shift suas bolsas funcionam como sempre. O mesmo que /mh disenchant click on|off.",
+	FDE_CLICK_HINT = "Ctrl+Shift+clique: desencantar este item",
+	FDE_CLICK_ARMED = "Clique agora: desencantar este item (um clique é um Desencantar). Solte Ctrl+Shift e sua bolsa funciona como sempre.",
 	-- Ranks choice window (18 Nov 2026). "grau" as in the FRANK_* lines of Translations2026.lua.
 	FRANK_WIN_TITLE = "Graus antigos nas suas barras",
 	FRANK_WIN_SUB = "Marque o que deve ir para o seu grau mais alto. Uma barra ou um botão que você mantém de propósito num grau mais baixo (para poupar mana, por exemplo): marque \"nunca\". O MH lembra disso para este personagem.",

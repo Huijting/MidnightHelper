@@ -1374,6 +1374,14 @@ local QUIET = {
 			if ns.ForeverDisenchantRefresh then ns.ForeverDisenchantRefresh() end
 		end }
 	end)()),
+	-- 25 Nov 2026 (Rob via sparring: "Ja"): Ctrl+Shift+click on a bag item disenchants it (ForeverDisenchant.lua, section 4).
+	Q("FOV_Q_DISENCHANTCLICK", "FOV_Q_DISENCHANTCLICK_DESC", (function()
+		local f = DbFlag("foreverDisenchantClick", true)
+		return { get = f.get, set = function(on)
+			f.set(on)
+			if ns.ForeverDisenchantRefresh then ns.ForeverDisenchantRefresh() end
+		end }
+	end)()),
 	{ head = "FOV_Q_HEAD_WARN" },
 	Q("FOV_Q_BAGS", "FOV_Q_BAGS_DESC", Warn("bags")),
 	-- 22 Nov 2026 (Rob via sparring: "tas 1 2 3", 2): the Bags full window already at almost full (ForeverBagFull.lua).

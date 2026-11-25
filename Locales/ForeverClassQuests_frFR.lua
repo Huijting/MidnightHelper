@@ -507,6 +507,10 @@ for k, v in pairs({
 	FOV_Q_DISENCHANT_DESC = "Pour les enchanteurs : une ligne dans l'infobulle des armes et armures, et une petite icône Désenchanter sur les objets de tes sacs qui le peuvent (sacs Blizzard et Baganator). Comme /mh disenchant on|off.",
 	FOV_Q_DISENCHANTNEXT = "Bouton : désenchanter le suivant",
 	FOV_Q_DISENCHANTNEXT_DESC = "Un bouton avec le prochain objet de tes sacs qui peut être désenchanté. Tu cliques toi-même : un clic = un Désenchanter. Clic droit pour passer un objet. Comme /mh disenchant next on|off.",
+	FOV_Q_DISENCHANTCLICK = "Ctrl+Maj+clic désenchante",
+	FOV_Q_DISENCHANTCLICK_DESC = "Maintiens Ctrl+Maj et clique sur un objet de tes sacs (sacs Blizzard ou Baganator) : MH le désenchante. Seulement les objets désenchantables, seulement avec Enchantement, jamais en combat. Sans Ctrl+Maj, tes sacs fonctionnent comme d'habitude. Comme /mh disenchant click on|off.",
+	FDE_CLICK_HINT = "Ctrl+Maj+clic : désenchanter cet objet",
+	FDE_CLICK_ARMED = "Clique maintenant : désenchanter cet objet (un clic = un Désenchanter). Relâche Ctrl+Maj et ton sac fonctionne comme d'habitude.",
 	-- Ranks choice window (18 Nov 2026). "rang" as in the FRANK_* lines of Translations2026.lua.
 	FRANK_WIN_TITLE = "Anciens rangs sur tes barres",
 	FRANK_WIN_SUB = "Coche ce qui doit passer à ton rang le plus haut. Une barre ou un bouton que tu gardes exprès à un rang inférieur (pour économiser du mana, par exemple) : coche \"jamais\". MH s'en souvient pour ce personnage.",

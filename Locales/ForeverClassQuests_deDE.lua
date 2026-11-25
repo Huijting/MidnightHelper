@@ -505,6 +505,10 @@ for k, v in pairs({
 	FOV_Q_DISENCHANT_DESC = "Für Verzauberer: eine Zeile im Tooltip von Waffen und Rüstung und ein kleines Entzaubern-Symbol auf den Gegenständen in deinen Taschen, die es können (Blizzard-Taschen und Baganator). Dasselbe wie /mh disenchant on|off.",
 	FOV_Q_DISENCHANTNEXT = "Knopf: als Nächstes entzaubern",
 	FOV_Q_DISENCHANTNEXT_DESC = "Ein Knopf mit dem nächsten Gegenstand in deinen Taschen, der entzaubert werden kann. Du klickst selbst: ein Klick ist ein Entzaubern. Rechtsklick überspringt. Dasselbe wie /mh disenchant next on|off.",
+	FOV_Q_DISENCHANTCLICK = "Strg+Umschalt+Klick entzaubert",
+	FOV_Q_DISENCHANTCLICK_DESC = "Halte Strg+Umschalt und klicke auf einen Gegenstand in deinen Taschen (Blizzard-Taschen oder Baganator): MH entzaubert ihn. Nur Gegenstände, die es können, nur mit Verzauberkunst, nie im Kampf. Ohne Strg+Umschalt funktionieren deine Taschen wie immer. Dasselbe wie /mh disenchant click on|off.",
+	FDE_CLICK_HINT = "Strg+Umschalt+Klick: diesen Gegenstand entzaubern",
+	FDE_CLICK_ARMED = "Jetzt klicken: diesen Gegenstand entzaubern (ein Klick ist ein Entzaubern). Lässt du Strg+Umschalt los, funktioniert deine Tasche wie immer.",
 	-- Ranks choice window (18 Nov 2026). "Rang" as in the FRANK_* lines of Translations2026.lua; "Aktionsleiste %d" comes
 	-- from the client (HUD_EDIT_MODE_ACTION_BAR_LABEL), not from here.
 	FRANK_WIN_TITLE = "Alte Ränge auf deinen Leisten",

@@ -909,6 +909,10 @@ for k, v in pairs({
 	FOV_Q_DISENCHANT_DESC = "Para encantadores: una línea en el tooltip de armas y armaduras, y un pequeño icono de Desencantar en los objetos de tus bolsas que se pueden (bolsas de Blizzard y Baganator). Lo mismo que /mh disenchant on|off.",
 	FOV_Q_DISENCHANTNEXT = "Botón: desencantar el siguiente",
 	FOV_Q_DISENCHANTNEXT_DESC = "Un botón con el siguiente objeto de tus bolsas que se puede desencantar. Haces clic tú: un clic es un Desencantar. Clic derecho para saltar uno. Lo mismo que /mh disenchant next on|off.",
+	FOV_Q_DISENCHANTCLICK = "Ctrl+Mayús+clic desencanta",
+	FOV_Q_DISENCHANTCLICK_DESC = "Mantén Ctrl+Mayús y haz clic en un objeto de tus bolsas (bolsas de Blizzard o Baganator): MH lo desencanta. Solo objetos que se pueden, solo con Encantamiento, nunca en combate. Sin Ctrl+Mayús tus bolsas funcionan como siempre. Lo mismo que /mh disenchant click on|off.",
+	FDE_CLICK_HINT = "Ctrl+Mayús+clic: desencantar este objeto",
+	FDE_CLICK_ARMED = "Haz clic ahora: desencantar este objeto (un clic es un Desencantar). Suelta Ctrl+Mayús y tu bolsa funciona como siempre.",
 	-- Ranks choice window (18 Nov 2026). "rango" as in the FRANK_* lines of Translations2026.lua.
 	FRANK_WIN_TITLE = "Rangos antiguos en tus barras",
 	FRANK_WIN_SUB = "Marca lo que quieres en tu rango más alto. Una barra o un botón que mantienes a propósito en un rango más bajo (para ahorrar maná, por ejemplo): marca \"nunca\". MH lo recuerda para este personaje.",

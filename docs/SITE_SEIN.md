@@ -28,10 +28,21 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
-## 24 nov 2026 — Midnight: toetsenblok "12 × 4" (net als in Forever)
+## 25 nov 2026 — Forever: Ctrl+Shift+klik op een item in je tas = Disenchant
 - Tag + commit:   geen tag (commit: deze regel)
 - Status:         alleen op main
 - Mag op de site: nee (niet uit, niet getest)
+- Speler ziet:    Voor enchanters: hou Ctrl+Shift ingedrukt en klik op een wapen of armor in je tas (Blizzard-tassen of
+                  Baganator): MH disenchant het. De tooltip zegt het als het kan. Nooit in een gevecht; zonder Ctrl+Shift
+                  werkt je tas gewoon. Eigen schakelaar. Prospecting/Milling: later.
+- Knoplabels:     FOV_Q_DISENCHANTCLICK, FDE_CLICK_HINT
+- Commando's:     /mh disenchant, /mh disenchant click on|off
+- Spel:           Forever
+
+## 24 nov 2026 — Midnight: toetsenblok "12 × 4" (net als in Forever)
+- Tag + commit:   geen tag (commit: deze regel)
+- Status:         alleen op main
+- Mag op de site: nee (niet uit; Rob testte het 25 nov op zijn Prot Paladin: *"werkt ook keurig"*)
 - Speler ziet:    Ook in Midnight een tweede indeling voor het toetsenblok: dezelfde 12 toetsen 1-4, Q E R F, Z X C V op
                   elke balk, met per toets dezelfde taak voor elke spec. Healers: noodheal op C, gewone heals op 1/2/3.
                   Ctrl: combat potion, health potion, healthstone, twee trinkets. Wisselen met de knop Layout; extra:

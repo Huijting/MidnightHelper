@@ -22,6 +22,18 @@ local _, ns = ...
 	3. A "Disenchant next" button (foreverDisenchantNext, OFF: players choose). A SecureActionButton with type "spell",
 	   spell 13262 and target-bag/target-slot (GEMETEN in Forever's SecureTemplates.lua): one click = one cast on the
 	   item it shows. MH picks the next item only out of combat; the button hides in combat; no loop, no timer.
+	4. Ctrl+Shift+click on a bag item = Disenchant it (foreverDisenchantClick, on; 25 Nov 2026). Rob via sparring,
+	   letterlijk: "Kunnen wij een knop in de tooltip bouwen als we een item kunnen disenchanten? Zodat ik niet eerst
+	   disenchant moet drukken, dan het ding wat ik wil disenchanten, maar dat we gewoon de tooltip daarvan kunnen
+	   gebruiken." → on the proposal (Ctrl+Shift+click, Blizzard bags + Baganator, Disenchant first): "Ja". Idea seen in
+	   ForeverForge Bags (licence unknown, not installed): nothing taken from it, own build.
+	   How: ONE secure button (parented to UIParent, never anchored to a bag button: that would make the bags
+	   protected). When the item tooltip shows a "yes" item in your own bags (bag 0..NUM_BAG_SLOTS; the link at that
+	   bag/slot must match the tooltip), MH moves the button over that slot out of combat, with the same attributes as
+	   the next button. A state driver "[combat] hide; [mod:ctrl,mod:shift] show; hide" shows it only while Ctrl and
+	   Shift are both held, so a plain click always reaches the bag slot. Leaving the slot, a bag change or the slot
+	   holding another item = disarm. Blizzard bag buttons and Baganator's live buttons both have GetBagID()/GetID()
+	   (GEMETEN: Baganator ItemViewCommon/ItemButton.lua:628).
 
 	/mh disenchant prints every decision (CLAUDE.md: a module that can stay quiet needs that).
 ]]
@@ -40,6 +52,10 @@ end
 
 local function NextOn()
 	return ns.db and ns.db.foreverDisenchantNext == true
+end
+
+local function ClickOn()
+	return not (ns.db and ns.db.foreverDisenchantClick == false)
 end
 
 local function Enchanter()
@@ -113,7 +129,8 @@ function ns.ForeverDisenchantVerdict(item)
 	return "yes"
 end
 
-local last = { tip = "none yet", bags = "none yet", baganator = "not seen", next = "off" }
+local last = { tip = "none yet", bags = "none yet", baganator = "not seen", next = "off", click = "no bag item hovered yet" }
+local ClickHover -- section 4; the tooltip calls it for a "yes" item
 
 --------------------------------------------------------------------------------
 -- 1. Tooltip line
@@ -142,6 +159,9 @@ if TooltipDataProcessor and TooltipDataProcessor.AddTooltipPostCall and Enum and
 			local noWord = type(ITEM_DISENCHANT_NOT_DISENCHANTABLE) == "string" and ITEM_DISENCHANT_NOT_DISENCHANTABLE or nil
 			if v == "yes" then
 				tooltip:AddLine(yesWord and ("MH: " .. yesWord) or ns:L("FDE_TIP_YES"), 0.6, 0.4, 1)
+				if tooltip == GameTooltip and ClickHover then
+					ClickHover(tooltip, link)
+				end
 			elseif v == "unsure" then
 				tooltip:AddLine(ns:L("FDE_TIP_UNSURE"), 1, 0.82, 0.2, true)
 			else
@@ -392,6 +412,194 @@ local function MakeButton()
 end
 
 --------------------------------------------------------------------------------
+-- 4. Ctrl+Shift+click on a bag item (see the header). One secure button that sits over the hovered slot while
+-- Ctrl+Shift is held. It is never anchored to the bag button: MH places it by screen position on UIParent.
+--------------------------------------------------------------------------------
+local over -- the secure overlay button
+local hover -- { owner, bag, slot, link }: the bag slot whose tooltip said "yes"
+local armedFor -- the hover the overlay is placed on
+
+local function LinkAt(bag, slot)
+	if not (C_Container and C_Container.GetContainerItemInfo) then
+		return nil
+	end
+	local ok, info = pcall(C_Container.GetContainerItemInfo, bag, slot)
+	return ok and info and info.hyperlink or nil
+end
+
+--- Bag and slot of a bag button (Blizzard's or Baganator's), only for your own bags. nil when it is not one.
+local function SlotOf(owner)
+	if not (owner and owner.GetID) then
+		return nil
+	end
+	local okB, bag = pcall(function()
+		local b = owner.GetBagID and owner:GetBagID()
+		if type(b) == "number" then
+			return b
+		end
+		-- Baganator's classic-style buttons keep the bag id on their parent (ItemButton.lua:1286, SetBagItem). Only for a
+		-- Baganator button (it carries .BGR): a character-sheet slot also has an id, and its parent would read as bag 0.
+		if type(owner.BGR) ~= "table" then
+			return nil
+		end
+		local p = owner.GetParent and owner:GetParent()
+		return p and p.GetID and p:GetID()
+	end)
+	local okS, slot = pcall(owner.GetID, owner)
+	if not (okB and okS and type(bag) == "number" and type(slot) == "number") then
+		return nil
+	end
+	if bag < 0 or bag > (NUM_BAG_SLOTS or 4) or slot < 1 then
+		return nil -- bank, keyring or something that is not a bag slot: you can only disenchant from your bags
+	end
+	return bag, slot
+end
+
+local function Disarm(reason)
+	armedFor = nil
+	if not over then
+		return
+	end
+	if InCombatLockdown and InCombatLockdown() then
+		over.pendingDisarm = true -- the state driver already hides it in combat
+		return
+	end
+	over.pendingDisarm = nil
+	UnregisterStateDriver(over, "visibility")
+	over:Hide()
+	over:SetAttribute("type", nil)
+	over:SetAttribute("target-bag", nil)
+	over:SetAttribute("target-slot", nil)
+	if reason then
+		last.click = "off: " .. reason
+	end
+end
+
+local function MakeOverlay()
+	if over or not CreateFrame then
+		return
+	end
+	over = CreateFrame("Button", nil, UIParent, "SecureActionButtonTemplate")
+	over:SetFrameStrata("FULLSCREEN_DIALOG")
+	over:RegisterForClicks("LeftButtonUp")
+	over:SetAttribute("useOnKeyDown", false) -- same reason as the next button (ActionButtonUseKeyDown)
+	over:SetAttribute("spell", DE_SPELL)
+	local glow = over:CreateTexture(nil, "OVERLAY")
+	glow:SetAllPoints()
+	glow:SetColorTexture(0.6, 0.4, 1, 0.35)
+	local mark = over:CreateTexture(nil, "OVERLAY", nil, 1)
+	mark:SetSize(16, 16)
+	mark:SetPoint("CENTER")
+	mark:SetTexture(SpellIcon())
+	over:HookScript("OnEnter", function(self)
+		if armedFor then
+			GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+			pcall(GameTooltip.SetBagItem, GameTooltip, armedFor.bag, armedFor.slot)
+			GameTooltip:AddLine(ns:L("FDE_CLICK_ARMED"), 0.6, 0.4, 1, true)
+			GameTooltip:Show()
+		end
+	end)
+	over:HookScript("OnLeave", function(self)
+		if GameTooltip:IsOwned(self) then
+			GameTooltip:Hide()
+		end
+	end)
+	-- While shown: stop as soon as the mouse is elsewhere, the bag closed, or the slot holds another item.
+	local acc = 0
+	over:HookScript("OnUpdate", function(self, elapsed)
+		acc = acc + elapsed
+		if acc < 0.1 then
+			return
+		end
+		acc = 0
+		local a = armedFor
+		if not a then
+			return Disarm("nothing armed")
+		end
+		if not self:IsMouseOver() then
+			return Disarm("mouse left the slot")
+		end
+		if not (a.owner.IsVisible and a.owner:IsVisible()) then
+			return Disarm("the bag closed")
+		end
+		if LinkAt(a.bag, a.slot) ~= a.link then
+			return Disarm("the slot holds another item now")
+		end
+	end)
+	over:HookScript("PostClick", function()
+		local a = armedFor
+		last.click = a and ("cast on bag %d slot %d: %s"):format(a.bag, a.slot, a.link) or "clicked, nothing armed"
+	end)
+	over:Hide()
+end
+
+local function Arm()
+	local h = hover
+	if not (h and over and ClickOn() and Enchanter()) then
+		return
+	end
+	if InCombatLockdown and InCombatLockdown() then
+		last.click = "not in combat"
+		return
+	end
+	if not (h.owner:IsVisible() and h.owner:IsMouseOver()) or LinkAt(h.bag, h.slot) ~= h.link then
+		hover = nil
+		return Disarm("the slot under the mouse changed")
+	end
+	if armedFor == h then
+		return
+	end
+	local okL, l, b, w, hgt = pcall(function()
+		return h.owner:GetLeft(), h.owner:GetBottom(), h.owner:GetWidth(), h.owner:GetHeight()
+	end)
+	if not (okL and l and b and w and hgt) then
+		return Disarm("could not read where the slot is")
+	end
+	local s = h.owner:GetEffectiveScale() / UIParent:GetEffectiveScale()
+	over:ClearAllPoints()
+	over:SetPoint("BOTTOMLEFT", UIParent, "BOTTOMLEFT", l * s, b * s)
+	over:SetSize(w * s, hgt * s)
+	over:SetFrameLevel(math.min(10000, (h.owner:GetFrameLevel() or 0) + 20))
+	over:SetAttribute("type", "spell")
+	over:SetAttribute("target-bag", h.bag)
+	over:SetAttribute("target-slot", h.slot)
+	armedFor = h
+	RegisterStateDriver(over, "visibility", "[combat] hide; [mod:ctrl,mod:shift] show; hide")
+	last.click = ("armed on bag %d slot %d: %s"):format(h.bag, h.slot, h.link)
+end
+
+ClickHover = function(tooltip, link)
+	if not (ClickOn() and Enchanter()) then
+		return
+	end
+	local owner = tooltip.GetOwner and tooltip:GetOwner()
+	if owner == over then
+		return
+	end
+	local bag, slot = SlotOf(owner)
+	if not bag then
+		last.click = "tooltip is not on one of your bag slots"
+		return
+	end
+	if LinkAt(bag, slot) ~= link then
+		last.click = "the item in that slot is not the tooltip's item"
+		return
+	end
+	if InCombatLockdown and InCombatLockdown() then
+		last.click = "not in combat"
+		return
+	end
+	tooltip:AddLine(ns:L("FDE_CLICK_HINT"), 0.6, 0.4, 1, true)
+	if not (hover and hover.owner == owner and hover.bag == bag and hover.slot == slot and hover.link == link) then
+		hover = { owner = owner, bag = bag, slot = slot, link = link }
+		last.click = ("ready on bag %d slot %d (hold Ctrl+Shift)"):format(bag, slot)
+	end
+	if IsControlKeyDown() and IsShiftKeyDown() then
+		Arm()
+	end
+end
+
+--------------------------------------------------------------------------------
 -- Events
 --------------------------------------------------------------------------------
 local ev = CreateFrame("Frame")
@@ -400,21 +608,38 @@ ev:RegisterEvent("ADDON_LOADED")
 ev:RegisterEvent("BAG_UPDATE_DELAYED")
 ev:RegisterEvent("PLAYER_REGEN_ENABLED")
 ev:RegisterEvent("SKILL_LINES_CHANGED")
+ev:RegisterEvent("MODIFIER_STATE_CHANGED")
+ev:RegisterEvent("PLAYER_REGEN_DISABLED")
 ev:SetScript("OnEvent", function(_, event, arg1)
 	if event == "PLAYER_LOGIN" then
 		HookBags()
 		HookBaganator()
 		MakeButton()
+		MakeOverlay()
 		UpdateNext()
 	elseif event == "ADDON_LOADED" then
 		if arg1 == "Baganator" then
 			HookBaganator()
 		end
+	elseif event == "MODIFIER_STATE_CHANGED" then
+		if hover and IsControlKeyDown() and IsShiftKeyDown() then
+			Arm()
+		end
+	elseif event == "PLAYER_REGEN_DISABLED" then
+		hover = nil
+		Disarm("combat started")
 	elseif event == "PLAYER_REGEN_ENABLED" then
 		if btn and btn.pending then
 			UpdateNext()
 		end
+		if over and over.pendingDisarm then
+			Disarm()
+		end
 	else -- bags changed, or a profession learned
+		if event == "BAG_UPDATE_DELAYED" and armedFor then
+			hover = nil
+			Disarm("your bags changed")
+		end
 		UpdateNext()
 		if event == "SKILL_LINES_CHANGED" then
 			RepaintBags()
@@ -425,6 +650,10 @@ end)
 
 --- Called by the quiet-helper switches (ForeverOverview.lua) after a change.
 function ns.ForeverDisenchantRefresh()
+	if not ClickOn() then
+		hover = nil
+		Disarm("switched off")
+	end
 	HookBags()
 	RepaintBags()
 	RefreshBaganator()
@@ -443,6 +672,10 @@ function ns.ForeverDisenchantSlash(arg)
 		ns.db.foreverDisenchantNext = true
 	elseif arg == "next off" then
 		ns.db.foreverDisenchantNext = nil
+	elseif arg == "click on" then
+		ns.db.foreverDisenchantClick = nil
+	elseif arg == "click off" then
+		ns.db.foreverDisenchantClick = false
 	end
 	ns.ForeverDisenchantRefresh()
 	local known = false
@@ -474,4 +707,5 @@ function ns.ForeverDisenchantSlash(arg)
 	print(("  in your bags: %d yes, %d not sure (no sell price), %d weapons/armor that cannot"):format(yes, unsure, no))
 	print("  last tooltip: " .. last.tip .. " | bags: " .. last.bags .. " | Baganator: " .. last.baganator)
 	print("  next button: " .. last.next)
+	print(("  Ctrl+Shift+click: %s; last: %s"):format(ClickOn() and "on" or "off", last.click))
 end

@@ -25,6 +25,21 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 25 nov — FOREVER: Ctrl+Shift+klik op een item in je tas = Disenchant (Rob: "we beginnen inderdaad met digijant eerst")
+
+Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (36 controles), NIET in het spel.
+Op je enchanter, met een groen of blauw wapen of armor in je tas:
+- [ ] Ga met de muis op dat item staan (Blizzard-tas én Baganator). Onder "MH: Disenchantable" staat nu een regel
+      **Ctrl+Shift+click: disenchant this item** (Nederlands: "Ctrl+Shift+klik: disenchant dit item").
+- [ ] Hou **Ctrl+Shift** ingedrukt: het vakje kleurt paars, met een klein Disenchant-icoon. Klik: je disenchant dát item.
+      Laat de toetsen los vóór de loot komt (anders kan Shift je auto-loot omdraaien; dat is niet gemeten).
+- [ ] Zonder Ctrl+Shift doet klikken op het vakje precies wat het altijd deed (oppakken, gebruiken, Shift-klik = link).
+- [ ] Een item dat niet kan (grijs, een tas, een quest-item): geen regel, en Ctrl+Shift+klik doet het gewone.
+- [ ] In een gevecht: geen regel, en het paarse vakje komt niet.
+- [ ] Op een character zonder Enchanting: niets nieuws.
+- [ ] Overzicht → stille helpers: de schakelaar **Ctrl+Shift+click disenchants**. Uit: de regel en het vakje zijn weg.
+- [ ] `/mh disenchant`: onderaan een regel "Ctrl+Shift+click: on; last: …" met wat MH het laatst besliste.
+
 ## 25 nov (nacht) — MIDNIGHT Prot Paladin 12 × 4: nog te doen vóór 5.9.1 — ✅ GETEST
 
 Gemeten in je SavedVariables: alles staat goed, behalve toets 1 (daar staat waarschijnlijk Blizzards "Single-Button
@@ -79,7 +94,9 @@ niet apart genoemd.
       **X** Divine Shield, **C** Guardian of Ancient Kings, **V** Cleanse Toxins. Met Shift o.a. Blessed Hammer of
       Consecration (Shift-1/2), Divine Toll (Shift-Q), Word of Glory (Shift-C). **Ctrl-R** Redemption. Ctrl-1/2/3 = je
       aura's (als je ze hebt). Lay on Hands en een paar andere staan op blok D (Alt).
-- [ ] Ctrl-F combat potion, Ctrl-Z health potion, Ctrl-C healthstone, Ctrl-V trinket, Ctrl-X tweede trinket: staat er
+- [x] (25 nov, Rob via Sparring: *"de control rij midnight zag er allemaal goed uit zo te zien, heel snel"*: snel
+      gekeken; de trinkets blijven leeg, want hij heeft geen Use:-trinket) Ctrl-F combat potion, Ctrl-Z health potion,
+      Ctrl-C healthstone, Ctrl-V trinket, Ctrl-X tweede trinket: staat er
       een icoontje als je het in je tas of om hebt?
 - [ ] Geen 5, T, G of F1-F4 meer op je blokknoppen.
 - [ ] "Why these keys?" in `/mh block`: de Midnight-tekst (healers: noodheal op C, gewone heals op 1/2/3; de Ctrl-rij
@@ -97,18 +114,23 @@ Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (9 con
 Thorns-knop, lezing van Sparring.) De andere buffs en Revive Pet heeft hij niet apart genoemd.
 - [x] Druid: target een vijand (of een ander), wacht tot "Thorns runs out soon" in beeld komt, en klik op het icoon:
       Thorns komt meteen op JOU. Je hoeft jezelf niet eerst aan te klikken.
-- [ ] Hetzelfde met een buff die je mist (Mark of the Wild, Arcane Intellect, Demon Skin …): één klik = op jezelf.
-- [ ] Hunter met een dode pet: Revive Pet werkt zoals vroeger.
+- [x] Hetzelfde met een buff die je mist (Mark of the Wild, Arcane Intellect, Demon Skin …): één klik = op jezelf.
+      (25 nov, Rob via Sparring: *"de andere buffknoppen … zag er allemaal goed uit zo te zien, heel snel"*)
+- [x] Hunter met een dode pet: Revive Pet werkt zoals vroeger. ⚠️ Rob keurde "punt 2" goed (andere buffknoppen + Revive
+      Pet), maar noemde Revive Pet niet bij naam en keek "heel snel".
 
 ## 24 nov (avond, 10) — FOREVER: knop "Layout" in het toetsenblok (Rob: "Ja, er moet een knop komen")
 
 Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (16 controles), NIET in het spel.
-- [ ] Open `/mh block`. Rechtsboven, onder "New spells: …", staat een knop **Layout: the old block (switch)**
+✅ 25 nov, Rob via Sparring, letterlijk: *"De wisselknop, de andere buffknoppen en de control rij midnight zag er allemaal
+goed uit zo te zien, heel snel."* Afgevinkt: de knop en het wisselen heen en terug. Niet apart genoemd: een character
+zonder neergezet blok, en de knop in een gevecht.
+- [x] Open `/mh block`. Rechtsboven, onder "New spells: …", staat een knop **Layout: the old block (switch)**
       (of "Indeling: het oude blok (wisselen)" in het Nederlands). Staat er geen tekst over elkaar met de uitleg links?
-- [ ] Klik erop: er komt eerst een vraag "Switch your key block to 12 x 4?" met uitleg. Druk **Cancel**: er gebeurt niets.
-- [ ] Klik nog eens en druk **Switch**: MH haalt het blok van je balken, wisselt naar 12 × 4 en zet het meteen weer neer.
+- [x] Klik erop: er komt eerst een vraag "Switch your key block to 12 x 4?" met uitleg. Druk **Cancel**: er gebeurt niets.
+- [x] Klik nog eens en druk **Switch**: MH haalt het blok van je balken, wisselt naar 12 × 4 en zet het meteen weer neer.
       De knop zegt nu "Layout: 12 x 4". (Daarna kan de vraag over de extra toetsen komen.)
-- [ ] Nog eens klikken + Switch: terug naar het oude blok, weer neergezet.
+- [x] Nog eens klikken + Switch: terug naar het oude blok, weer neergezet.
 - [ ] Een character waar het blok NIET staat: de vraag zegt dat alleen het plaatje verandert; je balken blijven zoals ze zijn.
 - [ ] In een gevecht: de knop doet niets en zegt waarom.
 - Midnight: de knop is er nog niet, want 12 × 4 bestaat daar nog niet (dat komt in de volgende stap).
