@@ -33,8 +33,10 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 - Stap 1 gebouwd (`AltProfTip.lua`): recept = je andere characters met dat beroep + skill (Forever ook "needs N", "can
   learn it", "knows it"); materiaal = welke andere characters een beroep hebben dat het gebruikt. Niet bij soulbound /
   bind-on-pickup / quest-items. Schakelaar + `/mh alttip`.
-- Stap 2 (gear: kan een ander character dit BoE-wapen/harnas dragen, en is het beter?): uitgezocht, niet gebouwd; zie
-  NEXT_SESSION 25 nov. Rob beslist.
+- Stap 2 GEBOUWD 25 nov, wacht op test (Rob op het advies "eerst 'kan dragen + hoger item level'. Forever gaat dan ook de
+  gear onthouden": *"Zeg je ja? JA"*): bij BoE gear wie het kan dragen (class, harnas, wapen, level) en of het item
+  level hoger is dan wat dat character in dat vakje draagt. Geen "beter" op stats. Later, als Rob het wil: echte
+  stats-vergelijking (dan ook de spec opslaan).
 - Spel: M + F. Voor wie: V (alts) (AFGELEID).
 
 ### Forever: taunts op de muis in het toetsenblok (wens van Rob, 25 nov) — ✅ AF: GEBOUWD 25 nov (1769f5f) en GETEST (Rob via Sparring: *"De tangtesten is gelukt."*)

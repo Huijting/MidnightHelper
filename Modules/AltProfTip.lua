@@ -11,9 +11,11 @@ local _, ns = ...
 	and ingredients; step 2 gear: research first) "Ja, dat klopt zo. Kun je het voor beide versies maken, Forever en
 	Midnight?"
 
-	Two lines, only for an item you can send (not Soulbound, not "Binds when picked up", not a quest item):
+	Three lines, only for an item you can send (not Soulbound, not "Binds when picked up", not a quest item):
 	  recipe      "MH: your other Alchemy: Ima (14, needs 50), Bob (60, can learn it)"
 	  ingredient  "MH: on your other characters: Alchemy: Ima · Cooking: Bob"
+	  gear        "MH: your other characters who can wear this: Ima (item level 12 -> 20), Bob (from level 40), Cid"
+	              (step 2, same day; see the Gear section below)
 	No other character with the profession = no line. Off: /mh alttip off (or the switch in the settings).
 
 	Data, every piece MEASURED (25 Nov 2026):
@@ -223,6 +225,163 @@ local function IngredientLine(id)
 	return ns:L("FALT_MAT_FMT"):format(table.concat(groups, " · ")), ("ingredient, %d profession(s)"):format(#groups)
 end
 
+--------------------------------------------------------------------------------
+-- Gear (25 Nov 2026, step 2; Rob via Sparring, on the advice "in beide games eerst 'kan dragen + hoger item level'.
+-- Forever gaat dan ook de gear onthouden": "Zeg je ja? JA"). Who of your other characters can wear this weapon or
+-- armor, from which level, and whether its item level is higher than what that character wears in that slot (rings
+-- and trinkets: the lower of the two). Never "better": no stats, no spec guess.
+-- Who may wear what: MEASURED 25 Nov 2026 in wago DB2 SkillRaceClassInfo (Forever 1.60.1.71091, Midnight 12.1.5.70961),
+-- the union of ClassMask over all rows of a skill (class bit = 2^(classID-1); Midnight's bit 16384 is no class of ours).
+-- Forever: Mail for Hunter/Shaman and Plate for Warrior/Paladin from level 40 (MinLevel 40, Availability 0).
+--------------------------------------------------------------------------------
+local GAME = ns.IS_FOREVER and {
+	-- 7 libram / 8 idol / 9 totem: Paladin / Druid / Shaman, AFGELEID (classic rule; not in that table).
+	armor = { [1] = 1503, [2] = 1103, [3] = 3, [4] = 0, [6] = 67, [7] = 2, [8] = 1024, [9] = 64 },
+	armorAt40 = { [3] = 68, [4] = 3 },
+	weapon = { [0] = 79, [1] = 71, [2] = 13, [3] = 13, [4] = 1115, [5] = 1091, [6] = 1031, [7] = 399, [8] = 7,
+		[10] = 1493, [13] = 1101, [15] = 1501, [16] = 13, [18] = 13, [19] = 400 },
+	weaponLevel = { [6] = 20 }, -- Polearms from level 20 (MinLevel 20)
+} or {
+	armor = { [1] = -1, [2] = 7791, [3] = 4199, [4] = 35, [6] = 67 },
+	armorAt40 = {},
+	weapon = { [0] = 6767, [1] = 4199, [2] = 13, [3] = 13, [4] = 5755, [5] = 5219, [6] = 1575, [7] = 7087, [8] = 4135,
+		[9] = 2048, [10] = 6101, [13] = 7757, [15] = 7645, [18] = 13, [19] = 400 },
+	weaponLevel = {},
+}
+local CLASS_ID = { WARRIOR = 1, PALADIN = 2, HUNTER = 3, ROGUE = 4, PRIEST = 5, DEATHKNIGHT = 6, SHAMAN = 7, MAGE = 8,
+	WARLOCK = 9, MONK = 10, DRUID = 11, DEMONHUNTER = 12, EVOKER = 13 }
+
+local function HasBit(mask, classID)
+	if mask == -1 then
+		return true
+	end
+	local bit = 2 ^ (classID - 1)
+	return math.floor(mask / bit) % 2 == 1
+end
+
+-- equip location -> the slot(s) to compare with (two = the lower of the two)
+local SLOT_OF = {
+	INVTYPE_HEAD = { 1 }, INVTYPE_NECK = { 2 }, INVTYPE_SHOULDER = { 3 }, INVTYPE_CHEST = { 5 }, INVTYPE_ROBE = { 5 },
+	INVTYPE_WAIST = { 6 }, INVTYPE_LEGS = { 7 }, INVTYPE_FEET = { 8 }, INVTYPE_WRIST = { 9 }, INVTYPE_HAND = { 10 },
+	INVTYPE_FINGER = { 11, 12 }, INVTYPE_TRINKET = { 13, 14 }, INVTYPE_CLOAK = { 15 },
+	INVTYPE_WEAPON = { 16 }, INVTYPE_2HWEAPON = { 16 }, INVTYPE_WEAPONMAINHAND = { 16 },
+	INVTYPE_WEAPONOFFHAND = { 17 }, INVTYPE_SHIELD = { 17 }, INVTYPE_HOLDABLE = { 17 },
+	INVTYPE_RANGED = { ns.IS_FOREVER and 18 or 16 }, INVTYPE_RANGEDRIGHT = { ns.IS_FOREVER and 18 or 16 },
+	INVTYPE_THROWN = { 18 }, INVTYPE_RELIC = { 18 },
+}
+
+local function ItemLevel(link)
+	if C_Item and C_Item.GetDetailedItemLevelInfo then
+		local ok, v = pcall(C_Item.GetDetailedItemLevelInfo, link)
+		if ok and tonumber(v) then
+			return math.floor(tonumber(v))
+		end
+	end
+	local info = (C_Item and C_Item.GetItemInfo) or GetItemInfo
+	if info then
+		local ok, _, _, _, v = pcall(info, link)
+		if ok and tonumber(v) then
+			return math.floor(tonumber(v))
+		end
+	end
+	return nil
+end
+
+--- The other characters with their class, level and saved gear: { name, class, level, gear }.
+local function OthersGear()
+	local out, me = {}, MyGUID()
+	local store = ns.db and (ns.IS_FOREVER and ns.db.foreverChars or ns.db.charCurrencies)
+	if type(store) ~= "table" then
+		return out
+	end
+	for guid, rec in pairs(store) do
+		if guid ~= me and type(rec) == "table" and type(rec.name) == "string" and CLASS_ID[rec.class or ""] then
+			out[#out + 1] = { name = rec.name, classID = CLASS_ID[rec.class], level = tonumber(rec.level),
+				gear = type(rec.gear) == "table" and rec.gear or nil }
+		end
+	end
+	return out
+end
+
+--- The gear line, or nil + why. link = the hovered item's link (for its item level).
+local function GearLine(id, link, classID, subID, equipLoc, minLevel)
+	local slots = SLOT_OF[equipLoc or ""]
+	if not slots then
+		return nil, "not something you wear"
+	end
+	local mask, at40, needLevel
+	if classID == 4 then
+		mask, at40 = GAME.armor[subID], GAME.armorAt40[subID]
+		if subID == 0 then
+			mask = -1 -- rings, necks, trinkets, off-hand items: every class
+		end
+	elseif classID == 2 then
+		mask, needLevel = GAME.weapon[subID], GAME.weaponLevel[subID]
+	end
+	if not mask then
+		return nil, ("item class %s subclass %s: not judged"):format(tostring(classID), tostring(subID))
+	end
+	local ilvl = link and ItemLevel(link)
+	local rows = {}
+	for _, c in ipairs(OthersGear()) do
+		local can, from = HasBit(mask, c.classID), nil
+		if not can and at40 and HasBit(at40, c.classID) then
+			can, from = true, 40
+		end
+		if can then
+			from = math.max(from or 0, needLevel or 0, tonumber(minLevel) or 0)
+			local row = { name = c.name, gain = -1 }
+			if c.level and from > c.level then
+				row.from = from
+			elseif ilvl and c.gear then
+				local worst
+				for _, s in ipairs(slots) do
+					local g = c.gear[s]
+					local v = type(g) == "table" and tonumber(g.i) or nil
+					if not g then
+						v = 0 -- an empty slot: anything is more
+					end
+					if v and (not worst or v < worst) then
+						worst = v
+					end
+				end
+				if worst and ilvl > worst then
+					row.was, row.now, row.gain = worst, ilvl, ilvl - worst
+					row.empty = (worst == 0)
+				end
+			end
+			rows[#rows + 1] = row
+		end
+	end
+	if #rows == 0 then
+		return nil, "none of your other characters can wear it"
+	end
+	table.sort(rows, function(a, b)
+		if a.gain ~= b.gain then
+			return a.gain > b.gain
+		end
+		return tostring(a.name) < tostring(b.name)
+	end)
+	local parts = {}
+	for i = 1, math.min(3, #rows) do
+		local r = rows[i]
+		if r.from then
+			parts[#parts + 1] = ns:L("FALT_GEAR_LEVEL_FMT"):format(r.name, r.from)
+		elseif r.empty then
+			parts[#parts + 1] = ns:L("FALT_GEAR_EMPTY_FMT"):format(r.name)
+		elseif r.now then
+			parts[#parts + 1] = ns:L("FALT_GEAR_UP_FMT"):format(r.name, r.was, r.now)
+		else
+			parts[#parts + 1] = r.name
+		end
+	end
+	local text = table.concat(parts, ", ")
+	if #rows > 3 then
+		text = text .. ns:L("FALT_MORE_FMT"):format(#rows - 3)
+	end
+	return ns:L("FALT_GEAR_FMT"):format(text), ("gear, %d character(s), item level %s"):format(#rows, tostring(ilvl))
+end
+
 if TooltipDataProcessor and TooltipDataProcessor.AddTooltipPostCall and Enum and Enum.TooltipDataType
 	and Enum.TooltipDataType.Item then
 	TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Item, function(tooltip, data)
@@ -240,16 +399,30 @@ if TooltipDataProcessor and TooltipDataProcessor.AddTooltipPostCall and Enum and
 				return
 			end
 			local inst = (C_Item and C_Item.GetItemInfoInstant) or GetItemInfoInstant
-			local classID, subID
+			local classID, subID, equipLoc
 			if inst then
-				local okI, _, _, _, _, _, c, s = pcall(inst, id)
+				local okI, _, _, _, loc, _, c, s = pcall(inst, id)
 				if okI then
-					classID, subID = c, s
+					classID, subID, equipLoc = c, s, loc
 				end
 			end
 			local text, reason
 			if classID == 9 then
 				text, reason = RecipeLine(id, data, subID)
+			elseif classID == 2 or classID == 4 then
+				-- Not "a and b:GetItem()": an `and` keeps only the first value, and the link is the second.
+				local link
+				if tooltip.GetItem then
+					local _, l = tooltip:GetItem()
+					link = l
+				end
+				local minLevel
+				local info = (C_Item and C_Item.GetItemInfo) or GetItemInfo
+				if info then
+					local okM, _, _, _, _, ml = pcall(info, id)
+					minLevel = okM and ml or nil
+				end
+				text, reason = GearLine(id, link, classID, subID, equipLoc, minLevel)
 			else
 				text, reason = IngredientLine(id)
 			end

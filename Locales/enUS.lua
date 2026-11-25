@@ -5271,8 +5271,15 @@ ns._mhLocales.enUS = {
 	FALT_CAN = "can learn it",
 	FALT_NEEDS_FMT = "needs %d",
 	FALT_SW = "Your other characters in item tooltips",
-	FALT_SW_DESC = "On a recipe or an ingredient you can send: which of your other characters have that profession, with their skill (in WoW Forever also whether they can learn the recipe). A character counts once you have logged in on it with this version. Same as /mh alttip on|off.",
-	CMDLIST_ALTTIP = "Recipe and ingredient tooltips name your other characters who can use them. /mh alttip on|off; on its own it shows what MH decided.",
+	FALT_SW_DESC = "On a recipe, an ingredient, a weapon or armor you can send: which of your other characters can use it. Recipes and ingredients: who has the profession, with their skill (in WoW Forever also whether they can learn the recipe). Gear: who can wear it, from which level, and whether its item level is higher than what they wear. A character counts once you have logged in on it with this version. Same as /mh alttip on|off.",
+	CMDLIST_ALTTIP = "Tooltips of recipes, ingredients and gear name your other characters who can use them. /mh alttip on|off; on its own it shows what MH decided.",
+	-- 25 Nov 2026, gear (AltProfTip.lua). FALT_GEAR_FMT: %s = up to three entries + FALT_MORE_FMT. FALT_GEAR_UP_FMT:
+	-- name, the item level now worn in that slot, this item's level. FALT_GEAR_LEVEL_FMT: name, the level it needs.
+	FALT_GEAR_FMT = "MH: your other characters who can wear this: %s",
+	FALT_GEAR_UP_FMT = "%s (item level %d -> %d)",
+	FALT_GEAR_LEVEL_FMT = "%s (from level %d)",
+	FALT_MORE_FMT = " and %d more",
+	FALT_GEAR_EMPTY_FMT = "%s (empty slot)",
 	-- 19 Nov 2026: thank a stranger for a buff with the game's emote (ThanksBuff.lua), both games.
 	SET_THANKS_TITLE = "Thank strangers for a buff",
 	SET_THANKS_DESC = "When a player outside your group gives you a buff, you thank them with the game's own emote (\"You thank …\"). Never in combat or in a dungeon, and once every 5 minutes per player. No whisper. Stays silent when Thanks for the Buff is on.",

@@ -1,5 +1,22 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 25 nov (Bouwchat 25-11): gear-tooltip "wie van je andere characters kan dit dragen" (beide games) — GEBOUWD, wacht op test
+
+Rob plakte het advies van Sparring terug: *"Mijn advies: in beide games eerst "kan dragen + hoger item level". Forever gaat
+dan ook de gear onthouden. Echte stats-vergelijking doen we later, als je het nog wilt."* — en schreef: *"Zeg je ja? JA"*.
+`AltProfTip.lua` deel Gear: bij een te versturen wapen of harnas (Sendable() als bij recepten) de andere characters die
+het kunnen dragen, max 3 (grootste winst eerst) + "and N more"; per character "(item level X -> Y)" als het hoger is dan
+wat hij in dat vakje draagt (ring/trinket: de laagste van de twee; leeg vakje = "(empty slot)"), of "(from level N)"
+(item-minlevel, Polearms 20, Forever Mail/Plate 40). Nooit "beter". Zelfde schakelaar altProfTip.
+GEMETEN 25 nov in wago DB2 SkillRaceClassInfo (Forever 1.60.1.71091, Midnight 12.1.5.70961), unie van ClassMask per skill:
+harnas Cloth/Leather/Mail/Plate/Shield, wapens per subklasse, Wands; Forever Mail (Hunter/Shaman) en Plate (Warrior/
+Paladin) MinLevel 40; Forever-wapenmaskers = die van ForeverWeapons.lua (zelfde tabel, eerder gemeten). Midnight-bit 16384
+hoort bij geen van de 13 classes (weggelaten). AFGELEID: libram/idol/totem = Paladin/Druid/Shaman (niet in die tabel).
+Forever slaat nu de gear op: `ForeverChars.lua` Snap → `rec.gear[slot] = { l, i }` (slots 1-18 behalve 4/19, net als
+Midnight), ook op PLAYER_EQUIPMENT_CHANGED. Midnight gebruikt `charCurrencies[guid].gear` (bestond al).
+Fout gevangen in de offline test: `local _, link = a and t:GetItem()` geeft geen link (een `and` houdt één waarde) →
+herschreven. Offline: scratch `altprof_test.lua` 36/36 (Forever + Midnight). NIET in het spel. Teksten 8 talen.
+
 ## ▶▶ 25 nov (Bouwchat 25-11): tooltip noemt je ANDERE characters bij recept/materiaal (beide games) — GEBOUWD, wacht op test
 
 Rob via Sparring, letterlijk: *"Kunnen wij dat niet hier vermelden in de tooltip, zodat ik weet naar wie ik het moet gaan

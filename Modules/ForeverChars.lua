@@ -145,6 +145,27 @@ local function Snap(why)
 			end
 		end
 	end
+	-- 25 Nov 2026 (Rob via Sparring: "Zeg je ja? JA", AltProfTip.lua's gear line): what this character wears, slot by
+	-- slot (link + item level), the same shape as Midnight's AltOverview.lua. Slot 18 = ranged/relic in Forever. A reading
+	-- with nothing in it keeps the old record (right after login the client may not have the items yet).
+	if GetInventoryItemLink then
+		local gear, n = {}, 0
+		for _, slot in ipairs({ 1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18 }) do
+			local okL, link = pcall(GetInventoryItemLink, "player", slot)
+			if okL and Readable(link) and type(link) == "string" and link ~= "" then
+				local ilvl
+				if C_Item and C_Item.GetDetailedItemLevelInfo then
+					local okI, v = pcall(C_Item.GetDetailedItemLevelInfo, link)
+					ilvl = okI and tonumber(v) or nil
+				end
+				gear[slot] = { l = link, i = ilvl and math.floor(ilvl) or nil }
+				n = n + 1
+			end
+		end
+		if n > 0 then
+			rec.gear = gear
+		end
+	end
 	if ns.GetForeverDirection then
 		local ok, band, tree = pcall(ns.GetForeverDirection)
 		if ok then
@@ -185,6 +206,7 @@ ev:RegisterEvent("PLAYER_LEVEL_UP")
 ev:RegisterEvent("PLAYER_MONEY")
 ev:RegisterEvent("SKILL_LINES_CHANGED")
 ev:RegisterEvent("SPELLS_CHANGED")
+ev:RegisterEvent("PLAYER_EQUIPMENT_CHANGED") -- 25 Nov 2026: the saved gear follows what you put on
 ev:RegisterEvent("PLAYER_LOGOUT")
 ev:SetScript("OnEvent", function(_, event)
 	if event == "PLAYER_LOGOUT" then

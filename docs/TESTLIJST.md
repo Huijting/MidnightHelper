@@ -25,6 +25,21 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 25 nov — BEIDE GAMES: de tooltip noemt je andere characters bij een wapen of harnas (Rob: "Zeg je ja? JA")
+
+🔴 Herstart nodig als je de vorige ronde (recept/materiaal) nog niet met een herstart hebt getest; anders is `/reload`
+genoeg. Offline getest (36 controles), NIET in het spel.
+⚠️ In Forever onthoudt MH de gear van een character pas als je er na deze update één keer op hebt ingelogd. Log dus eerst
+op elk character even in.
+- [ ] Ga met je muis op een BoE wapen of harnas in je tas (niet soulbound). Er staat bijvoorbeeld
+      **MH: your other characters who can wear this: Ima (item level 10 -> 20), Bob (from level 40), Cid**.
+      Ima draagt in dat vakje nu item level 10; Bob is nog te laag; Cid kan het dragen maar het is niet hoger.
+- [ ] Bij een ring of trinket vergelijkt MH met de laagste van je twee. Staat er niets in dat vakje: "(empty slot)".
+- [ ] Forever: Plate bij een Warrior of Paladin onder level 40, of Mail bij een Hunter of Shaman onder 40: "(from level 40)".
+- [ ] Meer dan 3 characters: de 3 met de grootste winst, dan "and N more".
+- [ ] Een soulbound item: geen regel. MH zegt nergens "beter": alleen of het item level hoger is.
+- [ ] Zelfde schakelaar als bij de recepten ("Your other characters in item tooltips"); `/mh alttip` toont de beslissing.
+
 ## 25 nov — BEIDE GAMES: de tooltip noemt je andere characters bij een recept of materiaal (Rob: "zodat ik weet naar wie ik het moet gaan sturen")
 
 🔴 Nieuw bestand: sluit het spel helemaal af en start opnieuw (een `/reload` is niet genoeg). Offline getest (27 controles),

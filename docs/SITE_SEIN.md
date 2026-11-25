@@ -33,8 +33,9 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 - Status:         alleen op main
 - Mag op de site: nee (niet uit, niet getest)
 - Speler ziet:    Op een recept: je andere characters met dat beroep, met hun skill (Forever ook "needs 50", "can learn
-                  it", "knows it"). Op een materiaal: welke andere characters een beroep hebben dat het gebruikt. Alleen
-                  voor items die je kunt versturen. Eigen schakelaar.
+                  it", "knows it"). Op een materiaal: welke andere characters een beroep hebben dat het gebruikt. Op een
+                  BoE wapen of harnas: wie het kan dragen, vanaf welk level, en of het item level hoger is dan wat dat
+                  character draagt (geen "beter" op stats). Alleen voor items die je kunt versturen. Eigen schakelaar.
 - Knoplabels:     FALT_SW
 - Commando's:     /mh alttip, /mh alttip on|off
 - Spel:           allebei
