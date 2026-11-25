@@ -11890,3 +11890,126 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
     `189ffd0` *"Nachtcontrole 2026-11-24: C1 0 / C2 0 nakijken, snapshot actueel"*. De kloon is nog steeds ondiep
     (`git rev-parse --is-shallow-repository` → **`true`**), dus een `(forced update)`-regel bij de pull komt
     daarvan en niet van Rob — achtste dag dat dit hier staat.
+- [2026-11-25] ✅ **Geen [MOET GEFIKST]. Eén echte vondst: er staat een nieuwe LIVE Forever-client, en hij
+  bevat geen API-wijziging die ons raakt.**
+  - 🏗️ **Forever: nieuwe live build `1.60.1.71091`, en voor het eerst sinds 20 nov beweegt Gethes
+    `forever`-tak.** GEMETEN eerstehands met `git ls-remote`: `refs/heads/forever` = **`c01a87b`** *"1.60.1
+    (71091)"*, gisteren nog `734f0653`. De andere vier takken zijn onveranderd: `live` = `ab5cb850`, `beta` =
+    `078d0cf7`, `ptr2` = `12380f8c`, `ptr` = `fbb18ce1`. Op `wago.tools/builds?nocache=20261125` staat
+    `1.60.1` **71091** op branch `wowf`, gedetecteerd **2026-11-24 15:21:07** — de nieuwste regel van de hele
+    tabel. Daarmee is dit de eerste Forever-clientbuild ná de WoWUIDev-notities van 20 nov die een
+    realm-ID-obfuscatie *"in an upcoming 1.60.1 hotfix"* aankondigden.
+  - 🔬 **De hele UI-source-diff van die build nagelopen, en dat is de meting die vandaag telt.** GEMETEN met
+    `git diff 734f065 c01a87b` op een eigen shallow clone: **9 bestanden, 213 toegevoegde en 26 verwijderde
+    regels**. Welke: `Blizzard_CatalogShop_ProductCards.lua`, `Blizzard_GlueXML/Camelot/CharacterCopy.lua`,
+    `Blizzard_GlueXML/Shared/AccountReactivate.lua` + `.xml`, `Blizzard_LFGUtil/Mainline/PVPHelper.lua` +
+    `.xml`, `Blizzard_MailFrame/MailFrame.lua`, `Blizzard_ProfessionsTemplates/Blizzard_ProfessionsRecipeList.lua`
+    en `version.txt` (`1.60.1.71037` → `1.60.1.71091`). 🔴 **Géén bestand onder
+    `Blizzard_APIDocumentation` en géén `.toc`** — dus deze build voegt in de clientsource geen API toe,
+    haalt er geen weg en verandert geen Interface-nummer. De enige nieuwe namen in toegevoegde regels:
+    `C_CharacterCreation.AreRegionalUniqueNamesEnabled`, `C_Mail.IsCODEnabled`, `C_Timer.NewTimer`, en de
+    mixins `PVPReadyDialogMixin`, `PromptedBindingMixin`, `SubscriptionRequestDialogMixin`,
+    `ProfessionsRecipeListMixin`.
+  - ✅ **[RAAKT ONS NIET] voor zes van die zeven namen.** Grep over `*.lua` + `*.xml` buiten `Libs/` en
+    `docs/`: `C_Mail.`, `IsCODEnabled`, `MailFrame`, `CatalogShop`, `CharacterCopy`, `AccountReactivate`,
+    `PVPReadyDialog` en `AreRegionalUniqueNames` geven samen **nul** treffers. Positieve controle in dezelfde
+    run en op dezelfde reikwijdte: dezelfde grep vindt `ProfessionsRecipeListMixin` wél (één treffer, hieronder).
+  - ✅ **[AL AFGEDEKT] — de zevende naam raakt ons bijna: `Blizzard_ProfessionsRecipeList.lua`.** Wij hangen
+    aan dat bestand met `EventRegistry:RegisterCallback("ProfessionsRecipeListMixin.Event.OnRecipeSelected", …)`
+    op `Modules/CraftShoppingList.lua:1880`. Drie metingen waarom dit niets kost: (1) Blizzards wijziging zit
+    in hun eigen `OnHide` (een `RegisterCallback` die een `UnregisterCallback` had moeten zijn) plus een
+    `if not self.GetElementData then return end`-guard in `SetCraftableCount` — aan de event-naam die wij
+    gebruiken verandert niets; (2) `ProfessionsRecipeListMixin.Event.OnRecipeSelected` wordt in build 71091
+    nog steeds afgevuurd, `Blizzard_ProfessionsRecipeList.lua:149` (positieve controle: `RefreshCraftableCount`
+    geeft 2 treffers in hetzelfde bestand van dezelfde boom); (3) onze registratie staat achter
+    `if EventRegistry and EventRegistry.RegisterCallback then` (`Modules/CraftShoppingList.lua:1877`) met een
+    `pcall` in de callback. 📌 En los daarvan: `Modules\CraftShoppingList.lua` staat alléén in
+    `MidnightHelper.toc:159` en niet in `MidnightHelper_Camelot.toc`, dus op Forever laadt dit bestand
+    helemaal niet.
+  - ✅ **[AL AFGEDEKT] — de realm-APIs, mocht 71091 de aangekondigde hotfix zijn.** De notitie van 20 nov
+    (*"APIs that return realm names or IDs now instead return an empty string or zero … includes `GetRealmName`,
+    `GetRealmID`, and C_BattleNet APIs"*) is bij ons al ingehaald: `Modules/ForeverCharKey.lua:9-11` zegt het
+    GEMETEN in Robs eigen SavedVariables van 20 nov 22:23 — `GetRealmName()` en `GetNormalizedRealmName()`
+    geven `""` op Forever, en de sleutels zijn daarom naar de player-GUID verhuisd. Alle **25** aanroepsites
+    van `GetRealmName`/`GetNormalizedRealmName` staan achter de `X and X()`-vorm (o.a. `KeyPresses.lua:70`,
+    `ForeverVendors.lua:915`, `ForeverOverview.lua:2291-2292`, `SimcExport.lua:439`, `SlotOwnership.lua:42`).
+    `GetRealmID` komt nergens voor.
+  - ✅ **[AL AFGEDEKT] — de uitbreiding naar het realm-ID in creature-GUIDs.** Onze npcID-extractie is op
+    21 nov al losgemaakt: `ForeverVendors.lua:747` en `:1237` gebruiken
+    `^Creature%-[^%-]+%-[^%-]+%-[^%-]+%-[^%-]+%-(%d+)` met een eigen uitlegregel in `ns._mhRepairLearnWhy`,
+    `ForeverWeapons.lua:659` dezelfde losse vorm (nil-veilig, maar zónder diagnoseregel), en `Rares.lua:1033`
+    doet `select(6, strsplit("-", guid))` achter een `issecretvalue`-guard. ⚠️ **AFGELEID, niet gemeten, en dit
+    is de enige scherpe rand die overblijft:** dat een geobfusceerd veld géén koppelteken bevat. Bevat het er
+    wel één, dan schuift veld 6 op en komt er een **verkeerd** npcID uit in plaats van `nil` — stil fout, niet
+    kapot. Dat kan ik hier niet meten; het vraagt één Forever-login.
+  - ✅ **[RAAKT ONS NIET] — en de layer-module hangt er niet aan.** `Modules/ForeverLayer.lua` (23 nov, nog
+    nergens in dit logboek genoemd) leest GEMETEN **nul** GUID's: `grep 'GUID\|strsplit\|serverID'` geeft alleen
+    de commentaarregel `:9` die zelf al zegt dat het layernummer niet meer leesbaar is. Het leest
+    `SHARD_TRANSFER`/`_IMMINENT`/`_CANCELLED`, de 6e waarde van `PARTY_INVITE_REQUEST` en
+    `UnitPhaseReason("partyN")` — niets daarvan komt in de 20-nov-notities of in de 71091-diff voor.
+  - ⚠️ **Wat ik over die build NIET kan zeggen, en niet ga gokken.** Of 71091 de realm-ID-obfuscatie
+    daadwerkelijk bevat is **niet te meten uit wow-ui-source**: die obfuscatie zit in de engine, niet in de
+    Lua-source. En er zijn geen officiële notities bij: `worldofwarcraft.blizzard.com/en-us/news/24315281`
+    mét `?nocache=20261125` eindigt nog steeds bij **23 november** — de build van 24 nov 15:21 is zonder
+    gepubliceerde hotfixnotities live gegaan. (`1mw.io/en/news` claimt *"Hotfixes of 25 November · Build
+    1.60.1.71091"*; dat is derdenpartij-INFERRED en bij Blizzard zelf niet terug te vinden.) 📌 **De test die
+    dit sluit is één Forever-login van Rob:** `/mh charkey` (welke sleutel per module), `/mh layer` (of de
+    SHARD-events nog aankomen) en één reparatie-NPC aanspreken (dan zegt `ns._mhRepairLearnWhy` of het npcID
+    nog uit de GUID komt). Komt daar een npcID uit dat niet bij de NPC past, dan is de koppelteken-aanname
+    hierboven gesneuveld.
+  - 🧰 **SimC-addon: geen nieuwe release sinds `12.1.5-05`.** GEMETEN eerstehands met `git ls-remote`: **259**
+    echte tags (identiek aan 21 t/m 24 nov) en `refs/heads/master` = **`d0f2255`**, nog steeds gelijk aan
+    `refs/tags/12.1.5-05` van 20 nov. Niets te toetsen aan `ItemString`/`ns.BuildSimcProfile` in
+    `Modules/SimcExport.lua`. (Valkuil van gisteren blijft staan: `--tags | wc -l` geeft 292 door de
+    `^{}`-regels van annotated tags.)
+  - 📄 **Wikipagina's: onveranderd, alle drie mét `?nocache=20261125`.** `Patch_12.1.7/API_changes` heeft nog
+    dezelfde drie Summary-items (server-ID + spawn-ID, en de TOC-variabelenregel over `[Game]`/`[Family]` die
+    hier op 21 en 23 nov al gemeten is — **niet nieuw**, ik heb dat vóór het schrijven in dit logboek
+    nagekeken) en nog steeds **geen** Consolidated-changes-sectie en **geen** realm-ID-item: vijfde dag dat de
+    notitie van 20 nov daar niet staat. `Patch_12.1.5/API_changes` heeft blue posts t/m **29 sep**,
+    `Patch_1.60.1/API_changes` t/m **16 okt**, en `Patch_12.2.0/API_changes` geeft nog steeds
+    **CRAWL_NOT_FOUND**.
+  - 💬 **[RAAKT ONS NIET] — UI-and-Macro-forum: nul nieuwe draden sinds gisteren.** Mét cache-buster: de twee
+    bovenste zijn nog steeds die van 24 nov, alleen met reacties erbij (*"Removing My OWN HP Bar?"* nu **6**
+    reacties, gisteren 5; *"This is a very silly question…"* nu **1**, gisteren 0). Beide over het verbergen
+    van Blizzards eigen frames, geen API-gedrag, geen blue post. De `PlaySoundFile`-verzoekdraad staat nog op
+    15 nov (al afgedekt, `Modules/DispelSound.lua:126-127`).
+  - 📰 **[RAAKT ONS NIET] — Midnight-hotfixes van 24 nov (gepubliceerd 25 nov 00:20 UTC), geen UI- of
+    addon-sectie.** Enige inhoud: *"Ascendant Venomstones will now drop in greater quantities depending on
+    content difficulty"* met een tabel per content-type. Dat is currency-/droprate-inhoud en hoort bij
+    `docs/CONTENT_WATCH.md` en `docs/PTR_12.0.7_DATA.md`; ik heb er niets aan getoetst. Geen nieuwe
+    WoWUIDev-set: de jongste blijft die van 20 nov (*"Coming in 12.1.7 PTR 6"* + *"Coming soon in WoW Forever
+    1.60.1"*), er is geen *"PTR 7"*.
+  - 🚧 **Wat ik NIET kon lezen.** `warcraft.wiki.gg`, `news.blizzard.com`, `us.forums.blizzard.com`,
+    `worldofwarcraft.blizzard.com` en `wago.tools` blijven geweigerd door de egress-proxy op WebFetch; alles
+    via Exa, elk mét `?nocache=20261125`. De WoWUIDev-Discord zelf blijft onbereikbaar. Eén cachecontrole
+    gedaan en geslaagd: de nieuwste items die ik zie (71091 van 24 nov, hotfixes van 24 nov) zijn **nieuwer**
+    dan wat mijn eigen regel van gisteren noemde, dus dit is geen cache. 📌 Nieuw hulpmiddel dat vandaag het
+    werk deed en geen proxy nodig had: een eigen shallow `git clone --bare --depth 12 --branch forever` van
+    `Gethe/wow-ui-source`. Daarmee is de inhoud van een build te meten in plaats van af te leiden uit een
+    nieuwsbericht; aanbevolen als vaste stap zodra een branch-tip beweegt.
+  - ⏳ **Nog open uit eerdere runs — ongewijzigd, NIET opnieuw gemeten vandaag.** Nieuw op de lijst: de
+    koppelteken-aanname in de losse `Creature%-`-patronen, en of 71091 de realm-obfuscatie bevat (beide
+    hierboven, beide met een concrete test). Af vandaag: niets. De rest staat ongewijzigd: de dode
+    `PickupItem`-takken in `Modules/KeyBlock.lua:1135`/`:1227`/`:1380` en
+    `Modules/ApplyLayout.lua:1311`/`:1345`/`:1605`; de vijf decoratieve `GetItemInfo`-terugvaltakken; de
+    verouderde namespace-lijst in `docs/WATCHER_API_PROMPT.md` (18 aug, noemt 57 namespaces en kent de twee
+    TOC's niet); de client-test voor `/mh raidbots`; `GetTimerDuration` toevoegen aan
+    `Modules/ApiProbe.lua:377`; de `FrameStrata`-secret-vraag op `Modules/PartyTargets.lua:517`; de drie
+    `WOW_PROJECT_MAINLINE`-takken in `Libs/LibDBIcon-1.0.lua:533`/`:572`/`:607` die op Forever omslaan; de
+    ongemeten BETEKENIS van *"Edit Mode layouts are now saved separately for each UI type"* voor
+    `Modules/ForeverLayoutCarry.lua`; de shift-klik-taintvraag op `Modules/Achievements.lua:1561`/`:1910`; de
+    in-game-test van `ns.SelfCastMacroWarning` (`Core.lua:4318`); de C_BattleNet-aanname op
+    `Modules/FriendMarks.lua:15`; of `C_LegacySystem` op de Forever-client bestaat en of het dezelfde
+    Legacy-track is als die van `Modules/ForeverLegacy.lua`; of de player-GUID ongemoeid blijft (nog steeds
+    AFGELEID — Blizzard noemt alleen creature, vehicle, pet en game object, en `ForeverCharKey.lua` sleutelt
+    erop); en de opruiming van de oude SavedVariables-sleutels na 28 nov. 🔴 Niets aangeraakt.
+  - 🔧 **Repo-staat: alleen `docs/API_WATCH.md` aangeraakt.** GEMETEN vóór het schrijven: `git status --short`
+    **leeg**, en `HEAD` stond **losgeslagen** (`git rev-parse --abbrev-ref HEAD` → `HEAD`), dus eerst
+    `git checkout -B main origin/main`; de top was `c8ce6f0` *"Nachtcontrole 2026-11-25: 0 nakijken C1/C2,
+    repo-snapshot forever loopt achter (71037 -> 71091)"* — de nachtcontrole zag dezelfde buildsprong, van de
+    andere kant. De kloon is nog steeds ondiep (`is-shallow-repository` → **`true`**), dus een
+    `(forced update)`-regel bij de pull komt daarvan en niet van Rob — negende dag dat dit hier staat.
+    📌 Correctie op mijn eigen positieve controle van gisteren: `grep -c '^##'` geeft in
+    `MidnightHelper.toc` vandaag **19** en niet 20. Dat is geen drift in de meting maar Robs eigen commit
+    `0c26d4d` van 24 nov 22:07; `MidnightHelper_Camelot.toc` staat onveranderd op **14**.
