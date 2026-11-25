@@ -72,7 +72,7 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 - Niet gebouwd: een Do this now-hint "je draagt 1H, er is een 2H met meer DPS" (vraagt tas-DPS-vergelijking die MH niet
   zeker meet). Fable-ronde vóór de volgende release (spelerstekst).
 - Volgende: de andere classes, één voor één (Rob: *"Maak ze maar een voor een compleet af daarna de controle"*):
-  Warrior, Paladin en Shaman GEBOUWD 25 nov; daarna Hunter, Rogue, de casters. Fable-controle als alle 9 klaar zijn.
+  Warrior, Paladin, Shaman en Hunter GEBOUWD 25 nov; daarna Hunter, Rogue, de casters. Fable-controle als alle 9 klaar zijn.
 - Spel: F. Voor wie: N (AFGELEID).
 
 ### Forever: de enchant op wat je draagt telt mee in "beter dan wat je draagt" (Robs screenshot, 25 nov) — ✅ JA, GEREPAREERD 25 nov, wacht op test

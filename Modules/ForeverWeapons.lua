@@ -292,6 +292,15 @@ local CLASS_LINES = {
 	-- Handed Axes 197, Two-Handed Maces 199, Stormstrike 17364, Windfury Weapon 8232, Flametongue Weapon 8024, Rockbiter
 	-- Weapon 8017, Frostbrand Weapon 8033, Mental Dexterity 415140, Shield 9116, Mail 8737, Totem 27763; item 263412 Totem
 	-- of Charged Flames (ItemSparse 71091). Windshaper Skyborne already know Two-Handed Maces: the "already use" line.
+	-- Hunter (races Human, Orc, Dwarf, Night Elf, Tauren, Troll, both Skyborne). Sources: DB2 71091 (SpellEquippedItems
+	-- mask 262156 = bow/gun/crossbow for the shots; no mace row with the Hunter bit; AmmunitionType; ammo levels 10/25/40),
+	-- Blizzard deep dive Hunter & Druid 30 Sep 2026, Beta Dev Notes 24 Sep ("not correctly consuming ammunition …
+	-- corrected") and 16 Oct, Wowhead tooltips (quiver/pouch +10%, 8-35 yd), Icy Veins Survival 20 Nov. Spells: Auto Shot
+	-- 75, Arcane Shot 3044, Aimed Shot 19434, Multi-Shot 2643, Raptor Strike 2973, Mongoose Bite 1495, Strider Kick
+	-- 1317257, Careful Aim 1223984, Dual Wield 674, Bows 264, Guns 266, Crossbows 5011. Strider Kick "from level 30" is in
+	-- the research text (Sparring), not measured in the (outdated) Talent table.
+	HUNTER = { lines = { "FWADV_HUN_1", "FWADV_HUN_2", "FWADV_HUN_3", "FWADV_HUN_4", "FWADV_HUN_5", "FWADV_HUN_6",
+		"FWADV_HUN_7", "FWADV_HUN_8", "FWADV_HUN_9" } },
 	SHAMAN = { lines = { "FWADV_SHA_1", "FWADV_SHA_2", "FWADV_SHA_3", "FWADV_SHA_4", "FWADV_SHA_5", "FWADV_SHA_6",
 		"FWADV_SHA_7", "FWADV_SHA_8" }, learn = { "staff", "mace2", "axe2" } },
 }

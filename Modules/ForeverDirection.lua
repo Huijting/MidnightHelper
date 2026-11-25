@@ -170,7 +170,10 @@ local GUIDE = {
 	HUNTER = {
 		{ w = "FDIRB_W_RANGED", fit = { bow = true, crossbow = true, gun = true } },
 		{ w = "FDIRB_W_RANGED", fit = { bow = true, crossbow = true, gun = true }, needs = { { 1310687, "ranged", 40 } } },
-		{ w = "FDIRB_W_SURVIVAL", fit = { bow = true, crossbow = true, gun = true } },
+		-- 25 Nov 2026 (Sparring's research: Survival melee build): the melee weapon kinds a Hunter can use, no maces
+		-- (DB2 SkillRaceClassInfo 71091: no mace row with the Hunter bit).
+		{ w = "FDIRB_W_SURVIVAL", fit = { bow = true, crossbow = true, gun = true, axe = true, axe2 = true, sword = true,
+			sword2 = true, polearm = true, staff = true, dagger = true, fist = true } },
 	},
 	ROGUE = {
 		{ w = "FDIRB_W_TWODAGGERS", fit = { dagger = true }, needs = { { 399956, "dagger", 40 } } },

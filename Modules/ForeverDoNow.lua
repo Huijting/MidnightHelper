@@ -281,10 +281,12 @@ local function StatSentence(def, fmtKey)
 	-- 25 Nov 2026 (Druid, ForeverMainStats.lua `lead`): what counts before the stats.
 	if def.lead then
 		local lead
-		if def.lead == "dps" or def.lead == "dpsspell" then
+		if def.lead == "dps" or def.lead == "dpsspell" or def.lead == "rdps" or def.lead == "mhdps" then
 			local d = _G.ITEM_MOD_DAMAGE_PER_SECOND_SHORT
 			d = (type(d) == "string" and d ~= "") and d or "damage per second"
-			lead = ns:L(def.lead == "dpsspell" and "FDONOW_STAT_DPSSPELL_FMT" or "FDONOW_STAT_DPS_FMT"):format(d)
+			local key = ({ dpsspell = "FDONOW_STAT_DPSSPELL_FMT", rdps = "FDONOW_STAT_RDPS_FMT",
+				mhdps = "FDONOW_STAT_MHDPS_FMT" })[def.lead] or "FDONOW_STAT_DPS_FMT"
+			lead = ns:L(key):format(d)
 		else
 			lead = ns:L(def.lead == "heal" and "FDONOW_STAT_HEAL" or "FDONOW_STAT_SPELL")
 		end

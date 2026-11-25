@@ -25,6 +25,18 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 25 nov — FOREVER: "Which weapon?" voor de Hunter
+
+Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (64 controles), NIET in het spel.
+- [ ] Een Hunter (bv. Ima Hunterdude of Test Girlie): How you play → **Which weapon? (Hunter)**: bow/gun/crossbow als
+      hoofdwapen (Auto Shot, Arcane Shot, Aimed Shot, Multi-Shot), de langzamere bij gelijke DPS, Ammo en Quiver, 8 yards,
+      een wapen voor dichtbij (Raptor Strike; geen maces), Beast Mastery/Marksmanship vs Survival, stats met Careful Aim.
+      Onderaan wat je kunt en wat je nog kunt leren (geen maces). Geen `<` of `#`.
+- [ ] Gekozen richting Survival: het blok bovenaan zegt "… one slow two-handed weapon or, from level 20, a weapon in each
+      hand (no maces)" (was "not known yet").
+- [ ] Do this now: zonder richting / BM / MM "ranged weapon damage per second first, then Agility, then Spirit …";
+      Survival "weapon damage per second first, then Agility, then Strength …".
+
 ## 25 nov — FOREVER: "Which weapon?" voor de Shaman
 
 Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (54 controles), NIET in het spel.

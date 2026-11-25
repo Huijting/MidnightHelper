@@ -25,7 +25,9 @@ ns.FOREVER_MAIN_STATS = {
 	WARRIOR = { main = { "STRENGTH", "AGILITY" }, stamTie = true, lead = "dps" },
 	PALADIN = { main = { "STRENGTH", "INTELLECT" }, stamTie = true, lead = "dpsspell",
 		later ={ talent = "Champion of the Light", main = { "INTELLECT", "STRENGTH" } } },
-	HUNTER = { main = { "AGILITY", "SPIRIT" }, stamTie = false,
+	-- 25 Nov 2026: text lead = the RANGED weapon's damage per second (Sparring's research; the second check kept Agility,
+	-- Spirit and the Careful Aim flip as they are).
+	HUNTER = { main = { "AGILITY", "SPIRIT" }, stamTie = false, lead = "rdps",
 		later = { talent = "Careful Aim", main = { "AGILITY", "INTELLECT" } } },
 	ROGUE = { main = { "AGILITY", "STRENGTH" }, stamTie = true },
 	PRIEST = { main = { "INTELLECT", "SPIRIT" }, stamTie = true },
@@ -57,6 +59,11 @@ ns.FOREVER_MAIN_STATS = {
 	   Agility advice for Balance/Resto Druid, and gives Affliction Warlocks Spirit.
 ]]
 local BY_TREE = {
+	-- Hunter: only Survival differs (25 Nov 2026, Sparring's research: melee build, Agility then Strength, melee weapon
+	-- DPS first). Beast Mastery and Marksmanship = the class row above (no row here = the class default).
+	HUNTER = {
+		[3] = { role = "melee", main = { "AGILITY", "STRENGTH" }, stamTie = true, lead = "dps" },
+	},
 	PALADIN = {
 		[1] = { role = "heal", main = { "INTELLECT", "SPIRIT" }, stamTie = true, lead = "heal" },
 		-- Prot: see TANK.PALADIN below (21 Nov 2026: Stamina, then Intellect). 25 Nov 2026: Intellect as the second stat

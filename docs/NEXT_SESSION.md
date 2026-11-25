@@ -1,5 +1,17 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 25 nov (Bouwchat 25-11): "Which weapon?" — Hunter GEBOUWD, wacht op test (`/reload`). Volgende: Rogue, casters
+
+FWADV_HUN_1..9 (8 talen), CLASS_LINES.HUNTER. GEMETEN (DB2 SpellName 71091): Auto Shot 75, Arcane Shot 3044, Aimed Shot
+19434, Multi-Shot 2643, Raptor Strike 2973, Mongoose Bite 1495, Strider Kick 1317257, Careful Aim 1223984, Bows 264 /
+Guns 266 / Crossbows 5011; GlobalStrings AMMOSLOT "Ammo", INVTYPE_QUIVER "Quiver", ENERGY "Energy". Bronnen van Sparring
+in de code (DB2 SpellEquippedItems 262156, Beta Dev Notes 24 sep/16 okt, Wowhead tooltips, Icy Veins Survival 20 nov).
+"Strider Kick from level 30" komt uit het onderzoek, niet uit de (verouderde) Talent-tabel.
+Stats: HUNTER lead "rdps" ("ranged weapon damage per second first"), Agi/Spi + Careful Aim ongewijzigd; BY_TREE.HUNTER[3]
+Survival = melee {AGILITY, STRENGTH} lead dps (nieuw: ook de tooltip-rekensom voor Survival). FDIRB_W_SURVIVAL nieuwe
+tekst (8 talen, it valt terug op en); fit = ranged + axe/axe2/sword/sword2/polearm/staff/dagger/fist (geen maces).
+FDONOW_STAT_RDPS_FMT en (voor de Rogue) FDONOW_STAT_MHDPS_FMT in 8 talen. wadv_test 64/64, tokcheck 49 sleutels 0 fouten.
+
 ## ▶▶ 25 nov (Bouwchat 25-11): "Which weapon?" — Shaman GEBOUWD, wacht op test (`/reload`). Volgende: Hunter, Rogue, casters
 
 FWADV_SHA_1..8 (8 talen), CLASS_LINES.SHAMAN (`learn` = staff/mace2/axe2: alleen tweehanders). GEMETEN (DB2 71091):
