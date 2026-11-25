@@ -782,6 +782,8 @@ ns._mhLocales.enUS = {
 	-- Key block (KeyBlock.lua, 4 Oct 2026)
 	KEYBLOCK_TITLE = "Your key block",
 	KEYBLOCK_INTRO = "The same task on the same key, on every character: 1 is always your main button, E your interrupt, Z your small defensive. This is a picture of where this character's spells would go. Nothing on your bars changes until you choose to place it.",
+	-- 25 Nov 2026: the same intro once the block is placed (KEYBLOCK_INTRO said "nothing changes" next to "The key block is on your bars").
+	KEYBLOCK_INTRO_PLACED = "The same task on the same key, on every character: 1 is always your main button, E your interrupt, Z your small defensive. This is the block as it is on your bars now.",
 	KEYBLOCK_NO_DATA = "No key data for this class or spec yet, so there is nothing to show.",
 	KEYBLOCK_BAR_FMT = "Bar %s · action bar %d",
 	KEYBLOCK_UNPLACED_FMT = "No place on blocks A, B and C (%d): %s. They go on a free Alt key in block D.",

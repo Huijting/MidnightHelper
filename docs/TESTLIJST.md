@@ -25,6 +25,13 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 25 nov — toetsenblok: de zin bovenin klopt nu als het blok al op je balken staat
+
+Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. NIET in het spel getest.
+- [ ] `/mh block` met het blok geplaatst: bovenin staat nu "… This is the block as it is on your bars now." (niet meer
+      "Nothing on your bars changes until you choose to place it").
+- [ ] Na **Undo** (blok eraf): weer de oude zin "This is a picture of where this character's spells would go …".
+
 ## 25 nov — BEIDE GAMES: de tooltip noemt je andere characters bij een wapen of harnas (Rob: "Zeg je ja? JA")
 
 🔴 Herstart nodig als je de vorige ronde (recept/materiaal) nog niet met een herstart hebt getest; anders is `/reload`

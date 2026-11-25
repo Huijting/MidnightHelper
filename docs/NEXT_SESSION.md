@@ -1,5 +1,13 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 25 nov (Bouwchat 25-11): toetsenblok-intro klopt nu als het blok geplaatst is — GEREPAREERD, wacht op test
+
+Robs screenshot (Midnight, 12 × 4, blok geplaatst): bovenin "This is a picture … Nothing on your bars changes until you
+choose to place it.", onderin "The key block is on your bars." Rob via Sparring: *"ja dat mag de bouwchat"*.
+`KeyBlock.lua` Refresh: geplaatst (GetSnap) → nieuwe tekst KEYBLOCK_INTRO_PLACED ("… This is the block as it is on your
+bars now."), anders de oude KEYBLOCK_INTRO. 8 talen (de eerste zin per taal ongewijzigd overgenomen); locale-probe OK in
+alle 8; check_drift alleen de 2 oude punten (GEARLADDER_FOOT, MBUFF_EUI_OVERLAP_HINT). `/reload` genoeg.
+
 ## ▶▶ 25 nov (Bouwchat 25-11): gear-tooltip "wie van je andere characters kan dit dragen" (beide games) — GEBOUWD, wacht op test
 
 Rob plakte het advies van Sparring terug: *"Mijn advies: in beide games eerst "kan dragen + hoger item level". Forever gaat

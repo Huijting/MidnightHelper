@@ -2540,7 +2540,9 @@ Refresh = function(f)
 	else
 		f.oldBarsBtn:Hide()
 	end
-	f.intro:SetText(res and ns:L("KEYBLOCK_INTRO") or ns:L("KEYBLOCK_NO_DATA"))
+	-- 25 Nov 2026 (Rob's screenshot: "This is a picture … Nothing on your bars changes" above "The key block is on your
+	-- bars"; Rob via Sparring: "ja dat mag de bouwchat"): once the block is placed, the intro says so.
+	f.intro:SetText(res and ns:L(placed and "KEYBLOCK_INTRO_PLACED" or "KEYBLOCK_INTRO") or ns:L("KEYBLOCK_NO_DATA"))
 	for _, bar in ipairs(BLOCK) do
 		f.bars[bar.id].head:SetText(ns:L("KEYBLOCK_BAR_FMT"):format(bar.id, bars[bar.id]))
 		for n, slot in ipairs(bar.slots) do

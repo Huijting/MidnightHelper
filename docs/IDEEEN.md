@@ -26,6 +26,11 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 
 ## Open — wacht op Rob
 
+### Toetsenblok: de intro-zin klopt niet als het blok al geplaatst is (Robs screenshot, 25 nov) — ✅ JA, GEREPAREERD 25 nov, wacht op test
+- Bron: Rob via Sparring 25-11, letterlijk: *"ja dat mag de bouwchat"*.
+- Gerepareerd: geplaatst = "This is the block as it is on your bars now."; niet geplaatst = de oude zin. 8 talen.
+- Spel: M + F. Voor wie: N + V (AFGELEID).
+
 ### Tooltip: welke van je andere characters een recept of materiaal kan gebruiken (wens van Rob, 25 nov) — ✅ JA, stap 1 GEBOUWD 25 nov, wacht op test; stap 2 (gear) = eerst uitzoeken
 - Bron: Rob via Sparring 25-11, letterlijk: *"Kunnen wij dat niet hier vermelden in de tooltip, zodat ik weet naar wie
   ik het moet gaan sturen?"*, *"Eigenlijk wil ik het natuurlijk wel voor alles wat we eventueel kunnen versturen naar

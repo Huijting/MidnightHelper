@@ -754,6 +754,7 @@ ns._mhLocales.nlNL = {
 	-- Toetsenblok (KeyBlock.lua, 4 okt 2026)
 	KEYBLOCK_TITLE = "Je toetsenblok",
 	KEYBLOCK_INTRO = "Dezelfde taak op dezelfde toets, op elk character: 1 is altijd je hoofdknop, E je kick, Z je kleine defensive. Dit is een plaatje van waar de spells van dit character zouden komen. Er verandert niets op je balken tot je zelf kiest om het neer te zetten.",
+	KEYBLOCK_INTRO_PLACED = "Dezelfde taak op dezelfde toets, op elk character: 1 is altijd je hoofdknop, E je kick, Z je kleine defensive. Dit is het blok zoals het nu op je balken staat.",
 	KEYBLOCK_NO_DATA = "Nog geen toetsgegevens voor deze klasse of spec, dus er is niets te tonen.",
 	KEYBLOCK_BAR_FMT = "Balk %s · actiebalk %d",
 	KEYBLOCK_UNPLACED_FMT = "Geen plek op blok A, B en C (%d): %s. Die komen op een vrije Alt-toets in blok D.",
