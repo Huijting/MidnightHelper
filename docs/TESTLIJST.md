@@ -25,6 +25,12 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 26 nov — Spiekbrief: de spells achter je Forever-toetsen
+
+`/reload` is genoeg. Offline getest (undo_test 39/39), NIET in het spel.
+- [ ] `/reload` op je druid, dan de spiekbrief opnieuw plakken op midnighthelper.com (Key block). Bij 1, 2, Q, F … staan nu
+      spells (zoals Wrath), niet een leeg vak.
+
 ## 26 nov — Bedanken voor een buff ná het gevecht
 
 `/reload` is genoeg. Offline getest (thanks_test 10/10), NIET in het spel. Alleen als "thanks for a buff" aan staat.

@@ -28,6 +28,19 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 26 nov 2026 — Forever-macro's in de toetsblok-code dragen nu hun spell
+- Tag + commit:   geen tag (git log 26 nov, "MH macros carry their spell")
+- Status:         alleen op main
+- Mag op de site: ja (parser/blad); "nieuw" pas bij "staat op CurseForge"
+- Speler ziet:    Op de spiekbrief staan bij een Forever-character nu de spells achter MH's macro's (Wrath, Moonfire …),
+                  niet meer een leeg vak.
+- Knoplabels:     geen nieuwe
+- Commando's:     geen nieuwe
+- Spel:           Forever
+- Contract:       een regel `A|1|KEYBLOCK_T_MAIN|macro|5176|Wrath`: kind = macro, MET id (de spell die de macro cast) en de
+                  clientnaam. Toon hem als die spell (icoon via id). `macro||<naam>` zonder id blijft bestaan: de speler's
+                  eigen macro, of een oude code.
+
 ## 26 nov 2026 — Toetsblok-code draagt nu ook je klik-heals (`clicks=` + K-regels) — SITE-WERK NODIG
 - Tag + commit:   geen tag (zie git log, 26 nov, "cheat sheet carries the clicks")
 - Status:         alleen op main

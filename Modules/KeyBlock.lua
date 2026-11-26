@@ -870,7 +870,7 @@ local function PlacePlan()
 				-- label = the spell's client name. The macro does not exist yet when "New for your key block" asks, so
 				-- GetMacroInfo found nothing and the popup said "macro -> 2" (Rob, 7 Nov 2026: "geen idee wat er geplaatst wordt").
 				want = { kind = "macro", id = hit.spell.macroName, key = hit.spell.macroKey, spellIds = hit.spell.spellIds,
-					label = hit.spell.name }
+					label = hit.spell.name, show = hit.spell.id }
 			elseif hit then
 				want = { kind = "spell", id = hit.spell.id }
 			elseif slotDef.fixed then
@@ -3324,7 +3324,8 @@ end
 --   key    WoW binding notation: 1, SHIFT-1, CTRL-1, ALT-Q, F1 ...
 --   task   the place's task as a locale KEY (KEYBLOCK_T_*), so the site can label it in any language
 --   kind   spell | item | macro | empty
---   id     spell or item id (empty for a macro or an empty place)
+--   id     spell or item id (empty for an empty place, or a macro that is not MH's own). Since 26 Nov 2026 an MH
+--          Forever macro ("MH 1", "MH SHIFT-E" …) carries the id and client name of the spell it casts; kind stays macro.
 --   name   as the client shows it; "|" becomes "/"
 --
 -- What a place holds: once the block is placed, what really stands on that button; before that, what
@@ -3435,6 +3436,15 @@ function ns.BuildKeyBlockExport()
 		end
 		if kind ~= "spell" and kind ~= "item" and kind ~= "macro" then
 			kind, id, name = "empty", nil, nil
+		end
+		-- 26 Nov 2026 (the site chat on Rob's real Forever code: "bijna leeg, maar 3 plaatsen gevuld"): 15 of his 18 places
+		-- were MH's own Forever macros, sent as "macro||MH 1" with no id, which a sheet cannot show. When the place holds
+		-- MH's macro for this key (same name), send the spell it casts: id = that spell, name = its client name. kind stays
+		-- "macro", so a reader knows it is a macro.
+		if kind == "macro" and r.want and r.want.kind == "macro" and r.want.show
+			and (name == r.want.id or not (placed or r.action == "own")) then
+			id = r.want.show
+			name = r.want.label or OccupantName("spell", r.want.show) or name
 		end
 		lines[#lines + 1] = ("%s|%s|%s|%s|%s|%s"):format(r.bar, r.key, taskBy[r.key] or "", kind,
 			id and tostring(id) or "", clean(name))

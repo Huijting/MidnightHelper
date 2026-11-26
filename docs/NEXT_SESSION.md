@@ -1,5 +1,14 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 26 nov (Bouwchat 26-11): MH-macro's in de spiekbrief-code dragen hun spell (`/reload`)
+
+Site-chat op Robs echte Forever-code (Ima, Druid): "maar 3 plaatsen gevuld". GEMETEN in zijn SV (keyBlockCodes, t
+1795706488): 18 plekken gevuld, waarvan 15 MH-macro's als `macro||MH 1` zonder id; alleen Teleport: Moonglade, Healing
+Potion en Minor Mana Potion hadden een id. De code was dus niet leeg; een macro zonder id kan een blad niet tonen.
+KeyBlock.lua: PlacePlan's macro-`want` draagt nu `show` (= ForeverBlock's spell.id); de export zet bij een MH-macro op
+zijn eigen toets (naam = want.id, of nog niet geplaatst) `id` = die spell en `name` = de clientnaam; kind blijft macro.
+Een eigen macro van de speler blijft zoals hij is. Contract-regel `id` bijgewerkt. undo_test 39/39.
+
 ## ▶▶ 26 nov (Bouwchat 26-11): bedanken voor een buff ná het gevecht (`/reload`)
 
 Rob: *"Klopt het dat wanneer ik in een gevecht ben en ik krijg een buff van iemand, dat ik dan niet kan bedanken?"* — dat
