@@ -535,6 +535,13 @@ local FLIGHT_NODES = {
 	{ 31, "A", 1444, 89.46, 45.87, "Thalanaar, Feralas" }, { 32, "A", 1445, 67.46, 51.20, "Theramore, Dustwallow Marsh" },
 	{ 22, "H", 1456, 46.65, 49.90, "Thunder Bluff, Mulgore" }, { 44, "H", 1447, 21.95, 49.69, "Valormok, Azshara" },
 	{ 58, "H", 1440, 12.19, 33.77, "Zoram'gar Outpost, Ashenvale" },
+	-- 26 Nov 2026 (Rob in Moonglade: MH sent him to Winterspring, "Polestar die gaf aan … daar is ook een Flightmaster"):
+	-- the druid-only Nighthaven masters. DB2 71139 TaxiNodes 62 (A) / 63 (H), CharacterBitNumber 0 (never "discovered":
+	-- every druid has them). Zone x,y AFGELEID from their world position, scaled by the two Moonglade nodes 49 and 69;
+	-- Wowhead Forever puts Bunthen Plainswind (11798) at 44.4,45.4 and Silva Fil'naveth (11800) at 44.2,45.2 (GEMETEN).
+	-- 7th field = the only class that may use it.
+	{ 62, "A", 1450, 44.28, 45.22, "Nighthaven, Moonglade", "DRUID" },
+	{ 63, "H", 1450, 44.31, 45.61, "Nighthaven, Moonglade", "DRUID" },
 }
 -- { from, to, yards }: every TaxiPath between those nodes (each pair exists both ways, measured separately).
 local FLIGHT_PATHS = {
@@ -603,6 +610,8 @@ local FLIGHT_PATHS = {
 	{ 3203, 17, 9845 }, { 3203, 21, 3607 }, { 3203, 56, 4624 }, { 3203, 70, 3993 },
 	{ 3242, 52, 3745 }, { 3242, 53, 3967 }, { 3242, 559, 1849 },
 	{ 3276, 5, 3917 }, { 3276, 8, 5193 }, { 3276, 71, 3676 },
+	-- Nighthaven, one way (DB2 TaxiPath 315: 62 > 27 Rut'theran; 316: 63 > 22 Thunder Bluff), lengths by mh-research.
+	{ 62, 27, 4559 }, { 63, 22, 16313 },
 }
 local FLY_YD_PER_MIN = 30 * 60 -- GEMETEN 30 yd/s
 local FLY_HOP = 0.3 -- landing and taking off again at a point on the way (AFGELEID, small: only to prefer fewer hops)
@@ -650,36 +659,37 @@ local function WorldMapTaxi(contMap, side)
 	if not ok or type(list) ~= "table" then
 		return nil, "GetTaxiNodesForMap unreadable"
 	end
-	local out, mine, undiscovered = {}, 0, 0
+	-- 26 Nov 2026: NOT used for "known" any more. GEMETEN by Rob (/mh travel): Forever calls every point discovered
+	-- (21/21 and 13/13). Only the client's own (localized) names come from here, for the flight map's slot list below.
+	local n = 0
 	for _, info in ipairs(list) do
 		local id = type(info) == "table" and info.nodeID
-		local n = id and NODE_BY_ID[id]
-		if n and (not n[2] or n[2] == side) then
-			if type(info.name) == "string" and info.name ~= "" and not (issecretvalue and issecretvalue(info.name)) then
-				taxiNames[id] = info.name
-			end
-			if info.isUndiscovered then
-				undiscovered = undiscovered + 1
-			else
-				out[id] = true
-				mine = mine + 1
-			end
+		if id and NODE_BY_ID[id] and type(info.name) == "string" and info.name ~= ""
+			and not (issecretvalue and issecretvalue(info.name)) then
+			taxiNames[id] = info.name
+			n = n + 1
 		end
 	end
-	local total = 0
-	for _, n in ipairs(FLIGHT_NODES) do
-		if not n[2] or n[2] == side then
-			-- Riverglades and Hyjal are their own maps: the continent decides by world position (World), not by name.
-			local cont = World(n[3], n[4], n[5])
-			if (contMap == MAP.EK and cont == 0) or (contMap == MAP.KALIMDOR and cont == 1) then
-				total = total + 1
-			end
-		end
+	return nil, ("%d names read (not used for known: Forever calls every point discovered)"):format(n)
+end
+
+--- Which world continent (0 = Eastern Kingdoms, 1 = Kalimdor) a node is on; cached.
+local nodeCont = {}
+local function NodeCont(id)
+	if nodeCont[id] == nil then
+		local nd = NODE_BY_ID[id]
+		nodeCont[id] = nd and World(nd[3], nd[4], nd[5]) or false
 	end
-	if undiscovered > 0 or (mine > 0 and mine < total) then
-		return out, ("%d known of %d (filters: %s)"):format(mine, total, undiscovered > 0 and "marks undiscovered" or "fewer than all")
+	return nodeCont[id] or nil
+end
+
+--- This class may use this node (the druid-only Nighthaven masters).
+local function NodeForMe(nd)
+	if not nd[7] then
+		return true
 	end
-	return nil, ("%d of %d, all called discovered: not trusted"):format(mine, total)
+	local _, cls = UnitClass("player")
+	return cls == nd[7]
 end
 
 --- { [nodeID] = true } of the flight points this character knows, and how MH knows.
@@ -693,52 +703,187 @@ local function KnownTaxi(side)
 	local learned = LearnedTaxi(false)
 	local nl = 0
 	for id in pairs(learned or {}) do
-		known[id] = true
-		nl = nl + 1
-	end
-	parts[#parts + 1] = ("learned at flight masters: %d"):format(nl)
-	for _, cont in ipairs({ MAP.KALIMDOR, MAP.EK }) do
-		local set, why = WorldMapTaxi(cont, side)
-		parts[#parts + 1] = ("world map %s: %s"):format(cont == MAP.KALIMDOR and "Kalimdor" or "Eastern Kingdoms", tostring(why))
-		for id in pairs(set or {}) do
+		if type(id) == "number" then
 			known[id] = true
+			nl = nl + 1
 		end
 	end
+	-- Class-only masters (Nighthaven) are known to every character of that class (CharacterBitNumber 0 in DB2).
+	for _, nd in ipairs(FLIGHT_NODES) do
+		if nd[7] and NodeForMe(nd) then
+			known[nd[1]] = true
+		end
+	end
+	local seen = learned and learned.seen or {}
+	parts[#parts + 1] = ("learned: %d; flight map seen on Kalimdor: %s, Eastern Kingdoms: %s"):format(nl,
+		seen[1] and "yes" or "no (open a flight master there once)", seen[0] and "yes" or "no (open a flight master there once)")
+	WorldMapTaxi(MAP.KALIMDOR, side) -- names only
+	WorldMapTaxi(MAP.EK, side)
 	taxiWhy = table.concat(parts, "; ")
 	knownCache.at, knownCache.side, knownCache.set = now, side, known
 	return known
 end
 
--- Learn at every flight map: the points the master can fly you to (Current/Reachable) are points you know.
-do
-	local tf = CreateFrame("Frame")
-	pcall(tf.RegisterEvent, tf, "TAXIMAP_OPENED")
-	tf:SetScript("OnEvent", function()
-		C_Timer.After(0.2, function()
-			if not (C_TaxiMap and C_TaxiMap.GetAllTaxiNodes and GetTaxiMapID) then
-				return
-			end
-			local okM, map = pcall(GetTaxiMapID)
-			if not okM or not map then
-				return
-			end
-			local ok, list = pcall(C_TaxiMap.GetAllTaxiNodes, map)
-			if not ok or type(list) ~= "table" then
-				return
-			end
-			local db = LearnedTaxi(true)
-			if not db then
-				return
-			end
-			for _, info in ipairs(list) do
-				-- Enum.FlightPathState: Current 0, Reachable 1, Unreachable 2 (GEMETEN in the forever UI source).
-				if type(info) == "table" and info.nodeID and NODE_BY_ID[info.nodeID] and (info.state == 0 or info.state == 1) then
-					db[info.nodeID] = true
+--- 26 Nov 2026: what MH learned last, for /mh travel (how, when, how many).
+local taxiLast = "nothing yet this session"
+
+--- The nearest flight master of your side within `yards`, by world position; nil when none.
+local function NearestNode(yards)
+	local pmap, px, py = PlayerPos()
+	if not (pmap and px) then
+		return nil
+	end
+	local cont, wx, wy = World(pmap, px, py)
+	if not wx then
+		return nil
+	end
+	local side, best, bestD = Side(), nil, yards
+	for _, nd in ipairs(FLIGHT_NODES) do
+		if (not nd[2] or nd[2] == side) and NodeForMe(nd) then
+			local c, x, y = World(nd[3], nd[4], nd[5])
+			if c == cont and x then
+				local d = math.sqrt((x - wx) ^ 2 + (y - wy) ^ 2)
+				if d < bestD then
+					best, bestD = nd[1], d
 				end
 			end
-			knownCache.set = nil -- plan again with what you just learned
-		end)
+		end
+	end
+	return best
+end
+
+--- Name of a flight map slot -> node id of your side (the client's names from the world map list, else English).
+local function NodeByName(name)
+	if type(name) ~= "string" or name == "" or (issecretvalue and issecretvalue(name)) then
+		return nil
+	end
+	local side = Side()
+	for _, nd in ipairs(FLIGHT_NODES) do
+		if (not nd[2] or nd[2] == side) and (taxiNames[nd[1]] == name or nd[6] == name) then
+			return nd[1]
+		end
+	end
+	return nil
+end
+
+-- Learn which flight points you know (26 Nov 2026, Sparring: Rob's SavedVariables had no foreverTaxiKnown at all, because
+-- the old code stopped silently when GetTaxiMapID was missing). Method learned by READING Polestar (GPL-3; no code, no
+-- table, no number taken): ask every door the client has, and say in /mh travel which one answered.
+--  1. At a flight map: C_TaxiMap.GetAllTaxiNodes(GetTaxiMapID()) when both exist (state 0 Current / 1 Reachable), AND the
+--     slot list NumTaxiNodes / TaxiNodeGetType / TaxiNodeName (CURRENT, REACHABLE and UNREACHABLE = a point you know;
+--     the types are Blizzard's TaxiFrame.lua). A flight map shows every point you know on that continent, so after it
+--     the continent counts as "seen" and points that were not on it are forgotten (a reset, a wrong guess).
+--  2. "New flight path discovered" (ERR_NEWTAXIPATH): the master within 60 yd.
+--  3. Landing after a flight: the master within 60 yd is a point you know.
+do
+	local function Learn(ids, cont, how)
+		local db = LearnedTaxi(true)
+		if not db then
+			return
+		end
+		local n = 0
+		for id in pairs(ids) do
+			if not db[id] then
+				n = n + 1
+			end
+			db[id] = true
+		end
+		if cont ~= nil then
+			db.seen = db.seen or {}
+			db.seen[cont] = true
+			for id in pairs(db) do
+				if type(id) == "number" and NodeCont(id) == cont and not ids[id] then
+					db[id] = nil
+				end
+			end
+		end
+		taxiLast = ("%s: %d point(s), %d new"):format(how, (function() local c = 0 for _ in pairs(ids) do c = c + 1 end return c end)(), n)
+		knownCache.set = nil -- plan again with what you just learned
+	end
+
+	local function AtFlightMap()
+		local ids, cont, how = {}, nil, {}
+		if C_TaxiMap and C_TaxiMap.GetAllTaxiNodes and GetTaxiMapID then
+			local okM, map = pcall(GetTaxiMapID)
+			if okM and map then
+				local ok, list = pcall(C_TaxiMap.GetAllTaxiNodes, map)
+				if ok and type(list) == "table" then
+					for _, info in ipairs(list) do
+						if type(info) == "table" and info.nodeID and NODE_BY_ID[info.nodeID]
+							and (info.state == 0 or info.state == 1) then
+							ids[info.nodeID] = true
+							cont = cont or NodeCont(info.nodeID)
+						end
+					end
+					how[#how + 1] = "GetAllTaxiNodes"
+				end
+			end
+		end
+		if NumTaxiNodes and TaxiNodeName and TaxiNodeGetType then
+			local okN, num = pcall(NumTaxiNodes)
+			if okN and type(num) == "number" then
+				local KNOWN = { CURRENT = true, REACHABLE = true, UNREACHABLE = true }
+				for i = 1, num do
+					local okT, kind = pcall(TaxiNodeGetType, i)
+					local okS, name = pcall(TaxiNodeName, i)
+					if okT and KNOWN[kind] and okS then
+						local id = NodeByName(name)
+						if id then
+							ids[id] = true
+							cont = cont or NodeCont(id)
+						end
+					end
+				end
+				how[#how + 1] = "slot list"
+			end
+		end
+		if next(ids) then
+			Learn(ids, cont, "flight map (" .. table.concat(how, " + ") .. ")")
+		else
+			taxiLast = "flight map opened, but no door gave a point (" .. (#how > 0 and table.concat(how, ", ") or "no API") .. ")"
+		end
+	end
+
+	local tf = CreateFrame("Frame")
+	for _, e in ipairs({ "TAXIMAP_OPENED", "UI_INFO_MESSAGE", "PLAYER_CONTROL_LOST", "PLAYER_CONTROL_GAINED" }) do
+		pcall(tf.RegisterEvent, tf, e)
+	end
+	local flying = false
+	tf:SetScript("OnEvent", function(_, event, a, b)
+		if event == "TAXIMAP_OPENED" then
+			C_Timer.After(0.2, AtFlightMap)
+		elseif event == "UI_INFO_MESSAGE" then
+			local msg = (type(b) == "string" and b) or (type(a) == "string" and a) or nil
+			if msg and ERR_NEWTAXIPATH and msg == ERR_NEWTAXIPATH then
+				local id = NearestNode(60)
+				if id then
+					Learn({ [id] = true }, nil, "new flight path")
+				end
+			end
+		elseif event == "PLAYER_CONTROL_LOST" then
+			C_Timer.After(1, function()
+				flying = UnitOnTaxi and UnitOnTaxi("player") or false
+			end)
+		elseif event == "PLAYER_CONTROL_GAINED" and flying then
+			flying = false
+			C_Timer.After(1, function()
+				local id = NearestNode(60)
+				if id then
+					Learn({ [id] = true }, nil, "landed")
+				end
+			end)
+		end
 	end)
+end
+
+--- /mh travel: which taxi doors this client has (so a silent "no flights" can be told apart from a missing API).
+local function TaxiApiLine()
+	local function has(f)
+		return f and "yes" or "no"
+	end
+	return ("taxi API: GetTaxiMapID %s, C_TaxiMap.GetAllTaxiNodes %s, NumTaxiNodes %s, TaxiNodeGetType %s, TaxiNodeName %s, GetTaxiNodesForMap %s; last learned: %s"):format(
+		has(GetTaxiMapID), has(C_TaxiMap and C_TaxiMap.GetAllTaxiNodes), has(NumTaxiNodes), has(TaxiNodeGetType),
+		has(TaxiNodeName), has(C_TaxiMap and C_TaxiMap.GetTaxiNodesForMap), taxiLast)
 end
 
 local function TaxiName(id)
@@ -758,7 +903,8 @@ end
 --- The link ends and the edges between them never change for one faction: build them once.
 local staticBySide = {}
 local function StaticGraph(side)
-	local key = side or "?"
+	local _, cls = UnitClass("player")
+	local key = (side or "?") .. ":" .. tostring(cls) -- the class decides the druid-only masters
 	if staticBySide[key] then
 		return staticBySide[key]
 	end
@@ -766,7 +912,7 @@ local function StaticGraph(side)
 	-- 26 Nov 2026: every flight master of your side is a point too (walks to and from it are fixed; which flights you may
 	-- take depends on what you know, so those edges are added in Plan).
 	for _, n in ipairs(FLIGHT_NODES) do
-		if not n[2] or n[2] == side then
+		if (not n[2] or n[2] == side) and NodeForMe(n) then
 			local p = Point(n[3], n[4], n[5])
 			p.taxi = n[1]
 			g.points[#g.points + 1] = p
@@ -811,6 +957,7 @@ end
 --- The plan from the player to (map, x, y): a list of steps, or nil when you can simply walk (or nothing is known).
 --- Dijkstra over: the player, every link end on your side, the target. Small (about 30 points), cached for a second.
 local cache = { key = nil, at = 0, steps = nil, why = nil }
+local pins, SWITCH = {}, 1.5 -- the start each target's plan chose last, and the price of changing it (AFGELEID)
 local function Plan(tmap, tx, ty)
 	local pmap, px, py = PlayerPos()
 	if not (pmap and px and tmap and tx and ty) then
@@ -854,11 +1001,26 @@ local function Plan(tmap, tx, ty)
 			list[#list + 1] = { to = ib + 1, cost = f[3] / FLY_YD_PER_MIN + FLY_HOP, fly = f[2] }
 		end
 	end
+	-- 26 Nov 2026 (Rob in Moonglade: "The way there: the flight master in Winterspring …" and a moment later "Way to The
+	-- Barrens: first use your Hearthstone", both "about 22 min"): two routes of almost the same length, and the
+	-- Hearthstone's cooldown ticking down made the plan flip between them. Now the first choice for a target sticks for
+	-- 10 minutes unless another start is clearly (SWITCH) quicker: one piece of advice, not two.
+	local pinKey = ("%d:%.0f:%.0f"):format(tmap, tx, ty)
+	local pin = pins[pinKey]
+	if pin and now - pin.at > 600 then
+		pin = nil
+	end
+	local function startCost(identity, c)
+		if pin and pin.id ~= identity then
+			return c + SWITCH
+		end
+		return c
+	end
 	for j = 1, it do -- walks from the start, and walks into the target
 		if j ~= 1 then
 			local c = WalkCost(nodes[1], nodes[j])
 			if c then
-				add(1, j, c, nil)
+				add(1, j, startCost("walk", c), nil)
 			end
 		end
 		if j ~= it and j ~= 1 then
@@ -875,7 +1037,7 @@ local function Plan(tmap, tx, ty)
 		local p = Point(tp.dest[1], tp.dest[2], tp.dest[3])
 		nodes[#nodes + 1] = p
 		local ip = #nodes
-		add(1, ip, tp.cost, nil, nil, tp)
+		add(1, ip, startCost(tp.t.id, tp.cost), nil, nil, tp)
 		local c = WalkCost(p, target)
 		if c then
 			add(ip, it, c, nil)
@@ -968,6 +1130,18 @@ local function Plan(tmap, tx, ty)
 		else
 			why = "same land: walk"
 		end
+		-- Remember the start this plan chose; a start that paid the switch price had it added once: take it off again.
+		local first = chain[1] and chain[1].edge
+		local identity = (first and first.tp and first.tp.t.id) or "walk"
+		if pin and pin.id ~= identity then
+			if steps then
+				steps.totalMin = math.max(0, steps.totalMin - SWITCH)
+				if steps[1] and steps[1].min then
+					steps[1].min = math.max(0, steps[1].min - SWITCH)
+				end
+			end
+		end
+		pins[pinKey] = { id = identity, at = now }
 	end
 	cache.key, cache.at, cache.steps, cache.why = key, now, steps, why
 	return steps, why
@@ -1081,6 +1255,7 @@ function ns.ForeverTravelSlash()
 	end
 	table.sort(names)
 	print(("  flight points you know: %d — %s"):format(#names, taxiWhy))
+	print("  " .. TaxiApiLine())
 	if #names > 0 then
 		print("    " .. table.concat(names, ", "))
 	end

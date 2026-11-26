@@ -1,5 +1,21 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 26 nov (Bouwchat 26-11): Forever-reisplanner "leren van Polestar" — STAP 1 van 4 GEBOUWD (`/reload`)
+
+Rob via Sparring: *"Ik volg sowieso jouw advies, dus ik zeg ja, denk ik. En gaan we door tot jullie eigenlijk klaar
+zijn."* Volgorde: 1 flight-point-kennis, 2 rare-venster, 3 echte seconden + stappenpaneel + vliegkaart, 4 transport/liften/
+Undercity. 🔴 Licentie: Polestar GPL-3 → alleen de METHODE gelezen, geen code/tabellen/getallen overgenomen.
+- ForeverTravel.lua: leren bij TAXIMAP_OPENED via GetAllTaxiNodes(GetTaxiMapID()) ÉN de slot-lijst (NumTaxiNodes/
+  TaxiNodeGetType/TaxiNodeName: CURRENT/REACHABLE/UNREACHABLE = bekend; naam → node via clientnamen + Engels, per kant);
+  een geziene vliegkaart = dat continent "seen", ontbrekende punten vergeten. Ook ERR_NEWTAXIPATH (UI_INFO_MESSAGE) en
+  landing (PLAYER_CONTROL_GAINED na UnitOnTaxi) → master binnen 60 yd. Wereldkaartlijst alleen nog voor namen
+  (GEMETEN door Rob: alles "discovered").
+- Nighthaven 62 (A) / 63 (H), druid-only, altijd bekend voor druids; paden 62→27, 63→22 (DB2 315/316). x,y AFGELEID uit de
+  wereldpositie via nodes 49/69; Wowhead 11798/11800 binnen 0,2 (GEMETEN). StaticGraph-cache per kant + class.
+- Eén advies: de start die een plan koos blijft 10 min staan tenzij een andere ≥ 1,5 min sneller is (SWITCH; de
+  Hearthstone-cooldown liet het plan heen en weer flippen). /mh travel: taxi-API-regel + "seen" per continent.
+- Open voor stap 3: FlightMapHint.lua:82 (GetAllTaxiNodes zonder uiMapID).
+
 ## ▶▶ 26 nov (Bouwchat 26-11): klik-heals op DandersFrames in Forever — GEBOUWD, wacht op test (HERSTART: nieuw bestand)
 
 Rob via Sparring: *"2 ja"* (*"Kunnen wij dat in Forever ook? En zo niet, waarom niet? En kunnen we het wel maken?"*).

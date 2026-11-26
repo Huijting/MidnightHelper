@@ -25,6 +25,18 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 26 nov — FOREVER: MH leert welke flight points je kent + Nighthaven + één advies (reisplanner stap 1)
+
+Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (flight_test 27, trainroute_test 6), NIET in het spel.
+- [ ] Praat met een flight master (de vliegkaart gaat open) en typ daarna `/mh travel`. Regel "flight points you know: N"
+      noemt nu jouw punten, en "flight map seen on Kalimdor: yes". De regel "taxi API: …" zegt welke functies je client
+      heeft. Stuur me die twee regels.
+- [ ] Ontdek een nieuw flight point: `/mh travel` noemt het meteen ("last learned: new flight path").
+- [ ] Na een vlucht: "last learned: landed".
+- [ ] Druid in Moonglade, doel in The Barrens: de route begint bij de flight master in Nighthaven (vlieg naar Thunder
+      Bluff …), niet in Winterspring.
+- [ ] Het kaartje en de chat noemen nu dezelfde route (niet eerst de flight master en dan "first use your Hearthstone").
+
 ## 26 nov — FOREVER: heals met een klik op DandersFrames (Rob: "2 ja")
 
 ⚠️ NIEUW BESTAND (ForeverClickCast.lua, in beide toc's): Forever én Midnight één keer HELEMAAL herstarten, `/reload` is
