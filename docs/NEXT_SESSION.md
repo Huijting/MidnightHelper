@@ -15,7 +15,9 @@ nieuwe regel in Missing: eerste trainer-rang met een `req` die geen trainer leer
 
 Site-chat op Robs echte Forever-code (Ima, Druid): "maar 3 plaatsen gevuld". GEMETEN in zijn SV (keyBlockCodes, t
 1795706488): 18 plekken gevuld, waarvan 15 MH-macro's als `macro||MH 1` zonder id; alleen Teleport: Moonglade, Healing
-Potion en Minor Mana Potion hadden een id. De code was dus niet leeg; een macro zonder id kan een blad niet tonen.
+Potion en Minor Mana Potion hadden een id. De code was dus niet leeg. ⚠️ Correctie site-chat dezelfde dag: de "3
+plaatsen" kwam uit hun testscript ("||" eerst ingeklapt); de site toonde "MH 1" enz. al (18/18 GEMETEN door hen). Deze
+wijziging is dus een verbetering (de spell i.p.v. "MH 1", met icoon en link; live a95246ff), geen reparatie.
 KeyBlock.lua: PlacePlan's macro-`want` draagt nu `show` (= ForeverBlock's spell.id); de export zet bij een MH-macro op
 zijn eigen toets (naam = want.id, of nog niet geplaatst) `id` = die spell en `name` = de clientnaam; kind blijft macro.
 Een eigen macro van de speler blijft zoals hij is. Contract-regel `id` bijgewerkt. undo_test 39/39.
