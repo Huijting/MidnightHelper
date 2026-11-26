@@ -25,6 +25,17 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 26 nov — FOREVER: boten en zeppelins op hun eigen klok (reisplanner stap 4)
+
+Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (flight_test 33), NIET in het spel.
+Zo klein mogelijk voor Rob:
+- [ ] Neem één keer een zeppelin of boot (bv. Orgrimmar ↔ Tirisfal). Daarna `/mh travel`: regel "boats/zeppelins
+      learned: H1a: 1 departure(s), ride … s".
+- [ ] Neem dezelfde nog een keer (een andere dag mag): nu staat er ook "every … s"; de route rekent dan met de echte
+      wachttijd tot het volgende vertrek.
+- [ ] (Alleen als je in Undercity bent en zin hebt) `/mh walkrec on`, loop de gangen die je gebruikt, `/mh walkrec off`,
+      `/reload`. Dat is meetdata voor later; er verandert nog niets aan de pijl.
+
 ## 26 nov — BEIDE: de klikkaart "Which click heals what" (Rob: "Het moet grafisch tof zijn")
 
 ⚠️ NIEUW BESTAND (ClickCard.lua, in beide toc's): Forever én Midnight één keer HELEMAAL herstarten. Offline getest

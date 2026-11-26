@@ -1037,7 +1037,9 @@ local function Plan(tmap, tx, ty)
 		edges[from][#edges[from] + 1] = { to = to, cost = cost, link = link, toEnd = toEnd, tp = tp }
 	end
 	for _, e in ipairs(static.edges) do -- link rides and walks between link ends: computed once per side
-		add(e.from + 1, e.to + 1, e.cost, e.link, e.toEnd)
+		-- Step 4: a boat or zeppelin you have ridden before: the wait until its next departure + its own ride time.
+		add(e.from + 1, e.to + 1, e.link and ns.ForeverLinkCost and ns.ForeverLinkCost(e.link, e.toEnd, e.cost) or e.cost,
+			e.link, e.toEnd)
 	end
 	-- 26 Nov 2026: flights, only INTO points this character knows (the one you board at you learn there).
 	local known = KnownTaxi(side)
@@ -1334,6 +1336,9 @@ function ns.ForeverTravelSlash()
 		end)()))
 	if ns.ForeverRoutePanelLine then
 		print("  " .. ns.ForeverRoutePanelLine())
+	end
+	if ns.ForeverTransportLine then
+		print("  " .. ns.ForeverTransportLine())
 	end
 	if #names > 0 then
 		print("    " .. table.concat(names, ", "))
@@ -1761,4 +1766,201 @@ do
 			end
 		end)
 	end)
+end
+
+--------------------------------------------------------------------------------
+-- Step 4 (26 Nov 2026): boats and zeppelins on their own clock, learned from your own rides. There is no API with a
+-- timetable (Sparring's mh-research): a ride is seen when you move while GetUnitSpeed says 0 (you stand on a moving
+-- ship). Its start next to a stop = a departure of that crossing, stamped with GetServerTime per realm; the stop where it
+-- ends = the ride time. Two departures give the period (the smallest gap under 30 minutes), and then the wait for the
+-- next one; until then the planner keeps its average (COST). Idea read in Polestar (GPL-3), no code or number taken.
+-- Elevators (Undercity, Thunder Bluff): DB2 TransportAnimation has their timing but NOT their place, so MH cannot point
+-- at them yet: left out on purpose, not forgotten.
+-- /mh walkrec on|off|clear: a recording mode that stores where you walk (every 4 yd) in ns.db.foreverWalkRec[map], for
+-- the Undercity paths later. It only records; nothing routes over it yet.
+--------------------------------------------------------------------------------
+local function TransportStore(name)
+	if type(ns.db) ~= "table" then
+		return nil
+	end
+	ns.db[name] = ns.db[name] or {}
+	local realm = (GetRealmName and GetRealmName()) or "?"
+	ns.db[name][realm] = ns.db[name][realm] or {}
+	return ns.db[name][realm]
+end
+
+local function Period(list)
+	local best
+	for i = 2, #(list or {}) do
+		local d = list[i] - list[i - 1]
+		if d > 60 and d < 1800 and (not best or d < best) then
+			best = d
+		end
+	end
+	return best
+end
+
+--- Planner cost of a crossing in minutes: measured wait + ride when known, else the planner's average (base).
+function ns.ForeverLinkCost(link, toEnd, base)
+	if not (link and link.id and CROSSING[link.kind]) then
+		return base
+	end
+	local fromEnd = (toEnd == "b") and "a" or "b"
+	local key = link.id .. fromEnd
+	local deps = TransportStore("foreverDepartures")
+	local rides = TransportStore("foreverRideTimes")
+	local list = deps and deps[key]
+	local per = Period(list)
+	local ride = rides and rides[key]
+	if not (per or ride) then
+		return base
+	end
+	local cost = base
+	if ride then
+		cost = ride / 60 + 1.5 -- 1.5 = the average wait while the period is unknown (AFGELEID, half of a short cycle)
+	end
+	if per and list and GetServerTime then
+		local now = GetServerTime()
+		local wait = per - ((now - list[#list]) % per)
+		cost = wait / 60 + (ride and ride / 60 or (base - 1.5))
+	end
+	return math.max(0.5, cost)
+end
+
+local rideState = { riding = false, still = 0 }
+local function NearestLinkEnd(cont, wx, wy, maxYd)
+	local best, bestD, bestEnd
+	for _, l in ipairs(LINKS) do
+		if CROSSING[l.kind] then
+			for _, k in ipairs({ "a", "b" }) do
+				local e = l[k]
+				local c, x, y = World(e[1], e[2], e[3])
+				if c == cont and x then
+					local d = math.sqrt((x - wx) ^ 2 + (y - wy) ^ 2)
+					if d < (bestD or maxYd) then
+						best, bestD, bestEnd = l, d, k
+					end
+				end
+			end
+		end
+	end
+	return best, bestEnd
+end
+
+local walkLast
+if C_Timer and C_Timer.NewTicker then
+	C_Timer.NewTicker(1, function()
+		if UnitOnTaxi and UnitOnTaxi("player") then
+			return
+		end
+		local pmap, px, py = PlayerPos()
+		if not (pmap and px) then
+			return
+		end
+		local cont, wx, wy = World(pmap, px, py)
+		if not wx then
+			return
+		end
+		-- The walk recorder.
+		if type(ns.db) == "table" and ns.db.foreverWalkRecOn then
+			if not walkLast or math.sqrt((walkLast[1] - wx) ^ 2 + (walkLast[2] - wy) ^ 2) >= 4 then
+				ns.db.foreverWalkRec = ns.db.foreverWalkRec or {}
+				local list = ns.db.foreverWalkRec[pmap] or {}
+				ns.db.foreverWalkRec[pmap] = list
+				list[#list + 1] = { math.floor(px * 100 + 0.5) / 100, math.floor(py * 100 + 0.5) / 100 }
+				walkLast = { wx, wy }
+			end
+		end
+		-- The ride detector.
+		local spd = 0
+		if GetUnitSpeed then
+			local ok, cur = pcall(GetUnitSpeed, "player")
+			spd = (ok and type(cur) == "number" and not (issecretvalue and issecretvalue(cur))) and cur or 0
+		end
+		local last = rideState.pos
+		rideState.pos = { cont, wx, wy }
+		if not (last and last[1] == cont) then
+			return
+		end
+		local moved = math.sqrt((last[2] - wx) ^ 2 + (last[3] - wy) ^ 2)
+		if not rideState.riding then
+			if spd == 0 and moved > 3 then
+				local l, fromEnd = NearestLinkEnd(cont, last[2], last[3], 120)
+				if l and GetServerTime then
+					rideState.riding = true
+					rideState.key = l.id .. fromEnd
+					rideState.toEnd = (fromEnd == "a") and "b" or "a"
+					rideState.link = l
+					rideState.start = GetServerTime()
+					rideState.still = 0
+					local deps = TransportStore("foreverDepartures")
+					if deps then
+						local list = deps[rideState.key] or {}
+						list[#list + 1] = rideState.start
+						while #list > 6 do
+							table.remove(list, 1)
+						end
+						deps[rideState.key] = list
+					end
+					taxiLast = ("departure of %s seen (%s)"):format(rideState.key, l.kind)
+				end
+			end
+		else
+			if moved < 1 or spd > 0 then
+				rideState.still = rideState.still + 1
+			else
+				rideState.still = 0
+			end
+			if rideState.still >= 5 then
+				-- Stopped (or walked off): the ride ended. Count it only at the crossing's other end.
+				rideState.riding = false
+				local l, atEnd = NearestLinkEnd(cont, wx, wy, 200)
+				if l == rideState.link and atEnd == rideState.toEnd and GetServerTime then
+					local secs = GetServerTime() - rideState.start - 5
+					if secs > 20 and secs < 1800 then
+						local rides = TransportStore("foreverRideTimes")
+						if rides then
+							local old = rides[rideState.key]
+							rides[rideState.key] = old and math.floor((old + secs) / 2 + 0.5) or secs
+						end
+						taxiLast = ("ride %s timed: %d s"):format(rideState.key, secs)
+					end
+				end
+			end
+		end
+	end)
+end
+
+--- /mh walkrec on|off|clear
+function ns.ForeverWalkRecSlash(arg)
+	arg = (arg or ""):lower()
+	if type(ns.db) ~= "table" then
+		return
+	end
+	if arg == "on" then
+		ns.db.foreverWalkRecOn = true
+	elseif arg == "off" then
+		ns.db.foreverWalkRecOn = nil
+	elseif arg == "clear" then
+		ns.db.foreverWalkRec = nil
+	end
+	local n = 0
+	for _, list in pairs(ns.db.foreverWalkRec or {}) do
+		n = n + #list
+	end
+	print(("|cffffcc00Midnight Helper:|r walk recorder: %s; %d point(s) stored (for MH's Undercity paths; /reload to save)"):format(
+		ns.db.foreverWalkRecOn and "ON" or "off", n))
+end
+
+--- For /mh travel: what step 4 learned.
+function ns.ForeverTransportLine()
+	local deps, rides = TransportStore("foreverDepartures") or {}, TransportStore("foreverRideTimes") or {}
+	local parts = {}
+	for key, list in pairs(deps) do
+		local per = Period(list)
+		parts[#parts + 1] = ("%s: %d departure(s)%s%s"):format(key, #list, per and (", every %d s"):format(per) or "",
+			rides[key] and (", ride %d s"):format(rides[key]) or "")
+	end
+	table.sort(parts)
+	return "boats/zeppelins learned: " .. (#parts > 0 and table.concat(parts, "; ") or "none yet (ride one once)")
 end

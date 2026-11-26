@@ -116,6 +116,8 @@ ns.MH_UNLISTED_ON_PURPOSE = {
 	"partytargets check",
 	-- 18 Nov 2026: Forever currency/reputation measurement (ForeverLegacy.lua).
 	"repprobe",
+	-- 26 Nov 2026: the walk recorder for the Undercity paths (ForeverTravel.lua, step 4): a measurement tool, for Rob.
+	"walkrec", "walkrec on", "walkrec off", "walkrec clear",
 }
 
 --- Grouped so it can be scanned, not alphabetical so it can be searched. Someone

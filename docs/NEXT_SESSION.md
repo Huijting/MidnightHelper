@@ -1,5 +1,16 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 26 nov (Bouwchat 26-11): reisplanner STAP 4 GEBOUWD (`/reload`) — rij: "na je dood", dan rare-model + loot
+
+- ForeverTravel.lua: ritdetectie (ticker 1 s): bewegen terwijl GetUnitSpeed 0 binnen 120 yd van een boot/zeppelin-eind =
+  vertrek (GetServerTime, per realm, laatste 6 in ns.db.foreverDepartures[realm][linkId..eind]); stilstand 5 s aan de
+  andere kant = ritduur (foreverRideTimes). Periode = kleinste gat 1-30 min; ns.ForeverLinkCost = wachten tot het volgende
+  vertrek + eigen ritduur, anders COST. /mh travel: regel "boats/zeppelins learned". AFGELEID: periode, 1,5 min
+  gemiddelde wachttijd.
+- Liften NIET gebouwd: DB2 TransportAnimation heeft timing maar geen plek → bewust weggelaten.
+- /mh walkrec on|off|clear (onvermeld meetgereedschap): punten elke 4 yd in ns.db.foreverWalkRec[map]; routeert nog niets.
+- flight_test 33/33.
+
 ## ▶▶ 26 nov (Bouwchat 26-11): klikkaart GEBOUWD (HERSTART: nieuw bestand ClickCard.lua) — daarna stap 4, dan "na je dood"
 
 Rob: *"Het moet grafisch tof zijn"*; keuze *"Ik volg jouw advies."* (één grote laag + strook, Alt/heal-laag standaard);

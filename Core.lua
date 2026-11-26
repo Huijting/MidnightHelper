@@ -2990,6 +2990,12 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		end
 		return
 	end
+	-- 26 Nov 2026, WoW Forever: the walk recorder for MH's Undercity paths (ForeverTravel.lua, step 4). Measurement tool.
+	local walkArg = (msg:lower() == "walkrec") and "" or msg:lower():match("^walkrec%s+(.+)$")
+	if walkArg and ns.ForeverWalkRecSlash then
+		ns.ForeverWalkRecSlash(walkArg)
+		return
+	end
 	-- 26 Nov 2026, both games: the click card (ClickCard.lua).
 	local cardArg = (msg:lower() == "clickcard") and "" or msg:lower():match("^clickcard%s+(.+)$")
 	if cardArg and ns.ClickCardSlash then
