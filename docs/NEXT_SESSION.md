@@ -1,5 +1,20 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 26 nov (Bouwchat 26-11): loot die MH ZELF leert GEBOUWD (`/reload`) + sickness-duur nagemeten
+
+Keuze (a) van Sparring (Rob volgt zijn advies): geen Drop Tables, geen licentiewijziging. ForeverRares.lua: LOOT_OPENED →
+per slot GetLootSourceInfo (GUID, aantal, …); een bron-GUID die een rare uit onze lijst is telt het item, één keer per lijk
+(sessie). `ns.db.foreverRareLoot[npc] = { kills, items = { [itemID] = { n, name, icon } } }` (MidnightHelperDB = account-breed).
+GetLootSourceInfo staat NIET in Forevers gegenereerde API-docs (GEMETEN: LootFrameDocumentation.lua heeft alleen
+TryAutoLoot; LootFrame.lua gebruikt hem niet) → zonder: de dode rare in target/mouseover. Getoond als "Your loot (N kills):
+[icoon] naam ×n" (max 3) in Find-rijen en het rare-venster; nooit een kans. `/mh rares why` → regel "loot: …".
+Keys FRARE_LOOT_FMT/_ONE_FMT in enUS, nlNL, ForeverClassQuests_de/es/fr/pt/ru (zelf vertaald, niet nagekeken door een
+moedertaalspreker). "Vaste items, gemeten": er zijn er nog geen gemeten → niets getoond. rare_test 38/38.
+Sickness (mh-research): GEMETEN Polestars eigen meting op Robs shaman 240 s op level 14 (Polestar.lua SV r431); Polestars
+"10m" = vaste terugval (Death.lua:59). DB2 71139 SpellDuration 427: 60000 + 60000/level, max 600000 (GEMETEN). Onze regel
+level-10 (max 10) klopt dus op 14 (GEMETEN), 15 = 5 AFGELEID. `/mh ghost` toont nu ook GetResSicknessDuration() (de
+waarde van Blizzards eigen Spirit Healer-popup). flight_test 46/46.
+
 ## ▶▶ 26 nov (Bouwchat 26-11): rare in 3D GEBOUWD (`/reload`) — rij: loot die MH zelf leert (keuze (a), Sparring)
 
 Rob: *"Toen ging ik kijken bij ons in Find… Een animatie."* ForeverRares.lua: `SetRareModel` (PlayerModel:SetCreature(npc),
@@ -18,7 +33,7 @@ ForeverTravel.lua: `dpDismissed` — jij sluit (X, Escape, of de pijlknop, die h
 van DEZE dood. MH's eigen verbergen loopt via `SelfHide` (vlag `_selfHide`; OnHide vuurt alleen bij een zichtbaar frame).
 Reset alleen bij PLAYER_DEAD (nieuwe dood) of als je leeft; PLAYER_ALIVE bij release laat hem dicht. `/mh ghost test` toont
 altijd; `/mh ghost` zegt "you closed the window". flight_test 45/45 (nieuw blok 14).
-Open: sickness-duur (AFGELEID level-10) vs Polestar "10m op 14" → mh-research loopt.
+Sickness-duur: zie het blok hierboven (onze regel klopt op 14, GEMETEN).
 
 ## ▶▶ 26 nov (Bouwchat 26-11): "na je dood"-venster GEBOUWD (`/reload`) — rij: rare-model + loot (bron = Rob kiest)
 

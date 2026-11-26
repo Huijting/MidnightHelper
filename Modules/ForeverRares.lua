@@ -258,10 +258,16 @@ function ns.ForeverRareFindRows(key)
 			tag = ns:L(r.elite and "FRARE_TAG_SKULL_ELITE" or "FRARE_TAG_SKULL") -- Wowhead says "??"
 		end
 		local whyKey = r.why or (w and w.why)
+		local why = whyKey and ns:L(whyKey) or nil
+		-- What you looted from it yourself (learned below; a count, not a chance).
+		local loot = ns.ForeverRareLootLine and ns.ForeverRareLootLine(r.npc, 3)
+		if loot then
+			why = why and (why .. "\n" .. loot) or loot
+		end
 		rows[#rows + 1] = {
 			name = r.name,
 			tag = tag,
-			why = whyKey and ns:L(whyKey) or nil,
+			why = why,
 			zone = ZoneName(r.map), dist = e.dist, map = r.map, x = r.x, y = r.y, npc = r.npc,
 			go = function()
 				return GoTo(r, e.dist)
@@ -605,7 +611,12 @@ local function ShowAlert(r, name, level, elite, map, x, y, how, npc)
 	end
 	f.info:SetText(tag .. "  ·  " .. ZoneName(map or (r and r.map) or 0))
 	local whyKey = r and (r.why or (WORTH_BY_NPC[r.npc] and WORTH_BY_NPC[r.npc].why))
-	f.why:SetText(whyKey and ns:L(whyKey) or "")
+	local whyText = whyKey and ns:L(whyKey) or ""
+	local lootLine = ns.ForeverRareLootLine and ns.ForeverRareLootLine(npc or (r and r.npc), 3)
+	if lootLine then
+		whyText = (whyText ~= "" and (whyText .. "\n") or "") .. lootLine
+	end
+	f.why:SetText(whyText)
 	-- /targetexact needs the client's own name: the unit's name when readable, the list's English name on English only.
 	f.targetName = name or ((GetLocale and GetLocale() == "enUS") and r and r.name) or nil
 	f.combat:SetText((InCombatLockdown and InCombatLockdown()) and ns:L("FRALERT_COMBAT") or "")
@@ -747,6 +758,168 @@ do
 	end)
 end
 
+--------------------------------------------------------------------------------
+-- What YOU looted from a rare (26 Nov 2026). Rob: "En kunnen we ook zien wat die dropt eigenlijk?" No open source has
+-- drop data we may ship (docs/forever/DOOD_EN_RARELOOT_2026-11-26.md), so Sparring chose (a) + "laat MH het ZELF leren":
+-- on LOOT_OPENED each slot's source GUID (GetLootSourceInfo: GUID, quantity, GUID, quantity …) that is a rare in our
+-- list counts the item for that rare, once per corpse. Account-wide in ns.db.foreverRareLoot[npc] =
+-- { kills = n, items = { [itemID] = { n = count, name = , icon = } } }. Shown as "Your loot (N kills): …", never as a
+-- chance. GetLootSourceInfo is NOT in Forever's generated API documentation (an old global; LootFrame.lua does not use it)
+-- → when it is missing: the dead rare you have targeted or under the mouse. /mh rares why says which way it went.
+--------------------------------------------------------------------------------
+local lootWhy = "nothing looted from a rare yet"
+local lootSeenCorpse = {} -- corpse GUID -> true (this session: re-opening a corpse does not count twice)
+
+local function LootDB()
+	if type(ns.db) ~= "table" then
+		return nil
+	end
+	ns.db.foreverRareLoot = type(ns.db.foreverRareLoot) == "table" and ns.db.foreverRareLoot or {}
+	return ns.db.foreverRareLoot
+end
+
+local function GuidNpc(guid)
+	if type(guid) ~= "string" or (issecretvalue and issecretvalue(guid)) then
+		return nil
+	end
+	local kind, id = guid:match("^(%a+)%-%d+%-%d+%-%d+%-%d+%-(%d+)")
+	if kind ~= "Creature" and kind ~= "Vehicle" then
+		return nil
+	end
+	return tonumber(id)
+end
+
+--- The dead rare you are looting when the client cannot say per slot: your target, else the unit under the mouse.
+local function DeadRareGuid()
+	for _, u in ipairs({ "target", "mouseover" }) do
+		local okD, dead = pcall(UnitIsDead, u)
+		if okD and Plain(dead) then
+			local ok, guid = pcall(UnitGUID, u)
+			guid = ok and Plain(guid) or nil
+			local npc = GuidNpc(guid)
+			if npc and raBy[npc] then
+				return guid, npc
+			end
+		end
+	end
+	return nil
+end
+
+local function OnLootOpened()
+	if not (GetNumLootItems and GetLootSlotLink) then
+		lootWhy = "loot API missing (GetNumLootItems/GetLootSlotLink)"
+		return
+	end
+	local okN, n = pcall(GetNumLootItems)
+	if not (okN and type(n) == "number" and n > 0) then
+		return
+	end
+	local db = LootDB()
+	if not db then
+		return
+	end
+	local perSlot = GetLootSourceInfo ~= nil
+	local fallbackGuid, fallbackNpc
+	if not perSlot then
+		fallbackGuid, fallbackNpc = DeadRareGuid()
+		if not fallbackGuid then
+			lootWhy = "looted something; GetLootSourceInfo missing and no dead rare targeted or under the mouse"
+			return
+		end
+	end
+	local counted, newCorpse = 0, {}
+	for slot = 1, n do
+		local okL, link = pcall(GetLootSlotLink, slot)
+		local item = okL and type(link) == "string" and tonumber(link:match("item:(%d+)")) or nil
+		if item then
+			local okI, icon, name = pcall(GetLootSlotInfo, slot)
+			local sources = {}
+			if perSlot then
+				local res = { pcall(GetLootSourceInfo, slot) }
+				if res[1] then
+					for i = 2, #res, 2 do
+						local npc = GuidNpc(res[i])
+						if npc and raBy[npc] then
+							sources[#sources + 1] = { guid = res[i], npc = npc }
+						end
+					end
+				end
+			else
+				sources[1] = { guid = fallbackGuid, npc = fallbackNpc }
+			end
+			for _, s in ipairs(sources) do
+				if not lootSeenCorpse[s.guid] then
+					local rec = db[s.npc] or { kills = 0, items = {} }
+					db[s.npc] = rec
+					if not newCorpse[s.guid] then
+						newCorpse[s.guid] = s.npc
+						rec.kills = (rec.kills or 0) + 1
+					end
+					local it = rec.items[item] or { n = 0 }
+					it.n = it.n + 1
+					it.name = okI and type(name) == "string" and name or it.name
+					it.icon = okI and icon or it.icon
+					rec.items[item] = it
+					counted = counted + 1
+				end
+			end
+		end
+	end
+	local names = {}
+	for guid, npc in pairs(newCorpse) do
+		lootSeenCorpse[guid] = true
+		names[#names + 1] = (raBy[npc] and raBy[npc].name) or tostring(npc)
+	end
+	if #names > 0 then
+		lootWhy = ("learned %d item(s) from %s (%s)"):format(counted, table.concat(names, ", "),
+			perSlot and "GetLootSourceInfo" or "fallback: the dead rare targeted / under the mouse")
+	end
+end
+
+do
+	local ev = CreateFrame("Frame")
+	pcall(ev.RegisterEvent, ev, "LOOT_OPENED")
+	ev:SetScript("OnEvent", function()
+		pcall(OnLootOpened)
+	end)
+end
+
+--- "Your loot (N kills): [icon] Name ×n, …" for a rare (most looted first, at most `max`), or nil when nothing learned.
+function ns.ForeverRareLootLine(npc, max)
+	local db = type(ns.db) == "table" and type(ns.db.foreverRareLoot) == "table" and ns.db.foreverRareLoot
+	local rec = db and npc and db[npc]
+	if not (rec and type(rec.items) == "table" and (rec.kills or 0) > 0) then
+		return nil
+	end
+	local list = {}
+	for id, it in pairs(rec.items) do
+		list[#list + 1] = { id = id, n = it.n or 0, name = it.name, icon = it.icon }
+	end
+	if #list == 0 then
+		return nil
+	end
+	table.sort(list, function(a, b)
+		if a.n ~= b.n then
+			return a.n > b.n
+		end
+		return a.id < b.id
+	end)
+	local parts = {}
+	for i = 1, math.min(max or 3, #list) do
+		local e = list[i]
+		local name = e.name
+		if not name and C_Item and C_Item.GetItemNameByID then
+			local ok, v = pcall(C_Item.GetItemNameByID, e.id)
+			name = ok and v or nil
+		end
+		local icon = e.icon and ("|T" .. tostring(e.icon) .. ":14:14|t ") or ""
+		parts[#parts + 1] = icon .. (name or ("item " .. e.id)) .. ((e.n > 1) and (" ×" .. e.n) or "")
+	end
+	local k = rec.kills or 1
+	return (k == 1 and ns:L("FRARE_LOOT_ONE_FMT"):format(table.concat(parts, ", "))
+		or ns:L("FRARE_LOOT_FMT"):format(k, table.concat(parts, ", ")))
+end
+
 --- /mh rares [why|test|on|off]
 function ns.ForeverRareAlertSlash(arg)
 	arg = (arg or ""):lower()
@@ -768,6 +941,18 @@ function ns.ForeverRareAlertSlash(arg)
 		ns.IsForeverRareAlertOn() and "on" or "off (Quiet helpers)", (function() local c = 0 for _ in pairs(raBy) do c = c + 1 end return c end)(), n))
 	print("  last decision: " .. raWhy)
 	print("  3D model: " .. raModelWhy)
+	local db = type(ns.db) == "table" and type(ns.db.foreverRareLoot) == "table" and ns.db.foreverRareLoot or {}
+	local nr = 0
+	for _ in pairs(db) do
+		nr = nr + 1
+	end
+	print(("  loot: GetLootSourceInfo %s; rares with learned loot: %d; last: %s"):format(
+		GetLootSourceInfo and "yes" or "no (fallback: dead rare targeted / under the mouse)", nr, lootWhy))
+	local tid = NpcId("target")
+	local tl = tid and ns.ForeverRareLootLine(tid, 6)
+	if tl then
+		print("  your target: " .. tl)
+	end
 	local okC, cls = pcall(UnitClassification, "target")
 	print(("  your target: classification %s, npc id %s, in MH's list %s"):format(tostring(okC and Plain(cls)),
 		tostring(NpcId("target")), tostring(NpcId("target") and raBy[NpcId("target")] ~= nil)))

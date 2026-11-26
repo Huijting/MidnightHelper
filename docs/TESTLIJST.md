@@ -25,6 +25,15 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 26 nov — FOREVER: loot die MH zelf leert van een rare (Rob: "kunnen we ook zien wat die dropt?")
+
+`/reload` is genoeg. Offline getest (rare_test 38/38), NIET in het spel.
+- [ ] Dood een rare uit de lijst en loot hem. Daarna `/mh rares why`: regel "loot: GetLootSourceInfo yes/no; rares with
+      learned loot: 1; last: learned … from <naam>". (Zegt hij "no": dan werkt het via je target, dus loot met hem in target.)
+- [ ] Find → Rares (of de zone): bij die rare staat "Your loot (1 kill): [icoon] …". Het rare-venster toont dezelfde regel.
+- [ ] Hetzelfde lijk nog eens openen telt niet dubbel.
+- [ ] `/mh ghost`: regel "client's own sickness duration" — staat daar een tijd (levend of dood)? Zeg wat er staat.
+
 ## 26 nov — FOREVER: de rare in 3D (Rob: "Een animatie.")
 
 `/reload` is genoeg. Offline getest (rare_test 27/27), NIET in het spel.

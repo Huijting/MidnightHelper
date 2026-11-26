@@ -2246,4 +2246,12 @@ function ns.ForeverGhostSlash(arg)
 		ns.IsForeverDeathPanelOn() and "on" or "off", dpWhy, SicknessMinutes(), GhostSpeed(),
 		(C_DeathInfo and C_DeathInfo.GetCorpseMapPosition) and "yes" or "no",
 		(C_DeathInfo and C_DeathInfo.GetDeathReleasePosition) and "yes" or "no"))
+	-- The client's own value, the one the Spirit Healer popup shows (EventImplementation.lua CONFIRM_XP_LOSS). Whether it
+	-- answers while you are alive is not measured.
+	local okR, res = false, nil
+	if GetResSicknessDuration then
+		okR, res = pcall(GetResSicknessDuration)
+	end
+	print(("  client's own sickness duration (GetResSicknessDuration): %s"):format(
+		GetResSicknessDuration and (okR and tostring(res) or "error") or "API missing"))
 end

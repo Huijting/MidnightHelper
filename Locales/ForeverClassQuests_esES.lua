@@ -701,6 +701,8 @@ for k, v in pairs({
 	FRALERT_FIND = "Ver en Find",
 	FRALERT_WAY = "Punto de ruta",
 	FRALERT_COMBAT = "Seleccionar: después del combate",
+	FRARE_LOOT_ONE_FMT = "Tu botín (1 muerte): %s",
+	FRARE_LOOT_FMT = "Tu botín (%d muertes): %s",
 	FOV_SWITCH_ON = "SÍ",
 	FOV_SWITCH_OFF = "NO",
 	FOV_TIP_CARD_MACROS = "Macros listas para este personaje. Crear pone una en tu lista de macros; tú la arrastras a una barra.",

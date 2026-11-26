@@ -1855,6 +1855,8 @@ for k, v in pairs({
 	FRALERT_FIND = "In Find zeigen",
 	FRALERT_WAY = "Wegpunkt",
 	FRALERT_COMBAT = "Anvisieren: nach dem Kampf",
+	FRARE_LOOT_ONE_FMT = "Deine Beute (1 Kill): %s",
+	FRARE_LOOT_FMT = "Deine Beute (%d Kills): %s",
 	FOV_SWITCH_ON = "AN",
 	FOV_SWITCH_OFF = "AUS",
 	FOV_TIP_CARD_MACROS = "Fertige Makros für diesen Charakter. Erstellen legt eins in deine Makroliste; auf eine Leiste ziehst du es selbst.",

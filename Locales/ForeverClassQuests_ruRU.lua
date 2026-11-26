@@ -1870,6 +1870,8 @@ for k, v in pairs({
 	FRALERT_FIND = "Показать в Find",
 	FRALERT_WAY = "Точка маршрута",
 	FRALERT_COMBAT = "Цель: после боя",
+	FRARE_LOOT_ONE_FMT = "Ваша добыча (1 убийство): %s",
+	FRARE_LOOT_FMT = "Ваша добыча (убийств: %d): %s",
 	FOV_SWITCH_ON = "ВКЛ.",
 	FOV_SWITCH_OFF = "ВЫКЛ.",
 	FOV_TIP_CARD_MACROS = "Готовые макросы для этого персонажа. «Создать» добавляет макрос в ваш список макросов; на панель вы перетаскиваете его сами.",

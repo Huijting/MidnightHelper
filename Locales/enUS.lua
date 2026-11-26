@@ -6237,6 +6237,9 @@ ns._mhLocales.enUS = {
 	FRALERT_FIND = "Show in Find",
 	FRALERT_WAY = "Waypoint",
 	FRALERT_COMBAT = "Target: after the fight",
+	-- 26 Nov 2026: what YOU looted from a rare (learned by MH on your account; a count, not a drop chance).
+	FRARE_LOOT_ONE_FMT = "Your loot (1 kill): %s",
+	FRARE_LOOT_FMT = "Your loot (%d kills): %s",
 	CMDLIST_RARES = "WoW Forever: the rare-in-sight window, what it saw last (on, off, test).",
 	CMDLIST_CLICKHEAL ="WoW Forever: heals on a click on your DandersFrames frames, and which click does what (on, off, heal, offheal).",
 	FOV_SWITCH_ON = "ON",

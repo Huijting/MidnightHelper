@@ -32,6 +32,9 @@ gelezen om kandidaten te vinden, die daarna in Blizzard-data of een andere bron 
 | Forever heeft een tweede tekst met **10%**: `CONFIRM_XP_LOSS_NO_SICKNESS` = "...all of your items will take 10%% durability damage" (Era: 25%). Ik vond geen Forever-dialoog die deze tekst gebruikt (alleen `XP_LOSS` en `XP_LOSS_NO_SICKNESS_NO_DURABILITY` in `GameDialogDefs.lua` en `Mainline/GameDialogDefs.lua`). | GEMETEN (tekst) / AFGELEID (ongebruikt; ik las niet de hele UI-bron) |
 | Hoeveel duurzaamheid de server écht afhaalt: niet te meten van hier. De Blizzard-tekst zegt 25%. | AFGELEID |
 | Geen Forever-pagina van Blizzard of Wowhead gevonden die de duur per niveau noemt; Wowhead Forever-tooltip van 15007 geeft alleen naam + icoon (`spell_shadow_deathscream`). | GEMETEN (tooltip-JSON 26 nov) |
+| **Nameting (later 26 nov, mh-research, na Polestars "10m op level 14").** Polestars eigen opslag op Robs shaman: `resSickness = { seconds = 240, level = 14 }` (`_forever_\WTF\…\Ima-Shammydude\SavedVariables\Polestar.lua` r431, door de bouwchat zelf nagekeken). Polestars "10m" is een vaste terugval (`Polestar\QoL\Death.lua`:59 `SICKNESS = 600`) als hij op dat level nog niet mat. | GEMETEN |
+| DB2 71139: SpellMisc 15007 → DurationIndex 427; SpellDuration 427 = 60000 + 60000 per level, max 600000 (Era: -600000 + 60000/level). Helling en plafond GEMETEN; startpunt uit de meting op 14 → 1 min op 11 … 9 min op 19, 10 min vanaf 20. | GEMETEN (DB2, 14) / AFGELEID (overige levels) |
+| Blizzards eigen Spirit Healer-popup gebruikt `GetResSicknessDuration()` (Mainline EventImplementation.lua 860-869, CONFIRM_XP_LOSS). MH's `/mh ghost` print die waarde sinds 26 nov. Of hij antwoordt als je leeft: niet gemeten. | GEMETEN (bron) |
 
 ### A2. Client-API in de Forever-UI-bron (branch `forever`, 71139)
 
