@@ -16,7 +16,8 @@ local _, ns = ...
 	and we respect: PerformEmote with a nil target thanks your CURRENT target, so no target = no emote; and Forever
 	forbids registering the combat log, so this never does (neither does retail MH: CLEU taint).
 
-	Never: in combat, inside an instance/battleground/arena, while auras read as secret (12.x), for your own buffs or a
+	In combat: kept and thanked when the fight ends (26 Nov 2026, see AfterCombat; at most 60 s old).
+	Never: inside an instance/battleground/arena, while auras read as secret (12.x), for your own buffs or a
 	pet's, for a group member or someone on your ignore list, twice for the same player within 5 minutes, or in the first
 	10 seconds after a loading screen (the buffs you carry through a portal are "added" again). Thanks for the Buff
 	loaded: MH stays silent (it would thank twice) and /mh thanks says so.
@@ -148,16 +149,14 @@ local function Emote(target)
 	return false, "this client has no PerformEmote or DoEmote"
 end
 
---- The decision for one added aura: true plus who, or false plus why.
+--- The decision for one added aura: true plus who, or false plus why. In combat the checks still run (so a buff that
+--- would never be thanked is not kept); OnAura then keeps a "yes" for after the fight.
 local function Decide(aura)
 	if not ns.IsThanksBuffOn() then
 		return false, "switched off"
 	end
 	if TFTBLoaded() then
 		return false, "Thanks for the Buff is loaded and thanks people itself"
-	end
-	if InCombatLockdown and InCombatLockdown() then
-		return false, "in combat"
 	end
 	local inInst = IsInInstance and IsInInstance()
 	if inInst then
@@ -196,6 +195,48 @@ local function Decide(aura)
 	return true, name, unit, guid
 end
 
+-- 26 Nov 2026 (Rob via Sparring: "Klopt het dat wanneer ik in een gevecht ben en ik krijg een buff van iemand, dat ik
+-- dan niet kan bedanken?" → "onthouden en na het gevecht bedanken"): a buff in combat is kept, and thanked when the fight
+-- ends (PLAYER_REGEN_ENABLED) if it is less than KEEP seconds old, with every rule checked again then (instance, group,
+-- ignore, 5 minutes). The emote goes to a unit token we hold for that player at that moment (target, mouseover, focus, a
+-- nameplate), else to the name, as outside a fight. Whether the game lets an emote out during combat itself: not
+-- measured; MH simply waits (AFGELEID: an emote in the middle of a fight is easy to miss for the other player).
+local KEEP = 60
+local pending = {} -- [guid] = { at, name }
+
+local function SendThanks(guid, who, unit, spell, after)
+	local okE, err = Emote(unit or who)
+	thanked[guid] = GetTime()
+	state.sent = state.sent + 1
+	state.last = ("buff %s from %s: thanked%s by %s%s"):format(tostring(spell), who, after and " after combat" or "",
+		unit and ("unit " .. unit) or "name", okE and "" or (" — FAILED: " .. tostring(err)))
+end
+
+local function AfterCombat()
+	for guid, p in pairs(pending) do
+		pending[guid] = nil
+		local age = GetTime() - p.at
+		local why
+		if age > KEEP then
+			why = ("the fight lasted too long (%d s, at most %d)"):format(math.floor(age), KEEP)
+		elseif not ns.IsThanksBuffOn() then
+			why = "switched off"
+		elseif IsInInstance and IsInInstance() then
+			why = "inside an instance now"
+		elseif InGroupGUID(guid) then
+			why = p.name .. " is in your group now"
+		elseif thanked[guid] and GetTime() - thanked[guid] < COOLDOWN then
+			why = "already thanked " .. p.name
+		end
+		if why then
+			state.last = ("buff %s from %s, kept during the fight: not thanked — %s"):format(tostring(p.spell), p.name, why)
+		else
+			SendThanks(guid, p.name, UnitFor(guid), p.spell, true)
+		end
+	end
+end
+ns.ThanksBuffAfterCombat = AfterCombat -- offline test
+
 local function OnAura(updateInfo)
 	if type(updateInfo) ~= "table" then
 		return
@@ -215,14 +256,13 @@ local function OnAura(updateInfo)
 		state.seen = state.seen + 1
 		if not ok then
 			state.last = "error: " .. tostring(yes)
+		elseif yes and InCombatLockdown and InCombatLockdown() then
+			pending[guid] = { at = GetTime(), name = who, spell = spell }
+			state.last = ("buff %s from %s in combat: kept, thanked when the fight ends"):format(tostring(spell), who)
 		elseif yes then
 			-- A unit token when we hold one, else the bare name (the client finds the visible player). Never nil: that
 			-- would thank your current target instead.
-			local okE, err = Emote(unit or who)
-			thanked[guid] = GetTime()
-			state.sent = state.sent + 1
-			state.last = ("buff %s from %s: thanked by %s%s"):format(tostring(spell), who, unit and ("unit " .. unit) or "name",
-				okE and "" or (" — FAILED: " .. tostring(err)))
+			SendThanks(guid, who, unit, spell, false)
 		elseif who ~= "switched off" then
 			state.last = ("buff %s: not thanked — %s"):format(tostring(spell), tostring(who))
 		end
@@ -232,11 +272,16 @@ end
 local ev = CreateFrame("Frame")
 ev:RegisterUnitEvent("UNIT_AURA", "player")
 ev:RegisterEvent("PLAYER_ENTERING_WORLD")
+ev:RegisterEvent("PLAYER_REGEN_ENABLED")
 pcall(ev.RegisterEvent, ev, "LOADING_SCREEN_DISABLED")
 ev:SetScript("OnEvent", function(_, event, unit, updateInfo)
 	if event == "UNIT_AURA" then
 		if ns.IsThanksBuffOn() then
 			OnAura(updateInfo)
+		end
+	elseif event == "PLAYER_REGEN_ENABLED" then
+		if next(pending) then
+			pcall(AfterCombat)
 		end
 	else
 		state.pauseUntil = GetTime() + PAUSE
@@ -270,5 +315,10 @@ function ns.ThanksBuffSlash(arg)
 	print(("  API: PerformEmote %s, DoEmote %s, GetAuraCasterGUID %s. Seen %d new aura(s), thanked %d player(s)."):format(
 		(C_ChatInfo and C_ChatInfo.PerformEmote) and "yes" or "no", DoEmote and "yes" or "no",
 		(C_UnitAuras and C_UnitAuras.GetAuraCasterGUID) and "yes" or "no", state.seen, state.sent))
+	local waiting = 0
+	for _ in pairs(pending) do
+		waiting = waiting + 1
+	end
+	print(("  kept from a fight, thanked when it ends: %d"):format(waiting))
 	print("  last decision: " .. state.last)
 end

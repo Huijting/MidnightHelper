@@ -5488,7 +5488,7 @@ ns._mhLocales.enUS = {
 	FENCH_SW_DESC = "Next to your character window, every slot that can carry an enchant: its enchant, or \"no enchant\". If you know Enchanting, also which of your own enchants fit an empty slot. No advice on which enchant is best. /mh enchant shows what MH sees.",
 	-- 19 Nov 2026: thank a stranger for a buff with the game's emote (ThanksBuff.lua), both games.
 	SET_THANKS_TITLE = "Thank strangers for a buff",
-	SET_THANKS_DESC = "When a player outside your group gives you a buff, you thank them with the game's own emote (\"You thank …\"). Never in combat or in a dungeon, and once every 5 minutes per player. No whisper. Stays silent when Thanks for the Buff is on.",
+	SET_THANKS_DESC = "When a player outside your group gives you a buff, you thank them with the game's own emote (\"You thank …\"). A buff during a fight is thanked when the fight ends. Never in a dungeon, and once every 5 minutes per player. No whisper. Stays silent when Thanks for the Buff is on.",
 	THANKS_ON = "thanking strangers for a buff: on. You thank them with the game's emote.",
 	THANKS_OFF = "thanking strangers for a buff: off. /mh thanks on brings it back.",
 	THANKS_TEST_NOTARGET = "target a friendly player first, then type /mh thanks test.",

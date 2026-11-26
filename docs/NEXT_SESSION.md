@@ -1,5 +1,14 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 26 nov (Bouwchat 26-11): bedanken voor een buff ná het gevecht (`/reload`)
+
+Rob: *"Klopt het dat wanneer ik in een gevecht ben en ik krijg een buff van iemand, dat ik dan niet kan bedanken?"* — dat
+was onze eigen regel (ThanksBuff.lua "Never: in combat", GEMETEN). Nu: Decide draait ook in een gevecht; een "ja" gaat in
+`pending[guid]`; bij PLAYER_REGEN_ENABLED `AfterCombat`: alleen als de buff ≤ 60 s oud is, en opnieuw gecheckt op instance,
+groep en de 5-minutenregel. Emote naar een unit-token als we die hebben (target/mouseover/focus/nameplate), anders de naam,
+net als buiten een gevecht. Of de naam-route de speler bereikt: nog NIET gemeten (stond al open). `/mh thanks` toont
+"kept from a fight" en "thanked after combat". SET_THANKS_DESC in 7 talen aangepast + check_drift --mark. thanks_test 10/10.
+
 ## ▶▶ 26 nov (Bouwchat 26-11): klik-heals in de toetsblok-spiekbrief (`/reload`; site-werk open)
 
 Rob: *"een printout … welke healknop op welke gedeelte … die ik naast me kan leggen"*. GEMETEN: de Midnight-printout is de

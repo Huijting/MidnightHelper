@@ -26,6 +26,12 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 
 ## Open — wacht op Rob
 
+### Bedanken voor een buff, ook als je in een gevecht zat (wens van Rob, 26 nov) — ✅ JA, GEBOUWD 26 nov, wacht op test
+- Bron: Rob via Sparring, letterlijk: *"Klopt het dat wanneer ik in een gevecht ben en ik krijg een buff van iemand, dat
+  ik dan niet kan bedanken?"*
+- Gebouwd: MH onthoudt de buff en bedankt zodra het gevecht voorbij is (binnen een minuut).
+- Spel: F + M. Voor wie: N + V (AFGELEID).
+
 ### Klik-heals op papier, naast je toetsenbord (wens van Rob, 26 nov) — ✅ JA, ADDON-DEEL GEBOUWD 26 nov, site open
 - Bron: Rob via Sparring, letterlijk: *"kunnen we dat voor hier ook maken? Zodat ik een printout, fysieke printout kan
   hebben. Die ik naast me kan leggen."*

@@ -25,6 +25,14 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 26 nov — Bedanken voor een buff ná het gevecht
+
+`/reload` is genoeg. Offline getest (thanks_test 10/10), NIET in het spel. Alleen als "thanks for a buff" aan staat.
+- [ ] Krijg tijdens een gevecht een buff van een vreemde. Tijdens het gevecht gebeurt niets. Is het gevecht binnen een
+      minuut voorbij, dan zie je in chat "You thank <naam>."
+- [ ] `/mh thanks` zegt dan bij "last decision": "… thanked after combat by …". Duurde het gevecht langer dan 60 s, dan
+      staat er "the fight lasted too long".
+
 ## 26 nov — Klik-heals op papier (Forever en Midnight)
 
 `/reload` is genoeg. Offline getest (undo_test 34/34, card_test 26/26), NIET in het spel. Het printblad zelf komt pas als de
