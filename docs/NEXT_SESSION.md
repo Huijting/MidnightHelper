@@ -1,5 +1,16 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 26 nov (Bouwchat 26-11): druid-klikken compleet: Rebirth, Innervate, Wild Growth (`/reload`)
+
+Rob, op zijn geprinte blad (print werkt ✅, via Sparring): *"Zijn dit trouwens maar alle heels die je krijgt met druid?"*
+GEMETEN in ForeverClickCast.lua: met "linkerklik voor targeting" (Robs stand) vielen Rebirth en Innervate weg, Wild Growth
+stond er nergens in. Nu `KEEP_EXTRA.DRUID` + `WantFor` (één regel voor Rows, Missing en /mh clickheal): plain-midden = Wild
+Growth, Shift+midden = Rebirth (moeilijkste misklik), Shift+rechts = Innervate (plain rechts is al het menu). Let op: in
+die stand is Shift+rechts LEEG tot Innervate geleerd is (level 40), niet meer het menu (GEMETEN in click_test). Healer-stand
+ongewijzigd behalve Alt+links = Wild Growth; Shift+rechts blijft daar het menu.
+Levels GEMETEN in ForeverTrainerData.lua: Rebirth 20, Innervate 40, Wild Growth = talent (rank 1 408120 leert geen trainer;
+nieuwe regel in Missing: eerste trainer-rang met een `req` die geen trainer leert = talent). click_test 38/38.
+
 ## ▶▶ 26 nov (Bouwchat 26-11): MH-macro's in de spiekbrief-code dragen hun spell (`/reload`)
 
 Site-chat op Robs echte Forever-code (Ima, Druid): "maar 3 plaatsen gevuld". GEMETEN in zijn SV (keyBlockCodes, t

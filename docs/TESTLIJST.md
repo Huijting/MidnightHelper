@@ -25,6 +25,13 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 26 nov — Druid: de latere klik-spells (Rebirth, Innervate, Wild Growth)
+
+`/reload` is genoeg. Offline getest (click_test 38/38), NIET in het spel.
+- [ ] `/mh clickcard`: onder "Other layers" staan grijs: Shift + middle = Rebirth "level 20", Shift + right = Innervate
+      "level 40", middle = Wild Growth "talent".
+- [ ] Zodra je level 20 bent en Rebirth hebt: Shift + middelste knop op een groepsframe cast Rebirth.
+
 ## 26 nov — Spiekbrief: de spells achter je Forever-toetsen
 
 `/reload` is genoeg. Offline getest (undo_test 39/39), NIET in het spel.

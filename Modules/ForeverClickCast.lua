@@ -50,7 +50,7 @@ local ORDER = { "L", "R", "M", "SL", "SR", "SM", "CL", "CR", "CM", "AL", "AR", "
 local HEAL = {
 	DRUID = { L = { "Rejuvenation" }, R = { "Regrowth", "Healing Touch" }, M = { "Healing Touch" },
 		CL = { "Abolish Poison", "Cure Poison" }, CR = { "Remove Curse" }, CM = { "Swiftmend" },
-		AR = { "Rebirth" }, AM = { "Innervate" } },
+		AL = { "Wild Growth" }, AR = { "Rebirth" }, AM = { "Innervate" } },
 	PRIEST = { L = { "Renew" }, R = { "Flash Heal", "Lesser Heal" }, M = { "Greater Heal", "Heal", "Lesser Heal" },
 		CL = { "Dispel Magic" }, CR = { "Abolish Disease", "Cure Disease" }, CM = { "Power Word: Shield" },
 		AR = { "Resurrection" }, AM = { "Power Infusion" } },
@@ -63,6 +63,31 @@ local HEAL = {
 -- Keep left-click for targeting: plain left/right = target/menu, heals move to Alt (and the res drops off: Alt+right is
 -- the second heal now). [new slot] = slot of the healer layout.
 local OFFHEAL_FROM = { AL = "L", AR = "R", AM = "M", CL = "CL", CR = "CR", CM = "CM" }
+-- 26 Nov 2026 (Rob, on his printed sheet: "Zijn dit trouwens maar alle heels die je krijgt met druid?"): with left-click
+-- kept for targeting, the res and the class's later spells had no click. The free ones then: plain middle, Shift+middle,
+-- and Shift+right (plain right is the menu already). Levels GEMETEN in ForeverTrainerData.lua: Rebirth 20, Innervate 40,
+-- Wild Growth rank 1 = talent (408120; the trainer teaches rank 2 at 50 with rank 1 as requirement). Rebirth on
+-- Shift+middle: the hardest one to hit by mistake (Sparring's advice).
+local KEEP_EXTRA = {
+	DRUID = { M = { "Wild Growth" }, SM = { "Rebirth" }, SR = { "Innervate" } },
+}
+
+--- The names wanted on this click, in this mode (nil = none).
+local function WantFor(cls, code, keepLeft)
+	local heal = HEAL[cls or ""]
+	if not heal then
+		return nil
+	end
+	if keepLeft then
+		local extra = KEEP_EXTRA[cls or ""]
+		if extra and extra[code] then
+			return extra[code]
+		end
+		local src = OFFHEAL_FROM[code]
+		return src and heal[src] or nil
+	end
+	return heal[code]
+end
 
 local why = "not looked yet" -- for /mh clickheal
 
@@ -121,15 +146,10 @@ local function Rows()
 		return nil, "no heals for your class"
 	end
 	local keepLeft = ns.IsForeverClickKeepLeft()
+	local cls = Class()
 	local want = {} -- slot -> list of names
-	if keepLeft then
-		for to, from in pairs(OFFHEAL_FROM) do
-			want[to] = heal[from]
-		end
-	else
-		for k, v in pairs(heal) do
-			want[k] = v
-		end
+	for _, code in ipairs(ORDER) do
+		want[code] = WantFor(cls, code, keepLeft)
 	end
 	local rows, used, sig = {}, {}, {}
 	for _, code in ipairs(ORDER) do
@@ -137,7 +157,7 @@ local function Rows()
 		local action
 		if (keepLeft and code == "L") or code == "SL" then
 			action = "target"
-		elseif (keepLeft and code == "R") or code == "SR" then
+		elseif (keepLeft and code == "R") or (code == "SR" and not (keepLeft and want.SR)) then
 			action = "menu"
 		end
 		if action then
@@ -179,13 +199,7 @@ function ns.ForeverClickMissing()
 	local keepLeft = ns.IsForeverClickKeepLeft()
 	local out = {}
 	for _, code in ipairs(ORDER) do
-		local src
-		if keepLeft then
-			src = OFFHEAL_FROM[code]
-		else
-			src = code
-		end
-		local names = src and heal[src]
+		local names = WantFor(Class(), code, keepLeft)
 		if names then
 			local anyKnown = false
 			for _, english in ipairs(names) do
@@ -195,10 +209,23 @@ function ns.ForeverClickMissing()
 			end
 			if not anyKnown then
 				local english = names[#names] -- the lowest one in the list is the first you will learn
-				local lv
+				local lv, first
+				local taught = {}
 				for _, e in ipairs((ns.FOREVER_TRAINER_SPELLS or {})[Class() or ""] or {}) do
+					if e.id then
+						taught[e.id] = true
+					end
 					if e.n == english and (not lv or e.l < lv) then
-						lv = e.l
+						lv, first = e.l, e
+					end
+				end
+				-- 26 Nov 2026: Wild Growth's first trainer entry is rank 2 at 50, needing rank 1 (408120), which no trainer
+				-- teaches: that is a talent, not "level 50".
+				if first and type(first.req) == "table" then
+					for _, id in ipairs(first.req) do
+						if not taught[id] then
+							lv = nil
+						end
 					end
 				end
 				-- 26 Nov 2026 (Rob's screenshot: Cure Poison said "talent"; a Druid gets it from the quest Lessons Anew):
@@ -520,7 +547,6 @@ function ns.ForeverClickSlash(arg)
 	-- 26 Nov 2026 (Rob's Druid: "not learned yet: Middle Mouse = Healing Touch" while Healing Touch sat on Alt+Middle):
 	-- with left-click kept for targeting only the Alt/Ctrl slots exist, and a slot whose spell you know (it is just on
 	-- another click) is not "not learned".
-	local heal = HEAL[Class() or ""] or {}
 	local keepLeft = ns.IsForeverClickKeepLeft()
 	local free = {}
 	for _, code in ipairs(ORDER) do
@@ -530,13 +556,7 @@ function ns.ForeverClickSlash(arg)
 				filled = true
 			end
 		end
-		local src
-		if keepLeft then
-			src = OFFHEAL_FROM[code]
-		else
-			src = code
-		end
-		local names = src and heal[src]
+		local names = WantFor(Class(), code, keepLeft)
 		local anyKnown = false
 		for _, english in ipairs(names or {}) do
 			if ns.ForeverKnownSpell and ns.ForeverKnownSpell(english) then
