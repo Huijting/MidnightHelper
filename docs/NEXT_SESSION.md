@@ -1,5 +1,14 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 26 nov (Bouwchat 26-11): Earthroot-tooltip ✅ in het spel; nu ook alts van de andere factie/realm, met reden (`/reload`)
+
+Rob: *"Ja, de tooltip werkt netjes."* + *"Joey Whatever is een alliance en die kan dus niks naar mij toesturen."* Joey
+ontbrak in MH's regel omdat `ns.ForeverCQItemBody` Syndicator met sameRealm+sameFaction = true vroeg. Nu (false, false):
+eerst je eigen factie/realm "(can mail it to you)", dan grijs "(Alliance: cannot mail it to you)" / "(other realm: …)", plus
+"MH: by mail you can get N of the M". Factie GEMETEN in Syndicator: `API.GetCharacter("naam-realm").details.faction`
+(Initialize.lua:86); realm: realmNormalized vs GetNormalizedRealmName + GetAutoCompleteRealms. "Mail kruist geen factie in
+Forever" = Robs woorden/Classic-regel (AFGELEID). Midnight: deze regel bestaat daar niet (Forever-bestand). cq_test 18/18.
+
 ## ▶▶ 26 nov (Bouwchat 26-11): Earthroot-tooltip + Nighthaven per factie + class quest "meerdere gebieden" (werking, data volgt)
 
 - Rob: *"Kunnen we daar ook een tooltip van maken, zodat ik kan zien of een van mijn andere karakters hem heeft."*

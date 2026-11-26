@@ -3303,21 +3303,64 @@ function ns.ForeverCQItemBody(item, need)
 		out[#out + 1] = (have >= need and "|cff7fff7f" or "|cffffd100") .. ns:L("FCQ_TIP_HAVE_FMT"):format(math.min(have, need),
 			need) .. "|r"
 	end
+	-- 26 Nov 2026 (Rob: "Joey Whatever is een alliance en die kan dus niks naar mij toesturen. Dus dat moet … vermelden"):
+	-- EVERY character (Syndicator asked without its faction/realm filter), yours that can mail first, the others grey with
+	-- why. Faction: Syndicator.API.GetCharacter(name-realm).details.faction (GEMETEN in Syndicator Initialize.lua:86);
+	-- realm: realmNormalized vs yours and GetAutoCompleteRealms (connected realms). That mail does not cross factions in
+	-- Forever: Rob's own words (Classic rule; AFGELEID for Forever, not tried).
 	local api = rawget(_G, "Syndicator") and Syndicator.API
 	if api and api.GetInventoryInfoByItemID then
-		local alts = {}
-		local ok, info = pcall(api.GetInventoryInfoByItemID, item, true, true)
+		local mine, other, canMail = {}, {}, 0
+		local ok, info = pcall(api.GetInventoryInfoByItemID, item, false, false)
 		local me = UnitName and UnitName("player")
+		local myFaction = UnitFactionGroup and UnitFactionGroup("player")
+		local myRealm = GetNormalizedRealmName and GetNormalizedRealmName()
+		local realms = {}
+		if myRealm then
+			realms[myRealm] = true
+		end
+		if GetAutoCompleteRealms then
+			local okR, list = pcall(GetAutoCompleteRealms)
+			for _, r in ipairs(okR and type(list) == "table" and list or {}) do
+				realms[r] = true
+			end
+		end
 		if ok and type(info) == "table" and type(info.characters) == "table" then
 			for _, c in ipairs(info.characters) do
 				local n = (c.bags or 0) + (c.bank or 0) + (c.mail or 0)
-				if n > 0 and c.character ~= me then
-					alts[#alts + 1] = ("%s %d"):format(c.character, n)
+				local self_ = c.character == me and (not myRealm or c.realmNormalized == myRealm)
+				if n > 0 and not self_ then
+					local fac
+					if api.GetCharacter and c.realmNormalized then
+						local okC, d = pcall(api.GetCharacter, c.character .. "-" .. c.realmNormalized)
+						fac = okC and type(d) == "table" and d.details and d.details.faction or nil
+					end
+					if fac and myFaction and fac ~= myFaction then
+						other[#other + 1] = ns:L("FCQ_TIP_ALT_FACTION_FMT"):format(c.character, n,
+							(fac == "Alliance" and (FACTION_ALLIANCE or "Alliance")) or (FACTION_HORDE or "Horde"))
+					elseif c.realmNormalized and next(realms) and not realms[c.realmNormalized] then
+						other[#other + 1] = ns:L("FCQ_TIP_ALT_REALM_FMT"):format(c.character, n)
+					else
+						mine[#mine + 1] = ns:L("FCQ_TIP_ALT_MAIL_FMT"):format(c.character, n)
+						canMail = canMail + n
+					end
 				end
 			end
 		end
-		out[#out + 1] = "|cff99ccff" .. (#alts > 0 and ns:L("FCQ_TIP_ALTS_FMT"):format(table.concat(alts, ", "))
-			or ns:L("FCQ_TIP_ALTS_NONE")) .. "|r"
+		if #mine + #other == 0 then
+			out[#out + 1] = "|cff99ccff" .. ns:L("FCQ_TIP_ALTS_NONE") .. "|r"
+		else
+			out[#out + 1] = "|cff99ccff" .. ns:L("FCQ_TIP_ALTS_HEAD") .. "|r"
+			for _, s in ipairs(mine) do
+				out[#out + 1] = "|cff99ccff  " .. s .. "|r"
+			end
+			for _, s in ipairs(other) do
+				out[#out + 1] = "|cff808080  " .. s .. "|r"
+			end
+			if need and canMail > 0 then
+				out[#out + 1] = "|cff99ccff" .. ns:L("FCQ_TIP_CAN_MAIL_FMT"):format(math.min(canMail, need), need) .. "|r"
+			end
+		end
 	else
 		out[#out + 1] = "|cff999999" .. ns:L("FCQ_TIP_ALTS_NOSYN") .. "|r"
 	end

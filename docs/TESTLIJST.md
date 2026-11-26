@@ -28,9 +28,13 @@ bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt o
 ## 26 nov — FOREVER: tooltip op "5 Earthroot" + alleen jouw eigen Nighthaven
 
 `/reload` is genoeg. Offline getest (cq_test 12/12, flight_test 48/48), NIET in het spel.
-- [ ] Druid op "Gathering the Cure": muis op de regel "you also need 5 Earthroot …" in het class-questkaartje. Je ziet de
-      tooltip van Earthroot zelf, en eronder "MH: you have 2 of the 5 you need" en "MH: on your other characters: Ima 3"
-      (of "none on your other characters"). Dat komt van Syndicator; staat er "needs Syndicator", zeg het.
+- [x] Druid op "Gathering the Cure": muis op de regel "you also need 5 Earthroot …" in het class-questkaartje. Je ziet de
+      tooltip van Earthroot zelf, en eronder "MH: you have 2 of the 5 you need" en "MH: on your other characters: Ima 3".
+      ✅ Rob, 26 nov: *"Ja, de tooltip werkt netjes. Staat ook keurig bij waar ik het [kan] krijgen, dus daar ben ik heel
+      blij mee."* (screenshot: Syndicator-blok "Joey Whatever Bags: 6, Ima Warlocky Bags: 3" + MH "you have 0 of the 5",
+      "Ima Warlocky 3"). Joey ontbrak in MH's regel: MH vroeg Syndicator alleen je eigen factie → nu iedereen, met reden.
+- [ ] Nu: onder "MH: on your other characters:" eerst "Ima Warlocky 3 (can mail it to you)", dan grijs "Joey Whatever 6
+      (Alliance: cannot mail it to you)", en "MH: by mail you can get 3 of the 5".
 - [ ] Hetzelfde in het overzicht bij "Do this now" (muis op de class-questregel).
 - [ ] Laat Syndicator/Baganator zijn eigen regels ook zien (zijn tooltip-instelling)? Dan staan ze er misschien dubbel.
       Zeg het, dan haal ik de MH-regel weg.

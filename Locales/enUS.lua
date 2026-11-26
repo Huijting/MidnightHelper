@@ -7670,7 +7670,11 @@ ns._mhLocales.enUS = {
 	FCQ_MOONGLADE_TIP = " (Teleport: Moonglade in your spellbook takes you there)",
 	FCQ_AREAS_FMT = "%d areas, this one is nearest",
 	FCQ_TIP_HAVE_FMT = "MH: you have %d of the %d you need",
-	FCQ_TIP_ALTS_FMT = "MH: on your other characters: %s",
+	FCQ_TIP_ALTS_HEAD = "MH: on your other characters:",
+	FCQ_TIP_ALT_MAIL_FMT = "%s %d (can mail it to you)",
+	FCQ_TIP_ALT_FACTION_FMT = "%s %d (%s: cannot mail it to you)",
+	FCQ_TIP_ALT_REALM_FMT = "%s %d (other realm: cannot mail it to you)",
+	FCQ_TIP_CAN_MAIL_FMT = "MH: by mail you can get %d of the %d",
 	FCQ_TIP_ALTS_NONE = "MH: none on your other characters",
 	FCQ_TIP_ALTS_NOSYN = "MH: what your other characters have needs Syndicator (or Baganator)",
 	-- Warlock class quests (17 Nov 2026; facts docs/forever/WARLOCK_CLASSQUESTS_2026-11-17.md). Item, NPC and place names
