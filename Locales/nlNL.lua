@@ -4760,6 +4760,7 @@ ns._mhLocales.nlNL = {
 	FCARD_SOURCE_MH = "DandersFrames was niet te lezen: dit is MH's indeling (zelf aangepast in DandersFrames? de kaart toont MH's indeling)",
 	FCARD_EMPTY = "Nog geen klikken: zet eerst klik-heals aan",
 	FCARD_FOOT = "Shift+scroll = grootte · sleep om te verplaatsen",
+	FCARD_PRINT = "Printen (website)",
 	FCARD_SEE_FMT = "Doorzichtig: %d%%",
 	FCARD_OPEN = "Toon de klikkaart",
 	FCARD_OPEN_DESC = "Een grote kaart met een getekende muis: welke klik wat healt op je groepsframes. Zet hem waar je wilt, Shift+scroll voor de grootte. Hij volgt je klikken live, ook als je ze in DandersFrames verandert.",

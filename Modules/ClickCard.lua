@@ -197,6 +197,28 @@ local function Collect()
 	return rows, miss
 end
 
+--- 26 Nov 2026 (Rob via Sparring: "een printout … welke healknop op welke gedeelte … die ik naast me kan leggen"): the
+--- same clicks as this card, for the key block cheat sheet (KeyBlock.lua BuildKeyBlockExport → midnighthelper.com).
+--- @return rows { mod, button, action, spellId, name, rank, how, level }, source ("df" | "mh" | "none")
+function ns.ClickCardExportRows()
+	local ok, rows, miss = pcall(Collect)
+	if not ok then
+		return nil, "none"
+	end
+	local out = {}
+	for _, r in ipairs(rows or {}) do
+		-- Midnight's own layout lists a spell you have not got as a normal row with known = false
+		out[#out + 1] = { mod = r.mod or "", button = r.button, action = (r.known == false) and "notyet" or r.action,
+			spellId = r.spellId, name = r.spellName or SpellName(r.spellId), rank = SpellRank(r.spellId),
+			how = (r.known == false) and "notyet" or nil }
+	end
+	for _, m in ipairs(miss or {}) do
+		out[#out + 1] = { mod = m.mod or "", button = m.button, action = "notyet", spellId = m.spellId,
+			name = SpellName(m.spellId) or m.english, how = m.how, level = m.level }
+	end
+	return out, source
+end
+
 local function MainLayer(rows)
 	if pinned then
 		return pinned
@@ -656,11 +678,22 @@ local function Build()
 	end
 	f.foot = f:CreateFontString(nil, "OVERLAY", "GameFontDisable")
 	f.foot:SetPoint("BOTTOMLEFT", 24, 14)
-	f.foot:SetWidth(W - 190)
+	f.foot:SetWidth(W - 310) -- room for the print button (26 Nov 2026)
 	f.foot:SetJustifyH("LEFT")
 	if f.foot.SetMaxLines then
 		f.foot:SetMaxLines(2)
 	end
+	-- 26 Nov 2026 (Rob: "een printout … die ik naast me kan leggen"): the key block's cheat-sheet code, which now carries
+	-- these clicks too; pasted on midnighthelper.com (Key block page) it becomes a sheet to print.
+	f.print = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
+	f.print:SetSize(140, 20)
+	f.print:SetPoint("BOTTOMRIGHT", -158, 12)
+	f.print:SetText(L("FCARD_PRINT"))
+	f.print:SetScript("OnClick", function()
+		if ns.ShowKeyBlockExport then
+			ns.ShowKeyBlockExport()
+		end
+	end)
 	f.see = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
 	f.see:SetSize(130, 20)
 	f.see:SetPoint("BOTTOMRIGHT", -20, 12)
@@ -848,6 +881,14 @@ function ns.ClickCardSlash(arg)
 				local l = HeldLayer() or MainLayer(rows)
 				return l == "" and "plain" or l
 			end)()))
+		return
+	end
+	-- 26 Nov 2026: the printout. The clicks travel in the key block's cheat-sheet code (one paste, one sheet).
+	local a = (arg or ""):lower()
+	if a == "export" or a == "print" then
+		if ns.ShowKeyBlockExport then
+			ns.ShowKeyBlockExport()
+		end
 		return
 	end
 	ns.ShowClickCard(true)

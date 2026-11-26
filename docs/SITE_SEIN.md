@@ -28,6 +28,23 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 26 nov 2026 — Toetsblok-code draagt nu ook je klik-heals (`clicks=` + K-regels) — SITE-WERK NODIG
+- Tag + commit:   geen tag (zie git log, 26 nov, "cheat sheet carries the clicks")
+- Status:         alleen op main
+- Mag op de site: ja, de PARSER en het printblad mogen al (oude codes en codes zonder klikken blijven gewoon werken);
+                  als "nieuw" melden pas bij "staat op CurseForge". Rob (via Sparring): *"Zodat ik een printout, fysieke
+                  printout kan hebben. Die ik naast me kan leggen."*
+- Speler ziet:    De klikkaart heeft een knop "Print (website)". Die opent dezelfde code als het toetsblok (`/mh block
+                  export`), nu met je klik-heals erin. Plakken op /keyblock/ geeft één spiekbrief: toetsen + "Clicks on
+                  your group".
+- Knoplabels:     FCARD_PRINT (nieuw), KEYBLOCK_BTN_EXPORT (bestond)
+- Commando's:     /mh block export (bestond), /mh clickcard export (nieuw, zelfde code)
+- Spel:           allebei (Forever: DandersFrames-profiel of MH's indeling; Midnight: DandersFrames of ClickCast-indeling)
+- Contract:       header-veld `clicks=<df|mh|none>`; na de toetsregels `# click|mouse|source|kind|id|name|extra` en regels
+                  `K|MOUSE-[ALT-|CTRL-|SHIFT-]<L|R|M>|<source>|<spell|target|menu|macro|notyet|…>|<id>|<naam>|<extra>`.
+                  extra = rank-tekst van de client ("Rank 3"; leeg in Midnight) of bij notyet "level 20" / talent / quest.
+                  Eerste regel blijft "MH-KEYBLOCK 1". Bron: KeyBlock.lua (commentaar boven BuildKeyBlockExport).
+
 ## 26 nov 2026 — Forever: class quest wijst naar het dichtstbijzijnde gebied; item-tooltip met je andere characters
 - Tag + commit:   geen tag (commits van die dag)
 - Status:         alleen op main

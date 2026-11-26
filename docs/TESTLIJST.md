@@ -25,6 +25,17 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 26 nov — Klik-heals op papier (Forever en Midnight)
+
+`/reload` is genoeg. Offline getest (undo_test 34/34, card_test 26/26), NIET in het spel. Het printblad zelf komt pas als de
+site-chat /keyblock/ heeft bijgewerkt.
+- [ ] Open de klikkaart (`/mh clickcard`). Onderaan staat een knop "Print (website)". Klik erop: het bekende kopieervenster
+      van het toetsblok gaat open.
+- [ ] In die code staan onderaan regels die beginnen met `K|MOUSE-`, één per klik (bv. `K|MOUSE-ALT-L|…|Rejuvenation|Rank 3`).
+- [ ] `/mh clickcard export` doet hetzelfde.
+- [ ] Zodra de site klaar is: plak de code op midnighthelper.com (Key block-pagina). Op het blad staat een vak met je klikken
+      per laag (gewoon, Alt, Ctrl, Shift). Print het op A4 en kijk of het zwart-wit leesbaar is.
+
 ## 26 nov — FOREVER: gear-% onderaan "Do this now", reistijden in min:sec, "binnen, boven"
 
 `/reload` is genoeg. Offline getest (dur_test 10/10, flight_test 62/62, cq_test 33/33, card_test 22/22), NIET in het spel.

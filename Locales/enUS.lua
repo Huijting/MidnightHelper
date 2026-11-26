@@ -5670,6 +5670,7 @@ ns._mhLocales.enUS = {
 	FCARD_SOURCE_MH = "DandersFrames could not be read: this is MH's layout (edited in DandersFrames? the card shows MH's layout)",
 	FCARD_EMPTY = "No clicks set yet: switch click heals on first",
 	FCARD_FOOT = "Shift+scroll = size · drag to move",
+	FCARD_PRINT = "Print (website)",
 	FCARD_SEE_FMT = "See-through: %d%%",
 	FCARD_OPEN = "Show the click card",
 	FCARD_OPEN_DESC = "A big card with a drawn mouse: which click heals what on your group frames. Put it anywhere, Shift+scroll for the size. It follows your clicks live, also when you change them in DandersFrames.",

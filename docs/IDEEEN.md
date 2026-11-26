@@ -26,6 +26,12 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 
 ## Open — wacht op Rob
 
+### Klik-heals op papier, naast je toetsenbord (wens van Rob, 26 nov) — ✅ JA, ADDON-DEEL GEBOUWD 26 nov, site open
+- Bron: Rob via Sparring, letterlijk: *"kunnen we dat voor hier ook maken? Zodat ik een printout, fysieke printout kan
+  hebben. Die ik naast me kan leggen."*
+- Gebouwd: de toetsblok-code draagt nu je klikken mee; knop "Print (website)" op de klikkaart. Site-chat bouwt het printvak.
+- Spel: F + M. Voor wie: N (AFGELEID).
+
 ### Forever: gear-% altijd onderaan "Do this now" (wens van Rob, 26 nov) — ✅ JA, GEBOUWD 26 nov, wacht op test
 - Bron: Rob via Sparring, letterlijk: *"dat daar standaard altijd komt hoeveel onze gear is. Zodat ik in één ogenblik kan
   zien of ik wil repairen."*

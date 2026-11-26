@@ -1,5 +1,17 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 26 nov (Bouwchat 26-11): klik-heals in de toetsblok-spiekbrief (`/reload`; site-werk open)
+
+Rob: *"een printout … welke healknop op welke gedeelte … die ik naast me kan leggen"*. GEMETEN: de Midnight-printout is de
+toetsblok-spiekbrief (`/mh block export` → midnighthelper.com/keyblock/, A4 liggend); klikken stonden er niet in. Sparring:
+één code, geen tweede. Nu: `ns.ClickCardExportRows` (ClickCard.lua, dezelfde bron als de kaart: actief DF-profiel, anders
+MH's indeling; met rank via GetSpellSubtext en de nog-niet-geleerde klikken) → KeyBlock.lua `ClickExportLines` → header
+`clicks=` + `K|MOUSE-…`-regels achter de toetsregels. Contract in het commentaar boven BuildKeyBlockExport en in
+`docs/SITE_SEIN.md`. GEMETEN in de site-parser (keyblock/index.html:576-595, is12 :437): een K-regel wordt daar een
+onschuldige "place" onder sleutel MOUSE-…; begint nooit met CTRL-, dus de 12x4-gok klopt nog. Knop "Print (website)"
+(FCARD_PRINT, 7 talen) op de klikkaart + `/mh clickcard export|print`. undo_test 34/34, card_test 26/26.
+OPEN: de site-chat moet de K-regels lezen en het printvak bouwen (opdracht via Sparring).
+
 ## ▶▶ 26 nov (Bouwchat 26-11): gear-% in de voet, routetijden m:ss, teleport korter, "binnen, boven" (`/reload`)
 
 1. Rob: *"dat daar standaard altijd komt hoeveel onze gear is."* ForeverDoNow.lua `DurText` (links van `f.bags`): het meest

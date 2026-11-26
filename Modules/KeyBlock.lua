@@ -3329,7 +3329,61 @@ end
 --
 -- What a place holds: once the block is placed, what really stands on that button; before that, what
 -- "Place it" would put there.
+--
+--   clicks  added 26 Nov 2026 (Rob via Sparring: "een printout … welke healknop op welke gedeelte … die ik naast me kan
+--           leggen" → "liever geen aparte tweede code"): the click heals on your group frames, the same rows as the
+--           click card (ClickCard.lua: the active DandersFrames profile, else MH's own layout). Header field
+--           `clicks=<df|mh|none>`; after the key rows:
+--     # click|mouse|source|kind|id|name|extra
+--     K|MOUSE-ALT-L|mh|spell|774|Rejuvenation|Rank 3
+--           mouse  MOUSE-[ALT-|CTRL-|SHIFT-]L|R|M (never starts with CTRL-, so the site's 12x4 guess is not fooled)
+--           kind   spell | target | menu | macro | notyet (in the layout, not learned yet) | other DandersFrames actions
+--           extra  spell: the client's rank text ("Rank 3"; empty in Midnight) · notyet: "level 20" | talent | quest | notyet
+--           An older site reads a K row as a place under the key MOUSE-…, which no block slot has: nothing changes there.
+--           First line stays "MH-KEYBLOCK 1" (as with layout=).
 --------------------------------------------------------------------------------
+
+local MOUSE_MOD = { [""] = "", ["alt-"] = "ALT-", ["ctrl-"] = "CTRL-", ["shift-"] = "SHIFT-" }
+local MOUSE_BTN = { LeftButton = "L", RightButton = "R", MiddleButton = "M" }
+local MOUSE_ORDER = { [""] = 1, ["alt-"] = 2, ["ctrl-"] = 3, ["shift-"] = 4 }
+
+--- The K rows (and the header value) for the cheat sheet; also /mh clicks export.
+local function ClickExportLines(esc)
+	if not ns.ClickCardExportRows then
+		return {}, "none"
+	end
+	local rows, source = ns.ClickCardExportRows()
+	if not rows or #rows == 0 then
+		return {}, "none"
+	end
+	table.sort(rows, function(a, b)
+		local ma, mb = MOUSE_ORDER[a.mod] or 9, MOUSE_ORDER[b.mod] or 9
+		if ma ~= mb then
+			return ma < mb
+		end
+		return (MOUSE_BTN[a.button] or "Z") < (MOUSE_BTN[b.button] or "Z")
+	end)
+	local out = {}
+	for _, r in ipairs(rows) do
+		local m, b = MOUSE_MOD[r.mod], MOUSE_BTN[r.button]
+		if m and b then
+			local kind = r.action
+			if kind ~= "spell" and kind ~= "target" and kind ~= "menu" and kind ~= "macro" and kind ~= "notyet" then
+				kind = esc(kind or "other")
+			end
+			local extra = ""
+			if kind == "spell" then
+				extra = r.rank or ""
+			elseif kind == "notyet" then
+				extra = (r.how == "level" and r.level and ("level " .. r.level)) or r.how or "notyet"
+			end
+			out[#out + 1] = ("K|MOUSE-%s%s|%s|%s|%s|%s|%s"):format(m, b, source or "none", kind,
+				r.spellId and tostring(r.spellId) or "", esc(r.name), esc(extra))
+		end
+	end
+	return out, (#out > 0) and (source or "none") or "none"
+end
+ns.KeyBlockClickExportLines = ClickExportLines -- offline test
 
 function ns.BuildKeyBlockExport()
 	SyncLayout() -- the rows and their tasks must come from the layout the header names
@@ -3356,13 +3410,14 @@ function ns.BuildKeyBlockExport()
 		end
 	end
 	local bars = ns.KeyBlockBars()
+	local clickLines, clickSource = ClickExportLines(clean)
 	local lines = {
 		"MH-KEYBLOCK 1",
-		("char=%s;class=%s;specid=%s;spec=%s;bars=%d,%d,%d,%d;layout=%s;game=%s"):format(
+		("char=%s;class=%s;specid=%s;spec=%s;bars=%d,%d,%d,%d;layout=%s;game=%s;clicks=%s"):format(
 			(tostring(UnitName and UnitName("player") or "?"):gsub("[;|=]", "")),
 			tostring(res and res.class or (UnitClass and select(2, UnitClass("player"))) or "?"),
 			tostring(res and res.specID or "?"), (specName:gsub("[;|=]", "")),
-			bars.D, bars.A, bars.B, bars.C, LayoutName(), ns.IS_FOREVER and "forever" or "midnight"),
+			bars.D, bars.A, bars.B, bars.C, LayoutName(), ns.IS_FOREVER and "forever" or "midnight", clickSource),
 		"# block|key|task|kind|id|name",
 	}
 	for _, r in ipairs(rows) do
@@ -3383,6 +3438,12 @@ function ns.BuildKeyBlockExport()
 		end
 		lines[#lines + 1] = ("%s|%s|%s|%s|%s|%s"):format(r.bar, r.key, taskBy[r.key] or "", kind,
 			id and tostring(id) or "", clean(name))
+	end
+	if #clickLines > 0 then
+		lines[#lines + 1] = "# click|mouse|source|kind|id|name|extra"
+		for _, l in ipairs(clickLines) do
+			lines[#lines + 1] = l
+		end
 	end
 	return table.concat(lines, "\n")
 end
