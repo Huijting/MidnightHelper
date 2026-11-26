@@ -4235,7 +4235,15 @@ ns._mhLocales.enUS = {
 	CHANGELOG_580_9 = "Midnight: the Platynator page is gone from the Addons tab. The Details! page stays.",
 	-- 5.9.0, 24 Nov 2026 (Rob via Sparring 24-11: "release 5.9.0").
 	-- 5.9.1, 25 Nov 2026 (Rob via Sparring: "release 5.9.1"). Player things only.
-	CHANGELOG_5100_1 = "Both games: tooltips of recipes, ingredients and gear you can send name your other characters who can use them: who has the profession and their skill, or who can wear it and whether its item level is higher than what they wear. Mark a bank character to leave it out. Restart the game once after updating.",
+	CHANGELOG_5110_1 = "Both games: a big click card shows which click heals what on your group frames, live (/mh clickcard). Its Print (website) button puts your clicks on the key block sheet on midnighthelper.com. Restart the game once after updating.",
+	CHANGELOG_5110_2 = "Forever: heals on a click on your DandersFrames group frames, kept up to date when you learn a spell or rank. Druid, Priest, Paladin and Shaman. Left-click can stay for targeting.",
+	CHANGELOG_5110_3 = "Forever: the arrow and the way there use your flight paths, boats, zeppelins and teleports, with a route panel of every step and its time. The trainer arrow picks the trainer you reach quickest.",
+	CHANGELOG_5110_4 = "Forever: class quest steps point at the nearest place to kill or collect, say when someone stands upstairs, and show which of your characters have the item. Curing the Sick counts your salve doses.",
+	CHANGELOG_5110_5 = "Forever: a window when a rare comes into sight, the rare in 3D, and what you looted from it.",
+	CHANGELOG_5110_6 = "Forever: a window after you die with the corpse run, the Spirit Healer cost and an arrow to your corpse.",
+	CHANGELOG_5110_7 = "Forever: Do this now shows how worn your gear is. How you play has Your race. Gear check shows your legs and updates at once. Oath of Light lasts 1 hour.",
+	CHANGELOG_5110_8 = "Both games: a buff from a stranger during a fight is thanked when the fight ends. Move has a Done bar and moves the cast warning bars. Key block Undo never takes off what you put there yourself.",
+	CHANGELOG_5100_1 ="Both games: tooltips of recipes, ingredients and gear you can send name your other characters who can use them: who has the profession and their skill, or who can wear it and whether its item level is higher than what they wear. Mark a bank character to leave it out. Restart the game once after updating.",
 	CHANGELOG_5100_2 = "Forever: How you play has a Which weapon? block for every class: which weapon kinds suit you, which you can already use, and where you learn the others.",
 	CHANGELOG_5100_3 = "Forever: How you play is now in tabs: Start, Your keys, Weapon & stats, Group and Levels. It remembers the tab you used last.",
 	CHANGELOG_5100_4 = "Forever: a Gear check next to your character window shows the enchant on every slot, or no enchant. Do this now counts the slots without one.",

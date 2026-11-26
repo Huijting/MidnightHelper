@@ -1,5 +1,13 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 26 nov (Bouwchat 26-11): 5.11.0 KLAARGEZET — NIET GETAGD (wacht op Robs "release 5.11.0")
+
+Rob via Sparring: *"Zet maar vast klaar dan test ik midnight vanavond na het diner"*. Beide toc's 5.11.0; Changelog.lua +
+CHANGELOG_5110_1 t/m _8 (enUS); `RELEASE_NOTES.md` = `docs/CURSEFORGE_5.11.0.md` (byte-gelijk, zonder beta-zin zoals
+5.10.0); CHANGELOG.md; CURSEFORGE_DESCRIPTION.md (route/flight paths, rares/dood, gear-%, class-questkaart, Your race,
+klikkaart + klik-heals) — Rob plakt die zelf op CF. SITE_SEIN: "klaargezet, nog niet getagd". Nieuwe bestanden →
+"restart the game once" in de tekst. Inhoud = v5.10.0..HEAD. Tag: `git tag -a v5.11.0` + push, alleen op Robs zin.
+
 ## ▶▶ 26 nov (Bouwchat 26-11): de volledige Forever-naam ("Ima Druiddude") op de spiekbrief + Syndicator-alts (`/reload`)
 
 Rob: *"al mijn karakters hebben de voorletters Ima … Dus dan moet hier ook wel de achternaam bij komen."* GEMETEN in zijn

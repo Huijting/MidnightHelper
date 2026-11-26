@@ -2,6 +2,27 @@
 
 All notable changes to this project are documented in this file.
 
+## 5.11.0
+
+📌 **2026-11-26, KLAARGEZET, NIET GETAGD (Rob via Sparring 26-11, letterlijk: "Zet maar vast klaar dan test ik midnight
+vanavond na het diner").** Tag pas op Robs letterlijke "release 5.11.0". In-game: CHANGELOG_5110_1 t/m _8.
+`RELEASE_NOTES.md` = `docs/CURSEFORGE_5.11.0.md` (zonder beta-zin, zoals 5.10.0). Commits v5.10.0..HEAD (26 nov). Nieuwe
+bestanden (ClickCard.lua, ForeverClickCast.lua, ForeverClassQuestAreas.lua) → herstart.
+Getest door Rob in het spel: klikkaart (lagen, tooltips, Shift+scroll), klik-heals op Alt, print via /keyblock/, castbalken
+slepen, "The way there: walk", rare in 3D, na-je-dood-venster + pijl, Earthroot-tooltip, zalf rood bij te weinig. NIET in
+het spel getest (offline wel): vluchten/boten in de planner, routepaneel m:ss, gear-% in Do this now, "upstairs, inside",
+klassequest-gebieden, rare-loot, bedanken na gevecht, druid Rebirth/Innervate/Wild Growth, volledige naam, Midnight-kant.
+
+- **Beide games:** klikkaart + print (toetsblok-code met K-regels); Move Done-balk + castbalken; bedanken na een gevecht;
+  toetsblok undo/restore/voorvertoning.
+- **Forever:** klik-heals op DandersFrames; reisplanner met flight paths, boten, teleports, routepaneel en ring; trainerpijl
+  op reistijd; class-quest-gebieden, item-tooltip met alts, zalf; rare-venster, 3D, eigen loot; na-je-dood-venster en
+  lijk-pijl; gear-% in de voet; Your race; Gear check legs + live; Oath of Light 1 uur; Quiet helpers +6; Midnight-commando's
+  verborgen; volledige naam en macro-spells in de toetsblok-code.
+- **Fix:** Move-fout op een secret alpha (Forever).
+- **Alleen voor ons (niet in de spelerstekst):** /mh travel per-stap-bronnen, /mh block slots|look|restore, /mh ghost,
+  /mh rares why, /mh walkrec, /mh clickheal why, /mh thanks-regels.
+
 ## 5.10.0
 
 📌 **2026-11-25, RELEASE (Rob via Sparring 25-11, letterlijk: "breng 5.10.0 maar uit 🙂 , mee eens ?"; geen beta).**

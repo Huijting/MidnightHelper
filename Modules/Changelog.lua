@@ -4,6 +4,21 @@ local changelogFrame
 
 local CHANGELOG_ENTRIES = {
 	{
+		version = "5.11.0",
+		lines = {
+			-- 26 Nov 2026, prepared on Rob's "Zet maar vast klaar dan test ik midnight vanavond na het diner" (via
+			-- Sparring 26-11). Not tagged: the tag waits for his literal "release 5.11.0".
+			"CHANGELOG_5110_1",
+			"CHANGELOG_5110_2",
+			"CHANGELOG_5110_3",
+			"CHANGELOG_5110_4",
+			"CHANGELOG_5110_5",
+			"CHANGELOG_5110_6",
+			"CHANGELOG_5110_7",
+			"CHANGELOG_5110_8",
+		},
+	},
+	{
 		version = "5.10.0",
 		lines = {
 			-- 25 Nov 2026, released on Rob's "breng 5.10.0 maar uit" (via Sparring 25-11).

@@ -19,12 +19,16 @@ from Retail to **Forever** and install it there as well. You get help made for l
   or boss loot anywhere in MH for the game's own tooltip.
 - **Do this now**: a small window with what you can do right now (new spells at your trainer, an old rank on your
   bars, a weapon to learn, a missing buff or tool) and the trainer spells of your next 3 levels. Upgrades in your bags
-  come first, with *Wear it* and *Not this one*. Next to your money you see your free bag slots, and a button opens
-  *How you play*.
+  come first, with *Wear it* and *Not this one*. Next to your money you see your free bag slots and how worn your gear
+  is (click it for the nearest vendor who repairs), and a button opens *How you play*.
 - **Search, Find and the arrow**: type a trainer, shop, dungeon, class quest or place in the search bar. *Find* lists
   trainers, weapon masters, shops, the bank, the auction house, mailboxes, inns, vendors who repair, zeppelins, boats,
-  flight masters and the rares worth the trip, nearest first. The arrow knows the way across the water too (boats,
-  zeppelins, the Deeprun Tram and the portals) and warns you when your Hearthstone is not in your bags.
+  flight masters and the rares worth the trip, nearest first. The arrow takes the quickest way: the flight paths you
+  know, boats, zeppelins, the Deeprun Tram, portals, your teleports and Hearthstone. A small route panel shows every
+  step with its time, and the flight map marks the stop to click.
+- **Rares and dying**: a window when a rare comes into sight (target it, show it in Find, set a waypoint), the rare in
+  3D, and what you looted from it before. After you die: how far your corpse is, the run as a ghost, what the Spirit
+  Healer costs, and an arrow to your corpse.
 
 #### Your class
 
@@ -38,7 +42,9 @@ from Retail to **Forever** and install it there as well. You get help made for l
   spell damage and healing.
 - **Class quests for all nine classes**, step by step with the arrow: from the level 1 note that sends you to your
   trainer to druid forms, warlock demons, shaman totems, hunter pets, weapon quests and more. *Do this now* tells you
-  what to bring before the trip, and a card you can move shows the step you are on, in your class colour.
+  what to bring before the trip, and a card you can move shows the step you are on, in your class colour: how you get
+  there, the nearest place to kill or collect, and which of your other characters have the item you need.
+- **Your race**: what your race gives you, for your own class.
 - **Your trainer**: when you level up, the trainer page in the overview shows every new spell with its rank, its price
   and the key it lands on; *Show the way* points the arrow to your nearest class trainer who can teach you something
   (218 trainers known). At the trainer: *Train all*, a cross above your trainer, spells from a class quest marked as
@@ -107,6 +113,9 @@ from Retail to **Forever** and install it there as well. You get help made for l
 - **You picked up an upgrade**: when gear that clearly beats what you wear lands in your bags, a short message on your
   screen says so.
 - **Top macros per class and spec**, ready to make with one click.
+- **Which click heals what**: a big card with a drawn mouse shows the heals on your group frames, layer by layer, live.
+  Print it with your key block from midnighthelper.com. In Forever, MH can also put the heals, dispels and res your
+  character knows on your DandersFrames group frames, and keep them up to date (Druid, Priest, Paladin, Shaman).
 
 ### What it does in Midnight
 

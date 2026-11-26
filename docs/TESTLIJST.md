@@ -25,6 +25,18 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 26 nov — 5.11.0 in MIDNIGHT (vanavond, vóór de release)
+
+HERSTART het spel één keer (nieuwe bestanden). Dit is het Midnight-deel; het Forever-deel staat in de secties hieronder.
+- [ ] Inloggen zonder rode foutmelding (BugSack leeg), ook als je meteen in een gevecht komt.
+- [ ] De "what's new"-popup toont 5.11.0 met 8 regels.
+- [ ] Een healer: `/mh clickcard` opent de klikkaart met je klikken (DandersFrames-profiel of MH's indeling). Alt/Ctrl/Shift
+      vasthouden wisselt de laag. Muis op een icoon = de tooltip van de spell.
+- [ ] Knop "Print (website)" op de klikkaart: het kopieervenster opent. Plakken op midnighthelper.com (Key block) geeft je
+      toetsen en het vak met klikken.
+- [ ] `/mh move`: bovenaan de balk met "Done"; Escape stopt ook. De castbalken (Combat safety) kun je slepen.
+- [ ] Toetsblok: knop Undo zegt eerst wat hij doet; iets wat je zelf op een knop zette, blijft staan.
+
 ## 26 nov — Je hele naam op de spiekbrief ("Ima Druiddude")
 
 `/reload` is genoeg. Offline getest (undo_test 42/42, cq_test 36/36), NIET in het spel.

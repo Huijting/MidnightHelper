@@ -28,6 +28,17 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 26 nov 2026 — 5.11.0 KLAARGEZET (alle regels van 26 nov hieronder), NOG NIET GETAGD
+- Tag + commit:   geen tag (v5.11.0 komt pas op Robs letterlijke "release 5.11.0"; hij test eerst Midnight)
+- Status:         alleen op main
+- Mag op de site: nee, niet als "nieuw": pas bij "staat op CurseForge". Release-tekst klaar: `docs/CURSEFORGE_5.11.0.md`
+                  (= `RELEASE_NOTES.md`), voor het nieuws op de homepage zodra hij uit is.
+- Speler ziet:    alles van 26 nov hieronder (klikkaart + print, klik-heals Forever, reisplanner met flight paths en
+                  routepaneel, class quests, rares, na je dood, gear-%, Your race, bedanken na gevecht, Move, toetsblok).
+- Knoplabels:     zie de regels hieronder
+- Commando's:     /mh clickcard (nieuw), verder zie hieronder
+- Spel:           allebei
+
 ## 26 nov 2026 — Forever: de volledige naam in `char=` ("Ima Druiddude" i.p.v. "Ima")
 - Tag + commit:   geen tag (git log 26 nov, "whole name")
 - Status:         alleen op main

@@ -1,62 +1,83 @@
-# Midnight Helper 5.10.0: which weapon, How you play in tabs, and your other characters in tooltips
+# Midnight Helper 5.11.0: which click heals what, a travel planner with flight paths, and help after you die
 
 Found something odd, or does everything just work? Tell us: `/mh report` in game, a comment here on CurseForge, or the
 feedback form on midnighthelper.com.
 
 This version adds new files: after updating, restart the game once (a `/reload` is not enough for new files).
 
-## Both games: your other characters in tooltips
+## Both games: which click heals what
 
-- **Recipes**: which of your other characters have that profession, with their skill. In WoW Forever also "needs 50",
-  "can learn it" or "knows it".
-- **Ingredients**: which of your other characters have a profession that uses it.
-- **Weapons and armor you can send**: who can wear it, from which level, and whether its item level is higher than what
-  they wear in that slot now.
-- In WoW Forever only characters you can mail to: the same realm, and characters of the other faction are listed apart
-  ("other faction, can't mail").
-- A bank character? Mark it, and it is left out of "who can wear this": the **Bank** button on its row in Characters
-  (Forever), or `/mh alttip bank <name>`.
-- A character counts once you have logged in on it with this version. Don't want it? Switch off *Your other characters
-  in item tooltips*, or `/mh alttip off`.
+- A big card with a drawn mouse shows which click heals what on your group frames, live: hold Alt, Ctrl or Shift and
+  the card shows that layer. Every spell has its own tooltip. Open it with `/mh clickcard`. Size with Shift+scroll; it
+  can be see-through outside a group.
+- It reads your active DandersFrames click profile. Without one it shows Midnight Helper's own layout.
+- **On paper:** the button *Print (website)* gives the key block code, now with your clicks in it. Paste it on
+  midnighthelper.com (Key block page) for one sheet with your keys and your clicks, per layer, with spell and rank.
+  Spells you have not learned yet say so ("level 24", "talent").
 
-## Forever: which weapon?
+## Forever: heals on a click on your group frames
 
-How you play has a new block for every class: **Which weapon?** It tells you which weapon kinds suit you, which ones you
-can already use, and where you learn the others (a trainer of your own faction, from which level). It changes with
-your level and your race. Druids: in Bear Form and Cat Form your attacks do your weapon's damage per second, so a
-two-hander almost always wins.
+- Switch on *Heals on a click on your group frames* (needs the DandersFrames addon): Midnight Helper makes a click
+  profile with the heals, dispels and res your character knows, and keeps it up to date when you learn a new spell or
+  rank. Druid, Priest, Paladin and Shaman. Switch it off and what DandersFrames had before comes back.
+- *Keep left-click for targeting* (on by default): a plain left-click still targets and right-click opens the menu;
+  the heals are on Alt and Ctrl. Good when you heal on the side, or in Cat or Bear Form.
+- Druids also get Wild Growth, Rebirth (Shift + middle button) and Innervate once they have them.
 
-The stats sentence in Do this now starts with what counts most: weapon damage per second for fighters, spell damage or
-healing for casters and healers. Warlocks: spell damage first, then Intellect and Spirit, which count the same.
+## Forever: the way there, with flight paths
 
-## Forever: How you play in tabs
+- The arrow and "The way there" now use flight paths you know, boats, zeppelins and your teleports and Hearthstone,
+  and pick the quickest. Midnight Helper learns your flight points each time you open a flight map, and times your own
+  flights and boat rides, so the minutes get better as you play.
+- A small route panel next to the arrow shows every step with its time (minutes:seconds) and the total. On the flight
+  map, the stop to click has a gold ring. Don't want it? Switch off *Route steps next to the arrow*.
+- The trainer arrow picks the trainer you reach quickest, not the one in a straight line. Teleport: Moonglade counts.
+- Class quest cards say how you get there, and say "upstairs, inside" when the person you need stands upstairs.
 
-No more one long page. How you play now has tabs on the left: **Start**, **Your keys**, **Weapon & stats**, **Group**
-and **Levels**, with the headings of the open tab under them. Click a heading to jump there. It remembers the tab you
-used last. The text is the same, only divided. Every way in (`/mh play`, the key block, Do this now) opens this page.
+## Forever: class quests
 
-## Forever: Gear check for enchants
+- Kill and collect steps point at the nearest of all the places where that creature or item is ("3 areas, this one is
+  nearest"), and at the spawn closest to you.
+- Mouse over a step that asks for an item (Earthroot): the game's tooltip, how many you have, and which of your other
+  characters have it and whether they can mail it to you (with the Syndicator addon).
+- Curing the Sick: a warning to use the salve only out of combat, and how many doses you have left against how many you
+  still need.
 
-- A small window next to your character window shows the enchant on every slot that can have one, or *no enchant*.
-  Armor kits show their name.
-- Do this now says how many slots have no enchant.
-- Enchanters see which enchants they can make themselves.
-- Don't want it? Switch off *Gear check: enchants next to your character window*.
+## Forever: rares
 
-## Forever: "better than what you wear" counts more
+- A window when a rare comes into sight, with buttons to target it, show it in Find, or set a waypoint.
+- The rare in 3D, in that window and when you hover a rare in Find.
+- Midnight Helper remembers what you looted from each rare and shows it ("Your loot (3 kills)").
 
-- The enchant (or armor kit) on what you wear now counts. If you would lose one, the line says so.
-- Spell damage and healing on items count for casters and healers, and for Retribution and Protection Paladins.
-  One-school lines (for example Fire damage) count only when your direction casts that school.
-- This works the same in the tooltip, the quest reward hint, the pickup notice and the bags-full list.
+## Forever: after you die
 
-## Forever: taunts on the mouse
+- A window shows how far your corpse is, how long the run takes as a ghost, what the Spirit Healer costs at your level,
+  and has an arrow to your corpse. Close it and it stays closed for that death. The arrow goes away as soon as you live
+  again. Don't want it? Switch off *Window after you die*.
 
-With `/mh mouseover on`, Growl, Taunt, Mocking Blow and Distracting Shot go to the enemy under your mouse.
+## Forever: more
+
+- **Do this now** always shows how worn your gear is, next to your free bag slots: green, yellow or red. Mouse over it
+  for your most worn items and the nearest vendor who repairs; click it for the arrow there.
+- **Your race** in How you play, tab Start: what your race gives you, for your own class.
+- **Gear check** also shows your legs, and updates as soon as you enchant something.
+- **Oath of Light** lasts 1 hour since the Forever hotfix of 25 November; the Holy Paladin text says so.
+- **Quiet helpers** has more settings that work in Forever: the missing buff icon, the upgrade notice, the arrow size
+  and meters, the minimap icon, the quick bar, and the cast warning bars.
+- Commands that only work in Midnight are hidden in Forever, and say so when you type one.
+- The key block code names your whole character ("Ima Druiddude"), and shows the spell behind each of Midnight
+  Helper's own key macros.
+
+## Both games: more
+
+- **Move** has a Done bar at the top (or press Escape), and the cast warning bars can be moved too.
+- **Thank strangers for a buff**: a buff you get during a fight is thanked when the fight ends.
+- **Key block**: Undo never takes off what you put on a button yourself, and the window says first what Undo will do.
+  *Update* also puts back what is missing.
 
 ## Fixed
 
-- The key block window no longer says "nothing changes" once your block is already on your bars.
+- Forever: Move no longer stops with an error on some bars.
 
 ## Credits
 
