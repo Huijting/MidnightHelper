@@ -476,6 +476,7 @@ ns._mhLocales.nlNL = {
 	MOVE_EL_MARKBAR = "markeerbalk",
 	MOVE_EL_PARTY = "groepspaneel",
 	MOVE_EL_SAFETY = "gevechtsveiligheid",
+	MOVE_EL_SAFETY_BARS = "balken gevaarlijke casts",
 	MOVE_EL_LAMP = "combat-log-lampje",
 	MOVE_EL_FPS = "FPS-paneel",
 	CMDLIST_CHANGELOG = "Wat er per versie veranderd is.",

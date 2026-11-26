@@ -1408,6 +1408,25 @@ local QUIET = {
 	Q("FOV_Q_POLE", "FOV_Q_POLE_DESC", Warn("pole")),
 	PROF_SWITCHES[2], -- last tool
 	PROF_SWITCHES[3], -- missing tool: where to buy
+	-- 26 Nov 2026 (Rob, Forever: the cast bars showed up and he could not find them: "ja doe maar, en waarom kan ik het
+	-- niet zoeken ?"): the dangerous cast warning (CombatSafety.lua) works in Forever but its switches were only on the
+	-- Midnight settings page. Same functions and texts as there (SettingsDefs.lua "SET_SEC_COMBAT").
+	{ head = "SET_SEC_COMBAT" },
+	Q("SET_CS_TOGGLE_TITLE", "SET_CS_TOGGLE_DESC", {
+		get = function() return ns.IsCombatSafetyEnabled and ns.IsCombatSafetyEnabled() end,
+		set = function(on) if ns.SetCombatSafetyEnabled then ns.SetCombatSafetyEnabled(on) end end }),
+	Q("SET_CS_BARS_TITLE", "SET_CS_BARS_DESC", {
+		get = function() return ns.IsCombatSafetyBarsEnabled and ns.IsCombatSafetyBarsEnabled() end,
+		set = function(on) if ns.SetCombatSafetyBarsEnabled then ns.SetCombatSafetyBarsEnabled(on) end end }),
+	Q("SET_CS_IMPORTANT_TITLE", "SET_CS_IMPORTANT_DESC", {
+		get = function() return ns.IsCombatSafetyImportantOnly and ns.IsCombatSafetyImportantOnly() end,
+		set = function(on) if ns.SetCombatSafetyImportantOnly then ns.SetCombatSafetyImportantOnly(on) end end }),
+	Q("SET_CS_SPEAK_TITLE", "SET_CS_SPEAK_DESC", {
+		get = function() return ns.IsCombatSafetySpeakEnabled and ns.IsCombatSafetySpeakEnabled() end,
+		set = function(on) if ns.SetCombatSafetySpeakEnabled then ns.SetCombatSafetySpeakEnabled(on) end end }),
+	-- The preview: the icon and (with bars on) three sample bars, draggable; click again to hide them.
+	{ action = true, title = "SET_CS_PREVIEW", tip = "SET_CS_DESC",
+		fn = function() if ns.TestCombatSafety then ns.TestCombatSafety() end end },
 	{ head = "FOV_Q_HEAD_SCREEN" },
 	-- 18 Nov 2026: the open-this-box button (Openables.lua). On by default: it only appears when a bag holds something
 	-- you can open, and hides in combat.
@@ -1443,6 +1462,11 @@ local QUIET_WORDS = {
 	FLS_SW = "sparkle sparkles loot quest item glow outline",
 	FNODE_ICON_SW = "ore ores herb herbs node nodes vein mining herbalism gather icon sparkle",
 	FNODE_GLOW_SW = "ore ores herb herbs node nodes vein mining herbalism gather glow sparkle",
+	-- 26 Nov 2026: Rob searched "cast bars" and found only the old-rank edge.
+	SET_CS_TOGGLE_TITLE = "cast casts dangerous warning enemy spell interrupt kick icon combat safety",
+	SET_CS_BARS_TITLE = "cast bar bars castbar dangerous warning enemy spell interrupt move",
+	SET_CS_IMPORTANT_TITLE = "cast casts important dangerous warning enemy spell",
+	SET_CS_SPEAK_TITLE = "cast casts speak voice tts text to speech dangerous warning",
 }
 for _, q in ipairs(QUIET) do
 	if q.title and QUIET_WORDS[q.title] then

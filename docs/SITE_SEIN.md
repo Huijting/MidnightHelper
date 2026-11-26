@@ -28,6 +28,18 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 26 nov 2026 — castbalken te verplaatsen met Move; cast-waarschuwing vindbaar in Forever
+- Tag + commit:   geen tag (commit: deze regel)
+- Status:         alleen op main
+- Mag op de site: nee (niet uit, niet getest)
+- Speler ziet:    De Move-schakelaar geeft geen foutmelding meer en kan nu ook de castbalken van de waarschuwing voor
+                  gevaarlijke casts verplaatsen (met voorbeeldbalken). In Forever staan de schakelaars van die
+                  waarschuwing nu in Quiet helpers (kopje Combat warnings) en in de zoekbalk.
+- Knoplabels:     MOVE_EL_SAFETY_BARS, SET_SEC_COMBAT, SET_CS_TOGGLE_TITLE, SET_CS_BARS_TITLE, SET_CS_IMPORTANT_TITLE,
+                  SET_CS_SPEAK_TITLE, SET_CS_PREVIEW
+- Commando's:     /mh move, /mh move why
+- Spel:           allebei (Move); Forever (Quiet helpers)
+
 ## 26 nov 2026 — Forever: flight paths in de route + "zo kom je er" op het class-questkaartje
 - Tag + commit:   geen tag (commit: deze regel)
 - Status:         alleen op main

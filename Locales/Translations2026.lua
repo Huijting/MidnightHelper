@@ -24097,6 +24097,7 @@ if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	MOVE_EL_MARKBAR = "Markierungsleiste",
 	MOVE_EL_PARTY = "Gruppenfenster",
 	MOVE_EL_SAFETY = "Kampfsicherheit",
+	MOVE_EL_SAFETY_BARS = "Balken für gefährliche Zauber",
 	MOVE_EL_LAMP = "Kampflog-Lampe",
 	MOVE_EL_FPS = "FPS-Fenster",
 }) end
@@ -24167,6 +24168,7 @@ if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	MOVE_EL_MARKBAR = "barre de marqueurs",
 	MOVE_EL_PARTY = "panneau de groupe",
 	MOVE_EL_SAFETY = "sécurité en combat",
+	MOVE_EL_SAFETY_BARS = "barres des sorts dangereux",
 	MOVE_EL_LAMP = "lampe du journal de combat",
 	MOVE_EL_FPS = "panneau FPS",
 }) end
@@ -24237,6 +24239,7 @@ if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	MOVE_EL_MARKBAR = "barra de marcadores",
 	MOVE_EL_PARTY = "panel de grupo",
 	MOVE_EL_SAFETY = "seguridad en combate",
+	MOVE_EL_SAFETY_BARS = "barras de hechizos peligrosos",
 	MOVE_EL_LAMP = "luz del registro de combate",
 	MOVE_EL_FPS = "panel de FPS",
 }) end
@@ -24307,6 +24310,7 @@ if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	MOVE_EL_MARKBAR = "barra de marcadores",
 	MOVE_EL_PARTY = "painel do grupo",
 	MOVE_EL_SAFETY = "segurança em combate",
+	MOVE_EL_SAFETY_BARS = "barras de feitiços perigosos",
 	MOVE_EL_LAMP = "luz do registro de combate",
 	MOVE_EL_FPS = "painel de FPS",
 }) end
@@ -24335,6 +24339,7 @@ if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	MOVE_EL_MARKBAR = "barra dei marcatori",
 	MOVE_EL_PARTY = "pannello del gruppo",
 	MOVE_EL_SAFETY = "sicurezza in combattimento",
+	MOVE_EL_SAFETY_BARS = "barre degli incantesimi pericolosi",
 	MOVE_EL_LAMP = "spia del registro di combattimento",
 	MOVE_EL_FPS = "pannello FPS",
 	NEWC_TITLE = "Novità di questa versione: scegli tu",

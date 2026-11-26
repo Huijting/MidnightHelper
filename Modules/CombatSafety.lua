@@ -311,6 +311,19 @@ local function EnsureBarHost()
 	if ns.db and ns.db.ui and ns.db.ui.combatSafetyBarsScale then
 		h:SetScale(ns.db.ui.combatSafetyBarsScale)
 	end
+	-- 26 Nov 2026 (Rob, Forever: "Ik kon dus niet die bars verplaatsen" → "ja doe maar"): the stack itself can be dragged,
+	-- so the Move switch (MoveMode.lua) can move it. The host needs no mouse for that: MoveMode calls these scripts.
+	h:RegisterForDrag("LeftButton")
+	h:SetScript("OnDragStart", function(self)
+		self:StartMoving()
+	end)
+	h:SetScript("OnDragStop", function(self)
+		self:StopMovingOrSizing()
+		local p, _, rp, x, y = self:GetPoint()
+		if p and ns.db and ns.db.ui then
+			ns.db.ui.combatSafetyBarsPos = { p, rp, x, y }
+		end
+	end)
 	h:Hide()
 	barHost = h
 	return h
@@ -747,6 +760,37 @@ function ns.TestCombatSafety()
 	end
 	-- Als TTS aan staat: spreek een voorbeeld-naam zodat je de stem hoort.
 	TestSpeakSample()
+end
+
+--- 26 Nov 2026: three sample bars while the Move switch is on (MoveMode.lua), so you see what you are moving. Only when
+--- the bars are switched on; only plain values (no secret), the same pool the test uses. on = false removes them again.
+function ns.CombatSafetyBarsPreview(on)
+	if on then
+		if not BarsMode() or barsByUnit["_test1"] or barsByUnit["_move1"] then
+			return BarsMode()
+		end
+		local samples = { ns:L("CS_TEST_NAME"), ns:L("CS_WARN"), ns:L("CS_ONYOU") }
+		for i = 1, 3 do
+			local key = "_move" .. i
+			local b = AcquireBar()
+			barsByUnit[key] = b
+			barOrder[#barOrder + 1] = key
+			b._icon:SetTexture(STATIC_ICON)
+			b._name:SetText(samples[i])
+			if b._pb.SetValue then
+				b._pb:SetValue(1 - (i - 1) * 0.3)
+			end
+			b:SetAlpha(1)
+		end
+		LayoutBars()
+		return true
+	end
+	for i = 1, 3 do
+		if barsByUnit["_move" .. i] then
+			ReleaseBar("_move" .. i)
+		end
+	end
+	return true
 end
 
 --------------------------------------------------------------------------------

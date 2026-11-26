@@ -1,5 +1,22 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 26 nov (Bouwchat 26-11): Move secret-veilig + castbalken in Move + cast-waarschuwing vindbaar in Forever — GEBOUWD, wacht op test (`/reload`)
+
+Rob via Sparring (Forever, BugSack MoveMode.lua:144 "attempt to compare a secret number value", el =
+MidnightHelperCombatSafety): *"Ik kon dus niet die bars verplaatsen"* → *"ja doe maar, en waarom kan ik het niet zoeken ?"*.
+Versie: Rob wil geen haast met 5.10.1 (*"misschien in de 5.11 versie"*); release alleen op zijn letterlijke zin.
+- MoveMode.lua: `PlainAlpha` (pcall + issecretvalue) i.p.v. f:GetAlpha() vergelijken/opslaan. Vervaagd of secret →
+  alpha 1 tijdens Move; terug: eigen waarde, of 0 als hij secret was (de volgende SetAlphaFromBoolean beslist). Ook
+  ActionPrompt gebruikt SetAlphaFromBoolean en staat in ELEMENTS: dekt deze fix ook (GEMETEN: grep; andere GetAlpha
+  in BriefNotice/MidnightToast zijn eigen fades, niet secret, AFGELEID).
+- Nieuw element MidnightHelperCombatSafetyBars (MOVE_EL_SAFETY_BARS, 7 talen) met `preview` =
+  ns.CombatSafetyBarsPreview (3 voorbeeldbalken, alleen als balken aan). CombatSafety.lua: de balkenstapel kreeg eigen
+  OnDragStart/Stop (positie in ns.db.ui.combatSafetyBarsPos, zelfde als slepen van een balk).
+- ForeverOverview.lua QUIET: kopje SET_SEC_COMBAT met de 4 SET_CS_*-schakelaars + actie SET_CS_PREVIEW
+  (ns.TestCombatSafety); QUIET_WORDS zodat "cast bars" ze vindt. Teksten = die van de Midnight-instellingen (al vertaald).
+- Offline: move_test 12/12 (scratch, nep-secret die bij vergelijken een fout geeft). 🔵 De lijst "andere instellingen die
+  in Forever werken maar daar niet te vinden zijn" gaat naar Sparring (niet gebouwd).
+
 ## ▶▶ 26 nov (Bouwchat 26-11): flight paths in de Forever-reisplanner + "zo kom je er" op het class-questkaartje — GEBOUWD, wacht op test (`/reload`)
 
 Rob via Sparring (Druid 14 bij de zeppelintoren, pijl 4405 m naar Turak in Thunder Bluff): *"Waarom alleen maar een pijl

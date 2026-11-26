@@ -503,6 +503,7 @@ ns._mhLocales.enUS = {
 	MOVE_EL_MARKBAR = "marker bar",
 	MOVE_EL_PARTY = "party panel",
 	MOVE_EL_SAFETY = "combat safety",
+	MOVE_EL_SAFETY_BARS = "dangerous cast bars",
 	MOVE_EL_LAMP = "combat log lamp",
 	MOVE_EL_FPS = "FPS panel",
 	CMDLIST_CHANGELOG = "What changed in each version.",

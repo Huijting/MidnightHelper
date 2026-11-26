@@ -36,6 +36,9 @@ local ELEMENTS = {
 	{ name = "MidnightHelperForeverParty", label = "MOVE_EL_PARTY" }, -- Forever's small group panel (12 Nov 2026)
 	{ name = "MidnightHelperForeverDoNow", label = "MOVE_EL_DONOW" }, -- Forever "Do this now" (12 Nov 2026)
 	{ name = "MidnightHelperCombatSafety", label = "MOVE_EL_SAFETY" },
+	-- 26 Nov 2026 (Rob, Forever: "Ik kon dus niet die bars verplaatsen"): the cast bars stack, with three sample bars
+	-- while moving (preview = the function that shows them; only when the bars are switched on).
+	{ name = "MidnightHelperCombatSafetyBars", label = "MOVE_EL_SAFETY_BARS", preview = "CombatSafetyBarsPreview" },
 	{ name = "MidnightHelperCombatLogLamp", label = "MOVE_EL_LAMP" },
 	{ name = "MidnightHelperFpsPanel", label = "MOVE_EL_FPS" },
 }
@@ -129,6 +132,17 @@ local function Box(el)
 	return box
 end
 
+--- The frame's alpha as a plain number, or nil when the client gives a secret one. 26 Nov 2026 (Rob, Forever, BugSack:
+--- "MoveMode.lua:144: attempt to compare a secret number value"): the cast warning sets its alpha with
+--- SetAlphaFromBoolean, so GetAlpha() returns a secret number that may not be compared or stored.
+local function PlainAlpha(f)
+	local ok, a = pcall(f.GetAlpha, f)
+	if not ok or type(a) ~= "number" or (issecretvalue and issecretvalue(a)) then
+		return nil
+	end
+	return a
+end
+
 local function Tick()
 	if not active then
 		return
@@ -138,10 +152,17 @@ local function Tick()
 		local box = boxes[el.name]
 		if f and box then
 			if not f:IsShown() then
-				forced[el.name] = forced[el.name] or { alpha = f:GetAlpha() }
+				forced[el.name] = forced[el.name] or { shown = true, alpha = PlainAlpha(f) }
 				f:Show()
 			end
-			if forced[el.name] and f:GetAlpha() < 1 then
+			-- Faded out (or secret: we cannot tell): fully visible while moving, put back afterwards.
+			local a = PlainAlpha(f)
+			if a == nil or a < 1 then
+				forced[el.name] = forced[el.name] or { shown = false }
+				if not forced[el.name].faded then
+					forced[el.name].faded = true
+					forced[el.name].fadeAlpha = a -- nil = it was secret
+				end
 				f:SetAlpha(1)
 			end
 			if not box._dragging then
@@ -167,11 +188,24 @@ local function Stop(reason)
 	for name, st in pairs(forced) do
 		local f = _G[name]
 		if f and not (InCombatLockdown and InCombatLockdown()) then
-			f:SetAlpha(st.alpha or 1)
-			f:Hide()
+			if st.faded then
+				-- A secret alpha is never stored: such a frame (the cast warning) goes back to 0, and its own next
+				-- SetAlphaFromBoolean decides again.
+				f:SetAlpha(st.fadeAlpha or 0)
+			elseif st.alpha then
+				f:SetAlpha(st.alpha)
+			end
+			if st.shown then
+				f:Hide()
+			end
 		end
 	end
 	forced = {}
+	for _, el in ipairs(ELEMENTS) do
+		if el.preview and ns[el.preview] then
+			pcall(ns[el.preview], false)
+		end
+	end
 	-- Let the modules decide again what should be visible now.
 	if ns.UpdateMissingBuff then
 		pcall(ns.UpdateMissingBuff)
@@ -193,6 +227,9 @@ local function Start()
 	active = true
 	local n = 0
 	for _, el in ipairs(ELEMENTS) do
+		if el.preview and ns[el.preview] then
+			pcall(ns[el.preview], true) -- sample content, so there is something to see and the frame exists
+		end
 		local f = Usable(el)
 		if f then
 			local box = Box(el)

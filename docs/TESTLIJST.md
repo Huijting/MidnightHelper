@@ -25,6 +25,20 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 26 nov — FOREVER (en Midnight): castbalken verplaatsen + de cast-waarschuwing vindbaar (Rob: "ja doe maar, en waarom kan ik het niet zoeken ?")
+
+Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (move_test 12), NIET in het spel.
+- [ ] Forever: zet Move aan (venster → Tools → Move, of `/mh move`). Geen foutmelding meer (was MoveMode.lua:144
+      "secret number").
+- [ ] Er staat een groen vak "dangerous cast bars" met drie voorbeeldbalken. Sleep het vak: de balken gaan mee. Zet
+      Move uit: de voorbeeldbalken zijn weg. Bij de volgende cast op jou staan de echte balken op de nieuwe plek.
+- [ ] Ook het icoon (combat safety) is te slepen en verdwijnt weer na Move uit.
+- [ ] Zoek in het Forever-venster op "cast bars": je vindt "Also show cast bars". Klik = de schakelaar licht op.
+- [ ] Quiet helpers heeft een kopje COMBAT WARNINGS met: Show dangerous cast warning, Also show cast bars, Only
+      "important" casts, Speak the cast name, en een knop "Preview / position".
+- [ ] `/mh move why` noemt "dangerous cast bars".
+- [ ] Midnight: Move aan/uit werkt nog zoals eerst (de balken staan er ook bij als ze aan staan).
+
 ## 26 nov — FOREVER: de pijl vliegt mee, en het class-questkaartje zegt hoe je er komt (Rob: "Waarom alleen maar een pijl die kant op en niet hoe ik kom?")
 
 Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (flight_test 19, trainroute_test 6), NIET in

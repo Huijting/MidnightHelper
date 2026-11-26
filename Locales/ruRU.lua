@@ -810,6 +810,7 @@ ns._mhLocales.ruRU = {
 	MOVE_EL_MARKBAR = "панель меток",
 	MOVE_EL_PARTY = "панель группы",
 	MOVE_EL_SAFETY = "безопасность в бою",
+	MOVE_EL_SAFETY_BARS = "полосы опасных заклинаний",
 	MOVE_EL_LAMP = "лампочка журнала боя",
 	MOVE_EL_FPS = "панель FPS",
 	CMDLIST_SETUP = "Настроить панели и назначения клавиш, сначала показав текущее состояние.",
