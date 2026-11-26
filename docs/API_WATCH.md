@@ -12013,3 +12013,149 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
     📌 Correctie op mijn eigen positieve controle van gisteren: `grep -c '^##'` geeft in
     `MidnightHelper.toc` vandaag **19** en niet 20. Dat is geen drift in de meting maar Robs eigen commit
     `0c26d4d` van 24 nov 22:07; `MidnightHelper_Camelot.toc` staat onveranderd op **14**.
+- [2026-11-26] ✅ **Geen [MOET GEFIKST]. Er staat alweer een nieuwe LIVE Forever-client (71139) en die is
+  aantoonbaar leeg aan API-kant: drie bestanden in de UI-source, geen APIDocumentation, geen .toc, en de DB2-tabellen
+  die het wapenregister GEMETEN noemt staan er regel voor regel identiek in.**
+  - 🏗️ **Forever: nieuwe live build `1.60.1.71139`, één dag na 71091.** GEMETEN eerstehands met `git ls-remote`:
+    `refs/heads/forever` = **`d9c22e32`** *"1.60.1 (71139)"*, gisteren `c01a87b`. De andere vier takken zijn
+    onveranderd: `live` = `ab5cb850`, `beta` = `078d0cf7`, `ptr2` = `12380f8c`, `ptr` = `fbb18ce1`. Op
+    `wago.tools/builds?nocache=20261126` staat `1.60.1` **71139** op branch `wowf`, gedetecteerd
+    **2026-11-25 19:13:07** — de nieuwste regel van de hele tabel. Geen nieuwe build op retail (`wow` 12.1.5
+    **70961**, 17 nov) of PTR (`wowt` 12.1.7 **71087**, 20 nov).
+  - 🔬 **De hele UI-source-diff van 71139 nagelopen.** GEMETEN met `git diff c01a87b d9c22e3` op een eigen shallow
+    clone: **3 bestanden, 49 toegevoegde en 12 verwijderde regels** — `Blizzard_CatalogShop_ProductCards.lua`,
+    `Blizzard_WorldMap/Blizzard_WorldMap.lua` en `version.txt` (`1.60.1.71091` → `1.60.1.71139`). 🔴 **Géén bestand
+    onder `Blizzard_APIDocumentation` en géén `.toc`**: deze build voegt in de clientsource geen API toe, haalt er
+    geen weg en verandert geen Interface-nummer. Inhoudelijk is de WorldMap-wijziging volledig **gamepad-UI**: een
+    nieuwe `WorldMapMixin:GetActiveFooter()` die drie `if`-takken samentrekt, een nieuwe
+    `WorldMapMixin:OnQuestLogUpdate()` achter `InputUtil.IsGamepadUIEnabled()`, en twee nil-guards in
+    `OpenQuestOptions` waarbij `QuestMapFrame.DetailsFrame.questID` is vervangen door
+    `QuestMapFrame_GetDetailQuestID()` (positieve controle: die functie bestáát in dezelfde boom,
+    `Blizzard_UIPanels_Game/Mainline/QuestMapFrame.lua:1185`). De CatalogShop-wijziging geeft
+    `SubTimeAndGameTimeCardLayout` een tweede parameter `useWideCardSettings`.
+  - ✅ **[RAAKT ONS NIET] voor élke naam uit die diff.** Grep over `*.lua` + `*.xml` buiten `Libs/`, `docs/`,
+    `tools/` en `dist/`: `QuestMapFrame_GetDetailQuestID`, `DetailsFrame.questID`, `QuestLogQuests_GetQuestButton`,
+    `InputUtil`, `IsGamepadUIEnabled`, `GamepadSharedUtility`, `CreatePromptedBinding`, `WorldMapMixin`,
+    `questLogFooter`, `worldMapFooter`, `GamepadScrollBarHint`, `SmartNavigation`, `CatalogShop` en `GamepadMode`
+    geven samen **nul** treffers. 📌 Sterker nog: `QuestMapFrame` en `WorldMapFrame` geven óók **nul** — wij raken
+    Blizzards questmap-frame helemaal niet aan. Positieve controle in dezelfde run en op dezelfde reikwijdte: met
+    exact hetzelfde grep-commando geeft `C_QuestLog` **241** treffers en `C_Map.GetPlayerMapPosition` **80**.
+  - 📊 **DB2-vergelijking 71091 → 71139, want `docs/WATCHER_FOREVER.md` eist die bij een nieuwe build.** GEMETEN via
+    wago.tools' CSV-endpoint per build, beide builds apart opgehaald, elk met een eigen cache-buster:
+    - **`SkillRaceClassInfo`: identiek.** Beide **190 datarijen**, dezelfde volgorde, dezelfde waarden, van rij `4`
+      tot rij `2560`. De registerregels staan er dus onveranderd in: `229` (Polearms) ClassMask **7** MinLevel
+      **20** en ClassMask **1024** (Druid) MinLevel **20**; `118` (Dual Wield) ClassMask **8** MinLevel **10** en
+      ClassMask **5** MinLevel **20**; `413` ClassMask **68** MinLevel **40**; `293` ClassMask **3** MinLevel **40**.
+    - **`SpellShapeshiftForm`: identiek.** `Cat Form` `CombatRoundTime` = **1000**, `Bear Form` en `Dire Bear Form`
+      = **2500**. De registerbewering *"Cat 1.0 s, Bear 2.5 s"* is daarmee ook in 71139 GEMETEN.
+    - **`ChrClasses`: identiek voor de zeven classes die binnen de tekenlimiet vielen** (Warrior t/m Mage), inclusief
+      Warrior `AttackPowerPerStrength` = **2**. ⚠️ De rijen **Druid en Warlock** zijn door die limiet afgekapt en dus
+      **NIET gemeten**.
+    - ⚠️ **NIET GEMETEN vandaag, en dat is een echt gat, geen "in orde":** `SpellLevels`,
+      `SpellEquippedItems`, `ItemDamageTwoHand`/`OneHand` en de talentbomen. Die tabellen zijn te groot om heel op te
+      halen langs de enige weg die hier werkt; zie de bronregel onderaan.
+  - 🟠 **Twee opmerkingen VOOR HET REGISTER, uit die meting — geen wijziging, wel een verwijzing die niet lijkt te
+    kloppen. Ik raak er niets aan; de bouwchat legt het aan Rob voor.**
+    1. `docs/forever/WAPENADVIES_FEITEN.md` noemt bij *"Mail 40 (Hunter, Shaman), Plate 40 (Warrior, Paladin)"* als
+       meetpunt **"SkillRaceClassInfo 413/414 MinLevel"**. GEMETEN: `413`/ClassMask 68 = MinLevel **40** ✔, maar de
+       rij met MinLevel 40 voor ClassMask 3 (Warrior+Paladin) is **SkillID 293** (rij `21`); `414` is rij `147` met
+       ClassMask **1103** en MinLevel **0**. Welke skill-naam bij 293 en bij 414 hoort heb ik **niet** gemeten (ik
+       heb `SkillLine` niet gelezen), dus ik noem dit een verwijzing die nagekeken moet worden, geen fout.
+    2. De bewering *"geen Dual Wield voor Shaman/Paladin"* leunt niet op het ontbreken van een rij: er **is** een
+       Shaman-rij voor Dual Wield (rij `2455`: SkillID `118`, ClassMask `64`, Flags `146`, **Availability 0**,
+       MinLevel 0), in beide builds gelijk. Paladin (mask 2) heeft inderdaad géén 118-rij. Wat `Availability 0`
+       precies betekent: **NIET GEMETEN**.
+  - 📰 **[RAAKT ONS NIET] — WoW: Forever Hotfixes van 25 nov (`news/24315281`, gepubliceerd 2026-11-25), géén UI-,
+    addon- of API-sectie.** Gisteren eindigde dit artikel nog bij 23 nov, dus dit is nieuwe inhoud: classes, dungeons,
+    items, Legacy System, Alterac Valley, Enchanting, reputaties, riding en quests. Niets daarvan is addon-facing.
+  - ⚔️ **Wapenadvies: niets dat het register raakt.** Gelezen: de Forever-hotfixes van 25 nov, de Midnight-hotfixes
+    van 24 nov, het UI-and-Macro-forum, de wikipagina's 12.1.7/12.1.5/1.60.1 en de drie DB2-tabellen hierboven. Per
+    trefwoord dat raakte, met de code erbij:
+    - **Weaponmaster** — de hotfix is enkel *"no longer fails to reapply when the Warrior dies in Battlegrounds"*.
+      Onze treffers: `Modules/ForeverWeapons.lua:296` (commentaar, talent 12281) en
+      `Modules/ForeverTalentNext.lua:206`/`:208`. De bewering achter `FWADV_WAR_7` verandert niet. **[AL AFGEDEKT]**
+    - **Rogue Poisons + Blinding Powder tijdelijk bind-on-pickup** — onze treffers:
+      `Modules/ForeverBagFull.lua:137` (25 poison-item-ID's in `CARRY_ELSEWHERE` = "dit draag je om te gebruiken"),
+      `:126` (commentaar: Blinding Powder is de class-reagent die als Junk gefiled staat),
+      `Modules/ForeverTrainerData.lua:929`, `Modules/ForeverBlock_Rogue.lua:94`,
+      `Modules/ForeverHowToPlay.lua:269`/`:278`. Bind-on-pickup verandert de item-class niet en ons advies is
+      "houden, niet weggooien" — dus **[AL AFGEDEKT]**. ⚠️ AFGELEID, niet gemeten: dat BoP de class/subclass en de
+      verkoopprijs onaangeroerd laat. Zelfs als ze onverkoopbaar zouden worden, breekt er bij ons niets.
+    - **Druid Balance-talentomzetting** (`Improved Wrath` → `Starlight Wrath`, `Improved Moonfire` → `Moon and
+      Stars`, `Moonfury` verwijderd → `Dreamstate`, `Improved Starfire` van 5 naar 2 punten mét gedwongen reset) —
+      **[RAAKT ONS NIET]**. GEMETEN: `Moonfury`, `Dreamstate`, `Improved Wrath`, `Improved Moonfire` en `Improved
+      Starfire` geven **nul** treffers, en het `DRUID`-blok in `Modules/ForeverTalentNext.lua:221` heeft alléén band
+      **[2] Feral** en band **[3] Restoration** — wij adviseren geen Balance-build. `Genesis` staat wél in onze
+      Feral-lijst (`S(104924, 1223081, "Genesis", 5)`), maar de hotfix repareert alleen zijn effect op Hurricane en
+      Tranquility, niet het talent.
+    - **Enchanting `Revelation` weapon enchant** — **[RAAKT ONS NIET]**. De 19 treffers op "Revelation" zijn allemaal
+      retail: de patchnaam 12.0.7 *"Revelations"* en de delve-tip `Eye of Revelation`. Niet deze enchant.
+    - **Legacy `Reinforce` (durability 8/16/24/32/40%) en `The Quick and the Dead`** — **[RAAKT ONS NIET]**. De 17
+      treffers op "Reinforce" zijn het Aqir-scenario *Reinforce Defenses* en `RITUAL_CHAL_REINFORCED`; "Quick and
+      the Dead" geeft nul.
+    - **`Totem of the Storm` heet nu `Totem of the Maelstrom`** — **[RAAKT ONS NIET]**, beide namen nul treffers.
+    - **Paladins/Warlocks krijgen Journeyman Riding uit hun classquest** — **[RAAKT ONS NIET]** op onze as:
+      "Journeyman Riding" geeft nul treffers (positieve controle: "Journeyman" alleen geeft veel treffers in
+      `ForeverProfTrainerSpots.lua` en `ForeverHowToPlay.lua:37`), en onze Dreadsteed-keten
+      (`Modules/ForeverClassQuests.lua:483-487`, `FCQ_OBJ_WL_RITUAL`) noemt geen rijvaardigheid als beloning. 📌 Het
+      is wél een nieuw FEIT voor `docs/PTR_12.0.7_DATA.md` (en de NPC's met de gratis gossip-optie staan erbij).
+  - 📰 **[RAAKT ONS NIET] — Midnight: géén nieuw hotfixartikel.** Het nieuwste is nog steeds *"Hotfixes: November 24,
+    2026"* (`news/24307310`, gepubliceerd **2026-11-25 00:20 UTC**), precies het artikel dat mijn regel van gisteren
+    al behandelde — dus niets nieuws, en opnieuw zonder UI- of addon-sectie.
+  - 📄 **Wikipagina's, alle vier mét `?nocache=20261126`.** `Patch_12.1.7/API_changes` is **onveranderd**: nog
+    dezelfde drie Summary-items (server-ID + spawn-ID-obfuscatie, en de TOC-variabelenregel over `[Game]`/`[Family]`
+    die hier op 21 en 23 nov al gemeten is — **niet nieuw**), nog steeds **geen** Consolidated-changes-sectie en
+    **geen** realm-ID-item: zesde dag dat de WoWUIDev-notitie van 20 nov daar niet staat. `Patch_12.1.5/API_changes`
+    heeft blue posts t/m **29 sep**. `Patch_1.60.1/API_changes` heeft blue posts t/m **16 okt** en linkt naar
+    *"Next patch: Patch 1.60.2"*, maar `Patch_1.60.2/API_changes` geeft **CRAWL_NOT_FOUND** — die pagina bestaat nog
+    niet. `Patch_12.2.0/API_changes` geeft nog steeds **CRAWL_NOT_FOUND**.
+  - 💬 **[RAAKT ONS NIET] — UI-and-Macro-forum: vier nieuwe draden, nul blue posts.** GEMETEN in de
+    categorielijst mét cache-buster: *"Forever - Warlock Pet Macro Help"* (26 nov, **0** reacties), *"Hotkey the
+    'Buy' button on Auction house"* (25 nov, **0**), *"Instant quest text - Midnight"* (25 nov, **0**) en *"Help with
+    keybindings!"* (25 nov, **0**). Alle vier zijn hulpvragen van spelers en alle vier hebben nul reacties, dus er
+    staat geen antwoord van Blizzard bij. De twee draden van 24 nov staan nu op 6 en 1 reacties; de
+    `PlaySoundFile`-verzoekdraad staat nog op 15 nov (al afgedekt, `Modules/DispelSound.lua:126-127`).
+    ⚠️ **Wat ik hier NIET deed:** ik heb die vier draden niet geopend, alleen de lijst gelezen. Een foutmelding die
+    in zo'n bericht zelf staat, zou ik dus gemist hebben.
+  - 🧰 **SimC-addon: geen nieuwe release sinds `12.1.5-05`.** GEMETEN eerstehands met `git ls-remote`: **259** echte
+    tags (identiek aan 21 t/m 25 nov) en `refs/heads/master` = **`d0f2255`**, nog steeds gelijk aan
+    `refs/tags/12.1.5-05` van 20 nov. Niets te toetsen aan `ItemString`/`ns.BuildSimcProfile` in
+    `Modules/SimcExport.lua`. (Valkuil blijft: `--tags | wc -l` geeft 292 door de `^{}`-regels van annotated tags.)
+  - 🚧 **Wat ik NIET kon lezen.** `warcraft.wiki.gg`, `news.blizzard.com`, `us.forums.blizzard.com`,
+    `worldofwarcraft.blizzard.com` en `wago.tools` blijven geweigerd door de egress-proxy; voor wago.tools vandaag
+    GEMETEN met `curl`: *"CONNECT tunnel failed, response 403"*. Alles liep dus via Exa, elk mét
+    `?nocache=20261126`, en Exa levert per pagina een **beperkt aantal tekens** — dát is de reden dat de vier grote
+    DB2-tabellen hierboven niet gemeten zijn, en de reden dat de `ChrClasses`-rijen van Druid en Warlock afbreken.
+    De WoWUIDev-Discord blijft onbereikbaar. Cachecontrole gedaan en geslaagd: de nieuwste dingen die ik zie
+    (build 71139 van 25 nov 19:13, Forever-hotfixes van 25 nov) zijn **nieuwer** dan wat mijn eigen regel van
+    gisteren noemde, dus dit is geen cache. 📌 De eigen shallow `git clone --bare --depth 12 --branch forever` van
+    `Gethe/wow-ui-source` deed vandaag opnieuw het zwaarste werk en heeft geen proxy nodig — die stap is zijn plek
+    in deze ronde waard.
+  - ⏳ **Nog open uit eerdere runs — ongewijzigd, NIET opnieuw gemeten vandaag. Af vandaag: niets.** Nieuw op de
+    lijst: de twee registervragen hierboven (`413`/`414` versus `293`, en de Shaman-rij voor Dual Wield met
+    `Availability 0`), en de vier ongeopende forumdraden. De rest staat ongewijzigd: of 71091/71139 de
+    realm-ID-obfuscatie bevat (niet te meten uit wow-ui-source, die zit in de engine); de koppelteken-aanname in de
+    losse `Creature%-`-patronen (`ForeverVendors.lua:747`/`:1237`, `ForeverWeapons.lua:659`); de dode
+    `PickupItem`-takken in `Modules/KeyBlock.lua:1135`/`:1227`/`:1380` en
+    `Modules/ApplyLayout.lua:1311`/`:1345`/`:1605`; de vijf decoratieve `GetItemInfo`-terugvaltakken; de verouderde
+    namespace-lijst in `docs/WATCHER_API_PROMPT.md` (18 aug, noemt 57 namespaces en kent de twee TOC's niet); de
+    client-test voor `/mh raidbots`; `GetTimerDuration` toevoegen aan `Modules/ApiProbe.lua:377`; de
+    `FrameStrata`-secret-vraag op `Modules/PartyTargets.lua:517`; de drie `WOW_PROJECT_MAINLINE`-takken in
+    `Libs/LibDBIcon-1.0.lua:533`/`:572`/`:607` die op Forever omslaan; de ongemeten BETEKENIS van *"Edit Mode
+    layouts are now saved separately for each UI type"* voor `Modules/ForeverLayoutCarry.lua`; de
+    shift-klik-taintvraag op `Modules/Achievements.lua:1561`/`:1910`; de in-game-test van `ns.SelfCastMacroWarning`
+    (`Core.lua:4318`); de C_BattleNet-aanname op `Modules/FriendMarks.lua:15`; of `C_LegacySystem` op de
+    Forever-client bestaat; of de player-GUID ongemoeid blijft (nog steeds AFGELEID); en de opruiming van de oude
+    SavedVariables-sleutels na 28 nov. 🔴 Niets aangeraakt.
+  - 🔧 **Repo-staat: alleen `docs/API_WATCH.md` aangeraakt.** GEMETEN vóór het schrijven: `git status --short`
+    **leeg**, en `HEAD` stond opnieuw **losgeslagen** (`git rev-parse --abbrev-ref HEAD` → `HEAD`), dus eerst
+    `git checkout -B main origin/main`; de top was `50c0895` *"Nachtcontrole 26 nov: 0 nakijken C1/C2, snapshot
+    forever loopt achter"* — de nachtcontrole zag dezelfde buildsprong, van de andere kant. De kloon is nog steeds
+    ondiep (`is-shallow-repository` → **`true`**), dus een `(forced update)`-regel bij de fetch komt daarvan en niet
+    van Rob — tiende dag dat dit hier staat. Positieve controle: `grep -c '^##'` geeft **19** in
+    `MidnightHelper.toc` en **14** in `MidnightHelper_Camelot.toc`, beide gelijk aan gisteren; `## Version` = 5.10.0.
+    📌 **Correctie op mijn eigen meetmethode:** `grep -h "^## Interface" MidnightHelper.toc` vindt de retail-regel
+    **niet**, omdat die de eerste regel van het bestand is en achter een UTF-8 BOM staat. De regel
+    `## Interface: 120007, 120100, 120105, 120107` is er wél, met `## Interface-Camelot: 16001` eronder. Wie die
+    grep als controle gebruikt, moet dus niet concluderen dat de retail-TOC geen Interface-regel heeft.
+    ⚠️ `docs/NEXT_SESSION.md` heb ik bewust **niet** bijgewerkt: mijn opdracht verbiedt elk ander bestand dan dit.
