@@ -7668,6 +7668,11 @@ ns._mhLocales.enUS = {
 	-- so the level 50 chains say "item rewards" (Fable check, Sparring 17-11). TESTLIJST asks Rob to look in game.
 	FCQ_CHAIN_TORWA ="Torwa Pathfinder's quests (item rewards)",
 	FCQ_MOONGLADE_TIP = " (Teleport: Moonglade in your spellbook takes you there)",
+	FCQ_AREAS_FMT = "%d areas, this one is nearest",
+	FCQ_TIP_HAVE_FMT = "MH: you have %d of the %d you need",
+	FCQ_TIP_ALTS_FMT = "MH: on your other characters: %s",
+	FCQ_TIP_ALTS_NONE = "MH: none on your other characters",
+	FCQ_TIP_ALTS_NOSYN = "MH: what your other characters have needs Syndicator (or Baganator)",
 	-- Warlock class quests (17 Nov 2026; facts docs/forever/WARLOCK_CLASSQUESTS_2026-11-17.md). Item, NPC and place names
 	-- are game names: in de/fr/es/pt/ru the name THAT client shows.
 	FCQ_OBJ_WL_POWERSVOID = "take Powers of the Void from the Stolen Books here",

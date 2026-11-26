@@ -711,7 +711,15 @@ local function NodeForMe(nd)
 		return true
 	end
 	local _, cls = UnitClass("player")
-	return cls == nd[7]
+	if cls ~= nd[7] then
+		return false
+	end
+	-- And your own side's master (26 Nov 2026, Rob's /mh travel listed both Nighthaven nodes). GEMETEN in DB2 TaxiNodes
+	-- 71139: 62 Flags 1025 + MountCreatureID_1 (as Auberdine, Alliance), 63 Flags 1026 + MountCreatureID_0 (as Thunder
+	-- Bluff, Horde) — so nd[2] "A"/"H" is right.
+	local fac = UnitFactionGroup and UnitFactionGroup("player")
+	local side = (fac == "Alliance" and "A") or (fac == "Horde" and "H") or nil
+	return side == nil or nd[2] == side
 end
 
 --- { [nodeID] = true } of the flight points this character knows, and how MH knows.

@@ -160,6 +160,7 @@ local function NowItems()
 			what = what,
 			place = Place(cq.zone, cq.x, cq.y),
 			go = cq.zone and ns.ForeverClassQuestGo or nil,
+			item = cq.item, need = cq.need, -- a collect step: the item's own tooltip on hover (26 Nov 2026)
 		}
 	end
 	-- To-dos first (in the window's order), then the tips.
@@ -2719,6 +2720,12 @@ local function FillNow(f, items, up)
 	local tt, tw, tp = f.now.title:GetText() or "", f.now.what:GetText() or "", f.now.place:GetText() or ""
 	f.now.mainHover.tipTitle = tt
 	f.now.mainHover.tipBody = (tw ~= "" and tw or "") .. ((tw ~= "" and tp ~= "") and "\n" or "") .. tp
+	-- A step that needs an item (Earthroot): the game's item tooltip, then what you and your other characters have.
+	f.now.mainHover.tipLink = nil
+	if main and main.item and ns.ForeverCQItemBody then
+		f.now.mainHover.tipLink = "item:" .. main.item
+		f.now.mainHover.tipBody = ns.ForeverCQItemBody(main.item, main.need)
+	end
 	local function H(fs)
 		local t = fs:GetText()
 		return (t and t ~= "") and (fs:GetStringHeight() or 0) or 0
@@ -2762,6 +2769,11 @@ local function FillNow(f, items, up)
 		row.sub:SetText(sub or "")
 		row.hover.tipTitle = it.title
 		row.hover.tipBody = it.what and it.place and (it.what .. "\n" .. it.place) or it.what or it.place
+		row.hover.tipLink = nil
+		if it.item and ns.ForeverCQItemBody then
+			row.hover.tipLink = "item:" .. it.item
+			row.hover.tipBody = ns.ForeverCQItemBody(it.item, it.need)
+		end
 		local label = ns:L(it.goLabel or "FOV_GO_SHORT")
 		row.go:SetLabel(label)
 		row.go.tipTitle = label

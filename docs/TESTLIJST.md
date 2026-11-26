@@ -25,6 +25,17 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 26 nov — FOREVER: tooltip op "5 Earthroot" + alleen jouw eigen Nighthaven
+
+`/reload` is genoeg. Offline getest (cq_test 12/12, flight_test 48/48), NIET in het spel.
+- [ ] Druid op "Gathering the Cure": muis op de regel "you also need 5 Earthroot …" in het class-questkaartje. Je ziet de
+      tooltip van Earthroot zelf, en eronder "MH: you have 2 of the 5 you need" en "MH: on your other characters: Ima 3"
+      (of "none on your other characters"). Dat komt van Syndicator; staat er "needs Syndicator", zeg het.
+- [ ] Hetzelfde in het overzicht bij "Do this now" (muis op de class-questregel).
+- [ ] Laat Syndicator/Baganator zijn eigen regels ook zien (zijn tooltip-instelling)? Dan staan ze er misschien dubbel.
+      Zeg het, dan haal ik de MH-regel weg.
+- [ ] `/mh travel` als Horde-druid: alleen "Nighthaven, Moonglade (63)", niet meer (62).
+
 ## 26 nov — Move: knop "Close", balk met "Done", Escape stopt; label castbalken erboven; klikkaart 3 per rij
 
 `/reload` is genoeg. Offline getest (move_test 19/19, card_test 22/22), NIET in het spel.
@@ -122,7 +133,9 @@ Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (fligh
       min) · afstand" en genummerde stappen met icoon en minuten (vlieg, boot, teleport, laatste stap "walk to …").
 - [ ] Doe een stap (bv. de vlucht): na de landing staat die stap niet meer in het paneel.
 - [ ] Open de flight master uit de route: de stop waar je heen moet heeft een gouden ring en "MH: fly here". Klik zelf.
-- [ ] Na een vlucht: `/mh travel` zegt "flights you timed yourself: 1" en de volgende keer klopt die tijd beter.
+- [x] Na een vlucht: `/mh travel` zegt "flights you timed yourself: 1" en de volgende keer klopt die tijd beter. ✅ Rob,
+      26 nov (screenshot): "walking speed used: 7.0 yd/s (run speed, with a detour factor 1.4); flights you timed
+      yourself: 2". (Of de tijd daarna beter klopt: nog niet gezien.)
 - [ ] Op een mount worden de loopminuten korter (`/mh travel`: "walking speed used: … yd/s").
 - [ ] Kruisje op het paneel: weg tot je een ander doel kiest. Quiet helpers → "Route steps next to the arrow" uit: weg.
 - [ ] Midnight: de hint op de vliegkaart (FlightMapHint) weet weer of een stop op de kaart staat.
@@ -150,9 +163,12 @@ Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (rare_
 ## 26 nov — FOREVER: MH leert welke flight points je kent + Nighthaven + één advies (reisplanner stap 1)
 
 Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (flight_test 27, trainroute_test 6), NIET in het spel.
-- [ ] Praat met een flight master (de vliegkaart gaat open) en typ daarna `/mh travel`. Regel "flight points you know: N"
+- [x] Praat met een flight master (de vliegkaart gaat open) en typ daarna `/mh travel`. Regel "flight points you know: N"
       noemt nu jouw punten, en "flight map seen on Kalimdor: yes". De regel "taxi API: …" zegt welke functies je client
-      heeft. Stuur me die twee regels.
+      heeft. ✅ Rob, 26 nov (screenshot, Tauren Druid, The Barrens): "flight points you know: 8 — learned: 6; flight map
+      seen on Kalimdor: yes" (de 6 = Camp Taurajo, Crossroads, Orgrimmar, The Sepulcher, Thunder Bluff, Undercity) en
+      "taxi API: GetTaxiMapID yes, C_TaxiMap.GetAllTaxiNodes yes, … GetTaxiNodesForMap yes" → T1: GetTaxiMapID BESTAAT in
+      Forever (GEMETEN). Wel: beide Nighthaven-knopen (62 en 63) in de lijst → gerepareerd (Horde alleen 63, zie bovenaan).
 - [ ] Ontdek een nieuw flight point: `/mh travel` noemt het meteen ("last learned: new flight path").
 - [ ] Na een vlucht: "last learned: landed".
 - [ ] Druid in Moonglade, doel in The Barrens: de route begint bij de flight master in Nighthaven (vlieg naar Thunder

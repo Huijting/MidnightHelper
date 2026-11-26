@@ -2843,6 +2843,14 @@ local function PreStep(e, q, atTurn)
 	return nil
 end
 
+-- The item behind a "collect" objective that has no `items` of its own, for the tooltip on the card (26 Nov 2026, Rob:
+-- "Kunnen we daar ook een tooltip van maken, zodat ik kan zien of een van mijn andere karakters hem heeft."):
+-- textKey -> { itemID, how many }. Earthroot 2449 (GEMETEN: Wowhead Forever tooltip + DB2 Item 7/9 = herb), 5 (the
+-- objective text, FCQ_OBJ_EARTHROOT).
+local TIP_ITEMS = {
+	FCQ_OBJ_EARTHROOT = { 2449, 5 },
+}
+
 local function StepRaw(c)
 	if c.spell and Known(c.spell) then
 		return nil, "spell known"
@@ -2896,7 +2904,9 @@ local function StepRaw(c)
 	if e.objs and not ObjDone(q) then
 		for _, o in ipairs(e.objs) do
 			if not ObjFinished(q, o) then
-				return { kind = "do", place = o.place, textKey = o.textKey, q = q, progress = ObjProgress(q, o) }
+				local ti = TIP_ITEMS[o.textKey]
+				return { kind = "do", place = o.place, textKey = o.textKey, q = q, progress = ObjProgress(q, o),
+					item = (o.items and o.items[1]) or (ti and ti[1]), need = o.count or (ti and ti[2]) }
 			end
 		end
 	end
@@ -3011,10 +3021,60 @@ do
 	end
 end
 
+--------------------------------------------------------------------------------
+-- Several areas for one objective (26 Nov 2026). Rob: "Overigens heeft Polestar wel in de gaten dat er meer gebieden
+-- zijn dan alleen maar dit, waarbij ik deze [Kodo Horns] kan pakken." ns.FOREVER_CQ_AREAS[textKey] = { { m, x, y, n }, …
+-- } (ForeverClassQuestAreas.lua, generated: every spawn point of the objective's creatures from Wowhead Forever's
+-- tooltip data, grouped into areas; no Polestar/GPL data). The step points at the area you reach soonest: travel
+-- minutes (ForeverTravel) when they can be worked out, else the straight distance; cached 20 s.
+--------------------------------------------------------------------------------
+local areaCache = {} -- textKey -> { t, area, n }
+
+local function AreaScore(a)
+	if ns.ForeverTravelMinutes then
+		local ok, min = pcall(ns.ForeverTravelMinutes, a.m, a.x, a.y)
+		if ok and type(min) == "number" then
+			return min
+		end
+	end
+	return math.huge
+end
+
+local function NearestArea(textKey)
+	local list = ns.FOREVER_CQ_AREAS and ns.FOREVER_CQ_AREAS[textKey]
+	if type(list) ~= "table" or #list == 0 then
+		return nil
+	end
+	local now = GetTime and GetTime() or 0
+	local c = areaCache[textKey]
+	if c and now - c.t < 20 then
+		return c.area, c.n
+	end
+	local best, bestS
+	for _, a in ipairs(list) do
+		local sc = AreaScore(a)
+		if not best or sc < bestS then
+			best, bestS = a, sc
+		end
+	end
+	-- Nothing could be timed (no position): the biggest area (the list is biggest first).
+	if bestS == math.huge then
+		best = list[1]
+	end
+	areaCache[textKey] = { t = now, area = best, n = #list }
+	return best, #list
+end
+
 local function Step(c)
 	local s, why = StepRaw(c)
 	if s and s.place then
 		s.place = LivePlace(s.place)
+	end
+	if s and s.kind == "do" and s.textKey then
+		local a, n = NearestArea(s.textKey)
+		if a and n and n > 1 then
+			s.place = { m = a.m, x = a.x, y = a.y, src = "areas (Wowhead Forever spawns)", areas = n }
+		end
 	end
 	return s, why
 end
@@ -3055,6 +3115,9 @@ local function Where(p)
 	-- Moonglade is far for everyone; the druid's own teleport goes there (level 10, GEMETEN SpellLevels 70938).
 	if p.m == MOONGLADE and Known(TELEPORT_MOONGLADE) then
 		s = s .. ns:L("FCQ_MOONGLADE_TIP")
+	end
+	if p.areas then
+		s = s .. " · " .. ns:L("FCQ_AREAS_FMT"):format(p.areas)
 	end
 	return s
 end
@@ -3158,6 +3221,10 @@ function ns.ForeverClassQuestNowParts()
 	elseif s.kind == "use" then
 		out.what = StepWhat(s)
 	end
+	out.item, out.need = s.item, s.need
+	if p and p.areas then
+		out.zone = out.zone .. " · " .. ns:L("FCQ_AREAS_FMT"):format(p.areas)
+	end
 	return out
 end
 
@@ -3186,6 +3253,9 @@ local function CardData()
 	if p and p.m == MOONGLADE and Known(TELEPORT_MOONGLADE) then
 		where = where .. ns:L("FCQ_MOONGLADE_TIP")
 	end
+	if p and p.areas then
+		where = where .. "  ·  " .. ns:L("FCQ_AREAS_FMT"):format(p.areas)
+	end
 	local note
 	if c.note then
 		note = ns:L("FCQ_CARD_NOTE")
@@ -3205,7 +3275,53 @@ local function CardData()
 		place = where,
 		way = p and ns.ForeverWayLine and ns.ForeverWayLine(p.m, p.x, p.y) or nil,
 		note = note,
+		item = s.item, need = s.need,
 	}
+end
+
+--- Tooltip for an item a step needs: the game's own item tooltip (MH's other item lines come with it), then how many you
+--- have, and how many your other characters have (Syndicator, when it is installed: bags, bank, mail).
+function ns.ForeverCQItemTip(owner, item, need)
+	if not (GameTooltip and item) then
+		return
+	end
+	GameTooltip:SetOwner(owner, "ANCHOR_RIGHT")
+	local okS = pcall(GameTooltip.SetItemByID, GameTooltip, item)
+	if not okS or (GameTooltip:NumLines() or 0) == 0 then
+		GameTooltip:SetText(ItemName(item), 1, 0.82, 0, 1, true)
+	end
+	GameTooltip:AddLine(" ")
+	GameTooltip:AddLine(ns.ForeverCQItemBody(item, need), 1, 1, 1, true)
+	GameTooltip:Show()
+end
+
+--- MH's lines under that tooltip, one string (also for the overview's hover: S.Tip with tipLink + tipBody).
+function ns.ForeverCQItemBody(item, need)
+	local out = {}
+	local have = ItemCount(item)
+	if need then
+		out[#out + 1] = (have >= need and "|cff7fff7f" or "|cffffd100") .. ns:L("FCQ_TIP_HAVE_FMT"):format(math.min(have, need),
+			need) .. "|r"
+	end
+	local api = rawget(_G, "Syndicator") and Syndicator.API
+	if api and api.GetInventoryInfoByItemID then
+		local alts = {}
+		local ok, info = pcall(api.GetInventoryInfoByItemID, item, true, true)
+		local me = UnitName and UnitName("player")
+		if ok and type(info) == "table" and type(info.characters) == "table" then
+			for _, c in ipairs(info.characters) do
+				local n = (c.bags or 0) + (c.bank or 0) + (c.mail or 0)
+				if n > 0 and c.character ~= me then
+					alts[#alts + 1] = ("%s %d"):format(c.character, n)
+				end
+			end
+		end
+		out[#out + 1] = "|cff99ccff" .. (#alts > 0 and ns:L("FCQ_TIP_ALTS_FMT"):format(table.concat(alts, ", "))
+			or ns:L("FCQ_TIP_ALTS_NONE")) .. "|r"
+	else
+		out[#out + 1] = "|cff999999" .. ns:L("FCQ_TIP_ALTS_NOSYN") .. "|r"
+	end
+	return table.concat(out, "\n")
 end
 
 --- Route to a place of a chain and say `line` in chat. Shared by "Do this now" and the overview page (17 Nov 2026).
@@ -3451,6 +3567,26 @@ local function CQWBuild()
 	f.head = line("head2", 13, { r, g, b }, width - 20) -- free of the cross
 	f.title = line("head2", 19, t.gold)
 	f.who = line("text", 15, t.text)
+	-- Mouse on what to do: the item's tooltip when the step needs an item (Earthroot), with who has it.
+	f.whoHover = CreateFrame("Frame", nil, f)
+	f.whoHover:SetAllPoints(f.who)
+	f.whoHover:SetScript("OnEnter", function(self)
+		if f.item and ns.ForeverCQItemTip then
+			ns.ForeverCQItemTip(self, f.item, f.need)
+		end
+	end)
+	f.whoHover:SetScript("OnLeave", function()
+		if GameTooltip then
+			GameTooltip:Hide()
+		end
+	end)
+	f.whoHover:RegisterForDrag("LeftButton") -- dragging from the text still moves the card
+	f.whoHover:SetScript("OnDragStart", function()
+		f:StartMoving()
+	end)
+	f.whoHover:SetScript("OnDragStop", function()
+		f:GetScript("OnDragStop")(f)
+	end)
 	f.where = line("text", 14, t.dim)
 	-- 26 Nov 2026 (Rob at the Orgrimmar zeppelin tower, arrow 4405 m to Thunder Bluff: "waarom alleen maar een pijl die
 	-- kant op en niet hoe ik kom?" → "Ja, stuur maar."): how you get there, from the travel planner, under the place.
@@ -3541,6 +3677,8 @@ CQWUpdate = function()
 	f.head:SetText(head)
 	f.title:SetText(d.title)
 	f.who:SetText(d.who)
+	f.item, f.need = d.item, d.need
+	f.whoHover:EnableMouse(d.item ~= nil) -- only then: elsewhere the card stays draggable
 	f.where:SetText(d.place or "")
 	f.way:SetText(d.way or "")
 	f.note:SetText(d.note)

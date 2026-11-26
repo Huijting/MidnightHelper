@@ -1,5 +1,21 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 26 nov (Bouwchat 26-11): Earthroot-tooltip + Nighthaven per factie + class quest "meerdere gebieden" (werking, data volgt)
+
+- Rob: *"Kunnen we daar ook een tooltip van maken, zodat ik kan zien of een van mijn andere karakters hem heeft."*
+  ForeverClassQuests.lua: `TIP_ITEMS` (FCQ_OBJ_EARTHROOT = 2449 ×5; GEMETEN Wowhead Forever + DB2 Item 7/9 = herb); de stap
+  draagt `item`/`need` (ook `o.items`). Kaartje: `whoHover` → `ns.ForeverCQItemTip` (SetItemByID + `ns.ForeverCQItemBody`);
+  overzicht Do this now: `tipLink = "item:…"` + dezelfde body. Andere characters: Syndicator.API.GetInventoryInfoByItemID
+  (staat in Rob's Forever-AddOns, GEMETEN; bags+bank+mail, jezelf niet). MH's eigen AltProfTip noemt alleen beroepen, geen
+  aantallen — MH bewaart geen tassen van alts (grep, AFGELEID).
+- Nighthaven: `NodeForMe` filtert nu ook op factie. GEMETEN DB2 TaxiNodes 71139: 62 Flags 1025 + MountCreatureID_1 (Alliance,
+  als Auberdine), 63 Flags 1026 + MountCreatureID_0 (Horde, als Thunder Bluff). flight_test 48/48.
+- Meerdere gebieden (Rob: Polestar zag meer Kodo-plekken): `NearestArea` in ForeverClassQuests.lua (reistijd, cache 20 s;
+  zonder positie het grootste gebied), "N areas, this one is nearest". Data `ns.FOREVER_CQ_AREAS` komt uit een
+  gegenereerd bestand (scratch `cq_areas.py`: Wowhead Forever-spawns, zone → uiMap via DB2 UiMapAssignment+UiMap Type 3,
+  groepen binnen 7 kaart-%). Kodo GEMETEN: 3 gebieden (25 punten 52.4,42.9; 13 bij 54.9,13.7; 8 bij 41.9,21.7). Welke npc
+  per doel: mh-research loopt. Zonder data verandert er niets. cq_test 12/12.
+
 ## ▶▶ 26 nov (Bouwchat 26-11): Robs testronde ✅ + Move-knop/Escape + castbalk-label + klikkaart 3 per rij (`/reload`)
 
 Rob testte (via Sparring, 5 screenshots) en het werkt: /mh crests-melding in Forever, castbalken slepen, "The way there: walk
