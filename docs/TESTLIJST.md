@@ -25,6 +25,18 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 26 nov — FOREVER: routepaneel, echte minuten, ring op de vliegkaart (reisplanner stap 3)
+
+Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (flight_test 30), NIET in het spel.
+- [ ] Zet een pijl naar iets ver weg (trainer, class quest). Rechts in beeld: paneel "ROUTE: <doel>" met "(about N
+      min) · afstand" en genummerde stappen met icoon en minuten (vlieg, boot, teleport, laatste stap "walk to …").
+- [ ] Doe een stap (bv. de vlucht): na de landing staat die stap niet meer in het paneel.
+- [ ] Open de flight master uit de route: de stop waar je heen moet heeft een gouden ring en "MH: fly here". Klik zelf.
+- [ ] Na een vlucht: `/mh travel` zegt "flights you timed yourself: 1" en de volgende keer klopt die tijd beter.
+- [ ] Op een mount worden de loopminuten korter (`/mh travel`: "walking speed used: … yd/s").
+- [ ] Kruisje op het paneel: weg tot je een ander doel kiest. Quiet helpers → "Route steps next to the arrow" uit: weg.
+- [ ] Midnight: de hint op de vliegkaart (FlightMapHint) weet weer of een stop op de kaart staat.
+
 ## 26 nov — FOREVER: /mh clickheal netter (na Robs screenshot)
 
 Alleen bestaande bestanden gewijzigd: `/reload` is genoeg.

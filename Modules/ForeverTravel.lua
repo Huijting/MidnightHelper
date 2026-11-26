@@ -619,6 +619,28 @@ local NODE_BY_ID = {}
 for _, n in ipairs(FLIGHT_NODES) do
 	NODE_BY_ID[n[1]] = n
 end
+--- Step 3 (26 Nov 2026): real minutes. Walking uses your own run speed (GetUnitSpeed's runSpeed: 7 yd/s on foot, more
+--- on a mount), with a detour factor for roads and hills (DETOUR, AFGELEID). Returns the multiplier for the planner's
+--- base walk unit (distance / 250).
+local DETOUR = 1.4
+local function WalkFactor()
+	local spd = 7
+	if GetUnitSpeed then
+		local ok, _, run = pcall(GetUnitSpeed, "player")
+		if ok and type(run) == "number" and not (issecretvalue and issecretvalue(run)) and run > 0 then
+			spd = run
+		end
+	end
+	spd = math.max(7, math.min(spd, 21))
+	return 250 * DETOUR / (spd * 60)
+end
+
+--- Your own measured flight time from one master to another (seconds), learned at landing; nil = never flown.
+local function FlightSeconds(from, to)
+	local t = from and to and type(ns.db) == "table" and ns.db.foreverFlightTimes
+	return t and t[from .. ">" .. to] or nil
+end
+
 local taxiNames = {} -- nodeID -> the client's own (localized) name, read from the world map list
 local taxiWhy = "not looked yet" -- for /mh travel
 
@@ -866,14 +888,36 @@ do
 			end)
 		elseif event == "PLAYER_CONTROL_GAINED" and flying then
 			flying = false
+			local landedAt = GetTime and GetTime() or 0
 			C_Timer.After(1, function()
 				local id = NearestNode(60)
 				if id then
 					Learn({ [id] = true }, nil, "landed")
 				end
+				-- Step 3: the time of this trip, from the click on the flight map to the landing (seconds).
+				local trip = ns._mhTaxiTrip
+				ns._mhTaxiTrip = nil
+				if trip and id and trip.to == id and trip.from and type(ns.db) == "table" then
+					local secs = landedAt - trip.t0
+					if secs > 10 and secs < 3600 then
+						ns.db.foreverFlightTimes = ns.db.foreverFlightTimes or {}
+						local k = trip.from .. ">" .. trip.to
+						local old = ns.db.foreverFlightTimes[k]
+						ns.db.foreverFlightTimes[k] = old and math.floor((old + secs) / 2 + 0.5) or math.floor(secs + 0.5)
+						taxiLast = ("landed, flight %s timed: %d s"):format(k, math.floor(secs + 0.5))
+						knownCache.set = nil
+					end
+				end
 			end)
 		end
 	end)
+	-- Step 3: which trip you chose on the flight map. Only listened to (hooksecurefunc); MH never calls TakeTaxiNode.
+	if hooksecurefunc and TakeTaxiNode then
+		pcall(hooksecurefunc, "TakeTaxiNode", function(slot)
+			local okS, name = pcall(TaxiNodeName, slot)
+			ns._mhTaxiTrip = { from = NearestNode(60), to = okS and NodeByName(name) or nil, t0 = GetTime and GetTime() or 0 }
+		end)
+	end
 end
 
 --- /mh travel: which taxi doors this client has (so a silent "no flights" can be told apart from a missing API).
@@ -984,7 +1028,11 @@ local function Plan(tmap, tx, ty)
 	nodes[#nodes + 1] = target
 	local it = #nodes
 	local edges = {} -- from index -> list of { to, cost, link, toEnd }
+	local walkF = WalkFactor()
 	local function add(from, to, cost, link, toEnd, tp)
+		if not link and not tp then
+			cost = cost * walkF -- a walk: your own speed (step 3, 26 Nov 2026)
+		end
 		edges[from] = edges[from] or {}
 		edges[from][#edges[from] + 1] = { to = to, cost = cost, link = link, toEnd = toEnd, tp = tp }
 	end
@@ -998,7 +1046,10 @@ local function Plan(tmap, tx, ty)
 		if ia and ib and known[f[2]] then
 			edges[ia + 1] = edges[ia + 1] or {}
 			local list = edges[ia + 1]
-			list[#list + 1] = { to = ib + 1, cost = f[3] / FLY_YD_PER_MIN + FLY_HOP, fly = f[2] }
+			-- Your own measured time for this flight wins over yards / 30 (step 3: learned at every landing).
+			local own = FlightSeconds(f[1], f[2])
+			list[#list + 1] = { to = ib + 1, cost = own and (own / 60 + FLY_HOP) or (f[3] / FLY_YD_PER_MIN + FLY_HOP),
+				fly = f[2] }
 		end
 	end
 	-- 26 Nov 2026 (Rob in Moonglade: "The way there: the flight master in Winterspring …" and a moment later "Way to The
@@ -1084,9 +1135,15 @@ local function Plan(tmap, tx, ty)
 		for _, c in ipairs(chain) do
 			if c.edge.fly and prevFly then
 				prevFly.flyTo = TaxiName(c.edge.fly)
+				prevFly.flyToId = c.edge.fly
 				prevFly.label = ns:L("FTRAVEL_FLY_FMT"):format(prevFly.flyTo)
 				prevFly.min = prevFly.min + c.edge.cost
 				prevFly.hops = prevFly.hops + 1
+				-- A whole trip you have flown before: its measured time (the hops add their own landings).
+				local own = FlightSeconds(prevFly.fromId, c.edge.fly)
+				if own then
+					prevFly.min = own / 60
+				end
 				lastAt = lastAt + c.edge.cost
 			elseif c.edge.link or c.edge.tp or c.edge.fly then
 				local from = nodes[c.from]
@@ -1097,13 +1154,15 @@ local function Plan(tmap, tx, ty)
 				if c.edge.fly then
 					local dest = TaxiName(c.edge.fly)
 					prevFly = { kind = "travel", forever = true, mapID = from.map, x = from.x, y = from.y,
-						label = ns:L("FTRAVEL_FLY_FMT"):format(dest), flyTo = dest, link = "fly" .. tostring(from.taxi),
+						label = ns:L("FTRAVEL_FLY_FMT"):format(dest), flyTo = dest, flyToId = c.edge.fly, fromId = from.taxi,
+						link = "fly" .. tostring(from.taxi),
 						linkKind = "flight", min = min, hops = 1 }
 					prevFly.atRadius = 1
 					steps[#steps + 1] = prevFly
 				elseif c.edge.tp then
 					steps[#steps + 1] = { kind = "travel", forever = true, cast = true, mapID = from.map, x = from.x,
-						y = from.y, label = c.edge.tp.label, link = c.edge.tp.t.id, linkKind = "teleport", min = min }
+						y = from.y, label = c.edge.tp.label, link = c.edge.tp.t.id, linkKind = "teleport", min = min,
+						spell = c.edge.tp.t.spell, item = c.edge.tp.t.item }
 				else
 					local st = { kind = "travel", forever = true, mapID = from.map, x = from.x, y = from.y,
 						label = Label(c.edge.link, c.edge.toEnd), link = c.edge.link.id, linkKind = c.edge.link.kind,
@@ -1172,6 +1231,18 @@ function ns.ForeverTravelNeedsLink(_, mapID, x, y)
 	return ok and steps ~= nil
 end
 
+--- The words for one travel step (shared by the sentence and the route panel); nil for the final walk.
+function ns.ForeverTravelStepText(s)
+	if s.kind == "travel" and s.cast then
+		return s.label -- "cast Teleport: Stormwind" happens where you stand: no "in <zone>"
+	elseif s.kind == "travel" and s.flyTo then
+		return ns:L("FTRAVEL_FLY_IN_FMT"):format(MapName(s.mapID), s.flyTo)
+	elseif s.kind == "travel" then
+		return ns:L("FTRAVEL_IN_FMT"):format(s.label, MapName(s.mapID))
+	end
+	return nil
+end
+
 --- One sentence for a window ("The way there: …"). nil, true = you can walk there; nil = not known.
 function ns.ForeverTravelSentence(mapID, x, y)
 	local ok, steps, why = pcall(Plan, mapID, x, y)
@@ -1180,12 +1251,9 @@ function ns.ForeverTravelSentence(mapID, x, y)
 	end
 	local parts = {}
 	for _, s in ipairs(steps) do
-		if s.kind == "travel" and s.cast then
-			parts[#parts + 1] = s.label -- "cast Teleport: Stormwind" happens where you stand: no "in <zone>"
-		elseif s.kind == "travel" and s.flyTo then
-			parts[#parts + 1] = ns:L("FTRAVEL_FLY_IN_FMT"):format(MapName(s.mapID), s.flyTo)
-		elseif s.kind == "travel" then
-			parts[#parts + 1] = ns:L("FTRAVEL_IN_FMT"):format(s.label, MapName(s.mapID))
+		local p = ns.ForeverTravelStepText(s)
+		if p then
+			parts[#parts + 1] = p
 		end
 	end
 	local sentence = table.concat(parts, ns:L("FTRAVEL_THEN")) .. "."
@@ -1214,7 +1282,7 @@ function ns.ForeverTravelMinutes(mapID, x, y)
 		if pmap and px then
 			local c = WalkCost(Point(pmap, px, py), Point(mapID, x, y))
 			if c then
-				return c, "walk"
+				return c * WalkFactor(), "walk"
 			end
 		end
 	end
@@ -1256,6 +1324,17 @@ function ns.ForeverTravelSlash()
 	table.sort(names)
 	print(("  flight points you know: %d — %s"):format(#names, taxiWhy))
 	print("  " .. TaxiApiLine())
+	print(("  walking speed used: %.1f yd/s (run speed, with a detour factor %.1f); flights you timed yourself: %d"):format(
+		250 * DETOUR / (WalkFactor() * 60), DETOUR, (function()
+			local c = 0
+			for _ in pairs(type(ns.db) == "table" and ns.db.foreverFlightTimes or {}) do
+				c = c + 1
+			end
+			return c
+		end)()))
+	if ns.ForeverRoutePanelLine then
+		print("  " .. ns.ForeverRoutePanelLine())
+	end
 	if #names > 0 then
 		print("    " .. table.concat(names, ", "))
 	end
@@ -1390,4 +1469,296 @@ function ns.ForeverTravelTransportSpots()
 		end
 	end
 	return out
+end
+
+--------------------------------------------------------------------------------
+-- Step 3 (26 Nov 2026): the route as a small panel, and a mark on the flight map. Rob via Sparring: "Ik volg sowieso
+-- jouw advies … gaan we door tot jullie eigenlijk klaar zijn". Idea (numbered steps with an icon and a time, a total,
+-- steps that drop off when done; a label on the flight map's button) from READING Polestar (GPL-3): no code taken.
+-- The panel shows the same plan the arrow follows (Plan), so they cannot disagree; a step you finished is simply not in
+-- the next plan any more. Switch in Quiet helpers (on); the cross hides it until the target changes.
+-- The flight map: the destination's button (TaxiButton<slot>, Blizzard's TaxiFrame) gets a gold ring and "MH: fly
+-- here". MH never calls TakeTaxiNode: you click yourself.
+--------------------------------------------------------------------------------
+local RP_W, RP_ROWS = 320, 7
+local rp, rpClosedFor, rpWhy = nil, nil, "not looked yet"
+
+function ns.IsForeverRoutePanelOn()
+	return not (type(ns.db) == "table" and ns.db.foreverRoutePanel == false)
+end
+
+function ns.SetForeverRoutePanel(on)
+	if type(ns.db) ~= "table" then
+		return
+	end
+	if on then
+		ns.db.foreverRoutePanel = nil
+	else
+		ns.db.foreverRoutePanel = false
+		if rp then
+			rp:Hide()
+		end
+	end
+end
+
+local ICON_WALK = "Interface\\Icons\\Ability_Rogue_Sprint"
+local ICON_RIDE = "Interface\\Icons\\INV_Misc_Map_01"
+local function StepIcon(s)
+	if s.kind == "arrive" then
+		return ICON_WALK
+	end
+	if s.spell and C_Spell and C_Spell.GetSpellTexture then
+		local ok, t = pcall(C_Spell.GetSpellTexture, s.spell)
+		if ok and t then
+			return t
+		end
+	end
+	if s.item then
+		local fn = (C_Item and C_Item.GetItemIconByID) or GetItemIcon
+		local ok, t = pcall(fn or function() return nil end, s.item)
+		if ok and t then
+			return t
+		end
+	end
+	if s.linkKind == "flight" then
+		return Side() == "A" and "Interface\\Icons\\Ability_Mount_Gryphon_01" or "Interface\\Icons\\Ability_Mount_Wyvern_01"
+	end
+	return ICON_RIDE
+end
+
+local function BuildPanel()
+	if rp then
+		return rp
+	end
+	local Style = ns.ForeverStyle
+	local f = CreateFrame("Frame", "MidnightHelperForeverRoutePanel", UIParent, "BackdropTemplate")
+	f:SetSize(RP_W, 80)
+	f:SetFrameStrata("MEDIUM")
+	f:SetBackdrop({ bgFile = "Interface\\Buttons\\WHITE8X8", edgeFile = "Interface\\Buttons\\WHITE8X8", edgeSize = 1 })
+	local pos = type(ns.db) == "table" and ns.db.foreverRoutePanelPos
+	if type(pos) == "table" and pos[1] then
+		f:SetPoint(pos[1], UIParent, pos[2] or pos[1], pos[3] or 0, pos[4] or 0)
+	else
+		f:SetPoint("RIGHT", UIParent, "RIGHT", -40, 60)
+	end
+	f:EnableMouse(true)
+	f:SetMovable(true)
+	f:SetClampedToScreen(true)
+	f:RegisterForDrag("LeftButton")
+	f:SetScript("OnDragStart", f.StartMoving)
+	f:SetScript("OnDragStop", function(self)
+		self:StopMovingOrSizing()
+		if type(ns.db) == "table" then
+			local p, _, rpp, x, y = self:GetPoint(1)
+			ns.db.foreverRoutePanelPos = { p, rpp, x, y }
+		end
+	end)
+	local t = Style and Style.T and Style.T() or { gold = { 1, 0.82, 0 }, text = { 1, 1, 1 }, dim = { 0.7, 0.7, 0.7 } }
+	local function fs(role, size, color, w)
+		local s = (Style and Style.Text) and Style.Text(f, role, size, color) or f:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+		s._mhSkinned = true
+		s:SetJustifyH("LEFT")
+		if w then
+			s:SetWidth(w)
+		end
+		return s
+	end
+	f.head = fs("head2", 12, t.gold, RP_W - 40)
+	f.head:SetPoint("TOPLEFT", 12, -10)
+	f.total = fs("text", 12, t.dim, RP_W - 24)
+	f.total:SetPoint("TOPLEFT", f.head, "BOTTOMLEFT", 0, -3)
+	local close = CreateFrame("Button", nil, f, "UIPanelCloseButton")
+	close:SetPoint("TOPRIGHT", 2, 2)
+	close:SetScale(0.8)
+	close:HookScript("OnClick", function()
+		rpClosedFor = f.leadKey
+	end)
+	f.rows = {}
+	for i = 1, RP_ROWS do
+		local r = {}
+		r.icon = f:CreateTexture(nil, "ARTWORK")
+		r.icon:SetSize(20, 20)
+		r.icon:SetTexCoord(0.07, 0.93, 0.07, 0.93)
+		r.text = fs("text", 12, t.text, RP_W - 24 - 26 - 52)
+		r.text:SetWordWrap(true)
+		r.min = fs("text", 12, t.gold, 50)
+		r.min:SetJustifyH("RIGHT")
+		f.rows[i] = r
+	end
+	if Style and Style.SkinOnShow then
+		Style.SkinOnShow(f)
+	end
+	if ns.RegisterMidnightDialogPopup then
+		ns.RegisterMidnightDialogPopup(f) -- Shift+scroll = size, Escape closes
+	end
+	f:Hide()
+	rp = f
+	return f
+end
+
+local function MinText(m)
+	return ns:L("FTRAIN_MIN_FMT"):format(math.max(1, math.floor((m or 0) + 0.5)))
+end
+
+local function PanelUpdate()
+	if not ns.IsForeverRoutePanelOn() then
+		rpWhy = "switched off (Quiet helpers)"
+		if rp then
+			rp:Hide()
+		end
+		return
+	end
+	local lead = ns.GetActiveArrowLead and ns.GetActiveArrowLead()
+	if not (lead and lead.mapID and lead.x) then
+		rpWhy = "no arrow target"
+		if rp then
+			rp:Hide()
+		end
+		return
+	end
+	local key = ("%d:%.1f:%.1f"):format(lead.mapID, lead.x, lead.y)
+	if rpClosedFor == key then
+		rpWhy = "you closed it for this target"
+		return
+	end
+	rpClosedFor = nil
+	local ok, steps, why = pcall(Plan, lead.mapID, lead.x, lead.y)
+	if not (ok and steps) then
+		rpWhy = "no travel steps: " .. tostring(ok and why or steps)
+		if rp then
+			rp:Hide()
+		end
+		return
+	end
+	local f = BuildPanel()
+	f.leadKey = key
+	f.head:SetText((ns:L("FROUTE_TITLE") .. ": " .. tostring(lead.name or MapName(lead.mapID))):upper())
+	-- Total time, and the straight distance when it can be read (same continent).
+	local total = ns:L("FTRAVEL_ABOUT_FMT"):format(math.max(1, math.floor((steps.totalMin or 0) + 0.5)))
+	local pmap, px, py = PlayerPos()
+	if pmap and px then
+		local c1, x1, y1 = World(pmap, px, py)
+		local c2, x2, y2 = World(lead.mapID, lead.x, lead.y)
+		if c1 and c1 == c2 and x1 and x2 then
+			local yd = math.sqrt((x1 - x2) ^ 2 + (y1 - y2) ^ 2)
+			total = total .. "  ·  " .. (ns.ForeverTrainerDistance and ns.ForeverTrainerDistance(yd)
+				or ("%d yd"):format(math.floor(yd + 0.5)))
+		end
+	end
+	f.total:SetText(total)
+	local y = 10 + (f.head:GetStringHeight() or 12) + 3 + (f.total:GetStringHeight() or 12) + 8
+	local n = 0
+	for i, s in ipairs(steps) do
+		local r = f.rows[i]
+		if not r then
+			break
+		end
+		n = i
+		local text = (s.kind == "arrive") and ns:L("FROUTE_WALK_FMT"):format(tostring(lead.name or MapName(lead.mapID)))
+			or ns.ForeverTravelStepText(s) or s.label or "?"
+		r.icon:SetTexture(StepIcon(s))
+		r.text:SetText(("%d. %s"):format(i, text))
+		r.min:SetText(MinText(s.min))
+		r.icon:ClearAllPoints()
+		r.icon:SetPoint("TOPLEFT", 12, -y)
+		r.text:ClearAllPoints()
+		r.text:SetPoint("TOPLEFT", r.icon, "TOPRIGHT", 6, -2)
+		r.min:ClearAllPoints()
+		r.min:SetPoint("TOPRIGHT", f, "TOPRIGHT", -12, -y - 2)
+		r.icon:Show()
+		r.text:Show()
+		r.min:Show()
+		y = y + math.max(22, (r.text:GetStringHeight() or 12) + 8)
+	end
+	for i = n + 1, RP_ROWS do
+		f.rows[i].icon:Hide()
+		f.rows[i].text:Hide()
+		f.rows[i].min:Hide()
+	end
+	f:SetHeight(y + 8)
+	f:Show()
+	rpWhy = ("shown: %d step(s) to %s"):format(n, tostring(lead.name))
+end
+
+function ns.ForeverRoutePanelLine()
+	return "route panel: " .. (ns.IsForeverRoutePanelOn() and "on" or "off") .. "; " .. rpWhy
+end
+
+if C_Timer and C_Timer.NewTicker then
+	C_Timer.NewTicker(2, function()
+		local ok, err = pcall(PanelUpdate)
+		if not ok then
+			rpWhy = "error: " .. tostring(err) -- /mh travel shows it (silence rule)
+		end
+	end)
+end
+
+-- The flight map mark.
+do
+	local mark
+	local function Mark(btn)
+		if not mark then
+			mark = CreateFrame("Frame", nil, UIParent)
+			mark:SetFrameStrata("TOOLTIP")
+			mark.ring = mark:CreateTexture(nil, "OVERLAY")
+			mark.ring:SetTexture("Interface\\Buttons\\UI-ActionButton-Border")
+			mark.ring:SetBlendMode("ADD")
+			mark.ring:SetVertexColor(1, 0.82, 0.2, 1)
+			mark.label = mark:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+			mark.label:SetTextColor(1, 0.85, 0.3)
+			mark.label:SetShadowOffset(1, -1)
+		end
+		mark:SetParent(btn)
+		mark:SetFrameStrata("TOOLTIP")
+		mark:ClearAllPoints()
+		mark:SetAllPoints(btn)
+		local w = (btn:GetWidth() or 16) * 3.2
+		mark.ring:SetSize(w, w)
+		mark.ring:ClearAllPoints()
+		mark.ring:SetPoint("CENTER", btn, "CENTER")
+		mark.label:ClearAllPoints()
+		mark.label:SetPoint("BOTTOM", btn, "TOP", 0, 6)
+		mark.label:SetText(ns:L("FTRAVEL_MAP_HERE"))
+		mark:Show()
+	end
+	local ev = CreateFrame("Frame")
+	pcall(ev.RegisterEvent, ev, "TAXIMAP_OPENED")
+	pcall(ev.RegisterEvent, ev, "TAXIMAP_CLOSED")
+	ev:SetScript("OnEvent", function(_, event)
+		if event == "TAXIMAP_CLOSED" then
+			if mark then
+				mark:Hide()
+			end
+			return
+		end
+		C_Timer.After(0.3, function()
+			local lead = ns.GetActiveArrowLead and ns.GetActiveArrowLead()
+			if not (lead and NumTaxiNodes and TaxiNodeName) then
+				return
+			end
+			local okP, steps = pcall(Plan, lead.mapID, lead.x, lead.y)
+			local here = NearestNode(60)
+			local dest
+			for _, s in ipairs(okP and steps or {}) do
+				if s.linkKind == "flight" and s.fromId == here then
+					dest = s.flyToId
+					break
+				end
+			end
+			if not dest then
+				return
+			end
+			local okN, num = pcall(NumTaxiNodes)
+			for i = 1, (okN and num or 0) do
+				local okS, name = pcall(TaxiNodeName, i)
+				if okS and NodeByName(name) == dest then
+					local btn = _G["TaxiButton" .. i]
+					if btn then
+						Mark(btn)
+					end
+					return
+				end
+			end
+		end)
+	end)
 end

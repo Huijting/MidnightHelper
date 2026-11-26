@@ -5608,6 +5608,12 @@ ns._mhLocales.enUS = {
 	-- 26 Nov 2026: flight paths in the Forever travel planner (arrow step, and the sentence "in <zone>").
 	FTRAVEL_FLY_FMT = "the flight master: fly to %s",
 	FTRAVEL_FLY_IN_FMT = "the flight master in %s: fly to %s",
+	-- 26 Nov 2026: the route panel and the flight map mark (ForeverTravel.lua, step 3).
+	FROUTE_TITLE = "Route",
+	FROUTE_WALK_FMT = "walk to %s",
+	FROUTE_SW = "Route steps next to the arrow",
+	FROUTE_SW_DESC = "A small panel with every step of the way (flight, boat, teleport, walk), each with its time, and the total. Steps drop off when you have done them. On the flight map, the stop to click gets a gold ring.",
+	FTRAVEL_MAP_HERE = "MH: fly here",
 	-- 26 Nov 2026: the trainer arrow by travel time ("Loganaar, about 3 min (MH list)").
 	FTRAIN_MIN_FMT = "%d min",
 	FTRAVEL_CHAT_FIRST_FMT = "Way to %s: first %s.",

@@ -1487,6 +1487,10 @@ local QUIET = {
 			if ns.PreviewNativeArrow then ns.PreviewNativeArrow(3) end
 		end,
 		fmt = function(v) return tostring(math.floor((tonumber(v) or 0) + 0.5)) end },
+	-- 26 Nov 2026 (reisplanner step 3): the route panel next to the arrow (ForeverTravel.lua). On by default.
+	Q("FROUTE_SW", "FROUTE_SW_DESC", {
+		get = function() return ns.IsForeverRoutePanelOn and ns.IsForeverRoutePanelOn() end,
+		set = function(on) if ns.SetForeverRoutePanel then ns.SetForeverRoutePanel(on) end end }),
 	Q("SET_ARROWUNIT_TITLE", "SET_ARROWUNIT_DESC", {
 		get = function() return ns.GetNativeArrowMeters and ns.GetNativeArrowMeters() end,
 		set = function(on) if ns.SetNativeArrowMeters then ns.SetNativeArrowMeters(on) end end }),

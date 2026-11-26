@@ -1,5 +1,15 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 26 nov (Bouwchat 26-11): reisplanner STAP 3 GEBOUWD (`/reload`) — daarna klikkaart, dan stap 4
+
+- ForeverTravel.lua: lopen = afstand × DETOUR 1,4 / eigen run-snelheid (GetUnitSpeed, 7-21 yd/s; AFGELEID factor) via
+  WalkFactor op elke loop-kant; vluchttijd eigen meting (hooksecurefunc TakeTaxiNode → landing, ns.db.foreverFlightTimes
+  "van>naar", gemiddeld) wint van yd/30. Routepaneel MidnightHelperForeverRoutePanel (zelfde Plan als de pijl, ticker 2 s,
+  icoon/tekst/minuten, totaal + afstand, kruisje per doel, FROUTE_SW aan), ring + "MH: fly here" op TaxiButton<slot>
+  (nooit TakeTaxiNode). /mh travel: loopsnelheid, getimede vluchten, paneelregel (fouten zichtbaar).
+- FlightMapHint.lua (Midnight): GetAllTaxiNodes(GetTaxiMapID()) i.p.v. zonder uiMapID.
+- flight_test 30/30. Rob koos de klikkaart (*"Ik volg jouw advies."*) → nu bouwen, live met DF-profiel (zie Sparring).
+
 ## ▶▶ 26 nov (Bouwchat 26-11): /mh clickheal — 2 fixes uit Robs screenshot; klikkaart-ontwerp wacht op Robs keuze
 
 Rob via Sparring: Alt-klik werkt (*"alt-click heb ik al geprobeerd en dat werkt dus"*). Fixes: (1) "not learned yet"

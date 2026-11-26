@@ -79,7 +79,16 @@ local function NodeState(wanted)
 	if not (C_TaxiMap and C_TaxiMap.GetAllTaxiNodes) then
 		return nil, nil
 	end
-	local ok, nodes = pcall(C_TaxiMap.GetAllTaxiNodes)
+	-- 26 Nov 2026: uiMapID is required (Nilable=false in Blizzard's TaxiMap docs, live and forever; mh-research). Without
+	-- it the pcall failed quietly and this hint never knew whether a stop was on the map.
+	local okM, mapID = false, nil
+	if GetTaxiMapID then
+		okM, mapID = pcall(GetTaxiMapID)
+	end
+	if not (okM and mapID) then
+		return nil, nil
+	end
+	local ok, nodes = pcall(C_TaxiMap.GetAllTaxiNodes, mapID)
 	if not ok or type(nodes) ~= "table" then
 		return nil, nil
 	end
