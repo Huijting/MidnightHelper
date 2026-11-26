@@ -1373,17 +1373,41 @@ function ns.ForeverTravelSlash()
 		print("  no travel step: " .. tostring(why))
 		return
 	end
+	-- 26 Nov 2026 (Sparring on Rob's /mh travel): say per step where its minutes come from, not one blanket "rough".
+	local crosses = false
 	for i, s in ipairs(steps) do
 		if s.kind == "travel" then
-			print(("  %d. %s — %s %.1f,%.1f (%s), about %.1f min"):format(i, s.label, MapName(s.mapID), s.x, s.y, s.link,
-				s.min or 0))
+			local src
+			if s.linkKind == "flight" then
+				src = FlightSeconds(s.fromId, s.flyToId) and "flight timed by you" or "flight: distance / 30 yd/s"
+			elseif s.linkKind and CROSSING[s.linkKind] then
+				src = "ride + wait: learned departures, else an estimate"
+			else
+				src = "estimated"
+			end
+			if s.linkKind and CROSSING[s.linkKind] then
+				crosses = true
+			end
+			print(("  %d. %s — %s %.1f,%.1f (%s), about %.1f min (%s)"):format(i, s.label, MapName(s.mapID), s.x, s.y,
+				s.link, s.min or 0, src))
 		elseif s.kind == "arrive" then
-			print(("  then walk to the target, about %.1f min"):format(s.min or 0))
+			print(("  then walk to the target, about %.1f min (walk: estimated from your run speed)"):format(s.min or 0))
 		end
 	end
-	print(("  total: about %.1f min (rough: the planner's units are chosen, not measured)"):format(steps.totalMin or 0))
-	print("  no-hearthstone warning: " .. (NoHearthForTrip(steps) and "YES (crosses the water, none in your bags)"
-		or "no (you have one, the count is unreadable, or the route does not cross the water)"))
+	print(("  total: about %.1f min (the sum of the steps above)"):format(steps.totalMin or 0))
+	-- Only the real reason (MH knows which one it is).
+	local hc = HearthCount()
+	local hearthWhy
+	if NoHearthForTrip(steps) then
+		hearthWhy = "YES (crosses the water, no Hearthstone in your bags)"
+	elseif not crosses then
+		hearthWhy = "no (the route does not cross the water)"
+	elseif hc == nil then
+		hearthWhy = "no (the Hearthstone count is unreadable here)"
+	else
+		hearthWhy = ("no (you have a Hearthstone: %d)"):format(hc)
+	end
+	print("  no-hearthstone warning: " .. hearthWhy)
 end
 
 --------------------------------------------------------------------------------

@@ -1,5 +1,12 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 26 nov (Bouwchat 26-11): `/mh travel` zegt per stap waar de minuten vandaan komen (`/reload`)
+
+Rob's tweede /mh travel: route + Nighthaven 63 ✅. ForeverTravelSlash: elke stap "(flight timed by you)" / "(flight:
+distance / 30 yd/s)" / "(ride + wait: …)" / "(walk: estimated from your run speed)"; "total: … (the sum of the steps
+above)" i.p.v. "rough: the planner's units are chosen"; Hearthstone-regel noemt alleen de echte reden (route kruist geen
+water / telling onleesbaar / "you have a Hearthstone: N"). flight_test 52/52.
+
 ## ▶▶ 26 nov (Bouwchat 26-11): Earthroot-tooltip ✅ in het spel; nu ook alts van de andere factie/realm, met reden (`/reload`)
 
 Rob: *"Ja, de tooltip werkt netjes."* + *"Joey Whatever is een alliance en die kan dus niks naar mij toesturen."* Joey

@@ -133,8 +133,13 @@ Zo klein mogelijk voor Rob:
 ## 26 nov — FOREVER: routepaneel, echte minuten, ring op de vliegkaart (reisplanner stap 3)
 
 Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (flight_test 30), NIET in het spel.
-- [ ] Zet een pijl naar iets ver weg (trainer, class quest). Rechts in beeld: paneel "ROUTE: <doel>" met "(about N
+- [x] Zet een pijl naar iets ver weg (trainer, class quest). Rechts in beeld: paneel "ROUTE: <doel>" met "(about N
       min) · afstand" en genummerde stappen met icoon en minuten (vlieg, boot, teleport, laatste stap "walk to …").
+      ✅ Rob, 26 nov (/mh travel, Orgrimmar → Tonga Runetotem): "route panel: on; shown: 2 step(s) to Tonga Runetotem";
+      "1. the flight master: fly to Crossroads … about 2.4 min / then walk to the target, about 0.4 min / total: about 2.9
+      min"; "flights you timed yourself: 3"; alleen "Nighthaven, Moonglade (63)" (de Alliance-knoop is weg).
+      Twee tekstjes in `/mh travel` daarna eerlijker gemaakt: per stap de bron van de minuten, en bij de Hearthstone alleen
+      de echte reden.
 - [ ] Doe een stap (bv. de vlucht): na de landing staat die stap niet meer in het paneel.
 - [ ] Open de flight master uit de route: de stop waar je heen moet heeft een gouden ring en "MH: fly here". Klik zelf.
 - [x] Na een vlucht: `/mh travel` zegt "flights you timed yourself: 1" en de volgende keer klopt die tijd beter. ✅ Rob,
