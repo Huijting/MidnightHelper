@@ -10,8 +10,8 @@ met beide zips, geen prerelease. Wago: "Success!" in de log (niet apart nagemete
 PLAYER_ENTERING_WORLD als `lastSeenVersion` ≠ 5.11.0 (tenzij "nooit meer" = hideForever, of het keuzevenster neemt over met
 een knop ernaartoe). Bovenaan het 5.11.0-blok; elke regel begint met "Both games:" of "Forever:". Niets gebouwd.
 ✅ De `/mh move`-test (ce0ad85: eerste keer meteen alle vakken, geen "Dock to window") is goed: Rob via Sparring, *"ik had
-de extra testen op midnight al gedaan, vandaar de release"*. Nog open: CURSEFORGE_DESCRIPTION.md moet Rob zelf op de
-CF-pagina plakken.
+de extra testen op midnight al gedaan, vandaar de release"*. ✅ CURSEFORGE_DESCRIPTION.md staat op de CF-pagina: Rob via
+Sparring, *"en dat staat er ook al :p"* (Robs woord; niet door ons nagemeten). Voor 26 nov staat niets meer open bij Rob.
 
 ## ▶▶ 26 nov avond (Bouwchat 26-11): Robs Midnight-check — Move eerste keer half + "Dock to window" weg (`/reload`)
 
