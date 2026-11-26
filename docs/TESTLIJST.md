@@ -25,6 +25,12 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 26 nov — FOREVER: /mh clickheal netter (na Robs screenshot)
+
+Alleen bestaande bestanden gewijzigd: `/reload` is genoeg.
+- [ ] `/mh clickheal` met "keep left-click" aan: geen "not learned yet: Middle Mouse = Healing Touch" meer.
+- [ ] De laatste regel eindigt op "… /keep" (niet "…eep").
+
 ## 26 nov — FOREVER: venster als er een rare in zicht is (reisplanner stap 2; Rob: "een eigen venstertje voor [rares]")
 
 Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (rare_test 15), NIET in het spel.

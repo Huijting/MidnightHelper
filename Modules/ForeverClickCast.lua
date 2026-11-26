@@ -158,7 +158,8 @@ local function Rows()
 			end
 		end
 	end
-	return rows, table.concat(sig, ",") .. (keepLeft and "|keep" or "|heal")
+	-- "/" not "|": in chat "|k" is an escape code and ate the word (Rob's /mh clickheal showed "…5187eep", 26 Nov 2026).
+	return rows, table.concat(sig, ",") .. (keepLeft and " /keep" or " /heal")
 end
 
 local function CC()
@@ -446,7 +447,11 @@ function ns.ForeverClickSlash(arg)
 		print(("  %s: %s"):format(SlotText(r.code), what))
 	end
 	-- Slots with names this character does not know yet (so "why is Ctrl+right empty" has an answer).
+	-- 26 Nov 2026 (Rob's Druid: "not learned yet: Middle Mouse = Healing Touch" while Healing Touch sat on Alt+Middle):
+	-- with left-click kept for targeting only the Alt/Ctrl slots exist, and a slot whose spell you know (it is just on
+	-- another click) is not "not learned".
 	local heal = HEAL[Class() or ""] or {}
+	local keepLeft = ns.IsForeverClickKeepLeft()
 	local free = {}
 	for _, code in ipairs(ORDER) do
 		local filled = false
@@ -455,9 +460,21 @@ function ns.ForeverClickSlash(arg)
 				filled = true
 			end
 		end
-		local src = ns.IsForeverClickKeepLeft() and OFFHEAL_FROM[code] or code
-		if not filled and heal[src] then
-			free[#free + 1] = SlotText(code) .. " = " .. table.concat(heal[src], " / ")
+		local src
+		if keepLeft then
+			src = OFFHEAL_FROM[code]
+		else
+			src = code
+		end
+		local names = src and heal[src]
+		local anyKnown = false
+		for _, english in ipairs(names or {}) do
+			if ns.ForeverKnownSpell and ns.ForeverKnownSpell(english) then
+				anyKnown = true
+			end
+		end
+		if not filled and names and not anyKnown then
+			free[#free + 1] = SlotText(code) .. " = " .. table.concat(names, " / ")
 		end
 	end
 	if #free > 0 then

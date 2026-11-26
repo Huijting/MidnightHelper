@@ -1,5 +1,13 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 26 nov (Bouwchat 26-11): /mh clickheal — 2 fixes uit Robs screenshot; klikkaart-ontwerp wacht op Robs keuze
+
+Rob via Sparring: Alt-klik werkt (*"alt-click heb ik al geprobeerd en dat werkt dus"*). Fixes: (1) "not learned yet"
+noemde Middle Mouse = Healing Touch terwijl die op Alt+Middle stond: met "keep left-click" tellen alleen de Alt/Ctrl-vakken,
+en een vak waarvan je de spell al kent is niet "not learned"; (2) "…5187eep": "|k" is een chat-escape → signatuur nu
+" /keep" / " /heal". Klikkaart (*"Het moet grafisch tof zijn"*): mock `<scratchpad>/clickcard_mock.png` naar Sparring;
+pas bouwen na Robs keuze. Reisplanner stap 3 staat stil tot daarna (nog niets gewijzigd).
+
 ## ▶▶ 26 nov (Bouwchat 26-11): reisplanner STAP 2 — rare-in-zicht-venster GEBOUWD (`/reload`)
 
 - ForeverRares.lua (onderaan): NAME_PLATE_UNIT_ADDED / PLAYER_TARGET_CHANGED / UPDATE_MOUSEOVER_UNIT; telt als
