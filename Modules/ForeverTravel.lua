@@ -2014,6 +2014,73 @@ end
 local dp, dpWhy = nil, "not dead this session"
 local dpDismissed = false -- you closed the window: it stays away until you live again or die anew
 
+-- The corpse arrow (26 Nov 2026, Rob: "je kan vaak al wat van verderop … resurrecten. En op dat moment blijft de pijl
+-- staan tot ik eroverheen loop … op het moment dat ik weer tot leven kom, zou de pijl moeten verdwijnen."): the target
+-- table MH set, the map pin it read back, and the route that ran before (put back when you live again).
+local corpseArrow = { target = nil, pin = nil, prev = nil, why = "no corpse arrow set" }
+local DeathPos -- defined below (the corpse / release position); declared here for ns.ForeverCorpseArrow
+
+local function ReadPin()
+	if not (C_Map and C_Map.GetUserWaypoint) then
+		return nil
+	end
+	local ok, pt = pcall(C_Map.GetUserWaypoint)
+	if not (ok and pt and pt.uiMapID and pt.position) then
+		return nil
+	end
+	local okXY, x, y = pcall(pt.position.GetXY, pt.position)
+	return okXY and { m = pt.uiMapID, x = x, y = y } or nil
+end
+
+--- "Arrow to my corpse": the arrow and the map pin on your corpse; the route that ran before is remembered.
+function ns.ForeverCorpseArrow()
+	local m, x, y = DeathPos("corpse")
+	-- The route that ran before (a trainer, a quest): put back once you live again (Sparring, 26 Nov 2026).
+	if ns.lastTarget and ns.lastTarget ~= corpseArrow.target then
+		corpseArrow.prev = { target = ns.lastTarget, owner = ns._mhRouteOwner }
+	end
+	if m and ns.SetBlizzardUserWaypoint and ns.SetBlizzardUserWaypoint(m, x, y) then
+		ns.lastTarget = { mapID = m, x = x, y = y, name = ns:L("FDEATH_CORPSE"), via = "/mh ghost", arriveYards = 15 }
+		ns._mhRouteOwner = "waypoint"
+		corpseArrow.target = ns.lastTarget
+		corpseArrow.pin = ReadPin()
+		corpseArrow.why = "set on your corpse" .. (corpseArrow.prev and " (the route from before comes back when you live)" or "")
+		return true
+	end
+	corpseArrow.why = "could not set (no corpse position)"
+	return false
+end
+
+--- You live again: the corpse arrow goes, wherever you are. Only when the arrow is still the corpse's; a route that ran
+--- before the death comes back.
+local function ReleaseCorpseArrow()
+	if not corpseArrow.target then
+		return
+	end
+	if ns.lastTarget ~= corpseArrow.target then
+		corpseArrow.why = "alive again; the arrow was already something else, left alone"
+		corpseArrow.target, corpseArrow.prev, corpseArrow.pin = nil, nil, nil
+		return
+	end
+	-- The map pin only when it is still the one MH put at the corpse.
+	local now = ReadPin()
+	local mine = corpseArrow.pin
+	if now and mine and now.m == mine.m and math.abs(now.x - mine.x) < 0.0005 and math.abs(now.y - mine.y) < 0.0005
+		and C_Map and C_Map.ClearUserWaypoint then
+		pcall(C_Map.ClearUserWaypoint)
+	end
+	local prev = corpseArrow.prev
+	if prev and prev.target and prev.target.mapID and ns.SetBlizzardUserWaypoint
+		and ns.SetBlizzardUserWaypoint(prev.target.mapID, prev.target.x, prev.target.y) then
+		ns.lastTarget, ns._mhRouteOwner = prev.target, prev.owner
+		corpseArrow.why = "alive again: corpse arrow off, the route from before is back (" .. tostring(prev.target.name) .. ")"
+	else
+		ns.lastTarget, ns._mhRouteOwner = nil, nil
+		corpseArrow.why = "alive again: corpse arrow off"
+	end
+	corpseArrow.target, corpseArrow.prev, corpseArrow.pin = nil, nil, nil
+end
+
 --- Hide by MH itself (not "closed by you"). OnHide only fires for a shown frame, so the flag is set only then.
 local function SelfHide(f)
 	if f and f:IsShown() then
@@ -2038,7 +2105,7 @@ function ns.SetForeverDeathPanel(on)
 	end
 end
 
-local function DeathPos(fnName)
+function DeathPos(fnName)
 	local map = C_Map and C_Map.GetBestMapForUnit and C_Map.GetBestMapForUnit("player")
 	if not map then
 		return nil
@@ -2153,11 +2220,7 @@ local function BuildDeathPanel()
 	f.arrow:SetSize(170, 22)
 	f.arrow:SetText(ns:L("FDEATH_ARROW"))
 	f.arrow:SetScript("OnClick", function()
-		local m, x, y = DeathPos("corpse")
-		if m and ns.SetBlizzardUserWaypoint and ns.SetBlizzardUserWaypoint(m, x, y) then
-			ns.lastTarget = { mapID = m, x = x, y = y, name = ns:L("FDEATH_CORPSE"), via = "/mh ghost", arriveYards = 15 }
-			ns._mhRouteOwner = "waypoint"
-		end
+		ns.ForeverCorpseArrow()
 		-- The arrow does the work now: the window goes away for the rest of this death (Sparring 26 Nov: "jouw keuze").
 		f:Hide()
 	end)
@@ -2179,6 +2242,10 @@ local function BuildDeathPanel()
 end
 
 local function DeathUpdate(force)
+	-- Alive again: the corpse arrow goes first, also with the window switched off.
+	if not (UnitIsDeadOrGhost and UnitIsDeadOrGhost("player")) then
+		ReleaseCorpseArrow()
+	end
 	if not ns.IsForeverDeathPanelOn() then
 		dpWhy = "switched off (Quiet helpers)"
 		SelfHide(dp)
@@ -2284,6 +2351,7 @@ function ns.ForeverGhostSlash(arg)
 	if GetResSicknessDuration then
 		okR, res = pcall(GetResSicknessDuration)
 	end
+	print("  corpse arrow: " .. corpseArrow.why)
 	print(("  client's own sickness duration (GetResSicknessDuration): %s"):format(
 		GetResSicknessDuration and (okR and tostring(res) or "error") or "API missing"))
 end

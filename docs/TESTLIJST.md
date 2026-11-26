@@ -136,7 +136,9 @@ Offline getest (cq_test 22/22), NIET in het spel.
 
 `/reload` is genoeg. Offline getest (flight_test 45/45), NIET in het spel.
 - [ ] Dood/geest → venster → kruisje: het komt NIET terug bij het aftellen, na release, na een laadscherm.
-- [ ] Knop "Arrow to my corpse": de pijl staat, het venster gaat vanzelf dicht.
+- [x] Knop "Arrow to my corpse": de pijl staat, het venster gaat vanzelf dicht. ✅ Rob, 26 nov (via Sparring).
+- [ ] (nieuw, `/reload`) Weer levend op afstand van je lijk (30+ yd): de lijk-pijl is meteen weg. Liep er vóór je dood een
+      route (trainer, quest), dan wijst de pijl daar weer naar. `/mh ghost`: regel "corpse arrow: alive again: …".
 - [ ] Weer levend en opnieuw dood: het venster komt weer één keer. `/mh ghost test` toont het altijd.
 
 ## 26 nov — FOREVER: venster na je dood (Rob: "weer nuttige info")

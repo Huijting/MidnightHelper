@@ -1,5 +1,14 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 26 nov (Bouwchat 26-11): lijk-pijl weg zodra je leeft (`/reload`)
+
+Rob: *"je kan vaak al wat van verderop … resurrecten. En op dat moment blijft de pijl staan tot ik eroverheen loop."*
+ForeverTravel.lua: `ns.ForeverCorpseArrow` (de knop) onthoudt de route van vóór (`corpseArrow.prev`) en de kaartspeld die
+MH zette; `ReleaseCorpseArrow` bovenaan `DeathUpdate` zodra UnitIsDeadOrGhost false is (PLAYER_ALIVE bij release blijft
+geest → pijl blijft): alleen als ns.lastTarget nog de lijk-target is; speld alleen weg als hij nog op het lijk staat; route
+van vóór terug, anders lastTarget/owner nil. `/mh ghost` regel "corpse arrow: …". `DeathPos` vooraf gedeclareerd.
+flight_test 57/57.
+
 ## ▶▶ 26 nov (Bouwchat 26-11): zalf-waarschuwing bij "Curing the Sick" (`/reload`)
 
 Rob verloor zijn Curative Animal Salve (15826) op 9/10. ForeverClassQuests.lua `SALVE` + `SalveLine`: op het kaartje de
