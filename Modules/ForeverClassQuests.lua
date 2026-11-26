@@ -3413,14 +3413,21 @@ function ns.ForeverCQItemBody(item, need)
 	if api and api.GetInventoryInfoByItemID then
 		local mine, other, canMail = {}, {}, 0
 		local ok, info = pcall(api.GetInventoryInfoByItemID, item, false, false)
+		-- 26 Nov 2026: Syndicator names Forever characters with their surname ("Ima Pallie", realm "RP"; GEMETEN in Rob's
+		-- Syndicator SV), and Forever's GetNormalizedRealmName is "" (GEMETEN, foreverNameProbe). So "you" = first name OR
+		-- full name, and with no readable realm of our own the realm test is skipped (else every alt read "other realm").
 		local me = UnitName and UnitName("player")
+		local meFull = ns.KeyBlockShownName and ns.KeyBlockShownName() or me
 		local myFaction = UnitFactionGroup and UnitFactionGroup("player")
 		local myRealm = GetNormalizedRealmName and GetNormalizedRealmName()
+		if myRealm == "" then
+			myRealm = nil
+		end
 		local realms = {}
 		if myRealm then
 			realms[myRealm] = true
 		end
-		if GetAutoCompleteRealms then
+		if myRealm and GetAutoCompleteRealms then
 			local okR, list = pcall(GetAutoCompleteRealms)
 			for _, r in ipairs(okR and type(list) == "table" and list or {}) do
 				realms[r] = true
@@ -3429,7 +3436,7 @@ function ns.ForeverCQItemBody(item, need)
 		if ok and type(info) == "table" and type(info.characters) == "table" then
 			for _, c in ipairs(info.characters) do
 				local n = (c.bags or 0) + (c.bank or 0) + (c.mail or 0)
-				local self_ = c.character == me and (not myRealm or c.realmNormalized == myRealm)
+				local self_ = (c.character == me or c.character == meFull) and (not myRealm or c.realmNormalized == myRealm)
 				if n > 0 and not self_ then
 					local fac
 					if api.GetCharacter and c.realmNormalized then

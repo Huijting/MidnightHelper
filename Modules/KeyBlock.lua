@@ -3320,6 +3320,8 @@ end
 --                 SV). A reader may infer the layout from the rows then: an A row with key Q, E, R or F, or any CTRL- key
 --                 other than CTRL-1/2/3 (CTRL-4, -Q, -E, -R, -F, -Z, -X, -C, -V) = 12x4; a key 5, T, G or F1-F4 = old.
 --                 NOT Z X C V on A: the old block has those on A too (BLOCK_OLD bar A above).
+--   char   since 26 Nov 2026 in Forever the whole name, first name + surname ("Ima Druiddude"; ShownName below). Rob's
+--          characters are all "Ima …", so the first name alone named none of them. Still free text, no new field.
 --   block  D A B C (picture order; D = the player's own, bar 4)
 --   key    WoW binding notation: 1, SHIFT-1, CTRL-1, ALT-Q, F1 ...
 --   task   the place's task as a locale KEY (KEYBLOCK_T_*), so the site can label it in any language
@@ -3343,6 +3345,28 @@ end
 --           An older site reads a K row as a place under the key MOUSE-…, which no block slot has: nothing changes there.
 --           First line stays "MH-KEYBLOCK 1" (as with layout=).
 --------------------------------------------------------------------------------
+
+--- The name a person reads: in Forever first name + surname ("Ima Druiddude"), elsewhere the name.
+--- 26 Nov 2026, Rob on the printed sheet "Which click heals what · Ima": "al mijn karakters hebben de voorletters Ima …
+--- Dus dan moet hier ook wel de achternaam bij komen." GEMETEN in his Forever SV (foreverNameProbe): UnitName gives "Ima"
+--- and, as its 2nd value, the surname "Druiddude" (unitFullNameRealm); retail's 2nd value is the realm, so only Forever.
+--- Same way as ForeverChars.lua (the alt list already says "Ima Warlocky"): Blizzard's separator, else a space.
+local function ShownName()
+	local first, second = nil, nil
+	if UnitName then
+		first, second = UnitName("player")
+	end
+	if type(first) ~= "string" or (issecretvalue and issecretvalue(first)) or first == "" then
+		return "?"
+	end
+	if ns.IS_FOREVER and type(second) == "string" and not (issecretvalue and issecretvalue(second)) and second ~= "" then
+		local sep = Constants and Constants.CharacterNameSeparatorConsts
+			and Constants.CharacterNameSeparatorConsts.CHARACTERNAME_SURNAME_SEPARATOR
+		return first .. (type(sep) == "string" and sep or " ") .. second
+	end
+	return first
+end
+ns.KeyBlockShownName = ShownName
 
 local MOUSE_MOD = { [""] = "", ["alt-"] = "ALT-", ["ctrl-"] = "CTRL-", ["shift-"] = "SHIFT-" }
 local MOUSE_BTN = { LeftButton = "L", RightButton = "R", MiddleButton = "M" }
@@ -3415,7 +3439,7 @@ function ns.BuildKeyBlockExport()
 	local lines = {
 		"MH-KEYBLOCK 1",
 		("char=%s;class=%s;specid=%s;spec=%s;bars=%d,%d,%d,%d;layout=%s;game=%s;clicks=%s"):format(
-			(tostring(UnitName and UnitName("player") or "?"):gsub("[;|=]", "")),
+			(ShownName():gsub("[;|=]", "")),
 			tostring(res and res.class or (UnitClass and select(2, UnitClass("player"))) or "?"),
 			tostring(res and res.specID or "?"), (specName:gsub("[;|=]", "")),
 			bars.D, bars.A, bars.B, bars.C, LayoutName(), ns.IS_FOREVER and "forever" or "midnight", clickSource),
@@ -3525,7 +3549,7 @@ local function SaveOwnCode()
 	local text = ns.KeyBlockIsPlaced() and ns.BuildKeyBlockExport() or nil
 	local specid = text and text:match("specid=(%d+)")
 	if text and specid then
-		store[ck .. ":" .. specid] = { text = text, t = time and time() or 0, char = name, ck = ck,
+		store[ck .. ":" .. specid] = { text = text, t = time and time() or 0, char = ShownName() or name, ck = ck,
 			spec = text:match("spec=([^;\n]*)") or "?" }
 	elseif ns.GetSpecialization and ns.GetSpecializationInfo then
 		-- Not placed (any more) on this spec: its old code would describe bars that are no longer so.

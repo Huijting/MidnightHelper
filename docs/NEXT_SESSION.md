@@ -1,5 +1,15 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 26 nov (Bouwchat 26-11): de volledige Forever-naam ("Ima Druiddude") op de spiekbrief + Syndicator-alts (`/reload`)
+
+Rob: *"al mijn karakters hebben de voorletters Ima … Dus dan moet hier ook wel de achternaam bij komen."* GEMETEN in zijn
+Forever-SV: foreverNameProbe unitName "Ima", unitFullNameRealm "Druiddude", getUnitNameTrue "Ima Druiddude", normRealm "";
+ForeverChars bewaart al "Ima Warlocky" enz.; Syndicator noemt ze "Ima Pallie" met realm "RP". KeyBlock.lua `ShownName`
+(ns.KeyBlockShownName; alleen Forever: UnitName's 2e waarde + Blizzards separator) → `char=` in de code en `char` in
+keyBlockCodes (de sleutel `ck` blijft). ForeverClassQuests item-tooltip: "jij" = voornaam OF volledige naam (anders telde
+hij je eigen tassen als "kan mailen"), en bij een lege eigen realm geen realm-test (anders las elke alt "other realm";
+AFGELEID uit de SV, niet in het spel gezien). undo_test 42/42, cq_test 36/36.
+
 ## ▶▶ 26 nov (Bouwchat 26-11): druid-klikken compleet: Rebirth, Innervate, Wild Growth (`/reload`)
 
 Rob, op zijn geprinte blad (print werkt ✅, via Sparring): *"Zijn dit trouwens maar alle heels die je krijgt met druid?"*

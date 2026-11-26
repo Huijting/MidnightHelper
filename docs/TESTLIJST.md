@@ -25,6 +25,13 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 26 nov — Je hele naam op de spiekbrief ("Ima Druiddude")
+
+`/reload` is genoeg. Offline getest (undo_test 42/42, cq_test 36/36), NIET in het spel.
+- [ ] `/reload`, plak de spiekbrief opnieuw: bovenaan staat "Which click heals what · Ima Druiddude".
+- [ ] Muis op Earthroot (of een ander quest-item): je eigen character staat niet in de lijst; je Horde-alts staan bij "can
+      mail it to you", niet bij "other realm".
+
 ## 26 nov — Druid: de latere klik-spells (Rebirth, Innervate, Wild Growth)
 
 `/reload` is genoeg. Offline getest (click_test 38/38), NIET in het spel.

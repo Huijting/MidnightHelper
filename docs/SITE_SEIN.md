@@ -28,6 +28,19 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 26 nov 2026 — Forever: de volledige naam in `char=` ("Ima Druiddude" i.p.v. "Ima")
+- Tag + commit:   geen tag (git log 26 nov, "whole name")
+- Status:         alleen op main
+- Mag op de site: ja; "nieuw" pas bij "staat op CurseForge"
+- Speler ziet:    Op de spiekbrief staat "Which click heals what · Ima Druiddude", niet meer "· Ima". Rob: *"al mijn
+                  karakters hebben de voorletters Ima … Dus dan moet hier ook wel de achternaam bij komen."*
+- Knoplabels:     geen nieuwe
+- Commando's:     geen nieuwe
+- Spel:           Forever (Midnight ongewijzigd: daar is het 2e deel de realm)
+- Contract:       geen nieuw veld: `char=` bevat nu de hele naam, met een spatie. Check alleen of de site `char` ergens
+                  als sleutel zonder spatie gebruikt (de lijst "dit apparaat onthoudt elk character"): een oude "Ima"-code
+                  en een nieuwe "Ima Druiddude"-code zijn twee items; dat is goed, de oude mag weg.
+
 ## 26 nov 2026 — Forever-macro's in de toetsblok-code dragen nu hun spell
 - Tag + commit:   geen tag (git log 26 nov, "MH macros carry their spell")
 - Status:         alleen op main
