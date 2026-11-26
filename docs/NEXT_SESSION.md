@@ -1,5 +1,15 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 26 nov (Bouwchat 26-11): toetsblok restore + plekken in woorden + voorvertoning vóór Undo (`/reload`)
+
+Rob's /mh block slots: "slot 9 … now empty · undo: put back War Stomp" — GEMETEN in zijn snapshot: dat is een bar-1-dubbel
+dat Place bewust optilt (Rob 5 okt: "die dubbele kopieën gelijk opruimen"); War Stomp zit ook in het blok (macro MH SHIFT-E).
+KeyBlock.lua: `MayLift` nu op bestandsniveau (één regel voor undo, slots, voorvertoning, restore); `SlotLabel` = "Action
+Bar N, button B (key X)" (ns.KEYBIND_BAR_COMMANDS, Blizzards HUD_EDIT_MODE_ACTION_BAR_LABEL als die er is); `ns.KeyBlockRestore`
+(/mh block restore, onvermeld) vult alleen LEGE vakjes met wat de snapshot had (spell als bekend, macro op naam, item als in
+tassen; niet als het naar een andere knop verschoven nog daar staat); knop "Update" roept het stil aan. `UndoPreviewLine` in de
+login-mismatch-melding en de indeling-vraag. 11 keys × 8 talen. undo_test 20/20.
+
 ## ▶▶ 26 nov (Bouwchat 26-11): GoldScout MAG NIET (licentie GEMETEN) + gazelles/deer + dichtstbijzijnde spawn (`/reload`)
 
 Rob koos GoldScout (b), maar de GoldScout Data License v1.0 (zelf gelezen, raw GitHub) verbiedt *"include the Data, or

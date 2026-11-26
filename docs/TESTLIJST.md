@@ -25,6 +25,16 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 26 nov — toetsblok: terugzetten wat ontbreekt, plekken in gewone woorden, eerst zeggen wat Undo doet
+
+`/reload` is genoeg. Offline getest (undo_test 20/20), NIET in het spel.
+- [ ] Toetsblokvenster → "Update (add new spells)": zet nu ook War Stomp terug (Action Bar 1, knop 9). Er gaat niets weg.
+      Of typ `/mh block restore`: de chat zegt per ding waar het terugkwam.
+- [ ] `/mh block slots`: geen "slot 9" meer, maar "Action Bar 1, button 9 (key …)". Onderaan staat hoe je terugzet.
+- [ ] Zie je bij het inloggen de melding over de andere indeling: onder de tekst staat nu "Undo first takes N of MH's
+      buttons off your bars and leaves M of your own there: …" — vóór je op Fix klikt. Hetzelfde bij de indeling-knop.
+- [ ] Eten en drinken komen NIET vanzelf terug (MH heeft ze nooit onthouden): sleep ze zelf terug.
+
 ## 26 nov — FOREVER: "zieke gazelles" en elk groot gebied: de pijl naar de dichtstbijzijnde plek
 
 `/reload` is genoeg (het bestand bestond al; wel één keer herstart als je die nog niet deed voor de Kodo-gebieden).

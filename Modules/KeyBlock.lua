@@ -1542,6 +1542,157 @@ function ns.KeyBlockPlace()
 	return true
 end
 
+-- 26 Nov 2026 (Rob: "op een gegeven moment ben ik spells kwijt op het vrije gedeelte … het drinken van mana, het
+-- eten van food"): undo used to lift off WHATEVER stood on a recorded slot, so food or drink the player had put
+-- there after placing was dropped without a trace. Now a slot is only lifted when it still holds what MH left
+-- there (s.ours, recorded since that day); an older snapshot without that never lifts an item off (the block
+-- places spells and macros; an item there is almost always the player's own). One rule for undo, /mh block slots,
+-- the preview before undo and /mh block restore.
+local function MayLift(s)
+	local k, i = Occupant(s.slot)
+	if k == nil then
+		return true
+	end
+	if s.ours == false then
+		return false -- MH left it empty: the player put this here
+	end
+	if type(s.ours) == "table" then
+		if k ~= s.ours.kind then
+			return false
+		end
+		-- Spells change id with a new rank (ForeverRanks), macros keep their kind; an item must be the same item.
+		return k ~= "item" or i == s.ours.id
+	end
+	return k ~= "item"
+end
+
+--- A slot in the player's words: "Action Bar 2, button 9 (key Shift-E)" — nobody knows slot numbers (Rob, 26 Nov 2026:
+--- "Nou weet ik niet zo precies wat vakje 9 is"). Bar numbers as in Blizzard's own settings: ACTIONBUTTON = bar 1,
+--- MULTIACTIONBAR1..7 = bars 2..8 (ApplyLayout.lua BAR_COMMANDS, GEMETEN against KeyUI); the key is the player's own
+--- binding of that button (GetBindingKey). Slots 13-24 and 73-120 are bar 1's other pages (forms, stealth).
+local function SlotLabel(slot)
+	for n, b in ipairs(ns.KEYBIND_BAR_COMMANDS or {}) do
+		if slot >= b.first and slot < b.first + 12 then
+			local btn = slot - b.first + 1
+			local key = GetBindingKey and GetBindingKey(b.prefix .. btn)
+			local bar = (HUD_EDIT_MODE_ACTION_BAR_LABEL and HUD_EDIT_MODE_ACTION_BAR_LABEL:format(n))
+				or ns:L("KEYBLOCK_SLOT_BAR_FMT"):format(n)
+			local s = ns:L("KEYBLOCK_SLOT_FMT"):format(bar, btn)
+			if type(key) == "string" and key ~= "" then
+				s = s .. " (" .. ns:L("KEYBLOCK_SLOT_KEY_FMT"):format(KeyLabel(key)) .. ")"
+			end
+			return s
+		end
+	end
+	return ns:L("KEYBLOCK_SLOT_PAGE_FMT"):format(slot)
+end
+ns.KeyBlockSlotLabel = SlotLabel
+
+--- Before an undo (the login "Fix", the layout button): what it will take off and what it leaves, one line.
+local function UndoPreviewLine()
+	local snap = GetSnap()
+	if not snap then
+		return nil
+	end
+	local lift, keep = 0, {}
+	for _, s in ipairs(snap.slots or {}) do
+		local k, i = Occupant(s.slot)
+		if k ~= nil then
+			if MayLift(s) then
+				lift = lift + 1
+			else
+				keep[#keep + 1] = OccupantName(k, i) or tostring(k)
+			end
+		end
+	end
+	return ns:L("KEYBLOCK_UNDO_PREVIEW_FMT"):format(lift, #keep, #keep > 0 and table.concat(keep, ", ") or "-")
+end
+ns.KeyBlockUndoPreviewLine = UndoPreviewLine
+
+--- /mh block restore: put back what the snapshot had on a slot that is EMPTY now. Never lifts or overwrites anything.
+--- Spells only when this character knows them, macros by name, items only when they are in your bags.
+function ns.KeyBlockRestore(quiet)
+	local p = "|cffffcc00Midnight Helper:|r "
+	if InCombatLockdown and InCombatLockdown() then
+		if not quiet then
+			print(p .. "not in combat.")
+		end
+		return false
+	end
+	local snap = GetSnap()
+	if not snap then
+		if not quiet then
+			print(p .. ns:L("KEYBLOCK_RESTORE_NONE"))
+		end
+		return false
+	end
+	local back, skipped = {}, {}
+	for _, s in ipairs(snap.slots or {}) do
+		-- Not when it was moved aside and still sits there (that would make a second copy).
+		local stillMoved = s.movedTo and Occupant(s.movedTo) == s.kind
+		if s.kind and s.id ~= nil and Occupant(s.slot) == nil and not stillMoved then
+			local can = true
+			if s.kind == "spell" then
+				can = IsPlayerSpell and IsPlayerSpell(s.id) or false
+			elseif s.kind == "item" then
+				can = InBags(s.id)
+			elseif s.kind == "macro" then
+				can = s.name and GetMacroIndexByName and (GetMacroIndexByName(s.name) or 0) > 0 or false
+			end
+			local name = s.name or OccupantName(s.kind, s.id) or tostring(s.kind)
+			if can then
+				pcall(function()
+					ClearCursor()
+					if s.kind == "spell" then
+						if C_Spell and C_Spell.PickupSpell then
+							C_Spell.PickupSpell(s.id)
+						else
+							PickupSpell(s.id)
+						end
+					elseif s.kind == "item" then
+						if C_Item and C_Item.PickupItem then
+							C_Item.PickupItem(s.id)
+						else
+							PickupItem(s.id)
+						end
+					elseif s.kind == "macro" then
+						PickupMacro(GetMacroIndexByName(s.name))
+					end
+					PlaceAction(s.slot)
+					ClearCursor()
+				end)
+				pcall(ClearCursor)
+				if Occupant(s.slot) == s.kind then
+					back[#back + 1] = name .. " → " .. SlotLabel(s.slot)
+				else
+					skipped[#skipped + 1] = name
+				end
+			else
+				skipped[#skipped + 1] = name
+			end
+		end
+	end
+	if #back == 0 and #skipped == 0 then
+		if not quiet then
+			print(p .. ns:L("KEYBLOCK_RESTORE_NOTHING"))
+			print("   " .. ns:L("KEYBLOCK_RESTORE_NOTE"))
+		end
+		return true, 0
+	elseif quiet and #back == 0 then
+		return true, 0
+	else
+		print(p .. ns:L("KEYBLOCK_RESTORE_FMT"):format(#back))
+		for _, b in ipairs(back) do
+			print("   " .. b)
+		end
+		if #skipped > 0 then
+			print("   " .. ns:L("KEYBLOCK_RESTORE_SKIP_FMT"):format(table.concat(skipped, ", ")))
+		end
+	end
+	print("   " .. ns:L("KEYBLOCK_RESTORE_NOTE"))
+	return true, #back
+end
+
 --- /mh block slots: every slot the undo snapshot holds, what MH left there, what is there now, and lift/keep.
 function ns.KeyBlockSlotsSlash()
 	local p = "|cffffcc00Midnight Helper:|r "
@@ -1574,9 +1725,10 @@ function ns.KeyBlockSlotsSlash()
 			would = "lift off" .. (s.kind and (", put back " .. Name(s.kind, s.id)) or "")
 			lift = lift + 1
 		end
-		print(("  slot %d: MH left %s · now %s · undo: %s"):format(s.slot, ours, Name(k, i), would))
+		print(("  %s: MH left %s · now %s · undo: %s"):format(SlotLabel(s.slot), ours, Name(k, i), would))
 	end
 	print(("  undo would lift %d and keep %d."):format(lift, keep))
+	print("  " .. ns:L("KEYBLOCK_RESTORE_HINT"):format(ns:L("KEYBLOCK_BTN_UPDATE")))
 	local u = ns.db and ns.db.keyBlockLastUndo
 	if type(u) == "table" then
 		print(("  last undo: %s, %d back, kept: %s"):format(date and date("%d %b %H:%M", u.t or 0) or "?", u.restored or 0,
@@ -1604,28 +1756,6 @@ function ns.KeyBlockUndo()
 	end
 	local restored = 0
 	local kept = {}
-	-- 26 Nov 2026 (Rob: "op een gegeven moment ben ik spells kwijt op het vrije gedeelte … het drinken van mana, het
-	-- eten van food"): undo used to lift off WHATEVER stood on a recorded slot, so food or drink the player had put
-	-- there after placing was dropped without a trace. Now a slot is only lifted when it still holds what MH left
-	-- there (s.ours, recorded since today); an older snapshot without that never lifts an item off (the block
-	-- places spells and macros; an item there is almost always the player's own). Kept slots are named in chat.
-	local function MayLift(s)
-		local k, i = Occupant(s.slot)
-		if k == nil then
-			return true
-		end
-		if s.ours == false then
-			return false -- MH left it empty: the player put this here
-		end
-		if type(s.ours) == "table" then
-			if k ~= s.ours.kind then
-				return false
-			end
-			-- Spells change id with a new rank (ForeverRanks), macros keep their kind; an item must be the same item.
-			return k ~= "item" or i == s.ours.id
-		end
-		return k ~= "item"
-	end
 	for _, s in ipairs(snap.slots or {}) do
 		-- Moved aside: pick it up from where it went and drop it on its own button. That swap puts ours
 		-- on the cursor, which is then dropped. No id lookup, so a macro comes back as itself.
@@ -2286,11 +2416,15 @@ local function Ensure()
 	-- Once placed, the same button adds what is new ("Bijwerken"): one place to look, never both at once.
 	f.placeBtn = Btn("KEYBLOCK_BTN_PLACE", 22, function()
 		if GetSnap() then
+			-- 26 Nov 2026: Update also puts back what the snapshot had on a slot that is empty now (Rob's War Stomp:
+			-- "Ik kan wel hem terugslepen … maar dat is niet doen"). Never lifts anything.
+			local _, back = ns.KeyBlockRestore(true)
 			local ok, added, names = ns.KeyBlockUpdate()
 			if ok then
 				Refresh(f)
 				f.foot:SetText(added and added > 0
 					and ns:L("KEYBLOCK_UPDATE_DONE_FMT"):format(table.concat(names, ", "))
+					or ((back or 0) > 0 and ns:L("KEYBLOCK_RESTORE_FMT"):format(back))
 					or ns:L("KEYBLOCK_UPDATE_NOTHING"))
 			end
 		elseif ns.KeyBlockPlace() then
@@ -2873,6 +3007,10 @@ function ns.KeyBlockAskSwitchStyle()
 	local target = LayoutName() == "12x4" and "old" or "12x4"
 	local word = ns:L(target == "12x4" and "KEYBLOCK_STYLE_12_SHORT" or "KEYBLOCK_STYLE_OLD_SHORT")
 	local msg = ns:L(GetSnap() and "KEYBLOCK_SWITCH_ASK_PLACED_FMT" or "KEYBLOCK_SWITCH_ASK_FMT"):format(word)
+	local preview = GetSnap() and UndoPreviewLine()
+	if preview then
+		msg = msg .. "\n\n" .. preview
+	end
 	if not (StaticPopupDialogs and StaticPopup_Show) then
 		ns.KeyBlockSwitchStyle(target)
 		return
@@ -3037,6 +3175,11 @@ local function CheckLayoutAtLogin()
 	end
 	local msg = ns:L("KEYBLOCK_MISMATCH_FMT"):format(LayoutWord(placed), LayoutWord(LayoutName()))
 	print("|cffffcc00Midnight Helper:|r |cffff8080" .. msg .. "|r " .. ns:L("KEYBLOCK_MISMATCH_CMD"))
+	-- 26 Nov 2026 (Sparring after Rob's lost food and drink): say BEFORE "Fix" what the undo takes off and what stays.
+	local preview = UndoPreviewLine()
+	if preview then
+		msg = msg .. "\n\n" .. preview
+	end
 	-- Button texts at show time (the chosen language is not active yet when this file loads; Rob saw English buttons
 	-- under Dutch text on the extras question, 24 Nov 2026 -- same build-time lookup here).
 	local dlg = StaticPopupDialogs and StaticPopupDialogs["MH_KEYBLOCK_LAYOUT_MISMATCH"]
