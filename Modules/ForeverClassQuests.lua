@@ -3184,8 +3184,30 @@ local function ChainName(c)
 	return SpellName(c.spell)
 end
 
+-- 26 Nov 2026 (Rob in Nighthaven, via Sparring: Dendrite Starblaze stands upstairs and the arrow only pointed at the
+-- building). NPCs that stand on an upper floor INSIDE a building or tower: the npc ids whose Zygor step says so
+-- (Forever guides, "|tip Upstairs inside the building/tower" or "Top of the building/tower"; only the fact, not the
+-- text). Scanned 26 Nov 2026: 37 class quest NPCs had such a tip; left out the 6 on a hill, mountain or platform
+-- (outside) and Gakin (6122, "in the basement above the crypt": unclear). Positive control 11802 = Dendrite: GEMETEN.
+local UPSTAIRS = {
+	[328] = true, [331] = true, [332] = true, [377] = true, [460] = true, [917] = true, [1228] = true, [2128] = true,
+	[2129] = true, [2130] = true, [3170] = true, [3352] = true, [3595] = true, [4146] = true, [4205] = true,
+	[4217] = true, [4568] = true, [5479] = true, [5497] = true, [5694] = true, [5724] = true, [6018] = true,
+	[6114] = true, [6178] = true, [6179] = true, [11401] = true, [11802] = true, [246378] = true, [257446] = true,
+	[258113] = true,
+}
+
+local function UpNote(p)
+	local id = p and (p.id or (p.static and p.static.id))
+	if id and UPSTAIRS[id] then
+		return " · " .. ns:L("FCQ_UPSTAIRS")
+	end
+	return ""
+end
+ns.ForeverCQUpNote = UpNote -- for the scratch test
+
 local function Where(p)
-	local s = ("%s (%.1f, %.1f)"):format(ZoneName(p.m), p.x, p.y)
+	local s = ("%s (%.1f, %.1f)"):format(ZoneName(p.m), p.x, p.y) .. UpNote(p)
 	-- Moonglade is far for everyone; the druid's own teleport goes there (level 10, GEMETEN SpellLevels 70938).
 	if p.m == MOONGLADE and Known(TELEPORT_MOONGLADE) then
 		s = s .. ns:L("FCQ_MOONGLADE_TIP")
@@ -3288,7 +3310,7 @@ function ns.ForeverClassQuestNowParts()
 	local out = { chain = ChainName(c), level = c.level, kind = s.kind }
 	if p then
 		out.npc = p.npc and NpcName(p) or nil
-		out.zone, out.x, out.y = ZoneName(p.m), p.x, p.y
+		out.zone, out.x, out.y = ZoneName(p.m) .. UpNote(p), p.x, p.y
 	end
 	if s.kind == "do" or s.kind == "wait" then
 		out.what = (s.text or ns:L(s.textKey)) .. (s.progress and (" (" .. s.progress .. ")") or "")
@@ -3328,7 +3350,7 @@ local function CardData()
 			who = who .. "\n|cffffb060" .. salve .. "|r"
 		end
 	end
-	local where = p and ZoneName(p.m) or nil
+	local where = p and (ZoneName(p.m) .. UpNote(p)) or nil
 	if p and p.m == MOONGLADE and Known(TELEPORT_MOONGLADE) then
 		where = where .. ns:L("FCQ_MOONGLADE_TIP")
 	end

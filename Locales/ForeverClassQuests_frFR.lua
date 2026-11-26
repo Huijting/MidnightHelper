@@ -1867,6 +1867,9 @@ for k, v in pairs({
 	FOV_TIP_UNDO_KEYS = "Remet chaque raccourci que Libérer a enlevé.",
 	FDONOW_OPEN_OVERVIEW = "Vue d'ensemble",
 	FDONOW_BAGS_FREE_FMT = "%d libre(s)",
+	FDONOW_DUR_FMT = "équipement %d%%",
+	FDONOW_DUR_TIP_HEAD = "Ton équipement (le plus usé d'abord)",
+	FDONOW_DUR_TIP_CLICK = "Clic : la flèche vers ce marchand.",
 	FOV_LABEL_WEEK = "CETTE SEMAINE",
 	-- not measured: the client's word for raid lockouts; written as plain French ("raids verrouillés")
 	FOV_TIP_CARD_WEEK = "Réinitialisations, évènements du jour et tes raids verrouillés (comme /mh week).",

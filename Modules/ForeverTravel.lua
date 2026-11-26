@@ -155,7 +155,17 @@ local TELEPORTS = {
 }
 -- Costs in the planner's own "minutes-ish" units (AFGELEID): 10 s cast + a loading screen ≈ 0.5, plus the cooldown still
 -- to wait, plus TP_MIN so a teleport only wins when it clearly saves time (Shortest Path Forever's idea of a floor).
-local TP_CAST, TP_MIN = 0.5, 1.5
+-- Cast 10 s (GEMETEN in SpellCastTimes, see above). TP_MIN = the loading screen until MH has timed yours (TpLoadMin):
+-- 20 s, AFGELEID. Was 0.5 + 1.5 = 2 min, a guess that made every teleport look 2 minutes long (Rob's panel, 26 Nov 2026).
+local TP_CAST, TP_MIN = 10 / 60, 20 / 60
+
+local function TpLoadMin()
+	local L = type(ns.db) == "table" and ns.db.foreverTpLoad
+	if type(L) == "table" and (L.n or 0) >= 1 and type(L.sec) == "number" then
+		return L.sec / 60
+	end
+	return TP_MIN
+end
 local tpWhy = {} -- id -> why it was (not) offered, for /mh travel
 
 local function Known(spell)
@@ -319,7 +329,7 @@ local function Teleports()
 				name = ok and n or nil
 			end
 			name = (type(name) == "string" and name ~= "") and name or ("spell " .. tostring(t.spell))
-			out[#out + 1] = { t = t, dest = dest, waitMin = wait, cost = TP_CAST + TP_MIN + wait,
+			out[#out + 1] = { t = t, dest = dest, waitMin = wait, cost = TP_CAST + TpLoadMin() + wait,
 				label = ns:L(t.item and "FTRAVEL_USE_FMT" or "FTRAVEL_CAST_FMT"):format(name) }
 		end
 	end
@@ -346,6 +356,17 @@ do
 			return
 		end
 		local p = pendingLand
+		-- 26 Nov 2026: how long from the end of the cast to being there (the loading screen), learned per account: a running
+		-- average of the last 10 (ns.db.foreverTpLoad = { n, sec }). Replaces the guessed 1.5 min (Rob's route panel said
+		-- "cast Teleport: Moonglade 2 min").
+		local took = GetTime() - p.at
+		if took > 0 and took < 60 then
+			local L = type(ns.db.foreverTpLoad) == "table" and ns.db.foreverTpLoad or { n = 0, sec = 0 }
+			local n = math.min((L.n or 0) + 1, 10)
+			L.sec = ((L.sec or 0) * (n - 1) + took) / n
+			L.n = n
+			ns.db.foreverTpLoad = L
+		end
 		C_Timer.After(1, function()
 			local map, x, y = PlayerPos()
 			if not (map and x) then
@@ -1633,9 +1654,20 @@ local function BuildPanel()
 	return f
 end
 
-local function MinText(m)
-	return ns:L("FTRAIN_MIN_FMT"):format(math.max(1, math.floor((m or 0) + 0.5)))
+-- 26 Nov 2026: minutes:seconds per step, and the total is the sum of exactly those rounded steps, so the panel adds up.
+-- (Was whole minutes with a minimum of 1 per step: "2 min" + "1 min" under a total of "about 2 min" in Rob's panel.)
+local function StepSec(m)
+	return math.max(1, math.floor((m or 0) * 60 + 0.5))
 end
+
+local function MssText(sec)
+	return ("%d:%02d"):format(math.floor(sec / 60), sec % 60)
+end
+
+local function MinText(m)
+	return MssText(StepSec(m))
+end
+ns.ForeverRouteMss = MssText -- for the scratch test
 
 local function PanelUpdate()
 	if not ns.IsForeverRoutePanelOn() then
@@ -1671,7 +1703,11 @@ local function PanelUpdate()
 	f.leadKey = key
 	f.head:SetText((ns:L("FROUTE_TITLE") .. ": " .. tostring(lead.name or MapName(lead.mapID))):upper())
 	-- Total time, and the straight distance when it can be read (same continent).
-	local total = ns:L("FTRAVEL_ABOUT_FMT"):format(math.max(1, math.floor((steps.totalMin or 0) + 0.5)))
+	local sum = 0
+	for _, s in ipairs(steps) do
+		sum = sum + StepSec(s.min)
+	end
+	local total = ns:L("FROUTE_ABOUT_FMT"):format(MssText(sum))
 	local pmap, px, py = PlayerPos()
 	if pmap and px then
 		local c1, x1, y1 = World(pmap, px, py)

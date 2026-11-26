@@ -25,6 +25,21 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 26 nov — FOREVER: gear-% onderaan "Do this now", reistijden in min:sec, "binnen, boven"
+
+`/reload` is genoeg. Offline getest (dur_test 10/10, flight_test 62/62, cq_test 33/33, card_test 22/22), NIET in het spel.
+- [ ] Open "Do this now". Onderaan, links van de vrije tasvakjes en het goud: een hamer-icoon met "gear NN%". Groen vanaf
+      50%, geel tussen 25% en 50%, rood onder 25%. Het getal is je meest versleten item (hetzelfde als de waarschuwing).
+- [ ] Muis erop: de drie meest versleten items met hun %, en "repair at …" met de afstand. Klik erop: de pijl gaat naar
+      die verkoper.
+- [ ] Vecht of sterf een keer: het getal loopt mee zonder dat je het venster opnieuw opent.
+- [ ] Routepaneel (bv. naar Dendrite Starblaze): elke stap en het totaal staan nu als "0:30", "1:10", "about 1:40". Het
+      totaal is precies de som van de stappen.
+- [ ] Teleport: Moonglade is nu ongeveer 0:30 (10 s cast + laadscherm), geen 2 min meer. Na een keer teleporteren meet MH
+      jouw laadscherm (`ns.db.foreverTpLoad`) en gebruikt hij dat.
+- [ ] Een vlucht Nighthaven → Thunder Bluff één keer vliegen: MH onthoudt jouw eigen tijd (verwacht rond 9 min).
+- [ ] Class-questkaartje bij Dendrite Starblaze: achter "Moonglade" staat "· binnen, boven" (Engels: "upstairs, inside").
+
 ## 26 nov — FOREVER: de zalf bij "Curing the Sick" (Rob verloor hem op 9/10)
 
 `/reload` is genoeg. Offline getest (cq_test 26/26), NIET in het spel.

@@ -5619,6 +5619,7 @@ ns._mhLocales.enUS = {
 	FTRAVEL_CAST_FMT = "cast %s",
 	FTRAVEL_USE_FMT = "use your %s",
 	FTRAVEL_ABOUT_FMT = "(about %d min)",
+	FROUTE_ABOUT_FMT = "about %s",
 	-- 26 Nov 2026: the class quest card when walking is the quickest way.
 	FTRAVEL_WALK_FMT = "walk (about %d min).",
 	-- 26 Nov 2026: flight paths in the Forever travel planner (arrow step, and the sentence "in <zone>").
@@ -6042,6 +6043,9 @@ ns._mhLocales.enUS = {
 	FOV_OLDWIN_BTN = "All tools",
 	FDONOW_OPEN_OVERVIEW = "Open overview",
 	FDONOW_BAGS_FREE_FMT = "%d free",
+	FDONOW_DUR_FMT = "gear %d%%",
+	FDONOW_DUR_TIP_HEAD = "Your gear (most worn first)",
+	FDONOW_DUR_TIP_CLICK = "Click: the arrow to that vendor.",
 	FOV_DETAILS = "Details",
 	FOV_LABEL_TRAINER = "AT YOUR CLASS TRAINER",
 	FOV_TIP_CARD_TRAINER = "What your class trainer teaches you now, what it costs, and which key each spell gets on Midnight Helper's key block. The same as the trainer window (/mh trainer).",
@@ -7682,6 +7686,7 @@ ns._mhLocales.enUS = {
 	-- so the level 50 chains say "item rewards" (Fable check, Sparring 17-11). TESTLIJST asks Rob to look in game.
 	FCQ_CHAIN_TORWA ="Torwa Pathfinder's quests (item rewards)",
 	FCQ_MOONGLADE_TIP = " (Teleport: Moonglade in your spellbook takes you there)",
+	FCQ_UPSTAIRS = "upstairs, inside",
 	FCQ_AREAS_FMT = "%d areas, this one is nearest",
 	FCQ_SALVE_TIP_FMT = "Use the salve only when you are NOT in combat: in combat it uses a dose but does not count. %d doses, no refill. Lost one? Abandon the quest and take it again from %s.",
 	FCQ_SALVE_LEFT_FMT = "Doses left: %d, still needed: %d.",

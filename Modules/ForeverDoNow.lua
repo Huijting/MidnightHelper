@@ -1010,6 +1010,84 @@ local function BagText(f)
 	f.bags:SetText(BAG_ICON .. color .. ns:L("FDONOW_BAGS_FREE_FMT"):format(free) .. "|r")
 end
 
+-- 26 Nov 2026 (Rob: "dat daar standaard altijd komt hoeveel onze gear is. Zodat ik in één ogenblik kan zien of ik wil
+-- repairen, ja of nee."): left of the free bag slots, always, your gear's durability: the MOST WORN item (the same
+-- number and source as the durability warning, ForeverDurability.lua). Green from 50%, yellow down to the warning's
+-- limit (25%), red under it. Mouse: the three most worn items and the nearest vendor who repairs; click = the arrow there.
+local DUR_ICON = "|TInterface\\Minimap\\Tracking\\Repair:14:14|t "
+
+local function DurEnter(self)
+	if not (GameTooltip and ns.ForeverDurabilityParts) then
+		return
+	end
+	local low, _, list = ns.ForeverDurabilityParts()
+	if not low then
+		return
+	end
+	GameTooltip:SetOwner(self, "ANCHOR_TOP")
+	GameTooltip:SetText(ns:L("FDONOW_DUR_TIP_HEAD"), 1, 0.82, 0)
+	for _, e in ipairs(list or {}) do
+		local ok, link = pcall(GetInventoryItemLink, "player", e.slot)
+		GameTooltip:AddDoubleLine((ok and link) or ("slot " .. e.slot), ("%d%%"):format(math.floor(e.pct + 0.5)), 1, 1, 1,
+			1, 1, 1)
+	end
+	local near
+	if ns.ForeverRepairNearest then
+		local okN, r = pcall(ns.ForeverRepairNearest)
+		near = okN and r or nil
+	end
+	GameTooltip:AddLine(" ")
+	if near then
+		local dist = near.dist and ((ns.ForeverTrainerDistance and ns.ForeverTrainerDistance(math.floor(near.dist + 0.5)))
+			or ("%d yd"):format(math.floor(near.dist + 0.5))) or ""
+		GameTooltip:AddLine(ns:L("FBAG_REPAIR_NEAR_FMT"):format(tostring(near.name), tostring(near.zone), dist), 0.6, 0.8, 1, true)
+		GameTooltip:AddLine(ns:L("FDONOW_DUR_TIP_CLICK"), 0.5, 1, 0.5, true)
+	else
+		GameTooltip:AddLine(ns:L("FCITY_REPAIR_NONE"), 0.7, 0.7, 0.7, true)
+	end
+	GameTooltip:Show()
+end
+
+local function DurText(f)
+	if not (f and f.bags) then
+		return
+	end
+	if not f.dur then
+		f.durBtn = CreateFrame("Button", nil, f)
+		f.dur = f.durBtn:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+		f.dur:SetPoint("RIGHT", f.bags, "LEFT", -12, 0)
+		f.dur:SetJustifyH("RIGHT")
+		f.durBtn:SetAllPoints(f.dur)
+		f.durBtn:SetScript("OnEnter", DurEnter)
+		f.durBtn:SetScript("OnLeave", function()
+			if GameTooltip then
+				GameTooltip:Hide()
+			end
+		end)
+		f.durBtn:SetScript("OnClick", function()
+			if ns.ForeverRepairGoNearest then
+				ns.ForeverRepairGoNearest()
+			end
+		end)
+	end
+	local low, at = nil, 25
+	if ns.ForeverDurabilityParts then
+		local ok, l, a = pcall(ns.ForeverDurabilityParts)
+		if ok then
+			low, at = l, a or 25
+		end
+	end
+	if type(low) ~= "number" then
+		f.dur:SetText("") -- nothing with durability on (or not readable): no number rather than a wrong one
+		f.durBtn:Hide()
+		return
+	end
+	local color = (low < at and "|cffff4040") or (low < 50 and "|cffffd100") or "|cff7fff7f"
+	f.dur:SetText(DUR_ICON .. color .. ns:L("FDONOW_DUR_FMT"):format(math.floor(low + 0.5)) .. "|r")
+	f.durBtn:Show()
+end
+ns.ForeverDoNowDurText = DurText -- offline test
+
 local function Render(info)
 	local f = Build()
 	f.title:SetText(ns:L("FDONOW_TITLE"))
@@ -1103,6 +1181,7 @@ local function Render(info)
 	end
 	f.money:SetText(Money(GetMoney and GetMoney() or 0))
 	BagText(f)
+	DurText(f)
 	local btnH = (#rows > 0) and (#rows * 24 + 6) or 0
 	f:SetHeight(26 + f.body:GetStringHeight() + 12 + btnH + MONEY_H)
 end
@@ -1111,10 +1190,16 @@ end
 local moneyEv = CreateFrame("Frame")
 moneyEv:RegisterEvent("PLAYER_MONEY")
 moneyEv:RegisterEvent("BAG_UPDATE_DELAYED")
+pcall(moneyEv.RegisterEvent, moneyEv, "UPDATE_INVENTORY_DURABILITY")
 moneyEv:SetScript("OnEvent", function(_, event)
-	if event == "BAG_UPDATE_DELAYED" then
+	if event == "UPDATE_INVENTORY_DURABILITY" then
+		if win then
+			DurText(win)
+		end
+	elseif event == "BAG_UPDATE_DELAYED" then
 		if win then
 			BagText(win)
+			DurText(win)
 		end
 	elseif win and win.money then
 		win.money:SetText(Money(GetMoney and GetMoney() or 0))

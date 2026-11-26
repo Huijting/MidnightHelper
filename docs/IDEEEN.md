@@ -26,6 +26,13 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 
 ## Open — wacht op Rob
 
+### Forever: gear-% altijd onderaan "Do this now" (wens van Rob, 26 nov) — ✅ JA, GEBOUWD 26 nov, wacht op test
+- Bron: Rob via Sparring, letterlijk: *"dat daar standaard altijd komt hoeveel onze gear is. Zodat ik in één ogenblik kan
+  zien of ik wil repairen."*
+- Gebouwd: icoon + % (meest versleten item), groen/geel/rood, tooltip met de slechtste items en de dichtstbijzijnde
+  reparateur, klik = pijl. Ook: routetijden in min:sec en "binnen, boven" bij NPC's op een bovenverdieping.
+- Spel: F. Voor wie: N + V (AFGELEID).
+
 ### Forever: trainerpijl met de echte weg, niet een rechte lijn (wens van Rob, 26 nov) — ✅ JA, GEBOUWD 26 nov, wacht op test
 - Bron: Rob via Sparring, letterlijk: *"OKE IK STA IN OGGRIMAR EN VRAAG OM MIJN TRAINER MAAR NU WIL DIE ME NAAR 4493 METER
   VERDEROP STUREN, dat moet beter kunnen haha"*.

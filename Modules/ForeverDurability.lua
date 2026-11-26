@@ -66,6 +66,29 @@ local function Lowest()
 	return low, slot
 end
 
+--- For the "Do this now" foot (26 Nov 2026, Rob: "dat daar standaard altijd komt hoeveel onze gear is"): the same number
+--- as the warning (the most worn item), the warning's limit, and the three most worn items { pct, slot }.
+function ns.ForeverDurabilityParts()
+	local low = Lowest()
+	if not low then
+		return nil
+	end
+	local list = {}
+	for _, s in ipairs(SLOTS) do
+		local ok, c, m = pcall(GetInventoryItemDurability, s)
+		if ok and c and m and not Secret(c) and not Secret(m) and m > 0 then
+			list[#list + 1] = { pct = c / m * 100, slot = s }
+		end
+	end
+	table.sort(list, function(a, b)
+		return a.pct < b.pct
+	end)
+	while #list > 3 do
+		table.remove(list)
+	end
+	return low, Settings().at, list
+end
+
 local function SlotLink(slot)
 	if slot and GetInventoryItemLink then
 		local ok, link = pcall(GetInventoryItemLink, "player", slot)

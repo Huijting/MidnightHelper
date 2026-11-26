@@ -1,5 +1,23 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 26 nov (Bouwchat 26-11): gear-% in de voet, routetijden m:ss, teleport korter, "binnen, boven" (`/reload`)
+
+1. Rob: *"dat daar standaard altijd komt hoeveel onze gear is."* ForeverDoNow.lua `DurText` (links van `f.bags`): het meest
+   versleten item via `ns.ForeverDurabilityParts` (ForeverDurability.lua, dezelfde bron als de waarschuwing), groen ≥50, geel,
+   rood < limiet (25). Tooltip 3 slechtste + dichtstbijzijnde reparateur; klik = `ForeverRepairGoNearest`. Live op
+   UPDATE_INVENTORY_DURABILITY en BAG_UPDATE_DELAYED. 3 keys × 7 bestanden. dur_test 10/10.
+2. Routepaneel (ForeverTravel.lua): stappen en totaal in m:ss (`StepSec`/`MssText`); totaal = som van de afgeronde stappen,
+   key FROUTE_ABOUT_FMT (8 talen). De oude "min 1 per stap" gaf 2+1 onder "about 2 min". Teleport: `TP_CAST` 10 s (GEMETEN
+   SpellCastTimes), laadscherm 20 s AFGELEID tot MH het meet: `ns.db.foreverTpLoad {n, sec}` = cast-SUCCEEDED → eerste
+   PLAYER_ENTERING_WORLD/ZONE_CHANGED_NEW_AREA, gemiddelde van de laatste 10. Was 0.5 + 1.5 = 2 min (gok).
+   Vlucht Nighthaven(63)→Thunder Bluff(22): TaxiPath 316 = 78 punten (DB2 71139, GEMETEN); rechte lijn begin-eind al
+   ~9300 yd, pad 16313 yd; 30 yd/s GEMETEN in Robs eigen vluchten (25>22 5461 yd = 182 s; 22>77 2599 yd = 87 s). Dus ~9:04
+   klopt; Polestar's 3:04 kan niet (dat lijkt Crossroads→TB, 182 s). Rob vloog 63>22 nog niet (geen `63>22` in zijn SV).
+   Robs correctie: Teleport: Moonglade was het goede advies voor Dendrite. flight_test 62/62.
+3. Dendrite staat boven. ForeverClassQuests.lua `UPSTAIRS` (30 npc-id's) + `UpNote` in Where, NowParts.zone en CardData.place:
+   uit Zygor Forever-tips "Upstairs inside the building/tower" / "Top of the building/tower" (alleen het feit). 37 treffers,
+   6 buiten (heuvel/berg/platform) en Gakin (onduidelijk) weggelaten. Key FCQ_UPSTAIRS (7 talen, itIT valt terug). cq_test 33/33.
+
 ## ▶▶ 26 nov (Bouwchat 26-11): lijk-pijl weg zodra je leeft (`/reload`)
 
 Rob: *"je kan vaak al wat van verderop … resurrecten. En op dat moment blijft de pijl staan tot ik eroverheen loop."*
