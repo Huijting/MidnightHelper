@@ -3065,6 +3065,33 @@ local function NearestArea(textKey)
 	return best, #list
 end
 
+--- Within an area: the spawn point nearest to you when you are on that map (a.p = x, y, x, y …), else its centre spot.
+--- 26 Nov 2026 (Rob, "zieke gazelles": 93 spawns, one big area): the arrow goes to the nearest gazelle spot.
+local function NearestSpot(a)
+	if type(a.p) ~= "table" or #a.p < 2 or not (C_Map and C_Map.GetPlayerMapPosition) then
+		return a.x, a.y
+	end
+	local ok, pos = pcall(C_Map.GetPlayerMapPosition, a.m, "player")
+	local px, py
+	if ok and pos and pos.GetXY then
+		local okXY, x, y = pcall(pos.GetXY, pos)
+		if okXY and type(x) == "number" and not (issecretvalue and issecretvalue(x)) and x > 0 then
+			px, py = x * 100, y * 100
+		end
+	end
+	if not px then
+		return a.x, a.y
+	end
+	local bx, by, bd = a.x, a.y, nil
+	for i = 1, #a.p - 1, 2 do
+		local d = (a.p[i] - px) ^ 2 + (a.p[i + 1] - py) ^ 2
+		if not bd or d < bd then
+			bx, by, bd = a.p[i], a.p[i + 1], d
+		end
+	end
+	return bx, by
+end
+
 local function Step(c)
 	local s, why = StepRaw(c)
 	if s and s.place then
@@ -3072,8 +3099,13 @@ local function Step(c)
 	end
 	if s and s.kind == "do" and s.textKey then
 		local a, n = NearestArea(s.textKey)
-		if a and n and n > 1 then
-			s.place = { m = a.m, x = a.x, y = a.y, src = "areas (Wowhead Forever spawns)", areas = n }
+		-- More than one area, or one area with many spawns (creatures that roam a region): point at the data. One
+		-- fixed npc with a few spawns keeps the hand-set place of this file.
+		if a and n and (n > 1 or (a.n or 0) >= 5) then
+			local x, y = NearestSpot(a)
+			-- static = the area itself: the card's step id stays the same while the nearest spot moves with you.
+			s.place = { m = a.m, x = x, y = y, src = "areas (Wowhead Forever spawns)", areas = n > 1 and n or nil,
+				static = { m = a.m, x = a.x, y = a.y } }
 		end
 	end
 	return s, why

@@ -27,20 +27,90 @@ if dry:
 else:
     with open(mobs_path, encoding="utf-8") as f:
         raw = {k: v for k, v in json.load(f).items() if not k.startswith("_")}
-    # Sources: only what Zygor (ZY) or Wowhead Forever (WHF) say. GoldScout (GS) is not on the agreed source list
-    # (Rob decides): a key named only by GS waits; within a ZY line that names npc ids itself, only those ids count.
+    # Sources: only what Zygor (ZY) or Wowhead Forever (WHF) say. GoldScout (GS) may NOT be used: its Data License
+    # (github.com/Alkhara/GoldScout-WoW DATA_LICENSE.md v1.0, read 26 Nov 2026) forbids including "the Data, or anything
+    # derived from it, in another addon". So every npc must be named by Zygor itself (##<id> in the cited guide, near
+    # the cited line) or by Wowhead Forever (a WHF source); what only GS gave is dropped, also inside mixed entries.
     import re
-    mobs, waiting = {}, []
+    ZYDIR = r"E:/World of Warcraft/_forever_/Interface/AddOns/ZygorGuidesViewerForever/Guides-Forever"
+    ZYFILES = {"H": "Leveling/ZygorLevelingHordeCLASSIC.lua", "A": "Leveling/ZygorLevelingAllianceCLASSIC.lua",
+               "Common": "Leveling/ZygorLevelingCommonCLASSIC.lua", "H Dungeon": "Dungeons/ZygorDungeonHordeCLASSIC.lua",
+               "A Dungeon": "Dungeons/ZygorDungeonAllianceCLASSIC.lua"}
+    zycache = {}
+
+    def zy_lines(key):
+        if key not in zycache:
+            with open(os.path.join(ZYDIR, ZYFILES[key]), encoding="utf-8", errors="replace") as f:
+                zycache[key] = f.read().split("\n")
+        return zycache[key]
+
+    def zy_named(src):
+        """npc ids Zygor itself names for this source: ##id within 40 lines of a cited line (whole file if none)."""
+        out = set()
+        for m in re.finditer(r"ZY (H Dungeon|A Dungeon|H|A|Common) CLASSIC(?::(\d+)(?:-(\d+))?)?", src):
+            lines = zy_lines(m.group(1))
+            if m.group(2):
+                a, b = int(m.group(2)), int(m.group(3) or m.group(2))
+                chunk = lines[max(0, a - 41):b + 40]
+            else:
+                chunk = lines
+            for ln in chunk:
+                out.update(int(n) for n in re.findall(r"##(\d+)", ln))
+        return out
+
+    # Use-an-item-on-a-creature steps that still need the creature's areas (26 Nov 2026, Rob: "zieke gazelles").
+    raw["FCQ_OBJ_GAZELLE"] = {"q": 6129, "kind": "use", "npcs": [12296], "status": "GEMETEN",
+                              "src": "ZY H CLASSIC:24730 Sickly Gazelle##12296; WHF npc 12296 tooltip (93 spawns, The Barrens)"}
+    raw["FCQ_OBJ_DEER"] = {"q": 6124, "kind": "use", "npcs": [12298], "status": "GEMETEN",
+                           "src": "WHF npc 12298 tooltip 'Sickly Deer' (75 spawns, Darkshore); ZY A CLASSIC:22493 names it without an id"}
+    mobs, dropped, trimmed = {}, [], []
     for k, v in raw.items():
         src = v.get("src") or ""
-        own = re.split(r";\s*GS\b|\bGS \d", src)[0]
-        if "ZY" not in own and "WHF" not in own:
-            waiting.append(k)
+        npcs = v.get("npcs") or []
+        keep = [n for n in npcs if n in zy_named(src)]
+        if not keep and "WHF" in src:
+            keep = npcs  # Wowhead Forever names the creature(s) itself (dropped-by / quest text / npc page)
+        if not keep:
+            dropped.append(k)
             continue
-        named = {int(n) for n in re.findall(r"(?:##|\()(\d{3,6})\)?", own)}
-        npcs = [n for n in v.get("npcs") or [] if not named or n in named] or (v.get("npcs") or [])
-        mobs[k] = dict(v, npcs=npcs)
-    print("waiting on the GoldScout decision (%d): %s" % (len(waiting), ", ".join(sorted(waiting))))
+        if len(keep) < len(npcs):
+            trimmed.append("%s: %s -> %s" % (k, npcs, keep))
+        mobs[k] = dict(v, npcs=keep)
+    print("not used (no Zygor/Wowhead source for the creature, %d): %s" % (len(dropped), ", ".join(sorted(dropped))))
+
+    # The source file in docs/ without anything from GoldScout (its Data License allows only small attributed
+    # excerpts): GS parts of src and notes removed, GS-only keys moved to _skipped.
+    def no_gs(s):
+        parts = []
+        for seg in re.split(r";\s*|\s\+\s", s or ""):
+            if seg and not re.match(r"\(?GS\b", seg.strip()):
+                parts.append(seg.strip())
+        return "; ".join(parts)
+
+    with open(mobs_path, encoding="utf-8") as f:
+        full = json.load(f)
+    clean = {"_meta": dict(full.get("_meta") or {})}
+    clean["_meta"]["goldscout"] = ("removed 26 Nov 2026: GoldScout's Data License (DATA_LICENSE.md v1.0) forbids "
+                                   "including its data or anything derived from it in another addon")
+    clean["_meta"]["src_codes"] = "ZY = Zygor Forever guide file:line; WHF = Wowhead Forever page or tooltip"
+    for k in sorted(mobs):
+        v = dict(mobs[k])
+        v["src"] = no_gs(v.get("src"))
+        if v.get("note") and "GS" in v["note"]:
+            v["note"] = "(part from GoldScout removed: licence)"
+        v.pop("zones", None)
+        clean[k] = v
+    sk = dict(full.get("_skipped") or {})
+    sk.pop("FCQ_OBJ_GAZELLE", None)
+    sk.pop("FCQ_OBJ_DEER", None)
+    for k in dropped:
+        sk[k] = "only GoldScout named the creature (licence: not usable)"
+    clean["_skipped"] = sk
+    if not dry:
+        gd.write_atomic(os.path.join(REPO, "docs", "forever", "CQ_MOBS_2026-11-26.json"),
+                        json.dumps(clean, indent=1, ensure_ascii=False).encode("utf-8"))
+        print("wrote docs/forever/CQ_MOBS_2026-11-26.json without GoldScout data")
+    print("trimmed to what Zygor names (%d):\n  %s" % (len(trimmed), "\n  ".join(trimmed)))
 
 build = gd.latest_build("wowf")
 

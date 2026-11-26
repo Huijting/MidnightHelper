@@ -1,5 +1,15 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 26 nov (Bouwchat 26-11): GoldScout MAG NIET (licentie GEMETEN) + gazelles/deer + dichtstbijzijnde spawn (`/reload`)
+
+Rob koos GoldScout (b), maar de GoldScout Data License v1.0 (zelf gelezen, raw GitHub) verbiedt *"include the Data, or
+anything derived from it, in another addon"*. Dus niet gebruikt; generator controleert nu elke npc tegen Zygor (`##id`
+bij de genoemde regel) of Wowhead Forever; `docs/forever/CQ_MOBS_2026-11-26.json` herschreven zonder GoldScout (0 treffers
+op "GS", origineel 59 — positieve controle). Let op: de eerste versie (5076736) had de percentages; die staan nog in git.
+Nieuw: Sickly Gazelle 12296 (Zygor H :24730) en Sickly Deer 12298 (Wowhead Forever), 67 doelen. Data per gebied nu ook
+`p` = spawns uitgedund (1 per 3×3 kaart-%); `NearestSpot`: op die kaart de dichtstbijzijnde spawn. Toegepast bij >1 gebied
+of ≥5 spawns; `static` = het gebied, zodat het kaartje-id niet verspringt. cq_test 22/22.
+
 ## ▶▶ 26 nov (Bouwchat 26-11): BUG eten/drinken weg na Undo van het toetsblok → GEREPAREERD (`/reload`)
 
 Rob (Druid): spells/eten/drinken weg "op het vrije gedeelte … links naast onze alt-knoppen". GEMETEN in zijn SV: snapshot

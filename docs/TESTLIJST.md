@@ -25,6 +25,15 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 26 nov — FOREVER: "zieke gazelles" en elk groot gebied: de pijl naar de dichtstbijzijnde plek
+
+`/reload` is genoeg (het bestand bestond al; wel één keer herstart als je die nog niet deed voor de Kodo-gebieden).
+Offline getest (cq_test 22/22), NIET in het spel.
+- [ ] Druid, "Curing the Sick" (10 Sickly Gazelles): "Show the way" wijst naar een gazelle-plek dicht bij jou in The Barrens,
+      niet naar één vaste plek. Loop een stuk: binnen 20 seconden kiest hij een plek die nu dichterbij is.
+- [ ] Sluit het kaartje met het kruisje en loop rond: het blijft dicht (het is dezelfde stap).
+- [ ] Alliance: "Sickly Deer" in Darkshore werkt net zo.
+
 ## 26 nov — BUG: eten/drinken weg van je balken na "Fix"/Undo van het toetsblok → Undo laat jouw spullen nu staan
 
 `/reload` is genoeg. Offline getest (undo_test 13/13), NIET in het spel.

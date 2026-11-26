@@ -1,272 +1,891 @@
 {
-  "_meta": {
-    "made": "2026-11-26, mh-research subagent",
-    "check": "every npc id below was name-checked in its Wowhead Forever tooltip (nether.wowhead.com/forever/tooltip/npc/<id>, fetched 26 Nov 2026); every item id in its item tooltip and in DB2 ItemSparse 1.60.1.71139",
-    "zones": "zones = the Wowhead tooltip map zone of each npc (one zone per npc, as the tooltip gives it), same order as npcs",
-    "src_codes": "ZY = Zygor Forever guide (kill X##id + collect/kill |q <quest>/<n>), file:line; GS = GoldScout Forever loot page wowgoldscout.com/item/<item> (Forever-only observed loot, fetched 26 Nov 2026); WHF = Wowhead Forever page or tooltip",
-    "not_used": "Polestar, TravelData, Polestar_Nav, Questie/QuestieDB and sites that say their data is QuestieDB (wowhelm, bindonforever) were not used for any answer"
-  },
-  "FCQ_OBJ_KODO": { "q": 6128, "kind": "drop", "item": 15852, "npcs": [3234, 3236], "zones": [17, 17], "status": "GEMETEN", "src": "ZY H CLASSIC:24714 (3234); GS 15852: 3234 27%/209 kills, 3236 Barrens Kodo 4.3%/23 kills" },
-  "FCQ_OBJ_GORISHI": { "q": 9052, "kind": "drop", "item": 22435, "npcs": [6551, 6554, 10041], "zones": [490, 490, 490], "status": "GEMETEN", "src": "GS 22435 + WHF item 22435 dropped-by: Wasp, Stinger, Hive Queen (ZY says only 'Gorishi enemies')" },
-  "FCQ_OBJ_URENDRA": { "q": 94638, "kind": "kill", "npcs": [258443], "zones": [16593], "status": "GEMETEN", "src": "ZY Common CLASSIC:1316 kill Ur'endra##258443 |q 94638/1" },
-  "FCQ_OBJ_WL_FEATHERCHARM": { "q": 1599, "kind": "drop", "item": 6753, "npcs": [946], "zones": [1], "status": "GEMETEN", "src": "ZY A CLASSIC:1806; GS 6753" },
-  "FCQ_OBJ_WL_FAMILIARHEAD": { "q": 1485, "kind": "drop", "item": 6487, "npcs": [3101], "zones": [14], "status": "GEMETEN", "src": "ZY H CLASSIC:3000; GS 6487" },
-  "FCQ_OBJ_WL_RATTLESKULL": { "q": 1470, "kind": "drop", "item": 6281, "npcs": [1890], "zones": [85], "status": "GEMETEN", "src": "ZY H CLASSIC:132; GS 6281" },
-  "FCQ_OBJ_WL_SURENA": { "q": 1688, "kind": "drop", "item": 6810, "npcs": [881], "zones": [12], "status": "GEMETEN", "src": "ZY A CLASSIC:1134; GS 6810" },
-  "FCQ_OBJ_WL_RODS": { "q": 1804, "q_also": [1805], "kind": "drop", "item": 6930, "npcs": [1057, 1038], "zones": [11, 11], "status": "GEMETEN", "src": "GS 6930: Bonewarder 11%/433, Shadowwarder 1.6%/126 (ZY 1804/1805 only 'Dragonmaw enemies')" },
-  "FCQ_OBJ_WL_BEASTBLOOD": { "q": 7563, "kind": "drop", "item": 18590, "npcs": [7454, 7452, 7453, 7451, 7450], "zones": [618, 618, 618, 618, 618], "status": "GEMETEN", "src": "GS 18590: Berserk 16%, Crazed 11%, Moontouched 9%, Raging 7%, Ragged 3% (ZY only 'Owlbeast enemies')" },
-  "FCQ_OBJ_WL_ULATHEK": { "q": 7624, "kind": "drop", "item": 18719, "npcs": [14523], "zones": [361], "status": "GEMETEN", "src": "ZY A CLASSIC:25156 kill Ulathek##14523 |q 7624/1" },
-  "FCQ_OBJ_WL_ESS_AZSHARA": { "q": 7602, "kind": "drop", "item": 18624, "npcs": [6200, 6202], "zones": [16, 16], "status": "GEMETEN", "src": "GS 18624: Legashi Satyr 0.3%/723, Hellcaller 0.1%/779 (very low: likely only while on the quest)" },
-  "FCQ_OBJ_WL_ESS_JAEDENAR": { "q": 7602, "kind": "drop", "item": 18622, "npcs": [9862], "zones": [361], "status": "GEMETEN", "src": "ZY A CLASSIC:24948; GS 18622" },
-  "FCQ_OBJ_WL_ESS_PORTAL": { "q": 7602, "kind": "drop", "item": 18623, "npcs": [6011], "zones": [4], "status": "GEMETEN", "src": "ZY A CLASSIC:24961; GS 18623" },
-  "FCQ_OBJ_WL_KROSHIUS": { "q": 7603, "kind": "drop", "item": 18625, "npcs": [14467], "zones": [361], "status": "GEMETEN", "src": "ZY A CLASSIC:25015 use Fel Fire, kill Kroshius##14467 |q 7603/1 (one fixed spot)" },
-  "FCQ_OBJ_WL_SCARF": { "q": 65610, "kind": "drop", "item": 190232, "npcs": [3784, 3782], "zones": [331, 331], "status": "GEMETEN", "src": "GS 190232: Bark Ripper 1.9%/104, Stone Mover 0.9%/110 (small sample; other Shadethicket types not seen)", "note": "two items are named Withered Scarf (DB2 190187 and 190232); GS has loot only for 190232; that 190232 is the one 65610 asks = AFGELEID" },
-  "FCQ_OBJ_WL_DALIN": { "q": 1476, "kind": "drop", "item": 6312, "npcs": [5682], "zones": [130], "status": "GEMETEN", "src": "WHF item 6312 'Dropped by: Dalin Forgewright'; GS 6312 -> mob 5682" },
-  "FCQ_OBJ_WL_CORMA": { "q": 1476, "kind": "drop", "item": 6313, "npcs": [5683], "zones": [11], "status": "GEMETEN", "src": "WHF item 6313 'Dropped by: Corma Villard'; WHF npc=5683 page" },
-  "FCQ_OBJ_WL_AVELINA": { "q": 65593, "kind": "drop", "item": 190179, "npcs": [185333], "zones": [130], "status": "GEMETEN", "src": "WHF item 190179 'Dropped by: Avelina Lilly'; WHF npc=185333 page (Ambermill inn, upstairs)" },
-  "FCQ_OBJ_WL_ISAAC": { "q": 65593, "kind": "drop", "item": 190180, "npcs": [185334], "zones": [17], "status": "GEMETEN", "src": "GS 190180 -> Isaac Pearson mob 185334 (60%/5 kills)" },
-  "FCQ_OBJ_WL_INFERNAL_ORB": { "q": 1799, "kind": "drop", "item": 7291, "npcs": [4668], "zones": [405], "status": "GEMETEN", "src": "ZY H CLASSIC:25859 (same item 7291, under 1954); GS 7291: only Burning Blade Summoner 27%/119" },
-  "FCQ_OBJ_MA_ORB": { "q": 1954, "kind": "drop", "item": 7291, "npcs": [4668], "zones": [405], "status": "GEMETEN", "src": "ZY H CLASSIC:25859 kill Burning Blade Summoner##4668 |q 1954/1; GS 7291" },
-  "FCQ_OBJ_WL_ROTTING_WOOD": { "q": 8421, "kind": "drop", "item": 20613, "npcs": [7149, 7139, 7138], "zones": [361, 361, 361], "status": "GEMETEN", "src": "GS 20613: Withered Protector 59%/17, Irontree Stomper 16%/528, Irontree Wanderer 15%/89 (ZY only 'enemies')" },
-  "FCQ_OBJ_WL_BLOODVENOM": { "q": 8421, "kind": "drop", "item": 20614, "npcs": [7092], "zones": [361], "status": "GEMETEN", "src": "ZY A CLASSIC:24932; GS 20614" },
-  "FCQ_OBJ_WR_BEATBARTLEBY": { "q": 1640, "kind": "kill", "npcs": [6090], "zones": [1519], "status": "GEMETEN", "src": "ZY A CLASSIC:1187 kill Bartleby##6090, Beat Bartleby |q 1640/1" },
-  "FCQ_OBJ_WR_VEJREK": { "q": 1678, "kind": "drop", "item": 6799, "npcs": [6113], "zones": [1], "status": "GEMETEN", "src": "ZY A CLASSIC:22761" },
-  "FCQ_OBJ_WR_VORLUS": { "q": 1683, "kind": "drop", "item": 6805, "npcs": [6128], "zones": [141], "status": "GEMETEN", "src": "ZY A CLASSIC:4073" },
-  "FCQ_OBJ_WR_SCALES": { "q": 1498, "kind": "drop", "item": 6486, "npcs": [3130, 3131], "zones": [14, 14], "status": "GEMETEN", "src": "ZY H CLASSIC:4277 (3130); GS 6486: Lightning Hide 3131 6.2%/419, Thunder Lizard 4.0%/396" },
-  "FCQ_OBJ_WR_ZAAL": { "q": 94003, "kind": "drop", "item": 263993, "npcs": [257196], "zones": [16593], "status": "GEMETEN", "src": "ZY Common CLASSIC:1347" },
-  "FCQ_OBJ_WR_TUSKS": { "q": 1712, "kind": "drop", "item": 3901, "npcs": [702, 697, 587, 694, 701, 588, 595, 699, 660, 597, 671], "zones": [33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33], "status": "GEMETEN", "src": "ZY A CLASSIC:10409 list; GS 3901 (11 Bloodscalp types, best Scavenger/Shaman/Warrior/Axe Thrower 14-18%)" },
-  "FCQ_OBJ_WR_CHARM_BURNING": { "q": 1712, "kind": "drop", "item": 4479, "npcs": [2760], "zones": [45], "status": "GEMETEN", "src": "ZY H CLASSIC:25206 (|q 1712, charms are quest 1714); GS 4479 42%/2004 (Drywhisker kobolds 0.2-0.3% left out)" },
-  "FCQ_OBJ_WR_CHARM_THUNDERING": { "q": 1712, "kind": "drop", "item": 4480, "npcs": [2762], "zones": [45], "status": "GEMETEN", "src": "ZY H CLASSIC:25210; GS 4480 48%/1463 (Drywhisker 0.2-0.3% left out)" },
-  "FCQ_OBJ_WR_CHARM_CRESTING": { "q": 1712, "kind": "drop", "item": 4481, "npcs": [2761], "zones": [45], "status": "GEMETEN", "src": "ZY H CLASSIC:25214; GS 4481 37%/1129 (Drywhisker 0.2-0.6% left out)" },
-  "FCQ_OBJ_WR_HELBOAR": { "q": 8423, "kind": "kill", "npcs": [5993], "zones": [4], "status": "GEMETEN", "src": "ZY H CLASSIC:25264 kill 7 Helboar##5993 |q 8423/1" },
-  "FCQ_OBJ_WR_ADEPT": { "q": 8424, "kind": "kill", "npcs": [6006], "zones": [4], "status": "GEMETEN", "src": "ZY H CLASSIC:25274 |q 8424/1" },
-  "FCQ_OBJ_WR_CULTIST": { "q": 8424, "kind": "kill", "npcs": [6004], "zones": [4], "status": "GEMETEN", "src": "ZY H CLASSIC:25279 |q 8424/2" },
-  "FCQ_OBJ_WR_THUG": { "q": 8424, "kind": "kill", "npcs": [6005], "zones": [4], "status": "GEMETEN", "src": "ZY H CLASSIC:25284 |q 8424/3" },
-  "FCQ_OBJ_WR_DEADTOOTH_KEY": { "q": 1667, "kind": "drop", "item": 6783, "npcs": [6093], "zones": [12], "status": "GEMETEN", "src": "GS 6783 -> Dead-Tooth Jack mob 6093 (17%/24)" },
-  "FCQ_OBJ_WR_ELURA_MEDALLION": { "q": 1686, "kind": "drop", "item": 6809, "npcs": [6133], "zones": [148], "status": "GEMETEN", "src": "WHF item 6809 dropped-by Shade of Elura 409/601 (68%); tooltip 6133 = Shade of Elura" },
-  "FCQ_OBJ_HU_ANTLERS": { "q": 8153, "kind": "drop", "item": 20017, "npcs": [8761], "zones": [16], "status": "GEMETEN", "src": "ZY H CLASSIC:25452; GS 20017" },
-  "FCQ_OBJ_HU_SCALES": { "q": 8231, "kind": "drop", "item": 20087, "npcs": [6348, 6349], "zones": [16, 16], "status": "GEMETEN", "src": "GS 20087: Wavethrasher 43%/77, Great Wavethrasher 25%/20 (ZY only 'Wavethrasher enemies')" },
-  "FCQ_OBJ_PR_GLANDS": { "q": 8255, "kind": "drop", "item": 20027, "npcs": [8761], "zones": [16], "status": "GEMETEN", "src": "ZY H CLASSIC:24965; GS 20027" },
-  "FCQ_OBJ_PR_ICHOR": { "q": 8256, "kind": "drop", "item": 7972, "npcs": [7523, 7524], "zones": [618, 618], "status": "GEMETEN", "src": "GS 7972: Suffering Highborne 6.7%/135, Anguished Highborne 4.8%/168", "note": "Ichor of Undeath is a general undead drop (GS lists ~90 mobs in WPL, EPL, Azshara, Hyjal, STV); only the two Winterspring Highborne that the MH text and ZY (Winterspring 52.59,40.68 'Highborne enemies') name are given" },
-  "FCQ_OBJ_RO_TAZAN": { "q": 1963, "kind": "drop", "item": 7209, "npcs": [6494], "zones": [17], "status": "GEMETEN", "src": "ZY H CLASSIC kill Tazan##6494 -> Tazan's Satchel |q 1963/1" },
-  "FCQ_OBJ_RO_ASTOR": { "q": 1886, "kind": "drop", "item": 7231, "npcs": [6497], "zones": [85], "status": "GEMETEN", "src": "ZY H CLASSIC:1518 (talk first; walks the Brill-Sepulcher road)" },
-  "FCQ_OBJ_RO_DRONES": { "q": 2478, "kind": "kill", "npcs": [7310], "zones": [17], "status": "GEMETEN", "src": "ZY H CLASSIC:6212 |q 2478/1" },
-  "FCQ_OBJ_RO_PATROLLERS": { "q": 2478, "kind": "kill", "npcs": [7308], "zones": [17], "status": "GEMETEN", "src": "ZY H CLASSIC:6217 |q 2478/3" },
-  "FCQ_OBJ_RO_LOOKOUTS": { "q": 2478, "kind": "kill", "npcs": [7307], "zones": [17], "status": "GEMETEN", "src": "ZY H CLASSIC:6222 |q 2478/2" },
-  "FCQ_OBJ_RO_GALLYWIX": { "q": 2478, "kind": "drop", "item": 8074, "npcs": [7288], "zones": [17], "status": "GEMETEN", "src": "ZY H CLASSIC kill Grand Foreman Puzik Gallywix##7288 -> Gallywix's Head |q 2478/4" },
-  "FCQ_OBJ_RO_AZUREBAG": { "q": 8234, "kind": "drop", "item": 19775, "npcs": [6188, 237736], "zones": [16, 16], "status": "GEMETEN", "src": "ZY H Dungeon CLASSIC:8399 kill Timbermaw Shaman##6188 (A guide: 'you can also Pickpocket them'); GS 19775: pickpocketed from Blackmaw Shaman 237736 50%/10", "note": "both shamans spawn in the same Timbermaw Hold area of Azshara (tooltips); GS saw it only by pickpocket" },
-  "FCQ_OBJ_RO_FRAGMENTS": { "q": 8235, "kind": "drop", "item": 20023, "npcs": [8766], "zones": [16], "status": "GEMETEN", "src": "ZY H CLASSIC:26306; GS 20023 (kill 33% and pickpocket 26%)" },
-  "FCQ_OBJ_SH_FIRETAR_H": { "q": 1525, "kind": "drop", "item": 5026, "npcs": [3269, 3268, 3271, 3267], "zones": [17, 17, 17, 17], "status": "GEMETEN", "src": "ZY H CLASSIC:2719 list; GS 5026 (all four 0.3-0.7%)" },
-  "FCQ_OBJ_SH_POUCH_H": { "q": 1525, "kind": "drop", "item": 6652, "npcs": [3199], "zones": [14], "status": "GEMETEN", "src": "ZY H CLASSIC kill Burning Blade Cultist##3199; GS 6652 17%/53" },
-  "FCQ_OBJ_SH_FIRETAR_A": { "q": 94466, "kind": "drop", "item": 5026, "npcs": [1174], "zones": [38], "status": "GEMETEN", "src": "ZY A CLASSIC:5340; GS 5026 2.1%/234" },
-  "FCQ_OBJ_SH_POUCH_A": { "q": 94466, "kind": "drop", "item": 6652, "npcs": [1166], "zones": [38], "status": "GEMETEN", "src": "ZY A CLASSIC:5482; GS 6652 1.4%/345" },
-  "FCQ_OBJ_SH_HOOVES": { "q": 1516, "kind": "drop", "item": 6640, "npcs": [3102], "zones": [14], "status": "GEMETEN", "src": "ZY H CLASSIC:26394; GS 6640" },
-  "FCQ_OBJ_SH_SALVE": { "q": 1519, "kind": "drop", "item": 6634, "npcs": [2953], "zones": [215], "status": "GEMETEN", "src": "ZY H CLASSIC:1762; GS 6634" },
-  "FCQ_OBJ_SH_PENDANTS": { "q": 94373, "kind": "drop", "item": 264356, "npcs": [706], "zones": [1], "status": "GEMETEN", "src": "ZY A CLASSIC:1853; GS 264356" },
-  "FCQ_OBJ_SH_SIGNET": { "q": 92466, "kind": "drop", "item": 251924, "npcs": [251160, 251448], "zones": [16593, 16593], "status": "GEMETEN", "src": "ZY Common CLASSIC:198 (251160); GS 251924: Convert 0.9%/578, Neophyte 251448 0.3%/328" },
-  "FCQ_OBJ_SH_FALADIEL": { "q": 97244, "kind": "drop", "item": 277267, "npcs": [268602], "zones": [16593], "status": "GEMETEN", "src": "ZY Common CLASSIC:1026" },
-  "FCQ_OBJ_SH_SPIDEREYE": { "q": 8412, "kind": "drop", "item": 20610, "npcs": [1822, 1821], "zones": [28, 28], "status": "GEMETEN", "src": "GS 20610: Venom Mist Lurker 36%/59, Carrion Lurker 11%/87 (ZY only 'enemies')", "note": "GS also lists Carrion Vulture 1809 (1 of 5 kills) and Plaguewing Vulture 1811 for this eye: left out as doubtful" },
-  "FCQ_OBJ_SH_CLAW": { "q": 8412, "kind": "drop", "item": 20611, "npcs": [1815, 1809, 1811], "zones": [28, 28, 28], "status": "GEMETEN", "src": "GS 20611: Diseased Black Bear 31%/154, Carrion Vulture 47%/15, Plaguewing Vulture 33%/6 (ZY only 'enemies')" },
-  "FCQ_OBJ_SH_TWISTED_WATER": { "q": 79358, "q_also": [79361], "kind": "drop", "item": 274046, "npcs": [4360, 4363, 4358, 4362, 4361, 4359], "zones": [15, 15, 15, 15, 15, 15], "status": "GEMETEN", "src": "GS 274046 (six Mirefin types 1.4-3.8%); WHF quest 79361 comment 'Mirefin Murlocs of Dustwallow Marsh'" },
-  "FCQ_OBJ_SH_TWISTED_EARTH": { "q": 79358, "q_also": [79361], "kind": "drop", "item": 274045, "npcs": [755, 757, 759, 760, 762, 761], "zones": [8, 8, 8, 8, 8, 8], "status": "GEMETEN", "src": "GS 274045: Mudlurker 10%, Fisherman 7%, Hunter 4.4%, Muckdweller 4.5%, Riftseeker 1.9%, Seer 0.7%" },
-  "FCQ_OBJ_SH_TWISTED_FIRE": { "q": 79358, "q_also": [79361], "kind": "drop", "item": 274044, "npcs": [2906, 2907, 2893, 2716, 2717, 2945, 2701, 2894, 2715, 2718], "zones": [3, 3, 3, 3, 3, 3, 3, 3, 3, 3], "status": "GEMETEN", "src": "GS 274044: Dustbelcher Warrior 14%, Mystic 11%, Stonevault Bonesnapper 2.9%, Wyrmhunter, Mauler, Murdaloc, Ogre, Stonevault Shaman, Brute, Dustbelcher Shaman (1.5-3.2%)" },
-  "FCQ_OBJ_SH_TWISTED_AIR": { "q": 79358, "q_also": [79361], "kind": "drop", "item": 274047, "npcs": [4655, 4656, 4657, 4654, 4658, 4659], "zones": [405, 405, 405, 405, 405, 405], "status": "GEMETEN", "src": "GS 274047: Wrangler 19%, Mauler 19%, Windchaser 18%, Scout 15%, Stormer 10%, Marauder 2%" },
-  "FCQ_OBJ_PA_DEFIAS_SCRIPT": { "q": 1787, "kind": "drop", "item": 6846, "npcs": [474], "zones": [12], "status": "GEMETEN", "src": "ZY A CLASSIC:24022; GS 6846" },
-  "FCQ_OBJ_PA_DARKIRON_SCRIPT": { "q": 1784, "kind": "drop", "item": 6847, "npcs": [6123], "zones": [1], "status": "GEMETEN", "src": "ZY A CLASSIC:24121; GS 6847" },
-  "FCQ_OBJ_PA_KORGEM": { "q": 1442, "q_also": [95042], "kind": "drop", "item": 6995, "npcs": [4803, 4802], "zones": [331, 331], "status": "GEMETEN", "src": "GS 6995: Blackfathom Oracle 2.9%/207, Tide Priestess 1.7%/288 (a 'Mob 4805' at 0.1% left out); tooltips put both in Ashenvale (outside the instance)" },
-  "FCQ_OBJ_PA_SCOURGESTONES": { "q": 8414, "kind": "drop", "item": 12840, "npcs": [1783, 1784, 1785, 1787, 1789, 1791, 1793, 1794, 1795, 1796, 1802, 1804, 4474, 4475, 10580, 10801, 10816, 8523, 8524, 8525, 8526, 8527, 8530, 8531, 8534, 8535, 8538, 8540, 8541, 8543, 8548, 8551, 8555, 8556, 8557], "zones": [28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 139, 139, 139, 139, 139, 139, 139, 139, 139, 139, 139, 139, 139, 139, 139, 139, 139, 139], "status": "GEMETEN", "src": "GS 12840 live page (40 mobs); ZY A CLASSIC:24307 'Kill enemies' at WPL 40.65,70.27", "note": "first 17 ids are Western Plaguelands (zone 28), the rest Eastern Plaguelands (139); GS ids 10390, 10391, 10411 (Stratholme) and 10485, 10678 (Scholomance) left out as dungeon mobs" },
-  "FCQ_OBJ_PA_VILEFIN_ATTACKERS": { "q": 91285, "kind": "kill", "npcs": [250283], "zones": [85], "status": "GEMETEN", "src": "ZY H CLASSIC:1365 |q 91285/1" },
-  "FCQ_OBJ_PA_VILEFIN_SEERS": { "q": 91285, "kind": "kill", "npcs": [250282], "zones": [85], "status": "GEMETEN", "src": "ZY H CLASSIC:1366 |q 91285/2" },
-  "FCQ_OBJ_PA_GELHARDT": { "q": 91317, "kind": "drop", "item": 270435, "npcs": [259431], "zones": [85], "status": "GEMETEN", "src": "ZY H CLASSIC:1440-1443 |q 91317/1" },
-  "FCQ_OBJ_PA_DRUDGES": { "q": 91317, "kind": "kill", "npcs": [259434], "zones": [85], "status": "GEMETEN", "src": "ZY H CLASSIC:1448 |q 91317/2" },
-  "FCQ_OBJ_PA_ZEALOTS": { "q": 91317, "kind": "kill", "npcs": [259433], "zones": [85], "status": "GEMETEN", "src": "ZY H CLASSIC:1447 |q 91317/3" },
-  "FCQ_OBJ_PA_ATTACK_PLANS": { "q": 94440, "kind": "drop", "item": 264693, "npcs": [1537, 1538], "zones": [85, 85], "status": "GEMETEN", "src": "ZY H CLASSIC:26076; GS 264693 (Zealot 1.2%/930, Friar 0.9%/321)" },
-  "FCQ_OBJ_PA_FENRIS_KEY": { "q": 91862, "kind": "drop", "item": 267412, "npcs": [1943, 1942], "zones": [130, 130], "status": "GEMETEN", "src": "WHF item 267412 dropped-by + GS 267412: Raging Rot Hide 1.8-1.9%, Rot Hide Savage 0.7-1.4%", "note": "WHF also lists two rares (Snarlmane, Rot Hide Bruiser; ids not looked up). Not Rot Hide Gnoll/Mongrel" },
-  "FCQ_OBJ_PA_OLD_FIREEYE": { "q": 95140, "kind": "kill", "npcs": [259897], "zones": [130], "status": "GEMETEN", "src": "WHF quest 95140 tooltip requirement 'Old Fire-Eye'; WHF npc=259897 page + tooltip" },
-  "FCQ_OBJ_MA_MANAGEMS": { "q": 1961, "kind": "drop", "item": 7293, "npcs": [1867, 1912, 1913, 1914], "zones": [130, 130, 130, 130], "status": "GEMETEN", "src": "GS 7293 live page: Dalaran Apprentice (16%/69), Protector, Warder, Mage (ZY only 'enemies')" },
-  "FCQ_OBJ_MA_SILK": { "q": 1940, "kind": "drop", "item": 7267, "npcs": [930, 949], "zones": [10, 10], "status": "GEMETEN", "src": "GS 7267: Black Widow Hatchling 5.0%/1051, Carrion Recluse 4.6%/216 (ZY only 'enemies')" },
-  "FCQ_OBJ_MA_SISTERS": { "q": 1945, "kind": "drop", "item": 7270, "npcs": [4054], "zones": [331], "status": "GEMETEN", "src": "ZY H CLASSIC:25747; GS 7270" },
-  "FCQ_OBJ_MA_STICKS": { "q": 1948, "kind": "drop", "item": 7273, "npcs": [2554, 2555, 2556, 2557, 2552], "zones": [45, 45, 45, 45, 45], "status": "GEMETEN", "src": "GS 7273: Axe Thrower 4.7%, Witch Doctor 3.7%, Headhunter 3.0%, Shadow Hunter 1.9%, Witherbark Troll 1.5% (ZY 'Witherbark enemies')" },
-  "FCQ_OBJ_MA_SURGES": { "q": 1957, "kind": "kill", "npcs": [6550], "zones": [15], "status": "GEMETEN", "src": "ZY H CLASSIC:25909 kill Mana Surge##6550 |q 1957/1 ('they spawn continuously')" },
-  "FCQ_OBJ_MA_QUILL": { "q": 82084, "kind": "drop", "item": 221359, "npcs": [2928, 2927], "zones": [47, 47], "status": "GEMETEN", "src": "GS 221359: Primitive Owlbeast 1.8%/217, Vicious Owlbeast 1.0%/97", "note": "MH text says 'Savage Owlbeasts drop it most'; GS has no drop from Savage Owlbeast 2929" },
-  "FCQ_OBJ_MA_RESIN": { "q": 82084, "kind": "drop", "item": 221361, "npcs": [5245, 5246, 5244, 5247], "zones": [357, 357, 357, 357], "status": "GEMETEN", "src": "GS 221361: Wasp 7.0%, Worker 5.2%, Stinger 2.1%, Tunneler 0.6%" },
-  "FCQ_OBJ_MA_DUST": { "q": 8251, "kind": "drop", "item": 20028, "npcs": [8581, 6198, 6199, 246920], "zones": [16, 16, 16, 16], "status": "GEMETEN", "src": "GS 20028: Blood Elf Defender 5.4%, Surveyor 3.1%, Reclaimer 3.0%, Arcanist 2.4% (ZY 'Blood Elf enemies')" },
-  "FCQ_OBJ_MA_CORAL": { "q": 8252, "kind": "drop", "item": 20029, "npcs": [6195], "zones": [16], "status": "GEMETEN", "src": "ZY H Dungeon CLASSIC:8323; GS 20029" },
-  "FCQ_OBJ_MA_SHELL": { "q": 90789, "q_also": [9362], "kind": "drop", "item": 23250, "npcs": [13896], "zones": [16], "status": "GEMETEN", "src": "WHF quest 90789 text: kill Scalebeard, take the Prismatic Shell; WHF npc=13896 page + tooltip", "note": "for alt 9362 Warlord Krellian: npc 8408 (tooltip Azshara) = AFGELEID; ZY ties 8408 to quest 88813, not 9362" },
-  "_skipped": {
-    "FCQ_OBJ_BEARSPIRIT": "talk to spirit",
-    "FCQ_OBJ_LUNACLAW": "use item, summoned boss",
-    "FCQ_OBJ_LUNACLAW_H": "use item, summoned boss",
-    "FCQ_OBJ_SAMPLER_A": "use an item",
-    "FCQ_OBJ_SAMPLER_H": "use an item",
-    "FCQ_OBJ_FUNGUS": "click objects",
-    "FCQ_OBJ_EARTHROOT": "herb or AH",
-    "FCQ_OBJ_DEER": "use item on creature",
-    "FCQ_OBJ_GAZELLE": "use item on creature",
-    "FCQ_OBJ_BAUBLE": "click object",
-    "FCQ_OBJ_SHRINE": "use an item",
-    "FCQ_OBJ_LOCKBOX": "click object",
-    "FCQ_OBJ_PENDANT": "use an item",
-    "FCQ_OBJ_BLOODCAP": "click objects",
-    "FCQ_OBJ_DEVILSAUR": "use item on creature",
-    "FCQ_OBJ_SUNKEN": "dungeon (Sunken Temple)",
-    "FCQ_OBJ_RELIC_CLAW": "click object",
-    "FCQ_OBJ_RELIC_FANG": "click object",
-    "FCQ_OBJ_RELIC_SHADOW": "click object",
-    "FCQ_OBJ_WL_POWERSVOID": "click object",
-    "FCQ_OBJ_WL_VERGA": "click object",
-    "FCQ_OBJ_WL_GRIMOIRE": "click object",
-    "FCQ_OBJ_WL_BIND_VOID": "use item, summoned",
-    "FCQ_OBJ_WL_BIND_SUCC": "use item, summoned",
-    "FCQ_OBJ_WL_BIND_INC": "use item, summoned",
-    "FCQ_OBJ_WL_BIND_FEL": "use item, summoned",
-    "FCQ_OBJ_WL_HEARTSWOOD": "click object",
-    "FCQ_OBJ_WL_FIGURINE": "objects and event",
-    "FCQ_OBJ_WL_MOLDYTOME": "click object",
-    "FCQ_OBJ_WL_MANUSCRIPT": "click object",
-    "FCQ_OBJ_WL_ELIXIR": "bring crafted item",
-    "FCQ_OBJ_WL_SHARDS": "bring item (enchanting)",
-    "FCQ_OBJ_WL_IRONORE": "bring item (mining)",
-    "FCQ_OBJ_WL_DRAGONSCALE": "bring item (skinning, AH)",
-    "FCQ_OBJ_WL_ARCANITE": "bring crafted item",
-    "FCQ_OBJ_WL_STARDUST": "buy from vendor",
-    "FCQ_OBJ_WL_IMPJAR": "dungeon (Scholomance)",
-    "FCQ_OBJ_WL_RITUAL": "dungeon (Dire Maul)",
-    "FCQ_OBJ_WL_SORANRUK_FRAGMENTS": "dungeon (Blackfathom Deeps)",
-    "FCQ_OBJ_WL_SORANRUK_LARGE": "dungeon (Shadowfang Keep)",
-    "FCQ_OBJ_WL_ORAHIL_PATH": "talk, take quest",
-    "FCQ_OBJ_WL_ORAHIL_SPIRIT": "use item on creature",
-    "FCQ_OBJ_WL_ORB_DEMON": "summoned by NPC",
-    "FCQ_OBJ_WL_FELCLOTH": "bring item, AH",
-    "FCQ_OBJ_WR_ULAG": "object summons boss",
-    "FCQ_OBJ_WR_AFFRAY": "event, spawned waves",
-    "FCQ_OBJ_WR_LIFEROOT": "herb or AH",
-    "FCQ_OBJ_WR_ESSENCE": "click object",
-    "FCQ_OBJ_WR_CYCLONIAN": "summoned by NPC",
-    "FCQ_OBJ_WR_FEATHER_AMBER": "dungeon (Sunken Temple)",
-    "FCQ_OBJ_WR_FEATHER_BLUE": "dungeon (Sunken Temple)",
-    "FCQ_OBJ_WR_FEATHER_GREEN": "dungeon (Sunken Temple)",
-    "FCQ_OBJ_WR_HAGGARD_BADGE": "click object",
-    "FCQ_OBJ_WR_UMBRAL_ORE": "click object",
-    "FCQ_OBJ_WR_ELUNITE_ORE": "click objects",
-    "FCQ_OBJ_WR_STEEL_BARS": "click object",
-    "FCQ_OBJ_WR_AGAMAND_MACE": "click object",
-    "FCQ_OBJ_WR_AGAMAND_DAGGER": "click object",
-    "FCQ_OBJ_WR_AGAMAND_AXE": "click object",
-    "FCQ_OBJ_WR_AGAMAND_SWORD": "click object",
-    "FCQ_OBJ_HU_WEBWOOD": "use item on creature",
-    "FCQ_OBJ_HU_NIGHTSABER": "use item on creature",
-    "FCQ_OBJ_HU_SCREECHER": "use item on creature",
-    "FCQ_OBJ_HU_CRAGBOAR": "use item on creature",
-    "FCQ_OBJ_HU_SNOWLEOPARD": "use item on creature",
-    "FCQ_OBJ_HU_ICECLAW": "use item on creature",
-    "FCQ_OBJ_HU_ROCKHIDE": "use item on creature",
-    "FCQ_OBJ_HU_GRAYWOLF": "use item on creature",
-    "FCQ_OBJ_HU_FORESTBEAR": "use item on creature",
-    "FCQ_OBJ_HU_DIREBOAR": "use item on creature",
-    "FCQ_OBJ_HU_SURFCRAWLER": "use item on creature",
-    "FCQ_OBJ_HU_SCORPID": "use item on creature",
-    "FCQ_OBJ_HU_PLAINSTRIDER": "use item on creature",
-    "FCQ_OBJ_HU_STALKER": "use item on creature",
-    "FCQ_OBJ_HU_SWOOP": "use item on creature",
-    "FCQ_OBJ_HU_WINDSONG": "use item on creature",
-    "FCQ_OBJ_HU_GALESTRIDER": "use item on creature",
-    "FCQ_OBJ_HU_VULDREN": "use item on creature",
-    "FCQ_OBJ_HU_MORPHAZ": "dungeon (Sunken Temple)",
-    "FCQ_OBJ_RO_SCHEDULE": "pickpocket one NPC",
-    "FCQ_OBJ_RO_SETHIR": "pickpocket one NPC",
-    "FCQ_OBJ_RO_TAZANKEY": "pickpocket one NPC",
-    "FCQ_OBJ_RO_LOGBOOK": "use an item",
-    "FCQ_OBJ_RO_LEDGER": "click object",
-    "FCQ_OBJ_RO_LUCIUSBOX": "click object",
-    "FCQ_OBJ_RO_GIZMO": "click object",
-    "FCQ_OBJ_RO_SOUTHSEA": "object, summoned creature",
-    "FCQ_OBJ_RO_TOWERKEY": "pickpocket one NPC",
-    "FCQ_OBJ_RO_JOURNAL": "click object",
-    "FCQ_OBJ_RO_SALUTE": "emote",
-    "FCQ_OBJ_RO_FLARE": "use item, emote",
-    "FCQ_OBJ_RO_SILIXIZ": "pickpocket one NPC",
-    "FCQ_OBJ_RO_CACHE": "click object",
-    "FCQ_OBJ_RO_CURE": "wait",
-    "FCQ_OBJ_RO_VEENIX": "talk, object, pickpocket",
-    "FCQ_OBJ_RO_HORN": "dungeon (Shadowfang Keep)",
-    "FCQ_OBJ_RO_EYE": "dungeon (Scarlet Monastery)",
-    "FCQ_OBJ_RO_AZUREKEY": "dungeon (Sunken Temple)",
-    "FCQ_OBJ_SH_EMBER": "use item, summoned",
-    "FCQ_OBJ_SH_EARTHSAPTA": "use item, talk",
-    "FCQ_OBJ_SH_KURAMAA": "object summons boss",
-    "FCQ_OBJ_SH_RITUAL": "use an item",
-    "FCQ_OBJ_SH_ETERNAL": "click object",
-    "FCQ_OBJ_SH_SKIN_BROWN_H": "use an item",
-    "FCQ_OBJ_SH_SKIN_RED_H": "use an item",
-    "FCQ_OBJ_SH_SKIN_BLUE_H": "use an item",
-    "FCQ_OBJ_SH_SKIN_BROWN_A": "use an item",
-    "FCQ_OBJ_SH_SKIN_RED_A": "use an item",
-    "FCQ_OBJ_SH_SKIN_BLUE_A": "use an item",
-    "FCQ_OBJ_SH_BRACERS": "use item, summoned",
-    "FCQ_OBJ_SH_ELEM_AIR": "bring item, AH",
-    "FCQ_OBJ_SH_ELEM_FIRE": "bring item, AH",
-    "FCQ_OBJ_SH_ELEM_EARTH": "bring item, AH",
-    "FCQ_OBJ_SH_ELEM_WATER": "bring item, AH",
-    "FCQ_OBJ_SH_TATTERED_NOTE": "dungeon (Razorfen Kraul)",
-    "FCQ_OBJ_SH_TEMPEST_RITUAL": "event, summoned elites",
-    "FCQ_OBJ_PR_ROBERTS": "cast spell on NPC",
-    "FCQ_OBJ_PR_DOLF": "cast spell on NPC",
-    "FCQ_OBJ_PR_SHAYA": "cast spell on NPC",
-    "FCQ_OBJ_PR_KORJA": "cast spell on NPC",
-    "FCQ_OBJ_PR_KEL": "cast spell on NPC",
-    "FCQ_OBJ_PR_MORPHAZ": "dungeon (Sunken Temple)",
-    "FCQ_OBJ_PA_LINEN": "bring item, AH",
-    "FCQ_OBJ_PA_RESURRECT": "use item on body",
-    "FCQ_OBJ_PA_DEFEND_DAPHNE": "event, spawned waves",
-    "FCQ_OBJ_PA_ORECRATE": "click object",
-    "FCQ_OBJ_PA_ORE": "do another quest",
-    "FCQ_OBJ_PA_PURIFIEDGEM": "do another quest",
-    "FCQ_OBJ_PA_LUMBER": "dungeon (Deadmines)",
-    "FCQ_OBJ_PA_HAMMER": "dungeon (Shadowfang Keep)",
-    "FCQ_OBJ_PA_TERRORDALE": "use item, spawned spirits",
-    "FCQ_OBJ_PA_HOLYWATER": "dungeon (Stratholme)",
-    "FCQ_OBJ_PA_ARTHAS": "herb or AH",
-    "FCQ_OBJ_PA_RUNECLOTH": "bring item",
-    "FCQ_OBJ_PA_ARCANITE": "bring crafted item",
-    "FCQ_OBJ_PA_HORSEFEED": "buy, then dungeon",
-    "FCQ_OBJ_PA_AZEROTHIAN": "bring item, AH",
-    "FCQ_OBJ_PA_BLACKDIAMOND": "bring item, AH",
-    "FCQ_OBJ_PA_SATCHEL": "use an item",
-    "FCQ_OBJ_PA_SCRYER": "dungeon (Scholomance)",
-    "FCQ_OBJ_PA_HEAL_DEATHGUARDS": "cast spell on NPC",
-    "FCQ_OBJ_PA_TOUR_JORIN": "talk to NPC",
-    "FCQ_OBJ_PA_TOUR_HILDA": "talk to NPC",
-    "FCQ_OBJ_PA_TOUR_ANDER": "talk to NPC",
-    "FCQ_OBJ_PA_TOUR_DANITHA": "talk to NPC",
-    "FCQ_OBJ_PA_STURDY_LUMBER": "click objects",
-    "FCQ_OBJ_PA_ESCORT_LUMINA": "escort NPC",
-    "FCQ_OBJ_PA_TALK_LUMINA": "talk to NPC",
-    "FCQ_OBJ_PA_WEAPON_NOTES": "talk to NPC",
-    "FCQ_OBJ_PA_SILVER_INGOT": "dungeon (Shadowfang Keep)",
-    "FCQ_OBJ_PA_WATCH_OTT": "wait",
-    "FCQ_OBJ_MA_MIRRORLAKE": "use an item",
-    "FCQ_OBJ_MA_GIZMONITOR": "click object",
-    "FCQ_OBJ_MA_BOUGH": "click object",
-    "FCQ_OBJ_MA_JUJU": "click objects",
-    "FCQ_OBJ_MA_SNAPDRAGONS": "click objects",
-    "FCQ_OBJ_MA_COFFERCHEST": "click object",
-    "FCQ_OBJ_MA_CANTATION": "click object",
-    "FCQ_OBJ_MA_COFFERS_A": "use item, summoned",
-    "FCQ_OBJ_MA_COFFERS_H": "use item, summoned",
-    "FCQ_OBJ_MA_RIFTGEMS": "click objects",
-    "FCQ_OBJ_MA_LINEN": "bring item, AH",
-    "FCQ_OBJ_MA_TREATISE": "click object",
-    "FCQ_OBJ_MA_XAVIAN": "use an item",
-    "FCQ_OBJ_MA_BRAMBLE": "use item, object",
-    "FCQ_OBJ_MA_JADE": "bring item, AH",
-    "FCQ_OBJ_MA_PLUCKY": "emote, talk",
-    "FCQ_OBJ_MA_RITUALS": "dungeon (Scarlet Monastery)",
-    "FCQ_OBJ_MA_DEMON": "summoned by NPC",
-    "FCQ_OBJ_MA_POWERSOURCE": "dungeon (Uldaman)",
-    "FCQ_OBJ_MA_PAPYRUS": "dungeon (Zul'Farrak)",
-    "FCQ_OBJ_MA_SHARD": "dungeon (Sunken Temple)",
-    "FCQ_OBJ_MA_HYDROSPAWN": "dungeon (Dire Maul)",
-    "FCQ_OBJ_MA_CLONES": "spell, spawned clones"
-  }
+ "_meta": {
+  "made": "2026-11-26, mh-research subagent",
+  "check": "every npc id below was name-checked in its Wowhead Forever tooltip (nether.wowhead.com/forever/tooltip/npc/<id>, fetched 26 Nov 2026); every item id in its item tooltip and in DB2 ItemSparse 1.60.1.71139",
+  "zones": "zones = the Wowhead tooltip map zone of each npc (one zone per npc, as the tooltip gives it), same order as npcs",
+  "src_codes": "ZY = Zygor Forever guide file:line; WHF = Wowhead Forever page or tooltip",
+  "not_used": "Polestar, TravelData, Polestar_Nav, Questie/QuestieDB and sites that say their data is QuestieDB (wowhelm, bindonforever) were not used for any answer",
+  "goldscout": "removed 26 Nov 2026: GoldScout's Data License (DATA_LICENSE.md v1.0) forbids including its data or anything derived from it in another addon"
+ },
+ "FCQ_OBJ_DEER": {
+  "q": 6124,
+  "kind": "use",
+  "npcs": [
+   12298
+  ],
+  "status": "GEMETEN",
+  "src": "WHF npc 12298 tooltip 'Sickly Deer' (75 spawns, Darkshore); ZY A CLASSIC:22493 names it without an id"
+ },
+ "FCQ_OBJ_GAZELLE": {
+  "q": 6129,
+  "kind": "use",
+  "npcs": [
+   12296
+  ],
+  "status": "GEMETEN",
+  "src": "ZY H CLASSIC:24730 Sickly Gazelle##12296; WHF npc 12296 tooltip (93 spawns, The Barrens)"
+ },
+ "FCQ_OBJ_GORISHI": {
+  "q": 9052,
+  "kind": "drop",
+  "item": 22435,
+  "npcs": [
+   6551,
+   6554,
+   10041
+  ],
+  "status": "GEMETEN",
+  "src": "WHF item 22435 dropped-by: Wasp, Stinger, Hive Queen (ZY says only 'Gorishi enemies')"
+ },
+ "FCQ_OBJ_HU_ANTLERS": {
+  "q": 8153,
+  "kind": "drop",
+  "item": 20017,
+  "npcs": [
+   8761
+  ],
+  "status": "GEMETEN",
+  "src": "ZY H CLASSIC:25452"
+ },
+ "FCQ_OBJ_KODO": {
+  "q": 6128,
+  "kind": "drop",
+  "item": 15852,
+  "npcs": [
+   3234
+  ],
+  "status": "GEMETEN",
+  "src": "ZY H CLASSIC:24714 (3234)"
+ },
+ "FCQ_OBJ_MA_CORAL": {
+  "q": 8252,
+  "kind": "drop",
+  "item": 20029,
+  "npcs": [
+   6195
+  ],
+  "status": "GEMETEN",
+  "src": "ZY H Dungeon CLASSIC:8323"
+ },
+ "FCQ_OBJ_MA_ORB": {
+  "q": 1954,
+  "kind": "drop",
+  "item": 7291,
+  "npcs": [
+   4668
+  ],
+  "status": "GEMETEN",
+  "src": "ZY H CLASSIC:25859 kill Burning Blade Summoner##4668 |q 1954/1"
+ },
+ "FCQ_OBJ_MA_SHELL": {
+  "q": 90789,
+  "q_also": [
+   9362
+  ],
+  "kind": "drop",
+  "item": 23250,
+  "npcs": [
+   13896
+  ],
+  "status": "GEMETEN",
+  "src": "WHF quest 90789 text: kill Scalebeard, take the Prismatic Shell; WHF npc=13896 page; tooltip",
+  "note": "for alt 9362 Warlord Krellian: npc 8408 (tooltip Azshara) = AFGELEID; ZY ties 8408 to quest 88813, not 9362"
+ },
+ "FCQ_OBJ_MA_SISTERS": {
+  "q": 1945,
+  "kind": "drop",
+  "item": 7270,
+  "npcs": [
+   4054
+  ],
+  "status": "GEMETEN",
+  "src": "ZY H CLASSIC:25747"
+ },
+ "FCQ_OBJ_MA_SURGES": {
+  "q": 1957,
+  "kind": "kill",
+  "npcs": [
+   6550
+  ],
+  "status": "GEMETEN",
+  "src": "ZY H CLASSIC:25909 kill Mana Surge##6550 |q 1957/1 ('they spawn continuously')"
+ },
+ "FCQ_OBJ_PA_ATTACK_PLANS": {
+  "q": 94440,
+  "kind": "drop",
+  "item": 264693,
+  "npcs": [
+   1537,
+   1538
+  ],
+  "status": "GEMETEN",
+  "src": "ZY H CLASSIC:26076"
+ },
+ "FCQ_OBJ_PA_DARKIRON_SCRIPT": {
+  "q": 1784,
+  "kind": "drop",
+  "item": 6847,
+  "npcs": [
+   6123
+  ],
+  "status": "GEMETEN",
+  "src": "ZY A CLASSIC:24121"
+ },
+ "FCQ_OBJ_PA_DEFIAS_SCRIPT": {
+  "q": 1787,
+  "kind": "drop",
+  "item": 6846,
+  "npcs": [
+   474
+  ],
+  "status": "GEMETEN",
+  "src": "ZY A CLASSIC:24022"
+ },
+ "FCQ_OBJ_PA_DRUDGES": {
+  "q": 91317,
+  "kind": "kill",
+  "npcs": [
+   259434
+  ],
+  "status": "GEMETEN",
+  "src": "ZY H CLASSIC:1448 |q 91317/2"
+ },
+ "FCQ_OBJ_PA_FENRIS_KEY": {
+  "q": 91862,
+  "kind": "drop",
+  "item": 267412,
+  "npcs": [
+   1943,
+   1942
+  ],
+  "status": "GEMETEN",
+  "src": "WHF item 267412 dropped-by",
+  "note": "WHF also lists two rares (Snarlmane, Rot Hide Bruiser; ids not looked up). Not Rot Hide Gnoll/Mongrel"
+ },
+ "FCQ_OBJ_PA_GELHARDT": {
+  "q": 91317,
+  "kind": "drop",
+  "item": 270435,
+  "npcs": [
+   259431
+  ],
+  "status": "GEMETEN",
+  "src": "ZY H CLASSIC:1440-1443 |q 91317/1"
+ },
+ "FCQ_OBJ_PA_OLD_FIREEYE": {
+  "q": 95140,
+  "kind": "kill",
+  "npcs": [
+   259897
+  ],
+  "status": "GEMETEN",
+  "src": "WHF quest 95140 tooltip requirement 'Old Fire-Eye'; WHF npc=259897 page; tooltip"
+ },
+ "FCQ_OBJ_PA_VILEFIN_ATTACKERS": {
+  "q": 91285,
+  "kind": "kill",
+  "npcs": [
+   250283
+  ],
+  "status": "GEMETEN",
+  "src": "ZY H CLASSIC:1365 |q 91285/1"
+ },
+ "FCQ_OBJ_PA_VILEFIN_SEERS": {
+  "q": 91285,
+  "kind": "kill",
+  "npcs": [
+   250282
+  ],
+  "status": "GEMETEN",
+  "src": "ZY H CLASSIC:1366 |q 91285/2"
+ },
+ "FCQ_OBJ_PA_ZEALOTS": {
+  "q": 91317,
+  "kind": "kill",
+  "npcs": [
+   259433
+  ],
+  "status": "GEMETEN",
+  "src": "ZY H CLASSIC:1447 |q 91317/3"
+ },
+ "FCQ_OBJ_PR_GLANDS": {
+  "q": 8255,
+  "kind": "drop",
+  "item": 20027,
+  "npcs": [
+   8761
+  ],
+  "status": "GEMETEN",
+  "src": "ZY H CLASSIC:24965"
+ },
+ "FCQ_OBJ_RO_ASTOR": {
+  "q": 1886,
+  "kind": "drop",
+  "item": 7231,
+  "npcs": [
+   6497
+  ],
+  "status": "GEMETEN",
+  "src": "ZY H CLASSIC:1518 (talk first; walks the Brill-Sepulcher road)"
+ },
+ "FCQ_OBJ_RO_AZUREBAG": {
+  "q": 8234,
+  "kind": "drop",
+  "item": 19775,
+  "npcs": [
+   6188
+  ],
+  "status": "GEMETEN",
+  "src": "ZY H Dungeon CLASSIC:8399 kill Timbermaw Shaman##6188 (A guide: 'you can also Pickpocket them')",
+  "note": "(part from GoldScout removed: licence)"
+ },
+ "FCQ_OBJ_RO_DRONES": {
+  "q": 2478,
+  "kind": "kill",
+  "npcs": [
+   7310
+  ],
+  "status": "GEMETEN",
+  "src": "ZY H CLASSIC:6212 |q 2478/1"
+ },
+ "FCQ_OBJ_RO_FRAGMENTS": {
+  "q": 8235,
+  "kind": "drop",
+  "item": 20023,
+  "npcs": [
+   8766
+  ],
+  "status": "GEMETEN",
+  "src": "ZY H CLASSIC:26306"
+ },
+ "FCQ_OBJ_RO_GALLYWIX": {
+  "q": 2478,
+  "kind": "drop",
+  "item": 8074,
+  "npcs": [
+   7288
+  ],
+  "status": "GEMETEN",
+  "src": "ZY H CLASSIC kill Grand Foreman Puzik Gallywix##7288 -> Gallywix's Head |q 2478/4"
+ },
+ "FCQ_OBJ_RO_LOOKOUTS": {
+  "q": 2478,
+  "kind": "kill",
+  "npcs": [
+   7307
+  ],
+  "status": "GEMETEN",
+  "src": "ZY H CLASSIC:6222 |q 2478/2"
+ },
+ "FCQ_OBJ_RO_PATROLLERS": {
+  "q": 2478,
+  "kind": "kill",
+  "npcs": [
+   7308
+  ],
+  "status": "GEMETEN",
+  "src": "ZY H CLASSIC:6217 |q 2478/3"
+ },
+ "FCQ_OBJ_RO_TAZAN": {
+  "q": 1963,
+  "kind": "drop",
+  "item": 7209,
+  "npcs": [
+   6494
+  ],
+  "status": "GEMETEN",
+  "src": "ZY H CLASSIC kill Tazan##6494 -> Tazan's Satchel |q 1963/1"
+ },
+ "FCQ_OBJ_SH_FALADIEL": {
+  "q": 97244,
+  "kind": "drop",
+  "item": 277267,
+  "npcs": [
+   268602
+  ],
+  "status": "GEMETEN",
+  "src": "ZY Common CLASSIC:1026"
+ },
+ "FCQ_OBJ_SH_FIRETAR_A": {
+  "q": 94466,
+  "kind": "drop",
+  "item": 5026,
+  "npcs": [
+   1174
+  ],
+  "status": "GEMETEN",
+  "src": "ZY A CLASSIC:5340"
+ },
+ "FCQ_OBJ_SH_FIRETAR_H": {
+  "q": 1525,
+  "kind": "drop",
+  "item": 5026,
+  "npcs": [
+   3269,
+   3268,
+   3271,
+   3267
+  ],
+  "status": "GEMETEN",
+  "src": "ZY H CLASSIC:2719 list"
+ },
+ "FCQ_OBJ_SH_HOOVES": {
+  "q": 1516,
+  "kind": "drop",
+  "item": 6640,
+  "npcs": [
+   3102
+  ],
+  "status": "GEMETEN",
+  "src": "ZY H CLASSIC:26394"
+ },
+ "FCQ_OBJ_SH_PENDANTS": {
+  "q": 94373,
+  "kind": "drop",
+  "item": 264356,
+  "npcs": [
+   706
+  ],
+  "status": "GEMETEN",
+  "src": "ZY A CLASSIC:1853"
+ },
+ "FCQ_OBJ_SH_POUCH_A": {
+  "q": 94466,
+  "kind": "drop",
+  "item": 6652,
+  "npcs": [
+   1166
+  ],
+  "status": "GEMETEN",
+  "src": "ZY A CLASSIC:5482"
+ },
+ "FCQ_OBJ_SH_POUCH_H": {
+  "q": 1525,
+  "kind": "drop",
+  "item": 6652,
+  "npcs": [
+   3199
+  ],
+  "status": "GEMETEN",
+  "src": "ZY H CLASSIC kill Burning Blade Cultist##3199"
+ },
+ "FCQ_OBJ_SH_SALVE": {
+  "q": 1519,
+  "kind": "drop",
+  "item": 6634,
+  "npcs": [
+   2953
+  ],
+  "status": "GEMETEN",
+  "src": "ZY H CLASSIC:1762"
+ },
+ "FCQ_OBJ_SH_SIGNET": {
+  "q": 92466,
+  "kind": "drop",
+  "item": 251924,
+  "npcs": [
+   251160
+  ],
+  "status": "GEMETEN",
+  "src": "ZY Common CLASSIC:198 (251160)"
+ },
+ "FCQ_OBJ_SH_TWISTED_WATER": {
+  "q": 79358,
+  "q_also": [
+   79361
+  ],
+  "kind": "drop",
+  "item": 274046,
+  "npcs": [
+   4360,
+   4363,
+   4358,
+   4362,
+   4361,
+   4359
+  ],
+  "status": "GEMETEN",
+  "src": "WHF quest 79361 comment 'Mirefin Murlocs of Dustwallow Marsh'"
+ },
+ "FCQ_OBJ_URENDRA": {
+  "q": 94638,
+  "kind": "kill",
+  "npcs": [
+   258443
+  ],
+  "status": "GEMETEN",
+  "src": "ZY Common CLASSIC:1316 kill Ur'endra##258443 |q 94638/1"
+ },
+ "FCQ_OBJ_WL_AVELINA": {
+  "q": 65593,
+  "kind": "drop",
+  "item": 190179,
+  "npcs": [
+   185333
+  ],
+  "status": "GEMETEN",
+  "src": "WHF item 190179 'Dropped by: Avelina Lilly'; WHF npc=185333 page (Ambermill inn, upstairs)"
+ },
+ "FCQ_OBJ_WL_BLOODVENOM": {
+  "q": 8421,
+  "kind": "drop",
+  "item": 20614,
+  "npcs": [
+   7092
+  ],
+  "status": "GEMETEN",
+  "src": "ZY A CLASSIC:24932"
+ },
+ "FCQ_OBJ_WL_CORMA": {
+  "q": 1476,
+  "kind": "drop",
+  "item": 6313,
+  "npcs": [
+   5683
+  ],
+  "status": "GEMETEN",
+  "src": "WHF item 6313 'Dropped by: Corma Villard'; WHF npc=5683 page"
+ },
+ "FCQ_OBJ_WL_DALIN": {
+  "q": 1476,
+  "kind": "drop",
+  "item": 6312,
+  "npcs": [
+   5682
+  ],
+  "status": "GEMETEN",
+  "src": "WHF item 6312 'Dropped by: Dalin Forgewright'"
+ },
+ "FCQ_OBJ_WL_ESS_JAEDENAR": {
+  "q": 7602,
+  "kind": "drop",
+  "item": 18622,
+  "npcs": [
+   9862
+  ],
+  "status": "GEMETEN",
+  "src": "ZY A CLASSIC:24948"
+ },
+ "FCQ_OBJ_WL_ESS_PORTAL": {
+  "q": 7602,
+  "kind": "drop",
+  "item": 18623,
+  "npcs": [
+   6011
+  ],
+  "status": "GEMETEN",
+  "src": "ZY A CLASSIC:24961"
+ },
+ "FCQ_OBJ_WL_FAMILIARHEAD": {
+  "q": 1485,
+  "kind": "drop",
+  "item": 6487,
+  "npcs": [
+   3101
+  ],
+  "status": "GEMETEN",
+  "src": "ZY H CLASSIC:3000"
+ },
+ "FCQ_OBJ_WL_FEATHERCHARM": {
+  "q": 1599,
+  "kind": "drop",
+  "item": 6753,
+  "npcs": [
+   946
+  ],
+  "status": "GEMETEN",
+  "src": "ZY A CLASSIC:1806"
+ },
+ "FCQ_OBJ_WL_INFERNAL_ORB": {
+  "q": 1799,
+  "kind": "drop",
+  "item": 7291,
+  "npcs": [
+   4668
+  ],
+  "status": "GEMETEN",
+  "src": "ZY H CLASSIC:25859 (same item 7291, under 1954)"
+ },
+ "FCQ_OBJ_WL_KROSHIUS": {
+  "q": 7603,
+  "kind": "drop",
+  "item": 18625,
+  "npcs": [
+   14467
+  ],
+  "status": "GEMETEN",
+  "src": "ZY A CLASSIC:25015 use Fel Fire, kill Kroshius##14467 |q 7603/1 (one fixed spot)"
+ },
+ "FCQ_OBJ_WL_RATTLESKULL": {
+  "q": 1470,
+  "kind": "drop",
+  "item": 6281,
+  "npcs": [
+   1890
+  ],
+  "status": "GEMETEN",
+  "src": "ZY H CLASSIC:132"
+ },
+ "FCQ_OBJ_WL_SURENA": {
+  "q": 1688,
+  "kind": "drop",
+  "item": 6810,
+  "npcs": [
+   881
+  ],
+  "status": "GEMETEN",
+  "src": "ZY A CLASSIC:1134"
+ },
+ "FCQ_OBJ_WL_ULATHEK": {
+  "q": 7624,
+  "kind": "drop",
+  "item": 18719,
+  "npcs": [
+   14523
+  ],
+  "status": "GEMETEN",
+  "src": "ZY A CLASSIC:25156 kill Ulathek##14523 |q 7624/1"
+ },
+ "FCQ_OBJ_WR_ADEPT": {
+  "q": 8424,
+  "kind": "kill",
+  "npcs": [
+   6006
+  ],
+  "status": "GEMETEN",
+  "src": "ZY H CLASSIC:25274 |q 8424/1"
+ },
+ "FCQ_OBJ_WR_BEATBARTLEBY": {
+  "q": 1640,
+  "kind": "kill",
+  "npcs": [
+   6090
+  ],
+  "status": "GEMETEN",
+  "src": "ZY A CLASSIC:1187 kill Bartleby##6090, Beat Bartleby |q 1640/1"
+ },
+ "FCQ_OBJ_WR_CHARM_BURNING": {
+  "q": 1712,
+  "kind": "drop",
+  "item": 4479,
+  "npcs": [
+   2760
+  ],
+  "status": "GEMETEN",
+  "src": "ZY H CLASSIC:25206 (|q 1712, charms are quest 1714)"
+ },
+ "FCQ_OBJ_WR_CHARM_CRESTING": {
+  "q": 1712,
+  "kind": "drop",
+  "item": 4481,
+  "npcs": [
+   2761
+  ],
+  "status": "GEMETEN",
+  "src": "ZY H CLASSIC:25214"
+ },
+ "FCQ_OBJ_WR_CHARM_THUNDERING": {
+  "q": 1712,
+  "kind": "drop",
+  "item": 4480,
+  "npcs": [
+   2762
+  ],
+  "status": "GEMETEN",
+  "src": "ZY H CLASSIC:25210"
+ },
+ "FCQ_OBJ_WR_CULTIST": {
+  "q": 8424,
+  "kind": "kill",
+  "npcs": [
+   6004
+  ],
+  "status": "GEMETEN",
+  "src": "ZY H CLASSIC:25279 |q 8424/2"
+ },
+ "FCQ_OBJ_WR_ELURA_MEDALLION": {
+  "q": 1686,
+  "kind": "drop",
+  "item": 6809,
+  "npcs": [
+   6133
+  ],
+  "status": "GEMETEN",
+  "src": "WHF item 6809 dropped-by Shade of Elura 409/601 (68%); tooltip 6133 = Shade of Elura"
+ },
+ "FCQ_OBJ_WR_HELBOAR": {
+  "q": 8423,
+  "kind": "kill",
+  "npcs": [
+   5993
+  ],
+  "status": "GEMETEN",
+  "src": "ZY H CLASSIC:25264 kill 7 Helboar##5993 |q 8423/1"
+ },
+ "FCQ_OBJ_WR_SCALES": {
+  "q": 1498,
+  "kind": "drop",
+  "item": 6486,
+  "npcs": [
+   3130,
+   3131
+  ],
+  "status": "GEMETEN",
+  "src": "ZY H CLASSIC:4277 (3130)"
+ },
+ "FCQ_OBJ_WR_THUG": {
+  "q": 8424,
+  "kind": "kill",
+  "npcs": [
+   6005
+  ],
+  "status": "GEMETEN",
+  "src": "ZY H CLASSIC:25284 |q 8424/3"
+ },
+ "FCQ_OBJ_WR_TUSKS": {
+  "q": 1712,
+  "kind": "drop",
+  "item": 3901,
+  "npcs": [
+   702,
+   697,
+   587,
+   694,
+   701,
+   588,
+   595,
+   699,
+   660,
+   597,
+   671
+  ],
+  "status": "GEMETEN",
+  "src": "ZY A CLASSIC:10409 list"
+ },
+ "FCQ_OBJ_WR_VEJREK": {
+  "q": 1678,
+  "kind": "drop",
+  "item": 6799,
+  "npcs": [
+   6113
+  ],
+  "status": "GEMETEN",
+  "src": "ZY A CLASSIC:22761"
+ },
+ "FCQ_OBJ_WR_VORLUS": {
+  "q": 1683,
+  "kind": "drop",
+  "item": 6805,
+  "npcs": [
+   6128
+  ],
+  "status": "GEMETEN",
+  "src": "ZY A CLASSIC:4073"
+ },
+ "FCQ_OBJ_WR_ZAAL": {
+  "q": 94003,
+  "kind": "drop",
+  "item": 263993,
+  "npcs": [
+   257196
+  ],
+  "status": "GEMETEN",
+  "src": "ZY Common CLASSIC:1347"
+ },
+ "_skipped": {
+  "FCQ_OBJ_BEARSPIRIT": "talk to spirit",
+  "FCQ_OBJ_LUNACLAW": "use item, summoned boss",
+  "FCQ_OBJ_LUNACLAW_H": "use item, summoned boss",
+  "FCQ_OBJ_SAMPLER_A": "use an item",
+  "FCQ_OBJ_SAMPLER_H": "use an item",
+  "FCQ_OBJ_FUNGUS": "click objects",
+  "FCQ_OBJ_EARTHROOT": "herb or AH",
+  "FCQ_OBJ_BAUBLE": "click object",
+  "FCQ_OBJ_SHRINE": "use an item",
+  "FCQ_OBJ_LOCKBOX": "click object",
+  "FCQ_OBJ_PENDANT": "use an item",
+  "FCQ_OBJ_BLOODCAP": "click objects",
+  "FCQ_OBJ_DEVILSAUR": "use item on creature",
+  "FCQ_OBJ_SUNKEN": "dungeon (Sunken Temple)",
+  "FCQ_OBJ_RELIC_CLAW": "click object",
+  "FCQ_OBJ_RELIC_FANG": "click object",
+  "FCQ_OBJ_RELIC_SHADOW": "click object",
+  "FCQ_OBJ_WL_POWERSVOID": "click object",
+  "FCQ_OBJ_WL_VERGA": "click object",
+  "FCQ_OBJ_WL_GRIMOIRE": "click object",
+  "FCQ_OBJ_WL_BIND_VOID": "use item, summoned",
+  "FCQ_OBJ_WL_BIND_SUCC": "use item, summoned",
+  "FCQ_OBJ_WL_BIND_INC": "use item, summoned",
+  "FCQ_OBJ_WL_BIND_FEL": "use item, summoned",
+  "FCQ_OBJ_WL_HEARTSWOOD": "click object",
+  "FCQ_OBJ_WL_FIGURINE": "objects and event",
+  "FCQ_OBJ_WL_MOLDYTOME": "click object",
+  "FCQ_OBJ_WL_MANUSCRIPT": "click object",
+  "FCQ_OBJ_WL_ELIXIR": "bring crafted item",
+  "FCQ_OBJ_WL_SHARDS": "bring item (enchanting)",
+  "FCQ_OBJ_WL_IRONORE": "bring item (mining)",
+  "FCQ_OBJ_WL_DRAGONSCALE": "bring item (skinning, AH)",
+  "FCQ_OBJ_WL_ARCANITE": "bring crafted item",
+  "FCQ_OBJ_WL_STARDUST": "buy from vendor",
+  "FCQ_OBJ_WL_IMPJAR": "dungeon (Scholomance)",
+  "FCQ_OBJ_WL_RITUAL": "dungeon (Dire Maul)",
+  "FCQ_OBJ_WL_SORANRUK_FRAGMENTS": "dungeon (Blackfathom Deeps)",
+  "FCQ_OBJ_WL_SORANRUK_LARGE": "dungeon (Shadowfang Keep)",
+  "FCQ_OBJ_WL_ORAHIL_PATH": "talk, take quest",
+  "FCQ_OBJ_WL_ORAHIL_SPIRIT": "use item on creature",
+  "FCQ_OBJ_WL_ORB_DEMON": "summoned by NPC",
+  "FCQ_OBJ_WL_FELCLOTH": "bring item, AH",
+  "FCQ_OBJ_WR_ULAG": "object summons boss",
+  "FCQ_OBJ_WR_AFFRAY": "event, spawned waves",
+  "FCQ_OBJ_WR_LIFEROOT": "herb or AH",
+  "FCQ_OBJ_WR_ESSENCE": "click object",
+  "FCQ_OBJ_WR_CYCLONIAN": "summoned by NPC",
+  "FCQ_OBJ_WR_FEATHER_AMBER": "dungeon (Sunken Temple)",
+  "FCQ_OBJ_WR_FEATHER_BLUE": "dungeon (Sunken Temple)",
+  "FCQ_OBJ_WR_FEATHER_GREEN": "dungeon (Sunken Temple)",
+  "FCQ_OBJ_WR_HAGGARD_BADGE": "click object",
+  "FCQ_OBJ_WR_UMBRAL_ORE": "click object",
+  "FCQ_OBJ_WR_ELUNITE_ORE": "click objects",
+  "FCQ_OBJ_WR_STEEL_BARS": "click object",
+  "FCQ_OBJ_WR_AGAMAND_MACE": "click object",
+  "FCQ_OBJ_WR_AGAMAND_DAGGER": "click object",
+  "FCQ_OBJ_WR_AGAMAND_AXE": "click object",
+  "FCQ_OBJ_WR_AGAMAND_SWORD": "click object",
+  "FCQ_OBJ_HU_WEBWOOD": "use item on creature",
+  "FCQ_OBJ_HU_NIGHTSABER": "use item on creature",
+  "FCQ_OBJ_HU_SCREECHER": "use item on creature",
+  "FCQ_OBJ_HU_CRAGBOAR": "use item on creature",
+  "FCQ_OBJ_HU_SNOWLEOPARD": "use item on creature",
+  "FCQ_OBJ_HU_ICECLAW": "use item on creature",
+  "FCQ_OBJ_HU_ROCKHIDE": "use item on creature",
+  "FCQ_OBJ_HU_GRAYWOLF": "use item on creature",
+  "FCQ_OBJ_HU_FORESTBEAR": "use item on creature",
+  "FCQ_OBJ_HU_DIREBOAR": "use item on creature",
+  "FCQ_OBJ_HU_SURFCRAWLER": "use item on creature",
+  "FCQ_OBJ_HU_SCORPID": "use item on creature",
+  "FCQ_OBJ_HU_PLAINSTRIDER": "use item on creature",
+  "FCQ_OBJ_HU_STALKER": "use item on creature",
+  "FCQ_OBJ_HU_SWOOP": "use item on creature",
+  "FCQ_OBJ_HU_WINDSONG": "use item on creature",
+  "FCQ_OBJ_HU_GALESTRIDER": "use item on creature",
+  "FCQ_OBJ_HU_VULDREN": "use item on creature",
+  "FCQ_OBJ_HU_MORPHAZ": "dungeon (Sunken Temple)",
+  "FCQ_OBJ_RO_SCHEDULE": "pickpocket one NPC",
+  "FCQ_OBJ_RO_SETHIR": "pickpocket one NPC",
+  "FCQ_OBJ_RO_TAZANKEY": "pickpocket one NPC",
+  "FCQ_OBJ_RO_LOGBOOK": "use an item",
+  "FCQ_OBJ_RO_LEDGER": "click object",
+  "FCQ_OBJ_RO_LUCIUSBOX": "click object",
+  "FCQ_OBJ_RO_GIZMO": "click object",
+  "FCQ_OBJ_RO_SOUTHSEA": "object, summoned creature",
+  "FCQ_OBJ_RO_TOWERKEY": "pickpocket one NPC",
+  "FCQ_OBJ_RO_JOURNAL": "click object",
+  "FCQ_OBJ_RO_SALUTE": "emote",
+  "FCQ_OBJ_RO_FLARE": "use item, emote",
+  "FCQ_OBJ_RO_SILIXIZ": "pickpocket one NPC",
+  "FCQ_OBJ_RO_CACHE": "click object",
+  "FCQ_OBJ_RO_CURE": "wait",
+  "FCQ_OBJ_RO_VEENIX": "talk, object, pickpocket",
+  "FCQ_OBJ_RO_HORN": "dungeon (Shadowfang Keep)",
+  "FCQ_OBJ_RO_EYE": "dungeon (Scarlet Monastery)",
+  "FCQ_OBJ_RO_AZUREKEY": "dungeon (Sunken Temple)",
+  "FCQ_OBJ_SH_EMBER": "use item, summoned",
+  "FCQ_OBJ_SH_EARTHSAPTA": "use item, talk",
+  "FCQ_OBJ_SH_KURAMAA": "object summons boss",
+  "FCQ_OBJ_SH_RITUAL": "use an item",
+  "FCQ_OBJ_SH_ETERNAL": "click object",
+  "FCQ_OBJ_SH_SKIN_BROWN_H": "use an item",
+  "FCQ_OBJ_SH_SKIN_RED_H": "use an item",
+  "FCQ_OBJ_SH_SKIN_BLUE_H": "use an item",
+  "FCQ_OBJ_SH_SKIN_BROWN_A": "use an item",
+  "FCQ_OBJ_SH_SKIN_RED_A": "use an item",
+  "FCQ_OBJ_SH_SKIN_BLUE_A": "use an item",
+  "FCQ_OBJ_SH_BRACERS": "use item, summoned",
+  "FCQ_OBJ_SH_ELEM_AIR": "bring item, AH",
+  "FCQ_OBJ_SH_ELEM_FIRE": "bring item, AH",
+  "FCQ_OBJ_SH_ELEM_EARTH": "bring item, AH",
+  "FCQ_OBJ_SH_ELEM_WATER": "bring item, AH",
+  "FCQ_OBJ_SH_TATTERED_NOTE": "dungeon (Razorfen Kraul)",
+  "FCQ_OBJ_SH_TEMPEST_RITUAL": "event, summoned elites",
+  "FCQ_OBJ_PR_ROBERTS": "cast spell on NPC",
+  "FCQ_OBJ_PR_DOLF": "cast spell on NPC",
+  "FCQ_OBJ_PR_SHAYA": "cast spell on NPC",
+  "FCQ_OBJ_PR_KORJA": "cast spell on NPC",
+  "FCQ_OBJ_PR_KEL": "cast spell on NPC",
+  "FCQ_OBJ_PR_MORPHAZ": "dungeon (Sunken Temple)",
+  "FCQ_OBJ_PA_LINEN": "bring item, AH",
+  "FCQ_OBJ_PA_RESURRECT": "use item on body",
+  "FCQ_OBJ_PA_DEFEND_DAPHNE": "event, spawned waves",
+  "FCQ_OBJ_PA_ORECRATE": "click object",
+  "FCQ_OBJ_PA_ORE": "do another quest",
+  "FCQ_OBJ_PA_PURIFIEDGEM": "do another quest",
+  "FCQ_OBJ_PA_LUMBER": "dungeon (Deadmines)",
+  "FCQ_OBJ_PA_HAMMER": "dungeon (Shadowfang Keep)",
+  "FCQ_OBJ_PA_TERRORDALE": "use item, spawned spirits",
+  "FCQ_OBJ_PA_HOLYWATER": "dungeon (Stratholme)",
+  "FCQ_OBJ_PA_ARTHAS": "herb or AH",
+  "FCQ_OBJ_PA_RUNECLOTH": "bring item",
+  "FCQ_OBJ_PA_ARCANITE": "bring crafted item",
+  "FCQ_OBJ_PA_HORSEFEED": "buy, then dungeon",
+  "FCQ_OBJ_PA_AZEROTHIAN": "bring item, AH",
+  "FCQ_OBJ_PA_BLACKDIAMOND": "bring item, AH",
+  "FCQ_OBJ_PA_SATCHEL": "use an item",
+  "FCQ_OBJ_PA_SCRYER": "dungeon (Scholomance)",
+  "FCQ_OBJ_PA_HEAL_DEATHGUARDS": "cast spell on NPC",
+  "FCQ_OBJ_PA_TOUR_JORIN": "talk to NPC",
+  "FCQ_OBJ_PA_TOUR_HILDA": "talk to NPC",
+  "FCQ_OBJ_PA_TOUR_ANDER": "talk to NPC",
+  "FCQ_OBJ_PA_TOUR_DANITHA": "talk to NPC",
+  "FCQ_OBJ_PA_STURDY_LUMBER": "click objects",
+  "FCQ_OBJ_PA_ESCORT_LUMINA": "escort NPC",
+  "FCQ_OBJ_PA_TALK_LUMINA": "talk to NPC",
+  "FCQ_OBJ_PA_WEAPON_NOTES": "talk to NPC",
+  "FCQ_OBJ_PA_SILVER_INGOT": "dungeon (Shadowfang Keep)",
+  "FCQ_OBJ_PA_WATCH_OTT": "wait",
+  "FCQ_OBJ_MA_MIRRORLAKE": "use an item",
+  "FCQ_OBJ_MA_GIZMONITOR": "click object",
+  "FCQ_OBJ_MA_BOUGH": "click object",
+  "FCQ_OBJ_MA_JUJU": "click objects",
+  "FCQ_OBJ_MA_SNAPDRAGONS": "click objects",
+  "FCQ_OBJ_MA_COFFERCHEST": "click object",
+  "FCQ_OBJ_MA_CANTATION": "click object",
+  "FCQ_OBJ_MA_COFFERS_A": "use item, summoned",
+  "FCQ_OBJ_MA_COFFERS_H": "use item, summoned",
+  "FCQ_OBJ_MA_RIFTGEMS": "click objects",
+  "FCQ_OBJ_MA_LINEN": "bring item, AH",
+  "FCQ_OBJ_MA_TREATISE": "click object",
+  "FCQ_OBJ_MA_XAVIAN": "use an item",
+  "FCQ_OBJ_MA_BRAMBLE": "use item, object",
+  "FCQ_OBJ_MA_JADE": "bring item, AH",
+  "FCQ_OBJ_MA_PLUCKY": "emote, talk",
+  "FCQ_OBJ_MA_RITUALS": "dungeon (Scarlet Monastery)",
+  "FCQ_OBJ_MA_DEMON": "summoned by NPC",
+  "FCQ_OBJ_MA_POWERSOURCE": "dungeon (Uldaman)",
+  "FCQ_OBJ_MA_PAPYRUS": "dungeon (Zul'Farrak)",
+  "FCQ_OBJ_MA_SHARD": "dungeon (Sunken Temple)",
+  "FCQ_OBJ_MA_HYDROSPAWN": "dungeon (Dire Maul)",
+  "FCQ_OBJ_MA_CLONES": "spell, spawned clones",
+  "FCQ_OBJ_WL_RODS": "only GoldScout named the creature (licence: not usable)",
+  "FCQ_OBJ_WL_BEASTBLOOD": "only GoldScout named the creature (licence: not usable)",
+  "FCQ_OBJ_WL_ESS_AZSHARA": "only GoldScout named the creature (licence: not usable)",
+  "FCQ_OBJ_WL_SCARF": "only GoldScout named the creature (licence: not usable)",
+  "FCQ_OBJ_WL_ISAAC": "only GoldScout named the creature (licence: not usable)",
+  "FCQ_OBJ_WL_ROTTING_WOOD": "only GoldScout named the creature (licence: not usable)",
+  "FCQ_OBJ_WR_DEADTOOTH_KEY": "only GoldScout named the creature (licence: not usable)",
+  "FCQ_OBJ_HU_SCALES": "only GoldScout named the creature (licence: not usable)",
+  "FCQ_OBJ_PR_ICHOR": "only GoldScout named the creature (licence: not usable)",
+  "FCQ_OBJ_SH_SPIDEREYE": "only GoldScout named the creature (licence: not usable)",
+  "FCQ_OBJ_SH_CLAW": "only GoldScout named the creature (licence: not usable)",
+  "FCQ_OBJ_SH_TWISTED_EARTH": "only GoldScout named the creature (licence: not usable)",
+  "FCQ_OBJ_SH_TWISTED_FIRE": "only GoldScout named the creature (licence: not usable)",
+  "FCQ_OBJ_SH_TWISTED_AIR": "only GoldScout named the creature (licence: not usable)",
+  "FCQ_OBJ_PA_KORGEM": "only GoldScout named the creature (licence: not usable)",
+  "FCQ_OBJ_PA_SCOURGESTONES": "only GoldScout named the creature (licence: not usable)",
+  "FCQ_OBJ_MA_MANAGEMS": "only GoldScout named the creature (licence: not usable)",
+  "FCQ_OBJ_MA_SILK": "only GoldScout named the creature (licence: not usable)",
+  "FCQ_OBJ_MA_STICKS": "only GoldScout named the creature (licence: not usable)",
+  "FCQ_OBJ_MA_QUILL": "only GoldScout named the creature (licence: not usable)",
+  "FCQ_OBJ_MA_RESIN": "only GoldScout named the creature (licence: not usable)",
+  "FCQ_OBJ_MA_DUST": "only GoldScout named the creature (licence: not usable)"
+ }
 }
