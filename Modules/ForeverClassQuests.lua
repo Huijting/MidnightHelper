@@ -2868,7 +2868,6 @@ local function SalveLine(s)
 		return nil
 	end
 	local giver = s.giver and NpcName(s.giver) or "?"
-	local out = ns:L("FCQ_SALVE_TIP_FMT"):format(sv.uses, giver)
 	local left
 	if C_Item and C_Item.GetItemCount then
 		local ok, n = pcall(C_Item.GetItemCount, sv.item, false, true)
@@ -2882,8 +2881,11 @@ local function SalveLine(s)
 			still = math.max(0, row.numRequired - row.numFulfilled)
 		end
 	end
+	local short = left and still and left < still
+	-- Short: the orange line only says the combat rule, the red line holds the fix (Rob's screenshot showed the
+	-- "abandon and take it again" sentence twice, 26 Nov 2026).
+	local out = short and ns:L("FCQ_SALVE_COMBAT") or ns:L("FCQ_SALVE_TIP_FMT"):format(sv.uses, giver)
 	if left and still then
-		local short = left < still
 		out = out .. "\n" .. (short and "|cffff5050" or "|cff7fff7f") .. ns:L("FCQ_SALVE_LEFT_FMT"):format(left, still)
 			.. (short and (" " .. ns:L("FCQ_SALVE_SHORT_FMT"):format(giver)) or "") .. "|r"
 	end

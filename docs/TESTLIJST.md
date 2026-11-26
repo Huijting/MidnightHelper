@@ -31,7 +31,11 @@ bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt o
 - [ ] Neem "Curing the Sick" opnieuw bij Tonga Runetotem. Het class-questkaartje zegt onder de stap (oranje): "Use the
       salve only when you are NOT in combat … 10 doses, no refill. Lost one? Abandon the quest and take it again from Tonga
       Runetotem." en groen "Doses left: 10, still needed: 10."
-- [ ] Na elke gazelle tellen beide mee omlaag. Heb je minder doses dan nog nodig: de regel wordt rood met "Not enough".
+- [x] Heb je minder doses dan nog nodig: de regel wordt rood met "Not enough". ✅ Rob, 26 nov: *"En dit ziet er keurig uit."*
+      (screenshot: "9/10 Sickly Gazelle cured", rood "Doses left: 0, still needed: 1. Not enough …"). De opgeven-zin stond
+      toen twee keer: nu bij rood maar één keer (oranje = alleen de gevechtsregel).
+- [ ] Als je knoppen weer leeg lijken (vóór je herstart): typ `/mh block look` en stuur de chatregels. Daarmee zien we of het
+      spel ze nog heeft en alleen de balk ze niet toont.
 - [ ] Alliance (Sickly Deer, Darkshore): hetzelfde, met Alanndarian Nightsong.
 
 ## 26 nov — toetsblok: terugzetten wat ontbreekt, plekken in gewone woorden, eerst zeggen wat Undo doet

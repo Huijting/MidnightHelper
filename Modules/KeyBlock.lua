@@ -1693,6 +1693,83 @@ function ns.KeyBlockRestore(quiet)
 	return true, #back
 end
 
+--- /mh block look (26 Nov 2026): Rob's food and drink looked gone, and after a full restart they were back on their
+--- buttons — so the server never lost them and something showed them wrong (NOT MEASURED what). This tells the two
+--- apart: per button of bars 1-8, what the client says the slot holds (GetActionInfo) and whether the button frame
+--- that should show it is visible, has an icon, and points at that slot (a paged bar points elsewhere). Problems are
+--- printed; everything goes to ns.db.keyBlockLook so the SavedVariables show it after a /reload.
+local BAR_FRAMES = { "ActionButton", "MultiBarBottomLeftButton", "MultiBarBottomRightButton", "MultiBarRightButton",
+	"MultiBarLeftButton", "MultiBar5Button", "MultiBar6Button", "MultiBar7Button" } -- same order as KEYBIND_BAR_COMMANDS
+function ns.KeyBlockLookSlash()
+	local p = "|cffffcc00Midnight Helper:|r "
+	local function Plain(v)
+		if v == nil or (issecretvalue and issecretvalue(v)) then
+			return nil
+		end
+		return v
+	end
+	local look = { t = time and time() or 0, rows = {} }
+	local filled, problems = 0, {}
+	for n, b in ipairs(ns.KEYBIND_BAR_COMMANDS or {}) do
+		for btn = 1, 12 do
+			local slot = b.first + btn - 1
+			local k, i = Occupant(slot)
+			if k ~= nil then
+				filled = filled + 1
+				local fr = BAR_FRAMES[n] and _G[BAR_FRAMES[n] .. btn]
+				local vis, alpha, tex, shows
+				if fr then
+					local okV, v = pcall(fr.IsVisible, fr)
+					vis = okV and Plain(v) or nil
+					local okA, a = pcall(fr.GetEffectiveAlpha, fr)
+					alpha = okA and Plain(a) or nil
+					local icon = fr.icon or fr.Icon or _G[BAR_FRAMES[n] .. btn .. "Icon"]
+					if icon and icon.GetTexture then
+						local okT, t = pcall(icon.GetTexture, icon)
+						tex = okT and Plain(t) or nil
+					end
+					local okS, a2 = pcall(fr.GetAttribute, fr, "action")
+					shows = Plain(fr.action) or (okS and Plain(a2)) or nil
+				end
+				local why = {}
+				if not fr then
+					why[#why + 1] = "no button frame"
+				else
+					if vis == false then
+						why[#why + 1] = "button hidden"
+					end
+					if type(alpha) == "number" and alpha < 0.05 then
+						why[#why + 1] = "see-through"
+					end
+					if tex == nil then
+						why[#why + 1] = "no icon"
+					end
+					if type(shows) == "number" and shows ~= slot then
+						why[#why + 1] = "shows slot " .. shows
+					end
+				end
+				local name = OccupantName(k, i) or tostring(k)
+				look.rows[#look.rows + 1] = { slot = slot, where = SlotLabel(slot), kind = k, id = i, name = name,
+					visible = vis, alpha = alpha, icon = tex and true or false, shows = shows, why = table.concat(why, ", ") }
+				if #why > 0 then
+					problems[#problems + 1] = ("%s: %s — %s"):format(SlotLabel(slot), name, table.concat(why, ", "))
+				end
+			end
+		end
+	end
+	look.filled, look.problems = filled, #problems
+	ns.db.keyBlockLook = look
+	print(p .. ns:L("KEYBLOCK_LOOK_FMT"):format(filled, #problems))
+	for idx, line in ipairs(problems) do
+		if idx > 20 then
+			print("   …")
+			break
+		end
+		print("   " .. line)
+	end
+	print("   " .. ns:L("KEYBLOCK_LOOK_NOTE"))
+end
+
 --- /mh block slots: every slot the undo snapshot holds, what MH left there, what is there now, and lift/keep.
 function ns.KeyBlockSlotsSlash()
 	local p = "|cffffcc00Midnight Helper:|r "

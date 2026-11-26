@@ -29,7 +29,20 @@ Nieuw: Sickly Gazelle 12296 (Zygor H :24730) en Sickly Deer 12298 (Wowhead Forev
 `p` = spawns uitgedund (1 per 3×3 kaart-%); `NearestSpot`: op die kaart de dichtstbijzijnde spawn. Toegepast bij >1 gebied
 of ≥5 spawns; `static` = het gebied, zodat het kaartje-id niet verspringt. cq_test 22/22.
 
-## ▶▶ 26 nov (Bouwchat 26-11): BUG eten/drinken weg na Undo van het toetsblok → GEREPAREERD (`/reload`)
+## ▶▶ 26 nov (Bouwchat 26-11): oorzaak "eten/drinken weg" = NIET ZEKER; `/mh block look` om het te meten (`/reload`)
+
+Rob, later: *"toen had ik even wel compleet afgesloten, opnieuw opgestart. En nu staan de dingen, zoals mijn mana en mijn
+eten, weer terug op de plek waar ik ze eigenlijk achtergelaten had."* Dat past NIET bij de diagnose hieronder (Undo tilde ze
+eraf): een vak dat met PickupAction leeg gemaakt is, bewaart de server leeg (AFGELEID, standaard WoW-gedrag) en komt na een
+herstart niet terug. Dus waarschijnlijk stonden ze er nog en liet de balk ze niet zien (wat precies: NIET GEMETEN; kandidaten:
+knop zonder icoon/item-cache, een verborgen of doorzichtige knop, een balk die een andere pagina toont). De fix van f7a74cc
+(Undo tilt alleen MH's eigen spul) blijft goed, maar is niet bewezen als oorzaak.
+Nieuw: `/mh block look` (onvermeld) — balk 1-8: per gevulde knop wat GetActionInfo zegt vs of de knop zichtbaar is, een icoon
+heeft en naar dat vak wijst; problemen in chat, alles in `ns.db.keyBlockLook`. Rob doet dat als het weer gebeurt (vóór een
+herstart). Ook: zalf-regel rood → oranje regel alleen de gevechtsregel (FCQ_SALVE_COMBAT), de opgeven-zin één keer.
+undo_test 24/24, cq_test 28/28.
+
+## ▶▶ 26 nov (Bouwchat 26-11): BUG eten/drinken weg na Undo van het toetsblok → fix (oorzaak later onzeker, zie boven)
 
 Rob (Druid): spells/eten/drinken weg "op het vrije gedeelte … links naast onze alt-knoppen". GEMETEN in zijn SV: snapshot
 `keyBlockSnapshots["Player-6944-02C2528B:1484"].at = 1795694474` = vandaag 13:01 (NL): het blok is vandaag opnieuw geplaatst;

@@ -1492,6 +1492,13 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		end
 		return
 	end
+	-- /mh block look — what each button holds vs what you can see on it (26 Nov 2026, Rob's food "gone" until a restart).
+	if msg == "block look" then
+		if ns.KeyBlockLookSlash then
+			ns.KeyBlockLookSlash()
+		end
+		return
+	end
 	-- /mh block restore — put back what is missing on an empty place, never lift anything (26 Nov 2026).
 	if msg == "block restore" then
 		if ns.KeyBlockRestore then
