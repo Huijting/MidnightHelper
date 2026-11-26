@@ -1642,7 +1642,10 @@ local TOOLS_ON_TABS = { KEYSHUB_TITLE = true, HOME_FOREVER_BTN_HOWTO = true, HOM
 	FPROF_TITLE = true, FMAC_TITLE = true, FVEND_TITLE = true, FWEAP_TITLE = true, KEYBLOCK_TITLE = true,
 	TAB_MACROS = true }
 local TOOL_EXTRAS = {
+	-- Move is a switch, not a window: the button says "Close" while it is on (Rob, 26 Nov 2026: "eigenlijk moet hij op dat
+	-- moment op close staan").
 	{ nameKey = "FOV_TOOL_MOVE", descKey = "CMDLIST_MOVE", icon = "Interface\\Icons\\INV_Misc_Map_01", slash = "/mh move",
+		isOn = function() return ns.IsMoveModeOn and ns.IsMoveModeOn() end,
 		open = function() if ns.MoveModeSlash then ns.MoveModeSlash("") end end },
 	{ nameKey = "FOV_TOOL_BAR", descKey = "CMDLIST_BAR", icon = "Interface\\Icons\\INV_Misc_Bag_08", slash = "/mh bar",
 		open = function() if ns.MH_ToggleQuickBar then ns.MH_ToggleQuickBar() end end },
@@ -4603,10 +4606,16 @@ local function FillToolsPage(f, refresh)
 		r.name:SetText(ns:L(t.nameKey))
 		r.desc:SetText(ns:L(t.descKey))
 		r.slash:SetText(t.slash or "")
+		-- "Close" = Blizzard's own CLOSE string (the client's language).
+		local function GoText()
+			return (t.isOn and t.isOn()) and (CLOSE or "Close") or ns:L("FOV_TOOL_OPEN")
+		end
+		r.go:SetLabel(GoText())
 		r.go:SetScript("OnClick", function()
 			if t.open then
 				t.open()
 			end
+			r.go:SetLabel(GoText())
 		end)
 		local h = math.max(40, 8 + (r.name:GetStringHeight() or 16) + 2 + (r.desc:GetStringHeight() or 14) + 2
 			+ (r.slash:GetStringHeight() or 12) + 6)
@@ -5008,6 +5017,14 @@ local function RelayoutTabs(f, group)
 	end
 	if f.pageName then
 		f.pageName:SetText(name and name:upper() or "")
+	end
+end
+
+--- Redraw only when the window is open (MoveMode.lua calls this when Move goes on/off: the Tools button follows).
+function ns.ForeverOverviewRefreshIfShown()
+	local w = rawget(_G, "MidnightHelperForeverOverview")
+	if w and w:IsShown() then
+		pcall(ns.ForeverOverviewFill, true)
 	end
 end
 

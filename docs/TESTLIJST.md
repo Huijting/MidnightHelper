@@ -25,14 +25,26 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 26 nov — Move: knop "Close", balk met "Done", Escape stopt; label castbalken erboven; klikkaart 3 per rij
+
+`/reload` is genoeg. Offline getest (move_test 19/19, card_test 22/22), NIET in het spel.
+- [ ] Forever → Tools → "Move MH on your screen" → Open: de knop heet nu "Close". Bovenaan je scherm een groene balk "Move is
+      on: drag the green boxes. Done or Escape stops it." met een knop Done.
+- [ ] Druk Escape: Move gaat uit (groene vakken weg, balk weg), en de knop in Tools heet weer "Open". Zo ook met Done.
+- [ ] Het vak van de castbalken: "Drag me: dangerous cast bars" staat nu BOVEN de balken, op een donker strookje.
+- [ ] Midnight: Instellingen → "Move MH elements on your screen": het vinkje volgt (ook als je met Escape stopt).
+- [ ] Klikkaart, Other layers: 3 per rij; "Cure Poison  via quest" en "Remove Curse  level 24" staan er helemaal.
+
 ## 26 nov — klikkaart: tooltips en grotere letters (Rob, tweede screenshot)
 
 `/reload` is genoeg. Offline getest (card_test 22/22), NIET in het spel.
-- [ ] Muis op Rejuvenation / Regrowth / Healing Touch: de tooltip van het spel zelf, met eronder bv. "Alt + left click on
-      a group frame". Ook op de kleine iconen onder "Other layers"; een grijze: "Not learned yet: level 24".
-- [ ] De kleine teksten (ondertitel, "Rank 3", Other layers, voettekst, de knopjes Plain/Alt/Ctrl/Shift) zijn groter.
-      (Jij had de kaart op de kleinste stand gezet: die blijft, Shift+scroll omhoog maakt hem groter.)
-- [ ] Het lichtere rechthoekje links in het lichaam van de muis is weg.
+- [x] Muis op Rejuvenation / Regrowth / Healing Touch: de tooltip van het spel zelf, met eronder bv. "Alt + left click on
+      a group frame". ✅ Rob, 26 nov (screenshot Healing Touch: 110 Mana, 40 yd, "Heals a friendly target for 180 to 225."
+      + "ALT + middle click (wheel) on a group frame").
+- [ ] Ook op de kleine iconen onder "Other layers"; een grijze: "Not learned yet: level 24".
+- [x] De kleine teksten zijn groter. ✅ Rob, 26 nov (screenshot). Wel: "Cure Poison via que…" en "Remove Curse level…"
+      werden afgekapt → Other layers nu 3 per rij, breder (zie bovenaan).
+- [x] Het lichtere rechthoekje links in het lichaam van de muis is weg. ✅ Rob, 26 nov (screenshot).
 
 ## 26 nov — FOREVER: loot die MH zelf leert van een rare (Rob: "kunnen we ook zien wat die dropt?")
 
@@ -48,7 +60,8 @@ bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt o
 `/reload` is genoeg. Offline getest (rare_test 27/27), NIET in het spel.
 - [ ] Find → Rares: zet de muis op de naam van een rare. Naast het venster draait de rare in 3D, met zijn naam eronder.
       Muis weg: het model is weg.
-- [ ] `/mh rares test`: het rare-venster heeft links de rare in 3D, de tekst staat ernaast.
+- [x] `/mh rares test`: het rare-venster heeft links de rare in 3D, de tekst staat ernaast. ✅ Rob, 26 nov (via Sparring,
+      screenshot Strider Clutchmother, model links zichtbaar): *"de MHR-test is ook geslaagd"*.
 - [ ] Geen model (een rare waar je nog nooit was?): geen zwart vak; het venster/model gaat vanzelf weg. `/mh rares why` →
       regel "3D model: …" zegt waarom.
 
@@ -63,7 +76,8 @@ bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt o
 
 Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (flight_test 36), NIET in het spel.
 ✅ Rob, 26 nov (Druid 15, echt dood): venster + "Arrow to my corpse" werken ("dat geeft helemaal keurig"). Sickness-duur
-(5 min op 15) wordt nagemeten: Polestar zei 10 min op level 14.
+✅ GEMETEN: Blizzards eigen Spirit Healer-popup op Robs Druid 15 zegt "5 minutes" en "25% durability damage (equipped and
+inventory)", gelijk aan MH's venster (screenshot via Sparring). Polestars "10 min" was een vaste terugval.
 - [ ] `/mh ghost test`: venster "YOU DIED" met een voorbeeld (889 m), advies en wat de Spirit Healer op jouw level kost.
 - [ ] Echt dood, nog niet released: "Release: you appear … from your corpse; the run back takes about …".
 - [ ] Als geest: "Your corpse: … away, about … as a ghost." telt af terwijl je loopt; knop "Arrow to my corpse" zet de pijl.
@@ -89,12 +103,14 @@ Zo klein mogelijk voor Rob:
 - [ ] Forever: Quiet helpers → Click heals → "Show the click card" (of `/mh clickcard`). Een grote kaart met een
       getekende muis; links groen, rechts blauw, wieltje goud; jouw drie Alt-heals eromheen met een lijntje naar hun knop
       (ook naar het wieltje). Bovenaan pillen Plain / Alt / Ctrl / Shift; Alt is goud.
-- [ ] Houd Shift ingedrukt: de kaart toont meteen de Shift-laag ("live: Shift is held"). Loslaten: terug.
+- [x] Houd Shift ingedrukt: de kaart toont meteen de Shift-laag ("live: Shift is held"). Loslaten: terug. ✅ Rob, 26 nov:
+      *"als ik shift ingedrukt houd, springt het mooi over."*
 - [ ] Onderaan "OTHER LAYERS": gewone klik = Target/Menu, en wat je nog niet kent grijs met "level 24", "talent" of
       "via quest" (Cure Poison).
 - [ ] Zet "Keep left-click for targeting" uit: binnen 2 seconden staan de heals op Plain en is Plain de grote laag; zet
       hem weer aan: terug naar Alt. Verander iets in `/df` → Click Casting: de kaart volgt.
-- [ ] Shift+scroll: groter/kleiner, scherp op je grote scherm. Slepen; de knop "See-through" wisselt 100/85/70/50%.
+- [x] Shift+scroll: groter/kleiner. ✅ Rob, 26 nov: *"En ik kan inderdaad shift scrollen groter en kleiner maken."*
+- [ ] Slepen; de knop "See-through" wisselt 100/85/70/50%.
 - [ ] Quiet helpers → "Click card see-through outside a group" aan: solo bijna doorzichtig.
 - [ ] Midnight (healer-spec met de klik-indeling): How you play → klikken → knop "Show the click card".
 - [ ] `/mh clickcard why`: waar de klikken vandaan komen (DandersFrames-profiel of MH's indeling).
@@ -120,8 +136,10 @@ Alleen bestaande bestanden gewijzigd: `/reload` is genoeg.
 ## 26 nov — FOREVER: venster als er een rare in zicht is (reisplanner stap 2; Rob: "een eigen venstertje voor [rares]")
 
 Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (rare_test 15), NIET in het spel.
-- [ ] `/mh rares test`: het venster "RARE IN SIGHT" met naam, level, zone en drie knoppen (Target, Show in Find,
-      Waypoint). Sleep het venster; Shift+scroll = groter/kleiner.
+- [x] `/mh rares test`: het venster "RARE IN SIGHT" met naam, level, zone en drie knoppen (Target, Show in Find,
+      Waypoint). ✅ Rob, 26 nov: *"de MHR-test is ook geslaagd"* (screenshot: Strider Clutchmother, level 20, Darkshore,
+      "Drops the Tallstrider Hatchling pet (about 1 in 3)", de drie knoppen).
+- [ ] Sleep het venster; Shift+scroll = groter/kleiner.
 - [ ] Een echte rare in je buurt (nameplate, target of muis erop): het venster komt vanzelf, met een geluidje. Klik Target:
       de rare is je target. Klik Show in Find: het overzicht opent bij de rares van die zone. Waypoint: de pijl.
 - [ ] In een gevecht: geen Target-knop, wel de tekst "Target: after the fight"; na het gevecht is de knop terug.
@@ -162,9 +180,11 @@ niet genoeg (in Midnight doet het bestand niets, maar de toc veranderde). Offlin
 ## 26 nov — FOREVER: alleen commando's die in Forever werken (Rob: "3 ja")
 
 Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (cmd_test 13), NIET in het spel.
-- [ ] Forever-venster → All commands: geen /mh crests, /mh folio, /mh weeklies, /mh wishlist, /mh ach, /mh mount,
-      /mh nodes meer. Wel o.a. /mh move, /mh block, /mh enchant, /mh donow, /mh alts, /mh board.
-- [ ] Typ in Forever `/mh crests`: chat zegt "/mh crests only works in World of Warcraft: Midnight, not in WoW Forever."
+- [x] Forever-venster → All commands: geen /mh crests, /mh folio, /mh weeklies, /mh wishlist, /mh ach, /mh mount,
+      /mh nodes meer. Wel o.a. /mh move, /mh block, /mh enchant, /mh donow, /mh alts, /mh board. ✅ Rob, 26 nov (voor
+      crests): *"Zie je hem ook niet meer terug in het overzichtje, dus dat is goed."*
+- [x] Typ in Forever `/mh crests`: chat zegt "/mh crests only works in World of Warcraft: Midnight, not in WoW Forever."
+      ✅ Rob, 26 nov: *"geeft inderdaad deze keurige melding."*
 - [ ] De zoekbalk in Forever vindt die Midnight-commando's ook niet meer.
 - [ ] Midnight: de commandolijst is onveranderd (alles staat er, zonder de Forever-commando's).
 
@@ -182,6 +202,8 @@ Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. NIET in het spel gete
 Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (move_test 12), NIET in het spel.
 - [ ] Forever: zet Move aan (venster → Tools → Move, of `/mh move`). Geen foutmelding meer (was MoveMode.lua:144
       "secret number").
+- [x] (slepen) ✅ Rob, 26 nov: *"de casts kan ik nu verslepen, dus daar ben ik heel blij mee."* Wel: het label stond
+      dwars over de middelste balk → gerepareerd (zie bovenaan), en Escape/Open-knop van Move → gerepareerd.
 - [ ] Er staat een groen vak "dangerous cast bars" met drie voorbeeldbalken. Sleep het vak: de balken gaan mee. Zet
       Move uit: de voorbeeldbalken zijn weg. Bij de volgende cast op jou staan de echte balken op de nieuwe plek.
 - [ ] Ook het icoon (combat safety) is te slepen en verdwijnt weer na Move uit.
@@ -204,7 +226,8 @@ het spel.
 - [ ] Show the way: de pijl wijst eerst naar de flight master in Orgrimmar (niet 4405 m rechtdoor). Daar staat hij stil
       met de tekst "the flight master: fly to Thunder Bluff, Mulgore". Na de landing wijst hij naar Turak.
 - [ ] Tijdens de vlucht doet de pijl geen rare dingen (hij wijst gewoon naar het doel).
-- [ ] Een plek waar lopen sneller is: het kaartje zegt "The way there: walk (about N min)."
+- [x] Een plek waar lopen sneller is: het kaartje zegt "The way there: walk (about N min)." ✅ Rob, 26 nov (screenshot
+      "Gathering the Cure": "The way there: walk (about 3 min).")
 - [ ] Ook de andere "Show the way"-knoppen (trainer, vendor, dungeon, Find) kunnen nu een vlucht in de route zetten.
 - [ ] Je Hearthstone op cooldown: de route stuurt je er niet heen (dat deed hij al; nu ook naast vluchten).
 

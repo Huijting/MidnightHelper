@@ -38,6 +38,7 @@ local G = {
 	sideY = -330, sideDX = 230, -- left/right spells: centre x = mid -/+ 230 (150 / 610), labels under the icon
 	stripY = -515,      -- "Other layers" heading; rows of 4 from stripY - 24, 44 apart
 	rowH = 44,
+	miniCols = 3, miniW = 228, miniN = 9, -- "Other layers": 3 x 3, each 228 wide (24 + 2 x 238 + 228 = 728 < 760 - 24)
 }
 local MASK = "Interface\\CHARACTERFRAME\\TempPortraitAlphaMask"
 local COL = {
@@ -628,11 +629,13 @@ local function Build()
 	hair:SetPoint("BOTTOMLEFT", f.stripHead, "TOPLEFT", 0, 6)
 	hair:SetPoint("RIGHT", f, "RIGHT", -24, 0)
 	hair:SetHeight(1)
+	-- 3 per row, 228 wide (26 Nov 2026, Rob's third screenshot: with the bigger font "Cure Poison via que…" was cut off).
 	f.minis = {}
-	for i = 1, 8 do
+	for i = 1, G.miniN do
 		local m = CreateFrame("Frame", nil, f)
-		m:SetSize(170, 36)
-		m:SetPoint("TOPLEFT", f, "TOPLEFT", 24 + ((i - 1) % 4) * 180, G.stripY - 24 - math.floor((i - 1) / 4) * G.rowH)
+		m:SetSize(G.miniW, 36)
+		m:SetPoint("TOPLEFT", f, "TOPLEFT", 24 + ((i - 1) % G.miniCols) * (G.miniW + 10),
+			G.stripY - 24 - math.floor((i - 1) / G.miniCols) * G.rowH)
 		m.edge = Tex(m, "BORDER", 0.5, 0.5, 0.5, 1)
 		m.edge:SetSize(30, 30)
 		m.edge:SetPoint("LEFT")
@@ -642,7 +645,7 @@ local function Build()
 		m.icon:SetTexCoord(0.07, 0.93, 0.07, 0.93)
 		m.name = m:CreateFontString(nil, "OVERLAY", "GameFontHighlight") -- was the small font (Rob: hard to read)
 		m.name:SetPoint("TOPLEFT", m.edge, "TOPRIGHT", 6, 1)
-		m.name:SetWidth(132)
+		m.name:SetWidth(G.miniW - 38)
 		m.name:SetJustifyH("LEFT")
 		m.name:SetWordWrap(false) -- one line; the whole text is in the tooltip
 		m.key = m:CreateFontString(nil, "OVERLAY", "GameFontNormal")
@@ -795,7 +798,7 @@ function ns.ClickCardRefresh(force)
 	end
 	f.stripHead:SetShown(#strip > 0)
 	-- The card grows with the strip, so the footer (2 lines at most) always sits under the last row (Rob's screenshot).
-	local rowsUsed = math.min(2, math.ceil(math.min(#strip, #f.minis) / 4))
+	local rowsUsed = math.ceil(math.min(#strip, #f.minis) / G.miniCols)
 	local bottom
 	if rowsUsed > 0 then
 		bottom = -(G.stripY - 24 - (rowsUsed - 1) * G.rowH - 36)

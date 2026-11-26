@@ -38,7 +38,10 @@ local ELEMENTS = {
 	{ name = "MidnightHelperCombatSafety", label = "MOVE_EL_SAFETY" },
 	-- 26 Nov 2026 (Rob, Forever: "Ik kon dus niet die bars verplaatsen"): the cast bars stack, with three sample bars
 	-- while moving (preview = the function that shows them; only when the bars are switched on).
-	{ name = "MidnightHelperCombatSafetyBars", label = "MOVE_EL_SAFETY_BARS", preview = "CombatSafetyBarsPreview" },
+	-- labelAbove: the label sits above the box, not over the sample bars (Rob's screenshot 26 Nov: "Drag me: dangerous
+	-- cast bars" ran right through the middle bar).
+	{ name = "MidnightHelperCombatSafetyBars", label = "MOVE_EL_SAFETY_BARS", preview = "CombatSafetyBarsPreview",
+		labelAbove = true },
 	{ name = "MidnightHelperCombatLogLamp", label = "MOVE_EL_LAMP" },
 	{ name = "MidnightHelperFpsPanel", label = "MOVE_EL_FPS" },
 }
@@ -95,10 +98,19 @@ local function Box(el)
 	})
 	box:SetBackdropColor(0.1, 0.6, 0.2, 0.35)
 	box:SetBackdropBorderColor(0.3, 1, 0.4, 0.95)
-	box.text = box:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
-	box.text:SetPoint("CENTER")
+	box.text = box:CreateFontString(nil, "OVERLAY", "GameFontNormal")
 	box.text:SetTextColor(1, 1, 1)
 	box.text:SetShadowOffset(1, -1)
+	if el.labelAbove then
+		-- On a dark strip just above the box, so it never covers what you are placing.
+		box.textBg = box:CreateTexture(nil, "ARTWORK")
+		box.textBg:SetColorTexture(0.05, 0.25, 0.08, 0.9)
+		box.text:SetPoint("BOTTOM", box, "TOP", 0, 5)
+		box.textBg:SetPoint("TOPLEFT", box.text, "TOPLEFT", -6, 3)
+		box.textBg:SetPoint("BOTTOMRIGHT", box.text, "BOTTOMRIGHT", 6, -3)
+	else
+		box.text:SetPoint("CENTER")
+	end
 	box:EnableMouse(true)
 	box:RegisterForDrag("LeftButton")
 	box:SetScript("OnDragStart", function(self, button)
@@ -172,11 +184,63 @@ local function Tick()
 	end
 end
 
-local function Stop(reason)
+--------------------------------------------------------------------------------
+-- A bar at the top while Move is on (26 Nov 2026). Rob: "Als ik op escape druk, blijft alles staan, dus dat schiet niet
+-- op." → a "Done" button, and Escape stops Move: the bar is in UISpecialFrames (RegisterMidnightDialogPopup), so Escape
+-- hides it and its OnHide stops Move.
+--------------------------------------------------------------------------------
+local bar
+local Stop
+
+local function Bar()
+	if bar then
+		return bar
+	end
+	local b = CreateFrame("Frame", "MidnightHelperMoveBar", UIParent, "BackdropTemplate")
+	if ns.RegisterMidnightDialogPopup then
+		ns.RegisterMidnightDialogPopup(b) -- Escape closes it (= stops Move); Shift+scroll = size
+	end
+	b:SetFrameStrata("FULLSCREEN_DIALOG")
+	b:SetSize(520, 40)
+	b:SetPoint("TOP", UIParent, "TOP", 0, -12)
+	b:SetBackdrop({ bgFile = "Interface\\Buttons\\WHITE8x8", edgeFile = "Interface\\Buttons\\WHITE8x8", edgeSize = 1 })
+	b:SetBackdropColor(0.04, 0.12, 0.05, 0.95)
+	b:SetBackdropBorderColor(0.3, 1, 0.4, 0.95)
+	b.text = b:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+	b.text:SetPoint("LEFT", 12, 0)
+	b.text:SetPoint("RIGHT", -100, 0)
+	b.text:SetJustifyH("LEFT")
+	b.done = CreateFrame("Button", nil, b, "UIPanelButtonTemplate")
+	b.done:SetSize(80, 24)
+	b.done:SetPoint("RIGHT", -8, 0)
+	b.done:SetScript("OnClick", function()
+		Stop()
+	end)
+	b:SetScript("OnHide", function()
+		if active then
+			Stop()
+		end
+	end)
+	b:Hide()
+	bar = b
+	return b
+end
+
+local function Changed()
+	-- The buttons that say Open/Close (Forever Tools) and the settings checkbox follow.
+	if ns.ForeverOverviewRefreshIfShown then
+		pcall(ns.ForeverOverviewRefreshIfShown)
+	end
+end
+
+function Stop(reason)
 	if not active then
 		return
 	end
 	active = false
+	if bar then
+		bar:Hide()
+	end
 	if ticker then
 		ticker:Cancel()
 		ticker = nil
@@ -213,6 +277,7 @@ local function Stop(reason)
 	if ns.SyncNativeSetting then
 		ns.SyncNativeSetting("mh_moveMode", false)
 	end
+	Changed()
 	print(PREFIX .. (reason or ns:L("MOVE_OFF")))
 end
 
@@ -241,6 +306,14 @@ local function Start()
 	if C_Timer and C_Timer.NewTicker then
 		ticker = C_Timer.NewTicker(0.5, Tick)
 	end
+	local b = Bar()
+	b.text:SetText(ns:L("MOVE_BAR_LINE"))
+	b.done:SetText(ns:L("MOVE_BAR_DONE"))
+	b:Show()
+	if ns.SyncNativeSetting then
+		ns.SyncNativeSetting("mh_moveMode", true)
+	end
+	Changed()
 	print(PREFIX .. ns:L("MOVE_ON_FMT"):format(n))
 	return true
 end

@@ -1,5 +1,16 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 26 nov (Bouwchat 26-11): Robs testronde ✅ + Move-knop/Escape + castbalk-label + klikkaart 3 per rij (`/reload`)
+
+Rob testte (via Sparring, 5 screenshots) en het werkt: /mh crests-melding in Forever, castbalken slepen, "The way there: walk
+(about 3 min)", Shift-laag + Shift+scroll op de klikkaart, /mh rares test met 3D-model, tooltip/grotere letters/glansvlek op
+de klikkaart. In TESTLIJST afgevinkt met zijn woorden.
+Gerepareerd: MoveMode.lua — balk MidnightHelperMoveBar bovenaan met "Done" (RegisterMidnightDialogPopup → Escape verbergt
+hem → OnHide stopt Move); Start/Stop roepen `ns.ForeverOverviewRefreshIfShown` (Tools-knop "Open" ↔ Blizzards `CLOSE`) en
+SyncNativeSetting (vinkje Midnight). Element castbalken `labelAbove`: label op een strookje boven het vak. ClickCard.lua: Other
+layers 3 × 3, 228 breed (G.miniCols/miniW/miniN). Keys MOVE_BAR_LINE/_DONE in 8 talen. move_test 19/19, card_test 22/22.
+Volgende: class quest met meerdere plekken (alle spawnpunten van het doel, clusteren, dichtstbijzijnde gebied).
+
 ## ▶▶ 26 nov (Bouwchat 26-11): klikkaart na Robs TWEEDE screenshot — tooltips, grotere letters, glansvlek weg (`/reload`)
 
 Rob: lay-out werkt (niets overlapt, GEMETEN door Sparring op de screenshot), maar *"allemaal wat wel lastiger te lezen"* en
