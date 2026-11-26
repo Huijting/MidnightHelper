@@ -25,6 +25,15 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 26 nov — klikkaart: tooltips en grotere letters (Rob, tweede screenshot)
+
+`/reload` is genoeg. Offline getest (card_test 22/22), NIET in het spel.
+- [ ] Muis op Rejuvenation / Regrowth / Healing Touch: de tooltip van het spel zelf, met eronder bv. "Alt + left click on
+      a group frame". Ook op de kleine iconen onder "Other layers"; een grijze: "Not learned yet: level 24".
+- [ ] De kleine teksten (ondertitel, "Rank 3", Other layers, voettekst, de knopjes Plain/Alt/Ctrl/Shift) zijn groter.
+      (Jij had de kaart op de kleinste stand gezet: die blijft, Shift+scroll omhoog maakt hem groter.)
+- [ ] Het lichtere rechthoekje links in het lichaam van de muis is weg.
+
 ## 26 nov — FOREVER: loot die MH zelf leert van een rare (Rob: "kunnen we ook zien wat die dropt?")
 
 `/reload` is genoeg. Offline getest (rare_test 38/38), NIET in het spel.

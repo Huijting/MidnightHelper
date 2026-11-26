@@ -1,5 +1,17 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 26 nov (Bouwchat 26-11): klikkaart na Robs TWEEDE screenshot — tooltips, grotere letters, glansvlek weg (`/reload`)
+
+Rob: lay-out werkt (niets overlapt, GEMETEN door Sparring op de screenshot), maar *"allemaal wat wel lastiger te lezen"* en
+*"Kunnen we ook de Healing Touch, de Regrowth, Rejuvenation een tooltip geven?"*. Lay-out bewust NIET omgegooid (Rob
+twijfelt nog). ClickCard.lua: elk icoon (3 grote + Other layers) heeft de echte spell-tooltip (GameTooltip:SetSpellByID met
+het rank-id) + MH-regel "Alt + left click on a group frame"; niet geleerd: + "Not learned yet: level 24/talent/via quest";
+Target/Menu: korte uitleg. Slepen vanaf een icoon versleept de kaart. Letters: ondertitel, "Rank", layer-regel, Other
+layers-namen/toetsen en voettekst van Small naar normaal; pillen, "live" en de kop Other layers naar Large. Eerste keer
+open: schaal 1.25 (een Shift+scroll-maat die je al koos wint — Rob had de kleinste stand, die blijft dus tot hij scrolt).
+Glansrechthoek (`shine`) weg. Keys FCARD_BTN_L/R/M, FCARD_TIP_* in enUS/nlNL/ruRU/Translations2026 (de/fr/es/pt; itIT had
+ook geen andere FCARD-keys). card_test 22/22.
+
 ## ▶▶ 26 nov (Bouwchat 26-11): loot die MH ZELF leert GEBOUWD (`/reload`) + sickness-duur nagemeten
 
 Keuze (a) van Sparring (Rob volgt zijn advies): geen Drop Tables, geen licentiewijziging. ForeverRares.lua: LOOT_OPENED →

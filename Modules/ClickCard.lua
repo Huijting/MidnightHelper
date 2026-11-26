@@ -291,6 +291,8 @@ local function LinePoints(ln, a1, f1, x1, y1, a2, f2, x2, y2)
 	end
 end
 
+local Hoverable -- tooltip on a slot / mini (defined with the tooltips below; only called from Build, later)
+
 --- A big spell slot: glow border, icon, key badge, name + rank text on one side.
 local function BigSlot(parent, color, textSide)
 	local s = CreateFrame("Frame", nil, parent)
@@ -314,14 +316,14 @@ local function BigSlot(parent, color, textSide)
 	s.icon:SetPoint("BOTTOMRIGHT", -3, 3)
 	s.icon:SetTexCoord(0.07, 0.93, 0.07, 0.93)
 	s.badgeBg = Tex(s, "OVERLAY", color[1], color[2], color[3], 1)
-	s.badge = s:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+	s.badge = s:CreateFontString(nil, "OVERLAY", "GameFontNormal")
 	s.badge:SetTextColor(0.08, 0.06, 0.03)
 	s.badge:SetPoint("CENTER", s, "BOTTOM", 0, -2)
 	s.badgeBg:SetPoint("TOPLEFT", s.badge, "TOPLEFT", -6, 2)
 	s.badgeBg:SetPoint("BOTTOMRIGHT", s.badge, "BOTTOMRIGHT", 6, -2)
 	s.name = s:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
-	s.sub = s:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-	s.sub:SetTextColor(0.75, 0.70, 0.60)
+	s.sub = s:CreateFontString(nil, "OVERLAY", "GameFontHighlight") -- "Rank 3": was the small font (Rob: hard to read)
+	s.sub:SetTextColor(0.80, 0.75, 0.64)
 	if textSide == "below" then
 		-- Under the icon, centred, and kept to 210 px so it never leaves the card (Rob's screenshot).
 		s.name:SetPoint("TOP", s, "BOTTOM", 0, -18)
@@ -342,11 +344,80 @@ local function BigSlot(parent, color, textSide)
 		s.sub:SetJustifyH("LEFT")
 	end
 	s.color = color
+	Hoverable(s)
 	return s
 end
 
-local function FillBig(s, r, code)
+-- ── Tooltips (26 Nov 2026, Rob: "Kunnen we ook de Healing Touch, de Regrowth, Rejuvenation een tooltip geven?") ──
+--- "Alt + left click" for a click.
+local function TipKey(mod, button)
+	local b = L(button == "LeftButton" and "FCARD_BTN_L" or button == "RightButton" and "FCARD_BTN_R" or "FCARD_BTN_M")
+	if (mod or "") == "" then
+		return b
+	end
+	return ModName(mod) .. " + " .. b
+end
+
+--- The game's own spell tooltip (the rank you have), then MH's line with the click. tip = { spellId, action, mod, button,
+--- miss } on the frame (set in FillBig / the strip).
+local function TipEnter(self)
+	local tip = self.tip
+	if not (tip and GameTooltip) then
+		return
+	end
+	GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+	local shown = false
+	if tip.spellId and GameTooltip.SetSpellByID then
+		shown = pcall(GameTooltip.SetSpellByID, GameTooltip, tip.spellId) and (GameTooltip:NumLines() or 0) > 0
+	end
+	if not shown then
+		local title = (tip.action == "target" and L("FCARD_TARGET")) or (tip.action == "menu" and L("FCARD_MENU"))
+			or SpellName(tip.spellId) or tip.name or "?"
+		GameTooltip:SetText(title, 1, 0.82, 0, 1, true)
+		if tip.action == "target" then
+			GameTooltip:AddLine(L("FCARD_TIP_TARGET"), 1, 1, 1, true)
+		elseif tip.action == "menu" then
+			GameTooltip:AddLine(L("FCARD_TIP_MENU"), 1, 1, 1, true)
+		end
+	end
+	GameTooltip:AddLine(" ")
+	GameTooltip:AddLine(L("FCARD_TIP_CLICK_FMT"):format(TipKey(tip.mod, tip.button)), 0.56, 0.94, 0.60, true)
+	if tip.miss then
+		GameTooltip:AddLine(L("FCARD_TIP_NOTYET_FMT"):format(tip.miss), 0.88, 0.63, 0.31, true)
+	end
+	GameTooltip:Show()
+end
+
+local function TipLeave()
+	if GameTooltip then
+		GameTooltip:Hide()
+	end
+end
+
+function Hoverable(fr)
+	fr:EnableMouse(true)
+	fr:SetScript("OnEnter", TipEnter)
+	fr:SetScript("OnLeave", TipLeave)
+	-- Dragging the card still works when you start on an icon.
+	if fr.RegisterForDrag then
+		fr:RegisterForDrag("LeftButton")
+		fr:SetScript("OnDragStart", function()
+			if card then
+				card:StartMoving()
+			end
+		end)
+		fr:SetScript("OnDragStop", function()
+			if card and card:GetScript("OnDragStop") then
+				card:GetScript("OnDragStop")(card)
+			end
+		end)
+	end
+end
+
+local function FillBig(s, r, code, mod, button)
 	local c = s.color
+	s.tip = r and { spellId = r.action == "spell" and r.spellId or nil, name = r.spellName, action = r.action,
+		mod = mod, button = button } or nil
 	s.halo1:SetShown(r ~= nil)
 	s.halo2:SetShown(r ~= nil)
 	if not r then
@@ -389,6 +460,9 @@ local function Build()
 	f:SetSize(W, H)
 	f:SetFrameStrata("MEDIUM")
 	f:SetClampedToScreen(true)
+	-- Bigger the first time (Rob, 26 Nov: "allemaal wat wel lastiger te lezen", a big screen). A size you chose with
+	-- Shift+scroll is remembered by RegisterMidnightDialogPopup and wins over this.
+	f:SetScale(1.25)
 	if ns.RegisterMidnightDialogPopup then
 		ns.RegisterMidnightDialogPopup(f) -- Shift+scroll = size (Rob: a very big screen), Escape closes
 	end
@@ -422,7 +496,7 @@ local function Build()
 	f.title:SetPoint("TOPLEFT", 24, -20)
 	f.title:SetTextColor(1, 0.83, 0.42)
 	f.title:SetText(L("FCARD_TITLE"):upper())
-	f.sub = f:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	f.sub = f:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
 	f.sub:SetPoint("TOPLEFT", f.title, "BOTTOMLEFT", 2, -6)
 	f.sub:SetWidth(W - 60)
 	f.sub:SetJustifyH("LEFT")
@@ -436,7 +510,7 @@ local function Build()
 		local b = CreateFrame("Button", nil, f, "BackdropTemplate")
 		b:SetHeight(24)
 		b:SetBackdrop({ bgFile = "Interface\\Buttons\\WHITE8X8", edgeFile = "Interface\\Buttons\\WHITE8X8", edgeSize = 1 })
-		b.t = b:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+		b.t = b:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge") -- was GameFontNormal (Rob: hard to read)
 		b.t:SetPoint("CENTER")
 		b.t:SetText(ModName(m))
 		b:SetWidth(math.max(70, (b.t:GetStringWidth() or 40) + 30))
@@ -453,7 +527,7 @@ local function Build()
 		b.mod = m
 		f.pills[i] = b
 	end
-	f.live = f:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+	f.live = f:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
 	f.live:SetPoint("TOPRIGHT", -24, -88)
 	f.live:SetTextColor(0.62, 0.89, 0.6)
 	-- The mouse: body ellipse with a gold rim; left/right buttons are the top of the same ellipse.
@@ -485,9 +559,8 @@ local function Build()
 	local body = Masked(f.body, mask, "BORDER", 0.15, 0.15, 0.18, 1)
 	body:SetAllPoints(f.body)
 	Grad(body, 0.32, 0.32, 0.37, 1, 0.07, 0.07, 0.09, 1)
-	local shine = Masked(f.body, mask, "ARTWORK", 1, 1, 1, 0.08)
-	shine:SetPoint("TOPLEFT", f.body, "TOPLEFT", 14, -12)
-	shine:SetPoint("BOTTOMRIGHT", f.body, "CENTER", 0, 0)
+	-- (26 Nov 2026, Rob's second screenshot: the old "shine" square showed as a light rectangle with straight edges under
+	-- the left button. Removed; the body's gradient gives the light already.)
 	local split = mh * 0.36
 	f.btnL = Masked(f.body, mask, "ARTWORK", COL.L[1], COL.L[2], COL.L[3], 1)
 	f.btnL:SetPoint("TOPLEFT", f.body, "TOPLEFT", 0, 0)
@@ -529,7 +602,7 @@ local function Build()
 	f.layerText = f.body:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
 	f.layerText:SetPoint("CENTER", f.body, "CENTER", 0, -50)
 	f.layerText:SetTextColor(0.91, 0.86, 0.72)
-	f.layerSub = f.body:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	f.layerSub = f.body:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
 	f.layerSub:SetPoint("TOP", f.layerText, "BOTTOM", 0, -4)
 	f.layerSub:SetTextColor(0.6, 0.56, 0.47)
 	f.layerSub:SetText(L("FCARD_PLUS_CLICK"))
@@ -547,7 +620,7 @@ local function Build()
 	f.lineM = NewLine(f, COL.M[1], COL.M[2], COL.M[3])
 	LinePoints(f.lineM, "BOTTOM", f.slotM, 0, -12, "TOP", f.wheelFrame, 0, 0)
 	-- The strip.
-	f.stripHead = f:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+	f.stripHead = f:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
 	f.stripHead:SetPoint("TOPLEFT", 24, G.stripY)
 	f.stripHead:SetTextColor(0.75, 0.65, 0.42)
 	f.stripHead:SetText(L("FCARD_OTHER"):upper())
@@ -567,16 +640,18 @@ local function Build()
 		m.icon:SetSize(26, 26)
 		m.icon:SetPoint("CENTER", m.edge, "CENTER")
 		m.icon:SetTexCoord(0.07, 0.93, 0.07, 0.93)
-		m.name = m:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-		m.name:SetPoint("TOPLEFT", m.edge, "TOPRIGHT", 6, 0)
+		m.name = m:CreateFontString(nil, "OVERLAY", "GameFontHighlight") -- was the small font (Rob: hard to read)
+		m.name:SetPoint("TOPLEFT", m.edge, "TOPRIGHT", 6, 1)
 		m.name:SetWidth(132)
 		m.name:SetJustifyH("LEFT")
-		m.key = m:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+		m.name:SetWordWrap(false) -- one line; the whole text is in the tooltip
+		m.key = m:CreateFontString(nil, "OVERLAY", "GameFontNormal")
 		m.key:SetPoint("BOTTOMLEFT", m.edge, "BOTTOMRIGHT", 6, 0)
 		m.key:SetTextColor(0.75, 0.65, 0.42)
+		Hoverable(m)
 		f.minis[i] = m
 	end
-	f.foot = f:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+	f.foot = f:CreateFontString(nil, "OVERLAY", "GameFontDisable")
 	f.foot:SetPoint("BOTTOMLEFT", 24, 14)
 	f.foot:SetWidth(W - 190)
 	f.foot:SetJustifyH("LEFT")
@@ -661,9 +736,9 @@ function ns.ClickCardRefresh(force)
 	for _, r in ipairs(rows) do
 		byKey[(r.mod or "") .. r.button] = r
 	end
-	FillBig(f.slotL, byKey[layer .. "LeftButton"], SlotText(layer, "LeftButton"))
-	FillBig(f.slotR, byKey[layer .. "RightButton"], SlotText(layer, "RightButton"))
-	FillBig(f.slotM, byKey[layer .. "MiddleButton"], SlotText(layer, "MiddleButton"))
+	FillBig(f.slotL, byKey[layer .. "LeftButton"], SlotText(layer, "LeftButton"), layer, "LeftButton")
+	FillBig(f.slotR, byKey[layer .. "RightButton"], SlotText(layer, "RightButton"), layer, "RightButton")
+	FillBig(f.slotM, byKey[layer .. "MiddleButton"], SlotText(layer, "MiddleButton"), layer, "MiddleButton")
 	-- Lit buttons on the mouse only for a click that does something on this layer.
 	f.btnL:SetAlpha(byKey[layer .. "LeftButton"] and 1 or 0.18)
 	f.btnR:SetAlpha(byKey[layer .. "RightButton"] and 1 or 0.18)
@@ -675,19 +750,23 @@ function ns.ClickCardRefresh(force)
 			for _, btn in ipairs({ "LeftButton", "RightButton", "MiddleButton" }) do
 				local r = byKey[m .. btn]
 				if r then
-					strip[#strip + 1] = { r = r, key = SlotText(m, btn) }
+					strip[#strip + 1] = { r = r, key = SlotText(m, btn), mod = m, button = btn }
 				end
 			end
 		end
 	end
 	for _, mi in ipairs(miss) do
-		strip[#strip + 1] = { miss = mi, key = SlotText(mi.mod or "", mi.button or "LeftButton") }
+		strip[#strip + 1] = { miss = mi, key = SlotText(mi.mod or "", mi.button or "LeftButton"), mod = mi.mod or "",
+			button = mi.button or "LeftButton" }
 	end
 	for i, mini in ipairs(f.minis) do
 		local e = strip[i]
 		if e then
 			mini:Show()
 			mini.key:SetText(e.key)
+			mini.tip = { spellId = e.miss and e.miss.spellId or (e.r.action == "spell" and e.r.spellId) or nil,
+				name = e.miss and e.miss.english or e.r.spellName, action = e.miss and "spell" or e.r.action,
+				mod = e.mod, button = e.button, miss = e.miss and MissText(e.miss) or nil }
 			if e.miss then
 				local id = e.miss.spellId
 				mini.icon:SetTexture(SpellIcon(id) or "Interface\\Icons\\INV_Misc_QuestionMark")
