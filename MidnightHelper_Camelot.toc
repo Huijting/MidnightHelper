@@ -166,6 +166,8 @@ Modules\ForeverLegacy.lua
 Modules\ForeverTalentNext.lua
 # Smart Buff (Rob, 21 Nov 2026: "Ja, wou het maar."): one mouse-first macro for the class buff (Mage, Priest, Druid).
 Modules\ForeverSmartBuff.lua
+# Click heals on DandersFrames (Rob, 26 Nov 2026: "2 ja").
+Modules\ForeverClickCast.lua
 Modules\MissingBuff.lua
 # Which quest reward to take, and why (Rob, 7 Nov 2026: "doe de quest beloning tip maar ook").
 Modules\ForeverMainStats.lua

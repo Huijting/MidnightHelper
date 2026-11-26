@@ -25,6 +25,24 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 26 nov — FOREVER: heals met een klik op DandersFrames (Rob: "2 ja")
+
+⚠️ NIEUW BESTAND (ForeverClickCast.lua, in beide toc's): Forever én Midnight één keer HELEMAAL herstarten, `/reload` is
+niet genoeg (in Midnight doet het bestand niets, maar de toc veranderde). Offline getest
+(click_test 25), NIET in het spel.
+- [ ] Tauren Druid, Forever-venster → Quiet helpers → kopje CLICK HEALS (DANDERSFRAMES): zet "Heals on a click on your
+      group frames" aan. Chat: "Click heals on: N spells on your DandersFrames frames."
+- [ ] Typ `/mh clickheal`. Je ziet per klik wat hij doet, bv. Alt+Left = Rejuvenation, Alt+Right = Regrowth, Ctrl+Left =
+      Cure Poison, en "not learned yet: …" voor wat nog komt. Stuur me die regels.
+- [ ] Gewone linksklik op een groepsframe target nog steeds; rechtsklik opent het menu (schakelaar "Keep left-click for
+      targeting" staat standaard aan). Werkt dat ook in Cat Form en Bear Form?
+- [ ] Alt+linksklik op een groepslid: Rejuvenation op die speler, de hoogste rank die je kent?
+- [ ] Zet "Keep left-click for targeting" uit: nu doet een gewone linksklik Rejuvenation, Shift+linksklik target.
+- [ ] Leer een nieuwe rank of spell bij de trainer: na een paar seconden staat hij vanzelf in het profiel (`/mh clickheal`).
+- [ ] Zet de hoofdschakelaar uit: chat "Click heals off: DandersFrames has your previous click-cast profile back." en
+      `/df` → Click Casting heeft weer je oude profiel actief.
+- [ ] Een Warrior of Rogue die de schakelaar aanzet: korte zin "Your class has no click heal layout", schakelaar blijft uit.
+
 ## 26 nov — FOREVER: alleen commando's die in Forever werken (Rob: "3 ja")
 
 Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (cmd_test 13), NIET in het spel.

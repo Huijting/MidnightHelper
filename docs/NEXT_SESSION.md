@@ -1,5 +1,20 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 26 nov (Bouwchat 26-11): klik-heals op DandersFrames in Forever — GEBOUWD, wacht op test (HERSTART: nieuw bestand)
+
+Rob via Sparring: *"2 ja"* (*"Kunnen wij dat in Forever ook? En zo niet, waarom niet? En kunnen we het wel maken?"*).
+- Waarom de Midnight-versie niet werkte (GEMETEN): ClickCast.lua staat niet in de Forever-toc; retail spec-id's en
+  spell-id's. DandersFrames _forever_ = v6.1.0 met dezelfde import + ClickCast-functies; Core/API.lua:309-328: import mét
+  profielnaam overschrijft dat profiel (geen kopieën) → automatisch bijwerken is veilig.
+- Nieuw: Modules/ForeverClickCast.lua (Camelot-toc na ForeverSmartBuff). Per class (Druid/Priest/Paladin/Shaman) een
+  healer-indeling met per klik een lijst Engelse namen; de eerste die het character kent wint (ns.ForeverKnownSpell =
+  hoogste rank, ids uit ForeverSpellIds.lua, alle 34 namen GEMETEN aanwezig). Binding draagt de CLIENTnaam. Dubbele
+  spells overgeslagen. Schakelaar FCLICK_SW (uit) + FCLICK_KEEP_SW (aan: L/R = target/menu, heals op Alt/Ctrl).
+  SPELLS_CHANGED/login → stil bijwerken als de indeling veranderde (signatuur), buiten gevecht. Uit = Undo (eerste
+  "vóór" bewaard). /mh clickheal [why|on|off|heal|offheal] (foreverOnly in de lijst).
+- AFGELEID, niet in het spel: klik castt de hoogste rank; GetCurrentSpec geeft in Forever een index; Forever-vormnamen
+  in de de/fr-teksten niet nagemeten. click_test 25/25 (nep-DF).
+
 ## ▶▶ 26 nov (Bouwchat 26-11): Midnight-commando's weg uit Forever — GEBOUWD, wacht op test (`/reload`)
 
 Rob via Sparring: *"3 ja"* (*"heel veel commando's die we alleen maar kunnen gebruiken in de Midnight versie"*).

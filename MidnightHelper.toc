@@ -263,6 +263,7 @@ Modules\ForeverCamp.lua
 Modules\ForeverLegacy.lua
 Modules\ForeverTalentNext.lua
 Modules\ForeverSmartBuff.lua
+Modules\ForeverClickCast.lua
 Modules\ForeverWarnings.lua
 Modules\ForeverWeek.lua
 Modules\ForeverMacros.lua

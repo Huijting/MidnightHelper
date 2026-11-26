@@ -1457,6 +1457,14 @@ local QUIET = {
 	-- The preview: the icon and (with bars on) three sample bars, draggable; click again to hide them.
 	{ action = true, title = "SET_CS_PREVIEW", tip = "SET_CS_DESC",
 		fn = function() if ns.TestCombatSafety then ns.TestCombatSafety() end end },
+	-- 26 Nov 2026 (Rob via Sparring: "2 ja"): heals on a click on DandersFrames (ForeverClickCast.lua). Off by default.
+	{ head = "FCLICK_HEAD" },
+	Q("FCLICK_SW", "FCLICK_SW_DESC", {
+		get = function() return ns.IsForeverClickOn and ns.IsForeverClickOn() end,
+		set = function(on) if ns.SetForeverClick then ns.SetForeverClick(on) end end }),
+	Q("FCLICK_KEEP_SW", "FCLICK_KEEP_SW_DESC", {
+		get = function() return ns.IsForeverClickKeepLeft and ns.IsForeverClickKeepLeft() end,
+		set = function(on) if ns.SetForeverClickKeepLeft then ns.SetForeverClickKeepLeft(on) end end }),
 	{ head = "FOV_Q_HEAD_SCREEN" },
 	-- 26 Nov 2026 (Rob via Sparring: "1 ja"): settings that work in Forever but were only in Blizzard's settings panel.
 	-- Same functions as SettingsDefs.lua; each read in its module (MissingBuff.lua:244 Forever branch, PickupUpgrade.lua:129,
@@ -1529,6 +1537,8 @@ local QUIET_WORDS = {
 	SET_ARROWUNIT_TITLE = "arrow meters metres yards distance route",
 	SETTINGS_MINIMAP_ICON = "minimap icon button",
 	SETTINGS_QUICKBAR = "quick bar quickbar buttons reload",
+	FCLICK_SW = "click heal heals healing clicks danders dandersframes frames party raid mouse cast offheal",
+	FCLICK_KEEP_SW = "click heal left target targeting offheal cat bear form danders",
 }
 for _, q in ipairs(QUIET) do
 	if q.title and QUIET_WORDS[q.title] then

@@ -171,6 +171,8 @@ ns.MH_COMMANDS = {
 		{ cmd = "/mh new", descKey = "CMDLIST_NEW" },
 		-- 12 Nov 2026, WoW Forever: "Your characters" (ForeverChars.lua).
 		{ cmd = "/mh alts", descKey = "CMDLIST_ALTS", foreverOnly = true },
+		-- 26 Nov 2026, WoW Forever: heals on a click on DandersFrames (ForeverClickCast.lua).
+		{ cmd = "/mh clickheal", descKey = "CMDLIST_CLICKHEAL", foreverOnly = true },
 		{ cmd = "/mh mouse", descKey = "CMDLIST_MOUSE" },
 		-- 21 Oct 2026: one door to all keybind help (KeysHub.lua). NavSearch indexes this table, so "keys",
 		-- "keybinds" and the window's own name find it from the search bar.

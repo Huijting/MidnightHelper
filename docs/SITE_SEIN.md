@@ -28,6 +28,18 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 26 nov 2026 — Forever: heals met een klik op DandersFrames; Midnight-commando's weg uit Forever; 5 instellingen erbij
+- Tag + commit:   geen tag (commit: deze regel)
+- Status:         alleen op main
+- Mag op de site: nee (niet uit, niet getest)
+- Speler ziet:    Forever: met DandersFrames zet MH je heals, dispels en res op muisklikken op je groepsframes (Druid,
+                  Priest, Paladin, Shaman), en werkt dat bij als je een spell leert; linksklik blijft standaard target.
+                  Commando's die alleen in Midnight werken staan niet meer in de Forever-lijst. In Quiet helpers ook:
+                  buff-icoon, upgrade-melding, pijlgrootte en meters, minimap-icoon, quick bar.
+- Knoplabels:     FCLICK_SW, FCLICK_KEEP_SW, FCLICK_HEAD, CMD_MIDNIGHT_ONLY_FMT
+- Commando's:     /mh clickheal
+- Spel:           Forever
+
 ## 26 nov 2026 — castbalken te verplaatsen met Move; cast-waarschuwing vindbaar in Forever
 - Tag + commit:   geen tag (commit: deze regel)
 - Status:         alleen op main

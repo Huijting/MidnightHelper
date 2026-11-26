@@ -2990,6 +2990,16 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		end
 		return
 	end
+	-- 26 Nov 2026, WoW Forever: heals on a click on DandersFrames (ForeverClickCast.lua).
+	local clickArg = (msg:lower() == "clickheal") and "" or msg:lower():match("^clickheal%s+(.+)$")
+	if clickArg then
+		if ns.ForeverClickSlash then
+			ns.ForeverClickSlash(clickArg)
+		else
+			print("|cffffcc00Midnight Helper:|r /mh clickheal is for WoW: Forever.")
+		end
+		return
+	end
 	-- 12 Nov 2026, WoW Forever: "Do this now" (ForeverDoNow.lua).
 	local donowArg = (msg:lower() == "donow") and "" or msg:lower():match("^donow%s+(.+)$")
 	if donowArg then
