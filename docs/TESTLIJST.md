@@ -25,6 +25,23 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 26 nov — BEIDE: de klikkaart "Which click heals what" (Rob: "Het moet grafisch tof zijn")
+
+⚠️ NIEUW BESTAND (ClickCard.lua, in beide toc's): Forever én Midnight één keer HELEMAAL herstarten. Offline getest
+(card_test 14, click_test 25), NIET in het spel.
+- [ ] Forever: Quiet helpers → Click heals → "Show the click card" (of `/mh clickcard`). Een grote kaart met een
+      getekende muis; links groen, rechts blauw, wieltje goud; jouw drie Alt-heals eromheen met een lijntje naar hun knop
+      (ook naar het wieltje). Bovenaan pillen Plain / Alt / Ctrl / Shift; Alt is goud.
+- [ ] Houd Shift ingedrukt: de kaart toont meteen de Shift-laag ("live: Shift is held"). Loslaten: terug.
+- [ ] Onderaan "OTHER LAYERS": gewone klik = Target/Menu, en wat je nog niet kent grijs met "level 24", "talent" of
+      "via quest" (Cure Poison).
+- [ ] Zet "Keep left-click for targeting" uit: binnen 2 seconden staan de heals op Plain en is Plain de grote laag; zet
+      hem weer aan: terug naar Alt. Verander iets in `/df` → Click Casting: de kaart volgt.
+- [ ] Shift+scroll: groter/kleiner, scherp op je grote scherm. Slepen; de knop "See-through" wisselt 100/85/70/50%.
+- [ ] Quiet helpers → "Click card see-through outside a group" aan: solo bijna doorzichtig.
+- [ ] Midnight (healer-spec met de klik-indeling): How you play → klikken → knop "Show the click card".
+- [ ] `/mh clickcard why`: waar de klikken vandaan komen (DandersFrames-profiel of MH's indeling).
+
 ## 26 nov — FOREVER: routepaneel, echte minuten, ring op de vliegkaart (reisplanner stap 3)
 
 Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (flight_test 30), NIET in het spel.

@@ -162,6 +162,55 @@ local function Rows()
 	return rows, table.concat(sig, ",") .. (keepLeft and " /keep" or " /heal")
 end
 
+--- For the click card (ClickCard.lua): MH's own rows now (fallback when DandersFrames cannot be read).
+function ns.ForeverClickRows()
+	local rows = Rows()
+	return rows
+end
+
+--- For the click card: the clicks in MH's layout that have no spell yet, with why: { code, english, level?, how }.
+--- how = "level" (a trainer teaches it, FOREVER_TRAINER_SPELLS), "talent" (ns.ForeverTalentLevel knows it) or
+--- "quest" (neither: in Forever those come from a class quest, e.g. a Druid's Cure Poison; AFGELEID).
+function ns.ForeverClickMissing()
+	local heal = HEAL[Class() or ""]
+	if not heal then
+		return {}
+	end
+	local keepLeft = ns.IsForeverClickKeepLeft()
+	local out = {}
+	for _, code in ipairs(ORDER) do
+		local src
+		if keepLeft then
+			src = OFFHEAL_FROM[code]
+		else
+			src = code
+		end
+		local names = src and heal[src]
+		if names then
+			local anyKnown = false
+			for _, english in ipairs(names) do
+				if ns.ForeverKnownSpell and ns.ForeverKnownSpell(english) then
+					anyKnown = true
+				end
+			end
+			if not anyKnown then
+				local english = names[#names] -- the lowest one in the list is the first you will learn
+				local lv
+				for _, e in ipairs((ns.FOREVER_TRAINER_SPELLS or {})[Class() or ""] or {}) do
+					if e.n == english and (not lv or e.l < lv) then
+						lv = e.l
+					end
+				end
+				local how = lv and "level" or ((ns.ForeverTalentLevel and ns.ForeverTalentLevel(english)) and "talent") or "quest"
+				local ids = ns.FOREVER_SPELL_IDS and ns.FOREVER_SPELL_IDS[english]
+				out[#out + 1] = { code = code, english = english, level = lv, how = how, spellId = ids and ids[1] or nil,
+					mod = SLOT[code][1], button = SLOT[code][2] }
+			end
+		end
+	end
+	return out
+end
+
 local function CC()
 	local df = rawget(_G, "DandersFrames")
 	local cc = type(df) == "table" and df.ClickCast
@@ -387,6 +436,9 @@ function ns.SetForeverClick(on)
 			print(PREFIX .. ns:L("FCLICK_UNDONE"))
 		end
 	end
+	if ns.ClickCardRefresh then
+		ns.ClickCardRefresh(true)
+	end
 end
 
 function ns.SetForeverClickKeepLeft(on)
@@ -403,6 +455,10 @@ function ns.SetForeverClickKeepLeft(on)
 	if ns.IsForeverClickOn() then
 		st.sig[CharKey(st.sig)] = nil
 		Apply(false)
+	end
+	-- The click card follows at once (Rob: "Wordt dan het plaatje automatisch dynamisch aangepast?" → yes).
+	if ns.ClickCardRefresh then
+		ns.ClickCardRefresh(true)
 	end
 end
 

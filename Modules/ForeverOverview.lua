@@ -1469,6 +1469,12 @@ local QUIET = {
 	Q("FCLICK_KEEP_SW", "FCLICK_KEEP_SW_DESC", {
 		get = function() return ns.IsForeverClickKeepLeft and ns.IsForeverClickKeepLeft() end,
 		set = function(on) if ns.SetForeverClickKeepLeft then ns.SetForeverClickKeepLeft(on) end end }),
+	-- 26 Nov 2026 (Rob: "Het moet grafisch tof zijn"): the click card (ClickCard.lua), and its fade outside a group.
+	{ action = true, title = "FCARD_OPEN", tip = "FCARD_OPEN_DESC",
+		fn = function() if ns.ShowClickCard then ns.ShowClickCard(false) end end },
+	Q("FCARD_FADE_SW", "FCARD_FADE_SW_DESC", {
+		get = function() return ns.IsClickCardFadeSolo and ns.IsClickCardFadeSolo() end,
+		set = function(on) if ns.SetClickCardFadeSolo then ns.SetClickCardFadeSolo(on) end end }),
 	{ head = "FOV_Q_HEAD_SCREEN" },
 	-- 26 Nov 2026 (Rob via Sparring: "1 ja"): settings that work in Forever but were only in Blizzard's settings panel.
 	-- Same functions as SettingsDefs.lua; each read in its module (MissingBuff.lua:244 Forever branch, PickupUpgrade.lua:129,

@@ -173,6 +173,8 @@ ns.MH_COMMANDS = {
 		{ cmd = "/mh alts", descKey = "CMDLIST_ALTS", foreverOnly = true },
 		-- 26 Nov 2026, WoW Forever: heals on a click on DandersFrames (ForeverClickCast.lua).
 		{ cmd = "/mh clickheal", descKey = "CMDLIST_CLICKHEAL", foreverOnly = true },
+		-- 26 Nov 2026, both games: which click heals what, as a big card (ClickCard.lua).
+		{ cmd = "/mh clickcard", descKey = "CMDLIST_CLICKCARD" },
 		-- 26 Nov 2026, WoW Forever: the rare-in-sight window (ForeverRares.lua).
 		{ cmd = "/mh rares", descKey = "CMDLIST_RARES", foreverOnly = true },
 		{ cmd = "/mh mouse", descKey = "CMDLIST_MOUSE" },

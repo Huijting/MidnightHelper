@@ -2990,6 +2990,12 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		end
 		return
 	end
+	-- 26 Nov 2026, both games: the click card (ClickCard.lua).
+	local cardArg = (msg:lower() == "clickcard") and "" or msg:lower():match("^clickcard%s+(.+)$")
+	if cardArg and ns.ClickCardSlash then
+		ns.ClickCardSlash(cardArg)
+		return
+	end
 	-- 26 Nov 2026, WoW Forever: the rare-in-sight window (ForeverRares.lua). Midnight has no such function: falls through.
 	local raresArg = (msg:lower() == "rares") and "" or msg:lower():match("^rares%s+(.+)$")
 	if raresArg and ns.ForeverRareAlertSlash then

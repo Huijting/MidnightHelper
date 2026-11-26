@@ -979,6 +979,9 @@ local function HideClickButtons()
 	for _, b in ipairs(win._clickBtns or {}) do
 		b:Hide()
 	end
+	for _, b in ipairs(win._cardBtn or {}) do
+		b:Hide()
+	end
 end
 
 local CLICK_BTN_KEY = { LeftButton = "CLICK_BTN_LEFT", RightButton = "CLICK_BTN_RIGHT", MiddleButton = "CLICK_BTN_MIDDLE" }
@@ -1072,6 +1075,20 @@ local function DrawClicks(specID, y, inner)
 		local h = math.max(ICON, row.fs:GetStringHeight() + 4)
 		row:SetHeight(h)
 		y = y - h - 8
+	end
+	-- 26 Nov 2026 (Rob: "Het moet grafisch tof zijn"): the same clicks as a big card you can put anywhere (ClickCard.lua).
+	if ns.ShowClickCard then
+		local cb = PanelButton("_cardBtn", 1) -- its own pool: _clickBtns is hidden with ipairs, a gap would leave it shown
+		cb:SetText(L("FCARD_OPEN"))
+		cb:SetSize(230, 26)
+		cb:SetPoint("TOPLEFT", win.body, "TOPLEFT", 0, y)
+		cb:SetEnabled(true)
+		cb:SetScript("OnEnter", nil)
+		cb:SetScript("OnLeave", nil)
+		cb:SetScript("OnClick", function()
+			ns.ShowClickCard(false)
+		end)
+		y = y - 34
 	end
 	y = y - 4
 	Line(L("CLICK_NOTE_RES"), nil, 0.62, 0.6, 0.56, 6)

@@ -168,6 +168,8 @@ Modules\ForeverTalentNext.lua
 Modules\ForeverSmartBuff.lua
 # Click heals on DandersFrames (Rob, 26 Nov 2026: "2 ja").
 Modules\ForeverClickCast.lua
+# The click card, Midnight + Forever (Rob, 26 Nov 2026: "Het moet grafisch tof zijn").
+Modules\ClickCard.lua
 Modules\MissingBuff.lua
 # Which quest reward to take, and why (Rob, 7 Nov 2026: "doe de quest beloning tip maar ook").
 Modules\ForeverMainStats.lua

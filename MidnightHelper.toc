@@ -264,6 +264,7 @@ Modules\ForeverLegacy.lua
 Modules\ForeverTalentNext.lua
 Modules\ForeverSmartBuff.lua
 Modules\ForeverClickCast.lua
+Modules\ClickCard.lua
 Modules\ForeverWarnings.lua
 Modules\ForeverWeek.lua
 Modules\ForeverMacros.lua

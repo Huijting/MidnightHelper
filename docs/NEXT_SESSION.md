@@ -1,5 +1,19 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 26 nov (Bouwchat 26-11): klikkaart GEBOUWD (HERSTART: nieuw bestand ClickCard.lua) — daarna stap 4, dan "na je dood"
+
+Rob: *"Het moet grafisch tof zijn"*; keuze *"Ik volg jouw advies."* (één grote laag + strook, Alt/heal-laag standaard);
+*"Wordt dan het plaatje automatisch dynamisch aangepast?"* → ja.
+- Modules/ClickCard.lua (beide toc's): leest LIVE het actieve DandersFrames-profiel (ClickCast:GetClassData().profiles[
+  GetActiveProfileName()].bindings, velden die MH zelf schrijft; DF 6.1.0-bron), anders MH's indeling (ForeverClickRows /
+  ClickLayoutRows) met regel FCARD_SOURCE_MH. Grote laag = vastgehouden modifier (MODIFIER_STATE_CHANGED) > aangeklikte
+  pil > laag met de meeste spells. Muis = ellips via TempPortraitAlphaMask + CreateLine-lijntjes (ook naar het wieltje).
+  Strook: andere lagen + ForeverClickMissing (grijs, "level N"/"talent"/"via quest", AFGELEID: geen trainer + geen
+  talent = quest). Ticker 2 s met signatuur; schakelaars in ForeverClickCast verversen meteen. See-through 100/85/70/50,
+  FCARD_FADE_SW (uit). Openen: /mh clickcard [why], Quiet helpers, Midnight PlayCardWindow (eigen pool _cardBtn).
+- card_test 14/14, click_test 25/25. Niet in het spel gezien: maskers/lijnen in Forever (pcall-bewaakt).
+- Wachtrij van Sparring: reisplanner stap 4, daarna "na je dood" (afstand lijk/Spirit Healer, resurrection sickness meten).
+
 ## ▶▶ 26 nov (Bouwchat 26-11): reisplanner STAP 3 GEBOUWD (`/reload`) — daarna klikkaart, dan stap 4
 
 - ForeverTravel.lua: lopen = afstand × DETOUR 1,4 / eigen run-snelheid (GetUnitSpeed, 7-21 yd/s; AFGELEID factor) via
