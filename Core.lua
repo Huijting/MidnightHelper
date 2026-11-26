@@ -2990,6 +2990,12 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		end
 		return
 	end
+	-- 26 Nov 2026, WoW Forever: the after-death window (ForeverTravel.lua). Diagnosis + test.
+	local ghostArg = (msg:lower() == "ghost") and "" or msg:lower():match("^ghost%s+(.+)$")
+	if ghostArg and ns.ForeverGhostSlash then
+		ns.ForeverGhostSlash(ghostArg)
+		return
+	end
 	-- 26 Nov 2026, WoW Forever: the walk recorder for MH's Undercity paths (ForeverTravel.lua, step 4). Measurement tool.
 	local walkArg = (msg:lower() == "walkrec") and "" or msg:lower():match("^walkrec%s+(.+)$")
 	if walkArg and ns.ForeverWalkRecSlash then

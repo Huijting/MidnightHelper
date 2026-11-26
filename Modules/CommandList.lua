@@ -118,6 +118,8 @@ ns.MH_UNLISTED_ON_PURPOSE = {
 	"repprobe",
 	-- 26 Nov 2026: the walk recorder for the Undercity paths (ForeverTravel.lua, step 4): a measurement tool, for Rob.
 	"walkrec", "walkrec on", "walkrec off", "walkrec clear",
+	-- 26 Nov 2026: the after-death window's diagnosis and test (ForeverTravel.lua); the switch is in Quiet helpers.
+	"ghost", "ghost why", "ghost test",
 }
 
 --- Grouped so it can be scanned, not alphabetical so it can be searched. Someone

@@ -1,5 +1,15 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 26 nov (Bouwchat 26-11): "na je dood"-venster GEBOUWD (`/reload`) — rij: rare-model + loot (bron = Rob kiest)
+
+Sparrings advies, Rob volgt het (*"weer nuttige info"*). Feiten: `docs/forever/DOOD_EN_RARELOOT_2026-11-26.md`
+(mh-research): 15007 -75%, MIN_RES_SICKNESS_LEVEL 11, 25% durability (CONFIRM_XP_LOSS), C_DeathInfo.GetCorpseMapPosition +
+GetDeathReleasePosition bestaan in Forever; Spirit Healer-plek niet leesbaar (release-punt = kerkhof). Clientnamen 15007 en
+npc 6491 per taal GEMETEN (gamedata). ForeverTravel.lua: venster MidnightHelperForeverDeathPanel (dood: release ↔ lijk;
+geest: jij ↔ lijk, live, geestsnelheid = GetUnitSpeed run), kosten per level (AFGELEID regel level-10, max 10),
+"Arrow to my corpse", FDEATH_SW (aan), /mh ghost [why|test] (onvermeld). flight_test 36/36.
+Loot-bron: alleen Drop Tables (CC BY-SA 4.0) is open; heeft de 3 test-rares niet → keuze voor Rob via Sparring.
+
 ## ▶▶ 26 nov (Bouwchat 26-11): klikkaart na Robs eerste screenshot GEREPAREERD (`/reload`)
 
 Rob zag hem werken (Alt-laag, iconen, ranks); 5 punten via Sparring. ClickCard.lua: geometrie in tabel G, kaart 760 breed;

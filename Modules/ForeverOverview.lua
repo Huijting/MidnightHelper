@@ -1457,6 +1457,10 @@ local QUIET = {
 	-- The preview: the icon and (with bars on) three sample bars, draggable; click again to hide them.
 	{ action = true, title = "SET_CS_PREVIEW", tip = "SET_CS_DESC",
 		fn = function() if ns.TestCombatSafety then ns.TestCombatSafety() end end },
+	-- 26 Nov 2026 (Rob: "weer nuttige info"): the after-death window (ForeverTravel.lua). On by default.
+	Q("FDEATH_SW", "FDEATH_SW_DESC", {
+		get = function() return ns.IsForeverDeathPanelOn and ns.IsForeverDeathPanelOn() end,
+		set = function(on) if ns.SetForeverDeathPanel then ns.SetForeverDeathPanel(on) end end }),
 	-- 26 Nov 2026 (Rob via Sparring: "Ja, een eigen venstertje voor [rares]"): the rare-in-sight window (ForeverRares.lua).
 	Q("FRALERT_SW", "FRALERT_SW_DESC", {
 		get = function() return ns.IsForeverRareAlertOn and ns.IsForeverRareAlertOn() end,
@@ -1554,6 +1558,7 @@ local QUIET_WORDS = {
 	FCLICK_SW = "click heal heals healing clicks danders dandersframes frames party raid mouse cast offheal",
 	FCLICK_KEEP_SW = "click heal left target targeting offheal cat bear form danders",
 	FRALERT_SW = "rare rares elite in sight alert window popup toast nameplate",
+	FDEATH_SW = "death die died dead ghost corpse spirit healer graveyard resurrection sickness run back",
 }
 for _, q in ipairs(QUIET) do
 	if q.title and QUIET_WORDS[q.title] then

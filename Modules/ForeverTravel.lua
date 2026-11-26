@@ -1964,3 +1964,261 @@ function ns.ForeverTransportLine()
 	table.sort(parts)
 	return "boats/zeppelins learned: " .. (#parts > 0 and table.concat(parts, "; ") or "none yet (ride one once)")
 end
+
+--------------------------------------------------------------------------------
+-- After you die (26 Nov 2026). Rob sent Polestar's death lines ("Run back to your corpse: 889 m (≈1m). The Spirit
+-- Healer costs 10m of resurrection sickness.") → "weer nuttige info"; Sparring's advice, which Rob follows. On the screen,
+-- not only in chat (CLAUDE.md: chat is a record, not an answer in place). Facts: docs/forever/DOOD_EN_RARELOOT_2026-11-26.md
+-- (mh-research, Forever 71139 + Blizzard's forever UI source):
+--   - Resurrection Sickness 15007: -75% stats, damage, armor (GEMETEN); none below MIN_RES_SICKNESS_LEVEL 11 (GEMETEN,
+--     LevelConstants Camelot), 11-19 = level-10 minutes, from 20 = 10 minutes (DB2 duration, rule AFGELEID like Classic).
+--   - Spirit Healer: 25% durability on gear and bags (GlobalStrings CONFIRM_XP_LOSS, GEMETEN).
+--   - C_DeathInfo.GetCorpseMapPosition / GetDeathReleasePosition (GEMETEN in the forever docs): dead but not released =
+--     where you will appear vs your corpse; as a ghost = you vs your corpse. Ghost speed: GetUnitSpeed's run speed (the
+--     ghost aura is in it), else 7 × 1.25. The Spirit Healer's own place is not readable (no API; AreaPOI only has Alterac
+--     Valley graveyards): the release point is the graveyard, which is where the Spirit Healer stands.
+-- Switch in Quiet helpers (on). /mh ghost [why|test].
+--------------------------------------------------------------------------------
+local dp, dpWhy = nil, "not dead this session"
+
+function ns.IsForeverDeathPanelOn()
+	return not (type(ns.db) == "table" and ns.db.foreverDeathPanel == false)
+end
+
+function ns.SetForeverDeathPanel(on)
+	if type(ns.db) ~= "table" then
+		return
+	end
+	if on then
+		ns.db.foreverDeathPanel = nil
+	else
+		ns.db.foreverDeathPanel = false
+		if dp then
+			dp:Hide()
+		end
+	end
+end
+
+local function DeathPos(fnName)
+	local map = C_Map and C_Map.GetBestMapForUnit and C_Map.GetBestMapForUnit("player")
+	if not map then
+		return nil
+	end
+	local fn = (fnName == "corpse") and (C_DeathInfo and C_DeathInfo.GetCorpseMapPosition)
+		or (C_DeathInfo and C_DeathInfo.GetDeathReleasePosition)
+	if not fn then
+		return nil
+	end
+	local ok, v = pcall(fn, map)
+	if not (ok and v and v.GetXY) then
+		return nil
+	end
+	local okXY, x, y = pcall(v.GetXY, v)
+	if not okXY or not x or (issecretvalue and (issecretvalue(x) or issecretvalue(y))) or (x == 0 and y == 0) then
+		return nil
+	end
+	return map, x * 100, y * 100
+end
+
+local function Yards(m1, x1, y1, m2, x2, y2)
+	local c1, a1, b1 = World(m1, x1, y1)
+	local c2, a2, b2 = World(m2, x2, y2)
+	if c1 and c1 == c2 and a1 and a2 then
+		return math.sqrt((a1 - a2) ^ 2 + (b1 - b2) ^ 2)
+	end
+	return nil
+end
+
+local function TimeText(secs)
+	if secs < 90 then
+		return ns:L("FDEATH_SEC_FMT"):format(math.max(5, math.floor(secs / 5 + 0.5) * 5))
+	end
+	return ns:L("FDEATH_MIN_FMT"):format(math.floor(secs / 60 + 0.5))
+end
+
+local function DistText(yd)
+	return ns.ForeverTrainerDistance and ns.ForeverTrainerDistance(yd) or ("%d yd"):format(math.floor(yd + 0.5))
+end
+
+local function GhostSpeed()
+	local spd
+	if GetUnitSpeed then
+		local ok, _, run = pcall(GetUnitSpeed, "player")
+		if ok and type(run) == "number" and not (issecretvalue and issecretvalue(run)) and run > 0 then
+			spd = run
+		end
+	end
+	return spd or (7 * 1.25)
+end
+
+local function SicknessMinutes()
+	local lv = UnitLevel and UnitLevel("player") or 1
+	if lv < 11 then
+		return 0
+	end
+	return math.min(10, lv - 10)
+end
+
+local function BuildDeathPanel()
+	if dp then
+		return dp
+	end
+	local Style = ns.ForeverStyle
+	local f = CreateFrame("Frame", "MidnightHelperForeverDeathPanel", UIParent, "BackdropTemplate")
+	f:SetSize(340, 120)
+	f:SetFrameStrata("HIGH")
+	f:SetClampedToScreen(true)
+	if ns.RegisterMidnightDialogPopup then
+		ns.RegisterMidnightDialogPopup(f) -- Shift+scroll = size, Escape closes
+	end
+	f:SetBackdrop({ bgFile = "Interface\\Buttons\\WHITE8X8", edgeFile = "Interface\\Buttons\\WHITE8X8", edgeSize = 1 })
+	f:SetBackdropColor(0.05, 0.05, 0.07, 0.94)
+	f:SetBackdropBorderColor(0.55, 0.65, 0.9, 1)
+	local pos = type(ns.db) == "table" and ns.db.foreverDeathPanelPos
+	if type(pos) == "table" and pos[1] then
+		f:SetPoint(pos[1], UIParent, pos[2] or pos[1], pos[3] or 0, pos[4] or 0)
+	else
+		f:SetPoint("TOP", UIParent, "TOP", 0, -220)
+	end
+	f:EnableMouse(true)
+	f:SetMovable(true)
+	f:RegisterForDrag("LeftButton")
+	f:SetScript("OnDragStart", f.StartMoving)
+	f:SetScript("OnDragStop", function(self)
+		self:StopMovingOrSizing()
+		if type(ns.db) == "table" then
+			local p, _, rp2, x, y = self:GetPoint(1)
+			ns.db.foreverDeathPanelPos = { p, rp2, x, y }
+		end
+	end)
+	local function fs(font, r, g, b)
+		local s = f:CreateFontString(nil, "OVERLAY", font)
+		s:SetTextColor(r, g, b)
+		s:SetJustifyH("LEFT")
+		s:SetWidth(312)
+		return s
+	end
+	f.head = fs("GameFontNormalLarge", 0.75, 0.85, 1)
+	f.head:SetPoint("TOPLEFT", 14, -12)
+	f.head:SetText(ns:L("FDEATH_HEAD"):upper())
+	f.line1 = fs("GameFontHighlight", 1, 1, 1)
+	f.line1:SetPoint("TOPLEFT", f.head, "BOTTOMLEFT", 0, -6)
+	f.line2 = fs("GameFontHighlightSmall", 0.85, 0.85, 0.8)
+	f.line2:SetPoint("TOPLEFT", f.line1, "BOTTOMLEFT", 0, -6)
+	f.line3 = fs("GameFontHighlightSmall", 1, 0.75, 0.45)
+	f.line3:SetPoint("TOPLEFT", f.line2, "BOTTOMLEFT", 0, -6)
+	local close = CreateFrame("Button", nil, f, "UIPanelCloseButton")
+	close:SetPoint("TOPRIGHT", 2, 2)
+	close:SetScale(0.8)
+	f.arrow = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
+	f.arrow:SetSize(170, 22)
+	f.arrow:SetText(ns:L("FDEATH_ARROW"))
+	f.arrow:SetScript("OnClick", function()
+		local m, x, y = DeathPos("corpse")
+		if m and ns.SetBlizzardUserWaypoint and ns.SetBlizzardUserWaypoint(m, x, y) then
+			ns.lastTarget = { mapID = m, x = x, y = y, name = ns:L("FDEATH_CORPSE"), via = "/mh ghost", arriveYards = 15 }
+			ns._mhRouteOwner = "waypoint"
+		end
+	end)
+	if Style and Style.SkinOnShow then
+		Style.SkinOnShow(f)
+	end
+	f:Hide()
+	dp = f
+	return f
+end
+
+local function DeathUpdate(force)
+	if not ns.IsForeverDeathPanelOn() then
+		dpWhy = "switched off (Quiet helpers)"
+		if dp then
+			dp:Hide()
+		end
+		return
+	end
+	local dead = UnitIsDeadOrGhost and UnitIsDeadOrGhost("player")
+	if not dead and not force then
+		dpWhy = "alive"
+		if dp then
+			dp:Hide()
+		end
+		return
+	end
+	local ghost = UnitIsGhost and UnitIsGhost("player")
+	local f = BuildDeathPanel()
+	local speed = GhostSpeed()
+	local l1, l2
+	local cm, cx, cy = DeathPos("corpse")
+	if ghost and cm then
+		local pmap, px, py = PlayerPos()
+		local yd = pmap and px and Yards(pmap, px, py, cm, cx, cy)
+		if yd then
+			l1 = ns:L("FDEATH_CORPSE_FMT"):format(DistText(yd), TimeText(yd / speed))
+			l2 = (yd / speed <= 180) and ns:L("FDEATH_ADVICE_RUN") or ns:L("FDEATH_ADVICE_LONG")
+		end
+	elseif not ghost then
+		-- Dead, not released yet: where you will appear (the graveyard) and how far that is from your corpse (= here).
+		local rm, rx, ry = DeathPos("release")
+		local pmap, px, py = PlayerPos()
+		local yd = rm and pmap and px and Yards(rm, rx, ry, pmap, px, py)
+		if yd then
+			l1 = ns:L("FDEATH_RELEASE_FMT"):format(DistText(yd), TimeText(yd / (7 * 1.25)))
+			l2 = (yd / (7 * 1.25) <= 180) and ns:L("FDEATH_ADVICE_RUN") or ns:L("FDEATH_ADVICE_LONG")
+		end
+	end
+	if force and not l1 then
+		l1 = ns:L("FDEATH_CORPSE_FMT"):format(DistText(889), TimeText(889 / speed)) -- /mh ghost test: Rob's example
+		l2 = ns:L("FDEATH_ADVICE_RUN")
+	end
+	if not l1 then
+		dpWhy = "dead, but the corpse/release position is not readable here (instance?)"
+		f:Hide()
+		return
+	end
+	local sick = SicknessMinutes()
+	local l3 = (sick > 0) and ns:L("FDEATH_COST_FMT"):format(sick) or ns:L("FDEATH_COST_NONE")
+	f.line1:SetText(l1)
+	f.line2:SetText(l2)
+	f.line3:SetText(l3)
+	f.arrow:SetShown(ghost and cm and true or false)
+	f.arrow:ClearAllPoints()
+	f.arrow:SetPoint("TOPLEFT", f.line3, "BOTTOMLEFT", 0, -8)
+	local h = 12 + (f.head:GetStringHeight() or 16) + 6 + (f.line1:GetStringHeight() or 14) + 6
+		+ (f.line2:GetStringHeight() or 12) + 6 + (f.line3:GetStringHeight() or 12) + 10 + (f.arrow:IsShown() and 30 or 0)
+	f:SetHeight(h)
+	f:Show()
+	dpWhy = ("shown: %s; %s"):format(ghost and "ghost" or (force and "test" or "dead, not released"), l1)
+end
+
+do
+	local ev = CreateFrame("Frame")
+	for _, e in ipairs({ "PLAYER_DEAD", "PLAYER_ALIVE", "PLAYER_UNGHOST", "PLAYER_ENTERING_WORLD", "CORPSE_IN_RANGE",
+		"CORPSE_OUT_OF_RANGE" }) do
+		pcall(ev.RegisterEvent, ev, e)
+	end
+	ev:SetScript("OnEvent", function()
+		C_Timer.After(0.5, function()
+			pcall(DeathUpdate, false)
+		end)
+	end)
+	-- As a ghost the distance counts down while you run (every 2 s, only while dead).
+	if C_Timer and C_Timer.NewTicker then
+		C_Timer.NewTicker(2, function()
+			if UnitIsDeadOrGhost and UnitIsDeadOrGhost("player") then
+				pcall(DeathUpdate, false)
+			end
+		end)
+	end
+end
+
+--- /mh ghost [why|test]
+function ns.ForeverGhostSlash(arg)
+	if (arg or ""):lower() == "test" then
+		DeathUpdate(true)
+		return
+	end
+	print(("|cffffcc00Midnight Helper:|r after-death window: %s; %s; resurrection sickness at your level: %d min; ghost speed %.1f yd/s; corpse API %s, release API %s"):format(
+		ns.IsForeverDeathPanelOn() and "on" or "off", dpWhy, SicknessMinutes(), GhostSpeed(),
+		(C_DeathInfo and C_DeathInfo.GetCorpseMapPosition) and "yes" or "no",
+		(C_DeathInfo and C_DeathInfo.GetDeathReleasePosition) and "yes" or "no"))
+end

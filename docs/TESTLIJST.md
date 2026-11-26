@@ -25,6 +25,16 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 26 nov — FOREVER: venster na je dood (Rob: "weer nuttige info")
+
+Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (flight_test 36), NIET in het spel.
+- [ ] `/mh ghost test`: venster "YOU DIED" met een voorbeeld (889 m), advies en wat de Spirit Healer op jouw level kost.
+- [ ] Echt dood, nog niet released: "Release: you appear … from your corpse; the run back takes about …".
+- [ ] Als geest: "Your corpse: … away, about … as a ghost." telt af terwijl je loopt; knop "Arrow to my corpse" zet de pijl.
+- [ ] Level 14: "Spirit Healer: 4 min Resurrection Sickness (-75% …) and 25% durability". Onder level 11: geen sickness.
+- [ ] Weer levend: het venster gaat weg. Quiet helpers → "Window after you die" uit: geen venster.
+- [ ] `/mh ghost`: of de corpse- en release-API er zijn (meting).
+
 ## 26 nov — FOREVER: boten en zeppelins op hun eigen klok (reisplanner stap 4)
 
 Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (flight_test 33), NIET in het spel.
