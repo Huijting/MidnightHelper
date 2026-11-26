@@ -3320,8 +3320,8 @@ end
 --                 SV). A reader may infer the layout from the rows then: an A row with key Q, E, R or F, or any CTRL- key
 --                 other than CTRL-1/2/3 (CTRL-4, -Q, -E, -R, -F, -Z, -X, -C, -V) = 12x4; a key 5, T, G or F1-F4 = old.
 --                 NOT Z X C V on A: the old block has those on A too (BLOCK_OLD bar A above).
---   char   since 26 Nov 2026 in Forever the whole name, first name + surname ("Ima Druiddude"; ShownName below). Rob's
---          characters are all "Ima …", so the first name alone named none of them. Still free text, no new field.
+--   char   since 26 Nov 2026 in Forever the whole name, first name + surname ("Anna Example"; ShownName below). A
+--          player whose characters share one first name could not tell them apart. Still free text, no new field.
 --   block  D A B C (picture order; D = the player's own, bar 4)
 --   key    WoW binding notation: 1, SHIFT-1, CTRL-1, ALT-Q, F1 ...
 --   task   the place's task as a locale KEY (KEYBLOCK_T_*), so the site can label it in any language
@@ -3346,11 +3346,11 @@ end
 --           First line stays "MH-KEYBLOCK 1" (as with layout=).
 --------------------------------------------------------------------------------
 
---- The name a person reads: in Forever first name + surname ("Ima Druiddude"), elsewhere the name.
---- 26 Nov 2026, Rob on the printed sheet "Which click heals what · Ima": "al mijn karakters hebben de voorletters Ima …
---- Dus dan moet hier ook wel de achternaam bij komen." GEMETEN in his Forever SV (foreverNameProbe): UnitName gives "Ima"
---- and, as its 2nd value, the surname "Druiddude" (unitFullNameRealm); retail's 2nd value is the realm, so only Forever.
---- Same way as ForeverChars.lua (the alt list already says "Ima Warlocky"): Blizzard's separator, else a space.
+--- The name a person reads: in Forever first name + surname ("Anna Example"), elsewhere the name.
+--- 26 Nov 2026, Rob on the printed sheet: all his characters share one first name, so it named none of them ("Dus dan
+--- moet hier ook wel de achternaam bij komen."). GEMETEN in a Forever SV (foreverNameProbe): UnitName gives the first
+--- name and, as its 2nd value, the surname (unitFullNameRealm); retail's 2nd value is the realm, so only Forever.
+--- Same way as ForeverChars.lua (the alt list already shows first + last name): Blizzard's separator, else a space.
 local function ShownName()
 	local first, second = nil, nil
 	if UnitName then
@@ -3524,7 +3524,7 @@ local function CharKey()
 	end
 	local legacy = name .. "-" .. ((GetRealmName and GetRealmName()) or "?")
 	-- 21 Nov 2026 (Rob: "A"): in Forever the player GUID (ForeverCharKey.lua, Forever toc only). No copy on purpose: the
-	-- codes are rebuilt from your bars at every login, and an old "Ima" code describes another Ima's bars.
+	-- codes are rebuilt from your bars at every login, and an old code under a shared first name describes another character's bars.
 	if ns.ForeverCharKey then
 		return ns.ForeverCharKey("key block codes (keyBlockCodes)", legacy, nil, { copy = false }), name
 	end

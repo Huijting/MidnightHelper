@@ -3404,7 +3404,7 @@ function ns.ForeverCQItemBody(item, need)
 		out[#out + 1] = (have >= need and "|cff7fff7f" or "|cffffd100") .. ns:L("FCQ_TIP_HAVE_FMT"):format(math.min(have, need),
 			need) .. "|r"
 	end
-	-- 26 Nov 2026 (Rob: "Joey Whatever is een alliance en die kan dus niks naar mij toesturen. Dus dat moet … vermelden"):
+	-- 26 Nov 2026 (Rob: one of his characters "is een alliance en die kan dus niks naar mij toesturen. Dus dat moet … vermelden"):
 	-- EVERY character (Syndicator asked without its faction/realm filter), yours that can mail first, the others grey with
 	-- why. Faction: Syndicator.API.GetCharacter(name-realm).details.faction (GEMETEN in Syndicator Initialize.lua:86);
 	-- realm: realmNormalized vs yours and GetAutoCompleteRealms (connected realms). That mail does not cross factions in
@@ -3413,7 +3413,7 @@ function ns.ForeverCQItemBody(item, need)
 	if api and api.GetInventoryInfoByItemID then
 		local mine, other, canMail = {}, {}, 0
 		local ok, info = pcall(api.GetInventoryInfoByItemID, item, false, false)
-		-- 26 Nov 2026: Syndicator names Forever characters with their surname ("Ima Pallie", realm "RP"; GEMETEN in Rob's
+		-- 26 Nov 2026: Syndicator names Forever characters with their surname ("Anna Example", realm "RP"; GEMETEN in Rob's
 		-- Syndicator SV), and Forever's GetNormalizedRealmName is "" (GEMETEN, foreverNameProbe). So "you" = first name OR
 		-- full name, and with no readable realm of our own the realm test is skipped (else every alt read "other realm").
 		local me = UnitName and UnitName("player")

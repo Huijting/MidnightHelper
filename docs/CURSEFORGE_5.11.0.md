@@ -65,7 +65,7 @@ This version adds new files: after updating, restart the game once (a `/reload` 
 - **Quiet helpers** has more settings that work in Forever: the missing buff icon, the upgrade notice, the arrow size
   and meters, the minimap icon, the quick bar, and the cast warning bars.
 - Commands that only work in Midnight are hidden in Forever, and say so when you type one.
-- The key block code names your whole character ("Ima Druiddude"), and shows the spell behind each of Midnight
+- The key block code names your whole character (first and last name), and shows the spell behind each of Midnight
   Helper's own key macros.
 
 ## Both games: more
