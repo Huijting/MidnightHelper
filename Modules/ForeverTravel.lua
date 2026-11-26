@@ -1980,6 +1980,15 @@ end
 -- Switch in Quiet helpers (on). /mh ghost [why|test].
 --------------------------------------------------------------------------------
 local dp, dpWhy = nil, "not dead this session"
+local dpDismissed = false -- you closed the window: it stays away until you live again or die anew
+
+--- Hide by MH itself (not "closed by you"). OnHide only fires for a shown frame, so the flag is set only then.
+local function SelfHide(f)
+	if f and f:IsShown() then
+		f._selfHide = true
+		f:Hide()
+	end
+end
 
 function ns.IsForeverDeathPanelOn()
 	return not (type(ns.db) == "table" and ns.db.foreverDeathPanel == false)
@@ -1993,9 +2002,7 @@ function ns.SetForeverDeathPanel(on)
 		ns.db.foreverDeathPanel = nil
 	else
 		ns.db.foreverDeathPanel = false
-		if dp then
-			dp:Hide()
-		end
+		SelfHide(dp)
 	end
 end
 
@@ -2119,11 +2126,22 @@ local function BuildDeathPanel()
 			ns.lastTarget = { mapID = m, x = x, y = y, name = ns:L("FDEATH_CORPSE"), via = "/mh ghost", arriveYards = 15 }
 			ns._mhRouteOwner = "waypoint"
 		end
+		-- The arrow does the work now: the window goes away for the rest of this death (Sparring 26 Nov: "jouw keuze").
+		f:Hide()
+	end)
+	-- Closed by you (the X, Escape, or the arrow button) = gone for the rest of THIS death. Rob, 26 Nov 2026: "Daarna
+	-- klik ik het weg, maar hij blijft nu terugkomen." Our own hides (alive, switched off) set _selfHide first.
+	f:HookScript("OnHide", function(self)
+		if self._selfHide then
+			self._selfHide = nil
+		else
+			dpDismissed = true
+		end
 	end)
 	if Style and Style.SkinOnShow then
 		Style.SkinOnShow(f)
 	end
-	f:Hide()
+	SelfHide(f)
 	dp = f
 	return f
 end
@@ -2131,17 +2149,20 @@ end
 local function DeathUpdate(force)
 	if not ns.IsForeverDeathPanelOn() then
 		dpWhy = "switched off (Quiet helpers)"
-		if dp then
-			dp:Hide()
-		end
+		SelfHide(dp)
 		return
 	end
 	local dead = UnitIsDeadOrGhost and UnitIsDeadOrGhost("player")
 	if not dead and not force then
 		dpWhy = "alive"
-		if dp then
-			dp:Hide()
-		end
+		dpDismissed = false
+		SelfHide(dp)
+		return
+	end
+	if force then
+		dpDismissed = false -- /mh ghost test always shows it
+	elseif dpDismissed then
+		dpWhy = "dead, but you closed the window: it stays away until you are alive again"
 		return
 	end
 	local ghost = UnitIsGhost and UnitIsGhost("player")
@@ -2172,7 +2193,7 @@ local function DeathUpdate(force)
 	end
 	if not l1 then
 		dpWhy = "dead, but the corpse/release position is not readable here (instance?)"
-		f:Hide()
+		SelfHide(f)
 		return
 	end
 	local sick = SicknessMinutes()
@@ -2196,7 +2217,11 @@ do
 		"CORPSE_OUT_OF_RANGE" }) do
 		pcall(ev.RegisterEvent, ev, e)
 	end
-	ev:SetScript("OnEvent", function()
+	ev:SetScript("OnEvent", function(_, event)
+		if event == "PLAYER_DEAD" then
+			dpDismissed = false -- a new death: the window may come once more
+		end
+		-- PLAYER_ALIVE also fires on release (you are a ghost then): that keeps a closed window closed.
 		C_Timer.After(0.5, function()
 			pcall(DeathUpdate, false)
 		end)

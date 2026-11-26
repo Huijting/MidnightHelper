@@ -25,9 +25,18 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 26 nov — FOREVER: venster na je dood blijft weg als je het sluit (Rob: "hij blijft nu terugkomen")
+
+`/reload` is genoeg. Offline getest (flight_test 45/45), NIET in het spel.
+- [ ] Dood/geest → venster → kruisje: het komt NIET terug bij het aftellen, na release, na een laadscherm.
+- [ ] Knop "Arrow to my corpse": de pijl staat, het venster gaat vanzelf dicht.
+- [ ] Weer levend en opnieuw dood: het venster komt weer één keer. `/mh ghost test` toont het altijd.
+
 ## 26 nov — FOREVER: venster na je dood (Rob: "weer nuttige info")
 
 Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (flight_test 36), NIET in het spel.
+✅ Rob, 26 nov (Druid 15, echt dood): venster + "Arrow to my corpse" werken ("dat geeft helemaal keurig"). Sickness-duur
+(5 min op 15) wordt nagemeten: Polestar zei 10 min op level 14.
 - [ ] `/mh ghost test`: venster "YOU DIED" met een voorbeeld (889 m), advies en wat de Spirit Healer op jouw level kost.
 - [ ] Echt dood, nog niet released: "Release: you appear … from your corpse; the run back takes about …".
 - [ ] Als geest: "Your corpse: … away, about … as a ghost." telt af terwijl je loopt; knop "Arrow to my corpse" zet de pijl.

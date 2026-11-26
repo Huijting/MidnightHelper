@@ -1,5 +1,15 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 26 nov (Bouwchat 26-11): BUG na-je-dood-venster kwam steeds terug → GEREPAREERD (`/reload`)
+
+Rob (echt dood, Druid 15): venster en pijl werken, maar *"Daarna klik ik het weg, maar hij blijft nu terugkomen."*
+ForeverTravel.lua: `dpDismissed` — jij sluit (X, Escape, of de pijlknop, die het venster nu zelf sluit) = weg voor de rest
+van DEZE dood. MH's eigen verbergen loopt via `SelfHide` (vlag `_selfHide`; OnHide vuurt alleen bij een zichtbaar frame).
+Reset alleen bij PLAYER_DEAD (nieuwe dood) of als je leeft; PLAYER_ALIVE bij release laat hem dicht. `/mh ghost test` toont
+altijd; `/mh ghost` zegt "you closed the window". flight_test 45/45 (nieuw blok 14).
+Open: sickness-duur (AFGELEID level-10) vs Polestar "10m op 14" → mh-research loopt. Rare-3D-model staat ongecommit in de
+werkmap (ForeverRares.lua, ForeverOverview.lua) — volgende commit.
+
 ## ▶▶ 26 nov (Bouwchat 26-11): "na je dood"-venster GEBOUWD (`/reload`) — rij: rare-model + loot (bron = Rob kiest)
 
 Sparrings advies, Rob volgt het (*"weer nuttige info"*). Feiten: `docs/forever/DOOD_EN_RARELOOT_2026-11-26.md`
