@@ -1,5 +1,20 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 26 nov (Bouwchat 26-11): BUG eten/drinken weg na Undo van het toetsblok → GEREPAREERD (`/reload`)
+
+Rob (Druid): spells/eten/drinken weg "op het vrije gedeelte … links naast onze alt-knoppen". GEMETEN in zijn SV: snapshot
+`keyBlockSnapshots["Player-6944-02C2528B:1484"].at = 1795694474` = vandaag 13:01 (NL): het blok is vandaag opnieuw geplaatst;
+een Place kan alleen na een Undo (KeyBlock.lua Place weigert met snapshot) → Undo via login-melding "Fix"
+(KEYBLOCK_LAYOUT_MISMATCH), de layout-knop of /mh block undo (welke: AFGELEID, niet gelogd). Oorzaak GEMETEN in de code:
+`KeyBlockUndo` deed `PickupAction(s.slot) -- lift ours off` op ELK opgenomen vakje, ongeacht wat er nu op staat → wat Rob
+er later zelf op zette verdween zonder spoor. Geen macro's voor eten/drinken (macros-cache.txt GEMETEN), dus items.
+Fix: Place/Update slaan per vakje `ours` op (wat MH er liet; false = leeg); Undo tilt alleen op als dat er nog staat (item:
+zelfde id; spell/macro: zelfde soort, rank mag wisselen); oude snapshot zonder `ours`: nooit een item optillen. Bewaard
+= in chat (KEYBLOCK_UNDO_KEPT_FMT, 8 talen) + `ns.db.keyBlockLastUndo`. Nieuw `/mh block slots` (onvermeld): per vakje
+MH left · now · undo lift/KEEP. undo_test 13/13. Herstel voor Rob: zelf terugslepen (MH wist niet wat er stond).
+Nog open (niet gebouwd): Place zelf tilt bij "clear" zonder vrije knop iets op en zet het bij Undo "by kind" terug — een item
+dat op is (0 in tassen) komt dan niet terug.
+
 ## ▶▶ 26 nov (Bouwchat 26-11): class-questteksten rechtgezet (`/reload`); GoldScout blijft eruit (Sparring: (a))
 
 - WL_AVELINA / WL_ISAAC: "kill Avelina/Isaac here for … Heart" (Wowhead Forever: dropped by 185333 / 185334).

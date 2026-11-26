@@ -2869,6 +2869,7 @@ ns._mhLocales.ruRU = {
 	KEYBLOCK_MISMATCH_CMD = "Введите /mh block fix, чтобы снять его и разместить заново.",
 	KEYBLOCK_MISMATCH_FIX = "Исправить сейчас",
 	KEYBLOCK_MISMATCH_LATER = "Позже",
+	KEYBLOCK_UNDO_KEPT_FMT = "Остаётся на ваших панелях (это вы поставили сами, MH это не убирает): %d — %s",
 	KEYBLOCK_STALE_FREED_FMT ="Клавиш другой раскладки, которые всё ещё нажимали кнопки блока: %d. Теперь они свободны: %s. /mh block undo вернёт их.",
 	KEYBLOCK_T_KICK = "прерывание",
 	KEYBLOCK_T_MAIN = "основная кнопка",

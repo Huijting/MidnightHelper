@@ -849,6 +849,7 @@ ns._mhLocales.nlNL = {
 	KEYBLOCK_MISMATCH_CMD = "Typ /mh block fix om het eraf te halen en opnieuw neer te zetten.",
 	KEYBLOCK_MISMATCH_FIX = "Nu rechtzetten",
 	KEYBLOCK_MISMATCH_LATER = "Later",
+	KEYBLOCK_UNDO_KEPT_FMT = "Blijft op je balken (dit zette je er zelf op, MH haalt het niet weg): %d — %s",
 	KEYBLOCK_STALE_FREED_FMT ="%d toetsen van de andere indeling drukten nog op blokknoppen en zijn nu vrij: %s. /mh block undo zet ze terug.",
 	KEYBLOCK_T_CD4 = "cooldown 4",
 	KEYBLOCK_T_RACIAL = "racial",

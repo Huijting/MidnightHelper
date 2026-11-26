@@ -1497,6 +1497,13 @@ function ns.KeyBlockPlace()
 			end
 		end
 	end
+	-- 26 Nov 2026 (Rob, Forever Druid: food and drink gone from the free part of the block after "Fix"/undo + place):
+	-- remember what MH itself left on every recorded slot, so undo only lifts OUR thing off and never something the
+	-- player put there later. false = MH left the slot empty.
+	for _, s in ipairs(snap.slots) do
+		local k, i = Occupant(s.slot)
+		s.ours = k and { kind = k, id = i } or false
+	end
 	-- The other layout's keys that pressed a block button: now free (recorded in snap.binds above).
 	local freed = 0
 	for _, s in ipairs(stale) do
@@ -1535,6 +1542,48 @@ function ns.KeyBlockPlace()
 	return true
 end
 
+--- /mh block slots: every slot the undo snapshot holds, what MH left there, what is there now, and lift/keep.
+function ns.KeyBlockSlotsSlash()
+	local p = "|cffffcc00Midnight Helper:|r "
+	local snap = GetSnap()
+	if not snap then
+		print(p .. "the key block is not placed on this character: undo would touch nothing.")
+		return
+	end
+	local function Name(k, i)
+		if k == nil then
+			return "empty"
+		end
+		return (OccupantName(k, i) or "?") .. " (" .. tostring(k) .. ")"
+	end
+	local lift, keep = 0, 0
+	print(p .. ("key block placed %s; %d slots recorded:"):format(snap.at and date and date("%d %b %H:%M", snap.at) or "?",
+		#(snap.slots or {})))
+	for _, s in ipairs(snap.slots or {}) do
+		local k, i = Occupant(s.slot)
+		local ours = (s.ours == false and "empty") or (type(s.ours) == "table" and Name(s.ours.kind, s.ours.id))
+			or "not recorded (older placing)"
+		local would
+		if k == nil then
+			would = s.kind and ("put back " .. Name(s.kind, s.id)) or "nothing"
+		elseif (s.ours == false) or (type(s.ours) == "table" and (k ~= s.ours.kind or (k == "item" and i ~= s.ours.id)))
+			or (s.ours == nil and k == "item") then
+			would = "KEEP (yours)"
+			keep = keep + 1
+		else
+			would = "lift off" .. (s.kind and (", put back " .. Name(s.kind, s.id)) or "")
+			lift = lift + 1
+		end
+		print(("  slot %d: MH left %s · now %s · undo: %s"):format(s.slot, ours, Name(k, i), would))
+	end
+	print(("  undo would lift %d and keep %d."):format(lift, keep))
+	local u = ns.db and ns.db.keyBlockLastUndo
+	if type(u) == "table" then
+		print(("  last undo: %s, %d back, kept: %s"):format(date and date("%d %b %H:%M", u.t or 0) or "?", u.restored or 0,
+			(u.kept and #u.kept > 0) and table.concat(u.kept, ", ") or "nothing"))
+	end
+end
+
 function ns.KeyBlockUndo()
 	local p = "|cffffcc00Midnight Helper:|r "
 	local snap = GetSnap()
@@ -1554,11 +1603,40 @@ function ns.KeyBlockUndo()
 		end
 	end
 	local restored = 0
+	local kept = {}
+	-- 26 Nov 2026 (Rob: "op een gegeven moment ben ik spells kwijt op het vrije gedeelte … het drinken van mana, het
+	-- eten van food"): undo used to lift off WHATEVER stood on a recorded slot, so food or drink the player had put
+	-- there after placing was dropped without a trace. Now a slot is only lifted when it still holds what MH left
+	-- there (s.ours, recorded since today); an older snapshot without that never lifts an item off (the block
+	-- places spells and macros; an item there is almost always the player's own). Kept slots are named in chat.
+	local function MayLift(s)
+		local k, i = Occupant(s.slot)
+		if k == nil then
+			return true
+		end
+		if s.ours == false then
+			return false -- MH left it empty: the player put this here
+		end
+		if type(s.ours) == "table" then
+			if k ~= s.ours.kind then
+				return false
+			end
+			-- Spells change id with a new rank (ForeverRanks), macros keep their kind; an item must be the same item.
+			return k ~= "item" or i == s.ours.id
+		end
+		return k ~= "item"
+	end
 	for _, s in ipairs(snap.slots or {}) do
 		-- Moved aside: pick it up from where it went and drop it on its own button. That swap puts ours
 		-- on the cursor, which is then dropped. No id lookup, so a macro comes back as itself.
 		local movedKind = s.movedTo and Occupant(s.movedTo)
-		local ok = pcall(function()
+		local mayLift = MayLift(s)
+		if not mayLift and not (s.movedTo and movedKind == s.kind) then
+			local k, i = Occupant(s.slot)
+			kept[#kept + 1] = OccupantName(k, i) or tostring(k)
+		end
+		local ok = mayLift or (s.movedTo and movedKind == s.kind)
+		ok = ok and pcall(function()
 			ClearCursor()
 			if s.movedTo and movedKind == s.kind then
 				PickupAction(s.movedTo)
@@ -1604,6 +1682,10 @@ function ns.KeyBlockUndo()
 	end
 	SetSnap(nil)
 	print(p .. ("key block undone: %d slots and %d keys back as they were."):format(restored, #(snap.binds or {})))
+	if #kept > 0 then
+		print("   " .. ns:L("KEYBLOCK_UNDO_KEPT_FMT"):format(#kept, table.concat(kept, ", ")))
+	end
+	ns.db.keyBlockLastUndo = { t = time and time() or 0, restored = restored, kept = kept }
 	if ns.KeyBlockArmBar1 then
 		ns.KeyBlockArmBar1()
 	end
@@ -1794,7 +1876,7 @@ function ns.KeyBlockUpdate()
 			entry.landedKind, entry.landedId = Occupant(t.slot)
 			if Occupant(t.slot) == want.kind then
 				-- First in the list: the undo must lift this off BEFORE it puts back what stood here before.
-				table.insert(snap.slots, 1, { slot = t.slot })
+				table.insert(snap.slots, 1, { slot = t.slot, ours = { kind = entry.landedKind, id = entry.landedId } })
 				added = added + 1
 				-- And the key goes with it. Rob, 5 Oct 2026: Rapid Fire landed on block A place 3, but "3"
 				-- still pressed bar 1 (placed before every key was bound). Remember the old binding once.

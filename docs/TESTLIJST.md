@@ -25,6 +25,16 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 26 nov — BUG: eten/drinken weg van je balken na "Fix"/Undo van het toetsblok → Undo laat jouw spullen nu staan
+
+`/reload` is genoeg. Offline getest (undo_test 13/13), NIET in het spel.
+- [ ] Eerst herstellen: sleep je eten en drinken (en wat er verder weg is) zelf weer uit je tassen op de vrije plekken.
+      MH had niet onthouden wat daar stond, dus het kan ze niet terugzetten.
+- [ ] Typ `/mh block slots`: per vakje "MH left … · now … · undo: lift off / KEEP (yours)". Je eten en drinken staan op
+      KEEP.
+- [ ] (alleen als je wilt testen) `/mh block undo`: je eten en drinken blijven staan, en de chat zegt "Left on your bars
+      (you put these there yourself …): N — Shiny Red Apple, …". Zet daarna het blok weer neer (venster → Place it).
+
 ## 26 nov — FOREVER: class quest wijst naar het dichtstbijzijnde gebied (Rob: "meer gebieden … Kodo Horns")
 
 ⚠️ NIEUW BESTAND (ForeverClassQuestAreas.lua, in beide toc's): Forever één keer HELEMAAL herstarten. Offline getest

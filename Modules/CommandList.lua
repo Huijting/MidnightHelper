@@ -88,7 +88,7 @@ ns.MH_UNLISTED_ON_PURPOSE = {
 	"rarecapture", "rarehint", "rarequests", "rarescan", "raretest", "readyall",
 	"craft", "readyboard", "readycheck", "readytest", "readytoggle", "resetdebug", "ritualspy",
 	"roleset", "route", "sba", "simc", "setline", "shards", "shardtest", "shots", "showdown",
-	"socket", "souls", "spell", "stat", "stop", "surges", "survey why", "survey popup", "camera on", "camera off", "maxlevel", "maxlevel popup", "classquest", "classquest go", "camp", "legacy", "blesstip", "blesstip on", "blesstip off", "blesstip reset", "sparkle", "sparkle on", "sparkle off", "rest", "rest go", "fireworks", "fireworks test", "fireworks on", "fireworks off", "survival", "tier", "tierread", "tierscan", "tips", "uinames", "aggro", "threat", "group", "grouptab", "keyblock", "block why", "block place", "block go", "block undo", "block layout", "block update", "block export", "achlist why",
+	"socket", "souls", "spell", "stat", "stop", "surges", "survey why", "survey popup", "camera on", "camera off", "maxlevel", "maxlevel popup", "classquest", "classquest go", "camp", "legacy", "blesstip", "blesstip on", "blesstip off", "blesstip reset", "sparkle", "sparkle on", "sparkle off", "rest", "rest go", "fireworks", "fireworks test", "fireworks on", "fireworks off", "survival", "tier", "tierread", "tierscan", "tips", "uinames", "aggro", "threat", "group", "grouptab", "keyblock", "block why", "block place", "block go", "block undo", "block slots", "block layout", "block update", "block export", "achlist why",
 	"presses why", "presses on", "presses off", "presses reset",
 	"mark friends", "mark friend", "tp why", "klikken", "klikken blizz",
 	"toast", "twins", "unlearned", "vignettes", "wb", "whatis", "wiki", "worldboss",

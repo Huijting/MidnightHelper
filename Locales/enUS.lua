@@ -883,6 +883,7 @@ ns._mhLocales.enUS = {
 	KEYBLOCK_MISMATCH_CMD = "Type /mh block fix to take it off and place it again.",
 	KEYBLOCK_MISMATCH_FIX = "Fix it now",
 	KEYBLOCK_MISMATCH_LATER = "Later",
+	KEYBLOCK_UNDO_KEPT_FMT = "Left on your bars (you put these there yourself, MH does not take them off): %d — %s",
 	KEYBLOCK_STALE_FREED_FMT ="%d keys of the other layout still pressed block buttons and are free now: %s. /mh block undo binds them back.",
 	KEYBLOCK_T_CD4 = "cooldown 4",
 	KEYBLOCK_T_RACIAL = "racial",

@@ -25765,6 +25765,7 @@ if ns._mhLocales and ns._mhLocales.deDE then fill("deDE", {
 	KEYBLOCK_MISMATCH_CMD = "Gib /mh block fix ein, um ihn abzunehmen und neu zu setzen.",
 	KEYBLOCK_MISMATCH_FIX = "Jetzt richten",
 	KEYBLOCK_MISMATCH_LATER = "Später",
+	KEYBLOCK_UNDO_KEPT_FMT = "Bleibt auf deinen Leisten (das hast du selbst dort hingelegt, MH nimmt es nicht weg): %d — %s",
 	KEYBLOCK_STALE_FREED_FMT = "%d Tasten der anderen Aufteilung drückten noch Block-Knöpfe und sind jetzt frei: %s. /mh block undo legt sie wieder zurück.",
 }) end
 if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
@@ -25791,6 +25792,7 @@ if ns._mhLocales and ns._mhLocales.frFR then fill("frFR", {
 	KEYBLOCK_MISMATCH_CMD = "Tape /mh block fix pour l'enlever et le replacer.",
 	KEYBLOCK_MISMATCH_FIX = "Corriger maintenant",
 	KEYBLOCK_MISMATCH_LATER = "Plus tard",
+	KEYBLOCK_UNDO_KEPT_FMT = "Reste sur tes barres (tu l'y as mis toi-même, MH ne l'enlève pas) : %d — %s",
 	KEYBLOCK_STALE_FREED_FMT = "%d touches de l'autre disposition appuyaient encore sur des boutons du bloc et sont maintenant libres : %s. /mh block undo les remet.",
 }) end
 if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
@@ -25817,6 +25819,7 @@ if ns._mhLocales and ns._mhLocales.esES then fill("esES", {
 	KEYBLOCK_MISMATCH_CMD = "Escribe /mh block fix para quitarlo y volver a ponerlo.",
 	KEYBLOCK_MISMATCH_FIX = "Arreglar ahora",
 	KEYBLOCK_MISMATCH_LATER = "Más tarde",
+	KEYBLOCK_UNDO_KEPT_FMT = "Se queda en tus barras (lo pusiste tú, MH no lo quita): %d — %s",
 	KEYBLOCK_STALE_FREED_FMT = "%d teclas de la otra distribución aún pulsaban botones del bloque y ahora están libres: %s. /mh block undo las vuelve a poner.",
 }) end
 if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
@@ -25843,6 +25846,7 @@ if ns._mhLocales and ns._mhLocales.ptBR then fill("ptBR", {
 	KEYBLOCK_MISMATCH_CMD = "Digite /mh block fix para tirá-lo e colocá-lo de novo.",
 	KEYBLOCK_MISMATCH_FIX = "Corrigir agora",
 	KEYBLOCK_MISMATCH_LATER = "Mais tarde",
+	KEYBLOCK_UNDO_KEPT_FMT = "Fica nas suas barras (você mesmo colocou, o MH não tira): %d — %s",
 	KEYBLOCK_STALE_FREED_FMT = "%d teclas da outra disposição ainda apertavam botões do bloco e agora estão livres: %s. /mh block undo as coloca de volta.",
 }) end
 
@@ -26023,6 +26027,7 @@ if ns._mhLocales and ns._mhLocales.itIT then fill("itIT", {
 	KEYBLOCK_MISMATCH_CMD = "Scrivi /mh block fix per toglierlo e posizionarlo di nuovo.",
 	KEYBLOCK_MISMATCH_FIX = "Sistema ora",
 	KEYBLOCK_MISMATCH_LATER = "Più tardi",
+	KEYBLOCK_UNDO_KEPT_FMT = "Resta sulle tue barre (l'hai messo tu, MH non lo toglie): %d — %s",
 	KEYBLOCK_STALE_FREED_FMT = "%d tasti dell'altra disposizione premevano ancora pulsanti del blocco e ora sono liberi: %s. /mh block undo li rimette com'erano.",
 	KEYGUIDE_BTN = "Perché questi tasti?",
 	KEYGUIDE_TITLE = "Perché questi tasti? (12 x 4)",

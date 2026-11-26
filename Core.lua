@@ -1485,6 +1485,13 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		end
 		return
 	end
+	-- /mh block slots — per recorded slot: what MH left there, what is there now, what undo would do (26 Nov 2026).
+	if msg == "block slots" then
+		if ns.KeyBlockSlotsSlash then
+			ns.KeyBlockSlotsSlash()
+		end
+		return
+	end
 	-- /mh block export — the cheat-sheet code for the website (5 Oct 2026).
 	if msg == "block export" then
 		if ns.ShowKeyBlockExport then
