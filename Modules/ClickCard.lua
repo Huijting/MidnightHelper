@@ -486,6 +486,8 @@ local function Build()
 	-- Bigger the first time (Rob, 26 Nov: "allemaal wat wel lastiger te lezen", a big screen). A size you chose with
 	-- Shift+scroll is remembered by RegisterMidnightDialogPopup and wins over this.
 	f:SetScale(1.25)
+	-- 26 Nov 2026 (Rob's Midnight screenshot): no "Dock to window" next to the close button; the card stands on its own.
+	f._mhNoDock = true
 	if ns.RegisterMidnightDialogPopup then
 		ns.RegisterMidnightDialogPopup(f) -- Shift+scroll = size (Rob: a very big screen), Escape closes
 	end

@@ -520,7 +520,15 @@ function ns.RegisterMidnightDialogPopup(frame)
 		-- No dock button in WoW Forever. Rob, 20 Nov 2026 (via sparring, verbatim): "ja haal ze maar uit alle forerver
 		-- vensters" (after 17 Nov: "het knopje dock en undock is eigenlijk nergens meer nodig"). The overview IS the main
 		-- window there. Retail keeps it. Windows that anchor their title to frame._mhDockBtn fall back when it is nil.
-		if not ns.IS_FOREVER then
+		-- 26 Nov 2026 (Rob's Midnight screenshots): a window that is not a page of the main window says so with
+		-- frame._mhNoDock (the Move bar, where the button lay across Done; the click card). A dock saved for it before
+		-- is dropped, so it does not stay glued to the main window.
+		if frame._mhNoDock then
+			local store = DockStore()
+			if store and store[name] then
+				store[name] = nil
+			end
+		elseif not ns.IS_FOREVER then
 			AttachDockButton(frame, name)
 		end
 	end

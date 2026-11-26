@@ -28,13 +28,15 @@ bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt o
 ## 26 nov — 5.11.0 in MIDNIGHT (vanavond, vóór de release)
 
 HERSTART het spel één keer (nieuwe bestanden). Dit is het Midnight-deel; het Forever-deel staat in de secties hieronder.
-- [ ] Inloggen zonder rode foutmelding (BugSack leeg), ook als je meteen in een gevecht komt.
+- [x] Inloggen zonder rode foutmelding. ✅ Rob, 26 nov (Holy Paladin): *"verder geen fout melding verder"*.
 - [ ] De "what's new"-popup toont 5.11.0 met 8 regels.
-- [ ] Een healer: `/mh clickcard` opent de klikkaart met je klikken (DandersFrames-profiel of MH's indeling). Alt/Ctrl/Shift
-      vasthouden wisselt de laag. Muis op een icoon = de tooltip van de spell.
+- [x] Een healer: `/mh clickcard` opent de klikkaart met je klikken. ✅ Rob, 26 nov (screenshot: Plain Holy Shock / Word of
+      Glory / Flash of Light, other layers, "Print (website)", See-through): *"De eerste is goed"*.
 - [ ] Knop "Print (website)" op de klikkaart: het kopieervenster opent. Plakken op midnighthelper.com (Key block) geeft je
       toetsen en het vak met klikken.
-- [ ] `/mh move`: bovenaan de balk met "Done"; Escape stopt ook. De castbalken (Combat safety) kun je slepen.
+- [ ] `/mh move` (OPNIEUW, na de fix van 26 nov avond): de EERSTE keer meteen de balk én alle groene vakken; Done stopt
+      hem; Escape ook. Geen "Dock to window" meer op de balk (over Done heen) en niet op de klikkaart naast het kruisje.
+      ❌ eerder: eerste keer alleen de balk (Move zette zichzelf meteen uit), Done deed toen niets.
 - [ ] Toetsblok: knop Undo zegt eerst wat hij doet; iets wat je zelf op een knop zette, blijft staan.
 
 ## 26 nov — Je hele naam op de spiekbrief ("Ima Druiddude")

@@ -1,5 +1,15 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 26 nov avond (Bouwchat 26-11): Robs Midnight-check — Move eerste keer half + "Dock to window" weg (`/reload`)
+
+Rob (Holy Paladin): inloggen en klikkaart ✅ (*"De eerste is goed"*, *"verder geen fout melding verder"*). ❌ 1: de eerste
+/mh move gaf alleen de balk. GEMETEN in MoveMode.lua `Bar()`: een nieuw frame is zichtbaar; de `b:Hide()` stond NA
+`SetScript("OnHide")` → OnHide → Stop() terwijl Start net active = true had gezet; Start deed daarna toch `b:Show()`. Balk
+zichtbaar, Move uit, Done deed niets (Stop: niet actief). Nu: `b:Hide()` meteen na CreateFrame. move_test 22/22 (stub maakt
+frames nu zichtbaar zoals de client; nieuwe check "first start: Move stays on"). ❌ 2: DialogPopup.lua kent `frame._mhNoDock`
+(geen dock-knop, een opgeslagen dock wordt gewist); gezet op MidnightHelperMoveBar en de klikkaart. Lint [25] blijft blij
+(beide nog via RegisterMidnightDialogPopup).
+
 ## ▶▶ 26 nov (Bouwchat 26-11): Robs characternamen uit alles wat meegaat + lint [30] (HARD)
 
 Sparring (Rob volgt zijn advies, wil zijn gegevens niet publiek): de 5.11.0-tekst noemde een character van Rob, en

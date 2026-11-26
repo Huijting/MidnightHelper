@@ -197,6 +197,12 @@ local function Bar()
 		return bar
 	end
 	local b = CreateFrame("Frame", "MidnightHelperMoveBar", UIParent, "BackdropTemplate")
+	-- 26 Nov 2026 (Rob, Midnight: the first /mh move showed only this bar, no green boxes, and Done did nothing; a second
+	-- /mh move showed everything). A new frame is SHOWN. The b:Hide() at the end ran after OnHide was set, so OnHide
+	-- stopped Move that had just started, and Start then showed the bar anyway. Hidden first, before any script.
+	b:Hide()
+	-- _mhNoDock: no "Dock to window" button (retail); Rob's screenshot had it right across Done.
+	b._mhNoDock = true
 	if ns.RegisterMidnightDialogPopup then
 		ns.RegisterMidnightDialogPopup(b) -- Escape closes it (= stops Move); Shift+scroll = size
 	end
