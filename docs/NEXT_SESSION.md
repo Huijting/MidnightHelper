@@ -1,5 +1,15 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 26 nov (Bouwchat 26-11): reisplanner STAP 2 — rare-in-zicht-venster GEBOUWD (`/reload`)
+
+- ForeverRares.lua (onderaan): NAME_PLATE_UNIT_ADDED / PLAYER_TARGET_CHANGED / UPDATE_MOUSEOVER_UNIT; telt als
+  UnitClassification rare/rareelite óf npc-id (UnitGUID) in FOREVER_RARES_ALL/_WORTH, levend, aanvalbaar; 10 min per rare.
+  Venster MidnightHelperForeverRareAlert (RegisterMidnightDialogPopup, verplaatsbaar, 60 s), knoppen: Target = secure
+  macro /targetexact op UIParent, alleen buiten gevecht over het venster gelegd (nooit eraan geankerd), Show in Find
+  (ns.ShowForeverFind("rare", "z<map>")), Waypoint. Schakelaar FRALERT_SW (aan), /mh rares [why|test|on|off].
+- AFGELEID: UnitGUID/UnitName zijn voor nameplates in Forever leesbaar (anders: geen Target-knop, wel het venster).
+  rare_test 15/15.
+
 ## ▶▶ 26 nov (Bouwchat 26-11): Forever-reisplanner "leren van Polestar" — STAP 1 van 4 GEBOUWD (`/reload`)
 
 Rob via Sparring: *"Ik volg sowieso jouw advies, dus ik zeg ja, denk ik. En gaan we door tot jullie eigenlijk klaar

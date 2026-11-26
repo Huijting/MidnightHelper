@@ -25,6 +25,18 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 26 nov — FOREVER: venster als er een rare in zicht is (reisplanner stap 2; Rob: "een eigen venstertje voor [rares]")
+
+Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (rare_test 15), NIET in het spel.
+- [ ] `/mh rares test`: het venster "RARE IN SIGHT" met naam, level, zone en drie knoppen (Target, Show in Find,
+      Waypoint). Sleep het venster; Shift+scroll = groter/kleiner.
+- [ ] Een echte rare in je buurt (nameplate, target of muis erop): het venster komt vanzelf, met een geluidje. Klik Target:
+      de rare is je target. Klik Show in Find: het overzicht opent bij de rares van die zone. Waypoint: de pijl.
+- [ ] In een gevecht: geen Target-knop, wel de tekst "Target: after the fight"; na het gevecht is de knop terug.
+- [ ] Dezelfde rare binnen 10 minuten: geen nieuw venster. Na een minuut gaat het venster vanzelf weg.
+- [ ] Quiet helpers → "Window when a rare is in sight" uit: geen venster meer. `/mh rares` zegt wat hij zag en waarom.
+- [ ] Target een rare en typ `/mh rares`: regel "your target: classification rare…" (dat is ook test T3).
+
 ## 26 nov — FOREVER: MH leert welke flight points je kent + Nighthaven + één advies (reisplanner stap 1)
 
 Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (flight_test 27, trainroute_test 6), NIET in het spel.

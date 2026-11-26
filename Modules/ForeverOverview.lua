@@ -1457,6 +1457,10 @@ local QUIET = {
 	-- The preview: the icon and (with bars on) three sample bars, draggable; click again to hide them.
 	{ action = true, title = "SET_CS_PREVIEW", tip = "SET_CS_DESC",
 		fn = function() if ns.TestCombatSafety then ns.TestCombatSafety() end end },
+	-- 26 Nov 2026 (Rob via Sparring: "Ja, een eigen venstertje voor [rares]"): the rare-in-sight window (ForeverRares.lua).
+	Q("FRALERT_SW", "FRALERT_SW_DESC", {
+		get = function() return ns.IsForeverRareAlertOn and ns.IsForeverRareAlertOn() end,
+		set = function(on) if ns.SetForeverRareAlert then ns.SetForeverRareAlert(on) end end }),
 	-- 26 Nov 2026 (Rob via Sparring: "2 ja"): heals on a click on DandersFrames (ForeverClickCast.lua). Off by default.
 	{ head = "FCLICK_HEAD" },
 	Q("FCLICK_SW", "FCLICK_SW_DESC", {
@@ -1539,6 +1543,7 @@ local QUIET_WORDS = {
 	SETTINGS_QUICKBAR = "quick bar quickbar buttons reload",
 	FCLICK_SW = "click heal heals healing clicks danders dandersframes frames party raid mouse cast offheal",
 	FCLICK_KEEP_SW = "click heal left target targeting offheal cat bear form danders",
+	FRALERT_SW = "rare rares elite in sight alert window popup toast nameplate",
 }
 for _, q in ipairs(QUIET) do
 	if q.title and QUIET_WORDS[q.title] then

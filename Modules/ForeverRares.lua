@@ -270,3 +270,340 @@ function ns.ForeverRareFindRows(key)
 	end
 	return rows, pc ~= nil
 end
+
+--------------------------------------------------------------------------------
+-- A rare in sight: a small window (26 Nov 2026). Rob via Sparring: "Ja, een eigen venstertje voor [rares]. … Niet
+-- iedereen zal Polestar gebruiken." → "Ik volg sowieso jouw advies, dus ik zeg ja". The idea (watch nameplates, target
+-- and mouseover, a Target button) came from READING Polestar (GPL-3): no code or table taken; our own rare list.
+-- Detection, GEMETEN as API names in the client, behaviour not seen in Forever yet:
+--   NAME_PLATE_UNIT_ADDED (unit), PLAYER_TARGET_CHANGED ("target"), UPDATE_MOUSEOVER_UNIT ("mouseover"). A unit counts
+--   when UnitClassification says "rare"/"rareelite" OR its npc id (from UnitGUID) is in FOREVER_RARES_ALL / _WORTH,
+--   it is alive and you can attack it. Once per rare per 10 minutes.
+-- Window: name, level, zone, "why" (Worth the trip), and Target / Show in Find / Waypoint. Target is a secure macro
+-- button (/targetexact) on UIParent, placed over the window OUT of combat only, never anchored to it (an anchored secure
+-- button would make the window protected): in combat the window says "Target: after the fight".
+-- On by default (Quiet helpers; it only shows a window). /mh rares [why|test|on|off] says what it saw and decided.
+--------------------------------------------------------------------------------
+local RA_W = 300
+local RA_COOLDOWN = 600
+local raBy = {} -- npc id -> list row (all rares, the "worth" rows win for their why/side)
+for _, r in ipairs(ns.FOREVER_RARES_ALL or {}) do
+	raBy[r.npc] = r
+end
+for _, r in ipairs(ns.FOREVER_RARES_WORTH) do
+	raBy[r.npc] = r
+end
+local raLastSeen = {} -- npc id or name -> GetTime()
+local raWhy = "nothing seen yet this session"
+local raWin, raTarget
+
+function ns.IsForeverRareAlertOn()
+	return not (type(ns.db) == "table" and ns.db.foreverRareAlert == false)
+end
+
+function ns.SetForeverRareAlert(on)
+	if type(ns.db) ~= "table" then
+		return
+	end
+	if on then
+		ns.db.foreverRareAlert = nil
+	else
+		ns.db.foreverRareAlert = false
+		if raWin then
+			raWin:Hide()
+		end
+	end
+end
+
+local function Plain(v)
+	if v == nil or (issecretvalue and issecretvalue(v)) then
+		return nil
+	end
+	return v
+end
+
+local function NpcId(unit)
+	local ok, guid = pcall(UnitGUID, unit)
+	guid = ok and Plain(guid) or nil
+	if type(guid) ~= "string" then
+		return nil
+	end
+	local kind, id = guid:match("^(%a+)%-%d+%-%d+%-%d+%-%d+%-(%d+)")
+	if kind ~= "Creature" and kind ~= "Vehicle" then
+		return nil
+	end
+	return tonumber(id)
+end
+
+--- Place the secure Target button over the window (out of combat only).
+local function PlaceTarget()
+	if not (raTarget and raWin) or (InCombatLockdown and InCombatLockdown()) then
+		return
+	end
+	if not (raWin:IsShown() and raWin.targetName) then
+		raTarget:Hide()
+		return
+	end
+	local l, b = raWin.targetSpot:GetLeft(), raWin.targetSpot:GetBottom()
+	if not (l and b) then
+		raTarget:Hide()
+		return
+	end
+	local s = (raWin.targetSpot:GetEffectiveScale() or 1) / (UIParent:GetEffectiveScale() or 1)
+	raTarget:SetScale(s)
+	raTarget:ClearAllPoints()
+	raTarget:SetPoint("BOTTOMLEFT", UIParent, "BOTTOMLEFT", l, b) -- in the button's own (scaled) coordinates
+	raTarget:SetAttribute("type", "macro")
+	raTarget:SetAttribute("macrotext", "/targetexact " .. raWin.targetName)
+	raTarget:Show()
+end
+
+local function BuildAlert()
+	if raWin then
+		return raWin
+	end
+	local Style = ns.ForeverStyle
+	local f = CreateFrame("Frame", "MidnightHelperForeverRareAlert", UIParent, "BackdropTemplate")
+	f:SetSize(RA_W, 120)
+	f:SetFrameStrata("HIGH")
+	f:SetBackdrop({ bgFile = "Interface\\Buttons\\WHITE8X8", edgeFile = "Interface\\Buttons\\WHITE8X8", edgeSize = 1 })
+	local pos = type(ns.db) == "table" and ns.db.foreverRareAlertPos
+	if type(pos) == "table" and pos[1] then
+		f:SetPoint(pos[1], UIParent, pos[2] or pos[1], pos[3] or 0, pos[4] or 0)
+	else
+		f:SetPoint("TOP", UIParent, "TOP", 0, -160)
+	end
+	f:EnableMouse(true)
+	f:SetMovable(true)
+	f:SetClampedToScreen(true)
+	f:RegisterForDrag("LeftButton")
+	f:SetScript("OnDragStart", f.StartMoving)
+	f:SetScript("OnDragStop", function(self)
+		self:StopMovingOrSizing()
+		if type(ns.db) == "table" then
+			local p, _, rp, x, y = self:GetPoint(1)
+			ns.db.foreverRareAlertPos = { p, rp, x, y }
+		end
+		PlaceTarget()
+	end)
+	local t = Style and Style.T and Style.T() or { gold = { 1, 0.82, 0 }, text = { 1, 1, 1 }, dim = { 0.7, 0.7, 0.7 } }
+	local function line(role, size, color)
+		local fs = (Style and Style.Text) and Style.Text(f, role, size, color) or f:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+		fs._mhSkinned = true
+		fs:SetJustifyH("LEFT")
+		fs:SetWidth(RA_W - 24)
+		return fs
+	end
+	f.head = line("head2", 12, { 1, 0.35, 0.35 })
+	f.head:SetPoint("TOPLEFT", 12, -10)
+	f.name = line("head2", 18, t.gold)
+	f.name:SetPoint("TOPLEFT", f.head, "BOTTOMLEFT", 0, -4)
+	f.info = line("text", 13, t.text)
+	f.info:SetPoint("TOPLEFT", f.name, "BOTTOMLEFT", 0, -3)
+	f.why = line("text", 12, t.dim)
+	f.why:SetPoint("TOPLEFT", f.info, "BOTTOMLEFT", 0, -3)
+	local close = CreateFrame("Button", nil, f, "UIPanelCloseButton")
+	close:SetPoint("TOPRIGHT", 2, 2)
+	close:SetScale(0.8)
+	-- Left: where the secure Target button goes (a plain frame of the same size; the real button sits over it).
+	f.targetSpot = CreateFrame("Frame", nil, f)
+	f.targetSpot:SetSize(84, 22)
+	f.targetSpot:SetPoint("BOTTOMLEFT", 10, 10)
+	f.combat = line("text", 11, t.dim)
+	f.combat:SetWidth(84)
+	f.combat:SetPoint("CENTER", f.targetSpot, "CENTER")
+	f.find = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
+	f.find:SetSize(96, 22)
+	f.find:SetPoint("LEFT", f.targetSpot, "RIGHT", 6, 0)
+	f.find:SetText(ns:L("FRALERT_FIND"))
+	f.way = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
+	f.way:SetSize(84, 22)
+	f.way:SetPoint("LEFT", f.find, "RIGHT", 6, 0)
+	f.way:SetText(ns:L("FRALERT_WAY"))
+	f:SetScript("OnHide", function()
+		if raTarget and not (InCombatLockdown and InCombatLockdown()) then
+			raTarget:Hide()
+		end
+	end)
+	if Style and Style.SkinOnShow then
+		Style.SkinOnShow(f)
+	end
+	local r, g, b = 0.9, 0.3, 0.3
+	f:HookScript("OnShow", function(self)
+		self:SetBackdropBorderColor(r, g, b, 1)
+	end)
+	if ns.RegisterMidnightDialogPopup then
+		ns.RegisterMidnightDialogPopup(f) -- Shift+scroll = size (every MH window), Escape closes
+	end
+	f:Hide()
+	raWin = f
+	-- The secure Target button: UIParent's child, never anchored to the window.
+	raTarget = CreateFrame("Button", "MidnightHelperForeverRareTarget", UIParent,
+		"SecureActionButtonTemplate,UIPanelButtonTemplate")
+	raTarget:SetSize(84, 22)
+	raTarget:SetFrameStrata("DIALOG")
+	raTarget:RegisterForClicks("AnyUp", "AnyDown")
+	raTarget:SetText(ns:L("FRALERT_TARGET"))
+	raTarget:Hide()
+	return f
+end
+
+--- Show the window for this rare. r = our list row or nil; name/level from the client when readable.
+local function ShowAlert(r, name, level, elite, map, x, y, how)
+	if not ns.IsForeverRareAlertOn() then
+		raWhy = "saw " .. tostring(name) .. " (" .. how .. "), but the window is switched off"
+		return
+	end
+	local f = BuildAlert()
+	f.head:SetText(ns:L("FRALERT_HEAD"):upper())
+	f.name:SetText(name or (r and r.name) or "?")
+	local tag
+	if level and level > 0 then
+		tag = ns:L(elite and "FRARE_TAG_ELITE_FMT" or "FRARE_TAG_FMT"):format(level)
+	else
+		tag = ns:L(elite and "FRARE_TAG_SKULL_ELITE" or "FRARE_TAG_SKULL")
+	end
+	f.info:SetText(tag .. "  ·  " .. ZoneName(map or (r and r.map) or 0))
+	local whyKey = r and (r.why or (WORTH_BY_NPC[r.npc] and WORTH_BY_NPC[r.npc].why))
+	f.why:SetText(whyKey and ns:L(whyKey) or "")
+	-- /targetexact needs the client's own name: the unit's name when readable, the list's English name on English only.
+	f.targetName = name or ((GetLocale and GetLocale() == "enUS") and r and r.name) or nil
+	f.combat:SetText((InCombatLockdown and InCombatLockdown()) and ns:L("FRALERT_COMBAT") or "")
+	f.find:SetScript("OnClick", function()
+		if ns.ShowForeverFind then
+			ns.ShowForeverFind("rare", r and ("z" .. r.map) or "worth")
+		end
+	end)
+	local wm, wx, wy = (r and r.map) or map, (r and r.x) or x, (r and r.y) or y
+	f.way:SetShown(wm and wx and true or false)
+	f.way:SetScript("OnClick", function()
+		if wm and wx and ns.SetBlizzardUserWaypoint and ns.SetBlizzardUserWaypoint(wm, wx, wy) then
+			ns.lastTarget = { mapID = wm, x = wx, y = wy, name = name or (r and r.name), via = "/mh rares", arriveYards = 20 }
+			ns._mhRouteOwner = "rarespot"
+		end
+	end)
+	local h = 10 + (f.head:GetStringHeight() or 12) + 4 + (f.name:GetStringHeight() or 18) + 3
+		+ (f.info:GetStringHeight() or 13) + 3 + ((f.why:GetText() or "") ~= "" and (f.why:GetStringHeight() or 12) or 0)
+		+ 10 + 22 + 10
+	f:SetHeight(h)
+	f.shownAt = GetTime and GetTime() or 0
+	f:Show()
+	PlaceTarget()
+	raWhy = ("shown: %s (%s)"):format(tostring(name or (r and r.name)), how)
+	if PlaySound and SOUNDKIT and SOUNDKIT.RAID_WARNING then
+		pcall(PlaySound, SOUNDKIT.RAID_WARNING)
+	end
+	-- Gone by itself after a minute (a rare you walked past is not worth a window that stays).
+	C_Timer.After(60, function()
+		if f:IsShown() and f.shownAt and (GetTime() - f.shownAt) >= 59 then
+			f:Hide()
+		end
+	end)
+end
+
+local function Check(unit, how)
+	if not ns.IsForeverRareAlertOn() then
+		return
+	end
+	local okE, exists = pcall(UnitExists, unit)
+	if not (okE and Plain(exists)) then
+		return
+	end
+	local okD, dead = pcall(UnitIsDead, unit)
+	if okD and Plain(dead) then
+		return
+	end
+	local okA, attack = pcall(UnitCanAttack, "player", unit)
+	if not (okA and Plain(attack)) then
+		return
+	end
+	local id = NpcId(unit)
+	local r = id and raBy[id]
+	local okC, cls = pcall(UnitClassification, unit)
+	cls = okC and Plain(cls) or nil
+	local isRare = cls == "rare" or cls == "rareelite"
+	if not (isRare or r) then
+		return
+	end
+	local okN, name = pcall(UnitName, unit)
+	name = okN and Plain(name) or nil
+	local key = id or name
+	if not key then
+		return
+	end
+	local now = GetTime and GetTime() or 0
+	if raLastSeen[key] and now - raLastSeen[key] < RA_COOLDOWN then
+		raWhy = ("saw %s again (%s): within 10 minutes of the last window, so no new one"):format(tostring(name), how)
+		return
+	end
+	raLastSeen[key] = now
+	local okL, level = pcall(UnitLevel, unit)
+	level = okL and Plain(level) or nil
+	local map = C_Map and C_Map.GetBestMapForUnit and C_Map.GetBestMapForUnit("player")
+	local x, y
+	if map and C_Map.GetPlayerMapPosition then
+		local okP, pos = pcall(C_Map.GetPlayerMapPosition, map, "player")
+		if okP and pos then
+			local okXY, px, py = pcall(pos.GetXY, pos)
+			if okXY and Plain(px) then
+				x, y = px * 100, py * 100
+			end
+		end
+	end
+	ShowAlert(r, name, type(level) == "number" and level or (r and r.level), cls == "rareelite" or (r and r.elite), map, x, y, how)
+end
+
+do
+	local ev = CreateFrame("Frame")
+	for _, e in ipairs({ "NAME_PLATE_UNIT_ADDED", "PLAYER_TARGET_CHANGED", "UPDATE_MOUSEOVER_UNIT",
+		"PLAYER_REGEN_DISABLED", "PLAYER_REGEN_ENABLED" }) do
+		pcall(ev.RegisterEvent, ev, e)
+	end
+	ev:SetScript("OnEvent", function(_, event, unit)
+		if event == "NAME_PLATE_UNIT_ADDED" then
+			Check(unit, "nameplate")
+		elseif event == "PLAYER_TARGET_CHANGED" then
+			Check("target", "target")
+		elseif event == "UPDATE_MOUSEOVER_UNIT" then
+			Check("mouseover", "mouseover")
+		elseif event == "PLAYER_REGEN_DISABLED" then
+			-- Before the lockdown starts: the secure button goes away; the window says "after the fight".
+			if raTarget then
+				raTarget:Hide()
+			end
+			if raWin and raWin:IsShown() then
+				raWin.combat:SetText(ns:L("FRALERT_COMBAT"))
+			end
+		elseif event == "PLAYER_REGEN_ENABLED" then
+			if raWin and raWin:IsShown() then
+				raWin.combat:SetText("")
+				PlaceTarget()
+			end
+		end
+	end)
+end
+
+--- /mh rares [why|test|on|off]
+function ns.ForeverRareAlertSlash(arg)
+	arg = (arg or ""):lower()
+	if arg == "on" then
+		ns.SetForeverRareAlert(true)
+	elseif arg == "off" then
+		ns.SetForeverRareAlert(false)
+	elseif arg == "test" then
+		-- Through the same door as a real rare (ShowAlert), with the first "worth" rare: nothing is targeted by itself.
+		local r = ns.FOREVER_RARES_WORTH[1]
+		ShowAlert(r, r.name, r.level, r.elite, r.map, r.x, r.y, "test")
+		return
+	end
+	local n = 0
+	for _ in pairs(raLastSeen) do
+		n = n + 1
+	end
+	print(PREFIX .. ("rare window: %s; rares in MH's list: %d; seen this session: %d"):format(
+		ns.IsForeverRareAlertOn() and "on" or "off (Quiet helpers)", (function() local c = 0 for _ in pairs(raBy) do c = c + 1 end return c end)(), n))
+	print("  last decision: " .. raWhy)
+	local okC, cls = pcall(UnitClassification, "target")
+	print(("  your target: classification %s, npc id %s, in MH's list %s"):format(tostring(okC and Plain(cls)),
+		tostring(NpcId("target")), tostring(NpcId("target") and raBy[NpcId("target")] ~= nil)))
+end

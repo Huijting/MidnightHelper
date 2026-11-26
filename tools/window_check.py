@@ -56,6 +56,7 @@ EXEMPT = {
     "MidnightHelperDelveShareMenu": "dropdown menu",
     "MidnightHelperRaidBuffCast": "SecureActionButton: cannot be rescaled in combat, sits on the board",
     "MidnightHelperMissingBuffCast": "SecureActionButton click layer; follows the icon's scale (MissingBuff.lua SyncSecurePos)",
+    "MidnightHelperForeverRareTarget": "SecureActionButton (Target) over the rare window; takes the window's scale out of combat (ForeverRares.lua PlaceTarget)",
     "MidnightHelperMarkBar": "secure marker bar (FastMark.lua)",
     "MidnightHelperKeyBlockBar1": "secure action bar (SecureHandlerStateTemplate)",
     "MidnightHelperTourOverlay": "full-screen overlay during the guided tour",

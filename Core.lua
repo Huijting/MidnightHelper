@@ -2990,6 +2990,12 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		end
 		return
 	end
+	-- 26 Nov 2026, WoW Forever: the rare-in-sight window (ForeverRares.lua). Midnight has no such function: falls through.
+	local raresArg = (msg:lower() == "rares") and "" or msg:lower():match("^rares%s+(.+)$")
+	if raresArg and ns.ForeverRareAlertSlash then
+		ns.ForeverRareAlertSlash(raresArg)
+		return
+	end
 	-- 26 Nov 2026, WoW Forever: heals on a click on DandersFrames (ForeverClickCast.lua).
 	local clickArg = (msg:lower() == "clickheal") and "" or msg:lower():match("^clickheal%s+(.+)$")
 	if clickArg then
