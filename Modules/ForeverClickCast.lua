@@ -201,8 +201,22 @@ function ns.ForeverClickMissing()
 						lv = e.l
 					end
 				end
-				local how = lv and "level" or ((ns.ForeverTalentLevel and ns.ForeverTalentLevel(english)) and "talent") or "quest"
+				-- 26 Nov 2026 (Rob's screenshot: Cure Poison said "talent"; a Druid gets it from the quest Lessons Anew):
+				-- trainer first, then a class quest of this character that teaches one of its ids, else a talent (AFGELEID:
+				-- a healer spell no trainer and no class quest teaches is a talent here, e.g. Swiftmend).
 				local ids = ns.FOREVER_SPELL_IDS and ns.FOREVER_SPELL_IDS[english]
+				local how = lv and "level" or nil
+				if not how and ns.ForeverClassQuestList then
+					local okQ, list = pcall(ns.ForeverClassQuestList)
+					for _, e in ipairs(okQ and list or {}) do
+						for _, id in ipairs(ids or {}) do
+							if e.spell == id then
+								how = "quest"
+							end
+						end
+					end
+				end
+				how = how or "talent"
 				out[#out + 1] = { code = code, english = english, level = lv, how = how, spellId = ids and ids[1] or nil,
 					mod = SLOT[code][1], button = SLOT[code][2] }
 			end

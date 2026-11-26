@@ -26,7 +26,19 @@ local _, ns = ...
 	/mh clickcard opens it; /mh clickcard why says where the clicks came from (silence rule).
 ]]
 
-local W, H = 640, 540
+-- 26 Nov 2026 (Rob's first screenshot, via Sparring): the top spell lay over the pills, "Rejuvenation" ran over the
+-- left edge, and the footer over the second strip row. Now: wider, the mouse lower, side labels UNDER their icon, and the
+-- card grows with the strip (Fit). Geometry in one place (y = from the top, negative).
+local W, H = 760, 640
+local G = {
+	pillsY = -84,       -- pills 24 high: -84 .. -108
+	topSlotY = -185,    -- the wheel's spell: icon -155 .. -215, badge to -224
+	mouseY = -365,      -- mouse centre; 150 x 230: top -250, bottom -480
+	mw = 150, mh = 230,
+	sideY = -330, sideDX = 230, -- left/right spells: centre x = mid -/+ 230 (150 / 610), labels under the icon
+	stripY = -515,      -- "Other layers" heading; rows of 4 from stripY - 24, 44 apart
+	rowH = 44,
+}
 local MASK = "Interface\\CHARACTERFRAME\\TempPortraitAlphaMask"
 local COL = {
 	L = { 0.56, 0.94, 0.60 }, R = { 0.56, 0.82, 1.00 }, M = { 1.00, 0.88, 0.54 },
@@ -229,23 +241,67 @@ local function Masked(parent, mask, layer, r, g, b, a)
 	return t
 end
 
+--- A vertical colour gradient (top colour first). Modern clients: SetGradient with ColorMixin; older: SetGradientAlpha.
+local function Grad(t, r1, g1, b1, a1, r2, g2, b2, a2)
+	t:SetColorTexture(1, 1, 1, 1)
+	if t.SetGradient and CreateColor then
+		-- SetGradient("VERTICAL", min = bottom, max = top)
+		if pcall(t.SetGradient, t, "VERTICAL", CreateColor(r2, g2, b2, a2), CreateColor(r1, g1, b1, a1)) then
+			return t
+		end
+	end
+	if t.SetGradientAlpha then
+		if pcall(t.SetGradientAlpha, t, "VERTICAL", r2, g2, b2, a2, r1, g1, b1, a1) then
+			return t
+		end
+	end
+	t:SetColorTexture(r1, g1, b1, a1) -- no gradient on this client: the top colour
+	return t
+end
+
+--- A thick line with a soft glow line under it (the mock's look). Returns the pair; nil without CreateLine.
 local function NewLine(parent, r, g, b)
 	if not parent.CreateLine then
 		return nil
 	end
+	local okG, glow = pcall(parent.CreateLine, parent, nil, "BORDER")
 	local ok, ln = pcall(parent.CreateLine, parent, nil, "ARTWORK")
 	if not ok or not ln then
 		return nil
 	end
-	ln:SetThickness(3)
-	ln:SetColorTexture(r, g, b, 0.9)
+	ln:SetThickness(5)
+	ln:SetColorTexture(r, g, b, 0.95)
+	if okG and glow then
+		glow:SetThickness(13)
+		glow:SetColorTexture(r, g, b, 0.22)
+		ln._glow = glow
+	end
 	return ln
+end
+
+local function LinePoints(ln, a1, f1, x1, y1, a2, f2, x2, y2)
+	if not ln then
+		return
+	end
+	ln:SetStartPoint(a1, f1, x1, y1)
+	ln:SetEndPoint(a2, f2, x2, y2)
+	if ln._glow then
+		ln._glow:SetStartPoint(a1, f1, x1, y1)
+		ln._glow:SetEndPoint(a2, f2, x2, y2)
+	end
 end
 
 --- A big spell slot: glow border, icon, key badge, name + rank text on one side.
 local function BigSlot(parent, color, textSide)
 	local s = CreateFrame("Frame", nil, parent)
 	s:SetSize(60, 60)
+	-- A soft colour halo behind the icon (two squares, fading out), as on the mock.
+	s.halo1 = Tex(s, "BACKGROUND", color[1], color[2], color[3], 0.10)
+	s.halo1:SetPoint("TOPLEFT", -14, 14)
+	s.halo1:SetPoint("BOTTOMRIGHT", 14, -14)
+	s.halo2 = Tex(s, "BACKGROUND", color[1], color[2], color[3], 0.18)
+	s.halo2:SetPoint("TOPLEFT", -6, 6)
+	s.halo2:SetPoint("BOTTOMRIGHT", 6, -6)
 	s.glow = s:CreateTexture(nil, "BACKGROUND")
 	s.glow:SetTexture("Interface\\Buttons\\UI-ActionButton-Border")
 	s.glow:SetBlendMode("ADD")
@@ -266,7 +322,15 @@ local function BigSlot(parent, color, textSide)
 	s.name = s:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
 	s.sub = s:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
 	s.sub:SetTextColor(0.75, 0.70, 0.60)
-	if textSide == "left" then
+	if textSide == "below" then
+		-- Under the icon, centred, and kept to 210 px so it never leaves the card (Rob's screenshot).
+		s.name:SetPoint("TOP", s, "BOTTOM", 0, -18)
+		s.name:SetWidth(210)
+		s.name:SetJustifyH("CENTER")
+		s.sub:SetPoint("TOP", s.name, "BOTTOM", 0, -3)
+		s.sub:SetWidth(210)
+		s.sub:SetJustifyH("CENTER")
+	elseif textSide == "left" then
 		s.name:SetPoint("BOTTOMRIGHT", s, "LEFT", -12, 2)
 		s.name:SetJustifyH("RIGHT")
 		s.sub:SetPoint("TOPRIGHT", s, "LEFT", -12, -2)
@@ -283,6 +347,8 @@ end
 
 local function FillBig(s, r, code)
 	local c = s.color
+	s.halo1:SetShown(r ~= nil)
+	s.halo2:SetShown(r ~= nil)
 	if not r then
 		s.icon:SetTexture("Interface\\Icons\\INV_Misc_QuestionMark")
 		s.icon:SetDesaturated(true)
@@ -391,16 +457,26 @@ local function Build()
 	f.live:SetPoint("TOPRIGHT", -24, -88)
 	f.live:SetTextColor(0.62, 0.89, 0.6)
 	-- The mouse: body ellipse with a gold rim; left/right buttons are the top of the same ellipse.
-	local mx, my, mw, mh = W / 2, -300, 140, 220
+	local mx, my, mw, mh = W / 2, G.mouseY, G.mw, G.mh
 	f.mouse = CreateFrame("Frame", nil, f)
-	f.mouse:SetSize(mw + 6, mh + 6)
+	f.mouse:SetSize(mw + 48, mh + 48)
 	f.mouse:SetPoint("CENTER", f, "TOPLEFT", mx, my)
-	local rimMask = f.mouse:CreateMaskTexture()
+	-- Halo: two larger, faint gold ellipses behind the mouse (the mock's glow).
+	local haloMask = f.mouse:CreateMaskTexture()
+	haloMask:SetTexture(MASK, "CLAMPTOBLACKADDITIVE", "CLAMPTOBLACKADDITIVE")
+	haloMask:SetAllPoints(f.mouse)
+	local halo = Masked(f.mouse, haloMask, "BACKGROUND", 1, 0.8, 0.4, 0.07)
+	halo:SetAllPoints(f.mouse)
+	f.rimFrame = CreateFrame("Frame", nil, f.mouse)
+	f.rimFrame:SetSize(mw + 8, mh + 8)
+	f.rimFrame:SetPoint("CENTER")
+	local rimMask = f.rimFrame:CreateMaskTexture()
 	rimMask:SetTexture(MASK, "CLAMPTOBLACKADDITIVE", "CLAMPTOBLACKADDITIVE")
-	rimMask:SetAllPoints(f.mouse)
-	local rim = Masked(f.mouse, rimMask, "BACKGROUND", 0.66, 0.58, 0.42, 1)
-	rim:SetAllPoints(f.mouse)
-	f.body = CreateFrame("Frame", nil, f.mouse)
+	rimMask:SetAllPoints(f.rimFrame)
+	local rim = Masked(f.rimFrame, rimMask, "BORDER", 0.66, 0.58, 0.42, 1)
+	rim:SetAllPoints(f.rimFrame)
+	Grad(rim, 0.86, 0.74, 0.50, 1, 0.42, 0.35, 0.22, 1)
+	f.body = CreateFrame("Frame", nil, f.rimFrame)
 	f.body:SetSize(mw, mh)
 	f.body:SetPoint("CENTER")
 	local mask = f.body:CreateMaskTexture()
@@ -408,29 +484,48 @@ local function Build()
 	mask:SetAllPoints(f.body)
 	local body = Masked(f.body, mask, "BORDER", 0.15, 0.15, 0.18, 1)
 	body:SetAllPoints(f.body)
-	local shine = Masked(f.body, mask, "BORDER", 1, 1, 1, 0.06)
-	shine:SetPoint("TOPLEFT", f.body, "TOPLEFT", 20, -20)
-	shine:SetPoint("BOTTOMRIGHT", f.body, "CENTER", 10, -10)
+	Grad(body, 0.32, 0.32, 0.37, 1, 0.07, 0.07, 0.09, 1)
+	local shine = Masked(f.body, mask, "ARTWORK", 1, 1, 1, 0.08)
+	shine:SetPoint("TOPLEFT", f.body, "TOPLEFT", 14, -12)
+	shine:SetPoint("BOTTOMRIGHT", f.body, "CENTER", 0, 0)
 	local split = mh * 0.36
 	f.btnL = Masked(f.body, mask, "ARTWORK", COL.L[1], COL.L[2], COL.L[3], 1)
 	f.btnL:SetPoint("TOPLEFT", f.body, "TOPLEFT", 0, 0)
-	f.btnL:SetPoint("BOTTOMRIGHT", f.body, "TOP", -1.5, -split)
+	f.btnL:SetPoint("BOTTOMRIGHT", f.body, "TOP", -2, -split)
+	Grad(f.btnL, 0.70, 1.00, 0.72, 1, 0.16, 0.55, 0.24, 1)
 	f.btnR = Masked(f.body, mask, "ARTWORK", COL.R[1], COL.R[2], COL.R[3], 1)
-	f.btnR:SetPoint("TOPLEFT", f.body, "TOP", 1.5, 0)
+	f.btnR:SetPoint("TOPLEFT", f.body, "TOP", 2, 0)
 	f.btnR:SetPoint("BOTTOMRIGHT", f.body, "TOPRIGHT", 0, -split)
-	local split2 = Tex(f.body, "OVERLAY", 0.04, 0.04, 0.05, 1)
+	Grad(f.btnR, 0.70, 0.88, 1.00, 1, 0.16, 0.37, 0.61, 1)
+	-- A bright edge on top of each button (the light catching it).
+	local gloss = Masked(f.body, mask, "OVERLAY", 1, 1, 1, 0.16)
+	gloss:SetPoint("TOPLEFT", f.body, "TOPLEFT", 0, 0)
+	gloss:SetPoint("BOTTOMRIGHT", f.body, "TOPRIGHT", 0, -split * 0.35)
+	local split2 = Tex(f.body, "OVERLAY", 0.03, 0.03, 0.04, 1)
 	split2:SetPoint("TOPLEFT", f.body, "TOPLEFT", 0, -split)
 	split2:SetPoint("TOPRIGHT", f.body, "TOPRIGHT", 0, -split)
-	split2:SetHeight(3)
+	split2:SetHeight(4)
+	local seam = Tex(f.body, "OVERLAY", 0.03, 0.03, 0.04, 1)
+	seam:SetPoint("TOP", f.body, "TOP", 0, 0)
+	seam:SetSize(4, split)
 	f.wheelFrame = CreateFrame("Frame", nil, f.body)
-	f.wheelFrame:SetSize(18, 42)
-	f.wheelFrame:SetPoint("TOP", f.body, "TOP", 0, -14)
+	f.wheelFrame:SetSize(22, 50)
+	f.wheelFrame:SetPoint("TOP", f.body, "TOP", 0, -16)
 	f.wheelFrame:SetFrameLevel(f.body:GetFrameLevel() + 2)
 	local wmask = f.wheelFrame:CreateMaskTexture()
 	wmask:SetTexture(MASK, "CLAMPTOBLACKADDITIVE", "CLAMPTOBLACKADDITIVE")
 	wmask:SetAllPoints(f.wheelFrame)
-	f.wheel = Masked(f.wheelFrame, wmask, "OVERLAY", COL.M[1], COL.M[2], COL.M[3], 1)
-	f.wheel:SetAllPoints(f.wheelFrame)
+	local wrim = Masked(f.wheelFrame, wmask, "BORDER", 1, 0.95, 0.75, 1)
+	wrim:SetAllPoints(f.wheelFrame)
+	f.wheelIn = CreateFrame("Frame", nil, f.wheelFrame)
+	f.wheelIn:SetPoint("TOPLEFT", 2, -2)
+	f.wheelIn:SetPoint("BOTTOMRIGHT", -2, 2)
+	local wmask2 = f.wheelIn:CreateMaskTexture()
+	wmask2:SetTexture(MASK, "CLAMPTOBLACKADDITIVE", "CLAMPTOBLACKADDITIVE")
+	wmask2:SetAllPoints(f.wheelIn)
+	f.wheel = Masked(f.wheelIn, wmask2, "ARTWORK", COL.M[1], COL.M[2], COL.M[3], 1)
+	f.wheel:SetAllPoints(f.wheelIn)
+	Grad(f.wheel, 1.00, 0.90, 0.55, 1, 0.66, 0.44, 0.08, 1)
 	f.layerText = f.body:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
 	f.layerText:SetPoint("CENTER", f.body, "CENTER", 0, -50)
 	f.layerText:SetTextColor(0.91, 0.86, 0.72)
@@ -438,31 +533,22 @@ local function Build()
 	f.layerSub:SetPoint("TOP", f.layerText, "BOTTOM", 0, -4)
 	f.layerSub:SetTextColor(0.6, 0.56, 0.47)
 	f.layerSub:SetText(L("FCARD_PLUS_CLICK"))
-	-- The three big slots and their lines.
-	f.slotL = BigSlot(f, COL.L, "left")
-	f.slotL:SetPoint("CENTER", f, "TOPLEFT", mx - 175, my - 20)
-	f.slotR = BigSlot(f, COL.R, "right")
-	f.slotR:SetPoint("CENTER", f, "TOPLEFT", mx + 175, my - 20)
+	-- The three big slots and their lines (thick, with a glow line under each).
+	f.slotL = BigSlot(f, COL.L, "below")
+	f.slotL:SetPoint("CENTER", f, "TOPLEFT", mx - G.sideDX, G.sideY)
+	f.slotR = BigSlot(f, COL.R, "below")
+	f.slotR:SetPoint("CENTER", f, "TOPLEFT", mx + G.sideDX, G.sideY)
 	f.slotM = BigSlot(f, COL.M, "right")
-	f.slotM:SetPoint("CENTER", f, "TOPLEFT", mx, my + mh / 2 + 60)
+	f.slotM:SetPoint("CENTER", f, "TOPLEFT", mx, G.topSlotY)
 	f.lineL = NewLine(f, COL.L[1], COL.L[2], COL.L[3])
-	if f.lineL then
-		f.lineL:SetStartPoint("RIGHT", f.slotL, 0, 0)
-		f.lineL:SetEndPoint("CENTER", f.body, -mw / 4, mh / 2 - split / 2)
-	end
+	LinePoints(f.lineL, "RIGHT", f.slotL, 0, 0, "CENTER", f.body, -mw / 4, mh / 2 - split / 2)
 	f.lineR = NewLine(f, COL.R[1], COL.R[2], COL.R[3])
-	if f.lineR then
-		f.lineR:SetStartPoint("LEFT", f.slotR, 0, 0)
-		f.lineR:SetEndPoint("CENTER", f.body, mw / 4, mh / 2 - split / 2)
-	end
+	LinePoints(f.lineR, "LEFT", f.slotR, 0, 0, "CENTER", f.body, mw / 4, mh / 2 - split / 2)
 	f.lineM = NewLine(f, COL.M[1], COL.M[2], COL.M[3])
-	if f.lineM then
-		f.lineM:SetStartPoint("BOTTOM", f.slotM, 0, -8)
-		f.lineM:SetEndPoint("TOP", f.wheelFrame, 0, 0)
-	end
+	LinePoints(f.lineM, "BOTTOM", f.slotM, 0, -12, "TOP", f.wheelFrame, 0, 0)
 	-- The strip.
 	f.stripHead = f:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-	f.stripHead:SetPoint("TOPLEFT", 24, -(H - 120))
+	f.stripHead:SetPoint("TOPLEFT", 24, G.stripY)
 	f.stripHead:SetTextColor(0.75, 0.65, 0.42)
 	f.stripHead:SetText(L("FCARD_OTHER"):upper())
 	local hair = Tex(f, "ARTWORK", 0.72, 0.57, 0.23, 0.35)
@@ -472,8 +558,8 @@ local function Build()
 	f.minis = {}
 	for i = 1, 8 do
 		local m = CreateFrame("Frame", nil, f)
-		m:SetSize(138, 36)
-		m:SetPoint("TOPLEFT", f, "TOPLEFT", 24 + ((i - 1) % 4) * 148, -(H - 98) - math.floor((i - 1) / 4) * 40)
+		m:SetSize(170, 36)
+		m:SetPoint("TOPLEFT", f, "TOPLEFT", 24 + ((i - 1) % 4) * 180, G.stripY - 24 - math.floor((i - 1) / 4) * G.rowH)
 		m.edge = Tex(m, "BORDER", 0.5, 0.5, 0.5, 1)
 		m.edge:SetSize(30, 30)
 		m.edge:SetPoint("LEFT")
@@ -483,7 +569,7 @@ local function Build()
 		m.icon:SetTexCoord(0.07, 0.93, 0.07, 0.93)
 		m.name = m:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
 		m.name:SetPoint("TOPLEFT", m.edge, "TOPRIGHT", 6, 0)
-		m.name:SetWidth(100)
+		m.name:SetWidth(132)
 		m.name:SetJustifyH("LEFT")
 		m.key = m:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
 		m.key:SetPoint("BOTTOMLEFT", m.edge, "BOTTOMRIGHT", 6, 0)
@@ -491,9 +577,12 @@ local function Build()
 		f.minis[i] = m
 	end
 	f.foot = f:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
-	f.foot:SetPoint("BOTTOMLEFT", 24, 16)
-	f.foot:SetWidth(W - 200)
+	f.foot:SetPoint("BOTTOMLEFT", 24, 14)
+	f.foot:SetWidth(W - 190)
 	f.foot:SetJustifyH("LEFT")
+	if f.foot.SetMaxLines then
+		f.foot:SetMaxLines(2)
+	end
 	f.see = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
 	f.see:SetSize(130, 20)
 	f.see:SetPoint("BOTTOMRIGHT", -20, 12)
@@ -626,6 +715,15 @@ function ns.ClickCardRefresh(force)
 		end
 	end
 	f.stripHead:SetShown(#strip > 0)
+	-- The card grows with the strip, so the footer (2 lines at most) always sits under the last row (Rob's screenshot).
+	local rowsUsed = math.min(2, math.ceil(math.min(#strip, #f.minis) / 4))
+	local bottom
+	if rowsUsed > 0 then
+		bottom = -(G.stripY - 24 - (rowsUsed - 1) * G.rowH - 36)
+	else
+		bottom = -(G.mouseY - G.mh / 2)
+	end
+	f:SetHeight(bottom + 66)
 	local srcLine = (source == "df") and L("FCARD_SOURCE_DF_FMT"):format(sourceWhy)
 		or (source == "mh") and L("FCARD_SOURCE_MH") or L("FCARD_EMPTY")
 	f.foot:SetText(srcLine .. "  ·  " .. L("FCARD_FOOT"))

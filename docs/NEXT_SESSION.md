@@ -1,5 +1,15 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 26 nov (Bouwchat 26-11): klikkaart na Robs eerste screenshot GEREPAREERD (`/reload`)
+
+Rob zag hem werken (Alt-laag, iconen, ranks); 5 punten via Sparring. ClickCard.lua: geometrie in tabel G, kaart 760 breed;
+bovenste spell op -185 (vrij van de pillen), muis lager; namen links/rechts ONDER het icoon (max 210 px); kaart groeit met de
+strook (Fit), voettekst max 2 regels eronder. Meer "tof": halo om de muis, gouden verlooprand, verloop op lichaam/knoppen/
+wieltje (SetGradient, terugval SetGradientAlpha), glans, naad, halo achter elk icoon, lijnen 5 px + gloedlijn 13 px.
+ForeverClickMissing: trainer → class quest (ForeverClassQuestList spell-id) → talent (ForeverTalentLevel was verkeerd
+gebruikt: die wil een level). Gecontroleerd met een HTML-weergave op dezelfde maten (scratch clickcard_geom.png):
+geen overlap. click_test 28/28, card_test 14/14.
+
 ## ▶▶ 26 nov (Bouwchat 26-11): reisplanner STAP 4 GEBOUWD (`/reload`) — rij: "na je dood", dan rare-model + loot
 
 - ForeverTravel.lua: ritdetectie (ticker 1 s): bewegen terwijl GetUnitSpeed 0 binnen 120 yd van een boot/zeppelin-eind =
