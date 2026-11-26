@@ -28,6 +28,52 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 26 nov 2026 — Forever: venster na je dood
+- Tag + commit:   geen tag (3969613, fix 66cd4e2, 9b835ee)
+- Status:         alleen op main
+- Mag op de site: nee (niet uit)
+- Speler ziet:    Ga je dood, dan zegt een venster hoe ver je lijk is en hoe lang je als geest loopt (telt af), of het
+                  de moeite is om terug te lopen, en wat de Spirit Healer op jouw level kost (Resurrection Sickness-minuten
+                  en 25% durability). Knop: pijl naar je lijk. Wegklikken = weg voor die dood. *(getest door Rob: venster
+                  + pijl werken, Druid 15)*
+- Knoplabels:     FDEATH_HEAD, FDEATH_ARROW, FDEATH_SW
+- Commando's:     geen voor spelers (/mh ghost is onvermeld)
+- Spel:           Forever
+
+## 26 nov 2026 — Forever: rare-venster, rare in 3D, en wat jij uit een rare lootte
+- Tag + commit:   geen tag (rare-venster: commit van die dag; 3D edfaa3b; loot 9b835ee)
+- Status:         alleen op main
+- Mag op de site: nee (niet uit, niet getest)
+- Speler ziet:    Komt een rare in beeld (naamplaatje, target, muis), dan een klein venster met naam, level, zone en
+                  waarom hij de moeite is, met knoppen Target / Show in Find / Waypoint, en de rare draaiend in 3D. In
+                  Find draait de rare naast het venster als je de muis op zijn naam zet. MH onthoudt zelf wat jij uit een
+                  rare lootte: "Your loot (N kills): …" — een telling van jouw kills, geen dropkans.
+- Knoplabels:     FRALERT_SW, FRALERT_TARGET, FRALERT_FIND, FRALERT_WAY, FRARE_LOOT_FMT
+- Commando's:     /mh rares (on, off, test, why)
+- Spel:           Forever
+
+## 26 nov 2026 — Forever: klikkaart (welke klik welke heal is)
+- Tag + commit:   geen tag (commits van die dag, laatste b96bbbb)
+- Status:         alleen op main
+- Mag op de site: nee (niet uit; Rob zag hem werken en gaf 5 verbeterpunten, die zijn gedaan)
+- Speler ziet:    Een grafische kaart met een muis: welke heal of dispel op links, rechts, middel en met Shift/Ctrl/Alt
+                  staat, live uit DandersFrames (of MH's eigen indeling). Houd je Shift/Ctrl/Alt in, dan licht die laag op.
+                  Staat ook in Midnight (knop op de speelkaart). Zegt ook welke spell je nog niet hebt en waar je hem leert.
+- Knoplabels:     FCARD_OPEN, FCARD_FADE_SW
+- Commando's:     /mh clickcard
+- Spel:           allebei
+
+## 26 nov 2026 — Forever: reisplanner — routepaneel, "MH: fly here" op de vliegkaart, boten en zeppelins op hun klok
+- Tag + commit:   geen tag (commits van die dag)
+- Status:         alleen op main
+- Mag op de site: nee (niet uit, niet getest)
+- Speler ziet:    Naast de pijl staan de stappen van je route (lopen, vliegen, boot, teleport) met de tijd. Op de
+                  vliegkaart van de flight master staat een ring om de plek waar MH je heen wil sturen ("MH: fly here").
+                  MH leert je echte vluchttijden en wanneer boten en zeppelins vertrekken, en rekent daar mee.
+- Knoplabels:     FROUTE_SW, FTRAVEL_MAP_HERE
+- Commando's:     /mh travel
+- Spel:           Forever
+
 ## 26 nov 2026 — Forever: heals met een klik op DandersFrames; Midnight-commando's weg uit Forever; 5 instellingen erbij
 - Tag + commit:   geen tag (commit: deze regel)
 - Status:         alleen op main
