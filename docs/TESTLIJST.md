@@ -25,6 +25,15 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 26 nov — FOREVER: alleen commando's die in Forever werken (Rob: "3 ja")
+
+Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (cmd_test 13), NIET in het spel.
+- [ ] Forever-venster → All commands: geen /mh crests, /mh folio, /mh weeklies, /mh wishlist, /mh ach, /mh mount,
+      /mh nodes meer. Wel o.a. /mh move, /mh block, /mh enchant, /mh donow, /mh alts, /mh board.
+- [ ] Typ in Forever `/mh crests`: chat zegt "/mh crests only works in World of Warcraft: Midnight, not in WoW Forever."
+- [ ] De zoekbalk in Forever vindt die Midnight-commando's ook niet meer.
+- [ ] Midnight: de commandolijst is onveranderd (alles staat er, zonder de Forever-commando's).
+
 ## 26 nov — FOREVER: vijf instellingen erbij in Quiet helpers (Rob: "1 ja")
 
 Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. NIET in het spel getest.

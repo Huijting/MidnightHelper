@@ -5168,6 +5168,7 @@ ns._mhLocales.nlNL = {
 	FOV_TIP_KEYS_SW_MO = "Aan: heals en buffs op je toetsenblok gaan naar de vriend onder je muis, roots en crowd control naar de vijand onder je muis. Niets onder de muis: de toets werkt zoals eerst. Hetzelfde als /mh mouseover on|off.",
 	FOV_TIP_SWITCH = "Klik om hem aan of uit te zetten.",
 	FOV_TIP_CYCLE = "Klik voor de volgende maat, rechtsklik voor de vorige.",
+	CMD_MIDNIGHT_ONLY_FMT = "%s werkt alleen in World of Warcraft: Midnight, niet in WoW Forever.",
 	FOV_SWITCH_ON = "AAN",
 	FOV_SWITCH_OFF = "UIT",
 	FOV_TIP_CARD_MACROS = "Kant-en-klare macro's voor dit character. Maak zet er een in je macrolijst; je sleept hem zelf naar een balk.",

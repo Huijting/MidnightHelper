@@ -644,6 +644,7 @@ for k, v in pairs({
 	FOV_TIP_KEYS_SW_MO = "Ligado: curas e buffs do seu bloco de teclas vão para o aliado sob o seu mouse, enraizamentos e controle de grupo para o inimigo sob o seu mouse. Nada sob o mouse: a tecla funciona como antes. O mesmo que /mh mouseover on|off.",
 	FOV_TIP_SWITCH = "Clique para ligar ou desligar.",
 	FOV_TIP_CYCLE = "Clique para o próximo tamanho, clique direito para o anterior.",
+	CMD_MIDNIGHT_ONLY_FMT = "%s só funciona em World of Warcraft: Midnight, não no WoW Forever.",
 	FOV_SWITCH_ON = "LIGADO",
 	FOV_SWITCH_OFF = "DESLIGADO",
 	FOV_TIP_CARD_MACROS = "Macros prontas para este personagem. Criar coloca uma na sua lista de macros; você mesmo a arrasta para uma barra.",

@@ -1,5 +1,17 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 26 nov (Bouwchat 26-11): Midnight-commando's weg uit Forever — GEBOUWD, wacht op test (`/reload`)
+
+Rob via Sparring: *"3 ja"* (*"heel veel commando's die we alleen maar kunnen gebruiken in de Midnight versie"*).
+- CommandList.lua: MIDNIGHT_ONLY (63 woorden) zet `midnightOnly` op die rijen; ns.CommandItemShown verbergt ze in
+  Forever (lijst, Forever-venster, NavSearch). ns.IsMidnightOnlyCommand + Core.lua bovenaan de slash-handler: in Forever
+  zegt zo'n commando CMD_MIDNIGHT_ONLY_FMT (7 talen) i.p.v. niets.
+- GEMETEN per commando (scratch cmd_games.py): elke ns-functie die de Core-tak aanroept staat alleen in bestanden die niet in
+  MidnightHelper_Camelot.toc staan. Beide houden (tak raakt een Forever-bestand): o.a. enchant, board, partytargets,
+  play, survey, move, block, mark, arrow, bar, fps, mbuff, cleanup. Na de hand nagelopen: skip, mouse, goto, lang, new,
+  pickup, alttip, thanks (Core of Forever-bestand). Geen tweede Forever-tak voor die woorden in Core (grep).
+- cmd_test 13/13: 39 rijen in Forever, 63 alleen Midnight.
+
 ## ▶▶ 26 nov (Bouwchat 26-11): 5 instellingen in Forever Quiet helpers — GEBOUWD, wacht op test (`/reload`)
 
 Rob via Sparring: *"Even kijken. 1 ja. 2 ja. 3 ja."* (1 = deze, 2 = klik-heals Forever, 3 = Midnight-commando's verbergen).

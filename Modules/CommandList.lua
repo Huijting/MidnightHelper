@@ -127,6 +127,10 @@ function ns.CommandItemShown(item)
 	if item and item.foreverOnly and not ns.IS_FOREVER then
 		return false
 	end
+	-- 26 Nov 2026 (Rob: "3 ja"): and a Midnight-only row is not shown in Forever.
+	if item and item.midnightOnly and ns.IS_FOREVER then
+		return false
+	end
 	if item and item.needsMF then
 		return ns.NameplateColorsAvailable ~= nil and ns.NameplateColorsAvailable() == true
 	end
@@ -335,6 +339,49 @@ ns.MH_COMMANDS = {
 		{ cmd = "/mh cleanup", descKey = "CMDLIST_CLEANUP" },
 	} },
 }
+
+--- 26 Nov 2026 (Rob, in Forever: "heel veel commando's die we alleen maar kunnen gebruiken in de Midnight versie" → "3 ja"):
+--- the listed commands that do nothing in WoW Forever. MEASURED per command (scratch cmd_games.py, same day): every ns
+--- function its Core.lua branch calls is defined only in files that MidnightHelper_Camelot.toc does not load (e.g. /mh crests
+--- -> DawncrestGuide.lua, /mh folio -> OmniumFolio.lua). Commands whose branch reaches a file Forever loads stay in both
+--- (/mh enchant, /mh board, /mh partytargets, /mh play, /mh survey have a Forever version). /mh items lives in
+--- DelveItemsPopup.lua (not in the Forever toc). A new Midnight-only command belongs here too.
+local MIDNIGHT_ONLY = {
+	"setup", "codex", "map", "time", "discord", "translate",
+	"milestones", "mountrun", "achlist", "season stats", "delves", "scorecard",
+	"tracks", "loot", "stats", "pawn", "export", "raidbots", "bagarrows",
+	"ready", "gbuffs", "pullsummary", "kicks", "healcds", "dispel", "prompt", "prompt sound",
+	"coach", "bosswin", "ritualboss", "curios", "curioinfo", "gifts", "hexmask", "labsplits", "gear", "news",
+	"bosscard", "roomcard", "hazards", "keys", "items", "surge",
+	"combatlog", "fp", "course", "academy", "craftshop", "keypad", "valeera", "plan", "zone",
+	"binds", "ach", "mount", "wishlist",
+	"weeklies", "crests", "folio", "nodes", "trail", "quest", "npc",
+}
+local midnightOnlySet = {}
+for _, w in ipairs(MIDNIGHT_ONLY) do
+	midnightOnlySet[w] = true
+end
+for _, group in ipairs(ns.MH_COMMANDS) do
+	for _, item in ipairs(group.items) do
+		local w = item.cmd and item.cmd:match("^/mh%s+(.+)$")
+		if w and midnightOnlySet[w] then
+			item.midnightOnly = true
+		end
+	end
+end
+
+--- True when `msg` (what came after /mh) is one of those commands or starts with one ("crests save", "ach 123").
+function ns.IsMidnightOnlyCommand(msg)
+	local m = (msg or ""):lower()
+	if m == "" then
+		return false
+	end
+	if midnightOnlySet[m] then
+		return true
+	end
+	local first = m:match("^(%S+)")
+	return first ~= nil and midnightOnlySet[first] == true
+end
 
 --- Render the list into a scrolling area under whatever came before it.
 ---

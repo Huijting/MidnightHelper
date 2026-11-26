@@ -681,6 +681,7 @@ for k, v in pairs({
 	FOV_TIP_KEYS_SW_MO = "Activado: las sanaciones y los buffs de tu bloque de teclas van al aliado bajo tu ratón, los enraizamientos y el control de masas al enemigo bajo tu ratón. Nada bajo el ratón: la tecla funciona como antes. Lo mismo que /mh mouseover on|off.",
 	FOV_TIP_SWITCH = "Haz clic para activarlo o desactivarlo.",
 	FOV_TIP_CYCLE = "Haz clic para el siguiente tamaño, clic derecho para el anterior.",
+	CMD_MIDNIGHT_ONLY_FMT = "%s solo funciona en World of Warcraft: Midnight, no en WoW Forever.",
 	FOV_SWITCH_ON = "SÍ",
 	FOV_SWITCH_OFF = "NO",
 	FOV_TIP_CARD_MACROS = "Macros listas para este personaje. Crear pone una en tu lista de macros; tú la arrastras a una barra.",

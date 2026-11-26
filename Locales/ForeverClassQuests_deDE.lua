@@ -1835,6 +1835,7 @@ for k, v in pairs({
 	FOV_TIP_KEYS_SW_MO = "An: Heilungen und Buffs auf deinem Tastenblock gehen an den Freund unter deiner Maus, Wurzeln und Kontrolleffekte an den Gegner unter deiner Maus. Nichts unter der Maus: Die Taste wirkt wie vorher. Dasselbe wie /mh mouseover on|off.",
 	FOV_TIP_SWITCH = "Klick, um ihn ein- oder auszuschalten.",
 	FOV_TIP_CYCLE = "Klick für die nächste Größe, Rechtsklick für die vorige.",
+	CMD_MIDNIGHT_ONLY_FMT = "%s funktioniert nur in World of Warcraft: Midnight, nicht in WoW Forever.",
 	FOV_SWITCH_ON = "AN",
 	FOV_SWITCH_OFF = "AUS",
 	FOV_TIP_CARD_MACROS = "Fertige Makros für diesen Charakter. Erstellen legt eins in deine Makroliste; auf eine Leiste ziehst du es selbst.",

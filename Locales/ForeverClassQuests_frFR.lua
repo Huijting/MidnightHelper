@@ -1837,6 +1837,7 @@ for k, v in pairs({
 	FOV_TIP_KEYS_SW_MO = "Activé : les soins et les buffs de ton bloc de touches vont à l'allié sous ta souris, les immobilisations et le contrôle des foules à l'ennemi sous ta souris. Rien sous la souris : la touche marche comme avant. Comme /mh mouseover on|off.",
 	FOV_TIP_SWITCH = "Clique pour l'activer ou le désactiver.",
 	FOV_TIP_CYCLE = "Clique pour la taille suivante, clic droit pour la précédente.",
+	CMD_MIDNIGHT_ONLY_FMT = "%s ne fonctionne que dans World of Warcraft: Midnight, pas dans WoW Forever.",
 	FOV_SWITCH_ON = "ACTIVÉ",
 	FOV_SWITCH_OFF = "DÉSACTIVÉ",
 	FOV_TIP_CARD_MACROS = "Des macros prêtes pour ce personnage. Créer en met une dans ta liste de macros ; tu la glisses toi-même sur une barre.",

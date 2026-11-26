@@ -1348,6 +1348,14 @@ end
 SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 	msg = (msg or ""):gsub("^%s+", ""):gsub("%s+$", "")
 
+	-- 26 Nov 2026 (Rob, in Forever: "heel veel commando's die we alleen maar kunnen gebruiken in de Midnight versie … het
+	-- is alleen maar verwarrend" → "3 ja"): a Midnight-only command (midnightOnly in CommandList.lua, measured per
+	-- command: its handler lives in a file the Forever toc does not load) says so, instead of doing nothing.
+	if ns.IS_FOREVER and ns.IsMidnightOnlyCommand and ns.IsMidnightOnlyCommand(msg) then
+		print(("|cffffcc00%s|r %s"):format(ns:L("PRINT_PREFIX"), ns:L("CMD_MIDNIGHT_ONLY_FMT"):format("/mh " .. msg)))
+		return
+	end
+
 	if ns.RunDelveItemsSlashCommand and ns:RunDelveItemsSlashCommand(msg) then
 		return
 	end
