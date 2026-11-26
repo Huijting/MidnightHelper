@@ -705,6 +705,22 @@ local function FindRow(list, i)
 	r.route:SetPoint("TOPLEFT", r.info, "BOTTOMLEFT", 0, -3)
 	r.route:SetWidth(list.rowW - 8)
 	r.hover = HoverOver(r, r.name)
+	-- A rare's row: the rare turning beside the window while the mouse is on its name (ForeverRares.lua, 26 Nov 2026).
+	r.hover:HookScript("OnEnter", function(self)
+		if self.npc and ns.ForeverRareModelHover then
+			ns.ForeverRareModelHover(self, self.npc, self.npcName)
+		end
+	end)
+	r.hover:HookScript("OnLeave", function()
+		if ns.ForeverRareModelHover then
+			ns.ForeverRareModelHover(nil, nil)
+		end
+	end)
+	r:HookScript("OnHide", function()
+		if r.hover.npc and ns.ForeverRareModelHover then
+			ns.ForeverRareModelHover(nil, nil)
+		end
+	end)
 	list.rows[i] = r
 	return r
 end
@@ -3507,7 +3523,7 @@ local function FindPlaces(it, dirText)
 				for _, e in ipairs(l) do
 					rows[#rows + 1] = { name = e.name .. (e.tag and ("  |cff999999" .. e.tag .. "|r") or ""),
 						info = (e.zone or "?") .. " · " .. FindDistance(e.dist), map = e.map, x = e.x, y = e.y,
-						why = e.why, go = e.go }
+						why = e.why, go = e.go, npc = e.npc, npcName = e.name }
 				end
 			end
 		end
@@ -3665,6 +3681,7 @@ local function FillCityPage(f, refresh)
 		row.info:SetText(e.info or "")
 		row.hover.tipTitle = e.name
 		row.hover.tipBody = e.info
+		row.hover.npc, row.hover.npcName = nil, nil
 		if e.why and e.why ~= "" then
 			row.route:SetText(e.why)
 			row.route:Show()
@@ -3836,6 +3853,7 @@ local function FillFindPage(f, refresh)
 		row.info:SetText(e.info or "")
 		row.hover.tipTitle = e.name
 		row.hover.tipBody = e.info
+		row.hover.npc, row.hover.npcName = e.npc, e.npcName -- rares only: the 3D model on hover
 		local route = e.route
 		-- A rare's line is WHY it is worth the trip (ForeverRares.lua), shown where the way there would be.
 		if e.why then

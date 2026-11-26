@@ -25,6 +25,15 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 26 nov — FOREVER: de rare in 3D (Rob: "Een animatie.")
+
+`/reload` is genoeg. Offline getest (rare_test 27/27), NIET in het spel.
+- [ ] Find → Rares: zet de muis op de naam van een rare. Naast het venster draait de rare in 3D, met zijn naam eronder.
+      Muis weg: het model is weg.
+- [ ] `/mh rares test`: het rare-venster heeft links de rare in 3D, de tekst staat ernaast.
+- [ ] Geen model (een rare waar je nog nooit was?): geen zwart vak; het venster/model gaat vanzelf weg. `/mh rares why` →
+      regel "3D model: …" zegt waarom.
+
 ## 26 nov — FOREVER: venster na je dood blijft weg als je het sluit (Rob: "hij blijft nu terugkomen")
 
 `/reload` is genoeg. Offline getest (flight_test 45/45), NIET in het spel.

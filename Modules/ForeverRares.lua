@@ -262,13 +262,148 @@ function ns.ForeverRareFindRows(key)
 			name = r.name,
 			tag = tag,
 			why = whyKey and ns:L(whyKey) or nil,
-			zone = ZoneName(r.map), dist = e.dist, map = r.map, x = r.x, y = r.y,
+			zone = ZoneName(r.map), dist = e.dist, map = r.map, x = r.x, y = r.y, npc = r.npc,
 			go = function()
 				return GoTo(r, e.dist)
 			end,
 		}
 	end
 	return rows, pc ~= nil
+end
+
+--------------------------------------------------------------------------------
+-- The rare in 3D (26 Nov 2026). Rob via Sparring: "Toen ging ik kijken bij ons in Find… Een animatie." Mouse on a rare
+-- in Find → a small frame beside the window with the rare turning; the rare window has one built in.
+-- How: PlayerModel:SetCreature(npc id), the same as the boss guide (ForeverDungeonGuide.lua ShowModel), which Rob saw
+-- working in Forever on 19 Nov (Sneed, Captain Greenskin: GEMETEN). Whether it draws an npc you have never been near is
+-- NOT measured: when no model loaded after 1.5 s (GetModelFileID 0/nil) the frame hides itself — no black box — and
+-- /mh rares why says so (raModelWhy).
+--------------------------------------------------------------------------------
+local raModelWhy = "no rare model asked for yet"
+
+--- Put npc on model m (a PlayerModel), turning slowly. done(ok) is called after 1.5 s: ok = a model file loaded.
+--- isCurrent() says whether this request is still the one on screen (the mouse may have moved on).
+local function SetRareModel(m, npc, isCurrent, done)
+	if not (m and m.SetCreature and npc) then
+		raModelWhy = "SetCreature missing on this client"
+		if done then
+			done(false)
+		end
+		return false
+	end
+	local function apply()
+		m:ClearModel()
+		m:SetCreature(npc)
+		if m.SetPortraitZoom then
+			m:SetPortraitZoom(0) -- the whole figure
+		end
+		if m.SetCamDistanceScale then
+			m:SetCamDistanceScale(1.1)
+		end
+		if m.SetPosition then
+			m:SetPosition(0, 0, 0)
+		end
+	end
+	if not pcall(apply) then
+		raModelWhy = ("npc %d: SetCreature raised an error"):format(npc)
+		if done then
+			done(false)
+		end
+		return false
+	end
+	if not (C_Timer and C_Timer.After) then
+		return true
+	end
+	-- Models load async (DungeonBossWindow.lua: an empty first draw): once more, then check.
+	C_Timer.After(0.2, function()
+		if isCurrent() then
+			pcall(apply)
+		end
+	end)
+	C_Timer.After(1.5, function()
+		if not isCurrent() then
+			return
+		end
+		local fid
+		if m.GetModelFileID then
+			local ok, v = pcall(m.GetModelFileID, m)
+			if ok and not (issecretvalue and issecretvalue(v)) then
+				fid = v
+			end
+		end
+		local okModel = fid ~= nil and fid ~= 0
+		raModelWhy = okModel and ("npc %d: model loaded (file %s)"):format(npc, tostring(fid))
+			or ("npc %d: no model after 1.5 s (file id %s) - hidden"):format(npc, tostring(fid))
+		if done then
+			done(okModel)
+		end
+	end)
+	return true
+end
+
+local function Turn(self, elapsed)
+	self._facing = ((self._facing or 0.45) + elapsed * 0.6) % (2 * math.pi)
+	if self.SetFacing then
+		pcall(self.SetFacing, self, self._facing)
+	end
+end
+
+local hoverFrame
+local hoverToken = 0
+
+local function TopWindow(f)
+	local p = f
+	while p and p.GetParent and p:GetParent() and p:GetParent() ~= UIParent do
+		p = p:GetParent()
+	end
+	return p
+end
+
+--- Mouse on a rare row (ForeverOverview.lua Find page): the rare turning beside the window. nil npc = hide.
+function ns.ForeverRareModelHover(owner, npc, name)
+	hoverToken = hoverToken + 1
+	if not npc then
+		if hoverFrame then
+			hoverFrame:Hide()
+		end
+		return
+	end
+	if not hoverFrame then
+		local f = CreateFrame("Frame", nil, UIParent, "BackdropTemplate") -- unnamed: a hover picture, not a window
+		f:SetSize(200, 240)
+		f:SetFrameStrata("TOOLTIP")
+		f:SetClampedToScreen(true)
+		f:SetBackdrop({ bgFile = "Interface\\Buttons\\WHITE8X8", edgeFile = "Interface\\Buttons\\WHITE8X8", edgeSize = 1 })
+		f:SetBackdropColor(0.04, 0.04, 0.06, 0.95)
+		f:SetBackdropBorderColor(0.9, 0.3, 0.3, 0.9)
+		f.m = CreateFrame("PlayerModel", nil, f)
+		f.m:SetPoint("TOPLEFT", 6, -6)
+		f.m:SetPoint("BOTTOMRIGHT", -6, 24)
+		f.m:SetScript("OnUpdate", Turn)
+		f.name = f:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+		f.name:SetPoint("BOTTOMLEFT", 6, 6)
+		f.name:SetPoint("BOTTOMRIGHT", -6, 6)
+		f.name:SetJustifyH("CENTER")
+		f:Hide()
+		hoverFrame = f
+	end
+	local f = hoverFrame
+	local token = hoverToken
+	local win = TopWindow(owner) or owner
+	f:ClearAllPoints()
+	f:SetPoint("TOPLEFT", win, "TOPRIGHT", 6, -40)
+	f.name:SetText(name or "")
+	if SetRareModel(f.m, npc, function()
+		return token == hoverToken and f:IsShown()
+	end, function(ok)
+		if not ok then
+			f:Hide()
+		end
+	end) then
+		f:Show()
+	else
+		f:Hide()
+	end
 end
 
 --------------------------------------------------------------------------------
@@ -284,7 +419,8 @@ end
 -- button would make the window protected): in combat the window says "Target: after the fight".
 -- On by default (Quiet helpers; it only shows a window). /mh rares [why|test|on|off] says what it saw and decided.
 --------------------------------------------------------------------------------
-local RA_W = 300
+local RA_W = 380
+local RA_MODEL = 100 -- the rare in 3D on the left (hidden again when no model loads; the text then takes the width)
 local RA_COOLDOWN = 600
 local raBy = {} -- npc id -> list row (all rares, the "worth" rows win for their why/side)
 for _, r in ipairs(ns.FOREVER_RARES_ALL or {}) do
@@ -394,6 +530,10 @@ local function BuildAlert()
 		fs:SetWidth(RA_W - 24)
 		return fs
 	end
+	f.model = CreateFrame("PlayerModel", nil, f)
+	f.model:SetSize(RA_MODEL, RA_MODEL + 10)
+	f.model:SetPoint("TOPLEFT", 8, -8)
+	f.model:SetScript("OnUpdate", Turn)
 	f.head = line("head2", 12, { 1, 0.35, 0.35 })
 	f.head:SetPoint("TOPLEFT", 12, -10)
 	f.name = line("head2", 18, t.gold)
@@ -449,7 +589,7 @@ local function BuildAlert()
 end
 
 --- Show the window for this rare. r = our list row or nil; name/level from the client when readable.
-local function ShowAlert(r, name, level, elite, map, x, y, how)
+local function ShowAlert(r, name, level, elite, map, x, y, how, npc)
 	if not ns.IsForeverRareAlertOn() then
 		raWhy = "saw " .. tostring(name) .. " (" .. how .. "), but the window is switched off"
 		return
@@ -482,10 +622,34 @@ local function ShowAlert(r, name, level, elite, map, x, y, how)
 			ns._mhRouteOwner = "rarespot"
 		end
 	end)
-	local h = 10 + (f.head:GetStringHeight() or 12) + 4 + (f.name:GetStringHeight() or 18) + 3
-		+ (f.info:GetStringHeight() or 13) + 3 + ((f.why:GetText() or "") ~= "" and (f.why:GetStringHeight() or 12) or 0)
-		+ 10 + 22 + 10
-	f:SetHeight(h)
+	-- Text to the right of the model while it is there; the whole width when it is not (no empty square).
+	local function Layout(withModel)
+		local left = withModel and (8 + RA_MODEL + 8) or 12
+		f.head:ClearAllPoints()
+		f.head:SetPoint("TOPLEFT", left, -10)
+		for _, fs in ipairs({ f.head, f.name, f.info, f.why }) do
+			fs:SetWidth(RA_W - left - 14)
+		end
+		f.model:SetShown(withModel)
+		local textH = 10 + (f.head:GetStringHeight() or 12) + 4 + (f.name:GetStringHeight() or 18) + 3
+			+ (f.info:GetStringHeight() or 13) + 3 + ((f.why:GetText() or "") ~= "" and (f.why:GetStringHeight() or 12) or 0)
+		if withModel then
+			textH = math.max(textH, 8 + RA_MODEL + 10)
+		end
+		f:SetHeight(textH + 10 + 22 + 10)
+		PlaceTarget()
+	end
+	npc = npc or (r and r.npc)
+	f._modelToken = (f._modelToken or 0) + 1
+	local token = f._modelToken
+	local hasModel = npc and SetRareModel(f.model, npc, function()
+		return token == f._modelToken and f:IsShown()
+	end, function(ok)
+		if not ok then
+			Layout(false)
+		end
+	end) or false
+	Layout(hasModel and true or false)
 	f.shownAt = GetTime and GetTime() or 0
 	f:Show()
 	PlaceTarget()
@@ -550,7 +714,7 @@ local function Check(unit, how)
 			end
 		end
 	end
-	ShowAlert(r, name, type(level) == "number" and level or (r and r.level), cls == "rareelite" or (r and r.elite), map, x, y, how)
+	ShowAlert(r, name, type(level) == "number" and level or (r and r.level), cls == "rareelite" or (r and r.elite), map, x, y, how, id)
 end
 
 do
@@ -603,6 +767,7 @@ function ns.ForeverRareAlertSlash(arg)
 	print(PREFIX .. ("rare window: %s; rares in MH's list: %d; seen this session: %d"):format(
 		ns.IsForeverRareAlertOn() and "on" or "off (Quiet helpers)", (function() local c = 0 for _ in pairs(raBy) do c = c + 1 end return c end)(), n))
 	print("  last decision: " .. raWhy)
+	print("  3D model: " .. raModelWhy)
 	local okC, cls = pcall(UnitClassification, "target")
 	print(("  your target: classification %s, npc id %s, in MH's list %s"):format(tostring(okC and Plain(cls)),
 		tostring(NpcId("target")), tostring(NpcId("target") and raBy[NpcId("target")] ~= nil)))

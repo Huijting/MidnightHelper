@@ -1,5 +1,16 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 26 nov (Bouwchat 26-11): rare in 3D GEBOUWD (`/reload`) — rij: loot die MH zelf leert (keuze (a), Sparring)
+
+Rob: *"Toen ging ik kijken bij ons in Find… Een animatie."* ForeverRares.lua: `SetRareModel` (PlayerModel:SetCreature(npc),
+zoals de bazengids, die Rob 19 nov in Forever zag werken = GEMETEN voor bazen; voor rares waar je nooit was NIET gemeten).
+Na 1,5 s GetModelFileID 0/nil → verbergen (geen zwart vak), reden in `/mh rares why` ("3D model: …"). Find: muis op de naam
+van een rare-rij → `ns.ForeverRareModelHover` toont een draaiend model naast het venster (rijen dragen `npc`;
+ForeverOverview.lua FindRow-hooks). Rare-venster: 380 breed, model 100 px links, tekst ernaast; laadt het niet, dan neemt
+de tekst de hele breedte. rare_test 27/27.
+Loot: Sparring koos (a) + "MH leert het zelf" (LOOT_OPENED, GetLootSourceInfo-GUID = rare-npc, telling per item,
+account-breed, "your loot, N kills", geen kans). Geen Drop Tables, geen licentiewijziging.
+
 ## ▶▶ 26 nov (Bouwchat 26-11): BUG na-je-dood-venster kwam steeds terug → GEREPAREERD (`/reload`)
 
 Rob (echt dood, Druid 15): venster en pijl werken, maar *"Daarna klik ik het weg, maar hij blijft nu terugkomen."*
@@ -7,8 +18,7 @@ ForeverTravel.lua: `dpDismissed` — jij sluit (X, Escape, of de pijlknop, die h
 van DEZE dood. MH's eigen verbergen loopt via `SelfHide` (vlag `_selfHide`; OnHide vuurt alleen bij een zichtbaar frame).
 Reset alleen bij PLAYER_DEAD (nieuwe dood) of als je leeft; PLAYER_ALIVE bij release laat hem dicht. `/mh ghost test` toont
 altijd; `/mh ghost` zegt "you closed the window". flight_test 45/45 (nieuw blok 14).
-Open: sickness-duur (AFGELEID level-10) vs Polestar "10m op 14" → mh-research loopt. Rare-3D-model staat ongecommit in de
-werkmap (ForeverRares.lua, ForeverOverview.lua) — volgende commit.
+Open: sickness-duur (AFGELEID level-10) vs Polestar "10m op 14" → mh-research loopt.
 
 ## ▶▶ 26 nov (Bouwchat 26-11): "na je dood"-venster GEBOUWD (`/reload`) — rij: rare-model + loot (bron = Rob kiest)
 
