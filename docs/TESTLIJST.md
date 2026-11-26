@@ -25,6 +25,15 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 26 nov — FOREVER: de zalf bij "Curing the Sick" (Rob verloor hem op 9/10)
+
+`/reload` is genoeg. Offline getest (cq_test 26/26), NIET in het spel.
+- [ ] Neem "Curing the Sick" opnieuw bij Tonga Runetotem. Het class-questkaartje zegt onder de stap (oranje): "Use the
+      salve only when you are NOT in combat … 10 doses, no refill. Lost one? Abandon the quest and take it again from Tonga
+      Runetotem." en groen "Doses left: 10, still needed: 10."
+- [ ] Na elke gazelle tellen beide mee omlaag. Heb je minder doses dan nog nodig: de regel wordt rood met "Not enough".
+- [ ] Alliance (Sickly Deer, Darkshore): hetzelfde, met Alanndarian Nightsong.
+
 ## 26 nov — toetsblok: terugzetten wat ontbreekt, plekken in gewone woorden, eerst zeggen wat Undo doet
 
 `/reload` is genoeg. Offline getest (undo_test 20/20), NIET in het spel.

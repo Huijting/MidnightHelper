@@ -2851,6 +2851,45 @@ local TIP_ITEMS = {
 	FCQ_OBJ_EARTHROOT = { 2449, 5 },
 }
 
+-- An item with a fixed number of uses that the quest does not refill (26 Nov 2026: Rob lost his Curative Animal Salve at
+-- 9/10 on "Curing the Sick"). GEMETEN: item 15826 for both sides (Zygor H :24729, A :22489); 10 uses; the Blizzard EU
+-- forum (10 Nov 2026, via mh-research): a use in combat spends a dose but does not count, and no NPC refills it — the
+-- only fix is to abandon the quest and take it again. Doses left: C_Item.GetItemCount(item, false, true) (includeUses,
+-- GEMETEN in Forever's ItemDocumentation.lua 71139).
+local SALVE = {
+	FCQ_OBJ_GAZELLE = { item = 15826, uses = 10 },
+	FCQ_OBJ_DEER = { item = 15826, uses = 10 },
+}
+
+--- The salve line for a step, or nil: the warning, and "doses left: N, still needed: M" (red when N < M).
+local function SalveLine(s)
+	local sv = s and s.textKey and SALVE[s.textKey]
+	if not sv then
+		return nil
+	end
+	local giver = s.giver and NpcName(s.giver) or "?"
+	local out = ns:L("FCQ_SALVE_TIP_FMT"):format(sv.uses, giver)
+	local left
+	if C_Item and C_Item.GetItemCount then
+		local ok, n = pcall(C_Item.GetItemCount, sv.item, false, true)
+		left = ok and type(n) == "number" and n or nil
+	end
+	local still
+	if s.q and s.idx and C_QuestLog and C_QuestLog.GetQuestObjectives then
+		local ok, list = pcall(C_QuestLog.GetQuestObjectives, s.q)
+		local row = ok and type(list) == "table" and list[s.idx]
+		if row and type(row.numRequired) == "number" and type(row.numFulfilled) == "number" then
+			still = math.max(0, row.numRequired - row.numFulfilled)
+		end
+	end
+	if left and still then
+		local short = left < still
+		out = out .. "\n" .. (short and "|cffff5050" or "|cff7fff7f") .. ns:L("FCQ_SALVE_LEFT_FMT"):format(left, still)
+			.. (short and (" " .. ns:L("FCQ_SALVE_SHORT_FMT"):format(giver)) or "") .. "|r"
+	end
+	return out
+end
+
 local function StepRaw(c)
 	if c.spell and Known(c.spell) then
 		return nil, "spell known"
@@ -2906,7 +2945,8 @@ local function StepRaw(c)
 			if not ObjFinished(q, o) then
 				local ti = TIP_ITEMS[o.textKey]
 				return { kind = "do", place = o.place, textKey = o.textKey, q = q, progress = ObjProgress(q, o),
-					item = (o.items and o.items[1]) or (ti and ti[1]), need = o.count or (ti and ti[2]) }
+					item = (o.items and o.items[1]) or (ti and ti[1]), need = o.count or (ti and ti[2]), idx = o.idx,
+					giver = e.from }
 			end
 		end
 	end
@@ -3254,6 +3294,7 @@ function ns.ForeverClassQuestNowParts()
 		out.what = StepWhat(s)
 	end
 	out.item, out.need = s.item, s.need
+	out.salve = SalveLine(s)
 	if p and p.areas then
 		out.zone = out.zone .. " · " .. ns:L("FCQ_AREAS_FMT"):format(p.areas)
 	end
@@ -3279,6 +3320,10 @@ local function CardData()
 		-- 23 Nov 2026: how far you are, on its own line in green ("Vile Familiar Head: 4/6"), live from the quest log.
 		if s.progress then
 			who = who .. "\n|cff7fff7f" .. s.progress .. "|r"
+		end
+		local salve = SalveLine(s)
+		if salve then
+			who = who .. "\n|cffffb060" .. salve .. "|r"
 		end
 	end
 	local where = p and ZoneName(p.m) or nil

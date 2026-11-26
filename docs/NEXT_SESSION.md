@@ -1,5 +1,14 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 26 nov (Bouwchat 26-11): zalf-waarschuwing bij "Curing the Sick" (`/reload`)
+
+Rob verloor zijn Curative Animal Salve (15826) op 9/10. ForeverClassQuests.lua `SALVE` + `SalveLine`: op het kaartje de
+waarschuwing (niet in gevecht; 10 doses; opgeven en opnieuw halen bij de gever = `e.from`, nu meegegeven als `s.giver`) en
+"Doses left: N, still needed: M" (rood bij te weinig). Doses: `C_Item.GetItemCount(15826, false, true)` — includeUses GEMETEN
+in Forevers ItemDocumentation.lua; nog nodig = numRequired − numFulfilled uit GetQuestObjectives. Item 15826 voor beide kanten
+GEMETEN (Zygor H :24729, A :22489). "In gevecht telt niet" = Blizzard EU-forum 10 nov (mh-research via Sparring). 3 keys × 8
+talen. cq_test 26/26.
+
 ## ▶▶ 26 nov (Bouwchat 26-11): toetsblok restore + plekken in woorden + voorvertoning vóór Undo (`/reload`)
 
 Rob's /mh block slots: "slot 9 … now empty · undo: put back War Stomp" — GEMETEN in zijn snapshot: dat is een bar-1-dubbel
