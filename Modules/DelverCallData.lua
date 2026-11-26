@@ -2,7 +2,7 @@
 	Delver's Call — one Midnight quest per delve, ONCE PER CHARACTER.
 
 	⚠️ Not a weekly (this header said "weekly" until 3 Oct 2026). Measured in Rob's
-	SV: Iceicebaby showed 10/10 turned in on 2 Oct with only 1 World activity that
+	SV: Anna showed 10/10 turned in on 2 Oct with only 1 World activity that
 	week, so the completions survived the reset. Each quest can sit in four states
 	on the live character:
 	  fresh      — not in log, not turned in (pick it up at the delve)

@@ -830,7 +830,7 @@ end
 --- 🔴 FOREVER SURNAMES — Rob, 7 Nov 2026 ("roleplaying … een karakter aanmaken met twee namen. Voornaam en achternaam.
 --- Houden we daar rekening mee?"): on Forever UnitName("player") returns the SURNAME as its second value (where retail
 --- returns the realm), GEMETEN in the SimC addon's "Handle Forever surname" commit of 5 Nov 2026
---- (docs/API_WATCH.md 6 Nov). MH read only the first value, so "Ima Shamandwarf" got "Ima Shaman". Now:
+--- (docs/API_WATCH.md 6 Nov). MH read only the first value, so "Anna Examplename" got "Anna Example". Now:
 --- "<first><separator><surname> <spec>" when it fits in 30, else "<first> <spec>", else cut on whole letters.
 --- The separator is Blizzard's own constant (as SimC uses it), a space when it is missing.
 --- @return string name, string oldName (the pre-7-Nov form, so a layout made before is found again, not made twice)

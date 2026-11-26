@@ -3,13 +3,13 @@ local _, ns = ...
 --[[
 	ForeverCharKey.lua — WoW Forever: one key per character for saved data, the player's GUID.
 	Rob, 21 Nov 2026 (via sparring), verbatim: "A" — on: the player GUID as the key, through one shared function for all
-	eight modules; characters with a unique first name take their old data along; every "Ima" gets a copy of the shared
-	Ima data at its first login; /mh shows per module which key it used.
+	eight modules; characters with a unique first name take their old data along; every "Anna" gets a copy of the shared
+	Anna data at its first login; /mh shows per module which key it used.
 
 	Why (GEMETEN in Rob's Forever SavedVariables, written 20 Nov 22:23, after Blizzard's Forever hotfix of 20 Nov):
 	GetRealmName() and GetNormalizedRealmName() return "" (foreverNameProbe.realm / normRealm), so every "Name-Realm" key
 	became "Name-". And before that already, every character with the same first name on one realm shared one key: Rob has
-	several "Ima" characters (Ima Pallie, Ima Lockie, …), all "Ima-CAMWOW EU4 Realm 10 RP". The player GUID is unique per
+	several "Anna" characters (Anna Example, Anna Example, …), all "Anna-CAMWOW EU4 Realm 10 RP". The player GUID is unique per
 	character; ForeverChars, ForeverDirection, ForeverDoNow and ForeverLayoutCarry already use it. That it stays the same
 	is AFGELEID: Blizzard's notice names only creature, vehicle, pet and game object GUIDs, and the SavedVariables written
 	after the hotfix hold player GUIDs in the old form only.

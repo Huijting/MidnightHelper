@@ -26,7 +26,7 @@ local _, ns = ...
 	with their own tool. The command says so before it does anything.
 ]]
 
---- Exported from Rob's Hunter (Redisch) on 12.0.7, 11 Aug 2026 — second export, with
+--- Exported from Rob's Hunter (Anna) on 12.0.7, 11 Aug 2026 — second export, with
 --- the empty buttons switched off.
 ---
 --- ⚠️ WHAT THE TRAILING BLOB MEANS, since it decided a question we were about to guess.

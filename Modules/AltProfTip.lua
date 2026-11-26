@@ -12,9 +12,9 @@ local _, ns = ...
 	Midnight?"
 
 	Three lines, only for an item you can send (not Soulbound, not "Binds when picked up", not a quest item):
-	  recipe      "MH: your other Alchemy: Ima (14, needs 50), Bob (60, can learn it)"
-	  ingredient  "MH: on your other characters: Alchemy: Ima · Cooking: Bob"
-	  gear        "MH: your other characters who can wear this: Ima (item level 12 -> 20), Bob (from level 40), Cid"
+	  recipe      "MH: your other Alchemy: Anna (14, needs 50), Bob (60, can learn it)"
+	  ingredient  "MH: on your other characters: Alchemy: Anna · Cooking: Bob"
+	  gear        "MH: your other characters who can wear this: Anna (item level 12 -> 20), Bob (from level 40), Cid"
 	              (step 2, same day; see the Gear section below)
 	No other character with the profession = no line. Off: /mh alttip off (or the switch in the settings).
 
@@ -74,11 +74,11 @@ end
 	karakters zou kunnen gebruiken. Maar kan ik überhaupt wel sturen?")
 	Forever: mail only reaches a character on the same realm (GlobalStrings ERR_MAIL_CANT_SEND_REALM "You can't send mail
 	to that realm.", GEMETEN Forever 71091) -> another realm is left out. Another faction: GEMETEN by Rob in Forever, 25 Nov
-	2026 (Horde character -> Ima Bankgirl, Alliance): "target is unfriendly :)" = ERR_PLAYER_WRONG_FACTION "Target is
+	2026 (Horde character -> Anna Example, Alliance): "target is unfriendly :)" = ERR_PLAYER_WRONG_FACTION "Target is
 	unfriendly." (GlobalStrings, Forever 71091) -> those names go apart at the end, "can't mail". No realm saved: the
 	server number in the GUID decides. A character whose faction MH has not saved yet keeps its
-	place with "(faction ?)". Rob's SV, GEMETEN 25 Nov: one realm; 10 Horde, 4 Alliance (Ima Bankgirl, Ima Tinyroque, Inchy
-	Shootalot, Joey Whatever), 3 without a faction (Ima Lockie, Ima Magymage, Ima Warman). /mh alttip lists the verdict.
+	place with "(faction ?)". Rob's SV, GEMETEN 25 Nov: one realm; 10 Horde, 4 Alliance (Anna Example, Anna Example, Inchy
+	Example, Anna Example), 3 without a faction (Anna Example, Anna Example, Anna Example). /mh alttip lists the verdict.
 	Midnight: not filtered. Non-bound items and reagents go to every character of your Warband through the Warband bank
 	(AFGELEID from the retail Warband feature, not measured here), whatever the realm or faction. ]]
 --[[ Bank characters (25 Nov 2026, Rob via Sparring: "Wat betreft de bankkarakters ga ik mee met je advies. A." on:

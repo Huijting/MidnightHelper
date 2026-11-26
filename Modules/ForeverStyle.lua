@@ -401,7 +401,7 @@ function S.Scroll(card, top, bottom, step)
 		thumb:Show()
 	end
 	--- Move the top of the list (18 Nov 2026: the Now card's main line can be one to nine lines tall; the list below it
-	--- must start where that text ends, or the two run over each other - Rob's screenshot, Ima Magieman).
+	--- must start where that text ends, or the two run over each other - Rob's screenshot, Anna Example).
 	function sf.SetTop(newTop)
 		top = newTop
 		Place()

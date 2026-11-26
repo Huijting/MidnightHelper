@@ -472,7 +472,7 @@ local KEYBIND_NOISE = {
 
 --- Names that are no gap: the General tab when the skill-line filter misses it, and spells left without a key
 --- ON PURPOSE in the 5 Oct 2026 gap round (docs/id_round_2026-10-05: out of combat, pet care, poisons, stances).
---- MEASURED 5 Oct on Rob's Hunter (Reddish): the red "not known" line still held Aerial Halt, Skyward Ascent, Warband
+--- MEASURED 5 Oct on Rob's Hunter (Anna): the red "not known" line still held Aerial Halt, Skyward Ascent, Warband
 --- Map to Everywhere All At Once, Feed Pet, Call Pet 2 ... English names: on other clients these show up again,
 --- which only makes the diagnostic line longer there, never a wrong key.
 local NO_KEY_ON_PURPOSE = {}

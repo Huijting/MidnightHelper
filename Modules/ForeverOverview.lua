@@ -2197,7 +2197,7 @@ local function Build()
 	acc:SetHeight(2)
 	f.nowAccent = acc
 	f.now.label = Label(f.now, ns:L("FOV_LABEL_NOW"), "FOV_TIP_CARD_NOW")
-	-- 18 Nov 2026 (Rob's screenshot, Ima Magieman: "Class quest: Study (free scrolls from the library, o…" and its line
+	-- 18 Nov 2026 (Rob's screenshot, Anna Example: "Class quest: Study (free scrolls from the library, o…" and its line
 	-- below cut off, and the place line lying over the list): up to 3 lines each, a fixed width so the height can be
 	-- measured right away, the whole text in a tooltip, and the list below starts where this text ends (FillNow).
 	local mainW = nowW - 28
@@ -2434,7 +2434,7 @@ end
 
 --- The character's whole name. Rob, 17 Nov 2026 (via Sparring 17-11), verbatim: "kunnen we hier de hele naam neerzetten?
 --- Eventueel onder elkaar de voor- en de achternaam, als het te lang wordt." The overview showed only "IMA".
---- GEMETEN: Forever characters have a first and a last name (Rob's WTF folders: Ima-Pallie, Ima-Lockie, Joey-Whatever).
+--- GEMETEN: Forever characters have a first and a last name (Rob's WTF folders: Anna Example, Anna Example, Anna Example).
 --- NOT measured: which API gives the last name. So every candidate is written to ns.db.foreverNameProbe, and a last
 --- name is only shown when the client really gives one: a candidate with a space that starts with the first name, or
 --- the second value of UnitFullName when that is not the realm (AFGELEID: the folder looks like "name-realm").

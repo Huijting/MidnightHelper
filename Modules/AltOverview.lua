@@ -1073,7 +1073,7 @@ end
 --- Spec 38 option A, second pass (10 Sep 2026): level and item level are their own column, right-
 --- aligned against Vault, as the spec's mock-up had it ("90 · 279"). Inside the name cell they were
 --- the last thing on the line, so a long name truncated the numbers - Rob's screenshot showed
---- "Purlymixanox-Bloodhoof Lv90 · 269 i…". Now only the name can be cut.
+--- "Anna-Bloodhoof Lv90 · 269 i…". Now only the name can be cut.
 local COL_W_LVL = 60
 local function LvlCellRightOffset()
 	return TotalNumericBlockWidth() + 4 + COL_W_VAULT + 8 + RowActionOffset()

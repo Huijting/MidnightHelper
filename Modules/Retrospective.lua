@@ -335,7 +335,7 @@ local function DeathCauseFromRecap(deathAt)
 		end
 		return v
 	end
-	-- 12 Oct 2026, Rob's card said "Pulse from Demonico" -- his own name. MEASURED (probe + wago): Glazer's Pulse
+	-- 12 Oct 2026, Rob's card said "Pulse from Anna" -- his own name. MEASURED (probe + wago): Glazer's Pulse
 	-- (214893, Vault of the Wardens) targets the player it touches as its caster, so the recap's source GUID is the
 	-- player's own. A source that is you names nothing useful; leave it out.
 	local myGUID = UnitGUID and UnitGUID("player")
@@ -953,7 +953,7 @@ local function ProbeDeathRecapAPI()
 		probe.count = #events
 		probe.events = {}
 		local secretFields, readable = 0, 0
-		-- Every event, not the newest three (12 Oct 2026): Rob's card said "Pulse from Demonico" -- his own name as
+		-- Every event, not the newest three (12 Oct 2026): Rob's card said "Pulse from Anna" -- his own name as
 		-- the source -- and the hit that did it was not among the newest three, so the probe could not show it.
 		for i = 1, math.min(20, #events) do
 			local e, row = events[i], {}

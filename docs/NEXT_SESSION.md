@@ -1,5 +1,17 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 26 nov (Bouwchat 26-11): Robs characternamen uit alles wat meegaat + lint [30] (HARD)
+
+Sparring (Rob volgt zijn advies, wil zijn gegevens niet publiek): de 5.11.0-tekst noemde een character van Rob, en
+FALT_BANK_NONE_FMT (spelerstekst, 7 talen) had sinds 5.10.0 een echte naam als voorbeeld. Gerepareerd (24818da), en nu
+ook 23 commentaarregels in 20 bestanden (scratch scrub_names.py; diff GEMETEN: alleen commentaar) → "Anna Example" /
+"Example" / "Anna". Nieuw: lint [30] `check_private_names` leest de namen LIVE uit de WTF-mappen (één map per character:
+Forever "Voor-Achter", retail per realm), dus er staat nergens een lijst met Robs namen in de repo (die gaat naar
+GitHub). Zoekt in alles wat de zip meekrijgt (spiegel van de .pkgmeta-ignore) + RELEASE_NOTES, CURSEFORGE_DESCRIPTION,
+docs/CURSEFORGE_*.md. Uitzonderingen: auteursnaam in de toc, gewone woorden (whatever/little/helper) en het testcharacter
+dat "Midnight Helper" heet. Losse voornaam alleen in een paar (te algemeen). Controle: geplante naam wordt gevonden,
+gewone zin niet. Geen WTF-map (andere pc) → SOFT "NOT CHECKED". Interne docs (TESTLIJST, NEXT_SESSION …) bewust niet.
+
 ## ▶▶ 26 nov (Bouwchat 26-11): 5.11.0 KLAARGEZET — NIET GETAGD (wacht op Robs "release 5.11.0")
 
 Rob via Sparring: *"Zet maar vast klaar dan test ik midnight vanavond na het diner"*. Beide toc's 5.11.0; Changelog.lua +

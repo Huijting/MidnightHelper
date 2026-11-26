@@ -2049,7 +2049,7 @@ function ns.PrintProfIdsProbe()
 	--- 🔴 AND IT KEEPS THE RICHEST CAPTURE, not the newest. The first version overwrote per
 	--- skillLine, reasoning that a re-run should refresh rather than keep something stale.
 	--- That is true of one character and false of an account: three of Rob's alts have
-	--- Herbalism, so running this on a level-15 one replaced Earthshammy's Botany 40/40
+	--- Herbalism, so running this on a level-15 one replaced Anna's Botany 40/40
 	--- with a fresh set of zeroes and the real state was gone. He found it by doing more
 	--- than I asked for.
 	---

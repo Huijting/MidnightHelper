@@ -184,7 +184,7 @@ function ns.ComputeAccountWeeklyChecklist()
 			if not stale and not isCurrent then
 				local label = FormatCharLabel(e.name, e.realm)
 				-- 3 Oct 2026: no "incomplete on alts" chore any more. Delver's Call is a
-				-- ONE-TIME set per character, not a weekly: measured in Rob's SV, Iceicebaby
+				-- ONE-TIME set per character, not a weekly: measured in Rob's SV, Anna
 				-- showed 10/10 turned in on 2 Oct with only 1 World activity that week.
 				-- A max-level alt that never did them has no weekly job here. The banked
 				-- line below stays: holding them for levelling XP is the real use.

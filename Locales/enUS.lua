@@ -5303,7 +5303,7 @@ ns._mhLocales.enUS = {
 	-- 25 Nov 2026: your other characters in recipe / ingredient tooltips (AltProfTip.lua), both games.
 	-- FALT_RECIPE_FMT: %s = the profession (client name), %s = "Name (skill, status), Name2 (skill)".
 	FALT_RECIPE_FMT = "MH: your other characters with %s: %s",
-	-- FALT_MAT_FMT: %s = "Alchemy: Ima · Cooking: Bob".
+	-- FALT_MAT_FMT: %s = "Alchemy: Anna · Cooking: Bob".
 	FALT_MAT_FMT = "MH: on your other characters: %s",
 	FALT_KNOWS = "knows it",
 	FALT_CAN = "can learn it",

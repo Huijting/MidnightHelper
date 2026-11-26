@@ -1091,6 +1091,98 @@ def check_keep_english(root):
     return hits
 
 
+# [30] Rob's own character names in anything players or the public see (26 Nov 2026, Sparring 26-11: the 5.11.0
+# release text named one of his characters, and a player-facing example in 7 languages had shipped since 5.10.0).
+# The names are read LIVE from the WTF folders on this machine (one folder per character), so no list of them is ever
+# written into the repo, which goes to GitHub. No WTF folder (another machine): the check says it did not run.
+# What is checked: every text file the release zip ships (the .pkgmeta ignore list, mirrored below) plus the public
+# texts RELEASE_NOTES.md, CURSEFORGE_DESCRIPTION.md and docs/CURSEFORGE_*.md.
+PRIVATE_SKIP_DIRS = {".git", ".github", "tools", "docs", "site", "data", "dist", ".cursor", ".claude"}
+PRIVATE_SKIP_FILES = {".cursorrules", ".gitattributes", ".gitignore", ".pkgmeta", ".luarc.json", "CLAUDE.md",
+                      "README.md", "CHANGELOG.md", "RELEASE_CHECKLIST.md"}
+PRIVATE_TEXT_EXT = (".lua", ".toc", ".xml", ".md", ".txt", ".json", ".html", ".css", ".js")
+# Public on purpose (the CurseForge author name in the .toc), or plain words that are also a surname here.
+PRIVATE_ALLOW = {"twelveinchy", "whatever", "little", "helper"}
+# A test character named after the addon itself: its name is the addon's, not private.
+PRIVATE_ALLOW_PAIRS = {"midnight helper"}
+
+
+def private_names(root: str):
+    """The names to look for, from the WTF folders next to this AddOns folder. @return (names, where) or ([], why)."""
+    wow = os.path.abspath(os.path.join(root, "..", "..", "..", ".."))  # .../World of Warcraft
+    acc_roots = glob.glob(os.path.join(wow, "_*_", "WTF", "Account", "*"))
+    names, seen_dirs = set(), 0
+    for acc in acc_roots:
+        if not os.path.isdir(acc) or os.path.basename(acc) == "SavedVariables":
+            continue
+        for realm in os.listdir(acc):
+            rdir = os.path.join(acc, realm)
+            if realm == "SavedVariables" or not os.path.isdir(rdir):
+                continue
+            for char in os.listdir(rdir):
+                if not os.path.isdir(os.path.join(rdir, char)):
+                    continue
+                seen_dirs += 1
+                if "-" in char:
+                    # Forever: "First-Last". The pair (space or dash) always; the last name alone when it is distinctive.
+                    first, last = char.split("-", 1)
+                    if f"{first} {last}".lower() in PRIVATE_ALLOW_PAIRS:
+                        continue
+                    names.add(f"{first} {last}")
+                    names.add(f"{first}-{last}")
+                    if len(last) >= 6 and last.lower() not in PRIVATE_ALLOW:
+                        names.add(last)
+                elif len(char) >= 6 and char.lower() not in PRIVATE_ALLOW:
+                    names.add(char)
+    if not names:
+        return [], f"no character folders found under {wow} (another machine?)"
+    return sorted(names, key=len, reverse=True), f"{len(names)} name forms from {seen_dirs} character folders"
+
+
+def private_files(root: str):
+    out = []
+    for dirpath, dirnames, filenames in os.walk(root):
+        rel_dir = os.path.relpath(dirpath, root)
+        if rel_dir == ".":
+            dirnames[:] = [d for d in dirnames if d not in PRIVATE_SKIP_DIRS]
+        for fn in filenames:
+            rel = os.path.normpath(os.path.join(rel_dir, fn)) if rel_dir != "." else fn
+            if rel_dir == "." and fn in PRIVATE_SKIP_FILES:
+                continue
+            if fn.lower().endswith(PRIVATE_TEXT_EXT):
+                out.append(rel)
+    for extra in ["RELEASE_NOTES.md", "CURSEFORGE_DESCRIPTION.md"] + [
+            os.path.relpath(p, root) for p in glob.glob(os.path.join(root, "docs", "CURSEFORGE_*.md"))]:
+        if os.path.isfile(os.path.join(root, extra)) and extra not in out:
+            out.append(extra)
+    return out
+
+
+def check_private_names(root: str):
+    """@return hits [(rel, line, name, text)], info {ran, why, control_ok, files}"""
+    names, why = private_names(root)
+    info = {"ran": bool(names), "why": why, "control_ok": True, "files": 0}
+    if not names:
+        return [], info
+    rx = re.compile(r"(?<![A-Za-z])(" + "|".join(re.escape(n) for n in names) + r")(?![A-Za-z])", re.IGNORECASE)
+    # Control: the pattern must find a known name in a planted line, and must not fire on a plain sentence.
+    sample = names[0]
+    info["control_ok"] = bool(rx.search(f"x {sample} y")) and not rx.search("Midnight Helper shows the way there.")
+    hits = []
+    files = private_files(root)
+    info["files"] = len(files)
+    for rel in files:
+        try:
+            with open(os.path.join(root, rel), encoding="utf-8", errors="replace") as fh:
+                for n, line in enumerate(fh, 1):
+                    m = rx.search(line)
+                    if m:
+                        hits.append((rel, n, m.group(1), line.strip()))
+        except OSError:
+            continue
+    return hits, info
+
+
 def main() -> int:
     root = repo_root()
     args = sys.argv[1:]
@@ -1794,6 +1886,19 @@ def main() -> int:
     for rel, n, text in afo:
         print(f"     HARD  {rel}:{n}  {text[:110]}")
     hard += len(afo) + (0 if afo_ok else 1)
+
+    # [30] Rob's own character names in shipped or public text (Sparring 26-11, 26 Nov 2026). HARD.
+    pv, pv_info = check_private_names(root)
+    if not pv_info["ran"]:
+        print(f"\n[30] Own character names in shipped/public text: NOT CHECKED — {pv_info['why']}")
+        print("     SOFT  this check proves nothing this run; do not read silence as clean")
+        soft += 1
+    else:
+        print(f"\n[30] Own character names in shipped/public text: {len(pv)}  "
+              f"(control {'OK' if pv_info['control_ok'] else 'FAILED'}; {pv_info['why']}; {pv_info['files']} files)")
+        for rel, n, name, text in pv[:40]:
+            print(f"     HARD  {rel}:{n}  {text[:110]}")
+        hard += len(pv) + (0 if pv_info["control_ok"] else 1)
 
     print("=" * 70)
     print(f"HARD issues: {hard}   SOFT notes: {soft}")

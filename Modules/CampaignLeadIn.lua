@@ -548,7 +548,7 @@ function ns.PrintCampaignLeadInDiagnostics()
 		--- 🔴 SHOW THE GATE TEXT EVEN WHEN THE DASHBOARD WILL NEVER SHOW IT.
 		---
 		--- ✅ MEASURED 31 Aug 2026 and Rob called it before the probe did. `/mh campaign` on
-		--- **Warlockie, level 82**, returns done=true for all four chain quests -- and a
+		--- **Anna, level 82**, returns done=true for all four chain quests -- and a
 		--- level-82 character cannot have completed a level-90 quest. **Completion is
 		--- account-wide.** He noticed because he could walk into the Vaults on every alt.
 		---

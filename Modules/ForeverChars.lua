@@ -87,8 +87,8 @@ local function Snap(why)
 		lastSnap, lastWhy = rec.seen, why
 		return
 	end
-	-- Forever names have a surname: UnitName gives it as the 2nd value ("Ima", "Pallie"). Measured 7 Nov 2026 for the
-	-- layout names (NEXT_SESSION_ARCHIVE), and again 12 Nov: three rows all read "Ima".
+	-- Forever names have a surname: UnitName gives it as the 2nd value ("Anna", "Example"). Measured 7 Nov 2026 for the
+	-- layout names (NEXT_SESSION_ARCHIVE), and again 12 Nov: three rows all read "Anna".
 	local name, surname = nil, nil
 	if UnitName then
 		name, surname = UnitName("player")

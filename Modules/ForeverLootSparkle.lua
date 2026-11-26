@@ -433,7 +433,7 @@ end
 
 --[[ Ore and herbs, two switches. Rob, 20 Nov 2026 (via sparring), verbatim: "reload gedaan, en ik wil beide met idd de
 	schakelaars" = A (the game's own icon) and B (MH draws a glow), each its own switch, off by default.
-	GEMETEN in Rob's /mh sparkle nodes (Forever, "Ima", Lueur off, a Copper Vein in a cave, 20 Nov 22:07):
+	GEMETEN in Rob's /mh sparkle nodes (Forever, "Anna", Lueur off, a Copper Vein in a cave, 20 Nov 22:07):
 	  before: no soft-interact object. After setting NODE_SET: softinteract = "Copper Vein", UnitIsGameObject true,
 	  GUID GameObject-…-1731-…, a nameplate (shown, not forbidden), cursor texture "Cursor Crosshair_Mine_64" in range and
 	  "Cursor Crosshair_UnableMine_64" out of range; UnitExists("softinteract") = FALSE for it (so never test that).

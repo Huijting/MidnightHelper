@@ -43,7 +43,7 @@ local _, ns = ...
 --- 96717 / 96718) are a different quest line. So this gate rests on a misread; Wowhead (3 Aug) and
 --- Icy Veins (15 Aug, 29 Sep) say the Showdown weekly continues in S2.
 ---
---- ✅ GEMETEN 4 Oct 2026, AND THE GATE IS GONE. Rob on Redisch: Maella offered the intro "Through
+--- ✅ GEMETEN 4 Oct 2026, AND THE GATE IS GONE. Rob on Anna: Maella offered the intro "Through
 --- the Cold Rift", the portal showed Val with Normal/Heroic, and on Val she offered "Showdown on Val"
 --- (Riftstalker's Cache) next to "Surveying the Frozen Wastes". The Season 2 hide had kept this
 --- weekly out of every list since 18 Aug.

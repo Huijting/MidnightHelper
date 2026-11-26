@@ -2752,7 +2752,7 @@ local function UpdateGuide(f)
 	local steps = {
 		{ text = "KEYBLOCK_GUIDE_1", done = placed, which = "place", btn = "KEYBLOCK_GUIDE_DO" },
 		-- Not done on a preset or a SHARED account layout, even when that layout is a block (Rob, 5 Oct 2026,
-		-- on Warlockie and Reddish, both on his Paladin's "twelve retro": "als we vaker twelve retro tegen komen
+		-- on Anna and Anna, both on his Paladin's "twelve retro": "als we vaker twelve retro tegen komen
 		-- op een andere character dan moeten we dat zien te voorkomen!"). The step then offers a layout of this
 		-- character's own, so nothing it changes reaches the others.
 		{ text = onPreset and "KEYBLOCK_GUIDE_2_PRESET" or "KEYBLOCK_GUIDE_2", done = layoutOn and not onPreset, which = "layout",
@@ -3831,7 +3831,7 @@ function ns.KeyBlockBar1Status()
 end
 
 --- "Reload now" from the key block: reload, and open the window again afterwards so the player can go on
---- with the next step. Rob, 5 Oct 2026, on Reddish: after step 2 he had to find the window again himself
+--- with the next step. Rob, 5 Oct 2026, on Anna: after step 2 he had to find the window again himself
 --- ("met het tandwieltje rechtsboven") — "kunnen we hem automatisch opnieuw open laten doen?"
 function ns.KeyBlockReloadAndReopen()
 	ns.db = ns.db or {}

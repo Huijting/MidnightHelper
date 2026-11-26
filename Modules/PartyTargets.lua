@@ -62,7 +62,7 @@ local PANEL_W, ROW_H, PAD = 320, 22, 8
 local MAX_ROWS = 5
 local PARTY_ROWS = 4
 --- 🔴 YOUR ROW IS THE FIRST FREE ONE, NOT ALWAYS THE FIFTH. Rob, 28 aug, in a party of two:
---- the panel drew Rouky in row 1 and "Earthshammy" floating BELOW the panel entirely.
+--- the panel drew Rouky in row 1 and "Anna" floating BELOW the panel entirely.
 ---
 --- The panel is exactly as tall as it has visible rows (`ROW_H * shown`), and that works
 --- because RecomputeOrder sinks absent members to the bottom, so the visible rows are always
