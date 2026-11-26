@@ -25,6 +25,15 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 26 nov — FOREVER: vijf instellingen erbij in Quiet helpers (Rob: "1 ja")
+
+Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. NIET in het spel getest.
+- [ ] Quiet helpers, kopje ON YOUR SCREEN: Show missing buff icon, Notice when an upgrade lands in your bags, Route
+      arrow size (een getal), Show route distance in meters, Show minimap icon, Quick bar.
+- [ ] Klik op het getal bij Route arrow size: de pijl wordt groter (een paar seconden voorbeeld). Rechtsklik = kleiner.
+- [ ] Elke schakelaar doet wat hij zegt (minimap-icoon weg en terug, quick bar aan en uit, meters in plaats van yards).
+- [ ] Zoek op "minimap", "quick bar", "arrow" of "buff": je vindt de schakelaar en hij licht op.
+
 ## 26 nov — FOREVER (en Midnight): castbalken verplaatsen + de cast-waarschuwing vindbaar (Rob: "ja doe maar, en waarom kan ik het niet zoeken ?")
 
 Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (move_test 12), NIET in het spel.

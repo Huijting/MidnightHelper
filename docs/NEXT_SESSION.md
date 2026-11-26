@@ -1,5 +1,16 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 26 nov (Bouwchat 26-11): 5 instellingen in Forever Quiet helpers — GEBOUWD, wacht op test (`/reload`)
+
+Rob via Sparring: *"Even kijken. 1 ja. 2 ja. 3 ja."* (1 = deze, 2 = klik-heals Forever, 3 = Midnight-commando's verbergen).
+- ForeverOverview QUIET (kopje Screen): missing buff icon, upgrade in je tas, pijlgrootte (nieuw: `cycle`-rij, klik =
+  volgende maat, rechtsklik = vorige; FOV_TIP_CYCLE 7 talen), meters, minimap-icoon, quick bar + zoekwoorden.
+  GEMETEN dat elk in Forever werkt: MissingBuff.lua:244 Forever-tak, PickupUpgrade.lua:129, NativeArrow.lua:984/1013,
+  QuickBar.lua:357, Broker.lua:412.
+- Tekstgrootte NIET toegevoegd: GEMETEN dat geen Forever-bestand ns.MHScalableFont gebruikt (grep; positieve controle 51
+  retail-bestanden wel) → in Forever-vensters doet hij niets.
+- Volgende: opdracht 3 (commando's), dan 2 (klik-heals).
+
 ## ▶▶ 26 nov (Bouwchat 26-11): Move secret-veilig + castbalken in Move + cast-waarschuwing vindbaar in Forever — GEBOUWD, wacht op test (`/reload`)
 
 Rob via Sparring (Forever, BugSack MoveMode.lua:144 "attempt to compare a secret number value", el =

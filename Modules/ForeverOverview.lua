@@ -767,9 +767,33 @@ local function MakeSwitch(parent, def, w)
 	t:SetWidth(w - 60)
 	t:SetText(ns:L(def.title))
 	local hover = HoverOver(parent, t, ns:L(def.title), ns:L(def.tip))
-	local chip = Tip(S.Chip(parent, "", nil, 52), ns:L(def.title), ns:L("FOV_TIP_SWITCH"))
-	chip:SetScript("OnMouseUp", function()
-		def.set(not def.get())
+	local chip = Tip(S.Chip(parent, "", nil, 52), ns:L(def.title), ns:L(def.cycle and "FOV_TIP_CYCLE" or "FOV_TIP_SWITCH"))
+	chip:SetScript("OnMouseUp", function(_, button)
+		if def.cycle then
+			-- 26 Nov 2026: a value instead of on/off (arrow size). Click = next step, right-click = the one before.
+			local cur, list = tonumber(def.get()) or def.cycle[1], def.cycle
+			local pick
+			if button == "RightButton" then
+				for i = #list, 1, -1 do
+					if list[i] < cur - 0.01 then
+						pick = list[i]
+						break
+					end
+				end
+				pick = pick or list[#list]
+			else
+				for i = 1, #list do
+					if list[i] > cur + 0.01 then
+						pick = list[i]
+						break
+					end
+				end
+				pick = pick or list[1]
+			end
+			def.set(pick)
+		else
+			def.set(not def.get())
+		end
 		ns.ForeverOverviewFill(true)
 	end)
 	return { text = t, chip = chip, hover = hover, def = def }
@@ -777,6 +801,12 @@ end
 
 --- Show the switch's state on its chip; returns the row height its text needs.
 local function FillSwitch(s)
+	if s.def.cycle then
+		s.chip.t:SetText(s.def.fmt and s.def.fmt(s.def.get()) or tostring(s.def.get()))
+		local r, g, b = Accent()
+		s.chip:SetColor(r, g, b)
+		return math.max(22, (s.text:GetStringHeight() or 16) + 8)
+	end
 	local on = s.def.get() and true or false
 	s.chip.t:SetText(ns:L(on and "FOV_SWITCH_ON" or "FOV_SWITCH_OFF"))
 	if on then
@@ -1428,6 +1458,32 @@ local QUIET = {
 	{ action = true, title = "SET_CS_PREVIEW", tip = "SET_CS_DESC",
 		fn = function() if ns.TestCombatSafety then ns.TestCombatSafety() end end },
 	{ head = "FOV_Q_HEAD_SCREEN" },
+	-- 26 Nov 2026 (Rob via Sparring: "1 ja"): settings that work in Forever but were only in Blizzard's settings panel.
+	-- Same functions as SettingsDefs.lua; each read in its module (MissingBuff.lua:244 Forever branch, PickupUpgrade.lua:129,
+	-- NativeArrow.lua:984/1013, Broker.lua, QuickBar.lua:357). Text size is NOT here: the Forever windows do not use
+	-- MH's scalable fonts (no Forever file calls ns.MHScalableFont, measured with a grep).
+	Q("SET_MBUFF_TOGGLE_TITLE", "SET_MBUFF_TOGGLE_DESC", {
+		get = function() return ns.IsMissingBuffEnabled and ns.IsMissingBuffEnabled() end,
+		set = function(on) if ns.SetMissingBuffEnabled then ns.SetMissingBuffEnabled(on) end end }),
+	Q("SET_PICKUP_TITLE", "SET_PICKUP_DESC", {
+		get = function() return not (ns.db and ns.db.pickupUpgrade == false) end,
+		set = function(on) if ns.db then ns.db.pickupUpgrade = on and true or false end end }),
+	{ title = "SET_ARROWSIZE_TITLE", tip = "SET_ARROWSIZE_DESC", cycle = { 40, 52, 64, 80, 100, 128, 160 },
+		get = function() return ns.GetNativeArrowSize and ns.GetNativeArrowSize() or 64 end,
+		set = function(v)
+			if ns.SetNativeArrowSize then ns.SetNativeArrowSize(v) end
+			if ns.PreviewNativeArrow then ns.PreviewNativeArrow(3) end
+		end,
+		fmt = function(v) return tostring(math.floor((tonumber(v) or 0) + 0.5)) end },
+	Q("SET_ARROWUNIT_TITLE", "SET_ARROWUNIT_DESC", {
+		get = function() return ns.GetNativeArrowMeters and ns.GetNativeArrowMeters() end,
+		set = function(on) if ns.SetNativeArrowMeters then ns.SetNativeArrowMeters(on) end end }),
+	Q("SETTINGS_MINIMAP_ICON", "SETTINGS_MINIMAP_ICON_TT", {
+		get = function() return ns.IsMinimapIconShown and ns.IsMinimapIconShown() end,
+		set = function(on) if ns.SetMinimapIconShown then ns.SetMinimapIconShown(on) end end }),
+	Q("SETTINGS_QUICKBAR", "SETTINGS_QUICKBAR_TT", {
+		get = function() return ns.IsQuickBarShown and ns.IsQuickBarShown() end,
+		set = function(on) if ns.SetQuickBarShown then ns.SetQuickBarShown(on) end end }),
 	-- 18 Nov 2026: the open-this-box button (Openables.lua). On by default: it only appears when a bag holds something
 	-- you can open, and hides in combat.
 	Q("FOV_Q_OPENABLES", "FOV_Q_OPENABLES_DESC", {
@@ -1467,6 +1523,12 @@ local QUIET_WORDS = {
 	SET_CS_BARS_TITLE = "cast bar bars castbar dangerous warning enemy spell interrupt move",
 	SET_CS_IMPORTANT_TITLE = "cast casts important dangerous warning enemy spell",
 	SET_CS_SPEAK_TITLE = "cast casts speak voice tts text to speech dangerous warning",
+	SET_MBUFF_TOGGLE_TITLE = "buff buffs missing icon reminder",
+	SET_PICKUP_TITLE = "upgrade loot bag bags gear notice better",
+	SET_ARROWSIZE_TITLE = "arrow size bigger smaller route",
+	SET_ARROWUNIT_TITLE = "arrow meters metres yards distance route",
+	SETTINGS_MINIMAP_ICON = "minimap icon button",
+	SETTINGS_QUICKBAR = "quick bar quickbar buttons reload",
 }
 for _, q in ipairs(QUIET) do
 	if q.title and QUIET_WORDS[q.title] then

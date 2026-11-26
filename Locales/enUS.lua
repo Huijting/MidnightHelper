@@ -6169,6 +6169,7 @@ ns._mhLocales.enUS = {
 	FOV_KEYS_SW_MO = "Mouseover on the key block",
 	FOV_TIP_KEYS_SW_MO = "On: heals and buffs on your key block go to the friend under your mouse, roots and crowd control to the enemy under your mouse. Nothing under the mouse: the key works as before. Same as /mh mouseover on|off.",
 	FOV_TIP_SWITCH = "Click to switch it on or off.",
+	FOV_TIP_CYCLE = "Click for the next size, right-click for the one before.",
 	FOV_SWITCH_ON = "ON",
 	FOV_SWITCH_OFF = "OFF",
 	FOV_TIP_CARD_MACROS = "Ready macros for this character. Make puts one in your macro list; you drag it to a bar yourself.",
