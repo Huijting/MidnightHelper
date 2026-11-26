@@ -983,7 +983,7 @@ Desde el nivel 1 (Descarga de las Sombras e Inmolar). Grandes golpes de fuego y 
 Desde el nivel 1: Luz Sagrada la tienes desde el principio. Un **sanador** mantiene vivo al grupo. Las guías dicen que Sagrado es el árbol más lento para subir de nivel en solitario: sube de nivel como Reprensión y cura en mazmorras, o juega como Sagrado con un amigo. Los botones propios del árbol llegan en el 20 (Favor divino), el 25 (Juramento de luz), el 30 (Choque Sagrado) y el 40 (Vigilia de la Luz).
 **Orden sencillo (en grupo):**
 Antes del pull: Bendición de Sabiduría (**Shift-V**, desde el 14) sobre ti, Bendición de los Reyes (**Shift-X**, desde el 20) sobre los demás. Aura: Aura de devoción (**Ctrl-1**), o Aura de concentración (**Ctrl-3**, desde el 22) cuando a los lanzadores los golpean mucho.
-1. Juramento de luz (**Shift-R**, desde el 25) en el tanque. Dura 5 minutos, y solo un jugador puede tenerlo.
+1. Juramento de luz (**Shift-R**, desde el 25) en el tanque. Dura 1 hora, y solo un jugador puede tenerlo.
 2. Destello de Luz (**F2**, desde el 20) es tu cura normal. Antes del 20: Luz Sagrada (**C**).
 3. Luz Sagrada (**C**) para un golpe grande. Desde el 25 (Infusión de Luz) se lanza más rápido justo después de un crítico de Choque Sagrado o de Destello de Luz. **Crítico** = un golpe o una cura de suerte, más fuerte.
 4. Choque Sagrado (**F4**, desde el 30) cuando no hay tiempo para lanzar, o mientras te mueves.

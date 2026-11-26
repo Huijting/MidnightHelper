@@ -984,7 +984,7 @@ From level 1 (Shadow Bolt and Immolate). Big fire and shadow hits, and it costs 
 From level 1: Holy Light is there from the start. A **healer** keeps the group alive. The guides call Holy the slowest tree to level alone: level as Retribution and heal in dungeons, or play Holy with a friend. The tree's own buttons come at 20 (Divine Favor), 25 (Oath of Light), 30 (Holy Shock) and 40 (Light's Vigil).
 **Simple order (in a group):**
 Before the pull: Blessing of Wisdom (**Shift-V**, from 14) on yourself, Blessing of Kings (**Shift-X**, from 20) on the others. Aura: Devotion Aura (**Ctrl-1**), or Concentration Aura (**Ctrl-3**, from 22) when casters get hit a lot.
-1. Oath of Light (**Shift-R**, from 25) on the tank. It lasts 5 minutes, and only one player can have it.
+1. Oath of Light (**Shift-R**, from 25) on the tank. It lasts 1 hour, and only one player can have it.
 2. Flash of Light (**F2**, from 20) is your normal heal. Before 20: Holy Light (**C**).
 3. Holy Light (**C**) for a big hit. From 25 (Infusion of Light) it casts faster right after a crit of Holy Shock or Flash of Light. **Crit** = a lucky, stronger hit or heal.
 4. Holy Shock (**F4**, from 30) when there is no time to cast, or while you move.

@@ -25,6 +25,12 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 26 nov — FOREVER: Oath of Light duurt nu 1 uur (Blizzard-hotfix 25 nov; Rob: "Ja, ik zeg ja op 1 en 2.")
+
+Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. NIET in het spel getest.
+- [ ] Paladin: How you play → de Holy-volgorde, stap 1. Daar staat nu "It lasts 1 hour" (was "5 minutes").
+- [ ] Cast Oath of Light op iemand en kijk naar de buff: duurt hij echt 60 minuten? (Wowhead zegt ja.)
+
 ## 26 nov — FOREVER: trainerpijl kiest op reistijd, met Teleport: Moonglade (Rob: "4493 meter verderop … dat moet beter kunnen haha")
 
 Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (trainroute_test 6), NIET in het spel.

@@ -979,7 +979,7 @@ A partir do nível 1 (Seta Sombria e Imolação). Golpes grandes de fogo e de so
 A partir do nível 1: Luz Sagrada está lá desde o começo. Um **curandeiro** mantém o grupo vivo. Os guias dizem que Sagrado é a árvore mais lenta para subir de nível sozinho: suba de nível como Retribuição e cure em masmorras, ou jogue Sagrado com um amigo. Os botões próprios da árvore vêm no 20 (Favorecimento Divino), 25 (Juramento de Luz), 30 (Choque Sagrado) e 40 (Luz Zelosa).
 **Ordem simples (em grupo):**
 Antes de puxar: Bênção de Sabedoria (**Shift-V**, a partir do 14) em você mesmo, Bênção dos Reis (**Shift-X**, a partir do 20) nos outros. Aura: Aura de Devoção (**Ctrl-1**), ou Aura de Concentração (**Ctrl-3**, a partir do 22) quando os conjuradores levam muitos golpes.
-1. Juramento de Luz (**Shift-R**, a partir do 25) no tanque. Dura 5 minutos, e só um jogador pode ter.
+1. Juramento de Luz (**Shift-R**, a partir do 25) no tanque. Dura 1 hora, e só um jogador pode ter.
 2. Clarão de Luz (**F2**, a partir do 20) é sua cura normal. Antes do 20: Luz Sagrada (**C**).
 3. Luz Sagrada (**C**) para um golpe grande. A partir do 25 (Infusão de Luz), ela é lançada mais rápido logo depois de um crítico de Choque Sagrado ou Clarão de Luz. **Crítico** = um golpe ou uma cura de sorte, mais forte.
 4. Choque Sagrado (**F4**, a partir do 30) quando não há tempo para lançar, ou enquanto você se move.

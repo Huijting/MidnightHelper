@@ -980,7 +980,7 @@ Dès le niveau 1 (Trait de l'ombre et Immolation). De gros coups de feu et d'omb
 Dès le niveau 1 : Lumière sacrée est là dès le début. Un **soigneur** garde le groupe en vie. Les guides disent que Sacré est l'arbre le plus lent pour monter de niveau seul : monte de niveau en Vindicte et soigne en donjon, ou joue Sacré avec un ami. Les boutons propres à l'arbre arrivent au 20 (Faveur divine), au 25 (Serment de lumière), au 30 (Horion sacré) et au 40 (Vigile de Lumière).
 **Ordre simple (en groupe) :**
 Avant d'attirer : Bénédiction de sagesse (**Shift-V**, dès 14) sur toi, Bénédiction des rois (**Shift-X**, dès 20) sur les autres. Aura : Aura de dévotion (**Ctrl-1**), ou Aura de concentration (**Ctrl-3**, dès 22) quand les lanceurs de sorts sont souvent frappés.
-1. Serment de lumière (**Shift-R**, dès 25) sur le tank. Il dure 5 minutes, et un seul joueur peut l'avoir.
+1. Serment de lumière (**Shift-R**, dès 25) sur le tank. Il dure 1 heure, et un seul joueur peut l'avoir.
 2. Eclair lumineux (**F2**, dès 20) est ton soin normal. Avant 20 : Lumière sacrée (**C**).
 3. Lumière sacrée (**C**) pour un gros coup. Dès 25 (Imprégnation de lumière), elle s'incante plus vite juste après un critique d'Horion sacré ou d'Eclair lumineux. **Critique** = un coup ou un soin chanceux, plus fort.
 4. Horion sacré (**F4**, dès 30) quand il n'y a pas le temps d'incanter, ou pendant que tu bouges.

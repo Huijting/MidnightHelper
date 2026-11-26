@@ -975,7 +975,7 @@ Vanaf level 1 (Shadow Bolt en Immolate). Grote vuur- en shadow-klappen, en hij k
 Vanaf level 1: Holy Light heb je vanaf het begin. Een **healer** houdt de groep in leven. De gidsen noemen Holy de traagste boom om alleen te levelen: level als Retribution en heal in dungeons, of speel Holy samen met een vriend. De eigen knoppen van de boom komen op 20 (Divine Favor), 25 (Oath of Light), 30 (Holy Shock) en 40 (Light's Vigil).
 **Simpele volgorde (in een groep):**
 Vóór de pull: Blessing of Wisdom (**Shift-V**, vanaf 14) op jezelf, Blessing of Kings (**Shift-X**, vanaf 20) op de anderen. Aura: Devotion Aura (**Ctrl-1**), of Concentration Aura (**Ctrl-3**, vanaf 22) als casters veel geraakt worden.
-1. Oath of Light (**Shift-R**, vanaf 25) op de tank. Hij duurt 5 minuten, en maar één speler kan hem hebben.
+1. Oath of Light (**Shift-R**, vanaf 25) op de tank. Hij duurt 1 uur, en maar één speler kan hem hebben.
 2. Flash of Light (**F2**, vanaf 20) is je gewone heal. Vóór 20: Holy Light (**C**).
 3. Holy Light (**C**) voor een grote klap. Vanaf 25 (Infusion of Light) cast hij sneller vlak na een crit van Holy Shock of Flash of Light. **Crit** = een sterkere geluksklap of geluksheal.
 4. Holy Shock (**F4**, vanaf 30) als er geen tijd is om te casten, of terwijl je loopt.

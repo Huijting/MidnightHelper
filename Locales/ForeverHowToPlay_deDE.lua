@@ -982,7 +982,7 @@ Ab Stufe 1 (Schattenblitz und Feuerbrand). Große Feuer- und Schattentreffer, un
 Ab Stufe 1: Heiliges Licht hast du von Anfang an. Ein **Heiler** hält die Gruppe am Leben. Die Guides nennen Heilig den langsamsten Baum, um allein zu leveln: Level als Vergeltung und heile in Dungeons, oder spiel Heilig mit einem Freund. Die eigenen Tasten des Baums kommen mit 20 (Göttliche Gunst), 25 (Eid des Lichts), 30 (Heiliger Schock) und 40 (Lichtwacht).
 **Einfache Reihenfolge (in einer Gruppe):**
 Vor dem Pull: Segen der Weisheit (**Shift-V**, ab 14) auf dich, Segen der Könige (**Shift-X**, ab 20) auf die anderen. Aura: Aura der Hingabe (**Ctrl-1**), oder Aura der Konzentration (**Ctrl-3**, ab 22), wenn Zauberwirker oft getroffen werden.
-1. Eid des Lichts (**Shift-R**, ab 25) auf den Tank. Er hält 5 Minuten, und nur ein Spieler kann ihn haben.
+1. Eid des Lichts (**Shift-R**, ab 25) auf den Tank. Er hält 1 Stunde, und nur ein Spieler kann ihn haben.
 2. Lichtblitz (**F2**, ab 20) ist deine normale Heilung. Vor 20: Heiliges Licht (**C**).
 3. Heiliges Licht (**C**) für einen großen Treffer. Ab 25 (Lichtinfusion) wird es schneller gewirkt, direkt nach einem kritischen Treffer von Heiliger Schock oder Lichtblitz. **Kritischer Treffer** = ein glücklicher, stärkerer Treffer oder eine stärkere Heilung.
 4. Heiliger Schock (**F4**, ab 30), wenn keine Zeit zum Zaubern ist, oder während du dich bewegst.

@@ -218,6 +218,8 @@ In a group:
    Icy Veins Holy (4 Nov).
 3. Oath of Light (**Shift-R**, from 25) on the tank; it lasts 5 minutes. — GIDS Icy Veins (4 Nov) "Maintain Oath of
    Light on your Tank at all times"; ConquestCapped Holy (13 Nov). Duration GEMETEN.
+   ⚠️ 26 nov: Forever-hotfix 25 nov zet de duur op 60 minuten. GEMETEN: Wowhead Forever-tooltip "for 1 hour"; DB2
+   71139 SpellMisc DurationIndex 5 = nog 300000 ms (de hotfix zit niet in de DB2-bestanden). Spelerstekst nu "1 hour".
 4. Flash of Light (**F2**, from 20) is your normal heal. Before 20: Holy Light (**C**). — GIDS Icy Veins (4 Nov),
    ConquestCapped (13 Nov).
 5. Holy Light (**C**) for a big hit. From 25 (Infusion of Light): best right after a crit, then it casts 1 s faster.
@@ -381,7 +383,7 @@ Trainer and quests: GEMETEN (`ForeverTrainerData.lua`, `ForeverClassQuests.lua`)
    foreversixty.gg ("1,340 mana").
 3. Light's Vigil on one player and Holy Shock on another. The party heal only comes from Holy Shock on the SAME
    player. — GEMETEN (spell 1310911 text).
-4. Forgetting Oath of Light on the tank, or expecting it on two players. One Oath at a time, 5 minutes. — GEMETEN;
+4. Forgetting Oath of Light on the tank, or expecting it on two players. One Oath at a time, 5 minutes (1 hour since the 25 Nov hotfix, see step 3). — GEMETEN;
    GIDS Icy Veins (4 Nov).
 5. Lay on Hands while you still need mana. It takes all the mana you have left. — GEMETEN (spell 633 text).
 6. Blessing of Protection on the tank. The tank cannot attack while it lasts. — GEMETEN (spell 1022 text); GIDS
