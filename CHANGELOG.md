@@ -4,8 +4,9 @@ All notable changes to this project are documented in this file.
 
 ## 5.11.0
 
-📌 **2026-11-26, KLAARGEZET, NIET GETAGD (Rob via Sparring 26-11, letterlijk: "Zet maar vast klaar dan test ik midnight
-vanavond na het diner").** Tag pas op Robs letterlijke "release 5.11.0". In-game: CHANGELOG_5110_1 t/m _8.
+📌 **2026-11-26, RELEASE (Rob via Sparring 26-11, letterlijk: "release 5.11.0 en duidelijk maken als mensen de eerste
+keer opstarten wat er verandert is :)"; geen beta).** Tag v5.11.0 op ce0ad85; CF-bestanden 9833686 (Midnight) en 9833709
+(Forever). Voorbereid op "Zet maar vast klaar dan test ik midnight vanavond na het diner". In-game: CHANGELOG_5110_1 t/m _8.
 `RELEASE_NOTES.md` = `docs/CURSEFORGE_5.11.0.md` (zonder beta-zin, zoals 5.10.0). Commits v5.10.0..HEAD (26 nov). Nieuwe
 bestanden (ClickCard.lua, ForeverClickCast.lua, ForeverClassQuestAreas.lua) → herstart.
 Getest door Rob in het spel: klikkaart (lagen, tooltips, Shift+scroll), klik-heals op Alt, print via /keyblock/, castbalken

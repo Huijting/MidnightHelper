@@ -28,11 +28,12 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
-## 26 nov 2026 — 5.11.0 KLAARGEZET (alle regels van 26 nov hieronder), NOG NIET GETAGD
-- Tag + commit:   geen tag (v5.11.0 komt pas op Robs letterlijke "release 5.11.0"; hij test eerst Midnight)
-- Status:         alleen op main
-- Mag op de site: nee, niet als "nieuw": pas bij "staat op CurseForge". Release-tekst klaar: `docs/CURSEFORGE_5.11.0.md`
-                  (= `RELEASE_NOTES.md`), voor het nieuws op de homepage zodra hij uit is.
+## 26 nov 2026 — RELEASE 5.11.0 (alle regels van 26 nov hieronder) — STAAT OP CURSEFORGE
+- Tag + commit:   v5.11.0 / ce0ad85 (run 45891560799 groen)
+- Status:         staat op CurseForge (bestanden 9833686 Midnight, 9833709 Forever; Release; GEMETEN via de CF-API)
+- Mag op de site: ja (Rob via Sparring: *"release 5.11.0 en duidelijk maken als mensen de eerste keer opstarten wat er
+                  verandert is :)"*). Nieuws voor de homepage: `docs/CURSEFORGE_5.11.0.md` (= `RELEASE_NOTES.md`).
+                  Cijferstrook: versie 5.11.0, datum 26 nov 2026.
 - Speler ziet:    alles van 26 nov hieronder (klikkaart + print, klik-heals Forever, reisplanner met flight paths en
                   routepaneel, class quests, rares, na je dood, gear-%, Your race, bedanken na gevecht, Move, toetsblok).
 - Knoplabels:     zie de regels hieronder
@@ -40,8 +41,8 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 - Spel:           allebei
 
 ## 26 nov 2026 — Forever: de volledige naam in `char=` (voor- en achternaam i.p.v. alleen de voornaam)
-- Tag + commit:   geen tag (git log 26 nov, "whole name")
-- Status:         alleen op main
+- Tag + commit:   v5.11.0 / ce0ad85 (git log 26 nov, "whole name")
+- Status:         staat op CurseForge (v5.11.0)
 - Mag op de site: ja; "nieuw" pas bij "staat op CurseForge"
 - Speler ziet:    Op de spiekbrief staat "Which click heals what · <voornaam achternaam>", niet meer alleen de
                   voornaam. Rob: *"Dus dan moet hier ook wel de achternaam bij komen."*
@@ -54,8 +55,8 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
                   alleen de voornaam en een nieuwe met de hele naam zijn twee items; dat is goed, de oude mag weg.
 
 ## 26 nov 2026 — Forever-macro's in de toetsblok-code dragen nu hun spell
-- Tag + commit:   geen tag (git log 26 nov, "MH macros carry their spell")
-- Status:         alleen op main
+- Tag + commit:   v5.11.0 / ce0ad85 (git log 26 nov, "MH macros carry their spell")
+- Status:         staat op CurseForge (v5.11.0)
 - Mag op de site: ja (parser/blad); "nieuw" pas bij "staat op CurseForge"
 - Speler ziet:    Op de spiekbrief staan bij een Forever-character nu de spells achter MH's macro's (Wrath, Moonfire …),
                   niet meer een leeg vak.
@@ -67,8 +68,8 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
                   eigen macro, of een oude code.
 
 ## 26 nov 2026 — Toetsblok-code draagt nu ook je klik-heals (`clicks=` + K-regels) — SITE-WERK NODIG
-- Tag + commit:   geen tag (zie git log, 26 nov, "cheat sheet carries the clicks")
-- Status:         alleen op main
+- Tag + commit:   v5.11.0 / ce0ad85 (zie git log, 26 nov, "cheat sheet carries the clicks")
+- Status:         staat op CurseForge (v5.11.0)
 - Mag op de site: ja, de PARSER en het printblad mogen al (oude codes en codes zonder klikken blijven gewoon werken);
                   als "nieuw" melden pas bij "staat op CurseForge". Rob (via Sparring): *"Zodat ik een printout, fysieke
                   printout kan hebben. Die ik naast me kan leggen."*
@@ -84,9 +85,9 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
                   Eerste regel blijft "MH-KEYBLOCK 1". Bron: KeyBlock.lua (commentaar boven BuildKeyBlockExport).
 
 ## 26 nov 2026 — Forever: class quest wijst naar het dichtstbijzijnde gebied; item-tooltip met je andere characters
-- Tag + commit:   geen tag (commits van die dag)
-- Status:         alleen op main
-- Mag op de site: nee (niet uit)
+- Tag + commit:   v5.11.0 / ce0ad85 (commits van die dag)
+- Status:         staat op CurseForge (v5.11.0)
+- Mag op de site: ja (v5.11.0 staat op CurseForge; Rob: "release 5.11.0")
 - Speler ziet:    Een class-queststap waar je beesten moet doden of iets moet verzamelen dat op meer plekken te vinden is,
                   wijst naar het gebied dat je het snelst bereikt ("3 areas, this one is nearest"). Muis op een stap die
                   een item vraagt (Earthroot): de tooltip van het spel, hoeveel je hebt, en welke andere characters het
@@ -96,9 +97,9 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 - Spel:           Forever
 
 ## 26 nov 2026 — Forever: venster na je dood
-- Tag + commit:   geen tag (3969613, fix 66cd4e2, 9b835ee)
-- Status:         alleen op main
-- Mag op de site: nee (niet uit)
+- Tag + commit:   v5.11.0 / ce0ad85 (3969613, fix 66cd4e2, 9b835ee)
+- Status:         staat op CurseForge (v5.11.0)
+- Mag op de site: ja (v5.11.0 staat op CurseForge; Rob: "release 5.11.0")
 - Speler ziet:    Ga je dood, dan zegt een venster hoe ver je lijk is en hoe lang je als geest loopt (telt af), of het
                   de moeite is om terug te lopen, en wat de Spirit Healer op jouw level kost (Resurrection Sickness-minuten
                   en 25% durability). Knop: pijl naar je lijk. Wegklikken = weg voor die dood. *(getest door Rob: venster
@@ -108,9 +109,9 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 - Spel:           Forever
 
 ## 26 nov 2026 — Forever: rare-venster, rare in 3D, en wat jij uit een rare lootte
-- Tag + commit:   geen tag (rare-venster: commit van die dag; 3D edfaa3b; loot 9b835ee)
-- Status:         alleen op main
-- Mag op de site: nee (niet uit, niet getest)
+- Tag + commit:   v5.11.0 / ce0ad85 (rare-venster: commit van die dag; 3D edfaa3b; loot 9b835ee)
+- Status:         staat op CurseForge (v5.11.0)
+- Mag op de site: ja (v5.11.0 staat op CurseForge; Rob: "release 5.11.0")
 - Speler ziet:    Komt een rare in beeld (naamplaatje, target, muis), dan een klein venster met naam, level, zone en
                   waarom hij de moeite is, met knoppen Target / Show in Find / Waypoint, en de rare draaiend in 3D. In
                   Find draait de rare naast het venster als je de muis op zijn naam zet. MH onthoudt zelf wat jij uit een
@@ -120,9 +121,9 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 - Spel:           Forever
 
 ## 26 nov 2026 — Forever: klikkaart (welke klik welke heal is)
-- Tag + commit:   geen tag (commits van die dag, laatste b96bbbb)
-- Status:         alleen op main
-- Mag op de site: nee (niet uit; Rob zag hem werken en gaf 5 verbeterpunten, die zijn gedaan)
+- Tag + commit:   v5.11.0 / ce0ad85 (commits van die dag, laatste b96bbbb)
+- Status:         staat op CurseForge (v5.11.0)
+- Mag op de site: ja (v5.11.0 staat op CurseForge; Rob: "release 5.11.0")
 - Speler ziet:    Een grafische kaart met een muis: welke heal of dispel op links, rechts, middel en met Shift/Ctrl/Alt
                   staat, live uit DandersFrames (of MH's eigen indeling). Houd je Shift/Ctrl/Alt in, dan licht die laag op.
                   Staat ook in Midnight (knop op de speelkaart). Zegt ook welke spell je nog niet hebt en waar je hem leert.
@@ -131,9 +132,9 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 - Spel:           allebei
 
 ## 26 nov 2026 — Forever: reisplanner — routepaneel, "MH: fly here" op de vliegkaart, boten en zeppelins op hun klok
-- Tag + commit:   geen tag (commits van die dag)
-- Status:         alleen op main
-- Mag op de site: nee (niet uit, niet getest)
+- Tag + commit:   v5.11.0 / ce0ad85 (commits van die dag)
+- Status:         staat op CurseForge (v5.11.0)
+- Mag op de site: ja (v5.11.0 staat op CurseForge; Rob: "release 5.11.0")
 - Speler ziet:    Naast de pijl staan de stappen van je route (lopen, vliegen, boot, teleport) met de tijd. Op de
                   vliegkaart van de flight master staat een ring om de plek waar MH je heen wil sturen ("MH: fly here").
                   MH leert je echte vluchttijden en wanneer boten en zeppelins vertrekken, en rekent daar mee.
@@ -142,9 +143,9 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 - Spel:           Forever
 
 ## 26 nov 2026 — Forever: heals met een klik op DandersFrames; Midnight-commando's weg uit Forever; 5 instellingen erbij
-- Tag + commit:   geen tag (commit: deze regel)
-- Status:         alleen op main
-- Mag op de site: nee (niet uit, niet getest)
+- Tag + commit:   v5.11.0 / ce0ad85 (commit: deze regel)
+- Status:         staat op CurseForge (v5.11.0)
+- Mag op de site: ja (v5.11.0 staat op CurseForge; Rob: "release 5.11.0")
 - Speler ziet:    Forever: met DandersFrames zet MH je heals, dispels en res op muisklikken op je groepsframes (Druid,
                   Priest, Paladin, Shaman), en werkt dat bij als je een spell leert; linksklik blijft standaard target.
                   Commando's die alleen in Midnight werken staan niet meer in de Forever-lijst. In Quiet helpers ook:
@@ -154,9 +155,9 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 - Spel:           Forever
 
 ## 26 nov 2026 — castbalken te verplaatsen met Move; cast-waarschuwing vindbaar in Forever
-- Tag + commit:   geen tag (commit: deze regel)
-- Status:         alleen op main
-- Mag op de site: nee (niet uit, niet getest)
+- Tag + commit:   v5.11.0 / ce0ad85 (commit: deze regel)
+- Status:         staat op CurseForge (v5.11.0)
+- Mag op de site: ja (v5.11.0 staat op CurseForge; Rob: "release 5.11.0")
 - Speler ziet:    De Move-schakelaar geeft geen foutmelding meer en kan nu ook de castbalken van de waarschuwing voor
                   gevaarlijke casts verplaatsen (met voorbeeldbalken). In Forever staan de schakelaars van die
                   waarschuwing nu in Quiet helpers (kopje Combat warnings) en in de zoekbalk.
@@ -166,9 +167,9 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 - Spel:           allebei (Move); Forever (Quiet helpers)
 
 ## 26 nov 2026 — Forever: flight paths in de route + "zo kom je er" op het class-questkaartje
-- Tag + commit:   geen tag (commit: deze regel)
-- Status:         alleen op main
-- Mag op de site: nee (niet uit, niet getest)
+- Tag + commit:   v5.11.0 / ce0ad85 (commit: deze regel)
+- Status:         staat op CurseForge (v5.11.0)
+- Mag op de site: ja (v5.11.0 staat op CurseForge; Rob: "release 5.11.0")
 - Speler ziet:    Elke pijl in Forever kan nu ook vliegen: "the flight master in Orgrimmar: fly to Thunder Bluff" en de
                   pijl wijst eerst naar die flight master. Alleen naar flight points die jouw character kent. Het
                   class-questkaartje zegt onder de plek hoe je er komt ("The way there: …, about N min").
@@ -178,9 +179,9 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 - Spel:           Forever
 
 ## 26 nov 2026 — Forever: trainerpijl op reistijd (Teleport: Moonglade, boten, zeppelins)
-- Tag + commit:   geen tag (commit: deze regel)
-- Status:         alleen op main
-- Mag op de site: nee (niet uit, niet getest)
+- Tag + commit:   v5.11.0 / ce0ad85 (commit: deze regel)
+- Status:         staat op CurseForge (v5.11.0)
+- Mag op de site: ja (v5.11.0 staat op CurseForge; Rob: "release 5.11.0")
 - Speler ziet:    De pijl naar je trainer kiest de trainer die je het snelst bereikt en zegt de weg: "cast Teleport:
                   Moonglade" voor een Druid, of de zeppelin/boot, met "about N min". Ook trainers op een ander continent.
                   18 trainers erbij (o.a. Loganaar in Moonglade).
@@ -189,9 +190,9 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 - Spel:           Forever
 
 ## 26 nov 2026 — Forever: "Your race" in How you play
-- Tag + commit:   geen tag (commit: deze regel)
-- Status:         alleen op main
-- Mag op de site: nee (niet uit, niet getest; Fable-ronde vóór 5.10.1)
+- Tag + commit:   v5.11.0 / ce0ad85 (commit: deze regel)
+- Status:         staat op CurseForge (v5.11.0)
+- Mag op de site: ja (v5.11.0 staat op CurseForge; Rob: "release 5.11.0")
 - Speler ziet:    Onderaan tab Start van How you play een blok "Your race: Tauren" (of jouw ras): wat je race
                   abilities doen, en daaronder alleen wat er voor jouw class bij komt. Alle 10 rassen, ook Skyborne.
 - Knoplabels:     FRACE_TITLE_FMT, FRACE_FORCLASS_FMT
@@ -199,9 +200,9 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 - Spel:           Forever
 
 ## 26 nov 2026 — Forever: Gear check enchants: Legs erbij en vanzelf bijwerken
-- Tag + commit:   geen tag (commit: deze regel)
-- Status:         alleen op main
-- Mag op de site: nee (niet uit, niet getest)
+- Tag + commit:   v5.11.0 / ce0ad85 (commit: deze regel)
+- Status:         staat op CurseForge (v5.11.0)
+- Mag op de site: ja (v5.11.0 staat op CurseForge; Rob: "release 5.11.0")
 - Speler ziet:    De Gear check naast het character-venster toont nu ook Legs (armor kits). Head, Shoulder, Waist en
                   Ranged alleen als er iets op zit. Zet je een enchant of kit op wat je draagt, dan werkt het venster
                   meteen bij.
