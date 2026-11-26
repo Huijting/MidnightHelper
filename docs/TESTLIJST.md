@@ -34,9 +34,10 @@ HERSTART het spel één keer (nieuwe bestanden). Dit is het Midnight-deel; het F
       Glory / Flash of Light, other layers, "Print (website)", See-through): *"De eerste is goed"*.
 - [ ] Knop "Print (website)" op de klikkaart: het kopieervenster opent. Plakken op midnighthelper.com (Key block) geeft je
       toetsen en het vak met klikken.
-- [ ] `/mh move` (OPNIEUW, na de fix van 26 nov avond): de EERSTE keer meteen de balk én alle groene vakken; Done stopt
+- [x] `/mh move` (OPNIEUW, na de fix van 26 nov avond): de EERSTE keer meteen de balk én alle groene vakken; Done stopt
       hem; Escape ook. Geen "Dock to window" meer op de balk (over Done heen) en niet op de klikkaart naast het kruisje.
       ❌ eerder: eerste keer alleen de balk (Move zette zichzelf meteen uit), Done deed toen niets.
+      ✅ Rob, 26 nov (via Sparring): *"ik had de extra testen op midnight al gedaan, vandaar de release"* (ce0ad85).
 - [ ] Toetsblok: knop Undo zegt eerst wat hij doet; iets wat je zelf op een knop zette, blijft staan.
 
 ## 26 nov — Je hele naam op de spiekbrief ("Ima Druiddude")

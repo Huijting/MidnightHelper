@@ -9,8 +9,9 @@ met beide zips, geen prerelease. Wago: "Success!" in de log (niet apart nagemete
 "Eerste keer opstarten": GEMETEN dat dit al werkt in BEIDE games: Changelog.lua staat in beide toc's (136 / 85), opent bij
 PLAYER_ENTERING_WORLD als `lastSeenVersion` ≠ 5.11.0 (tenzij "nooit meer" = hideForever, of het keuzevenster neemt over met
 een knop ernaartoe). Bovenaan het 5.11.0-blok; elke regel begint met "Both games:" of "Forever:". Niets gebouwd.
-🔵 OPEN: Rob meldde nog niet of de laatste `/mh move`-test (ce0ad85: eerste keer meteen alle vakken, geen "Dock to window")
-goed ging. TESTLIJST bovenaan staat hij open. CURSEFORGE_DESCRIPTION.md moet Rob zelf op de CF-pagina plakken.
+✅ De `/mh move`-test (ce0ad85: eerste keer meteen alle vakken, geen "Dock to window") is goed: Rob via Sparring, *"ik had
+de extra testen op midnight al gedaan, vandaar de release"*. Nog open: CURSEFORGE_DESCRIPTION.md moet Rob zelf op de
+CF-pagina plakken.
 
 ## ▶▶ 26 nov avond (Bouwchat 26-11): Robs Midnight-check — Move eerste keer half + "Dock to window" weg (`/reload`)
 
