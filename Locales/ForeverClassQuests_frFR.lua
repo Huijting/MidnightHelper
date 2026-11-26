@@ -37,8 +37,8 @@ for k, v in pairs({
 	FCQ_OBJ_WL_SCARF = "vaincs des ennemis Sombretaillis autour du Lac Tombeciel jusqu'à ce qu'une Écharpe flétrie tombe",
 	FCQ_OBJ_WL_DALIN = "vaincs Dalin Forgewright pour le Coeur de Dalin",
 	FCQ_OBJ_WL_CORMA = "vaincs Corma Villard pour le Cœur de Corma",
-	FCQ_OBJ_WL_AVELINA = "obtiens le Cœur d’Avelina ici",
-	FCQ_OBJ_WL_ISAAC = "obtiens le Cœur d’Isaac ici",
+	FCQ_OBJ_WL_AVELINA = "vaincs Avelina ici pour le Cœur d’Avelina",
+	FCQ_OBJ_WL_ISAAC = "vaincs Isaac ici pour le Cœur d’Isaac",
 	FCQ_OBJ_WL_MOLDYTOME = "prends le Tome moisi ici",
 	FCQ_OBJ_WL_MANUSCRIPT = "prends le Manuscrit en lambeaux dans le Coffre endommagé, dans la grotte (entrée en 44.1, 37.3)",
 	FCQ_OBJ_WL_RODS = "vaincs des Gardiens Dragonmaw et des Veilleurs des ombres Dragonmaw pour 3 Bâtonnet de canalisation",
@@ -273,7 +273,7 @@ for k, v in pairs({
 	FCQ_OBJ_MA_LINEN = "il te faut aussi 10 Etoffe de lin (les humanoïdes en lâchent, ou achète-la à l'Hôtel des ventes)",
 	FCQ_OBJ_MA_TREATISE = "monte au dernier étage de la Tour d'Ilgalar et prends le Traité d'Ur sur la Magie des Ombres sur l'étagère",
 	-- not measured: Carrion Recluse
-	FCQ_OBJ_MA_SILK = "vaincs des araignées au Cimetière de Colline-aux-Corbeaux pour 8 Soie d'araignée en parfait état (les Carrion Recluses en lâchent le plus)",
+	FCQ_OBJ_MA_SILK = "vaincs des araignées au Cimetière de Colline-aux-Corbeaux pour 8 Soie d'araignée en parfait état",
 	FCQ_OBJ_MA_XAVIAN = "nage sous la plus haute cascade de Xavian et utilise la Flasque de Deino de tes sacs",
 	FCQ_OBJ_MA_SISTERS = "vaincs des Soeurs rieuses (des dryades) pour 12 Cheveu de Soeur rieuse",
 	FCQ_WAIT_MA_BOOK = "apporte d'abord n'importe quel livre de bibliothèque au bibliothécaire (les livres sont sur des tables et des étagères, partout dans le monde). Après ton premier livre, le bibliothécaire te propose Accès aux recherches",
@@ -297,11 +297,11 @@ for k, v in pairs({
 	FCQ_OBJ_MA_DEMON = "vaincs le Démon de l'Orbe dans le jardin de Tabetha : un élite de niveau 40, et la quête a un minuteur (viens avec de l'aide ou des potions)",
 	FCQ_OBJ_MA_POWERSOURCE = "dans le donjon Uldaman (il te faut un groupe ; cette porte de derrière est la plus proche), vaincs la Sentinelle d'obsidienne pour la Source d'énergie en obsidienne",
 	FCQ_OBJ_MA_SURGES = "vaincs 12 Eruptions de mana à côté de la maison de Tabetha avant la fin du temps",
-	FCQ_OBJ_MA_QUILL = "vaincs des chouettards pour 1 Plume de chouettard en parfait état (les Chouettards sauvages en lâchent le plus)",
+	FCQ_OBJ_MA_QUILL = "vaincs des chouettards pour 1 Plume de chouettard en parfait état",
 	FCQ_OBJ_MA_RESIN = "vaincs des insectes Zukk'ash dans le Gouffre grouillant pour 5 Résine de Zukk’ash",
 	-- not measured: Shallow Graves
 	FCQ_OBJ_MA_PAPYRUS = "dans le donjon Zul'Farrak (il te faut un groupe), obtiens 8 Papyrus farraki dans les Shallow Graves et sur les zombies qui en sortent",
-	FCQ_OBJ_MA_DUST = "vaincs des Géomètres et des Vengeurs elfes de sang pour 10 Poussière lumineuse",
+	FCQ_OBJ_MA_DUST = "vaincs des elfes de sang pour 10 Poussière lumineuse",
 	FCQ_OBJ_MA_CORAL = "vaincs des Sirènes Fouette-bile pour 6 Corail enchanté",
 	FCQ_OBJ_MA_SHARD = "dans le donjon Temple englouti (il te faut un groupe), obtiens le Fragment d'arcane sur Morphaz",
 	-- not measured: the dungeon name "Dire Maul - East" (only the place Hache-tripes is measured)

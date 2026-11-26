@@ -158,7 +158,7 @@ for k, v in pairs({
 	FCQ_OBJ_MA_COFFERS_H = "en el puente delante de la tienda del alquimista usa el Canto de manifestación, golpea a un Engendro de falla hasta que se quede aturdido, usa en él el Cofre de arcas de contención y haz clic en el Arca de contención llena del suelo. Necesitas 3",
 	FCQ_OBJ_MA_MANAGEMS = "derrota a magos de Dalaran alrededor de Molino Ámbar para conseguir 6 Gema de maná de Dalaran",
 	-- not measured esMX: Carrion Recluse (esES name kept)
-	FCQ_OBJ_MA_SILK = "derrota a arañas en el Cementerio del Cerro del Cuervo para conseguir 8 Seda prístina de araña (los Ermitaños carroñeros son los que más la sueltan)",
+	FCQ_OBJ_MA_SILK = "derrota a arañas en el Cementerio del Cerro del Cuervo para conseguir 8 Seda prístina de araña",
 	FCQ_WAIT_MA_BOOK = "primero lleva cualquier libro de la biblioteca al bibliotecario (los libros están en mesas y estanterías por el mundo). Después de tu primer libro, el bibliotecario te ofrece Acceso de investigación",
 	FCQ_OBJ_MA_STICKS = "derrota a Trols Secacorteza para conseguir 10 Palo totémico Secacorteza",
 	-- 18 Nov 2026: esMX client says Sanación inferior for spell 2052 (DB2 70959, measured; esES Curación inferior).

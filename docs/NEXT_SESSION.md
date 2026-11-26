@@ -1,5 +1,14 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 26 nov (Bouwchat 26-11): class-questteksten rechtgezet (`/reload`); GoldScout blijft eruit (Sparring: (a))
+
+- WL_AVELINA / WL_ISAAC: "kill Avelina/Isaac here for … Heart" (Wowhead Forever: dropped by 185333 / 185334).
+- MA_SILK en MA_QUILL: "(… drop it most)" weg: AFGELEID, en bij Quill van gemengde herkomst (POLESTAR_NAKIJK M23); geen
+  toegestane bron steunt het. MA_DUST: "defeat blood elves" (Zygor: "Blood Elf enemies").
+- Alle talen; de rasnaam per client GEMETEN (ChrRaces 10, 71139): Blutelf / Elfe de sang / Elfo de sangre / Elfo Sangrento /
+  Эльф крови (meervoud is van mij). esMX MA_SILK ook. check_drift: alleen de 2 oude drift-keys (GEARLADDER_FOOT,
+  MBUFF_EUI_OVERLAP_HINT), niets nieuws.
+
 ## ▶▶ 26 nov (Bouwchat 26-11): class-quest-gebieden DATA erin (HERSTART: nieuw bestand ForeverClassQuestAreas.lua)
 
 Alles in `docs/forever/CQ_AREAS_2026-11-26.md`. mh-research → `docs/forever/CQ_MOBS_2026-11-26.json` (87 doelen met npc's,

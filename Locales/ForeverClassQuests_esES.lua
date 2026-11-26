@@ -42,8 +42,8 @@ for k, v in pairs({
 	FCQ_OBJ_WL_SCARF = "derrota a enemigos Sombramatorral alrededor del Lago Cielo Estrellado hasta que caiga un Pañuelo deshilachado",
 	FCQ_OBJ_WL_DALIN = "derrota a Dalin Forjador para conseguir el Corazón de Dalin",
 	FCQ_OBJ_WL_CORMA = "derrota a Corma Villardo para conseguir el Corazón de Corma",
-	FCQ_OBJ_WL_AVELINA = "consigue aquí el Corazón de Avelina",
-	FCQ_OBJ_WL_ISAAC = "consigue aquí el Corazón de Isaac",
+	FCQ_OBJ_WL_AVELINA = "derrota aquí a Avelina para conseguir el Corazón de Avelina",
+	FCQ_OBJ_WL_ISAAC = "derrota aquí a Isaac para conseguir el Corazón de Isaac",
 	FCQ_OBJ_WL_MOLDYTOME = "toma el Escrito mohoso de aquí",
 	FCQ_OBJ_WL_MANUSCRIPT = "toma el Manuscrito andrajoso del Cofre dañado en la cueva (entrada en 44.1, 37.3)",
 	FCQ_OBJ_WL_RODS = "derrota a Guardahuesos Faucedraco y Pastores Faucedraco para conseguir 3 Vara de Mediación",
@@ -288,7 +288,7 @@ for k, v in pairs({
 	FCQ_OBJ_MA_MANAGEMS = "derrota a magos de Dalaran alrededor de Molino Ámbar para conseguir 6 Gema de maná Dalaran",
 	FCQ_OBJ_MA_LINEN = "también necesitas 10 Paño de lino (cae de humanoides, o cómpralo en la Casa de subastas)",
 	FCQ_OBJ_MA_TREATISE = "sube al último piso de la Torre de Ilgalar y toma de la estantería el Tratado de Ur sobre la magia de las Sombras",
-	FCQ_OBJ_MA_SILK = "derrota a arañas en el Cementerio del Cerro del Cuervo para conseguir 8 Seda de araña prístina (los Ermitaños carroñeros son los que más la sueltan)",
+	FCQ_OBJ_MA_SILK = "derrota a arañas en el Cementerio del Cerro del Cuervo para conseguir 8 Seda de araña prístina",
 	FCQ_OBJ_MA_XAVIAN = "nada hasta debajo de la cascada más alta de Xavian y usa el Frasco de Deino de tus bolsas",
 	-- not measured: Laughing Sister (the monster)
 	FCQ_OBJ_MA_SISTERS = "derrota a Laughing Sisters (dríadas) para conseguir 12 Cabello de la Hermana sonriente",
@@ -316,12 +316,12 @@ for k, v in pairs({
 	FCQ_OBJ_MA_POWERSOURCE = "en la mazmorra Uldaman (necesitas un grupo; esta puerta trasera es la más cercana), derrota al Centinela Obsidiano para conseguir la Fuente de poder obsidiano",
 	FCQ_OBJ_MA_SURGES = "derrota a 12 Oleadas de maná junto a la casa de Tabetha antes de que se acabe el tiempo",
 	-- not measured: Savage Owlbeast
-	FCQ_OBJ_MA_QUILL = "derrota a lechubestias para conseguir 1 Pluma de lechubestia prístina (los Savage Owlbeasts son los que más la sueltan)",
+	FCQ_OBJ_MA_QUILL = "derrota a lechubestias para conseguir 1 Pluma de lechubestia prístina",
 	FCQ_OBJ_MA_RESIN = "derrota a insectos Zukk'ash en Las Galerías Retorcidas para conseguir 5 Resina de Zukk'ash",
 	-- not measured: Shallow Grave
 	FCQ_OBJ_MA_PAPYRUS = "en la mazmorra Zul'Farrak (necesitas un grupo), consigue 8 Papiro farraki de las Shallow Graves y de los zombis que salen de ellas",
 	-- not measured: Blood Elf Surveyor, Blood Elf Reclaimer
-	FCQ_OBJ_MA_DUST = "derrota a Blood Elf Surveyors y Reclaimers para conseguir 10 Polvo relumbrante",
+	FCQ_OBJ_MA_DUST = "derrota a elfos de sangre para conseguir 10 Polvo relumbrante",
 	FCQ_OBJ_MA_CORAL = "derrota a Sirenas Látigo de Ira para conseguir 6 Coral encantado",
 	FCQ_OBJ_MA_SHARD = "en la mazmorra Templo Sumergido (necesitas un grupo), consigue el Fragmento Arcano de Morphaz",
 	-- not measured: the wing name "East" (AreaTable has only "La Masacre")
