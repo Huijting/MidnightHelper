@@ -1,5 +1,17 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 26 nov laat (Bouwchat 26-11): "about equal" i.p.v. "Upgrade" + de rol in de gear-zin (`/reload`, NA 5.11.0)
+
+Rob: *"waarom vinden wij dit een upgrade en polestar juist de andere ?"* (Handstitched Leather Belt +1 Str, 31 armor vs
+gedragen Aquarius Belt +2 Sta +2 Int, 40 armor). GEMETEN in ForeverQuestHint.lua `IsBetter`: hoofdstats eerst (`ds > 0`
+→ beter); Stamina/armor tellen pas bij gelijke hoofdstats. Robs druid (SV foreverDirection) = richting 2 Feral → main
+Agility = Strength (ForeverMainStats BY_TREE.DRUID[2]); Int telt daar niet. Een keuze per rol BESTOND al (`/mh direction`,
+boom 1-3; Druid 3 = heal: Int, Spirit, healing; Bear = tweede regel in Do this now). Nieuw: `Sidegrade(row)` — winst in
+hoofdstats ≤ verloren Stamina + verloren armor/10 (AFGELEID, geen meting) en geen DPS-winst → `row.side`, geen upgrade.
+ForeverGearTipText geeft dan `nil` (Do this now, oppakmelding, Wear it en de quest-hint zeggen niets) en als 7e waarde een
+gele tooltipregel FGEAR_SIDE_FMT (7 talen) met ALLE veranderde stats + "/mh direction". `WhoFor` zet de richting achter de
+class in elke gear-zin ("Druid (Feral Combat)"). side_test 8/8.
+
 ## ▶▶ 26 nov avond (Bouwchat 26-11): RELEASE 5.11.0 — STAAT OP CURSEFORGE
 
 Rob via Sparring, letterlijk: *"release 5.11.0 en duidelijk maken als mensen de eerste keer opstarten wat er verandert

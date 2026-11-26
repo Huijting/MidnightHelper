@@ -5288,6 +5288,7 @@ ns._mhLocales.enUS = {
 	FQH_TAKE_FMT = "Take %s: %s over what you wear (%s).",
 	-- Forever gear tooltip line (ForeverQuestHint.lua, Rob 11 Nov 2026): first %s = "+3 Strength, +12 Armor", second = why.
 	FGEAR_TIP_FMT = "MH: %s over what you wear (%s).",
+	FGEAR_SIDE_FMT = "MH: about equal to what you wear: %s (%s). No need to swap. Another role? /mh direction",
 	FGEAR_TIP_ON = "gear tooltip line on: hover gear to see what it adds over what you wear.",
 	FGEAR_TIP_OFF = "gear tooltip line off. /mh geartip on brings it back.",
 	-- "used for" tooltip line, Forever and Midnight (ReagentUse.lua, Rob 11 Nov 2026). FMT: first %s = profession names

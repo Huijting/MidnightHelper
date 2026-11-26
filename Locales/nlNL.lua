@@ -4395,6 +4395,7 @@ ns._mhLocales.nlNL = {
 	FQH_TAKE_EMPTY_FMT = "Neem %s: %s (%s). Dat slot is nu leeg.",
 	FQH_TAKE_FMT = "Neem %s: %s vergeleken met wat je draagt (%s).",
 	FGEAR_TIP_FMT = "MH: %s vergeleken met wat je draagt (%s).",
+	FGEAR_SIDE_FMT = "MH: ongeveer gelijk aan wat je draagt: %s (%s). Wisselen hoeft niet. Andere rol? /mh direction",
 	FGEAR_TIP_ON = "tooltipregel voor gear aan: ga met je muis op gear staan en je ziet wat het oplevert.",
 	FGEAR_TIP_OFF = "tooltipregel voor gear uit. /mh geartip on zet hem terug.",
 	FUSE_TIP_FMT = "MH: Gebruikt voor %s%s",

@@ -456,6 +456,38 @@ end
 
 local last = { at = nil, rows = {}, verdict = "none yet" } -- for /mh questhint check
 
+--- "Druid (Feral Combat)" when this character has a direction (ForeverDirection.lua: the tree's client name), else the
+--- class name. 26 Nov 2026 (Sparring): the line says which role MH weighs for, so "main stats for a Druid" is not read
+--- as "for every Druid".
+local function WhoFor(token)
+	local cls = ClassName(token)
+	if ns.GetForeverDirection then
+		local ok, band, tree = pcall(ns.GetForeverDirection)
+		if ok and band and type(tree) == "string" and tree ~= "" then
+			return ("%s (%s)"):format(cls, tree)
+		end
+	end
+	return cls
+end
+
+--- 26 Nov 2026: the "about equal" line: every stat that changes (also the ones MH does not weigh for this role, like
+--- Intellect for a Feral Druid: you see what you give up), Armor and weapon damage.
+local SIDE_STATS = { "STRENGTH", "AGILITY", "STAMINA", "INTELLECT", "SPIRIT" }
+
+local function SideText(row, token)
+	local parts = {}
+	for _, k in ipairs(SIDE_STATS) do
+		local d = ((row.stats and row.stats[k]) or 0) - ((row.worn and row.worn.stats and row.worn.stats[k]) or 0)
+		if d ~= 0 then
+			parts[#parts + 1] = ("%+d %s"):format(d, StatName(k))
+		end
+	end
+	if row.darm and row.darm ~= 0 then
+		parts[#parts + 1] = ("%+d %s"):format(row.darm, (type(ARMOR) == "string" and ARMOR) or "Armor")
+	end
+	return ns:L("FGEAR_SIDE_FMT"):format(table.concat(parts, ", "), ns:L("FQH_WHY_MAIN_FMT"):format(WhoFor(token)))
+end
+
 --- "+3 Strength, +12 Armor" and the reason, for a row { stats, worn, ds, dsta, darm }. Shared by the quest hint and
 --- the gear tooltip line, so both say the same thing about the same item.
 --- Names the main stats, then Stamina when it breaks ties; each stat once (Prot Paladin has Stamina as a main stat;
@@ -499,7 +531,7 @@ local function Explain(row, main, stamTie, token)
 	if row.ds == 0 and row.dsta == 0 then
 		why = (row.ddps and row.ddps >= 0.05) and ns:L("FQH_WHY_DPS") or ns:L("FQH_WHY_ARMOR")
 	else
-		why = ns:L("FQH_WHY_MAIN_FMT"):format(ClassName(token))
+		why = ns:L("FQH_WHY_MAIN_FMT"):format(WhoFor(token))
 	end
 	return parts, why
 end
@@ -560,6 +592,23 @@ local function LoseText(row)
 	return " " .. ns:L("FGEAR_LOSE_FMT"):format(table.concat(names, ", "))
 end
 
+--- 26 Nov 2026 (Rob, Druid 16, Feral: "waarom vinden wij dit een upgrade en polestar juist de andere ?" A belt with +1
+--- Strength was "Upgrade … Wear it" over one with +2 Stamina, +2 Intellect and 9 more Armor). A small gain in main stats
+--- that costs as much or more in Stamina and Armor is no upgrade: "about equal". Threshold, AFGELEID (not measured):
+--- the Stamina you lose plus one point per 10 Armor you lose, against the main-stat gain.
+local SIDE_ARMOR_PER_POINT = 10
+
+local function Sidegrade(row)
+	if not (row.ds and row.ds > 0) then
+		return false
+	end
+	if row.ddps and row.ddps >= 0.05 then
+		return false -- more weapon damage as well: a real upgrade for a fighter
+	end
+	local loss = math.max(0, -(row.dsta or 0)) + math.max(0, -(row.darm or 0)) / SIDE_ARMOR_PER_POINT
+	return loss > 0 and loss >= row.ds
+end
+
 local function IsBetter(row)
 	-- An enchant you would lose that MH cannot weigh (a proc, weapon damage, spell power ...): no verdict, like "mixed".
 	for _, en in ipairs(Lost(row)) do
@@ -577,6 +626,10 @@ local function IsBetter(row)
 		dd = 0
 	end
 	if dd and dd < 0 then
+		return false
+	end
+	if Sidegrade(row) then
+		row.side = true
 		return false
 	end
 	if row.ds > 0 then
@@ -919,11 +972,15 @@ function ns.ForeverGearTipText(link)
 			lost[#lost + 1] = en.id .. (en.x and " (cannot weigh it)" or "")
 		end
 		local unk = SpellUnweighable(stats) or SpellUnweighable(worn.stats)
-		return nil, ("not better (main %+g, stamina %+g, armor %+d, dps %s, spell %s %+g x %s; enchant(s) you would "
-			.. "lose: %s%s)"):format(row.ds, row.dsta, row.darm, row.ddps and ("%+.1f"):format(row.ddps) or "n/a",
+		-- 7th return (26 Nov 2026): the "about equal" line, for the tooltip only. The callers that act on an upgrade
+		-- (Do this now, the pickup notice, Wear it) read only the 1st return, so a sidegrade never says "Upgrade".
+		return nil, ("%s (main %+g, stamina %+g, armor %+d, dps %s, spell %s %+g x %s; enchant(s) you would "
+			.. "lose: %s%s)"):format(row.side and "about equal (sidegrade)" or "not better", row.ds, row.dsta, row.darm,
+			row.ddps and ("%+.1f"):format(row.ddps) or "n/a",
 			curHeal and "healing" or "damage", SpellValue(stats) - SpellValue(worn.stats), tostring(curSpellW),
 			#lost > 0 and table.concat(lost, ", ") or "none",
-			(unk and curSpellW > 0) and ("; spell line MH does not weigh here: " .. unk) or "")
+			(unk and curSpellW > 0) and ("; spell line MH does not weigh here: " .. unk) or ""),
+			nil, nil, nil, nil, row.side and SideText(row, token) or nil
 	end
 	local parts, why = Explain(row, main, stamTie, token)
 	local gains = table.concat(parts, ", ")
@@ -951,10 +1008,12 @@ if TooltipDataProcessor and TooltipDataProcessor.AddTooltipPostCall and Enum and
 				tipLast = "red line in the tooltip: you cannot use or wear it (yet)"
 				return
 			end
-			local text, why = ns.ForeverGearTipText(link)
+			local text, why, _, _, _, _, side = ns.ForeverGearTipText(link)
 			tipLast = text and ("shown: " .. text) or why
 			if text then
 				tooltip:AddLine(text, 0.37, 1, 0.33, true)
+			elseif side then
+				tooltip:AddLine(side, 1, 0.82, 0.3, true) -- yellow: neither better nor worse
 			end
 			-- Your direction and this weapon kind (step 3, 19 Nov 2026): light green = fits, orange = not used.
 			local fitText, fitWhy = ns.ForeverDirectionFitText(link)
@@ -966,7 +1025,7 @@ if TooltipDataProcessor and TooltipDataProcessor.AddTooltipPostCall and Enum and
 				end
 			end
 			tipLast = tipLast .. "; direction: " .. tostring(fitText or fitWhy)
-			if text or fitText then
+			if text or side or fitText then
 				tooltip:Show()
 			end
 		end)

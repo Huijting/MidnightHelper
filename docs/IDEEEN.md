@@ -26,6 +26,12 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 
 ## Open — wacht op Rob
 
+### Forever: geen "Upgrade" bij een kleine winst met verlies elders (wens van Rob, 26 nov) — ✅ JA, GEBOUWD 26 nov, wacht op test
+- Bron: Rob via Sparring, letterlijk: *"waarom vinden wij dit een upgrade en polestar juist de andere ?"*
+- Gebouwd: "about equal" (geel) in de tooltip, geen Upgrade/Wear it; de gear-zin noemt je richting; rol wisselen met
+  `/mh direction` (bestond al).
+- Spel: F. Voor wie: N + V (AFGELEID).
+
 ### Bedanken voor een buff, ook als je in een gevecht zat (wens van Rob, 26 nov) — ✅ JA, GEBOUWD 26 nov, wacht op test
 - Bron: Rob via Sparring, letterlijk: *"Klopt het dat wanneer ik in een gevecht ben en ik krijg een buff van iemand, dat
   ik dan niet kan bedanken?"*

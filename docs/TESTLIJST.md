@@ -25,6 +25,15 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 26 nov laat — FOREVER: "ongeveer gelijk" in plaats van "Upgrade" (Robs riemen)
+
+`/reload` is genoeg. Offline getest (side_test 8/8), NIET in het spel. Hoort NIET bij 5.11.0 (komt in de volgende versie).
+- [ ] Muis op de Handstitched Leather Belt terwijl je de Aquarius Belt draagt: een GELE regel "MH: about equal to what
+      you wear: +1 Strength, -2 Stamina, -2 Intellect, -9 Armor (main stats for a Druid (Feral Combat)). No need to
+      swap." Geen groene "Upgrade"-regel, en Do this now zegt niet meer "Upgrade … Wear it" voor die riem.
+- [ ] Een echte upgrade (duidelijk meer Strength/Agility) blijft groen, en noemt nu "Druid (Feral Combat)".
+- [ ] Wil je healen: `/mh direction` → Restoration. Dan telt MH Intellect, Spirit en healing.
+
 ## 26 nov — 5.11.0 in MIDNIGHT (vanavond, vóór de release)
 
 HERSTART het spel één keer (nieuwe bestanden). Dit is het Midnight-deel; het Forever-deel staat in de secties hieronder.
