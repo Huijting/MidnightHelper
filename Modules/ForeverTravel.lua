@@ -483,6 +483,278 @@ local function Label(link, toEnd)
 	return ns:L(key):format(dest)
 end
 
+--------------------------------------------------------------------------------
+-- Flight paths (26 Nov 2026). Rob, at the zeppelin tower outside Orgrimmar with the class quest arrow pointing 4405 m to
+-- Thunder Bluff: "waarom zegt hij niet tegen mij nu van, hey, joh, je moet nu de Zeppelin nemen … Waarom alleen maar een
+-- pijl die kant op en niet hoe ik kom?" → via sparring "Ja, stuur maar.".
+-- Research: docs/forever/VLUCHTEN_2026-11-26.md (mh-research, 26 Nov 2026).
+-- - Nodes and paths GEMETEN in the Forever DB2 1.60.1.71139: TaxiNodes (Flags 0x1 = Alliance, 0x2 = Horde; continent 0/1,
+--   CharacterBitNumber > 0, at least one TaxiPath), TaxiPath, and the length of each path = 3D sum over TaxiPathNode.
+--   Zone x,y AFGELEID from the world position; 64 of 65 within 0.44 map-% of the Wowhead Forever flight master.
+-- - Speed 30 yd/s, GEMETEN from 12 of Rob's own flights (yards / 30 within 1 s of each). Frequent Flier (+20%) ignored.
+-- - Classic rule (warcraft.wiki.gg patch history: only 6.1.0 allowed flying through unknown points): you fly only INTO
+--   points you know, and the point you board at you can learn right there by talking to its master (AFGELEID that you can
+--   fly on at once). Whether Forever follows the old or new rule: NOT measured, the old one is the safe one.
+-- - Which points you know: learned per character at every flight map (C_TaxiMap.GetAllTaxiNodes, state Current/Reachable;
+--   API GEMETEN in Blizzard's forever UI source), plus the world map's list (GetTaxiNodesForMap) only when it shows that
+--   it filters (see KnownTaxi). /mh travel prints both.
+-- Left out: Nighthaven (druid-only, one way, CharacterBitNumber 0).
+-- { id, side, map, x, y, English name }
+local FLIGHT_NODES = {
+	{ 43, "A", 1425, 11.11, 46.09, "Aerie Peak, The Hinterlands" }, { 18, "H", 1434, 26.82, 77.00, "Booty Bay, Stranglethorn" },
+	{ 19, "A", 1434, 27.53, 77.67, "Booty Bay, Stranglethorn" }, { 66, "A", 1422, 42.95, 84.95, "Chillwind Camp, Western Plaguelands" },
+	{ 12, "A", 1431, 77.59, 44.38, "Darkshire, Duskwood" }, { 3276, "A", 2548, 60.59, 81.57, "Farholde Keep, Riverglades" },
+	{ 70, "H", 1428, 65.58, 24.22, "Flame Crest, Burning Steppes" }, { 20, "H", 1434, 32.51, 29.28, "Grom'gol, Stranglethorn" },
+	{ 17, "H", 1417, 73.06, 32.62, "Hammerfall, Arathi" }, { 6, "A", 1455, 55.89, 47.87, "Ironforge, Dun Morogh" },
+	{ 21, "H", 1418, 4.06, 44.89, "Kargath, Badlands" }, { 5, "A", 1433, 25.34, 58.99, "Lakeshire, Redridge" },
+	{ 67, "A", 1423, 71.70, 49.56, "Light's Hope Chapel, Eastern Plaguelands" },
+	{ 68, "H", 1423, 70.45, 47.59, "Light's Hope Chapel, Eastern Plaguelands" },
+	{ 7, "A", 1437, 9.52, 59.66, "Menethil Harbor, Wetlands" }, { 71, "A", 1428, 84.38, 68.30, "Morgan's Vigil, Burning Steppes" },
+	{ 45, "A", 1419, 65.49, 24.43, "Nethergarde Keep, Blasted Lands" }, { 16, "A", 1417, 45.79, 46.13, "Refuge Pointe, Arathi" },
+	{ 76, "H", 1425, 81.70, 81.89, "Revantusk Village, The Hinterlands" }, { 3203, "H", 2548, 59.61, 45.06, "Rog'mar, Riverglades" },
+	{ 4, "A", 1436, 56.57, 52.67, "Sentinel Hill, Westfall" }, { 14, "A", 1424, 49.44, 52.10, "Southshore, Hillsbrad" },
+	{ 56, "H", 1435, 46.05, 54.68, "Stonard, Swamp of Sorrows" }, { 2, "A", 1453, 71.61, 72.25, "Stormwind, Elwynn" },
+	{ 13, "H", 1424, 60.21, 18.75, "Tarren Mill, Hillsbrad" }, { 10, "H", 1421, 45.56, 42.42, "The Sepulcher, Silverpine Forest" },
+	{ 8, "A", 1432, 33.94, 50.79, "Thelsamar, Loch Modan" }, { 74, "A", 1427, 37.89, 30.43, "Thorium Point, Searing Gorge" },
+	{ 75, "H", 1427, 34.83, 30.58, "Thorium Point, Searing Gorge" }, { 11, "H", 1458, 63.09, 48.32, "Undercity, Tirisfal" },
+	{ 28, "A", 1440, 34.50, 48.01, "Astranaar, Ashenvale" }, { 26, "A", 1439, 36.40, 45.62, "Auberdine, Darkshore" },
+	{ 48, "H", 1448, 34.42, 53.87, "Bloodvenom Post, Felwood" }, { 55, "H", 1445, 35.57, 31.83, "Brackenwall Village, Dustwallow Marsh" },
+	{ 42, "H", 1444, 75.43, 44.31, "Camp Mojache, Feralas" }, { 77, "H", 1413, 44.46, 59.10, "Camp Taurajo, The Barrens" },
+	{ 72, "H", 1451, 48.83, 36.72, "Cenarion Hold, Silithus" }, { 73, "A", 1451, 50.68, 34.59, "Cenarion Hold, Silithus" },
+	{ 25, "H", 1413, 51.50, 30.41, "Crossroads, The Barrens" }, { 52, "A", 1452, 62.33, 36.64, "Everlook, Winterspring" },
+	{ 53, "H", 1452, 60.49, 36.34, "Everlook, Winterspring" }, { 41, "A", 1444, 30.26, 43.32, "Feathermoon, Feralas" },
+	{ 30, "H", 1441, 45.02, 49.13, "Freewind Post, Thousand Needles" }, { 39, "A", 1446, 50.95, 29.33, "Gadgetzan, Tanaris" },
+	{ 40, "H", 1446, 51.62, 25.52, "Gadgetzan, Tanaris" }, { 79, nil, 1449, 45.30, 5.97, "Marshal's Refuge, Un'Goro Crater" },
+	{ 49, "A", 1450, 47.91, 67.11, "Moonglade" }, { 69, "H", 1450, 32.15, 66.33, "Moonglade" },
+	{ 37, "A", 1443, 64.67, 10.44, "Nijel's Point, Desolace" }, { 23, "H", 1454, 45.28, 63.75, "Orgrimmar, Durotar" },
+	{ 80, nil, 1413, 63.12, 37.11, "Ratchet, The Barrens" }, { 27, "A", 1438, 58.40, 93.93, "Rut'theran Village, Teldrassil" },
+	{ 38, "H", 1443, 21.56, 74.04, "Shadowprey Village, Desolace" }, { 61, "H", 1440, 73.26, 61.67, "Splintertree Post, Ashenvale" },
+	{ 33, "A", 1442, 36.54, 7.23, "Stonetalon Peak, Stonetalon Mountains" }, { 559, nil, 2482, 68.64, 44.11, "Summit of Eternity, Mount Hyjal" },
+	{ 29, "H", 1442, 45.16, 59.89, "Sun Rock Retreat, Stonetalon Mountains" }, { 3242, nil, 2482, 55.10, 82.55, "Tainted Foothills, Mount Hyjal" },
+	{ 65, "A", 1448, 62.46, 24.19, "Talonbranch Glade, Felwood" }, { 64, "A", 1447, 11.90, 77.48, "Talrendis Point, Azshara" },
+	{ 31, "A", 1444, 89.46, 45.87, "Thalanaar, Feralas" }, { 32, "A", 1445, 67.46, 51.20, "Theramore, Dustwallow Marsh" },
+	{ 22, "H", 1456, 46.65, 49.90, "Thunder Bluff, Mulgore" }, { 44, "H", 1447, 21.95, 49.69, "Valormok, Azshara" },
+	{ 58, "H", 1440, 12.19, 33.77, "Zoram'gar Outpost, Ashenvale" },
+}
+-- { from, to, yards }: every TaxiPath between those nodes (each pair exists both ways, measured separately).
+local FLIGHT_PATHS = {
+	{ 2, 4, 2329 }, { 2, 5, 3380 }, { 2, 6, 7757 }, { 2, 12, 3480 }, { 2, 19, 7318 }, { 2, 45, 5282 }, { 2, 71, 4706 },
+	{ 4, 2, 2443 }, { 4, 5, 3890 }, { 4, 12, 2897 }, { 4, 19, 5561 },
+	{ 5, 2, 3374 }, { 5, 4, 4003 }, { 5, 12, 1812 }, { 5, 71, 1825 }, { 5, 3276, 3962 },
+	{ 6, 2, 6310 }, { 6, 7, 3861 }, { 6, 8, 3037 }, { 6, 14, 7938 }, { 6, 16, 7585 }, { 6, 43, 8941 }, { 6, 66, 8816 }, { 6, 67, 10440 }, { 6, 74, 2594 },
+	{ 7, 6, 2658 }, { 7, 8, 4877 }, { 7, 14, 3215 }, { 7, 16, 3388 },
+	{ 8, 6, 3266 }, { 8, 7, 4564 }, { 8, 16, 4902 }, { 8, 3276, 5531 },
+	{ 10, 11, 3345 }, { 10, 13, 2868 },
+	{ 11, 10, 3180 }, { 11, 13, 4222 }, { 11, 17, 9014 }, { 11, 21, 14837 }, { 11, 68, 7849 }, { 11, 76, 8530 },
+	{ 12, 2, 2629 }, { 12, 4, 2794 }, { 12, 5, 1787 }, { 12, 19, 5135 }, { 12, 45, 2903 },
+	{ 13, 10, 2989 }, { 13, 11, 4172 }, { 13, 17, 3532 }, { 13, 76, 5840 },
+	{ 14, 6, 6174 }, { 14, 7, 3304 }, { 14, 16, 2214 }, { 14, 43, 2139 }, { 14, 66, 2418 },
+	{ 16, 6, 8109 }, { 16, 7, 3776 }, { 16, 8, 5113 }, { 16, 14, 2596 }, { 16, 43, 2152 },
+	{ 17, 11, 7763 }, { 17, 13, 3493 }, { 17, 21, 7760 }, { 17, 76, 2705 }, { 17, 3203, 9767 },
+	{ 18, 20, 3047 }, { 18, 21, 12190 }, { 18, 56, 7986 },
+	{ 19, 2, 6585 }, { 19, 4, 5439 }, { 19, 12, 5242 },
+	{ 20, 18, 2422 }, { 20, 21, 9802 }, { 20, 56, 6151 },
+	{ 21, 11, 14918 }, { 21, 17, 7881 }, { 21, 18, 12493 }, { 21, 20, 9376 }, { 21, 56, 8424 }, { 21, 70, 2593 }, { 21, 75, 1682 }, { 21, 3203, 3821 },
+	{ 22, 23, 6213 }, { 22, 25, 4752 }, { 22, 29, 5439 }, { 22, 30, 6113 }, { 22, 38, 4752 }, { 22, 40, 8693 }, { 22, 42, 7563 }, { 22, 44, 8070 }, { 22, 55, 7149 }, { 22, 77, 2599 },
+	{ 23, 22, 6745 }, { 23, 25, 3304 }, { 23, 40, 12500 }, { 23, 44, 2965 }, { 23, 48, 7558 }, { 23, 53, 9582 }, { 23, 55, 6853 }, { 23, 61, 2680 },
+	{ 25, 22, 5461 }, { 25, 23, 4252 }, { 25, 29, 4495 }, { 25, 30, 5532 }, { 25, 40, 9093 }, { 25, 42, 7547 }, { 25, 44, 5051 }, { 25, 48, 7603 }, { 25, 55, 4878 }, { 25, 58, 6902 }, { 25, 61, 4871 }, { 25, 77, 2705 }, { 25, 80, 1545 },
+	{ 26, 27, 2525 }, { 26, 28, 5270 }, { 26, 32, 20225 }, { 26, 33, 5432 }, { 26, 37, 8723 }, { 26, 41, 14168 }, { 26, 49, 4525 }, { 26, 64, 8981 }, { 26, 65, 5682 },
+	{ 27, 26, 2551 },
+	{ 28, 26, 4426 }, { 28, 33, 4599 }, { 28, 64, 4428 },
+	{ 29, 22, 5227 }, { 29, 25, 4477 }, { 29, 38, 4297 },
+	{ 30, 22, 6764 }, { 30, 25, 5810 }, { 30, 40, 2782 }, { 30, 42, 3685 }, { 30, 77, 4111 },
+	{ 31, 32, 4780 }, { 31, 39, 5122 }, { 31, 41, 5335 },
+	{ 32, 26, 18633 }, { 32, 31, 4887 }, { 32, 37, 10017 }, { 32, 39, 4694 }, { 32, 64, 7052 }, { 32, 80, 3446 },
+	{ 33, 26, 5304 }, { 33, 28, 4613 }, { 33, 37, 3803 },
+	{ 37, 26, 8458 }, { 37, 32, 9202 }, { 37, 33, 3581 }, { 37, 41, 6949 },
+	{ 38, 22, 5331 }, { 38, 29, 5966 }, { 38, 42, 5873 },
+	{ 39, 31, 5304 }, { 39, 32, 4606 }, { 39, 73, 5907 }, { 39, 79, 3115 },
+	{ 40, 22, 9107 }, { 40, 23, 10495 }, { 40, 25, 9008 }, { 40, 30, 2602 }, { 40, 42, 5973 }, { 40, 55, 6647 }, { 40, 72, 6976 }, { 40, 79, 3218 },
+	{ 41, 26, 14014 }, { 41, 31, 4635 }, { 41, 37, 6797 }, { 41, 73, 4774 },
+	{ 42, 22, 7777 }, { 42, 25, 7915 }, { 42, 30, 3215 }, { 42, 38, 6016 }, { 42, 40, 6024 }, { 42, 72, 3897 },
+	{ 43, 6, 7658 }, { 43, 14, 2039 }, { 43, 16, 2267 }, { 43, 66, 1590 }, { 43, 67, 4922 },
+	{ 44, 22, 7700 }, { 44, 23, 3622 }, { 44, 25, 5163 }, { 44, 48, 6955 }, { 44, 53, 3905 }, { 44, 61, 2795 },
+	{ 45, 2, 5672 }, { 45, 12, 2748 }, { 45, 71, 6251 },
+	{ 48, 23, 7747 }, { 48, 25, 7227 }, { 48, 44, 7221 }, { 48, 53, 5700 }, { 48, 69, 4947 },
+	{ 49, 26, 4247 }, { 49, 52, 3900 }, { 49, 65, 1840 },
+	{ 52, 49, 3639 }, { 52, 64, 5265 }, { 52, 65, 3670 }, { 52, 3242, 4057 },
+	{ 53, 23, 9115 }, { 53, 44, 4078 }, { 53, 48, 5853 }, { 53, 69, 4016 }, { 53, 3242, 4078 },
+	{ 55, 22, 6729 }, { 55, 23, 6496 }, { 55, 25, 4848 }, { 55, 40, 6660 },
+	{ 56, 18, 7798 }, { 56, 20, 5646 }, { 56, 21, 8555 }, { 56, 70, 5916 }, { 56, 3203, 5085 },
+	{ 58, 25, 6827 }, { 58, 61, 5013 },
+	{ 61, 23, 2869 }, { 61, 25, 4806 }, { 61, 44, 2870 }, { 61, 58, 4995 },
+	{ 64, 26, 9038 }, { 64, 28, 4578 }, { 64, 32, 7242 }, { 64, 52, 5355 }, { 64, 65, 8502 }, { 64, 80, 4062 },
+	{ 65, 26, 5622 }, { 65, 49, 2005 }, { 65, 52, 3601 }, { 65, 64, 8465 },
+	{ 66, 6, 7782 }, { 66, 14, 2559 }, { 66, 43, 1958 }, { 66, 67, 4390 },
+	{ 67, 6, 11024 }, { 67, 43, 4871 }, { 67, 66, 4484 },
+	{ 68, 11, 7837 }, { 68, 76, 4232 },
+	{ 69, 48, 4713 }, { 69, 53, 4256 },
+	{ 70, 21, 2994 }, { 70, 56, 6376 }, { 70, 75, 2154 }, { 70, 3203, 4113 },
+	{ 71, 2, 4528 }, { 71, 5, 1884 }, { 71, 45, 6288 }, { 71, 74, 3090 }, { 71, 3276, 3936 },
+	{ 72, 40, 7224 }, { 72, 42, 3895 }, { 72, 79, 2896 },
+	{ 73, 39, 5652 }, { 73, 41, 5239 }, { 73, 79, 2745 },
+	{ 74, 6, 2802 }, { 74, 71, 2865 },
+	{ 75, 21, 2090 }, { 75, 70, 2297 },
+	{ 76, 11, 8538 }, { 76, 13, 4767 }, { 76, 17, 2785 }, { 76, 68, 4159 },
+	{ 77, 22, 3407 }, { 77, 25, 2380 }, { 77, 30, 3750 },
+	{ 79, 39, 3100 }, { 79, 40, 3396 }, { 79, 72, 3003 }, { 79, 73, 2823 },
+	{ 80, 25, 2041 }, { 80, 32, 3149 }, { 80, 64, 3960 },
+	{ 559, 3242, 1866 },
+	{ 3203, 17, 9845 }, { 3203, 21, 3607 }, { 3203, 56, 4624 }, { 3203, 70, 3993 },
+	{ 3242, 52, 3745 }, { 3242, 53, 3967 }, { 3242, 559, 1849 },
+	{ 3276, 5, 3917 }, { 3276, 8, 5193 }, { 3276, 71, 3676 },
+}
+local FLY_YD_PER_MIN = 30 * 60 -- GEMETEN 30 yd/s
+local FLY_HOP = 0.3 -- landing and taking off again at a point on the way (AFGELEID, small: only to prefer fewer hops)
+local NODE_BY_ID = {}
+for _, n in ipairs(FLIGHT_NODES) do
+	NODE_BY_ID[n[1]] = n
+end
+local taxiNames = {} -- nodeID -> the client's own (localized) name, read from the world map list
+local taxiWhy = "not looked yet" -- for /mh travel
+
+local function TaxiCharKey(tbl)
+	local n, r = UnitName and UnitName("player"), GetRealmName and GetRealmName()
+	local legacy = tostring(n) .. "-" .. tostring(r)
+	return ns.ForeverCharKey and ns.ForeverCharKey("known flight points", legacy, tbl, { whole = true }) or legacy
+end
+
+local function LearnedTaxi(create)
+	if type(ns.db) ~= "table" then
+		return nil
+	end
+	if create then
+		ns.db.foreverTaxiKnown = ns.db.foreverTaxiKnown or {}
+	end
+	local db = ns.db.foreverTaxiKnown
+	if not db then
+		return nil
+	end
+	local k = TaxiCharKey(db)
+	if create then
+		db[k] = db[k] or {}
+	end
+	return db[k]
+end
+
+--- The world map's flight point list (GetTaxiNodesForMap) for one continent map: { [nodeID] = true } of the points it
+--- calls discovered, and whether that list can be trusted. Trusted only when it visibly filters: it marks a point of
+--- your side undiscovered, or it gives fewer points of your side than exist on that continent. (A list with every point
+--- of your side, all "discovered", could be a filter that does not work on Forever: ForeverDungeonJournal says exactly
+--- that, OpenMap trusts it; candidates both, so the list proves itself or is not used.)
+local function WorldMapTaxi(contMap, side)
+	if not (C_TaxiMap and C_TaxiMap.GetTaxiNodesForMap) then
+		return nil, "GetTaxiNodesForMap missing"
+	end
+	local ok, list = pcall(C_TaxiMap.GetTaxiNodesForMap, contMap)
+	if not ok or type(list) ~= "table" then
+		return nil, "GetTaxiNodesForMap unreadable"
+	end
+	local out, mine, undiscovered = {}, 0, 0
+	for _, info in ipairs(list) do
+		local id = type(info) == "table" and info.nodeID
+		local n = id and NODE_BY_ID[id]
+		if n and (not n[2] or n[2] == side) then
+			if type(info.name) == "string" and info.name ~= "" and not (issecretvalue and issecretvalue(info.name)) then
+				taxiNames[id] = info.name
+			end
+			if info.isUndiscovered then
+				undiscovered = undiscovered + 1
+			else
+				out[id] = true
+				mine = mine + 1
+			end
+		end
+	end
+	local total = 0
+	for _, n in ipairs(FLIGHT_NODES) do
+		if not n[2] or n[2] == side then
+			-- Riverglades and Hyjal are their own maps: the continent decides by world position (World), not by name.
+			local cont = World(n[3], n[4], n[5])
+			if (contMap == MAP.EK and cont == 0) or (contMap == MAP.KALIMDOR and cont == 1) then
+				total = total + 1
+			end
+		end
+	end
+	if undiscovered > 0 or (mine > 0 and mine < total) then
+		return out, ("%d known of %d (filters: %s)"):format(mine, total, undiscovered > 0 and "marks undiscovered" or "fewer than all")
+	end
+	return nil, ("%d of %d, all called discovered: not trusted"):format(mine, total)
+end
+
+--- { [nodeID] = true } of the flight points this character knows, and how MH knows.
+local knownCache = { at = -10, side = nil, set = nil }
+local function KnownTaxi(side)
+	local now = GetTime and GetTime() or 0
+	if knownCache.set and knownCache.side == side and now - knownCache.at < 5 then
+		return knownCache.set
+	end
+	local known, parts = {}, {}
+	local learned = LearnedTaxi(false)
+	local nl = 0
+	for id in pairs(learned or {}) do
+		known[id] = true
+		nl = nl + 1
+	end
+	parts[#parts + 1] = ("learned at flight masters: %d"):format(nl)
+	for _, cont in ipairs({ MAP.KALIMDOR, MAP.EK }) do
+		local set, why = WorldMapTaxi(cont, side)
+		parts[#parts + 1] = ("world map %s: %s"):format(cont == MAP.KALIMDOR and "Kalimdor" or "Eastern Kingdoms", tostring(why))
+		for id in pairs(set or {}) do
+			known[id] = true
+		end
+	end
+	taxiWhy = table.concat(parts, "; ")
+	knownCache.at, knownCache.side, knownCache.set = now, side, known
+	return known
+end
+
+-- Learn at every flight map: the points the master can fly you to (Current/Reachable) are points you know.
+do
+	local tf = CreateFrame("Frame")
+	pcall(tf.RegisterEvent, tf, "TAXIMAP_OPENED")
+	tf:SetScript("OnEvent", function()
+		C_Timer.After(0.2, function()
+			if not (C_TaxiMap and C_TaxiMap.GetAllTaxiNodes and GetTaxiMapID) then
+				return
+			end
+			local okM, map = pcall(GetTaxiMapID)
+			if not okM or not map then
+				return
+			end
+			local ok, list = pcall(C_TaxiMap.GetAllTaxiNodes, map)
+			if not ok or type(list) ~= "table" then
+				return
+			end
+			local db = LearnedTaxi(true)
+			if not db then
+				return
+			end
+			for _, info in ipairs(list) do
+				-- Enum.FlightPathState: Current 0, Reachable 1, Unreachable 2 (GEMETEN in the forever UI source).
+				if type(info) == "table" and info.nodeID and NODE_BY_ID[info.nodeID] and (info.state == 0 or info.state == 1) then
+					db[info.nodeID] = true
+				end
+			end
+			knownCache.set = nil -- plan again with what you just learned
+		end)
+	end)
+end
+
+local function TaxiName(id)
+	if taxiNames[id] then
+		return taxiNames[id]
+	end
+	local n = NODE_BY_ID[id]
+	if not n then
+		return "?"
+	end
+	if (GetLocale and GetLocale() or "enUS") == "enUS" then
+		return n[6]
+	end
+	return MapName(n[3]) -- the zone, in the client's language, rather than an English name
+end
+
 --- The link ends and the edges between them never change for one faction: build them once.
 local staticBySide = {}
 local function StaticGraph(side)
@@ -490,7 +762,17 @@ local function StaticGraph(side)
 	if staticBySide[key] then
 		return staticBySide[key]
 	end
-	local g = { points = {}, edges = {} }
+	local g = { points = {}, edges = {}, taxiIndex = {} }
+	-- 26 Nov 2026: every flight master of your side is a point too (walks to and from it are fixed; which flights you may
+	-- take depends on what you know, so those edges are added in Plan).
+	for _, n in ipairs(FLIGHT_NODES) do
+		if not n[2] or n[2] == side then
+			local p = Point(n[3], n[4], n[5])
+			p.taxi = n[1]
+			g.points[#g.points + 1] = p
+			g.taxiIndex[n[1]] = #g.points
+		end
+	end
 	for _, l in ipairs(LINKS) do
 		if not l.side or l.side == side then
 			g.points[#g.points + 1] = Point(l.a[1], l.a[2], l.a[3])
@@ -534,6 +816,10 @@ local function Plan(tmap, tx, ty)
 	if not (pmap and px and tmap and tx and ty) then
 		return nil, "player or target position unreadable"
 	end
+	-- On a flight (26 Nov 2026): the route is underway; planning again from the air would send you to a master below.
+	if UnitOnTaxi and UnitOnTaxi("player") then
+		return nil, "on a flight"
+	end
 	-- The arrow asks ~30 times a second while it waits on a plan: recompute at most once a second for the same target
 	-- and map. Moving inside a map does not change which boat is best often enough to matter.
 	local key = ("%d>%d:%.1f:%.1f"):format(pmap, tmap, tx, ty)
@@ -557,6 +843,16 @@ local function Plan(tmap, tx, ty)
 	end
 	for _, e in ipairs(static.edges) do -- link rides and walks between link ends: computed once per side
 		add(e.from + 1, e.to + 1, e.cost, e.link, e.toEnd)
+	end
+	-- 26 Nov 2026: flights, only INTO points this character knows (the one you board at you learn there).
+	local known = KnownTaxi(side)
+	for _, f in ipairs(FLIGHT_PATHS) do
+		local ia, ib = static.taxiIndex[f[1]], static.taxiIndex[f[2]]
+		if ia and ib and known[f[2]] then
+			edges[ia + 1] = edges[ia + 1] or {}
+			local list = edges[ia + 1]
+			list[#list + 1] = { to = ib + 1, cost = f[3] / FLY_YD_PER_MIN + FLY_HOP, fly = f[2] }
+		end
 	end
 	for j = 1, it do -- walks from the start, and walks into the target
 		if j ~= 1 then
@@ -622,13 +918,28 @@ local function Plan(tmap, tx, ty)
 		-- Time per step (20 Nov 2026): the walk to the step plus the ride, in the planner's own units, which are rough
 		-- minutes (AFGELEID: chosen to order routes, not measured). Shown as "about N min".
 		local lastAt = 0
+		local prevFly -- the flight step a next hop extends: one trip, one step ("fly to Thunder Bluff")
 		for _, c in ipairs(chain) do
-			if c.edge.link or c.edge.tp then
+			if c.edge.fly and prevFly then
+				prevFly.flyTo = TaxiName(c.edge.fly)
+				prevFly.label = ns:L("FTRAVEL_FLY_FMT"):format(prevFly.flyTo)
+				prevFly.min = prevFly.min + c.edge.cost
+				prevFly.hops = prevFly.hops + 1
+				lastAt = lastAt + c.edge.cost
+			elseif c.edge.link or c.edge.tp or c.edge.fly then
 				local from = nodes[c.from]
 				steps = steps or {}
 				local min = (dist[c.from] or 0) - lastAt + c.edge.cost
 				lastAt = (dist[c.from] or 0) + c.edge.cost
-				if c.edge.tp then
+				prevFly = nil
+				if c.edge.fly then
+					local dest = TaxiName(c.edge.fly)
+					prevFly = { kind = "travel", forever = true, mapID = from.map, x = from.x, y = from.y,
+						label = ns:L("FTRAVEL_FLY_FMT"):format(dest), flyTo = dest, link = "fly" .. tostring(from.taxi),
+						linkKind = "flight", min = min, hops = 1 }
+					prevFly.atRadius = 1
+					steps[#steps + 1] = prevFly
+				elseif c.edge.tp then
 					steps[#steps + 1] = { kind = "travel", forever = true, cast = true, mapID = from.map, x = from.x,
 						y = from.y, label = c.edge.tp.label, link = c.edge.tp.t.id, linkKind = "teleport", min = min }
 				else
@@ -647,6 +958,8 @@ local function Plan(tmap, tx, ty)
 					st.atRadius = ns.ForeverStopRadius and ns.ForeverStopRadius(st.mapID, st.x, st.y) or nil
 					steps[#steps + 1] = st
 				end
+			else
+				prevFly = nil -- a walk in between: a later flight is a new trip
 			end
 		end
 		if steps then
@@ -695,6 +1008,8 @@ function ns.ForeverTravelSentence(mapID, x, y)
 	for _, s in ipairs(steps) do
 		if s.kind == "travel" and s.cast then
 			parts[#parts + 1] = s.label -- "cast Teleport: Stormwind" happens where you stand: no "in <zone>"
+		elseif s.kind == "travel" and s.flyTo then
+			parts[#parts + 1] = ns:L("FTRAVEL_FLY_IN_FMT"):format(MapName(s.mapID), s.flyTo)
 		elseif s.kind == "travel" then
 			parts[#parts + 1] = ns:L("FTRAVEL_IN_FMT"):format(s.label, MapName(s.mapID))
 		end
@@ -732,6 +1047,22 @@ function ns.ForeverTravelMinutes(mapID, x, y)
 	return nil
 end
 
+--- 26 Nov 2026 (class quest card, Rob: "waarom alleen maar een pijl die kant op en niet hoe ik kom?"): one line for a
+--- card or chat, "The way there: the zeppelin … (about N min)." or "The way there: walk (about N min).". nil = unknown.
+function ns.ForeverWayLine(mapID, x, y)
+	local s, walk = ns.ForeverTravelSentence(mapID, x, y)
+	if s then
+		return ns:L("FWEAP_ROUTE_LABEL") .. " " .. s
+	end
+	if walk then
+		local min = ns.ForeverTravelMinutes(mapID, x, y)
+		if min then
+			return ns:L("FWEAP_ROUTE_LABEL") .. " " .. ns:L("FTRAVEL_WALK_FMT"):format(math.max(1, math.floor(min + 0.5)))
+		end
+	end
+	return nil
+end
+
 --- /mh travel: where MH thinks you are, and the plan to the arrow's current target.
 function ns.ForeverTravelSlash()
 	local P = "|cffffcc00Midnight Helper:|r "
@@ -741,6 +1072,18 @@ function ns.ForeverTravelSlash()
 	local hs = HearthCount()
 	print(("  hearthstone (item %d): %s; bound to %s"):format(HEARTHSTONE, hs == nil and "count unreadable" or tostring(hs),
 		tostring(Bind() or "?")))
+	-- Flight points (26 Nov 2026): which ones MH thinks you know, and from where. Compare with your flight map.
+	knownCache.set = nil
+	local okK, known = pcall(KnownTaxi, Side())
+	local names = {}
+	for id in pairs(okK and known or {}) do
+		names[#names + 1] = ("%s (%d)"):format(TaxiName(id), id)
+	end
+	table.sort(names)
+	print(("  flight points you know: %d — %s"):format(#names, taxiWhy))
+	if #names > 0 then
+		print("    " .. table.concat(names, ", "))
+	end
 	-- Teleports: which ones the planner may use now, and why the others are left out (20 Nov 2026).
 	pcall(Teleports)
 	for _, t in ipairs(TELEPORTS) do

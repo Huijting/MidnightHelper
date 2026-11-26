@@ -25,6 +25,23 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 26 nov — FOREVER: de pijl vliegt mee, en het class-questkaartje zegt hoe je er komt (Rob: "Waarom alleen maar een pijl die kant op en niet hoe ik kom?")
+
+Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. Offline getest (flight_test 19, trainroute_test 6), NIET in
+het spel.
+- [ ] Eerst: typ `/mh travel`. Regel "flight points you know: N". Klopt die lijst met je flight map? Staat er
+      "learned at flight masters: 0" en "not trusted"? Praat dan één keer met een flight master (kaart open = MH
+      leert welke je kent) en typ het nog eens. Stuur me beide regels.
+- [ ] Je Tauren Druid bij de zeppelintoren buiten Orgrimmar, class quest naar Turak in Thunder Bluff: het kaartje zegt
+      onder "Thunder Bluff" iets als "The way there: the flight master in Orgrimmar: fly to Thunder Bluff, Mulgore.
+      (about 11 min)".
+- [ ] Show the way: de pijl wijst eerst naar de flight master in Orgrimmar (niet 4405 m rechtdoor). Daar staat hij stil
+      met de tekst "the flight master: fly to Thunder Bluff, Mulgore". Na de landing wijst hij naar Turak.
+- [ ] Tijdens de vlucht doet de pijl geen rare dingen (hij wijst gewoon naar het doel).
+- [ ] Een plek waar lopen sneller is: het kaartje zegt "The way there: walk (about N min)."
+- [ ] Ook de andere "Show the way"-knoppen (trainer, vendor, dungeon, Find) kunnen nu een vlucht in de route zetten.
+- [ ] Je Hearthstone op cooldown: de route stuurt je er niet heen (dat deed hij al; nu ook naast vluchten).
+
 ## 26 nov — FOREVER: Oath of Light duurt nu 1 uur (Blizzard-hotfix 25 nov; Rob: "Ja, ik zeg ja op 1 en 2.")
 
 Alleen bestaande bestanden gewijzigd: `/reload` is genoeg. NIET in het spel getest.

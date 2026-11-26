@@ -5602,6 +5602,11 @@ ns._mhLocales.enUS = {
 	FTRAVEL_CAST_FMT = "cast %s",
 	FTRAVEL_USE_FMT = "use your %s",
 	FTRAVEL_ABOUT_FMT = "(about %d min)",
+	-- 26 Nov 2026: the class quest card when walking is the quickest way.
+	FTRAVEL_WALK_FMT = "walk (about %d min).",
+	-- 26 Nov 2026: flight paths in the Forever travel planner (arrow step, and the sentence "in <zone>").
+	FTRAVEL_FLY_FMT = "the flight master: fly to %s",
+	FTRAVEL_FLY_IN_FMT = "the flight master in %s: fly to %s",
 	-- 26 Nov 2026: the trainer arrow by travel time ("Loganaar, about 3 min (MH list)").
 	FTRAIN_MIN_FMT = "%d min",
 	FTRAVEL_CHAT_FIRST_FMT = "Way to %s: first %s.",

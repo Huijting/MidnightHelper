@@ -28,6 +28,18 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 26 nov 2026 — Forever: flight paths in de route + "zo kom je er" op het class-questkaartje
+- Tag + commit:   geen tag (commit: deze regel)
+- Status:         alleen op main
+- Mag op de site: nee (niet uit, niet getest)
+- Speler ziet:    Elke pijl in Forever kan nu ook vliegen: "the flight master in Orgrimmar: fly to Thunder Bluff" en de
+                  pijl wijst eerst naar die flight master. Alleen naar flight points die jouw character kent. Het
+                  class-questkaartje zegt onder de plek hoe je er komt ("The way there: …, about N min").
+                  Oath of Light (Holy Paladin) duurt nu 1 uur in de uitleg (Blizzard-hotfix 25 nov).
+- Knoplabels:     FTRAVEL_FLY_FMT, FTRAVEL_FLY_IN_FMT, FTRAVEL_WALK_FMT, FWEAP_ROUTE_LABEL
+- Commando's:     /mh travel (noemt nu ook je bekende flight points)
+- Spel:           Forever
+
 ## 26 nov 2026 — Forever: trainerpijl op reistijd (Teleport: Moonglade, boten, zeppelins)
 - Tag + commit:   geen tag (commit: deze regel)
 - Status:         alleen op main

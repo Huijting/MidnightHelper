@@ -1,5 +1,30 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 26 nov (Bouwchat 26-11): flight paths in de Forever-reisplanner + "zo kom je er" op het class-questkaartje — GEBOUWD, wacht op test (`/reload`)
+
+Rob via Sparring (Druid 14 bij de zeppelintoren, pijl 4405 m naar Turak in Thunder Bluff): *"Waarom alleen maar een pijl
+die kant op en niet hoe ik kom?"* → voorstel → *"Ja, stuur maar."*. Mag mee in 5.10.1 (niet getagd).
+- Meting: `docs/forever/VLUCHTEN_2026-11-26.md` (mh-research). GEMETEN: geen zeppelin Org ↔ TB (DB2, 18 nov); 65
+  flight points + 286 vluchten (DB2 71139, Flags 0x1 A / 0x2 H); 30 yd/s uit 12 echte vluchten van Rob; API in Blizzards
+  forever-UI-bron (GetAllTaxiNodes state 0/1 bij de flight map, GetTaxiNodesForMap met isUndiscovered). AFGELEID: zone
+  x,y uit wereldpositie (64/65 binnen 0,44 kaart-% van Wowhead); Classic-regel "alleen INTO bekende punten".
+- ForeverTravel.lua: FLIGHT_NODES/FLIGHT_PATHS; flight masters van je kant zijn punten in StaticGraph, vluchten worden in
+  Plan toegevoegd alleen naar punten die je kent (KnownTaxi: geleerd bij elke flight map in `ns.db.foreverTaxiKnown`
+  per character + de wereldkaartlijst als die zichtbaar filtert). Opeenvolgende vluchten = één stap ("fly to …").
+  Tijdens een vlucht (UnitOnTaxi) geen plan. `/mh travel` noemt de bekende flight points en waar MH ze van weet.
+  Hearthstone-cooldown zat er al in (WaitMin).
+- `ns.ForeverWayLine` → class-questkaartje (nieuwe regel onder de plek) + chat bij Show the way. Ververst ook bij
+  ZONE_CHANGED(_NEW_AREA)/TAXIMAP_CLOSED. Nieuwe sleutels FTRAVEL_WALK_FMT, FTRAVEL_FLY_FMT, FTRAVEL_FLY_IN_FMT (7 talen;
+  it alleen WALK, Forever heeft geen itIT-pack).
+- Andere "Show the way"-knoppen (punt 3): alle lopen via NativeArrow + ForeverTravelNeedsLink, dus de pijl vliegt nu
+  overal mee: ForeverTrainer, Vendors, Weapons, Dungeons, DungeonQuests, Rares, RestXP, QuestieDB, Overview (Find,
+  dungeons). Een zin "The way there" hadden al: Trainer, Weapons, Dungeons, DungeonQuests, Overview. Zonder zin (alleen
+  de pijl): Vendors, Rares, RestXP, QuestieDB.
+- Offline: flight_test 19/19, trainroute_test 6/6 (scratch). 🔵 Open: (a) of GetTaxiNodesForMap in Forever alleen
+  ontdekte punten geeft: Robs `/mh travel` beslist; (b) Classic- of moderne regel voor vliegen dóór onbekende punten
+  (testvoorstel in VLUCHTEN-verslag); (c) bijvangst retail: `Modules/FlightMapHint.lua:82` roept GetAllTaxiNodes() zonder
+  uiMapID aan (verplicht volgens de docs), niet gerepareerd.
+
 ## ▶▶ 26 nov (Bouwchat 26-11): Oath of Light duurt 1 uur — tekst GEREPAREERD, gaat mee in 5.10.1 (`/reload`)
 
 Rob via Sparring: *"Ja, ik zeg ja op 1 en 2."* Bron: content-wachter 26 nov (Forever-hotfix 25 nov "Oath of Light

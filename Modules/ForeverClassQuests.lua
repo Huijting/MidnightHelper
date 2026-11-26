@@ -3203,6 +3203,7 @@ local function CardData()
 		title = QuestTitle(s.q) or ChainName(c),
 		who = who,
 		place = where,
+		way = p and ns.ForeverWayLine and ns.ForeverWayLine(p.m, p.x, p.y) or nil,
 		note = note,
 	}
 end
@@ -3223,6 +3224,11 @@ local function GoPlace(p, line)
 	ns.lastTarget = { mapID = p.m, x = p.x, y = p.y, name = p.npc and NpcName(p) or ZoneName(p.m), via = "/mh classquest", arriveYards = 15 }
 	ns._mhRouteOwner = "waypoint"
 	print(PREFIX .. line)
+	-- 26 Nov 2026: and how you get there (the arrow follows the same plan step by step).
+	local way = ns.ForeverWayLine and ns.ForeverWayLine(p.m, p.x, p.y)
+	if way then
+		print(PREFIX .. way)
+	end
 	return true
 end
 
@@ -3446,6 +3452,9 @@ local function CQWBuild()
 	f.title = line("head2", 19, t.gold)
 	f.who = line("text", 15, t.text)
 	f.where = line("text", 14, t.dim)
+	-- 26 Nov 2026 (Rob at the Orgrimmar zeppelin tower, arrow 4405 m to Thunder Bluff: "waarom alleen maar een pijl die
+	-- kant op en niet hoe ik kom?" → "Ja, stuur maar."): how you get there, from the travel planner, under the place.
+	f.way = line("text", 13, t.text, CQW_W - 24)
 	f.note = line("text", 13, t.label, CQW_W - 24)
 	local close = CreateFrame("Button", nil, f, "UIPanelCloseButton")
 	close:SetPoint("TOPRIGHT", 2, 2)
@@ -3471,6 +3480,11 @@ local function CQWBuild()
 			end
 		end
 		y = math.max(y, 12 + CQW_ICON) + 10
+		self.way:ClearAllPoints()
+		self.way:SetPoint("TOPLEFT", 12, -y)
+		if (self.way:GetText() or "") ~= "" then
+			y = y + (self.way:GetStringHeight() or 13) + 6
+		end
 		self.note:ClearAllPoints()
 		self.note:SetPoint("TOPLEFT", 12, -y)
 		y = y + (self.note:GetStringHeight() or 13) + 8
@@ -3528,12 +3542,13 @@ CQWUpdate = function()
 	f.title:SetText(d.title)
 	f.who:SetText(d.who)
 	f.where:SetText(d.place or "")
+	f.way:SetText(d.way or "")
 	f.note:SetText(d.note)
 	f.go:SetShown(d.place ~= nil)
 	f.stepId = d.id
 	f:Fit()
 	f:Show()
-	cqwWhy = "shown: " .. d.title
+	cqwWhy = "shown: " .. d.title .. "; way: " .. tostring(d.way or "none")
 end
 
 do
@@ -3550,7 +3565,9 @@ do
 	end
 	local ev = CreateFrame("Frame")
 	for _, e in ipairs({ "PLAYER_ENTERING_WORLD", "QUEST_LOG_UPDATE", "QUEST_ACCEPTED", "QUEST_TURNED_IN",
-		"PLAYER_LEVEL_UP", "SPELLS_CHANGED", "BAG_UPDATE_DELAYED", "QUEST_DATA_LOAD_RESULT" }) do
+		"PLAYER_LEVEL_UP", "SPELLS_CHANGED", "BAG_UPDATE_DELAYED", "QUEST_DATA_LOAD_RESULT",
+		-- 26 Nov 2026: the way-there line depends on where you stand, a new zone can change it.
+		"ZONE_CHANGED_NEW_AREA", "ZONE_CHANGED", "TAXIMAP_CLOSED" }) do
 		pcall(ev.RegisterEvent, ev, e)
 	end
 	ev:SetScript("OnEvent", Soon)
