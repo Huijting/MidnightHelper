@@ -25,6 +25,16 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 26 nov — FOREVER: class quest wijst naar het dichtstbijzijnde gebied (Rob: "meer gebieden … Kodo Horns")
+
+⚠️ NIEUW BESTAND (ForeverClassQuestAreas.lua, in beide toc's): Forever één keer HELEMAAL herstarten. Offline getest
+(cq_test 18/18), NIET in het spel.
+- [ ] Druid op "Kodo Horns": het kaartje zegt onder The Barrens "· 3 areas, this one is nearest". Sta je bij Crossroads,
+      dan wijst hij naar het grote gebied ten zuiden (52.4, 42.9); sta je noordelijk (bij 55, 14), dan naar het noorden.
+- [ ] "Show the way": de pijl gaat naar datzelfde gebied. In de chat staat de zin ook met "3 areas, this one is nearest".
+- [ ] Een ander doel met meerdere gebieden: Helboar (Blasted Lands, Warrior), Scarlet-plannen (Paladin,
+      Tirisfal), Mosshoof Courser (Azshara). Een doel met één gebied: alles zoals eerst.
+
 ## 26 nov — FOREVER: tooltip op "5 Earthroot" + alleen jouw eigen Nighthaven
 
 `/reload` is genoeg. Offline getest (cq_test 12/12, flight_test 48/48), NIET in het spel.

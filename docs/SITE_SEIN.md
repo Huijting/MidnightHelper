@@ -28,6 +28,18 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 26 nov 2026 — Forever: class quest wijst naar het dichtstbijzijnde gebied; item-tooltip met je andere characters
+- Tag + commit:   geen tag (commits van die dag)
+- Status:         alleen op main
+- Mag op de site: nee (niet uit)
+- Speler ziet:    Een class-queststap waar je beesten moet doden of iets moet verzamelen dat op meer plekken te vinden is,
+                  wijst naar het gebied dat je het snelst bereikt ("3 areas, this one is nearest"). Muis op een stap die
+                  een item vraagt (Earthroot): de tooltip van het spel, hoeveel je hebt, en welke andere characters het
+                  hebben en of ze het je kunnen mailen (met Syndicator). *(tooltip getest door Rob)*
+- Knoplabels:     FCQ_AREAS_FMT, FCQ_TIP_HAVE_FMT, FCQ_TIP_ALTS_HEAD
+- Commando's:     geen nieuwe
+- Spel:           Forever
+
 ## 26 nov 2026 — Forever: venster na je dood
 - Tag + commit:   geen tag (3969613, fix 66cd4e2, 9b835ee)
 - Status:         alleen op main

@@ -1,5 +1,12 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 26 nov (Bouwchat 26-11): class-quest-gebieden DATA erin (HERSTART: nieuw bestand ForeverClassQuestAreas.lua)
+
+Alles in `docs/forever/CQ_AREAS_2026-11-26.md`. mh-research → `docs/forever/CQ_MOBS_2026-11-26.json` (87 doelen met npc's,
+elk id op naam gecontroleerd in Wowhead Forever). Generator (`CQ_AREAS_generator_2026-11-26.py.txt`) neemt NU alleen
+Zygor/Wowhead-bronnen: 63 doelen, 13 met meer dan één gebied. 🔴 24 doelen alleen via GoldScout (wowgoldscout.com) → wachten
+op Robs keuze (via Sparring gevraagd). cq_test 18/18 met het echte bestand.
+
 ## ▶▶ 26 nov (Bouwchat 26-11): `/mh travel` zegt per stap waar de minuten vandaan komen (`/reload`)
 
 Rob's tweede /mh travel: route + Nighthaven 63 ✅. ForeverTravelSlash: elke stap "(flight timed by you)" / "(flight:

@@ -325,6 +325,7 @@ Modules\ForeverRestXP.lua
 Modules\ForeverXPRate.lua
 Modules\MaxLevelWelcome.lua
 Modules\ForeverItemTips.lua
+Modules\ForeverClassQuestAreas.lua
 Modules\ForeverClassQuests.lua
 Modules\LevelUpFireworks.lua
 Modules\NewChoices.lua

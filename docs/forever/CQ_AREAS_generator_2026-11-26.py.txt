@@ -1,0 +1,153 @@
+"""Build Modules/ForeverClassQuestAreas.lua: per class-quest objective, the areas where its creatures spawn.
+
+Input: cq_mobs.json (mh-research) = { textKey: { npcs: [ids], ... } }. Without it: a dry run with the Kodo only.
+Spawns: Wowhead Forever tooltip JSON (map.zone = AreaTable id, map.coords per floor), via tools/gamedata.py fetch/cache.
+Zone -> uiMap: DB2 UiMapAssignment (AreaID -> UiMapID) + UiMap (Type 3 = zone), Forever build.
+Areas: single-linkage groups of spawn points closer than LINK map-% on the same uiMap; centre = mean; n = points.
+"""
+import csv
+import io
+import json
+import os
+import sys
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+REPO = r"E:/World of Warcraft/_retail_/Interface/AddOns/MidnightHelper"
+sys.path.insert(0, os.path.join(REPO, "tools"))
+import gamedata as gd  # noqa: E402
+
+LINK = 7.0   # map-% between two spawns of one area
+MAX_AREAS = 8
+MIN_POINTS = 3  # an area of 1-2 spawns is dropped when the objective has bigger ones
+
+mobs_path = os.path.join(HERE, "cq_mobs.json")
+dry = not os.path.exists(mobs_path)
+if dry:
+    mobs = {"FCQ_OBJ_KODO": {"npcs": [3234], "status": "GEMETEN", "src": "dry run"}}
+else:
+    with open(mobs_path, encoding="utf-8") as f:
+        raw = {k: v for k, v in json.load(f).items() if not k.startswith("_")}
+    # Sources: only what Zygor (ZY) or Wowhead Forever (WHF) say. GoldScout (GS) is not on the agreed source list
+    # (Rob decides): a key named only by GS waits; within a ZY line that names npc ids itself, only those ids count.
+    import re
+    mobs, waiting = {}, []
+    for k, v in raw.items():
+        src = v.get("src") or ""
+        own = re.split(r";\s*GS\b|\bGS \d", src)[0]
+        if "ZY" not in own and "WHF" not in own:
+            waiting.append(k)
+            continue
+        named = {int(n) for n in re.findall(r"(?:##|\()(\d{3,6})\)?", own)}
+        npcs = [n for n in v.get("npcs") or [] if not named or n in named] or (v.get("npcs") or [])
+        mobs[k] = dict(v, npcs=npcs)
+    print("waiting on the GoldScout decision (%d): %s" % (len(waiting), ", ".join(sorted(waiting))))
+
+build = gd.latest_build("wowf")
+
+
+def db2(name):
+    url = "https://wago.tools/db2/%s/csv?build=%s" % (name, build)
+    data, _ = gd.fetch(url, os.path.join(gd.CACHE, "db2", build, name + ".csv"))
+    return list(csv.DictReader(io.StringIO(data.decode("utf-8-sig"))))
+
+
+uimap = {int(r["ID"]): r for r in db2("UiMap")}
+assign = db2("UiMapAssignment")
+print("UiMapAssignment columns:", list(assign[0].keys())[:14])
+area_to_map = {}
+for r in assign:
+    try:
+        aid, mid = int(r["AreaID"]), int(r["UiMapID"])
+    except (KeyError, ValueError):
+        continue
+    m = uimap.get(mid)
+    if not m or str(m.get("Type")) != "3":
+        continue
+    area_to_map.setdefault(aid, set()).add(mid)
+
+
+def tooltip(npc):
+    url = "https://nether.wowhead.com/forever/tooltip/npc/%d" % npc
+    data, _ = gd.fetch(url, os.path.join(gd.CACHE, "tooltip", "forever", "npc", "%d.enUS.json" % npc), 3 * 86400,
+                       soft404=True)
+    return json.loads(data.decode("utf-8")) if data else None
+
+
+def groups(points):
+    left = list(points)
+    out = []
+    while left:
+        seed = left.pop()
+        grp, frontier = [seed], [seed]
+        while frontier:
+            p = frontier.pop()
+            keep = []
+            for q in left:
+                if (p[0] - q[0]) ** 2 + (p[1] - q[1]) ** 2 <= LINK * LINK:
+                    grp.append(q)
+                    frontier.append(q)
+                else:
+                    keep.append(q)
+            left = keep
+        out.append(grp)
+    return out
+
+
+result, report = {}, []
+for key in sorted(mobs):
+    pts = {}  # uiMap -> [(x, y)]
+    names = []
+    for npc in mobs[key].get("npcs") or []:
+        j = tooltip(int(npc))
+        if not j or not j.get("name"):
+            report.append("%s: npc %s unknown to Wowhead" % (key, npc))
+            continue
+        names.append("%s %s" % (npc, j["name"]))
+        m = j.get("map") or {}
+        maps = sorted(area_to_map.get(int(m.get("zone") or 0), []))
+        if len(maps) != 1:
+            report.append("%s: npc %s zone %s -> uiMaps %s (need exactly 1, skipped)" % (key, npc, m.get("zone"), maps))
+            continue
+        for _floor, cs in (m.get("coords") or {}).items():
+            for c in cs:
+                pts.setdefault(maps[0], []).append((float(c[0]), float(c[1])))
+    areas = []
+    for mid, ps in pts.items():
+        for g in groups(ps):
+            x = sum(p[0] for p in g) / len(g)
+            y = sum(p[1] for p in g) / len(g)
+            # the spawn nearest the centre (a centre can fall between two camps)
+            best = min(g, key=lambda p: (p[0] - x) ** 2 + (p[1] - y) ** 2)
+            areas.append((len(g), mid, round(best[0], 1), round(best[1], 1)))
+    areas.sort(key=lambda a: -a[0])
+    if any(a[0] >= MIN_POINTS for a in areas):
+        areas = [a for a in areas if a[0] >= MIN_POINTS]
+    areas = areas[:MAX_AREAS]
+    if areas:
+        result[key] = areas
+    report.append("%s: %s -> %d area(s): %s" % (key, ", ".join(names), len(areas),
+                                               "; ".join("%d pts on %d at %.1f,%.1f" % a for a in areas)))
+
+print("\n".join(report))
+lines = [
+    "local _, ns = ...",
+    "",
+    "-- GENERATED by the build chat's cq_areas.py (26 Nov 2026) -- do not edit by hand.",
+    "-- Per class-quest objective (textKey in ForeverClassQuests.lua): the areas where its creatures spawn, biggest",
+    "-- first: { uiMapID, x, y, spawn points }. Creatures per objective: mh-research (docs/forever/CQ_AREAS_2026-11-26.md);",
+    "-- spawn points: Wowhead Forever tooltip data; zone -> uiMap: DB2 UiMapAssignment/UiMap %s. No Polestar/GPL data." % build,
+    "",
+    "if not ns.IS_FOREVER then",
+    "\treturn",
+    "end",
+    "",
+    "ns.FOREVER_CQ_AREAS = {",
+]
+for key in sorted(result):
+    body = ", ".join("{ m = %d, x = %.1f, y = %.1f, n = %d }" % (a[1], a[2], a[3], a[0]) for a in result[key])
+    lines.append("\t%s = { %s }," % (key, body))
+lines.append("}")
+text = "\n".join(lines) + "\n"
+target = os.path.join(HERE if dry else os.path.join(REPO, "Modules"), "ForeverClassQuestAreas.lua")
+gd.write_atomic(target, text.encode("utf-8"))
+print("%s %d objective(s) -> %s" % ("DRY RUN:" if dry else "wrote", len(result), target))
