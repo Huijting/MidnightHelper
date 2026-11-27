@@ -25,6 +25,22 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 27 nov — FOREVER Skill up: de route eenvoudiger
+
+`/reload` is genoeg. Open `/mh skillup`, kies een beroep en klik links op **Route to 300**. Offline getest
+(simple_test, 416 toestanden), NIET in het spel.
+- [ ] Bovenaan een blauwe balk met "<beroep>: 62 / 300" (jouw skill), met gele streepjes en de getallen 50, 125 en 200
+      eronder. Streepjes die je al voorbij bent zijn grijs. Staat alles netjes, of loopt er iets door elkaar?
+- [ ] Daaronder één grote regel met wat je NU doet. Bijvoorbeeld "Now: make about 14x … You have everything for it." of
+      "Now: you are missing 42 … " met daaronder waar je het krijgt. Klopt dat met je tassen?
+- [ ] Zit je skill op je maximum (bv. 75/75), dan zegt de grote regel: naar je trainer voor de volgende rang.
+- [ ] Een regel "What comes next:", bv. "at skill 50, visit your trainer for the next rank."
+- [ ] Onderaan in gewone woorden: de kleuren (oranje = altijd een punt … grijs = nooit) en wat "Rank" is.
+- [ ] Links een nieuwe knop **Show the whole route**: dan komt de lange lijst met de boodschappenlijst eronder. Nog een
+      klik (Hide the whole route) en hij is weer weg. Na `/reload` blijft je keuze staan.
+- [ ] Muisaanwijzer op een recept of spul in de grote regel: de gewone tooltip van het spel.
+- [ ] Knop **Next step**: het oude scherm, zonder balk.
+
 ## 27 nov — FOREVER toetsblok: vormen/standen-ronde (warrior, druid, rogue) + 4 testjes vooraf
 
 `/reload` is genoeg voor wie de Undo + Place van vandaag al deed; anders eerst die (zie de druid-sectie hieronder).

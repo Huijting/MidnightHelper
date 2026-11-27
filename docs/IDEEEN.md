@@ -26,6 +26,14 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 
 ## Open — wacht op Rob
 
+### Forever Skill up: de route eenvoudiger uitleggen (wens van Rob, 27 nov) — ✅ JA, GEBOUWD 27 nov, wacht op test
+- Bron: Rob via Sparring 27-11, letterlijk: *"Kunnen we dat eenvoudiger uitleggen?"* → op het plan (5 punten):
+  *"Ja, das klappt so."*
+- Gebouwd: knop heet nu "Route to 300". Bovenaan een balk "62 / 300" met streepjes op 50, 125 en 200; één grote regel
+  met wat je NU doet (maken / je mist nog / recept leren / naar je trainer); één regel "What comes next"; de kleuren en
+  "rang" in gewone woorden. De lange lijst + boodschappenlijst alleen achter "Show the whole route".
+- Spel: F. Voor wie: N (AFGELEID).
+
 ### Eén MH-venster tegelijk, met Terug en Home (wens van Rob, 27 nov) — ✅ JA (B), GEBOUWD 27 nov, wacht op test
 - Bron: Rob via Sparring 27-11 (gedicteerd, toen hij MH aan Carola uitlegde): *"… al die schermpjes die bouwen op en over
   elkaar heen. Wat ik eigenlijk zou willen is dat we gewoon alleen maar dat schermpje openen. En de andere schermpje

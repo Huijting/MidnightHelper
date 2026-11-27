@@ -9,21 +9,29 @@ Home) · 80eb161 Druid Swipe op 4 · 3f0dc78 Druid form guard + eigen macro's pe
 a875074 Druid Ferocious Bite op C · 1c84157 vormen/standen-ronde (Warrior Sunder op 4 Defensive, Druid bear X =
 Demoralizing Roar, Rogue Stealth guard, How you play split-toetsen).
 Testen bij Rob: TESTLIJST, alle secties "27 nov". Toetsblok: 1x per character Undo + Place, daarna /reload.
+Daarna (Bouwchat 27-11 (2)): Skill up-route eenvoudiger GEBOUWD (zie de sectie hieronder), niet in het spel gezien.
 OPEN:
-- 🔜 NIEUWE OPDRACHT (Rob via Sparring 27-11: "Kunnen we dat eenvoudiger uitleggen?" → plan: "Ja, das klappt so."):
-  Skill up → Whole route eenvoudiger: (1) bovenaan groot alleen wat je NU doet ("Now: make 12× Linen Bandage (you have
-  everything)" / "You are missing 8 Linen Cloth — drops from humanoids"); (2) één regel "what comes next" ("At 50: visit
-  the trainer for the next rank"); (3) voortgangsbalk "62 / 300" met de trainer-momenten 50/125/200; (4) de lange
-  lijst alleen achter een knop "Show the whole route"; (5) gewone woorden, vakwoorden kort uitgelegd (oranje = altijd
-  een punt, geel = meestal, groen = soms, grijs = nooit). Code: Modules/ForeverSkillup.lua RouteText + Build (knop
-  f.mode staat ná RegisterMidnightDialogPopup: lint [25] kijkt 120 regels vooruit), sleutels FSROUTE_* (enUS, nlNL,
-  ForeverClassQuests_de/fr/es/pt/ru). Offline test: scratchpad route_test.lua (laadt de echte modules). NIET BEGONNEN.
+- Wacht op Robs test van de eenvoudige route (TESTLIJST "27 nov — Skill up: de route eenvoudiger").
 - Wacht op Robs 4 testjes (TESTLIJST "vormen/standen-ronde"): Shadowmeld in beer, Moonkin+C, Shadowform+C/Fear Ward,
   Prowl bonusbar. Daarna pas: Shadowmeld-guard, Moonkin/Shadowform-heals, Fear Ward-tekst, Ravage/Prowl-stand.
 - Lacerate ForeverTrainerData r109 req {414647} vs DB2 (1328616 Supersedes 1328617): niet aangepast, uitzoeken.
 - Opties 1 (geld) en 3 (verzamelplekken): alleen onderzocht, IDEEEN.md; wachten op Robs keuze + zijn testjes.
 - Oude gedeelde account-macro's ("MH 4" e.d.) staan nog in Robs account-lijst; MH raakt ze niet meer; verwijderen pas
   als elk character opnieuw geplaatst heeft (Robs keuze).
+
+## ▶▶ 27 nov (Bouwchat 27-11 (2)): Forever Skill up — de route eenvoudiger (`/reload`)
+
+Rob via Sparring 27-11, letterlijk: *"Kunnen we dat eenvoudiger uitleggen?"* → op het plan: *"Ja, das klappt so."*
+ForeverSkillup.lua: nieuw RouteSimple (ns.ForeverSkillRouteSimple) op dezelfde stappen als RouteText. In de route-weergave:
+StatusBar "<beroep>: 62 / 300" (f.bar, streepjes 50/125/200, grijs als je erlangs bent) + f.now (GameFontHighlightLarge)
+met de NU-regel: open je beroepenvenster (KnownCount 0) / trainer of boek (skill ≥ cap) / gat / leer recept (+ waar) /
+je mist nog N X (+ herkomst zonder "MH:", MakeFirst, "Also missing") / maak ongeveer Nx (je hebt alles). Een stap stopt
+op je cap. "What comes next": eerst de volgende rang (bij 50/125/200, of "kan nu al", of boek voor Cooking/First Aid
+boven 150), anders het volgende recept. Kleuren- en rang-uitleg in gewone woorden. Lange lijst (RouteText) alleen
+achter f.full "Show the whole route" (ns.db.skillupRouteList, standaard uit). Knop f.mode heet nu "Route to 300".
+19 sleutels FSROUTE_* nieuw/gewijzigd in enUS, nlNL, ForeverClassQuests_de/fr/es/pt/ru (itIT Engels, zoals Skill up).
+Offline: scratch simple_test (416 toestanden, 8 beroepen, %-codes per taal gelijk aan Engels) + oude route_test 56/56.
+Niet in het spel gezien: balk en grote regel (plek, hoogte, skin).
 
 ## ▶▶ 27 nov (Bouwchat 27-11): Forever toetsblok — vormen/standen-ronde gebouwd (`/reload`)
 

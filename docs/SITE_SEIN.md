@@ -28,6 +28,16 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 27 nov — Forever Skill up: de route eenvoudig uitgelegd
+- Tag + commit:   geen tag (commit: zie git log, "Skill up route eenvoudiger")
+- Status:         alleen op main
+- Mag op de site: nee (nog niet getest, niet uit)
+- Speler ziet:    De route naar 300 begint nu met een balk (jouw skill van 300, streepjes waar je een nieuwe rang leert),
+                  één grote regel met wat je nu doet, en wat er daarna komt. De lange lijst staat achter een knop.
+- Knoplabels:     FSROUTE_BTN_WHOLE, FSROUTE_BTN_LIST_SHOW, FSROUTE_BTN_LIST_HIDE
+- Commando's:     /mh skillup
+- Spel:           Forever
+
 ## 27 nov 2026 — Forever: class reagents en munitie, met de dichtstbijzijnde verkoper
 - Tag + commit:   geen tag / (zie git log, 27 nov)
 - Status:         alleen op main

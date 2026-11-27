@@ -31,6 +31,10 @@ local _, ns = ...
 	27 Nov 2026 (Rob via Sparring 27-11: "begin met 2"): the button under the professions switches to the WHOLE route
 	1-300 (RouteText below; data ForeverSkillRouteData.lua): every step from your skill on, trainer ranks, recipes to
 	learn, about how many crafts, and one shopping list for the rest of the route. No money.
+	27 Nov 2026 (Rob via Sparring 27-11: "Kunnen we dat eenvoudiger uitleggen?" → on the plan: "Ja, das klappt so."):
+	that route view now opens simply (RouteSimple): a bar "62 / 300" with marks at 50/125/200, one big line with what
+	you do NOW (make / you are missing / learn / visit your trainer), one line "What comes next", and the colours and
+	"rank" in plain words. The long list (RouteText) only behind "Show the whole route" (ns.db.skillupRouteList).
 ]]
 
 if not ns.IS_FOREVER then
@@ -644,6 +648,7 @@ end
 -- Window
 --------------------------------------------------------------------------------
 local W, H, LEFT_W = 600, 470, 160
+local BAR_MARKS = { 50, 125, 200 } -- the skill from which you can learn the next rank (RANK_FROM below)
 local win, selected, Fill
 
 local function Build()
@@ -788,6 +793,50 @@ local function Build()
 		f.offset = 0
 		Fill()
 	end)
+	-- 27 Nov 2026: the long list of the route only behind this button (Rob's plan, point 4).
+	f.full = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
+	f.full:SetSize(LEFT_W, 24)
+	f.full:SetPoint("TOPLEFT", 20, -50 - 10 * 28 - 6)
+	f.full:SetScript("OnClick", function()
+		if ns.db then
+			ns.db.skillupRouteList = not ns.db.skillupRouteList or nil
+		end
+		Fill()
+	end)
+	f.full:Hide()
+	-- 27 Nov 2026 (Rob via Sparring 27-11: "Kunnen we dat eenvoudiger uitleggen?" → "Ja, das klappt so."): the route
+	-- view opens with a bar "62 / 300" (marks at the trainer moments) and one big line with what you do NOW. In the
+	-- scrolling text frame, so links in the big line answer too. (Here, after the popup registration: lint [25].)
+	local bw = W - rx - 32
+	local bar = CreateFrame("StatusBar", nil, child)
+	bar:SetSize(bw, 18)
+	bar:SetPoint("TOPLEFT", 0, -2)
+	bar:SetStatusBarTexture("Interface\\TargetingFrame\\UI-StatusBar")
+	bar:SetStatusBarColor(0.25, 0.6, 1)
+	bar:SetMinMaxValues(0, 300)
+	local barBg = bar:CreateTexture(nil, "BACKGROUND")
+	barBg:SetAllPoints()
+	barBg:SetColorTexture(0, 0, 0, 0.6)
+	bar.label = bar:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	bar.label:SetPoint("CENTER")
+	bar.marks = {}
+	for i, v in ipairs(BAR_MARKS) do
+		local t = bar:CreateTexture(nil, "OVERLAY")
+		t:SetSize(2, 24)
+		t:SetPoint("TOP", bar, "TOPLEFT", bw * v / 300, 3)
+		local n = bar:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+		n:SetPoint("TOP", t, "BOTTOM", 0, -1)
+		n:SetText(tostring(v))
+		bar.marks[i] = { v = v, line = t, num = n }
+	end
+	bar:Hide()
+	f.bar = bar
+	f.now = child:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
+	f.now:SetPoint("TOPLEFT", 0, -40)
+	f.now:SetWidth(bw)
+	f.now:SetJustifyH("LEFT")
+	f.now:SetSpacing(3)
+	f.now:Hide()
 	f:RegisterEvent("GET_ITEM_INFO_RECEIVED")
 	f:RegisterEvent("BAG_UPDATE_DELAYED")
 	f:SetScript("OnEvent", function(self)
@@ -1154,6 +1203,155 @@ local function RouteText(key, mine)
 end
 ns.ForeverSkillRouteText = RouteText -- for the offline check
 
+--------------------------------------------------------------------------------
+-- The route, simply (27 Nov 2026, Rob via Sparring 27-11: "Kunnen we dat eenvoudiger uitleggen?" → on the plan:
+-- "Ja, das klappt so."): one big line with what you do NOW, one line with what comes next, the colours and "rank" in
+-- plain words. The long list (RouteText) only behind its own button. Same steps, same estimate, nothing new measured.
+--------------------------------------------------------------------------------
+local function Plain(s) -- "MH: Dropped by monsters" → "Dropped by monsters" (the prefix is for tooltips)
+	return s and (s:gsub("^MH%s?:%s*", "")) or nil
+end
+
+local function Coloured(c)
+	local col = COLOUR[c]
+	return ("|cff%02x%02x%02x%s|r"):format(math.floor(col[1] * 255), math.floor(col[2] * 255), math.floor(col[3] * 255),
+		ColourWord(c))
+end
+
+--- { now = big line, lines = { … }, seller = row or nil, skill, cap } — or nil when there is no route to show simply.
+local function RouteSimple(key, mine)
+	Parse()
+	local m = mine[key]
+	local steps = RouteSteps(key)
+	if not (m and m.rank and steps) or m.rank >= 300 then
+		return nil
+	end
+	local skill, cap = m.rank, m.maxRank or 0
+	local out = { lines = {}, skill = skill, cap = cap }
+	local function add(s)
+		out.lines[#out.lines + 1] = s
+	end
+	-- The next rank you still have to learn (the smallest one above your cap).
+	local rankCap
+	if cap > 0 then
+		for _, st in ipairs(steps) do
+			if st.t == "r" and st.cap > cap and (not rankCap or st.cap < rankCap) then
+				rankCap = st.cap
+			end
+		end
+	end
+	local book = rankCap and SECONDARY[key] and rankCap > 150
+	-- The first piece of the route still to do (a make step or a hole), and the make step after it.
+	local from, cur, after = 1, nil, nil
+	for _, st in ipairs(steps) do
+		if st.t == "g" then
+			if not cur and st.to > skill then
+				cur = { t = "g", from = math.max(from, skill), to = st.to }
+			end
+			from = math.max(from, st.to)
+		elseif st.t == "m" then
+			local r = REC[st.spell]
+			local start = math.max(from, skill)
+			if r and st.to > skill and st.to > start then
+				local to = st.to
+				if cap > 0 and cap < 300 and to > cap and start < cap then
+					to = cap -- above your cap you get no points: the step stops there until the next rank
+				end
+				local it = { t = "m", r = r, spell = st.spell, from = start, to = to,
+					crafts = math.max(1, CraftsBetween(r, start, to)) }
+				if not cur then
+					cur = it
+				elseif not after then
+					after = it
+				end
+			end
+			from = math.max(from, st.to)
+		end
+	end
+	local stuck = cap > 0 and cap < 300 and skill >= cap
+	if KnownCount(key) == 0 then
+		-- MH has not read your recipes yet: every step would say "learn" (Next step says the same, FSKILL_OPEN_WINDOW_FMT).
+		out.now = ns:L("FSKILL_OPEN_WINDOW_FMT"):format(ProfName(key, mine))
+	elseif stuck then
+		out.now = ns:L(book and "FSROUTE_NOW_BOOK_FMT" or "FSROUTE_NOW_RANK_FMT"):format(cap)
+		after = (cur and cur.t == "m") and cur or after
+	elseif not cur then
+		return nil
+	elseif cur.t == "g" then
+		out.now = ns:L("FSROUTE_HOLE_FMT"):format(cur.from, cur.to)
+	elseif not Knows(cur.spell) then
+		out.now = ns:L("FSROUTE_NOW_LEARN_FMT"):format(RecipeLink(cur.r))
+		local lines, row = nil, nil
+		if ns.ForeverRecipeSourceLines then
+			lines, row = ns.ForeverRecipeSourceLines(cur.spell)
+		end
+		if lines and lines[1] then
+			add("|cff99ccff" .. Plain(lines[1]) .. "|r")
+		end
+		out.seller = row
+		add(ns:L("FSROUTE_THEN_MAKE_FMT"):format(cur.crafts, RecipeLink(cur.r), cur.from, cur.to))
+	else
+		local missing = {}
+		for _, rg in ipairs(cur.r.r) do
+			local need, have = rg[2] * cur.crafts, Count(rg[1])
+			if have < need then
+				missing[#missing + 1] = { id = rg[1], n = need - have }
+			end
+		end
+		if #missing == 0 then
+			out.now = ns:L("FSROUTE_NOW_MAKE_FMT"):format(cur.crafts, RecipeLink(cur.r))
+			add(ns:L("FSROUTE_NOW_RANGE_FMT"):format(cur.from, cur.to))
+		else
+			local first = missing[1]
+			out.now = ns:L("FSROUTE_NOW_MISSING_FMT"):format(first.n, ItemLink(first.id))
+			if ns.ForeverReagentSourceText then
+				local src, seller = ns.ForeverReagentSourceText(first.id)
+				if src then
+					add("|cff99ccff" .. Plain(src) .. "|r")
+					out.seller = seller
+				end
+			end
+			local mf, needs = MakeFirst(key, first.id, first.n)
+			if mf then
+				add("|cff66ccff" .. mf .. "|r")
+				add("     " .. needs)
+			end
+			if #missing > 1 then
+				local parts = {}
+				for i = 2, #missing do
+					parts[#parts + 1] = ("%dx %s"):format(missing[i].n, ItemLink(missing[i].id))
+				end
+				add(ns:L("FSROUTE_ALSO_FMT"):format(table.concat(parts, ", ")))
+			end
+			add(ns:L("FSROUTE_THEN_MAKE_FMT"):format(cur.crafts, RecipeLink(cur.r), cur.from, cur.to))
+		end
+	end
+	-- What comes next: the next rank first (that is where players get stuck), else the next recipe.
+	local nextLine
+	if rankCap and not stuck then
+		local at = RANK_FROM[rankCap]
+		if book or not at then
+			nextLine = ns:L("FSROUTE_NEXT_BOOK_FMT"):format(cap)
+		elseif skill >= at then
+			nextLine = ns:L("FSROUTE_NEXT_RANK_NOW_FMT"):format(cap)
+		else
+			nextLine = ns:L("FSROUTE_NEXT_RANK_FMT"):format(at)
+		end
+	elseif after then
+		nextLine = ns:L("FSROUTE_NEXT_MAKE_FMT"):format(RecipeLink(after.r), after.to)
+	end
+	if nextLine then
+		add(" ")
+		add("|cffffcc66" .. ns:L("FSROUTE_NEXT_HEAD") .. "|r " .. nextLine)
+	end
+	-- The words, short.
+	add(" ")
+	add(ns:L("FSROUTE_COLOURS_FMT"):format(Coloured("orange"), Coloured("yellow"), Coloured("green"), Coloured("grey")))
+	add("|cff9d9d9d" .. ns:L("FSROUTE_RANK_WHAT") .. "|r")
+	return out
+end
+ns.ForeverSkillRouteSimple = RouteSimple -- for the offline check
+
 --- The trainer button as wide as its text: under the text column, growing to the left when that is too narrow.
 local function FitTrainerButton(f)
 	local fs = f.go:GetFontString()
@@ -1203,11 +1401,40 @@ Fill = function()
 	local whole = ns.db and ns.db.skillupWhole
 	f.mode:SetText(ns:L(whole and "FSROUTE_BTN_NEXT" or "FSROUTE_BTN_WHOLE"))
 	f.mode:SetShown(selected ~= nil)
+	local simple = whole and selected and RouteSimple(selected, mine)
+	f.full:SetShown(simple and true or false)
+	f.full:SetText(ns:L(ns.db and ns.db.skillupRouteList and "FSROUTE_BTN_LIST_HIDE" or "FSROUTE_BTN_LIST_SHOW"))
+	f.bar:SetShown(simple and true or false)
+	f.now:SetShown(simple and true or false)
+	f.text:ClearAllPoints()
+	if simple then
+		f.bar:SetValue(math.min(300, simple.skill))
+		f.bar.label:SetText(ns:L("FSROUTE_BAR_FMT"):format(ProfName(selected, mine), simple.skill))
+		for _, mk in ipairs(f.bar.marks) do
+			local passed = simple.skill >= mk.v
+			mk.line:SetColorTexture(passed and 0.6 or 1, passed and 0.6 or 0.8, passed and 0.6 or 0.2, 1)
+			mk.num:SetTextColor(passed and 0.6 or 1, passed and 0.6 or 0.8, passed and 0.6 or 0.2)
+		end
+		f.now:SetText(simple.now)
+		f.text:SetPoint("TOPLEFT", f.now, "BOTTOMLEFT", 0, -8)
+	else
+		f.text:SetPoint("TOPLEFT", f.child, "TOPLEFT", 0, 0)
+	end
 	if not selected then
 		f.text:SetText(ns:L("FSKILL_EMPTY"))
 		f.go:Hide()
 	else
-		if whole then
+		if simple then
+			local text = table.concat(simple.lines, "\n")
+			local seller = simple.seller
+			if ns.db and ns.db.skillupRouteList then
+				local list, listSeller = RouteText(selected, mine)
+				text = text .. "\n \n" .. list
+				seller = seller or listSeller
+			end
+			f.text:SetText(text)
+			planSeller = seller
+		elseif whole then
 			local text, seller = RouteText(selected, mine)
 			f.text:SetText(text)
 			planSeller = seller
@@ -1231,7 +1458,8 @@ Fill = function()
 		f.buy:Hide()
 	end
 	f.scroll:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -24, seller and 78 or 50)
-	f.child:SetHeight(math.max(10, (f.text:GetStringHeight() or 0) + 8))
+	local top = simple and (40 + (f.now:GetStringHeight() or 0) + 8) or 0
+	f.child:SetHeight(math.max(10, top + (f.text:GetStringHeight() or 0) + 8))
 	if f.lastSelected ~= selected then
 		f.offset, f.lastSelected = 0, selected
 	end
