@@ -1,5 +1,30 @@
 # Midnight Helper — waar we staan
 
+## ▶▶▶ STAND 27 nov avond (Bouwchat 27-11, context vol → opvolger "Bouwchat 27-11 (2)")
+
+AF op main t/m 1c84157, NIETS getagd (laatste release blijft v5.11.0), niets daarvan in het spel getest. Op volgorde:
+a508cda Dual Spec-waarschuwing · 092b0b6 Skill up hele route 1-300 · c23b1ad tas-melding (Put it on/Swap) · 5223b21
+class reagents + munitie (Find + Do this now) · 3498f79 opraak-melding 50/3 · 7abe118 één MH-venster tegelijk (B, Back/
+Home) · 80eb161 Druid Swipe op 4 · 3f0dc78 Druid form guard + eigen macro's per character (gedeelde account-macro-bug) ·
+a875074 Druid Ferocious Bite op C · 1c84157 vormen/standen-ronde (Warrior Sunder op 4 Defensive, Druid bear X =
+Demoralizing Roar, Rogue Stealth guard, How you play split-toetsen).
+Testen bij Rob: TESTLIJST, alle secties "27 nov". Toetsblok: 1x per character Undo + Place, daarna /reload.
+OPEN:
+- 🔜 NIEUWE OPDRACHT (Rob via Sparring 27-11: "Kunnen we dat eenvoudiger uitleggen?" → plan: "Ja, das klappt so."):
+  Skill up → Whole route eenvoudiger: (1) bovenaan groot alleen wat je NU doet ("Now: make 12× Linen Bandage (you have
+  everything)" / "You are missing 8 Linen Cloth — drops from humanoids"); (2) één regel "what comes next" ("At 50: visit
+  the trainer for the next rank"); (3) voortgangsbalk "62 / 300" met de trainer-momenten 50/125/200; (4) de lange
+  lijst alleen achter een knop "Show the whole route"; (5) gewone woorden, vakwoorden kort uitgelegd (oranje = altijd
+  een punt, geel = meestal, groen = soms, grijs = nooit). Code: Modules/ForeverSkillup.lua RouteText + Build (knop
+  f.mode staat ná RegisterMidnightDialogPopup: lint [25] kijkt 120 regels vooruit), sleutels FSROUTE_* (enUS, nlNL,
+  ForeverClassQuests_de/fr/es/pt/ru). Offline test: scratchpad route_test.lua (laadt de echte modules). NIET BEGONNEN.
+- Wacht op Robs 4 testjes (TESTLIJST "vormen/standen-ronde"): Shadowmeld in beer, Moonkin+C, Shadowform+C/Fear Ward,
+  Prowl bonusbar. Daarna pas: Shadowmeld-guard, Moonkin/Shadowform-heals, Fear Ward-tekst, Ravage/Prowl-stand.
+- Lacerate ForeverTrainerData r109 req {414647} vs DB2 (1328616 Supersedes 1328617): niet aangepast, uitzoeken.
+- Opties 1 (geld) en 3 (verzamelplekken): alleen onderzocht, IDEEEN.md; wachten op Robs keuze + zijn testjes.
+- Oude gedeelde account-macro's ("MH 4" e.d.) staan nog in Robs account-lijst; MH raakt ze niet meer; verwijderen pas
+  als elk character opnieuw geplaatst heeft (Robs keuze).
+
 ## ▶▶ 27 nov (Bouwchat 27-11): Forever toetsblok — vormen/standen-ronde gebouwd (`/reload`)
 
 Rob via Sparring 27-11, letterlijk: *"Ik volg uiteraard je advies."* (op: ja op 1, 2, 3 en Concussion Blow; de rest pas na
