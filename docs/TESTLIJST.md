@@ -25,6 +25,20 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 27 nov — FOREVER Druid: caster-toetsen doen niets in beer/kat + eigen macro's per character
+
+`/reload`, daarna ÉÉN keer per character met het toetsblok: `/mh keyblock` → Undo → "Place it on bars 5, 6 and 7"
+(zo komen de eigen macro's op je balk; de oude gedeelde "MH 4" enz. blijven staan maar MH raakt ze niet meer aan).
+Offline getest (guard_test, swipe_test), NIET in het spel.
+- [ ] Druid in Bear Form, druk 2: er gebeurt NIETS, je blijft beer (het knopje toont een "?"). Buiten een vorm: Moonfire.
+- [ ] Hetzelfde voor C (Healing Touch), Shift-X, Shift-Z, Shift-C, Shift-Q en Ctrl-R (Revive/Rebirth) in beer en kat.
+- [ ] Blijven werken in beer: Ctrl-1/2/3 (vormen), R (Travel/Aquatic Form), X (Nature's Grasp), Z (Barkskin), Shift-F
+      (Faerie Fire), Shift-E (race-spell), en 1-4 met hun beer-spells.
+- [ ] Toets 4 op de druid: Swipe als beer (NIET meer Fire Blast van de mage). Log daarna op de mage in en weer terug:
+      de druid-toets blijft Swipe.
+- [ ] Keys-tab van het overzicht: schakelaar "Druid: caster keys do nothing in Bear and Cat Form" uit = het oude gedrag.
+- [ ] `/mh keyblock` → "Why these keys?": onderaan "Druid: a ? in Bear or Cat Form" met de uitleg en de autoUnshift-tip.
+
 ## 27 nov — FOREVER Druid: Swipe als beer op 4 (niet meer Shift-1)
 
 `/reload` is genoeg: MH schrijft je bestaande blok-macro's ("MH 4") bij het inloggen opnieuw. Offline getest

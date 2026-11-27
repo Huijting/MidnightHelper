@@ -6305,6 +6305,11 @@ ns._mhLocales.enUS = {
 	FOV_KEYS_SWITCHES = "Switches",
 	FOV_KEYS_SW_MO = "Mouseover on the key block",
 	FOV_TIP_KEYS_SW_MO = "On: heals and buffs on your key block go to the friend under your mouse, roots and crowd control to the enemy under your mouse. Nothing under the mouse: the key works as before. Same as /mh mouseover on|off.",
+	-- 27 Nov 2026 (Rob: "... en dan ga ik uit beervorm" → "akkoord"): the Druid's form guard (ForeverBlock.lua).
+	FBLOCK_FG_SW = "Druid: caster keys do nothing in Bear and Cat Form",
+	FBLOCK_FG_SW_DESC = "On: a key-block key whose spell only works in your normal shape (Moonfire, a heal …) does nothing while you are a bear or a cat, so you do not leave the form by accident. Its button shows a question mark there. Off: the game takes you out of the form, as before.",
+	KEYGUIDE_FORMS_HEAD = "Druid: a ? in Bear or Cat Form",
+	KEYGUIDE_FORMS = "A key with a question mark in Bear or Cat Form holds a spell that only works in your normal shape. Pressing it there does nothing, so you stay in the form. Leave the form first (press the same form key again). Your own buttons outside the block still take you out of the form: that is the game's setting autoUnshift. Outside a fight, /run SetCVar(\"autoUnshift\",0) switches it off, but for your whole account (every character), and it can make changing forms awkward. MH never changes it.",
 	FOV_TIP_SWITCH = "Click to switch it on or off.",
 	FOV_TIP_CYCLE = "Click for the next size, right-click for the one before.",
 	-- 26 Nov 2026: a Midnight-only command typed in WoW Forever (Core.lua, CommandList.lua MIDNIGHT_ONLY).

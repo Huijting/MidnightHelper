@@ -1891,6 +1891,11 @@ for k, v in pairs({
 	FOV_KEYS_SWITCHES = "Interrupteurs",
 	FOV_KEYS_SW_MO = "Mouseover sur le bloc de touches",
 	FOV_TIP_KEYS_SW_MO = "Activé : les soins et les buffs de ton bloc de touches vont à l'allié sous ta souris, les immobilisations et le contrôle des foules à l'ennemi sous ta souris. Rien sous la souris : la touche marche comme avant. Comme /mh mouseover on|off.",
+	-- 27 Nov 2026: the Druid's form guard. Our own translation, not reviewed by a native speaker.
+	FBLOCK_FG_SW = "Druide : les touches de lanceur ne font rien en forme d'ours et de félin",
+	FBLOCK_FG_SW_DESC = "Activé : une touche du bloc dont le sort ne marche que dans ta forme normale (un soin par exemple) ne fait rien tant que tu es ours ou félin, pour ne pas quitter la forme par erreur. Son bouton montre alors un point d'interrogation. Désactivé : le jeu te fait quitter la forme, comme avant.",
+	KEYGUIDE_FORMS_HEAD = "Druide : un ? en forme d'ours ou de félin",
+	KEYGUIDE_FORMS = "Une touche avec un point d'interrogation en forme d'ours ou de félin a un sort qui ne marche que dans ta forme normale. Appuyer dessus là ne fait rien, tu restes dans la forme. Quitte d'abord la forme (la même touche de forme encore une fois). Tes propres boutons hors du bloc te font toujours quitter la forme : c'est le réglage du jeu autoUnshift. Hors combat, /run SetCVar(\"autoUnshift\",0) le désactive, mais pour tout ton compte (chaque personnage), et changer de forme peut devenir moins pratique. MH ne le change jamais.",
 	FOV_TIP_SWITCH = "Clique pour l'activer ou le désactiver.",
 	FOV_TIP_CYCLE = "Clique pour la taille suivante, clic droit pour la précédente.",
 	CMD_MIDNIGHT_ONLY_FMT = "%s ne fonctionne que dans World of Warcraft: Midnight, pas dans WoW Forever.",

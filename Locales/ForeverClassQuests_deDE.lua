@@ -1892,6 +1892,11 @@ for k, v in pairs({
 	FOV_KEYS_SWITCHES = "Schalter",
 	FOV_KEYS_SW_MO = "Mouseover auf dem Tastenblock",
 	FOV_TIP_KEYS_SW_MO = "An: Heilungen und Buffs auf deinem Tastenblock gehen an den Freund unter deiner Maus, Wurzeln und Kontrolleffekte an den Gegner unter deiner Maus. Nichts unter der Maus: Die Taste wirkt wie vorher. Dasselbe wie /mh mouseover on|off.",
+	-- 27 Nov 2026: the Druid's form guard. Our own translation, not reviewed by a native speaker.
+	FBLOCK_FG_SW = "Druide: Zauberer-Tasten tun nichts in Bären- und Katzengestalt",
+	FBLOCK_FG_SW_DESC = "An: Eine Taste des Tastenblocks mit einem Zauber, der nur in deiner normalen Gestalt wirkt (zum Beispiel eine Heilung), tut nichts, solange du Bär oder Katze bist, damit du die Gestalt nicht aus Versehen verlässt. Ihr Knopf zeigt dann ein Fragezeichen. Aus: Das Spiel holt dich aus der Gestalt, wie bisher.",
+	KEYGUIDE_FORMS_HEAD = "Druide: ein ? in Bären- oder Katzengestalt",
+	KEYGUIDE_FORMS = "Eine Taste mit Fragezeichen in Bären- oder Katzengestalt hat einen Zauber, der nur in deiner normalen Gestalt wirkt. Dort zu drücken tut nichts, du bleibst in der Gestalt. Verlass die Gestalt zuerst (dieselbe Gestalt-Taste noch einmal). Deine eigenen Knöpfe außerhalb des Blocks holen dich weiterhin aus der Gestalt: Das ist die Spieleinstellung autoUnshift. Außerhalb eines Kampfes schaltet /run SetCVar(\"autoUnshift\",0) sie aus, aber für deinen ganzen Account (jeden Charakter), und Gestaltwechsel können umständlicher werden. MH ändert sie nie.",
 	FOV_TIP_SWITCH = "Klick, um ihn ein- oder auszuschalten.",
 	FOV_TIP_CYCLE = "Klick für die nächste Größe, Rechtsklick für die vorige.",
 	CMD_MIDNIGHT_ONLY_FMT = "%s funktioniert nur in World of Warcraft: Midnight, nicht in WoW Forever.",

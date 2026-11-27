@@ -738,6 +738,11 @@ for k, v in pairs({
 	FOV_KEYS_SWITCHES = "Interruptores",
 	FOV_KEYS_SW_MO = "Mouseover en el bloque de teclas",
 	FOV_TIP_KEYS_SW_MO = "Activado: las sanaciones y los buffs de tu bloque de teclas van al aliado bajo tu ratón, los enraizamientos y el control de masas al enemigo bajo tu ratón. Nada bajo el ratón: la tecla funciona como antes. Lo mismo que /mh mouseover on|off.",
+	-- 27 Nov 2026: the Druid's form guard. Our own translation, not reviewed by a native speaker.
+	FBLOCK_FG_SW = "Druida: las teclas de lanzador no hacen nada en forma de oso y felina",
+	FBLOCK_FG_SW_DESC = "Activado: una tecla del bloque cuyo hechizo solo funciona en tu forma normal (una sanación, por ejemplo) no hace nada mientras eres oso o felino, para que no salgas de la forma sin querer. Su botón muestra entonces un signo de interrogación. Desactivado: el juego te saca de la forma, como antes.",
+	KEYGUIDE_FORMS_HEAD = "Druida: un ? en forma de oso o felina",
+	KEYGUIDE_FORMS = "Una tecla con signo de interrogación en forma de oso o felina tiene un hechizo que solo funciona en tu forma normal. Pulsarla ahí no hace nada, te quedas en la forma. Sal primero de la forma (la misma tecla de forma otra vez). Tus propios botones fuera del bloque te siguen sacando de la forma: es el ajuste del juego autoUnshift. Fuera de combate, /run SetCVar(\"autoUnshift\",0) lo desactiva, pero para toda tu cuenta (cada personaje), y cambiar de forma puede volverse incómodo. MH nunca lo cambia.",
 	FOV_TIP_SWITCH = "Haz clic para activarlo o desactivarlo.",
 	FOV_TIP_CYCLE = "Haz clic para el siguiente tamaño, clic derecho para el anterior.",
 	CMD_MIDNIGHT_ONLY_FMT = "%s solo funciona en World of Warcraft: Midnight, no en WoW Forever.",

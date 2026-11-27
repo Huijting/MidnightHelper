@@ -28,6 +28,11 @@ ns.FOREVER_BLOCK_CLASSES.DRUID = {
 		{ name = "swim", cond = "[swimming]" },
 	},
 	baseGuard = "[nobonusbar:1/2/3]",
+	-- 27 Nov 2026 (Rob: in Bear Form "veel te snel geneigd om op 2 te drukken ... en dan ga ik uit beervorm" → "akkoord"):
+	-- every caster spell gets the guard, also before the key's bear or cat spell is known (ForeverBlock.lua BodyRaw), so
+	-- in a form it does nothing. Not guarded (open): the form keys, Travel/Aquatic Form, Nature's Grasp; `all` keys
+	-- (Barkskin, Faerie Fire, the race spell) never were. Only the Druid has it; the Rogue's table is unchanged.
+	formGuard = true,
 	keys = {
 		["1"] = { bear = "Maul", cat = "Claw", base = "Wrath" },
 		["2"] = { bear = "Lacerate", cat = "Rake", base = "Moonfire" },
@@ -55,7 +60,7 @@ ns.FOREVER_BLOCK_CLASSES.DRUID = {
 		["SHIFT-R"] = { cat = "Prowl" },
 		["F"] = { bear = "Growl", cat = "Cower" },
 		["Z"] = { all = "Barkskin" },
-		["X"] = { bear = "Frenzied Regeneration", base = "Nature's Grasp" },
+		["X"] = { bear = "Frenzied Regeneration", base = "Nature's Grasp", open = true },
 		["C"] = { base = "Healing Touch" },
 		["F2"] = { base = "Regrowth" },
 		["F4"] = { base = "Rejuvenation" },
@@ -63,9 +68,9 @@ ns.FOREVER_BLOCK_CLASSES.DRUID = {
 		["SHIFT-X"] = { base = { "Gift of the Wild", "Mark of the Wild" } },
 		-- 26 Nov 2026 (Fable check): + Walk on Air, so a Skyborne Druid gets a race spell here too.
 		["SHIFT-E"] = { all = { "Shadowmeld", "War Stomp", "Walk on Air" } },
-		["CTRL-1"] = { base = { "Dire Bear Form", "Bear Form" } },
-		["CTRL-2"] = { base = "Cat Form" },
-		["CTRL-3"] = { base = "Moonkin Form" },
+		["CTRL-1"] = { open = true, base = { "Dire Bear Form", "Bear Form" } },
+		["CTRL-2"] = { open = true, base = "Cat Form" },
+		["CTRL-3"] = { open = true, base = "Moonkin Form" },
 	},
 	toBlockD = { "Teleport: Moonglade", "Track Humanoids", "Ravage", "Elune's Light" },
 	-- 12 x 4 (Forever, 24 Nov 2026; /mh block style 12x4). From docs/forever/KEYBLOCK12_DRUID.md (mh-research,
@@ -80,7 +85,7 @@ ns.FOREVER_BLOCK_CLASSES.DRUID = {
 		["R"] = { cat = "Dash", swim = "Aquatic Form", base = "Travel Form", open = true, why = "move: Travel Form, Aquatic Form in water, Dash as cat" },
 		["F"] = { bear = "Growl", cat = "Cower", base = "Rejuvenation", why = "Growl taunts as bear; as caster your instant heal Rejuvenation" },
 		["Z"] = { all = "Barkskin", why = "small defensive, works in every form" },
-		["X"] = { base = "Nature's Grasp", why = "second defensive: roots what hits you, also in a form" },
+		["X"] = { base = "Nature's Grasp", open = true, why = "second defensive: roots what hits you, also in a form" },
 		["C"] = { bear = "Frenzied Regeneration", base = "Healing Touch", why = "big defensive: Frenzied Regeneration as bear, else Healing Touch" },
 		["V"] = { bear = "Bash", cat = "Pounce", base = "Entangling Roots", why = "crowd control: Roots, Bash as bear, Pounce from Prowl" },
 		["SHIFT-1"] = { base = "Hurricane", why = "AoE as caster: Hurricane (the bear's Swipe is on 4)" },
@@ -95,9 +100,9 @@ ns.FOREVER_BLOCK_CLASSES.DRUID = {
 		["SHIFT-X"] = { base = { "Gift of the Wild", "Mark of the Wild" }, why = "armor and stats buff, before a fight" },
 		["SHIFT-C"] = { base = "Regrowth", why = "quick heal, next to Healing Touch on C" },
 		["SHIFT-V"] = { base = "Hibernate", why = "second crowd control: puts a beast or dragonkin to sleep" },
-		["CTRL-1"] = { base = { "Dire Bear Form", "Bear Form" }, why = "Bear Form: the same key in and out" },
-		["CTRL-2"] = { base = "Cat Form", why = "Cat Form: the same key in and out" },
-		["CTRL-3"] = { base = "Moonkin Form", why = "Moonkin Form: the same key in and out" },
+		["CTRL-1"] = { open = true, base = { "Dire Bear Form", "Bear Form" }, why = "Bear Form: the same key in and out" },
+		["CTRL-2"] = { open = true, base = "Cat Form", why = "Cat Form: the same key in and out" },
+		["CTRL-3"] = { open = true, base = "Moonkin Form", why = "Moonkin Form: the same key in and out" },
 		["CTRL-Q"] = { base = "Innervate", why = "mana cooldown, for you or another healer" },
 		["CTRL-E"] = { base = "Remove Curse", why = "remove a curse from a friend" },
 		["CTRL-R"] = { pair = { cond = "[combat]", first = "Rebirth", second = "Revive" }, why = "bring a friend back: Revive, in a fight Rebirth" },

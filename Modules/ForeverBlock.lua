@@ -360,6 +360,14 @@ local function MouseoverOn()
 	return not moSuppressed and ns.db and ns.db.foreverMouseover == true
 end
 
+--- 27 Nov 2026: the form guard (see BodyRaw), on unless the player switched it off.
+local function FormGuardOn()
+	return not (ns.db and ns.db.foreverFormGuard == false)
+end
+function ns.IsForeverFormGuardOn()
+	return FormGuardOn()
+end
+
 --- Put the mouseover part in front of a clause's condition ("" or "[x] "). english = the table name of the spell.
 local function WithMouseover(cond, english)
 	if not (english and MouseoverOn()) then
@@ -472,11 +480,20 @@ BodyRaw = function(cls, key)
 		local a, aId, aEn = First(def.pair.first)
 		local b, bId, bEn = First(def.pair.second)
 		local parts = {}
+		-- 27 Nov 2026: the form guard reaches the pair keys too (Druid Ctrl-R Rebirth/Revive), merged into the condition.
+		local g = cls.formGuard and not def.open and FormGuardOn() and cls.baseGuard and cls.baseGuard:match("^%[(.-)%]$")
+		local function G(cond)
+			if not g then
+				return cond
+			end
+			local inner = cond:match("^%[(.-)%]%s*$")
+			return inner and inner ~= "" and ("[" .. g .. "," .. inner .. "] ") or ("[" .. g .. "] ")
+		end
 		if a then
-			parts[#parts + 1] = WithMouseover(b and (def.pair.cond .. " ") or "", aEn) .. use(a, aId)
+			parts[#parts + 1] = WithMouseover(G(b and (def.pair.cond .. " ") or ""), aEn) .. use(a, aId)
 		end
 		if b then
-			parts[#parts + 1] = WithMouseover("", bEn) .. use(b, bId)
+			parts[#parts + 1] = WithMouseover(G(""), bEn) .. use(b, bId)
 		end
 		if #parts == 0 then
 			return nil
@@ -487,7 +504,13 @@ BodyRaw = function(cls, key)
 	if allName then
 		return "#showtooltip\n/cast " .. WithMouseover("", allEn) .. use(allName, allId), ids, show
 	end
-	local clauses, guarded = {}, false
+	-- 27 Nov 2026 (Rob: "als ik in beervorm ben, [ben ik] veel te snel geneigd om op 2 te drukken ... en dan ga ik uit
+	-- beervorm" → "akkoord"): with cls.formGuard (the Druid), a caster spell gets the base guard ALWAYS, also before a
+	-- form spell on that key is known, so in Bear or Cat the key does nothing instead of taking you out of the form
+	-- (Forever's autoUnshift). GEMETEN that day: /cast without a matching condition does nothing (Blizzard Forever
+	-- SlashCommands.lua). def.open keys (forms, Travel Form, Nature's Grasp) stay unguarded. Switch: the Keys tab.
+	local always = cls.formGuard and not def.open and FormGuardOn()
+	local clauses, guarded = {}, always and true or false
 	for _, st in ipairs(cls.states or {}) do
 		local name, id, en = FirstFor(cls, key, def[st.name])
 		if name then
@@ -513,7 +536,73 @@ ns.ForeverMacroBody = function(key)
 	return Body(ClassTable(), key)
 end
 
+--------------------------------------------------------------------------------
+-- 🔴 27 Nov 2026, BUG: shared account macros. GEMETEN in Rob's macros-cache.txt: the druid's 18 character macros were
+-- full, so new "MH <key>" macros went to the ACCOUNT list, where "MH 4" held the mage's "/cast Fire Blast", "MH CTRL-Q"
+-- a paladin blessing and "MH R" the druid's Aquatic Form. GetMacroIndexByName finds the account list first, so every
+-- character rewrote the SAME macro with its own spells. Now a character only ever touches its own macro:
+--   its character macro "MH <key>" (looked up in the character range, never by a name that also matches the account
+--   list), else an account macro "MH <key> <tag>" with a tag of its own (the last 3 characters of its GUID). A plain
+--   "MH <key>" in the account list is never edited again; placing the block once more puts the own macro on the bar.
+--------------------------------------------------------------------------------
+local function Tag()
+	local g = UnitGUID and UnitGUID("player")
+	if type(g) ~= "string" or (issecretvalue and issecretvalue(g)) or #g < 3 then
+		return nil
+	end
+	return g:sub(-3)
+end
+
+local function AcctName(key)
+	local t = Tag()
+	return t and (MACRO_PREFIX .. key .. " " .. t) or nil
+end
+
+local function NumMacros()
+	if not GetNumMacros then
+		return 0, 0
+	end
+	local g, c = GetNumMacros()
+	return g or 0, c or 0
+end
+
+local function CharRange()
+	local first = (MAX_ACCOUNT_MACROS or 120) + 1
+	local _, perChar = NumMacros()
+	return first, first + math.max(perChar, MAX_CHARACTER_MACROS or 18) - 1
+end
+
+--- This character's own macro for a key: index and name, or nil.
+local function OwnMacro(key)
+	local plain = MACRO_PREFIX .. key
+	if GetMacroInfo then
+		local a, b = CharRange()
+		for i = a, b do
+			local ok, n = pcall(GetMacroInfo, i)
+			if ok and n == plain then
+				return i, plain
+			end
+		end
+	end
+	local an = AcctName(key)
+	local idx = an and GetMacroIndexByName and GetMacroIndexByName(an) or 0
+	if idx and idx > 0 then
+		return idx, an
+	end
+	return nil
+end
+ns.ForeverOwnMacro = OwnMacro -- for the offline check
+
+--- The name this character's macro for a key has, or will get when it is made now.
 local function MacroName(key)
+	local _, n = OwnMacro(key)
+	if n then
+		return n
+	end
+	local _, perChar = NumMacros()
+	if perChar >= (MAX_CHARACTER_MACROS or 18) then
+		return AcctName(key) or (MACRO_PREFIX .. key)
+	end
 	return MACRO_PREFIX .. key
 end
 
@@ -526,8 +615,9 @@ function ns.ForeverEnsureMacro(key)
 	if not body then
 		return nil, "nothing known for " .. tostring(key)
 	end
-	local name = MacroName(key)
-	local idx = GetMacroIndexByName and GetMacroIndexByName(name) or 0
+	local idx, name = OwnMacro(key)
+	name = name or MacroName(key)
+	idx = idx or 0
 	-- 🔴 24 Nov 2026 (Rob's Druid in Bear Form: "de icoontjes zijn hetzelfde als die van niet in beer vorm"): rewrite with
 	-- the icon we WANT, never the one GetMacroInfo returns. For a question-mark macro that is the icon shown at that
 	-- moment (MEASURED in his macros-cache.txt: every rewritten "MH" macro had a fixed file id such as 136006 = Wrath,
@@ -541,11 +631,11 @@ function ns.ForeverEnsureMacro(key)
 		if old ~= body or ns.ForeverMacroIconFix then
 			pcall(EditMacro, idx, name, wantIcon, body)
 		end
-		return GetMacroIndexByName(name)
+		-- Found again by OUR lookup: a plain name could also match a shared account macro, which is listed first.
+		return (OwnMacro(key))
 	end
 	-- A character macro first (this character's own spells). How many Forever allows per character is not measured; when
-	-- they are full, the account's shared list is used. A shared "MH 1" is rewritten by whichever character logs in, with
-	-- that character's own spells (RefreshExisting on PLAYER_ENTERING_WORLD), so it stays right for the one playing.
+	-- they are full, an account macro with this character's own tag (27 Nov 2026; never a shared name, see above).
 	local numGlobal, perChar = GetNumMacros()
 	local maxChar = MAX_CHARACTER_MACROS or 18
 	local maxGlobal = MAX_ACCOUNT_MACROS or 120
@@ -556,6 +646,12 @@ function ns.ForeverEnsureMacro(key)
 				numGlobal or 0, maxGlobal)
 		end
 		perCharacter = false
+		name = AcctName(key)
+		if not name then
+			return nil, "your character macros are full and MH cannot read your character id for an own account macro"
+		end
+	else
+		name = MACRO_PREFIX .. key
 	end
 	local cls = ClassTable()
 	local def = cls and cls.keys and cls.keys[key]
@@ -584,16 +680,60 @@ local function RefreshExisting()
 	ns.db.foreverMacroIconFixed = ns.db.foreverMacroIconFixed or {}
 	local fix = me and not ns.db.foreverMacroIconFixed[me]
 	ns.ForeverMacroIconFix = fix and true or nil
+	-- 27 Nov 2026: only this character's own macros (OwnMacro). And a key that knows nothing any more (Swipe moved from
+	-- Shift-1 to 4 while Hurricane is not learned yet) is emptied to "#showtooltip", so an old spell does not linger on it
+	-- — but only when other keys DO have a text, so a login moment where no spell is readable yet empties nothing.
+	local stale, anyBody = {}, false
 	for key in pairs(cls.keys) do
-		local idx = GetMacroIndexByName and GetMacroIndexByName(MacroName(key))
+		local idx = OwnMacro(key)
 		if idx and idx > 0 then
-			ns.ForeverEnsureMacro(key)
+			local got = ns.ForeverEnsureMacro(key)
+			if got then
+				anyBody = true
+			elseif not Body(cls, key) then
+				stale[#stale + 1] = key
+			end
+		end
+	end
+	if anyBody then
+		for _, key in ipairs(stale) do
+			local idx, name = OwnMacro(key)
+			if idx and name then
+				local _, _, old = GetMacroInfo(idx)
+				if old and old ~= "#showtooltip" then
+					pcall(EditMacro, idx, name, MACRO_ICON, "#showtooltip")
+				end
+			end
 		end
 	end
 	ns.ForeverMacroIconFix = nil
 	if fix then
 		ns.db.foreverMacroIconFixed[me] = true
 	end
+end
+
+--- 27 Nov 2026: the form-guard switch (the overview's Keys tab): store it and rewrite the placed macros (out of combat;
+--- in a fight right after it).
+function ns.SetForeverFormGuard(on)
+	ns.db = ns.db or {}
+	if on then
+		ns.db.foreverFormGuard = nil -- on = the default
+	else
+		ns.db.foreverFormGuard = false
+	end
+	if InCombatLockdown and InCombatLockdown() then
+		local once = CreateFrame("Frame")
+		once:RegisterEvent("PLAYER_REGEN_ENABLED")
+		once:SetScript("OnEvent", function(self)
+			self:UnregisterAllEvents()
+			RefreshExisting()
+		end)
+	else
+		RefreshExisting()
+	end
+end
+ns._ForeverBlockRefresh = function() -- for the offline check: the same function login and new spells call
+	return RefreshExisting()
 end
 
 --- The player's mouseover switch (not the short "too long, rebuilt without" state). The overview's Keys tab shows it.

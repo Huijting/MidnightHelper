@@ -3168,6 +3168,13 @@ function ns.ShowKeyBlockWhy()
 		local suffix = (not ns.IS_FOREVER and part ~= "ALT") and "_MN" or ""
 		add(ns:L("KEYGUIDE_BAR_" .. part .. suffix), "GameFontHighlightSmall", 16, 0.9, 0.9, 0.9)
 	end
+	-- 27 Nov 2026 (Rob: "... en dan ga ik uit beervorm" → "akkoord"): a Druid's caster keys do nothing in a form now
+	-- (ForeverBlock.lua form guard); what the "?" means, and the game's own autoUnshift setting as a tip (MH never sets it).
+	local _, token = UnitClass("player")
+	if ns.IS_FOREVER and token == "DRUID" then
+		add(ns:L("KEYGUIDE_FORMS_HEAD"), "GameFontNormal", 6, 1, 0.82, 0.2)
+		add(ns:L("KEYGUIDE_FORMS"), "GameFontHighlightSmall", 16, 0.9, 0.9, 0.9)
+	end
 	-- Positions from the measured heights, again after the Forever style changed the font (it does that on show).
 	local function Layout()
 		local y = 0

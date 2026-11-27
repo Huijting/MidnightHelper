@@ -701,6 +701,11 @@ for k, v in pairs({
 	FOV_KEYS_SWITCHES = "Interruptores",
 	FOV_KEYS_SW_MO = "Mouseover no bloco de teclas",
 	FOV_TIP_KEYS_SW_MO = "Ligado: curas e buffs do seu bloco de teclas vão para o aliado sob o seu mouse, enraizamentos e controle de grupo para o inimigo sob o seu mouse. Nada sob o mouse: a tecla funciona como antes. O mesmo que /mh mouseover on|off.",
+	-- 27 Nov 2026: the Druid's form guard. Our own translation, not reviewed by a native speaker.
+	FBLOCK_FG_SW = "Druida: teclas de conjurador não fazem nada na forma de urso e de felino",
+	FBLOCK_FG_SW_DESC = "Ligado: uma tecla do bloco cujo feitiço só funciona na sua forma normal (uma cura, por exemplo) não faz nada enquanto você é urso ou felino, para você não sair da forma sem querer. O botão mostra então um ponto de interrogação. Desligado: o jogo tira você da forma, como antes.",
+	KEYGUIDE_FORMS_HEAD = "Druida: um ? na forma de urso ou de felino",
+	KEYGUIDE_FORMS = "Uma tecla com ponto de interrogação na forma de urso ou de felino tem um feitiço que só funciona na sua forma normal. Apertar ali não faz nada, você continua na forma. Saia da forma primeiro (a mesma tecla de forma de novo). Os seus próprios botões fora do bloco ainda tiram você da forma: é a configuração do jogo autoUnshift. Fora de combate, /run SetCVar(\"autoUnshift\",0) desliga isso, mas para toda a sua conta (cada personagem), e trocar de forma pode ficar mais chato. O MH nunca muda isso.",
 	FOV_TIP_SWITCH = "Clique para ligar ou desligar.",
 	FOV_TIP_CYCLE = "Clique para o próximo tamanho, clique direito para o anterior.",
 	CMD_MIDNIGHT_ONLY_FMT = "%s só funciona em World of Warcraft: Midnight, não no WoW Forever.",

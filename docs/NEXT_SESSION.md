@@ -1,5 +1,24 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 27 nov (Bouwchat 27-11): Forever toetsblok — Druid form guard + nooit meer gedeelde account-macro's
+
+Rob via Sparring 27-11: *"als ik in beervorm ben, [ben ik] veel te snel geneigd om op 2 te drukken. En 2, dat is dan
+Moonfire, en dan ga ik uit beervorm"* → op het plan, letterlijk: *"akkoord"*.
+(1) ForeverBlock.lua BodyRaw: cls.formGuard (alleen DRUID; Rogue ongemoeid) → base krijgt ALTIJD baseGuard, ook zonder
+bekende vorm-spell; pair-toetsen ook ("[nobonusbar:1/2/3,combat] Rebirth; [nobonusbar:1/2/3] Revive"). open = true
+op Ctrl-1/2/3 en X (beide tabellen; R had het al); `all` (Z, Shift-E, Shift-F/5) was nooit guarded. Schakelaar
+ns.db.foreverFormGuard (Keys-tab FBLOCK_FG_SW), herschrijft meteen. Uitleg + autoUnshift-tip in "Why these keys?"
+(KEYGUIDE_FORMS, alleen Forever-druid). MH zet autoUnshift nooit.
+(2) 🔴 BUG gedeelde account-macro's, GEMETEN in Robs macros-cache: account-lijst had 7 gedeelde "MH …" (MH 4 = mage
+Fire Blast, MH CTRL-Q paladin, MH R druid); druid 18/18 eigen plekken vol; GetMacroIndexByName vindt de account-lijst
+eerst → elk character herschreef dezelfde. Nu OwnMacro: eerst de eigen character-macro (in het character-bereik), anders
+een account-macro "MH <toets> <laatste 3 tekens GUID>". Een kale gedeelde "MH <toets>" wordt nooit meer bewerkt (niet
+verwijderd: kan op andere balken staan). Rob: per character 1x Undo + Place. RefreshExisting maakt een eigen macro
+zonder bekende spell leeg ("#showtooltip") — de oude MH SHIFT-1 met Swipe — alleen als andere toetsen wel tekst hebben.
+(3) Bijvangst ForeverTrainerData.lua r109: Lacerate 1328616 req {414647}; DB2 71139: 1328616 Supersedes 1328617, 414647
+Supersedes 0 / AcquireMethod 3. NIET aangepast (betekenis van req alle/één niet nagegaan) — open punt.
+guard_test + swipe_test geslaagd.
+
 ## ▶▶ 27 nov (Bouwchat 27-11): Forever Druid — Swipe als beer van Shift-1 naar 4 (`/reload`)
 
 Rob via Sparring 27-11, letterlijk: *"Ja, ik gebruik 12 keer 4 en swipe mag inderdaad op 4."* (als tank Shift-1 met twee

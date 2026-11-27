@@ -761,6 +761,14 @@ local KEY_SWITCHES = {
 				ns.ForeverMouseoverSlash(on and "on" or "off")
 			end
 		end },
+	-- 27 Nov 2026 (Rob: "... en dan ga ik uit beervorm" → "akkoord"): caster keys do nothing in Bear/Cat (ForeverBlock.lua).
+	{ title = "FBLOCK_FG_SW", tip = "FBLOCK_FG_SW_DESC",
+		get = function() return ns.IsForeverFormGuardOn and ns.IsForeverFormGuardOn() end,
+		set = function(on)
+			if ns.SetForeverFormGuard then
+				ns.SetForeverFormGuard(on)
+			end
+		end },
 	{ title = "SET_FOREVER_RANKGLOW_TITLE", tip = "SET_FOREVER_RANKGLOW_DESC",
 		get = function() return ns.IsForeverRankGlowOn and ns.IsForeverRankGlowOn() end,
 		set = function(on)
