@@ -741,6 +741,8 @@ for k, v in pairs({
 	-- 27 Nov 2026: the Druid's form guard. Our own translation, not reviewed by a native speaker.
 	FBLOCK_FG_SW = "Druida: las teclas de lanzador no hacen nada en forma de oso y felina",
 	FBLOCK_FG_SW_DESC = "Activado: una tecla del bloque cuyo hechizo solo funciona en tu forma normal (una sanación, por ejemplo) no hace nada mientras eres oso o felino, para que no salgas de la forma sin querer. Su botón muestra entonces un signo de interrogación. Desactivado: el juego te saca de la forma, como antes.",
+	FBLOCK_SG_SW = "Pícaro: tres tiempos de reutilización no hacen nada en sigilo",
+	FBLOCK_SG_SW_DESC = "Activado: las teclas Z, Shift-1 y Q no hacen nada mientras estás en sigilo, para que no rompas el sigilo antes de tu apertura. Desactivado: también funcionan en sigilo, y te sacan de él.",
 	KEYGUIDE_FORMS_HEAD = "Druida: un ? en forma de oso o felina",
 	KEYGUIDE_FORMS = "Una tecla con signo de interrogación en forma de oso o felina tiene un hechizo que solo funciona en tu forma normal. Pulsarla ahí no hace nada, te quedas en la forma. Sal primero de la forma (la misma tecla de forma otra vez). Tus propios botones fuera del bloque te siguen sacando de la forma: es el ajuste del juego autoUnshift. Fuera de combate, /run SetCVar(\"autoUnshift\",0) lo desactiva, pero para toda tu cuenta (cada personaje), y cambiar de forma puede volverse incómodo. MH nunca lo cambia.",
 	FOV_TIP_SWITCH = "Haz clic para activarlo o desactivarlo.",

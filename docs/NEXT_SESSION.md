@@ -1,5 +1,18 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 27 nov (Bouwchat 27-11): Forever toetsblok — vormen/standen-ronde gebouwd (`/reload`)
+
+Rob via Sparring 27-11, letterlijk: *"Ik volg uiteraard je advies."* (op: ja op 1, 2, 3 en Concussion Blow; de rest pas na
+een test). Uit de mh-research-audit (Shadowmeld-punt door mij weerlegd: 20580 Attributes_0 169082896 heeft 0x10000 NIET).
+(1) Warrior keys12 "4" = Execute (battle/berserker) + Sunder Armor (defensive); SHIFT-C leeg. (4) keys12 SHIFT-V + berserker
+Concussion Blow. (2) Druid keys12 X = bear Demoralizing Roar + base Nature's Grasp (open); SHIFT-2 alleen Wild Growth.
+(3) Rogue Z/SHIFT-1/Q (beide tabellen): `all` → `base` + `guard = true`; motor: def.guard krijgt de baseGuard met eigen
+schakelaar ns.db.foreverStealthGuard (Keys-tab FBLOCK_SG_SW). Geen formGuard voor de rest van de rogue.
+(5) How you play KeyMap/LiveKeys: een oude toets met spells op VERSCHILLENDE 12x4-toetsen (split) kiest nu per spellnaam
+die direct naast de toets staat ("Naam (**X**", "Naam op X", "**X** = Naam"), clientnaam + Engels; voorheen hing het van
+pairs() af. stance_test 5/5 runs (eerste versie keek te ver en faalde 5/5 — gerepareerd).
+NIET gebouwd (wacht op Robs 4 testjes, TESTLIJST): Shadowmeld, Moonkin/Shadowform-heals, Fear Ward-tekst, Ravage/Prowl.
+
 ## ▶▶ 27 nov (Bouwchat 27-11): Forever Druid — Ferocious Bite als kat van Shift-4 naar C (`/reload`)
 
 Rob via Sparring 27-11, letterlijk: *"ja ja"* (1 = "Ferocious Bite als kat van Shift-4 naar C?", 2 = "Een helper alle

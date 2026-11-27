@@ -71,7 +71,10 @@ ns.FOREVER_BLOCK_CLASSES.WARRIOR = {
 		["2"] = { battle = "Overpower", defensive = "Revenge", berserker = "Whirlwind",
 			why = "your stance's own strike: Overpower, Revenge or Whirlwind" },
 		["3"] = { all = { "Mortal Strike", "Bloodthirst", "Shield Slam" }, why = "your level-40 talent strike" },
-		["4"] = { battle = "Execute", berserker = "Execute", why = "finisher: Execute below 20% health" },
+		-- 27 Nov 2026 (Rob via Sparring 27-11: "Ik volg uiteraard je advies."): key 4 was empty in Defensive Stance while the
+		-- tank's Sunder Armor sat on Shift-C. GEMETEN (DB2 71139): Execute only in Battle/Berserker, Sunder in every stance.
+		["4"] = { battle = "Execute", defensive = "Sunder Armor", berserker = "Execute",
+			why = "finisher Execute below 20% health; in Defensive Stance the tank's Sunder Armor" },
 		["Q"] = { battle = "Sweeping Strikes", berserker = "Recklessness", why = "big cooldown of your stance" },
 		["E"] = { battle = "Shield Bash", defensive = "Shield Bash", berserker = "Pummel",
 			why = "your interrupt: E is the kick key for every class" },
@@ -96,8 +99,10 @@ ns.FOREVER_BLOCK_CLASSES.WARRIOR = {
 		["SHIFT-F"] = { all = "Intimidating Shout", why = "crowd control 2: Intimidating Shout" },
 		["SHIFT-Z"] = { battle = "Rend", defensive = "Rend", why = "bleed: Rend, kept where it was" },
 		["SHIFT-X"] = { all = "Victory Rush", why = "your self heal after a kill: Victory Rush" },
-		["SHIFT-C"] = { all = "Sunder Armor", why = "tank: Sunder Armor, was key 5" },
-		["SHIFT-V"] = { battle = "Concussion Blow", defensive = "Concussion Blow", why = "crowd control 3: stun" },
+		-- 27 Nov 2026: Sunder Armor moved to 4 (Defensive Stance); Shift-C is free.
+		-- Concussion Blow has no stance limit (GEMETEN: no SpellShapeshift row), so Berserker too.
+		["SHIFT-V"] = { battle = "Concussion Blow", defensive = "Concussion Blow", berserker = "Concussion Blow",
+			why = "crowd control 3: stun, in every stance" },
 		-- Bar C (Ctrl); CTRL-F/Z/X/C/V are the fixed items
 		["CTRL-1"] = { all = "Battle Stance", why = "stance 1" },
 		["CTRL-2"] = { all = "Defensive Stance", why = "stance 2" },

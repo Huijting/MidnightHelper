@@ -368,6 +368,14 @@ function ns.IsForeverFormGuardOn()
 	return FormGuardOn()
 end
 
+--- 27 Nov 2026: the Rogue's Stealth guard (keys with def.guard), on unless switched off.
+local function StealthGuardOn()
+	return not (ns.db and ns.db.foreverStealthGuard == false)
+end
+function ns.IsForeverStealthGuardOn()
+	return StealthGuardOn()
+end
+
 --- Put the mouseover part in front of a clause's condition ("" or "[x] "). english = the table name of the spell.
 local function WithMouseover(cond, english)
 	if not (english and MouseoverOn()) then
@@ -509,7 +517,9 @@ BodyRaw = function(cls, key)
 	-- form spell on that key is known, so in Bear or Cat the key does nothing instead of taking you out of the form
 	-- (Forever's autoUnshift). GEMETEN that day: /cast without a matching condition does nothing (Blizzard Forever
 	-- SlashCommands.lua). def.open keys (forms, Travel Form, Nature's Grasp) stay unguarded. Switch: the Keys tab.
-	local always = cls.formGuard and not def.open and FormGuardOn()
+	-- 27 Nov 2026 (Rob: "Ik volg uiteraard je advies."): def.guard = this one key gets the guard too (the Rogue's Evasion,
+	-- Blade Flurry and Adrenaline Rush do nothing in Stealth instead of breaking it), with its own switch.
+	local always = not def.open and ((cls.formGuard and FormGuardOn()) or (def.guard and StealthGuardOn()))
 	local clauses, guarded = {}, always and true or false
 	for _, st in ipairs(cls.states or {}) do
 		local name, id, en = FirstFor(cls, key, def[st.name])
@@ -720,6 +730,25 @@ function ns.SetForeverFormGuard(on)
 		ns.db.foreverFormGuard = nil -- on = the default
 	else
 		ns.db.foreverFormGuard = false
+	end
+	if InCombatLockdown and InCombatLockdown() then
+		local once = CreateFrame("Frame")
+		once:RegisterEvent("PLAYER_REGEN_ENABLED")
+		once:SetScript("OnEvent", function(self)
+			self:UnregisterAllEvents()
+			RefreshExisting()
+		end)
+	else
+		RefreshExisting()
+	end
+end
+--- 27 Nov 2026: the Rogue's Stealth-guard switch (Keys tab), the same way.
+function ns.SetForeverStealthGuard(on)
+	ns.db = ns.db or {}
+	if on then
+		ns.db.foreverStealthGuard = nil
+	else
+		ns.db.foreverStealthGuard = false
 	end
 	if InCombatLockdown and InCombatLockdown() then
 		local once = CreateFrame("Frame")

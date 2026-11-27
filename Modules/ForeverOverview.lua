@@ -769,6 +769,14 @@ local KEY_SWITCHES = {
 				ns.SetForeverFormGuard(on)
 			end
 		end },
+	-- 27 Nov 2026: the Rogue's Evasion, Blade Flurry and Adrenaline Rush do nothing in Stealth (ForeverBlock.lua def.guard).
+	{ title = "FBLOCK_SG_SW", tip = "FBLOCK_SG_SW_DESC",
+		get = function() return ns.IsForeverStealthGuardOn and ns.IsForeverStealthGuardOn() end,
+		set = function(on)
+			if ns.SetForeverStealthGuard then
+				ns.SetForeverStealthGuard(on)
+			end
+		end },
 	{ title = "SET_FOREVER_RANKGLOW_TITLE", tip = "SET_FOREVER_RANKGLOW_DESC",
 		get = function() return ns.IsForeverRankGlowOn and ns.IsForeverRankGlowOn() end,
 		set = function(on)

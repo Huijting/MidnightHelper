@@ -1895,6 +1895,8 @@ for k, v in pairs({
 	-- 27 Nov 2026: the Druid's form guard. Our own translation, not reviewed by a native speaker.
 	FBLOCK_FG_SW = "Druide: Zauberer-Tasten tun nichts in Bären- und Katzengestalt",
 	FBLOCK_FG_SW_DESC = "An: Eine Taste des Tastenblocks mit einem Zauber, der nur in deiner normalen Gestalt wirkt (zum Beispiel eine Heilung), tut nichts, solange du Bär oder Katze bist, damit du die Gestalt nicht aus Versehen verlässt. Ihr Knopf zeigt dann ein Fragezeichen. Aus: Das Spiel holt dich aus der Gestalt, wie bisher.",
+	FBLOCK_SG_SW = "Schurke: drei Abklingzeiten tun nichts in Verstohlenheit",
+	FBLOCK_SG_SW_DESC = "An: Die Tasten Z, Shift-1 und Q (Entrinnen, Klingenwirbel, Adrenalinrausch) tun nichts, solange du verstohlen bist, damit du deine Verstohlenheit vor dem Eröffner nicht brichst. Aus: Sie wirken auch dann und beenden die Verstohlenheit.",
 	KEYGUIDE_FORMS_HEAD = "Druide: ein ? in Bären- oder Katzengestalt",
 	KEYGUIDE_FORMS = "Eine Taste mit Fragezeichen in Bären- oder Katzengestalt hat einen Zauber, der nur in deiner normalen Gestalt wirkt. Dort zu drücken tut nichts, du bleibst in der Gestalt. Verlass die Gestalt zuerst (dieselbe Gestalt-Taste noch einmal). Deine eigenen Knöpfe außerhalb des Blocks holen dich weiterhin aus der Gestalt: Das ist die Spieleinstellung autoUnshift. Außerhalb eines Kampfes schaltet /run SetCVar(\"autoUnshift\",0) sie aus, aber für deinen ganzen Account (jeden Charakter), und Gestaltwechsel können umständlicher werden. MH ändert sie nie.",
 	FOV_TIP_SWITCH = "Klick, um ihn ein- oder auszuschalten.",

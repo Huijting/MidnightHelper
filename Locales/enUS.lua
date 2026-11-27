@@ -6308,6 +6308,8 @@ ns._mhLocales.enUS = {
 	-- 27 Nov 2026 (Rob: "... en dan ga ik uit beervorm" → "akkoord"): the Druid's form guard (ForeverBlock.lua).
 	FBLOCK_FG_SW = "Druid: caster keys do nothing in Bear and Cat Form",
 	FBLOCK_FG_SW_DESC = "On: a key-block key whose spell only works in your normal shape (Moonfire, a heal …) does nothing while you are a bear or a cat, so you do not leave the form by accident. Its button shows a question mark there. Off: the game takes you out of the form, as before.",
+	FBLOCK_SG_SW = "Rogue: Evasion, Blade Flurry and Adrenaline Rush do nothing in Stealth",
+	FBLOCK_SG_SW_DESC = "On: those three keys do nothing while you are in Stealth, so pressing one before your opener does not break your Stealth. Off: they work in Stealth too, and take you out of it.",
 	KEYGUIDE_FORMS_HEAD = "Druid: a ? in Bear or Cat Form",
 	KEYGUIDE_FORMS = "A key with a question mark in Bear or Cat Form holds a spell that only works in your normal shape. Pressing it there does nothing, so you stay in the form. Leave the form first (press the same form key again). Your own buttons outside the block still take you out of the form: that is the game's setting autoUnshift. Outside a fight, /run SetCVar(\"autoUnshift\",0) switches it off, but for your whole account (every character), and it can make changing forms awkward. MH never changes it.",
 	FOV_TIP_SWITCH = "Click to switch it on or off.",

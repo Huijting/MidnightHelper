@@ -1190,8 +1190,28 @@ local function KeyMap(token)
 			end
 		end
 	end
-	local map = {}
+	local map, split = {}, {}
 	for kOld, def in pairs(cls.keys) do
+		-- 27 Nov 2026 (bug found by the form audit): an old key whose spells sit on DIFFERENT 12x4 keys (Druid old X =
+		-- Frenzied Regeneration + Nature's Grasp → C and X) had one map entry, picked from the first name pairs() gave —
+		-- not a fixed order — so one of the two texts named the wrong key. split[kOld] = { [english] = 12x4 key } lets
+		-- LiveKeys pick by the spell name written next to the key in the text.
+		if not def.cmd then
+			local per, n, first = {}, 0, nil
+			for _, en in ipairs((ns.ForeverBlockKeyNames({ [kOld] = def }))) do
+				local k12 = held[en] or primary[en] or any[en]
+				if k12 then
+					per[en] = k12
+					if first and first ~= k12 then
+						n = n + 1
+					end
+					first = first or k12
+				end
+			end
+			if n > 0 then
+				split[kOld] = per
+			end
+		end
 		if def.cmd then
 			for k12, d12 in pairs(cls.keys12) do
 				if d12.cmd and d12.cmd.text == def.cmd.text then
@@ -1210,35 +1230,92 @@ local function KeyMap(token)
 	for k, v in pairs(OLD_FIXED) do
 		map[k] = map[k] or v
 	end
-	return map
+	return map, split
 end
 ns.ForeverHowToKeyMap = KeyMap -- the offline check calls it
+
+--- The client's own name of a spell from its English table name (the texts are written with the client's names).
+local function ClientName(en)
+	for _, id in ipairs((ns.FOREVER_SPELL_IDS and ns.FOREVER_SPELL_IDS[en]) or {}) do
+		local n
+		if C_Spell and C_Spell.GetSpellName then
+			local ok, v = pcall(C_Spell.GetSpellName, id)
+			n = ok and v or nil
+		end
+		if not n and GetSpellInfo then
+			local ok, v = pcall(GetSpellInfo, id)
+			n = ok and v or nil
+		end
+		if type(n) == "string" and n ~= "" and not (issecretvalue and issecretvalue(n)) then
+			return n
+		end
+	end
+	return en
+end
 
 --- The text with its block keys in the layout this character uses. Unchanged with the old block.
 local function LiveKeys(token, text, simpleOrder)
 	if type(text) ~= "string" or not (ns.KeyBlockLayoutName and ns.KeyBlockLayoutName() == "12x4") then
 		return text
 	end
-	local map = KeyMap(token)
+	local map, split = KeyMap(token)
 	if not map then
 		return text
 	end
 	local loc = (ns.GetEffectiveLocaleCode and ns:GetEffectiveLocaleCode()) or "enUS"
-	local function new(tok)
+	-- pos/stop = where the token stands in `src`, so a split key can read the spell name written next to it
+	-- ("Frenzied Regeneration (**X**" or "**X** = Frenzied Regeneration").
+	local src
+	local function new(tok, pos, stop)
 		local code = KeyCode(tok)
 		local to = code and map[code]
+		local per = code and split and split[code]
+		if per and src and pos then
+			local before = src:sub(math.max(1, pos - 60), pos - 1)
+			local after = src:sub(stop or pos, (stop or pos) + 60)
+			-- Only a name RIGHT next to the key counts: "Name (**X**" / "Name on X" before it, or "**X** = Name" after it.
+			-- A name that merely appears further on ("... (**X**) and Nature's Grasp") must not decide (offline check,
+			-- 5 of 5 runs). Before-matches win over after-matches. The client's name first, the English one as fallback.
+			local eq = after:match("^%s*=%s*(.*)$")
+			local found
+			for pass = 1, 2 do
+				for en, k12 in pairs(per) do
+					for _, n in ipairs({ ClientName(en), en }) do
+						local hit
+						if pass == 1 then
+							hit = before:sub(-(#n + 2)) == n .. " (" or before:sub(-(#n + 1)) == n .. " "
+						else
+							hit = eq ~= nil and eq:sub(1, #n) == n
+						end
+						if hit then
+							found = k12
+							break
+						end
+					end
+					if found then
+						break
+					end
+				end
+				if found then
+					break
+				end
+			end
+			to = found or to
+		end
 		if not to then
 			return nil
 		end
 		return to == "D" and (BLOCKD[loc] or BLOCKD.enUS) or KeyText(to)
 	end
-	text = text:gsub("%*%*([^*\n]+)%*%*", function(inner)
-		local n = new(inner)
+	src = text
+	text = src:gsub("()%*%*([^*\n]+)%*%*()", function(pos, inner, stop)
+		local n = new(inner, pos, stop)
 		return n and ("**" .. n .. "**") or nil
 	end)
 	if simpleOrder then
-		text = text:gsub("%(([^()\n]+)%)", function(inner)
-			local n = new(inner)
+		src = text
+		text = src:gsub("()%(([^()\n]+)%)()", function(pos, inner, stop)
+			local n = new(inner, pos, stop)
 			return n and ("(" .. n .. ")") or nil
 		end)
 		-- "(C, from 14)": a key first, then more words.
@@ -1248,8 +1325,8 @@ local function LiveKeys(token, text, simpleOrder)
 		end)
 	end
 	local prep = PREP[loc] or PREP.enUS
-	local src = text
-	text = src:gsub("(%f[%w%z\128-\255]" .. prep .. " )([%w%-]+)()", function(p, tok, after)
+	src = text
+	text = src:gsub("()(%f[%w%z\128-\255]" .. prep .. " )([%w%-]+)()", function(pos, p, tok, after)
 		-- A bare digit only when a mark, a bracket or the end follows ("on 5 (works", "on 5."), never "en 5 segundos".
 		if tok:match("^%d$") then
 			local nxt = src:sub(after, after + 1)
@@ -1257,7 +1334,7 @@ local function LiveKeys(token, text, simpleOrder)
 				return nil
 			end
 		end
-		local n = new(tok)
+		local n = new(tok, pos, after)
 		return n and (p .. n) or nil
 	end)
 	return text

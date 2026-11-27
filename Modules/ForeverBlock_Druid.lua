@@ -85,12 +85,15 @@ ns.FOREVER_BLOCK_CLASSES.DRUID = {
 		["R"] = { cat = "Dash", swim = "Aquatic Form", base = "Travel Form", open = true, why = "move: Travel Form, Aquatic Form in water, Dash as cat" },
 		["F"] = { bear = "Growl", cat = "Cower", base = "Rejuvenation", why = "Growl taunts as bear; as caster your instant heal Rejuvenation" },
 		["Z"] = { all = "Barkskin", why = "small defensive, works in every form" },
-		["X"] = { base = "Nature's Grasp", open = true, why = "second defensive: roots what hits you, also in a form" },
+		-- 27 Nov 2026 (Rob via Sparring 27-11: "Ik volg uiteraard je advies."): the bear's pull button without Shift
+		-- (Demoralizing Roar was on Shift-2); cat and caster keep Nature's Grasp (open: it works in a form).
+		["X"] = { bear = "Demoralizing Roar", base = "Nature's Grasp", open = true,
+			why = "Demoralizing Roar as bear (pull); otherwise Nature's Grasp, roots what hits you, also in a form" },
 		-- 27 Nov 2026 (Rob: "ja ja" on "Ferocious Bite als kat van Shift-4 naar C?"): the cat's finisher without Shift.
 		["C"] = { bear = "Frenzied Regeneration", cat = "Ferocious Bite", base = "Healing Touch", why = "Frenzied Regeneration as bear, Ferocious Bite finishes as cat, else Healing Touch" },
 		["V"] = { bear = "Bash", cat = "Pounce", base = "Entangling Roots", why = "crowd control: Roots, Bash as bear, Pounce from Prowl" },
 		["SHIFT-1"] = { base = "Hurricane", why = "AoE as caster: Hurricane (the bear's Swipe is on 4)" },
-		["SHIFT-2"] = { bear = "Demoralizing Roar", base = "Wild Growth", why = "group key: Demoralizing Roar as bear, Wild Growth heals a group" },
+		["SHIFT-2"] = { base = "Wild Growth", why = "group heal: Wild Growth (the bear's Demoralizing Roar is on X)" },
 		["SHIFT-3"] = { base = "Nature's Swiftness", why = "cooldown: next nature spell is instant, then Healing Touch (C)" },
 		["SHIFT-4"] = { base = "Swiftmend", why = "Swiftmend eats your HoT for an instant heal (the cat's Ferocious Bite is on C)" },
 		["SHIFT-Q"] = { bear = "Challenging Roar", base = { "Abolish Poison", "Cure Poison" }, why = "bear: group taunt cooldown; caster: remove poison" },

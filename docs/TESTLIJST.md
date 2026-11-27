@@ -25,6 +25,28 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 27 nov — FOREVER toetsblok: vormen/standen-ronde (warrior, druid, rogue) + 4 testjes vooraf
+
+`/reload` is genoeg voor wie de Undo + Place van vandaag al deed; anders eerst die (zie de druid-sectie hieronder).
+Offline getest (stance_test 5 van 5, guard_test, swipe_test), NIET in het spel.
+- [ ] Warrior 12x4, Defensive Stance: toets **4** = Sunder Armor. In Battle en Berserker blijft 4 Execute. Shift-C is nu
+      leeg. (In Battle/Berserker staat Sunder dus niet meer op het blok in 12x4 — zeg het als je dat mist.)
+- [ ] Warrior 12x4, Berserker Stance: Shift-V = Concussion Blow (als je het talent hebt).
+- [ ] Druid 12x4 als beer: **X** = Demoralizing Roar; als kat en caster blijft X Nature's Grasp. Shift-2 als beer doet
+      niets meer (als caster Wild Growth).
+- [ ] Rogue in Stealth: Z (Evasion), Shift-1 (Blade Flurry) en Q (Adrenaline Rush) doen niets; je blijft in Stealth.
+      Buiten Stealth werken ze gewoon. Keys-tab: schakelaar "Rogue: Evasion, Blade Flurry and Adrenaline Rush do nothing
+      in Stealth" uit = het oude gedrag. (Q doet dan in Stealth ook geen Death Mark.)
+- [ ] How you play in 12x4 noemt bij de druid "Frenzied Regeneration (**C**)", "Nature's Grasp (**X**)" en
+      "Demoralizing Roar (**X**)"; bij de warrior "Sunder Armor (**4**)" en "Berserker Rage (**Z**)".
+**De 4 testjes VÓÓRDAT we de rest bouwen** (zeg per stuk wat er gebeurt):
+- [ ] (1) Night Elf druid in Bear Form: druk Shift-E (Shadowmeld). Blijf je beer, of ga je uit je vorm?
+- [ ] (2) Druid in Moonkin Form: druk C (Healing Touch). Ga je uit Moonkin, of krijg je alleen een foutmelding?
+- [ ] (3) Shadow priest in Shadowform: druk C (een heal). Ga je uit Shadowform, of alleen een foutmelding? En werkt Fear
+      Ward in Shadowform wel of niet?
+- [ ] (4) Druid in Cat Form met Prowl aan: werkt Shred (3) nog, en verandert je balk (bonusbar 2)? `/dump GetBonusBarOffset()`
+      in Prowl zegt het getal.
+
 ## 27 nov — FOREVER Druid: Ferocious Bite als kat op C (niet meer Shift-4)
 
 `/reload` is genoeg (na de Undo + Place van de sectie hieronder). Offline getest (swipe_test, beide indelingen).
