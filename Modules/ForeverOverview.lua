@@ -1451,6 +1451,10 @@ local QUIET = {
 	Q("FBAG_EARLY_SW", "FBAG_EARLY_SW_DESC", {
 		get = function() return ns.IsForeverBagEarlyOn and ns.IsForeverBagEarlyOn() end,
 		set = function(on) if ns.SetForeverBagEarly then ns.SetForeverBagEarly(on) end end }),
+	-- 27 Nov 2026 (Rob via Sparring 27-11: "nr 4 ja"): class reagents and ammo in Do this now (ForeverClassVendors.lua).
+	Q("FCVEND_SW", "FCVEND_SW_DESC", {
+		get = function() return ns.IsForeverClassVendLineOn and ns.IsForeverClassVendLineOn() end,
+		set = function(on) if ns.SetForeverClassVendLine then ns.SetForeverClassVendLine(on) end end }),
 	-- 27 Nov 2026 (Rob via Sparring 27-11: "ja voor de tas"): a usable or bigger bag in Do this now (ForeverBagFull.lua).
 	Q("FBAGUP_SW", "FBAGUP_SW_DESC", {
 		get = function() return ns.IsForeverBagUpOn and ns.IsForeverBagUpOn() end,

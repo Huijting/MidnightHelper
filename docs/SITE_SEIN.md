@@ -28,6 +28,17 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 27 nov 2026 — Forever: class reagents en munitie, met de dichtstbijzijnde verkoper
+- Tag + commit:   geen tag / (zie git log, 27 nov)
+- Status:         alleen op main
+- Mag op de site: nee (nog niet in een release, nog niet door Rob getest)
+- Speler ziet:    Do this now zegt het als je een reagent voor een spell die je kent mist of bijna op hebt (runes,
+                  Ankh, symbols, seeds …) of als je munitie onder een stapel zakt, met de dichtstbijzijnde verkoper.
+                  In Find nieuwe lijsten Reagent / Arrow / Bullet met een pijl naar de verkoper.
+- Knoplabels:     FCVEND_CAT_REAGENT, FCVEND_CAT_ARROWS, FCVEND_CAT_BULLETS, FCVEND_SW
+- Commando's:     /mh vendor reagent | arrows | bullets, /mh vendor reagents on|off
+- Spel:           Forever
+
 ## 27 nov 2026 — Forever: melding voor een bruikbare of grotere tas
 - Tag + commit:   geen tag / (zie git log, 27 nov)
 - Status:         alleen op main

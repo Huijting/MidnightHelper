@@ -272,9 +272,11 @@ Modules\ForeverSeenPlaces.lua
 Modules\ForeverVendorSpots.lua
 Modules\ForeverCitySpots.lua
 Modules\ForeverRepairData.lua
+Modules\ForeverClassVendorData.lua
 Modules\ForeverRaresAll.lua
 Modules\ForeverRares.lua
 Modules\ForeverVendors.lua
+Modules\ForeverClassVendors.lua
 Modules\ForeverWeapons.lua
 Modules\ForeverTravel.lua
 Modules\ForeverMainStats.lua

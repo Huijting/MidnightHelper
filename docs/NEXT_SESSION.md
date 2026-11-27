@@ -1,5 +1,18 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 27 nov (Bouwchat 27-11): Forever beroepen optie 4 — class reagents + munitie GEBOUWD (herstart)
+
+Rob via Sparring 27-11, letterlijk: *"nr 4 ja"*. `tools/forever_classvendors.py` → `Modules/ForeverClassVendorData.lua`
+(beide toc's): per class de reagent per spell + level, GEMETEN in DB2 1.60.1.71139 (SpellReagents.Reagent_0,
+SpellLevels.BaseLevel; 23 spells, 0 afwijkend; Rebirth/Gift of the Wild als rangen), munitie per level (ItemSparse),
+220 verkopers uit Zygor NPCData (Reagents 31, Arrows 103, Bullets 86; tier uit clevel<10/25/40 = AFGELEID via
+QuestieDB), namen Zygor + Wowhead-tooltip. `Modules/ForeverClassVendors.lua`: regels voor Do this now (0 = to-do, <5 =
+tip, LOW 5 = eigen keuze; munitie <200 = tip, 0 = to-do; alleen boog/kruisboog/geweer), schakelaar
+ns.db.foreverClassVendLine (Quiet helpers FCVEND_SW, `/mh vendor reagents on|off`), diagnose in `/mh vendor check`.
+ForeverVendors.lua: Find-soorten reagent/arrows/bullets (alleen voor classes die ze gebruiken; pijlen gefilterd op tier
+≥ jouw level), rogue → bestaande "thief". Categorienamen = ItemSubClass per client (GEMETEN). cvend_test geslaagd
+(vond: de schakelaar kon niet uit, `and false or`). Niet gemeten: of Forever munitie verbruikt.
+
 ## ▶▶ 27 nov (Bouwchat 27-11): Forever — melding voor een bruikbare/grotere tas (`/reload`)
 
 Rob via Sparring 27-11, letterlijk: *"ja voor de tas"* (zijn vraag: *"ik kreeg net deze tas en heb genoeg plek om hem

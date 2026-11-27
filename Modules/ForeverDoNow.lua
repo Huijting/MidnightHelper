@@ -621,6 +621,21 @@ function Collect()
 			end
 		end
 	end
+	-- 27 Nov 2026 (Rob via Sparring 27-11: "nr 4 ja"): class reagents and ammo running out, with the nearest seller
+	-- (ForeverClassVendors.lua). None left = a to-do, a few left = a tip; the card's button opens that vendor list.
+	if ns.ForeverClassVendorLines then
+		local okC, rows = pcall(ns.ForeverClassVendorLines)
+		if okC and type(rows) == "table" then
+			for _, r in ipairs(rows) do
+				local list = r.now and out.now or out.tips
+				list[#list + 1] = r.text
+				item(r.text, "tool", not r.now, r.key)
+				if r.now then
+					out.actions.tool = out.actions.tool or r.key
+				end
+			end
+		end
+	end
 	-- 23 Nov 2026 (Rob via sparring: "Ja, doe maar OR-B. Maar dan moet je wel opvallen dat hij erin staat. En als er
 	-- meerdere zijn in je tas, dan moet het ook blijven staan."): every upgrade in your bags, one line each, shown at the
 	-- top (Render), green with an arrow, with [Wear it] and [Not this one] (ForeverWear.lua). out.wear = those lines.

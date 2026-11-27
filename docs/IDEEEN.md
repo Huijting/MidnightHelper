@@ -67,8 +67,10 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
   Eerst Robs test: twee /run-regels, één ader en één kruid plukken (staat in het onderzoek, NEXT_SESSION 27 nov).
 - Spel: F. Voor wie: N + V (AFGELEID).
 
-### Forever beroepen (4): waar koop je class reagents en munitie (wens van Rob, 27 nov) — 🔎 UITGEZOCHT, niets gebouwd
-- Bron: Rob via Sparring 27-11, letterlijk: *"zoek al de 4 opties goed uit en begin met 2"*.
+### Forever beroepen (4): waar koop je class reagents en munitie (wens van Rob, 27 nov) — ✅ JA, GEBOUWD 27 nov, wacht op test
+- Bron: Rob via Sparring 27-11, letterlijk: *"zoek al de 4 opties goed uit en begin met 2"*, daarna: *"nr 4 ja"*.
+- Gebouwd: regel in Do this now (geen of weinig reagent voor een spell die je kent, minder dan een stapel munitie) met
+  de dichtstbijzijnde verkoper; Find-lijsten Reagent / Arrow / Bullet met pijl; schakelaar in Quiet helpers.
 - Uitkomst (27 nov): goed te doen, vrij goedkoop. GEMETEN in Forever-DB2: per class de reagents met spell en level
   (bv. Mage Rune of Teleportation vanaf 20, Druid Maple Seed vanaf 20, Paladin/Shaman vanaf 30, Priest 48, Warlock 50;
   Warrior/Hunter geen), munitie per level (1/10/25/40). Zygor heeft kant-en-klare verkoperlijsten (reagents 34,

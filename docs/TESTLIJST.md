@@ -25,6 +25,23 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 27 nov — FOREVER: class reagents en munitie, met de dichtstbijzijnde verkoper
+
+HERSTART het spel één keer (nieuwe bestanden). Offline getest (cvend_test), NIET in het spel.
+- [ ] Een mage vanaf 20 met Teleport en GEEN Rune of Teleportation: Do this now "You have no Rune of Teleportation for
+      Teleport: …; nearest seller: … (zone, yd). /mh vendor reagent". Heb je er 1-4: een tip "Only 3 … left". 5 of meer:
+      niets. (Zelfde voor Ankh bij een shaman, Symbol of Divinity bij een paladin, seeds bij een druid.)
+- [ ] Een druid met twee rangen Rebirth: MH noemt het zaad van je HOOGSTE rang, niet Maple Seed.
+- [ ] Een hunter met een boog en minder dan 200 pijlen: tip "Ammo: … left, less than one stack. Best for your level:
+      Razor Arrow (op 25+) …". Geen pijlen: in Do this now "Out of ammo". Een geweer: kogels.
+- [ ] Gebruikt Forever munitie echt op? (Zygor zegt ja, MH heeft het niet gemeten.) Schiet een paar keer en kijk of het
+      aantal pijlen in je tas zakt.
+- [ ] Find (of `/mh vendor reagent`, `/mh vendor arrows`): een lijst "Reagent" / "Arrow" / "Bullet" met verkopers aan
+      jouw kant, dichtstbijzijnde eerst, met de pijl-knop. Bij pijlen alleen verkopers met pijlen voor jouw level.
+      Een warrior ziet geen "Reagent", een mage geen "Arrow".
+- [ ] Bij die verkoper: verkoopt hij het echt? (De lijst komt uit Zygor.) `/mh vendor check` zegt wat MH besliste.
+- [ ] Quiet helpers → "Class reagents and ammo in Do this now" uit: de regels zijn weg (Find blijft).
+
 ## 27 nov — FOREVER: melding voor een bruikbare of grotere tas
 
 `/reload` is genoeg. Offline getest (bag_test: omdoen, wisselen, niet leeg, niets bij kleiner/pijlkoker, schakelaar,
