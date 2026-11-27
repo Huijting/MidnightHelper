@@ -28,6 +28,16 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 27 nov 2026 — Forever: melding voor een bruikbare of grotere tas
+- Tag + commit:   geen tag / (zie git log, 27 nov)
+- Status:         alleen op main
+- Mag op de site: nee (nog niet in een release, nog niet door Rob getest)
+- Speler ziet:    Ligt er een tas in je tassen die je kunt omdoen (lege tasplek) of die groter is dan je kleinste tas,
+                  dan zegt Do this now dat, met één knop om hem om te doen of te wisselen. Ook een regel in de tooltip.
+- Knoplabels:     FBAGUP_BTN_PUT, FBAGUP_BTN_SWAP, FBAGUP_SW
+- Commando's:     /mh bagfull bags on|off
+- Spel:           Forever
+
 ## 27 nov 2026 — Forever: hele beroepsroute 1-300 + Dual Spec-waarschuwing
 - Tag + commit:   geen tag / (zie git log, 27 nov)
 - Status:         alleen op main

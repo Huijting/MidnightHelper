@@ -156,14 +156,49 @@ local function SlotName(loc)
 end
 
 --- For Do this now: { text = line with [Wear it] [Not this one], plain = the same without them, n = index }.
+--- 27 Nov 2026 (Rob via Sparring 27-11: "ja voor de tas"): a usable or bigger normal bag (ForeverBagFull.lua,
+--- ns.ForeverBagUpgrade) is one more line here, with its own button and the same [Not this one]; its own switch.
+local function BagLine(e)
+	if e.kind == "equip" then
+		return ns:L("FBAGUP_PUT_FMT"):format(e.link or e.name or "?", e.slots or 0), "FBAGUP_BTN_PUT"
+	end
+	local s = ns:L("FBAGUP_SWAP_FMT"):format(e.link or e.name or "?", e.slots or 0, e.old.link or "?", e.old.slots or 0)
+	if (e.old.used or 0) > 0 then
+		s = s .. " " .. ns:L("FBAGUP_EMPTY_FMT"):format(e.old.link or "?", e.old.used)
+	end
+	return s, "FBAGUP_BTN_SWAP"
+end
+
+--- The button label of line n (the overview's card uses it): "Wear it", or the bag's "Put it on" / "Swap".
+function ns.ForeverWearLabel(n)
+	local e = list[tonumber(n) or 1]
+	if e and e.isBag then
+		local _, label = BagLine(e)
+		return label
+	end
+	return "FWEAR_BTN"
+end
+
 function ns.ForeverWearLines()
 	list = Upgrades()
+	if ns.ForeverBagUpgrade then
+		local okB, b = pcall(ns.ForeverBagUpgrade)
+		if okB and type(b) == "table" and b.link and not Skipped()[b.link] then
+			b.isBag = true
+			list[#list + 1] = b
+		end
+	end
 	local out = {}
 	local combat = InCombatLockdown and InCombatLockdown()
 	for i, e in ipairs(list) do
-		local base = ns:L("FWEAR_LINE_FMT"):format(e.link, SlotName(e.loc), e.gains or "")
+		local base, label
+		if e.isBag then
+			base, label = BagLine(e)
+		else
+			base, label = ns:L("FWEAR_LINE_FMT"):format(e.link, SlotName(e.loc), e.gains or ""), "FWEAR_BTN"
+		end
 		local wear = combat and ("|cff9d9d9d" .. ns:L("FWEAR_COMBAT") .. "|r")
-			or ("|Hmhwear:wear:" .. i .. "|h" .. GOOD .. "[" .. ns:L("FWEAR_BTN") .. "]|r|h")
+			or ("|Hmhwear:wear:" .. i .. "|h" .. GOOD .. "[" .. ns:L(label) .. "]|r|h")
 		local skip = "|Hmhwear:skip:" .. i .. "|h|cffaaaaaa[" .. ns:L("FWEAR_SKIP") .. "]|r|h"
 		out[#out + 1] = { text = UP .. " " .. GOOD .. base .. "|r  " .. wear .. "  " .. skip, plain = base, n = i,
 			link = e.link }
@@ -181,6 +216,12 @@ function ns.ForeverWearGo(n)
 	if InCombatLockdown and InCombatLockdown() then
 		print(PREFIX .. ns:L("FWEAR_COMBAT"))
 		return false
+	end
+	if e.isBag then
+		if ns.ForeverBagUpgradeGo then
+			ns.ForeverBagUpgradeGo(e)
+		end
+		return true
 	end
 	-- The item may have moved since the list was made: find the same link again.
 	local C = C_Container

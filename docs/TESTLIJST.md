@@ -25,6 +25,21 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 27 nov — FOREVER: melding voor een bruikbare of grotere tas
+
+`/reload` is genoeg. Offline getest (bag_test: omdoen, wisselen, niet leeg, niets bij kleiner/pijlkoker, schakelaar,
+Not this one, tooltip, 7 talen), NIET in het spel.
+- [ ] Lege tasplek + een losse gewone tas (zoals de Small Green Pouch op Ima Hunterdude), tassen NIET vol: Do this now
+      gaat vanzelf open met "Bag: Small Green Pouch (6 slots). You have an empty bag slot. [Put it on] [Not this one]".
+      Klik Put it on: de tas zit om, de regel is weg.
+- [ ] Geen lege tasplek, wel een grotere losse tas: "Bag: … (10 slots) is bigger than your … (6). [Swap]". Zit er nog
+      iets in die kleine tas: "Empty your … first (3 items in it), then Swap." en Swap doet niets behalve die zin.
+- [ ] Is de kleine tas leeg: Swap. De grote zit om, de kleine ligt in je tas. (Dit is het spannende stuk: MH doet wat
+      slepen op die tasknop doet; in het spel nog nooit gezien.)
+- [ ] Muis op een gewone tas (ook bij een verkoper): "MH: 4 slots more than your smallest bag (…, 6)." Een kleinere
+      tas, een pijlkoker of ammo-zak: geen regel.
+- [ ] Quiet helpers → "Tell me about a usable or bigger bag" uit: de regel en de tooltipregel zijn weg.
+
 ## 27 nov — FOREVER: de hele route 1-300 in Skill up
 
 HERSTART het spel één keer (nieuw bestand). Offline getest (route_test: 56 teksten, 8 beroepen), NIET in het spel.

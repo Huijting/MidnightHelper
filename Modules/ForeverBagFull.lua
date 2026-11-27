@@ -799,6 +799,194 @@ EquipSpare = function(e)
 	RefreshSoon()
 end
 
+--------------------------------------------------------------------------------
+-- 27 Nov 2026 (Rob via Sparring 27-11: "ja voor de tas"; his question: "ik kreeg net deze tas en heb genoeg plek om
+-- hem te gebruiken, kunnen we daar een melding van maken als zoiets in onze tas zit/komt, ook als ie groter en of beter
+-- is dan een tas die we al hebben ?"): a usable or bigger normal bag in your bags, ALSO when they are not full.
+--   equip  an empty bag slot + a spare normal bag            -> "Put it on" (EquipSpare, the same click as above)
+--   swap   no empty bag slot, the spare is bigger than your smallest worn normal bag -> "Swap" (only when that bag
+--          is empty; else MH says how many items to take out first)
+-- Only normal bags (item class 1/0): no quiver, ammo pouch, soul bag, and no profession bag in place of a normal one.
+-- The lines go into Do this now through ForeverWear.lua (the same place, button and "Not this one" as gear upgrades).
+-- Switch: Quiet helpers / /mh bagfull bags on|off (default on).
+--------------------------------------------------------------------------------
+function ns.IsForeverBagUpOn()
+	return Settings().bags ~= false
+end
+
+function ns.SetForeverBagUp(on)
+	Settings().bags = on and true or false
+	if ns.ForeverDoNowUpdate then
+		pcall(ns.ForeverDoNowUpdate)
+	end
+end
+
+--- Your smallest worn normal bag: { bag, inv, id, link, slots, used } or nil.
+local function SmallestBag()
+	if not (C and C.ContainerIDToInventoryID and C.GetContainerNumSlots and GetInventoryItemID) then
+		return nil
+	end
+	local best
+	for bag = 1, LAST_BAG do
+		local okI, inv = pcall(C.ContainerIDToInventoryID, bag)
+		local okW, id = pcall(GetInventoryItemID, "player", okI and inv or 0)
+		if okI and okW and type(id) == "number" and Readable(id) and IsNormalBag(id) then
+			local okN, n = pcall(C.GetContainerNumSlots, bag)
+			n = okN and tonumber(n) or 0
+			local okF, free = pcall(C.GetContainerNumFreeSlots, bag)
+			local used = n - ((okF and tonumber(free)) or n)
+			-- The smallest; of equal ones the emptiest (that one can be swapped soonest).
+			if n > 0 and (not best or n < best.slots or (n == best.slots and used < best.used)) then
+				local okL, link = pcall(GetInventoryItemLink, "player", inv)
+				best = { bag = bag, inv = inv, id = id, slots = n, used = used, link = okL and link or nil }
+			end
+		end
+	end
+	return best
+end
+
+--- The biggest normal bag lying in your bags whose size MH knows (BAG_SLOTS): the same row shape as SpareBag.
+local function BiggestLoose()
+	local best
+	for bag = 0, LAST_BAG do
+		local okN, count = pcall(C.GetContainerNumSlots, bag)
+		for slot = 1, (okN and count) or 0 do
+			local ok, info = pcall(C.GetContainerItemInfo, bag, slot)
+			if ok and type(info) == "table" and Readable(info.itemID) and not info.isLocked and IsNormalBag(info.itemID) then
+				local size = BAG_SLOTS[info.itemID]
+				if size and (not best or size > best.slots) then
+					best = { bag = bag, slot = slot, id = info.itemID, link = info.hyperlink, icon = info.iconFileID,
+						name = info.itemName, n = info.stackCount or 1, slots = size }
+				end
+			end
+		end
+	end
+	return best
+end
+
+local upWhy = "not checked yet"
+--- The bag line for Do this now: a row ({ kind = "equip"|"swap", ... , old = SmallestBag() for a swap }) or nil.
+function ns.ForeverBagUpgrade()
+	if not ns.IsForeverBagUpOn() then
+		upWhy = "switched off (/mh bagfull bags on)"
+		return nil
+	end
+	if not (C and C.GetContainerNumSlots and C.GetContainerItemInfo) then
+		upWhy = "bags not readable"
+		return nil
+	end
+	local spare, why = SpareBag()
+	if spare then
+		spare.kind = "equip"
+		upWhy = ("empty bag slot + %s (%d slots): put it on"):format(tostring(spare.name), spare.slots)
+		return spare
+	end
+	if why ~= "no empty bag slot" then
+		upWhy = why
+		return nil
+	end
+	local loose, small = BiggestLoose(), SmallestBag()
+	if not loose then
+		upWhy = "no empty bag slot, no normal bag of a known size in your bags"
+		return nil
+	end
+	if not small then
+		upWhy = "no worn normal bag to compare with"
+		return nil
+	end
+	if loose.slots <= small.slots then
+		upWhy = ("%s (%d) is not bigger than your smallest bag (%d)"):format(tostring(loose.name), loose.slots, small.slots)
+		return nil
+	end
+	loose.kind, loose.old = "swap", small
+	upWhy = ("%s (%d) is bigger than your %s (%d); %d item(s) in that bag"):format(tostring(loose.name), loose.slots,
+		tostring(small.link), small.slots, small.used)
+	return loose
+end
+
+--- The click for a bag line (Do this now, the overview card). Never in a fight; everything checked again first.
+function ns.ForeverBagUpgradeGo(e)
+	if not e then
+		return
+	end
+	if e.kind == "equip" then
+		EquipSpare(e)
+		return
+	end
+	if InCombatLockdown and InCombatLockdown() then
+		if UIErrorsFrame and ERR_NOT_IN_COMBAT then
+			UIErrorsFrame:AddMessage(ERR_NOT_IN_COMBAT, 1, 0.1, 0.1)
+		end
+		return
+	end
+	local old = SmallestBag()
+	if not (old and e.old and old.inv == e.old.inv) or not SameItem(e) or not PutItemInBag then
+		print(PREFIX .. ns:L("FBAG_EQUIP_FAILED"))
+		RefreshSoon()
+		return
+	end
+	if old.used > 0 or e.bag == old.bag then
+		print(PREFIX .. ns:L("FBAGUP_EMPTY_FMT"):format(old.link or "?", old.used))
+		return
+	end
+	watch = { kind = "equip", at = GetTime() }
+	pcall(ClearCursor)
+	pcall(C.PickupContainerItem, e.bag, e.slot)
+	local okC, kind, cid = pcall(GetCursorInfo)
+	if okC and kind == "item" and cid == e.id then
+		pcall(PutItemInBag, old.inv) -- what dropping it on that bag button does; the old bag comes to the cursor
+	end
+	local okW, worn = pcall(GetInventoryItemID, "player", old.inv)
+	if CursorHasItem and CursorHasItem() then
+		pcall(ClearCursor) -- the old bag (or, when it did not work, the new one) goes back to the place we took from
+	end
+	if okW and worn == e.id then
+		print(PREFIX .. ns:L("FBAGUP_DONE_FMT"):format(e.link or e.name or "?"))
+	else
+		print(PREFIX .. ns:L("FBAG_EQUIP_FAILED"))
+	end
+	RefreshSoon()
+end
+
+--- The tooltip line on a normal bag: an empty bag slot to put it in, or how many slots more than your smallest bag.
+if TooltipDataProcessor and TooltipDataProcessor.AddTooltipPostCall and Enum and Enum.TooltipDataType
+	and Enum.TooltipDataType.Item then
+	TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Item, function(tooltip, data)
+		if not (tooltip == GameTooltip or tooltip == ItemRefTooltip) or not ns.IsForeverBagUpOn() then
+			return
+		end
+		pcall(function()
+			local id = type(data) == "table" and data.id
+			if type(id) ~= "number" or not Readable(id) or not IsNormalBag(id) or not BAG_SLOTS[id] then
+				return
+			end
+			local _, why = SpareBag()
+			if why ~= "no empty bag slot" then
+				-- an empty bag slot (a spare bag found or not): this bag fits there
+				local okI, emptyNow = pcall(function()
+					for bag = 1, LAST_BAG do
+						local i = C.ContainerIDToInventoryID(bag)
+						if C.GetContainerNumSlots(bag) == 0 and GetInventoryItemID("player", i) == nil then
+							return true
+						end
+					end
+				end)
+				if okI and emptyNow then
+					tooltip:AddLine(ns:L("FBAGUP_TIP_EMPTY"), 0.5, 1, 0.5, true)
+					tooltip:Show()
+				end
+				return
+			end
+			local small = SmallestBag()
+			if small and BAG_SLOTS[id] > small.slots then
+				tooltip:AddLine(ns:L("FBAGUP_TIP_MORE_FMT"):format(BAG_SLOTS[id] - small.slots, small.link or "?",
+					small.slots), 0.5, 1, 0.5, true)
+				tooltip:Show()
+			end
+		end)
+	end)
+end
+
 LootIt = function(slot)
 	watch = { kind = "loot", at = GetTime() }
 	if LootSlot then
@@ -1015,6 +1203,11 @@ function ns.ForeverBagFullSlash(arg)
 		print(PREFIX .. ns:L(arg == "early on" and "FBAG_EARLY_ON" or "FBAG_EARLY_OFF"))
 		return
 	end
+	if arg == "bags on" or arg == "bags off" then
+		ns.SetForeverBagUp(arg == "bags on")
+		print(PREFIX .. ns:L(arg == "bags on" and "FBAGUP_ON" or "FBAGUP_OFF"))
+		return
+	end
 	if arg == "show" then
 		Show("/mh bagfull show")
 		return
@@ -1036,5 +1229,7 @@ function ns.ForeverBagFullSlash(arg)
 		ns.IsForeverBagEarlyOn() and "on" or "off (/mh bagfull early on)", earlyWhy))
 	local spare, noSpare = SpareBag()
 	print("  spare bag: " .. (spare and ("%s, %d slots: offered to put on"):format(tostring(spare.name), spare.slots) or noSpare))
+	pcall(ns.ForeverBagUpgrade)
+	print("  bag line in Do this now: " .. upWhy)
 	print("  /mh bagfull show = the window now, /mh bagfull test = may an addon button destroy/sell here (step 2)")
 end

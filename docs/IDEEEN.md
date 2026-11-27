@@ -26,6 +26,14 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 
 ## Open — wacht op Rob
 
+### Forever: melding voor een bruikbare of grotere tas (wens van Rob, 27 nov) — ✅ JA, GEBOUWD 27 nov, wacht op test
+- Bron: Rob via Sparring 27-11: *"ik kreeg net deze tas en heb genoeg plek om hem te gebruiken, kunnen we daar een
+  melding van maken als zoiets in onze tas zit/komt, ook als ie groter en of beter is dan een tas die we al hebben ?"*
+  → op het plan, letterlijk: *"ja voor de tas"*.
+- Gebouwd: regel in Do this now (Put it on / Swap / Not this one), ook als je tassen niet vol zijn; tooltipregel op een
+  tas; alleen gewone tassen; schakelaar in Quiet helpers.
+- Spel: F. Voor wie: N (AFGELEID).
+
 ### Forever beroepen (2): de hele route 1-300 per beroep (wens van Rob, 27 nov) — ✅ JA, GEBOUWD 27 nov, wacht op test
 - Bron: Rob via Sparring 27-11, letterlijk: *"zoek al de 4 opties goed uit en begin met 2"* (n.a.v. een plaatje van de
   addon Pathfinder Forever; die is All Rights Reserved: alleen het idee).

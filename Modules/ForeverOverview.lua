@@ -106,7 +106,7 @@ local function NowItems()
 				if ns.ForeverWearGo then
 					ns.ForeverWearGo(key)
 				end
-			end, "FWEAR_BTN"
+			end, (ns.ForeverWearLabel and ns.ForeverWearLabel(key)) or "FWEAR_BTN" -- 27 Nov 2026: a bag says Put it on / Swap
 		end
 		if kind == "tool" and key then
 			return function()
@@ -1451,6 +1451,10 @@ local QUIET = {
 	Q("FBAG_EARLY_SW", "FBAG_EARLY_SW_DESC", {
 		get = function() return ns.IsForeverBagEarlyOn and ns.IsForeverBagEarlyOn() end,
 		set = function(on) if ns.SetForeverBagEarly then ns.SetForeverBagEarly(on) end end }),
+	-- 27 Nov 2026 (Rob via Sparring 27-11: "ja voor de tas"): a usable or bigger bag in Do this now (ForeverBagFull.lua).
+	Q("FBAGUP_SW", "FBAGUP_SW_DESC", {
+		get = function() return ns.IsForeverBagUpOn and ns.IsForeverBagUpOn() end,
+		set = function(on) if ns.SetForeverBagUp then ns.SetForeverBagUp(on) end end }),
 	Q("FOV_Q_REST", "FOV_Q_REST_DESC", Warn("rest")),
 	Q("FOV_Q_POLE", "FOV_Q_POLE_DESC", Warn("pole")),
 	PROF_SWITCHES[2], -- last tool

@@ -1,5 +1,18 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 27 nov (Bouwchat 27-11): Forever — melding voor een bruikbare/grotere tas (`/reload`)
+
+Rob via Sparring 27-11, letterlijk: *"ja voor de tas"* (zijn vraag: *"ik kreeg net deze tas en heb genoeg plek om hem
+te gebruiken, kunnen we daar een melding van maken als zoiets in onze tas zit/komt, ook als ie groter en of beter is
+dan een tas die we al hebben ?"*). ForeverBagFull.lua: ns.ForeverBagUpgrade (equip = SpareBag, nu ook zonder volle
+tassen; swap = grootste losse gewone tas met bekende grootte (BAG_SLOTS) > kleinste gedragen gewone tas, bij gelijke
+de leegste), ns.ForeverBagUpgradeGo (swap alleen als die tas leeg is: PickupContainerItem + PutItemInBag(oude inv),
+AFGELEID = wat slepen doet, niet in het spel gezien), tooltipregel, schakelaar ns.db.foreverBagFull.bags (Quiet helpers
+FBAGUP_SW, /mh bagfull bags on|off; /mh bagfull toont "bag line in Do this now: <reden>"). De regel gaat via
+ForeverWear.lua (ForeverWearLines + isBag, ForeverWearLabel voor de overzichtskaart) → bovenaan Do this now, opent
+vanzelf (WEAR_TODO), [Not this one] werkt. Alleen class 1/0 (geen pijlkoker/ammo/soul/beroepstas). Sleutels FBAGUP_*
+in 7 talen (it Engels, zoals FBAG). Offline bag_test geslaagd (vond en repareerde: gelijke tassen → de leegste).
+
 ## ▶▶ 27 nov (Bouwchat 27-11): Forever beroepen — 4 opties uitgezocht, optie 2 (hele route 1-300) GEBOUWD (herstart)
 
 Rob via Sparring 27-11, letterlijk: *"zoek al de 4 opties goed uit en begin met 2"* (Pathfinder Forever = ARR, alleen
