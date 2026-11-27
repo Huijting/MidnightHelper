@@ -32,10 +32,13 @@ ns.FOREVER_BLOCK_CLASSES.DRUID = {
 		["1"] = { bear = "Maul", cat = "Claw", base = "Wrath" },
 		["2"] = { bear = "Lacerate", cat = "Rake", base = "Moonfire" },
 		["3"] = { bear = "Primal Bite", cat = "Shred", base = "Starfire" },
-		["4"] = { cat = "Rip", base = "Insect Swarm" },
+		-- 27 Nov 2026 (Rob via Sparring 27-11: "Ja, ik gebruik 12 keer 4 en swipe mag inderdaad op 4."; as a tank Shift-1
+		-- needed two fingers): Swipe moved from Shift-1 to 4, where the bear had nothing. Here too, so the texts (How you
+		-- play) say one key for every layout.
+		["4"] = { bear = "Swipe", cat = "Rip", base = "Insect Swarm" },
 		["SHIFT-4"] = { cat = "Ferocious Bite" },
 		["5"] = { all = "Faerie Fire" },
-		["SHIFT-1"] = { bear = "Swipe", base = "Hurricane" },
+		["SHIFT-1"] = { base = "Hurricane" },
 		["SHIFT-2"] = { bear = "Demoralizing Roar", base = "Wild Growth" },
 		["Q"] = { bear = "Enrage", cat = "Shifting Power", base = "Tranquility" },
 		["F1"] = { base = "Innervate" },
@@ -71,7 +74,7 @@ ns.FOREVER_BLOCK_CLASSES.DRUID = {
 		["1"] = { bear = "Maul", cat = "Claw", base = "Wrath", why = "main attack in every shape: Wrath, Maul as bear, Claw as cat" },
 		["2"] = { bear = "Lacerate", cat = "Rake", base = "Moonfire", why = "rotation: Moonfire, Lacerate as bear, Rake as cat" },
 		["3"] = { bear = "Primal Bite", cat = "Shred", base = "Starfire", why = "rotation: Starfire, Primal Bite as bear, Shred from behind" },
-		["4"] = { cat = "Rip", base = "Insect Swarm", why = "spender: Rip finishes as cat; Insect Swarm as caster" },
+		["4"] = { bear = "Swipe", cat = "Rip", base = "Insect Swarm", why = "Swipe hits all enemies in front of the bear; Rip finishes as cat; Insect Swarm as caster" },
 		["Q"] = { bear = "Enrage", cat = "Shifting Power", base = "Tranquility", why = "big cooldown: Tranquility, Enrage as bear, Shifting Power as cat" },
 		["E"] = { bear = "Feral Charge", cat = "Feral Charge", why = "kick key: Feral Charge stops a cast; a caster druid has none" },
 		["R"] = { cat = "Dash", swim = "Aquatic Form", base = "Travel Form", open = true, why = "move: Travel Form, Aquatic Form in water, Dash as cat" },
@@ -80,7 +83,7 @@ ns.FOREVER_BLOCK_CLASSES.DRUID = {
 		["X"] = { base = "Nature's Grasp", why = "second defensive: roots what hits you, also in a form" },
 		["C"] = { bear = "Frenzied Regeneration", base = "Healing Touch", why = "big defensive: Frenzied Regeneration as bear, else Healing Touch" },
 		["V"] = { bear = "Bash", cat = "Pounce", base = "Entangling Roots", why = "crowd control: Roots, Bash as bear, Pounce from Prowl" },
-		["SHIFT-1"] = { bear = "Swipe", base = "Hurricane", why = "AoE: Swipe as bear, Hurricane as caster" },
+		["SHIFT-1"] = { base = "Hurricane", why = "AoE as caster: Hurricane (the bear's Swipe is on 4)" },
 		["SHIFT-2"] = { bear = "Demoralizing Roar", base = "Wild Growth", why = "group key: Demoralizing Roar as bear, Wild Growth heals a group" },
 		["SHIFT-3"] = { base = "Nature's Swiftness", why = "cooldown: next nature spell is instant, then Healing Touch (C)" },
 		["SHIFT-4"] = { cat = "Ferocious Bite", base = "Swiftmend", why = "spenders: Ferocious Bite as cat, Swiftmend eats your HoT" },

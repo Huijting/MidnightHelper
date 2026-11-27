@@ -423,10 +423,10 @@ Ab Stufe 10 (Bärengestalt, aus einer Quest). Ein **Tank** ist der, den die Gegn
 2. Demoralisierendes Gebrüll (**Shift-2**) einmal.
 3. Urtümlicher Biss (**3**, ab 40), sobald er bereit ist.
 4. Aufschlitzen (**2**, ab 25), bis es 5-mal gestapelt ist.
-5. Wut übrig: Zermalmen (**1**) auf einen Gegner, Prankenhieb (**Shift-1**, ab 16) auf zwei oder mehr.
+5. Wut übrig: Zermalmen (**1**) auf einen Gegner, Prankenhieb (**4**, ab 16) auf zwei oder mehr.
 6. Knurren (**F**), wenn ein Gegner jemand anderen schlägt.
 **Alle 10 Stufen:**
-- 10: Bärengestalt (**Ctrl-1**), Zermalmen (**1**), Knurren (**F**), Demoralisierendes Gebrüll (**Shift-2**). Danach Wutanfall (**Q**) mit 12, Hieb (**V**) mit 14, Prankenhieb (**Shift-1**) mit 16, Feenfeuer (**5**) mit 18.
+- 10: Bärengestalt (**Ctrl-1**), Zermalmen (**1**), Knurren (**F**), Demoralisierendes Gebrüll (**Shift-2**). Danach Wutanfall (**Q**) mit 12, Hieb (**V**) mit 14, Prankenhieb (**4**) mit 16, Feenfeuer (**5**) mit 18.
 - 20: Wilde Attacke (**E**, ein Talent): Du stürmst auf den Gegner zu, er kann sich 4 Sekunden nicht bewegen und nicht zaubern. Abklingzeit 15 Sekunden. Die Talentstufen hier sind die frühesten; ein Perk kann sie bis zu 5 Stufen früher bringen.
 - 30: Rudelführer (ein Talent). Davor: Aufschlitzen (**2**, ein Talent) mit 25, Herausforderndes Gebrüll (**Shift-F**) mit 28.
 - 40: Terrorbärengestalt ersetzt Bärengestalt auf **Ctrl-1**. Urtümlicher Biss (**3**, ein Talent). Davor: Rasende Regeneration (**X**) mit 36: macht aus Wut Gesundheit.

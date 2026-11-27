@@ -414,10 +414,10 @@ Vanaf level 10 (Bear Form, uit een quest). Een **tank** is degene die de vijande
 2. Demoralizing Roar (**Shift-2**) één keer.
 3. Primal Bite (**3**, vanaf 40) steeds als hij klaar is.
 4. Lacerate (**2**, vanaf 25) tot hij 5 stacks heeft.
-5. Rage over: Maul (**1**) op één vijand, Swipe (**Shift-1**, vanaf 16) op twee of meer.
+5. Rage over: Maul (**1**) op één vijand, Swipe (**4**, vanaf 16) op twee of meer.
 6. Growl (**F**) als een vijand iemand anders slaat.
 **Per 10 levels:**
-- 10: Bear Form (**Ctrl-1**), Maul (**1**), Growl (**F**), Demoralizing Roar (**Shift-2**). Daarna Enrage (**Q**) op 12, Bash (**V**) op 14, Swipe (**Shift-1**) op 16, Faerie Fire (**5**) op 18.
+- 10: Bear Form (**Ctrl-1**), Maul (**1**), Growl (**F**), Demoralizing Roar (**Shift-2**). Daarna Enrage (**Q**) op 12, Bash (**V**) op 14, Swipe (**4**) op 16, Faerie Fire (**5**) op 18.
 - 20: Feral Charge (**E**, een talent): je stormt op de vijand af, hij kan 4 seconden niet bewegen en niet casten. Cooldown 15 seconden. Talent-levels hier zijn op z'n vroegst; een perk kan ze tot 5 levels eerder maken.
 - 30: Leader of the Pack (een talent). Daarvoor: Lacerate (**2**, een talent) op 25, Challenging Roar (**Shift-F**) op 28.
 - 40: Dire Bear Form vervangt Bear Form op **Ctrl-1**. Primal Bite (**3**, een talent). Daarvoor: Frenzied Regeneration (**X**) op 36: maakt van Rage health.

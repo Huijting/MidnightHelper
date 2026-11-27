@@ -25,6 +25,15 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 27 nov — FOREVER Druid: Swipe als beer op 4 (niet meer Shift-1)
+
+`/reload` is genoeg: MH schrijft je bestaande blok-macro's ("MH 4") bij het inloggen opnieuw. Offline getest
+(swipe_test, beide indelingen), NIET in het spel.
+- [ ] Druid, Bear Form, minstens level 16: toets **4** = Swipe. Als kat blijft 4 Rip, als caster Insect Swarm.
+- [ ] Shift-1 doet als beer niets meer; als caster (vanaf 40) Hurricane. Heb je nog geen Hurricane, dan houdt de oude
+      Shift-1-macro voorlopig ook Swipe — geen probleem.
+- [ ] How you play → Bear: "Swipe (**4**, from 16)" en "Swipe (**4**) at 16".
+
 ## 27 nov — BEIDE GAMES: één MH-venster tegelijk, met Terug en Home (keuze B)
 
 HERSTART het spel één keer (nieuw bestand). Offline getest (stack_test), NIET in het spel.

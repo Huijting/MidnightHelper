@@ -424,10 +424,10 @@ Dès le niveau 10 (Forme d’ours, via une quête). Le **tank**, c'est celui que
 2. Rugissement démoralisant (**Shift-2**) une fois.
 3. Morsure primordiale (**3**, dès 40) dès qu'elle est prête.
 4. Lacérer (**2**, dès 25) jusqu'à 5 cumuls.
-5. Rage en trop : Mutiler (**1**) sur un ennemi, Balayage (**Shift-1**, dès 16) sur deux ennemis ou plus.
+5. Rage en trop : Mutiler (**1**) sur un ennemi, Balayage (**4**, dès 16) sur deux ennemis ou plus.
 6. Grondement (**F**) quand un ennemi frappe quelqu'un d'autre.
 **Tous les 10 niveaux :**
-- 10 : Forme d’ours (**Ctrl-1**), Mutiler (**1**), Grondement (**F**), Rugissement démoralisant (**Shift-2**). Puis Enrager (**Q**) au niveau 12, Sonner (**V**) au 14, Balayage (**Shift-1**) au 16, Lucioles (**5**) au 18.
+- 10 : Forme d’ours (**Ctrl-1**), Mutiler (**1**), Grondement (**F**), Rugissement démoralisant (**Shift-2**). Puis Enrager (**Q**) au niveau 12, Sonner (**V**) au 14, Balayage (**4**) au 16, Lucioles (**5**) au 18.
 - 20 : Charge farouche (**E**, un talent) : tu charges l'ennemi, il ne peut ni bouger ni lancer de sort pendant 4 secondes. Cooldown 15 secondes. Les niveaux de talent indiqués ici sont les plus tôt possibles ; un avantage peut les avancer jusqu'à 5 niveaux.
 - 30 : Chef de la meute (un talent). Avant ça : Lacérer (**2**, un talent) au 25, Rugissement provocateur (**Shift-F**) au 28.
 - 40 : Forme d’ours redoutable remplace Forme d’ours sur **Ctrl-1**. Morsure primordiale (**3**, un talent). Avant ça : Régénération frénétique (**X**) au 36 : transforme la Rage en vie.

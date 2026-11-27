@@ -422,10 +422,10 @@ A partir do nível 10 (Forma de Urso, de uma missão). O **tanque** é quem os i
 2. Rugido Desmoralizante (**Shift-2**) uma vez.
 3. Mordida Primeva (**3**, a partir do 40) sempre que estiver pronta.
 4. Lacerar (**2**, a partir do 25) até ter 5 acúmulos.
-5. Raiva sobrando: Malho (**1**) em um inimigo, Revés (**Shift-1**, a partir do 16) em dois ou mais.
+5. Raiva sobrando: Malho (**1**) em um inimigo, Revés (**4**, a partir do 16) em dois ou mais.
 6. Rosnar (**F**) quando um inimigo bate em outra pessoa.
 **A cada 10 níveis:**
-- 10: Forma de Urso (**Ctrl-1**), Malho (**1**), Rosnar (**F**), Rugido Desmoralizante (**Shift-2**). Depois Enfurecer (**Q**) no 12, Trombar (**V**) no 14, Revés (**Shift-1**) no 16, Fogo Feérico (**5**) no 18.
+- 10: Forma de Urso (**Ctrl-1**), Malho (**1**), Rosnar (**F**), Rugido Desmoralizante (**Shift-2**). Depois Enfurecer (**Q**) no 12, Trombar (**V**) no 14, Revés (**4**) no 16, Fogo Feérico (**5**) no 18.
 - 20: Investida Feral (**E**, um talento): você avança no inimigo, e ele não pode se mover nem lançar feitiços por 4 segundos. Recarga de 15 segundos. Os níveis de talento aqui são os mais cedo possíveis; uma vantagem pode adiantá-los em até 5 níveis.
 - 30: Líder do Bando (um talento). Antes disso: Lacerar (**2**, um talento) no 25, Rugido Desafiador (**Shift-F**) no 28.
 - 40: Forma de Urso Hediondo substitui a Forma de Urso no **Ctrl-1**. Mordida Primeva (**3**, um talento). Antes disso: Regeneração Frenética (**X**) no 36: transforma Raiva em vida.

@@ -1,5 +1,14 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 27 nov (Bouwchat 27-11): Forever Druid — Swipe als beer van Shift-1 naar 4 (`/reload`)
+
+Rob via Sparring 27-11, letterlijk: *"Ja, ik gebruik 12 keer 4 en swipe mag inderdaad op 4."* (als tank Shift-1 met twee
+vingers). ForeverBlock_Druid.lua: keys12 én keys `["4"].bear = "Swipe"`, SHIFT-1 alleen nog Hurricane (gewone tabel
+ook, mijn keuze: dan zegt How you play één toets voor elke indeling; LiveKeys vertaalt per toets, niet per spell).
+How you play bear-tekst "Swipe (**4**…)" in en + nl/de/fr/es/esMX/pt/ru (16 regels, GEMETEN 0 over met Shift-1).
+Bestaande macro's: RefreshExisting bij PLAYER_ENTERING_WORLD herschrijft "MH 4" → `/reload` volstaat. swipe_test
+(echte Body, beide indelingen) geslaagd.
+
 ## ▶▶ 27 nov (Bouwchat 27-11): beide games — één MH-venster tegelijk, Back en Home (keuze B, herstart)
 
 Rob (aan Carola uitleggend, gedicteerd): *"… al die schermpjes die bouwen op en over elkaar heen … alleen maar dat

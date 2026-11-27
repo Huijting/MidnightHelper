@@ -426,10 +426,10 @@ Desde el nivel 10 (Forma de oso, de una misión). El **tanque** es al que golpea
 2. Clamor desmoralizador (**Shift-2**) una vez.
 3. Mordisco primigenio (**3**, desde el 40) cada vez que esté listo.
 4. Lacerar (**2**, desde el 25) hasta que tenga 5 acumulaciones.
-5. Ira de sobra: Machaque (**1**) contra un enemigo, Flagelo (**Shift-1**, desde el 16) contra dos o más.
+5. Ira de sobra: Machaque (**1**) contra un enemigo, Flagelo (**4**, desde el 16) contra dos o más.
 6. Bramido (**F**) cuando un enemigo golpea a otra persona.
 **Cada 10 niveles:**
-- 10: Forma de oso (**Ctrl-1**), Machaque (**1**), Bramido (**F**), Clamor desmoralizador (**Shift-2**). Luego Enfurecer (**Q**) en el 12, Azote (**V**) en el 14, Flagelo (**Shift-1**) en el 16, Fuego feérico (**5**) en el 18.
+- 10: Forma de oso (**Ctrl-1**), Machaque (**1**), Bramido (**F**), Clamor desmoralizador (**Shift-2**). Luego Enfurecer (**Q**) en el 12, Azote (**V**) en el 14, Flagelo (**4**) en el 16, Fuego feérico (**5**) en el 18.
 - 20: Carga feral (**E**, un talento): cargas contra el enemigo y no puede moverse ni lanzar hechizos durante 4 segundos. Reutilización de 15 segundos. Los niveles de talento de aquí son los más tempranos; una ventaja puede adelantarlos hasta 5 niveles.
 - 30: Líder de la manada (un talento). Antes: Lacerar (**2**, un talento) en el 25, Clamor desafiante (**Shift-F**) en el 28.
 - 40: Forma de oso nefasto sustituye a Forma de oso en **Ctrl-1**. Mordisco primigenio (**3**, un talento). Antes: Regeneración frenética (**X**) en el 36: convierte la Ira en salud.

@@ -425,10 +425,10 @@ From level 10 (Bear Form, from a quest). A **tank** is the one the enemies hit, 
 2. Demoralizing Roar (**Shift-2**) once.
 3. Primal Bite (**3**, from 40) whenever it is ready.
 4. Lacerate (**2**, from 25) until it has 5 stacks.
-5. Rage left over: Maul (**1**) on one enemy, Swipe (**Shift-1**, from 16) on two or more.
+5. Rage left over: Maul (**1**) on one enemy, Swipe (**4**, from 16) on two or more.
 6. Growl (**F**) when an enemy hits someone else.
 **Per 10 levels:**
-- 10: Bear Form (**Ctrl-1**), Maul (**1**), Growl (**F**), Demoralizing Roar (**Shift-2**). Then Enrage (**Q**) at 12, Bash (**V**) at 14, Swipe (**Shift-1**) at 16, Faerie Fire (**5**) at 18.
+- 10: Bear Form (**Ctrl-1**), Maul (**1**), Growl (**F**), Demoralizing Roar (**Shift-2**). Then Enrage (**Q**) at 12, Bash (**V**) at 14, Swipe (**4**) at 16, Faerie Fire (**5**) at 18.
 - 20: Feral Charge (**E**, a talent): you charge the enemy, it cannot move and cannot cast for 4 seconds. Cooldown 15 seconds. Talent levels here are the earliest; a perk can bring them up to 5 levels sooner.
 - 30: Leader of the Pack (a talent). Before that: Lacerate (**2**, a talent) at 25, Challenging Roar (**Shift-F**) at 28.
 - 40: Dire Bear Form replaces Bear Form on **Ctrl-1**. Primal Bite (**3**, a talent). Before that: Frenzied Regeneration (**X**) at 36: turns Rage into health.
