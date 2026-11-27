@@ -12159,3 +12159,132 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
     `## Interface: 120007, 120100, 120105, 120107` is er wél, met `## Interface-Camelot: 16001` eronder. Wie die
     grep als controle gebruikt, moet dus niet concluderen dat de retail-TOC geen Interface-regel heeft.
     ⚠️ `docs/NEXT_SESSION.md` heb ik bewust **niet** bijgewerkt: mijn opdracht verbiedt elk ander bestand dan dit.
+- [2026-11-27] 🔴 **Geen [MOET GEFIKST] in de API, maar wel een CORRECTIE op mijn eigen regel van 14 nov en één punt
+  dat Rob moet wegen: de addon ADVISEERT sinds 21 nov Dual Spec op Forever, en spelers melden dat elke spec-wissel
+  spells op de bars dumpt, over bestaande slots en macro's heen. Technisch is het stil: geen nieuwe build op één van
+  de vijf takken, geen nieuw hotfix-artikel, geen nieuwe API-changes-regel, geen SimC-release.**
+  - 🔁 **CORRECTIE op mijn eigen regel van [2026-11-14], en hij is vandaag GEMETEN.** Die regel zei: *"`Secondary
+    Talents` zelf staat nergens in de addon"* — toen **0** treffers. Vandaag, exact hetzelfde patroon en dezelfde
+    scope (`grep -rni "secondary talent\|secondarytalent\|dual spec\|dualspec"` over alle `.lua` buiten `Libs/`,
+    `docs/`, `tools/` en `dist/`): **39** treffers. Positieve controle in dezelfde run en scope: `talent` → **3636**,
+    `action bar\|actionbar` → **214**. De verandering komt van Robs eigen werk van **21 nov**: `ForeverHowToPlay.lua:71`
+    (sectie *"Talents: reset and Dual Spec"*), `:1073` (Paladin), `:1080` (Warrior), `:1087` (Druid),
+    `ForeverDoNow.lua:569-581` (`FDONOW_DUALSPEC`, knop `dualspec` → trainer, kijkt naar switch-spell **63644**),
+    `ForeverTalentNext.lua:137`/`:248`/`:368` (tweede set voor healer/tank) en de `FDONOW_DUALSPEC`-sleutel in
+    **acht** locale-bestanden. 📌 Precies de situatie waar `CLAUDE.md` voor waarschuwt: een aantekening is een claim
+    mét een datum, en deze was dertien dagen later onwaar.
+  - 💬 **[AL AFGEDEKT] in de CODE — nieuwe forumdraad *"Forever dual spec UI issue"* (`t/forever-dual-spec-ui-issue/2429994`,
+    **26 nov 18:11**), en hij is nieuw sinds mijn vorige run.** Letterlijk, speler Pizzagoat: *"Whenever I swap from
+    feral to resto, the UI will automatically add my 'new' resto spells such as swiftmend and nature's grace to my
+    actionbars (despite already having them set on my bars), overwriting my first 2 slots of actionbar 2."* Dezelfde
+    klacht in `t/dual-spec-action-bar-issue-when-swapping-specs/2423767` (20 nov, Bug Report: *"It places the
+    non-macro Swiftmend over my swiftmend macro"*) en op het EU-forum `t/dual-spec-is-broken/646192` (26 nov: *"it
+    removes macros and replaces abilities on my bars"*). ⚠️ **Dit zijn SPELERSMELDINGEN, geen Blizzard-tekst**: er is
+    geen blue reply en geen hotfix-regel over. Het is de keerzijde van de hotfix van 13 nov die mijn regel van 14 nov
+    behandelde (bars wérden toen leeggegooid, nu worden ze volgeschreven). Geen functienaam, geen signature, dus geen
+    API-wijziging. Het raakt ons omdat **MH zélf slots schrijft op Forever**; drie paden nagelezen, niet gehoopt:
+    - **Leeskant: afgedekt.** `Modules/KeyboardLayoutPrototype.lua:1608` registreert `ACTIVE_TALENT_GROUP_CHANGED` en
+      `:1618-1624` tekent de coach opnieuw op dat event; `Modules/KeybindAutoMap.lua:588-591` gooit `autoCache` leeg op
+      hetzelfde event. De layout-coach toont dus wat er ná de wissel écht op de bar staat, geen gecachet beeld.
+    - **Undo-kant: afgedekt, en netjes.** `Modules/KeyBlock.lua:1551-1567` (`MayLift`) leest eerst de huidige bezetter
+      via `Occupant(s.slot)` (`:666`) en weigert een slot te lichten dat niet is wat MH er neerzette; dat slot gaat dan
+      in `kept` (`:1840-1844`) en wordt gemeld in plaats van overschreven. Een spell die de client in ons slot heeft
+      gedropt, wordt dus niet blind weggegooid.
+    - **Plaatskant: afgedekt mét terugleesmeting.** `Modules/ForeverRanks.lua:239-262` (`Replace`) stopt bij
+      `InCombatLockdown`, eist een lege cursor (`CursorEmpty`, `:227`), zit in `pcall` en **leest terug** met
+      `GetActionInfo` of het slot werkelijk de bedoelde spell kreeg. `Modules/KeyBlock.lua:1460-1482`/`:1645-1664` doen
+      het plaatsen met `C_Spell.PickupSpell`/`PlaceAction` in `pcall`. Beide bestanden staan in **beide** TOC's
+      (`MidnightHelper_Camelot.toc:127`, `MidnightHelper.toc:236`), dus dit pad draait op Forever.
+  - 🟠 **WAT IK NIET KAN DICHTZETTEN EN WAT DUS NAAR ROB GAAT (ik raak niets aan).** Twee dingen, en ze zijn
+    AFGELEID uit code + spelersmeldingen, niet in de client gemeten:
+    1. **De advies-kant heeft geen waarschuwing.** `ForeverHowToPlay.lua` en `FDONOW_DUALSPEC` raden de speler aan
+       Dual Spec te kopen en *"als Retribution te levelen en als Protection te tanken"* — dus regelmatig te wisselen.
+       Nergens in die tekst staat dat elke wissel volgens die meldingen een slot kan overschrijven, macro's incluis,
+       terwijl MH juist macro's in slots zet (`ForeverBlock_*.lua`). Dat is geen codefout maar een gat in een advies
+       dat wíj geven. Of dat een regel verdient (bv. in de Dual Spec-sectie: *"kijk je bars na na de eerste wissel"*)
+       is Robs keuze, niet de mijne.
+    2. **Een derde bron van plaatsingen die een openstaande vraag niet kent.** `ForeverRanks.lua:1378-1382` zegt
+       letterlijk dat *"how to tell the player's own drag from an addon's `PlaceAction` in Forever is not measured"* en
+       onderscheidt twee bronnen: MH en de speler. De client die zélf spells plaatst bij een spec-wissel is een derde,
+       en die zou in `/mh ranks watch` als "met de hand geplaatst" kunnen tellen. Robs test, als hij een Forever-character
+       met Secondary Talents heeft: `/mh ranks watch`, dan spec wisselen, en kijken wat het log zegt over de slots die
+       de client vulde. Daarna `/mh keyblock` of de undo om te zien wat `kept` meldt.
+  - ✅ **[RAAKT ONS NIET] — de vier forumdraden die gisteren nog ONGEOPEND in mijn regel stonden, zijn nu alle vier
+    gelezen. Af vandaag.** *"Help with keybindings!"* (`2428726`, 25 nov): vraag om een video over numpad op een
+    Logitech G203, door de vrager zelf opgelost — geen API. *"Forever - Warlock Pet Macro Help"* (`2429560`, 26 nov):
+    macro-syntaxhulp (`/petattack [@mouseover,harm,nodead]`, modifier voor focus); geen regelwijziging, en onze eigen
+    pet-regels (`ForeverMacros.lua:383`/`:431`/`:489`, `ForeverBlock_Hunter.lua:54-55`) gebruiken dezelfde, nog
+    geldige syntax. *"Instant quest text - Midnight"* (`2428979`, 25 nov): de toggle voor scrollende questtekst is weg
+    — maar dat is al zo sinds **minstens 12 juli 2026** (`t/when-did-they-remove-the-toggle-for-instant-quest-text…/2326102`),
+    dus buiten de 7-dagenregel; GEMETEN **0** treffers op `questFasterText|instant quest|QUEST_TEXT` in onze `.lua`
+    (positieve controle, zelfde scope: `SetCVar` → **14**). *"Hotkey the 'Buy' button on Auction house"* (`2429197`,
+    25 nov): vraag of een macro de AH-koopknop kan klikken; het antwoord is de bekende `SecureActionButtonTemplate`
+    + `clickbutton`-route, want de koop-API's zijn protected. Dat is bestaande 12.x-kennis en staat al in onze eigen
+    secure-frame-regels; **wij bouwen niets aan het AH**.
+  - 🏗️ **Géén nieuwe client-build, op geen van de vijf takken — voor het eerst in dagen.** GEMETEN eerstehands met
+    `git ls-remote --heads` op `Gethe/wow-ui-source`: `forever` = **`d9c22e32`** (= 71139), `live` = **`ab5cb850`**,
+    `beta` = **`078d0cf7`**, `ptr2` = **`12380f8c`**, `ptr` = **`fbb18ce1`** — alle vijf byte-voor-byte gelijk aan wat
+    mijn regel van gisteren noemt. Tweede, onafhankelijke controle op `wago.tools/builds?nocache=20261127`: bovenste
+    regel nog steeds `1.60.1` **71139** / branch `wowf`, gedetecteerd **2026-11-25 19:13:07**; retail `wow` 12.1.5
+    **70961** (17 nov), PTR `wowt` 12.1.7 **71087** (20 nov), `wow_classic` 5.5.4 **71089** (24 nov). 🔴 Cachecontrole:
+    deze regels zijn **gelijk** aan gisteren en niet ouder, dus dit is geen cache maar werkelijk stilstand.
+    📌 Daarmee is er vandaag **geen** DB2-vergelijking te doen: `docs/WATCHER_FOREVER.md` eist die bij een NIEUWE
+    build, en die is er niet. De vier tabellen die gisteren niet te meten waren (`SpellLevels`, `SpellEquippedItems`,
+    `ItemDamageTwoHand`/`OneHand`, de talentbomen) blijven dus ongemeten — dat is onveranderd, geen "in orde".
+  - 📰 **[RAAKT ONS NIET] — geen nieuw hotfix-artikel, op geen van beide games.** Forever: `t/2403040` (mét
+    `?nocache=20261127`) staat nog op *"WoW: Forever Hotfixes - November 25, 2026"*, dezelfde inhoud die ik gisteren
+    al per trefwoord aan de code heb getoetst. Retail: nieuwste is *"Hotfixes: November 24, 2026"*
+    (`news/24307310`), ook al gelezen, en de enige nieuwe regel daarin is Ascendant Venomstone-aantallen — geen UI-,
+    addon- of API-sectie.
+  - 📄 **[RAAKT ONS NIET] — de drie API-changes-pagina's zijn onveranderd.** `Patch_12.1.7/API_changes`: dezelfde twee
+    Summary-items (GUID server-/spawn-ID-obfuscatie, *"available for testing in a future build"*; en *"TOC directives
+    no longer expand variables such as [Game] or [Family]"*). `Patch_12.1.5/API_changes`: blue posts nog t/m **29 sep**.
+    `Patch_1.60.1/API_changes`: notable changes nog t/m **7 okt** (build 70291), blue posts t/m **16 okt**. Alle drie
+    buiten de 7-dagenregel. De Forever Beta Development Notes (`t/2360696`) staan nog op *"Updated November 2"* — 25
+    dagen oud.
+  - 🧰 **SimC-addon: geen nieuwe release sinds `12.1.5-05`.** GEMETEN eerstehands met `git ls-remote`: **259** echte
+    tags (`^{}`-regels eruit) — hetzelfde aantal als de afgelopen zes dagen — en `refs/heads/master` = **`d0f2255`** =
+    `refs/tags/12.1.5-05`. Datum eerstehands uit een eigen shallow clone van die tag: **20 nov 15:26 PST**, titel
+    *"Handle the API changes Blizz made to stop layer jumping forever addons"*. Dat is precies 7 dagen oud en al
+    volledig afgehandeld op 21/22 nov (beide [MOET GEFIKST] toen dicht). Niets nieuws te toetsen aan `ItemString` of
+    `ns.BuildSimcProfile` in `Modules/SimcExport.lua`.
+  - ⚔️ **Wapenadvies: niets dat het register raakt.** Gelezen, met de trefwoordenlijst onderaan
+    `docs/forever/WAPENADVIES_FEITEN.md` ernaast: de Forever-hotfixes van 25 nov (geen nieuwer artikel), de
+    Midnight-hotfixes van 24 nov, het hele UI-and-Macro-forum, de drie API-changes-pagina's, de Forever Beta Dev Notes
+    en de buildtabel. Geen nieuwe Blizzard-tekst over weapon, wand, dual wield, form, poison, imbue, Seal, Weaponmaster,
+    Hack and Slash, Wand Specialization, spell power of weapon skill. 📌 De Dual Spec-meldingen hierboven raken
+    talenten en bars, niet een wapenbewering; de 🟠-rijen van het register staan er onveranderd in.
+  - 🚧 **Wat ik NIET kon lezen.** `warcraft.wiki.gg`, `news.blizzard.com`, `us.forums.blizzard.com` en
+    `worldofwarcraft.blizzard.com` blijven geweigerd door de egress-proxy; alles liep via Exa, elke URL mét
+    `?nocache=20261127`. Exa levert per pagina een **beperkt aantal tekens**, dus van de lange hotfix- en
+    dev-notes-draden heb ik de kop en het begin, niet de staart. De WoWUIDev-Discord blijft onbereikbaar. De eigen
+    shallow `git ls-remote`/`git clone` op `Gethe/wow-ui-source` en `simulationcraft/simc-addon` deden opnieuw het
+    zwaarste werk en hebben geen proxy nodig.
+  - ⏳ **Nog open uit eerdere runs — ongewijzigd, NIET opnieuw gemeten vandaag. Af vandaag: de vier forumdraden
+    (gelezen, alle vier [RAAKT ONS NIET]).** Nieuw op de lijst: de twee 🟠-punten hierboven (de ontbrekende
+    waarschuwing bij ons Dual Spec-advies, en de client als derde plaatsingsbron voor `/mh ranks watch`). De rest
+    staat ongewijzigd: de twee registervragen van 26 nov (`413`/`414` versus `293`, en de Shaman-rij voor Dual Wield
+    met `Availability 0`); de vier DB2-tabellen die niet in één Exa-pagina passen; of 71091/71139 de
+    realm-ID-obfuscatie bevat (zit in de engine, niet in wow-ui-source); de koppelteken-aanname in de losse
+    `Creature%-`-patronen (`ForeverVendors.lua:747`/`:1237`, `ForeverWeapons.lua:659`); de dode `PickupItem`-takken in
+    `Modules/KeyBlock.lua:1135`/`:1227`/`:1380` en `Modules/ApplyLayout.lua:1311`/`:1345`/`:1605`; de vijf
+    decoratieve `GetItemInfo`-terugvaltakken; de verouderde namespace-lijst in `docs/WATCHER_API_PROMPT.md` (18 aug,
+    noemt 57 namespaces en kent de twee TOC's niet); de client-test voor `/mh raidbots`; `GetTimerDuration` toevoegen
+    aan `Modules/ApiProbe.lua:377`; de `FrameStrata`-secret-vraag op `Modules/PartyTargets.lua:517`; de drie
+    `WOW_PROJECT_MAINLINE`-takken in `Libs/LibDBIcon-1.0.lua:533`/`:572`/`:607`; de ongemeten BETEKENIS van *"Edit
+    Mode layouts are now saved separately for each UI type"* voor `Modules/ForeverLayoutCarry.lua`; de
+    shift-klik-taintvraag op `Modules/Achievements.lua:1561`/`:1910`; de in-game-test van `ns.SelfCastMacroWarning`
+    (`Core.lua:4318`); de C_BattleNet-aanname op `Modules/FriendMarks.lua:15`; of `C_LegacySystem` op de
+    Forever-client bestaat; of de player-GUID ongemoeid blijft (nog steeds AFGELEID); en de opruiming van de oude
+    SavedVariables-sleutels na 28 nov. 🔴 Niets aangeraakt.
+  - 🔧 **Repo-staat: alleen `docs/API_WATCH.md` aangeraakt.** GEMETEN vóór het schrijven: `git status --short`
+    **leeg**, `HEAD` opnieuw **losgeslagen** (`git rev-parse --abbrev-ref HEAD` → `HEAD`), dus eerst
+    `git checkout -B main origin/main`; de top was bij het begin `e58b90d` *"Nachtcontrole 2026-11-27"* en na mijn
+    eigen `pull --rebase` `cbea545` *"PTR/roadmap watch 2026-11-27: niets nieuws"* — de PTR-wachter pushte tijdens
+    mijn run, en zijn regel ziet dezelfde stilstand van de andere kant (`wowt` 71087, `wowf` 71139). De kloon is nog steeds ondiep (`is-shallow-repository` → **`true`**), dus een
+    `(forced update)`-regel bij de fetch komt daarvan. Positieve controle: `grep -c '^##'` geeft **19** in
+    `MidnightHelper.toc` en **14** in `MidnightHelper_Camelot.toc`, beide gelijk aan gisteren. 🆕 `## Version` staat
+    op **5.11.0** (gisteren 5.10.0) — er is dus sinds mijn vorige run een versiebump gegaan. Dat is niet mijn bestand
+    en niet mijn werk; ik meld het alleen, het Dual Spec-werk van 21 nov wordt aangekondigd in
+    `CHANGELOG_570_12` (`Locales/enUS.lua:4278`) en is dus van vóór deze bump, niet van vandaag. ⚠️ `docs/NEXT_SESSION.md` heb ik bewust **niet** bijgewerkt: mijn
+    opdracht verbiedt elk ander bestand dan dit.
