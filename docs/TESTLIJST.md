@@ -25,6 +25,18 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 27 nov — FOREVER: de hele route 1-300 in Skill up
+
+HERSTART het spel één keer (nieuw bestand). Offline getest (route_test: 56 teksten, 8 beroepen), NIET in het spel.
+- [ ] `/mh skillup` → links onder de beroepen een knop **Whole route 1-300**. Klik: rechts staat "<beroep>: the whole
+      route to 300", met groen `>>` voor de stap waar je nu bent. Nog een klik ("Next step"): het oude venster.
+- [ ] De stappen beginnen bij JOUW skill (niets eronder). Ranglijnen staan op 50 / 125 / 200 ("Train the next rank").
+- [ ] Bij een recept dat je nog niet kent: "Learn …" met eronder waar je het haalt. Ken je het al: geen Learn-regel.
+- [ ] Onderaan "Shopping list for the rest of the route": per ding nodig / je hebt / nog zoveel. Tellen tas + bank mee?
+- [ ] Cooking of First Aid boven 150: "Next rank … from a book or a quest, not a trainer".
+- [ ] Belangrijk: zegt het spel bij een stap dat het recept al GRIJS is? Zeg welke. (MH rekent met Blizzards eigen
+      Forever-kleuren; die klopten 3 van 3 met jouw beroepsvenster.)
+
 ## 27 nov — FOREVER: waarschuwing bij Dual Spec (je balken na een wissel)
 
 `/reload` is genoeg. NIET in het spel getest. Hoort NIET bij 5.11.0 (komt in de volgende versie).

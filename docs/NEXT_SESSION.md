@@ -1,5 +1,26 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 27 nov (Bouwchat 27-11): Forever beroepen — 4 opties uitgezocht, optie 2 (hele route 1-300) GEBOUWD (herstart)
+
+Rob via Sparring 27-11, letterlijk: *"zoek al de 4 opties goed uit en begin met 2"* (Pathfinder Forever = ARR, alleen
+idee). Alle 4 in IDEEEN.md. (2) GEBOUWD: `tools/forever_skillroute.py` → `Modules/ForeverSkillRouteData.lua` (beide
+toc's, vóór ForeverSkillup.lua) + RouteText/knop in `ForeverSkillup.lua` (ns.db.skillupWhole), sleutels FSROUTE_*
+(enUS, nlNL, de/fr/es/pt/ru in ForeverClassQuests_*; itIT Engels zoals de rest van Skill up).
+🔑 GEMETEN: Robs Forever-SV `skillupProbe` heeft de grijs-grens van de client (C_TradeSkillUI maxTrivialLevel) en die is
+gelijk aan onze DB2 (2881 40, 3816 70, 1229432 20). Zygors beroepsroutes vragen op 40+ stappen om recepten die in
+Forever al grijs zijn (2665 van 65 naar 75, grijs 55) → plan "Zygor-volgorde" verlaten; onze route = DB2-kleuren +
+leer-skill uit ForeverRecipeSourceData (K = vanaf 1), regel: oranje/geel vóór groen, dan trainer, dan Zygor-recepten,
+dan zekerste; stap stopt op groen, bij een beter recept of op 50/125/200. Gat: alleen Enchanting 1-5. Healing potions
+2330/2337/3447 hebben in Forever-DB2 GEEN SpellName/SpellReagents (gemeten). Offline: scratch route_test 56/56.
+(1) geld, (3) verzamelplekken, (4) reagents/munitie: alleen onderzocht, zie IDEEEN.md. Robs eerste tests daarvoor:
+(1) ziet hij Auctionators "To craft/Profit" in het beroepenvenster; (3) `/mh rares why` (GetLootSourceInfo yes/no) +
+twee /run-regels (UNIT_SPELLCAST_SUCCEEDED-spell-id, LOOT_OPENED-GUID) bij één ader, één kruid, één keer vissen;
+(4) `/run print(GetInventoryItemID("player",0),GetInventoryItemCount("player",0))` en bij een reagent-verkoper
+`/run for i=1,GetMerchantNumItems() do print(i,GetMerchantItemID(i)) end`. De twee regels voor (3):
+`/run local f=CreateFrame("Frame")f:RegisterUnitEvent("UNIT_SPELLCAST_SUCCEEDED","player")f:SetScript("OnEvent",function(_,_,_,_,s)print("CAST",s,C_Spell.GetSpellName(s))end)`
+`/run local f=CreateFrame("Frame")f:RegisterEvent("LOOT_OPENED")f:SetScript("OnEvent",function(_,_,a,i)print("LOOT",a,i,GetLootSourceInfo(1))end)`
+Niets daarvan in TESTLIJST tot Rob een optie kiest.
+
 ## ▶▶ 27 nov (Bouwchat 27-11): Forever Dual Spec-advies krijgt een balken-waarschuwing (`/reload`, NA 5.11.0)
 
 Rob via Sparring 27-11, letterlijk: *"Ja en ja"* (op: "Dual Spec: komt er een waarschuwing bij ons advies?"). Aanleiding:

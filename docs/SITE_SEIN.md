@@ -28,6 +28,17 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 27 nov 2026 — Forever: hele beroepsroute 1-300 + Dual Spec-waarschuwing
+- Tag + commit:   geen tag / (zie git log, 27 nov)
+- Status:         alleen op main
+- Mag op de site: nee (nog niet in een release, nog niet door Rob getest)
+- Speler ziet:    In Skill up een knop voor de hele route tot 300: elke stap vanaf je skill, wanneer je naar de trainer
+                  moet, en één boodschappenlijst voor de rest. Bij het Dual Spec-advies: "wisselen kan je action bars
+                  veranderen" (spelersmeldingen).
+- Knoplabels:     FSROUTE_BTN_WHOLE, FSROUTE_BTN_NEXT
+- Commando's:     /mh skillup
+- Spel:           Forever
+
 ## 26 nov 2026 — RELEASE 5.11.0 (alle regels van 26 nov hieronder) — STAAT OP CURSEFORGE
 - Tag + commit:   v5.11.0 / ce0ad85 (run 45891560799 groen)
 - Status:         staat op CurseForge (bestanden 9833686 Midnight, 9833709 Forever; Release; GEMETEN via de CF-API)

@@ -26,6 +26,54 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 
 ## Open — wacht op Rob
 
+### Forever beroepen (2): de hele route 1-300 per beroep (wens van Rob, 27 nov) — ✅ JA, GEBOUWD 27 nov, wacht op test
+- Bron: Rob via Sparring 27-11, letterlijk: *"zoek al de 4 opties goed uit en begin met 2"* (n.a.v. een plaatje van de
+  addon Pathfinder Forever; die is All Rights Reserved: alleen het idee).
+- Gebouwd: knop "Whole route 1-300" in het Skill up-venster: alle stappen vanaf je skill (rang halen bij 50/125/200,
+  recept leren + waar, ongeveer hoeveel keer maken), en één boodschappenlijst voor de rest van de route (wat de route
+  zelf maakt en weer gebruikt gaat eraf). Geen geld.
+- GEMETEN onderweg: de grijs-grens in Blizzards Forever-data = wat het Forever-spel zelf zegt (3 van 3). Zygors route
+  vraagt op 40+ plekken om recepten die in Forever al grijs zijn, dus de volgorde is van ons; Zygor zegt alleen welke
+  recepten de voorkeur hebben.
+- Spel: F. Voor wie: N (AFGELEID).
+
+### Forever beroepen (1): geld — kosten per craft, veilingprijs, winst (wens van Rob, 27 nov) — 🔎 UITGEZOCHT, niets gebouwd
+- Bron: Rob via Sparring 27-11, letterlijk: *"zoek al de 4 opties goed uit en begin met 2"*. Was al geparkeerd als GROOT
+  (Skill up, 20 nov: *"Het geld kunnen we inderdaad later bekijken."*).
+- Uitkomst (27 nov): Forever heeft de MODERNE veiling (C_AuctionHouse, ook ReplicateItems; GEMETEN in Blizzards
+  Forever-broncode). Commissie in de data: 5% eigen veiling, 15% neutraal (GEMETEN in DB2; dat de server dat ook doet
+  is niet gemeten). Auctionator v354 draait op Forever en toont zelf al "To craft" en "Profit" in het beroepenvenster
+  (code GEMETEN; in het spel nog niet gezien). Verkoperprijs = BuyPrice/stapel, 9 van 9 gelijk aan Robs Auctionator.
+- Kleinste eerlijke eerste versie: kosten per stap in Skill up (verkoper, anders Auctionator-prijs, anders "geen prijs").
+  Eerst Robs test: zie hij Auctionators "To craft/Profit"-regels al? Dan doet MH dubbel werk.
+- Spel: F. Voor wie: N + V (AFGELEID).
+
+### Forever beroepen (3): verzamelplekken onthouden en op de kaart (wens van Rob, 27 nov) — 🔎 UITGEZOCHT, niets gebouwd
+- Bron: Rob via Sparring 27-11, letterlijk: *"zoek al de 4 opties goed uit en begin met 2"*.
+- Uitkomst (27 nov): erts en kruiden kunnen, middel werk. GEMETEN: Forever heeft de events (UNIT_SPELLCAST_SUCCEEDED,
+  LOOT_OPENED) en de kaart-API; de node-id staat in de GameObject-GUID (Robs eigen nodeProbe: 1731 = Copper Vein).
+  AFGELEID: GetLootSourceInfo werkt bij Rob (CraftLadder schreef 38 plekken op die manier). Nieuw voor MH: eigen
+  pins op de wereldkaart (MH heeft er nog geen). Vispoelen: nu niet eerlijk te doen (plek niet te meten).
+  GatherMate2 staat niet bij Rob; MH moet wijken als iemand het wel heeft.
+- Kleinste versie: schakelaar (standaard uit), alleen wereldkaart, alleen jouw beroepen, `/mh gather` als diagnose.
+  Eerst Robs test: twee /run-regels, één ader en één kruid plukken (staat in het onderzoek, NEXT_SESSION 27 nov).
+- Spel: F. Voor wie: N + V (AFGELEID).
+
+### Forever beroepen (4): waar koop je class reagents en munitie (wens van Rob, 27 nov) — 🔎 UITGEZOCHT, niets gebouwd
+- Bron: Rob via Sparring 27-11, letterlijk: *"zoek al de 4 opties goed uit en begin met 2"*.
+- Uitkomst (27 nov): goed te doen, vrij goedkoop. GEMETEN in Forever-DB2: per class de reagents met spell en level
+  (bv. Mage Rune of Teleportation vanaf 20, Druid Maple Seed vanaf 20, Paladin/Shaman vanaf 30, Priest 48, Warlock 50;
+  Warrior/Hunter geen), munitie per level (1/10/25/40). Zygor heeft kant-en-klare verkoperlijsten (reagents 34,
+  pijlen 102, kogels 86). MH heeft al bijna alle munitieverkopers met plek, maar maar 3 van 35 reagent-verkopers.
+- Kleinste versie: twee nieuwe soorten in `/mh vendor` en Find (Class reagents, Ammo) + één regel in Do this now
+  ("je hebt 0 Rune of Teleportation"), met schakelaar. Eerst Robs test: munitie leesbaar + verkoper-API (/run-regels).
+- Spel: F. Voor wie: N (AFGELEID).
+
+### Forever: waarschuwing bij Dual Spec — je balken na een wissel (27 nov) — ✅ JA, GEBOUWD 27 nov, wacht op test
+- Bron: Rob via Sparring 27-11, letterlijk: *"Ja en ja"* (op: "Dual Spec: komt er een waarschuwing bij ons advies?").
+- Gebouwd: in Do this now en in How you play: "spelers melden dat wisselen je action bars kan veranderen".
+- Spel: F. Voor wie: N + V (AFGELEID).
+
 ### Forever: geen "Upgrade" bij een kleine winst met verlies elders (wens van Rob, 26 nov) — ✅ JA, GEBOUWD 26 nov, wacht op test
 - Bron: Rob via Sparring, letterlijk: *"waarom vinden wij dit een upgrade en polestar juist de andere ?"*
 - Gebouwd: "about equal" (geel) in de tooltip, geen Upgrade/Wear it; de gear-zin noemt je richting; rol wisselen met

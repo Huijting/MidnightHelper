@@ -26,6 +26,11 @@ local _, ns = ...
 	  An empty or changing reading never removes anything. At which skill a trainer teaches a recipe is NOT in the data, so MH never says "learn X at 50".
 	NOT measured yet (Rob's test): whether the Forever client gives a recipe's own colour; /mh skillup probe stores what
 	the profession window's API returns in ns.db.skillupProbe.
+	27 Nov 2026: that probe in Rob's SavedVariables HAS the client's grey value (C_TradeSkillUI maxTrivialLevel), and it
+	equals our DB2 grey for all three samples (2881 40, 3816 70, 1229432 20) — GEMETEN, small sample.
+	27 Nov 2026 (Rob via Sparring 27-11: "begin met 2"): the button under the professions switches to the WHOLE route
+	1-300 (RouteText below; data ForeverSkillRouteData.lua): every step from your skill on, trainer ranks, recipes to
+	learn, about how many crafts, and one shopping list for the rest of the route. No money.
 ]]
 
 if not ns.IS_FOREVER then
@@ -772,6 +777,17 @@ local function Build()
 			end)
 		end)
 	end
+	-- 27 Nov 2026 (Rob: "begin met 2"): switch between "Next step" and the whole route 1-300, under the professions.
+	f.mode = CreateFrame("Button", nil, f, "UIPanelButtonTemplate")
+	f.mode:SetSize(LEFT_W, 24)
+	f.mode:SetPoint("TOPLEFT", 20, -50 - 9 * 28 - 6)
+	f.mode:SetScript("OnClick", function()
+		if ns.db then
+			ns.db.skillupWhole = not ns.db.skillupWhole or nil
+		end
+		f.offset = 0
+		Fill()
+	end)
 	f:RegisterEvent("GET_ITEM_INFO_RECEIVED")
 	f:RegisterEvent("BAG_UPDATE_DELAYED")
 	f:SetScript("OnEvent", function(self)
@@ -970,6 +986,174 @@ end
 
 ns.ForeverSkillupPlanText = PlanText -- for the offline check (scratch test), like ns.ReagentUseText
 
+--------------------------------------------------------------------------------
+-- The whole route 1-300 (27 Nov 2026, Rob via Sparring 27-11: "zoek al de 4 opties goed uit en begin met 2")
+--------------------------------------------------------------------------------
+-- Data: ns.SKILLROUTE_PACKED (ForeverSkillRouteData.lua, tools/forever_skillroute.py): per profession the steps,
+-- worked out from the same DB2 colours as above (GEMETEN equal to the Forever client's own grey value, 3 of 3 in Rob's
+-- ns.db.skillupProbe) with Zygor's recipes preferred. Here: which steps are done (your skill, your cap, what you know),
+-- about how many crafts each step takes (the same estimate as "Next step"), and one shopping list for the rest.
+local SECONDARY = { COOKING = true, FIRSTAID = true }
+local RANK_FROM = { [150] = 50, [225] = 125, [300] = 200 } -- the skill from which a trainer teaches that rank
+local ROUTES = {}
+
+local function RouteSteps(key)
+	if ROUTES[key] ~= nil then
+		return ROUTES[key] or nil
+	end
+	local packed = ns.SKILLROUTE_PACKED and ns.SKILLROUTE_PACKED[key]
+	local out = {}
+	for part in (packed or ""):gmatch("[^,]+") do
+		local t, a, b = part:match("^(%a)(%d+)>?(%d*)$")
+		a = tonumber(a)
+		if t == "r" then
+			out[#out + 1] = { t = "r", cap = a }
+		elseif t == "l" then
+			out[#out + 1] = { t = "l", spell = a }
+		elseif t == "m" and tonumber(b) then
+			out[#out + 1] = { t = "m", spell = a, to = tonumber(b) }
+		elseif t == "g" then
+			out[#out + 1] = { t = "g", to = a }
+		end
+	end
+	ROUTES[key] = (#out > 0) and out or false
+	return ROUTES[key] or nil
+end
+
+--- About how many crafts of r from skill `from` up to `to` (1 / chance per point, the same estimate as NextStep).
+local function CraftsBetween(r, from, to)
+	local n = 0
+	for s = from, to - 1 do
+		local _, ch = Colour(r, s)
+		if ch <= 0 then
+			break
+		end
+		n = n + 1 / ch
+	end
+	return math.ceil(n)
+end
+
+--- The text of the whole route for one profession, and the seller of the first thing you are short of (or nil).
+local function RouteText(key, mine)
+	Parse()
+	local m = mine[key]
+	local name = ProfName(key, mine)
+	local L = {}
+	local function add(s)
+		L[#L + 1] = s
+	end
+	add("|cffffcc66" .. ns:L("FSROUTE_HEAD_FMT"):format(name) .. (m and m.rank and m.maxRank
+		and ("  %d/%d"):format(m.rank, m.maxRank) or "") .. "|r")
+	if not (m and m.rank) then
+		add(ns:L("FSKILL_NOT_YOURS"))
+		return table.concat(L, "\n")
+	end
+	local steps = RouteSteps(key)
+	if not steps then
+		add(ns:L("FSROUTE_NONE_FMT"):format(name))
+		return table.concat(L, "\n")
+	end
+	local skill, cap = m.rank, m.maxRank or 0
+	if skill >= 300 then
+		add(ns:L("FSROUTE_ALL_DONE"))
+		return table.concat(L, "\n")
+	end
+	if skill > 1 then
+		add(ns:L("FSROUTE_DONE_FMT"):format(skill))
+	end
+	add(" ")
+	local from, marked = 1, false
+	local need, made, order = {}, {}, {}
+	for _, st in ipairs(steps) do
+		if st.t == "r" then
+			if cap < st.cap then
+				if SECONDARY[key] and st.cap > 150 then
+					add("|cffffcc66" .. ns:L("FSROUTE_RANK_BOOK_FMT"):format(st.cap) .. "|r")
+				else
+					add("|cffffcc66" .. ns:L("FSROUTE_RANK_FMT"):format(st.cap, RANK_FROM[st.cap] or 0) .. "|r")
+				end
+			end
+		elseif st.t == "l" then
+			local r = REC[st.spell]
+			if r and not Knows(st.spell) then
+				-- Only when the make step it belongs to is still to come (a recipe you passed is not worth learning).
+				local later = false
+				for _, s2 in ipairs(steps) do
+					if s2.t == "m" and s2.spell == st.spell and s2.to > skill then
+						later = true
+					end
+				end
+				if later then
+					add("  " .. ns:L("FSROUTE_LEARN_FMT"):format(RecipeLink(r)))
+					local lines = ns.ForeverRecipeSourceLines and ns.ForeverRecipeSourceLines(st.spell)
+					if lines and lines[1] then
+						add("     |cff99ccff" .. lines[1] .. "|r")
+					end
+				end
+			end
+		elseif st.t == "g" then
+			if st.to > skill then
+				add("  |cff9d9d9d" .. ns:L("FSROUTE_HOLE_FMT"):format(math.max(from, skill), st.to) .. "|r")
+			end
+			from = math.max(from, st.to)
+		elseif st.t == "m" then
+			local r = REC[st.spell]
+			local start = math.max(from, skill)
+			if r and st.to > skill and st.to > start then
+				local crafts = math.max(1, CraftsBetween(r, start, st.to))
+				local line = ns:L("FSROUTE_MAKE_FMT"):format(crafts, RecipeLink(r), start, st.to)
+				if not marked then
+					marked = true
+					line = "|cff40ff40>>|r " .. line
+				else
+					line = "  " .. line
+				end
+				add(line)
+				for _, rg in ipairs(r.r) do
+					if not need[rg[1]] then
+						order[#order + 1] = rg[1]
+						need[rg[1]] = 0
+					end
+					need[rg[1]] = need[rg[1]] + rg[2] * crafts
+				end
+				if r.made then
+					made[r.made] = (made[r.made] or 0) + (r.madeN or 1) * crafts
+				end
+			end
+			from = math.max(from, st.to)
+		end
+	end
+	-- One shopping list for the rest: what the route itself makes and uses again (bolts, bars, leather) is taken off.
+	add(" ")
+	add("|cffffcc66" .. ns:L("FSROUTE_SHOP") .. "|r")
+	local seller, all = nil, true
+	for _, id in ipairs(order) do
+		local n = need[id] - (made[id] or 0)
+		if n > 0 then
+			local have = Count(id)
+			local line = ns:L("FSKILL_SHOP_ROW_FMT"):format(ItemLink(id), n, have)
+			if have < n then
+				all = false
+				line = line .. "  |cffff7f7f" .. ns:L("FSKILL_SHOP_MORE_FMT"):format(n - have) .. "|r"
+				if not seller and ns.ForeverReagentSourceText then
+					local _, s = ns.ForeverReagentSourceText(id)
+					seller = s
+				end
+			else
+				line = line .. "  |cff40ff40" .. ns:L("FSKILL_SHOP_OK") .. "|r"
+			end
+			add("  " .. line)
+		end
+	end
+	if all then
+		add("  " .. ns:L("FSROUTE_SHOP_DONE"))
+	end
+	add(" ")
+	add("|cff9d9d9d" .. ns:L("FSROUTE_NOTE") .. "|r")
+	return table.concat(L, "\n"), seller
+end
+ns.ForeverSkillRouteText = RouteText -- for the offline check
+
 --- The trainer button as wide as its text: under the text column, growing to the left when that is too narrow.
 local function FitTrainerButton(f)
 	local fs = f.go:GetFontString()
@@ -1016,11 +1200,20 @@ Fill = function()
 			b:Hide()
 		end
 	end
+	local whole = ns.db and ns.db.skillupWhole
+	f.mode:SetText(ns:L(whole and "FSROUTE_BTN_NEXT" or "FSROUTE_BTN_WHOLE"))
+	f.mode:SetShown(selected ~= nil)
 	if not selected then
 		f.text:SetText(ns:L("FSKILL_EMPTY"))
 		f.go:Hide()
 	else
-		f.text:SetText(PlanText(selected, mine))
+		if whole then
+			local text, seller = RouteText(selected, mine)
+			f.text:SetText(text)
+			planSeller = seller
+		else
+			f.text:SetText(PlanText(selected, mine))
+		end
 		-- Not "your trainer": the button goes to the nearest trainer of this profession. "an" only matters in English; the
 		-- other packs carry the same text under both keys.
 		local prof = ProfName(selected, mine)
