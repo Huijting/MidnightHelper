@@ -68,10 +68,13 @@ local COMMON = {
 	-- "the price climbs quickly and only decreases once per week". GEMETEN DB2 1.60.1.71037: spells 63624/63644/63645,
 	-- GlobalStrings TALENT_SPEC_SECONDARY "Secondary Talents", switch cast 5 s (SpellMisc → SpellCastTimes 6 = 5000 ms).
 	-- Players: 50 gold (Wowhead news 11 Nov), respec 1, 5, 10 gold (timesaver.gg 16 Nov, realmfirst.net 17 Nov).
+	-- 27 Nov 2026 (Rob via Sparring 27-11: "Ja en ja"): the bars line. PLAYER REPORTS only (forums 20 + 26 Nov, US and
+	-- EU; docs/API_WATCH.md 27 Nov), not measured by us, hence "can". Same warning in Do this now (FDONOW_DUALSPEC_BARS).
 	{ "Talents: reset and Dual Spec", [[
 - **Reset your talents** at your class trainer: talk to them and pick the talent option. Then spend your points again. Players say it costs 1 gold the first time, then 5, then 10, and more after that. Blizzard says the price climbs quickly and goes down once a week.
 - **Dual Spec:** from level 40 your class trainer sells a second set of talents. In the game it is called **Secondary Talents**. Players say it costs 50 gold; Blizzard gave no price.
 - **Switching** between your two sets takes 5 seconds and does not work in a fight.
+- **Your bars after a switch:** players report that switching can change your action bars: the game can put spells on them, over your own buttons and macros. MH has not seen this in the game itself. Check your bars after your first switch.
 - **Why:** level with one set and tank or heal with the other. A Paladin levels as Retribution and tanks as Protection, a Druid levels as a cat and heals as Restoration.]] },
 }
 

@@ -61,6 +61,7 @@ ns.FOREVER_HOWTOPLAY_L.esES = {
 - **Reinicia tus talentos** con tu instructor de clase: habla con él y elige la opción de talentos. Luego gasta tus puntos otra vez. Los jugadores dicen que cuesta 1 de oro la primera vez, luego 5, luego 10, y más después. Blizzard dice que el precio sube rápido y baja una vez por semana.
 - **Segunda especialización de talento:** desde el nivel 40, tu instructor de clase vende un segundo juego de talentos. En el juego se llama **Talentos secundarios**. Los jugadores dicen que cuesta 50 de oro; Blizzard no dio precio.
 - **Cambiar** entre tus dos juegos tarda 5 segundos y no funciona en combate.
+- **Tus barras tras un cambio:** los jugadores dicen que cambiar puede modificar tus barras de acción: el juego puede poner hechizos en ellas, encima de tus propios botones y macros. MH no lo ha visto en el juego. Revisa tus barras de acción después del primer cambio.
 - **Para qué:** sube de nivel con un juego y tanquea o cura con el otro. Un Paladín sube de nivel como Reprensión y tanquea como Protección, un Druida sube de nivel como felino y cura como Recuperación.]] },
 	},
 	-- 21 Nov 2026: "Level as X, tank as Y" (mh-writer, from ForeverHowToPlay.lua PLANS). Names measured DB2 esES

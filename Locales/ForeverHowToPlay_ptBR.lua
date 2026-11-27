@@ -59,6 +59,7 @@ ns.FOREVER_HOWTOPLAY_L.ptBR = {
 - **Redefina seus talentos** com o treinador da sua classe: fale com ele e escolha a opção de talentos. Depois distribua seus pontos de novo. Os jogadores dizem que custa 1 de ouro na primeira vez, depois 5, depois 10, e mais depois disso. A Blizzard diz que o preço sobe rápido e baixa uma vez por semana.
 - **Segunda Especialização de Talentos:** a partir do nível 40, o treinador da sua classe vende um segundo conjunto de talentos. No jogo, ele se chama **Talentos secundários**. Os jogadores dizem que custa 50 de ouro; a Blizzard não deu preço.
 - **Trocar** entre os seus dois conjuntos leva 5 segundos e não funciona em combate.
+- **Suas barras depois de trocar:** jogadores relatam que trocar pode mudar suas barras de ação: o jogo pode colocar feitiços nelas, por cima dos seus próprios botões e macros. O MH não viu isso no jogo. Confira suas barras de ação depois da primeira troca.
 - **Para quê:** suba de nível com um conjunto e tanque ou cure com o outro. Um Paladino sobe de nível como Retribuição e tanqueia como Proteção, um Druida sobe de nível como felino e cura como Restauração.]] },
 	},
 	-- 21 Nov 2026: "Level as X, tank as Y" (mh-writer, from ForeverHowToPlay.lua PLANS). Names measured DB2 ptBR

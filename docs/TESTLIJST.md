@@ -25,6 +25,16 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 27 nov — FOREVER: waarschuwing bij Dual Spec (je balken na een wissel)
+
+`/reload` is genoeg. NIET in het spel getest. Hoort NIET bij 5.11.0 (komt in de volgende versie).
+- [ ] Een Forever-character van level 40 of hoger zonder Dual Spec: Do this now noemt Dual Spec, en direct daarachter
+      staat "Careful: players report that switching can change your action bars … Check them after your first switch."
+- [ ] `/mh play` (How you play) → tabblad **Group** → stuk "Talents: reset and Dual Spec": een nieuwe regel "Your bars
+      after a switch", tussen "Switching" en "Why".
+- [ ] Heb je Dual Spec al? Wissel één keer en kijk of het spel spells op je balken zette. Dan weten wij of de meldingen
+      kloppen.
+
 ## 26 nov laat — FOREVER: "ongeveer gelijk" in plaats van "Upgrade" (Robs riemen)
 
 `/reload` is genoeg. Offline getest (side_test 8/8), NIET in het spel. Hoort NIET bij 5.11.0 (komt in de volgende versie).

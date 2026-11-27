@@ -1,5 +1,17 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 27 nov (Bouwchat 27-11): Forever Dual Spec-advies krijgt een balken-waarschuwing (`/reload`, NA 5.11.0)
+
+Rob via Sparring 27-11, letterlijk: *"Ja en ja"* (op: "Dual Spec: komt er een waarschuwing bij ons advies?"). Aanleiding:
+API_WATCH 27 nov, spelersmeldingen (US-forum 20 + 26 nov, EU 26 nov) dat een spec-wissel spells op de bars zet, over
+eigen slots en macro's. NIET door ons gemeten, dus overal "kan". Gebouwd: (1) nieuwe sleutel FDONOW_DUALSPEC_BARS, in
+ForeverDoNow.lua direct achter FDONOW_DUALSPEC geplakt (vóór de Paladin-zin); enUS, nlNL, de/fr/es/pt/ru in de
+ForeverClassQuests-packs (itIT heeft geen Do this now-pack: Engels, net als FDONOW_DUALSPEC zelf). (2) Een regel "Your
+bars after a switch" in de How to play-sectie "Talents: reset and Dual Spec" (ForeverHowToPlay.lua) + nl/de/fr/es/esMX/
+pt/ru-packs. De drie class-regels (Paladin/Warrior/Druid) verwijzen al naar die sectie. Woorden GEMETEN in GlobalStrings
+Forever 1.60.1.71139: ACTIONBARS_LABEL Aktionsleisten / Barres d’actions / Barras de acción (esES+esMX) / Barras de ação
+/ Панели команд; MACROS Makros / Macros / Макросы. Niet in het spel getest (TESTLIJST 27 nov).
+
 ## ▶▶ 26 nov laat (Bouwchat 26-11): "about equal" i.p.v. "Upgrade" + de rol in de gear-zin (`/reload`, NA 5.11.0)
 
 Rob: *"waarom vinden wij dit een upgrade en polestar juist de andere ?"* (Handstitched Leather Belt +1 Str, 31 armor vs

@@ -53,6 +53,7 @@ ns.FOREVER_HOWTOPLAY_L.nlNL = {
 - **Je talenten resetten** doe je bij je class-trainer: praat met hem en kies de talent-optie. Daarna verdeel je je punten opnieuw. Spelers zeggen dat het de eerste keer 1 goud kost, dan 5, dan 10, en daarna meer. Blizzard zegt dat de prijs snel stijgt en één keer per week omlaag gaat.
 - **Dual Spec:** vanaf level 40 verkoopt je class-trainer een tweede set talenten. In het spel heet dat **Secondary Talents**. Spelers zeggen dat het 50 goud kost; Blizzard noemde geen prijs.
 - **Wisselen** tussen je twee sets duurt 5 seconden en werkt niet in een gevecht.
+- **Je balken na een wissel:** spelers melden dat wisselen je action bars kan veranderen: het spel kan er spells op zetten, over je eigen knoppen en macro's heen. MH heeft dit zelf niet in het spel gezien. Kijk je balken na na je eerste wissel.
 - **Waarom:** level met de ene set en tank of heal met de andere. Een Paladin levelt als Retribution en tankt als Protection, een Druid levelt als kat en healt als Restoration.]] },
 	},
 	-- 21 Nov 2026: "Level as X, tank as Y" (mh-writer, from ForeverHowToPlay.lua PLANS).

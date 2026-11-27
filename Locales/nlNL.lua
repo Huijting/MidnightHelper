@@ -5202,6 +5202,7 @@ ns._mhLocales.nlNL = {
 	FTALENT_SW = "Volgend talentpunt in Doe dit nu",
 	FTALENT_SW_DESC = "Heb je een ongebruikt talentpunt, dan zegt Doe dit nu in welk talent het moet, uit een levelvolgorde voor de richting die je koos. MH leest je talenten, dus wat je al hebt slaat hij over. Uit: geen talentregel.",
 	FDONOW_DUALSPEC ="Dual Spec: vanaf level 40 verkoopt je class-trainer een tweede set talenten, bijvoorbeeld één om te levelen en één om te tanken. Spelers zeggen dat het ongeveer 50 goud kost. Wisselen duurt 5 seconden, buiten een gevecht.",
+	FDONOW_DUALSPEC_BARS = "Let op: spelers melden dat wisselen je action bars kan veranderen (spells over je eigen knoppen en macro's). Kijk ze na na je eerste wissel.",
 	FCITY_SUB_CRATES = "Verzegelde kratten en Shipping Labels lever je in bij de handelsvertegenwoordiger van jouw kant.",
 	FCRATE_SW = "Hulp bij Waylaid Crates",
 	FCRATE_SW_DESC = "In de tooltip van een krat: elke bundel die erin mag en hoeveel je hebt (tassen en bank). Een verzegelde krat of een Shipping Label zegt waar je hem inlevert, en komt er een in je tas, dan wijst een klein venster de weg. Nooit in een gevecht.",

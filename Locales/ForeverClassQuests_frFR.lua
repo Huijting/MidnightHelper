@@ -1764,6 +1764,8 @@ for k, v in pairs({
 	-- 1.60.1.71037), Maître d'armes = npc 11870 subtitle (Wowhead Forever frFR). Order kept: chain, NPC, city.
 	FDONOW_WOLFSBANE_FMT = "%s te donne une épée à deux mains, mais tu ne peux pas encore t'en servir. Apprends d'abord Epées à deux mains : maître d'armes %s, à %s.",
 	FDONOW_DUALSPEC = "Seconde spécialisation des talents : dès le niveau 40, ton maître de classe vend un deuxième jeu de talents, par exemple un pour monter de niveau et un pour tanker. Les joueurs disent que ça coûte environ 50 pièces d'or. Changer prend 5 secondes, hors combat.",
+	-- 27 Nov 2026: GlobalStrings frFR Forever 1.60.1.71139: ACTIONBARS_LABEL "Barres d’actions", MACROS "Macros".
+	FDONOW_DUALSPEC_BARS = "Attention : des joueurs signalent qu'un changement peut modifier tes barres d'actions (des sorts par-dessus tes propres boutons et macros). Vérifie-les après ton premier changement.",
 	-- 21 Nov 2026 (mh-writer): next talent point. Talents = GlobalStrings TALENTS (frFR Forever 1.60.1.71037); Protection as
 	-- in ForeverHowToPlay_frFR; Fais ça maintenant / Ta classe / voie as in this pack. Not checked by a native speaker.
 	FTALENT_NEXT_FMT = "Point de talent : mets-le dans %s (%d/%d).",

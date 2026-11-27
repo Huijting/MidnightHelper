@@ -573,6 +573,8 @@ for k, v in pairs({
 	-- (DB2 ptBR 1.60.1.71037).
 	FDONOW_WOLFSBANE_FMT = "%s dá uma espada de duas mãos, mas você ainda não pode usá-la. Aprenda Espadas de Duas Mãos primeiro, com %s em %s.",
 	FDONOW_DUALSPEC = "Segunda Especialização de Talentos: a partir do nível 40, o treinador da sua classe vende um segundo conjunto de talentos, por exemplo um para subir de nível e outro para tanquear. Os jogadores dizem que custa cerca de 50 de ouro. Trocar leva 5 segundos, fora de combate.",
+	-- 27 Nov 2026: GlobalStrings ptBR Forever 1.60.1.71139: ACTIONBARS_LABEL "Barras de ação", MACROS "Macros".
+	FDONOW_DUALSPEC_BARS = "Atenção: jogadores relatam que trocar pode mudar suas barras de ação (feitiços por cima dos seus próprios botões e macros). Confira-as depois da primeira troca.",
 	-- 21 Nov 2026 (mh-writer): next talent point. Talentos = GlobalStrings TALENTS (ptBR Forever 1.60.1.71037); Proteção as
 	-- in ForeverHowToPlay_ptBR; Faça isto agora / Sua classe / caminho as in this pack. Not checked by a native speaker.
 	FTALENT_NEXT_FMT = "Ponto de talento: coloque em %s (%d/%d).",

@@ -6215,6 +6215,8 @@ ns._mhLocales.enUS = {
 	FTALENT_SW = "Next talent point in Do this now",
 	FTALENT_SW_DESC = "When you have an unused talent point, Do this now names the talent to put it in, from a levelling order for the direction you chose. MH reads your talents, so it skips what you already have. Off: no talent line.",
 	FDONOW_DUALSPEC ="Dual Spec: from level 40 your class trainer sells a second set of talents, for example one to level and one to tank. Players say it costs about 50 gold. Switching takes 5 seconds, outside a fight.",
+	-- 27 Nov 2026: player reports (forums), not measured by MH, hence "can".
+	FDONOW_DUALSPEC_BARS = "Careful: players report that switching can change your action bars (spells over your own buttons and macros). Check them after your first switch.",
 	FCITY_SUB_CRATES = "Sealed crates and shipping labels go to the trade representative of your side.",
 	FCRATE_SW = "Help with Waylaid Crates",
 	FCRATE_SW_DESC = "On a crate's tooltip: every bundle it takes and how many you have (bags and bank). A sealed crate or a shipping label says where to deliver it, and when one lands in your bags a small window shows the way. Never in combat.",

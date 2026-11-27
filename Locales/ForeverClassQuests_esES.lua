@@ -611,6 +611,8 @@ for k, v in pairs({
 	-- segunda especialización de talento = spell 63624 (DB2 esES 1.60.1.71037).
 	FDONOW_WOLFSBANE_FMT = "%s te da una espada de dos manos, pero todavía no puedes usarla. Aprende primero Espadas de dos manos, con %s en %s.",
 	FDONOW_DUALSPEC = "Segunda especialización de talento: desde el nivel 40, tu instructor de clase vende un segundo juego de talentos, por ejemplo uno para subir de nivel y otro para tanquear. Los jugadores dicen que cuesta unos 50 de oro. Cambiar tarda 5 segundos, fuera de combate.",
+	-- 27 Nov 2026: GlobalStrings esES + esMX Forever 1.60.1.71139: ACTIONBARS_LABEL "Barras de acción", MACROS "Macros".
+	FDONOW_DUALSPEC_BARS = "Cuidado: los jugadores dicen que cambiar puede modificar tus barras de acción (hechizos encima de tus propios botones y macros). Revísalas después del primer cambio.",
 	-- 21 Nov 2026 (mh-writer): next talent point. Talentos = GlobalStrings TALENTS (esES Forever 1.60.1.71037); Protección as
 	-- in ForeverHowToPlay_esES; Haz esto ahora / Tu clase / camino as in this pack. Not checked by a native speaker.
 	FTALENT_NEXT_FMT = "Punto de talento: ponlo en %s (%d/%d).",

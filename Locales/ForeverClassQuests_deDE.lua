@@ -1765,6 +1765,8 @@ for k, v in pairs({
 	-- 21 Nov 2026 (mh-writer): Zweihandschwerter = SpellName 202, Zweite Talentspezialisierung = spell 63624 (DB2 deDE 1.60.1.71037).
 	FDONOW_WOLFSBANE_FMT = "%s gibt dir ein Zweihandschwert, aber du kannst noch keins benutzen. Lern zuerst Zweihandschwerter, bei %s in %s.",
 	FDONOW_DUALSPEC = "Zweite Talentspezialisierung: Ab Stufe 40 verkauft dein Klassenlehrer einen zweiten Satz Talente, zum Beispiel einen zum Leveln und einen zum Tanken. Spieler sagen, sie kostet etwa 50 Gold. Wechseln dauert 5 Sekunden, außerhalb eines Kampfes.",
+	-- 27 Nov 2026: GlobalStrings deDE Forever 1.60.1.71139: ACTIONBARS_LABEL "Aktionsleisten", MACROS "Makros".
+	FDONOW_DUALSPEC_BARS = "Achtung: Spieler berichten, dass ein Wechsel deine Aktionsleisten verändern kann (Zauber über deinen eigenen Knöpfen und Makros). Prüf sie nach dem ersten Wechsel.",
 	-- 21 Nov 2026 (mh-writer): next talent point. Talente = GlobalStrings TALENTS (deDE Forever 1.60.1.71037); Schutz as in
 	-- ForeverHowToPlay_deDE; Mach das jetzt / Deine Klasse / Richtung as in this pack. Not checked by a native speaker.
 	FTALENT_NEXT_FMT = "Talentpunkt: Setz ihn in %s (%d/%d).",

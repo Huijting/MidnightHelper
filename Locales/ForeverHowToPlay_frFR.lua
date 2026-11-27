@@ -61,6 +61,7 @@ ns.FOREVER_HOWTOPLAY_L.frFR = {
 - **Réinitialise tes talents** chez ton maître de classe : parle-lui et choisis l'option des talents. Ensuite, redépense tes points. Les joueurs disent que ça coûte 1 pièce d'or la première fois, puis 5, puis 10, et plus ensuite. Blizzard dit que le prix monte vite et baisse une fois par semaine.
 - **Seconde spécialisation des talents :** dès le niveau 40, ton maître de classe vend un deuxième jeu de talents. Dans le jeu, ça s'appelle **Talents secondaires**. Les joueurs disent que ça coûte 50 pièces d'or ; Blizzard n'a pas donné de prix.
 - **Passer** d'un jeu à l'autre prend 5 secondes et ne marche pas en combat.
+- **Tes barres après un changement :** des joueurs signalent qu'un changement peut modifier tes barres d'actions : le jeu peut y placer des sorts, par-dessus tes propres boutons et macros. MH ne l'a pas vu lui-même dans le jeu. Vérifie tes barres d'actions après ton premier changement.
 - **Pourquoi :** tu montes de niveau avec un jeu, et tu tankes ou tu soignes avec l'autre. Un Paladin monte en Vindicte et tanke en Protection, un Druide monte en félin et soigne en Restauration.]] },
 	},
 	-- 21 Nov 2026: "Level as X, tank as Y" (mh-writer, from ForeverHowToPlay.lua PLANS). Names measured DB2 frFR

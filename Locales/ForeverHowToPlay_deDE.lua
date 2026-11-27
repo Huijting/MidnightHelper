@@ -60,6 +60,7 @@ ns.FOREVER_HOWTOPLAY_L.deDE = {
 - **Talente zurücksetzen** geht bei deinem Klassenlehrer: Sprich ihn an und wähl die Talent-Option. Dann verteilst du deine Punkte neu. Spieler sagen, es kostet beim ersten Mal 1 Gold, dann 5, dann 10 und danach mehr. Blizzard sagt, der Preis steigt schnell und sinkt einmal pro Woche.
 - **Zweite Talentspezialisierung:** Ab Stufe 40 verkauft dein Klassenlehrer einen zweiten Satz Talente. Im Spiel heißt er **Sekundäre Talente**. Spieler sagen, sie kostet 50 Gold; Blizzard hat keinen Preis genannt.
 - **Wechseln** zwischen deinen zwei Sätzen dauert 5 Sekunden und geht nicht im Kampf.
+- **Deine Leisten nach einem Wechsel:** Spieler berichten, dass ein Wechsel deine Aktionsleisten verändern kann: Das Spiel kann Zauber darauflegen, über deine eigenen Knöpfe und Makros. MH hat das selbst nicht im Spiel gesehen. Prüf deine Aktionsleisten nach dem ersten Wechsel.
 - **Wozu:** Mit einem Satz levelst du, mit dem anderen tankst oder heilst du. Ein Paladin levelt als Vergeltung und tankt als Schutz, ein Druide levelt als Katze und heilt als Wiederherstellung.]] },
 	},
 	-- 21 Nov 2026: "Level as X, tank as Y" (mh-writer, from ForeverHowToPlay.lua PLANS). Names measured DB2 deDE

@@ -572,7 +572,8 @@ function Collect()
 	if level >= 40 and not Knows(63644) then
 		-- Paladin (sparring 21 Nov: "vanaf 40 tip: tweede spec = Prot"): the second set as Protection; MH follows the
 		-- Protection order when the direction is Protection (ForeverTalentNext.lua).
-		local ds = ns:L("FDONOW_DUALSPEC")
+		-- 27 Nov 2026 (Rob: "Ja en ja"): players report that a switch can overwrite bar slots; said right with the advice.
+		local ds = ns:L("FDONOW_DUALSPEC") .. " " .. ns:L("FDONOW_DUALSPEC_BARS")
 		if select(2, UnitClass("player")) == "PALADIN" then
 			ds = ds .. " " .. ns:L("FTALENT_PROT_SECOND")
 		end
