@@ -443,12 +443,12 @@ Dès le niveau 20 (Forme de félin, via une quête ; Rôder vient avec). Pour mo
 2. Lucioles (**5**) sur les ennemis coriaces.
 3. Griffure (**2**, dès 24), mais pas quand l'ennemi est presque mort.
 4. Griffe (**1**) pour les points de combo ; Lambeau (**3**) quand tu es derrière l'ennemi.
-5. À 4-5 points de combo : Déchirure (**4**) si l'ennemi va vivre longtemps, sinon Morsure féroce (**Shift-4**, dès 24).
+5. À 4-5 points de combo : Déchirure (**4**) si l'ennemi va vivre longtemps, sinon Morsure féroce (**C**, dès 24).
 6. Puissance fluctuante (**Q**, dès 40) quand ton Énergie est sous 50.
 **Tous les 10 niveaux :**
 - 10 : rien de nouveau pour ce rôle (le félin arrive au 20).
 - 20 : Forme de félin (**Ctrl-2**), Griffe (**1**), Lambeau (**3**, par derrière), Déchirure (**4**), Rôder (**Shift-R**). Charge farouche (**E**, un talent) : en félin, tu bondis derrière l'ennemi. Augure de clarté est passif : pas de touche.
-- 30 : Chef de la meute (un talent). Avant ça : Griffure (**2**) et Morsure féroce (**Shift-4**) au 24, Célérité (**R**) au 26, Dérobade (**F**) au 28.
+- 30 : Chef de la meute (un talent). Avant ça : Griffure (**2**) et Morsure féroce (**C**) au 24, Célérité (**R**) au 26, Dérobade (**F**) au 28.
 - 40 : Puissance fluctuante (**Q**, un talent) : 40 Énergie contre du mana, cooldown 8 secondes, en félin seulement. Avant ça : Ravage (bloc D) au 32, Traquenard (**V**, depuis Rôder, un étourdissement) au 36. Les niveaux de talent indiqués ici sont les plus tôt possibles ; un avantage peut les avancer jusqu'à 5 niveaux.
 - 50 : rangs plus forts de Morsure féroce, Déchirure et Lambeau ; rien de nouveau pour ce rôle.
 - 60 : encore des rangs plus forts ; rien de nouveau pour ce rôle.

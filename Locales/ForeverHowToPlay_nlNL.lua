@@ -433,12 +433,12 @@ Vanaf level 20 (Cat Form, uit een quest; Prowl krijg je erbij). Om te levelen is
 2. Faerie Fire (**5**) op taaie vijanden.
 3. Rake (**2**, vanaf 24), maar niet als de vijand bijna dood is.
 4. Claw (**1**) voor combo points; Shred (**3**) als je achter de vijand staat.
-5. Bij 4-5 combo points: Rip (**4**) als de vijand nog lang leeft, anders Ferocious Bite (**Shift-4**, vanaf 24).
+5. Bij 4-5 combo points: Rip (**4**) als de vijand nog lang leeft, anders Ferocious Bite (**C**, vanaf 24).
 6. Shifting Power (**Q**, vanaf 40) als je Energy onder de 50 is.
 **Per 10 levels:**
 - 10: niets nieuws voor deze rol (de kat komt op 20).
 - 20: Cat Form (**Ctrl-2**), Claw (**1**), Shred (**3**, van achteren), Rip (**4**), Prowl (**Shift-R**). Feral Charge (**E**, een talent): als kat spring je achter de vijand. Omen of Clarity is passief: geen toets.
-- 30: Leader of the Pack (een talent). Daarvoor: Rake (**2**) en Ferocious Bite (**Shift-4**) op 24, Dash (**R**) op 26, Cower (**F**) op 28.
+- 30: Leader of the Pack (een talent). Daarvoor: Rake (**2**) en Ferocious Bite (**C**) op 24, Dash (**R**) op 26, Cower (**F**) op 28.
 - 40: Shifting Power (**Q**, een talent): 40 Energy voor mana, cooldown 8 seconden, alleen als kat. Daarvoor: Ravage (blok D) op 32, Pounce (**V**, vanuit Prowl, een stun) op 36. Talent-levels hier zijn op z'n vroegst; een perk kan ze tot 5 levels eerder maken.
 - 50: sterkere ranks van Ferocious Bite, Rip en Shred; niets nieuws voor deze rol.
 - 60: weer sterkere ranks; niets nieuws voor deze rol.

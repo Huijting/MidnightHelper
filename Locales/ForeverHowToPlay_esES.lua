@@ -445,12 +445,12 @@ Desde el nivel 20 (Forma felina, de una misión; Acechar viene con ella). Para s
 2. Fuego feérico (**5**) contra enemigos duros.
 3. Arañazo (**2**, desde el 24), pero no cuando el enemigo está casi muerto.
 4. Zarpa (**1**) para puntos de combo; Triturar (**3**) cuando estás detrás del enemigo.
-5. Con 4-5 puntos de combo: Destripar (**4**) si el enemigo va a vivir mucho; si no, Mordedura feroz (**Shift-4**, desde el 24).
+5. Con 4-5 puntos de combo: Destripar (**4**) si el enemigo va a vivir mucho; si no, Mordedura feroz (**C**, desde el 24).
 6. Poder cambiante (**Q**, desde el 40) cuando tu Energía está por debajo de 50.
 **Cada 10 niveles:**
 - 10: nada nuevo para este rol (el felino llega en el 20).
 - 20: Forma felina (**Ctrl-2**), Zarpa (**1**), Triturar (**3**, por la espalda), Destripar (**4**), Acechar (**Shift-R**). Carga feral (**E**, un talento): como felino saltas detrás del enemigo. Augurio de claridad es pasivo: no tiene tecla.
-- 30: Líder de la manada (un talento). Antes: Arañazo (**2**) y Mordedura feroz (**Shift-4**) en el 24, Diligencia (**R**) en el 26, Pavor (**F**) en el 28.
+- 30: Líder de la manada (un talento). Antes: Arañazo (**2**) y Mordedura feroz (**C**) en el 24, Diligencia (**R**) en el 26, Pavor (**F**) en el 28.
 - 40: Poder cambiante (**Q**, un talento): 40 de Energía a cambio de maná, reutilización de 8 segundos, solo como felino. Antes: Devastar (bloque D) en el 32, Lanzarse (**V**, desde Acechar, un aturdimiento) en el 36. Los niveles de talento de aquí son los más tempranos; una ventaja puede adelantarlos hasta 5 niveles.
 - 50: rangos más fuertes de Mordedura feroz, Destripar y Triturar; nada nuevo para este rol.
 - 60: otra vez rangos más fuertes; nada nuevo para este rol.

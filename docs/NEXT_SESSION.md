@@ -1,5 +1,13 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 27 nov (Bouwchat 27-11): Forever Druid — Ferocious Bite als kat van Shift-4 naar C (`/reload`)
+
+Rob via Sparring 27-11, letterlijk: *"ja ja"* (1 = "Ferocious Bite als kat van Shift-4 naar C?", 2 = "Een helper alle
+classes met vormen of standen laten nalopen?"). (1) ForeverBlock_Druid.lua: keys12 C + cat Ferocious Bite, SHIFT-4 alleen
+Swiftmend; gewone tabel ook (C + cat; SHIFT-4 weg — een oude "MH SHIFT-4" in die indeling blijft dus Ferocious Bite
+doen tot Undo + Place). How you play Cat in en/nl/de/fr/es/esMX/pt/ru (16 regels). swipe_test uitgebreid, geslaagd.
+(2) loopt: mh-research loopt alle classes met vormen/standen/stealth na; NIETS bouwen, voorstellen naar Sparring.
+
 ## ▶▶ 27 nov (Bouwchat 27-11): Forever toetsblok — Druid form guard + nooit meer gedeelde account-macro's
 
 Rob via Sparring 27-11: *"als ik in beervorm ben, [ben ik] veel te snel geneigd om op 2 te drukken. En 2, dat is dan

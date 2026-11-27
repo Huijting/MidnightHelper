@@ -442,12 +442,12 @@ Ab Stufe 20 (Katzengestalt, aus einer Quest; Schleichen bekommst du dazu). Zum L
 2. Feenfeuer (**5**) auf zähe Gegner.
 3. Krallenhieb (**2**, ab 24), aber nicht, wenn der Gegner fast tot ist.
 4. Klaue (**1**) für Combopunkte; Schreddern (**3**), wenn du hinter dem Gegner stehst.
-5. Bei 4-5 Combopunkten: Zerfetzen (**4**), wenn der Gegner noch lange lebt, sonst Wilder Biss (**Shift-4**, ab 24).
+5. Bei 4-5 Combopunkten: Zerfetzen (**4**), wenn der Gegner noch lange lebt, sonst Wilder Biss (**C**, ab 24).
 6. Machtverschiebung (**Q**, ab 40), wenn deine Energie unter 50 ist.
 **Alle 10 Stufen:**
 - 10: nichts Neues für diese Rolle (die Katze kommt mit 20).
 - 20: Katzengestalt (**Ctrl-2**), Klaue (**1**), Schreddern (**3**, von hinten), Zerfetzen (**4**), Schleichen (**Shift-R**). Wilde Attacke (**E**, ein Talent): Als Katze springst du hinter den Gegner. Omen der Klarsicht ist passiv: keine Taste.
-- 30: Rudelführer (ein Talent). Davor: Krallenhieb (**2**) und Wilder Biss (**Shift-4**) mit 24, Spurt (**R**) mit 26, Ducken (**F**) mit 28.
+- 30: Rudelführer (ein Talent). Davor: Krallenhieb (**2**) und Wilder Biss (**C**) mit 24, Spurt (**R**) mit 26, Ducken (**F**) mit 28.
 - 40: Machtverschiebung (**Q**, ein Talent): 40 Energie für Mana, Abklingzeit 8 Sekunden, nur als Katze. Davor: Verheeren (Block D) mit 32, Anspringen (**V**, aus Schleichen, eine Betäubung) mit 36. Die Talentstufen hier sind die frühesten; ein Perk kann sie bis zu 5 Stufen früher bringen.
 - 50: stärkere Ränge von Wilder Biss, Zerfetzen und Schreddern; nichts Neues für diese Rolle.
 - 60: wieder stärkere Ränge; nichts Neues für diese Rolle.

@@ -25,6 +25,14 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 27 nov — FOREVER Druid: Ferocious Bite als kat op C (niet meer Shift-4)
+
+`/reload` is genoeg (na de Undo + Place van de sectie hieronder). Offline getest (swipe_test, beide indelingen).
+- [ ] Druid in Cat Form, vanaf 24: toets **C** = Ferocious Bite. Als beer blijft C Frenzied Regeneration, als caster
+      Healing Touch.
+- [ ] Shift-4 is als caster Swiftmend (een talent) en doet in een vorm niets.
+- [ ] How you play → Cat: "Ferocious Bite (**C**, from 24)" en "Ferocious Bite (**C**) at 24".
+
 ## 27 nov — FOREVER Druid: caster-toetsen doen niets in beer/kat + eigen macro's per character
 
 `/reload`, daarna ÉÉN keer per character met het toetsblok: `/mh keyblock` → Undo → "Place it on bars 5, 6 and 7"

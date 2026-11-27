@@ -41,7 +41,7 @@ ns.FOREVER_BLOCK_CLASSES.DRUID = {
 		-- needed two fingers): Swipe moved from Shift-1 to 4, where the bear had nothing. Here too, so the texts (How you
 		-- play) say one key for every layout.
 		["4"] = { bear = "Swipe", cat = "Rip", base = "Insect Swarm" },
-		["SHIFT-4"] = { cat = "Ferocious Bite" },
+		-- 27 Nov 2026 (Rob via Sparring 27-11: "ja ja" on "Ferocious Bite als kat van Shift-4 naar C?"): see C below.
 		["5"] = { all = "Faerie Fire" },
 		["SHIFT-1"] = { base = "Hurricane" },
 		["SHIFT-2"] = { bear = "Demoralizing Roar", base = "Wild Growth" },
@@ -61,7 +61,7 @@ ns.FOREVER_BLOCK_CLASSES.DRUID = {
 		["F"] = { bear = "Growl", cat = "Cower" },
 		["Z"] = { all = "Barkskin" },
 		["X"] = { bear = "Frenzied Regeneration", base = "Nature's Grasp", open = true },
-		["C"] = { base = "Healing Touch" },
+		["C"] = { cat = "Ferocious Bite", base = "Healing Touch" },
 		["F2"] = { base = "Regrowth" },
 		["F4"] = { base = "Rejuvenation" },
 		["SHIFT-Z"] = { base = "Thorns" },
@@ -86,12 +86,13 @@ ns.FOREVER_BLOCK_CLASSES.DRUID = {
 		["F"] = { bear = "Growl", cat = "Cower", base = "Rejuvenation", why = "Growl taunts as bear; as caster your instant heal Rejuvenation" },
 		["Z"] = { all = "Barkskin", why = "small defensive, works in every form" },
 		["X"] = { base = "Nature's Grasp", open = true, why = "second defensive: roots what hits you, also in a form" },
-		["C"] = { bear = "Frenzied Regeneration", base = "Healing Touch", why = "big defensive: Frenzied Regeneration as bear, else Healing Touch" },
+		-- 27 Nov 2026 (Rob: "ja ja" on "Ferocious Bite als kat van Shift-4 naar C?"): the cat's finisher without Shift.
+		["C"] = { bear = "Frenzied Regeneration", cat = "Ferocious Bite", base = "Healing Touch", why = "Frenzied Regeneration as bear, Ferocious Bite finishes as cat, else Healing Touch" },
 		["V"] = { bear = "Bash", cat = "Pounce", base = "Entangling Roots", why = "crowd control: Roots, Bash as bear, Pounce from Prowl" },
 		["SHIFT-1"] = { base = "Hurricane", why = "AoE as caster: Hurricane (the bear's Swipe is on 4)" },
 		["SHIFT-2"] = { bear = "Demoralizing Roar", base = "Wild Growth", why = "group key: Demoralizing Roar as bear, Wild Growth heals a group" },
 		["SHIFT-3"] = { base = "Nature's Swiftness", why = "cooldown: next nature spell is instant, then Healing Touch (C)" },
-		["SHIFT-4"] = { cat = "Ferocious Bite", base = "Swiftmend", why = "spenders: Ferocious Bite as cat, Swiftmend eats your HoT" },
+		["SHIFT-4"] = { base = "Swiftmend", why = "Swiftmend eats your HoT for an instant heal (the cat's Ferocious Bite is on C)" },
 		["SHIFT-Q"] = { bear = "Challenging Roar", base = { "Abolish Poison", "Cure Poison" }, why = "bear: group taunt cooldown; caster: remove poison" },
 		["SHIFT-E"] = { all = { "Shadowmeld", "War Stomp", "Walk on Air" }, why = "your race spell" },
 		["SHIFT-R"] = { cat = "Prowl", base = "Soothe Animal", why = "get past enemies: Prowl as cat, Soothe Animal on a beast" },

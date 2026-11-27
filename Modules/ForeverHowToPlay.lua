@@ -444,12 +444,12 @@ From level 20 (Cat Form, from a quest; Prowl comes with it). For levelling it is
 2. Faerie Fire (**5**) on tough enemies.
 3. Rake (**2**, from 24), but not when the enemy is almost dead.
 4. Claw (**1**) for combo points; Shred (**3**) when you stand behind the enemy.
-5. At 4-5 combo points: Rip (**4**) if the enemy will live long, otherwise Ferocious Bite (**Shift-4**, from 24).
+5. At 4-5 combo points: Rip (**4**) if the enemy will live long, otherwise Ferocious Bite (**C**, from 24).
 6. Shifting Power (**Q**, from 40) when your Energy is under 50.
 **Per 10 levels:**
 - 10: nothing new for this role (the cat comes at 20).
 - 20: Cat Form (**Ctrl-2**), Claw (**1**), Shred (**3**, from behind), Rip (**4**), Prowl (**Shift-R**). Feral Charge (**E**, a talent): as a cat you leap behind the enemy. Omen of Clarity is passive: no key.
-- 30: Leader of the Pack (a talent). Before that: Rake (**2**) and Ferocious Bite (**Shift-4**) at 24, Dash (**R**) at 26, Cower (**F**) at 28.
+- 30: Leader of the Pack (a talent). Before that: Rake (**2**) and Ferocious Bite (**C**) at 24, Dash (**R**) at 26, Cower (**F**) at 28.
 - 40: Shifting Power (**Q**, a talent): 40 Energy for mana, cooldown 8 seconds, cat only. Before that: Ravage (block D) at 32, Pounce (**V**, from Prowl, a stun) at 36. Talent levels here are the earliest; a perk can bring them up to 5 levels sooner.
 - 50: stronger ranks of Ferocious Bite, Rip and Shred; nothing new for this role.
 - 60: stronger ranks again; nothing new for this role.

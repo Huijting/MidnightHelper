@@ -441,12 +441,12 @@ A partir do nível 20 (Forma de Felino, de uma missão; Espreitar vem junto). Pa
 2. Fogo Feérico (**5**) em inimigos difíceis.
 3. Estraçalhar (**2**, a partir do 24), mas não quando o inimigo está quase morto.
 4. Garra (**1**) para Pontos de Combo; Despedaçar (**3**) quando você está atrás do inimigo.
-5. Com 4-5 Pontos de Combo: Rasgar (**4**) se o inimigo ainda vai viver muito; senão, Mordida Feroz (**Shift-4**, a partir do 24).
+5. Com 4-5 Pontos de Combo: Rasgar (**4**) se o inimigo ainda vai viver muito; senão, Mordida Feroz (**C**, a partir do 24).
 6. Poder Cambiante (**Q**, a partir do 40) quando sua Energia está abaixo de 50.
 **A cada 10 níveis:**
 - 10: nada novo para esta função (o felino chega no 20).
 - 20: Forma de Felino (**Ctrl-2**), Garra (**1**), Despedaçar (**3**, por trás), Rasgar (**4**), Espreitar (**Shift-R**). Investida Feral (**E**, um talento): como felino, você salta para trás do inimigo. Presságio de Clareza é passivo: não tem tecla.
-- 30: Líder do Bando (um talento). Antes disso: Estraçalhar (**2**) e Mordida Feroz (**Shift-4**) no 24, Arremetida (**R**) no 26, Acovardar (**F**) no 28.
+- 30: Líder do Bando (um talento). Antes disso: Estraçalhar (**2**) e Mordida Feroz (**C**) no 24, Arremetida (**R**) no 26, Acovardar (**F**) no 28.
 - 40: Poder Cambiante (**Q**, um talento): 40 de Energia por mana, recarga de 8 segundos, só como felino. Antes disso: Assolar (bloco D) no 32, Pulo do Gato (**V**, a partir de Espreitar, um atordoamento) no 36. Os níveis de talento aqui são os mais cedo possíveis; uma vantagem pode adiantá-los em até 5 níveis.
 - 50: graus mais fortes de Mordida Feroz, Rasgar e Despedaçar; nada novo para esta função.
 - 60: graus mais fortes de novo; nada novo para esta função.
