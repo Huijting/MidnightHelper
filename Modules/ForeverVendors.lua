@@ -1202,9 +1202,15 @@ function ns.ForeverVendorSlash(arg)
 		print(PREFIX .. ns:L(arg == "reagents on" and "FCVEND_ON" or "FCVEND_OFF"))
 		return
 	end
+	if arg:match("^alert") and ns.ForeverRunOutSlash and ns.ForeverRunOutSlash(arg) then
+		return
+	end
 	if arg == "check" then
 		if ns.ForeverClassVendorWhy then
 			print(PREFIX .. "class reagents and ammo in Do this now: " .. ns.ForeverClassVendorWhy())
+		end
+		if ns.ForeverRunOutWhy then
+			print("  run-out alert (/mh vendor alert): " .. ns.ForeverRunOutWhy())
 		end
 		local _, posOk = List(CATS[1])
 		print(PREFIX .. ("vendors: %d tool rows, %d goods rows, %d city rows, your side %s, position %s"):format(

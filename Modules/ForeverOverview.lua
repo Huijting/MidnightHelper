@@ -1455,6 +1455,10 @@ local QUIET = {
 	Q("FCVEND_SW", "FCVEND_SW_DESC", {
 		get = function() return ns.IsForeverClassVendLineOn and ns.IsForeverClassVendLineOn() end,
 		set = function(on) if ns.SetForeverClassVendLine then ns.SetForeverClassVendLine(on) end end }),
+	-- 27 Nov 2026 (Rob: "… een melding … als je de laatste 50 aan gaat beginnen"): the big run-out alert, its own switch.
+	Q("FCVEND_ALERT_SW", "FCVEND_ALERT_SW_DESC", {
+		get = function() return ns.IsForeverRunOutAlertOn and ns.IsForeverRunOutAlertOn() end,
+		set = function(on) if ns.SetForeverRunOutAlert then ns.SetForeverRunOutAlert(on) end end }),
 	-- 27 Nov 2026 (Rob via Sparring 27-11: "ja voor de tas"): a usable or bigger bag in Do this now (ForeverBagFull.lua).
 	Q("FBAGUP_SW", "FBAGUP_SW_DESC", {
 		get = function() return ns.IsForeverBagUpOn and ns.IsForeverBagUpOn() end,

@@ -1,5 +1,15 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 27 nov (Bouwchat 27-11): Forever — grote melding als munitie/reagents opraken (`/reload`)
+
+Rob via Sparring 27-11: *"… dat je een melding krijgt als je de laatste 50 aan gaat beginnen of iets …"* → op het plan,
+letterlijk: *"ja"*. ForeverClassVendors.lua CheckRunOut: munitie ≤ ammoAt (50) of een reagent voor een gekende spell ≤
+reagentAt (3) → één melding via ns.FireAccessibleAlert(tekst, geluid, 6 s) (dezelfde deur + cooldown; geweigerd =
+later opnieuw), chatregel met de verkoper. Pas opnieuw na eerst weer boven de grens (warned[]). In gevecht: pending →
+PLAYER_REGEN_ENABLED. Instellingen ns.db.foreverRunOut {on, ammoAt, reagentAt}; `/mh vendor alert [on|off|ammo n|
+reagent n]`, Quiet helpers FCVEND_ALERT_SW (los van de Do this now-schakelaar). Sleutels FCVEND_ALERT_* in 7 talen.
+cvend_test met de melding geslaagd (grens, één keer, opnieuw na bijvullen, gevecht, weigering, instelbaar, schakelaar).
+
 ## ▶▶ 27 nov (Bouwchat 27-11): Forever beroepen optie 4 — class reagents + munitie GEBOUWD (herstart)
 
 Rob via Sparring 27-11, letterlijk: *"nr 4 ja"*. `tools/forever_classvendors.py` → `Modules/ForeverClassVendorData.lua`

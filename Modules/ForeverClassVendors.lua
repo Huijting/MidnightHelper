@@ -228,3 +228,167 @@ function ns.ForeverClassVendorWhy()
 	pcall(ns.ForeverClassVendorLines)
 	return lastWhy
 end
+
+--------------------------------------------------------------------------------
+-- 27 Nov 2026, the alert (Rob via Sparring 27-11: "… dat je een melding krijgt als je de laatste 50 aan gaat beginnen
+-- of iets" → on the plan: "ja"): when your ammo drops to the limit (50) or a reagent for a spell you know to its limit
+-- (3), ONE big message in the middle of the screen with a sound — ns.FireAccessibleAlert, the same door as every MH
+-- alert (its own cooldown included; a refused alert is tried again when that cooldown is over). Not again for that
+-- thing until you were above the limit once more. In a fight it waits until the fight is over. Limits adjustable and
+-- the alert has its own switch (players choose): Quiet helpers "Alert when ammo or reagents run out",
+-- /mh vendor alert on|off, /mh vendor alert ammo <0-1000>, /mh vendor alert reagent <0-20>.
+--------------------------------------------------------------------------------
+local PREFIX = "|cffffcc00Midnight Helper:|r "
+local alertWhy = "not checked yet"
+local warned, pending = {}, false
+
+local function AlertSettings()
+	ns.db = ns.db or {}
+	local s = type(ns.db.foreverRunOut) == "table" and ns.db.foreverRunOut or {}
+	ns.db.foreverRunOut = s
+	if s.on == nil then s.on = true end
+	if s.ammoAt == nil then s.ammoAt = 50 end
+	if s.reagentAt == nil then s.reagentAt = 3 end
+	return s
+end
+
+local function InFight()
+	return (InCombatLockdown and InCombatLockdown()) or (UnitAffectingCombat and UnitAffectingCombat("player") == true)
+end
+
+local CheckRunOut
+--- Everything at or under its limit that was not announced yet: { key, text, seller key }.
+local function Due(s)
+	local out = {}
+	local kind = ns.ForeverAmmoKind()
+	if kind then
+		local have = 0
+		for _, row in ipairs((ns.FOREVER_AMMO or {})[kind] or {}) do
+			have = have + Count(row[1])
+		end
+		if have > s.ammoAt then
+			warned.ammo = nil
+		elseif not warned.ammo then
+			out[#out + 1] = { key = "ammo", text = ns:L("FCVEND_ALERT_AMMO_FMT"):format(have), vend = kind }
+		end
+	end
+	local needs, token = Needs()
+	for _, n in ipairs(needs) do
+		if n.have > s.reagentAt then
+			warned[n.item] = nil
+		elseif not warned[n.item] then
+			out[#out + 1] = { key = n.item, text = ns:L("FCVEND_ALERT_REAGENT_FMT"):format(ItemName(n.item) or ("#" .. n.item),
+				n.have), vend = (token == "ROGUE") and "thief" or "reagent" }
+		end
+	end
+	return out
+end
+
+CheckRunOut = function()
+	local s = AlertSettings()
+	if not s.on then
+		alertWhy = "switched off (/mh vendor alert on)"
+		return
+	end
+	local due = Due(s)
+	if #due == 0 then
+		pending = false
+		alertWhy = ("nothing at or under the limits (ammo %d, reagent %d)"):format(s.ammoAt, s.reagentAt)
+		return
+	end
+	if InFight() then
+		pending = true -- PLAYER_REGEN_ENABLED tries again
+		alertWhy = ("%d to tell, in a fight: waits until it is over"):format(#due)
+		return
+	end
+	local parts = {}
+	for _, d in ipairs(due) do
+		parts[#parts + 1] = d.text
+	end
+	local big = table.concat(parts, "  ·  ")
+	local fired, wait = false, nil
+	if ns.FireAccessibleAlert then
+		fired, wait = ns.FireAccessibleAlert(big, true, 6)
+	end
+	if not fired then
+		pending = true
+		alertWhy = ("another MH alert just showed: tries again in %.0f s"):format(wait or 2)
+		if C_Timer and C_Timer.After then
+			C_Timer.After((wait or 2) + 0.2, function()
+				pcall(CheckRunOut)
+			end)
+		end
+		return
+	end
+	pending = false
+	for _, d in ipairs(due) do
+		warned[d.key] = true
+	end
+	print(PREFIX .. big .. "; " .. SellerText(Nearest(due[1].vend)) .. ". |cff888888" .. ns:L("FCVEND_ALERT_OFF_HINT") .. "|r")
+	alertWhy = ("told you: %s"):format(big)
+end
+
+function ns.IsForeverRunOutAlertOn()
+	return AlertSettings().on
+end
+
+function ns.SetForeverRunOutAlert(on)
+	AlertSettings().on = on and true or false
+	warned = {}
+end
+
+--- /mh vendor alert [on | off | ammo <n> | reagent <n>]; true = it was an alert command.
+function ns.ForeverRunOutSlash(arg)
+	local s = AlertSettings()
+	if arg == "alert on" or arg == "alert off" then
+		ns.SetForeverRunOutAlert(arg == "alert on")
+		print(PREFIX .. ns:L(arg == "alert on" and "FCVEND_ALERT_ON" or "FCVEND_ALERT_OFF"))
+		return true
+	end
+	local what, n = (arg or ""):match("^alert (%a+) (%d+)$")
+	if what == "ammo" or what == "reagent" then
+		n = tonumber(n)
+		if what == "ammo" then
+			s.ammoAt = math.max(0, math.min(1000, n))
+		else
+			s.reagentAt = math.max(0, math.min(20, n))
+		end
+		warned = {}
+		print(PREFIX .. ns:L("FCVEND_ALERT_AT_FMT"):format(s.ammoAt, s.reagentAt))
+		return true
+	end
+	if arg == "alert" then
+		print(PREFIX .. ("run-out alert: %s, ammo at %d, reagent at %d (/mh vendor alert on||off, /mh vendor alert ammo <n>, /mh vendor alert reagent <n>)")
+			:format(s.on and "on" or "off", s.ammoAt, s.reagentAt))
+		print("  last decision: " .. alertWhy .. (pending and " (waiting)" or ""))
+		return true
+	end
+	return false
+end
+
+function ns.ForeverRunOutWhy()
+	return alertWhy
+end
+ns.ForeverRunOutCheck = function() -- for the offline check: the same function the events call
+	return CheckRunOut()
+end
+
+local ev = CreateFrame("Frame")
+for _, e in ipairs({ "BAG_UPDATE_DELAYED", "PLAYER_REGEN_ENABLED", "PLAYER_ENTERING_WORLD", "PLAYER_EQUIPMENT_CHANGED",
+	"SPELLS_CHANGED" }) do
+	pcall(ev.RegisterEvent, ev, e)
+end
+ev:SetScript("OnEvent", function(self, event)
+	if event == "PLAYER_REGEN_ENABLED" and not pending then
+		return
+	end
+	if self._busy then
+		return
+	end
+	self._busy = true
+	-- At login a few seconds later (bags and spells are read by then); otherwise half a second, to fold a burst of events.
+	C_Timer.After(event == "PLAYER_ENTERING_WORLD" and 8 or 0.5, function()
+		self._busy = nil
+		pcall(CheckRunOut)
+	end)
+end)

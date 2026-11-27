@@ -25,6 +25,19 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 27 nov — FOREVER: grote melding als munitie of reagents bijna op zijn
+
+`/reload` is genoeg (na de herstart voor de sectie hieronder). Offline getest (cvend_test), NIET in het spel.
+- [ ] Hunter met een boog: schiet tot je 50 pijlen of minder hebt. Midden in beeld "Ammo: only 50 left!" met een
+      geluidje, en in de chat de dichtstbijzijnde verkoper. Schiet verder: GEEN tweede melding.
+- [ ] Koop pijlen (boven de 50), schiet weer tot 50: weer één melding.
+- [ ] Zakt het tijdens een gevecht onder de 50: de melding komt pas direct NA het gevecht.
+- [ ] Mage/shaman/paladin/druid: 3 of minder van een reagent voor een spell die je kent (bv. 3 Rune of Teleportation):
+      "Rune of Teleportation: only 3 left!".
+- [ ] `/mh vendor alert ammo 100`: de grens is 100. `/mh vendor alert`: wat MH besliste en waarom.
+- [ ] Quiet helpers → "Alert when ammo or reagents run out" uit (of `/mh vendor alert off`): geen melding meer; de
+      regel in Do this now blijft (die heeft zijn eigen schakelaar).
+
 ## 27 nov — FOREVER: class reagents en munitie, met de dichtstbijzijnde verkoper
 
 HERSTART het spel één keer (nieuwe bestanden). Offline getest (cvend_test), NIET in het spel.
