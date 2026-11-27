@@ -4132,6 +4132,21 @@ SlashCmdList["MIDNIGHTHELPER"] = function(msg)
 		return
 	end
 	-- Rob, 30 Oct 2026: window place and size per character, off by default (DialogPopup.lua). Also in Settings.
+	-- 27 Nov 2026: one window at a time (WindowStack.lua): what MH knows, and the switch.
+	if msg == "windows" then
+		if ns.WindowStackReport then
+			ns.WindowStackReport()
+		end
+		return
+	end
+	if msg == "windows several" then
+		if ns.SetSeveralWindowsKept and ns.AreSeveralWindowsKept then
+			ns.SetSeveralWindowsKept(not ns.AreSeveralWindowsKept())
+			print(("|cffffcc00%s|r %s: %s"):format(ns:L("PRINT_PREFIX"), ns:L("SET_WINSEVERAL_TITLE"),
+				ns.AreSeveralWindowsKept() and "on" or "off"))
+		end
+		return
+	end
 	if msg == "windows perchar" then
 		if ns.SetWindowsPerCharacter and ns.AreWindowsPerCharacter then
 			local on = not ns.AreWindowsPerCharacter()

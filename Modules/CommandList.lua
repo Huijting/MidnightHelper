@@ -102,6 +102,8 @@ ns.MH_UNLISTED_ON_PURPOSE = {
 	"questiedb", "questiedb here", "questiedb why",
 	-- 23 Nov 2026: upgrades in Do this now (ForeverWear.lua, Forever only; Rob: "Ja, doe maar OR-B.").
 	"wear", "wear why", "wear reset",
+	-- 27 Nov 2026: one window at a time (WindowStack.lua): the report and the switch (also in Settings).
+	"windows", "windows several",
 	-- 23 Nov 2026: layer measurement (ForeverLayer.lua, Forever only; layer option A, step 1).
 	"layer", "layer clear",
 	-- 21 Nov 2026: renown measurement (AltOverview.lua).

@@ -730,6 +730,12 @@ local function Build()
 	end, function(v)
 		if ns.SetHomeSoloMode then ns.SetHomeSoloMode(v) end
 	end, false)
+	-- 27 Nov 2026 (Rob: one window at a time, choice B): off = opening a window closes the others (WindowStack.lua).
+	Toggle("mh_windowsSeveral", "SET_WINSEVERAL_TITLE", "SET_WINSEVERAL_DESC", function()
+		return ns.AreSeveralWindowsKept and ns.AreSeveralWindowsKept()
+	end, function(v)
+		if ns.SetSeveralWindowsKept then ns.SetSeveralWindowsKept(v) end
+	end, false)
 	-- 30 Oct 2026 (Rob): window place and size per character; off = shared by every character (DialogPopup.lua).
 	Toggle("mh_windowsPerChar", "SET_WINPERCHAR_TITLE", "SET_WINPERCHAR_DESC", function()
 		return ns.AreWindowsPerCharacter and ns.AreWindowsPerCharacter()

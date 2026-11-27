@@ -532,6 +532,10 @@ function ns.RegisterMidnightDialogPopup(frame)
 			AttachDockButton(frame, name)
 		end
 	end
+	-- 27 Nov 2026 (Rob: one window at a time, choice B): a page window joins the stack (WindowStack.lua; others ignore it).
+	if ns.MidnightPageAttach then
+		pcall(ns.MidnightPageAttach, frame)
+	end
 	if not name or type(UISpecialFrames) ~= "table" then
 		return
 	end

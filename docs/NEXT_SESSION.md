@@ -1,5 +1,18 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 27 nov (Bouwchat 27-11): beide games — één MH-venster tegelijk, Back en Home (keuze B, herstart)
+
+Rob (aan Carola uitleggend, gedicteerd): *"… al die schermpjes die bouwen op en over elkaar heen … alleen maar dat
+schermpje openen. En de andere schermpje afsluiten … terugknop … homeknop …"* → plan: *"klopt"*; keuze A/B, letterlijk:
+*"Ik volg uiteraard jouw advies weer."* = B. Nieuw `Modules/WindowStack.lua` (beide toc's, na DialogPopup): allow-list
+PAGES (pagina-vensters; helpers staan er bewust NIET in) + het hoofdvenster (Midnight MidnightHelperMainUI, Forever
+MidnightHelperForeverOverview). Een pagina die opent sluit alle andere pagina's én het hoofdvenster, behalve docked
+(Midnight). Back = geschiedenis (max 20), Home = ns:ShowMainUI / ToggleForeverOverview; strook met de twee knoppen
+BOVEN de bovenrand van het venster (raakt titels/knoppen niet). Beveiligde frames in combat blijven open. Haak: in
+ns.RegisterMidnightDialogPopup (ns.MidnightPageAttach) + sweep elke 2 s (boss window, instance map, hoofdvensters).
+Schakelaar ns.db.ui.keepSeveral (Settings "Keep several windows open", `/mh windows several`); `/mh windows` = rapport.
+Sleutels in Locales/SettingsPage.lua (7 blokken) + ruRU.lua. stack_test geslaagd. Niet in het spel gezien.
+
 ## ▶▶ 27 nov (Bouwchat 27-11): Forever — grote melding als munitie/reagents opraken (`/reload`)
 
 Rob via Sparring 27-11: *"… dat je een melding krijgt als je de laatste 50 aan gaat beginnen of iets …"* → op het plan,

@@ -133,6 +133,7 @@ Modules\SMCChecklistData.lua
 Modules\SMCChecklist.lua
 UI.lua
 Modules\DialogPopup.lua
+Modules\WindowStack.lua
 Modules\Changelog.lua
 Modules\VersionNotice.lua
 Modules\NameplateColors.lua

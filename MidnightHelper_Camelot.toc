@@ -82,6 +82,8 @@ Modules\ForeverCharKey.lua
 Modules\KeyPresses.lua
 UI.lua
 Modules\DialogPopup.lua
+# One MH window at a time, with Back and Home (Rob, 27 Nov 2026, choice B).
+Modules\WindowStack.lua
 Modules\Changelog.lua
 # Tells you when a guild or group member runs a newer MH (Rob, 8 Nov 2026: "Ja bouw maar").
 Modules\VersionNotice.lua

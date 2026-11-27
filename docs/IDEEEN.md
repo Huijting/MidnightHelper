@@ -26,6 +26,15 @@ Kolom *Voor wie*: N = nieuweling, V = veteraan. Kolom *Spel*: M = Midnight, F = 
 
 ## Open — wacht op Rob
 
+### Eén MH-venster tegelijk, met Terug en Home (wens van Rob, 27 nov) — ✅ JA (B), GEBOUWD 27 nov, wacht op test
+- Bron: Rob via Sparring 27-11 (gedicteerd, toen hij MH aan Carola uitlegde): *"… al die schermpjes die bouwen op en over
+  elkaar heen. Wat ik eigenlijk zou willen is dat we gewoon alleen maar dat schermpje openen. En de andere schermpje
+  afsluiten. En eventueel een terugknop … Of een homeknop …"* → plan: *"klopt"* → keuze, letterlijk: *"Ik volg uiteraard
+  jouw advies weer."* (B: ook het hoofdvenster gaat dicht).
+- Gebouwd: pagina-vensters sluiten elkaar en het hoofdvenster; "< Back" en "Home" op elk venster; docked blijft naast
+  het hoofdvenster; kleine helpers blijven; schakelaar "Keep several windows open" (standaard uit).
+- Spel: M + F. Voor wie: N (AFGELEID).
+
 ### Forever: melding voor een bruikbare of grotere tas (wens van Rob, 27 nov) — ✅ JA, GEBOUWD 27 nov, wacht op test
 - Bron: Rob via Sparring 27-11: *"ik kreeg net deze tas en heb genoeg plek om hem te gebruiken, kunnen we daar een
   melding van maken als zoiets in onze tas zit/komt, ook als ie groter en of beter is dan een tas die we al hebben ?"*

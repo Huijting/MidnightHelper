@@ -25,6 +25,19 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 27 nov — BEIDE GAMES: één MH-venster tegelijk, met Terug en Home (keuze B)
+
+HERSTART het spel één keer (nieuw bestand). Offline getest (stack_test), NIET in het spel.
+- [ ] Midnight: open MH, kies Dungeons en open een dungeon (het Bosses-venster). Het MH-hoofdvenster gaat DICHT; boven op
+      het nieuwe venster staan de knoppen "< Back" en "Home".
+- [ ] Open vanuit dat venster de kaart (Bosses / map): het vorige venster gaat dicht. "< Back" brengt je terug naar het
+      vorige venster, nog een keer "< Back" naar het hoofdvenster. "Home" gaat meteen naar het hoofdvenster.
+- [ ] Een venster dat je zelf "Dock to window" gaf (Midnight): het hoofdvenster blijft ernaast open.
+- [ ] Forever: open het overzicht, kies bv. Skill up of Vendors: het overzicht gaat dicht, "Home" brengt het terug.
+- [ ] Kleine helpers blijven staan: Do this now, de klikkaart, de Move-balk, meldingen, Bags full, het toetsblok.
+- [ ] Settings → "Keep several windows open" aan: alles blijft open zoals vroeger. `/mh windows` zegt wat MH ziet.
+- [ ] Staan de knoppen "< Back"/"Home" ergens lelijk of half buiten beeld (venster helemaal bovenaan)? Zeg welk venster.
+
 ## 27 nov — FOREVER: grote melding als munitie of reagents bijna op zijn
 
 `/reload` is genoeg (na de herstart voor de sectie hieronder). Offline getest (cvend_test), NIET in het spel.
