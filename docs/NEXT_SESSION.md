@@ -9,6 +9,13 @@ met de echte toetsen ("A or B", FHOWTO_EARLY_OR). ORDER_EXTRA.wand = Shoot (Prie
 alleen als een bloktoets nu Shoot cast (Warlock: Shoot staat niet op het blok → nooit, niet gegokt). Life Tap ("low on
 mana") blijft in de rij (niet gevraagd). 3 sleutels in 7 talen. live_test: Robs priest exact zoals zijn screenshot +
 regels; Warlock zonder wand-regel.
+AANVULLING zelfde ronde: Rob (Troll Warlock 8, screenshot via Sparring), letterlijk: *"life tap staat ook in de volgorde,
+en eigenlijk moet je die gebruiken als je low op mana bent toch? en niet in een standaard rotatie??"* → ORDER_EXTRA.situ:
+Warlock Life Tap → FHOWTO_EARLY_LIFETAP_FMT; nagelopen in alle class-Simple orders: Warrior Thunder Clap ("Several
+enemies?") → FHOWTO_EARLY_AOE_FMT, Shaman Earth Shock ("for when the enemy casts") → FHOWTO_EARLY_INTERRUPT_FMT. Niet
+gedaan: Bloodrage/Evocation/Innervate staan in geen Simple order; Rogue Backstab ("with a dagger, behind") blijft (een
+gewone stap onder voorwaarde, niet duidelijk genoeg). 3 sleutels in 7 talen. live_test: Robs warlock 8 = zijn
+screenshot zonder Life Tap in de rij + de losse regel.
 
 ## ▶▶ 28 nov (Bouwchat 28-11): levend blok voor iedereen onder 10 + Auto Shot / Raptor Strike los (`/reload`)
 

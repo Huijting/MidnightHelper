@@ -313,6 +313,9 @@ for k, v in pairs({
 	FHOWTO_EARLY_HEAL_FMT = "Wenig Gesundheit? %s.",
 	FHOWTO_EARLY_OR = " oder ",
 	FHOWTO_EARLY_WAND_FMT = "Wenig Mana? %s (%s) mit deinem Zauberstab.",
+	FHOWTO_EARLY_LIFETAP_FMT = "Wenig Mana? %s (%s): macht Gesundheit zu Mana. Nur wenn deine Gesundheit hoch ist.",
+	FHOWTO_EARLY_AOE_FMT = "Mehrere Gegner? %s (%s).",
+	FHOWTO_EARLY_INTERRUPT_FMT = "Gegner wirkt einen Zauber? %s (%s) unterbricht ihn.",
 	FHOWTO_NOTYET_LV_FMT = "%s (Stufe %d)",
 	FHOWTO_TALENTED_RANK_FMT = "Die Talentstufen oben rechnen mit deinem ersten Talentpunkt auf Stufe 10. Du hast Talentiert aus dem Vermächtnisbaum auf Rang %d: deine Talente kommen so viele Stufen früher.",
 	-- 17 Nov 2026: the overview (/mh overview, ForeverOverview.lua): FOV_*, FDUNG_IN_ENEMY_FMT

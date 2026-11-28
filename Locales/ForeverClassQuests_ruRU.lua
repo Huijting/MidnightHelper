@@ -342,6 +342,9 @@ for k, v in pairs({
 	FHOWTO_EARLY_HEAL_FMT = "Мало здоровья? %s.",
 	FHOWTO_EARLY_OR = " или ",
 	FHOWTO_EARLY_WAND_FMT = "Мало маны? %s (%s) жезлом.",
+	FHOWTO_EARLY_LIFETAP_FMT = "Мало маны? %s (%s): превращает здоровье в ману. Только когда здоровья много.",
+	FHOWTO_EARLY_AOE_FMT = "Несколько врагов? %s (%s).",
+	FHOWTO_EARLY_INTERRUPT_FMT = "Враг читает заклинание? %s (%s) прерывает его.",
 	FHOWTO_NOTYET_LV_FMT = "%s (с %d-го уровня)",
 	FHOWTO_TALENTED_RANK_FMT = "Уровни талантов выше считают, что первое очко таланта вы получаете на 10-м уровне. У вас старинный бонус «Талантливый герой» уровня %d: ваши таланты приходят на столько же уровней раньше.",
 	-- 17 Nov 2026: the overview (/mh overview, ForeverOverview.lua): FOV_*, FDUNG_IN_ENEMY_FMT

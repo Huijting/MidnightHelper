@@ -320,6 +320,9 @@ for k, v in pairs({
 	FHOWTO_EARLY_HEAL_FMT = "Pouca vida? %s.",
 	FHOWTO_EARLY_OR = " ou ",
 	FHOWTO_EARLY_WAND_FMT = "Pouca mana? %s (%s) com sua varinha.",
+	FHOWTO_EARLY_LIFETAP_FMT = "Pouca mana? %s (%s): transforma vida em mana. Só quando sua vida está alta.",
+	FHOWTO_EARLY_AOE_FMT = "Vários inimigos? %s (%s).",
+	FHOWTO_EARLY_INTERRUPT_FMT = "Inimigo lançando um feitiço? %s (%s) interrompe.",
 	FHOWTO_NOTYET_LV_FMT = "%s (nível %d)",
 	FHOWTO_TALENTED_RANK_FMT = "Os níveis de talento acima contam o seu primeiro ponto de talento no nível 10. Você tem a vantagem de Legado \"Talento é para quem tem\" no grau %d: os seus talentos chegam essa mesma quantidade de níveis mais cedo.",
 	-- 17 Nov 2026: the overview (/mh overview, ForeverOverview.lua): FOV_*, FDUNG_IN_ENEMY_FMT

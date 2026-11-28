@@ -1795,9 +1795,13 @@ local ORDER_EXTRA = {
 	PRIEST = { heal = { "Renew", "Lesser Heal" }, wand = "Shoot" },
 	PALADIN = { heal = { "Holy Light" } },
 	DRUID = { heal = { "Rejuvenation", "Healing Touch" } },
-	SHAMAN = { heal = { "Healing Wave" } },
+	-- situ = other "only in this situation" buttons of the Simple order, each with its own line (Rob's Warlock, 28 Nov:
+	-- "life tap staat ook in de volgorde, en eigenlijk moet je die gebruiken als je low op mana bent toch?"); the
+	-- Warrior's Thunder Clap ("Several enemies?") and the Shaman's Earth Shock ("for when the enemy casts") the same way.
+	SHAMAN = { heal = { "Healing Wave" }, situ = { { "Earth Shock", "FHOWTO_EARLY_INTERRUPT_FMT" } } },
+	WARRIOR = { situ = { { "Thunder Clap", "FHOWTO_EARLY_AOE_FMT" } } },
 	-- The Warlock's Shoot is not on the block (its own Beginner mistakes say so), so its wand line never shows: no guess.
-	WARLOCK = { heal = { "Drain Life" }, wand = "Shoot" },
+	WARLOCK = { heal = { "Drain Life" }, wand = "Shoot", situ = { { "Life Tap", "FHOWTO_EARLY_LIFETAP_FMT" } } },
 }
 
 --- The spell names (English, as in ns.FOREVER_SPELL_IDS) an English text names, in the order it names them (the same
@@ -1993,6 +1997,9 @@ local function EarlyBlock(token)
 		if extra.wand then
 			skip[extra.wand] = true
 		end
+		for _, s in ipairs(extra.situ or {}) do
+			skip[s[1]] = true
+		end
 		local seq = {}
 		for _, sec in ipairs(en) do
 			if OrderPart(sec[1], sec[2]) then
@@ -2040,6 +2047,12 @@ local function EarlyBlock(token)
 		local wand = extra.wand and now.byEn[extra.wand]
 		if wand then
 			parts[#parts + 1] = ns:L("FHOWTO_EARLY_WAND_FMT"):format(wand.name, "**" .. wand.label .. "**")
+		end
+		for _, s in ipairs(extra.situ or {}) do
+			local k = now.byEn[s[1]]
+			if k then
+				parts[#parts + 1] = ns:L(s[2]):format(k.name, "**" .. k.label .. "**")
+			end
 		end
 		local nxt = LiveNext(token, lvl, now)
 		if nxt then
