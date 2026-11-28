@@ -1785,6 +1785,14 @@ end
 ]]
 local ROLE_FROM_OVERRIDE = { HUNTER = { [2] = 10, [3] = 10 } }
 
+-- 28 Nov 2026: spells of a class's Simple order that are no step of the row in the living block (English names).
+-- auto = starts by itself when you press one of `by` (Hunter: GEMETEN by Rob in the game, 28 Nov); close = only for an
+-- enemy up close, melee = needs a melee weapon (Hunter: DB2 71139 SpellEquippedItems, see the 28 Nov melee check).
+local ORDER_EXTRA = {
+	HUNTER = { auto = "Auto Shot", by = { "Serpent Sting", "Arcane Shot" }, close = "Raptor Strike", melee = true },
+	MAGE = { close = "Frost Nova" },
+}
+
 --- The spell names (English, as in ns.FOREVER_SPELL_IDS) an English text names, in the order it names them (the same
 --- whole-name rules as the grey "Not learned yet" line).
 local function SpellsIn(token, english)
@@ -1932,11 +1940,22 @@ local function EarlyBlock(token)
 			end
 		end
 	end
-	if not from or lvl >= from then
+	-- 28 Nov 2026 (Rob's Undead Priest, Holy, level 6, via Sparring 28-11: "Oh, ik dacht dat we inmiddels bij iedereen tot
+	-- en met 10 hadden, maar blijkbaar nog niet." → "ja"): EVERY character under 10 gets the block, every class and
+	-- direction, also without one; a role that starts later than 10 (Cat 20, Fury 20) keeps it until that level. The
+	-- "your role starts at level X" line only where that is true (the role is not playable yet).
+	from = from or 1
+	local untilLv = math.max(from, 10)
+	if lvl >= untilLv then
 		return nil
 	end
-	local parts = { band and name and ns:L("FHOWTO_EARLY_ROLE_FMT"):format(name, from)
-		or ns:L("FHOWTO_EARLY_CLASS_FMT"):format(from) }
+	local parts = {}
+	if from > lvl then
+		parts[1] = band and name and ns:L("FHOWTO_EARLY_ROLE_FMT"):format(name, from)
+			or ns:L("FHOWTO_EARLY_CLASS_FMT"):format(from)
+	else
+		parts[1] = ns:L("FHOWTO_EARLY_BASICS")
+	end
 	-- 28 Nov 2026, the LIVING block (Rob via Sparring 28-11: "level 1, je kan dit drukken, level 2, je kan dat drukken";
 	-- on the advice to make it live instead of a list per level: "Ja, dat is een goed idee van jou."). Three parts, all
 	-- read from what this character has right now, so it grows with every level and never shows empty lines:
@@ -1950,12 +1969,23 @@ local function EarlyBlock(token)
 			items[#items + 1] = "**" .. k.label .. "** = " .. k.name
 		end
 		parts[#parts + 1] = "**" .. ns:L("FHOWTO_EARLY_NOW_FMT"):format(lvl) .. "** " .. table.concat(items, " · ")
+		-- 28 Nov 2026 (Rob's screenshot of the block, via Sparring 28-11; "Ja, dat mag."): a spell that is no real STEP
+		-- leaves the row and gets its own short line: Auto Shot (Serpent Sting and Arcane Shot start it, Rob measured)
+		-- and the up-close emergency (Raptor Strike, with a melee weapon; the Mage's Frost Nova).
+		local extra = ORDER_EXTRA[token] or {}
+		local skip = {}
+		if extra.auto then
+			skip[extra.auto] = true
+		end
+		if extra.close then
+			skip[extra.close] = true
+		end
 		local seq = {}
 		for _, sec in ipairs(en) do
 			if OrderPart(sec[1], sec[2]) then
 				for _, enName in ipairs(SpellsIn(token, sec[2])) do
 					local k = now.byEn[enName]
-					if k then
+					if k and not skip[enName] then
 						seq[#seq + 1] = k.name .. " (**" .. k.label .. "**)"
 					end
 				end
@@ -1963,6 +1993,25 @@ local function EarlyBlock(token)
 		end
 		if #seq > 0 then
 			parts[#parts + 1] = "**" .. ns:L("FHOWTO_EARLY_ORDER") .. "** " .. table.concat(seq, " → ")
+		end
+		local auto = extra.auto and now.byEn[extra.auto]
+		if auto then
+			local by = {}
+			for _, s in ipairs(extra.by or {}) do
+				local k = now.byEn[s]
+				if k then
+					by[#by + 1] = "**" .. k.label .. "**"
+				end
+			end
+			if #by > 0 then
+				parts[#parts + 1] = ns:L("FHOWTO_EARLY_AUTO_FMT"):format(auto.name, table.concat(by, ", "),
+					"**" .. auto.label .. "**")
+			end
+		end
+		local close = extra.close and now.byEn[extra.close]
+		if close then
+			parts[#parts + 1] = ns:L(extra.melee and "FHOWTO_EARLY_MELEE_FMT" or "FHOWTO_EARLY_NEAR_FMT")
+				:format(close.name, "**" .. close.label .. "**")
 		end
 		local nxt = LiveNext(token, lvl, now)
 		if nxt then
@@ -1976,7 +2025,7 @@ local function EarlyBlock(token)
 			end
 		end
 	end
-	return ns:L("FHOWTO_EARLY_TITLE_FMT"):format(from), table.concat(parts, "\n")
+	return ns:L("FHOWTO_EARLY_TITLE_FMT"):format(untilLv), table.concat(parts, "\n")
 end
 ns.ForeverHowToEarlyBlock = EarlyBlock -- the offline check calls it
 

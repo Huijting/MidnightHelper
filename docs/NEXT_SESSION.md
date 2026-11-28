@@ -1,5 +1,17 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 28 nov (Bouwchat 28-11): levend blok voor iedereen onder 10 + Auto Shot / Raptor Strike los (`/reload`)
+
+Rob via Sparring 28-11 (screenshot hunter 6, het blok werkt — GEMETEN door Sparring), letterlijk *"Ja, dat mag."* (1)
+Order now: ORDER_EXTRA (ForeverHowToPlay.lua) haalt een spell die geen echte stap is uit de rij: HUNTER auto = Auto Shot
+(start vanzelf met Serpent Sting/Arcane Shot, Rob mat het) → regel FHOWTO_EARLY_AUTO_FMT met de echte toetsen; close =
+Raptor Strike, melee → FHOWTO_EARLY_MELEE_FMT; MAGE close = Frost Nova → FHOWTO_EARLY_NEAR_FMT ("then step away"). Andere
+classes: niets dat duidelijk past (de "Low on health?"-heals van Priest/Paladin/Druid/Shaman/Warlock zijn ook
+voorwaardelijk, maar niet gevraagd → niet gedaan, gemeld). (2) Rob, letterlijk: *"Oh, ik dacht dat we inmiddels bij iedereen tot
+en met 10 hadden, maar blijkbaar nog niet."* → *"ja"*: EarlyBlock toont nu bij ELK character onder max(10, startlevel
+rol); "Your role … starts at level X" alleen als de rol nog niet speelbaar is, anders FHOWTO_EARLY_BASICS. 4 nieuwe
+sleutels in 7 talen. Offline: live_test (9 gevallen + 720 blokken), early_test 8/8 (verwachtingen bijgewerkt).
+
 ## ▶▶ 28 nov (Bouwchat 28-11): Skill up Enchanting — skill 1-5 heeft een recept (`/reload`)
 
 Rob via Sparring 28-11, letterlijk: *"Ik volg je advies. Dus enchanting ja."* (advies: DB2 hier als enige bron).
