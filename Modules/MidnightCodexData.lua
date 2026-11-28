@@ -524,6 +524,9 @@ ns.CODEX_ARTICLES = {
 	},
 	-- 12.1.5. Kith'ix: JournalInstance 1324, JournalEncounter 2896, DungeonEncounter 3513, entrance AreaPOI 9031
 	-- in uiMap 2613 (computed). Venomstones: item 280562; Orin's three quests have no id yet. Same research doc.
+	-- 28 Nov 2026 (Rob via Sparring 28-11: "ja"): the drop counts per content type, from Blizzard's hotfix of 24 Nov
+	-- (news.blizzard.com article 24307310, table "Content Type / Ascendant Venomstone Quantity", read that day).
+	-- Coffer names per client: docs/CLIENT_NAMES_CODEX_2026-10-16.md (ItemSparse 254250).
 	{
 		id = "kithix",
 		category = "raid",

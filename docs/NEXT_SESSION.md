@@ -1,5 +1,16 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 28 nov (Bouwchat 28-11): Midnight Codex — Venomstones met aantallen (`/reload`)
+
+Rob via Sparring 28-11, letterlijk: *"Venomstones A"* en op de Codex: *"ja"*. GEMETEN (web-fetch, zelfde dag) in
+Blizzards hotfix 24 nov, news 24307310, tabel "Content Type / Ascendant Venomstone Quantity": Mythic Raid Bosses 4,
+Heroic Raid Bosses 2, Mythic Keystone +10/+14/+18 = 1/2/3, Delve Bountiful Coffers (Tier 11) 1, Nightmare Prey
+Equipment Caches 1. De prijs (10 per upgrade) staat NIET in dat artikel; de kaart zei al "Ten", niet veranderd.
+CODEX_VENOMSTONE_BODY + _BODY_1217 in 9 talen (Codex.lua en/nl, Translations2026 de/fr/es/pt/it, esMX.lua, ruRU.lua):
+"Where they drop" is nu een lijstje met de getallen. Bountiful Coffer per client uit CLIENT_NAMES_CODEX (ItemSparse
+254250). Positieve controle: nieuwe zin 18x (9 x 2). NIET aangepast: TRACKCEIL_ROUTE_VENOM(_1217) (gear-route-tip,
+noemt dezelfde bronnen zonder getallen — niet fout).
+
 ## ▶▶ 28 nov (Bouwchat 28-11): Forever How you play — "Until level X" (`/reload`)
 
 Rob via Sparring 28-11, letterlijk: *"bij how to play er eigenlijk vanuit gegaan word dat je al level 10 bent en er niet

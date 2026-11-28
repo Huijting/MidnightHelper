@@ -25,6 +25,13 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 28 nov — MIDNIGHT Codex: Venomstones met aantallen
+
+`/reload` is genoeg. Alleen tekst veranderd.
+- [ ] Codex → Raid → **Ascendant Venomstones (12.1.5)**. Onder "Where they drop" staat nu een lijstje: Mythic raid boss 4,
+      Heroic raid boss 2, Mythic+ +10: 1, +14: 2, +18: 3, een Bountiful Coffer in een Tier 11-delve: 1, een Nightmare
+      Prey-kist: 1. Staat alles netjes onder elkaar?
+
 ## 28 nov — FOREVER How you play: blokje "Until level X" onder het startlevel van je rol
 
 `/reload` is genoeg. Op een character ONDER level 10, het liefst je hunter. Offline getest (early_test, 8 talen; alle

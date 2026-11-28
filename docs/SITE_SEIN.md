@@ -28,6 +28,17 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 28 nov — Midnight Codex: Venomstones met aantallen per content
+- Tag + commit:   geen tag (commit: zie git log, "Venomstone counts")
+- Status:         alleen op main
+- Mag op de site: ja voor de feiten zelf (Blizzard, hotfix 24 nov, artikel 24307310; Rob: "Venomstones A"), de MH-kaart
+                  is nog niet uit
+- Speler ziet:    Codex → Ascendant Venomstones: Mythic raid boss 4, Heroic 2, Mythic+ +10/+14/+18 = 1/2/3, Bountiful
+                  Coffer (Tier 11) 1, Nightmare Prey-kist 1. Over de prijs (10) zegt dat artikel niets.
+- Knoplabels:     CODEX_VENOMSTONE_TITLE (titel)
+- Commando's:     geen
+- Spel:           Midnight
+
 ## 28 nov — Forever How you play: "Until level X" voor nieuwe characters
 - Tag + commit:   geen tag (commit: zie git log, "Until level X")
 - Status:         alleen op main
