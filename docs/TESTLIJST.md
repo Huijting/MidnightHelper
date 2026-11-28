@@ -25,6 +25,20 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 28 nov — FOREVER How you play: blokje "Until level X" onder het startlevel van je rol
+
+`/reload` is genoeg. Op een character ONDER level 10, het liefst je hunter. Offline getest (early_test, 8 talen; alle
+classes x richtingen x level 1-60 zonder fout), NIET in het spel.
+- [ ] Hunter onder 10, richting Beast Mastery (of geen richting): open How you play → tab **Start**. Bovenaan staat
+      **Until level 10**, met "Your role (Beast Mastery …) starts at level 10" en daaronder je toetsen van nu
+      ("Levels 1-10: your buttons") en een volgorde zonder pet.
+- [ ] De volgorde van de hunter (ook in tab Start, onder het blokje) begint nu met Hunter's Mark, en pas aan het eind:
+      "From level 10: Aspect of the Hawk on … send your pet in (Ctrl-1)". Geen "Pet in first" meer.
+- [ ] Met 12x4: bij Call Pet staat **Ctrl-4** (niet Ctrl-2). Ctrl-2 is alleen "follow you".
+- [ ] Ding naar level 10 met het venster open: binnen een seconde is het blokje weg. (Of na het opnieuw openen.)
+- [ ] Ook goed om te zien (als je zo'n character hebt): Warrior met richting Protection onder 10, Mage Frost op level
+      1-3 ("Until level 4"). Een Warrior of Druid ZONDER richting krijgt géén blokje (Arms en Balance beginnen op 1).
+
 ## 28 nov — FOREVER reputatie: Cenarion Circle-tip klopt weer
 
 `/reload` is genoeg. Alleen tekst veranderd.

@@ -192,7 +192,7 @@ O Caçador atira de longe com uma arma de longo alcance, e a partir do nível 10
 - **Nível 10, missões do ajudante:** você aprende Domar Fera, Chamar Ajudante e Dispensar Ajudante; a missão seguinte dá Reviver Ajudante e Alimentar Ajudante. **F4** = Chamar Ajudante (traz seu ajudante), **F3** = Reviver Ajudante (traz um ajudante morto de volta). Domar Fera não tem tecla; você usa fora de combate.
 - A partir daí seu ajudante tem três teclas: **Ctrl-1** = atacar seu alvo, **Ctrl-2** = seguir você, **Ctrl-3** = ficar onde está.]] },
 		{ "Ordem simples", [[
-Aspecto do Falcão ligado (Shift-R). Ajudante na frente (Ctrl-1). Marca do Caçador (Shift-Z), Picada de Serpente (2), Tiro Automático (1), depois Tiro Arcano (3) quando estiver pronto. Inimigo do seu lado? Golpe do Raptor (5).]] },
+Marca do Caçador (Shift-Z), Picada de Serpente (2), Tiro Automático (1), depois Tiro Arcano (3) quando estiver pronto. Inimigo do seu lado? Golpe do Raptor (5). A partir do nível 10: primeiro Aspecto do Falcão ligado (Shift-R), e mande seu ajudante (Ctrl-1) antes de atirar.]] },
 		{ "O que vem depois", [[
 - 10: Alimentar Ajudante e Dispensar Ajudante não estão no bloco (você usa fora de combate); coloque-os numa barra sua. O mesmo vale para Assustar Fera (14).
 - 12: Tiro Distrativo no F (faz o inimigo atacar você), Curar Ajudante no F2 (cura seu ajudante), Cortar Asas no Shift-F.

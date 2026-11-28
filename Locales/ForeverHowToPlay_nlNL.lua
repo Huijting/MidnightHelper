@@ -185,7 +185,7 @@ De Hunter schiet van een afstand met een ranged wapen, en heeft vanaf level 10 e
 - **Level 10, pet-quests:** je leert Tame Beast, Call Pet en Dismiss Pet; de quest daarna (Training the Beast) geeft Revive Pet en Feed Pet. **F4** = Call Pet (haalt je pet), **F3** = Revive Pet (brengt een dode pet terug). Tame Beast heeft geen toets; die gebruik je buiten een gevecht.
 - Vanaf dan heeft je pet drie toetsen: **Ctrl-1** = val je target aan, **Ctrl-2** = volg mij, **Ctrl-3** = blijf waar je bent.]] },
 		{ "Simpele volgorde", [[
-Aspect of the Hawk aan (Shift-R). Pet er eerst op (Ctrl-1). Hunter's Mark (Shift-Z), Serpent Sting (2), Auto Shot (1), dan Arcane Shot (3) als hij klaar is. Vijand naast je? Raptor Strike (5).]] },
+Hunter's Mark (Shift-Z), Serpent Sting (2), Auto Shot (1), dan Arcane Shot (3) als hij klaar is. Vijand naast je? Raptor Strike (5). Vanaf level 10: eerst Aspect of the Hawk aan (Shift-R), en stuur je pet erop (Ctrl-1) voordat je schiet.]] },
 		{ "Wat er later komt", [[
 - 10: Feed Pet en Dismiss Pet staan niet op het blok (je gebruikt ze buiten een gevecht); zet ze op je eigen balk. Hetzelfde voor Scare Beast (14).
 - 12: Distracting Shot op F (laat de vijand jou aanvallen), Mend Pet op F2 (healt je pet), Wing Clip op Shift-F.

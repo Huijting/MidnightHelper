@@ -194,7 +194,7 @@ El Cazador dispara desde lejos con un arma a distancia, y desde el nivel 10 tien
 - **Nivel 10, misiones de mascota:** aprendes Domesticar bestia, Llamar a mascota y Retirar mascota; la misión siguiente da Revivir mascota y Alimentar mascota. **F4** = Llamar a mascota (trae a tu mascota), **F3** = Revivir mascota (trae de vuelta a una mascota muerta). Domesticar bestia no tiene tecla; la usas fuera de combate.
 - A partir de entonces tu mascota tiene tres teclas: **Ctrl-1** = atacar a tu objetivo, **Ctrl-2** = seguirte, **Ctrl-3** = quedarse donde está.]] },
 		{ "Orden sencillo", [[
-Activa Aspecto del halcón (Shift-R). Primero entra la mascota (Ctrl-1). Marca del cazador (Shift-Z), Picadura de serpiente (2), Disparo automático (1), y luego Disparo Arcano (3) cuando esté listo. ¿El enemigo está a tu lado? Golpe de raptor (5).]] },
+Marca del cazador (Shift-Z), Picadura de serpiente (2), Disparo automático (1), y luego Disparo Arcano (3) cuando esté listo. ¿El enemigo está a tu lado? Golpe de raptor (5). A partir del nivel 10: primero activa Aspecto del halcón (Shift-R) y manda a tu mascota (Ctrl-1) antes de disparar.]] },
 		{ "Lo que llega después", [[
 - 10: Alimentar mascota y Retirar mascota no están en el bloque (los usas fuera de combate); ponlos en tu propia barra. Lo mismo con Asustar bestia (14).
 - 12: Disparo de distracción en F (hace que el enemigo te ataque), Aliviar mascota en F2 (cura a tu mascota), Cortar alas en Shift-F.

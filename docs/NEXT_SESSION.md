@@ -1,5 +1,22 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 28 nov (Bouwchat 28-11): Forever How you play — "Until level X" (`/reload`)
+
+Rob via Sparring 28-11, letterlijk: *"bij how to play er eigenlijk vanuit gegaan word dat je al level 10 bent en er niet
+verteld word wat je tot die tijd moet doen ... en kijken of dat bij andere classes dat ook zo is"*; op het voorstel: *"ja
+voor untill level 10"*. ForeverHowToPlay.lua: EarlyBlock (ns.ForeverHowToEarlyBlock) bovenaan tab Start (overview,
+kind "early") én in het oude venster (Body), alleen als UnitLevel < startlevel van je rol (richting; geen richting = laagste
+van de class). Inhoud = de class-secties "Levels 1-10: your buttons" + "Simple order" (bestaande vertaalde teksten) met
+één regel "Your role (X) starts at level N" (FHOWTO_EARLY_TITLE_FMT/_ROLE_FMT/_CLASS_FMT, 7 talen; itIT Engels).
+Startlevel = "From level N" uit de Engelse roltekst (RoleFrom); MM en SV overschreven naar 10 (volgorde eist Hawk + pet).
+Uitkomst: Hunter 10/10/10, Warrior Prot 10 · Fury 20, Paladin Prot 10, Druid Bear 10 · Cat 20, Mage Arcane 8 · Frost 4,
+Priest Shadow 4, Warlock Affliction 4; de rest 1. PLAYER_LEVEL_UP → 1 s later verversen. Hunter class-"Simple order" in
+8 talen: pet + Aspect of the Hawk naar "From level 10:" aan het eind. GEMETEN DB2 71139 SpellLevels: 13165 Aspect of
+the Hawk 10, 883 Call Pet 10, 1978 Serpent Sting 4, 3044 Arcane Shot 6. Nagelopen, niet veranderd: de andere 8
+class-volgordes noemen alleen spells; wat je nog niet hebt krijgt al de grijze "Not learned yet (level N)"-regel (19 nov).
+Bijvangst GEREPAREERD: KeyMap liet pet-commandotoetsen (cmd.needs = Call Pet) meetellen → Call Pet soms op Ctrl-2 i.p.v.
+Ctrl-4 (afhankelijk van pairs()). Offline: early_test 8/8 talen, 2160 combinaties; howtotabs 0 mismatch; stance_test 5/5.
+
 ## ▶▶ 28 nov (Bouwchat 28-11): Cenarion Circle-tip aangepast (`/reload`) + HealBot wacht
 
 Rob via Sparring 28-11, letterlijk: *"HealBot nee , verwijder die maar, Cenarion ja"*.

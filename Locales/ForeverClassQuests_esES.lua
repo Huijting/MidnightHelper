@@ -335,6 +335,9 @@ for k, v in pairs({
 	FHOWTO_TALENTED_NOTE = "Los niveles de talento de arriba cuentan tu primer punto de talento en el nivel 10. La ventaja de legado Talentoso da puntos de talento antes: hasta 5 niveles antes.",
 	-- 19 Nov 2026, our own translation.
 	FHOWTO_NOTYET_FMT = "Aún no aprendido: %s.",
+	FHOWTO_EARLY_TITLE_FMT = "Hasta el nivel %d",
+	FHOWTO_EARLY_ROLE_FMT = "Tu rol (%s) empieza en el nivel %d. Hasta entonces, juega así, con las teclas que ya tienes:",
+	FHOWTO_EARLY_CLASS_FMT = "Tus roles empiezan en el nivel %d. Hasta entonces, juega así, con las teclas que ya tienes:",
 	FHOWTO_NOTYET_LV_FMT = "%s (nivel %d)",
 	FHOWTO_TALENTED_RANK_FMT = "Los niveles de talento de arriba cuentan tu primer punto de talento en el nivel 10. Tienes la ventaja de legado Talentoso en rango %d: tus talentos llegan esos niveles antes.",
 	-- 17 Nov 2026: the overview (/mh overview, ForeverOverview.lua): FOV_*, FDUNG_IN_ENEMY_FMT

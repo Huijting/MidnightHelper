@@ -28,6 +28,27 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 28 nov — Forever How you play: "Until level X" voor nieuwe characters
+- Tag + commit:   geen tag (commit: zie git log, "Until level X")
+- Status:         alleen op main
+- Mag op de site: nee (nog niet getest, niet uit)
+- Speler ziet:    Zit je onder het level waarop je rol begint (bv. een Hunter onder 10: de pet), dan staat bovenaan
+                  How you play → Start een blokje met je toetsen van nu en een volgorde die nu al werkt. Het blokje
+                  verdwijnt vanzelf op dat level.
+- Knoplabels:     FHOWTO_EARLY_TITLE_FMT (titel, geen knop)
+- Commando's:     /mh play
+- Spel:           Forever
+
+## 28 nov — Forever reputatie: Cenarion Circle-tip
+- Tag + commit:   geen tag / fd2b98f
+- Status:         alleen op main
+- Mag op de site: nee (niet uit)
+- Speler ziet:    Bij Cenarion Circle staat nu: quests in Silithus; het steeds opnieuw inleveren van Encrypted Twilight
+                  Text staat in Forever uit (Blizzard, 25 nov). Staat er op de site nog de oude manier, dan klopt die niet.
+- Knoplabels:     FREP_HOW_CENARION (tekst)
+- Commando's:     geen
+- Spel:           Forever
+
 ## 27 nov — Forever Skill up: de route eenvoudig uitgelegd
 - Tag + commit:   geen tag (commit: zie git log, "Skill up route eenvoudiger")
 - Status:         alleen op main

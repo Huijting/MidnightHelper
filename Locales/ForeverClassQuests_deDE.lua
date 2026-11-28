@@ -298,6 +298,9 @@ for k, v in pairs({
 	FHOWTO_TALENTED_NOTE = "Die Talentstufen oben rechnen mit deinem ersten Talentpunkt auf Stufe 10. Talentiert aus dem Vermächtnisbaum gibt dir Talentpunkte früher: bis zu 5 Stufen früher.",
 	-- 19 Nov 2026, our own translation.
 	FHOWTO_NOTYET_FMT = "Noch nicht gelernt: %s.",
+	FHOWTO_EARLY_TITLE_FMT = "Bis Stufe %d",
+	FHOWTO_EARLY_ROLE_FMT = "Deine Rolle (%s) beginnt ab Stufe %d. Bis dahin spielst du so, mit den Tasten, die du jetzt hast:",
+	FHOWTO_EARLY_CLASS_FMT = "Deine Rollen beginnen ab Stufe %d. Bis dahin spielst du so, mit den Tasten, die du jetzt hast:",
 	FHOWTO_NOTYET_LV_FMT = "%s (Stufe %d)",
 	FHOWTO_TALENTED_RANK_FMT = "Die Talentstufen oben rechnen mit deinem ersten Talentpunkt auf Stufe 10. Du hast Talentiert aus dem Vermächtnisbaum auf Rang %d: deine Talente kommen so viele Stufen früher.",
 	-- 17 Nov 2026: the overview (/mh overview, ForeverOverview.lua): FOV_*, FDUNG_IN_ENEMY_FMT

@@ -314,6 +314,9 @@ for k, v in pairs({
 	FHOWTO_TALENTED_NOTE = "Les niveaux de talent ci-dessus comptent ton premier point de talent au niveau 10. Le avantage d'Héritage Talent donne des points de talent plus tôt : jusqu'à 5 niveaux avant.",
 	-- 19 Nov 2026, our own translation.
 	FHOWTO_NOTYET_FMT = "Pas encore appris : %s.",
+	FHOWTO_EARLY_TITLE_FMT = "Jusqu'au niveau %d",
+	FHOWTO_EARLY_ROLE_FMT = "Ton rôle (%s) commence au niveau %d. D'ici là, joue comme ceci, avec les touches que tu as déjà :",
+	FHOWTO_EARLY_CLASS_FMT = "Tes rôles commencent au niveau %d. D'ici là, joue comme ceci, avec les touches que tu as déjà :",
 	FHOWTO_NOTYET_LV_FMT = "%s (niveau %d)",
 	FHOWTO_TALENTED_RANK_FMT = "Les niveaux de talent ci-dessus comptent ton premier point de talent au niveau 10. Tu as le avantage d'Héritage Talent au rang %d : tes talents arrivent autant de niveaux plus tôt.",
 	-- 17 Nov 2026: the overview (/mh overview, ForeverOverview.lua): FOV_*, FDUNG_IN_ENEMY_FMT

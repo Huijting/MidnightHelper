@@ -8158,6 +8158,9 @@ ns._mhLocales.enUS = {
 	FHOWTO_TALENTED_NOTE = "The talent levels above count your first talent point at level 10. The Legacy perk Talented gives talent points sooner: up to 5 levels earlier.",
 	-- 19 Nov 2026: under "Simple order", the spells it names that you do not know yet (ForeverHowToPlay.lua NotYetLine).
 	FHOWTO_NOTYET_FMT = "Not learned yet: %s.",
+	FHOWTO_EARLY_TITLE_FMT = "Until level %d",
+	FHOWTO_EARLY_ROLE_FMT = "Your role (%s) starts at level %d. Until then, play like this, with the buttons you have now:",
+	FHOWTO_EARLY_CLASS_FMT = "Your roles start at level %d. Until then, play like this, with the buttons you have now:",
 	FHOWTO_NOTYET_LV_FMT = "%s (level %d)",
 	FHOWTO_TALENTED_RANK_FMT = "The talent levels above count your first talent point at level 10. You have the Legacy perk Talented at rank %d: your talents come that many levels sooner.",
 	FDONOW_TOOL_FMT = "%s: you have no %s yet (%s).",

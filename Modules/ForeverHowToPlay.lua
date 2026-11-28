@@ -186,7 +186,7 @@ The Hunter shoots from a distance with a ranged weapon, and from level 10 has a 
 - **Level 10, pet quests:** you learn Tame Beast, Call Pet and Dismiss Pet; the quest after them (Training the Beast) gives Revive Pet and Feed Pet. **F4** = Call Pet (brings your pet), **F3** = Revive Pet (brings a dead pet back). Tame Beast has no key; you use it outside a fight.
 - From then on your pet has three keys: **Ctrl-1** = attack your target, **Ctrl-2** = follow you, **Ctrl-3** = stay where it is.]] },
 		{ "Simple order", [[
-Aspect of the Hawk on (Shift-R). Pet in first (Ctrl-1). Hunter's Mark (Shift-Z), Serpent Sting (2), Auto Shot (1), then Arcane Shot (3) when it is ready. Enemy next to you? Raptor Strike (5).]] },
+Hunter's Mark (Shift-Z), Serpent Sting (2), Auto Shot (1), then Arcane Shot (3) when it is ready. Enemy next to you? Raptor Strike (5). From level 10: Aspect of the Hawk on (Shift-R) first, and send your pet in (Ctrl-1) before you shoot.]] },
 		{ "What comes later", [[
 - 10: Feed Pet and Dismiss Pet are not on the block (you use them outside a fight); put them on your own bar. The same for Scare Beast (14).
 - 12: Distracting Shot on F (makes the enemy attack you), Mend Pet on F2 (heals your pet), Wing Clip on Shift-F.
@@ -1174,7 +1174,10 @@ local function KeyMap(token)
 	local held = ns.ForeverBlockFallbackHeld and ns.ForeverBlockFallbackHeld() or {}
 	local primary, any = {}, {}
 	for k12, def in pairs(cls.keys12) do
-		for i, n in ipairs((ns.ForeverBlockKeyNames({ [k12] = def }))) do
+		-- 28 Nov 2026 (offline check of "Until level X"): a command key (the pet's Attack/Follow/Stay) names its `needs`
+		-- spell (Call Pet), so pairs() could put "Call Pet" on Ctrl-2 instead of Ctrl-4 — different per run. A command
+		-- key holds no spell of its own: it never decides where a spell is.
+		for i, n in ipairs(def.cmd and {} or (ns.ForeverBlockKeyNames({ [k12] = def }))) do
 			any[n] = any[n] or k12
 			local v = def.all or def.base
 			local isFallback = type(v) == "table" and v[1] ~= n and (function()
@@ -1669,6 +1672,67 @@ local function RaceSection(token)
 	return ns:L("FRACE_TITLE_FMT"):format(name or "?"), LiveKeys(token, body)
 end
 
+--[[
+	28 Nov 2026 — "Until level X" (Rob via Sparring 28-11, with his Hunter: "bij how to play er eigenlijk vanuit gegaan
+	word dat je al level 10 bent en er niet verteld word wat je tot die tijd moet doen ... en kijken of dat bij andere
+	classes dat ook zo is"; on the proposal: "ja voor untill level 10"). Below the level your role starts at, the top of
+	Start shows the class's own "Levels 1-10: your buttons" and "Simple order" (texts written for level 1 on), with one
+	line saying when your role starts. It goes away by itself at that level. The start level is the role's own "From
+	level N" in its English text. Marksmanship and Survival say "From level 1", but their order needs Aspect of the Hawk
+	and the pet (both level 10), so they count as 10. No direction chosen: the lowest start level of the class's roles
+	(so a Warrior or a Druid without a direction gets no block: Arms and Balance start at 1).
+]]
+local ROLE_FROM_OVERRIDE = { HUNTER = { [2] = 10, [3] = 10 } }
+
+local function RoleFrom(token, i)
+	local o = ROLE_FROM_OVERRIDE[token]
+	if o and o[i] then
+		return o[i]
+	end
+	local en = ROLES[token] and ROLES[token][i]
+	return (en and tonumber((en.body or ""):match("[Ff]rom level (%d+)"))) or 1
+end
+ns.ForeverHowToRoleFrom = RoleFrom -- the offline check reads it
+
+--- Title and raw body of the "Until level X" block, or nil (at or above the start level, or nothing to show).
+local function EarlyBlock(token)
+	local lvl = UnitLevel and UnitLevel("player")
+	if type(lvl) ~= "number" or lvl < 1 then
+		return nil
+	end
+	local tr = Translated()
+	local list = (tr and tr.ROLES and tr.ROLES[token]) or ROLES[token]
+	local cls, en = (tr and tr[token]) or CLASSES[token], CLASSES[token]
+	if not (list and #list > 0 and cls and en) then
+		return nil
+	end
+	local band = ns.GetForeverDirection and ns.GetForeverDirection()
+	local from, name
+	for i, r in ipairs(list) do
+		if not band or r.band == band then
+			local f = RoleFrom(token, i)
+			if not from or f < from then
+				from, name = f, r.title
+			end
+		end
+	end
+	if not from or lvl >= from then
+		return nil
+	end
+	local parts = { band and name and ns:L("FHOWTO_EARLY_ROLE_FMT"):format(name, from)
+		or ns:L("FHOWTO_EARLY_CLASS_FMT"):format(from) }
+	for i, sec in ipairs(cls) do
+		local t = en[i] and en[i][1]
+		local simple = type(t) == "string" and t:find("^Simple order") ~= nil
+		if simple or t == "Levels 1-10: your buttons" then
+			local note = simple and NotYetLine(token, en[i][2])
+			parts[#parts + 1] = "**" .. sec[1] .. "**\n" .. LiveKeys(token, sec[2], simple) .. (note and ("\n" .. note) or "")
+		end
+	end
+	return ns:L("FHOWTO_EARLY_TITLE_FMT"):format(from), table.concat(parts, "\n")
+end
+ns.ForeverHowToEarlyBlock = EarlyBlock -- the offline check calls it
+
 --- 25 Nov 2026: every section also has `tab` (see FOREVER_HOWTO_TABS below). Role texts come in two parts: "start"
 --- (intro, simple order, beginner mistakes) and "levels" (per 10 levels), cut at their bold sub-heads.
 --- @return list of { title, body, kind = "dir"|"role"|"folded"|"class"|"note"|"common"|"stats", tab }, hasFolded, hasMine
@@ -1695,6 +1759,11 @@ function ns.ForeverHowToSections(token, allRoles)
 	local planTitle, planBody = PlanFor(token)
 	if planTitle then
 		out[#out + 1] = { title = planTitle, body = LiveKeys(token, planBody), kind = "plan", tab = "group" }
+	end
+	-- 28 Nov 2026: "Until level X", first in Start, only below your role's start level.
+	local okE, et, eb = pcall(EarlyBlock, token)
+	if okE and et then
+		out[#out + 1] = { title = et, body = eb, kind = "early", tab = "start" }
 	end
 	local function AddRole(r, list)
 		local chunks = RoleChunks(RoleBody(token, list, r))
@@ -1824,8 +1893,10 @@ function ns.ForeverHowToTabsReport(onlyMine)
 			for line in ((s.body or "") .. "\n"):gmatch("([^\n]*)\n") do
 				local key = line:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", ""):gsub("^%s*%-?%s*", "")
 				if #key >= 30 then
-					-- two different roles may share a line ("60: stronger ranks again"): you only see your own
-					if seen[key] and seen[key] ~= s and not (seen[key].kind == "role" and s.kind == "role") then
+					-- two different roles may share a line ("60: stronger ranks again"): you only see your own. The
+					-- "Until level X" block repeats two class sections on purpose (28 Nov 2026), so it does not count.
+					if seen[key] and seen[key] ~= s and not (seen[key].kind == "role" and s.kind == "role")
+						and s.kind ~= "early" and seen[key].kind ~= "early" then
 						dupes[#dupes + 1] = key:sub(1, 50)
 					end
 					seen[key] = seen[key] or s
@@ -1882,6 +1953,11 @@ local function Body(token)
 		end
 	end
 	local roles, folded = RolesText(token)
+	-- 28 Nov 2026: "Until level X" above the roles, only below your role's start level (EarlyBlock).
+	local okE, et, eb = pcall(EarlyBlock, token)
+	if okE and et then
+		roles = HEAD .. et .. "|r\n" .. Format(eb) .. (roles and ("\n\n" .. roles) or "")
+	end
 	if win and win.roles then
 		win.roles:SetShown(folded)
 		local hasDir = ns.GetForeverDirection and ns.GetForeverDirection()
@@ -2025,3 +2101,15 @@ function ns.TogglePlayCardWindow()
 		ns.ShowPlayCardWindow()
 	end
 end
+
+-- 28 Nov 2026: the "Until level X" block goes away by itself at that level, also while the page is open. One second
+-- later, because UnitLevel can still give the old level inside PLAYER_LEVEL_UP.
+local lvlEv = CreateFrame("Frame")
+pcall(lvlEv.RegisterEvent, lvlEv, "PLAYER_LEVEL_UP")
+lvlEv:SetScript("OnEvent", function()
+	C_Timer.After(1, function()
+		if ns.ForeverHowToPlayRefreshDirection then
+			pcall(ns.ForeverHowToPlayRefreshDirection)
+		end
+	end)
+end)
