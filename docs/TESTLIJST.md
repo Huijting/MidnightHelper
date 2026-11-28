@@ -33,9 +33,9 @@ bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt o
 - [ ] Op level 8 met Renew: "Low on health? Renew (**…**) or Lesser Heal (**C**)."
 - [ ] Paladin, Druid (caster), Shaman onder 10: hun heal (Holy Light / Rejuvenation, Healing Touch / Healing Wave) staat
       niet in de rij maar in een losse "Low on health?"-regel. Warlock: géén wand-regel (Shoot staat niet op het blok).
-- [ ] Je Troll Warlock (Demonology, level 8): "Order now" = Corruption (**2**) → Bane of Agony (**3**) → Immolate
+- [x] Je Troll Warlock (Demonology, level 8): "Order now" = Corruption (**2**) → Bane of Agony (**3**) → Immolate
       (**Shift-2**) → Shadow Bolt (**1**). Daaronder "Low on mana? Life Tap (**F**): turns health into mana. Only when
-      your health is high."
+      your health is high." ✅ Rob in-game, 28 nov (screenshot via Sparring; Next: level 10 Drain Soul (4)).
 - [ ] Warrior onder 10: Thunder Clap niet in de rij maar "Several enemies? Thunder Clap (**Shift-1**)." Shaman onder 10:
       "Enemy casting a spell? Earth Shock (**E**) stops it."
 
