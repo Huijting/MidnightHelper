@@ -12288,3 +12288,107 @@ Elke regel: `- [JJJJ-MM-DD]` + emoji + vette kop, met de code-toetsing erin
     en niet mijn werk; ik meld het alleen, het Dual Spec-werk van 21 nov wordt aangekondigd in
     `CHANGELOG_570_12` (`Locales/enUS.lua:4278`) en is dus van vóór deze bump, niet van vandaag. ⚠️ `docs/NEXT_SESSION.md` heb ik bewust **niet** bijgewerkt: mijn
     opdracht verbiedt elk ander bestand dan dit.
+- [2026-11-28] ✅ **Nul [MOET GEFIKST]. Technisch een stille dag op élke as — geen nieuwe build, geen nieuw
+  hotfix-artikel, geen nieuwe API-changes-regel, geen SimC-release. De enige echte vondst van vandaag is een
+  CACHE-VAL die ik heb opgelost in plaats van overgenomen: een derde partij meldde "Hotfixes of 27 November" terwijl
+  Blizzard zelf nog op 25 nov staat — het blijkt een game-file-diff te zijn, geen Blizzard-tekst.**
+  - 🔎 **GEMETEN en UITGEZOCHT — de "nieuwere" hotfix van 27 nov is GEEN Blizzard-artikel.** `1mw.io/en/news`
+    (mét `?nocache=20261128`) zette bovenaan *"Hotfixes of 27 November — 27 Nov 2026, 13:41 UTC · Build
+    1.60.1.71139"*. Dat is precies het omgekeerde van het cache-patroon waar mijn opdracht voor waarschuwt (een bron
+    die NIEUWER claimt dan de officiële pagina), dus nagelopen in plaats van overgenomen. Op
+    `1mw.io/en/news/patch-notes` staat wat het is, letterlijk: *"1 changes: 1 spells, 0 talents, 0 items. **Read from
+    the game files; Blizzard has not announced all of them.**"* — inhoud: **Rogue → Vanish → "Spell behaviour
+    changed"**, zonder enig detail over wát. Drie Blizzard-kanten zeggen onafhankelijk dat er geen nieuwer artikel is:
+    `news/24315281` (mét `?nocache=20261128b`) heeft **November 25, 2026** nog als bovenste datumsectie, de forumdraad
+    `t/2403040` heet nog *"WoW: Forever Hotfixes - November 25, 2026"*, en de blue tracker van warcraftmaps (*"Last
+    checked 28 Nov, 02:23 UTC"*) heeft 25 nov nog als nieuwste. 📌 Conclusie: **geen Blizzard-tekst om aan de code te
+    toetsen**, dus voor mij geen vondst. Wel een pointer voor de content- en data-wachters: wij noemen Vanish wél, en
+    met getallen — `ForeverTrainerData.lua:905` (`l = 22, id = 1856, c = 4500`) en `:947` (`l = 42, id = 1857,
+    c = 22000`), plus de keybind-teksten in `ForeverHowToPlay.lua:271`/`:281`/`:714`/`:735`/`:754`/`:757`. GEMETEN:
+    **73** treffers op `vanish` in onze `.lua` buiten `Libs/` en `dist/`; positieve controle in dezelfde run en scope:
+    `stealth` → **145**. ⚠️ Een "spell behaviour changed" uit een game-file-lezer is geen bewijs dat één van die
+    getallen onjuist is, en ik kan het niet meten: er is geen nieuwe build en geen Blizzard-regel. Niet aangeraakt.
+  - 💬 **[RAAKT ONS NIET] — één nieuwe forumreactie sinds mijn vorige run, en hij brengt geen feit.** In de draad
+    *"Forever dual spec UI issue"* (`t/forever-dual-spec-ui-issue/2429994`) antwoordde speler **Elvenbane**, **27 nov
+    01:37**, letterlijk: *"I believe there's a CVar for it (or at least ElvUI has a checkbox to stop the behavior) but
+    I'm not sure what it is. AdvancedInterfaceOptions would be the easiest way to check."* Dat is een speler die
+    zélf zegt het niet te weten, geen blue reply en geen CVar-naam — dus **ik noem er ook geen**; een plausibel ogende
+    CVar-naam verzinnen is precies wat mijn opdracht verbiedt. Relevant is wel wat ik wél kon meten: MH zet of leest in
+    totaal **twee** CVars, `ActionButtonUseKeyDown` en `screenshotFormat` (GEMETEN: alle `SetCVar`/`GetCVar`-literalen
+    over de `.lua` buiten `Libs/`; positieve controle, zelfde scope: **44** `SetCVar|GetCVar`-aanroepen). Er is dus
+    geen action-bar-CVar in onze code die dit gedrag zou kunnen aan- of uitzetten, en er komt vanuit Blizzard nog
+    niets. 🟠 **De twee punten van gisteren blijven dus staan zoals ze stonden, met nul nieuwe feiten**: de ontbrekende
+    waarschuwing bij ons Dual Spec-advies (`ForeverHowToPlay.lua:71`, `FDONOW_DUALSPEC`) en de client als derde
+    plaatsingsbron voor `/mh ranks watch` (`ForeverRanks.lua:1378-1382`). Robs keuze, niet de mijne.
+  - 🏗️ **Géén nieuwe client-build, op geen van de vijf takken — tweede dag op rij.** GEMETEN eerstehands met
+    `git ls-remote --heads` op `Gethe/wow-ui-source` (geen proxy nodig): `forever` = **`d9c22e32`** (= 71139),
+    `live` = **`ab5cb850`** (= tag `12.1.5`), `beta` = **`078d0cf7`**, `ptr` = **`fbb18ce1`** (= tag `12.1.7`),
+    `ptr2` = **`12380f8c`** — alle vijf byte-voor-byte gelijk aan mijn regel van gisteren. Tweede, onafhankelijke
+    controle op `wago.tools/builds?nocache=20261128`: bovenste regel nog steeds `1.60.1` **71139** / branch `wowf`,
+    gedetecteerd **2026-11-25 19:13:07**; retail `wow` 12.1.5 **70961** (17 nov), PTR `wowt` 12.1.7 **71087** (20 nov),
+    `wow_classic` 5.5.4 **71089** (24 nov). 🔴 Cachecontrole: deze regels zijn **gelijk** aan gisteren en niet ouder,
+    dus stilstand en geen cache. 📌 Dus opnieuw **geen** DB2-vergelijking: `docs/WATCHER_FOREVER.md` eist die bij een
+    NIEUWE build. De vier tabellen die al dagen niet te meten zijn (`SpellLevels`, `SpellEquippedItems`,
+    `ItemDamageTwoHand`/`OneHand`, de talentbomen) blijven ongemeten — onveranderd, niet "in orde". ⚠️ `wago.tools`
+    blijft geweigerd op `curl` (egress-proxy, HTTP 403), dus dit liep via Exa.
+  - 📄 **[RAAKT ONS NIET] — de API-changes-pagina's zijn onveranderd, en de vierde bestaat nog niet.**
+    `Patch_12.1.7/API_changes`: dezelfde twee Summary-items (GUID server-/spawn-ID-obfuscatie, *"This change will be
+    available for testing in a future build of 12.1.7"*; en *"TOC directives no longer expand variables such as [Game]
+    or [Family]"*). `Patch_12.1.5/API_changes`: blue posts nog t/m **29 sep**. `Patch_1.60.1/API_changes`: notable
+    changes nog t/m **7 okt** (build 70291), blue posts t/m **16 okt**. Alle drie buiten de 7-dagenregel. 🆕 GEMETEN
+    vandaag: `Patch_12.2.0/API_changes` **bestaat nog niet** (`CRAWL_NOT_FOUND`) terwijl de 12.1.7-pagina er al naar
+    verwijst als *"Next patch"* — dus de volgende patch heeft nog geen API-pagina om te volgen. De Forever Beta
+    Development Notes (`t/2360696`) staan nog op *"Updated November 2"* — 26 dagen oud.
+  - 📰 **[RAAKT ONS NIET] — geen nieuw hotfix-artikel, op geen van beide games.** Forever: nieuwste is
+    *"WoW: Forever Hotfixes - November 25, 2026"* (`news/24315281`), al op 26 nov per trefwoord aan de code getoetst.
+    Retail: nieuwste is *"Hotfixes: November 24, 2026"* (`news/24307310`), ook al gelezen; de enige regel daarin is de
+    Ascendant Venomstone-tabel — geen UI-, addon- of API-sectie. Op het UI-and-Macro-forum is er sinds gisteren **geen
+    nieuwe draad**: de nieuwste activiteit is **27 nov** (*"Help with keybindings!"* en de dual-spec-draad hierboven,
+    beide al afgehandeld).
+  - 🧰 **SimC-addon: geen nieuwe release sinds `12.1.5-05`.** GEMETEN eerstehands met `git ls-remote`: **259** echte
+    tags (`^{}`-regels eruit) — hetzelfde aantal als de afgelopen zeven dagen — en `refs/heads/master` =
+    **`d0f2255`** = `refs/tags/12.1.5-05` (20 nov, al afgehandeld op 21/22 nov). Niets nieuws te toetsen aan
+    `ItemString` of `ns.BuildSimcProfile` in `Modules/SimcExport.lua`.
+  - **Forever:** alles hierboven met `wowf`, `forever`, `1.60.1`, Vanish en Dual Spec erin is de Forever-kant van deze
+    run; samengevat: geen nieuwe `wowf`-build (71139 sinds 25 nov), geen nieuw Forever-hotfix-artikel (25 nov), geen
+    nieuwe regel op `Patch_1.60.1/API_changes`, en de enige beweging is een niet-aangekondigde game-file-wijziging aan
+    Vanish die ik niet kan meten. Nul [MOET GEFIKST] op Forever.
+    - ⚔️ **Wapenadvies: niets dat het register raakt** (gelezen, met de trefwoordenlijst onderaan
+      `docs/forever/WAPENADVIES_FEITEN.md` ernaast: de Forever-hotfixes van 25 nov — geen nieuwer artikel —, de
+      Midnight-hotfixes van 24 nov, het hele UI-and-Macro-forum, de drie API-changes-pagina's, de Forever Beta Dev
+      Notes en de buildtabel). Geen nieuwe Blizzard-tekst over weapon, wand, dual wield, form, poison, imbue, Seal,
+      Weaponmaster, Hack and Slash, Wand Specialization, spell power of weapon skill. 📌 De Vanish-regel hierboven
+      raakt een trainerprijs en een keybind-tekst, geen wapenbewering; de 🟠-rijen van het register staan er
+      onveranderd in.
+  - 🚧 **Wat ik NIET kon lezen.** `warcraft.wiki.gg`, `news.blizzard.com`, `us.forums.blizzard.com` en `wago.tools`
+    blijven geweigerd door de egress-proxy (`curl` op wago gaf HTTP 403); alles liep via Exa, elke URL mét
+    `?nocache=20261128`. Exa levert per pagina een **beperkt aantal tekens**, dus van de lange hotfix- en
+    dev-notes-draden heb ik de kop en het begin, niet de staart. De WoWUIDev-Discord blijft onbereikbaar. De eigen
+    `git ls-remote` op `Gethe/wow-ui-source` en `simulationcraft/simc-addon` deed opnieuw het zwaarste werk zonder
+    proxy. ⚠️ Van de 27-nov-game-file-wijziging heb ik alleen de samenvatting van een derde partij, niet de files
+    zelf — gelabeld als zodanig hierboven.
+  - ⏳ **Nog open uit eerdere runs — ongewijzigd, NIET opnieuw gemeten vandaag.** Niets af vandaag, niets nieuw op de
+    lijst (de twee 🟠-punten van gisteren staan hierboven en blijven open). De rest ongewijzigd: de twee
+    registervragen van 26 nov (`413`/`414` versus `293`, en de Shaman-rij voor Dual Wield met `Availability 0`); de
+    vier DB2-tabellen die niet in één Exa-pagina passen; of 71091/71139 de realm-ID-obfuscatie bevat (zit in de
+    engine, niet in wow-ui-source); de koppelteken-aanname in de losse `Creature%-`-patronen
+    (`ForeverVendors.lua:747`/`:1237`, `ForeverWeapons.lua:659`); de dode `PickupItem`-takken in
+    `Modules/KeyBlock.lua:1135`/`:1227`/`:1380` en `Modules/ApplyLayout.lua:1311`/`:1345`/`:1605`; de vijf
+    decoratieve `GetItemInfo`-terugvaltakken; de verouderde namespace-lijst in `docs/WATCHER_API_PROMPT.md` (18 aug,
+    noemt 57 namespaces en kent de twee TOC's niet); de client-test voor `/mh raidbots`; `GetTimerDuration` toevoegen
+    aan `Modules/ApiProbe.lua:377`; de `FrameStrata`-secret-vraag op `Modules/PartyTargets.lua:517`; de drie
+    `WOW_PROJECT_MAINLINE`-takken in `Libs/LibDBIcon-1.0.lua:533`/`:572`/`:607`; de ongemeten BETEKENIS van *"Edit
+    Mode layouts are now saved separately for each UI type"* voor `Modules/ForeverLayoutCarry.lua`; de
+    shift-klik-taintvraag op `Modules/Achievements.lua:1561`/`:1910`; de in-game-test van `ns.SelfCastMacroWarning`
+    (`Core.lua:4318`); de C_BattleNet-aanname op `Modules/FriendMarks.lua:15`; of `C_LegacySystem` op de
+    Forever-client bestaat; of de player-GUID ongemoeid blijft (nog steeds AFGELEID); en de opruiming van de oude
+    SavedVariables-sleutels na 28 nov — 🔴 **die datum is vandaag; het is niet mijn bestand, ik meld het alleen.**
+    Niets aangeraakt.
+  - 🔧 **Repo-staat: alleen `docs/API_WATCH.md` aangeraakt.** GEMETEN vóór het schrijven: `git status --short`
+    **leeg**, `HEAD` opnieuw **losgeslagen** (`git rev-parse --abbrev-ref HEAD` → `HEAD`), dus eerst
+    `git checkout -B main origin/main`; de top was `0a9b224` *"Nachtcontrole 28 nov: C1 0 nakijken, C2 1 nakijken
+    (waarschijnlijk loos alarm)"*. De kloon is nog steeds ondiep (een `(forced update)`-regel bij de fetch komt
+    daarvan). Positieve controle: `grep -c '^##'` geeft **19** in `MidnightHelper.toc` en **14** in
+    `MidnightHelper_Camelot.toc`, beide gelijk aan gisteren; `## Version` staat nog op **5.11.0**, onveranderd sinds
+    gisteren. ⚠️ `docs/NEXT_SESSION.md` heb ik bewust **niet** bijgewerkt: mijn opdracht verbiedt elk ander bestand
+    dan dit.
