@@ -1,5 +1,17 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 28 nov (Bouwchat 28-11): levend blok — "Learn now at your trainer" + geld (`/reload`)
+
+Rob via Sparring 28-11 (screenshot: nieuwe Troll Warrior 1, Protection, 0 koper; Battle Shout stond nergens, GEMETEN),
+letterlijk: *"Ja, dat is een goed idee. Maar dan moet je wel vertellen dat ze eerst, volgens mij is het overal 10 koper,
+even 10 koper moeten verzamelen door wat te killen."* ForeverHowToPlay.lua LearnNow(): boven "Next" de NIEUWE
+trainerspells (geen hogere rangen: die staan al in het trainervenster en Do this now) van jouw level of lager die je niet
+kent, met de bloktoets (KeyOfMap, gedeeld met LiveNext; NewSpell = dezelfde regel als Next). Prijs = som van `c` uit
+ForeverTrainerData (koper), tegen GetMoney(); te weinig → FHOWTO_EARLY_MONEY_FMT met het tekort (S.Money, geen vaste "10").
+PLAYER_MONEY ververst alleen als die regel een prijs heeft en je (bijna) te kort komt. 2 sleutels in 7 talen (it = Engels).
+Offline: live_test (warrior 1 met 0/4/10 koper, oude indeling Shift-X, 12x4 Ctrl-Q, geleerd = weg; rangen nooit in de
+regel, met positieve controle), 720 blokken, early_test 8/8. Niet in het spel getest.
+
 ## ▶▶ 28 nov (Bouwchat 28-11): levend blok — "Low on health?" en de wand los (`/reload`)
 
 673892d ✅ door Rob in het spel getest op hunter en priest (screenshots, via Sparring; afgevinkt). Rob via Sparring,

@@ -25,6 +25,17 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 28 nov — FOREVER het levende blok: "Learn now at your trainer" + geld
+
+`/reload` is genoeg. Offline getest (live_test: Robs warrior-situatie, oude indeling én 12x4), NIET in het spel.
+Kijk in het venster Zo speel je (blok "Until level …"), boven de regel "Next:".
+- [ ] Nieuwe warrior, level 1, **0 koper**: "**Learn now at your trainer:** Battle Shout (key Shift-X)." (in 12x4:
+      key Ctrl-Q), en eronder "You still need 10 koper for that: kill a few enemies and loot them (and sell grey items
+      to a vendor)." (het bedrag met de muntjes).
+- [ ] Dezelfde warrior, nu met **10 koper of meer**: de Battle Shout-regel staat er nog, de geldzin is weg (vanzelf,
+      binnen een seconde na het looten).
+- [ ] Battle Shout geleerd: de hele "Learn now"-regel is weg.
+
 ## 28 nov — FOREVER het levende blok: "Low on health?" en de wand los
 
 `/reload` is genoeg. Offline getest (live_test: Robs priest-situatie), NIET in het spel.

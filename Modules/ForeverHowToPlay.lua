@@ -1874,12 +1874,8 @@ local function LiveNow(token)
 	return out
 end
 
---- "Next: at level X you get <spell> (key Y)." — the next NEW trainer spells (no higher ranks of a spell you have),
---- from the trainer data and its own rules (race, faction, talent: ns.ForeverTrainerCompute). nil when none is known.
-local function LiveNext(token, lvl, now)
-	if not ns.ForeverTrainerCompute then
-		return nil
-	end
+--- English spell name -> { code } of the block key that holds it (its first, real place before a fallback place).
+local function KeyOfMap()
 	local cls = ns.ForeverBlockClassTable and select(2, pcall(ns.ForeverBlockClassTable))
 	local keyOf = {}
 	if type(cls) == "table" and cls.keys and ns.ForeverBlockKeyNames then
@@ -1894,6 +1890,63 @@ local function LiveNext(token, lvl, now)
 			end
 		end
 	end
+	return keyOf
+end
+
+local function NewSpell(e, now)
+	return not (e.req and #e.req > 0) and not KnownAny({ e.id }) and not (now and now.byEn[e.n])
+end
+
+-- Last "Learn now" sum and whether the purse was short, so PLAYER_MONEY only refreshes the page when it matters.
+local learnNeed, learnShort = nil, false
+
+--- 28 Nov 2026 (Rob's new Troll Warrior, level 1, 0 copper, via Sparring 28-11: "Ja, dat is een goed idee. Maar dan moet
+--- je wel vertellen dat ze eerst ... even 10 koper moeten verzamelen door wat te killen."). Battle Shout (level 1, 10c)
+--- was nowhere: "Next" only looks above your level. So: "Learn now at your trainer: <spell> (key Y)." for every NEW
+--- trainer spell (no higher ranks; the trainer window and Do this now list those) of your level or lower that you do
+--- not know yet, and, when GetMoney() is below their summed price (the trainer data's own `c`, in copper), how much
+--- you still need and how to get it. Enough money: no money sentence. Returns the lines, or nil.
+local function LearnNow(lvl, now)
+	learnNeed, learnShort = nil, false
+	if not ns.ForeverTrainerCompute then
+		return nil
+	end
+	local ok, out = pcall(ns.ForeverTrainerCompute, lvl)
+	if not ok or type(out) ~= "table" then
+		return nil
+	end
+	local keyOf = KeyOfMap()
+	local items, cost = {}, 0
+	for _, e in ipairs(out.now or {}) do
+		if NewSpell(e, now) then
+			local name = (C_Spell and C_Spell.GetSpellName and C_Spell.GetSpellName(e.id)) or e.n
+			local k = keyOf[e.n]
+			items[#items + 1] = k and ns:L("FHOWTO_EARLY_NEXT_KEY_FMT"):format(name, KeyText(k.code)) or name
+			cost = cost + (tonumber(e.c) or 0)
+		end
+	end
+	if #items == 0 then
+		return nil
+	end
+	local line = "**" .. ns:L("FHOWTO_EARLY_LEARN_HEAD") .. "** " .. table.concat(items, ", ") .. "."
+	local have = GetMoney and GetMoney()
+	learnNeed = cost
+	if type(have) == "number" and cost > have then
+		learnShort = true
+		local S = ns.ForeverStyle
+		local short = (S and S.Money) and S.Money(cost - have) or (tostring(cost - have) .. "c")
+		line = line .. "\n" .. ns:L("FHOWTO_EARLY_MONEY_FMT"):format(short)
+	end
+	return line
+end
+
+--- "Next: at level X you get <spell> (key Y)." — the next NEW trainer spells (no higher ranks of a spell you have),
+--- from the trainer data and its own rules (race, faction, talent: ns.ForeverTrainerCompute). nil when none is known.
+local function LiveNext(token, lvl, now)
+	if not ns.ForeverTrainerCompute then
+		return nil
+	end
+	local keyOf = KeyOfMap()
 	local at = lvl
 	for _ = 1, 6 do
 		local ok, out = pcall(ns.ForeverTrainerCompute, at)
@@ -1902,9 +1955,7 @@ local function LiveNext(token, lvl, now)
 		end
 		local items = {}
 		for _, e in ipairs(out.next or {}) do
-			local newSpell = not (e.req and #e.req > 0) and not KnownAny({ e.id })
-				and not (now and now.byEn[e.n])
-			if newSpell and #items < 3 then
+			if NewSpell(e, now) and #items < 3 then
 				local name = (C_Spell and C_Spell.GetSpellName and C_Spell.GetSpellName(e.id)) or e.n
 				local k = keyOf[e.n]
 				items[#items + 1] = k and ns:L("FHOWTO_EARLY_NEXT_KEY_FMT"):format(name, KeyText(k.code)) or name
@@ -2053,6 +2104,10 @@ local function EarlyBlock(token)
 			if k then
 				parts[#parts + 1] = ns:L(s[2]):format(k.name, "**" .. k.label .. "**")
 			end
+		end
+		local learn = LearnNow(lvl, now)
+		if learn then
+			parts[#parts + 1] = learn
 		end
 		local nxt = LiveNext(token, lvl, now)
 		if nxt then
@@ -2446,8 +2501,16 @@ end
 local lvlEv = CreateFrame("Frame")
 pcall(lvlEv.RegisterEvent, lvlEv, "PLAYER_LEVEL_UP")
 pcall(lvlEv.RegisterEvent, lvlEv, "SPELLS_CHANGED")
+-- 28 Nov 2026: and on money, but only while the "Learn now" line has a price and the purse is (or was) short of it.
+pcall(lvlEv.RegisterEvent, lvlEv, "PLAYER_MONEY")
 local lvlQueued = false
-lvlEv:SetScript("OnEvent", function()
+lvlEv:SetScript("OnEvent", function(_, event)
+	if event == "PLAYER_MONEY" then
+		local have = GetMoney and GetMoney() or 0
+		if not learnNeed or not (learnShort or have < learnNeed) then
+			return
+		end
+	end
 	if lvlQueued then
 		return
 	end

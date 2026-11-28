@@ -336,6 +336,8 @@ for k, v in pairs({
 	FHOWTO_EARLY_NEXT_HEAD = "Дальше:",
 	FHOWTO_EARLY_NEXT_FMT = "на %d-м уровне вы получите %s.",
 	FHOWTO_EARLY_NEXT_KEY_FMT = "%s (клавиша %s)",
+	FHOWTO_EARLY_LEARN_HEAD = "Выучите сейчас у наставника:",
+	FHOWTO_EARLY_MONEY_FMT = "Для этого вам не хватает %s: убейте нескольких врагов и обыщите их (и продайте серые предметы торговцу).",
 	FHOWTO_EARLY_AUTO_FMT = "%s включается сам, когда вы нажимаете %s. Остановился? %s.",
 	FHOWTO_EARLY_MELEE_FMT = "Враг рядом с вами? %s (%s), с оружием ближнего боя в руке.",
 	FHOWTO_EARLY_NEAR_FMT = "Враг близко? %s (%s), затем отойдите.",

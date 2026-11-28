@@ -323,6 +323,8 @@ for k, v in pairs({
 	FHOWTO_EARLY_NEXT_HEAD = "Ensuite :",
 	FHOWTO_EARLY_NEXT_FMT = "au niveau %d, tu obtiens %s.",
 	FHOWTO_EARLY_NEXT_KEY_FMT = "%s (touche %s)",
+	FHOWTO_EARLY_LEARN_HEAD = "À apprendre maintenant chez ton maître :",
+	FHOWTO_EARLY_MONEY_FMT = "Pour cela, il te manque encore %s : tue quelques ennemis et fouille-les (et vends les objets gris à un marchand).",
 	FHOWTO_EARLY_AUTO_FMT = "%s démarre tout seul quand tu appuies sur %s. Arrêté ? %s.",
 	FHOWTO_EARLY_MELEE_FMT = "L'ennemi est à côté de toi ? %s (%s), avec une arme de corps à corps en main.",
 	FHOWTO_EARLY_NEAR_FMT = "L'ennemi est proche ? %s (%s), puis recule.",

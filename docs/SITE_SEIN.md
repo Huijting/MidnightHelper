@@ -59,6 +59,10 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 - Speler ziet:    Zit je onder het level waarop je rol begint (bv. een Hunter onder 10: de pet), dan staat bovenaan
                   How you play → Start een blokje met je toetsen van nu en een volgorde die nu al werkt. Het blokje
                   verdwijnt vanzelf op dat level.
+                  Sinds later op 28 nov: elk character onder 10 krijgt het blokje, het groeit mee per level (Now /
+                  Order now / Next), en het zegt welke nieuwe spell je nu al bij je trainer kunt leren, met de toets en
+                  hoeveel geld je nog mist ("kill a few enemies and loot them"). Hunter, priest en warlock getest door
+                  Rob (28 nov); de trainer-regel nog niet.
 - Knoplabels:     FHOWTO_EARLY_TITLE_FMT (titel, geen knop)
 - Commando's:     /mh play
 - Spel:           Forever
