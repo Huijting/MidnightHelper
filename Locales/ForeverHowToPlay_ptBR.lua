@@ -226,7 +226,7 @@ Uma **postura** é um jeito de lutar que você liga com uma tecla. Você está s
 - **Shift-1** = Trovoada (6): atinge vários inimigos de uma vez. Postura de Batalha e Postura de Defesa. Recarga de 6 segundos.
 - **V** = Cortar Tendão (8): deixa o inimigo bem lento por 15 segundos. Postura de Batalha e Postura de Berserker.
 - **F1** = Fúria Sanguinária (10): dá Raiva na hora e mais um pouco ao longo de alguns segundos. Custa um pouco de vida. Recarga de 1 minuto.
-- **Nível 10, Postura de Defesa** (de uma missão): **Ctrl-2** liga essa postura. A mesma missão dá **5** = Fender Armadura (toda postura) e, na Postura de Defesa, **F** = Provocar. **Provocar** = fazer o inimigo atacar você. Recarga de 8 segundos.
+- **Nível 10, Postura de Defesa** (de uma missão): **Ctrl-2** liga essa postura. A mesma missão dá **5** = Fender Armadura e, na Postura de Defesa, **F** = Provocar. **Provocar** = fazer o inimigo atacar você. Recarga de 8 segundos.
 - Disparar Arco, Disparar Pistola, Disparar Besta e Lançar vão em teclas Alt suas (bloco D). Você recebe o que combina com sua arma de longo alcance. Use para **puxar**: acertar um inimigo de longe, para ele vir até você.]] },
 		{ "Ordem simples", [[
 Postura de Batalha ligada (Ctrl-1), Brado de Batalha (Shift-X). Investida (R) para entrar. Dilacerar (Shift-Z), depois Golpe Heroico (1) de novo e de novo. Vários inimigos? Trovoada (Shift-1).]] },
@@ -236,7 +236,7 @@ Postura de Batalha ligada (Ctrl-1), Brado de Batalha (Shift-X). Investida (R) pa
 - 20: Cutilada no Shift-4, Batida no Shift-C, Ímpeto da Vitória no F2 (só nos 20 segundos depois de você matar um inimigo que dá EXP; cura você um pouco; recarga de 30 segundos), Retaliação no C (Postura de Batalha). 22: Brado Intimidador no Shift-Q. 24: Executar no 4 (Postura de Batalha e Postura de Berserker; só quando o inimigo está com 20% de vida ou menos).
 - 26: Brado Desafiador no Shift-F. 28: Muralha de Escudos no C (Postura de Defesa).
 - 30: Postura de Berserker no Ctrl-3. Nela: Interceptar no R, Raiva Incontrolada no Shift-V. 36: Redemoinho no 2 (Berserker). 38: Murro no E (Berserker). 50: Temeridade no Q (Berserker).
-- Talentos: Último Recurso no X e Uivo Perfurante no Shift-R (lentidão em área), no mínimo 20. Golpe Lanceador no F3 (Postura de Batalha) e Golpes Imprudentes no Shift-F1, 25. Golpes a Esmo no Q (Postura de Batalha), Desejo de Matar no Shift-3, Pancada de Concussão no Shift-V (um atordoamento; na Postura de Berserker esta tecla é Raiva Incontrolada), 30. Golpe Mortal, Sede de Sangue ou Escudada no 3, 40.]] },
+- Talentos: Último Recurso no X e Uivo Perfurante no Shift-R (lentidão em área), no mínimo 20. Golpe Lanceador no F3 (Postura de Batalha) e Golpes Imprudentes no Shift-F1, 25. Golpes a Esmo no Q (Postura de Batalha), Desejo de Matar no Shift-3, Pancada de Concussão no Shift-V (um atordoamento), 30. Golpe Mortal, Sede de Sangue ou Escudada no 3, 40.]] },
 		{ "Erros de iniciante", [[
 - Apertar uma tecla na postura errada. Provocar só funciona na Postura de Defesa, Subjugar só na Postura de Batalha. Na postura errada a tecla não faz nada. Olhe sua postura primeiro.
 - Investida na Postura de Defesa. Lá ela só funciona com o talento **Vanguarda**. Sem ele, você recebe um erro vermelho.
@@ -335,7 +335,7 @@ O Xamã não tem posturas. **Lobo Fantasma** (nível 20, no R) é uma forma para
 		{ "Totens e buffs de arma", [[
 Um **totem** é um pequeno objeto que você coloca no chão. Ele ajuda você ou seu grupo, ou fere inimigos, enquanto está de pé. Os totens pertencem a quatro elementos: Terra, Fogo, Água e Ar. Você pode ter um totem de cada elemento por vez. Um novo substitui o antigo.
 - Cada elemento tem um item de totem que você ganha numa missão de classe: Totem da Terra (nível 4, ou 3 para um celonato), Totem do Fogo (10), Totem da Água (20), Totem do Ar (30). Você precisa desse item nas bolsas para todos os totens daquele elemento.
-- Antes do nível 20, cada totem tem sua própria tecla: Totem Litopele (Z), Totem de Prisão Terrena (V), Totem da Garra de Pedra (F), Totem da Força da Terra (Shift-X), Totem Calcinante (5), Totem Sísmico (Shift-F).
+- Antes do nível 20, cada totem tem sua própria tecla: Totem Litopele (**Z**), Totem de Prisão Terrena (**V**), Totem da Garra de Pedra (**F**), Totem da Força da Terra (**Shift-X**), Totem Calcinante (**5**), Totem Sísmico (**Shift-F**).
 - A partir do nível 20 o jogo lhe dá uma **Barra de totens**. Nela você escolhe um totem por elemento. Então uma tecla coloca todos eles: **Ctrl-1** = Chamado dos Elementos (20), **Ctrl-2** = Chamado dos Antepassados (30), **Ctrl-3** = Chamado dos Espíritos (40). Cada um coloca até 4 totens da sua própria página da Barra de totens. Tem 3 segundos de conjuração e custa a mana de todos os totens que coloca.
 - **Shift-R** = Chamado Totêmico (22): leva seus totens até você. Revocação Totêmica (20, bloco D) recolhe eles e devolve um quarto da mana deles.
 Um **buff de arma** coloca poder na sua arma por 60 minutos. Você tem um por vez. Arma Trinca-pedra (1), Arma de Labaredas (10), Arma da Marca Gélida (20) e Arma de Fúria dos Ventos (30) vão em teclas Alt suas (bloco D). Escolha o que combina com o seu jeito de jogar.]] },

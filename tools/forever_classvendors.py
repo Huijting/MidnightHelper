@@ -50,8 +50,11 @@ SPELLS = {
     "MAGE": [("any", 17031, [3561, 3562, 3563, 3565, 3566, 3567, 1297659]),  # Teleport: ... -> Rune of Teleportation
              ("any", 17032, [10059, 11416, 11417, 11418, 11419, 11420]),  # Portal: ... -> Rune of Portals
              ("any", 17020, [23028])],  # Arcane Brilliance -> Arcane Powder
-    "PRIEST": [("any", 17028, [21562]),  # Prayer of Fortitude 1 -> Holy Candle
-               ("any", 17029, [21564, 27683, 27681])],  # -> Sacred Candle
+    # 28 Nov 2026 (Fable check via Sparring 28-11): Prayer of Fortitude rank 1 (21562, Holy Candle 17028) and rank 2
+    # (21564, Sacred Candle 17029) are RANKS: a level-60 priest knows both but casts rank 2, so only the highest counts.
+    # Before, rank 1 was its own "any" group and such a priest read "You have no Holy Candle". GEMETEN SpellReagents 71139.
+    "PRIEST": [("rank", None, [21562, 21564]),  # Prayer of Fortitude ranks -> Holy Candle / Sacred Candle
+               ("any", 17029, [27683, 27681])],  # Prayer of Shadow Protection, Prayer of Spirit -> Sacred Candle
     "PALADIN": [("any", 17033, [19752]),  # Divine Intervention -> Symbol of Divinity
                 ("any", 21177, [25782, 25916, 25894, 25918, 25898])],  # Greater Blessings -> Symbol of Kings
     "SHAMAN": [("any", 17030, [20608])],  # Reincarnation -> Ankh

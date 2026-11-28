@@ -228,7 +228,7 @@ Una **actitud** es una forma de luchar que activas con una tecla. Siempre estás
 - **Shift-1** = Atronar (6): golpea a varios enemigos a la vez. Actitud de batalla y Actitud defensiva. Reutilización de 6 segundos.
 - **V** = Seccionar (8): ralentiza mucho al enemigo durante 15 segundos. Actitud de batalla y Actitud rabiosa.
 - **F1** = Ira sangrienta (10): te da Ira enseguida y un poco más durante unos segundos. Cuesta un poco de salud. Reutilización de 1 minuto.
-- **Nivel 10, Actitud defensiva** (de una misión): **Ctrl-2** la activa. La misma misión da **5** = Hender armadura (todas las actitudes) y, en Actitud defensiva, **F** = Provocar. **Provocar** = hacer que el enemigo te ataque a ti. Reutilización de 8 segundos.
+- **Nivel 10, Actitud defensiva** (de una misión): **Ctrl-2** la activa. La misma misión da **5** = Hender armadura y, en Actitud defensiva, **F** = Provocar. **Provocar** = hacer que el enemigo te ataque a ti. Reutilización de 8 segundos.
 - Disparar arco, Disparar arma de fuego, Disparar ballesta y Lanzar van en tus propias teclas Alt (bloque D). Recibes el que va con tu arma a distancia. Úsalo para hacer **pull**: golpear a un enemigo desde lejos, para que venga hacia ti.]] },
 		{ "Orden sencillo", [[
 Activa Actitud de batalla (Ctrl-1), Grito de batalla (Shift-X). Entra con Cargar (R). Desgarrar (Shift-Z), y luego Golpe heroico (1) una y otra vez. ¿Varios enemigos? Atronar (Shift-1).]] },
@@ -238,7 +238,7 @@ Activa Actitud de batalla (Ctrl-1), Grito de batalla (Shift-X). Entra con Cargar
 - 20: Rajar en Shift-4, Embate en Shift-C, Ataque de la victoria en F2 (solo en los 20 segundos después de matar a un enemigo que da PE; te cura un poco; reutilización de 30 segundos), Represalias en C (Actitud de batalla). 22: Grito intimidador en Shift-Q. 24: Ejecutar en 4 (Actitud de batalla y Actitud rabiosa; solo cuando el enemigo tiene un 20% de salud o menos).
 - 26: Grito desafiante en Shift-F. 28: Muro de escudo en C (Actitud defensiva).
 - 30: Actitud rabiosa en Ctrl-3. En ella: Interceptar en R, Ira rabiosa en Shift-V. 36: Torbellino en 2 (rabiosa). 38: Zurrar en E (rabiosa). 50: Temeridad en Q (rabiosa).
-- Talentos: Última carga en X y Aullido perforador en Shift-R (una ralentización en área), como pronto en el 20. Golpe de lanza en F3 (Actitud de batalla) y Golpes temerarios en Shift-F1, 25. Golpes de barrido en Q (Actitud de batalla), Deseo de muerte en Shift-3, Arremetida de conmoción en Shift-V (un aturdimiento; en Actitud rabiosa esta tecla es Ira rabiosa), 30. Golpe mortal, Sed de sangre o Embate con escudo en 3, 40.]] },
+- Talentos: Última carga en X y Aullido perforador en Shift-R (una ralentización en área), como pronto en el 20. Golpe de lanza en F3 (Actitud de batalla) y Golpes temerarios en Shift-F1, 25. Golpes de barrido en Q (Actitud de batalla), Deseo de muerte en Shift-3, Arremetida de conmoción en Shift-V (un aturdimiento), 30. Golpe mortal, Sed de sangre o Embate con escudo en 3, 40.]] },
 		{ "Errores de principiante", [[
 - Pulsar una tecla en la actitud equivocada. Provocar solo funciona en Actitud defensiva, Abrumar solo en Actitud de batalla. En la actitud equivocada la tecla no hace nada. Mira primero tu actitud.
 - Cargar en Actitud defensiva. Allí solo funciona con el talento **Vanguardia**. Sin él, recibes un error en rojo.
@@ -337,7 +337,7 @@ El Chamán no tiene actitudes. **Lobo fantasmal** (nivel 20, en R) es una forma 
 		{ "Tótems y buffs de arma", [[
 Un **tótem** es un pequeño objeto que colocas en el suelo. Te ayuda a ti o a tu grupo, o hace daño a los enemigos, mientras está en pie. Los tótems pertenecen a cuatro elementos: Tierra, Fuego, Agua y Aire. Puedes tener un tótem de cada elemento a la vez. Uno nuevo sustituye al anterior.
 - Cada elemento tiene un objeto Tótem que consigues con una misión de clase: Tótem de tierra (nivel 4, o 3 para los cielonatos), Tótem de fuego (10), Tótem de agua (20), Tótem de aire (30). Necesitas ese objeto en tus bolsas para todos los tótems de ese elemento.
-- Antes del nivel 20, cada uno de tus tótems tiene su propia tecla: Tótem Piel de piedra (Z), Tótem Nexo Terrestre (V), Tótem Garra de piedra (F), Tótem Fuerza de la tierra (Shift-X), Tótem abrasador (5), Tótem de tremor (Shift-F).
+- Antes del nivel 20, cada uno de tus tótems tiene su propia tecla: Tótem Piel de piedra (**Z**), Tótem Nexo Terrestre (**V**), Tótem Garra de piedra (**F**), Tótem Fuerza de la tierra (**Shift-X**), Tótem abrasador (**5**), Tótem de tremor (**Shift-F**).
 - A partir del nivel 20 el juego te da una **barra de tótems**. En ella eliges un tótem por elemento. Luego una sola tecla los coloca todos: **Ctrl-1** = Llamada de los elementos (20), **Ctrl-2** = Llamada de los ancestros (30), **Ctrl-3** = Llamada de los espíritus (40). Cada una coloca hasta 4 tótems de su propia página de la barra de tótems. Tiene 3 segundos de lanzamiento y cuesta el maná de todos los tótems que coloca.
 - **Shift-R** = Llamado totémico (22): mueve tus tótems hasta ti. Regreso totémico (20, bloque D) los recoge y te devuelve una cuarta parte de su maná.
 Un **buff de arma** pone poder en tu arma durante 60 minutos. Tienes uno a la vez. Arma Muerdepiedras (1), Arma Lengua de Fuego (10), Arma Estigma de Escarcha (20) y Arma Viento Furioso (30) van en tus propias teclas Alt (bloque D). Elige el que va con tu forma de jugar.]] },

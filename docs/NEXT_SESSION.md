@@ -1,5 +1,24 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 28 nov (Bouwchat 28-11): Fable-feitencheck sinds v5.11.0 — 6 van 9 gebouwd (`/reload`)
+
+Robs vooraf-ja via Sparring 28-11 (zie de sectie hieronder, dezelfde zin). GEBOUWD:
+(1) Munitie: ns.ForeverAmmoHave (ForeverClassVendors.lua) telt alle munitie van je soort in je tassen + ammo-slot (item
+class 6, subclass 2 pijl / 3 kogel, GEMETEN DB2 Item 71139 op 7 items incl. Forever 274387/274388), plus de winkellijst;
+in de Do this now-regel en de grote melding. (4) HowToPlay Warrior "Sunder Armor (every stance)" → zonder die toevoeging
+(fout in 12x4), 8 talen. (5) Shaman totemregel: de toetsen tussen haakjes vet (Searing (**5**) was "(lvl 5)"), 8 talen.
+(7) Prayer of Fortitude rang 1/2 = één "rank"-groep (tools/forever_classvendors.py + opnieuw --emit; alleen de 2
+Priest-regels veranderden; GEMETEN SpellReagents 21562→17028, 21564→17029). (8) Rogue Q: guardFree = Death Mark (engine
+ForeverBlock.lua BodyRaw); GEMETEN SpellMisc Attributes_1 0x20 op Death Mark 1316709 + 3 rangen, Sprint, Vanish, Cold
+Blood; niet op Adrenaline Rush, Evasion, Blade Flurry (betekenis 0x20 AFGELEID). (9) "Concussion Blow on Shift-V (a stun)"
+zonder de Berserker-toevoeging (fout in 12x4), 8 talen.
+NIET GEBOUWD: (2) Cooking/First Aid Artisan: alleen GEMETEN dat de quests bestaan (Wowhead Forever 6610 Clamlette
+Surprise, 6622/6624 Triage); skill 225 + level 35 alleen uit gidsen, SpellLevels heeft geen rij voor vakrangen. (3) Twijfel
+(levels per vakrang, Expert/Artisan-trainers): niet hard te krijgen. (6) Enchanting 7421 Runed Copper Rod / 7418:
+GEMETEN SkillLineAbility AcquireMethod 1 (zoals 2660, die bij het vak hoort), maar ze ontbreken in
+ForeverRecipeSourceData.lua, en dat bestand vraagt twee bronnen per soort; DB2 is er één → niet zelf toegevoegd.
+fable9_test geslaagd; lvl_test 16/16 (Shaman 27 → 26, overal gelijk).
+
 ## ▶▶ 28 nov (Bouwchat 28-11): drie fixes uit de Fable-meetronde (`/reload`)
 
 Rob vooraf via Sparring 28-11, letterlijk: *"Je weet dat ik toch je advies volg, dus op het moment dat die binnenkomt, dan

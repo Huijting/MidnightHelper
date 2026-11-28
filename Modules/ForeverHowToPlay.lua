@@ -220,7 +220,7 @@ A **stance** is a way of fighting that you switch on with a key. You are always 
 - **Shift-1** = Thunder Clap (6): hits several enemies at once. Battle and Defensive Stance. Cooldown 6 seconds.
 - **V** = Hamstring (8): slows the enemy a lot for 15 seconds. Battle and Berserker Stance.
 - **F1** = Bloodrage (10): gives you Rage right away and a bit more over a few seconds. It costs a little health. Cooldown 1 minute.
-- **Level 10, Defensive Stance** (from a quest): **Ctrl-2** turns it on. The same quest gives **5** = Sunder Armor (every stance) and, in Defensive Stance, **F** = Taunt. **Taunt** = make the enemy attack you. Cooldown 8 seconds.
+- **Level 10, Defensive Stance** (from a quest): **Ctrl-2** turns it on. The same quest gives **5** = Sunder Armor and, in Defensive Stance, **F** = Taunt. **Taunt** = make the enemy attack you. Cooldown 8 seconds.
 - Shoot Bow, Shoot Gun, Shoot Crossbow and Throw go on your own Alt keys (block D). You get the one that fits your ranged weapon. Use it to **pull**: hit one enemy from far away, so it comes to you.]] },
 		{ "Simple order", [[
 Battle Stance on (Ctrl-1), Battle Shout (Shift-X). Charge (R) in. Rend (Shift-Z), then Heroic Strike (1) again and again. Several enemies? Thunder Clap (Shift-1).]] },
@@ -230,7 +230,7 @@ Battle Stance on (Ctrl-1), Battle Shout (Shift-X). Charge (R) in. Rend (Shift-Z)
 - 20: Cleave on Shift-4, Slam on Shift-C, Victory Rush on F2 (only in the 20 seconds after you kill an enemy that gives XP; it heals you a bit; cooldown 30 seconds), Retaliation on C (Battle Stance). 22: Intimidating Shout on Shift-Q. 24: Execute on 4 (Battle and Berserker Stance; only when the enemy is at 20% health or less).
 - 26: Challenging Shout on Shift-F. 28: Shield Wall on C (Defensive Stance).
 - 30: Berserker Stance on Ctrl-3. In it: Intercept on R, Berserker Rage on Shift-V. 36: Whirlwind on 2 (Berserker). 38: Pummel on E (Berserker). 50: Recklessness on Q (Berserker).
-- Talents: Last Stand on X and Piercing Howl on Shift-R (an area slow), 20 at the earliest. Spearing Strike on F3 (Battle Stance) and Reckless Swings on Shift-F1, 25. Sweeping Strikes on Q (Battle Stance), Death Wish on Shift-3, Concussion Blow on Shift-V (a stun; in Berserker Stance this key is Berserker Rage instead), 30. Mortal Strike, Bloodthirst or Shield Slam on 3, 40.]] },
+- Talents: Last Stand on X and Piercing Howl on Shift-R (an area slow), 20 at the earliest. Spearing Strike on F3 (Battle Stance) and Reckless Swings on Shift-F1, 25. Sweeping Strikes on Q (Battle Stance), Death Wish on Shift-3, Concussion Blow on Shift-V (a stun), 30. Mortal Strike, Bloodthirst or Shield Slam on 3, 40.]] },
 		{ "Beginner mistakes", [[
 - Pressing a key in the wrong stance. Taunt only works in Defensive Stance, Overpower only in Battle Stance. In the wrong stance the key does nothing. Look at your stance first.
 - Charge in Defensive Stance. It only works there with the **Vanguard** talent. Without it, you get a red error.
@@ -329,7 +329,7 @@ The Shaman has no stances. **Ghost Wolf** (level 20, on R) is a form for running
 		{ "Totems and weapon buffs", [[
 A **totem** is a small object you place on the ground. It helps you or your group, or hurts enemies, while it stands. Totems belong to four elements: Earth, Fire, Water and Air. You can have one totem of each element at a time. A new one replaces the old one.
 - Each element has a Totem item that you get from a class quest: Earth (level 4, or 3 for the Skyborne), Fire (10), Water (20), Air (30). You need that item in your bags for all totems of that element.
-- Before level 20, your totems each have their own key: Stoneskin (Z), Earthbind (V), Stoneclaw (F), Strength of Earth (Shift-X), Searing (5), Tremor (Shift-F).
+- Before level 20, your totems each have their own key: Stoneskin (**Z**), Earthbind (**V**), Stoneclaw (**F**), Strength of Earth (**Shift-X**), Searing (**5**), Tremor (**Shift-F**).
 - From level 20 the game gives you a **totem bar**. On it you pick one totem per element. Then one key places them all: **Ctrl-1** = Call of the Elements (20), **Ctrl-2** = Call of the Ancestors (30), **Ctrl-3** = Call of the Spirits (40). Each one places up to 4 totems from its own page of the totem bar. It has a 3-second cast and costs the mana of all the totems it places.
 - **Shift-R** = Totemic Call (22): moves your totems to you. Totemic Recall (20, block D) takes them back and gives you a quarter of their mana back.
 A **weapon buff** puts power on your weapon for 60 minutes. You have one at a time. Rockbiter (1), Flametongue (10), Frostbrand (20) and Windfury (30) go on your own Alt keys (block D). Pick the one that fits how you play.]] },

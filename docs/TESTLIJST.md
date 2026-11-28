@@ -25,6 +25,17 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 28 nov — FOREVER Fable-feitencheck: munitie, Death Mark, Prayer of Fortitude, 3 teksten
+
+`/reload` is genoeg. Offline getest (fable9_test, lvl_test 16/16), NIET in het spel.
+- [ ] Hunter met munitie die NIET in de winkel ligt (bv. Thorium Shells, zelfgemaakte kogels, of Forever's Swiftfeather
+      Arrow): Do this now zegt niet meer "Out of ammo (0 left)" en je krijgt geen grote melding zolang je er genoeg hebt.
+- [ ] Rogue met Death Mark (talent op 40), in Stealth: Q werkt nu (Death Mark breekt Stealth niet). Met Adrenaline Rush
+      doet Q in Stealth nog steeds niets.
+- [ ] Priest op level 60 met Prayer of Fortitude rang 2: geen "You have no Holy Candle" meer; alleen Sacred Candle telt.
+- [ ] Warrior, How you play: bij Sunder Armor staat niet meer "(every stance)"; bij Concussion Blow staat alleen "(a stun)".
+- [ ] Shaman, How you play → "Totems and weapon buffs": "Searing (**5**)" is een vette toets, geen "(lvl 5)".
+
 ## 28 nov — FOREVER drie kleine fixes: Lacerate, grijze "Not learned yet"-regel, Priest Shield
 
 `/reload` is genoeg. Offline getest (fix3_test), NIET in het spel.

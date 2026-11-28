@@ -219,7 +219,7 @@ Een **stance** is een manier van vechten die je met een toets aanzet. Je staat a
 - **Shift-1** = Thunder Clap (6): raakt meerdere vijanden tegelijk. Battle en Defensive Stance. Cooldown 6 seconden.
 - **V** = Hamstring (8): vertraagt de vijand flink, 15 seconden lang. Battle en Berserker Stance.
 - **F1** = Bloodrage (10): geeft je meteen Rage en nog wat meer over een paar seconden. Het kost een beetje health. Cooldown 1 minuut.
-- **Level 10, Defensive Stance** (uit een quest): **Ctrl-2** zet hem aan. Dezelfde quest geeft **5** = Sunder Armor (elke stance) en, in Defensive Stance, **F** = Taunt. **Taunt** = de vijand jou laten aanvallen. Cooldown 8 seconden.
+- **Level 10, Defensive Stance** (uit een quest): **Ctrl-2** zet hem aan. Dezelfde quest geeft **5** = Sunder Armor en, in Defensive Stance, **F** = Taunt. **Taunt** = de vijand jou laten aanvallen. Cooldown 8 seconden.
 - Shoot Bow, Shoot Gun, Shoot Crossbow en Throw komen op je eigen Alt-toetsen (blok D). Je krijgt degene die bij je ranged wapen past. Gebruik hem om te **pullen**: raak één vijand van ver weg, zodat hij naar jou toe komt.]] },
 		{ "Simpele volgorde", [[
 Battle Stance aan (Ctrl-1), Battle Shout (Shift-X). Charge (R) erin. Rend (Shift-Z), dan steeds weer Heroic Strike (1). Meerdere vijanden? Thunder Clap (Shift-1).]] },
@@ -229,7 +229,7 @@ Battle Stance aan (Ctrl-1), Battle Shout (Shift-X). Charge (R) erin. Rend (Shift
 - 20: Cleave op Shift-4, Slam op Shift-C, Victory Rush op F2 (alleen in de 20 seconden nadat je een vijand doodt die XP geeft; hij healt je een beetje; cooldown 30 seconden), Retaliation op C (Battle Stance). 22: Intimidating Shout op Shift-Q. 24: Execute op 4 (Battle en Berserker Stance; alleen als de vijand op 20% health of minder staat).
 - 26: Challenging Shout op Shift-F. 28: Shield Wall op C (Defensive Stance).
 - 30: Berserker Stance op Ctrl-3. Daarin: Intercept op R, Berserker Rage op Shift-V. 36: Whirlwind op 2 (Berserker). 38: Pummel op E (Berserker). 50: Recklessness op Q (Berserker).
-- Talents: Last Stand op X en Piercing Howl op Shift-R (vertraagt alles om je heen), op z'n vroegst 20. Spearing Strike op F3 (Battle Stance) en Reckless Swings op Shift-F1, 25. Sweeping Strikes op Q (Battle Stance), Death Wish op Shift-3, Concussion Blow op Shift-V (een stun; in Berserker Stance is deze toets in plaats daarvan Berserker Rage), 30. Mortal Strike, Bloodthirst of Shield Slam op 3, 40.]] },
+- Talents: Last Stand op X en Piercing Howl op Shift-R (vertraagt alles om je heen), op z'n vroegst 20. Spearing Strike op F3 (Battle Stance) en Reckless Swings op Shift-F1, 25. Sweeping Strikes op Q (Battle Stance), Death Wish op Shift-3, Concussion Blow op Shift-V (een stun), 30. Mortal Strike, Bloodthirst of Shield Slam op 3, 40.]] },
 		{ "Beginnersfouten", [[
 - Een toets indrukken in de verkeerde stance. Taunt werkt alleen in Defensive Stance, Overpower alleen in Battle Stance. In de verkeerde stance doet de toets niets. Kijk eerst naar je stance.
 - Charge in Defensive Stance. Daar werkt hij alleen met het talent **Vanguard**. Zonder dat krijg je een rode foutmelding.
@@ -328,7 +328,7 @@ De Shaman heeft geen stances. **Ghost Wolf** (level 20, op R) is een form om te 
 		{ "Totems en weapon buffs", [[
 Een **totem** is een klein voorwerp dat je op de grond zet. Zolang hij staat, helpt hij jou of je groep, of doet hij vijanden pijn. Totems horen bij vier elementen: Earth, Fire, Water en Air. Je kunt één totem van elk element tegelijk hebben. Een nieuwe vervangt de oude.
 - Elk element heeft een Totem-item dat je uit een class-quest krijgt: Earth (level 4, of 3 voor de Skyborne), Fire (10), Water (20), Air (30). Je hebt dat item in je tassen nodig voor alle totems van dat element.
-- Voor level 20 heeft elke totem een eigen toets: Stoneskin (Z), Earthbind (V), Stoneclaw (F), Strength of Earth (Shift-X), Searing (5), Tremor (Shift-F).
+- Voor level 20 heeft elke totem een eigen toets: Stoneskin (**Z**), Earthbind (**V**), Stoneclaw (**F**), Strength of Earth (**Shift-X**), Searing (**5**), Tremor (**Shift-F**).
 - Vanaf level 20 geeft het spel je een **totem bar**. Daarop kies je één totem per element. Dan zet één toets ze allemaal neer: **Ctrl-1** = Call of the Elements (20), **Ctrl-2** = Call of the Ancestors (30), **Ctrl-3** = Call of the Spirits (40). Elk zet tot 4 totems neer van zijn eigen pagina van de totem bar. Hij heeft een cast van 3 seconden en kost de mana van alle totems die hij neerzet.
 - **Shift-R** = Totemic Call (22): verplaatst je totems naar jou. Totemic Recall (20, blok D) haalt ze terug en geeft je een kwart van hun mana terug.
 Een **weapon buff** zet 60 minuten lang kracht op je wapen. Je hebt er één tegelijk. Rockbiter (1), Flametongue (10), Frostbrand (20) en Windfury (30) komen op je eigen Alt-toetsen (blok D). Kies degene die past bij hoe je speelt.]] },

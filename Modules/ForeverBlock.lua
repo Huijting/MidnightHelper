@@ -532,7 +532,12 @@ BodyRaw = function(cls, key)
 	end
 	local base, baseId, baseEn = FirstFor(cls, key, def.base)
 	if base then
-		local guard = (guarded and not def.open and cls.baseGuard) and (cls.baseGuard .. " ") or ""
+		-- 28 Nov 2026 (Fable check via Sparring 28-11): def.guardFree = spells on a guarded key that do NOT break Stealth,
+		-- so they keep working in it. GEMETEN DB2 wowf 71139 SpellMisc Attributes_1 bit 0x20: Death Mark 1316709 has it,
+		-- like Sprint 2983, Vanish 1856 and Cold Blood 14177; Adrenaline Rush 13750, Evasion and Blade Flurry do not.
+		-- That 0x20 means "does not break Stealth" is AFGELEID (the server's flag names), matching those four.
+		local free = def.guardFree and baseEn and def.guardFree[baseEn]
+		local guard = (guarded and not def.open and not free and cls.baseGuard) and (cls.baseGuard .. " ") or ""
 		clauses[#clauses + 1] = WithMouseover(guard, baseEn) .. use(base, baseId)
 	end
 	if #clauses == 0 then

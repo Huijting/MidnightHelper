@@ -35,7 +35,7 @@ ns.FOREVER_BLOCK_CLASSES.ROGUE = {
 		["SHIFT-1"] = { guard = true, base = "Blade Flurry" },
 		["SHIFT-2"] = { gun = "Shoot Gun", bow = "Shoot Bow", xbow = "Shoot Crossbow", base = "Throw" },
 		["SHIFT-3"] = { all = "Shank" },
-		["Q"] = { guard = true, base = { "Adrenaline Rush", "Death Mark" } },
+		["Q"] = { guard = true, guardFree = { ["Death Mark"] = true }, base = { "Adrenaline Rush", "Death Mark" } },
 		["F1"] = { all = "Cold Blood" },
 		["F3"] = { all = "Preparation" },
 		["SHIFT-F1"] = { all = "Riposte" },
@@ -69,7 +69,7 @@ ns.FOREVER_BLOCK_CLASSES.ROGUE = {
 		-- default tree) key 3 stayed empty all game while Shank (trainer, level 24) sat on Shift-3. Now Shank is the fallback.
 		["3"] = { all = { "Mutilate", "Hemorrhage", "Shank" }, why = "talent builder: Mutilate or Hemorrhage; Shank without them" },
 		["4"] = { all = "Eviscerate", why = "main finisher: Eviscerate" },
-		["Q"] = { guard = true, base = { "Adrenaline Rush", "Death Mark" }, why = "your level-40 talent: Adrenaline Rush or Death Mark" },
+		["Q"] = { guard = true, guardFree = { ["Death Mark"] = true }, base = { "Adrenaline Rush", "Death Mark" }, why = "your level-40 talent: Adrenaline Rush or Death Mark" },
 		["E"] = { all = "Kick", why = "your interrupt: E is the kick key for every class" },
 		["R"] = { all = "Sprint", why = "movement: Sprint" },
 		["F"] = { stealth = "Pick Pocket", base = "Feint", why = "Feint lowers threat; Pick Pocket from Stealth" },

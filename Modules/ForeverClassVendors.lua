@@ -125,6 +125,56 @@ function ns.ForeverAmmoKind()
 	return nil
 end
 
+--- 28 Nov 2026 (Fable check via Sparring 28-11): ALL ammo of your kind, not only the four shop sorts. Before, a hunter
+--- with Thorium Shells, Crafted Light Shot or Forever's own Swiftfeather Arrow read "Out of ammo (0 left)" and got the
+--- big alert. Every item in your bags (and the ammo slot) with item class 6 (Projectile), subclass 2 (Arrow) or 3
+--- (Bullet), GEMETEN in DB2 Item 71139 (46 ammo items); the shop list is added too, for a bag that is not readable yet.
+local AMMO_SUB = { arrows = 2, bullets = 3 }
+function ns.ForeverAmmoHave(kind)
+	local want = AMMO_SUB[kind or ""]
+	if not want then
+		return 0
+	end
+	local info = (C_Item and C_Item.GetItemInfoInstant) or GetItemInfoInstant
+	local seen, have = {}, 0
+	local function add(id)
+		if type(id) ~= "number" or seen[id] then
+			return
+		end
+		seen[id] = true
+		have = have + Count(id)
+	end
+	local numSlots = (C_Container and C_Container.GetContainerNumSlots) or GetContainerNumSlots
+	local itemId = (C_Container and C_Container.GetContainerItemID) or GetContainerItemID
+	if numSlots and itemId and info then
+		for bag = 0, (NUM_BAG_SLOTS or 4) do
+			local okN, n = pcall(numSlots, bag)
+			for slot = 1, (okN and tonumber(n)) or 0 do
+				local okI, id = pcall(itemId, bag, slot)
+				if okI and type(id) == "number" and Readable(id) and not seen[id] then
+					local okX, _, _, _, _, _, class, sub = pcall(info, id)
+					if okX and class == 6 and sub == want then
+						add(id)
+					end
+				end
+			end
+		end
+	end
+	if GetInventoryItemID and info then -- the ammo slot (0)
+		local okA, id = pcall(GetInventoryItemID, "player", 0)
+		if okA and type(id) == "number" and Readable(id) then
+			local okX, _, _, _, _, _, class, sub = pcall(info, id)
+			if okX and class == 6 and sub == want then
+				add(id)
+			end
+		end
+	end
+	for _, row in ipairs((ns.FOREVER_AMMO or {})[kind] or {}) do
+		add(row[1])
+	end
+	return have
+end
+
 --- The tier (1-4) of the best ammo your level can use, and that item.
 function ns.ForeverAmmoTier(kind)
 	local list = ns.FOREVER_AMMO and ns.FOREVER_AMMO[kind or ns.ForeverAmmoKind() or "arrows"] or {}
@@ -203,11 +253,7 @@ function ns.ForeverClassVendorLines()
 	end
 	local kind = ns.ForeverAmmoKind()
 	if kind then
-		local list = ns.FOREVER_AMMO and ns.FOREVER_AMMO[kind] or {}
-		local have = 0
-		for _, row in ipairs(list) do
-			have = have + Count(row[1])
-		end
+		local have = ns.ForeverAmmoHave(kind)
 		local _, best = ns.ForeverAmmoTier(kind)
 		local name = best and (ItemName(best) or ("#" .. best)) or "?"
 		if have < STACK then
@@ -262,10 +308,7 @@ local function Due(s)
 	local out = {}
 	local kind = ns.ForeverAmmoKind()
 	if kind then
-		local have = 0
-		for _, row in ipairs((ns.FOREVER_AMMO or {})[kind] or {}) do
-			have = have + Count(row[1])
-		end
+		local have = ns.ForeverAmmoHave(kind)
 		if have > s.ammoAt then
 			warned.ammo = nil
 		elseif not warned.ammo then
