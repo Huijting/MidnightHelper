@@ -341,6 +341,12 @@ ns.RECIPE_SOURCE = {
 	[7257] = { k = "S", at = 165 },
 	[7258] = { k = "S", at = 190 },
 	[7259] = { k = "S", at = 190 },
+	-- 28 Nov 2026, ONE source on Rob's ja (via Sparring 28-11: "Ik volg je advies. Dus enchanting ja."; the advice was to
+	-- accept Blizzard's own DB2 here as the only source). GEMETEN DB2 wowf 1.60.1.71139 SkillLineAbility: 4289 (7418
+	-- Enchant Bracer - Minor Health) and 4291 (7421 Runed Copper Rod), SkillLine 333, AcquireMethod 1 = comes with the
+	-- profession, like 2660 Rough Sharpening Stone (1631, Blacksmithing). at = the yellow value (20 and 5), as for K.
+	[7418] = { k = "K", at = 20 },
+	[7421] = { k = "K", at = 5 },
 	[7426] = { k = "T", old = true, at = 40 },
 	[7430] = { k = "T", old = true, npc = { -2857, -11026 }, at = 50 },
 	[7443] = { k = "S", at = 20 },

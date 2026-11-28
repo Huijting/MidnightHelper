@@ -25,6 +25,13 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 28 nov — FOREVER Skill up Enchanting: geen gat meer bij skill 1-5
+
+`/reload` is genoeg. Offline: de route-generator (controles OK, Enchanting zonder gaten tot 300). NIET in het spel.
+- [ ] Een character met Enchanting op skill 1-20: `/mh skillup` → Enchanting → Route to 300. De eerste stap is nu
+      "make … Runed Copper Rod" (tot 7), daarna Enchant Bracer - Minor Health (tot 22). Niet meer "Skill 1 to 5: MH knows
+      no recipe here".
+
 ## 28 nov — FOREVER toetsenplan, laatste stap: Mage Frost (Frostbolt op 1)
 
 `/reload` is genoeg. Offline getest (swap3_test 5/5, beide indelingen), NIET in het spel. Op een mage met het blok:

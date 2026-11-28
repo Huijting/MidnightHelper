@@ -1,5 +1,15 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 28 nov (Bouwchat 28-11): Skill up Enchanting — skill 1-5 heeft een recept (`/reload`)
+
+Rob via Sparring 28-11, letterlijk: *"Ik volg je advies. Dus enchanting ja."* (advies: DB2 hier als enige bron).
+ForeverRecipeSourceData.lua: [7418] k K at 20, [7421] k K at 5, met commentaar "ONE source on Rob's ja" (GEMETEN
+SkillLineAbility 4289/4291, SkillLine 333, AcquireMethod 1, zoals 2660 = 1631 Blacksmithing, die er al stond).
+`run forever_skillroute --emit` (controles OK): alleen de ENCHANTING-regel veranderde, nu "m7421>7,m7418>22,l14293,…",
+geen gaten tot 300 in onze route (de "HOLE"-regels in de uitvoer gaan over Zygors route, niet de onze).
+FSROUTE_HOLE_FMT is een algemene gat-zin; geen route gebruikt hem nu nog, hij blijft als vangnet (niet fout, niet
+aangepast).
+
 ## ▶▶ 28 nov (Bouwchat 28-11): toetsenplan laatste stap — Mage Frost (`/reload`)
 
 Robs go voor de rest van het plan: *"Alleen de hunten eerst en daarna gaan we door voor de rest."* GEBOUWD: cls.dirKeys
