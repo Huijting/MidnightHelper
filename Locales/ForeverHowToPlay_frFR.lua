@@ -317,7 +317,7 @@ Chaque race de Prêtre a deux sorts de Prêtre bien à elle : un au niveau 10 et
 - Ton sort racial de niveau 10 est sur **X** ou **Shift-R** (voir la liste plus haut).
 - **Shift-E** = ta compétence raciale (par exemple Forme de pierre pour un Nain, Camouflage dans l'ombre pour un Elfe de la nuit).]] },
 		{ "Ordre simple", [[
-Bouclier (Z) sur toi. Mot de l'ombre : Douleur (2), Attaque mentale (3), puis Châtiment (1). Peu de mana ? Utilise ta baguette (5). Peu de vie ? Rénovation (F4) ou Soins inférieurs (C).]] },
+Mot de pouvoir : Bouclier (Z) sur toi. Mot de l'ombre : Douleur (2), Attaque mentale (3), puis Châtiment (1). Peu de mana ? Utilise ta baguette (5). Peu de vie ? Rénovation (F4) ou Soins inférieurs (C).]] },
 		{ "Ce qui vient plus tard", [[
 - 12 : Feu intérieur sur Shift-Z. 14 : Guérison des maladies sur Shift-C, Cri psychique sur V (quelques ennemis autour de toi s'enfuient de peur, jusqu'à 8 secondes ; les dégâts peuvent y mettre fin ; cooldown de 30 secondes).
 - 18 : Dissipation de la magie sur Shift-V. 20 : Soins rapides sur F2 (soin rapide), Flammes sacrées sur 4, Entraves des morts-vivants sur Shift-Q, Peste dévorante sur Shift-3, ton sort racial de niveau 20, Gardien de peur (bloc D).

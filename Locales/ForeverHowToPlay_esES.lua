@@ -319,7 +319,7 @@ Cada raza de Sacerdote tiene dos hechizos de Sacerdote propios: uno en el nivel 
 - El hechizo de tu raza de nivel 10 está en **X** o en **Shift-R** (mira la lista de arriba).
 - **Shift-E** = la habilidad de tu raza (por ejemplo Petraforma para un Enano, Fusión de las Sombras para un Elfo de la noche).]] },
 		{ "Orden sencillo", [[
-Escudo (Z) sobre ti. Palabra de las Sombras: Dolor (2), Explosión mental (3), y luego Acometida (1). ¿Poco maná? Usa tu varita (5). ¿Poca salud? Renovar (F4) o Curación inferior (C).]] },
+Palabra de poder: escudo (Z) sobre ti. Palabra de las Sombras: Dolor (2), Explosión mental (3), y luego Acometida (1). ¿Poco maná? Usa tu varita (5). ¿Poca salud? Renovar (F4) o Curación inferior (C).]] },
 		{ "Lo que llega después", [[
 - 12: Fuego interno en Shift-Z. 14: Curar enfermedad en Shift-C, Alarido psíquico en V (unos cuantos enemigos a tu alrededor huyen con miedo hasta 8 segundos; el daño puede terminarlo; reutilización de 30 segundos).
 - 18: Disipar magia en Shift-V. 20: Destello curativo en F2 (cura rápida), Fuego Sagrado en 4, Encadenar no-muerto en Shift-Q, Peste devoradora en Shift-3, el hechizo de tu raza de nivel 20, Custodia de miedo (bloque D).

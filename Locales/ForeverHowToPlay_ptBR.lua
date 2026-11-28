@@ -315,7 +315,7 @@ Cada raça de Sacerdote tem dois feitiços de Sacerdote próprios: um no nível 
 - Seu feitiço de raça do nível 10 está no **X** ou no **Shift-R** (veja a lista acima).
 - **Shift-E** = a habilidade da sua raça (por exemplo Forma de Pedra para um Anão, Fusão Sombria para um Elfo Noturno).]] },
 		{ "Ordem simples", [[
-Escudo (Z) em você mesmo. Palavra Sombria: Dor (2), Impacto Mental (3), depois Punição (1). Pouca mana? Use sua varinha (5). Pouca vida? Renovar (F4) ou Cura Inferior (C).]] },
+Palavra de Poder: Escudo (Z) em você mesmo. Palavra Sombria: Dor (2), Impacto Mental (3), depois Punição (1). Pouca mana? Use sua varinha (5). Pouca vida? Renovar (F4) ou Cura Inferior (C).]] },
 		{ "O que vem depois", [[
 - 12: Fogo Interior no Shift-Z. 14: Curar Doença no Shift-C, Grito Psíquico no V (alguns inimigos ao seu redor fogem de medo por até 8 segundos; dano pode acabar com isso; recarga de 30 segundos).
 - 18: Dissipar Magia no Shift-V. 20: Cura Célere no F2 (cura rápida), Fogo Sagrado no 4, Agrilhoar Morto-vivo no Shift-Q, Peste Devoradora no Shift-3, seu feitiço de raça do nível 20, Proteção contra Medo (bloco D).

@@ -1,5 +1,20 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 28 nov (Bouwchat 28-11): drie fixes uit de Fable-meetronde (`/reload`)
+
+Rob vooraf via Sparring 28-11, letterlijk: *"Je weet dat ik toch je advies volg, dus op het moment dat die binnenkomt, dan
+krijg je vast je ja voor de bouwchat."* (1) Lacerate — open punt van 27 nov AF. GEMETEN door mh-research (DB2 wowf
+1.60.1.71139 + Wowhead Forever): 1328617 = rang 1, talent (lvl 25, TraitDefinition 134410); 1328616 (34) Supercedes
+1328617; 414647 = rankloze lvl-1 "Lacerate". ForeverTrainerData.lua: r109 req {1328617}, tal = 1328617 op de 4
+Lacerate-rijen (met handcommentaar: bestand heet "GENERATED"). ForeverTrainer.lua Fits: tal telt ook als een rang met de
+naam van het talent bekend is (ns.ForeverKnownSpell), zoals de req-regel al deed. (2) NotYetLine: FindWord (geen letter
+ervoor/erna) + een kortere naam die alleen BINNEN een langere gevonden naam staat valt weg. 27 namen staan binnen een
+andere (Heal in Lesser/Flash/Greater/Chain Heal, Wrath in Hammer of Wrath …; lijst in fix3_test-uitvoer). (3) Priest
+Simple order "Shield (Z)" → volle naam in 7 talen (de had hem al), naam uit het eigen bestand. fix3_test geslaagd
+(Druid geen "Heal"; Priest Power Word: Shield, geen losse Heal; Lacerate zonder talent weg, met talent op 34, rang 1 uit
+het boek → rang 3 op 42 nog zichtbaar). lvl_test 16/16. NIET gebouwd (alleen info): Feral telt Bear 10 en Cat 20 in één
+band (Cat's 20 nooit gebruikt); Fury 10-19 toont alleen "Levels 1-10".
+
 ## ▶▶ 28 nov (Bouwchat 28-11): Forever How you play — "(lvl N)" + hunter melee-wapen (`/reload`)
 
 Rob via Sparring 28-11 na zijn test van "Until level 10" (*"Het ziet er goed uit"*), letterlijk *"ja"* op: (1) "(4)" →
@@ -80,7 +95,7 @@ OPEN:
 - Wacht op Robs test van de eenvoudige route (TESTLIJST "27 nov — Skill up: de route eenvoudiger").
 - Wacht op Robs 4 testjes (TESTLIJST "vormen/standen-ronde"): Shadowmeld in beer, Moonkin+C, Shadowform+C/Fear Ward,
   Prowl bonusbar. Daarna pas: Shadowmeld-guard, Moonkin/Shadowform-heals, Fear Ward-tekst, Ravage/Prowl-stand.
-- Lacerate ForeverTrainerData r109 req {414647} vs DB2 (1328616 Supersedes 1328617): niet aangepast, uitzoeken.
+- ~~Lacerate ForeverTrainerData r109 req {414647}~~ AF 28 nov (req {1328617} + tal, zie 28 nov "drie fixes").
 - Opties 1 (geld) en 3 (verzamelplekken): alleen onderzocht, IDEEEN.md; wachten op Robs keuze + zijn testjes.
 - Oude gedeelde account-macro's ("MH 4" e.d.) staan nog in Robs account-lijst; MH raakt ze niet meer; verwijderen pas
   als elk character opnieuw geplaatst heeft (Robs keuze).

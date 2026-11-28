@@ -309,7 +309,7 @@ Every Priest race has two Priest spells of its own: one at level 10 and one at l
 - Your race spell of level 10 is on **X** or **Shift-R** (see the list above).
 - **Shift-E** = your race skill (for example Stoneform for a Dwarf, Shadowmeld for a Night Elf).]] },
 		{ "Simple order", [[
-Shield (Z) on yourself. Shadow Word: Pain (2), Mind Blast (3), then Smite (1). Low on mana? Use your wand (5). Low on health? Renew (F4) or Lesser Heal (C).]] },
+Power Word: Shield (Z) on yourself. Shadow Word: Pain (2), Mind Blast (3), then Smite (1). Low on mana? Use your wand (5). Low on health? Renew (F4) or Lesser Heal (C).]] },
 		{ "What comes later", [[
 - 12: Inner Fire on Shift-Z. 14: Cure Disease on Shift-C, Psychic Scream on V (a few enemies around you run away in fear for up to 8 seconds; damage can end it; cooldown 30 seconds).
 - 18: Dispel Magic on Shift-V. 20: Flash Heal on F2 (quick heal), Holy Fire on 4, Shackle Undead on Shift-Q, Devouring Plague on Shift-3, your race spell of level 20, Fear Ward (block D).
@@ -1425,6 +1425,25 @@ end
 
 local notYetCache = {} -- englishText -> sorted list of names in it (the scan is the same every time)
 
+--- 28 Nov 2026 (Fable check via Sparring 28-11): where `name` stands in `text` as a whole name, or nil. A plain find
+--- let "Heal" (a Priest spell) match inside "Healing Touch" and "Lesser Heal", so a Druid could read "Not learned yet:
+--- Heal". Now a letter right before or after does not count.
+local function FindWord(text, name, init)
+	local from = init or 1
+	while true do
+		local s, e = text:find(name, from, true)
+		if not s then
+			return nil
+		end
+		local before, after = text:sub(s - 1, s - 1), text:sub(e + 1, e + 1)
+		if not before:find("%a") and not after:find("%a") then
+			return s
+		end
+		from = s + 1
+	end
+end
+ns.ForeverHowToFindWord = FindWord -- the offline check calls it
+
 --- The grey "not learned yet" line for an English text, or nil when you know every spell it names.
 local function NotYetLine(token, english)
 	if type(english) ~= "string" or not ns.FOREVER_SPELL_IDS then
@@ -1432,15 +1451,42 @@ local function NotYetLine(token, english)
 	end
 	local names = notYetCache[english]
 	if not names then
-		names = {}
+		-- Every whole-name place of every name; then a shorter name that only stands INSIDE a longer one found here
+		-- ("Heal" in "Lesser Heal", "Shield" in "Power Word: Shield") is dropped.
+		local spots = {} -- { name, s, e }
 		for name in pairs(ns.FOREVER_SPELL_IDS) do
-			if #name >= 4 and english:find(name, 1, true) then
-				names[#names + 1] = name
+			if #name >= 4 then
+				local from = 1
+				while true do
+					local s = FindWord(english, name, from)
+					if not s then
+						break
+					end
+					spots[#spots + 1] = { name, s, s + #name - 1 }
+					from = s + #name
+				end
 			end
+		end
+		local first = {}
+		for _, a in ipairs(spots) do
+			local inside = false
+			for _, b in ipairs(spots) do
+				if #b[1] > #a[1] and b[2] <= a[2] and b[3] >= a[3] then
+					inside = true
+					break
+				end
+			end
+			if not inside and (not first[a[1]] or a[2] < first[a[1]]) then
+				first[a[1]] = a[2]
+			end
+		end
+		names = {}
+		for name in pairs(first) do
+			names[#names + 1] = name
 		end
 		-- The order they appear in the sentence.
 		table.sort(names, function(a, b)
-			return (english:find(a, 1, true) or 0) < (english:find(b, 1, true) or 0)
+			return first[a] < first[b]
 		end)
 		notYetCache[english] = names
 	end

@@ -308,7 +308,7 @@ Elke Priest-race heeft twee eigen Priest-spells: één op level 10 en één op l
 - Je race-spell van level 10 staat op **X** of **Shift-R** (zie de lijst hierboven).
 - **Shift-E** = je race-skill (bijvoorbeeld Stoneform voor een Dwarf, Shadowmeld voor een Night Elf).]] },
 		{ "Simpele volgorde", [[
-Schild (Z) op jezelf. Shadow Word: Pain (2), Mind Blast (3), dan Smite (1). Weinig mana? Gebruik je wand (5). Weinig health? Renew (F4) of Lesser Heal (C).]] },
+Power Word: Shield (Z) op jezelf. Shadow Word: Pain (2), Mind Blast (3), dan Smite (1). Weinig mana? Gebruik je wand (5). Weinig health? Renew (F4) of Lesser Heal (C).]] },
 		{ "Wat er later komt", [[
 - 12: Inner Fire op Shift-Z. 14: Cure Disease op Shift-C, Psychic Scream op V (een paar vijanden om je heen rennen tot 8 seconden lang angstig weg; schade kan het stoppen; cooldown 30 seconden).
 - 18: Dispel Magic op Shift-V. 20: Flash Heal op F2 (snelle heal), Holy Fire op 4, Shackle Undead op Shift-Q, Devouring Plague op Shift-3, je race-spell van level 20, Fear Ward (blok D).

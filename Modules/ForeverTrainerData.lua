@@ -106,7 +106,10 @@ ns.FOREVER_TRAINER_SPELLS = {
 		{ l = 32, id = 1328829, c = 6000, n = "Poised", req = { 768 } },
 		{ l = 32, id = 6785, c = 6000, n = "Ravage", req = { 768 } },
 		{ l = 32, id = 5225, c = 6000, n = "Track Humanoids", req = { 768 } },
-		{ l = 34, id = 1328616, c = 7000, n = "Lacerate", req = { 414647 } },
+		-- 28 Nov 2026 (hand fix, Rob via Sparring 28-11; mh-research, DB2 wowf 1.60.1.71139 + Wowhead Forever): Lacerate
+		-- rank 1 is the TALENT 1328617 (level 25, TraitDefinition 134410); 1328616 (34) SupercedesSpell 1328617. The old
+		-- req 414647 is a rankless level-1 "Lacerate" nothing replaces. tal = only shown to who took the talent.
+		{ l = 34, id = 1328616, c = 7000, n = "Lacerate", req = { 1328617 }, tal = 1328617 },
 		{ l = 34, id = 8972, c = 7000, n = "Maul", req = { 6809 } },
 		{ l = 34, id = 8928, c = 7000, n = "Moonfire", req = { 8927 } },
 		{ l = 34, id = 1823, c = 7000, n = "Rake", req = { 1822 } },
@@ -142,7 +145,7 @@ ns.FOREVER_TRAINER_SPELLS = {
 		{ l = 40, id = 8918, c = 10000, n = "Tranquility", req = { 740 } },
 		{ l = 42, id = 9747, c = 11000, n = "Demoralizing Roar", req = { 9490 } },
 		{ l = 42, id = 9749, c = 11000, n = "Faerie Fire", req = { 778 } },
-		{ l = 42, id = 414644, c = 11000, n = "Lacerate", req = { 1328616 } },
+		{ l = 42, id = 414644, c = 11000, n = "Lacerate", req = { 1328616 }, tal = 1328617 },
 		{ l = 42, id = 9745, c = 11000, n = "Maul", req = { 8972 } },
 		{ l = 42, id = 6787, c = 11000, n = "Ravage", req = { 6785 } },
 		{ l = 42, id = 9750, c = 11000, n = "Regrowth", req = { 8941 } },
@@ -169,7 +172,7 @@ ns.FOREVER_TRAINER_SPELLS = {
 		{ l = 50, id = 9888, c = 18000, n = "Healing Touch", req = { 9758 } },
 		{ l = 50, id = 17401, c = 18000, n = "Hurricane", req = { 16914 } },
 		{ l = 50, id = 24976, c = 18000, n = "Insect Swarm", req = { 24975 } },
-		{ l = 50, id = 1235826, c = 18000, n = "Lacerate", req = { 414644 } },
+		{ l = 50, id = 1235826, c = 18000, n = "Lacerate", req = { 414644 }, tal = 1328617 },
 		{ l = 50, id = 9884, c = 18000, n = "Mark of the Wild", req = { 8907 } },
 		{ l = 50, id = 9880, c = 18000, n = "Maul", req = { 9745 } },
 		{ l = 50, id = 1238069, c = 18000, n = "Primal Bite", req = { 407995 } },
@@ -197,7 +200,7 @@ ns.FOREVER_TRAINER_SPELLS = {
 		{ l = 58, id = 9850, c = 26000, n = "Claw", req = { 9849 } },
 		{ l = 58, id = 9853, c = 26000, n = "Entangling Roots", req = { 9852 } },
 		{ l = 58, id = 18658, c = 26000, n = "Hibernate", req = { 18657 } },
-		{ l = 58, id = 1235827, c = 26000, n = "Lacerate", req = { 1235826 } },
+		{ l = 58, id = 1235827, c = 26000, n = "Lacerate", req = { 1235826 }, tal = 1328617 },
 		{ l = 58, id = 9881, c = 26000, n = "Maul", req = { 9880 } },
 		{ l = 58, id = 9835, c = 26000, n = "Moonfire", req = { 9834 } },
 		{ l = 58, id = 17329, c = 26000, n = "Nature's Grasp", req = { 16813, 9853 } },

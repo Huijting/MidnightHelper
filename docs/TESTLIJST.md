@@ -25,6 +25,15 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 28 nov — FOREVER drie kleine fixes: Lacerate, grijze "Not learned yet"-regel, Priest Shield
+
+`/reload` is genoeg. Offline getest (fix3_test), NIET in het spel.
+- [ ] Druid op level 34 of hoger ZONDER het talent Lacerate: de trainer-lijst noemt Lacerate niet meer (ook niet onder
+      "Needs something else first"). MET het talent: Lacerate rang 2 staat er op 34 gewoon bij.
+- [ ] Druid, How you play → Simple order: de grijze regel "Not learned yet" noemt nooit een losse "Heal".
+- [ ] Priest onder level 6: de volgorde begint met "Power Word: Shield (Z)", en de grijze regel noemt "Power Word: Shield
+      (level 6)". Geen losse "Heal" (alleen "Lesser Heal" als je die nog niet hebt).
+
 ## 28 nov — FOREVER How you play: "(lvl 4)" en Raptor Strike heeft een melee-wapen nodig
 
 `/reload` is genoeg. Offline getest (lvl_test: 8 talen x 2 indelingen, aantal levels per class gelijk aan het Engels),

@@ -236,7 +236,16 @@ local function Compute(level)
 			end
 		end
 		if e.tal and not KnownId(e.tal) then
-			return false -- a talent spell: only for whoever took the talent
+			-- 28 Nov 2026 (Lacerate): a higher rank may push the talent's rank 1 out of the spellbook, like the req check
+			-- below allows for; then any known rank of that name counts as having the talent.
+			local byName = false
+			if C_Spell and C_Spell.GetSpellName and ns.ForeverKnownSpell then
+				local okN, tn = pcall(C_Spell.GetSpellName, e.tal)
+				byName = okN and type(tn) == "string" and ns.ForeverKnownSpell(tn) and true or false
+			end
+			if not byName then
+				return false -- a talent spell: only for whoever took the talent
+			end
 		end
 		return true
 	end
