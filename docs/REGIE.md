@@ -10,10 +10,10 @@ leest dit eerst en werkt het aan het eind bij. Plan: `docs/PLAN_WERKWIJZE_2026-1
 
 ## 0. Laatste verslag
 
-- [2026-11-27] 🎬 **Regie** (cloud-ronde, ochtend) — Raakt Rob: 5.11.0 staat sinds 26 nov op CurseForge (tag `v5.11.0` = `.toc` 5.11.0, `ce0ad85`; `SITE_SEIN.md` r. 31; site-repo `built_from.json` = `v5.11.0`, site 26 nov 22:40 +0100 `d2fdee3`, ~34 uur oud); Rob testte Move en de Aquatic Form-keten (geslaagd). 🆕 API-wachter 27 nov: de addon ADVISEERT sinds 21 nov Dual Spec op Forever, en spelers melden dat elke spec-wissel bar-slots overschrijft; Rob moet wegen. 12.1.7: 1/2 dec (AFGELEID, build blijft 71087). Site-briefje 235 regels, grens 200; `BOUW_VRAAG.md` "## Open": "(geen)".
-  Scheef: NIEUW (a) Dual Spec-advies naast spec-wissel die bars overschrijft (zie tabel 5); (b) site-briefje 235 (gisteren 225). AF herkend: Oath of Light "1 hour" staat in code (`c481d664`); `NEXT_SESSION.md` 1425 regels (gisteren 1754), onder 1500. Blijft: Sunder Armor-rapport; Holy Paladin; draaiboek r. 15 "testdata"; C2 blinde vlek 776; 5 ideeënvoorstellen; Self Cast niet in het spel gezien. Nachtcontrole 27 nov: C1 0 / C2 0 nakijken, Forever-snapshot weer actueel.
-  Wachters: alle vijf dagelijkse hebben een regel van 27 nov (commits 03:22-05:05 UTC); ideeënbus zondag 22 nov. Wacht op Rob: 4 punten.
-  Niet gelezen: de pc (lokale commits, helpers, recepten), CurseForge zelf, mail, wachters inhoudelijk op "overgeslagen" (alleen koppen en de 27 nov-regels), tabel 2 niet voor alle 320 `docs/*.md` naast elkaar, `docs/forever/` onderzoek niet inhoudelijk, wie `NEXT_SESSION.md` kortte (niet uitgezocht), Dual Spec-melding van spelers en Sunder Armor-rapport niet getoetst (overgenomen uit wachters).
+- [2026-11-28] 🎬 **Regie** (cloud-ronde, ochtend) — Raakt Rob: niets nieuws te testen sinds 27 nov; 5.11.0 blijft op CurseForge (tag `v5.11.0` = `.toc` 5.11.0; site-repo `built_from.json` = `v5.11.0`, laatste site-push 26 nov 22:40 +0100 `d2fdee3`, ~57 uur oud). Nieuw op `main` sinds gisteren: 14 bouwchat-commits van 27 nov (o.a. Dual Spec-waarschuwing `a508cda`, reagents/munitie, Skill up-route, één MH-venster tegelijk). `BOUW_VRAAG.md` "## Open": "(geen)".
+  Scheef: NIEUW (a) `NEXT_SESSION.md` is 1589 regels, grens 1500: eerst splitsen vóór er iets bij komt; (b) content-wachter 28 nov 🔴: de Cenarion Circle-tip (`FREP_HOW_CENARION`, `enUS.lua:6420`) beschrijft een methode die Blizzard "intentionally unavailable" noemt (zie tabel 5). AF herkend: Dual Spec-waarschuwing staat in code (`a508cda`, `FDONOW_DUALSPEC_BARS` `enUS.lua:6293`; wacht op test). Blijft: site-briefje 235; Sunder Armor-rapport; Holy Paladin; draaiboek r. 15 "testdata"; C2 blinde vlek 776; 5 ideeënvoorstellen; Self Cast niet in het spel gezien. Nachtcontrole 28 nov: C1 0, C2 1 nakijken (item 428, volgens de wachter waarschijnlijk loos alarm), snapshot actueel.
+  Wachters: alle vijf dagelijkse hebben een regel van 28 nov (commits 03:25-05:04 UTC); ideeënbus zondag 22 nov (29 nov is de volgende). Wacht op Rob: 4 punten.
+  Niet gelezen: de pc (lokale commits, helpers, recepten), CurseForge zelf, mail, wachters inhoudelijk op "overgeslagen" (alleen koppen en de 28 nov-regels), `docs/forever/` onderzoek niet inhoudelijk, wie `NEXT_SESSION.md` boven 1500 liet komen (niet uitgezocht), Sunder Armor-rapport en Cenarion dev note niet getoetst (overgenomen uit wachters), of de nieuwe functies van 27 nov in `TESTLIJST.md` staan (alleen de Dual Spec-regel in de commit gezien).
 
 De regisseur vervangt dit blok elke ronde door het nieuwe verslag. Eén verslag, niet een logboek: de vorige staat in git.
 
@@ -74,13 +74,13 @@ sinds 11 nov **`regisseur`** (`/regisseur` of "doe de regie-ronde"; doet hoofdst
 
 ## 3. Stand van het plan
 
-| # | wat | stand (GEMETEN 27 nov op `main`, alle rijen nagelopen) |
+| # | wat | stand (GEMETEN 28 nov op `main`, alle rijen nagelopen) |
 |---|---|---|
 | 1 | Toets (6 vragen) en ideeënlijst | ✅ af |
 | 2 | Prikbord en drie vaste woorden | ✅ af (`docs/SITE_SEIN.md`) |
 | 3 | Controles C1, C3, C5 | C1 en C3 ✅ in de lint. C5 ✅ gebouwd (`c9d3e66`, in `/mh selftest`). |
 | 4 | Controles C2 en C4 | ✅ gebouwd (`tools/data_check.py`). C4: 65 → 3 namen over (commit `f08366b`, Robs ja). |
-| 5 | Nachtcontrole en ideeënbus | ✅ draaien. Nachtcontrole 27 nov: C1 en C2 0 nakijken (Forever-snapshot actueel). Ideeënbus liep zo 22 nov (3 voorstellen). |
+| 5 | Nachtcontrole en ideeënbus | ✅ draaien. Nachtcontrole 28 nov: C1 0, C2 1 nakijken (snapshot actueel). Ideeënbus liep zo 22 nov (3 voorstellen). |
 | 5b | **De regisseur** (deel 8) | ✅ gebouwd 11 nov (`f34b15f`): routine en recept. Proefrun `c24bbe4` vond de drie testpunten. |
 | 6 | Recepten | niet begonnen |
 | 7 | `/mh selftest` + vensterlijst | ✅ gebouwd (`c9d3e66`); Robs selftest in Midnight schoon (`41675dd`). Forever-kant niet gemeten. |
@@ -98,16 +98,18 @@ sinds 11 nov **`regisseur`** (`/regisseur` of "doe de regie-ronde"; doet hoofdst
 
 | wat | gemeten | wie moet iets doen |
 |---|---|---|
-| 5 voorstellen van de ideeënbus (2 van 15 nov, 3 van 22 nov) staan nog onder "Voorstellen van de wachter" in `docs/IDEEEN.md` (kop r. 1972; voorstelkoppen r. 1983, 2007, 2034, 2054, 2076) | 27 nov, GEMETEN: `grep -n "^### "` na r. 1972 (5 koppen) | bouwchat: naar Open of Nee met reden |
-| Self Cast-waarschuwing: dicht in code (`a73bfb5`), maar **niet in het spel gezien** (zie lijst 4, punt 1; `TESTLIJST.md` r. 3063-3098 staat nog open) | 27 nov, GEMETEN: `TESTLIJST.md` gegrept, `Core.lua:4727` `MACROS_WARN_SELFCAST_FMT` bestaat; in het spel niet gezien | Rob of Cisca test; daarna gaat de rij weg |
-| `CLAUDE.md` is 324 regels (gisteren 324), lint [24] grens 350 | 27 nov, GEMETEN met `wc -l` (324) en `claude_limit = 350` (`tools/lint_addon.py:1799`) | niemand; blijf meten |
-| Overdrachtsbriefje site (`drafts/SITE_HANDOFF.md`) is **235 regels, grens 200** (26 nov: 225; 25 nov: 167) | 27 nov, GEMETEN met `wc -l` op `origin/main` van de site-repo; grens uit het briefje zelf (r. 4) | site-chat: oudste blokken naar `SITE_HISTORY.md` |
-| **Blinde vlek:** de site-chat pusht alleen met Robs ja; de cloud ziet de site-repo zoals bij de laatste push (laatste echte push 26 nov 22:40 +0100, `d2fdee3`, overdracht; 5.11.0 staat op de site, `data/built_from.json` = `v5.11.0`). `drafts/BOUW_VRAAG.md` onder "## Open": "(geen)". Wat lokaal nog niet gepusht is, zie ik niet. | 27 nov, GEMETEN op `origin/main` van de site-repo | niemand; alleen het pc-recept ziet lokale commits |
+| 5 voorstellen van de ideeënbus (2 van 15 nov, 3 van 22 nov) staan nog onder "Voorstellen van de wachter" in `docs/IDEEEN.md` (kop r. 2049; voorstelkoppen r. 2060, 2084, 2111, 2131, 2153) | 28 nov, GEMETEN: `grep -n "^### "` na r. 1972 (6 koppen, de eerste r. 1985 hoort bij "Af"; 5 onder de kop) | bouwchat: naar Open of Nee met reden |
+| Self Cast-waarschuwing: dicht in code (`a73bfb5`), maar **niet in het spel gezien** (zie lijst 4, punt 1; `TESTLIJST.md` r. 3212 e.v. staat nog open) | 28 nov, GEMETEN: `Core.lua:4742` `MACROS_WARN_SELFCAST_FMT` bestaat, `TESTLIJST.md` r. 3212 "waarschuwing Self Cast Key"; in het spel niet gezien | Rob of Cisca test; daarna gaat de rij weg |
+| `CLAUDE.md` is 324 regels (gisteren 324), lint [24] grens 350 | 28 nov, GEMETEN met `wc -l` (324) en `claude_limit = 350` (`tools/lint_addon.py:1799`) | niemand; blijf meten |
+| Overdrachtsbriefje site (`drafts/SITE_HANDOFF.md`) is **235 regels, grens 200** (27 nov: 235; 26 nov: 225) | 28 nov, GEMETEN met `wc -l` op `origin/main` van de site-repo; grens uit het briefje zelf (r. 4) | site-chat: oudste blokken naar `SITE_HISTORY.md` |
+| **Blinde vlek:** de site-chat pusht alleen met Robs ja; de cloud ziet de site-repo zoals bij de laatste push (laatste echte push 26 nov 22:40 +0100, 28 nov nog gelijk, `d2fdee3`, overdracht; 5.11.0 staat op de site, `data/built_from.json` = `v5.11.0`). `drafts/BOUW_VRAAG.md` onder "## Open": "(geen)". Wat lokaal nog niet gepusht is, zie ik niet. | 28 nov, GEMETEN op `origin/main` van de site-repo | niemand; alleen het pc-recept ziet lokale commits |
 | Holy Paladin: Method.gg (13 okt) zegt Eternal Flame als hoofdbesteding, onze kaart `PLAYCARD_65_S3` zegt Word of Glory (`enUS.lua:1972`, spell 85673); Icy Veins zegt "of" | 27 nov GEMETEN: `enUS.lua:1972` gelezen; bron `CONTENT_WATCH.md` overgenomen | Rob/Cisca in het spel; bouwchat past de kaart aan als dat klopt |
 | 🆕 Onbevestigd Forever-rapport (6 bronnen, niet Blizzard): Sunder Armor/Faerie Fire/Expose Armor nemen in dungeons amper pantser weg. Onze tips raden ze aan: `ForeverBlock_Warrior.lua:41` en `:99`, `ForeverHowToPlay.lua:505` en `:509` | 27 nov, `CONTENT_WATCH.md` overgenomen; Warrior-regels (nog aanwezig, 41 en 99) zelf gelezen, rapport niet getoetst | bouwchat: wachten op bevestiging of in het spel meten; nog niet aanpassen |
-| Nachtcontrole: C2 blinde vlek 24 -> 290 (19 nov) -> 774 (22 nov) -> 775 (23 nov) -> 776 (27 nov, ongewijzigd), nog niet uitgezocht; wijst op gewijzigde checker of nieuwe code. Snapshot is weer actueel (27 nov). | 27 nov, `NACHTCONTROLE.md` r. 63 overgenomen, zelf niet gemeten | bouwchat: blinde vlek uitzoeken |
+| Nachtcontrole: C2 blinde vlek 24 -> 290 (19 nov) -> 774 (22 nov) -> 775 (23 nov) -> 776 (28 nov, ongewijzigd sinds 25 nov), nog niet uitgezocht; wijst op gewijzigde checker of nieuwe code. Snapshot actueel. | 28 nov, `NACHTCONTROLE.md` r. 66 overgenomen, zelf niet gemeten | bouwchat: blinde vlek uitzoeken |
 | 12.1.7 krijgt datum 1 dec (VS) / 2 dec (EU); draaiboek r. 15 zegt nog "testdata"  | 27 nov, GEMETEN in draaiboek r. 15 ("testdata"); laatste draaiboek-commit 23 nov (`a987a4ca`); datum overgenomen uit `PTR_12.1_WATCH.md`, zelf niet in Blizzards bron | bouwchat: draaiboek bijwerken; Rob beslist over de release |
-| 🆕 **Dual Spec op Forever:** de addon adviseert het sinds 21 nov (`ForeverHowToPlay.lua:71`, `ForeverDoNow.lua:569-581`, `ForeverTalentNext.lua`), spelers melden dat elke spec-wissel spells over bestaande bar-slots en macro's heen zet | 27 nov, `API_WATCH.md` r. 12162 overgenomen (hun 39 treffers); spelersmelding niet getoetst | Rob weegt; bouwchat kijkt of het advies een waarschuwing nodig heeft |
+| **Dual Spec op Forever:** waarschuwing gebouwd 27 nov (`a508cda`: `FDONOW_DUALSPEC_BARS` `enUS.lua:6293`, `ForeverDoNow.lua:576`); spelersmelding zelf niet getoetst | 28 nov, GEMETEN in code; in het spel niet gezien | Rob of Cisca test; daarna gaat de rij weg |
+| 🆕 `docs/NEXT_SESSION.md` is **1589 regels, grens 1500** (27 nov: 1425; laatste commits 27 nov, bouwchat) | 28 nov, GEMETEN met `wc -l`; grens uit `CLAUDE.md` r. 190 | bouwchat: eerst `split_handoff --resplit` (proefrun), dan verder |
+| 🆕 Content-wachter 28 nov 🔴: `FREP_HOW_CENARION` zegt "Encrypted Twilight Texts and turn-ins in Silithus" (`enUS.lua:6420`, `ForeverLegacy.lua:320`), Blizzards dev note van 25 nov noemt die herhaalbare tekst "intentionally unavailable" | 28 nov, GEMETEN: `enUS.lua:6420` gelezen; dev note overgenomen uit `CONTENT_WATCH.md`, niet zelf in Blizzards bron | bouwchat: tekst aanpassen in alle 9 packs; Rob weet het |
 | Geen vaste controle op de handgeschreven site-teksten | 10 nov, volgens de site-chat | voorstel ligt bij Rob |
 
 ## 6. De ronde — wat de regisseur elke keer doet
