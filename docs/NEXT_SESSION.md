@@ -10,7 +10,8 @@ kent, met de bloktoets (KeyOfMap, gedeeld met LiveNext; NewSpell = dezelfde rege
 ForeverTrainerData (koper), tegen GetMoney(); te weinig → FHOWTO_EARLY_MONEY_FMT met het tekort (S.Money, geen vaste "10").
 PLAYER_MONEY ververst alleen als die regel een prijs heeft en je (bijna) te kort komt. 2 sleutels in 7 talen (it = Engels).
 Offline: live_test (warrior 1 met 0/4/10 koper, oude indeling Shift-X, 12x4 Ctrl-Q, geleerd = weg; rangen nooit in de
-regel, met positieve controle), 720 blokken, early_test 8/8. Niet in het spel getest.
+regel, met positieve controle), 720 blokken, early_test 8/8. 76dbe6a ✅ door Rob in het spel getest op zijn Troll
+Warrior, alle 3 punten (via Sparring; afgevinkt).
 
 ## ▶▶ 28 nov (Bouwchat 28-11): levend blok — "Low on health?" en de wand los (`/reload`)
 
