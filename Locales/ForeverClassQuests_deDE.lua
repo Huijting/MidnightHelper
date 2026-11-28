@@ -301,6 +301,11 @@ for k, v in pairs({
 	FHOWTO_EARLY_TITLE_FMT = "Bis Stufe %d",
 	FHOWTO_EARLY_ROLE_FMT = "Deine Rolle (%s) beginnt ab Stufe %d. Bis dahin spielst du so, mit den Tasten, die du jetzt hast:",
 	FHOWTO_EARLY_CLASS_FMT = "Deine Rollen beginnen ab Stufe %d. Bis dahin spielst du so, mit den Tasten, die du jetzt hast:",
+	FHOWTO_EARLY_NOW_FMT = "Jetzt (Stufe %d):",
+	FHOWTO_EARLY_ORDER = "Reihenfolge jetzt:",
+	FHOWTO_EARLY_NEXT_HEAD = "Als Nächstes:",
+	FHOWTO_EARLY_NEXT_FMT = "auf Stufe %d bekommst du %s.",
+	FHOWTO_EARLY_NEXT_KEY_FMT = "%s (Taste %s)",
 	FHOWTO_NOTYET_LV_FMT = "%s (Stufe %d)",
 	FHOWTO_TALENTED_RANK_FMT = "Die Talentstufen oben rechnen mit deinem ersten Talentpunkt auf Stufe 10. Du hast Talentiert aus dem Vermächtnisbaum auf Rang %d: deine Talente kommen so viele Stufen früher.",
 	-- 17 Nov 2026: the overview (/mh overview, ForeverOverview.lua): FOV_*, FDUNG_IN_ENEMY_FMT

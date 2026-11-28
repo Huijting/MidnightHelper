@@ -1782,6 +1782,121 @@ end
 ]]
 local ROLE_FROM_OVERRIDE = { HUNTER = { [2] = 10, [3] = 10 } }
 
+--- The spell names (English, as in ns.FOREVER_SPELL_IDS) an English text names, in the order it names them (the same
+--- whole-name rules as the grey "Not learned yet" line).
+local function SpellsIn(token, english)
+	if type(english) ~= "string" then
+		return {}
+	end
+	if not notYetCache[english] then
+		NotYetLine(token, english)
+	end
+	return notYetCache[english] or {}
+end
+
+local ID2EN
+local function EnglishOf(id)
+	if not ID2EN then
+		ID2EN = {}
+		for en, ids in pairs(ns.FOREVER_SPELL_IDS or {}) do
+			for _, i in ipairs(ids) do
+				ID2EN[i] = ID2EN[i] or en
+			end
+		end
+	end
+	return ID2EN[id]
+end
+
+--- The block keys in the order a player reads them: no modifier, Shift, Ctrl, Alt; then 1-0, Q E R F T G Z X C V, F1-F4.
+local KEY_ORDER = {}
+for i, k in ipairs({ "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "Q", "E", "R", "F", "T", "G", "Z", "X", "C", "V",
+	"F1", "F2", "F3", "F4" }) do
+	KEY_ORDER[k] = i
+end
+local MOD_ORDER = { [""] = 0, SHIFT = 1, CTRL = 2, ALT = 3 }
+local function KeySortValue(code)
+	local m, k = code:match("^(%u+)%-(.+)$")
+	if not m then
+		m, k = "", code
+	end
+	return (MOD_ORDER[m] or 4) * 100 + (KEY_ORDER[k] or 99)
+end
+
+--- What MH's key block does right now for this character: { list = { { code, label, name, en } ... } in key order,
+--- byEn = { [english] = entry } }, or nil when the block has no table for this class.
+local function LiveNow(token)
+	local cls = ns.ForeverBlockClassTable and select(2, pcall(ns.ForeverBlockClassTable))
+	if type(cls) ~= "table" or not cls.keys or not ns.ForeverMacroBody then
+		return nil
+	end
+	local out = { list = {}, byEn = {} }
+	for code, def in pairs(cls.keys) do
+		if not def.cmd then -- the pet's Attack/Follow/Stay keys are commands, not spells
+			local ok, body, _, show = pcall(ns.ForeverMacroBody, code)
+			if ok and body and show then
+				local en = EnglishOf(show)
+				local name = (C_Spell and C_Spell.GetSpellName and C_Spell.GetSpellName(show)) or en
+				if name then
+					local e = { code = code, label = KeyText(code), name = name, en = en }
+					out.list[#out.list + 1] = e
+					if en and not out.byEn[en] then
+						out.byEn[en] = e
+					end
+				end
+			end
+		end
+	end
+	table.sort(out.list, function(a, b)
+		return KeySortValue(a.code) < KeySortValue(b.code)
+	end)
+	return out
+end
+
+--- "Next: at level X you get <spell> (key Y)." — the next NEW trainer spells (no higher ranks of a spell you have),
+--- from the trainer data and its own rules (race, faction, talent: ns.ForeverTrainerCompute). nil when none is known.
+local function LiveNext(token, lvl, now)
+	if not ns.ForeverTrainerCompute then
+		return nil
+	end
+	local cls = ns.ForeverBlockClassTable and select(2, pcall(ns.ForeverBlockClassTable))
+	local keyOf = {}
+	if type(cls) == "table" and cls.keys and ns.ForeverBlockKeyNames then
+		for code, def in pairs(cls.keys) do
+			if not def.cmd then
+				for i, n in ipairs((ns.ForeverBlockKeyNames({ [code] = def }))) do
+					-- the first name of a key's list is its real place; a fallback place only when nothing better
+					if not keyOf[n] or (i == 1 and not keyOf[n].first) then
+						keyOf[n] = { code = code, first = i == 1 }
+					end
+				end
+			end
+		end
+	end
+	local at = lvl
+	for _ = 1, 6 do
+		local ok, out = pcall(ns.ForeverTrainerCompute, at)
+		if not ok or type(out) ~= "table" or not out.nextLevel then
+			return nil
+		end
+		local items = {}
+		for _, e in ipairs(out.next or {}) do
+			local newSpell = not (e.req and #e.req > 0) and not KnownAny({ e.id })
+				and not (now and now.byEn[e.n])
+			if newSpell and #items < 3 then
+				local name = (C_Spell and C_Spell.GetSpellName and C_Spell.GetSpellName(e.id)) or e.n
+				local k = keyOf[e.n]
+				items[#items + 1] = k and ns:L("FHOWTO_EARLY_NEXT_KEY_FMT"):format(name, KeyText(k.code)) or name
+			end
+		end
+		if #items > 0 then
+			return "**" .. ns:L("FHOWTO_EARLY_NEXT_HEAD") .. "** "
+				.. ns:L("FHOWTO_EARLY_NEXT_FMT"):format(out.nextLevel, table.concat(items, ", "))
+		end
+		at = out.nextLevel
+	end
+	return nil
+end
+
 local function RoleFrom(token, i)
 	local o = ROLE_FROM_OVERRIDE[token]
 	if o and o[i] then
@@ -1819,13 +1934,43 @@ local function EarlyBlock(token)
 	end
 	local parts = { band and name and ns:L("FHOWTO_EARLY_ROLE_FMT"):format(name, from)
 		or ns:L("FHOWTO_EARLY_CLASS_FMT"):format(from) }
-	for i, sec in ipairs(cls) do
-		local t = en[i] and en[i][1]
-		local simple = type(t) == "string" and t:find("^Simple order") ~= nil
-		if simple or t == "Levels 1-10: your buttons" then
-			local note = simple and NotYetLine(token, en[i][2])
-			parts[#parts + 1] = "**" .. sec[1] .. "**\n" .. LevelMarks(LiveKeys(token, sec[2], simple), simple)
-				.. (note and ("\n" .. note) or "")
+	-- 28 Nov 2026, the LIVING block (Rob via Sparring 28-11: "level 1, je kan dit drukken, level 2, je kan dat drukken";
+	-- on the advice to make it live instead of a list per level: "Ja, dat is een goed idee van jou."). Three parts, all
+	-- read from what this character has right now, so it grows with every level and never shows empty lines:
+	--   Now (level N): the keys of MH's block that do something now, with the spell they cast (the block's own macro body).
+	--   Order now: the spells of the class's Simple order that you already know, in that order, each with its key.
+	--   Next: the next NEW trainer spell (not a higher rank), with the key the block puts it on.
+	local now = LiveNow(token)
+	if now and #now.list > 0 then
+		local items = {}
+		for _, k in ipairs(now.list) do
+			items[#items + 1] = "**" .. k.label .. "** = " .. k.name
+		end
+		parts[#parts + 1] = "**" .. ns:L("FHOWTO_EARLY_NOW_FMT"):format(lvl) .. "** " .. table.concat(items, " · ")
+		local seq = {}
+		for _, sec in ipairs(en) do
+			if OrderPart(sec[1], sec[2]) then
+				for _, enName in ipairs(SpellsIn(token, sec[2])) do
+					local k = now.byEn[enName]
+					if k then
+						seq[#seq + 1] = k.name .. " (**" .. k.label .. "**)"
+					end
+				end
+			end
+		end
+		if #seq > 0 then
+			parts[#parts + 1] = "**" .. ns:L("FHOWTO_EARLY_ORDER") .. "** " .. table.concat(seq, " → ")
+		end
+		local nxt = LiveNext(token, lvl, now)
+		if nxt then
+			parts[#parts + 1] = nxt
+		end
+	else
+		-- Nothing readable yet (a login moment, or no block table): the class's own Simple order, as before.
+		for i, sec in ipairs(cls) do
+			if en[i] and OrderPart(en[i][1], en[i][2]) then
+				parts[#parts + 1] = "**" .. sec[1] .. "**\n" .. LevelMarks(LiveKeys(token, sec[2], true), true)
+			end
 		end
 	end
 	return ns:L("FHOWTO_EARLY_TITLE_FMT"):format(from), table.concat(parts, "\n")
@@ -2203,10 +2348,19 @@ end
 
 -- 28 Nov 2026: the "Until level X" block goes away by itself at that level, also while the page is open. One second
 -- later, because UnitLevel can still give the old level inside PLAYER_LEVEL_UP.
+-- Since the living block (28 Nov) also on SPELLS_CHANGED: a new spell shows up in "Now" at once. It comes in bursts,
+-- so one refresh a second after the first one.
 local lvlEv = CreateFrame("Frame")
 pcall(lvlEv.RegisterEvent, lvlEv, "PLAYER_LEVEL_UP")
+pcall(lvlEv.RegisterEvent, lvlEv, "SPELLS_CHANGED")
+local lvlQueued = false
 lvlEv:SetScript("OnEvent", function()
+	if lvlQueued then
+		return
+	end
+	lvlQueued = true
 	C_Timer.After(1, function()
+		lvlQueued = false
 		if ns.ForeverHowToPlayRefreshDirection then
 			pcall(ns.ForeverHowToPlayRefreshDirection)
 		end

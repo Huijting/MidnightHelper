@@ -1,5 +1,17 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 28 nov (Bouwchat 28-11): het "Until level X"-blok leeft mee (`/reload`)
+
+Rob via Sparring 28-11, letterlijk: *"Is het misschien handiger dat we gewoon zeggen van hey, level 1, je kan dit drukken,
+level 2, je kan dat drukken"*; op het advies om het blok levend te maken: *"Ja, dat is een goed idee van jou."*
+ForeverHowToPlay.lua EarlyBlock: in plaats van de vaste secties nu Now (LiveNow: elke bloktoets die nu iets doet, via
+ns.ForeverMacroBody → show-id → clientnaam; pet-commando's niet; in leesvolgorde), Order now (de spells van de class-Simple
+order die in Now staan, in tekstvolgorde, met hun toets; SpellsIn = dezelfde naamregels als NotYetLine) en Next (LiveNext:
+ns.ForeverTrainerCompute per volgend level, alleen NIEUWE spells (geen req = geen hogere rang), max 3, toets uit de
+blokTabel). Niets leesbaar → terugval op de vaste Simple order. Ververst ook op SPELLS_CHANGED (1 s, één keer per burst).
+5 sleutels FHOWTO_EARLY_NOW_FMT/ORDER/NEXT_HEAD/NEXT_FMT/NEXT_KEY_FMT in en/nl/de/fr/es/pt/ru (zelf vertaald). Offline:
+live_test (hunter 6 → Next 8 Concussive Shot op Shift-Q; 8 → Now groeit, Next 10; 720 blokken zonder fout), early_test 8/8.
+
 ## ▶▶ 28 nov (Bouwchat 28-11): toetsenplan stap (b) — Mage Arcane, Rogue, Shaman Enhancement (`/reload`)
 
 Stap (a) (hunter) ✅ door Rob in het spel getest (via Sparring: *"de Hunt gaf inderdaad groot in beeld … Na de reload komt

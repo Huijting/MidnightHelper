@@ -25,6 +25,19 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 28 nov — FOREVER How you play: het "Until level 10"-blok leeft mee
+
+`/reload` is genoeg. Offline getest (live_test: hunter level 6 en 8, alle classes x richtingen x level 1-20), NIET in
+het spel. Op je hunter (level 6-7), How you play → tab Start, bovenaan "Until level 10":
+- [ ] **Now (level 6):** alleen de toetsen die nu iets doen, bv. "**1** = Hunter's Mark · **2** = Serpent Sting · **3** =
+      Arcane Shot · **Shift-Z** = Auto Shot · **Shift-X** = Raptor Strike". Niets wat je nog niet hebt.
+- [ ] **Order now:** "Hunter's Mark (**1**) → Serpent Sting (**2**) → Arcane Shot (**3**) → Auto Shot (**Shift-Z**) →
+      Raptor Strike (**Shift-X**)".
+- [ ] **Next:** "at level 8 you get Concussive Shot (key Shift-Q), Parry."
+- [ ] Ding naar 8 en leer Concussive Shot: binnen een seconde staat **Shift-Q** = Concussive Shot bij Now, en Next zegt
+      level 10 (Aspect of the Hawk op Shift-R).
+- [ ] Op level 10 is het hele blok weg.
+
 ## 28 nov — FOREVER toetsenplan stap (b): Mage Arcane, Rogue, Shaman Enhancement
 
 `/reload` is genoeg. Offline getest (swap2_test 5/5: beide indelingen, vóór/na het talent, schakelaar uit, de melding,

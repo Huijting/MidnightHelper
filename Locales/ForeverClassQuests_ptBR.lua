@@ -308,6 +308,11 @@ for k, v in pairs({
 	FHOWTO_EARLY_TITLE_FMT = "Até o nível %d",
 	FHOWTO_EARLY_ROLE_FMT = "Seu papel (%s) começa no nível %d. Até lá, jogue assim, com as teclas que você já tem:",
 	FHOWTO_EARLY_CLASS_FMT = "Seus papéis começam no nível %d. Até lá, jogue assim, com as teclas que você já tem:",
+	FHOWTO_EARLY_NOW_FMT = "Agora (nível %d):",
+	FHOWTO_EARLY_ORDER = "Ordem agora:",
+	FHOWTO_EARLY_NEXT_HEAD = "Depois:",
+	FHOWTO_EARLY_NEXT_FMT = "no nível %d você ganha %s.",
+	FHOWTO_EARLY_NEXT_KEY_FMT = "%s (tecla %s)",
 	FHOWTO_NOTYET_LV_FMT = "%s (nível %d)",
 	FHOWTO_TALENTED_RANK_FMT = "Os níveis de talento acima contam o seu primeiro ponto de talento no nível 10. Você tem a vantagem de Legado \"Talento é para quem tem\" no grau %d: os seus talentos chegam essa mesma quantidade de níveis mais cedo.",
 	-- 17 Nov 2026: the overview (/mh overview, ForeverOverview.lua): FOV_*, FDUNG_IN_ENEMY_FMT
