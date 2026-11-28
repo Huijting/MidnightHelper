@@ -159,7 +159,7 @@ Der Magier steht hinten und wirkt Feuer-, Frost- und Arkanmagie. Er hält Gegner
 - **Shift-Z** = Frostrüstung (1): ein Buff auf dir selbst. Leg ihn vor einem Kampf an. Du kannst nur eine Rüstung gleichzeitig aktiv haben.
 - **Shift-X** = Arkane Intelligenz (1): ein Buff für dich oder einen Freund.
 - **Ctrl-3** = Schießen: dein **Zauberstab** (ein kleiner magischer Stab, der von selbst schießt), sobald du einen hast. Praktisch, wenn dein Mana knapp ist. Wenn du Frostfeuerblitz lernst, nimmt er Ctrl-3; leg Schießen auf eine deiner eigenen Alt-Tasten, wenn du es noch willst.
-- **2** = Frostblitz (4): Frostschaden.
+- **2** = Frostblitz (4): Frostschaden. Mit der Richtung Frost (der Richtungsknopf oben in So spielst du) nimmt Frostblitz ab Stufe 4 die Taste 1, und Feuerball wandert auf 2.
 - **5** = Feuerschlag (6): spontaner Feuertreffer. **Spontan** = keine Zauberzeit. Abklingzeit 8 Sekunden.
 - **3** = Arkane Geschosse (8): Arkanschaden.
 - **Shift-Q** = Verwandlung (8): nimmt einen Gegner eine Weile aus dem Kampf. So ein Zauber heißt **CC** (Crowd Control).

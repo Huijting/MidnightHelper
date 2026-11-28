@@ -114,6 +114,24 @@ ns.FOREVER_BLOCK_CLASSES.MAGE = {
 		["CTRL-E"] = { base = "Blast Wave", why = "cooldown: instant fire blast around you (Fire talent)" },
 		["CTRL-R"] = { base = "Evocation", why = "recovery: gets your mana back" },
 	},
+	-- 28 Nov 2026 (key plan, Mage Frost): only with the direction Frost (band 3, ForeverDirection), Frostbolt takes key 1
+	-- once learned (level 4) and Fireball moves to 2; before 4, Fireball stays on 1 and 2 is empty. Ctrl-2 keeps Arcane
+	-- Blast (a Frost mage does not have it), so Fireball is not on two keys. Same in both layouts.
+	dirKeys = {
+		[3] = {
+			keys = {
+				["1"] = { base = { "Frostbolt", "Fireball" }, swapNote = { moved = "Fireball", movedKey = "2" } },
+				["2"] = { base = "Fireball" },
+				["CTRL-2"] = { base = "Arcane Blast" },
+			},
+			keys12 = {
+				["1"] = { base = { "Frostbolt", "Fireball" }, swapNote = { moved = "Fireball", movedKey = "2" },
+					why = "Frost: Frostbolt is your main nuke from level 4" },
+				["2"] = { base = "Fireball", why = "Fireball, once Frostbolt has taken key 1" },
+				["CTRL-2"] = { base = "Arcane Blast", why = "Arcane's talent nuke" },
+			},
+		},
+	},
 	-- 28 Nov 2026: the old layout of the swapped keys, for "Swap keys" off.
 	noSwap = {
 		keys = {

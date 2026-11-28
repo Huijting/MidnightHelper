@@ -152,7 +152,7 @@ The Mage stands back and casts fire, frost and arcane magic. It keeps enemies aw
 - **Shift-Z** = Frost Armor (1): a buff on yourself. Put it on before a fight. You can only have one armor on.
 - **Shift-X** = Arcane Intellect (1): a buff for you or a friend.
 - **Ctrl-3** = Shoot: your **wand** (a small magic stick that shoots by itself), once you have one. Handy when your mana is low. When you learn Frostfire Bolt, that takes Ctrl-3; put Shoot on one of your own Alt keys if you still want it.
-- **2** = Frostbolt (4): frost damage.
+- **2** = Frostbolt (4): frost damage. With the direction Frost (the direction button at the top of How you play), Frostbolt takes key 1 from level 4, and Fireball moves to 2.
 - **5** = Fire Blast (6): instant fire hit. **Instant** = no cast time. Cooldown 8 seconds.
 - **3** = Arcane Missiles (8): arcane damage.
 - **Shift-Q** = Polymorph (8): takes one enemy out of the fight for a while. That kind of spell is called **CC** (crowd control).
@@ -1174,9 +1174,12 @@ local function KeyMap(token)
 		return nil
 	end
 	local held = ns.ForeverBlockFallbackHeld and ns.ForeverBlockFallbackHeld() or {}
-	-- 28 Nov 2026: the keys as the "Swap keys" switch has them (ForeverBlock.lua KeysFor; Hunter's Mark / Auto Shot).
+	-- 28 Nov 2026: the TEXTS are written with the keys of the class table itself (cls.keys: the swapped layout, no
+	-- direction), so an old key in a text is read from that; where the spell is NOW comes from the 12 x 4 keys as the
+	-- "Swap keys" switch and the direction have them (ForeverBlock.lua KeysFor). So "Frostbolt (2)" reads "(1)" for a
+	-- Frost mage, and "Hunter's Mark (1)" reads "(Shift-Z)" with the switch off.
 	local KF = ns.ForeverBlockKeysFor
-	local keysOld, keys12 = KF and KF(cls, false) or cls.keys, KF and KF(cls, true) or cls.keys12
+	local keysOld, keys12 = cls.keys, KF and KF(cls, true) or cls.keys12
 	cls = setmetatable({ keys = keysOld, keys12 = keys12 }, { __index = cls })
 	local primary, any = {}, {}
 	for k12, def in pairs(cls.keys12) do

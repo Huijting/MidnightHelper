@@ -160,7 +160,7 @@ El Mago se queda atrás y lanza magia de fuego, de escarcha y arcana. Mantiene a
 - **Shift-Z** = Armadura de Escarcha (1): un buff sobre ti mismo. Póntelo antes de un combate. Solo puedes llevar una armadura.
 - **Shift-X** = Intelecto Arcano (1): un buff para ti o para un amigo.
 - **Ctrl-3** = Disparar: tu **varita** (un pequeño palo mágico que dispara solo), en cuanto tengas una. Útil cuando te queda poco maná. Cuando aprendes Descarga de Pirofrío, esa ocupa Ctrl-3; pon Disparar en una de tus propias teclas Alt si todavía la quieres.
-- **2** = Descarga de Escarcha (4): daño de escarcha.
+- **2** = Descarga de Escarcha (4): daño de escarcha. Con la dirección Escarcha (el botón de dirección arriba en Cómo jugar), Descarga de Escarcha ocupa la tecla 1 desde el nivel 4, y Bola de Fuego pasa a 2.
 - **5** = Explosión de Fuego (6): golpe de fuego instantáneo. **Instantáneo** = sin tiempo de lanzamiento. Reutilización de 8 segundos.
 - **3** = Misiles Arcanos (8): daño arcano.
 - **Shift-Q** = Polimorfia (8): saca del combate a un enemigo durante un rato. Ese tipo de hechizo se llama **CC** (control de masas).

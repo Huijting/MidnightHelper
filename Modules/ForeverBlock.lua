@@ -93,20 +93,35 @@ function ns.IsForeverKeySwapOn()
 end
 
 --- The keys of `cls` for this layout with the swap switch applied (also read by ForeverHowToPlay's KeyMap).
+--- 28 Nov 2026 (Mage Frost, the last step of the key plan; Rob: "daarna gaan we door voor de rest"): cls.dirKeys =
+--- { [band] = { keys = {...}, keys12 = {...} } } swaps keys only for the direction the player chose (ForeverDirection;
+--- Frost = band 3), because every Mage knows Frostbolt: the talent trick of the other swaps does not work there.
+local function DirBand()
+	return ns.GetForeverDirection and ns.GetForeverDirection() or nil
+end
+
 local swapViews = {}
 local function KeysFor(cls, twelve)
 	local keys = twelve and cls.keys12 or cls.keys
-	local o = cls.noSwap and (twelve and cls.noSwap.keys12 or cls.noSwap.keys)
-	if not o or SwapOn() then
+	local o
+	if SwapOn() then
+		local band = DirBand()
+		local d = band and cls.dirKeys and cls.dirKeys[band]
+		o = d and (twelve and d.keys12 or d.keys)
+	else
+		o = cls.noSwap and (twelve and cls.noSwap.keys12 or cls.noSwap.keys)
+	end
+	if not o then
 		return keys
 	end
-	local c = swapViews[keys]
+	swapViews[keys] = swapViews[keys] or {}
+	local c = swapViews[keys][o]
 	if not c then
 		c = {}
 		for k, d in pairs(keys) do
 			c[k] = o[k] or d
 		end
-		swapViews[keys] = c
+		swapViews[keys][o] = c
 	end
 	return c
 end
@@ -116,8 +131,11 @@ local views = {}
 local ClassTableRaw
 local function ClassTable()
 	local t, token = ClassTableRaw()
-	if t and t.noSwap and not SwapOn() then
-		return setmetatable({ keys = KeysFor(t, t.twelve), _swapOff = true }, { __index = t }), token
+	if t and (t.noSwap or t.dirKeys) then
+		local k = KeysFor(t, t.twelve)
+		if k ~= t.keys then
+			return setmetatable({ keys = k, _swapOff = not SwapOn() }, { __index = t }), token
+		end
 	end
 	return t, token
 end
@@ -1112,6 +1130,22 @@ end
 ns.ForeverSwapNotice = SwapNotice -- the offline check calls it
 function ns.ForeverSwapWhy()
 	return swapWhy
+end
+
+--- 28 Nov 2026: a new direction (ForeverDirection.lua) can change the keys (cls.dirKeys): rewrite and tell, out of combat.
+function ns.ForeverBlockDirectionChanged()
+	if InCombatLockdown and InCombatLockdown() then
+		local once = CreateFrame("Frame")
+		once:RegisterEvent("PLAYER_REGEN_ENABLED")
+		once:SetScript("OnEvent", function(self)
+			self:UnregisterAllEvents()
+			RefreshExisting()
+			pcall(SwapNotice)
+		end)
+	else
+		RefreshExisting()
+		pcall(SwapNotice)
+	end
 end
 
 --- The "Swap keys" switch (Keys tab): store it, rewrite the placed macros (out of combat; in a fight right after it).

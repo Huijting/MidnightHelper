@@ -25,6 +25,15 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 28 nov — FOREVER toetsenplan, laatste stap: Mage Frost (Frostbolt op 1)
+
+`/reload` is genoeg. Offline getest (swap3_test 5/5, beide indelingen), NIET in het spel. Op een mage met het blok:
+- [ ] How you play → richtingknop → kies **Frost**: één keer de melding "Key 1 is now Frostbolt. Fireball moved to 2."
+      (vanaf level 4); toets 1 = Frostbolt, 2 = Fireball. Onder level 4: 1 = Fireball, 2 leeg.
+- [ ] Kies een andere richting (Fire of Arcane): 1 = Fireball (of Arcane Blast met dat talent), 2 = Frostbolt.
+- [ ] Schakelaar "Swap keys …" uit: 1 = Fireball, 2 = Frostbolt, ook met Frost.
+- [ ] Met 12x4 en Frost: How you play noemt "Frostbolt (1)" en "Fireball (2)".
+
 ## 28 nov — FOREVER How you play: het "Until level 10"-blok leeft mee
 
 `/reload` is genoeg. Offline getest (live_test: hunter level 6 en 8, alle classes x richtingen x level 1-20), NIET in

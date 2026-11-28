@@ -160,7 +160,7 @@ Le Mage reste à distance et lance de la magie de feu, de givre et des arcanes. 
 - **Shift-Z** = Armure de givre (1) : un buff sur toi. Mets-le avant un combat. Tu ne peux avoir qu'une seule armure à la fois.
 - **Shift-X** = Intelligence des arcanes (1) : un buff pour toi ou pour un ami.
 - **Ctrl-3** = Tir : ta **baguette** (un petit bâton magique qui tire tout seul), dès que tu en as une. Pratique quand ton mana est bas. Quand tu apprends Éclair de givrefeu, il prend Ctrl-3 ; mets Tir sur une de tes propres touches Alt si tu le veux encore.
-- **2** = Eclair de givre (4) : des dégâts de givre.
+- **2** = Eclair de givre (4) : des dégâts de givre. Avec la direction Givre (le bouton de direction en haut de Comment jouer), Eclair de givre prend la touche 1 dès le niveau 4, et Boule de feu passe sur 2.
 - **5** = Trait de feu (6) : un coup de feu instantané. **Instantané** = pas de temps d'incantation. Cooldown de 8 secondes.
 - **3** = Projectiles des arcanes (8) : des dégâts des arcanes.
 - **Shift-Q** = Métamorphose (8) : met un ennemi hors du combat pendant un moment. Ce genre de sort s'appelle du **CC** (contrôle de foule).

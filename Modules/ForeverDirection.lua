@@ -266,6 +266,10 @@ function ns.ForeverDirectionChanged()
 	if ns.ForeverWeaponsRefresh then
 		pcall(ns.ForeverWeaponsRefresh)
 	end
+	-- 28 Nov 2026: the key block follows the direction too (Mage Frost: Frostbolt on 1; ForeverBlock.lua dirKeys).
+	if ns.ForeverBlockDirectionChanged then
+		pcall(ns.ForeverBlockDirectionChanged)
+	end
 end
 
 local laterThisSession = false

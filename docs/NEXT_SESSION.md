@@ -1,5 +1,18 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 28 nov (Bouwchat 28-11): toetsenplan laatste stap — Mage Frost (`/reload`)
+
+Robs go voor de rest van het plan: *"Alleen de hunten eerst en daarna gaan we door voor de rest."* GEBOUWD: cls.dirKeys
+(ForeverBlock.lua): per richting (ForeverDirection band) eigen toetsen, alleen met "Swap keys" aan; KeysFor/ClassTable
+passen hem toe (cache per sleuteltabel + laag). Mage band 3 (Frost), beide tabellen: 1 = { Frostbolt, Fireball } +
+swapNote (moved Fireball → 2), 2 = Fireball, Ctrl-2 = Arcane Blast (geen dubbele Fireball). ForeverDirection.lua
+ns.ForeverDirectionChanged roept nu ns.ForeverBlockDirectionChanged (macro's herschrijven + melding, buiten gevecht).
+How you play KeyMap leest een oude toets in een tekst nu uit de BASIStabel (cls.keys) en zoekt de spell in de huidige
+12x4-toetsen (KeysFor) → Frost: "Frostbolt (2)" toont "(1)"; hunter met schakelaar uit: "Hunter's Mark (1)" toont
+"(Shift-Z)" (dat randje van stap (a) is daarmee weg in 12x4). Uitlegzin bij "**2** = Frostbolt" + FBLOCK_SWAP_SW_DESC in 8
+talen (de/fr/es/esMX/pt/ru door mh-writer; nl tabnaam "Zo speel je"). Offline: swap3_test 5/5 (Frost 3/4, Arcane, geen
+richting, schakelaar uit, melding, LiveKeys), swap/swap2/live/lvl/stance/fix3/fable9 opnieuw goed. Toetsenplan = AF.
+
 ## ▶▶ 28 nov (Bouwchat 28-11): het "Until level X"-blok leeft mee (`/reload`)
 
 Rob via Sparring 28-11, letterlijk: *"Is het misschien handiger dat we gewoon zeggen van hey, level 1, je kan dit drukken,

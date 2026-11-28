@@ -151,7 +151,7 @@ De Mage staat achteraan en cast fire-, frost- en arcane-magie. Hij houdt vijande
 - **Shift-Z** = Frost Armor (1): een buff op jezelf. Zet hem op voor een gevecht. Je kunt maar één armor tegelijk ophebben.
 - **Shift-X** = Arcane Intellect (1): een buff voor jou of een vriend.
 - **Ctrl-3** = Shoot: je **wand** (een klein toverstokje dat vanzelf schiet), zodra je er een hebt. Handig als je mana laag is. Leer je Frostfire Bolt, dan neemt die Ctrl-3; zet Shoot op een van je eigen Alt-toetsen als je hem nog wilt.
-- **2** = Frostbolt (4): frost-schade.
+- **2** = Frostbolt (4): frost-schade. Met de richting Frost (de richtingknop bovenaan Zo speel je) neemt Frostbolt vanaf level 4 toets 1 over, en gaat Fireball naar 2.
 - **5** = Fire Blast (6): instant fire-klap. **Instant** = geen cast-tijd. Cooldown 8 seconden.
 - **3** = Arcane Missiles (8): arcane-schade.
 - **Shift-Q** = Polymorph (8): haalt één vijand een tijdje uit het gevecht. Zo'n spell heet **CC** (crowd control).

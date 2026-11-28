@@ -158,7 +158,7 @@ O Mago fica atrás e lança magia de fogo, de gelo e arcana. Ele mantém os inim
 - **Shift-Z** = Armadura Gélida (1): um buff em você mesmo. Coloque antes de uma luta. Você só pode ter uma armadura ativa.
 - **Shift-X** = Inteligência Arcana (1; a partir do Grau 2: Intelecto Arcano): um buff para você ou um amigo.
 - **Ctrl-3** = Atirar: sua **varinha** (um pequeno bastão mágico que atira sozinho), assim que você tiver uma. Útil quando a sua mana está baixa. Quando você aprende Seta de Fogofrio, ela fica com o Ctrl-3; coloque Atirar numa tecla Alt sua se ainda quiser.
-- **2** = Seta de Gelo (4): dano de gelo.
+- **2** = Seta de Gelo (4): dano de gelo. Com a direção Gelo (o botão de direção no topo de Como jogar), Seta de Gelo fica com a tecla 1 a partir do nível 4, e Bola de Fogo vai para o 2.
 - **5** = Impacto de Fogo (6): golpe de fogo instantâneo. **Instantâneo** = sem tempo de conjuração. Recarga de 8 segundos.
 - **3** = Mísseis Arcanos (8): dano arcano.
 - **Shift-Q** = Polimorfia (8): tira um inimigo da luta por um tempo. Esse tipo de feitiço se chama **CC** (controle de grupo).
