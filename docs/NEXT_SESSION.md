@@ -1,5 +1,21 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 28 nov (Bouwchat 28-11): toetsenplan stap (b) — Mage Arcane, Rogue, Shaman Enhancement (`/reload`)
+
+Stap (a) (hunter) ✅ door Rob in het spel getest (via Sparring: *"de Hunt gaf inderdaad groot in beeld … Na de reload komt
+hij inderdaad niet terug … Ook in How to Play staat het goed."*); zijn go voor de rest: *"Alleen de hunten eerst en daarna
+gaan we door voor de rest."* GEBOUWD, beide tabellen + noSwap: Mage 1 = { Arcane Blast, Fireball }, Ctrl-2 = Fireball;
+Shaman 1 = { Stormstrike, Lightning Bolt }, 3 = Lightning Bolt; Rogue 1 = { Mutilate, Hemorrhage, Sinister Strike }
+(stealth Garrote blijft), 3 = Sinister Strike (oud) / { Sinister Strike, Shank } (12x4). Motor (ForeverBlock.lua):
+FirstFor slaat in een lijst een spell over die een andere toets leent en neemt de volgende; FallbackHeld markeert die
+dan ook (2e ronde) — zo houdt Combat (geen talent) in 12x4 Shank op 3 en blijft Shift-3 leeg, zoals sinds 24 nov; met
+talent 3 = Sinister Strike, Shift-3 = Shank. SwapNotice: melding zodra toets 1 iets anders kiest dan swapNote.moved (dus
+Mutilate óf Hemorrhage), met de echte spellnaam. Teksten 8 talen: Levels 1-10 (zin bij 1), What comes later (talent op
+1), rolteksten alleen de talentspell → (**1**) (script, overal 2 per rol: Arcane, Enhancement, Assassination,
+Subtlety); de verschoven spell houdt zijn oude token (12x4 LiveKeys volgt de spell). FBLOCK_SWAP_SW_DESC noemt nu alle
+vier. frFR "Courroux naturel" = Stormstrike GEMETEN (SpellName 17364 frFR). Offline: swap2_test 5/5, swap_test 5/5,
+early_test 8/8, lvl_test 16/16, stance_test 5/5. VOLGENDE: Mage Frost (Frostbolt op 1; heeft de richting nodig).
+
 ## ▶▶ 28 nov (Bouwchat 28-11): toetsenplan stap (a) — Hunter's Mark op 1, Auto Shot op Shift-Z (`/reload`)
 
 Rob via Sparring 28-11, letterlijk: *"Doe maar stap AI inderdaad voor het toetsenplan. Alleen de hunten eerst en daarna

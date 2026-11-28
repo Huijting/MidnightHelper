@@ -156,7 +156,7 @@ Sello (3) antes del combate. Luego Golpe Sagrado (1) y Sentencia (2) cada vez qu
 		{ "Qué hace", [[
 El Mago se queda atrás y lanza magia de fuego, de escarcha y arcana. Mantiene a los enemigos lejos con hechizos que los dejan quietos o los ralentizan. El Mago no tiene formas ni actitudes, así que cada tecla hace siempre lo mismo.]] },
 		{ "Niveles 1-10: tus botones", [[
-- **1** = Bola de Fuego (nivel 1): tu hechizo de ataque principal.
+- **1** = Bola de Fuego (nivel 1): tu hechizo de ataque principal. Con el talento Explosión Arcana (como pronto en el 20), Explosión Arcana ocupa la tecla 1, y Bola de Fuego pasa a Ctrl-2.
 - **Shift-Z** = Armadura de Escarcha (1): un buff sobre ti mismo. Póntelo antes de un combate. Solo puedes llevar una armadura.
 - **Shift-X** = Intelecto Arcano (1): un buff para ti o para un amigo.
 - **Ctrl-3** = Disparar: tu **varita** (un pequeño palo mágico que dispara solo), en cuanto tengas una. Útil cuando te queda poco maná. Cuando aprendes Descarga de Pirofrío, esa ocupa Ctrl-3; pon Disparar en una de tus propias teclas Alt si todavía la quieres.
@@ -173,7 +173,7 @@ Descarga de Escarcha (2) o Bola de Fuego (1) mientras el enemigo se acerca. Expl
 - 18: Eliminar maldición inferior en Shift-V. 20: Traslación en R (tu hechizo de movimiento), Ventisca en Shift-1, Evocación en F1 (recupera maná), Escudo de maná en Z, Resguardo contra el Fuego en F4. También los teletransportes (y más tarde los portales): hechizos de viaje, no están en el bloque. Ponlos en tu propia barra, o úsalos desde tu libro de hechizos (Hechizos).
 - 22: Agostar en Ctrl-1, Resguardo contra la Escarcha en F2. 24: Contrahechizo en E: tu **interrupción** (detiene el hechizo de un enemigo).
 - 26: Cono de frío en Shift-F. 30: Armadura de hielo: a partir de entonces Shift-Z lanza esta en lugar de Armadura de Escarcha (también te protege contra la escarcha).
-- Talentos a partir del nivel 20: Piroexplosión en 4, Lanza de hielo en F, Explosión Arcana en Ctrl-2, Bloque de hielo en C (como pronto en el 25).]] },
+- Talentos a partir del nivel 20: Piroexplosión en 4, Lanza de hielo en F, Explosión Arcana en 1 (Bola de Fuego pasa entonces a Ctrl-2), Bloque de hielo en C (como pronto en el 25).]] },
 		{ "Errores de principiante", [[
 - Esperar los dos resguardos a la vez. Resguardo contra el Fuego (F4) y Resguardo contra la Escarcha (F2) comparten una reutilización de 30 segundos, así que solo uno a la vez.
 - Llevar Armadura de mago y Armadura de hielo juntas. Solo puedes llevar una armadura a la vez. Armadura de mago (34) está en el bloque D.]] },
@@ -259,7 +259,7 @@ El Pícaro tiene **Energía** en lugar de maná. La Energía se rellena sola, y 
 - Antes de conocer el hechizo Sigilo, la tecla simplemente mantiene su hechizo normal.
 Golpes como Golpe siniestro te dan **puntos de combo** (hasta 5). Un **remate** es un golpe que gasta todos tus puntos de combo: Eviscerar (**4**), Hacer picadillo (**Shift-4**) y Ruptura (**5**). Más puntos lo hacen más fuerte.]] },
 		{ "Niveles 1-10: tus botones", [[
-- **1** = Golpe siniestro (nivel 1): tu golpe principal.
+- **1** = Golpe siniestro (nivel 1): tu golpe principal. Con Hemorragia (Sutileza, como pronto en el 30) o Mutilar (Asesinato, como pronto en el 40), los dos talentos, ese ocupa la tecla 1, y Golpe siniestro pasa a 3.
 - **4** = Eviscerar (1): tu remate principal.
 - **Shift-R** = Sigilo (1): avanzar a escondidas. Púlsalo otra vez para salir de Sigilo. Después de salir de Sigilo, no puedes volver a entrar durante 10 segundos.
 - **Shift-2** = Lanzar (1): un lanzamiento a distancia. Necesitas un arma arrojadiza (como cuchillos arrojadizos) en tu ranura de arma a distancia. Con un arma de fuego, un arco o una ballesta equipados, la tecla dispara con eso.
@@ -280,7 +280,7 @@ Sigilo (Shift-R) y acércate al enemigo. Golpe siniestro (1) unas cuantas veces,
 - 18: Emboscada en 2 en Sigilo (daga, desde detrás). 20: Ruptura en 5. Venenos (de una misión; mira más abajo).
 - 22: Distraer en Shift-F, Esfumarse en X (tu huida; cada uso gasta una Pólvora cegadora, un objeto de tus bolsas). 24: Punzar en Shift-3 (un golpe con tu arma de la mano izquierda, así que necesitas un arma en cada mano; reutilización de 10 segundos; te devuelve 15 de Energía).
 - 26: Golpe bajo en V en Sigilo: un **aturdimiento** (el enemigo no puede moverse ni actuar durante unos segundos). 30: Golpe en los riñones en V fuera de Sigilo. Desactivar trampa (bloque D). 34: Ceguera en Shift-V (gasta unas Partículas cegadoras).
-- Talentos: Contestación en Shift-F1 y Premeditación en Shift-C, como pronto en el 20. Sangre fría en F1 y Golpe fantasmal en Shift-X, 25. Aluvión de acero en Shift-1 (golpea a más enemigos), Preparación en F3 (reinicia la reutilización de tus otros hechizos de Pícaro, como Evasión, Sprint y Esfumarse), Hemorragia en 3, 30. Mutilar en 3, Subidón de adrenalina o Marca mortal en Q, 40.]] },
+- Talentos: Contestación en Shift-F1 y Premeditación en Shift-C, como pronto en el 20. Sangre fría en F1 y Golpe fantasmal en Shift-X, 25. Aluvión de acero en Shift-1 (golpea a más enemigos), Preparación en F3 (reinicia la reutilización de tus otros hechizos de Pícaro, como Evasión, Sprint y Esfumarse), Hemorragia en 1, 30. Mutilar en 1, Subidón de adrenalina o Marca mortal en Q, 40. Con Hemorragia o Mutilar en 1, Golpe siniestro pasa a 3.]] },
 		{ "Errores de principiante", [[
 - Pulsar una apertura fuera de Sigilo. Garrote, Emboscada, Golpe bajo, Porrazo y Robar necesitan Sigilo. Fuera de Sigilo, la misma tecla lanza su hechizo normal.
 - Pulsar Sigilo otra vez sin querer. Eso termina el Sigilo, y no puedes volver a entrar durante 10 segundos.
@@ -343,7 +343,7 @@ Un **tótem** es un pequeño objeto que colocas en el suelo. Te ayuda a ti o a t
 - **Shift-R** = Llamado totémico (22): mueve tus tótems hasta ti. Regreso totémico (20, bloque D) los recoge y te devuelve una cuarta parte de su maná.
 Un **buff de arma** pone poder en tu arma durante 60 minutos. Tienes uno a la vez. Arma Muerdepiedras (1), Arma Lengua de Fuego (10), Arma Estigma de Escarcha (20) y Arma Viento Furioso (30) van en tus propias teclas Alt (bloque D). Elige el que va con tu forma de jugar.]] },
 		{ "Niveles 1-10: tus botones", [[
-- **1** = Descarga de relámpagos (nivel 1): tu hechizo de ataque principal.
+- **1** = Descarga de relámpagos (nivel 1): tu hechizo de ataque principal. Con el talento Golpe de tormenta (como pronto en el 25), Golpe de tormenta ocupa la tecla 1, y Descarga de relámpagos pasa a 3.
 - **C** = Ola de sanación (1): tu gran cura.
 - Arma Muerdepiedras (1) va en el bloque D (mira arriba).
 - **E** = Choque de tierra (4): tu **interrupción** (detiene el hechizo de un enemigo), y daño.
@@ -363,7 +363,7 @@ Buff de arma puesto (bloque D), Escudo de relámpagos puesto (Shift-Z). Tótem a
 - 20: Lobo fantasmal en R (3 segundos de lanzamiento, solo al aire libre), Choque de Escarcha en 4 (ralentiza), Ola de sanación inferior en F2 (cura rápida), Tótem Corriente de sanación en F4 (de una misión; cura a tu grupo poco a poco; necesita el Tótem de agua), Llamada de los elementos en Ctrl-1.
 - 22: Curar enfermedad en Shift-V, Llamado totémico en Shift-R. 30: Tótem derribador en X (atrapa un hechizo dañino dirigido a ti o a un miembro del grupo cercano; no los hechizos de área; necesita el Tótem de aire de la misión de nivel 30), Llamada de los ancestros en Ctrl-2. 32: Cadena de relámpagos en Shift-1 (golpea a varios enemigos).
 - 40: Sanación en cadena en Shift-2 (cura a varios amigos), Llamada de los espíritus en Ctrl-3.
-- Talentos: Escudo de agua (ocupa Shift-Z), como pronto en el 20. Golpe de tormenta en 3 y Tótem Marea de maná en F1, 25. Presteza de la Naturaleza en Shift-3, 30. Mareas Vivas en Shift-F1, y Maestría en relámpagos o Ira del clarividente en Q, 40.]] },
+- Talentos: Escudo de agua (ocupa Shift-Z), como pronto en el 20. Golpe de tormenta en 1 (Descarga de relámpagos pasa entonces a 3) y Tótem Marea de maná en F1, 25. Presteza de la Naturaleza en Shift-3, 30. Mareas Vivas en Shift-F1, y Maestría en relámpagos o Ira del clarividente en Q, 40.]] },
 		{ "Errores de principiante", [[
 - Usar un choque justo antes de necesitar interrumpir. Choque de tierra (E), Choque de llamas (2) y Choque de Escarcha (4) comparten una reutilización de 6 segundos. Después de Choque de llamas, no hay interrupción durante hasta 6 segundos.
 - Pulsar Nova de Fuego (Shift-4) sin un tótem de Fuego colocado. Necesita uno de tus tótems de Fuego (como Tótem abrasador o Tótem de Magma). Golpea a los enemigos que están cerca de ese tótem, no a los que están cerca de ti.
@@ -570,7 +570,7 @@ Un arma en cada mano, desde el nivel 20 (Doble empuñadura en el instructor). Ha
 Desde el nivel 8 (Misiles Arcanos). Explosión Arcana es un talento, como pronto en el 20; hasta entonces juegas como cualquier mago, con Descarga de Escarcha, Bola de Fuego y Misiles Arcanos. Las guías no coinciden: algunas dicen que Arcano es fuerte para subir de nivel, la mayoría aconseja Escarcha y dice que Arcano gasta mucho maná. Su árbol no tiene ralentizaciones, así que es el más débil para mantener lejos a los enemigos. Un **canalizado** es un hechizo que dura mientras estás quieto; moverte lo detiene. Misiles Arcanos es uno.
 **Orden sencillo:**
 1. Abre con Descarga de Escarcha (**2**): así el enemigo llega despacio.
-2. Explosión Arcana (**Ctrl-2**, desde el 20): una o dos, contra un jefe hasta cuatro. Cada una hace que la siguiente cueste más maná.
+2. Explosión Arcana (**1**, desde el 20): una o dos, contra un jefe hasta cuatro. Cada una hace que la siguiente cueste más maná.
 3. ¿Se ilumina Tromba de misiles (desde el 15)? Misiles Arcanos (**3**) enseguida: gratis y el doble de rápido.
 4. Cólera arcana (**Shift-F1**, desde el 25) cada vez que esté lista.
 5. ¿El enemigo está cerca de ti? Nova de Escarcha (**V**), apártate.
@@ -579,7 +579,7 @@ Desde el nivel 8 (Misiles Arcanos). Explosión Arcana es un talento, como pronto
 Varios enemigos: Nova de Escarcha (**V**), y luego Deflagración Arcana (**Shift-2**, desde el 14). ¿Poco maná? Evocación (**F1**, desde el 20).
 **Cada 10 niveles:**
 - 10: Nova de Escarcha (**V**). Primer talento: Canalización mejorada (Misiles Arcanos ya no se corta cuando recibes golpes). Luego Deflagración Arcana (**Shift-2**) en el 14, Tromba de misiles (un talento, pasivo) en el 15. Los niveles de talento de aquí son los más tempranos; una ventaja puede adelantarlos hasta 5 niveles.
-- 20: Explosión Arcana (**Ctrl-2**, un talento). Traslación (**R**), Evocación (**F1**), Escudo de maná (**Z**). Luego Contrahechizo (**E**) en el 24, Cólera arcana (**Shift-F1**, un talento; necesitas Explosión Arcana antes) en el 25.
+- 20: Explosión Arcana (**1**, un talento). Traslación (**R**), Evocación (**F1**), Escudo de maná (**Z**). Luego Contrahechizo (**E**) en el 24, Cólera arcana (**Shift-F1**, un talento; necesitas Explosión Arcana antes) en el 25.
 - 30: Presencia mental (**Shift-3**, un talento): tu siguiente hechizo con menos de 10 segundos de lanzamiento es instantáneo. Armadura de hielo (**Shift-Z**). Luego Armadura de mago (bloque D) en el 34.
 - 40: Poder Arcano (**Q**, un talento; necesitas Presencia mental antes): durante 15 segundos tus hechizos hacen un 30% más de daño, pero cuestan un 30% más de maná. Descarga de Pirofrío ocupa **Ctrl-3**: pon tu varita (Disparar) en tu propia tecla Alt.
 - 50: rangos más fuertes de Explosión Arcana, Cólera arcana y Misiles Arcanos; nada nuevo para este rol.
@@ -705,7 +705,7 @@ Desde el nivel 1 (Golpe siniestro y Eviscerar). Luchas cuerpo a cuerpo, con daga
 1. Desde el 20: veneno en las dos armas (objetos, en el bloque D).
 2. Espera a tener la Energía llena. Desde el 18 (Presto) tu primer ataque cuesta entonces 10 de Energía menos.
 3. Sigilo (**Shift-R**), ponte detrás del enemigo. **Sigilo** = avanzar a escondidas, para que el enemigo no te vea. Abre con Emboscada (**2**, desde el 18, daga en tu mano principal) o Garrote (**1**, desde el 14). Enemigo fuerte, desde el 26: Golpe bajo (**V**), un aturdimiento de 4 segundos.
-4. Puntos de combo: Puñalada (**2**) cuando estás detrás del enemigo; si no, Golpe siniestro (**1**). Desde el 40: Mutilar (**3**), 2 puntos cada vez.
+4. Puntos de combo: Puñalada (**2**) cuando estás detrás del enemigo; si no, Golpe siniestro (**1**). Desde el 40: Mutilar (**1**), 2 puntos cada vez.
 5. Punzar (**Shift-3**, desde el 24) cada vez que esté listo. Con Veneno (desde el 30) cada Punzar hace tu veneno más fuerte durante 6 segundos.
 6. Remate: Hacer picadillo (**Shift-4**) en un combate largo; si no, Eviscerar (**4**) con 5 puntos. Ruptura (**5**, desde el 20) contra un enemigo que va a vivir mucho (un élite, un jefe).
 7. Sangre fría (**F1**, desde el 25) justo antes de un Eviscerar con 5 puntos.
@@ -713,7 +713,7 @@ Desde el nivel 1 (Golpe siniestro y Eviscerar). Luchas cuerpo a cuerpo, con daga
 - 10: ya tienes Golpe siniestro (**1**), Eviscerar (**4**), Puñalada (**2**), Sigilo (**Shift-R**), Gubia (**Shift-Q**) y Evasión (**Z**). Nuevo en el 10: Hacer picadillo (**Shift-4**), Sprint (**R**), Porrazo (**Shift-Q** en Sigilo), y un arma en cada mano (Doble empuñadura). Luego Patada (**E**) en el 12, Garrote (**1** en Sigilo) y Exponer armadura (**Shift-Z**) en el 14, Amago (**F**) en el 16, Emboscada (**2** en Sigilo) y Presto (pasivo) en el 18.
 - 20: Ruptura (**5**). Venenos, de una misión. Luego Esfumarse (**X**) en el 22, Punzar (**Shift-3**) en el 24, Sangre fría (**F1**, un talento) en el 25: tu siguiente Golpe siniestro, Puñalada, Emboscada, Eviscerar o Mutilar es crítico seguro (**crítico** = un golpe de suerte, más fuerte); reutilización de 3 minutos. Golpe bajo (**V** en Sigilo) en el 26. Los niveles de talento de aquí son los más tempranos; una ventaja puede adelantarlos hasta 5 niveles.
 - 30: Veneno (un talento, pasivo: sin tecla): cada Punzar da a tu veneno un 30% más de daño y un 20% más de probabilidad de aplicarse, durante 6 segundos. Golpe en los riñones (**V**). Luego Ceguera (**Shift-V**) en el 34, Sellar destino (un talento, pasivo) en el 35: un crítico con un ataque que da puntos de combo te da un punto extra.
-- 40: Mutilar (**3**, un talento; necesitas Veneno antes): 60 de Energía, golpea con las dos dagas, 2 puntos de combo, un 20% más de daño contra un enemigo envenenado. Luego Hacer picadillo rango 2 en el 42, Punzar rango 2 en el 44.
+- 40: Mutilar (**1**, un talento; necesitas Veneno antes): 60 de Energía, golpea con las dos dagas, 2 puntos de combo, un 20% más de daño contra un enemigo envenenado. Luego Hacer picadillo rango 2 en el 42, Punzar rango 2 en el 44.
 - 50: Mutilar rango 2 y Golpe en los riñones rango 2; nada nuevo para este rol.
 - 60: Mutilar rango 3 y rangos más fuertes; nada nuevo para este rol.
 **Errores de principiante:**
@@ -748,14 +748,14 @@ Desde el nivel 1 (Golpe siniestro y Sigilo). Este árbol lucha desde Sigilo: un 
 2. Premeditación (**Shift-C**, desde el 20): 2 puntos de combo sobre el enemigo. Luego tu primer golpe.
 3. Primer golpe por la espalda: Emboscada (**2**, desde el 18, daga en tu mano principal). Enemigo fuerte, desde el 26: Golpe bajo (**V**), un aturdimiento de 4 segundos. Las guías no coinciden en la mejor apertura.
 4. Golpe fantasmal (**Shift-X**, desde el 25) y Punzar (**Shift-3**, desde el 24) cada vez que estén listos.
-5. Puntos de combo: desde el 30, Hemorragia (**3**). Antes: Puñalada (**2**) cuando estás detrás del enemigo; si no, Golpe siniestro (**1**).
+5. Puntos de combo: desde el 30, Hemorragia (**1**). Antes: Puñalada (**2**) cuando estás detrás del enemigo; si no, Golpe siniestro (**1**).
 6. Remate: Eviscerar (**4**) cuando el enemigo está casi muerto; Ruptura (**5**) contra un enemigo que va a vivir mucho; Hacer picadillo (**Shift-4**) en un combate largo.
 7. Desde el 40: Marca mortal (**Q**) contra el enemigo más fuerte, mejor mientras Ruptura o Garrote están activos.
 8. Emergencia: Esfumarse (**X**). Preparación (**F3**, desde el 30) deja listos otra vez Esfumarse, Evasión y Sprint enseguida.
 **Cada 10 niveles:**
 - 10: ya tienes Golpe siniestro (**1**), Eviscerar (**4**), Puñalada (**2**), Sigilo (**Shift-R**), Gubia (**Shift-Q**) y Evasión (**Z**). Nuevo en el 10: Porrazo (**Shift-Q** en Sigilo), Hacer picadillo (**Shift-4**), Sprint (**R**), y un arma en cada mano. Luego Patada (**E**) en el 12, Garrote (**1** en Sigilo) en el 14, Amago (**F**) en el 16, Emboscada (**2** en Sigilo) y Presto (pasivo) en el 18.
 - 20: Premeditación (**Shift-C**, un talento): 2 puntos de combo sobre tu objetivo; úsalos en 20 segundos, o se pierden; reutilización de 2 minutos. Ruptura (**5**), y Venenos de una misión. Luego Esfumarse (**X**) en el 22, Punzar (**Shift-3**) en el 24, Golpe fantasmal (**Shift-X**, un talento) en el 25: 40 de Energía, 1 punto de combo, un 15% más de esquiva durante 7 segundos; reutilización de 20 segundos. Golpe bajo (**V** en Sigilo) en el 26. Los niveles de talento de aquí son los más tempranos; una ventaja puede adelantarlos hasta 5 niveles.
-- 30: Hemorragia (**3**, un talento; necesitas Espadas dentadas antes): 35 de Energía, 1 punto de combo, funciona de frente; durante 15 segundos tu Ruptura y tu Garrote hacen un 15% más de daño a ese enemigo. Preparación (**F3**, un talento): deja lista enseguida la reutilización de tus otros hechizos de Pícaro; su propia reutilización es de 10 minutos. Consigues uno de estos dos en el 30, el otro en el 31. Golpe en los riñones (**V**). Luego Ceguera (**Shift-V**) en el 34, Cuchillo de bota (un talento, pasivo) en el 35: Punzar puede dar 2 puntos de combo.
+- 30: Hemorragia (**1**, un talento; necesitas Espadas dentadas antes): 35 de Energía, 1 punto de combo, funciona de frente; durante 15 segundos tu Ruptura y tu Garrote hacen un 15% más de daño a ese enemigo. Preparación (**F3**, un talento): deja lista enseguida la reutilización de tus otros hechizos de Pícaro; su propia reutilización es de 10 minutos. Consigues uno de estos dos en el 30, el otro en el 31. Golpe en los riñones (**V**). Luego Ceguera (**Shift-V**) en el 34, Cuchillo de bota (un talento, pasivo) en el 35: Punzar puede dar 2 puntos de combo.
 - 40: Marca mortal (**Q**, un talento; necesitas Preparación antes): un remate, 25 de Energía, reutilización de 10 segundos. Durante 6 segundos guarda parte de tu daño (más por punto de combo), y luego lo inflige de una vez, hasta un límite. El daño de Ruptura y de Garrote cuenta doble. Luego Hacer picadillo rango 2 y Esfumarse rango 2 en el 42, Punzar rango 2 en el 44, Marca mortal rango 2 en el 48.
 - 50: Golpe en los riñones rango 2, Marca mortal rango 3 en el 56; nada nuevo para este rol.
 - 60: Marca mortal rango 4 y rangos más fuertes; nada nuevo para este rol.
@@ -864,7 +864,7 @@ Desde el nivel 1: golpeas con tu arma, con Arma Muerdepiedras puesta. Las guías
 **Orden sencillo:**
 Antes de empezar: buff de arma puesto (bloque D), Escudo de relámpagos (**Shift-Z**), Tótem abrasador (**5**) o tus tótems al suelo.
 1. Haz pull con Descarga de relámpagos (**1**). **Pull** = golpear a un enemigo desde lejos, para que venga hacia ti.
-2. Golpe de tormenta (**3**, desde el 25) cada vez que esté listo.
+2. Golpe de tormenta (**1**, desde el 25) cada vez que esté listo.
 3. Descarga de relámpagos (**1**) con 5 acumulaciones de Arma vorágine (desde el 35): entonces es instantánea y gratis.
 4. Choque de tierra (**E**). En un grupo, alterna con Choque de llamas (**2**).
 5. Nova de Fuego (**Shift-4**, desde el 12) cuando hay un tótem de Fuego colocado y te sobra maná; sobre todo contra más enemigos.
@@ -873,7 +873,7 @@ Antes de empezar: buff de arma puesto (bloque D), Escudo de relámpagos (**Shift
 Después del combate: Ola de sanación (**C**). Emergencia durante un combate: Ola de sanación inferior (**F2**, desde el 20).
 **Cada 10 niveles:**
 - 10: Arma Muerdepiedras (bloque D), Descarga de relámpagos (**1**), Choque de tierra (**E**, desde el 4), Escudo de relámpagos (**Shift-Z**, desde el 8). Choque de llamas (**2**), Tótem abrasador (**5**), Tótem Fuerza de la tierra (**Shift-X**), Arma Lengua de Fuego (bloque D). Primeros talentos: Golpes atronadores y otros (pasivos); Maña mental (pasivo) desde el 15. Los niveles de talento de aquí son los más tempranos; una ventaja puede adelantarlos hasta 5 niveles. Luego Nova de Fuego (**Shift-4**) en el 12.
-- 20: Lobo fantasmal (**R**), Choque de Escarcha (**4**), Ola de sanación inferior (**F2**), Llamada de los elementos (**Ctrl-1**). Enfoque chamanístico (un talento, pasivo): los choques y Escudo de relámpagos cuestan un 45% menos de maná. Luego Golpe de tormenta (**3**, un talento) en el 25. Aluvión (un talento, pasivo) desde el 25. Lobo fantasmal mejorado (un talento) desde el 25: Lobo fantasmal es más rápido (instantáneo con los dos puntos) y también funciona en interiores; las guías lo toman en niveles muy distintos. Tótem de Magma (bloque D) en el 26.
+- 20: Lobo fantasmal (**R**), Choque de Escarcha (**4**), Ola de sanación inferior (**F2**), Llamada de los elementos (**Ctrl-1**). Enfoque chamanístico (un talento, pasivo): los choques y Escudo de relámpagos cuestan un 45% menos de maná. Luego Golpe de tormenta (**1**, un talento) en el 25. Aluvión (un talento, pasivo) desde el 25. Lobo fantasmal mejorado (un talento) desde el 25: Lobo fantasmal es más rápido (instantáneo con los dos puntos) y también funciona en interiores; las guías lo toman en niveles muy distintos. Tótem de Magma (bloque D) en el 26.
 - 30: Arma Viento Furioso (bloque D). Golpe de tormenta mejorado y Parar (talentos). Tótem derribador (**X**), Llamada de los ancestros (**Ctrl-2**). Luego Tótem Viento Furioso en el 32 (sin tecla: usa la barra de tótems), Cadena de relámpagos (**Shift-1**) en el 32, Arma vorágine (un talento, pasivo) en el 35.
 - 40: Ira del clarividente (**Q**, un talento): golpeas un 30% más rápido durante 25 segundos; solo golpea tu arma, no tus hechizos. Reutilización de 3 minutos. No todas las guías lo toman en el 40: algunas van primero a Restauración por el maná. Llamada de los espíritus (**Ctrl-3**), armadura de malla, un Arma Viento Furioso más fuerte. Luego Tótem Gracia del aire en el 42 (sin tecla: usa la barra de tótems).
 - 50: rangos más fuertes de Arma Viento Furioso, Arma Muerdepiedras, Choque de tierra, Descarga de relámpagos y Tótem Fuerza de la tierra; nada nuevo para este rol.

@@ -26,9 +26,12 @@ ns.FOREVER_BLOCK_CLASSES.ROGUE = {
 	},
 	baseGuard = "[nobonusbar:1]",
 	keys = {
-		["1"] = { stealth = "Garrote", base = "Sinister Strike" },
+		-- 28 Nov 2026 (key swap, step b; ForeverBlock.lua SwapOn): Mutilate (Assassination, 40) or Hemorrhage (Subtlety,
+		-- 30), both talents, take key 1 once learned and Sinister Strike moves to 3; Combat keeps Sinister Strike on 1.
+		["1"] = { stealth = "Garrote", base = { "Mutilate", "Hemorrhage", "Sinister Strike" },
+			swapNote = { moved = "Sinister Strike", movedKey = "3" } },
 		["2"] = { stealth = "Ambush", base = "Backstab" },
-		["3"] = { all = { "Mutilate", "Hemorrhage" } },
+		["3"] = { all = { "Sinister Strike" } },
 		["4"] = { all = "Eviscerate" },
 		["5"] = { all = "Rupture" },
 		["SHIFT-4"] = { all = "Slice and Dice" },
@@ -63,11 +66,15 @@ ns.FOREVER_BLOCK_CLASSES.ROGUE = {
 	-- checked by a second helper). Rob via Sparring 24-11: "laat een agent uitzoeken welke spells logisch zijn per class".
 	keys12 = {
 		-- Bar A (no modifier)
-		["1"] = { stealth = "Garrote", base = "Sinister Strike", why = "main hit; Garrote from Stealth" },
+		["1"] = { stealth = "Garrote", base = { "Mutilate", "Hemorrhage", "Sinister Strike" },
+			swapNote = { moved = "Sinister Strike", movedKey = "3" },
+			why = "main hit: Sinister Strike, or Mutilate / Hemorrhage once you have that talent; Garrote from Stealth" },
 		["2"] = { stealth = "Ambush", base = "Backstab", why = "Backstab from behind; Ambush from Stealth" },
 		-- 24 Nov 2026 (same fallback as the Warlock's key 3, Sparring 24-11): without Mutilate or Hemorrhage (Combat, the
 		-- default tree) key 3 stayed empty all game while Shank (trainer, level 24) sat on Shift-3. Now Shank is the fallback.
-		["3"] = { all = { "Mutilate", "Hemorrhage", "Shank" }, why = "talent builder: Mutilate or Hemorrhage; Shank without them" },
+		-- 28 Nov 2026: with Mutilate/Hemorrhage on 1, key 3 is Sinister Strike; without them (Combat) Sinister Strike stays
+		-- on 1, so 3 is still Shank (FirstFor skips a spell another key holds), and Shift-3 stays empty as before.
+		["3"] = { all = { "Sinister Strike", "Shank" }, why = "Sinister Strike once a talent builder has key 1; Shank without one" },
 		["4"] = { all = "Eviscerate", why = "main finisher: Eviscerate" },
 		["Q"] = { guard = true, guardFree = { ["Death Mark"] = true }, base = { "Adrenaline Rush", "Death Mark" }, why = "your level-40 talent: Adrenaline Rush or Death Mark" },
 		["E"] = { all = "Kick", why = "your interrupt: E is the kick key for every class" },
@@ -98,5 +105,16 @@ ns.FOREVER_BLOCK_CLASSES.ROGUE = {
 		["CTRL-E"] = { all = "Expose Armor", why = "group finisher: Expose Armor" },
 		["CTRL-R"] = { all = { "Cannibalize", "Rapid Regeneration", "Read Leyline" },
 			why = "your race's heal, outside a fight" },
+	},
+	-- 28 Nov 2026: the old layout of the swapped keys, for "Swap keys" off.
+	noSwap = {
+		keys = {
+			["1"] = { stealth = "Garrote", base = "Sinister Strike" },
+			["3"] = { all = { "Mutilate", "Hemorrhage" } },
+		},
+		keys12 = {
+			["1"] = { stealth = "Garrote", base = "Sinister Strike", why = "main hit; Garrote from Stealth" },
+			["3"] = { all = { "Mutilate", "Hemorrhage", "Shank" }, why = "talent builder: Mutilate or Hemorrhage; Shank without them" },
+		},
 	},
 }

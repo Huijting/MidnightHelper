@@ -466,6 +466,30 @@ local function FallbackHeld(cls)
 			end
 		end
 	end
+	-- 28 Nov 2026 (the key swap, step b): a key whose first known spell is held by ANOTHER key takes the next known one
+	-- of its list (FirstFor below), and that one is then held by this key too, so it does not show up twice. The
+	-- Rogue's 3 = { Sinister Strike, Shank }: without Mutilate/Hemorrhage, Sinister Strike stays on 1, so 3 is Shank
+	-- (and Shift-3 stays empty, as before); with the talent, 3 is Sinister Strike and Shank is back on Shift-3.
+	for key, def in pairs(cls and cls.keys or {}) do
+		for _, f in ipairs(FALLBACK_FIELDS) do
+			local v = def[f]
+			if type(v) == "table" then
+				local skipped = false
+				for i, n in ipairs(v) do
+					if Known(n) then
+						if held[n] and held[n] ~= key then
+							skipped = true
+						else
+							if skipped and i > 1 and not held[n] then
+								held[n] = key
+							end
+							break
+						end
+					end
+				end
+			end
+		end
+	end
 	heldCache.stamp, heldCache.cls, heldCache.map = now, cls, held
 	return held
 end
@@ -475,6 +499,17 @@ end
 
 --- First() for one key: skips a spell another key holds as its fallback (unless it is this key's own fallback).
 local function FirstFor(cls, key, v)
+	-- 28 Nov 2026: a list skips a spell that another key holds, and goes on with the next known one (see FallbackHeld).
+	if type(v) == "table" then
+		local held = FallbackHeld(cls)
+		for i, n in ipairs(v) do
+			local id = Known(n)
+			if id and not (held[n] and held[n] ~= key) then
+				return ClientName(id, n), id, n, i
+			end
+		end
+		return nil
+	end
 	local name, id, en, idx = First(v)
 	if en and not (idx and idx > 1) then
 		local holder = FallbackHeld(cls)[en]
@@ -1040,15 +1075,15 @@ SwapNotice = function()
 			swapWhy = ("%s: already told"):format(key)
 		elseif not (own and own > 0) then
 			swapWhy = ("%s: block not placed on this character"):format(key)
-		elseif en == n.to and idx == 1 then
+		elseif en and en ~= n.moved then -- the key now casts its real spell (Mark; Mutilate OR Hemorrhage; ...)
 			if InCombatLockdown and InCombatLockdown() then
 				swapWait = true -- PLAYER_REGEN_ENABLED tries again
 				swapWhy = ("%s: in a fight, waits"):format(key)
 				return
 			end
 			local moved = OwnMacro(n.movedKey)
-			local toId, movedId = Known(n.to), Known(n.moved)
-			local text = ns:L("FBLOCK_SWAP_FMT"):format(KeyLabel(key), ClientName(toId, n.to),
+			local toId, movedId = Known(en), Known(n.moved)
+			local text = ns:L("FBLOCK_SWAP_FMT"):format(KeyLabel(key), ClientName(toId, en),
 				ClientName(movedId, n.moved), KeyLabel(n.movedKey))
 			if not (moved and moved > 0) then
 				text = text .. " " .. ns:L("FBLOCK_SWAP_UPDATE"):format(ns:L("KEYBLOCK_BTN_UPDATE"))

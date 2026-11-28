@@ -34,7 +34,9 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 - Mag op de site: nee (nog niet getest, niet uit)
 - Speler ziet:    Hunter: vanaf Hunter's Mark (level 6) zit Hunter's Mark op toets 1 en Auto Shot op Shift-Z (Serpent
                   Sting en Arcane Shot zetten Auto Shot vanzelf aan). MH zegt het één keer met een grote melding.
-                  Schakelaar om het uit te zetten. Andere classes volgen later.
+                  Schakelaar om het uit te zetten. Sinds stap (b) ook: Mage (Arcane Blast op 1, Fireball naar Ctrl-2),
+                  Rogue (Mutilate/Hemorrhage op 1, Sinister Strike naar 3), Shaman (Stormstrike op 1, Lightning Bolt
+                  naar 3), steeds pas met dat talent. Hunter in het spel getest door Rob (28 nov).
 - Knoplabels:     FBLOCK_SWAP_SW
 - Commando's:     /mh block
 - Spel:           Forever

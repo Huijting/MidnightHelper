@@ -147,7 +147,7 @@ Seal (3) voor het gevecht. Dan Holy Strike (1) en Judgement (2) zodra ze klaar z
 		{ "Wat hij doet", [[
 De Mage staat achteraan en cast fire-, frost- en arcane-magie. Hij houdt vijanden op afstand met spells die ze op hun plek houden of vertragen. De Mage heeft geen vormen en geen stances, dus elke toets doet altijd hetzelfde.]] },
 		{ "Level 1-10: je knoppen", [[
-- **1** = Fireball (level 1): je belangrijkste aanvalsspell.
+- **1** = Fireball (level 1): je belangrijkste aanvalsspell. Met het talent Arcane Blast (op z'n vroegst 20) neemt Arcane Blast toets 1 over, en gaat Fireball naar Ctrl-2.
 - **Shift-Z** = Frost Armor (1): een buff op jezelf. Zet hem op voor een gevecht. Je kunt maar één armor tegelijk ophebben.
 - **Shift-X** = Arcane Intellect (1): een buff voor jou of een vriend.
 - **Ctrl-3** = Shoot: je **wand** (een klein toverstokje dat vanzelf schiet), zodra je er een hebt. Handig als je mana laag is. Leer je Frostfire Bolt, dan neemt die Ctrl-3; zet Shoot op een van je eigen Alt-toetsen als je hem nog wilt.
@@ -164,7 +164,7 @@ Frostbolt (2) of Fireball (1) terwijl de vijand aankomt. Fire Blast (5) als hij 
 - 18: Remove Lesser Curse op Shift-V. 20: Blink op R (je bewegingsspell), Blizzard op Shift-1, Evocation op F1 (geeft mana terug), Mana Shield op Z, Fire Ward op F4. Ook de teleports (en later portals): reisspells, niet op het blok. Zet ze op je eigen balk, of gebruik ze uit je spellbook.
 - 22: Scorch op Ctrl-1, Frost Ward op F2. 24: Counterspell op E: je **interrupt** (hij stopt de spell van een vijand).
 - 26: Cone of Cold op Shift-F. 30: Ice Armor: Shift-Z cast vanaf dan deze in plaats van Frost Armor (hij beschermt je ook tegen frost).
-- Talents vanaf level 20: Pyroblast op 4, Ice Lance op F, Arcane Blast op Ctrl-2, Ice Block op C (op z'n vroegst 25).]] },
+- Talents vanaf level 20: Pyroblast op 4, Ice Lance op F, Arcane Blast op 1 (Fireball gaat dan naar Ctrl-2), Ice Block op C (op z'n vroegst 25).]] },
 		{ "Beginnersfouten", [[
 - Beide wards tegelijk verwachten. Fire Ward (F4) en Frost Ward (F2) delen één cooldown van 30 seconden, dus maar één tegelijk.
 - Mage Armor en Ice Armor samen dragen. Je kunt maar één armor tegelijk ophebben. Mage Armor (34) staat op blok D.]] },
@@ -250,7 +250,7 @@ De Rogue heeft **Energy** in plaats van mana. Energy vult zich vanzelf, en snel:
 - Ken je de spell Stealth nog niet, dan houdt de toets gewoon zijn normale spell.
 Klappen zoals Sinister Strike geven je **combo points** (tot 5). Een **finisher** is een klap die al je combo points gebruikt: Eviscerate (**4**), Slice and Dice (**Shift-4**) en Rupture (**5**). Meer points maken hem sterker.]] },
 		{ "Level 1-10: je knoppen", [[
-- **1** = Sinister Strike (level 1): je belangrijkste klap.
+- **1** = Sinister Strike (level 1): je belangrijkste klap. Met Hemorrhage (Subtlety, op z'n vroegst 30) of Mutilate (Assassination, op z'n vroegst 40), allebei talents, neemt die toets 1 over, en gaat Sinister Strike naar 3.
 - **4** = Eviscerate (1): je belangrijkste finisher.
 - **Shift-R** = Stealth (1): sluipen. Druk nog eens om uit Stealth te gaan. Daarna kun je 10 seconden lang niet terug in Stealth.
 - **Shift-2** = Throw (1): een worp van een afstand. Je hebt een werpwapen (zoals werpmessen) in je ranged-slot nodig. Draag je een geweer, boog of kruisboog, dan schiet de toets daarmee.
@@ -271,7 +271,7 @@ Stealth (Shift-R) en loop naar de vijand. Een paar keer Sinister Strike (1), dan
 - 18: Ambush op 2 in Stealth (dagger, van achteren). 20: Rupture op 5. Poisons (uit een quest; zie hieronder).
 - 22: Distract op Shift-F, Vanish op X (je ontsnapping; elke keer kost het een Flash Powder, een item in je tassen). 24: Shank op Shift-3 (een klap met je off-hand wapen, dus je hebt in elke hand een wapen nodig; cooldown 10 seconden; geeft 15 Energy terug).
 - 26: Cheap Shot op V in Stealth: een **stun** (de vijand kan een paar seconden niet bewegen of iets doen). 30: Kidney Shot op V buiten Stealth. Disarm Trap (blok D). 34: Blind op Shift-V (kost een Blinding Powder).
-- Talents: Riposte op Shift-F1 en Premeditation op Shift-C, op z'n vroegst 20. Cold Blood op F1 en Ghostly Strike op Shift-X, 25. Blade Flurry op Shift-1 (raakt meer vijanden), Preparation op F3 (zet de cooldown van je andere Rogue-spells terug, zoals Evasion, Sprint en Vanish), Hemorrhage op 3, 30. Mutilate op 3, Adrenaline Rush of Death Mark op Q, 40.]] },
+- Talents: Riposte op Shift-F1 en Premeditation op Shift-C, op z'n vroegst 20. Cold Blood op F1 en Ghostly Strike op Shift-X, 25. Blade Flurry op Shift-1 (raakt meer vijanden), Preparation op F3 (zet de cooldown van je andere Rogue-spells terug, zoals Evasion, Sprint en Vanish), Hemorrhage op 1, 30. Mutilate op 1, Adrenaline Rush of Death Mark op Q, 40. Met Hemorrhage of Mutilate op 1 gaat Sinister Strike naar 3.]] },
 		{ "Beginnersfouten", [[
 - Een opener indrukken buiten Stealth. Garrote, Ambush, Cheap Shot, Sap en Pick Pocket hebben Stealth nodig. Buiten Stealth cast dezelfde toets zijn normale spell.
 - Per ongeluk nog eens op Stealth drukken. Dan stopt Stealth, en kun je 10 seconden lang niet terug.
@@ -334,7 +334,7 @@ Een **totem** is een klein voorwerp dat je op de grond zet. Zolang hij staat, he
 - **Shift-R** = Totemic Call (22): verplaatst je totems naar jou. Totemic Recall (20, blok D) haalt ze terug en geeft je een kwart van hun mana terug.
 Een **weapon buff** zet 60 minuten lang kracht op je wapen. Je hebt er één tegelijk. Rockbiter (1), Flametongue (10), Frostbrand (20) en Windfury (30) komen op je eigen Alt-toetsen (blok D). Kies degene die past bij hoe je speelt.]] },
 		{ "Level 1-10: je knoppen", [[
-- **1** = Lightning Bolt (level 1): je belangrijkste aanvalsspell.
+- **1** = Lightning Bolt (level 1): je belangrijkste aanvalsspell. Met het talent Stormstrike (op z'n vroegst 25) neemt Stormstrike toets 1 over, en gaat Lightning Bolt naar 3.
 - **C** = Healing Wave (1): je grote heal.
 - Rockbiter Weapon (1) komt op blok D (zie hierboven).
 - **E** = Earth Shock (4): je **interrupt** (hij stopt de spell van een vijand), en schade.
@@ -354,7 +354,7 @@ Weapon buff aan (blok D), Lightning Shield aan (Shift-Z). Searing Totem (5) neer
 - 20: Ghost Wolf op R (cast van 3 seconden, alleen in de open lucht), Frost Shock op 4 (vertraagt), Lesser Healing Wave op F2 (snelle heal), Healing Stream Totem op F4 (uit een quest; healt je groep beetje bij beetje; heeft de Water Totem nodig), Call of the Elements op Ctrl-1.
 - 22: Cure Disease op Shift-V, Totemic Call op Shift-R. 30: Grounding Totem op X (vangt één schadelijke spell op die op jou of een groepslid in de buurt gericht is; geen spells op een gebied; heeft de Air Totem uit de quest van level 30 nodig), Call of the Ancestors op Ctrl-2. 32: Chain Lightning op Shift-1 (raakt meerdere vijanden).
 - 40: Chain Heal op Shift-2 (healt meerdere vrienden), Call of the Spirits op Ctrl-3.
-- Talents: Water Shield (neemt Shift-Z over), op z'n vroegst 20. Stormstrike op 3 en Mana Tide Totem op F1, 25. Nature's Swiftness op Shift-3, 30. Riptide op Shift-F1, en Lightning Mastery of Rage of the Farseer op Q, 40.]] },
+- Talents: Water Shield (neemt Shift-Z over), op z'n vroegst 20. Stormstrike op 1 (Lightning Bolt gaat dan naar 3) en Mana Tide Totem op F1, 25. Nature's Swiftness op Shift-3, 30. Riptide op Shift-F1, en Lightning Mastery of Rage of the Farseer op Q, 40.]] },
 		{ "Beginnersfouten", [[
 - Een shock gebruiken vlak voordat je moet interrupten. Earth Shock (E), Flame Shock (2) en Frost Shock (4) delen één cooldown van 6 seconden. Na Flame Shock heb je tot 6 seconden lang geen interrupt.
 - Fire Nova (Shift-4) indrukken zonder Fire-totem op de grond. Hij heeft een van je Fire-totems nodig (zoals Searing of Magma). Hij raakt de vijanden bij die totem, niet die bij jou.
@@ -560,7 +560,7 @@ Een wapen in elke hand, vanaf level 20 (Dual Wield bij de trainer). Tot dan gebr
 Vanaf level 8 (Arcane Missiles). Arcane Blast is een talent, op z'n vroegst 20; tot dan speel je zoals elke mage, met Frostbolt, Fireball en Arcane Missiles. De gidsen verschillen: sommige noemen Arcane sterk om te levelen, de meeste raden Frost aan en noemen Arcane hongerig naar mana. De boom heeft geen vertragingen, dus Arcane houdt vijanden het slechtst op afstand. Een **channel** is een spell die loopt zolang je stilstaat; bewegen stopt hem. Arcane Missiles is er een.
 **Simpele volgorde:**
 1. Open met Frostbolt (**2**): de vijand komt dan langzaam.
-2. Arcane Blast (**Ctrl-2**, vanaf 20): één of twee, op een baas tot vier. Elke Arcane Blast maakt de volgende duurder in mana.
+2. Arcane Blast (**1**, vanaf 20): één of twee, op een baas tot vier. Elke Arcane Blast maakt de volgende duurder in mana.
 3. Licht Missile Barrage op (vanaf 15)? Meteen Arcane Missiles (**3**): gratis en twee keer zo snel.
 4. Arcane Wrath (**Shift-F1**, vanaf 25) steeds als hij klaar is.
 5. Vijand dicht bij je? Frost Nova (**V**), stap weg.
@@ -569,7 +569,7 @@ Vanaf level 8 (Arcane Missiles). Arcane Blast is een talent, op z'n vroegst 20; 
 Meerdere vijanden: Frost Nova (**V**), dan Arcane Explosion (**Shift-2**, vanaf 14). Weinig mana? Evocation (**F1**, vanaf 20).
 **Per 10 levels:**
 - 10: Frost Nova (**V**). Eerste talent: Improved Channeling (Arcane Missiles wordt niet meer korter als je geraakt wordt). Daarna Arcane Explosion (**Shift-2**) op 14, Missile Barrage (een talent, passief) op 15. Talent-levels hier zijn op z'n vroegst; een perk kan ze tot 5 levels eerder maken.
-- 20: Arcane Blast (**Ctrl-2**, een talent). Blink (**R**), Evocation (**F1**), Mana Shield (**Z**). Daarna Counterspell (**E**) op 24, Arcane Wrath (**Shift-F1**, een talent; je hebt eerst Arcane Blast nodig) op 25.
+- 20: Arcane Blast (**1**, een talent). Blink (**R**), Evocation (**F1**), Mana Shield (**Z**). Daarna Counterspell (**E**) op 24, Arcane Wrath (**Shift-F1**, een talent; je hebt eerst Arcane Blast nodig) op 25.
 - 30: Presence of Mind (**Shift-3**, een talent): je volgende spell met een cast korter dan 10 seconden is instant. Ice Armor (**Shift-Z**). Daarna Mage Armor (blok D) op 34.
 - 40: Arcane Power (**Q**, een talent; je hebt eerst Presence of Mind nodig): 15 seconden lang doen je spells 30% meer schade, maar kosten ze 30% meer mana. Frostfire Bolt neemt **Ctrl-3**: zet je wand (Shoot) op je eigen Alt-toets.
 - 50: sterkere ranks van Arcane Blast, Arcane Wrath en Arcane Missiles; niets nieuws voor deze rol.
@@ -696,7 +696,7 @@ Vanaf level 1 (Sinister Strike en Eviscerate). Je vecht van dichtbij, met dolken
 1. Vanaf 20: gif op beide wapens (items, op blok D).
 2. Wacht op volle Energy. Vanaf 18 (Poised) kost je eerste aanval dan 10 Energy minder.
 3. Stealth (**Shift-R**), loop achter de vijand. **Stealth** = sluipen, zodat de vijand je niet ziet. Open met Ambush (**2**, vanaf 18, dolk in je hoofdhand) of Garrote (**1**, vanaf 14). Sterke vijand, vanaf 26: Cheap Shot (**V**), een stun van 4 seconden.
-4. Combo points: Backstab (**2**) als je achter de vijand staat, anders Sinister Strike (**1**). Vanaf 40: Mutilate (**3**), 2 punten per keer.
+4. Combo points: Backstab (**2**) als je achter de vijand staat, anders Sinister Strike (**1**). Vanaf 40: Mutilate (**1**), 2 punten per keer.
 5. Shank (**Shift-3**, vanaf 24) steeds als hij klaar is. Met Venom (vanaf 30) maakt elke Shank je gif 6 seconden lang sterker.
 6. Finisher: Slice and Dice (**Shift-4**) in een lang gevecht; anders Eviscerate (**4**) bij 5 punten. Rupture (**5**, vanaf 20) op een vijand die lang leeft (een elite, een baas).
 7. Cold Blood (**F1**, vanaf 25) vlak voor een Eviscerate met 5 punten.
@@ -704,7 +704,7 @@ Vanaf level 1 (Sinister Strike en Eviscerate). Je vecht van dichtbij, met dolken
 - 10: je hebt al Sinister Strike (**1**), Eviscerate (**4**), Backstab (**2**), Stealth (**Shift-R**), Gouge (**Shift-Q**) en Evasion (**Z**). Nieuw op 10: Slice and Dice (**Shift-4**), Sprint (**R**), Sap (**Shift-Q** in Stealth), en een wapen in elke hand (Dual Wield). Daarna Kick (**E**) op 12, Garrote (**1** in Stealth) en Expose Armor (**Shift-Z**) op 14, Feint (**F**) op 16, Ambush (**2** in Stealth) en Poised (passief) op 18.
 - 20: Rupture (**5**). Poisons, uit een quest. Daarna Vanish (**X**) op 22, Shank (**Shift-3**) op 24, Cold Blood (**F1**, een talent) op 25: je volgende Sinister Strike, Backstab, Ambush, Eviscerate of Mutilate is zeker een crit (**crit** = een sterkere geluksklap); cooldown 3 minuten. Cheap Shot (**V** in Stealth) op 26. Talent-levels hier zijn op z'n vroegst; een perk kan ze tot 5 levels eerder maken.
 - 30: Venom (een talent, passief: geen toets): elke Shank geeft je gif 6 seconden lang 30% meer schade en 20% meer kans om aan te slaan. Kidney Shot (**V**). Daarna Blind (**Shift-V**) op 34, Seal Fate (een talent, passief) op 35: een crit met een aanval die combo points geeft, geeft je een extra punt.
-- 40: Mutilate (**3**, een talent; je hebt eerst Venom nodig): 60 Energy, slaat met beide dolken, 2 combo points, 20% meer schade op een vergiftigde vijand. Daarna Slice and Dice rank 2 op 42, Shank rank 2 op 44.
+- 40: Mutilate (**1**, een talent; je hebt eerst Venom nodig): 60 Energy, slaat met beide dolken, 2 combo points, 20% meer schade op een vergiftigde vijand. Daarna Slice and Dice rank 2 op 42, Shank rank 2 op 44.
 - 50: Mutilate rank 2 en Kidney Shot rank 2; niets nieuws voor deze rol.
 - 60: Mutilate rank 3 en sterkere ranks; niets nieuws voor deze rol.
 **Beginnersfouten:**
@@ -739,14 +739,14 @@ Vanaf level 1 (Sinister Strike en Stealth). Deze boom vecht vanuit Stealth: een 
 2. Premeditation (**Shift-C**, vanaf 20): 2 combo points op de vijand. Daarna je eerste klap.
 3. Eerste klap van achteren: Ambush (**2**, vanaf 18, dolk in je hoofdhand). Sterke vijand, vanaf 26: Cheap Shot (**V**), een stun van 4 seconden. De gidsen verschillen over de beste opener.
 4. Ghostly Strike (**Shift-X**, vanaf 25) en Shank (**Shift-3**, vanaf 24) steeds als ze klaar zijn.
-5. Combo points: vanaf 30 Hemorrhage (**3**). Daarvoor: Backstab (**2**) als je achter de vijand staat, anders Sinister Strike (**1**).
+5. Combo points: vanaf 30 Hemorrhage (**1**). Daarvoor: Backstab (**2**) als je achter de vijand staat, anders Sinister Strike (**1**).
 6. Finisher: Eviscerate (**4**) als de vijand bijna dood is; Rupture (**5**) op een vijand die lang leeft; Slice and Dice (**Shift-4**) in een lang gevecht.
 7. Vanaf 40: Death Mark (**Q**) op de sterkste vijand, het liefst terwijl Rupture of Garrote loopt.
 8. Nood: Vanish (**X**). Preparation (**F3**, vanaf 30) maakt Vanish, Evasion en Sprint meteen weer klaar.
 **Per 10 levels:**
 - 10: je hebt al Sinister Strike (**1**), Eviscerate (**4**), Backstab (**2**), Stealth (**Shift-R**), Gouge (**Shift-Q**) en Evasion (**Z**). Nieuw op 10: Sap (**Shift-Q** in Stealth), Slice and Dice (**Shift-4**), Sprint (**R**), en een wapen in elke hand. Daarna Kick (**E**) op 12, Garrote (**1** in Stealth) op 14, Feint (**F**) op 16, Ambush (**2** in Stealth) en Poised (passief) op 18.
 - 20: Premeditation (**Shift-C**, een talent): 2 combo points op je doel; gebruik ze binnen 20 seconden, anders zijn ze weg; cooldown 2 minuten. Rupture (**5**), en Poisons uit een quest. Daarna Vanish (**X**) op 22, Shank (**Shift-3**) op 24, Ghostly Strike (**Shift-X**, een talent) op 25: 40 Energy, 1 combo point, 7 seconden lang 15% meer dodge; cooldown 20 seconden. Cheap Shot (**V** in Stealth) op 26. Talent-levels hier zijn op z'n vroegst; een perk kan ze tot 5 levels eerder maken.
-- 30: Hemorrhage (**3**, een talent; je hebt eerst Serrated Blades nodig): 35 Energy, 1 combo point, werkt van voren; 15 seconden lang doen je Rupture en Garrote 15% meer schade op die vijand. Preparation (**F3**, een talent): zet de cooldown van je andere Rogue-spells meteen op nul; zijn eigen cooldown is 10 minuten. Eén van deze twee krijg je op 30, de andere op 31. Kidney Shot (**V**). Daarna Blind (**Shift-V**) op 34, Boot Knife (een talent, passief) op 35: Shank kan 2 combo points geven.
+- 30: Hemorrhage (**1**, een talent; je hebt eerst Serrated Blades nodig): 35 Energy, 1 combo point, werkt van voren; 15 seconden lang doen je Rupture en Garrote 15% meer schade op die vijand. Preparation (**F3**, een talent): zet de cooldown van je andere Rogue-spells meteen op nul; zijn eigen cooldown is 10 minuten. Eén van deze twee krijg je op 30, de andere op 31. Kidney Shot (**V**). Daarna Blind (**Shift-V**) op 34, Boot Knife (een talent, passief) op 35: Shank kan 2 combo points geven.
 - 40: Death Mark (**Q**, een talent; je hebt eerst Preparation nodig): een finisher, 25 Energy, cooldown 10 seconden. Hij bewaart 6 seconden lang een deel van je schade (meer per combo point) en deelt die daarna in één keer uit, tot een maximum. Schade van Rupture en Garrote telt dubbel. Daarna Slice and Dice rank 2 en Vanish rank 2 op 42, Shank rank 2 op 44, Death Mark rank 2 op 48.
 - 50: Kidney Shot rank 2, Death Mark rank 3 op 56; niets nieuws voor deze rol.
 - 60: Death Mark rank 4 en sterkere ranks; niets nieuws voor deze rol.
@@ -857,7 +857,7 @@ Vanaf level 1: je slaat met je wapen, met Rockbiter Weapon erop. De gidsen level
 **Simpele volgorde:**
 Vooraf: weapon buff aan (blok D), Lightning Shield (**Shift-Z**), Searing Totem (**5**) of je totems neer.
 1. Pull met Lightning Bolt (**1**). **Pullen** = één vijand van een afstand raken, zodat hij naar jou toe komt.
-2. Stormstrike (**3**, vanaf 25) steeds als hij klaar is.
+2. Stormstrike (**1**, vanaf 25) steeds als hij klaar is.
 3. Lightning Bolt (**1**) bij 5 stacks Maelstrom Weapon (vanaf 35): dan is hij direct en gratis.
 4. Earth Shock (**E**). In een groep afwisselen met Flame Shock (**2**).
 5. Fire Nova (**Shift-4**, vanaf 12) als er een Fire-totem staat en je mana over hebt; vooral bij meer vijanden.
@@ -866,7 +866,7 @@ Vooraf: weapon buff aan (blok D), Lightning Shield (**Shift-Z**), Searing Totem 
 Na het gevecht: Healing Wave (**C**). In nood tijdens het gevecht: Lesser Healing Wave (**F2**, vanaf 20).
 **Per 10 levels:**
 - 10: Rockbiter Weapon (blok D), Lightning Bolt (**1**), Earth Shock (**E**, vanaf 4), Lightning Shield (**Shift-Z**, vanaf 8). Flame Shock (**2**), Searing Totem (**5**), Strength of Earth Totem (**Shift-X**), Flametongue Weapon (blok D). Eerste talenten: Thundering Strikes en andere (passief); Mental Dexterity (passief) vanaf 15. Talent-levels hier zijn op z'n vroegst; een perk kan ze tot 5 levels eerder maken. Daarna Fire Nova (**Shift-4**) op 12.
-- 20: Ghost Wolf (**R**), Frost Shock (**4**), Lesser Healing Wave (**F2**), Call of the Elements (**Ctrl-1**). Shamanistic Focus (een talent, passief): Shocks en Lightning Shield kosten 45% minder mana. Daarna Stormstrike (**3**, een talent) op 25. Flurry (een talent, passief) vanaf 25. Improved Ghost Wolf (een talent) vanaf 25: Ghost Wolf gaat sneller (direct met beide punten) en werkt ook binnen; de gidsen nemen hem op heel verschillende levels. Magma Totem (blok D) op 26.
+- 20: Ghost Wolf (**R**), Frost Shock (**4**), Lesser Healing Wave (**F2**), Call of the Elements (**Ctrl-1**). Shamanistic Focus (een talent, passief): Shocks en Lightning Shield kosten 45% minder mana. Daarna Stormstrike (**1**, een talent) op 25. Flurry (een talent, passief) vanaf 25. Improved Ghost Wolf (een talent) vanaf 25: Ghost Wolf gaat sneller (direct met beide punten) en werkt ook binnen; de gidsen nemen hem op heel verschillende levels. Magma Totem (blok D) op 26.
 - 30: Windfury Weapon (blok D). Improved Stormstrike en Spirit Weapons (talenten). Grounding Totem (**X**), Call of the Ancestors (**Ctrl-2**). Daarna Windfury Totem op 32 (geen toets: gebruik de totem-balk), Chain Lightning (**Shift-1**) op 32, Maelstrom Weapon (een talent, passief) op 35.
 - 40: Rage of the Farseer (**Q**, een talent): je slaat 25 seconden lang 30% sneller; alleen je wapenklappen, niet je spells. Cooldown 3 minuten. Niet elke gids neemt hem op 40: sommige gaan eerst in Restoration voor mana. Call of the Spirits (**Ctrl-3**), mail-armor, een sterkere Windfury Weapon. Daarna Grace of Air Totem op 42 (geen toets: gebruik de totem-balk).
 - 50: sterkere ranks van Windfury Weapon, Rockbiter Weapon, Earth Shock, Lightning Bolt en Strength of Earth Totem; niets nieuws voor deze rol.

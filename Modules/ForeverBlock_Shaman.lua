@@ -20,9 +20,11 @@ ns.FOREVER_BLOCK_CLASSES = ns.FOREVER_BLOCK_CLASSES or {}
 ns.FOREVER_BLOCK_CLASSES.SHAMAN = {
 	states = {},
 	keys = {
-		["1"] = { base = "Lightning Bolt" },
+		-- 28 Nov 2026 (key swap, step b; ForeverBlock.lua SwapOn): Stormstrike (an Enhancement talent, 25 at the earliest)
+		-- takes key 1 once learned and Lightning Bolt moves to 3; without the talent nothing changes.
+		["1"] = { base = { "Stormstrike", "Lightning Bolt" }, swapNote = { moved = "Lightning Bolt", movedKey = "3" } },
 		["2"] = { base = "Flame Shock" },
-		["3"] = { base = "Stormstrike" },
+		["3"] = { base = "Lightning Bolt" },
 		["4"] = { base = "Frost Shock" },
 		["5"] = { base = "Searing Totem" },
 		["SHIFT-1"] = { base = "Chain Lightning" },
@@ -64,9 +66,10 @@ ns.FOREVER_BLOCK_CLASSES.SHAMAN = {
 	-- 12 x 4 (Forever, 24 Nov 2026; /mh block style 12x4). From docs/forever/KEYBLOCK12_SHAMAN.md (mh-research,
 	-- checked by a second helper). Rob via Sparring 24-11: "laat een agent uitzoeken welke spells logisch zijn per class".
 	keys12 = {
-		["1"] = { base = "Lightning Bolt", why = "main attack spell" },
+		["1"] = { base = { "Stormstrike", "Lightning Bolt" }, swapNote = { moved = "Lightning Bolt", movedKey = "3" },
+			why = "main attack: Lightning Bolt, or Stormstrike once you have that talent" },
 		["2"] = { base = "Flame Shock", why = "rotation: fire damage, then more over time" },
-		["3"] = { base = "Stormstrike", why = "rotation (Enhancement): press it whenever it is ready" },
+		["3"] = { base = "Lightning Bolt", why = "Lightning Bolt, once Stormstrike has taken key 1" },
 		["4"] = { base = "Searing Totem", why = "your damage totem: put it down at every pull" },
 		["Q"] = { base = { "Lightning Mastery", "Rage of the Farseer" }, why = "big cooldown of your talent tree" },
 		["E"] = { base = "Earth Shock", why = "your interrupt: E is the kick key for every class" },
@@ -95,5 +98,16 @@ ns.FOREVER_BLOCK_CLASSES.SHAMAN = {
 		["CTRL-Q"] = { base = "Cure Poison", why = "remove poison from a friend" },
 		["CTRL-E"] = { base = "Cure Disease", why = "remove a disease from a friend" },
 		["CTRL-R"] = { base = "Ancestral Spirit", why = "bring a dead friend back, outside a fight" },
+	},
+	-- 28 Nov 2026: the old layout of the swapped keys, for "Swap keys" off.
+	noSwap = {
+		keys = {
+			["1"] = { base = "Lightning Bolt" },
+			["3"] = { base = "Stormstrike" },
+		},
+		keys12 = {
+			["1"] = { base = "Lightning Bolt", why = "main attack spell" },
+			["3"] = { base = "Stormstrike", why = "rotation (Enhancement): press it whenever it is ready" },
+		},
 	},
 }

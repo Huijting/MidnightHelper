@@ -156,7 +156,7 @@ Sceau (3) avant le combat. Ensuite Frappe sacrée (1) et Jugement (2) dès qu'il
 		{ "Ce qu'il fait", [[
 Le Mage reste à distance et lance de la magie de feu, de givre et des arcanes. Il tient les ennemis à l'écart avec des sorts qui les immobilisent ou les ralentissent. Le Mage n'a ni formes ni postures, donc chaque touche fait toujours la même chose.]] },
 		{ "Niveaux 1-10 : tes boutons", [[
-- **1** = Boule de feu (niveau 1) : ton principal sort d'attaque.
+- **1** = Boule de feu (niveau 1) : ton principal sort d'attaque. Avec le talent Déflagration des arcanes (au plus tôt au niveau 20), Déflagration des arcanes prend la touche 1, et Boule de feu passe sur Ctrl-2.
 - **Shift-Z** = Armure de givre (1) : un buff sur toi. Mets-le avant un combat. Tu ne peux avoir qu'une seule armure à la fois.
 - **Shift-X** = Intelligence des arcanes (1) : un buff pour toi ou pour un ami.
 - **Ctrl-3** = Tir : ta **baguette** (un petit bâton magique qui tire tout seul), dès que tu en as une. Pratique quand ton mana est bas. Quand tu apprends Éclair de givrefeu, il prend Ctrl-3 ; mets Tir sur une de tes propres touches Alt si tu le veux encore.
@@ -173,7 +173,7 @@ Eclair de givre (2) ou Boule de feu (1) pendant que l'ennemi approche. Trait de 
 - 18 : Délivrance de la malédiction mineure sur Shift-V. 20 : Transfert sur R (ton sort de déplacement), Blizzard sur Shift-1, Evocation sur F1 (te rend du mana), Bouclier de mana sur Z, Gardien de feu sur F4. Aussi les téléportations (et plus tard les portails) : des sorts de voyage, pas sur le bloc. Mets-les sur ta propre barre, ou lance-les depuis ton Grimoire.
 - 22 : Brûlure sur Ctrl-1, Gardien de givre sur F2. 24 : Contresort sur E : ton **interruption** (elle arrête le sort d'un ennemi).
 - 26 : Cône de froid sur Shift-F. 30 : Armure de glace : à partir de là, Shift-Z lance celle-ci au lieu d'Armure de givre (elle te protège aussi contre le givre).
-- Talents à partir du niveau 20 : Explosion pyrotechnique sur 4, Javelot de glace sur F, Déflagration des arcanes sur Ctrl-2, Bloc de glace sur C (au plus tôt au niveau 25).]] },
+- Talents à partir du niveau 20 : Explosion pyrotechnique sur 4, Javelot de glace sur F, Déflagration des arcanes sur 1 (Boule de feu passe alors sur Ctrl-2), Bloc de glace sur C (au plus tôt au niveau 25).]] },
 		{ "Erreurs de débutant", [[
 - Attendre les deux gardiens en même temps. Gardien de feu (F4) et Gardien de givre (F2) partagent un même cooldown de 30 secondes, donc un seul à la fois.
 - Porter Armure du mage et Armure de glace ensemble. Une seule armure peut être active à la fois. Armure du mage (34) est sur le bloc D.]] },
@@ -259,7 +259,7 @@ Le Voleur a de l'**Énergie** au lieu du mana. L'Énergie se remplit toute seule
 - Tant que tu ne connais pas le sort Camouflage, la touche garde simplement son sort normal.
 Des coups comme Attaque pernicieuse te donnent des **points de combo** (jusqu'à 5). Un **coup de grâce** est un coup qui utilise tous tes points de combo : Eviscération (**4**), Débiter (**Shift-4**) et Rupture (**5**). Plus tu as de points, plus il est fort.]] },
 		{ "Niveaux 1-10 : tes boutons", [[
-- **1** = Attaque pernicieuse (niveau 1) : ton coup principal.
+- **1** = Attaque pernicieuse (niveau 1) : ton coup principal. Avec Hémorragie (Finesse, au plus tôt au niveau 30) ou Estropier (Assassinat, au plus tôt au niveau 40), deux talents, celui-ci prend la touche 1, et Attaque pernicieuse passe sur 3.
 - **4** = Eviscération (1) : ton coup de grâce principal.
 - **Shift-R** = Camouflage (1) : avance sans être vu. Appuie encore une fois pour sortir du Camouflage. Après être sorti du Camouflage, tu ne peux pas y retourner pendant 10 secondes.
 - **Shift-2** = Lancer (1) : un lancer à distance. Il te faut une arme de jet (comme des couteaux de lancer) dans ton emplacement à distance. Avec une arme à feu, un arc ou une arbalète équipé, la touche tire avec celle-ci à la place.
@@ -280,7 +280,7 @@ Camouflage (Shift-R) et approche-toi de l'ennemi. Attaque pernicieuse (1) quelqu
 - 18 : Embuscade sur 2 en Camouflage (dague, par derrière). 20 : Rupture sur 5. Poisons (via une quête ; voir plus bas).
 - 22 : Distraction sur Shift-F, Disparition sur X (ta fuite ; chaque utilisation coûte une Poudre éclipsante, un objet dans tes sacs). 24 : Surin sur Shift-3 (un coup avec ton arme de main gauche, donc il te faut une arme dans chaque main ; cooldown de 10 secondes ; te rend 15 d'Énergie).
 - 26 : Coup bas sur V en Camouflage : un **étourdissement** (l'ennemi ne peut ni bouger ni agir pendant quelques secondes). 30 : Aiguillon perfide sur V hors Camouflage. Désarmement de piège (bloc D). 34 : Cécité sur Shift-V (coûte une Poudre aveuglante).
-- Talents : Riposte sur Shift-F1 et Préméditation sur Shift-C, au plus tôt au niveau 20. Sang froid sur F1 et Frappe fantomatique sur Shift-X, 25. Déluge de lames sur Shift-1 (frappe plus d'ennemis), Préparation sur F3 (remet à zéro le cooldown de tes autres sorts de Voleur, comme Evasion, Sprint et Disparition), Hémorragie sur 3, 30. Estropier sur 3, Poussée d'adrénaline ou Marque de mort sur Q, 40.]] },
+- Talents : Riposte sur Shift-F1 et Préméditation sur Shift-C, au plus tôt au niveau 20. Sang froid sur F1 et Frappe fantomatique sur Shift-X, 25. Déluge de lames sur Shift-1 (frappe plus d'ennemis), Préparation sur F3 (remet à zéro le cooldown de tes autres sorts de Voleur, comme Evasion, Sprint et Disparition), Hémorragie sur 1, 30. Estropier sur 1, Poussée d'adrénaline ou Marque de mort sur Q, 40. Avec Hémorragie ou Estropier sur 1, Attaque pernicieuse passe sur 3.]] },
 		{ "Erreurs de débutant", [[
 - Appuyer sur une ouverture hors Camouflage. Garrot, Embuscade, Coup bas, Assommer et Vol à la tire ont besoin du Camouflage. Hors Camouflage, la même touche lance son sort normal.
 - Appuyer encore sur Camouflage par accident. Ça met fin au Camouflage, et tu ne peux pas y retourner pendant 10 secondes.
@@ -343,7 +343,7 @@ Un **totem** est un petit objet que tu poses au sol. Tant qu'il reste debout, il
 - **Shift-R** = Appel totémique (22) : déplace tes totems jusqu'à toi. Rappel totémique (20, bloc D) les reprend et te rend un quart de leur mana.
 Un **buff d'arme** donne de la puissance à ton arme pendant 60 minutes. Tu en as un à la fois. Arme Croque-roc (1), Arme Langue de feu (10), Arme de givre (20) et Arme Furie-des-vents (30) vont sur tes propres touches Alt (bloc D). Choisis celui qui va avec ta façon de jouer.]] },
 		{ "Niveaux 1-10 : tes boutons", [[
-- **1** = Eclair (niveau 1) : ton principal sort d'attaque.
+- **1** = Eclair (niveau 1) : ton principal sort d'attaque. Avec le talent Courroux naturel (au plus tôt au niveau 25), Courroux naturel prend la touche 1, et Eclair passe sur 3.
 - **C** = Vague de soins (1) : ton gros soin.
 - Arme Croque-roc (1) va sur le bloc D (voir plus haut).
 - **E** = Horion de terre (4) : ton **interruption** (elle arrête le sort d'un ennemi), et des dégâts.
@@ -363,7 +363,7 @@ Buff d'arme actif (bloc D), Bouclier de foudre actif (Shift-Z). Pose le Totem in
 - 20 : Loup fantôme sur R (3 secondes d'incantation, seulement en extérieur), Horion de givre sur 4 (ralentit), Vague de soins inférieurs sur F2 (soin rapide), Totem guérisseur sur F4 (via une quête ; soigne ton groupe petit à petit ; demande le Totem d'eau), Appel des éléments sur Ctrl-1.
 - 22 : Guérison des maladies sur Shift-V, Appel totémique sur Shift-R. 30 : Totem de Glèbe sur X (attrape un sort nuisible visé sur toi ou sur un membre du groupe proche ; pas les sorts de zone ; demande le Totem d'air de la quête de niveau 30), Appel des ancêtres sur Ctrl-2. 32 : Chaîne d'éclairs sur Shift-1 (frappe plusieurs ennemis).
 - 40 : Salve de guérison sur Shift-2 (soigne plusieurs amis), Appel des esprits sur Ctrl-3.
-- Talents : Bouclier d’eau (prend Shift-Z), au plus tôt au niveau 20. Courroux naturel sur 3 et Totem de Vague de mana sur F1 (à partir du Rang 4 : Totem de vague de mana), 25. Rapidité de la nature sur Shift-3, 30. Remous sur Shift-F1, et Maîtrise de la foudre ou Rage long-voyante sur Q, 40.]] },
+- Talents : Bouclier d’eau (prend Shift-Z), au plus tôt au niveau 20. Courroux naturel sur 1 (Eclair passe alors sur 3) et Totem de Vague de mana sur F1 (à partir du Rang 4 : Totem de vague de mana), 25. Rapidité de la nature sur Shift-3, 30. Remous sur Shift-F1, et Maîtrise de la foudre ou Rage long-voyante sur Q, 40.]] },
 		{ "Erreurs de débutant", [[
 - Utiliser un horion juste avant de devoir interrompre. Horion de terre (E), Horion de flammes (2) et Horion de givre (4) partagent un même cooldown de 6 secondes. Après Horion de flammes, tu n'as plus d'interruption pendant 6 secondes au plus.
 - Appuyer sur Nova de feu (Shift-4) sans totem de Feu posé. Elle a besoin d'un de tes totems de Feu (comme Totem incendiaire ou Totem de Magma). Elle frappe les ennemis près de ce totem, pas ceux près de toi.
@@ -570,7 +570,7 @@ Une arme dans chaque main, dès le niveau 20 (Ambidextrie chez le maître de cla
 Dès le niveau 8 (Projectiles des arcanes). Déflagration des arcanes est un talent, au plus tôt au niveau 20 ; jusque-là, tu joues comme n'importe quel mage, avec Eclair de givre, Boule de feu et Projectiles des arcanes. Les guides ne sont pas d'accord : certains disent qu'Arcanes est fort pour monter de niveau, la plupart conseillent Givre et disent qu'Arcanes demande beaucoup de mana. Son arbre n'a pas de ralentissements, donc c'est le plus faible pour tenir les ennemis à l'écart. Un **sort canalisé** est un sort qui continue tant que tu restes immobile ; bouger l'arrête. Projectiles des arcanes en est un.
 **Ordre simple :**
 1. Ouvre avec Eclair de givre (**2**) : l'ennemi arrive alors lentement.
-2. Déflagration des arcanes (**Ctrl-2**, dès 20) : une ou deux, sur un boss jusqu'à quatre. Chacune fait coûter plus de mana à la suivante.
+2. Déflagration des arcanes (**1**, dès 20) : une ou deux, sur un boss jusqu'à quatre. Chacune fait coûter plus de mana à la suivante.
 3. Barrage de projectiles (dès 15) s'illumine ? Projectiles des arcanes (**3**) tout de suite : gratuit et deux fois plus rapide.
 4. Colère des arcanes (**Shift-F1**, dès 25) dès qu'elle est prête.
 5. L'ennemi est près de toi ? Nova de givre (**V**), recule.
@@ -579,7 +579,7 @@ Dès le niveau 8 (Projectiles des arcanes). Déflagration des arcanes est un tal
 Plusieurs ennemis : Nova de givre (**V**), puis Explosion des arcanes (**Shift-2**, dès 14). Peu de mana ? Evocation (**F1**, dès 20).
 **Tous les 10 niveaux :**
 - 10 : Nova de givre (**V**). Premier talent : Canalisation améliorée (Projectiles des arcanes n'est plus interrompu quand tu es frappé). Puis Explosion des arcanes (**Shift-2**) au 14, Barrage de projectiles (un talent, passif) au 15. Les niveaux de talent indiqués ici sont les plus tôt possibles ; un avantage peut les avancer jusqu'à 5 niveaux.
-- 20 : Déflagration des arcanes (**Ctrl-2**, un talent). Transfert (**R**), Evocation (**F1**), Bouclier de mana (**Z**). Puis Contresort (**E**) au 24, Colère des arcanes (**Shift-F1**, un talent ; il te faut d'abord Déflagration des arcanes) au 25.
+- 20 : Déflagration des arcanes (**1**, un talent). Transfert (**R**), Evocation (**F1**), Bouclier de mana (**Z**). Puis Contresort (**E**) au 24, Colère des arcanes (**Shift-F1**, un talent ; il te faut d'abord Déflagration des arcanes) au 25.
 - 30 : Présence spirituelle (**Shift-3**, un talent) : ton prochain sort avec moins de 10 secondes d'incantation est instantané. Armure de glace (**Shift-Z**). Puis Armure du mage (bloc D) au 34.
 - 40 : Pouvoir des arcanes (**Q**, un talent ; il te faut d'abord Présence spirituelle) : pendant 15 secondes, tes sorts font 30 % de dégâts en plus, mais coûtent 30 % de mana en plus. Éclair de givrefeu prend **Ctrl-3** : mets ta baguette (Tir) sur une de tes propres touches Alt.
 - 50 : rangs plus forts de Déflagration des arcanes, Colère des arcanes et Projectiles des arcanes ; rien de nouveau pour ce rôle.
@@ -705,7 +705,7 @@ Dès le niveau 1 (Attaque pernicieuse et Eviscération). Tu te bats au corps à 
 1. Dès 20 : du poison sur tes deux armes (des objets, sur le bloc D).
 2. Attends d'avoir toute ton Énergie. Dès 18 (En garde), ta première attaque coûte alors 10 Énergie de moins.
 3. Camouflage (**Shift-R**), passe derrière l'ennemi. **Camouflage** = avancer en douce, pour que l'ennemi ne te voie pas. Ouvre avec Embuscade (**2**, dès 18, une dague en main droite) ou Garrot (**1**, dès 14). Ennemi fort, dès 26 : Coup bas (**V**), un étourdissement de 4 secondes.
-4. Points de combo : Attaque sournoise (**2**) quand tu es derrière l'ennemi, sinon Attaque pernicieuse (**1**). Dès 40 : Estropier (**3**), 2 points à chaque fois.
+4. Points de combo : Attaque sournoise (**2**) quand tu es derrière l'ennemi, sinon Attaque pernicieuse (**1**). Dès 40 : Estropier (**1**), 2 points à chaque fois.
 5. Surin (**Shift-3**, dès 24) dès qu'il est prêt. Avec Toxine (dès 30), chaque Surin rend ton poison plus fort pendant 6 secondes.
 6. Coup de grâce : Débiter (**Shift-4**) dans un long combat ; sinon Eviscération (**4**) à 5 points. Rupture (**5**, dès 20) sur un ennemi qui va vivre longtemps (un élite, un boss).
 7. Sang froid (**F1**, dès 25) juste avant une Eviscération à 5 points.
@@ -713,7 +713,7 @@ Dès le niveau 1 (Attaque pernicieuse et Eviscération). Tu te bats au corps à 
 - 10 : tu as déjà Attaque pernicieuse (**1**), Eviscération (**4**), Attaque sournoise (**2**), Camouflage (**Shift-R**), Suriner (**Shift-Q**) et Evasion (**Z**). Nouveau au 10 : Débiter (**Shift-4**), Sprint (**R**), Assommer (**Shift-Q** en Camouflage), et une arme dans chaque main (Ambidextrie). Puis Coup de pied (**E**) au 12, Garrot (**1** en Camouflage) et Exposer l'armure (**Shift-Z**) au 14, Feinte (**F**) au 16, Embuscade (**2** en Camouflage) et En garde (passif) au 18.
 - 20 : Rupture (**5**). Poisons, via une quête. Puis Disparition (**X**) au 22, Surin (**Shift-3**) au 24, Sang froid (**F1**, un talent) au 25 : ta prochaine Attaque pernicieuse, Attaque sournoise, Embuscade, Eviscération ou Estropier fait à coup sûr un critique (**critique** = un coup chanceux, plus fort) ; cooldown 3 minutes. Coup bas (**V** en Camouflage) au 26. Les niveaux de talent indiqués ici sont les plus tôt possibles ; un avantage peut les avancer jusqu'à 5 niveaux.
 - 30 : Toxine (un talent, passif : pas de touche) : chaque Surin donne à ton poison 30 % de dégâts en plus et 20 % de chances en plus de toucher, pendant 6 secondes. Aiguillon perfide (**V**). Puis Cécité (**Shift-V**) au 34, Scelle le destin (un talent, passif) au 35 : un critique avec une attaque qui donne des points de combo te donne un point en plus.
-- 40 : Estropier (**3**, un talent ; il te faut d'abord Toxine) : 60 Énergie, frappe avec les deux dagues, 2 points de combo, 20 % de dégâts en plus sur un ennemi empoisonné. Puis Débiter Rang 2 au 42, Surin Rang 2 au 44.
+- 40 : Estropier (**1**, un talent ; il te faut d'abord Toxine) : 60 Énergie, frappe avec les deux dagues, 2 points de combo, 20 % de dégâts en plus sur un ennemi empoisonné. Puis Débiter Rang 2 au 42, Surin Rang 2 au 44.
 - 50 : Estropier Rang 2 et Aiguillon perfide Rang 2 ; rien de nouveau pour ce rôle.
 - 60 : Estropier Rang 3 et des rangs plus forts ; rien de nouveau pour ce rôle.
 **Erreurs de débutant :**
@@ -748,14 +748,14 @@ Dès le niveau 1 (Attaque pernicieuse et Camouflage). Cet arbre se bat depuis le
 2. Préméditation (**Shift-C**, dès 20) : 2 points de combo sur l'ennemi. Puis ton premier coup.
 3. Premier coup par derrière : Embuscade (**2**, dès 18, une dague en main droite). Ennemi fort, dès 26 : Coup bas (**V**), un étourdissement de 4 secondes. Les guides ne sont pas d'accord sur la meilleure ouverture.
 4. Frappe fantomatique (**Shift-X**, dès 25) et Surin (**Shift-3**, dès 24) dès qu'ils sont prêts.
-5. Points de combo : dès 30, Hémorragie (**3**). Avant ça : Attaque sournoise (**2**) quand tu es derrière l'ennemi, sinon Attaque pernicieuse (**1**).
+5. Points de combo : dès 30, Hémorragie (**1**). Avant ça : Attaque sournoise (**2**) quand tu es derrière l'ennemi, sinon Attaque pernicieuse (**1**).
 6. Coup de grâce : Eviscération (**4**) quand l'ennemi est presque mort ; Rupture (**5**) sur un ennemi qui va vivre longtemps ; Débiter (**Shift-4**) dans un long combat.
 7. Dès 40 : Marque de mort (**Q**) sur l'ennemi le plus fort, de préférence pendant que Rupture ou Garrot agit.
 8. Urgence : Disparition (**X**). Préparation (**F3**, dès 30) rend Disparition, Evasion et Sprint de nouveau prêts tout de suite.
 **Tous les 10 niveaux :**
 - 10 : tu as déjà Attaque pernicieuse (**1**), Eviscération (**4**), Attaque sournoise (**2**), Camouflage (**Shift-R**), Suriner (**Shift-Q**) et Evasion (**Z**). Nouveau au 10 : Assommer (**Shift-Q** en Camouflage), Débiter (**Shift-4**), Sprint (**R**), et une arme dans chaque main. Puis Coup de pied (**E**) au 12, Garrot (**1** en Camouflage) au 14, Feinte (**F**) au 16, Embuscade (**2** en Camouflage) et En garde (passif) au 18.
 - 20 : Préméditation (**Shift-C**, un talent) : 2 points de combo sur ta cible ; utilise-les dans les 20 secondes, sinon ils disparaissent ; cooldown 2 minutes. Rupture (**5**), et Poisons via une quête. Puis Disparition (**X**) au 22, Surin (**Shift-3**) au 24, Frappe fantomatique (**Shift-X**, un talent) au 25 : 40 Énergie, 1 point de combo, 15 % d'esquive en plus pendant 7 secondes ; cooldown 20 secondes. Coup bas (**V** en Camouflage) au 26. Les niveaux de talent indiqués ici sont les plus tôt possibles ; un avantage peut les avancer jusqu'à 5 niveaux.
-- 30 : Hémorragie (**3**, un talent ; il te faut d'abord Lames dentelées) : 35 Énergie, 1 point de combo, marche de face ; pendant 15 secondes, ta Rupture et ton Garrot font 15 % de dégâts en plus à cet ennemi. Préparation (**F3**, un talent) : rend tes autres sorts de Voleur prêts tout de suite ; son propre cooldown est de 10 minutes. Tu reçois l'un des deux au 30, l'autre au 31. Aiguillon perfide (**V**). Puis Cécité (**Shift-V**) au 34, Couteau de jet (un talent, passif) au 35 : Surin peut donner 2 points de combo.
+- 30 : Hémorragie (**1**, un talent ; il te faut d'abord Lames dentelées) : 35 Énergie, 1 point de combo, marche de face ; pendant 15 secondes, ta Rupture et ton Garrot font 15 % de dégâts en plus à cet ennemi. Préparation (**F3**, un talent) : rend tes autres sorts de Voleur prêts tout de suite ; son propre cooldown est de 10 minutes. Tu reçois l'un des deux au 30, l'autre au 31. Aiguillon perfide (**V**). Puis Cécité (**Shift-V**) au 34, Couteau de jet (un talent, passif) au 35 : Surin peut donner 2 points de combo.
 - 40 : Marque de mort (**Q**, un talent ; il te faut d'abord Préparation) : un coup de grâce, 25 Énergie, cooldown 10 secondes. Pendant 6 secondes, elle garde une partie de tes dégâts (plus par point de combo), puis les inflige d'un coup, jusqu'à une limite. Les dégâts de Rupture et de Garrot comptent double. Puis Débiter Rang 2 et Disparition Rang 2 au 42, Surin Rang 2 au 44, Marque de mort Rang 2 au 48.
 - 50 : Aiguillon perfide Rang 2, Marque de mort Rang 3 au 56 ; rien de nouveau pour ce rôle.
 - 60 : Marque de mort Rang 4 et des rangs plus forts ; rien de nouveau pour ce rôle.
@@ -864,7 +864,7 @@ Dès le niveau 1 : tu frappes avec ton arme, avec Arme Croque-roc dessus. Les gu
 **Ordre simple :**
 Avant de commencer : buff d'arme actif (bloc D), Bouclier de foudre (**Shift-Z**), Totem incendiaire (**5**) ou tes totems posés.
 1. Attire avec Eclair (**1**). **Attirer** = frapper un ennemi de loin, pour qu'il vienne vers toi.
-2. Courroux naturel (**3**, dès 25) dès qu'il est prêt.
+2. Courroux naturel (**1**, dès 25) dès qu'il est prêt.
 3. Eclair (**1**) à 5 cumuls d'Arme du Maelström (dès 35) : il est alors instantané et gratuit.
 4. Horion de terre (**E**). En groupe, alterne avec Horion de flammes (**2**).
 5. Nova de feu (**Shift-4**, dès 12) quand un totem de Feu est posé et que tu as du mana en trop ; surtout contre plus d'ennemis.
@@ -873,7 +873,7 @@ Avant de commencer : buff d'arme actif (bloc D), Bouclier de foudre (**Shift-Z**
 Après le combat : Vague de soins (**C**). Urgence pendant un combat : Vague de soins inférieurs (**F2**, dès 20).
 **Tous les 10 niveaux :**
 - 10 : Arme Croque-roc (bloc D), Eclair (**1**), Horion de terre (**E**, dès 4), Bouclier de foudre (**Shift-Z**, dès 8). Horion de flammes (**2**), Totem incendiaire (**5**), Totem de Force de la Terre (**Shift-X**), Arme Langue de feu (bloc D). Premiers talents : Frappe foudroyante et d'autres (passifs) ; Dextérité mentale (passif) dès 15. Les niveaux de talent indiqués ici sont les plus tôt possibles ; un avantage peut les avancer jusqu'à 5 niveaux. Puis Nova de feu (**Shift-4**) au 12.
-- 20 : Loup fantôme (**R**), Horion de givre (**4**), Vague de soins inférieurs (**F2**), Appel des éléments (**Ctrl-1**). Focalisation chamanique (un talent, passif) : les horions et Bouclier de foudre coûtent 45 % de mana en moins. Puis Courroux naturel (**3**, un talent) au 25. Rafale (un talent, passif) dès 25. Loup fantôme amélioré (un talent) dès 25 : Loup fantôme est plus rapide (instantané avec les deux points) et marche aussi à l'intérieur ; les guides le prennent à des niveaux très différents. Totem de Magma (bloc D) au 26.
+- 20 : Loup fantôme (**R**), Horion de givre (**4**), Vague de soins inférieurs (**F2**), Appel des éléments (**Ctrl-1**). Focalisation chamanique (un talent, passif) : les horions et Bouclier de foudre coûtent 45 % de mana en moins. Puis Courroux naturel (**1**, un talent) au 25. Rafale (un talent, passif) dès 25. Loup fantôme amélioré (un talent) dès 25 : Loup fantôme est plus rapide (instantané avec les deux points) et marche aussi à l'intérieur ; les guides le prennent à des niveaux très différents. Totem de Magma (bloc D) au 26.
 - 30 : Arme Furie-des-vents (bloc D). Frappe-tempête amélioré et Armes spirituelles (des talents). Totem de Glèbe (**X**), Appel des ancêtres (**Ctrl-2**). Puis Totem Furie-des-vents au 32 (pas de touche : utilise la Barre de totems), Chaîne d'éclairs (**Shift-1**) au 32, Arme du Maelström (un talent, passif) au 35.
 - 40 : Rage long-voyante (**Q**, un talent) : tu frappes 30 % plus vite pendant 25 secondes ; seulement les coups de ton arme, pas tes sorts. Cooldown 3 minutes. Tous les guides ne la prennent pas au 40 : certains vont d'abord en Restauration pour le mana. Appel des esprits (**Ctrl-3**), les Mailles, une Arme Furie-des-vents plus forte. Puis Totem de Grâce aérienne au 42 (pas de touche : utilise la Barre de totems).
 - 50 : rangs plus forts d'Arme Furie-des-vents, Arme Croque-roc, Horion de terre, Eclair et Totem de Force de la Terre ; rien de nouveau pour ce rôle.

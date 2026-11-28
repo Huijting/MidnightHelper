@@ -154,7 +154,7 @@ Selo (3) antes da luta. Depois Golpe Sagrado (1) e Julgamento (2) sempre que est
 		{ "O que ele faz", [[
 O Mago fica atrás e lança magia de fogo, de gelo e arcana. Ele mantém os inimigos longe com feitiços que os prendem no lugar ou os deixam lentos. O Mago não tem formas nem posturas, então cada tecla sempre faz a mesma coisa.]] },
 		{ "Níveis 1-10: seus botões", [[
-- **1** = Bola de Fogo (nível 1): seu principal feitiço de ataque.
+- **1** = Bola de Fogo (nível 1): seu principal feitiço de ataque. Com o talento Impacto Arcano (no mínimo 20), Impacto Arcano fica com a tecla 1, e Bola de Fogo vai para o Ctrl-2.
 - **Shift-Z** = Armadura Gélida (1): um buff em você mesmo. Coloque antes de uma luta. Você só pode ter uma armadura ativa.
 - **Shift-X** = Inteligência Arcana (1; a partir do Grau 2: Intelecto Arcano): um buff para você ou um amigo.
 - **Ctrl-3** = Atirar: sua **varinha** (um pequeno bastão mágico que atira sozinho), assim que você tiver uma. Útil quando a sua mana está baixa. Quando você aprende Seta de Fogofrio, ela fica com o Ctrl-3; coloque Atirar numa tecla Alt sua se ainda quiser.
@@ -171,7 +171,7 @@ Seta de Gelo (2) ou Bola de Fogo (1) enquanto o inimigo vem. Impacto de Fogo (5)
 - 18: Remover Maldição Inferior no Shift-V. 20: Lampejo no R (seu feitiço de movimento), Nevasca no Shift-1, Evocação no F1 (recupera mana), Escudo de Mana no Z, Proteção contra Fogo no F4. Também os teleportes (e depois os portais): feitiços de viagem, fora do bloco. Coloque-os numa barra sua, ou use-os pelo Grimório.
 - 22: Calcinar no Ctrl-1, Proteção contra Gelo no F2. 24: Contrafeitiço no E: sua **interrupção** (ela para o feitiço de um inimigo).
 - 26: Cone de Frio no Shift-F. 30: Armadura de Gelo: a partir daí o Shift-Z lança esta em vez de Armadura Gélida (ela também protege você contra gelo).
-- Talentos a partir do nível 20: Ignimpacto no 4, Lança de Gelo no F, Impacto Arcano no Ctrl-2, Bloco de Gelo no C (no mínimo 25).]] },
+- Talentos a partir do nível 20: Ignimpacto no 4, Lança de Gelo no F, Impacto Arcano no 1 (Bola de Fogo então vai para o Ctrl-2), Bloco de Gelo no C (no mínimo 25).]] },
 		{ "Erros de iniciante", [[
 - Esperar as duas proteções ao mesmo tempo. Proteção contra Fogo (F4) e Proteção contra Gelo (F2) compartilham um tempo de recarga de 30 segundos, então só uma por vez.
 - Usar Armadura de Mago e Armadura de Gelo juntas. Só uma armadura pode estar ativa por vez. Armadura de Mago (34) está no bloco D.]] },
@@ -257,7 +257,7 @@ O Ladino tem **Energia** em vez de mana. A Energia enche sozinha, rápido: uma b
 - Antes de você conhecer o feitiço Furtividade, a tecla só mantém o feitiço normal dela.
 Golpes como Golpe Sinistro dão **Pontos de Combo** (até 5). Um **finalizador** é um golpe que gasta todos os seus Pontos de Combo: Eviscerar (**4**), Retalhar (**Shift-4**) e Ruptura (**5**). Mais pontos deixam ele mais forte.]] },
 		{ "Níveis 1-10: seus botões", [[
-- **1** = Golpe Sinistro (nível 1): seu golpe principal.
+- **1** = Golpe Sinistro (nível 1): seu golpe principal. Com Hemorragia (Subterfúgio, no mínimo 30) ou Mutilar (Assassinato, no mínimo 40), os dois talentos, esse fica com a tecla 1, e Golpe Sinistro vai para o 3.
 - **4** = Eviscerar (1): seu finalizador principal.
 - **Shift-R** = Furtividade (1): andar escondido. Aperte de novo para sair da Furtividade. Depois de sair da Furtividade, você não pode voltar a ela por 10 segundos.
 - **Shift-2** = Lançar (1): um arremesso de longe. Você precisa de uma arma de arremesso (como facas de arremesso) no espaço de longo alcance. Com arma de fogo, arco ou besta equipado, a tecla atira com ele em vez disso.
@@ -278,7 +278,7 @@ Furtividade (Shift-R) e vá até o inimigo. Golpe Sinistro (1) algumas vezes, de
 - 18: Emboscar no 2 na Furtividade (adaga, por trás). 20: Ruptura no 5. Venenos (de uma missão; veja abaixo).
 - 22: Distração no Shift-F, Sumir no X (sua fuga; cada uso custa um Pó de Clarão, um item nas suas bolsas). 24: Estocar no Shift-3 (um golpe com a arma da mão secundária, então você precisa de uma arma em cada mão; recarga de 10 segundos; devolve 15 de Energia).
 - 26: Golpe Baixo no V na Furtividade: um **atordoamento** (o inimigo não pode se mover nem agir por alguns segundos). 30: Golpe no Rim no V fora da Furtividade. Desarmar Armadilha (bloco D). 34: Cegar no Shift-V (custa um Pó Cegante).
-- Talentos: Ripostar no Shift-F1 e Premeditação no Shift-C, no mínimo 20. Sangue Frio no F1 e Golpe Fantasmagórico no Shift-X, 25. Rajada de Lâminas no Shift-1 (atinge mais inimigos), Preparação no F3 (zera o tempo de recarga dos seus outros feitiços de Ladino, como Evasão, Disparada e Sumir), Hemorragia no 3, 30. Mutilar no 3, Adrenalina ou Marca da Morte no Q, 40.]] },
+- Talentos: Ripostar no Shift-F1 e Premeditação no Shift-C, no mínimo 20. Sangue Frio no F1 e Golpe Fantasmagórico no Shift-X, 25. Rajada de Lâminas no Shift-1 (atinge mais inimigos), Preparação no F3 (zera o tempo de recarga dos seus outros feitiços de Ladino, como Evasão, Disparada e Sumir), Hemorragia no 1, 30. Mutilar no 1, Adrenalina ou Marca da Morte no Q, 40. Com Hemorragia ou Mutilar no 1, Golpe Sinistro vai para o 3.]] },
 		{ "Erros de iniciante", [[
 - Apertar um abridor fora da Furtividade. Garrote, Emboscar, Golpe Baixo, Aturdir e Bater Carteira precisam de Furtividade. Fora da Furtividade, a mesma tecla lança o feitiço normal dela.
 - Apertar Furtividade de novo sem querer. Isso encerra a Furtividade, e você não pode voltar a ela por 10 segundos.
@@ -341,7 +341,7 @@ Um **totem** é um pequeno objeto que você coloca no chão. Ele ajuda você ou 
 - **Shift-R** = Chamado Totêmico (22): leva seus totens até você. Revocação Totêmica (20, bloco D) recolhe eles e devolve um quarto da mana deles.
 Um **buff de arma** coloca poder na sua arma por 60 minutos. Você tem um por vez. Arma Trinca-pedra (1), Arma de Labaredas (10), Arma da Marca Gélida (20) e Arma de Fúria dos Ventos (30) vão em teclas Alt suas (bloco D). Escolha o que combina com o seu jeito de jogar.]] },
 		{ "Níveis 1-10: seus botões", [[
-- **1** = Raio (nível 1): seu principal feitiço de ataque.
+- **1** = Raio (nível 1): seu principal feitiço de ataque. Com o talento Ataque da Tempestade (no mínimo 25), Ataque da Tempestade fica com a tecla 1, e Raio vai para o 3.
 - **C** = Onda Curativa (1): sua cura grande.
 - Arma Trinca-pedra (1) vai no bloco D (veja acima).
 - **E** = Choque Terreno (4): sua **interrupção** (ela para o feitiço de um inimigo), e dano.
@@ -361,7 +361,7 @@ Buff de arma ligado (bloco D), Escudo de Raios ligado (Shift-Z). Totem Calcinant
 - 20: Lobo Fantasma no R (3 segundos de conjuração, só ao ar livre), Choque Gélido no 4 (deixa lento), Onda Curativa Menor no F2 (cura rápida), Totem de Torrente Curativa no F4 (de uma missão; cura seu grupo aos poucos; precisa do Totem da Água), Chamado dos Elementos no Ctrl-1.
 - 22: Curar Doença no Shift-V, Chamado Totêmico no Shift-R. 30: Totem de Aterramento no X (pega um feitiço nocivo mirado em você ou num membro do grupo por perto; não feitiços de área; precisa do Totem do Ar da missão de nível 30), Chamado dos Antepassados no Ctrl-2. 32: Cadeia de Raios no Shift-1 (atinge vários inimigos).
 - 40: Cura Encadeada no Shift-2 (cura vários amigos), Chamado dos Espíritos no Ctrl-3.
-- Talentos: Escudo de Água (assume o Shift-Z), no mínimo 20. Ataque da Tempestade no 3 e Totem de Vagalhão de Mana no F1, 25. Rapidez da Natureza no Shift-3, 30. Contracorrente no Shift-F1, e Maestria em Raio ou Fúria do Clarividente no Q, 40.]] },
+- Talentos: Escudo de Água (assume o Shift-Z), no mínimo 20. Ataque da Tempestade no 1 (Raio então vai para o 3) e Totem de Vagalhão de Mana no F1, 25. Rapidez da Natureza no Shift-3, 30. Contracorrente no Shift-F1, e Maestria em Raio ou Fúria do Clarividente no Q, 40.]] },
 		{ "Erros de iniciante", [[
 - Usar um choque logo antes de precisar interromper. Choque Terreno (E), Choque Flamejante (2) e Choque Gélido (4) compartilham um tempo de recarga de 6 segundos. Depois de Choque Flamejante, não há interrupção por até 6 segundos.
 - Apertar Nova de Fogo (Shift-4) sem um totem de Fogo no chão. Ela precisa de um dos seus totens de Fogo (como Totem Calcinante ou Totem de Magma). Ela atinge os inimigos perto daquele totem, não os que estão perto de você.
@@ -569,7 +569,7 @@ Uma arma em cada mão, a partir do nível 20 (Empunhar Duas Armas no treinador).
 A partir do nível 8 (Mísseis Arcanos). Impacto Arcano é um talento, no mínimo nível 20; até lá você joga como qualquer mago, com Seta de Gelo, Bola de Fogo e Mísseis Arcanos. Os guias divergem: alguns dizem que Arcano é forte para subir de nível, a maioria aconselha Gelo e diz que Arcano gasta muita mana. A árvore dele não tem lentidões, então é a mais fraca para manter os inimigos longe. Um **feitiço canalizado** continua enquanto você fica parado; se você se mover, ele para. Mísseis Arcanos é um deles.
 **Ordem simples:**
 1. Abra com Seta de Gelo (**2**): o inimigo então vem devagar.
-2. Impacto Arcano (**Ctrl-2**, a partir do 20): um ou dois, num chefe até quatro. Cada um faz o próximo custar mais mana.
+2. Impacto Arcano (**1**, a partir do 20): um ou dois, num chefe até quatro. Cada um faz o próximo custar mais mana.
 3. Salva de Mísseis (a partir do 15) acendeu? Mísseis Arcanos (**3**) na hora: de graça e duas vezes mais rápido.
 4. Ira Arcana (**Shift-F1**, a partir do 25) sempre que estiver pronta.
 5. Inimigo perto de você? Nova Congelante (**V**), afaste-se.
@@ -578,7 +578,7 @@ A partir do nível 8 (Mísseis Arcanos). Impacto Arcano é um talento, no mínim
 Vários inimigos: Nova Congelante (**V**), depois Explosão Arcana (**Shift-2**, a partir do 14). Pouca mana? Evocação (**F1**, a partir do 20).
 **A cada 10 níveis:**
 - 10: Nova Congelante (**V**). Primeiro talento: Canalização Aprimorada (Mísseis Arcanos não é mais interrompido quando você leva golpes). Depois Explosão Arcana (**Shift-2**) no 14, Salva de Mísseis (um talento, passivo) no 15. Os níveis de talento aqui são os mais cedo possíveis; uma vantagem pode adiantá-los em até 5 níveis.
-- 20: Impacto Arcano (**Ctrl-2**, um talento). Lampejo (**R**), Evocação (**F1**), Escudo de Mana (**Z**). Depois Contrafeitiço (**E**) no 24, Ira Arcana (**Shift-F1**, um talento; você precisa de Impacto Arcano antes) no 25.
+- 20: Impacto Arcano (**1**, um talento). Lampejo (**R**), Evocação (**F1**), Escudo de Mana (**Z**). Depois Contrafeitiço (**E**) no 24, Ira Arcana (**Shift-F1**, um talento; você precisa de Impacto Arcano antes) no 25.
 - 30: Presença de Espírito (**Shift-3**, um talento): seu próximo feitiço com conjuração abaixo de 10 segundos é instantâneo. Armadura de Gelo (**Shift-Z**). Depois Armadura de Mago (bloco D) no 34.
 - 40: Poder Arcano (**Q**, um talento; você precisa de Presença de Espírito antes): por 15 segundos seus feitiços causam 30% mais dano, mas custam 30% mais mana. Seta de Fogofrio assume o **Ctrl-3**: coloque sua varinha (Atirar) numa tecla Alt sua.
 - 50: graus mais fortes de Impacto Arcano, Ira Arcana e Mísseis Arcanos; nada novo para esta função.
@@ -704,7 +704,7 @@ A partir do nível 1 (Golpe Sinistro e Eviscerar). Você luta de perto, com adag
 1. A partir do 20: veneno nas duas armas (itens, no bloco D).
 2. Espere a Energia cheia. A partir do 18 (Presteza), seu primeiro ataque então custa 10 de Energia a menos.
 3. Furtividade (**Shift-R**), vá para trás do inimigo. **Furtividade** = andar escondido, para o inimigo não ver você. Abra com Emboscar (**2**, a partir do 18, adaga na mão principal) ou Garrote (**1**, a partir do 14). Inimigo forte, a partir do 26: Golpe Baixo (**V**), um atordoamento de 4 segundos.
-4. Pontos de Combo: Punhalada pelas Costas (**2**) quando você está atrás do inimigo, senão Golpe Sinistro (**1**). A partir do 40: Mutilar (**3**), 2 pontos cada vez.
+4. Pontos de Combo: Punhalada pelas Costas (**2**) quando você está atrás do inimigo, senão Golpe Sinistro (**1**). A partir do 40: Mutilar (**1**), 2 pontos cada vez.
 5. Estocar (**Shift-3**, a partir do 24) sempre que estiver pronto. Com Peçonha (a partir do 30), cada Estocar deixa seu veneno mais forte por 6 segundos.
 6. Finalizador: Retalhar (**Shift-4**) numa luta longa; senão Eviscerar (**4**) com 5 pontos. Ruptura (**5**, a partir do 20) num inimigo que vai viver muito (um elite, um chefe).
 7. Sangue Frio (**F1**, a partir do 25) logo antes de um Eviscerar com 5 pontos.
@@ -712,7 +712,7 @@ A partir do nível 1 (Golpe Sinistro e Eviscerar). Você luta de perto, com adag
 - 10: você já tem Golpe Sinistro (**1**), Eviscerar (**4**), Punhalada pelas Costas (**2**), Furtividade (**Shift-R**), Esfaquear (**Shift-Q**) e Evasão (**Z**). Novo no 10: Retalhar (**Shift-4**), Disparada (**R**), Aturdir (**Shift-Q** na Furtividade), e uma arma em cada mão (Empunhar Duas Armas). Depois Chute (**E**) no 12, Garrote (**1** na Furtividade) e Expor Armadura (**Shift-Z**) no 14, Finta (**F**) no 16, Emboscar (**2** na Furtividade) e Presteza (passivo) no 18.
 - 20: Ruptura (**5**). Venenos, de uma missão. Depois Sumir (**X**) no 22, Estocar (**Shift-3**) no 24, Sangue Frio (**F1**, um talento) no 25: seu próximo Golpe Sinistro, Punhalada pelas Costas, Emboscar, Eviscerar ou Mutilar com certeza é crítico (**crítico** = um golpe de sorte, mais forte); recarga de 3 minutos. Golpe Baixo (**V** na Furtividade) no 26. Os níveis de talento aqui são os mais cedo possíveis; uma vantagem pode adiantá-los em até 5 níveis.
 - 30: Peçonha (um talento, passivo: sem tecla): cada Estocar dá ao seu veneno 30% mais dano e 20% mais chance de acertar, por 6 segundos. Golpe no Rim (**V**). Depois Cegar (**Shift-V**) no 34, Selar o Destino (um talento, passivo) no 35: um crítico com um ataque que dá Pontos de Combo dá a você um ponto extra.
-- 40: Mutilar (**3**, um talento; você precisa de Peçonha antes): 60 de Energia, acerta com as duas adagas, 2 Pontos de Combo, 20% mais dano num inimigo envenenado. Depois Retalhar Grau 2 no 42, Estocar Grau 2 no 44.
+- 40: Mutilar (**1**, um talento; você precisa de Peçonha antes): 60 de Energia, acerta com as duas adagas, 2 Pontos de Combo, 20% mais dano num inimigo envenenado. Depois Retalhar Grau 2 no 42, Estocar Grau 2 no 44.
 - 50: Mutilar Grau 2 e Golpe no Rim Grau 2; nada novo para esta função.
 - 60: Mutilar Grau 3 e graus mais fortes; nada novo para esta função.
 **Erros de iniciante:**
@@ -747,14 +747,14 @@ A partir do nível 1 (Golpe Sinistro e Furtividade). Esta árvore luta a partir 
 2. Premeditação (**Shift-C**, a partir do 20): 2 Pontos de Combo no inimigo. Depois seu primeiro golpe.
 3. Primeiro golpe por trás: Emboscar (**2**, a partir do 18, adaga na mão principal). Inimigo forte, a partir do 26: Golpe Baixo (**V**), um atordoamento de 4 segundos. Os guias divergem sobre a melhor abertura.
 4. Golpe Fantasmagórico (**Shift-X**, a partir do 25) e Estocar (**Shift-3**, a partir do 24) sempre que estiverem prontos.
-5. Pontos de Combo: a partir do 30, Hemorragia (**3**). Antes disso: Punhalada pelas Costas (**2**) quando você está atrás do inimigo, senão Golpe Sinistro (**1**).
+5. Pontos de Combo: a partir do 30, Hemorragia (**1**). Antes disso: Punhalada pelas Costas (**2**) quando você está atrás do inimigo, senão Golpe Sinistro (**1**).
 6. Finalizador: Eviscerar (**4**) quando o inimigo está quase morto; Ruptura (**5**) num inimigo que vai viver muito; Retalhar (**Shift-4**) numa luta longa.
 7. A partir do 40: Marca da Morte (**Q**) no inimigo mais forte, de preferência enquanto Ruptura ou Garrote está ativo.
 8. Emergência: Sumir (**X**). Preparação (**F3**, a partir do 30) deixa Sumir, Evasão e Disparada prontos de novo na hora.
 **A cada 10 níveis:**
 - 10: você já tem Golpe Sinistro (**1**), Eviscerar (**4**), Punhalada pelas Costas (**2**), Furtividade (**Shift-R**), Esfaquear (**Shift-Q**) e Evasão (**Z**). Novo no 10: Aturdir (**Shift-Q** na Furtividade), Retalhar (**Shift-4**), Disparada (**R**), e uma arma em cada mão. Depois Chute (**E**) no 12, Garrote (**1** na Furtividade) no 14, Finta (**F**) no 16, Emboscar (**2** na Furtividade) e Presteza (passivo) no 18.
 - 20: Premeditação (**Shift-C**, um talento): 2 Pontos de Combo no seu alvo; use-os em 20 segundos, ou eles somem; recarga de 2 minutos. Ruptura (**5**), e Venenos de uma missão. Depois Sumir (**X**) no 22, Estocar (**Shift-3**) no 24, Golpe Fantasmagórico (**Shift-X**, um talento) no 25: 40 de Energia, 1 Ponto de Combo, 15% mais esquiva por 7 segundos; recarga de 20 segundos. Golpe Baixo (**V** na Furtividade) no 26. Os níveis de talento aqui são os mais cedo possíveis; uma vantagem pode adiantá-los em até 5 níveis.
-- 30: Hemorragia (**3**, um talento; você precisa de Lâminas Serrilhadas antes): 35 de Energia, 1 Ponto de Combo, funciona pela frente; por 15 segundos sua Ruptura e seu Garrote causam 15% mais dano a esse inimigo. Preparação (**F3**, um talento): deixa a recarga dos seus outros feitiços de Ladino pronta na hora; a recarga dela mesma é de 10 minutos. Você pega um destes dois no 30, o outro no 31. Golpe no Rim (**V**). Depois Cegar (**Shift-V**) no 34, Faca de Bota (um talento, passivo) no 35: Estocar pode dar 2 Pontos de Combo.
+- 30: Hemorragia (**1**, um talento; você precisa de Lâminas Serrilhadas antes): 35 de Energia, 1 Ponto de Combo, funciona pela frente; por 15 segundos sua Ruptura e seu Garrote causam 15% mais dano a esse inimigo. Preparação (**F3**, um talento): deixa a recarga dos seus outros feitiços de Ladino pronta na hora; a recarga dela mesma é de 10 minutos. Você pega um destes dois no 30, o outro no 31. Golpe no Rim (**V**). Depois Cegar (**Shift-V**) no 34, Faca de Bota (um talento, passivo) no 35: Estocar pode dar 2 Pontos de Combo.
 - 40: Marca da Morte (**Q**, um talento; você precisa de Preparação antes): um finalizador, 25 de Energia, recarga de 10 segundos. Por 6 segundos ela guarda parte do seu dano (mais por Ponto de Combo), depois causa tudo de uma vez, até um limite. O dano de Ruptura e Garrote conta em dobro. Depois Retalhar Grau 2 e Sumir Grau 2 no 42, Estocar Grau 2 no 44, Marca da Morte Grau 2 no 48.
 - 50: Golpe no Rim Grau 2, Marca da Morte Grau 3 no 56; nada novo para esta função.
 - 60: Marca da Morte Grau 4 e graus mais fortes; nada novo para esta função.
@@ -863,7 +863,7 @@ A partir do nível 1: você bate com sua arma, com Arma Trinca-pedra nela. Os gu
 **Ordem simples:**
 Antes de começar: buff de arma ligado (bloco D), Escudo de Raios (**Shift-Z**), Totem Calcinante (**5**) ou seus totens no chão.
 1. Puxe com Raio (**1**). **Puxar** = acertar um inimigo de longe, para ele vir até você.
-2. Ataque da Tempestade (**3**, a partir do 25) sempre que estiver pronto.
+2. Ataque da Tempestade (**1**, a partir do 25) sempre que estiver pronto.
 3. Raio (**1**) com 5 acúmulos de Arma da Voragem (a partir do 35): aí ele é instantâneo e de graça.
 4. Choque Terreno (**E**). Em grupo, alterne com Choque Flamejante (**2**).
 5. Nova de Fogo (**Shift-4**, a partir do 12) quando um totem de Fogo está no chão e sobra mana; mais contra vários inimigos.
@@ -872,7 +872,7 @@ Antes de começar: buff de arma ligado (bloco D), Escudo de Raios (**Shift-Z**),
 Depois da luta: Onda Curativa (**C**). Emergência durante a luta: Onda Curativa Menor (**F2**, a partir do 20).
 **A cada 10 níveis:**
 - 10: Arma Trinca-pedra (bloco D), Raio (**1**), Choque Terreno (**E**, a partir do 4), Escudo de Raios (**Shift-Z**, a partir do 8). Choque Flamejante (**2**), Totem Calcinante (**5**), Totem da Força da Terra (**Shift-X**), Arma de Labaredas (bloco D). Primeiros talentos: Golpes Trovejantes e outros (passivos); Destreza Mental (passivo) a partir do 15. Os níveis de talento aqui são os mais cedo possíveis; uma vantagem pode adiantá-los em até 5 níveis. Depois Nova de Fogo (**Shift-4**) no 12.
-- 20: Lobo Fantasma (**R**), Choque Gélido (**4**), Onda Curativa Menor (**F2**), Chamado dos Elementos (**Ctrl-1**). Concentração Xamanística (um talento, passivo): Choques e Escudo de Raios custam 45% menos mana. Depois Ataque da Tempestade (**3**, um talento) no 25. Ímpeto (um talento, passivo) a partir do 25. Lobo Fantasma Aprimorado (um talento) a partir do 25: Lobo Fantasma fica mais rápido (instantâneo com os dois pontos) e também funciona em lugares fechados; os guias pegam ele em níveis bem diferentes. Totem de Magma (bloco D) no 26.
+- 20: Lobo Fantasma (**R**), Choque Gélido (**4**), Onda Curativa Menor (**F2**), Chamado dos Elementos (**Ctrl-1**). Concentração Xamanística (um talento, passivo): Choques e Escudo de Raios custam 45% menos mana. Depois Ataque da Tempestade (**1**, um talento) no 25. Ímpeto (um talento, passivo) a partir do 25. Lobo Fantasma Aprimorado (um talento) a partir do 25: Lobo Fantasma fica mais rápido (instantâneo com os dois pontos) e também funciona em lugares fechados; os guias pegam ele em níveis bem diferentes. Totem de Magma (bloco D) no 26.
 - 30: Arma de Fúria dos Ventos (bloco D). Ataque da Tempestade Aprimorado e Armas Espirituais (talentos). Totem de Aterramento (**X**), Chamado dos Antepassados (**Ctrl-2**). Depois Totem de Fúria dos Ventos no 32 (sem tecla: use a Barra de totens), Cadeia de Raios (**Shift-1**) no 32, Arma da Voragem (um talento, passivo) no 35.
 - 40: Fúria do Clarividente (**Q**, um talento): você bate 30% mais rápido por 25 segundos; só os golpes da arma, não seus feitiços. Recarga de 3 minutos. Nem todo guia pega ela no 40: alguns vão primeiro para Restauração, por mana. Chamado dos Espíritos (**Ctrl-3**), armadura de Malha, uma Arma de Fúria dos Ventos mais forte. Depois Totem da Graça do Ar no 42 (sem tecla: use a Barra de totens).
 - 50: graus mais fortes de Arma de Fúria dos Ventos, Arma Trinca-pedra, Choque Terreno, Raio e Totem da Força da Terra; nada novo para esta função.

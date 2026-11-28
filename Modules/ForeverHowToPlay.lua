@@ -148,7 +148,7 @@ Seal (3) before the fight. Then Holy Strike (1) and Judgement (2) whenever they 
 		{ "What it does", [[
 The Mage stands back and casts fire, frost and arcane magic. It keeps enemies away with spells that hold them in place or slow them. The Mage has no shapes and no stances, so every key always does the same thing.]] },
 		{ "Levels 1-10: your buttons", [[
-- **1** = Fireball (level 1): your main attack spell.
+- **1** = Fireball (level 1): your main attack spell. With the Arcane Blast talent (20 at the earliest), Arcane Blast takes key 1 and Fireball moves to Ctrl-2.
 - **Shift-Z** = Frost Armor (1): a buff on yourself. Put it on before a fight. You can only have one armor on.
 - **Shift-X** = Arcane Intellect (1): a buff for you or a friend.
 - **Ctrl-3** = Shoot: your **wand** (a small magic stick that shoots by itself), once you have one. Handy when your mana is low. When you learn Frostfire Bolt, that takes Ctrl-3; put Shoot on one of your own Alt keys if you still want it.
@@ -165,7 +165,7 @@ Frostbolt (2) or Fireball (1) as the enemy comes in. Fire Blast (5) when it is r
 - 18: Remove Lesser Curse on Shift-V. 20: Blink on R (your movement spell), Blizzard on Shift-1, Evocation on F1 (gets mana back), Mana Shield on Z, Fire Ward on F4. Also the teleports (and later portals): travel spells, not on the block. Put them on your own bar, or use them from your spellbook.
 - 22: Scorch on Ctrl-1, Frost Ward on F2. 24: Counterspell on E: your **interrupt** (it stops an enemy's spell).
 - 26: Cone of Cold on Shift-F. 30: Ice Armor: Shift-Z casts it from then on instead of Frost Armor (it also protects you against frost).
-- Talents from level 20: Pyroblast on 4, Ice Lance on F, Arcane Blast on Ctrl-2, Ice Block on C (25 at the earliest).]] },
+- Talents from level 20: Pyroblast on 4, Ice Lance on F, Arcane Blast on 1 (Fireball then moves to Ctrl-2), Ice Block on C (25 at the earliest).]] },
 		{ "Beginner mistakes", [[
 - Expecting both wards at once. Fire Ward (F4) and Frost Ward (F2) share one 30-second cooldown, so only one at a time.
 - Wearing Mage Armor and Ice Armor together. Only one armor can be on at a time. Mage Armor (34) is on block D.]] },
@@ -251,7 +251,7 @@ The Rogue has **Energy** instead of mana. Energy fills up by itself, fast: an em
 - Before you know the Stealth spell, the key just keeps its normal spell.
 Hits like Sinister Strike give you **combo points** (up to 5). A **finisher** is a hit that uses all your combo points: Eviscerate (**4**), Slice and Dice (**Shift-4**) and Rupture (**5**). More points make it stronger.]] },
 		{ "Levels 1-10: your buttons", [[
-- **1** = Sinister Strike (level 1): your main hit.
+- **1** = Sinister Strike (level 1): your main hit. With Hemorrhage (Subtlety, 30 at the earliest) or Mutilate (Assassination, 40 at the earliest), both talents, that one takes key 1 and Sinister Strike moves to 3.
 - **4** = Eviscerate (1): your main finisher.
 - **Shift-R** = Stealth (1): sneak. Press it again to leave Stealth. After you leave Stealth, you cannot go back in for 10 seconds.
 - **Shift-2** = Throw (1): a ranged throw. You need a throwing weapon (like throwing knives) in your ranged slot. With a gun, bow or crossbow equipped, the key shoots that instead.
@@ -272,7 +272,7 @@ Stealth (Shift-R) and walk up to the enemy. Sinister Strike (1) a few times, the
 - 18: Ambush on 2 in Stealth (dagger, from behind). 20: Rupture on 5. Poisons (from a quest; see below).
 - 22: Distract on Shift-F, Vanish on X (your escape; each use costs a Flash Powder, an item in your bags). 24: Shank on Shift-3 (a hit with your off-hand weapon, so you need a weapon in each hand; cooldown 10 seconds; gives 15 Energy back).
 - 26: Cheap Shot on V in Stealth: a **stun** (the enemy cannot move or act for a few seconds). 30: Kidney Shot on V outside Stealth. Disarm Trap (block D). 34: Blind on Shift-V (costs a Blinding Powder).
-- Talents: Riposte on Shift-F1 and Premeditation on Shift-C, 20 at the earliest. Cold Blood on F1 and Ghostly Strike on Shift-X, 25. Blade Flurry on Shift-1 (hits more enemies), Preparation on F3 (resets the cooldown of your other Rogue spells, like Evasion, Sprint and Vanish), Hemorrhage on 3, 30. Mutilate on 3, Adrenaline Rush or Death Mark on Q, 40.]] },
+- Talents: Riposte on Shift-F1 and Premeditation on Shift-C, 20 at the earliest. Cold Blood on F1 and Ghostly Strike on Shift-X, 25. Blade Flurry on Shift-1 (hits more enemies), Preparation on F3 (resets the cooldown of your other Rogue spells, like Evasion, Sprint and Vanish), Hemorrhage on 1, 30. Mutilate on 1, Adrenaline Rush or Death Mark on Q, 40. With Hemorrhage or Mutilate on 1, Sinister Strike moves to 3.]] },
 		{ "Beginner mistakes", [[
 - Pressing an opener outside Stealth. Garrote, Ambush, Cheap Shot, Sap and Pick Pocket need Stealth. Outside Stealth, the same key casts its normal spell.
 - Pressing Stealth again by accident. That ends Stealth, and you cannot go back in for 10 seconds.
@@ -335,7 +335,7 @@ A **totem** is a small object you place on the ground. It helps you or your grou
 - **Shift-R** = Totemic Call (22): moves your totems to you. Totemic Recall (20, block D) takes them back and gives you a quarter of their mana back.
 A **weapon buff** puts power on your weapon for 60 minutes. You have one at a time. Rockbiter (1), Flametongue (10), Frostbrand (20) and Windfury (30) go on your own Alt keys (block D). Pick the one that fits how you play.]] },
 		{ "Levels 1-10: your buttons", [[
-- **1** = Lightning Bolt (level 1): your main attack spell.
+- **1** = Lightning Bolt (level 1): your main attack spell. With the Stormstrike talent (25 at the earliest), Stormstrike takes key 1 and Lightning Bolt moves to 3.
 - **C** = Healing Wave (1): your big heal.
 - Rockbiter Weapon (1) goes on block D (see above).
 - **E** = Earth Shock (4): your **interrupt** (it stops an enemy's spell), and damage.
@@ -355,7 +355,7 @@ Weapon buff on (block D), Lightning Shield on (Shift-Z). Searing Totem (5) down.
 - 20: Ghost Wolf on R (3-second cast, outdoors only), Frost Shock on 4 (slows), Lesser Healing Wave on F2 (quick heal), Healing Stream Totem on F4 (from a quest; heals your group a little at a time; needs the Water Totem), Call of the Elements on Ctrl-1.
 - 22: Cure Disease on Shift-V, Totemic Call on Shift-R. 30: Grounding Totem on X (catches one harmful spell aimed at you or a group member nearby; not area spells; needs the Air Totem from the level 30 quest), Call of the Ancestors on Ctrl-2. 32: Chain Lightning on Shift-1 (hits several enemies).
 - 40: Chain Heal on Shift-2 (heals several friends), Call of the Spirits on Ctrl-3.
-- Talents: Water Shield (takes over Shift-Z), 20 at the earliest. Stormstrike on 3 and Mana Tide Totem on F1, 25. Nature's Swiftness on Shift-3, 30. Riptide on Shift-F1, and Lightning Mastery or Rage of the Farseer on Q, 40.]] },
+- Talents: Water Shield (takes over Shift-Z), 20 at the earliest. Stormstrike on 1 (Lightning Bolt then moves to 3) and Mana Tide Totem on F1, 25. Nature's Swiftness on Shift-3, 30. Riptide on Shift-F1, and Lightning Mastery or Rage of the Farseer on Q, 40.]] },
 		{ "Beginner mistakes", [[
 - Using a shock right before you need to interrupt. Earth Shock (E), Flame Shock (2) and Frost Shock (4) share one 6-second cooldown. After Flame Shock, there is no interrupt for up to 6 seconds.
 - Pressing Fire Nova (Shift-4) with no Fire totem down. It needs one of your Fire totems (like Searing or Magma). It hits the enemies near that totem, not the ones near you.
@@ -571,7 +571,7 @@ A weapon in each hand, from level 20 (Dual Wield at the trainer). Until then, us
 From level 8 (Arcane Missiles). Arcane Blast is a talent, 20 at the earliest; until then you play like any mage, with Frostbolt, Fireball and Arcane Missiles. The guides differ: some call Arcane strong for levelling, most advise Frost and call Arcane hungry for mana. Its tree has no slows, so it is the weakest at keeping enemies away. A **channel** is a spell that runs while you stand still; moving stops it. Arcane Missiles is one.
 **Simple order:**
 1. Open with Frostbolt (**2**): the enemy then comes slowly.
-2. Arcane Blast (**Ctrl-2**, from 20): one or two, on a boss up to four. Each one makes the next cost more mana.
+2. Arcane Blast (**1**, from 20): one or two, on a boss up to four. Each one makes the next cost more mana.
 3. Missile Barrage (from 15) lights up? Arcane Missiles (**3**) right away: free and twice as fast.
 4. Arcane Wrath (**Shift-F1**, from 25) whenever it is ready.
 5. Enemy close to you? Frost Nova (**V**), step away.
@@ -580,7 +580,7 @@ From level 8 (Arcane Missiles). Arcane Blast is a talent, 20 at the earliest; un
 Several enemies: Frost Nova (**V**), then Arcane Explosion (**Shift-2**, from 14). Low on mana? Evocation (**F1**, from 20).
 **Per 10 levels:**
 - 10: Frost Nova (**V**). First talent: Improved Channeling (Arcane Missiles is no longer cut short when you are hit). Then Arcane Explosion (**Shift-2**) at 14, Missile Barrage (a talent, passive) at 15. Talent levels here are the earliest; a perk can bring them up to 5 levels sooner.
-- 20: Arcane Blast (**Ctrl-2**, a talent). Blink (**R**), Evocation (**F1**), Mana Shield (**Z**). Then Counterspell (**E**) at 24, Arcane Wrath (**Shift-F1**, a talent; you need Arcane Blast first) at 25.
+- 20: Arcane Blast (**1**, a talent). Blink (**R**), Evocation (**F1**), Mana Shield (**Z**). Then Counterspell (**E**) at 24, Arcane Wrath (**Shift-F1**, a talent; you need Arcane Blast first) at 25.
 - 30: Presence of Mind (**Shift-3**, a talent): your next spell with a cast under 10 seconds is instant. Ice Armor (**Shift-Z**). Then Mage Armor (block D) at 34.
 - 40: Arcane Power (**Q**, a talent; you need Presence of Mind first): for 15 seconds your spells do 30% more damage, but cost 30% more mana. Frostfire Bolt takes **Ctrl-3**: put your wand (Shoot) on your own Alt key.
 - 50: stronger ranks of Arcane Blast, Arcane Wrath and Arcane Missiles; nothing new for this role.
@@ -707,7 +707,7 @@ From level 1 (Sinister Strike and Eviscerate). You fight up close, with daggers 
 1. From 20: poison on both weapons (items, on block D).
 2. Wait for full Energy. From 18 (Poised) your first attack then costs 10 Energy less.
 3. Stealth (**Shift-R**), walk behind the enemy. **Stealth** = sneak, so the enemy does not see you. Open with Ambush (**2**, from 18, dagger in your main hand) or Garrote (**1**, from 14). Strong enemy, from 26: Cheap Shot (**V**), a 4-second stun.
-4. Combo points: Backstab (**2**) when you stand behind the enemy, otherwise Sinister Strike (**1**). From 40: Mutilate (**3**), 2 points each time.
+4. Combo points: Backstab (**2**) when you stand behind the enemy, otherwise Sinister Strike (**1**). From 40: Mutilate (**1**), 2 points each time.
 5. Shank (**Shift-3**, from 24) whenever it is ready. With Venom (from 30) each Shank makes your poison stronger for 6 seconds.
 6. Finisher: Slice and Dice (**Shift-4**) in a long fight; otherwise Eviscerate (**4**) at 5 points. Rupture (**5**, from 20) on an enemy that will live long (an elite, a boss).
 7. Cold Blood (**F1**, from 25) just before an Eviscerate with 5 points.
@@ -715,7 +715,7 @@ From level 1 (Sinister Strike and Eviscerate). You fight up close, with daggers 
 - 10: you already have Sinister Strike (**1**), Eviscerate (**4**), Backstab (**2**), Stealth (**Shift-R**), Gouge (**Shift-Q**) and Evasion (**Z**). New at 10: Slice and Dice (**Shift-4**), Sprint (**R**), Sap (**Shift-Q** in Stealth), and a weapon in each hand (Dual Wield). Then Kick (**E**) at 12, Garrote (**1** in Stealth) and Expose Armor (**Shift-Z**) at 14, Feint (**F**) at 16, Ambush (**2** in Stealth) and Poised (passive) at 18.
 - 20: Rupture (**5**). Poisons, from a quest. Then Vanish (**X**) at 22, Shank (**Shift-3**) at 24, Cold Blood (**F1**, a talent) at 25: your next Sinister Strike, Backstab, Ambush, Eviscerate or Mutilate is sure to crit (**crit** = a lucky, stronger hit); cooldown 3 minutes. Cheap Shot (**V** in Stealth) at 26. Talent levels here are the earliest; a perk can bring them up to 5 levels sooner.
 - 30: Venom (a talent, passive: no key): each Shank gives your poison 30% more damage and 20% more chance to land, for 6 seconds. Kidney Shot (**V**). Then Blind (**Shift-V**) at 34, Seal Fate (a talent, passive) at 35: a crit with an attack that gives combo points gives you an extra point.
-- 40: Mutilate (**3**, a talent; you need Venom first): 60 Energy, hits with both daggers, 2 combo points, 20% more damage on a poisoned enemy. Then Slice and Dice rank 2 at 42, Shank rank 2 at 44.
+- 40: Mutilate (**1**, a talent; you need Venom first): 60 Energy, hits with both daggers, 2 combo points, 20% more damage on a poisoned enemy. Then Slice and Dice rank 2 at 42, Shank rank 2 at 44.
 - 50: Mutilate rank 2 and Kidney Shot rank 2; nothing new for this role.
 - 60: Mutilate rank 3 and stronger ranks; nothing new for this role.
 **Beginner mistakes:**
@@ -750,14 +750,14 @@ From level 1 (Sinister Strike and Stealth). This tree fights from Stealth: a str
 2. Premeditation (**Shift-C**, from 20): 2 combo points on the enemy. Then your first hit.
 3. First hit from behind: Ambush (**2**, from 18, dagger in your main hand). Strong enemy, from 26: Cheap Shot (**V**), a 4-second stun. The guides differ on the best opener.
 4. Ghostly Strike (**Shift-X**, from 25) and Shank (**Shift-3**, from 24) whenever they are ready.
-5. Combo points: from 30 Hemorrhage (**3**). Before that: Backstab (**2**) when you stand behind the enemy, otherwise Sinister Strike (**1**).
+5. Combo points: from 30 Hemorrhage (**1**). Before that: Backstab (**2**) when you stand behind the enemy, otherwise Sinister Strike (**1**).
 6. Finisher: Eviscerate (**4**) when the enemy is almost dead; Rupture (**5**) on an enemy that will live long; Slice and Dice (**Shift-4**) in a long fight.
 7. From 40: Death Mark (**Q**) on the strongest enemy, best while Rupture or Garrote is running.
 8. Emergency: Vanish (**X**). Preparation (**F3**, from 30) makes Vanish, Evasion and Sprint ready again right away.
 **Per 10 levels:**
 - 10: you already have Sinister Strike (**1**), Eviscerate (**4**), Backstab (**2**), Stealth (**Shift-R**), Gouge (**Shift-Q**) and Evasion (**Z**). New at 10: Sap (**Shift-Q** in Stealth), Slice and Dice (**Shift-4**), Sprint (**R**), and a weapon in each hand. Then Kick (**E**) at 12, Garrote (**1** in Stealth) at 14, Feint (**F**) at 16, Ambush (**2** in Stealth) and Poised (passive) at 18.
 - 20: Premeditation (**Shift-C**, a talent): 2 combo points on your target; use them within 20 seconds, or they are gone; cooldown 2 minutes. Rupture (**5**), and Poisons from a quest. Then Vanish (**X**) at 22, Shank (**Shift-3**) at 24, Ghostly Strike (**Shift-X**, a talent) at 25: 40 Energy, 1 combo point, 15% more dodge for 7 seconds; cooldown 20 seconds. Cheap Shot (**V** in Stealth) at 26. Talent levels here are the earliest; a perk can bring them up to 5 levels sooner.
-- 30: Hemorrhage (**3**, a talent; you need Serrated Blades first): 35 Energy, 1 combo point, works from the front; for 15 seconds your Rupture and Garrote do 15% more damage to that enemy. Preparation (**F3**, a talent): makes the cooldown of your other Rogue spells ready right away; its own cooldown is 10 minutes. You get one of these two at 30, the other at 31. Kidney Shot (**V**). Then Blind (**Shift-V**) at 34, Boot Knife (a talent, passive) at 35: Shank can give 2 combo points.
+- 30: Hemorrhage (**1**, a talent; you need Serrated Blades first): 35 Energy, 1 combo point, works from the front; for 15 seconds your Rupture and Garrote do 15% more damage to that enemy. Preparation (**F3**, a talent): makes the cooldown of your other Rogue spells ready right away; its own cooldown is 10 minutes. You get one of these two at 30, the other at 31. Kidney Shot (**V**). Then Blind (**Shift-V**) at 34, Boot Knife (a talent, passive) at 35: Shank can give 2 combo points.
 - 40: Death Mark (**Q**, a talent; you need Preparation first): a finisher, 25 Energy, cooldown 10 seconds. For 6 seconds it saves part of your damage (more per combo point), then deals it in one go, up to a limit. Rupture and Garrote damage counts double. Then Slice and Dice rank 2 and Vanish rank 2 at 42, Shank rank 2 at 44, Death Mark rank 2 at 48.
 - 50: Kidney Shot rank 2, Death Mark rank 3 at 56; nothing new for this role.
 - 60: Death Mark rank 4 and stronger ranks; nothing new for this role.
@@ -868,7 +868,7 @@ From level 1: you hit with your weapon, with Rockbiter Weapon on it. The guides 
 **Simple order:**
 Before you start: weapon buff on (block D), Lightning Shield (**Shift-Z**), Searing Totem (**5**) or your totems down.
 1. Pull with Lightning Bolt (**1**). **Pull** = hit one enemy from a distance so it comes to you.
-2. Stormstrike (**3**, from 25) whenever it is ready.
+2. Stormstrike (**1**, from 25) whenever it is ready.
 3. Lightning Bolt (**1**) at 5 stacks of Maelstrom Weapon (from 35): then it is instant and free.
 4. Earth Shock (**E**). In a group, take turns with Flame Shock (**2**).
 5. Fire Nova (**Shift-4**, from 12) when a Fire totem is down and you have mana to spare; mostly against more enemies.
@@ -877,7 +877,7 @@ Before you start: weapon buff on (block D), Lightning Shield (**Shift-Z**), Sear
 After the fight: Healing Wave (**C**). Emergency during a fight: Lesser Healing Wave (**F2**, from 20).
 **Per 10 levels:**
 - 10: Rockbiter Weapon (block D), Lightning Bolt (**1**), Earth Shock (**E**, from 4), Lightning Shield (**Shift-Z**, from 8). Flame Shock (**2**), Searing Totem (**5**), Strength of Earth Totem (**Shift-X**), Flametongue Weapon (block D). First talents: Thundering Strikes and others (passive); Mental Dexterity (passive) from 15. Talent levels here are the earliest; a perk can bring them up to 5 levels sooner. Then Fire Nova (**Shift-4**) at 12.
-- 20: Ghost Wolf (**R**), Frost Shock (**4**), Lesser Healing Wave (**F2**), Call of the Elements (**Ctrl-1**). Shamanistic Focus (a talent, passive): Shocks and Lightning Shield cost 45% less mana. Then Stormstrike (**3**, a talent) at 25. Flurry (a talent, passive) from 25. Improved Ghost Wolf (a talent) from 25: Ghost Wolf is faster (instant with both points) and works indoors too; the guides take it at very different levels. Magma Totem (block D) at 26.
+- 20: Ghost Wolf (**R**), Frost Shock (**4**), Lesser Healing Wave (**F2**), Call of the Elements (**Ctrl-1**). Shamanistic Focus (a talent, passive): Shocks and Lightning Shield cost 45% less mana. Then Stormstrike (**1**, a talent) at 25. Flurry (a talent, passive) from 25. Improved Ghost Wolf (a talent) from 25: Ghost Wolf is faster (instant with both points) and works indoors too; the guides take it at very different levels. Magma Totem (block D) at 26.
 - 30: Windfury Weapon (block D). Improved Stormstrike and Spirit Weapons (talents). Grounding Totem (**X**), Call of the Ancestors (**Ctrl-2**). Then Windfury Totem at 32 (no key: use the totem bar), Chain Lightning (**Shift-1**) at 32, Maelstrom Weapon (a talent, passive) at 35.
 - 40: Rage of the Farseer (**Q**, a talent): you hit 30% faster for 25 seconds; only your weapon hits, not your spells. Cooldown 3 minutes. Not every guide takes it at 40: some first go into Restoration for mana. Call of the Spirits (**Ctrl-3**), mail armor, a stronger Windfury Weapon. Then Grace of Air Totem at 42 (no key: use the totem bar).
 - 50: stronger ranks of Windfury Weapon, Rockbiter Weapon, Earth Shock, Lightning Bolt and Strength of Earth Totem; nothing new for this role.

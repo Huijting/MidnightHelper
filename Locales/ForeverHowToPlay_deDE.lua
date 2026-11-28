@@ -155,7 +155,7 @@ Siegel (3) vor dem Kampf. Dann Heiliger Stoß (1) und Richturteil (2), sobald si
 		{ "Was er kann", [[
 Der Magier steht hinten und wirkt Feuer-, Frost- und Arkanmagie. Er hält Gegner auf Abstand, mit Zaubern, die sie festhalten oder verlangsamen. Der Magier hat keine Gestalten und keine Haltungen, also macht jede Taste immer dasselbe.]] },
 		{ "Stufe 1-10: deine Tasten", [[
-- **1** = Feuerball (Stufe 1): dein wichtigster Angriffszauber.
+- **1** = Feuerball (Stufe 1): dein wichtigster Angriffszauber. Mit dem Talent Arkanschlag (frühestens 20) bekommt Arkanschlag die Taste 1, und Feuerball wandert auf Ctrl-2.
 - **Shift-Z** = Frostrüstung (1): ein Buff auf dir selbst. Leg ihn vor einem Kampf an. Du kannst nur eine Rüstung gleichzeitig aktiv haben.
 - **Shift-X** = Arkane Intelligenz (1): ein Buff für dich oder einen Freund.
 - **Ctrl-3** = Schießen: dein **Zauberstab** (ein kleiner magischer Stab, der von selbst schießt), sobald du einen hast. Praktisch, wenn dein Mana knapp ist. Wenn du Frostfeuerblitz lernst, nimmt er Ctrl-3; leg Schießen auf eine deiner eigenen Alt-Tasten, wenn du es noch willst.
@@ -172,7 +172,7 @@ Frostblitz (2) oder Feuerball (1), während der Gegner herankommt. Feuerschlag (
 - 18: Geringen Fluch aufheben auf Shift-V. 20: Blinzeln auf R (dein Bewegungszauber), Blizzard auf Shift-1, Hervorrufung auf F1 (holt Mana zurück), Manaschild auf Z, Feuerzauberschutz auf F4. Außerdem die Teleports (und später Portale): Reisezauber, nicht auf dem Block. Leg sie auf deine eigene Leiste oder nutz sie aus deinem Zauberbuch.
 - 22: Versengen auf Ctrl-1, Frostzauberschutz auf F2. 24: Gegenzauber auf E: deine **Unterbrechung** (sie stoppt den Zauber eines Gegners).
 - 26: Kältekegel auf Shift-F. 30: Eisrüstung: Shift-Z wirkt ab dann diese statt Frostrüstung (sie schützt dich auch gegen Frost).
-- Talente ab Stufe 20: Pyroschlag auf 4, Eislanze auf F, Arkanschlag auf Ctrl-2, Eisblock auf C (frühestens 25).]] },
+- Talente ab Stufe 20: Pyroschlag auf 4, Eislanze auf F, Arkanschlag auf 1 (Feuerball wandert dann auf Ctrl-2), Eisblock auf C (frühestens 25).]] },
 		{ "Anfängerfehler", [[
 - Beide Zauberschutze gleichzeitig erwarten. Feuerzauberschutz (F4) und Frostzauberschutz (F2) teilen sich eine Abklingzeit von 30 Sekunden, also nur einer auf einmal.
 - Magische Rüstung und Eisrüstung zusammen tragen. Nur eine Rüstung kann gleichzeitig aktiv sein. Magische Rüstung (34) liegt auf Block D.]] },
@@ -258,7 +258,7 @@ Der Schurke hat **Energie** statt Mana. Energie füllt sich von selbst, und zwar
 - Bevor du den Zauber Verstohlenheit kennst, behält die Taste einfach ihren normalen Zauber.
 Treffer wie Finsterer Stoß geben dir **Combopunkte** (bis zu 5). Ein **Finisher** ist ein Treffer, der alle deine Combopunkte verbraucht: Ausweiden (**4**), Zerhäckseln (**Shift-4**) und Blutung (**5**). Mehr Punkte machen ihn stärker.]] },
 		{ "Stufe 1-10: deine Tasten", [[
-- **1** = Finsterer Stoß (Stufe 1): dein wichtigster Treffer.
+- **1** = Finsterer Stoß (Stufe 1): dein wichtigster Treffer. Mit Blutsturz (Täuschung, frühestens 30) oder Verstümmeln (Meucheln, frühestens 40), beides Talente, bekommt dieser Zauber die Taste 1, und Finsterer Stoß wandert auf 3.
 - **4** = Ausweiden (1): dein wichtigster Finisher.
 - **Shift-R** = Verstohlenheit (1): schleichen. Drück es noch einmal, um die Verstohlenheit zu verlassen. Danach kannst du 10 Sekunden lang nicht wieder hinein.
 - **Shift-2** = Werfen (1): ein Wurf auf Entfernung. Du brauchst eine Wurfwaffe (zum Beispiel Wurfmesser) in deinem Fernkampfplatz. Hast du eine Schusswaffe, einen Bogen oder eine Armbrust angelegt, schießt die Taste stattdessen damit.
@@ -279,7 +279,7 @@ Verstohlenheit (Shift-R) und geh zum Gegner. Ein paar Mal Finsterer Stoß (1), d
 - 18: Hinterhalt auf 2 in Verstohlenheit (Dolch, von hinten). 20: Blutung auf 5. Gifte (aus einer Quest; siehe unten).
 - 22: Ablenken auf Shift-F, Verschwinden auf X (deine Flucht; jede Nutzung kostet ein Blitzstrahlpulver, einen Gegenstand in deinen Taschen). 24: Scharfe Klinge auf Shift-3 (ein Treffer mit deiner Nebenhandwaffe, also brauchst du in jeder Hand eine Waffe; Abklingzeit 10 Sekunden; gibt 15 Energie zurück).
 - 26: Fieser Trick auf V in Verstohlenheit: eine **Betäubung** (der Gegner kann sich ein paar Sekunden lang nicht bewegen und nichts tun). 30: Nierenhieb auf V außerhalb der Verstohlenheit. Falle entschärfen (Block D). 34: Blenden auf Shift-V (kostet ein Blendungspulver).
-- Talente: Riposte auf Shift-F1 und Konzentration auf Shift-C, frühestens 20. Kaltblütigkeit auf F1 und Geisterhafter Stoß auf Shift-X, 25. Klingenwirbel auf Shift-1 (trifft mehr Gegner), Vorbereitung auf F3 (setzt die Abklingzeit deiner anderen Schurkenzauber zurück, wie Entrinnen, Sprinten und Verschwinden), Blutsturz auf 3, 30. Verstümmeln auf 3, Adrenalinrausch oder Todesmal auf Q, 40.]] },
+- Talente: Riposte auf Shift-F1 und Konzentration auf Shift-C, frühestens 20. Kaltblütigkeit auf F1 und Geisterhafter Stoß auf Shift-X, 25. Klingenwirbel auf Shift-1 (trifft mehr Gegner), Vorbereitung auf F3 (setzt die Abklingzeit deiner anderen Schurkenzauber zurück, wie Entrinnen, Sprinten und Verschwinden), Blutsturz auf 1, 30. Verstümmeln auf 1, Adrenalinrausch oder Todesmal auf Q, 40. Mit Blutsturz oder Verstümmeln auf 1 wandert Finsterer Stoß auf 3.]] },
 		{ "Anfängerfehler", [[
 - Einen Eröffner außerhalb der Verstohlenheit drücken. Erdrosseln, Hinterhalt, Fieser Trick, Kopfnuss und Taschendiebstahl brauchen Verstohlenheit. Außerhalb der Verstohlenheit wirkt dieselbe Taste ihren normalen Zauber.
 - Verstohlenheit aus Versehen noch einmal drücken. Das beendet die Verstohlenheit, und du kannst 10 Sekunden lang nicht wieder hinein.
@@ -342,7 +342,7 @@ Ein **Totem** ist ein kleiner Gegenstand, den du auf den Boden stellst. Solange 
 - **Shift-R** = Totemischer Ruf (22): bewegt deine Totems zu dir. Totemischer Rückruf (20, Block D) nimmt sie zurück und gibt dir ein Viertel ihres Manas zurück.
 Ein **Waffen-Buff** legt 60 Minuten lang Kraft auf deine Waffe. Du hast einen gleichzeitig. Waffe des Felsbeißers (1), Waffe der Flammenzunge (10), Waffe des Frostbrands (20) und Waffe des Windzorns (30) kommen auf deine eigenen Alt-Tasten (Block D). Wähl den, der zu deiner Spielweise passt.]] },
 		{ "Stufe 1-10: deine Tasten", [[
-- **1** = Blitzschlag (Stufe 1): dein wichtigster Angriffszauber.
+- **1** = Blitzschlag (Stufe 1): dein wichtigster Angriffszauber. Mit dem Talent Sturmschlag (frühestens 25) bekommt Sturmschlag die Taste 1, und Blitzschlag wandert auf 3.
 - **C** = Welle der Heilung (1): deine große Heilung.
 - Waffe des Felsbeißers (1) kommt auf Block D (siehe oben).
 - **E** = Erdschock (4): deine **Unterbrechung** (sie stoppt den Zauber eines Gegners), und Schaden.
@@ -362,7 +362,7 @@ Waffen-Buff an (Block D), Blitzschlagschild an (Shift-Z). Totem der Verbrennung 
 - 20: Geisterwolf auf R (3 Sekunden Zauberzeit, nur im Freien), Frostschock auf 4 (verlangsamt), Geringe Welle der Heilung auf F2 (schnelle Heilung), Totem des heilenden Flusses auf F4 (aus einer Quest; heilt deine Gruppe nach und nach; braucht das Wassertotem), Ruf der Elemente auf Ctrl-1.
 - 22: Krankheit heilen auf Shift-V, Totemischer Ruf auf Shift-R. 30: Totem der Erdung auf X (fängt einen schädlichen Zauber ab, der auf dich oder ein Gruppenmitglied in der Nähe zielt; keine Flächenzauber; braucht das Lufttotem aus der Quest auf Stufe 30), Ruf der Urahnen auf Ctrl-2. 32: Kettenblitzschlag auf Shift-1 (trifft mehrere Gegner).
 - 40: Kettenheilung auf Shift-2 (heilt mehrere Freunde), Ruf der Geister auf Ctrl-3.
-- Talente: Wasserschild (übernimmt Shift-Z), frühestens 20. Sturmschlag auf 3 und Totem der Manaflut auf F1, 25. Schnelligkeit der Natur auf Shift-3, 30. Springflut auf Shift-F1, und Blitzbeherrschung oder Zorn des Scharfsehers auf Q, 40.]] },
+- Talente: Wasserschild (übernimmt Shift-Z), frühestens 20. Sturmschlag auf 1 (Blitzschlag wandert dann auf 3) und Totem der Manaflut auf F1, 25. Schnelligkeit der Natur auf Shift-3, 30. Springflut auf Shift-F1, und Blitzbeherrschung oder Zorn des Scharfsehers auf Q, 40.]] },
 		{ "Anfängerfehler", [[
 - Einen Schock nutzen, kurz bevor du unterbrechen musst. Erdschock (E), Flammenschock (2) und Frostschock (4) teilen sich eine Abklingzeit von 6 Sekunden. Nach Flammenschock hast du bis zu 6 Sekunden lang keine Unterbrechung.
 - Feuernova (Shift-4) drücken, ohne dass ein Feuer-Totem steht. Es braucht eins deiner Feuer-Totems (wie Totem der Verbrennung oder Totem der glühenden Magma). Es trifft die Gegner nahe diesem Totem, nicht die nahe bei dir.
@@ -570,7 +570,7 @@ Eine Waffe in jeder Hand, ab Stufe 20 (Beidhändigkeit beim Lehrer). Bis dahin n
 Ab Stufe 8 (Arkane Geschosse). Arkanschlag ist ein Talent, frühestens 20; bis dahin spielst du wie jeder Magier, mit Frostblitz, Feuerball und Arkane Geschosse. Die Guides sind sich uneinig: Manche nennen Arkan stark zum Leveln, die meisten raten zu Frost und nennen Arkan hungrig nach Mana. Sein Baum hat keine Verlangsamungen, also hält er Gegner am schlechtesten auf Abstand. Ein **kanalisierter Zauber** ist ein Zauber, der läuft, während du stillstehst; Bewegen stoppt ihn. Arkane Geschosse ist einer.
 **Einfache Reihenfolge:**
 1. Eröffne mit Frostblitz (**2**): Der Gegner kommt dann langsam.
-2. Arkanschlag (**Ctrl-2**, ab 20): einer oder zwei, auf einem Boss bis zu vier. Jeder macht den nächsten teurer an Mana.
+2. Arkanschlag (**1**, ab 20): einer oder zwei, auf einem Boss bis zu vier. Jeder macht den nächsten teurer an Mana.
 3. Geschosssalve (ab 15) leuchtet auf? Sofort Arkane Geschosse (**3**): kostenlos und doppelt so schnell.
 4. Arkaner Zorn (**Shift-F1**, ab 25), sobald er bereit ist.
 5. Gegner nah bei dir? Frostnova (**V**), geh ein Stück weg.
@@ -579,7 +579,7 @@ Ab Stufe 8 (Arkane Geschosse). Arkanschlag ist ein Talent, frühestens 20; bis d
 Mehrere Gegner: Frostnova (**V**), dann Arkane Explosion (**Shift-2**, ab 14). Wenig Mana? Hervorrufung (**F1**, ab 20).
 **Alle 10 Stufen:**
 - 10: Frostnova (**V**). Erstes Talent: Verbesserte Kanalisierung (Arkane Geschosse wird nicht mehr verkürzt, wenn du getroffen wirst). Danach Arkane Explosion (**Shift-2**) mit 14, Geschosssalve (ein Talent, passiv) mit 15. Die Talentstufen hier sind die frühesten; ein Perk kann sie bis zu 5 Stufen früher bringen.
-- 20: Arkanschlag (**Ctrl-2**, ein Talent). Blinzeln (**R**), Hervorrufung (**F1**), Manaschild (**Z**). Danach Gegenzauber (**E**) mit 24, Arkaner Zorn (**Shift-F1**, ein Talent; du brauchst zuerst Arkanschlag) mit 25.
+- 20: Arkanschlag (**1**, ein Talent). Blinzeln (**R**), Hervorrufung (**F1**), Manaschild (**Z**). Danach Gegenzauber (**E**) mit 24, Arkaner Zorn (**Shift-F1**, ein Talent; du brauchst zuerst Arkanschlag) mit 25.
 - 30: Geistesgegenwart (**Shift-3**, ein Talent): Dein nächster Zauber mit einer Zauberzeit unter 10 Sekunden ist spontan. Eisrüstung (**Shift-Z**). Danach Magische Rüstung (Block D) mit 34.
 - 40: Arkane Macht (**Q**, ein Talent; du brauchst zuerst Geistesgegenwart): 15 Sekunden lang machen deine Zauber 30% mehr Schaden, kosten aber 30% mehr Mana. Frostfeuerblitz nimmt **Ctrl-3**: Leg deinen Zauberstab (Schießen) auf deine eigene Alt-Taste.
 - 50: stärkere Ränge von Arkanschlag, Arkaner Zorn und Arkane Geschosse; nichts Neues für diese Rolle.
@@ -705,7 +705,7 @@ Ab Stufe 1 (Finsterer Stoß und Ausweiden). Du kämpfst aus der Nähe, mit Dolch
 1. Ab 20: Gift auf beide Waffen (Gegenstände, auf Block D).
 2. Warte auf volle Energie. Ab 18 (Bereitschaft) kostet dein erster Angriff dann 10 Energie weniger.
 3. Verstohlenheit (**Shift-R**), geh hinter den Gegner. **Verstohlenheit** = schleichen, damit der Gegner dich nicht sieht. Eröffne mit Hinterhalt (**2**, ab 18, Dolch in deiner Haupthand) oder Erdrosseln (**1**, ab 14). Starker Gegner, ab 26: Fieser Trick (**V**), eine Betäubung von 4 Sekunden.
-4. Combopunkte: Meucheln (**2**), wenn du hinter dem Gegner stehst, sonst Finsterer Stoß (**1**). Ab 40: Verstümmeln (**3**), jedes Mal 2 Punkte.
+4. Combopunkte: Meucheln (**2**), wenn du hinter dem Gegner stehst, sonst Finsterer Stoß (**1**). Ab 40: Verstümmeln (**1**), jedes Mal 2 Punkte.
 5. Scharfe Klinge (**Shift-3**, ab 24), sobald sie bereit ist. Mit Toxin (ab 30) macht jede Scharfe Klinge dein Gift 6 Sekunden lang stärker.
 6. Finisher: Zerhäckseln (**Shift-4**) in einem langen Kampf; sonst Ausweiden (**4**) bei 5 Punkten. Blutung (**5**, ab 20) auf einen Gegner, der lange lebt (ein Elitegegner, ein Boss).
 7. Kaltblütigkeit (**F1**, ab 25) kurz vor einem Ausweiden mit 5 Punkten.
@@ -713,7 +713,7 @@ Ab Stufe 1 (Finsterer Stoß und Ausweiden). Du kämpfst aus der Nähe, mit Dolch
 - 10: Du hast schon Finsterer Stoß (**1**), Ausweiden (**4**), Meucheln (**2**), Verstohlenheit (**Shift-R**), Solarplexus (**Shift-Q**) und Entrinnen (**Z**). Neu mit 10: Zerhäckseln (**Shift-4**), Sprinten (**R**), Kopfnuss (**Shift-Q** in Verstohlenheit) und eine Waffe in jeder Hand (Beidhändigkeit). Danach Tritt (**E**) mit 12, Erdrosseln (**1** in Verstohlenheit) und Rüstung schwächen (**Shift-Z**) mit 14, Finte (**F**) mit 16, Hinterhalt (**2** in Verstohlenheit) und Bereitschaft (passiv) mit 18.
 - 20: Blutung (**5**). Gifte, aus einer Quest. Danach Verschwinden (**X**) mit 22, Scharfe Klinge (**Shift-3**) mit 24, Kaltblütigkeit (**F1**, ein Talent) mit 25: Dein nächster Finsterer Stoß, Meucheln, Hinterhalt, Ausweiden oder Verstümmeln trifft sicher kritisch (**kritischer Treffer** = ein glücklicher, stärkerer Treffer); Abklingzeit 3 Minuten. Fieser Trick (**V** in Verstohlenheit) mit 26. Die Talentstufen hier sind die frühesten; ein Perk kann sie bis zu 5 Stufen früher bringen.
 - 30: Toxin (ein Talent, passiv: keine Taste): Jede Scharfe Klinge gibt deinem Gift 6 Sekunden lang 30% mehr Schaden und 20% mehr Chance zu wirken. Nierenhieb (**V**). Danach Blenden (**Shift-V**) mit 34, Schicksal besiegeln (ein Talent, passiv) mit 35: Ein kritischer Treffer mit einem Angriff, der Combopunkte gibt, gibt dir einen Extrapunkt.
-- 40: Verstümmeln (**3**, ein Talent; du brauchst zuerst Toxin): 60 Energie, trifft mit beiden Dolchen, 2 Combopunkte, 20% mehr Schaden auf einen vergifteten Gegner. Danach Zerhäckseln Rang 2 mit 42, Scharfe Klinge Rang 2 mit 44.
+- 40: Verstümmeln (**1**, ein Talent; du brauchst zuerst Toxin): 60 Energie, trifft mit beiden Dolchen, 2 Combopunkte, 20% mehr Schaden auf einen vergifteten Gegner. Danach Zerhäckseln Rang 2 mit 42, Scharfe Klinge Rang 2 mit 44.
 - 50: Verstümmeln Rang 2 und Nierenhieb Rang 2; nichts Neues für diese Rolle.
 - 60: Verstümmeln Rang 3 und stärkere Ränge; nichts Neues für diese Rolle.
 **Anfängerfehler:**
@@ -748,14 +748,14 @@ Ab Stufe 1 (Finsterer Stoß und Verstohlenheit). Dieser Baum kämpft aus der Ver
 2. Konzentration (**Shift-C**, ab 20): 2 Combopunkte auf dem Gegner. Dann dein erster Treffer.
 3. Erster Treffer von hinten: Hinterhalt (**2**, ab 18, Dolch in deiner Haupthand). Starker Gegner, ab 26: Fieser Trick (**V**), eine Betäubung von 4 Sekunden. Die Guides sind sich uneinig über den besten Eröffner.
 4. Geisterhafter Stoß (**Shift-X**, ab 25) und Scharfe Klinge (**Shift-3**, ab 24), sobald sie bereit sind.
-5. Combopunkte: ab 30 Blutsturz (**3**). Davor: Meucheln (**2**), wenn du hinter dem Gegner stehst, sonst Finsterer Stoß (**1**).
+5. Combopunkte: ab 30 Blutsturz (**1**). Davor: Meucheln (**2**), wenn du hinter dem Gegner stehst, sonst Finsterer Stoß (**1**).
 6. Finisher: Ausweiden (**4**), wenn der Gegner fast tot ist; Blutung (**5**) auf einen Gegner, der lange lebt; Zerhäckseln (**Shift-4**) in einem langen Kampf.
 7. Ab 40: Todesmal (**Q**) auf den stärksten Gegner, am besten, während Blutung oder Erdrosseln läuft.
 8. Notfall: Verschwinden (**X**). Vorbereitung (**F3**, ab 30) macht Verschwinden, Entrinnen und Sprinten sofort wieder bereit.
 **Alle 10 Stufen:**
 - 10: Du hast schon Finsterer Stoß (**1**), Ausweiden (**4**), Meucheln (**2**), Verstohlenheit (**Shift-R**), Solarplexus (**Shift-Q**) und Entrinnen (**Z**). Neu mit 10: Kopfnuss (**Shift-Q** in Verstohlenheit), Zerhäckseln (**Shift-4**), Sprinten (**R**) und eine Waffe in jeder Hand. Danach Tritt (**E**) mit 12, Erdrosseln (**1** in Verstohlenheit) mit 14, Finte (**F**) mit 16, Hinterhalt (**2** in Verstohlenheit) und Bereitschaft (passiv) mit 18.
 - 20: Konzentration (**Shift-C**, ein Talent): 2 Combopunkte auf deinem Ziel; nutz sie innerhalb von 20 Sekunden, sonst sind sie weg; Abklingzeit 2 Minuten. Blutung (**5**) und Gifte aus einer Quest. Danach Verschwinden (**X**) mit 22, Scharfe Klinge (**Shift-3**) mit 24, Geisterhafter Stoß (**Shift-X**, ein Talent) mit 25: 40 Energie, 1 Combopunkt, 7 Sekunden lang 15% mehr Ausweichen; Abklingzeit 20 Sekunden. Fieser Trick (**V** in Verstohlenheit) mit 26. Die Talentstufen hier sind die frühesten; ein Perk kann sie bis zu 5 Stufen früher bringen.
-- 30: Blutsturz (**3**, ein Talent; du brauchst zuerst Gezahnte Klingen): 35 Energie, 1 Combopunkt, wirkt von vorn; 15 Sekunden lang machen deine Blutung und dein Erdrosseln an diesem Gegner 15% mehr Schaden. Vorbereitung (**F3**, ein Talent): macht die Abklingzeit deiner anderen Schurkenzauber sofort bereit; ihre eigene Abklingzeit ist 10 Minuten. Eins davon bekommst du mit 30, das andere mit 31. Nierenhieb (**V**). Danach Blenden (**Shift-V**) mit 34, Stiefelmesser (ein Talent, passiv) mit 35: Scharfe Klinge kann 2 Combopunkte geben.
+- 30: Blutsturz (**1**, ein Talent; du brauchst zuerst Gezahnte Klingen): 35 Energie, 1 Combopunkt, wirkt von vorn; 15 Sekunden lang machen deine Blutung und dein Erdrosseln an diesem Gegner 15% mehr Schaden. Vorbereitung (**F3**, ein Talent): macht die Abklingzeit deiner anderen Schurkenzauber sofort bereit; ihre eigene Abklingzeit ist 10 Minuten. Eins davon bekommst du mit 30, das andere mit 31. Nierenhieb (**V**). Danach Blenden (**Shift-V**) mit 34, Stiefelmesser (ein Talent, passiv) mit 35: Scharfe Klinge kann 2 Combopunkte geben.
 - 40: Todesmal (**Q**, ein Talent; du brauchst zuerst Vorbereitung): ein Finisher, 25 Energie, Abklingzeit 10 Sekunden. 6 Sekunden lang speichert es einen Teil deines Schadens (mehr pro Combopunkt) und teilt ihn dann auf einmal aus, bis zu einer Grenze. Schaden von Blutung und Erdrosseln zählt doppelt. Danach Zerhäckseln Rang 2 und Verschwinden Rang 2 mit 42, Scharfe Klinge Rang 2 mit 44, Todesmal Rang 2 mit 48.
 - 50: Nierenhieb Rang 2, Todesmal Rang 3 mit 56; nichts Neues für diese Rolle.
 - 60: Todesmal Rang 4 und stärkere Ränge; nichts Neues für diese Rolle.
@@ -864,7 +864,7 @@ Ab Stufe 1: Du schlägst mit deiner Waffe zu, mit Waffe des Felsbeißers darauf.
 **Einfache Reihenfolge:**
 Bevor du anfängst: Waffen-Buff an (Block D), Blitzschlagschild (**Shift-Z**), Totem der Verbrennung (**5**) oder deine Totems aufstellen.
 1. Pullen mit Blitzschlag (**1**). **Pullen** = einen Gegner aus der Ferne treffen, damit er zu dir kommt.
-2. Sturmschlag (**3**, ab 25), sobald er bereit ist.
+2. Sturmschlag (**1**, ab 25), sobald er bereit ist.
 3. Blitzschlag (**1**) bei 5 Stapeln Waffe des Mahlstroms (ab 35): Dann ist er spontan und kostenlos.
 4. Erdschock (**E**). In einer Gruppe abwechselnd mit Flammenschock (**2**).
 5. Feuernova (**Shift-4**, ab 12), wenn ein Feuer-Totem steht und du Mana übrig hast; vor allem gegen mehr Gegner.
@@ -873,7 +873,7 @@ Bevor du anfängst: Waffen-Buff an (Block D), Blitzschlagschild (**Shift-Z**), T
 Nach dem Kampf: Welle der Heilung (**C**). Notfall im Kampf: Geringe Welle der Heilung (**F2**, ab 20).
 **Alle 10 Stufen:**
 - 10: Waffe des Felsbeißers (Block D), Blitzschlag (**1**), Erdschock (**E**, ab 4), Blitzschlagschild (**Shift-Z**, ab 8). Flammenschock (**2**), Totem der Verbrennung (**5**), Totem der Erdstärke (**Shift-X**), Waffe der Flammenzunge (Block D). Erste Talente: Donnernde Stöße und andere (passiv); Geistige Gewandtheit (passiv) ab 15. Die Talentstufen hier sind die frühesten; ein Perk kann sie bis zu 5 Stufen früher bringen. Danach Feuernova (**Shift-4**) mit 12.
-- 20: Geisterwolf (**R**), Frostschock (**4**), Geringe Welle der Heilung (**F2**), Ruf der Elemente (**Ctrl-1**). Schamanistischer Fokus (ein Talent, passiv): Schocks und Blitzschlagschild kosten 45% weniger Mana. Danach Sturmschlag (**3**, ein Talent) mit 25. Schlaghagel (ein Talent, passiv) ab 25. Verbesserter Geisterwolf (ein Talent) ab 25: Geisterwolf ist schneller (spontan mit beiden Punkten) und wirkt auch drinnen; die Guides nehmen ihn auf sehr unterschiedlichen Stufen. Totem der glühenden Magma (Block D) mit 26.
+- 20: Geisterwolf (**R**), Frostschock (**4**), Geringe Welle der Heilung (**F2**), Ruf der Elemente (**Ctrl-1**). Schamanistischer Fokus (ein Talent, passiv): Schocks und Blitzschlagschild kosten 45% weniger Mana. Danach Sturmschlag (**1**, ein Talent) mit 25. Schlaghagel (ein Talent, passiv) ab 25. Verbesserter Geisterwolf (ein Talent) ab 25: Geisterwolf ist schneller (spontan mit beiden Punkten) und wirkt auch drinnen; die Guides nehmen ihn auf sehr unterschiedlichen Stufen. Totem der glühenden Magma (Block D) mit 26.
 - 30: Waffe des Windzorns (Block D). Verbesserter Sturmschlag und Waffen der Geister (Talente). Totem der Erdung (**X**), Ruf der Urahnen (**Ctrl-2**). Danach Totem des Windzorns mit 32 (keine Taste: nutz die Totemleiste), Kettenblitzschlag (**Shift-1**) mit 32, Waffe des Mahlstroms (ein Talent, passiv) mit 35.
 - 40: Zorn des Scharfsehers (**Q**, ein Talent): Du schlägst 25 Sekunden lang 30% schneller zu; nur deine Waffentreffer, nicht deine Zauber. Abklingzeit 3 Minuten. Nicht jeder Guide nimmt ihn mit 40: Manche gehen zuerst in Wiederherstellung, für Mana. Ruf der Geister (**Ctrl-3**), Panzer, eine stärkere Waffe des Windzorns. Danach Totem der luftgleichen Anmut mit 42 (keine Taste: nutz die Totemleiste).
 - 50: stärkere Ränge von Waffe des Windzorns, Waffe des Felsbeißers, Erdschock, Blitzschlag und Totem der Erdstärke; nichts Neues für diese Rolle.

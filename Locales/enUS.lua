@@ -6331,7 +6331,7 @@ ns._mhLocales.enUS = {
 	FBLOCK_SG_SW = "Rogue: Evasion, Blade Flurry and Adrenaline Rush do nothing in Stealth",
 	FBLOCK_SG_SW_DESC = "On: those three keys do nothing while you are in Stealth, so pressing one before your opener does not break your Stealth. Off: they work in Stealth too, and take you out of it.",
 	FBLOCK_SWAP_SW = "Swap keys when you learn a better spell",
-	FBLOCK_SWAP_SW_DESC = "On: when you learn a spell that belongs on a main key, two spells swap keys. Hunter: from Hunter's Mark (level 6), key 1 is Hunter's Mark and Auto Shot moves to Shift-Z. MH tells you once when it happens. Off: the keys stay as they were (key 1 = Auto Shot, Shift-Z = Hunter's Mark).",
+	FBLOCK_SWAP_SW_DESC = "On: when you learn a spell that belongs on a main key, two spells swap keys. Hunter: from Hunter's Mark (level 6), key 1 is Hunter's Mark and Auto Shot moves to Shift-Z. Mage: Arcane Blast takes 1, Fireball moves to Ctrl-2. Rogue: Mutilate or Hemorrhage takes 1, Sinister Strike moves to 3. Shaman: Stormstrike takes 1, Lightning Bolt moves to 3. MH tells you once when it happens. Off: the keys stay as they were.",
 	FBLOCK_SWAP_FMT = "Key %s is now %s. %s moved to %s.",
 	FBLOCK_SWAP_UPDATE = "Open /mh block and press %s once.",
 	FBLOCK_SWAP_OFF_HINT = "(Keys & macros → Switches: \"Swap keys when you learn a better spell\" switches this off.)",

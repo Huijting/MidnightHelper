@@ -18,7 +18,10 @@ ns.FOREVER_BLOCK_CLASSES = ns.FOREVER_BLOCK_CLASSES or {}
 ns.FOREVER_BLOCK_CLASSES.MAGE = {
 	states = {},
 	keys = {
-		["1"] = { base = "Fireball" },
+		-- 28 Nov 2026 (key swap, step b; ForeverBlock.lua SwapOn): Arcane Blast (a talent, 20 at the earliest) takes key 1
+		-- once learned and Fireball moves to Ctrl-2; without the talent nothing changes (Fireball on 1, Ctrl-2 empty).
+		["1"] = { base = { "Arcane Blast", "Fireball" },
+			swapNote = { moved = "Fireball", movedKey = "CTRL-2" } },
 		["2"] = { base = "Frostbolt" },
 		["3"] = { base = "Arcane Missiles" },
 		["4"] = { base = "Pyroblast" },
@@ -27,7 +30,7 @@ ns.FOREVER_BLOCK_CLASSES.MAGE = {
 		["SHIFT-1"] = { base = "Blizzard" },
 		["SHIFT-2"] = { base = "Arcane Explosion" },
 		["CTRL-1"] = { base = "Scorch" },
-		["CTRL-2"] = { base = "Arcane Blast" },
+		["CTRL-2"] = { base = "Fireball" },
 		-- Rob, 6 Nov 2026 ("Doe maar" on 1B): the wand on Ctrl-3 until Frostfire Bolt is learned, then the bolt takes
 		-- the place and Shoot goes to the player's own Alt keys. bang: a second press does not stop the wand.
 		["CTRL-3"] = { base = { "Frostfire Bolt", "Shoot" }, bang = true },
@@ -74,7 +77,8 @@ ns.FOREVER_BLOCK_CLASSES.MAGE = {
 	-- 12 x 4 (Forever, 24 Nov 2026; /mh block style 12x4). From docs/forever/KEYBLOCK12_MAGE.md (mh-research,
 	-- checked by a second helper). Rob via Sparring 24-11: "laat een agent uitzoeken welke spells logisch zijn per class".
 	keys12 = {
-		["1"] = { base = "Fireball", why = "main fire nuke from level 1; the old block's key 1" },
+		["1"] = { base = { "Arcane Blast", "Fireball" }, swapNote = { moved = "Fireball", movedKey = "CTRL-2" },
+			why = "main nuke: Fireball, or Arcane Blast once you have that talent" },
 		["2"] = { base = "Frostbolt", why = "main frost nuke; most guides level as Frost" },
 		["3"] = { base = "Arcane Missiles", why = "arcane nuke; press it at once when Missile Barrage lights" },
 		-- 4 <-> SHIFT-3 after the second check (KEYBLOCK12_REVIEW.md): Pyroblast is a Fire talent from 20 and Frost is
@@ -102,12 +106,23 @@ ns.FOREVER_BLOCK_CLASSES.MAGE = {
 		["SHIFT-C"] = { base = "Cold Snap", why = "big defensive 2: resets your other Frost cooldowns" },
 		["SHIFT-V"] = { base = "Polymorph", why = "crowd control 3: takes one enemy out of the fight" },
 		["CTRL-1"] = { base = "Scorch", why = "no forms, so a spell: Fire's cast when the enemy is close" },
-		["CTRL-2"] = { base = "Arcane Blast", why = "Arcane's talent nuke, as in the old block" },
+		["CTRL-2"] = { base = "Fireball", why = "Fireball, once Arcane Blast has taken key 1" },
 		-- Same as the old block (Rob, 6 Nov 2026, "Doe maar" on 1B): wand until Frostfire Bolt is learned.
 		["CTRL-3"] = { base = { "Frostfire Bolt", "Shoot" }, bang = true, why = "your wand until Frostfire Bolt (40) takes it" },
 		["CTRL-4"] = { base = "Arcane Wrath", why = "Arcane talent hit; after Arcane Blast or Presence of Mind" },
 		["CTRL-Q"] = { base = "Remove Lesser Curse", why = "helper: takes a curse off you or a friend" },
 		["CTRL-E"] = { base = "Blast Wave", why = "cooldown: instant fire blast around you (Fire talent)" },
 		["CTRL-R"] = { base = "Evocation", why = "recovery: gets your mana back" },
+	},
+	-- 28 Nov 2026: the old layout of the swapped keys, for "Swap keys" off.
+	noSwap = {
+		keys = {
+			["1"] = { base = "Fireball" },
+			["CTRL-2"] = { base = "Arcane Blast" },
+		},
+		keys12 = {
+			["1"] = { base = "Fireball", why = "main fire nuke from level 1; the old block's key 1" },
+			["CTRL-2"] = { base = "Arcane Blast", why = "Arcane's talent nuke, as in the old block" },
+		},
 	},
 }

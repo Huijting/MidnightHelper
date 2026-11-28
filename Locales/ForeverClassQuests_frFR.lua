@@ -1918,7 +1918,7 @@ for k, v in pairs({
 	FBLOCK_SG_SW = "Voleur : trois temps de recharge ne font rien en camouflage",
 	FBLOCK_SG_SW_DESC = "Activé : les touches Z, Shift-1 et Q ne font rien tant que tu es camouflé, pour ne pas briser ton camouflage avant ton ouverture. Désactivé : elles marchent aussi en camouflage, et t'en font sortir.",
 	FBLOCK_SWAP_SW = "Échanger les touches quand tu apprends un meilleur sort",
-	FBLOCK_SWAP_SW_DESC = "Activé : quand tu apprends un sort qui a sa place sur une touche principale, deux sorts échangent leurs touches. Chasseur : à partir de Marque du chasseur (niveau 6), la touche 1 est Marque du chasseur et Tir automatique passe sur Shift-Z. MH te le dit une fois quand ça arrive. Désactivé : les touches restent comme avant (touche 1 = Tir automatique, Shift-Z = Marque du chasseur).",
+	FBLOCK_SWAP_SW_DESC = "Activé : quand tu apprends un sort qui a sa place sur une touche principale, deux sorts échangent leurs touches. Chasseur : à partir de Marque du chasseur (niveau 6), la touche 1 est Marque du chasseur et Tir automatique passe sur Shift-Z. Mage : Déflagration des arcanes prend la 1, Boule de feu passe sur Ctrl-2. Voleur : Estropier ou Hémorragie prend la 1, Attaque pernicieuse passe sur 3. Chaman : Courroux naturel prend la 1, Eclair passe sur 3. MH te le dit une fois quand ça arrive. Désactivé : les touches restent comme avant.",
 	FBLOCK_SWAP_FMT = "La touche %s est maintenant %s. %s est passé sur %s.",
 	FBLOCK_SWAP_UPDATE = "Ouvre /mh block et appuie une fois sur %s.",
 	FBLOCK_SWAP_OFF_HINT = "(Touches & macros → Interrupteurs : « Échanger les touches quand tu apprends un meilleur sort » désactive ceci.)",
