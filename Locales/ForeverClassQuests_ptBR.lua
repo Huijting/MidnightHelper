@@ -317,6 +317,9 @@ for k, v in pairs({
 	FHOWTO_EARLY_AUTO_FMT = "%s começa sozinho quando você aperta %s. Parou? %s.",
 	FHOWTO_EARLY_MELEE_FMT = "Inimigo do seu lado? %s (%s), com uma arma corpo a corpo na mão.",
 	FHOWTO_EARLY_NEAR_FMT = "Inimigo perto de você? %s (%s), e depois afaste-se.",
+	FHOWTO_EARLY_HEAL_FMT = "Pouca vida? %s.",
+	FHOWTO_EARLY_OR = " ou ",
+	FHOWTO_EARLY_WAND_FMT = "Pouca mana? %s (%s) com sua varinha.",
 	FHOWTO_NOTYET_LV_FMT = "%s (nível %d)",
 	FHOWTO_TALENTED_RANK_FMT = "Os níveis de talento acima contam o seu primeiro ponto de talento no nível 10. Você tem a vantagem de Legado \"Talento é para quem tem\" no grau %d: os seus talentos chegam essa mesma quantidade de níveis mais cedo.",
 	-- 17 Nov 2026: the overview (/mh overview, ForeverOverview.lua): FOV_*, FDUNG_IN_ENEMY_FMT

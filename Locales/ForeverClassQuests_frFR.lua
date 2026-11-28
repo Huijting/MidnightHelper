@@ -326,6 +326,9 @@ for k, v in pairs({
 	FHOWTO_EARLY_AUTO_FMT = "%s démarre tout seul quand tu appuies sur %s. Arrêté ? %s.",
 	FHOWTO_EARLY_MELEE_FMT = "L'ennemi est à côté de toi ? %s (%s), avec une arme de corps à corps en main.",
 	FHOWTO_EARLY_NEAR_FMT = "L'ennemi est proche ? %s (%s), puis recule.",
+	FHOWTO_EARLY_HEAL_FMT = "Peu de vie ? %s.",
+	FHOWTO_EARLY_OR = " ou ",
+	FHOWTO_EARLY_WAND_FMT = "Peu de mana ? %s (%s) avec ta baguette.",
 	FHOWTO_NOTYET_LV_FMT = "%s (niveau %d)",
 	FHOWTO_TALENTED_RANK_FMT = "Les niveaux de talent ci-dessus comptent ton premier point de talent au niveau 10. Tu as le avantage d'Héritage Talent au rang %d : tes talents arrivent autant de niveaux plus tôt.",
 	-- 17 Nov 2026: the overview (/mh overview, ForeverOverview.lua): FOV_*, FDUNG_IN_ENEMY_FMT

@@ -1788,9 +1788,16 @@ local ROLE_FROM_OVERRIDE = { HUNTER = { [2] = 10, [3] = 10 } }
 -- 28 Nov 2026: spells of a class's Simple order that are no step of the row in the living block (English names).
 -- auto = starts by itself when you press one of `by` (Hunter: GEMETEN by Rob in the game, 28 Nov); close = only for an
 -- enemy up close, melee = needs a melee weapon (Hunter: DB2 71139 SpellEquippedItems, see the 28 Nov melee check).
+-- heal = the "Low on health?" spells of that class's Simple order (28 Nov, Rob: "en ja voor low on health").
 local ORDER_EXTRA = {
 	HUNTER = { auto = "Auto Shot", by = { "Serpent Sting", "Arcane Shot" }, close = "Raptor Strike", melee = true },
-	MAGE = { close = "Frost Nova" },
+	MAGE = { close = "Frost Nova", wand = "Shoot" },
+	PRIEST = { heal = { "Renew", "Lesser Heal" }, wand = "Shoot" },
+	PALADIN = { heal = { "Holy Light" } },
+	DRUID = { heal = { "Rejuvenation", "Healing Touch" } },
+	SHAMAN = { heal = { "Healing Wave" } },
+	-- The Warlock's Shoot is not on the block (its own Beginner mistakes say so), so its wand line never shows: no guess.
+	WARLOCK = { heal = { "Drain Life" }, wand = "Shoot" },
 }
 
 --- The spell names (English, as in ns.FOREVER_SPELL_IDS) an English text names, in the order it names them (the same
@@ -1980,6 +1987,12 @@ local function EarlyBlock(token)
 		if extra.close then
 			skip[extra.close] = true
 		end
+		for _, h in ipairs(extra.heal or {}) do
+			skip[h] = true
+		end
+		if extra.wand then
+			skip[extra.wand] = true
+		end
 		local seq = {}
 		for _, sec in ipairs(en) do
 			if OrderPart(sec[1], sec[2]) then
@@ -2012,6 +2025,21 @@ local function EarlyBlock(token)
 		if close then
 			parts[#parts + 1] = ns:L(extra.melee and "FHOWTO_EARLY_MELEE_FMT" or "FHOWTO_EARLY_NEAR_FMT")
 				:format(close.name, "**" .. close.label .. "**")
+		end
+		local heals = {}
+		for _, h in ipairs(extra.heal or {}) do
+			local k = now.byEn[h]
+			if k then
+				heals[#heals + 1] = k.name .. " (**" .. k.label .. "**)"
+			end
+		end
+		if #heals > 0 then
+			parts[#parts + 1] = ns:L("FHOWTO_EARLY_HEAL_FMT"):format(table.concat(heals, ns:L("FHOWTO_EARLY_OR")))
+		end
+		-- 28 Nov 2026 (Rob: "ja"): the wand, only when a key of the block casts Shoot right now.
+		local wand = extra.wand and now.byEn[extra.wand]
+		if wand then
+			parts[#parts + 1] = ns:L("FHOWTO_EARLY_WAND_FMT"):format(wand.name, "**" .. wand.label .. "**")
 		end
 		local nxt = LiveNext(token, lvl, now)
 		if nxt then

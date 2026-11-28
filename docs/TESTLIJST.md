@@ -25,13 +25,23 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 28 nov — FOREVER het levende blok: "Low on health?" en de wand los
+
+`/reload` is genoeg. Offline getest (live_test: Robs priest-situatie), NIET in het spel.
+- [ ] Je Undead Priest (Holy, level 6): "Order now" = Power Word: Shield (**Z**) → Shadow Word: Pain (**2**) → Smite
+      (**1**). Daaronder "Low on health? Lesser Heal (**C**)." en "Low on mana? Shoot (**4**) with your wand."
+- [ ] Op level 8 met Renew: "Low on health? Renew (**…**) or Lesser Heal (**C**)."
+- [ ] Paladin, Druid (caster), Shaman onder 10: hun heal (Holy Light / Rejuvenation, Healing Touch / Healing Wave) staat
+      niet in de rij maar in een losse "Low on health?"-regel. Warlock: géén wand-regel (Shoot staat niet op het blok).
+
 ## 28 nov — FOREVER het levende blok: voor iedereen onder 10, en Auto Shot / Raptor Strike los
 
 `/reload` is genoeg. Offline getest (live_test: o.a. Priest Holy 6, Paladin Ret 6, Warrior Arms 6, Druid zonder richting
 6, Hunter 6, Fury 15, level 10 = weg), NIET in het spel.
-- [ ] Je Undead Priest (Holy, level 6): bovenaan Start nu ook "Until level 10", met "Your keys right now, and what comes
-      next:" en daaronder Now / Order now / Next. De Holy-rol staat eronder.
-- [ ] Hunter (level 6): "Order now" eindigt bij Arcane Shot (**3**). Daaronder "Auto Shot starts by itself when you press
+- [x] Je Undead Priest (Holy, level 6): bovenaan Start nu ook "Until level 10", met "Your keys right now, and what comes
+      next:" en daaronder Now / Order now / Next. De Holy-rol staat eronder. ✅ Rob in-game, 28 nov (screenshot, via
+      Sparring: Now Smite 1, SW:P 2, Shoot 4, PW:S Z, Lesser Heal C, Will of the Forsaken Shift-E; Next 8 Fade, Renew).
+- [x] (✅ Rob in-game, 28 nov, screenshot) Hunter (level 6): "Order now" eindigt bij Arcane Shot (**3**). Daaronder "Auto Shot starts by itself when you press
       **2**, **3**. Stopped? **Shift-Z**." en "Enemy next to you? Raptor Strike (**Shift-X**), with a melee weapon in
       your hand."
 - [ ] Mage (onder 10, met Frost Nova): Frost Nova staat niet in de rij maar los: "Enemy close to you? Frost Nova (**V**),

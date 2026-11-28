@@ -1,5 +1,15 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 28 nov (Bouwchat 28-11): levend blok — "Low on health?" en de wand los (`/reload`)
+
+673892d ✅ door Rob in het spel getest op hunter en priest (screenshots, via Sparring; afgevinkt). Rob via Sparring,
+letterlijk: *"en ja voor low on health"* en op de wand-regel *"ja"*. ORDER_EXTRA.heal (Priest Renew + Lesser Heal, Paladin
+Holy Light, Druid Rejuvenation + Healing Touch, Shaman Healing Wave, Warlock Drain Life) uit de rij → FHOWTO_EARLY_HEAL_FMT
+met de echte toetsen ("A or B", FHOWTO_EARLY_OR). ORDER_EXTRA.wand = Shoot (Priest, Mage, Warlock) → FHOWTO_EARLY_WAND_FMT,
+alleen als een bloktoets nu Shoot cast (Warlock: Shoot staat niet op het blok → nooit, niet gegokt). Life Tap ("low on
+mana") blijft in de rij (niet gevraagd). 3 sleutels in 7 talen. live_test: Robs priest exact zoals zijn screenshot +
+regels; Warlock zonder wand-regel.
+
 ## ▶▶ 28 nov (Bouwchat 28-11): levend blok voor iedereen onder 10 + Auto Shot / Raptor Strike los (`/reload`)
 
 Rob via Sparring 28-11 (screenshot hunter 6, het blok werkt — GEMETEN door Sparring), letterlijk *"Ja, dat mag."* (1)
