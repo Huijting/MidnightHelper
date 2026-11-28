@@ -130,7 +130,7 @@ Un **sello** es un poder sagrado que te pones a ti mismo. Dura 30 segundos, y so
 - **3** = Sello de Rectitud (nivel 1): tu sello.
 - **C** = Luz Sagrada (1): tu gran cura. Los Paladines No-muertos la consiguen con la misión de nivel 2 "Redescubrimiento de la Luz".
 - **Ctrl-1** = Aura de devoción (1, del instructor): actívala y déjala activa.
-- **2** = Sentencia (4): reutilización de 10 segundos. No gasta tu sello. Solo funciona si tienes un sello puesto: ponte primero tu sello (3).
+- **2** = Sentencia (4): reutilización de 10 segundos. No gasta tu sello. Solo funciona si tienes un sello puesto: ponte primero tu sello (**3**).
 - **Shift-Z** = Bendición de poderío (4): póntela a ti mismo.
 - **1** = Golpe Sagrado (6): tu golpe principal, cuerpo a cuerpo.
 - **Z** = Protección divina (6): durante 6 segundos nada puede hacerte daño, pero tú tampoco puedes atacar. Reutilización de 5 minutos.
@@ -184,7 +184,7 @@ El Cazador dispara desde lejos con un arma a distancia, y desde el nivel 10 tien
 **Disparo automático** = tu arma sigue disparando sola hasta que paras. **Cuerpo a cuerpo** = luchar de cerca. El Cazador no tiene formas ni actitudes, así que cada tecla hace siempre lo mismo.]] },
 		{ "Niveles 1-10: tus botones", [[
 - **1** = Disparo automático (nivel 1): empieza a disparar. La tecla de MH está hecha para que una segunda pulsación no lo detenga.
-- **5** = Golpe de raptor (1): tu golpe cuando el enemigo está a tu lado.
+- **5** = Golpe de raptor (1): tu golpe cuando el enemigo está a tu lado. Necesita un **arma cuerpo a cuerpo** (un arma para luchar de cerca) en tu mano principal: el hacha o la daga con la que empiezas cuenta; un Cuchillo para desollar, no.
 - **2** = Picadura de serpiente (4): daño durante unos segundos.
 - Aspecto del mono (4) va en tus propias teclas Alt (bloque D). Un **aspecto** es un buff sobre ti mismo, parecido a una actitud. Solo puedes tener un aspecto a la vez.
 - **3** = Disparo Arcano (6): disparo instantáneo. Reutilización de 6 segundos.
@@ -194,7 +194,7 @@ El Cazador dispara desde lejos con un arma a distancia, y desde el nivel 10 tien
 - **Nivel 10, misiones de mascota:** aprendes Domesticar bestia, Llamar a mascota y Retirar mascota; la misión siguiente da Revivir mascota y Alimentar mascota. **F4** = Llamar a mascota (trae a tu mascota), **F3** = Revivir mascota (trae de vuelta a una mascota muerta). Domesticar bestia no tiene tecla; la usas fuera de combate.
 - A partir de entonces tu mascota tiene tres teclas: **Ctrl-1** = atacar a tu objetivo, **Ctrl-2** = seguirte, **Ctrl-3** = quedarse donde está.]] },
 		{ "Orden sencillo", [[
-Marca del cazador (Shift-Z), Picadura de serpiente (2), Disparo automático (1), y luego Disparo Arcano (3) cuando esté listo. ¿El enemigo está a tu lado? Golpe de raptor (5). A partir del nivel 10: primero activa Aspecto del halcón (Shift-R) y manda a tu mascota (Ctrl-1) antes de disparar.]] },
+Marca del cazador (Shift-Z), Picadura de serpiente (2), Disparo automático (1), y luego Disparo Arcano (3) cuando esté listo. ¿El enemigo está a tu lado? Golpe de raptor (5), con un arma cuerpo a cuerpo en la mano. A partir del nivel 10: primero activa Aspecto del halcón (Shift-R) y manda a tu mascota (Ctrl-1) antes de disparar.]] },
 		{ "Lo que llega después", [[
 - 10: Alimentar mascota y Retirar mascota no están en el bloque (los usas fuera de combate); ponlos en tu propia barra. Lo mismo con Asustar bestia (14).
 - 12: Disparo de distracción en F (hace que el enemigo te ataque), Aliviar mascota en F2 (cura a tu mascota), Cortar alas en Shift-F.
@@ -204,6 +204,7 @@ Marca del cazador (Shift-Z), Picadura de serpiente (2), Disparo automático (1),
 - Las cuatro trampas comparten una reutilización de 30 segundos.]] },
 		{ "Errores de principiante", [[
 - Disparar a un enemigo que está justo a tu lado. Tu arma de fuego o tu arco no funciona a menos de 8 metros (la "zona muerta"): usa Golpe de raptor (5), o da un paso atrás.
+- Golpe de raptor, Cortar alas, Mordedura de mangosta, Contraataque y Separación sin un arma cuerpo a cuerpo en tu mano principal. Entonces la descripción del hechizo dice en rojo que necesitas una, y la tecla no hace nada. El hacha o la daga con la que empiezas cuenta; un Cuchillo para desollar o una caña de pescar, no. ¿La perdiste? Un armero vende una barata.
 - Esperar que una tecla dispare de lejos y golpee de cerca. Una macro no puede ver la distancia, así que el cuerpo a cuerpo tiene sus propias teclas (5, Shift-F, Shift-C).
 - Pulsar Aliviar mascota (F2) para curarte a ti. Solo cura a tu mascota. El Cazador no tiene cura propia.]] },
 	},
@@ -255,7 +256,7 @@ El Pícaro tiene **Energía** en lugar de maná. La Energía se rellena sola, y 
 **Sigilo** (nivel 1, Shift-R) hace que sea difícil verte. Te mueves a la mitad de velocidad. Algunos ataques solo funcionan desde Sigilo: son tus **aperturas**, el primer golpe de un combate. En Sigilo, las teclas de MH cambian solas:
 - **1** pasa a ser Garrote (14), **2** pasa a ser Emboscada (18), **V** pasa a ser Golpe bajo (26), **Shift-Q** pasa a ser Porrazo (10), **F** pasa a ser Robar (4).
 - Antes de conocer el hechizo Sigilo, la tecla simplemente mantiene su hechizo normal.
-Golpes como Golpe siniestro te dan **puntos de combo** (hasta 5). Un **remate** es un golpe que gasta todos tus puntos de combo: Eviscerar (4), Hacer picadillo (Shift-4) y Ruptura (5). Más puntos lo hacen más fuerte.]] },
+Golpes como Golpe siniestro te dan **puntos de combo** (hasta 5). Un **remate** es un golpe que gasta todos tus puntos de combo: Eviscerar (**4**), Hacer picadillo (**Shift-4**) y Ruptura (**5**). Más puntos lo hacen más fuerte.]] },
 		{ "Niveles 1-10: tus botones", [[
 - **1** = Golpe siniestro (nivel 1): tu golpe principal.
 - **4** = Eviscerar (1): tu remate principal.

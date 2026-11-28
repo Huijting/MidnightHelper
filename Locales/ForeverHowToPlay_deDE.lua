@@ -129,7 +129,7 @@ Ein **Siegel** ist eine heilige Kraft, die du auf dich legst. Es hält 30 Sekund
 - **3** = Siegel der Rechtschaffenheit (Stufe 1): dein Siegel.
 - **C** = Heiliges Licht (1): deine große Heilung. Untote Paladine bekommen es aus der Quest „Das Licht wiederentdecken“ auf Stufe 2.
 - **Ctrl-1** = Aura der Hingabe (1, vom Lehrer): einschalten und anlassen.
-- **2** = Richturteil (4): Abklingzeit 10 Sekunden. Es verbraucht dein Siegel nicht. Es wirkt nur, solange ein Siegel aktiv ist: leg zuerst dein Siegel an (3).
+- **2** = Richturteil (4): Abklingzeit 10 Sekunden. Es verbraucht dein Siegel nicht. Es wirkt nur, solange ein Siegel aktiv ist: leg zuerst dein Siegel an (**3**).
 - **Shift-Z** = Segen der Macht (4): Leg ihn auf dich selbst.
 - **1** = Heiliger Stoß (6): dein wichtigster Treffer im Nahkampf.
 - **Z** = Göttlicher Schutz (6): 6 Sekunden lang kann dir nichts schaden, aber du kannst auch nicht angreifen. Abklingzeit 5 Minuten.
@@ -183,7 +183,7 @@ Der Jäger schießt aus der Ferne mit einer Fernkampfwaffe und hat ab Stufe 10 e
 **Automatischer Schuss** = deine Waffe schießt von selbst weiter, bis du aufhörst. **Nahkampf** = Kämpfen aus der Nähe. Der Jäger hat keine Gestalten und keine Haltungen, also macht jede Taste immer dasselbe.]] },
 		{ "Stufe 1-10: deine Tasten", [[
 - **1** = Automatischer Schuss (Stufe 1): fängt an zu schießen. MHs Taste ist so gebaut, dass ein zweiter Druck ihn nicht stoppt.
-- **5** = Raptorstoß (1): dein Treffer, wenn der Gegner direkt neben dir steht.
+- **5** = Raptorstoß (1): dein Treffer, wenn der Gegner direkt neben dir steht. Er braucht eine **Nahkampfwaffe** (eine Waffe für die Nähe) in deiner Haupthand: Die Axt oder der Dolch, mit dem du anfängst, zählt, ein Kürschnermesser nicht.
 - **2** = Schlangenbiss (4): Schaden über ein paar Sekunden.
 - Aspekt des Affen (4) kommt auf deine eigenen Alt-Tasten (Block D). Ein **Aspekt** ist ein haltungsähnlicher Buff auf dir selbst. Nur ein Aspekt kann gleichzeitig aktiv sein.
 - **3** = Arkaner Schuss (6): spontaner Schuss. Abklingzeit 6 Sekunden.
@@ -193,7 +193,7 @@ Der Jäger schießt aus der Ferne mit einer Fernkampfwaffe und hat ab Stufe 10 e
 - **Stufe 10, Begleiter-Quests:** Du lernst Wildtier zähmen, Tier rufen und Tier freigeben; die Quest danach gibt Tier wiederbeleben und Tier füttern. **F4** = Tier rufen (holt deinen Begleiter), **F3** = Tier wiederbeleben (holt einen toten Begleiter zurück). Wildtier zähmen hat keine Taste; du nutzt es außerhalb eines Kampfes.
 - Ab dann hat dein Begleiter drei Tasten: **Ctrl-1** = dein Ziel angreifen, **Ctrl-2** = dir folgen, **Ctrl-3** = bleiben, wo er ist.]] },
 		{ "Einfache Reihenfolge", [[
-Mal des Jägers (Shift-Z), Schlangenbiss (2), Automatischer Schuss (1), dann Arkaner Schuss (3), wenn er bereit ist. Gegner direkt neben dir? Raptorstoß (5). Ab Stufe 10: zuerst Aspekt des Falken an (Shift-R), und schick deinen Begleiter hinein (Ctrl-1), bevor du schießt.]] },
+Mal des Jägers (Shift-Z), Schlangenbiss (2), Automatischer Schuss (1), dann Arkaner Schuss (3), wenn er bereit ist. Gegner direkt neben dir? Raptorstoß (5), mit einer Nahkampfwaffe in der Hand. Ab Stufe 10: zuerst Aspekt des Falken an (Shift-R), und schick deinen Begleiter hinein (Ctrl-1), bevor du schießt.]] },
 		{ "Was später kommt", [[
 - 10: Tier füttern und Tier freigeben liegen nicht auf dem Block (du nutzt sie außerhalb eines Kampfes); leg sie auf deine eigene Leiste. Dasselbe gilt für Wildtier ängstigen (14).
 - 12: Ablenkender Schuss auf F (der Gegner greift dich an), Tier heilen auf F2 (heilt deinen Begleiter), Zurechtstutzen auf Shift-F.
@@ -203,6 +203,7 @@ Mal des Jägers (Shift-Z), Schlangenbiss (2), Automatischer Schuss (1), dann Ark
 - Alle vier Fallen teilen sich eine Abklingzeit von 30 Sekunden.]] },
 		{ "Anfängerfehler", [[
 - Auf einen Gegner direkt neben dir schießen. Deine Schusswaffe oder dein Bogen funktioniert innerhalb von 8 Metern nicht (die „tote Zone“): Nutz Raptorstoß (5) oder geh einen Schritt zurück.
+- Raptorstoß, Zurechtstutzen, Mungobiss, Gegenangriff und Rückzug ohne Nahkampfwaffe in der Haupthand. Dann sagt der Tooltip des Zaubers in Rot, dass du eine brauchst, und die Taste tut nichts. Die Axt oder der Dolch, mit dem du anfängst, zählt; ein Kürschnermesser oder eine Angel nicht. Deine verloren? Ein Waffenschmied verkauft eine billige.
 - Erwarten, dass eine Taste weit schießt und nah zuschlägt. Ein Makro kann keine Entfernung sehen, deshalb hat der Nahkampf eigene Tasten (5, Shift-F, Shift-C).
 - Tier heilen (F2) drücken, um dich selbst zu heilen. Es heilt nur deinen Begleiter. Der Jäger hat keine Selbstheilung.]] },
 	},
@@ -254,7 +255,7 @@ Der Schurke hat **Energie** statt Mana. Energie füllt sich von selbst, und zwar
 **Verstohlenheit** (Stufe 1, Shift-R) macht dich schwer zu sehen. Du bewegst dich mit halber Geschwindigkeit. Manche Angriffe wirken nur aus der Verstohlenheit: Das sind deine **Eröffner**, der erste Treffer eines Kampfes. In Verstohlenheit wechseln MHs Tasten von selbst:
 - **1** wird zu Erdrosseln (14), **2** wird zu Hinterhalt (18), **V** wird zu Fieser Trick (26), **Shift-Q** wird zu Kopfnuss (10), **F** wird zu Taschendiebstahl (4).
 - Bevor du den Zauber Verstohlenheit kennst, behält die Taste einfach ihren normalen Zauber.
-Treffer wie Finsterer Stoß geben dir **Combopunkte** (bis zu 5). Ein **Finisher** ist ein Treffer, der alle deine Combopunkte verbraucht: Ausweiden (4), Zerhäckseln (Shift-4) und Blutung (5). Mehr Punkte machen ihn stärker.]] },
+Treffer wie Finsterer Stoß geben dir **Combopunkte** (bis zu 5). Ein **Finisher** ist ein Treffer, der alle deine Combopunkte verbraucht: Ausweiden (**4**), Zerhäckseln (**Shift-4**) und Blutung (**5**). Mehr Punkte machen ihn stärker.]] },
 		{ "Stufe 1-10: deine Tasten", [[
 - **1** = Finsterer Stoß (Stufe 1): dein wichtigster Treffer.
 - **4** = Ausweiden (1): dein wichtigster Finisher.

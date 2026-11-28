@@ -122,7 +122,7 @@ A **seal** is a holy power you put on yourself. It lasts 30 seconds, and you can
 - **3** = Seal of Righteousness (level 1): your seal.
 - **C** = Holy Light (1): your big heal. Undead Paladins get it from the level-2 quest "Rediscovering the Light".
 - **Ctrl-1** = Devotion Aura (1, from the trainer): turn it on and leave it on.
-- **2** = Judgement (4): cooldown 10 seconds. It does not use up your seal. It only works while a seal is on: put your seal on first (3). Without one the game says "You can't do that yet".
+- **2** = Judgement (4): cooldown 10 seconds. It does not use up your seal. It only works while a seal is on: put your seal on first (**3**). Without one the game says "You can't do that yet".
 - **Shift-Z** = Blessing of Might (4): put it on yourself.
 - **1** = Holy Strike (6): your main hit, up close.
 - **Z** = Divine Protection (6): for 6 seconds nothing can hurt you, but you cannot attack either. Cooldown 5 minutes.
@@ -176,7 +176,7 @@ The Hunter shoots from a distance with a ranged weapon, and from level 10 has a 
 **Auto Shot** = your weapon keeps shooting by itself until you stop. **Melee** = fighting up close. The Hunter has no shapes and no stances, so every key always does the same thing.]] },
 		{ "Levels 1-10: your buttons", [[
 - **1** = Auto Shot (level 1): starts shooting. MH's key is made so a second press does not stop it.
-- **5** = Raptor Strike (1): your hit when the enemy is next to you.
+- **5** = Raptor Strike (1): your hit when the enemy is next to you. It needs a **melee weapon** (a weapon for up close) in your main hand: the axe or dagger you start with counts, a Skinning Knife does not.
 - **2** = Serpent Sting (4): damage over a few seconds.
 - Aspect of the Monkey (4) goes on your own Alt keys (block D). An **aspect** is a stance-like buff on yourself. Only one aspect can be on at a time.
 - **3** = Arcane Shot (6): instant shot. Cooldown 6 seconds.
@@ -186,7 +186,7 @@ The Hunter shoots from a distance with a ranged weapon, and from level 10 has a 
 - **Level 10, pet quests:** you learn Tame Beast, Call Pet and Dismiss Pet; the quest after them (Training the Beast) gives Revive Pet and Feed Pet. **F4** = Call Pet (brings your pet), **F3** = Revive Pet (brings a dead pet back). Tame Beast has no key; you use it outside a fight.
 - From then on your pet has three keys: **Ctrl-1** = attack your target, **Ctrl-2** = follow you, **Ctrl-3** = stay where it is.]] },
 		{ "Simple order", [[
-Hunter's Mark (Shift-Z), Serpent Sting (2), Auto Shot (1), then Arcane Shot (3) when it is ready. Enemy next to you? Raptor Strike (5). From level 10: Aspect of the Hawk on (Shift-R) first, and send your pet in (Ctrl-1) before you shoot.]] },
+Hunter's Mark (Shift-Z), Serpent Sting (2), Auto Shot (1), then Arcane Shot (3) when it is ready. Enemy next to you? Raptor Strike (5), with a melee weapon in your hand. From level 10: Aspect of the Hawk on (Shift-R) first, and send your pet in (Ctrl-1) before you shoot.]] },
 		{ "What comes later", [[
 - 10: Feed Pet and Dismiss Pet are not on the block (you use them outside a fight); put them on your own bar. The same for Scare Beast (14).
 - 12: Distracting Shot on F (makes the enemy attack you), Mend Pet on F2 (heals your pet), Wing Clip on Shift-F.
@@ -196,6 +196,7 @@ Hunter's Mark (Shift-Z), Serpent Sting (2), Auto Shot (1), then Arcane Shot (3) 
 - All four traps share one 30-second cooldown.]] },
 		{ "Beginner mistakes", [[
 - Shooting at an enemy right next to you. Your gun or bow does not work within 8 yards (the "dead zone"): use Raptor Strike (5), or step back.
+- Raptor Strike, Wing Clip, Mongoose Bite, Counterattack and Disengage with no melee weapon in your main hand. Then the spell's tooltip says in red that it needs one, and the key does nothing. The axe or dagger you start with counts; a Skinning Knife or a fishing pole does not. Lost yours? A weaponsmith sells a cheap one.
 - Expecting one key to shoot far away and hit up close. A macro cannot see distance, so melee has its own keys (5, Shift-F, Shift-C).
 - Pressing Mend Pet (F2) to heal yourself. It heals your pet only. The Hunter has no self heal.]] },
 	},
@@ -247,7 +248,7 @@ The Rogue has **Energy** instead of mana. Energy fills up by itself, fast: an em
 **Stealth** (level 1, Shift-R) makes you hard to see. You move at half speed. Some attacks only work from Stealth: they are your **openers**, the first hit of a fight. In Stealth, MH's keys switch by themselves:
 - **1** becomes Garrote (14), **2** becomes Ambush (18), **V** becomes Cheap Shot (26), **Shift-Q** becomes Sap (10), **F** becomes Pick Pocket (4).
 - Before you know the Stealth spell, the key just keeps its normal spell.
-Hits like Sinister Strike give you **combo points** (up to 5). A **finisher** is a hit that uses all your combo points: Eviscerate (4), Slice and Dice (Shift-4) and Rupture (5). More points make it stronger.]] },
+Hits like Sinister Strike give you **combo points** (up to 5). A **finisher** is a hit that uses all your combo points: Eviscerate (**4**), Slice and Dice (**Shift-4**) and Rupture (**5**). More points make it stronger.]] },
 		{ "Levels 1-10: your buttons", [[
 - **1** = Sinister Strike (level 1): your main hit.
 - **4** = Eviscerate (1): your main finisher.
@@ -1345,6 +1346,51 @@ end
 ns.ForeverHowToLiveKeys = LiveKeys -- the offline check calls it
 
 --------------------------------------------------------------------------------
+-- 28 Nov 2026 (Rob via Sparring 28-11, after testing "Until level 10": "er staat alleen bij de eerste keer level 1
+-- tussen haakjes. En daarna niet meer ... tussen haakjes 1, wat is dat dan?"; "lvl" in front, Rob: "ja"). A level in
+-- brackets is shown as "(lvl 4)", the first "(level 1)" too. Done when the text is shown, so the 8 language files keep
+-- their words. Which brackets hold a LEVEL: any number 1-60 in "(N)" or "(N, ...)", EXCEPT in the sections where plain
+-- brackets hold KEYS ("Simple order" and "Beginner mistakes", see LiveKeys): there a number that is a block key (1-5)
+-- stays as it is. The two places outside those sections that had a key in plain brackets (Paladin "first (3)", Rogue
+-- "Eviscerate (4) ... Rupture (5)") are written as **bold** keys since this day, in every language.
+-- The short word per language (the texts' own long word in front of the first level, GEMETEN in the 8 files):
+--------------------------------------------------------------------------------
+local LVL_SHORT = { enUS = "lvl", enGB = "lvl", nlNL = "lvl", deDE = "Stufe", frFR = "niv.", esES = "niv.", esMX = "niv.",
+	ptBR = "nív.", ruRU = "ур." }
+local LVL_LONG = { enUS = "level", enGB = "level", nlNL = "level", deDE = "Stufe", frFR = "niveau", esES = "nivel",
+	esMX = "nivel", ptBR = "nível", ruRU = "уровень" }
+
+local function LevelMarks(text, keysInParens)
+	if type(text) ~= "string" then
+		return text
+	end
+	local loc = (ns.GetEffectiveLocaleCode and ns:GetEffectiveLocaleCode()) or "enUS"
+	local short, long = LVL_SHORT[loc] or LVL_SHORT.enUS, LVL_LONG[loc] or LVL_LONG.enUS
+	if long ~= short then
+		text = text:gsub("%(" .. long .. " (%d)", function(d)
+			return "(" .. short .. " " .. d
+		end)
+	end
+	local function mark(n, tail)
+		local v = tonumber(n)
+		if not v or v < 1 or v > 60 or (keysInParens and KeyCode(n)) then
+			return nil
+		end
+		return "(" .. short .. " " .. n .. tail
+	end
+	text = text:gsub("%((%d+)(%))", mark)
+	-- "(10, from a quest)", and "(8 ; à partir du Rang 2 …)" / "(1; a partir do Grau 2 …)" in fr and pt
+	text = text:gsub("%((%d+)(%s?[,;] )", mark)
+	return text
+end
+ns.ForeverHowToLevelMarks = LevelMarks -- the offline check calls it
+
+--- Sections whose plain brackets hold keys, by ENGLISH title.
+local function KeySection(enTitle)
+	return type(enTitle) == "string" and (enTitle:find("^Simple order") ~= nil or enTitle == "Beginner mistakes")
+end
+
+--------------------------------------------------------------------------------
 -- 19 Nov 2026 (Rob's screenshot, mage level 9: "Enemy close to you? Frost Nova (V)" — "dat krijg ik pas als ik level 54
 -- ben", via sparring). GEMETEN that day: Frost Nova rank 1 = level 10 (Forever DB2 SpellLevels 122 BaseLevel 10, and
 -- MH's trainer data ForeverTrainerData.lua; rank 4 is level 54 — AFGELEID that the other addon showed the top rank).
@@ -1436,8 +1482,9 @@ local function TextFor(token)
 		for i, sec in ipairs(cls) do
 			local en = CLASSES[token] and CLASSES[token][i]
 			local note = en and NotYetLine(token, OrderPart(en[1], en[2]))
-			local simple = en and OrderPart(en[1], en[2]) ~= nil
-			parts[#parts + 1] = HEAD .. sec[1] .. "|r\n" .. Format(LiveKeys(token, sec[2], simple)) .. (note and ("\n" .. note) or "")
+			local keys = en and KeySection(en[1])
+			parts[#parts + 1] = HEAD .. sec[1] .. "|r\n" .. Format(LevelMarks(LiveKeys(token, sec[2], keys), keys))
+				.. (note and ("\n" .. note) or "")
 		end
 		-- 17 Nov 2026 (Rob via Sparring 17-11: the Talented gap is a bug): the talent levels in the texts count the first
 		-- point at 10. The Legacy perk Talented gives points up to 5 levels sooner; one line says so, with your rank if MH
@@ -1520,12 +1567,12 @@ local function RolesText(token)
 	end
 	local parts = {}
 	for _, r in ipairs(mine) do
-		parts[#parts + 1] = HEAD .. r.title .. "|r\n" .. Format(LiveKeys(token, RoleBody(token, list, r)))
+		parts[#parts + 1] = HEAD .. r.title .. "|r\n" .. Format(LevelMarks(LiveKeys(token, RoleBody(token, list, r))))
 	end
 	if #others > 0 then
 		if showAllRoles then
 			for _, r in ipairs(others) do
-				parts[#parts + 1] = HEAD .. r.title .. "|r\n" .. Format(LiveKeys(token, RoleBody(token, list, r)))
+				parts[#parts + 1] = HEAD .. r.title .. "|r\n" .. Format(LevelMarks(LiveKeys(token, RoleBody(token, list, r))))
 			end
 		else
 			local names = {}
@@ -1726,7 +1773,8 @@ local function EarlyBlock(token)
 		local simple = type(t) == "string" and t:find("^Simple order") ~= nil
 		if simple or t == "Levels 1-10: your buttons" then
 			local note = simple and NotYetLine(token, en[i][2])
-			parts[#parts + 1] = "**" .. sec[1] .. "**\n" .. LiveKeys(token, sec[2], simple) .. (note and ("\n" .. note) or "")
+			parts[#parts + 1] = "**" .. sec[1] .. "**\n" .. LevelMarks(LiveKeys(token, sec[2], simple), simple)
+				.. (note and ("\n" .. note) or "")
 		end
 	end
 	return ns:L("FHOWTO_EARLY_TITLE_FMT"):format(from), table.concat(parts, "\n")
@@ -1758,7 +1806,7 @@ function ns.ForeverHowToSections(token, allRoles)
 	end
 	local planTitle, planBody = PlanFor(token)
 	if planTitle then
-		out[#out + 1] = { title = planTitle, body = LiveKeys(token, planBody), kind = "plan", tab = "group" }
+		out[#out + 1] = { title = planTitle, body = LevelMarks(LiveKeys(token, planBody)), kind = "plan", tab = "group" }
 	end
 	-- 28 Nov 2026: "Until level X", first in Start, only below your role's start level.
 	local okE, et, eb = pcall(EarlyBlock, token)
@@ -1768,11 +1816,11 @@ function ns.ForeverHowToSections(token, allRoles)
 	local function AddRole(r, list)
 		local chunks = RoleChunks(RoleBody(token, list, r))
 		if #chunks == 4 then
-			out[#out + 1] = { title = r.title, body = LiveKeys(token, chunks[1] .. "\n" .. chunks[2] .. "\n" .. chunks[4]),
+			out[#out + 1] = { title = r.title, body = LevelMarks(LiveKeys(token, chunks[1] .. "\n" .. chunks[2] .. "\n" .. chunks[4])),
 				kind = "role", tab = "start" }
-			out[#out + 1] = { title = r.title, body = LiveKeys(token, chunks[3]), kind = "role", tab = "levels" }
+			out[#out + 1] = { title = r.title, body = LevelMarks(LiveKeys(token, chunks[3])), kind = "role", tab = "levels" }
 		else -- not the usual three sub-heads: keep it whole (/mh howtotabs reports it)
-			out[#out + 1] = { title = r.title, body = LiveKeys(token, RoleBody(token, list, r)), kind = "role", tab = "start",
+			out[#out + 1] = { title = r.title, body = LevelMarks(LiveKeys(token, RoleBody(token, list, r))), kind = "role", tab = "start",
 				uncut = #chunks }
 		end
 	end
@@ -1809,8 +1857,8 @@ function ns.ForeverHowToSections(token, allRoles)
 		for i, sec in ipairs(cls) do
 			local en = CLASSES[token] and CLASSES[token][i]
 			local note = en and NotYetLine(token, OrderPart(en[1], en[2]))
-			local simple = en and OrderPart(en[1], en[2]) ~= nil
-			out[#out + 1] = { title = sec[1], body = LiveKeys(token, sec[2], simple) .. (note and ("\n" .. note) or ""),
+			local keys = en and KeySection(en[1])
+			out[#out + 1] = { title = sec[1], body = LevelMarks(LiveKeys(token, sec[2], keys), keys) .. (note and ("\n" .. note) or ""),
 				kind = "class", tab = ClassTab(en and en[1]) }
 		end
 		local r = ns.ForeverTalentedRank and ns.ForeverTalentedRank()
@@ -1964,7 +2012,7 @@ local function Body(token)
 		win.roles:SetText(ns:L(not showAllRoles and "FHOWTO_ROLES_SHOW" or (hasDir and "FHOWTO_ROLES_HIDE" or "FHOWTO_ROLES_FOLD")))
 	end
 	local planTitle, planBody = PlanFor(token)
-	local plan = planTitle and (HEAD .. planTitle .. "|r\n" .. Format(LiveKeys(token, planBody))) or nil
+	local plan = planTitle and (HEAD .. planTitle .. "|r\n" .. Format(LevelMarks(LiveKeys(token, planBody)))) or nil
 	local wt, wb = WeaponAdvice()
 	if wt then
 		plan = (plan and (plan .. "\n\n") or "") .. HEAD .. wt .. "|r\n" .. Format(wb)

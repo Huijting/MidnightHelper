@@ -128,7 +128,7 @@ Um **selo** é um poder sagrado que você coloca em si mesmo. Dura 30 segundos, 
 - **3** = Selo da Retidão (nível 1): seu selo.
 - **C** = Luz Sagrada (1): sua cura grande. Um Paladino Morto-vivo ganha ela na missão de nível 2 "Redescobrindo a Luz".
 - **Ctrl-1** = Aura de Devoção (1, do treinador): ligue e deixe ligada.
-- **2** = Julgamento (4): recarga de 10 segundos. Não gasta o seu selo. Só funciona com um selo ativo: coloque o seu selo primeiro (3).
+- **2** = Julgamento (4): recarga de 10 segundos. Não gasta o seu selo. Só funciona com um selo ativo: coloque o seu selo primeiro (**3**).
 - **Shift-Z** = Bênção do Poder (4): coloque em você mesmo.
 - **1** = Golpe Sagrado (6): seu golpe principal, de perto.
 - **Z** = Proteção Divina (6): por 6 segundos nada pode ferir você, mas você também não pode atacar. Recarga de 5 minutos.
@@ -182,7 +182,7 @@ O Caçador atira de longe com uma arma de longo alcance, e a partir do nível 10
 **Tiro Automático** = sua arma continua atirando sozinha até você parar. **Corpo a corpo** = lutar de perto. O Caçador não tem formas nem posturas, então cada tecla sempre faz a mesma coisa.]] },
 		{ "Níveis 1-10: seus botões", [[
 - **1** = Tiro Automático (nível 1): começa a atirar. A tecla do MH é feita para que um segundo toque não pare o tiro.
-- **5** = Golpe do Raptor (1): seu golpe quando o inimigo está do seu lado.
+- **5** = Golpe do Raptor (1): seu golpe quando o inimigo está do seu lado. Ele precisa de uma **arma corpo a corpo** (uma arma para lutar de perto) na sua mão principal: o machado ou a adaga com que você começa conta, uma Faca de Esfolamento não.
 - **2** = Picada de Serpente (4): dano ao longo de alguns segundos.
 - Aspecto do Macaco (4) vai numa tecla Alt sua (bloco D). Um **aspecto** é um buff em você mesmo, parecido com uma postura. Só um aspecto pode estar ativo por vez.
 - **3** = Tiro Arcano (6): tiro instantâneo. Recarga de 6 segundos.
@@ -192,7 +192,7 @@ O Caçador atira de longe com uma arma de longo alcance, e a partir do nível 10
 - **Nível 10, missões do ajudante:** você aprende Domar Fera, Chamar Ajudante e Dispensar Ajudante; a missão seguinte dá Reviver Ajudante e Alimentar Ajudante. **F4** = Chamar Ajudante (traz seu ajudante), **F3** = Reviver Ajudante (traz um ajudante morto de volta). Domar Fera não tem tecla; você usa fora de combate.
 - A partir daí seu ajudante tem três teclas: **Ctrl-1** = atacar seu alvo, **Ctrl-2** = seguir você, **Ctrl-3** = ficar onde está.]] },
 		{ "Ordem simples", [[
-Marca do Caçador (Shift-Z), Picada de Serpente (2), Tiro Automático (1), depois Tiro Arcano (3) quando estiver pronto. Inimigo do seu lado? Golpe do Raptor (5). A partir do nível 10: primeiro Aspecto do Falcão ligado (Shift-R), e mande seu ajudante (Ctrl-1) antes de atirar.]] },
+Marca do Caçador (Shift-Z), Picada de Serpente (2), Tiro Automático (1), depois Tiro Arcano (3) quando estiver pronto. Inimigo do seu lado? Golpe do Raptor (5), com uma arma corpo a corpo na mão. A partir do nível 10: primeiro Aspecto do Falcão ligado (Shift-R), e mande seu ajudante (Ctrl-1) antes de atirar.]] },
 		{ "O que vem depois", [[
 - 10: Alimentar Ajudante e Dispensar Ajudante não estão no bloco (você usa fora de combate); coloque-os numa barra sua. O mesmo vale para Assustar Fera (14).
 - 12: Tiro Distrativo no F (faz o inimigo atacar você), Curar Ajudante no F2 (cura seu ajudante), Cortar Asas no Shift-F.
@@ -202,6 +202,7 @@ Marca do Caçador (Shift-Z), Picada de Serpente (2), Tiro Automático (1), depoi
 - As quatro armadilhas compartilham um tempo de recarga de 30 segundos.]] },
 		{ "Erros de iniciante", [[
 - Atirar num inimigo bem do seu lado. Sua arma de fogo ou arco não funciona a menos de 8 jardas (a "zona morta"): use Golpe do Raptor (5), ou dê um passo para trás.
+- Golpe do Raptor, Cortar Asas, Mordida de Mangusto, Contra-ataque e Desvencilhar sem uma arma corpo a corpo na mão principal. Aí a descrição do feitiço diz em vermelho que você precisa de uma, e a tecla não faz nada. O machado ou a adaga com que você começa conta; uma Faca de Esfolamento ou uma vara de pesca não. Perdeu a sua? Um armeiro vende uma barata.
 - Esperar que uma tecla atire de longe e bata de perto. Uma macro não enxerga distância, então o corpo a corpo tem teclas próprias (5, Shift-F, Shift-C).
 - Apertar Curar Ajudante (F2) para se curar. Só cura seu ajudante. O Caçador não tem cura própria.]] },
 	},
@@ -253,7 +254,7 @@ O Ladino tem **Energia** em vez de mana. A Energia enche sozinha, rápido: uma b
 **Furtividade** (nível 1, Shift-R) deixa você difícil de ver. Você anda com metade da velocidade. Alguns ataques só funcionam a partir da Furtividade: eles são seus **abridores**, o primeiro golpe de uma luta. Na Furtividade, as teclas do MH trocam sozinhas:
 - **1** vira Garrote (14), **2** vira Emboscar (18), **V** vira Golpe Baixo (26), **Shift-Q** vira Aturdir (10), **F** vira Bater Carteira (4).
 - Antes de você conhecer o feitiço Furtividade, a tecla só mantém o feitiço normal dela.
-Golpes como Golpe Sinistro dão **Pontos de Combo** (até 5). Um **finalizador** é um golpe que gasta todos os seus Pontos de Combo: Eviscerar (4), Retalhar (Shift-4) e Ruptura (5). Mais pontos deixam ele mais forte.]] },
+Golpes como Golpe Sinistro dão **Pontos de Combo** (até 5). Um **finalizador** é um golpe que gasta todos os seus Pontos de Combo: Eviscerar (**4**), Retalhar (**Shift-4**) e Ruptura (**5**). Mais pontos deixam ele mais forte.]] },
 		{ "Níveis 1-10: seus botões", [[
 - **1** = Golpe Sinistro (nível 1): seu golpe principal.
 - **4** = Eviscerar (1): seu finalizador principal.

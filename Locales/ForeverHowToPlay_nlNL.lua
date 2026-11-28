@@ -121,7 +121,7 @@ Een **seal** is een heilige kracht die je op jezelf zet. Hij duurt 30 seconden, 
 - **3** = Seal of Righteousness (level 1): je seal.
 - **C** = Holy Light (1): je grote heal. Undead Paladins krijgen hem uit de quest van level 2, "Rediscovering the Light".
 - **Ctrl-1** = Devotion Aura (1, van de trainer): zet hem aan en laat hem aan.
-- **2** = Judgement (4): cooldown 10 seconden. Hij gebruikt je seal niet op. Hij werkt alleen als er een seal aan staat: zet eerst je seal aan (3). Zonder seal zegt het spel "You can't do that yet".
+- **2** = Judgement (4): cooldown 10 seconden. Hij gebruikt je seal niet op. Hij werkt alleen als er een seal aan staat: zet eerst je seal aan (**3**). Zonder seal zegt het spel "You can't do that yet".
 - **Shift-Z** = Blessing of Might (4): zet hem op jezelf.
 - **1** = Holy Strike (6): je belangrijkste klap, van dichtbij.
 - **Z** = Divine Protection (6): 6 seconden lang kan niets je pijn doen, maar jij kunt ook niet aanvallen. Cooldown 5 minuten.
@@ -175,7 +175,7 @@ De Hunter schiet van een afstand met een ranged wapen, en heeft vanaf level 10 e
 **Auto Shot** = je wapen blijft vanzelf schieten tot je stopt. **Melee** = van dichtbij vechten. De Hunter heeft geen vormen en geen stances, dus elke toets doet altijd hetzelfde.]] },
 		{ "Level 1-10: je knoppen", [[
 - **1** = Auto Shot (level 1): begint te schieten. MH's toets is zo gemaakt dat een tweede druk hem niet stopt.
-- **5** = Raptor Strike (1): je klap als de vijand naast je staat.
+- **5** = Raptor Strike (1): je klap als de vijand naast je staat. Hij heeft een **melee weapon** (een wapen voor dichtbij) in je main hand nodig: de bijl of dolk waarmee je begint telt, een Skinning Knife niet.
 - **2** = Serpent Sting (4): schade over een paar seconden.
 - Aspect of the Monkey (4) komt op je eigen Alt-toetsen (blok D). Een **aspect** is een buff op jezelf die werkt als een stance. Je kunt maar één aspect tegelijk ophebben.
 - **3** = Arcane Shot (6): instant schot. Cooldown 6 seconden.
@@ -185,7 +185,7 @@ De Hunter schiet van een afstand met een ranged wapen, en heeft vanaf level 10 e
 - **Level 10, pet-quests:** je leert Tame Beast, Call Pet en Dismiss Pet; de quest daarna (Training the Beast) geeft Revive Pet en Feed Pet. **F4** = Call Pet (haalt je pet), **F3** = Revive Pet (brengt een dode pet terug). Tame Beast heeft geen toets; die gebruik je buiten een gevecht.
 - Vanaf dan heeft je pet drie toetsen: **Ctrl-1** = val je target aan, **Ctrl-2** = volg mij, **Ctrl-3** = blijf waar je bent.]] },
 		{ "Simpele volgorde", [[
-Hunter's Mark (Shift-Z), Serpent Sting (2), Auto Shot (1), dan Arcane Shot (3) als hij klaar is. Vijand naast je? Raptor Strike (5). Vanaf level 10: eerst Aspect of the Hawk aan (Shift-R), en stuur je pet erop (Ctrl-1) voordat je schiet.]] },
+Hunter's Mark (Shift-Z), Serpent Sting (2), Auto Shot (1), dan Arcane Shot (3) als hij klaar is. Vijand naast je? Raptor Strike (5), met een melee weapon in je hand. Vanaf level 10: eerst Aspect of the Hawk aan (Shift-R), en stuur je pet erop (Ctrl-1) voordat je schiet.]] },
 		{ "Wat er later komt", [[
 - 10: Feed Pet en Dismiss Pet staan niet op het blok (je gebruikt ze buiten een gevecht); zet ze op je eigen balk. Hetzelfde voor Scare Beast (14).
 - 12: Distracting Shot op F (laat de vijand jou aanvallen), Mend Pet op F2 (healt je pet), Wing Clip op Shift-F.
@@ -195,6 +195,7 @@ Hunter's Mark (Shift-Z), Serpent Sting (2), Auto Shot (1), dan Arcane Shot (3) a
 - Alle vier de traps delen één cooldown van 30 seconden.]] },
 		{ "Beginnersfouten", [[
 - Schieten op een vijand die vlak naast je staat. Je geweer of boog werkt niet binnen 8 yards (de "dead zone"): gebruik Raptor Strike (5), of stap achteruit.
+- Raptor Strike, Wing Clip, Mongoose Bite, Counterattack en Disengage zonder melee weapon in je main hand. Dan zegt de tooltip van de spell in het rood dat je er een nodig hebt, en de toets doet niets. De bijl of dolk waarmee je begint telt; een Skinning Knife of een vishengel niet. Kwijt? Een weaponsmith verkoopt een goedkope.
 - Verwachten dat één toets ver weg schiet en van dichtbij slaat. Een macro kan geen afstand zien, dus melee heeft eigen toetsen (5, Shift-F, Shift-C).
 - Mend Pet (F2) indrukken om jezelf te healen. Hij healt alleen je pet. De Hunter heeft geen self-heal.]] },
 	},
@@ -246,7 +247,7 @@ De Rogue heeft **Energy** in plaats van mana. Energy vult zich vanzelf, en snel:
 **Stealth** (level 1, Shift-R) maakt je moeilijk te zien. Je loopt op halve snelheid. Sommige aanvallen werken alleen vanuit Stealth: dat zijn je **openers**, de eerste klap van een gevecht. In Stealth wisselen MH's toetsen vanzelf:
 - **1** wordt Garrote (14), **2** wordt Ambush (18), **V** wordt Cheap Shot (26), **Shift-Q** wordt Sap (10), **F** wordt Pick Pocket (4).
 - Ken je de spell Stealth nog niet, dan houdt de toets gewoon zijn normale spell.
-Klappen zoals Sinister Strike geven je **combo points** (tot 5). Een **finisher** is een klap die al je combo points gebruikt: Eviscerate (4), Slice and Dice (Shift-4) en Rupture (5). Meer points maken hem sterker.]] },
+Klappen zoals Sinister Strike geven je **combo points** (tot 5). Een **finisher** is een klap die al je combo points gebruikt: Eviscerate (**4**), Slice and Dice (**Shift-4**) en Rupture (**5**). Meer points maken hem sterker.]] },
 		{ "Level 1-10: je knoppen", [[
 - **1** = Sinister Strike (level 1): je belangrijkste klap.
 - **4** = Eviscerate (1): je belangrijkste finisher.

@@ -130,7 +130,7 @@ Un **sceau** est un pouvoir sacré que tu poses sur toi. Il dure 30 secondes, et
 - **3** = Sceau de piété (niveau 1) : ton sceau.
 - **C** = Lumière sacrée (1) : ton gros soin. Les Paladins Mort-vivant l'obtiennent avec la quête de niveau 2 « Redécouverte de la Lumière ».
 - **Ctrl-1** = Aura de dévotion (1, chez le maître de classe) : active-la et laisse-la active.
-- **2** = Jugement (4) : cooldown de 10 secondes. Il ne consomme pas ton sceau. Il ne marche que si un sceau est actif : mets d'abord ton sceau (3).
+- **2** = Jugement (4) : cooldown de 10 secondes. Il ne consomme pas ton sceau. Il ne marche que si un sceau est actif : mets d'abord ton sceau (**3**).
 - **Shift-Z** = Bénédiction de puissance (4) : mets-la sur toi.
 - **1** = Frappe sacrée (6) : ton coup principal, au corps à corps.
 - **Z** = Protection divine (6) : pendant 6 secondes, rien ne peut te blesser, mais tu ne peux pas attaquer non plus. Cooldown de 5 minutes.
@@ -184,7 +184,7 @@ Le Chasseur tire de loin avec une arme à distance et, à partir du niveau 10, i
 **Tir automatique** = ton arme continue de tirer toute seule jusqu'à ce que tu arrêtes. **Corps à corps** = se battre de près. Le Chasseur n'a ni formes ni postures, donc chaque touche fait toujours la même chose.]] },
 		{ "Niveaux 1-10 : tes boutons", [[
 - **1** = Tir automatique (niveau 1) : commence à tirer. La touche de MH est faite pour qu'un second appui ne l'arrête pas.
-- **5** = Attaque du raptor (1) : ton coup quand l'ennemi est juste à côté de toi.
+- **5** = Attaque du raptor (1) : ton coup quand l'ennemi est juste à côté de toi. Elle a besoin d'une **arme de corps à corps** (une arme pour frapper de près) en main droite : la hache ou la dague avec laquelle tu commences compte, un Couteau à dépecer non.
 - **2** = Morsure de serpent (4) : des dégâts pendant quelques secondes.
 - Aspect du singe (4) va sur tes propres touches Alt (bloc D). Un **aspect** est un buff sur toi, un peu comme une posture. Un seul aspect peut être actif à la fois.
 - **3** = Tir des arcanes (6) : un tir instantané. Cooldown de 6 secondes.
@@ -194,7 +194,7 @@ Le Chasseur tire de loin avec une arme à distance et, à partir du niveau 10, i
 - **Niveau 10, quêtes du familier :** tu apprends Apprivoise une bête, Appel du familier et Renvoyer le familier ; la quête suivante donne Ressusciter le familier et Nourrir le familier. **F4** = Appel du familier (fait venir ton familier), **F3** = Ressusciter le familier (ramène un familier mort). Apprivoise une bête n'a pas de touche ; tu l'utilises hors combat.
 - Ensuite, ton familier a trois touches : **Ctrl-1** = attaquer ta cible, **Ctrl-2** = te suivre, **Ctrl-3** = rester où il est.]] },
 		{ "Ordre simple", [[
-Marque du chasseur (Shift-Z), Morsure de serpent (2), Tir automatique (1), puis Tir des arcanes (3) quand il est prêt. L'ennemi est à côté de toi ? Attaque du raptor (5). À partir du niveau 10 : d'abord Aspect du faucon actif (Shift-R), et envoie ton familier (Ctrl-1) avant de tirer.]] },
+Marque du chasseur (Shift-Z), Morsure de serpent (2), Tir automatique (1), puis Tir des arcanes (3) quand il est prêt. L'ennemi est à côté de toi ? Attaque du raptor (5), avec une arme de corps à corps en main. À partir du niveau 10 : d'abord Aspect du faucon actif (Shift-R), et envoie ton familier (Ctrl-1) avant de tirer.]] },
 		{ "Ce qui vient plus tard", [[
 - 10 : Nourrir le familier et Renvoyer le familier ne sont pas sur le bloc (tu les utilises hors combat) ; mets-les sur ta propre barre. Pareil pour Effrayer une bête (14).
 - 12 : Trait provocateur sur F (pousse l'ennemi à t'attaquer), Guérison du familier sur F2 (soigne ton familier), Coupure d'ailes sur Shift-F.
@@ -204,6 +204,7 @@ Marque du chasseur (Shift-Z), Morsure de serpent (2), Tir automatique (1), puis 
 - Les quatre pièges partagent un même cooldown de 30 secondes.]] },
 		{ "Erreurs de débutant", [[
 - Tirer sur un ennemi juste à côté de toi. Ton arme à feu ou ton arc ne marche pas à moins de 8 mètres (la « zone morte ») : utilise Attaque du raptor (5), ou recule.
+- Attaque du raptor, Coupure d'ailes, Morsure de la mangouste, Contre-attaque et Désengagement sans arme de corps à corps en main droite. L'infobulle du sort dit alors en rouge qu'il t'en faut une, et la touche ne fait rien. La hache ou la dague avec laquelle tu commences compte ; un Couteau à dépecer ou une canne à pêche, non. Tu as perdu la tienne ? Un fabricant d'armes en vend une pas chère.
 - Croire qu'une seule touche peut tirer de loin et frapper de près. Une macro ne peut pas voir la distance, donc le corps à corps a ses propres touches (5, Shift-F, Shift-C).
 - Appuyer sur Guérison du familier (F2) pour te soigner. Elle ne soigne que ton familier. Le Chasseur n'a pas de soin pour lui-même.]] },
 	},
@@ -255,7 +256,7 @@ Le Voleur a de l'**Énergie** au lieu du mana. L'Énergie se remplit toute seule
 **Camouflage** (niveau 1, Shift-R) te rend difficile à voir. Tu avances à mi-vitesse. Certaines attaques ne marchent que depuis le Camouflage : ce sont tes **ouvertures**, le premier coup d'un combat. En Camouflage, les touches de MH changent toutes seules :
 - **1** devient Garrot (14), **2** devient Embuscade (18), **V** devient Coup bas (26), **Shift-Q** devient Assommer (10), **F** devient Vol à la tire (4).
 - Tant que tu ne connais pas le sort Camouflage, la touche garde simplement son sort normal.
-Des coups comme Attaque pernicieuse te donnent des **points de combo** (jusqu'à 5). Un **coup de grâce** est un coup qui utilise tous tes points de combo : Eviscération (4), Débiter (Shift-4) et Rupture (5). Plus tu as de points, plus il est fort.]] },
+Des coups comme Attaque pernicieuse te donnent des **points de combo** (jusqu'à 5). Un **coup de grâce** est un coup qui utilise tous tes points de combo : Eviscération (**4**), Débiter (**Shift-4**) et Rupture (**5**). Plus tu as de points, plus il est fort.]] },
 		{ "Niveaux 1-10 : tes boutons", [[
 - **1** = Attaque pernicieuse (niveau 1) : ton coup principal.
 - **4** = Eviscération (1) : ton coup de grâce principal.

@@ -25,6 +25,20 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 28 nov — FOREVER How you play: "(lvl 4)" en Raptor Strike heeft een melee-wapen nodig
+
+`/reload` is genoeg. Offline getest (lvl_test: 8 talen x 2 indelingen, aantal levels per class gelijk aan het Engels),
+NIET in het spel.
+- [ ] How you play → Start en Your keys: levels tussen haakjes staan er nu als "(lvl 1)", "(lvl 4)", "(lvl 10)" — ook de
+      eerste. Toetsen tussen haakjes ("Raptor Strike (Shift-X)" in de volgorde) hebben géén "lvl".
+- [ ] Hunter, "Levels 1-10": bij Raptor Strike staat dat je een **melee weapon** in je main hand nodig hebt (je begin-bijl
+      of -dolk telt, een Skinning Knife niet).
+- [ ] De volgorde zegt "Raptor Strike (…), with a melee weapon in your hand".
+- [ ] Beginner mistakes (tab Start) heeft een nieuwe regel: Raptor Strike, Wing Clip, Mongoose Bite, Counterattack en
+      Disengage doen niets zonder melee-wapen.
+- [ ] Met 12x4: in Beginner mistakes staat nu ook de 12x4-toets ("use Raptor Strike (Shift-X)"), niet meer "(5)".
+- [ ] Rogue (als je er een hebt): "Eviscerate (**4**) … Rupture (**5**)" zijn vetgedrukte toetsen; Paladin: "first (**3**)".
+
 ## 28 nov — MIDNIGHT Codex: Venomstones met aantallen
 
 `/reload` is genoeg. Alleen tekst veranderd.

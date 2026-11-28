@@ -1,5 +1,21 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 28 nov (Bouwchat 28-11): Forever How you play — "(lvl N)" + hunter melee-wapen (`/reload`)
+
+Rob via Sparring 28-11 na zijn test van "Until level 10" (*"Het ziet er goed uit"*), letterlijk *"ja"* op: (1) "(4)" →
+"(lvl 4)"; (2) Raptor Strike vraagt een melee-wapen. (1) LevelMarks bij het tonen (ForeverHowToPlay.lua): getal 1-60 in
+"(N)", "(N, ", "(N; " of "(N ; " wordt "(<kort> N)"; "(level 1" → "(lvl 1". In KeySection ("Simple order", "Beginner
+mistakes") blijft een getal dat een bloktoets is (1-5) staan. Kort per taal: en/nl lvl, de Stufe, fr/es/esMX niv., pt
+nív., ru ур. Twee toets-plekken buiten die secties nu **vet** in 8 bestanden: Paladin "first (**3**)", Rogue "Eviscerate
+(**4**), … (**Shift-4**) … (**5**)". Bijvangst: Beginner mistakes krijgt nu LiveKeys in toets-modus → in 12x4 "Raptor
+Strike (Shift-X)" i.p.v. "(5)". lvl_test 16/16: per class gelijk aantal levels in alle 8 talen (fr/pt hadden "(8 ;"/"(1;"
+→ meegenomen). (2) GEMETEN door mh-research (DB2 71139 SpellEquippedItems, masker 173555 + tooltip "Requires Melee Weapon"):
+Raptor Strike 2973, Wing Clip 2974, Mongoose Bite 1495, Counterattack 19306, Disengage 781 eisen een melee-wapen; Strider
+Kick 1317257 en Deterrence niet (AFGELEID). Skinning Knife 7005 = subclass Miscellaneous → telt niet. Robs hunters (Syndicator-
+save) begonnen met Worn Axe 37; één had de Skinning Knife in de hand (waarschijnlijke oorzaak, AFGELEID). Undead/Gnome kunnen
+geen hunter. Tekst: Levels-regel + volgorde + nieuwe Beginner mistakes-regel, 8 talen (de/fr/es/esMX/pt/ru door mh-writer;
+Skinning Knife per client GEMETEN). Niet gezegd: verkopersnamen/plekken (namen per client niet gemeten).
+
 ## ▶▶ 28 nov (Bouwchat 28-11): Midnight Codex — Venomstones met aantallen (`/reload`)
 
 Rob via Sparring 28-11, letterlijk: *"Venomstones A"* en op de Codex: *"ja"*. GEMETEN (web-fetch, zelfde dag) in
