@@ -10,8 +10,8 @@ enUS, nlNL, de/fr/es/esMX/pt/ru (itIT heeft de key niet → Engels). Itemnaam pe
 esMX "Texto Crepuscular codificado", pt "Texto Codificado do Crepúsculo", ru "Зашифрованный Сумеречный текст" (oude packs
 hadden zelfgemaakte meervouden). "level 55-60" weg (niet gemeten). Niet genoemd: kill-rep cultisten, Ve'han's Fall —
 alleen Wowhead-waarden, en Wowhead geeft ook de uitgezette quest 8319 rep, dus geen bewijs. REGIE tabel 5-regel = af.
-(2) HealBot (Forever, 3 mappen HealBot/_ExtraSkins/_Tips): NIET verwijderd, Forever stond open (logs 07:10). Of CF hem
-beheert: niet te meten. Advies naar Sparring: Rob verwijdert in de CF-app; anders Forever dicht → ik naar Prullenbak.
+(2) HealBot (Forever): AF. Rob deed het zelf (via Sparring: *"hij is er al uit 🙂 zelf gedaan"*); GEMETEN: geen
+HealBot*-map meer in `_forever_/Interface/AddOns`. Ik heb niets verwijderd.
 
 ## ▶▶ 28 nov ochtend (Bouwchat 28-11): ochtendronde + handoff gesplitst
 
