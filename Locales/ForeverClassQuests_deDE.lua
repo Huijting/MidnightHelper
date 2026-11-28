@@ -1998,7 +1998,7 @@ for k, v in pairs({
 	FREP_R_TIMBERMAW_8 = "Verteidiger der Holzschlundfeste (halbe Abklingzeit in Forever)",
 	FREP_HOW_THORIUM = "Gib Dunkeleisenerz, Schuppen und Kernleder in der Sengenden Schlucht und in den Blackrocktiefen ab (Stufe 50-60).",
 	FREP_R_THORIUM_5 = "Rezepte für Dunkeleisen, Flimmerkern und Kernhund",
-	FREP_HOW_CENARION = "Verschlüsselte Texte der Twilight und Abgaben in Silithus (Stufe 55-60).",
+	FREP_HOW_CENARION = "Quests in Silithus. Das wiederholte Abgeben von „Verschlüsselter Text der Twilight“ ist in Forever abgeschaltet (Blizzard, 25. Nov.).",
 	FREP_R_CENARION_5 = "Schneiderei-Muster und Schmiedekunst-Pläne",
 	FREP_HOW_KIRINTOR = "Etwa 20 Quests (etwa 3370 Punkte).",
 	FREP_R_AZURE_5 = "8 azurblaue Rezepte",

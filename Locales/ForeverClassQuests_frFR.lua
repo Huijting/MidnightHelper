@@ -2013,7 +2013,7 @@ for k, v in pairs({
 	FREP_R_TIMBERMAW_8 = "Défenseur des Grumegueules (moitié du temps de recharge dans Forever)",
 	FREP_HOW_THORIUM = "Rends du minerai de sombrefer, des écailles et du cuir du Magma dans la Gorge des Vents brûlants et les Profondeurs de Rochenoire (niveau 50-60).",
 	FREP_R_THORIUM_5 = "des recettes sombrefer, Coeur-de-braise et Magma",
-	FREP_HOW_CENARION = "Des Textes du crépuscule cryptés et des remises en Silithus (niveau 55-60).",
+	FREP_HOW_CENARION = "Des quêtes en Silithus. Rendre encore et encore des « Texte du crépuscule crypté » est désactivé dans Forever (Blizzard, 25 nov.).",
 	FREP_R_CENARION_5 = "des patrons de couture et des plans de forge",
 	FREP_HOW_KIRINTOR = "Environ 20 quêtes (environ 3370 points).",
 	FREP_R_AZURE_5 = "8 recettes azur",

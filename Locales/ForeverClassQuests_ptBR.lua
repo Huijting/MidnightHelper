@@ -808,7 +808,7 @@ for k, v in pairs({
 	FREP_R_TIMBERMAW_8 = "Defensor dos Presamatos (metade da recarga no Forever)",
 	FREP_HOW_THORIUM = "Entregue minério de Ferro Negro, escamas e couro do Núcleo na Garganta Abrasadora e no Abismo Rocha Negra (nível 50-60).",
 	FREP_R_THORIUM_5 = "receitas de Ferro Negro, Núcleo Flamífero e Cão do Núcleo",
-	FREP_HOW_CENARION = "Textos Codificados do Crepúsculo e entregas em Silithus (nível 55-60).",
+	FREP_HOW_CENARION = "Missões em Silithus. Entregar várias vezes \"Texto Codificado do Crepúsculo\" está desativado no Forever (Blizzard, 25 nov.).",
 	FREP_R_CENARION_5 = "moldes de alfaiataria e instruções de ferraria",
 	FREP_HOW_KIRINTOR = "Cerca de 20 missões (cerca de 3370 pontos).",
 	FREP_R_AZURE_5 = "8 receitas Lazúli",

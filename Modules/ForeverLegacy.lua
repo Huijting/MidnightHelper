@@ -316,7 +316,8 @@ local REP_GROUPS = {
 	{ id = 576, how = "FREP_HOW_TIMBERMAW", rewards = { { 5, "FREP_R_TIMBERMAW_5" }, { 8, "FREP_R_TIMBERMAW_8" } } },
 	-- ConquestCapped 14 Nov; reward list foreverdb.net (client data).
 	{ id = 59, how = "FREP_HOW_THORIUM", rewards = { { 5, "FREP_R_THORIUM_5" } } },
-	-- ConquestCapped 15 Nov.
+	-- ConquestCapped 15 Nov; repeatable Encrypted Twilight Text (item 20404) turn-in is off: Blizzard Forever
+	-- hotfix 25 Nov 2026, dev note "intentionally unavailable" (forum t/2403040, news 24315281). Level range dropped (unmeasured).
 	{ id = 609, how = "FREP_HOW_CENARION", rewards = { { 5, "FREP_R_CENARION_5" } } },
 	-- LFCarry 14 Nov (quotes Blizzard's dev notes of 16 Oct: Horde no longer gains Kirin Tor).
 	{ id = 2740, side = "Alliance", how = "FREP_HOW_KIRINTOR", rewards = { { 5, "FREP_R_AZURE_5" },

@@ -25,6 +25,13 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 28 nov — FOREVER reputatie: Cenarion Circle-tip klopt weer
+
+`/reload` is genoeg. Alleen tekst veranderd.
+- [ ] Open het Forever-overzicht → **Reputation & currency** en zoek Cenarion Circle. Bij "How:" staat nu: "Quests in Silithus. Handing in
+      Encrypted Twilight Text over and over is switched off in Forever (Blizzard, 25 Nov)." De oude tekst over "level
+      55-60" is weg.
+
 ## 27 nov — FOREVER Skill up: de route eenvoudiger
 
 `/reload` is genoeg. Open `/mh skillup`, kies een beroep en klik links op **Route to 300**. Offline getest

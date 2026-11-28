@@ -923,7 +923,7 @@ for k, v in pairs({
 	FREP_R_TIMBERMAW_8 = "Defensor de los Fauce de Madera (la mitad del tiempo de reutilización en Forever)",
 	FREP_HOW_THORIUM = "Entrega mineral de Hierro Negro, escamas y cuero del Núcleo en La Garganta de Fuego y Profundidades de Roca Negra (nivel 50-60).",
 	FREP_R_THORIUM_5 = "recetas de Hierro Negro, Bengala del Núcleo y can del Núcleo",
-	FREP_HOW_CENARION = "Textos crepusculares codificados y entregas en Silithus (nivel 55-60).",
+	FREP_HOW_CENARION = "Misiones en Silithus. Entregar una y otra vez «Texto crepuscular codificado» está desactivado en Forever (Blizzard, 25 nov.).",
 	FREP_R_CENARION_5 = "patrones de costura y diseños de herrería",
 	FREP_HOW_KIRINTOR = "Unas 20 misiones (unos 3370 puntos).",
 	FREP_R_AZURE_5 = "8 recetas azur",

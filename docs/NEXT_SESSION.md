@@ -1,5 +1,18 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 28 nov (Bouwchat 28-11): Cenarion Circle-tip aangepast (`/reload`) + HealBot wacht
+
+Rob via Sparring 28-11, letterlijk: *"HealBot nee , verwijder die maar, Cenarion ja"*.
+(1) Cenarion: mh-research las Blizzards eigen tekst (forum t/2403040 + news 24315281, GEMETEN): dev note "The repeatable
+'Encrypted Twilight Texts' for Cenarion Circle reputation is intentionally unavailable". FREP_HOW_CENARION herschreven in
+enUS, nlNL, de/fr/es/esMX/pt/ru (itIT heeft de key niet → Engels). Itemnaam per client GEMETEN (ItemSparse 20404, Forever
+1.60.1.71139): de "Verschlüsselter Text der Twilight", fr "Texte du crépuscule crypté", es "Texto crepuscular codificado",
+esMX "Texto Crepuscular codificado", pt "Texto Codificado do Crepúsculo", ru "Зашифрованный Сумеречный текст" (oude packs
+hadden zelfgemaakte meervouden). "level 55-60" weg (niet gemeten). Niet genoemd: kill-rep cultisten, Ve'han's Fall —
+alleen Wowhead-waarden, en Wowhead geeft ook de uitgezette quest 8319 rep, dus geen bewijs. REGIE tabel 5-regel = af.
+(2) HealBot (Forever, 3 mappen HealBot/_ExtraSkins/_Tips): NIET verwijderd, Forever stond open (logs 07:10). Of CF hem
+beheert: niet te meten. Advies naar Sparring: Rob verwijdert in de CF-app; anders Forever dicht → ik naar Prullenbak.
+
 ## ▶▶ 28 nov ochtend (Bouwchat 28-11): ochtendronde + handoff gesplitst
 
 GEMETEN: main = 71781bd na pull (6 wachter/regie-commits), schoon; laatste tag v5.11.0. gh_inbox 0 open; HandyNotes en

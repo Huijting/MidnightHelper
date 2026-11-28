@@ -332,7 +332,7 @@ for k, v in pairs({
 	FREP_HOW_TIMBERMAW = "Mata furbolgs Muertobosque y Nevada; entrega 5 plumas o 5 cuentas, o 5 cuernos Legashi o 5 faltriqueras Faucenegra.",
 	FREP_R_TIMBERMAW_8 = "Defensor de los Fauces de Madera (la mitad del tiempo de reutilización en Forever)",
 	FREP_HOW_THORIUM = "Entrega mena de hierro negro, escamas y cuero del Núcleo en La Garganta de Fuego y Profundidades de Roca Negra (nivel 50-60).",
-	FREP_HOW_CENARION = "Textos Crepusculares codificados y entregas en Silithus (nivel 55-60).",
+	FREP_HOW_CENARION = "Misiones en Silithus. Entregar una y otra vez «Texto Crepuscular codificado» está desactivado en Forever (Blizzard, 25 nov.).",
 	FREP_R_CENARION_5 = "patrones de sastrería y diseños de herrería",
 	FREP_HOW_NIGHTCLAW = "Entrega orejas de cultistas en Isla Zephras.",
 	FREP_R_NIGHTCLAW_7 = "Ardilla Ventarrosombra (una mascota)",
