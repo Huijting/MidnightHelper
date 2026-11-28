@@ -175,19 +175,20 @@ Frostbolt (2) or Fireball (1) as the enemy comes in. Fire Blast (5) when it is r
 The Hunter shoots from a distance with a ranged weapon, and from level 10 has a **pet**: an animal you tame that fights next to you. Up close it has a few melee hits.
 **Auto Shot** = your weapon keeps shooting by itself until you stop. **Melee** = fighting up close. The Hunter has no shapes and no stances, so every key always does the same thing.]] },
 		{ "Levels 1-10: your buttons", [[
-- **1** = Auto Shot (level 1): starts shooting. MH's key is made so a second press does not stop it.
+- **1** = Auto Shot (level 1): starts shooting. MH's key is made so a second press does not stop it. From level 6 Hunter's Mark takes key 1, and Auto Shot moves to Shift-Z. Serpent Sting and Arcane Shot start Auto Shot by themselves.
 - **5** = Raptor Strike (1): your hit when the enemy is next to you. It needs a **melee weapon** (a weapon for up close) in your main hand: the axe or dagger you start with counts, a Skinning Knife does not.
 - **2** = Serpent Sting (4): damage over a few seconds.
 - Aspect of the Monkey (4) goes on your own Alt keys (block D). An **aspect** is a stance-like buff on yourself. Only one aspect can be on at a time.
 - **3** = Arcane Shot (6): instant shot. Cooldown 6 seconds.
-- **Shift-Z** = Hunter's Mark (6): put it on the enemy once.
+- **1** = Hunter's Mark (6): put it on the enemy once, as the first press of a fight. From then on it is on key 1 (see Auto Shot above).
 - **Shift-Q** = Concussive Shot (8): slows the enemy.
 - **Shift-R** = Aspect of the Hawk (10): your main aspect.
 - **Level 10, pet quests:** you learn Tame Beast, Call Pet and Dismiss Pet; the quest after them (Training the Beast) gives Revive Pet and Feed Pet. **F4** = Call Pet (brings your pet), **F3** = Revive Pet (brings a dead pet back). Tame Beast has no key; you use it outside a fight.
 - From then on your pet has three keys: **Ctrl-1** = attack your target, **Ctrl-2** = follow you, **Ctrl-3** = stay where it is.]] },
 		{ "Simple order", [[
-Hunter's Mark (Shift-Z), Serpent Sting (2), Auto Shot (1), then Arcane Shot (3) when it is ready. Enemy next to you? Raptor Strike (5), with a melee weapon in your hand. From level 10: Aspect of the Hawk on (Shift-R) first, and send your pet in (Ctrl-1) before you shoot.]] },
+Hunter's Mark (1), Serpent Sting (2), then Arcane Shot (3) when it is ready. Serpent Sting and Arcane Shot start Auto Shot by themselves; if it stopped, Auto Shot (Shift-Z). Before level 6 you have no Hunter's Mark yet, and key 1 is Auto Shot. Enemy next to you? Raptor Strike (5), with a melee weapon in your hand. From level 10: Aspect of the Hawk on (Shift-R) first, and send your pet in (Ctrl-1) before you shoot.]] },
 		{ "What comes later", [[
+- 6: Hunter's Mark takes key 1, and Auto Shot moves to Shift-Z. MH tells you once when it happens.
 - 10: Feed Pet and Dismiss Pet are not on the block (you use them outside a fight); put them on your own bar. The same for Scare Beast (14).
 - 12: Distracting Shot on F (makes the enemy attack you), Mend Pet on F2 (heals your pet), Wing Clip on Shift-F.
 - 16: Immolation Trap on Shift-2, Mongoose Bite on Shift-C (only after you dodge). 18: Multi-Shot on Shift-1.
@@ -771,12 +772,12 @@ From level 1 (Sinister Strike and Stealth). This tree fights from Stealth: a str
 From level 10 (your pet, from the class quests). Your pet does most of the work: it keeps the enemy busy while you shoot from a distance. Most guides pick Beast Mastery for levelling: they call it the easiest and the fastest. Wowhead adds that all three trees work. New in Forever: Summon Hawk (a talent, 25 at the earliest) sends extra birds at your target. Weak spot: groups of enemies. Your pet can hold only one.
 **Simple order:**
 Before you start: Aspect of the Hawk on (**Shift-R**). The Deadly Aspects talent only works then.
-1. Hunter's Mark (**Shift-Z**).
+1. Hunter's Mark (**1**).
 2. Pet in (**Ctrl-1**), and wait until it has the enemy.
 3. Serpent Sting (**2**).
 4. Summon Hawk (**Shift-F1**, from 25): keep 2 hawks up all the time.
 5. Aimed Shot (**4**, from 20) while you stand still. Two or more enemies: Multi-Shot (**Shift-1**) instead. They share one cooldown.
-6. Auto Shot (**1**) keeps going. Arcane Shot (**3**): before 25, just use it. From 25 only when you already have 2 hawks: it shares a cooldown with Summon Hawk.
+6. Auto Shot (**Shift-Z**) keeps going. Arcane Shot (**3**): before 25, just use it. From 25 only when you already have 2 hawks: it shares a cooldown with Summon Hawk.
 7. Pet almost dead: Mend Pet (**F2**). Enemy on you: Intimidation (**Shift-3**, from 30) or Disengage (**Z**, from 20). Disengage is no jump: it makes the enemy want you less, up close, and stops your auto-attack. Real trouble: Feign Death (**X**, from 30).
 8. Tough enemy: Bestial Wrath (**F1**, from 40) together with Rapid Fire (**Q**, from 26).
 **Per 10 levels:**
@@ -794,12 +795,12 @@ Before you start: Aspect of the Hawk on (**Shift-R**). The Deadly Aspects talent
 From level 1 (Auto Shot). Your own shots do the work, from far away. Aimed Shot comes at 20 from the trainer: it is not a talent. Sniper Shot is a talent, 40 at the earliest: a 4-second cast that reaches up to 45 yards. The guides say levelling works, but slower than Beast Mastery: your pet holds the enemy less well, because you do more damage. In groups it is strong: Trueshot Aura helps your whole party or raid. Lone Wolf (a talent, 20 at the earliest) gives 20% more damage while you have no pet; for levelling, the guides keep the pet.
 **Simple order:**
 Before you start: Aspect of the Hawk (**Shift-R**) and Trueshot Aura (**Shift-X**, from 25) on.
-1. Hunter's Mark (**Shift-Z**). With a pet: pet in (**Ctrl-1**).
+1. Hunter's Mark (**1**). With a pet: pet in (**Ctrl-1**).
 2. Enemy still far away: Sniper Shot (**Shift-4**, from 40) to open.
 3. Serpent Sting (**2**). Some guides skip it in short fights.
 4. Aimed Shot (**4**, from 20) every time it is ready. Stand still.
 5. Arcane Shot (**3**) in between, if your mana allows it.
-6. Auto Shot (**1**) keeps going.
+6. Auto Shot (**Shift-Z**) keeps going.
 7. A group of enemies: Multi-Shot (**Shift-1**) instead of Aimed Shot. A big group: Volley (block D, from 40).
 8. Enemy at you: Scatter Shot (**E**, from 30), then step away. Concussive Shot (**Shift-Q**) slows it.
 9. Tough enemy: Rapid Fire (**Q**, from 26) at the start.
@@ -818,7 +819,7 @@ Before you start: Aspect of the Hawk (**Shift-R**) and Trueshot Aura (**Shift-X*
 From level 1 (Raptor Strike), but the real Survival play starts around 30. In Forever this is the melee Hunter: Raptor Strike, Mongoose Bite, Counterattack and Strider Kick, plus traps. You keep your pet and your ranged weapon: open from a distance, then step in. The guides call it the slowest of the three to level; until about 30 you play like any Hunter (pet in, shoot). It costs a lot of mana, and a big hit from you can pull the enemy off your pet. The guides disagree on which melee weapon is best.
 **Simple order:**
 Before you start: Aspect of the Hawk (**Shift-R**) while you shoot. From 30, Aspect of the Beast for fighting up close; it has no fixed key, so put it on your own bar.
-1. Hunter's Mark (**Shift-Z**). Without the Mark, Expose Prey does not work.
+1. Hunter's Mark (**1**). Without the Mark, Expose Prey does not work.
 2. Pet in (**Ctrl-1**).
 3. Serpent Sting (**2**), then Arcane Shot (**3**) while the enemy comes, or while you walk to it.
 4. A trap at your feet: Immolation Trap (**Shift-2**, from 16). From 34 that key is Explosive Trap, and Immolation Trap has no key: put it on your own bar if you want it.
@@ -1173,6 +1174,10 @@ local function KeyMap(token)
 		return nil
 	end
 	local held = ns.ForeverBlockFallbackHeld and ns.ForeverBlockFallbackHeld() or {}
+	-- 28 Nov 2026: the keys as the "Swap keys" switch has them (ForeverBlock.lua KeysFor; Hunter's Mark / Auto Shot).
+	local KF = ns.ForeverBlockKeysFor
+	local keysOld, keys12 = KF and KF(cls, false) or cls.keys, KF and KF(cls, true) or cls.keys12
+	cls = setmetatable({ keys = keysOld, keys12 = keys12 }, { __index = cls })
 	local primary, any = {}, {}
 	for k12, def in pairs(cls.keys12) do
 		-- 28 Nov 2026 (offline check of "Until level X"): a command key (the pet's Attack/Follow/Stay) names its `needs`

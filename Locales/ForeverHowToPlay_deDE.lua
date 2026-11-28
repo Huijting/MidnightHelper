@@ -182,19 +182,20 @@ Frostblitz (2) oder Feuerball (1), während der Gegner herankommt. Feuerschlag (
 Der Jäger schießt aus der Ferne mit einer Fernkampfwaffe und hat ab Stufe 10 einen **Begleiter**: ein Tier, das du zähmst und das neben dir kämpft. Aus der Nähe hat er ein paar Nahkampftreffer.
 **Automatischer Schuss** = deine Waffe schießt von selbst weiter, bis du aufhörst. **Nahkampf** = Kämpfen aus der Nähe. Der Jäger hat keine Gestalten und keine Haltungen, also macht jede Taste immer dasselbe.]] },
 		{ "Stufe 1-10: deine Tasten", [[
-- **1** = Automatischer Schuss (Stufe 1): fängt an zu schießen. MHs Taste ist so gebaut, dass ein zweiter Druck ihn nicht stoppt.
+- **1** = Automatischer Schuss (Stufe 1): fängt an zu schießen. MHs Taste ist so gebaut, dass ein zweiter Druck ihn nicht stoppt. Ab Stufe 6 bekommt Mal des Jägers die Taste 1, und Automatischer Schuss wandert auf Shift-Z. Schlangenbiss und Arkaner Schuss starten Automatischer Schuss von selbst.
 - **5** = Raptorstoß (1): dein Treffer, wenn der Gegner direkt neben dir steht. Er braucht eine **Nahkampfwaffe** (eine Waffe für die Nähe) in deiner Haupthand: Die Axt oder der Dolch, mit dem du anfängst, zählt, ein Kürschnermesser nicht.
 - **2** = Schlangenbiss (4): Schaden über ein paar Sekunden.
 - Aspekt des Affen (4) kommt auf deine eigenen Alt-Tasten (Block D). Ein **Aspekt** ist ein haltungsähnlicher Buff auf dir selbst. Nur ein Aspekt kann gleichzeitig aktiv sein.
 - **3** = Arkaner Schuss (6): spontaner Schuss. Abklingzeit 6 Sekunden.
-- **Shift-Z** = Mal des Jägers (6): Leg es einmal auf den Gegner.
+- **1** = Mal des Jägers (6): Leg es einmal auf den Gegner, als ersten Tastendruck eines Kampfes. Ab dann liegt es auf Taste 1 (siehe Automatischer Schuss oben).
 - **Shift-Q** = Erschütternder Schuss (8): verlangsamt den Gegner.
 - **Shift-R** = Aspekt des Falken (10): dein Hauptaspekt.
 - **Stufe 10, Begleiter-Quests:** Du lernst Wildtier zähmen, Tier rufen und Tier freigeben; die Quest danach gibt Tier wiederbeleben und Tier füttern. **F4** = Tier rufen (holt deinen Begleiter), **F3** = Tier wiederbeleben (holt einen toten Begleiter zurück). Wildtier zähmen hat keine Taste; du nutzt es außerhalb eines Kampfes.
 - Ab dann hat dein Begleiter drei Tasten: **Ctrl-1** = dein Ziel angreifen, **Ctrl-2** = dir folgen, **Ctrl-3** = bleiben, wo er ist.]] },
 		{ "Einfache Reihenfolge", [[
-Mal des Jägers (Shift-Z), Schlangenbiss (2), Automatischer Schuss (1), dann Arkaner Schuss (3), wenn er bereit ist. Gegner direkt neben dir? Raptorstoß (5), mit einer Nahkampfwaffe in der Hand. Ab Stufe 10: zuerst Aspekt des Falken an (Shift-R), und schick deinen Begleiter hinein (Ctrl-1), bevor du schießt.]] },
+Mal des Jägers (1), Schlangenbiss (2), dann Arkaner Schuss (3), wenn er bereit ist. Schlangenbiss und Arkaner Schuss starten Automatischer Schuss von selbst; falls er aufgehört hat, Automatischer Schuss (Shift-Z). Vor Stufe 6 hast du noch kein Mal des Jägers, und Taste 1 ist Automatischer Schuss. Gegner direkt neben dir? Raptorstoß (5), mit einer Nahkampfwaffe in der Hand. Ab Stufe 10: zuerst Aspekt des Falken an (Shift-R), und schick deinen Begleiter hinein (Ctrl-1), bevor du schießt.]] },
 		{ "Was später kommt", [[
+- 6: Mal des Jägers bekommt die Taste 1, und Automatischer Schuss wandert auf Shift-Z. MH sagt es dir einmal, wenn es passiert.
 - 10: Tier füttern und Tier freigeben liegen nicht auf dem Block (du nutzt sie außerhalb eines Kampfes); leg sie auf deine eigene Leiste. Dasselbe gilt für Wildtier ängstigen (14).
 - 12: Ablenkender Schuss auf F (der Gegner greift dich an), Tier heilen auf F2 (heilt deinen Begleiter), Zurechtstutzen auf Shift-F.
 - 16: Feuerbrandfalle auf Shift-2, Mungobiss auf Shift-C (nur nachdem du ausgewichen bist). 18: Mehrfachschuss auf Shift-1.
@@ -768,12 +769,12 @@ Ab Stufe 1 (Finsterer Stoß und Verstohlenheit). Dieser Baum kämpft aus der Ver
 Ab Stufe 10 (dein Begleiter, aus den Klassenquests). Dein Begleiter macht die meiste Arbeit: Er beschäftigt den Gegner, während du aus der Ferne schießt. Die meisten Guides nehmen Tierherrschaft zum Leveln: Sie nennen sie die leichteste und die schnellste. Wowhead fügt hinzu, dass alle drei Bäume funktionieren. Neu in Forever: Falke beschwören (ein Talent, frühestens 25) schickt zusätzliche Vögel auf dein Ziel. Schwachpunkt: Gruppen von Gegnern. Dein Begleiter kann nur einen halten.
 **Einfache Reihenfolge:**
 Bevor du anfängst: Aspekt des Falken an (**Shift-R**). Das Talent Tödliche Aspekte wirkt nur dann.
-1. Mal des Jägers (**Shift-Z**).
+1. Mal des Jägers (**1**).
 2. Begleiter hinein (**Ctrl-1**), und warte, bis er den Gegner hat.
 3. Schlangenbiss (**2**).
 4. Falke beschwören (**Shift-F1**, ab 25): Halt die ganze Zeit 2 Falken aufrecht.
 5. Gezielter Schuss (**4**, ab 20), während du stillstehst. Zwei oder mehr Gegner: stattdessen Mehrfachschuss (**Shift-1**). Sie teilen sich eine Abklingzeit.
-6. Automatischer Schuss (**1**) läuft weiter. Arkaner Schuss (**3**): vor 25 einfach nutzen. Ab 25 nur, wenn du schon 2 Falken hast: Er teilt sich eine Abklingzeit mit Falke beschwören.
+6. Automatischer Schuss (**Shift-Z**) läuft weiter. Arkaner Schuss (**3**): vor 25 einfach nutzen. Ab 25 nur, wenn du schon 2 Falken hast: Er teilt sich eine Abklingzeit mit Falke beschwören.
 7. Begleiter fast tot: Tier heilen (**F2**). Gegner bei dir: Einschüchterung (**Shift-3**, ab 30) oder Rückzug (**Z**, ab 20). Rückzug ist kein Sprung: Er sorgt dafür, dass der Gegner dich aus der Nähe weniger angreifen will, und stoppt deinen automatischen Angriff. Echte Not: Totstellen (**X**, ab 30).
 8. Zäher Gegner: Zorn des Wildtiers (**F1**, ab 40) zusammen mit Schnellfeuer (**Q**, ab 26).
 **Alle 10 Stufen:**
@@ -791,12 +792,12 @@ Bevor du anfängst: Aspekt des Falken an (**Shift-R**). Das Talent Tödliche Asp
 Ab Stufe 1 (Automatischer Schuss). Deine eigenen Schüsse machen die Arbeit, aus großer Entfernung. Gezielter Schuss kommt mit 20 vom Lehrer: Er ist kein Talent. Heckenschützenschuss ist ein Talent, frühestens 40: 4 Sekunden Zauberzeit und bis zu 45 Meter Reichweite. Die Guides sagen, Leveln klappt, aber langsamer als Tierherrschaft: Dein Begleiter hält den Gegner schlechter, weil du mehr Schaden machst. In Gruppen ist es stark: Aura des Volltreffers hilft deiner ganzen Gruppe oder deinem Schlachtzug. Einsamer Wolf (ein Talent, frühestens 20) gibt 20% mehr Schaden, solange du keinen Begleiter hast; zum Leveln behalten die Guides den Begleiter.
 **Einfache Reihenfolge:**
 Bevor du anfängst: Aspekt des Falken (**Shift-R**) und Aura des Volltreffers (**Shift-X**, ab 25) an.
-1. Mal des Jägers (**Shift-Z**). Mit Begleiter: Begleiter hinein (**Ctrl-1**).
+1. Mal des Jägers (**1**). Mit Begleiter: Begleiter hinein (**Ctrl-1**).
 2. Gegner noch weit weg: Heckenschützenschuss (**Shift-4**, ab 40) zum Eröffnen.
 3. Schlangenbiss (**2**). Manche Guides lassen ihn in kurzen Kämpfen weg.
 4. Gezielter Schuss (**4**, ab 20) jedes Mal, wenn er bereit ist. Bleib stehen.
 5. Arkaner Schuss (**3**) dazwischen, wenn dein Mana es erlaubt.
-6. Automatischer Schuss (**1**) läuft weiter.
+6. Automatischer Schuss (**Shift-Z**) läuft weiter.
 7. Eine Gruppe von Gegnern: Mehrfachschuss (**Shift-1**) statt Gezielter Schuss. Eine große Gruppe: Salve (Block D, ab 40).
 8. Gegner bei dir: Streuschuss (**E**, ab 30), dann geh ein Stück weg. Erschütternder Schuss (**Shift-Q**) verlangsamt ihn.
 9. Zäher Gegner: Schnellfeuer (**Q**, ab 26) am Anfang.
@@ -815,7 +816,7 @@ Bevor du anfängst: Aspekt des Falken (**Shift-R**) und Aura des Volltreffers (*
 Ab Stufe 1 (Raptorstoß), aber das echte Überleben-Spiel beginnt um 30. In Forever ist das der Nahkampf-Jäger: Raptorstoß, Mungobiss, Gegenangriff und Streichertritt, dazu Fallen. Du behältst deinen Begleiter und deine Fernkampfwaffe: Eröffne aus der Ferne, dann geh nah heran. Die Guides nennen es den langsamsten der drei Bäume zum Leveln; bis etwa 30 spielst du wie jeder Jäger (Begleiter hinein, schießen). Es kostet viel Mana, und ein großer Treffer von dir kann den Gegner von deinem Begleiter wegziehen. Die Guides sind sich uneinig, welche Nahkampfwaffe am besten ist.
 **Einfache Reihenfolge:**
 Bevor du anfängst: Aspekt des Falken (**Shift-R**), während du schießt. Ab 30 Aspekt des Wildtiers für den Kampf aus der Nähe; er hat keine feste Taste, also leg ihn auf deine eigene Leiste.
-1. Mal des Jägers (**Shift-Z**). Ohne das Mal wirkt Beute aufspüren nicht.
+1. Mal des Jägers (**1**). Ohne das Mal wirkt Beute aufspüren nicht.
 2. Begleiter hinein (**Ctrl-1**).
 3. Schlangenbiss (**2**), dann Arkaner Schuss (**3**), während der Gegner kommt oder während du zu ihm gehst.
 4. Eine Falle zu deinen Füßen: Feuerbrandfalle (**Shift-2**, ab 16). Ab 34 ist diese Taste Sprengfalle, und Feuerbrandfalle hat keine Taste: Leg sie auf deine eigene Leiste, wenn du sie willst.

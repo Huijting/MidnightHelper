@@ -41,7 +41,8 @@ local MACRO_ICON = "INV_MISC_QUESTIONMARK"
 --- instead of its keys; everything else (states, baseGuard, toBlockD, listed) stays the class's own. A class without
 --- keys12 keeps its old keys (the switch refuses 12x4 for it, so this is only a safety net).
 --- Every spell name a keys table names, in a stable order (fields that are not spells are skipped).
-local SKIP_FIELD = { open = true, bang = true, why = true, cmd = true, pair = true }
+local SKIP_FIELD = { open = true, bang = true, why = true, cmd = true, pair = true, swapNote = true, guardFree = true,
+	guard = true }
 local function KeyNames(keys)
 	local list, seen = {}, {}
 	local function add(v)
@@ -76,8 +77,51 @@ local function KeyNames(keys)
 end
 ns.ForeverBlockKeyNames = KeyNames -- the offline check calls it
 
+--[[
+	28 Nov 2026 — keys that SWAP when you learn a better spell (Rob via Sparring 28-11, his Hunter at level 6: "Eigenlijk
+	ga ik 1 nu bijna nooit meer gebruiken ... We moeten dat breder trekken"; on the plan, step (a), Hunter only: "Doe maar
+	stap AI inderdaad voor het toetsenplan. Alleen de hunten eerst"). The class table holds the swapped keys (Hunter:
+	1 = { Hunter's Mark, Auto Shot }, Shift-Z = Auto Shot): the existing fallback rule (FallbackHeld) keeps Auto Shot on 1
+	until Hunter's Mark is learned, and Shift-Z stays empty until then. cls.noSwap = { keys = {...}, keys12 = {...} } is
+	the old layout of those keys, used when the player switches "Swap keys" off (Keys tab; ns.db.foreverKeySwap = false).
+]]
+local function SwapOn()
+	return not (ns.db and ns.db.foreverKeySwap == false)
+end
+function ns.IsForeverKeySwapOn()
+	return SwapOn()
+end
+
+--- The keys of `cls` for this layout with the swap switch applied (also read by ForeverHowToPlay's KeyMap).
+local swapViews = {}
+local function KeysFor(cls, twelve)
+	local keys = twelve and cls.keys12 or cls.keys
+	local o = cls.noSwap and (twelve and cls.noSwap.keys12 or cls.noSwap.keys)
+	if not o or SwapOn() then
+		return keys
+	end
+	local c = swapViews[keys]
+	if not c then
+		c = {}
+		for k, d in pairs(keys) do
+			c[k] = o[k] or d
+		end
+		swapViews[keys] = c
+	end
+	return c
+end
+ns.ForeverBlockKeysFor = KeysFor
+
 local views = {}
+local ClassTableRaw
 local function ClassTable()
+	local t, token = ClassTableRaw()
+	if t and t.noSwap and not SwapOn() then
+		return setmetatable({ keys = KeysFor(t, t.twelve), _swapOff = true }, { __index = t }), token
+	end
+	return t, token
+end
+function ClassTableRaw()
 	local _, token = UnitClass("player")
 	local cls = token and ns.FOREVER_BLOCK_CLASSES[token]
 	if cls and cls.keys12 and ns.KeyBlockLayoutName and ns.KeyBlockLayoutName() == "12x4" then
@@ -475,10 +519,12 @@ BodyRaw = function(cls, key)
 	end
 	-- bang = true: "/cast !Auto Shot" — a second press does not switch the spell off again (Hunter research,
 	-- 6 Nov 2026: plain /cast toggles Auto Shot off). Standard macro syntax; AFGELEID that Forever keeps it.
-	local bang = def.bang and "!" or ""
-	local function use(name, id)
+	-- 28 Nov 2026: bang may also be a set of English names ({ ["Auto Shot"] = true }), for a key that holds Auto Shot
+	-- only as its fallback (the Hunter's swap): "/cast Hunter's Mark", but "/cast !Auto Shot".
+	local function use(name, id, en)
 		ids[#ids + 1] = id
 		show = show or id
+		local bang = (def.bang == true or (type(def.bang) == "table" and en and def.bang[en])) and "!" or ""
 		return bang .. name
 	end
 	if def.pair then
@@ -510,7 +556,7 @@ BodyRaw = function(cls, key)
 	end
 	local allName, allId, allEn = FirstFor(cls, key, def.all)
 	if allName then
-		return "#showtooltip\n/cast " .. WithMouseover("", allEn) .. use(allName, allId), ids, show
+		return "#showtooltip\n/cast " .. WithMouseover("", allEn) .. use(allName, allId, allEn), ids, show
 	end
 	-- 27 Nov 2026 (Rob: "als ik in beervorm ben, [ben ik] veel te snel geneigd om op 2 te drukken ... en dan ga ik uit
 	-- beervorm" → "akkoord"): with cls.formGuard (the Druid), a caster spell gets the base guard ALWAYS, also before a
@@ -524,7 +570,7 @@ BodyRaw = function(cls, key)
 	for _, st in ipairs(cls.states or {}) do
 		local name, id, en = FirstFor(cls, key, def[st.name])
 		if name then
-			clauses[#clauses + 1] = WithMouseover(st.cond .. " ", en) .. use(name, id)
+			clauses[#clauses + 1] = WithMouseover(st.cond .. " ", en) .. use(name, id, en)
 			if st.guards then
 				guarded = true
 			end
@@ -538,7 +584,7 @@ BodyRaw = function(cls, key)
 		-- That 0x20 means "does not break Stealth" is AFGELEID (the server's flag names), matching those four.
 		local free = def.guardFree and baseEn and def.guardFree[baseEn]
 		local guard = (guarded and not def.open and not free and cls.baseGuard) and (cls.baseGuard .. " ") or ""
-		clauses[#clauses + 1] = WithMouseover(guard, baseEn) .. use(base, baseId)
+		clauses[#clauses + 1] = WithMouseover(guard, baseEn) .. use(base, baseId, baseEn)
 	end
 	if #clauses == 0 then
 		return nil
@@ -948,6 +994,111 @@ end
 -- The name the first version used (KeyBlock.lua and the offline test call it).
 ns.ForeverDruidUnlisted = ns.ForeverBlockUnlisted
 
+--------------------------------------------------------------------------------
+-- 28 Nov 2026 — the swap ALERT (Rob, step (a): "Doe maar stap AI inderdaad voor het toetsenplan"). When a key with
+-- def.swapNote starts casting its real spell (Hunter: key 1 = Hunter's Mark), ONE big message in the middle of the
+-- screen through ns.FireAccessibleAlert (the same door and cooldown as every MH alert) and a chat line, once per
+-- character per key (ns.db.foreverSwapTold[GUID][key]). Only when the block is placed (this key has its own macro) and
+-- the switch is on. In a fight it waits; a refused alert (another one just showed) is tried again. If the key the
+-- moved spell goes to has no macro yet, the message says to press Update once.
+--------------------------------------------------------------------------------
+local P = "|cffffcc00Midnight Helper:|r "
+local swapWhy, swapWait = "not checked yet", false
+--- "SHIFT-Z" -> "Shift-Z" (the way the texts write a key).
+local function KeyLabel(code)
+	local m, k = tostring(code):match("^(%u+)%-(.+)$")
+	return m and (m:sub(1, 1) .. m:sub(2):lower() .. "-" .. k) or tostring(code)
+end
+local SwapNotice
+SwapNotice = function()
+	local cls = ClassTable()
+	if not cls or not SwapOn() then
+		swapWhy = not cls and "no key table for this class" or "switched off"
+		return
+	end
+	local me = UnitGUID and UnitGUID("player")
+	if type(me) ~= "string" or (issecretvalue and issecretvalue(me)) then
+		swapWhy = "no character id yet"
+		return
+	end
+	ns.db = ns.db or {}
+	ns.db.foreverSwapTold = ns.db.foreverSwapTold or {}
+	local told = ns.db.foreverSwapTold[me] or {}
+	local keys = {}
+	for key, def in pairs(cls.keys) do
+		if def.swapNote then
+			keys[#keys + 1] = key
+		end
+	end
+	table.sort(keys)
+	swapWhy = #keys == 0 and "no key that swaps for this class" or "nothing swapped yet"
+	for _, key in ipairs(keys) do
+		local def, n = cls.keys[key], cls.keys[key].swapNote
+		local _, _, en, idx = First(def.base)
+		local own = OwnMacro(key)
+		if told[key] then
+			swapWhy = ("%s: already told"):format(key)
+		elseif not (own and own > 0) then
+			swapWhy = ("%s: block not placed on this character"):format(key)
+		elseif en == n.to and idx == 1 then
+			if InCombatLockdown and InCombatLockdown() then
+				swapWait = true -- PLAYER_REGEN_ENABLED tries again
+				swapWhy = ("%s: in a fight, waits"):format(key)
+				return
+			end
+			local moved = OwnMacro(n.movedKey)
+			local toId, movedId = Known(n.to), Known(n.moved)
+			local text = ns:L("FBLOCK_SWAP_FMT"):format(KeyLabel(key), ClientName(toId, n.to),
+				ClientName(movedId, n.moved), KeyLabel(n.movedKey))
+			if not (moved and moved > 0) then
+				text = text .. " " .. ns:L("FBLOCK_SWAP_UPDATE"):format(ns:L("KEYBLOCK_BTN_UPDATE"))
+			end
+			local fired, wait = true, nil
+			if ns.FireAccessibleAlert then
+				fired, wait = ns.FireAccessibleAlert(text, true, 6)
+			end
+			if not fired then
+				swapWhy = ("%s: another MH alert just showed, tries again in %.0f s"):format(key, wait or 2)
+				if C_Timer and C_Timer.After then
+					C_Timer.After((wait or 2) + 0.2, function()
+						pcall(SwapNotice)
+					end)
+				end
+				return
+			end
+			told[key] = true
+			ns.db.foreverSwapTold[me] = told
+			print(P .. text .. " |cff888888" .. ns:L("FBLOCK_SWAP_OFF_HINT") .. "|r")
+			swapWhy = ("%s: told you"):format(key)
+		end
+	end
+	swapWait = false
+end
+ns.ForeverSwapNotice = SwapNotice -- the offline check calls it
+function ns.ForeverSwapWhy()
+	return swapWhy
+end
+
+--- The "Swap keys" switch (Keys tab): store it, rewrite the placed macros (out of combat; in a fight right after it).
+function ns.SetForeverKeySwap(on)
+	ns.db = ns.db or {}
+	if on then
+		ns.db.foreverKeySwap = nil -- on = the default
+	else
+		ns.db.foreverKeySwap = false
+	end
+	if InCombatLockdown and InCombatLockdown() then
+		local once = CreateFrame("Frame")
+		once:RegisterEvent("PLAYER_REGEN_ENABLED")
+		once:SetScript("OnEvent", function(self)
+			self:UnregisterAllEvents()
+			RefreshExisting()
+		end)
+	else
+		RefreshExisting()
+	end
+end
+
 -- New spell or rank → rewrite the macros, out of combat, once things settle.
 local pending = false
 local ev = CreateFrame("Frame")
@@ -964,6 +1115,9 @@ pcall(ev.RegisterEvent, ev, "TRAIT_CONFIG_UPDATED")
 ev:RegisterEvent("SPELLS_CHANGED")
 local queued = false
 ev:SetScript("OnEvent", function(_, event)
+	if event == "PLAYER_REGEN_ENABLED" and swapWait then
+		pcall(SwapNotice)
+	end
 	if event == "PLAYER_REGEN_ENABLED" and not pending then
 		return
 	end
@@ -984,8 +1138,10 @@ ev:SetScript("OnEvent", function(_, event)
 				return
 			end
 			RefreshExisting()
+			pcall(SwapNotice)
 		end)
 	else
 		RefreshExisting()
+		pcall(SwapNotice)
 	end
 end)

@@ -777,6 +777,14 @@ local KEY_SWITCHES = {
 				ns.SetForeverStealthGuard(on)
 			end
 		end },
+	-- 28 Nov 2026: keys that swap when you learn a better spell (ForeverBlock.lua SwapOn; the Hunter's Mark / Auto Shot).
+	{ title = "FBLOCK_SWAP_SW", tip = "FBLOCK_SWAP_SW_DESC",
+		get = function() return ns.IsForeverKeySwapOn and ns.IsForeverKeySwapOn() end,
+		set = function(on)
+			if ns.SetForeverKeySwap then
+				ns.SetForeverKeySwap(on)
+			end
+		end },
 	{ title = "SET_FOREVER_RANKGLOW_TITLE", tip = "SET_FOREVER_RANKGLOW_DESC",
 		get = function() return ns.IsForeverRankGlowOn and ns.IsForeverRankGlowOn() end,
 		set = function(on)

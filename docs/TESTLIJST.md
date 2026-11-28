@@ -25,6 +25,24 @@ nu in het archief, hun open punten als `[vervallen, niet getest]` (1068 punten; 
 bleven 697 open punten. Blijven staan: "9 nov — Deze week in Forever" (noemt ook latere datums) en de kop zonder datum
 "EERST, thuis … Beter dan wat je draagt" (19 nov).
 
+## 28 nov — FOREVER toetsenplan stap (a): Hunter's Mark op 1, Auto Shot op Shift-Z
+
+`/reload` is genoeg. Offline getest (swap_test 5/5: beide indelingen, level 5 en 6, schakelaar aan/uit, de melding),
+NIET in het spel. Voor jou: je level-6 hunter met 12x4 (je kent Hunter's Mark al).
+- [ ] Na `/reload`, buiten een gevecht: in het midden van je scherm één grote melding "Key 1 is now Hunter's Mark. Auto
+      Shot moved to Shift-Z." en dezelfde regel in de chat. Je hoeft niets te doen (je Shift-Z-macro bestond al).
+- [ ] Je balk: toets **1** toont Hunter's Mark, **Shift-Z** toont Auto Shot.
+- [ ] Druk 1 op een vijand: Hunter's Mark, en je gaat NIET schieten. Druk 2 (Serpent Sting) of 3 (Arcane Shot): Auto Shot
+      start vanzelf. Shift-Z start Auto Shot; nog een keer Shift-Z stopt hem niet.
+- [ ] Nog een `/reload`: de melding komt NIET nog een keer.
+- [ ] Toetsen & macro's → Schakelaars: "Swap keys when you learn a better spell". Zet hem uit: 1 = Auto Shot, Shift-Z =
+      Hunter's Mark (zoals vroeger). Weer aan: terug naar de wissel.
+- [ ] How you play → Start en Your keys: "Hunter's Mark (1)" en "Auto Shot (Shift-Z)" in de volgorde, de rollen en "Levels
+      1-10"; bij "What comes later" de regel "- 6: Hunter's Mark takes key 1 …".
+- [ ] (Als je een nieuwe hunter maakt, onder level 6): toets 1 = Auto Shot, Shift-Z is leeg. Op level 6, na het leren van
+      Hunter's Mark: de melding, met erbij "Open /mh block and press Update (add new spells) once" als Shift-Z nog geen
+      macro had.
+
 ## 28 nov — FOREVER Fable-feitencheck: munitie, Death Mark, Prayer of Fortitude, 3 teksten
 
 `/reload` is genoeg. Offline getest (fable9_test, lvl_test 16/16), NIET in het spel.

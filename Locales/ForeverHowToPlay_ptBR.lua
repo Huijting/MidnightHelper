@@ -181,19 +181,20 @@ Seta de Gelo (2) ou Bola de Fogo (1) enquanto o inimigo vem. Impacto de Fogo (5)
 O Caçador atira de longe com uma arma de longo alcance, e a partir do nível 10 tem um **ajudante**: um animal que você doma e que luta ao seu lado. De perto ele tem alguns golpes corpo a corpo.
 **Tiro Automático** = sua arma continua atirando sozinha até você parar. **Corpo a corpo** = lutar de perto. O Caçador não tem formas nem posturas, então cada tecla sempre faz a mesma coisa.]] },
 		{ "Níveis 1-10: seus botões", [[
-- **1** = Tiro Automático (nível 1): começa a atirar. A tecla do MH é feita para que um segundo toque não pare o tiro.
+- **1** = Tiro Automático (nível 1): começa a atirar. A tecla do MH é feita para que um segundo toque não pare o tiro. A partir do nível 6, Marca do Caçador fica com a tecla 1, e Tiro Automático vai para o Shift-Z. Picada de Serpente e Tiro Arcano iniciam o Tiro Automático sozinhos.
 - **5** = Golpe do Raptor (1): seu golpe quando o inimigo está do seu lado. Ele precisa de uma **arma corpo a corpo** (uma arma para lutar de perto) na sua mão principal: o machado ou a adaga com que você começa conta, uma Faca de Esfolamento não.
 - **2** = Picada de Serpente (4): dano ao longo de alguns segundos.
 - Aspecto do Macaco (4) vai numa tecla Alt sua (bloco D). Um **aspecto** é um buff em você mesmo, parecido com uma postura. Só um aspecto pode estar ativo por vez.
 - **3** = Tiro Arcano (6): tiro instantâneo. Recarga de 6 segundos.
-- **Shift-Z** = Marca do Caçador (6): coloque no inimigo uma vez.
+- **1** = Marca do Caçador (6): coloque no inimigo uma vez, como o primeiro toque de uma luta. A partir daí ela fica na tecla 1 (veja Tiro Automático acima).
 - **Shift-Q** = Tiro de Concussão (8): deixa o inimigo lento.
 - **Shift-R** = Aspecto do Falcão (10): seu aspecto principal.
 - **Nível 10, missões do ajudante:** você aprende Domar Fera, Chamar Ajudante e Dispensar Ajudante; a missão seguinte dá Reviver Ajudante e Alimentar Ajudante. **F4** = Chamar Ajudante (traz seu ajudante), **F3** = Reviver Ajudante (traz um ajudante morto de volta). Domar Fera não tem tecla; você usa fora de combate.
 - A partir daí seu ajudante tem três teclas: **Ctrl-1** = atacar seu alvo, **Ctrl-2** = seguir você, **Ctrl-3** = ficar onde está.]] },
 		{ "Ordem simples", [[
-Marca do Caçador (Shift-Z), Picada de Serpente (2), Tiro Automático (1), depois Tiro Arcano (3) quando estiver pronto. Inimigo do seu lado? Golpe do Raptor (5), com uma arma corpo a corpo na mão. A partir do nível 10: primeiro Aspecto do Falcão ligado (Shift-R), e mande seu ajudante (Ctrl-1) antes de atirar.]] },
+Marca do Caçador (1), Picada de Serpente (2), depois Tiro Arcano (3) quando estiver pronto. Picada de Serpente e Tiro Arcano iniciam o Tiro Automático sozinhos; se ele parou, Tiro Automático (Shift-Z). Antes do nível 6 você ainda não tem Marca do Caçador, e a tecla 1 é Tiro Automático. Inimigo do seu lado? Golpe do Raptor (5), com uma arma corpo a corpo na mão. A partir do nível 10: primeiro Aspecto do Falcão ligado (Shift-R), e mande seu ajudante (Ctrl-1) antes de atirar.]] },
 		{ "O que vem depois", [[
+- 6: Marca do Caçador fica com a tecla 1, e Tiro Automático vai para o Shift-Z. O MH avisa você uma vez quando isso acontece.
 - 10: Alimentar Ajudante e Dispensar Ajudante não estão no bloco (você usa fora de combate); coloque-os numa barra sua. O mesmo vale para Assustar Fera (14).
 - 12: Tiro Distrativo no F (faz o inimigo atacar você), Curar Ajudante no F2 (cura seu ajudante), Cortar Asas no Shift-F.
 - 16: Armadilha Imolante no Shift-2, Mordida de Mangusto no Shift-C (só depois de você se esquivar). 18: Tiro Múltiplo no Shift-1.
@@ -767,12 +768,12 @@ A partir do nível 1 (Golpe Sinistro e Furtividade). Esta árvore luta a partir 
 A partir do nível 10 (seu ajudante, das missões de classe). Seu ajudante faz a maior parte do trabalho: ele mantém o inimigo ocupado enquanto você atira de longe. A maioria dos guias escolhe Domínio das Feras para subir de nível: eles dizem que é o mais fácil e o mais rápido. O Wowhead acrescenta que as três árvores funcionam. Novo no Forever: Evocar Falcão (um talento, no mínimo nível 25) manda pássaros extras no seu alvo. Ponto fraco: grupos de inimigos. Seu ajudante só consegue segurar um.
 **Ordem simples:**
 Antes de começar: Aspecto do Falcão ligado (**Shift-R**). O talento Aspectos Mortais só funciona assim.
-1. Marca do Caçador (**Shift-Z**).
+1. Marca do Caçador (**1**).
 2. Ajudante na frente (**Ctrl-1**), e espere até ele pegar o inimigo.
 3. Picada de Serpente (**2**).
 4. Evocar Falcão (**Shift-F1**, a partir do 25): mantenha 2 falcões o tempo todo.
 5. Tiro Certo (**4**, a partir do 20) enquanto você fica parado. Dois ou mais inimigos: Tiro Múltiplo (**Shift-1**) em vez disso. Eles compartilham uma recarga.
-6. Tiro Automático (**1**) continua. Tiro Arcano (**3**): antes do 25, é só usar. A partir do 25, só quando você já tem 2 falcões: ele compartilha uma recarga com Evocar Falcão.
+6. Tiro Automático (**Shift-Z**) continua. Tiro Arcano (**3**): antes do 25, é só usar. A partir do 25, só quando você já tem 2 falcões: ele compartilha uma recarga com Evocar Falcão.
 7. Ajudante quase morto: Curar Ajudante (**F2**). Inimigo em você: Intimidação (**Shift-3**, a partir do 30) ou Desvencilhar (**Z**, a partir do 20). Desvencilhar não é um salto: ele faz o inimigo querer menos você, de perto, e para seu ataque automático. Apuros de verdade: Fingir de Morto (**X**, a partir do 30).
 8. Inimigo difícil: Ira Bestial (**F1**, a partir do 40) junto com Tiro Rápido (**Q**, a partir do 26).
 **A cada 10 níveis:**
@@ -790,12 +791,12 @@ Antes de começar: Aspecto do Falcão ligado (**Shift-R**). O talento Aspectos M
 A partir do nível 1 (Tiro Automático). Seus próprios tiros fazem o trabalho, de longe. Tiro Certo vem no 20 do treinador: não é um talento. Tiro de Franco-atirador é um talento, no mínimo nível 40: 4 segundos de conjuração, com alcance de até 45 jardas. Os guias dizem que subir de nível funciona, mas mais devagar que Domínio das Feras: seu ajudante segura o inimigo pior, porque você causa mais dano. Em grupos ele é forte: Aura de Tiro Certeiro ajuda seu grupo ou raide inteiro. Lobo Solitário (um talento, no mínimo nível 20) dá 20% mais dano enquanto você não tem ajudante; para subir de nível, os guias ficam com o ajudante.
 **Ordem simples:**
 Antes de começar: Aspecto do Falcão (**Shift-R**) e Aura de Tiro Certeiro (**Shift-X**, a partir do 25) ligados.
-1. Marca do Caçador (**Shift-Z**). Com ajudante: ajudante na frente (**Ctrl-1**).
+1. Marca do Caçador (**1**). Com ajudante: ajudante na frente (**Ctrl-1**).
 2. Inimigo ainda longe: Tiro de Franco-atirador (**Shift-4**, a partir do 40) para abrir.
 3. Picada de Serpente (**2**). Alguns guias pulam ela em lutas curtas.
 4. Tiro Certo (**4**, a partir do 20) toda vez que estiver pronto. Fique parado.
 5. Tiro Arcano (**3**) no meio, se sua mana permitir.
-6. Tiro Automático (**1**) continua.
+6. Tiro Automático (**Shift-Z**) continua.
 7. Um grupo de inimigos: Tiro Múltiplo (**Shift-1**) em vez de Tiro Certo. Um grupo grande: Salva (bloco D, a partir do 40).
 8. Inimigo em você: Tiro de Dispersão (**E**, a partir do 30), depois afaste-se. Tiro de Concussão (**Shift-Q**) deixa ele lento.
 9. Inimigo difícil: Tiro Rápido (**Q**, a partir do 26) no começo.
@@ -814,7 +815,7 @@ Antes de começar: Aspecto do Falcão (**Shift-R**) e Aura de Tiro Certeiro (**S
 A partir do nível 1 (Golpe do Raptor), mas o jogo de Sobrevivência de verdade começa por volta do 30. No Forever, este é o Caçador corpo a corpo: Golpe do Raptor, Mordida de Mangusto, Contra-ataque e Chute de Moa, mais armadilhas. Você fica com seu ajudante e sua arma de longo alcance: abra de longe, depois chegue perto. Os guias dizem que é a mais lenta das três para subir de nível; até mais ou menos o 30 você joga como qualquer Caçador (ajudante na frente, atirar). Ela custa muita mana, e um golpe grande seu pode tirar o inimigo do seu ajudante. Os guias não concordam sobre qual arma corpo a corpo é a melhor.
 **Ordem simples:**
 Antes de começar: Aspecto do Falcão (**Shift-R**) enquanto você atira. A partir do 30, Aspecto da Fera para lutar de perto; ele não tem tecla fixa, então coloque numa barra sua.
-1. Marca do Caçador (**Shift-Z**). Sem a Marca, Expor Presa não funciona.
+1. Marca do Caçador (**1**). Sem a Marca, Expor Presa não funciona.
 2. Ajudante na frente (**Ctrl-1**).
 3. Picada de Serpente (**2**), depois Tiro Arcano (**3**) enquanto o inimigo vem, ou enquanto você anda até ele.
 4. Uma armadilha aos seus pés: Armadilha Imolante (**Shift-2**, a partir do 16). A partir do 34 essa tecla é Armadilha Explosiva, e Armadilha Imolante não tem tecla: coloque numa barra sua se quiser.

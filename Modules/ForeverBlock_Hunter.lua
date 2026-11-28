@@ -19,7 +19,11 @@ ns.FOREVER_BLOCK_CLASSES = ns.FOREVER_BLOCK_CLASSES or {}
 ns.FOREVER_BLOCK_CLASSES.HUNTER = {
 	states = {},
 	keys = {
-		["1"] = { base = "Auto Shot", bang = true },
+		-- 28 Nov 2026 (the key swap, ForeverBlock.lua SwapOn): Hunter's Mark takes key 1 once learned (level 6), Auto Shot
+		-- then moves to Shift-Z; before that Auto Shot stays on 1 (fallback) and Shift-Z is empty. Rob measured that
+		-- Serpent Sting and Arcane Shot start Auto Shot by themselves, Hunter's Mark does not. swapNote = the alert.
+		["1"] = { base = { "Hunter's Mark", "Auto Shot" }, bang = { ["Auto Shot"] = true },
+			swapNote = { to = "Hunter's Mark", moved = "Auto Shot", movedKey = "SHIFT-Z" } },
 		["2"] = { base = "Serpent Sting" },
 		["3"] = { base = "Arcane Shot" },
 		["4"] = { base = "Aimed Shot" },
@@ -45,7 +49,7 @@ ns.FOREVER_BLOCK_CLASSES.HUNTER = {
 		["SHIFT-Q"] = { base = "Concussive Shot" },
 		["SHIFT-F"] = { base = "Wing Clip" },
 		["SHIFT-V"] = { base = "Counterattack" },
-		["SHIFT-Z"] = { base = "Hunter's Mark" },
+		["SHIFT-Z"] = { base = "Auto Shot", bang = true },
 		["SHIFT-X"] = { base = "Trueshot Aura" },
 		["SHIFT-C"] = { base = "Mongoose Bite" },
 		["F2"] = { base = "Mend Pet" },
@@ -75,7 +79,9 @@ ns.FOREVER_BLOCK_CLASSES.HUNTER = {
 	-- checked by a second helper). Rob via Sparring 24-11: "laat een agent uitzoeken welke spells logisch zijn per class".
 	keys12 = {
 		-- Bar A (no modifier)
-		["1"] = { base = "Auto Shot", bang = true, why = "main button: Auto Shot; a second press keeps shooting" },
+		["1"] = { base = { "Hunter's Mark", "Auto Shot" }, bang = { ["Auto Shot"] = true },
+			swapNote = { to = "Hunter's Mark", moved = "Auto Shot", movedKey = "SHIFT-Z" },
+			why = "first press of a fight: Hunter's Mark from level 6 (Auto Shot until then)" },
 		["2"] = { base = "Serpent Sting", why = "Serpent Sting first, damage over time" },
 		["3"] = { base = "Arcane Shot", why = "instant shot: Arcane Shot" },
 		["4"] = { base = "Aimed Shot", why = "big shot: Aimed Shot (stand still)" },
@@ -97,7 +103,8 @@ ns.FOREVER_BLOCK_CLASSES.HUNTER = {
 			"Walk on Air" }, why = "your race spell" },
 		["SHIFT-R"] = { base = "Aspect of the Hawk", why = "main aspect: Aspect of the Hawk" },
 		["SHIFT-F"] = { base = "Wing Clip", why = "crowd control 2: Wing Clip slows up close" },
-		["SHIFT-Z"] = { base = "Hunter's Mark", why = "Hunter's Mark, once per enemy" },
+		["SHIFT-Z"] = { base = "Auto Shot", bang = true,
+			why = "Auto Shot from level 6 (a second press keeps shooting); Serpent Sting and Arcane Shot start it too" },
 		["SHIFT-X"] = { base = "Raptor Strike", why = "melee hit: Raptor Strike, was key 5" },
 		["SHIFT-C"] = { base = "Mongoose Bite", why = "melee: Mongoose Bite after a dodge" },
 		["SHIFT-V"] = { base = "Counterattack", why = "crowd control 3: Counterattack after a parry" },
@@ -112,5 +119,16 @@ ns.FOREVER_BLOCK_CLASSES.HUNTER = {
 		["CTRL-Q"] = { base = "Trueshot Aura", why = "group buff: Trueshot Aura" },
 		["CTRL-E"] = { base = "Distracting Shot", why = "taunt: Distracting Shot, rarely needed" },
 		["CTRL-R"] = { base = "Revive Pet", why = "your dead pet back: Revive Pet" },
+	},
+	-- 28 Nov 2026: the layout of the swapped keys when the player switches "Swap keys" off (the old behaviour).
+	noSwap = {
+		keys = {
+			["1"] = { base = "Auto Shot", bang = true },
+			["SHIFT-Z"] = { base = "Hunter's Mark" },
+		},
+		keys12 = {
+			["1"] = { base = "Auto Shot", bang = true, why = "main button: Auto Shot; a second press keeps shooting" },
+			["SHIFT-Z"] = { base = "Hunter's Mark", why = "Hunter's Mark, once per enemy" },
+		},
 	},
 }

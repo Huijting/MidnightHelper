@@ -28,6 +28,17 @@ toont). "Getest" is geen stand: wat Rob in het spel testte, staat in "Speler zie
 
 ---
 
+## 28 nov — Forever toetsenblok: Hunter's Mark op 1 vanaf level 6
+- Tag + commit:   geen tag (commit: zie git log, "key swap")
+- Status:         alleen op main
+- Mag op de site: nee (nog niet getest, niet uit)
+- Speler ziet:    Hunter: vanaf Hunter's Mark (level 6) zit Hunter's Mark op toets 1 en Auto Shot op Shift-Z (Serpent
+                  Sting en Arcane Shot zetten Auto Shot vanzelf aan). MH zegt het één keer met een grote melding.
+                  Schakelaar om het uit te zetten. Andere classes volgen later.
+- Knoplabels:     FBLOCK_SWAP_SW
+- Commando's:     /mh block
+- Spel:           Forever
+
 ## 28 nov — Midnight Codex: Venomstones met aantallen per content
 - Tag + commit:   geen tag (commit: zie git log, "Venomstone counts")
 - Status:         alleen op main

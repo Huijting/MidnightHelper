@@ -183,19 +183,20 @@ Eclair de givre (2) ou Boule de feu (1) pendant que l'ennemi approche. Trait de 
 Le Chasseur tire de loin avec une arme à distance et, à partir du niveau 10, il a un **familier** : un animal que tu apprivoises et qui se bat à côté de toi. Au corps à corps, il a quelques coups.
 **Tir automatique** = ton arme continue de tirer toute seule jusqu'à ce que tu arrêtes. **Corps à corps** = se battre de près. Le Chasseur n'a ni formes ni postures, donc chaque touche fait toujours la même chose.]] },
 		{ "Niveaux 1-10 : tes boutons", [[
-- **1** = Tir automatique (niveau 1) : commence à tirer. La touche de MH est faite pour qu'un second appui ne l'arrête pas.
+- **1** = Tir automatique (niveau 1) : commence à tirer. La touche de MH est faite pour qu'un second appui ne l'arrête pas. À partir du niveau 6, Marque du chasseur prend la touche 1, et Tir automatique passe sur Shift-Z. Morsure de serpent et Tir des arcanes lancent Tir automatique tout seuls.
 - **5** = Attaque du raptor (1) : ton coup quand l'ennemi est juste à côté de toi. Elle a besoin d'une **arme de corps à corps** (une arme pour frapper de près) en main droite : la hache ou la dague avec laquelle tu commences compte, un Couteau à dépecer non.
 - **2** = Morsure de serpent (4) : des dégâts pendant quelques secondes.
 - Aspect du singe (4) va sur tes propres touches Alt (bloc D). Un **aspect** est un buff sur toi, un peu comme une posture. Un seul aspect peut être actif à la fois.
 - **3** = Tir des arcanes (6) : un tir instantané. Cooldown de 6 secondes.
-- **Shift-Z** = Marque du chasseur (6) : pose-la une fois sur l'ennemi.
+- **1** = Marque du chasseur (6) : pose-la une fois sur l'ennemi, comme premier appui d'un combat. Ensuite, elle est sur la touche 1 (voir Tir automatique plus haut).
 - **Shift-Q** = Trait de choc (8) : ralentit l'ennemi.
 - **Shift-R** = Aspect du faucon (10) : ton aspect principal.
 - **Niveau 10, quêtes du familier :** tu apprends Apprivoise une bête, Appel du familier et Renvoyer le familier ; la quête suivante donne Ressusciter le familier et Nourrir le familier. **F4** = Appel du familier (fait venir ton familier), **F3** = Ressusciter le familier (ramène un familier mort). Apprivoise une bête n'a pas de touche ; tu l'utilises hors combat.
 - Ensuite, ton familier a trois touches : **Ctrl-1** = attaquer ta cible, **Ctrl-2** = te suivre, **Ctrl-3** = rester où il est.]] },
 		{ "Ordre simple", [[
-Marque du chasseur (Shift-Z), Morsure de serpent (2), Tir automatique (1), puis Tir des arcanes (3) quand il est prêt. L'ennemi est à côté de toi ? Attaque du raptor (5), avec une arme de corps à corps en main. À partir du niveau 10 : d'abord Aspect du faucon actif (Shift-R), et envoie ton familier (Ctrl-1) avant de tirer.]] },
+Marque du chasseur (1), Morsure de serpent (2), puis Tir des arcanes (3) quand il est prêt. Morsure de serpent et Tir des arcanes lancent Tir automatique tout seuls ; s'il s'est arrêté, Tir automatique (Shift-Z). Avant le niveau 6, tu n'as pas encore Marque du chasseur, et la touche 1 est Tir automatique. L'ennemi est à côté de toi ? Attaque du raptor (5), avec une arme de corps à corps en main. À partir du niveau 10 : d'abord Aspect du faucon actif (Shift-R), et envoie ton familier (Ctrl-1) avant de tirer.]] },
 		{ "Ce qui vient plus tard", [[
+- 6 : Marque du chasseur prend la touche 1, et Tir automatique passe sur Shift-Z. MH te le dit une fois quand ça arrive.
 - 10 : Nourrir le familier et Renvoyer le familier ne sont pas sur le bloc (tu les utilises hors combat) ; mets-les sur ta propre barre. Pareil pour Effrayer une bête (14).
 - 12 : Trait provocateur sur F (pousse l'ennemi à t'attaquer), Guérison du familier sur F2 (soigne ton familier), Coupure d'ailes sur Shift-F.
 - 16 : Piège d'Immolation sur Shift-2, Morsure de la mangouste sur Shift-C (seulement après une esquive de ta part). 18 : Flèches multiples sur Shift-1.
@@ -768,12 +769,12 @@ Dès le niveau 1 (Attaque pernicieuse et Camouflage). Cet arbre se bat depuis le
 Dès le niveau 10 (ton familier, via les quêtes de classe). Ton familier fait la plus grande partie du travail : il occupe l'ennemi pendant que tu tires de loin. La plupart des guides choisissent Maîtrise des bêtes pour monter de niveau : ils la disent la plus facile et la plus rapide. Wowhead ajoute que les trois arbres fonctionnent. Nouveau dans Forever : Invocation de faucon (un talent, au plus tôt au niveau 25) envoie des oiseaux en plus sur ta cible. Point faible : les groupes d'ennemis. Ton familier ne peut en tenir qu'un.
 **Ordre simple :**
 Avant de commencer : Aspect du faucon actif (**Shift-R**). Le talent Aspects mortels ne marche qu'avec lui.
-1. Marque du chasseur (**Shift-Z**).
+1. Marque du chasseur (**1**).
 2. Le familier d'abord (**Ctrl-1**), et attends qu'il ait l'ennemi.
 3. Morsure de serpent (**2**).
 4. Invocation de faucon (**Shift-F1**, dès 25) : garde 2 faucons tout le temps.
 5. Visée (**4**, dès 20) pendant que tu restes immobile. Deux ennemis ou plus : Flèches multiples (**Shift-1**) à la place. Elles partagent un même cooldown.
-6. Tir automatique (**1**) continue. Tir des arcanes (**3**) : avant 25, utilise-le simplement. Dès 25, seulement quand tu as déjà 2 faucons : il partage un cooldown avec Invocation de faucon.
+6. Tir automatique (**Shift-Z**) continue. Tir des arcanes (**3**) : avant 25, utilise-le simplement. Dès 25, seulement quand tu as déjà 2 faucons : il partage un cooldown avec Invocation de faucon.
 7. Familier presque mort : Guérison du familier (**F2**). Ennemi sur toi : Intimidation (**Shift-3**, dès 30) ou Désengagement (**Z**, dès 20). Désengagement n'est pas un saut : de près, l'ennemi a moins envie de t'attaquer, et ton attaque automatique s'arrête. Vrai problème : Feindre la mort (**X**, dès 30).
 8. Ennemi coriace : Courroux bestial (**F1**, dès 40) avec Tir rapide (**Q**, dès 26).
 **Tous les 10 niveaux :**
@@ -791,12 +792,12 @@ Avant de commencer : Aspect du faucon actif (**Shift-R**). Le talent Aspects mor
 Dès le niveau 1 (Tir automatique). Tes propres tirs font le travail, de loin. Visée arrive au 20 chez le maître de classe : ce n'est pas un talent. Tir de précision est un talent, au plus tôt au niveau 40 : 4 secondes d'incantation, et une portée jusqu'à 45 mètres. Les guides disent que monter de niveau marche, mais plus lentement qu'en Maîtrise des bêtes : ton familier tient moins bien l'ennemi, parce que tu fais plus de dégâts. En groupe, c'est fort : Aura de précision aide tout ton groupe ou ton raid. Loup solitaire (un talent, au plus tôt au niveau 20) donne 20 % de dégâts en plus quand tu n'as pas de familier ; pour monter de niveau, les guides gardent le familier.
 **Ordre simple :**
 Avant de commencer : Aspect du faucon (**Shift-R**) et Aura de précision (**Shift-X**, dès 25) actifs.
-1. Marque du chasseur (**Shift-Z**). Avec un familier : le familier d'abord (**Ctrl-1**).
+1. Marque du chasseur (**1**). Avec un familier : le familier d'abord (**Ctrl-1**).
 2. Ennemi encore loin : Tir de précision (**Shift-4**, dès 40) pour ouvrir.
 3. Morsure de serpent (**2**). Certains guides la sautent dans les combats courts.
 4. Visée (**4**, dès 20) chaque fois qu'elle est prête. Reste immobile.
 5. Tir des arcanes (**3**) entre les deux, si ton mana le permet.
-6. Tir automatique (**1**) continue.
+6. Tir automatique (**Shift-Z**) continue.
 7. Un groupe d'ennemis : Flèches multiples (**Shift-1**) au lieu de Visée. Un grand groupe : Salve (bloc D, dès 40).
 8. Ennemi sur toi : Flèche de dispersion (**E**, dès 30), puis recule. Trait de choc (**Shift-Q**) le ralentit.
 9. Ennemi coriace : Tir rapide (**Q**, dès 26) au début.
@@ -815,7 +816,7 @@ Avant de commencer : Aspect du faucon (**Shift-R**) et Aura de précision (**Shi
 Dès le niveau 1 (Attaque du raptor), mais le vrai jeu Survie commence vers le 30. Dans Forever, c'est le Chasseur de corps à corps : Attaque du raptor, Morsure de la mangouste, Contre-attaque et Coup de trotteur, plus les pièges. Tu gardes ton familier et ton arme à distance : ouvre de loin, puis approche. Les guides la disent la plus lente des trois pour monter de niveau ; jusque vers le 30, tu joues comme n'importe quel Chasseur (le familier d'abord, puis tirer). Elle coûte beaucoup de mana, et un gros coup de ta part peut prendre l'ennemi à ton familier. Les guides ne sont pas d'accord sur la meilleure arme de corps à corps.
 **Ordre simple :**
 Avant de commencer : Aspect du faucon (**Shift-R**) pendant que tu tires. Dès 30, Aspect de la bête pour te battre de près ; il n'a pas de touche fixe, donc mets-le sur ta propre barre.
-1. Marque du chasseur (**Shift-Z**). Sans la Marque, Exposition de proie ne marche pas.
+1. Marque du chasseur (**1**). Sans la Marque, Exposition de proie ne marche pas.
 2. Le familier d'abord (**Ctrl-1**).
 3. Morsure de serpent (**2**), puis Tir des arcanes (**3**) pendant que l'ennemi arrive, ou pendant que tu marches vers lui.
 4. Un piège à tes pieds : Piège d'Immolation (**Shift-2**, dès 16). Dès 34, cette touche est Piège explosif, et Piège d'Immolation n'a pas de touche : mets-le sur ta propre barre si tu le veux.

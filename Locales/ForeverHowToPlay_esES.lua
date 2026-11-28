@@ -185,19 +185,20 @@ Descarga de Escarcha (2) o Bola de Fuego (1) mientras el enemigo se acerca. Expl
 El Cazador dispara desde lejos con un arma a distancia, y desde el nivel 10 tiene una **mascota**: un animal que domesticas y que lucha a tu lado. De cerca tiene unos pocos golpes cuerpo a cuerpo.
 **Tiro automático** = tu arma sigue disparando sola hasta que paras. **Cuerpo a cuerpo** = luchar de cerca. El Cazador no tiene formas ni actitudes, así que cada tecla hace siempre lo mismo.]] },
 		{ "Niveles 1-10: tus botones", [[
-- **1** = Tiro automático (nivel 1): empieza a disparar. La tecla de MH está hecha para que una segunda pulsación no lo detenga.
+- **1** = Tiro automático (nivel 1): empieza a disparar. La tecla de MH está hecha para que una segunda pulsación no lo detenga. Desde el nivel 6, Marca del cazador ocupa la tecla 1, y Tiro automático pasa a Shift-Z. Aguijón de serpiente y Tiro Arcano inician Tiro automático por sí solos.
 - **5** = Golpe de raptor (1): tu golpe cuando el enemigo está a tu lado. Necesita un **arma cuerpo a cuerpo** (un arma para luchar de cerca) en tu mano principal: el hacha o la daga con la que empiezas cuenta; un Cuchillo para desollar, no.
 - **2** = Aguijón de serpiente (4): daño durante unos segundos.
 - Aspecto del mono (4) va en tus propias teclas Alt (bloque D). Un **aspecto** es un buff sobre ti mismo, parecido a una actitud. Solo puedes tener un aspecto a la vez.
 - **3** = Tiro Arcano (6): disparo instantáneo. Reutilización de 6 segundos.
-- **Shift-Z** = Marca del cazador (6): pónsela al enemigo una vez.
+- **1** = Marca del cazador (6): pónsela al enemigo una vez, como primera pulsación de un combate. A partir de entonces está en la tecla 1 (mira Tiro automático más arriba).
 - **Shift-Q** = Disparo de concusión (8): ralentiza al enemigo.
 - **Shift-R** = Aspecto del halcón (10): tu aspecto principal.
 - **Nivel 10, misiones de mascota:** aprendes Domesticar bestia, Llamar a mascota y Retirar mascota; la misión siguiente da Revivir mascota y Alimentar mascota. **F4** = Llamar a mascota (trae a tu mascota), **F3** = Revivir mascota (trae de vuelta a una mascota muerta). Domesticar bestia no tiene tecla; la usas fuera de combate.
 - A partir de entonces tu mascota tiene tres teclas: **Ctrl-1** = atacar a tu objetivo, **Ctrl-2** = seguirte, **Ctrl-3** = quedarse donde está.]] },
 		{ "Orden sencillo", [[
-Marca del cazador (Shift-Z), Aguijón de serpiente (2), Tiro automático (1), y luego Tiro Arcano (3) cuando esté listo. ¿El enemigo está a tu lado? Golpe de raptor (5), con un arma cuerpo a cuerpo en la mano. A partir del nivel 10: primero activa Aspecto del halcón (Shift-R) y manda a tu mascota (Ctrl-1) antes de disparar.]] },
+Marca del cazador (1), Aguijón de serpiente (2), y luego Tiro Arcano (3) cuando esté listo. Aguijón de serpiente y Tiro Arcano inician Tiro automático por sí solos; si se ha parado, Tiro automático (Shift-Z). Antes del nivel 6 aún no tienes Marca del cazador, y la tecla 1 es Tiro automático. ¿El enemigo está a tu lado? Golpe de raptor (5), con un arma cuerpo a cuerpo en la mano. A partir del nivel 10: primero activa Aspecto del halcón (Shift-R) y manda a tu mascota (Ctrl-1) antes de disparar.]] },
 		{ "Lo que llega después", [[
+- 6: Marca del cazador ocupa la tecla 1, y Tiro automático pasa a Shift-Z. MH te lo dice una vez cuando ocurre.
 - 10: Alimentar mascota y Retirar mascota no están en el bloque (los usas fuera de combate); ponlos en tu propia barra. Lo mismo con Bestia temible (14).
 - 12: Disparo de distracción en F (hace que el enemigo te ataque), Sanar mascota en F2 (cura a tu mascota), Cortar alas en Shift-F.
 - 16: Trampa de inmolación en Shift-2, Mordedura de mangosta en Shift-C (solo después de esquivar). 18: Multidisparo en Shift-1.
@@ -771,12 +772,12 @@ Desde el nivel 1 (Golpe siniestro y Sigilo). Este árbol lucha desde Sigilo: un 
 Desde el nivel 10 (tu mascota, de las misiones de clase). Tu mascota hace la mayor parte del trabajo: mantiene ocupado al enemigo mientras tú disparas desde lejos. La mayoría de las guías eligen Dominio de bestias para subir de nivel: dicen que es el más fácil y el más rápido. Wowhead añade que los tres árboles funcionan. Nuevo en Forever: Invocar halcón (un talento, como pronto en el 25) manda pájaros extra contra tu objetivo. Punto débil: grupos de enemigos. Tu mascota solo puede retener a uno.
 **Orden sencillo:**
 Antes de empezar: activa Aspecto del halcón (**Shift-R**). El talento Aspectos letales solo funciona entonces.
-1. Marca del cazador (**Shift-Z**).
+1. Marca del cazador (**1**).
 2. Primero entra la mascota (**Ctrl-1**); espera a que tenga al enemigo.
 3. Aguijón de serpiente (**2**).
 4. Invocar halcón (**Shift-F1**, desde el 25): mantén 2 halcones todo el rato.
 5. Tiro de puntería (**4**, desde el 20) mientras estás quieto. Dos o más enemigos: Multidisparo (**Shift-1**) en su lugar. Comparten una reutilización.
-6. Tiro automático (**1**) sigue disparando. Tiro Arcano (**3**): antes del 25, úsalo sin más. Desde el 25, solo cuando ya tienes 2 halcones: comparte una reutilización con Invocar halcón.
+6. Tiro automático (**Shift-Z**) sigue disparando. Tiro Arcano (**3**): antes del 25, úsalo sin más. Desde el 25, solo cuando ya tienes 2 halcones: comparte una reutilización con Invocar halcón.
 7. Mascota casi muerta: Sanar mascota (**F2**). Enemigo encima de ti: Intimidación (**Shift-3**, desde el 30) o Separación (**Z**, desde el 20). Separación no es un salto: hace que el enemigo tenga menos ganas de atacarte, de cerca, y detiene tu ataque automático. Apuro de verdad: Fingir muerte (**X**, desde el 30).
 8. Enemigo duro: Ira de bestias (**F1**, desde el 40) junto con Fuego rápido (**Q**, desde el 26).
 **Cada 10 niveles:**
@@ -794,12 +795,12 @@ Antes de empezar: activa Aspecto del halcón (**Shift-R**). El talento Aspectos 
 Desde el nivel 1 (Tiro automático). Tus propios disparos hacen el trabajo, desde lejos. Tiro de puntería llega en el 20 del instructor: no es un talento. Disparo de francotirador es un talento, como pronto en el 40: 4 segundos de lanzamiento, con un alcance de hasta 45 metros. Las guías dicen que subir de nivel funciona, pero más lento que con Dominio de bestias: tu mascota retiene peor al enemigo, porque tú haces más daño. En grupo es fuerte: Aura de disparo certero ayuda a todo tu grupo o banda. Lobo solitario (un talento, como pronto en el 20) da un 20% más de daño mientras no tienes mascota; para subir de nivel, las guías se quedan con la mascota.
 **Orden sencillo:**
 Antes de empezar: activa Aspecto del halcón (**Shift-R**) y Aura de disparo certero (**Shift-X**, desde el 25).
-1. Marca del cazador (**Shift-Z**). Con mascota: entra la mascota (**Ctrl-1**).
+1. Marca del cazador (**1**). Con mascota: entra la mascota (**Ctrl-1**).
 2. El enemigo sigue lejos: Disparo de francotirador (**Shift-4**, desde el 40) para abrir.
 3. Aguijón de serpiente (**2**). Algunas guías se lo saltan en combates cortos.
 4. Tiro de puntería (**4**, desde el 20) cada vez que esté listo. Quédate quieto.
 5. Tiro Arcano (**3**) entre medias, si tu maná lo permite.
-6. Tiro automático (**1**) sigue disparando.
+6. Tiro automático (**Shift-Z**) sigue disparando.
 7. Un grupo de enemigos: Multidisparo (**Shift-1**) en lugar de Tiro de puntería. Un grupo grande: Lluvia (bloque D, desde el 40).
 8. Enemigo encima de ti: Disparo disperso (**E**, desde el 30), y luego apártate. Disparo de concusión (**Shift-Q**) lo ralentiza.
 9. Enemigo duro: Fuego rápido (**Q**, desde el 26) al principio.
@@ -818,7 +819,7 @@ Antes de empezar: activa Aspecto del halcón (**Shift-R**) y Aura de disparo cer
 Desde el nivel 1 (Golpe de raptor), pero el juego de Supervivencia de verdad empieza hacia el 30. En Forever este es el Cazador cuerpo a cuerpo: Golpe de raptor, Mordedura de mangosta, Contraataque y Patada de zancudo, más trampas. Conservas tu mascota y tu arma a distancia: abre desde lejos, y luego acércate. Las guías dicen que es el más lento de los tres para subir de nivel; hasta más o menos el 30 juegas como cualquier Cazador (entra la mascota, dispara). Cuesta mucho maná, y un gran golpe tuyo puede quitarle el enemigo a tu mascota. Las guías no se ponen de acuerdo sobre qué arma cuerpo a cuerpo es la mejor.
 **Orden sencillo:**
 Antes de empezar: Aspecto del halcón (**Shift-R**) mientras disparas. Desde el 30, Aspecto de la bestia para luchar de cerca; no tiene tecla fija, así que ponlo en tu propia barra.
-1. Marca del cazador (**Shift-Z**). Sin la Marca, Exponer presa no funciona.
+1. Marca del cazador (**1**). Sin la Marca, Exponer presa no funciona.
 2. Entra la mascota (**Ctrl-1**).
 3. Aguijón de serpiente (**2**), y luego Tiro Arcano (**3**) mientras el enemigo viene, o mientras tú vas hacia él.
 4. Una trampa a tus pies: Trampa de inmolación (**Shift-2**, desde el 16). Desde el 34 esa tecla es Trampa explosiva, y Trampa de inmolación no tiene tecla: ponla en tu propia barra si la quieres.

@@ -174,19 +174,20 @@ Frostbolt (2) of Fireball (1) terwijl de vijand aankomt. Fire Blast (5) als hij 
 De Hunter schiet van een afstand met een ranged wapen, en heeft vanaf level 10 een **pet**: een dier dat je temt en dat naast je vecht. Van dichtbij heeft hij een paar melee-klappen.
 **Auto Shot** = je wapen blijft vanzelf schieten tot je stopt. **Melee** = van dichtbij vechten. De Hunter heeft geen vormen en geen stances, dus elke toets doet altijd hetzelfde.]] },
 		{ "Level 1-10: je knoppen", [[
-- **1** = Auto Shot (level 1): begint te schieten. MH's toets is zo gemaakt dat een tweede druk hem niet stopt.
+- **1** = Auto Shot (level 1): begint te schieten. MH's toets is zo gemaakt dat een tweede druk hem niet stopt. Vanaf level 6 neemt Hunter's Mark toets 1 over, en gaat Auto Shot naar Shift-Z. Serpent Sting en Arcane Shot zetten Auto Shot vanzelf aan.
 - **5** = Raptor Strike (1): je klap als de vijand naast je staat. Hij heeft een **melee weapon** (een wapen voor dichtbij) in je main hand nodig: de bijl of dolk waarmee je begint telt, een Skinning Knife niet.
 - **2** = Serpent Sting (4): schade over een paar seconden.
 - Aspect of the Monkey (4) komt op je eigen Alt-toetsen (blok D). Een **aspect** is een buff op jezelf die werkt als een stance. Je kunt maar één aspect tegelijk ophebben.
 - **3** = Arcane Shot (6): instant schot. Cooldown 6 seconden.
-- **Shift-Z** = Hunter's Mark (6): zet hem één keer op de vijand.
+- **1** = Hunter's Mark (6): zet hem één keer op de vijand, als eerste druk van een gevecht. Vanaf dan staat hij op toets 1 (zie Auto Shot hierboven).
 - **Shift-Q** = Concussive Shot (8): vertraagt de vijand.
 - **Shift-R** = Aspect of the Hawk (10): je belangrijkste aspect.
 - **Level 10, pet-quests:** je leert Tame Beast, Call Pet en Dismiss Pet; de quest daarna (Training the Beast) geeft Revive Pet en Feed Pet. **F4** = Call Pet (haalt je pet), **F3** = Revive Pet (brengt een dode pet terug). Tame Beast heeft geen toets; die gebruik je buiten een gevecht.
 - Vanaf dan heeft je pet drie toetsen: **Ctrl-1** = val je target aan, **Ctrl-2** = volg mij, **Ctrl-3** = blijf waar je bent.]] },
 		{ "Simpele volgorde", [[
-Hunter's Mark (Shift-Z), Serpent Sting (2), Auto Shot (1), dan Arcane Shot (3) als hij klaar is. Vijand naast je? Raptor Strike (5), met een melee weapon in je hand. Vanaf level 10: eerst Aspect of the Hawk aan (Shift-R), en stuur je pet erop (Ctrl-1) voordat je schiet.]] },
+Hunter's Mark (1), Serpent Sting (2), dan Arcane Shot (3) als hij klaar is. Serpent Sting en Arcane Shot zetten Auto Shot vanzelf aan; is hij gestopt, dan Auto Shot (Shift-Z). Vóór level 6 heb je nog geen Hunter's Mark, en is toets 1 Auto Shot. Vijand naast je? Raptor Strike (5), met een melee weapon in je hand. Vanaf level 10: eerst Aspect of the Hawk aan (Shift-R), en stuur je pet erop (Ctrl-1) voordat je schiet.]] },
 		{ "Wat er later komt", [[
+- 6: Hunter's Mark neemt toets 1 over, en Auto Shot gaat naar Shift-Z. MH zegt het één keer als het gebeurt.
 - 10: Feed Pet en Dismiss Pet staan niet op het blok (je gebruikt ze buiten een gevecht); zet ze op je eigen balk. Hetzelfde voor Scare Beast (14).
 - 12: Distracting Shot op F (laat de vijand jou aanvallen), Mend Pet op F2 (healt je pet), Wing Clip op Shift-F.
 - 16: Immolation Trap op Shift-2, Mongoose Bite op Shift-C (alleen nadat jij een dodge doet). 18: Multi-Shot op Shift-1.
@@ -760,12 +761,12 @@ Vanaf level 1 (Sinister Strike en Stealth). Deze boom vecht vanuit Stealth: een 
 Vanaf level 10 (je pet, uit de class-quests). Je pet doet het meeste werk: hij houdt de vijand bezig terwijl jij van een afstand schiet. De meeste gidsen kiezen Beast Mastery om te levelen: ze noemen hem de makkelijkste en de snelste. Wowhead zegt erbij dat alle drie de bomen werken. Nieuw in Forever: Summon Hawk (een talent, op z'n vroegst 25) stuurt extra vogels op je doel. Zwak punt: groepen vijanden. Je pet kan er maar één vasthouden.
 **Simpele volgorde:**
 Vooraf: Aspect of the Hawk aan (**Shift-R**). Het talent Deadly Aspects werkt alleen dan.
-1. Hunter's Mark (**Shift-Z**).
+1. Hunter's Mark (**1**).
 2. Pet erop (**Ctrl-1**), en wacht tot hij de vijand heeft.
 3. Serpent Sting (**2**).
 4. Summon Hawk (**Shift-F1**, vanaf 25): zorg dat er steeds 2 hawks zijn.
 5. Aimed Shot (**4**, vanaf 20) als je stilstaat. Twee of meer vijanden: Multi-Shot (**Shift-1**) in plaats daarvan. Ze delen één cooldown.
-6. Auto Shot (**1**) loopt door. Arcane Shot (**3**): vóór 25 gewoon gebruiken. Vanaf 25 alleen als je al 2 hawks hebt: hij deelt een cooldown met Summon Hawk.
+6. Auto Shot (**Shift-Z**) loopt door. Arcane Shot (**3**): vóór 25 gewoon gebruiken. Vanaf 25 alleen als je al 2 hawks hebt: hij deelt een cooldown met Summon Hawk.
 7. Pet bijna dood: Mend Pet (**F2**). Vijand op jou: Intimidation (**Shift-3**, vanaf 30) of Disengage (**Z**, vanaf 20). Disengage is geen sprong: de vijand wil jou dan minder aanvallen, van dichtbij, en je auto-attack stopt. Echt mis: Feign Death (**X**, vanaf 30).
 8. Zware vijand: Bestial Wrath (**F1**, vanaf 40) samen met Rapid Fire (**Q**, vanaf 26).
 **Per 10 levels:**
@@ -783,12 +784,12 @@ Vooraf: Aspect of the Hawk aan (**Shift-R**). Het talent Deadly Aspects werkt al
 Vanaf level 1 (Auto Shot). Je eigen schoten doen het werk, van ver. Aimed Shot komt op 20 van de trainer: het is geen talent. Sniper Shot is een talent, op z'n vroegst 40: een cast van 4 seconden die tot 45 yards reikt. De gidsen zeggen dat levelen kan, maar trager dan met Beast Mastery: je pet houdt de vijand minder goed vast, omdat jij meer schade doet. In groepen is hij sterk: Trueshot Aura helpt je hele party of raid. Lone Wolf (een talent, op z'n vroegst 20) geeft 20% meer schade zolang je geen pet hebt; om te levelen houden de gidsen de pet.
 **Simpele volgorde:**
 Vooraf: Aspect of the Hawk (**Shift-R**) en Trueshot Aura (**Shift-X**, vanaf 25) aan.
-1. Hunter's Mark (**Shift-Z**). Met een pet: pet erop (**Ctrl-1**).
+1. Hunter's Mark (**1**). Met een pet: pet erop (**Ctrl-1**).
 2. Vijand nog ver weg: Sniper Shot (**Shift-4**, vanaf 40) om te openen.
 3. Serpent Sting (**2**). Sommige gidsen slaan hem over in korte gevechten.
 4. Aimed Shot (**4**, vanaf 20) steeds als hij klaar is. Sta stil.
 5. Arcane Shot (**3**) tussendoor, als je mana het toelaat.
-6. Auto Shot (**1**) loopt door.
+6. Auto Shot (**Shift-Z**) loopt door.
 7. Een groep vijanden: Multi-Shot (**Shift-1**) in plaats van Aimed Shot. Een grote groep: Volley (blok D, vanaf 40).
 8. Vijand bij jou: Scatter Shot (**E**, vanaf 30), stap dan weg. Concussive Shot (**Shift-Q**) maakt hem trager.
 9. Zware vijand: Rapid Fire (**Q**, vanaf 26) aan het begin.
@@ -807,7 +808,7 @@ Vooraf: Aspect of the Hawk (**Shift-R**) en Trueshot Aura (**Shift-X**, vanaf 25
 Vanaf level 1 (Raptor Strike), maar het echte Survival-spel begint rond 30. In Forever is dit de melee-Hunter: Raptor Strike, Mongoose Bite, Counterattack en Strider Kick, plus traps. Je houdt je pet en je schietwapen: open van een afstand, stap dan in. De gidsen noemen hem de traagste van de drie om te levelen; tot ongeveer 30 speel je als elke andere Hunter (pet erop, schieten). Hij kost veel mana, en een grote klap van jou kan de vijand van je pet af trekken. De gidsen zijn het oneens over welk melee-wapen het best is.
 **Simpele volgorde:**
 Vooraf: Aspect of the Hawk (**Shift-R**) zolang je schiet. Vanaf 30 Aspect of the Beast om van dichtbij te vechten; hij heeft geen vaste toets, dus zet hem op je eigen balk.
-1. Hunter's Mark (**Shift-Z**). Zonder de Mark werkt Expose Prey niet.
+1. Hunter's Mark (**1**). Zonder de Mark werkt Expose Prey niet.
 2. Pet erop (**Ctrl-1**).
 3. Serpent Sting (**2**), dan Arcane Shot (**3**) terwijl de vijand komt, of terwijl jij erheen loopt.
 4. Een trap bij je voeten: Immolation Trap (**Shift-2**, vanaf 16). Vanaf 34 is die toets Explosive Trap, en heeft Immolation Trap geen toets: zet hem op je eigen balk als je hem wilt.

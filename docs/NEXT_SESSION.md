@@ -1,5 +1,22 @@
 # Midnight Helper — waar we staan
 
+## ▶▶ 28 nov (Bouwchat 28-11): toetsenplan stap (a) — Hunter's Mark op 1, Auto Shot op Shift-Z (`/reload`)
+
+Rob via Sparring 28-11, letterlijk: *"Doe maar stap AI inderdaad voor het toetsenplan. Alleen de hunten eerst en daarna
+gaan we door voor de rest."* (= stap (a), hunter). GEBOUWD: ForeverBlock_Hunter.lua beide tabellen: 1 = { Hunter's Mark,
+Auto Shot } (bang alleen voor Auto Shot: def.bang mag nu een naamset zijn), Shift-Z = Auto Shot (bang); het bestaande
+leen-mechanisme (FallbackHeld) houdt Auto Shot op 1 en Shift-Z leeg tot Mark bekend is. cls.noSwap = de oude indeling;
+schakelaar ns.db.foreverKeySwap (Toetsen & macro's → Schakelaars FBLOCK_SWAP_SW, standaard aan; ns.SetForeverKeySwap
+herschrijft de macro's). ForeverBlock.lua: SwapOn/KeysFor/ClassTable-laag; SwapNotice (def.swapNote): één
+FireAccessibleAlert + chatregel per character per toets (ns.db.foreverSwapTold[GUID]), alleen met geplaatst blok, wacht in
+gevecht, opnieuw bij weigering, "+ press Update once" als Shift-Z nog geen eigen macro had. ForeverHowToPlay KeyMap volgt
+de schakelaar (ns.ForeverBlockKeysFor). Teksten 8 talen: Levels 1-10 (1 = Auto Shot + zin "From level 6 …"; Mark-regel
+**1**), Simple order, 3 rolvolgordes (script: (**Shift-Z**)↔(**1**), overal 3/2), What comes later "- 6: …"; 5 sleutels
+FBLOCK_SWAP_* in enUS/nlNL/de/fr/es/pt/ru (de/fr/es/esMX/pt/ru door mh-writer). Rob meet: Serpent Sting en Arcane Shot
+starten Auto Shot, Hunter's Mark niet. Offline: swap_test 5/5, early_test 8/8, lvl_test 16/16, stance_test 5/5.
+Bekend randje: gewone indeling + schakelaar UIT → How you play-tekst noemt nog Mark op 1 (tekst is vast; 12x4 klopt wel).
+VOLGENDE (Robs "daarna gaan we door voor de rest"): stap (b) Mage Arcane, Rogue, Shaman; daarna Mage Frost (richting).
+
 ## ▶▶ 28 nov (Bouwchat 28-11): Fable-feitencheck sinds v5.11.0 — 6 van 9 gebouwd (`/reload`)
 
 Robs vooraf-ja via Sparring 28-11 (zie de sectie hieronder, dezelfde zin). GEBOUWD:
